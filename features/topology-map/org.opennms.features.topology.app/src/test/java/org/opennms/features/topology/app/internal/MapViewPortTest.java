@@ -12,7 +12,7 @@ public class MapViewPortTest {
     @Test
     public void testGetBounds() {
         DefaultMapViewManager viewManager = new DefaultMapViewManager();
-        viewManager.setMapBounds(new BoundingBox(0,0, 8000,4000));
+        viewManager.setMapBounds(new BoundingBox(0, 0, 8000, 4000));
         viewManager.setViewPort(400, 300);
 
         BoundingBox boundingBox = viewManager.getCurrentBoundingBox();
@@ -35,7 +35,7 @@ public class MapViewPortTest {
         assertEquals(3900, boundingBox.getX());
         assertEquals(1925, boundingBox.getY());
 
-        viewManager.setBoundingBox(new BoundingBox(0,0, 1265, 600));
+        viewManager.setBoundingBox(new BoundingBox(0, 0, 1265, 600));
 
         assertEquals(0.5, viewManager.getScale(), 0.0001);
 
@@ -44,9 +44,8 @@ public class MapViewPortTest {
     @Test
     public void testPanMap() {
         DefaultMapViewManager viewManager = new DefaultMapViewManager();
-        viewManager.setMapBounds(new BoundingBox(0,0, 8000,4000));
+        viewManager.setMapBounds(new BoundingBox(0, 0, 8000, 4000));
         viewManager.setViewPort(400, 300);
-
 
         BoundingBox box = viewManager.getCurrentBoundingBox();
         assertNotNull(box);
@@ -68,7 +67,5 @@ public class MapViewPortTest {
         assertEquals(-100, box.getX());
         assertEquals(-1100, box.getY());
     }
-
-
 
 }

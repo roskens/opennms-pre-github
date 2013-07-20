@@ -39,7 +39,9 @@ import org.opennms.netmgt.config.accesspointmonitor.AccessPointMonitorConfig;
  *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
-public class AccessPointMonitorConfigDaoJaxb extends AbstractJaxbConfigDao<AccessPointMonitorConfig, AccessPointMonitorConfig> implements AccessPointMonitorConfigDao {
+public class AccessPointMonitorConfigDaoJaxb extends
+        AbstractJaxbConfigDao<AccessPointMonitorConfig, AccessPointMonitorConfig> implements
+        AccessPointMonitorConfigDao {
 
     public AccessPointMonitorConfigDaoJaxb() {
         super(AccessPointMonitorConfig.class, "Access Point Monitor Configuration");

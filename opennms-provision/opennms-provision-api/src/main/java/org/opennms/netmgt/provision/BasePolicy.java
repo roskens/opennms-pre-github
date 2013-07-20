@@ -41,9 +41,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.PropertyAccessorFactory;
 
-
 /**
- * <p>Abstract BasePolicy class.</p>
+ * <p>
+ * Abstract BasePolicy class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -52,19 +53,25 @@ public abstract class BasePolicy<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(BasePolicy.class);
 
-    public static enum Match { ANY_PARAMETER, ALL_PARAMETERS, NO_PARAMETERS }
-
+    public static enum Match {
+        ANY_PARAMETER, ALL_PARAMETERS, NO_PARAMETERS
+    }
 
     private Match m_match = Match.ANY_PARAMETER;
+
     private final LinkedHashMap<String, String> m_criteria = new LinkedHashMap<String, String>();;
 
-
     /**
-     * <p>match</p>
+     * <p>
+     * match
+     * </p>
      *
-     * @param s a {@link java.lang.String} object.
-     * @param matcher a {@link java.lang.String} object.
-     * @param <T> a T object.
+     * @param s
+     *            a {@link java.lang.String} object.
+     * @param matcher
+     *            a {@link java.lang.String} object.
+     * @param <T>
+     *            a T object.
      * @return a boolean.
      */
     protected boolean match(final String s, final String matcher) {
@@ -78,22 +85,25 @@ public abstract class BasePolicy<T> {
         }
     }
 
-
     /**
-     * <p>getMatchBehavior</p>
+     * <p>
+     * getMatchBehavior
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Require( { "ANY_PARAMETER", "ALL_PARAMETERS", "NO_PARAMETERS" })
+    @Require({ "ANY_PARAMETER", "ALL_PARAMETERS", "NO_PARAMETERS" })
     public String getMatchBehavior() {
         return getMatch().toString();
     }
 
-
     /**
-     * <p>setMatchBehavior</p>
+     * <p>
+     * setMatchBehavior
+     * </p>
      *
-     * @param matchBehavior a {@link java.lang.String} object.
+     * @param matchBehavior
+     *            a {@link java.lang.String} object.
      */
     public void setMatchBehavior(final String matchBehavior) {
         final String upperMatchBehavior = matchBehavior.toUpperCase();
@@ -106,19 +116,22 @@ public abstract class BasePolicy<T> {
         }
     }
 
-
     /**
-     * <p>setMatch</p>
+     * <p>
+     * setMatch
+     * </p>
      *
-     * @param match the match to set
+     * @param match
+     *            the match to set
      */
     protected void setMatch(final Match match) {
         m_match = match;
     }
 
-
     /**
-     * <p>getMatch</p>
+     * <p>
+     * getMatch
+     * </p>
      *
      * @return the match
      */
@@ -126,32 +139,38 @@ public abstract class BasePolicy<T> {
         return m_match;
     }
 
-
     /**
-     * <p>getCriteria</p>
+     * <p>
+     * getCriteria
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected String getCriteria(final String key) {
         return getCriteria().get(key);
     }
 
-
     /**
-     * <p>putCriteria</p>
+     * <p>
+     * putCriteria
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
-     * @param expression a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param expression
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected String putCriteria(final String key, final String expression) {
         return getCriteria().put(key, expression);
     }
 
-
     /**
-     * <p>getCriteria</p>
+     * <p>
+     * getCriteria
+     * </p>
      *
      * @return the criteria
      */
@@ -159,11 +178,13 @@ public abstract class BasePolicy<T> {
         return m_criteria;
     }
 
-
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param iface a T object.
+     * @param iface
+     *            a T object.
      * @return a boolean.
      */
     protected boolean matches(final T iface) {
@@ -183,7 +204,7 @@ public abstract class BasePolicy<T> {
     private boolean matchAll(final T iface) {
         final BeanWrapper bean = PropertyAccessorFactory.forBeanPropertyAccess(iface);
 
-        for(final Entry<String, String> term : getCriteria().entrySet()) {
+        for (final Entry<String, String> term : getCriteria().entrySet()) {
 
             final String val = getPropertyValueAsString(bean, term.getKey());
             final String matchExpression = term.getValue();
@@ -195,14 +216,12 @@ public abstract class BasePolicy<T> {
 
         return true;
 
-
     }
-
 
     private boolean matchAny(final T iface) {
         final BeanWrapper bean = PropertyAccessorFactory.forBeanPropertyAccess(iface);
 
-        for(final Entry<String, String> term : getCriteria().entrySet()) {
+        for (final Entry<String, String> term : getCriteria().entrySet()) {
 
             final String val = getPropertyValueAsString(bean, term.getKey());
             final String matchExpression = term.getValue();
@@ -215,18 +234,17 @@ public abstract class BasePolicy<T> {
         return false;
     }
 
-
     private boolean matchNone(final T iface) {
         return !matchAny(iface);
     }
-
 
     private static String getPropertyValueAsString(final BeanWrapper bean, final String propertyName) {
         Object value = null;
         try {
             value = bean.getPropertyValue(propertyName);
         } catch (BeansException e) {
-            LOG.warn("Could not find property \"{}\" on object of type {}, returning null", propertyName, bean.getWrappedClass().getName(), e);
+            LOG.warn("Could not find property \"{}\" on object of type {}, returning null", propertyName,
+                     bean.getWrappedClass().getName(), e);
             return null;
         }
         try {
@@ -240,20 +258,24 @@ public abstract class BasePolicy<T> {
         }
     }
 
-
     /**
-     * <p>act</p>
+     * <p>
+     * act
+     * </p>
      *
-     * @param iface a T object.
+     * @param iface
+     *            a T object.
      * @return a T object.
      */
     public abstract T act(final T iface);
 
-
     /**
-     * <p>apply</p>
+     * <p>
+     * apply
+     * </p>
      *
-     * @param iface a T object.
+     * @param iface
+     *            a T object.
      * @return a T object.
      */
     public T apply(final T iface) {

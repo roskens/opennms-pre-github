@@ -38,165 +38,169 @@ import org.opennms.features.jmxconfiggenerator.webui.ui.IconProvider;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
 
 /**
- *
  * @author Markus von Rüden
  */
-//TODO mvonrued -> comment
+// TODO mvonrued -> comment
 class MBeansItemStrategyHandler {
 
-	final private Map<Class<?>, ItemStrategy> propertyStrategy = new HashMap<Class<?>, ItemStrategy>();
-	private final Map<Class<?>, StringRenderer<?>> extractors = new HashMap<Class<?>, StringRenderer<?>>();
+    final private Map<Class<?>, ItemStrategy> propertyStrategy = new HashMap<Class<?>, ItemStrategy>();
 
-	public MBeansItemStrategyHandler() {
-		propertyStrategy.put(Map.Entry.class, new EntryItemStrategy());
-		propertyStrategy.put(Mbean.class, new MBeanItemStrategy());
-		propertyStrategy.put(String.class, new StringItemStrategy());
+    private final Map<Class<?>, StringRenderer<?>> extractors = new HashMap<Class<?>, StringRenderer<?>>();
 
-		//add extractors, is needed for comparsion (so tree is sorted alphabetically)
-		extractors.put(String.class, new StringRenderer<String>() {
-			@Override
-			public String render(String input) {
-				return input;
-			}
-		});
-		extractors.put(Mbean.class, new StringRenderer<Mbean>() {
-			@Override
-			public String render(Mbean input) {
-				return MBeansHelper.getLeafLabel(input);
-			}
-		});
-		extractors.put(Entry.class, new StringRenderer<Entry>() {
-			@Override
-			public String render(Entry entry) {
-				return (String) entry.getValue();
-			}
-		});
-	}
+    public MBeansItemStrategyHandler() {
+        propertyStrategy.put(Map.Entry.class, new EntryItemStrategy());
+        propertyStrategy.put(Mbean.class, new MBeanItemStrategy());
+        propertyStrategy.put(String.class, new StringItemStrategy());
 
-	protected ItemStrategy getStrategy(Class<?> clazz) {
-		return MBeansHelper.getValueForClass(propertyStrategy, clazz);
-	}
+        // add extractors, is needed for comparsion (so tree is sorted
+        // alphabetically)
+        extractors.put(String.class, new StringRenderer<String>() {
+            @Override
+            public String render(String input) {
+                return input;
+            }
+        });
+        extractors.put(Mbean.class, new StringRenderer<Mbean>() {
+            @Override
+            public String render(Mbean input) {
+                return MBeansHelper.getLeafLabel(input);
+            }
+        });
+        extractors.put(Entry.class, new StringRenderer<Entry>() {
+            @Override
+            public String render(Entry entry) {
+                return (String) entry.getValue();
+            }
+        });
+    }
 
-	protected StringRenderer getStringRenderer(Class<?> clazz) {
-		return MBeansHelper.getValueForClass(extractors, clazz);
-	}
+    protected ItemStrategy getStrategy(Class<?> clazz) {
+        return MBeansHelper.getValueForClass(propertyStrategy, clazz);
+    }
 
-	protected void setItemProperties(Item item, Object itemId) {
-		if (itemId == null || item == null) return;
-		getStrategy(itemId.getClass()).setItemProperties(item, itemId);
-	}
+    protected StringRenderer getStringRenderer(Class<?> clazz) {
+        return MBeansHelper.getValueForClass(extractors, clazz);
+    }
 
-	protected static interface ItemStrategy {
+    protected void setItemProperties(Item item, Object itemId) {
+        if (itemId == null || item == null)
+            return;
+        getStrategy(itemId.getClass()).setItemProperties(item, itemId);
+    }
 
-		void setItemProperties(Item item, Object itemId);
+    protected static interface ItemStrategy {
 
-		Object[] getVisibleColumns();
+        void setItemProperties(Item item, Object itemId);
 
-		void handleSelectDeselect(Item item, Object itemId, boolean select);
+        Object[] getVisibleColumns();
 
-		void updateIcon(Item item);
+        void handleSelectDeselect(Item item, Object itemId, boolean select);
 
-		void updateModel(Item item, Object itemId);
-	}
+        void updateIcon(Item item);
 
-	private static class StringItemStrategy implements ItemStrategy {
+        void updateModel(Item item, Object itemId);
+    }
 
-		@Override
-		public void setItemProperties(Item item, Object itemId) {
-			item.getItemProperty(MetaMBeanItem.ICON).setValue(IconProvider.getIcon(IconProvider.PACKAGE_ICON));
-			item.getItemProperty(MetaMBeanItem.CAPTION).setValue(itemId);
-			item.getItemProperty(MetaMBeanItem.TOOLTIP).setValue(itemId);
-		}
+    private static class StringItemStrategy implements ItemStrategy {
 
-		@Override
-		public Object[] getVisibleColumns() {
-			return new Object[]{MetaMBeanItem.CAPTION};
-		}
+        @Override
+        public void setItemProperties(Item item, Object itemId) {
+            item.getItemProperty(MetaMBeanItem.ICON).setValue(IconProvider.getIcon(IconProvider.PACKAGE_ICON));
+            item.getItemProperty(MetaMBeanItem.CAPTION).setValue(itemId);
+            item.getItemProperty(MetaMBeanItem.TOOLTIP).setValue(itemId);
+        }
 
-		@Override
-		public void handleSelectDeselect(Item item, Object itemId, boolean select) {
-			; //do nothing
-		}
+        @Override
+        public Object[] getVisibleColumns() {
+            return new Object[] { MetaMBeanItem.CAPTION };
+        }
 
-		@Override
-		public void updateIcon(Item item) {
-			; //do nothing
-		}
+        @Override
+        public void handleSelectDeselect(Item item, Object itemId, boolean select) {
+            ; // do nothing
+        }
 
-		@Override
-		public void updateModel(Item item, Object itemId) {
-			; //read only
-		}
-	}
+        @Override
+        public void updateIcon(Item item) {
+            ; // do nothing
+        }
 
-	private static class EntryItemStrategy implements ItemStrategy {
+        @Override
+        public void updateModel(Item item, Object itemId) {
+            ; // read only
+        }
+    }
 
-		@Override
-		public void setItemProperties(Item item, Object itemId) {
-			item.getItemProperty(MetaMBeanItem.ICON).setValue(IconProvider.getIcon(IconProvider.PACKAGE_ICON));
-			item.getItemProperty(MetaMBeanItem.CAPTION).setValue(((Map.Entry) itemId).getValue());
-			item.getItemProperty(MetaMBeanItem.TOOLTIP).setValue(((Map.Entry) itemId).getValue());
-		}
+    private static class EntryItemStrategy implements ItemStrategy {
 
-		@Override
-		public Object[] getVisibleColumns() {
-			return new Object[]{MetaMBeanItem.CAPTION};
-		}
+        @Override
+        public void setItemProperties(Item item, Object itemId) {
+            item.getItemProperty(MetaMBeanItem.ICON).setValue(IconProvider.getIcon(IconProvider.PACKAGE_ICON));
+            item.getItemProperty(MetaMBeanItem.CAPTION).setValue(((Map.Entry) itemId).getValue());
+            item.getItemProperty(MetaMBeanItem.TOOLTIP).setValue(((Map.Entry) itemId).getValue());
+        }
 
-		@Override
-		public void handleSelectDeselect(Item item, Object itemId, boolean select) {
-			; //do nothing
-		}
+        @Override
+        public Object[] getVisibleColumns() {
+            return new Object[] { MetaMBeanItem.CAPTION };
+        }
 
-		@Override
-		public void updateIcon(Item item) {
-			; //do nothing
-		}
+        @Override
+        public void handleSelectDeselect(Item item, Object itemId, boolean select) {
+            ; // do nothing
+        }
 
-		@Override
-		public void updateModel(Item item, Object itemId) {
-			; //read only
-		}
-	}
+        @Override
+        public void updateIcon(Item item) {
+            ; // do nothing
+        }
 
-	private static class MBeanItemStrategy implements ItemStrategy {
+        @Override
+        public void updateModel(Item item, Object itemId) {
+            ; // read only
+        }
+    }
 
-		@Override
-		public void setItemProperties(Item item, Object itemId) {
-			if (!(itemId instanceof Mbean)) return;
-			Mbean bean = (Mbean) itemId;
-			item.getItemProperty(MetaMBeanItem.ICON).setValue(IconProvider.getIcon(IconProvider.MBEANS_ICON));
-			item.getItemProperty(MetaMBeanItem.OBJECTNAME).setValue(bean.getObjectname());
-			item.getItemProperty(MetaMBeanItem.NAME).setValue(bean.getName());
-			item.getItemProperty(MetaMBeanItem.TOOLTIP).setValue(bean.getObjectname());
-			item.getItemProperty(MetaMBeanItem.CAPTION).setValue(MBeansHelper.getLeafLabel(bean));
-		}
+    private static class MBeanItemStrategy implements ItemStrategy {
 
-		@Override
-		public Object[] getVisibleColumns() {
-			return new Object[]{MetaMBeanItem.SELECTED, MetaMBeanItem.OBJECTNAME, MetaMBeanItem.NAME};
-		}
+        @Override
+        public void setItemProperties(Item item, Object itemId) {
+            if (!(itemId instanceof Mbean))
+                return;
+            Mbean bean = (Mbean) itemId;
+            item.getItemProperty(MetaMBeanItem.ICON).setValue(IconProvider.getIcon(IconProvider.MBEANS_ICON));
+            item.getItemProperty(MetaMBeanItem.OBJECTNAME).setValue(bean.getObjectname());
+            item.getItemProperty(MetaMBeanItem.NAME).setValue(bean.getName());
+            item.getItemProperty(MetaMBeanItem.TOOLTIP).setValue(bean.getObjectname());
+            item.getItemProperty(MetaMBeanItem.CAPTION).setValue(MBeansHelper.getLeafLabel(bean));
+        }
 
-		@Override
-		public void handleSelectDeselect(Item item, Object itemId, boolean selected) {
-			item.getItemProperty(MetaMBeanItem.SELECTED).setValue(selected);
-			updateIcon(item, selected);
-		}
+        @Override
+        public Object[] getVisibleColumns() {
+            return new Object[] { MetaMBeanItem.SELECTED, MetaMBeanItem.OBJECTNAME, MetaMBeanItem.NAME };
+        }
 
-		private void updateIcon(Item item, boolean selected) {
-			item.getItemProperty(MetaMBeanItem.ICON).setValue(IconProvider.getMBeansIcon(selected));
-		}
+        @Override
+        public void handleSelectDeselect(Item item, Object itemId, boolean selected) {
+            item.getItemProperty(MetaMBeanItem.SELECTED).setValue(selected);
+            updateIcon(item, selected);
+        }
 
-		@Override
-		public void updateIcon(Item item) {
-			updateIcon(item, (Boolean) item.getItemProperty(MetaMBeanItem.SELECTED).getValue());
-		}
+        private void updateIcon(Item item, boolean selected) {
+            item.getItemProperty(MetaMBeanItem.ICON).setValue(IconProvider.getMBeansIcon(selected));
+        }
 
-		@Override
-		public void updateModel(Item item, Object itemId) {
-			if (itemId == null || !(itemId instanceof Mbean)) return;
-			Mbean bean = (Mbean)itemId;
-			bean.setName((String)item.getItemProperty(MetaMBeanItem.NAME).getValue());
-		}
-	}
+        @Override
+        public void updateIcon(Item item) {
+            updateIcon(item, (Boolean) item.getItemProperty(MetaMBeanItem.SELECTED).getValue());
+        }
+
+        @Override
+        public void updateModel(Item item, Object itemId) {
+            if (itemId == null || !(itemId instanceof Mbean))
+                return;
+            Mbean bean = (Mbean) itemId;
+            bean.setName((String) item.getItemProperty(MetaMBeanItem.NAME).getValue());
+        }
+    }
 }

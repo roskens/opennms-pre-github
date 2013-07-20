@@ -43,19 +43,19 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  *         AssetServiceAsync have to be in sync.
  */
 public interface AssetServiceAsync {
-	/**
-	 * @see AssetService#getAssetByNodeId(int nodeId)
-	 */
-	void getAssetByNodeId(int nodeId, AsyncCallback<AssetCommand> callback);
+    /**
+     * @see AssetService#getAssetByNodeId(int nodeId)
+     */
+    void getAssetByNodeId(int nodeId, AsyncCallback<AssetCommand> callback);
 
-	/**
-	 * @see AssetService#getAssetSuggestions()
-	 */
-	void getAssetSuggestions(AsyncCallback<AssetSuggCommand> callback);
+    /**
+     * @see AssetService#getAssetSuggestions()
+     */
+    void getAssetSuggestions(AsyncCallback<AssetSuggCommand> callback);
 
-	/**
-	 * @see AssetService#saveOrUpdateAssetByNodeId(int nodeId, AssetCommand
-	 *      asset)
-	 */
-	void saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset, AsyncCallback<Boolean> callback);
+    /**
+     * @see AssetService#saveOrUpdateAssetByNodeId(int nodeId, AssetCommand
+     *      asset)
+     */
+    void saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset, AsyncCallback<Boolean> callback);
 }

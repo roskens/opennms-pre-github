@@ -69,6 +69,7 @@ import org.xbill.DNS.Type;
 @Distributable
 final public class DnsMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(DnsMonitor.class);
+
     /**
      * Default DNS port.
      */
@@ -94,11 +95,9 @@ final public class DnsMonitor extends AbstractServiceMonitor {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Poll the specified address for DNS service availability.
      * </P>
-     *
      * <P>
      * During the poll an DNS address request query packet is generated for
      * hostname 'localhost'. The query is sent via UDP socket to the interface
@@ -115,7 +114,8 @@ final public class DnsMonitor extends AbstractServiceMonitor {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
 
         // get the parameters
         //
@@ -127,16 +127,17 @@ final public class DnsMonitor extends AbstractServiceMonitor {
         String lookup = ParameterMap.getKeyedString(parameters, "lookup", null);
         if (lookup == null || lookup.length() == 0) {
             // Get hostname of local machine for future DNS lookups
-        	lookup = InetAddressUtils.getLocalHostAddressAsString();
-        	if (lookup == null) {
-        		throw new UnsupportedOperationException("Unable to look up local host address.");
-        	}
+            lookup = InetAddressUtils.getLocalHostAddressAsString();
+            if (lookup == null) {
+                throw new UnsupportedOperationException("Unable to look up local host address.");
+            }
         }
 
         // What do we consider fatal?
         //
         final List<Integer> fatalCodes = new ArrayList<Integer>();
-        for (final int code : ParameterMap.getKeyedIntegerArray(parameters, "fatal-response-codes", DEFAULT_FATAL_RESP_CODES)) {
+        for (final int code : ParameterMap.getKeyedIntegerArray(parameters, "fatal-response-codes",
+                                                                DEFAULT_FATAL_RESP_CODES)) {
             fatalCodes.add(code);
         }
 
@@ -160,15 +161,16 @@ final public class DnsMonitor extends AbstractServiceMonitor {
         return serviceStatus;
     }
 
-    private PollStatus pollDNS(final TimeoutTracker timeoutTracker, final int port, final InetAddress address, final String lookup, final List<Integer> fatalCodes) {
-    	final String addr = InetAddressUtils.str(address);
+    private PollStatus pollDNS(final TimeoutTracker timeoutTracker, final int port, final InetAddress address,
+            final String lookup, final List<Integer> fatalCodes) {
+        final String addr = InetAddressUtils.str(address);
         for (timeoutTracker.reset(); timeoutTracker.shouldRetry(); timeoutTracker.nextAttempt()) {
             try {
                 final Name name = Name.fromString(lookup, Name.root);
                 final SimpleResolver resolver = new SimpleResolver();
                 resolver.setAddress(new InetSocketAddress(addr, port));
-                resolver.setLocalAddress((InetSocketAddress)null);
-                double timeout = timeoutTracker.getSoTimeout()/1000;
+                resolver.setLocalAddress((InetSocketAddress) null);
+                double timeout = timeoutTracker.getSoTimeout() / 1000;
                 resolver.setTimeout((timeout < 1 ? 1 : (int) timeout));
                 final Record question = Record.newRecord(name, Type.A, DClass.IN);
                 final Message query = Message.newQuery(question);
@@ -189,8 +191,10 @@ final public class DnsMonitor extends AbstractServiceMonitor {
                     return PollStatus.available(responseTime);
                 }
             } catch (final InterruptedIOException e) {
-                // No response received, retry without marking the poll failed. If we get this condition over and over until
-                // the retries are exhausted, it will leave serviceStatus null and we'll get the log message at the bottom
+                // No response received, retry without marking the poll failed.
+                // If we get this condition over and over until
+                // the retries are exhausted, it will leave serviceStatus null
+                // and we'll get the log message at the bottom
             } catch (final NoRouteToHostException e) {
                 String reason1 = "No route to host exception for address: " + addr;
                 LOG.debug(reason1, e);
@@ -210,6 +214,5 @@ final public class DnsMonitor extends AbstractServiceMonitor {
         LOG.debug(reason);
         return PollStatus.unavailable(reason);
     }
-
 
 }

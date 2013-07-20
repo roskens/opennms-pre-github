@@ -47,7 +47,8 @@ import org.opennms.netmgt.xml.eventconf.Events;
 import org.opennms.netmgt.xml.eventconf.Maskelement;
 
 /**
- * The Test Class for <a href="http://issues.opennms.org/browse/SPC-592">SPC-592</a>
+ * The Test Class for <a
+ * href="http://issues.opennms.org/browse/SPC-592">SPC-592</a>
  *
  * @author <a href="mailto:agalue@opennms.org">Jeff Gehlbach</a>
  */
@@ -70,9 +71,12 @@ public class SPC592 {
 
     /**
      * Test standard parse.
-     * <p>This test is to verify that the problem is not JsmiParser.</p>
+     * <p>
+     * This test is to verify that the problem is not JsmiParser.
+     * </p>
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testStandardParse() throws Exception {
@@ -105,14 +109,16 @@ public class SPC592 {
             }
             Assert.assertTrue(found);
         } else {
-            Assert.fail("The ISIS-MIB.mib couldn't be compiled: " + parser.getProblemEventHandler().getTotalCount() + " problems encountered");
+            Assert.fail("The ISIS-MIB.mib couldn't be compiled: " + parser.getProblemEventHandler().getTotalCount()
+                    + " problems encountered");
         }
     }
 
     /**
      * Test custom parse.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testCustomParse() throws Exception {
@@ -127,11 +133,12 @@ public class SPC592 {
     /**
      * Test trap-OIDs in events from ISIS-MIB notifications.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testIsisMibTrapOids() throws Exception {
-        if (! parser.parseMib(new File(MIB_DIR, "ISIS-MIB.mib"))) {
+        if (!parser.parseMib(new File(MIB_DIR, "ISIS-MIB.mib"))) {
             Assert.fail("The ISIS-MIB.mib must parse successfully");
         } else {
             Assert.assertTrue(parser.getMissingDependencies().isEmpty());
@@ -147,12 +154,14 @@ public class SPC592 {
             }
             if (foundId) {
                 assertEquals("Only one me-value should be present for trap OID", 1, me.getMevalueCount());
-                assertFalse("The 'id' mask-element value for the isisAdjacencyChange event must not end in .0", me.getMevalue()[0].endsWith(".0"));
-                assertEquals("The 'id' mask-element value for the isisAdjacencyChange event is incorrect", me.getMevalue()[0], ".1.3.6.1.2.1.138");
+                assertFalse("The 'id' mask-element value for the isisAdjacencyChange event must not end in .0",
+                            me.getMevalue()[0].endsWith(".0"));
+                assertEquals("The 'id' mask-element value for the isisAdjacencyChange event is incorrect",
+                             me.getMevalue()[0], ".1.3.6.1.2.1.138");
                 break;
             }
         }
-        if (! foundId) {
+        if (!foundId) {
             Assert.fail("Never found the 'id' mask-element in the isisAdjacencyChange event");
         }
 
@@ -163,10 +172,11 @@ public class SPC592 {
             }
             if (foundSpecific) {
                 assertEquals("Only one me-value should be present for the specific-type", 1, me.getMevalueCount());
-                assertEquals("The 'specific' mask-element value for the isisAdjacencyChange event must be 17", me.getMevalue()[0], "17");
+                assertEquals("The 'specific' mask-element value for the isisAdjacencyChange event must be 17",
+                             me.getMevalue()[0], "17");
             }
         }
-        if (! foundSpecific) {
+        if (!foundSpecific) {
             Assert.fail("Never found the 'specific' mask-element in the isisAdjacencyChange event");
         }
     }

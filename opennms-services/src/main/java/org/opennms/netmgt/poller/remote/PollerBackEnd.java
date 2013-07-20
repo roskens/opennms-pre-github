@@ -41,7 +41,9 @@ import org.opennms.netmgt.poller.DistributionContext;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
 
 /**
- * <p>PollerBackEnd interface.</p>
+ * <p>
+ * PollerBackEnd interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -59,8 +61,9 @@ public interface PollerBackEnd {
     /**
      * Register a new location monitor
      *
-     * @param monitoringLocationId the id of the monitoredLocation to associate with
-     * this location monitor
+     * @param monitoringLocationId
+     *            the id of the monitoredLocation to associate with
+     *            this location monitor
      * @return the id of the new locations monitor
      */
     int registerLocationMonitor(String monitoringLocationId);
@@ -68,7 +71,8 @@ public interface PollerBackEnd {
     /**
      * Get monitor name
      *
-     * @param locationMonitorId a int.
+     * @param locationMonitorId
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     String getMonitorName(int locationMonitorId);
@@ -76,7 +80,9 @@ public interface PollerBackEnd {
     /**
      * Get service monitor locators for creating serviceMonitors for the poller.
      *
-     * @param context a {@link org.opennms.netmgt.poller.DistributionContext} object.
+     * @param context
+     *            a {@link org.opennms.netmgt.poller.DistributionContext}
+     *            object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<ServiceMonitorLocator> getServiceMonitorLocators(DistributionContext context);
@@ -84,8 +90,10 @@ public interface PollerBackEnd {
     /**
      * Notifies the backend that a registered poller is starting
      *
-     * @param locationMonitorId the id of the requesting location monitor
-     * @param pollerDetails TODO
+     * @param locationMonitorId
+     *            the id of the requesting location monitor
+     * @param pollerDetails
+     *            TODO
      * @returns true if and only if the server recognizes this locationMonitor
      * @return a boolean.
      */
@@ -94,17 +102,21 @@ public interface PollerBackEnd {
     /**
      * Notifies the backend that a registered poller is stopping
      *
-     * @param locationMonitorId the id of the requesting location monitor
+     * @param locationMonitorId
+     *            the id of the requesting location monitor
      */
     void pollerStopping(int locationMonitorId);
 
-
     /**
-     * Checkin with the backend to let it know that the poller is still alive and to find
+     * Checkin with the backend to let it know that the poller is still alive
+     * and to find
      * out if there are any configuration changes.
      *
-     * @param locationMonitorId the id of the location monitor that is checking in
-     * @param currentConfigurationVersion the version of the configuration that the location monitor is currently using
+     * @param locationMonitorId
+     *            the id of the location monitor that is checking in
+     * @param currentConfigurationVersion
+     *            the version of the configuration that the location monitor is
+     *            currently using
      * @return true if the configuration should be updated.
      */
     MonitorStatus pollerCheckingIn(int locationMonitorId, Date currentConfigurationVersion);
@@ -112,7 +124,8 @@ public interface PollerBackEnd {
     /**
      * Gets the poller configuration assigned to this monitoring location
      *
-     * @param locationMonitorId the id of the requesting location monitor
+     * @param locationMonitorId
+     *            the id of the requesting location monitor
      * @return the PollerConfiguration for the indicicated location monitor
      */
     PollerConfiguration getPollerConfiguration(int locationMonitorId);
@@ -120,30 +133,43 @@ public interface PollerBackEnd {
     /**
      * Report a poll result from the client to the server.
      *
-     * @param locationMonitorID the id of the location monitor that did the poll
-     * @param serviceId the id of the service that was polled
-     * @param status a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param locationMonitorID
+     *            the id of the location monitor that did the poll
+     * @param serviceId
+     *            the id of the service that was polled
+     * @param status
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     void reportResult(int locationMonitorID, int serviceId, PollStatus status);
 
-
     /**
-     * <p>configurationUpdated</p>
+     * <p>
+     * configurationUpdated
+     * </p>
      */
     void configurationUpdated();
 
     /**
-     * <p>checkForDisconnectedMonitors</p>
+     * <p>
+     * checkForDisconnectedMonitors
+     * </p>
      */
     void checkForDisconnectedMonitors();
 
     /**
-     * <p>saveResponseTimeData</p>
+     * <p>
+     * saveResponseTimeData
+     * </p>
      *
-     * @param locationMonitor a {@link java.lang.String} object.
-     * @param monSvc a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
-     * @param responseTime a double.
-     * @param pkg a {@link org.opennms.netmgt.config.poller.Package} object.
+     * @param locationMonitor
+     *            a {@link java.lang.String} object.
+     * @param monSvc
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
+     * @param responseTime
+     *            a double.
+     * @param pkg
+     *            a {@link org.opennms.netmgt.config.poller.Package} object.
      */
     void saveResponseTimeData(String locationMonitor, OnmsMonitoredService monSvc, double responseTime, Package pkg);
 }

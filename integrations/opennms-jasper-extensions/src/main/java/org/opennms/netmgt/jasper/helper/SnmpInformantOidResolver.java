@@ -35,7 +35,9 @@ import org.slf4j.LoggerFactory;
 import java.util.StringTokenizer;
 
 /**
- * <p>SnmpInformantOidResolver class.</p>
+ * <p>
+ * SnmpInformantOidResolver class.
+ * </p>
  *
  * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a>
  * @version $Id: $
@@ -52,7 +54,8 @@ public class SnmpInformantOidResolver extends JRDefaultScriptlet {
      * by converting 'C' into ASCII int 67 and ':' into ASCII int 58. The
      * output is used as a OID path to the drive, in this example 67.58
      *
-     * @param string2convert String which as to be converted in ASCII integer OID
+     * @param string2convert
+     *            String which as to be converted in ASCII integer OID
      * @return converted ASCII OID path
      */
     public String stringToAsciiOid(String string2convert) {

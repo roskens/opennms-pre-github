@@ -38,16 +38,14 @@ import org.opennms.core.utils.ConfigFileConstants;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * Eventd from the eventd-configuration xml file.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
- *
  * Modified: 03/11/2005
  *
  * @author David Hustace <a href="mailto:david@opennms.org" David Hustace </a>
- * <strong>Note: Refactored and moved all non-static references
- *   to a base class moving away from singleton.
+ *         <strong>Note: Refactored and moved all non-static references
+ *         to a base class moving away from singleton.
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
@@ -86,9 +84,12 @@ public final class EventdConfigFactory extends EventdConfigManager {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -113,9 +114,12 @@ public final class EventdConfigFactory extends EventdConfigManager {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;

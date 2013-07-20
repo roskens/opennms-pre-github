@@ -52,13 +52,17 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
     private static final Logger LOG = LoggerFactory.getLogger(Jni6IcmpMessenger.class);
 
     private int m_pingerId;
+
     private ICMPv6Socket m_socket;
 
     /**
-     * <p>Constructor for JniIcmpMessenger.</p>
-     * @param pingerId
+     * <p>
+     * Constructor for JniIcmpMessenger.
+     * </p>
      *
-     * @throws java.io.IOException if any.
+     * @param pingerId
+     * @throws java.io.IOException
+     *             if any.
      */
     public Jni6IcmpMessenger(int pingerId) throws IOException {
         m_pingerId = pingerId;
@@ -76,7 +80,6 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
                     pendingReplies.offer(reply);
                 }
 
-
             } catch (IOException e) {
                 LOG.error("I/O Error occurred reading from ICMP Socket", e);
             } catch (IllegalArgumentException e) {
@@ -90,11 +93,13 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
 
     }
 
-
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.icmp.jni6.Jni6PingRequest} object.
+     * @param request
+     *            a {@link org.opennms.netmgt.icmp.jni6.Jni6PingRequest} object.
      */
     @Override
     public void sendRequest(Jni6PingRequest request) {
@@ -104,7 +109,7 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
     /** {@inheritDoc} */
     @Override
     public void start(final Queue<Jni6PingResponse> responseQueue) {
-        Thread socketReader = new Thread("JNI-ICMP-"+m_pingerId+"-Socket-Reader") {
+        Thread socketReader = new Thread("JNI-ICMP-" + m_pingerId + "-Socket-Reader") {
 
             @Override
             public void run() {
@@ -127,7 +132,6 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
      * returned as a new instance of the class. In addition to extracting the
      * packet, the packet's received time is updated to the current time.
      * </p>
-     *
      * <p>
      * If the received datagram is not an echo reply or an incorrect length then
      * an exception is generated to alert the caller.
@@ -145,11 +149,13 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
 
         ICMPv6Packet icmpPacket = new ICMPv6Packet(packet.getData(), packet.getOffset(), packet.getLength());
 
-        if (icmpPacket.getType() != Type.EchoReply) return null;
+        if (icmpPacket.getType() != Type.EchoReply)
+            return null;
 
         ICMPv6EchoReply echoReply = new ICMPv6EchoReply(icmpPacket);
 
-        if (!echoReply.isEchoReply() || !echoReply.isValid()) return null;
+        if (!echoReply.isEchoReply() || !echoReply.isValid())
+            return null;
 
         Inet6Address address = (Inet6Address) packet.getAddress();
 

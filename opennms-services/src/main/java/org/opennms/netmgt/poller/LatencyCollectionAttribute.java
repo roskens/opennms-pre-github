@@ -36,7 +36,9 @@ import org.opennms.netmgt.config.collector.Persister;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
 /**
- * <p>LatencyCollectionAttribute class.</p>
+ * <p>
+ * LatencyCollectionAttribute class.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @version $Id: $
@@ -44,15 +46,23 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 public class LatencyCollectionAttribute implements CollectionAttribute {
 
     private LatencyCollectionResource m_resource;
+
     private Double m_value;
+
     private String m_name;
 
     /**
-     * <p>Constructor for LatencyCollectionAttribute.</p>
+     * <p>
+     * Constructor for LatencyCollectionAttribute.
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.poller.LatencyCollectionResource} object.
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.Double} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.poller.LatencyCollectionResource}
+     *            object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.Double} object.
      */
     public LatencyCollectionAttribute(LatencyCollectionResource resource, String name, Double value) {
         super();
@@ -62,9 +72,13 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
     }
 
     /**
-     * <p>getAttributeType</p>
+     * <p>
+     * getAttributeType
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionAttributeType} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
+     *         object.
      */
     @Override
     public CollectionAttributeType getAttributeType() {
@@ -72,7 +86,9 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -82,7 +98,9 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
     }
 
     /**
-     * <p>getNumericValue</p>
+     * <p>
+     * getNumericValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,9 +110,12 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
     }
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
+     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *         object.
      */
     @Override
     public CollectionResource getResource() {
@@ -102,7 +123,9 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
     }
 
     /**
-     * <p>getStringValue</p>
+     * <p>
+     * getStringValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,7 +135,9 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -139,7 +164,7 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
 
     @Override
     public String getMetricIdentifier() {
-        return "Not_Supported_Yet_Poller_Latency_"+getName();
+        return "Not_Supported_Yet_Poller_Latency_" + getName();
     }
 
 }

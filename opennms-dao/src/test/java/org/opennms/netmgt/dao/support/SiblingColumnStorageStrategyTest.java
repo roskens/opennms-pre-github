@@ -50,6 +50,7 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 public class SiblingColumnStorageStrategyTest {
 
     private StorageStrategyService service;
+
     private SiblingColumnStorageStrategy strategy;
 
     @Before
@@ -99,10 +100,11 @@ public class SiblingColumnStorageStrategyTest {
         Assert.assertEquals("Volumes-iDisk", strategy.getResourceNameFromIndex(resource));
 
         // Test RelativePath - hrStorageTable
-        Assert.assertEquals("1" + File.separator + "hrStorageIndex" + File.separator + "_root_fs", strategy.getRelativePathForAttribute(parentResource, resourceName, null));
+        Assert.assertEquals("1" + File.separator + "hrStorageIndex" + File.separator + "_root_fs",
+                            strategy.getRelativePathForAttribute(parentResource, resourceName, null));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testBadParameters() throws Exception {
         strategy.setResourceTypeName("hrStorageIndex");
 
@@ -130,7 +132,8 @@ public class SiblingColumnStorageStrategyTest {
         strategy.setParameters(params);
 
         String parentResource = "1";
-        MockCollectionResource resource = new MockCollectionResource(parentResource, "0.132.43.51.76.89.2.144.10.1.1.1", "macIndex");
+        MockCollectionResource resource = new MockCollectionResource(parentResource,
+                                                                     "0.132.43.51.76.89.2.144.10.1.1.1", "macIndex");
         String resourceName = strategy.getResourceNameFromIndex(resource);
         Assert.assertEquals("0.132.43.51.76.89.2.144", resourceName);
     }

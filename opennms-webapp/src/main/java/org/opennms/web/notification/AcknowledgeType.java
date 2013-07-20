@@ -62,7 +62,9 @@ public enum AcknowledgeType {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +74,9 @@ public enum AcknowledgeType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,7 +85,9 @@ public enum AcknowledgeType {
     }
 
     /**
-     * <p>getShortName</p>
+     * <p>
+     * getShortName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,9 +118,12 @@ public enum AcknowledgeType {
     }
 
     /**
-     * <p>getAcknowledgeType</p>
+     * <p>
+     * getAcknowledgeType
+     * </p>
      *
-     * @param ackTypeString a {@link java.lang.String} object.
+     * @param ackTypeString
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.notification.AcknowledgeType} object.
      */
     public static AcknowledgeType getAcknowledgeType(String ackTypeString) {

@@ -68,7 +68,8 @@ public class ThreshdIntegrationTest extends ThresholderTestCase {
 
         setupThresholdConfig(dirName, fileName, nodeId, ipAddress, serviceName, groupName);
 
-        // This call will also ensure that the poll-outages.xml file can parse IPv4
+        // This call will also ensure that the poll-outages.xml file can parse
+        // IPv4
         // and IPv6 addresses.
         Resource resource = new ClassPathResource("etc/poll-outages.xml");
         PollOutagesConfigFactory factory = new PollOutagesConfigFactory(resource);
@@ -78,12 +79,15 @@ public class ThreshdIntegrationTest extends ThresholderTestCase {
 
     @Override
     protected void tearDown() throws Exception {
-        MockUtil.println("------------ End Test "+getName()+" --------------------------");
+        MockUtil.println("------------ End Test " + getName() + " --------------------------");
     }
 
     public void testThreshd() throws Exception {
         Threshd threshd = new Threshd();
-        ThreshdConfigManager config = new MockThreshdConfigManager(ConfigurationTestUtils.getInputStreamForResource(this, "threshd-configuration.xml"), "localhost", false);
+        ThreshdConfigManager config = new MockThreshdConfigManager(
+                                                                   ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                                                                    "threshd-configuration.xml"),
+                                                                   "localhost", false);
         threshd.setThreshdConfig(config);
         threshd.init();
         threshd.start();

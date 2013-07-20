@@ -36,82 +36,110 @@ import java.util.Map;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 
 /**
- * <p>PollConfiguration class.</p>
+ * <p>
+ * PollConfiguration class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class PollConfiguration {
 
-	private OnmsMonitoredService m_monitoredService;
-	private OnmsPollModel m_pollModel;
-	private Map<String,Object> m_monitorConfiguration;
+    private OnmsMonitoredService m_monitoredService;
 
-	/**
-	 * <p>Constructor for PollConfiguration.</p>
-	 *
-	 * @param monitoredService a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
-	 * @param monitorConfiguration a {@link java.util.Map} object.
-	 * @param pollInterval a long.
-	 */
-	public PollConfiguration(OnmsMonitoredService monitoredService, Map<String,Object> monitorConfiguration, long pollInterval) {
-		m_monitoredService = monitoredService;
-		m_monitorConfiguration = monitorConfiguration;
-		m_pollModel = new OnmsPollModel();
-		m_pollModel.setPollInterval(pollInterval);
-	}
+    private OnmsPollModel m_pollModel;
 
-	/**
-	 * <p>getMonitoredService</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
-	 */
-	public OnmsMonitoredService getMonitoredService() {
-		return m_monitoredService;
-	}
+    private Map<String, Object> m_monitorConfiguration;
 
-	/**
-	 * <p>setMonitoredService</p>
-	 *
-	 * @param monitoredService a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
-	 */
-	public void setMonitoredService(OnmsMonitoredService monitoredService) {
-		m_monitoredService = monitoredService;
-	}
+    /**
+     * <p>
+     * Constructor for PollConfiguration.
+     * </p>
+     *
+     * @param monitoredService
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
+     * @param monitorConfiguration
+     *            a {@link java.util.Map} object.
+     * @param pollInterval
+     *            a long.
+     */
+    public PollConfiguration(OnmsMonitoredService monitoredService, Map<String, Object> monitorConfiguration,
+            long pollInterval) {
+        m_monitoredService = monitoredService;
+        m_monitorConfiguration = monitorConfiguration;
+        m_pollModel = new OnmsPollModel();
+        m_pollModel.setPollInterval(pollInterval);
+    }
 
-	/**
-	 * <p>getMonitorConfiguration</p>
-	 *
-	 * @return a {@link java.util.Map} object.
-	 */
-	public Map<String,Object> getMonitorConfiguration() {
-		return Collections.unmodifiableMap(m_monitorConfiguration);
-	}
+    /**
+     * <p>
+     * getMonitoredService
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
+     */
+    public OnmsMonitoredService getMonitoredService() {
+        return m_monitoredService;
+    }
 
-	/**
-	 * <p>getPollModel</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.poller.remote.OnmsPollModel} object.
-	 */
-	public OnmsPollModel getPollModel() {
-		return m_pollModel;
-	}
+    /**
+     * <p>
+     * setMonitoredService
+     * </p>
+     *
+     * @param monitoredService
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
+     */
+    public void setMonitoredService(OnmsMonitoredService monitoredService) {
+        m_monitoredService = monitoredService;
+    }
 
-	/**
-	 * <p>setPollModel</p>
-	 *
-	 * @param pollModel a {@link org.opennms.netmgt.poller.remote.OnmsPollModel} object.
-	 */
-	public void setPollModel(OnmsPollModel pollModel) {
-		m_pollModel = pollModel;
-	}
+    /**
+     * <p>
+     * getMonitorConfiguration
+     * </p>
+     *
+     * @return a {@link java.util.Map} object.
+     */
+    public Map<String, Object> getMonitorConfiguration() {
+        return Collections.unmodifiableMap(m_monitorConfiguration);
+    }
 
-	/**
-	 * <p>getId</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getId() {
-		return m_monitoredService.getNodeId()+":"+str(m_monitoredService.getIpAddress())+":"+m_monitoredService.getServiceName();
-	}
+    /**
+     * <p>
+     * getPollModel
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.poller.remote.OnmsPollModel} object.
+     */
+    public OnmsPollModel getPollModel() {
+        return m_pollModel;
+    }
+
+    /**
+     * <p>
+     * setPollModel
+     * </p>
+     *
+     * @param pollModel
+     *            a {@link org.opennms.netmgt.poller.remote.OnmsPollModel}
+     *            object.
+     */
+    public void setPollModel(OnmsPollModel pollModel) {
+        m_pollModel = pollModel;
+    }
+
+    /**
+     * <p>
+     * getId
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getId() {
+        return m_monitoredService.getNodeId() + ":" + str(m_monitoredService.getIpAddress()) + ":"
+                + m_monitoredService.getServiceName();
+    }
 
 }

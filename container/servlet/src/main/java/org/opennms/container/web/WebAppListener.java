@@ -28,8 +28,11 @@ import org.osgi.framework.BundleContext;
 public class WebAppListener implements ServletContextListener {
 
     private Main main;
+
     private ServletContext m_servletContext;
+
     private BundleContext m_framework;
+
     private OnmsOSGiBridgeActivator m_bridge = new OnmsOSGiBridgeActivator();
 
     @Override
@@ -47,11 +50,11 @@ public class WebAppListener implements ServletContextListener {
             }
 
             /*
-            String karafHome = System.getProperty("karaf.home");
-            if (karafHome != null) {
-                karafRoot = new File(karafHome);
-            }
-            */
+             * String karafHome = System.getProperty("karaf.home");
+             * if (karafHome != null) {
+             * karafRoot = new File(karafHome);
+             * }
+             */
 
             m_servletContext.log("contextInitialized");
 
@@ -60,7 +63,8 @@ public class WebAppListener implements ServletContextListener {
             // the same classloader for all classloading.
             //
             // @see https://issues.apache.org/jira/browse/FELIX-2108
-            // @see http://www.mail-archive.com/announcements@jakarta.apache.org/msg00110.html
+            // @see
+            // http://www.mail-archive.com/announcements@jakarta.apache.org/msg00110.html
             //
             System.setProperty("log4j.ignoreTCL", "true");
 
@@ -83,7 +87,6 @@ public class WebAppListener implements ServletContextListener {
             // add bundle context to servlet context for Proxy Servlet
             m_servletContext.setAttribute(BundleContext.class.getName(), m_framework);
 
-
             m_bridge.start(m_framework);
 
         } catch (final Throwable e) {
@@ -97,7 +100,8 @@ public class WebAppListener implements ServletContextListener {
         try {
 
             m_bridge.stop(m_framework);
-            // TODO unregister services form both registries with the osgi container stops
+            // TODO unregister services form both registries with the osgi
+            // container stops
 
             m_servletContext.log("contextDestroyed");
             if (main != null) {
@@ -107,6 +111,5 @@ public class WebAppListener implements ServletContextListener {
             e.printStackTrace();
         }
     }
-
 
 }

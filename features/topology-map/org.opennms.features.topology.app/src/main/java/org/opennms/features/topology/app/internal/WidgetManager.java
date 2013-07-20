@@ -43,12 +43,15 @@ import org.slf4j.LoggerFactory;
 public class WidgetManager {
 
     private List<IViewContribution> m_viewContributors = new CopyOnWriteArrayList<IViewContribution>();
+
     private List<WidgetUpdateListener> m_listeners = new CopyOnWriteArrayList<WidgetUpdateListener>();
 
-    public WidgetManager() {}
+    public WidgetManager() {
+    }
 
     public void addUpdateListener(WidgetUpdateListener listener) {
-        LoggerFactory.getLogger(this.getClass()).info("Adding WidgetUpdateListener {} to WidgetManager {}", listener, this);
+        LoggerFactory.getLogger(this.getClass()).info("Adding WidgetUpdateListener {} to WidgetManager {}", listener,
+                                                      this);
         synchronized (m_listeners) {
             m_listeners.add(listener);
             updateWidgetListeners();
@@ -56,7 +59,8 @@ public class WidgetManager {
     }
 
     public void removeUpdateListener(WidgetUpdateListener listener) {
-        LoggerFactory.getLogger(this.getClass()).info("Removing WidgetUpdateListener {} from WidgetManager {}", listener, this);
+        LoggerFactory.getLogger(this.getClass()).info("Removing WidgetUpdateListener {} from WidgetManager {}",
+                                                      listener, this);
         synchronized (m_listeners) {
             m_listeners.remove(listener);
         }
@@ -71,7 +75,7 @@ public class WidgetManager {
      *
      * @return List<IViewContribution>
      */
-    public List<IViewContribution> getWidgets(){
+    public List<IViewContribution> getWidgets() {
         List<IViewContribution> widgets = new ArrayList<IViewContribution>();
         widgets.addAll(m_viewContributors);
         // Sort the widgets by their title
@@ -85,7 +89,8 @@ public class WidgetManager {
     }
 
     public synchronized void onBind(IViewContribution viewContribution) {
-        LoggerFactory.getLogger(this.getClass()).info("Binding IViewContribution {} to WidgetManager {}", viewContribution, this);
+        LoggerFactory.getLogger(this.getClass()).info("Binding IViewContribution {} to WidgetManager {}",
+                                                      viewContribution, this);
         synchronized (m_viewContributors) {
             try {
                 m_viewContributors.add(viewContribution);
@@ -97,13 +102,14 @@ public class WidgetManager {
     }
 
     private void updateWidgetListeners() {
-        for(WidgetUpdateListener listener : m_listeners) {
+        for (WidgetUpdateListener listener : m_listeners) {
             listener.widgetListUpdated(this);
         }
     }
 
     public synchronized void onUnbind(IViewContribution viewContribution) {
-        LoggerFactory.getLogger(this.getClass()).info("Unbinding IViewContribution {} from WidgetManager {}", viewContribution, this);
+        LoggerFactory.getLogger(this.getClass()).info("Unbinding IViewContribution {} from WidgetManager {}",
+                                                      viewContribution, this);
         synchronized (m_viewContributors) {
             try {
                 m_viewContributors.remove(viewContribution);

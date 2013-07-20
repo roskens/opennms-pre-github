@@ -85,8 +85,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class NodeRestService extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NodeRestService.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(NodeRestService.class);
 
     @Autowired
     private NodeDao m_nodeDao;
@@ -101,12 +100,14 @@ public class NodeRestService extends OnmsRestService {
     ResourceContext m_context;
 
     /**
-     * <p>getNodes</p>
+     * <p>
+     * getNodes
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNodeList} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     public OnmsNodeList getNodes() {
         readLock();
 
@@ -145,15 +146,19 @@ public class NodeRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{nodeCriteria}")
-    public OnmsNode getNode(@PathParam("nodeCriteria") final String nodeCriteria) {
+    public OnmsNode getNode(@PathParam("nodeCriteria")
+    final String nodeCriteria) {
         readLock();
         try {
             return m_nodeDao.get(nodeCriteria);
@@ -163,9 +168,12 @@ public class NodeRestService extends OnmsRestService {
     }
 
     /**
-     * <p>addNode</p>
+     * <p>
+     * addNode
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @POST
@@ -188,29 +196,36 @@ public class NodeRestService extends OnmsRestService {
     }
 
     /**
-     * <p>updateNode</p>
+     * <p>
+     * updateNode
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param params
+     *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{nodeCriteria}")
-    public Response updateNode(@PathParam("nodeCriteria") final String nodeCriteria, final MultivaluedMapImpl params) {
+    public Response updateNode(@PathParam("nodeCriteria")
+    final String nodeCriteria, final MultivaluedMapImpl params) {
         writeLock();
 
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
-            if (node == null) throw getException(Status.BAD_REQUEST, "updateNode: Can't find node " + nodeCriteria);
+            if (node == null)
+                throw getException(Status.BAD_REQUEST, "updateNode: Can't find node " + nodeCriteria);
 
             LOG.debug("updateNode: updating node {}", node);
 
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(node);
-            for(final String key : params.keySet()) {
+            for (final String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
                     final String stringValue = params.getFirst(key);
-    				final Object value = wrapper.convertIfNecessary(stringValue, (Class<?>)wrapper.getPropertyType(key));
+                    final Object value = wrapper.convertIfNecessary(stringValue,
+                                                                    (Class<?>) wrapper.getPropertyType(key));
                     wrapper.setPropertyValue(key, value);
                 }
             }
@@ -225,19 +240,24 @@ public class NodeRestService extends OnmsRestService {
     }
 
     /**
-     * <p>deleteNode</p>
+     * <p>
+     * deleteNode
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @DELETE
     @Path("{nodeCriteria}")
-    public Response deleteNode(@PathParam("nodeCriteria") final String nodeCriteria) {
+    public Response deleteNode(@PathParam("nodeCriteria")
+    final String nodeCriteria) {
         writeLock();
 
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
-            if (node == null) throw getException(Status.BAD_REQUEST, "deleteNode: Can't find node " + nodeCriteria);
+            if (node == null)
+                throw getException(Status.BAD_REQUEST, "deleteNode: Can't find node " + nodeCriteria);
 
             LOG.debug("deleteNode: deleting node {}", nodeCriteria);
             m_nodeDao.delete(node);
@@ -253,7 +273,9 @@ public class NodeRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getIpInterfaceResource</p>
+     * <p>
+     * getIpInterfaceResource
+     * </p>
      *
      * @return a {@link org.opennms.web.rest.OnmsIpInterfaceResource} object.
      */
@@ -263,7 +285,9 @@ public class NodeRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getSnmpInterfaceResource</p>
+     * <p>
+     * getSnmpInterfaceResource
+     * </p>
      *
      * @return a {@link org.opennms.web.rest.OnmsSnmpInterfaceResource} object.
      */
@@ -273,7 +297,9 @@ public class NodeRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getCategoryResource</p>
+     * <p>
+     * getCategoryResource
+     * </p>
      *
      * @return a {@link org.opennms.web.rest.OnmsCategoryResource} object.
      */
@@ -283,7 +309,9 @@ public class NodeRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getAssetRecordResource</p>
+     * <p>
+     * getAssetRecordResource
+     * </p>
      *
      * @return a {@link org.opennms.web.rest.AssetRecordResource} object.
      */

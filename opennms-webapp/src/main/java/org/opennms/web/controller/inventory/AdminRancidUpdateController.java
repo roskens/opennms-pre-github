@@ -43,33 +43,40 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-
 /**
- * <p>AdminRancidUpdateController class.</p>
+ * <p>
+ * AdminRancidUpdateController class.
+ * </p>
  *
  * @since 1.8.1
  */
 @SuppressWarnings("deprecation")
 public class AdminRancidUpdateController extends SimpleFormController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AdminRancidUpdateController.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(AdminRancidUpdateController.class);
 
     InventoryService m_inventoryService;
 
     /**
-     * <p>getInventoryService</p>
+     * <p>
+     * getInventoryService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *         object.
      */
     public InventoryService getInventoryService() {
         return m_inventoryService;
     }
 
     /**
-     * <p>setInventoryService</p>
+     * <p>
+     * setInventoryService
+     * </p>
      *
-     * @param inventoryService a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @param inventoryService
+     *            a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *            object.
      */
     public void setInventoryService(InventoryService inventoryService) {
         m_inventoryService = inventoryService;
@@ -77,20 +84,24 @@ public class AdminRancidUpdateController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
-            Object command, BindException errors) throws ServletException, IOException, Exception {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+            BindException errors) throws ServletException, IOException, Exception {
 
         LOG.debug("AdminRancidUpdateController ModelAndView onSubmit");
 
         AdminRancidRouterDbCommClass bean = (AdminRancidRouterDbCommClass) command;
 
-        LOG.debug("AdminRancidUpdateController ModelAndView onSubmit updating device[{}] group[{}] status[{}]", bean.getDeviceName(), bean.getGroupName(), bean.getStatusName());
+        LOG.debug("AdminRancidUpdateController ModelAndView onSubmit updating device[{}] group[{}] status[{}]",
+                  bean.getDeviceName(), bean.getGroupName(), bean.getStatusName());
 
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
-        boolean done = m_inventoryService.updateNodeOnRouterDb(bean.getGroupName(), bean.getDeviceName(), bean.getDeviceTypeName(), bean.getStatusName(),bean.getComment());
-        if (!done){
-            LOG.debug("AdminRancidUpdateController ModelAndView onSubmit error while updating status for{}/{}", bean.getGroupName(), bean.getDeviceName());
-        }
+            boolean done = m_inventoryService.updateNodeOnRouterDb(bean.getGroupName(), bean.getDeviceName(),
+                                                                   bean.getDeviceTypeName(), bean.getStatusName(),
+                                                                   bean.getComment());
+            if (!done) {
+                LOG.debug("AdminRancidUpdateController ModelAndView onSubmit error while updating status for{}/{}",
+                          bean.getGroupName(), bean.getDeviceName());
+            }
         }
         String redirectURL = request.getHeader("Referer");
         response.sendRedirect(redirectURL);
@@ -99,8 +110,7 @@ public class AdminRancidUpdateController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
-        throws ServletException {
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {
         LOG.debug("AdminRancidUpdateController initBinder");
     }
 

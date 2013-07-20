@@ -55,14 +55,18 @@ import org.xbill.DNS.Type;
 @Distributable
 public class DNSResolutionMonitor extends AbstractServiceMonitor {
 
-
     public static final Logger LOG = LoggerFactory.getLogger(DNSResolutionMonitor.class);
 
     public static final String RESOLUTION_TYPE_PARM = "resolution-type";
+
     public static final String RT_V4 = "v4";
+
     public static final String RT_V6 = "v6";
+
     public static final String RT_BOTH = "both";
+
     public static final String RT_EITHER = "either";
+
     public static final String RESOLUTION_TYPE_DEFAULT = RT_EITHER;
 
     @Override
@@ -74,7 +78,6 @@ public class DNSResolutionMonitor extends AbstractServiceMonitor {
         boolean requireV4 = RT_V4.equalsIgnoreCase(resolutionType) || RT_BOTH.equals(resolutionType);
         boolean requireV6 = RT_V6.equalsIgnoreCase(resolutionType) || RT_BOTH.equals(resolutionType);
 
-
         try {
             long start = System.currentTimeMillis();
             InetAddress[] addrs = resolve(nodeLabel);
@@ -82,11 +85,11 @@ public class DNSResolutionMonitor extends AbstractServiceMonitor {
 
             boolean v4found = false;
             boolean v6found = false;
-            for(InetAddress addr : addrs) {
+            for (InetAddress addr : addrs) {
                 LOG.debug("Resolved {} to {}", nodeLabel, addr);
                 if (addr instanceof Inet4Address) {
                     v4found = true;
-                } else if(addr instanceof Inet6Address) {
+                } else if (addr instanceof Inet6Address) {
                     v6found = true;
                 }
             }
@@ -107,10 +110,10 @@ public class DNSResolutionMonitor extends AbstractServiceMonitor {
                 return PollStatus.unavailable(reason);
             }
             LOG.debug("Resolved {} correctly!", nodeLabel);
-            return PollStatus.available((double)(end - start));
+            return PollStatus.available((double) (end - start));
 
         } catch (TextParseException e) {
-            String reason = "Unable to resolve "+nodeLabel+": "+e.getMessage();
+            String reason = "Unable to resolve " + nodeLabel + ": " + e.getMessage();
             LOG.debug(reason);
             return PollStatus.unavailable(reason);
         }
@@ -121,18 +124,19 @@ public class DNSResolutionMonitor extends AbstractServiceMonitor {
         Record[] aaaaRecords = new Lookup(hostname, Type.AAAA).run();
         Record[] aRecords = new Lookup(hostname, Type.A).run();
 
-        InetAddress[] addrs = new InetAddress[(aaaaRecords == null ? 0 : aaaaRecords.length)+(aRecords == null ? 0 : aRecords.length)];
+        InetAddress[] addrs = new InetAddress[(aaaaRecords == null ? 0 : aaaaRecords.length)
+                + (aRecords == null ? 0 : aRecords.length)];
 
         int index = 0;
         if (aaaaRecords != null) {
-            for(Record r : aaaaRecords) {
-                addrs[index++] = ((AAAARecord)r).getAddress();
+            for (Record r : aaaaRecords) {
+                addrs[index++] = ((AAAARecord) r).getAddress();
             }
         }
 
         if (aRecords != null) {
-            for(Record r : aRecords) {
-                addrs[index++] = ((ARecord)r).getAddress();
+            for (Record r : aRecords) {
+                addrs[index++] = ((ARecord) r).getAddress();
             }
         }
 

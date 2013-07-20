@@ -13,10 +13,11 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 public class StatusSelector {
-    private static class StatusSelectorOperation extends AbstractCheckedOperation{
+    private static class StatusSelectorOperation extends AbstractCheckedOperation {
 
         private StatusProvider m_statusProvider;
-        private Map<?,?> m_metaData;
+
+        private Map<?, ?> m_metaData;
 
         public StatusSelectorOperation(StatusProvider statusProvider, Map<?, ?> metaData) {
             m_statusProvider = statusProvider;
@@ -31,7 +32,7 @@ public class StatusSelector {
 
         private void execute(GraphContainer container) {
             LoggerFactory.getLogger(getClass()).debug("Active status provider is: {}", m_statusProvider);
-            if(isChecked(container)) {
+            if (isChecked(container)) {
                 container.setStatusProvider(StatusProvider.NULL);
             } else {
                 container.setStatusProvider(m_statusProvider);
@@ -51,19 +52,24 @@ public class StatusSelector {
         @Override
         protected boolean isChecked(GraphContainer container) {
             StatusProvider activeStatusProvider = container.getStatusProvider();
-            if (activeStatusProvider == null) container.setStatusProvider(m_statusProvider); // enable this status-provider
-            return !StatusProvider.NULL.equals(activeStatusProvider)  // not NULL-Provider
-                    && m_statusProvider.equals(activeStatusProvider); // but selected
+            if (activeStatusProvider == null)
+                container.setStatusProvider(m_statusProvider); // enable this
+                                                               // status-provider
+            return !StatusProvider.NULL.equals(activeStatusProvider) // not
+                                                                     // NULL-Provider
+                    && m_statusProvider.equals(activeStatusProvider); // but
+                                                                      // selected
         }
 
         @Override
-        public Map<String, String> createHistory(GraphContainer container){
-            return Collections.singletonMap(this.getClass().getName() + "." + getLabel(), Boolean.toString(isChecked(container)));
+        public Map<String, String> createHistory(GraphContainer container) {
+            return Collections.singletonMap(this.getClass().getName() + "." + getLabel(),
+                                            Boolean.toString(isChecked(container)));
         }
 
         @Override
         public void applyHistory(GraphContainer container, Map<String, String> settings) {
-            if("true".equals(settings.get(this.getClass().getName() + "." + getLabel()))) {
+            if ("true".equals(settings.get(this.getClass().getName() + "." + getLabel()))) {
                 execute(container);
             }
         }
@@ -74,14 +80,16 @@ public class StatusSelector {
     }
 
     private BundleContext m_bundleContext;
+
     private final Map<StatusProvider, StatusSelectorOperation> m_operations = new HashMap<StatusProvider, StatusSelectorOperation>();
+
     private final Map<StatusProvider, ServiceRegistration<CheckedOperation>> m_registrations = new HashMap<StatusProvider, ServiceRegistration<CheckedOperation>>();
 
     public void setBundleContext(BundleContext bundleContext) {
         m_bundleContext = bundleContext;
     }
 
-    public synchronized void addStatusProvider(StatusProvider statusProvider, Map<?,?> metaData) {
+    public synchronized void addStatusProvider(StatusProvider statusProvider, Map<?, ?> metaData) {
 
         LoggerFactory.getLogger(getClass()).debug("Adding status provider: " + statusProvider);
 
@@ -90,20 +98,21 @@ public class StatusSelector {
 
         Dictionary<String, String> properties = new Hashtable<String, String>();
         properties.put("operation.menuLocation", "View");
-        properties.put("operation.label", operation.getLabel()+"?group=status");
+        properties.put("operation.label", operation.getLabel() + "?group=status");
 
-        ServiceRegistration<CheckedOperation> reg = m_bundleContext.registerService(CheckedOperation.class, operation, properties);
+        ServiceRegistration<CheckedOperation> reg = m_bundleContext.registerService(CheckedOperation.class, operation,
+                                                                                    properties);
 
         m_registrations.put(statusProvider, reg);
     }
 
-    public synchronized void removeStatusProvider(StatusProvider statusProvider, Map<?,?> metaData) {
+    public synchronized void removeStatusProvider(StatusProvider statusProvider, Map<?, ?> metaData) {
         try {
             LoggerFactory.getLogger(getClass()).debug("Removing status provider: {}", statusProvider);
 
             m_operations.remove(statusProvider);
             ServiceRegistration<CheckedOperation> reg = m_registrations.remove(statusProvider);
-            if(reg != null) {
+            if (reg != null) {
                 reg.unregister();
             }
         } catch (Throwable e) {

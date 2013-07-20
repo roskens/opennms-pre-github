@@ -113,8 +113,9 @@ public class JiraTicketerPluginTest {
         assertEquals(ticket.getState(), newTicket.getState());
         assertEquals(ticket.getSummary(), newTicket.getSummary());
 
-        //TODO: Implement this later when we need 2 way retrieval of comments/details
-        //assertEquals(ticket.getDetails(), newTicket.getDetails());
+        // TODO: Implement this later when we need 2 way retrieval of
+        // comments/details
+        // assertEquals(ticket.getDetails(), newTicket.getDetails());
     }
 
     /**
@@ -123,7 +124,7 @@ public class JiraTicketerPluginTest {
     @Test
     public void testGet() {
 
-        //This may need to be changed ;-)
+        // This may need to be changed ;-)
         String ticketId = "NMS-1000";
         Ticket newTicket = m_ticketer.get(ticketId);
 
@@ -131,7 +132,8 @@ public class JiraTicketerPluginTest {
         assertEquals(ticketId, newTicket.getId());
         System.out.println(newTicket.getId() + ": " + newTicket.getSummary());
         // This was a bug about SQL exceptions
-        assertTrue("Unexpected summary: " + newTicket.getSummary(), newTicket.getSummary().startsWith("java.sql.SQLException"));
+        assertTrue("Unexpected summary: " + newTicket.getSummary(),
+                   newTicket.getSummary().startsWith("java.sql.SQLException"));
         assertEquals(Ticket.State.CLOSED, newTicket.getState());
 
         assertTrue("Unexpected details: " + newTicket.getDetails(), newTicket.getDetails().startsWith("Ted Kaczmarek"));

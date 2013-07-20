@@ -52,10 +52,8 @@ public class AddRefreshHeaderFilter extends Object implements Filter {
     protected String seconds = "108000"; // default is 30 mins
 
     /**
-     * {@inheritDoc}
-     *
-     * Adds a <em>Refresh</em> HTTP header before processing the request.
-     *
+     * {@inheritDoc} Adds a <em>Refresh</em> HTTP header before processing the
+     * request.
      * <p>
      * This is a strange implementation, because intuitively, you would add the
      * header after the content has been produced (in other words, after you had
@@ -68,7 +66,8 @@ public class AddRefreshHeaderFilter extends Object implements Filter {
      * </p>
      */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
+            ServletException {
         ((HttpServletResponse) response).setHeader("Refresh", this.seconds);
         chain.doFilter(request, response);
     }
@@ -89,7 +88,9 @@ public class AddRefreshHeaderFilter extends Object implements Filter {
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      */
     @Override
     public void destroy() {

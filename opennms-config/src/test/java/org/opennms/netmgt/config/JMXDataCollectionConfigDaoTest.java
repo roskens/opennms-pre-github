@@ -72,7 +72,8 @@ public class JMXDataCollectionConfigDaoTest {
     /**
      * Test after properties set with bogus file resource.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testAfterPropertiesSetWithBogusFileResource() throws Exception {
@@ -94,13 +95,15 @@ public class JMXDataCollectionConfigDaoTest {
     /**
      * Test after properties set with good configuration file.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testAfterPropertiesSetWithGoodConfigFile() throws Exception {
         JMXDataCollectionConfigDao dao = new JMXDataCollectionConfigDao();
 
-        File jmxCollectionConfig= new File("src/test/resources/org/opennms/netmgt/config/jmx-datacollection-testdata.xml");
+        File jmxCollectionConfig = new File(
+                                            "src/test/resources/org/opennms/netmgt/config/jmx-datacollection-testdata.xml");
         assertTrue("JMX configuration file is readable", jmxCollectionConfig.canRead());
         InputStream in = new FileInputStream(jmxCollectionConfig);
 
@@ -111,16 +114,18 @@ public class JMXDataCollectionConfigDaoTest {
     }
 
     /**
-     * Test after properties set with nested files (external references to XML groups).
+     * Test after properties set with nested files (external references to XML
+     * groups).
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testAfterPropertiesSetWithNestedFiles() throws Exception {
         System.setProperty("opennms.home", "src/test/resources");
         JMXDataCollectionConfigDao dao = new JMXDataCollectionConfigDao();
 
-        File jmxCollectionConfig= new File("src/test/resources/etc/jmx-datacollection-split.xml");
+        File jmxCollectionConfig = new File("src/test/resources/etc/jmx-datacollection-split.xml");
         assertTrue("JMX configuration file is not readable", jmxCollectionConfig.canRead());
         InputStream in = new FileInputStream(jmxCollectionConfig);
 

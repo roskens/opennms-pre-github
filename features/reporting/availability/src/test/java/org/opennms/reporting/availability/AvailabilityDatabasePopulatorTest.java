@@ -58,111 +58,116 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-availabilityDatabasePopulator.xml",
-        "classpath:META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AvailabilityDatabasePopulatorTest implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(AvailabilityDatabasePopulatorTest.class);
 
-	@Autowired
-	AvailabilityDatabasePopulator m_dbPopulator;
+    @Autowired
+    AvailabilityDatabasePopulator m_dbPopulator;
 
-	@Autowired
-	NodeDao m_nodeDao;
+    @Autowired
+    NodeDao m_nodeDao;
 
-	@Autowired
-	ServiceTypeDao m_serviceTypeDao;
+    @Autowired
+    ServiceTypeDao m_serviceTypeDao;
 
-	@Autowired
-	IpInterfaceDao m_ipInterfaceDao;
+    @Autowired
+    IpInterfaceDao m_ipInterfaceDao;
 
-	@Autowired
-	OutageDao m_outageDao;
+    @Autowired
+    OutageDao m_outageDao;
 
-	@Autowired
-	SimpleJdbcTemplate m_template;
+    @Autowired
+    SimpleJdbcTemplate m_template;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Before
-	public void setUp() throws Exception {
-		m_dbPopulator.populateDatabase();
-	}
+    @Before
+    public void setUp() throws Exception {
+        m_dbPopulator.populateDatabase();
+    }
 
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	@Transactional
-	public void testAvailabilityDatabase() throws Exception {
+    /**
+     * @throws Exception
+     */
+    @Test
+    @Transactional
+    public void testAvailabilityDatabase() throws Exception {
 
-		List<OnmsNode> nodes = m_nodeDao.findAll();
-		for (OnmsNode node : nodes) {
-			m_nodeDao.initialize(node);
-			m_nodeDao.initialize(node.getDistPoller());
-		}
-		for (OnmsNode node : nodes) {
-			System.err.println("NODE "+ node.toString());
-		}
-		List<OnmsIpInterface> ifs = m_ipInterfaceDao.findAll();
-		for (OnmsIpInterface iface : ifs) {
-			System.err.println("INTERFACE "+ iface.toString());
-		}
-		Assert.assertEquals("node DB count", 2, m_nodeDao.countAll());
-		Assert.assertEquals("service DB count", 3, m_serviceTypeDao.countAll());
-		Assert.assertEquals("IP interface DB count", 3, m_ipInterfaceDao.countAll());
-		Assert.assertEquals("outages DB Count",6 ,m_outageDao.countAll());
+        List<OnmsNode> nodes = m_nodeDao.findAll();
+        for (OnmsNode node : nodes) {
+            m_nodeDao.initialize(node);
+            m_nodeDao.initialize(node.getDistPoller());
+        }
+        for (OnmsNode node : nodes) {
+            System.err.println("NODE " + node.toString());
+        }
+        List<OnmsIpInterface> ifs = m_ipInterfaceDao.findAll();
+        for (OnmsIpInterface iface : ifs) {
+            System.err.println("INTERFACE " + iface.toString());
+        }
+        Assert.assertEquals("node DB count", 2, m_nodeDao.countAll());
+        Assert.assertEquals("service DB count", 3, m_serviceTypeDao.countAll());
+        Assert.assertEquals("IP interface DB count", 3, m_ipInterfaceDao.countAll());
+        Assert.assertEquals("outages DB Count", 6, m_outageDao.countAll());
 
-		final OnmsIpInterface oneHundredDotOne = m_ipInterfaceDao.findByNodeIdAndIpAddress(1, "192.168.100.1");
+        final OnmsIpInterface oneHundredDotOne = m_ipInterfaceDao.findByNodeIdAndIpAddress(1, "192.168.100.1");
 
-		try {
-			List<OnmsMonitoredService> stmt = m_template.query(
-					"SELECT ifServices.serviceid, service.servicename FROM ifServices, ipInterface, node, " + "service WHERE ((ifServices.nodeid = 1 )" +
-					"AND (ifServices.ipaddr = '192.168.100.1') AND ipinterface.ipaddr = '192.168.100.1' AND ipinterface.isManaged ='M' AND " +
-					"(ifServices.serviceid = service.serviceid) AND (ifservices.status = 'A')) AND node.nodeid = 1 AND node.nodetype = 'A'",
-					new RowMapper<OnmsMonitoredService>() {
-                                                @Override
-						public OnmsMonitoredService mapRow(ResultSet rs, int rowNum) throws SQLException {
-							OnmsMonitoredService retval = new OnmsMonitoredService(oneHundredDotOne, m_serviceTypeDao.findByName(rs.getString("servicename")));
-							return retval;
-						}
-					}
-			);
-			// ResultSet srs = stmt.executeQuery("SELECT ipInterface.ipaddr, ipInterface.nodeid FROM ipInterface WHERE ipInterface.ipaddr = '192.168.100.1'" );
-			Assert.assertTrue("interface results for 192.168.100.2", stmt.size() > 0);
-			Assert.assertEquals(new Integer(1) ,stmt.get(0).getServiceId());
-		} catch (Exception e) {
-			LOG.error("unable to execute SQL", e);
-			throw e;
-		}
+        try {
+            List<OnmsMonitoredService> stmt = m_template.query("SELECT ifServices.serviceid, service.servicename FROM ifServices, ipInterface, node, "
+                                                                       + "service WHERE ((ifServices.nodeid = 1 )"
+                                                                       + "AND (ifServices.ipaddr = '192.168.100.1') AND ipinterface.ipaddr = '192.168.100.1' AND ipinterface.isManaged ='M' AND "
+                                                                       + "(ifServices.serviceid = service.serviceid) AND (ifservices.status = 'A')) AND node.nodeid = 1 AND node.nodetype = 'A'",
+                                                               new RowMapper<OnmsMonitoredService>() {
+                                                                   @Override
+                                                                   public OnmsMonitoredService mapRow(ResultSet rs,
+                                                                           int rowNum) throws SQLException {
+                                                                       OnmsMonitoredService retval = new OnmsMonitoredService(
+                                                                                                                              oneHundredDotOne,
+                                                                                                                              m_serviceTypeDao.findByName(rs.getString("servicename")));
+                                                                       return retval;
+                                                                   }
+                                                               });
+            // ResultSet srs =
+            // stmt.executeQuery("SELECT ipInterface.ipaddr, ipInterface.nodeid FROM ipInterface WHERE ipInterface.ipaddr = '192.168.100.1'"
+            // );
+            Assert.assertTrue("interface results for 192.168.100.2", stmt.size() > 0);
+            Assert.assertEquals(new Integer(1), stmt.get(0).getServiceId());
+        } catch (Exception e) {
+            LOG.error("unable to execute SQL", e);
+            throw e;
+        }
 
-		/*
-		Assert.assertEquals("node DB count", 2, m_db.countRows("select * from node"));
-		Assert.assertEquals("service DB count", 3,
-				m_db.countRows("select * from service"));
-		Assert.assertEquals("ipinterface DB count", 3,
-				m_db.countRows("select * from ipinterface"));
-		Assert.assertEquals("interface services DB count", 3,
-				m_db.countRows("select * from ifservices"));
-		// Assert.assertEquals("outages DB count", 3, m_db.countRows("select * from
-		// outages"));
-		Assert.assertEquals(
-				"ip interface DB count where ipaddr = 192.168.100.1",
-				1,
-				m_db.countRows("select * from ipinterface where ipaddr = '192.168.100.1'"));
-		Assert.assertEquals(
-				"number of interfaces returned from IPLIKE",
-				3,
-				m_db.countRows("select * from ipinterface where iplike(ipaddr,'192.168.100.*')"));
-		 */
-	}
+        /*
+         * Assert.assertEquals("node DB count", 2,
+         * m_db.countRows("select * from node"));
+         * Assert.assertEquals("service DB count", 3,
+         * m_db.countRows("select * from service"));
+         * Assert.assertEquals("ipinterface DB count", 3,
+         * m_db.countRows("select * from ipinterface"));
+         * Assert.assertEquals("interface services DB count", 3,
+         * m_db.countRows("select * from ifservices"));
+         * // Assert.assertEquals("outages DB count", 3, m_db.countRows("select
+         * * from
+         * // outages"));
+         * Assert.assertEquals(
+         * "ip interface DB count where ipaddr = 192.168.100.1",
+         * 1,
+         * m_db.countRows("select * from ipinterface where ipaddr = '192.168.100.1'"
+         * ));
+         * Assert.assertEquals(
+         * "number of interfaces returned from IPLIKE",
+         * 3,
+         * m_db.countRows(
+         * "select * from ipinterface where iplike(ipaddr,'192.168.100.*')"));
+         */
+    }
 }

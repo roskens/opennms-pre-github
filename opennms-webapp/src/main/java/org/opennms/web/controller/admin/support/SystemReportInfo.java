@@ -40,9 +40,10 @@ public class SystemReportInfo implements Serializable {
      *
      */
     private static final long serialVersionUID = 4803853030354121419L;
-    private final List<SystemReportPlugin> m_plugins;
-    private final List<SystemReportFormatter> m_formatters;
 
+    private final List<SystemReportPlugin> m_plugins;
+
+    private final List<SystemReportFormatter> m_formatters;
 
     public SystemReportInfo(final List<SystemReportFormatter> formatters, final List<SystemReportPlugin> plugins) {
         m_formatters = formatters;
@@ -66,9 +67,6 @@ public class SystemReportInfo implements Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("formatters", m_formatters)
-            .append("plugins", m_plugins)
-            .toString();
+        return new ToStringBuilder(this).append("formatters", m_formatters).append("plugins", m_plugins).toString();
     }
 }

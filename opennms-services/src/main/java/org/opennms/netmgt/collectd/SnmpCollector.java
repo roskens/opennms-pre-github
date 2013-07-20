@@ -85,30 +85,23 @@ public class SnmpCollector implements ServiceCollector {
      * SQL statement to retrieve snmpifaliases and snmpifindexes for a given
      * node.
      */
-    static final String SQL_GET_SNMPIFALIASES = "SELECT snmpifalias "
-        + "FROM snmpinterface "
-        + "WHERE nodeid=? "
-        + "AND snmpifindex = ? "
-        + "AND snmpifalias != ''";
+    static final String SQL_GET_SNMPIFALIASES = "SELECT snmpifalias " + "FROM snmpinterface " + "WHERE nodeid=? "
+            + "AND snmpifindex = ? " + "AND snmpifalias != ''";
 
     /**
      * SQL statement to retrieve most recent forced rescan eventid for a node.
      */
-    static final String SQL_GET_LATEST_FORCED_RESCAN_EVENTID = "SELECT eventid "
-        + "FROM events "
-        + "WHERE (nodeid=? OR ipaddr=?) "
-        + "AND eventuei='" + EventConstants.FORCE_RESCAN_EVENT_UEI + "' "
-        + "ORDER BY eventid DESC " + "LIMIT 1";
+    static final String SQL_GET_LATEST_FORCED_RESCAN_EVENTID = "SELECT eventid " + "FROM events "
+            + "WHERE (nodeid=? OR ipaddr=?) " + "AND eventuei='" + EventConstants.FORCE_RESCAN_EVENT_UEI + "' "
+            + "ORDER BY eventid DESC " + "LIMIT 1";
 
     /**
      * SQL statement to retrieve most recent rescan completed eventid for a
      * node.
      */
-    static final String SQL_GET_LATEST_RESCAN_COMPLETED_EVENTID = "SELECT eventid "
-        + "FROM events "
-        + "WHERE nodeid=? "
-        + "AND eventuei='" + EventConstants.RESCAN_COMPLETED_EVENT_UEI + "' "
-        + "ORDER BY eventid DESC " + "LIMIT 1";
+    static final String SQL_GET_LATEST_RESCAN_COMPLETED_EVENTID = "SELECT eventid " + "FROM events "
+            + "WHERE nodeid=? " + "AND eventuei='" + EventConstants.RESCAN_COMPLETED_EVENT_UEI + "' "
+            + "ORDER BY eventid DESC " + "LIMIT 1";
 
     /**
      * Object identifier used to retrieve interface count. This is the MIB-II
@@ -139,8 +132,9 @@ public class SnmpCollector implements ServiceCollector {
      * kept relatively small in order to communicate successfully with the
      * largest possible number of agents.
      *
-     * @deprecated If not configured in SNMP collector configuration, use agent's
-     * setting for defaults are now determined there.
+     * @deprecated If not configured in SNMP collector configuration, use
+     *             agent's
+     *             setting for defaults are now determined there.
      */
     static int DEFAULT_MAX_VARS_PER_PDU = 30;
 
@@ -193,58 +187,60 @@ public class SnmpCollector implements ServiceCollector {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Initialize the service collector. During initialization the SNMP
+     * {@inheritDoc} Initialize the service collector. During initialization the
+     * SNMP
      * collector:
      * <ul>
      * <li>Initializes various configuration factories.</li>
      * <li>Verifies access to the database.</li>
      * <li>Verifies access to RRD file repository.</li>
      * <li>Verifies access to JNI RRD shared library.</li>
-     * <li>Determines if SNMP to be stored for only the node's primary
-     * interface or for all interfaces.</li>
+     * <li>Determines if SNMP to be stored for only the node's primary interface
+     * or for all interfaces.</li>
      * </ul>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                plug-in from functioning.
      */
     @Override
     public void initialize(Map<String, String> parameters) {
-    	initSnmpPeerFactory();
-        //initDataCollectionConfig();
+        initSnmpPeerFactory();
+        // initDataCollectionConfig();
         initDatabaseConnectionFactory();
 
         // Get path to RRD repository
-        //initializeRrdRepository();
+        // initializeRrdRepository();
 
     }
 
-    /*private void initializeRrdRepository() {
-
-        initializeRrdDirs();
-
-        initializeRrdInterface();
-    }
-
-    private void initializeRrdDirs() {
-        File f = new File(DataCollectionConfigFactory.getInstance().getRrdPath());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new CollectionInitializationException("Unable to create RRD file "
-                                           + "repository.  Path doesn't already exist and could not make directory: " + DataCollectionConfigFactory.getInstance().getRrdPath());
-            }
-        }
-    }
-
-    private void initializeRrdInterface() {
-        try {
-            RrdUtils.initialize();
-        } catch (RrdException e) {
-            log().error("initializeRrdInterface: Unable to initialize RrdUtils", e);
-            throw new CollectionInitializationException("Unable to initialize RrdUtils", e);
-        }
-    }*/
+    /*
+     * private void initializeRrdRepository() {
+     * initializeRrdDirs();
+     * initializeRrdInterface();
+     * }
+     * private void initializeRrdDirs() {
+     * File f = new
+     * File(DataCollectionConfigFactory.getInstance().getRrdPath());
+     * if (!f.isDirectory()) {
+     * if (!f.mkdirs()) {
+     * throw new CollectionInitializationException("Unable to create RRD file "
+     * +
+     * "repository.  Path doesn't already exist and could not make directory: "
+     * + DataCollectionConfigFactory.getInstance().getRrdPath());
+     * }
+     * }
+     * }
+     * private void initializeRrdInterface() {
+     * try {
+     * RrdUtils.initialize();
+     * } catch (RrdException e) {
+     * log().error("initializeRrdInterface: Unable to initialize RrdUtils", e);
+     * throw new
+     * CollectionInitializationException("Unable to initialize RrdUtils", e);
+     * }
+     * }
+     */
 
     private void initDatabaseConnectionFactory() {
         try {
@@ -271,15 +267,17 @@ public class SnmpCollector implements ServiceCollector {
     }
 
     /*
-    private void initDataCollectionConfig() {
-        try {
-            DataCollectionConfigFactory.init();
-        } catch (Throwable e) {
-            log().fatal("initDataCollectionConfig: Failed to load data collection configuration", e);
-            throw new UndeclaredThrowableException(e);
-        }
-    }
-    */
+     * private void initDataCollectionConfig() {
+     * try {
+     * DataCollectionConfigFactory.init();
+     * } catch (Throwable e) {
+     * log().fatal(
+     * "initDataCollectionConfig: Failed to load data collection configuration",
+     * e);
+     * throw new UndeclaredThrowableException(e);
+     * }
+     * }
+     */
 
     private void initSnmpPeerFactory() {
         try {
@@ -299,27 +297,28 @@ public class SnmpCollector implements ServiceCollector {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Responsible for performing all necessary initialization for the specified
+     * {@inheritDoc} Responsible for performing all necessary initialization for
+     * the specified
      * interface in preparation for data collection.
+     *
      * @throws CollectionInitializationException
      */
     @Override
-    public void initialize(CollectionAgent agent, Map<String, Object> parameters) throws CollectionInitializationException {
+    public void initialize(CollectionAgent agent, Map<String, Object> parameters)
+            throws CollectionInitializationException {
         agent.validateAgent();
 
         // XXX: Experimental code that creates an OnmsSnmpCollection only once
-//        ServiceParameters params = new ServiceParameters(parameters);
-//        agent.setAttribute("SNMP_COLLECTION", new OnmsSnmpCollection(agent, params));
-//
-//        params.logIfAliasConfig();
+        // ServiceParameters params = new ServiceParameters(parameters);
+        // agent.setAttribute("SNMP_COLLECTION", new OnmsSnmpCollection(agent,
+        // params));
+        //
+        // params.logIfAliasConfig();
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Responsible for releasing any resources associated with the specified
+     * {@inheritDoc} Responsible for releasing any resources associated with the
+     * specified
      * interface.
      */
     @Override
@@ -328,18 +327,19 @@ public class SnmpCollector implements ServiceCollector {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Perform data collection.
+     * {@inheritDoc} Perform data collection.
      */
     @Override
-    public CollectionSet collect(CollectionAgent agent, EventProxy eventProxy, Map<String, Object> parameters) throws CollectionException {
+    public CollectionSet collect(CollectionAgent agent, EventProxy eventProxy, Map<String, Object> parameters)
+            throws CollectionException {
         try {
             // XXX: Experimental code that reuses the OnmsSnmpCollection
-            // OnmsSnmpCollection snmpCollection = (OnmsSnmpCollection)agent.getAttribute("SNMP_COLLECTION");
+            // OnmsSnmpCollection snmpCollection =
+            // (OnmsSnmpCollection)agent.getAttribute("SNMP_COLLECTION");
             // ServiceParameters params = snmpCollection.getServiceParameters();
 
-            // XXX: This code would be commented out in light if the experimental code above was enabled
+            // XXX: This code would be commented out in light if the
+            // experimental code above was enabled
             final ServiceParameters params = new ServiceParameters(parameters);
             params.logIfAliasConfig();
             OnmsSnmpCollection snmpCollection = new OnmsSnmpCollection(agent, params);
@@ -353,71 +353,96 @@ public class SnmpCollector implements ServiceCollector {
                 // should we return here?
             }
 
-            Collectd.instrumentation().beginCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
+            Collectd.instrumentation().beginCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(),
+                                                                  collectionSet.getCollectionAgent().getHostAddress(),
+                                                                  serviceName());
             try {
                 collectionSet.collect();
 
                 /*
-                 * FIXME: Should we even be doing this? I say we get rid of this force rescan thingie
+                 * FIXME: Should we even be doing this? I say we get rid of this
+                 * force rescan thingie
                  * {@see http://issues.opennms.org/browse/NMS-1057}
                  */
                 if (System.getProperty("org.opennms.netmgt.collectd.SnmpCollector.forceRescan", "false").equalsIgnoreCase("true")
                         && collectionSet.rescanNeeded()) {
                     /*
-                     * TODO: the behavior of this object may have been re-factored away.
-                     * Verify that this is correct and remove this unused object if it
-                     * is no longer needed.  My gut thinks this should be investigated.
+                     * TODO: the behavior of this object may have been
+                     * re-factored away.
+                     * Verify that this is correct and remove this unused object
+                     * if it
+                     * is no longer needed. My gut thinks this should be
+                     * investigated.
                      */
                     forceRescanState.rescanIndicated();
                 }
                 /**
                  * Persistence is now done by the BasePersister visitor
+                 *
                  * @see CollectableService#doCollection()
                  * @see CollectionSet#visit(BasePersister visitor)
                  */
-                //persistData(params, collectionSet);
+                // persistData(params, collectionSet);
                 return collectionSet;
             } finally {
-                Collectd.instrumentation().endCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
+                Collectd.instrumentation().endCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(),
+                                                                    collectionSet.getCollectionAgent().getHostAddress(),
+                                                                    serviceName());
             }
         } catch (CollectionException e) {
-            Collectd.instrumentation().reportCollectionException(agent.getNodeId(), agent.getHostAddress(), serviceName(), e);
+            Collectd.instrumentation().reportCollectionException(agent.getNodeId(), agent.getHostAddress(),
+                                                                 serviceName(), e);
 
             throw e;
         } catch (Throwable t) {
-            throw new CollectionException("Unexpected error during node SNMP collection for: " + agent.getHostAddress(), t);
+            throw new CollectionException(
+                                          "Unexpected error during node SNMP collection for: " + agent.getHostAddress(),
+                                          t);
         }
     }
 
-    /*private void persistData(ServiceParameters params, SnmpCollectionSet collectionSet) {
-        Collectd.instrumentation().beginPersistingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
-        try {
-            collectionSet.saveAttributes(params);
-        } finally {
-            Collectd.instrumentation().endPersistingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
-        }
-    }*/
+    /*
+     * private void persistData(ServiceParameters params, SnmpCollectionSet
+     * collectionSet) {
+     * Collectd.instrumentation().beginPersistingServiceData(collectionSet.
+     * getCollectionAgent().getNodeId(),
+     * collectionSet.getCollectionAgent().getHostAddress(), serviceName());
+     * try {
+     * collectionSet.saveAttributes(params);
+     * } finally {
+     * Collectd.instrumentation().endPersistingServiceData(collectionSet.
+     * getCollectionAgent().getNodeId(),
+     * collectionSet.getCollectionAgent().getHostAddress(), serviceName());
+     * }
+     * }
+     */
 
-    /*private void collectData(SnmpCollectionSet collectionSet) throws CollectionWarning {
-        Collectd.instrumentation().beginCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
-        try {
-            collectionSet.collect();
-        } finally {
-            Collectd.instrumentation().endCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
-        }
-    }*/
+    /*
+     * private void collectData(SnmpCollectionSet collectionSet) throws
+     * CollectionWarning {
+     * Collectd.instrumentation().beginCollectingServiceData(collectionSet.
+     * getCollectionAgent().getNodeId(),
+     * collectionSet.getCollectionAgent().getHostAddress(), serviceName());
+     * try {
+     * collectionSet.collect();
+     * } finally {
+     * Collectd.instrumentation().endCollectingServiceData(collectionSet.
+     * getCollectionAgent().getNodeId(),
+     * collectionSet.getCollectionAgent().getHostAddress(), serviceName());
+     * }
+     * }
+     */
 
     private void logNoDataToCollect(CollectionAgent agent) {
         LOG.info("agent {} defines no data to collect.  Skipping.", agent);
     }
 
-
-
     // Unused
-//    int unexpected(CollectionAgent agent, Throwable t) {
-//        log().error("Unexpected error during node SNMP collection for " + agent.getHostAddress(), t);
-//        return ServiceCollector.COLLECTION_FAILED;
-//    }
+    // int unexpected(CollectionAgent agent, Throwable t) {
+    // log().error("Unexpected error during node SNMP collection for " +
+    // agent.getHostAddress(), t);
+    // return ServiceCollector.COLLECTION_FAILED;
+    // }
 
     /** {@inheritDoc} */
     @Override

@@ -57,20 +57,23 @@ public class Service {
         setIpAddress(InetAddressUtils.str(monSvc.getIpAddress()));
         setServiceId(monSvc.getServiceId());
         setServiceName(monSvc.getServiceName());
-        if(monSvc.getLastGood() != null) {
-           setLastGood(monSvc.getLastGood().toString());
+        if (monSvc.getLastGood() != null) {
+            setLastGood(monSvc.getLastGood().toString());
         }
-        if(monSvc.getLastFail() != null) {
+        if (monSvc.getLastFail() != null) {
             setLastFail(monSvc.getLastFail().toString());
         }
         setNotify(monSvc.getNotify());
-        if(monSvc.getStatus() != null) {
+        if (monSvc.getStatus() != null) {
             setStatus(monSvc.getStatus().charAt(0));
         }
 
     }
+
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a int.
      */
@@ -79,7 +82,9 @@ public class Service {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -88,7 +93,9 @@ public class Service {
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -97,7 +104,9 @@ public class Service {
     }
 
     /**
-     * <p>getServiceId</p>
+     * <p>
+     * getServiceId
+     * </p>
      *
      * @return a int.
      */
@@ -106,7 +115,9 @@ public class Service {
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -115,7 +126,9 @@ public class Service {
     }
 
     /**
-     * <p>getLastGood</p>
+     * <p>
+     * getLastGood
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,7 +137,9 @@ public class Service {
     }
 
     /**
-     * <p>getLastFail</p>
+     * <p>
+     * getLastFail
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -133,7 +148,9 @@ public class Service {
     }
 
     /**
-     * <p>getNotify</p>
+     * <p>
+     * getNotify
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -142,7 +159,9 @@ public class Service {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a char.
      */
@@ -151,7 +170,9 @@ public class Service {
     }
 
     /**
-     * <p>isManaged</p>
+     * <p>
+     * isManaged
+     * </p>
      *
      * @return a boolean.
      */
@@ -160,7 +181,9 @@ public class Service {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

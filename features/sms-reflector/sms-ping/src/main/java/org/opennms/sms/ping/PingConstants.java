@@ -38,6 +38,7 @@ public interface PingConstants {
 
     /** Constant <code>DEFAULT_RETRIES=2</code> */
     public static final int DEFAULT_RETRIES = 2;
+
     /** Constant <code>DEFAULT_TIMEOUT=60000</code> */
     public static final int DEFAULT_TIMEOUT = 60000;
 

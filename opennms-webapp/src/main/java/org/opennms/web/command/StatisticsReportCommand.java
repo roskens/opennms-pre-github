@@ -29,7 +29,8 @@
 package org.opennms.web.command;
 
 /**
- * Command object for listing a specific statistics report. This object deserializes query params
+ * Command object for listing a specific statistics report. This object
+ * deserializes query params
  * for a specific report, identified by integer ID.
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -40,7 +41,9 @@ public class StatisticsReportCommand {
     private Integer m_id;
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -49,9 +52,12 @@ public class StatisticsReportCommand {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;

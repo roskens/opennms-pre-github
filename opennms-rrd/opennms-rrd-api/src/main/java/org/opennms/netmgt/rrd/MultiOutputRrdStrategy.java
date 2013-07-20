@@ -38,15 +38,19 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * <p>MultiOutputRrdStrategy class.</p>
+ * <p>
+ * MultiOutputRrdStrategy class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Object>> {
+public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Object>> {
 
-    private final List<RrdStrategy<Object,Object>> m_strategies = new ArrayList<RrdStrategy<Object,Object>>();
+    private final List<RrdStrategy<Object, Object>> m_strategies = new ArrayList<RrdStrategy<Object, Object>>();
+
     private int m_graphStrategyIndex;
+
     private int m_fetchStrategyIndex;
 
     /** {@inheritDoc} */
@@ -56,7 +60,9 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /**
-     * <p>getDelegates</p>
+     * <p>
+     * getDelegates
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -65,18 +71,24 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /**
-     * <p>setDelegates</p>
+     * <p>
+     * setDelegates
+     * </p>
      *
-     * @param delegates a {@link java.util.List} object.
+     * @param delegates
+     *            a {@link java.util.List} object.
      */
     public void setDelegates(final List<RrdStrategy<Object, Object>> delegates) {
-        if (m_strategies == delegates) return;
+        if (m_strategies == delegates)
+            return;
         m_strategies.clear();
         m_strategies.addAll(delegates);
     }
 
     /**
-     * <p>getGraphStrategyIndex</p>
+     * <p>
+     * getGraphStrategyIndex
+     * </p>
      *
      * @return a int.
      */
@@ -85,16 +97,21 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /**
-     * <p>setGraphStrategyIndex</p>
+     * <p>
+     * setGraphStrategyIndex
+     * </p>
      *
-     * @param graphStrategyIndex a int.
+     * @param graphStrategyIndex
+     *            a int.
      */
     public void setGraphStrategyIndex(int graphStrategyIndex) {
         this.m_graphStrategyIndex = graphStrategyIndex;
     }
 
     /**
-     * <p>getFetchStrategyIndex</p>
+     * <p>
+     * getFetchStrategyIndex
+     * </p>
      *
      * @return a int.
      */
@@ -103,19 +120,26 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /**
-     * <p>setFetchStrategyIndex</p>
+     * <p>
+     * setFetchStrategyIndex
+     * </p>
      *
-     * @param fetchStrategyIndex a int.
+     * @param fetchStrategyIndex
+     *            a int.
      */
     public void setFetchStrategyIndex(int fetchStrategyIndex) {
         this.m_fetchStrategyIndex = fetchStrategyIndex;
     }
 
     /**
-     * <p>closeFile</p>
+     * <p>
+     * closeFile
+     * </p>
      *
-     * @param rrd a {@link java.util.List} object.
-     * @throws java.lang.Exception if any.
+     * @param rrd
+     *            a {@link java.util.List} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void closeFile(List<Object> rrd) throws Exception {
@@ -126,9 +150,8 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
 
     /** {@inheritDoc} */
     @Override
-    public List<Object> createDefinition(String creator, String directory, String rrdName,
-            int step, List<RrdDataSource> dataSources, List<String> rraList)
-            throws Exception {
+    public List<Object> createDefinition(String creator, String directory, String rrdName, int step,
+            List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         List<Object> retval = new ArrayList<Object>();
         for (RrdStrategy<Object, Object> strategy : m_strategies) {
             retval.add(strategy.createDefinition(creator, directory, rrdName, step, dataSources, rraList));
@@ -146,42 +169,40 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
 
     /** {@inheritDoc} */
     @Override
-    public InputStream createGraph(String command, File workDir)
-    throws IOException, RrdException {
+    public InputStream createGraph(String command, File workDir) throws IOException, RrdException {
         return m_strategies.get(m_graphStrategyIndex).createGraph(command, workDir);
     }
 
     /** {@inheritDoc} */
     @Override
-    public RrdGraphDetails createGraphReturnDetails(String command, File workDir)
-    throws IOException, RrdException {
+    public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, RrdException {
         return m_strategies.get(m_graphStrategyIndex).createGraphReturnDetails(command, workDir);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, int interval)
-    throws NumberFormatException, RrdException {
+    public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException {
         return m_strategies.get(m_fetchStrategyIndex).fetchLastValue(rrdFile, ds, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds,
-            String consolidationFunction, int interval)
-    throws NumberFormatException, RrdException {
+    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval)
+            throws NumberFormatException, RrdException {
         return m_strategies.get(m_fetchStrategyIndex).fetchLastValue(rrdFile, ds, consolidationFunction, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds,
-            int interval, int range) throws NumberFormatException, RrdException {
+    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
+            throws NumberFormatException, RrdException {
         return m_strategies.get(m_fetchStrategyIndex).fetchLastValueInRange(rrdFile, ds, interval, range);
     }
 
     /**
-     * <p>getDefaultFileExtension</p>
+     * <p>
+     * getDefaultFileExtension
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -191,7 +212,9 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /**
-     * <p>getGraphLeftOffset</p>
+     * <p>
+     * getGraphLeftOffset
+     * </p>
      *
      * @return a int.
      */
@@ -201,7 +224,9 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /**
-     * <p>getGraphRightOffset</p>
+     * <p>
+     * getGraphRightOffset
+     * </p>
      *
      * @return a int.
      */
@@ -211,7 +236,9 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /**
-     * <p>getGraphTopOffsetWithText</p>
+     * <p>
+     * getGraphTopOffsetWithText
+     * </p>
      *
      * @return a int.
      */
@@ -221,7 +248,9 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
     }
 
     /**
-     * <p>getStats</p>
+     * <p>
+     * getStats
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

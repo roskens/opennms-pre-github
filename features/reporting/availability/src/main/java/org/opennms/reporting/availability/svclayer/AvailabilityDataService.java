@@ -33,19 +33,29 @@ import java.util.List;
 import org.opennms.reporting.datablock.Node;
 
 /**
- * <p>AvailabilityDataService interface.</p>
+ * <p>
+ * AvailabilityDataService interface.
+ * </p>
  */
 public interface AvailabilityDataService {
 
     /**
-     * <p>getNodes</p>
+     * <p>
+     * getNodes
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.config.categories.Category} object.
-     * @param startTime a long.
-     * @param endTime a long.
+     * @param category
+     *            a {@link org.opennms.netmgt.config.categories.Category}
+     *            object.
+     * @param startTime
+     *            a long.
+     * @param endTime
+     *            a long.
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.reporting.availability.svclayer.AvailabilityDataServiceException if any.
+     * @throws org.opennms.reporting.availability.svclayer.AvailabilityDataServiceException
+     *             if any.
      */
-    public List<Node> getNodes(org.opennms.netmgt.config.categories.Category category, long startTime, long endTime) throws AvailabilityDataServiceException;
+    public List<Node> getNodes(org.opennms.netmgt.config.categories.Category category, long startTime, long endTime)
+            throws AvailabilityDataServiceException;
 
 }

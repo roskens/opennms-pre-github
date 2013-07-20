@@ -50,7 +50,8 @@ public class DashboardView extends DashboardLayout implements View {
     /**
      * Method invoked when the view is entered.
      *
-     * @param event the view change event
+     * @param event
+     *            the view change event
      */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {

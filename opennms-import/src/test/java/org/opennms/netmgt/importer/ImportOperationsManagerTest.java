@@ -76,39 +76,45 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml",
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class ImportOperationsManagerTest implements InitializingBean {
-    private static final String TEST_IP_ADDRESS="127.0.0.1";
-    private static final int TEST_PORT=1691;
+    private static final String TEST_IP_ADDRESS = "127.0.0.1";
+
+    private static final int TEST_PORT = 1691;
 
     @Autowired
     DatabasePopulator m_populator;
+
     @Autowired
     TransactionTemplate m_transTemplate;
+
     @Autowired
     DistPollerDao m_distPollerDao;
+
     @Autowired
     NodeDao m_nodeDao;
+
     @Autowired
     ServiceTypeDao m_serviceTypeDao;
+
     @Autowired
     CategoryDao m_categoryDao;
+
     @Autowired
     IpInterfaceDao m_ipInterfaceDao;
+
     @Autowired
     SnmpInterfaceDao m_snmpInterfaceDao;
+
     @Autowired
-	private SnmpPeerFactory m_snmpPeerFactory;
+    private SnmpPeerFactory m_snmpPeerFactory;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -131,7 +137,6 @@ public class ImportOperationsManagerTest implements InitializingBean {
         m_categoryDao.flush();
     }
 
-
     @After
     public void onTearDownInTransactionIfEnabled() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
@@ -147,8 +152,9 @@ public class ImportOperationsManagerTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    @JUnitSnmpAgent(resource="classpath:snmpTestData1.properties", host=TEST_IP_ADDRESS, port=TEST_PORT)
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    @JUnitSnmpAgent(resource = "classpath:snmpTestData1.properties", host = TEST_IP_ADDRESS, port = TEST_PORT)
     public void testGetOperations() {
         Map<String, Integer> assetNumberMap = getAssetNumberMap("imported:");
         ImportOperationsManager opsMgr = new ImportOperationsManager(assetNumberMap, getModelImporter());
@@ -164,10 +170,10 @@ public class ImportOperationsManagerTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    @JUnitSnmpAgent(resource="classpath:snmpTestData1.properties", host=TEST_IP_ADDRESS, port=TEST_PORT)
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    @JUnitSnmpAgent(resource = "classpath:snmpTestData1.properties", host = TEST_IP_ADDRESS, port = TEST_PORT)
     public void testSaveThenUpdate() throws Exception {
-
 
         m_transTemplate.execute(new TransactionCallback<OnmsNode>() {
             @Override
@@ -186,7 +192,7 @@ public class ImportOperationsManagerTest implements InitializingBean {
             }
         });
 
-        //m_distPollerDao.clear();
+        // m_distPollerDao.clear();
 
         m_transTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
@@ -209,8 +215,9 @@ public class ImportOperationsManagerTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    @JUnitSnmpAgent(host="172.20.1.201", resource="classpath:snmpTestData1.properties")
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    @JUnitSnmpAgent(host = "172.20.1.201", resource = "classpath:snmpTestData1.properties")
     public void testChangeIpAddr() throws Exception {
         doImportFromSpecFile(new ClassPathResource("/tec_dump.xml"), 1, 1);
 
@@ -218,19 +225,21 @@ public class ImportOperationsManagerTest implements InitializingBean {
 
         doImportFromSpecFile(new ClassPathResource("/tec_dumpIpAddrChanged.xml"), 1, 1);
 
-        assertEquals("Failed to add new interface 172.20.1.202", 1, m_ipInterfaceDao.findByIpAddress("172.20.1.202").size());
-        assertEquals("Failed to delete removed interface 172.20.1.204", 0, m_ipInterfaceDao.findByIpAddress("172.20.1.204").size());
+        assertEquals("Failed to add new interface 172.20.1.202", 1,
+                     m_ipInterfaceDao.findByIpAddress("172.20.1.202").size());
+        assertEquals("Failed to delete removed interface 172.20.1.204", 0,
+                     m_ipInterfaceDao.findByIpAddress("172.20.1.204").size());
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    @JUnitSnmpAgent(host="172.20.1.201", resource="classpath:snmpTestData1.properties")
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    @JUnitSnmpAgent(host = "172.20.1.201", resource = "classpath:snmpTestData1.properties")
     public void testImportToOperationsMgr() throws Exception {
         doDoubleImport(new ClassPathResource("/tec_dump.xml"));
 
         Collection<OnmsIpInterface> c = m_ipInterfaceDao.findByIpAddress("172.20.1.201");
         assertEquals(1, c.size());
-
 
     }
 
@@ -243,14 +252,16 @@ public class ImportOperationsManagerTest implements InitializingBean {
         long pass2 = System.currentTimeMillis();
         doImportFromSpecFile(specFileResource);
         long end = System.currentTimeMillis();
-        System.err.println("Pass1 Duration: "+(pass2-pass1)/1000+" s. Pass2 Duration: "+(end-pass2)/1000+" s.");
+        System.err.println("Pass1 Duration: " + (pass2 - pass1) / 1000 + " s. Pass2 Duration: " + (end - pass2) / 1000
+                + " s.");
     }
 
     private void doImportFromSpecFile(Resource specFileResource) throws IOException, ModelImportException {
         doImportFromSpecFile(specFileResource, 4, 50);
     }
 
-    private void doImportFromSpecFile(Resource specFileResource, int writeThreads, int scanThreads) throws IOException, ModelImportException {
+    private void doImportFromSpecFile(Resource specFileResource, int writeThreads, int scanThreads) throws IOException,
+            ModelImportException {
         expectServiceTypeCreate("HTTP");
         final SpecFile specFile = new SpecFile();
         specFile.loadResource(specFileResource);
@@ -275,7 +286,6 @@ public class ImportOperationsManagerTest implements InitializingBean {
         opsMgr.persistOperations(m_transTemplate, m_nodeDao);
 
     }
-
 
     private Map<String, Integer> getAssetNumberMapInTransaction(final SpecFile specFile) {
         Map<String, Integer> assetNumbers = m_transTemplate.execute(new TransactionCallback<Map<String, Integer>>() {

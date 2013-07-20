@@ -44,7 +44,7 @@ import edu.bucknell.net.JDHCP.DHCPMessage;
 
 final class Receiver2 implements Runnable, Fiber {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Receiver2.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Receiver2.class);
 
     private final static short DHCP_TARGET_PORT = 67;
 
@@ -65,7 +65,9 @@ final class Receiver2 implements Runnable, Fiber {
         try {
             m_receiver = new DatagramSocket(DHCP_TARGET_PORT);
         } catch (BindException e) {
-            BindException newE = new BindException("Could not open datagram socket for DHCP client on port " + DHCP_TARGET_PORT + ".  Is there another DHCP client listening on this port?  Original exception: " + e);
+            BindException newE = new BindException("Could not open datagram socket for DHCP client on port "
+                    + DHCP_TARGET_PORT
+                    + ".  Is there another DHCP client listening on this port?  Original exception: " + e);
             newE.initCause(e);
             throw newE;
         }
@@ -74,7 +76,9 @@ final class Receiver2 implements Runnable, Fiber {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public synchronized void start() {
@@ -88,7 +92,9 @@ final class Receiver2 implements Runnable, Fiber {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public synchronized void stop() {
@@ -98,7 +104,9 @@ final class Receiver2 implements Runnable, Fiber {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -108,7 +116,9 @@ final class Receiver2 implements Runnable, Fiber {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,7 +128,9 @@ final class Receiver2 implements Runnable, Fiber {
     }
 
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      */
     @Override
     public void run() {
@@ -142,7 +154,7 @@ final class Receiver2 implements Runnable, Fiber {
 
                 synchronized (m_clients) {
                     Iterator<Client> iter = m_clients.iterator();
-                    if(!iter.hasNext()) {
+                    if (!iter.hasNext()) {
                         LOG.debug("No client waiting for response.");
                     }
                     while (iter.hasNext()) {
@@ -166,7 +178,8 @@ final class Receiver2 implements Runnable, Fiber {
             } catch (ArrayIndexOutOfBoundsException ex) {
                 LOG.warn("An error occurred when reading DHCP response. Ignoring exception: ", ex);
             } catch (NegativeArraySizeException ex) {
-                // Ignore cases where the target returns a badly-formatted DHCP response
+                // Ignore cases where the target returns a badly-formatted DHCP
+                // response
                 // Fixes http://bugzilla.opennms.org/show_bug.cgi?id=3445
                 LOG.warn("An error occurred when reading DHCP response. Ignoring exception: ", ex);
             } catch (IOException ex) {

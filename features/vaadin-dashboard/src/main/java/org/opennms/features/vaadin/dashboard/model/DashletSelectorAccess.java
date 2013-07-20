@@ -30,7 +30,8 @@ package org.opennms.features.vaadin.dashboard.model;
 import org.opennms.features.vaadin.dashboard.config.DashletSelector;
 
 /**
- * This interface is used for accessing {@link DashletSelector} instances in several classes.
+ * This interface is used for accessing {@link DashletSelector} instances in
+ * several classes.
  *
  * @author Christian Pape
  */

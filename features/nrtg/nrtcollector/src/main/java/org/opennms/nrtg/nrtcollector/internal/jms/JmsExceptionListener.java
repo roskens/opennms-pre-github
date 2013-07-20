@@ -37,8 +37,7 @@ import javax.jms.JMSException;
 
 @Component
 public class JmsExceptionListener implements ExceptionListener {
-    private static final Logger logger = LoggerFactory
-            .getLogger(JmsExceptionListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(JmsExceptionListener.class);
 
     @Override
     public void onException(final JMSException e) {

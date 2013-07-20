@@ -57,41 +57,56 @@ public class SnmpManagedNode {
     protected List<SnmpManagedInterface> interfaces;
 
     /**
-     * <p>Constructor for SnmpManagedNode.</p>
+     * <p>
+     * Constructor for SnmpManagedNode.
+     * </p>
      */
     public SnmpManagedNode() {
         interfaces = new ArrayList<SnmpManagedInterface>();
     }
 
     /**
-     * <p>Setter for the field <code>nodeID</code>.</p>
+     * <p>
+     * Setter for the field <code>nodeID</code>.
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      */
     public void setNodeID(int id) {
         nodeID = id;
     }
 
     /**
-     * <p>Setter for the field <code>nodeLabel</code>.</p>
+     * <p>
+     * Setter for the field <code>nodeLabel</code>.
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public void setNodeLabel(String label) {
         nodeLabel = label;
     }
 
     /**
-     * <p>addInterface</p>
+     * <p>
+     * addInterface
+     * </p>
      *
-     * @param newInterface a {@link org.opennms.web.admin.nodeManagement.SnmpManagedInterface} object.
+     * @param newInterface
+     *            a
+     *            {@link org.opennms.web.admin.nodeManagement.SnmpManagedInterface}
+     *            object.
      */
     public void addInterface(SnmpManagedInterface newInterface) {
         interfaces.add(newInterface);
     }
 
     /**
-     * <p>getInterfaceCount</p>
+     * <p>
+     * getInterfaceCount
+     * </p>
      *
      * @return a int.
      */
@@ -100,7 +115,9 @@ public class SnmpManagedNode {
     }
 
     /**
-     * <p>Getter for the field <code>nodeID</code>.</p>
+     * <p>
+     * Getter for the field <code>nodeID</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -109,7 +126,9 @@ public class SnmpManagedNode {
     }
 
     /**
-     * <p>Getter for the field <code>nodeLabel</code>.</p>
+     * <p>
+     * Getter for the field <code>nodeLabel</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,7 +137,9 @@ public class SnmpManagedNode {
     }
 
     /**
-     * <p>Getter for the field <code>interfaces</code>.</p>
+     * <p>
+     * Getter for the field <code>interfaces</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */

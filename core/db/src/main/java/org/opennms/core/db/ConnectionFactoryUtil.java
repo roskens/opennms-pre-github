@@ -39,16 +39,25 @@ import org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource;
 public class ConnectionFactoryUtil {
 
     /**
-     * <p>marshalDataSourceFromConfig</p>
+     * <p>
+     * marshalDataSourceFromConfig
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @param dsName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @param dsName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource}
+     *         object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public static JdbcDataSource marshalDataSourceFromConfig(final InputStream stream, final String dsName) throws MarshalException, ValidationException {
-    	final DataSourceConfiguration dsc = CastorUtils.unmarshal(DataSourceConfiguration.class, stream);
+    public static JdbcDataSource marshalDataSourceFromConfig(final InputStream stream, final String dsName)
+            throws MarshalException, ValidationException {
+        final DataSourceConfiguration dsc = CastorUtils.unmarshal(DataSourceConfiguration.class, stream);
         return validateDataSourceConfiguration(dsName, dsc);
     }
 
@@ -59,7 +68,7 @@ public class ConnectionFactoryUtil {
             }
         }
 
-        throw new IllegalArgumentException("ConnectionFactoryUtil: DataSource: "+dsName+" is not defined.");
+        throw new IllegalArgumentException("ConnectionFactoryUtil: DataSource: " + dsName + " is not defined.");
     }
 
 }

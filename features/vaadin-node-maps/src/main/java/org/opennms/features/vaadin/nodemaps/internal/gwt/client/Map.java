@@ -17,6 +17,6 @@ public class Map extends org.discotools.gwt.leaflet.client.map.Map {
     }
 
     private native int getMaxZoom(final JSObject self) /*-{
-        return self.getMaxZoom();
-    }-*/;
+                                                       return self.getMaxZoom();
+                                                       }-*/;
 }

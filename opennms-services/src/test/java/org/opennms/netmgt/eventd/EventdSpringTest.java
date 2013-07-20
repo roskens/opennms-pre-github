@@ -47,21 +47,18 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Test the startup and shutdown of eventd with the default wiring and
- * configuration files.  Don't override *any* beans so we can see if the
+ * configuration files. Don't override *any* beans so we can see if the
  * daemon will work as it does in production (as possible).
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:META-INF/opennms/applicationContext-soa.xml",
-        "classpath:META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
+        "classpath:META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:META-INF/opennms/applicationContext-daemon.xml",
         "classpath:META-INF/opennms/applicationContext-commonConfigs.xml",
         "classpath:META-INF/opennms/applicationContext-eventDaemon.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class EventdSpringTest implements InitializingBean {
@@ -77,7 +74,7 @@ public class EventdSpringTest implements InitializingBean {
     }
 
     /**
-     * Test the startup and shutdown of this daemon.  This is the only test in
+     * Test the startup and shutdown of this daemon. This is the only test in
      * this file because having more seems to cause OutOfMemory errors within
      * Eclipse when there are multiple tests due to the large number of events
      * that are loaded by default.
@@ -90,7 +87,8 @@ public class EventdSpringTest implements InitializingBean {
 
     @Test
     public void testEventConfSeverities() throws Exception {
-        List<String> validSeverities = Arrays.asList(new String[] { "Critical", "Major", "Minor", "Warning", "Normal", "Cleared", "Indeterminate" });
+        List<String> validSeverities = Arrays.asList(new String[] { "Critical", "Major", "Minor", "Warning", "Normal",
+                "Cleared", "Indeterminate" });
 
         for (String uei : m_eventConfDao.getEventUEIs()) {
             for (Event event : m_eventConfDao.getEvents(uei)) {

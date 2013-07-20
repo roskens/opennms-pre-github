@@ -29,23 +29,36 @@
 package org.opennms.netmgt.config.collector;
 
 /**
- * <p>CollectionAttributeType interface.</p>
+ * <p>
+ * CollectionAttributeType interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public interface CollectionAttributeType extends AttributeDefinition {
     /**
-     * <p>getGroupType</p>
+     * <p>
+     * getGroupType
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType} object.
+     * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType}
+     *         object.
      */
     public AttributeGroupType getGroupType();
+
     /**
-     * <p>storeAttribute</p>
+     * <p>
+     * storeAttribute
+     * </p>
      *
-     * @param attribute a {@link org.opennms.netmgt.config.collector.CollectionAttribute} object.
-     * @param persister a {@link org.opennms.netmgt.config.collector.Persister} object.
+     * @param attribute
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionAttribute}
+     *            object.
+     * @param persister
+     *            a {@link org.opennms.netmgt.config.collector.Persister}
+     *            object.
      */
     public void storeAttribute(CollectionAttribute attribute, Persister persister);
 }

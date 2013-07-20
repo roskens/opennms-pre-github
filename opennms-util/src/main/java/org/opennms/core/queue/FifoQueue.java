@@ -49,9 +49,12 @@ public interface FifoQueue<T> {
      *                Thrown if a queue error occurs.
      * @exception java.lang.InterruptedException
      *                Thrown if the thread is interrupted.
-     * @param <T> a T object.
-     * @throws org.opennms.core.queue.FifoQueueException if any.
-     * @throws java.lang.InterruptedException if any.
+     * @param <T>
+     *            a T object.
+     * @throws org.opennms.core.queue.FifoQueueException
+     *             if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public void add(T element) throws FifoQueueException, InterruptedException;
 
@@ -73,8 +76,10 @@ public interface FifoQueue<T> {
      *                Thrown if the method is not supported.
      * @return True if the element was successfully added to the queue before
      *         the timeout expired, false otherwise.
-     * @throws org.opennms.core.queue.FifoQueueException if any.
-     * @throws java.lang.InterruptedException if any.
+     * @throws org.opennms.core.queue.FifoQueueException
+     *             if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public boolean add(T element, long timeout) throws FifoQueueException, InterruptedException;
 
@@ -86,8 +91,10 @@ public interface FifoQueue<T> {
      * @exception java.lang.InterruptedException
      *                Thrown if the thread is interrupted.
      * @return The oldest object in the queue.
-     * @throws org.opennms.core.queue.FifoQueueException if any.
-     * @throws java.lang.InterruptedException if any.
+     * @throws org.opennms.core.queue.FifoQueueException
+     *             if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public T remove() throws FifoQueueException, InterruptedException;
 
@@ -106,8 +113,10 @@ public interface FifoQueue<T> {
      *                Thrown if the method is not supported.
      * @return The oldest object in the queue, or <code>null</code> if one is
      *         not available.
-     * @throws org.opennms.core.queue.FifoQueueException if any.
-     * @throws java.lang.InterruptedException if any.
+     * @throws org.opennms.core.queue.FifoQueueException
+     *             if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public T remove(long timeout) throws FifoQueueException, InterruptedException;
 

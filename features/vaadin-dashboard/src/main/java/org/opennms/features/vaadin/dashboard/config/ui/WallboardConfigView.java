@@ -41,27 +41,34 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class represents the base editing component for {@link Wallboard} instances.
+ * This class represents the base editing component for {@link Wallboard}
+ * instances.
  *
  * @author Christian Pape
  */
-public class WallboardConfigView extends HorizontalLayout implements TabSheet.CloseHandler, DashletSelector.ServiceListChangedListener {
+public class WallboardConfigView extends HorizontalLayout implements TabSheet.CloseHandler,
+        DashletSelector.ServiceListChangedListener {
     /**
      * The {@link TabSheet.Tab} holding the overview tab
      */
     private TabSheet.Tab m_overviewTab;
+
     /**
-     * The {@link TabSheet} for displaying the {@link WallboardEditor} components
+     * The {@link TabSheet} for displaying the {@link WallboardEditor}
+     * components
      */
     private WallboardTabSheet m_tabSheet;
+
     /**
      * The {@link DashletSelector} used for querying the configuration data
      */
     private DashletSelector m_dashletSelector;
+
     /**
      * The {@link WallboardOverview} component
      */
     private WallboardOverview m_dashboardOverview;
+
     /**
      * A map used to store {@link Wallboard} and {@link TabSheet.Tab} instances
      */
@@ -70,7 +77,8 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
     /**
      * The constructor used for instantiating new objects.
      *
-     * @param dashletSelector the {@link DashletSelector} to be used
+     * @param dashletSelector
+     *            the {@link DashletSelector} to be used
      */
     public WallboardConfigView(DashletSelector dashletSelector) {
         /**
@@ -112,30 +120,33 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
          * Adding the listeners
          */
         WallboardProvider.getInstance().getBeanContainer().addItemSetChangeListener(new Container.ItemSetChangeListener() {
-            public void containerItemSetChange(Container.ItemSetChangeEvent itemSetChangeEvent) {
-                List<Wallboard> wallboardsToRemove = new ArrayList<Wallboard>();
-                List<TabSheet.Tab> tabsToRemove = new ArrayList<TabSheet.Tab>();
-                for (Map.Entry<Wallboard, TabSheet.Tab> entry : m_wallboardEditorMap.entrySet()) {
-                    WallboardEditor wallboardEditor = (WallboardEditor) entry.getValue().getComponent();
-                    if (!WallboardProvider.getInstance().containsWallboard(wallboardEditor.getWallboard())) {
-                        wallboardsToRemove.add(wallboardEditor.getWallboard());
-                        tabsToRemove.add(entry.getValue());
-                    }
-                }
-                for (TabSheet.Tab tab : tabsToRemove) {
-                    m_tabSheet.removeTab(tab);
-                }
-                for (Wallboard wallboard : wallboardsToRemove) {
-                    m_wallboardEditorMap.remove(wallboard);
-                }
-            }
-        });
+                                                                                        public void containerItemSetChange(
+                                                                                                Container.ItemSetChangeEvent itemSetChangeEvent) {
+                                                                                            List<Wallboard> wallboardsToRemove = new ArrayList<Wallboard>();
+                                                                                            List<TabSheet.Tab> tabsToRemove = new ArrayList<TabSheet.Tab>();
+                                                                                            for (Map.Entry<Wallboard, TabSheet.Tab> entry : m_wallboardEditorMap.entrySet()) {
+                                                                                                WallboardEditor wallboardEditor = (WallboardEditor) entry.getValue().getComponent();
+                                                                                                if (!WallboardProvider.getInstance().containsWallboard(wallboardEditor.getWallboard())) {
+                                                                                                    wallboardsToRemove.add(wallboardEditor.getWallboard());
+                                                                                                    tabsToRemove.add(entry.getValue());
+                                                                                                }
+                                                                                            }
+                                                                                            for (TabSheet.Tab tab : tabsToRemove) {
+                                                                                                m_tabSheet.removeTab(tab);
+                                                                                            }
+                                                                                            for (Wallboard wallboard : wallboardsToRemove) {
+                                                                                                m_wallboardEditorMap.remove(wallboard);
+                                                                                            }
+                                                                                        }
+                                                                                    });
     }
 
     /**
-     * This method opens a {@link WallboardEditor} for a given {@link Wallboard}.
+     * This method opens a {@link WallboardEditor} for a given {@link Wallboard}
+     * .
      *
-     * @param wallboard the wallboard to be edited
+     * @param wallboard
+     *            the wallboard to be edited
      */
     public void openWallboardEditor(Wallboard wallboard) {
         if (m_wallboardEditorMap.containsKey(wallboard)) {
@@ -154,7 +165,9 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
     }
 
     /**
-     * This method is used to add a new {@link TabSheet.Tab} component. It creates a new window querying the user for the name of the new {@link Wallboard}.
+     * This method is used to add a new {@link TabSheet.Tab} component. It
+     * creates a new window querying the user for the name of the new
+     * {@link Wallboard}.
      */
     protected void addNewTabComponent() {
         final Window window = new Window("New Wallboard");
@@ -253,9 +266,11 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
     }
 
     /**
-     * This method is used for updating the available {@link DashletFactory} instances.
+     * This method is used for updating the available {@link DashletFactory}
+     * instances.
      *
-     * @param factoryList the available {@link DashletFactory} instances.
+     * @param factoryList
+     *            the available {@link DashletFactory} instances.
      */
     public void serviceListChanged(List<DashletFactory> factoryList) {
         for (Map.Entry<Wallboard, TabSheet.Tab> entry : m_wallboardEditorMap.entrySet()) {
@@ -265,7 +280,6 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
 
         ((WallboardConfigUI) getUI()).notifyMessage("Configuration change", "Dashlet list modified");
     }
-
 
     /**
      * Method to invoke when a {@link TabSheet.Tab} is closed.

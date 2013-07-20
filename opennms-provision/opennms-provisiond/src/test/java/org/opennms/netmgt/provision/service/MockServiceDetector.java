@@ -55,7 +55,6 @@ public class MockServiceDetector implements SyncServiceDetector {
         m_serviceName = serviceName;
     }
 
-
     @Override
     public boolean isServiceDetected(InetAddress address) {
         return true;

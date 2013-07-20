@@ -32,13 +32,15 @@ import org.opennms.netmgt.model.events.EventIpcManager;
 import org.springframework.util.Assert;
 
 /**
- * <p>EventIpcManagerFactory class.</p>
+ * <p>
+ * EventIpcManagerFactory class.
+ * </p>
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public abstract class EventIpcManagerFactory {
-	/**
+    /**
      * The EventIpcManager instance.
      */
     private static EventIpcManager m_ipcManager;
@@ -60,9 +62,13 @@ public abstract class EventIpcManagerFactory {
     }
 
     /**
-     * <p>setIpcManager</p>
+     * <p>
+     * setIpcManager
+     * </p>
      *
-     * @param ipcManager a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param ipcManager
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public static void setIpcManager(EventIpcManager ipcManager) {
         Assert.notNull(ipcManager, "argument ipcManager must not be null");

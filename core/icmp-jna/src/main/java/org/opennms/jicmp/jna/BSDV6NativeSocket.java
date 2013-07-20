@@ -31,7 +31,6 @@ package org.opennms.jicmp.jna;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
-
 import com.sun.jna.LastErrorException;
 import com.sun.jna.Native;
 
@@ -43,7 +42,7 @@ import com.sun.jna.Native;
 public class BSDV6NativeSocket extends NativeDatagramSocket {
 
     static {
-        Native.register((String)null);
+        Native.register((String) null);
     }
 
     private int m_sock;
@@ -54,9 +53,11 @@ public class BSDV6NativeSocket extends NativeDatagramSocket {
 
     public native int socket(int family, int type, int protocol) throws LastErrorException;
 
-    public native int sendto(int socket, Buffer buffer, int buflen, int flags, bsd_sockaddr_in6 dest_addr, int dest_addr_len) throws LastErrorException;
+    public native int sendto(int socket, Buffer buffer, int buflen, int flags, bsd_sockaddr_in6 dest_addr,
+            int dest_addr_len) throws LastErrorException;
 
-    public native int recvfrom(int socket, Buffer buffer, int buflen, int flags, bsd_sockaddr_in6 in_addr, int[] in_addr_len) throws LastErrorException;
+    public native int recvfrom(int socket, Buffer buffer, int buflen, int flags, bsd_sockaddr_in6 in_addr,
+            int[] in_addr_len) throws LastErrorException;
 
     public native int close(int socket) throws LastErrorException;
 

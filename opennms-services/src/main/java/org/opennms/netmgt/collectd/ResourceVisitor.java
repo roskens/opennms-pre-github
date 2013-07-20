@@ -31,7 +31,9 @@ package org.opennms.netmgt.collectd;
 import org.opennms.netmgt.config.collector.CollectionResource;
 
 /**
- * <p>Abstract ResourceVisitor class.</p>
+ * <p>
+ * Abstract ResourceVisitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

@@ -46,7 +46,8 @@ public class AlarmCellStyleRenderer {
     }
 
     public String getStyle(OnmsAlarm alarm) {
-        if (alarm == null) return getStyle(null, false);
+        if (alarm == null)
+            return getStyle(null, false);
         return getStyle(alarm.getSeverityId(), alarm.isAcknowledged());
     }
 }

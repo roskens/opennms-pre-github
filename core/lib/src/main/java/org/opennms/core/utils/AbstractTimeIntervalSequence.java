@@ -34,10 +34,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-
 // TODO make this implement Collection
 /**
- * <p>TimeIntervalSequence class.</p>
+ * <p>
+ * TimeIntervalSequence class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -72,19 +73,25 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     private T m_interval;
+
     private AbstractTimeIntervalSequence<T> m_tail;
 
     /**
-     * <p>Constructor for TimeIntervalSequence.</p>
+     * <p>
+     * Constructor for TimeIntervalSequence.
+     * </p>
      */
     public AbstractTimeIntervalSequence() {
         this(null, null);
     }
 
     /**
-     * <p>Constructor for TimeIntervalSequence.</p>
+     * <p>
+     * Constructor for TimeIntervalSequence.
+     * </p>
      *
-     * @param interval a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param interval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
      */
     public AbstractTimeIntervalSequence(T interval) {
         this(interval, null);
@@ -96,7 +103,9 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>iterator</p>
+     * <p>
+     * iterator
+     * </p>
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -105,17 +114,20 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     Date min(Date a, Date b) {
-       return (a.before(b) ? a : b);
+        return (a.before(b) ? a : b);
     }
 
     Date max(Date a, Date b) {
-        return (b.before(a) ? a: b);
+        return (b.before(a) ? a : b);
     }
 
     /**
-     * <p>addInterval</p>
+     * <p>
+     * addInterval
+     * </p>
      *
-     * @param interval a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param interval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
      */
     public void addInterval(T interval) {
         if (m_interval == null) {
@@ -134,20 +146,24 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         // overlapping intervals
         Collection<T> newIntervals = combineIntervals(m_interval, newInterval);
 
-        // remove the current interval since we are replacing it with the new ones
+        // remove the current interval since we are replacing it with the new
+        // ones
         removeCurrent();
 
         // now add the new intervals
         addAll(newIntervals);
 
-
     }
 
     /**
-     * <p>combineIntervals</p>
+     * <p>
+     * combineIntervals
+     * </p>
      *
-     * @param currentInterval a {@link org.opennms.core.utils.TimeInterval} object.
-     * @param newInterval a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param currentInterval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param newInterval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
      * @return a {@link java.util.Collection} object.
      */
     protected Collection<T> combineIntervals(T currentInterval, T newInterval) {
@@ -160,9 +176,11 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         Date third = min(currentInterval.getEnd(), newInterval.getEnd());
         Date fourth = max(currentInterval.getEnd(), newInterval.getEnd());
 
-        // Construct up to three non-overlapping intervals that can be added to the list
+        // Construct up to three non-overlapping intervals that can be added to
+        // the list
         if (first.equals(second)) {
-            // if the first segment is empty then the second segment because head of the list
+            // if the first segment is empty then the second segment because
+            // head of the list
             // the second segment is not empty because intervals can't be empty
             newIntervals.add(createInterval(first, third));
         } else {
@@ -172,10 +190,10 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
             newIntervals.add(createInterval(second, third));
         }
 
-
         if (!third.equals(fourth)) {
             // if the third segment no empty add it to the tail as well.
-            // Note: this segment may overlap with the original lists next interval
+            // Note: this segment may overlap with the original lists next
+            // interval
             newIntervals.add(createInterval(third, fourth));
         }
         return newIntervals;
@@ -204,19 +222,27 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>createInterval</p>
+     * <p>
+     * createInterval
+     * </p>
      *
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      * @return a {@link org.opennms.core.utils.TimeInterval} object.
      */
     protected abstract T createInterval(Date start, Date end);
 
     /**
-     * <p>createTail</p>
+     * <p>
+     * createTail
+     * </p>
      *
-     * @param interval a {@link org.opennms.core.utils.TimeInterval} object.
-     * @return a {@link org.opennms.core.utils.AbstractTimeIntervalSequence} object.
+     * @param interval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
+     * @return a {@link org.opennms.core.utils.AbstractTimeIntervalSequence}
+     *         object.
      */
     protected abstract AbstractTimeIntervalSequence<T> createTail(T interval);
 
@@ -230,9 +256,12 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>removeInterval</p>
+     * <p>
+     * removeInterval
+     * </p>
      *
-     * @param removedInterval a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param removedInterval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
      */
     public void removeInterval(T removedInterval) {
         if (m_interval == null) {
@@ -242,7 +271,8 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         if (m_interval.preceeds(removedInterval)) {
             removeFromTail(removedInterval);
         } else if (m_interval.follows(removedInterval)) {
-            // no need to do anything because the entire remove interval is before this
+            // no need to do anything because the entire remove interval is
+            // before this
             return;
         } else if (m_interval.overlaps(removedInterval)) {
 
@@ -254,8 +284,8 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
             // remove the current element
             removeCurrent();
 
-
-            // add back any part of the original interval that follows the remove interval
+            // add back any part of the original interval that follows the
+            // remove interval
             Collection<T> newIntervals = separateIntervals(origInterval, removedInterval);
 
             addAll(newIntervals);
@@ -263,10 +293,14 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>separateIntervals</p>
+     * <p>
+     * separateIntervals
+     * </p>
      *
-     * @param origInterval a {@link org.opennms.core.utils.TimeInterval} object.
-     * @param removedInterval a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param origInterval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param removedInterval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
      * @return a {@link java.util.Collection} object.
      */
     protected Collection<T> separateIntervals(T origInterval, T removedInterval) {
@@ -275,7 +309,8 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
             newIntervals.add(createInterval(removedInterval.getEnd(), origInterval.getEnd()));
         }
 
-        // add back any part of the original interval the preceeded the remove interval
+        // add back any part of the original interval the preceeded the remove
+        // interval
         if (origInterval.getStart().before(removedInterval.getStart())) {
             newIntervals.add(createInterval(origInterval.getStart(), removedInterval.getStart()));
         }
@@ -294,10 +329,14 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>bound</p>
+     * <p>
+     * bound
+     * </p>
      *
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      */
     public void bound(Date start, Date end) {
         removeInterval(createInterval(new Date(0), start));
@@ -305,37 +344,49 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>bound</p>
+     * <p>
+     * bound
+     * </p>
      *
-     * @param interval a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param interval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
      */
     public void bound(T interval) {
         bound(interval.getStart(), interval.getEnd());
     }
 
     /**
-     * <p>getStart</p>
+     * <p>
+     * getStart
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     public Date getStart() {
-        if (m_interval == null) return null;
+        if (m_interval == null)
+            return null;
         return m_interval.getStart();
     }
 
     /**
-     * <p>getEnd</p>
+     * <p>
+     * getEnd
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     public Date getEnd() {
-        if (m_interval == null) return null;
-        if (m_tail == null) return m_interval.getEnd();
+        if (m_interval == null)
+            return null;
+        if (m_tail == null)
+            return m_interval.getEnd();
         return m_tail.getEnd();
     }
 
     /**
-     * <p>getBounds</p>
+     * <p>
+     * getBounds
+     * </p>
      *
      * @return a {@link org.opennms.core.utils.TimeInterval} object.
      */
@@ -346,9 +397,13 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>addAll</p>
+     * <p>
+     * addAll
+     * </p>
      *
-     * @param intervals a {@link org.opennms.core.utils.AbstractTimeIntervalSequence} object.
+     * @param intervals
+     *            a {@link org.opennms.core.utils.AbstractTimeIntervalSequence}
+     *            object.
      */
     public void addAll(AbstractTimeIntervalSequence<T> intervals) {
         for (Iterator<T> it = intervals.iterator(); it.hasNext();) {
@@ -358,9 +413,12 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>addAll</p>
+     * <p>
+     * addAll
+     * </p>
      *
-     * @param intervals a {@link java.util.Collection} object.
+     * @param intervals
+     *            a {@link java.util.Collection} object.
      */
     public void addAll(Collection<T> intervals) {
         for (Iterator<T> it = intervals.iterator(); it.hasNext();) {
@@ -370,9 +428,13 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>removeAll</p>
+     * <p>
+     * removeAll
+     * </p>
      *
-     * @param intervals a {@link org.opennms.core.utils.AbstractTimeIntervalSequence} object.
+     * @param intervals
+     *            a {@link org.opennms.core.utils.AbstractTimeIntervalSequence}
+     *            object.
      */
     public void removeAll(AbstractTimeIntervalSequence<T> intervals) {
         for (Iterator<T> it = intervals.iterator(); it.hasNext();) {
@@ -382,7 +444,9 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

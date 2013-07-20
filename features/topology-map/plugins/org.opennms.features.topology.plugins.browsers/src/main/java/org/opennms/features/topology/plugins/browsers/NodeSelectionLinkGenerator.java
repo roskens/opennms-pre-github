@@ -49,71 +49,75 @@ import com.vaadin.ui.themes.BaseTheme;
 
 public class NodeSelectionLinkGenerator implements ColumnGenerator, SelectionNotifier {
 
-	private static final long serialVersionUID = -1072007643387089006L;
+    private static final long serialVersionUID = -1072007643387089006L;
 
-	private final String m_nodeIdProperty;
-	private final ColumnGenerator m_generator;
+    private final String m_nodeIdProperty;
 
-	/**
-	 * TODO: Fix concurrent access to this field
-	 */
-	private Collection<SelectionListener> m_selectionListeners = new HashSet<SelectionListener>();
+    private final ColumnGenerator m_generator;
 
-	public NodeSelectionLinkGenerator(String nodeIdProperty) {
-		this(nodeIdProperty, new ToStringColumnGenerator());
-	}
+    /**
+     * TODO: Fix concurrent access to this field
+     */
+    private Collection<SelectionListener> m_selectionListeners = new HashSet<SelectionListener>();
 
-	public NodeSelectionLinkGenerator(String nodeIdProperty, ColumnGenerator generator) {
-		m_nodeIdProperty = nodeIdProperty;
-		m_generator = generator;
-	}
+    public NodeSelectionLinkGenerator(String nodeIdProperty) {
+        this(nodeIdProperty, new ToStringColumnGenerator());
+    }
 
-	@Override
-	public Object generateCell(Table source, Object itemId, Object columnId) {
-		final Property<Integer> nodeIdProperty = source.getContainerProperty(itemId, m_nodeIdProperty);
-		Object cellValue = m_generator.generateCell(source, itemId, columnId);
-		if (cellValue == null) {
-			return null;
-		} else {
-			if (nodeIdProperty.getValue() == null) {
-				return cellValue;
-			} else {
-				Button button = new Button(cellValue.toString());
-				button.setStyleName(BaseTheme.BUTTON_LINK);
-				button.setDescription(nodeIdProperty.getValue().toString());
-				button.addClickListener(new ClickListener() {
-					@Override
-					public void buttonClick(ClickEvent event) {
-						SelectionContext context = new DefaultSelectionContext();
-						context.selectVertexRefs(Collections.singleton(new AbstractVertexRef("nodes", nodeIdProperty.getValue().toString(), nodeIdProperty.getValue().toString())));
-						fireSelectionChangedEvent(context);
-					}
-				});
-				return button;
-			}
-		}
-	}
+    public NodeSelectionLinkGenerator(String nodeIdProperty, ColumnGenerator generator) {
+        m_nodeIdProperty = nodeIdProperty;
+        m_generator = generator;
+    }
 
-	@Override
-	public void addSelectionListener(SelectionListener listener) {
-		if (listener != null) {
-			m_selectionListeners.add(listener);
-		}
-	}
+    @Override
+    public Object generateCell(Table source, Object itemId, Object columnId) {
+        final Property<Integer> nodeIdProperty = source.getContainerProperty(itemId, m_nodeIdProperty);
+        Object cellValue = m_generator.generateCell(source, itemId, columnId);
+        if (cellValue == null) {
+            return null;
+        } else {
+            if (nodeIdProperty.getValue() == null) {
+                return cellValue;
+            } else {
+                Button button = new Button(cellValue.toString());
+                button.setStyleName(BaseTheme.BUTTON_LINK);
+                button.setDescription(nodeIdProperty.getValue().toString());
+                button.addClickListener(new ClickListener() {
+                    @Override
+                    public void buttonClick(ClickEvent event) {
+                        SelectionContext context = new DefaultSelectionContext();
+                        context.selectVertexRefs(Collections.singleton(new AbstractVertexRef(
+                                                                                             "nodes",
+                                                                                             nodeIdProperty.getValue().toString(),
+                                                                                             nodeIdProperty.getValue().toString())));
+                        fireSelectionChangedEvent(context);
+                    }
+                });
+                return button;
+            }
+        }
+    }
 
-	@Override
-	public void setSelectionListeners(Set<SelectionListener> listeners) {
-		m_selectionListeners = listeners;
-	}
+    @Override
+    public void addSelectionListener(SelectionListener listener) {
+        if (listener != null) {
+            m_selectionListeners.add(listener);
+        }
+    }
 
-	@Override
-	public void removeSelectionListener(SelectionListener listener) {
-		m_selectionListeners.remove(listener);
-	}
+    @Override
+    public void setSelectionListeners(Set<SelectionListener> listeners) {
+        m_selectionListeners = listeners;
+    }
 
-	protected void fireSelectionChangedEvent(SelectionContext context) {
-		for (SelectionListener listener : m_selectionListeners) {
-			listener.selectionChanged(context);
-		}
-	}
+    @Override
+    public void removeSelectionListener(SelectionListener listener) {
+        m_selectionListeners.remove(listener);
+    }
+
+    protected void fireSelectionChangedEvent(SelectionContext context) {
+        for (SelectionListener listener : m_selectionListeners) {
+            listener.selectionChanged(context);
+        }
+    }
 }

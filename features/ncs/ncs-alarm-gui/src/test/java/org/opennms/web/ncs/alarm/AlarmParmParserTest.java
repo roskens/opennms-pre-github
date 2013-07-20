@@ -43,16 +43,16 @@ public class AlarmParmParserTest {
 
     private String getParm(String eventParms, String parm) {
         String retVal = null;
-        if(eventParms.contains(parm + "=")){
+        if (eventParms.contains(parm + "=")) {
             String[] colonSplit = eventParms.split(";");
-            for(int i = 0; i < colonSplit.length; i++) {
-                if(colonSplit[i].contains(parm + "=")) {
+            for (int i = 0; i < colonSplit.length; i++) {
+                if (colonSplit[i].contains(parm + "=")) {
                     String[] tempArr = colonSplit[i].split("=");
                     retVal = tempArr[tempArr.length - 1].replace("(string,text)", "");
                 }
             }
             return retVal;
-        }else {
+        } else {
             return null;
         }
 

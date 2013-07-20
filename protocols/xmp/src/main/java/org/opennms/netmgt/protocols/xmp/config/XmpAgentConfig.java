@@ -29,7 +29,9 @@
 package org.opennms.netmgt.protocols.xmp.config;
 
 /**
- * <p>XmpAgentConfig class.</p>
+ * <p>
+ * XmpAgentConfig class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -56,7 +58,9 @@ public class XmpAgentConfig {
     private int m_retry;
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a int.
      */
@@ -65,16 +69,21 @@ public class XmpAgentConfig {
     }
 
     /**
-     * <p>setPort</p>
+     * <p>
+     * setPort
+     * </p>
      *
-     * @param port a int.
+     * @param port
+     *            a int.
      */
     public void setPort(int port) {
         m_port = port;
     }
 
     /**
-     * <p>getAuthenUser</p>
+     * <p>
+     * getAuthenUser
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,16 +92,21 @@ public class XmpAgentConfig {
     }
 
     /**
-     * <p>setAuthenUser</p>
+     * <p>
+     * setAuthenUser
+     * </p>
      *
-     * @param authenUser a {@link java.lang.String} object.
+     * @param authenUser
+     *            a {@link java.lang.String} object.
      */
     public void setAuthenUser(String authenUser) {
         m_authenUser = authenUser;
     }
 
     /**
-     * <p>getTimeout</p>
+     * <p>
+     * getTimeout
+     * </p>
      *
      * @return a long.
      */
@@ -101,16 +115,21 @@ public class XmpAgentConfig {
     }
 
     /**
-     * <p>setTimeout</p>
+     * <p>
+     * setTimeout
+     * </p>
      *
-     * @param timeout a long.
+     * @param timeout
+     *            a long.
      */
     public void setTimeout(long timeout) {
         m_timeout = timeout;
     }
 
     /**
-     * <p>getRetry</p>
+     * <p>
+     * getRetry
+     * </p>
      *
      * @return a int.
      */
@@ -119,9 +138,12 @@ public class XmpAgentConfig {
     }
 
     /**
-     * <p>setRetry</p>
+     * <p>
+     * setRetry
+     * </p>
      *
-     * @param retries a int.
+     * @param retries
+     *            a int.
      */
     public void setRetry(int retries) {
         m_retry = retries;

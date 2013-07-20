@@ -37,6 +37,7 @@ import org.opennms.netmgt.mock.MockNotification;
 import org.opennms.netmgt.mock.NotificationAnticipator;
 import org.opennms.netmgt.model.notifd.NotificationStrategy;
 import org.opennms.test.mock.MockUtil;
+
 /**
  * @author david
  */
@@ -45,19 +46,20 @@ public class MockNotificationStrategy implements NotificationStrategy {
     private static NotificationAnticipator s_anticipator = null;
 
     static {
-        MockUtil.println("Static initializer on "+ MockNotificationStrategy.class.getName());
+        MockUtil.println("Static initializer on " + MockNotificationStrategy.class.getName());
     }
 
-    public MockNotificationStrategy(){
-        MockUtil.println("Created a "+ MockNotificationStrategy.class.getName());
+    public MockNotificationStrategy() {
+        MockUtil.println("Created a " + MockNotificationStrategy.class.getName());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.notifd.NotificationStrategy#send(java.util.List)
      */
     @Override
     public int send(List<Argument> arguments) {
-        MockUtil.println("Message sent with arguments:"+arguments);
+        MockUtil.println("Message sent with arguments:" + arguments);
 
         MockNotification notification = new MockNotification();
         Iterator<Argument> it = arguments.iterator();
@@ -68,7 +70,7 @@ public class MockNotificationStrategy implements NotificationStrategy {
             } else if (arg.getSwitch().equals(NotificationManager.PARAM_EMAIL)) {
                 notification.setEmail(arg.getValue());
             } else if (arg.getSwitch().equals(NotificationManager.PARAM_TEXT_MSG)) {
-				notification.setTextMsg(arg.getValue());
+                notification.setTextMsg(arg.getValue());
             }
         }
         notification.setExpectedTime(System.currentTimeMillis());

@@ -44,39 +44,55 @@ import org.opennms.netmgt.provision.support.AsyncBasicDetectorNettyImpl;
 import org.opennms.netmgt.provision.support.ResponseValidator;
 
 /**
- * <p>Abstract AsyncLineOrientedDetectorNettyImpl class.</p>
- *
- * CAUTION: This class is unused. This implementation has never been in production.
+ * <p>
+ * Abstract AsyncLineOrientedDetectorNettyImpl class.
+ * </p>
+ * CAUTION: This class is unused. This implementation has never been in
+ * production.
  *
  * @author Donald Desloge
  * @version $Id: $
  */
-public abstract class AsyncLineOrientedDetectorNettyImpl extends AsyncBasicDetectorNettyImpl<LineOrientedRequest, LineOrientedResponse> {
+public abstract class AsyncLineOrientedDetectorNettyImpl extends
+        AsyncBasicDetectorNettyImpl<LineOrientedRequest, LineOrientedResponse> {
 
     protected static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
     /**
-     * <p>Constructor for AsyncLineOrientedDetectorNettyImpl.</p>
+     * <p>
+     * Constructor for AsyncLineOrientedDetectorNettyImpl.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public AsyncLineOrientedDetectorNettyImpl(final String serviceName, final int port) {
         super(serviceName, port);
-        //setProtocolCodecFilter(new ProtocolCodecFilter(new LineOrientedCodecFactory(CHARSET_UTF8)));
+        // setProtocolCodecFilter(new ProtocolCodecFilter(new
+        // LineOrientedCodecFactory(CHARSET_UTF8)));
     }
 
     /**
-     * <p>Constructor for AsyncLineOrientedDetectorNettyImpl.</p>
+     * <p>
+     * Constructor for AsyncLineOrientedDetectorNettyImpl.
+     * </p>
      *
-     * @param port a int.
-     * @param timeout a int.
-     * @param retries a int.
-     * @param serviceName a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
+     * @param retries
+     *            a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
-    public AsyncLineOrientedDetectorNettyImpl(final String serviceName, final int port, final int timeout, final int retries) {
+    public AsyncLineOrientedDetectorNettyImpl(final String serviceName, final int port, final int timeout,
+            final int retries) {
         super(serviceName, port, timeout, retries);
-        //setProtocolCodecFilter(new ProtocolCodecFilter(new LineOrientedCodecFactory(CHARSET_UTF8)));
+        // setProtocolCodecFilter(new ProtocolCodecFilter(new
+        // LineOrientedCodecFactory(CHARSET_UTF8)));
     }
 
     /** {@inheritDoc} */
@@ -94,7 +110,7 @@ public abstract class AsyncLineOrientedDetectorNettyImpl extends AsyncBasicDetec
 
     /** {@inheritDoc} */
     @Override
-    public ResponseValidator<LineOrientedResponse> find(final String regex){
+    public ResponseValidator<LineOrientedResponse> find(final String regex) {
         return new ResponseValidator<LineOrientedResponse>() {
 
             @Override
@@ -106,10 +122,15 @@ public abstract class AsyncLineOrientedDetectorNettyImpl extends AsyncBasicDetec
     }
 
     /**
-     * <p>request</p>
+     * <p>
+     * request
+     * </p>
      *
-     * @param command a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
+     * @param command
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *         object.
      */
     public LineOrientedRequest request(final String command) {
         return new LineOrientedRequest(command);

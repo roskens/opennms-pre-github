@@ -59,40 +59,42 @@ import org.slf4j.LoggerFactory;
 public final class JDBCStoredProcedurePlugin extends JDBCPlugin {
 
     private static final Logger LOG = LoggerFactory.getLogger(JDBCStoredProcedurePlugin.class);
-	/**
-	 * The stored procedure checked by the plugin
-	 */
-	private final static String DEFAULT_STORED_PROCEDURE = "isRunning";
 
-	/**
-	 * Class constructor. Load the JDBC drivers.
-	 */
-	public JDBCStoredProcedurePlugin() {
-		super();
-		LOG.info("JDBCStoredProcedurePlugin class loaded");
-	}
+    /**
+     * The stored procedure checked by the plugin
+     */
+    private final static String DEFAULT_STORED_PROCEDURE = "isRunning";
 
-	/** {@inheritDoc} */
-        @Override
-	public boolean checkStatus(Connection con, Map<String, Object> qualifiers) {
-		boolean status = false;
-		CallableStatement cs = null;
-		try {
-			String storedProcedure = ParameterMap.getKeyedString(qualifiers, "stored-procedure", DEFAULT_STORED_PROCEDURE);
-			String procedureCall = "{ ? = call test." + storedProcedure + "()}";
-			cs = con.prepareCall(procedureCall);
-			LOG.debug("Calling stored procedure: {}", procedureCall);
-			cs.registerOutParameter(1, java.sql.Types.BIT);
-			cs.executeUpdate();
-			status = cs.getBoolean(1);
-			LOG.debug("Stored procedure returned: {}", status);
-		} catch (final SQLException sqlEx) {
-		    LOG.debug("JDBC stored procedure call not functional: {}", sqlEx.getSQLState(), sqlEx);
-		} finally {
-			closeStmt(cs);
-		}
-		return status;
-	}
+    /**
+     * Class constructor. Load the JDBC drivers.
+     */
+    public JDBCStoredProcedurePlugin() {
+        super();
+        LOG.info("JDBCStoredProcedurePlugin class loaded");
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean checkStatus(Connection con, Map<String, Object> qualifiers) {
+        boolean status = false;
+        CallableStatement cs = null;
+        try {
+            String storedProcedure = ParameterMap.getKeyedString(qualifiers, "stored-procedure",
+                                                                 DEFAULT_STORED_PROCEDURE);
+            String procedureCall = "{ ? = call test." + storedProcedure + "()}";
+            cs = con.prepareCall(procedureCall);
+            LOG.debug("Calling stored procedure: {}", procedureCall);
+            cs.registerOutParameter(1, java.sql.Types.BIT);
+            cs.executeUpdate();
+            status = cs.getBoolean(1);
+            LOG.debug("Stored procedure returned: {}", status);
+        } catch (final SQLException sqlEx) {
+            LOG.debug("JDBC stored procedure call not functional: {}", sqlEx.getSQLState(), sqlEx);
+        } finally {
+            closeStmt(cs);
+        }
+        return status;
+    }
 
 } // End of class
 

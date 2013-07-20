@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.collectd.jmx;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -54,67 +54,58 @@ import org.exolab.castor.xml.Unmarshaller;
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="rrd")
+@XmlRootElement(name = "rrd")
 @XmlAccessorType(XmlAccessType.FIELD)
-@SuppressWarnings("all") public class Rrd implements java.io.Serializable {
+@SuppressWarnings("all")
+public class Rrd implements java.io.Serializable {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _step.
      */
-    @XmlAttribute(name="step", required=true)
+    @XmlAttribute(name = "step", required = true)
     private int _step = 0;
 
     /**
      * Field _rraList.
      */
-    @XmlElement(name="rra", required=true)
+    @XmlElement(name = "rra", required = true)
     private java.util.List<java.lang.String> _rraList;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Rrd() {
         super();
         this._rraList = new java.util.ArrayList<java.lang.String>();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
-     *
-     *
      * @param vRra
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addRra(
-            final java.lang.String vRra)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addRra(final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         this._rraList.add(vRra);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vRra
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addRra(
-            final int index,
-            final java.lang.String vRra)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addRra(final int index, final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         this._rraList.add(index, vRra);
     }
 
@@ -122,10 +113,9 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method enumerateRra.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
-    public java.util.Enumeration<java.lang.String> enumerateRra(
-    ) {
+    public java.util.Enumeration<java.lang.String> enumerateRra() {
         return java.util.Collections.enumeration(this._rraList);
     }
 
@@ -136,22 +126,21 @@ import org.exolab.castor.xml.Unmarshaller;
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
-        if ( this == obj )
+    public boolean equals(final java.lang.Object obj) {
+        if (this == obj)
             return true;
 
         if (obj instanceof Rrd) {
 
-            Rrd temp = (Rrd)obj;
+            Rrd temp = (Rrd) obj;
             if (this._step != temp._step)
                 return false;
             if (this._rraList != null) {
-                if (temp._rraList == null) return false;
+                if (temp._rraList == null)
+                    return false;
                 else if (!(this._rraList.equals(temp._rraList)))
                     return false;
-            }
-            else if (temp._rraList != null)
+            } else if (temp._rraList != null)
                 return false;
             return true;
         }
@@ -162,16 +151,16 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getRra.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the java.lang.String at the given index
      */
-    public java.lang.String getRra(
-            final int index)
-    throws java.lang.IndexOutOfBoundsException {
+    public java.lang.String getRra(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._rraList.size()) {
-            throw new IndexOutOfBoundsException("getRra: Index value '" + index + "' not in range [0.." + (this._rraList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getRra: Index value '" + index + "' not in range [0.."
+                    + (this._rraList.size() - 1) + "]");
         }
 
         return (java.lang.String) _rraList.get(index);
@@ -179,15 +168,16 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getRra.Returns the contents of the collection in an
-     * Array.  <p>Note:  Just in case the collection contents are
-     * changing in another thread, we pass a 0-length Array of the
-     * correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public java.lang.String[] getRra(
-    ) {
+    public java.lang.String[] getRra() {
         java.lang.String[] array = new java.lang.String[0];
         return (java.lang.String[]) this._rraList.toArray(array);
     }
@@ -199,8 +189,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<java.lang.String> getRraCollection(
-    ) {
+    public java.util.List<java.lang.String> getRraCollection() {
         return this._rraList;
     }
 
@@ -209,8 +198,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the size of this collection
      */
-    public int getRraCount(
-    ) {
+    public int getRraCount() {
         return this._rraList.size();
     }
 
@@ -219,8 +207,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Step'.
      */
-    public int getStep(
-    ) {
+    public int getStep() {
         return this._step;
     }
 
@@ -229,28 +216,26 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if at least one Step has been added
      */
-    public boolean hasStep(
-    ) {
+    public boolean hasStep() {
         return this._step > 0;
     }
 
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
     @Override
-    public int hashCode(
-    ) {
+    public int hashCode() {
         int result = 17;
 
         long tmp;
         result = 37 * result + _step;
         if (_rraList != null) {
-           result = 37 * result + _rraList.hashCode();
+            result = 37 * result + _rraList.hashCode();
         }
 
         return result;
@@ -262,8 +247,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * @return true if this object is valid according to the schema
      */
     @Deprecated
-    public boolean isValid(
-    ) {
+    public boolean isValid() {
         try {
             validate();
         } catch (org.exolab.castor.xml.ValidationException vex) {
@@ -276,51 +260,48 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method iterateRra.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
-    public java.util.Iterator<java.lang.String> iterateRra(
-    ) {
+    public java.util.Iterator<java.lang.String> iterateRra() {
         return this._rraList.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
-    public void marshal(
-            final java.io.Writer out)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
+            org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
-    public void marshal(
-            final org.xml.sax.ContentHandler handler)
-    throws java.io.IOException, org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
+            org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, handler);
     }
 
     /**
      */
-    public void removeAllRra(
-    ) {
+    public void removeAllRra() {
         this._rraList.clear();
     }
 
@@ -330,8 +311,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * @param vRra
      * @return true if the object was removed from the collection.
      */
-    public boolean removeRra(
-            final java.lang.String vRra) {
+    public boolean removeRra(final java.lang.String vRra) {
         boolean removed = _rraList.remove(vRra);
         return removed;
     }
@@ -342,44 +322,37 @@ import org.exolab.castor.xml.Unmarshaller;
      * @param index
      * @return the element removed from the collection
      */
-    public java.lang.String removeRraAt(
-            final int index) {
+    public java.lang.String removeRraAt(final int index) {
         java.lang.Object obj = this._rraList.remove(index);
         return (java.lang.String) obj;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vRra
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setRra(
-            final int index,
-            final java.lang.String vRra)
-    throws java.lang.IndexOutOfBoundsException {
+    public void setRra(final int index, final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._rraList.size()) {
-            throw new IndexOutOfBoundsException("setRra: Index value '" + index + "' not in range [0.." + (this._rraList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setRra: Index value '" + index + "' not in range [0.."
+                    + (this._rraList.size() - 1) + "]");
         }
 
         this._rraList.set(index, vRra);
     }
 
     /**
-     *
-     *
      * @param vRraArray
      */
-    public void setRra(
-            final java.lang.String[] vRraArray) {
-        //-- copy array
+    public void setRra(final java.lang.String[] vRraArray) {
+        // -- copy array
         _rraList.clear();
 
         for (int i = 0; i < vRraArray.length; i++) {
-                this._rraList.add(vRraArray[i]);
+            this._rraList.add(vRraArray[i]);
         }
     }
 
@@ -387,10 +360,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_rraList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vRraList the Vector to copy.
+     * @param vRraList
+     *            the Vector to copy.
      */
-    public void setRra(
-            final java.util.List<java.lang.String> vRraList) {
+    public void setRra(final java.util.List<java.lang.String> vRraList) {
         // copy vector
         this._rraList.clear();
 
@@ -400,22 +373,22 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_rraList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param rraList the Vector to set.
+     * @deprecated
+     * @param rraList
+     *            the Vector to set.
      */
-    public void setRraCollection(
-            final java.util.List<java.lang.String> rraList) {
+    public void setRraCollection(final java.util.List<java.lang.String> rraList) {
         this._rraList = rraList;
     }
 
     /**
      * Sets the value of field 'step'.
      *
-     * @param step the value of field 'step'.
+     * @param step
+     *            the value of field 'step'.
      */
-    public void setStep(
-            final int step) {
+    public void setStep(final int step) {
         this._step = step;
     }
 
@@ -423,29 +396,27 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled org.opennms.netmgt.config.collectd.jmx.Rrd
      */
     @Deprecated
-    public static Rrd unmarshal(
-            final java.io.Reader reader)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public static Rrd unmarshal(final java.io.Reader reader) throws org.exolab.castor.xml.MarshalException,
+            org.exolab.castor.xml.ValidationException {
         return (Rrd) Unmarshaller.unmarshal(Rrd.class, reader);
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
-    public void validate(
-    )
-    throws org.exolab.castor.xml.ValidationException {
+    public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();
         validator.validate(this);
     }

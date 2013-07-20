@@ -31,23 +31,23 @@ package org.opennms.features.topology.api.topo;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="vertex")
+@XmlRootElement(name = "vertex")
 public class WrappedLeafVertex extends WrappedVertex {
 
-	/**
-	 * No-arg constructor for JAXB.
-	 */
-	public WrappedLeafVertex() {
-		super();
-		group = false;
-	}
+    /**
+     * No-arg constructor for JAXB.
+     */
+    public WrappedLeafVertex() {
+        super();
+        group = false;
+    }
 
-	public WrappedLeafVertex(Vertex vertex) {
-		super(vertex);
-	}
+    public WrappedLeafVertex(Vertex vertex) {
+        super(vertex);
+    }
 
-        @Override
-	public void afterUnmarshal(Unmarshaller u, Object parent) {
-		super.afterUnmarshal(u, parent);
-	}
+    @Override
+    public void afterUnmarshal(Unmarshaller u, Object parent) {
+        super.afterUnmarshal(u, parent);
+    }
 }

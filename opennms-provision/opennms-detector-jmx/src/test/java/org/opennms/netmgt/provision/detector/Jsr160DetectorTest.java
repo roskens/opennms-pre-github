@@ -62,16 +62,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Donald Desloge
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class Jsr160DetectorTest implements InitializingBean {
 
     @Autowired
     public Jsr160Detector m_detector;
 
     public static MBeanServer m_beanServer;
+
     private JMXConnectorServer m_connectorServer;
 
     @Override
@@ -80,7 +80,7 @@ public class Jsr160DetectorTest implements InitializingBean {
     }
 
     @BeforeClass
-    public static void beforeTest() throws RemoteException{
+    public static void beforeTest() throws RemoteException {
         LocateRegistry.createRegistry(9123);
         m_beanServer = ManagementFactory.getPlatformMBeanServer();
     }
@@ -98,12 +98,13 @@ public class Jsr160DetectorTest implements InitializingBean {
     }
 
     @After
-    public void tearDown() throws IOException{
+    public void tearDown() throws IOException {
         m_connectorServer.stop();
     }
 
-    @Test(timeout=90000)
-    public void testDetectorSuccess() throws IOException, MalformedObjectNameException, NullPointerException, InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
+    @Test(timeout = 90000)
+    public void testDetectorSuccess() throws IOException, MalformedObjectNameException, NullPointerException,
+            InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
 
         m_detector.setPort(9123);
         m_detector.setUrlPath("/server");
@@ -113,8 +114,9 @@ public class Jsr160DetectorTest implements InitializingBean {
 
     }
 
-    @Test(timeout=90000)
-    public void testDetectorWrongPort() throws IOException, MalformedObjectNameException, NullPointerException, InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
+    @Test(timeout = 90000)
+    public void testDetectorWrongPort() throws IOException, MalformedObjectNameException, NullPointerException,
+            InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
 
         m_detector.setPort(9000);
         m_detector.setUrlPath("/server");
@@ -124,8 +126,9 @@ public class Jsr160DetectorTest implements InitializingBean {
 
     }
 
-    @Test(timeout=90000)
-    public void testDetectorWrongUrlPath() throws IOException, MalformedObjectNameException, NullPointerException, InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
+    @Test(timeout = 90000)
+    public void testDetectorWrongUrlPath() throws IOException, MalformedObjectNameException, NullPointerException,
+            InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
 
         m_detector.setPort(9000);
         m_detector.setUrlPath("/wrongurlpath");

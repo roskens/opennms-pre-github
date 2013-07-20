@@ -82,7 +82,9 @@ public final class CitrixPlugin extends AbstractTcpPlugin {
     private static final int EOF = -1;
 
     /**
-     * <p>Constructor for CitrixPlugin.</p>
+     * <p>
+     * Constructor for CitrixPlugin.
+     * </p>
      */
     public CitrixPlugin() {
         super(PROTOCOL_NAME, DEFAULT_PORT, DEFAULT_TIMEOUT, DEFAULT_RETRY);
@@ -99,7 +101,7 @@ public final class CitrixPlugin extends AbstractTcpPlugin {
         while (!isAServer) {
             int val = reader.read();
             // checking if end of input stream has been reached
-            if(val == EOF ) {
+            if (val == EOF) {
                 break;
             }
             buffer.append((char) val);

@@ -33,13 +33,14 @@ import com.google.gwt.event.shared.GwtEvent;
 public class SearchClickEvent extends GwtEvent<SearchClickEventHandler> {
 
     public static Type<SearchClickEventHandler> TYPE = new Type<SearchClickEventHandler>();
+
     private String m_searchTerm;
 
     public SearchClickEvent(String searchTerm) {
         m_searchTerm = searchTerm;
     }
 
-    public static Type<SearchClickEventHandler> getType(){
+    public static Type<SearchClickEventHandler> getType() {
         return TYPE;
     }
 

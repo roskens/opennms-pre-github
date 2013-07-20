@@ -36,16 +36,19 @@ import java.util.TreeMap;
 
 /**
  * @author brozow
- *
  */
 public class SnmpTableResult implements RowResultFactory {
 
     private final RowCallback m_callback;
+
     private final SnmpObjId[] m_columns;
+
     private final RowResultFactory m_rowResultFactory;
 
     private final List<SnmpObjId> m_finishedColumns;
-    private final Map<SnmpInstId,SnmpRowResult> m_pendingData;
+
+    private final Map<SnmpInstId, SnmpRowResult> m_pendingData;
+
     private volatile boolean m_finished = false;
 
     public SnmpTableResult(RowCallback callback, SnmpObjId... columns) {
@@ -58,7 +61,7 @@ public class SnmpTableResult implements RowResultFactory {
         m_rowResultFactory = (rowResultFactory == null ? this : rowResultFactory);
 
         m_finishedColumns = new ArrayList<SnmpObjId>();
-        m_pendingData = new TreeMap<SnmpInstId,SnmpRowResult>();
+        m_pendingData = new TreeMap<SnmpInstId, SnmpRowResult>();
     }
 
     private int getColumnCount() {
@@ -70,8 +73,8 @@ public class SnmpTableResult implements RowResultFactory {
      */
     void storeResult(SnmpResult result) {
         SnmpInstId instId = result.getInstance();
-        if ( !m_pendingData.containsKey( instId ) ) {
-            m_pendingData.put(instId, m_rowResultFactory.createRowResult( getColumnCount(), instId ));
+        if (!m_pendingData.containsKey(instId)) {
+            m_pendingData.put(instId, m_rowResultFactory.createRowResult(getColumnCount(), instId));
         }
         SnmpRowResult row = m_pendingData.get(instId);
         row.addResult(result.getBase(), result);

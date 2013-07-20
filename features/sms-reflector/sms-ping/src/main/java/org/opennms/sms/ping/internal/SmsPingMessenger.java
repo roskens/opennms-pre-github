@@ -28,7 +28,6 @@
 
 package org.opennms.sms.ping.internal;
 
-
 import java.io.IOException;
 import java.util.Queue;
 
@@ -43,14 +42,14 @@ import org.smslib.Message.MessageTypes;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
-
 /**
  * SmsMessenger
  *
  * @author brozow
  * @version $Id: $
  */
-public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, OnmsInboundMessageNotification, InitializingBean {
+public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, OnmsInboundMessageNotification,
+        InitializingBean {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
@@ -59,18 +58,25 @@ public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, Onms
     private Queue<PingReply> m_replyQueue;
 
     /**
-     * <p>setSmsService</p>
+     * <p>
+     * setSmsService
+     * </p>
      *
-     * @param smsService a {@link org.opennms.sms.reflector.smsservice.SmsService} object.
+     * @param smsService
+     *            a {@link org.opennms.sms.reflector.smsservice.SmsService}
+     *            object.
      */
     public void setSmsService(SmsService smsService) {
         m_smsService = smsService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -78,14 +84,18 @@ public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, Onms
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.sms.ping.internal.PingRequest} object.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a {@link org.opennms.sms.ping.internal.PingRequest} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void sendRequest(PingRequest request) throws Exception {
-    	request.setSentTimestamp(System.currentTimeMillis());
+        request.setSentTimestamp(System.currentTimeMillis());
         debugf("SmsMessenger.sendRequest %s", request);
         if (!m_smsService.sendMessage(request.getRequest())) {
             throw new IOException("Failed to send sms message");
@@ -102,7 +112,7 @@ public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, Onms
     /** {@inheritDoc} */
     @Override
     public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
-    	long receiveTime = System.currentTimeMillis();
+        long receiveTime = System.currentTimeMillis();
 
         debugf("SmsMessenger.processInboundMessage");
 
@@ -116,6 +126,5 @@ public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, Onms
             log.debug(String.format(fmt, args));
         }
     }
-
 
 }

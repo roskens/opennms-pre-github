@@ -34,7 +34,9 @@ import java.util.Map;
 import org.opennms.netmgt.utils.IfLabel;
 
 /**
- * <p>JdbcIfInfoGetter class.</p>
+ * <p>
+ * JdbcIfInfoGetter class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
@@ -44,8 +46,11 @@ import org.opennms.netmgt.utils.IfLabel;
  */
 public class JdbcIfInfoGetter implements IfInfoGetter {
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.threshd.IfInfoGetter#getIfInfoForNodeAndLabel(int, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.threshd.IfInfoGetter#getIfInfoForNodeAndLabel(int,
+     * java.lang.String)
      */
     /** {@inheritDoc} */
     @Override

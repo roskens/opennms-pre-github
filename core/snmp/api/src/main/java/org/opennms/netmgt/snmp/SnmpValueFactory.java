@@ -31,7 +31,6 @@ package org.opennms.netmgt.snmp;
 import java.math.BigInteger;
 import java.net.InetAddress;
 
-
 public interface SnmpValueFactory {
 
     SnmpValue getOctetString(byte[] bytes);

@@ -67,5 +67,4 @@ public class DefaultStatisticsDaemonConfigDaoTest extends TestCase {
         assertNotNull("first report should not be zero", report);
     }
 
-
 }

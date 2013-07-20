@@ -60,7 +60,9 @@ import org.opennms.web.event.filter.SeverityFilter;
 import org.opennms.web.filter.Filter;
 
 /**
- * <p>Abstract EventUtil class.</p>
+ * <p>
+ * Abstract EventUtil class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -69,9 +71,12 @@ import org.opennms.web.filter.Filter;
 public abstract class EventUtil {
 
     /**
-     * <p>getFilter</p>
+     * <p>
+     * getFilter
+     * </p>
      *
-     * @param filterString a {@link java.lang.String} object.
+     * @param filterString
+     *            a {@link java.lang.String} object.
      * @return a org$opennms$web$filter$Filter object.
      */
     public static Filter getFilter(String filterString, ServletContext servletContext) {
@@ -141,9 +146,12 @@ public abstract class EventUtil {
     }
 
     /**
-     * <p>getFilterString</p>
+     * <p>
+     * getFilterString
+     * </p>
      *
-     * @param filter a org$opennms$web$filter$Filter object.
+     * @param filter
+     *            a org$opennms$web$filter$Filter object.
      * @return a {@link java.lang.String} object.
      */
     public static String getFilterString(Filter filter) {
@@ -176,9 +184,12 @@ public abstract class EventUtil {
     public static final int LAST_MONTH_RELATIVE_TIME = 7;
 
     /**
-     * <p>getRelativeTimeFilter</p>
+     * <p>
+     * getRelativeTimeFilter
+     * </p>
      *
-     * @param relativeTime a int.
+     * @param relativeTime
+     *            a int.
      * @return a org$opennms$web$filter$Filter object.
      */
     public static Filter getRelativeTimeFilter(int relativeTime) {

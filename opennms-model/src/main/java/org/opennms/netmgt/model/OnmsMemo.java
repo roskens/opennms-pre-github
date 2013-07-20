@@ -50,16 +50,18 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>Generic memo for any element inside OpenNMS</p>
+ * <p>
+ * Generic memo for any element inside OpenNMS
+ * </p>
  *
  * @author <a href="mailto:Markus@OpenNMS.com">Markus Neumann</a>
  */
-@XmlRootElement(name="memo")
+@XmlRootElement(name = "memo")
 @Entity
 @Table(name = "memos")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="type", discriminatorType= DiscriminatorType.STRING)
-@DiscriminatorValue(value="Memo")
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue(value = "Memo")
 public class OnmsMemo implements Serializable {
 
     private static final long serialVersionUID = 7272348439687562161L;
@@ -68,7 +70,7 @@ public class OnmsMemo implements Serializable {
     @Column(name = "id", nullable = false)
     @SequenceGenerator(name = "memoSequence", sequenceName = "memoNxtId")
     @GeneratedValue(generator = "memoSequence")
-    @XmlAttribute(name="id")
+    @XmlAttribute(name = "id")
     private Integer m_id;
 
     @Column(name = "body")

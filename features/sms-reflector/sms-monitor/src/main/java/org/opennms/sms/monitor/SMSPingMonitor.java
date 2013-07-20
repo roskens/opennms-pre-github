@@ -47,7 +47,9 @@ import org.opennms.sms.ping.SmsPinger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * <p>SMSPingMonitor class.</p>
+ * <p>
+ * SMSPingMonitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -55,41 +57,42 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @Distributable(DistributionContext.DAEMON)
 final public class SMSPingMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(SMSPingMonitor.class);
-	Phonebook phonebook = new PropertyPhonebook();
 
-	/** {@inheritDoc} */
-	@Override
-	public void initialize(Map<String,Object> params) {
-		super.initialize(params);
-		BeanUtils.getFactory("mobileMessagePollerContext", ClassPathXmlApplicationContext.class);
-	}
+    Phonebook phonebook = new PropertyPhonebook();
 
-	/** {@inheritDoc} */
-	@Override
-	public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
+    /** {@inheritDoc} */
+    @Override
+    public void initialize(Map<String, Object> params) {
+        super.initialize(params);
+        BeanUtils.getFactory("mobileMessagePollerContext", ClassPathXmlApplicationContext.class);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         int retries = ParameterMap.getKeyedInteger(parameters, "retry", PingConstants.DEFAULT_RETRIES);
         long timeout = ParameterMap.getKeyedLong(parameters, "timeout", PingConstants.DEFAULT_TIMEOUT);
         Long rtt = null;
 
-		String phoneNumber = null;
-		try {
-			phoneNumber = phonebook.getTargetForAddress(svc.getIpAddr());
-		} catch (final PhonebookException e) {
-		    LOG.warn("Unable to get phonebook target for {}", svc.getIpAddr(), e);
-		}
+        String phoneNumber = null;
+        try {
+            phoneNumber = phonebook.getTargetForAddress(svc.getIpAddr());
+        } catch (final PhonebookException e) {
+            LOG.warn("Unable to get phonebook target for {}", svc.getIpAddr(), e);
+        }
 
-		if (phoneNumber != null) {
-			try {
-				rtt = SmsPinger.ping(phoneNumber, timeout, retries);
-			} catch (final Exception e) {
-			    LOG.warn("Unable to ping phone number: {}", phoneNumber, e);
-			}
-		}
+        if (phoneNumber != null) {
+            try {
+                rtt = SmsPinger.ping(phoneNumber, timeout, retries);
+            } catch (final Exception e) {
+                LOG.warn("Unable to ping phone number: {}", phoneNumber, e);
+            }
+        }
 
-		if (rtt != null) {
-			return PollStatus.available(rtt.doubleValue());
-		} else {
-			return PollStatus.unavailable();
-		}
-	}
+        if (rtt != null) {
+            return PollStatus.available(rtt.doubleValue());
+        } else {
+            return PollStatus.unavailable();
+        }
+    }
 }

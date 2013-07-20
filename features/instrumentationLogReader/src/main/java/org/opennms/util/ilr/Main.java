@@ -41,77 +41,94 @@ public class Main {
      * @throws IOException
      */
     Collector c = new Collector();
+
     boolean processedFiles = false;
+
     public static void main(String[] args) throws IOException {
         new Main().execute(args, System.out);
     }
+
     public void execute(String[] args, OutputStream out) {
         ArgumentParser argParser = new ArgumentParser("ILR", this);
         try {
             argParser.processArgs(args);
         } catch (Exception e) {
-            reportErrAndExit(argParser, "Unable to parse Arguments."+ e);
+            reportErrAndExit(argParser, "Unable to parse Arguments." + e);
         }
         if (!processedFiles) {
             reportErrAndExit(argParser, "At least one instrumentation log file must be passed in.");
         }
 
-        PrintWriter writer = new PrintWriter(out,true);
+        PrintWriter writer = new PrintWriter(out, true);
         c.printReport(writer);
 
     }
-	private void reportErrAndExit(ArgumentParser argParser, String errMsg) {
-		System.err.println(errMsg);
-		argParser.printHelpOptions();
-		System.exit(1);
-	}
-    @Option (shortName ="tpt", longName = "totalPersistTime", help = "Sorts by total persist time")
+
+    private void reportErrAndExit(ArgumentParser argParser, String errMsg) {
+        System.err.println(errMsg);
+        argParser.printHelpOptions();
+        System.exit(1);
+    }
+
+    @Option(shortName = "tpt", longName = "totalPersistTime", help = "Sorts by total persist time")
     public void sortByTotalPersistTime() {
         c.setSortColumn(SortColumn.TOTALPERSISTTIME);
     }
-    @Option (shortName ="apt", longName = "averagePersistTime", help = "Sorts by average persist time")
+
+    @Option(shortName = "apt", longName = "averagePersistTime", help = "Sorts by average persist time")
     public void sortByAveragePersistTime() {
         c.setSortColumn(SortColumn.AVERAGEPERSISTTIME);
     }
-    @Option (shortName ="tct", longName = "totalCollectionTime", help = "Sorts by total collection time")
+
+    @Option(shortName = "tct", longName = "totalCollectionTime", help = "Sorts by total collection time")
     public void sortByTotalCollectiontime() {
         c.setSortColumn(SortColumn.TOTALCOLLECTTIME);
     }
-    @Option (shortName ="up", longName = "unsuccesfulPercentage", help = "Sorts by unsuccessful percentage")
+
+    @Option(shortName = "up", longName = "unsuccesfulPercentage", help = "Sorts by unsuccessful percentage")
     public void sortByUnsuccessfulPercentage() {
         c.setSortColumn(SortColumn.UNSUCCESSPERCENTAGE);
     }
-    @Option (shortName ="auct", longName = "averageUnsuccessfulCollectionTime", help = "Sorts by average unsuccessful collection time")
+
+    @Option(shortName = "auct", longName = "averageUnsuccessfulCollectionTime", help = "Sorts by average unsuccessful collection time")
     public void sortByAverageUnsuccessfulCollectionTime() {
         c.setSortColumn(SortColumn.AVGUNSUCCESSCOLLECTTIME);
     }
-    @Option (shortName ="sp", longName = "successfulPercentage", help = "Sorts by successful percentage")
+
+    @Option(shortName = "sp", longName = "successfulPercentage", help = "Sorts by successful percentage")
     public void sortBySuccessfulPercentage() {
         c.setSortColumn(SortColumn.SUCCESSPERCENTAGE);
     }
-    @Option (shortName ="asct", longName = "averageSuccessfulCollectionTime", help = "Sorts by average successful collection time")
+
+    @Option(shortName = "asct", longName = "averageSuccessfulCollectionTime", help = "Sorts by average successful collection time")
     public void sortByAverageSuccessfulCollectionTime() {
         c.setSortColumn(SortColumn.AVGSUCCESSCOLLECTTIME);
     }
-    @Option (shortName ="atbc", longName = "averageTimeBetweenCollections", help = "Sorts by average time between collections")
+
+    @Option(shortName = "atbc", longName = "averageTimeBetweenCollections", help = "Sorts by average time between collections")
     public void sortByAverageTimeBetweenCollections() {
         c.setSortColumn(SortColumn.AVGTIMEBETWEENCOLLECTS);
     }
-    @Option (shortName ="act", longName = "averageCollectionTime", help = "Sorts by average collection time")
+
+    @Option(shortName = "act", longName = "averageCollectionTime", help = "Sorts by average collection time")
     public void sortByAverageCollectionTime() {
         c.setSortColumn(SortColumn.AVGCOLLECTTIME);
     }
-    @Option (shortName ="tc", longName = "totalCollections", help = "Sorts by total collections")
+
+    @Option(shortName = "tc", longName = "totalCollections", help = "Sorts by total collections")
     public void sortByTotalCollections() {
         c.setSortColumn(SortColumn.TOTALCOLLECTS);
     }
-    @Option (shortName ="ms", longName = "msDurations", help = "Outputs all durations in milliseconds")
+
+    @Option(shortName = "ms", longName = "msDurations", help = "Outputs all durations in milliseconds")
     public void setDurationsMs() {
         Collector.setDurationsMs(true);
     }
-    public Collector getCollector(){
+
+    public Collector getCollector() {
         return c;
     }
+
     @Arguments(help = "One or more instrumentation log files (with debug logging enabled)")
     public void processLogFile(String fileName) {
         try {
@@ -122,8 +139,9 @@ public class Main {
         }
         processedFiles = true;
     }
-    public void parseHelpOption(String [] args, int i) {
-        if (args[i].equals( "-h") || args[i].equals( "--help")){
+
+    public void parseHelpOption(String[] args, int i) {
+        if (args[i].equals("-h") || args[i].equals("--help")) {
             System.out.println("Usage: Main.java <input> <sort method>");
             System.out.println("<input> is your input file, <sort method> is a");
             System.out.println("column sorting method chosen from the following list:");
@@ -138,6 +156,5 @@ public class Main {
             System.out.println("-tpt or --totalPersistTime : Sorts by total persist time");
         }
     }
-
 
 }

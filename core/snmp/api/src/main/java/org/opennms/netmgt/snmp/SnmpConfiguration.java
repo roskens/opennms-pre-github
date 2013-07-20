@@ -35,29 +35,49 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author brozow
  */
-@XmlRootElement(name="snmpConfiguration")
+@XmlRootElement(name = "snmpConfiguration")
 public class SnmpConfiguration {
 
     public static final int DEFAULT_TIMEOUT = 3000;
+
     public static final int DEFAULT_PORT = 161;
+
     public static final int VERSION1 = 1;
+
     public static final int VERSION2C = 2;
+
     public static final int VERSION3 = 3;
+
     public static final int DEFAULT_VERSION = VERSION1;
+
     public static final int DEFAULT_RETRIES = 1;
+
     public static final int DEFAULT_MAX_REQUEST_SIZE = 65535;
+
     public static final int NOAUTH_NOPRIV = 1;
+
     public static final int AUTH_NOPRIV = 2;
+
     public static final int AUTH_PRIV = 3;
+
     public static final String DEFAULT_READ_COMMUNITY = "public";
+
     public static final int DEFAULT_MAX_VARS_PER_PDU = 10;
+
     public static final int DEFAULT_MAX_REPETITIONS = 2;
+
     public static final String DEFAULT_WRITE_COMMUNITY = "private";
+
     public static final int DEFAULT_SECURITY_LEVEL = NOAUTH_NOPRIV;
+
     public static final String DEFAULT_SECURITY_NAME = "opennmsUser";
+
     public static final String DEFAULT_AUTH_PASS_PHRASE = "0p3nNMSv3";
+
     public static final String DEFAULT_AUTH_PROTOCOL = "MD5";
+
     public static final String DEFAULT_PRIV_PROTOCOL = "DES";
+
     public static final String DEFAULT_PRIV_PASS_PHRASE = DEFAULT_AUTH_PASS_PHRASE;
 
     public static final SnmpConfiguration DEFAULTS;
@@ -82,23 +102,41 @@ public class SnmpConfiguration {
     }
 
     private int m_timeout;
+
     private int m_retries;
+
     private int m_port;
+
     private int m_version;
+
     private int m_maxRequestSize;
+
     private int m_securityLevel;
+
     private String m_securityName;
+
     private String m_readCommunity;
+
     private int m_maxVarsPerPdu;
+
     private int m_maxRepetitions;
+
     private String m_writeCommunity;
+
     private String m_authPassPhrase;
+
     private String m_authProtocol;
+
     private String m_privProtocol;
+
     private String m_privPassPhrase;
+
     private String m_engineId;
+
     private String m_contextEngineId;
+
     private String m_contextName;
+
     private String m_enterpriseId;
 
     public SnmpConfiguration() {
@@ -139,7 +177,6 @@ public class SnmpConfiguration {
     public final int getTimeout() {
         return m_timeout;
     }
-
 
     public final void setTimeout(int timeout) {
         m_timeout = timeout;
@@ -227,13 +264,13 @@ public class SnmpConfiguration {
 
     public static String versionToString(int version) {
         switch (version) {
-        case VERSION1 :
+        case VERSION1:
             return "v1";
-        case VERSION2C :
+        case VERSION2C:
             return "v2c";
-        case VERSION3 :
+        case VERSION3:
             return "v3";
-        default :
+        default:
             return "unknown";
         }
     }
@@ -284,38 +321,38 @@ public class SnmpConfiguration {
     }
 
     public final String getEngineId() {
-    	return m_engineId;
+        return m_engineId;
     }
 
     public final void setEngineId(final String engineId) {
-    	m_engineId = engineId;
+        m_engineId = engineId;
     }
 
     public final String getContextEngineId() {
-    	return m_contextEngineId;
+        return m_contextEngineId;
     }
 
     public final void setContextEngineId(final String contextEngineId) {
-    	m_contextEngineId = contextEngineId;
+        m_contextEngineId = contextEngineId;
     }
 
     public final String getContextName() {
-    	return m_contextName;
+        return m_contextName;
     }
 
     public void setContextName(final String contextName) {
-    	m_contextName = contextName;
+        m_contextName = contextName;
     }
 
     public final String getEnterpriseId() {
-    	return m_enterpriseId;
+        return m_enterpriseId;
     }
 
     public void setEnterpriseId(final String enterpriseId) {
-    	m_enterpriseId = enterpriseId;
+        m_enterpriseId = enterpriseId;
     }
 
     public boolean isVersion3() {
-    	return getVersion() == VERSION3;
+        return getVersion() == VERSION3;
     }
 }

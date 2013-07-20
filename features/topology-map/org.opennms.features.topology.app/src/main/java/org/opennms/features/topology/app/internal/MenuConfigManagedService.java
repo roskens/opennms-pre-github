@@ -43,7 +43,7 @@ public class MenuConfigManagedService implements ManagedService {
 
     // Implements OSGi API
     @Override
-    public void updated(Dictionary<String,?> properties) throws ConfigurationException {
+    public void updated(Dictionary<String, ?> properties) throws ConfigurationException {
         m_commandManager.updateMenuConfig(properties);
     }
 

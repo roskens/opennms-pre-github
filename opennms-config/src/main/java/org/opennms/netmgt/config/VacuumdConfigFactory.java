@@ -48,13 +48,12 @@ import org.opennms.netmgt.config.vacuumd.Trigger;
 import org.opennms.netmgt.config.vacuumd.VacuumdConfiguration;
 import org.springframework.util.Assert;
 
-
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * Vacuumd process from the vacuumd-configuration xml file.
- *
  * <strong>Note: </strong>Users of this class should make sure the
- * <em>setReader()</em> method is called before calling any other method to ensure the
+ * <em>setReader()</em> method is called before calling any other method to
+ * ensure the
  * config is loaded before accessing other convenience methods.
  *
  * @author <a href="mailto:david@opennms.com">David Hustace </a>
@@ -82,11 +81,16 @@ public final class VacuumdConfigFactory {
     private VacuumdConfiguration m_config;
 
     /**
-     * <p>Constructor for VacuumdConfigFactory.</p>
+     * <p>
+     * Constructor for VacuumdConfigFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public VacuumdConfigFactory(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(VacuumdConfiguration.class, stream);
@@ -102,9 +106,12 @@ public final class VacuumdConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_singleton != null) {
@@ -138,9 +145,12 @@ public final class VacuumdConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         if (m_loadedFromFile) {
@@ -166,7 +176,8 @@ public final class VacuumdConfigFactory {
     /**
      * Set the singleton instance of this factory.
      *
-     * @param instance The factory instance to set.
+     * @param instance
+     *            The factory instance to set.
      */
     public static synchronized void setInstance(VacuumdConfigFactory instance) {
         m_singleton = instance;
@@ -181,12 +192,12 @@ public final class VacuumdConfigFactory {
         return m_config.getAutomations().getAutomationCollection();
     }
 
-	/**
-	 * Returns a Collection of triggers defined in the config
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
-	public synchronized Collection<Trigger> getTriggers() {
+    /**
+     * Returns a Collection of triggers defined in the config
+     *
+     * @return a {@link java.util.Collection} object.
+     */
+    public synchronized Collection<Trigger> getTriggers() {
         return m_config.getTriggers().getTriggerCollection();
     }
 
@@ -210,7 +221,9 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * <p>getActionEvents</p>
+     * <p>
+     * getActionEvents
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -219,7 +232,9 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * <p>getPeriod</p>
+     * <p>
+     * getPeriod
+     * </p>
      *
      * @return a int.
      */
@@ -230,7 +245,8 @@ public final class VacuumdConfigFactory {
     /**
      * Returns a Trigger with a name matching the string parameter
      *
-     * @param triggerName a {@link java.lang.String} object.
+     * @param triggerName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.vacuumd.Trigger} object.
      */
     public synchronized Trigger getTrigger(String triggerName) {
@@ -245,7 +261,8 @@ public final class VacuumdConfigFactory {
     /**
      * Returns an Action with a name matching the string parmater
      *
-     * @param actionName a {@link java.lang.String} object.
+     * @param actionName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.vacuumd.Action} object.
      */
     public synchronized Action getAction(String actionName) {
@@ -260,7 +277,8 @@ public final class VacuumdConfigFactory {
     /**
      * Returns an Automation with a name matching the string parameter
      *
-     * @param autoName a {@link java.lang.String} object.
+     * @param autoName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.vacuumd.Automation} object.
      */
     public synchronized Automation getAutomation(String autoName) {
@@ -275,8 +293,10 @@ public final class VacuumdConfigFactory {
     /**
      * Returns the AutoEvent associated with the auto-event-name
      *
-     * @deprecated Use {@link ActionEvent} objects instead. Access these objects with {@link #getActionEvent(String)}.
-     * @param name a {@link java.lang.String} object.
+     * @deprecated Use {@link ActionEvent} objects instead. Access these objects
+     *             with {@link #getActionEvent(String)}.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.vacuumd.AutoEvent} object.
      */
     public synchronized AutoEvent getAutoEvent(String name) {
@@ -289,7 +309,9 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * <p>getSqlStatements</p>
+     * <p>
+     * getSqlStatements
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -303,18 +325,23 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * <p>getStatements</p>
+     * <p>
+     * getStatements
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public synchronized List<Statement> getStatements() {
-    	return m_config.getStatementCollection();
+        return m_config.getStatementCollection();
     }
 
     /**
-     * <p>getActionEvent</p>
+     * <p>
+     * getActionEvent
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.vacuumd.ActionEvent} object.
      */
     public ActionEvent getActionEvent(String name) {

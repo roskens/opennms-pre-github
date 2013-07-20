@@ -29,7 +29,6 @@
 package org.opennms.features.jmxconfiggenerator.jmxconfig;
 
 /**
- *
  * @author Markus Neumann <markus@opennms.com>
  */
 public interface JmxTestDummyMBean {

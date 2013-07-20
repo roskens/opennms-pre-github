@@ -46,7 +46,8 @@ class V6PingReply extends ICMPv6EchoPacket implements EchoPacket {
 
     public boolean isValid() {
         ByteBuffer content = getContentBuffer();
-        return content.limit() >= V6PingRequest.DATA_LENGTH && V6PingRequest.COOKIE == content.getLong(V6PingRequest.OFFSET_COOKIE);
+        return content.limit() >= V6PingRequest.DATA_LENGTH
+                && V6PingRequest.COOKIE == content.getLong(V6PingRequest.OFFSET_COOKIE);
     }
 
     @Override

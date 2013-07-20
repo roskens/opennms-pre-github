@@ -36,24 +36,29 @@ import org.opennms.api.reporting.ReportService;
  *
  * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
  */
-public interface ReportServiceLocator  {
+public interface ReportServiceLocator {
 
     /**
      * This method is used to retrieve the ReportService bean associated with
      *
-     * @param   reportServiceName the name of the report service as
-     *          as defined in database-reports.xml
-     * @return  the ReportService bean used to run this report
-     * @throws  org.opennms.reporting.core.svclayer.ReportServiceLocatorException if any.
+     * @param reportServiceName
+     *            the name of the report service as
+     *            as defined in database-reports.xml
+     * @return the ReportService bean used to run this report
+     * @throws org.opennms.reporting.core.svclayer.ReportServiceLocatorException
+     *             if any.
      */
     public ReportService getReportService(String reportServiceName) throws ReportServiceLocatorException;
 
     /**
-     * This method is used to retrieve the ReportService bean associated with a report Id
+     * This method is used to retrieve the ReportService bean associated with a
+     * report Id
      *
-     * @param   reportId the reportID defined in database-reports.xml
-     * @return  the ReportService bean used to run this report
-     * @throws  org.opennms.reporting.core.svclayer.ReportServiceLocatorException if any.
+     * @param reportId
+     *            the reportID defined in database-reports.xml
+     * @return the ReportService bean used to run this report
+     * @throws org.opennms.reporting.core.svclayer.ReportServiceLocatorException
+     *             if any.
      */
     public ReportService getReportServiceForId(String reportId) throws ReportServiceLocatorException;
 

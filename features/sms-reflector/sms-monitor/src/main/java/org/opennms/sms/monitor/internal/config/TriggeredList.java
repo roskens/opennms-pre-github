@@ -33,7 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>TriggeredList class.</p>
+ * <p>
+ * TriggeredList class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -82,11 +84,16 @@ public class TriggeredList<T> extends AbstractList<T> {
     }
 
     /**
-     * <p>onSet</p>
+     * <p>
+     * onSet
+     * </p>
      *
-     * @param index a int.
-     * @param oldElem a T object.
-     * @param newElem a T object.
+     * @param index
+     *            a int.
+     * @param oldElem
+     *            a T object.
+     * @param newElem
+     *            a T object.
      */
     protected void onSet(int index, T oldElem, T newElem) {
         if (oldElem != null) {
@@ -98,22 +105,29 @@ public class TriggeredList<T> extends AbstractList<T> {
     }
 
     /**
-     * <p>onAdd</p>
+     * <p>
+     * onAdd
+     * </p>
      *
-     * @param index a int.
-     * @param element a T object.
+     * @param index
+     *            a int.
+     * @param element
+     *            a T object.
      */
     protected void onAdd(int index, T element) {
     }
 
     /**
-     * <p>onRemove</p>
+     * <p>
+     * onRemove
+     * </p>
      *
-     * @param index a int.
-     * @param element a T object.
+     * @param index
+     *            a int.
+     * @param element
+     *            a T object.
      */
     protected void onRemove(int index, T element) {
     }
-
 
 }

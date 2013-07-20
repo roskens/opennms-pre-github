@@ -45,9 +45,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>LoadLabelMapController class.</p>
+ * <p>
+ * LoadLabelMapController class.
+ * </p>
  *
  * @author mmigliore
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
@@ -57,52 +58,54 @@ import org.springframework.web.servlet.ModelAndView;
 @SuppressWarnings("deprecation")
 public class LoadLabelMapController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(LoadLabelMapController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoadLabelMapController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 
-
-		try {
-	        String user = request.getRemoteUser();
+        try {
+            String user = request.getRemoteUser();
 
             LOG.debug("Loading Label Map for user:{}", user);
 
-			bw.write(ResponseAssembler.getLoadLabelMapResponse(manager.getNodeLabelToMaps(user)));
-		} catch (Throwable e) {
-			LOG.error("Error in map's startup", e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.LOADLABELMAP_ACTION));
-		} finally {
-			bw.close();
-		}
+            bw.write(ResponseAssembler.getLoadLabelMapResponse(manager.getNodeLabelToMaps(user)));
+        } catch (Throwable e) {
+            LOG.error("Error in map's startup", e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.LOADLABELMAP_ACTION));
+        } finally {
+            bw.close();
+        }
 
-		return null;
-	}
-
-
+        return null;
+    }
 
 }

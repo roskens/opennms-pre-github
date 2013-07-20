@@ -29,7 +29,9 @@
 package org.opennms.netmgt.config.collector;
 
 /**
- * <p>CollectionSetVisitor interface.</p>
+ * <p>
+ * CollectionSetVisitor interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,58 +39,88 @@ package org.opennms.netmgt.config.collector;
 public interface CollectionSetVisitor {
 
     /**
-     * <p>visitCollectionSet</p>
+     * <p>
+     * visitCollectionSet
+     * </p>
      *
-     * @param set a {@link org.opennms.netmgt.collectd.CollectionSet} object.
+     * @param set
+     *            a {@link org.opennms.netmgt.collectd.CollectionSet} object.
      */
     void visitCollectionSet(CollectionSet set);
 
     /**
-     * <p>visitResource</p>
+     * <p>
+     * visitResource
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
      */
     void visitResource(CollectionResource resource);
 
     /**
-     * <p>visitGroup</p>
+     * <p>
+     * visitGroup
+     * </p>
      *
-     * @param group a {@link org.opennms.netmgt.collectd.AttributeGroup} object.
+     * @param group
+     *            a {@link org.opennms.netmgt.collectd.AttributeGroup} object.
      */
     void visitGroup(AttributeGroup group);
 
     /**
-     * <p>visitAttribute</p>
+     * <p>
+     * visitAttribute
+     * </p>
      *
-     * @param attribute a {@link org.opennms.netmgt.collectd.CollectionAttribute} object.
+     * @param attribute
+     *            a {@link org.opennms.netmgt.collectd.CollectionAttribute}
+     *            object.
      */
     void visitAttribute(CollectionAttribute attribute);
 
     /**
-     * <p>completeAttribute</p>
+     * <p>
+     * completeAttribute
+     * </p>
      *
-     * @param attribute a {@link org.opennms.netmgt.collectd.CollectionAttribute} object.
+     * @param attribute
+     *            a {@link org.opennms.netmgt.collectd.CollectionAttribute}
+     *            object.
      */
     void completeAttribute(CollectionAttribute attribute);
 
     /**
-     * <p>completeGroup</p>
+     * <p>
+     * completeGroup
+     * </p>
      *
-     * @param group a {@link org.opennms.netmgt.collectd.AttributeGroup} object.
+     * @param group
+     *            a {@link org.opennms.netmgt.collectd.AttributeGroup} object.
      */
     void completeGroup(AttributeGroup group);
 
     /**
-     * <p>completeResource</p>
+     * <p>
+     * completeResource
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
      */
     void completeResource(CollectionResource resource);
 
     /**
-     * <p>completeCollectionSet</p>
+     * <p>
+     * completeCollectionSet
+     * </p>
      *
-     * @param set a {@link org.opennms.netmgt.collectd.CollectionSet} object.
+     * @param set
+     *            a {@link org.opennms.netmgt.collectd.CollectionSet} object.
      */
     void completeCollectionSet(CollectionSet set);
 

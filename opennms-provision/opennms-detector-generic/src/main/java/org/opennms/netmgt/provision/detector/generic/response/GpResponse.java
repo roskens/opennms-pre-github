@@ -29,7 +29,9 @@
 package org.opennms.netmgt.provision.detector.generic.response;
 
 /**
- * <p>GpResponse class.</p>
+ * <p>
+ * GpResponse class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,34 +41,46 @@ public class GpResponse {
     private String m_response;
 
     /**
-     * <p>setExitStatus</p>
+     * <p>
+     * setExitStatus
+     * </p>
      *
-     * @param exitStatus a int.
+     * @param exitStatus
+     *            a int.
      */
     public void setExitStatus(final int exitStatus) {
     }
 
     /**
-     * <p>setResponse</p>
+     * <p>
+     * setResponse
+     * </p>
      *
-     * @param response a {@link java.lang.String} object.
+     * @param response
+     *            a {@link java.lang.String} object.
      */
     public void setResponse(final String response) {
         m_response = response;
     }
 
     /**
-     * <p>setError</p>
+     * <p>
+     * setError
+     * </p>
      *
-     * @param error a {@link java.lang.String} object.
+     * @param error
+     *            a {@link java.lang.String} object.
      */
     public void setError(final String error) {
     }
 
     /**
-     * <p>validate</p>
+     * <p>
+     * validate
+     * </p>
      *
-     * @param banner a {@link java.lang.String} object.
+     * @param banner
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean validate(final String banner) {

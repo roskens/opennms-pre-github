@@ -55,25 +55,32 @@ public class ConfigurationReportPlugin extends AbstractSystemReportPlugin {
 
     @Override
     public TreeMap<String, Resource> getEntries() {
-        final TreeMap<String,Resource> map = new TreeMap<String,Resource>();
+        final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
         File f = new File(System.getProperty("opennms.home") + File.separator + "etc");
         processFile(f, map);
         return map;
     }
 
-    public void processFile(final File file, final Map<String,Resource> map) {
+    public void processFile(final File file, final Map<String, Resource> map) {
         if (file.isDirectory()) {
             for (final File f : file.listFiles()) {
                 processFile(f, map);
             }
         } else {
             String filename = file.getPath();
-            filename = filename.replaceFirst("^" + System.getProperty("opennms.home") + File.separator + "etc" + File.separator + "?", "");
+            filename = filename.replaceFirst("^" + System.getProperty("opennms.home") + File.separator + "etc"
+                    + File.separator + "?", "");
 
             // skip examples, .git directories, and empty files
-            if (filename.contains(File.separator + "examples" + File.separator)) { return; }
-            if (filename.contains(File.separator + ".git" + File.separator)) { return; }
-            if (file.length() < 1) { return; }
+            if (filename.contains(File.separator + "examples" + File.separator)) {
+                return;
+            }
+            if (filename.contains(File.separator + ".git" + File.separator)) {
+                return;
+            }
+            if (file.length() < 1) {
+                return;
+            }
 
             map.put(filename, new FileSystemResource(file));
         }

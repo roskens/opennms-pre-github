@@ -58,6 +58,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private EventProxy m_eventProxy = m_mocks.createMock(EventProxy.class);
 
     public void testAuthenticationSuccessEventWithEverything() throws Exception {
@@ -75,14 +76,19 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
         WebAuthenticationDetails details = new WebAuthenticationDetails(request);
         verify(request, session);
 
-        org.springframework.security.core.Authentication authentication = new TestingDetailsAuthenticationToken(userName, "cheesiness", new GrantedAuthority[0], details);
+        org.springframework.security.core.Authentication authentication = new TestingDetailsAuthenticationToken(
+                                                                                                                userName,
+                                                                                                                "cheesiness",
+                                                                                                                new GrantedAuthority[0],
+                                                                                                                details);
         AuthenticationSuccessEvent authEvent = new AuthenticationSuccessEvent(authentication);
 
         SecurityAuthenticationEventOnmsEventBuilder builder = new SecurityAuthenticationEventOnmsEventBuilder();
         builder.setEventProxy(m_eventProxy);
         builder.afterPropertiesSet();
 
-        EventBuilder eventBuilder = new EventBuilder(SecurityAuthenticationEventOnmsEventBuilder.SUCCESS_UEI, "OpenNMS.WebUI");
+        EventBuilder eventBuilder = new EventBuilder(SecurityAuthenticationEventOnmsEventBuilder.SUCCESS_UEI,
+                                                     "OpenNMS.WebUI");
         eventBuilder.addParam("user", userName);
         eventBuilder.addParam("ip", ip);
 
@@ -108,14 +114,22 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
         WebAuthenticationDetails details = new WebAuthenticationDetails(request);
         verify(request, session);
 
-        org.springframework.security.core.Authentication authentication = new TestingDetailsAuthenticationToken(userName, "cheesiness", new GrantedAuthority[0], details);
-        AuthenticationFailureBadCredentialsEvent authEvent = new AuthenticationFailureBadCredentialsEvent(authentication, new BadCredentialsException("you are bad!"));
+        org.springframework.security.core.Authentication authentication = new TestingDetailsAuthenticationToken(
+                                                                                                                userName,
+                                                                                                                "cheesiness",
+                                                                                                                new GrantedAuthority[0],
+                                                                                                                details);
+        AuthenticationFailureBadCredentialsEvent authEvent = new AuthenticationFailureBadCredentialsEvent(
+                                                                                                          authentication,
+                                                                                                          new BadCredentialsException(
+                                                                                                                                      "you are bad!"));
 
         SecurityAuthenticationEventOnmsEventBuilder builder = new SecurityAuthenticationEventOnmsEventBuilder();
         builder.setEventProxy(m_eventProxy);
         builder.afterPropertiesSet();
 
-        EventBuilder eventBuilder = new EventBuilder(SecurityAuthenticationEventOnmsEventBuilder.FAILURE_UEI, "OpenNMS.WebUI");
+        EventBuilder eventBuilder = new EventBuilder(SecurityAuthenticationEventOnmsEventBuilder.FAILURE_UEI,
+                                                     "OpenNMS.WebUI");
         eventBuilder.addParam("user", userName);
         eventBuilder.addParam("ip", ip);
         eventBuilder.addParam("exceptionName", authEvent.getException().getClass().getSimpleName());
@@ -175,12 +189,16 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
         /**
 		 *
 		 */
-		private static final long serialVersionUID = -6197934198093164407L;
-		private Object m_principal;
+        private static final long serialVersionUID = -6197934198093164407L;
+
+        private Object m_principal;
+
         private Object m_credentials;
+
         private Object m_details;
 
-        public TestingDetailsAuthenticationToken(Object principal, Object credentials, GrantedAuthority[] authorities, Object details) {
+        public TestingDetailsAuthenticationToken(Object principal, Object credentials, GrantedAuthority[] authorities,
+                Object details) {
             super(Arrays.asList(authorities));
             m_principal = principal;
             m_credentials = credentials;
@@ -192,12 +210,12 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
             return m_details;
         }
 
-                @Override
+        @Override
         public Object getCredentials() {
             return m_credentials;
         }
 
-                @Override
+        @Override
         public Object getPrincipal() {
             return m_principal;
         }
@@ -208,9 +226,9 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
         /**
 		 *
 		 */
-		private static final long serialVersionUID = 7573808524408766331L;
+        private static final long serialVersionUID = 7573808524408766331L;
 
-		public TestApplicationEvent(Object obj) {
+        public TestApplicationEvent(Object obj) {
             super(obj);
         }
     }

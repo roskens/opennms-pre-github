@@ -48,122 +48,123 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>OpenMapController class.</p>
+ * <p>
+ * OpenMapController class.
+ * </p>
  *
  * @author mmigliore
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class OpenMapController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OpenMapController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OpenMapController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
-
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-
-		LOG.debug(request.getQueryString());
-		String mapIdStr = request.getParameter("MapId");
-		LOG.debug("MapId={}", mapIdStr);
-		String mapWidthStr = request.getParameter("MapWidth");
+        LOG.debug(request.getQueryString());
+        String mapIdStr = request.getParameter("MapId");
+        LOG.debug("MapId={}", mapIdStr);
+        String mapWidthStr = request.getParameter("MapWidth");
         LOG.debug("MapWidth={}", mapWidthStr);
         String mapHeightStr = request.getParameter("MapHeight");
         LOG.debug("MapHeight={}", mapHeightStr);
         String adminModeStr = request.getParameter("adminMode");
         LOG.debug("adminMode={}", adminModeStr);
 
-		String user = request.getRemoteUser();
+        String user = request.getRemoteUser();
 
-		if ((request.isUserInRole(org.opennms.web.springframework.security.Authentication.ROLE_ADMIN))) {
-			LOG.info("{} has Admin admin Role", user);
-		}
+        if ((request.isUserInRole(org.opennms.web.springframework.security.Authentication.ROLE_ADMIN))) {
+            LOG.info("{} has Admin admin Role", user);
+        }
 
-		float widthFactor = 1;
-		float heightFactor =1;
+        float widthFactor = 1;
+        float heightFactor = 1;
 
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
-				.getOutputStream(), "UTF-8"));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 
-		try {
-			int mapWidth = WebSecurityUtils.safeParseInt(mapWidthStr);
-			int mapHeight = WebSecurityUtils.safeParseInt(mapHeightStr);
+        try {
+            int mapWidth = WebSecurityUtils.safeParseInt(mapWidthStr);
+            int mapHeight = WebSecurityUtils.safeParseInt(mapHeightStr);
 
-			LOG.debug("Current mapWidth={} and MapHeight={}", mapWidth, mapHeight);
-			VMap map = null;
-			if (mapIdStr != null) {
-				int mapid = WebSecurityUtils.safeParseInt(mapIdStr);
-				LOG.debug("Opening map {} for user {}", mapid, user);
-				map = manager.openMap(mapid, user, !(adminModeStr.equals("true")));
-			} else {
-				LOG.debug("Try to Opening default map");
-				VMapInfo defaultmapinfo = manager.getDefaultMapsMenu(user);
-				if (defaultmapinfo != null) {
-	                map = manager.openMap(defaultmapinfo.getId(), user, !(adminModeStr.equals("true")));
-				} else {
-				    map = manager.openMap();
-				}
-			}
+            LOG.debug("Current mapWidth={} and MapHeight={}", mapWidth, mapHeight);
+            VMap map = null;
+            if (mapIdStr != null) {
+                int mapid = WebSecurityUtils.safeParseInt(mapIdStr);
+                LOG.debug("Opening map {} for user {}", mapid, user);
+                map = manager.openMap(mapid, user, !(adminModeStr.equals("true")));
+            } else {
+                LOG.debug("Try to Opening default map");
+                VMapInfo defaultmapinfo = manager.getDefaultMapsMenu(user);
+                if (defaultmapinfo != null) {
+                    map = manager.openMap(defaultmapinfo.getId(), user, !(adminModeStr.equals("true")));
+                } else {
+                    map = manager.openMap();
+                }
+            }
 
+            if (map != null) {
+                int dbMapWidth = map.getWidth();
+                int dbMapHeight = map.getHeight();
+                widthFactor = (float) mapWidth / dbMapWidth;
+                heightFactor = (float) mapHeight / dbMapHeight;
 
-			if (map != null) {
-				int dbMapWidth = map.getWidth();
-				int dbMapHeight = map.getHeight();
-				widthFactor = (float) mapWidth / dbMapWidth;
-				heightFactor = (float) mapHeight / dbMapHeight;
+                LOG.debug("Old saved mapWidth={} and MapHeight={}", dbMapWidth, dbMapHeight);
+                LOG.debug("widthFactor={}", widthFactor);
+                LOG.debug("heightFactor={}", heightFactor);
+                LOG.debug("Setting new width and height to the session map");
 
-				LOG.debug("Old saved mapWidth={} and MapHeight={}", dbMapWidth, dbMapHeight);
-				LOG.debug("widthFactor={}", widthFactor);
-				LOG.debug("heightFactor={}", heightFactor);
-				LOG.debug("Setting new width and height to the session map");
+                map.setHeight(mapHeight);
+                map.setWidth(mapWidth);
 
-				map.setHeight(mapHeight);
-				map.setWidth(mapWidth);
-
-				for (VElement ve : map.getElements().values()) {
-				    ve.setX((int) (ve.getX() * widthFactor));
+                for (VElement ve : map.getElements().values()) {
+                    ve.setX((int) (ve.getX() * widthFactor));
                     ve.setY((int) (ve.getY() * heightFactor));
-				}
-			}
+                }
+            }
 
-			bw.write(ResponseAssembler.getMapResponse(map));
+            bw.write(ResponseAssembler.getMapResponse(map));
 
-		} catch (Throwable e) {
-			LOG.error("Error while opening map with id:{}, for user:{}", mapIdStr, user, e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.OPENMAP_ACTION));
-		} finally {
-			bw.close();
-		}
+        } catch (Throwable e) {
+            LOG.error("Error while opening map with id:{}, for user:{}", mapIdStr, user, e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.OPENMAP_ACTION));
+        } finally {
+            bw.close();
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

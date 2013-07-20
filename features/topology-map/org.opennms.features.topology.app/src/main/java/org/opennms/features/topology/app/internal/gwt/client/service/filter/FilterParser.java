@@ -9,7 +9,9 @@ public class FilterParser {
 
     private class Lexer {
         private String m_input;
+
         private int m_ptr;
+
         private String m_peekedToken;
 
         Lexer(String input) {
@@ -47,14 +49,13 @@ public class FilterParser {
          * '>='
          * '<='
          * text == '[^()&|!=<>*]|\[()&|!=<>*\]'
-         *
          */
 
         boolean isTokenStart(Character ch) {
             if (ch == null) {
                 return true;
             }
-            switch(ch) {
+            switch (ch) {
             case '(':
             case ')':
             case '&':
@@ -74,7 +75,7 @@ public class FilterParser {
         String readText() {
             StringBuilder bldr = new StringBuilder();
             Character ch = peekChar();
-            while(!isTokenStart(ch)) {
+            while (!isTokenStart(ch)) {
                 if (ch == '\\') {
                     // skip backslash
                     nextChar();
@@ -110,7 +111,7 @@ public class FilterParser {
                 return null;
             }
 
-            switch(ch) {
+            switch (ch) {
             case '(':
             case ')':
             case '&':
@@ -122,7 +123,7 @@ public class FilterParser {
             case '>':
             case '<':
                 Character eq = nextChar();
-                if ( eq == null || '=' != eq ) {
+                if (eq == null || '=' != eq) {
                     parseError("Expected '=' following '" + ch + "'. Note strict '>' and '<' not supported");
                     return null;
                 }
@@ -145,7 +146,7 @@ public class FilterParser {
             boolean escaped = false;
 
             Character ch = peekChar();
-            while (ch != null && (ch != token || escaped) ) {
+            while (ch != null && (ch != token || escaped)) {
                 buf.append(nextChar()); // use next char to move ptr forward
                 escaped = ch == '\\' ? !escaped : false;
                 ch = peekChar();
@@ -155,15 +156,13 @@ public class FilterParser {
 
         }
 
-
     }
 
-
     private Lexer m_lexer;
+
     public FilterParser() {
 
     }
-
 
     public Filter parse(String filterString) {
         m_lexer = new Lexer(filterString);
@@ -198,16 +197,19 @@ public class FilterParser {
         List<Filter> filters = filterList();
         return new AndFilter(filters);
     }
+
     private Filter or() {
         match("|");
         List<Filter> filters = filterList();
         return new OrFilter(filters);
     }
+
     private Filter not() {
         match("!");
         Filter filter = filter();
         return new NotFilter(filter);
     }
+
     private LinkedList<Filter> filterList() {
         LinkedList<Filter> filters;
         Filter filter = filter();
@@ -240,10 +242,8 @@ public class FilterParser {
         }
     }
 
-
     private Filter eq(String attribute) {
         match("=");
-
 
         String value = m_lexer.charsTil(')');
 
@@ -261,7 +261,6 @@ public class FilterParser {
 
     }
 
-
     private void assertNotEnd(String token, String msg) {
         if (token == null) {
             parseError("Unexpected end of input. " + msg);
@@ -278,9 +277,6 @@ public class FilterParser {
         return new LessThanFilter(attribute, value);
     }
 
-
-
-
     private Filter greaterThan(String attribute) {
         match(">=");
 
@@ -291,7 +287,6 @@ public class FilterParser {
         return new GreaterThanFilter(attribute, value);
     }
 
-
     private String matchAttribute() {
         String token = m_lexer.nextToken();
         assertNotEnd(token, "Expected an attribute name.");
@@ -301,7 +296,7 @@ public class FilterParser {
     }
 
     private void ensureAttrDoesNotContain(String attr, String invalidChars) {
-        for(int i = 0; i < invalidChars.length(); i++) {
+        for (int i = 0; i < invalidChars.length(); i++) {
             char ch = invalidChars.charAt(i);
             if (attr.contains(String.valueOf(ch))) {
                 parseError("Attributes may not contain the '" + ch + "' characters");
@@ -319,7 +314,6 @@ public class FilterParser {
         return actual;
     }
 
-
     private void skipWhitespace() {
         String token = m_lexer.peekToken();
         if (token != null && "".equals(token.trim())) {
@@ -328,11 +322,8 @@ public class FilterParser {
         }
     }
 
-
     void parseError(String msg) {
         throw new IllegalArgumentException(msg);
     }
-
-
 
 }

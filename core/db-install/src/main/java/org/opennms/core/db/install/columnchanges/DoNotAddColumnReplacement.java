@@ -49,7 +49,9 @@ public class DoNotAddColumnReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -58,9 +60,10 @@ public class DoNotAddColumnReplacement implements ColumnChangeReplacement {
         return false;
     }
 
-
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {

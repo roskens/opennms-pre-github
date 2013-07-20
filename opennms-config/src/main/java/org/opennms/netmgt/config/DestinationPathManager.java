@@ -49,7 +49,9 @@ import org.opennms.netmgt.config.destinationPaths.Path;
 import org.opennms.netmgt.config.destinationPaths.Target;
 
 /**
- * <p>Abstract DestinationPathManager class.</p>
+ * <p>
+ * Abstract DestinationPathManager class.
+ * </p>
  *
  * @author David Hustace <david@opennms.org>
  * @version $Id: $
@@ -60,25 +62,33 @@ public abstract class DestinationPathManager {
      *
      */
     private DestinationPaths allPaths;
+
     /**
      *
      */
     private Map<String, Path> m_destinationPaths;
+
     /**
      *
      */
     protected InputStream configIn;
+
     /**
      *
      */
     private Header oldHeader;
 
     /**
-     * <p>parseXML</p>
+     * <p>
+     * parseXML
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     protected void parseXML(InputStream stream) throws MarshalException, ValidationException {
         allPaths = CastorUtils.unmarshal(DestinationPaths.class, stream);
@@ -94,13 +104,19 @@ public abstract class DestinationPathManager {
     }
 
     /**
-     * <p>getPath</p>
+     * <p>
+     * getPath
+     * </p>
      *
-     * @param pathName a {@link java.lang.String} object.
+     * @param pathName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.destinationPaths.Path} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public Path getPath(String pathName) throws IOException, MarshalException, ValidationException {
         update();
@@ -109,12 +125,17 @@ public abstract class DestinationPathManager {
     }
 
     /**
-     * <p>getPaths</p>
+     * <p>
+     * getPaths
+     * </p>
      *
      * @return a {@link java.util.Map} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public Map<String, Path> getPaths() throws IOException, MarshalException, ValidationException {
         update();
@@ -123,17 +144,27 @@ public abstract class DestinationPathManager {
     }
 
     /**
-     * <p>getTargetCommands</p>
+     * <p>
+     * getTargetCommands
+     * </p>
      *
-     * @param path a {@link org.opennms.netmgt.config.destinationPaths.Path} object.
-     * @param index a int.
-     * @param target a {@link java.lang.String} object.
+     * @param path
+     *            a {@link org.opennms.netmgt.config.destinationPaths.Path}
+     *            object.
+     * @param index
+     *            a int.
+     * @param target
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public Collection<String> getTargetCommands(Path path, int index, String target) throws IOException, MarshalException, ValidationException {
+    public Collection<String> getTargetCommands(Path path, int index, String target) throws IOException,
+            MarshalException, ValidationException {
         update();
 
         Target[] targets = getTargetList(index, path);
@@ -148,14 +179,24 @@ public abstract class DestinationPathManager {
     }
 
     /**
-     * <p>getTargetList</p>
+     * <p>
+     * getTargetList
+     * </p>
      *
-     * @param index a int.
-     * @param path a {@link org.opennms.netmgt.config.destinationPaths.Path} object.
-     * @return an array of {@link org.opennms.netmgt.config.destinationPaths.Target} objects.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param index
+     *            a int.
+     * @param path
+     *            a {@link org.opennms.netmgt.config.destinationPaths.Path}
+     *            object.
+     * @return an array of
+     *         {@link org.opennms.netmgt.config.destinationPaths.Target}
+     *         objects.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public Target[] getTargetList(int index, Path path) throws IOException, MarshalException, ValidationException {
         update();
@@ -174,14 +215,22 @@ public abstract class DestinationPathManager {
     }
 
     /**
-     * <p>pathHasTarget</p>
+     * <p>
+     * pathHasTarget
+     * </p>
      *
-     * @param path a {@link org.opennms.netmgt.config.destinationPaths.Path} object.
-     * @param target a {@link java.lang.String} object.
+     * @param path
+     *            a {@link org.opennms.netmgt.config.destinationPaths.Path}
+     *            object.
+     * @param target
+     *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public boolean pathHasTarget(Path path, String target) throws IOException, MarshalException, ValidationException {
         update();
@@ -196,12 +245,19 @@ public abstract class DestinationPathManager {
     }
 
     /**
-     * <p>addPath</p>
+     * <p>
+     * addPath
+     * </p>
      *
-     * @param newPath a {@link org.opennms.netmgt.config.destinationPaths.Path} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param newPath
+     *            a {@link org.opennms.netmgt.config.destinationPaths.Path}
+     *            object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public synchronized void addPath(Path newPath) throws MarshalException, ValidationException, IOException {
         m_destinationPaths.put(newPath.getName(), newPath);
@@ -210,15 +266,24 @@ public abstract class DestinationPathManager {
     }
 
     /**
-     * <p>replacePath</p>
+     * <p>
+     * replacePath
+     * </p>
      *
-     * @param oldName a {@link java.lang.String} object.
-     * @param newPath a {@link org.opennms.netmgt.config.destinationPaths.Path} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param oldName
+     *            a {@link java.lang.String} object.
+     * @param newPath
+     *            a {@link org.opennms.netmgt.config.destinationPaths.Path}
+     *            object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public synchronized void replacePath(String oldName, Path newPath) throws MarshalException, ValidationException, IOException {
+    public synchronized void replacePath(String oldName, Path newPath) throws MarshalException, ValidationException,
+            IOException {
         if (m_destinationPaths.containsKey(oldName)) {
             m_destinationPaths.remove(oldName);
         }
@@ -234,9 +299,12 @@ public abstract class DestinationPathManager {
      * @exception MarshalException
      * @exception ValidationException
      * @exception IOException
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public synchronized void removePath(Path path) throws MarshalException, ValidationException, IOException {
         m_destinationPaths.remove(path.getName());
@@ -251,9 +319,12 @@ public abstract class DestinationPathManager {
      * @exception MarshalException
      * @exception ValidationException
      * @exception IOException
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public synchronized void removePath(String name) throws MarshalException, ValidationException, IOException {
         m_destinationPaths.remove(name);
@@ -261,11 +332,16 @@ public abstract class DestinationPathManager {
     }
 
     /**
-     * <p>saveCurrent</p>
+     * <p>
+     * saveCurrent
+     * </p>
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public synchronized void saveCurrent() throws MarshalException, ValidationException, IOException {
         allPaths.removeAllPath();
@@ -284,20 +360,23 @@ public abstract class DestinationPathManager {
         saveXML(writerString);
 
         /*
-         * TODO: what do do about this?  Should this be here?
+         * TODO: what do do about this? Should this be here?
          * Appears that everything is handled through the update
          * method when a member of field is requested.
-         *
          * Delete after all Notifd tests are passing.
          */
-        //reload();
+        // reload();
     }
 
     /**
-     * <p>saveXML</p>
+     * <p>
+     * saveXML
+     * </p>
      *
-     * @param writerString a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param writerString
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected abstract void saveXML(String writerString) throws IOException;
 
@@ -313,12 +392,18 @@ public abstract class DestinationPathManager {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.FileNotFoundException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
      */
     public abstract void update() throws IOException, MarshalException, ValidationException, FileNotFoundException;
 

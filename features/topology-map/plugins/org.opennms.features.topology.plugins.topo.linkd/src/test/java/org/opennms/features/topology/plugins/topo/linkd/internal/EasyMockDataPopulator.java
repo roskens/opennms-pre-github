@@ -55,20 +55,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Populates a test database with some entities (nodes, interfaces, services).
- *
  * Example usage:
+ *
  * <pre>
  * private DatabasePopulator m_populator;
  *
- * @Override
+ * &#064;Override
  * protected String[] getConfigLocations() {
- *     return new String[] {
- *         "classpath:/META-INF/opennms/applicationContext-dao.xml",
- *         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml"
- *     };
+ *     return new String[] { &quot;classpath:/META-INF/opennms/applicationContext-dao.xml&quot;,
+ *             &quot;classpath:/META-INF/opennms/applicationContext-databasePopulator.xml&quot; };
  * }
  *
- * @Override
+ * &#064;Override
  * protected void onSetUpInTransactionIfEnabled() {
  *     m_populator.populateDatabase();
  * }
@@ -101,15 +99,23 @@ public class EasyMockDataPopulator {
     private GraphContainer m_graphContainer;
 
     private OnmsNode m_node1;
+
     private OnmsNode m_node2;
+
     private OnmsNode m_node3;
+
     private OnmsNode m_node4;
+
     private OnmsNode m_node5;
+
     private OnmsNode m_node6;
+
     private OnmsNode m_node7;
+
     private OnmsNode m_node8;
 
     private List<OnmsNode> m_nodes;
+
     private List<DataLinkInterface> m_links;
 
     public void populateDatabase() {
@@ -124,36 +130,15 @@ public class EasyMockDataPopulator {
         setNode1(builder.addNode("node1").setForeignSource("imported:").setForeignId("1").setType("A").setSysObjectId("1.3.6.1.4.1.5813.1.25").getNode());
         Assert.assertNotNull("newly built node 1 should not be null", getNode1());
         builder.setBuilding("HQ");
-        builder.addSnmpInterface(1)
-            .setCollectionEnabled(true)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .setIfDescr("ATM0")
-            .setIfAlias("Initial ifAlias value")
-            .setIfType(37)
-            .addIpInterface("192.168.1.1").setIsManaged("M").setIsSnmpPrimary("P");
+        builder.addSnmpInterface(1).setCollectionEnabled(true).setIfOperStatus(1).setIfSpeed(10000000).setIfDescr("ATM0").setIfAlias("Initial ifAlias value").setIfType(37).addIpInterface("192.168.1.1").setIsManaged("M").setIsSnmpPrimary("P");
         builder.addService(icmp);
         builder.addService(snmp);
-        builder.addSnmpInterface(2)
-            .setCollectionEnabled(true)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .setIfName("eth0")
-            .setIfType(6)
-            .addIpInterface("192.168.1.2").setIsManaged("M").setIsSnmpPrimary("S");
+        builder.addSnmpInterface(2).setCollectionEnabled(true).setIfOperStatus(1).setIfSpeed(10000000).setIfName("eth0").setIfType(6).addIpInterface("192.168.1.2").setIsManaged("M").setIsSnmpPrimary("S");
         builder.addService(icmp);
         builder.addService(http);
-        builder.addSnmpInterface(3)
-            .setCollectionEnabled(false)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .addIpInterface("192.168.1.3").setIsManaged("M").setIsSnmpPrimary("N");
+        builder.addSnmpInterface(3).setCollectionEnabled(false).setIfOperStatus(1).setIfSpeed(10000000).addIpInterface("192.168.1.3").setIsManaged("M").setIsSnmpPrimary("N");
         builder.addService(icmp);
-        builder.addSnmpInterface(4)
-            .setCollectionEnabled(false)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .addIpInterface("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5").setIsManaged("M").setIsSnmpPrimary("N");
+        builder.addSnmpInterface(4).setCollectionEnabled(false).setIfOperStatus(1).setIfSpeed(10000000).addIpInterface("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5").setIsManaged("M").setIsSnmpPrimary("N");
         builder.addService(icmp);
         final OnmsNode node1 = builder.getCurrentNode();
         setNode1(node1);
@@ -196,7 +181,7 @@ public class EasyMockDataPopulator {
         OnmsNode node4 = builder.getCurrentNode();
         setNode4(node4);
 
-        //This node purposely doesn't have a foreignId style assetNumber
+        // This node purposely doesn't have a foreignId style assetNumber
         builder.addNode("alternate-node1").setType("A").getAssetRecord().setAssetNumber("5");
         builder.addInterface("10.1.1.1").setIsManaged("M").setIsSnmpPrimary("P");
         builder.addService(icmp);
@@ -209,7 +194,8 @@ public class EasyMockDataPopulator {
         OnmsNode node5 = builder.getCurrentNode();
         setNode5(node5);
 
-        //This node purposely doesn't have a assetNumber and is used by a test to check the category
+        // This node purposely doesn't have a assetNumber and is used by a test
+        // to check the category
         builder.addNode("alternate-node2").setType("A").getAssetRecord().setDisplayCategory("category1");
         builder.addInterface("10.1.2.1").setIsManaged("M").setIsSnmpPrimary("P");
         builder.addService(icmp);
@@ -257,14 +243,22 @@ public class EasyMockDataPopulator {
         nodes.add(node8);
         setNodes(nodes);
 
-        final DataLinkInterface dli12 = new DataLinkInterface(getNode2(), -1, getNode1().getId(), -1,StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli23 = new DataLinkInterface(getNode3(), -1, getNode2().getId(), -1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli34 = new DataLinkInterface(getNode4(), -1, getNode3().getId(), -1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli45 = new DataLinkInterface(getNode5(), -1, getNode4().getId(), -1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli56 = new DataLinkInterface(getNode6(), -1, getNode5().getId(), -1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli67 = new DataLinkInterface(getNode7(), -1, getNode6().getId(), -1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli78 = new DataLinkInterface(getNode8(), -1, getNode7().getId(), -1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli81 = new DataLinkInterface(getNode1(), -1, getNode8().getId(), -1, StatusType.ACTIVE, new Date());
+        final DataLinkInterface dli12 = new DataLinkInterface(getNode2(), -1, getNode1().getId(), -1,
+                                                              StatusType.ACTIVE, new Date());
+        final DataLinkInterface dli23 = new DataLinkInterface(getNode3(), -1, getNode2().getId(), -1,
+                                                              StatusType.ACTIVE, new Date());
+        final DataLinkInterface dli34 = new DataLinkInterface(getNode4(), -1, getNode3().getId(), -1,
+                                                              StatusType.ACTIVE, new Date());
+        final DataLinkInterface dli45 = new DataLinkInterface(getNode5(), -1, getNode4().getId(), -1,
+                                                              StatusType.ACTIVE, new Date());
+        final DataLinkInterface dli56 = new DataLinkInterface(getNode6(), -1, getNode5().getId(), -1,
+                                                              StatusType.ACTIVE, new Date());
+        final DataLinkInterface dli67 = new DataLinkInterface(getNode7(), -1, getNode6().getId(), -1,
+                                                              StatusType.ACTIVE, new Date());
+        final DataLinkInterface dli78 = new DataLinkInterface(getNode8(), -1, getNode7().getId(), -1,
+                                                              StatusType.ACTIVE, new Date());
+        final DataLinkInterface dli81 = new DataLinkInterface(getNode1(), -1, getNode8().getId(), -1,
+                                                              StatusType.ACTIVE, new Date());
 
         dli12.setId(10012);
         dli23.setId(10023);
@@ -291,18 +285,19 @@ public class EasyMockDataPopulator {
 
     private List<OnmsIpInterface> getList(Set<OnmsIpInterface> ipset) {
         List<OnmsIpInterface> ips = new ArrayList<OnmsIpInterface>();
-        for (OnmsIpInterface ip: ipset) {
+        for (OnmsIpInterface ip : ipset) {
             ips.add(ip);
         }
         return ips;
 
     }
+
     public void setUpMock() {
 
         EasyMock.expect(m_dataLinkInterfaceDao.findAll()).andReturn(getLinks()).anyTimes();
         EasyMock.expect(m_nodeDao.findAll()).andReturn(getNodes()).anyTimes();
 
-        for (int i=1;i<9;i++) {
+        for (int i = 1; i < 9; i++) {
             EasyMock.expect(m_nodeDao.get(i)).andReturn(getNode(i)).anyTimes();
             EasyMock.expect(m_snmpInterfaceDao.findByNodeIdAndIfIndex(i, -1)).andReturn(null).anyTimes();
             EasyMock.expect(m_ipInterfaceDao.findPrimaryInterfaceByNodeId(i)).andReturn(getNode(i).getPrimaryInterface()).anyTimes();
@@ -316,24 +311,32 @@ public class EasyMockDataPopulator {
     }
 
     public OnmsNode getNode(Integer id) {
-        OnmsNode node= null;
+        OnmsNode node = null;
         switch (id) {
-        case 1: node = getNode1();
-        break;
-        case 2: node = getNode2();
-        break;
-        case 3: node = getNode3();
-        break;
-        case 4: node = getNode4();
-        break;
-        case 5: node = getNode5();
-        break;
-        case 6: node = getNode6();
-        break;
-        case 7: node = getNode7();
-        break;
-        case 8: node = getNode8();
-        break;
+        case 1:
+            node = getNode1();
+            break;
+        case 2:
+            node = getNode2();
+            break;
+        case 3:
+            node = getNode3();
+            break;
+        case 4:
+            node = getNode4();
+            break;
+        case 5:
+            node = getNode5();
+            break;
+        case 6:
+            node = getNode6();
+            break;
+        case 7:
+            node = getNode7();
+            break;
+        case 8:
+            node = getNode8();
+            break;
         }
 
         return node;
@@ -419,7 +422,7 @@ public class EasyMockDataPopulator {
     }
 
     private void setLinks(final List<DataLinkInterface> links) {
-        m_links=links;
+        m_links = links;
     }
 
     public List<DataLinkInterface> getLinks() {
@@ -468,54 +471,47 @@ public class EasyMockDataPopulator {
         Assert.assertEquals(2, topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "8")).length);
 
         /**
-         * This is a little hokey because it relies on the fact that edges are only judged to be equal based
+         * This is a little hokey because it relies on the fact that edges are
+         * only judged to be equal based
          * on the namespace and id tuple.
          */
         Vertex mockVertex = EasyMock.createMock(Vertex.class);
         EasyMock.expect(mockVertex.getId()).andReturn("v0").anyTimes();
         EasyMock.expect(mockVertex.getLabel()).andReturn(null).anyTimes();
         EasyMock.replay(mockVertex);
-        AbstractEdge[] edgeidsforvertex1 = {
-            new AbstractEdge("nodes", "10012", mockVertex, mockVertex),
-            new AbstractEdge("nodes", "10081", mockVertex, mockVertex)
-        };
-        AbstractEdge[] edgeidsforvertex2 = {
-            new AbstractEdge("nodes", "10012", mockVertex, mockVertex),
-            new AbstractEdge("nodes", "10023", mockVertex, mockVertex)
-        };
-        AbstractEdge[] edgeidsforvertex3 = {
-            new AbstractEdge("nodes", "10023", mockVertex, mockVertex),
-            new AbstractEdge("nodes", "10034", mockVertex, mockVertex)
-        };
-        AbstractEdge[] edgeidsforvertex4 = {
-            new AbstractEdge("nodes", "10034", mockVertex, mockVertex),
-            new AbstractEdge("nodes", "10045", mockVertex, mockVertex)
-        };
-        AbstractEdge[] edgeidsforvertex5 = {
-            new AbstractEdge("nodes", "10045", mockVertex, mockVertex),
-            new AbstractEdge("nodes", "10056", mockVertex, mockVertex)
-        };
-        AbstractEdge[] edgeidsforvertex6 = {
-            new AbstractEdge("nodes", "10056", mockVertex, mockVertex),
-            new AbstractEdge("nodes", "10067", mockVertex, mockVertex)
-        };
-        AbstractEdge[] edgeidsforvertex7 = {
-            new AbstractEdge("nodes", "10067", mockVertex, mockVertex),
-            new AbstractEdge("nodes", "10078", mockVertex, mockVertex)
-        };
-        AbstractEdge[] edgeidsforvertex8 = {
-            new AbstractEdge("nodes", "10078", mockVertex, mockVertex),
-            new AbstractEdge("nodes", "10081", mockVertex, mockVertex)
-        };
+        AbstractEdge[] edgeidsforvertex1 = { new AbstractEdge("nodes", "10012", mockVertex, mockVertex),
+                new AbstractEdge("nodes", "10081", mockVertex, mockVertex) };
+        AbstractEdge[] edgeidsforvertex2 = { new AbstractEdge("nodes", "10012", mockVertex, mockVertex),
+                new AbstractEdge("nodes", "10023", mockVertex, mockVertex) };
+        AbstractEdge[] edgeidsforvertex3 = { new AbstractEdge("nodes", "10023", mockVertex, mockVertex),
+                new AbstractEdge("nodes", "10034", mockVertex, mockVertex) };
+        AbstractEdge[] edgeidsforvertex4 = { new AbstractEdge("nodes", "10034", mockVertex, mockVertex),
+                new AbstractEdge("nodes", "10045", mockVertex, mockVertex) };
+        AbstractEdge[] edgeidsforvertex5 = { new AbstractEdge("nodes", "10045", mockVertex, mockVertex),
+                new AbstractEdge("nodes", "10056", mockVertex, mockVertex) };
+        AbstractEdge[] edgeidsforvertex6 = { new AbstractEdge("nodes", "10056", mockVertex, mockVertex),
+                new AbstractEdge("nodes", "10067", mockVertex, mockVertex) };
+        AbstractEdge[] edgeidsforvertex7 = { new AbstractEdge("nodes", "10067", mockVertex, mockVertex),
+                new AbstractEdge("nodes", "10078", mockVertex, mockVertex) };
+        AbstractEdge[] edgeidsforvertex8 = { new AbstractEdge("nodes", "10078", mockVertex, mockVertex),
+                new AbstractEdge("nodes", "10081", mockVertex, mockVertex) };
 
-        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "1")), edgeidsforvertex1);
-        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "2")), edgeidsforvertex2);
-        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "3")), edgeidsforvertex3);
-        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "4")), edgeidsforvertex4);
-        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "5")), edgeidsforvertex5);
-        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "6")), edgeidsforvertex6);
-        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "7")), edgeidsforvertex7);
-        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "8")), edgeidsforvertex8);
+        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "1")),
+                                 edgeidsforvertex1);
+        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "2")),
+                                 edgeidsforvertex2);
+        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "3")),
+                                 edgeidsforvertex3);
+        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "4")),
+                                 edgeidsforvertex4);
+        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "5")),
+                                 edgeidsforvertex5);
+        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "6")),
+                                 edgeidsforvertex6);
+        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "7")),
+                                 edgeidsforvertex7);
+        Assert.assertArrayEquals(topologyProvider.getEdgeIdsForVertex(new AbstractVertexRef(vertexNamespace, "8")),
+                                 edgeidsforvertex8);
 
     }
 

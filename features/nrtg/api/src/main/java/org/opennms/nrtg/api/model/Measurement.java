@@ -34,9 +34,9 @@ import java.util.Date;
 /**
  * Result of a single metric on a given node/interface to a given time.
  * <p/>
+ *
  * @author Christian Pape
  * @author Markus Neumann
- *
  */
 public interface Measurement extends Serializable {
 

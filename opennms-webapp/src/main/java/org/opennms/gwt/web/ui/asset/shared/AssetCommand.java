@@ -34,7 +34,8 @@ import java.util.Date;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> </br>
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
+ *         </br>
  *         Command object for asset pages. Contains fields from OnmsAsset and
  *         additional values needed to show complete ui.
  */
@@ -872,12 +873,11 @@ public class AssetCommand implements IsSerializable {
                 + ", m_connectionOptions=" + m_connectionOptions + ", m_cpu=" + m_cpu + ", m_dateInstalled="
                 + m_dateInstalled + ", m_department=" + m_department + ", m_description=" + m_description
                 + ", m_displayCategory=" + m_displayCategory + ", m_division=" + m_division + ", m_enable=" + m_enable
-                + ", m_floor=" + m_floor + ", m_country=" + m_country
-                + ", m_hdd1=" + m_hdd1 + ", m_hdd2=" + m_hdd2 + ", m_hdd3=" + m_hdd3
-                + ", m_hdd4=" + m_hdd4 + ", m_hdd5=" + m_hdd5 + ", m_hdd6=" + m_hdd6 + ", m_id=" + m_id
-                + ", m_inputpower=" + m_inputpower + ", m_lastModifiedBy=" + m_lastModifiedBy + ", m_lastModifiedDate="
-                + m_lastModifiedDate + ", m_lease=" + m_lease + ", m_leaseExpires=" + m_leaseExpires
-                + ", m_loggedInUser=" + m_loggedInUser + ", m_maintcontract=" + m_maintcontract
+                + ", m_floor=" + m_floor + ", m_country=" + m_country + ", m_hdd1=" + m_hdd1 + ", m_hdd2=" + m_hdd2
+                + ", m_hdd3=" + m_hdd3 + ", m_hdd4=" + m_hdd4 + ", m_hdd5=" + m_hdd5 + ", m_hdd6=" + m_hdd6 + ", m_id="
+                + m_id + ", m_inputpower=" + m_inputpower + ", m_lastModifiedBy=" + m_lastModifiedBy
+                + ", m_lastModifiedDate=" + m_lastModifiedDate + ", m_lease=" + m_lease + ", m_leaseExpires="
+                + m_leaseExpires + ", m_loggedInUser=" + m_loggedInUser + ", m_maintcontract=" + m_maintcontract
                 + ", m_maintContractExpiration=" + m_maintContractExpiration + ", m_manufacturer=" + m_manufacturer
                 + ", m_modelNumber=" + m_modelNumber + ", m_nextNodeId=" + m_nextNodeId + ", m_nodeId=" + m_nodeId
                 + ", m_nodeLabel=" + m_nodeLabel + ", m_notifyCategory=" + m_notifyCategory + ", m_numpowersupplies="
@@ -893,7 +893,7 @@ public class AssetCommand implements IsSerializable {
                 + m_vendor + ", m_vendorAssetNumber=" + m_vendorAssetNumber + ", m_vendorFax=" + m_vendorFax
                 + ", m_vendorPhone=" + m_vendorPhone + ", m_zip=" + m_zip + ", m_vmwareManagedObjectId="
                 + m_vmwareManagedObjectId + ", m_vmwareManagedEntityType=" + m_vmwareManagedEntityType
-                + ", m_vmwareManagementServer=" + m_vmwareManagementServer + ", m_vmwareTopologyInfo=" + m_vmwareTopologyInfo +
-                ", m_vmwareState=" + m_vmwareState + "]";
+                + ", m_vmwareManagementServer=" + m_vmwareManagementServer + ", m_vmwareTopologyInfo="
+                + m_vmwareTopologyInfo + ", m_vmwareState=" + m_vmwareState + "]";
     }
 }

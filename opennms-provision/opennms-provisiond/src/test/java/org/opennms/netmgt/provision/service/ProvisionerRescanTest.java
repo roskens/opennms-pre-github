@@ -76,19 +76,15 @@ import org.springframework.transaction.annotation.Transactional;
  * Unit test for ModelImport application.
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-provisiond.xml",
-        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
-        "classpath*:/META-INF/opennms/detectors.xml",
-        "classpath:/mockForeignSourceContext.xml",
-        "classpath:/importerServiceTest.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml", "classpath*:/META-INF/opennms/detectors.xml",
+        "classpath:/mockForeignSourceContext.xml", "classpath:/importerServiceTest.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @DirtiesContext
 public class ProvisionerRescanTest implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(ProvisionerRescanTest.class);
@@ -133,12 +129,13 @@ public class ProvisionerRescanTest implements InitializingBean {
         SnmpPeerFactory.setInstance(m_snmpPeerFactory);
         assertTrue(m_snmpPeerFactory instanceof ProxySnmpAgentConfigFactory);
 
-        // ensure this property is unset for tests and set it only in tests that need it
+        // ensure this property is unset for tests and set it only in tests that
+        // need it
         System.getProperties().remove("org.opennms.provisiond.enableDeletionOfRequisitionedEntities");
 
         m_eventAnticipator = m_mockEventIpcManager.getEventAnticipator();
 
-        //((TransactionAwareEventForwarder)m_provisioner.getEventForwarder()).setEventForwarder(m_mockEventIpcManager);
+        // ((TransactionAwareEventForwarder)m_provisioner.getEventForwarder()).setEventForwarder(m_mockEventIpcManager);
         m_provisioner.start();
 
         m_foreignSource = new ForeignSource();
@@ -153,7 +150,7 @@ public class ProvisionerRescanTest implements InitializingBean {
         final PluginConfig snmpDetector = new PluginConfig("SNMP", SnmpDetector.class.getName());
         snmpDetector.addParameter("timeout", "500");
         snmpDetector.addParameter("retries", "0");
-		m_foreignSource.addDetector(snmpDetector);
+        m_foreignSource.addDetector(snmpDetector);
 
         m_foreignSourceRepository = new MockForeignSourceRepository();
         m_foreignSourceRepository.save(m_foreignSource);
@@ -166,7 +163,7 @@ public class ProvisionerRescanTest implements InitializingBean {
 
     @After
     public void tearDown() {
-    	// remove property set during tests
+        // remove property set during tests
         System.getProperties().remove("org.opennms.provisiond.enableDeletionOfRequisitionedEntities");
     }
 
@@ -180,13 +177,12 @@ public class ProvisionerRescanTest implements InitializingBean {
     }
 
     // fail if we take more than five minutes
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     @Transactional
     @JUnitSnmpAgents({
-        @JUnitSnmpAgent(host="172.20.1.201", port=161, resource="classpath:testNoRescanOnImport-part1.properties"),
-        @JUnitSnmpAgent(host="172.20.1.204", port=161, resource="classpath:testNoRescanOnImport-part1.properties"),
-        @JUnitSnmpAgent(host="10.1.15.245", port=161, resource="classpath:testNoRescanOnImport-part2.properties")
-    })
+            @JUnitSnmpAgent(host = "172.20.1.201", port = 161, resource = "classpath:testNoRescanOnImport-part1.properties"),
+            @JUnitSnmpAgent(host = "172.20.1.204", port = 161, resource = "classpath:testNoRescanOnImport-part1.properties"),
+            @JUnitSnmpAgent(host = "10.1.15.245", port = 161, resource = "classpath:testNoRescanOnImport-part2.properties") })
     public void testNoRescanOnImport() throws Exception {
         setupLogging("INFO");
 
@@ -213,14 +209,14 @@ public class ProvisionerRescanTest implements InitializingBean {
         m_eventAnticipator.verifyAnticipated();
         setupLogging("INFO");
 
-        //Verify node count
+        // Verify node count
         assertEquals(2, getNodeDao().countAll());
 
         for (final OnmsNode n : getNodeDao().findAll()) {
-        	LOG.info("found node {}", n);
-        	for (final OnmsIpInterface iface : n.getIpInterfaces()) {
-        		LOG.info("  interface: {}", iface);
-        	}
+            LOG.info("found node {}", n);
+            for (final OnmsIpInterface iface : n.getIpInterfaces()) {
+                LOG.info("  interface: {}", iface);
+            }
         }
 
         setupLogging("ERROR");
@@ -245,9 +241,9 @@ public class ProvisionerRescanTest implements InitializingBean {
             builder.setService(service);
             m_eventAnticipator.anticipateEvent(builder.getEvent());
         }
-	}
+    }
 
-	private void importFromResource(final String path, final Boolean rescanExisting) throws Exception {
+    private void importFromResource(final String path, final Boolean rescanExisting) throws Exception {
         m_provisioner.importModelFromResource(m_resourceLoader.getResource(path), rescanExisting);
     }
 

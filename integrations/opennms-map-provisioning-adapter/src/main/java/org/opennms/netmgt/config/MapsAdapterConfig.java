@@ -40,7 +40,9 @@ import org.opennms.netmgt.config.map.adapter.Cmap;
 import org.opennms.netmgt.config.map.adapter.Csubmap;
 
 /**
- * <p>MapsAdapterConfig interface.</p>
+ * <p>
+ * MapsAdapterConfig interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,60 +50,92 @@ import org.opennms.netmgt.config.map.adapter.Csubmap;
 public interface MapsAdapterConfig {
 
     /**
-     * <p>getMapElementDimension</p>
+     * <p>
+     * getMapElementDimension
+     * </p>
      *
      * @return a int.
      */
     public int getMapElementDimension();
+
     /**
-     * <p>getAllMaps</p>
+     * <p>
+     * getAllMaps
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<Cmap> getAllMaps();
+
     /**
-     * <p>getSubMaps</p>
+     * <p>
+     * getSubMaps
+     * </p>
      *
-     * @param mapName a {@link java.lang.String} object.
+     * @param mapName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<Csubmap> getSubMaps(String mapName);
+
     /**
-     * <p>getContainerMaps</p>
+     * <p>
+     * getContainerMaps
+     * </p>
      *
-     * @param submapName a {@link java.lang.String} object.
+     * @param submapName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Map} object.
      */
-    public Map<String,Csubmap> getContainerMaps(String submapName);
+    public Map<String, Csubmap> getContainerMaps(String submapName);
+
     /**
-     * <p>getsubMaps</p>
+     * <p>
+     * getsubMaps
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     public Map<String, List<Csubmap>> getsubMaps();
+
     /**
-     * <p>getElementByAddress</p>
+     * <p>
+     * getElementByAddress
+     * </p>
      *
-     * @param ipaddr a {@link java.lang.String} object.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Map} object.
      */
     public Map<String, Celement> getElementByAddress(String ipaddr);
+
     /**
-     * <p>getCelements</p>
+     * <p>
+     * getCelements
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     public Map<String, List<Celement>> getCelements();
+
     /**
-     * <p>rebuildPackageIpListMap</p>
+     * <p>
+     * rebuildPackageIpListMap
+     * </p>
      */
     public void rebuildPackageIpListMap();
+
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public void update() throws IOException, MarshalException, ValidationException;
 

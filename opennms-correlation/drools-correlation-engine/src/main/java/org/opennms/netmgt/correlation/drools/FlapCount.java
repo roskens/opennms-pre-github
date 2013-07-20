@@ -33,28 +33,41 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.style.ToStringCreator;
 
 /**
- * <p>FlapCount class.</p>
+ * <p>
+ * FlapCount class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class FlapCount {
     private static final Logger LOG = LoggerFactory.getLogger(FlapCount.class);
+
     Long m_nodeid;
+
     String m_ipAddr;
+
     String m_svcName;
+
     Integer m_locationMonitor;
+
     boolean m_alerted;
 
     Integer m_count;
 
     /**
-     * <p>Constructor for FlapCount.</p>
+     * <p>
+     * Constructor for FlapCount.
+     * </p>
      *
-     * @param nodeid a {@link java.lang.Long} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @param locationMonitor a {@link java.lang.Integer} object.
+     * @param nodeid
+     *            a {@link java.lang.Long} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param locationMonitor
+     *            a {@link java.lang.Integer} object.
      */
     public FlapCount(final Long nodeid, final String ipAddr, final String svcName, final Integer locationMonitor) {
         m_nodeid = nodeid;
@@ -68,7 +81,9 @@ public class FlapCount {
     }
 
     /**
-     * <p>increment</p>
+     * <p>
+     * increment
+     * </p>
      */
     public void increment() {
         m_count += 1;
@@ -76,7 +91,9 @@ public class FlapCount {
     }
 
     /**
-     * <p>decrement</p>
+     * <p>
+     * decrement
+     * </p>
      */
     public void decrement() {
         m_count -= 1;
@@ -84,7 +101,9 @@ public class FlapCount {
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -93,16 +112,21 @@ public class FlapCount {
     }
 
     /**
-     * <p>setCount</p>
+     * <p>
+     * setCount
+     * </p>
      *
-     * @param count a {@link java.lang.Integer} object.
+     * @param count
+     *            a {@link java.lang.Integer} object.
      */
     public void setCount(final Integer count) {
         m_count = count;
     }
 
     /**
-     * <p>getIpAddr</p>
+     * <p>
+     * getIpAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,16 +135,21 @@ public class FlapCount {
     }
 
     /**
-     * <p>setIpAddr</p>
+     * <p>
+     * setIpAddr
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddr(final String ipAddr) {
         m_ipAddr = ipAddr;
     }
 
     /**
-     * <p>getNodeid</p>
+     * <p>
+     * getNodeid
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -129,16 +158,21 @@ public class FlapCount {
     }
 
     /**
-     * <p>setNodeid</p>
+     * <p>
+     * setNodeid
+     * </p>
      *
-     * @param nodeid a {@link java.lang.Long} object.
+     * @param nodeid
+     *            a {@link java.lang.Long} object.
      */
     public void setNodeid(final Long nodeid) {
         m_nodeid = nodeid;
     }
 
     /**
-     * <p>getSvcName</p>
+     * <p>
+     * getSvcName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -147,16 +181,21 @@ public class FlapCount {
     }
 
     /**
-     * <p>setSvcName</p>
+     * <p>
+     * setSvcName
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void setSvcName(final String svcName) {
         m_svcName = svcName;
     }
 
     /**
-     * <p>isAlerted</p>
+     * <p>
+     * isAlerted
+     * </p>
      *
      * @return a boolean.
      */
@@ -165,16 +204,21 @@ public class FlapCount {
     }
 
     /**
-     * <p>setAlerted</p>
+     * <p>
+     * setAlerted
+     * </p>
      *
-     * @param alerted a boolean.
+     * @param alerted
+     *            a boolean.
      */
     public void setAlerted(final boolean alerted) {
         m_alerted = alerted;
     }
 
     /**
-     * <p>getLocationMonitor</p>
+     * <p>
+     * getLocationMonitor
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -183,27 +227,29 @@ public class FlapCount {
     }
 
     /**
-     * <p>setLocationMonitor</p>
+     * <p>
+     * setLocationMonitor
+     * </p>
      *
-     * @param locationMonitor a {@link java.lang.Integer} object.
+     * @param locationMonitor
+     *            a {@link java.lang.Integer} object.
      */
     public void setLocationMonitor(final Integer locationMonitor) {
         m_locationMonitor = locationMonitor;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-        	.append("nodeid", m_nodeid)
-        	.append("ipAddr", m_ipAddr)
-        	.append("svcName", m_svcName)
-        	.append("locMon", m_locationMonitor)
-        	.append("count", m_count)
-        	.toString();
+        return new ToStringCreator(this).append("nodeid", m_nodeid).append("ipAddr", m_ipAddr).append("svcName",
+                                                                                                      m_svcName).append("locMon",
+                                                                                                                        m_locationMonitor).append("count",
+                                                                                                                                                  m_count).toString();
     }
 }

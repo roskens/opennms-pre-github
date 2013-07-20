@@ -61,17 +61,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-linkd.xml",
         "classpath:/META-INF/opennms/applicationContext-linkdTest.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @JUnitTemporaryDatabase
 public class Nms10205aTest extends Nms10205aNetworkBuilder implements InitializingBean {
 
@@ -99,7 +97,7 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
         Properties p = new Properties();
         p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
         p.setProperty("log4j.logger.org.hibernate.cfg", "WARN");
-        p.setProperty("log4j.logger.org.springframework","WARN");
+        p.setProperty("log4j.logger.org.springframework", "WARN");
         p.setProperty("log4j.logger.com.mchange.v2.resourcepool", "WARN");
         MockLogAppender.setupLogging(p);
 
@@ -125,32 +123,48 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
     }
 
     /*
-     *  The
-     *  MUMBAI:port ge 0/1/3:ip 192.168.5.5   ------> CHENNAI:port ge 4/0/2: ip 192.168.5.6
-     *  MUMBAI:port ge 0/1/2:ip 192.168.5.9   ------> DELHI:port ge 1/0/2: ip 192.168.5.10
-     *  MUMBAI:port ge 0/0/1:ip 192.168.5.13   ------> BANGALORE:port ge 0/0/0: ip 192.168.5.14
-     *  DELHI:port ge 1/0/1:ip 192.168.1.5     ------> BANGALORE:port ge 0/0/1: ip 192.168.1.6
-     *  DELHI:port ge 1/1/6:ip 172.16.7.1     ------> Space-EX-SW1: port 0/0/6: ip 172.16.7.1 ???? same ip address
-     *  CHENNAI:port ge 4/0/3:ip 192.168.1.1  ------> DELHI: port ge 1/1/0: ip 192.168.1.2
-     *
-     *  a lot of duplicated ip this is a clear proof that linkd is not able to
-     *  gather topology of this lab using the useBridgeTopology and ip routes.
+     * The
+     * MUMBAI:port ge 0/1/3:ip 192.168.5.5 ------> CHENNAI:port ge 4/0/2: ip
+     * 192.168.5.6
+     * MUMBAI:port ge 0/1/2:ip 192.168.5.9 ------> DELHI:port ge 1/0/2: ip
+     * 192.168.5.10
+     * MUMBAI:port ge 0/0/1:ip 192.168.5.13 ------> BANGALORE:port ge 0/0/0: ip
+     * 192.168.5.14
+     * DELHI:port ge 1/0/1:ip 192.168.1.5 ------> BANGALORE:port ge 0/0/1: ip
+     * 192.168.1.6
+     * DELHI:port ge 1/1/6:ip 172.16.7.1 ------> Space-EX-SW1: port 0/0/6: ip
+     * 172.16.7.1 ???? same ip address
+     * CHENNAI:port ge 4/0/3:ip 192.168.1.1 ------> DELHI: port ge 1/1/0: ip
+     * 192.168.1.2
+     * a lot of duplicated ip this is a clear proof that linkd is not able to
+     * gather topology of this lab using the useBridgeTopology and ip routes.
      */
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=MUMBAI_IP, port=161, resource="classpath:linkd/nms10205/"+MUMBAI_NAME+"_"+MUMBAI_IP+".txt"),
-            @JUnitSnmpAgent(host=CHENNAI_IP, port=161, resource="classpath:linkd/nms10205/"+CHENNAI_NAME+"_"+CHENNAI_IP+".txt"),
-            @JUnitSnmpAgent(host=DELHI_IP, port=161, resource="classpath:linkd/nms10205/"+DELHI_NAME+"_"+DELHI_IP+".txt"),
-            @JUnitSnmpAgent(host=BANGALORE_IP, port=161, resource="classpath:linkd/nms10205/"+BANGALORE_NAME+"_"+BANGALORE_IP+".txt"),
-            @JUnitSnmpAgent(host=BAGMANE_IP, port=161, resource="classpath:linkd/nms10205/"+BAGMANE_NAME+"_"+BAGMANE_IP+".txt"),
-            @JUnitSnmpAgent(host=MYSORE_IP, port=161, resource="classpath:linkd/nms10205/"+MYSORE_NAME+"_"+MYSORE_IP+".txt"),
-            @JUnitSnmpAgent(host=SPACE_EX_SW1_IP, port=161, resource="classpath:linkd/nms10205/"+SPACE_EX_SW1_NAME+"_"+SPACE_EX_SW1_IP+".txt"),
-            @JUnitSnmpAgent(host=SPACE_EX_SW2_IP, port=161, resource="classpath:linkd/nms10205/"+SPACE_EX_SW2_NAME+"_"+SPACE_EX_SW2_IP+".txt"),
-            @JUnitSnmpAgent(host=J6350_41_IP, port=161, resource="classpath:linkd/nms10205/"+J6350_41_NAME+"_"+J6350_41_IP+".txt"),
-            @JUnitSnmpAgent(host=J6350_42_IP, port=161, resource="classpath:linkd/nms10205/"+"J6350-42_"+J6350_42_IP+".txt"),
-            @JUnitSnmpAgent(host=SRX_100_IP, port=161, resource="classpath:linkd/nms10205/"+"SRX-100_"+SRX_100_IP+".txt"),
-            @JUnitSnmpAgent(host=SSG550_IP, port=161, resource="classpath:linkd/nms10205/"+SSG550_NAME+"_"+SSG550_IP+".txt")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205/" + MUMBAI_NAME + "_"
+                    + MUMBAI_IP + ".txt"),
+            @JUnitSnmpAgent(host = CHENNAI_IP, port = 161, resource = "classpath:linkd/nms10205/" + CHENNAI_NAME + "_"
+                    + CHENNAI_IP + ".txt"),
+            @JUnitSnmpAgent(host = DELHI_IP, port = 161, resource = "classpath:linkd/nms10205/" + DELHI_NAME + "_"
+                    + DELHI_IP + ".txt"),
+            @JUnitSnmpAgent(host = BANGALORE_IP, port = 161, resource = "classpath:linkd/nms10205/" + BANGALORE_NAME
+                    + "_" + BANGALORE_IP + ".txt"),
+            @JUnitSnmpAgent(host = BAGMANE_IP, port = 161, resource = "classpath:linkd/nms10205/" + BAGMANE_NAME + "_"
+                    + BAGMANE_IP + ".txt"),
+            @JUnitSnmpAgent(host = MYSORE_IP, port = 161, resource = "classpath:linkd/nms10205/" + MYSORE_NAME + "_"
+                    + MYSORE_IP + ".txt"),
+            @JUnitSnmpAgent(host = SPACE_EX_SW1_IP, port = 161, resource = "classpath:linkd/nms10205/"
+                    + SPACE_EX_SW1_NAME + "_" + SPACE_EX_SW1_IP + ".txt"),
+            @JUnitSnmpAgent(host = SPACE_EX_SW2_IP, port = 161, resource = "classpath:linkd/nms10205/"
+                    + SPACE_EX_SW2_NAME + "_" + SPACE_EX_SW2_IP + ".txt"),
+            @JUnitSnmpAgent(host = J6350_41_IP, port = 161, resource = "classpath:linkd/nms10205/" + J6350_41_NAME
+                    + "_" + J6350_41_IP + ".txt"),
+            @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205/" + "J6350-42_"
+                    + J6350_42_IP + ".txt"),
+            @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205/" + "SRX-100_"
+                    + SRX_100_IP + ".txt"),
+            @JUnitSnmpAgent(host = SSG550_IP, port = 161, resource = "classpath:linkd/nms10205/" + SSG550_NAME + "_"
+                    + SSG550_IP + ".txt") })
     public void testNetwork10205Links() throws Exception {
         m_nodeDao.save(getMumbai());
         m_nodeDao.save(getChennai());
@@ -210,8 +224,7 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
         assertTrue(m_linkd.runSingleSnmpCollection(srx100.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(ssg550.getId()));
 
-        assertEquals(0,m_dataLinkInterfaceDao.countAll());
-
+        assertEquals(0, m_dataLinkInterfaceDao.countAll());
 
         assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
 
@@ -219,7 +232,8 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
 
         assertEquals(9, links.size());
 
-        // Linkd is able to find partially the topology using the next hop router
+        // Linkd is able to find partially the topology using the next hop
+        // router
         // among the core nodes:
         // mumbai, chennai, delhi, mysore,bangalore and bagmane
         // the link between chennai and delhi is lost
@@ -238,52 +252,61 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
         // forwarding
 
         int start = getStartPoint(links);
-        for (final DataLinkInterface datalinkinterface: links) {
+        for (final DataLinkInterface datalinkinterface : links) {
             int id = datalinkinterface.getId().intValue();
-            if (start == id ) {
+            if (start == id) {
                 checkLink(delhi, mumbai, 28503, 519, datalinkinterface);
-            } else if (start+1 == id ) {
+            } else if (start + 1 == id) {
                 checkLink(bangalore, mumbai, 2401, 507, datalinkinterface);
-            } else if (start+2 == id ) {
+            } else if (start + 2 == id) {
                 checkLink(bagmane, mumbai, 534, 977, datalinkinterface);
-            } else if (start+3 == id ) {
+            } else if (start + 3 == id) {
                 checkLink(mysore, mumbai, 508, 978, datalinkinterface);
-            } else if (start+4 == id ) {
+            } else if (start + 4 == id) {
                 checkLink(chennai, mumbai, 528, 520, datalinkinterface);
-            } else if (start+5 == id ) {
+            } else if (start + 5 == id) {
                 checkLink(mysore, chennai, 505, 517, datalinkinterface);
-            } else if (start+6 == id ) {
-               checkLink(bangalore, delhi, 2397, 3674, datalinkinterface);
-            } else if (start+7 == id ) {
+            } else if (start + 6 == id) {
+                checkLink(bangalore, delhi, 2397, 3674, datalinkinterface);
+            } else if (start + 7 == id) {
                 checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface);
-            } else if (start+8 == id ) {
+            } else if (start + 8 == id) {
                 checkLink(mysore, bagmane, 520, 654, datalinkinterface);
             } else {
-                checkLink(mumbai,mumbai,-1,-1,datalinkinterface);
+                checkLink(mumbai, mumbai, -1, -1, datalinkinterface);
             }
         }
     }
 
-
     /*
-     *
-     *  Get only ospf links.
+     * Get only ospf links.
      */
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=MUMBAI_IP, port=161, resource="classpath:linkd/nms10205/"+MUMBAI_NAME+"_"+MUMBAI_IP+".txt"),
-            @JUnitSnmpAgent(host=CHENNAI_IP, port=161, resource="classpath:linkd/nms10205/"+CHENNAI_NAME+"_"+CHENNAI_IP+".txt"),
-            @JUnitSnmpAgent(host=DELHI_IP, port=161, resource="classpath:linkd/nms10205/"+DELHI_NAME+"_"+DELHI_IP+".txt"),
-            @JUnitSnmpAgent(host=BANGALORE_IP, port=161, resource="classpath:linkd/nms10205/"+BANGALORE_NAME+"_"+BANGALORE_IP+".txt"),
-            @JUnitSnmpAgent(host=BAGMANE_IP, port=161, resource="classpath:linkd/nms10205/"+BAGMANE_NAME+"_"+BAGMANE_IP+".txt"),
-            @JUnitSnmpAgent(host=MYSORE_IP, port=161, resource="classpath:linkd/nms10205/"+MYSORE_NAME+"_"+MYSORE_IP+".txt"),
-            @JUnitSnmpAgent(host=SPACE_EX_SW1_IP, port=161, resource="classpath:linkd/nms10205/"+SPACE_EX_SW1_NAME+"_"+SPACE_EX_SW1_IP+".txt"),
-            @JUnitSnmpAgent(host=SPACE_EX_SW2_IP, port=161, resource="classpath:linkd/nms10205/"+SPACE_EX_SW2_NAME+"_"+SPACE_EX_SW2_IP+".txt"),
-            @JUnitSnmpAgent(host=J6350_41_IP, port=161, resource="classpath:linkd/nms10205/"+J6350_41_NAME+"_"+J6350_41_IP+".txt"),
-            @JUnitSnmpAgent(host=J6350_42_IP, port=161, resource="classpath:linkd/nms10205/"+"J6350-42_"+J6350_42_IP+".txt"),
-            @JUnitSnmpAgent(host=SRX_100_IP, port=161, resource="classpath:linkd/nms10205/"+"SRX-100_"+SRX_100_IP+".txt"),
-            @JUnitSnmpAgent(host=SSG550_IP, port=161, resource="classpath:linkd/nms10205/"+SSG550_NAME+"_"+SSG550_IP+".txt")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205/" + MUMBAI_NAME + "_"
+                    + MUMBAI_IP + ".txt"),
+            @JUnitSnmpAgent(host = CHENNAI_IP, port = 161, resource = "classpath:linkd/nms10205/" + CHENNAI_NAME + "_"
+                    + CHENNAI_IP + ".txt"),
+            @JUnitSnmpAgent(host = DELHI_IP, port = 161, resource = "classpath:linkd/nms10205/" + DELHI_NAME + "_"
+                    + DELHI_IP + ".txt"),
+            @JUnitSnmpAgent(host = BANGALORE_IP, port = 161, resource = "classpath:linkd/nms10205/" + BANGALORE_NAME
+                    + "_" + BANGALORE_IP + ".txt"),
+            @JUnitSnmpAgent(host = BAGMANE_IP, port = 161, resource = "classpath:linkd/nms10205/" + BAGMANE_NAME + "_"
+                    + BAGMANE_IP + ".txt"),
+            @JUnitSnmpAgent(host = MYSORE_IP, port = 161, resource = "classpath:linkd/nms10205/" + MYSORE_NAME + "_"
+                    + MYSORE_IP + ".txt"),
+            @JUnitSnmpAgent(host = SPACE_EX_SW1_IP, port = 161, resource = "classpath:linkd/nms10205/"
+                    + SPACE_EX_SW1_NAME + "_" + SPACE_EX_SW1_IP + ".txt"),
+            @JUnitSnmpAgent(host = SPACE_EX_SW2_IP, port = 161, resource = "classpath:linkd/nms10205/"
+                    + SPACE_EX_SW2_NAME + "_" + SPACE_EX_SW2_IP + ".txt"),
+            @JUnitSnmpAgent(host = J6350_41_IP, port = 161, resource = "classpath:linkd/nms10205/" + J6350_41_NAME
+                    + "_" + J6350_41_IP + ".txt"),
+            @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205/" + "J6350-42_"
+                    + J6350_42_IP + ".txt"),
+            @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205/" + "SRX-100_"
+                    + SRX_100_IP + ".txt"),
+            @JUnitSnmpAgent(host = SSG550_IP, port = 161, resource = "classpath:linkd/nms10205/" + SSG550_NAME + "_"
+                    + SSG550_IP + ".txt") })
     public void testNetwork10205OspfLinks() throws Exception {
         m_nodeDao.save(getMumbai());
         m_nodeDao.save(getChennai());
@@ -348,8 +371,7 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
         assertTrue(m_linkd.runSingleSnmpCollection(srx100.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(ssg550.getId()));
 
-        assertEquals(0,m_dataLinkInterfaceDao.countAll());
-
+        assertEquals(0, m_dataLinkInterfaceDao.countAll());
 
         assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
 
@@ -358,32 +380,31 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
         assertEquals(9, links.size());
 
         int start = getStartPoint(links);
-        for (final DataLinkInterface datalinkinterface: links) {
+        for (final DataLinkInterface datalinkinterface : links) {
             int id = datalinkinterface.getId().intValue();
-            if (start == id ) {
+            if (start == id) {
                 checkLink(chennai, mumbai, 528, 520, datalinkinterface);
-            } else if (start+1 == id ) {
+            } else if (start + 1 == id) {
                 checkLink(delhi, mumbai, 28503, 519, datalinkinterface);
-            } else if (start+2 == id ) {
+            } else if (start + 2 == id) {
                 checkLink(bangalore, mumbai, 2401, 507, datalinkinterface);
-            } else if (start+3 == id ) {
+            } else if (start + 3 == id) {
                 checkLink(bagmane, mumbai, 534, 977, datalinkinterface);
-            } else if (start+4 == id ) {
+            } else if (start + 4 == id) {
                 checkLink(mysore, mumbai, 508, 978, datalinkinterface);
-            } else if (start+5 == id ) {
+            } else if (start + 5 == id) {
                 checkLink(mysore, chennai, 505, 517, datalinkinterface);
-            } else if (start+6 == id ) {
-               checkLink(bangalore, delhi, 2397, 3674, datalinkinterface);
-            } else if (start+7 == id ) {
+            } else if (start + 6 == id) {
+                checkLink(bangalore, delhi, 2397, 3674, datalinkinterface);
+            } else if (start + 7 == id) {
                 checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface);
-            } else if (start+8 == id ) {
+            } else if (start + 8 == id) {
                 checkLink(mysore, bagmane, 520, 654, datalinkinterface);
             } else {
-                checkLink(mumbai,mumbai,-1,-1,datalinkinterface);
+                checkLink(mumbai, mumbai, -1, -1, datalinkinterface);
             }
         }
 
     }
-
 
 }

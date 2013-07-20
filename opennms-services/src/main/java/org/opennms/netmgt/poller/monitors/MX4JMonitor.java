@@ -35,28 +35,33 @@ import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
 import org.opennms.protocols.jmx.connectors.MX4JConnectionFactory;
 
 /*
-* The class is responsible for getting the connection to the remote jmx server.  The
-* super class (JMXMonitor) performs the checking to see if the service exists and
-* how long it took to make the connection.
-*
-* @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
-* @author <A HREF="http://www.opennms.org/">OpenNMS </A>
-*/
+ * The class is responsible for getting the connection to the remote jmx server.  The
+ * super class (JMXMonitor) performs the checking to see if the service exists and
+ * how long it took to make the connection.
+ *
+ * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
+ * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
+ */
 /**
- * <p>MX4JMonitor class.</p>
+ * <p>
+ * MX4JMonitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class MX4JMonitor extends JMXMonitor {
 
-  /* (non-Javadoc)
-   * @see org.opennms.netmgt.poller.monitors.JMXMonitor#getMBeanServerConnection(java.util.Map, java.net.InetAddress)
-   */
-  /** {@inheritDoc} */
-  @Override
-  public ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address) {
-      return MX4JConnectionFactory.getMBeanServerConnection(parameterMap, address);
-  }
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.monitors.JMXMonitor#getMBeanServerConnection
+     * (java.util.Map, java.net.InetAddress)
+     */
+    /** {@inheritDoc} */
+    @Override
+    public ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address) {
+        return MX4JConnectionFactory.getMBeanServerConnection(parameterMap, address);
+    }
 
 }

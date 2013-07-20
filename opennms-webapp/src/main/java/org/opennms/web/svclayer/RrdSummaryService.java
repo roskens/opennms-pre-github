@@ -32,21 +32,27 @@ import org.opennms.netmgt.config.attrsummary.Summary;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>RrdSummaryService interface.</p>
+ * <p>
+ * RrdSummaryService interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  * @since 1.8.1
  */
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 public interface RrdSummaryService {
 
-	/**
-	 * <p>getSummary</p>
-	 *
-	 * @param specification a {@link org.opennms.web.svclayer.SummarySpecification} object.
-	 * @return a {@link org.opennms.netmgt.config.attrsummary.Summary} object.
-	 */
-	Summary getSummary(SummarySpecification specification);
+    /**
+     * <p>
+     * getSummary
+     * </p>
+     *
+     * @param specification
+     *            a {@link org.opennms.web.svclayer.SummarySpecification}
+     *            object.
+     * @return a {@link org.opennms.netmgt.config.attrsummary.Summary} object.
+     */
+    Summary getSummary(SummarySpecification specification);
 
 }

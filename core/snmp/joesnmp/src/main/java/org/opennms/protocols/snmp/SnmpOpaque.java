@@ -34,7 +34,6 @@ package org.opennms.protocols.snmp;
  * manager in general.
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
- *
  */
 public class SnmpOpaque extends SnmpOctetString {
     /**
@@ -49,7 +48,6 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * The default constructor for this class.
-     *
      */
     public SnmpOpaque() {
         super();
@@ -60,7 +58,6 @@ public class SnmpOpaque extends SnmpOctetString {
      *
      * @param data
      *            The opaque data.
-     *
      */
     public SnmpOpaque(byte[] data) {
         super(data);
@@ -71,7 +68,6 @@ public class SnmpOpaque extends SnmpOctetString {
      *
      * @param second
      *            The object to be duplicated.
-     *
      */
     public SnmpOpaque(SnmpOpaque second) {
         super(second);
@@ -82,7 +78,6 @@ public class SnmpOpaque extends SnmpOctetString {
      *
      * @param second
      *            The object to be duplicated.
-     *
      */
     public SnmpOpaque(SnmpOctetString second) {
         super(second);
@@ -92,7 +87,6 @@ public class SnmpOpaque extends SnmpOctetString {
      * Returns the defined ASN.1 type identifier.
      *
      * @return The ASN.1 identifier.
-     *
      */
     @Override
     public byte typeId() {
@@ -103,7 +97,6 @@ public class SnmpOpaque extends SnmpOctetString {
      * Returns a duplicate of the current object.
      *
      * @return A duplicate of self
-     *
      */
     @Override
     public SnmpSyntax duplicate() {
@@ -114,7 +107,6 @@ public class SnmpOpaque extends SnmpOctetString {
      * Returns a duplicate of the current object.
      *
      * @return A duplicate of self
-     *
      */
     @Override
     public Object clone() {
@@ -123,15 +115,14 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * Returns a string representation of the object.
-     *
      */
     @Override
     public String toString() {
         //
         // format the string for hex
         //
-    	final byte[] data = getString();
-    	final StringBuffer b = new StringBuffer();
+        final byte[] data = getString();
+        final StringBuffer b = new StringBuffer();
         // b.append("SNMP Opaque [length = " + data.length + ", fmt = HEX] =
         // [");
         for (int i = 0; i < data.length; ++i) {

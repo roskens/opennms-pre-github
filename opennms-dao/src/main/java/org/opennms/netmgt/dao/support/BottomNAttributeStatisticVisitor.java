@@ -39,7 +39,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>BottomNAttributeStatisticVisitor class.</p>
+ * <p>
+ * BottomNAttributeStatisticVisitor class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -47,11 +49,16 @@ import org.springframework.util.Assert;
 public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisitorWithResults, InitializingBean {
 
     private Integer m_count;
-    private SortedSet<AttributeStatistic> m_results = new TreeSet<AttributeStatistic>(new AttributeStatisticComparator());
+
+    private SortedSet<AttributeStatistic> m_results = new TreeSet<AttributeStatistic>(
+                                                                                      new AttributeStatisticComparator());
+
     protected Comparator<Double> m_comparator = new DoubleComparator();
 
     /**
-     * <p>Constructor for BottomNAttributeStatisticVisitor.</p>
+     * <p>
+     * Constructor for BottomNAttributeStatisticVisitor.
+     * </p>
      */
     public BottomNAttributeStatisticVisitor() {
         super();
@@ -66,7 +73,9 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -76,7 +85,9 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -92,7 +103,9 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
     }
 
     /**
-     * <p>getResults</p>
+     * <p>
+     * getResults
+     * </p>
      *
      * @return top attribute statistics (up to getCount() number)
      */
@@ -112,7 +125,9 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
     }
 
     /**
-     * <p>getComparator</p>
+     * <p>
+     * getComparator
+     * </p>
      *
      * @return a {@link java.util.Comparator} object.
      */
@@ -121,9 +136,12 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
     }
 
     /**
-     * <p>setComparator</p>
+     * <p>
+     * setComparator
+     * </p>
      *
-     * @param comparator a {@link java.util.Comparator} object.
+     * @param comparator
+     *            a {@link java.util.Comparator} object.
      */
     public void setComparator(Comparator<Double> comparator) {
         m_comparator = comparator;

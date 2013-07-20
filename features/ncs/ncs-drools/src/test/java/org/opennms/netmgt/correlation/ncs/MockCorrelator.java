@@ -45,9 +45,9 @@ public class MockCorrelator implements CorrelationEngineRegistrar {
 
     @Override
     public void addCorrelationEngines(CorrelationEngine... engines) {
-    	for(CorrelationEngine engine : engines) {
-    		m_engines.add(engine);
-    	}
+        for (CorrelationEngine engine : engines) {
+            m_engines.add(engine);
+        }
     }
 
     @Override

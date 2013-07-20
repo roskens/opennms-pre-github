@@ -29,7 +29,9 @@
 package org.opennms.dashboard.client;
 
 /**
- * <p>Visitor interface.</p>
+ * <p>
+ * Visitor interface.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -37,20 +39,34 @@ package org.opennms.dashboard.client;
  */
 public interface Visitor {
     /**
-     * <p>visitAll</p>
+     * <p>
+     * visitAll
+     * </p>
      */
     public void visitAll();
+
     /**
-     * <p>visitGroup</p>
+     * <p>
+     * visitGroup
+     * </p>
      *
-     * @param group a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
+     * @param group
+     *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
+     *            object.
      */
     public void visitGroup(SurveillanceGroup group);
+
     /**
-     * <p>visitIntersection</p>
+     * <p>
+     * visitIntersection
+     * </p>
      *
-     * @param row a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
-     * @param column a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
+     * @param row
+     *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
+     *            object.
+     * @param column
+     *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
+     *            object.
      */
     public void visitIntersection(SurveillanceGroup row, SurveillanceGroup column);
 }

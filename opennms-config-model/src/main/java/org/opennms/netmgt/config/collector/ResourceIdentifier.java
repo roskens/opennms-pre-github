@@ -33,7 +33,9 @@ import java.io.File;
 import org.opennms.netmgt.model.RrdRepository;
 
 /**
- * <p>ResourceIdentifier interface.</p>
+ * <p>
+ * ResourceIdentifier interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,16 +43,21 @@ import org.opennms.netmgt.model.RrdRepository;
 public interface ResourceIdentifier {
 
     /**
-     * <p>getOwnerName</p>
+     * <p>
+     * getOwnerName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getOwnerName();
 
     /**
-     * <p>getResourceDir</p>
+     * <p>
+     * getResourceDir
+     * </p>
      *
-     * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param repository
+     *            a {@link org.opennms.netmgt.model.RrdRepository} object.
      * @return a {@link java.io.File} object.
      */
     public File getResourceDir(RrdRepository repository);

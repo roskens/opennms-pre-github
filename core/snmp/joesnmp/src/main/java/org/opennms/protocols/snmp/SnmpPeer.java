@@ -33,17 +33,14 @@ import java.net.InetAddress;
 /**
  * The peer object defines a SNMP peer agent that is communicated with. The
  * SnmpPeer object is used by the SnmpSession class to define the remote agent.
- *
  * The information includes the peer's port and address. Also included is the
  * number of retries and timeouts that should be used when sending packets to
  * the agent.
  *
  * @see SnmpSession
  * @see SnmpPeer
- *
  * @author <a href="mailto:weave@oculan.com>Brian Weaver </a>
  * @version 1.1.1.1
- *
  */
 public class SnmpPeer extends Object implements Cloneable {
     /**
@@ -119,7 +116,6 @@ public class SnmpPeer extends Object implements Cloneable {
      *            The remote agent address
      * @param port
      *            The SNMP port on the remote
-     *
      */
     public SnmpPeer(InetAddress peer, int port) {
         this(peer);
@@ -132,7 +128,6 @@ public class SnmpPeer extends Object implements Cloneable {
      *
      * @param second
      *            The peer object to copy.
-     *
      */
     public SnmpPeer(SnmpPeer second) {
         m_peer = second.m_peer;
@@ -146,7 +141,6 @@ public class SnmpPeer extends Object implements Cloneable {
      * Returns the peer agent's internet address to the caller
      *
      * @return The peer's internet address
-     *
      */
     public InetAddress getPeer() {
         return m_peer;
@@ -157,7 +151,6 @@ public class SnmpPeer extends Object implements Cloneable {
      *
      * @param addr
      *            The remote agents internet address
-     *
      */
     public void setPeer(InetAddress addr) {
         m_peer = addr;
@@ -170,7 +163,6 @@ public class SnmpPeer extends Object implements Cloneable {
      *            The remote agent's internet address
      * @param port
      *            The remote agent's port
-     *
      */
     public void setPeer(InetAddress addr, int port) {
         m_peer = addr;
@@ -191,7 +183,6 @@ public class SnmpPeer extends Object implements Cloneable {
      *
      * @param port
      *            The remote communication port
-     *
      */
     public void setPort(int port) {
         m_port = port;
@@ -211,7 +202,6 @@ public class SnmpPeer extends Object implements Cloneable {
      *
      * @param port
      *            The local communication port
-     *
      */
     public void setServerPort(int port) {
         m_serverport = port;
@@ -231,7 +221,6 @@ public class SnmpPeer extends Object implements Cloneable {
      *
      * @param retry
      *            The new number of retries for the peer
-     *
      */
     public void setRetries(int retry) {
         m_retries = retry;
@@ -242,7 +231,6 @@ public class SnmpPeer extends Object implements Cloneable {
      * milliseconds (1/1000th second).
      *
      * @return The timeout value in milliseconds.
-     *
      */
     public int getTimeout() {
         return m_timeout;
@@ -254,7 +242,6 @@ public class SnmpPeer extends Object implements Cloneable {
      *
      * @param timeout
      *            The timeout in milliseconds
-     *
      */
     public void setTimeout(int timeout) {
         m_timeout = timeout;
@@ -264,7 +251,6 @@ public class SnmpPeer extends Object implements Cloneable {
      * Retuns the current parameters for the peer agent.
      *
      * @return The current SNMP parameters
-     *
      */
     public SnmpParameters getParameters() {
         return m_params;
@@ -275,7 +261,6 @@ public class SnmpPeer extends Object implements Cloneable {
      *
      * @param params
      *            The SnmpParameters for the peer.
-     *
      */
     public void setParameters(SnmpParameters params) {
         m_params = params;
@@ -285,7 +270,6 @@ public class SnmpPeer extends Object implements Cloneable {
      * Used to get a newly created copy of the current object.
      *
      * @return A duplicate peer object.
-     *
      */
     @Override
     public Object clone() {

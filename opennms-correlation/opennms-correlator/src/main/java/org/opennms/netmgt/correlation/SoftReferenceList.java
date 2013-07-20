@@ -40,122 +40,126 @@ import java.util.ListIterator;
 import java.util.Set;
 
 /**
- * <p>SoftReferenceList class.</p>
+ * <p>
+ * SoftReferenceList class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class SoftReferenceList<T> extends AbstractSequentialList<T> {
 
-	private final List<SoftReference<T>> m_contents = new LinkedList<SoftReference<T>>();
-	private final ReferenceQueue<T> queue = new ReferenceQueue<T>();
+    private final List<SoftReference<T>> m_contents = new LinkedList<SoftReference<T>>();
 
-	/** {@inheritDoc} */
-	@Override
-	public ListIterator<T> listIterator(final int index) {
-		processQueue();
-		return new SoftReferenceListIterator<T>(m_contents.listIterator(index), queue);
-	}
+    private final ReferenceQueue<T> queue = new ReferenceQueue<T>();
 
-	/**
-	 * <p>removeCollected</p>
-	 */
-	public void removeCollected() {
-		processQueue();
-		for (final Iterator<SoftReference<T>> iter = m_contents.iterator(); iter.hasNext();) {
-			final SoftReference<T> ref = iter.next();
-			if (ref.get() == null) {
-				iter.remove();
-			}
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public ListIterator<T> listIterator(final int index) {
+        processQueue();
+        return new SoftReferenceListIterator<T>(m_contents.listIterator(index), queue);
+    }
 
-	private void processQueue() {
-		final Set<Reference<? extends T>> removed = new HashSet<Reference<? extends T>>();
-		Reference<? extends T> ref;
-		while((ref = queue.poll()) != null) {
-			removed.add(ref);
-		}
-		m_contents.removeAll(removed);
-	}
+    /**
+     * <p>
+     * removeCollected
+     * </p>
+     */
+    public void removeCollected() {
+        processQueue();
+        for (final Iterator<SoftReference<T>> iter = m_contents.iterator(); iter.hasNext();) {
+            final SoftReference<T> ref = iter.next();
+            if (ref.get() == null) {
+                iter.remove();
+            }
+        }
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public int size() {
-		processQueue();
-		return m_contents.size();
-	}
+    private void processQueue() {
+        final Set<Reference<? extends T>> removed = new HashSet<Reference<? extends T>>();
+        Reference<? extends T> ref;
+        while ((ref = queue.poll()) != null) {
+            removed.add(ref);
+        }
+        m_contents.removeAll(removed);
+    }
 
-	private static class SoftReferenceListIterator<E> implements ListIterator<E> {
-		final ListIterator<SoftReference<E>> m_it;
-		final ReferenceQueue<E> m_queue;
+    /** {@inheritDoc} */
+    @Override
+    public int size() {
+        processQueue();
+        return m_contents.size();
+    }
 
-		public SoftReferenceListIterator(final ListIterator<SoftReference<E>> it, final ReferenceQueue<E> queue) {
-			m_it = it;
-			m_queue = queue;
-		}
+    private static class SoftReferenceListIterator<E> implements ListIterator<E> {
+        final ListIterator<SoftReference<E>> m_it;
 
-                @Override
-		public void add(final E o) {
-			assertNotNull(o);
-			m_it.add(createRef(o));
-		}
+        final ReferenceQueue<E> m_queue;
 
-                @Override
-		public boolean hasNext() {
-			return m_it.hasNext();
-		}
+        public SoftReferenceListIterator(final ListIterator<SoftReference<E>> it, final ReferenceQueue<E> queue) {
+            m_it = it;
+            m_queue = queue;
+        }
 
-                @Override
-		public boolean hasPrevious() {
-			return m_it.hasPrevious();
-		}
+        @Override
+        public void add(final E o) {
+            assertNotNull(o);
+            m_it.add(createRef(o));
+        }
 
-                @Override
-		public E next() {
-			final SoftReference<E> ref = m_it.next();
-			return ref.get();
-		}
+        @Override
+        public boolean hasNext() {
+            return m_it.hasNext();
+        }
 
-                @Override
-		public int nextIndex() {
-			return m_it.nextIndex();
-		}
+        @Override
+        public boolean hasPrevious() {
+            return m_it.hasPrevious();
+        }
 
-                @Override
-		public E previous() {
-			final SoftReference<E> ref = m_it.previous();
-			return ref.get();
-		}
+        @Override
+        public E next() {
+            final SoftReference<E> ref = m_it.next();
+            return ref.get();
+        }
 
-                @Override
-		public int previousIndex() {
-			return m_it.previousIndex();
-		}
+        @Override
+        public int nextIndex() {
+            return m_it.nextIndex();
+        }
 
-                @Override
-		public void remove() {
-			m_it.remove();
-		}
+        @Override
+        public E previous() {
+            final SoftReference<E> ref = m_it.previous();
+            return ref.get();
+        }
 
-                @Override
-		public void set(final E o) {
-			assertNotNull(o);
-			m_it.set(createRef(o));
-		}
+        @Override
+        public int previousIndex() {
+            return m_it.previousIndex();
+        }
 
-		private SoftReference<E> createRef(final E element) {
-			return new SoftReference<E>(element, m_queue);
-		}
+        @Override
+        public void remove() {
+            m_it.remove();
+        }
 
-		private void assertNotNull(final E o) {
-			if (o == null) {
-				throw new NullPointerException("null cannot be added to SoftReferenceLists");
-			}
-		}
+        @Override
+        public void set(final E o) {
+            assertNotNull(o);
+            m_it.set(createRef(o));
+        }
 
+        private SoftReference<E> createRef(final E element) {
+            return new SoftReference<E>(element, m_queue);
+        }
 
-	}
+        private void assertNotNull(final E o) {
+            if (o == null) {
+                throw new NullPointerException("null cannot be added to SoftReferenceLists");
+            }
+        }
 
+    }
 
 }

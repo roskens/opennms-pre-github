@@ -40,14 +40,19 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class SyslogParser {
     private static final Logger LOG = LoggerFactory.getLogger(SyslogParser.class);
+
     private static Pattern m_pattern = Pattern.compile("^.*$");
+
     private Matcher m_matcher = null;
+
     private final String m_text;
+
     private Boolean m_found = null;
+
     private Boolean m_matched = null;
+
     private boolean m_traceEnabled = false;
 
     protected SyslogParser(final String text) {
@@ -118,7 +123,8 @@ public class SyslogParser {
                 final DateFormat df = new SimpleDateFormat("MMM d HH:mm:ss", Locale.ROOT);
                 df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-                // Ugh, what's a non-lame way of forcing it to parse to "this year"?
+                // Ugh, what's a non-lame way of forcing it to parse to
+                // "this year"?
                 date = df.parse(dateString);
                 final Calendar c = df.getCalendar();
                 c.setTime(date);

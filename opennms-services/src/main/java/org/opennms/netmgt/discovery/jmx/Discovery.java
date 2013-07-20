@@ -31,12 +31,15 @@ package org.opennms.netmgt.discovery.jmx;
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
 
 /**
- * <p>Discovery class.</p>
+ * <p>
+ * Discovery class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class Discovery extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.discovery.Discovery> implements DiscoveryMBean {
+public class Discovery extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.discovery.Discovery> implements
+        DiscoveryMBean {
 
     /** {@inheritDoc} */
     @Override

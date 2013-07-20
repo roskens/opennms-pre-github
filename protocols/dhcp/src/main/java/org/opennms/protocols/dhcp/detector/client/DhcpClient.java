@@ -38,25 +38,30 @@ import org.opennms.protocols.dhcp.detector.response.DhcpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>DhcpClient class.</p>
+ * <p>
+ * DhcpClient class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class DhcpClient implements Client<DhcpRequest, DhcpResponse> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DhcpClient.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(DhcpClient.class);
 
     private int m_retries;
+
     private int m_timeout;
+
     private InetAddress m_address;
+
     private long m_responseTime;
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
@@ -72,11 +77,17 @@ public class DhcpClient implements Client<DhcpRequest, DhcpResponse> {
     }
 
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
-     * @return a {@link org.opennms.protocols.dhcp.detector.response.DhcpResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @return a
+     *         {@link org.opennms.protocols.dhcp.detector.response.DhcpResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public DhcpResponse receiveBanner() throws IOException, Exception {
@@ -87,12 +98,21 @@ public class DhcpClient implements Client<DhcpRequest, DhcpResponse> {
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.protocols.dhcp.detector.request.DhcpRequest} object.
-     * @return a {@link org.opennms.protocols.dhcp.detector.response.DhcpResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.protocols.dhcp.detector.request.DhcpRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.protocols.dhcp.detector.response.DhcpResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public DhcpResponse sendRequest(DhcpRequest request) throws IOException, Exception {
@@ -100,16 +120,21 @@ public class DhcpClient implements Client<DhcpRequest, DhcpResponse> {
     }
 
     /**
-     * <p>setRetries</p>
+     * <p>
+     * setRetries
+     * </p>
      *
-     * @param retries a int.
+     * @param retries
+     *            a int.
      */
     public void setRetries(int retries) {
         m_retries = retries;
     }
 
     /**
-     * <p>getRetries</p>
+     * <p>
+     * getRetries
+     * </p>
      *
      * @return a int.
      */

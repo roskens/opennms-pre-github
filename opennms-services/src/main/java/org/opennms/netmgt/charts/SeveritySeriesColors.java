@@ -35,7 +35,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>SeveritySeriesColors class.</p>
+ * <p>
+ * SeveritySeriesColors class.
+ * </p>
  *
  * @author <a href="david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -45,14 +47,19 @@ public class SeveritySeriesColors implements CustomSeriesColors {
     private static final Logger LOG = LoggerFactory.getLogger(SeveritySeriesColors.class);
 
     /**
-     * <p>Constructor for SeveritySeriesColors.</p>
+     * <p>
+     * Constructor for SeveritySeriesColors.
+     * </p>
      */
     public SeveritySeriesColors() {
         super();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.charts.CustomSeriesColors#getPaint(java.lang.Comparable)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.charts.CustomSeriesColors#getPaint(java.lang.Comparable
+     * )
      */
     /** {@inheritDoc} */
     @Override
@@ -69,27 +76,27 @@ public class SeveritySeriesColors implements CustomSeriesColors {
         }
 
         switch (sev) {
-        case 0 :
+        case 0:
             break;
-        case 1 :
+        case 1:
             converted = Color.GRAY;
             break;
-        case 2 :
+        case 2:
             converted = Color.WHITE;
             break;
-        case 3 :
+        case 3:
             converted = Color.GREEN;
             break;
-        case 4 :
+        case 4:
             converted = Color.CYAN;
             break;
-        case 5 :
+        case 5:
             converted = Color.YELLOW;
             break;
-        case 6 :
+        case 6:
             converted = Color.ORANGE;
             break;
-        case 7 :
+        case 7:
             converted = Color.RED;
             break;
         }

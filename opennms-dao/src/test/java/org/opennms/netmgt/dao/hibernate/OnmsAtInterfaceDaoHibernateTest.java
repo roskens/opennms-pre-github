@@ -59,44 +59,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class OnmsAtInterfaceDaoHibernateTest implements InitializingBean {
     @Autowired
     private NodeDao m_nodeDao;
 
-	@Autowired
+    @Autowired
     private AtInterfaceDao m_atInterfaceDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Before
-	public void setUp() {
-	    for (final OnmsNode node : m_nodeDao.findAll()) {
-	        m_nodeDao.delete(node);
-	    }
-	    m_nodeDao.flush();
-		m_databasePopulator.populateDatabase();
-	}
-
+    @Before
+    public void setUp() {
+        for (final OnmsNode node : m_nodeDao.findAll()) {
+            m_nodeDao.delete(node);
+        }
+        m_nodeDao.flush();
+        m_databasePopulator.populateDatabase();
+    }
 
     @Test
     public void testSaveAtInterface() {
-        final OnmsAtInterface atinterface = new OnmsAtInterface(m_databasePopulator.getNode6(), m_databasePopulator.getNode6().getPrimaryInterface().getIpAddress(),"0080aa12aa12");
+        final OnmsAtInterface atinterface = new OnmsAtInterface(
+                                                                m_databasePopulator.getNode6(),
+                                                                m_databasePopulator.getNode6().getPrimaryInterface().getIpAddress(),
+                                                                "0080aa12aa12");
 
         atinterface.setSourceNodeId(m_databasePopulator.getNode1().getId());
         atinterface.setIfIndex(1);
@@ -109,35 +109,38 @@ public class OnmsAtInterfaceDaoHibernateTest implements InitializingBean {
         assertEquals(2, m_atInterfaceDao.countAll());
     }
 
-
     @Test
     public void testFindByNodeAndAddress() throws UnknownHostException {
-    	final OnmsAtInterface atinterface = m_atInterfaceDao.findByNodeAndAddress(m_databasePopulator.getNode2().getId(), InetAddress.getByName("192.168.2.1"), "AA:BB:CC:DD:EE:FF");
+        final OnmsAtInterface atinterface = m_atInterfaceDao.findByNodeAndAddress(m_databasePopulator.getNode2().getId(),
+                                                                                  InetAddress.getByName("192.168.2.1"),
+                                                                                  "AA:BB:CC:DD:EE:FF");
 
-    	checkAtInterface(atinterface);
+        checkAtInterface(atinterface);
 
-    	final OnmsAtInterface atinterface2 = m_atInterfaceDao.findByNodeAndAddress(m_databasePopulator.getNode6().getId(), InetAddress.getByName("192.168.2.1"), "AA:BB:CC:DD:EE:FF");
-    	assertEquals(true, atinterface2 == null);
+        final OnmsAtInterface atinterface2 = m_atInterfaceDao.findByNodeAndAddress(m_databasePopulator.getNode6().getId(),
+                                                                                   InetAddress.getByName("192.168.2.1"),
+                                                                                   "AA:BB:CC:DD:EE:FF");
+        assertEquals(true, atinterface2 == null);
 
     }
 
     @Test
     public void testGetAtInterfaceForAddress() throws UnknownHostException {
-    	Collection<OnmsAtInterface> atinterfaces = m_atInterfaceDao.getAtInterfaceForAddress(InetAddress.getByName("192.168.2.1"));
-    	assertEquals(1, atinterfaces.size());
-    	assertEquals(1, m_atInterfaceDao.countAll());
+        Collection<OnmsAtInterface> atinterfaces = m_atInterfaceDao.getAtInterfaceForAddress(InetAddress.getByName("192.168.2.1"));
+        assertEquals(1, atinterfaces.size());
+        assertEquals(1, m_atInterfaceDao.countAll());
 
-    	final OnmsAtInterface atinterface = atinterfaces.iterator().next();
-    	checkAtInterface(atinterface);
+        final OnmsAtInterface atinterface = atinterfaces.iterator().next();
+        checkAtInterface(atinterface);
 
-    	atinterfaces = m_atInterfaceDao.getAtInterfaceForAddress(InetAddress.getByName("192.168.3.1"));
-       	assertEquals(1, atinterfaces.size());
-    	assertEquals(1, m_atInterfaceDao.countAll());
+        atinterfaces = m_atInterfaceDao.getAtInterfaceForAddress(InetAddress.getByName("192.168.3.1"));
+        assertEquals(1, atinterfaces.size());
+        assertEquals(1, m_atInterfaceDao.countAll());
 
-    	final OnmsAtInterface atinterface2 = atinterfaces.iterator().next();
-    	assertEquals("192.168.3.1", atinterface2.getIpAddress().getHostAddress());
-    	assertEquals(m_databasePopulator.getNode3().getId(),atinterface2.getNode().getId());
-    	assertEquals("", atinterface2.getMacAddress());
+        final OnmsAtInterface atinterface2 = atinterfaces.iterator().next();
+        assertEquals("192.168.3.1", atinterface2.getIpAddress().getHostAddress());
+        assertEquals(m_databasePopulator.getNode3().getId(), atinterface2.getNode().getId());
+        assertEquals("", atinterface2.getMacAddress());
 
         atinterface2.setSourceNodeId(m_databasePopulator.getNode1().getId());
         atinterface2.setIfIndex(1);
@@ -145,32 +148,31 @@ public class OnmsAtInterfaceDaoHibernateTest implements InitializingBean {
         atinterface2.setLastPollTime(new Date());
         atinterface2.setStatus(StatusType.ACTIVE);
 
-
         m_atInterfaceDao.saveOrUpdate(atinterface2);
 
-    	atinterfaces = m_atInterfaceDao.getAtInterfaceForAddress(InetAddress.getByName("192.168.3.1"));
-       	assertEquals(1, atinterfaces.size());
-    	assertEquals(2, m_atInterfaceDao.countAll());
+        atinterfaces = m_atInterfaceDao.getAtInterfaceForAddress(InetAddress.getByName("192.168.3.1"));
+        assertEquals(1, atinterfaces.size());
+        assertEquals(2, m_atInterfaceDao.countAll());
 
-    	final OnmsAtInterface atinterface3 = atinterfaces.iterator().next();
-    	assertEquals("192.168.3.1", atinterface3.getIpAddress().getHostAddress());
-    	assertEquals(m_databasePopulator.getNode3().getId(),atinterface3.getNode().getId());
-    	assertEquals("0080aa11aa11", atinterface3.getMacAddress());
+        final OnmsAtInterface atinterface3 = atinterfaces.iterator().next();
+        assertEquals("192.168.3.1", atinterface3.getIpAddress().getHostAddress());
+        assertEquals(m_databasePopulator.getNode3().getId(), atinterface3.getNode().getId());
+        assertEquals("0080aa11aa11", atinterface3.getMacAddress());
 
-    	atinterfaces = m_atInterfaceDao.getAtInterfaceForAddress(InetAddress.getByName("192.168.168.1"));
-       	assertEquals(0, atinterfaces.size());
+        atinterfaces = m_atInterfaceDao.getAtInterfaceForAddress(InetAddress.getByName("192.168.168.1"));
+        assertEquals(0, atinterfaces.size());
 
     }
 
     private void checkAtInterface(OnmsAtInterface atinterface) {
-    	assertEquals(true, atinterface != null);
+        assertEquals(true, atinterface != null);
 
-    	assertEquals("192.168.2.1", atinterface.getIpAddress().getHostAddress());
-    	assertEquals(1, atinterface.getIfIndex().intValue());
-    	assertEquals(m_databasePopulator.getNode1().getId(),atinterface.getSourceNodeId());
-    	assertEquals(m_databasePopulator.getNode2().getId(),atinterface.getNode().getId());
-    	assertEquals("AA:BB:CC:DD:EE:FF", atinterface.getMacAddress());
-    	assertEquals(StatusType.ACTIVE, atinterface.getStatus());
+        assertEquals("192.168.2.1", atinterface.getIpAddress().getHostAddress());
+        assertEquals(1, atinterface.getIfIndex().intValue());
+        assertEquals(m_databasePopulator.getNode1().getId(), atinterface.getSourceNodeId());
+        assertEquals(m_databasePopulator.getNode2().getId(), atinterface.getNode().getId());
+        assertEquals("AA:BB:CC:DD:EE:FF", atinterface.getMacAddress());
+        assertEquals(StatusType.ACTIVE, atinterface.getStatus());
 
     }
 }

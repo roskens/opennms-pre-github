@@ -69,7 +69,9 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
 /**
- * <p>DefaultManualProvisioningService class.</p>
+ * <p>
+ * DefaultManualProvisioningService class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -77,27 +79,41 @@ import org.springframework.util.Assert;
 public class DefaultManualProvisioningService implements ManualProvisioningService {
 
     private ForeignSourceRepository m_deployedForeignSourceRepository;
+
     private ForeignSourceRepository m_pendingForeignSourceRepository;
+
     private NodeDao m_nodeDao;
+
     private CategoryDao m_categoryDao;
+
     private ServiceTypeDao m_serviceTypeDao;
+
     private CapsdConfig m_capsdConfig;
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
-     * <p>Constructor for DefaultManualProvisioningService.</p>
+     * <p>
+     * Constructor for DefaultManualProvisioningService.
+     * </p>
      */
     public DefaultManualProvisioningService() {
 
     }
 
     /**
-     * <p>setDeployedForeignSourceRepository</p>
+     * <p>
+     * setDeployedForeignSourceRepository
+     * </p>
      *
-     * @param repository a {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository} object.
+     * @param repository
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository}
+     *            object.
      */
     public final void setDeployedForeignSourceRepository(final ForeignSourceRepository repository) {
         m_writeLock.lock();
@@ -109,9 +125,14 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>setPendingForeignSourceRepository</p>
+     * <p>
+     * setPendingForeignSourceRepository
+     * </p>
      *
-     * @param repository a {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository} object.
+     * @param repository
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository}
+     *            object.
      */
     public final void setPendingForeignSourceRepository(final ForeignSourceRepository repository) {
         m_writeLock.lock();
@@ -123,9 +144,12 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public final void setNodeDao(final NodeDao nodeDao) {
         m_writeLock.lock();
@@ -137,9 +161,12 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>setCategoryDao</p>
+     * <p>
+     * setCategoryDao
+     * </p>
      *
-     * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
+     * @param categoryDao
+     *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
     public final void setCategoryDao(final CategoryDao categoryDao) {
         m_writeLock.lock();
@@ -151,9 +178,12 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>setServiceTypeDao</p>
+     * <p>
+     * setServiceTypeDao
+     * </p>
      *
-     * @param serviceTypeDao a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
+     * @param serviceTypeDao
+     *            a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
      */
     public final void setServiceTypeDao(final ServiceTypeDao serviceTypeDao) {
         m_serviceTypeDao = serviceTypeDao;
@@ -165,7 +195,8 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public final Requisition addCategoryToNode(final String groupName, final String pathToNode, final String categoryName) {
+    public final Requisition addCategoryToNode(final String groupName, final String pathToNode,
+            final String categoryName) {
         m_writeLock.lock();
         try {
             final Requisition group = getProvisioningGroup(groupName);
@@ -176,7 +207,8 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
             final RequisitionCategory category = new RequisitionCategory();
             category.setName(categoryName);
             node.putCategory(category);
-            // Assert.isTrue(node.getCategoryCount() == (catCount + 1), "Category was not added correctly");
+            // Assert.isTrue(node.getCategoryCount() == (catCount + 1),
+            // "Category was not added correctly");
 
             m_pendingForeignSourceRepository.save(group);
             m_pendingForeignSourceRepository.flush();
@@ -188,7 +220,8 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public final Requisition addAssetFieldToNode(final String groupName, final String pathToNode, final String assetName, final String assetValue) {
+    public final Requisition addAssetFieldToNode(final String groupName, final String pathToNode,
+            final String assetName, final String assetValue) {
         m_writeLock.lock();
         try {
             final Requisition group = getProvisioningGroup(groupName);
@@ -199,7 +232,8 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
             asset.setName(assetName);
             asset.setValue(assetValue);
             node.putAsset(asset);
-            // Assert.isTrue(node.getCategoryCount() == (assetCount + 1), "Asset was not added correctly");
+            // Assert.isTrue(node.getCategoryCount() == (assetCount + 1),
+            // "Asset was not added correctly");
 
             m_pendingForeignSourceRepository.save(group);
             m_pendingForeignSourceRepository.flush();
@@ -227,7 +261,8 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
             // final int ifaceCount = node.getInterfaceCount();
             final RequisitionInterface iface = createInterface(ipAddr, snmpPrimary);
             node.putInterface(iface);
-            // Assert.isTrue(node.getInterfaceCount() == (ifaceCount + 1), "Interface was not added correctly");
+            // Assert.isTrue(node.getInterfaceCount() == (ifaceCount + 1),
+            // "Interface was not added correctly");
 
             m_pendingForeignSourceRepository.save(group);
             m_pendingForeignSourceRepository.flush();
@@ -274,13 +309,15 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public final Requisition addServiceToInterface(final String groupName, final String pathToInterface, final String serviceName) {
+    public final Requisition addServiceToInterface(final String groupName, final String pathToInterface,
+            final String serviceName) {
         m_writeLock.lock();
 
         try {
             final Requisition group = getProvisioningGroup(groupName);
 
-            final RequisitionInterface iface = PropertyUtils.getPathValue(group, pathToInterface, RequisitionInterface.class);
+            final RequisitionInterface iface = PropertyUtils.getPathValue(group, pathToInterface,
+                                                                          RequisitionInterface.class);
 
             final RequisitionMonitoredService monSvc = createService(serviceName);
             iface.insertMonitoredService(monSvc);
@@ -299,7 +336,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
         m_readLock.lock();
         try {
             m_pendingForeignSourceRepository.flush();
-            final Requisition pending  = m_pendingForeignSourceRepository.getRequisition(name);
+            final Requisition pending = m_pendingForeignSourceRepository.getRequisition(name);
 
             if (pending == null) {
                 m_deployedForeignSourceRepository.flush();
@@ -328,7 +365,9 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>getProvisioningGroupNames</p>
+     * <p>
+     * getProvisioningGroupNames
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -373,7 +412,6 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
         return svc;
     }
 
-
     /** {@inheritDoc} */
     @Override
     public final void importProvisioningGroup(final String groupName) {
@@ -390,7 +428,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
             m_pendingForeignSourceRepository.flush();
             final String url = m_pendingForeignSourceRepository.getRequisitionURL(groupName).toString();
-            Assert.notNull(url, "Could not find url for group "+groupName+".  Does it exists?");
+            Assert.notNull(url, "Could not find url for group " + groupName + ".  Does it exists?");
 
             final EventBuilder bldr = new EventBuilder(EventConstants.RELOAD_IMPORT_UEI, "Web");
             bldr.addParam(EventConstants.PARM_URL, url);
@@ -398,7 +436,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
             try {
                 proxy.send(bldr.getEvent());
             } catch (final EventProxyException e) {
-                throw new DataAccessResourceFailureException("Unable to send event to import group "+groupName, e);
+                throw new DataAccessResourceFailureException("Unable to send event to import group " + groupName, e);
             }
         } finally {
             m_writeLock.unlock();
@@ -419,17 +457,18 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
             final Object parentObject = path.getParent() == null ? group : path.getParent().getValue(group);
 
             final String propName = path.getPropertyName();
-            final String methodSuffix = Character.toUpperCase(propName.charAt(0))+propName.substring(1);
-            final String methodName = "delete"+methodSuffix;
+            final String methodSuffix = Character.toUpperCase(propName.charAt(0)) + propName.substring(1);
+            final String methodName = "delete" + methodSuffix;
 
             try {
                 MethodUtils.invokeMethod(parentObject, methodName, new Object[] { objToDelete });
             } catch (final NoSuchMethodException e) {
-                throw new IllegalArgumentException("Unable to find method "+methodName+" on object of type "+parentObject.getClass(), e);
+                throw new IllegalArgumentException("Unable to find method " + methodName + " on object of type "
+                        + parentObject.getClass(), e);
             } catch (final IllegalAccessException e) {
-                throw new IllegalArgumentException("unable to access property "+pathToDelete, e);
+                throw new IllegalArgumentException("unable to access property " + pathToDelete, e);
             } catch (final InvocationTargetException e) {
-                throw new IllegalArgumentException("an execption occurred deleting "+pathToDelete, e);
+                throw new IllegalArgumentException("an execption occurred deleting " + pathToDelete, e);
             }
 
             m_pendingForeignSourceRepository.save(group);
@@ -441,7 +480,9 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>getAllGroups</p>
+     * <p>
+     * getAllGroups
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -452,7 +493,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
         try {
             final Collection<Requisition> groups = new LinkedList<Requisition>();
 
-            for(final String groupName : getProvisioningGroupNames()) {
+            for (final String groupName : getProvisioningGroupNames()) {
                 groups.add(getProvisioningGroup(groupName));
             }
 
@@ -505,7 +546,9 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>getGroupDbNodeCounts</p>
+     * <p>
+     * getGroupDbNodeCounts
+     * </p>
      *
      * @return a java$util$Map object.
      */
@@ -516,7 +559,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
         try {
             final Map<String, Integer> counts = new HashMap<String, Integer>();
 
-            for(final String groupName : getProvisioningGroupNames()) {
+            for (final String groupName : getProvisioningGroupNames()) {
                 counts.put(groupName, m_nodeDao.getNodeCountForForeignSource(groupName));
             }
 
@@ -527,7 +570,9 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>getNodeCategoryNames</p>
+     * <p>
+     * getNodeCategoryNames
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -547,7 +592,9 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>getServiceTypeNames</p>
+     * <p>
+     * getServiceTypeNames
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -576,7 +623,9 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
     }
 
     /**
-     * <p>getAssetFieldNames</p>
+     * <p>
+     * getAssetFieldNames
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */

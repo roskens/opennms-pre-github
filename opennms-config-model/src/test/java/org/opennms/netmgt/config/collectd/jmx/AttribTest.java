@@ -45,9 +45,12 @@ public class AttribTest extends XmlTest<Attrib> {
     /**
      * Instantiates a new attribute test.
      *
-     * @param sampleObject the sample object
-     * @param sampleXml the sample XML
-     * @param schemaFile the schema file
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample XML
+     * @param schemaFile
+     *            the schema file
      */
     public AttribTest(Attrib sampleObject, String sampleXml, String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
@@ -57,7 +60,8 @@ public class AttribTest extends XmlTest<Attrib> {
      * Data.
      *
      * @return the collection
-     * @throws ParseException the parse exception
+     * @throws ParseException
+     *             the parse exception
      */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
@@ -66,9 +70,8 @@ public class AttribTest extends XmlTest<Attrib> {
         a.setAlias("FreeMemory");
         a.setType("gauge");
 
-        return Arrays.asList(new Object[][] { {
-            a,
-            "<attrib name=\"FreeMemory\" alias=\"FreeMemory\" type=\"gauge\" />",
-            "target/classes/xsds/jmx-datacollection-config.xsd" } });
+        return Arrays.asList(new Object[][] { { a,
+                "<attrib name=\"FreeMemory\" alias=\"FreeMemory\" type=\"gauge\" />",
+                "target/classes/xsds/jmx-datacollection-config.xsd" } });
     }
 }

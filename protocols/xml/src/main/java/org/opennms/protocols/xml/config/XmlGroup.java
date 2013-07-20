@@ -48,7 +48,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="xml-group")
+@XmlRootElement(name = "xml-group")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlGroup implements Serializable, Comparable<XmlGroup> {
 
@@ -60,35 +60,35 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     private static final XmlObject[] OF_XML_OBJECTS = new XmlObject[0];
 
     /** The group name. */
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     private String m_name;
 
     /** The resource type. */
-    @XmlAttribute(name="resource-type", required=true)
+    @XmlAttribute(name = "resource-type", required = true)
     private String m_resourceType;
 
     /** The resource XPath. */
-    @XmlAttribute(name="resource-xpath", required=true)
+    @XmlAttribute(name = "resource-xpath", required = true)
     private String m_resourceXpath;
 
     /** The key XPath (for resource instance). */
-    @XmlAttribute(name="key-xpath", required=false)
+    @XmlAttribute(name = "key-xpath", required = false)
     private String m_keyXpath;
 
     /** The Resource Time XPath (for RRD updates). */
-    @XmlAttribute(name="timestamp-xpath", required=false)
+    @XmlAttribute(name = "timestamp-xpath", required = false)
     private String m_timestampXpath;
 
     /** The Resource Time Format (for RRD updates). */
-    @XmlAttribute(name="timestamp-format", required=false)
+    @XmlAttribute(name = "timestamp-format", required = false)
     private String m_timestampFormat;
 
     /** The XML objects list. */
-    @XmlElement(name="xml-object", required=true)
+    @XmlElement(name = "xml-object", required = true)
     private List<XmlObject> m_xmlObjects = new ArrayList<XmlObject>();
 
     /** The m_xml resource key. */
-    @XmlElement(name="resource-key", required=false)
+    @XmlElement(name = "resource-key", required = false)
     private XmlResourceKey m_xmlResourceKey;
 
     /**
@@ -103,7 +103,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Sets the name.
      *
-     * @param name the new name
+     * @param name
+     *            the new name
      */
     public void setName(String name) {
         m_name = name;
@@ -121,7 +122,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Sets the XML objects.
      *
-     * @param xmlObjects the new XML objects
+     * @param xmlObjects
+     *            the new XML objects
      */
     public void setXmlObjects(List<XmlObject> xmlObjects) {
         m_xmlObjects = xmlObjects;
@@ -130,7 +132,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Adds a new XML object.
      *
-     * @param xmlObject the XML object
+     * @param xmlObject
+     *            the XML object
      */
     public void addXmlObject(XmlObject xmlObject) {
         m_xmlObjects.add(xmlObject);
@@ -139,7 +142,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Removes a XML object.
      *
-     * @param xmlObject the XML object
+     * @param xmlObject
+     *            the XML object
      */
     public void removeXmlObject(XmlObject xmlObject) {
         m_xmlObjects.remove(xmlObject);
@@ -148,12 +152,13 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Removes a XML object by name.
      *
-     * @param name the XML object name
+     * @param name
+     *            the XML object name
      */
     public void removeObjectByName(String name) {
-        for (Iterator<XmlObject> itr = m_xmlObjects.iterator(); itr.hasNext(); ) {
+        for (Iterator<XmlObject> itr = m_xmlObjects.iterator(); itr.hasNext();) {
             XmlObject column = itr.next();
-            if(column.getName().equals(name)) {
+            if (column.getName().equals(name)) {
                 m_xmlObjects.remove(column);
                 return;
             }
@@ -172,7 +177,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Sets the resource type.
      *
-     * @param resourceType the new resource type
+     * @param resourceType
+     *            the new resource type
      */
     public void setResourceType(String resourceType) {
         m_resourceType = resourceType;
@@ -190,7 +196,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Sets the resource XPath.
      *
-     * @param resourceXpath the new resource XPath
+     * @param resourceXpath
+     *            the new resource XPath
      */
     public void setResourceXpath(String resourceXpath) {
         this.m_resourceXpath = resourceXpath;
@@ -208,7 +215,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Sets the key XPath.
      *
-     * @param keyXpath the new key XPath
+     * @param keyXpath
+     *            the new key XPath
      */
     public void setKeyXpath(String keyXpath) {
         this.m_keyXpath = keyXpath;
@@ -226,7 +234,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Sets the timestamp XPath.
      *
-     * @param timestampXpath the new timestamp XPath
+     * @param timestampXpath
+     *            the new timestamp XPath
      */
     public void setTimestampXpath(String timestampXpath) {
         this.m_timestampXpath = timestampXpath;
@@ -244,7 +253,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Sets the timestamp format.
      *
-     * @param timestampFormat the new timestamp format
+     * @param timestampFormat
+     *            the new timestamp format
      */
     public void setTimestampFormat(String timestampFormat) {
         this.m_timestampFormat = timestampFormat;
@@ -271,7 +281,8 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /**
      * Sets the XML resource key.
      *
-     * @param xmlResourceKey the new XML resource key
+     * @param xmlResourceKey
+     *            the new XML resource key
      */
     public void setXmlResourceKey(XmlResourceKey xmlResourceKey) {
         this.m_xmlResourceKey = xmlResourceKey;
@@ -286,34 +297,31 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
         return m_xmlResourceKey != null && !m_xmlResourceKey.getKeyXpathList().isEmpty();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
     public int compareTo(XmlGroup obj) {
-        return new CompareToBuilder()
-        .append(getName(), obj.getName())
-        .append(getResourceType(), obj.getResourceType())
-        .append(getResourceXpath(), obj.getResourceXpath())
-        .append(getKeyXpath(), obj.getKeyXpath())
-        .append(getXmlObjects().toArray(OF_XML_OBJECTS), obj.getXmlObjects().toArray(OF_XML_OBJECTS))
-        .toComparison();
+        return new CompareToBuilder().append(getName(), obj.getName()).append(getResourceType(), obj.getResourceType()).append(getResourceXpath(),
+                                                                                                                               obj.getResourceXpath()).append(getKeyXpath(),
+                                                                                                                                                              obj.getKeyXpath()).append(getXmlObjects().toArray(OF_XML_OBJECTS),
+                                                                                                                                                                                        obj.getXmlObjects().toArray(OF_XML_OBJECTS)).toComparison();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof XmlGroup) {
             XmlGroup other = (XmlGroup) obj;
-            return new EqualsBuilder()
-            .append(getName(), other.getName())
-            .append(getResourceType(), other.getResourceType())
-            .append(getResourceXpath(), other.getResourceXpath())
-            .append(getKeyXpath(), other.getKeyXpath())
-            .append(getXmlObjects().toArray(OF_XML_OBJECTS), other.getXmlObjects().toArray(OF_XML_OBJECTS))
-            .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getResourceType(),
+                                                                                 other.getResourceType()).append(getResourceXpath(),
+                                                                                                                 other.getResourceXpath()).append(getKeyXpath(),
+                                                                                                                                                  other.getKeyXpath()).append(getXmlObjects().toArray(OF_XML_OBJECTS),
+                                                                                                                                                                              other.getXmlObjects().toArray(OF_XML_OBJECTS)).isEquals();
         }
         return false;
     }

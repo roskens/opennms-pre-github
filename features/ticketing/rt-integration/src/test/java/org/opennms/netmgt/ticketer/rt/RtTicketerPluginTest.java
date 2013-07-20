@@ -57,7 +57,8 @@ public class RtTicketerPluginTest extends TestCase {
     @Override
     protected void runTest() throws Throwable {
         if (!isRunTest()) {
-            System.err.println("Skipping test '" + getName() + "' because system property '" + getRunTestProperty() + "' is not set to 'true'");
+            System.err.println("Skipping test '" + getName() + "' because system property '" + getRunTestProperty()
+                    + "' is not set to 'true'");
             return;
         }
 
@@ -79,13 +80,15 @@ public class RtTicketerPluginTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        final String testHome = System.getProperty("user.home") + File.separatorChar + ".opennms" + File.separatorChar + "test-home";
+        final String testHome = System.getProperty("user.home") + File.separatorChar + ".opennms" + File.separatorChar
+                + "test-home";
         final File testProp = new File(testHome + File.separatorChar + "etc" + File.separatorChar + "rt.properties");
         if (testProp.exists()) {
             LOG.debug("{} exists, using it instead of src/test/opennms-home", testHome);
             System.setProperty("opennms.home", testHome);
         } else {
-            System.setProperty("opennms.home", "src" + File.separatorChar + "test" + File.separatorChar + "opennms-home");
+            System.setProperty("opennms.home", "src" + File.separatorChar + "test" + File.separatorChar
+                    + "opennms-home");
         }
 
         m_ticketer = new RtTicketerPlugin();

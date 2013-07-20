@@ -34,32 +34,36 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
- * <P>IpNetToMediaTable uses a SnmpSession to collect the ipNetToMediaTable entries
+ * <P>
+ * IpNetToMediaTable uses a SnmpSession to collect the ipNetToMediaTable entries
  * It implements the SnmpHandler to receive notifications when a reply is
  * received/error occurs in the SnmpSession used to send requests/receive
- * replies.</P>
+ * replies.
+ * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo</A>
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213</A>
  * @version $Id: $
  */
-public class IpNetToMediaTable	extends SnmpTable<IpNetToMediaTableEntry>
-{
-	/**
-	 * <P>Constructs an IpNetToMediaTable object that is used to collect
-	 * the address elements from the remote agent. Once all
-	 * the elements are collected, or there is an error in
-	 * the collection the signaler object is <EM>notified</EM>
-	 * to inform other threads.</P>
-	 *
-	 * @see IpNetToMediaTableEntry
-	 * @param address a {@link java.net.InetAddress} object.
-	 */
-	public IpNetToMediaTable(InetAddress address) {
-	        super(address, "ipNetToMediaTable", IpNetToMediaTableEntry.ms_elemList);
-	    }
+public class IpNetToMediaTable extends SnmpTable<IpNetToMediaTableEntry> {
+    /**
+     * <P>
+     * Constructs an IpNetToMediaTable object that is used to collect the
+     * address elements from the remote agent. Once all the elements are
+     * collected, or there is an error in the collection the signaler object is
+     * <EM>notified</EM> to inform other threads.
+     * </P>
+     *
+     * @see IpNetToMediaTableEntry
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     */
+    public IpNetToMediaTable(InetAddress address) {
+        super(address, "ipNetToMediaTable", IpNetToMediaTableEntry.ms_elemList);
+    }
+
     /** {@inheritDoc} */
-        @Override
+    @Override
     protected IpNetToMediaTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new IpNetToMediaTableEntry();
     }

@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 final class OnmsAuthenticationToken extends AbstractAuthenticationToken {
     private static final long serialVersionUID = -5896244818836123481L;
+
     private final OnmsUser m_user;
 
     OnmsAuthenticationToken(final OnmsUser user) {

@@ -43,38 +43,41 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>XssRequestWrapper class.</p>
+ * <p>
+ * XssRequestWrapper class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class XssRequestWrapper extends HttpServletRequestWrapper
-{
+public class XssRequestWrapper extends HttpServletRequestWrapper {
 
-	private static final Logger LOG = LoggerFactory.getLogger(XssRequestWrapper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XssRequestWrapper.class);
 
     private Map<String, String[]> sanitized_parameters;
+
     private Map<String, String[]> original_parameters;
 
     /**
-     * <p>Constructor for XssRequestWrapper.</p>
+     * <p>
+     * Constructor for XssRequestWrapper.
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      */
     @SuppressWarnings("unchecked")
-    public XssRequestWrapper(HttpServletRequest req)
-    {
+    public XssRequestWrapper(HttpServletRequest req) {
         super(req);
         original_parameters = req.getParameterMap();
         sanitized_parameters = getParameterMap();
-            snzLogger();
+        snzLogger();
     }
 
     /** {@inheritDoc} */
     @Override
-    public String getParameter(String name)
-    {
+    public String getParameter(String name) {
         String[] vals = getParameterMap().get(name);
         if (vals != null && vals.length > 0)
             return vals[0];
@@ -84,9 +87,8 @@ public class XssRequestWrapper extends HttpServletRequestWrapper
 
     /** {@inheritDoc} */
     @Override
-    public Map<String, String[]> getParameterMap()
-    {
-        if (sanitized_parameters==null)
+    public Map<String, String[]> getParameterMap() {
+        if (sanitized_parameters == null)
             sanitized_parameters = sanitizeParamMap(original_parameters);
         return sanitized_parameters;
 
@@ -94,8 +96,7 @@ public class XssRequestWrapper extends HttpServletRequestWrapper
 
     /** {@inheritDoc} */
     @Override
-    public String[] getParameterValues(String name)
-    {
+    public String[] getParameterValues(String name) {
         return getParameterMap().get(name);
     }
 
@@ -129,18 +130,15 @@ public class XssRequestWrapper extends HttpServletRequestWrapper
         return super.getRequest().getCharacterEncoding();
     }
 
-    private  Map<String, String[]> sanitizeParamMap(Map<String, String[]> raw)
-    {
+    private Map<String, String[]> sanitizeParamMap(Map<String, String[]> raw) {
         Map<String, String[]> res = new HashMap<String, String[]>();
-        if (raw==null)
+        if (raw == null)
             return res;
 
-        for (String key : (Set<String>) raw.keySet())
-        {
+        for (String key : (Set<String>) raw.keySet()) {
             String[] rawVals = raw.get(key);
             String[] snzVals = new String[rawVals.length];
-            for (int i=0; i < rawVals.length; i++)
-            {
+            for (int i = 0; i < rawVals.length; i++) {
                 snzVals[i] = WebSecurityUtils.sanitizeString(rawVals[i]);
             }
             res.put(key, snzVals);
@@ -148,17 +146,12 @@ public class XssRequestWrapper extends HttpServletRequestWrapper
         return res;
     }
 
-
-    private void snzLogger()
-    {
-        for (String key : (Set<String>) original_parameters.keySet())
-        {
+    private void snzLogger() {
+        for (String key : (Set<String>) original_parameters.keySet()) {
             String[] rawVals = original_parameters.get(key);
             String[] snzVals = sanitized_parameters.get(key);
-            if (rawVals !=null && rawVals.length>0)
-            {
-                for (int i=0; i < rawVals.length; i++)
-                {
+            if (rawVals != null && rawVals.length > 0) {
+                for (int i = 0; i < rawVals.length; i++) {
                     if (rawVals[i].equals(snzVals[i]))
                         LOG.debug("Sanitization. Param seems safe: {}[{}]={}", key, i, snzVals[i]);
                     else
@@ -167,6 +160,5 @@ public class XssRequestWrapper extends HttpServletRequestWrapper
             }
         }
     }
-
 
 }

@@ -37,7 +37,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.UrlFilenameViewController;
 
 /**
- * <p>OutageResolvedController class.</p>
+ * <p>
+ * OutageResolvedController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,51 +47,57 @@ import org.springframework.web.servlet.mvc.UrlFilenameViewController;
  */
 public class OutageResolvedController extends UrlFilenameViewController {
 
-        private String m_successView;
+    private String m_successView;
 
-        private OutageService m_outageService ;
+    private OutageService m_outageService;
 
-        private OutageTable m_outageTable = new OutageTable();
+    private OutageTable m_outageTable = new OutageTable();
 
-        /**
-         * <p>setOutageService</p>
-         *
-         * @param service a {@link org.opennms.web.svclayer.outage.OutageService} object.
-         */
-        public final void setOutageService(final OutageService service) {
-                m_outageService = service;
-        }
+    /**
+     * <p>
+     * setOutageService
+     * </p>
+     *
+     * @param service
+     *            a {@link org.opennms.web.svclayer.outage.OutageService}
+     *            object.
+     */
+    public final void setOutageService(final OutageService service) {
+        m_outageService = service;
+    }
 
+    /** {@inheritDoc} */
+    @Override
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse reply) {
 
-        /** {@inheritDoc} */
-        @Override
-        protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
-                final HttpServletResponse reply) {
+        return new ModelAndView(getSuccessView(), m_outageTable.getResolvedOutageTable(request, reply, m_outageService));
+        // return new ModelAndView("displayResolvedOutages" + getSuffix(),
+        // m_outageTable.getResolvedOutageTable(request,
+        // reply,m_outageService));
 
+    }
 
-          return new ModelAndView(getSuccessView(),
-                                  m_outageTable.getResolvedOutageTable(request, reply,m_outageService));
-//          return new ModelAndView("displayResolvedOutages" + getSuffix(),
-//          m_outageTable.getResolvedOutageTable(request, reply,m_outageService));
+    /**
+     * <p>
+     * setSuccessView
+     * </p>
+     *
+     * @param successView
+     *            a {@link java.lang.String} object.
+     */
+    public final void setSuccessView(final String successView) {
+        m_successView = successView;
+    }
 
-        }
-
-        /**
-         * <p>setSuccessView</p>
-         *
-         * @param successView a {@link java.lang.String} object.
-         */
-        public final void setSuccessView(final String successView) {
-            m_successView = successView;
-        }
-
-        /**
-         * <p>getSuccessView</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
-        public final String getSuccessView() {
-            return m_successView;
-        }
+    /**
+     * <p>
+     * getSuccessView
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public final String getSuccessView() {
+        return m_successView;
+    }
 
 }

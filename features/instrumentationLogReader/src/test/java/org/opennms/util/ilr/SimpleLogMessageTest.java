@@ -37,7 +37,6 @@ import org.junit.Test;
 import org.opennms.util.ilr.LogMessage;
 import org.opennms.util.ilr.SimpleLogMessage;
 
-
 public class SimpleLogMessageTest {
     @Test
     public void testGetService() {

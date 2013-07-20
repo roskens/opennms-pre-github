@@ -44,7 +44,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>MSExchangeDetectorClient class.</p>
+ * <p>
+ * MSExchangeDetectorClient class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -52,13 +54,19 @@ import org.slf4j.LoggerFactory;
 public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSExchangeResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(MSExchangeDetectorClient.class);
+
     private Integer m_imapPort;
+
     private Integer m_pop3Port;
+
     private String m_pop3Response;
+
     private String m_imapResponse;
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
@@ -77,13 +85,12 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
         InputStreamReader isr = null;
         BufferedReader lineRdr = null;
 
-        if(port != null){
-            try{
+        if (port != null) {
+            try {
                 socket = new Socket();
                 final InetSocketAddress inetSocketAddress = new InetSocketAddress(address, port.intValue());
                 socket.connect(inetSocketAddress, timeout);
                 socket.setSoTimeout(timeout);
-
 
                 // Allocate a line reader
                 isr = new InputStreamReader(socket.getInputStream());
@@ -97,11 +104,11 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
                 socket.close();
                 return banner;
 
-            }catch(final Exception e) {
+            } catch (final Exception e) {
                 LOG.debug("An error occurred while connecting to {}:{}", InetAddressUtils.str(address), port, e);
                 IOUtils.closeQuietly(lineRdr);
                 IOUtils.closeQuietly(isr);
-                if(socket != null) {
+                if (socket != null) {
                     try {
                         socket.close();
                     } catch (final IOException e1) {
@@ -114,11 +121,17 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
     }
 
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.detector.msexchange.response.MSExchangeResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.msexchange.response.MSExchangeResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public MSExchangeResponse receiveBanner() throws IOException, Exception {
@@ -129,12 +142,21 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.msexchange.response.MSExchangeResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.msexchange.response.MSExchangeResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public MSExchangeResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
@@ -142,16 +164,21 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
     }
 
     /**
-     * <p>setImapPort</p>
+     * <p>
+     * setImapPort
+     * </p>
      *
-     * @param imapPort a int.
+     * @param imapPort
+     *            a int.
      */
     public void setImapPort(int imapPort) {
         m_imapPort = imapPort;
     }
 
     /**
-     * <p>getImapPort</p>
+     * <p>
+     * getImapPort
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -160,16 +187,21 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
     }
 
     /**
-     * <p>setFtpPort</p>
+     * <p>
+     * setFtpPort
+     * </p>
      *
-     * @param ftpPort a int.
+     * @param ftpPort
+     *            a int.
      */
     public void setFtpPort(int ftpPort) {
         m_pop3Port = ftpPort;
     }
 
     /**
-     * <p>getPop3Port</p>
+     * <p>
+     * getPop3Port
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -178,25 +210,33 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
     }
 
     /**
-     * <p>setPop3Port</p>
+     * <p>
+     * setPop3Port
+     * </p>
      *
-     * @param pop3Port a int.
+     * @param pop3Port
+     *            a int.
      */
     public void setPop3Port(int pop3Port) {
         m_pop3Port = pop3Port;
     }
 
     /**
-     * <p>setImapResponse</p>
+     * <p>
+     * setImapResponse
+     * </p>
      *
-     * @param imapResponse a {@link java.lang.String} object.
+     * @param imapResponse
+     *            a {@link java.lang.String} object.
      */
     public void setImapResponse(String imapResponse) {
         m_imapResponse = imapResponse;
     }
 
     /**
-     * <p>getImapResponse</p>
+     * <p>
+     * getImapResponse
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -205,16 +245,21 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
     }
 
     /**
-     * <p>setPop3Response</p>
+     * <p>
+     * setPop3Response
+     * </p>
      *
-     * @param pop3Response a {@link java.lang.String} object.
+     * @param pop3Response
+     *            a {@link java.lang.String} object.
      */
     public void setPop3Response(String pop3Response) {
         m_pop3Response = pop3Response;
     }
 
     /**
-     * <p>getPop3Response</p>
+     * <p>
+     * getPop3Response
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

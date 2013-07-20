@@ -37,16 +37,24 @@ package org.opennms.core.tasks;
 public interface Callback<T> {
 
     /**
-     * <p>complete</p>
+     * <p>
+     * complete
+     * </p>
      *
-     * @param t a T object.
-     * @param <T> a T object.
+     * @param t
+     *            a T object.
+     * @param <T>
+     *            a T object.
      */
     public void complete(T t);
+
     /**
-     * <p>handleException</p>
+     * <p>
+     * handleException
+     * </p>
      *
-     * @param t a {@link java.lang.Throwable} object.
+     * @param t
+     *            a {@link java.lang.Throwable} object.
      */
     public void handleException(Throwable t);
 

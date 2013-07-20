@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.poller.descriptors;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.opennms.netmgt.config.poller.Outages;
@@ -46,12 +46,12 @@ import org.opennms.netmgt.config.poller.Outages;
  *
  * @version $Revision$ $Date$
  */
-@SuppressWarnings("all") public class OutagesDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
+@SuppressWarnings("all")
+public class OutagesDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _elementDefinition.
@@ -78,10 +78,9 @@ import org.opennms.netmgt.config.poller.Outages;
      */
     private org.exolab.castor.xml.XMLFieldDescriptor _identity;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public OutagesDescriptor() {
         super();
@@ -89,36 +88,37 @@ import org.opennms.netmgt.config.poller.Outages;
         _xmlName = "outages";
         _elementDefinition = true;
 
-        //-- set grouping compositor
+        // -- set grouping compositor
         setCompositorAsSequence();
-        org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
-        org.exolab.castor.mapping.FieldHandler             handler        = null;
-        org.exolab.castor.xml.FieldValidator               fieldValidator = null;
-        //-- initialize attribute descriptors
+        org.exolab.castor.xml.util.XMLFieldDescriptorImpl desc = null;
+        org.exolab.castor.mapping.FieldHandler handler = null;
+        org.exolab.castor.xml.FieldValidator fieldValidator = null;
+        // -- initialize attribute descriptors
 
-        //-- initialize element descriptors
+        // -- initialize element descriptors
 
-        //-- _outageList
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.poller.Outage.class, "_outageList", "outage", org.exolab.castor.xml.NodeType.Element);
+        // -- _outageList
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.poller.Outage.class,
+                                                                     "_outageList", "outage",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Outages target = (Outages) object;
                 return target.getOutage();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Outages target = (Outages) object;
-                    target.addOutage( (org.opennms.netmgt.config.poller.Outage) value);
+                    target.addOutage((org.opennms.netmgt.config.poller.Outage) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             public void resetValue(Object object) throws IllegalStateException, IllegalArgumentException {
                 try {
@@ -128,6 +128,7 @@ import org.opennms.netmgt.config.poller.Outages;
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -141,18 +142,17 @@ import org.opennms.netmgt.config.poller.Outages;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _outageList
+        // -- validation code for: _outageList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(0);
-        { //-- local scope
+        { // -- local scope
         }
         desc.setValidator(fieldValidator);
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Method getAccessMode.
@@ -160,8 +160,7 @@ import org.opennms.netmgt.config.poller.Outages;
      * @return the access mode specified for this class.
      */
     @Override()
-    public org.exolab.castor.mapping.AccessMode getAccessMode(
-    ) {
+    public org.exolab.castor.mapping.AccessMode getAccessMode() {
         return null;
     }
 
@@ -169,11 +168,10 @@ import org.opennms.netmgt.config.poller.Outages;
      * Method getIdentity.
      *
      * @return the identity field, null if this class has no
-     * identity.
+     *         identity.
      */
     @Override()
-    public org.exolab.castor.mapping.FieldDescriptor getIdentity(
-    ) {
+    public org.exolab.castor.mapping.FieldDescriptor getIdentity() {
         return _identity;
     }
 
@@ -183,8 +181,7 @@ import org.opennms.netmgt.config.poller.Outages;
      * @return the Java class represented by this descriptor.
      */
     @Override()
-    public java.lang.Class<?> getJavaClass(
-    ) {
+    public java.lang.Class<?> getJavaClass() {
         return org.opennms.netmgt.config.poller.Outages.class;
     }
 
@@ -194,8 +191,7 @@ import org.opennms.netmgt.config.poller.Outages;
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpacePrefix(
-    ) {
+    public java.lang.String getNameSpacePrefix() {
         return _nsPrefix;
     }
 
@@ -203,11 +199,10 @@ import org.opennms.netmgt.config.poller.Outages;
      * Method getNameSpaceURI.
      *
      * @return the namespace URI used when marshaling and
-     * unmarshaling as XML.
+     *         unmarshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpaceURI(
-    ) {
+    public java.lang.String getNameSpaceURI() {
         return _nsURI;
     }
 
@@ -215,11 +210,10 @@ import org.opennms.netmgt.config.poller.Outages;
      * Method getValidator.
      *
      * @return a specific validator for the class described by this
-     * ClassDescriptor.
+     *         ClassDescriptor.
      */
     @Override()
-    public org.exolab.castor.xml.TypeValidator getValidator(
-    ) {
+    public org.exolab.castor.xml.TypeValidator getValidator() {
         return this;
     }
 
@@ -229,8 +223,7 @@ import org.opennms.netmgt.config.poller.Outages;
      * @return the XML Name for the Class being described.
      */
     @Override()
-    public java.lang.String getXMLName(
-    ) {
+    public java.lang.String getXMLName() {
         return _xmlName;
     }
 
@@ -238,12 +231,11 @@ import org.opennms.netmgt.config.poller.Outages;
      * Method isElementDefinition.
      *
      * @return true if XML schema definition of this Class is that
-     * of a global
-     * element or element with anonymous type definition.
+     *         of a global
+     *         element or element with anonymous type definition.
      */
     @Override
-    public boolean isElementDefinition(
-    ) {
+    public boolean isElementDefinition() {
         return _elementDefinition;
     }
 

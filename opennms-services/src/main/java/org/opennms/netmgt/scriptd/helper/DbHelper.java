@@ -34,11 +34,9 @@ import org.springframework.beans.factory.access.BeanFactoryReference;
 
 public class DbHelper {
 
-
-	public static String getNodeLabel(Integer nodeid) {
-    	BeanFactoryReference bf = BeanUtils.getBeanFactory("daoContext");
-        return BeanUtils.getBean(bf,"nodeDao", NodeDao.class)
-        	.get(nodeid).getLabel();
-	}
+    public static String getNodeLabel(Integer nodeid) {
+        BeanFactoryReference bf = BeanUtils.getBeanFactory("daoContext");
+        return BeanUtils.getBean(bf, "nodeDao", NodeDao.class).get(nodeid).getLabel();
+    }
 
 }

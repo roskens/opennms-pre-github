@@ -47,13 +47,16 @@ import org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig;
 import org.opennms.netmgt.model.RrdRepository;
 
 /**
- * <p>HttpCollectionConfigFactory class.</p>
+ * <p>
+ * HttpCollectionConfigFactory class.
+ * </p>
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
 public class HttpCollectionConfigFactory {
     private static final Logger LOG = LoggerFactory.getLogger(HttpCollectionConfigFactory.class);
+
     /** The singleton instance. */
     private static HttpCollectionConfigFactory m_instance;
 
@@ -62,18 +65,27 @@ public class HttpCollectionConfigFactory {
     /** Boolean indicating if the init() method has been called. */
     protected boolean initialized = false;
 
-    /** Timestamp of the http collection config, used to know when to reload from disk. */
+    /**
+     * Timestamp of the http collection config, used to know when to reload from
+     * disk.
+     */
     protected static long m_lastModified;
 
     private static HttpDatacollectionConfig m_config;
 
     /**
-     * <p>Constructor for HttpCollectionConfigFactory.</p>
+     * <p>
+     * Constructor for HttpCollectionConfigFactory.
+     * </p>
      *
-     * @param configFile a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param configFile
+     *            a {@link java.lang.String} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public HttpCollectionConfigFactory(String configFile) throws MarshalException, ValidationException, IOException {
         InputStream is = null;
@@ -88,11 +100,16 @@ public class HttpCollectionConfigFactory {
     }
 
     /**
-     * <p>Constructor for HttpCollectionConfigFactory.</p>
+     * <p>
+     * Constructor for HttpCollectionConfigFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public HttpCollectionConfigFactory(InputStream stream) throws MarshalException, ValidationException {
         initialize(stream);
@@ -106,12 +123,17 @@ public class HttpCollectionConfigFactory {
     /**
      * Be sure to call this method before calling getInstance().
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+    public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
+            ValidationException {
 
         if (m_instance == null) {
             File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.HTTP_COLLECTION_CONFIG_FILE_NAME);
@@ -131,15 +153,21 @@ public class HttpCollectionConfigFactory {
     public static synchronized HttpCollectionConfigFactory getInstance() {
 
         if (m_instance == null) {
-            throw new IllegalStateException("You must call HttpCollectionConfigFactory.init() before calling getInstance().");
+            throw new IllegalStateException(
+                                            "You must call HttpCollectionConfigFactory.init() before calling getInstance().");
         }
         return m_instance;
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.HttpCollectionConfigFactory} object.
+     * @param instance
+     *            a
+     *            {@link org.opennms.netmgt.config.HttpCollectionConfigFactory}
+     *            object.
      */
     public static synchronized void setInstance(HttpCollectionConfigFactory instance) {
         m_instance = instance;
@@ -147,26 +175,35 @@ public class HttpCollectionConfigFactory {
     }
 
     /**
-     * <p>reload</p>
+     * <p>
+     * reload
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         m_instance = null;
         init();
     }
 
-
     /**
-     * Reload the http-datacollection-config.xml file if it has been changed since we last
+     * Reload the http-datacollection-config.xml file if it has been changed
+     * since we last
      * read it.
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     protected void updateFromFile() throws IOException, MarshalException, ValidationException {
         if (m_loadedFromFile) {
@@ -178,28 +215,42 @@ public class HttpCollectionConfigFactory {
     }
 
     /**
-     * <p>getConfig</p>
+     * <p>
+     * getConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig}
+     *         object.
      */
     public synchronized static HttpDatacollectionConfig getConfig() {
         return m_config;
     }
 
     /**
-     * <p>setConfig</p>
+     * <p>
+     * setConfig
+     * </p>
      *
-     * @param m_config a {@link org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig} object.
+     * @param m_config
+     *            a
+     *            {@link org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig}
+     *            object.
      */
     public synchronized static void setConfig(HttpDatacollectionConfig m_config) {
         HttpCollectionConfigFactory.m_config = m_config;
     }
 
     /**
-     * <p>getHttpCollection</p>
+     * <p>
+     * getHttpCollection
+     * </p>
      *
-     * @param collectionName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.httpdatacollection.HttpCollection} object.
+     * @param collectionName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.httpdatacollection.HttpCollection}
+     *         object.
      */
     public HttpCollection getHttpCollection(String collectionName) {
         List<HttpCollection> collections = m_config.getHttpCollectionCollection();
@@ -211,16 +262,19 @@ public class HttpCollectionConfigFactory {
             }
         }
         if (collection == null) {
-            throw new IllegalArgumentException("getHttpCollection: collection name: "
-                    +collectionName+" specified in collectd configuration not found in http collection configuration.");
+            throw new IllegalArgumentException("getHttpCollection: collection name: " + collectionName
+                    + " specified in collectd configuration not found in http collection configuration.");
         }
         return collection;
     }
 
     /**
-     * <p>getRrdRepository</p>
+     * <p>
+     * getRrdRepository
+     * </p>
      *
-     * @param collectionName a {@link java.lang.String} object.
+     * @param collectionName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
     public RrdRepository getRrdRepository(String collectionName) {
@@ -233,9 +287,12 @@ public class HttpCollectionConfigFactory {
     }
 
     /**
-     * <p>getStep</p>
+     * <p>
+     * getStep
+     * </p>
      *
-     * @param cName a {@link java.lang.String} object.
+     * @param cName
+     *            a {@link java.lang.String} object.
      * @return a int.
      */
     public int getStep(String cName) {
@@ -247,13 +304,16 @@ public class HttpCollectionConfigFactory {
     }
 
     /**
-     * <p>getRRAList</p>
+     * <p>
+     * getRRAList
+     * </p>
      *
-     * @param cName a {@link java.lang.String} object.
+     * @param cName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<String> getRRAList(String cName) {
-       HttpCollection collection = getHttpCollection(cName);
+        HttpCollection collection = getHttpCollection(cName);
         if (collection != null)
             return collection.getRrd().getRraCollection();
         else
@@ -262,15 +322,16 @@ public class HttpCollectionConfigFactory {
     }
 
     /**
-     * <p>getRrdPath</p>
+     * <p>
+     * getRrdPath
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getRrdPath() {
         String rrdPath = m_config.getRrdRepository();
         if (rrdPath == null) {
-            throw new RuntimeException("Configuration error, failed to "
-                    + "retrieve path to RRD repository.");
+            throw new RuntimeException("Configuration error, failed to " + "retrieve path to RRD repository.");
         }
 
         /*

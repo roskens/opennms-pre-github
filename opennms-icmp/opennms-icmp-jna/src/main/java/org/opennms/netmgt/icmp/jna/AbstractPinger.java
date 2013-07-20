@@ -46,10 +46,15 @@ public abstract class AbstractPinger<T extends InetAddress> implements Runnable 
     public static final double NANOS_PER_MILLI = 1000000.0;
 
     private int m_pingerId;
+
     private NativeDatagramSocket m_pingSocket;
+
     private Thread m_thread;
+
     private final AtomicReference<Throwable> m_throwable = new AtomicReference<Throwable>(null);
+
     private volatile boolean m_stopped = false;
+
     private final List<PingReplyListener> m_listeners = new ArrayList<PingReplyListener>();
 
     protected AbstractPinger(int pingerId, NativeDatagramSocket pingSocket) {
@@ -73,7 +78,7 @@ public abstract class AbstractPinger<T extends InetAddress> implements Runnable 
     }
 
     public void start() {
-        m_thread = new Thread(this, "JNA-ICMP-"+getClass().getSimpleName()+"-"+m_pingerId+"-Socket-Reader");
+        m_thread = new Thread(this, "JNA-ICMP-" + getClass().getSimpleName() + "-" + m_pingerId + "-Socket-Reader");
         m_thread.setDaemon(true);
         m_thread.start();
     }
@@ -82,7 +87,7 @@ public abstract class AbstractPinger<T extends InetAddress> implements Runnable 
         m_stopped = true;
         if (m_thread != null) {
             m_thread.interrupt();
-            //m_thread.join();
+            // m_thread.join();
         }
         m_thread = null;
     }
@@ -93,7 +98,8 @@ public abstract class AbstractPinger<T extends InetAddress> implements Runnable 
         }
     }
 
-    abstract public void ping(T addr, int identifier, int sequenceNumber, long threadId, long count, long interval, int packetSize) throws InterruptedException;
+    abstract public void ping(T addr, int identifier, int sequenceNumber, long threadId, long count, long interval,
+            int packetSize) throws InterruptedException;
 
     public void addPingReplyListener(PingReplyListener listener) {
         m_listeners.add(listener);

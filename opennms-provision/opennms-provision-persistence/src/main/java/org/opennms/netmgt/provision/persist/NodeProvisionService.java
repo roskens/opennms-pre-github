@@ -33,7 +33,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * <p>NodeProvisionService interface.</p>
+ * <p>
+ * NodeProvisionService interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,35 +43,53 @@ import org.springframework.web.servlet.ModelAndView;
 public interface NodeProvisionService {
 
     /**
-     * <p>getModelAndView</p>
+     * <p>
+     * getModelAndView
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
-    public ModelAndView getModelAndView(HttpServletRequest request) ;
+    public ModelAndView getModelAndView(HttpServletRequest request);
 
     /**
-     * <p>provisionNode</p>
+     * <p>
+     * provisionNode
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param categories an array of {@link java.lang.String} objects.
-     * @param snmpCommunity a {@link java.lang.String} object.
-     * @param snmpVersion a {@link java.lang.String} object.
-     * @param deviceUsername a {@link java.lang.String} object.
-     * @param devicePassword a {@link java.lang.String} object.
-     * @param enablePassword a {@link java.lang.String} object.
-     * @param accessMethd a {@link java.lang.String} object.
-     * @param autoEnable a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param categories
+     *            an array of {@link java.lang.String} objects.
+     * @param snmpCommunity
+     *            a {@link java.lang.String} object.
+     * @param snmpVersion
+     *            a {@link java.lang.String} object.
+     * @param deviceUsername
+     *            a {@link java.lang.String} object.
+     * @param devicePassword
+     *            a {@link java.lang.String} object.
+     * @param enablePassword
+     *            a {@link java.lang.String} object.
+     * @param accessMethd
+     *            a {@link java.lang.String} object.
+     * @param autoEnable
+     *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public boolean provisionNode(String user, String foreignSource, String foreignId, String nodeLabel, String ipAddress,
-            String[] categories,
-            String snmpCommunity, String snmpVersion,
-            String deviceUsername, String devicePassword, String enablePassword,
-            String accessMethd, String autoEnable, String noSNMP) throws Exception;
+    public boolean provisionNode(String user, String foreignSource, String foreignId, String nodeLabel,
+            String ipAddress, String[] categories, String snmpCommunity, String snmpVersion, String deviceUsername,
+            String devicePassword, String enablePassword, String accessMethd, String autoEnable, String noSNMP)
+            throws Exception;
 }

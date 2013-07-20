@@ -29,20 +29,25 @@
 package org.opennms.web.category;
 
 /**
- * <p>CategoryNotFoundException class.</p>
+ * <p>
+ * CategoryNotFoundException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class CategoryNotFoundException extends RuntimeException {
-	private static final long serialVersionUID = 5700012759168177139L;
+    private static final long serialVersionUID = 5700012759168177139L;
 
-	protected String category;
+    protected String category;
 
     /**
-     * <p>Constructor for CategoryNotFoundException.</p>
+     * <p>
+     * Constructor for CategoryNotFoundException.
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
      */
     public CategoryNotFoundException(String category) {
         super("Could not find the " + category + " category");
@@ -55,7 +60,9 @@ public class CategoryNotFoundException extends RuntimeException {
     }
 
     /**
-     * <p>Getter for the field <code>category</code>.</p>
+     * <p>
+     * Getter for the field <code>category</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

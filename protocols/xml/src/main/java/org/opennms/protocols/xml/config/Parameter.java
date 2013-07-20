@@ -36,36 +36,39 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * The Class Parameter.
  * <ul>
- *   <li>get-disable-ssl-verification</li>
- *   <li>protocol-version</li>
- *   <li>retries</li>
- *   <li>timeout</li>
+ * <li>get-disable-ssl-verification</li>
+ * <li>protocol-version</li>
+ * <li>retries</li>
+ * <li>timeout</li>
  * </ul>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="parameter")
+@XmlRootElement(name = "parameter")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Parameter {
 
     /** The name. */
-    @XmlAttribute(required=true)
+    @XmlAttribute(required = true)
     private String name;
 
     /** The value. */
-    @XmlAttribute(required=true)
+    @XmlAttribute(required = true)
     private String value;
 
     /**
      * Instantiates a new parameter.
      */
-    public Parameter() {}
+    public Parameter() {
+    }
 
     /**
      * Instantiates a new parameter.
      *
-     * @param name the name
-     * @param value the value
+     * @param name
+     *            the name
+     * @param value
+     *            the value
      */
     public Parameter(String name, String value) {
         this.name = name;
@@ -93,7 +96,8 @@ public class Parameter {
     /**
      * Sets the name.
      *
-     * @param name the new name
+     * @param name
+     *            the new name
      */
     public void setName(String name) {
         this.name = name;
@@ -102,7 +106,8 @@ public class Parameter {
     /**
      * Sets the value.
      *
-     * @param value the new value
+     * @param value
+     *            the new value
      */
     public void setValue(String value) {
         this.value = value;

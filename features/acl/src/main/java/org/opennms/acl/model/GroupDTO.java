@@ -45,7 +45,9 @@ package org.opennms.acl.model;
 import java.util.List;
 
 /**
- * <p>GroupDTO class.</p>
+ * <p>
+ * GroupDTO class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -54,7 +56,9 @@ import java.util.List;
 public class GroupDTO implements GroupView {
 
     /**
-     * <p>Getter for the field <code>name</code>.</p>
+     * <p>
+     * Getter for the field <code>name</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -64,16 +68,21 @@ public class GroupDTO implements GroupView {
     }
 
     /**
-     * <p>Setter for the field <code>name</code>.</p>
+     * <p>
+     * Setter for the field <code>name</code>.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * <p>Getter for the field <code>id</code>.</p>
+     * <p>
+     * Getter for the field <code>id</code>.
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -83,16 +92,21 @@ public class GroupDTO implements GroupView {
     }
 
     /**
-     * <p>Setter for the field <code>id</code>.</p>
+     * <p>
+     * Setter for the field <code>id</code>.
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * <p>isNew</p>
+     * <p>
+     * isNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -101,7 +115,9 @@ public class GroupDTO implements GroupView {
     }
 
     /**
-     * <p>hasAuthorities</p>
+     * <p>
+     * hasAuthorities
+     * </p>
      *
      * @return a boolean.
      */
@@ -110,7 +126,9 @@ public class GroupDTO implements GroupView {
     }
 
     /**
-     * <p>hasGroups</p>
+     * <p>
+     * hasGroups
+     * </p>
      *
      * @return a boolean.
      */
@@ -119,9 +137,12 @@ public class GroupDTO implements GroupView {
     }
 
     /**
-     * <p>Setter for the field <code>authorities</code>.</p>
+     * <p>
+     * Setter for the field <code>authorities</code>.
+     * </p>
      *
-     * @param items a {@link java.util.List} object.
+     * @param items
+     *            a {@link java.util.List} object.
      */
     @SuppressWarnings("unchecked")
     public void setAuthorities(List<?> items) {
@@ -129,7 +150,9 @@ public class GroupDTO implements GroupView {
     }
 
     /**
-     * <p>Getter for the field <code>authorities</code>.</p>
+     * <p>
+     * Getter for the field <code>authorities</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -138,7 +161,9 @@ public class GroupDTO implements GroupView {
     }
 
     /**
-     * <p>Getter for the field <code>emptyUsers</code>.</p>
+     * <p>
+     * Getter for the field <code>emptyUsers</code>.
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -148,16 +173,21 @@ public class GroupDTO implements GroupView {
     }
 
     /**
-     * <p>Setter for the field <code>emptyUsers</code>.</p>
+     * <p>
+     * Setter for the field <code>emptyUsers</code>.
+     * </p>
      *
-     * @param usersEmpty a {@link java.lang.Boolean} object.
+     * @param usersEmpty
+     *            a {@link java.lang.Boolean} object.
      */
     public void setEmptyUsers(Boolean usersEmpty) {
         this.emptyUsers = usersEmpty;
     }
 
     /**
-     * <p>Getter for the field <code>groups</code>.</p>
+     * <p>
+     * Getter for the field <code>groups</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -167,17 +197,24 @@ public class GroupDTO implements GroupView {
     }
 
     /**
-     * <p>Setter for the field <code>groups</code>.</p>
+     * <p>
+     * Setter for the field <code>groups</code>.
+     * </p>
      *
-     * @param groups a {@link java.util.List} object.
+     * @param groups
+     *            a {@link java.util.List} object.
      */
     public void setGroups(List<GroupView> groups) {
         this.groups = groups;
     }
 
     private String name;
+
     private Integer id = 0;
+
     private List<AuthorityView> authorities;
+
     private List<GroupView> groups;
+
     private Boolean emptyUsers = false;
 }

@@ -56,22 +56,20 @@ import org.springframework.test.context.ContextConfiguration;
  * TODO: Merge with {@link org.opennms.netmgt.trapd.TrapHandlerTestCase}?
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:META-INF/opennms/applicationContext-soa.xml",
-        "classpath:META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
+        "classpath:META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:META-INF/opennms/mockEventIpcManager.xml",
         "classpath:META-INF/opennms/applicationContext-commonConfigs.xml",
         "classpath:META-INF/opennms/applicationContext-daemon.xml",
         "classpath:META-INF/opennms/applicationContext-trapDaemon.xml",
-        // Overrides the port that Trapd binds to and sets newSuspectOnTrap to 'true'
+        // Overrides the port that Trapd binds to and sets newSuspectOnTrap to
+        // 'true'
         "classpath:org/opennms/netmgt/trapd/applicationContext-trapDaemonTest-snmpTrapPort.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class TrapdTest implements InitializingBean {
-    @Resource(name="snmpTrapPort")
+    @Resource(name = "snmpTrapPort")
     Integer m_snmpTrapPort;
 
     @Autowired

@@ -118,19 +118,15 @@ import org.springframework.test.context.ContextConfiguration;
  * Unit test for ModelImport application.
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-provisiond.xml",
-        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
-        "classpath*:/META-INF/opennms/detectors.xml",
-        "classpath:/mockForeignSourceContext.xml",
-        "classpath:/importerServiceTest.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml", "classpath*:/META-INF/opennms/detectors.xml",
+        "classpath:/mockForeignSourceContext.xml", "classpath:/importerServiceTest.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @DirtiesContext
 public class ProvisionerTest extends ProvisioningTestCase implements InitializingBean, MockSnmpDataProviderAware {
     private static final Logger LOG = LoggerFactory.getLogger(ProvisionerTest.class);
@@ -205,7 +201,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         SnmpPeerFactory.setInstance(m_snmpPeerFactory);
         assertTrue(m_snmpPeerFactory instanceof ProxySnmpAgentConfigFactory);
 
-        // ensure this property is unset for tests and set it only in tests that need it
+        // ensure this property is unset for tests and set it only in tests that
+        // need it
         System.getProperties().remove("org.opennms.provisiond.enableDeletionOfRequisitionedEntities");
 
         m_eventAnticipator = m_mockEventIpcManager.getEventAnticipator();
@@ -254,18 +251,18 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         m_eventAnticipator.reset();
     }
 
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testVisit() throws Exception {
-        final Requisition requisition = m_foreignSourceRepository.importResourceRequisition(new ClassPathResource("/NewFile2.xml"));
+        final Requisition requisition = m_foreignSourceRepository.importResourceRequisition(new ClassPathResource(
+                                                                                                                  "/NewFile2.xml"));
         final CountingVisitor visitor = new CountingVisitor();
         requisition.visit(visitor);
         verifyBasicImportCounts(visitor);
     }
 
-
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     // 192.0.2.0/24 reserved by IANA for testing purposes
-    @JUnitSnmpAgent(host="192.0.2.123", resource="classpath:no-ipaddrtable.properties")
+    @JUnitSnmpAgent(host = "192.0.2.123", resource = "classpath:no-ipaddrtable.properties")
     public void testNoIPAddrTable() throws Exception {
         importFromResource("classpath:/no-ipaddrtable.xml", true);
 
@@ -273,16 +270,16 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(1, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(3, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(3, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(0, getSnmpInterfaceDao().countAll());
 
         final NodeScan scan = m_provisioner.createNodeScan(node.getId(), node.getForeignSource(), node.getForeignId());
@@ -290,23 +287,23 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(1, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(3, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(3, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(0, getSnmpInterfaceDao().countAll());
 
     }
 
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     // 192.0.2.0/24 reserved by IANA for testing purposes
-    @JUnitSnmpAgent(host="192.0.2.123", resource="classpath:lameForce10.properties")
+    @JUnitSnmpAgent(host = "192.0.2.123", resource = "classpath:lameForce10.properties")
     public void testLameForce10Agent() throws Exception {
         importFromResource("classpath:/lameForce10.xml", true);
 
@@ -314,16 +311,16 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(1, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(3, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(3, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(0, getSnmpInterfaceDao().countAll());
 
         final NodeScan scan = m_provisioner.createNodeScan(node.getId(), node.getForeignSource(), node.getForeignId());
@@ -331,35 +328,35 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(4, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(3, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(3, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(6, getSnmpInterfaceDao().countAll());
 
     }
+
     /**
-     * We have to ignore this test until there is a DNS service available in the test harness
+     * We have to ignore this test until there is a DNS service available in the
+     * test harness
      *
      * @throws ForeignSourceRepositoryException
      * @throws MalformedURLException
      */
-    @Test(timeout=300000)
-    @JUnitDNSServer(port=9153, zones={
-            @DNSZone(name="opennms.com.", v4address="1.2.3.4", entries={
-                    @DNSEntry(hostname="www", address="1.2.3.4")
-                    // V6 support is only in master right now
-                    // @DNSEntry(hostname="www", address="::1:2:3:4", ipv6=true)
-            })
-    })
+    @Test(timeout = 300000)
+    @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "opennms.com.", v4address = "1.2.3.4", entries = { @DNSEntry(hostname = "www", address = "1.2.3.4")
+    // V6 support is only in master right now
+    // @DNSEntry(hostname="www", address="::1:2:3:4", ipv6=true)
+    }) })
     public void testDnsVisit() throws ForeignSourceRepositoryException, MalformedURLException {
-        final Requisition requisition = m_foreignSourceRepository.importResourceRequisition(new UrlResource("dns://localhost:9153/opennms.com"));
+        final Requisition requisition = m_foreignSourceRepository.importResourceRequisition(new UrlResource(
+                                                                                                            "dns://localhost:9153/opennms.com"));
         final CountingVisitor visitor = new CountingVisitor() {
             @Override
             public void visitNode(final OnmsNodeRequisition req) {
@@ -367,6 +364,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
                 m_nodes.add(req);
                 m_nodeCount++;
             }
+
             @Override
             public void visitInterface(final OnmsIpInterfaceRequisition req) {
                 LOG.debug("visitInterface: {}", req.getIpAddr());
@@ -379,7 +377,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         verifyDnsImportCounts(visitor);
     }
 
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testSendEventsOnImport() throws Exception {
         m_populator.resetDatabase();
 
@@ -419,8 +417,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         });
     }
 
-
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testNonSnmpImportAndScan() throws Exception {
         importFromResource("classpath:/import_localhost.xml", true);
 
@@ -436,8 +433,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
     }
 
-
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testFindQuery() throws Exception {
         importFromResource("classpath:/tec_dump.xml.smalltest", true);
 
@@ -446,7 +442,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         }
     }
 
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testBigImport() throws Exception {
         final File file = new File("/tmp/tec_dump.xml.large");
         if (file.exists()) {
@@ -459,59 +455,57 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
     }
 
-    @Test(timeout=300000)
-    @JUnitSnmpAgent(host="172.20.1.201", resource="classpath:snmpTestData1.properties")
+    @Test(timeout = 300000)
+    @JUnitSnmpAgent(host = "172.20.1.201", resource = "classpath:snmpTestData1.properties")
     public void testPopulateWithSnmp() throws Exception {
         m_populator.resetDatabase();
 
         importFromResource("classpath:/tec_dump.xml", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(2, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(4, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(3, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(2, getSnmpInterfaceDao().countAll());
 
     }
 
     // fail if we take more than five minutes
-    @Test(timeout=300000)
-    @JUnitSnmpAgents({
-        @JUnitSnmpAgent(host="172.20.2.201", resource="classpath:snmpTestData3.properties"),
-        // for discovering the "SNMP" service on the second interface
-        @JUnitSnmpAgent(host="172.20.2.204", resource="classpath:snmpTestData3.properties")
-    })
+    @Test(timeout = 300000)
+    @JUnitSnmpAgents({ @JUnitSnmpAgent(host = "172.20.2.201", resource = "classpath:snmpTestData3.properties"),
+            // for discovering the "SNMP" service on the second interface
+            @JUnitSnmpAgent(host = "172.20.2.204", resource = "classpath:snmpTestData3.properties") })
     public void testPopulateWithSnmpAndNodeScan() throws Exception {
         importFromResource("classpath:/requisition_then_scan2.xml", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(1, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(1, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(1, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(1, getSnmpInterfaceDao().countAll());
 
         final List<OnmsNode> nodes = getNodeDao().findAll();
@@ -520,49 +514,47 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         final NodeScan scan = m_provisioner.createNodeScan(node.getId(), node.getForeignSource(), node.getForeignId());
         runScan(scan);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(2, getInterfaceDao().countAll());
 
-        //Verify ifservices count - discover snmp service on other if
-        assertEquals("Unexpected number of services found: "+getMonitoredServiceDao().findAll(), 2, getMonitoredServiceDao().countAll());
+        // Verify ifservices count - discover snmp service on other if
+        assertEquals("Unexpected number of services found: " + getMonitoredServiceDao().findAll(), 2,
+                     getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(1, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(6, getSnmpInterfaceDao().countAll());
-
 
         // Node Delete
         importFromResource("classpath:/nonodes-snmp.xml", true);
 
-        //Verify node count
+        // Verify node count
         assertEquals(0, getNodeDao().countAll());
     }
 
     // fail if we take more than five minutes
-    @Test(timeout=300000)
-    @JUnitSnmpAgents({
-        @JUnitSnmpAgent(host="172.20.2.201", resource="classpath:snmpTestData3.properties"),
-        // for discovering the "SNMP" service on the second interface
-        @JUnitSnmpAgent(host="172.20.2.204", resource="classpath:snmpTestData3.properties")
-    })
+    @Test(timeout = 300000)
+    @JUnitSnmpAgents({ @JUnitSnmpAgent(host = "172.20.2.201", resource = "classpath:snmpTestData3.properties"),
+            // for discovering the "SNMP" service on the second interface
+            @JUnitSnmpAgent(host = "172.20.2.204", resource = "classpath:snmpTestData3.properties") })
     public void testPopulateWithoutSnmpAndNodeScan() throws Exception {
         importFromResource("classpath:/requisition_then_scan_no_snmp_svc.xml", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(1, getInterfaceDao().countAll());
 
         assertEquals(0, getSnmpInterfaceDao().countAll());
@@ -577,38 +569,38 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         final NodeScan scan = m_provisioner.createNodeScan(node.getId(), node.getForeignSource(), node.getForeignId());
         runScan(scan);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(2, getInterfaceDao().countAll());
 
-        //Verify ifservices count - discover snmp service on both ifs
-        assertEquals("Unexpected number of services found: "+getMonitoredServiceDao().findAll(), 2, getMonitoredServiceDao().countAll());
+        // Verify ifservices count - discover snmp service on both ifs
+        assertEquals("Unexpected number of services found: " + getMonitoredServiceDao().findAll(), 2,
+                     getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(1, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(6, getSnmpInterfaceDao().countAll());
 
         // Node Delete
         importFromResource("classpath:/nonodes-snmp.xml", true);
 
-        //Verify node count
+        // Verify node count
         assertEquals(0, getNodeDao().countAll());
     }
 
     // fail if we take more than five minutes
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     @JUnitSnmpAgents({
-        @JUnitSnmpAgent(host="10.1.15.245", resource="classpath:snmpwalk-demo.properties"),
-        @JUnitSnmpAgent(host="10.3.20.23", resource="classpath:snmpwalk-demo.properties"),
-        @JUnitSnmpAgent(host="2001:0470:e2f1:cafe:16c1:7cff:12d6:7bb9", resource="classpath:snmpwalk-demo.properties")
-    })
+            @JUnitSnmpAgent(host = "10.1.15.245", resource = "classpath:snmpwalk-demo.properties"),
+            @JUnitSnmpAgent(host = "10.3.20.23", resource = "classpath:snmpwalk-demo.properties"),
+            @JUnitSnmpAgent(host = "2001:0470:e2f1:cafe:16c1:7cff:12d6:7bb9", resource = "classpath:snmpwalk-demo.properties") })
     public void testPopulateWithIpv6SnmpAndNodeScan() throws Exception {
         final ForeignSource fs = new ForeignSource();
         fs.setName("matt:");
@@ -617,24 +609,23 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         importFromResource("classpath:/requisition_then_scanv6.xml", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(1, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(1, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(1, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(1, getSnmpInterfaceDao().countAll());
-
 
         final List<OnmsNode> nodes = getNodeDao().findAll();
         final OnmsNode node = nodes.get(0);
@@ -642,23 +633,27 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         final NodeScan scan = m_provisioner.createNodeScan(node.getId(), node.getForeignSource(), node.getForeignId());
         runScan(scan);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
-        assertEquals("Unexpected number of IP interfaces found: " + getInterfaceDao().findAll(), 3, getInterfaceDao().countAll());
+        // Verify ipinterface count
+        assertEquals("Unexpected number of IP interfaces found: " + getInterfaceDao().findAll(), 3,
+                     getInterfaceDao().countAll());
 
-        //Verify ifservices count - discover snmp service on other if
-        assertEquals("Unexpected number of services found: "+getMonitoredServiceDao().findAll(), 3, getMonitoredServiceDao().countAll());
+        // Verify ifservices count - discover snmp service on other if
+        assertEquals("Unexpected number of services found: " + getMonitoredServiceDao().findAll(), 3,
+                     getMonitoredServiceDao().countAll());
 
-        //Verify service count
-        assertEquals("Unexpected number of service types found: " + getServiceTypeDao().findAll(), 1, getServiceTypeDao().countAll());
+        // Verify service count
+        assertEquals("Unexpected number of service types found: " + getServiceTypeDao().findAll(), 1,
+                     getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
-        assertEquals("Unexpected number of SNMP interfaces found: " + getSnmpInterfaceDao().findAll(), 6, getSnmpInterfaceDao().countAll());
+        // Verify snmpInterface count
+        assertEquals("Unexpected number of SNMP interfaces found: " + getSnmpInterfaceDao().findAll(), 6,
+                     getSnmpInterfaceDao().countAll());
 
         // Ensure that collection is on for all ip interfaces
         for(OnmsIpInterface iface : getInterfaceDao().findAll()) {
@@ -670,31 +665,30 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
     }
 
     // fail if we take more than five minutes
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     @JUnitSnmpAgents({
-        @JUnitSnmpAgent(host="10.1.15.245", resource="classpath:snmpwalk-demo.properties"),
-        @JUnitSnmpAgent(host="10.3.20.23", resource="classpath:snmpwalk-demo.properties"),
-        @JUnitSnmpAgent(host="2001:0470:e2f1:cafe:16c1:7cff:12d6:7bb9", resource="classpath:snmpwalk-demo.properties")
-    })
+            @JUnitSnmpAgent(host = "10.1.15.245", resource = "classpath:snmpwalk-demo.properties"),
+            @JUnitSnmpAgent(host = "10.3.20.23", resource = "classpath:snmpwalk-demo.properties"),
+            @JUnitSnmpAgent(host = "2001:0470:e2f1:cafe:16c1:7cff:12d6:7bb9", resource = "classpath:snmpwalk-demo.properties") })
     public void testPopulateWithIpv6OnlySnmpAndNodeScan() throws Exception {
         importFromResource("classpath:/requisition_then_scanv6only.xml", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(1, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(1, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(1, getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(1, getSnmpInterfaceDao().countAll());
 
         final List<OnmsNode> nodes = getNodeDao().findAll();
@@ -703,27 +697,31 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         final NodeScan scan = m_provisioner.createNodeScan(node.getId(), node.getForeignSource(), node.getForeignId());
         runScan(scan);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
-        assertEquals("Unexpected number of IP interfaces found: " + getInterfaceDao().findAll(), 3, getInterfaceDao().countAll());
+        // Verify ipinterface count
+        assertEquals("Unexpected number of IP interfaces found: " + getInterfaceDao().findAll(), 3,
+                     getInterfaceDao().countAll());
 
-        //Verify ifservices count - discover snmp service on other if
-        assertEquals("Unexpected number of services found: "+getMonitoredServiceDao().findAll(), 3, getMonitoredServiceDao().countAll());
+        // Verify ifservices count - discover snmp service on other if
+        assertEquals("Unexpected number of services found: " + getMonitoredServiceDao().findAll(), 3,
+                     getMonitoredServiceDao().countAll());
 
-        //Verify service count
-        assertEquals("Unexpected number of service types found: " + getServiceTypeDao().findAll(), 1, getServiceTypeDao().countAll());
+        // Verify service count
+        assertEquals("Unexpected number of service types found: " + getServiceTypeDao().findAll(), 1,
+                     getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
-        assertEquals("Unexpected number of SNMP interfaces found: " + getSnmpInterfaceDao().findAll(), 6, getSnmpInterfaceDao().countAll());
+        // Verify snmpInterface count
+        assertEquals("Unexpected number of SNMP interfaces found: " + getSnmpInterfaceDao().findAll(), 6,
+                     getSnmpInterfaceDao().countAll());
     }
 
     // fail if we take more than five minutes
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     @JUnitSnmpAgents({
         @JUnitSnmpAgent(host="172.20.2.201", port=161, resource="classpath:snmpTestData3.properties"),
         @JUnitSnmpAgent(host="172.20.2.202", port=161, resource="classpath:snmpTestData4.properties"),
@@ -745,7 +743,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         System.err.println("-------------------------------------------------------------------------");
 
-        m_mockSnmpDataProvider.setDataForAddress(new SnmpAgentAddress(InetAddressUtils.addr("172.20.2.201"), 161), m_resourceLoader.getResource("classpath:snmpTestData4.properties"));
+        m_mockSnmpDataProvider.setDataForAddress(new SnmpAgentAddress(InetAddressUtils.addr("172.20.2.201"), 161),
+                                                 m_resourceLoader.getResource("classpath:snmpTestData4.properties"));
 
         importFromResource("classpath:/requisition_primary_addr_changed.xml", true);
 
@@ -755,31 +754,32 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         m_nodeDao.flush();
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
         LOG.debug("found: {}", getInterfaceDao().findAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(2, getInterfaceDao().countAll());
 
-        //Verify ifservices count - discover snmp service on other if
-        assertEquals("Unexpected number of services found: "+getMonitoredServiceDao().findAll(), 2, getMonitoredServiceDao().countAll());
+        // Verify ifservices count - discover snmp service on other if
+        assertEquals("Unexpected number of services found: " + getMonitoredServiceDao().findAll(), 2,
+                     getMonitoredServiceDao().countAll());
 
-        //Verify service count
-        assertEquals("Unexpected number of service types found: " + getServiceTypeDao().findAll(), 1, getServiceTypeDao().countAll());
+        // Verify service count
+        assertEquals("Unexpected number of service types found: " + getServiceTypeDao().findAll(), 1,
+                     getServiceTypeDao().countAll());
 
-        //Verify snmpInterface count
+        // Verify snmpInterface count
         assertEquals(6, getSnmpInterfaceDao().countAll());
-
 
         // Node Delete
         importFromResource("classpath:/nonodes-snmp.xml", true);
 
-        //Verify node count
+        // Verify node count
         assertEquals(0, getNodeDao().countAll());
     }
 
@@ -795,19 +795,19 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         importFromResource("classpath:/deleteService.xml", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(4, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(6, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(2, getServiceTypeDao().countAll());
 
         // Locate the service to be deleted
@@ -820,7 +820,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         m_mockEventIpcManager.sendEventToListeners(deleteService(nodeid, "10.201.136.163", "HTTP"));
 
-        // this only waits until all the anticipated events are received so it is fast unless there is a bug
+        // this only waits until all the anticipated events are received so it
+        // is fast unless there is a bug
         m_eventAnticipator.waitForAnticipated(10000);
         m_eventAnticipator.verifyAnticipated();
     }
@@ -835,26 +836,25 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         importFromResource("classpath:/deleteService.xml", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(4, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(6, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(2, getServiceTypeDao().countAll());
 
         // Locate the service to be deleted
         final OnmsNode node = m_nodeDao.findByForeignId("deleteService", "4243");
         assertNotNull(node);
         final int nodeid = node.getId();
-
 
         m_eventAnticipator.reset();
 
@@ -881,19 +881,19 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         importFromResource("classpath:/deleteService.xml", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(4, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(6, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(2, getServiceTypeDao().countAll());
 
         // Locate the service to be deleted
@@ -909,7 +909,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         m_mockEventIpcManager.sendEventToListeners(deleteInterface(nodeid, ipaddr));
 
-        // this only waits until all the anticipated events are received so it is fast unless there is a bug
+        // this only waits until all the anticipated events are received so it
+        // is fast unless there is a bug
         m_eventAnticipator.waitForAnticipated(10000);
         m_eventAnticipator.verifyAnticipated();
     }
@@ -920,25 +921,24 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         System.setProperty("org.opennms.provisiond.enableDeletionOfRequisitionedEntities", "true");
         assertTrue(m_provisionService.isRequisitionedEntityDeletionEnabled());
 
-
         // This test assumes that discovery is disabled
         assertFalse(m_provisionService.isDiscoveryEnabled());
 
         importFromResource("classpath:/deleteService.xml", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(1, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(4, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(6, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(2, getServiceTypeDao().countAll());
 
         // Locate the service to be deleted
@@ -965,28 +965,29 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         m_mockEventIpcManager.sendEventToListeners(deleteNode(nodeid));
 
-        // this only waits until all the anticipated events are received so it is fast unless there is a bug
+        // this only waits until all the anticipated events are received so it
+        // is fast unless there is a bug
         m_eventAnticipator.waitForAnticipated(10000);
         m_eventAnticipator.verifyAnticipated();
     }
 
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testPopulate() throws Exception {
         importFromResource("classpath:/tec_dump.xml.smalltest", true);
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(10, getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(30, getInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(50, getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(3, getServiceTypeDao().countAll());
     }
 
@@ -1008,21 +1009,17 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         return m_nodeDao;
     }
 
-
     private IpInterfaceDao getInterfaceDao() {
         return m_ipInterfaceDao;
     }
-
 
     private SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }
 
-
     private MonitoredServiceDao getMonitoredServiceDao() {
         return m_monitoredServiceDao;
     }
-
 
     private ServiceTypeDao getServiceTypeDao() {
         return m_serviceTypeDao;
@@ -1033,12 +1030,13 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
     }
 
     /**
-     * This test first bulk imports 10 nodes then runs update with 1 node missing
+     * This test first bulk imports 10 nodes then runs update with 1 node
+     * missing
      * from the import file.
      *
      * @throws ModelImportException
      */
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testImportUtf8() throws Exception {
         final int nextNodeId = m_nodeDao.getNextNodeId();
 
@@ -1053,12 +1051,13 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
     }
 
     /**
-     * This test first bulk imports 10 nodes then runs update with 1 node missing
+     * This test first bulk imports 10 nodes then runs update with 1 node
+     * missing
      * from the import file.
      *
      * @throws ModelImportException
      */
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testDelete() throws Exception {
         importFromResource("classpath:/tec_dump.xml.smalltest", true);
         assertEquals(10, getNodeDao().countAll());
@@ -1071,19 +1070,20 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
     /**
      * This test makes sure that asset information is getting imported properly.
+     *
      * @throws Exception
      */
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testAssets() throws Exception {
         importFromResource("classpath:/tec_dump.xml", true);
         final OnmsNode n = getNodeDao().findByForeignId("empty", "4243");
-        assertEquals("Asset Record: Manufacturer",     "Dell",                   n.getAssetRecord().getManufacturer());
-        assertEquals("Asset Record: Operating System", "Windows Pi",             n.getAssetRecord().getOperatingSystem());
-        assertEquals("Asset Record: Description",      "Large and/or In Charge", n.getAssetRecord().getDescription());
+        assertEquals("Asset Record: Manufacturer", "Dell", n.getAssetRecord().getManufacturer());
+        assertEquals("Asset Record: Operating System", "Windows Pi", n.getAssetRecord().getOperatingSystem());
+        assertEquals("Asset Record: Description", "Large and/or In Charge", n.getAssetRecord().getDescription());
     }
 
-    //Scheduler tests
-    @Test(timeout=300000)
+    // Scheduler tests
+    @Test(timeout = 300000)
     public void testProvisionServiceGetScheduleForNodesCount() throws Exception {
         getScanExecutor().pause();
         m_provisioner.scheduleRescanForExistingNodes();
@@ -1095,7 +1095,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         assertEquals(nodeCount, m_provisioner.getScheduleLength());
     }
 
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testProvisionServiceGetScheduleForNodesUponDelete() throws Exception {
         importFromResource("classpath:/tec_dump.xml.smalltest", true);
         getScanExecutor().pause();
@@ -1116,8 +1116,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         assertEquals(9, m_provisioner.getScheduleLength());
     }
 
-    @Test(timeout=300000)
-    public void testProvisionerAddNodeToSchedule() throws Exception{
+    @Test(timeout = 300000)
+    public void testProvisionerAddNodeToSchedule() throws Exception {
         final int nextNodeId = m_nodeDao.getNextNodeId();
 
         m_provisioner.scheduleRescanForExistingNodes();
@@ -1136,8 +1136,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         assertEquals(1, m_provisioner.getScheduleLength());
     }
 
-    @Test(timeout=300000)
-    public void testProvisionerRescanWorking() throws Exception{
+    @Test(timeout = 300000)
+    public void testProvisionerRescanWorking() throws Exception {
         importFromResource("classpath:/tec_dump.xml.smalltest", true);
         getScanExecutor().pause();
 
@@ -1145,8 +1145,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         assertEquals(10, m_provisioner.getScheduleLength());
     }
 
-    @Test(timeout=300000)
-    public void testProvisionerRescanWorkingWithDiscoveredNodesDiscoveryDisabled() throws Exception{
+    @Test(timeout = 300000)
+    public void testProvisionerRescanWorkingWithDiscoveredNodesDiscoveryDisabled() throws Exception {
         System.setProperty("org.opennms.provisiond.enableDiscovery", "false");
         // populator creates 4 provisioned nodes and 2 discovered nodes
         m_populator.populateDatabase();
@@ -1169,8 +1169,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         assertEquals(6, m_provisioner.getScheduleLength());
     }
 
-    @Test(timeout=300000)
-    public void testProvisionerRemoveNodeInSchedule() throws Exception{
+    @Test(timeout = 300000)
+    public void testProvisionerRemoveNodeInSchedule() throws Exception {
         importFromResource("classpath:/tec_dump.xml.smalltest", true);
         getScanExecutor().pause();
 
@@ -1200,7 +1200,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
     }
 
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testProvisionerNodeRescanSchedule() throws Exception {
         importFromResource("classpath:/tec_dump.xml.smalltest", true);
         getScanExecutor().pause();
@@ -1213,7 +1213,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         assertEquals(10, m_provisioner.getScheduleLength());
     }
 
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testProvisionerUpdateScheduleAfterImport() throws Exception {
         importFromResource("classpath:/tec_dump.xml.smalltest", true);
         getScanExecutor().pause();
@@ -1233,13 +1233,13 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         m_provisioner.scheduleRescanForExistingNodes();
 
-        //check the schedule to make sure that it deletes the node
+        // check the schedule to make sure that it deletes the node
         assertEquals(schedulesForNode.size(), m_provisioner.getScheduleLength());
         assertEquals(getNodeDao().countAll(), m_provisioner.getScheduleLength());
 
     }
 
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testSaveCategoriesOnUpdateNodeAttributes() throws Exception {
         final EventAnticipator eventAnticipator = m_mockEventIpcManager.getEventAnticipator();
 
@@ -1278,7 +1278,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         nodeCopy = policy.apply(nodeCopy);
         assertTrue(nodeCopy.hasCategory(TEST_CATEGORY));
 
-        final EventBuilder eb = new EventBuilder(EventConstants.NODE_LABEL_CHANGED_EVENT_UEI, "OnmsNode.mergeNodeAttributes");
+        final EventBuilder eb = new EventBuilder(EventConstants.NODE_LABEL_CHANGED_EVENT_UEI,
+                                                 "OnmsNode.mergeNodeAttributes");
         eb.setNodeid(node.getId());
         eb.addParam("oldNodeLabel", OLD_LABEL);
         eb.addParam("oldNodeLabelSource", "U");
@@ -1286,7 +1287,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         eb.addParam("newNodeLabelSource", "U");
         eventAnticipator.anticipateEvent(eb.getEvent());
 
-        // Change the label of the node so that we can trigger a NODE_LABEL_CHANGED_EVENT_UEI event
+        // Change the label of the node so that we can trigger a
+        // NODE_LABEL_CHANGED_EVENT_UEI event
         nodeCopy.setLabel(NEW_LABEL);
         // TODO: Replace with constant
         nodeCopy.setLabelSource("U");
@@ -1295,7 +1297,8 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
         m_provisionService.updateNodeAttributes(nodeCopy);
 
-        // Flush here to force a write so we are sure that the OnmsCategories are correctly created
+        // Flush here to force a write so we are sure that the OnmsCategories
+        // are correctly created
         m_nodeDao.flush();
 
         // Query by the new node label
@@ -1307,12 +1310,13 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
     }
 
     /**
-     * Test that the parent-foreign-source attribute in a requisition can add a parent to a
+     * Test that the parent-foreign-source attribute in a requisition can add a
+     * parent to a
      * node that resides in a different provisioning group.
      *
      * @see http://issues.opennms.org/browse/NMS-4109
      */
-    @Test(timeout=300000)
+    @Test(timeout = 300000)
     public void testParentForeignSource() throws Exception {
         importFromResource("classpath:/parent_foreign_source_server.xml", true);
         importFromResource("classpath:/parent_foreign_source_client.xml", true);
@@ -1367,12 +1371,9 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         return bldr.getEvent();
     }
 
-
-
-
     private OnmsNode createNode(final String foreignSource) {
         OnmsNode node = new OnmsNode();
-        //node.setId(nodeId);
+        // node.setId(nodeId);
         node.setLastCapsdPoll(new Date());
         node.setForeignSource(foreignSource);
         node.setLabel("default");
@@ -1417,20 +1418,35 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
 
     static class CountingVisitor implements RequisitionVisitor {
         protected int m_modelImportCount;
+
         protected int m_modelImportCompleted;
+
         protected int m_nodeCount;
+
         protected int m_nodeCompleted;
+
         protected int m_nodeCategoryCount;
+
         protected int m_nodeCategoryCompleted;
+
         protected int m_ifaceCount;
+
         protected int m_ifaceCompleted;
+
         protected int m_svcCount;
+
         protected int m_svcCompleted;
+
         protected int m_svcCategoryCount;
+
         protected int m_svcCategoryCompleted;
+
         protected int m_assetCount;
+
         protected int m_assetCompleted;
+
         protected List<OnmsNodeRequisition> m_nodes = new ArrayList<OnmsNodeRequisition>();
+
         protected List<OnmsIpInterfaceRequisition> m_ifaces = new ArrayList<OnmsIpInterfaceRequisition>();
 
         public List<OnmsNodeRequisition> getNodes() {

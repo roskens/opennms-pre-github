@@ -31,7 +31,9 @@ package org.opennms.web.element;
 import java.util.Comparator;
 
 /**
- * <p>ServiceNameComparator class.</p>
+ * <p>
+ * ServiceNameComparator class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -39,10 +41,14 @@ import java.util.Comparator;
  */
 public class ServiceNameComparator implements Comparator<Service> {
     /**
-     * <p>compare</p>
+     * <p>
+     * compare
+     * </p>
      *
-     * @param s1 a {@link org.opennms.web.element.Service} object.
-     * @param s2 a {@link org.opennms.web.element.Service} object.
+     * @param s1
+     *            a {@link org.opennms.web.element.Service} object.
+     * @param s2
+     *            a {@link org.opennms.web.element.Service} object.
      * @return a int.
      */
     @Override
@@ -50,7 +56,7 @@ public class ServiceNameComparator implements Comparator<Service> {
         return s1.getServiceName().compareTo(s2.getServiceName());
     }
 
-//  public boolean equals(Service s1, Service s2) {
-//      return s1.getServiceName().equals(s2.getServiceName());
-//  }
+    // public boolean equals(Service s1, Service s2) {
+    // return s1.getServiceName().equals(s2.getServiceName());
+    // }
 }

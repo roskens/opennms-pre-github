@@ -49,12 +49,13 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultDistributedPollerServiceTest extends TestCase {
     private List<Object> m_mocks;
+
     private LocationMonitorDao m_locationMonitorDao;
+
     private DefaultDistributedPollerService m_distributedPollerService;
 
     @Override
@@ -109,7 +110,6 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("error 0 code", "distributed.locationMonitor.alreadyPaused", errorList.get(0).getCode());
     }
 
-
     public final void testPauseLocationMonitorBindingErrors() {
         LocationMonitorIdCommand command = new LocationMonitorIdCommand();
 
@@ -123,7 +123,6 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
 
         assertEquals("error count after pause", 1, errors.getErrorCount());
     }
-
 
     public final void testPauseLocationMonitorNullCommand() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -199,7 +198,6 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("error 0 code", "distributed.locationMonitor.notPaused", errorList.get(0).getCode());
     }
 
-
     public final void testResumeLocationMonitorBindingErrors() {
         LocationMonitorIdCommand command = new LocationMonitorIdCommand();
 
@@ -213,7 +211,6 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
 
         assertEquals("error count after pause", 1, errors.getErrorCount());
     }
-
 
     public final void testResumeLocationMonitorNullCommand() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -266,7 +263,6 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("error count", 0, errors.getErrorCount());
     }
 
-
     public final void testDeleteLocationMonitorBindingErrors() {
         LocationMonitorIdCommand command = new LocationMonitorIdCommand();
 
@@ -280,7 +276,6 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
 
         assertEquals("error count after pause", 1, errors.getErrorCount());
     }
-
 
     public final void testDeleteLocationMonitorNullCommand() {
         ThrowableAnticipator ta = new ThrowableAnticipator();

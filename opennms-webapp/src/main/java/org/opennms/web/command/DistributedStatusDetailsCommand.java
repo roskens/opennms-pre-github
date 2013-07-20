@@ -29,7 +29,9 @@
 package org.opennms.web.command;
 
 /**
- * <p>DistributedStatusDetailsCommand class.</p>
+ * <p>
+ * DistributedStatusDetailsCommand class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,36 +39,50 @@ package org.opennms.web.command;
  */
 public class DistributedStatusDetailsCommand {
     private String m_location;
+
     private String m_application;
 
     /**
-     * <p>getApplication</p>
+     * <p>
+     * getApplication
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getApplication() {
         return m_application;
     }
+
     /**
-     * <p>setApplication</p>
+     * <p>
+     * setApplication
+     * </p>
      *
-     * @param application a {@link java.lang.String} object.
+     * @param application
+     *            a {@link java.lang.String} object.
      */
     public void setApplication(String application) {
         m_application = application;
     }
+
     /**
-     * <p>getLocation</p>
+     * <p>
+     * getLocation
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getLocation() {
         return m_location;
     }
+
     /**
-     * <p>setLocation</p>
+     * <p>
+     * setLocation
+     * </p>
      *
-     * @param location a {@link java.lang.String} object.
+     * @param location
+     *            a {@link java.lang.String} object.
      */
     public void setLocation(String location) {
         m_location = location;

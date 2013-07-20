@@ -60,8 +60,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
@@ -72,12 +71,10 @@ import org.springframework.transaction.annotation.Transactional;
         // Override the capsd config with a stripped-down version
         "classpath:/META-INF/opennms/capsdTest.xml",
         // override snmp-config configuration
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @JUnitTemporaryDatabase
 public class Nms10205aCapsdNetworkBuilderTest extends Nms10205aNetworkBuilder implements InitializingBean {
-
 
     @Autowired
     private IpInterfaceDao m_interfaceDao;
@@ -102,20 +99,31 @@ public class Nms10205aCapsdNetworkBuilderTest extends Nms10205aNetworkBuilder im
     }
 
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=MUMBAI_IP, port=161, resource="classpath:linkd/nms10205/"+MUMBAI_NAME+"_"+MUMBAI_IP+".txt"),
-            @JUnitSnmpAgent(host=CHENNAI_IP, port=161, resource="classpath:linkd/nms10205/"+CHENNAI_NAME+"_"+CHENNAI_IP+".txt"),
-            @JUnitSnmpAgent(host=DELHI_IP, port=161, resource="classpath:linkd/nms10205/"+DELHI_NAME+"_"+DELHI_IP+".txt"),
-            @JUnitSnmpAgent(host=BANGALORE_IP, port=161, resource="classpath:linkd/nms10205/"+BANGALORE_NAME+"_"+BANGALORE_IP+".txt"),
-            @JUnitSnmpAgent(host=BAGMANE_IP, port=161, resource="classpath:linkd/nms10205/"+BAGMANE_NAME+"_"+BAGMANE_IP+".txt"),
-            @JUnitSnmpAgent(host=MYSORE_IP, port=161, resource="classpath:linkd/nms10205/"+MYSORE_NAME+"_"+MYSORE_IP+".txt"),
-            @JUnitSnmpAgent(host=SPACE_EX_SW1_IP, port=161, resource="classpath:linkd/nms10205/"+SPACE_EX_SW1_NAME+"_"+SPACE_EX_SW1_IP+".txt"),
-            @JUnitSnmpAgent(host=SPACE_EX_SW2_IP, port=161, resource="classpath:linkd/nms10205/"+SPACE_EX_SW2_NAME+"_"+SPACE_EX_SW2_IP+".txt"),
-            @JUnitSnmpAgent(host=J6350_41_IP, port=161, resource="classpath:linkd/nms10205/"+J6350_41_NAME+"_"+J6350_41_IP+".txt"),
-            @JUnitSnmpAgent(host=J6350_42_IP, port=161, resource="classpath:linkd/nms10205/"+"J6350-42_"+J6350_42_IP+".txt"),
-            @JUnitSnmpAgent(host=SRX_100_IP, port=161, resource="classpath:linkd/nms10205/"+"SRX-100_"+SRX_100_IP+".txt"),
-            @JUnitSnmpAgent(host=SSG550_IP, port=161, resource="classpath:linkd/nms10205/"+SSG550_NAME+"_"+SSG550_IP+".txt")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205/" + MUMBAI_NAME + "_"
+                    + MUMBAI_IP + ".txt"),
+            @JUnitSnmpAgent(host = CHENNAI_IP, port = 161, resource = "classpath:linkd/nms10205/" + CHENNAI_NAME + "_"
+                    + CHENNAI_IP + ".txt"),
+            @JUnitSnmpAgent(host = DELHI_IP, port = 161, resource = "classpath:linkd/nms10205/" + DELHI_NAME + "_"
+                    + DELHI_IP + ".txt"),
+            @JUnitSnmpAgent(host = BANGALORE_IP, port = 161, resource = "classpath:linkd/nms10205/" + BANGALORE_NAME
+                    + "_" + BANGALORE_IP + ".txt"),
+            @JUnitSnmpAgent(host = BAGMANE_IP, port = 161, resource = "classpath:linkd/nms10205/" + BAGMANE_NAME + "_"
+                    + BAGMANE_IP + ".txt"),
+            @JUnitSnmpAgent(host = MYSORE_IP, port = 161, resource = "classpath:linkd/nms10205/" + MYSORE_NAME + "_"
+                    + MYSORE_IP + ".txt"),
+            @JUnitSnmpAgent(host = SPACE_EX_SW1_IP, port = 161, resource = "classpath:linkd/nms10205/"
+                    + SPACE_EX_SW1_NAME + "_" + SPACE_EX_SW1_IP + ".txt"),
+            @JUnitSnmpAgent(host = SPACE_EX_SW2_IP, port = 161, resource = "classpath:linkd/nms10205/"
+                    + SPACE_EX_SW2_NAME + "_" + SPACE_EX_SW2_IP + ".txt"),
+            @JUnitSnmpAgent(host = J6350_41_IP, port = 161, resource = "classpath:linkd/nms10205/" + J6350_41_NAME
+                    + "_" + J6350_41_IP + ".txt"),
+            @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205/" + "J6350-42_"
+                    + J6350_42_IP + ".txt"),
+            @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205/" + "SRX-100_"
+                    + SRX_100_IP + ".txt"),
+            @JUnitSnmpAgent(host = SSG550_IP, port = 161, resource = "classpath:linkd/nms10205/" + SSG550_NAME + "_"
+                    + SSG550_IP + ".txt") })
     @Transactional
     public final void testCapsdNms10205a() throws MarshalException, ValidationException, IOException {
         m_capsd.init();
@@ -134,18 +142,18 @@ public class Nms10205aCapsdNetworkBuilderTest extends Nms10205aNetworkBuilder im
         m_capsd.scanSuspectInterface(SRX_100_IP);
         m_capsd.scanSuspectInterface(SSG550_IP);
 
-        printNode(MUMBAI_IP,"MUMBAI");
-        printNode(CHENNAI_IP,"CHENNAI");
-        printNode(DELHI_IP,"DELHI");
-        printNode(BANGALORE_IP,"BANGALORE");
-        printNode(BAGMANE_IP,"BAGMANE");
-        printNode(MYSORE_IP,"MYSORE");
-        printNode(SPACE_EX_SW1_IP,"SPACE_EX_SW1");
-        printNode(SPACE_EX_SW2_IP,"SPACE_EX_SW2");
-        printNode(J6350_41_IP,"J6350_41");
-        printNode(J6350_42_IP,"J6350_42");
-        printNode(SRX_100_IP,"SRX_100");
-        printNode(SSG550_IP,"SSG550");
+        printNode(MUMBAI_IP, "MUMBAI");
+        printNode(CHENNAI_IP, "CHENNAI");
+        printNode(DELHI_IP, "DELHI");
+        printNode(BANGALORE_IP, "BANGALORE");
+        printNode(BAGMANE_IP, "BAGMANE");
+        printNode(MYSORE_IP, "MYSORE");
+        printNode(SPACE_EX_SW1_IP, "SPACE_EX_SW1");
+        printNode(SPACE_EX_SW2_IP, "SPACE_EX_SW2");
+        printNode(J6350_41_IP, "J6350_41");
+        printNode(J6350_42_IP, "J6350_42");
+        printNode(SRX_100_IP, "SRX_100");
+        printNode(SSG550_IP, "SSG550");
 
         m_capsd.stop();
     }

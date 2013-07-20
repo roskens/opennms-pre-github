@@ -28,15 +28,16 @@
 
 package org.opennms.netmgt.jasper.resource;
 
-
-public class ResourceQueryCommandParser{
+public class ResourceQueryCommandParser {
 
     /**
      * @param resourceQueryParserTest
      */
-    public ResourceQueryCommandParser() {}
+    public ResourceQueryCommandParser() {
+    }
 
     private ResourceQuery m_currentQuery;
+
     private static String DELIMETER = ",";
 
     private void setCurrentQuery(ResourceQuery q) {
@@ -55,25 +56,24 @@ public class ResourceQueryCommandParser{
 
         String[] cmdArray = command.split("--");
 
-        for(String cmd : cmdArray) {
+        for (String cmd : cmdArray) {
             processCommand(cmd.trim());
         }
 
         return retVal;
     }
 
-
     private void processCommand(String command) {
 
-        if(command.toLowerCase().contains("rrddir")) {
+        if (command.toLowerCase().contains("rrddir")) {
             processRrdDir(command);
-        }else if(command.toLowerCase().contains("nodeid")) {
+        } else if (command.toLowerCase().contains("nodeid")) {
             processNodeId(command);
-        }else if(command.toLowerCase().contains("resourcetype")) {
+        } else if (command.toLowerCase().contains("resourcetype")) {
             processResourceName(command);
-        }else if(command.toLowerCase().contains("dsname")) {
+        } else if (command.toLowerCase().contains("dsname")) {
             processFilters(command);
-        }else if(command.toLowerCase().contains("string")) {
+        } else if (command.toLowerCase().contains("string")) {
             processStringProperties(command);
         }
     }
@@ -93,7 +93,8 @@ public class ResourceQueryCommandParser{
     }
 
     private void processResourceName(String command) {
-        String value = command.substring(command.toLowerCase().indexOf("resourcetype") + "resourcetype".length(), command.length());
+        String value = command.substring(command.toLowerCase().indexOf("resourcetype") + "resourcetype".length(),
+                                         command.length());
         getCurrentQuery().setResourceName(value.trim());
     }
 
@@ -106,6 +107,5 @@ public class ResourceQueryCommandParser{
         String value = command.substring(command.toLowerCase().indexOf("rrddir") + "rrdDir".length(), command.length());
         getCurrentQuery().setRrdDir(value.trim());
     }
-
 
 }

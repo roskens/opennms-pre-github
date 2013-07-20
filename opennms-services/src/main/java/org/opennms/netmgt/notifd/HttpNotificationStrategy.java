@@ -56,7 +56,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
- * <p>HttpNotificationStrategy class.</p>
+ * <p>
+ * HttpNotificationStrategy class.
+ * </p>
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -66,7 +68,8 @@ public class HttpNotificationStrategy implements NotificationStrategy {
 
     private List<Argument> m_arguments;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.notifd.NotificationStrategy#send(java.util.List)
      */
     /** {@inheritDoc} */
@@ -77,8 +80,8 @@ public class HttpNotificationStrategy implements NotificationStrategy {
 
         String url = getUrl();
         if (url == null) {
-			LOG.warn("send: url argument is null, HttpNotification requires a URL");
-        		return 1;
+            LOG.warn("send: url argument is null, HttpNotification requires a URL");
+            return 1;
         }
 
         DefaultHttpClient client = new DefaultHttpClient();
@@ -96,7 +99,7 @@ public class HttpNotificationStrategy implements NotificationStrategy {
             method = new HttpPost(url);
             try {
                 UrlEncodedFormEntity entity = new UrlEncodedFormEntity(posts, "UTF-8");
-                ((HttpPost)method).setEntity(entity);
+                ((HttpPost) method).setEntity(entity);
             } catch (UnsupportedEncodingException e) {
                 // Should never happen
             }
@@ -111,7 +114,7 @@ public class HttpNotificationStrategy implements NotificationStrategy {
             LOG.info("send: Contents is: {}", contents);
         } catch (IOException e) {
             LOG.error("send: IO problem with HTTP post/response: {}", e);
-            throw new RuntimeException("Problem with HTTP post: "+e.getMessage());
+            throw new RuntimeException("Problem with HTTP post: " + e.getMessage());
         } finally {
             // Do we need to do any cleanup?
             // method.releaseConnection();
@@ -161,51 +164,52 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         return retval;
     }
 
-      private String getValue(String argValue) {
+    private String getValue(String argValue) {
         if (argValue.equals(NotificationManager.PARAM_DESTINATION))
-                return getNotificationValue(NotificationManager.PARAM_DESTINATION);
+            return getNotificationValue(NotificationManager.PARAM_DESTINATION);
         if (argValue.equals(NotificationManager.PARAM_EMAIL))
-                return getNotificationValue(NotificationManager.PARAM_EMAIL);
+            return getNotificationValue(NotificationManager.PARAM_EMAIL);
         if (argValue.equals(NotificationManager.PARAM_HOME_PHONE))
-                return getNotificationValue(NotificationManager.PARAM_HOME_PHONE);
+            return getNotificationValue(NotificationManager.PARAM_HOME_PHONE);
         if (argValue.equals(NotificationManager.PARAM_INTERFACE))
-                return getNotificationValue(NotificationManager.PARAM_INTERFACE);
+            return getNotificationValue(NotificationManager.PARAM_INTERFACE);
         if (argValue.equals(NotificationManager.PARAM_MICROBLOG_USERNAME))
-                return getNotificationValue(NotificationManager.PARAM_MICROBLOG_USERNAME);
+            return getNotificationValue(NotificationManager.PARAM_MICROBLOG_USERNAME);
         if (argValue.equals(NotificationManager.PARAM_MOBILE_PHONE))
-                return getNotificationValue(NotificationManager.PARAM_MOBILE_PHONE);
+            return getNotificationValue(NotificationManager.PARAM_MOBILE_PHONE);
         if (argValue.equals(NotificationManager.PARAM_NODE))
-                return getNotificationValue(NotificationManager.PARAM_NODE);
+            return getNotificationValue(NotificationManager.PARAM_NODE);
         if (argValue.equals(NotificationManager.PARAM_NUM_MSG))
-                return getNotificationValue(NotificationManager.PARAM_NUM_MSG);
+            return getNotificationValue(NotificationManager.PARAM_NUM_MSG);
         if (argValue.equals(NotificationManager.PARAM_NUM_PAGER_PIN))
-                return getNotificationValue(NotificationManager.PARAM_NUM_PAGER_PIN);
+            return getNotificationValue(NotificationManager.PARAM_NUM_PAGER_PIN);
         if (argValue.equals(NotificationManager.PARAM_PAGER_EMAIL))
-                return getNotificationValue(NotificationManager.PARAM_PAGER_EMAIL);
+            return getNotificationValue(NotificationManager.PARAM_PAGER_EMAIL);
         if (argValue.equals(NotificationManager.PARAM_RESPONSE))
-                return getNotificationValue(NotificationManager.PARAM_RESPONSE);
+            return getNotificationValue(NotificationManager.PARAM_RESPONSE);
         if (argValue.equals(NotificationManager.PARAM_SERVICE))
-                return getNotificationValue(NotificationManager.PARAM_SERVICE);
+            return getNotificationValue(NotificationManager.PARAM_SERVICE);
         if (argValue.equals(NotificationManager.PARAM_SUBJECT))
-                return getNotificationValue(NotificationManager.PARAM_SUBJECT);
+            return getNotificationValue(NotificationManager.PARAM_SUBJECT);
         if (argValue.equals(NotificationManager.PARAM_TEXT_MSG))
-                return getNotificationValue(NotificationManager.PARAM_TEXT_MSG);
+            return getNotificationValue(NotificationManager.PARAM_TEXT_MSG);
         if (argValue.equals(NotificationManager.PARAM_TEXT_PAGER_PIN))
-                return getNotificationValue(NotificationManager.PARAM_TEXT_PAGER_PIN);
+            return getNotificationValue(NotificationManager.PARAM_TEXT_PAGER_PIN);
         if (argValue.equals(NotificationManager.PARAM_TUI_PIN))
-                return getNotificationValue(NotificationManager.PARAM_TUI_PIN);
+            return getNotificationValue(NotificationManager.PARAM_TUI_PIN);
         if (argValue.equals(NotificationManager.PARAM_TYPE))
-                return getNotificationValue(NotificationManager.PARAM_TYPE);
+            return getNotificationValue(NotificationManager.PARAM_TYPE);
         if (argValue.equals(NotificationManager.PARAM_WORK_PHONE))
-                return getNotificationValue(NotificationManager.PARAM_WORK_PHONE);
+            return getNotificationValue(NotificationManager.PARAM_WORK_PHONE);
         if (argValue.equals(NotificationManager.PARAM_XMPP_ADDRESS))
-                return getNotificationValue(NotificationManager.PARAM_XMPP_ADDRESS);
+            return getNotificationValue(NotificationManager.PARAM_XMPP_ADDRESS);
 
         return argValue;
-      }
+    }
 
     private String getNotificationValue(final String notificationManagerParamString) {
-        String message = "no notification text message defined for the \""+notificationManagerParamString+"\" switch.";
+        String message = "no notification text message defined for the \"" + notificationManagerParamString
+                + "\" switch.";
         for (Iterator<Argument> it = m_arguments.iterator(); it.hasNext();) {
             Argument arg = it.next();
             if (arg.getSwitch().equals(notificationManagerParamString))
@@ -220,7 +224,7 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         for (Iterator<Argument> it = m_arguments.iterator(); it.hasNext();) {
             Argument arg = it.next();
             if (arg.getSwitch().startsWith(argPrefix)) {
-                args.add(arg) ;
+                args.add(arg);
             }
         }
         return args;
@@ -231,23 +235,26 @@ public class HttpNotificationStrategy implements NotificationStrategy {
     }
 
     private String getUrl() {
-    	String url = getSwitchValue("url");
-        if ( url == null )
-        	url = getUrlAsPrefix();
+        String url = getSwitchValue("url");
+        if (url == null)
+            url = getUrlAsPrefix();
         return url;
     }
 
     private String getUrlAsPrefix() {
-	String url = null;
-    	for (Argument arg: getArgsByPrefix("url")) {
-		LOG.debug("Found url switch: {} with value: {}", arg.getValue(), arg.getSwitch());
-    		url = arg.getValue();
-    	}
-    	return url;
+        String url = null;
+        for (Argument arg : getArgsByPrefix("url")) {
+            LOG.debug("Found url switch: {} with value: {}", arg.getValue(), arg.getSwitch());
+            url = arg.getValue();
+        }
+        return url;
     }
+
     /**
-     * Helper method to look into the Argument list and return the associated value.
+     * Helper method to look into the Argument list and return the associated
+     * value.
      * If the value is an empty String, this method returns null.
+     *
      * @param argSwitch
      * @return
      */

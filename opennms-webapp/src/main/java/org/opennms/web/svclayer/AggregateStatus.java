@@ -41,7 +41,8 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.SurveillanceStatus;
 
 /**
- * Use this class to aggregate status to be presented in a view layer technology.
+ * Use this class to aggregate status to be presented in a view layer
+ * technology.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -71,16 +72,21 @@ public class AggregateStatus implements SurveillanceStatus {
     public static final String ALL_NODES_UP = "Normal";
 
     /**
-     * <p>Constructor for AggregateStatus.</p>
+     * <p>
+     * Constructor for AggregateStatus.
+     * </p>
      *
-     * @param nodes a {@link java.util.Collection} object.
+     * @param nodes
+     *            a {@link java.util.Collection} object.
      */
     public AggregateStatus(Collection<OnmsNode> nodes) {
         computeStatusValues(nodes);
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,7 +100,9 @@ public class AggregateStatus implements SurveillanceStatus {
     }
 
     /**
-     * <p>getDownEntityCount</p>
+     * <p>
+     * getDownEntityCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -104,7 +112,9 @@ public class AggregateStatus implements SurveillanceStatus {
     }
 
     /**
-     * <p>getDownNodes</p>
+     * <p>
+     * getDownNodes
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -113,13 +123,16 @@ public class AggregateStatus implements SurveillanceStatus {
     }
 
     private void setDownNodes(final Collection<OnmsNode> downNodes) {
-        if (m_downNodes == downNodes) return;
+        if (m_downNodes == downNodes)
+            return;
         m_downNodes.clear();
         m_downNodes.addAll(downNodes);
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,16 +141,21 @@ public class AggregateStatus implements SurveillanceStatus {
     }
 
     /**
-     * <p>setLabel</p>
+     * <p>
+     * setLabel
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public void setLabel(String label) {
         m_label = label;
     }
 
     /**
-     * <p>getTotalEntityCount</p>
+     * <p>
+     * getTotalEntityCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -188,9 +206,9 @@ public class AggregateStatus implements SurveillanceStatus {
 
         @Override
         public void visitMonitoredService(OnmsMonitoredService svc) {
-            System.err.println("visitMonitoredService(" + svc + ") - currentOutages.isEmpty = " + svc.getCurrentOutages().isEmpty());
-            if ("A".equals(svc.getStatus())
-                    && !svc.getCurrentOutages().isEmpty()) {
+            System.err.println("visitMonitoredService(" + svc + ") - currentOutages.isEmpty = "
+                    + svc.getCurrentOutages().isEmpty());
+            if ("A".equals(svc.getStatus()) && !svc.getCurrentOutages().isEmpty()) {
                 if (AggregateStatus.ALL_NODES_UP.equals(m_status)) {
                     m_status = AggregateStatus.ONE_SERVICE_DOWN;
                 }
@@ -209,8 +227,7 @@ public class AggregateStatus implements SurveillanceStatus {
 
     }
 
-    private void visitNodes(Collection<OnmsNode> nodes,
-            AggregateStatusVisitor statusVisitor) {
+    private void visitNodes(Collection<OnmsNode> nodes, AggregateStatusVisitor statusVisitor) {
 
         if (nodes == null) {
             return;
@@ -232,7 +249,9 @@ public class AggregateStatus implements SurveillanceStatus {
     }
 
     /**
-     * <p>getLink</p>
+     * <p>
+     * getLink
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -241,9 +260,12 @@ public class AggregateStatus implements SurveillanceStatus {
     }
 
     /**
-     * <p>setLink</p>
+     * <p>
+     * setLink
+     * </p>
      *
-     * @param link a {@link java.lang.String} object.
+     * @param link
+     *            a {@link java.lang.String} object.
      */
     public void setLink(String link) {
         m_link = link;

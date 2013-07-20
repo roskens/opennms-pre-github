@@ -66,9 +66,13 @@ import org.opennms.netmgt.config.users.User;
 
 public class RolesTest extends IntervalTestCase {
     private GroupManager m_groupManager;
+
     private UserManager m_userManager;
+
     private WebRoleManager m_roleMgr;
+
     private WebGroupManager m_groupMgr;
+
     private WebUserManager m_userMgr;
 
     @Before
@@ -77,8 +81,15 @@ public class RolesTest extends IntervalTestCase {
         super.setUp();
 
         MockLogAppender.setupLogging();
-        m_groupManager = new MockGroupManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "/org/opennms/netmgt/config/mock/groups.xml", new String[][] {}));
-        m_userManager = new MockUserManager(m_groupManager, ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "/org/opennms/netmgt/config/mock/users.xml", new String[][] {}));
+        m_groupManager = new MockGroupManager(
+                                              ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                          "/org/opennms/netmgt/config/mock/groups.xml",
+                                                                                                          new String[][] {}));
+        m_userManager = new MockUserManager(
+                                            m_groupManager,
+                                            ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                        "/org/opennms/netmgt/config/mock/users.xml",
+                                                                                                        new String[][] {}));
 
         GroupFactory.setInstance(m_groupManager);
         UserFactory.setInstance(m_userManager);
@@ -125,7 +136,7 @@ public class RolesTest extends IntervalTestCase {
     @Test
     public void testWeekCount() throws Exception {
         int firstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
-        if(firstDayOfWeek != Calendar.SUNDAY && firstDayOfWeek != Calendar.MONDAY) {
+        if (firstDayOfWeek != Calendar.SUNDAY && firstDayOfWeek != Calendar.MONDAY) {
             fail("Start of week is not Monday or Sunday");
         }
 
@@ -153,7 +164,8 @@ public class RolesTest extends IntervalTestCase {
 
     @Test
     public void testTimeIntervals() throws Exception {
-        OwnedIntervalSequence intervals = m_groupManager.getRoleScheduleEntries("oncall", getDate("2005-08-18"), getDate("2005-08-19"));
+        OwnedIntervalSequence intervals = m_groupManager.getRoleScheduleEntries("oncall", getDate("2005-08-18"),
+                                                                                getDate("2005-08-19"));
 
         assertNotNull(intervals);
 
@@ -166,15 +178,19 @@ public class RolesTest extends IntervalTestCase {
         before.addInterval(owned(david, aug(18, 17, 23)));
         before.addInterval(owned(brozow, aug(18, 23, 24)));
 
-        OwnedInterval[] expected = {
-                owned(david, aug(18, 0, 9)),
-                owned(admin, aug(18, 9, 17)),
-                owned(david, aug(18, 17, 23)),
-                owned(brozow, aug(18, 23, 24)), // brozow is the supervisor and this period is unscheduled
+        OwnedInterval[] expected = { owned(david, aug(18, 0, 9)), owned(admin, aug(18, 9, 17)),
+                owned(david, aug(18, 17, 23)), owned(brozow, aug(18, 23, 24)), // brozow
+                                                                               // is
+                                                                               // the
+                                                                               // supervisor
+                                                                               // and
+                                                                               // this
+                                                                               // period
+                                                                               // is
+                                                                               // unscheduled
         };
 
         assertTimeIntervalSequence(expected, intervals);
-
 
     }
 
@@ -211,7 +227,5 @@ public class RolesTest extends IntervalTestCase {
     private Date getDate(String date) throws ParseException {
         return new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
-
-
 
 }

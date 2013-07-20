@@ -47,7 +47,8 @@ public interface EventProxy {
      *            the event to be sent out
      * @exception EventProxyException
      *                thrown if the send fails for any reason
-     * @throws org.opennms.netmgt.model.events.EventProxyException if any.
+     * @throws org.opennms.netmgt.model.events.EventProxyException
+     *             if any.
      */
     public void send(Event event) throws EventProxyException;
 
@@ -58,7 +59,8 @@ public interface EventProxy {
      *            the events to be sent out
      * @exception EventProxyException
      *                thrown if the send fails for any reason
-     * @throws org.opennms.netmgt.model.events.EventProxyException if any.
+     * @throws org.opennms.netmgt.model.events.EventProxyException
+     *             if any.
      */
     public void send(Log eventLog) throws EventProxyException;
 }

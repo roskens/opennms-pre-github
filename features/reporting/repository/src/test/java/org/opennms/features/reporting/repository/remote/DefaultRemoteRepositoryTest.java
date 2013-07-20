@@ -42,7 +42,9 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * <p>DefaultRemoteRepositoryTest class.</p>
+ * <p>
+ * DefaultRemoteRepositoryTest class.
+ * </p>
  * <p/>
  * Test OpenNMS CONNECT remote repository
  *
@@ -51,7 +53,8 @@ import static org.junit.Assert.*;
  * @version $Id: $
  * @since 1.8.1
  */
-// TODO tak: test needs a full working remote repository server with configuration
+// TODO tak: test needs a full working remote repository server with
+// configuration
 @Ignore
 public class DefaultRemoteRepositoryTest {
 
@@ -67,8 +70,10 @@ public class DefaultRemoteRepositoryTest {
     public void setUp() {
         System.setProperty("opennms.home", OPENNMS_HOME);
         assertEquals(OPENNMS_HOME, System.getProperty("opennms.home"));
-        //TODO Tak: Jasper version is hard coded
-        m_defaultRemoteRepository = new DefaultRemoteRepository(new DefaultRemoteRepositoryConfigDao(m_configResource).getActiveRepositories().get(0), "3.7.6");
+        // TODO Tak: Jasper version is hard coded
+        m_defaultRemoteRepository = new DefaultRemoteRepository(
+                                                                new DefaultRemoteRepositoryConfigDao(m_configResource).getActiveRepositories().get(0),
+                                                                "3.7.6");
         assertNotNull(System.getProperty("opennms.home"));
     }
 

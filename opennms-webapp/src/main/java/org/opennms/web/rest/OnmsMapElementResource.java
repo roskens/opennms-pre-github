@@ -61,7 +61,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsMapElementResource extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OnmsMapElementResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OnmsMapElementResource.class);
 
     @Autowired
     private OnmsMapDao m_mapDao;
@@ -70,19 +70,24 @@ public class OnmsMapElementResource extends OnmsRestService {
     ResourceContext m_context;
 
     /**
-     * <p>getMapElements</p>
+     * <p>
+     * getMapElements
+     * </p>
      *
-     * @param mapId a int.
+     * @param mapId
+     *            a int.
      * @return a {@link org.opennms.netmgt.model.OnmsMapElementList} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public OnmsMapElementList getMapElements(@PathParam("mapId") final int mapId) {
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public OnmsMapElementList getMapElements(@PathParam("mapId")
+    final int mapId) {
         readLock();
         try {
             LOG.debug("getMapElements: reading elements for map {}", mapId);
             final OnmsMap map = m_mapDao.get(mapId);
-            if (map == null) throw getException(Response.Status.BAD_REQUEST, "getMapElements: can't find map " + mapId);
+            if (map == null)
+                throw getException(Response.Status.BAD_REQUEST, "getMapElements: can't find map " + mapId);
             return new OnmsMapElementList(map.getMapElements());
         } finally {
             readUnlock();

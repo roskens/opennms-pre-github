@@ -42,8 +42,6 @@ import org.opennms.netmgt.provision.service.lifecycle.annotations.Activity;
 import org.opennms.netmgt.provision.service.lifecycle.annotations.ActivityProvider;
 import org.opennms.netmgt.provision.service.lifecycle.annotations.Attribute;
 
-
-
 /**
  * LifecycleTest
  *
@@ -66,15 +64,13 @@ public class LifeCycleInstanceTest {
      * - Make a lifeCycle definition DAO
      * - provide a way to locate ActivityProviders
      * - Wrap the annotation driven strategy in an ActitivyProvider class
-     *     programmatic providers can all be used.  This will enable
-     *     'publishing' a provider as an interface in OSGI
-     *
-     *
+     * programmatic providers can all be used. This will enable
+     * 'publishing' a provider as an interface in OSGI
      */
 
     // activity(LifeCycle lifeCycle, OnmsIpInterface iface)
     // if there is only one attribute that contains that type then
-    // pass it in as an argument.  Should be able to annotate the
+    // pass it in as an argument. Should be able to annotate the
     // type as well
 
     // if would be good if return values could be automatically added
@@ -91,67 +87,71 @@ public class LifeCycleInstanceTest {
     // force it to wait for other activities that are running in the background
 
     // Activities can return LifeCycles (or maybe more generic Tasks??). If the
-    // activities are synchronous then the next phase doesn't run into those tasks
+    // activities are synchronous then the next phase doesn't run into those
+    // tasks
     // are all complete.
     // If they are asynchronous then activities that depend on the phase cannot
     // run until all the return LifeCycles/Tasks are completed
 
-     // Does having subphases make sense?  Or having 'foreach' tasks that get fired
-     // when something gets added?
+    // Does having subphases make sense? Or having 'foreach' tasks that get
+    // fired
+    // when something gets added?
 
-
-
-    // Another NOTE:  Callbacks and task scheduling implemented around a CompletionService
-    // The CompletionService has and executor behind it running tasks and a thread whose job
-    // it is to process completed tasks and schedule the next.  This would make the schronization
+    // Another NOTE: Callbacks and task scheduling implemented around a
+    // CompletionService
+    // The CompletionService has and executor behind it running tasks and a
+    // thread whose job
+    // it is to process completed tasks and schedule the next. This would make
+    // the schronization
     // requirements of the task tracking much easy to keep thread safe.
 
     // Can the importer be implemented with this mechanism?
 
-    /* class ImportActitivies {
-     *
-     *  public SpecFile parseResource(OnmsResource resource) {
-     *       // parse and create SpecFile
-     *       // assert SpecFile
+    /*
+     * class ImportActitivies {
+     * public SpecFile parseResource(OnmsResource resource) {
+     * // parse and create SpecFile
+     * // assert SpecFile
      * }
-     *
      * public void auditNode(SpecFile specFile) {
-     *      // retrieve ForeignId -> NodeId Map
-     *      // as I go thru the nodes in the specFile
-     *      // I end up with three groups of nodes
-     *      // one set to delete
-     *      // one set to scan and then update
-     *      // one set to scan and then insert
-     *      //
-     *      // I could make each of these a 'lifecycle' of their own
-     *      // a trick is that deletes have to complete, then updates, then inserts
-     *      // but... scanning for the nodes can happen anytime...
-     *      //
-     *      // also... the scan/update or scan/insert should be a 'scanNode' lifecycle
-     *      // for sure
-     *      //
-     *      // so.. we could do this:
-     *      //
-     *      // for each node
-     *      // /---
-     *      // |
-     *      // |-- scan phase... start scans for update and insert nodes... make it asynchronous
-     *      // |
-     *      // |-- delete phase... delete the nodes that need to be deleted (synchronous)
-     *      // |
-     *      // |-- update phase... update the nodes that need to be updated... depends on the scan for the node (synchronous)
-     *      // |
-     *      // |-- insert phase... insert the nodes that need to be inserted... depends on the scan for the node (synchronous)
-     *      // |
-     *      // \---
-     *      //
-     *      // relateNodes... relate the nodes to each other.. after they have been committed to the DB.
+     * // retrieve ForeignId -> NodeId Map
+     * // as I go thru the nodes in the specFile
+     * // I end up with three groups of nodes
+     * // one set to delete
+     * // one set to scan and then update
+     * // one set to scan and then insert
+     * //
+     * // I could make each of these a 'lifecycle' of their own
+     * // a trick is that deletes have to complete, then updates, then inserts
+     * // but... scanning for the nodes can happen anytime...
+     * //
+     * // also... the scan/update or scan/insert should be a 'scanNode'
+     * lifecycle
+     * // for sure
+     * //
+     * // so.. we could do this:
+     * //
+     * // for each node
+     * // /---
+     * // |
+     * // |-- scan phase... start scans for update and insert nodes... make it
+     * asynchronous
+     * // |
+     * // |-- delete phase... delete the nodes that need to be deleted
+     * (synchronous)
+     * // |
+     * // |-- update phase... update the nodes that need to be updated...
+     * depends on the scan for the node (synchronous)
+     * // |
+     * // |-- insert phase... insert the nodes that need to be inserted...
+     * depends on the scan for the node (synchronous)
+     * // |
+     * // \---
+     * //
+     * // relateNodes... relate the nodes to each other.. after they have been
+     * committed to the DB.
      * }
      */
-
-
-
-
 
     // how do we build scanners when we need to run them
 
@@ -172,34 +172,32 @@ public class LifeCycleInstanceTest {
     // persist lifecycles that are in progress?
 
     /*
-     *  A run of a lifecycle has a 'trigger' of some kind....
-     *  1.  newSuspectEvent
-     *  2.  forceRescanEvent
-     *  3.  'scheduled' rescan
-     *  4.  'import' event
-     *  5.  'scheduled' import
-     *  6.  import triggers a node scan
-     *  7   node scan triggers a service scan
-     *
-     *  We can pass a trigger object into each
-     *
-     *  Need to use generics in some way so that I end up with the correct type for triggers and/or other parameters
-     *
-     *  I could pass the Lifecycle object into each phase method... and I could set attributes on the lifecycle object
-     *
-     *  I would need to define a set of attributes that could be set for each lifecycle
-     *
-     *  I could use annotations to pass those attributes as methods
-     *
-     *  Maybe 'resourceFactories' could be annotated as well and implement a simple interface
-     *
-     *
-     *
+     * A run of a lifecycle has a 'trigger' of some kind....
+     * 1. newSuspectEvent
+     * 2. forceRescanEvent
+     * 3. 'scheduled' rescan
+     * 4. 'import' event
+     * 5. 'scheduled' import
+     * 6. import triggers a node scan
+     * 7 node scan triggers a service scan
+     * We can pass a trigger object into each
+     * Need to use generics in some way so that I end up with the correct type
+     * for triggers and/or other parameters
+     * I could pass the Lifecycle object into each phase method... and I could
+     * set attributes on the lifecycle object
+     * I would need to define a set of attributes that could be set for each
+     * lifecycle
+     * I could use annotations to pass those attributes as methods
+     * Maybe 'resourceFactories' could be annotated as well and implement a
+     * simple interface
      */
 
     private static final String PHASE_DATA = "phaseData";
+
     public static final String NESTED_DATA = "nestedData";
+
     public static final String NEST_LEVEL = "nestLevel";
+
     public static final String MAX_DEPTH = "maxDepth";
 
     private LifeCycleRepository m_lifeCycleFactory;
@@ -208,24 +206,21 @@ public class LifeCycleInstanceTest {
     public void setUp() {
         MockLogAppender.setupLogging();
 
-        DefaultTaskCoordinator coordinator = new DefaultTaskCoordinator("LifeCycleInstanceTest", Executors.newFixedThreadPool(10));
+        DefaultTaskCoordinator coordinator = new DefaultTaskCoordinator("LifeCycleInstanceTest",
+                                                                        Executors.newFixedThreadPool(10));
 
         DefaultLifeCycleRepository repository = new DefaultLifeCycleRepository(coordinator);
 
-        LifeCycle lifeCycle = new LifeCycle("sample")
-        .addPhases("phase1", "phase2", "phase3");
+        LifeCycle lifeCycle = new LifeCycle("sample").addPhases("phase1", "phase2", "phase3");
 
-        LifeCycle injection = new LifeCycle("injection")
-        .addPhases("phase1", "phase2", "phase3");
+        LifeCycle injection = new LifeCycle("injection").addPhases("phase1", "phase2", "phase3");
 
         repository.addLifeCycle(lifeCycle);
         repository.addLifeCycle(injection);
 
         m_lifeCycleFactory = repository;
 
-
     }
-
 
     @ActivityProvider
     public static class PhaseTestActivities extends ActivityProviderSupport {
@@ -235,7 +230,7 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called first
-        @Activity(phase="phase1", lifecycle="sample")
+        @Activity(phase = "phase1", lifecycle = "sample")
         public void doPhaseOne(LifeCycleInstance lifecycle) {
 
             appendPhase(lifecycle, "phase1 ");
@@ -243,7 +238,7 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called last
-        @Activity(phase="phase3", lifecycle = "sample")
+        @Activity(phase = "phase3", lifecycle = "sample")
         public void doPhaseThree(LifeCycleInstance lifecycle) {
 
             appendPhase(lifecycle, "phase3");
@@ -251,7 +246,7 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called in the middle
-        @Activity(phase="phase2", lifecycle = "sample")
+        @Activity(phase = "phase2", lifecycle = "sample")
         public void doPhaseTwo(LifeCycleInstance lifecycle) {
 
             appendPhase(lifecycle, "phase2 ");
@@ -259,7 +254,7 @@ public class LifeCycleInstanceTest {
         }
 
         // this should not be called
-        @Activity(phase="phase3", lifecycle = "invalidLifecycle")
+        @Activity(phase = "phase3", lifecycle = "invalidLifecycle")
         public void doPhaseInvalidLifeCycle(LifeCycleInstance lifecycle) {
 
             appendPhase(lifecycle, " invalidLifecycle");
@@ -267,7 +262,7 @@ public class LifeCycleInstanceTest {
         }
 
         // this should not be called
-        @Activity(phase="invalidPhase", lifecycle = "sample")
+        @Activity(phase = "invalidPhase", lifecycle = "sample")
         public void doPhaseInvalid(LifeCycleInstance lifecycle) {
 
             appendPhase(lifecycle, " invalidPhase");
@@ -279,7 +274,6 @@ public class LifeCycleInstanceTest {
     // waitFor should throw an exception if its not been triggered
 
     // if we don't call trigger then the getAttribute should return ""
-
 
     @Test
     public void testLifeCycleAttributes() {
@@ -301,12 +295,11 @@ public class LifeCycleInstanceTest {
         assertEquals("phase1 phase2 phase3", lifecycle.getAttribute(PHASE_DATA, String.class));
     }
 
-
     @ActivityProvider
     public static class InjectionTestActivities {
 
         // this should be called first
-        @Activity(phase="phase1", lifecycle="injection")
+        @Activity(phase = "phase1", lifecycle = "injection")
         @Attribute("one")
         public Integer doPhaseOne(Phase phase1, Vector<String> dataAccumulator) {
 
@@ -317,7 +310,7 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called in the middle
-        @Activity(phase="phase2", lifecycle = "injection")
+        @Activity(phase = "phase2", lifecycle = "injection")
         @Attribute("two")
         public Integer doPhaseTwo(Phase phase2, Vector<String> dataAccumulator) {
 
@@ -328,8 +321,10 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called last
-        @Activity(phase="phase3", lifecycle = "injection")
-        public void doPhaseThree(@Attribute("one") Integer one, Phase phase3, Vector<String> dataAccumulator, @Attribute("two") Integer two) {
+        @Activity(phase = "phase3", lifecycle = "injection")
+        public void doPhaseThree(@Attribute("one")
+        Integer one, Phase phase3, Vector<String> dataAccumulator, @Attribute("two")
+        Integer two) {
 
             dataAccumulator.add(phase3.getName());
             dataAccumulator.add(one.toString());
@@ -337,13 +332,12 @@ public class LifeCycleInstanceTest {
 
         }
 
-
     }
-
 
     @Test
     public void testInjectionLifeCycle() throws Exception {
-        LifeCycleInstance lifecycle = m_lifeCycleFactory.createLifeCycleInstance("injection", new InjectionTestActivities());
+        LifeCycleInstance lifecycle = m_lifeCycleFactory.createLifeCycleInstance("injection",
+                                                                                 new InjectionTestActivities());
         lifecycle.setAttribute("dataAccumulator", new Vector<String>());
 
         lifecycle.trigger();
@@ -351,7 +345,7 @@ public class LifeCycleInstanceTest {
         lifecycle.waitFor();
 
         @SuppressWarnings("unchecked")
-        Vector<String> results = lifecycle.getAttribute("dataAccumulator" , Vector.class);
+        Vector<String> results = lifecycle.getAttribute("dataAccumulator", Vector.class);
 
         assertNotNull(results);
 
@@ -365,7 +359,6 @@ public class LifeCycleInstanceTest {
         assertEquals(5, results.size());
 
     }
-
 
     @ActivityProvider
     public static class NestedLifeCycleActivites extends ActivityProviderSupport {
@@ -382,26 +375,26 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called first
-        @Activity(phase="phase1", lifecycle="sample")
+        @Activity(phase = "phase1", lifecycle = "sample")
         public void doPhaseOne(LifeCycleInstance lifecycle) {
 
-            appendPhase(lifecycle, getPrefix(lifecycle)+"phase1 ");
+            appendPhase(lifecycle, getPrefix(lifecycle) + "phase1 ");
 
         }
 
         // this should be called last
-        @Activity(phase="phase3", lifecycle = "sample")
+        @Activity(phase = "phase3", lifecycle = "sample")
         public void doPhaseThree(LifeCycleInstance lifecycle) {
 
-            appendPhase(lifecycle, getPrefix(lifecycle)+"phase3 ");
+            appendPhase(lifecycle, getPrefix(lifecycle) + "phase3 ");
 
         }
 
         // this should be called in the middle
-        @Activity(phase="phase2", lifecycle = "sample")
+        @Activity(phase = "phase2", lifecycle = "sample")
         public LifeCycleInstance doPhaseTwo(LifeCycleInstance lifecycle, Phase currentPhase) throws Exception {
 
-            appendPhase(lifecycle, getPrefix(lifecycle)+"phase2start ");
+            appendPhase(lifecycle, getPrefix(lifecycle) + "phase2start ");
 
             LifeCycleInstance nested = null;
 
@@ -411,9 +404,9 @@ public class LifeCycleInstanceTest {
                 nested = currentPhase.createNestedLifeCycle("sample");
 
                 nested.setAttribute(MAX_DEPTH, maxDepth);
-                nested.setAttribute(NEST_LEVEL, nestLevel+1);
+                nested.setAttribute(NEST_LEVEL, nestLevel + 1);
 
-                //fail("I'd like to have trigger by called by the framework rather than here...");
+                // fail("I'd like to have trigger by called by the framework rather than here...");
                 nested.trigger();
 
                 nested.waitFor();
@@ -421,7 +414,7 @@ public class LifeCycleInstanceTest {
                 appendPhase(lifecycle, nested.getAttribute(NESTED_DATA, String.class));
             }
 
-            appendPhase(lifecycle, getPrefix(lifecycle)+"phase2end ");
+            appendPhase(lifecycle, getPrefix(lifecycle) + "phase2end ");
 
             return nested;
         }
@@ -442,35 +435,35 @@ public class LifeCycleInstanceTest {
             if (nestLevel == 0) {
                 return;
             } else {
-                buildPrefixHelper(nestLevel-1, buf);
+                buildPrefixHelper(nestLevel - 1, buf);
                 buf.append("level").append(nestLevel).append('.');
             }
         }
-
-
 
     }
 
     @Test
     public void testNestedLifeCycle() throws Exception {
 
-        LifeCycleInstance lifecycle = m_lifeCycleFactory.createLifeCycleInstance("sample", new NestedLifeCycleActivites(m_lifeCycleFactory));
+        LifeCycleInstance lifecycle = m_lifeCycleFactory.createLifeCycleInstance("sample",
+                                                                                 new NestedLifeCycleActivites(
+                                                                                                              m_lifeCycleFactory));
         lifecycle.setAttribute(MAX_DEPTH, 1);
 
         lifecycle.trigger();
 
         lifecycle.waitFor();
 
-        assertEquals("phase1 phase2start level1.phase1 level1.phase2start level1.phase2end level1.phase3 phase2end phase3 ", lifecycle.getAttribute(NESTED_DATA, String.class));
+        assertEquals("phase1 phase2start level1.phase1 level1.phase2start level1.phase2end level1.phase3 phase2end phase3 ",
+                     lifecycle.getAttribute(NESTED_DATA, String.class));
 
     }
-
 
     public static class ActivityProviderSupport {
 
         protected void appendToStringAttribute(LifeCycleInstance lifecycle, String key, String value) {
-                    lifecycle.setAttribute(key, lifecycle.getAttribute(key, "")+value);
-                }
+            lifecycle.setAttribute(key, lifecycle.getAttribute(key, "") + value);
+        }
 
     }
 

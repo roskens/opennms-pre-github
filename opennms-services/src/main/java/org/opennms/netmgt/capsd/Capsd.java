@@ -49,7 +49,6 @@ import org.springframework.util.Assert;
  * node is discovered - it then polls for all the capabilities for this node and
  * is responsible for loading the data collecte1d into the database.
  * </P>
- *
  * <P>
  * Once a node is added to the database, its sends an indication back to the
  * discovery which then flags this node as 'known'.
@@ -116,19 +115,21 @@ public class Capsd extends AbstractServiceDaemon {
      */
 
     static {
-    	m_address = InetAddressUtils.getLocalHostAddressAsString();
+        m_address = InetAddressUtils.getLocalHostAddressAsString();
     } // end static class initialization
 
     /**
      * Constructs the Capsd objec
      */
     public Capsd() {
-    	super("capsd");
+        super("capsd");
         m_scheduler = null;
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -144,14 +145,17 @@ public class Capsd extends AbstractServiceDaemon {
         // Stop the Rescan Processor thread pool
         m_rescanRunner.shutdown();
 
-        if (m_scheduler != null) m_scheduler.stop();
-	}
+        if (m_scheduler != null)
+            m_scheduler.stop();
+    }
 
-	/**
-	 * <p>onInit</p>
-	 */
+    /**
+     * <p>
+     * onInit
+     * </p>
+     */
     @Override
-	protected void onInit() {
+    protected void onInit() {
         BeanUtils.assertAutowiring(this);
 
         Assert.state(m_suspectRunner != null, "must set the suspectRunner property");
@@ -159,20 +163,17 @@ public class Capsd extends AbstractServiceDaemon {
         Assert.state(m_eventListener != null, "must set the eventListener property");
 
         if (System.getProperty("org.opennms.provisiond.enableDiscovery", "true").equalsIgnoreCase("true")) {
-        	throw new IllegalStateException("Provisiond is configured to handle discovery events. " +
-        			"Please disable Capsd in service-configuration.xml, or set " +
-        			"org.opennms.provisiond.enableDiscovery=false in opennms.properties!");
+            throw new IllegalStateException("Provisiond is configured to handle discovery events. "
+                    + "Please disable Capsd in service-configuration.xml, or set "
+                    + "org.opennms.provisiond.enableDiscovery=false in opennms.properties!");
         }
 
-
-	    /*
+        /*
          * First any new services are added to the services table
          * with a call to syncServices().
-         *
          * Secondly the management state of interfaces and services
          * in the database is updated based on the latest configuration
          * information with a call to syncManagementState()
-         *
          * Lastly the primary snmp interface state ('isSnmpPrimary')
          * of all interfaces which support SNMP is updated based on
          * the latest configuration information via a call to
@@ -188,31 +189,35 @@ public class Capsd extends AbstractServiceDaemon {
         LOG.debug("init: Syncing primary SNMP interface state...");
         m_capsdDbSyncer.syncSnmpPrimaryState();
 
-	}
+    }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
         // System.err.println("Capsd onStart() dumping stack");
         // Thread.dumpStack();
 
-    	// Set the Set that SuspectEventProcessor will use to track
-    	// suspect scans that are in progress
-    	SuspectEventProcessor.setQueuedSuspectsTracker(new HashSet<String>());
+        // Set the Set that SuspectEventProcessor will use to track
+        // suspect scans that are in progress
+        SuspectEventProcessor.setQueuedSuspectsTracker(new HashSet<String>());
 
-    	// Likewise, a separate Set for the RescanProcessor
-    	RescanProcessor.setQueuedRescansTracker(new HashSet<Integer>());
+        // Likewise, a separate Set for the RescanProcessor
+        RescanProcessor.setQueuedRescansTracker(new HashSet<Integer>());
 
         // Start the rescan scheduler
         LOG.debug("start: Starting rescan scheduler");
 
         m_scheduler.start();
-	}
+    }
 
     /**
-     * <p>onPause</p>
+     * <p>
+     * onPause
+     * </p>
      */
     @Override
     protected void onPause() {
@@ -220,14 +225,14 @@ public class Capsd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onResume</p>
+     * <p>
+     * onResume
+     * </p>
      */
     @Override
     protected void onResume() {
         // XXX Resume all threads?
-	}
-
-
+    }
 
     /**
      * Used to retrieve the local host name/address. The name/address of the
@@ -289,27 +294,38 @@ public class Capsd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setSuspectRunner</p>
+     * <p>
+     * setSuspectRunner
+     * </p>
      *
-     * @param suspectRunner a {@link java.util.concurrent.ExecutorService} object.
+     * @param suspectRunner
+     *            a {@link java.util.concurrent.ExecutorService} object.
      */
     public void setSuspectRunner(ExecutorService suspectRunner) {
         m_suspectRunner = suspectRunner;
     }
 
     /**
-     * <p>setRescanRunner</p>
+     * <p>
+     * setRescanRunner
+     * </p>
      *
-     * @param rescanRunner a {@link java.util.concurrent.ExecutorService} object.
+     * @param rescanRunner
+     *            a {@link java.util.concurrent.ExecutorService} object.
      */
     public void setRescanRunner(ExecutorService rescanRunner) {
         m_rescanRunner = rescanRunner;
     }
 
     /**
-     * <p>setEventListener</p>
+     * <p>
+     * setEventListener
+     * </p>
      *
-     * @param eventListener a {@link org.opennms.netmgt.model.events.StoppableEventListener} object.
+     * @param eventListener
+     *            a
+     *            {@link org.opennms.netmgt.model.events.StoppableEventListener}
+     *            object.
      */
     public void setEventListener(StoppableEventListener eventListener) {
         m_eventListener = eventListener;

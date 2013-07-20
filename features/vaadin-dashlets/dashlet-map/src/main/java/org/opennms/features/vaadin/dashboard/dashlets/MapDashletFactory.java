@@ -40,7 +40,8 @@ public class MapDashletFactory extends AbstractDashletFactory {
     /**
      * Method for instatiating a new {@link Dashlet} instance.
      *
-     * @param dashletSpec the {@link DashletSpec} to use
+     * @param dashletSpec
+     *            the {@link DashletSpec} to use
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
@@ -54,8 +55,8 @@ public class MapDashletFactory extends AbstractDashletFactory {
      */
     @Override
     public String getHelpContentHTML() {
-        return "This Dashlet provides a view to the vaadin-node-maps page of OpenNMS included in an iFrame. \n" +
-                " The only configurable parameter is the \"search\" parameter that is passed to the \n" +
-                " iFrame's URL of the node map.";
+        return "This Dashlet provides a view to the vaadin-node-maps page of OpenNMS included in an iFrame. \n"
+                + " The only configurable parameter is the \"search\" parameter that is passed to the \n"
+                + " iFrame's URL of the node map.";
     }
 }

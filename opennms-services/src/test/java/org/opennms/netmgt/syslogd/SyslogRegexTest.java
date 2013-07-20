@@ -44,33 +44,23 @@ import org.junit.runners.Parameterized.Parameters;
 public class SyslogRegexTest {
 
     private final int m_count = 1000000;
+
     private String m_matchPattern;
+
     private String m_logMessage;
 
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         return Arrays.asList(new Object[][] {
-                {
-                    "\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)",
-                    "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1"
-                },
-                {
-                    "\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)",
-                    "<6>main: 2010-08-01 localhost foo23: load test 23 on tty1"
-                },
-                {
-                    "foo0: .*load test (\\S+) on ((pts\\/\\d+)|(tty\\d+))",
-                    "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1"
-                },
-                {
-                    "foo23: .*load test (\\S+) on ((pts\\/\\d+)|(tty\\d+))",
-                    "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1"
-                },
-                {
-                    "1997",
-                    "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1"
-                }
-        });
+                { "\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)",
+                        "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1" },
+                { "\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)",
+                        "<6>main: 2010-08-01 localhost foo23: load test 23 on tty1" },
+                { "foo0: .*load test (\\S+) on ((pts\\/\\d+)|(tty\\d+))",
+                        "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1" },
+                { "foo23: .*load test (\\S+) on ((pts\\/\\d+)|(tty\\d+))",
+                        "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1" },
+                { "1997", "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1" } });
     }
 
     public SyslogRegexTest(final String matchPattern, final String logMessage) {
@@ -144,7 +134,8 @@ public class SyslogRegexTest {
     }
 
     private void printSpeed(final String message, long start, long end) {
-        System.err.println(String.format("%s: total time: %d, number per second: %8.4f", message, (end - start), (m_count * 1000.0 / (end - start))));
+        System.err.println(String.format("%s: total time: %d, number per second: %8.4f", message, (end - start),
+                                         (m_count * 1000.0 / (end - start))));
     }
 
 }

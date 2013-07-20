@@ -62,15 +62,18 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
-public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.VarbindsDecodeArrayList> implements Button.ClickListener {
+public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.VarbindsDecodeArrayList> implements
+        Button.ClickListener {
 
-	public static class VarbindsDecodeArrayList extends ArrayList<Varbindsdecode> {};
+    public static class VarbindsDecodeArrayList extends ArrayList<Varbindsdecode> {
+    };
 
     /** The Table. */
     private final Table table = new Table();
 
     /** The Container. */
-    private final BeanContainer<String,Varbindsdecode> container = new BeanContainer<String,Varbindsdecode>(Varbindsdecode.class);
+    private final BeanContainer<String, Varbindsdecode> container = new BeanContainer<String, Varbindsdecode>(
+                                                                                                              Varbindsdecode.class);
 
     /** The Toolbar. */
     private final HorizontalLayout toolbar = new HorizontalLayout();
@@ -88,7 +91,7 @@ public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.Varbind
         container.setBeanIdProperty("parmid");
         table.setContainerDataSource(container);
         table.setStyleName(Runo.TABLE_SMALL);
-        table.setVisibleColumns(new Object[]{"parmid", "decodeCollection"});
+        table.setVisibleColumns(new Object[] { "parmid", "decodeCollection" });
         table.setColumnHeader("parmid", "Parameter ID");
         table.setColumnHeader("decodeCollection", "Decode Values");
         table.setColumnExpandRatio("decodeCollection", 1);
@@ -146,13 +149,14 @@ public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.Varbind
     @Override
     public VarbindsDecodeArrayList getValue() {
         VarbindsDecodeArrayList beans = new VarbindsDecodeArrayList();
-        for (Object itemId: container.getItemIds()) {
+        for (Object itemId : container.getItemIds()) {
             beans.add(container.getItem(itemId).getBean());
         }
         return beans;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
      */
     @Override
@@ -162,8 +166,10 @@ public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.Varbind
         super.setReadOnly(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
@@ -193,7 +199,8 @@ public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.Varbind
         if (itemId == null) {
             Notification.show("Please select a Varbind Decode from the table.");
         } else {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
                                            "Do you really want to remove the selected Varbinds Decode field?<br/>This action cannot be undone.",

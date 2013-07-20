@@ -55,7 +55,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataRetrievalFailureException;
 
 /**
- * <p>Threshd class.</p>
+ * <p>
+ * Threshd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -108,13 +110,15 @@ public final class Threshd extends AbstractServiceDaemon {
      * Constructor.
      */
     Threshd() {
-    	super("threshd");
+        super("threshd");
         m_scheduler = null;
         m_thresholdableServices = Collections.synchronizedList(new LinkedList<ThresholdableService>());
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -202,7 +206,8 @@ public final class Threshd extends AbstractServiceDaemon {
         while (eiter.hasMoreElements()) {
             Thresholder thresholder = eiter.nextElement();
             try {
-                LOG.debug("start: Loading thresholder {}, classname {}", thresholder.getService(), thresholder.getClassName());
+                LOG.debug("start: Loading thresholder {}, classname {}", thresholder.getService(),
+                          thresholder.getClassName());
                 Class<?> tc = Class.forName(thresholder.getClassName());
                 ServiceThresholder st = (ServiceThresholder) tc.newInstance();
 
@@ -217,17 +222,20 @@ public final class Threshd extends AbstractServiceDaemon {
 
                 m_svcThresholders.put(thresholder.getService(), st);
             } catch (Throwable t) {
-                LOG.warn("start: Failed to load thresholder {} for service {}", thresholder.getClassName(), thresholder.getService(), t);
+                LOG.warn("start: Failed to load thresholder {} for service {}", thresholder.getClassName(),
+                         thresholder.getService(), t);
             }
         }
     }
 
     /**
-     * <p>reinitializeThresholders</p>
+     * <p>
+     * reinitializeThresholders
+     * </p>
      */
     public void reinitializeThresholders() {
-        for(String key: m_svcThresholders.keySet()) {
-            ServiceThresholder thresholder=m_svcThresholders.get(key);
+        for (String key : m_svcThresholders.keySet()) {
+            ServiceThresholder thresholder = m_svcThresholders.get(key);
 
             LOG.debug("reinitializeThresholders: About to reinitialize thresholder {}", key);
             thresholder.reinitialize();
@@ -235,7 +243,9 @@ public final class Threshd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -253,36 +263,41 @@ public final class Threshd extends AbstractServiceDaemon {
             throw e;
         }
 
-
         LOG.debug("start: Threshd running");
-	}
+    }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
-		m_scheduler.stop();
+        m_scheduler.stop();
         m_receiver.close();
 
         m_scheduler = null;
-	}
+    }
 
     /**
-     * <p>onPause</p>
+     * <p>
+     * onPause
+     * </p>
      */
     @Override
     protected void onPause() {
-		m_scheduler.pause();
-	}
+        m_scheduler.pause();
+    }
 
     /**
-     * <p>onResume</p>
+     * <p>
+     * onResume
+     * </p>
      */
     @Override
     protected void onResume() {
-		m_scheduler.resume();
-	}
+        m_scheduler.resume();
+    }
 
     /**
      * Returns singleton instance of the thresholding daemon.
@@ -325,9 +340,10 @@ public final class Threshd extends AbstractServiceDaemon {
         // Loop through loaded thresholders and schedule for each one
         // present
         //
-        for(final String svcName : m_svcThresholders.keySet()) {
+        for (final String svcName : m_svcThresholders.keySet()) {
 
-            // find the monitored services for each thresholder and schedule them
+            // find the monitored services for each thresholder and schedule
+            // them
             Querier querier = new Querier(DataSourceFactory.getDataSource(), SQL_RETRIEVE_INTERFACES) {
 
                 @Override
@@ -335,7 +351,7 @@ public final class Threshd extends AbstractServiceDaemon {
                     int nodeId = rs.getInt(1);
                     String ipAddress = rs.getString(2);
 
-                    LOG.debug("Scheduling service nodeId/ipAddress/svcName {}/{}/{}",nodeId,ipAddress,svcName);
+                    LOG.debug("Scheduling service nodeId/ipAddress/svcName {}/{}/{}", nodeId, ipAddress, svcName);
                     scheduleService(nodeId, ipAddress, svcName, true);
                 }
 
@@ -373,7 +389,8 @@ public final class Threshd extends AbstractServiceDaemon {
             // and enabled!
             //
             if (!m_threshdConfig.serviceInPackageAndEnabled(svcName, pkg)) {
-                LOG.debug("scheduleService: address/service: {}/{} not scheduled, service is not enabled or does not exist in package: {}", ipAddress, svcName, pkg.getName());
+                LOG.debug("scheduleService: address/service: {}/{} not scheduled, service is not enabled or does not exist in package: {}",
+                          ipAddress, svcName, pkg.getName());
                 continue;
             }
 
@@ -389,7 +406,8 @@ public final class Threshd extends AbstractServiceDaemon {
                 foundInPkg = m_threshdConfig.interfaceInPackage(ipAddress, pkg);
             }
             if (!foundInPkg) {
-                LOG.debug("scheduleInterface: address/service: {}/{} not scheduled, interface does not belong to package: {}", ipAddress, svcName, pkg.getName());
+                LOG.debug("scheduleInterface: address/service: {}/{} not scheduled, interface does not belong to package: {}",
+                          ipAddress, svcName, pkg.getName());
                 continue;
             }
 
@@ -406,7 +424,8 @@ public final class Threshd extends AbstractServiceDaemon {
                 // services list.
                 //
                 if (alreadyScheduled(ipAddress, pkg.getName())) {
-                    LOG.debug("scheduleService: ipAddr/pkgName {}/{} already in thresholdable service list, skipping.", ipAddress, pkg.getName());
+                    LOG.debug("scheduleService: ipAddr/pkgName {}/{} already in thresholdable service list, skipping.",
+                              ipAddress, pkg.getName());
                     continue;
                 }
             }
@@ -427,8 +446,10 @@ public final class Threshd extends AbstractServiceDaemon {
                 //
                 ServiceThresholder thresholder = Threshd.getServiceThresholder(svcName);
                 if (thresholder == null) {
-                    // no thresholder exists for this service so go on to the next one
-                    LOG.warn("Unable to find a Thresholder for service {}! But it is configured for Thresholding!", svcName);
+                    // no thresholder exists for this service so go on to the
+                    // next one
+                    LOG.warn("Unable to find a Thresholder for service {}! But it is configured for Thresholding!",
+                             svcName);
                     continue;
                 }
                 thresholder.initialize(tSvc, tSvc.getPropertyMap());
@@ -449,7 +470,8 @@ public final class Threshd extends AbstractServiceDaemon {
             } catch (RuntimeException rE) {
                 LOG.warn("scheduleService: Unable to schedule {} for service {}", ipAddress, svcName, rE);
             } catch (Throwable t) {
-                LOG.error("scheduleService: Uncaught exception, failed to schedule interface {} for service {}", ipAddress, svcName, t);
+                LOG.error("scheduleService: Uncaught exception, failed to schedule interface {} for service {}",
+                          ipAddress, svcName, t);
             }
         } // end while more packages exist
     }
@@ -460,9 +482,10 @@ public final class Threshd extends AbstractServiceDaemon {
      */
     private boolean alreadyScheduled(String ipAddress, String pkgName) {
         synchronized (m_thresholdableServices) {
-            for  (ThresholdableService tSvc : m_thresholdableServices) {
+            for (ThresholdableService tSvc : m_thresholdableServices) {
                 InetAddress addr = (InetAddress) tSvc.getAddress();
-                if (InetAddressUtils.str(addr).equals(InetAddressUtils.normalize(ipAddress)) && tSvc.getPackageName().equals(pkgName)) {
+                if (InetAddressUtils.str(addr).equals(InetAddressUtils.normalize(ipAddress))
+                        && tSvc.getPackageName().equals(pkgName)) {
                     return true;
                 }
             }
@@ -472,7 +495,9 @@ public final class Threshd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>isSchedulingCompleted</p>
+     * <p>
+     * isSchedulingCompleted
+     * </p>
      *
      * @return Returns the schedulingCompleted.
      */
@@ -481,7 +506,9 @@ public final class Threshd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setSchedulingCompleted</p>
+     * <p>
+     * setSchedulingCompleted
+     * </p>
      *
      * @param schedulingCompleted
      *            The schedulingCompleted to set.
@@ -491,27 +518,36 @@ public final class Threshd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>refreshServicePackages</p>
+     * <p>
+     * refreshServicePackages
+     * </p>
      */
     public void refreshServicePackages() {
-	for (ThresholdableService thisService : m_thresholdableServices) {
-		thisService.refreshPackage();
-	}
+        for (ThresholdableService thisService : m_thresholdableServices) {
+            thisService.refreshPackage();
+        }
     }
 
     /**
-     * <p>setThreshdConfig</p>
+     * <p>
+     * setThreshdConfig
+     * </p>
      *
-     * @param threshdConfig a {@link org.opennms.netmgt.config.ThreshdConfigManager} object.
+     * @param threshdConfig
+     *            a {@link org.opennms.netmgt.config.ThreshdConfigManager}
+     *            object.
      */
     public void setThreshdConfig(ThreshdConfigManager threshdConfig) {
         m_threshdConfig = threshdConfig;
     }
 
     /**
-     * <p>getPackage</p>
+     * <p>
+     * getPackage
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.threshd.Package} object.
      */
     public Package getPackage(String name) {

@@ -21,42 +21,54 @@ public class BeanWrapperVisitorTest {
         public Object getNullValue() {
             return null;
         }
+
         public String getString() {
             return "I am a string.";
         }
+
         public Boolean getTrueValue() {
             return Boolean.valueOf(true);
         }
+
         public Boolean getFalseValue() {
             return Boolean.valueOf(false);
         }
+
         public Double getOne() {
             return 1.0d;
         }
+
         public Float getTwo() {
             return 2.0f;
         }
+
         public Integer getThree() {
             return 3;
         }
+
         public Long getFour() {
             return 4L;
         }
+
         public TestBean getSubBean() {
             return new TestBean();
         }
+
         public CompareMe getEnumFirst() {
             return CompareMe.FIRST;
         }
+
         public CompareMe getEnumSecond() {
             return CompareMe.SECOND;
         }
+
         public CompareMe getEnumThird() {
             return CompareMe.THIRD;
         }
     }
 
     BeanWrapperCriteriaVisitor m_visitor = null;
+
     TestBean m_testBean = new TestBean();
 
     @Before
@@ -336,9 +348,7 @@ public class BeanWrapperVisitorTest {
     }
 
     private static enum CompareMe {
-        FIRST,
-        SECOND,
-        THIRD
+        FIRST, SECOND, THIRD
     }
 
     private OnmsEvent createEvent(final int id, final String uei) {

@@ -59,7 +59,8 @@ import org.slf4j.LoggerFactory;
  * plug-ins by the service poller framework.
  * </P>
  * <p>
- * This does SNMP and therefore relies on the SNMP configuration so it is not distributable.
+ * This does SNMP and therefore relies on the SNMP configuration so it is not
+ * distributable.
  * </p>
  *
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
@@ -80,9 +81,9 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
      * Default object to collect if "oid" property not available.
      */
     private static final String DEFAULT_OBJECT_IDENTIFIER = ".1.3.6.1.2.1.1.2.0"; // MIB-II
-                                                                                // System
-                                                                                // Object
-                                                                                // Id
+                                                                                  // System
+                                                                                  // Object
+                                                                                  // Id
 
     private static final String DEFAULT_REASON_TEMPLATE = "Observed value '${observedValue}' does not meet criteria '${operator} ${operand}'";
 
@@ -99,10 +100,10 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Initialize the service monitor.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                plug-in from functioning.
@@ -114,7 +115,7 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
         try {
             SnmpPeerFactory.init();
         } catch (IOException ex) {
-        	LOG.error("initialize: Failed to load SNMP configuration", ex);
+            LOG.error("initialize: Failed to load SNMP configuration", ex);
             throw new UndeclaredThrowableException(ex);
         }
 
@@ -131,7 +132,8 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                interface from being monitored.
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
     public void initialize(MonitoredService svc) {
@@ -141,11 +143,11 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * The poll() method is responsible for polling the specified address for
      * SNMP service availability.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown for any unrecoverable errors.
      */
@@ -159,9 +161,10 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        if (agentConfig == null)
+            throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
         final String hostAddress = InetAddressUtils.str(ipaddr);
-		LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
+        LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
 
         // Get configuration parameters
         //
@@ -179,10 +182,13 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
         // set timeout and retries on SNMP peer object
         //
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry", ParameterMap.getKeyedInteger(parameters, "retries", agentConfig.getRetries())));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(parameters, "retries",
+                                                                                         agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
 
-        // Squirrel the configuration parameters away in a Properties for later expansion if service is down
+        // Squirrel the configuration parameters away in a Properties for later
+        // expansion if service is down
         Properties svcParams = new Properties();
         svcParams.setProperty("oid", oid);
         svcParams.setProperty("operator", String.valueOf(operator));
@@ -206,16 +212,19 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
             LOG.debug("SnmpMonitor.poll: SnmpAgentConfig address: {}", agentConfig);
             SnmpObjId snmpObjectId = SnmpObjId.get(oid);
 
-            // This if block will count the number of matches within a walk and mark the service
-            // as up if it is between the minimum and maximum number, down if otherwise. Setting
-            // the parameter "matchall" to "count" will act as if "walk" has been set to "true".
+            // This if block will count the number of matches within a walk and
+            // mark the service
+            // as up if it is between the minimum and maximum number, down if
+            // otherwise. Setting
+            // the parameter "matchall" to "count" will act as if "walk" has
+            // been set to "true".
             if ("count".equals(matchstr)) {
                 if (DEFAULT_REASON_TEMPLATE.equals(reasonTemplate)) {
                     reasonTemplate = "Value: ${matchCount} outside of range Min: ${minimum} to Max: ${maximum}";
                 }
                 int matchCount = 0;
                 List<SnmpValue> results = SnmpUtils.getColumns(agentConfig, "snmpPoller", snmpObjectId);
-                for(SnmpValue result : results) {
+                for (SnmpValue result : results) {
 
                     if (result != null) {
                         LOG.debug("poll: SNMPwalk poll succeeded, addr={} oid={} value={}", hostAddress, oid, result);
@@ -239,7 +248,7 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
                     reasonTemplate = "SNMP poll failed, addr=${ipaddr} oid=${oid}";
                 }
                 List<SnmpValue> results = SnmpUtils.getColumns(agentConfig, "snmpPoller", snmpObjectId);
-                for(SnmpValue result : results) {
+                for (SnmpValue result : results) {
                     if (result != null) {
                         svcParams.setProperty("observedValue", getStringValue(result));
                         LOG.debug("poll: SNMPwalk poll succeeded, addr={} oid={} value={}", hostAddress, oid, result);

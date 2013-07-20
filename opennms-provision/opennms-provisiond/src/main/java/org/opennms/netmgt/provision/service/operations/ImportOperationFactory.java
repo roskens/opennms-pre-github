@@ -33,41 +33,79 @@ import org.opennms.netmgt.provision.service.ProvisionService;
 public interface ImportOperationFactory {
 
     /**
-     * <p>createInsertOperation</p>
+     * <p>
+     * createInsertOperation
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
-     * @param city a {@link java.lang.String} object.
-     * @param provisionService a {@link org.opennms.netmgt.provision.service.ProvisionService} object.
-     * @return a {@link org.opennms.netmgt.provision.service.operations.SaveOrUpdateOperation} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
+     * @param provisionService
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.operations.SaveOrUpdateOperation}
+     *         object.
      */
-    public abstract SaveOrUpdateOperation createInsertOperation(String foreignSource, String foreignId, String nodeLabel, String building, String city, ProvisionService provisionService);
+    public abstract SaveOrUpdateOperation createInsertOperation(String foreignSource, String foreignId,
+            String nodeLabel, String building, String city, ProvisionService provisionService);
 
     /**
-     * <p>createUpdateOperation</p>
+     * <p>
+     * createUpdateOperation
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
-     * @param city a {@link java.lang.String} object.
-     * @param service a {@link org.opennms.netmgt.provision.service.ProvisionService} object.
-     * @return a {@link org.opennms.netmgt.provision.service.operations.UpdateOperation} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
+     * @param service
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.operations.UpdateOperation}
+     *         object.
      */
-    public abstract UpdateOperation createUpdateOperation(Integer nodeId, String foreignSource, String foreignId, String nodeLabel, String building, String city, ProvisionService service);
+    public abstract UpdateOperation createUpdateOperation(Integer nodeId, String foreignSource, String foreignId,
+            String nodeLabel, String building, String city, ProvisionService service);
 
     /**
-     * <p>createDeleteOperation</p>
+     * <p>
+     * createDeleteOperation
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param provisionService a {@link org.opennms.netmgt.provision.service.ProvisionService} object.
-     * @return a {@link org.opennms.netmgt.provision.service.operations.ImportOperation} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param provisionService
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.operations.ImportOperation}
+     *         object.
      */
-    public abstract ImportOperation createDeleteOperation(Integer nodeId, String foreignSource, String foreignId, ProvisionService provisionService);
+    public abstract ImportOperation createDeleteOperation(Integer nodeId, String foreignSource, String foreignId,
+            ProvisionService provisionService);
 
 }

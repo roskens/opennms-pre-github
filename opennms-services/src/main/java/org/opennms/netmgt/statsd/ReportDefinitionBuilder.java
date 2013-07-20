@@ -47,7 +47,9 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
 /**
- * <p>ReportDefinitionBuilder class.</p>
+ * <p>
+ * ReportDefinitionBuilder class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -59,9 +61,12 @@ public class ReportDefinitionBuilder implements InitializingBean {
     private StatisticsDaemonConfigDao m_statsdConfigDao;
 
     /**
-     * <p>reload</p>
+     * <p>
+     * reload
+     * </p>
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException if any.
+     * @throws org.springframework.dao.DataAccessResourceFailureException
+     *             if any.
      */
     public void reload() throws DataAccessResourceFailureException {
         m_statsdConfigDao.reloadConfiguration();
@@ -70,10 +75,13 @@ public class ReportDefinitionBuilder implements InitializingBean {
 
     /**
      * Builds and schedules all reports enabled in the statsd-configuration.
-     * This method has the capability to throw a ton of exceptions, just generically throwing <code>Exception</code>
+     * This method has the capability to throw a ton of exceptions, just
+     * generically throwing <code>Exception</code>
      *
-     * @return a <code>Collection</code> of enabled reports from the statsd-configuration.
-     * @throws java.lang.Exception if any.
+     * @return a <code>Collection</code> of enabled reports from the
+     *         statsd-configuration.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public Collection<ReportDefinition> buildReportDefinitions() throws Exception {
         Set<ReportDefinition> reportDefinitions = new HashSet<ReportDefinition>();
@@ -83,17 +91,22 @@ public class ReportDefinitionBuilder implements InitializingBean {
                 Report report = packageReport.getReport();
 
                 if (!packageReport.isEnabled()) {
-                    LOG.debug("skipping report '{}' in package '{}' because the report is not enabled", report.getName(), pkg.getName());
+                    LOG.debug("skipping report '{}' in package '{}' because the report is not enabled",
+                              report.getName(), pkg.getName());
                 }
 
                 Class<? extends AttributeStatisticVisitorWithResults> clazz;
                 try {
                     clazz = createClassForReport(report);
                 } catch (ClassNotFoundException e) {
-                    throw new DataAccessResourceFailureException("Could not find class '" + report.getClassName() + "'; nested exception: " + e, e);
+                    throw new DataAccessResourceFailureException("Could not find class '" + report.getClassName()
+                            + "'; nested exception: " + e, e);
                 }
 
-                Assert.isAssignable(AttributeStatisticVisitorWithResults.class, clazz, "the class specified by class-name in the '" + report.getName() + "' report does not implement the interface " + AttributeStatisticVisitorWithResults.class.getName() + "; ");
+                Assert.isAssignable(AttributeStatisticVisitorWithResults.class, clazz,
+                                    "the class specified by class-name in the '" + report.getName()
+                                            + "' report does not implement the interface "
+                                            + AttributeStatisticVisitorWithResults.class.getName() + "; ");
 
                 ReportDefinition reportDef = new ReportDefinition();
                 reportDef.setReport(packageReport);
@@ -116,12 +129,15 @@ public class ReportDefinitionBuilder implements InitializingBean {
     }
 
     @SuppressWarnings("unchecked")
-    private Class<? extends AttributeStatisticVisitorWithResults> createClassForReport(Report report) throws ClassNotFoundException {
+    private Class<? extends AttributeStatisticVisitorWithResults> createClassForReport(Report report)
+            throws ClassNotFoundException {
         return (Class<? extends AttributeStatisticVisitorWithResults>) Class.forName(report.getClassName());
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -129,18 +145,25 @@ public class ReportDefinitionBuilder implements InitializingBean {
     }
 
     /**
-     * <p>getStatsdConfigDao</p>
+     * <p>
+     * getStatsdConfigDao
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.dao.api.StatisticsDaemonConfigDao} object.
+     * @return a {@link org.opennms.netmgt.dao.api.StatisticsDaemonConfigDao}
+     *         object.
      */
     public StatisticsDaemonConfigDao getStatsdConfigDao() {
         return m_statsdConfigDao;
     }
 
     /**
-     * <p>setStatsdConfigDao</p>
+     * <p>
+     * setStatsdConfigDao
+     * </p>
      *
-     * @param statsdConfigDao a {@link org.opennms.netmgt.dao.api.StatisticsDaemonConfigDao} object.
+     * @param statsdConfigDao
+     *            a {@link org.opennms.netmgt.dao.api.StatisticsDaemonConfigDao}
+     *            object.
      */
     public void setStatsdConfigDao(StatisticsDaemonConfigDao statsdConfigDao) {
         m_statsdConfigDao = statsdConfigDao;

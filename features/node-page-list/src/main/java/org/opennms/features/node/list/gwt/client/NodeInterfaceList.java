@@ -39,37 +39,35 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class NodeInterfaceList implements EntryPoint {
 
+    /**
+     * This is the entry point method.
+     */
+    @Override
+    public void onModuleLoad() {
 
-  /**
-   * This is the entry point method.
-   */
-  @Override
-  public void onModuleLoad() {
+        if (Navigator.getUserAgent().contains("MSIE")) {
+            NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
+            for (int j = 0; j < divs.getLength(); j++) {
+                Element element = divs.getItem(j);
+                if (element.hasAttribute("name") && element.getAttribute("name").equals("opennms-interfacelist")) {
+                    createView(element);
+                }
+            }
+        } else {
+            NodeList<Element> nodes = RootPanel.getBodyElement().getElementsByTagName("opennms:interfacelist");
+            if (nodes.getLength() > 0) {
+                for (int i = 0; i < nodes.getLength(); i++) {
+                    Element elem = nodes.getItem(i);
+                    createView(elem);
+                }
+            }
+        }
 
-      if(Navigator.getUserAgent().contains("MSIE")) {
-          NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
-          for(int j = 0; j < divs.getLength(); j++) {
-              Element element = divs.getItem(j);
-              if(element.hasAttribute("name") && element.getAttribute("name").equals("opennms-interfacelist")) {
-                  createView(element);
-              }
-          }
-      }else {
-          NodeList<Element> nodes = RootPanel.getBodyElement().getElementsByTagName("opennms:interfacelist");
-          if(nodes.getLength() > 0) {
-              for(int i = 0; i < nodes.getLength(); i++) {
-                  Element elem = nodes.getItem(i);
-                  createView(elem);
-              }
-          }
-      }
-
-  }
+    }
 
     private void createView(Element elem) {
         PageableNodeList nodeList = new PageableNodeList();
-          RootPanel.get(elem.getId()).add(nodeList);
+        RootPanel.get(elem.getId()).add(nodeList);
     }
-
 
 }

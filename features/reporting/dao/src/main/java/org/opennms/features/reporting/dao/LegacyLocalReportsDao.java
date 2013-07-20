@@ -45,16 +45,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>LegacyLocalReportsDao class.</p>
+ * <p>
+ * LegacyLocalReportsDao class.
+ * </p>
  * <p/>
- * Class realize the data access and preserve compatibility to database-reports.xml.
+ * Class realize the data access and preserve compatibility to
+ * database-reports.xml.
  *
  * @author Markus Neumann <markus@opennms.com>
  * @author Ronny Trommer <ronny@opennms.com>
  * @version $Id: $
  * @since 1.10.1
  */
-@ContextConfiguration(locations = {"classpath:META-INF/opennms/applicationContext-reportingDao.xml"})
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
 public class LegacyLocalReportsDao implements LocalReportsDao {
 
     /**
@@ -183,22 +186,30 @@ public class LegacyLocalReportsDao implements LocalReportsDao {
     }
 
     /**
-     * <p>setLegacyLocalReportsDefinition</p>
+     * <p>
+     * setLegacyLocalReportsDefinition
+     * </p>
      * <p/>
      * Set list with legacy report definition
      *
-     * @param legacyLocalReportsDefinition {@link org.opennms.features.reporting.model.basicreport.LegacyLocalReportsDefinition} object
+     * @param legacyLocalReportsDefinition
+     *            {@link org.opennms.features.reporting.model.basicreport.LegacyLocalReportsDefinition}
+     *            object
      */
     public void setLegacyLocalReportsDefinition(LegacyLocalReportsDefinition legacyLocalReportsDefinition) {
         this.m_legacyLocalReportsDefinition = legacyLocalReportsDefinition;
     }
 
     /**
-     * <p>getLegacyLocalReportsDefinition</p>
+     * <p>
+     * getLegacyLocalReportsDefinition
+     * </p>
      * <p/>
      * Get list with legacy report definition
      *
-     * @return a {@link org.opennms.features.reporting.model.basicreport.LegacyLocalReportsDefinition} object
+     * @return a
+     *         {@link org.opennms.features.reporting.model.basicreport.LegacyLocalReportsDefinition}
+     *         object
      */
     public LegacyLocalReportsDefinition getLegacyLocalReportsDefinition() {
         return m_legacyLocalReportsDefinition;

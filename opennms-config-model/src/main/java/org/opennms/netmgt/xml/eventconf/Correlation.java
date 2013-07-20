@@ -55,51 +55,51 @@ import org.xml.sax.ContentHandler;
 /**
  * The event correlation information
  */
-@XmlRootElement(name="correlation")
+@XmlRootElement(name = "correlation")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Correlation implements Serializable {
-	private static final long serialVersionUID = -6184862237793330801L;
+    private static final long serialVersionUID = -6184862237793330801L;
 
-	private static final String[] EMPTY_STRING_ARRAY = new String[0];
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-	/**
+    /**
      * The state determines if event is correlated
      */
-	// @Pattern(regexp="(on|off)")
-	@XmlAttribute(name="state")
+    // @Pattern(regexp="(on|off)")
+    @XmlAttribute(name = "state")
     private String m_state;
 
     /**
      * The correlation path
      */
-	// @Pattern(regexp="(suppressDuplicates|cancellingEvent|suppressAndCancel|pathOutage")
-	@XmlAttribute(name="path")
+    // @Pattern(regexp="(suppressDuplicates|cancellingEvent|suppressAndCancel|pathOutage")
+    @XmlAttribute(name = "path")
     private String m_path;
 
     /**
      * A canceling UEI for this event
      */
-	// @Size(min=0)
-	@XmlElement(name="cuei")
+    // @Size(min=0)
+    @XmlElement(name = "cuei")
     private List<String> m_cueis = new ArrayList<String>();
 
     /**
      * The minimum count for this event
      */
-	@XmlElement(name="cmin")
+    @XmlElement(name = "cmin")
     private String m_cmin;
 
     /**
      * The maximum count for this event
      */
-	@XmlElement(name="cmax")
+    @XmlElement(name = "cmax")
     private String m_cmax;
 
     /**
      * The correlation time for this event
      */
-	@XmlElement(name="ctime")
+    @XmlElement(name = "ctime")
     private String m_ctime;
 
     public void addCuei(final String cuei) throws IndexOutOfBoundsException {
@@ -143,11 +143,12 @@ public class Correlation implements Serializable {
     }
 
     public String getPath() {
-        return m_path == null? "suppressDuplicates" : m_path; // XSD default is suppressDuplicates
+        return m_path == null ? "suppressDuplicates" : m_path; // XSD default is
+                                                               // suppressDuplicates
     }
 
     public String getState() {
-        return m_state == null? "off" : m_state; // XSD default is off
+        return m_state == null ? "off" : m_state; // XSD default is off
     }
 
     /**
@@ -205,19 +206,19 @@ public class Correlation implements Serializable {
     public void setCuei(final String[] cueis) {
         m_cueis.clear();
         for (final String cuei : cueis) {
-        	m_cueis.add(cuei.intern());
+            m_cueis.add(cuei.intern());
         }
     }
 
     public void setCuei(final List<String> cueis) {
         m_cueis.clear();
         for (final String cuei : cueis) {
-        	m_cueis.add(cuei.intern());
+            m_cueis.add(cuei.intern());
         }
     }
 
     public void setCueiCollection(final List<String> cueis) {
-    	setCuei(cueis);
+        setCuei(cueis);
     }
 
     public void setPath(final String path) {
@@ -236,56 +237,65 @@ public class Correlation implements Serializable {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_cmax == null) ? 0 : m_cmax.hashCode());
-		result = prime * result + ((m_cmin == null) ? 0 : m_cmin.hashCode());
-		result = prime * result + ((m_ctime == null) ? 0 : m_ctime.hashCode());
-		result = prime * result + ((m_cueis == null) ? 0 : m_cueis.hashCode());
-		result = prime * result + ((m_path == null) ? 0 : m_path.hashCode());
-		result = prime * result + ((m_state == null) ? 0 : m_state.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_cmax == null) ? 0 : m_cmax.hashCode());
+        result = prime * result + ((m_cmin == null) ? 0 : m_cmin.hashCode());
+        result = prime * result + ((m_ctime == null) ? 0 : m_ctime.hashCode());
+        result = prime * result + ((m_cueis == null) ? 0 : m_cueis.hashCode());
+        result = prime * result + ((m_path == null) ? 0 : m_path.hashCode());
+        result = prime * result + ((m_state == null) ? 0 : m_state.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Correlation)) return false;
-		final Correlation other = (Correlation) obj;
-		if (m_cmax == null) {
-			if (other.m_cmax != null) return false;
-		} else if (!m_cmax.equals(other.m_cmax)) {
-			return false;
-		}
-		if (m_cmin == null) {
-			if (other.m_cmin != null) return false;
-		} else if (!m_cmin.equals(other.m_cmin)) {
-			return false;
-		}
-		if (m_ctime == null) {
-			if (other.m_ctime != null) return false;
-		} else if (!m_ctime.equals(other.m_ctime)) {
-			return false;
-		}
-		if (m_cueis == null) {
-			if (other.m_cueis != null) return false;
-		} else if (!m_cueis.equals(other.m_cueis)) {
-			return false;
-		}
-		if (m_path == null) {
-			if (other.m_path != null) return false;
-		} else if (!m_path.equals(other.m_path)) {
-			return false;
-		}
-		if (m_state == null) {
-			if (other.m_state != null) return false;
-		} else if (!m_state.equals(other.m_state)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Correlation))
+            return false;
+        final Correlation other = (Correlation) obj;
+        if (m_cmax == null) {
+            if (other.m_cmax != null)
+                return false;
+        } else if (!m_cmax.equals(other.m_cmax)) {
+            return false;
+        }
+        if (m_cmin == null) {
+            if (other.m_cmin != null)
+                return false;
+        } else if (!m_cmin.equals(other.m_cmin)) {
+            return false;
+        }
+        if (m_ctime == null) {
+            if (other.m_ctime != null)
+                return false;
+        } else if (!m_ctime.equals(other.m_ctime)) {
+            return false;
+        }
+        if (m_cueis == null) {
+            if (other.m_cueis != null)
+                return false;
+        } else if (!m_cueis.equals(other.m_cueis)) {
+            return false;
+        }
+        if (m_path == null) {
+            if (other.m_path != null)
+                return false;
+        } else if (!m_path.equals(other.m_path)) {
+            return false;
+        }
+        if (m_state == null) {
+            if (other.m_state != null)
+                return false;
+        } else if (!m_state.equals(other.m_state)) {
+            return false;
+        }
+        return true;
+    }
 
 }

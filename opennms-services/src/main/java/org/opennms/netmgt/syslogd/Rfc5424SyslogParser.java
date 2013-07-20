@@ -41,8 +41,10 @@ import org.slf4j.LoggerFactory;
 
 public class Rfc5424SyslogParser extends SyslogParser {
     private static final Logger LOG = LoggerFactory.getLogger(Rfc5424SyslogParser.class);
-    //                                                                <PRI>VERSION            TIMESTAMP    HOST   APP    PROC     MSGID  STRUCTURED   MSG
-    private static final Pattern m_rfc5424Pattern = Pattern.compile("^<(\\d{1,3})>(\\d{0,2}?) (\\S+T\\S+) (\\S*) (\\S*) (\\d+|-) (\\S*) ((?:\\[.*?\\])*|-)(?: (?:BOM)?(.*?))?$", Pattern.MULTILINE);
+
+    // <PRI>VERSION TIMESTAMP HOST APP PROC MSGID STRUCTURED MSG
+    private static final Pattern m_rfc5424Pattern = Pattern.compile("^<(\\d{1,3})>(\\d{0,2}?) (\\S+T\\S+) (\\S*) (\\S*) (\\d+|-) (\\S*) ((?:\\[.*?\\])*|-)(?: (?:BOM)?(.*?))?$",
+                                                                    Pattern.MULTILINE);
 
     private static final Pattern m_dateWithOffset = Pattern.compile("^(.*[\\-\\+]\\d\\d):?(\\d\\d)$");
 

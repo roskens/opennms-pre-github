@@ -85,7 +85,9 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
     private volatile EventIpcManager m_eventMgr;
 
     /**
-     * <p>getSingleton</p>
+     * <p>
+     * getSingleton
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.vacuumd.Vacuumd} object.
      */
@@ -97,7 +99,9 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
     }
 
     /**
-     * <p>Constructor for Vacuumd.</p>
+     * <p>
+     * Constructor for Vacuumd.
+     * </p>
      */
     public Vacuumd() {
         super("vacuumd");
@@ -105,7 +109,6 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
 
     /*
      * (non-Javadoc)
-     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#init()
      */
     /** {@inheritDoc} */
@@ -128,7 +131,8 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         scheduleAutomations();
     }
 
-    private void initializeDataSources() throws MarshalException, ValidationException, IOException, ClassNotFoundException, PropertyVetoException, SQLException {
+    private void initializeDataSources() throws MarshalException, ValidationException, IOException,
+            ClassNotFoundException, PropertyVetoException, SQLException {
         for (Trigger trigger : getVacuumdConfig().getTriggers()) {
             DataSourceFactory.init(trigger.getDataSource());
         }
@@ -171,11 +175,12 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
 
     /*
      * (non-Javadoc)
-     *
      * @see java.lang.Runnable#run()
      */
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      */
     @Override
     public void run() {
@@ -204,14 +209,16 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
     }
 
     /**
-     * <p>executeStatements</p>
+     * <p>
+     * executeStatements
+     * </p>
      */
     protected void executeStatements() {
         if (!m_stopped) {
             List<Statement> statements = getVacuumdConfig().getStatements();
             for (Statement statement : statements) {
-				runUpdate(statement.getContent(), statement.getTransactional());
-			}
+                runUpdate(statement.getContent(), statement.getTransactional());
+            }
         }
     }
 
@@ -243,8 +250,8 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         // update the database
         Connection dbConn = null;
 
-        //initially set doCommit to avoid doing a commit in the finally
-        //if an exception is thrown.
+        // initially set doCommit to avoid doing a commit in the finally
+        // if an exception is thrown.
         boolean commitRequired = false;
         boolean autoCommitFlag = !transactional;
         try {
@@ -292,7 +299,9 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
     }
 
     /**
-     * <p>getScheduler</p>
+     * <p>
+     * getScheduler
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.scheduler.Scheduler} object.
      */
@@ -316,7 +325,9 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
     }
 
     /**
-     * <p>getEventManager</p>
+     * <p>
+     * getEventManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -325,9 +336,13 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
     }
 
     /**
-     * <p>setEventManager</p>
+     * <p>
+     * setEventManager
+     * </p>
      *
-     * @param eventMgr a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventMgr
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public void setEventManager(EventIpcManager eventMgr) {
         m_eventMgr = eventMgr;
@@ -348,14 +363,19 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         EventBuilder ebldr = null;
 
         try {
-            LOG.debug("onEvent: Number of elements in schedule:{}; calling stop on scheduler...", m_scheduler.getScheduled());
+            LOG.debug("onEvent: Number of elements in schedule:{}; calling stop on scheduler...",
+                      m_scheduler.getScheduled());
             stop();
             ExecutorService runner = m_scheduler.getRunner();
             while (!runner.isShutdown() || m_scheduler.getStatus() != STOPPED) {
-                LOG.debug("onEvent: waiting for scheduler to stop. Current status of scheduler: {}; Current status of runner: {}", m_scheduler.getStatus(), (runner.isTerminated() ? "TERMINATED" : (runner.isShutdown() ? "SHUTDOWN" : "RUNNING")));
+                LOG.debug("onEvent: waiting for scheduler to stop. Current status of scheduler: {}; Current status of runner: {}",
+                          m_scheduler.getStatus(), (runner.isTerminated() ? "TERMINATED"
+                              : (runner.isShutdown() ? "SHUTDOWN" : "RUNNING")));
                 Thread.sleep(500);
             }
-            LOG.debug("onEvent: Current status of scheduler: {}; Current status of runner: {}", m_scheduler.getStatus(), (runner.isTerminated() ? "TERMINATED" : (runner.isShutdown() ? "SHUTDOWN" : "RUNNING")));
+            LOG.debug("onEvent: Current status of scheduler: {}; Current status of runner: {}",
+                      m_scheduler.getStatus(), (runner.isTerminated() ? "TERMINATED"
+                          : (runner.isShutdown() ? "SHUTDOWN" : "RUNNING")));
             LOG.debug("onEvent: Number of elements in schedule: {}", m_scheduler.getScheduled());
             LOG.debug("onEvent: reloading vacuumd configuration.");
 
@@ -407,13 +427,14 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
             List<Parm> parmCollection = event.getParmCollection();
 
             for (Parm parm : parmCollection) {
-                if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && "Vacuumd".equalsIgnoreCase(parm.getValue().getContent())) {
+                if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName())
+                        && "Vacuumd".equalsIgnoreCase(parm.getValue().getContent())) {
                     isTarget = true;
                     break;
                 }
             }
 
-        //Depreciating this one...
+            // Depreciating this one...
         } else if (EventConstants.RELOAD_VACUUMD_CONFIG_UEI.equals(event.getUei())) {
             isTarget = true;
         }

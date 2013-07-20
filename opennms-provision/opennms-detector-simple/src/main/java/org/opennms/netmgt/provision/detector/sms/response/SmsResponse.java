@@ -32,22 +32,24 @@ import org.opennms.sms.phonebook.Phonebook;
 import org.opennms.sms.phonebook.PhonebookException;
 import org.opennms.sms.phonebook.PropertyPhonebook;
 
-
 /**
- * Response handler for the <code>SmsDetector</code>  Uses the
+ * Response handler for the <code>SmsDetector</code> Uses the
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
 public class SmsResponse {
 
-    //do this for now.
+    // do this for now.
     private Phonebook m_smsDirectory = new PropertyPhonebook();
 
     /**
-     * <p>isSms</p>
+     * <p>
+     * isSms
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean isSms(String ipAddr) {

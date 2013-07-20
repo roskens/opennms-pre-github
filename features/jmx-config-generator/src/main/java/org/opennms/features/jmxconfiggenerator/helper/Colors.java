@@ -32,12 +32,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Markus Neumann <markus@opennms.com>
  */
 public class Colors {
 
     private static List<String> tangoColors = new ArrayList<String>();
+
     private static int colorIndex = 0;
 
     static {

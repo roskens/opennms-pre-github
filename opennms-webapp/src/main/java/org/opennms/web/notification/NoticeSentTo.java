@@ -66,16 +66,21 @@ public class NoticeSentTo {
     }
 
     /**
-     * <p>setUserId</p>
+     * <p>
+     * setUserId
+     * </p>
      *
-     * @param userid a {@link java.lang.String} object.
+     * @param userid
+     *            a {@link java.lang.String} object.
      */
     public void setUserId(String userid) {
         m_userId = userid;
     }
 
     /**
-     * <p>getUserId</p>
+     * <p>
+     * getUserId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,9 +89,12 @@ public class NoticeSentTo {
     }
 
     /**
-     * <p>setTime</p>
+     * <p>
+     * setTime
+     * </p>
      *
-     * @param time a long.
+     * @param time
+     *            a long.
      */
     public void setTime(long time) // no see!
     {
@@ -94,7 +102,9 @@ public class NoticeSentTo {
     }
 
     /**
-     * <p>getTime</p>
+     * <p>
+     * getTime
+     * </p>
      *
      * @return a java$util$Date object.
      */
@@ -103,16 +113,21 @@ public class NoticeSentTo {
     }
 
     /**
-     * <p>setMedia</p>
+     * <p>
+     * setMedia
+     * </p>
      *
-     * @param media a {@link java.lang.String} object.
+     * @param media
+     *            a {@link java.lang.String} object.
      */
     public void setMedia(String media) {
         m_media = media;
     }
 
     /**
-     * <p>getMedia</p>
+     * <p>
+     * getMedia
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,16 +136,21 @@ public class NoticeSentTo {
     }
 
     /**
-     * <p>setContactInfo</p>
+     * <p>
+     * setContactInfo
+     * </p>
      *
-     * @param contact a {@link java.lang.String} object.
+     * @param contact
+     *            a {@link java.lang.String} object.
      */
     public void setContactInfo(String contact) {
         m_contactInfo = contact;
     }
 
     /**
-     * <p>getContactInfo</p>
+     * <p>
+     * getContactInfo
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

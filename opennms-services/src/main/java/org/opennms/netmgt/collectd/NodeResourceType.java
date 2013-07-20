@@ -36,7 +36,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>NodeResourceType class.</p>
+ * <p>
+ * NodeResourceType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,10 +50,15 @@ public class NodeResourceType extends ResourceType {
     private NodeInfo m_nodeInfo;
 
     /**
-     * <p>Constructor for NodeResourceType.</p>
+     * <p>
+     * Constructor for NodeResourceType.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
-     * @param snmpCollection a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param snmpCollection
+     *            a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection}
+     *            object.
      */
     public NodeResourceType(CollectionAgent agent, OnmsSnmpCollection snmpCollection) {
         super(agent, snmpCollection);
@@ -59,7 +66,9 @@ public class NodeResourceType extends ResourceType {
     }
 
     /**
-     * <p>getNodeInfo</p>
+     * <p>
+     * getNodeInfo
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.NodeInfo} object.
      */
@@ -76,14 +85,16 @@ public class NodeResourceType extends ResourceType {
     /** {@inheritDoc} */
     @Override
     public SnmpCollectionResource findAliasedResource(SnmpInstId inst, String ifAlias) {
-    // This is here for completeness but it should not get called from here.
-    // findResource should be called instead
+        // This is here for completeness but it should not get called from here.
+        // findResource should be called instead
         LOG.debug("findAliasedResource: Should not get called from NodeResourceType");
         return null;
     }
 
     /**
-     * <p>getResources</p>
+     * <p>
+     * getResources
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */

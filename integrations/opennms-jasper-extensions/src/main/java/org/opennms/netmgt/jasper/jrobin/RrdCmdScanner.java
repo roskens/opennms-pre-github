@@ -37,6 +37,7 @@ import org.jrobin.core.RrdException;
 
 class RrdCmdScanner {
     private LinkedList<String> words = new LinkedList<String>();
+
     private StringBuffer buff;
 
     RrdCmdScanner(String command) throws RrdException {
@@ -82,8 +83,7 @@ class RrdCmdScanner {
     String getCmdType() {
         if (words.size() > 0) {
             return words.get(0);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -114,8 +114,7 @@ class RrdCmdScanner {
         }
     }
 
-    String getOptionValue(String shortForm, String longForm, String defaultValue)
-            throws RrdException {
+    String getOptionValue(String shortForm, String longForm, String defaultValue) throws RrdException {
         String value = null;
         if (shortForm != null) {
             value = getOptionValue("-" + shortForm);
@@ -129,8 +128,7 @@ class RrdCmdScanner {
         return value;
     }
 
-    String getOptionValue(String shortForm, String longForm)
-            throws RrdException {
+    String getOptionValue(String shortForm, String longForm) throws RrdException {
         return getOptionValue(shortForm, longForm, null);
     }
 
@@ -145,8 +143,7 @@ class RrdCmdScanner {
                     String value = iter.next();
                     iter.remove();
                     return value;
-                }
-                else {
+                } else {
                     throw new RrdException("Value for option " + fullForm + " expected but not found");
                 }
             }
@@ -167,8 +164,8 @@ class RrdCmdScanner {
         Iterator<String> iter = words.listIterator();
         while (iter.hasNext()) {
             String word = iter.next();
-            if ((shortForm != null && word.equals("-" + shortForm)) ||
-                    (longForm != null && word.equals("--" + longForm))) {
+            if ((shortForm != null && word.equals("-" + shortForm))
+                    || (longForm != null && word.equals("--" + longForm))) {
                 iter.remove();
                 return true;
             }
@@ -178,7 +175,7 @@ class RrdCmdScanner {
 
     String[] getMultipleOptions(String shortForm, String longForm) throws RrdException {
         List<String> values = new ArrayList<String>();
-        for (; ;) {
+        for (;;) {
             String value = getOptionValue(shortForm, longForm, null);
             if (value == null) {
                 break;

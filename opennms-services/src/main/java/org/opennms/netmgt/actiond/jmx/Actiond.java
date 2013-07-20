@@ -33,24 +33,28 @@ import java.lang.reflect.UndeclaredThrowableException;
 import org.opennms.netmgt.config.ActiondConfigFactory;
 
 /**
- * <p>Actiond class.</p>
+ * <p>
+ * Actiond class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Actiond implements ActiondMBean {
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
 
-    	try {
-			ActiondConfigFactory.init();
-		} catch (Throwable e) {
-			throw new UndeclaredThrowableException(e);
-		}
-    	ActiondConfigFactory actiondConfig = ActiondConfigFactory.getInstance();
+        try {
+            ActiondConfigFactory.init();
+        } catch (Throwable e) {
+            throw new UndeclaredThrowableException(e);
+        }
+        ActiondConfigFactory actiondConfig = ActiondConfigFactory.getInstance();
 
         org.opennms.netmgt.actiond.Actiond actiond = org.opennms.netmgt.actiond.Actiond.getInstance();
         actiond.setActiondConfig(actiondConfig);
@@ -58,7 +62,9 @@ public class Actiond implements ActiondMBean {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public void start() {
@@ -67,7 +73,9 @@ public class Actiond implements ActiondMBean {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
@@ -76,7 +84,9 @@ public class Actiond implements ActiondMBean {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -87,7 +97,9 @@ public class Actiond implements ActiondMBean {
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -97,7 +109,9 @@ public class Actiond implements ActiondMBean {
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

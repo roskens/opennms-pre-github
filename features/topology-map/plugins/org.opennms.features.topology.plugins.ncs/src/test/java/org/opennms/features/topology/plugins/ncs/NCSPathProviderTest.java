@@ -17,10 +17,9 @@ import org.opennms.core.test.http.annotations.Webapp;
 import org.opennms.features.topology.plugins.ncs.support.NCSPathRouteUtil;
 import org.springframework.test.context.ContextConfiguration;
 
-
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:META-INF/opennms/emptyContext.xml")
-public class NCSPathProviderTest{
+@ContextConfiguration(locations = "classpath:META-INF/opennms/emptyContext.xml")
+public class NCSPathProviderTest {
 
     protected NCSPathProviderService m_ncsPathService;
 
@@ -34,10 +33,11 @@ public class NCSPathProviderTest{
 
             @Override
             public void configure() throws Exception {
-                from("direct:start").setHeader(Exchange.HTTP_URI, simple("http://localhost:10346/ncs-provider/api/space/nsas/service-management/services/884779")).to("http://dummyhost")
-                    .beanRef("pathProviderUtil", "getServiceName")
-                    .setHeader(Exchange.HTTP_URI, simple("http://localhost:10346/ncs-provider/api/space/nsas/eline-ptp/service-management/services/884779/servicepath?deviceA=${header.deviceA}&deviceZ=${header.deviceZ}")).to("http://dummyhost")
-                    .beanRef("pathProviderUtil", "createPath");
+                from("direct:start").setHeader(Exchange.HTTP_URI,
+                                               simple("http://localhost:10346/ncs-provider/api/space/nsas/service-management/services/884779")).to("http://dummyhost").beanRef("pathProviderUtil",
+                                                                                                                                                                               "getServiceName").setHeader(Exchange.HTTP_URI,
+                                                                                                                                                                                                           simple("http://localhost:10346/ncs-provider/api/space/nsas/eline-ptp/service-management/services/884779/servicepath?deviceA=${header.deviceA}&deviceZ=${header.deviceZ}")).to("http://dummyhost").beanRef("pathProviderUtil",
+                                                                                                                                                                                                                                                                                                                                                                                                                     "createPath");
             }
 
         });
@@ -47,10 +47,11 @@ public class NCSPathProviderTest{
     }
 
     @Test
-    @JUnitHttpServer(port=10346, webapps=@Webapp(context="/ncs-provider", path="src/test/resources/ncsPathProviderWar"))
+    @JUnitHttpServer(port = 10346, webapps = @Webapp(context = "/ncs-provider", path = "src/test/resources/ncsPathProviderWar"))
     public void testSendMatchingMessage() throws Exception {
 
-        NCSServicePath path = m_ncsPathService.getPath("884779", "space_ServiceProvisioning", "131103", "688141", "foSource", null);
+        NCSServicePath path = m_ncsPathService.getPath("884779", "space_ServiceProvisioning", "131103", "688141",
+                                                       "foSource", null);
         assertNotNull(path);
         assertEquals(200, path.getStatusCode());
         assertNotNull(path.getVertices());
@@ -58,7 +59,8 @@ public class NCSPathProviderTest{
         assertNotNull(path.getEdges());
         assertEquals(1, path.getEdges().size());
 
-        NCSServicePath path2 = m_ncsPathService.getPath("884779", "space_ServiceProvisioning", "688141", "131103", "foSource", null);
+        NCSServicePath path2 = m_ncsPathService.getPath("884779", "space_ServiceProvisioning", "688141", "131103",
+                                                        "foSource", null);
         assertNotNull(path2);
         assertEquals(200, path.getStatusCode());
         assertNotNull(path2.getVertices());
@@ -69,9 +71,10 @@ public class NCSPathProviderTest{
     }
 
     @Test
-    @JUnitHttpServer(port=10346, webapps=@Webapp(context="/ncs-provider", path="src/test/resources/ncsPathProviderWar"))
+    @JUnitHttpServer(port = 10346, webapps = @Webapp(context = "/ncs-provider", path = "src/test/resources/ncsPathProviderWar"))
     public void testErrorCode() throws Exception {
-        NCSServicePath path = m_ncsPathService.getPath("884779", "space_ServiceProvisioning", "131103", "error", "foSource", null);
+        NCSServicePath path = m_ncsPathService.getPath("884779", "space_ServiceProvisioning", "131103", "error",
+                                                       "foSource", null);
         assertNotNull(path);
         assertEquals(500, path.getStatusCode());
         assertNotNull(path.getVertices());
@@ -80,6 +83,5 @@ public class NCSPathProviderTest{
         assertEquals(1, path.getEdges().size());
 
     }
-
 
 }

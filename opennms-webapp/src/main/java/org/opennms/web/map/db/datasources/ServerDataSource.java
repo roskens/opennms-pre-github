@@ -47,9 +47,10 @@ import org.opennms.web.map.MapsConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>ServerDataSource class.</p>
+ * <p>
+ * ServerDataSource class.
+ * </p>
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -60,279 +61,291 @@ import org.slf4j.LoggerFactory;
  */
 public class ServerDataSource implements DataSourceInterface {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ServerDataSource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServerDataSource.class);
 
+    private Map<?, ?> params;
 
-	private Map<?, ?> params;
-	boolean initialized = false;
-	private Map<String, String> severityMapping = new HashMap<String, String>();
+    boolean initialized = false;
 
+    private Map<String, String> severityMapping = new HashMap<String, String>();
 
-	static final String STATUS_FIELD="ev_status";
-	static final String SEVERITY_FIELD="ev_severity";
-	static final String TABLE_NAME="v_eventi_snm";
+    static final String STATUS_FIELD = "ev_status";
 
-	final String CLOSED_STATUS = "CLOSED";
-	final String ACK_STATUS = "ACK";
-	final String ASSIGNED_STATUS = "ASSIGNED";
-	final String OPEN_STATUS = "OPEN";
+    static final String SEVERITY_FIELD = "ev_severity";
 
-	//private static MapPropertiesFactory mpf=null;
+    static final String TABLE_NAME = "v_eventi_snm";
 
-	static Connection opennmsConn = null;
-	static Connection externalConn = null;
+    final String CLOSED_STATUS = "CLOSED";
 
+    final String ACK_STATUS = "ACK";
 
-	/**
-	 * <p>Constructor for ServerDataSource.</p>
-	 *
-	 * @param params a {@link java.util.Map} object.
-	 */
-	public ServerDataSource(Map<?, ?> params) {
-	    this.params = params;
-	    Logging.withPrefix(MapsConstants.LOG4J_CATEGORY, new Runnable() {
+    final String ASSIGNED_STATUS = "ASSIGNED";
+
+    final String OPEN_STATUS = "OPEN";
+
+    // private static MapPropertiesFactory mpf=null;
+
+    static Connection opennmsConn = null;
+
+    static Connection externalConn = null;
+
+    /**
+     * <p>
+     * Constructor for ServerDataSource.
+     * </p>
+     *
+     * @param params
+     *            a {@link java.util.Map} object.
+     */
+    public ServerDataSource(Map<?, ?> params) {
+        this.params = params;
+        Logging.withPrefix(MapsConstants.LOG4J_CATEGORY, new Runnable() {
 
             @Override
             public void run() {
                 init();
             }
 
-	    });
+        });
 
-	}
+    }
 
-	/**
-	 * Before invoking get() method, this method must be invoked.
-	 */
-	public void init() {
-		LOG.debug("Init...getting db connection");
+    /**
+     * Before invoking get() method, this method must be invoked.
+     */
+    public void init() {
+        LOG.debug("Init...getting db connection");
 
-			try {
-				if(opennmsConn==null || opennmsConn.isClosed()) {
-					opennmsConn = Vault.getDbConnection();
-				}
-				String url=(String)params.get("url");
-				String driver=(String)params.get("driver");
-				String user=(String)params.get("user");
-				String password=(String)params.get("password");
-				//gets external connection
-				if(externalConn==null || externalConn.isClosed()) {
-					LOG.debug("getting external db connection with parameters url={}, driver={}, user={}, password={}", url, driver, user, password);
-					SimpleDbConnectionFactory dbConnFactory = new SimpleDbConnectionFactory();
-					dbConnFactory.init(url, driver, user, password);
-					externalConn = dbConnFactory.getConnection();
-				}
-			} catch (Throwable s) {
-				LOG.error("Error while getting db Connection from Vault {}", s);
-				throw new RuntimeException(s);
-			}
+        try {
+            if (opennmsConn == null || opennmsConn.isClosed()) {
+                opennmsConn = Vault.getDbConnection();
+            }
+            String url = (String) params.get("url");
+            String driver = (String) params.get("driver");
+            String user = (String) params.get("user");
+            String password = (String) params.get("password");
+            // gets external connection
+            if (externalConn == null || externalConn.isClosed()) {
+                LOG.debug("getting external db connection with parameters url={}, driver={}, user={}, password={}",
+                          url, driver, user, password);
+                SimpleDbConnectionFactory dbConnFactory = new SimpleDbConnectionFactory();
+                dbConnFactory.init(url, driver, user, password);
+                externalConn = dbConnFactory.getConnection();
+            }
+        } catch (Throwable s) {
+            LOG.error("Error while getting db Connection from Vault {}", s);
+            throw new RuntimeException(s);
+        }
 
-			severityMapping.put("6", "Critical");
-			severityMapping.put("5", "Major");
-			severityMapping.put("4", "Minor");
-			severityMapping.put("3", "Warning");
-			severityMapping.put("2", "Cleared");
-			severityMapping.put("1", "Normal");
-			severityMapping.put("0", "Indeterminate");
+        severityMapping.put("6", "Critical");
+        severityMapping.put("5", "Major");
+        severityMapping.put("4", "Minor");
+        severityMapping.put("3", "Warning");
+        severityMapping.put("2", "Cleared");
+        severityMapping.put("1", "Normal");
+        severityMapping.put("0", "Indeterminate");
 
-	}
+    }
 
-	private boolean isInitialized() throws SQLException {
+    private boolean isInitialized() throws SQLException {
 
-		if (opennmsConn != null && !opennmsConn.isClosed() && externalConn != null && !externalConn.isClosed()) return true;
-		return false;
-	}
+        if (opennmsConn != null && !opennmsConn.isClosed() && externalConn != null && !externalConn.isClosed())
+            return true;
+        return false;
+    }
 
-	/**
-	 * <p>finalize</p>
-	 *
-	 * @throws java.lang.Throwable if any.
-	 */
-        @Override
-	protected void finalize() throws Throwable {
-		LOG.debug("Finalizing...closing db connections");
-		super.finalize();
-		if(opennmsConn != null) {
-			Vault.releaseDbConnection(opennmsConn);
-		}
-		if(externalConn != null && !externalConn.isClosed()) {
-			externalConn.close();
-		}
-	}
+    /**
+     * <p>
+     * finalize
+     * </p>
+     *
+     * @throws java.lang.Throwable
+     *             if any.
+     */
+    @Override
+    protected void finalize() throws Throwable {
+        LOG.debug("Finalizing...closing db connections");
+        super.finalize();
+        if (opennmsConn != null) {
+            Vault.releaseDbConnection(opennmsConn);
+        }
+        if (externalConn != null && !externalConn.isClosed()) {
+            externalConn.close();
+        }
+    }
 
+    /** {@inheritDoc} */
+    @Override
+    public String getSeverity(Object id) {
 
-	/** {@inheritDoc} */
-        @Override
-	public String getSeverity(Object id) {
+        String result = "-1";
 
-		String result = "-1";
+        try {
+            if (!isInitialized())
+                init();
+        } catch (Throwable e) {
+            LOG.error("exiting: error found {}", e);
+            return "-1";
+        }
 
-		try {
-			if (!isInitialized()) init();
-		} catch (Throwable e) {
-			LOG.error("exiting: error found {}", e);
-			return "-1";
-		}
+        // get ipaddresses of the node
+        Set<String> ipAddrs = getIpAddrById(id);
+        // If there is no ipaddress for the nodeid
+        if (ipAddrs.size() == 0) {
+            LOG.warn("No ip address found for node with id {}", (Integer) id);
+            return "-1";
+        }
+        // get the severity from external db
+        result = getSev(ipAddrs);
+        // if no severity is found...
+        if (result.equals("-1")) {
+            LOG.warn("No severity found for element with id {}", (Integer) id);
+        }
+        return result;
+    }
 
-		//get ipaddresses of the node
-		Set<String> ipAddrs = getIpAddrById(id);
-		//If there is no ipaddress for the nodeid
-		if(ipAddrs.size()==0) {
-			LOG.warn("No ip address found for node with id {}", (Integer)id);
-			return "-1";
-		}
-		// get the severity from external db
-		result = getSev(ipAddrs);
-		// if no severity is found...
-		if(result.equals("-1")) {
-			LOG.warn("No severity found for element with id {}", (Integer)id);
-		}
-		return result;
-	}
+    private Set<String> getIpAddrById(Object id) {
+        // get ipaddresses of the node
+        String sqlQueryIFaces = "select distinct ipaddr from ipinterface where ipaddr!='0.0.0.0' and nodeid=?";
+        Set<String> ipAddrs = new HashSet<String>();
+        PreparedStatement ps;
+        int nodeId = 0;
 
-	private Set<String> getIpAddrById(Object id) {
-		//get ipaddresses of the node
-		String sqlQueryIFaces= "select distinct ipaddr from ipinterface where ipaddr!='0.0.0.0' and nodeid=?";
-		Set<String> ipAddrs = new HashSet<String>();
-		PreparedStatement ps;
-		int nodeId=0;
+        try {
+            nodeId = ((Integer) id).intValue();
+            ps = opennmsConn.prepareStatement(sqlQueryIFaces);
+            ps.setInt(1, nodeId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String ipAddr = rs.getString(1);
+                ipAddrs.add(ipAddr);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            LOG.error("Error while getting ipaddress by id {}", e);
+        }
+        return ipAddrs;
+    }
 
-			try {
-				nodeId = ((Integer)id).intValue();
-				ps = opennmsConn.prepareStatement(sqlQueryIFaces);
-				ps.setInt(1, nodeId);
-				ResultSet rs = ps.executeQuery();
-				while(rs.next()) {
-					String ipAddr = rs.getString(1);
-					ipAddrs.add(ipAddr);
-				}
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-				LOG.error("Error while getting ipaddress by id {}", e);
-			}
-		return ipAddrs;
-	}
+    private String getSev(Set<String> ipAddrs) {
 
-	private String getSev(Set<String> ipAddrs) {
+        String getDataQuery = "select max(" + SEVERITY_FIELD + ") from " + TABLE_NAME + " where ip_address in (";
+        Iterator<String> it = ipAddrs.iterator();
+        while (it.hasNext()) {
+            String ip = it.next();
+            getDataQuery += "'" + ip + "'";
+            if (it.hasNext()) {
+                getDataQuery += ",";
+            }
+        }
+        getDataQuery += ") and " + STATUS_FIELD + "!='" + CLOSED_STATUS + "'";
+        LOG.debug("get severity query is {}", getDataQuery);
+        String value = null;
+        try {
+            Statement stmt = externalConn.createStatement();
+            ResultSet rs = stmt.executeQuery(getDataQuery);
+            // get only first value (if more found)
 
-		String getDataQuery="select max(" + SEVERITY_FIELD + ") from " + TABLE_NAME + " where ip_address in (";
-		Iterator<String> it = ipAddrs.iterator();
-		while (it.hasNext()) {
-			String ip = it.next();
-			getDataQuery += "'" + ip + "'";
-			if (it.hasNext()) {
-				getDataQuery += ",";
-			}
-		}
-		getDataQuery += ") and " + STATUS_FIELD + "!='" + CLOSED_STATUS + "'";
-		LOG.debug("get severity query is {}", getDataQuery);
-		String value=null;
-		try {
-			Statement stmt = externalConn.createStatement();
-			ResultSet rs = stmt.executeQuery(getDataQuery);
-			// get only first value (if more found)
+            if (rs.next()) {
+                value = rs.getString(1);
+                LOG.debug("found severity for ipaddresses {} with value {}", ipAddrs, value);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e1) {
+            LOG.error("Exception while getting severity {}", e1);
+            return "-1";
+        }
 
-			if(rs.next()) {
-				value=rs.getString(1);
-				LOG.debug("found severity for ipaddresses {} with value {}", ipAddrs, value);
-			}
-			rs.close();
-			stmt.close();
-		} catch (SQLException e1) {
-			LOG.error("Exception while getting severity {}", e1);
-			return "-1";
-		}
+        String sevLabel = (String) severityMapping.get(value);
+        LOG.debug("Getting severity mapping for key={}: sevLabel={}", value, sevLabel);
 
-		String sevLabel = (String)severityMapping.get(value);
-		LOG.debug("Getting severity mapping for key={}: sevLabel={}", value, sevLabel);
+        return sevLabel;
+    }
 
-		return sevLabel;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String getStatus(Object id) {
 
+        String result = "-1";
 
-	/** {@inheritDoc} */
-        @Override
-	public String getStatus(Object id) {
+        try {
+            if (!isInitialized())
+                init();
+        } catch (Throwable e) {
+            LOG.error("exiting: error found {}", e);
+            return result;
+        }
 
-		String result = "-1";
+        // get ipaddresses of the node
+        Set<String> ipAddrs = getIpAddrById(id);
+        // If there is no ipaddress for the nodeid
+        if (ipAddrs.size() == 0) {
+            LOG.warn("No ip address found for node with id {}", (Integer) id);
+            return result;
+        }
+        // get the severity from external db
+        result = getSt(ipAddrs);
+        // if no severity is found...
+        if (result.equals("-1")) {
+            LOG.warn("No severity found for element with id {}", (Integer) id);
+        }
+        return result;
 
-		try {
-			if (!isInitialized()) init();
-		} catch (Throwable e) {
-			LOG.error("exiting: error found {}", e);
-			return result;
-		}
+    }
 
-		//get ipaddresses of the node
-		Set<String> ipAddrs = getIpAddrById(id);
-		//If there is no ipaddress for the nodeid
-		if(ipAddrs.size()==0) {
-			LOG.warn("No ip address found for node with id {}", (Integer)id);
-			return result;
-		}
-		// get the severity from external db
-		result = getSt(ipAddrs);
-		// if no severity is found...
-		if(result.equals("-1")) {
-			LOG.warn("No severity found for element with id {}", (Integer)id);
-		}
-		return result;
+    private String getSt(Set<String> ipAddrs) {
 
-	}
+        String getDataQuery = "select " + STATUS_FIELD + " from " + TABLE_NAME + " where ip_address in (";
+        Iterator<String> it = ipAddrs.iterator();
+        while (it.hasNext()) {
+            String ip = it.next();
+            getDataQuery += "'" + ip + "'";
+            if (it.hasNext()) {
+                getDataQuery += ",";
+            }
+        }
+        getDataQuery += ") and " + STATUS_FIELD + "!='" + CLOSED_STATUS + "'";
+        String innerQuery = "select max(" + SEVERITY_FIELD + ") from " + TABLE_NAME + " where ip_address in (";
 
-	private String getSt(Set<String> ipAddrs) {
+        Iterator<String> it2 = ipAddrs.iterator();
+        while (it2.hasNext()) {
+            String ip = it2.next();
+            innerQuery += "'" + ip + "'";
+            if (it2.hasNext()) {
+                innerQuery += ",";
+            }
+        }
+        innerQuery += ") and " + STATUS_FIELD + "!='" + CLOSED_STATUS + "'";
+        getDataQuery += " and " + SEVERITY_FIELD + "=(" + innerQuery + ")";
 
-		String getDataQuery="select "+STATUS_FIELD+" from "+TABLE_NAME+" where ip_address in (";
-		Iterator<String> it = ipAddrs.iterator();
-		while (it.hasNext()) {
-			String ip = it.next();
-			getDataQuery+="'"+ip+"'";
-			if (it.hasNext()) {
-				getDataQuery+=",";
-			}
-		}
-		getDataQuery+=") and "+STATUS_FIELD+"!='"+CLOSED_STATUS+"'";
-		String innerQuery = "select max("+SEVERITY_FIELD+") from "+TABLE_NAME+" where ip_address in (";
+        LOG.debug("get status query is {}", getDataQuery);
+        String value = null;
+        try {
+            Statement stmt = externalConn.createStatement();
+            ResultSet rs = stmt.executeQuery(getDataQuery);
+            // get only first value (if more found)
 
-		Iterator<String> it2 = ipAddrs.iterator();
-		while(it2.hasNext()) {
-			String ip = it2.next();
-			innerQuery+="'"+ip+"'";
-			if(it2.hasNext()) {
-				innerQuery+=",";
-			}
-		}
-		innerQuery+=") and "+STATUS_FIELD+"!='"+CLOSED_STATUS+"'";
-		getDataQuery+=" and "+SEVERITY_FIELD+"=("+innerQuery+")";
+            if (rs.next()) {
+                value = rs.getString(1);
+                LOG.debug("found status for ipaddresses {} with value {}", ipAddrs, value);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e1) {
+            LOG.error("Exception while getting status {}", e1);
+            return "-1";
+        }
 
-		LOG.debug("get status query is {}", getDataQuery);
-		String value=null;
-		try {
-			Statement stmt = externalConn.createStatement();
-			ResultSet rs = stmt.executeQuery(getDataQuery);
-			// get only first value (if more found)
+        return value;
+    }
 
-			if(rs.next()) {
-				value=rs.getString(1);
-				LOG.debug("found status for ipaddresses {} with value {}", ipAddrs, value);
-			}
-			rs.close();
-			stmt.close();
-		} catch (SQLException e1) {
-			LOG.error("Exception while getting status {}", e1);
-			return "-1";
-		}
-
-		return value;
-	}
-
-	/** {@inheritDoc} */
-        @Override
-	public double getAvailability(Object id) {
-		// not implemented
-		return -1;
-	}
-
+    /** {@inheritDoc} */
+    @Override
+    public double getAvailability(Object id) {
+        // not implemented
+        return -1;
+    }
 
 }

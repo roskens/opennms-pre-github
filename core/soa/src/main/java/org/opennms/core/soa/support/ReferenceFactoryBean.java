@@ -43,55 +43,73 @@ import org.springframework.util.Assert;
 public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean {
 
     private ServiceRegistry m_serviceRegistry;
+
     private Class<T> m_serviceInterface;
+
     private String m_filter;
 
     private T m_provider;
 
     /**
-     * <p>setServiceRegistry</p>
+     * <p>
+     * setServiceRegistry
+     * </p>
      *
-     * @param serviceRegistry a {@link org.opennms.core.soa.ServiceRegistry} object.
+     * @param serviceRegistry
+     *            a {@link org.opennms.core.soa.ServiceRegistry} object.
      */
     public void setServiceRegistry(ServiceRegistry serviceRegistry) {
         m_serviceRegistry = serviceRegistry;
     }
 
     /**
-     * <p>setServiceInterface</p>
+     * <p>
+     * setServiceInterface
+     * </p>
      *
-     * @param serviceInterface a {@link java.lang.Class} object.
+     * @param serviceInterface
+     *            a {@link java.lang.Class} object.
      */
     public void setServiceInterface(Class<T> serviceInterface) {
         m_serviceInterface = serviceInterface;
     }
 
     /**
-     * <p>setServiceInterface</p>
+     * <p>
+     * setServiceInterface
+     * </p>
      *
-     * @param serviceInterface a {@link java.lang.Class} object.
+     * @param serviceInterface
+     *            a {@link java.lang.Class} object.
      */
     public void setFilter(String filter) {
         m_filter = filter;
     }
 
     /**
-     * <p>getObject</p>
+     * <p>
+     * getObject
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public T getObject() throws Exception {
 
         if (m_provider == null) {
-            m_provider = ProxyFactory.getProxy(m_serviceInterface, new ServiceRegistryTargetSource(m_serviceRegistry, m_filter, m_serviceInterface));
+            m_provider = ProxyFactory.getProxy(m_serviceInterface, new ServiceRegistryTargetSource(m_serviceRegistry,
+                                                                                                   m_filter,
+                                                                                                   m_serviceInterface));
         }
         return m_provider;
     }
 
     /**
-     * <p>getObjectType</p>
+     * <p>
+     * getObjectType
+     * </p>
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -101,7 +119,9 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
     }
 
     /**
-     * <p>isSingleton</p>
+     * <p>
+     * isSingleton
+     * </p>
      *
      * @return a boolean.
      */
@@ -111,9 +131,12 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

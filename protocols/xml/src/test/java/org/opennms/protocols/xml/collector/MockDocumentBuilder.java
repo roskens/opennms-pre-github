@@ -47,7 +47,8 @@ public class MockDocumentBuilder {
     /**
      * Instantiates a new mock document builder.
      */
-    private MockDocumentBuilder() {}
+    private MockDocumentBuilder() {
+    }
 
     /**
      * Gets the XML document.
@@ -74,11 +75,11 @@ public class MockDocumentBuilder {
     /**
      * Sets the XML file name.
      *
-     * @param xmlFileName the new XML file name
+     * @param xmlFileName
+     *            the new XML file name
      */
     public static void setXmlFileName(String xmlFileName) {
         m_xmlFileName = xmlFileName;
     }
 
 }
-

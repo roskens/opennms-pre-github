@@ -30,12 +30,12 @@ package org.opennms.features.jmxconfiggenerator.webui;
 import org.opennms.web.navigate.PageNavEntry;
 
 /**
- *
  * @author Markus von Rüden <mvr@opennms.com>
  */
 public class AdminPageNavEntry implements PageNavEntry {
 
     private String name;
+
     private String url;
 
     @Override

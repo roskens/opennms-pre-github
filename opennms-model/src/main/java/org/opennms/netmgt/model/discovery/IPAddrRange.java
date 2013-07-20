@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class IPAddrRange implements Iterable<InetAddress> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(IPAddrRange.class);
+    private static final Logger LOG = LoggerFactory.getLogger(IPAddrRange.class);
 
     /**
      * The starting address for the object.
@@ -72,7 +72,6 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      * enumeration. In java 1.2 iterators were introduced and are being used in
      * favor of enumerations in new classes.
      * </P>
-     *
      */
     static class IPAddressRangeGenerator implements Enumeration<InetAddress>, Iterator<InetAddress> {
         /**
@@ -93,7 +92,6 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          *
          * @param addr
          *            The IP address value, in network order.
-         *
          * @return A {@link java.net.InetAddress} object.
          */
         static InetAddress make(BigInteger addr) {
@@ -116,11 +114,9 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          *            The start address.
          * @param end
          *            The ending address.
-         *
          * @exception java.lang.IllegalArgumentException
          *                Thrown if the start address is greater than the ending
          *                address.
-         *
          */
         IPAddressRangeGenerator(byte[] start, byte[] end) {
             if (new ByteArrayComparator().compare(start, end) > 0)
@@ -192,7 +188,6 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          *
          * @exception java.lang.UnsupportedOperationException
          *                Always thrown by the remove method.
-         *
          */
         @Override
         public void remove() {
@@ -208,7 +203,6 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      * get either an Iterator or Enumeration object to cycle through the list of
      * address encapsulated by this object.
      * </P>
-     *
      * <P>
      * It is important to note that if the address for toIP is greater than
      * fromIP, the values will be swapped so that the iteration is always from
@@ -219,13 +213,10 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      *            The starting address, resolved by InetAddress.
      * @param toIP
      *            The ending address, resolved by InetAddress.
-     *
      * @see java.net.InetAddressUtils.addr(java.lang.String)
-     *
      * @exception java.net.UnknownHostException
      *                Thrown by the InetAddress class if the hostname cannot be
      *                resolved.
-     *
      */
     IPAddrRange(String fromIP, String toIP) throws java.net.UnknownHostException {
         this(InetAddressUtils.addr(fromIP), InetAddressUtils.addr(toIP));
@@ -238,7 +229,6 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      * get either an Iterator or Enumeration object to cycle through the list of
      * address encapsulated by this object.
      * </P>
-     *
      * <P>
      * It is important to note that if the address for start is greater than
      * end, the values will be swapped so that the iteration is always from the
@@ -249,14 +239,14 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      *            The starting address.
      * @param end
      *            The ending address.
-     *
      */
     IPAddrRange(InetAddress start, InetAddress end) {
         byte[] from = start.getAddress();
         byte[] to = end.getAddress();
 
         if (new ByteArrayComparator().compare(from, to) > 0) {
-            LOG.warn("The beginning of the address range is greater than the end of the address range ({} - {}), swapping values to create a valid IP address range", InetAddressUtils.str(start), InetAddressUtils.str(end));
+            LOG.warn("The beginning of the address range is greater than the end of the address range ({} - {}), swapping values to create a valid IP address range",
+                     InetAddressUtils.str(start), InetAddressUtils.str(end));
             m_end = from;
             m_begin = to;
         } else {
@@ -271,7 +261,6 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      *
      * @param ipAddr
      *            IP address (InetAddress) to compare
-     *
      * @return 'true' if the specified IP address falls within the IP address
      *         range. 'false' otherwise.
      */
@@ -285,12 +274,11 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      *
      * @param ipAddr
      *            IP address (String) to compare
-     *
      * @return 'true' if the specified IP address falls within the IP address
      *         range. 'false' otherwise.
      */
     boolean contains(String ipAddr) throws java.net.UnknownHostException {
-    	return InetAddressUtils.isInetAddressInRange(ipAddr, m_begin, m_end);
+        return InetAddressUtils.isInetAddressInRange(ipAddr, m_begin, m_end);
     }
 
     /**
@@ -298,11 +286,9 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      * Returns an Iterator object that can be used to step through all the
      * address encapsulated in the object.
      * </P>
-     *
      * <P>
-     * The iterator returns objects of type
-     * {@link java.net.InetAddress InetAddress}or <code>null</code> if the
-     * address is unknown.
+     * The iterator returns objects of type {@link java.net.InetAddress
+     * InetAddress}or <code>null</code> if the address is unknown.
      * </p>
      *
      * @see java.net.InetAddress
@@ -318,11 +304,9 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      * Returns an Enumeration object that can be used to list out all the
      * address contained in the encapsulated range.
      * </P>
-     *
      * <P>
-     * The iterator returns objects of type
-     * {@link java.net.InetAddress InetAddress}or <code>null</code> if the
-     * address is unknown.
+     * The iterator returns objects of type {@link java.net.InetAddress
+     * InetAddress}or <code>null</code> if the address is unknown.
      * </p>
      *
      * @see java.net.InetAddress

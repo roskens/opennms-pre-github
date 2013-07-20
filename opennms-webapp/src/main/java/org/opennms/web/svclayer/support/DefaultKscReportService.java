@@ -47,7 +47,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>DefaultKscReportService class.</p>
+ * <p>
+ * DefaultKscReportService class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -55,13 +57,14 @@ import org.springframework.util.Assert;
  */
 public class DefaultKscReportService implements KscReportService, InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultKscReportService.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultKscReportService.class);
 
     private ResourceService m_resourceService;
+
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
     private static final LinkedHashMap<String, String> s_timeSpans = new LinkedHashMap<String, String>();
+
     private static final LinkedHashMap<String, String> s_timeSpansWithNone = new LinkedHashMap<String, String>();
 
     /** {@inheritDoc} */
@@ -88,7 +91,8 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
         return buildResourceReport(getResourceService(), res, "Node Report for Foreign Source:Id " + nodeSource);
     }
 
-    private static Report buildResourceReport(final ResourceService service, final OnmsResource parentResource, final String title) {
+    private static Report buildResourceReport(final ResourceService service, final OnmsResource parentResource,
+            final String title) {
         Report report = new Report();
         report.setTitle(title);
         report.setShow_timespan_button(true);
@@ -146,7 +150,8 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
                 resourceName = intf;
             }
 
-            resourceId = OnmsResource.createResourceId(parentResourceTypeName, parentResourceName, resourceTypeName, resourceName);
+            resourceId = OnmsResource.createResourceId(parentResourceTypeName, parentResourceName, resourceTypeName,
+                                                       resourceName);
         }
 
         return resourceId;
@@ -164,7 +169,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
         Assert.notNull(graphs, "graph argument cannot be null");
         List<OnmsResource> resources = new LinkedList<OnmsResource>();
         HashMap<String, List<OnmsResource>> resourcesMap = new HashMap<String, List<OnmsResource>>();
-        for(Graph graph : graphs) {
+        for (Graph graph : graphs) {
             String resourceId = getResourceIdForGraph(graph);
 
             if (resourceId != null) {
@@ -190,7 +195,8 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
                             LOG.debug("getResourcesFromGraphs: add resourceList to map for {}", parent);
                         }
                     } catch (Throwable e) {
-                        LOG.warn("getResourcesFromGraphs: unexpected exception thrown while fetching resource list for \"{}\", skipping resource", parent, e);
+                        LOG.warn("getResourcesFromGraphs: unexpected exception thrown while fetching resource list for \"{}\", skipping resource",
+                                 parent, e);
                         continue;
                     }
                 }
@@ -206,7 +212,6 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
         }
         return resources;
     }
-
 
     private void initTimeSpans() {
         for (String timeSpan : KSC_PerformanceReportFactory.TIMESPAN_OPTIONS) {
@@ -228,7 +233,9 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
     }
 
     /**
-     * <p>getReportList</p>
+     * <p>
+     * getReportList
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -238,7 +245,9 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
     }
 
     /**
-     * <p>getResourceService</p>
+     * <p>
+     * getResourceService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -247,36 +256,50 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
     }
 
     /**
-     * <p>setResourceService</p>
+     * <p>
+     * setResourceService
+     * </p>
      *
-     * @param resourceService a {@link org.opennms.web.svclayer.ResourceService} object.
+     * @param resourceService
+     *            a {@link org.opennms.web.svclayer.ResourceService} object.
      */
     public final void setResourceService(final ResourceService resourceService) {
         m_resourceService = resourceService;
     }
 
     /**
-     * <p>getKscReportFactory</p>
+     * <p>
+     * getKscReportFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *         object.
      */
     public final KSC_PerformanceReportFactory getKscReportFactory() {
         return m_kscReportFactory;
     }
 
     /**
-     * <p>setKscReportFactory</p>
+     * <p>
+     * setKscReportFactory
+     * </p>
      *
-     * @param kscReportFactory a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @param kscReportFactory
+     *            a
+     *            {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *            object.
      */
     public final void setKscReportFactory(final KSC_PerformanceReportFactory kscReportFactory) {
         m_kscReportFactory = kscReportFactory;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -285,6 +308,5 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
 
         initTimeSpans();
     }
-
 
 }

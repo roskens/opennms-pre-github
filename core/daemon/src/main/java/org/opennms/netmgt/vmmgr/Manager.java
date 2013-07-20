@@ -50,15 +50,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * The Manager is reponsible for launching/starting all services in the VM
- * that it is started for. The Manager operates in two modes, normal and
- * server
+ * The Manager is reponsible for launching/starting all services in the VM that
+ * it is started for. The Manager operates in two modes, normal and server
  * </p>
  * <p>
  * normal mode: In the normal mode, the Manager starts all services configured
- * for its VM in the service-configuration.xml and starts listening for
- * control events on the 'control-broadcast' JMS topic for stop control
- * messages for itself
+ * for its VM in the service-configuration.xml and starts listening for control
+ * events on the 'control-broadcast' JMS topic for stop control messages for
+ * itself
  * </p>
  * <p>
  * server mode: In the server mode, the Manager starts up and listens on the
@@ -68,9 +67,9 @@ import org.slf4j.LoggerFactory;
  * an 'error' response to the Controller
  * </p>
  * <p>
- * <strong>Note: </strong>The Manager is NOT intelligent - if it receives a
- * stop control event, it will exit - does not check to see if the services
- * its started are all stopped
+ * <strong>Note: </strong>The Manager is NOT intelligent - if it receives a stop
+ * control event, it will exit - does not check to see if the services its
+ * started are all stopped
  * <p>
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
@@ -79,16 +78,20 @@ import org.slf4j.LoggerFactory;
  */
 public class Manager implements ManagerMBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Manager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Manager.class);
 
     /**
      * The log4j category used to log debug messages and statements.
      */
     private static final String LOG4J_CATEGORY = "manager";
-    private static final String m_osName = System.getProperty("os.name") == null? "" : System.getProperty("os.name").toLowerCase();
+
+    private static final String m_osName = System.getProperty("os.name") == null ? ""
+        : System.getProperty("os.name").toLowerCase();
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
@@ -116,7 +119,9 @@ public class Manager implements ManagerMBean {
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -146,7 +151,8 @@ public class Manager implements ManagerMBean {
         final List<String> statusInfo = new ArrayList<String>(results.size());
         for (final InvokerResult invokerResult : results) {
             if (invokerResult.getThrowable() == null) {
-                statusInfo.add("Status: " + invokerResult.getMbean().getObjectName() + " = " + invokerResult.getResult().toString());
+                statusInfo.add("Status: " + invokerResult.getMbean().getObjectName() + " = "
+                        + invokerResult.getResult().toString());
             } else {
                 statusInfo.add("Status: " + invokerResult.getMbean().getObjectName() + " = STATUS_CHECK_ERROR");
             }
@@ -157,9 +163,9 @@ public class Manager implements ManagerMBean {
     }
 
     /**
-     * Uncleanly shutdown OpenNMS.  This method calls
-     * {@see java.lang.System.exit(int)}, which causes the JVM to
-     * exit immediately.  This method is usually invoked via JMX from
+     * Uncleanly shutdown OpenNMS. This method calls {@see
+     * java.lang.System.exit(int)}, which causes the JVM to
+     * exit immediately. This method is usually invoked via JMX from
      * another process as the last stage of shutting down OpenNMS.
      */
     @Override
@@ -172,7 +178,9 @@ public class Manager implements ManagerMBean {
             dumpThreads();
 
             Runtime r = Runtime.getRuntime();
-            LOG.debug("memory usage (free/used/total/max allowed): {}/{}/{}/{}", r.freeMemory(), (r.totalMemory() - r.freeMemory()), r.totalMemory(), (r.maxMemory() == Long.MAX_VALUE ? "infinite" : r.maxMemory()));
+            LOG.debug("memory usage (free/used/total/max allowed): {}/{}/{}/{}", r.freeMemory(),
+                      (r.totalMemory() - r.freeMemory()), r.totalMemory(),
+                      (r.maxMemory() == Long.MAX_VALUE ? "infinite" : r.maxMemory()));
         }
 
         LOG.info("calling System.exit(1)");
@@ -189,17 +197,23 @@ public class Manager implements ManagerMBean {
             }
         }
         LOG.debug("Thread dump of {} threads ({} daemons):", threads.size(), daemons);
-        Map<Thread, StackTraceElement[]> sortedThreads = new TreeMap<Thread, StackTraceElement[]>(new Comparator<Thread>() {
-            @Override
-            public int compare(Thread t1, Thread t2) {
-                return new Long(t1.getId()).compareTo(new Long(t2.getId()));
-            }
-        });
+        Map<Thread, StackTraceElement[]> sortedThreads = new TreeMap<Thread, StackTraceElement[]>(
+                                                                                                  new Comparator<Thread>() {
+                                                                                                      @Override
+                                                                                                      public int compare(
+                                                                                                              Thread t1,
+                                                                                                              Thread t2) {
+                                                                                                          return new Long(
+                                                                                                                          t1.getId()).compareTo(new Long(
+                                                                                                                                                         t2.getId()));
+                                                                                                      }
+                                                                                                  });
         sortedThreads.putAll(threads);
 
         for (Entry<Thread, StackTraceElement[]> entry : sortedThreads.entrySet()) {
             Thread thread = entry.getKey();
-            LOG.debug("Thread {}{}: {} (state: {})", thread.getId(), (thread.isDaemon() ? " (daemon)" : ""), thread, thread.getState() );
+            LOG.debug("Thread {}{}: {} (state: {})", thread.getId(), (thread.isDaemon() ? " (daemon)" : ""), thread,
+                      thread.getState());
             for (StackTraceElement e : entry.getValue()) {
                 LOG.debug("\t{}", e);
             }
@@ -211,7 +225,9 @@ public class Manager implements ManagerMBean {
     }
 
     /**
-     * <p>doTestLoadLibraries</p>
+     * <p>
+     * doTestLoadLibraries
+     * </p>
      */
     @Override
     public void doTestLoadLibraries() {
@@ -271,7 +287,8 @@ public class Manager implements ManagerMBean {
             throwPingError("org.opennms.netmgt.icmp.requireV6 is true, but IPv6 ICMP could not be initialized.");
         }
 
-        // at least one is initialized, and we haven't said otherwise, so barrel ahead
+        // at least one is initialized, and we haven't said otherwise, so barrel
+        // ahead
     }
 
     private void throwPingError(final String message) throws IllegalStateException {

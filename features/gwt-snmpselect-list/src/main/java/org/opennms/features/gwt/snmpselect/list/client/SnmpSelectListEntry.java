@@ -28,7 +28,6 @@
 
 package org.opennms.features.gwt.snmpselect.list.client;
 
-
 import org.opennms.features.gwt.snmpselect.list.client.rest.DefaultSnmpInterfaceRestService;
 import org.opennms.features.gwt.snmpselect.list.client.view.SnmpCellListItem;
 
@@ -45,19 +44,19 @@ public class SnmpSelectListEntry implements EntryPoint {
     @Override
     public void onModuleLoad() {
 
-        if(Navigator.getUserAgent().contains("MSIE")) {
+        if (Navigator.getUserAgent().contains("MSIE")) {
             NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
-            for(int j = 0; j < divs.getLength(); j++) {
+            for (int j = 0; j < divs.getLength(); j++) {
                 Element element = divs.getItem(j);
-                if(element.hasAttribute("name") && element.getAttribute("name").equals("opennms-snmpSelectList")) {
+                if (element.hasAttribute("name") && element.getAttribute("name").equals("opennms-snmpSelectList")) {
                     createView(element);
                 }
             }
-        }else {
+        } else {
 
             NodeList<Element> nodes = RootPanel.getBodyElement().getElementsByTagName("opennms:snmpSelectList");
-            if(nodes.getLength() > 0) {
-                for(int i = 0; i < nodes.getLength(); i++) {
+            if (nodes.getLength() > 0) {
+                for (int i = 0; i < nodes.getLength(); i++) {
                     Element elem = nodes.getItem(i);
                     createView(elem);
                 }
@@ -72,15 +71,15 @@ public class SnmpSelectListEntry implements EntryPoint {
     }
 
     private int getNodeId() {
-        if(Location.getParameter("node") != null) {
+        if (Location.getParameter("node") != null) {
             return Integer.valueOf(Location.getParameter("node"));
-        }else {
+        } else {
             return -1;
         }
     }
 
     public native static JsArray<SnmpCellListItem> getTestDataList()/*-{
-        return $wnd.testData.snmpInterface;
-    }-*/;
+                                                                    return $wnd.testData.snmpInterface;
+                                                                    }-*/;
 
 }

@@ -50,19 +50,25 @@ public class NodeResourceType implements OnmsResourceType {
 
     /** Constant <code>s_emptyAttributeSet</code> */
     protected static final Set<OnmsAttribute> s_emptyAttributeSet = Collections.unmodifiableSet(new HashSet<OnmsAttribute>());
+
     protected ResourceDao m_resourceDao;
 
     /**
-     * <p>Constructor for NodeResourceType.</p>
+     * <p>
+     * Constructor for NodeResourceType.
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
     public NodeResourceType(ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +78,9 @@ public class NodeResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,9 +103,9 @@ public class NodeResourceType implements OnmsResourceType {
 
     /** {@inheritDoc} */
     @Override
-       public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {
-           return null;
-       }
+    public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {
+        return null;
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -113,9 +121,9 @@ public class NodeResourceType implements OnmsResourceType {
 
     /** {@inheritDoc} */
     @Override
-       public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
-           return false;
-       }
+    public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
+        return false;
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -124,23 +132,27 @@ public class NodeResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>createChildResource</p>
+     * <p>
+     * createChildResource
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource createChildResource(OnmsNode node) {
         NodeChildResourceLoader loader = new NodeChildResourceLoader(node.getId());
-        OnmsResource r = new OnmsResource(node.getId().toString(), node.getLabel(), this, s_emptyAttributeSet, new LazyList<OnmsResource>(loader));
+        OnmsResource r = new OnmsResource(node.getId().toString(), node.getLabel(), this, s_emptyAttributeSet,
+                                          new LazyList<OnmsResource>(loader));
         r.setEntity(node);
         loader.setParent(r);
 
         return r;
     }
 
-
     private class NodeChildResourceLoader implements LazyList.Loader<OnmsResource> {
         private int m_nodeId;
+
         private OnmsResource m_parent;
 
         public NodeChildResourceLoader(int nodeId) {

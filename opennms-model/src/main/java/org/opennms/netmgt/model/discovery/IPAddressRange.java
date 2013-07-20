@@ -43,6 +43,7 @@ import java.util.NoSuchElementException;
 public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAddress> {
 
     private final IPAddress m_begin;
+
     private final IPAddress m_end;
 
     public IPAddressRange(String singleton) {
@@ -54,31 +55,43 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>Constructor for IPAddressRange.</p>
+     * <p>
+     * Constructor for IPAddressRange.
+     * </p>
      *
-     * @param begin a {@link java.lang.String} object.
-     * @param end a {@link java.lang.String} object.
+     * @param begin
+     *            a {@link java.lang.String} object.
+     * @param end
+     *            a {@link java.lang.String} object.
      */
     public IPAddressRange(String begin, String end) {
         this(new IPAddress(begin), new IPAddress(end));
     }
 
     /**
-     * <p>Constructor for IPAddressRange.</p>
+     * <p>
+     * Constructor for IPAddressRange.
+     * </p>
      *
-     * @param begin a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
-     * @param end a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
+     * @param begin
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
+     * @param end
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
      */
     public IPAddressRange(IPAddress begin, IPAddress end) {
         if (begin.isGreaterThan(end)) {
-            throw new IllegalArgumentException(String.format("beginning of range (%s) must come before end of range (%s)", begin, end));
+            throw new IllegalArgumentException(
+                                               String.format("beginning of range (%s) must come before end of range (%s)",
+                                                             begin, end));
         }
         m_begin = begin;
         m_end = end;
     }
 
     /**
-     * <p>getBegin</p>
+     * <p>
+     * getBegin
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
      */
@@ -87,7 +100,9 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>getEnd</p>
+     * <p>
+     * getEnd
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
      */
@@ -96,7 +111,9 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>size</p>
+     * <p>
+     * size
+     * </p>
      *
      * @return a long.
      */
@@ -109,9 +126,12 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param addr a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
+     * @param addr
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
      * @return a boolean.
      */
     public boolean contains(IPAddress addr) {
@@ -122,9 +142,12 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param addr a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
+     * @param addr
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
      * @return a boolean.
      */
     public boolean contains(String addr) {
@@ -132,9 +155,13 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param range a {@link org.opennms.netmgt.model.discovery.IPAddressRange} object.
+     * @param range
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddressRange}
+     *            object.
      * @return a boolean.
      */
     public boolean contains(IPAddressRange range) {
@@ -142,20 +169,27 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>overlaps</p>
+     * <p>
+     * overlaps
+     * </p>
      *
-     * @param range a {@link org.opennms.netmgt.model.discovery.IPAddressRange} object.
+     * @param range
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddressRange}
+     *            object.
      * @return a boolean.
      */
     public boolean overlaps(IPAddressRange range) {
-        return this.contains(range.getBegin()) || this.contains(range.getEnd())
-        || range.contains(this.getBegin()) || range.contains(this.getEnd());
+        return this.contains(range.getBegin()) || this.contains(range.getEnd()) || range.contains(this.getBegin())
+                || range.contains(this.getEnd());
     }
 
     /**
-     * <p>comesBefore</p>
+     * <p>
+     * comesBefore
+     * </p>
      *
-     * @param addr a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
+     * @param addr
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
      * @return a boolean.
      */
     public boolean comesBefore(IPAddress addr) {
@@ -163,9 +197,13 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>comesBefore</p>
+     * <p>
+     * comesBefore
+     * </p>
      *
-     * @param range a {@link org.opennms.netmgt.model.discovery.IPAddressRange} object.
+     * @param range
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddressRange}
+     *            object.
      * @return a boolean.
      */
     public boolean comesBefore(IPAddressRange range) {
@@ -173,9 +211,12 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>comesAfter</p>
+     * <p>
+     * comesAfter
+     * </p>
      *
-     * @param addr a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
+     * @param addr
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
      * @return a boolean.
      */
     public boolean comesAfter(IPAddress addr) {
@@ -183,9 +224,13 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>comesAfter</p>
+     * <p>
+     * comesAfter
+     * </p>
      *
-     * @param range a {@link org.opennms.netmgt.model.discovery.IPAddressRange} object.
+     * @param range
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddressRange}
+     *            object.
      * @return a boolean.
      */
     public boolean comesAfter(IPAddressRange range) {
@@ -193,9 +238,13 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>adjoins</p>
+     * <p>
+     * adjoins
+     * </p>
      *
-     * @param range a {@link org.opennms.netmgt.model.discovery.IPAddressRange} object.
+     * @param range
+     *            a {@link org.opennms.netmgt.model.discovery.IPAddressRange}
+     *            object.
      * @return a boolean.
      */
     public boolean adjoins(IPAddressRange range) {
@@ -211,7 +260,9 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     }
 
     /**
-     * <p>iterator</p>
+     * <p>
+     * iterator
+     * </p>
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -223,6 +274,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     private static class IPAddressRangeIterator implements Iterator<IPAddress> {
 
         private final IPAddressRange m_range;
+
         private IPAddress m_next;
 
         public IPAddressRangeIterator(IPAddressRange range) {
@@ -306,7 +358,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
         if (!combinable(range)) {
             throw new IllegalArgumentException(String.format("Range %s is not combinable with range %s", this, range));
         }
-        return new IPAddressRange(IPAddress.min(range.getBegin(), getBegin()),IPAddress.max(getEnd(), range.getEnd()));
+        return new IPAddressRange(IPAddress.min(range.getBegin(), getBegin()), IPAddress.max(getEnd(), range.getEnd()));
     }
 
     public IPAddressRange[] remove(IPAddressRange range) {

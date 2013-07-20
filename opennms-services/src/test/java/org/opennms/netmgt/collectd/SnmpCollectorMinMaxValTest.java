@@ -73,26 +73,22 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@TestExecutionListeners({
-    JUnitCollectorExecutionListener.class
-})
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@TestExecutionListeners({ JUnitCollectorExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.rrd.storeByGroup=false")
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.rrd.storeByGroup=false")
 @JUnitTemporaryDatabase
 @Transactional
 public class SnmpCollectorMinMaxValTest implements TestContextAware, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollectorMinMaxValTest.class);
-    private static final String TEST_HOST_ADDRESS = "172.20.1.205";
-    private static final String TEST_NODE_LABEL = "TestNode";
 
+    private static final String TEST_HOST_ADDRESS = "172.20.1.205";
+
+    private static final String TEST_NODE_LABEL = "TestNode";
 
     @Autowired
     private PlatformTransactionManager m_transactionManager;
@@ -112,7 +108,7 @@ public class SnmpCollectorMinMaxValTest implements TestContextAware, Initializin
 
     private CollectionAgent m_collectionAgent;
 
-	private SnmpAgentConfig m_agentConfig;
+    private SnmpAgentConfig m_agentConfig;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -122,7 +118,7 @@ public class SnmpCollectorMinMaxValTest implements TestContextAware, Initializin
     @Before
     public void setUp() throws Exception {
         final Properties p = new Properties();
-    	p.setProperty("log4j.logger.org.opennms.netmgt.snmp.SnmpUtils", "DEBUG");
+        p.setProperty("log4j.logger.org.opennms.netmgt.snmp.SnmpUtils", "DEBUG");
         MockLogAppender.setupLogging(p);
 
         assertTrue(m_snmpPeerFactory instanceof ProxySnmpAgentConfigFactory);
@@ -173,36 +169,25 @@ public class SnmpCollectorMinMaxValTest implements TestContextAware, Initializin
         // MockLogAppender.assertNoWarningsOrGreater();
     }
 
-
     @Test
-    @JUnitCollector(
-            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-minmax-persistTest-config.xml",
-            datacollectionType = "snmp",
-            anticipateFiles = {
-                    "1",
-                    "1/fw0"
-            },
-            anticipateRrds = {
-                    "1/tcpCurrEstab",
-                    "1/fw0/ifInOctets"
-            }
-    )
-    @JUnitSnmpAgent(host=TEST_HOST_ADDRESS, resource="/org/opennms/netmgt/snmp/snmpTestData1.properties")
+    @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/datacollection-minmax-persistTest-config.xml", datacollectionType = "snmp", anticipateFiles = {
+            "1", "1/fw0" }, anticipateRrds = { "1/tcpCurrEstab", "1/fw0/ifInOctets" })
+    @JUnitSnmpAgent(host = TEST_HOST_ADDRESS, resource = "/org/opennms/netmgt/snmp/snmpTestData1.properties")
     public void testPersist() throws Exception {
-    	final File snmpRrdDirectory = (File)m_context.getAttribute("rrdDirectory");
+        final File snmpRrdDirectory = (File) m_context.getAttribute("rrdDirectory");
 
         // node level collection
-    	final File nodeDir = new File(snmpRrdDirectory, "1");
-    	final File rrdFile = new File(nodeDir, rrd("tcpCurrEstab"));
+        final File nodeDir = new File(snmpRrdDirectory, "1");
+        final File rrdFile = new File(nodeDir, rrd("tcpCurrEstab"));
 
         // interface level collection
-    	final File ifDir = new File(nodeDir, "fw0");
-    	final File ifRrdFile = new File(ifDir, rrd("ifInOctets"));
+        final File ifDir = new File(nodeDir, "fw0");
+        final File ifRrdFile = new File(ifDir, rrd("ifInOctets"));
 
-    	final int numUpdates = 2;
-    	final int stepSizeInSecs = 1;
+        final int numUpdates = 2;
+        final int stepSizeInSecs = 1;
 
-    	final int stepSizeInMillis = stepSizeInSecs*1000;
+        final int stepSizeInMillis = stepSizeInSecs * 1000;
 
         // don't forget to initialize the agent
         m_collectionSpecification.initialize(m_collectionAgent);
@@ -210,32 +195,43 @@ public class SnmpCollectorMinMaxValTest implements TestContextAware, Initializin
         CollectorTestUtils.collectNTimes(m_collectionSpecification, m_collectionAgent, numUpdates);
 
         // This is the value from snmpTestData1.properties
-        //.1.3.6.1.2.1.6.9.0 = Gauge32: 123
-        assertEquals(Double.valueOf(123.0), RrdUtils.fetchLastValueInRange(rrdFile.getAbsolutePath(), "tcpCurrEstab", stepSizeInMillis, stepSizeInMillis));
+        // .1.3.6.1.2.1.6.9.0 = Gauge32: 123
+        assertEquals(Double.valueOf(123.0), RrdUtils.fetchLastValueInRange(rrdFile.getAbsolutePath(), "tcpCurrEstab",
+                                                                           stepSizeInMillis, stepSizeInMillis));
 
         // This is the value from snmpTestData1.properties
         // .1.3.6.1.2.1.2.2.1.10.6 = Counter32: 1234567
-        assertEquals(Double.valueOf(1234567.0), RrdUtils.fetchLastValueInRange(ifRrdFile.getAbsolutePath(), "ifInOctets", stepSizeInMillis, stepSizeInMillis));
+        assertEquals(Double.valueOf(1234567.0), RrdUtils.fetchLastValueInRange(ifRrdFile.getAbsolutePath(),
+                                                                               "ifInOctets", stepSizeInMillis,
+                                                                               stepSizeInMillis));
 
         // now update the data in the agent
-		SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.6.9.0"), SnmpUtils.getValueFactory().getInt32(456));
-		SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.2.2.1.10.6"), SnmpUtils.getValueFactory().getCounter32(7654321));
+        SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.6.9.0"), SnmpUtils.getValueFactory().getInt32(456));
+        SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.2.2.1.10.6"),
+                      SnmpUtils.getValueFactory().getCounter32(7654321));
 
         CollectorTestUtils.collectNTimes(m_collectionSpecification, m_collectionAgent, numUpdates);
 
         // by now the values should be the new values
-        assertEquals(Double.valueOf(456.0), RrdUtils.fetchLastValueInRange(rrdFile.getAbsolutePath(), "tcpCurrEstab", stepSizeInMillis, stepSizeInMillis));
-        assertEquals(Double.valueOf(1234567.0), RrdUtils.fetchLastValueInRange(ifRrdFile.getAbsolutePath(), "ifInOctets", stepSizeInMillis, stepSizeInMillis + 20000));
+        assertEquals(Double.valueOf(456.0), RrdUtils.fetchLastValueInRange(rrdFile.getAbsolutePath(), "tcpCurrEstab",
+                                                                           stepSizeInMillis, stepSizeInMillis));
+        assertEquals(Double.valueOf(1234567.0), RrdUtils.fetchLastValueInRange(ifRrdFile.getAbsolutePath(),
+                                                                               "ifInOctets", stepSizeInMillis,
+                                                                               stepSizeInMillis + 20000));
 
-     // now update the data in the agent
-		SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.6.9.0"), SnmpUtils.getValueFactory().getInt32(456));
-		SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.2.2.1.10.6"), SnmpUtils.getValueFactory().getCounter32(1234567));
+        // now update the data in the agent
+        SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.6.9.0"), SnmpUtils.getValueFactory().getInt32(456));
+        SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.2.2.1.10.6"),
+                      SnmpUtils.getValueFactory().getCounter32(1234567));
 
         CollectorTestUtils.collectNTimes(m_collectionSpecification, m_collectionAgent, numUpdates);
 
         // by now the values should be the new values
-        assertEquals(Double.valueOf(456.0), RrdUtils.fetchLastValueInRange(rrdFile.getAbsolutePath(), "tcpCurrEstab", stepSizeInMillis, stepSizeInMillis));
-        assertEquals(Double.valueOf(1234567.0), RrdUtils.fetchLastValueInRange(ifRrdFile.getAbsolutePath(), "ifInOctets", stepSizeInMillis, stepSizeInMillis + 20000));
+        assertEquals(Double.valueOf(456.0), RrdUtils.fetchLastValueInRange(rrdFile.getAbsolutePath(), "tcpCurrEstab",
+                                                                           stepSizeInMillis, stepSizeInMillis));
+        assertEquals(Double.valueOf(1234567.0), RrdUtils.fetchLastValueInRange(ifRrdFile.getAbsolutePath(),
+                                                                               "ifInOctets", stepSizeInMillis,
+                                                                               stepSizeInMillis + 20000));
 
         // release the agent
         m_collectionSpecification.release(m_collectionAgent);

@@ -35,14 +35,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>JUnitHttpServer class.</p>
+ * <p>
+ * JUnitHttpServer class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitHttpServer {
 
     /** the directory from which to serve test files **/
@@ -60,10 +62,16 @@ public @interface JUnitHttpServer {
     /** whether or not to use basic auth **/
     boolean basicAuth() default false;
 
-    /** the basic auth property file (defaults to target/test-classes/realm.properties) **/
+    /**
+     * the basic auth property file (defaults to
+     * target/test-classes/realm.properties)
+     **/
     String basicAuthFile() default "target/test-classes/realm.properties";
 
-    /** the location of the keystore if using HTTPS (defaults to target/test-classes/JUnitHttpServer.keystore) **/
+    /**
+     * the location of the keystore if using HTTPS (defaults to
+     * target/test-classes/JUnitHttpServer.keystore)
+     **/
     String keystore() default "target/test-classes/JUnitHttpServer.keystore";
 
     /** the keystore password **/
@@ -73,6 +81,6 @@ public @interface JUnitHttpServer {
     String keyPassword() default "opennms";
 
     /** zero or more webapps to include, with contexts **/
-    Webapp[] webapps() default { };
+    Webapp[] webapps() default {};
 
 }

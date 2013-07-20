@@ -47,21 +47,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>JMXSecureConnectionFactory class.</p>
+ * <p>
+ * JMXSecureConnectionFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class JMXSecureConnectionFactory {
 
-	private static final Logger LOG = LoggerFactory.getLogger(JMXSecureConnectionFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JMXSecureConnectionFactory.class);
 
     /**
-     * <p>getMBeanServerConnection</p>
+     * <p>
+     * getMBeanServerConnection
+     * </p>
      *
-     * @param propertiesMap a {@link java.util.Map} object.
-     * @param address       a {@link java.net.InetAddress} object.
-     * @return a {@link org.opennms.protocols.jmx.connectors.Jsr160ConnectionWrapper} object.
+     * @param propertiesMap
+     *            a {@link java.util.Map} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @return a
+     *         {@link org.opennms.protocols.jmx.connectors.Jsr160ConnectionWrapper}
+     *         object.
      */
     public static Jsr160ConnectionWrapper getMBeanServerConnection(Map<?, ?> propertiesMap, InetAddress address) {
         Jsr160ConnectionWrapper connectionWrapper = null;
@@ -84,7 +92,8 @@ public class JMXSecureConnectionFactory {
                 url = new JMXServiceURL(protocol, InetAddressUtils.str(address), port, urlPath);
             } else {
                 // Fallback, building a URL for RMI
-                url = new JMXServiceURL("service:jmx:" + protocol + ":///jndi/" + protocol + "://" + InetAddressUtils.str(address) + ":" + port + urlPath);
+                url = new JMXServiceURL("service:jmx:" + protocol + ":///jndi/" + protocol + "://"
+                        + InetAddressUtils.str(address) + ":" + port + urlPath);
             }
         } catch (MalformedURLException e) {
             LOG.error("JMXServiceURL exception: {}. Error message: {}", url, e.getMessage());
@@ -108,29 +117,32 @@ public class JMXSecureConnectionFactory {
                         ks = KeyStore.getInstance(KeyStore.getDefaultType());
                         TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
                         tmf.init(ks);
-                        // X509TrustManager defaultTrustManager = (X509TrustManager) tmf.getTrustManagers()[0];
+                        // X509TrustManager defaultTrustManager =
+                        // (X509TrustManager) tmf.getTrustManagers()[0];
                         tm = new AnyServerX509TrustManager();
                         SSLContext ctx = SSLContext.getInstance("TLSv1");
-                        ctx.init(null, new TrustManager[]{tm}, null);
+                        ctx.init(null, new TrustManager[] { tm }, null);
                         SSLSocketFactory ssf = ctx.getSocketFactory();
                         env.put("jmx.remote.tls.socket.factory", ssf);
                     } catch (Throwable e) {
-                    	LOG.error("Something bad occured: {}", e.getMessage());
+                        LOG.error("Something bad occured: {}", e.getMessage());
                         throw e;
                     }
 
-                    // We don't need to add this provider manually... it is included in the JVM
+                    // We don't need to add this provider manually... it is
+                    // included in the JVM
                     // by default in Java5+
                     //
                     // @see $JAVA_HOME/jre/lib/security/java.security
                     //
-                    //Security.addProvider(new com.sun.security.sasl.Provider());
+                    // Security.addProvider(new
+                    // com.sun.security.sasl.Provider());
 
                     String[] creds;
                     if (sunCacao.equals("true"))
-                        creds = new String[]{"com.sun.cacao.user\001" + username, password};
+                        creds = new String[] { "com.sun.cacao.user\001" + username, password };
                     else
-                        creds = new String[]{username, password};
+                        creds = new String[] { username, password };
                     env.put("jmx.remote.profiles", "TLS SASL/PLAIN");
                     env.put("jmx.remote.credentials", creds);
 
@@ -167,16 +179,14 @@ public class JMXSecureConnectionFactory {
 
         // Documented in X509TrustManager
         @Override
-        public void checkClientTrusted(X509Certificate[] certs, String authType)
-                throws CertificateException {
+        public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
             // this trust manager is dedicated to server authentication
             throw new CertificateException("not supported");
         }
 
         // Documented in X509TrustManager
         @Override
-        public void checkServerTrusted(X509Certificate[] certs, String authType)
-                throws CertificateException {
+        public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
             // any certificate sent by the server is automatically accepted
         }
     }

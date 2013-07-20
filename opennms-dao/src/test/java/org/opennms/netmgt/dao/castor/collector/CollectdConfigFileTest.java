@@ -38,13 +38,14 @@ import org.springframework.core.io.ClassPathResource;
 public class CollectdConfigFileTest extends TestCase {
 
     private InvocationAnticipator m_invocationAnticipator;
+
     private CollectdConfigVisitor m_visitor;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         m_invocationAnticipator = new InvocationAnticipator(CollectdConfigVisitor.class);
-        m_visitor = (CollectdConfigVisitor)m_invocationAnticipator.getProxy();
+        m_visitor = (CollectdConfigVisitor) m_invocationAnticipator.getProxy();
     }
 
     @Override

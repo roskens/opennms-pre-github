@@ -45,11 +45,12 @@ import org.opennms.features.topology.app.internal.gwt.client.view.TopologyView;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 
-public class MarqueeSelectHandler implements DragBehaviorHandler{
+public class MarqueeSelectHandler implements DragBehaviorHandler {
 
-    public class Interval{
+    public class Interval {
 
         private int m_lo;
+
         public int getLo() {
             return m_lo;
         }
@@ -71,12 +72,19 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
     }
 
     public static String DRAG_BEHAVIOR_KEY = "marqueeHandler";
+
     private boolean m_dragging = false;
+
     private int m_x1;
+
     private int m_y1;
+
     private int m_offsetX;
+
     private int m_offsetY;
+
     private SVGTopologyMap m_svgTopologyMap;
+
     private TopologyView<TopologyViewRenderer> m_topologyView;
 
     public MarqueeSelectHandler(SVGTopologyMap topologyMap, TopologyView<TopologyViewRenderer> topologyView) {
@@ -86,7 +94,7 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
 
     @Override
     public void onDragStart(Element elem) {
-        if(!m_dragging) {
+        if (!m_dragging) {
             m_dragging = true;
 
             SVGElement svg = m_topologyView.getSVGElement().cast();
@@ -105,18 +113,16 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
     }
 
     public final native void consoleLog(Object log)/*-{
-        $wnd.console.log(log);
-    }-*/;
+                                                   $wnd.console.log(log);
+                                                   }-*/;
 
     @Override
     public void onDrag(Element elem) {
-        if(m_dragging) {
+        if (m_dragging) {
             int clientX = D3.getEvent().getClientX() - m_offsetX;
             int clientY = D3.getEvent().getClientY() - m_offsetY;
-            setMarquee(
-                Math.min(m_x1, clientX), Math.min(m_y1, clientY),
-                Math.abs(m_x1 - clientX), Math.abs(m_y1 - clientY)
-            );
+            setMarquee(Math.min(m_x1, clientX), Math.min(m_y1, clientY), Math.abs(m_x1 - clientX),
+                       Math.abs(m_y1 - clientY));
             selectVertices();
         }
     }
@@ -131,7 +137,7 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
 
             @Override
             public void call(GWTVertex vert, int index) {
-                if(vert.isSelected()) {
+                if (vert.isSelected()) {
                     vertIds.add(vert.getId());
                 }
             }
@@ -141,7 +147,8 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
     }
 
     private void setMarquee(int x, int y, int width, int height) {
-        D3.d3().select(m_topologyView.getMarqueeElement()).attr("x", x).attr("y", y).attr("width", width).attr("height", height);
+        D3.d3().select(m_topologyView.getMarqueeElement()).attr("x", x).attr("y", y).attr("width", width).attr("height",
+                                                                                                               height);
     }
 
     private void selectVertices() {
@@ -156,9 +163,9 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
             public void call(GWTVertex vertex, int index) {
                 SVGElement elem = elemArray.get(index).cast();
 
-                if(inSelection(elem)) {
+                if (inSelection(elem)) {
                     vertex.setSelected(true);
-                }else {
+                } else {
                     vertex.setSelected(false);
                 }
 
@@ -180,10 +187,8 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
         Interval vertexX = new Interval(left, left + elemClientRect.getWidth());
         Interval vertexY = new Interval(top, top + elemClientRect.getHeight());
 
-        return marqueeX.contains(vertexX.getLo()) &&
-               marqueeX.contains(vertexX.getHi()) &&
-               marqueeY.contains(vertexY.getLo()) &&
-               marqueeY.contains(vertexY.getHi());
+        return marqueeX.contains(vertexX.getLo()) && marqueeX.contains(vertexX.getHi())
+                && marqueeY.contains(vertexY.getLo()) && marqueeY.contains(vertexY.getHi());
     }
 
 }

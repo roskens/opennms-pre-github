@@ -34,7 +34,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="accessLocks")
+@Table(name = "accessLocks")
 public class AccessLock {
 
     private String m_lockName;
@@ -47,7 +47,7 @@ public class AccessLock {
     }
 
     @Id
-    @Column(name="lockName")
+    @Column(name = "lockName")
     public String getLockName() {
         return m_lockName;
     }

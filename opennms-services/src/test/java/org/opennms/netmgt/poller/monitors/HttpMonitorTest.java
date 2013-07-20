@@ -56,9 +56,8 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.test.context.ContextConfiguration;
 
-
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/emptyContext.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class HttpMonitorTest {
 
@@ -70,19 +69,21 @@ public class HttpMonitorTest {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.poller.monitors.HttpMonitor.poll(NetworkInterface, Map, Package)'
+     * Test method for
+     * 'org.opennms.netmgt.poller.monitors.HttpMonitor.poll(NetworkInterface,
+     * Map, Package)'
      */
     @Test
     public void testPollStatusReason() throws UnknownHostException {
 
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         Parameter p = new Parameter();
 
         ServiceMonitor monitor = new HttpMonitor();
         MonitoredService svc = MonitorTestUtils.getMonitoredService(99, "www.opennms.org", "HTTP");
-
 
         p.setKey("port");
         p.setValue("3020");
@@ -97,35 +98,38 @@ public class HttpMonitorTest {
         m.put(p.getKey(), p.getValue());
 
         PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
         assertNotNull(status.getReason());
 
         /*
-        // TODO: Enable this portion of the test as soon as there is a IPv6 www.opennms.org
-        // Try with IPv6
-        svc = MonitorTestUtils.getMonitoredService(99, "www.opennms.org", "HTTP", true);
-        status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
-        assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
-        assertNotNull(status.getReason());
+         * // TODO: Enable this portion of the test as soon as there is a IPv6
+         * www.opennms.org
+         * // Try with IPv6
+         * svc = MonitorTestUtils.getMonitoredService(99, "www.opennms.org",
+         * "HTTP", true);
+         * status = monitor.poll(svc, m);
+         * MockUtil.println("Reason: "+status.getReason());
+         * assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
+         * assertNotNull(status.getReason());
          */
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testResponseRange() throws UnknownHostException {
         callTestResponseRange(false);
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testResponseRangeIPv6() throws UnknownHostException {
         callTestResponseRange(true);
     }
 
     public void callTestResponseRange(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
@@ -138,7 +142,7 @@ public class HttpMonitorTest {
         m.put("response", "100-199");
 
         PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
         assertNotNull(status.getReason());
 
@@ -146,7 +150,7 @@ public class HttpMonitorTest {
 
         monitor = new HttpMonitor();
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
 
@@ -154,15 +158,18 @@ public class HttpMonitorTest {
 
         monitor = new HttpMonitor();
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
     }
 
     /**
-     * This throws a java.net.NoRouteToHostException because the {@link InetAddressUtils#UNPINGABLE_ADDRESS}
-     * address is in an unroutable test range. :-/  Dear reader, if you can find an address that works with
-     * this test, then please replace {@link InetAddressUtils#UNPINGABLE_ADDRESS} inside {@link #callTestTimeout(boolean)}.
+     * This throws a java.net.NoRouteToHostException because the
+     * {@link InetAddressUtils#UNPINGABLE_ADDRESS} address is in an unroutable
+     * test range. :-/ Dear reader, if you can find an address that works with
+     * this test, then please replace
+     * {@link InetAddressUtils#UNPINGABLE_ADDRESS} inside
+     * {@link #callTestTimeout(boolean)}.
      */
     @Test
     @Ignore
@@ -172,15 +179,13 @@ public class HttpMonitorTest {
 
     /**
      * <p>
-     * This test works fine because the "Unique Unicast" range for IPv6 is so big,
-     * you can use it for testing, local communications, etc. so it is always routable.
-     * Yay!
+     * This test works fine because the "Unique Unicast" range for IPv6 is so
+     * big, you can use it for testing, local communications, etc. so it is
+     * always routable. Yay!
      * </p>
-     *
      * <p>
      * This test was created to test the issue documented in NMS-5028.
      * </p>
-     *
      * {@see http://issues.opennms.org/browse/NMS-5028}
      */
     @Test
@@ -189,13 +194,18 @@ public class HttpMonitorTest {
     }
 
     public void callTestTimeout(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
         final ServiceMonitor monitor = new HttpMonitor();
-        // We need a routable but unreachable address in order to simulate a timeout
-        final MonitoredService svc = MonitorTestUtils.getMonitoredService(3, preferIPv6 ? InetAddressUtils.UNPINGABLE_ADDRESS_IPV6 : InetAddressUtils.UNPINGABLE_ADDRESS, "HTTP");
+        // We need a routable but unreachable address in order to simulate a
+        // timeout
+        final MonitoredService svc = MonitorTestUtils.getMonitoredService(3,
+                                                                          preferIPv6 ? InetAddressUtils.UNPINGABLE_ADDRESS_IPV6
+                                                                              : InetAddressUtils.UNPINGABLE_ADDRESS,
+                                                                          "HTTP");
 
         m.put("port", "10342");
         m.put("retry", "1");
@@ -204,27 +214,29 @@ public class HttpMonitorTest {
 
         final PollStatus status = monitor.poll(svc, m);
         final String reason = status.getReason();
-        MockUtil.println("Reason: "+reason);
+        MockUtil.println("Reason: " + reason);
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
         assertNotNull(reason);
-        assertTrue(reason + "should be 'HTTP connection timeout' or 'No route to host'", reason.contains("HTTP connection timeout") || reason.contains("No route to host"));
+        assertTrue(reason + "should be 'HTTP connection timeout' or 'No route to host'",
+                   reason.contains("HTTP connection timeout") || reason.contains("No route to host"));
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testMatchingTextInResponse() throws UnknownHostException {
         callTestMatchingTextInResponse(false);
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testMatchingTextInResponseIPv6() throws UnknownHostException {
         callTestMatchingTextInResponse(true);
     }
 
     public void callTestMatchingTextInResponse(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         PollStatus status = null;
         ServiceMonitor monitor = new HttpMonitor();
@@ -242,7 +254,7 @@ public class HttpMonitorTest {
         m.put("response-text", "opennmsrulz");
 
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
         assertNotNull(status.getReason());
 
@@ -251,7 +263,7 @@ public class HttpMonitorTest {
         MockUtil.println("\nliteral text check: \"written by monkeys\"");
         monitor = new HttpMonitor();
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
 
@@ -260,7 +272,7 @@ public class HttpMonitorTest {
         MockUtil.println("\nregex check: \".*[Tt]est HTTP [Ss]erver.*\"");
         monitor = new HttpMonitor();
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
 
@@ -268,29 +280,31 @@ public class HttpMonitorTest {
 
     @Test
     public void testBase64Encoding() {
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         m.put("basic-authentication", "Aladdin:open sesame");
         assertEquals("QWxhZGRpbjpvcGVuIHNlc2FtZQ==", HttpMonitor.determineBasicAuthentication(m));
-        assertFalse( "QWxhZGRpbjpvcZVuIHNlc2FtZQ==".equals(HttpMonitor.determineBasicAuthentication(m)));
+        assertFalse("QWxhZGRpbjpvcZVuIHNlc2FtZQ==".equals(HttpMonitor.determineBasicAuthentication(m)));
     }
 
     @Test
-    @JUnitHttpServer(port=10342, basicAuth=true)
+    @JUnitHttpServer(port = 10342, basicAuth = true)
     public void testBasicAuthentication() throws UnknownHostException {
         callTestBasicAuthentication(false);
     }
 
     @Test
-    @JUnitHttpServer(port=10342, basicAuth=true)
+    @JUnitHttpServer(port = 10342, basicAuth = true)
     public void testBasicAuthenticationIPv6() throws UnknownHostException {
         callTestBasicAuthentication(true);
     }
 
     public void callTestBasicAuthentication(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         PollStatus status = null;
@@ -308,35 +322,35 @@ public class HttpMonitorTest {
         m.put("basic-authentication", "admin:istrator");
 
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
 
         m.put("basic-authentication", "admin:flagrator");
 
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
         assertNotNull(status.getReason());
-
 
     }
 
     @Test
-    @JUnitHttpServer(port=10342, https=true, basicAuth=true)
+    @JUnitHttpServer(port = 10342, https = true, basicAuth = true)
     public void testBasicAuthenticationWithHttps() throws UnknownHostException {
         callTestBasicAuthenticationWithHttps(false);
     }
 
     @Test
-    @JUnitHttpServer(port=10342, https=true, basicAuth=true)
+    @JUnitHttpServer(port = 10342, https = true, basicAuth = true)
     public void testBasicAuthenticationWithHttpsIPv6() throws UnknownHostException {
         callTestBasicAuthenticationWithHttps(true);
     }
 
     public void callTestBasicAuthenticationWithHttps(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         PollStatus status = null;
@@ -353,32 +367,33 @@ public class HttpMonitorTest {
         m.put("url", "/index.html");
 
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
         assertEquals("HTTP response value: 401. Expecting: 100-302./Ports: 10342", status.getReason());
 
         m.put("basic-authentication", "admin:istrator");
 
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testWithUrl() throws UnknownHostException {
         callTestWithUrl(false);
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testWithUrlIPv6() throws UnknownHostException {
         callTestWithUrl(true);
     }
 
     public void callTestWithUrl(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         PollStatus status = null;
@@ -396,26 +411,27 @@ public class HttpMonitorTest {
         m.put("response-text", "~.*Don.t you love twinkies..*");
 
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
 
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testWithInvalidNodelabelHostName() throws UnknownHostException {
         callTestWithInvalidNodelabelHostName(false);
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testWithInvalidNodelabelHostNameIPv6() throws UnknownHostException {
         callTestWithInvalidNodelabelHostName(true);
     }
 
     public void callTestWithInvalidNodelabelHostName(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         PollStatus status = null;
@@ -427,33 +443,35 @@ public class HttpMonitorTest {
         m.put("port", "10342");
         m.put("retry", "0");
         m.put("timeout", "500");
-        // Ensure that we get a 404 for this GET since we're using an inappropriate virtual host
+        // Ensure that we get a 404 for this GET since we're using an
+        // inappropriate virtual host
         m.put("response", "404");
         m.put("verbose", "true");
         m.put("nodelabel-host-name", "true");
 
         status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
 
     }
 
     @Test
-    @JUnitHttpServer(port=10342, vhosts={"opennms.com"})
+    @JUnitHttpServer(port = 10342, vhosts = { "opennms.com" })
     public void testPollInInvalidVirtualDomain() throws UnknownHostException {
         callTestPollInInvalidVirtualDomain(false);
     }
 
     @Test
-    @JUnitHttpServer(port=10342, vhosts={"opennms.com"})
+    @JUnitHttpServer(port = 10342, vhosts = { "opennms.com" })
     public void testPollInInvalidVirtualDomainIPv6() throws UnknownHostException {
         callTestPollInInvalidVirtualDomain(true);
     }
 
     public void callTestPollInInvalidVirtualDomain(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
@@ -472,20 +490,21 @@ public class HttpMonitorTest {
     }
 
     @Test
-    @JUnitHttpServer(port=10342, vhosts={"www.opennms.org"})
+    @JUnitHttpServer(port = 10342, vhosts = { "www.opennms.org" })
     public void testPollValidVirtualDomain() throws UnknownHostException {
         callTestPollValidVirtualDomain(false);
     }
 
     @Test
-    @JUnitHttpServer(port=10342, vhosts={"www.opennms.org"})
+    @JUnitHttpServer(port = 10342, vhosts = { "www.opennms.org" })
     public void testPollValidVirtualDomainIPv6() throws UnknownHostException {
         callTestPollValidVirtualDomain(true);
     }
 
     public void callTestPollValidVirtualDomain(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) return;
+        if (m_runTests == false)
+            return;
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
@@ -504,7 +523,7 @@ public class HttpMonitorTest {
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testNMS2702() throws UnknownHostException {
         HttpMonitor monitor = new HttpMonitor();
         Map<String, Object> parameters = new ConcurrentSkipListMap<String, Object>();

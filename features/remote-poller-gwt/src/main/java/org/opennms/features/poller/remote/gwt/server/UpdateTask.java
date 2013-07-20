@@ -41,18 +41,30 @@ import de.novanic.eventservice.service.EventExecutorService;
 
 final class UpdateTask extends TimerTask {
     private static final Logger LOG = LoggerFactory.getLogger(UpdateTask.class);
+
     private final EventExecutorService m_service;
+
     private final LocationDataManager m_locationDataManager;
+
     private Date m_lastUpdated;
 
     /**
-     * <p>Constructor for UpdateTask.</p>
+     * <p>
+     * Constructor for UpdateTask.
+     * </p>
      *
-     * @param service a {@link de.novanic.eventservice.service.EventExecutorService} object.
-     * @param lastUpdated a {@link java.util.Date} object.
-     * @param locationDataManager a {@link org.opennms.features.poller.remote.gwt.server.LocationDataManager} object.
+     * @param service
+     *            a {@link de.novanic.eventservice.service.EventExecutorService}
+     *            object.
+     * @param lastUpdated
+     *            a {@link java.util.Date} object.
+     * @param locationDataManager
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataManager}
+     *            object.
      */
-    public UpdateTask(final EventExecutorService service, final Date lastUpdated, LocationDataManager locationDataManager) {
+    public UpdateTask(final EventExecutorService service, final Date lastUpdated,
+            LocationDataManager locationDataManager) {
         m_service = service;
         m_lastUpdated = lastUpdated;
         m_locationDataManager = locationDataManager;
@@ -64,9 +76,9 @@ final class UpdateTask extends TimerTask {
         try {
             final Date endDate = new Date();
             m_locationDataManager.doUpdate(m_lastUpdated, endDate, m_service);
-    		m_lastUpdated = endDate;
-    	} catch (final Exception e) {
-    		LOG.warn("An error occurred while pushing monitor and application status updates.", e);
-    	}
+            m_lastUpdated = endDate;
+        } catch (final Exception e) {
+            LOG.warn("An error occurred while pushing monitor and application status updates.", e);
+        }
     }
 }

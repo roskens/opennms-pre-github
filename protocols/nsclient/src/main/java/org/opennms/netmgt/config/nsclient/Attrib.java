@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.nsclient;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.exolab.castor.xml.Marshaller;
@@ -48,12 +48,12 @@ import org.exolab.castor.xml.Unmarshaller;
  * @version $Revision$ $Date$
  */
 
-@SuppressWarnings("all") public class Attrib implements java.io.Serializable {
+@SuppressWarnings("all")
+public class Attrib implements java.io.Serializable {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _name.
@@ -80,19 +80,17 @@ import org.exolab.castor.xml.Unmarshaller;
      */
     private java.lang.String _minval;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Attrib() {
         super();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Overrides the java.lang.Object.equals method.
@@ -101,48 +99,47 @@ import org.exolab.castor.xml.Unmarshaller;
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
-        if ( this == obj )
+    public boolean equals(final java.lang.Object obj) {
+        if (this == obj)
             return true;
 
         if (obj instanceof Attrib) {
 
-            Attrib temp = (Attrib)obj;
+            Attrib temp = (Attrib) obj;
             if (this._name != null) {
-                if (temp._name == null) return false;
+                if (temp._name == null)
+                    return false;
                 else if (!(this._name.equals(temp._name)))
                     return false;
-            }
-            else if (temp._name != null)
+            } else if (temp._name != null)
                 return false;
             if (this._alias != null) {
-                if (temp._alias == null) return false;
+                if (temp._alias == null)
+                    return false;
                 else if (!(this._alias.equals(temp._alias)))
                     return false;
-            }
-            else if (temp._alias != null)
+            } else if (temp._alias != null)
                 return false;
             if (this._type != null) {
-                if (temp._type == null) return false;
+                if (temp._type == null)
+                    return false;
                 else if (!(this._type.equals(temp._type)))
                     return false;
-            }
-            else if (temp._type != null)
+            } else if (temp._type != null)
                 return false;
             if (this._maxval != null) {
-                if (temp._maxval == null) return false;
+                if (temp._maxval == null)
+                    return false;
                 else if (!(this._maxval.equals(temp._maxval)))
                     return false;
-            }
-            else if (temp._maxval != null)
+            } else if (temp._maxval != null)
                 return false;
             if (this._minval != null) {
-                if (temp._minval == null) return false;
+                if (temp._minval == null)
+                    return false;
                 else if (!(this._minval.equals(temp._minval)))
                     return false;
-            }
-            else if (temp._minval != null)
+            } else if (temp._minval != null)
                 return false;
             return true;
         }
@@ -154,8 +151,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Alias'.
      */
-    public java.lang.String getAlias(
-    ) {
+    public java.lang.String getAlias() {
         return this._alias;
     }
 
@@ -164,8 +160,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Maxval'.
      */
-    public java.lang.String getMaxval(
-    ) {
+    public java.lang.String getMaxval() {
         return this._maxval;
     }
 
@@ -174,8 +169,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Minval'.
      */
-    public java.lang.String getMinval(
-    ) {
+    public java.lang.String getMinval() {
         return this._minval;
     }
 
@@ -184,8 +178,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Name'.
      */
-    public java.lang.String getName(
-    ) {
+    public java.lang.String getName() {
         return this._name;
     }
 
@@ -194,39 +187,37 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Type'.
      */
-    public java.lang.String getType(
-    ) {
+    public java.lang.String getType() {
         return this._type;
     }
 
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
     @Override
-    public int hashCode(
-    ) {
+    public int hashCode() {
         int result = 17;
 
         long tmp;
         if (_name != null) {
-           result = 37 * result + _name.hashCode();
+            result = 37 * result + _name.hashCode();
         }
         if (_alias != null) {
-           result = 37 * result + _alias.hashCode();
+            result = 37 * result + _alias.hashCode();
         }
         if (_type != null) {
-           result = 37 * result + _type.hashCode();
+            result = 37 * result + _type.hashCode();
         }
         if (_maxval != null) {
-           result = 37 * result + _maxval.hashCode();
+            result = 37 * result + _maxval.hashCode();
         }
         if (_minval != null) {
-           result = 37 * result + _minval.hashCode();
+            result = 37 * result + _minval.hashCode();
         }
 
         return result;
@@ -237,8 +228,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if this object is valid according to the schema
      */
-    public boolean isValid(
-    ) {
+    public boolean isValid() {
         try {
             validate();
         } catch (org.exolab.castor.xml.ValidationException vex) {
@@ -248,84 +238,83 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void marshal(
-            final java.io.Writer out)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
+            org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
-    public void marshal(
-            final org.xml.sax.ContentHandler handler)
-    throws java.io.IOException, org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
+            org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, handler);
     }
 
     /**
      * Sets the value of field 'alias'.
      *
-     * @param alias the value of field 'alias'.
+     * @param alias
+     *            the value of field 'alias'.
      */
-    public void setAlias(
-            final java.lang.String alias) {
+    public void setAlias(final java.lang.String alias) {
         this._alias = alias;
     }
 
     /**
      * Sets the value of field 'maxval'.
      *
-     * @param maxval the value of field 'maxval'.
+     * @param maxval
+     *            the value of field 'maxval'.
      */
-    public void setMaxval(
-            final java.lang.String maxval) {
+    public void setMaxval(final java.lang.String maxval) {
         this._maxval = maxval;
     }
 
     /**
      * Sets the value of field 'minval'.
      *
-     * @param minval the value of field 'minval'.
+     * @param minval
+     *            the value of field 'minval'.
      */
-    public void setMinval(
-            final java.lang.String minval) {
+    public void setMinval(final java.lang.String minval) {
         this._minval = minval;
     }
 
     /**
      * Sets the value of field 'name'.
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
-    public void setName(
-            final java.lang.String name) {
+    public void setName(final java.lang.String name) {
         this._name = name;
     }
 
     /**
      * Sets the value of field 'type'.
      *
-     * @param type the value of field 'type'.
+     * @param type
+     *            the value of field 'type'.
      */
-    public void setType(
-            final java.lang.String type) {
+    public void setType(final java.lang.String type) {
         this._type = type;
     }
 
@@ -333,28 +322,27 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * org.opennms.netmgt.config.nsclient.Attrib
+     *         org.opennms.netmgt.config.nsclient.Attrib
      */
-    public static org.opennms.netmgt.config.nsclient.Attrib unmarshal(
-            final java.io.Reader reader)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
-        return (org.opennms.netmgt.config.nsclient.Attrib) Unmarshaller.unmarshal(org.opennms.netmgt.config.nsclient.Attrib.class, reader);
+    public static org.opennms.netmgt.config.nsclient.Attrib unmarshal(final java.io.Reader reader)
+            throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+        return (org.opennms.netmgt.config.nsclient.Attrib) Unmarshaller.unmarshal(org.opennms.netmgt.config.nsclient.Attrib.class,
+                                                                                  reader);
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void validate(
-    )
-    throws org.exolab.castor.xml.ValidationException {
+    public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();
         validator.validate(this);
     }

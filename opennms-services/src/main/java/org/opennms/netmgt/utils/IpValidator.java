@@ -42,33 +42,36 @@ import org.slf4j.LoggerFactory;
  */
 public class IpValidator extends Object {
 
-	private static final Logger LOG = LoggerFactory.getLogger(IpValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(IpValidator.class);
 
     /**
-     * <p>isIpValid</p>
+     * <p>
+     * isIpValid
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public static boolean isIpValid(String ipAddr) {
 
         StringTokenizer token = new StringTokenizer(ipAddr, ".");
-        if(token.countTokens() != 4) {
-        	LOG.debug("Invalid format for IpAddress {}", ipAddr);
+        if (token.countTokens() != 4) {
+            LOG.debug("Invalid format for IpAddress {}", ipAddr);
             return false;
         }
         int temp;
         int i = 0;
         while (i < 4) {
-            try{
+            try {
                 temp = Integer.parseInt(token.nextToken(), 10);
                 if (temp < 0 || temp > 255) {
-                	LOG.debug("Invalid value {}  in IpAddress", temp);
+                    LOG.debug("Invalid value {}  in IpAddress", temp);
                     return false;
                 }
                 i++;
             } catch (NumberFormatException ex) {
-            	LOG.debug("Invalid format for IpAddress, {}", ex);
+                LOG.debug("Invalid format for IpAddress, {}", ex);
                 return false;
             }
         }

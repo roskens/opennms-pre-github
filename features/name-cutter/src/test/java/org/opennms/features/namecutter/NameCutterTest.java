@@ -37,7 +37,6 @@ import java.util.Properties;
 import org.junit.*;
 
 /**
- *
  * @author Markus Neumann <markus@opennms.com>
  */
 public class NameCutterTest {
@@ -49,7 +48,10 @@ public class NameCutterTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         Properties properties = new Properties();
-        BufferedInputStream stream = new BufferedInputStream(new FileInputStream(new File("src/test/resources/dictionary.properties")));
+        BufferedInputStream stream = new BufferedInputStream(
+                                                             new FileInputStream(
+                                                                                 new File(
+                                                                                          "src/test/resources/dictionary.properties")));
         properties.load(stream);
         stream.close();
         for (Object key : properties.keySet()) {
@@ -70,8 +72,8 @@ public class NameCutterTest {
         Assert.assertEquals("Tok", nameCutter.trimByDictionary("Token"));
 
         Assert.assertEquals("CommitVirtMemSize", nameCutter.trimByDictionary("CommittedVirtualMemorySize"));
-        Assert.assertEquals("AvgCompRatio" , nameCutter.trimByDictionary("AverageCompressionRatio"));
-        Assert.assertEquals("AllIdntToknzCnt" , nameCutter.trimByDictionary("AllIdentityTokenizedCount"));
+        Assert.assertEquals("AvgCompRatio", nameCutter.trimByDictionary("AverageCompressionRatio"));
+        Assert.assertEquals("AllIdntToknzCnt", nameCutter.trimByDictionary("AllIdentityTokenizedCount"));
     }
 
     @Test

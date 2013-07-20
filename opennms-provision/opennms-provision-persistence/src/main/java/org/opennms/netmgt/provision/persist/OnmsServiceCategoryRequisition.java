@@ -41,9 +41,14 @@ public class OnmsServiceCategoryRequisition {
     private RequisitionCategory m_category;
 
     /**
-     * <p>Constructor for OnmsServiceCategoryRequisition.</p>
+     * <p>
+     * Constructor for OnmsServiceCategoryRequisition.
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} object.
+     * @param category
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *            object.
      */
     public OnmsServiceCategoryRequisition(RequisitionCategory category) {
         m_category = category;
@@ -57,9 +62,14 @@ public class OnmsServiceCategoryRequisition {
     }
 
     /**
-     * <p>visit</p>
+     * <p>
+     * visit
+     * </p>
      *
-     * @param visitor a {@link org.opennms.netmgt.provision.persist.RequisitionVisitor} object.
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.RequisitionVisitor}
+     *            object.
      */
     public void visit(RequisitionVisitor visitor) {
         visitor.visitServiceCategory(this);
@@ -67,14 +77,14 @@ public class OnmsServiceCategoryRequisition {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getName() {
         return m_category.getName();
     }
-
-
 
 }

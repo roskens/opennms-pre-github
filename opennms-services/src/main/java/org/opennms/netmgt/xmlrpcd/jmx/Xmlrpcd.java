@@ -29,14 +29,18 @@
 package org.opennms.netmgt.xmlrpcd.jmx;
 
 /**
- * <p>Xmlrpcd class.</p>
+ * <p>
+ * Xmlrpcd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Xmlrpcd implements XmlrpcdMBean {
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
@@ -44,7 +48,9 @@ public class Xmlrpcd implements XmlrpcdMBean {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public void start() {
@@ -52,7 +58,9 @@ public class Xmlrpcd implements XmlrpcdMBean {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
@@ -60,7 +68,9 @@ public class Xmlrpcd implements XmlrpcdMBean {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -70,7 +80,9 @@ public class Xmlrpcd implements XmlrpcdMBean {
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -80,7 +92,9 @@ public class Xmlrpcd implements XmlrpcdMBean {
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

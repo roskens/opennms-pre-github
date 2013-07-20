@@ -59,7 +59,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 @SuppressWarnings("serial")
 public class IncludeCollectionField extends CustomField<IncludeCollectionField.IncludeCollectionArrayList> {
 
-	public static class IncludeCollectionArrayList extends ArrayList<IncludeCollection> {}
+    public static class IncludeCollectionArrayList extends ArrayList<IncludeCollection> {
+    }
 
     private static final long serialVersionUID = 3677540981240383672L;
 
@@ -67,7 +68,8 @@ public class IncludeCollectionField extends CustomField<IncludeCollectionField.I
     private final Table table = new Table();
 
     /** The Container. */
-    private final BeanItemContainer<IncludeCollectionWrapper> container = new BeanItemContainer<IncludeCollectionWrapper>(IncludeCollectionWrapper.class);
+    private final BeanItemContainer<IncludeCollectionWrapper> container = new BeanItemContainer<IncludeCollectionWrapper>(
+                                                                                                                          IncludeCollectionWrapper.class);
 
     /** The Toolbar. */
     private final HorizontalLayout toolbar = new HorizontalLayout();
@@ -84,14 +86,15 @@ public class IncludeCollectionField extends CustomField<IncludeCollectionField.I
     /**
      * Instantiates a new include collection field.
      *
-     * @param dataCollectionConfigDao the data collection configuration DAO
+     * @param dataCollectionConfigDao
+     *            the data collection configuration DAO
      */
     public IncludeCollectionField(final DataCollectionConfigDao dataCollectionConfigDao) {
         table.setCaption("Includes List");
         table.setContainerDataSource(container);
         table.setStyleName(Runo.TABLE_SMALL);
-        table.setVisibleColumns(new Object[]{"type", "value"});
-        table.setColumnHeaders(new String[]{"Type", "Value"});
+        table.setVisibleColumns(new Object[] { "type", "value" });
+        table.setColumnHeaders(new String[] { "Type", "Value" });
         table.setSelectable(true);
         table.setImmediate(true);
         table.setHeight("125px");
@@ -118,7 +121,8 @@ public class IncludeCollectionField extends CustomField<IncludeCollectionField.I
                     Notification.show("Please select a IncludeCollection from the table.");
                     return;
                 }
-                IncludeCollectionWindow w = new IncludeCollectionWindow(dataCollectionConfigDao, container, (IncludeCollectionWrapper) value) {
+                IncludeCollectionWindow w = new IncludeCollectionWindow(dataCollectionConfigDao, container,
+                                                                        (IncludeCollectionWrapper) value) {
                     @Override
                     public void fieldChanged() {
                         table.refreshRowCache();
@@ -178,14 +182,15 @@ public class IncludeCollectionField extends CustomField<IncludeCollectionField.I
     @Override
     public IncludeCollectionArrayList getValue() {
         IncludeCollectionArrayList list = new IncludeCollectionArrayList();
-        for (Object itemId: container.getItemIds()) {
+        for (Object itemId : container.getItemIds()) {
             IncludeCollectionWrapper obj = container.getItem(itemId).getBean();
             list.add(obj.createIncludeCollection());
         }
         return list;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
      */
     @Override
@@ -203,7 +208,8 @@ public class IncludeCollectionField extends CustomField<IncludeCollectionField.I
             Notification.show("Please select a IncludeCollection from the table.");
             return;
         }
-        MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+        MessageBox mb = new MessageBox(
+                                       getUI().getWindows().iterator().next(),
                                        "Are you sure?",
                                        MessageBox.Icon.QUESTION,
                                        "Do you really want to remove the selected Include Collection field<br/>This action cannot be undone.",

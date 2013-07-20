@@ -51,47 +51,67 @@ public class IsolatingClassLoader extends URLClassLoader {
     private final Set<String> m_isolatedClassNames = new HashSet<String>();
 
     /**
-     * <p>Constructor for IsolatingClassLoader.</p>
+     * <p>
+     * Constructor for IsolatingClassLoader.
+     * </p>
      *
-     * @param classpath Where to find classes.
-     * @param isolated Array of fully qualified class names, or fully
-     * qualified prefixes ending in "*", that identify the packages or
-     * classes to isolate.
-     * @param augmentClassPath true => Add the URL's of the current
-     * thread context class loader to <code>classpath</code>.
-     * @throws org.opennms.netmgt.provision.support.jmx.connectors.IsolatingClassLoader.InvalidContextClassLoaderException If augmentClassPath
-     * is true and the current thread context class loader is not a
-     * <code>URLClassLoader</code>.
-     * @param name a {@link java.lang.String} object.
+     * @param classpath
+     *            Where to find classes.
+     * @param isolated
+     *            Array of fully qualified class names, or fully
+     *            qualified prefixes ending in "*", that identify the packages
+     *            or
+     *            classes to isolate.
+     * @param augmentClassPath
+     *            true => Add the URL's of the current
+     *            thread context class loader to <code>classpath</code>.
+     * @throws org.opennms.netmgt.provision.support.jmx.connectors.IsolatingClassLoader.InvalidContextClassLoaderException
+     *             If augmentClassPath
+     *             is true and the current thread context class loader is not a
+     *             <code>URLClassLoader</code>.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
-    public IsolatingClassLoader(String name, URL[] classpath, String[] isolated, boolean augmentClassPath) throws InvalidContextClassLoaderException {
+    public IsolatingClassLoader(String name, URL[] classpath, String[] isolated, boolean augmentClassPath)
+            throws InvalidContextClassLoaderException {
 
         super(classpath);
         init(name, isolated, augmentClassPath);
     }
 
     /**
-     * <p>Constructor for IsolatingClassLoader.</p>
+     * <p>
+     * Constructor for IsolatingClassLoader.
+     * </p>
      *
-     * @param classpath Where to find classes.
-     * @param isolated Array of fully qualified class names, or fully
-     * qualified prefixes ending in "*", that identify the packages or
-     * classes to isolate.
-     * @param augmentClassPath true => Add the URL's of the current
-     * thread context class loader to <code>classpath</code>.
-     * @throws org.opennms.netmgt.provision.support.jmx.connectors.IsolatingClassLoader.InvalidContextClassLoaderException If augmentClassPath
-     * is true and the current thread context class loader is not a
-     * <code>URLClassLoader</code>.
-     * @param name a {@link java.lang.String} object.
-     * @param parent a {@link java.lang.ClassLoader} object.
+     * @param classpath
+     *            Where to find classes.
+     * @param isolated
+     *            Array of fully qualified class names, or fully
+     *            qualified prefixes ending in "*", that identify the packages
+     *            or
+     *            classes to isolate.
+     * @param augmentClassPath
+     *            true => Add the URL's of the current
+     *            thread context class loader to <code>classpath</code>.
+     * @throws org.opennms.netmgt.provision.support.jmx.connectors.IsolatingClassLoader.InvalidContextClassLoaderException
+     *             If augmentClassPath
+     *             is true and the current thread context class loader is not a
+     *             <code>URLClassLoader</code>.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param parent
+     *            a {@link java.lang.ClassLoader} object.
      */
-    public IsolatingClassLoader(String name, URL[] classpath, ClassLoader parent, String[] isolated, boolean augmentClassPath)   throws InvalidContextClassLoaderException {
+    public IsolatingClassLoader(String name, URL[] classpath, ClassLoader parent, String[] isolated,
+            boolean augmentClassPath) throws InvalidContextClassLoaderException {
 
         super(classpath, parent);
         init(name, isolated, augmentClassPath);
     }
 
-    private void init(String name, String[] isolated, boolean augmentClassPath) throws InvalidContextClassLoaderException {
+    private void init(String name, String[] isolated, boolean augmentClassPath)
+            throws InvalidContextClassLoaderException {
 
         // m_name = name;
 
@@ -102,8 +122,7 @@ public class IsolatingClassLoader extends URLClassLoader {
 
             if (index >= 0) {
                 prefixes.add(element.substring(0, index));
-            }
-            else {
+            } else {
                 m_isolatedClassNames.add(element);
             }
         }
@@ -114,22 +133,20 @@ public class IsolatingClassLoader extends URLClassLoader {
             final ClassLoader callerClassLoader = Thread.currentThread().getContextClassLoader();
 
             if (callerClassLoader instanceof URLClassLoader) {
-                final URL[] newURLs = ((URLClassLoader)callerClassLoader).getURLs();
+                final URL[] newURLs = ((URLClassLoader) callerClassLoader).getURLs();
 
                 for (URL newURL : newURLs) {
                     addURL(newURL);
                 }
-            }
-            else {
-                throw new InvalidContextClassLoaderException("Caller classloader is not a URLClassLoader, " + "can't automatically augument classpath." + "Its a " + callerClassLoader.getClass());
+            } else {
+                throw new InvalidContextClassLoaderException("Caller classloader is not a URLClassLoader, "
+                        + "can't automatically augument classpath." + "Its a " + callerClassLoader.getClass());
             }
         }
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Override to only check parent ClassLoader if the class name
+     * {@inheritDoc} Override to only check parent ClassLoader if the class name
      * doesn't match our list of isolated classes.
      */
     @Override
@@ -178,4 +195,3 @@ public class IsolatingClassLoader extends URLClassLoader {
         }
     }
 }
-

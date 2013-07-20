@@ -61,11 +61,10 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
     /**
      * @param vVmwareCollection
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addVmwareCollection(
-            final org.opennms.netmgt.config.vmware.vijava.VmwareCollection vVmwareCollection)
+    public void addVmwareCollection(final org.opennms.netmgt.config.vmware.vijava.VmwareCollection vVmwareCollection)
             throws java.lang.IndexOutOfBoundsException {
         this._vmwareCollectionList.add(vVmwareCollection);
     }
@@ -74,11 +73,10 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * @param index
      * @param vVmwareCollection
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addVmwareCollection(
-            final int index,
+    public void addVmwareCollection(final int index,
             final org.opennms.netmgt.config.vmware.vijava.VmwareCollection vVmwareCollection)
             throws java.lang.IndexOutOfBoundsException {
         this._vmwareCollectionList.add(index, vVmwareCollection);
@@ -90,8 +88,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * @return an Enumeration over all possible elements of this
      *         collection
      */
-    public java.util.Enumeration<org.opennms.netmgt.config.vmware.vijava.VmwareCollection> enumerateVmwareCollection(
-    ) {
+    public java.util.Enumeration<org.opennms.netmgt.config.vmware.vijava.VmwareCollection> enumerateVmwareCollection() {
         return java.util.Collections.enumeration(this._vmwareCollectionList);
     }
 
@@ -102,14 +99,11 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
+    public boolean equals(final java.lang.Object obj) {
         if (obj instanceof VmwareDatacollectionConfig) {
             VmwareDatacollectionConfig other = (VmwareDatacollectionConfig) obj;
-            return new EqualsBuilder()
-                    .append(getRrdRepository(), other.getRrdRepository())
-                    .append(getVmwareCollection(), other.getVmwareCollection())
-                    .isEquals();
+            return new EqualsBuilder().append(getRrdRepository(), other.getRrdRepository()).append(getVmwareCollection(),
+                                                                                                   other.getVmwareCollection()).isEquals();
         }
         return false;
     }
@@ -119,8 +113,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      *
      * @return the value of field 'RrdRepository'.
      */
-    public java.lang.String getRrdRepository(
-    ) {
+    public java.lang.String getRrdRepository() {
         return this._rrdRepository == null ? "" : this._rrdRepository;
     }
 
@@ -132,15 +125,15 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      *         org.opennms.netmgt.config.vmware.vijava.VmwareCollection at
      *         the given index
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public org.opennms.netmgt.config.vmware.vijava.VmwareCollection getVmwareCollection(
-            final int index)
+    public org.opennms.netmgt.config.vmware.vijava.VmwareCollection getVmwareCollection(final int index)
             throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._vmwareCollectionList.size()) {
-            throw new IndexOutOfBoundsException("getVmwareCollection: Index value '" + index + "' not in range [0.." + (this._vmwareCollectionList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getVmwareCollection: Index value '" + index + "' not in range [0.."
+                    + (this._vmwareCollectionList.size() - 1) + "]");
         }
 
         return (org.opennms.netmgt.config.vmware.vijava.VmwareCollection) _vmwareCollectionList.get(index);
@@ -148,16 +141,16 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
 
     /**
      * Method getVmwareCollection.Returns the contents of the
-     * collection in an Array.  <p>Note:  Just in case the
-     * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of
-     * exactly the correct length.
+     * collection in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public org.opennms.netmgt.config.vmware.vijava.VmwareCollection[] getVmwareCollection(
-    ) {
+    public org.opennms.netmgt.config.vmware.vijava.VmwareCollection[] getVmwareCollection() {
         org.opennms.netmgt.config.vmware.vijava.VmwareCollection[] array = new org.opennms.netmgt.config.vmware.vijava.VmwareCollection[0];
         return (org.opennms.netmgt.config.vmware.vijava.VmwareCollection[]) this._vmwareCollectionList.toArray(array);
     }
@@ -169,8 +162,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<org.opennms.netmgt.config.vmware.vijava.VmwareCollection> getVmwareCollectionCollection(
-    ) {
+    public java.util.List<org.opennms.netmgt.config.vmware.vijava.VmwareCollection> getVmwareCollectionCollection() {
         return this._vmwareCollectionList;
     }
 
@@ -179,8 +171,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      *
      * @return the size of this collection
      */
-    public int getVmwareCollectionCount(
-    ) {
+    public int getVmwareCollectionCount() {
         return this._vmwareCollectionList.size();
     }
 
@@ -190,15 +181,13 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * @return an Iterator over all possible elements in this
      *         collection
      */
-    public java.util.Iterator<org.opennms.netmgt.config.vmware.vijava.VmwareCollection> iterateVmwareCollection(
-    ) {
+    public java.util.Iterator<org.opennms.netmgt.config.vmware.vijava.VmwareCollection> iterateVmwareCollection() {
         return this._vmwareCollectionList.iterator();
     }
 
     /**
      */
-    public void removeAllVmwareCollection(
-    ) {
+    public void removeAllVmwareCollection() {
         this._vmwareCollectionList.clear();
     }
 
@@ -220,8 +209,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public org.opennms.netmgt.config.vmware.vijava.VmwareCollection removeVmwareCollectionAt(
-            final int index) {
+    public org.opennms.netmgt.config.vmware.vijava.VmwareCollection removeVmwareCollectionAt(final int index) {
         java.lang.Object obj = this._vmwareCollectionList.remove(index);
         return (org.opennms.netmgt.config.vmware.vijava.VmwareCollection) obj;
     }
@@ -229,10 +217,10 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
     /**
      * Sets the value of field 'rrdRepository'.
      *
-     * @param rrdRepository the value of field 'rrdRepository'.
+     * @param rrdRepository
+     *            the value of field 'rrdRepository'.
      */
-    public void setRrdRepository(
-            final java.lang.String rrdRepository) {
+    public void setRrdRepository(final java.lang.String rrdRepository) {
         this._rrdRepository = rrdRepository;
     }
 
@@ -240,16 +228,16 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * @param index
      * @param vVmwareCollection
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setVmwareCollection(
-            final int index,
+    public void setVmwareCollection(final int index,
             final org.opennms.netmgt.config.vmware.vijava.VmwareCollection vVmwareCollection)
             throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._vmwareCollectionList.size()) {
-            throw new IndexOutOfBoundsException("setVmwareCollection: Index value '" + index + "' not in range [0.." + (this._vmwareCollectionList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setVmwareCollection: Index value '" + index + "' not in range [0.."
+                    + (this._vmwareCollectionList.size() - 1) + "]");
         }
 
         this._vmwareCollectionList.set(index, vVmwareCollection);
@@ -260,7 +248,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      */
     public void setVmwareCollection(
             final org.opennms.netmgt.config.vmware.vijava.VmwareCollection[] vVmwareCollectionArray) {
-        //-- copy array
+        // -- copy array
         _vmwareCollectionList.clear();
 
         for (int i = 0; i < vVmwareCollectionArray.length; i++) {
@@ -272,7 +260,8 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * Sets the value of '_vmwareCollectionList' by copying the
      * given Vector. All elements will be checked for type safety.
      *
-     * @param vVmwareCollectionList the Vector to copy.
+     * @param vVmwareCollectionList
+     *            the Vector to copy.
      */
     public void setVmwareCollection(
             final java.util.List<org.opennms.netmgt.config.vmware.vijava.VmwareCollection> vVmwareCollectionList) {

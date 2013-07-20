@@ -41,6 +41,7 @@ public class SslSocketWrapper implements SocketWrapper {
     public SslSocketWrapper(String[] cipherSuites) {
         m_cipherSuites = cipherSuites;
     }
+
     @Override
     public Socket wrapSocket(Socket socket) throws IOException {
         return SocketUtils.wrapSocketInSslContext(socket, m_cipherSuites);

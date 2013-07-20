@@ -30,10 +30,10 @@ package org.opennms.core.fiber;
 
 /**
  * <p>
- * This class is used to extend the <code>Fiber</code> interface so that is
- * has a concept of a life cycle. Prior to starting the fiber the
- * <code>init</code> method will be invoked. Likewise, prior to garbage
- * collection the <code>destroy</code> method should be invoked.
+ * This class is used to extend the <code>Fiber</code> interface so that is has
+ * a concept of a life cycle. Prior to starting the fiber the <code>init</code>
+ * method will be invoked. Likewise, prior to garbage collection the
+ * <code>destroy</code> method should be invoked.
  * </p>
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>

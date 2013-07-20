@@ -30,37 +30,29 @@ import org.osgi.framework.BundleContext;
  * interfaces forwarding any event calls to registered OSGi services
  * implementing the respective Servlet API 2.4 listener interface.
  */
-public class ServletRequestAttributeListenerManager extends AbstractListenerManager<ServletRequestAttributeListener>
-{
+public class ServletRequestAttributeListenerManager extends AbstractListenerManager<ServletRequestAttributeListener> {
 
-    public ServletRequestAttributeListenerManager(BundleContext context)
-    {
+    public ServletRequestAttributeListenerManager(BundleContext context) {
         super(context, ServletRequestAttributeListener.class);
     }
 
-    public void attributeAdded(final ServletRequestAttributeEvent srae)
-    {
+    public void attributeAdded(final ServletRequestAttributeEvent srae) {
         final Iterator<ServletRequestAttributeListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().attributeAdded(srae);
         }
     }
 
-    public void attributeRemoved(final ServletRequestAttributeEvent srae)
-    {
+    public void attributeRemoved(final ServletRequestAttributeEvent srae) {
         final Iterator<ServletRequestAttributeListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().attributeRemoved(srae);
         }
     }
 
-    public void attributeReplaced(final ServletRequestAttributeEvent srae)
-    {
+    public void attributeReplaced(final ServletRequestAttributeEvent srae) {
         final Iterator<ServletRequestAttributeListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().attributeReplaced(srae);
         }
     }

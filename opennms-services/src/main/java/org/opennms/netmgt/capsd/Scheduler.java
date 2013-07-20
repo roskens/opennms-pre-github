@@ -55,7 +55,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
- *
  */
 final class Scheduler implements Runnable, PausableFiber {
 
@@ -193,8 +192,9 @@ final class Scheduler implements Runnable, PausableFiber {
 
     /**
      * Constructs a new instance of the scheduler.
-     * @param rescanProcessorFactory TODO
      *
+     * @param rescanProcessorFactory
+     *            TODO
      */
     Scheduler(ExecutorService rescanQ, RescanProcessorFactory rescanProcessorFactory) throws SQLException {
 
@@ -282,7 +282,8 @@ final class Scheduler implements Runnable, PausableFiber {
                         m_knownNodes.add(nodeInfo);
                     }
                 } else {
-                    LOG.debug("Node w/ nodeid {} has no managed interfaces from which to retrieve a last poll time...it will not be scheduled.", nodeId);
+                    LOG.debug("Node w/ nodeid {} has no managed interfaces from which to retrieve a last poll time...it will not be scheduled.",
+                              nodeId);
                 }
             }
         } finally {
@@ -297,7 +298,6 @@ final class Scheduler implements Runnable, PausableFiber {
      *
      * @param nodeId
      *            Id of node to be scheduled
-     *
      * @throws SQLException
      *             if there is any problem accessing the database
      */
@@ -370,7 +370,8 @@ final class Scheduler implements Runnable, PausableFiber {
      */
     @Override
     public synchronized void start() {
-        if (m_worker != null) throw new IllegalStateException("The fiber has already run or is running");
+        if (m_worker != null)
+            throw new IllegalStateException("The fiber has already run or is running");
 
         m_worker = new Thread(this, getName());
         m_worker.setDaemon(true);
@@ -487,7 +488,8 @@ final class Scheduler implements Runnable, PausableFiber {
             // Status check
             //
             synchronized (this) {
-                if (m_status != RUNNING && m_status != PAUSED && m_status != PAUSE_PENDING && m_status != RESUME_PENDING) {
+                if (m_status != RUNNING && m_status != PAUSED && m_status != PAUSE_PENDING
+                        && m_status != RESUME_PENDING) {
                     LOG.debug("Scheduler.run: status = {}, time to exit", m_status);
                     break;
                 }
@@ -572,7 +574,8 @@ final class Scheduler implements Runnable, PausableFiber {
 
                             LOG.debug("Scheduler.run: SMB reparenting completed...");
                         }
-                        // Otherwise just add the NodeInfo to the queue which will create
+                        // Otherwise just add the NodeInfo to the queue which
+                        // will create
                         // a rescanProcessor and run it
                         //
                         else {

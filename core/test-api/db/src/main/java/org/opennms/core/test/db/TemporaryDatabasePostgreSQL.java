@@ -55,23 +55,29 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.util.StringUtils;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
     protected static final int MAX_DATABASE_DROP_ATTEMPTS = 10;
+
     protected static final String DRIVER_PROPERTY = "mock.db.driver";
+
     private static final Object TEMPLATE1_MUTEX = new Object();
 
     private final String m_testDatabase;
 
     private final String m_driver;
+
     private final String m_url;
+
     private final String m_adminUser;
+
     private final String m_adminPassword;
+
     private final boolean m_useExisting;
 
     private DataSource m_dataSource;
+
     private DataSource m_adminDataSource;
 
     private InstallerDb m_installerDb;
@@ -95,19 +101,20 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
     }
 
     public TemporaryDatabasePostgreSQL(String testDatabase, boolean useExisting) throws Exception {
-        this(testDatabase, System.getProperty(DRIVER_PROPERTY, DEFAULT_DRIVER),
-             System.getProperty(URL_PROPERTY, DEFAULT_URL),
-             System.getProperty(ADMIN_USER_PROPERTY, DEFAULT_ADMIN_USER),
-             System.getProperty(ADMIN_PASSWORD_PROPERTY, DEFAULT_ADMIN_PASSWORD), useExisting);
+        this(testDatabase, System.getProperty(DRIVER_PROPERTY, DEFAULT_DRIVER), System.getProperty(URL_PROPERTY,
+                                                                                                   DEFAULT_URL),
+             System.getProperty(ADMIN_USER_PROPERTY, DEFAULT_ADMIN_USER), System.getProperty(ADMIN_PASSWORD_PROPERTY,
+                                                                                             DEFAULT_ADMIN_PASSWORD),
+             useExisting);
     }
 
-    public TemporaryDatabasePostgreSQL(String testDatabase, String driver, String url,
-            String adminUser, String adminPassword) throws Exception {
+    public TemporaryDatabasePostgreSQL(String testDatabase, String driver, String url, String adminUser,
+            String adminPassword) throws Exception {
         this(testDatabase, driver, url, adminUser, adminPassword, false);
     }
 
-    public TemporaryDatabasePostgreSQL(String testDatabase, String driver, String url,
-                             String adminUser, String adminPassword, boolean useExisting) throws Exception {
+    public TemporaryDatabasePostgreSQL(String testDatabase, String driver, String url, String adminUser,
+            String adminPassword, boolean useExisting) throws Exception {
         // Append the current object's hashcode to make this value truly unique
         m_testDatabase = testDatabase;
         m_driver = driver;
@@ -167,7 +174,9 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
             try {
                 m_installerDb.closeConnection();
             } catch (final SQLException e) {
-                throw new TemporaryDatabaseException("An error occurred while closing the installer's database connection.", e);
+                throw new TemporaryDatabaseException(
+                                                     "An error occurred while closing the installer's database connection.",
+                                                     e);
             }
         }
 
@@ -205,11 +214,14 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
                 }
             }
         });
-        assertTrue("expecting at least one opennms iplike platform directory in " + ipLikeDir.getAbsolutePath() + "; got: " + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "), ipLikePlatformDirs.length > 0);
+        assertTrue("expecting at least one opennms iplike platform directory in " + ipLikeDir.getAbsolutePath()
+                           + "; got: " + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "),
+                   ipLikePlatformDirs.length > 0);
 
         File ipLikeFile = null;
         for (File ipLikePlatformDir : ipLikePlatformDirs) {
-            assertTrue("iplike platform directory does not exist but was listed in directory listing: " + ipLikePlatformDir.getAbsolutePath(), ipLikePlatformDir.exists());
+            assertTrue("iplike platform directory does not exist but was listed in directory listing: "
+                    + ipLikePlatformDir.getAbsolutePath(), ipLikePlatformDir.exists());
 
             File ipLikeTargetDir = new File(ipLikePlatformDir, "target");
             if (!ipLikeTargetDir.exists() || !ipLikeTargetDir.isDirectory()) {
@@ -227,7 +239,8 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
                     }
                 }
             });
-            assertFalse("expecting zero or one iplike file in " + ipLikeTargetDir.getAbsolutePath() + "; got: " + StringUtils.arrayToDelimitedString(ipLikeFiles, ", "), ipLikeFiles.length > 1);
+            assertFalse("expecting zero or one iplike file in " + ipLikeTargetDir.getAbsolutePath() + "; got: "
+                    + StringUtils.arrayToDelimitedString(ipLikeFiles, ", "), ipLikeFiles.length > 1);
 
             if (ipLikeFiles.length == 1) {
                 ipLikeFile = ipLikeFiles[0];
@@ -235,7 +248,8 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
 
         }
 
-        assertNotNull("Could not find iplike shared object in a target directory in any of these directories: " + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "), ipLikeFile);
+        assertNotNull("Could not find iplike shared object in a target directory in any of these directories: "
+                + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "), ipLikeFile);
 
         return ipLikeFile;
     }
@@ -275,7 +289,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         if (!m_useExisting) {
             // Synchronize around a static mutex to prevent multiple connections
             // to the template1 database
-            synchronized(TEMPLATE1_MUTEX) {
+            synchronized (TEMPLATE1_MUTEX) {
                 createTestDatabase();
             }
         }
@@ -314,7 +328,8 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
             try {
                 adminConnection.close();
             } catch (final SQLException e) {
-                if (failed == null) failed = e;
+                if (failed == null)
+                    failed = e;
             }
             if (failed != null) {
                 throw new TemporaryDatabaseException("Failed while cleaning up database resources.", failed);
@@ -355,10 +370,10 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         }
 
         /*
-        * Sleep before destroying the test database because PostgreSQL doesn't
-        * seem to notice immediately clients have disconnected. Yeah, it's a
-        * hack.
-        */
+         * Sleep before destroying the test database because PostgreSQL doesn't
+         * seem to notice immediately clients have disconnected. Yeah, it's a
+         * hack.
+         */
         try {
             Thread.sleep(100);
         } catch (final InterruptedException e) {
@@ -382,7 +397,8 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
                     break;
                 } catch (final SQLException e) {
                     if ((dropAttempt + 1) >= MAX_DATABASE_DROP_ATTEMPTS) {
-                        final String message = "Failed to drop test database on last attempt " + (dropAttempt + 1) + ": " + e;
+                        final String message = "Failed to drop test database on last attempt " + (dropAttempt + 1)
+                                + ": " + e;
                         System.err.println(new Date().toString() + ": " + message);
                         dumpThreads();
 
@@ -390,11 +406,13 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
                         newException.initCause(e);
                         throw newException;
                     } else {
-                        System.err.println(new Date().toString() + ": Failed to drop test database on attempt " + (dropAttempt + 1) + ": " + e);
+                        System.err.println(new Date().toString() + ": Failed to drop test database on attempt "
+                                + (dropAttempt + 1) + ": " + e);
                         try {
                             Thread.sleep(1000);
                         } catch (final InterruptedException inter) {
-                            throw new TemporaryDatabaseException("Interrupted while waiting for next drop attempt.", inter);
+                            throw new TemporaryDatabaseException("Interrupted while waiting for next drop attempt.",
+                                                                 inter);
                         }
                     }
                 } finally {
@@ -417,7 +435,9 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
             try {
                 adminConnection.close();
             } catch (SQLException e) {
-                throw new TemporaryDatabaseException("Error closing administrative database connection after attempting to drop test database", e);
+                throw new TemporaryDatabaseException(
+                                                     "Error closing administrative database connection after attempting to drop test database",
+                                                     e);
             }
 
             /*
@@ -443,17 +463,21 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
             }
         }
         System.err.println("Thread dump of " + threads.size() + " threads (" + daemons + " daemons):");
-        Map<Thread, StackTraceElement[]> sortedThreads = new TreeMap<Thread, StackTraceElement[]>(new Comparator<Thread>() {
-            @Override
-            public int compare(final Thread t1, final Thread t2) {
-                return Long.valueOf(t1.getId()).compareTo(Long.valueOf(t2.getId()));
-            }
-        });
+        Map<Thread, StackTraceElement[]> sortedThreads = new TreeMap<Thread, StackTraceElement[]>(
+                                                                                                  new Comparator<Thread>() {
+                                                                                                      @Override
+                                                                                                      public int compare(
+                                                                                                              final Thread t1,
+                                                                                                              final Thread t2) {
+                                                                                                          return Long.valueOf(t1.getId()).compareTo(Long.valueOf(t2.getId()));
+                                                                                                      }
+                                                                                                  });
         sortedThreads.putAll(threads);
 
         for (Entry<Thread, StackTraceElement[]> entry : sortedThreads.entrySet()) {
             Thread thread = entry.getKey();
-            System.err.println("Thread " + thread.getId() + (thread.isDaemon() ? " (daemon)" : "") + ": " + thread + " (state: " + thread.getState() + ")");
+            System.err.println("Thread " + thread.getId() + (thread.isDaemon() ? " (daemon)" : "") + ": " + thread
+                    + " (state: " + thread.getState() + ")");
             for (StackTraceElement e : entry.getValue()) {
                 System.err.println("\t" + e);
             }
@@ -461,21 +485,20 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         System.err.println("Thread dump completed.");
     }
 
-
     @Override
     public Connection getConnection() throws SQLException {
         return m_dataSource.getConnection();
     }
 
     public void update(String stmt, Object... values) {
-//        StringBuffer buf = new StringBuffer("[");
-//        for(int i = 0; i < values.length; i++) {
-//            if (i != 0)
-//                buf.append(", ");
-//            buf.append(values[i]);
-//        }
-//        buf.append("]");
-//        MockUtil.println("Executing "+stmt+" with values "+buf);
+        // StringBuffer buf = new StringBuffer("[");
+        // for(int i = 0; i < values.length; i++) {
+        // if (i != 0)
+        // buf.append(", ");
+        // buf.append(values[i]);
+        // }
+        // buf.append("]");
+        // MockUtil.println("Executing "+stmt+" with values "+buf);
 
         getJdbcTemplate().update(stmt, values);
     }
@@ -557,41 +580,55 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
      * non-standard methods, or standard methods not exposed by the proxy.
      * <p/>
      * If the receiver implements the interface then the result is the receiver
-     * or a proxy for the receiver. If the receiver is a wrapper
-     * and the wrapped object implements the interface then the result is the
-     * wrapped object or a proxy for the wrapped object. Otherwise return the
-     * the result of calling <code>unwrap</code> recursively on the wrapped object
-     * or a proxy for that result. If the receiver is not a
-     * wrapper and does not implement the interface, then an <code>SQLException</code> is thrown.
+     * or a proxy for the receiver. If the receiver is a wrapper and the wrapped
+     * object implements the interface then the result is the wrapped object or
+     * a proxy for the wrapped object. Otherwise return the the result of
+     * calling <code>unwrap</code> recursively on the wrapped object or a proxy
+     * for that result. If the receiver is not a wrapper and does not implement
+     * the interface, then an <code>SQLException</code> is thrown.
      *
-     * @param iface A Class defining an interface that the result must implement.
-     * @return an object that implements the interface. May be a proxy for the actual implementing object.
-     * @throws java.sql.SQLException If no object found that implements the interface
+     * @param iface
+     *            A Class defining an interface that the result must implement.
+     * @return an object that implements the interface. May be a proxy for the
+     *         actual implementing object.
+     * @throws java.sql.SQLException
+     *             If no object found that implements the interface
      * @since 1.6
      */
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
-        return null;  //TODO
+        return null; // TODO
     }
 
     /**
-     * Returns true if this either implements the interface argument or is directly or indirectly a wrapper
-     * for an object that does. Returns false otherwise. If this implements the interface then return true,
-     * else if this is a wrapper then return the result of recursively calling <code>isWrapperFor</code> on the wrapped
-     * object. If this does not implement the interface and is not a wrapper, return false.
-     * This method should be implemented as a low-cost operation compared to <code>unwrap</code> so that
-     * callers can use this method to avoid expensive <code>unwrap</code> calls that may fail. If this method
-     * returns true then calling <code>unwrap</code> with the same argument should succeed.
+     * Returns true if this either implements the interface argument or is
+     * directly or indirectly a wrapper
+     * for an object that does. Returns false otherwise. If this implements the
+     * interface then return true,
+     * else if this is a wrapper then return the result of recursively calling
+     * <code>isWrapperFor</code> on the wrapped
+     * object. If this does not implement the interface and is not a wrapper,
+     * return false.
+     * This method should be implemented as a low-cost operation compared to
+     * <code>unwrap</code> so that
+     * callers can use this method to avoid expensive <code>unwrap</code> calls
+     * that may fail. If this method
+     * returns true then calling <code>unwrap</code> with the same argument
+     * should succeed.
      *
-     * @param iface a Class defining an interface.
-     * @return true if this implements the interface or directly or indirectly wraps an object that does.
-     * @throws java.sql.SQLException if an error occurs while determining whether this is a wrapper
-     *                               for an object with the given interface.
+     * @param iface
+     *            a Class defining an interface.
+     * @return true if this implements the interface or directly or indirectly
+     *         wraps an object that does.
+     * @throws java.sql.SQLException
+     *             if an error occurs while determining whether this is a
+     *             wrapper
+     *             for an object with the given interface.
      * @since 1.6
      */
     @Override
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return false;  //TODO
+        return false; // TODO
     }
 
     public String getDriver() {
@@ -604,16 +641,13 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("driver", m_driver)
-            .append("url", m_url)
-            .append("testDatabase", m_testDatabase)
-            .append("useExisting", m_useExisting)
-            .append("setupIpLike", m_setupIpLike)
-            .append("populateSchema", m_populateSchema)
-            .append("dataSource", m_dataSource)
-            .append("adminDataSource", m_adminDataSource)
-            .append("adminUser", m_adminUser)
-            .toString();
+        return new ToStringBuilder(this).append("driver", m_driver).append("url", m_url).append("testDatabase",
+                                                                                                m_testDatabase).append("useExisting",
+                                                                                                                       m_useExisting).append("setupIpLike",
+                                                                                                                                             m_setupIpLike).append("populateSchema",
+                                                                                                                                                                   m_populateSchema).append("dataSource",
+                                                                                                                                                                                            m_dataSource).append("adminDataSource",
+                                                                                                                                                                                                                 m_adminDataSource).append("adminUser",
+                                                                                                                                                                                                                                           m_adminUser).toString();
     }
 }

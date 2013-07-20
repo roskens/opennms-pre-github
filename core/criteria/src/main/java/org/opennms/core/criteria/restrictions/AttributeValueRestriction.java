@@ -50,12 +50,16 @@ public abstract class AttributeValueRestriction extends AttributeRestriction {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (!super.equals(obj)) return false;
-        if (!(obj instanceof AttributeValueRestriction)) return false;
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (!(obj instanceof AttributeValueRestriction))
+            return false;
         final AttributeValueRestriction other = (AttributeValueRestriction) obj;
         if (m_value == null) {
-            if (other.m_value != null) return false;
+            if (other.m_value != null)
+                return false;
         } else if (!m_value.equals(other.m_value)) {
             return false;
         }
@@ -64,7 +68,8 @@ public abstract class AttributeValueRestriction extends AttributeRestriction {
 
     @Override
     public String toString() {
-        return "AttributeValueRestriction [type=" + getType() + ", attribute=" + getAttribute() + ", value=" + m_value + "]";
+        return "AttributeValueRestriction [type=" + getType() + ", attribute=" + getAttribute() + ", value=" + m_value
+                + "]";
     }
 
 }

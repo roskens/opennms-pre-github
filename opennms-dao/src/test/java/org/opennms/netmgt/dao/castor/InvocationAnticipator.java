@@ -41,16 +41,18 @@ public class InvocationAnticipator implements InvocationHandler {
     public class NullInvocationHandler implements InvocationHandler {
 
         @Override
-        public Object invoke(Object proxy, Method method, Object[] args)
-                throws Throwable {
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             return null;
         }
 
     }
 
     private HashMap<String, Integer> m_counts = new HashMap<String, Integer>();
+
     private HashMap<String, Integer> m_anticipatedCounts = new HashMap<String, Integer>();
+
     private Class<?> m_clazz;
+
     private InvocationHandler m_handler = new NullInvocationHandler();
 
     public InvocationAnticipator(Class<?> clazz) {
@@ -63,13 +65,13 @@ public class InvocationAnticipator implements InvocationHandler {
         if (m_counts.get(method.getName()) != null) {
             currentCount = m_counts.get(method.getName()).intValue();
         }
-        m_counts.put(method.getName(), Integer.valueOf(currentCount+1));
+        m_counts.put(method.getName(), Integer.valueOf(currentCount + 1));
 
         return m_handler.invoke(proxy, method, args);
     }
 
     public void setInvocationHandler(InvocationHandler handler) {
-        m_handler  = handler;
+        m_handler = handler;
     }
 
     public int getCount(String methodName) {
@@ -87,7 +89,7 @@ public class InvocationAnticipator implements InvocationHandler {
     }
 
     public void anticipateCalls(int count, String methodName) {
-       m_anticipatedCounts.put(methodName, Integer.valueOf(count));
+        m_anticipatedCounts.put(methodName, Integer.valueOf(count));
     }
 
     public void verify() {
@@ -100,14 +102,16 @@ public class InvocationAnticipator implements InvocationHandler {
         unexpected.removeAll(m_anticipatedCounts.keySet());
         if (!unexpected.isEmpty()) {
             String method = unexpected.iterator().next();
-            DataCollectionConfigFileTest.fail("Unexpected call to method "+method+".  It was called "+getCount(method)+" times");
+            DataCollectionConfigFileTest.fail("Unexpected call to method " + method + ".  It was called "
+                    + getCount(method) + " times");
         }
     }
 
     private void ensureAnticipatedWereReceived() {
         for (Iterator<String> it = m_anticipatedCounts.keySet().iterator(); it.hasNext();) {
             String methodName = it.next();
-            DataCollectionConfigFileTest.assertEquals("Unexpected callCount for method "+methodName, getAnticipatedCount(methodName), getCount(methodName));
+            DataCollectionConfigFileTest.assertEquals("Unexpected callCount for method " + methodName,
+                                                      getAnticipatedCount(methodName), getCount(methodName));
         }
     }
 

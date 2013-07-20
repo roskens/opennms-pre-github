@@ -51,7 +51,6 @@ import org.springframework.core.io.Resource;
  * This is the singleton class used to load the configuration from the
  * categories.xml. This provides convenience methods to get the configured
  * categories and their information, add/delete categories from category groups.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -61,7 +60,9 @@ import org.springframework.core.io.Resource;
  */
 public final class CategoryFactory implements CatFactory {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
@@ -88,19 +89,24 @@ public final class CategoryFactory implements CatFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     *
      */
     private CategoryFactory(final String configFile) throws IOException, MarshalException, ValidationException {
         this(new FileSystemResource(configFile));
     }
 
     /**
-     * <p>Constructor for CategoryFactory.</p>
+     * <p>
+     * Constructor for CategoryFactory.
+     * </p>
      *
-     * @param resource a {@link org.springframework.core.io.Resource} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param resource
+     *            a {@link org.springframework.core.io.Resource} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public CategoryFactory(final Resource resource) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(Catinfo.class, resource);
@@ -126,9 +132,12 @@ public final class CategoryFactory implements CatFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -150,9 +159,12 @@ public final class CategoryFactory implements CatFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -175,15 +187,19 @@ public final class CategoryFactory implements CatFactory {
         return m_singleton;
     }
 
-	/**
-	 * <p>setInstance</p>
-	 *
-	 * @param singleton a {@link org.opennms.netmgt.config.categories.CatFactory} object.
-	 */
-	public static void setInstance(final CatFactory singleton) {
-		m_singleton = singleton;
-		m_loaded = true;
-	}
+    /**
+     * <p>
+     * setInstance
+     * </p>
+     *
+     * @param singleton
+     *            a {@link org.opennms.netmgt.config.categories.CatFactory}
+     *            object.
+     */
+    public static void setInstance(final CatFactory singleton) {
+        m_singleton = singleton;
+        m_loaded = true;
+    }
 
     /**
      * Return the categories configuration.
@@ -419,15 +435,13 @@ public final class CategoryFactory implements CatFactory {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Return the category specified by name.
+     * {@inheritDoc} Return the category specified by name.
      */
     @Override
     public Category getCategory(final String name) {
         getReadLock().lock();
         try {
-            for (final Categorygroup cg: m_config.getCategorygroupCollection()) {
+            for (final Categorygroup cg : m_config.getCategorygroupCollection()) {
                 for (final Category cat : cg.getCategories().getCategoryCollection()) {
                     if (cat.getLabel().equals(name)) {
                         return cat;
@@ -442,25 +456,21 @@ public final class CategoryFactory implements CatFactory {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Return the normal value for the specified category.
+     * {@inheritDoc} Return the normal value for the specified category.
      */
     @Override
     public double getNormal(final String catlabel) {
         final Category cat = getCategory(catlabel);
-        return (cat == null? -1.0 : cat.getNormal());
+        return (cat == null ? -1.0 : cat.getNormal());
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Return the warning value for the specified category.
+     * {@inheritDoc} Return the warning value for the specified category.
      */
     @Override
     public double getWarning(final String catlabel) {
         final Category cat = getCategory(catlabel);
-        return (cat == null? -1.0 : cat.getWarning());
+        return (cat == null ? -1.0 : cat.getWarning());
     }
 
     /**
@@ -473,7 +483,7 @@ public final class CategoryFactory implements CatFactory {
      */
     public String[] getServices(final String catlabel) {
         final Category cat = getCategory(catlabel);
-        return (cat == null? null : cat.getService());
+        return (cat == null ? null : cat.getService());
     }
 
     /**
@@ -486,13 +496,12 @@ public final class CategoryFactory implements CatFactory {
      */
     public String getRule(final String catlabel) {
         final Category cat = getCategory(catlabel);
-        return (cat == null? null : cat.getRule());
+        return (cat == null ? null : cat.getRule());
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Return the effective rule for the specified category. The category rule
+     * {@inheritDoc} Return the effective rule for the specified category. The
+     * category rule
      * ANDed with the rule of the category group that the category belongs to.
      */
     @Override

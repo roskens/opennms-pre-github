@@ -36,7 +36,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <p>SimplePager class.</p>
+ * <p>
+ * SimplePager class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -47,19 +49,23 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class SimplePager extends Composite {
     private SimplePageable m_pageable;
+
     private DockPanel m_pager = new DockPanel();
 
     /**
-     * <p>Constructor for SimplePager.</p>
+     * <p>
+     * Constructor for SimplePager.
+     * </p>
      *
-     * @param pageable a {@link org.opennms.dashboard.client.SimplePageable} object.
+     * @param pageable
+     *            a {@link org.opennms.dashboard.client.SimplePageable} object.
      */
     public SimplePager(SimplePageable pageable) {
         m_pageable = pageable;
 
         m_pager.addStyleName("pager");
         m_pager.add(createLeftPageControl(), DockPanel.WEST);
-        //m_pager.add(m_label, DockPanel.CENTER);
+        // m_pager.add(m_label, DockPanel.CENTER);
         m_pager.add(createRightPageControl(), DockPanel.EAST);
 
         initWidget(m_pager);
@@ -75,6 +81,7 @@ public class SimplePager extends Composite {
 
     private class PageControl extends Composite {
         Label m_label;
+
         int m_direction;
 
         PageControl(String text, int direction) {

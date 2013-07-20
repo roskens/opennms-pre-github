@@ -33,7 +33,9 @@ import java.io.IOException;
 public class MyProvider implements Hello, Goodbye {
 
     String m_name;
+
     int m_helloSaid = 0;
+
     int m_goodbyeSaid = 0;
 
     public MyProvider() {
@@ -66,7 +68,5 @@ public class MyProvider implements Hello, Goodbye {
     public String toString() {
         return m_name;
     }
-
-
 
 }

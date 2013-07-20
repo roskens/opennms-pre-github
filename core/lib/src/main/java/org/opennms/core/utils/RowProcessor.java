@@ -39,10 +39,14 @@ import java.sql.SQLException;
  */
 public interface RowProcessor {
     /**
-     * <p>processRow</p>
+     * <p>
+     * processRow
+     * </p>
      *
-     * @param rs a {@link java.sql.ResultSet} object.
-     * @throws java.sql.SQLException if any.
+     * @param rs
+     *            a {@link java.sql.ResultSet} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void processRow(ResultSet rs) throws SQLException;
 }

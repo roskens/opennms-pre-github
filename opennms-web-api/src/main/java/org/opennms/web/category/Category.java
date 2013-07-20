@@ -41,7 +41,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Adapts the functionality of the category definition and RTC category updates
  * into one simple interface. Also adds many convenience methods.
- *
  * <p>
  * The category definition is read from the categories.xml file by the
  * {@link org.opennms.netmgt.config.CategoryFactory CategoryFactory}. The RTC
@@ -53,7 +52,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Category {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Category.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Category.class);
 
     /** The category definition (from the categories.xml file). */
     protected final org.opennms.netmgt.config.categories.Category m_categoryDef;
@@ -94,7 +93,8 @@ public class Category {
      * Create an empty category with nothing other than a name. This represents
      * a category with no RTC data.
      *
-     * @param categoryName a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      */
     protected Category(String categoryName) {
         m_categoryDef = new org.opennms.netmgt.config.categories.Category();
@@ -108,17 +108,23 @@ public class Category {
      * (that defines a category) and information from the RTC (that gives
      * current service level availability).
      *
-     * @param categoryDef a {@link org.opennms.netmgt.config.categories.Category} object.
-     * @param rtcCategory a {@link org.opennms.netmgt.xml.rtc.Category} object.
-     * @param lastUpdated a {@link java.util.Date} object.
+     * @param categoryDef
+     *            a {@link org.opennms.netmgt.config.categories.Category}
+     *            object.
+     * @param rtcCategory
+     *            a {@link org.opennms.netmgt.xml.rtc.Category} object.
+     * @param lastUpdated
+     *            a {@link java.util.Date} object.
      */
-    protected Category(final org.opennms.netmgt.config.categories.Category categoryDef, final org.opennms.netmgt.xml.rtc.Category rtcCategory, final Date lastUpdated) {
+    protected Category(final org.opennms.netmgt.config.categories.Category categoryDef,
+            final org.opennms.netmgt.xml.rtc.Category rtcCategory, final Date lastUpdated) {
         if (categoryDef == null || rtcCategory == null || lastUpdated == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
 
         if (categoryDef.getLabel() == null || !categoryDef.getLabel().equals(rtcCategory.getCatlabel())) {
-            throw new IllegalArgumentException("Cannot take category " + "definition and rtc category " + "value whose names do not " + "match.");
+            throw new IllegalArgumentException("Cannot take category " + "definition and rtc category "
+                    + "value whose names do not " + "match.");
         }
 
         m_categoryDef = categoryDef;
@@ -204,7 +210,8 @@ public class Category {
 
     /**
      * Return the number of services contained within this category. This is
-     * synchronized because it updates several instance variables as it executes.
+     * synchronized because it updates several instance variables as it
+     * executes.
      *
      * @return a long.
      */
@@ -223,7 +230,8 @@ public class Category {
                 if (m_serviceCount.longValue() == 0) {
                     m_servicePercentage = Double.valueOf(100.0);
                 } else {
-                    m_servicePercentage = Double.valueOf(((double) (m_serviceCount.longValue() - m_serviceDownCount.longValue())) / (double) m_serviceCount.longValue() * 100.0);
+                    m_servicePercentage = Double.valueOf(((double) (m_serviceCount.longValue() - m_serviceDownCount.longValue()))
+                            / (double) m_serviceCount.longValue() * 100.0);
                 }
             }
         }
@@ -274,9 +282,12 @@ public class Category {
      * Returns the outage background color for this category.
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public String getOutageColor() throws IOException, MarshalException, ValidationException {
         if (m_lastUpdated == null) {
@@ -290,9 +301,12 @@ public class Category {
      * Returns the availability background color for this category.
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public String getAvailColor() throws IOException, MarshalException, ValidationException {
         if (m_lastUpdated == null) {
@@ -306,9 +320,12 @@ public class Category {
      * Returns the outage CSS class for this category.
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public String getOutageClass() throws IOException, MarshalException, ValidationException {
         if (m_lastUpdated == null) {
@@ -322,9 +339,12 @@ public class Category {
      * Returns the availability CSS class for this category.
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public String getAvailClass() throws IOException, MarshalException, ValidationException {
         if (m_lastUpdated == null) {
@@ -376,7 +396,6 @@ public class Category {
     /**
      * Returns an enumeration of the Castor-generated Node objects tied to this
      * category.
-     *
      * <p>
      * Note, LJK Dec 5,2001: I'm not really happy about exposing the Castor
      * objects this way. We do it all over the place, but I've already started
@@ -395,7 +414,8 @@ public class Category {
      * Convenience method to count the number of services under a category and
      * the number of those services that are currently down.
      *
-     * @param category a {@link org.opennms.netmgt.xml.rtc.Category} object.
+     * @param category
+     *            a {@link org.opennms.netmgt.xml.rtc.Category} object.
      * @return an array of long.
      */
     protected static long[] getServiceCounts(final org.opennms.netmgt.xml.rtc.Category category) {

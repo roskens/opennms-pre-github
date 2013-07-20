@@ -41,10 +41,14 @@ import java.util.List;
 
 public abstract class StringUtils {
     /**
-     * <p>join</p>
+     * <p>
+     * join
+     * </p>
      *
-     * @param s a {@link java.util.Collection} object.
-     * @param delimiter a {@link java.lang.String} object.
+     * @param s
+     *            a {@link java.util.Collection} object.
+     * @param delimiter
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String join(final Collection<?> s, final String delimiter) {
@@ -64,9 +68,12 @@ public abstract class StringUtils {
     }
 
     /**
-     * <p>join</p>
+     * <p>
+     * join
+     * </p>
      *
-     * @param s a {@link java.util.List} object.
+     * @param s
+     *            a {@link java.util.List} object.
      * @return a {@link java.lang.String} object.
      */
     public static String join(final List<String> s) {

@@ -30,22 +30,25 @@ package org.opennms.netmgt.mock;
 
 import org.opennms.netmgt.config.OutageManagerConfig;
 
-
 public class MockOutageConfig implements OutageManagerConfig {
 
     private String m_getNextOutageID;
+
     @Override
     public boolean deletePropagation() {
         return true;
     }
+
     @Override
     public String getGetNextOutageID() {
         return m_getNextOutageID;
     }
+
     @Override
     public int getWriters() {
         return 1;
     }
+
     /**
      * @param nextOutageIdStatement
      */

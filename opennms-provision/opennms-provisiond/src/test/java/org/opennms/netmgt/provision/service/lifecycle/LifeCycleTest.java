@@ -40,7 +40,6 @@ import org.junit.Test;
 import org.opennms.core.tasks.DefaultTaskCoordinator;
 import org.opennms.core.test.MockLogAppender;
 
-
 /**
  * LifeCycleDefinitionTest
  *
@@ -48,29 +47,29 @@ import org.opennms.core.test.MockLogAppender;
  */
 public class LifeCycleTest {
 
-    private final String[] m_expectedPhases = new String[] {"phase1", "phase2", "phase3"};
+    private final String[] m_expectedPhases = new String[] { "phase1", "phase2", "phase3" };
+
     private DefaultLifeCycleRepository m_lifeCycleRepository;
 
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
-        DefaultTaskCoordinator coordinator = new DefaultTaskCoordinator("LifeCycleTest", Executors.newSingleThreadExecutor());
+        DefaultTaskCoordinator coordinator = new DefaultTaskCoordinator("LifeCycleTest",
+                                                                        Executors.newSingleThreadExecutor());
         m_lifeCycleRepository = new DefaultLifeCycleRepository(coordinator);
     }
-
 
     @Test
     public void testBuildLifeCycle() {
 
         LifeCycle bldr = new LifeCycle("sample");
-        for(String phase : m_expectedPhases) {
+        for (String phase : m_expectedPhases) {
             bldr.addPhase(phase);
         }
 
         m_lifeCycleRepository.addLifeCycle(bldr);
 
         LifeCycleInstance lifecycle = m_lifeCycleRepository.createLifeCycleInstance("sample");
-
 
         assertNotNull(lifecycle);
         assertEquals("sample", lifecycle.getName());

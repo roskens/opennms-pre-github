@@ -55,13 +55,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-    "classpath:/META-INF/opennms/applicationContext-soa.xml",
-    "classpath:/META-INF/opennms/applicationContext-dao.xml",
-    "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-    "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
-    "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
+        "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 @Transactional
@@ -125,7 +123,8 @@ public class HibernateCriteriaConverterTest implements InitializingBean {
 
         final CriteriaBuilder cb = new CriteriaBuilder(OnmsNode.class);
         cb.isNotNull("id").distinct();
-        cb.eq("label", "node1").join("ipInterfaces", "ipInterface", JoinType.LEFT_JOIN).eq("ipInterface.ipAddress", "192.168.1.1");
+        cb.eq("label", "node1").join("ipInterfaces", "ipInterface", JoinType.LEFT_JOIN).eq("ipInterface.ipAddress",
+                                                                                           "192.168.1.1");
 
         nodes = m_nodeDao.findMatching(cb.toCriteria());
         assertEquals(1, nodes.size());

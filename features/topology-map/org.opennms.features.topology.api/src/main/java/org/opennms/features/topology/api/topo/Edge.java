@@ -32,26 +32,26 @@ import com.vaadin.data.Item;
 
 public interface Edge extends EdgeRef {
 
-	/**
-	 * @deprecated Use namespace/id tuple
-	 */
-	String getKey();
+    /**
+     * @deprecated Use namespace/id tuple
+     */
+    String getKey();
 
-	Item getItem();
+    Item getItem();
 
-	Connector getSource();
+    Connector getSource();
 
-	Connector getTarget();
+    Connector getTarget();
 
-        @Override
-	String getLabel();
+    @Override
+    String getLabel();
 
-	String getTooltipText();
+    String getTooltipText();
 
-	void setTooltipText(String tooltipText);
+    void setTooltipText(String tooltipText);
 
-	String getStyleName();
+    String getStyleName();
 
-	void setStyleName(String styleName);
+    void setStyleName(String styleName);
 
 }

@@ -37,8 +37,10 @@ import org.slf4j.LoggerFactory;
 
 public class JuniperSyslogParser extends SyslogParser {
     private static final Logger LOG = LoggerFactory.getLogger(JuniperSyslogParser.class);
-    //                                                                PRI         TIMESTAMP                                          HOST      PROCESS/ID          MESSAGE
-    private static final Pattern m_juniperPattern = Pattern.compile("^<(\\d+)>\\s*(\\S\\S\\S\\s+\\d{1,2}\\s+\\d\\d:\\d\\d:\\d\\d)\\s+(\\S+)\\s+(\\S+)\\[(\\d+)\\]: (.*?)$", Pattern.MULTILINE);
+
+    // PRI TIMESTAMP HOST PROCESS/ID MESSAGE
+    private static final Pattern m_juniperPattern = Pattern.compile("^<(\\d+)>\\s*(\\S\\S\\S\\s+\\d{1,2}\\s+\\d\\d:\\d\\d:\\d\\d)\\s+(\\S+)\\s+(\\S+)\\[(\\d+)\\]: (.*?)$",
+                                                                    Pattern.MULTILINE);
 
     protected JuniperSyslogParser(final String text) {
         super(text);
@@ -75,7 +77,8 @@ public class JuniperSyslogParser extends SyslogParser {
             LOG.debug("Unable to parse '{}' as a PRI code.", matcher.group(1), nfe);
         }
         Date date = parseDate(matcher.group(2));
-        if (date == null) date = new Date();
+        if (date == null)
+            date = new Date();
         message.setDate(date);
 
         message.setHostName(matcher.group(3));
@@ -90,6 +93,5 @@ public class JuniperSyslogParser extends SyslogParser {
 
         return message;
     }
-
 
 }

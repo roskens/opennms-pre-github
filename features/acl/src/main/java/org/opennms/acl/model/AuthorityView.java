@@ -54,28 +54,36 @@ import java.util.List;
 public interface AuthorityView {
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return Name of the Authority
      */
     public String getName();
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return Unique identifier
      */
     public Integer getId();
 
     /**
-     * <p>getItems</p>
+     * <p>
+     * getItems
+     * </p>
      *
      * @return List of items managed by this authority
      */
     public List<?> getItems();
 
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return Description of the Authority
      */

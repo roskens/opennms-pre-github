@@ -49,19 +49,27 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class DaoTestConfigBean implements InitializingBean {
     private String m_relativeHomeDirectory = null;
+
     private String m_rrdBinary = "/bin/true";
+
     private String m_relativeRrdBaseDirectory = "target/test/opennms-home/share/rrd";
+
     private final String m_relativeImporterDirectory = "target/test/opennms-home/etc/imports";
+
     private final String m_relativeForeignSourceDirectory = "target/test/opennms-home/etc/foreign-sources";
 
     /**
-     * <p>Constructor for DaoTestConfigBean.</p>
+     * <p>
+     * Constructor for DaoTestConfigBean.
+     * </p>
      */
     public DaoTestConfigBean() {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -86,8 +94,11 @@ public class DaoTestConfigBean implements InitializingBean {
         substitutions.setProperty("install.share.dir", "target/test/share");
         substitutions.setProperty("install.logs.dir", "target/test/logs");
         for (Map.Entry<Object, Object> entry : opennmsProperties.entrySet()) {
-            //System.err.println((String)entry.getKey() + " -> " + PropertiesUtils.substitute((String)entry.getValue(), substitutions));
-            System.setProperty((String)entry.getKey(), PropertiesUtils.substitute((String)entry.getValue(), substitutions));
+            // System.err.println((String)entry.getKey() + " -> " +
+            // PropertiesUtils.substitute((String)entry.getValue(),
+            // substitutions));
+            System.setProperty((String) entry.getKey(),
+                               PropertiesUtils.substitute((String) entry.getValue(), substitutions));
         }
 
         if (m_relativeHomeDirectory != null) {
@@ -96,7 +107,8 @@ public class DaoTestConfigBean implements InitializingBean {
             ConfigurationTestUtils.setAbsoluteHomeDirectory(ConfigurationTestUtils.getDaemonEtcDirectory().getParentFile().getAbsolutePath());
         }
 
-        // Turn off dumb SNMP4J logging which triggers our "no logging higher than INFO" checks
+        // Turn off dumb SNMP4J logging which triggers our
+        // "no logging higher than INFO" checks
         System.setProperty("snmp4j.LogFactory", "org.snmp4j.log.NoLogger");
 
         ConfigurationTestUtils.setRrdBinary(m_rrdBinary);
@@ -106,7 +118,9 @@ public class DaoTestConfigBean implements InitializingBean {
     }
 
     /**
-     * <p>getRelativeHomeDirectory</p>
+     * <p>
+     * getRelativeHomeDirectory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -115,16 +129,21 @@ public class DaoTestConfigBean implements InitializingBean {
     }
 
     /**
-     * <p>setRelativeHomeDirectory</p>
+     * <p>
+     * setRelativeHomeDirectory
+     * </p>
      *
-     * @param relativeHomeDirectory a {@link java.lang.String} object.
+     * @param relativeHomeDirectory
+     *            a {@link java.lang.String} object.
      */
     public void setRelativeHomeDirectory(String relativeHomeDirectory) {
         m_relativeHomeDirectory = relativeHomeDirectory;
     }
 
     /**
-     * <p>getRelativeRrdBaseDirectory</p>
+     * <p>
+     * getRelativeRrdBaseDirectory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -133,16 +152,21 @@ public class DaoTestConfigBean implements InitializingBean {
     }
 
     /**
-     * <p>setRelativeRrdBaseDirectory</p>
+     * <p>
+     * setRelativeRrdBaseDirectory
+     * </p>
      *
-     * @param rrdBaseDirectory a {@link java.lang.String} object.
+     * @param rrdBaseDirectory
+     *            a {@link java.lang.String} object.
      */
     public void setRelativeRrdBaseDirectory(String rrdBaseDirectory) {
         m_relativeRrdBaseDirectory = rrdBaseDirectory;
     }
 
     /**
-     * <p>getRrdBinary</p>
+     * <p>
+     * getRrdBinary
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -151,12 +175,14 @@ public class DaoTestConfigBean implements InitializingBean {
     }
 
     /**
-     * <p>setRrdBinary</p>
+     * <p>
+     * setRrdBinary
+     * </p>
      *
-     * @param rrdBinary a {@link java.lang.String} object.
+     * @param rrdBinary
+     *            a {@link java.lang.String} object.
      */
     public void setRrdBinary(String rrdBinary) {
         m_rrdBinary = rrdBinary;
     }
-}
-;
+};

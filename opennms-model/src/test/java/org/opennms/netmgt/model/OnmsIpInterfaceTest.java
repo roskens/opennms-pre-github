@@ -30,49 +30,48 @@ package org.opennms.netmgt.model;
 
 import junit.framework.TestCase;
 
-
 public class OnmsIpInterfaceTest extends TestCase {
 
-	public void testCollectionTypeGetNull () {
-		PrimaryType collectionType = PrimaryType.get(null);
+    public void testCollectionTypeGetNull() {
+        PrimaryType collectionType = PrimaryType.get(null);
 
-		assertSame("The expected value is N for a null", PrimaryType.NOT_ELIGIBLE, collectionType);
+        assertSame("The expected value is N for a null", PrimaryType.NOT_ELIGIBLE, collectionType);
 
-	}
+    }
 
-	public void testCollectionTypeGetSpaces () {
-		PrimaryType collectionType = PrimaryType.get("   ");
+    public void testCollectionTypeGetSpaces() {
+        PrimaryType collectionType = PrimaryType.get("   ");
 
-		assertSame("The expected valus is N for all spaces", PrimaryType.NOT_ELIGIBLE, collectionType);
-	}
+        assertSame("The expected valus is N for all spaces", PrimaryType.NOT_ELIGIBLE, collectionType);
+    }
 
-	public void testCollectionTypeGetTwoChars () {
+    public void testCollectionTypeGetTwoChars() {
 
-		try {
-			@SuppressWarnings("unused")
-			PrimaryType collectionType = PrimaryType.get(" MN  ");
-			fail("Expected to catch an exception here");
-		} catch (IllegalArgumentException e) {
-		}
-	}
+        try {
+            @SuppressWarnings("unused")
+            PrimaryType collectionType = PrimaryType.get(" MN  ");
+            fail("Expected to catch an exception here");
+        } catch (IllegalArgumentException e) {
+        }
+    }
 
-	public void testCollectionTypeGetZ () {
+    public void testCollectionTypeGetZ() {
 
-		try {
-			@SuppressWarnings("unused")
-			PrimaryType collectionType = PrimaryType.get("Z");
-			fail("Expected to catch an exception here");
-		} catch (IllegalArgumentException e) {
-		}
-	}
+        try {
+            @SuppressWarnings("unused")
+            PrimaryType collectionType = PrimaryType.get("Z");
+            fail("Expected to catch an exception here");
+        } catch (IllegalArgumentException e) {
+        }
+    }
 
-	public void testCollectionTypeComparison () {
-		PrimaryType left = PrimaryType.NOT_ELIGIBLE;
-		PrimaryType right = null;
-		try {
-			left.isLessThan(right);
-			fail("Expected to catch an exception here");
-		} catch (NullPointerException e) {
-		}
-	}
+    public void testCollectionTypeComparison() {
+        PrimaryType left = PrimaryType.NOT_ELIGIBLE;
+        PrimaryType right = null;
+        try {
+            left.isLessThan(right);
+            fail("Expected to catch an exception here");
+        } catch (NullPointerException e) {
+        }
+    }
 }

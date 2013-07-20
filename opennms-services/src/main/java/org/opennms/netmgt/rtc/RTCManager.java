@@ -51,19 +51,16 @@ import org.slf4j.LoggerFactory;
  * The RTCManager maintains data required so as to calculate availability for
  * the different categories configured in categories.xml
  * </P>
- *
  * <P>
  * The RTC initializes its data from the database when it comes up. It then
  * subscribes to the Events subsystem to receive events of interest to keep the
  * data up-to-date
  * </P>
- *
  * <P>
  * Availability data is sent out to listeners who indicate that they are
  * listening by sending an RTC 'subscribe' event. The subscribe event has an URL
  * and user/passwd info. so RTC can post data to the URL
  * </P>
- *
  * <P>
  * The RTC has two timers(a low threshold and a high threshold) and a counter
  * that can run upto a configurable max number of events - these are used to
@@ -86,7 +83,9 @@ public final class RTCManager extends AbstractServiceDaemon {
 
     private static final Logger LOG = LoggerFactory.getLogger(RTCManager.class);
 
-    private Logger log() { return LOG; }
+    private Logger log() {
+        return LOG;
+    }
 
     /**
      * Singleton instance of this class
@@ -230,13 +229,11 @@ public final class RTCManager extends AbstractServiceDaemon {
 
     /**
      * Handles a completed task.
-     *
      * <P>
      * If the low threshold or high threshold timers expire, send category data
      * out and set both timer(task)s to null so they can be reset when the next
      * event comes in
      * <P>
-     *
      * <P>
      * If the user refresh timer is the one that expired, send category data out
      * and reset the user timer(task)
@@ -309,7 +306,7 @@ public final class RTCManager extends AbstractServiceDaemon {
      * The constructor for the RTCManager
      */
     public RTCManager() {
-    	super("rtc");
+        super("rtc");
     }
 
     /**
@@ -417,7 +414,9 @@ public final class RTCManager extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -494,10 +493,9 @@ public final class RTCManager extends AbstractServiceDaemon {
             throw new UndeclaredThrowableException(ex);
         }
 
-        m_updaterPool = Executors.newFixedThreadPool(
-            rFactory.getUpdaters(),
-            new LogPreservingThreadFactory(getClass().getSimpleName(), rFactory.getUpdaters(), false)
-        );
+        m_updaterPool = Executors.newFixedThreadPool(rFactory.getUpdaters(),
+                                                     new LogPreservingThreadFactory(getClass().getSimpleName(),
+                                                                                    rFactory.getUpdaters(), false));
 
         if (log().isDebugEnabled())
             log().debug("Created updater pool");
@@ -519,11 +517,13 @@ public final class RTCManager extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected synchronized void onStart() {
-		//
+        //
         // Start all the threads
         //
 
@@ -563,18 +563,19 @@ public final class RTCManager extends AbstractServiceDaemon {
             throw new UndeclaredThrowableException(t);
         }
 
-
         if (log().isDebugEnabled()) {
             log().debug("RTC ready to receive events");
         }
-	}
+    }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected synchronized void onStop() {
-		try {
+        try {
             if (log().isDebugEnabled())
                 log().debug("Beginning shutdown process");
 
@@ -622,7 +623,7 @@ public final class RTCManager extends AbstractServiceDaemon {
         } catch (Throwable e) {
             log().error(e.getLocalizedMessage(), e);
         }
-	}
+    }
 
     /**
      * Updates the number of events received. Increment the counter that keeps
@@ -662,7 +663,8 @@ public final class RTCManager extends AbstractServiceDaemon {
     /**
      * Sets the data manager.
      *
-     * @param dataMgr a {@link org.opennms.netmgt.rtc.DataManager} object.
+     * @param dataMgr
+     *            a {@link org.opennms.netmgt.rtc.DataManager} object.
      */
     public static void setDataManager(DataManager dataMgr) {
         m_dataMgr = dataMgr;

@@ -56,7 +56,8 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
      * findByNodeId
      * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
      */
     @Override
@@ -69,13 +70,16 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
      * findImportedAssetNumbersToNodeIds
      * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Map} object.
      */
     @Override
     public Map<String, Integer> findImportedAssetNumbersToNodeIds(String foreignSource) {
 
-        @SuppressWarnings("unchecked") List<Object[]> assetNumbers = getHibernateTemplate().find("select a.node.id, a.assetNumber from OnmsAssetRecord a where a.assetNumber like '" + foreignSource + "%'");
+        @SuppressWarnings("unchecked")
+        List<Object[]> assetNumbers = getHibernateTemplate().find("select a.node.id, a.assetNumber from OnmsAssetRecord a where a.assetNumber like '"
+                                                                          + foreignSource + "%'");
 
         Map<String, Integer> assetNumberMap = new HashMap<String, Integer>();
         for (Object[] an : assetNumbers) {
@@ -89,7 +93,8 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
         DetachedCriteria criteria = DetachedCriteria.forClass(OnmsAssetRecord.class);
         ProjectionList projList = Projections.projectionList();
 
-        // projList.add(Projections.alias(Projections.property("geolocation"), "geolocation"));
+        // projList.add(Projections.alias(Projections.property("geolocation"),
+        // "geolocation"));
         projList.add(Projections.alias(Projections.property("additionalhardware"), "additionalhardware"));
         projList.add(Projections.alias(Projections.property("geolocation.address1"), "address1"));
         projList.add(Projections.alias(Projections.property("geolocation.address2"), "address2"));
@@ -153,7 +158,8 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
         criteria.setProjection(Projections.distinct(projList));
         criteria.setResultTransformer(Transformers.aliasToBean(OnmsAssetRecord.class));
 
-        @SuppressWarnings("unchecked") List<OnmsAssetRecord> result = getHibernateTemplate().findByCriteria(criteria);
+        @SuppressWarnings("unchecked")
+        List<OnmsAssetRecord> result = getHibernateTemplate().findByCriteria(criteria);
         return result;
     }
 }

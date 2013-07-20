@@ -37,11 +37,11 @@ import org.opennms.netmgt.config.snmpAsset.adapter.AssetField;
  */
 public interface SnmpAssetAdapterConfig {
 
-	public AssetField[] getAssetFieldsForAddress(InetAddress address, String sysoid);
+    public AssetField[] getAssetFieldsForAddress(InetAddress address, String sysoid);
 
-	/**
+    /**
 	 */
-	void update() throws Exception;
+    void update() throws Exception;
 
     public Lock getReadLock();
 

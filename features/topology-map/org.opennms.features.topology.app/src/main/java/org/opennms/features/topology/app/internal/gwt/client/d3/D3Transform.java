@@ -34,44 +34,45 @@ import com.google.gwt.core.client.JsArrayNumber;
 
 public class D3Transform extends JavaScriptObject {
 
-    protected D3Transform() {};
+    protected D3Transform() {
+    };
 
     public final native JsArrayInteger getTranslate() /*-{
-        return this.translate;
-    }-*/;
+                                                      return this.translate;
+                                                      }-*/;
 
     public final native int getX() /*-{
-        if(this.translate != "undefined"){
-            return this.translate[0];
-        }
-        return -1;
-    }-*/;
+                                   if(this.translate != "undefined"){
+                                   return this.translate[0];
+                                   }
+                                   return -1;
+                                   }-*/;
 
     public final native int getY() /*-{
-        if(this.translate != "undefined"){
-            return this.translate[1];
-        }
-        return -1;
-    }-*/;
+                                   if(this.translate != "undefined"){
+                                   return this.translate[1];
+                                   }
+                                   return -1;
+                                   }-*/;
 
     public final native JsArrayNumber getScale() /*-{
-        return this.scale;
-    }-*/;
+                                                 return this.scale;
+                                                 }-*/;
 
     public final native double getScaleX() /*-{
-    	return this.scale[0];
-    }-*/;
+                                           return this.scale[0];
+                                           }-*/;
 
     public final native double getScaleY() /*-{
-		return this.scale[1];
-	}-*/;
+                                           return this.scale[1];
+                                           }-*/;
 
     public final native double getRotate() /*-{
-        return this.rotate;
-    }-*/;
+                                           return this.rotate;
+                                           }-*/;
 
     public final native double getSkew() /*-{
-        return this.skew;
-    }-*/;
+                                         return this.skew;
+                                         }-*/;
 
 }

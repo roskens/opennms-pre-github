@@ -52,7 +52,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>AuthorityFactoryImpl class.</p>
+ * <p>
+ * AuthorityFactoryImpl class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -68,9 +70,12 @@ public class AuthorityFactoryImpl implements AutorityFactory, InitializingBean {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -79,6 +84,7 @@ public class AuthorityFactoryImpl implements AutorityFactory, InitializingBean {
 
     @Autowired
     private AuthorityService authorityService;
+
     @Autowired
     @Qualifier("categoryNodesItemsService")
     private AclItemService aclItemService;

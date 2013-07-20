@@ -51,13 +51,14 @@ public class OnmsMonitoringLocationDefinitionList extends LinkedList<OnmsMonitor
         super(c);
     }
 
-    @XmlElement(name="locations")
-    public List<OnmsMonitoringLocationDefinition> getDefinitions(){
+    @XmlElement(name = "locations")
+    public List<OnmsMonitoringLocationDefinition> getDefinitions() {
         return this;
     }
 
     public void setDefinitions(List<OnmsMonitoringLocationDefinition> defs) {
-        if (defs == this) return;
+        if (defs == this)
+            return;
         clear();
         addAll(defs);
     }

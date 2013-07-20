@@ -41,7 +41,9 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath;
 import org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet;
 
 /**
- * <p>OnmsWbemObjectImpl class.</p>
+ * <p>
+ * OnmsWbemObjectImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,9 +52,13 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
     private IJIDispatch wbemObjectDispatch;
 
     /**
-     * <p>Constructor for OnmsWbemObjectImpl.</p>
+     * <p>
+     * Constructor for OnmsWbemObjectImpl.
+     * </p>
      *
-     * @param wbemObjectDispatch a {@link org.jinterop.dcom.impls.automation.IJIDispatch} object.
+     * @param wbemObjectDispatch
+     *            a {@link org.jinterop.dcom.impls.automation.IJIDispatch}
+     *            object.
      */
     public OnmsWbemObjectImpl(final IJIDispatch wbemObjectDispatch) {
         this.wbemObjectDispatch = wbemObjectDispatch;
@@ -65,7 +71,9 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
     }
 
     /**
-     * <p>wmiInstances</p>
+     * <p>
+     * wmiInstances
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -75,7 +83,9 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
     }
 
     /**
-     * <p>wmiPut</p>
+     * <p>
+     * wmiPut
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,10 +95,14 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
     }
 
     /**
-     * <p>getWmiMethods</p>
+     * <p>
+     * getWmiMethods
+     * </p>
      *
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemMethodSet} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemMethodSet}
+     *         object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public OnmsWbemMethodSet getWmiMethods() throws WmiException {
@@ -104,10 +118,14 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
     }
 
     /**
-     * <p>getWmiPath</p>
+     * <p>
+     * getWmiPath
+     * </p>
      *
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath}
+     *         object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public OnmsWbemObjectPath getWmiPath() throws WmiException {
@@ -123,25 +141,32 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
     }
 
     /**
-     * <p>getWmiObjectText</p>
+     * <p>
+     * getWmiObjectText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public String getWmiObjectText() throws WmiException {
         try {
-            return (wbemObjectDispatch.callMethodA("GetObjectText_", new Object[]{1}))[0].getObjectAsString2();
+            return (wbemObjectDispatch.callMethodA("GetObjectText_", new Object[] { 1 }))[0].getObjectAsString2();
         } catch (final JIException e) {
             throw new WmiException("Unable to retrieve WbemObjectPath GetObjectText_ attribute: " + e.getMessage(), e);
         }
     }
 
     /**
-     * <p>getWmiProperties</p>
+     * <p>
+     * getWmiProperties
+     * </p>
      *
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet}
+     *         object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public OnmsWbemPropertySet getWmiProperties() throws WmiException {

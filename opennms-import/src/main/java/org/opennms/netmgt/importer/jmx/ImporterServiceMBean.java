@@ -31,14 +31,18 @@ package org.opennms.netmgt.importer.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>ImporterServiceMBean interface.</p>
+ * <p>
+ * ImporterServiceMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public interface ImporterServiceMBean extends BaseOnmsMBean {
     /**
-     * <p>getStats</p>
+     * <p>
+     * getStats
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

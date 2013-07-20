@@ -32,8 +32,9 @@ import org.junit.runner.Computer;
 import org.junit.runner.Runner;
 import org.junit.runners.model.RunnerBuilder;
 
-public class SeleniumComputer extends Computer{
+public class SeleniumComputer extends Computer {
     private String m_baseUrl = "";
+
     private int m_timeout = 3;
 
     public SeleniumComputer() {

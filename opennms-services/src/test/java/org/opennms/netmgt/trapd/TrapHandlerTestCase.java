@@ -70,13 +70,11 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:META-INF/opennms/mockEventIpcManager.xml",
         "classpath:META-INF/opennms/applicationContext-daemon.xml",
         "classpath:META-INF/opennms/applicationContext-trapDaemon.xml",
-        "classpath:org/opennms/netmgt/trapd/applicationContext-trapDaemonTest.xml"}
-)
+        "classpath:org/opennms/netmgt/trapd/applicationContext-trapDaemonTest.xml" })
 @JUnitConfigurationEnvironment
 public class TrapHandlerTestCase implements InitializingBean {
 
@@ -96,7 +94,7 @@ public class TrapHandlerTestCase implements InitializingBean {
 
     private InetAddress m_localhost = null;
 
-    @Resource(name="snmpTrapPort")
+    @Resource(name = "snmpTrapPort")
     private Integer m_snmpTrapPort;
 
     private boolean m_doStop = false;
@@ -153,100 +151,91 @@ public class TrapHandlerTestCase implements InitializingBean {
     @DirtiesContext
     public void testV1TrapNoNewSuspect() throws Exception {
         m_trapdIpMgr.clearKnownIpsMap();
-        anticipateAndSend(false, false, "uei.opennms.org/default/trap", "v1",
-                null, 6, 1);
+        anticipateAndSend(false, false, "uei.opennms.org/default/trap", "v1", null, 6, 1);
     }
 
     @Test
     @DirtiesContext
     public void testV2TrapNoNewSuspect() throws Exception {
         m_trapdIpMgr.clearKnownIpsMap();
-        anticipateAndSend(false, false, "uei.opennms.org/default/trap",
-                "v2c", null, 6, 1);
+        anticipateAndSend(false, false, "uei.opennms.org/default/trap", "v2c", null, 6, 1);
     }
 
     @Test
     @DirtiesContext
     public void testV1TrapNewSuspect() throws Exception {
         m_trapdIpMgr.clearKnownIpsMap();
-        anticipateAndSend(true, false, "uei.opennms.org/default/trap",
-                "v1", null, 6, 1);
+        anticipateAndSend(true, false, "uei.opennms.org/default/trap", "v1", null, 6, 1);
     }
 
     @Test
     @DirtiesContext
     public void testV2TrapNewSuspect() throws Exception {
         m_trapdIpMgr.clearKnownIpsMap();
-        anticipateAndSend(true, false, "uei.opennms.org/default/trap",
-                "v2c", null, 6, 1);
+        anticipateAndSend(true, false, "uei.opennms.org/default/trap", "v2c", null, 6, 1);
     }
 
     @Test
     @DirtiesContext
     public void testV1EnterpriseIdAndGenericMatch() throws Exception {
-        anticipateAndSend(false, true,
-                "uei.opennms.org/IETF/BGP/traps/bgpEstablished",
-                "v1", ".1.3.6.1.2.1.15.7", 6, 1);
+        anticipateAndSend(false, true, "uei.opennms.org/IETF/BGP/traps/bgpEstablished", "v1", ".1.3.6.1.2.1.15.7", 6, 1);
     }
 
     @Test
     @DirtiesContext
-    public void testV2EnterpriseIdAndGenericAndSpecificMatch()
-    throws Exception {
-        anticipateAndSend(false, true,
-                "uei.opennms.org/IETF/BGP/traps/bgpEstablished",
-                "v2c", ".1.3.6.1.2.1.15.7", 6, 1);
+    public void testV2EnterpriseIdAndGenericAndSpecificMatch() throws Exception {
+        anticipateAndSend(false, true, "uei.opennms.org/IETF/BGP/traps/bgpEstablished", "v2c", ".1.3.6.1.2.1.15.7", 6,
+                          1);
     }
 
     @Test
     @DirtiesContext
-    public void testV1EnterpriseIdAndGenericAndSpecificAndMatchWithVarbinds()
-    throws Exception {
+    public void testV1EnterpriseIdAndGenericAndSpecificAndMatchWithVarbinds() throws Exception {
         SnmpValueFactory valueFactory = SnmpUtils.getValueFactory();
 
-        LinkedHashMap<String, SnmpValue> varbinds = new LinkedHashMap <String, SnmpValue>();
+        LinkedHashMap<String, SnmpValue> varbinds = new LinkedHashMap<String, SnmpValue>();
         varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.2.1.4.2404", valueFactory.getInt32(3));
         varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.2.1.5.2404", valueFactory.getInt32(2));
         varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.2.1.6.2404", valueFactory.getInt32(5));
-        varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.3.0.2404", valueFactory.getOctetString("http://a.b.c.d/cgi/fDetail?index=2404".getBytes()));
-        anticipateAndSend(false, true,
-                "uei.opennms.org/vendor/HP/traps/hpicfFaultFinderTrap",
-                "v1", ".1.3.6.1.4.1.11.2.14.12.1", 6, 5, varbinds);
+        varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.3.0.2404",
+                     valueFactory.getOctetString("http://a.b.c.d/cgi/fDetail?index=2404".getBytes()));
+        anticipateAndSend(false, true, "uei.opennms.org/vendor/HP/traps/hpicfFaultFinderTrap", "v1",
+                          ".1.3.6.1.4.1.11.2.14.12.1", 6, 5, varbinds);
     }
 
     @Test
     @DirtiesContext
-    public void testV2EnterpriseIdAndGenericAndSpecificAndMatchWithVarbinds()
-    throws Exception {
+    public void testV2EnterpriseIdAndGenericAndSpecificAndMatchWithVarbinds() throws Exception {
         SnmpValueFactory valueFactory = SnmpUtils.getValueFactory();
 
-        LinkedHashMap<String, SnmpValue> varbinds = new LinkedHashMap <String, SnmpValue>();
+        LinkedHashMap<String, SnmpValue> varbinds = new LinkedHashMap<String, SnmpValue>();
         varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.2.1.4.2404", valueFactory.getInt32(3));
         varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.2.1.5.2404", valueFactory.getInt32(2));
         varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.2.1.6.2404", valueFactory.getInt32(5));
-        varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.3.0.2404", valueFactory.getOctetString("http://a.b.c.d/cgi/fDetail?index=2404".getBytes()));
-        anticipateAndSend(false, true,
-                "uei.opennms.org/vendor/HP/traps/hpicfFaultFinderTrap",
-                "v2c", ".1.3.6.1.4.1.11.2.14.12.1", 6, 5, varbinds);
+        varbinds.put(".1.3.6.1.4.1.11.2.14.11.1.7.3.0.2404",
+                     valueFactory.getOctetString("http://a.b.c.d/cgi/fDetail?index=2404".getBytes()));
+        anticipateAndSend(false, true, "uei.opennms.org/vendor/HP/traps/hpicfFaultFinderTrap", "v2c",
+                          ".1.3.6.1.4.1.11.2.14.12.1", 6, 5, varbinds);
     }
-
 
     // These exist to provide testing for the new Textual Convention feature
     // See EventConfDataTest for the other part of this testing
     @Test
     @DirtiesContext
-    public void testV1EnterpriseIdAndGenericAndSpecificAndMatchWithVarbindsAndTC()
-    throws Exception {
+    public void testV1EnterpriseIdAndGenericAndSpecificAndMatchWithVarbindsAndTC() throws Exception {
         SnmpValueFactory valueFactory = SnmpUtils.getValueFactory();
 
-        LinkedHashMap<String, SnmpValue> varbinds = new LinkedHashMap <String, SnmpValue>();
-        varbinds.put(".1.3.6.1.4.1.14179.2.6.2.20.0", valueFactory.getOctetString(new byte[]{(byte)0x00,(byte)0x14,(byte)0xf1,(byte)0xad,(byte)0xa7,(byte)0x50}));
+        LinkedHashMap<String, SnmpValue> varbinds = new LinkedHashMap<String, SnmpValue>();
+        varbinds.put(".1.3.6.1.4.1.14179.2.6.2.20.0",
+                     valueFactory.getOctetString(new byte[] { (byte) 0x00, (byte) 0x14, (byte) 0xf1, (byte) 0xad,
+                             (byte) 0xa7, (byte) 0x50 }));
         Collection<Event> events = anticipateAndSend(false, true,
-                "uei.opennms.org/vendor/cisco/bsnAPNoiseProfileUpdatedToPass",
-                "v1", ".1.3.6.1.4.1.14179.2.6.3", 6, 38, varbinds);
+                                                     "uei.opennms.org/vendor/cisco/bsnAPNoiseProfileUpdatedToPass",
+                                                     "v1", ".1.3.6.1.4.1.14179.2.6.3", 6, 38, varbinds);
 
         boolean foundMacAddress = false;
-        // Assert that the MAC address varbind has been formatted into a colon-separated octet string
+        // Assert that the MAC address varbind has been formatted into a
+        // colon-separated octet string
         for (Event event : events) {
             for (Parm parm : event.getParmCollection()) {
                 if (".1.3.6.1.4.1.14179.2.6.2.20.0".equals(parm.getParmName())) {
@@ -258,28 +247,29 @@ public class TrapHandlerTestCase implements InitializingBean {
         assertTrue("Did not find expected MAC address parm", foundMacAddress);
     }
 
-    // FIXME: these exist to provide testing for the new Textual Convention feature
+    // FIXME: these exist to provide testing for the new Textual Convention
+    // feature
     @Test
     @DirtiesContext
-    public void testV2EnterpriseIdAndGenericAndSpecificAndMatchWithVarbindsAndTC()
-    throws Exception {
+    public void testV2EnterpriseIdAndGenericAndSpecificAndMatchWithVarbindsAndTC() throws Exception {
         SnmpValueFactory valueFactory = SnmpUtils.getValueFactory();
 
-        byte[] macAddr = new byte[]{(byte)0x00,(byte)0x14,(byte)0xf1,(byte)0xad,(byte)0xa7,(byte)0x50};
+        byte[] macAddr = new byte[] { (byte) 0x00, (byte) 0x14, (byte) 0xf1, (byte) 0xad, (byte) 0xa7, (byte) 0x50 };
 
         String encoded = new String(Base64.encodeBase64(macAddr));
         byte[] decodeBytes = Base64.decodeBase64(encoded.toCharArray());
 
         assertByteArrayEquals(macAddr, decodeBytes);
 
-        LinkedHashMap<String, SnmpValue> varbinds = new LinkedHashMap <String, SnmpValue>();
+        LinkedHashMap<String, SnmpValue> varbinds = new LinkedHashMap<String, SnmpValue>();
         varbinds.put(".1.3.6.1.4.1.14179.2.6.2.20.0", valueFactory.getOctetString(macAddr));
         Collection<Event> events = anticipateAndSend(false, true,
-                "uei.opennms.org/vendor/cisco/bsnAPNoiseProfileUpdatedToPass",
-                "v2c", ".1.3.6.1.4.1.14179.2.6.3", 6, 38, varbinds);
+                                                     "uei.opennms.org/vendor/cisco/bsnAPNoiseProfileUpdatedToPass",
+                                                     "v2c", ".1.3.6.1.4.1.14179.2.6.3", 6, 38, varbinds);
 
         boolean foundMacAddress = false;
-        // Assert that the MAC address varbind has been formatted into a colon-separated octet string
+        // Assert that the MAC address varbind has been formatted into a
+        // colon-separated octet string
         for (Event event : events) {
             for (Parm parm : event.getParmCollection()) {
                 if (".1.3.6.1.4.1.14179.2.6.2.20.0".equals(parm.getParmName())) {
@@ -292,59 +282,48 @@ public class TrapHandlerTestCase implements InitializingBean {
     }
 
     private void assertByteArrayEquals(byte[] macAddr, byte[] bytes) {
-        assertEquals("expect length: "+macAddr.length, macAddr.length, bytes.length);
+        assertEquals("expect length: " + macAddr.length, macAddr.length, bytes.length);
         for (int i = 0; i < macAddr.length; i++) {
-            assertEquals("Expected byte "+i+" to match", macAddr[i], bytes[i]);
+            assertEquals("Expected byte " + i + " to match", macAddr[i], bytes[i]);
         }
     }
 
     @Test
     @DirtiesContext
-    public void testV2EnterpriseIdAndGenericAndSpecificMatchWithZero()
-    throws Exception {
-        anticipateAndSend(false, true,
-                "uei.opennms.org/IETF/BGP/traps/bgpEstablished",
-                "v2c", ".1.3.6.1.2.1.15.7.0", 6, 1);
+    public void testV2EnterpriseIdAndGenericAndSpecificMatchWithZero() throws Exception {
+        anticipateAndSend(false, true, "uei.opennms.org/IETF/BGP/traps/bgpEstablished", "v2c", ".1.3.6.1.2.1.15.7.0",
+                          6, 1);
     }
 
     @Test
     @DirtiesContext
-    public void testV2EnterpriseIdAndGenericAndSpecificMissWithExtraZeros()
-    throws Exception {
-        anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v2c",
-                ".1.3.6.1.2.1.15.7.0.0", 6, 1);
+    public void testV2EnterpriseIdAndGenericAndSpecificMissWithExtraZeros() throws Exception {
+        anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v2c", ".1.3.6.1.2.1.15.7.0.0", 6, 1);
     }
 
     @Test
     @DirtiesContext
-    public void testV1EnterpriseIdAndGenericAndSpecificMissWithWrongGeneric()
-    throws Exception {
-        anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v1",
-                ".1.3.6.1.2.1.15.7", 5, 1);
+    public void testV1EnterpriseIdAndGenericAndSpecificMissWithWrongGeneric() throws Exception {
+        anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v1", ".1.3.6.1.2.1.15.7", 5, 1);
     }
 
     @Test
     @DirtiesContext
-    public void testV1EnterpriseIdAndGenericAndSpecificMissWithWrongSpecific()
-    throws Exception {
-        anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v1",
-                ".1.3.6.1.2.1.15.7", 6, 50);
+    public void testV1EnterpriseIdAndGenericAndSpecificMissWithWrongSpecific() throws Exception {
+        anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v1", ".1.3.6.1.2.1.15.7", 6, 50);
     }
 
     @Test
     @DirtiesContext
     public void testV1GenericMatch() throws Exception {
-        anticipateAndSend(false, true,
-                "uei.opennms.org/generic/traps/SNMP_Cold_Start",
-                "v1", null, 0, 0);
+        anticipateAndSend(false, true, "uei.opennms.org/generic/traps/SNMP_Cold_Start", "v1", null, 0, 0);
     }
 
     @Test
     @DirtiesContext
     public void testV2GenericMatch() throws Exception {
-        anticipateAndSend(false, true,
-                "uei.opennms.org/generic/traps/SNMP_Cold_Start",
-                "v2c", ".1.3.6.1.6.3.1.1.5.1", 0, 0);
+        anticipateAndSend(false, true, "uei.opennms.org/generic/traps/SNMP_Cold_Start", "v2c", ".1.3.6.1.6.3.1.1.5.1",
+                          0, 0);
     }
 
     @Test
@@ -362,15 +341,13 @@ public class TrapHandlerTestCase implements InitializingBean {
     @Test
     @DirtiesContext
     public void testV1TrapDefaultEvent() throws Exception {
-        anticipateAndSend(false, true, "uei.opennms.org/default/trap",
-                "v1", null, 6, 1);
+        anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v1", null, 6, 1);
     }
 
     @Test
     @DirtiesContext
     public void testV2TrapDefaultEvent() throws Exception {
-        anticipateAndSend(false, true, "uei.opennms.org/default/trap",
-                "v2c", null, 6, 1);
+        anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v2c", null, 6, 1);
     }
 
     @Test
@@ -381,9 +358,7 @@ public class TrapHandlerTestCase implements InitializingBean {
 
         anticipateEvent("uei.opennms.org/default/trap", m_ip, nodeId);
 
-        Event event =
-            anticipateEvent(EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI,
-                    m_ip, nodeId);
+        Event event = anticipateEvent(EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI, m_ip, nodeId);
         m_eventMgr.sendNow(event);
 
         try {
@@ -405,9 +380,7 @@ public class TrapHandlerTestCase implements InitializingBean {
 
         anticipateEvent("uei.opennms.org/default/trap", m_ip, nodeId);
 
-        Event event =
-            anticipateEvent(EventConstants.INTERFACE_REPARENTED_EVENT_UEI,
-                    m_ip, nodeId);
+        Event event = anticipateEvent(EventConstants.INTERFACE_REPARENTED_EVENT_UEI, m_ip, nodeId);
         m_eventMgr.sendNow(event);
 
         try {
@@ -429,9 +402,7 @@ public class TrapHandlerTestCase implements InitializingBean {
 
         anticipateEvent("uei.opennms.org/default/trap", m_ip, nodeId);
 
-        Event event =
-            anticipateEvent(EventConstants.INTERFACE_DELETED_EVENT_UEI,
-                    m_ip, nodeId);
+        Event event = anticipateEvent(EventConstants.INTERFACE_DELETED_EVENT_UEI, m_ip, nodeId);
         m_eventMgr.sendNow(event);
 
         anticipateEvent(EventConstants.NEW_SUSPECT_INTERFACE_EVENT_UEI, m_ip, nodeId);
@@ -459,26 +430,29 @@ public class TrapHandlerTestCase implements InitializingBean {
         return bldr.getEvent();
     }
 
-    public Collection<Event> anticipateAndSend(boolean newSuspectOnTrap, boolean nodeKnown,
-            String event,
-            String version, String enterprise,
-            int generic, int specific) throws Exception {
+    public Collection<Event> anticipateAndSend(boolean newSuspectOnTrap, boolean nodeKnown, String event,
+            String version, String enterprise, int generic, int specific) throws Exception {
         return anticipateAndSend(newSuspectOnTrap, nodeKnown, event, version, enterprise, generic, specific, null);
     }
 
-
     /**
-     * @param newSuspectOnTrap Will a new suspect event be triggered by the trap?
-     * @param nodeKnown Is the node in the database?
-     * @param event Event that is anticipated to result when the trap is processed
-     * @param snmpTrapVersion SNMP version of trap, valid values: <code>v1</code>, <code>v2c</code>
-     * @param enterprise Enterprise ID of the trap
-     * @param varbinds Varbinds attached to the trap
+     * @param newSuspectOnTrap
+     *            Will a new suspect event be triggered by the trap?
+     * @param nodeKnown
+     *            Is the node in the database?
+     * @param event
+     *            Event that is anticipated to result when the trap is processed
+     * @param snmpTrapVersion
+     *            SNMP version of trap, valid values: <code>v1</code>,
+     *            <code>v2c</code>
+     * @param enterprise
+     *            Enterprise ID of the trap
+     * @param varbinds
+     *            Varbinds attached to the trap
      */
-    public Collection<Event> anticipateAndSend(boolean newSuspectOnTrap, boolean nodeKnown,
-            String event,
-            String snmpTrapVersion, String enterprise,
-            int generic, int specific, LinkedHashMap<String, SnmpValue> varbinds) throws Exception {
+    public Collection<Event> anticipateAndSend(boolean newSuspectOnTrap, boolean nodeKnown, String event,
+            String snmpTrapVersion, String enterprise, int generic, int specific,
+            LinkedHashMap<String, SnmpValue> varbinds) throws Exception {
         m_processorFactory.setNewSuspect(newSuspectOnTrap);
 
         if (newSuspectOnTrap) {
@@ -507,8 +481,7 @@ public class TrapHandlerTestCase implements InitializingBean {
         return finishUp();
     }
 
-    public void sendTrap(String version, String enterprise, int generic,
-            int specific) throws Exception {
+    public void sendTrap(String version, String enterprise, int generic, int specific) throws Exception {
         if (enterprise == null) {
             enterprise = ".0.0";
         }
@@ -518,13 +491,12 @@ public class TrapHandlerTestCase implements InitializingBean {
         } else if (version.equals("v2c")) {
             sendV2Trap(enterprise, specific);
         } else {
-            throw new Exception("unsupported SNMP version for test: "
-                    + version);
+            throw new Exception("unsupported SNMP version for test: " + version);
         }
     }
 
-    private void sendTrap(String version, String enterprise, int generic,
-            int specific, LinkedHashMap<String, SnmpValue> varbinds) throws Exception {
+    private void sendTrap(String version, String enterprise, int generic, int specific,
+            LinkedHashMap<String, SnmpValue> varbinds) throws Exception {
         if (enterprise == null) {
             enterprise = ".0.0";
         }
@@ -534,13 +506,11 @@ public class TrapHandlerTestCase implements InitializingBean {
         } else if (version.equals("v2c")) {
             sendV2Trap(enterprise, specific, varbinds);
         } else {
-            throw new Exception("unsupported SNMP version for test: "
-                    + version);
+            throw new Exception("unsupported SNMP version for test: " + version);
         }
     }
 
-    public void sendV1Trap(String enterprise, int generic, int specific)
-    throws Exception {
+    public void sendV1Trap(String enterprise, int generic, int specific) throws Exception {
         SnmpV1TrapBuilder pdu = SnmpUtils.getV1TrapBuilder();
         pdu.setEnterprise(SnmpObjId.get(enterprise));
         pdu.setGeneric(generic);
@@ -551,26 +521,25 @@ public class TrapHandlerTestCase implements InitializingBean {
         pdu.send(getHostAddress(), m_snmpTrapPort, "public");
     }
 
-	private String getHostAddress() {
-		return InetAddressUtils.str(m_localhost);
-	}
+    private String getHostAddress() {
+        return InetAddressUtils.str(m_localhost);
+    }
 
     public void sendV1Trap(String enterprise, int generic, int specific, LinkedHashMap<String, SnmpValue> varbinds)
-    throws Exception {
+            throws Exception {
         SnmpV1TrapBuilder pdu = SnmpUtils.getV1TrapBuilder();
         pdu.setEnterprise(SnmpObjId.get(enterprise));
         pdu.setGeneric(generic);
         pdu.setSpecific(specific);
         pdu.setTimeStamp(0);
         pdu.setAgentAddress(m_localhost);
-        Iterator<Map.Entry<String,SnmpValue>> it = varbinds.entrySet().iterator();
+        Iterator<Map.Entry<String, SnmpValue>> it = varbinds.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry<String,SnmpValue> pairs = it.next();
+            Map.Entry<String, SnmpValue> pairs = it.next();
             pdu.addVarBind(SnmpObjId.get(pairs.getKey()), pairs.getValue());
         }
         pdu.send(getHostAddress(), m_snmpTrapPort, "public");
     }
-
 
     public void sendV2Trap(String enterprise, int specific) throws Exception {
         SnmpObjId enterpriseId = SnmpObjId.get(enterprise);
@@ -586,13 +555,11 @@ public class TrapHandlerTestCase implements InitializingBean {
         }
 
         SnmpTrapBuilder pdu = SnmpUtils.getV2TrapBuilder();
-        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.2.1.1.3.0"),
-                SnmpUtils.getValueFactory().getTimeTicks(0));
-        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.1.0"),
-                SnmpUtils.getValueFactory().getObjectId(trapOID));
+        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.2.1.1.3.0"), SnmpUtils.getValueFactory().getTimeTicks(0));
+        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.1.0"), SnmpUtils.getValueFactory().getObjectId(trapOID));
         if (isGeneric) {
             pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.3.0"),
-                    SnmpUtils.getValueFactory().getObjectId(enterpriseId));
+                           SnmpUtils.getValueFactory().getObjectId(enterpriseId));
         }
 
         pdu.send(getHostAddress(), m_snmpTrapPort, "public");
@@ -612,13 +579,11 @@ public class TrapHandlerTestCase implements InitializingBean {
         }
 
         SnmpTrapBuilder pdu = SnmpUtils.getV2TrapBuilder();
-        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.2.1.1.3.0"),
-                SnmpUtils.getValueFactory().getTimeTicks(0));
-        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.1.0"),
-                SnmpUtils.getValueFactory().getObjectId(trapOID));
+        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.2.1.1.3.0"), SnmpUtils.getValueFactory().getTimeTicks(0));
+        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.1.0"), SnmpUtils.getValueFactory().getObjectId(trapOID));
         if (isGeneric) {
             pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.3.0"),
-                    SnmpUtils.getValueFactory().getObjectId(enterpriseId));
+                           SnmpUtils.getValueFactory().getObjectId(enterpriseId));
         }
         for (Map.Entry<String, SnmpValue> entry : varbinds.entrySet()) {
             pdu.addVarBind(SnmpObjId.get(entry.getKey()), entry.getValue());

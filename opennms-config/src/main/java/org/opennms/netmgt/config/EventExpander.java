@@ -56,7 +56,6 @@ import org.springframework.util.Assert;
  * event and loading info from the eventconf match to the event. This class is
  * also responsible for the event parm expansion
  * </P>
- *
  * <P>
  * Notes on event parm expansion:
  * </P>
@@ -64,7 +63,6 @@ import org.springframework.util.Assert;
  * The list of elements that can have a %element% or %parms[*]% in their value
  * are : descr, logmsg, operinstr, autoaction, operaction(/menu), tticket
  * </P>
- *
  * <P>
  * The list of elements that can occur as a %element% are : uei, source, nodeid,
  * time, host, interface, snmphost, service, snmp, id, idtext, version,
@@ -103,11 +101,11 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * '.1.3.6.1.4.1.18.1.1.6'. When a event lookup is done based on the EID, a
      * lookup with both the partial and the full EID is done
      */
-/*
- * This is never used
- * TODO: delete this code
-    private final static String ENTERPRISE_PRE = ".1.3.6.1.4.1";
-*/
+    /*
+     * This is never used
+     * TODO: delete this code
+     * private final static String ENTERPRISE_PRE = ".1.3.6.1.4.1";
+     */
     /**
      * The default event UEI - if the event lookup into the 'event.conf' fails,
      * the event is loaded with information from this default UEI
@@ -118,16 +116,19 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * The default trap UEI - if the trap lookup into the 'event.conf' fails,
      * the trap event is loaded with information from this default UEI
      */
-/*
- * This is never used
- * TODO: delete this code soon
-    private final static String DEFAULT_TRAP_UEI = "uei.opennms.org/default/trap";
-*/
+    /*
+     * This is never used
+     * TODO: delete this code soon
+     * private final static String DEFAULT_TRAP_UEI =
+     * "uei.opennms.org/default/trap";
+     */
     public EventExpander() {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -142,9 +143,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed mask information.
-     *
      */
     private org.opennms.netmgt.xml.event.Mask transform(org.opennms.netmgt.xml.eventconf.Mask src) {
         org.opennms.netmgt.xml.event.Mask dest = new org.opennms.netmgt.xml.event.Mask();
@@ -177,9 +176,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed SNMP information.
-     *
      */
     private org.opennms.netmgt.xml.event.Snmp transform(org.opennms.netmgt.xml.eventconf.Snmp src) {
         org.opennms.netmgt.xml.event.Snmp dest = new org.opennms.netmgt.xml.event.Snmp();
@@ -207,9 +204,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed log message information.
-     *
      */
     private org.opennms.netmgt.xml.event.Logmsg transform(org.opennms.netmgt.xml.eventconf.Logmsg src) {
         org.opennms.netmgt.xml.event.Logmsg dest = new org.opennms.netmgt.xml.event.Logmsg();
@@ -229,9 +224,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed correlation information.
-     *
      */
     private org.opennms.netmgt.xml.event.Correlation transform(org.opennms.netmgt.xml.eventconf.Correlation src) {
         org.opennms.netmgt.xml.event.Correlation dest = new org.opennms.netmgt.xml.event.Correlation();
@@ -254,9 +247,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed auto action information.
-     *
      */
     private org.opennms.netmgt.xml.event.Autoaction transform(org.opennms.netmgt.xml.eventconf.Autoaction src) {
         org.opennms.netmgt.xml.event.Autoaction dest = new org.opennms.netmgt.xml.event.Autoaction();
@@ -275,9 +266,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed operator action information.
-     *
      */
     private org.opennms.netmgt.xml.event.Operaction transform(org.opennms.netmgt.xml.eventconf.Operaction src) {
         org.opennms.netmgt.xml.event.Operaction dest = new org.opennms.netmgt.xml.event.Operaction();
@@ -297,9 +286,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed auto acknowledgement information.
-     *
      */
     private org.opennms.netmgt.xml.event.Autoacknowledge transform(org.opennms.netmgt.xml.eventconf.Autoacknowledge src) {
         org.opennms.netmgt.xml.event.Autoacknowledge dest = new org.opennms.netmgt.xml.event.Autoacknowledge();
@@ -318,9 +305,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed trouble ticket information.
-     *
      */
     private org.opennms.netmgt.xml.event.Tticket transform(org.opennms.netmgt.xml.eventconf.Tticket src) {
         org.opennms.netmgt.xml.event.Tticket dest = new org.opennms.netmgt.xml.event.Tticket();
@@ -339,9 +324,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed forward information.
-     *
      */
     private org.opennms.netmgt.xml.event.Forward transform(org.opennms.netmgt.xml.eventconf.Forward src) {
         org.opennms.netmgt.xml.event.Forward dest = new org.opennms.netmgt.xml.event.Forward();
@@ -361,9 +344,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      *
      * @param src
      *            The configuration source to transform.
-     *
      * @return The transformed script information.
-     *
      */
     private org.opennms.netmgt.xml.event.Script transform(org.opennms.netmgt.xml.eventconf.Script src) {
         org.opennms.netmgt.xml.event.Script dest = new org.opennms.netmgt.xml.event.Script();
@@ -377,21 +358,17 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     /**
      * <p>
      * This method is used to lookup the event configuration object based upon
-     * information in the passed information. The
-     * {@link EventConfDao EventConfDao} instance is
-     * consulted to find a matching configured event. The lookup algorithm
-     * favors SNMP information if available, and then defaults to the event's
-     * Universal Event Identifier.
+     * information in the passed information. The {@link EventConfDao
+     * EventConfDao} instance is consulted to find a matching configured event.
+     * The lookup algorithm favors SNMP information if available, and then
+     * defaults to the event's Universal Event Identifier.
      * </p>
      *
      * @param event
      *            The event to find a configuration for.
-     *
      * @return The matching configuration event, if any.
-     *
      * @exception java.lang.NullPointerException
      *                Thrown if the event parameter that was passed is null.
-     *
      */
     public static org.opennms.netmgt.xml.eventconf.Event lookup(EventConfDao dao, Event event) {
         if (event == null) {
@@ -481,7 +458,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     /**
      * Expand the element values if they have parms in one of the following
      * formats
-     *  - %element% values are expanded to have the value of the element where
+     * - %element% values are expanded to have the value of the element where
      * 'element' is an element in the event DTD - %parm[values-all]% is expanded
      * to a delimited list of all parmblock values - %parm[names-all]% is
      * expanded to a list of all parm names - %parm[all]% is expanded to a full
@@ -495,7 +472,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
 
         // description
         if (event.getDescr() != null) {
-            strRet = org.opennms.netmgt.eventd.datablock.EventUtil.expandParms(event.getDescr(), event,decode);
+            strRet = org.opennms.netmgt.eventd.datablock.EventUtil.expandParms(event.getDescr(), event, decode);
             if (strRet != null) {
                 event.setDescr(strRet);
                 strRet = null;
@@ -540,7 +517,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
             strRet = null;
             strRet = EventUtil.expandParms(event.getAlarmData().getClearKey(), event);
             if (strRet != null) {
-            	event.getAlarmData().setClearKey(strRet);
+                event.getAlarmData().setClearKey(strRet);
             }
         }
 
@@ -554,7 +531,6 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * from the configuration manager is consulted to ensure that secure files
      * are cleared out if necessary.
      * </p>
-     *
      * <p>
      * Any secure fields that exists in the incoming event are cleared during
      * expansion.
@@ -744,24 +720,23 @@ public final class EventExpander implements EventProcessor, InitializingBean {
             }
         }
 
-        Map<String, Map<String, String>> decode = new HashMap<String, Map<String,String>>();
+        Map<String, Map<String, String>> decode = new HashMap<String, Map<String, String>>();
         if (econf != null && econf.getVarbindsdecode() != null) {
-           Varbindsdecode[] vardecodeArray = econf.getVarbindsdecode();
-           for (Varbindsdecode element : vardecodeArray) {
-               Decode[] decodeArray = element.getDecode();
-               Map<String, String> valueMap = new HashMap<String, String>();
-               for (Decode element2 : decodeArray) {
-                   valueMap.put(element2.getVarbindvalue(), element2.getVarbinddecodedstring());
-               }
-               decode.put(element.getParmid(), valueMap);
-           }
+            Varbindsdecode[] vardecodeArray = econf.getVarbindsdecode();
+            for (Varbindsdecode element : vardecodeArray) {
+                Decode[] decodeArray = element.getDecode();
+                Map<String, String> valueMap = new HashMap<String, String>();
+                for (Decode element2 : decodeArray) {
+                    valueMap.put(element2.getVarbindvalue(), element2.getVarbinddecodedstring());
+                }
+                decode.put(element.getParmid(), valueMap);
+            }
         }// end fill of event using econf
 
         // do the event parm expansion
         expandParms(e, decode);
 
     } // end expandEvent()
-
 
     /** {@inheritDoc} */
     @Override
@@ -770,7 +745,9 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     }
 
     /**
-     * <p>getEventConfDao</p>
+     * <p>
+     * getEventConfDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
@@ -779,9 +756,12 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     }
 
     /**
-     * <p>setEventConfDao</p>
+     * <p>
+     * setEventConfDao
+     * </p>
      *
-     * @param eventConfDao a {@link org.opennms.netmgt.config.EventConfDao} object.
+     * @param eventConfDao
+     *            a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
     public void setEventConfDao(EventConfDao eventConfDao) {
         m_eventConfDao = eventConfDao;

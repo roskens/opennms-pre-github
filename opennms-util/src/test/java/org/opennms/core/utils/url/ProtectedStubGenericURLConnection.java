@@ -32,10 +32,12 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * <p>ProtectedStubGenericURLConnection class.</p>
+ * <p>
+ * ProtectedStubGenericURLConnection class.
+ * </p>
  * <p/>
- * Protected stub implementation for GenericURLConnection. It is used to provocate no such method exceptions for the
- * GenericURLFactory feature.
+ * Protected stub implementation for GenericURLConnection. It is used to
+ * provocate no such method exceptions for the GenericURLFactory feature.
  *
  * @author Ronny Trommer <ronny@opennms.org>
  * @version $Id: $

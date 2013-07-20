@@ -26,39 +26,34 @@ import javax.servlet.ServletException;
 
 import org.opennms.container.web.felix.base.internal.context.ExtServletContext;
 
-public abstract class AbstractHandler
-{
-    private final static AtomicInteger ID =
-        new AtomicInteger();
+public abstract class AbstractHandler {
+    private final static AtomicInteger ID = new AtomicInteger();
 
     private final String id;
+
     private final ExtServletContext context;
+
     private final Map<String, String> initParams;
 
-    public AbstractHandler(ExtServletContext context)
-    {
+    public AbstractHandler(ExtServletContext context) {
         this.id = "" + ID.incrementAndGet();
         this.context = context;
         this.initParams = new HashMap<String, String>();
     }
 
-    public final String getId()
-    {
+    public final String getId() {
         return this.id;
     }
 
-    protected final ExtServletContext getContext()
-    {
+    protected final ExtServletContext getContext() {
         return this.context;
     }
 
-    public final Map<String, String> getInitParams()
-    {
+    public final Map<String, String> getInitParams() {
         return this.initParams;
     }
 
-    public final void setInitParams(Dictionary<?,?> map)
-    {
+    public final void setInitParams(Dictionary<?, ?> map) {
         this.initParams.clear();
         if (map == null) {
             return;
@@ -70,13 +65,12 @@ public abstract class AbstractHandler
             Object value = map.get(key);
 
             if ((key instanceof String) && (value instanceof String)) {
-                this.initParams.put((String)key, (String)value);
+                this.initParams.put((String) key, (String) value);
             }
         }
     }
 
-    public abstract void init()
-        throws ServletException;
+    public abstract void init() throws ServletException;
 
     public abstract void destroy();
 }

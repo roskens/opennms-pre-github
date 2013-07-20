@@ -19,9 +19,13 @@ import static org.junit.Assert.assertEquals;
 
 public class OpenlayersWidgetCompontentTest {
     private NodeDao m_nodeDao;
+
     private AssetRecordDao m_assetDao;
+
     private AlarmDao m_alarmDao;
+
     private GeocoderService m_geocoder;
+
     @SuppressWarnings("unused")
     private MapWidgetComponent m_component;
 

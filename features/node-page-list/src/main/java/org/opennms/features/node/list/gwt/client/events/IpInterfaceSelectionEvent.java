@@ -33,6 +33,7 @@ import com.google.gwt.event.shared.GwtEvent;
 public class IpInterfaceSelectionEvent extends GwtEvent<IpInterfaceSelectionHandler> {
 
     public static final Type<IpInterfaceSelectionHandler> TYPE = new Type<IpInterfaceSelectionHandler>();
+
     private String m_ipInterfaceId;
 
     public IpInterfaceSelectionEvent(String id) {

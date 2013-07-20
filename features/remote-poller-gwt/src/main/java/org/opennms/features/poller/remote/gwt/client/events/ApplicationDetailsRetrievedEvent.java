@@ -33,7 +33,9 @@ import org.opennms.features.poller.remote.gwt.client.ApplicationDetails;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * <p>ApplicationDetailsRetrievedEvent class.</p>
+ * <p>
+ * ApplicationDetailsRetrievedEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,12 +45,18 @@ public class ApplicationDetailsRetrievedEvent extends GwtEvent<ApplicationDetail
 
     /** Constant <code>TYPE</code> */
     public final static Type<ApplicationDetailsRetrievedEventHandler> TYPE = new Type<ApplicationDetailsRetrievedEventHandler>();
+
     private ApplicationDetails m_applicationDetails;
 
     /**
-     * <p>Constructor for ApplicationDetailsRetrievedEvent.</p>
+     * <p>
+     * Constructor for ApplicationDetailsRetrievedEvent.
+     * </p>
      *
-     * @param details a {@link org.opennms.features.poller.remote.gwt.client.ApplicationDetails} object.
+     * @param details
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.ApplicationDetails}
+     *            object.
      */
     public ApplicationDetailsRetrievedEvent(final ApplicationDetails details) {
         setApplicationDetails(details);
@@ -72,9 +80,13 @@ public class ApplicationDetailsRetrievedEvent extends GwtEvent<ApplicationDetail
     }
 
     /**
-     * <p>getApplicationDetails</p>
+     * <p>
+     * getApplicationDetails
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.ApplicationDetails} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.ApplicationDetails}
+     *         object.
      */
     public ApplicationDetails getApplicationDetails() {
         return m_applicationDetails;

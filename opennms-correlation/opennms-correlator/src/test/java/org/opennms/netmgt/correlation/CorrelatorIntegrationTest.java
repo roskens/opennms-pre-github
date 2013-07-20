@@ -41,17 +41,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
         "classpath:META-INF/opennms/applicationContext-daemon.xml",
         "classpath:META-INF/opennms/mockEventIpcManager.xml",
         "classpath:META-INF/opennms/applicationContext-correlator.xml",
-        "classpath*:META-INF/opennms/correlation-engine.xml"
-})
+        "classpath*:META-INF/opennms/correlation-engine.xml" })
 @JUnitConfigurationEnvironment
 public class CorrelatorIntegrationTest implements InitializingBean {
 

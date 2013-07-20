@@ -34,13 +34,17 @@ import javax.servlet.http.HttpServletRequest;
 
 public class MenuDropdownNavBarEntry implements NavBarEntry {
     private String m_name = null;
+
     private String m_url = null;
+
     private String m_contents = null;
+
     private List<NavBarEntry> m_entries = null;
 
     /**
-     * <p>getUrl</p>
-     *
+     * <p>
+     * getUrl
+     * </p>
      * The URL the name should link to.
      */
     public String getUrl() {
@@ -52,12 +56,15 @@ public class MenuDropdownNavBarEntry implements NavBarEntry {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return The text containing the menu entry/entries.
      */
     public String getName() {
-        if (m_name == null || m_contents == null) return "";
+        if (m_name == null || m_contents == null)
+            return "";
         final StringBuilder sb = new StringBuilder();
         sb.append("<div class=\"nav-dropdown\">");
         sb.append("<a href=\"");
@@ -103,20 +110,20 @@ public class MenuDropdownNavBarEntry implements NavBarEntry {
             for (final NavBarEntry entry : m_entries) {
                 final DisplayStatus status = entry.evaluate(request);
                 switch (status) {
-                    case DISPLAY_LINK:
-                        sb.append("<li><a href=\"" + entry.getUrl() + "\">" + entry.getName() + "</a></li>");
-                        display = true;
-                        break;
-                    case DISPLAY_NO_LINK:
-                        sb.append("<li>" + entry.getName() + "</li>");
-                        display = true;
-                        break;
-                    default:
-                        break;
+                case DISPLAY_LINK:
+                    sb.append("<li><a href=\"" + entry.getUrl() + "\">" + entry.getName() + "</a></li>");
+                    display = true;
+                    break;
+                case DISPLAY_NO_LINK:
+                    sb.append("<li>" + entry.getName() + "</li>");
+                    display = true;
+                    break;
+                default:
+                    break;
                 }
             }
             m_contents = sb.toString();
         }
-        return display? DisplayStatus.DISPLAY_NO_LINK : DisplayStatus.NO_DISPLAY;
+        return display ? DisplayStatus.DISPLAY_NO_LINK : DisplayStatus.NO_DISPLAY;
     }
 }

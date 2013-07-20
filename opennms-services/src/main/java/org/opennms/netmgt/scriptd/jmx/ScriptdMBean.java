@@ -31,7 +31,9 @@ package org.opennms.netmgt.scriptd.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>ScriptdMBean interface.</p>
+ * <p>
+ * ScriptdMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

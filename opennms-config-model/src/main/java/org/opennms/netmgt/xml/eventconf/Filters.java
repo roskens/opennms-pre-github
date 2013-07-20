@@ -55,19 +55,20 @@ import org.xml.sax.ContentHandler;
  * The filters for the event, contains one or more filter tags.
  */
 
-@XmlRootElement(name="filters")
+@XmlRootElement(name = "filters")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Filters implements Serializable {
-	private static final long serialVersionUID = 3672883849182860671L;
-	private static final Filter[] EMPTY_FILTER_ARRAY = new Filter[0];
+    private static final long serialVersionUID = 3672883849182860671L;
 
-	/**
+    private static final Filter[] EMPTY_FILTER_ARRAY = new Filter[0];
+
+    /**
      * The mask element
      */
-	// @NotNull
-	// @Size(min=1)
-    @XmlElement(name="filter", required=true)
+    // @NotNull
+    // @Size(min=1)
+    @XmlElement(name = "filter", required = true)
     private List<Filter> m_filters = new ArrayList<Filter>();
 
     public void addFilter(final Filter filter) throws IndexOutOfBoundsException {
@@ -84,7 +85,8 @@ public class Filters implements Serializable {
 
     public Filter getFilter(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_filters.size()) {
-            throw new IndexOutOfBoundsException("getFilter: Index value '" + index + "' not in range [0.." + (m_filters.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getFilter: Index value '" + index + "' not in range [0.."
+                    + (m_filters.size() - 1) + "]");
         }
         return m_filters.get(index);
     }
@@ -139,7 +141,8 @@ public class Filters implements Serializable {
 
     public void setFilter(final int index, final Filter filter) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_filters.size()) {
-            throw new IndexOutOfBoundsException("setFilter: Index value '" + index + "' not in range [0.." + (m_filters.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setFilter: Index value '" + index + "' not in range [0.."
+                    + (m_filters.size() - 1) + "]");
         }
         m_filters.set(index, filter);
     }
@@ -147,12 +150,13 @@ public class Filters implements Serializable {
     public void setFilter(final Filter[] filters) {
         m_filters.clear();
         for (final Filter filter : filters) {
-        	m_filters.add(filter);
+            m_filters.add(filter);
         }
     }
 
     public void setFilter(final List<Filter> filters) {
-        if (m_filters == filters) return;
+        if (m_filters == filters)
+            return;
         m_filters.clear();
         m_filters.addAll(filters);
     }
@@ -169,26 +173,30 @@ public class Filters implements Serializable {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_filters == null) ? 0 : m_filters.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_filters == null) ? 0 : m_filters.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Filters)) return false;
-		final Filters other = (Filters) obj;
-		if (m_filters == null) {
-			if (other.m_filters != null) return false;
-		} else if (!m_filters.equals(other.m_filters)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Filters))
+            return false;
+        final Filters other = (Filters) obj;
+        if (m_filters == null) {
+            if (other.m_filters != null)
+                return false;
+        } else if (!m_filters.equals(other.m_filters)) {
+            return false;
+        }
+        return true;
+    }
 
 }

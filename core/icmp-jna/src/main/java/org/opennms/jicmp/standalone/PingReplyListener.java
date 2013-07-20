@@ -30,7 +30,6 @@ package org.opennms.jicmp.standalone;
 
 import java.net.InetAddress;
 
-
 public interface PingReplyListener {
-	public void onPingReply(InetAddress inetAddress, PingReply reply);
+    public void onPingReply(InetAddress inetAddress, PingReply reply);
 }

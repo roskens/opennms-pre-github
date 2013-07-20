@@ -28,9 +28,10 @@
 
 package org.opennms.netmgt.config;
 
-
 /**
- * <p>RancidAdapterConfig interface.</p>
+ * <p>
+ * RancidAdapterConfig interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,7 +45,7 @@ public interface RancidAdapterConfig {
      * execution
      *
      * @param ipaddress
-     *          the ipaddress of the node
+     *            the ipaddress of the node
      * @return the delay time
      */
     public abstract long getDelay(String ipaddress);
@@ -54,7 +55,7 @@ public interface RancidAdapterConfig {
      * for the specified address
      *
      * @param ipaddress
-     *          the ipaddress of the node
+     *            the ipaddress of the node
      * @return the number of retries
      */
     public abstract int getRetries(String ipaddress);
@@ -64,18 +65,19 @@ public interface RancidAdapterConfig {
      * the retrydelay time is the time in msec that represents
      * a delay in the execution of a RancidAdapter
      * execution retry after a failure
+     *
      * @param ipaddress
-     *          the ipaddress of the node
+     *            the ipaddress of the node
      * @return the delay time for retry
      */
-//    public abstract long getRetryDelay(String ipaddress);
+    // public abstract long getRetryDelay(String ipaddress);
 
     /**
      * return if is to be used the opennms categories to get
      * rancid device type
      *
      * @param ipaddress
-     *          the ipaddress of the node
+     *            the ipaddress of the node
      * @return true if use opennms category
      */
     public abstract boolean useCategories(String ipaddress);
@@ -84,7 +86,7 @@ public interface RancidAdapterConfig {
      * return the Rancid Type String
      *
      * @param sysoid
-     *          the system OID identifier of the node
+     *            the system OID identifier of the node
      * @return RancidType String
      */
     public abstract String getType(String sysoid);
@@ -93,7 +95,7 @@ public interface RancidAdapterConfig {
      * Return if current time is ready to be scheduled.
      *
      * @param ipaddress
-     *          the ipaddress of the node
+     *            the ipaddress of the node
      * @return true if current time is in a schedules under policy manage
      */
     public abstract boolean isCurTimeInSchedule(String ipaddress);

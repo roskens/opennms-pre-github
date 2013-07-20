@@ -17,9 +17,13 @@ import org.springframework.util.Assert;
 
 public class TemporaryDatabaseHsqldb implements TemporaryDatabase, InitializingBean {
     private static DataSource m_dataSource = null;
+
     private String m_testDatabase;
+
     private boolean m_populateSchema = false;
+
     private SimpleJdbcTemplate m_jdbcTemplate;
+
     private Set<String> m_initializedUsers = new HashSet<String>();
 
     public TemporaryDatabaseHsqldb() {
@@ -31,25 +35,25 @@ public class TemporaryDatabaseHsqldb implements TemporaryDatabase, InitializingB
     }
 
     /*
-    public TemporaryDatabaseHsqldb(final String testDatabase, final boolean useExisting) {
-        m_testDatabase = testDatabase;
-
-        if (!useExisting || m_dataSource == null) {
-            final BasicDataSource dataSource = new BasicDataSource();
-            dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
-            dataSource.setUrl("jdbc:hsqldb:mem:" + m_testDatabase + ";sql.syntax_pgs=true");
-            dataSource.setUsername(TemporaryDatabase.DEFAULT_ADMIN_USER);
-            dataSource.setPassword(TemporaryDatabase.DEFAULT_ADMIN_PASSWORD);
-            dataSource.setInitialSize(5);
-            dataSource.setMaxActive(10);
-            dataSource.setPoolPreparedStatements(true);
-            dataSource.setMaxOpenPreparedStatements(10);
-            m_dataSource = dataSource;
-
-            m_jdbcTemplate = new SimpleJdbcTemplate(dataSource);
-        }
-    }
-    */
+     * public TemporaryDatabaseHsqldb(final String testDatabase, final boolean
+     * useExisting) {
+     * m_testDatabase = testDatabase;
+     * if (!useExisting || m_dataSource == null) {
+     * final BasicDataSource dataSource = new BasicDataSource();
+     * dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+     * dataSource.setUrl("jdbc:hsqldb:mem:" + m_testDatabase +
+     * ";sql.syntax_pgs=true");
+     * dataSource.setUsername(TemporaryDatabase.DEFAULT_ADMIN_USER);
+     * dataSource.setPassword(TemporaryDatabase.DEFAULT_ADMIN_PASSWORD);
+     * dataSource.setInitialSize(5);
+     * dataSource.setMaxActive(10);
+     * dataSource.setPoolPreparedStatements(true);
+     * dataSource.setMaxOpenPreparedStatements(10);
+     * m_dataSource = dataSource;
+     * m_jdbcTemplate = new SimpleJdbcTemplate(dataSource);
+     * }
+     * }
+     */
     public DataSource getDataSource() {
         return m_dataSource;
     }
@@ -72,7 +76,8 @@ public class TemporaryDatabaseHsqldb implements TemporaryDatabase, InitializingB
     @Override
     public Connection getConnection(final String username, final String password) throws SQLException {
         if (!m_initializedUsers.contains(username)) {
-            final Connection conn = m_dataSource.getConnection(TemporaryDatabase.DEFAULT_ADMIN_USER, TemporaryDatabase.DEFAULT_ADMIN_PASSWORD);
+            final Connection conn = m_dataSource.getConnection(TemporaryDatabase.DEFAULT_ADMIN_USER,
+                                                               TemporaryDatabase.DEFAULT_ADMIN_PASSWORD);
             conn.createStatement().execute("CREATE USER '" + username + "' PASSWORD '" + password + "' ADMIN");
             m_initializedUsers.add(username);
         }

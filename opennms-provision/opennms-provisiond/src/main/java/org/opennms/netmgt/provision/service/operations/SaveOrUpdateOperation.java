@@ -48,113 +48,157 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
     private static final Logger LOG = LoggerFactory.getLogger(SaveOrUpdateOperation.class);
 
     private final OnmsNode m_node;
+
     private OnmsIpInterface m_currentInterface;
 
     private ScanManager m_scanManager;
 
     /**
-     * <p>Constructor for SaveOrUpdateOperation.</p>
+     * <p>
+     * Constructor for SaveOrUpdateOperation.
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
-     * @param city a {@link java.lang.String} object.
-     * @param provisionService a {@link org.opennms.netmgt.provision.service.ProvisionService} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
+     * @param provisionService
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *            object.
      */
-    public SaveOrUpdateOperation(String foreignSource, String foreignId, String nodeLabel, String building, String city, ProvisionService provisionService) {
-		this(null, foreignSource, foreignId, nodeLabel, building, city, provisionService);
-	}
+    public SaveOrUpdateOperation(String foreignSource, String foreignId, String nodeLabel, String building,
+            String city, ProvisionService provisionService) {
+        this(null, foreignSource, foreignId, nodeLabel, building, city, provisionService);
+    }
 
-	/**
-	 * <p>Constructor for SaveOrUpdateOperation.</p>
-	 *
-	 * @param nodeId a {@link java.lang.Integer} object.
-	 * @param foreignSource a {@link java.lang.String} object.
-	 * @param foreignId a {@link java.lang.String} object.
-	 * @param nodeLabel a {@link java.lang.String} object.
-	 * @param building a {@link java.lang.String} object.
-	 * @param city a {@link java.lang.String} object.
-	 * @param provisionService a {@link org.opennms.netmgt.provision.service.ProvisionService} object.
-	 */
-	public SaveOrUpdateOperation(Integer nodeId, String foreignSource, String foreignId, String nodeLabel, String building, String city, ProvisionService provisionService) {
-	    super(provisionService);
+    /**
+     * <p>
+     * Constructor for SaveOrUpdateOperation.
+     * </p>
+     *
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
+     * @param provisionService
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *            object.
+     */
+    public SaveOrUpdateOperation(Integer nodeId, String foreignSource, String foreignId, String nodeLabel,
+            String building, String city, ProvisionService provisionService) {
+        super(provisionService);
 
         m_node = new OnmsNode();
         m_node.setId(nodeId);
-		m_node.setLabel(nodeLabel);
-		m_node.setLabelSource("U");
-		m_node.setType("A");
+        m_node.setLabel(nodeLabel);
+        m_node.setLabelSource("U");
+        m_node.setType("A");
         m_node.setForeignSource(foreignSource);
         m_node.setForeignId(foreignId);
         m_node.getAssetRecord().setBuilding(building);
         m_node.getAssetRecord().setCity(city);
-	}
+    }
 
-	/**
-	 * <p>getScanManager</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.provision.service.operations.ScanManager} object.
-	 */
-	public ScanManager getScanManager() {
-	    return m_scanManager;
-	}
+    /**
+     * <p>
+     * getScanManager
+     * </p>
+     *
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.operations.ScanManager}
+     *         object.
+     */
+    public ScanManager getScanManager() {
+        return m_scanManager;
+    }
 
-	/**
-	 * <p>foundInterface</p>
-	 *
-	 * @param ipAddr a {@link java.lang.String} object.
-	 * @param descr a {@link java.lang.Object} object.
-	 * @param primaryType a {@link InterfaceSnmpPrimaryType} object.
-	 * @param managed a boolean.
-	 * @param status a int.
-	 */
-	public void foundInterface(String ipAddr, Object descr, final PrimaryType primaryType, boolean managed, int status) {
+    /**
+     * <p>
+     * foundInterface
+     * </p>
+     *
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param descr
+     *            a {@link java.lang.Object} object.
+     * @param primaryType
+     *            a {@link InterfaceSnmpPrimaryType} object.
+     * @param managed
+     *            a boolean.
+     * @param status
+     *            a int.
+     */
+    public void foundInterface(String ipAddr, Object descr, final PrimaryType primaryType, boolean managed, int status) {
 
-		if (ipAddr == null || "".equals(ipAddr.trim())) {
-		    LOG.error(String.format("Found interface on node {} with an empty ipaddr! Ignoring!", m_node.getLabel()));
-			return;
-		}
+        if (ipAddr == null || "".equals(ipAddr.trim())) {
+            LOG.error(String.format("Found interface on node {} with an empty ipaddr! Ignoring!", m_node.getLabel()));
+            return;
+        }
 
         m_currentInterface = new OnmsIpInterface(ipAddr, m_node);
         m_currentInterface.setIsManaged(status == 3 ? "U" : "M");
         m_currentInterface.setIsSnmpPrimary(primaryType);
 
         if (PrimaryType.PRIMARY.equals(primaryType)) {
-        	final InetAddress addr = InetAddressUtils.addr(ipAddr);
-        	if (addr == null) {
-        		LOG.error("Unable to resolve address of snmpPrimary interface for node {} with address '{}'", m_node.getLabel(), ipAddr);
-        	} else {
-        		m_scanManager = new ScanManager(addr);
-        	}
+            final InetAddress addr = InetAddressUtils.addr(ipAddr);
+            if (addr == null) {
+                LOG.error("Unable to resolve address of snmpPrimary interface for node {} with address '{}'",
+                          m_node.getLabel(), ipAddr);
+            } else {
+                m_scanManager = new ScanManager(addr);
+            }
         }
 
-        //FIXME: verify this doesn't conflict with constructor.  The constructor already adds this
-        //interface to the node.
+        // FIXME: verify this doesn't conflict with constructor. The constructor
+        // already adds this
+        // interface to the node.
         m_node.addIpInterface(m_currentInterface);
     }
 
     /**
-     * <p>scan</p>
+     * <p>
+     * scan
+     * </p>
      */
     @Override
     public void scan() {
-    	updateSnmpData();
-	}
+        updateSnmpData();
+    }
 
     /**
-     * <p>updateSnmpData</p>
+     * <p>
+     * updateSnmpData
+     * </p>
      */
     protected void updateSnmpData() {
         if (m_scanManager != null) {
             m_scanManager.updateSnmpData(m_node);
         }
-	}
+    }
 
     /**
-     * <p>foundMonitoredService</p>
+     * <p>
+     * foundMonitoredService
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public void foundMonitoredService(String serviceName) {
         // current interface may be null if it has no ipaddr
@@ -168,9 +212,12 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
     }
 
     /**
-     * <p>foundCategory</p>
+     * <p>
+     * foundCategory
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void foundCategory(String name) {
         OnmsCategory category = getProvisionService().createCategoryIfNecessary(name);
@@ -178,7 +225,9 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -187,10 +236,14 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
     }
 
     /**
-     * <p>foundAsset</p>
+     * <p>
+     * foundAsset
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void foundAsset(final String name, final String value) {
         final BeanWrapper w = PropertyAccessorFactory.forBeanPropertyAccess(m_node.getAssetRecord());

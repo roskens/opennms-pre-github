@@ -35,7 +35,9 @@ import org.opennms.netmgt.provision.support.Client;
 import org.opennms.netmgt.provision.support.ResponseValidator;
 
 /**
- * <p>Abstract MultilineOrientedDetector class.</p>
+ * <p>
+ * Abstract MultilineOrientedDetector class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -43,39 +45,56 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 public abstract class MultilineOrientedDetector extends BasicDetector<LineOrientedRequest, MultilineOrientedResponse> {
 
     /**
-     * <p>Constructor for MultilineOrientedDetector.</p>
+     * <p>
+     * Constructor for MultilineOrientedDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     protected MultilineOrientedDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
 
     /**
-     * <p>Constructor for MultilineOrientedDetector.</p>
+     * <p>
+     * Constructor for MultilineOrientedDetector.
+     * </p>
      *
-     * @param port a int.
-     * @param timeout a int.
-     * @param retries a int.
-     * @param serviceName a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
+     * @param retries
+     *            a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     protected MultilineOrientedDetector(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
     }
 
     /**
-     * <p>request</p>
+     * <p>
+     * request
+     * </p>
      *
-     * @param command a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
+     * @param command
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *         object.
      */
     protected LineOrientedRequest request(final String command) {
         return new LineOrientedRequest(command);
     }
 
     /**
-     * <p>expectClose</p>
+     * <p>
+     * expectClose
+     * </p>
      */
     protected void expectClose() {
         send(LineOrientedRequest.Null, equals(null));
@@ -83,10 +102,14 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
     }
 
     /**
-     * <p>equals</p>
+     * <p>
+     * equals
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *         object.
      */
     public static ResponseValidator<MultilineOrientedResponse> equals(final String pattern) {
         return new ResponseValidator<MultilineOrientedResponse>() {
@@ -100,13 +123,17 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
     }
 
     /**
-     * <p>startsWith</p>
+     * <p>
+     * startsWith
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *         object.
      */
-    public static ResponseValidator<MultilineOrientedResponse> startsWith(final String pattern){
-        return new ResponseValidator<MultilineOrientedResponse>(){
+    public static ResponseValidator<MultilineOrientedResponse> startsWith(final String pattern) {
+        return new ResponseValidator<MultilineOrientedResponse>() {
 
             @Override
             public boolean validate(final MultilineOrientedResponse response) {

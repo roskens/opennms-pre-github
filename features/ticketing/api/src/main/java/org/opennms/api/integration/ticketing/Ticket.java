@@ -43,8 +43,8 @@ public class Ticket {
 
     /**
      * Enumeration for representation of a Ticket's state.
-     * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
      *
+     * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
      */
     public enum State {
         /**
@@ -52,7 +52,8 @@ public class Ticket {
          */
         OPEN,
         /**
-         * Ticket is considered to be in a Canceled State in the HelpDesk system.
+         * Ticket is considered to be in a Canceled State in the HelpDesk
+         * system.
          */
         CANCELLED,
         /**
@@ -62,31 +63,43 @@ public class Ticket {
     }
 
     private String m_id;
+
     private Integer m_alarmId;
+
     private Integer m_nodeId;
+
     private InetAddress m_ipAddress;
+
     private State m_state = State.OPEN;
+
     private String m_summary;
+
     private String m_details;
+
     private String m_user;
+
     private String m_modificationTimestamp;
+
     private Map<String, String> m_attributes;
 
     /**
-     * <p>getAttributes</p>
+     * <p>
+     * getAttributes
+     * </p>
      *
-     * @return a Map of free from attributes of the ticket.  Typically,
-     * from OnmsAlarm attributes.
+     * @return a Map of free from attributes of the ticket. Typically,
+     *         from OnmsAlarm attributes.
      */
     public Map<String, String> getAttributes() {
         return m_attributes;
     }
 
     /**
-     * Store a list of free form attributes in the Ticket.  Typically, from
+     * Store a list of free form attributes in the Ticket. Typically, from
      * the OnmsAlarm attributes.
      *
-     * @param attributes a {@link java.util.Map} object.
+     * @param attributes
+     *            a {@link java.util.Map} object.
      */
     public void setAttributes(Map<String, String> attributes) {
         m_attributes = attributes;
@@ -95,8 +108,10 @@ public class Ticket {
     /**
      * Adds a single free form attribute to the Ticket.
      *
-     * @param key a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void addAttribute(String key, String value) {
         if (m_attributes == null) {
@@ -108,7 +123,8 @@ public class Ticket {
     /**
      * Gets a single free form attribute from a Ticket.
      *
-     * @param key a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getAttribute(String key) {
@@ -129,9 +145,10 @@ public class Ticket {
     }
 
     /**
-     * Set a summary into the ticket.  Typically the alarm's logmsg.
+     * Set a summary into the ticket. Typically the alarm's logmsg.
      *
-     * @param summary a {@link java.lang.String} object.
+     * @param summary
+     *            a {@link java.lang.String} object.
      */
     public void setSummary(String summary) {
         m_summary = summary;
@@ -145,10 +162,13 @@ public class Ticket {
     public String getDetails() {
         return m_details;
     }
+
     /**
-     * TODO: This should probably turn into a collection of comments or some such thing.
+     * TODO: This should probably turn into a collection of comments or some
+     * such thing.
      *
-     * @param details a {@link java.lang.String} object.
+     * @param details
+     *            a {@link java.lang.String} object.
      */
     public void setDetails(String details) {
         m_details = details;
@@ -166,14 +186,15 @@ public class Ticket {
     /**
      * The TicketerPlugin should set the ID.
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      */
     public void setId(String id) {
         m_id = id;
     }
 
     /**
-     * User name owning/createing the ticket.  Will be set initially to
+     * User name owning/createing the ticket. Will be set initially to
      * the user name set in the parameter of the create ticket event.
      *
      * @return a String containing the user name that owns the ticket.
@@ -183,10 +204,12 @@ public class Ticket {
     }
 
     /**
-     * Set the user name owning the ticket.  Typically set by the TicketerServiceLayer
+     * Set the user name owning the ticket. Typically set by the
+     * TicketerServiceLayer
      * implemenation as the user name parameter from the create ticket event.
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public void setUser(String user) {
         m_user = user;
@@ -204,14 +227,17 @@ public class Ticket {
     /**
      * Sets the Ticket state to one of the <code>Ticket.State</code> Enums.
      *
-     * @param state a {@link org.opennms.api.integration.ticketing.Ticket.State} object.
+     * @param state
+     *            a {@link org.opennms.api.integration.ticketing.Ticket.State}
+     *            object.
      */
     public void setState(State state) {
         m_state = state;
     }
 
     /**
-     * A timestamp to be used for optimistic locking with the trouble ticketing system
+     * A timestamp to be used for optimistic locking with the trouble ticketing
+     * system
      *
      * @return a {@link java.lang.String} object.
      */
@@ -220,9 +246,12 @@ public class Ticket {
     }
 
     /**
-     * <p>setModificationTimestamp</p>
+     * <p>
+     * setModificationTimestamp
+     * </p>
      *
-     * @param modificationTimestamp a {@link java.lang.String} object.
+     * @param modificationTimestamp
+     *            a {@link java.lang.String} object.
      */
     public void setModificationTimestamp(String modificationTimestamp) {
         m_modificationTimestamp = modificationTimestamp;
@@ -240,7 +269,8 @@ public class Ticket {
     /**
      * Sets the ID of the originator alarm.
      *
-     * @param alarmId a {@link java.lang.Integer} object.
+     * @param alarmId
+     *            a {@link java.lang.Integer} object.
      */
     public void setAlarmId(Integer alarmId) {
         this.m_alarmId = alarmId;
@@ -258,7 +288,8 @@ public class Ticket {
     /**
      * Sets the ID of the originator node.
      *
-     * @param nodeId a {@link java.lang.Integer} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
      */
     public void setNodeId(Integer nodeId) {
         this.m_nodeId = nodeId;
@@ -276,7 +307,8 @@ public class Ticket {
     /**
      * Sets the IP address of the originator alarm.
      *
-     * @param ipAddress a {@link java.net.InetAddress} object.
+     * @param ipAddress
+     *            a {@link java.net.InetAddress} object.
      */
     public void setIpAddress(InetAddress ipAddress) {
         this.m_ipAddress = ipAddress;

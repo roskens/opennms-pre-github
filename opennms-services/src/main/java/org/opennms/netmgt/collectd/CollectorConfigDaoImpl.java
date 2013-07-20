@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -44,7 +43,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>CollectorConfigDaoImpl class.</p>
+ * <p>
+ * CollectorConfigDaoImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -54,7 +55,9 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
     private static final Logger LOG = LoggerFactory.getLogger(CollectorConfigDaoImpl.class);
 
     /**
-     * <p>Constructor for CollectorConfigDaoImpl.</p>
+     * <p>
+     * Constructor for CollectorConfigDaoImpl.
+     * </p>
      */
     public CollectorConfigDaoImpl() {
 
@@ -83,9 +86,10 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
         return CollectdConfigFactory.getInstance().getCollectdConfig();
     }
 
-
     /**
-     * <p>getSchedulerThreads</p>
+     * <p>
+     * getSchedulerThreads
+     * </p>
      *
      * @return a int.
      */
@@ -94,9 +98,10 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
         return getConfig().getThreads();
     }
 
-
     /**
-     * <p>getCollectors</p>
+     * <p>
+     * getCollectors
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -106,7 +111,9 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
     }
 
     /**
-     * <p>rebuildPackageIpListMap</p>
+     * <p>
+     * rebuildPackageIpListMap
+     * </p>
      */
     @Override
     public void rebuildPackageIpListMap() {
@@ -114,7 +121,9 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
     }
 
     /**
-     * <p>getPackages</p>
+     * <p>
+     * getPackages
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */

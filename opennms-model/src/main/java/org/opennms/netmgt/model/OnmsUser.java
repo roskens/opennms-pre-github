@@ -44,206 +44,242 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@XmlRootElement(name="user")
+@XmlRootElement(name = "user")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OnmsUser implements UserDetails {
     private static final long serialVersionUID = -5750203994158854220L;
 
-    @XmlElement(name="user-id", required=true)
+    @XmlElement(name = "user-id", required = true)
     private String m_username;
 
-    @XmlElement(name="full-name", required=false)
-	private String m_fullName;
+    @XmlElement(name = "full-name", required = false)
+    private String m_fullName;
 
-    @XmlElement(name="user-comments", required=false)
-	private String m_comments;
+    @XmlElement(name = "user-comments", required = false)
+    private String m_comments;
 
-    @XmlElement(name="password", required=false)
-	private String m_password;
+    @XmlElement(name = "password", required = false)
+    private String m_password;
 
-    @XmlElement(name="passwordSalt", required=false)
+    @XmlElement(name = "passwordSalt", required = false)
     private boolean m_passwordSalted = false;
 
     @XmlTransient
-	private Collection<? extends GrantedAuthority> m_authorities;
+    private Collection<? extends GrantedAuthority> m_authorities;
 
-    @XmlElement(name="duty-schedule", required=false)
+    @XmlElement(name = "duty-schedule", required = false)
     private List<String> m_dutySchedule = new ArrayList<String>();
 
-	public OnmsUser() { }
+    public OnmsUser() {
+    }
 
-	public OnmsUser(final String username) {
-	    m_username = username;
+    public OnmsUser(final String username) {
+        m_username = username;
     }
 
     /**
-	 * <p>getComments</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getComments() {
-		return m_comments;
-	}
-
-	/**
-	 * <p>setComments</p>
-	 *
-	 * @param comments a {@link java.lang.String} object.
-	 */
-	public void setComments(String comments) {
-		m_comments = comments;
-	}
-
-	/**
-	 * <p>getPassword</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-    @Override
-	public String getPassword() {
-		return m_password;
-	}
-
-	/**
-	 * <p>setPassword</p>
-	 *
-	 * @param password a {@link java.lang.String} object.
-	 */
-	public void setPassword(String password) {
-		m_password = password;
-	}
-
-	public boolean getPasswordSalted() {
-	    return m_passwordSalted;
-	}
-
-	public void setPasswordSalted(final boolean passwordSalted) {
-	    m_passwordSalted = passwordSalted;
-	}
-
-	/**
-	 * <p>getFullName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getFullName() {
-		return m_fullName;
-	}
-
-	/**
-	 * <p>setFullName</p>
-	 *
-	 * @param fullName a {@link java.lang.String} object.
-	 */
-	public void setFullName(String fullName) {
-		m_fullName = fullName;
-	}
-
-	/**
-	 * <p>getUsername</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-    @Override
-	public String getUsername() {
-		return m_username;
-	}
-
-	/**
-	 * <p>setUsername</p>
-	 *
-	 * @param username a {@link java.lang.String} object.
-	 */
-	public void setUsername(String username) {
-		m_username = username;
-	}
-
-	public List<String> getDutySchedule() {
-	    return m_dutySchedule;
-	}
-
-	public void setDutySchedule(final List<String> dutySchedule) {
-	    m_dutySchedule = dutySchedule;
+     * <p>
+     * getComments
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getComments() {
+        return m_comments;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * setComments
+     * </p>
+     *
+     * @param comments
+     *            a {@link java.lang.String} object.
+     */
+    public void setComments(String comments) {
+        m_comments = comments;
+    }
+
+    /**
+     * <p>
+     * getPassword
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getPassword() {
+        return m_password;
+    }
+
+    /**
+     * <p>
+     * setPassword
+     * </p>
+     *
+     * @param password
+     *            a {@link java.lang.String} object.
+     */
+    public void setPassword(String password) {
+        m_password = password;
+    }
+
+    public boolean getPasswordSalted() {
+        return m_passwordSalted;
+    }
+
+    public void setPasswordSalted(final boolean passwordSalted) {
+        m_passwordSalted = passwordSalted;
+    }
+
+    /**
+     * <p>
+     * getFullName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getFullName() {
+        return m_fullName;
+    }
+
+    /**
+     * <p>
+     * setFullName
+     * </p>
+     *
+     * @param fullName
+     *            a {@link java.lang.String} object.
+     */
+    public void setFullName(String fullName) {
+        m_fullName = fullName;
+    }
+
+    /**
+     * <p>
+     * getUsername
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getUsername() {
+        return m_username;
+    }
+
+    /**
+     * <p>
+     * setUsername
+     * </p>
+     *
+     * @param username
+     *            a {@link java.lang.String} object.
+     */
+    public void setUsername(String username) {
+        m_username = username;
+    }
+
+    public List<String> getDutySchedule() {
+        return m_dutySchedule;
+    }
+
+    public void setDutySchedule(final List<String> dutySchedule) {
+        m_dutySchedule = dutySchedule;
+    }
+
+    /**
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("username", m_username)
-            .append("full-name", m_fullName)
-            .append("comments", m_comments)
-            .toString();
+        return new ToStringBuilder(this).append("username", m_username).append("full-name", m_fullName).append("comments",
+                                                                                                               m_comments).toString();
     }
 
-	/**
-	 * <p>getAuthorities</p>
-	 *
-	 * @return an array of {@link org.springframework.security.GrantedAuthority} objects.
-	 */
+    /**
+     * <p>
+     * getAuthorities
+     * </p>
+     *
+     * @return an array of {@link org.springframework.security.GrantedAuthority}
+     *         objects.
+     */
     @Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return m_authorities;
-	}
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return m_authorities;
+    }
 
-	/**
-	 * <p>setAuthorities</p>
-	 *
-	 * @param authorities an array of {@link org.springframework.security.GrantedAuthority} objects.
-	 */
-	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-		m_authorities = authorities;
-	}
+    /**
+     * <p>
+     * setAuthorities
+     * </p>
+     *
+     * @param authorities
+     *            an array of
+     *            {@link org.springframework.security.GrantedAuthority} objects.
+     */
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        m_authorities = authorities;
+    }
 
-	/**
-	 * <p>isAccountNonExpired</p>
-	 *
-	 * @return a boolean.
-	 */
+    /**
+     * <p>
+     * isAccountNonExpired
+     * </p>
+     *
+     * @return a boolean.
+     */
     @Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	/**
-	 * <p>isAccountNonLocked</p>
-	 *
-	 * @return a boolean.
-	 */
+    /**
+     * <p>
+     * isAccountNonLocked
+     * </p>
+     *
+     * @return a boolean.
+     */
     @Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	/**
-	 * <p>isCredentialsNonExpired</p>
-	 *
-	 * @return a boolean.
-	 */
+    /**
+     * <p>
+     * isCredentialsNonExpired
+     * </p>
+     *
+     * @return a boolean.
+     */
     @Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	/**
-	 * <p>isEnabled</p>
-	 *
-	 * @return a boolean.
-	 */
+    /**
+     * <p>
+     * isEnabled
+     * </p>
+     *
+     * @return a boolean.
+     */
     @Override
-	public boolean isEnabled() {
-		return true;
-	}
+    public boolean isEnabled() {
+        return true;
+    }
 
     public void addAuthority(final GrantedAuthority authority) {
-    	final Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-    	if (m_authorities != null) authorities.addAll(m_authorities);
-    	authorities.add(authority);
-    	m_authorities = authorities;
+        final Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        if (m_authorities != null)
+            authorities.addAll(m_authorities);
+        authorities.add(authority);
+        m_authorities = authorities;
     }
 
 }

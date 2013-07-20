@@ -43,7 +43,9 @@ import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsOutage;
 
 /**
- * <p>OutagesFilteringView class.</p>
+ * <p>
+ * OutagesFilteringView class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -66,22 +68,23 @@ public class OutagesFilteringView {
     // Possible values returned to me
 
     /**
-     * <p>filterQuery</p>
+     * <p>
+     * filterQuery
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link java.lang.String} object.
      */
     public final String filterQuery(final HttpServletRequest request) {
 
         String queryResult = "";
         Locale locale = Locale.getDefault();
-        SimpleDateFormat d_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                                                         locale);
+        SimpleDateFormat d_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", locale);
 
-        if (request.getQueryString() != null ) {
+        if (request.getQueryString() != null) {
 
             StringTokenizer st = new StringTokenizer(request.getQueryString(), "&");
-
 
             while (st.hasMoreTokens()) {
                 String temp = st.nextToken();
@@ -91,49 +94,41 @@ public class OutagesFilteringView {
                 // node
                 if (parameterName.startsWith("nodeid")) {
 
-                    queryResult = queryResult + " AND outages.nodeid = '"
-                    + parameterValue + "'";
+                    queryResult = queryResult + " AND outages.nodeid = '" + parameterValue + "'";
                 }
 
                 if (parameterName.startsWith("not_nodeid")) {
-                    queryResult = queryResult + " AND outages.nodeid <> '"
-                    + parameterValue + "\'";
+                    queryResult = queryResult + " AND outages.nodeid <> '" + parameterValue + "\'";
                 }
 
                 if (parameterName.startsWith("ipaddr")) {
-                    queryResult = queryResult + " AND outages.ipaddr ='"
-                    + parameterValue + "'";
+                    queryResult = queryResult + " AND outages.ipaddr ='" + parameterValue + "'";
                 }
 
                 if (parameterName.startsWith("not_ipaddr")) {
-                    queryResult = queryResult + " AND outages.ipaddr <> '"
-                    + parameterValue + "'";
+                    queryResult = queryResult + " AND outages.ipaddr <> '" + parameterValue + "'";
                 }
 
                 if (parameterName.startsWith("smaller_iflostservice")) {
                     Date date = new Date(WebSecurityUtils.safeParseLong(parameterValue));
-                    queryResult = queryResult + " AND outages.iflostservice < "
-                    + "'" + d_format.format(date) + "'";
+                    queryResult = queryResult + " AND outages.iflostservice < " + "'" + d_format.format(date) + "'";
 
                 }
 
                 if (parameterName.startsWith("bigger_iflostservice")) {
                     Date date = new Date(WebSecurityUtils.safeParseLong(parameterValue));
-                    queryResult = queryResult + " AND outages.iflostservice > "
-                    + "'" + d_format.format(date) + "'";
+                    queryResult = queryResult + " AND outages.iflostservice > " + "'" + d_format.format(date) + "'";
 
                 }
 
                 if (parameterName.startsWith("smaller_ifregainedservice")) {
                     Date date = new Date(WebSecurityUtils.safeParseLong(parameterValue));
-                    queryResult = queryResult + " AND outages.iflostservice < "
-                    + "'" + d_format.format(date) + "'";
+                    queryResult = queryResult + " AND outages.iflostservice < " + "'" + d_format.format(date) + "'";
                 }
 
                 if (parameterName.startsWith("bigger_ifregainedservice")) {
                     Date date = new Date(WebSecurityUtils.safeParseLong(parameterValue));
-                    queryResult = queryResult + " AND outages.iflostservice > "
-                    + "'" + d_format.format(date) + "'";
+                    queryResult = queryResult + " AND outages.iflostservice > " + "'" + d_format.format(date) + "'";
                 }
 
             }
@@ -143,9 +138,12 @@ public class OutagesFilteringView {
     }
 
     /**
-     * <p>buildCriteria</p>
+     * <p>
+     * buildCriteria
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
     public final OnmsCriteria buildCriteria(final HttpServletRequest request) {
@@ -159,46 +157,56 @@ public class OutagesFilteringView {
             criteria.add(Restrictions.ne("node.id", WebSecurityUtils.safeParseInt(request.getParameter("not_nodeid"))));
         }
 
-        if (request.getParameter("ipinterfaceid") != null  && request.getParameter("ipinterfaceid").length() > 0) {
-            criteria.add(Restrictions.eq("ipInterface.id", WebSecurityUtils.safeParseInt(request.getParameter("ipinterfaceid"))));
+        if (request.getParameter("ipinterfaceid") != null && request.getParameter("ipinterfaceid").length() > 0) {
+            criteria.add(Restrictions.eq("ipInterface.id",
+                                         WebSecurityUtils.safeParseInt(request.getParameter("ipinterfaceid"))));
         }
 
         if (request.getParameter("not_ipinterfaceid") != null && request.getParameter("not_ipinterfaceid").length() > 0) {
-            criteria.add(Restrictions.ne("ipInterface.id", WebSecurityUtils.safeParseInt(request.getParameter("not_ipinterfaceid"))));
+            criteria.add(Restrictions.ne("ipInterface.id",
+                                         WebSecurityUtils.safeParseInt(request.getParameter("not_ipinterfaceid"))));
         }
 
         if (request.getParameter("serviceid") != null && request.getParameter("serviceid").length() > 0) {
-            criteria.add(Restrictions.eq("monitoredService.serviceType.id", WebSecurityUtils.safeParseInt(request.getParameter("serviceid"))));
+            criteria.add(Restrictions.eq("monitoredService.serviceType.id",
+                                         WebSecurityUtils.safeParseInt(request.getParameter("serviceid"))));
         }
 
         if (request.getParameter("not_serviceid") != null && request.getParameter("not_serviceid").length() > 0) {
-            criteria.add(Restrictions.ne("monitoredService.serviceType.id", WebSecurityUtils.safeParseInt(request.getParameter("not_serviceid"))));
+            criteria.add(Restrictions.ne("monitoredService.serviceType.id",
+                                         WebSecurityUtils.safeParseInt(request.getParameter("not_serviceid"))));
         }
 
         if (request.getParameter("ifserviceid") != null && request.getParameter("ifserviceid").length() > 0) {
-            criteria.add(Restrictions.eq("monitoredService.id", WebSecurityUtils.safeParseInt(request.getParameter("ifserviceid"))));
+            criteria.add(Restrictions.eq("monitoredService.id",
+                                         WebSecurityUtils.safeParseInt(request.getParameter("ifserviceid"))));
         }
 
         if (request.getParameter("not_ifserviceid") != null && request.getParameter("not_ifserviceid").length() > 0) {
-            criteria.add(Restrictions.ne("monitoredService.id", WebSecurityUtils.safeParseInt(request.getParameter("not_ifserviceid"))));
+            criteria.add(Restrictions.ne("monitoredService.id",
+                                         WebSecurityUtils.safeParseInt(request.getParameter("not_ifserviceid"))));
         }
 
-        if (request.getParameter("smaller_iflostservice") != null && request.getParameter("smaller_iflostservice").length() > 0) {
+        if (request.getParameter("smaller_iflostservice") != null
+                && request.getParameter("smaller_iflostservice").length() > 0) {
             Date date = new Date(WebSecurityUtils.safeParseLong(request.getParameter("smaller_iflostservice")));
             criteria.add(Restrictions.lt("ifLostService", date));
         }
 
-        if (request.getParameter("bigger_iflostservice") != null && request.getParameter("bigger_iflostservice").length() > 0) {
+        if (request.getParameter("bigger_iflostservice") != null
+                && request.getParameter("bigger_iflostservice").length() > 0) {
             Date date = new Date(WebSecurityUtils.safeParseLong(request.getParameter("bigger_iflostservice")));
             criteria.add(Restrictions.gt("ifLostService", date));
         }
 
-        if (request.getParameter("smaller_ifregainedservice") != null && request.getParameter("smaller_ifregainedservice").length() > 0) {
+        if (request.getParameter("smaller_ifregainedservice") != null
+                && request.getParameter("smaller_ifregainedservice").length() > 0) {
             Date date = new Date(WebSecurityUtils.safeParseLong(request.getParameter("smaller_ifregainedservice")));
             criteria.add(Restrictions.lt("ifRegainedService", date));
         }
 
-        if (request.getParameter("bigger_ifregainedservice") != null && request.getParameter("bigger_ifregainedservice").length() > 0) {
+        if (request.getParameter("bigger_ifregainedservice") != null
+                && request.getParameter("bigger_ifregainedservice").length() > 0) {
             Date date = new Date(WebSecurityUtils.safeParseLong(request.getParameter("bigger_ifregainedservice")));
             criteria.add(Restrictions.gt("ifRegainedService", date));
         }
@@ -208,8 +216,10 @@ public class OutagesFilteringView {
             criteria.add(Restrictions.eq("assetRecord.building", request.getParameter("building")));
         }
 
-        if (request.getParameter("category1") != null && request.getParameter("category1").length() > 0 && request.getParameter("category2") != null && request.getParameter("category2").length() > 0) {
-            for (Criterion criterion : m_categoryDao.getCriterionForCategorySetsUnion(request.getParameterValues("category1"), request.getParameterValues("category2"))) {
+        if (request.getParameter("category1") != null && request.getParameter("category1").length() > 0
+                && request.getParameter("category2") != null && request.getParameter("category2").length() > 0) {
+            for (Criterion criterion : m_categoryDao.getCriterionForCategorySetsUnion(request.getParameterValues("category1"),
+                                                                                      request.getParameterValues("category2"))) {
                 criteria.add(criterion);
             }
         } else if (request.getParameter("category1") != null && request.getParameter("category1").length() > 0) {
@@ -230,7 +240,9 @@ public class OutagesFilteringView {
     }
 
     /**
-     * <p>getCategoryDao</p>
+     * <p>
+     * getCategoryDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -239,9 +251,12 @@ public class OutagesFilteringView {
     }
 
     /**
-     * <p>setCategoryDao</p>
+     * <p>
+     * setCategoryDao
+     * </p>
      *
-     * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
+     * @param categoryDao
+     *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
     public final void setCategoryDao(final CategoryDao categoryDao) {
         m_categoryDao = categoryDao;

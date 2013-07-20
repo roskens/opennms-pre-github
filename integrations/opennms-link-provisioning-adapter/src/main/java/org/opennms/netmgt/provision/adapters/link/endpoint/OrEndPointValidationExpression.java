@@ -45,21 +45,28 @@ import org.opennms.netmgt.provision.adapters.link.EndPoint;
 import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 import org.opennms.netmgt.provision.adapters.link.EndPointValidationExpression;
 
-@XmlRootElement(name="or")
+@XmlRootElement(name = "or")
 public class OrEndPointValidationExpression extends EndPointValidationExpressionImpl {
     @XmlElementRef
     private List<EndPointValidationExpressionImpl> m_validators = Collections.synchronizedList(new ArrayList<EndPointValidationExpressionImpl>());
 
     /**
-     * <p>Constructor for OrEndPointValidationExpression.</p>
+     * <p>
+     * Constructor for OrEndPointValidationExpression.
+     * </p>
      */
     public OrEndPointValidationExpression() {
     }
 
     /**
-     * <p>Constructor for OrEndPointValidationExpression.</p>
+     * <p>
+     * Constructor for OrEndPointValidationExpression.
+     * </p>
      *
-     * @param validators an array of {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl} objects.
+     * @param validators
+     *            an array of
+     *            {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
+     *            objects.
      */
     public OrEndPointValidationExpression(EndPointValidationExpressionImpl[] validators) {
         for (EndPointValidationExpressionImpl e : validators) {
@@ -71,7 +78,7 @@ public class OrEndPointValidationExpression extends EndPointValidationExpression
     @Override
     public void validate(EndPoint endPoint) throws EndPointStatusException {
         EndPointStatusException reason = null;
-        for(EndPointValidationExpression validator : m_validators) {
+        for (EndPointValidationExpression validator : m_validators) {
             try {
                 validator.validate(endPoint);
                 return;
@@ -86,7 +93,9 @@ public class OrEndPointValidationExpression extends EndPointValidationExpression
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,10 +104,10 @@ public class OrEndPointValidationExpression extends EndPointValidationExpression
         StringBuffer sb = new StringBuffer();
         sb.append("or(");
         boolean first = true;
-        for(EndPointValidationExpression validator : m_validators) {
-            if(first) {
+        for (EndPointValidationExpression validator : m_validators) {
+            if (first) {
                 first = false;
-            }else {
+            } else {
                 sb.append(", ");
             }
             sb.append(validator.toString());

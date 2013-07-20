@@ -51,15 +51,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class SpecificationTest {
 
     private static final long MILLIS_PER_HOUR = 3600L * 1000L;
+
     private static final long MILLIS_PER_DAY = 24L * MILLIS_PER_HOUR;
 
     private JasperReport m_jasperReport;
+
     private JasperPrint m_jasperPrint;
+
     private Date m_startDate;
+
     private Date m_endDate;
 
     interface Function {
@@ -69,9 +72,13 @@ public class SpecificationTest {
     class Sin implements Function {
 
         long m_startTime;
+
         double m_offset;
+
         double m_amplitude;
+
         double m_period;
+
         double m_factor;
 
         Sin(long startTime, double offset, double amplitude, double period) {
@@ -86,7 +93,7 @@ public class SpecificationTest {
         public double evaluate(long timestamp) {
             long x = timestamp - m_startTime;
             double ret = (m_amplitude * Math.sin(m_factor * x)) + m_offset;
-            System.out.println("Sin("+ x + ") = " + ret);
+            System.out.println("Sin(" + x + ") = " + ret);
             return ret;
         }
     }
@@ -94,8 +101,11 @@ public class SpecificationTest {
     class Cos implements Function {
 
         long m_startTime;
+
         double m_offset;
+
         double m_amplitude;
+
         double m_period;
 
         double m_factor;
@@ -113,13 +123,14 @@ public class SpecificationTest {
         public double evaluate(long timestamp) {
             long x = timestamp - m_startTime;
             double ret = (m_amplitude * Math.cos(m_factor * x)) + m_offset;
-            System.out.println("Cos("+ x + ") = " + ret);
+            System.out.println("Cos(" + x + ") = " + ret);
             return ret;
         }
     }
 
     class Times implements Function {
         Function m_a;
+
         Function m_b;
 
         Times(Function a, Function b) {
@@ -129,12 +140,13 @@ public class SpecificationTest {
 
         @Override
         public double evaluate(long timestamp) {
-            return m_a.evaluate(timestamp)*m_b.evaluate(timestamp);
+            return m_a.evaluate(timestamp) * m_b.evaluate(timestamp);
         }
     }
 
     class Counter implements Function {
         double m_prevValue;
+
         Function m_function;
 
         Counter(double initialValue, Function function) {
@@ -154,12 +166,12 @@ public class SpecificationTest {
     @Before
     public void setUp() throws RrdException, IOException {
         File file = new File("target/rrd/mo_calls.jrb");
-        if(file.exists()) {
+        if (file.exists()) {
             file.delete();
         }
 
         File file2 = new File("target/rrd/mt_calls.jrb");
-        if(file2.exists()) {
+        if (file2.exists()) {
             file2.delete();
         }
 
@@ -167,21 +179,21 @@ public class SpecificationTest {
         new File("target/reports").mkdirs();
 
         long now = System.currentTimeMillis();
-        long end = now/MILLIS_PER_DAY*MILLIS_PER_DAY + (MILLIS_PER_HOUR * 4);
-        long start = end - (MILLIS_PER_DAY*7);
+        long end = now / MILLIS_PER_DAY * MILLIS_PER_DAY + (MILLIS_PER_HOUR * 4);
+        long start = end - (MILLIS_PER_DAY * 7);
         m_startDate = new Date(start);
-        System.out.println("startDate: " + m_startDate.getTime()/1000);
+        System.out.println("startDate: " + m_startDate.getTime() / 1000);
         m_endDate = new Date(end);
-        System.out.println("endDate: " + m_endDate.getTime()/1000);
+        System.out.println("endDate: " + m_endDate.getTime() / 1000);
 
-        RrdDef rrdDef = new RrdDef("target/rrd/mo_calls.jrb", (start/1000) - 600000, 300);
+        RrdDef rrdDef = new RrdDef("target/rrd/mo_calls.jrb", (start / 1000) - 600000, 300);
         rrdDef.addDatasource("DS:mo_call_attempts:COUNTER:600:0:U");
         rrdDef.addDatasource("DS:mo_call_completes:COUNTER:600:0:U");
         rrdDef.addDatasource("DS:mo_mins_carried:COUNTER:600:0:U");
         rrdDef.addDatasource("DS:mo_calls_active:GAUGE:600:0:U");
         rrdDef.addArchive("RRA:AVERAGE:0.5:1:288");
 
-        RrdDef rrdDef2 = new RrdDef("target/rrd/mt_calls.jrb", (start/1000) - 600000 , 300);
+        RrdDef rrdDef2 = new RrdDef("target/rrd/mt_calls.jrb", (start / 1000) - 600000, 300);
         rrdDef2.addDatasource("DS:mt_call_attempts:COUNTER:600:0:U");
         rrdDef2.addDatasource("DS:mt_call_completes:COUNTER:600:0:U");
         rrdDef2.addDatasource("DS:mt_mins_carried:COUNTER:600:0:U");
@@ -194,7 +206,7 @@ public class SpecificationTest {
         Function bigSine = new Sin(start, 15, -10, MILLIS_PER_DAY);
         Function smallSine = new Sin(start, 7, 5, MILLIS_PER_DAY);
         Function moSuccessRate = new Cos(start, .5, .3, MILLIS_PER_DAY);
-        Function mtSuccessRate = new Cos(start, .5, -.2, 2*MILLIS_PER_DAY);
+        Function mtSuccessRate = new Cos(start, .5, -.2, 2 * MILLIS_PER_DAY);
 
         Function moAttempts = new Counter(0, bigSine);
         Function moCompletes = new Counter(0, new Times(moSuccessRate, bigSine));
@@ -203,11 +215,10 @@ public class SpecificationTest {
         Function mtCompletes = new Counter(0, new Times(mtSuccessRate, smallSine));
 
         int count = 0;
-        for(long timestamp = start - 300000; timestamp<= end; timestamp += 300000){
+        for (long timestamp = start - 300000; timestamp <= end; timestamp += 300000) {
             System.out.println("timestamp: " + new Date(timestamp));
 
-
-            Sample sample = rrd1.createSample(timestamp/1000);
+            Sample sample = rrd1.createSample(timestamp / 1000);
             double attemptsVal = moAttempts.evaluate(timestamp);
             double completesVal = moCompletes.evaluate(timestamp);
 
@@ -219,7 +230,7 @@ public class SpecificationTest {
 
             sample.update();
 
-            Sample sample2 = rrd2.createSample(timestamp/1000);
+            Sample sample2 = rrd2.createSample(timestamp / 1000);
             sample2.setValue("mt_call_attempts", mtAttempts.evaluate(timestamp));
             sample2.setValue("mt_call_completes", mtCompletes.evaluate(timestamp));
             sample2.setValue("mt_mins_carried", 16 * count);
@@ -261,17 +272,17 @@ public class SpecificationTest {
 
     }
 
-    public void fill() throws JRException{
+    public void fill() throws JRException {
         long start = System.currentTimeMillis();
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("rrdDir", "target/rrd");
-        params.put("startDate", "" + m_startDate.getTime()/1000);
-        params.put("endDate",  "" + + m_endDate.getTime()/1000);
+        params.put("startDate", "" + m_startDate.getTime() / 1000);
+        params.put("endDate", "" + +m_endDate.getTime() / 1000);
         m_jasperPrint = JasperFillManager.fillReport(m_jasperReport, params);
         System.err.println("Filling time : " + (System.currentTimeMillis() - start));
     }
 
-    public void pdf() throws JRException{
+    public void pdf() throws JRException {
         long start = System.currentTimeMillis();
         JasperExportManager.exportReportToPdfFile(m_jasperPrint, "target/reports/AllChartsReport.pdf");
         System.err.println("PDF creation time : " + (System.currentTimeMillis() - start));

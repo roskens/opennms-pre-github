@@ -46,12 +46,16 @@ import org.springframework.util.Assert;
  */
 public class EventIpcBroadcastProcessor implements EventProcessor, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(EventIpcBroadcastProcessor.class);
+
     private EventIpcBroadcaster m_eventIpcBroadcaster;
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws IllegalStateException {
@@ -69,18 +73,25 @@ public class EventIpcBroadcastProcessor implements EventProcessor, InitializingB
     }
 
     /**
-     * <p>getEventIpcBroadcaster</p>
+     * <p>
+     * getEventIpcBroadcaster
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.model.events.EventIpcBroadcaster} object.
+     * @return a {@link org.opennms.netmgt.model.events.EventIpcBroadcaster}
+     *         object.
      */
     public EventIpcBroadcaster getEventIpcBroadcaster() {
         return m_eventIpcBroadcaster;
     }
 
     /**
-     * <p>setEventIpcBroadcaster</p>
+     * <p>
+     * setEventIpcBroadcaster
+     * </p>
      *
-     * @param eventIpcManager a {@link org.opennms.netmgt.model.events.EventIpcBroadcaster} object.
+     * @param eventIpcManager
+     *            a {@link org.opennms.netmgt.model.events.EventIpcBroadcaster}
+     *            object.
      */
     public void setEventIpcBroadcaster(EventIpcBroadcaster eventIpcManager) {
         m_eventIpcBroadcaster = eventIpcManager;

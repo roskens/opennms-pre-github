@@ -59,25 +59,19 @@ public class SnmpGetInterfacesServlet extends HttpServlet {
 
     private static final long serialVersionUID = -5538965497977581230L;
 
-    private static final String INTERFACE_QUERY = "SELECT " +
-        "snmpinterface.nodeid, " +
-        "snmpinterface.snmpifindex, " +
-        "ipinterface.iphostname, " +
-        "ipinterface.issnmpprimary, " +
-        "snmpinterface.snmpifdescr, " +
-        "snmpinterface.snmpiftype, " +
-        "snmpinterface.snmpifname, " +
-        "snmpinterface.snmpifalias, " +
-        "snmpinterface.snmpcollect, " +
-        "snmpinterface.id " +
-        "FROM snmpinterface LEFT JOIN ipinterface " +
-        "ON ipinterface.snmpinterfaceid=snmpinterface.id " +
-        "WHERE snmpinterface.nodeid=?";
+    private static final String INTERFACE_QUERY = "SELECT " + "snmpinterface.nodeid, " + "snmpinterface.snmpifindex, "
+            + "ipinterface.iphostname, " + "ipinterface.issnmpprimary, " + "snmpinterface.snmpifdescr, "
+            + "snmpinterface.snmpiftype, " + "snmpinterface.snmpifname, " + "snmpinterface.snmpifalias, "
+            + "snmpinterface.snmpcollect, " + "snmpinterface.id " + "FROM snmpinterface LEFT JOIN ipinterface "
+            + "ON ipinterface.snmpinterfaceid=snmpinterface.id " + "WHERE snmpinterface.nodeid=?";
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -94,14 +88,14 @@ public class SnmpGetInterfacesServlet extends HttpServlet {
 
         String nodeIdString = request.getParameter("node");
 
-        if( nodeIdString == null ) {
+        if (nodeIdString == null) {
             throw new org.opennms.web.servlet.MissingParameterException("node");
         }
 
         int nodeid = WebSecurityUtils.safeParseInt(nodeIdString);
 
         try {
-            user.setAttribute("listInterfacesForNode.snmpselect.jsp", getNodeInterfaces(user,nodeid));
+            user.setAttribute("listInterfacesForNode.snmpselect.jsp", getNodeInterfaces(user, nodeid));
         } catch (SQLException e) {
             throw new ServletException(e);
         }

@@ -50,11 +50,15 @@ import org.springframework.transaction.annotation.Transactional;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
-public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowledgment, Integer> implements AcknowledgmentDao {
+public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowledgment, Integer> implements
+        AcknowledgmentDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AcknowledgmentDaoHibernate.class);
+
     /**
-     * <p>Constructor for AcknowledgmentDaoHibernate.</p>
+     * <p>
+     * Constructor for AcknowledgmentDaoHibernate.
+     * </p>
      */
     public AcknowledgmentDaoHibernate() {
         super(OnmsAcknowledgment.class);
@@ -131,8 +135,8 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
     }
 
     private OnmsAlarm findAlarm(final OnmsAcknowledgment ack) {
-//      hql = "from OnmsAlarm as alarms where alarms.id = ?";
-//      return findUnique(OnmsAlarm.class, hql, ack.getRefId());
+        // hql = "from OnmsAlarm as alarms where alarms.id = ?";
+        // return findUnique(OnmsAlarm.class, hql, ack.getRefId());
         try {
             if (ack != null) {
                 return (OnmsAlarm) getHibernateTemplate().load(OnmsAlarm.class, ack.getRefId());
@@ -144,8 +148,8 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
     }
 
     private OnmsNotification findNotification(final OnmsAcknowledgment ack) {
-//      hql = "from OnmsAlarm as alarms where alarms.id = ?";
-//      return findUnique(OnmsAlarm.class, hql, ack.getRefId());
+        // hql = "from OnmsAlarm as alarms where alarms.id = ?";
+        // return findUnique(OnmsAlarm.class, hql, ack.getRefId());
         try {
             if (ack != null) {
                 return (OnmsNotification) getHibernateTemplate().load(OnmsNotification.class, ack.getRefId());
@@ -157,7 +161,7 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
     }
 
     /** {@inheritDoc} */
-    @Transactional(readOnly=false)
+    @Transactional(readOnly = false)
     @Override
     public void processAcks(Collection<OnmsAcknowledgment> acks) {
         LOG.info("processAcks: Processing {} acknowledgements...", acks.size());
@@ -167,7 +171,7 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
     }
 
     /** {@inheritDoc} */
-    @Transactional(readOnly=false)
+    @Transactional(readOnly = false)
     @Override
     public void processAck(OnmsAcknowledgment ack) {
         LOG.info("processAck: Searching DB for acknowledgables for ack: {}", ack);
@@ -175,7 +179,7 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
 
         if (ackables == null || ackables.size() < 1) {
             LOG.debug("processAck: No acknowledgables found.");
-            throw new IllegalStateException("No acknowlegables in the database for ack: "+ack);
+            throw new IllegalStateException("No acknowlegables in the database for ack: " + ack);
         }
 
         LOG.debug("processAck: Found {}. Acknowledging...", ackables.size());

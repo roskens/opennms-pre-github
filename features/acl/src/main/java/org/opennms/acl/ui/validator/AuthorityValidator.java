@@ -49,7 +49,9 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * <p>AuthorityValidator class.</p>
+ * <p>
+ * AuthorityValidator class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -70,7 +72,8 @@ public class AuthorityValidator implements Validator {
     public void validate(Object command, Errors err) {
         // AuthorityDTO authority = (AuthorityDTO) command;
         ValidationUtils.rejectIfEmptyOrWhitespace(err, "name", "name.required.value", "name is required.");
-        ValidationUtils.rejectIfEmptyOrWhitespace(err, "description", "description.required.value", "description is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(err, "description", "description.required.value",
+                                                  "description is required.");
     }
 
 }

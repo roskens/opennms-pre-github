@@ -54,14 +54,13 @@ public class NodeMapConnector extends AbstractComponentConnector {
 
     private Map<String, Icon> m_icons;
 
-
     public NodeMapConnector() {
         initializeIcons();
     }
 
     private static native final boolean isRetina() /*-{
-        return $wnd.L.Browser.retina;
-    }-*/;
+                                                   return $wnd.L.Browser.retina;
+                                                   }-*/;
 
     @Override
     public void onStateChanged(StateChangeEvent stateChangeEvent) {
@@ -99,7 +98,7 @@ public class NodeMapConnector extends AbstractComponentConnector {
 
             List<String> categories = node.getCategories();
             if (categories != null) {
-                marker.setCategories(categories.toArray(new String[]{}));
+                marker.setCategories(categories.toArray(new String[] {}));
             }
 
             // TODO: Icon handling should be moved to the Widget
@@ -135,7 +134,7 @@ public class NodeMapConnector extends AbstractComponentConnector {
     private void initializeIcons() {
         if (m_icons == null) {
             m_icons = new HashMap<String, Icon>();
-            for (final String severity : new String[]{"Normal", "Warning", "Minor", "Major", "Critical"}) {
+            for (final String severity : new String[] { "Normal", "Warning", "Minor", "Major", "Critical" }) {
                 IconOptions options = new IconOptions();
                 options.setIconSize(new Point(25, 41));
                 options.setIconAnchor(new Point(12, 41));

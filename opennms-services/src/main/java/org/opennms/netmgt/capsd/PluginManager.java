@@ -49,7 +49,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>PluginManager class.</p>
+ * <p>
+ * PluginManager class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -64,13 +66,16 @@ public class PluginManager implements InitializingBean {
      * The map of capsd plugins indexed by protocol.
      */
     private Map<String, Plugin> m_pluginsByProtocol = new TreeMap<String, Plugin>();
+
     /**
      * The map of capsd plugins indexed by implementing class.
      */
     private Map<String, Plugin> m_pluginsByClass = new TreeMap<String, Plugin>();
 
     /**
-     * <p>Constructor for PluginManager.</p>
+     * <p>
+     * Constructor for PluginManager.
+     * </p>
      */
     public PluginManager() {
         super();
@@ -90,7 +95,12 @@ public class PluginManager implements InitializingBean {
                     Class<?> cplugin = Class.forName(plugin.getClassName());
                     Object oplugin = cplugin.newInstance();
                     if (!(oplugin instanceof Plugin)) {
-                        throw new ValidationException("CapsdConfigFactory: successfully loaded plugin class for protocol " + plugin.getProtocol() + ", class-name = " + plugin.getClassName() + ", however the class is not an instance of " + Plugin.class.getName());
+                        throw new ValidationException(
+                                                      "CapsdConfigFactory: successfully loaded plugin class for protocol "
+                                                              + plugin.getProtocol() + ", class-name = "
+                                                              + plugin.getClassName()
+                                                              + ", however the class is not an instance of "
+                                                              + Plugin.class.getName());
                     }
 
                     Plugin p = (Plugin) oplugin;
@@ -100,7 +110,8 @@ public class PluginManager implements InitializingBean {
                     m_pluginsByProtocol.put(plugin.getProtocol(), p);
                 }
             } catch (Throwable t) {
-                String message = "CapsdConfigFactory: failed to load plugin for protocol " + plugin.getProtocol() + ", class-name = " + plugin.getClassName() + ", exception = " + t;
+                String message = "CapsdConfigFactory: failed to load plugin for protocol " + plugin.getProtocol()
+                        + ", class-name = " + plugin.getClassName() + ", exception = " + t;
                 LOG.error(message, t);
                 throw new ValidationException(message, t);
             }
@@ -123,7 +134,8 @@ public class PluginManager implements InitializingBean {
          * and array and returned to the caller. These are
          * of type ProtocolInfo
          */
-        List<CapsdProtocolInfo> lprotos = new ArrayList<CapsdProtocolInfo>(getCapsdConfig().getConfiguration().getProtocolPluginCount());
+        List<CapsdProtocolInfo> lprotos = new ArrayList<CapsdProtocolInfo>(
+                                                                           getCapsdConfig().getConfiguration().getProtocolPluginCount());
 
         // go through all the defined plugins
         List<ProtocolPlugin> plugins = getCapsdConfig().getProtocolPlugins();
@@ -168,7 +180,8 @@ public class PluginManager implements InitializingBean {
                         continue;
                     }
 
-                    if (InetAddressUtils.isInetAddressInRange(address.getAddress(), start.getAddress(), stop.getAddress())) {
+                    if (InetAddressUtils.isInetAddressInRange(address.getAddress(), start.getAddress(),
+                                                              stop.getAddress())) {
                         found = true;
                     }
                 }
@@ -189,7 +202,9 @@ public class PluginManager implements InitializingBean {
                 String scan = null;
                 if ((scan = pluginConf.getScan()) != null) {
                     if (scan.equals("enable")) {
-                        lprotos.add(new CapsdProtocolInfo(plugin.getProtocol(), m_pluginsByProtocol.get(plugin.getProtocol()), null, Action.AUTO_SET));
+                        lprotos.add(new CapsdProtocolInfo(plugin.getProtocol(),
+                                                          m_pluginsByProtocol.get(plugin.getProtocol()), null,
+                                                          Action.AUTO_SET));
                         continue PLUGINLOOP;
                     } else if (scan.equals("off")) {
                         continue PLUGINLOOP;
@@ -208,7 +223,8 @@ public class PluginManager implements InitializingBean {
                 addProperties(getCapsdConfig().getPluginProperties(plugin), params);
                 addProperties(getCapsdConfig().getProtocolConfigurationProperties(pluginConf), params);
 
-                lprotos.add(new CapsdProtocolInfo(plugin.getProtocol(), m_pluginsByProtocol.get(plugin.getProtocol()), params, Action.SCAN));
+                lprotos.add(new CapsdProtocolInfo(plugin.getProtocol(), m_pluginsByProtocol.get(plugin.getProtocol()),
+                                                  params, Action.SCAN));
             } // end ProtocolConfiguration loop
 
             // use default config if not found
@@ -224,7 +240,8 @@ public class PluginManager implements InitializingBean {
                 Map<String, Object> params = new TreeMap<String, Object>();
                 addProperties(getCapsdConfig().getPluginProperties(plugin), params);
 
-                lprotos.add(new CapsdProtocolInfo(plugin.getProtocol(), m_pluginsByProtocol.get(plugin.getProtocol()), params, Action.SCAN));
+                lprotos.add(new CapsdProtocolInfo(plugin.getProtocol(), m_pluginsByProtocol.get(plugin.getProtocol()),
+                                                  params, Action.SCAN));
             }
 
         } // end ProtocolPlugin
@@ -246,7 +263,9 @@ public class PluginManager implements InitializingBean {
     }
 
     /**
-     * <p>getCapsdConfig</p>
+     * <p>
+     * getCapsdConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.CapsdConfig} object.
      */
@@ -255,18 +274,24 @@ public class PluginManager implements InitializingBean {
     }
 
     /**
-     * <p>setCapsdConfig</p>
+     * <p>
+     * setCapsdConfig
+     * </p>
      *
-     * @param capsdConfig a {@link org.opennms.netmgt.config.CapsdConfig} object.
+     * @param capsdConfig
+     *            a {@link org.opennms.netmgt.config.CapsdConfig} object.
      */
     public void setCapsdConfig(CapsdConfig capsdConfig) {
         m_capsdConfig = capsdConfig;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws ValidationException {

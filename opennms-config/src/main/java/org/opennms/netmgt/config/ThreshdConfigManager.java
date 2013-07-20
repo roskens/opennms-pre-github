@@ -61,7 +61,9 @@ import org.opennms.netmgt.config.threshd.ThreshdConfiguration;
 import org.opennms.netmgt.filter.FilterDaoFactory;
 
 /**
- * <p>Abstract ThreshdConfigManager class.</p>
+ * <p>
+ * Abstract ThreshdConfigManager class.
+ * </p>
  *
  * @author mhuot
  * @version $Id: $
@@ -73,36 +75,48 @@ public abstract class ThreshdConfigManager {
      * The config class loaded from the config file
      */
     protected ThreshdConfiguration m_config;
+
     /**
      * A mapping of the configured URLs to a list of the specific IPs configured
      * in each - so as to avoid file reads
      */
     private Map<String, List<String>> m_urlIPMap;
+
     /**
      * A mapping of the configured package to a list of IPs selected via filter
      * rules, so as to avoid repetitive database access.
      */
     private Map<Package, List<InetAddress>> m_pkgIpMap;
+
     /**
      * A boolean flag to indicate If a filter rule against the local OpenNMS
      * server has to be used.
      */
     protected boolean m_verifyServer;
+
     /**
      * The name of the local OpenNMS server
      */
     protected String m_localServer;
 
     /**
-     * <p>Constructor for ThreshdConfigManager.</p>
+     * <p>
+     * Constructor for ThreshdConfigManager.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @param localServer a {@link java.lang.String} object.
-     * @param verifyServer a boolean.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @param localServer
+     *            a {@link java.lang.String} object.
+     * @param verifyServer
+     *            a boolean.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public ThreshdConfigManager(InputStream stream, String localServer, boolean verifyServer) throws MarshalException, ValidationException {
+    public ThreshdConfigManager(InputStream stream, String localServer, boolean verifyServer) throws MarshalException,
+            ValidationException {
         m_config = CastorUtils.unmarshal(ThreshdConfiguration.class, stream);
 
         createUrlIpMap();
@@ -111,7 +125,6 @@ public abstract class ThreshdConfigManager {
         m_localServer = localServer;
 
         createPackageIpListMap();
-
 
     }
 
@@ -134,7 +147,8 @@ public abstract class ThreshdConfigManager {
     }
 
     /**
-     * This method is used to establish package against an iplist iplist mapping,
+     * This method is used to establish package against an iplist iplist
+     * mapping,
      * with which, the iplist is selected per package via the configured filter
      * rules from the database.
      */
@@ -161,7 +175,6 @@ public abstract class ThreshdConfigManager {
                     filterRules.append(")");
                 }
 
-
                 LOG.debug("createPackageIpMap: package is {}. filer rules are {}", filterRules, pkg.getName());
 
                 List<InetAddress> ipList = FilterDaoFactory.getInstance().getActiveIPAddressList(filterRules.toString());
@@ -169,7 +182,8 @@ public abstract class ThreshdConfigManager {
                     m_pkgIpMap.put(pkg, ipList);
                 }
             } catch (Throwable t) {
-                LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"", pkg.getName(), pkg.getFilter().getContent(), t);
+                LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"",
+                          pkg.getName(), pkg.getFilter().getContent(), t);
             }
         }
     }
@@ -188,66 +202,82 @@ public abstract class ThreshdConfigManager {
     /**
      * Saves the current in-memory configuration to disk and reloads
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public synchronized void saveCurrent() throws MarshalException, IOException, ValidationException {
 
-             //marshall to a string first, then write the string to the file. This way the original config
-             //isn't lost if the xml from the marshall is hosed.
-             StringWriter stringWriter = new StringWriter();
-             Marshaller.marshal(m_config, stringWriter);
+        // marshall to a string first, then write the string to the file. This
+        // way the original config
+        // isn't lost if the xml from the marshall is hosed.
+        StringWriter stringWriter = new StringWriter();
+        Marshaller.marshal(m_config, stringWriter);
 
-             String xmlString = stringWriter.toString();
-            if (xmlString!=null)
-             {
-                 saveXML(xmlString);
-             }
+        String xmlString = stringWriter.toString();
+        if (xmlString != null) {
+            saveXML(xmlString);
+        }
 
-             reloadXML();
-     }
+        reloadXML();
+    }
 
     /**
-     * <p>reloadXML</p>
+     * <p>
+     * reloadXML
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public abstract void reloadXML() throws IOException, MarshalException, ValidationException;
 
     /**
-     * <p>saveXML</p>
+     * <p>
+     * saveXML
+     * </p>
      *
-     * @param xmlString a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param xmlString
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected abstract void saveXML(String xmlString) throws IOException;
 
     /**
      * Return the threshd configuration object.
      *
-     * @return a {@link org.opennms.netmgt.config.threshd.ThreshdConfiguration} object.
+     * @return a {@link org.opennms.netmgt.config.threshd.ThreshdConfiguration}
+     *         object.
      */
     public synchronized ThreshdConfiguration getConfiguration() {
         return m_config;
     }
 
     /**
-     * <p>getPackage</p>
+     * <p>
+     * getPackage
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a org$opennms$netmgt$config$threshd$Package object.
      */
     public synchronized org.opennms.netmgt.config.threshd.Package getPackage(String name) {
         for (org.opennms.netmgt.config.threshd.Package thisPackage : m_config.getPackageCollection()) {
-            if(thisPackage.getName().equals(name)) {
+            if (thisPackage.getName().equals(name)) {
                 return thisPackage;
             }
         }
         return null;
-     }
+    }
 
     /**
      * This method is used to determine if the named interface is included in
@@ -272,7 +302,6 @@ public abstract class ThreshdConfigManager {
      *            The interface to test against the package's URL
      * @param url
      *            The url file to read
-     *
      * @return True if the interface is included in the url, false otherwise.
      */
     private boolean interfaceInUrl(String addr, String url) {
@@ -292,7 +321,6 @@ public abstract class ThreshdConfigManager {
      * the passed package definition. If the interface belongs to the package
      * then a value of true is returned. If the interface does not belong to the
      * package a false value is returned.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -311,11 +339,11 @@ public abstract class ThreshdConfigManager {
         // get list of IPs in this package
         java.util.List<InetAddress> ipList = m_pkgIpMap.get(pkg);
         if (ipList != null && ipList.size() > 0) {
-			filterPassed = ipList.contains(ifaceAddr);
+            filterPassed = ipList.contains(ifaceAddr);
         }
 
-
-        LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", filterPassed, iface, pkg.getName());
+        LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", filterPassed, iface,
+                  pkg.getName());
 
         if (!filterPassed)
             return false;
@@ -389,6 +417,5 @@ public abstract class ThreshdConfigManager {
         }
         return result;
     }
-
 
 }

@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event.descriptors;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.opennms.netmgt.xml.event.Snmp;
@@ -46,12 +46,12 @@ import org.opennms.netmgt.xml.event.Snmp;
  *
  * @version $Revision$ $Date$
  */
-@SuppressWarnings("all") public class SnmpDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
+@SuppressWarnings("all")
+public class SnmpDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _elementDefinition.
@@ -78,10 +78,9 @@ import org.opennms.netmgt.xml.event.Snmp;
      */
     private org.exolab.castor.xml.XMLFieldDescriptor _identity;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public SnmpDescriptor() {
         super();
@@ -89,37 +88,37 @@ import org.opennms.netmgt.xml.event.Snmp;
         _xmlName = "snmp";
         _elementDefinition = true;
 
-        //-- set grouping compositor
+        // -- set grouping compositor
         setCompositorAsSequence();
-        org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
-        org.exolab.castor.mapping.FieldHandler             handler        = null;
-        org.exolab.castor.xml.FieldValidator               fieldValidator = null;
-        //-- initialize attribute descriptors
+        org.exolab.castor.xml.util.XMLFieldDescriptorImpl desc = null;
+        org.exolab.castor.mapping.FieldHandler handler = null;
+        org.exolab.castor.xml.FieldValidator fieldValidator = null;
+        // -- initialize attribute descriptors
 
-        //-- initialize element descriptors
+        // -- initialize element descriptors
 
-        //-- _id
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_id", "id", org.exolab.castor.xml.NodeType.Element);
+        // -- _id
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_id", "id",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Snmp target = (Snmp) object;
                 return target.getId();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Snmp target = (Snmp) object;
-                    target.setId( (java.lang.String) value);
+                    target.setId((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -133,38 +132,38 @@ import org.opennms.netmgt.xml.event.Snmp;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _id
+        // -- validation code for: _id
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- _idtext
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_idtext", "idtext", org.exolab.castor.xml.NodeType.Element);
+        // -- _idtext
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_idtext", "idtext",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Snmp target = (Snmp) object;
                 return target.getIdtext();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Snmp target = (Snmp) object;
-                    target.setIdtext( (java.lang.String) value);
+                    target.setIdtext((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -177,37 +176,37 @@ import org.opennms.netmgt.xml.event.Snmp;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _idtext
+        // -- validation code for: _idtext
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- _version
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_version", "version", org.exolab.castor.xml.NodeType.Element);
+        // -- _version
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_version", "version",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Snmp target = (Snmp) object;
                 return target.getVersion();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Snmp target = (Snmp) object;
-                    target.setVersion( (java.lang.String) value);
+                    target.setVersion((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -221,31 +220,32 @@ import org.opennms.netmgt.xml.event.Snmp;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _version
+        // -- validation code for: _version
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- _specific
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_specific", "specific", org.exolab.castor.xml.NodeType.Element);
+        // -- _specific
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_specific", "specific",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Snmp target = (Snmp) object;
-                if (!target.hasSpecific()) { return null; }
+                if (!target.hasSpecific()) {
+                    return null;
+                }
                 return new java.lang.Integer(target.getSpecific());
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Snmp target = (Snmp) object;
                     // if null, use delete method for optional primitives
@@ -253,11 +253,12 @@ import org.opennms.netmgt.xml.event.Snmp;
                         target.deleteSpecific();
                         return;
                     }
-                    target.setSpecific( ((java.lang.Integer) value).intValue());
+                    target.setSpecific(((java.lang.Integer) value).intValue());
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -270,9 +271,9 @@ import org.opennms.netmgt.xml.event.Snmp;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _specific
+        // -- validation code for: _specific
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.IntValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.IntValidator();
             fieldValidator.setValidator(typeValidator);
@@ -280,21 +281,22 @@ import org.opennms.netmgt.xml.event.Snmp;
             typeValidator.setMaxInclusive(2147483647);
         }
         desc.setValidator(fieldValidator);
-        //-- _generic
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_generic", "generic", org.exolab.castor.xml.NodeType.Element);
+        // -- _generic
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_generic", "generic",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Snmp target = (Snmp) object;
-                if (!target.hasGeneric()) { return null; }
+                if (!target.hasGeneric()) {
+                    return null;
+                }
                 return new java.lang.Integer(target.getGeneric());
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Snmp target = (Snmp) object;
                     // if null, use delete method for optional primitives
@@ -302,11 +304,12 @@ import org.opennms.netmgt.xml.event.Snmp;
                         target.deleteGeneric();
                         return;
                     }
-                    target.setGeneric( ((java.lang.Integer) value).intValue());
+                    target.setGeneric(((java.lang.Integer) value).intValue());
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -319,9 +322,9 @@ import org.opennms.netmgt.xml.event.Snmp;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _generic
+        // -- validation code for: _generic
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.IntValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.IntValidator();
             fieldValidator.setValidator(typeValidator);
@@ -329,28 +332,28 @@ import org.opennms.netmgt.xml.event.Snmp;
             typeValidator.setMaxInclusive(2147483647);
         }
         desc.setValidator(fieldValidator);
-        //-- _community
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_community", "community", org.exolab.castor.xml.NodeType.Element);
+        // -- _community
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_community", "community",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Snmp target = (Snmp) object;
                 return target.getCommunity();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Snmp target = (Snmp) object;
-                    target.setCommunity( (java.lang.String) value);
+                    target.setCommunity((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -363,30 +366,31 @@ import org.opennms.netmgt.xml.event.Snmp;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _community
+        // -- validation code for: _community
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- _timeStamp
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Long.TYPE, "_timeStamp", "time-stamp", org.exolab.castor.xml.NodeType.Element);
+        // -- _timeStamp
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Long.TYPE, "_timeStamp", "time-stamp",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Snmp target = (Snmp) object;
-                if (!target.hasTimeStamp()) { return null; }
+                if (!target.hasTimeStamp()) {
+                    return null;
+                }
                 return new java.lang.Long(target.getTimeStamp());
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Snmp target = (Snmp) object;
                     // if null, use delete method for optional primitives
@@ -394,11 +398,12 @@ import org.opennms.netmgt.xml.event.Snmp;
                         target.deleteTimeStamp();
                         return;
                     }
-                    target.setTimeStamp( ((java.lang.Long) value).longValue());
+                    target.setTimeStamp(((java.lang.Long) value).longValue());
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -411,9 +416,9 @@ import org.opennms.netmgt.xml.event.Snmp;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _timeStamp
+        // -- validation code for: _timeStamp
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.LongValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.LongValidator();
             fieldValidator.setValidator(typeValidator);
@@ -423,10 +428,9 @@ import org.opennms.netmgt.xml.event.Snmp;
         desc.setValidator(fieldValidator);
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Method getAccessMode.
@@ -434,8 +438,7 @@ import org.opennms.netmgt.xml.event.Snmp;
      * @return the access mode specified for this class.
      */
     @Override()
-    public org.exolab.castor.mapping.AccessMode getAccessMode(
-    ) {
+    public org.exolab.castor.mapping.AccessMode getAccessMode() {
         return null;
     }
 
@@ -443,11 +446,10 @@ import org.opennms.netmgt.xml.event.Snmp;
      * Method getIdentity.
      *
      * @return the identity field, null if this class has no
-     * identity.
+     *         identity.
      */
     @Override()
-    public org.exolab.castor.mapping.FieldDescriptor getIdentity(
-    ) {
+    public org.exolab.castor.mapping.FieldDescriptor getIdentity() {
         return _identity;
     }
 
@@ -457,8 +459,7 @@ import org.opennms.netmgt.xml.event.Snmp;
      * @return the Java class represented by this descriptor.
      */
     @Override()
-    public java.lang.Class<?> getJavaClass(
-    ) {
+    public java.lang.Class<?> getJavaClass() {
         return org.opennms.netmgt.xml.event.Snmp.class;
     }
 
@@ -468,8 +469,7 @@ import org.opennms.netmgt.xml.event.Snmp;
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpacePrefix(
-    ) {
+    public java.lang.String getNameSpacePrefix() {
         return _nsPrefix;
     }
 
@@ -477,11 +477,10 @@ import org.opennms.netmgt.xml.event.Snmp;
      * Method getNameSpaceURI.
      *
      * @return the namespace URI used when marshaling and
-     * unmarshaling as XML.
+     *         unmarshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpaceURI(
-    ) {
+    public java.lang.String getNameSpaceURI() {
         return _nsURI;
     }
 
@@ -489,11 +488,10 @@ import org.opennms.netmgt.xml.event.Snmp;
      * Method getValidator.
      *
      * @return a specific validator for the class described by this
-     * ClassDescriptor.
+     *         ClassDescriptor.
      */
     @Override()
-    public org.exolab.castor.xml.TypeValidator getValidator(
-    ) {
+    public org.exolab.castor.xml.TypeValidator getValidator() {
         return this;
     }
 
@@ -503,8 +501,7 @@ import org.opennms.netmgt.xml.event.Snmp;
      * @return the XML Name for the Class being described.
      */
     @Override()
-    public java.lang.String getXMLName(
-    ) {
+    public java.lang.String getXMLName() {
         return _xmlName;
     }
 
@@ -512,12 +509,11 @@ import org.opennms.netmgt.xml.event.Snmp;
      * Method isElementDefinition.
      *
      * @return true if XML schema definition of this Class is that
-     * of a global
-     * element or element with anonymous type definition.
+     *         of a global
+     *         element or element with anonymous type definition.
      */
     @Override
-    public boolean isElementDefinition(
-    ) {
+    public boolean isElementDefinition() {
         return _elementDefinition;
     }
 

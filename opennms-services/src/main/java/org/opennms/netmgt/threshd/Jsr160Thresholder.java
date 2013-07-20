@@ -37,7 +37,9 @@ package org.opennms.netmgt.threshd;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 /**
- * <p>Jsr160Thresholder class.</p>
+ * <p>
+ * Jsr160Thresholder class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,7 +47,9 @@ package org.opennms.netmgt.threshd;
 public class Jsr160Thresholder extends JMXThresholder {
 
     /**
-     * <p>Constructor for Jsr160Thresholder.</p>
+     * <p>
+     * Constructor for Jsr160Thresholder.
+     * </p>
      */
     public Jsr160Thresholder() {
         setUseFriendlyName(true);

@@ -68,22 +68,25 @@ import org.springframework.util.StringUtils;
  */
 public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroadcaster, InitializingBean {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(EventIpcManagerDefaultImpl.class);
 
     public static class DiscardTrapsAndSyslogEvents implements RejectedExecutionHandler {
         /**
          * Creates a <tt>DiscardOldestPolicy</tt> for the given executor.
          */
-        public DiscardTrapsAndSyslogEvents() { }
+        public DiscardTrapsAndSyslogEvents() {
+        }
 
         /**
          * Obtains and ignores the next task that the executor
          * would otherwise execute, if one is immediately available,
          * and then retries execution of task r, unless the executor
          * is shut down, in which case task r is instead discarded.
-         * @param r the runnable task requested to be executed
-         * @param e the executor attempting to execute this task
+         *
+         * @param r
+         *            the runnable task requested to be executed
+         * @param e
+         *            the executor attempting to execute this task
          */
         @Override
         public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
@@ -145,24 +148,33 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
         EventListenerExecutor(EventListener listener, Integer handlerQueueLength) {
             m_listener = listener;
             // You could also do Executors.newSingleThreadExecutor() here
-            m_delegateThread = new ThreadPoolExecutor(
-                    1,
-                    1,
-                    0L,
-                    TimeUnit.MILLISECONDS,
-                    handlerQueueLength == null ? new LinkedBlockingQueue<Runnable>() : new LinkedBlockingQueue<Runnable>(handlerQueueLength),
-                    // This ThreadFactory will ensure that the log prefix of the calling thread
-                    // is used for all events that this listener handles. Therefore, if Notifd
-                    // registers for an event then all logs for handling that event will end up
-                    // inside notifd.log.
-                    new LogPreservingThreadFactory(m_listener.getName(), 1, true),
-                    new RejectedExecutionHandler() {
-                        @Override
-                        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-                            LOG.warn("Listener {}'s event queue is full, discarding event", m_listener.getName());
-                        }
-                    }
-            );
+            m_delegateThread = new ThreadPoolExecutor(1, 1,
+                                                      0L,
+                                                      TimeUnit.MILLISECONDS,
+                                                      handlerQueueLength == null ? new LinkedBlockingQueue<Runnable>()
+                                                          : new LinkedBlockingQueue<Runnable>(handlerQueueLength),
+                                                      // This ThreadFactory will
+                                                      // ensure that the log
+                                                      // prefix of the calling
+                                                      // thread
+                                                      // is used for all events
+                                                      // that this listener
+                                                      // handles. Therefore, if
+                                                      // Notifd
+                                                      // registers for an event
+                                                      // then all logs for
+                                                      // handling that event
+                                                      // will end up
+                                                      // inside notifd.log.
+                                                      new LogPreservingThreadFactory(m_listener.getName(), 1, true),
+                                                      new RejectedExecutionHandler() {
+                                                          @Override
+                                                          public void rejectedExecution(Runnable r,
+                                                                  ThreadPoolExecutor executor) {
+                                                              LOG.warn("Listener {}'s event queue is full, discarding event",
+                                                                       m_listener.getName());
+                                                          }
+                                                      });
         }
 
         public void addEvent(final Event event) {
@@ -170,9 +182,11 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
                 @Override
                 public void run() {
                     try {
-                        LOG.info("run: calling onEvent on {} for event {} dbid {} with time {}", m_listener.getName(), event.getUei(), event.getDbid(), event.getTime());
+                        LOG.info("run: calling onEvent on {} for event {} dbid {} with time {}", m_listener.getName(),
+                                 event.getUei(), event.getDbid(), event.getTime());
 
-                        // Make sure we restore our log4j logging prefix after onEvent is called
+                        // Make sure we restore our log4j logging prefix after
+                        // onEvent is called
                         Map mdc = Logging.getCopyOfContextMap();
                         try {
                             m_listener.onEvent(event);
@@ -195,7 +209,9 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * <p>Constructor for EventIpcManagerDefaultImpl.</p>
+     * <p>
+     * Constructor for EventIpcManagerDefaultImpl.
+     * </p>
      */
     public EventIpcManagerDefaultImpl() {
     }
@@ -207,10 +223,14 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * <p>send</p>
+     * <p>
+     * send
+     * </p>
      *
-     * @param eventLog a {@link org.opennms.netmgt.xml.event.Log} object.
-     * @throws org.opennms.netmgt.model.events.EventProxyException if any.
+     * @param eventLog
+     *            a {@link org.opennms.netmgt.xml.event.Log} object.
+     * @throws org.opennms.netmgt.model.events.EventProxyException
+     *             if any.
      */
     @Override
     public void send(Log eventLog) throws EventProxyException {
@@ -218,9 +238,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Called by a service to send an event to other listeners.
+     * {@inheritDoc} Called by a service to send an event to other listeners.
      */
     @Override
     public void sendNow(Event event) {
@@ -240,7 +258,8 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
      * Creates a new event handler for the event log and queues it to the
      * event handler thread pool.
      *
-     * @param eventLog a {@link org.opennms.netmgt.xml.event.Log} object.
+     * @param eventLog
+     *            a {@link org.opennms.netmgt.xml.event.Log} object.
      */
     @Override
     public void sendNow(Log eventLog) {
@@ -256,8 +275,11 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.eventd.EventIpcBroadcaster#broadcastNow(org.opennms.netmgt.xml.event.Event)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.eventd.EventIpcBroadcaster#broadcastNow(org.opennms
+     * .netmgt.xml.event.Event)
      */
     /** {@inheritDoc} */
     @Override
@@ -283,7 +305,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
          * Loop to attempt partial wild card "directory" matches.
          */
         Set<EventListener> sentToListeners = new HashSet<EventListener>();
-        for (String uei = event.getUei(); uei.length() > 0; ) {
+        for (String uei = event.getUei(); uei.length() > 0;) {
             if (m_ueiListeners.containsKey(uei)) {
                 for (EventListener listener : m_ueiListeners.get(uei)) {
                     if (!sentToListeners.contains(listener)) {
@@ -297,7 +319,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
             int i = uei.lastIndexOf("/", uei.length() - 2);
             if (i > 0) {
                 // Split at "/", including the /
-                uei = uei.substring (0, i + 1);
+                uei = uei.substring(0, i + 1);
             } else {
                 // No more wild cards to match
                 break;
@@ -314,9 +336,8 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Register an event listener that is interested in all events.
+     * {@inheritDoc} Register an event listener that is interested in all
+     * events.
      * Removes this listener from any UEI-specific matches.
      */
     @Override
@@ -334,9 +355,8 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Register an event listener interested in the UEIs in the passed list.
+     * {@inheritDoc} Register an event listener interested in the UEIs in the
+     * passed list.
      */
     @Override
     public synchronized void addEventListener(EventListener listener, Collection<String> ueis) {
@@ -344,11 +364,13 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
         Assert.notNull(ueis, "ueilist argument cannot be null");
 
         if (ueis.isEmpty()) {
-            LOG.warn("Not adding event listener {} because the ueilist argument contains no entries", listener.getName());
+            LOG.warn("Not adding event listener {} because the ueilist argument contains no entries",
+                     listener.getName());
             return;
         }
 
-        LOG.debug("Adding event listener {} for UEIs: {}", listener.getName(), StringUtils.collectionToCommaDelimitedString(ueis));
+        LOG.debug("Adding event listener {} for UEIs: {}", listener.getName(),
+                  StringUtils.collectionToCommaDelimitedString(ueis));
 
         createListenerThread(listener);
 
@@ -363,8 +385,11 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     /**
      * Register an event listener interested in the passed UEI.
      *
-     * @param listener a {@link org.opennms.netmgt.model.events.EventListener} object.
-     * @param uei a {@link java.lang.String} object.
+     * @param listener
+     *            a {@link org.opennms.netmgt.model.events.EventListener}
+     *            object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      */
     @Override
     public synchronized void addEventListener(EventListener listener, String uei) {
@@ -375,11 +400,9 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Removes a registered event listener. The UEI list indicates the list of
+     * {@inheritDoc} Removes a registered event listener. The UEI list indicates
+     * the list of
      * events the listener is no more interested in.
-     *
      * <strong>Note: </strong>The listener thread for this listener is not
      * stopped until the 'removeEventListener(EventListener listener)' method is
      * called.
@@ -397,13 +420,15 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     /**
      * Removes a registered event listener. The UEI indicates one the listener
      * is no more interested in.
-     *
      * <strong>Note: </strong>The listener thread for this listener is not
      * stopped until the 'removeEventListener(EventListener listener)' method is
      * called.
      *
-     * @param listener a {@link org.opennms.netmgt.model.events.EventListener} object.
-     * @param uei a {@link java.lang.String} object.
+     * @param listener
+     *            a {@link org.opennms.netmgt.model.events.EventListener}
+     *            object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      */
     @Override
     public synchronized void removeEventListener(EventListener listener, String uei) {
@@ -414,10 +439,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Removes a registered event listener.
-     *
+     * {@inheritDoc} Removes a registered event listener.
      * <strong>Note: </strong>Only this method stops the listener thread for the
      * listener passed.
      */
@@ -491,7 +513,9 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -505,18 +529,23 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
             @Override
             public void run() {
                 /**
-                 * Create a fixed-size thread pool. The number of threads can be configured by using
-                 * the "receivers" attribute in the config. The queue length for the pool can be configured
+                 * Create a fixed-size thread pool. The number of threads can be
+                 * configured by using
+                 * the "receivers" attribute in the config. The queue length for
+                 * the pool can be configured
                  * with the "queueLength" attribute in the config.
                  */
                 m_eventHandlerPool = new ThreadPoolExecutor(
-                    m_handlerPoolSize,
-                    m_handlerPoolSize,
-                    0L,
-                    TimeUnit.MILLISECONDS,
-                    m_handlerQueueLength == null ? new LinkedBlockingQueue<Runnable>() : new LinkedBlockingQueue<Runnable>(m_handlerQueueLength),
-                    new LogPreservingThreadFactory(EventIpcManagerDefaultImpl.class.getSimpleName(), m_handlerPoolSize, true)
-                );
+                                                            m_handlerPoolSize,
+                                                            m_handlerPoolSize,
+                                                            0L,
+                                                            TimeUnit.MILLISECONDS,
+                                                            m_handlerQueueLength == null ? new LinkedBlockingQueue<Runnable>()
+                                                                : new LinkedBlockingQueue<Runnable>(
+                                                                                                    m_handlerQueueLength),
+                                                            new LogPreservingThreadFactory(
+                                                                                           EventIpcManagerDefaultImpl.class.getSimpleName(),
+                                                                                           m_handlerPoolSize, true));
             }
 
         });
@@ -528,7 +557,9 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * <p>getEventHandler</p>
+     * <p>
+     * getEventHandler
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.eventd.EventHandler} object.
      */
@@ -537,16 +568,21 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * <p>setEventHandler</p>
+     * <p>
+     * setEventHandler
+     * </p>
      *
-     * @param eventHandler a {@link org.opennms.netmgt.eventd.EventHandler} object.
+     * @param eventHandler
+     *            a {@link org.opennms.netmgt.eventd.EventHandler} object.
      */
     public void setEventHandler(EventHandler eventHandler) {
         m_eventHandler = eventHandler;
     }
 
     /**
-     * <p>getHandlerPoolSize</p>
+     * <p>
+     * getHandlerPoolSize
+     * </p>
      *
      * @return a int.
      */
@@ -555,18 +591,24 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * <p>setHandlerPoolSize</p>
+     * <p>
+     * setHandlerPoolSize
+     * </p>
      *
-     * @param handlerPoolSize a int.
+     * @param handlerPoolSize
+     *            a int.
      */
     public void setHandlerPoolSize(int handlerPoolSize) {
-        Assert.state(m_eventHandlerPool == null, "handlerPoolSize property cannot be set after afterPropertiesSet() is called");
+        Assert.state(m_eventHandlerPool == null,
+                     "handlerPoolSize property cannot be set after afterPropertiesSet() is called");
 
         m_handlerPoolSize = handlerPoolSize;
     }
 
     /**
-     * <p>getHandlerQueueLength</p>
+     * <p>
+     * getHandlerQueueLength
+     * </p>
      *
      * @return a int.
      */
@@ -575,28 +617,39 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     }
 
     /**
-     * <p>setHandlerQueueLength</p>
+     * <p>
+     * setHandlerQueueLength
+     * </p>
      *
-     * @param size a int.
+     * @param size
+     *            a int.
      */
     public void setHandlerQueueLength(int size) {
-        Assert.state(m_eventHandlerPool == null, "handlerQueueLength property cannot be set after afterPropertiesSet() is called");
+        Assert.state(m_eventHandlerPool == null,
+                     "handlerQueueLength property cannot be set after afterPropertiesSet() is called");
         m_handlerQueueLength = size;
     }
 
     /**
-     * <p>getEventIpcManagerProxy</p>
+     * <p>
+     * getEventIpcManagerProxy
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.model.events.EventIpcManagerProxy} object.
+     * @return a {@link org.opennms.netmgt.model.events.EventIpcManagerProxy}
+     *         object.
      */
     public EventIpcManagerProxy getEventIpcManagerProxy() {
         return m_eventIpcManagerProxy;
     }
 
     /**
-     * <p>setEventIpcManagerProxy</p>
+     * <p>
+     * setEventIpcManagerProxy
+     * </p>
      *
-     * @param eventIpcManagerProxy a {@link org.opennms.netmgt.model.events.EventIpcManagerProxy} object.
+     * @param eventIpcManagerProxy
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManagerProxy}
+     *            object.
      */
     public void setEventIpcManagerProxy(EventIpcManagerProxy eventIpcManagerProxy) {
         m_eventIpcManagerProxy = eventIpcManagerProxy;

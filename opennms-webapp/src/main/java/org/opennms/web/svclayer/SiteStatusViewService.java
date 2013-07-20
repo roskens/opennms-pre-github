@@ -35,7 +35,6 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
  * Service layer API for the use cases that require the monitoed status of
  * OpenNMS entities (i.e. OnmsNode) to be aggregated with status information
  * that provides color and numberic indicators of status.
@@ -47,62 +46,87 @@ import org.springframework.transaction.annotation.Transactional;
  * @version $Id: $
  * @since 1.8.1
  */
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 public interface SiteStatusViewService {
 
     /**
-     * This method returns method returns a collection of aggregated status of nodes for each
-     * device category.  In this case a column in the assets table is used as "site"
-     * for which to select devices.  The devices are aggregated by the list of categories specified
+     * This method returns method returns a collection of aggregated status of
+     * nodes for each
+     * device category. In this case a column in the assets table is used as
+     * "site"
+     * for which to select devices. The devices are aggregated by the list of
+     * categories specified
      * in categoryGrouping.
      *
-     * @param statusViewName a {@link java.lang.String} object.
+     * @param statusViewName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.AggregateStatusView} object.
      */
     AggregateStatusView createAggregateStatusView(String statusViewName);
 
     /**
-     * <p>createAggregateStatuses</p>
+     * <p>
+     * createAggregateStatuses
+     * </p>
      *
-     * @param statusView a {@link org.opennms.netmgt.model.AggregateStatusView} object.
+     * @param statusView
+     *            a {@link org.opennms.netmgt.model.AggregateStatusView} object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<AggregateStatus> createAggregateStatuses(AggregateStatusView statusView);
 
     /**
-     * <p>createAggregateStatuses</p>
+     * <p>
+     * createAggregateStatuses
+     * </p>
      *
-     * @param statusView a {@link org.opennms.netmgt.model.AggregateStatusView} object.
-     * @param statusSite a {@link java.lang.String} object.
+     * @param statusView
+     *            a {@link org.opennms.netmgt.model.AggregateStatusView} object.
+     * @param statusSite
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<AggregateStatus> createAggregateStatuses(AggregateStatusView statusView, String statusSite);
 
     /**
-     * <p>createAggregateStatusesUsingNodeId</p>
+     * <p>
+     * createAggregateStatusesUsingNodeId
+     * </p>
      *
-     * @param nodeId a int.
-     * @param viewName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param viewName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<AggregateStatus> createAggregateStatusesUsingNodeId(int nodeId, String viewName);
 
     /**
-     * <p>getAggregateStatus</p>
+     * <p>
+     * getAggregateStatus
+     * </p>
      *
-     * @param statusViewName a {@link java.lang.String} object.
-     * @param statusSite a {@link java.lang.String} object.
-     * @param rowLabel a {@link java.lang.String} object.
+     * @param statusViewName
+     *            a {@link java.lang.String} object.
+     * @param statusSite
+     *            a {@link java.lang.String} object.
+     * @param rowLabel
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.svclayer.AggregateStatus} object.
      */
     AggregateStatus getAggregateStatus(String statusViewName, String statusSite, String rowLabel);
 
     /**
-     * <p>getNodes</p>
+     * <p>
+     * getNodes
+     * </p>
      *
-     * @param statusViewName a {@link java.lang.String} object.
-     * @param statusSite a {@link java.lang.String} object.
-     * @param rowLabel a {@link java.lang.String} object.
+     * @param statusViewName
+     *            a {@link java.lang.String} object.
+     * @param statusSite
+     *            a {@link java.lang.String} object.
+     * @param rowLabel
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsNode> getNodes(String statusViewName, String statusSite, String rowLabel);

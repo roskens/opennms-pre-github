@@ -44,7 +44,6 @@ import com.vaadin.ui.Notification;
 
 /**
  * The Collect Field.
- *
  * TODO: when a new group is added, the groupField must be updated.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
@@ -70,7 +69,8 @@ public class CollectField extends CustomField<Collect> implements Button.ClickLi
     /**
      * Instantiates a new collect field.
      *
-     * @param groups the available groups
+     * @param groups
+     *            the available groups
      */
     public CollectField(List<String> groups) {
         listField.setRows(10);
@@ -121,7 +121,7 @@ public class CollectField extends CustomField<Collect> implements Button.ClickLi
     @Override
     public Collect getValue() {
         Collect dto = new Collect();
-        for (Object itemId: listField.getItemIds()) {
+        for (Object itemId : listField.getItemIds()) {
             dto.getIncludeGroupCollection().add((String) itemId);
         }
         return dto;

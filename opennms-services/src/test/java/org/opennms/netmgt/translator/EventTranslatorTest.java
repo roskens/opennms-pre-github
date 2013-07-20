@@ -66,33 +66,36 @@ import org.opennms.netmgt.xml.event.Value;
 
 public class EventTranslatorTest {
 
-    /* TODO for PassiveSTatusKeeper
-     add reason mapper for status reason
-
-     be able to create an event with translated values
-     - determine new event values based on config
-     - assign computed values to new event
-     - copy over (or not) untranslated attributes
-
-     make sure we can translate uei if desired
-
-     modify passive status config to handle specific event with specific parms
-
-
+    /*
+     * TODO for PassiveSTatusKeeper
+     * add reason mapper for status reason
+     * be able to create an event with translated values
+     * - determine new event values based on config
+     * - assign computed values to new event
+     * - copy over (or not) untranslated attributes
+     * make sure we can translate uei if desired
+     * modify passive status config to handle specific event with specific parms
      */
 
     private EventTranslator m_translator;
+
     private String m_passiveStatusConfiguration = getStandardConfig();
+
     private MockEventIpcManager m_eventMgr;
+
     private MockDatabase m_db;
+
     private MockNetwork m_network;
+
     private EventAnticipator m_anticipator;
+
     private OutageAnticipator m_outageAnticipator;
+
     private EventTranslatorConfigFactory m_config;
 
     @Before
     public void setUp() throws Exception {
-//        MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
+        // MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
         MockLogAppender.setupLogging();
 
         createMockNetwork();
@@ -126,10 +129,9 @@ public class EventTranslatorTest {
         sleep(200);
         MockLogAppender.assertNoWarningsOrGreater();
         m_db.drop();
-//        MockUtil.println("------------ End Test "+getName()+" --------------------------");
-//        super.tearDown();
+        // MockUtil.println("------------ End Test "+getName()+" --------------------------");
+        // super.tearDown();
     }
-
 
     private void createAnticipators() {
         m_anticipator = new EventAnticipator();
@@ -178,19 +180,19 @@ public class EventTranslatorTest {
 
     @Test
     public void testSubElementString() throws Exception {
-    	m_passiveStatusConfiguration = getSqlSubValueString();
-    	tearDown();
-    	setUp();
-    	testTranslateEvent();
+        m_passiveStatusConfiguration = getSqlSubValueString();
+        tearDown();
+        setUp();
+        testTranslateEvent();
 
     }
 
     @Test
     public void testSubElementLong() throws Exception {
-    	m_passiveStatusConfiguration = getSqlSubValueLong();
-    	tearDown();
-    	setUp();
-    	testTranslateEvent();
+        m_passiveStatusConfiguration = getSqlSubValueLong();
+        tearDown();
+        setUp();
+        testTranslateEvent();
     }
 
     @Test
@@ -208,7 +210,7 @@ public class EventTranslatorTest {
         teWithNullParms.setParmCollection(null);
         assertFalse(m_config.isTranslationEvent(teWithNullParms));
 
-        // test empty  parm list fails
+        // test empty parm list fails
         Event teWithNoParms = createTestEvent("translationTest", "Router", "192.168.1.1", "ICMP", "Down");
         teWithNoParms.setParmCollection(new ArrayList<Parm>());
         assertFalse(m_config.isTranslationEvent(teWithNoParms));
@@ -216,7 +218,8 @@ public class EventTranslatorTest {
         // test missing a parm fails
         Event teWithWrongParms = createTestEvent("translationTest", "Router", "192.168.1.1", "ICMP", "Down");
         List<Parm> p = teWithWrongParms.getParmCollection();
-        p.get(2).setParmName("unmatching"); // change the name for the third parm so it fails to match
+        p.get(2).setParmName("unmatching"); // change the name for the third
+                                            // parm so it fails to match
         assertFalse(m_config.isTranslationEvent(teWithWrongParms));
 
         // that a matching parm value succeeds
@@ -231,23 +234,23 @@ public class EventTranslatorTest {
     @Test
     public void testTranslateEvent() throws MarshalException, ValidationException {
 
-   		// test non matching uei match fails
+        // test non matching uei match fails
         Event pse = createTestEvent("someOtherUei", "Router", "192.168.1.1", "ICMP", "Down");
         assertTrue(m_config.translateEvent(pse).isEmpty());
 
         // test matchin uei succeeds
         Event te = createTestEvent("translationTest", "Router", "192.168.1.1", "ICMP", "This node is way Down!");
         List<Event> translatedEvents = m_config.translateEvent(te);
-		assertNotNull(translatedEvents);
-		assertEquals(1, translatedEvents.size());
-        validateTranslatedEvent((Event)translatedEvents.get(0));
+        assertNotNull(translatedEvents);
+        assertEquals(1, translatedEvents.size());
+        validateTranslatedEvent((Event) translatedEvents.get(0));
 
         // test null parms fails
         Event teWithNullParms = createTestEvent("translationTest", "Router", "192.168.1.1", "ICMP", "Down");
         teWithNullParms.setParmCollection(null);
         assertTrue(m_config.translateEvent(teWithNullParms).isEmpty());
 
-        // test empty  parm list fails
+        // test empty parm list fails
         Event teWithNoParms = createTestEvent("translationTest", "Router", "192.168.1.1", "ICMP", "Down");
         teWithNoParms.setParmCollection(new ArrayList<Parm>());
         assertTrue(m_config.translateEvent(teWithNoParms).isEmpty());
@@ -255,14 +258,15 @@ public class EventTranslatorTest {
         // test missing a parm fails
         Event teWithWrongParms = createTestEvent("translationTest", "Router", "192.168.1.1", "ICMP", "Down");
         List<Parm> p = teWithWrongParms.getParmCollection();
-        p.get(2).setParmName("unmatching"); // change the name for the third parm so it fails to match
+        p.get(2).setParmName("unmatching"); // change the name for the third
+                                            // parm so it fails to match
         assertTrue(m_config.translateEvent(teWithWrongParms).isEmpty());
 
         // that a matching parm value succeeds
         Event te2 = createTestEvent("translationTest", "Router", "xxx192.168.1.1xxx", "ICMP", "Down");
         assertNotNull(m_config.translateEvent(te2));
-		assertEquals(1, translatedEvents.size());
-        validateTranslatedEvent((Event)translatedEvents.get(0));
+        assertEquals(1, translatedEvents.size());
+        validateTranslatedEvent((Event) translatedEvents.get(0));
 
         // that a matching parm value succeeds
         Event te3 = createTestEvent("translationTest", "Router", "xxx192.168.1.2", "ICMP", "Down");
@@ -270,7 +274,8 @@ public class EventTranslatorTest {
     }
 
     @Test
-    public void testTranslateLinkDown() throws MarshalException, ValidationException, SQLException, UnsupportedEncodingException {
+    public void testTranslateLinkDown() throws MarshalException, ValidationException, SQLException,
+            UnsupportedEncodingException {
         InputStream rdr = new ByteArrayInputStream(getLinkDownTranslation().getBytes("UTF-8"));
         m_config = new EventTranslatorConfigFactory(rdr, m_db);
         EventTranslatorConfigFactory.setInstance(m_config);
@@ -278,8 +283,7 @@ public class EventTranslatorTest {
         m_translator = EventTranslator.getInstance();
         m_translator.setEventManager(m_eventMgr);
         m_translator.setConfig(EventTranslatorConfigFactory.getInstance());
-        //m_translator.setDataSource(m_db);
-
+        // m_translator.setDataSource(m_db);
 
         Connection c = m_db.getConnection();
         Statement stmt = c.createStatement();
@@ -298,52 +302,48 @@ public class EventTranslatorTest {
         assertEquals("p-brane", translatedEvents.get(0).getParmCollection().get(2).getValue().getContent());
     }
 
-	private String getLinkDownTranslation() {
-	    String linkDownConfig = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-			"<event-translator-configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-			"  xsi:schemaLocation=\"http://xmlns.opennms.org/xsd/translator-configuration http://www.opennms.org/xsd/config/translator-configuration.xsd \">\n" +
-			"  <translation>\n" +
-			"    <!-- This translation is predifined for integration with Hyperic-HQ server and the OpenNMS integrations found in\n" +
-			"         the $OPENNMS_HOME/contrib/hyperic-integration directory -->\n" +
-			"    <event-translation-spec uei=\"uei.opennms.org/generic/traps/SNMP_Link_Down\">\n" +
-			"      <mappings>\n" +
-			"        <mapping>\n" +
-			"          <assignment name=\"ifName\" type=\"parameter\">\n" +
-			"            <value type=\"sql\" result=\"SELECT snmp.snmpIfName FROM snmpInterface snmp WHERE snmp.nodeid = ?::integer AND snmp.snmpifindex = ?::integer\" >\n" +
-                "              <value type=\"field\" name=\"nodeid\" matches=\".*\" result=\"${0}\" />\n" +
-			"              <value type=\"parameter\" name=\"~^\\.1\\.3\\.6\\.1\\.2\\.1\\.2\\.2\\.1\\.1\\.([0-9]*)$\" matches=\".*\" result=\"${0}\" />\n" +
-			"            </value>\n" +
-			"          </assignment>\n" +
-                "          <assignment name=\"ifAlias\" type=\"parameter\">\n" +
-                "            <value type=\"sql\" result=\"SELECT snmp.snmpIfAlias FROM snmpInterface snmp WHERE snmp.nodeid = ?::integer AND snmp.snmpifindex = ?::integer\" >\n" +
-                "              <value type=\"field\" name=\"nodeid\" matches=\".*\" result=\"${0}\" />\n" +
-                "              <value type=\"parameter\" name=\"~^\\.1\\.3\\.6\\.1\\.2\\.1\\.2\\.2\\.1\\.1\\.([0-9]*)$\" matches=\".*\" result=\"${0}\" />\n" +
-                "            </value>\n" +
-                "          </assignment>\n" +
-			"        </mapping>\n" +
-			"      </mappings>\n" +
-			"    </event-translation-spec>\n" +
-			"  </translation>\n" +
-	    		"</event-translator-configuration>";
-	    return linkDownConfig;
+    private String getLinkDownTranslation() {
+        String linkDownConfig = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<event-translator-configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
+                + "  xsi:schemaLocation=\"http://xmlns.opennms.org/xsd/translator-configuration http://www.opennms.org/xsd/config/translator-configuration.xsd \">\n"
+                + "  <translation>\n"
+                + "    <!-- This translation is predifined for integration with Hyperic-HQ server and the OpenNMS integrations found in\n"
+                + "         the $OPENNMS_HOME/contrib/hyperic-integration directory -->\n"
+                + "    <event-translation-spec uei=\"uei.opennms.org/generic/traps/SNMP_Link_Down\">\n"
+                + "      <mappings>\n"
+                + "        <mapping>\n"
+                + "          <assignment name=\"ifName\" type=\"parameter\">\n"
+                + "            <value type=\"sql\" result=\"SELECT snmp.snmpIfName FROM snmpInterface snmp WHERE snmp.nodeid = ?::integer AND snmp.snmpifindex = ?::integer\" >\n"
+                + "              <value type=\"field\" name=\"nodeid\" matches=\".*\" result=\"${0}\" />\n"
+                + "              <value type=\"parameter\" name=\"~^\\.1\\.3\\.6\\.1\\.2\\.1\\.2\\.2\\.1\\.1\\.([0-9]*)$\" matches=\".*\" result=\"${0}\" />\n"
+                + "            </value>\n"
+                + "          </assignment>\n"
+                + "          <assignment name=\"ifAlias\" type=\"parameter\">\n"
+                + "            <value type=\"sql\" result=\"SELECT snmp.snmpIfAlias FROM snmpInterface snmp WHERE snmp.nodeid = ?::integer AND snmp.snmpifindex = ?::integer\" >\n"
+                + "              <value type=\"field\" name=\"nodeid\" matches=\".*\" result=\"${0}\" />\n"
+                + "              <value type=\"parameter\" name=\"~^\\.1\\.3\\.6\\.1\\.2\\.1\\.2\\.2\\.1\\.1\\.([0-9]*)$\" matches=\".*\" result=\"${0}\" />\n"
+                + "            </value>\n" + "          </assignment>\n" + "        </mapping>\n"
+                + "      </mappings>\n" + "    </event-translation-spec>\n" + "  </translation>\n"
+                + "</event-translator-configuration>";
+        return linkDownConfig;
     }
 
     private void validateTranslatedEvent(Event event) {
-		assertEquals(m_translator.getName(), event.getSource());
-		assertEquals(Long.valueOf(3), event.getNodeid());
-		assertEquals("www.opennms.org", event.getHost());
+        assertEquals(m_translator.getName(), event.getSource());
+        assertEquals(Long.valueOf(3), event.getNodeid());
+        assertEquals("www.opennms.org", event.getHost());
         assertEquals("a generated event", event.getDescr());
         assertEquals("192.168.1.1", event.getInterface());
         assertEquals("Switch", EventUtils.getParm(event, "nodeLabel"));
         assertEquals("PSV", event.getService());
         assertEquals("Down", EventUtils.getParm(event, "passiveStatus"));
-	}
+    }
 
     @Test
     public void testUEIList() {
-    		List<String> ueis = m_config.getUEIList();
-    		assertEquals(1, ueis.size());
-    		assertTrue(ueis.contains("uei.opennms.org/services/translationTest"));
+        List<String> ueis = m_config.getUEIList();
+        assertEquals(1, ueis.size());
+        assertTrue(ueis.contains("uei.opennms.org/services/translationTest"));
     }
 
     private Event createLinkDownEvent() {
@@ -356,26 +356,28 @@ public class EventTranslatorTest {
     private Event createTestEvent(String type, String nodeLabel, String ipAddr, String serviceName, String status) {
         final List<Parm> parms = new ArrayList<Parm>();
 
-        if(nodeLabel != null) parms.add(buildParm(EventConstants.PARM_PASSIVE_NODE_LABEL, nodeLabel));
-        if(ipAddr != null) parms.add(buildParm(EventConstants.PARM_PASSIVE_IPADDR, ipAddr));
-        if(serviceName != null) parms.add(buildParm(EventConstants.PARM_PASSIVE_SERVICE_NAME, serviceName));
-        if(status != null) parms.add(buildParm(EventConstants.PARM_PASSIVE_SERVICE_STATUS, status));
+        if (nodeLabel != null)
+            parms.add(buildParm(EventConstants.PARM_PASSIVE_NODE_LABEL, nodeLabel));
+        if (ipAddr != null)
+            parms.add(buildParm(EventConstants.PARM_PASSIVE_IPADDR, ipAddr));
+        if (serviceName != null)
+            parms.add(buildParm(EventConstants.PARM_PASSIVE_SERVICE_NAME, serviceName));
+        if (status != null)
+            parms.add(buildParm(EventConstants.PARM_PASSIVE_SERVICE_STATUS, status));
 
-		return createEventWithParms("uei.opennms.org/services/"+type, parms);
-	}
+        return createEventWithParms("uei.opennms.org/services/" + type, parms);
+    }
 
     private Event createEventWithParms(String uei, List<Parm> parms) {
-		Event e = MockEventUtil.createEventBuilder("Automation", uei).getEvent();
-		e.setHost("localhost");
+        Event e = MockEventUtil.createEventBuilder("Automation", uei).getEvent();
+        e.setHost("localhost");
 
         e.setParmCollection(parms);
         Logmsg logmsg = new Logmsg();
         logmsg.setContent("Testing Passive Status Keeper with down status");
         e.setLogmsg(logmsg);
         return e;
-	}
-
-
+    }
 
     private Parm buildParm(String parmName, String parmValue) {
         Value v = new Value();
@@ -386,131 +388,114 @@ public class EventTranslatorTest {
         return p;
     }
 
-
     private String getSqlSubValueLong() {
-	return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-        "<event-translator-configuration \n" +
-        "xmlns=\"http://xmlns.opennms.org/xsd/translator-configuration\" \n" +
-        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" +
-        "  <translation>\n" +
-        "   <event-translation-spec uei=\"uei.opennms.org/services/translationTest\">\n" +
-        "      <mappings>\n" +
-        "        <mapping>\n" +
-        "          <assignment type=\"field\" name=\"nodeid\">\n" +
-        "            <value type=\"sql\" result=\"select node.nodeid from node, ipInterface where node.nodeLabel=? and ipinterface.ipaddr=? and node.nodeId=ipinterface.nodeid and ipInterface.isManaged != 'D' and node.nodeType != 'D' and to_number(?, '999999') = 9999 \" >\n" +
-        "				<value type=\"parameter\" name=\"passiveNodeLabel\" matches=\"Router\" result=\"Firewall\" />\n" +
-        "				<value type=\"constant\" result=\"192.168.1.4\" />\n" +
-        "				<value type=\"field\" name=\"nodeid\" result=\"9999\" />\n" +
-        "			</value>\n" +
-        "          </assignment>\n" +
-        "          <assignment type=\"parameter\" name=\"nodeLabel\">\n" +
-        "            <value type=\"field\" name=\"host\" result=\"Switch\" />\n" +
-        "          </assignment>\n" +
-        "          <assignment type=\"field\" name=\"interface\">\n" +
-        "            <value type=\"parameter\" name=\"passiveIpAddr\" matches=\".*(192\\.168\\.1\\.1).*\" result=\"192.168.1.1\" />\n" +
-        "          </assignment>\n" +
-        "		  <assignment type=\"field\" name=\"host\">\n" +
-        "			<value type=\"field\" name=\"host\" result=\"www.opennms.org\" />\n" +
-        "		  </assignment>\n" +
-        "		  <assignment type=\"field\" name=\"descr\">\n" +
-        "			<value type=\"constant\" result=\"a generated event\" />\n" +
-        "		  </assignment>\n" +
-        "          <assignment type=\"field\" name=\"service\">\n" +
-        "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n" +
-        "          </assignment>\n" +
-        "          <assignment type=\"parameter\" name=\"passiveStatus\">\n" +
-        "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n" +
-        "          </assignment>\n" +
-        "        </mapping>\n" +
-        "      </mappings>\n" +
-        "    </event-translation-spec>\n" +
-        "  </translation>\n" +
-        "</event-translator-configuration>\n" +
-        "";
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<event-translator-configuration \n"
+                + "xmlns=\"http://xmlns.opennms.org/xsd/translator-configuration\" \n"
+                + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n"
+                + "  <translation>\n"
+                + "   <event-translation-spec uei=\"uei.opennms.org/services/translationTest\">\n"
+                + "      <mappings>\n"
+                + "        <mapping>\n"
+                + "          <assignment type=\"field\" name=\"nodeid\">\n"
+                + "            <value type=\"sql\" result=\"select node.nodeid from node, ipInterface where node.nodeLabel=? and ipinterface.ipaddr=? and node.nodeId=ipinterface.nodeid and ipInterface.isManaged != 'D' and node.nodeType != 'D' and to_number(?, '999999') = 9999 \" >\n"
+                + "				<value type=\"parameter\" name=\"passiveNodeLabel\" matches=\"Router\" result=\"Firewall\" />\n"
+                + "				<value type=\"constant\" result=\"192.168.1.4\" />\n"
+                + "				<value type=\"field\" name=\"nodeid\" result=\"9999\" />\n"
+                + "			</value>\n"
+                + "          </assignment>\n"
+                + "          <assignment type=\"parameter\" name=\"nodeLabel\">\n"
+                + "            <value type=\"field\" name=\"host\" result=\"Switch\" />\n"
+                + "          </assignment>\n"
+                + "          <assignment type=\"field\" name=\"interface\">\n"
+                + "            <value type=\"parameter\" name=\"passiveIpAddr\" matches=\".*(192\\.168\\.1\\.1).*\" result=\"192.168.1.1\" />\n"
+                + "          </assignment>\n"
+                + "		  <assignment type=\"field\" name=\"host\">\n"
+                + "			<value type=\"field\" name=\"host\" result=\"www.opennms.org\" />\n"
+                + "		  </assignment>\n"
+                + "		  <assignment type=\"field\" name=\"descr\">\n"
+                + "			<value type=\"constant\" result=\"a generated event\" />\n"
+                + "		  </assignment>\n"
+                + "          <assignment type=\"field\" name=\"service\">\n"
+                + "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n"
+                + "          </assignment>\n"
+                + "          <assignment type=\"parameter\" name=\"passiveStatus\">\n"
+                + "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n"
+                + "          </assignment>\n" + "        </mapping>\n" + "      </mappings>\n"
+                + "    </event-translation-spec>\n" + "  </translation>\n" + "</event-translator-configuration>\n" + "";
     }
+
     private String getSqlSubValueString() {
-	return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-        "<event-translator-configuration \n" +
-        "xmlns=\"http://xmlns.opennms.org/xsd/translator-configuration\" \n" +
-        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" +
-        "  <translation>\n" +
-        "   <event-translation-spec uei=\"uei.opennms.org/services/translationTest\">\n" +
-        "      <mappings>\n" +
-        "        <mapping>\n" +
-        "          <assignment type=\"field\" name=\"nodeid\">\n" +
-        "            <value type=\"sql\" result=\"select node.nodeid from node, ipInterface where node.nodeLabel=? and ipinterface.ipaddr=? and node.nodeId=ipinterface.nodeid and ipInterface.isManaged != 'D' and node.nodeType != 'D' and ? = 'test' \" >\n" +
-        "				<value type=\"parameter\" name=\"passiveNodeLabel\" matches=\"Router\" result=\"Firewall\" />\n" +
-        "				<value type=\"constant\" result=\"192.168.1.4\" />\n" +
-        "				<value type=\"field\" name=\"host\" result=\"test\" />\n" +
-        "			</value>\n" +
-        "          </assignment>\n" +
-        "          <assignment type=\"parameter\" name=\"nodeLabel\">\n" +
-        "            <value type=\"field\" name=\"host\" result=\"Switch\" />\n" +
-        "          </assignment>\n" +
-        "          <assignment type=\"field\" name=\"interface\">\n" +
-        "            <value type=\"parameter\" name=\"passiveIpAddr\" matches=\".*(192\\.168\\.1\\.1).*\" result=\"192.168.1.1\" />\n" +
-        "          </assignment>\n" +
-        "		  <assignment type=\"field\" name=\"host\">\n" +
-        "			<value type=\"field\" name=\"host\" result=\"www.opennms.org\" />\n" +
-        "		  </assignment>\n" +
-        "		  <assignment type=\"field\" name=\"descr\">\n" +
-        "			<value type=\"constant\" result=\"a generated event\" />\n" +
-        "		  </assignment>\n" +
-        "          <assignment type=\"field\" name=\"service\">\n" +
-        "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n" +
-        "          </assignment>\n" +
-        "          <assignment type=\"parameter\" name=\"passiveStatus\">\n" +
-        "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n" +
-        "          </assignment>\n" +
-        "        </mapping>\n" +
-        "      </mappings>\n" +
-        "    </event-translation-spec>\n" +
-        "  </translation>\n" +
-        "</event-translator-configuration>\n" +
-        "";
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<event-translator-configuration \n"
+                + "xmlns=\"http://xmlns.opennms.org/xsd/translator-configuration\" \n"
+                + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n"
+                + "  <translation>\n"
+                + "   <event-translation-spec uei=\"uei.opennms.org/services/translationTest\">\n"
+                + "      <mappings>\n"
+                + "        <mapping>\n"
+                + "          <assignment type=\"field\" name=\"nodeid\">\n"
+                + "            <value type=\"sql\" result=\"select node.nodeid from node, ipInterface where node.nodeLabel=? and ipinterface.ipaddr=? and node.nodeId=ipinterface.nodeid and ipInterface.isManaged != 'D' and node.nodeType != 'D' and ? = 'test' \" >\n"
+                + "				<value type=\"parameter\" name=\"passiveNodeLabel\" matches=\"Router\" result=\"Firewall\" />\n"
+                + "				<value type=\"constant\" result=\"192.168.1.4\" />\n"
+                + "				<value type=\"field\" name=\"host\" result=\"test\" />\n"
+                + "			</value>\n"
+                + "          </assignment>\n"
+                + "          <assignment type=\"parameter\" name=\"nodeLabel\">\n"
+                + "            <value type=\"field\" name=\"host\" result=\"Switch\" />\n"
+                + "          </assignment>\n"
+                + "          <assignment type=\"field\" name=\"interface\">\n"
+                + "            <value type=\"parameter\" name=\"passiveIpAddr\" matches=\".*(192\\.168\\.1\\.1).*\" result=\"192.168.1.1\" />\n"
+                + "          </assignment>\n"
+                + "		  <assignment type=\"field\" name=\"host\">\n"
+                + "			<value type=\"field\" name=\"host\" result=\"www.opennms.org\" />\n"
+                + "		  </assignment>\n"
+                + "		  <assignment type=\"field\" name=\"descr\">\n"
+                + "			<value type=\"constant\" result=\"a generated event\" />\n"
+                + "		  </assignment>\n"
+                + "          <assignment type=\"field\" name=\"service\">\n"
+                + "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n"
+                + "          </assignment>\n"
+                + "          <assignment type=\"parameter\" name=\"passiveStatus\">\n"
+                + "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n"
+                + "          </assignment>\n" + "        </mapping>\n" + "      </mappings>\n"
+                + "    </event-translation-spec>\n" + "  </translation>\n" + "</event-translator-configuration>\n" + "";
     }
-
-
 
     private String getStandardConfig() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-        "<event-translator-configuration \n" +
-        "xmlns=\"http://xmlns.opennms.org/xsd/translator-configuration\" \n" +
-        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" +
-        "  <translation>\n" +
-        "   <event-translation-spec uei=\"uei.opennms.org/services/translationTest\">\n" +
-        "      <mappings>\n" +
-        "        <mapping>\n" +
-        "          <assignment type=\"field\" name=\"nodeid\">\n" +
-        "            <value type=\"sql\" result=\"select node.nodeid from node, ipInterface where node.nodeLabel=? and ipinterface.ipaddr=? and node.nodeId=ipinterface.nodeid and ipInterface.isManaged != 'D' and node.nodeType != 'D'\" >\n" +
-        "				<value type=\"parameter\" name=\"passiveNodeLabel\" matches=\"Router\" result=\"Firewall\" />\n" +
-        "				<value type=\"constant\" result=\"192.168.1.4\" />\n" +
-        "			</value>\n" +
-        "          </assignment>\n" +
-        "          <assignment type=\"parameter\" name=\"nodeLabel\">\n" +
-        "            <value type=\"field\" name=\"host\" result=\"Switch\" />\n" +
-        "          </assignment>\n" +
-        "          <assignment type=\"field\" name=\"interface\">\n" +
-        "            <value type=\"parameter\" name=\"passiveIpAddr\" matches=\".*(192\\.168\\.1\\.1).*\" result=\"192.168.1.1\" />\n" +
-        "          </assignment>\n" +
-        "		  <assignment type=\"field\" name=\"host\">\n" +
-        "			<value type=\"field\" name=\"host\" result=\"www.opennms.org\" />\n" +
-        "		  </assignment>\n" +
-        "		  <assignment type=\"field\" name=\"descr\">\n" +
-        "			<value type=\"constant\" result=\"a generated event\" />\n" +
-        "		  </assignment>\n" +
-        "          <assignment type=\"field\" name=\"service\">\n" +
-        "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n" +
-        "          </assignment>\n" +
-        "          <assignment type=\"parameter\" name=\"passiveStatus\">\n" +
-        "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n" +
-        "          </assignment>\n" +
-        "        </mapping>\n" +
-        "      </mappings>\n" +
-        "    </event-translation-spec>\n" +
-        "  </translation>\n" +
-        "</event-translator-configuration>\n" +
-        "";
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<event-translator-configuration \n"
+                + "xmlns=\"http://xmlns.opennms.org/xsd/translator-configuration\" \n"
+                + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n"
+                + "  <translation>\n"
+                + "   <event-translation-spec uei=\"uei.opennms.org/services/translationTest\">\n"
+                + "      <mappings>\n"
+                + "        <mapping>\n"
+                + "          <assignment type=\"field\" name=\"nodeid\">\n"
+                + "            <value type=\"sql\" result=\"select node.nodeid from node, ipInterface where node.nodeLabel=? and ipinterface.ipaddr=? and node.nodeId=ipinterface.nodeid and ipInterface.isManaged != 'D' and node.nodeType != 'D'\" >\n"
+                + "				<value type=\"parameter\" name=\"passiveNodeLabel\" matches=\"Router\" result=\"Firewall\" />\n"
+                + "				<value type=\"constant\" result=\"192.168.1.4\" />\n"
+                + "			</value>\n"
+                + "          </assignment>\n"
+                + "          <assignment type=\"parameter\" name=\"nodeLabel\">\n"
+                + "            <value type=\"field\" name=\"host\" result=\"Switch\" />\n"
+                + "          </assignment>\n"
+                + "          <assignment type=\"field\" name=\"interface\">\n"
+                + "            <value type=\"parameter\" name=\"passiveIpAddr\" matches=\".*(192\\.168\\.1\\.1).*\" result=\"192.168.1.1\" />\n"
+                + "          </assignment>\n"
+                + "		  <assignment type=\"field\" name=\"host\">\n"
+                + "			<value type=\"field\" name=\"host\" result=\"www.opennms.org\" />\n"
+                + "		  </assignment>\n"
+                + "		  <assignment type=\"field\" name=\"descr\">\n"
+                + "			<value type=\"constant\" result=\"a generated event\" />\n"
+                + "		  </assignment>\n"
+                + "          <assignment type=\"field\" name=\"service\">\n"
+                + "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n"
+                + "          </assignment>\n"
+                + "          <assignment type=\"parameter\" name=\"passiveStatus\">\n"
+                + "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n"
+                + "          </assignment>\n" + "        </mapping>\n" + "      </mappings>\n"
+                + "    </event-translation-spec>\n" + "  </translation>\n" + "</event-translator-configuration>\n" + "";
     }
 
 }

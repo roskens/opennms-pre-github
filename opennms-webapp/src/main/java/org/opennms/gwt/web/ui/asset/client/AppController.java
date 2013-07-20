@@ -42,19 +42,20 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class AppController implements Presenter {
 
-	private final HandlerManager eventBus;
-	private final AssetServiceAsync rpcService;
+    private final HandlerManager eventBus;
 
-	public AppController(AssetServiceAsync rpcService, HandlerManager eventBus) {
-		this.eventBus = eventBus;
-		this.rpcService = rpcService;
-	}
+    private final AssetServiceAsync rpcService;
 
-	@Override
-	public void go(HasWidgets container) {
-		if (RootPanel.get("opennms-assetNodePage") != null) {
-			Presenter presenter = new AssetPagePresenter(rpcService, eventBus, new AssetNodePageImpl());
-			presenter.go(container);
-		}
-	}
+    public AppController(AssetServiceAsync rpcService, HandlerManager eventBus) {
+        this.eventBus = eventBus;
+        this.rpcService = rpcService;
+    }
+
+    @Override
+    public void go(HasWidgets container) {
+        if (RootPanel.get("opennms-assetNodePage") != null) {
+            Presenter presenter = new AssetPagePresenter(rpcService, eventBus, new AssetNodePageImpl());
+            presenter.go(container);
+        }
+    }
 }

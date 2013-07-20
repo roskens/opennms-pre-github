@@ -39,9 +39,12 @@ public interface Tl1MessageProcessor {
     /**
      * This is the API for TL1 message parsing.
      *
-     * @param rawMessage a {@link java.lang.String} object.
-     * @param messageType a int.
-     * @return a Tl1Message implementation based on one of the 4 types of TL1 Message types
+     * @param rawMessage
+     *            a {@link java.lang.String} object.
+     * @param messageType
+     *            a int.
+     * @return a Tl1Message implementation based on one of the 4 types of TL1
+     *         Message types
      */
     Tl1Message process(String rawMessage, int messageType);
 

@@ -36,20 +36,26 @@ import org.opennms.core.utils.PropertiesUtils;
  * Given a pattern, expands embedded Asterisk-related property values
  *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
- * @param pattern A pattern to expand
+ * @param pattern
+ *            A pattern to expand
  * @version $Id: $
  */
 public class AsteriskUtils {
     /**
-     * <p>expandPattern</p>
+     * <p>
+     * expandPattern
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String expandPattern(String pattern) {
         Properties props = new Properties();
-        props.put("org.opennms.netmgt.asterisk.agi.listenAddress", System.getProperty("org.opennms.netmgt.asterisk.agi.listenAddress", "127.0.0.1"));
-        props.put("org.opennms.netmgt.asterisk.agi.listenPort", System.getProperty("org.opennms.netmgt.asterisk.agi.listenPort", "4573"));
+        props.put("org.opennms.netmgt.asterisk.agi.listenAddress",
+                  System.getProperty("org.opennms.netmgt.asterisk.agi.listenAddress", "127.0.0.1"));
+        props.put("org.opennms.netmgt.asterisk.agi.listenPort",
+                  System.getProperty("org.opennms.netmgt.asterisk.agi.listenPort", "4573"));
         String expanded = PropertiesUtils.substitute(pattern, props);
         return expanded;
     }

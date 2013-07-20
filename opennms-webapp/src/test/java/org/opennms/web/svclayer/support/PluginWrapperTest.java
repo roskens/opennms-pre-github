@@ -36,14 +36,14 @@ import org.opennms.netmgt.provision.persist.policies.MatchingSnmpInterfacePolicy
 import org.opennms.netmgt.provision.persist.policies.NodeCategorySettingPolicy;
 import org.opennms.netmgt.provision.support.PluginWrapper;
 
-
 public class PluginWrapperTest {
 
     @Test
     public void testChoices() throws Exception {
         PluginWrapper wrapper = new PluginWrapper(MatchingSnmpInterfacePolicy.class);
         assertTrue("required keys must contain matchBehavior", wrapper.getRequiredItems().containsKey("matchBehavior"));
-        assertTrue("action must contain DISABLE_COLLECTION", wrapper.getRequiredItems().get("action").contains("DISABLE_COLLECTION"));
+        assertTrue("action must contain DISABLE_COLLECTION",
+                   wrapper.getRequiredItems().get("action").contains("DISABLE_COLLECTION"));
     }
 
     @Test

@@ -32,18 +32,18 @@ import org.opennms.netmgt.model.events.EventUtils;
 import org.opennms.netmgt.xml.event.Snmp;
 
 public class SnmpWrapper {
-	Snmp m_snmp;
+    Snmp m_snmp;
 
-	public SnmpWrapper(final Snmp snmp) {
-		m_snmp = snmp;
-	}
+    public SnmpWrapper(final Snmp snmp) {
+        m_snmp = snmp;
+    }
 
-	public Snmp getSnmp() {
-		return m_snmp;
-	}
+    public Snmp getSnmp() {
+        return m_snmp;
+    }
 
-        @Override
-	public String toString() {
+    @Override
+    public String toString() {
         return EventUtils.toString(m_snmp);
-	}
+    }
 }

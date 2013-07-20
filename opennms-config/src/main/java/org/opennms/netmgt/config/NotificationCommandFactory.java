@@ -38,7 +38,9 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
 
 /**
- * <p>NotificationCommandFactory class.</p>
+ * <p>
+ * NotificationCommandFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -60,11 +62,16 @@ public class NotificationCommandFactory extends NotificationCommandManager {
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (!initialized) {
@@ -74,9 +81,12 @@ public class NotificationCommandFactory extends NotificationCommandManager {
     }
 
     /**
-     * <p>Getter for the field <code>instance</code>.</p>
+     * <p>
+     * Getter for the field <code>instance</code>.
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.NotificationCommandFactory} object.
+     * @return a {@link org.opennms.netmgt.config.NotificationCommandFactory}
+     *         object.
      */
     public static synchronized NotificationCommandFactory getInstance() {
 
@@ -88,16 +98,23 @@ public class NotificationCommandFactory extends NotificationCommandManager {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     @Override
     public void update() throws MarshalException, ValidationException, FileNotFoundException, IOException {
-        InputStream configIn = new FileInputStream(ConfigFileConstants.getFile(ConfigFileConstants.NOTIF_COMMANDS_CONF_FILE_NAME));
+        InputStream configIn = new FileInputStream(
+                                                   ConfigFileConstants.getFile(ConfigFileConstants.NOTIF_COMMANDS_CONF_FILE_NAME));
         parseXML(configIn);
     }
 }

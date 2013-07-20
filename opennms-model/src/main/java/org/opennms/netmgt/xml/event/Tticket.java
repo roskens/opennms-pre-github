@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.Serializable;
@@ -51,37 +51,36 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The trouble ticket info with state on/off determining if
- *  action is taken on the trouble ticket.
+ * action is taken on the trouble ticket.
  *
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="tticket")
+@XmlRootElement(name = "tticket")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@ValidateUsing("event.xsd")
+// @ValidateUsing("event.xsd")
 public class Tticket implements Serializable {
-	private static final long serialVersionUID = -691077894886561643L;
+    private static final long serialVersionUID = -691077894886561643L;
 
-	//--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * internal content storage
      */
-	@XmlValue
+    @XmlValue
     private java.lang.String _content = "";
 
     /**
      * Field _state.
      */
-	@XmlAttribute(name="state")
+    @XmlAttribute(name = "state")
     private java.lang.String _state = "on";
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Tticket() {
         super();
@@ -89,10 +88,9 @@ public class Tticket implements Serializable {
         setState("on");
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Returns the value of field 'content'. The field 'content'
@@ -100,8 +98,7 @@ public class Tticket implements Serializable {
      *
      * @return the value of field 'Content'.
      */
-    public java.lang.String getContent(
-    ) {
+    public java.lang.String getContent() {
         return this._content;
     }
 
@@ -110,8 +107,7 @@ public class Tticket implements Serializable {
      *
      * @return the value of field 'State'.
      */
-    public java.lang.String getState(
-    ) {
+    public java.lang.String getState() {
         return this._state;
     }
 
@@ -119,28 +115,25 @@ public class Tticket implements Serializable {
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
      *
-     * @param content the value of field 'content'.
+     * @param content
+     *            the value of field 'content'.
      */
-    public void setContent(
-            final java.lang.String content) {
+    public void setContent(final java.lang.String content) {
         this._content = content;
     }
 
     /**
      * Sets the value of field 'state'.
      *
-     * @param state the value of field 'state'.
+     * @param state
+     *            the value of field 'state'.
      */
-    public void setState(
-            final java.lang.String state) {
+    public void setState(final java.lang.String state) {
         this._state = state;
     }
 
-        @Override
+    @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("content", _content)
-    		.append("state", _state)
-    		.toString();
+        return new ToStringBuilder(this).append("content", _content).append("state", _state).toString();
     }
 }

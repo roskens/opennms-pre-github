@@ -38,7 +38,7 @@ import net.sf.jasperreports.engine.query.JRAbstractQueryExecuter;
 
 public class JRobinQueryExecutor extends JRAbstractQueryExecuter {
 
-    protected JRobinQueryExecutor(JRDataset dataset, Map<?,?> parametersMap) {
+    protected JRobinQueryExecutor(JRDataset dataset, Map<?, ?> parametersMap) {
         super(dataset, parametersMap);
         parseQuery();
     }
@@ -65,13 +65,12 @@ public class JRobinQueryExecutor extends JRAbstractQueryExecuter {
     @Override
     protected String getParameterReplacement(String parameterName) {
         Object parameterVal = getParameterValue(parameterName);
-        if(parameterVal instanceof Date) {
+        if (parameterVal instanceof Date) {
             Date date = (Date) parameterVal;
-            return String.valueOf(date.getTime()/1000);
+            return String.valueOf(date.getTime() / 1000);
         }
 
         return String.valueOf(parameterVal);
     }
-
 
 }

@@ -43,7 +43,6 @@ import org.opennms.netmgt.config.rtc.RTCConfiguration;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * RTC from the rtc-configuration xml file.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -163,12 +162,18 @@ public final class RTCConfigFactory {
     }
 
     /**
-     * <p>Constructor for RTCConfigFactory.</p>
+     * <p>
+     * Constructor for RTCConfigFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public RTCConfigFactory(InputStream stream) throws IOException, MarshalException, ValidationException {
         marshal(stream);
@@ -179,9 +184,12 @@ public final class RTCConfigFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.RTCConfigFactory} object.
+     * @param instance
+     *            a {@link org.opennms.netmgt.config.RTCConfigFactory} object.
      */
     public static void setInstance(RTCConfigFactory instance) {
         m_singleton = instance;
@@ -198,9 +206,12 @@ public final class RTCConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -223,9 +234,12 @@ public final class RTCConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;

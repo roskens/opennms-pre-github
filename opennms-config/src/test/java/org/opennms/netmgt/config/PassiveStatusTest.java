@@ -44,7 +44,6 @@ public class PassiveStatusTest extends TestCase {
         assertFalse(ps.equals(ps2));
         assertFalse(ps2.equals(ps3));
 
-
     }
 
 }

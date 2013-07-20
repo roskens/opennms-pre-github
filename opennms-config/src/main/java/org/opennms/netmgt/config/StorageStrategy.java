@@ -34,51 +34,73 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.datacollection.Parameter;
 
 /**
- * <p>StorageStrategy interface.</p>
+ * <p>
+ * StorageStrategy interface.
+ * </p>
  */
 public interface StorageStrategy {
     /**
-     * <p>getRelativePathForAttribute</p>
+     * <p>
+     * getRelativePathForAttribute
+     * </p>
      *
-     * @param resourceParent a {@link java.lang.String} object.
-     * @param resource a {@link java.lang.String} object.
-     * @param attribute a {@link java.lang.String} object.
+     * @param resourceParent
+     *            a {@link java.lang.String} object.
+     * @param resource
+     *            a {@link java.lang.String} object.
+     * @param attribute
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getRelativePathForAttribute(String resourceParent, String resource, String attribute);
 
     /**
-     * <p>setResourceTypeName</p>
+     * <p>
+     * setResourceTypeName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setResourceTypeName(String name);
 
     /**
-     * This functions translate resourceIndex into a "unique" and "non-variable" name that could be identify
+     * This functions translate resourceIndex into a "unique" and "non-variable"
+     * name that could be identify
      * a resource, as described earlier.
-     *
-     * This method could be expensive because it could require send SNMP queries and make complicated functions to
+     * This method could be expensive because it could require send SNMP queries
+     * and make complicated functions to
      * build the name. So you must try to call it only when is necessary.
      *
-     * @param resource a {@link org.opennms.netmgt.config.collector.CollectionResource} object
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object
      * @return a {@link java.lang.String} object.
      */
     public String getResourceNameFromIndex(CollectionResource resource);
 
     /**
-     * Add to a strategy the possibility to get additional information using SNMP when is necessary.
-     * There are complex tables on some MIBs where indexes depends on indexes from other tables (indirect indexing).
-     * For this kind of resources we must send some additional SNMP queries to build a unique name.
+     * Add to a strategy the possibility to get additional information using
+     * SNMP when is necessary.
+     * There are complex tables on some MIBs where indexes depends on indexes
+     * from other tables (indirect indexing).
+     * For this kind of resources we must send some additional SNMP queries to
+     * build a unique name.
      *
-     * @param agent a {@link org.opennms.netmgt.config.StorageStrategyService} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.config.StorageStrategyService}
+     *            object.
      */
     public void setStorageStrategyService(StorageStrategyService agent);
 
     /**
-     * <p>setParameters</p>
+     * <p>
+     * setParameters
+     * </p>
      *
-     * @param parameterCollection a {@link java.util.List} object.
+     * @param parameterCollection
+     *            a {@link java.util.List} object.
      */
     public void setParameters(List<Parameter> parameterCollection) throws IllegalArgumentException;
 

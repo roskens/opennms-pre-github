@@ -33,7 +33,9 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * <p>Category class.</p>
+ * <p>
+ * Category class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -65,19 +67,27 @@ public class Category implements Cloneable {
     private String m_comments;
 
     /**
-     * <p>Constructor for Category.</p>
+     * <p>
+     * Constructor for Category.
+     * </p>
      */
     public Category() {
         m_services = new ArrayList<String>();
     }
 
     /**
-     * <p>Constructor for Category.</p>
+     * <p>
+     * Constructor for Category.
+     * </p>
      *
-     * @param aLabel a {@link java.lang.String} object.
-     * @param aRule a {@link java.lang.String} object.
-     * @param aNormal a {@link java.lang.String} object.
-     * @param aWarning a {@link java.lang.String} object.
+     * @param aLabel
+     *            a {@link java.lang.String} object.
+     * @param aRule
+     *            a {@link java.lang.String} object.
+     * @param aNormal
+     *            a {@link java.lang.String} object.
+     * @param aWarning
+     *            a {@link java.lang.String} object.
      */
     public Category(String aLabel, String aRule, String aNormal, String aWarning) {
         m_label = aLabel;
@@ -89,7 +99,9 @@ public class Category implements Cloneable {
     }
 
     /**
-     * <p>clone</p>
+     * <p>
+     * clone
+     * </p>
      *
      * @return a {@link org.opennms.web.admin.views.parsers.Category} object.
      */
@@ -152,16 +164,21 @@ public class Category implements Cloneable {
     }
 
     /**
-     * <p>setLabel</p>
+     * <p>
+     * setLabel
+     * </p>
      *
-     * @param aValue a {@link java.lang.String} object.
+     * @param aValue
+     *            a {@link java.lang.String} object.
      */
     public void setLabel(String aValue) {
         m_label = aValue;
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,16 +187,21 @@ public class Category implements Cloneable {
     }
 
     /**
-     * <p>setRule</p>
+     * <p>
+     * setRule
+     * </p>
      *
-     * @param aValue a {@link java.lang.String} object.
+     * @param aValue
+     *            a {@link java.lang.String} object.
      */
     public void setRule(String aValue) {
         m_rule = aValue;
     }
 
     /**
-     * <p>getRule</p>
+     * <p>
+     * getRule
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -188,16 +210,21 @@ public class Category implements Cloneable {
     }
 
     /**
-     * <p>setNormal</p>
+     * <p>
+     * setNormal
+     * </p>
      *
-     * @param aValue a {@link java.lang.String} object.
+     * @param aValue
+     *            a {@link java.lang.String} object.
      */
     public void setNormal(String aValue) {
         m_normal = aValue;
     }
 
     /**
-     * <p>getNormal</p>
+     * <p>
+     * getNormal
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -206,16 +233,21 @@ public class Category implements Cloneable {
     }
 
     /**
-     * <p>setWarning</p>
+     * <p>
+     * setWarning
+     * </p>
      *
-     * @param aValue a {@link java.lang.String} object.
+     * @param aValue
+     *            a {@link java.lang.String} object.
      */
     public void setWarning(String aValue) {
         m_warning = aValue;
     }
 
     /**
-     * <p>getWarning</p>
+     * <p>
+     * getWarning
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -253,16 +285,21 @@ public class Category implements Cloneable {
     }
 
     /**
-     * <p>setComments</p>
+     * <p>
+     * setComments
+     * </p>
      *
-     * @param comment a {@link java.lang.String} object.
+     * @param comment
+     *            a {@link java.lang.String} object.
      */
     public void setComments(String comment) {
         m_comments = comment;
     }
 
     /**
-     * <p>getComments</p>
+     * <p>
+     * getComments
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -271,7 +308,9 @@ public class Category implements Cloneable {
     }
 
     /**
-     * <p>getUserManagerFormat</p>
+     * <p>
+     * getUserManagerFormat
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

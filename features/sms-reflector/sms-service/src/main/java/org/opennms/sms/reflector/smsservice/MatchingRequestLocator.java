@@ -44,9 +44,14 @@ public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, 
     private final Set<MobileMsgRequest> m_requests = new CopyOnWriteArraySet<MobileMsgRequest>();
 
     /**
-     * <p>trackRequest</p>
+     * <p>
+     * trackRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
+     * @param request
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
      * @return a boolean.
      */
     @Override
@@ -56,14 +61,20 @@ public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, 
     }
 
     /**
-     * <p>locateMatchingRequest</p>
+     * <p>
+     * locateMatchingRequest
+     * </p>
      *
-     * @param response a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse} object.
-     * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
+     * @param response
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *            object.
+     * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
      */
     @Override
     public MobileMsgRequest locateMatchingRequest(MobileMsgResponse response) {
-        for(MobileMsgRequest request : m_requests) {
+        for (MobileMsgRequest request : m_requests) {
 
             if (request.matches(response)) {
                 return request;
@@ -74,10 +85,16 @@ public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, 
     }
 
     /**
-     * <p>requestTimedOut</p>
+     * <p>
+     * requestTimedOut
+     * </p>
      *
-     * @param timedOutRequest a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
-     * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
+     * @param timedOutRequest
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
+     * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
      */
     @Override
     public MobileMsgRequest requestTimedOut(MobileMsgRequest timedOutRequest) {
@@ -85,14 +102,18 @@ public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, 
     }
 
     /**
-     * <p>requestComplete</p>
+     * <p>
+     * requestComplete
+     * </p>
      *
-     * @param request a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
+     * @param request
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
      */
     @Override
     public void requestComplete(MobileMsgRequest request) {
         m_requests.remove(request);
     }
-
 
 }

@@ -34,67 +34,69 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * </br>
- * For later use. Don't use it jet!
+ *         </br>
+ *         For later use. Don't use it jet!
  */
 public class FlexTableFieldSet extends FlexTable {
-	int activRow = -1;
-	int activCell = -1;
-	int maxCells = 0;
+    int activRow = -1;
 
-	public FlexTableFieldSet() {
-		super();
-		this.setStylePrimaryName("FlexTableFieldSet");
-	}
+    int activCell = -1;
 
-	public void addNewRowWidget(Widget wg) {
-		activRow++;
-		activCell = 0;
-		wg.setStyleDependentName("NewRowWidget", true);
-		setWidget(activRow, activCell, wg);
-	}
+    int maxCells = 0;
 
-	public void addNewRowWidget(Widget wg, int colSpan) {
-		addNewRowWidget(wg);
-		getFlexCellFormatter().setColSpan(activRow, activCell, colSpan);
-	}
+    public FlexTableFieldSet() {
+        super();
+        this.setStylePrimaryName("FlexTableFieldSet");
+    }
 
-	public void addNewWidget(Widget wg) {
-		activCell++;
-		wg.setStyleDependentName("NewWidget", true);
-		setWidget(activRow, activCell, wg);
-		if (activCell > maxCells) {
-			maxCells = activCell;
-		}
-	}
+    public void addNewRowWidget(Widget wg) {
+        activRow++;
+        activCell = 0;
+        wg.setStyleDependentName("NewRowWidget", true);
+        setWidget(activRow, activCell, wg);
+    }
 
-	public void addNewWidget(Widget wg, int colSpan) {
-		addNewWidget(wg);
-		getFlexCellFormatter().setColSpan(activRow, activCell, colSpan);
-	}
+    public void addNewRowWidget(Widget wg, int colSpan) {
+        addNewRowWidget(wg);
+        getFlexCellFormatter().setColSpan(activRow, activCell, colSpan);
+    }
 
-	public void addSectionHeader(Widget wg) {
-		activRow++;
-		wg.setStyleDependentName("SectionHeader", true);
-		setWidget(activRow, 0, new HTML("<h3>" + wg + "</h3>"));
-		getFlexCellFormatter().setColSpan(activRow, 0, 800);
-		activRow++;
-		activCell = -1;
-	}
+    public void addNewWidget(Widget wg) {
+        activCell++;
+        wg.setStyleDependentName("NewWidget", true);
+        setWidget(activRow, activCell, wg);
+        if (activCell > maxCells) {
+            maxCells = activCell;
+        }
+    }
 
-	public int getActivCell() {
-		return activCell;
-	}
+    public void addNewWidget(Widget wg, int colSpan) {
+        addNewWidget(wg);
+        getFlexCellFormatter().setColSpan(activRow, activCell, colSpan);
+    }
 
-	public int getActivRow() {
-		return activRow;
-	}
+    public void addSectionHeader(Widget wg) {
+        activRow++;
+        wg.setStyleDependentName("SectionHeader", true);
+        setWidget(activRow, 0, new HTML("<h3>" + wg + "</h3>"));
+        getFlexCellFormatter().setColSpan(activRow, 0, 800);
+        activRow++;
+        activCell = -1;
+    }
 
-	public void setActivCell(int activCell) {
-		this.activCell = activCell;
-	}
+    public int getActivCell() {
+        return activCell;
+    }
 
-	public void setActivRow(int activRow) {
-		this.activRow = activRow;
-	}
+    public int getActivRow() {
+        return activRow;
+    }
+
+    public void setActivCell(int activCell) {
+        this.activCell = activCell;
+    }
+
+    public void setActivRow(int activRow) {
+        this.activRow = activRow;
+    }
 }

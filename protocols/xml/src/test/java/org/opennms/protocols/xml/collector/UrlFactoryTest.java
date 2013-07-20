@@ -51,7 +51,8 @@ public class UrlFactoryTest {
     /**
      * Test time parser.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testUrlFactory() throws Exception {

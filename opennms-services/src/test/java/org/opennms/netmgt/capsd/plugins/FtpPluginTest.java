@@ -42,8 +42,11 @@ import org.opennms.core.utils.InetAddressUtils;
 
 public class FtpPluginTest extends TestCase {
     private FtpPlugin m_plugin = new FtpPlugin();
+
     private ServerSocket m_serverSocket = null;
+
     private Thread m_serverThread = null;
+
     private static int TIMEOUT = 2000;
 
     @Override
@@ -69,12 +72,14 @@ public class FtpPluginTest extends TestCase {
 
     // Let's not depend on external systems if we don't have to
     public void SKIPtestOpennmsOrgFtpSuccess() throws Exception {
-        assertTrue("Test for protocol FTP on ftp.opennms.org should have passed", m_plugin.isProtocolSupported(InetAddressUtils.addr("ftp.opennms.org")));
+        assertTrue("Test for protocol FTP on ftp.opennms.org should have passed",
+                   m_plugin.isProtocolSupported(InetAddressUtils.addr("ftp.opennms.org")));
     }
 
     // Let's not depend on external systems if we don't have to
     public void SKIPtestRandomFtpFailure() throws Exception {
-        assertFalse("Test for protocol FTP on 1.1.1.1 should have failed (on most networks, at least)", m_plugin.isProtocolSupported(InetAddressUtils.addr("1.1.1.1")));
+        assertFalse("Test for protocol FTP on 1.1.1.1 should have failed (on most networks, at least)",
+                    m_plugin.isProtocolSupported(InetAddressUtils.addr("1.1.1.1")));
     }
 
     public void testSuccess() throws Exception {
@@ -172,7 +177,7 @@ public class FtpPluginTest extends TestCase {
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 
-    private boolean  doCheck() {
+    private boolean doCheck() {
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("port", m_serverSocket.getLocalPort());
         m.put("retries", 0);

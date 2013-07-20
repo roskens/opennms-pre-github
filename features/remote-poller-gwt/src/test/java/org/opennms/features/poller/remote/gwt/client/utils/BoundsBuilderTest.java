@@ -35,16 +35,15 @@ import org.opennms.features.poller.remote.gwt.client.GWTBounds;
 import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 import org.opennms.features.poller.remote.gwt.client.utils.BoundsBuilder;
 
-
 public class BoundsBuilderTest {
 
     @Test
     public void testAddNoPoints() {
         BoundsBuilder bldr = new BoundsBuilder();
 
-
         assertEquals(new GWTBounds(-90, -180, 90, 180), bldr.getBounds());
     }
+
     @Test
     public void testAddOnePoint() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -97,8 +96,7 @@ public class BoundsBuilderTest {
     public void testAddManyPoints() {
         BoundsBuilder bldr = new BoundsBuilder();
 
-
-        for(int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 10; i++) {
             bldr.extend(0.0 + i, 0.0);
             bldr.extend(0.0, 0.0 - i);
         }
@@ -163,6 +161,7 @@ public class BoundsBuilderTest {
         assertEquals(new GWTBounds(0, -170, 0, 90), bldr.getBounds());
 
     }
+
     @Test
     public void testExtendWestAndWrap() {
         BoundsBuilder bldr = new BoundsBuilder();

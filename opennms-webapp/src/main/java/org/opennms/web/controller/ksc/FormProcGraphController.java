@@ -41,9 +41,10 @@ import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
-
 /**
- * <p>FormProcGraphController class.</p>
+ * <p>
+ * FormProcGraphController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,19 +52,17 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class FormProcGraphController extends AbstractController implements InitializingBean {
     public enum Parameters {
-        action,
-        timespan,
-        graphtype,
-        title,
-        graphindex
+        action, timespan, graphtype, title, graphindex
     }
 
     private KSC_PerformanceReportFactory m_kscReportFactory;
+
     private KscReportService m_kscReportService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), true);
 
         // Get The Customizable (Working) Graph
@@ -86,7 +85,8 @@ public class FormProcGraphController extends AbstractController implements Initi
         OnmsResource resource = getKscReportService().getResourceFromGraph(graph);
 
         if (action.equals("Save")) {
-            // The working graph is complete now... lets save working graph to working report
+            // The working graph is complete now... lets save working graph to
+            // working report
             editor.unloadWorkingGraph(graph_index);
         }
 
@@ -103,31 +103,41 @@ public class FormProcGraphController extends AbstractController implements Initi
             modelAndView.addObject("selectedResourceId", resource.getId());
             return modelAndView;
         } else {
-            throw new IllegalArgumentException("parameter action of '" + action + "' is not supported.  Must be one of: Save, Cancel, Update, or ChooseResource");
+            throw new IllegalArgumentException("parameter action of '" + action
+                    + "' is not supported.  Must be one of: Save, Cancel, Update, or ChooseResource");
         }
     }
 
     /**
-     * <p>getKscReportFactory</p>
+     * <p>
+     * getKscReportFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *         object.
      */
     public KSC_PerformanceReportFactory getKscReportFactory() {
         return m_kscReportFactory;
     }
 
     /**
-     * <p>setKscReportFactory</p>
+     * <p>
+     * setKscReportFactory
+     * </p>
      *
-     * @param kscReportFactory a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @param kscReportFactory
+     *            a
+     *            {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *            object.
      */
     public void setKscReportFactory(KSC_PerformanceReportFactory kscReportFactory) {
         m_kscReportFactory = kscReportFactory;
     }
 
-
     /**
-     * <p>getKscReportService</p>
+     * <p>
+     * getKscReportService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -136,18 +146,24 @@ public class FormProcGraphController extends AbstractController implements Initi
     }
 
     /**
-     * <p>setKscReportService</p>
+     * <p>
+     * setKscReportService
+     * </p>
      *
-     * @param kscReportService a {@link org.opennms.web.svclayer.KscReportService} object.
+     * @param kscReportService
+     *            a {@link org.opennms.web.svclayer.KscReportService} object.
      */
     public void setKscReportService(KscReportService kscReportService) {
         m_kscReportService = kscReportService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

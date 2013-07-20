@@ -57,8 +57,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
@@ -111,9 +110,8 @@ public class Spc391Test extends ProvisioningTestCase {
 
     @Test
     @JUnitSnmpAgents({
-        @JUnitSnmpAgent(host="192.168.3.1", port=161, resource="classpath:snmpwalk-space.properties"),
-        @JUnitSnmpAgent(host="10.0.0.4", port=161, resource="classpath:snmpwalk-space.properties")
-    })
+            @JUnitSnmpAgent(host = "192.168.3.1", port = 161, resource = "classpath:snmpwalk-space.properties"),
+            @JUnitSnmpAgent(host = "10.0.0.4", port = 161, resource = "classpath:snmpwalk-space.properties") })
     public void testScanSpaceDevice() throws Exception {
         final String[] ueis = { EventConstants.PROVISION_SCAN_COMPLETE_UEI, EventConstants.PROVISION_SCAN_ABORTED_UEI };
         final CountDownLatch eventReceived = anticipateEvents(1, ueis);

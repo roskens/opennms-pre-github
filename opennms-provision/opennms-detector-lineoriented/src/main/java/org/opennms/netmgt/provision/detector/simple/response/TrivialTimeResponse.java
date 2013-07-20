@@ -32,7 +32,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>TrivialTimeResponse class.</p>
+ * <p>
+ * TrivialTimeResponse class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@sync.com.ve>
  * @version $Id: $
@@ -40,6 +42,7 @@ import org.slf4j.LoggerFactory;
 public class TrivialTimeResponse {
 
     private static final Logger LOG = LoggerFactory.getLogger(TrivialTimeResponse.class);
+
     boolean available;
 
     public TrivialTimeResponse() {
@@ -48,18 +51,21 @@ public class TrivialTimeResponse {
 
     public TrivialTimeResponse(int remoteTime, int localTime, int allowedSkew) {
         available = false;
-        LOG.debug("qualifyTime: checking remote time {} against local time {} with max skew of {}", remoteTime, localTime, allowedSkew);
+        LOG.debug("qualifyTime: checking remote time {} against local time {} with max skew of {}", remoteTime,
+                  localTime, allowedSkew);
         if ((localTime - remoteTime > allowedSkew) || (remoteTime - localTime > allowedSkew)) {
             if (localTime > remoteTime) {
-                LOG.debug("Remote time is {} seconds slow", (localTime-remoteTime));
+                LOG.debug("Remote time is {} seconds slow", (localTime - remoteTime));
             } else {
-                LOG.debug("Remote time is {} seconds fast", (remoteTime-localTime));
+                LOG.debug("Remote time is {} seconds fast", (remoteTime - localTime));
             }
         }
         if ((localTime > remoteTime) && (localTime - remoteTime > allowedSkew)) {
-            LOG.debug("Remote time is {} seconds behind local, more than the allowable {}", (localTime - remoteTime), allowedSkew);
+            LOG.debug("Remote time is {} seconds behind local, more than the allowable {}", (localTime - remoteTime),
+                      allowedSkew);
         } else if ((remoteTime > localTime) && (remoteTime - localTime > allowedSkew)) {
-            LOG.debug("Remote time is {} seconds ahead of local, more than the allowable {}", (remoteTime - localTime), allowedSkew);
+            LOG.debug("Remote time is {} seconds ahead of local, more than the allowable {}", (remoteTime - localTime),
+                      allowedSkew);
         } else {
             available = true;
         }

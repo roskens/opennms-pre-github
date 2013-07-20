@@ -44,10 +44,13 @@ import java.util.Map;
 public class PropertiesWindow extends DashletConfigurationWindow {
 
     /**
-     * Constructor for instantiating a {@link PropertiesWindow} for a given {@link DashletSpec}.
+     * Constructor for instantiating a {@link PropertiesWindow} for a given
+     * {@link DashletSpec}.
      *
-     * @param dashletSpec    the {@link DashletSpec} to edit
-     * @param dashletFactory the {@link DashletFactory} for querying the property data
+     * @param dashletSpec
+     *            the {@link DashletSpec} to edit
+     * @param dashletSelector
+     *            the {@link DashletSelector} for querying the property data
      */
     public PropertiesWindow(final DashletSpec dashletSpec, final DashletFactory dashletFactory) {
         /**
@@ -99,7 +102,8 @@ public class PropertiesWindow extends DashletConfigurationWindow {
         verticalLayout.addComponent(table);
 
         /**
-         * Using an additional {@link HorizontalLayout} for layouting the buttons
+         * Using an additional {@link HorizontalLayout} for layouting the
+         * buttons
          */
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 

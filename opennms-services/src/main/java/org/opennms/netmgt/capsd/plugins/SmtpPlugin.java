@@ -68,7 +68,6 @@ public final class SmtpPlugin extends AbstractPlugin {
      * The regular expression test used to determine if the reply is a multi
      * line reply. A multi line reply is one that each line, but the last, is in
      * the form of "ddd-" where 'ddd' is the result code.
-     *
      */
     private static final RE MULTILINE_RESULT;
 
@@ -121,7 +120,6 @@ public final class SmtpPlugin extends AbstractPlugin {
      *            The remote host to connect to.
      * @param port
      *            The remote port on the host.
-     *
      * @return True if server supports SMTP on the specified port, false
      *         otherwise
      */
@@ -257,7 +255,8 @@ public final class SmtpPlugin extends AbstractPlugin {
                 LOG.info("SmtpPlugin: Error communicating with host {}", InetAddressUtils.str(host), e);
                 isAServer = false;
             } catch (Throwable t) {
-                LOG.warn("SmtpPlugin: Undeclared throwable exception caught contacting host {}", InetAddressUtils.str(host), t);
+                LOG.warn("SmtpPlugin: Undeclared throwable exception caught contacting host {}",
+                         InetAddressUtils.str(host), t);
                 isAServer = false;
             } finally {
                 try {
@@ -287,9 +286,8 @@ public final class SmtpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -298,9 +296,8 @@ public final class SmtpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to

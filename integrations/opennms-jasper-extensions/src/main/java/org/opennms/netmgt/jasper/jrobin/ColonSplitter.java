@@ -30,6 +30,7 @@ package org.opennms.netmgt.jasper.jrobin;
 
 class ColonSplitter {
     private String cmd;
+
     private static final String COLON = "@#@";
 
     ColonSplitter(String command) {

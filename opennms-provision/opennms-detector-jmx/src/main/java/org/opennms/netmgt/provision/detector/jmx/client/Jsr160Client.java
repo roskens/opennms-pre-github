@@ -37,7 +37,9 @@ import org.opennms.netmgt.provision.support.jmx.connectors.ConnectionWrapper;
 import org.opennms.netmgt.provision.support.jmx.connectors.Jsr160ConnectionFactory;
 
 /**
- * <p>Jsr160Client class.</p>
+ * <p>
+ * Jsr160Client class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -47,7 +49,9 @@ public class Jsr160Client extends JMXClient {
     private Map<String, Object> m_parameterMap;
 
     /**
-     * <p>Constructor for Jsr160Client.</p>
+     * <p>
+     * Constructor for Jsr160Client.
+     * </p>
      */
     public Jsr160Client() {
         m_parameterMap = new HashMap<String, Object>();
@@ -57,7 +61,7 @@ public class Jsr160Client extends JMXClient {
     @Override
     protected Map<String, Object> generateMap(int port, int timeout) {
 
-        m_parameterMap.put("port",           port);
+        m_parameterMap.put("port", port);
         m_parameterMap.put("timeout", timeout);
         return Collections.unmodifiableMap(m_parameterMap);
     }
@@ -69,63 +73,84 @@ public class Jsr160Client extends JMXClient {
     }
 
     /**
-     * <p>setFactory</p>
+     * <p>
+     * setFactory
+     * </p>
      *
-     * @param factory a {@link java.lang.String} object.
+     * @param factory
+     *            a {@link java.lang.String} object.
      */
     public void setFactory(String factory) {
         m_parameterMap.put("factory", factory);
     }
 
     /**
-     * <p>setFriendlyName</p>
+     * <p>
+     * setFriendlyName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setFriendlyName(String name) {
         m_parameterMap.put("friendlyname", name);
     }
 
     /**
-     * <p>setUsername</p>
+     * <p>
+     * setUsername
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      */
     public void setUsername(String username) {
         m_parameterMap.put("username", username);
     }
 
     /**
-     * <p>setPassword</p>
+     * <p>
+     * setPassword
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         m_parameterMap.put("password", password);
     }
 
     /**
-     * <p>setUrlPath</p>
+     * <p>
+     * setUrlPath
+     * </p>
      *
-     * @param urlPath a {@link java.lang.String} object.
+     * @param urlPath
+     *            a {@link java.lang.String} object.
      */
     public void setUrlPath(String urlPath) {
         m_parameterMap.put("urlPath", urlPath);
     }
 
     /**
-     * <p>setType</p>
+     * <p>
+     * setType
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public void setType(String type) {
         m_parameterMap.put("type", type);
     }
 
     /**
-     * <p>setProtocol</p>
+     * <p>
+     * setProtocol
+     * </p>
      *
-     * @param protocol a {@link java.lang.String} object.
+     * @param protocol
+     *            a {@link java.lang.String} object.
      */
     public void setProtocol(String protocol) {
         m_parameterMap.put("protocol", protocol);

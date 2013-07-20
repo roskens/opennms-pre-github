@@ -29,7 +29,9 @@
 package org.opennms.netmgt.config.collector;
 
 /**
- * <p>AttributeDefinition interface.</p>
+ * <p>
+ * AttributeDefinition interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,31 +39,40 @@ package org.opennms.netmgt.config.collector;
 public interface AttributeDefinition {
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getType();
 
     /**
-     * <p>getName</p>
-     *
+     * <p>
+     * getName
+     * </p>
      * Human readable name for the attribute.
+     *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getName();
 
     /**
-     * <p>equals</p>
+     * <p>
+     * equals
+     * </p>
      *
-     * @param o a {@link java.lang.Object} object.
+     * @param o
+     *            a {@link java.lang.Object} object.
      * @return a boolean.
      */
     @Override
     public abstract boolean equals(Object o);
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */

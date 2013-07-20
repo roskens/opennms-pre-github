@@ -48,6 +48,7 @@ import org.junit.Test;
 public class JRobinQueryExecuterTest {
 
     private JasperReport m_jasperReport;
+
     private JasperPrint m_jasperPrint;
 
     @Before
@@ -60,7 +61,7 @@ public class JRobinQueryExecuterTest {
      *
      */
     @Test
-    public void test() throws JRException{
+    public void test() throws JRException {
         compile();
         fill();
         pdf();
@@ -68,12 +69,11 @@ public class JRobinQueryExecuterTest {
     }
 
     @Test
-    public void testNoDataReport() throws JRException{
-    	compileNoDataReport();
-    	fill();
-    	pdf();
+    public void testNoDataReport() throws JRException {
+        compileNoDataReport();
+        fill();
+        pdf();
     }
-
 
     public void compile() throws JRException {
         // jrxml compiling process
@@ -90,9 +90,9 @@ public class JRobinQueryExecuterTest {
     /**
      *
      */
-    public void fill() throws JRException{
+    public void fill() throws JRException {
         long start = System.currentTimeMillis();
-        Map<String,Object> params = new HashMap<String,Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("rrdDir", "src/test/resources");
         params.put("startDate", new Date("Wed Oct 13 17:25:00 EDT 2010"));
         params.put("endDate", new Date("Wed Oct 13 21:16:30 EDT 2010"));
@@ -103,8 +103,7 @@ public class JRobinQueryExecuterTest {
     /**
      *
      */
-    public void pdf() throws JRException
-    {
+    public void pdf() throws JRException {
         long start = System.currentTimeMillis();
         JasperExportManager.exportReportToPdfFile(m_jasperPrint, "target/reports/RrdGraph.pdf");
         System.err.println("PDF creation time : " + (System.currentTimeMillis() - start));
@@ -113,8 +112,7 @@ public class JRobinQueryExecuterTest {
     /**
      *
      */
-    public void xhtml() throws JRException
-    {
+    public void xhtml() throws JRException {
         long start = System.currentTimeMillis();
 
         File destFile = new File("target/reports/RrdGraph.x.html");
@@ -128,6 +126,5 @@ public class JRobinQueryExecuterTest {
 
         System.err.println("XHTML creation time : " + (System.currentTimeMillis() - start));
     }
-
 
 }

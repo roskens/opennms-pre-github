@@ -41,10 +41,10 @@ import org.exolab.castor.xml.ValidationException;
  * the SNMP configuration XML.
  *
  * @author <a href="mailto:david@opennms.org>David Hustace</a>
- *
  */
 public class WmiPeerFactoryTest extends TestCase {
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -60,15 +60,9 @@ public class WmiPeerFactoryTest extends TestCase {
      */
     public final void testOneSpecific() throws MarshalException, ValidationException, IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <specific>192.168.0.5</specific>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n" + "   <definition>\n" + "       <specific>192.168.0.5</specific>\n"
+                + "   </definition>\n" + "\n" + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 
@@ -80,8 +74,10 @@ public class WmiPeerFactoryTest extends TestCase {
     }
 
     /**
-     * This tests the merging of a new specific into a definition that already contains a specific
-     * that is adjacent.  The two specifics should be converted to a single range in the definition.
+     * This tests the merging of a new specific into a definition that already
+     * contains a specific
+     * that is adjacent. The two specifics should be converted to a single range
+     * in the definition.
      *
      * @throws MarshalException
      * @throws ValidationException
@@ -89,16 +85,9 @@ public class WmiPeerFactoryTest extends TestCase {
      */
     public final void testAddAdjacentSpecificToDef() throws MarshalException, ValidationException, IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <specific>192.168.0.5</specific>\n" +
-        "       <specific>192.168.0.6</specific>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n" + "   <definition>\n" + "       <specific>192.168.0.5</specific>\n"
+                + "       <specific>192.168.0.6</specific>\n" + "   </definition>\n" + "\n" + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 
@@ -117,16 +106,11 @@ public class WmiPeerFactoryTest extends TestCase {
 
     public final void testAddAdjacentSpecificToDefIPv6() throws MarshalException, ValidationException, IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedb</specific>\n" +
-        "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedc</specific>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n" + "   <definition>\n"
+                + "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedb</specific>\n"
+                + "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedc</specific>\n" + "   </definition>\n" + "\n"
+                + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 
@@ -139,22 +123,20 @@ public class WmiPeerFactoryTest extends TestCase {
         assertEquals(1, factory.getConfig().getDefinitionCount());
         assertEquals(0, factory.getConfig().getDefinition(0).getSpecificCount());
         assertEquals(1, factory.getConfig().getDefinition(0).getRangeCount());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedb", factory.getConfig().getDefinition(0).getRange(0).getBegin());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedc", factory.getConfig().getDefinition(0).getRange(0).getEnd());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedb",
+                     factory.getConfig().getDefinition(0).getRange(0).getBegin());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedc",
+                     factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
 
-    public final void testAddAdjacentSpecificToDefIPv6WithSameScopeId() throws MarshalException, ValidationException, IOException {
+    public final void testAddAdjacentSpecificToDefIPv6WithSameScopeId() throws MarshalException, ValidationException,
+            IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedb%5</specific>\n" +
-        "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedc%5</specific>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n" + "   <definition>\n"
+                + "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedb%5</specific>\n"
+                + "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedc%5</specific>\n" + "   </definition>\n"
+                + "\n" + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 
@@ -167,22 +149,20 @@ public class WmiPeerFactoryTest extends TestCase {
         assertEquals(1, factory.getConfig().getDefinitionCount());
         assertEquals(0, factory.getConfig().getDefinition(0).getSpecificCount());
         assertEquals(1, factory.getConfig().getDefinition(0).getRangeCount());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedb%5", factory.getConfig().getDefinition(0).getRange(0).getBegin());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedc%5", factory.getConfig().getDefinition(0).getRange(0).getEnd());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedb%5",
+                     factory.getConfig().getDefinition(0).getRange(0).getBegin());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedc%5",
+                     factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
 
-    public final void testAddAdjacentSpecificToDefIPv6WithDifferentScopeIds() throws MarshalException, ValidationException, IOException {
+    public final void testAddAdjacentSpecificToDefIPv6WithDifferentScopeIds() throws MarshalException,
+            ValidationException, IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedb%1</specific>\n" +
-        "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedc%2</specific>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n" + "   <definition>\n"
+                + "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedb%1</specific>\n"
+                + "       <specific>fe80:0000:0000:0000:0000:0000:0000:fedc%2</specific>\n" + "   </definition>\n"
+                + "\n" + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 
@@ -192,16 +172,20 @@ public class WmiPeerFactoryTest extends TestCase {
 
         WmiPeerFactory.optimize();
 
-        // No optimization should occur because the addresses have different scope IDs
+        // No optimization should occur because the addresses have different
+        // scope IDs
         assertEquals(1, factory.getConfig().getDefinitionCount());
         assertEquals(2, factory.getConfig().getDefinition(0).getSpecificCount());
         assertEquals(0, factory.getConfig().getDefinition(0).getRangeCount());
     }
 
     /**
-     * This tests the ability to move a specific from one definition into a range of another definition.  The
-     * results should be that the 2 ranges in the first definition are recombined into a single range based on
-     * the single IP address that was in a different existing definition that will now be removed and the definition
+     * This tests the ability to move a specific from one definition into a
+     * range of another definition. The
+     * results should be that the 2 ranges in the first definition are
+     * recombined into a single range based on
+     * the single IP address that was in a different existing definition that
+     * will now be removed and the definition
      * deleted.
      *
      * @throws MarshalException
@@ -210,17 +194,14 @@ public class WmiPeerFactoryTest extends TestCase {
      */
     public void testRecombineSpecificIntoRange() throws MarshalException, ValidationException, IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <range begin=\"fe80:0000:0000:0000:0000:0000:0000:fed0%1\" end=\"fe80:0000:0000:0000:0000:0000:0000:fed9%1\"/>\n" +
-        "       <range begin=\"fe80:0000:0000:0000:0000:0000:0000:fedb%1\" end=\"fe80:0000:0000:0000:0000:0000:0000:fedf%1\"/>\n" +
-        "       <specific>fe80:0000:0000:0000:0000:0000:0000:feda%1</specific>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n"
+                + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n"
+                + "   <definition>\n"
+                + "       <range begin=\"fe80:0000:0000:0000:0000:0000:0000:fed0%1\" end=\"fe80:0000:0000:0000:0000:0000:0000:fed9%1\"/>\n"
+                + "       <range begin=\"fe80:0000:0000:0000:0000:0000:0000:fedb%1\" end=\"fe80:0000:0000:0000:0000:0000:0000:fedf%1\"/>\n"
+                + "       <specific>fe80:0000:0000:0000:0000:0000:0000:feda%1</specific>\n" + "   </definition>\n"
+                + "\n" + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 
@@ -233,33 +214,36 @@ public class WmiPeerFactoryTest extends TestCase {
         assertEquals(1, factory.getConfig().getDefinitionCount());
         assertEquals(0, factory.getConfig().getDefinition(0).getSpecificCount());
         assertEquals(1, factory.getConfig().getDefinition(0).getRangeCount());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fed0%1", factory.getConfig().getDefinition(0).getRange(0).getBegin());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedf%1", factory.getConfig().getDefinition(0).getRange(0).getEnd());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fed0%1",
+                     factory.getConfig().getDefinition(0).getRange(0).getBegin());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedf%1",
+                     factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
 
     /**
-     * This tests the ability to move a specific from one definition into a range of another definition.  The
-     * results should be that the 2 ranges in the first definition are recombined into a single range based on
-     * the single IP address that was in a different existing definition that will now be removed and the definition
+     * This tests the ability to move a specific from one definition into a
+     * range of another definition. The
+     * results should be that the 2 ranges in the first definition are
+     * recombined into a single range based on
+     * the single IP address that was in a different existing definition that
+     * will now be removed and the definition
      * deleted.
      *
      * @throws MarshalException
      * @throws ValidationException
      * @throws IOException
      */
-    public void testRecombineSpecificIntoRangeWithDifferentScopeIds() throws MarshalException, ValidationException, IOException {
+    public void testRecombineSpecificIntoRangeWithDifferentScopeIds() throws MarshalException, ValidationException,
+            IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <range begin=\"fe80:0000:0000:0000:0000:0000:0000:fed0%1\" end=\"fe80:0000:0000:0000:0000:0000:0000:fed9%1\"/>\n" +
-        "       <range begin=\"fe80:0000:0000:0000:0000:0000:0000:fedb%2\" end=\"fe80:0000:0000:0000:0000:0000:0000:fedf%2\"/>\n" +
-        "       <specific>fe80:0000:0000:0000:0000:0000:0000:feda%1</specific>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n"
+                + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n"
+                + "   <definition>\n"
+                + "       <range begin=\"fe80:0000:0000:0000:0000:0000:0000:fed0%1\" end=\"fe80:0000:0000:0000:0000:0000:0000:fed9%1\"/>\n"
+                + "       <range begin=\"fe80:0000:0000:0000:0000:0000:0000:fedb%2\" end=\"fe80:0000:0000:0000:0000:0000:0000:fedf%2\"/>\n"
+                + "       <specific>fe80:0000:0000:0000:0000:0000:0000:feda%1</specific>\n" + "   </definition>\n"
+                + "\n" + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 
@@ -272,14 +256,19 @@ public class WmiPeerFactoryTest extends TestCase {
         assertEquals(1, factory.getConfig().getDefinitionCount());
         assertEquals(0, factory.getConfig().getDefinition(0).getSpecificCount());
         assertEquals(2, factory.getConfig().getDefinition(0).getRangeCount());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fed0%1", factory.getConfig().getDefinition(0).getRange(0).getBegin());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:feda%1", factory.getConfig().getDefinition(0).getRange(0).getEnd());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedb%2", factory.getConfig().getDefinition(0).getRange(1).getBegin());
-        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedf%2", factory.getConfig().getDefinition(0).getRange(1).getEnd());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fed0%1",
+                     factory.getConfig().getDefinition(0).getRange(0).getBegin());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:feda%1",
+                     factory.getConfig().getDefinition(0).getRange(0).getEnd());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedb%2",
+                     factory.getConfig().getDefinition(0).getRange(1).getBegin());
+        assertEquals("fe80:0000:0000:0000:0000:0000:0000:fedf%2",
+                     factory.getConfig().getDefinition(0).getRange(1).getEnd());
     }
 
     /**
-     * This tests the addition of a new specific definition that is the same address as the beginning of
+     * This tests the addition of a new specific definition that is the same
+     * address as the beginning of
      * a range in a current definition.
      *
      * @throws MarshalException
@@ -288,16 +277,10 @@ public class WmiPeerFactoryTest extends TestCase {
      */
     public final void testNewSpecificSameAsBeginInOldDef() throws MarshalException, ValidationException, IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <range begin=\"192.168.0.6\" end=\"192.168.0.12\"/>\n" +
-        "       <specific>192.168.0.6</specific>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n" + "   <definition>\n"
+                + "       <range begin=\"192.168.0.6\" end=\"192.168.0.12\"/>\n"
+                + "       <specific>192.168.0.6</specific>\n" + "   </definition>\n" + "\n" + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 
@@ -315,7 +298,8 @@ public class WmiPeerFactoryTest extends TestCase {
     }
 
     /**
-     * This tests the addition of a new specific definition that is the same address as the beginning of
+     * This tests the addition of a new specific definition that is the same
+     * address as the beginning of
      * a range in a current definition.
      *
      * @throws MarshalException
@@ -324,16 +308,10 @@ public class WmiPeerFactoryTest extends TestCase {
      */
     public final void testNewSpecificSameAsEndInOldDef() throws MarshalException, ValidationException, IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <range begin=\"192.168.0.6\" end=\"192.168.0.12\"/>\n" +
-        "       <specific>192.168.0.12</specific>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n" + "   <definition>\n"
+                + "       <range begin=\"192.168.0.6\" end=\"192.168.0.12\"/>\n"
+                + "       <specific>192.168.0.12</specific>\n" + "   </definition>\n" + "\n" + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 
@@ -351,8 +329,10 @@ public class WmiPeerFactoryTest extends TestCase {
     }
 
     /**
-     * This tests the merging of a new definition that contains a range of IP addresses that overlaps
-     * the end of one range and the beginning of another range in a current definition.
+     * This tests the merging of a new definition that contains a range of IP
+     * addresses that overlaps
+     * the end of one range and the beginning of another range in a current
+     * definition.
      *
      * @throws MarshalException
      * @throws ValidationException
@@ -360,17 +340,12 @@ public class WmiPeerFactoryTest extends TestCase {
      */
     public void testOverlapsTwoRanges() throws MarshalException, ValidationException, IOException {
 
-        String amiConfigXml = "<?xml version=\"1.0\"?>\n" +
-        "<wmi-config retry=\"3\" timeout=\"800\"\n" +
-        "   password=\"password\">\n" +
-        "   <definition>\n" +
-        "       <range begin=\"192.168.0.6\" end=\"192.168.0.12\"/>\n" +
-        "       <range begin=\"192.168.0.20\" end=\"192.168.0.100\"/>\n" +
-        "       <range begin=\"192.168.0.8\" end=\"192.168.0.30\"/>\n" +
-        "   </definition>\n" +
-        "\n" +
-        "</wmi-config>\n" +
-        "";
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + "<wmi-config retry=\"3\" timeout=\"800\"\n"
+                + "   password=\"password\">\n" + "   <definition>\n"
+                + "       <range begin=\"192.168.0.6\" end=\"192.168.0.12\"/>\n"
+                + "       <range begin=\"192.168.0.20\" end=\"192.168.0.100\"/>\n"
+                + "       <range begin=\"192.168.0.8\" end=\"192.168.0.30\"/>\n" + "   </definition>\n" + "\n"
+                + "</wmi-config>\n" + "";
 
         WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
 

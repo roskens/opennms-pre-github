@@ -32,7 +32,9 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Log;
 
 /**
- * <p>EventForwarder interface.</p>
+ * <p>
+ * EventForwarder interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,17 +44,17 @@ public interface EventForwarder {
     /**
      * Called by a service to send an event to eventd
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public void sendNow(Event event);
 
     /**
      * Called by a service to send a set of events to eventd
      *
-     * @param eventLog a {@link org.opennms.netmgt.xml.event.Log} object.
+     * @param eventLog
+     *            a {@link org.opennms.netmgt.xml.event.Log} object.
      */
     public void sendNow(Log eventLog);
-
-
 
 }

@@ -34,7 +34,9 @@ import org.opennms.web.filter.LessThanFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>BeforeFirstEventTimeFilter class.</p>
+ * <p>
+ * BeforeFirstEventTimeFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,26 +47,33 @@ public class BeforeFirstEventTimeFilter extends LessThanFilter<Date> {
     public static final String TYPE = "beforefirsteventtime";
 
     /**
-     * <p>Constructor for BeforeFirstEventTimeFilter.</p>
+     * <p>
+     * Constructor for BeforeFirstEventTimeFilter.
+     * </p>
      *
-     * @param date a {@link java.util.Date} object.
+     * @param date
+     *            a {@link java.util.Date} object.
      */
     public BeforeFirstEventTimeFilter(Date date) {
         super(TYPE, SQLType.DATE, "FIRSTEVENTTIME", "firstEventTime", date);
     }
 
     /**
-     * <p>Constructor for BeforeFirstEventTimeFilter.</p>
+     * <p>
+     * Constructor for BeforeFirstEventTimeFilter.
+     * </p>
      *
-     * @param epochTime a long.
+     * @param epochTime
+     *            a long.
      */
     public BeforeFirstEventTimeFilter(long epochTime) {
         this(new Date(epochTime));
     }
 
-
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -74,7 +83,9 @@ public class BeforeFirstEventTimeFilter extends LessThanFilter<Date> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,7 +95,9 @@ public class BeforeFirstEventTimeFilter extends LessThanFilter<Date> {
     }
 
     /**
-     * <p>getDate</p>
+     * <p>
+     * getDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */

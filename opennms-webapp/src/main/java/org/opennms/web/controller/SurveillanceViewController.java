@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -66,16 +65,21 @@ public class SurveillanceViewController extends AbstractController implements In
     private SurveillanceService m_service;
 
     /**
-     * <p>setService</p>
+     * <p>
+     * setService
+     * </p>
      *
-     * @param svc a {@link org.opennms.web.svclayer.SurveillanceService} object.
+     * @param svc
+     *            a {@link org.opennms.web.svclayer.SurveillanceService} object.
      */
     public final void setService(final SurveillanceService svc) {
         m_service = svc;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {
@@ -84,16 +88,17 @@ public class SurveillanceViewController extends AbstractController implements In
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest req,
-            final HttpServletResponse resp) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest req, final HttpServletResponse resp)
+            throws Exception {
 
-        if ( ! m_service.isViewName(req.getParameter(VIEW_NAME_PARAMETER)) ) {
-            SurveillanceViewError viewError = createSurveillanceViewError( WebSecurityUtils.sanitizeString(req.getParameter(VIEW_NAME_PARAMETER)) );
+        if (!m_service.isViewName(req.getParameter(VIEW_NAME_PARAMETER))) {
+            SurveillanceViewError viewError = createSurveillanceViewError(WebSecurityUtils.sanitizeString(req.getParameter(VIEW_NAME_PARAMETER)));
             return new ModelAndView("surveillanceViewError", "error", viewError);
         }
 
         HttpSession session = req.getSession();
-        resp.setHeader("Refresh", m_service.getHeaderRefreshSeconds(WebSecurityUtils.sanitizeString(req.getParameter(VIEW_NAME_PARAMETER))));
+        resp.setHeader("Refresh",
+                       m_service.getHeaderRefreshSeconds(WebSecurityUtils.sanitizeString(req.getParameter(VIEW_NAME_PARAMETER))));
         ProgressMonitor progressMonitor = (ProgressMonitor) session.getAttribute(PROGRESS_MONITOR_KEY);
 
         if (progressMonitor == null) {
@@ -104,8 +109,7 @@ public class SurveillanceViewController extends AbstractController implements In
         if (progressMonitor.isError()) {
             session.removeAttribute(PROGRESS_MONITOR_KEY);
             Throwable t = progressMonitor.getThrowable();
-            throw new Exception("SurveillanceView Builder Thread threw exception: ["
-                    + t.getClass().getName() + "] "
+            throw new Exception("SurveillanceView Builder Thread threw exception: [" + t.getClass().getName() + "] "
                     + t.getMessage(), t);
         }
 

@@ -40,7 +40,9 @@ import org.opennms.netmgt.config.syslogd.HideMessage;
 import org.opennms.netmgt.config.syslogd.UeiList;
 
 /**
- * <p>SyslogConnection class.</p>
+ * <p>
+ * SyslogConnection class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
@@ -64,17 +66,28 @@ public class SyslogConnection implements WaterfallCallable {
     private final HideMessage _hideMessages;
 
     /**
-     * <p>Constructor for SyslogConnection.</p>
+     * <p>
+     * Constructor for SyslogConnection.
+     * </p>
      *
-     * @param packet a {@link java.net.DatagramPacket} object.
-     * @param matchPattern a {@link java.lang.String} object.
-     * @param hostGroup a int.
-     * @param messageGroup a int.
-     * @param ueiList a {@link org.opennms.netmgt.config.syslogd.UeiList} object.
-     * @param hideMessages a {@link org.opennms.netmgt.config.syslogd.HideMessage} object.
-     * @param discardUei a {@link java.lang.String} object.
+     * @param packet
+     *            a {@link java.net.DatagramPacket} object.
+     * @param matchPattern
+     *            a {@link java.lang.String} object.
+     * @param hostGroup
+     *            a int.
+     * @param messageGroup
+     *            a int.
+     * @param ueiList
+     *            a {@link org.opennms.netmgt.config.syslogd.UeiList} object.
+     * @param hideMessages
+     *            a {@link org.opennms.netmgt.config.syslogd.HideMessage}
+     *            object.
+     * @param discardUei
+     *            a {@link java.lang.String} object.
      */
-    public SyslogConnection(final DatagramPacket packet, final String matchPattern, final int hostGroup, final int messageGroup, final UeiList ueiList, final HideMessage hideMessages, final String discardUei) {
+    public SyslogConnection(final DatagramPacket packet, final String matchPattern, final int hostGroup,
+            final int messageGroup, final UeiList ueiList, final HideMessage hideMessages, final String discardUei) {
         _packet = copyPacket(packet);
         _matchPattern = matchPattern;
         _hostGroup = hostGroup;
@@ -85,14 +98,17 @@ public class SyslogConnection implements WaterfallCallable {
     }
 
     /**
-     * <p>call</p>
+     * <p>
+     * call
+     * </p>
      */
     @Override
     public SyslogProcessor call() {
 
         ConvertToEvent re = null;
         try {
-            re = ConvertToEvent.make(_packet, _matchPattern, _hostGroup,  _messageGroup, _ueiList, _hideMessages, _discardUei);
+            re = ConvertToEvent.make(_packet, _matchPattern, _hostGroup, _messageGroup, _ueiList, _hideMessages,
+                                     _discardUei);
 
             LOG.debug("Sending received packet to the SyslogProcessor queue");
 
@@ -112,14 +128,9 @@ public class SyslogConnection implements WaterfallCallable {
         InetAddress addr = null;
         try {
             addr = InetAddress.getByAddress(packet.getAddress().getHostName(), packet.getAddress().getAddress());
-            DatagramPacket retPacket = new DatagramPacket(
-                                                          message,
-                                                          packet.getOffset(),
-                                                          packet.getLength(),
-                                                          addr,
-                                                          packet.getPort()
-                                                      );
-                                                      return retPacket;
+            DatagramPacket retPacket = new DatagramPacket(message, packet.getOffset(), packet.getLength(), addr,
+                                                          packet.getPort());
+            return retPacket;
         } catch (UnknownHostException e) {
             LOG.warn("unable to clone InetAddress object for {}", packet.getAddress());
         }

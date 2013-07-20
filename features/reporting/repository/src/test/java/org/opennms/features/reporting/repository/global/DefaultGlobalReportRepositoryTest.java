@@ -48,7 +48,9 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * <p>DefaultGlobalReportRepositoryTest class.</p>
+ * <p>
+ * DefaultGlobalReportRepositoryTest class.
+ * </p>
  * <p/>
  * Test the implementation of the default global repository.
  *
@@ -57,9 +59,9 @@ import static org.junit.Assert.assertEquals;
  * @version $Id: $
  * @since 1.8.1
  */
-//TODO Tak: check this test and handle remote-repository connections
+// TODO Tak: check this test and handle remote-repository connections
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/opennms/applicationContext-reportingRepositoryTest.xml"})
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingRepositoryTest.xml" })
 public class DefaultGlobalReportRepositoryTest {
 
     Logger logger = LoggerFactory.getLogger(DefaultGlobalReportRepositoryTest.class);
@@ -183,12 +185,14 @@ public class DefaultGlobalReportRepositoryTest {
         EasyMock.expect(m_mockRemoteRepositoryConfigDao.getRepositoryName("repositoryId")).andReturn("MockedDaoRepositoryName");
         EasyMock.replay(m_mockRemoteRepositoryConfigDao);
 
-        m_globalReportRepository = new DefaultGlobalReportRepository(m_mockRemoteRepositoryConfigDao, m_mockLocalReportRepository);
+        m_globalReportRepository = new DefaultGlobalReportRepository(m_mockRemoteRepositoryConfigDao,
+                                                                     m_mockLocalReportRepository);
     }
 
     @Test
     public void addReportRepositoryTest() {
-        assertEquals("Repository is initialized with one configured repository", 1, m_globalReportRepository.getRepositoryList().size());
+        assertEquals("Repository is initialized with one configured repository", 1,
+                     m_globalReportRepository.getRepositoryList().size());
         m_globalReportRepository.addReportRepository(m_mockLocalReportRepository);
         assertEquals("One repository is added", 2, m_globalReportRepository.getRepositoryList().size());
     }
@@ -206,13 +210,15 @@ public class DefaultGlobalReportRepositoryTest {
     @Test
     public void getEngineTest() {
         // TODO tak: improve this tests
-        //assertNotNull("Test to get online reports by repository id", m_globalReportRepository.getEngine("local_MockupReportReportId2"));
+        // assertNotNull("Test to get online reports by repository id",
+        // m_globalReportRepository.getEngine("local_MockupReportReportId2"));
     }
 
     @Test
     public void getOnlineReportsTest() {
         // TODO tak: improve this tests
-        //assertNotNull("Test to get online reports by repository id", m_globalReportRepository.getOnlineReports("local_MockupReportRepositoryId1"));
+        // assertNotNull("Test to get online reports by repository id",
+        // m_globalReportRepository.getOnlineReports("local_MockupReportRepositoryId1"));
     }
 
     @Ignore
@@ -225,49 +231,58 @@ public class DefaultGlobalReportRepositoryTest {
     @Test
     public void getReportServiceTest() {
         // TODO tak: improve this tests
-        // assertNotNull("Test to get report repository by id", m_globalReportRepository.getReportService("local_MockupReportReportId2"));
+        // assertNotNull("Test to get report repository by id",
+        // m_globalReportRepository.getReportService("local_MockupReportReportId2"));
     }
 
     @Ignore
     @Test
     public void getReportsTest() {
         // TODO tak: improve this tests
-        // assertNotNull("Test to get reports by repository id", m_globalReportRepository.getReports("local_MockupReportReportId2"));
+        // assertNotNull("Test to get reports by repository id",
+        // m_globalReportRepository.getReports("local_MockupReportReportId2"));
     }
 
     @Ignore
     @Test
     public void getRepositoryByIdTest() {
         // TODO tak: improve this tests
-//        assertNotNull(m_globalReportRepository);
-//        List<ReportRepository> repositoryList = m_globalReportRepository.getRepositoryList();
-//        assertEquals(1, repositoryList.size());
-//        for (ReportRepository repository : repositoryList) {
-//            assertEquals(repository.getRepositoryId(), m_globalReportRepository.getRepositoryById(repository.getRepositoryId()).getRepositoryId());
-//        }
-//        assertFalse(m_globalReportRepository.getRepositoryById("") != null);
-//
-//        logger.debug(m_globalReportRepository.getDisplayName("local_sample-report"));
-//        logger.debug("local repository : '{}'", m_globalReportRepository.getRepositoryById("cioreporting"));
-//        ReportRepository localRepo = m_globalReportRepository.getRepositoryById("local");
-//        logger.debug(localRepo.toString());
-//        BasicReportDefinition report = localRepo.getOnlineReports().get(0);
-//        logger.debug(report.toString());
-//        logger.debug(report.getId());
-//        report.setId("LOCAL_" + report.getId());
-//        assertEquals("LOCAL_local_sample-report", report.getId());
-//        assertFalse(("local_LOCAL_local_sample-report".equals(localRepo.getOnlineReports().get(0).getId())));
-//        assertEquals("local_sample-report", localRepo.getOnlineReports().get(0).getId());
+        // assertNotNull(m_globalReportRepository);
+        // List<ReportRepository> repositoryList =
+        // m_globalReportRepository.getRepositoryList();
+        // assertEquals(1, repositoryList.size());
+        // for (ReportRepository repository : repositoryList) {
+        // assertEquals(repository.getRepositoryId(),
+        // m_globalReportRepository.getRepositoryById(repository.getRepositoryId()).getRepositoryId());
+        // }
+        // assertFalse(m_globalReportRepository.getRepositoryById("") != null);
+        //
+        // logger.debug(m_globalReportRepository.getDisplayName("local_sample-report"));
+        // logger.debug("local repository : '{}'",
+        // m_globalReportRepository.getRepositoryById("cioreporting"));
+        // ReportRepository localRepo =
+        // m_globalReportRepository.getRepositoryById("local");
+        // logger.debug(localRepo.toString());
+        // BasicReportDefinition report = localRepo.getOnlineReports().get(0);
+        // logger.debug(report.toString());
+        // logger.debug(report.getId());
+        // report.setId("LOCAL_" + report.getId());
+        // assertEquals("LOCAL_local_sample-report", report.getId());
+        // assertFalse(("local_LOCAL_local_sample-report".equals(localRepo.getOnlineReports().get(0).getId())));
+        // assertEquals("local_sample-report",
+        // localRepo.getOnlineReports().get(0).getId());
     }
 
     @Ignore
     @Test
     public void getRepositoryListTest() {
         // TODO tak: improve this tests
-//        List<ReportRepository> repositoryList = m_globalReportRepository.getRepositoryList();
-//        assertEquals(2, repositoryList.size());
-//        assertEquals("local", repositoryList.get(0).getRepositoryId());
-//        assertEquals("cioreporting", repositoryList.get(1).getRepositoryId());
+        // List<ReportRepository> repositoryList =
+        // m_globalReportRepository.getRepositoryList();
+        // assertEquals(2, repositoryList.size());
+        // assertEquals("local", repositoryList.get(0).getRepositoryId());
+        // assertEquals("cioreporting",
+        // repositoryList.get(1).getRepositoryId());
     }
 
     public void setReportRepository(DefaultGlobalReportRepository globalReportRepository) {

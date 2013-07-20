@@ -33,7 +33,6 @@ import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * <P>
  * The NetworkInterface class is designed to be a well defined front for passing
@@ -42,7 +41,6 @@ import java.util.Map;
  * differences this class provides the basic information that a monitor can use
  * to determine the type of interface and its expected address type.
  * </P>
- *
  * <P>
  * In addition to providing typing and address information, the interface allows
  * for the monitor to associate key-value pairs with an interface. This can be
@@ -72,9 +70,12 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
     protected InetAddress m_address;
 
     /**
-     * <p>Constructor for InetNetworkInterface.</p>
+     * <p>
+     * Constructor for InetNetworkInterface.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      */
     public InetNetworkInterface(InetAddress address) {
         m_address = address;
@@ -107,7 +108,9 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
     }
 
     /**
-     * <p>getInetAddress</p>
+     * <p>
+     * getInetAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -117,18 +120,17 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * This method is used to return the object that is associated with the
      * property name. This is very similar to the java.util.Map get() method,
      * but requires that the lookup be performed using a String name. The object
      * may be of any instance that the monitor previous stored.
      * </P>
-     *
      * <P>
      * If there is no matching object for the property key, then a null pointer
      * is returned to the application.
      * </P>
+     *
      * @exception java.lang.IllegalArgumentException
      *                Thrown if the passed key is empty or null.
      * @see java.util.Map#get(java.lang.Object)
@@ -141,13 +143,12 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
 
         // Can't avoid this unchecked cast
         @SuppressWarnings("unchecked")
-        V retval = (V)rc;
+        V retval = (V) rc;
         return retval;
     }
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * This method is used to associate an object value with a textual key. If a
      * previous value was associated with the key then the old value is returned
@@ -155,6 +156,7 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
      * java.util.Map put() method. The only restriction is that the key must be
      * a java string instance.
      * </P>
+     *
      * @exception java.lang.IllegalArgumentException
      *                Thrown if the property name is empty or null.
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)

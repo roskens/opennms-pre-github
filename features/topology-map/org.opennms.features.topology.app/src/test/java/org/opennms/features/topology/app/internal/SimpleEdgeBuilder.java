@@ -8,61 +8,61 @@ import org.opennms.features.topology.api.topo.VertexRef;
 
 public class SimpleEdgeBuilder {
 
-	SimpleEdgeProvider m_edgeProvider;
-	AbstractEdge m_currentEdge;
+    SimpleEdgeProvider m_edgeProvider;
 
-	public SimpleEdgeBuilder(String namespace, String contributesTo) {
-		this(new SimpleEdgeProvider(namespace, contributesTo));
-	}
+    AbstractEdge m_currentEdge;
 
-	public SimpleEdgeBuilder(String namespace) {
-		this(new SimpleEdgeProvider(namespace));
-	}
+    public SimpleEdgeBuilder(String namespace, String contributesTo) {
+        this(new SimpleEdgeProvider(namespace, contributesTo));
+    }
 
-	public SimpleEdgeBuilder(SimpleEdgeProvider edgeProvider) {
-		m_edgeProvider = edgeProvider;
-	}
+    public SimpleEdgeBuilder(String namespace) {
+        this(new SimpleEdgeProvider(namespace));
+    }
 
-	public SimpleEdgeBuilder edge(String id, String srcNs, String srcId, String tgtNs, String tgtId) {
+    public SimpleEdgeBuilder(SimpleEdgeProvider edgeProvider) {
+        m_edgeProvider = edgeProvider;
+    }
 
-		VertexRef srcVertex = new AbstractVertexRef(srcNs, srcId);
-		VertexRef tgtVertex = new AbstractVertexRef(tgtNs, tgtId);
+    public SimpleEdgeBuilder edge(String id, String srcNs, String srcId, String tgtNs, String tgtId) {
 
-		SimpleConnector source = new SimpleConnector(ns(), srcId+"-"+id+"-connector", srcVertex);
-		SimpleConnector target = new SimpleConnector(ns(), tgtId+"-"+id+"-connector", tgtVertex);
+        VertexRef srcVertex = new AbstractVertexRef(srcNs, srcId);
+        VertexRef tgtVertex = new AbstractVertexRef(tgtNs, tgtId);
 
-		m_currentEdge = new AbstractEdge(ns(), id, source, target);
+        SimpleConnector source = new SimpleConnector(ns(), srcId + "-" + id + "-connector", srcVertex);
+        SimpleConnector target = new SimpleConnector(ns(), tgtId + "-" + id + "-connector", tgtVertex);
 
-		source.setEdge(m_currentEdge);
-		target.setEdge(m_currentEdge);
+        m_currentEdge = new AbstractEdge(ns(), id, source, target);
 
-		m_edgeProvider.add(m_currentEdge);
+        source.setEdge(m_currentEdge);
+        target.setEdge(m_currentEdge);
 
-		return this;
-	}
+        m_edgeProvider.add(m_currentEdge);
 
-	public SimpleEdgeBuilder label(String label) {
-		m_currentEdge.setLabel(label);
-		return this;
-	}
+        return this;
+    }
 
-	public SimpleEdgeBuilder tooltip(String tooltipText) {
-		m_currentEdge.setTooltipText(tooltipText);
-		return this;
-	}
+    public SimpleEdgeBuilder label(String label) {
+        m_currentEdge.setLabel(label);
+        return this;
+    }
 
-	public SimpleEdgeBuilder styleName(String styleName) {
-		m_currentEdge.setStyleName(styleName);
-		return this;
-	}
+    public SimpleEdgeBuilder tooltip(String tooltipText) {
+        m_currentEdge.setTooltipText(tooltipText);
+        return this;
+    }
 
-	public SimpleEdgeProvider get() {
-		return m_edgeProvider;
-	}
+    public SimpleEdgeBuilder styleName(String styleName) {
+        m_currentEdge.setStyleName(styleName);
+        return this;
+    }
 
-	private String ns() {
-		return m_edgeProvider.getEdgeNamespace();
-	}
+    public SimpleEdgeProvider get() {
+        return m_edgeProvider;
+    }
 
+    private String ns() {
+        return m_edgeProvider.getEdgeNamespace();
+    }
 
 }

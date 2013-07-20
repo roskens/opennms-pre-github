@@ -55,7 +55,9 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 /**
- * <p>JdbcWebNotificationRepository class.</p>
+ * <p>
+ * JdbcWebNotificationRepository class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -63,8 +65,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  */
 public class JdbcWebNotificationRepository implements WebNotificationRepository, InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(JdbcWebNotificationRepository.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(JdbcWebNotificationRepository.class);
 
     @Autowired
     SimpleJdbcTemplate m_simpleJdbcTemplate;
@@ -81,8 +82,8 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
 
             boolean first = true;
 
-            public void and(StringBuilder buf){
-                if(first){
+            public void and(StringBuilder buf) {
+                if (first) {
                     buf.append(" WHERE ");
                     first = false;
                 } else {
@@ -103,7 +104,7 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
             }
 
             @Override
-             public void visitLimit(int limit, int offset) throws RuntimeException {
+            public void visitLimit(int limit, int offset) throws RuntimeException {
                 buf.append(" LIMIT ").append(limit).append(" OFFSET ").append(offset);
 
             }
@@ -119,18 +120,19 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
         return buf.toString();
     }
 
-    private PreparedStatementSetter paramSetter(final NotificationCriteria criteria, final Object...args){
-        return new PreparedStatementSetter(){
+    private PreparedStatementSetter paramSetter(final NotificationCriteria criteria, final Object... args) {
+        return new PreparedStatementSetter() {
             int paramIndex = 1;
+
             @Override
             public void setValues(final PreparedStatement ps) throws SQLException {
-                for(Object arg : args){
+                for (Object arg : args) {
                     ps.setObject(paramIndex, arg);
                     paramIndex++;
                 }
-                criteria.visit(new BaseNotificationCriteriaVisitor<SQLException>(){
+                criteria.visit(new BaseNotificationCriteriaVisitor<SQLException>() {
                     @Override
-                    public void visitFilter(org.opennms.web.filter.Filter filter) throws SQLException{
+                    public void visitFilter(org.opennms.web.filter.Filter filter) throws SQLException {
                         LOG.info("filter sql: {}", filter.getSql());
                         paramIndex += filter.bindParam(ps, paramIndex);
                     }
@@ -140,7 +142,7 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
         };
     }
 
-    private static class NotificationMapper implements ParameterizedRowMapper<Notification>{
+    private static class NotificationMapper implements ParameterizedRowMapper<Notification> {
 
         @Override
         public Notification mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -161,10 +163,10 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
             return notice;
         }
 
-        private long getTimestamp(String field, ResultSet rs) throws SQLException{
-            if(rs.getTimestamp(field) != null){
+        private long getTimestamp(String field, ResultSet rs) throws SQLException {
+            if (rs.getTimestamp(field) != null) {
                 return rs.getTimestamp(field).getTime();
-            }else{
+            } else {
                 return 0;
             }
         }
@@ -181,7 +183,8 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
     /** {@inheritDoc} */
     @Override
     public Notification[] getMatchingNotifications(NotificationCriteria criteria) {
-        String sql = getSql("SELECT NOTIFICATIONS.*, SERVICE.SERVICENAME FROM NOTIFICATIONS LEFT OUTER JOIN SERVICE USING (SERVICEID)", criteria);
+        String sql = getSql("SELECT NOTIFICATIONS.*, SERVICE.SERVICENAME FROM NOTIFICATIONS LEFT OUTER JOIN SERVICE USING (SERVICEID)",
+                            criteria);
         return getNotifications(sql, paramSetter(criteria));
     }
 
@@ -193,7 +196,9 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
     /** {@inheritDoc} */
     @Override
     public Notification getNotification(int noticeId) {
-        Notification[] notifications = getMatchingNotifications(new NotificationCriteria(new NotificationIdFilter(noticeId)));
+        Notification[] notifications = getMatchingNotifications(new NotificationCriteria(
+                                                                                         new NotificationIdFilter(
+                                                                                                                  noticeId)));
         if (notifications.length < 1) {
             return null;
         } else {
@@ -214,16 +219,17 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
         return (number != null ? number.intValue() : 0);
     }
 
-    private <T> T queryForObject(String sql, PreparedStatementSetter setter, RowMapper<T> rowMapper) throws DataAccessException {
-        return DataAccessUtils.requiredSingleResult(jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rowMapper, 1)));
+    private <T> T queryForObject(String sql, PreparedStatementSetter setter, RowMapper<T> rowMapper)
+            throws DataAccessException {
+        return DataAccessUtils.requiredSingleResult(jdbc().query(sql, setter,
+                                                                 new RowMapperResultSetExtractor<T>(rowMapper, 1)));
     }
-
 
     private <T> List<T> queryForList(String sql, PreparedStatementSetter setter, ParameterizedRowMapper<T> rm) {
         return jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rm));
     }
 
-    private JdbcOperations jdbc(){
+    private JdbcOperations jdbc() {
         return m_simpleJdbcTemplate.getJdbcOperations();
     }
 }

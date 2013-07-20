@@ -52,6 +52,7 @@ import org.opennms.netmgt.config.SyslogdConfigFactory;
 
 public class SyslogMessageTest {
     private static final Logger LOG = LoggerFactory.getLogger(SyslogMessageTest.class);
+
     public SyslogMessageTest() throws Exception {
         InputStream stream = null;
         try {
@@ -87,17 +88,14 @@ public class SyslogMessageTest {
 
     @Test
     public void testCustomParserWithSimpleForwardingRegexAndSyslog21Message() throws Exception {
-        // see: http://searchdatacenter.techtarget.com/tip/Turn-aggregated-syslog-messages-into-OpenNMS-events
+        // see:
+        // http://searchdatacenter.techtarget.com/tip/Turn-aggregated-syslog-messages-into-OpenNMS-events
 
-        final InputStream stream = new ByteArrayInputStream(("<syslogd-configuration>" +
-                                                        "<configuration " +
-                                                        "syslog-port=\"10514\" " +
-                                                        "new-suspect-on-message=\"false\" " +
-                                                        "forwarding-regexp=\"^((.+?) (.*))\\r?\\n?$\" " +
-                                                        "matching-group-host=\"2\" " +
-                                                        "matching-group-message=\"3\" " +
-                                                        "discard-uei=\"DISCARD-MATCHING-MESSAGES\" " +
-                                                        "/></syslogd-configuration>").getBytes());
+        final InputStream stream = new ByteArrayInputStream(("<syslogd-configuration>" + "<configuration "
+                + "syslog-port=\"10514\" " + "new-suspect-on-message=\"false\" "
+                + "forwarding-regexp=\"^((.+?) (.*))\\r?\\n?$\" " + "matching-group-host=\"2\" "
+                + "matching-group-message=\"3\" " + "discard-uei=\"DISCARD-MATCHING-MESSAGES\" "
+                + "/></syslogd-configuration>").getBytes());
         final SyslogdConfigFactory factory = new SyslogdConfigFactory(stream);
         SyslogdConfigFactory.setInstance(factory);
 
@@ -130,28 +128,16 @@ public class SyslogMessageTest {
         final Locale startLocale = Locale.getDefault();
         try {
             Locale.setDefault(Locale.FRANCE);
-            final InputStream stream = new ByteArrayInputStream(
-               (
-                   "<?xml version=\"1.0\"?>\n" +
-                   "<syslogd-configuration>\n" +
-                   "    <configuration\n" +
-                   "            syslog-port=\"10514\"\n" +
-                   "            new-suspect-on-message=\"false\"\n" +
-                   "            parser=\"org.opennms.netmgt.syslogd.CustomSyslogParser\"\n" +
-                   "            forwarding-regexp=\"^((.+?) (.*))\\n?$\"\n" +
-                   "            matching-group-host=\"2\"\n" +
-                   "            matching-group-message=\"3\"\n" +
-                   "            discard-uei=\"DISCARD-MATCHING-MESSAGES\"\n" +
-                   "            />\n" +
-                   "\n" +
-                   "    <hideMessage>\n" +
-                   "        <hideMatch>\n" +
-                   "            <match type=\"substr\" expression=\"TEST\"/>\n" +
-                   "        </hideMatch>\n" +
-                   "    </hideMessage>\n" +
-                   "</syslogd-configuration>\n"
-                ).getBytes()
-            );
+            final InputStream stream = new ByteArrayInputStream(("<?xml version=\"1.0\"?>\n"
+                    + "<syslogd-configuration>\n" + "    <configuration\n" + "            syslog-port=\"10514\"\n"
+                    + "            new-suspect-on-message=\"false\"\n"
+                    + "            parser=\"org.opennms.netmgt.syslogd.CustomSyslogParser\"\n"
+                    + "            forwarding-regexp=\"^((.+?) (.*))\\n?$\"\n"
+                    + "            matching-group-host=\"2\"\n" + "            matching-group-message=\"3\"\n"
+                    + "            discard-uei=\"DISCARD-MATCHING-MESSAGES\"\n" + "            />\n" + "\n"
+                    + "    <hideMessage>\n" + "        <hideMatch>\n"
+                    + "            <match type=\"substr\" expression=\"TEST\"/>\n" + "        </hideMatch>\n"
+                    + "    </hideMessage>\n" + "</syslogd-configuration>\n").getBytes());
             final SyslogdConfigFactory factory = new SyslogdConfigFactory(stream);
             SyslogdConfigFactory.setInstance(factory);
             final SyslogParser parser = CustomSyslogParser.getParser("<0>Mar 14 17:10:25 petrus sudo:  cyrille : user NOT in sudoers ; TTY=pts/2 ; PWD=/home/cyrille ; USER=root ; COMMAND=/usr/bin/vi /etc/aliases");
@@ -173,7 +159,8 @@ public class SyslogMessageTest {
             assertEquals("petrus", message.getHostName());
             assertEquals("sudo", message.getProcessName());
             assertEquals(0, message.getProcessId().intValue());
-            assertEquals("cyrille : user NOT in sudoers ; TTY=pts/2 ; PWD=/home/cyrille ; USER=root ; COMMAND=/usr/bin/vi /etc/aliases", message.getMessage());
+            assertEquals("cyrille : user NOT in sudoers ; TTY=pts/2 ; PWD=/home/cyrille ; USER=root ; COMMAND=/usr/bin/vi /etc/aliases",
+                         message.getMessage());
         } finally {
             Locale.setDefault(startLocale);
         }

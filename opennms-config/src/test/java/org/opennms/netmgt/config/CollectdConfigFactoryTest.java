@@ -46,9 +46,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({
-    OpenNMSConfigurationExecutionListener.class
-})
+@TestExecutionListeners({ OpenNMSConfigurationExecutionListener.class })
 public class CollectdConfigFactoryTest {
 
     private CollectdConfigFactory m_factory;

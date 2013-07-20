@@ -30,26 +30,30 @@ package org.opennms.netmgt.collectd.wmi;
 
 /**
  * <P>
- * Encapsulates WmiExceptions and any other exceptions that occur during WMI
- * WPM collection and storage.
+ * Encapsulates WmiExceptions and any other exceptions that occur during WMI WPM
+ * collection and storage.
  * </P>
  *
  * @author <a href="mailto:matt.raykowski@gmail.com">Matt Raykowski</a>
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiCollectorException extends RuntimeException {
-        /**
+    /**
      *
      */
     private static final long serialVersionUID = 7123162374663054884L;
 
-        /**
-         * <p>Constructor for WmiCollectorException.</p>
-         *
-         * @param message a {@link java.lang.String} object.
-         * @param cause a {@link java.lang.Throwable} object.
-         */
-        public WmiCollectorException(final String message, final Throwable cause) {
-            super(message, cause);
-        }
+    /**
+     * <p>
+     * Constructor for WmiCollectorException.
+     * </p>
+     *
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
+     */
+    public WmiCollectorException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
 }

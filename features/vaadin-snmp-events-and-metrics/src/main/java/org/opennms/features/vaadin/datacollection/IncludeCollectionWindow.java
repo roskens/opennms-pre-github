@@ -67,13 +67,15 @@ public abstract class IncludeCollectionWindow extends Window implements Button.C
     /**
      * Instantiates a new include collection window.
      *
-     * @param dataCollectionConfigDao the data collection configuration DAO
-     * @param container the source list of elements
-     * @param wrapper the current selected value
+     * @param dataCollectionConfigDao
+     *            the data collection configuration DAO
+     * @param container
+     *            the source list of elements
+     * @param wrapper
+     *            the current selected value
      */
     public IncludeCollectionWindow(final DataCollectionConfigDao dataCollectionConfigDao,
-            final BeanItemContainer<IncludeCollectionWrapper> container,
-            final IncludeCollectionWrapper wrapper) {
+            final BeanItemContainer<IncludeCollectionWrapper> container, final IncludeCollectionWrapper wrapper) {
 
         setCaption("Include SystemDef/DataCollectionGroup");
         setModal(true);
@@ -109,7 +111,8 @@ public abstract class IncludeCollectionWindow extends Window implements Button.C
                     return;
                 }
                 // Get available fields.
-                // FIXME If a new dcGroup is added, DataCollectionConfigDao is not able to reach it.
+                // FIXME If a new dcGroup is added, DataCollectionConfigDao is
+                // not able to reach it.
                 List<String> values = selected.equals(IncludeCollectionWrapper.SYSTEM_DEF) ? dataCollectionConfigDao.getAvailableSystemDefs()
                     : dataCollectionConfigDao.getAvailableDataCollectionGroups();
                 // Remove already selected
@@ -161,8 +164,10 @@ public abstract class IncludeCollectionWindow extends Window implements Button.C
         form.setItemDataSource(new BeanItem<IncludeCollectionWrapper>(wrapper));
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {

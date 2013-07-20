@@ -38,7 +38,9 @@ import org.apache.commons.lang.StringUtils;
 import org.opennms.core.utils.WebSecurityUtils;
 
 /**
- * <p>CurrentOutageParseResponse class.</p>
+ * <p>
+ * CurrentOutageParseResponse class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -56,24 +58,31 @@ public class CurrentOutageParseResponse {
 
     static SuppressOutages m_suppress = new SuppressOutages();
 
-
     /**
-     * <p>ParseResponse</p>
+     * <p>
+     * ParseResponse
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      */
     public void ParseResponse(HttpServletRequest request) {
         return;
     }
 
     /**
-     * <p>findSelectedOutagesIDs</p>
+     * <p>
+     * findSelectedOutagesIDs
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param outageService a {@link org.opennms.web.svclayer.outage.OutageService} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param outageService
+     *            a {@link org.opennms.web.svclayer.outage.OutageService}
+     *            object.
      * @return a java$util$Map object.
      */
-    public static  Map<String,String> findSelectedOutagesIDs(HttpServletRequest request, OutageService outageService) {
+    public static Map<String, String> findSelectedOutagesIDs(HttpServletRequest request, OutageService outageService) {
         Map<String, String> myOutages = new HashMap<String, String>();
         @SuppressWarnings("unchecked")
         Enumeration<String> parameterNames = request.getParameterNames();
@@ -84,8 +93,9 @@ public class CurrentOutageParseResponse {
                 String outageId = StringUtils.substringAfter(parameterName, "chkbx_");
                 String parameterValue = request.getParameter(parameterName);
                 if (parameterValue.equals(SuppressOutageCheckBoxConstants.SELECTED)) {
-                    m_suppress.suppress(WebSecurityUtils.safeParseInt(outageId), request.getParameter("suppresstime_" + outageId),
-                            outageService, request.getRemoteUser().toString());
+                    m_suppress.suppress(WebSecurityUtils.safeParseInt(outageId),
+                                        request.getParameter("suppresstime_" + outageId), outageService,
+                                        request.getRemoteUser().toString());
 
                     myOutages.remove(outageId);
                 } else {

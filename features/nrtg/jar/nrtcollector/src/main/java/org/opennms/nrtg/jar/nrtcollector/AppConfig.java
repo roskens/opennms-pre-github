@@ -73,8 +73,10 @@ public class AppConfig {
 
     @Bean(name = "amqConnectionFactory")
     public ConnectionFactory amqConnectionFactory() {
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnectionFactory.DEFAULT_BROKER_URL);
-//        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://10.174.24.10:61616");
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+                                                                            ActiveMQConnectionFactory.DEFAULT_BROKER_URL);
+        // ConnectionFactory connectionFactory = new
+        // ActiveMQConnectionFactory("tcp://10.174.24.10:61616");
 
         return connectionFactory;
     }
@@ -112,14 +114,14 @@ public class AppConfig {
 
     @Bean(name = "snmpStrategy")
     public SnmpStrategy snmpStrategy() {
-    	return new Snmp4JStrategy();
+        return new Snmp4JStrategy();
     }
 
     @Bean(name = "snmpCollector")
     public SnmpProtocolCollector snmpCollector() {
-    	SnmpProtocolCollector snmpCollector = new SnmpProtocolCollector();
-    	snmpCollector.setSnmpStrategy(snmpStrategy());
-    	return snmpCollector;
+        SnmpProtocolCollector snmpCollector = new SnmpProtocolCollector();
+        snmpCollector.setSnmpStrategy(snmpStrategy());
+        return snmpCollector;
     }
 
     @Bean(name = "protocolCollectorRegistry")

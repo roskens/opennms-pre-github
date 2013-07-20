@@ -46,7 +46,9 @@ import org.opennms.web.svclayer.dao.CategoryConfigDao;
 import org.springframework.dao.DataRetrievalFailureException;
 
 /**
- * <p>DefaultCategoryConfigDao class.</p>
+ * <p>
+ * DefaultCategoryConfigDao class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:jason.aras@fastsearch.com">Jason Ayers</a>
@@ -57,54 +59,57 @@ import org.springframework.dao.DataRetrievalFailureException;
  */
 public class DefaultCategoryConfigDao implements CategoryConfigDao {
 
-	/**
-	 * <p>Constructor for DefaultCategoryConfigDao.</p>
-	 */
-	public DefaultCategoryConfigDao() {
-		try {
-			CategoryFactory.init();
-		} catch (MarshalException e) {
-			throw new DataRetrievalFailureException("Syntax error in categories file", e);
-		} catch (ValidationException e) {
-			throw new DataRetrievalFailureException("Validation error in categories file", e);
-		} catch (FileNotFoundException e) {
-			throw new DataRetrievalFailureException("Unable to locate categories file", e);
-		} catch (IOException e) {
-			throw new DataRetrievalFailureException("Error load categories file", e);
-		}
-	}
+    /**
+     * <p>
+     * Constructor for DefaultCategoryConfigDao.
+     * </p>
+     */
+    public DefaultCategoryConfigDao() {
+        try {
+            CategoryFactory.init();
+        } catch (MarshalException e) {
+            throw new DataRetrievalFailureException("Syntax error in categories file", e);
+        } catch (ValidationException e) {
+            throw new DataRetrievalFailureException("Validation error in categories file", e);
+        } catch (FileNotFoundException e) {
+            throw new DataRetrievalFailureException("Unable to locate categories file", e);
+        } catch (IOException e) {
+            throw new DataRetrievalFailureException("Error load categories file", e);
+        }
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public Category getCategoryByLabel(String label) {
-		return CategoryFactory.getInstance().getCategory(label);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Category getCategoryByLabel(String label) {
+        return CategoryFactory.getInstance().getCategory(label);
+    }
 
-	/**
-	 * <p>findAll</p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
-        @Override
-	public Collection<Category> findAll() {
+    /**
+     * <p>
+     * findAll
+     * </p>
+     *
+     * @return a {@link java.util.Collection} object.
+     */
+    @Override
+    public Collection<Category> findAll() {
 
-		List<Category> catList = new ArrayList<Category>();
-		Catinfo catInfo = CategoryFactory.getInstance().getConfig();
-		List<Categorygroup> catGroupList = catInfo.getCategorygroupCollection();
-		if (catGroupList != null) {
-			Iterator<Categorygroup> catIter = catGroupList.iterator();
-			while(catIter.hasNext()){
-				Categorygroup cg = catIter.next();
-				Categories cats = cg.getCategories();
-				Category[] categories = cats.getCategory();
-				int i = 0;
-				for (i = 0; i < categories.length; i++) {
-					catList.add(categories[i]);
-				}
-			}
-		}
-		return catList;
-	}
+        List<Category> catList = new ArrayList<Category>();
+        Catinfo catInfo = CategoryFactory.getInstance().getConfig();
+        List<Categorygroup> catGroupList = catInfo.getCategorygroupCollection();
+        if (catGroupList != null) {
+            Iterator<Categorygroup> catIter = catGroupList.iterator();
+            while (catIter.hasNext()) {
+                Categorygroup cg = catIter.next();
+                Categories cats = cg.getCategories();
+                Category[] categories = cats.getCategory();
+                int i = 0;
+                for (i = 0; i < categories.length; i++) {
+                    catList.add(categories[i]);
+                }
+            }
+        }
+        return catList;
+    }
 
 }
-

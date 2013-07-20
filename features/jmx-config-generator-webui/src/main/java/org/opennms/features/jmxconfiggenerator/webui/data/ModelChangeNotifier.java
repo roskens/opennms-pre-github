@@ -35,20 +35,25 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
  */
 public interface ModelChangeNotifier {
 
-	/**
-	 * Registers a ModelChangeListener.
-	 *
-	 * @param clazz The type of the Model.
-	 * @param listener The listener to get invoked if the model of type <code>clazz</code> changed.
-	 */
-	void registerListener(Class<?> clazz, ModelChangeListener<?> listener);
+    /**
+     * Registers a ModelChangeListener.
+     *
+     * @param clazz
+     *            The type of the Model.
+     * @param listener
+     *            The listener to get invoked if the model of type
+     *            <code>clazz</code> changed.
+     */
+    void registerListener(Class<?> clazz, ModelChangeListener<?> listener);
 
-	/**
-	 * Notify all observers, which has been registered to type
-	 * <code>clazz</codE> models.
-	 *
-	 * @param clazz the type of the model.
-	 * @param newModel the model which has been changed.
-	 */
-	void notifyObservers(Class<?> clazz, Object newModel);
+    /**
+     * Notify all observers, which has been registered to type
+     * <code>clazz</codE> models.
+     *
+     * @param clazz
+     *            the type of the model.
+     * @param newModel
+     *            the model which has been changed.
+     */
+    void notifyObservers(Class<?> clazz, Object newModel);
 }

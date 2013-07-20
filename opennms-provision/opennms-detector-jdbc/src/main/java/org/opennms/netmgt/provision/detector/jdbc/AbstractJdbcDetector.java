@@ -37,7 +37,9 @@ import org.opennms.netmgt.provision.support.Client;
 import org.opennms.netmgt.provision.support.ResponseValidator;
 
 /**
- * <p>Abstract AbstractJdbcDetector class.</p>
+ * <p>
+ * Abstract AbstractJdbcDetector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,15 +50,22 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
     protected static int DEFAULT_PORT = 3306;
 
     private String m_dbDriver = DBTools.DEFAULT_JDBC_DRIVER;
+
     private String m_user = DBTools.DEFAULT_DATABASE_USER;
+
     private String m_password = DBTools.DEFAULT_DATABASE_PASSWORD;
+
     private String m_url = DBTools.DEFAULT_URL;
 
     /**
-     * <p>Constructor for AbstractJdbcDetector.</p>
+     * <p>
+     * Constructor for AbstractJdbcDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     protected AbstractJdbcDetector(String serviceName, int port) {
         super(serviceName, port);
@@ -64,11 +73,14 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
     }
 
     /**
-     * <p>resultSetNotNull</p>
+     * <p>
+     * resultSetNotNull
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *         object.
      */
-    protected static ResponseValidator<JDBCResponse> resultSetNotNull(){
+    protected static ResponseValidator<JDBCResponse> resultSetNotNull() {
         return new ResponseValidator<JDBCResponse>() {
 
             @Override
@@ -90,16 +102,21 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
     }
 
     /**
-     * <p>setDbDriver</p>
+     * <p>
+     * setDbDriver
+     * </p>
      *
-     * @param dbDriver a {@link java.lang.String} object.
+     * @param dbDriver
+     *            a {@link java.lang.String} object.
      */
     public void setDbDriver(String dbDriver) {
         m_dbDriver = dbDriver;
     }
 
     /**
-     * <p>getDbDriver</p>
+     * <p>
+     * getDbDriver
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -108,16 +125,21 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
     }
 
     /**
-     * <p>setUser</p>
+     * <p>
+     * setUser
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      */
     public void setUser(String username) {
         m_user = username;
     }
 
     /**
-     * <p>getUser</p>
+     * <p>
+     * getUser
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -126,16 +148,21 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
     }
 
     /**
-     * <p>setPassword</p>
+     * <p>
+     * setPassword
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         m_password = password;
     }
 
     /**
-     * <p>getPassword</p>
+     * <p>
+     * getPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -144,16 +171,21 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
     }
 
     /**
-     * <p>setUrl</p>
+     * <p>
+     * setUrl
+     * </p>
      *
-     * @param url a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
      */
     public void setUrl(String url) {
         m_url = url;
     }
 
     /**
-     * <p>getUrl</p>
+     * <p>
+     * getUrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

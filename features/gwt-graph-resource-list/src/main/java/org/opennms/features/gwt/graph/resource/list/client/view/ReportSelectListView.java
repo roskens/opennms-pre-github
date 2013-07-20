@@ -34,20 +34,31 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface ReportSelectListView<T> {
 
-    public interface Presenter<T>{
+    public interface Presenter<T> {
         void onGraphButtonClick();
+
         void onClearSelectionButtonClick();
+
         void onSearchButtonClick();
+
         void onGraphAllButtonClick();
     }
 
     List<ResourceListItem> getSelectedReports();
+
     void setDataList(List<ResourceListItem> dataList);
+
     void setPresenter(Presenter<T> presenter);
+
     Widget asWidget();
+
     void clearAllSelections();
+
     void showWarning();
+
     List<ResourceListItem> getDataList();
+
     Widget searchPopupTarget();
+
     List<ResourceListItem> getAllReports();
 }

@@ -32,16 +32,19 @@ import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
 /**
- * This class implements the {@link AbstractDashletFactory} for the {@link UndefinedDashlet}.
+ * This class implements the {@link AbstractDashletFactory} for the
+ * {@link UndefinedDashlet}.
  *
  * @author Christian Pape
  */
 public class UndefinedDashletFactory extends AbstractDashletFactory {
 
     /**
-     * This method returns a new {@link Dashlet} instance for a given {@link DashletSpec}.
+     * This method returns a new {@link Dashlet} instance for a given
+     * {@link DashletSpec}.
      *
-     * @param dashletSpec the {@link DashletSpec} to use
+     * @param dashletSpec
+     *            the {@link DashletSpec} to use
      * @return the new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
@@ -55,8 +58,8 @@ public class UndefinedDashletFactory extends AbstractDashletFactory {
      */
     @Override
     public String getHelpContentHTML() {
-        return "This Dashlet will be used when a specified Dashlet \n" +
-                "cannot be found, for instance the configuration has it specified but the dashlet's bundle is \n" +
-                "stopped or not installed in Karaf.";
+        return "This Dashlet will be used when a specified Dashlet \n"
+                + "cannot be found, for instance the configuration has it specified but the dashlet's bundle is \n"
+                + "stopped or not installed in Karaf.";
     }
 }

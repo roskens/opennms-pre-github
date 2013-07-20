@@ -41,7 +41,6 @@ import org.junit.Test;
 import org.opennms.core.soa.support.MultivaluedMap;
 import org.opennms.core.soa.support.MultivaluedMapImpl;
 
-
 /**
  * MultivaluedMapTest
  *
@@ -81,7 +80,6 @@ public class MultivaluedMapTest {
 
         assertNull(map.get(key));
 
-
     }
 
     @Test
@@ -100,7 +98,6 @@ public class MultivaluedMapTest {
 
         assertNotSame(copy, map.get(key));
         assertEquals(copy, map.get(key));
-
 
     }
 

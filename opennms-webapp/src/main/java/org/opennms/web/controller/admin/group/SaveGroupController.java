@@ -41,7 +41,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>SaveGroupController class.</p>
+ * <p>
+ * SaveGroupController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -59,7 +61,8 @@ public class SaveGroupController extends AbstractController implements Initializ
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
 
         HttpSession user = request.getSession(false);
 
@@ -67,7 +70,6 @@ public class SaveGroupController extends AbstractController implements Initializ
             WebGroup newGroup = (WebGroup) user.getAttribute("group.modifyGroup.jsp");
             m_groupRepository.saveGroup(newGroup);
         }
-
 
         return new ModelAndView("redirect:/admin/userGroupView/groups/list.jsp");
     }

@@ -45,7 +45,9 @@ public class EventSourceReplacement implements ColumnChangeReplacement {
     private static final String m_replacement = "OpenNMS.Eventd";
 
     /**
-     * <p>Constructor for EventSourceReplacement.</p>
+     * <p>
+     * Constructor for EventSourceReplacement.
+     * </p>
      */
     public EventSourceReplacement() {
         // we do nothing!
@@ -58,7 +60,9 @@ public class EventSourceReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -68,7 +72,9 @@ public class EventSourceReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {

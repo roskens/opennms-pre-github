@@ -29,7 +29,9 @@
 package org.opennms.dashboard.client;
 
 /**
- * <p>SimplePageable interface.</p>
+ * <p>
+ * SimplePageable interface.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -37,9 +39,12 @@ package org.opennms.dashboard.client;
  */
 public interface SimplePageable {
     /**
-     * <p>adjustPage</p>
+     * <p>
+     * adjustPage
+     * </p>
      *
-     * @param direction a int.
+     * @param direction
+     *            a int.
      */
     public void adjustPage(int direction);
 }

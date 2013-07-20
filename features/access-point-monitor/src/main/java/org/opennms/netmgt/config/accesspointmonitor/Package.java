@@ -30,7 +30,9 @@ public class Package implements Serializable, Comparable<Package> {
     private static final long serialVersionUID = -988483514208208854L;
 
     private static final String[] OF_SPECIFICS = new String[0];
+
     private static final IpRange[] OF_INCLUDERANGES = new IpRange[0];
+
     private static final IpRange[] OF_EXCLUDERANGES = new IpRange[0];
 
     @XmlAttribute(name = "name", required = true)
@@ -228,10 +230,12 @@ public class Package implements Serializable, Comparable<Package> {
         return m_isDynamic;
     }
 
-    private static Class<? extends AccessPointPoller> findPollingStrategyClass(final Monitor monitor) throws ClassNotFoundException {
+    private static Class<? extends AccessPointPoller> findPollingStrategyClass(final Monitor monitor)
+            throws ClassNotFoundException {
         final Class<? extends AccessPointPoller> ps = Class.forName(monitor.getClassName()).asSubclass(AccessPointPoller.class);
         if (!AccessPointPoller.class.isAssignableFrom(ps)) {
-            throw new MarshallingResourceFailureException("The monitor for service: " + monitor.getService() + " class-name: " + monitor.getClassName() + " must implement PollingStrategy");
+            throw new MarshallingResourceFailureException("The monitor for service: " + monitor.getService()
+                    + " class-name: " + monitor.getClassName() + " must implement PollingStrategy");
         }
         return ps;
     }
@@ -245,7 +249,8 @@ public class Package implements Serializable, Comparable<Package> {
                 final Class<? extends AccessPointPoller> psClass = findPollingStrategyClass(monitor);
                 return (AccessPointPoller) psClass.newInstance();
             } catch (final ClassNotFoundException e) {
-                LOG.warn("Unable to location monitor for service: {} class-name: {}", monitor.getService(), monitor.getClassName(), e);
+                LOG.warn("Unable to location monitor for service: {} class-name: {}", monitor.getService(),
+                         monitor.getClassName(), e);
             } catch (IllegalAccessException e) {
                 LOG.warn(e.getMessage(), e);
             } catch (InstantiationException e) {
@@ -258,13 +263,10 @@ public class Package implements Serializable, Comparable<Package> {
 
     @Override
     public int compareTo(Package obj) {
-        return new CompareToBuilder()
-            .append(getName(), obj.getName())
-            .append(getFilter(), obj.getFilter())
-            .append(getSpecifics().toArray(OF_SPECIFICS), obj.getSpecifics().toArray(OF_SPECIFICS))
-            .append(getIncludeRanges().toArray(OF_INCLUDERANGES), obj.getIncludeRanges().toArray(OF_INCLUDERANGES))
-            .append(getExcludeRanges().toArray(OF_EXCLUDERANGES), obj.getExcludeRanges().toArray(OF_EXCLUDERANGES))
-            .toComparison();
+        return new CompareToBuilder().append(getName(), obj.getName()).append(getFilter(), obj.getFilter()).append(getSpecifics().toArray(OF_SPECIFICS),
+                                                                                                                   obj.getSpecifics().toArray(OF_SPECIFICS)).append(getIncludeRanges().toArray(OF_INCLUDERANGES),
+                                                                                                                                                                    obj.getIncludeRanges().toArray(OF_INCLUDERANGES)).append(getExcludeRanges().toArray(OF_EXCLUDERANGES),
+                                                                                                                                                                                                                             obj.getExcludeRanges().toArray(OF_EXCLUDERANGES)).toComparison();
     }
 
     @Override
@@ -285,13 +287,10 @@ public class Package implements Serializable, Comparable<Package> {
     public boolean equals(Object obj) {
         if (obj instanceof Package) {
             Package other = (Package) obj;
-            return new EqualsBuilder()
-                .append(getName(), other.getName())
-                .append(getFilter(), other.getFilter())
-                .append(getSpecifics().toArray(OF_SPECIFICS), other.getSpecifics().toArray(OF_SPECIFICS))
-                .append(getIncludeRanges().toArray(OF_INCLUDERANGES), other.getIncludeRanges().toArray(OF_INCLUDERANGES))
-                .append(getExcludeRanges().toArray(OF_EXCLUDERANGES), other.getExcludeRanges().toArray(OF_EXCLUDERANGES))
-                .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getFilter(), other.getFilter()).append(getSpecifics().toArray(OF_SPECIFICS),
+                                                                                                                        other.getSpecifics().toArray(OF_SPECIFICS)).append(getIncludeRanges().toArray(OF_INCLUDERANGES),
+                                                                                                                                                                           other.getIncludeRanges().toArray(OF_INCLUDERANGES)).append(getExcludeRanges().toArray(OF_EXCLUDERANGES),
+                                                                                                                                                                                                                                      other.getExcludeRanges().toArray(OF_EXCLUDERANGES)).isEquals();
         }
         return false;
     }

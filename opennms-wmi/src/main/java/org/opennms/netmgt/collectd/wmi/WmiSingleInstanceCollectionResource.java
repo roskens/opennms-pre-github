@@ -31,7 +31,9 @@ package org.opennms.netmgt.collectd.wmi;
 import org.opennms.netmgt.collectd.CollectionAgent;
 
 /**
- * <p>WmiSingleInstanceCollectionResource class.</p>
+ * <p>
+ * WmiSingleInstanceCollectionResource class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,16 +41,21 @@ import org.opennms.netmgt.collectd.CollectionAgent;
 public class WmiSingleInstanceCollectionResource extends WmiCollectionResource {
 
     /**
-     * <p>Constructor for WmiSingleInstanceCollectionResource.</p>
+     * <p>
+     * Constructor for WmiSingleInstanceCollectionResource.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
     public WmiSingleInstanceCollectionResource(final CollectionAgent agent) {
         super(agent);
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -58,7 +65,9 @@ public class WmiSingleInstanceCollectionResource extends WmiCollectionResource {
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

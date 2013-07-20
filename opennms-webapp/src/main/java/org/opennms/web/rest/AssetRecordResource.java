@@ -65,7 +65,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class AssetRecordResource extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AssetRecordResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssetRecordResource.class);
 
     @Context
     UriInfo m_uriInfo;
@@ -77,14 +77,18 @@ public class AssetRecordResource extends OnmsRestService {
     private EventProxy m_eventProxy;
 
     /**
-     * <p>getAssetRecord</p>
+     * <p>
+     * getAssetRecord
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public OnmsAssetRecord getAssetRecord(@PathParam("nodeCriteria") String nodeCriteria) {
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public OnmsAssetRecord getAssetRecord(@PathParam("nodeCriteria")
+    String nodeCriteria) {
         readLock();
         try {
             OnmsNode node = m_nodeDao.get(nodeCriteria);
@@ -98,15 +102,20 @@ public class AssetRecordResource extends OnmsRestService {
     }
 
     /**
-     * <p>updateAssetRecord</p>
+     * <p>
+     * updateAssetRecord
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param params
+     *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response updateAssetRecord(@PathParam("nodeCriteria") String nodeCriteria,  MultivaluedMapImpl params) {
+    public Response updateAssetRecord(@PathParam("nodeCriteria")
+    String nodeCriteria, MultivaluedMapImpl params) {
         writeLock();
 
         try {
@@ -117,14 +126,14 @@ public class AssetRecordResource extends OnmsRestService {
 
             OnmsAssetRecord assetRecord = getAssetRecord(node);
             if (assetRecord == null) {
-                throw getException(Status.BAD_REQUEST, "updateAssetRecord: Node " + node  + " could not update ");
+                throw getException(Status.BAD_REQUEST, "updateAssetRecord: Node " + node + " could not update ");
             }
             LOG.debug("updateAssetRecord: updating category {}", assetRecord);
             BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(assetRecord);
-            for(String key : params.keySet()) {
+            for (String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
                     String stringValue = params.getFirst(key);
-                    Object value = wrapper.convertIfNecessary(stringValue, (Class<?>)wrapper.getPropertyType(key));
+                    Object value = wrapper.convertIfNecessary(stringValue, (Class<?>) wrapper.getPropertyType(key));
                     wrapper.setPropertyValue(key, value);
                 }
             }
@@ -147,7 +156,6 @@ public class AssetRecordResource extends OnmsRestService {
     private OnmsAssetRecord getAssetRecord(OnmsNode node) {
         return node.getAssetRecord();
     }
-
 
     private void sendEvent(String uei, int nodeId) throws EventProxyException {
         EventBuilder bldr = new EventBuilder(uei, getClass().getName());

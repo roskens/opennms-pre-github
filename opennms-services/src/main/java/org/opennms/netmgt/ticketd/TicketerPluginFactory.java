@@ -32,7 +32,9 @@ import org.springframework.beans.factory.FactoryBean;
 import org.opennms.api.integration.ticketing.*;
 
 /**
- * <p>TicketerPluginFactory class.</p>
+ * <p>
+ * TicketerPluginFactory class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -43,22 +45,29 @@ import org.opennms.api.integration.ticketing.*;
 public class TicketerPluginFactory implements FactoryBean<Plugin> {
 
     private Class<? extends Plugin> m_pluginClass;
+
     private Plugin m_ticketerPlugin;
 
     /**
-     * <p>setPluginClass</p>
+     * <p>
+     * setPluginClass
+     * </p>
      *
-     * @param pluginClass a {@link java.lang.Class} object.
+     * @param pluginClass
+     *            a {@link java.lang.Class} object.
      */
     public void setPluginClass(Class<? extends Plugin> pluginClass) {
         m_pluginClass = pluginClass;
     }
 
     /**
-     * <p>getObject</p>
+     * <p>
+     * getObject
+     * </p>
      *
      * @return a {@link org.opennms.api.integration.ticketing.Plugin} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public Plugin getObject() throws Exception {
@@ -66,17 +75,20 @@ public class TicketerPluginFactory implements FactoryBean<Plugin> {
             throw new IllegalStateException("pluginClass must be set");
         }
         if (!Plugin.class.isAssignableFrom(m_pluginClass)) {
-            throw new IllegalArgumentException("The class "+m_pluginClass+" is not assignable to TicketPlugin class");
+            throw new IllegalArgumentException("The class " + m_pluginClass
+                    + " is not assignable to TicketPlugin class");
         }
         if (m_ticketerPlugin == null) {
-            m_ticketerPlugin = (Plugin)m_pluginClass.newInstance();
+            m_ticketerPlugin = (Plugin) m_pluginClass.newInstance();
         }
         return m_ticketerPlugin;
 
     }
 
     /**
-     * <p>getObjectType</p>
+     * <p>
+     * getObjectType
+     * </p>
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -86,7 +98,9 @@ public class TicketerPluginFactory implements FactoryBean<Plugin> {
     }
 
     /**
-     * <p>isSingleton</p>
+     * <p>
+     * isSingleton
+     * </p>
      *
      * @return a boolean.
      */

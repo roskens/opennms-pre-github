@@ -30,7 +30,9 @@ package org.opennms.netmgt.snmp;
 
 public class SnmpResult implements Comparable<SnmpResult> {
     private final SnmpObjId m_base;
+
     private final SnmpInstId m_instance;
+
     private final SnmpValue m_value;
 
     public SnmpResult(SnmpObjId base, SnmpInstId instance, SnmpValue value) {
@@ -57,19 +59,13 @@ public class SnmpResult implements Comparable<SnmpResult> {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("base", getBase())
-            .append("instance", getInstance())
-            .append("value", getValue())
-            .toString();
+        return new ToStringBuilder(this).append("base", getBase()).append("instance", getInstance()).append("value",
+                                                                                                            getValue()).toString();
     }
 
-	@Override
-	public int compareTo(SnmpResult other) {
-		return getAbsoluteInstance().compareTo(other.getAbsoluteInstance());
-	}
-
-
-
+    @Override
+    public int compareTo(SnmpResult other) {
+        return getAbsoluteInstance().compareTo(other.getAbsoluteInstance());
+    }
 
 }

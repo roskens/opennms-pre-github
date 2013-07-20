@@ -43,7 +43,9 @@ import org.opennms.protocols.jmx.connectors.Jsr160ConnectionFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 /**
- * <p>Jsr160Collector class.</p>
+ * <p>
+ * Jsr160Collector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,7 +53,9 @@ import org.opennms.protocols.jmx.connectors.Jsr160ConnectionFactory;
 public class Jsr160Collector extends JMXCollector {
 
     /**
-     * <p>Constructor for Jsr160Collector.</p>
+     * <p>
+     * Constructor for Jsr160Collector.
+     * </p>
      */
     public Jsr160Collector() {
         super();
@@ -59,9 +63,11 @@ public class Jsr160Collector extends JMXCollector {
         setUseFriendlyName(true);
     }
 
-    /* Return a ConnectionWrapper object using the factory.
-     *
-     * @see org.opennms.netmgt.collectd.JMXCollector#getMBeanServerConnection(java.util.Map, java.net.InetAddress)
+    /*
+     * Return a ConnectionWrapper object using the factory.
+     * @see
+     * org.opennms.netmgt.collectd.JMXCollector#getMBeanServerConnection(java
+     * .util.Map, java.net.InetAddress)
      */
     /** {@inheritDoc} */
     @Override

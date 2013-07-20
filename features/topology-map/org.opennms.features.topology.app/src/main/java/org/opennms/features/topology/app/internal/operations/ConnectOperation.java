@@ -38,15 +38,15 @@ public class ConnectOperation implements Operation {
 
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
-    	String ns = operationContext.getGraphContainer().getBaseTopology().getVertexNamespace();
-    	if(targets != null && targets.size() > 1) {
-    		VertexRef sourceRef = targets.get(0);
-    		VertexRef targetRef = targets.get(1);
-    		if (ns.equals(sourceRef.getNamespace()) && ns.equals(targetRef.getNamespace()))  {
-    			operationContext.getGraphContainer().getBaseTopology().connectVertices(sourceRef, targetRef);
-    		}
-    	}
-    	return null;
+        String ns = operationContext.getGraphContainer().getBaseTopology().getVertexNamespace();
+        if (targets != null && targets.size() > 1) {
+            VertexRef sourceRef = targets.get(0);
+            VertexRef targetRef = targets.get(1);
+            if (ns.equals(sourceRef.getNamespace()) && ns.equals(targetRef.getNamespace())) {
+                operationContext.getGraphContainer().getBaseTopology().connectVertices(sourceRef, targetRef);
+            }
+        }
+        return null;
     }
 
     @Override

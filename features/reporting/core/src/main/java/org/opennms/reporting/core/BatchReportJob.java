@@ -38,7 +38,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
- * <p>BatchReportJob class.</p>
+ * <p>
+ * BatchReportJob class.
+ * </p>
  */
 public class BatchReportJob extends QuartzJobBean {
 
@@ -46,42 +48,41 @@ public class BatchReportJob extends QuartzJobBean {
 
     /** {@inheritDoc} */
     @Override
-    protected void executeInternal(JobExecutionContext jobContext)
-            throws JobExecutionException {
+    protected void executeInternal(JobExecutionContext jobContext) throws JobExecutionException {
 
         JobDataMap dataMap = jobContext.getMergedJobDataMap();
 
         // TODO this needs the reportServiceName in the criteria
 
-//
-//        ReportServiceLocator reportServiceLocator =
-//            (ReportServiceLocator)m_context.getBean("reportServiceLocator");
-//
-//        ReportService reportService = reportServiceLocator.getReportService((String)dataMap.get("reportServiceName"));
-//
-//        reportService.run(criteria.getReportParms(),
-//                          deliveryOptions,
-//                          (String)dataMap.get("reportId"));
+        //
+        // ReportServiceLocator reportServiceLocator =
+        // (ReportServiceLocator)m_context.getBean("reportServiceLocator");
+        //
+        // ReportService reportService =
+        // reportServiceLocator.getReportService((String)dataMap.get("reportServiceName"));
+        //
+        // reportService.run(criteria.getReportParms(),
+        // deliveryOptions,
+        // (String)dataMap.get("reportId"));
 
-        ReportWrapperService reportWrapperService =
-            (ReportWrapperService)m_context.getBean("reportWrapperService");
+        ReportWrapperService reportWrapperService = (ReportWrapperService) m_context.getBean("reportWrapperService");
 
-        reportWrapperService.run((ReportParameters) dataMap.get("criteria"),
-                                 (ReportMode) dataMap.get("mode"),
-                                 (DeliveryOptions) dataMap.get("deliveryOptions"),
-                                 (String)dataMap.get("reportId"));
+        reportWrapperService.run((ReportParameters) dataMap.get("criteria"), (ReportMode) dataMap.get("mode"),
+                                 (DeliveryOptions) dataMap.get("deliveryOptions"), (String) dataMap.get("reportId"));
 
     }
 
     /**
-     * <p>setApplicationContext</p>
+     * <p>
+     * setApplicationContext
+     * </p>
      *
-     * @param applicationContext a {@link org.springframework.context.ApplicationContext} object.
+     * @param applicationContext
+     *            a {@link org.springframework.context.ApplicationContext}
+     *            object.
      */
     public void setApplicationContext(ApplicationContext applicationContext) {
         m_context = applicationContext;
     }
-
-
 
 }

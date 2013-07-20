@@ -28,13 +28,13 @@
 
 package org.opennms.netmgt.snmp;
 
-
 public interface SnmpV3TrapBuilder extends SnmpV2TrapBuilder {
 
-    void send(String destAddr, int destPort, int securityLevel, String securityname,
-    		String authPassPhrase, String authProtocol, String privPassPhrase, String privprotocol) throws Exception;
+    void send(String destAddr, int destPort, int securityLevel, String securityname, String authPassPhrase,
+            String authProtocol, String privPassPhrase, String privprotocol) throws Exception;
 
-    SnmpValue[] sendInform(String destAddr, int destPort, int timeout, int retries, int securityLevel, String securityname,
-    		String authPassPhrase, String authProtocol, String privPassPhrase, String privprotocol) throws Exception;
+    SnmpValue[] sendInform(String destAddr, int destPort, int timeout, int retries, int securityLevel,
+            String securityname, String authPassPhrase, String authProtocol, String privPassPhrase, String privprotocol)
+            throws Exception;
 
 }

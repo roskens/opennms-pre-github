@@ -22,41 +22,36 @@ import java.util.Enumeration;
 import java.util.Collections;
 import java.util.Map;
 
-public final class FilterConfigImpl
-    implements FilterConfig
-{
+public final class FilterConfigImpl implements FilterConfig {
     private final String name;
+
     private final ServletContext context;
+
     private final Map<String, String> initParams;
 
-    public FilterConfigImpl(String name, ServletContext context, Map<String, String> initParams)
-    {
+    public FilterConfigImpl(String name, ServletContext context, Map<String, String> initParams) {
         this.name = name;
         this.context = context;
         this.initParams = initParams;
     }
 
     @Override
-    public String getFilterName()
-    {
+    public String getFilterName() {
         return this.name;
     }
 
     @Override
-    public ServletContext getServletContext()
-    {
+    public ServletContext getServletContext() {
         return this.context;
     }
 
     @Override
-    public String getInitParameter(String name)
-    {
+    public String getInitParameter(String name) {
         return this.initParams.get(name);
     }
 
     @Override
-    public Enumeration<String> getInitParameterNames()
-    {
+    public Enumeration<String> getInitParameterNames() {
         return Collections.enumeration(this.initParams.keySet());
     }
 }

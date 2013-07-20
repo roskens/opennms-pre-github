@@ -52,8 +52,6 @@ import org.apache.xmlrpc.XmlRpcHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 /**
  * <p>
  * Mock XML-RPC server that anticipates specific XML-RPC method calls.
@@ -65,7 +63,7 @@ import org.slf4j.LoggerFactory;
 public class XmlrpcAnticipator implements XmlRpcHandler {
     /**
      * Represents an XML-RPC call as a String method name and a Vector of
-     * method arguments.  Note: the equals method looks for Hashtables in the
+     * method arguments. Note: the equals method looks for Hashtables in the
      * Vector and ignores comparisons on the values for any entries with a key
      * of "description".
      *
@@ -73,6 +71,7 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
      */
     public class XmlrpcCall {
         private String m_method;
+
         private Vector<Object> m_vector;
 
         public XmlrpcCall(String method, Vector<Object> vector) {
@@ -88,23 +87,22 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
             final StringBuffer b = new StringBuffer();
             b.append("Method: " + m_method + "\n");
             for (final Object o : m_vector) {
-                b.append("Parameter (" + o.getClass().getName() + ") "+ o + "\n");
+                b.append("Parameter (" + o.getClass().getName() + ") " + o + "\n");
             }
             return b.toString();
         }
 
         @Override
         public int hashCode() {
-            return new HashCodeBuilder(9, 3)
-                .append(m_method)
-                .append(m_vector)
-                .toHashCode();
+            return new HashCodeBuilder(9, 3).append(m_method).append(m_vector).toHashCode();
         }
 
         @Override
         public boolean equals(final Object o) {
-            if (o == null) return false;
-            if (!(o instanceof XmlrpcCall)) return false;
+            if (o == null)
+                return false;
+            if (!(o instanceof XmlrpcCall))
+                return false;
             final XmlrpcCall c = (XmlrpcCall) o;
             if (!m_method.equals(c.m_method)) {
                 return false;
@@ -118,7 +116,7 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
                 if (!a.getClass().getName().equals(b.getClass().getName())) {
                     return false;
                 }
-                if (a instanceof Hashtable<?,?>) {
+                if (a instanceof Hashtable<?, ?>) {
                     if (!hashtablesMatchIgnoringDescriptionKeys(a, b)) {
                         return false;
                     }
@@ -201,10 +199,8 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         m_logger.info("XmlrpcAnticipator running on port number " + m_port);
     }
 
-
     /**
-     *  Stop listening for OpenNMS events.
-     *
+     * Stop listening for OpenNMS events.
      */
     public void shutdown() throws IOException {
         if (m_webServer == null) {
@@ -244,22 +240,23 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
     }
 
     private void sendCheckCall(Socket s) throws IOException {
-    	OutputStream out = null;
-    	PrintWriter p = null;
-    	try {
-    		out = s.getOutputStream();
-    		p = new PrintWriter(out);
-	        p.print("POST / HTTP/1.0\r\n");
-	        p.print("Connection: close\r\n");
-	        p.print("\r\n");
+        OutputStream out = null;
+        PrintWriter p = null;
+        try {
+            out = s.getOutputStream();
+            p = new PrintWriter(out);
+            p.print("POST / HTTP/1.0\r\n");
+            p.print("Connection: close\r\n");
+            p.print("\r\n");
 
-	        p.print("<?xml.version=\"1.0\"?><methodCall><methodName>" + CHECK_METHOD_NAME + "</methodName><params></params></methodCall>\r\n");
-    	} finally {
-    		IOUtils.closeQuietly(p);
-    		IOUtils.closeQuietly(out);
-    		out = null;
-    		p = null;
-    	}
+            p.print("<?xml.version=\"1.0\"?><methodCall><methodName>" + CHECK_METHOD_NAME
+                    + "</methodName><params></params></methodCall>\r\n");
+        } finally {
+            IOUtils.closeQuietly(p);
+            IOUtils.closeQuietly(out);
+            out = null;
+            p = null;
+        }
     }
 
     private void waitForShutdown() throws IOException {
@@ -289,7 +286,7 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
 
     public void anticipateCall(String method, Object... args) {
         Vector<Object> params = new Vector<Object>();
-        for(Object arg: args) {
+        for (Object arg : args) {
             params.add(arg);
         }
         m_anticipated.add(new XmlrpcCall(method, params));
@@ -300,8 +297,7 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
     @Override
     public Object execute(String method, Vector vector) {
         if (m_webServer == null) {
-            String message = "Hey!  We aren't initialized (anymore)!  "
-                + "We should not be receiving execute calls!";
+            String message = "Hey!  We aren't initialized (anymore)!  " + "We should not be receiving execute calls!";
             System.err.println(message);
             System.err.println(new XmlrpcCall(method, vector));
             vector.add(message);
@@ -346,13 +342,11 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         StringBuffer problems = new StringBuffer();
 
         if (m_anticipated.size() > 0) {
-            problems.append(m_anticipated.size() +
-            " expected calls still outstanding:\n");
+            problems.append(m_anticipated.size() + " expected calls still outstanding:\n");
             problems.append(listCalls("\t", m_anticipated));
         }
         if (m_unanticipated.size() > 0) {
-            problems.append(m_unanticipated.size() +
-            " unanticipated calls received:\n");
+            problems.append(m_unanticipated.size() + " unanticipated calls received:\n");
             problems.append(listCalls("\t", m_unanticipated));
         }
 
@@ -363,8 +357,7 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         }
     }
 
-    private static String listCalls(String prefix,
-            Collection<XmlrpcCall> calls) {
+    private static String listCalls(String prefix, Collection<XmlrpcCall> calls) {
         StringBuffer b = new StringBuffer();
 
         for (Iterator<XmlrpcCall> it = calls.iterator(); it.hasNext();) {

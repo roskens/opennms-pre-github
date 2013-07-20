@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.Serializable;
@@ -55,57 +55,56 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="correlation")
+@XmlRootElement(name = "correlation")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@ValidateUsing("event.xsd")
+// @ValidateUsing("event.xsd")
 public class Correlation implements Serializable {
-	private static final long serialVersionUID = 7883869597194555535L;
+    private static final long serialVersionUID = 7883869597194555535L;
 
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
-	/**
+    /**
      * The state determines if event is
-     *  correlated
+     * correlated
      */
-	@XmlAttribute(name="state")
+    @XmlAttribute(name = "state")
     private java.lang.String _state = "off";
 
     /**
      * Field _path.
      */
-	@XmlAttribute(name="path")
+    @XmlAttribute(name = "path")
     private java.lang.String _path = "suppressDuplicates".intern();
 
     /**
      * A cancelling UEI for this event
      */
-	@XmlElement(name="cuei")
+    @XmlElement(name = "cuei")
     private java.util.List<java.lang.String> _cueiList;
 
     /**
      * The minimum count for this event
      */
-	@XmlElement(name="cmin")
+    @XmlElement(name = "cmin")
     private java.lang.String _cmin;
 
     /**
      * The maximum count for this event
      */
-	@XmlElement(name="cmax")
+    @XmlElement(name = "cmax")
     private java.lang.String _cmax;
 
     /**
      * The correlation time for this event
      */
-	@XmlElement(name="ctime")
+    @XmlElement(name = "ctime")
     private java.lang.String _ctime;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Correlation() {
         super();
@@ -114,36 +113,28 @@ public class Correlation implements Serializable {
         this._cueiList = new java.util.ArrayList<java.lang.String>();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
-     *
-     *
      * @param vCuei
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addCuei(
-            final java.lang.String vCuei)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addCuei(final java.lang.String vCuei) throws java.lang.IndexOutOfBoundsException {
         this._cueiList.add(vCuei);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vCuei
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addCuei(
-            final int index,
-            final java.lang.String vCuei)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addCuei(final int index, final java.lang.String vCuei) throws java.lang.IndexOutOfBoundsException {
         this._cueiList.add(index, vCuei);
     }
 
@@ -151,10 +142,9 @@ public class Correlation implements Serializable {
      * Method enumerateCuei.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
-    public java.util.Enumeration<java.lang.String> enumerateCuei(
-    ) {
+    public java.util.Enumeration<java.lang.String> enumerateCuei() {
         return java.util.Collections.enumeration(this._cueiList);
     }
 
@@ -164,8 +154,7 @@ public class Correlation implements Serializable {
      *
      * @return the value of field 'Cmax'.
      */
-    public java.lang.String getCmax(
-    ) {
+    public java.lang.String getCmax() {
         return this._cmax;
     }
 
@@ -175,8 +164,7 @@ public class Correlation implements Serializable {
      *
      * @return the value of field 'Cmin'.
      */
-    public java.lang.String getCmin(
-    ) {
+    public java.lang.String getCmin() {
         return this._cmin;
     }
 
@@ -187,8 +175,7 @@ public class Correlation implements Serializable {
      *
      * @return the value of field 'Ctime'.
      */
-    public java.lang.String getCtime(
-    ) {
+    public java.lang.String getCtime() {
         return this._ctime;
     }
 
@@ -196,16 +183,16 @@ public class Correlation implements Serializable {
      * Method getCuei.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the java.lang.String at the given index
      */
-    public java.lang.String getCuei(
-            final int index)
-    throws java.lang.IndexOutOfBoundsException {
+    public java.lang.String getCuei(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._cueiList.size()) {
-            throw new IndexOutOfBoundsException("getCuei: Index value '" + index + "' not in range [0.." + (this._cueiList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getCuei: Index value '" + index + "' not in range [0.."
+                    + (this._cueiList.size() - 1) + "]");
         }
 
         return (java.lang.String) _cueiList.get(index);
@@ -213,15 +200,16 @@ public class Correlation implements Serializable {
 
     /**
      * Method getCuei.Returns the contents of the collection in an
-     * Array.  <p>Note:  Just in case the collection contents are
-     * changing in another thread, we pass a 0-length Array of the
-     * correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public java.lang.String[] getCuei(
-    ) {
+    public java.lang.String[] getCuei() {
         java.lang.String[] array = new java.lang.String[0];
         return (java.lang.String[]) this._cueiList.toArray(array);
     }
@@ -233,8 +221,7 @@ public class Correlation implements Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<java.lang.String> getCueiCollection(
-    ) {
+    public java.util.List<java.lang.String> getCueiCollection() {
         return this._cueiList;
     }
 
@@ -243,8 +230,7 @@ public class Correlation implements Serializable {
      *
      * @return the size of this collection
      */
-    public int getCueiCount(
-    ) {
+    public int getCueiCount() {
         return this._cueiList.size();
     }
 
@@ -253,20 +239,18 @@ public class Correlation implements Serializable {
      *
      * @return the value of field 'Path'.
      */
-    public java.lang.String getPath(
-    ) {
+    public java.lang.String getPath() {
         return this._path;
     }
 
     /**
      * Returns the value of field 'state'. The field 'state' has
      * the following description: The state determines if event is
-     *  correlated
+     * correlated
      *
      * @return the value of field 'State'.
      */
-    public java.lang.String getState(
-    ) {
+    public java.lang.String getState() {
         return this._state;
     }
 
@@ -274,17 +258,15 @@ public class Correlation implements Serializable {
      * Method iterateCuei.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
-    public java.util.Iterator<java.lang.String> iterateCuei(
-    ) {
+    public java.util.Iterator<java.lang.String> iterateCuei() {
         return this._cueiList.iterator();
     }
 
     /**
      */
-    public void removeAllCuei(
-    ) {
+    public void removeAllCuei() {
         this._cueiList.clear();
     }
 
@@ -294,8 +276,7 @@ public class Correlation implements Serializable {
      * @param vCuei
      * @return true if the object was removed from the collection.
      */
-    public boolean removeCuei(
-            final java.lang.String vCuei) {
+    public boolean removeCuei(final java.lang.String vCuei) {
         boolean removed = _cueiList.remove(vCuei);
         return removed;
     }
@@ -306,8 +287,7 @@ public class Correlation implements Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public java.lang.String removeCueiAt(
-            final int index) {
+    public java.lang.String removeCueiAt(final int index) {
         java.lang.Object obj = this._cueiList.remove(index);
         return (java.lang.String) obj;
     }
@@ -316,10 +296,10 @@ public class Correlation implements Serializable {
      * Sets the value of field 'cmax'. The field 'cmax' has the
      * following description: The maximum count for this event
      *
-     * @param cmax the value of field 'cmax'.
+     * @param cmax
+     *            the value of field 'cmax'.
      */
-    public void setCmax(
-            final java.lang.String cmax) {
+    public void setCmax(final java.lang.String cmax) {
         this._cmax = cmax;
     }
 
@@ -327,10 +307,10 @@ public class Correlation implements Serializable {
      * Sets the value of field 'cmin'. The field 'cmin' has the
      * following description: The minimum count for this event
      *
-     * @param cmin the value of field 'cmin'.
+     * @param cmin
+     *            the value of field 'cmin'.
      */
-    public void setCmin(
-            final java.lang.String cmin) {
+    public void setCmin(final java.lang.String cmin) {
         this._cmin = cmin;
     }
 
@@ -338,45 +318,39 @@ public class Correlation implements Serializable {
      * Sets the value of field 'ctime'. The field 'ctime' has the
      * following description: The correlation time for this event
      *
-     * @param ctime the value of field 'ctime'.
+     * @param ctime
+     *            the value of field 'ctime'.
      */
-    public void setCtime(
-            final java.lang.String ctime) {
+    public void setCtime(final java.lang.String ctime) {
         this._ctime = ctime;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vCuei
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setCuei(
-            final int index,
-            final java.lang.String vCuei)
-    throws java.lang.IndexOutOfBoundsException {
+    public void setCuei(final int index, final java.lang.String vCuei) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._cueiList.size()) {
-            throw new IndexOutOfBoundsException("setCuei: Index value '" + index + "' not in range [0.." + (this._cueiList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setCuei: Index value '" + index + "' not in range [0.."
+                    + (this._cueiList.size() - 1) + "]");
         }
 
         this._cueiList.set(index, vCuei);
     }
 
     /**
-     *
-     *
      * @param vCueiArray
      */
-    public void setCuei(
-            final java.lang.String[] vCueiArray) {
-        //-- copy array
+    public void setCuei(final java.lang.String[] vCueiArray) {
+        // -- copy array
         _cueiList.clear();
 
         for (int i = 0; i < vCueiArray.length; i++) {
-                this._cueiList.add(vCueiArray[i]);
+            this._cueiList.add(vCueiArray[i]);
         }
     }
 
@@ -384,10 +358,10 @@ public class Correlation implements Serializable {
      * Sets the value of '_cueiList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vCueiList the Vector to copy.
+     * @param vCueiList
+     *            the Vector to copy.
      */
-    public void setCuei(
-            final java.util.List<java.lang.String> vCueiList) {
+    public void setCuei(final java.util.List<java.lang.String> vCueiList) {
         // copy vector
         this._cueiList.clear();
 
@@ -397,46 +371,42 @@ public class Correlation implements Serializable {
     /**
      * Sets the value of '_cueiList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param cueiList the Vector to set.
+     * @deprecated
+     * @param cueiList
+     *            the Vector to set.
      */
-    public void setCueiCollection(
-            final java.util.List<java.lang.String> cueiList) {
+    public void setCueiCollection(final java.util.List<java.lang.String> cueiList) {
         this._cueiList = cueiList;
     }
 
     /**
      * Sets the value of field 'path'.
      *
-     * @param path the value of field 'path'.
+     * @param path
+     *            the value of field 'path'.
      */
-    public void setPath(
-            final java.lang.String path) {
+    public void setPath(final java.lang.String path) {
         this._path = path.intern();
     }
 
     /**
      * Sets the value of field 'state'. The field 'state' has the
      * following description: The state determines if event is
-     *  correlated
+     * correlated
      *
-     * @param state the value of field 'state'.
+     * @param state
+     *            the value of field 'state'.
      */
-    public void setState(
-            final java.lang.String state) {
+    public void setState(final java.lang.String state) {
         this._state = state;
     }
 
-        @Override
+    @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("state", _state)
-    		.append("path", _path)
-    		.append("cuei", _cueiList)
-    		.append("cmin", _cmin)
-    		.append("cmax", _cmax)
-    		.append("ctime", _ctime)
-    		.toString();
+        return new ToStringBuilder(this).append("state", _state).append("path", _path).append("cuei", _cueiList).append("cmin",
+                                                                                                                        _cmin).append("cmax",
+                                                                                                                                      _cmax).append("ctime",
+                                                                                                                                                    _ctime).toString();
     }
 }

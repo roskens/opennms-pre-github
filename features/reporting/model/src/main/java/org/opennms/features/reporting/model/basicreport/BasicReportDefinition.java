@@ -52,7 +52,7 @@ public interface BasicReportDefinition {
 
     public abstract void setOnline(boolean online);
 
-    public abstract boolean getAllowAccess ();
+    public abstract boolean getAllowAccess();
 
     public abstract void setAllowAccess(boolean allowAccess);
 }

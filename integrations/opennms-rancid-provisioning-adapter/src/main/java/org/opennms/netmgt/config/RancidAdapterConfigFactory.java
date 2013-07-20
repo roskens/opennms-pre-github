@@ -43,7 +43,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>RancidAdapterConfigFactory class.</p>
+ * <p>
+ * RancidAdapterConfigFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -66,7 +68,6 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
      */
     private long m_currentVersion = -1L;
 
-
     /**
      * constructor constructor
      *
@@ -76,19 +77,26 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @param currentVersion a long.
-     * @param reader a {@link java.io.InputStream} object.
-     * @param localServer a {@link java.lang.String} object.
-     * @param verifyServer a boolean.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param currentVersion
+     *            a long.
+     * @param reader
+     *            a {@link java.io.InputStream} object.
+     * @param localServer
+     *            a {@link java.lang.String} object.
+     * @param verifyServer
+     *            a boolean.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public RancidAdapterConfigFactory(long currentVersion, InputStream reader, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
+    public RancidAdapterConfigFactory(long currentVersion, InputStream reader, String localServer, boolean verifyServer)
+            throws MarshalException, ValidationException, IOException {
         super(reader, localServer, verifyServer);
         m_currentVersion = currentVersion;
     }
-
 
     /**
      * Load the config from the default config file and create the singleton
@@ -100,9 +108,12 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -119,7 +130,9 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
         LOG.debug("init: config file path: {}", cfgFile.getPath());
 
         final InputStream reader = new FileInputStream(cfgFile);
-        RancidAdapterConfigFactory config = new RancidAdapterConfigFactory(cfgFile.lastModified(), reader,onmsSvrConfig.getServerName(),onmsSvrConfig.verifyServer());
+        RancidAdapterConfigFactory config = new RancidAdapterConfigFactory(cfgFile.lastModified(), reader,
+                                                                           onmsSvrConfig.getServerName(),
+                                                                           onmsSvrConfig.verifyServer());
         reader.close();
         setInstance(config);
 
@@ -134,9 +147,12 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         init();
@@ -163,10 +179,14 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
     }
 
     /**
-     * <p>saveXml</p>
+     * <p>
+     * saveXml
+     * </p>
      *
-     * @param xml a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param xml
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
@@ -187,11 +207,16 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public void update() throws IOException, MarshalException, ValidationException {
         getWriteLock().lock();

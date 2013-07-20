@@ -31,7 +31,9 @@ package org.opennms.core.tasks;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * <p>SequenceTask class.</p>
+ * <p>
+ * SequenceTask class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,10 +43,15 @@ public class SequenceTask extends ContainerTask<SequenceTask> {
     private AtomicReference<Task> m_lastChild = new AtomicReference<Task>(null);
 
     /**
-     * <p>Constructor for SequenceTask.</p>
+     * <p>
+     * Constructor for SequenceTask.
+     * </p>
      *
-     * @param coordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
-     * @param parent a {@link org.opennms.core.tasks.ContainerTask} object.
+     * @param coordinator
+     *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     * @param parent
+     *            a {@link org.opennms.core.tasks.ContainerTask} object.
      */
     public SequenceTask(DefaultTaskCoordinator coordinator, ContainerTask<?> parent) {
         super(coordinator, parent);
@@ -60,7 +67,9 @@ public class SequenceTask extends ContainerTask<SequenceTask> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,8 +77,5 @@ public class SequenceTask extends ContainerTask<SequenceTask> {
     public String toString() {
         return "sequenceTask";
     }
-
-
-
 
 }

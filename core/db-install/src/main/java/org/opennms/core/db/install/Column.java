@@ -49,36 +49,32 @@ public class Column {
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object obj) {
-    	if (obj == null || !(obj instanceof Column)) return false;
-    	final Column other = (Column) obj;
+        if (obj == null || !(obj instanceof Column))
+            return false;
+        final Column other = (Column) obj;
 
-		return new EqualsBuilder()
-    		.append(getName(), other.getName())
-    		.append(getType(), other.getType())
-    		.append(getSize(), other.getSize())
-    		.append(getDefaultValue(), other.getDefaultValue())
-    		.append(isNotNull(), other.isNotNull())
-    		.isEquals();
+        return new EqualsBuilder().append(getName(), other.getName()).append(getType(), other.getType()).append(getSize(),
+                                                                                                                other.getSize()).append(getDefaultValue(),
+                                                                                                                                        other.getDefaultValue()).append(isNotNull(),
+                                                                                                                                                                        other.isNotNull()).isEquals();
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
     @Override
     public int hashCode() {
-    	return new HashCodeBuilder(67, 13)
-    		.append(getName())
-    		.append(getType())
-    		.append(getSize())
-    		.append(getDefaultValue())
-    		.append(isNotNull())
-    		.toHashCode();
+        return new HashCodeBuilder(67, 13).append(getName()).append(getType()).append(getSize()).append(getDefaultValue()).append(isNotNull()).toHashCode();
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,7 +107,9 @@ public class Column {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,16 +118,21 @@ public class Column {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name.toLowerCase();
     }
 
     /**
-     * <p>isNotNull</p>
+     * <p>
+     * isNotNull
+     * </p>
      *
      * @return a boolean.
      */
@@ -138,16 +141,21 @@ public class Column {
     }
 
     /**
-     * <p>setNotNull</p>
+     * <p>
+     * setNotNull
+     * </p>
      *
-     * @param notNull a boolean.
+     * @param notNull
+     *            a boolean.
      */
     public void setNotNull(boolean notNull) {
         m_notNull = notNull;
     }
 
     /**
-     * <p>getSize</p>
+     * <p>
+     * getSize
+     * </p>
      *
      * @return a int.
      */
@@ -156,16 +164,21 @@ public class Column {
     }
 
     /**
-     * <p>setSize</p>
+     * <p>
+     * setSize
+     * </p>
      *
-     * @param size a int.
+     * @param size
+     *            a int.
      */
     public void setSize(int size) {
         m_size = size;
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -174,16 +187,21 @@ public class Column {
     }
 
     /**
-     * <p>setType</p>
+     * <p>
+     * setType
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public void setType(String type) {
         m_type = type;
     }
 
     /**
-     * <p>getDefaultValue</p>
+     * <p>
+     * getDefaultValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -192,7 +210,9 @@ public class Column {
     }
 
     /**
-     * <p>hasDefaultValue</p>
+     * <p>
+     * hasDefaultValue
+     * </p>
      *
      * @return a boolean.
      */
@@ -201,9 +221,12 @@ public class Column {
     }
 
     /**
-     * <p>setDefaultValue</p>
+     * <p>
+     * setDefaultValue
+     * </p>
      *
-     * @param defaultValue a {@link java.lang.String} object.
+     * @param defaultValue
+     *            a {@link java.lang.String} object.
      */
     public void setDefaultValue(String defaultValue) {
         if (defaultValue != null && defaultValue.matches("nextval\\('[^']+'\\)")) {
@@ -214,10 +237,14 @@ public class Column {
     }
 
     /**
-     * <p>parse</p>
+     * <p>
+     * parse
+     * </p>
      *
-     * @param column a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @param column
+     *            a {@link java.lang.String} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void parse(String column) throws Exception {
         Matcher m;
@@ -255,10 +282,14 @@ public class Column {
     }
 
     /**
-     * <p>parseColumnType</p>
+     * <p>
+     * parseColumnType
+     * </p>
      *
-     * @param columnType a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @param columnType
+     *            a {@link java.lang.String} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void parseColumnType(String columnType) throws Exception {
         int start, end;
@@ -278,20 +309,24 @@ public class Column {
         if (size != null) {
             this.setSize(Integer.parseInt(size));
         } else {
-        	try {
-        		this.setSize(columnTypeSize(this.getType()));
-        	} catch (Throwable e) {
-        		throw new Exception("Could not determine size for column " + getName() + ".  Chained: " + e.getMessage(), e);
-        	}
+            try {
+                this.setSize(columnTypeSize(this.getType()));
+            } catch (Throwable e) {
+                throw new Exception("Could not determine size for column " + getName() + ".  Chained: "
+                        + e.getMessage(), e);
+            }
 
         }
     }
 
     /**
-     * <p>getColumnSqlType</p>
+     * <p>
+     * getColumnSqlType
+     * </p>
      *
      * @return a int.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public int getColumnSqlType() throws Exception {
         if (m_type.equals("integer")) {
@@ -328,17 +363,23 @@ public class Column {
     }
 
     /**
-     * <p>normalizeColumnType</p>
+     * <p>
+     * normalizeColumnType
+     * </p>
      *
-     * @param column a {@link java.lang.String} object.
-     * @param hasSize a boolean.
+     * @param column
+     *            a {@link java.lang.String} object.
+     * @param hasSize
+     *            a boolean.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public static String normalizeColumnType(String column, boolean hasSize) throws Exception {
         if (column.equals("integer") || column.equals("int4")) {
             return "integer";
-        } else if (column.equals("float") || column.equals("float8") || column.equals("double precision") || column.equals("double")) {
+        } else if (column.equals("float") || column.equals("float8") || column.equals("double precision")
+                || column.equals("double")) {
             return "double precision";
         } else if (column.equals("float4") || column.equals("real")) {
             return "real";
@@ -372,11 +413,15 @@ public class Column {
     }
 
     /**
-     * <p>columnTypeSize</p>
+     * <p>
+     * columnTypeSize
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public int columnTypeSize(String type) throws Exception {
         if (type.equals("boolean") || type.equals("character")) {
@@ -387,7 +432,8 @@ public class Column {
             return 4;
         } else if (type.equals("bigint") || type.equals("timestamp") || type.equals("timestamptz")) {
             return 8;
-        } else if (type.equals("double precision") || type.equals("real") || type.equals("text") || type.equals("bytea") || type.equals("trigger")) {
+        } else if (type.equals("double precision") || type.equals("real") || type.equals("text")
+                || type.equals("bytea") || type.equals("trigger")) {
             return -1;
         } else {
             throw new Exception("do not know the type size for " + "column type \"" + type + "\"");

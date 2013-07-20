@@ -58,16 +58,13 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
         StatisticsReportCommand cmd = (StatisticsReportCommand) obj;
 
         if (cmd.getId() == null) {
-            errors.rejectValue("id", "statisticsReportId.notSpecified",
-                               new Object[] { "id" },
-                               "Value required.");
+            errors.rejectValue("id", "statisticsReportId.notSpecified", new Object[] { "id" }, "Value required.");
         } else {
             try {
                 int id = cmd.getId();
                 m_statisticsReportDao.load(id);
             } catch (DataAccessException e) {
-                errors.rejectValue("id", "statisticsReportId.notFound",
-                                   new Object[] { "id", cmd.getId() },
+                errors.rejectValue("id", "statisticsReportId.notFound", new Object[] { "id", cmd.getId() },
                                    "Valid statistics report ID required.");
 
             }
@@ -75,7 +72,9 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {
@@ -85,7 +84,9 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
     }
 
     /**
-     * <p>getStatisticsReportDao</p>
+     * <p>
+     * getStatisticsReportDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
      */
@@ -94,9 +95,13 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
     }
 
     /**
-     * <p>setStatisticsReportDao</p>
+     * <p>
+     * setStatisticsReportDao
+     * </p>
      *
-     * @param statisticsReportDao a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
+     * @param statisticsReportDao
+     *            a {@link org.opennms.netmgt.dao.api.StatisticsReportDao}
+     *            object.
      */
     public final void setStatisticsReportDao(final StatisticsReportDao statisticsReportDao) {
         m_statisticsReportDao = statisticsReportDao;

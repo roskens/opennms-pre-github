@@ -42,12 +42,12 @@ import org.opennms.netmgt.config.NotifdConfigManager;
 public class MockNotifdConfigManager extends NotifdConfigManager {
 
     private String m_nextNotifIdSql;
+
     private String m_nextUserNotifIdSql;
 
     /*
      * init the mock config
      */
-
 
     /**
      * @param configString
@@ -61,26 +61,29 @@ public class MockNotifdConfigManager extends NotifdConfigManager {
         reader.close();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.NotifdConfigManager#update()
      */
     @Override
     protected void update() throws IOException, MarshalException, ValidationException {
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.config.NotifdConfigManager#saveXml(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.config.NotifdConfigManager#saveXml(java.lang.String)
      */
     @Override
     protected void saveXml(String xml) throws IOException {
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.NotifdConfigManager#getNextNotifIdSql()
      */
     @Override
-    public String getNextNotifIdSql() throws IOException, MarshalException,
-            ValidationException {
+    public String getNextNotifIdSql() throws IOException, MarshalException, ValidationException {
         return m_nextNotifIdSql;
     }
 

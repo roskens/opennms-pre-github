@@ -43,34 +43,34 @@ public class BarabasiAlbertOperation implements Operation {
 
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
-            if (operationContext != null && operationContext.getGraphContainer() != null) {
-                try {
-                    operationContext.getGraphContainer().getBaseTopology().load(SFreeTopologyProvider.BARABASI_ALBERT);
-                } catch (MalformedURLException e) {
-                    // TODO: Display the error in the UI
-                    LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);
-                } catch (JAXBException e) {
-                    // TODO: Display the error in the UI
-                    LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);
-                }
-                operationContext.getGraphContainer().redoLayout();
+        if (operationContext != null && operationContext.getGraphContainer() != null) {
+            try {
+                operationContext.getGraphContainer().getBaseTopology().load(SFreeTopologyProvider.BARABASI_ALBERT);
+            } catch (MalformedURLException e) {
+                // TODO: Display the error in the UI
+                LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);
+            } catch (JAXBException e) {
+                // TODO: Display the error in the UI
+                LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);
             }
-            return null;
+            operationContext.getGraphContainer().redoLayout();
+        }
+        return null;
     }
 
-	@Override
+    @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
-    	return true;
+        return true;
     }
 
     @Override
     public String getId() {
-    	return "ScaleFreeTopologyProviderBarabasiAlbertOperation";
+        return "ScaleFreeTopologyProviderBarabasiAlbertOperation";
     }
 
 }

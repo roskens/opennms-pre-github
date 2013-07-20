@@ -39,98 +39,131 @@ import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;
 
 /**
- * <p>ResourceDao interface.</p>
+ * <p>
+ * ResourceDao interface.
+ * </p>
  */
 public interface ResourceDao {
 
     /**
-     * <p>getRrdDirectory</p>
+     * <p>
+     * getRrdDirectory
+     * </p>
      *
      * @return a {@link java.io.File} object.
      */
     public File getRrdDirectory();
 
     /**
-     * <p>getRrdDirectory</p>
+     * <p>
+     * getRrdDirectory
+     * </p>
      *
-     * @param verify a boolean.
+     * @param verify
+     *            a boolean.
      * @return a {@link java.io.File} object.
      */
     public File getRrdDirectory(boolean verify);
 
     /**
-     * <p>getResourceTypes</p>
+     * <p>
+     * getResourceTypes
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     public Collection<OnmsResourceType> getResourceTypes();
 
     /**
-     * <p>getResourceById</p>
+     * <p>
+     * getResourceById
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceById(String id);
 
     /**
-     * <p>getResourceListById</p>
-     *
+     * <p>
+     * getResourceListById
+     * </p>
      * Fetch a specific list of resources by string ID.
-     * @param id a {@link java.lang.String} object.
+     *
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return Resources or null if resources cannot be found.
      */
     public List<OnmsResource> getResourceListById(String id);
 
     /**
-     * <p>findNodeResources</p>
+     * <p>
+     * findNodeResources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findNodeResources();
 
     /**
-     * <p>findDomainResources</p>
+     * <p>
+     * findDomainResources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findDomainResources();
 
     /**
-     * <p>findNodeSourceResources</p>
+     * <p>
+     * findNodeSourceResources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findNodeSourceResources();
 
     /**
-     * <p>findTopLevelResources</p>
+     * <p>
+     * findTopLevelResources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findTopLevelResources();
 
     /**
-     * <p>getResourceForNode</p>
+     * <p>
+     * getResourceForNode
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceForNode(OnmsNode node);
 
     /**
-     * <p>getResourceForIpInterface</p>
+     * <p>
+     * getResourceForIpInterface
+     * </p>
      *
-     * @param ipInterface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     * @param ipInterface
+     *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceForIpInterface(OnmsIpInterface ipInterface);
 
     /**
-     * <p>getResourceForIpInterface</p>
+     * <p>
+     * getResourceForIpInterface
+     * </p>
      *
-     * @param ipInterface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
-     * @param locationMonitor a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
+     * @param ipInterface
+     *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     * @param locationMonitor
+     *            a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceForIpInterface(OnmsIpInterface ipInterface, OnmsLocationMonitor locationMonitor);

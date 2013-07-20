@@ -21,9 +21,16 @@ public class GCFilterableContainerTest {
     @Before
     public void setUp() throws MalformedURLException, JAXBException {
         GraphProvider provider = new AbstractTopologyProvider("test") {
-            @Override public void save() { }
-            @Override public void refresh() { }
-            @Override public void load(String filename) throws MalformedURLException, JAXBException {
+            @Override
+            public void save() {
+            }
+
+            @Override
+            public void refresh() {
+            }
+
+            @Override
+            public void load(String filename) throws MalformedURLException, JAXBException {
                 resetContainer();
 
                 String vId1 = getNextVertexId();
@@ -48,10 +55,10 @@ public class GCFilterableContainerTest {
 
         // create group
         String groupName = "groupName";
-        VertexRef groupId = graphContainer.getBaseTopology().addGroup(groupName,  "group");
+        VertexRef groupId = graphContainer.getBaseTopology().addGroup(groupName, "group");
 
         // Link all targets to the newly-created group
-        for(VertexRef vertexRef : allVertices) {
+        for (VertexRef vertexRef : allVertices) {
             graphContainer.getBaseTopology().setParent(vertexRef, groupId);
         }
 

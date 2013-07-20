@@ -40,6 +40,7 @@ import org.opennms.netmgt.xml.event.Log;
 
 public class MockEventProxy implements EventProxy {
     private static final Logger LOG = LoggerFactory.getLogger(MockEventProxy.class);
+
     private List<Event> m_events = new ArrayList<Event>();
 
     @Override

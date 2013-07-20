@@ -37,7 +37,8 @@ import org.opennms.core.test.xml.XmlTest;
 
 public class DatacollectionConfigTest extends XmlTest<DatacollectionConfig> {
 
-    public DatacollectionConfigTest(final DatacollectionConfig sampleObject, final String sampleXml, final String schemaFile) {
+    public DatacollectionConfigTest(final DatacollectionConfig sampleObject, final String sampleXml,
+            final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
@@ -68,21 +69,14 @@ public class DatacollectionConfigTest extends XmlTest<DatacollectionConfig> {
 
         return Arrays.asList(new Object[][] { {
                 config,
-                "<datacollection-config rrdRepository=\"${install.share.dir}/rrd/snmp/\">\n" +
-                "  <snmp-collection name=\"default\" snmpStorageFlag=\"select\">\n" +
-                "    <rrd step=\"300\">\n" +
-                "      <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
-                "      <rra>RRA:AVERAGE:0.5:12:1488</rra>\n" +
-                "      <rra>RRA:AVERAGE:0.5:288:366</rra>\n" +
-                "      <rra>RRA:MAX:0.5:288:366</rra>\n" +
-                "      <rra>RRA:MIN:0.5:288:366</rra>\n" +
-                "    </rrd>\n" +
-                "\n" +
-                "    <include-collection dataCollectionGroup=\"MIB2\"/>\n" +
-                "  </snmp-collection>\n" +
-                "</datacollection-config>\n",
+                "<datacollection-config rrdRepository=\"${install.share.dir}/rrd/snmp/\">\n"
+                        + "  <snmp-collection name=\"default\" snmpStorageFlag=\"select\">\n"
+                        + "    <rrd step=\"300\">\n" + "      <rra>RRA:AVERAGE:0.5:1:2016</rra>\n"
+                        + "      <rra>RRA:AVERAGE:0.5:12:1488</rra>\n" + "      <rra>RRA:AVERAGE:0.5:288:366</rra>\n"
+                        + "      <rra>RRA:MAX:0.5:288:366</rra>\n" + "      <rra>RRA:MIN:0.5:288:366</rra>\n"
+                        + "    </rrd>\n" + "\n" + "    <include-collection dataCollectionGroup=\"MIB2\"/>\n"
+                        + "  </snmp-collection>\n" + "</datacollection-config>\n",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

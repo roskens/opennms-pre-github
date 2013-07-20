@@ -54,13 +54,13 @@ public class MibConsolePanel extends Panel implements Logger {
     private static final String ERROR = "<b><font color='red'>&nbsp;[ERROR]&nbsp;</font></b>";
 
     /** The Constant WARN. */
-    private static final String WARN  = "<b><font color='orange'>&nbsp;[WARN]&nbsp;</font></b>";
+    private static final String WARN = "<b><font color='orange'>&nbsp;[WARN]&nbsp;</font></b>";
 
     /** The Constant INFO. */
-    private static final String INFO  = "<b><font color='green'>&nbsp;[INFO]&nbsp;</font></b>";
+    private static final String INFO = "<b><font color='green'>&nbsp;[INFO]&nbsp;</font></b>";
 
     /** The Constant DEBUG. */
-    private static final String DEBUG  = "<b><font color='gray'>&nbsp;[DEBUG]&nbsp;</font></b>";
+    private static final String DEBUG = "<b><font color='gray'>&nbsp;[DEBUG]&nbsp;</font></b>";
 
     /** The log content. */
     private final VerticalLayout logContent;
@@ -98,8 +98,10 @@ public class MibConsolePanel extends Panel implements Logger {
     /**
      * Log Message.
      *
-     * @param level the level
-     * @param message the message
+     * @param level
+     *            the level
+     * @param message
+     *            the message
      */
     private void logMsg(String level, String message) {
         String msg = new Date().toString() + level + message;
@@ -118,32 +120,44 @@ public class MibConsolePanel extends Panel implements Logger {
             getUI().scrollIntoView(layout.getComponent(layout.getComponentCount() - 1));
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.vaadin.mibcompiler.services.Logger#error(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.vaadin.mibcompiler.services.Logger#error(java.lang
+     * .String)
      */
     @Override
     public void error(String message) {
         logMsg(ERROR, message);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.vaadin.mibcompiler.services.Logger#warn(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.vaadin.mibcompiler.services.Logger#warn(java.lang
+     * .String)
      */
     @Override
     public void warn(String message) {
         logMsg(WARN, message);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.vaadin.mibcompiler.services.Logger#info(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.vaadin.mibcompiler.services.Logger#info(java.lang
+     * .String)
      */
     @Override
     public void info(String message) {
         logMsg(INFO, message);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.vaadin.mibcompiler.services.Logger#debug(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.vaadin.mibcompiler.services.Logger#debug(java.lang
+     * .String)
      */
     @Override
     public void debug(String message) {

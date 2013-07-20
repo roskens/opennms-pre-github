@@ -55,8 +55,11 @@ public class TestServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestServlet.class);
 
-    /* (non-Javadoc)
-     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+    /*
+     * (non-Javadoc)
+     * @see
+     * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
+     * , javax.servlet.http.HttpServletResponse)
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -86,7 +89,7 @@ public class TestServlet extends HttpServlet {
                 StringTokenizer st = new StringTokenizer(requestContent, "&");
                 SampleData data = new SampleData();
                 while (st.hasMoreTokens()) {
-                    String pair[] = ((String)st.nextToken()).split("=");
+                    String pair[] = ((String) st.nextToken()).split("=");
                     data.addParameter(pair[0], pair[1]);
                 }
                 resp.getWriter().write(JaxbUtils.marshal(data));

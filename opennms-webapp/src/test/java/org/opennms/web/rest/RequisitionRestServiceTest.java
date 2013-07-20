@@ -47,14 +47,10 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 
-
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "classpath:/restServiceTest.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-daemon.xml", "classpath:/restServiceTest.xml" })
 @JUnitConfigurationEnvironment
 public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
@@ -75,15 +71,14 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
     public void testDuplicateNodes() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
 
-        String req =
-            "<model-import xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">" +
-                "<node node-label=\"a\" foreign-id=\"a\" />" +
-                "<node node-label=\"b\" foreign-id=\"c\" />" +
-                "<node node-label=\"c\" foreign-id=\"c\" />" +
-            "</model-import>";
+        String req = "<model-import xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">"
+                + "<node node-label=\"a\" foreign-id=\"a\" />"
+                + "<node node-label=\"b\" foreign-id=\"c\" />"
+                + "<node node-label=\"c\" foreign-id=\"c\" />" + "</model-import>";
 
         final MockHttpServletResponse response = sendPost("/requisitions", req, 400, null);
-        assertTrue("response should say 'c' has duplicates",  response.getContentAsString().contains("Duplicate nodes found on foreign source test: c (2 found)"));
+        assertTrue("response should say 'c' has duplicates",
+                   response.getContentAsString().contains("Duplicate nodes found on foreign source test: c (2 found)"));
     }
 
     @Test
@@ -93,7 +88,9 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String url = "/requisitions/test/nodes";
 
         // create a node
-        sendPost(url, "<node xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" node-label=\"shoe\" parent-node-label=\"david\" foreign-id=\"1111\" />", 303, "/test/nodes/1111");
+        sendPost(url,
+                 "<node xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" node-label=\"shoe\" parent-node-label=\"david\" foreign-id=\"1111\" />",
+                 303, "/test/nodes/1111");
 
         // get list of nodes
         String xml = sendRequest(GET, url, 200);
@@ -124,7 +121,9 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String url = "/requisitions/test/nodes";
 
         // attempt to add existing node
-        sendPost(url, "<node xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" node-label=\"shoe\" parent-node-label=\"david\" foreign-id=\"4243\" />", 303, "/requisitions/test/nodes/4243");
+        sendPost(url,
+                 "<node xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" node-label=\"shoe\" parent-node-label=\"david\" foreign-id=\"4243\" />",
+                 303, "/requisitions/test/nodes/4243");
 
         // get list of nodes
         String xml = sendRequest(GET, url, 200);
@@ -142,8 +141,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String xml;
 
         // create an interface
-        sendPost(base, "<interface xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Monkey\"><monitored-service service-name=\"ICMP\"/></interface>", 303, "/nodes/4243/interfaces/172.20.1.254");
-        sendPost(base, "<interface xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Blah\"><monitored-service service-name=\"ICMP\"/></interface>", 303, "/nodes/4243/interfaces/172.20.1.254");
+        sendPost(base,
+                 "<interface xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Monkey\"><monitored-service service-name=\"ICMP\"/></interface>",
+                 303, "/nodes/4243/interfaces/172.20.1.254");
+        sendPost(base,
+                 "<interface xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Blah\"><monitored-service service-name=\"ICMP\"/></interface>",
+                 303, "/nodes/4243/interfaces/172.20.1.254");
 
         // get list of interfaces
         xml = sendRequest(GET, base, 200);
@@ -181,7 +184,9 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String base = "/requisitions/test/nodes/4243/interfaces/172.20.1.204/services";
 
         // create a service
-        sendPost(base, "<monitored-service xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" service-name=\"MONKEY\" />", 303, "/interfaces/172.20.1.204/services/MONKEY");
+        sendPost(base,
+                 "<monitored-service xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" service-name=\"MONKEY\" />",
+                 303, "/interfaces/172.20.1.204/services/MONKEY");
 
         // get list of services
         String xml = sendRequest(GET, base, 200);
@@ -209,7 +214,8 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String base = "/requisitions/test/nodes/4243/categories";
 
         // create a category
-        sendPost(base, "<category xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"Dead Servers\" />", 303, "/nodes/4243/categories/Dead%20Servers");
+        sendPost(base, "<category xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"Dead Servers\" />",
+                 303, "/nodes/4243/categories/Dead%20Servers");
 
         // get list of categories
         String url = base;
@@ -234,7 +240,8 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         base = "/requisitions/test/nodes/4244/categories";
         // create a category
 
-        sendPost(base, "<category xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"New Category\" />", 303, "/nodes/4244/categories/New%20Category");
+        sendPost(base, "<category xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"New Category\" />",
+                 303, "/nodes/4244/categories/New%20Category");
         xml = sendRequest(GET, base + "/New%20Category", 404);
     }
 
@@ -245,7 +252,9 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String base = "/requisitions/test/nodes/4243/assets";
 
         // create an asset
-        sendPost(base, "<asset xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"manufacturer\" value=\"Dead Servers, Inc.\" />", 303, "/nodes/4243/assets/manufacturer");
+        sendPost(base,
+                 "<asset xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"manufacturer\" value=\"Dead Servers, Inc.\" />",
+                 303, "/nodes/4243/assets/manufacturer");
 
         // get list of asset parameters
         String url = base;
@@ -269,58 +278,42 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
 
     @Test
     public void testCreateRequisitionNoNamespace() throws Exception {
-        String req =
-            "<model-import date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">" +
-                "<node node-label=\"david\" parent-node-label=\"apknd\" foreign-id=\"4243\">" +
-                    "<interface ip-addr=\"172.20.1.204\" status=\"1\" snmp-primary=\"S\" descr=\"VPN interface\">" +
-                        "<monitored-service service-name=\"ICMP\"/>" +
-                        "<monitored-service service-name=\"HTTP\"/>" +
-                    "</interface>" +
-                    "<interface ip-addr=\"172.20.1.201\" status=\"1\" snmp-primary=\"P\" descr=\"Management interface\">" +
-                        "<monitored-service service-name=\"ICMP\"/>" +
-                        "<monitored-service service-name=\"SNMP\"/>" +
-                    "</interface>" +
-                    "<category name=\"AC\"/>" +
-                    "<category name=\"UK\"/>" +
-                    "<category name=\"low\"/>" +
-                    "<asset name=\"manufacturer\" value=\"Dell\" />" +
-                    "<asset name=\"operatingSystem\" value=\"Windows Pi\" />" +
-                    "<asset name=\"description\" value=\"Large and/or In Charge\" />" +
-                "</node>" +
-            "</model-import>";
+        String req = "<model-import date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">"
+                + "<node node-label=\"david\" parent-node-label=\"apknd\" foreign-id=\"4243\">"
+                + "<interface ip-addr=\"172.20.1.204\" status=\"1\" snmp-primary=\"S\" descr=\"VPN interface\">"
+                + "<monitored-service service-name=\"ICMP\"/>" + "<monitored-service service-name=\"HTTP\"/>"
+                + "</interface>"
+                + "<interface ip-addr=\"172.20.1.201\" status=\"1\" snmp-primary=\"P\" descr=\"Management interface\">"
+                + "<monitored-service service-name=\"ICMP\"/>" + "<monitored-service service-name=\"SNMP\"/>"
+                + "</interface>" + "<category name=\"AC\"/>" + "<category name=\"UK\"/>" + "<category name=\"low\"/>"
+                + "<asset name=\"manufacturer\" value=\"Dell\" />"
+                + "<asset name=\"operatingSystem\" value=\"Windows Pi\" />"
+                + "<asset name=\"description\" value=\"Large and/or In Charge\" />" + "</node>" + "</model-import>";
 
-    	sendPost("/requisitions", req, 303, "/requisitions/test");
+        sendPost("/requisitions", req, 303, "/requisitions/test");
     }
 
     @Test
-    @Ignore // Ignore this test while XML validation is disabled
+    @Ignore
+    // Ignore this test while XML validation is disabled
     public void testBadRequisition() throws Exception {
-        String req =
-            "<model-import date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">" +
-                "asdfjklasdfjioasdf" +
-                "<node node-label=\"david\" parent-node-label=\"apknd\" foreign-id=\"4243\">" +
-                    "<interface ip-addr=\"172.20.1.204\" status=\"1\" snmp-primary=\"S\" descr=\"VPN interface\">" +
-                        "<monitored-service service-name=\"ICMP\"/>" +
-                        "<monitored-service service-name=\"HTTP\"/>" +
-                    "</interface>" +
-                    "<interface ip-addr=\"172.20.1.201\" status=\"1\" snmp-primary=\"P\" descr=\"Management interface\">" +
-                        "<monitored-service service-name=\"ICMP\"/>" +
-                        "<monitored-service service-name=\"SNMP\"/>" +
-                    "</interface>" +
-                    "<category name=\"AC\"/>" +
-                    "<category name=\"UK\"/>" +
-                    "<category name=\"low\"/>" +
-                    "<asset name=\"manufacturer\" value=\"Dell\" />" +
-                    "<asset name=\"operatingSystem\" value=\"Windows Pi\" />" +
-                    "<asset name=\"description\" value=\"Large and/or In Charge\" />" +
-                "</node>" +
-            "</model-import>";
+        String req = "<model-import date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">" + "asdfjklasdfjioasdf"
+                + "<node node-label=\"david\" parent-node-label=\"apknd\" foreign-id=\"4243\">"
+                + "<interface ip-addr=\"172.20.1.204\" status=\"1\" snmp-primary=\"S\" descr=\"VPN interface\">"
+                + "<monitored-service service-name=\"ICMP\"/>" + "<monitored-service service-name=\"HTTP\"/>"
+                + "</interface>"
+                + "<interface ip-addr=\"172.20.1.201\" status=\"1\" snmp-primary=\"P\" descr=\"Management interface\">"
+                + "<monitored-service service-name=\"ICMP\"/>" + "<monitored-service service-name=\"SNMP\"/>"
+                + "</interface>" + "<category name=\"AC\"/>" + "<category name=\"UK\"/>" + "<category name=\"low\"/>"
+                + "<asset name=\"manufacturer\" value=\"Dell\" />"
+                + "<asset name=\"operatingSystem\" value=\"Windows Pi\" />"
+                + "<asset name=\"description\" value=\"Large and/or In Charge\" />" + "</node>" + "</model-import>";
 
         Exception ex = null;
         try {
-        	sendPost("/requisitions", req, 500, null);
+            sendPost("/requisitions", req, 500, null);
         } catch (final Exception e) {
-        	ex = e;
+            ex = e;
         }
         assertNotNull("we should have an exception", ex);
         assertTrue("validator should expect only elements", ex.getMessage().contains("content type is element-only"));
@@ -355,26 +348,22 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
     }
 
     private void createRequisition() throws Exception {
-        String req =
-            "<model-import xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">" +
-                "<node node-label=\"david\" parent-node-label=\"apknd\" foreign-id=\"4243\">" +
-                    "<interface ip-addr=\"172.20.1.204\" status=\"1\" snmp-primary=\"S\" descr=\"VPN interface\">" +
-                        "<monitored-service service-name=\"ICMP\"/>" +
-                        "<monitored-service service-name=\"HTTP\"/>" +
-                    "</interface>" +
-                    "<interface ip-addr=\"172.20.1.201\" status=\"1\" snmp-primary=\"P\" descr=\"Management interface\">" +
-                        "<monitored-service service-name=\"ICMP\"/>" +
-                        "<monitored-service service-name=\"SNMP\"/>" +
-                    "</interface>" +
-                    "<category name=\"AC\"/>" +
-                    "<category name=\"UK\"/>" +
-                    "<category name=\"low\"/>" +
-                    "<asset name=\"manufacturer\" value=\"Dell\" />" +
-                    "<asset name=\"operatingSystem\" value=\"Windows Pi\" />" +
-                    "<asset name=\"description\" value=\"Large and/or In Charge\" />" +
-                "</node>" +
-            "</model-import>";
-
+        String req = "<model-import xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">"
+                + "<node node-label=\"david\" parent-node-label=\"apknd\" foreign-id=\"4243\">"
+                + "<interface ip-addr=\"172.20.1.204\" status=\"1\" snmp-primary=\"S\" descr=\"VPN interface\">"
+                + "<monitored-service service-name=\"ICMP\"/>"
+                + "<monitored-service service-name=\"HTTP\"/>"
+                + "</interface>"
+                + "<interface ip-addr=\"172.20.1.201\" status=\"1\" snmp-primary=\"P\" descr=\"Management interface\">"
+                + "<monitored-service service-name=\"ICMP\"/>"
+                + "<monitored-service service-name=\"SNMP\"/>"
+                + "</interface>"
+                + "<category name=\"AC\"/>"
+                + "<category name=\"UK\"/>"
+                + "<category name=\"low\"/>"
+                + "<asset name=\"manufacturer\" value=\"Dell\" />"
+                + "<asset name=\"operatingSystem\" value=\"Windows Pi\" />"
+                + "<asset name=\"description\" value=\"Large and/or In Charge\" />" + "</node>" + "</model-import>";
 
         sendPost("/requisitions", req, 303, "/requisitions/test");
     }

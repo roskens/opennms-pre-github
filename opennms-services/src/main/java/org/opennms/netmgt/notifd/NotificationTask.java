@@ -55,9 +55,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- *
- * Modification to pick an ExecuteStrategy based on the "binary" flag in
- * notificationCommands.xml by:
+ *         Modification to pick an ExecuteStrategy based on the "binary" flag in
+ *         notificationCommands.xml by:
  * @author <A HREF="mailto:david@opennms.org">David Hustace </A>
  */
 public class NotificationTask extends Thread {
@@ -69,7 +68,8 @@ public class NotificationTask extends Thread {
      */
     private volatile User m_user;
 
-    /**The autoNotify info for the usersnotified table
+    /**
+     * The autoNotify info for the usersnotified table
      */
     private volatile String m_autoNotify;
 
@@ -101,15 +101,23 @@ public class NotificationTask extends Thread {
     /**
      * Constructor, initializes some information
      *
-     * @param someParams the parameters from
-     * Notify
-     * @param notificationManager a {@link org.opennms.netmgt.config.NotificationManager} object.
-     * @param userManager a {@link org.opennms.netmgt.config.UserManager} object.
-     * @param sendTime a long.
-     * @param siblings a {@link java.util.List} object.
-     * @param autoNotify a {@link java.lang.String} object.
+     * @param someParams
+     *            the parameters from
+     *            Notify
+     * @param notificationManager
+     *            a {@link org.opennms.netmgt.config.NotificationManager}
+     *            object.
+     * @param userManager
+     *            a {@link org.opennms.netmgt.config.UserManager} object.
+     * @param sendTime
+     *            a long.
+     * @param siblings
+     *            a {@link java.util.List} object.
+     * @param autoNotify
+     *            a {@link java.lang.String} object.
      */
-    public NotificationTask(NotificationManager notificationManager, UserManager userManager, long sendTime, Map<String, String> someParams, List<NotificationTask> siblings, String autoNotify) {
+    public NotificationTask(NotificationManager notificationManager, UserManager userManager, long sendTime,
+            Map<String, String> someParams, List<NotificationTask> siblings, String autoNotify) {
         m_notificationManager = notificationManager;
         m_userManager = userManager;
         m_sendTime = sendTime;
@@ -119,7 +127,9 @@ public class NotificationTask extends Thread {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -142,7 +152,9 @@ public class NotificationTask extends Thread {
     }
 
     /**
-     * <p>getSendTime</p>
+     * <p>
+     * getSendTime
+     * </p>
      *
      * @return a long.
      */
@@ -171,7 +183,9 @@ public class NotificationTask extends Thread {
     }
 
     /**
-     * <p>getUser</p>
+     * <p>
+     * getUser
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.users.User} object.
      */
@@ -180,9 +194,10 @@ public class NotificationTask extends Thread {
     }
 
     /**
-     *Sets the autoNotify info for the usersnotified table
+     * Sets the autoNotify info for the usersnotified table
      *
-     * @param autoNotify a {@link java.lang.String} object.
+     * @param autoNotify
+     *            a {@link java.lang.String} object.
      */
     public void setAutoNotify(String autoNotify) {
         m_autoNotify = autoNotify;
@@ -199,7 +214,6 @@ public class NotificationTask extends Thread {
         m_notifyId = anId;
     }
 
-
     /**
      * This method will construct the command that will be issued to send the
      * actual page.
@@ -212,16 +226,22 @@ public class NotificationTask extends Thread {
     }
 
     /**
-     * <p>getCommands</p>
+     * <p>
+     * getCommands
+     * </p>
      *
-     * @return an array of {@link org.opennms.netmgt.config.notificationCommands.Command} objects.
+     * @return an array of
+     *         {@link org.opennms.netmgt.config.notificationCommands.Command}
+     *         objects.
      */
     public Command[] getCommands() {
         return m_commands.clone();
     }
 
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      */
     @Override
     public void run() {
@@ -245,7 +265,9 @@ public class NotificationTask extends Thread {
                         try {
                             cntct = getContactInfo(command.getName());
                             try {
-                                getNotificationManager().updateNoticeWithUserInfo(m_user.getUserId(), m_notifyId, command.getName(), cntct, m_autoNotify);
+                                getNotificationManager().updateNoticeWithUserInfo(m_user.getUserId(), m_notifyId,
+                                                                                  command.getName(), cntct,
+                                                                                  m_autoNotify);
                             } catch (Throwable e) {
                                 LOG.error("Could not insert notice info into database, aborting send notice", e);
                                 continue;
@@ -280,13 +302,13 @@ public class NotificationTask extends Thread {
             }
         } else {
             // remove all the related notices that have yet to be sent
-            //for (int i = 0; i < m_siblings.size(); i++) {
-            //    NotificationTask task = (NotificationTask) m_siblings.get(i);
+            // for (int i = 0; i < m_siblings.size(); i++) {
+            // NotificationTask task = (NotificationTask) m_siblings.get(i);
 
             // FIXME: Reported on discuss list and not found to ever
             // be initialized anywhere.
             // m_notifTree.remove(task);
-            //}
+            // }
         }
     }
 
@@ -309,9 +331,12 @@ public class NotificationTask extends Thread {
         List<org.opennms.core.utils.Argument> commandArgs = new ArrayList<org.opennms.core.utils.Argument>();
 
         for (Argument curArg : notifArgs) {
-            LOG.debug("argument: {} {} '{}' {}", curArg.getSwitch(), curArg.getSubstitution(), getArgumentValue(curArg.getSwitch()), Boolean.valueOf(curArg.getStreamed()).booleanValue());
+            LOG.debug("argument: {} {} '{}' {}", curArg.getSwitch(), curArg.getSubstitution(),
+                      getArgumentValue(curArg.getSwitch()), Boolean.valueOf(curArg.getStreamed()).booleanValue());
 
-            commandArgs.add(new org.opennms.core.utils.Argument(curArg.getSwitch(), curArg.getSubstitution(), getArgumentValue(curArg.getSwitch()), Boolean.valueOf(curArg.getStreamed()).booleanValue()));
+            commandArgs.add(new org.opennms.core.utils.Argument(curArg.getSwitch(), curArg.getSubstitution(),
+                                                                getArgumentValue(curArg.getSwitch()),
+                                                                Boolean.valueOf(curArg.getStreamed()).booleanValue()));
         }
 
         return commandArgs;
@@ -337,7 +362,7 @@ public class NotificationTask extends Thread {
             } else if (NotificationManager.PARAM_PAGER_EMAIL.equals(aSwitch)) {
                 value = getUserManager().getPagerEmail(m_user.getUserId());
             } else if (NotificationManager.PARAM_XMPP_ADDRESS.equals(aSwitch)) {
-            	value = getUserManager().getXMPPAddress(m_user.getUserId());
+                value = getUserManager().getXMPPAddress(m_user.getUserId());
             } else if (NotificationManager.PARAM_TEXT_PAGER_PIN.equals(aSwitch)) {
                 value = getUserManager().getTextPin(m_user.getUserId());
             } else if (NotificationManager.PARAM_NUM_PAGER_PIN.equals(aSwitch)) {
@@ -361,31 +386,43 @@ public class NotificationTask extends Thread {
     }
 
     /**
-     * <p>getEmail</p>
+     * <p>
+     * getEmail
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public String getEmail() throws IOException, MarshalException, ValidationException {
         return getContactInfo("email");
     }
 
     /**
-     * <p>getTuiPin</p>
+     * <p>
+     * getTuiPin
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public String getTuiPin() throws MarshalException, ValidationException, IOException {
         return getContactInfo("tuiPin");
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public synchronized void start() {
@@ -394,7 +431,9 @@ public class NotificationTask extends Thread {
     }
 
     /**
-     * <p>isStarted</p>
+     * <p>
+     * isStarted
+     * </p>
      *
      * @return a boolean.
      */

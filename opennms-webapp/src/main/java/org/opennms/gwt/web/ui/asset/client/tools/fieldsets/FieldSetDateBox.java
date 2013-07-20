@@ -56,103 +56,104 @@ import com.google.gwt.user.datepicker.client.DateBox;
  *         the work.
  */
 public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<Date>, MouseUpHandler,
-		KeyUpHandler {
+        KeyUpHandler {
 
-	private DateBox dateBox = new DateBox();
+    private DateBox dateBox = new DateBox();
 
-	private final DateTimeFormat localFormater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
-	private final DateTimeFormat onmsFormater = DateTimeFormat.getFormat("yyyy-MM-dd");
+    private final DateTimeFormat localFormater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
 
-	public FieldSetDateBox(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value, -1);
-	}
+    private final DateTimeFormat onmsFormater = DateTimeFormat.getFormat("yyyy-MM-dd");
 
-	@UiConstructor
-	public FieldSetDateBox(String name, String value, String helpText, int maxLength) {
-		super(name, helpText);
-		init(value, maxLength);
-	}
+    public FieldSetDateBox(String name, String value, String helpText) {
+        super(name, helpText);
+        init(value, -1);
+    }
 
-	/**
-	 * Returns internal value, if possible as "yyyy-MM-dd" like sting
-	 * representation of date. But returned string can be any string if the
-	 * users is not following the warnings.
-	 *
-	 * @return String value
-	 */
-	@Override
-	public String getValue() {
-		String result;
-		try {
-			result = onmsFormater.format(dateBox.getValue());
-		} catch (Exception e) {
-			result = dateBox.getTextBox().getValue();
-		}
-		return result;
-	}
+    @UiConstructor
+    public FieldSetDateBox(String name, String value, String helpText, int maxLength) {
+        super(name, helpText);
+        init(value, maxLength);
+    }
 
-	private void init(String value, int maxLength) {
+    /**
+     * Returns internal value, if possible as "yyyy-MM-dd" like sting
+     * representation of date. But returned string can be any string if the
+     * users is not following the warnings.
+     *
+     * @return String value
+     */
+    @Override
+    public String getValue() {
+        String result;
+        try {
+            result = onmsFormater.format(dateBox.getValue());
+        } catch (Exception e) {
+            result = dateBox.getTextBox().getValue();
+        }
+        return result;
+    }
 
-		if (maxLength > 0) {
-			addErrorValidator(new StringMaxLengthValidator(maxLength));
-		}
-		addWarningValidator(new StringDateLocalValidator());
+    private void init(String value, int maxLength) {
 
-		try {
-			dateBox.setValue(onmsFormater.parseStrict(value));
-		} catch (IllegalArgumentException e) {
-			dateBox.getTextBox().setText(value);
-		}
-		inititalValue = value;
-		dateBox.setFormat(new DateBox.DefaultFormat(localFormater));
-		dateBox.getTextBox().addFocusHandler(this);
-		dateBox.getTextBox().addChangeHandler(this);
-		dateBox.getTextBox().addMouseUpHandler(this);
-		dateBox.getTextBox().addKeyUpHandler(this);
+        if (maxLength > 0) {
+            addErrorValidator(new StringMaxLengthValidator(maxLength));
+        }
+        addWarningValidator(new StringDateLocalValidator());
 
-		dateBox.addValueChangeHandler(this);
-		dateBox.setStyleName("dateBox");
-		dateBox.setSize("300px", "18px");
+        try {
+            dateBox.setValue(onmsFormater.parseStrict(value));
+        } catch (IllegalArgumentException e) {
+            dateBox.getTextBox().setText(value);
+        }
+        inititalValue = value;
+        dateBox.setFormat(new DateBox.DefaultFormat(localFormater));
+        dateBox.getTextBox().addFocusHandler(this);
+        dateBox.getTextBox().addChangeHandler(this);
+        dateBox.getTextBox().addMouseUpHandler(this);
+        dateBox.getTextBox().addKeyUpHandler(this);
 
-		panel.add(dateBox);
-	}
+        dateBox.addValueChangeHandler(this);
+        dateBox.setStyleName("dateBox");
+        dateBox.setSize("300px", "18px");
 
-	@Override
-	public void onKeyUp(KeyUpEvent event) {
-		checkField();
-	}
+        panel.add(dateBox);
+    }
 
-	@Override
-	public void onMouseUp(MouseUpEvent event) {
-		checkField();
-	}
+    @Override
+    public void onKeyUp(KeyUpEvent event) {
+        checkField();
+    }
 
-	@Override
-	public void onValueChange(ValueChangeEvent<Date> event) {
-		checkField();
-	}
+    @Override
+    public void onMouseUp(MouseUpEvent event) {
+        checkField();
+    }
 
-	@Override
-	public void setEnabled(Boolean enabled) {
-		dateBox.getTextBox().setEnabled(enabled);
-	}
+    @Override
+    public void onValueChange(ValueChangeEvent<Date> event) {
+        checkField();
+    }
 
-	/**
-	 * To get a valid input without warnings use "yyyy-MM-dd" formated string
-	 * representation of date. But any string can be set to the value.
-	 *
-	 * @param String
-	 *            value
-	 */
-	@Override
-	public void setValue(String value) {
-		try {
-			dateBox.setValue(onmsFormater.parseStrict(value));
-		} catch (Exception e) {
-			dateBox.getTextBox().setText(value);
-		}
-		inititalValue = value;
-		validate(this.getValue());
-	}
+    @Override
+    public void setEnabled(Boolean enabled) {
+        dateBox.getTextBox().setEnabled(enabled);
+    }
+
+    /**
+     * To get a valid input without warnings use "yyyy-MM-dd" formated string
+     * representation of date. But any string can be set to the value.
+     *
+     * @param String
+     *            value
+     */
+    @Override
+    public void setValue(String value) {
+        try {
+            dateBox.setValue(onmsFormater.parseStrict(value));
+        } catch (Exception e) {
+            dateBox.getTextBox().setText(value);
+        }
+        inititalValue = value;
+        validate(this.getValue());
+    }
 }

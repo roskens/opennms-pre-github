@@ -49,7 +49,8 @@ public class ResourceQueryExecuter extends JRAbstractQueryExecuter {
     }
 
     @Override
-    public void close() {}
+    public void close() {
+    }
 
     @Override
     public JRDataSource createDatasource() throws JRException {

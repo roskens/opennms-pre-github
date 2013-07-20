@@ -34,9 +34,10 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>HttpStatusResponse class.</p>
+ * <p>
+ * HttpStatusResponse class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,9 +49,12 @@ public class HttpStatusResponse extends LineOrientedResponse {
     private static final Pattern DEFAULT_REGEX = Pattern.compile("([H][T][T][P+]/[1].[0-1]) ([0-6]+) ([a-zA-Z ]+)");
 
     /**
-     * <p>Constructor for HttpStatusResponse.</p>
+     * <p>
+     * Constructor for HttpStatusResponse.
+     * </p>
      *
-     * @param response a {@link java.lang.String} object.
+     * @param response
+     *            a {@link java.lang.String} object.
      */
     public HttpStatusResponse(final String response) {
         super(response);
@@ -58,25 +62,34 @@ public class HttpStatusResponse extends LineOrientedResponse {
     }
 
     /**
-     * <p>validateResponse</p>
+     * <p>
+     * validateResponse
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
-     * @param url a {@link java.lang.String} object.
-     * @param isCheckCode a boolean.
-     * @param maxRetCode a int.
+     * @param pattern
+     *            a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
+     * @param isCheckCode
+     *            a boolean.
+     * @param maxRetCode
+     *            a int.
      * @return a boolean.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public boolean validateResponse(final String pattern, final String url, final boolean isCheckCode, final int maxRetCode) throws Exception {
+    public boolean validateResponse(final String pattern, final String url, final boolean isCheckCode,
+            final int maxRetCode) throws Exception {
         String[] codeArray = Integer.toString(maxRetCode).split("");
-        if(codeArray.length < 3) {
+        if (codeArray.length < 3) {
             throw new IllegalArgumentException("Maximum HTTP return code is too short, must be at least 3 digits");
         }
 
         final Pattern p;
 
         if (isCheckCode) {
-            p = Pattern.compile(String.format("([H][T][T][P+]/[1].[0-1]) ([0-%s][0-2][0-%s]) ([a-zA-Z ]+)", codeArray[1], codeArray[3]));
+            p = Pattern.compile(String.format("([H][T][T][P+]/[1].[0-1]) ([0-%s][0-2][0-%s]) ([a-zA-Z ]+)",
+                                              codeArray[1], codeArray[3]));
         } else {
             p = DEFAULT_REGEX;
         }

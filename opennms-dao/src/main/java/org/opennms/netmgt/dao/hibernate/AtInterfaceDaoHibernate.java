@@ -51,7 +51,7 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 
-public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterface, Integer>  implements AtInterfaceDao {
+public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterface, Integer> implements AtInterfaceDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AtInterfaceDaoHibernate.class);
 
@@ -65,17 +65,17 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         super(OnmsAtInterface.class);
     }
 
-	@Override
-	public void markDeletedIfNodeDeleted() {
-	    final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
+    @Override
+    public void markDeletedIfNodeDeleted() {
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.type", "D"));
 
         for (final OnmsAtInterface iface : findMatching(criteria)) {
-        	iface.setStatus(StatusType.DELETED);
-        	saveOrUpdate(iface);
+            iface.setStatus(StatusType.DELETED);
+            saveOrUpdate(iface);
         }
-	}
+    }
 
     @Override
     public void deactivateForSourceNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
@@ -104,7 +104,10 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 
     @Override
     public Collection<OnmsAtInterface> findByMacAddress(final String macAddress) {
-        // SELECT atinterface.nodeid, atinterface.ipaddr, ipinterface.ifindex from atinterface left JOIN ipinterface ON atinterface.nodeid = ipinterface.nodeid AND atinterface.ipaddr = ipinterface.ipaddr WHERE atphysaddr = ? AND atinterface.status <> 'D'
+        // SELECT atinterface.nodeid, atinterface.ipaddr, ipinterface.ifindex
+        // from atinterface left JOIN ipinterface ON atinterface.nodeid =
+        // ipinterface.nodeid AND atinterface.ipaddr = ipinterface.ipaddr WHERE
+        // atphysaddr = ? AND atinterface.status <> 'D'
 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
@@ -116,7 +119,8 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 
     @Override
     public void setStatusForNode(Integer nodeid, StatusType action) {
-        // UPDATE atinterface set status = ?  WHERE sourcenodeid = ? OR nodeid = ?
+        // UPDATE atinterface set status = ? WHERE sourcenodeid = ? OR nodeid =
+        // ?
 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
         criteria.add(Restrictions.or(Restrictions.eq("node.id", nodeid), Restrictions.eq("sourceNodeId", nodeid)));
@@ -129,7 +133,8 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 
     @Override
     public void setStatusForNodeAndIp(final Integer nodeid, final String ipAddr, final StatusType action) {
-        // ps = dbConn.prepareStatement("UPDATE atinterface set status = ?  WHERE nodeid = ? AND ipaddr = ?");
+        // ps =
+        // dbConn.prepareStatement("UPDATE atinterface set status = ?  WHERE nodeid = ? AND ipaddr = ?");
 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
@@ -144,7 +149,8 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
-        // UPDATE atinterface set status = ?  WHERE sourcenodeid = ? AND ifindex = ?
+        // UPDATE atinterface set status = ? WHERE sourcenodeid = ? AND ifindex
+        // = ?
 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
@@ -158,32 +164,35 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
     }
 
     @Override
-    public OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final InetAddress ipAddress, final String macAddress) {
-    	/*
-    	final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
-        criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.eq("node.id", nodeId));
-        criteria.add(Restrictions.eq("ipAddress", ipAddress));
-        criteria.add(Restrictions.eq("macAddress", macAddress));
-
-        final List<OnmsAtInterface> ifaces = findMatching(criteria);
-        if (ifaces.size() == 0) {
-            return null;
-        } else {
-            return ifaces.get(0);
-        }
-        */
+    public OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final InetAddress ipAddress,
+            final String macAddress) {
+        /*
+         * final OnmsCriteria criteria = new
+         * OnmsCriteria(OnmsAtInterface.class);
+         * criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
+         * criteria.add(Restrictions.eq("node.id", nodeId));
+         * criteria.add(Restrictions.eq("ipAddress", ipAddress));
+         * criteria.add(Restrictions.eq("macAddress", macAddress));
+         * final List<OnmsAtInterface> ifaces = findMatching(criteria);
+         * if (ifaces.size() == 0) {
+         * return null;
+         * } else {
+         * return ifaces.get(0);
+         * }
+         */
         final String addressString = str(ipAddress);
-        return
-        	findUnique("from OnmsAtInterface atInterface where atInterface.node.id = ? and atInterface.ipAddress = ? and atInterface.macAddress = ?", nodeId,addressString,macAddress);
+        return findUnique("from OnmsAtInterface atInterface where atInterface.node.id = ? and atInterface.ipAddress = ? and atInterface.macAddress = ?",
+                          nodeId, addressString, macAddress);
     }
 
-    // SELECT node.nodeid,ipinterface.ifindex FROM node LEFT JOIN ipinterface ON node.nodeid = ipinterface.nodeid WHERE nodetype = 'A' AND ipaddr = ?
+    // SELECT node.nodeid,ipinterface.ifindex FROM node LEFT JOIN ipinterface ON
+    // node.nodeid = ipinterface.nodeid WHERE nodetype = 'A' AND ipaddr = ?
     @Override
     public Collection<OnmsAtInterface> getAtInterfaceForAddress(final InetAddress address) {
         final String addressString = str(address);
 
-        if (address.isLoopbackAddress() || addressString.equals("0.0.0.0")) return null;
+        if (address.isLoopbackAddress() || addressString.equals("0.0.0.0"))
+            return null;
 
         // See if we have an existing version of this OnmsAtInterface first
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
@@ -196,9 +205,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         if (interfaces.isEmpty()) {
             LOG.debug("getAtInterfaceForAddress: No AtInterface matched address {}!", addressString);
             LOG.debug("getAtInterfaceForAddress: search IpInterface for address {}!", addressString);
-	        for ( final OnmsIpInterface iface : m_ipInterfaceDao.findByIpAddress(addressString)) {
-	            interfaces.add(new OnmsAtInterface(iface.getNode(), iface.getIpAddress()));
-	        }
+            for (final OnmsIpInterface iface : m_ipInterfaceDao.findByIpAddress(addressString)) {
+                interfaces.add(new OnmsAtInterface(iface.getNode(), iface.getIpAddress()));
+            }
         }
         return interfaces;
     }

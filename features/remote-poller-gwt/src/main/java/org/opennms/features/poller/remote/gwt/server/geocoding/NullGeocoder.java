@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.server.geocoding;
 import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 
 /**
- * <p>NullGeocoder class.</p>
+ * <p>
+ * NullGeocoder class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,10 +41,10 @@ import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
  */
 public class NullGeocoder implements Geocoder {
 
-	/** {@inheritDoc} */
-        @Override
-	public GWTLatLng geocode(String geolocation) throws GeocoderException {
-		return GWTLatLng.getDefault();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public GWTLatLng geocode(String geolocation) throws GeocoderException {
+        return GWTLatLng.getDefault();
+    }
 
 }

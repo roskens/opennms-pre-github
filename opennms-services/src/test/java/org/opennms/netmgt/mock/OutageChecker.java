@@ -37,6 +37,4 @@ public interface OutageChecker {
 
     public void processRow(ResultSet rs);
 
-
-
 }

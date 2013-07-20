@@ -43,9 +43,7 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.opennms.netmgt.junit.runner.SeleniumComputer;
 
-
 public class GroovyRunnerTest {
-
 
     @Test
     public void testGroovyClassLoaderFailConstructorError() throws CompilationFailedException, IOException {
@@ -53,7 +51,6 @@ public class GroovyRunnerTest {
         Result result = runJUnitTests(getGroovyClass(filename));
         assertEquals(1, result.getFailureCount());
     }
-
 
     @Test
     public void testAnnotatedGroovyClassWithBaseUrl() throws IOException {
@@ -78,7 +75,7 @@ public class GroovyRunnerTest {
         Result result = JUnitCore.runClasses(computer, clazz);
 
         List<Failure> failures = result.getFailures();
-        for(Failure failure : failures) {
+        for (Failure failure : failures) {
             System.out.println(failure.getMessage());
         }
         return result;
@@ -93,7 +90,7 @@ public class GroovyRunnerTest {
     private Result runJUnitTests(Class<?> clazz) {
         Result result = JUnitCore.runClasses(clazz);
         List<Failure> failures = result.getFailures();
-        for(Failure failure : failures) {
+        for (Failure failure : failures) {
             System.out.println(failure.getMessage());
         }
         return result;

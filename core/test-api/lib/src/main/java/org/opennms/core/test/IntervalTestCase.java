@@ -61,8 +61,10 @@ public class IntervalTestCase {
         return m_dateFormat.parse(dateStr);
     }
 
-    protected TimeInterval interval(int startMonth, int startDay, int startHour, int endMonth, int endDay, int endHour) throws Exception {
-        return new TimeInterval(date(startDay+"-"+startMonth+"-2005 "+startHour+":00:00"), date(endDay+"-"+endMonth+"-2005 "+endHour+":00:00"));
+    protected TimeInterval interval(int startMonth, int startDay, int startHour, int endMonth, int endDay, int endHour)
+            throws Exception {
+        return new TimeInterval(date(startDay + "-" + startMonth + "-2005 " + startHour + ":00:00"), date(endDay + "-"
+                + endMonth + "-2005 " + endHour + ":00:00"));
     }
 
     protected TimeInterval jun(int startDay, int startHour, int endDay, int endHour) throws Exception {
@@ -121,13 +123,13 @@ public class IntervalTestCase {
         return dec(day, beginHour, day, endHour);
     }
 
-
     protected TimeInterval aug(int day) throws Exception {
         return aug(day, 0, 24);
     }
 
-    protected <T extends TimeInterval> void assertTimeIntervalSequence(T[] intervals, AbstractTimeIntervalSequence<T> seq) {
-        int count  = 0;
+    protected <T extends TimeInterval> void assertTimeIntervalSequence(T[] intervals,
+            AbstractTimeIntervalSequence<T> seq) {
+        int count = 0;
         for (Iterator<T> iter = seq.iterator(); iter.hasNext();) {
             T interval = iter.next();
             assertInterval(intervals[count], interval);

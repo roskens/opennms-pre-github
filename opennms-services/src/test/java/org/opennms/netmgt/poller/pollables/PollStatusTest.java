@@ -28,34 +28,39 @@
 
 package org.opennms.netmgt.poller.pollables;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.netmgt.model.PollStatus;
+
 public class PollStatusTest {
-    protected PollStatus statusDown1      = null;
-    protected PollStatus statusDown2      = null;
-    protected PollStatus statusDown3      = null;
+    protected PollStatus statusDown1 = null;
+
+    protected PollStatus statusDown2 = null;
+
+    protected PollStatus statusDown3 = null;
+
     protected PollStatus statusAvailable1 = null;
 
     @Before
     public void setUp() {
-        statusDown1      = PollStatus.down("test down 1");
-        statusDown2      = PollStatus.down("test down 2");
-        statusDown3      = PollStatus.get(PollStatus.SERVICE_UNRESPONSIVE, "test down 3");
+        statusDown1 = PollStatus.down("test down 1");
+        statusDown2 = PollStatus.down("test down 2");
+        statusDown3 = PollStatus.get(PollStatus.SERVICE_UNRESPONSIVE, "test down 3");
         statusAvailable1 = PollStatus.get(PollStatus.SERVICE_AVAILABLE, "test up 1");
 
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.poller.pollables.PollStatus.PollStatus(int, String, String)'
+     * Test method for
+     * 'org.opennms.netmgt.poller.pollables.PollStatus.PollStatus(int, String,
+     * String)'
      */
     @Test
     public void testPollStatus() {
-        //Compare construction via constant
+        // Compare construction via constant
         PollStatus statusDown1 = PollStatus.down("test down 1");
         PollStatus statusDown2 = PollStatus.down("test down 2");
 

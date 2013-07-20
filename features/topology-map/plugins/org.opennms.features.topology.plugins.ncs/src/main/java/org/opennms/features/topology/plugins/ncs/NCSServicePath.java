@@ -18,16 +18,25 @@ import org.w3c.dom.NodeList;
 public class NCSServicePath {
 
     private NCSComponentRepository m_dao;
+
     private NodeDao m_nodeDao;
+
     private String m_nodeForeignSource;
+
     private LinkedList<NCSVertex> m_vertices = new LinkedList<NCSVertex>();
+
     private String m_serviceForeignSource;
+
     private String m_deviceAForeignID;
+
     private String m_deviceZForeignID;
+
     private String m_serviceName;
+
     private int m_statusCode;
 
-    public NCSServicePath(Node data, NCSComponentRepository dao, NodeDao nodeDao, String nodeForeignSource, String serviceForeignSource, String deviceAID, String deviceZID, String serviceName) {
+    public NCSServicePath(Node data, NCSComponentRepository dao, NodeDao nodeDao, String nodeForeignSource,
+            String serviceForeignSource, String deviceAID, String deviceZID, String serviceName) {
         m_dao = dao;
         m_nodeDao = nodeDao;
         m_nodeForeignSource = nodeForeignSource;
@@ -38,17 +47,17 @@ public class NCSServicePath {
 
         setStatusCode(data);
 
-        //Add device A to path, its not sent in the path
+        // Add device A to path, its not sent in the path
         m_vertices.add(getVertexRefForForeignId(m_deviceAForeignID, m_nodeForeignSource));
         NodeList childNodes = getServicePath(data);
-        for(int i = 0; i < childNodes.getLength(); i++) {
+        for (int i = 0; i < childNodes.getLength(); i++) {
             Node item = childNodes.item(i);
-            if(item.getNodeName().equals("LSPPath")) {
+            if (item.getNodeName().equals("LSPPath")) {
                 parsePath(item);
             }
         }
 
-        //Add device Z to path, its not sent in the path from the server
+        // Add device Z to path, its not sent in the path from the server
         m_vertices.add(getVertexRefForForeignId(m_deviceZForeignID, m_nodeForeignSource));
     }
 
@@ -59,9 +68,9 @@ public class NCSServicePath {
 
     private void setStatusCode(Node data) {
         NodeList childNodes = data.getChildNodes();
-        for(int i = 0; i < childNodes.getLength(); i++) {
+        for (int i = 0; i < childNodes.getLength(); i++) {
             Node item = childNodes.item(i);
-            if(item.getNodeName().equals("Status")) {
+            if (item.getNodeName().equals("Status")) {
                 Node firstChild = item.getFirstChild();
                 String nodeValue = firstChild.getFirstChild().getNodeValue();
                 m_statusCode = Integer.valueOf(nodeValue);
@@ -76,13 +85,13 @@ public class NCSServicePath {
 
     private void parsePath(Node item) {
         NodeList lspNode = item.getChildNodes();
-        for(int i = 0; i < lspNode.getLength(); i++) {
+        for (int i = 0; i < lspNode.getLength(); i++) {
             Node node = lspNode.item(i);
-            if(node.getNodeName().equals("LSPNode")) {
+            if (node.getNodeName().equals("LSPNode")) {
                 String nodeForeignId = node.getLastChild().getLastChild().getTextContent();
-                if(!m_deviceAForeignID.equals(nodeForeignId) && !m_deviceZForeignID.equals(nodeForeignId)) {
+                if (!m_deviceAForeignID.equals(nodeForeignId) && !m_deviceZForeignID.equals(nodeForeignId)) {
                     NCSVertex vertex = getVertexRefForForeignId(nodeForeignId, m_nodeForeignSource);
-                    if(vertex != null) {
+                    if (vertex != null) {
                         m_vertices.add(vertex);
                     }
                 }
@@ -92,10 +101,10 @@ public class NCSServicePath {
 
     private NCSVertex getVertexRefForForeignId(String nodeForeignId, String nodeForeignSource) {
         OnmsNode node = m_nodeDao.findByForeignId(nodeForeignSource, nodeForeignId);
-        if(node != null) {
+        if (node != null) {
             NCSVertex vertex = new NCSVertex(String.valueOf(node.getId()), node.getLabel());
             return vertex;
-        }else {
+        } else {
             return null;
         }
 
@@ -105,17 +114,17 @@ public class NCSServicePath {
         return m_vertices;
     }
 
-    public List<Edge> getEdges(){
+    public List<Edge> getEdges() {
         List<Edge> edges = new ArrayList<Edge>();
 
-        if(m_vertices.size() >= 2) {
+        if (m_vertices.size() >= 2) {
             String deviceA = m_vertices.get(0).getLabel();
-            String deviceZ = m_vertices.get(m_vertices.size() -1).getLabel();
+            String deviceZ = m_vertices.get(m_vertices.size() - 1).getLabel();
             ListIterator<NCSVertex> iterator = m_vertices.listIterator();
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
 
                 NCSVertex sourceRef = iterator.next();
-                if(iterator.hasNext()) {
+                if (iterator.hasNext()) {
                     NCSVertex targetRef = m_vertices.get(iterator.nextIndex());
                     NCSPathEdge ncsPathEdge = new NCSPathEdge(m_serviceName, deviceA, deviceZ, sourceRef, targetRef);
                     ncsPathEdge.setStyleName("ncs edge direct");
@@ -125,7 +134,6 @@ public class NCSServicePath {
             }
 
         }
-
 
         return edges;
     }

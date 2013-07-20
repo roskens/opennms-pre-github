@@ -48,7 +48,9 @@ import org.opennms.features.poller.remote.gwt.client.utils.StringUtils;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * <p>ApplicationDetails class.</p>
+ * <p>
+ * ApplicationDetails class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -56,15 +58,15 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class ApplicationDetails implements Serializable, IsSerializable {
 
-	private static final long serialVersionUID = -3213261172620899769L;
+    private static final long serialVersionUID = -3213261172620899769L;
 
-	private String m_name;
+    private String m_name;
 
     private ApplicationInfo m_application;
 
-    private Map<Integer,GWTLocationMonitor> m_monitors = new HashMap<Integer,GWTLocationMonitor>();
+    private Map<Integer, GWTLocationMonitor> m_monitors = new HashMap<Integer, GWTLocationMonitor>();
 
-    private Map<Integer,GWTMonitoredService> m_services = new HashMap<Integer,GWTMonitoredService>();
+    private Map<Integer, GWTMonitoredService> m_services = new HashMap<Integer, GWTMonitoredService>();
 
     private List<GWTLocationSpecificStatus> m_locationSpecificStatuses;
 
@@ -77,7 +79,9 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     private Map<Integer, Map<Integer, List<GWTServiceOutage>>> m_outages;
 
     /**
-     * <p>Constructor for ApplicationDetails.</p>
+     * <p>
+     * Constructor for ApplicationDetails.
+     * </p>
      */
     public ApplicationDetails() {
         m_name = null;
@@ -87,15 +91,25 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     }
 
     /**
-     * <p>Constructor for ApplicationDetails.</p>
+     * <p>
+     * Constructor for ApplicationDetails.
+     * </p>
      *
-     * @param application a {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo} object.
-     * @param from a {@link java.util.Date} object.
-     * @param to a {@link java.util.Date} object.
-     * @param monitors a {@link java.util.Collection} object.
-     * @param statuses a {@link java.util.List} object.
+     * @param application
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo}
+     *            object.
+     * @param from
+     *            a {@link java.util.Date} object.
+     * @param to
+     *            a {@link java.util.Date} object.
+     * @param monitors
+     *            a {@link java.util.Collection} object.
+     * @param statuses
+     *            a {@link java.util.List} object.
      */
-    public ApplicationDetails(final ApplicationInfo application, final Date from, final Date to, final Collection<GWTLocationMonitor> monitors, final List<GWTLocationSpecificStatus> statuses) {
+    public ApplicationDetails(final ApplicationInfo application, final Date from, final Date to,
+            final Collection<GWTLocationMonitor> monitors, final List<GWTLocationSpecificStatus> statuses) {
         m_name = application.getName();
         setApplicationInfo(application);
         setStartTime(from);
@@ -155,7 +169,8 @@ public class ApplicationDetails implements Serializable, IsSerializable {
                 // there's no existing outage
 
                 if (status.getPollResult().isDown()) {
-                    // but the service is down on this monitor, start a new outage
+                    // but the service is down on this monitor, start a new
+                    // outage
                     lastOutage = new GWTServiceOutage();
                     lastOutage.setService(status.getMonitoredService());
                     lastOutage.setMonitor(status.getLocationMonitor());
@@ -192,9 +207,13 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     }
 
     /**
-     * <p>getStatusDetails</p>
+     * <p>
+     * getStatusDetails
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.StatusDetails} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
+     *         object.
      */
     public StatusDetails getStatusDetails() {
         if (m_statusDetails == null) {
@@ -204,13 +223,19 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     }
 
     private StatusDetails getStatusDetailsUncached() {
-        return new AppStatusDetailsComputer(getStartTime(), getEndTime(), getMonitors().values(), getApplicationInfo().getServices(), getLocationSpecificStatuses()).compute();
+        return new AppStatusDetailsComputer(getStartTime(), getEndTime(), getMonitors().values(),
+                                            getApplicationInfo().getServices(), getLocationSpecificStatuses()).compute();
     }
 
     /**
-     * <p>getAvailability</p>
+     * <p>
+     * getAvailability
+     * </p>
      *
-     * @param service a {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService} object.
+     * @param service
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
+     *            object.
      * @return a {@link java.lang.Double} object.
      */
     public Double getAvailability(final GWTMonitoredService service) {
@@ -219,7 +244,9 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     }
 
     /**
-     * <p>getAvailability</p>
+     * <p>
+     * getAvailability
+     * </p>
      *
      * @return a {@link java.lang.Double} object.
      */
@@ -265,7 +292,8 @@ public class ApplicationDetails implements Serializable, IsSerializable {
                         locationIntervals.add(new Interval(outage.getFrom().getTime(), outage.getTo().getTime()));
                     }
                 }
-                locationIntervals = IntervalUtils.invert(getStartTime(), getEndTime(), IntervalUtils.normalize(locationIntervals));
+                locationIntervals = IntervalUtils.invert(getStartTime(), getEndTime(),
+                                                         IntervalUtils.normalize(locationIntervals));
                 serviceUpIntervals.addAll(locationIntervals);
             }
             return IntervalUtils.invert(getStartTime(), getEndTime(), IntervalUtils.normalize(serviceUpIntervals));
@@ -274,17 +302,22 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String toString() {
-        return "ApplicationDetails[name=" + m_name + ",range=" + getStartTime() + "-" + getEndTime() + ",statuses=" + getLocationSpecificStatuses() + "]";
+        return "ApplicationDetails[name=" + m_name + ",range=" + getStartTime() + "-" + getEndTime() + ",statuses="
+                + getLocationSpecificStatuses() + "]";
     }
 
     /**
-     * <p>getApplicationName</p>
+     * <p>
+     * getApplicationName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -293,7 +326,9 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     }
 
     /**
-     * <p>getDetailsAsString</p>
+     * <p>
+     * getDetailsAsString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -309,14 +344,14 @@ public class ApplicationDetails implements Serializable, IsSerializable {
             @Override
             public int compare(final GWTMonitoredService a, final GWTMonitoredService b) {
                 if (a == null) {
-                    if (b == null) return 0;
+                    if (b == null)
+                        return 0;
                     return 1;
                 }
-                if (b == null) return -1;
-                return new CompareToBuilder()
-                    .append(a.getServiceName(), b.getServiceName())
-                    .append(a.getId(), b.getId())
-                    .toComparison();
+                if (b == null)
+                    return -1;
+                return new CompareToBuilder().append(a.getServiceName(), b.getServiceName()).append(a.getId(),
+                                                                                                    b.getId()).toComparison();
             }
         });
         services.addAll(m_services.values());
@@ -329,7 +364,7 @@ public class ApplicationDetails implements Serializable, IsSerializable {
 
             if (serviceAvailability == 100.0) {
                 styleName = Status.UP.getStyle();
-                Map<Integer,List<GWTServiceOutage>> serviceOutages = outages.get(serviceId);
+                Map<Integer, List<GWTServiceOutage>> serviceOutages = outages.get(serviceId);
                 if (serviceOutages != null) {
                     for (final Integer locationId : serviceOutages.keySet()) {
                         final List<GWTServiceOutage> locationOutages = serviceOutages.get(locationId);
@@ -369,7 +404,8 @@ public class ApplicationDetails implements Serializable, IsSerializable {
                     locationString.add(monitor.getName());
                 }
                 sb.append("<br>\n").append("Location");
-                if (locationsNotReporting.size() > 1) sb.append("s");
+                if (locationsNotReporting.size() > 1)
+                    sb.append("s");
                 sb.append(" with outages: ").append(StringUtils.join(locationString));
             }
             sb.append("</dd>\n");
@@ -393,12 +429,13 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     /**
      * @return the monitors
      */
-    private Map<Integer,GWTLocationMonitor> getMonitors() {
+    private Map<Integer, GWTLocationMonitor> getMonitors() {
         return m_monitors;
     }
 
     /**
-     * @param locationSpecificStatuses the locationSpecificStatuses to set
+     * @param locationSpecificStatuses
+     *            the locationSpecificStatuses to set
      */
     private void setLocationSpecificStatuses(List<GWTLocationSpecificStatus> locationSpecificStatuses) {
         m_locationSpecificStatuses = locationSpecificStatuses;
@@ -412,14 +449,17 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     }
 
     /**
-     * @param application the application to set
+     * @param application
+     *            the application to set
      */
     private void setApplicationInfo(ApplicationInfo application) {
         m_application = application;
     }
 
     /**
-     * <p>getApplicationInfo</p>
+     * <p>
+     * getApplicationInfo
+     * </p>
      *
      * @return the application
      */
@@ -428,7 +468,8 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     }
 
     /**
-     * @param statusTo the statusTo to set
+     * @param statusTo
+     *            the statusTo to set
      */
     private void setEndTime(Date endTime) {
         m_endTime = endTime;
@@ -442,7 +483,8 @@ public class ApplicationDetails implements Serializable, IsSerializable {
     }
 
     /**
-     * @param startTime the startTime to set
+     * @param startTime
+     *            the startTime to set
      */
     private void setStartTime(Date startTime) {
         m_startTime = startTime;

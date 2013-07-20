@@ -59,10 +59,12 @@ public abstract class EventTable extends Table {
     /**
      * Instantiates a new event table.
      *
-     * @param events the OpenNMS events
+     * @param events
+     *            the OpenNMS events
      */
     public EventTable(final Events events) {
-        container = new BeanContainer<String, org.opennms.netmgt.xml.eventconf.Event>(org.opennms.netmgt.xml.eventconf.Event.class);
+        container = new BeanContainer<String, org.opennms.netmgt.xml.eventconf.Event>(
+                                                                                      org.opennms.netmgt.xml.eventconf.Event.class);
         container.setBeanIdProperty("uei");
         container.addAll(events.getEventCollection());
         setContainerDataSource(container);
@@ -86,7 +88,8 @@ public abstract class EventTable extends Table {
     /**
      * Update external source.
      *
-     * @param event the OpenNMS event
+     * @param event
+     *            the OpenNMS event
      */
     public abstract void updateExternalSource(org.opennms.netmgt.xml.eventconf.Event event);
 
@@ -115,7 +118,8 @@ public abstract class EventTable extends Table {
     /**
      * Adds an event.
      *
-     * @param event the new event
+     * @param event
+     *            the new event
      */
     public void addEvent(org.opennms.netmgt.xml.eventconf.Event event) {
         container.addBean(event);
@@ -124,7 +128,8 @@ public abstract class EventTable extends Table {
     /**
      * Gets the OpenNMS event.
      *
-     * @param itemId the internal Item ID (Event's UEI)
+     * @param itemId
+     *            the internal Item ID (Event's UEI)
      * @return the OpenNMS event
      */
     private org.opennms.netmgt.xml.eventconf.Event getEvent(Object itemId) {

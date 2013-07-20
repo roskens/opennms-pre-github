@@ -37,11 +37,9 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class MultiEngineBuilder implements InitializingBean {
-
 
     private static class MyEngine extends AbstractCorrelationEngine {
 
@@ -53,9 +51,7 @@ public class MultiEngineBuilder implements InitializingBean {
 
         @Override
         public List<String> getInterestingEvents() {
-            String[] ueis = {
-              "isListLoaded"
-            };
+            String[] ueis = { "isListLoaded" };
             return Arrays.asList(ueis);
         }
 
@@ -66,13 +62,15 @@ public class MultiEngineBuilder implements InitializingBean {
 
         @Override
         public String getName() {
-           return "MyEngine";
+            return "MyEngine";
         }
 
     }
 
     CorrelationEngine[] m_engines;
+
     CorrelationEngineRegistrar m_correlator;
+
     EventIpcManager m_eventIpcManager;
 
     @Override

@@ -29,7 +29,9 @@
 package org.opennms.test.mock;
 
 /**
- * <p>MockUtil class.</p>
+ * <p>
+ * MockUtil class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,7 +39,9 @@ package org.opennms.test.mock;
 public class MockUtil {
 
     /**
-     * <p>printEnabled</p>
+     * <p>
+     * printEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -46,9 +50,12 @@ public class MockUtil {
     }
 
     /**
-     * <p>println</p>
+     * <p>
+     * println
+     * </p>
      *
-     * @param string a {@link java.lang.String} object.
+     * @param string
+     *            a {@link java.lang.String} object.
      */
     public static void println(String string) {
         if (MockUtil.printEnabled())

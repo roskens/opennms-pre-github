@@ -73,7 +73,8 @@ public class EventsAlarmsOperation extends AbstractOperation implements Operatio
             final URL alarmsURL;
             if (node.getNodeID() >= 0) {
                 eventsURL = new URL(baseURL, getEventsURL() + "?filter=node%3D" + node.getNodeID());
-                alarmsURL = new URL(baseURL, getAlarmsURL() + "?sortby=id&acktype=unacklimit=20&filter=node%3D" + node.getNodeID());
+                alarmsURL = new URL(baseURL, getAlarmsURL() + "?sortby=id&acktype=unacklimit=20&filter=node%3D"
+                        + node.getNodeID());
             } else {
                 eventsURL = new URL(baseURL, getEventsURL());
                 alarmsURL = new URL(baseURL, getAlarmsURL());
@@ -88,11 +89,11 @@ public class EventsAlarmsOperation extends AbstractOperation implements Operatio
 
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
-    	if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
-    		return true;
-    	} else {
-			return targets != null && targets.size() > 0 && targets.get(0) != null;
-    	}
+        if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
+            return true;
+        } else {
+            return targets != null && targets.size() > 0 && targets.get(0) != null;
+        }
 
     }
 

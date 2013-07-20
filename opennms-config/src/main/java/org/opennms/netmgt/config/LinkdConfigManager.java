@@ -61,24 +61,29 @@ import org.opennms.netmgt.filter.FilterDaoFactory;
 import org.opennms.protocols.snmp.SnmpObjectId;
 
 /**
- * <p>Abstract LinkdConfigManager class.</p>
+ * <p>
+ * Abstract LinkdConfigManager class.
+ * </p>
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
 abstract public class LinkdConfigManager implements LinkdConfig {
     private static final Logger LOG = LoggerFactory.getLogger(LinkdConfigManager.class);
+
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-	public static final String DEFAULT_IP_ROUTE_CLASS_NAME = "org.opennms.netmgt.linkd.snmp.IpCidrRouteTable";
+    public static final String DEFAULT_IP_ROUTE_CLASS_NAME = "org.opennms.netmgt.linkd.snmp.IpCidrRouteTable";
 
     /**
-	 * Object containing all Linkd-configuration objects parsed from the XML
-	 * file
-	 */
-	protected static LinkdConfiguration m_config;
+     * Object containing all Linkd-configuration objects parsed from the XML
+     * file
+     */
+    protected static LinkdConfiguration m_config;
 
     /**
      * A mapping of the configured URLs to a list of the specific IPs configured
@@ -92,23 +97,29 @@ abstract public class LinkdConfigManager implements LinkdConfig {
      */
     private static Map<org.opennms.netmgt.config.linkd.Package, List<InetAddress>> m_pkgIpMap = new HashMap<org.opennms.netmgt.config.linkd.Package, List<InetAddress>>();
 
-	/**
-	 * The HashMap that associates the OIDS masks to class name for Vlans
-	 */
-	private static Map<String,String> m_oidMask2VlanclassName = new HashMap<String,String>();
-
-	/**
-	 * The HashMap that associates the OIDS masks to class name for IpRoutes
-	 */
-	 private static Map<String,String> m_oidMask2IpRouteclassName = new HashMap<String,String>();
+    /**
+     * The HashMap that associates the OIDS masks to class name for Vlans
+     */
+    private static Map<String, String> m_oidMask2VlanclassName = new HashMap<String, String>();
 
     /**
-     * <p>Constructor for LinkdConfigManager.</p>
+     * The HashMap that associates the OIDS masks to class name for IpRoutes
+     */
+    private static Map<String, String> m_oidMask2IpRouteclassName = new HashMap<String, String>();
+
+    /**
+     * <p>
+     * Constructor for LinkdConfigManager.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public LinkdConfigManager() {
     }
@@ -130,7 +141,8 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     public boolean isAutoDiscoveryEnabled() {
         getReadLock().lock();
         try {
-            if (m_config.hasAutoDiscovery()) return m_config.getAutoDiscovery();
+            if (m_config.hasAutoDiscovery())
+                return m_config.getAutoDiscovery();
         } finally {
             getReadLock().unlock();
         }
@@ -144,7 +156,8 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     public boolean isVlanDiscoveryEnabled() {
         getReadLock().lock();
         try {
-            if (m_config.hasEnableVlanDiscovery()) return m_config.getEnableVlanDiscovery();
+            if (m_config.hasEnableVlanDiscovery())
+                return m_config.getEnableVlanDiscovery();
         } finally {
             getReadLock().unlock();
         }
@@ -156,7 +169,6 @@ abstract public class LinkdConfigManager implements LinkdConfig {
      * the passed package definition. If the interface belongs to the package
      * then a value of true is returned. If the interface does not belong to the
      * package a false value is returned.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -177,12 +189,14 @@ abstract public class LinkdConfigManager implements LinkdConfig {
             // get list of IPs in this package
             final List<InetAddress> ipList = m_pkgIpMap.get(pkg);
             if (ipList != null && ipList.size() > 0) {
-				filterPassed = ipList.contains(iface);
+                filterPassed = ipList.contains(iface);
             }
 
-            LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", str(iface), pkg.getName(), (filterPassed? "True":"False"));
+            LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", str(iface), pkg.getName(),
+                      (filterPassed ? "True" : "False"));
 
-            if (!filterPassed) return false;
+            if (!filterPassed)
+                return false;
 
             return isInterfaceInPackageRange(iface, pkg);
         } finally {
@@ -192,7 +206,8 @@ abstract public class LinkdConfigManager implements LinkdConfig {
 
     @Override
     public boolean isInterfaceInPackageRange(final InetAddress iface, final org.opennms.netmgt.config.linkd.Package pkg) {
-        if (pkg == null) return false;
+        if (pkg == null)
+            return false;
 
         //
         // Ensure that the interface is in the specific list or
@@ -206,7 +221,8 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         try {
             byte[] addr = iface.getAddress();
 
-            // if there are NO include ranges then treat act as if the user include
+            // if there are NO include ranges then treat act as if the user
+            // include
             // the range 0.0.0.0 - 255.255.255.255
             has_range_include = pkg.getIncludeRangeCount() == 0 && pkg.getSpecificCount() == 0;
 
@@ -218,13 +234,16 @@ abstract public class LinkdConfigManager implements LinkdConfig {
                     break;
                 }
             }
-            if (has_specific) return true;
+            if (has_specific)
+                return true;
 
             for (final String url : pkg.getIncludeUrlCollection()) {
                 has_specific = isInterfaceInUrl(iface, url);
-                if (has_specific) break;
+                if (has_specific)
+                    break;
             }
-            if (has_specific) return true;
+            if (has_specific)
+                return true;
 
             if (!has_range_include) {
                 for (final IncludeRange rng : pkg.getIncludeRangeCollection()) {
@@ -249,7 +268,9 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     }
 
     /**
-     * <p>enumeratePackage</p>
+     * <p>
+     * enumeratePackage
+     * </p>
      *
      * @return a {@link java.util.Enumeration} object.
      */
@@ -266,7 +287,8 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     /**
      * Return the linkd configuration object.
      *
-     * @return a {@link org.opennms.netmgt.config.linkd.LinkdConfiguration} object.
+     * @return a {@link org.opennms.netmgt.config.linkd.LinkdConfiguration}
+     *         object.
      */
     @Override
     public LinkdConfiguration getConfiguration() {
@@ -278,20 +300,20 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         }
     }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public org.opennms.netmgt.config.linkd.Package getPackage(final String name) {
-	    getReadLock().lock();
-	    try {
+    public org.opennms.netmgt.config.linkd.Package getPackage(final String name) {
+        getReadLock().lock();
+        try {
             for (final org.opennms.netmgt.config.linkd.Package thisPackage : m_config.getPackageCollection()) {
                 final String n = thisPackage.getName();
                 if (n != null && n.equals(name)) {
                     return thisPackage;
                 }
             }
-	    } finally {
-	        getReadLock().unlock();
-	    }
+        } finally {
+            getReadLock().unlock();
+        }
         return null;
     }
 
@@ -301,10 +323,12 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         getReadLock().lock();
 
         try {
-            if (pkg == null) return null;
+            if (pkg == null)
+                return null;
 
             final Filter filter = pkg.getFilter();
-            if (filter == null) return null;
+            if (filter == null)
+                return null;
 
             final StringBuffer filterRules = new StringBuffer(filter.getContent());
 
@@ -348,10 +372,8 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns the first package that the IP belongs to, null if none.
-     *
+     * {@inheritDoc} Returns the first package that the IP belongs to, null if
+     * none.
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      */
@@ -371,10 +393,8 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns a list of package names that the IP belongs to, null if none.
-     *
+     * {@inheritDoc} Returns a list of package names that the IP belongs to,
+     * null if none.
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      */
@@ -419,130 +439,163 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     }
 
     /**
-     * <p>useIpRouteDiscovery</p>
+     * <p>
+     * useIpRouteDiscovery
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean useIpRouteDiscovery() {
-        if (m_config.hasUseIpRouteDiscovery()) return m_config.getUseIpRouteDiscovery();
+        if (m_config.hasUseIpRouteDiscovery())
+            return m_config.getUseIpRouteDiscovery();
         return true;
     }
 
     /**
-     * <p>saveRouteTable</p>
+     * <p>
+     * saveRouteTable
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean saveRouteTable() {
-        if (m_config.hasSaveRouteTable()) return m_config.getSaveRouteTable();
+        if (m_config.hasSaveRouteTable())
+            return m_config.getSaveRouteTable();
         return true;
     }
 
     /**
-     * <p>useCdpDiscovery</p>
+     * <p>
+     * useCdpDiscovery
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean useCdpDiscovery() {
-        if (m_config.hasUseCdpDiscovery()) return m_config.getUseCdpDiscovery();
+        if (m_config.hasUseCdpDiscovery())
+            return m_config.getUseCdpDiscovery();
         return true;
     }
 
     /**
-     * <p>useBridgeDiscovery</p>
+     * <p>
+     * useBridgeDiscovery
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean useBridgeDiscovery() {
-        if (m_config.hasUseBridgeDiscovery()) return m_config.getUseBridgeDiscovery();
+        if (m_config.hasUseBridgeDiscovery())
+            return m_config.getUseBridgeDiscovery();
         return true;
     }
 
     /**
-     * <p>useLldpDiscovery</p>
+     * <p>
+     * useLldpDiscovery
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean useLldpDiscovery() {
-        if (m_config.hasUseLldpDiscovery()) return m_config.getUseLldpDiscovery();
+        if (m_config.hasUseLldpDiscovery())
+            return m_config.getUseLldpDiscovery();
         return true;
     }
 
     /**
-     * <p>useOspfDiscovery</p>
+     * <p>
+     * useOspfDiscovery
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean useOspfDiscovery() {
-        if (m_config.hasUseOspfDiscovery()) return m_config.getUseOspfDiscovery();
+        if (m_config.hasUseOspfDiscovery())
+            return m_config.getUseOspfDiscovery();
         return true;
     }
 
     /**
-     * <p>saveStpNodeTable</p>
+     * <p>
+     * saveStpNodeTable
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean saveStpNodeTable() {
-        if (m_config.hasSaveStpNodeTable()) return m_config.getSaveStpNodeTable();
+        if (m_config.hasSaveStpNodeTable())
+            return m_config.getSaveStpNodeTable();
         return true;
     }
 
     /**
-     * <p>enableDiscoveryDownload</p>
+     * <p>
+     * enableDiscoveryDownload
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean enableDiscoveryDownload() {
-        if (m_config.hasEnableDiscoveryDownload()) return m_config.getEnableDiscoveryDownload();
+        if (m_config.hasEnableDiscoveryDownload())
+            return m_config.getEnableDiscoveryDownload();
         return false;
     }
 
     /**
-     * <p>saveStpInterfaceTable</p>
+     * <p>
+     * saveStpInterfaceTable
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean saveStpInterfaceTable() {
-        if (m_config.hasSaveStpInterfaceTable()) return m_config.getSaveStpInterfaceTable();
+        if (m_config.hasSaveStpInterfaceTable())
+            return m_config.getSaveStpInterfaceTable();
         return true;
     }
 
     @Override
     public long getInitialSleepTime() {
-        if (m_config.hasInitial_sleep_time()) return m_config.getInitial_sleep_time();
+        if (m_config.hasInitial_sleep_time())
+            return m_config.getInitial_sleep_time();
         return 1800000;
     }
 
     @Override
     public long getSnmpPollInterval() {
-        if (m_config.hasSnmp_poll_interval()) return m_config.getSnmp_poll_interval();
+        if (m_config.hasSnmp_poll_interval())
+            return m_config.getSnmp_poll_interval();
         return 900000;
     }
 
     @Override
     public long getDiscoveryLinkInterval() {
-        if (m_config.hasSnmp_poll_interval()) return m_config.getDiscovery_link_interval();
+        if (m_config.hasSnmp_poll_interval())
+            return m_config.getDiscovery_link_interval();
         return 3600000;
     }
 
     /**
-     * <p>getThreads</p>
+     * <p>
+     * getThreads
+     * </p>
      *
      * @return a int.
      */
     @Override
     public int getThreads() {
-        if (m_config.hasThreads()) return m_config.getThreads();
+        if (m_config.hasThreads())
+            return m_config.getThreads();
         return 5;
     }
 
@@ -558,15 +611,17 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     }
 
     /**
-     * <p>update</p>
-     *
+     * <p>
+     * update
+     * </p>
      */
     @Override
     public abstract void update();
 
     /**
      * This method is used to establish package against IP list mapping, with
-     * which, the IP list is selected per package via the configured filter rules
+     * which, the IP list is selected per package via the configured filter
+     * rules
      * from the database.
      */
     protected void updatePackageIpListMap() {
@@ -575,7 +630,8 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         try {
             for (final org.opennms.netmgt.config.linkd.Package pkg : m_config.getPackageCollection()) {
                 //
-                // Get a list of IP addresses per package against the filter rules from
+                // Get a list of IP addresses per package against the filter
+                // rules from
                 // database and populate the package, IP list map.
                 //
                 try {
@@ -594,11 +650,11 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         }
     }
 
-
-   protected void updateUrlIpMap() {
-       m_urlIPMap.clear();
+    protected void updateUrlIpMap() {
+        m_urlIPMap.clear();
         for (final org.opennms.netmgt.config.linkd.Package pkg : m_config.getPackageCollection()) {
-            if (pkg == null) continue;
+            if (pkg == null)
+                continue;
             for (final String urlname : pkg.getIncludeUrlCollection()) {
                 final java.util.List<String> iplist = IpListFromUrl.parse(urlname);
                 if (iplist.size() > 0) {
@@ -634,86 +690,87 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         }
     }
 
-	protected void updateVlanClassNames() {
-	    m_oidMask2VlanclassName.clear();
-	    getWriteLock().lock();
-	    try {
-    		final Vlans vlans = m_config.getVlans();
-    		if (vlans == null) {
-    		    LOG.info("initializeVlanClassNames: no vlans found in config");
-    		}
+    protected void updateVlanClassNames() {
+        m_oidMask2VlanclassName.clear();
+        getWriteLock().lock();
+        try {
+            final Vlans vlans = m_config.getVlans();
+            if (vlans == null) {
+                LOG.info("initializeVlanClassNames: no vlans found in config");
+            }
 
             final List<String> excludedOids = new ArrayList<String>();
-    		for (final Vendor vendor : vlans.getVendorCollection()) {
-    		    final SnmpObjectId curRootSysOid = new SnmpObjectId(vendor.getSysoidRootMask());
-    		    final String curClassName = vendor.getClassName();
+            for (final Vendor vendor : vlans.getVendorCollection()) {
+                final SnmpObjectId curRootSysOid = new SnmpObjectId(vendor.getSysoidRootMask());
+                final String curClassName = vendor.getClassName();
 
-    			for (final String specific : vendor.getSpecific()) {
-    			    final SnmpObjectId oidMask = new SnmpObjectId(specific);
-    				oidMask.prepend(curRootSysOid);
-    				m_oidMask2VlanclassName.put(oidMask.toString(), curClassName);
-    				LOG.debug("initializeVlanClassNames:  adding class {} for oid {}", curClassName, oidMask);
-    			}
+                for (final String specific : vendor.getSpecific()) {
+                    final SnmpObjectId oidMask = new SnmpObjectId(specific);
+                    oidMask.prepend(curRootSysOid);
+                    m_oidMask2VlanclassName.put(oidMask.toString(), curClassName);
+                    LOG.debug("initializeVlanClassNames:  adding class {} for oid {}", curClassName, oidMask);
+                }
 
-    			for (final ExcludeRange excludeRange : vendor.getExcludeRangeCollection()) {
-    			    final SnmpObjectId snmpBeginOid = new SnmpObjectId(excludeRange.getBegin());
-    			    final SnmpObjectId snmpEndOid = new SnmpObjectId(excludeRange.getEnd());
-    				final SnmpObjectId snmpRootOid = getRootOid(snmpBeginOid);
-    				if (snmpBeginOid.getLength() == snmpEndOid.getLength() && snmpRootOid.isRootOf(snmpEndOid)) {
-    				    final SnmpObjectId snmpCurOid = new SnmpObjectId(snmpBeginOid);
-    					while (snmpCurOid.compare(snmpEndOid) <= 0) {
-    						excludedOids.add(snmpCurOid.toString());
-    						LOG.debug("initializeVlanClassNames:  signing excluded class {} for oid {}", curClassName, curRootSysOid.toString().concat(snmpCurOid.toString()));
-    						int lastCurCipher = snmpCurOid.getLastIdentifier();
-    						lastCurCipher++;
-    						int[] identifiers = snmpCurOid.getIdentifiers();
-    						identifiers[identifiers.length - 1] = lastCurCipher;
-    						snmpCurOid.setIdentifiers(identifiers);
-    					}
-    				}
-    			}
+                for (final ExcludeRange excludeRange : vendor.getExcludeRangeCollection()) {
+                    final SnmpObjectId snmpBeginOid = new SnmpObjectId(excludeRange.getBegin());
+                    final SnmpObjectId snmpEndOid = new SnmpObjectId(excludeRange.getEnd());
+                    final SnmpObjectId snmpRootOid = getRootOid(snmpBeginOid);
+                    if (snmpBeginOid.getLength() == snmpEndOid.getLength() && snmpRootOid.isRootOf(snmpEndOid)) {
+                        final SnmpObjectId snmpCurOid = new SnmpObjectId(snmpBeginOid);
+                        while (snmpCurOid.compare(snmpEndOid) <= 0) {
+                            excludedOids.add(snmpCurOid.toString());
+                            LOG.debug("initializeVlanClassNames:  signing excluded class {} for oid {}", curClassName,
+                                      curRootSysOid.toString().concat(snmpCurOid.toString()));
+                            int lastCurCipher = snmpCurOid.getLastIdentifier();
+                            lastCurCipher++;
+                            int[] identifiers = snmpCurOid.getIdentifiers();
+                            identifiers[identifiers.length - 1] = lastCurCipher;
+                            snmpCurOid.setIdentifiers(identifiers);
+                        }
+                    }
+                }
 
-    			for (final IncludeRange includeRange : vendor.getIncludeRangeCollection()) {
-    			    final SnmpObjectId snmpBeginOid = new SnmpObjectId(includeRange.getBegin());
-    				final SnmpObjectId snmpEndOid = new SnmpObjectId(includeRange.getEnd());
-    				final SnmpObjectId rootOid = getRootOid(snmpBeginOid);
-    				if (snmpBeginOid.getLength() == snmpEndOid.getLength() && rootOid.isRootOf(snmpEndOid)) {
-    					final SnmpObjectId snmpCurOid = new SnmpObjectId(snmpBeginOid);
-    					while (snmpCurOid.compare(snmpEndOid) <= 0) {
-    						if (!excludedOids.contains(snmpBeginOid.toString())) {
-    							final SnmpObjectId oidMask = new SnmpObjectId(snmpBeginOid);
-    							oidMask.prepend(curRootSysOid);
-    							m_oidMask2VlanclassName.put(oidMask.toString(), curClassName);
-    							LOG.debug("initializeVlanClassNames:  adding class {} for oid {}", curClassName, oidMask);
-    						}
-    						int lastCipher = snmpBeginOid.getLastIdentifier();
-    						lastCipher++;
-    						int[] identifiers = snmpBeginOid.getIdentifiers();
-    						identifiers[identifiers.length - 1] = lastCipher;
-    						snmpCurOid.setIdentifiers(identifiers);
-    					}
-    				}
-    			}
-    		}
-	    } finally {
-	        getWriteLock().unlock();
-	    }
-	}
+                for (final IncludeRange includeRange : vendor.getIncludeRangeCollection()) {
+                    final SnmpObjectId snmpBeginOid = new SnmpObjectId(includeRange.getBegin());
+                    final SnmpObjectId snmpEndOid = new SnmpObjectId(includeRange.getEnd());
+                    final SnmpObjectId rootOid = getRootOid(snmpBeginOid);
+                    if (snmpBeginOid.getLength() == snmpEndOid.getLength() && rootOid.isRootOf(snmpEndOid)) {
+                        final SnmpObjectId snmpCurOid = new SnmpObjectId(snmpBeginOid);
+                        while (snmpCurOid.compare(snmpEndOid) <= 0) {
+                            if (!excludedOids.contains(snmpBeginOid.toString())) {
+                                final SnmpObjectId oidMask = new SnmpObjectId(snmpBeginOid);
+                                oidMask.prepend(curRootSysOid);
+                                m_oidMask2VlanclassName.put(oidMask.toString(), curClassName);
+                                LOG.debug("initializeVlanClassNames:  adding class {} for oid {}", curClassName,
+                                          oidMask);
+                            }
+                            int lastCipher = snmpBeginOid.getLastIdentifier();
+                            lastCipher++;
+                            int[] identifiers = snmpBeginOid.getIdentifiers();
+                            identifiers[identifiers.length - 1] = lastCipher;
+                            snmpCurOid.setIdentifiers(identifiers);
+                        }
+                    }
+                }
+            }
+        } finally {
+            getWriteLock().unlock();
+        }
+    }
 
-
-	private SnmpObjectId getRootOid(final SnmpObjectId snmpObj) {
+    private SnmpObjectId getRootOid(final SnmpObjectId snmpObj) {
         getReadLock().lock();
         try {
-    	    final int[] identifiers = snmpObj.getIdentifiers();
-    		final int[] rootIdentifiers = new int[identifiers.length - 1];
-    		for (int i = 0; i < identifiers.length - 1; i++) {
-    			rootIdentifiers[i] = identifiers[i];
-    		}
-    		return new SnmpObjectId(rootIdentifiers);
+            final int[] identifiers = snmpObj.getIdentifiers();
+            final int[] rootIdentifiers = new int[identifiers.length - 1];
+            for (int i = 0; i < identifiers.length - 1; i++) {
+                rootIdentifiers[i] = identifiers[i];
+            }
+            return new SnmpObjectId(rootIdentifiers);
         } finally {
             getReadLock().unlock();
         }
-	}
+    }
 
     /**
      * This method is used to determine if the named interface is included in
@@ -740,7 +797,6 @@ abstract public class LinkdConfigManager implements LinkdConfig {
      *            The interface to test against the package's URL
      * @param url
      *            The URL file to read
-     *
      * @return True if the interface is included in the URL, false otherwise.
      */
     private boolean isInterfaceInUrl(final InetAddress addr, final String url) {
@@ -759,16 +815,21 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     }
 
     /**
-     * <p>saveXml</p>
+     * <p>
+     * saveXml
+     * </p>
      *
-     * @param xml a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param xml
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected abstract void saveXml(final String xml) throws IOException;
 
     @Override
-	public boolean forceIpRouteDiscoveryOnEthernet() {
-		if (m_config.hasForceIpRouteDiscoveryOnEthernet()) return m_config.getForceIpRouteDiscoveryOnEthernet();
-		return false;
-	}
+    public boolean forceIpRouteDiscoveryOnEthernet() {
+        if (m_config.hasForceIpRouteDiscoveryOnEthernet())
+            return m_config.getForceIpRouteDiscoveryOnEthernet();
+        return false;
+    }
 }

@@ -46,69 +46,57 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 
 public class SpringSecurityContextServiceTest {
 
-	private SpringSecurityContextService m_securityContextService;
-	private final GrantedAuthority ROLE_USER = new SimpleGrantedAuthority(
-			Authentication.ROLE_USER);
-	private final GrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority(
-			Authentication.ROLE_ADMIN);
-	private final GrantedAuthority ROLE_PROVISION = new SimpleGrantedAuthority(
-			Authentication.ROLE_PROVISION);
-	private final GrantedAuthority ROLE_ANONYMOUS = new SimpleGrantedAuthority(
-			"ROLE_ANONYMOUS");
-	private final GrantedAuthority ROLE_DASHBOARD = new SimpleGrantedAuthority(
-			Authentication.ROLE_DASHBOARD);
+    private SpringSecurityContextService m_securityContextService;
 
-	private final String USERNAME = "opennms";
+    private final GrantedAuthority ROLE_USER = new SimpleGrantedAuthority(Authentication.ROLE_USER);
 
-	private final String PASS = "r0c|<Z";
+    private final GrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority(Authentication.ROLE_ADMIN);
 
-	@Before
-	public void setUp() throws Exception {
-		SecurityContext context = new SecurityContextImpl();
-		User principal = new User(USERNAME, PASS, true, true, true, true,
-				Arrays.asList(new GrantedAuthority[] { ROLE_ADMIN, ROLE_PROVISION }));
-		org.springframework.security.core.Authentication auth = new PreAuthenticatedAuthenticationToken(
-				principal, new Object());
-		context.setAuthentication(auth);
-		SecurityContextHolder.setContext(context);
-		this.m_securityContextService = new SpringSecurityContextService();
-	}
+    private final GrantedAuthority ROLE_PROVISION = new SimpleGrantedAuthority(Authentication.ROLE_PROVISION);
 
-	@After
-	public void tearDown() {
-		SecurityContextHolder.clearContext();
-	}
+    private final GrantedAuthority ROLE_ANONYMOUS = new SimpleGrantedAuthority("ROLE_ANONYMOUS");
 
-	@Test
-	public void testUserCredentials() {
-		assertTrue("Check if user name is opennms.",
-				"opennms".equals(this.m_securityContextService
-						.getUsername()));
-		assertFalse("Check if unknown is a not valid user name.",
-				"unknown".equals(this.m_securityContextService
-						.getUsername()));
-		assertTrue("Check if password is correct.",
-				PASS.equals(this.m_securityContextService.getPassword()));
-		assertFalse("Check if wrong_pass is not correct.",
-				"wrong_pass".equals(PASS));
-	}
+    private final GrantedAuthority ROLE_DASHBOARD = new SimpleGrantedAuthority(Authentication.ROLE_DASHBOARD);
 
-	@Test
-	public void testUserRoles() {
-		assertTrue("Check if user is in " + ROLE_ADMIN,
-				this.m_securityContextService.hasRole(ROLE_ADMIN
-						.toString()));
-		assertTrue("Check if user is in " + ROLE_PROVISION,
-				this.m_securityContextService.hasRole(ROLE_PROVISION
-						.toString()));
-		assertFalse("Check if user is not in " + ROLE_USER,
-				this.m_securityContextService.hasRole(ROLE_USER
-						.toString()));
-		assertFalse("Check if user is not in " + ROLE_ANONYMOUS,
-				this.m_securityContextService.hasRole(ROLE_ANONYMOUS
-						.toString()));
-		assertFalse("Check if user is not in " + ROLE_DASHBOARD,
-				this.m_securityContextService.hasRole(ROLE_DASHBOARD
-						.toString()));
-	}
+    private final String USERNAME = "opennms";
+
+    private final String PASS = "r0c|<Z";
+
+    @Before
+    public void setUp() throws Exception {
+        SecurityContext context = new SecurityContextImpl();
+        User principal = new User(USERNAME, PASS, true, true, true, true, Arrays.asList(new GrantedAuthority[] {
+                ROLE_ADMIN, ROLE_PROVISION }));
+        org.springframework.security.core.Authentication auth = new PreAuthenticatedAuthenticationToken(principal,
+                                                                                                        new Object());
+        context.setAuthentication(auth);
+        SecurityContextHolder.setContext(context);
+        this.m_securityContextService = new SpringSecurityContextService();
+    }
+
+    @After
+    public void tearDown() {
+        SecurityContextHolder.clearContext();
+    }
+
+    @Test
+    public void testUserCredentials() {
+        assertTrue("Check if user name is opennms.", "opennms".equals(this.m_securityContextService.getUsername()));
+        assertFalse("Check if unknown is a not valid user name.",
+                    "unknown".equals(this.m_securityContextService.getUsername()));
+        assertTrue("Check if password is correct.", PASS.equals(this.m_securityContextService.getPassword()));
+        assertFalse("Check if wrong_pass is not correct.", "wrong_pass".equals(PASS));
+    }
+
+    @Test
+    public void testUserRoles() {
+        assertTrue("Check if user is in " + ROLE_ADMIN, this.m_securityContextService.hasRole(ROLE_ADMIN.toString()));
+        assertTrue("Check if user is in " + ROLE_PROVISION,
+                   this.m_securityContextService.hasRole(ROLE_PROVISION.toString()));
+        assertFalse("Check if user is not in " + ROLE_USER, this.m_securityContextService.hasRole(ROLE_USER.toString()));
+        assertFalse("Check if user is not in " + ROLE_ANONYMOUS,
+                    this.m_securityContextService.hasRole(ROLE_ANONYMOUS.toString()));
+        assertFalse("Check if user is not in " + ROLE_DASHBOARD,
+                    this.m_securityContextService.hasRole(ROLE_DASHBOARD.toString()));
+    }
 }

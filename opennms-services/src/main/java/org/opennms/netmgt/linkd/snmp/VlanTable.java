@@ -19,8 +19,8 @@ public interface VlanTable {
     /**
      * The VLAN int to define default VLAN status, 1 means operational/active
      */
-	public static final VlanStatus DEFAULT_VLAN_STATUS = VlanStatus.CISCOVTP_OPERATIONAL;
+    public static final VlanStatus DEFAULT_VLAN_STATUS = VlanStatus.CISCOVTP_OPERATIONAL;
 
-	public List<OnmsVlan> getVlansForSnmpCollection();
+    public List<OnmsVlan> getVlansForSnmpCollection();
 
 }

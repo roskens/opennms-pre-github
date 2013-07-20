@@ -35,21 +35,25 @@ import javax.xml.bind.JAXB;
 import java.io.File;
 
 /**
- * This class is used for loading, holding and saving of {@link Wallboard} definitions.
+ * This class is used for loading, holding and saving of {@link Wallboard}
+ * definitions.
  */
 public class WallboardProvider {
     /**
      * Instance variable for this singleton object
      */
     private static WallboardProvider m_wallboardProvider = new WallboardProvider();
+
     /**
      * A variable fro holding a {@link Wallboards} instance
      */
     private Wallboards m_wallboards = null;
+
     /**
      * The configuration {@link File} to be used.
      */
     private File m_cfgFile = new File("etc/dashboard-config.xml");
+
     /**
      * The beancontainer this class uses.
      */
@@ -63,7 +67,8 @@ public class WallboardProvider {
     }
 
     /**
-     * Method to return the {@link BeanItemContainer} associated with this object.
+     * Method to return the {@link BeanItemContainer} associated with this
+     * object.
      *
      * @return the {@link BeanItemContainer}
      */
@@ -115,10 +120,13 @@ public class WallboardProvider {
     }
 
     /**
-     * Checks whether this object contains {@link Wallboard} data concerning the given title.
+     * Checks whether this object contains {@link Wallboard} data concerning the
+     * given title.
      *
-     * @param title the title to search for
-     * @return true, if a {@link Wallboard} with the given title exists, false otherwise
+     * @param title
+     *            the title to search for
+     * @return true, if a {@link Wallboard} with the given title exists, false
+     *         otherwise
      */
     synchronized public boolean containsWallboard(String title) {
         for (Wallboard wallboard : m_wallboards.getWallboards()) {
@@ -133,7 +141,8 @@ public class WallboardProvider {
     /**
      * Returns the {@link Wallboard} for the given title.
      *
-     * @param title the title to search for
+     * @param title
+     *            the title to search for
      * @return the {@link Wallboard} instance if found, null otherwise
      */
     synchronized public Wallboard getWallboard(String title) {
@@ -149,7 +158,8 @@ public class WallboardProvider {
     /**
      * Checks whether this object contains a given {@link Wallboard} instance.
      *
-     * @param wallboard the {@link Wallboard} instance to search for
+     * @param wallboard
+     *            the {@link Wallboard} instance to search for
      * @return true, if the {@link Wallboard} exists, false otherwise
      */
     synchronized public boolean containsWallboard(Wallboard wallboard) {
@@ -159,7 +169,8 @@ public class WallboardProvider {
     /**
      * This method adds a {@link Wallboard} to this provider.
      *
-     * @param wallboard the {@link Wallboard} instance to be added
+     * @param wallboard
+     *            the {@link Wallboard} instance to be added
      */
     synchronized public void addWallboard(Wallboard wallboard) {
         if (m_wallboards == null) {
@@ -173,7 +184,8 @@ public class WallboardProvider {
     /**
      * This method removes a {@link Wallboard} from this provider.
      *
-     * @param wallboard the {@link Wallboard} instance to be removed
+     * @param wallboard
+     *            the {@link Wallboard} instance to be removed
      */
     synchronized public void removeWallboard(Wallboard wallboard) {
         if (m_wallboards == null) {

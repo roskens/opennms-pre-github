@@ -34,10 +34,8 @@ import org.opennms.protocols.snmp.asn1.ASN1;
  * SNMP SMI v1 & v2 constants.
  *
  * @see org.opennms.protocols.snmp.asn1.ASN1
- *
  * @version 1.1.1.1
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
- *
  */
 public class SnmpSMI {
     /**
@@ -105,8 +103,8 @@ public class SnmpSMI {
      * identical to the SMI_COUNTER32 and are indistinguishable in ASN.1
      */
     public static final byte SMI_UNSIGNED32 = (ASN1.APPLICATION | 0x02); // same
-                                                                            // as
-                                                                            // gauge
+                                                                         // as
+                                                                         // gauge
 
     /**
      * This represents a non-negative integer that counts time, modulo 2^32. The
@@ -167,37 +165,41 @@ public class SnmpSMI {
     }
 
     /**
-         * Creates a single RRD file for the specified RRD data source.
-         *
-         * @param collectionName
-         *            Name of the collection
-         * @param ipaddr
-         *            Interface address
-         * @param directory
-         *            RRD repository directory
-         * @param ds
-         *            RRD data source
-         *
-         * @return TRUE if new RRD file created, FALSE if RRD file was not created
-         *         because it already existed.
-         */
-    /*    public boolean createRRD(String collectionName, InetAddress ipaddr, String directory, RRDDataSource ds) throws RrdException {
-            String creator = "primary SNMP interface " + ipaddr.getHostAddress();
-            int step = DataCollectionConfigFactory.getInstance().getStep(collectionName);
-            List rraList = DataCollectionConfigFactory.getInstance().getRRAList(collectionName);
+     * Creates a single RRD file for the specified RRD data source.
+     *
+     * @param collectionName
+     *            Name of the collection
+     * @param ipaddr
+     *            Interface address
+     * @param directory
+     *            RRD repository directory
+     * @param ds
+     *            RRD data source
+     * @return TRUE if new RRD file created, FALSE if RRD file was not created
+     *         because it already existed.
+     */
+    /*
+     * public boolean createRRD(String collectionName, InetAddress ipaddr,
+     * String directory, RRDDataSource ds) throws RrdException {
+     * String creator = "primary SNMP interface " + ipaddr.getHostAddress();
+     * int step =
+     * DataCollectionConfigFactory.getInstance().getStep(collectionName);
+     * List rraList =
+     * DataCollectionConfigFactory.getInstance().getRRAList(collectionName);
+     * return RrdUtils.createRRD(creator, directory, ds.getName(), step,
+     * ds.getType(), ds.getHeartbeat(), ds.getMin(), ds.getMax(), rraList);
+     * }
+     */
 
-            return RrdUtils.createRRD(creator, directory, ds.getName(), step, ds.getType(), ds.getHeartbeat(), ds.getMin(), ds.getMax(), rraList);
-        }*/
+    public static int toInt(SnmpSyntax result, int deflt) {
+        if (result == null)
+            return deflt;
 
-        public static int toInt(SnmpSyntax result, int deflt) {
-            if (result == null)
-                return deflt;
-
-            try {
-                return Integer.parseInt(result.toString());
-            } catch (NumberFormatException e) {
-                return deflt;
-            }
-
+        try {
+            return Integer.parseInt(result.toString());
+        } catch (NumberFormatException e) {
+            return deflt;
         }
+
+    }
 }

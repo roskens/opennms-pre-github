@@ -48,43 +48,50 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class Task {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Task.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Task.class);
 
     private static enum State {
-        NEW,
-        SCHEDULED,
-        SUBMITTED,
-        COMPLETED
+        NEW, SCHEDULED, SUBMITTED, COMPLETED
     }
 
     private final DefaultTaskCoordinator m_coordinator;
+
     private final AtomicReference<State> m_state = new AtomicReference<State>(State.NEW);
 
     private final AtomicBoolean m_scheduleCalled = new AtomicBoolean(false);
+
     private final CountDownLatch m_latch = new CountDownLatch(1);
 
     private final AtomicInteger m_pendingPrereqs = new AtomicInteger(0);
+
     private final Set<Task> m_dependents = new HashSet<Task>();
+
     private final Set<Task> m_prerequisites = new HashSet<Task>();
 
     private final TaskMonitor m_monitor;
 
     /**
-     * <p>Constructor for Task.</p>
+     * <p>
+     * Constructor for Task.
+     * </p>
      *
-     * @param coordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
-     * @param parent a {@link org.opennms.core.tasks.ContainerTask} object.
+     * @param coordinator
+     *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     * @param parent
+     *            a {@link org.opennms.core.tasks.ContainerTask} object.
      */
     public Task(DefaultTaskCoordinator coordinator, ContainerTask<?> parent) {
         m_coordinator = coordinator;
-        m_monitor = parent != null
-            ? parent.getMonitor().getChildTaskMonitor(parent, this)
+        m_monitor = parent != null ? parent.getMonitor().getChildTaskMonitor(parent, this)
             : new DefaultTaskMonitor(this);
 
     }
 
     /**
-     * <p>getCoordinator</p>
+     * <p>
+     * getCoordinator
+     * </p>
      *
      * @return a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
      */
@@ -93,7 +100,9 @@ public abstract class Task {
     }
 
     /**
-     * <p>getMonitor</p>
+     * <p>
+     * getMonitor
+     * </p>
      *
      * @return a {@link org.opennms.core.tasks.TaskMonitor} object.
      */
@@ -102,8 +111,10 @@ public abstract class Task {
     }
 
     /**
-     * These are final and package protected because they should ONLY be accessed by the TaskCoordinator
-     * This is for thread safety and efficiency.  use 'addDependency' to update these.
+     * These are final and package protected because they should ONLY be
+     * accessed by the TaskCoordinator
+     * This is for thread safety and efficiency. use 'addDependency' to update
+     * these.
      */
     final Set<Task> getDependents() {
         return m_dependents;
@@ -116,8 +127,10 @@ public abstract class Task {
     }
 
     /**
-     * These are final and package protected because they should ONLY be accessed by the TAskCoordinator
-     * This is for thread safety and efficiency.  use 'addDependency' to update these
+     * These are final and package protected because they should ONLY be
+     * accessed by the TAskCoordinator
+     * This is for thread safety and efficiency. use 'addDependency' to update
+     * these
      */
     final Set<Task> getPrerequisites() {
         return m_prerequisites;
@@ -179,7 +192,6 @@ public abstract class Task {
         m_dependents.clear();
     }
 
-
     final void scheduled() {
         setState(State.NEW, State.SCHEDULED);
         notifyScheduled();
@@ -187,9 +199,10 @@ public abstract class Task {
 
     private final void setState(final State oldState, final State newState) {
         if (!m_state.compareAndSet(oldState, newState)) {
-        	LOG.debug("Attempted to move to state {} with state not {} (actual value {})", newState, oldState, m_state.get());
+            LOG.debug("Attempted to move to state {} with state not {} (actual value {})", newState, oldState,
+                      m_state.get());
         } else {
-        	LOG.trace("Set state to {}", newState);
+            LOG.trace("Set state to {}", newState);
         }
     }
 
@@ -202,9 +215,12 @@ public abstract class Task {
     }
 
     /**
-     * This method submits a task to be executed and is called when all dependencies are completed for that task
-     * This method should place a runnable on an executor or submit the task in some other way so that it will
-     * run as soon as possible.  Tasks that have no processing to be done may override completeSubmit to notify
+     * This method submits a task to be executed and is called when all
+     * dependencies are completed for that task
+     * This method should place a runnable on an executor or submit the task in
+     * some other way so that it will
+     * run as soon as possible. Tasks that have no processing to be done may
+     * override completeSubmit to notify
      * the Task coordinator that the task is done.
      */
     protected void doSubmit() {
@@ -221,15 +237,16 @@ public abstract class Task {
     protected void completeSubmit() {
     }
 
-
     final void completed() {
         m_state.compareAndSet(State.SUBMITTED, State.COMPLETED);
         notifyCompleted();
     }
 
     /**
-     * These are final and package protected because they should ONLY be accessed by the TaskCoordinator
-     * This is for thread safety and efficiency.  use 'addDependency' to update these
+     * These are final and package protected because they should ONLY be
+     * accessed by the TaskCoordinator
+     * This is for thread safety and efficiency. use 'addDependency' to update
+     * these
      */
     final boolean isReady() {
         return isInReadyState() && m_prerequisites.isEmpty() && getPendingPrereqCount() == 0;
@@ -251,7 +268,6 @@ public abstract class Task {
         m_pendingPrereqs.decrementAndGet();
     }
 
-
     /**
      * Called from execute after the 'body' of the task has completed
      */
@@ -260,9 +276,9 @@ public abstract class Task {
         m_latch.countDown();
     }
 
-
     /**
-     * This is called to add the task to the queue of tasks that can be considered to be runnable
+     * This is called to add the task to the queue of tasks that can be
+     * considered to be runnable
      */
     public void schedule() {
         m_scheduleCalled.set(true);
@@ -272,13 +288,17 @@ public abstract class Task {
     }
 
     /**
-     * <p>preSchedule</p>
+     * <p>
+     * preSchedule
+     * </p>
      */
     protected void preSchedule() {
     }
 
     /**
-     * <p>postSchedule</p>
+     * <p>
+     * postSchedule
+     * </p>
      */
     protected void postSchedule() {
     }
@@ -302,30 +322,37 @@ public abstract class Task {
     }
 
     /**
-     * Add's prereq as a Prerequisite of this task. In other words... this taks cannot run
+     * Add's prereq as a Prerequisite of this task. In other words... this taks
+     * cannot run
      * until prereq was been complted.
      *
-     * @param prereq a {@link org.opennms.core.tasks.Task} object.
+     * @param prereq
+     *            a {@link org.opennms.core.tasks.Task} object.
      */
     public void addPrerequisite(final Task prereq) {
         getCoordinator().addDependency(prereq, this);
     }
 
     /**
-     * Adds dependent as a dependent of this task.  So dependent will not be able to run
+     * Adds dependent as a dependent of this task. So dependent will not be able
+     * to run
      * until this task has been completed.
      *
-     * @param dependent a {@link org.opennms.core.tasks.Task} object.
+     * @param dependent
+     *            a {@link org.opennms.core.tasks.Task} object.
      */
     public void addDependent(final Task dependent) {
         getCoordinator().addDependency(this, dependent);
     }
 
     /**
-     * Wait for this task to complete.  The current thread will block until this task has been completed.
+     * Wait for this task to complete. The current thread will block until this
+     * task has been completed.
      *
-     * @throws java.lang.InterruptedException if any.
-     * @throws java.util.concurrent.ExecutionException if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
+     * @throws java.util.concurrent.ExecutionException
+     *             if any.
      */
     public void waitFor() throws InterruptedException, ExecutionException {
         m_latch.await();
@@ -334,33 +361,44 @@ public abstract class Task {
     /**
      * Wait for this task to complete or until a timeout occurs
      *
-     * @param timeout a long.
-     * @param unit a {@link java.util.concurrent.TimeUnit} object.
-     * @throws java.lang.InterruptedException if any.
+     * @param timeout
+     *            a long.
+     * @param unit
+     *            a {@link java.util.concurrent.TimeUnit} object.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public void waitFor(final long timeout, final TimeUnit unit) throws InterruptedException {
         m_latch.await(timeout, unit);
     }
 
     /**
-     * <p>markTaskAsCompleted</p>
+     * <p>
+     * markTaskAsCompleted
+     * </p>
      */
     protected void markTaskAsCompleted() {
         getCoordinator().markTaskAsCompleted(this);
     }
 
     /**
-     * <p>submitRunnable</p>
+     * <p>
+     * submitRunnable
+     * </p>
      *
-     * @param runnable a {@link java.lang.Runnable} object.
-     * @param preferredExecutor a {@link java.lang.String} object.
+     * @param runnable
+     *            a {@link java.lang.Runnable} object.
+     * @param preferredExecutor
+     *            a {@link java.lang.String} object.
      */
     protected void submitRunnable(Runnable runnable, String preferredExecutor) {
         getCoordinator().submitToExecutor(preferredExecutor, runnable, this);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

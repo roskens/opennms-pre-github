@@ -42,7 +42,9 @@ import org.springframework.binding.message.MessageContext;
 import org.springframework.binding.validation.ValidationContext;
 
 /**
- * <p>ReportParametersValidator class.</p>
+ * <p>
+ * ReportParametersValidator class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,22 +53,28 @@ import org.springframework.binding.validation.ValidationContext;
 public class ReportParametersValidator {
 
     /**
-     * <p>validateReportParameters</p>
+     * <p>
+     * validateReportParameters
+     * </p>
      *
-     * @param reportCriteria a {@link org.opennms.api.reporting.parameter.ReportParameters} object.
-     * @param context a {@link org.springframework.binding.validation.ValidationContext} object.
+     * @param reportCriteria
+     *            a {@link org.opennms.api.reporting.parameter.ReportParameters}
+     *            object.
+     * @param context
+     *            a
+     *            {@link org.springframework.binding.validation.ValidationContext}
+     *            object.
      */
-    public void  validateReportParameters(ReportParameters reportCriteria, ValidationContext context) {
+    public void validateReportParameters(ReportParameters reportCriteria, ValidationContext context) {
         MessageContext messages = context.getMessageContext();
-
 
         List<ReportDateParm> dateParms = reportCriteria.getDateParms();
 
         for (Iterator<ReportDateParm> dateParmIter = dateParms.iterator(); dateParmIter.hasNext();) {
             ReportDateParm dateParm = dateParmIter.next();
             if (dateParm.getDate() == null) {
-                messages.addMessage(new MessageBuilder().error().source("date parms").
-                                    defaultText("cannot have null date field" + dateParm.getDisplayName()).build());
+                messages.addMessage(new MessageBuilder().error().source("date parms").defaultText("cannot have null date field"
+                                                                                                          + dateParm.getDisplayName()).build());
             }
         }
 
@@ -74,9 +82,9 @@ public class ReportParametersValidator {
 
         for (Iterator<ReportStringParm> stringParmIter = stringParms.iterator(); stringParmIter.hasNext();) {
             ReportStringParm stringParm = stringParmIter.next();
-            if (stringParm.getValue() == "" ) {
-                messages.addMessage(new MessageBuilder().error().source("string parms").
-                                    defaultText("cannot have empty string field" + stringParm.getDisplayName()).build());
+            if (stringParm.getValue() == "") {
+                messages.addMessage(new MessageBuilder().error().source("string parms").defaultText("cannot have empty string field"
+                                                                                                            + stringParm.getDisplayName()).build());
             }
         }
 
@@ -84,10 +92,11 @@ public class ReportParametersValidator {
 
         for (Iterator<ReportIntParm> intParmIter = intParms.iterator(); intParmIter.hasNext();) {
             ReportIntParm intParm = intParmIter.next();
-            // TODO add a more sensible check here - I think we probably can have zero int parm
-            if (intParm.getValue() == 0 ) {
-                messages.addMessage(new MessageBuilder().error().source("int parms").
-                                    defaultText("cannot have zero integer field" + intParm.getDisplayName()).build());
+            // TODO add a more sensible check here - I think we probably can
+            // have zero int parm
+            if (intParm.getValue() == 0) {
+                messages.addMessage(new MessageBuilder().error().source("int parms").defaultText("cannot have zero integer field"
+                                                                                                         + intParm.getDisplayName()).build());
             }
         }
 
@@ -95,9 +104,9 @@ public class ReportParametersValidator {
 
         for (Iterator<ReportFloatParm> floatParmIter = floatParms.iterator(); floatParmIter.hasNext();) {
             ReportFloatParm floatParm = floatParmIter.next();
-            if (floatParm.getValue() == null ) {
-                messages.addMessage(new MessageBuilder().error().source("float parms").
-                                    defaultText("cannot have null float field" + floatParm.getDisplayName()).build());
+            if (floatParm.getValue() == null) {
+                messages.addMessage(new MessageBuilder().error().source("float parms").defaultText("cannot have null float field"
+                                                                                                           + floatParm.getDisplayName()).build());
             }
         }
 
@@ -105,9 +114,9 @@ public class ReportParametersValidator {
 
         for (Iterator<ReportDoubleParm> doubleParmIter = doubleParms.iterator(); doubleParmIter.hasNext();) {
             ReportDoubleParm doubleParm = doubleParmIter.next();
-            if (doubleParm.getValue() == null ) {
-                messages.addMessage(new MessageBuilder().error().source("double parms").
-                                    defaultText("cannot have null double field" + doubleParm.getDisplayName()).build());
+            if (doubleParm.getValue() == null) {
+                messages.addMessage(new MessageBuilder().error().source("double parms").defaultText("cannot have null double field"
+                                                                                                            + doubleParm.getDisplayName()).build());
             }
         }
 

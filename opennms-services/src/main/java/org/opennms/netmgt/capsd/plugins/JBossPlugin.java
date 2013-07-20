@@ -43,23 +43,27 @@ import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
 import org.opennms.protocols.jmx.connectors.JBossConnectionFactory;
 
 /**
- * <p>JBossPlugin class.</p>
+ * <p>
+ * JBossPlugin class.
+ * </p>
  *
  * @author mjamison
  * @version $Id: $
  */
 public class JBossPlugin extends JMXPlugin {
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.capsd.JMXPlugin#getMBeanServer()
      */
     /** {@inheritDoc} */
     @Override
     public ConnectionWrapper getMBeanServerConnection(Map<String, Object> map, InetAddress address) {
-        return  JBossConnectionFactory.getMBeanServerConnection(map, address);
+        return JBossConnectionFactory.getMBeanServerConnection(map, address);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.capsd.Plugin#getProtocolName()
      */
     /** {@inheritDoc} */
@@ -67,8 +71,11 @@ public class JBossPlugin extends JMXPlugin {
     public String getProtocolName(Map<String, Object> map) {
         return "jboss";
     }
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress)
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress)
      */
     /** {@inheritDoc} */
     @Override

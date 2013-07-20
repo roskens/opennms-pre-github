@@ -33,11 +33,11 @@ import org.opennms.netmgt.model.events.annotations.EventHandler;
 import org.opennms.netmgt.model.events.annotations.EventListener;
 import org.opennms.netmgt.xml.event.Event;
 
-@EventListener(name="AspectJTestEventHandler")
+@EventListener(name = "AspectJTestEventHandler")
 public class AspectJTestEventHandler {
 
-
     private Throwable thrownException = null;
+
     private int handlerCallCount = 0;
 
     public void setThrownException(Throwable throwable) {
@@ -52,9 +52,9 @@ public class AspectJTestEventHandler {
         this.handlerCallCount = handlerCallCount;
     }
 
-    @EventHandler(uei=EventConstants.ADD_INTERFACE_EVENT_UEI)
+    @EventHandler(uei = EventConstants.ADD_INTERFACE_EVENT_UEI)
     public void handleAnEvent(Event e) throws Throwable {
-        System.err.println("Received Event "+e.getUei());
+        System.err.println("Received Event " + e.getUei());
         handlerCallCount++;
         if (thrownException != null) {
             throw thrownException;

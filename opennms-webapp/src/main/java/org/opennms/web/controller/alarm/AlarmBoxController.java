@@ -50,11 +50,13 @@ public class AlarmBoxController extends AbstractController implements Initializi
     public static final int ROWS = 16;
 
     private AlarmRepository m_webAlarmRepository;
+
     private String m_successView;
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         int rows = Integer.getInteger("opennms.nodesWithProblems.count", ROWS);
         final String parm = request.getParameter("alarmCount");
         if (parm != null) {
@@ -84,25 +86,33 @@ public class AlarmBoxController extends AbstractController implements Initializi
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public final void setSuccessView(final String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>setWebAlarmRepository</p>
+     * <p>
+     * setWebAlarmRepository
+     * </p>
      *
-     * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
+     * @param webAlarmRepository
+     *            a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
      */
     public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {

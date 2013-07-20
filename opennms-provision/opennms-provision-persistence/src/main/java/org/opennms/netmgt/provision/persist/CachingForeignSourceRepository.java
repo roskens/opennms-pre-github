@@ -49,377 +49,388 @@ import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 public class CachingForeignSourceRepository extends AbstractForeignSourceRepository implements InitializingBean {
-	private final ReentrantReadWriteLock m_globalLock = new ReentrantReadWriteLock(true);
-	private final ReadLock m_readLock = m_globalLock.readLock();
-	private final WriteLock m_writeLock = m_globalLock.writeLock();
+    private final ReentrantReadWriteLock m_globalLock = new ReentrantReadWriteLock(true);
 
-	private ForeignSourceRepository m_foreignSourceRepository;
-	private long m_refreshInterval;
+    private final ReadLock m_readLock = m_globalLock.readLock();
 
-	private Set<String> m_dirtyForeignSources = new HashSet<String>();
-	private Set<String> m_dirtyRequisitions   = new HashSet<String>();
+    private final WriteLock m_writeLock = m_globalLock.writeLock();
 
-	private Set<String> m_foreignSourceNames;
-	private Map<String,ForeignSource> m_foreignSources;
-	private Map<String,Requisition> m_requisitions;
-	private ForeignSource m_defaultForeignSource;
-	private ScheduledExecutorService m_executor;
+    private ForeignSourceRepository m_foreignSourceRepository;
 
-	public CachingForeignSourceRepository() {
-		m_refreshInterval = Long.getLong("org.opennms.netmgt.provision.persist.cacheRefreshInterval", 300000);
+    private long m_refreshInterval;
 
-		final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
-		executor.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
-		executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
-		m_executor = executor;
+    private Set<String> m_dirtyForeignSources = new HashSet<String>();
 
-		// every refreshInterval milliseconds, save any modifications, and clean out existing cached data
-		m_executor.scheduleAtFixedRate(getRefreshRunnable(), m_refreshInterval, m_refreshInterval, TimeUnit.MILLISECONDS);
-	}
+    private Set<String> m_dirtyRequisitions = new HashSet<String>();
 
-	protected void writeUnlock() {
-		if (m_globalLock.getWriteHoldCount() > 0) {
-			m_writeLock.unlock();
-		}
-	}
+    private Set<String> m_foreignSourceNames;
 
-	protected void writeLock() {
-		if (m_globalLock.getWriteHoldCount() == 0) {
-			while (m_globalLock.getReadHoldCount() > 0) {
-				m_readLock.unlock();
-			}
-			m_writeLock.lock();
-		}
-	}
+    private Map<String, ForeignSource> m_foreignSources;
 
-	protected void readUnlock() {
-		if (m_globalLock.getReadHoldCount() > 0) {
-			m_readLock.unlock();
-		}
-	}
+    private Map<String, Requisition> m_requisitions;
 
-	protected void readLock() {
-		m_readLock.lock();
-	}
+    private ForeignSource m_defaultForeignSource;
 
-	protected void cleanCache() {
-		getRefreshRunnable().run();
-	}
+    private ScheduledExecutorService m_executor;
 
-	protected Runnable getRefreshRunnable() {
-		return new Runnable() {
-			@Override
-			public void run() {
-				writeLock();
-				try {
+    public CachingForeignSourceRepository() {
+        m_refreshInterval = Long.getLong("org.opennms.netmgt.provision.persist.cacheRefreshInterval", 300000);
 
-					// clear foreign source name cache
-					m_foreignSourceNames = null;
+        final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+        executor.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+        executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+        m_executor = executor;
 
-					// clear the foreign source cache
-					if (m_dirtyForeignSources.size() > 0) {
-						for (final String dirtyForeignSource : m_dirtyForeignSources) {
-							final ForeignSource fs = getForeignSourceMap().get(dirtyForeignSource);
-							if (fs == null) {
-								m_foreignSourceRepository.delete(fs);
-							} else {
-								m_foreignSourceRepository.save(fs);
-							}
-						}
-						m_dirtyForeignSources.clear();
-					}
-					m_foreignSources = null;
+        // every refreshInterval milliseconds, save any modifications, and clean
+        // out existing cached data
+        m_executor.scheduleAtFixedRate(getRefreshRunnable(), m_refreshInterval, m_refreshInterval,
+                                       TimeUnit.MILLISECONDS);
+    }
 
-					// clear the requisition cache
-					if (m_dirtyRequisitions.size() > 0) {
-						for (final String dirtyRequisition : m_dirtyRequisitions) {
-							final Requisition r = getRequisitionMap().get(dirtyRequisition);
-							if (r == null) {
-								m_foreignSourceRepository.delete(r);
-							} else {
-								m_foreignSourceRepository.save(r);
-							}
-						}
-						m_dirtyForeignSources.clear();
-					}
-					m_requisitions = null;
+    protected void writeUnlock() {
+        if (m_globalLock.getWriteHoldCount() > 0) {
+            m_writeLock.unlock();
+        }
+    }
 
-				} finally {
-					writeUnlock();
-				}
-			}
-		};
-	}
+    protected void writeLock() {
+        if (m_globalLock.getWriteHoldCount() == 0) {
+            while (m_globalLock.getReadHoldCount() > 0) {
+                m_readLock.unlock();
+            }
+            m_writeLock.lock();
+        }
+    }
 
-	public ForeignSourceRepository getForeignSourceRepository() {
-		return m_foreignSourceRepository;
-	}
+    protected void readUnlock() {
+        if (m_globalLock.getReadHoldCount() > 0) {
+            m_readLock.unlock();
+        }
+    }
 
-	public void setForeignSourceRepository(final ForeignSourceRepository fsr) {
-		m_foreignSourceRepository = fsr;
-	}
+    protected void readLock() {
+        m_readLock.lock();
+    }
 
-        @Override
-	public void afterPropertiesSet() {
-		Assert.notNull(m_foreignSourceRepository);
-	}
+    protected void cleanCache() {
+        getRefreshRunnable().run();
+    }
 
-	@Override
-	public Set<String> getActiveForeignSourceNames() {
-		readLock();
-		try {
-			if (m_foreignSourceNames == null) {
-				m_foreignSourceNames = m_foreignSourceRepository.getActiveForeignSourceNames();
-			}
-			return m_foreignSourceNames;
-		} finally {
-			readUnlock();
-		}
-	}
+    protected Runnable getRefreshRunnable() {
+        return new Runnable() {
+            @Override
+            public void run() {
+                writeLock();
+                try {
 
-	@Override
-	public int getForeignSourceCount() throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			return getForeignSources().size();
-		} finally {
-			readUnlock();
-		}
-	}
+                    // clear foreign source name cache
+                    m_foreignSourceNames = null;
 
-	private Map<String,ForeignSource> getForeignSourceMap() {
-		readLock();
-		try {
-			if (m_foreignSources == null) {
-				writeLock();
-				try {
-					final Map<String,ForeignSource> fses = new TreeMap<String,ForeignSource>();
-					for (final ForeignSource fs : m_foreignSourceRepository.getForeignSources()) {
-						fses.put(fs.getName(), fs);
-					}
-					m_foreignSources = fses;
-				} finally {
-					readLock();
-					writeUnlock();
-				}
-			}
-			return m_foreignSources;
-		} finally {
-			readUnlock();
-		}
-	}
+                    // clear the foreign source cache
+                    if (m_dirtyForeignSources.size() > 0) {
+                        for (final String dirtyForeignSource : m_dirtyForeignSources) {
+                            final ForeignSource fs = getForeignSourceMap().get(dirtyForeignSource);
+                            if (fs == null) {
+                                m_foreignSourceRepository.delete(fs);
+                            } else {
+                                m_foreignSourceRepository.save(fs);
+                            }
+                        }
+                        m_dirtyForeignSources.clear();
+                    }
+                    m_foreignSources = null;
 
-	@Override
-	public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			return new TreeSet<ForeignSource>(getForeignSourceMap().values());
-		} finally {
-			readUnlock();
-		}
-	}
+                    // clear the requisition cache
+                    if (m_dirtyRequisitions.size() > 0) {
+                        for (final String dirtyRequisition : m_dirtyRequisitions) {
+                            final Requisition r = getRequisitionMap().get(dirtyRequisition);
+                            if (r == null) {
+                                m_foreignSourceRepository.delete(r);
+                            } else {
+                                m_foreignSourceRepository.save(r);
+                            }
+                        }
+                        m_dirtyForeignSources.clear();
+                    }
+                    m_requisitions = null;
 
-	@Override
-	public ForeignSource getForeignSource(final String foreignSourceName) throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			ForeignSource fs = getForeignSourceMap().get(foreignSourceName);
-			if (fs == null) {
-				fs = getDefaultForeignSource();
-				fs.setName(foreignSourceName);
-			}
-			return fs;
-		} finally {
-			readUnlock();
-		}
-	}
+                } finally {
+                    writeUnlock();
+                }
+            }
+        };
+    }
 
-	@Override
-	public void save(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			final Map<String,ForeignSource> fses = getForeignSourceMap();
-			fses.put(foreignSource.getName(), foreignSource);
-			m_dirtyForeignSources.add(foreignSource.getName());
-		} finally {
-			readUnlock();
-		}
-	}
+    public ForeignSourceRepository getForeignSourceRepository() {
+        return m_foreignSourceRepository;
+    }
 
-	@Override
-	public void delete(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			final Map<String,ForeignSource> fses = getForeignSourceMap();
-			fses.remove(foreignSource.getName());
-			m_dirtyForeignSources.add(foreignSource.getName());
-		} finally {
-			readUnlock();
-		}
-	}
+    public void setForeignSourceRepository(final ForeignSourceRepository fsr) {
+        m_foreignSourceRepository = fsr;
+    }
 
-	@Override
-	public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			if (m_defaultForeignSource == null) {
-				writeLock();
-				try {
-					m_defaultForeignSource = m_foreignSourceRepository.getDefaultForeignSource();
-				} finally {
-					readLock();
-					readUnlock();
-				}
-			}
-			return m_defaultForeignSource;
-		} finally {
-			readUnlock();
-		}
-	}
+    @Override
+    public void afterPropertiesSet() {
+        Assert.notNull(m_foreignSourceRepository);
+    }
 
-	@Override
-	public void putDefaultForeignSource(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
-		writeLock();
-		try {
-			cleanCache();
-			m_foreignSourceRepository.putDefaultForeignSource(foreignSource);
-		} finally {
-			writeUnlock();
-		}
-	}
+    @Override
+    public Set<String> getActiveForeignSourceNames() {
+        readLock();
+        try {
+            if (m_foreignSourceNames == null) {
+                m_foreignSourceNames = m_foreignSourceRepository.getActiveForeignSourceNames();
+            }
+            return m_foreignSourceNames;
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public void resetDefaultForeignSource() throws ForeignSourceRepositoryException {
-		writeLock();
-		try {
-			cleanCache();
-			m_foreignSourceRepository.resetDefaultForeignSource();
-		} finally {
-			writeUnlock();
-		}
-	}
+    @Override
+    public int getForeignSourceCount() throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            return getForeignSources().size();
+        } finally {
+            readUnlock();
+        }
+    }
 
-	private Map<String,Requisition> getRequisitionMap() {
-		readLock();
-		try {
-			if (m_requisitions == null) {
-				writeLock();
-				try {
-					final Map<String,Requisition> requisitions = new TreeMap<String,Requisition>();
-					for (final Requisition requisition : m_foreignSourceRepository.getRequisitions()) {
-						requisitions.put(requisition.getForeignSource(), requisition);
-					}
-					m_requisitions = requisitions;
-				} finally {
-					readLock();
-					writeUnlock();
-				}
-			}
-			return m_requisitions;
-		} finally {
-			readUnlock();
-		}
-	}
+    private Map<String, ForeignSource> getForeignSourceMap() {
+        readLock();
+        try {
+            if (m_foreignSources == null) {
+                writeLock();
+                try {
+                    final Map<String, ForeignSource> fses = new TreeMap<String, ForeignSource>();
+                    for (final ForeignSource fs : m_foreignSourceRepository.getForeignSources()) {
+                        fses.put(fs.getName(), fs);
+                    }
+                    m_foreignSources = fses;
+                } finally {
+                    readLock();
+                    writeUnlock();
+                }
+            }
+            return m_foreignSources;
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public Requisition importResourceRequisition(final Resource resource) throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			return super.importResourceRequisition(resource);
-		} finally {
-			readUnlock();
-		}
-	}
+    @Override
+    public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            return new TreeSet<ForeignSource>(getForeignSourceMap().values());
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			return new TreeSet<Requisition>(getRequisitionMap().values());
-		} finally {
-			readUnlock();
-		}
-	}
+    @Override
+    public ForeignSource getForeignSource(final String foreignSourceName) throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            ForeignSource fs = getForeignSourceMap().get(foreignSourceName);
+            if (fs == null) {
+                fs = getDefaultForeignSource();
+                fs.setName(foreignSourceName);
+            }
+            return fs;
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public Requisition getRequisition(final String foreignSourceName) throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			return getRequisitionMap().get(foreignSourceName);
-		} finally {
-			readUnlock();
-		}
-	}
+    @Override
+    public void save(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            final Map<String, ForeignSource> fses = getForeignSourceMap();
+            fses.put(foreignSource.getName(), foreignSource);
+            m_dirtyForeignSources.add(foreignSource.getName());
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public Requisition getRequisition(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			return getRequisitionMap().get(foreignSource.getName());
-		} finally {
-			readUnlock();
-		}
-	}
+    @Override
+    public void delete(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            final Map<String, ForeignSource> fses = getForeignSourceMap();
+            fses.remove(foreignSource.getName());
+            m_dirtyForeignSources.add(foreignSource.getName());
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public Date getRequisitionDate(final String foreignSource) {
-	    return m_foreignSourceRepository.getRequisitionDate(foreignSource);
-	}
+    @Override
+    public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            if (m_defaultForeignSource == null) {
+                writeLock();
+                try {
+                    m_defaultForeignSource = m_foreignSourceRepository.getDefaultForeignSource();
+                } finally {
+                    readLock();
+                    readUnlock();
+                }
+            }
+            return m_defaultForeignSource;
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public URL getRequisitionURL(final String foreignSource) {
-		return m_foreignSourceRepository.getRequisitionURL(foreignSource);
-	}
+    @Override
+    public void putDefaultForeignSource(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
+        writeLock();
+        try {
+            cleanCache();
+            m_foreignSourceRepository.putDefaultForeignSource(foreignSource);
+        } finally {
+            writeUnlock();
+        }
+    }
 
-	@Override
-	public void save(final Requisition requisition) throws ForeignSourceRepositoryException {
-		writeLock();
-		try {
-			getRequisitionMap().put(requisition.getForeignSource(), requisition);
-			m_dirtyRequisitions.add(requisition.getForeignSource());
-		} finally {
-			writeUnlock();
-		}
-	}
+    @Override
+    public void resetDefaultForeignSource() throws ForeignSourceRepositoryException {
+        writeLock();
+        try {
+            cleanCache();
+            m_foreignSourceRepository.resetDefaultForeignSource();
+        } finally {
+            writeUnlock();
+        }
+    }
 
-	@Override
-	public void delete(final Requisition requisition) throws ForeignSourceRepositoryException {
-		writeLock();
-		try {
-			getRequisitionMap().remove(requisition.getForeignSource());
-			m_dirtyRequisitions.add(requisition.getForeignSource());
-		} finally {
-			writeUnlock();
-		}
-	}
+    private Map<String, Requisition> getRequisitionMap() {
+        readLock();
+        try {
+            if (m_requisitions == null) {
+                writeLock();
+                try {
+                    final Map<String, Requisition> requisitions = new TreeMap<String, Requisition>();
+                    for (final Requisition requisition : m_foreignSourceRepository.getRequisitions()) {
+                        requisitions.put(requisition.getForeignSource(), requisition);
+                    }
+                    m_requisitions = requisitions;
+                } finally {
+                    readLock();
+                    writeUnlock();
+                }
+            }
+            return m_requisitions;
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public OnmsNodeRequisition getNodeRequisition(final String foreignSource, final String foreignId) throws ForeignSourceRepositoryException {
-		readLock();
-		try {
-			final Requisition requisition = getRequisitionMap().get(foreignSource);
-			return (requisition == null? null : requisition.getNodeRequistion(foreignId));
-		} finally {
-			readUnlock();
-		}
-	}
+    @Override
+    public Requisition importResourceRequisition(final Resource resource) throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            return super.importResourceRequisition(resource);
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public void validate(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
-		super.validate(foreignSource);
-	}
+    @Override
+    public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            return new TreeSet<Requisition>(getRequisitionMap().values());
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	public void validate(final Requisition requisition) throws ForeignSourceRepositoryException {
-		super.validate(requisition);
-	}
+    @Override
+    public Requisition getRequisition(final String foreignSourceName) throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            return getRequisitionMap().get(foreignSourceName);
+        } finally {
+            readUnlock();
+        }
+    }
 
-	@Override
-	protected void finalize() throws Throwable {
-		m_executor.shutdown();
-		cleanCache();
-		super.finalize();
-	}
+    @Override
+    public Requisition getRequisition(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            return getRequisitionMap().get(foreignSource.getName());
+        } finally {
+            readUnlock();
+        }
+    }
+
+    @Override
+    public Date getRequisitionDate(final String foreignSource) {
+        return m_foreignSourceRepository.getRequisitionDate(foreignSource);
+    }
+
+    @Override
+    public URL getRequisitionURL(final String foreignSource) {
+        return m_foreignSourceRepository.getRequisitionURL(foreignSource);
+    }
+
+    @Override
+    public void save(final Requisition requisition) throws ForeignSourceRepositoryException {
+        writeLock();
+        try {
+            getRequisitionMap().put(requisition.getForeignSource(), requisition);
+            m_dirtyRequisitions.add(requisition.getForeignSource());
+        } finally {
+            writeUnlock();
+        }
+    }
+
+    @Override
+    public void delete(final Requisition requisition) throws ForeignSourceRepositoryException {
+        writeLock();
+        try {
+            getRequisitionMap().remove(requisition.getForeignSource());
+            m_dirtyRequisitions.add(requisition.getForeignSource());
+        } finally {
+            writeUnlock();
+        }
+    }
+
+    @Override
+    public OnmsNodeRequisition getNodeRequisition(final String foreignSource, final String foreignId)
+            throws ForeignSourceRepositoryException {
+        readLock();
+        try {
+            final Requisition requisition = getRequisitionMap().get(foreignSource);
+            return (requisition == null ? null : requisition.getNodeRequistion(foreignId));
+        } finally {
+            readUnlock();
+        }
+    }
+
+    @Override
+    public void validate(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
+        super.validate(foreignSource);
+    }
+
+    @Override
+    public void validate(final Requisition requisition) throws ForeignSourceRepositoryException {
+        super.validate(requisition);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        m_executor.shutdown();
+        cleanCache();
+        super.finalize();
+    }
 
     @Override
     public void flush() throws ForeignSourceRepositoryException {

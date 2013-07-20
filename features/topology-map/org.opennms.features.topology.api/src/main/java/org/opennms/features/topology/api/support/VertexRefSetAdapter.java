@@ -41,47 +41,49 @@ import org.opennms.features.topology.api.topo.VertexRef;
  */
 public class VertexRefSetAdapter extends XmlAdapter<VertexRefSetAdapter.VertexRefSet, Set<VertexRef>> {
 
-	public static final class VertexRefSet {
-		public Set<VertexRefEntry> entry = new HashSet<VertexRefEntry>(0);
-	}
+    public static final class VertexRefSet {
+        public Set<VertexRefEntry> entry = new HashSet<VertexRefEntry>(0);
+    }
 
-	public static final class VertexRefEntry {
-		@XmlAttribute
-		public String namespace;
-		@XmlAttribute
-		public String id;
-		@XmlAttribute
-		public String label;
-	}
+    public static final class VertexRefEntry {
+        @XmlAttribute
+        public String namespace;
 
-	@Override
-	public VertexRefSetAdapter.VertexRefSet marshal(Set<VertexRef> v) throws Exception {
-		if(v == null) {
-			return null;
-		} else {
-			VertexRefSet retval = new VertexRefSet();
-			for (VertexRef key : v) {
-				VertexRefEntry entry = new VertexRefEntry();
-				entry.namespace = key.getNamespace();
-				entry.id = key.getId();
-				entry.label = key.getLabel();
-				retval.entry.add(entry);
-			}
-			return retval;
-		}
-	}
+        @XmlAttribute
+        public String id;
 
-	@Override
-	public Set<VertexRef> unmarshal(VertexRefSetAdapter.VertexRefSet v) throws Exception {
-		if (v == null) {
-			return null;
-		} else {
-			Set<VertexRef> retval = new HashSet<VertexRef>();
-			for (VertexRefEntry entry : v.entry) {
-				VertexRef ref = new AbstractVertexRef(entry.namespace, entry.id, entry.label);
-				retval.add(ref);
-			}
-			return retval;
-		}
-	}
+        @XmlAttribute
+        public String label;
+    }
+
+    @Override
+    public VertexRefSetAdapter.VertexRefSet marshal(Set<VertexRef> v) throws Exception {
+        if (v == null) {
+            return null;
+        } else {
+            VertexRefSet retval = new VertexRefSet();
+            for (VertexRef key : v) {
+                VertexRefEntry entry = new VertexRefEntry();
+                entry.namespace = key.getNamespace();
+                entry.id = key.getId();
+                entry.label = key.getLabel();
+                retval.entry.add(entry);
+            }
+            return retval;
+        }
+    }
+
+    @Override
+    public Set<VertexRef> unmarshal(VertexRefSetAdapter.VertexRefSet v) throws Exception {
+        if (v == null) {
+            return null;
+        } else {
+            Set<VertexRef> retval = new HashSet<VertexRef>();
+            for (VertexRefEntry entry : v.entry) {
+                VertexRef ref = new AbstractVertexRef(entry.namespace, entry.id, entry.label);
+                retval.add(ref);
+            }
+            return retval;
+        }
+    }
 }

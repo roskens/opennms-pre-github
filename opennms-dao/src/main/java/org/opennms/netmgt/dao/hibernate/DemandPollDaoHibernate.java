@@ -31,14 +31,15 @@ package org.opennms.netmgt.dao.hibernate;
 import org.opennms.netmgt.dao.api.DemandPollDao;
 import org.opennms.netmgt.model.DemandPoll;
 
-public class DemandPollDaoHibernate extends
-		AbstractDaoHibernate<DemandPoll, Integer> implements DemandPollDao {
+public class DemandPollDaoHibernate extends AbstractDaoHibernate<DemandPoll, Integer> implements DemandPollDao {
 
-	/**
-	 * <p>Constructor for DemandPollDaoHibernate.</p>
-	 */
-	public DemandPollDaoHibernate() {
-		super(DemandPoll.class);
-	}
+    /**
+     * <p>
+     * Constructor for DemandPollDaoHibernate.
+     * </p>
+     */
+    public DemandPollDaoHibernate() {
+        super(DemandPoll.class);
+    }
 
 }

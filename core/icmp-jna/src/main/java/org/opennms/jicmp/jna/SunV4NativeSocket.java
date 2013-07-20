@@ -42,7 +42,7 @@ import com.sun.jna.Native;
 public class SunV4NativeSocket extends NativeDatagramSocket {
 
     static {
-        Native.register((String)null);
+        Native.register((String) null);
     }
 
     private int m_sock;
@@ -53,9 +53,11 @@ public class SunV4NativeSocket extends NativeDatagramSocket {
 
     public native int socket(int domain, int type, int protocol) throws LastErrorException;
 
-    public native int sendto(int socket, Buffer buffer, int buflen, int flags, sockaddr_in dest_addr, int dest_addr_len) throws LastErrorException;
+    public native int sendto(int socket, Buffer buffer, int buflen, int flags, sockaddr_in dest_addr, int dest_addr_len)
+            throws LastErrorException;
 
-    public native int recvfrom(int socket, Buffer buffer, int buflen, int flags, sockaddr_in in_addr, int[] in_addr_len) throws LastErrorException;
+    public native int recvfrom(int socket, Buffer buffer, int buflen, int flags, sockaddr_in in_addr, int[] in_addr_len)
+            throws LastErrorException;
 
     public native int close(int socket) throws LastErrorException;
 

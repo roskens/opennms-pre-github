@@ -34,7 +34,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>SmtpDetector class.</p>
+ * <p>
+ * SmtpDetector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,6 +46,7 @@ import org.springframework.stereotype.Component;
 public class SmtpDetector extends AsyncMultilineDetectorMinaImpl {
 
     private static final String DEFAULT_SERVICE_NAME = "SMTP";
+
     private static final int DEFAULT_PORT = 25;
 
     /**
@@ -56,15 +59,19 @@ public class SmtpDetector extends AsyncMultilineDetectorMinaImpl {
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public SmtpDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {

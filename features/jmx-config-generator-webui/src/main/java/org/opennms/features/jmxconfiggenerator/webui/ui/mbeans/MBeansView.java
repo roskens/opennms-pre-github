@@ -61,197 +61,244 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class MBeansView extends VerticalLayout implements ClickListener, ModelChangeListener, ViewStateChangedListener {
 
-	/**
-	 * Handles the ui behaviour.
-	 */
-	private final MBeansController controller = new MBeansController();
+    /**
+     * Handles the ui behaviour.
+     */
+    private final MBeansController controller = new MBeansController();
 
-	/**
-	 * We need an instance of the current UiModel to create the output jmx
-	 * config model when clicking on 'next' button.
-	 */
-	private UiModel model;
-	private final AbstractSplitPanel mainPanel;
-	private final Layout mbeansContent;
-	private final JmxConfigGeneratorApplication app;
-	private final MBeansTree mbeansTree;
-	private final MBeansContentTabSheet mbeansTabSheet;
-	private final ButtonPanel buttonPanel = new ButtonPanel(this);
-	private final NameEditForm mbeansForm = new NameEditForm(controller, new FormParameter() {
-		@Override
-		public boolean hasFooter() {
-			return true;
-		}
+    /**
+     * We need an instance of the current UiModel to create the output jmx
+     * config model when clicking on 'next' button.
+     */
+    private UiModel model;
 
-		@Override
-		public String getCaption() {
-			return "MBeans details";
-		}
+    private final AbstractSplitPanel mainPanel;
 
-		@Override
-		public String getEditablePropertyName() {
-			return MetaMBeanItem.NAME;
-		}
+    private final Layout mbeansContent;
 
-		@Override
-		public String getNonEditablePropertyName() {
-			return MetaMBeanItem.OBJECTNAME;
-		}
+    private final JmxConfigGeneratorApplication app;
 
-		@Override
-		public Object[] getVisiblePropertieNames() {
-			return new Object[] { MetaMBeanItem.SELECTED, MetaMBeanItem.OBJECTNAME, MetaMBeanItem.NAME };
-		}
+    private final MBeansTree mbeansTree;
 
-		@Override
-		public EditControls.Callback getAdditionalCallback() {
-			return new EditControls.Callback<Form>() {
-				@Override
-				public void callback(EditControls.ButtonType type, Form outer) {
-					if (type == EditControls.ButtonType.save && outer.isValid()) {
-						controller.updateMBeanIcon();
-						controller.updateMBean();
-					}
-				}
-			};
-		}
-	});
+    private final MBeansContentTabSheet mbeansTabSheet;
 
-	public MBeansView(JmxConfigGeneratorApplication app) {
-		this.app = app;
-		setSizeFull();
-		mbeansTabSheet = new MBeansContentTabSheet(controller);
-		mbeansTree = new MBeansTree(controller);
-		mbeansContent = initContentPanel(mbeansForm, mbeansTabSheet);
-		mainPanel = initMainPanel(mbeansTree, mbeansContent);
+    private final ButtonPanel buttonPanel = new ButtonPanel(this);
 
-		registerListener(controller);
+    private final NameEditForm mbeansForm = new NameEditForm(controller, new FormParameter() {
+        @Override
+        public boolean hasFooter() {
+            return true;
+        }
 
-		addComponent(mainPanel);
-		addComponent(buttonPanel);
-		setExpandRatio(mainPanel, 1);
-	}
+        @Override
+        public String getCaption() {
+            return "MBeans details";
+        }
 
-	@Override
-	public void buttonClick(ClickEvent event) {
-		if (event.getButton().equals(buttonPanel.getPrevious())) {
-			app.updateView(UiState.ServiceConfigurationView);
-		}
-		if (event.getButton().equals(buttonPanel.getNext())) {
-			if (!isValid()) {
-				UIHelper.showValidationError("There are errors on this view. Please fix them first");
-				return;
-			}
-			model.setJmxDataCollectionAccordingToSelection(controller
-					.createJmxDataCollectionAccordingToSelection(model));
-			app.updateView(UiState.ResultConfigGeneration);
-		}
-	}
+        @Override
+        public String getEditablePropertyName() {
+            return MetaMBeanItem.NAME;
+        }
 
-	private AbstractSplitPanel initMainPanel(Component first, Component second) {
-		AbstractSplitPanel layout = new HorizontalSplitPanel();
-		layout.setSizeFull();
-		layout.setLocked(false);
-		layout.setSplitPosition(20, UNITS_PERCENTAGE);
-		layout.setFirstComponent(first);
-		layout.setSecondComponent(second);
-		layout.setCaption(first.getCaption());
-		return layout;
-	}
+        @Override
+        public String getNonEditablePropertyName() {
+            return MetaMBeanItem.OBJECTNAME;
+        }
 
-	private Layout initContentPanel(NameEditForm form, MBeansContentTabSheet tabSheet) {
-		VerticalLayout layout = new VerticalLayout();
-		layout.setSizeFull();
-		layout.setSpacing(false);
-		layout.addComponent(form);
-		layout.addComponent(tabSheet);
-		layout.setExpandRatio(tabSheet, 1);
-		return layout;
-	}
+        @Override
+        public Object[] getVisiblePropertieNames() {
+            return new Object[] { MetaMBeanItem.SELECTED, MetaMBeanItem.OBJECTNAME, MetaMBeanItem.NAME };
+        }
 
-	@Override
-	public void modelChanged(Object newModel) {
-		if (newModel instanceof UiModel) {
-			model = (UiModel) newModel;
-			// forward to all sub elements of this view
-			controller.notifyObservers(UiModel.class, newModel);
-		}
-	}
+        @Override
+        public EditControls.Callback getAdditionalCallback() {
+            return new EditControls.Callback<Form>() {
+                @Override
+                public void callback(EditControls.ButtonType type, Form outer) {
+                    if (type == EditControls.ButtonType.save && outer.isValid()) {
+                        controller.updateMBeanIcon();
+                        controller.updateMBean();
+                    }
+                }
+            };
+        }
+    });
 
-	private Panel wrapToPanel(Component component) {
-		Panel panel = new Panel(component.getCaption());
-		panel.setSizeFull();
+    public MBeansView(JmxConfigGeneratorApplication app) {
+        this.app = app;
+        setSizeFull();
+        mbeansTabSheet = new MBeansContentTabSheet(controller);
+        mbeansTree = new MBeansTree(controller);
+        mbeansContent = initContentPanel(mbeansForm, mbeansTabSheet);
+        mainPanel = initMainPanel(mbeansTree, mbeansContent);
 
-		VerticalLayout layout = new VerticalLayout();
-		layout.setMargin(false);
-		layout.setSpacing(false);
-		layout.setSizeFull();
-		layout.addComponent(component);
+        registerListener(controller);
 
-		panel.setContent(layout);
-		component.setCaption(null);
-		return panel;
-	}
+        addComponent(mainPanel);
+        addComponent(buttonPanel);
+        setExpandRatio(mainPanel, 1);
+    }
 
-	private void registerListener(MBeansController controller) {
-		controller.registerListener(Item.class, mbeansForm);
-		controller.registerListener(Mbean.class, mbeansTabSheet);
-		controller.registerListener(UiModel.class, mbeansTree);
-		controller.registerListener(UiModel.class, controller);
-		controller.addView(mbeansForm);
-		controller.addView(mbeansTabSheet);
-		controller.addView(mbeansTree);
-		controller.addView(this);
-	}
+    @Override
+    public void buttonClick(ClickEvent event) {
+        if (event.getButton().equals(buttonPanel.getPrevious())) {
+            app.updateView(UiState.ServiceConfigurationView);
+        }
+        if (event.getButton().equals(buttonPanel.getNext())) {
+            if (!isValid()) {
+                UIHelper.showValidationError("There are errors on this view. Please fix them first");
+                return;
+            }
+            model.setJmxDataCollectionAccordingToSelection(controller.createJmxDataCollectionAccordingToSelection(model));
+            app.updateView(UiState.ResultConfigGeneration);
+        }
+    }
 
-	// TODO the whole validation is made twice :-/
-	// TODO we can fix that when there is a central "ValidationStrategy"-Handler instance or so
-	private boolean isValid() {
-		List<InvalidValueException> exceptionList = new ArrayList<InvalidValueException>();
-		NameValidator nameValidator = new NameValidator();
+    private AbstractSplitPanel initMainPanel(Component first, Component second) {
+        AbstractSplitPanel layout = new HorizontalSplitPanel();
+        layout.setSizeFull();
+        layout.setLocked(false);
+        layout.setSplitPosition(20, UNITS_PERCENTAGE);
+        layout.setFirstComponent(first);
+        layout.setSecondComponent(second);
+        layout.setCaption(first.getCaption());
+        return layout;
+    }
 
-		Validator attributeNameValidator = new AttributeNameValidator();
-		Validator attributeLengthValidator = new StringLengthValidator(String.format("Maximal length is %d", Config.ATTRIBUTES_ALIAS_MAX_LENGTH), 0, Config.ATTRIBUTES_ALIAS_MAX_LENGTH, false);  // TODO do it more dynamically
-		UniqueAttributeNameValidator attributeUniqueNameValidator = new UniqueAttributeNameValidator(controller, new HashMap<Object, Field<String>>());
+    private Layout initContentPanel(NameEditForm form, MBeansContentTabSheet tabSheet) {
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSizeFull();
+        layout.setSpacing(false);
+        layout.addComponent(form);
+        layout.addComponent(tabSheet);
+        layout.setExpandRatio(tabSheet, 1);
+        return layout;
+    }
 
+    @Override
+    public void modelChanged(Object newModel) {
+        if (newModel instanceof UiModel) {
+            model = (UiModel) newModel;
+            // forward to all sub elements of this view
+            controller.notifyObservers(UiModel.class, newModel);
+        }
+    }
 
-		// 1. validate each MBean (Mbean name without required check!)
-		for (Mbean eachMBean : controller.getSelectedMbeans()) {
-			validate(nameValidator, eachMBean.getName(), exceptionList); // TODO do it more dynamically
+    private Panel wrapToPanel(Component component) {
+        Panel panel = new Panel(component.getCaption());
+        panel.setSizeFull();
 
-			// 2. validate each CompositeAttribute
-			for (CompAttrib eachCompositeAttribute : controller.getSelectedCompositeAttributes(eachMBean)) {
-				validate(nameValidator, eachCompositeAttribute.getName(), exceptionList); // TODO do it more dynamically
+        VerticalLayout layout = new VerticalLayout();
+        layout.setMargin(false);
+        layout.setSpacing(false);
+        layout.setSizeFull();
+        layout.addComponent(component);
 
-				for (org.opennms.xmlns.xsd.config.jmx_datacollection.CompMember eachCompMember : controller.getSelectedCompositeMembers(eachCompositeAttribute)) {
-					validate(attributeNameValidator, eachCompMember.getAlias(), exceptionList); // TODO do it more dynamically
-					validate(attributeLengthValidator, eachCompMember.getAlias(), exceptionList); // TODO do it more dynamically
-					validate(attributeUniqueNameValidator, eachCompMember.getAlias(), exceptionList); // TODO do it more dynamically
-				}
-			}
+        panel.setContent(layout);
+        component.setCaption(null);
+        return panel;
+    }
 
-			// 3. validate each Attribute
-			for (Attrib eachAttribute : controller.getSelectedAttributes(eachMBean)) {
-				validate(attributeNameValidator, eachAttribute.getAlias(), exceptionList); // TODO do it more dynamically
-				validate(attributeLengthValidator, eachAttribute.getAlias(), exceptionList); // TODO do it more dynamically
-				validate(attributeUniqueNameValidator, eachAttribute.getAlias(), exceptionList); // TODO do it more dynamically
-			}
-		}
-		return exceptionList.isEmpty();
-	}
+    private void registerListener(MBeansController controller) {
+        controller.registerListener(Item.class, mbeansForm);
+        controller.registerListener(Mbean.class, mbeansTabSheet);
+        controller.registerListener(UiModel.class, mbeansTree);
+        controller.registerListener(UiModel.class, controller);
+        controller.addView(mbeansForm);
+        controller.addView(mbeansTabSheet);
+        controller.addView(mbeansTree);
+        controller.addView(this);
+    }
 
-	@Override
-	public void viewStateChanged(ViewStateChangedEvent event) {
-		// hide next, previous buttons if in edit mode
-		buttonPanel.getPrevious().setEnabled(event.getNewState() != ViewState.Edit);
-		buttonPanel.getNext().setEnabled(event.getNewState() != ViewState.Edit);
-	}
+    // TODO the whole validation is made twice :-/
+    // TODO we can fix that when there is a central "ValidationStrategy"-Handler
+    // instance or so
+    private boolean isValid() {
+        List<InvalidValueException> exceptionList = new ArrayList<InvalidValueException>();
+        NameValidator nameValidator = new NameValidator();
 
-	private static void validate(Validator validator, Object value, List<InvalidValueException> exceptionList) {
-		try {
-			validator.validate(value); // TODO do it more dynamically
-		} catch (Validator.InvalidValueException ex) {
-			exceptionList.add(ex);
-		}
-	}
+        Validator attributeNameValidator = new AttributeNameValidator();
+        Validator attributeLengthValidator = new StringLengthValidator(
+                                                                       String.format("Maximal length is %d",
+                                                                                     Config.ATTRIBUTES_ALIAS_MAX_LENGTH),
+                                                                       0, Config.ATTRIBUTES_ALIAS_MAX_LENGTH, false); // TODO
+                                                                                                                      // do
+                                                                                                                      // it
+                                                                                                                      // more
+                                                                                                                      // dynamically
+        UniqueAttributeNameValidator attributeUniqueNameValidator = new UniqueAttributeNameValidator(
+                                                                                                     controller,
+                                                                                                     new HashMap<Object, Field<String>>());
+
+        // 1. validate each MBean (Mbean name without required check!)
+        for (Mbean eachMBean : controller.getSelectedMbeans()) {
+            validate(nameValidator, eachMBean.getName(), exceptionList); // TODO
+                                                                         // do
+                                                                         // it
+                                                                         // more
+                                                                         // dynamically
+
+            // 2. validate each CompositeAttribute
+            for (CompAttrib eachCompositeAttribute : controller.getSelectedCompositeAttributes(eachMBean)) {
+                validate(nameValidator, eachCompositeAttribute.getName(), exceptionList); // TODO
+                                                                                          // do
+                                                                                          // it
+                                                                                          // more
+                                                                                          // dynamically
+
+                for (org.opennms.xmlns.xsd.config.jmx_datacollection.CompMember eachCompMember : controller.getSelectedCompositeMembers(eachCompositeAttribute)) {
+                    validate(attributeNameValidator, eachCompMember.getAlias(), exceptionList); // TODO
+                                                                                                // do
+                                                                                                // it
+                                                                                                // more
+                                                                                                // dynamically
+                    validate(attributeLengthValidator, eachCompMember.getAlias(), exceptionList); // TODO
+                                                                                                  // do
+                                                                                                  // it
+                                                                                                  // more
+                                                                                                  // dynamically
+                    validate(attributeUniqueNameValidator, eachCompMember.getAlias(), exceptionList); // TODO
+                                                                                                      // do
+                                                                                                      // it
+                                                                                                      // more
+                                                                                                      // dynamically
+                }
+            }
+
+            // 3. validate each Attribute
+            for (Attrib eachAttribute : controller.getSelectedAttributes(eachMBean)) {
+                validate(attributeNameValidator, eachAttribute.getAlias(), exceptionList); // TODO
+                                                                                           // do
+                                                                                           // it
+                                                                                           // more
+                                                                                           // dynamically
+                validate(attributeLengthValidator, eachAttribute.getAlias(), exceptionList); // TODO
+                                                                                             // do
+                                                                                             // it
+                                                                                             // more
+                                                                                             // dynamically
+                validate(attributeUniqueNameValidator, eachAttribute.getAlias(), exceptionList); // TODO
+                                                                                                 // do
+                                                                                                 // it
+                                                                                                 // more
+                                                                                                 // dynamically
+            }
+        }
+        return exceptionList.isEmpty();
+    }
+
+    @Override
+    public void viewStateChanged(ViewStateChangedEvent event) {
+        // hide next, previous buttons if in edit mode
+        buttonPanel.getPrevious().setEnabled(event.getNewState() != ViewState.Edit);
+        buttonPanel.getNext().setEnabled(event.getNewState() != ViewState.Edit);
+    }
+
+    private static void validate(Validator validator, Object value, List<InvalidValueException> exceptionList) {
+        try {
+            validator.validate(value); // TODO do it more dynamically
+        } catch (Validator.InvalidValueException ex) {
+            exceptionList.add(ex);
+        }
+    }
 }

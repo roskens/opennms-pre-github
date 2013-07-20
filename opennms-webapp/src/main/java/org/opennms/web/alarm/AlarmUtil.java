@@ -70,7 +70,9 @@ import org.opennms.web.alarm.filter.AlarmCriteria.AlarmCriteriaVisitor;
 import org.opennms.web.filter.Filter;
 
 /**
- * <p>Abstract AlarmUtil class.</p>
+ * <p>
+ * Abstract AlarmUtil class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -116,68 +118,68 @@ public abstract class AlarmUtil extends Object {
             @Override
             public void visitSortStyle(SortStyle sortStyle) throws RuntimeException {
                 switch (sortStyle) {
-                    case COUNT:
-                        criteria.addOrder(Order.desc("counter"));
-                        break;
-                    case FIRSTEVENTTIME:
-                        criteria.addOrder(Order.desc("firstEventTime"));
-                        break;
-                    case ID:
-                        criteria.addOrder(Order.desc("id"));
-                        break;
-                    case INTERFACE:
-                        criteria.addOrder(Order.desc("ipAddr"));
-                        break;
-                    case LASTEVENTTIME:
-                        criteria.addOrder(Order.desc("lastEventTime"));
-                        break;
-                    case NODE:
-                        criteria.addOrder(Order.desc("node.label"));
-                        break;
-                    case POLLER:
-                        criteria.addOrder(Order.desc("distPoller"));
-                        break;
-                    case SERVICE:
-                        criteria.addOrder(Order.desc("serviceType.name"));
-                        break;
-                    case SEVERITY:
-                        criteria.addOrder(Order.desc("severity"));
-                        break;
-                    case ACKUSER:
-                        criteria.addOrder(Order.asc("alarmAckUser"));
-                        break;
-                    case REVERSE_COUNT:
-                        criteria.addOrder(Order.asc("counter"));
-                        break;
-                    case REVERSE_FIRSTEVENTTIME:
-                        criteria.addOrder(Order.asc("firstEventTime"));
-                        break;
-                    case REVERSE_ID:
-                        criteria.addOrder(Order.asc("id"));
-                        break;
-                    case REVERSE_INTERFACE:
-                        criteria.addOrder(Order.asc("ipAddr"));
-                        break;
-                    case REVERSE_LASTEVENTTIME:
-                        criteria.addOrder(Order.asc("lastEventTime"));
-                        break;
-                    case REVERSE_NODE:
-                        criteria.addOrder(Order.asc("node.label"));
-                        break;
-                    case REVERSE_POLLER:
-                        criteria.addOrder(Order.asc("distPoller"));
-                        break;
-                    case REVERSE_SERVICE:
-                        criteria.addOrder(Order.asc("serviceType.name"));
-                        break;
-                    case REVERSE_SEVERITY:
-                        criteria.addOrder(Order.asc("severity"));
-                        break;
-                    case REVERSE_ACKUSER:
-                        criteria.addOrder(Order.desc("alarmAckUser"));
-                        break;
-                    default:
-                        break;
+                case COUNT:
+                    criteria.addOrder(Order.desc("counter"));
+                    break;
+                case FIRSTEVENTTIME:
+                    criteria.addOrder(Order.desc("firstEventTime"));
+                    break;
+                case ID:
+                    criteria.addOrder(Order.desc("id"));
+                    break;
+                case INTERFACE:
+                    criteria.addOrder(Order.desc("ipAddr"));
+                    break;
+                case LASTEVENTTIME:
+                    criteria.addOrder(Order.desc("lastEventTime"));
+                    break;
+                case NODE:
+                    criteria.addOrder(Order.desc("node.label"));
+                    break;
+                case POLLER:
+                    criteria.addOrder(Order.desc("distPoller"));
+                    break;
+                case SERVICE:
+                    criteria.addOrder(Order.desc("serviceType.name"));
+                    break;
+                case SEVERITY:
+                    criteria.addOrder(Order.desc("severity"));
+                    break;
+                case ACKUSER:
+                    criteria.addOrder(Order.asc("alarmAckUser"));
+                    break;
+                case REVERSE_COUNT:
+                    criteria.addOrder(Order.asc("counter"));
+                    break;
+                case REVERSE_FIRSTEVENTTIME:
+                    criteria.addOrder(Order.asc("firstEventTime"));
+                    break;
+                case REVERSE_ID:
+                    criteria.addOrder(Order.asc("id"));
+                    break;
+                case REVERSE_INTERFACE:
+                    criteria.addOrder(Order.asc("ipAddr"));
+                    break;
+                case REVERSE_LASTEVENTTIME:
+                    criteria.addOrder(Order.asc("lastEventTime"));
+                    break;
+                case REVERSE_NODE:
+                    criteria.addOrder(Order.asc("node.label"));
+                    break;
+                case REVERSE_POLLER:
+                    criteria.addOrder(Order.asc("distPoller"));
+                    break;
+                case REVERSE_SERVICE:
+                    criteria.addOrder(Order.asc("serviceType.name"));
+                    break;
+                case REVERSE_SEVERITY:
+                    criteria.addOrder(Order.asc("severity"));
+                    break;
+                case REVERSE_ACKUSER:
+                    criteria.addOrder(Order.desc("alarmAckUser"));
+                    break;
+                default:
+                    break;
                 }
             }
         });
@@ -186,9 +188,12 @@ public abstract class AlarmUtil extends Object {
     }
 
     /**
-     * <p>getFilter</p>
+     * <p>
+     * getFilter
+     * </p>
      *
-     * @param filterString a {@link java.lang.String} object.
+     * @param filterString
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.filter.Filter} object.
      */
     public static Filter getFilter(String filterString, ServletContext servletContext) {
@@ -255,7 +260,7 @@ public abstract class AlarmUtil extends Object {
             filter = new AfterFirstEventTimeFilter(WebSecurityUtils.safeParseLong(value));
         } else if (type.equals(EventParmLikeFilter.TYPE)) {
             filter = new EventParmLikeFilter(value);
-        } else if(type.equals(NegativeEventParmLikeFilter.TYPE)) {
+        } else if (type.equals(NegativeEventParmLikeFilter.TYPE)) {
             filter = new NegativeEventParmLikeFilter(value);
         }
 
@@ -263,9 +268,12 @@ public abstract class AlarmUtil extends Object {
     }
 
     /**
-     * <p>getFilterString</p>
+     * <p>
+     * getFilterString
+     * </p>
      *
-     * @param filter a {@link org.opennms.web.filter.Filter} object.
+     * @param filter
+     *            a {@link org.opennms.web.filter.Filter} object.
      * @return a {@link java.lang.String} object.
      */
     public static String getFilterString(Filter filter) {
@@ -298,9 +306,12 @@ public abstract class AlarmUtil extends Object {
     public static final int LAST_MONTH_RELATIVE_TIME = 7;
 
     /**
-     * <p>getRelativeTimeFilter</p>
+     * <p>
+     * getRelativeTimeFilter
+     * </p>
      *
-     * @param relativeTime a int.
+     * @param relativeTime
+     *            a int.
      * @return a {@link org.opennms.web.filter.Filter} object.
      */
     public static Filter getRelativeTimeFilter(int relativeTime) {

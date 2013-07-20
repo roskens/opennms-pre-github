@@ -52,22 +52,34 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
 
     public interface SearchPopupDisplay {
         HasClickHandlers getSearchConfirmBtn();
+
         HasClickHandlers getCancelBtn();
+
         HasKeyPressHandlers getTextBox();
+
         Widget asWidget();
+
         String getSearchText();
+
         void setHeightOffset(int offset);
+
         void showSearchPopup();
+
         void hideSearchPopup();
+
         void setTargetWidget(Widget target);
     }
 
     private DefaultResourceListView<ResourceListItem> m_view;
+
     private SearchPopupDisplay m_searchPopup;
+
     private List<ResourceListItem> m_dataList;
+
     private String m_baseUrl;
 
-    public DefaultResourceListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopupDisplay searchPopup, JsArray<ResourceListItem> dataList, String baseUrl) {
+    public DefaultResourceListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopupDisplay searchPopup,
+            JsArray<ResourceListItem> dataList, String baseUrl) {
         setView(view);
         getView().setPresenter(this);
 
@@ -81,7 +93,7 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
 
     private List<ResourceListItem> convertJsArrayToList(JsArray<ResourceListItem> resourceList) {
         List<ResourceListItem> data = new ArrayList<ResourceListItem>();
-        for(int i = 0; i < resourceList.length(); i++) {
+        for (int i = 0; i < resourceList.length(); i++) {
             data.add(resourceList.get(i));
         }
 
@@ -119,7 +131,7 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
 
             @Override
             public void onKeyPress(KeyPressEvent event) {
-                if(event.getCharCode() == KeyCodes.KEY_ENTER) {
+                if (event.getCharCode() == KeyCodes.KEY_ENTER) {
                     m_searchPopup.hideSearchPopup();
                     getView().setDataList(filterList(m_searchPopup.getSearchText()));
                 }
@@ -129,8 +141,8 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
 
     private List<ResourceListItem> filterList(String searchText) {
         List<ResourceListItem> list = new ArrayList<ResourceListItem>();
-        for(ResourceListItem item : m_dataList) {
-            if(item.getValue().toLowerCase().contains(searchText.toLowerCase())) {
+        for (ResourceListItem item : m_dataList) {
+            if (item.getValue().toLowerCase().contains(searchText.toLowerCase())) {
                 list.add(item);
             }
         }
@@ -173,7 +185,5 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
     public String getBaseUrl() {
         return m_baseUrl;
     }
-
-
 
 }

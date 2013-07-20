@@ -43,13 +43,13 @@ public class InetAddrXmlAdapter extends XmlAdapter<String, InetAddress> {
     /** {@inheritDoc} */
     @Override
     public String marshal(InetAddress inetAddr) throws Exception {
-    	return InetAddrUtils.str(inetAddr);
+        return InetAddrUtils.str(inetAddr);
     }
 
     /** {@inheritDoc} */
     @Override
     public InetAddress unmarshal(String ipAddr) throws Exception {
-    	return InetAddrUtils.addr(ipAddr);
+        return InetAddrUtils.addr(ipAddr);
     }
 
 }

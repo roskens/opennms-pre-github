@@ -35,17 +35,18 @@ import junit.framework.TestCase;
 
 public class PDFReportRendererTest extends TestCase {
     public void testPdfRendering() throws Exception {
-        new PDFReportRenderer().render(
-                new InputStreamReader(
-                        // This is a freely-licensed sample XSL-FO document from IBM developerWorks
-                        Thread.currentThread().getContextClassLoader().getResourceAsStream("org/opennms/reporting/availability/render/currency.fo"),
-                        "UTF-8"
-                ),
-                new FileOutputStream("target/sampleDocument.pdf"),
-                new InputStreamReader(
-                        Thread.currentThread().getContextClassLoader().getResourceAsStream("org/opennms/reporting/availability/render/identity.xsl"),
-                        "UTF-8"
-                )
-        );
+        new PDFReportRenderer().render(new InputStreamReader(
+                                                             // This is a
+                                                             // freely-licensed
+                                                             // sample XSL-FO
+                                                             // document from
+                                                             // IBM
+                                                             // developerWorks
+                                                             Thread.currentThread().getContextClassLoader().getResourceAsStream("org/opennms/reporting/availability/render/currency.fo"),
+                                                             "UTF-8"),
+                                       new FileOutputStream("target/sampleDocument.pdf"),
+                                       new InputStreamReader(
+                                                             Thread.currentThread().getContextClassLoader().getResourceAsStream("org/opennms/reporting/availability/render/identity.xsl"),
+                                                             "UTF-8"));
     }
 }

@@ -51,58 +51,60 @@ import org.opennms.netmgt.xml.event.Event;
 
 public class PollerServiceTest extends TestCase {
 
-	DefaultPollerService m_pollerService;
-	EventProxy m_eventProxy;
+    DefaultPollerService m_pollerService;
 
+    EventProxy m_eventProxy;
 
+    @Override
+    protected void setUp() throws Exception {
+        m_eventProxy = createMock(EventProxy.class);
 
+        m_pollerService = new DefaultPollerService();
+        m_pollerService.setEventProxy(m_eventProxy);
+    }
 
-	@Override
-	protected void setUp() throws Exception {
-		m_eventProxy = createMock(EventProxy.class);
+    public void testPoll() throws EventProxyException {
 
-		m_pollerService = new DefaultPollerService();
-		m_pollerService.setEventProxy(m_eventProxy);
-	}
+        final int expectedPolldId = 7;
 
-	public void testPoll() throws EventProxyException {
+        OnmsServiceType svcType = new OnmsServiceType();
+        svcType.setId(3);
+        svcType.setName("HTTP");
+        OnmsNode node = new OnmsNode();
+        node.setId(1);
+        OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(node, 1);
+        OnmsIpInterface iface = new OnmsIpInterface("192.168.1.1", node);
+        iface.setSnmpInterface(snmpIface);
+        final OnmsMonitoredService monSvc = new OnmsMonitoredService(iface, svcType);
 
-		final int expectedPolldId = 7;
+        m_eventProxy.send(isA(Event.class));
+        expectLastCall().andAnswer(new IAnswer<Object>() {
 
-		OnmsServiceType svcType = new OnmsServiceType();
-		svcType.setId(3);
-		svcType.setName("HTTP");
-		OnmsNode node = new OnmsNode();
-		node.setId(1);
-		OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(node, 1);
-		OnmsIpInterface iface = new OnmsIpInterface("192.168.1.1", node);
-		iface.setSnmpInterface(snmpIface);
-		final OnmsMonitoredService monSvc = new OnmsMonitoredService(iface, svcType);
+            @Override
+            public Object answer() throws Throwable {
+                Event event = (Event) getCurrentArguments()[0];
+                assertEquals("Incorrect uei for demandPollService event", EventConstants.DEMAND_POLL_SERVICE_EVENT_UEI,
+                             event.getUei());
+                assertEquals("Incorrect nodeid for demandPollService event", monSvc.getNodeId().longValue(),
+                             event.getNodeid().longValue());
+                assertEquals("Incorrect ipadr for demandPollService event",
+                             InetAddressUtils.str(monSvc.getIpAddress()), event.getInterface());
+                assertEquals("Incorrect ifIndex for demandPollService event", monSvc.getIfIndex(),
+                             Integer.valueOf(event.getIfIndex()));
+                assertEquals("Incorrect service for demandPollService event", monSvc.getServiceType().getName(),
+                             event.getService());
+                EventUtils.requireParm(event, EventConstants.PARM_DEMAND_POLL_ID);
+                assertEquals(expectedPolldId, EventUtils.getIntParm(event, EventConstants.PARM_DEMAND_POLL_ID, -1));
+                return null;
+            }
 
-		m_eventProxy.send(isA(Event.class));
-		expectLastCall().andAnswer(new IAnswer<Object>() {
+        });
 
-                        @Override
-			public Object answer() throws Throwable {
-				Event event = (Event)getCurrentArguments()[0];
-				assertEquals("Incorrect uei for demandPollService event", EventConstants.DEMAND_POLL_SERVICE_EVENT_UEI, event.getUei());
-				assertEquals("Incorrect nodeid for demandPollService event", monSvc.getNodeId().longValue(), event.getNodeid().longValue());
-				assertEquals("Incorrect ipadr for demandPollService event", InetAddressUtils.str(monSvc.getIpAddress()), event.getInterface());
-				assertEquals("Incorrect ifIndex for demandPollService event", monSvc.getIfIndex(), Integer.valueOf(event.getIfIndex()));
-				assertEquals("Incorrect service for demandPollService event", monSvc.getServiceType().getName(), event.getService());
-				EventUtils.requireParm(event, EventConstants.PARM_DEMAND_POLL_ID);
-				assertEquals(expectedPolldId, EventUtils.getIntParm(event, EventConstants.PARM_DEMAND_POLL_ID, -1));
-				return null;
-			}
+        replay(m_eventProxy);
 
-		});
+        m_pollerService.poll(monSvc, expectedPolldId);
 
-		replay(m_eventProxy);
-
-		m_pollerService.poll(monSvc, expectedPolldId);
-
-		verify(m_eventProxy);
-	}
+        verify(m_eventProxy);
+    }
 
 }
-

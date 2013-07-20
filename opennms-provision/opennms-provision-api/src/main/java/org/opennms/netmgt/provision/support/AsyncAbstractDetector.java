@@ -34,29 +34,41 @@ import org.opennms.netmgt.provision.AsyncServiceDetector;
 import org.opennms.netmgt.provision.DetectFuture;
 
 /**
- * <p>AsyncAbstractDetector class.</p>
+ * <p>
+ * AsyncAbstractDetector class.
+ * </p>
  *
  * @author thedesloge
  */
 public abstract class AsyncAbstractDetector extends AbstractDetector implements AsyncServiceDetector {
 
     /**
-     * <p>Constructor for AsyncAbstractDetector.</p>
+     * <p>
+     * Constructor for AsyncAbstractDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
-     * @param timeout a int.
-     * @param retries a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
+     * @param retries
+     *            a int.
      */
     protected AsyncAbstractDetector(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
     }
 
     /**
-     * <p>Constructor for AsyncAbstractDetector.</p>
+     * <p>
+     * Constructor for AsyncAbstractDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     protected AsyncAbstractDetector(final String serviceName, final int port) {
         super(serviceName, port);

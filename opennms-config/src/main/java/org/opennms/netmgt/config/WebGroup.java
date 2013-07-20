@@ -31,7 +31,9 @@ package org.opennms.netmgt.config;
 import java.util.Collection;
 
 /**
- * <p>WebGroup class.</p>
+ * <p>
+ * WebGroup class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,19 +42,25 @@ import java.util.Collection;
 public class WebGroup {
 
     private final String m_name;
+
     private Collection<WebUser> m_users;
 
     /**
-     * <p>Constructor for WebGroup.</p>
+     * <p>
+     * Constructor for WebGroup.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public WebGroup(String name) {
         m_name = name;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,17 +69,21 @@ public class WebGroup {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return ""+getName();
+        return "" + getName();
     }
 
     /**
-     * <p>getUsers</p>
+     * <p>
+     * getUsers
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -80,9 +92,12 @@ public class WebGroup {
     }
 
     /**
-     * <p>setUsers</p>
+     * <p>
+     * setUsers
+     * </p>
      *
-     * @param users a {@link java.util.Collection} object.
+     * @param users
+     *            a {@link java.util.Collection} object.
      */
     protected void setUsers(Collection<WebUser> users) {
         m_users = users;
@@ -92,14 +107,16 @@ public class WebGroup {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof WebGroup) {
-            WebGroup u = (WebGroup)obj;
+            WebGroup u = (WebGroup) obj;
             return m_name.equals(u.m_name);
         }
         return false;
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
@@ -107,6 +124,5 @@ public class WebGroup {
     public int hashCode() {
         return m_name.hashCode();
     }
-
 
 }

@@ -32,7 +32,9 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * <p>ByNameComparator class.</p>
+ * <p>
+ * ByNameComparator class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,10 +44,18 @@ public final class ByNameComparator implements Comparator<AttributeDefinition>, 
     private static final long serialVersionUID = -2596801053643459622L;
 
     /**
-     * <p>compare</p>
+     * <p>
+     * compare
+     * </p>
      *
-     * @param type0 a {@link org.opennms.netmgt.config.collector.AttributeDefinition} object.
-     * @param type1 a {@link org.opennms.netmgt.config.collector.AttributeDefinition} object.
+     * @param type0
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.AttributeDefinition}
+     *            object.
+     * @param type1
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.AttributeDefinition}
+     *            object.
      * @return a int.
      */
     @Override
@@ -60,7 +70,9 @@ public final class ByNameComparator implements Comparator<AttributeDefinition>, 
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */

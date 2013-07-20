@@ -66,15 +66,19 @@ import org.slf4j.LoggerFactory;
  */
 public class SnmpManageNodesServlet extends HttpServlet {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SnmpManageNodesServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SnmpManageNodesServlet.class);
 
     private static final long serialVersionUID = 1604691299928314549L;
+
     private static final String UPDATE_INTERFACE = "UPDATE snmpInterface SET snmpCollect = ? WHERE id = ?";
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -104,7 +108,8 @@ public class SnmpManageNodesServlet extends HttpServlet {
         String primeInt = null;
 
         for (final SnmpManagedInterface testInterface : allInterfaces) {
-            if (testInterface.getNodeid() == currNodeId && PrimaryType.PRIMARY.getCode().equals(testInterface.getStatus())) {
+            if (testInterface.getNodeid() == currNodeId
+                    && PrimaryType.PRIMARY.getCode().equals(testInterface.getStatus())) {
                 // Get the IP address of the primary SNMP interface
                 primeInt = NetworkElementFactory.getInstance(this.getServletContext()).getIpPrimaryAddress(currNodeId);
             }
@@ -143,8 +148,10 @@ public class SnmpManageNodesServlet extends HttpServlet {
         }
 
         // forward the request for proper display
-        // TODO This will redirect to the node page, but the URL will be admin/changeCollectStatus. Needs fixed.
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/element/node.jsp?node=" + currNodeId);
+        // TODO This will redirect to the node page, but the URL will be
+        // admin/changeCollectStatus. Needs fixed.
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/element/node.jsp?node="
+                                                                                             + currNodeId);
         dispatcher.forward(request, response);
     }
 

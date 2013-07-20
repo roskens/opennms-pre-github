@@ -32,9 +32,10 @@ import java.io.Serializable;
 
 import org.springframework.core.style.ToStringCreator;
 
-
 /**
- * <p>OnmsServiceMap class.</p>
+ * <p>
+ * OnmsServiceMap class.
+ * </p>
  */
 public class OnmsServiceMap extends OnmsEntity implements Serializable {
 
@@ -54,8 +55,10 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
     /**
      * full constructor
      *
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param serviceMapName a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param serviceMapName
+     *            a {@link java.lang.String} object.
      */
     public OnmsServiceMap(String ipAddr, String serviceMapName) {
         this.m_ipAddr = ipAddr;
@@ -68,29 +71,35 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
     public OnmsServiceMap() {
     }
 
-
-/**
- * <p>getId</p>
- *
- * @hibernate.id generator-class="native" column="id"
- * @hibernate.generator-param name="sequence" value="svcMapNxtId"
- * @return a {@link java.lang.Integer} object.
- */
-public Integer getId() {
+    /**
+     * <p>
+     * getId
+     * </p>
+     *
+     * @hibernate.id generator-class="native" column="id"
+     * @hibernate.generator-param name="sequence" value="svcMapNxtId"
+     * @return a {@link java.lang.Integer} object.
+     */
+    public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         this.m_id = id;
     }
 
     /**
-     * <p>getIpAddr</p>
+     * <p>
+     * getIpAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -99,16 +108,21 @@ public Integer getId() {
     }
 
     /**
-     * <p>setIpAddr</p>
+     * <p>
+     * setIpAddr
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddr(String ipAddr) {
         this.m_ipAddr = ipAddr;
     }
 
     /**
-     * <p>getServiceMapName</p>
+     * <p>
+     * getServiceMapName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -117,33 +131,35 @@ public Integer getId() {
     }
 
     /**
-     * <p>setServiceMapName</p>
+     * <p>
+     * setServiceMapName
+     * </p>
      *
-     * @param serviceMapName a {@link java.lang.String} object.
+     * @param serviceMapName
+     *            a {@link java.lang.String} object.
      */
     public void setServiceMapName(String serviceMapName) {
         this.m_serviceMapName = serviceMapName;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-            .append("ipAddr", getIpAddr())
-            .append("serviceMapName", getServiceMapName())
-            .toString();
+        return new ToStringCreator(this).append("ipAddr", getIpAddr()).append("serviceMapName", getServiceMapName()).toString();
     }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void visit(EntityVisitor visitor) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("visitor method not implemented");
+    public void visit(EntityVisitor visitor) {
+        // TODO Auto-generated method stub
+        throw new RuntimeException("visitor method not implemented");
 
-	}
+    }
 
 }

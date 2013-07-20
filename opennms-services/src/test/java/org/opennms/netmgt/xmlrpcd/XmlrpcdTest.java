@@ -48,116 +48,93 @@ import org.opennms.test.ThrowableAnticipator;
 
 public class XmlrpcdTest extends OpenNMSTestCase {
     private static final int m_port1 = 9000;
+
     private static final int m_port2 = 9001;
 
     private Xmlrpcd m_xmlrpcd;
+
     private XmlrpcAnticipator m_anticipator1;
+
     private XmlrpcAnticipator m_anticipator2;
 
-    StringReader m_config = new StringReader(
-            "<?xml version=\"1.0\"?>\n" +
-            "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n" +
-            " <external-servers retries=\"1\" elapse-time=\"100\">\n" +
-            "  <xmlrpc-server url=\"http://localhost:" + m_port1 + "\" />\n" +
-            "  <serverSubscription>baseEvents</serverSubscription>\n" +
-            " </external-servers>\n" +
-            " <subscription name=\"baseEvents\">\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeUp\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeDown\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/interfaceUp\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/interfaceDown\"/>\n" +
-            " </subscription>\n" +
-            "</xmlrpcd-configuration>\n");
+    StringReader m_config = new StringReader("<?xml version=\"1.0\"?>\n"
+            + "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n"
+            + " <external-servers retries=\"1\" elapse-time=\"100\">\n" + "  <xmlrpc-server url=\"http://localhost:"
+            + m_port1 + "\" />\n" + "  <serverSubscription>baseEvents</serverSubscription>\n"
+            + " </external-servers>\n" + " <subscription name=\"baseEvents\">\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeUp\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeDown\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/interfaceUp\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/interfaceDown\"/>\n" + " </subscription>\n"
+            + "</xmlrpcd-configuration>\n");
 
-    StringReader m_configTwo = new StringReader(
-            "<?xml version=\"1.0\"?>\n" +
-            "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n" +
-            " <external-servers retries=\"1\" elapse-time=\"100\">\n" +
-            "  <xmlrpc-server url=\"http://localhost:" + m_port1 + "\" />\n" +
-            "  <xmlrpc-server url=\"http://localhost:" + m_port2 + "\" />\n" +
-            "  <serverSubscription>baseEvents</serverSubscription>\n" +
-            " </external-servers>\n" +
-            " <subscription name=\"baseEvents\">\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" +
-            " </subscription>\n" +
-            "</xmlrpcd-configuration>\n");
+    StringReader m_configTwo = new StringReader("<?xml version=\"1.0\"?>\n"
+            + "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n"
+            + " <external-servers retries=\"1\" elapse-time=\"100\">\n" + "  <xmlrpc-server url=\"http://localhost:"
+            + m_port1 + "\" />\n" + "  <xmlrpc-server url=\"http://localhost:" + m_port2 + "\" />\n"
+            + "  <serverSubscription>baseEvents</serverSubscription>\n" + " </external-servers>\n"
+            + " <subscription name=\"baseEvents\">\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" + " </subscription>\n"
+            + "</xmlrpcd-configuration>\n");
 
-    StringReader m_configParallelSame = new StringReader(
-            "<?xml version=\"1.0\"?>\n" +
-            "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n" +
-            " <external-servers retries=\"1\" elapse-time=\"100\">\n" +
-            "  <xmlrpc-server url=\"http://localhost:" + m_port1 + "\" />\n" +
-            "  <serverSubscription>baseEvents</serverSubscription>\n" +
-            " </external-servers>\n" +
-            " <external-servers retries=\"1\" elapse-time=\"100\">\n" +
-            "  <xmlrpc-server url=\"http://localhost:" + m_port2 + "\" />\n" +
-            "  <serverSubscription>baseEvents</serverSubscription>\n" +
-            " </external-servers>\n" +
-            " <subscription name=\"baseEvents\">\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" +
-            " </subscription>\n" +
-            "</xmlrpcd-configuration>\n");
+    StringReader m_configParallelSame = new StringReader("<?xml version=\"1.0\"?>\n"
+            + "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n"
+            + " <external-servers retries=\"1\" elapse-time=\"100\">\n" + "  <xmlrpc-server url=\"http://localhost:"
+            + m_port1 + "\" />\n" + "  <serverSubscription>baseEvents</serverSubscription>\n"
+            + " </external-servers>\n" + " <external-servers retries=\"1\" elapse-time=\"100\">\n"
+            + "  <xmlrpc-server url=\"http://localhost:" + m_port2 + "\" />\n"
+            + "  <serverSubscription>baseEvents</serverSubscription>\n" + " </external-servers>\n"
+            + " <subscription name=\"baseEvents\">\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" + " </subscription>\n"
+            + "</xmlrpcd-configuration>\n");
 
-    StringReader m_configParallelDifferent = new StringReader(
-            "<?xml version=\"1.0\"?>\n" +
-            "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n" +
-            " <external-servers retries=\"1\" elapse-time=\"100\">\n" +
-            "  <xmlrpc-server url=\"http://localhost:" + m_port1 + "\" />\n" +
-            "  <serverSubscription>baseEvents1</serverSubscription>\n" +
-            " </external-servers>\n" +
-            " <external-servers retries=\"1\" elapse-time=\"100\">\n" +
-            "  <xmlrpc-server url=\"http://localhost:" + m_port2 + "\" />\n" +
-            "  <serverSubscription>baseEvents2</serverSubscription>\n" +
-            " </external-servers>\n" +
-            " <subscription name=\"baseEvents1\">\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n" +
-            " </subscription>\n" +
-            " <subscription name=\"baseEvents2\">\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" +
-            " </subscription>\n" +
-            "</xmlrpcd-configuration>\n");
+    StringReader m_configParallelDifferent = new StringReader("<?xml version=\"1.0\"?>\n"
+            + "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n"
+            + " <external-servers retries=\"1\" elapse-time=\"100\">\n" + "  <xmlrpc-server url=\"http://localhost:"
+            + m_port1 + "\" />\n" + "  <serverSubscription>baseEvents1</serverSubscription>\n"
+            + " </external-servers>\n" + " <external-servers retries=\"1\" elapse-time=\"100\">\n"
+            + "  <xmlrpc-server url=\"http://localhost:" + m_port2 + "\" />\n"
+            + "  <serverSubscription>baseEvents2</serverSubscription>\n" + " </external-servers>\n"
+            + " <subscription name=\"baseEvents1\">\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n" + " </subscription>\n"
+            + " <subscription name=\"baseEvents2\">\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" + " </subscription>\n"
+            + "</xmlrpcd-configuration>\n");
 
-    StringReader m_configGeneric = new StringReader(
-            "<?xml version=\"1.0\"?>\n" +
-            "<xmlrpcd-configuration max-event-queue-size=\"5000\" generic-msgs=\"true\">\n" +
-            " <external-servers retries=\"1\" elapse-time=\"100\">\n" +
-            "  <xmlrpc-server url=\"http://localhost:" + m_port1 + "\" />\n" +
-            "  <serverSubscription>baseEvents</serverSubscription>\n" +
-            " </external-servers>\n" +
-            " <subscription name=\"baseEvents\">\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/default/trap\"/>\n" +
-            " </subscription>\n" +
-            "</xmlrpcd-configuration>\n");
+    StringReader m_configGeneric = new StringReader("<?xml version=\"1.0\"?>\n"
+            + "<xmlrpcd-configuration max-event-queue-size=\"5000\" generic-msgs=\"true\">\n"
+            + " <external-servers retries=\"1\" elapse-time=\"100\">\n" + "  <xmlrpc-server url=\"http://localhost:"
+            + m_port1 + "\" />\n" + "  <serverSubscription>baseEvents</serverSubscription>\n"
+            + " </external-servers>\n" + " <subscription name=\"baseEvents\">\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/default/trap\"/>\n" + " </subscription>\n"
+            + "</xmlrpcd-configuration>\n");
 
-    StringReader m_configBad = new StringReader(
-            "<?xml version=\"1.0\"?>\n" +
-            "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n" +
-            " <external-servers retries=\"1\" elapse-time=\"100\">\n" +
-            "  <xmlrpc-server url=\"http://localhost:" + m_port1 + "\" />\n" +
-            "  <serverSubscription>baseEventsBlah</serverSubscription>\n" +
-            " </external-servers>\n" +
-            " <subscription name=\"baseEvents\">\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n" +
-            "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" +
-            " </subscription>\n" +
-            "</xmlrpcd-configuration>\n");
+    StringReader m_configBad = new StringReader("<?xml version=\"1.0\"?>\n"
+            + "<xmlrpcd-configuration max-event-queue-size=\"5000\">\n"
+            + " <external-servers retries=\"1\" elapse-time=\"100\">\n" + "  <xmlrpc-server url=\"http://localhost:"
+            + m_port1 + "\" />\n" + "  <serverSubscription>baseEventsBlah</serverSubscription>\n"
+            + " </external-servers>\n" + " <subscription name=\"baseEvents\">\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeLostService\"/>\n"
+            + "  <subscribed-event uei=\"uei.opennms.org/nodes/nodeRegainedService\"/>\n" + " </subscription>\n"
+            + "</xmlrpcd-configuration>\n");
 
     ByteArrayInputStream m_serverConfig = new ByteArrayInputStream(
-            ("<local-server server-name=\"nms1\" verify-server=\"false\">\n" +
-            "</local-server>\n").getBytes());
+                                                                   ("<local-server server-name=\"nms1\" verify-server=\"false\">\n"
+                                                                           + "</local-server>\n").getBytes());
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
 
         m_anticipator1 = new XmlrpcAnticipator(m_port1, false);
-        // Don't setup the second anticipator since it can take a bit of time; let individual tests do that it if they want it
+        // Don't setup the second anticipator since it can take a bit of time;
+        // let individual tests do that it if they want it
 
         OpennmsServerConfigFactory.setInstance(new OpennmsServerConfigFactory(m_serverConfig));
 
@@ -194,7 +171,8 @@ public class XmlrpcdTest extends OpenNMSTestCase {
     }
 
     public void anticipateNotifyReceivedEvent(XmlrpcAnticipator anticipator) {
-        anticipator.anticipateCall("notifyReceivedEvent", "0", EventConstants.XMLRPC_NOTIFICATION_EVENT_UEI, "test connection");
+        anticipator.anticipateCall("notifyReceivedEvent", "0", EventConstants.XMLRPC_NOTIFICATION_EVENT_UEI,
+                                   "test connection");
     }
 
     @Override
@@ -255,11 +233,13 @@ public class XmlrpcdTest extends OpenNMSTestCase {
     }
 
     private void anticipateServerServiceCall(XmlrpcAnticipator anticipator, String method, Date date) {
-        anticipator.anticipateCall(method, "Server", "192.168.1.2", "SNMP", "Not Available", "null", EventConstants.formatToString(date));
+        anticipator.anticipateCall(method, "Server", "192.168.1.2", "SNMP", "Not Available", "null",
+                                   EventConstants.formatToString(date));
     }
 
     private void anticipateRouterServiceCall(XmlrpcAnticipator anticipator, String method, Date date) {
-        anticipator.anticipateCall(method, "Router", "192.168.1.1", "ICMP", "Not Available", "null", EventConstants.formatToString(date));
+        anticipator.anticipateCall(method, "Router", "192.168.1.1", "ICMP", "Not Available", "null",
+                                   EventConstants.formatToString(date));
     }
 
     public void testSerialFailover() throws Exception {
@@ -295,7 +275,6 @@ public class XmlrpcdTest extends OpenNMSTestCase {
         finishUp();
     }
 
-
     public void testSerialFailback() throws Exception {
         XmlrpcdConfigFactory.setInstance(new XmlrpcdConfigFactory(m_configTwo));
 
@@ -329,7 +308,8 @@ public class XmlrpcdTest extends OpenNMSTestCase {
         m_anticipator1 = new XmlrpcAnticipator(m_port1);
         anticipateNotifyReceivedEvent(m_anticipator1);
 
-        m_anticipator1.anticipateCall("sendServiceDownEvent", "Firewall", "192.168.1.3", "Telnet", "Not Available", "null", EventConstants.formatToString(date));
+        m_anticipator1.anticipateCall("sendServiceDownEvent", "Firewall", "192.168.1.3", "Telnet", "Not Available",
+                                      "null", EventConstants.formatToString(date));
 
         Event nodeThreeEvent = svcEvent(EventConstants.NODE_LOST_SERVICE_EVENT_UEI, 3, "192.168.1.3", "Telnet", date);
         getEventIpcManager().sendNow(nodeThreeEvent);
@@ -408,12 +388,10 @@ public class XmlrpcdTest extends OpenNMSTestCase {
         t.put("nodeLabel", "Router");
         t.put("service", "ICMP");
         t.put("uei", EventConstants.NODE_LOST_SERVICE_EVENT_UEI);
-        t.put("description", "\n"
-                + "      <p>A ICMP outage was identified on interface\n"
+        t.put("description", "\n" + "      <p>A ICMP outage was identified on interface\n"
                 + "      192.168.1.1.</p> <p>A new Outage record has been\n"
                 + "      created and service level availability calculations will be\n"
-                + "      impacted until this outage is resolved.</p>\n"
-                + "    ");
+                + "      impacted until this outage is resolved.</p>\n" + "    ");
         t.put("severity", "Minor");
         m_anticipator1.anticipateCall("sendEvent", t);
 
@@ -455,17 +433,20 @@ public class XmlrpcdTest extends OpenNMSTestCase {
         m_xmlrpcd.init();
         m_xmlrpcd.start();
 
-        Hashtable<String, String> trapMap = XmlRpcNotifierTest.basicTrapMap(date, "public", enterpriseId, 6, 2, date.getTime(), "1");
+        Hashtable<String, String> trapMap = XmlRpcNotifierTest.basicTrapMap(date, "public", enterpriseId, 6, 2,
+                                                                            date.getTime(), "1");
 
         trapMap.put("uei", "uei.opennms.org/default/trap");
         trapMap.put("source", "the one true source");
         /*
-        t.put("description", "\n" +
-                "      <p>This is the default event format used when an enterprise\n" +
-                "      specific event (trap) is received for which no format has been\n" +
-                "      configured (i.e. no event definition exists).</p>\n" +
-                "    ");
-                */
+         * t.put("description", "\n" +
+         * "      <p>This is the default event format used when an enterprise\n"
+         * +
+         * "      specific event (trap) is received for which no format has been\n"
+         * +
+         * "      configured (i.e. no event definition exists).</p>\n" +
+         * "    ");
+         */
         trapMap.put("severity", "Normal");
 
         m_anticipator1.anticipateCall("sendSnmpTrapEvent", trapMap);
@@ -527,7 +508,8 @@ public class XmlrpcdTest extends OpenNMSTestCase {
         m_xmlrpcd.init();
         m_xmlrpcd.start();
 
-        m_anticipator1.anticipateCall("sendInterfaceDownEvent", "Router", "192.168.1.1", "null", EventConstants.formatToString(date));
+        m_anticipator1.anticipateCall("sendInterfaceDownEvent", "Router", "192.168.1.1", "null",
+                                      EventConstants.formatToString(date));
 
         Event e = ifEvent(EventConstants.INTERFACE_DOWN_EVENT_UEI, 1, "192.168.1.1", date);
         getEventIpcManager().sendNow(e);
@@ -545,7 +527,8 @@ public class XmlrpcdTest extends OpenNMSTestCase {
         m_xmlrpcd.init();
         m_xmlrpcd.start();
 
-        m_anticipator1.anticipateCall("sendInterfaceUpEvent", "Router", "192.168.1.1", "null", "null", EventConstants.formatToString(date));
+        m_anticipator1.anticipateCall("sendInterfaceUpEvent", "Router", "192.168.1.1", "null", "null",
+                                      EventConstants.formatToString(date));
 
         Event e = ifEvent(EventConstants.INTERFACE_UP_EVENT_UEI, 1, "192.168.1.1", date);
         getEventIpcManager().sendNow(e);
@@ -593,8 +576,6 @@ public class XmlrpcdTest extends OpenNMSTestCase {
         finishUp();
     }
 
-
-
     public void testBadConfig() throws Exception {
         XmlrpcdConfigFactory.setInstance(new XmlrpcdConfigFactory(m_configBad));
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -632,8 +613,5 @@ public class XmlrpcdTest extends OpenNMSTestCase {
         bldr.setService(svcName);
         return bldr.getEvent();
     }
-
-
-
 
 }

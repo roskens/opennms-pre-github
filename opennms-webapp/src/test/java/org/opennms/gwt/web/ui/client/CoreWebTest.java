@@ -32,10 +32,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-
 public class CoreWebTest {
 
-	@Test
+    @Test
     public void testUpperCasingLabel() {
         UpperCasingLabel upperCasingLabel = new UpperCasingLabel();
 

@@ -53,8 +53,7 @@ import org.slf4j.LoggerFactory;
  */
 public class IfLabel extends Object {
 
-	private static final Logger LOG = LoggerFactory.getLogger(IfLabel.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(IfLabel.class);
 
     /**
      * Return a map of useful SNMP information for the interface specified by
@@ -88,19 +87,15 @@ public class IfLabel extends Object {
             mac = ifLabel.substring(dashIndex + 1, ifLabel.length());
         }
 
-       final String desc2 = desc;
-       final String mac2 = mac;
+        final String desc2 = desc;
+        final String mac2 = mac;
 
         LOG.debug("getInterfaceInfoFromIfLabel: desc={} mac={}", desc, mac);
 
         String queryDesc = desc.replace('_', '%');
 
-        String query = "" +
-                "SELECT * " +
-                "  FROM snmpinterface " +
-                " WHERE nodeid = "+nodeId+
-                "   AND (snmpifdescr ILIKE '"+queryDesc+"'" +
-                "    OR snmpifname ilike '"+queryDesc+"')";
+        String query = "" + "SELECT * " + "  FROM snmpinterface " + " WHERE nodeid = " + nodeId
+                + "   AND (snmpifdescr ILIKE '" + queryDesc + "'" + "    OR snmpifname ilike '" + queryDesc + "')";
         LOG.debug("getInterfaceInfoFromLabel: query is: {}", query);
 
         Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
@@ -111,18 +106,22 @@ public class IfLabel extends Object {
                 // in the snmpinterface table...
 
                 /*
-                 * When Cisco Express Forwarding (CEF) or some ATM encapsulations
-                 * (AAL5) are used on Cisco routers, an additional entry might be
+                 * When Cisco Express Forwarding (CEF) or some ATM
+                 * encapsulations
+                 * (AAL5) are used on Cisco routers, an additional entry might
+                 * be
                  * in the ifTable for these sub-interfaces, but there is no
-                 * performance data available for collection.  This check excludes
-                 * ifTable entries where ifDescr contains "-cef".  See bug #803.
+                 * performance data available for collection. This check
+                 * excludes
+                 * ifTable entries where ifDescr contains "-cef". See bug #803.
                  */
                 if (rs.getString("snmpifdescr") != null) {
                     if (Pattern.matches(".*-cef.*", rs.getString("snmpifdescr")))
                         return;
                 }
 
-                if ((AlphaNumeric.parseAndReplace(rs.getString("snmpifname"), '_').equals(desc2)) || (AlphaNumeric.parseAndReplace(rs.getString("snmpifdescr"), '_').equals(desc2))) {
+                if ((AlphaNumeric.parseAndReplace(rs.getString("snmpifname"), '_').equals(desc2))
+                        || (AlphaNumeric.parseAndReplace(rs.getString("snmpifdescr"), '_').equals(desc2))) {
 
                     // If the mac address portion of the ifLabel matches
                     // an entry in the snmpinterface table...
@@ -148,19 +147,18 @@ public class IfLabel extends Object {
     /**
      * Get the interface labels for each interface on a given node.
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return an array of {@link java.lang.String} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public static String[] getIfLabels(int nodeId) throws SQLException {
 
-        String query = "" +
-        		"SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr " +
-        		"  FROM snmpinterface, ipinterface " +
-        		" WHERE (ipinterface.ismanaged!='D') " +
-        		"   AND ipinterface.nodeid=snmpinterface.nodeid " +
-        		"   AND ifindex = snmpifindex " +
-        		"   AND ipinterface.nodeid="+nodeId;
+        String query = "" + "SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr "
+                + "  FROM snmpinterface, ipinterface " + " WHERE (ipinterface.ismanaged!='D') "
+                + "   AND ipinterface.nodeid=snmpinterface.nodeid " + "   AND ifindex = snmpifindex "
+                + "   AND ipinterface.nodeid=" + nodeId;
 
         final ArrayList<String> list = new ArrayList<String>();
 
@@ -181,10 +179,14 @@ public class IfLabel extends Object {
     }
 
     /**
-     * <p>getIfLabel</p>
+     * <p>
+     * getIfLabel
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String getIfLabel(final int nodeId, final String ipAddr) {
@@ -208,14 +210,10 @@ public class IfLabel extends Object {
 
         final LabelHolder holder = new LabelHolder();
 
-        String query = "" +
-        		"SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr " +
-        		"  FROM snmpinterface, ipinterface " +
-        		" WHERE (ipinterface.ismanaged!='D') " +
-        		"   AND ipinterface.nodeid=snmpinterface.nodeid " +
-        		"   AND ifindex=snmpifindex " +
-        		"   AND ipinterface.nodeid = "+nodeId+
-        		"   AND ipinterface.ipaddr = '"+inetAddr+"'";
+        String query = "" + "SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr "
+                + "  FROM snmpinterface, ipinterface " + " WHERE (ipinterface.ismanaged!='D') "
+                + "   AND ipinterface.nodeid=snmpinterface.nodeid " + "   AND ifindex=snmpifindex "
+                + "   AND ipinterface.nodeid = " + nodeId + "   AND ipinterface.ipaddr = '" + inetAddr + "'";
 
         Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
             @Override
@@ -227,7 +225,8 @@ public class IfLabel extends Object {
                 if (name != null || descr != null) {
                     holder.setLabel(getIfLabel(name, descr, physAddr));
                 } else {
-                    LOG.warn("Interface (nodeId/ipAddr={}/{}) has no ifName and no ifDescr...setting to label to 'no_ifLabel'.", nodeId, ipAddr);
+                    LOG.warn("Interface (nodeId/ipAddr={}/{}) has no ifName and no ifDescr...setting to label to 'no_ifLabel'.",
+                             nodeId, ipAddr);
                     holder.setLabel("no_ifLabel");
                 }
             }
@@ -238,11 +237,16 @@ public class IfLabel extends Object {
     }
 
     /**
-     * <p>getIfLabelfromIfIndex</p>
+     * <p>
+     * getIfLabelfromIfIndex
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param ifIndex a int.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public static String getIfLabelfromIfIndex(final int nodeId, final String ipAddr, final int ifIndex) {
@@ -253,7 +257,7 @@ public class IfLabel extends Object {
         String inetAddr = org.opennms.core.utils.InetAddressUtils.normalize(ipAddr);
 
         if (ifIndex == -1) {
-        	return getIfLabel(nodeId, inetAddr);
+            return getIfLabel(nodeId, inetAddr);
         }
 
         class LabelHolder {
@@ -270,16 +274,11 @@ public class IfLabel extends Object {
 
         final LabelHolder holder = new LabelHolder();
 
-        String query = "" +
-        		"SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr " +
-        		"  FROM snmpinterface, ipinterface " +
-        		" WHERE (ipinterface.ismanaged!='D') " +
-        		"   AND ipinterface.nodeid=snmpinterface.nodeid " +
-        		"   AND ifindex=snmpifindex " +
-        		"   AND ipinterface.nodeid= "+nodeId+
-        		"   AND ipinterface.ipaddr= '"+inetAddr+"'"+
-        		"   AND ipinterface.ifindex= "+ifIndex;
-
+        String query = "" + "SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr "
+                + "  FROM snmpinterface, ipinterface " + " WHERE (ipinterface.ismanaged!='D') "
+                + "   AND ipinterface.nodeid=snmpinterface.nodeid " + "   AND ifindex=snmpifindex "
+                + "   AND ipinterface.nodeid= " + nodeId + "   AND ipinterface.ipaddr= '" + inetAddr + "'"
+                + "   AND ipinterface.ifindex= " + ifIndex;
 
         Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
 
@@ -292,7 +291,8 @@ public class IfLabel extends Object {
                 if (name != null || descr != null) {
                     holder.setLabel(getIfLabel(name, descr, physAddr));
                 } else {
-                    LOG.warn("Interface (nodeId/ipAddr={}/{}) has no ifName and no ifDescr...setting to label to 'no_ifLabel'.", nodeId, ipAddr);
+                    LOG.warn("Interface (nodeId/ipAddr={}/{}) has no ifName and no ifDescr...setting to label to 'no_ifLabel'.",
+                             nodeId, ipAddr);
                     holder.setLabel("no_ifLabel");
                 }
             }
@@ -304,12 +304,15 @@ public class IfLabel extends Object {
     }
 
     /**
-     * Return the ifLabel as a string for the given node and ifIndex. Intended for
+     * Return the ifLabel as a string for the given node and ifIndex. Intended
+     * for
      * use with non-ip interfaces.
      *
      * @return String
-     * @param nodeId a int.
-     * @param ifIndex a int.
+     * @param nodeId
+     *            a int.
+     * @param ifIndex
+     *            a int.
      */
     public static String getIfLabelfromSnmpIfIndex(final int nodeId, final int ifIndex) {
 
@@ -327,12 +330,8 @@ public class IfLabel extends Object {
 
         final LabelHolder holder = new LabelHolder();
 
-        String query = "" +
-                "SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr " +
-                "  FROM snmpinterface " +
-                "   WHERE nodeid= "+nodeId+
-                "   AND snmpifindex= "+ifIndex;
-
+        String query = "" + "SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr " + "  FROM snmpinterface "
+                + "   WHERE nodeid= " + nodeId + "   AND snmpifindex= " + ifIndex;
 
         Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
 
@@ -345,7 +344,8 @@ public class IfLabel extends Object {
                 if (name != null || descr != null) {
                     holder.setLabel(getIfLabel(name, descr, physAddr));
                 } else {
-                    LOG.warn("Interface (nodeId/ifIndex={}/{}) has no ifName and no ifDescr...setting to label to 'no_ifLabel'.", nodeId, ifIndex);
+                    LOG.warn("Interface (nodeId/ifIndex={}/{}) has no ifName and no ifDescr...setting to label to 'no_ifLabel'.",
+                             nodeId, ifIndex);
                     holder.setLabel("no_ifLabel");
                 }
             }
@@ -357,11 +357,16 @@ public class IfLabel extends Object {
     }
 
     /**
-     * <p>getIfLabel</p>
+     * <p>
+     * getIfLabel
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param descr a {@link java.lang.String} object.
-     * @param physAddr a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param descr
+     *            a {@link java.lang.String} object.
+     * @param physAddr
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String getIfLabel(String name, String descr, String physAddr) {
@@ -392,7 +397,7 @@ public class IfLabel extends Object {
             if (physAddr.length() == 12) {
                 label = label + "-" + physAddr;
             } else {
-            	LOG.debug("initialize: physical address len is NOT 12, physAddr={}", physAddr);
+                LOG.debug("initialize: physical address len is NOT 12, physAddr={}", physAddr);
             }
         }
 

@@ -50,7 +50,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>CriteriaAddingVisitor class.</p>
+ * <p>
+ * CriteriaAddingVisitor class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -59,21 +61,29 @@ import org.springframework.util.Assert;
 public class CriteriaAddingVisitor implements Visitor, InitializingBean {
 
     private OnmsCriteria m_criteria;
+
     private CategoryDao m_categoryDao;
+
     private View m_view;
+
     private SurveillanceView m_survView;
 
     /**
-     * <p>Constructor for CriteriaAddingVisitor.</p>
+     * <p>
+     * Constructor for CriteriaAddingVisitor.
+     * </p>
      *
-     * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
+     * @param criteria
+     *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
     public CriteriaAddingVisitor(OnmsCriteria criteria) {
         m_criteria = criteria;
     }
 
     /**
-     * <p>visitAll</p>
+     * <p>
+     * visitAll
+     * </p>
      */
     @Override
     public void visitAll() {
@@ -107,10 +117,14 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
     }
 
     /**
-     * <p>addCriteriaForCategories</p>
+     * <p>
+     * addCriteriaForCategories
+     * </p>
      *
-     * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     * @param categories a {@link java.util.Set} object.
+     * @param criteria
+     *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
+     * @param categories
+     *            a {@link java.util.Set} object.
      */
     public void addCriteriaForCategories(OnmsCriteria criteria, Set<String> categories) {
         String[] categoryNames = categories.toArray(new String[categories.size()]);
@@ -118,54 +132,70 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
     }
 
     /**
-     * <p>addCriteriaForCategories</p>
+     * <p>
+     * addCriteriaForCategories
+     * </p>
      *
-     * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     * @param categories a {@link java.lang.String} object.
+     * @param criteria
+     *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
+     * @param categories
+     *            a {@link java.lang.String} object.
      */
     public void addCriteriaForCategories(OnmsCriteria criteria, String... categories) {
-        String sql = "{alias}.nodeId in (select distinct cn.nodeId from category_node cn join categories c on cn.categoryId = c.categoryId where c.categoryName in (" + commaDelimitedQuestionMarks(categories.length) + "))";
+        String sql = "{alias}.nodeId in (select distinct cn.nodeId from category_node cn join categories c on cn.categoryId = c.categoryId where c.categoryName in ("
+                + commaDelimitedQuestionMarks(categories.length) + "))";
         criteria.add(Restrictions.sqlRestriction(sql, categories, arrayOfType(categories.length, new StringType())));
     }
 
     /**
-     * <p>getView</p>
+     * <p>
+     * getView
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.surveillanceViews.View} object.
+     * @return a {@link org.opennms.netmgt.config.surveillanceViews.View}
+     *         object.
      */
     public View getView() {
         return m_view;
     }
 
     /**
-     * <p>setView</p>
+     * <p>
+     * setView
+     * </p>
      *
-     * @param view a {@link org.opennms.netmgt.config.surveillanceViews.View} object.
+     * @param view
+     *            a {@link org.opennms.netmgt.config.surveillanceViews.View}
+     *            object.
      */
     public void setView(View view) {
         m_view = view;
     }
 
-
     /**
-     * <p>setCategoryDao</p>
+     * <p>
+     * setCategoryDao
+     * </p>
      *
-     * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
+     * @param categoryDao
+     *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
     public void setCategoryDao(CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
         Assert.state(m_view != null, "view property must be set");
         Assert.state(m_categoryDao != null, "categoryDao property must be set");
 
-
-        // construct a surveillance view object that makes it easier to build queries
+        // construct a surveillance view object that makes it easier to build
+        // queries
         m_survView = new SurveillanceView();
 
         m_survView.setName(m_view.getName());
@@ -184,24 +214,26 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
 
     }
 
-
     private Type[] arrayOfType(int length, Type initialVal) {
         Type[] array = new Type[length];
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             array[i] = initialVal;
         }
         return array;
     }
 
     /**
-     * <p>commaDelimitedQuestionMarks</p>
+     * <p>
+     * commaDelimitedQuestionMarks
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String commaDelimitedQuestionMarks(int count) {
         StringBuilder buf = new StringBuilder();
-        for(int i = 0; i < count; i++)  {
+        for (int i = 0; i < count; i++) {
             if (i != 0) {
                 buf.append(',');
             }
@@ -210,10 +242,11 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
         return buf.toString();
     }
 
-
     private static class SurveillanceView {
         private String m_name;
+
         private MapToSetOf<String, String> m_columns = new MapToSetOf<String, String>();
+
         private MapToSetOf<String, String> m_rows = new MapToSetOf<String, String>();
 
         public void setName(String name) {
@@ -257,7 +290,6 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
         }
     }
 
-
     private static class MapToSetOf<K, V> {
 
         private Map<K, Set<V>> m_map = new LinkedHashMap<K, Set<V>>();
@@ -287,6 +319,5 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
         }
 
     }
-
 
 }

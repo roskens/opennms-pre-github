@@ -42,15 +42,12 @@ import java.util.regex.Pattern;
 public class BaseLogMessage implements LogMessage {
 
     public enum MsgType {
-        ERROR,
-        BEGIN_COLLECTION,
-        END_COLLECTION,
-        BEGIN_PERSIST,
-        END_PERSIST,
+        ERROR, BEGIN_COLLECTION, END_COLLECTION, BEGIN_PERSIST, END_PERSIST,
     }
 
     /**
-     *  Use ThreadLocal SimpleDateFormat instances because SimpleDateFormat is not thread-safe.
+     * Use ThreadLocal SimpleDateFormat instances because SimpleDateFormat is
+     * not thread-safe.
      */
     private static final ThreadLocal<SimpleDateFormat> s_format = new ThreadLocal<SimpleDateFormat>() {
         @Override
@@ -59,6 +56,7 @@ public class BaseLogMessage implements LogMessage {
         }
     };
     private static final String s_regexp = "(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d{3}) DEBUG \\[([^\\]]+)\\] (?:[\\p{Alnum}\\.]+): collector.collect: (begin|end|error|persistDataQueueing: begin|persistDataQueueing: end): ?(\\d+/\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}/[\\w-]+).*";
+
     private static final Pattern s_pattern = Pattern.compile(s_regexp);
 
     private static MsgType toMsgType(String msgIndicator) {
@@ -80,7 +78,6 @@ public class BaseLogMessage implements LogMessage {
         throw new IllegalArgumentException("No MsgType corresponding to indicator " + msgIndicator);
     }
 
-
     public static Date parseTimestamp(String dateString) {
         try {
             return s_format.get().parse(dateString);
@@ -88,7 +85,6 @@ public class BaseLogMessage implements LogMessage {
             throw new IllegalArgumentException(dateString + " is not a valid dateString");
         }
     }
-
 
     public static BaseLogMessage create(String logMessage) {
         Matcher m = s_pattern.matcher(logMessage);
@@ -100,8 +96,11 @@ public class BaseLogMessage implements LogMessage {
     }
 
     private final Date m_timestamp;
+
     private final String m_threadName;
+
     private final MsgType m_msgType;
+
     private final String m_serviceId;
 
     private BaseLogMessage(Date timestamp, String threadName, MsgType msgType, String serviceId) {
@@ -135,48 +134,43 @@ public class BaseLogMessage implements LogMessage {
     }
 
     @Override
-	public boolean isBeginMessage() {
-		return is(MsgType.BEGIN_COLLECTION) || is(MsgType.BEGIN_PERSIST);
-	}
-
-
-    @Override
-	public boolean isCollectorBeginMessage() {
-		return is(MsgType.BEGIN_COLLECTION);
-	}
-
+    public boolean isBeginMessage() {
+        return is(MsgType.BEGIN_COLLECTION) || is(MsgType.BEGIN_PERSIST);
+    }
 
     @Override
-	public boolean isCollectorEndMessage() {
-		return is(MsgType.END_COLLECTION);
-	}
-
-
-    @Override
-	public boolean isEndMessage() {
-		return is(MsgType.END_COLLECTION) || is (MsgType.END_PERSIST);
-	}
-
+    public boolean isCollectorBeginMessage() {
+        return is(MsgType.BEGIN_COLLECTION);
+    }
 
     @Override
-	public boolean isErrorMessage() {
-		return is(MsgType.ERROR);
-	}
-
-
-    @Override
-	public boolean isPersistMessage() {
-		return is(MsgType.BEGIN_PERSIST)  || is (MsgType.END_PERSIST);
-	}
+    public boolean isCollectorEndMessage() {
+        return is(MsgType.END_COLLECTION);
+    }
 
     @Override
-	public boolean isPersistBeginMessage(){
-	    return is(MsgType.BEGIN_PERSIST);
-	}
+    public boolean isEndMessage() {
+        return is(MsgType.END_COLLECTION) || is(MsgType.END_PERSIST);
+    }
 
     @Override
-	public boolean isPersistEndMessage() {
-	    return is(MsgType.END_PERSIST);
-	}
+    public boolean isErrorMessage() {
+        return is(MsgType.ERROR);
+    }
+
+    @Override
+    public boolean isPersistMessage() {
+        return is(MsgType.BEGIN_PERSIST) || is(MsgType.END_PERSIST);
+    }
+
+    @Override
+    public boolean isPersistBeginMessage() {
+        return is(MsgType.BEGIN_PERSIST);
+    }
+
+    @Override
+    public boolean isPersistEndMessage() {
+        return is(MsgType.END_PERSIST);
+    }
 
 }

@@ -32,35 +32,45 @@ import org.springframework.context.ApplicationContext;
 
 public class Registry {
 
-	private static ApplicationContext s_appContext;
+    private static ApplicationContext s_appContext;
 
-	/**
-	 * <p>setAppContext</p>
-	 *
-	 * @param appContext a {@link org.springframework.context.ApplicationContext} object.
-	 */
-	public static void setAppContext(ApplicationContext appContext) {
-		s_appContext = appContext;
-	}
+    /**
+     * <p>
+     * setAppContext
+     * </p>
+     *
+     * @param appContext
+     *            a {@link org.springframework.context.ApplicationContext}
+     *            object.
+     */
+    public static void setAppContext(ApplicationContext appContext) {
+        s_appContext = appContext;
+    }
 
-	/**
-	 * <p>containsBean</p>
-	 *
-	 * @param beanName a {@link java.lang.String} object.
-	 * @return a boolean.
-	 */
-	public static boolean containsBean(String beanName) {
-		return s_appContext.containsBean(beanName);
-	}
+    /**
+     * <p>
+     * containsBean
+     * </p>
+     *
+     * @param beanName
+     *            a {@link java.lang.String} object.
+     * @return a boolean.
+     */
+    public static boolean containsBean(String beanName) {
+        return s_appContext.containsBean(beanName);
+    }
 
-	/**
-	 * <p>getBean</p>
-	 *
-	 * @param beanName a {@link java.lang.String} object.
-	 * @return a {@link java.lang.Object} object.
-	 */
-	public static Object getBean(String beanName) {
-		return s_appContext.getBean(beanName);
-	}
+    /**
+     * <p>
+     * getBean
+     * </p>
+     *
+     * @param beanName
+     *            a {@link java.lang.String} object.
+     * @return a {@link java.lang.Object} object.
+     */
+    public static Object getBean(String beanName) {
+        return s_appContext.getBean(beanName);
+    }
 
 }

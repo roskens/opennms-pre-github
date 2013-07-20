@@ -38,7 +38,7 @@ import java.util.List;
  *  Also maintains the outage/down time each time it is calculated and the time
  *  from which this was calculated - this is done so when the view outage time for
  *  a window is calculated, the same calculations are not done on the node multiple
- *  times
+ * times
  */
 public class OutageSvcTimesList extends ArrayList<Outage> {
     /**
@@ -80,7 +80,8 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
      * Constructor
      *
      * @see java.util.ArrayList#ArrayList(int initCapacity)
-     * @param initialCapacity a int.
+     * @param initialCapacity
+     *            a int.
      */
     public OutageSvcTimesList(int initialCapacity) {
         super(initialCapacity);
@@ -132,7 +133,7 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
 
         m_outTime = 0;
 
-        for(Outage svcTime : this) {
+        for (Outage svcTime : this) {
             long outtime = svcTime.getDownTime(curTime, rollingWindow);
             if (outtime > 0)
                 m_outTime += outtime;
@@ -149,7 +150,8 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
      *            the current time from which the down time is to be calculated
      * @param rollingWindow
      *            the last window for which the down time is to be calculated
-     * @param nodeName a {@link java.lang.String} object.
+     * @param nodeName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<OutageSince> getServiceOutages(String nodeName, long curTime, long rollingWindow) {
@@ -162,7 +164,7 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
         long startTime = curTime - rollingWindow;
         List<OutageSince> retList = new ArrayList<OutageSince>();
 
-        for(Outage svcTime : this) {
+        for (Outage svcTime : this) {
 
             // ignore if the outage doesn't fall within the window.
             //
@@ -190,14 +192,16 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
         String retVal = "";
-        for(Outage outage : this) {
+        for (Outage outage : this) {
             retVal += "\n" + outage;
         }
         return retVal;

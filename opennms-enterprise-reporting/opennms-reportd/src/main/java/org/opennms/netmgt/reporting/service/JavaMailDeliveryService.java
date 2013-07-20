@@ -42,21 +42,24 @@ import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
- * <p>JavaMailDeliveryService class.</p>
+ * <p>
+ * JavaMailDeliveryService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class JavaMailDeliveryService implements ReportDeliveryService {
 
-
-	private static final Logger LOG = LoggerFactory
-			.getLogger(JavaMailDeliveryService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JavaMailDeliveryService.class);
 
     JavaMailConfigurationDao m_JavamailConfigDao;
 
-    /** {@inheritDoc}
-     * @throws ReportDeliveryException */
+    /**
+     * {@inheritDoc}
+     *
+     * @throws ReportDeliveryException
+     */
     @Override
     public void deliverReport(Report report, String fileName) throws ReportDeliveryException {
         try {
@@ -69,11 +72,12 @@ public class JavaMailDeliveryService implements ReportDeliveryService {
             } else {
                 sm = new JavaSendMailer(m_JavamailConfigDao.getDefaultSendmailConfig());
             }
-            MimeMessageHelper helper = new MimeMessageHelper(sm.getMessage().getMimeMessage(),true);
+            MimeMessageHelper helper = new MimeMessageHelper(sm.getMessage().getMimeMessage(), true);
 
             helper.setTo(report.getRecipient());
             helper.setSubject("OpenNMS Report: " + report.getReportName());
-            helper.setText("OpenNMS Report: "); // FIXME: sm.send() will override this.
+            helper.setText("OpenNMS Report: "); // FIXME: sm.send() will
+                                                // override this.
 
             helper.addAttachment(fileName, new File(fileName));
 
@@ -87,27 +91,32 @@ public class JavaMailDeliveryService implements ReportDeliveryService {
             LOG.error("Problem with Messaging {}", e.getMessage(), e);
             throw new ReportDeliveryException("Caught MessagingException: " + e.getMessage());
         } catch (Throwable e) {
-            LOG.error("Unexpected exception: {}",e.getMessage(), e);
+            LOG.error("Unexpected exception: {}", e.getMessage(), e);
             throw new ReportDeliveryException("Caught unexpected " + e.getClass().getName() + ": " + e.getMessage());
         }
 
     }
 
-
     /**
-     * <p>getJavamailConfigDao</p>
+     * <p>
+     * getJavamailConfigDao
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.dao.api.JavaMailConfigurationDao} object.
+     * @return a {@link org.opennms.netmgt.dao.api.JavaMailConfigurationDao}
+     *         object.
      */
     public JavaMailConfigurationDao getJavamailConfigDao() {
         return m_JavamailConfigDao;
     }
 
-
     /**
-     * <p>setJavamailConfigDao</p>
+     * <p>
+     * setJavamailConfigDao
+     * </p>
      *
-     * @param javamailConfigDao a {@link org.opennms.netmgt.dao.api.JavaMailConfigurationDao} object.
+     * @param javamailConfigDao
+     *            a {@link org.opennms.netmgt.dao.api.JavaMailConfigurationDao}
+     *            object.
      */
     public void setJavamailConfigDao(JavaMailConfigurationDao javamailConfigDao) {
         m_JavamailConfigDao = javamailConfigDao;

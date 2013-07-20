@@ -43,7 +43,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
- * <p>ManageDatabaseReportController class.</p>
+ * <p>
+ * ManageDatabaseReportController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -52,28 +54,39 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 public class ManageDatabaseReportController extends SimpleFormController {
 
     private int m_pageSize;
+
     private ReportStoreService m_reportStoreService;
 
     /**
-     * <p>Constructor for ManageDatabaseReportController.</p>
+     * <p>
+     * Constructor for ManageDatabaseReportController.
+     * </p>
      */
     public ManageDatabaseReportController() {
         setFormView("report/database/manage");
     }
 
     /**
-     * <p>setReportStoreService</p>
+     * <p>
+     * setReportStoreService
+     * </p>
      *
-     * @param reportStoreService a {@link org.opennms.reporting.core.svclayer.ReportStoreService} object.
+     * @param reportStoreService
+     *            a
+     *            {@link org.opennms.reporting.core.svclayer.ReportStoreService}
+     *            object.
      */
     public final void setReportStoreService(final ReportStoreService reportStoreService) {
         m_reportStoreService = reportStoreService;
     }
 
     /**
-     * <p>setPageSize</p>
+     * <p>
+     * setPageSize
+     * </p>
      *
-     * @param pageSize a int.
+     * @param pageSize
+     *            a int.
      */
     public final void setPageSize(final int pageSize) {
         m_pageSize = pageSize;
@@ -103,6 +116,5 @@ public class ManageDatabaseReportController extends SimpleFormController {
         ModelAndView mav = new ModelAndView(getSuccessView());
         return mav;
     }
-
 
 }

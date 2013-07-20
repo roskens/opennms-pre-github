@@ -37,61 +37,68 @@ import com.vaadin.ui.Window;
 
 /**
  * This class creates a window to hold the terminal emulator
+ *
  * @author lmbell
  * @author pdgrenon
  */
 @SuppressWarnings("serial")
 public class SSHWindow extends Window {
-	private SSHTerminal terminal; // The terminal emulator
-	private Label errorLabel = new Label("Could not create session");
-	private final int TERM_WIDTH = 80;
-	private final int TERM_HEIGHT = 24;
+    private SSHTerminal terminal; // The terminal emulator
 
-	/**
-	 * The constructor for the SSH window
-	 *
-	 * @param session The current SSH session
-	 * @param width The width of the window
-	 * @param height The height of the window
-	 */
-	public SSHWindow(ClientSession session, int width, int height) {
-		super("SSH");
-		setImmediate(true);
-		setResizeLazy(false);
-		setWidth("" + width + "px");
-		setHeight(""+ height + "px");
+    private Label errorLabel = new Label("Could not create session");
 
-		VerticalLayout vPanel = new VerticalLayout();
-		vPanel.setWidth("100%");
-		vPanel.setHeight("100%");
+    private final int TERM_WIDTH = 80;
 
-		if (session != null) {
-			terminal = new SSHTerminal(this, session, TERM_WIDTH, TERM_HEIGHT);
-			vPanel.addComponent(terminal);
-			vPanel.setComponentAlignment(terminal, Alignment.TOP_CENTER);
-		} else {
-			vPanel.addComponent(errorLabel);
-			vPanel.setComponentAlignment(errorLabel, Alignment.MIDDLE_CENTER);
-		}
-		setContent(vPanel);
-	}
+    private final int TERM_HEIGHT = 24;
 
-	@Override
-	public void attach() {
-		super.attach();
+    /**
+     * The constructor for the SSH window
+     *
+     * @param session
+     *            The current SSH session
+     * @param width
+     *            The width of the window
+     * @param height
+     *            The height of the window
+     */
+    public SSHWindow(ClientSession session, int width, int height) {
+        super("SSH");
+        setImmediate(true);
+        setResizeLazy(false);
+        setWidth("" + width + "px");
+        setHeight("" + height + "px");
 
-		int posX = (int)(getUI().getPage().getBrowserWindowWidth() - getWidth())/2;
-		int posY = (int)(getUI().getPage().getBrowserWindowHeight() - getHeight())/2;
+        VerticalLayout vPanel = new VerticalLayout();
+        vPanel.setWidth("100%");
+        vPanel.setHeight("100%");
 
-		setPositionX(posX);
-		setPositionY(posY);
-	}
+        if (session != null) {
+            terminal = new SSHTerminal(this, session, TERM_WIDTH, TERM_HEIGHT);
+            vPanel.addComponent(terminal);
+            vPanel.setComponentAlignment(terminal, Alignment.TOP_CENTER);
+        } else {
+            vPanel.addComponent(errorLabel);
+            vPanel.setComponentAlignment(errorLabel, Alignment.MIDDLE_CENTER);
+        }
+        setContent(vPanel);
+    }
 
-	/**
-	 * Overrides the window close method to instead close the terminal
-	 */
-	@Override
-	public void close(){
-		terminal.close();
-	}
+    @Override
+    public void attach() {
+        super.attach();
+
+        int posX = (int) (getUI().getPage().getBrowserWindowWidth() - getWidth()) / 2;
+        int posY = (int) (getUI().getPage().getBrowserWindowHeight() - getHeight()) / 2;
+
+        setPositionX(posX);
+        setPositionY(posY);
+    }
+
+    /**
+     * Overrides the window close method to instead close the terminal
+     */
+    @Override
+    public void close() {
+        terminal.close();
+    }
 }

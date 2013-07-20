@@ -40,13 +40,15 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#add(java.lang.Object)
      */
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param n a int.
+     * @param n
+     *            a int.
      * @return a boolean.
      */
     public boolean add(int n) {
@@ -55,13 +57,15 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#addAll(java.util.Collection)
      */
     /**
-     * <p>addAll</p>
+     * <p>
+     * addAll
+     * </p>
      *
-     * @param s a {@link org.opennms.core.utils.IntSet} object.
+     * @param s
+     *            a {@link org.opennms.core.utils.IntSet} object.
      * @return a boolean.
      */
     public boolean addAll(IntSet s) {
@@ -70,11 +74,12 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#clear()
      */
     /**
-     * <p>clear</p>
+     * <p>
+     * clear
+     * </p>
      */
     public void clear() {
         m_set.clear();
@@ -82,13 +87,15 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#contains(java.lang.Object)
      */
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param n a int.
+     * @param n
+     *            a int.
      * @return a boolean.
      */
     public boolean contains(int n) {
@@ -97,13 +104,15 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#containsAll(java.util.Collection)
      */
     /**
-     * <p>containsAll</p>
+     * <p>
+     * containsAll
+     * </p>
      *
-     * @param s a {@link org.opennms.core.utils.IntSet} object.
+     * @param s
+     *            a {@link org.opennms.core.utils.IntSet} object.
      * @return a boolean.
      */
     public boolean containsAll(IntSet s) {
@@ -112,11 +121,12 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#isEmpty()
      */
     /**
-     * <p>isEmpty</p>
+     * <p>
+     * isEmpty
+     * </p>
      *
      * @return a boolean.
      */
@@ -126,11 +136,12 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#iterator()
      */
     /**
-     * <p>iterator</p>
+     * <p>
+     * iterator
+     * </p>
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -140,13 +151,15 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#remove(java.lang.Object)
      */
     /**
-     * <p>remove</p>
+     * <p>
+     * remove
+     * </p>
      *
-     * @param n a int.
+     * @param n
+     *            a int.
      * @return a boolean.
      */
     public boolean remove(int n) {
@@ -155,13 +168,15 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#removeAll(java.util.Collection)
      */
     /**
-     * <p>removeAll</p>
+     * <p>
+     * removeAll
+     * </p>
      *
-     * @param s a {@link org.opennms.core.utils.IntSet} object.
+     * @param s
+     *            a {@link org.opennms.core.utils.IntSet} object.
      * @return a boolean.
      */
     public boolean removeAll(IntSet s) {
@@ -170,13 +185,15 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#retainAll(java.util.Collection)
      */
     /**
-     * <p>retainAll</p>
+     * <p>
+     * retainAll
+     * </p>
      *
-     * @param s a {@link org.opennms.core.utils.IntSet} object.
+     * @param s
+     *            a {@link org.opennms.core.utils.IntSet} object.
      * @return a boolean.
      */
     public boolean retainAll(IntSet s) {
@@ -185,11 +202,12 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#size()
      */
     /**
-     * <p>size</p>
+     * <p>
+     * size
+     * </p>
      *
      * @return a int.
      */
@@ -199,11 +217,12 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     *
      * @see java.util.Collection#toArray()
      */
     /**
-     * <p>toArray</p>
+     * <p>
+     * toArray
+     * </p>
      *
      * @return an array of int.
      */

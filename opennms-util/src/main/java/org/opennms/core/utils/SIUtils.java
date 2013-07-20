@@ -31,7 +31,7 @@ package org.opennms.core.utils;
 import java.text.DecimalFormat;
 
 /**
- * Utilities for manipulating values in SI units.  This is the
+ * Utilities for manipulating values in SI units. This is the
  * International System of Units that you learned in science class.
  *
  * @author djgregor

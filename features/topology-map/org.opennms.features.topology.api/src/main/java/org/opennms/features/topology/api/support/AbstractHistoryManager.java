@@ -32,21 +32,21 @@ public abstract class AbstractHistoryManager implements HistoryManager {
     protected abstract void saveHistory(String userId, SavedHistory history);
 
     @Override
-	public synchronized void onBind(HistoryOperation operation) {
-    	try {
-    		m_operations.add(operation);
+    public synchronized void onBind(HistoryOperation operation) {
+        try {
+            m_operations.add(operation);
         } catch (Throwable e) {
             LoggerFactory.getLogger(this.getClass()).warn("Exception during onBind()", e);
         }
-	}
+    }
 
     @Override
-	public synchronized void onUnbind(HistoryOperation operation) {
-    	try {
-    		m_operations.remove(operation);
+    public synchronized void onUnbind(HistoryOperation operation) {
+        try {
+            m_operations.remove(operation);
         } catch (Throwable e) {
             LoggerFactory.getLogger(this.getClass()).warn("Exception during onUnbind()", e);
         }
-	}
+    }
 
 }

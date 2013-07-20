@@ -77,10 +77,10 @@ public class ConnectOperationTest {
             return false;
         }
 
-		@Override
-		public DisplayLocation getDisplayLocation() {
-			return DisplayLocation.MENUBAR;
-		}
+        @Override
+        public DisplayLocation getDisplayLocation() {
+            return DisplayLocation.MENUBAR;
+        }
 
     }
 
@@ -96,18 +96,18 @@ public class ConnectOperationTest {
 
     @Before
     public void setUp() {
-        if(m_topologyProvider == null) {
+        if (m_topologyProvider == null) {
             m_topologyProvider = new SimpleGraphProvider();
         }
 
-		m_topologyProvider.resetContainer();
+        m_topologyProvider.resetContainer();
 
-		MockLogAppender.setupLogging();
+        MockLogAppender.setupLogging();
     }
 
     @After
     public void tearDown() {
-        if(m_topologyProvider != null) {
+        if (m_topologyProvider != null) {
             m_topologyProvider.resetContainer();
         }
     }
@@ -115,7 +115,7 @@ public class ConnectOperationTest {
     @Test
     public void testConnectVerticesOperation() {
 
-		m_topologyProvider.resetContainer();
+        m_topologyProvider.resetContainer();
 
         VertexRef vertexId1 = addVertexToTopr();
         VertexRef vertexId2 = addVertexToTopr();
@@ -136,7 +136,7 @@ public class ConnectOperationTest {
         Collection<? extends Edge> edgeIds = m_topologyProvider.getEdges();
         assertEquals(1, edgeIds.size());
 
-        for(Edge edgeId : edgeIds) {
+        for (Edge edgeId : edgeIds) {
             SimpleLeafVertex source = (SimpleLeafVertex) edgeId.getSource().getVertex();
             SimpleLeafVertex target = (SimpleLeafVertex) edgeId.getTarget().getVertex();
             assertNotNull(source);

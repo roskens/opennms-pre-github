@@ -45,9 +45,12 @@ public class VarCharReplacement implements ColumnChangeReplacement {
     private final String m_replacement;
 
     /**
-     * <p>Constructor for VarCharReplacement.</p>
+     * <p>
+     * Constructor for VarCharReplacement.
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public VarCharReplacement(String value) {
         m_replacement = value;
@@ -60,7 +63,9 @@ public class VarCharReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -70,7 +75,9 @@ public class VarCharReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {

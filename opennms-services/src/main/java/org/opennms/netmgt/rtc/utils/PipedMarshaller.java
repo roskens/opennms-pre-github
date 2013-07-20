@@ -52,6 +52,7 @@ import org.opennms.netmgt.xml.rtc.EuiLevel;
  */
 public class PipedMarshaller {
     private static final Logger LOG = LoggerFactory.getLogger(PipedMarshaller.class);
+
     private EuiLevel m_objToMarshall;
 
     private class MarshalThread implements Runnable {
@@ -81,7 +82,8 @@ public class PipedMarshaller {
                 throw new UndeclaredThrowableException(e);
             } catch (IOException e) {
                 LOG.warn("Failed to convert category to xml", e);
-                // don't rethrow, it just bubbles up into output.log and confuses people, the error still shows in rtc.log
+                // don't rethrow, it just bubbles up into output.log and
+                // confuses people, the error still shows in rtc.log
                 // throw new UndeclaredThrowableException(e);
             }
         }
@@ -92,19 +94,25 @@ public class PipedMarshaller {
     }
 
     /**
-     * <p>Constructor for PipedMarshaller.</p>
+     * <p>
+     * Constructor for PipedMarshaller.
+     * </p>
      *
-     * @param toMarshall a {@link org.opennms.netmgt.xml.rtc.EuiLevel} object.
+     * @param toMarshall
+     *            a {@link org.opennms.netmgt.xml.rtc.EuiLevel} object.
      */
     public PipedMarshaller(EuiLevel toMarshall) {
         m_objToMarshall = toMarshall;
     }
 
     /**
-     * <p>getReader</p>
+     * <p>
+     * getReader
+     * </p>
      *
      * @return a {@link java.io.Reader} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public Reader getReader() throws IOException {
         try {

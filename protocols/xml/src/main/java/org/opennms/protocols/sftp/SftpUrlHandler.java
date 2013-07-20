@@ -43,7 +43,8 @@ public class SftpUrlHandler extends URLStreamHandler {
     /** The Constant PROTOCOL. */
     public static final String PROTOCOL = "sftp";
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLStreamHandler#getDefaultPort()
      */
     @Override
@@ -51,7 +52,8 @@ public class SftpUrlHandler extends URLStreamHandler {
         return 22;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLStreamHandler#openConnection(java.net.URL)
      */
     @Override

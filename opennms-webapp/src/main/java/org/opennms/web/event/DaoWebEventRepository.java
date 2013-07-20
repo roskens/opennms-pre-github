@@ -52,19 +52,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>DaoWebEventRepository class.</p>
+ * <p>
+ * DaoWebEventRepository class.
+ * </p>
  *
- * @deprecated Move all of these methods into the {@link EventDao}. This class just
- * delegates straight to it anyway.
- *
+ * @deprecated Move all of these methods into the {@link EventDao}. This class
+ *             just
+ *             delegates straight to it anyway.
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public class DaoWebEventRepository implements WebEventRepository, InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DaoWebEventRepository.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(DaoWebEventRepository.class);
 
     @Autowired
     EventDao m_eventDao;
@@ -74,7 +75,7 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
         BeanUtils.assertAutowiring(this);
     }
 
-    private OnmsCriteria getOnmsCriteria(final EventCriteria eventCriteria){
+    private OnmsCriteria getOnmsCriteria(final EventCriteria eventCriteria) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class);
         criteria.createAlias("alarm", "alarm", OnmsCriteria.LEFT_JOIN);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
@@ -82,13 +83,13 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
 
         criteria.add(new EventDisplayFilter("Y").getCriterion());
 
-        eventCriteria.visit(new EventCriteriaVisitor<RuntimeException>(){
+        eventCriteria.visit(new EventCriteriaVisitor<RuntimeException>() {
 
             @Override
             public void visitAckType(AcknowledgeType ackType) throws RuntimeException {
-                if(ackType == AcknowledgeType.ACKNOWLEDGED){
+                if (ackType == AcknowledgeType.ACKNOWLEDGED) {
                     criteria.add(Restrictions.isNotNull("eventAckUser"));
-                }else if(ackType == AcknowledgeType.UNACKNOWLEDGED){
+                } else if (ackType == AcknowledgeType.UNACKNOWLEDGED) {
                     criteria.add(Restrictions.isNull("eventAckUser"));
                 }
             }
@@ -107,10 +108,10 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
 
             @Override
             public void visitSortStyle(SortStyle sortStyle) throws RuntimeException {
-                switch(sortStyle){
+                switch (sortStyle) {
                 case ID:
                     criteria.addOrder(Order.desc("id"));
-                     break;
+                    break;
                 case INTERFACE:
                     criteria.addOrder(Order.desc("ipAddr"));
                     break;
@@ -160,7 +161,7 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
         return criteria;
     }
 
-    private Event mapOnmsEventToEvent(OnmsEvent onmsEvent){
+    private Event mapOnmsEventToEvent(OnmsEvent onmsEvent) {
         LOG.debug("Mapping OnmsEvent to WebEvent for event with database id {}", onmsEvent.getId());
         Event event = new Event();
         event.acknowledgeTime = onmsEvent.getEventAckTime();
@@ -218,10 +219,14 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
     }
 
     /**
-     * <p>acknowledgeAll</p>
+     * <p>
+     * acknowledgeAll
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
-     * @param timestamp a java$util$Date object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param timestamp
+     *            a java$util$Date object.
      */
     @Transactional
     @Override
@@ -236,7 +241,7 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
         List<OnmsEvent> events = m_eventDao.findMatching(getOnmsCriteria(criteria));
 
         Iterator<OnmsEvent> eventsIt = events.iterator();
-        while(eventsIt.hasNext()){
+        while (eventsIt.hasNext()) {
             OnmsEvent event = eventsIt.next();
             event.setEventAckUser(user);
             event.setEventAckTime(timestamp);
@@ -255,16 +260,24 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
     @Transactional
     @Override
     public int[] countMatchingEventsBySeverity(EventCriteria criteria) {
-        //OnmsCriteria crit = getOnmsCriteria(criteria).setProjection(Projections.groupProperty("severityId"));
+        // OnmsCriteria crit =
+        // getOnmsCriteria(criteria).setProjection(Projections.groupProperty("severityId"));
 
         int[] eventCounts = new int[8];
-        eventCounts[OnmsSeverity.CLEARED.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.CLEARED.getId())));
-        eventCounts[OnmsSeverity.CRITICAL.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.CRITICAL.getId())));
-        eventCounts[OnmsSeverity.INDETERMINATE.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.INDETERMINATE.getId())));
-        eventCounts[OnmsSeverity.MAJOR.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.MAJOR.getId())));
-        eventCounts[OnmsSeverity.MINOR.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.MINOR.getId())));
-        eventCounts[OnmsSeverity.NORMAL.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.NORMAL.getId())));
-        eventCounts[OnmsSeverity.WARNING.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity", OnmsSeverity.WARNING.getId())));
+        eventCounts[OnmsSeverity.CLEARED.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity",
+                                                                                                                           OnmsSeverity.CLEARED.getId())));
+        eventCounts[OnmsSeverity.CRITICAL.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity",
+                                                                                                                            OnmsSeverity.CRITICAL.getId())));
+        eventCounts[OnmsSeverity.INDETERMINATE.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity",
+                                                                                                                                 OnmsSeverity.INDETERMINATE.getId())));
+        eventCounts[OnmsSeverity.MAJOR.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity",
+                                                                                                                         OnmsSeverity.MAJOR.getId())));
+        eventCounts[OnmsSeverity.MINOR.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity",
+                                                                                                                         OnmsSeverity.MINOR.getId())));
+        eventCounts[OnmsSeverity.NORMAL.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity",
+                                                                                                                          OnmsSeverity.NORMAL.getId())));
+        eventCounts[OnmsSeverity.WARNING.getId()] = m_eventDao.countMatching(getOnmsCriteria(criteria).add(Restrictions.eq("eventSeverity",
+                                                                                                                           OnmsSeverity.WARNING.getId())));
         return eventCounts;
     }
 
@@ -285,10 +298,10 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
 
         LOG.debug("getMatchingEvents: found {} events", onmsEvents.size());
 
-        if(onmsEvents.size() > 0){
+        if (onmsEvents.size() > 0) {
             Iterator<OnmsEvent> eventIt = onmsEvents.iterator();
 
-            while(eventIt.hasNext()){
+            while (eventIt.hasNext()) {
                 events.add(mapOnmsEventToEvent(eventIt.next()));
             }
         }
@@ -297,7 +310,9 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
     }
 
     /**
-     * <p>unacknowledgeAll</p>
+     * <p>
+     * unacknowledgeAll
+     * </p>
      */
     @Transactional
     @Override
@@ -311,13 +326,11 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
     public void unacknowledgeMatchingEvents(EventCriteria criteria) {
         List<OnmsEvent> events = m_eventDao.findMatching(getOnmsCriteria(criteria));
 
-        for(OnmsEvent event : events) {
+        for (OnmsEvent event : events) {
             event.setEventAckUser(null);
             event.setEventAckTime(null);
             m_eventDao.update(event);
         }
     }
-
-
 
 }

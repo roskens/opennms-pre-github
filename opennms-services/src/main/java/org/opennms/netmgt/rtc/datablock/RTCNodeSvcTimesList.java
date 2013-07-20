@@ -39,12 +39,10 @@ import org.opennms.netmgt.config.RTCConfigFactory;
 /**
  * List of service times. This contains a list of service lost/regained set/pair
  * for the RTCNode.
- *
  * Also maintains the outage/down time each time it is calculated and the time
  * from which this was calculated - this is done so when the outage time for a
  * window is calculated, the same calculations are not done on the node multiple
  * times.
- *
  * 'Expired' outages are removed during 'add' and 'getDownTime' operations.
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Kumaraswamy </A>
@@ -55,6 +53,7 @@ import org.opennms.netmgt.config.RTCConfigFactory;
  */
 public class RTCNodeSvcTimesList extends LinkedList<RTCNodeSvcTime> {
     private static final Logger LOG = LoggerFactory.getLogger(RTCNodeSvcTimesList.class);
+
     private static final long serialVersionUID = 2606739258065019820L;
 
     /**
@@ -132,7 +131,8 @@ public class RTCNodeSvcTimesList extends LinkedList<RTCNodeSvcTime> {
         removeExpiredOutages();
 
         if (regainedtime > 0 && regainedtime < losttime) {
-            LOG.warn("RTCNodeSvcTimesList: Rejecting service time pair since regained time {}\tregainedtime in milliseconds: {}", regainedtime, "less than lost time -> losttime in milliseconds: {}", losttime);
+            LOG.warn("RTCNodeSvcTimesList: Rejecting service time pair since regained time {}\tregainedtime in milliseconds: {}",
+                     regainedtime, "less than lost time -> losttime in milliseconds: {}", losttime);
 
             return;
         }

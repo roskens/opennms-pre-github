@@ -27,6 +27,7 @@
  *******************************************************************************/
 
 package org.opennms.features.topology.plugins.browsers;
+
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -66,14 +67,14 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.netmgt.dao.api.AlarmDao;
 import org.opennms.netmgt.model.OnmsAlarm;
 
-public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm,Integer> {
+public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm, Integer> {
 
-	private static final long serialVersionUID = -4026870931086916312L;
+    private static final long serialVersionUID = -4026870931086916312L;
 
-	public AlarmDaoContainer(AlarmDao dao) {
-		super(OnmsAlarm.class, dao);
-		addBeanToHibernatePropertyMapping("nodeLabel", "node.label");
-	}
+    public AlarmDaoContainer(AlarmDao dao) {
+        super(OnmsAlarm.class, dao);
+        addBeanToHibernatePropertyMapping("nodeLabel", "node.label");
+    }
 
     @Override
     protected void updateContainerPropertyIds(Map<Object, Class<?>> properties) {
@@ -85,43 +86,42 @@ public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm,Integer> {
         properties.remove("distPoller");
     }
 
-	@Override
-	protected Integer getId(OnmsAlarm bean){
-		return bean == null ? null : bean.getId();
-	}
-
-	@Override
-	public Collection<?> getSortableContainerPropertyIds() {
-		Collection<Object> propertyIds = new HashSet<Object>();
-		propertyIds.addAll(getContainerPropertyIds());
-
-		// This column is a checkbox so we can't sort on it either
-		propertyIds.remove("selection");
-
-		return Collections.unmodifiableCollection(propertyIds);
-	}
-
     @Override
-    protected void addAdditionalCriteriaOptions(Criteria criteria, Page page, boolean doOrder) {
-        criteria.setAliases(Arrays.asList(new Alias[] {
-                new Alias("node", "node", JoinType.LEFT_JOIN)
-        }));
+    protected Integer getId(OnmsAlarm bean) {
+        return bean == null ? null : bean.getId();
     }
 
     @Override
-	public void selectionChanged(SelectionContext selectionContext) {
+    public Collection<?> getSortableContainerPropertyIds() {
+        Collection<Object> propertyIds = new HashSet<Object>();
+        propertyIds.addAll(getContainerPropertyIds());
+
+        // This column is a checkbox so we can't sort on it either
+        propertyIds.remove("selection");
+
+        return Collections.unmodifiableCollection(propertyIds);
+    }
+
+    @Override
+    protected void addAdditionalCriteriaOptions(Criteria criteria, Page page, boolean doOrder) {
+        criteria.setAliases(Arrays.asList(new Alias[] { new Alias("node", "node", JoinType.LEFT_JOIN) }));
+    }
+
+    @Override
+    public void selectionChanged(SelectionContext selectionContext) {
         List<Restriction> newRestrictions = new SelectionContextToRestrictionConverter() {
 
             @Override
-            protected Restriction createRestriction(VertexRef ref ) {
+            protected Restriction createRestriction(VertexRef ref) {
                 return new EqRestriction("node.id", Integer.valueOf(ref.getId()));
             }
         }.getRestrictions(selectionContext);
-        if (!getRestrictions().equals(newRestrictions)) { // selection really changed
+        if (!getRestrictions().equals(newRestrictions)) { // selection really
+                                                          // changed
             setRestrictions(newRestrictions);
             getCache().reload(getPage());
             fireItemSetChangedEvent();
         }
-	}
+    }
 
 }

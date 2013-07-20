@@ -46,19 +46,19 @@ abstract class RrdToolCmd {
 
     public class EmptyJRDataSource implements JRDataSource {
 
-                @Override
-		public Object getFieldValue(JRField arg0) throws JRException {
-			return null;
-		}
+        @Override
+        public Object getFieldValue(JRField arg0) throws JRException {
+            return null;
+        }
 
-                @Override
-		public boolean next() throws JRException {
-			return false;
-		}
+        @Override
+        public boolean next() throws JRException {
+            return false;
+        }
 
-	}
+    }
 
-	private RrdCmdScanner cmdScanner;
+    private RrdCmdScanner cmdScanner;
 
     abstract String getCmdType();
 
@@ -67,10 +67,10 @@ abstract class RrdToolCmd {
     JRDataSource executeCommand(String command) throws RrdException {
         cmdScanner = new RrdCmdScanner(command);
         try {
-        	return execute();
-        }catch(IOException e) {
-        	LOG.debug("Error creating JRobinDatasource: The Following Exception Occured: {}", e.getMessage());
-        	return new EmptyJRDataSource();
+            return execute();
+        } catch (IOException e) {
+            LOG.debug("Error creating JRobinDatasource: The Following Exception Occured: {}", e.getMessage());
+            return new EmptyJRDataSource();
         }
 
     }
@@ -96,6 +96,7 @@ abstract class RrdToolCmd {
     }
 
     static boolean rrdDbPoolUsed = true;
+
     static boolean standardOutUsed = true;
 
     static boolean isRrdDbPoolUsed() {
@@ -117,8 +118,7 @@ abstract class RrdToolCmd {
     static long parseLong(String value) throws RrdException {
         try {
             return Long.parseLong(value);
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             throw new RrdException(nfe);
         }
     }
@@ -126,8 +126,7 @@ abstract class RrdToolCmd {
     static int parseInt(String value) throws RrdException {
         try {
             return Integer.parseInt(value);
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             throw new RrdException(nfe);
         }
     }
@@ -138,8 +137,7 @@ abstract class RrdToolCmd {
         }
         try {
             return Double.parseDouble(value);
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             throw new RrdException(nfe);
         }
     }
@@ -159,8 +157,7 @@ abstract class RrdToolCmd {
     static RrdDb getRrdDbReference(String path) throws IOException, RrdException {
         if (rrdDbPoolUsed) {
             return RrdDbPool.getInstance().requestRrdDb(path);
-        }
-        else {
+        } else {
             return new RrdDb(path);
         }
     }
@@ -168,8 +165,7 @@ abstract class RrdToolCmd {
     static RrdDb getRrdDbReference(String path, String xmlPath) throws IOException, RrdException {
         if (rrdDbPoolUsed) {
             return RrdDbPool.getInstance().requestRrdDb(path, xmlPath);
-        }
-        else {
+        } else {
             return new RrdDb(path, xmlPath);
         }
     }
@@ -177,8 +173,7 @@ abstract class RrdToolCmd {
     static RrdDb getRrdDbReference(RrdDef rrdDef) throws IOException, RrdException {
         if (rrdDbPoolUsed) {
             return RrdDbPool.getInstance().requestRrdDb(rrdDef);
-        }
-        else {
+        } else {
             return new RrdDb(rrdDef);
         }
     }
@@ -186,8 +181,7 @@ abstract class RrdToolCmd {
     static void releaseRrdDbReference(RrdDb rrdDb) throws IOException, RrdException {
         if (rrdDbPoolUsed) {
             RrdDbPool.getInstance().release(rrdDb);
-        }
-        else {
+        } else {
             rrdDb.close();
         }
     }

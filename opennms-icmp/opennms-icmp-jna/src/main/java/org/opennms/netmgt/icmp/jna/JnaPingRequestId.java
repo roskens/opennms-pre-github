@@ -33,23 +33,33 @@ import java.net.InetAddress;
 import org.opennms.core.utils.InetAddressComparator;
 
 /**
- * <p>JnaPingRequestId class.</p>
+ * <p>
+ * JnaPingRequestId class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class JnaPingRequestId {
     private InetAddress m_addr;
+
     private int m_identifier;
+
     private int m_sequenceNumber;
+
     private long m_threadId;
 
     /**
-     * <p>Constructor for JnaPingRequestId.</p>
+     * <p>
+     * Constructor for JnaPingRequestId.
+     * </p>
      *
-     * @param addr a {@link java.net.InetAddress} object.
-     * @param identifier a long.
-     * @param seqId a short.
+     * @param addr
+     *            a {@link java.net.InetAddress} object.
+     * @param identifier
+     *            a long.
+     * @param seqId
+     *            a short.
      */
     public JnaPingRequestId(InetAddress addr, int identifier, int sequenceNumber, long threadId) {
         m_addr = addr;
@@ -59,16 +69,22 @@ public class JnaPingRequestId {
     }
 
     /**
-     * <p>Constructor for JnaPingRequestId.</p>
+     * <p>
+     * Constructor for JnaPingRequestId.
+     * </p>
      *
-     * @param reply a {@link org.opennms.netmgt.icmp.spi.JnaPingReply.PingReply} object.
+     * @param reply
+     *            a {@link org.opennms.netmgt.icmp.spi.JnaPingReply.PingReply}
+     *            object.
      */
     public JnaPingRequestId(JnaPingReply reply) {
         this(reply.getAddress(), reply.getIdentifier(), reply.getSequenceNumber(), reply.getThreadId());
     }
 
     /**
-     * <p>getAddress</p>
+     * <p>
+     * getAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -77,7 +93,9 @@ public class JnaPingRequestId {
     }
 
     /**
-     * <p>getTid</p>
+     * <p>
+     * getTid
+     * </p>
      *
      * @return a long.
      */
@@ -86,7 +104,9 @@ public class JnaPingRequestId {
     }
 
     /**
-     * <p>getSequenceId</p>
+     * <p>
+     * getSequenceId
+     * </p>
      *
      * @return a short.
      */
@@ -102,11 +122,10 @@ public class JnaPingRequestId {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JnaPingRequestId) {
-            JnaPingRequestId id = (JnaPingRequestId)obj;
+            JnaPingRequestId id = (JnaPingRequestId) obj;
             return (new InetAddressComparator().compare(getAddress(), id.getAddress()) == 0)
-                && getIdentifier() == id.getIdentifier()
-                && getSequenceNumber() == id.getSequenceNumber()
-                && getThreadId() == id.getThreadId();
+                    && getIdentifier() == id.getIdentifier() && getSequenceNumber() == id.getSequenceNumber()
+                    && getThreadId() == id.getThreadId();
         }
         return false;
     }
@@ -118,14 +137,15 @@ public class JnaPingRequestId {
         hash = hash * 31 + m_addr.hashCode();
         hash = hash * 31 + m_identifier;
         hash = hash * 31 + m_sequenceNumber;
-        hash = hash * 31 + (int)(m_threadId >>> 32);
-        hash = hash * 31 + (int)(m_threadId);
+        hash = hash * 31 + (int) (m_threadId >>> 32);
+        hash = hash * 31 + (int) (m_threadId);
         return hash;
     }
 
-
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -144,6 +164,5 @@ public class JnaPingRequestId {
         buf.append(']');
         return buf.toString();
     }
-
 
 }

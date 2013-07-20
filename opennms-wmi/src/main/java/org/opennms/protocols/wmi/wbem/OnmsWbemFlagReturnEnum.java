@@ -44,16 +44,15 @@ import java.util.Map;
  */
 public enum OnmsWbemFlagReturnEnum {
 
-    wbemFlagForwardOnly(32, "wbemFlagForwardOnly"),
-    wbemFlagBidirectional(0, "wbemFlagBidirectional"),
-    wbemFlagReturnImmediately(16, "wbemFlagReturnImmediately"),
-    wbemFlagReturnWhenComplete(0, "wbemFlagReturnWhenComplete"),
-    wbemQueryFlagPrototype(2, "wbemQueryFlagPrototype"),
-    wbemFlagUseAmendedQualifiers(131072, "wbemFlagUseAmendedQualifiers");
+    wbemFlagForwardOnly(32, "wbemFlagForwardOnly"), wbemFlagBidirectional(0, "wbemFlagBidirectional"), wbemFlagReturnImmediately(
+            16, "wbemFlagReturnImmediately"), wbemFlagReturnWhenComplete(0, "wbemFlagReturnWhenComplete"), wbemQueryFlagPrototype(
+            2, "wbemQueryFlagPrototype"), wbemFlagUseAmendedQualifiers(131072, "wbemFlagUseAmendedQualifiers");
 
     /** Constant <code>lookup</code> */
     private static final Map<Integer, OnmsWbemFlagReturnEnum> lookup = new HashMap<Integer, OnmsWbemFlagReturnEnum>();
+
     private int returnFlagValue;
+
     private String returnFlagName;
 
     static {
@@ -67,26 +66,38 @@ public enum OnmsWbemFlagReturnEnum {
     }
 
     /**
-     * <p>Getter for the field <code>returnFlagValue</code>.</p>
+     * <p>
+     * Getter for the field <code>returnFlagValue</code>.
+     * </p>
      *
      * @return a int.
      */
-    public int getReturnFlagValue() { return returnFlagValue; }
+    public int getReturnFlagValue() {
+        return returnFlagValue;
+    }
+
     /**
-     * <p>Getter for the field <code>returnFlagName</code>.</p>
+     * <p>
+     * Getter for the field <code>returnFlagName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getReturnFlagName() { return returnFlagName; }
+    public String getReturnFlagName() {
+        return returnFlagName;
+    }
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param returnFlagValue a int.
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemFlagReturnEnum} object.
+     * @param returnFlagValue
+     *            a int.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemFlagReturnEnum}
+     *         object.
      */
     public static OnmsWbemFlagReturnEnum get(final int returnFlagValue) {
         return lookup.get(returnFlagValue);
     }
 }
-

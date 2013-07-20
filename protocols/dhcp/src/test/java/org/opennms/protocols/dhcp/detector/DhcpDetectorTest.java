@@ -55,10 +55,10 @@ import edu.bucknell.net.JDHCP.DHCPMessage;
 import edu.bucknell.net.JDHCP.DHCPSocket;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath*:/META-INF/opennms/detectors.xml" })
 public class DhcpDetectorTest implements InitializingBean {
 
-    //Tested local DHCP client
+    // Tested local DHCP client
     private static String DHCP_SERVER_IP = "172.20.1.1";
 
     @Autowired
@@ -79,36 +79,36 @@ public class DhcpDetectorTest implements InitializingBean {
 
         m_dhcpd = Dhcpd.getInstance();
         m_dhcpd.init();
-        // binds on port 68, hardcoded  :P
-        //m_dhcpd.start();
+        // binds on port 68, hardcoded :P
+        // m_dhcpd.start();
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         // m_dhcpd.stop();
     }
 
-	@Test(timeout=90000)
-	public void testDetectorWired() {
-	   assertNotNull(m_detector);
-	}
+    @Test(timeout = 90000)
+    public void testDetectorWired() {
+        assertNotNull(m_detector);
+    }
 
-	@Test(timeout=90000)
-	@Ignore
-	public void testDetectorSuccess() throws  IOException, MarshalException, ValidationException{
-	    m_detector.setTimeout(5000);
-	    m_detector.init();
-	    assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr(DHCP_SERVER_IP)));
+    @Test(timeout = 90000)
+    @Ignore
+    public void testDetectorSuccess() throws IOException, MarshalException, ValidationException {
+        m_detector.setTimeout(5000);
+        m_detector.init();
+        assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr(DHCP_SERVER_IP)));
 
-	}
+    }
 
-	@Test(timeout=90000)
-	@Ignore
-	public void testJdhcp() throws IOException{
-	    DHCPSocket mySocket = new DHCPSocket(68);
-	    DHCPMessage messageOut = new DHCPMessage(InetAddressUtils.addr(DHCP_SERVER_IP));
+    @Test(timeout = 90000)
+    @Ignore
+    public void testJdhcp() throws IOException {
+        DHCPSocket mySocket = new DHCPSocket(68);
+        DHCPMessage messageOut = new DHCPMessage(InetAddressUtils.addr(DHCP_SERVER_IP));
 
-	    // fill DHCPMessage object
+        // fill DHCPMessage object
         messageOut.setOp((byte) 1);
         messageOut.setHtype((byte) 1);
         messageOut.setHlen((byte) 6);
@@ -129,7 +129,7 @@ public class DhcpDetectorTest implements InitializingBean {
         // set message type option to DHCPDISCOVER
         byte[] opt = new byte[1];
         opt[0] = (byte) DHCPMessage.DISCOVER;
-        messageOut.setOption(53,  opt);
+        messageOut.setOption(53, opt);
 
         mySocket.send(messageOut);
 
@@ -145,16 +145,14 @@ public class DhcpDetectorTest implements InitializingBean {
         System.out.println("Option54: " + Arrays.toString(messageIn.getOption(54)));
         System.out.println(InetAddress.getByAddress(messageIn.getOption(54)));
 
-	}
+    }
 
-
-	public void setDhcpdThread(Thread dhcpdThread) {
+    public void setDhcpdThread(Thread dhcpdThread) {
         m_dhcpdThread = dhcpdThread;
     }
 
     public Thread getDhcpdThread() {
         return m_dhcpdThread;
     }
-
 
 }

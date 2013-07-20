@@ -95,7 +95,8 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
     private static SuggestionComboboxViewUiBinder uiBinder = GWT.create(SuggestionComboboxViewUiBinder.class);
 
     @UiTemplate("SuggestionComboboxView.ui.xml")
-    interface SuggestionComboboxViewUiBinder extends UiBinder<Widget, SuggestionComboboxViewImpl> {}
+    interface SuggestionComboboxViewUiBinder extends UiBinder<Widget, SuggestionComboboxViewImpl> {
+    }
 
     @UiField
     LayoutPanel m_layoutPanel;
@@ -106,10 +107,12 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
     @UiField
     Button m_goButton;
 
-
     CellList<NodeDetail> m_nodeList;
+
     SimplePager m_pager;
+
     ListDataProvider<NodeDetail> m_dataList;
+
     PopupPanel m_popupPanel;
 
     private Presenter<NodeDetail> m_presenter;
@@ -123,8 +126,8 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
 
             @Override
             public void onKeyDown(KeyDownEvent event) {
-                if(event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-                    if(m_presenter != null) {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                    if (m_presenter != null) {
                         m_presenter.onEnterKeyEvent();
                     }
                 }
@@ -187,7 +190,7 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
 
     @UiHandler("m_goButton")
     void onGoButtonClickHandler(ClickEvent event) {
-        if(m_presenter != null) {
+        if (m_presenter != null) {
             m_presenter.onGoButtonClicked();
         }
     }

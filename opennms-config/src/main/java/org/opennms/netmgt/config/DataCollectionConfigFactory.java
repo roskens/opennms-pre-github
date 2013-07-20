@@ -35,11 +35,15 @@ import org.opennms.core.utils.ConfigFileConstants;
 import org.springframework.core.io.FileSystemResource;
 
 /**
- * <p>This class is the main repository for SNMP data collection configuration
+ * <p>
+ * This class is the main repository for SNMP data collection configuration
  * information used by the SNMP service monitor. When this class is loaded it
- * reads the SNMP data collection configuration into memory.</p>
- * <p>The implementation of DataCollectionConfig interface has been moved to
- * DefaultDataCollectionConfigDao.</p>
+ * reads the SNMP data collection configuration into memory.
+ * </p>
+ * <p>
+ * The implementation of DataCollectionConfig interface has been moved to
+ * DefaultDataCollectionConfigDao.
+ * </p>
  *
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  */
@@ -51,9 +55,13 @@ public final class DataCollectionConfigFactory {
     private static DataCollectionConfigDao m_singleton = null;
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.DataCollectionConfigDao} object.
+     * @param instance
+     *            a {@link org.opennms.netmgt.config.DataCollectionConfigDao}
+     *            object.
      */
     public static void setInstance(DataCollectionConfigDao instance) {
         m_singleton = instance;
@@ -65,7 +73,8 @@ public final class DataCollectionConfigFactory {
      *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static synchronized void init() throws IOException {
         if (m_singleton == null) {
@@ -82,7 +91,8 @@ public final class DataCollectionConfigFactory {
      *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static synchronized void reload() throws IOException {
         m_singleton = null;

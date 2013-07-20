@@ -40,7 +40,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-public class XmlResourceType  {
+public class XmlResourceType {
 
     /** The resource type name. */
     private String m_resourceType;
@@ -57,8 +57,10 @@ public class XmlResourceType  {
     /**
      * Instantiates a new XML resource type.
      *
-     * @param agent the agent
-     * @param resourceType the resource type
+     * @param agent
+     *            the agent
+     * @param resourceType
+     *            the resource type
      */
     public XmlResourceType(CollectionAgent agent, ResourceType resourceType) {
         m_agent = agent;
@@ -72,28 +74,33 @@ public class XmlResourceType  {
     /**
      * Instantiate persistence selector strategy.
      *
-     * @param className the class name
+     * @param className
+     *            the class name
      */
     private void instantiatePersistenceSelectorStrategy(String className) {
         Class<?> cinst;
         try {
             cinst = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class, className, "Could not load class", e);
+            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class, className,
+                                                      "Could not load class", e);
         }
         try {
             m_persistenceSelectorStrategy = (PersistenceSelectorStrategy) cinst.newInstance();
         } catch (InstantiationException e) {
-            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class, className, "Could not instantiate", e);
+            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class, className,
+                                                      "Could not instantiate", e);
         } catch (IllegalAccessException e) {
-            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class, className, "Could not instantiate", e);
+            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class, className,
+                                                      "Could not instantiate", e);
         }
     }
 
     /**
      * Instantiate storage strategy.
      *
-     * @param className the class name
+     * @param className
+     *            the class name
      */
     private void instantiateStorageStrategy(String className) {
         Class<?> cinst;

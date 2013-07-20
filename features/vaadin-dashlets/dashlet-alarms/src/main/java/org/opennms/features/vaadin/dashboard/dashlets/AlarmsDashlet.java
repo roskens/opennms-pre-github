@@ -59,14 +59,17 @@ public class AlarmsDashlet extends VerticalLayout implements Dashlet {
      * The {@link AlarmDao} used
      */
     private AlarmDao m_alarmDao;
+
     /**
      * The {@link NodeDao} used
      */
     private NodeDao m_nodeDao;
+
     /**
      * The {@link DashletSpec} for this instance
      */
     private DashletSpec m_dashletSpec;
+
     /**
      * boosted value
      */
@@ -80,9 +83,12 @@ public class AlarmsDashlet extends VerticalLayout implements Dashlet {
     /**
      * Constructor for instantiating new objects.
      *
-     * @param dashletSpec the {@link DashletSpec} to be used
-     * @param alarmDao    the {@link AlarmDao} to be used
-     * @param nodeDao     the {@link NodeDao} to be used
+     * @param dashletSpec
+     *            the {@link DashletSpec} to be used
+     * @param alarmDao
+     *            the {@link AlarmDao} to be used
+     * @param nodeDao
+     *            the {@link NodeDao} to be used
      */
     public AlarmsDashlet(String name, DashletSpec dashletSpec, AlarmDao alarmDao, NodeDao nodeDao) {
         /**
@@ -101,7 +107,8 @@ public class AlarmsDashlet extends VerticalLayout implements Dashlet {
     }
 
     /**
-     * Updates the alarm data using the associated {@link AlarmDao} and {@link NodeDao} instances.
+     * Updates the alarm data using the associated {@link AlarmDao} and
+     * {@link NodeDao} instances.
      *
      * @return true, if boosted, false otherwise
      */
@@ -159,9 +166,11 @@ public class AlarmsDashlet extends VerticalLayout implements Dashlet {
     }
 
     /**
-     * Returns a human-readable {@link String} representation of a timestamp in the past.
+     * Returns a human-readable {@link String} representation of a timestamp in
+     * the past.
      *
-     * @param secondsAll the timestamp to be used
+     * @param secondsAll
+     *            the timestamp to be used
      * @return a human-readable representation
      */
     public String getHumanReadableFormat(long secondsAll) {
@@ -215,15 +224,18 @@ public class AlarmsDashlet extends VerticalLayout implements Dashlet {
     /**
      * Returns the component for visualising the alarms data.
      *
-     * @param onmsAlarm an {@link OnmsAlarm} instance
-     * @param onmsNode  an {@link OnmsNode} instance
+     * @param onmsAlarm
+     *            an {@link OnmsAlarm} instance
+     * @param onmsNode
+     *            an {@link OnmsNode} instance
      * @return component for this alarm
      */
     public Component createAlarmComponent(OnmsAlarm onmsAlarm, OnmsNode onmsNode) {
 
         Calendar calendar = Calendar.getInstance();
 
-        String ago = getHumanReadableFormat((calendar.getTimeInMillis() / 1000) - (onmsAlarm.getLastEventTime().getTime() / 1000));
+        String ago = getHumanReadableFormat((calendar.getTimeInMillis() / 1000)
+                - (onmsAlarm.getLastEventTime().getTime() / 1000));
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         horizontalLayout.setWidth("100%");

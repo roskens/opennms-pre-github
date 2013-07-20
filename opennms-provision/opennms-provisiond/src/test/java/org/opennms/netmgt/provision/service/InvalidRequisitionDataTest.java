@@ -59,19 +59,15 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-provisiond.xml",
-        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
-        "classpath*:/META-INF/opennms/detectors.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/importerServiceTest.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml", "classpath*:/META-INF/opennms/detectors.xml",
+        "classpath*:/META-INF/opennms/component-dao.xml", "classpath:/importerServiceTest.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @DirtiesContext
 public class InvalidRequisitionDataTest extends ProvisioningTestCase implements InitializingBean {
 
@@ -109,7 +105,7 @@ public class InvalidRequisitionDataTest extends ProvisioningTestCase implements 
         }
         m_nodeDao.flush();
         for (final OnmsEvent event : m_eventDao.findAll()) {
-        	m_eventDao.delete(event);
+            m_eventDao.delete(event);
         }
 
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -175,8 +171,10 @@ public class InvalidRequisitionDataTest extends ProvisioningTestCase implements 
         m_anticipator.anticipateEvent(getNodeGainedService(nextNodeId));
         m_anticipator.anticipateEvent(getNodeScanCompleted(nextNodeId));
 
-        // This requisition has an asset called "maintContractNumber" which was changed in
-        // OpenNMS 1.10. We want to preserve backwards compatibility so make sure that the
+        // This requisition has an asset called "maintContractNumber" which was
+        // changed in
+        // OpenNMS 1.10. We want to preserve backwards compatibility so make
+        // sure that the
         // field still works.
         m_provisioner.doImport(resource.getURL().toString(), true);
         waitForEverything();
@@ -198,48 +196,44 @@ public class InvalidRequisitionDataTest extends ProvisioningTestCase implements 
         m_anticipator.anticipateEvent(getStarted(invalidRequisitionResource));
         m_anticipator.anticipateEvent(getFailed(invalidRequisitionResource));
 
-        // This requisition has a "foreign-source" on the node tag, which is invalid,
+        // This requisition has a "foreign-source" on the node tag, which is
+        // invalid,
         // foreign-source only belongs on the top-level model-import tag.
         m_provisioner.doImport(invalidRequisitionResource.getURL().toString(), true);
         waitForEverything();
         m_anticipator.verifyAnticipated();
 
-        // should fail to import the node, it should bomb if the requisition is unparseable
+        // should fail to import the node, it should bomb if the requisition is
+        // unparseable
         assertEquals(0, m_nodeDao.countAll());
 
     }
 
     private Event getStarted(final Resource resource) {
-        return new EventBuilder( EventConstants.IMPORT_STARTED_UEI, "Provisiond" )
-        .addParam( EventConstants.PARM_IMPORT_RESOURCE, resource.toString() )
-        .getEvent();
+        return new EventBuilder(EventConstants.IMPORT_STARTED_UEI, "Provisiond").addParam(EventConstants.PARM_IMPORT_RESOURCE,
+                                                                                          resource.toString()).getEvent();
     }
 
     private Event getSuccessful(final Resource resource) {
-        return new EventBuilder( EventConstants.IMPORT_SUCCESSFUL_UEI, "Provisiond" )
-        .addParam( EventConstants.PARM_IMPORT_RESOURCE, resource.toString() )
-        .getEvent();
+        return new EventBuilder(EventConstants.IMPORT_SUCCESSFUL_UEI, "Provisiond").addParam(EventConstants.PARM_IMPORT_RESOURCE,
+                                                                                             resource.toString()).getEvent();
     }
 
     private Event getFailed(final Resource resource) {
-        return new EventBuilder( EventConstants.IMPORT_FAILED_UEI, "Provisiond" )
-        .addParam( EventConstants.PARM_IMPORT_RESOURCE, resource.toString() )
-        .getEvent();
+        return new EventBuilder(EventConstants.IMPORT_FAILED_UEI, "Provisiond").addParam(EventConstants.PARM_IMPORT_RESOURCE,
+                                                                                         resource.toString()).getEvent();
     }
 
     private Event getNodeAdded(final int nodeId) {
-        return new EventBuilder( EventConstants.NODE_ADDED_EVENT_UEI, "Provisiond" )
-        .setNodeid(nodeId).getEvent();
+        return new EventBuilder(EventConstants.NODE_ADDED_EVENT_UEI, "Provisiond").setNodeid(nodeId).getEvent();
     }
 
     private Event getNodeGainedInterface(final int nodeId) {
-        return new EventBuilder( EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI, "Provisiond" )
-        .setNodeid(nodeId).setInterface(InetAddressUtils.addr("10.0.0.1")).getEvent();
+        return new EventBuilder(EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI, "Provisiond").setNodeid(nodeId).setInterface(InetAddressUtils.addr("10.0.0.1")).getEvent();
     }
 
     private Event getNodeGainedService(final int nodeId) {
-        return new EventBuilder( EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, "Provisiond" )
-        .setNodeid(nodeId).setInterface(InetAddressUtils.addr("10.0.0.1")).setService("ICMP").getEvent();
+        return new EventBuilder(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, "Provisiond").setNodeid(nodeId).setInterface(InetAddressUtils.addr("10.0.0.1")).setService("ICMP").getEvent();
     }
 
     private Event getNodeScanCompleted(final int nodeId) {

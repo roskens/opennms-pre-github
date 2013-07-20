@@ -66,7 +66,8 @@ import java.util.*;
 /**
  * The Class VmwareViJavaAccess
  * <p/>
- * This class provides all the functionality to query Vmware infrastructure components.
+ * This class provides all the functionality to query Vmware infrastructure
+ * components.
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
@@ -83,7 +84,9 @@ public class VmwareViJavaAccess {
     private VmwareConfigDao m_vmwareConfigDao = null;
 
     private String m_hostname = null;
+
     private String m_username = null;
+
     private String m_password = null;
 
     private ServiceInstance m_serviceInstance = null;
@@ -99,9 +102,12 @@ public class VmwareViJavaAccess {
     /**
      * Constructor for creating a instance for a given server and credentials.
      *
-     * @param hostname the vCenter's hostname
-     * @param username the username
-     * @param password the password
+     * @param hostname
+     *            the vCenter's hostname
+     * @param username
+     *            the username
+     * @param password
+     *            the password
      */
     public VmwareViJavaAccess(String hostname, String username, String password) {
         this.m_hostname = hostname;
@@ -110,10 +116,12 @@ public class VmwareViJavaAccess {
     }
 
     /**
-     * Constructor for creating a instance for a given server. Checks whether credentials
+     * Constructor for creating a instance for a given server. Checks whether
+     * credentials
      * are available in the Vmware config file.
      *
-     * @param hostname the vCenter's hostname
+     * @param hostname
+     *            the vCenter's hostname
      * @throws MarshalException
      * @throws ValidationException
      * @throws IOException
@@ -169,7 +177,8 @@ public class VmwareViJavaAccess {
     /**
      * Sets the timeout for server connections.
      *
-     * @param timeout the timeout to be used for connecting
+     * @param timeout
+     *            the timeout to be used for connecting
      * @return true, if the operation was successful
      */
     public boolean setTimeout(int timeout) {
@@ -210,40 +219,37 @@ public class VmwareViJavaAccess {
     }
 
     /**
-     * This method is used to "relax" the policies concerning self-signed certificates.
+     * This method is used to "relax" the policies concerning self-signed
+     * certificates.
      */
     protected void relax() {
 
-        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             @Override
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                 return null;
             }
 
-            public boolean isServerTrusted(
-                    java.security.cert.X509Certificate[] certs) {
+            public boolean isServerTrusted(java.security.cert.X509Certificate[] certs) {
                 return true;
             }
 
-            public boolean isClientTrusted(
-                    java.security.cert.X509Certificate[] certs) {
+            public boolean isClientTrusted(java.security.cert.X509Certificate[] certs) {
                 return true;
             }
 
             @Override
-            public void checkServerTrusted(
-                    java.security.cert.X509Certificate[] certs, String authType)
+            public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
                     throws java.security.cert.CertificateException {
                 return;
             }
 
             @Override
-            public void checkClientTrusted(
-                    java.security.cert.X509Certificate[] certs, String authType)
+            public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
                     throws java.security.cert.CertificateException {
                 return;
             }
-        }};
+        } };
 
         try {
             SSLContext sslContext = SSLContext.getInstance("SSL");
@@ -295,7 +301,8 @@ public class VmwareViJavaAccess {
     /**
      * Returns a managed entitiy for a given managed object Id.
      *
-     * @param managedObjectId the managed object Id
+     * @param managedObjectId
+     *            the managed object Id
      * @return the managed entity
      */
     public ManagedEntity getManagedEntityByManagedObjectId(String managedObjectId) {
@@ -304,7 +311,8 @@ public class VmwareViJavaAccess {
         managedObjectReference.setType("ManagedEntity");
         managedObjectReference.setVal(managedObjectId);
 
-        ManagedEntity managedEntity = MorUtil.createExactManagedEntity(m_serviceInstance.getServerConnection(), managedObjectReference);
+        ManagedEntity managedEntity = MorUtil.createExactManagedEntity(m_serviceInstance.getServerConnection(),
+                                                                       managedObjectReference);
 
         return managedEntity;
     }
@@ -312,7 +320,8 @@ public class VmwareViJavaAccess {
     /**
      * Returns a virtual machine by a given managed object Id.
      *
-     * @param managedObjectId the managed object Id
+     * @param managedObjectId
+     *            the managed object Id
      * @return the virtual machine object
      */
     public VirtualMachine getVirtualMachineByManagedObjectId(String managedObjectId) {
@@ -321,7 +330,8 @@ public class VmwareViJavaAccess {
         managedObjectReference.setType("VirtualMachine");
         managedObjectReference.setVal(managedObjectId);
 
-        VirtualMachine virtualMachine = (VirtualMachine) MorUtil.createExactManagedEntity(m_serviceInstance.getServerConnection(), managedObjectReference);
+        VirtualMachine virtualMachine = (VirtualMachine) MorUtil.createExactManagedEntity(m_serviceInstance.getServerConnection(),
+                                                                                          managedObjectReference);
 
         return virtualMachine;
     }
@@ -329,7 +339,8 @@ public class VmwareViJavaAccess {
     /**
      * Returns a host system by a given managed object Id.
      *
-     * @param managedObjectId the managed object Id
+     * @param managedObjectId
+     *            the managed object Id
      * @return the host system object
      */
     public HostSystem getHostSystemByManagedObjectId(String managedObjectId) {
@@ -338,7 +349,8 @@ public class VmwareViJavaAccess {
         managedObjectReference.setType("HostSystem");
         managedObjectReference.setVal(managedObjectId);
 
-        HostSystem hostSystem = (HostSystem) MorUtil.createExactManagedEntity(m_serviceInstance.getServerConnection(), managedObjectReference);
+        HostSystem hostSystem = (HostSystem) MorUtil.createExactManagedEntity(m_serviceInstance.getServerConnection(),
+                                                                              managedObjectReference);
 
         return hostSystem;
     }
@@ -346,17 +358,20 @@ public class VmwareViJavaAccess {
     /**
      * Generates a human-readable name for a performance counter.
      *
-     * @param perfCounterInfo the perfomance counter info object
+     * @param perfCounterInfo
+     *            the perfomance counter info object
      * @return a string-representation of the performance counter's name
      */
     private String getHumanReadableName(PerfCounterInfo perfCounterInfo) {
-        return perfCounterInfo.getGroupInfo().getKey() + "." + perfCounterInfo.getNameInfo().getKey() + "." + perfCounterInfo.getRollupType().toString();
+        return perfCounterInfo.getGroupInfo().getKey() + "." + perfCounterInfo.getNameInfo().getKey() + "."
+                + perfCounterInfo.getRollupType().toString();
     }
 
     /**
      * This method queries performance values for a given managed entity.
      *
-     * @param managedEntity the managed entity to query
+     * @param managedEntity
+     *            the managed entity to query
      * @return the perfomance values
      * @throws RemoteException
      */
@@ -372,7 +387,7 @@ public class VmwareViJavaAccess {
 
         perfQuerySpec.setIntervalId(refreshRate);
 
-        PerfEntityMetricBase[] perfEntityMetricBases = getPerformanceManager().queryPerf(new PerfQuerySpec[]{perfQuerySpec});
+        PerfEntityMetricBase[] perfEntityMetricBases = getPerformanceManager().queryPerf(new PerfQuerySpec[] { perfQuerySpec });
 
         if (perfEntityMetricBases != null) {
             for (int i = 0; i < perfEntityMetricBases.length; i++) {
@@ -406,14 +421,18 @@ public class VmwareViJavaAccess {
     /**
      * Queries a host system for Cim data.
      *
-     * @param hostSystem       the host system to query
-     * @param cimClass         the class of Cim objects to retrieve
-     * @param primaryIpAddress the Ip address to use
+     * @param hostSystem
+     *            the host system to query
+     * @param cimClass
+     *            the class of Cim objects to retrieve
+     * @param primaryIpAddress
+     *            the Ip address to use
      * @return the list of Cim objects
      * @throws RemoteException
      * @throws CIMException
      */
-    public List<CIMObject> queryCimObjects(HostSystem hostSystem, String cimClass, String primaryIpAddress) throws RemoteException, CIMException {
+    public List<CIMObject> queryCimObjects(HostSystem hostSystem, String cimClass, String primaryIpAddress)
+            throws RemoteException, CIMException {
         List<CIMObject> cimObjects = new ArrayList<CIMObject>();
 
         if (!m_hostServiceTickets.containsKey(hostSystem)) {
@@ -428,7 +447,6 @@ public class VmwareViJavaAccess {
             if (ipAddress == null) {
                 ipAddress = getPrimaryHostSystemIpAddress(hostSystem);
             }
-
 
             if (ipAddress == null) {
                 logger.warn("Cannot determine ip address for host system '{}'", hostSystem.getMOR().getVal());
@@ -467,8 +485,10 @@ public class VmwareViJavaAccess {
     /**
      * Queries a host system for Cim data.
      *
-     * @param hostSystem the host system to query
-     * @param cimClass   the class of Cim objects to retrieve
+     * @param hostSystem
+     *            the host system to query
+     * @param cimClass
+     *            the class of Cim objects to retrieve
      * @return the list of Cim objects
      * @throws RemoteException
      * @throws CIMException
@@ -480,7 +500,8 @@ public class VmwareViJavaAccess {
     /**
      * Searches for the primary ip address of a host system
      *
-     * @param hostSystem the host system to query
+     * @param hostSystem
+     *            the host system to query
      * @return the primary ip address
      * @throws RemoteException
      */
@@ -491,7 +512,8 @@ public class VmwareViJavaAccess {
     /**
      * Searches for all ip addresses of a host system
      *
-     * @param hostSystem the host system to query
+     * @param hostSystem
+     *            the host system to query
      * @return the ip addresses of the host system, the first one is the primary
      * @throws RemoteException
      */
@@ -523,7 +545,8 @@ public class VmwareViJavaAccess {
     /**
      * Searches for a managed entity by a given type.
      *
-     * @param type the type string to search for
+     * @param type
+     *            the type string to search for
      * @return the list of managed entities found
      * @throws RemoteException
      */
@@ -563,8 +586,10 @@ public class VmwareViJavaAccess {
     /**
      * Returns the value of a given cim object and property.
      *
-     * @param cimObject    the Cim object
-     * @param propertyName the property's name
+     * @param cimObject
+     *            the Cim object
+     * @param propertyName
+     *            the property's name
      * @return the value
      */
     public String getPropertyOfCimObject(CIMObject cimObject, String propertyName) {

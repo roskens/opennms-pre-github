@@ -42,7 +42,6 @@ import org.opennms.web.element.NetworkElementFactory;
 import au.com.bytecode.opencsv.CSVWriter;
 
 /**
- *
  * Exports the assets database to a comma-separated values text file.
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski</A>
@@ -50,12 +49,16 @@ import au.com.bytecode.opencsv.CSVWriter;
  */
 public class ExportAssetsServlet extends HttpServlet {
     private static final long serialVersionUID = -4854445395857220978L;
+
     protected AssetModel model;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -77,70 +80,15 @@ public class ExportAssetsServlet extends HttpServlet {
 
         CSVWriter out = new CSVWriter(response.getWriter());
 
-        String[] header = {
-                "Node Label",
-                "Node ID",
-                "Category",
-                "Manufacturer",
-                "Vendor",
-                "Model Number",
-                "Serial Number",
-                "Description",
-                "Circuit ID",
-                "Asset Number",
-                "Operating System",
-                "Rack",
-                "Slot",
-                "Port",
-                "Region",
-                "Division",
-                "Department",
-                "Address 1",
-                "Address 2",
-                "City",
-                "State",
-                "Zip",
-                "Building",
-                "Floor",
-                "Room",
-                "Vendor Phone",
-                "Vendor Fax",
-                "Date Installed",
-                "Lease",
-                "Lease Expires",
-                "Support Phone",
-                "Maint Contract",
-                "Vendor Asset Number",
-                "Maint Contract Expires",
-                "Display Category",
-                "Notification Category",
-                "Poller Category",
-                "Threshold Category",
-                "Username",
-                "Password",
-                "Enable",
-                "Connection",
-                "Auto Enable",
-                "Comments",
-		"Cpu",
-		"Ram",
-		"Storage Controller",
-		"HDD 1",
-		"HDD 2",
-		"HDD 3",
-		"HDD 4",
-		"HDD 5",
-		"HDD 6",
-		"Number of power supplies",
-		"Inputpower",
-		"Additional hardware",
-		"Admin",
-		"SNMP Community",
-		"Rack unit height",
-                "Country",
-                "Longitude",
-                "Latitude"
-        };
+        String[] header = { "Node Label", "Node ID", "Category", "Manufacturer", "Vendor", "Model Number",
+                "Serial Number", "Description", "Circuit ID", "Asset Number", "Operating System", "Rack", "Slot",
+                "Port", "Region", "Division", "Department", "Address 1", "Address 2", "City", "State", "Zip",
+                "Building", "Floor", "Room", "Vendor Phone", "Vendor Fax", "Date Installed", "Lease", "Lease Expires",
+                "Support Phone", "Maint Contract", "Vendor Asset Number", "Maint Contract Expires", "Display Category",
+                "Notification Category", "Poller Category", "Threshold Category", "Username", "Password", "Enable",
+                "Connection", "Auto Enable", "Comments", "Cpu", "Ram", "Storage Controller", "HDD 1", "HDD 2", "HDD 3",
+                "HDD 4", "HDD 5", "HDD 6", "Number of power supplies", "Inputpower", "Additional hardware", "Admin",
+                "SNMP Community", "Rack unit height", "Country", "Longitude", "Latitude" };
 
         out.writeNext(header);
 

@@ -27,6 +27,7 @@
  *******************************************************************************/
 
 package org.opennms.netmgt.collectd;
+
 import java.io.File;
 import java.util.List;
 
@@ -38,11 +39,9 @@ import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
 
-
 /**
  * This class encapsulates an RRDTool data source. Data source information
  * parsed from the DataCollection.xml file is stored in RRDDataSource objects.
- *
  * For additional information on RRD and RRDTool see:
  * http://ee-staff.ethz.ch/~oetiker/webtools/rrdtool/
  *
@@ -54,9 +53,11 @@ import org.opennms.netmgt.snmp.SnmpValue;
  */
 public class JMXDataSource implements Cloneable {
     private static final Logger LOG = LoggerFactory.getLogger(JMXDataSource.class);
-	private static final int MAX_DS_NAME_LENGTH = 19;
-	/** Constant <code>RRD_ERROR="RRD_ERROR"</code> */
-	public static final String RRD_ERROR = "RRD_ERROR";
+
+    private static final int MAX_DS_NAME_LENGTH = 19;
+
+    /** Constant <code>RRD_ERROR="RRD_ERROR"</code> */
+    public static final String RRD_ERROR = "RRD_ERROR";
 
     /**
      * Defines the list of supported (MIB) object types which may be mapped to
@@ -67,7 +68,8 @@ public class JMXDataSource implements Cloneable {
      * comparison uses String.startsWith() method so "counter32" & "counter64"
      * values will match "counter" entry. Comparison is case sensitive.
      */
-    private static final String[] supportedObjectTypes = new String[] { "counter", "gauge", "timeticks", "integer", "octetstring" };
+    private static final String[] supportedObjectTypes = new String[] { "counter", "gauge", "timeticks", "integer",
+            "octetstring" };
 
     /**
      * Index of data type in supportedObjectTypes string array.
@@ -117,22 +119,28 @@ public class JMXDataSource implements Cloneable {
      * the data supplied by this data source. May be set to "U" for Unknown.
      */
     private String m_max;
+
     private String m_oid;
+
     private String m_instance;
+
     private String m_name;
+
     private String m_collectionName;
 
-         /**
-          * <p>handlesType</p>
-          *
-          * @param objectType MIB object type being inquired about
-          * @return true if RRDDataSource can  handle the given type, false if it can't
-          */
-         public static boolean handlesType(String objectType) {
-                 return (JMXDataSource.mapType(objectType)!=null);
-         }
-
-
+    /**
+     * <p>
+     * handlesType
+     * </p>
+     *
+     * @param objectType
+     *            MIB object type being inquired about
+     * @return true if RRDDataSource can handle the given type, false if it
+     *         can't
+     */
+    public static boolean handlesType(String objectType) {
+        return (JMXDataSource.mapType(objectType) != null);
+    }
 
     /**
      * Static method which takes a MIB object type (counter, counter32,
@@ -141,7 +149,8 @@ public class JMXDataSource implements Cloneable {
      * supports integer data so MIB objects of type 'octetstring' are not
      * supported.
      *
-     * @param objectType -
+     * @param objectType
+     *            -
      *            MIB object type to be mapped.
      * @return RRD type string or NULL object type is not supported.
      */
@@ -182,53 +191,55 @@ public class JMXDataSource implements Cloneable {
      * Constructor
      */
     public JMXDataSource() {
-	super();
+        super();
         m_type = null;
         m_heartbeat = 600; // 10 minutes
         m_min = "U";
         m_max = "U";
     }
 
-       /**
-        * <p>Constructor for JMXDataSource.</p>
-        *
-        * @param obj a {@link org.opennms.netmgt.config.MibObject} object.
-        * @param collectionName a {@link java.lang.String} object.
-        */
-       public JMXDataSource(MibObject obj, String collectionName) {
+    /**
+     * <p>
+     * Constructor for JMXDataSource.
+     * </p>
+     *
+     * @param obj
+     *            a {@link org.opennms.netmgt.config.MibObject} object.
+     * @param collectionName
+     *            a {@link java.lang.String} object.
+     */
+    public JMXDataSource(MibObject obj, String collectionName) {
 
-                m_collectionName = collectionName;
+        m_collectionName = collectionName;
 
+        // Assign heartbeat using formula (2 * step) and hard code
+        // min & max values to "U" ("unknown").
+        this.setHeartbeat(2 * DataCollectionConfigFactory.getInstance().getStep(collectionName));
 
-                // Assign heartbeat using formula (2 * step) and hard code
-                // min & max values to "U" ("unknown").
-                this.setHeartbeat(
-                        2
-                                * DataCollectionConfigFactory.getInstance().getStep(
-                                        collectionName));
-
-                // Truncate MIB object name/alias if it exceeds the 19 char max for
-                // RRD data source names.
-                if (this.getName().length() > MAX_DS_NAME_LENGTH) {
-                        LOG.warn("buildDataSourceList: Mib object name/alias '{}' exceeds 19 char maximum for RRD data source names, truncating.", obj.getAlias());
-                        char[] temp = this.getName().toCharArray();
-                        this.setName(String.copyValueOf(temp, 0, MAX_DS_NAME_LENGTH));
-                }
-
-                // Map MIB object data type to RRD data type
-                this.setType(JMXDataSource.mapType(obj.getType()));
-                this.m_min = "U";
-                this.m_max = "U";
-
-                // Assign the data source object identifier and instance
-                LOG.debug("buildDataSourceList: ds_name: {} ds_oid: {}.{} ds_max: {} ds_min: {}", this.getName(), this.getOid(), this.getInstance(), this.getMax(), this.getMin());
+        // Truncate MIB object name/alias if it exceeds the 19 char max for
+        // RRD data source names.
+        if (this.getName().length() > MAX_DS_NAME_LENGTH) {
+            LOG.warn("buildDataSourceList: Mib object name/alias '{}' exceeds 19 char maximum for RRD data source names, truncating.",
+                     obj.getAlias());
+            char[] temp = this.getName().toCharArray();
+            this.setName(String.copyValueOf(temp, 0, MAX_DS_NAME_LENGTH));
         }
 
+        // Map MIB object data type to RRD data type
+        this.setType(JMXDataSource.mapType(obj.getType()));
+        this.m_min = "U";
+        this.m_max = "U";
+
+        // Assign the data source object identifier and instance
+        LOG.debug("buildDataSourceList: ds_name: {} ds_oid: {}.{} ds_max: {} ds_min: {}", this.getName(),
+                  this.getOid(), this.getInstance(), this.getMax(), this.getMin());
+    }
 
     /**
      * This method is used to assign the object's identifier.
      *
-     * @param oid -
+     * @param oid
+     *            -
      *            object identifier in dotted decimal notation (e.g.,
      *            ".1.3.6.1.2.1.1.1")
      */
@@ -239,7 +250,8 @@ public class JMXDataSource implements Cloneable {
     /**
      * This method is used to assign the object's instance id.
      *
-     * @param instance -
+     * @param instance
+     *            -
      *            instance identifier (to be appended to oid)
      */
     public void setInstance(String instance) {
@@ -249,7 +261,8 @@ public class JMXDataSource implements Cloneable {
     /**
      * This method is used to assign the data source name.
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
@@ -282,7 +295,6 @@ public class JMXDataSource implements Cloneable {
         return m_name;
     }
 
-
     /**
      * Class copy constructor. Constructs a new object that is an identical to
      * the passed object, however no data is shared between the two objects. Any
@@ -304,7 +316,8 @@ public class JMXDataSource implements Cloneable {
     /**
      * This method is used to assign the object's expected data type.
      *
-     * @param type -
+     * @param type
+     *            -
      *            object's data type
      */
     public void setType(String type) {
@@ -312,27 +325,36 @@ public class JMXDataSource implements Cloneable {
     }
 
     /**
-     * <p>setHeartbeat</p>
+     * <p>
+     * setHeartbeat
+     * </p>
      *
-     * @param heartbeat a int.
+     * @param heartbeat
+     *            a int.
      */
     public void setHeartbeat(int heartbeat) {
         m_heartbeat = heartbeat;
     }
 
     /**
-     * <p>setMin</p>
+     * <p>
+     * setMin
+     * </p>
      *
-     * @param minimum a {@link java.lang.String} object.
+     * @param minimum
+     *            a {@link java.lang.String} object.
      */
     public void setMin(String minimum) {
         m_min = minimum;
     }
 
     /**
-     * <p>setMax</p>
+     * <p>
+     * setMax
+     * </p>
      *
-     * @param maximum a {@link java.lang.String} object.
+     * @param maximum
+     *            a {@link java.lang.String} object.
      */
     public void setMax(String maximum) {
         m_max = maximum;
@@ -348,7 +370,9 @@ public class JMXDataSource implements Cloneable {
     }
 
     /**
-     * <p>getHeartbeat</p>
+     * <p>
+     * getHeartbeat
+     * </p>
      *
      * @return a int.
      */
@@ -357,7 +381,9 @@ public class JMXDataSource implements Cloneable {
     }
 
     /**
-     * <p>getMin</p>
+     * <p>
+     * getMin
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -366,7 +392,9 @@ public class JMXDataSource implements Cloneable {
     }
 
     /**
-     * <p>getMax</p>
+     * <p>
+     * getMax
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -375,9 +403,8 @@ public class JMXDataSource implements Cloneable {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Used to get a duplicate of self. The duplicate is identical to self but
+     * {@inheritDoc} Used to get a duplicate of self. The duplicate is identical
+     * to self but
      * shares no common data.
      */
     @Override
@@ -407,39 +434,45 @@ public class JMXDataSource implements Cloneable {
         return buffer.toString();
     }
 
-	/**
-	 * <p>performUpdate</p>
-	 *
-	 * @param owner a {@link java.lang.String} object.
-	 * @param repository a {@link java.io.File} object.
-	 * @param value a {@link org.opennms.netmgt.snmp.SnmpValue} object.
-	 * @return a boolean.
-	 */
-	public boolean performUpdate(
-		String owner,
-		File repository,
-                SnmpValue value) {
+    /**
+     * <p>
+     * performUpdate
+     * </p>
+     *
+     * @param owner
+     *            a {@link java.lang.String} object.
+     * @param repository
+     *            a {@link java.io.File} object.
+     * @param value
+     *            a {@link org.opennms.netmgt.snmp.SnmpValue} object.
+     * @return a boolean.
+     */
+    public boolean performUpdate(String owner, File repository, SnmpValue value) {
 
-            String val = getStorableValue(value);
+        String val = getStorableValue(value);
 
-            String collectionName = m_collectionName;
-	        int step = DataCollectionConfigFactory.getInstance().getStep(collectionName);
-	        List<String> rraList = DataCollectionConfigFactory.getInstance().getRRAList(collectionName);
-		boolean result=false;
-		try {
-		        RrdUtils.createRRD(owner, repository.getAbsolutePath(), getName(), step, getType(), getHeartbeat(), getMin(), getMax(), rraList);
+        String collectionName = m_collectionName;
+        int step = DataCollectionConfigFactory.getInstance().getStep(collectionName);
+        List<String> rraList = DataCollectionConfigFactory.getInstance().getRRAList(collectionName);
+        boolean result = false;
+        try {
+            RrdUtils.createRRD(owner, repository.getAbsolutePath(), getName(), step, getType(), getHeartbeat(),
+                               getMin(), getMax(), rraList);
 
-			RrdUtils.updateRRD(owner, repository.getAbsolutePath(), getName(), val);
-		} catch (RrdException e) {
-			result=true;
-		}
-		return result;
-	}
+            RrdUtils.updateRRD(owner, repository.getAbsolutePath(), getName(), val);
+        } catch (RrdException e) {
+            result = true;
+        }
+        return result;
+    }
 
     /**
-     * <p>getStorableValue</p>
+     * <p>
+     * getStorableValue
+     * </p>
      *
-     * @param snmpVal a {@link org.opennms.netmgt.snmp.SnmpValue} object.
+     * @param snmpVal
+     *            a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      * @return a {@link java.lang.String} object.
      */
     public String getStorableValue(SnmpValue snmpVal) {

@@ -35,70 +35,80 @@ import java.util.List;
 
 /**
  * @author tak
- *
  */
 public interface ReportRepository {
     /**
-     * <p>getReports</p>
-     *
+     * <p>
+     * getReports
+     * </p>
      * Get *ALL* reports from a report repository
      *
      * @return a {@link java.util.List} object
      */
-    List <BasicReportDefinition> getReports();
+    List<BasicReportDefinition> getReports();
 
     /**
-     * <p>getOnlineReports</p>
-     *
+     * <p>
+     * getOnlineReports
+     * </p>
      * Get all *ONLINE* reports from a report repository
      *
      * @return a {@link java.util.List} object
      */
-    List <BasicReportDefinition> getOnlineReports();
+    List<BasicReportDefinition> getOnlineReports();
 
     /**
-     * <p>getReportService</p>
-     *
+     * <p>
+     * getReportService
+     * </p>
      * Get report service from a specific report by ID
      *
-     * @param reportId a {@link java.lang.String} object
+     * @param reportId
+     *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
     String getReportService(String reportId);
 
     /**
-     * <p>getDisplayName</p>
-     *
+     * <p>
+     * getDisplayName
+     * </p>
      * Get display name from a specific report by ID
      *
-     * @param reportId a {@link java.lang.String} object
+     * @param reportId
+     *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
     String getDisplayName(String reportId);
 
     /**
-     * <p>getEngine</p>
-     *
+     * <p>
+     * getEngine
+     * </p>
      * Get engine for database access from a specific report by ID
      *
-     * @param reportId a {@link java.lang.String} object
+     * @param reportId
+     *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
     String getEngine(String reportId);
 
     /**
-     * <p>getTemplateStream</p>
-     *
+     * <p>
+     * getTemplateStream
+     * </p>
      * Get report template stream from a specific report by ID
      *
-     * @param reportId a {@link java.lang.String} object
+     * @param reportId
+     *            a {@link java.lang.String} object
      * @return a {@link java.io.InputStream} object
      */
     InputStream getTemplateStream(String reportId);
 
     /**
-     * <p>getRepositoryId</p>
-     *
+     * <p>
+     * getRepositoryId
+     * </p>
      * Get report repository ID
      *
      * @return a {@link java.lang.String} object
@@ -106,8 +116,9 @@ public interface ReportRepository {
     String getRepositoryId();
 
     /**
-     * <p>getRepositoryName</p>
-     *
+     * <p>
+     * getRepositoryName
+     * </p>
      * Get report repository name
      *
      * @return a {@link java.lang.String} object
@@ -115,8 +126,9 @@ public interface ReportRepository {
     String getRepositoryName();
 
     /**
-     * <p>getRepositoryDescription</p>
-     *
+     * <p>
+     * getRepositoryDescription
+     * </p>
      * Get report repository description
      *
      * @return a {@link java.lang.String} object
@@ -124,8 +136,9 @@ public interface ReportRepository {
     String getRepositoryDescription();
 
     /**
-     * <p>getManagementUrl</p>
-     *
+     * <p>
+     * getManagementUrl
+     * </p>
      * Get repository management URL for subscription services
      *
      * @return a {@link java.lang.String} object

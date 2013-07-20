@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 /**
  * LifeCycle
  *
@@ -44,22 +43,30 @@ public class LifeCycle {
     private static final String[] OF_STRINGS = new String[0];
 
     private final String m_lifeCycleName;
+
     private final List<String> m_phases;
 
     /**
-     * <p>Constructor for LifeCycle.</p>
+     * <p>
+     * Constructor for LifeCycle.
+     * </p>
      *
-     * @param lifeCycleName a {@link java.lang.String} object.
+     * @param lifeCycleName
+     *            a {@link java.lang.String} object.
      */
     public LifeCycle(String lifeCycleName) {
         this(lifeCycleName, new ArrayList<String>());
     }
 
     /**
-     * <p>Constructor for LifeCycle.</p>
+     * <p>
+     * Constructor for LifeCycle.
+     * </p>
      *
-     * @param lifeCycleName a {@link java.lang.String} object.
-     * @param phaseNames a {@link java.util.List} object.
+     * @param lifeCycleName
+     *            a {@link java.lang.String} object.
+     * @param phaseNames
+     *            a {@link java.util.List} object.
      */
     public LifeCycle(String lifeCycleName, List<String> phaseNames) {
         m_lifeCycleName = lifeCycleName;
@@ -67,7 +74,9 @@ public class LifeCycle {
     }
 
     /**
-     * <p>getLifeCycleName</p>
+     * <p>
+     * getLifeCycleName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -76,10 +85,15 @@ public class LifeCycle {
     }
 
     /**
-     * <p>addPhase</p>
+     * <p>
+     * addPhase
+     * </p>
      *
-     * @param phaseName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycle} object.
+     * @param phaseName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycle}
+     *         object.
      */
     public LifeCycle addPhase(String phaseName) {
         m_phases.add(phaseName);
@@ -87,10 +101,15 @@ public class LifeCycle {
     }
 
     /**
-     * <p>addPhases</p>
+     * <p>
+     * addPhases
+     * </p>
      *
-     * @param phases a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycle} object.
+     * @param phases
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycle}
+     *         object.
      */
     public LifeCycle addPhases(String... phases) {
         m_phases.addAll(Arrays.asList(phases));
@@ -98,7 +117,9 @@ public class LifeCycle {
     }
 
     /**
-     * <p>getPhaseNames</p>
+     * <p>
+     * getPhaseNames
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */

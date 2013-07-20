@@ -48,19 +48,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>UpdateOperation class.</p>
+ * <p>
+ * UpdateOperation class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class UpdateOperation extends AbstractSaveOrUpdateOperation {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UpdateOperation.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(UpdateOperation.class);
 
     public class ServiceUpdater {
 
         private OnmsIpInterface m_iface;
+
         Map<OnmsServiceType, OnmsMonitoredService> m_svcTypToSvcMap;
 
         public ServiceUpdater(OnmsIpInterface iface, OnmsIpInterface imported) {
@@ -83,8 +85,7 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
                 if (imported == null) {
                     it.remove();
                     svc.visit(new DeleteEventVisitor(events));
-                }
-                else {
+                } else {
                     update(svc, events);
                 }
                 markAsProcessed(svc);
@@ -115,7 +116,7 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
         }
 
         private OnmsMonitoredService getImportedVersion(OnmsMonitoredService svc) {
-            return (OnmsMonitoredService)m_svcTypToSvcMap.get(svc.getServiceType());
+            return (OnmsMonitoredService) m_svcTypToSvcMap.get(svc.getServiceType());
         }
 
         Set<OnmsMonitoredService> getExisting() {
@@ -127,6 +128,7 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
     public class InterfaceUpdater {
 
         private OnmsNode m_node;
+
         private Map<String, OnmsIpInterface> m_ipAddrToImportIfs;
 
         public InterfaceUpdater(OnmsNode node, OnmsNode imported) {
@@ -184,35 +186,35 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             }
 
             if (isSnmpDataForInterfacesUpToDate()) {
-            	updateSnmpInterface(imported, iface);
+                updateSnmpInterface(imported, iface);
             }
 
-           if (!nullSafeEquals(iface.getIpHostName(), imported.getIpHostName()))
-        	   iface.setIpHostName(imported.getIpHostName());
+            if (!nullSafeEquals(iface.getIpHostName(), imported.getIpHostName()))
+                iface.setIpHostName(imported.getIpHostName());
 
-           updateServices(iface, imported, events);
+            updateServices(iface, imported, events);
         }
 
-		private void updateSnmpInterface(OnmsIpInterface imported, OnmsIpInterface iface) {
+        private void updateSnmpInterface(OnmsIpInterface imported, OnmsIpInterface iface) {
 
-			if (nullSafeEquals(iface.getIfIndex(), imported.getIfIndex())) {
+            if (nullSafeEquals(iface.getIfIndex(), imported.getIfIndex())) {
                 // no need to change anything
                 return;
             }
 
             if (imported.getSnmpInterface() == null) {
-                // there is no longer an snmpInterface associated with the ipInterface
+                // there is no longer an snmpInterface associated with the
+                // ipInterface
                 iface.setSnmpInterface(null);
             } else {
-                // locate the snmpInterface on this node that has the new ifIndex and set it
+                // locate the snmpInterface on this node that has the new
+                // ifIndex and set it
                 // into the interface
                 OnmsSnmpInterface snmpIface = m_node.getSnmpInterfaceWithIfIndex(imported.getIfIndex());
                 iface.setSnmpInterface(snmpIface);
             }
 
-
-
-		}
+        }
 
         private void updateServices(OnmsIpInterface iface, OnmsIpInterface imported, List<Event> events) {
             new ServiceUpdater(iface, imported).execute(events);
@@ -227,6 +229,7 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
     public class SnmpInterfaceUpdater {
 
         OnmsNode m_dbNode;
+
         Map<Integer, OnmsSnmpInterface> m_ifIndexToSnmpInterface;
 
         public SnmpInterfaceUpdater(OnmsNode db, OnmsNode imported) {
@@ -311,7 +314,7 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
 
         private Set<OnmsSnmpInterface> getExistingInterfaces() {
             return m_dbNode.getSnmpInterfaces();
-       }
+        }
 
         private void addNewInterfaces() {
             for (OnmsSnmpInterface snmpIface : getNewInterfaces()) {
@@ -323,41 +326,50 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             return m_ifIndexToSnmpInterface.values();
         }
 
-
     }
 
+    /**
+     * <p>
+     * Constructor for UpdateOperation.
+     * </p>
+     *
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
+     */
+    public UpdateOperation(Integer nodeId, String foreignSource, String foreignId, String nodeLabel, String building,
+            String city) {
+        super(nodeId, foreignSource, foreignId, nodeLabel, building, city);
+    }
 
     /**
-     * <p>Constructor for UpdateOperation.</p>
+     * <p>
+     * doPersist
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
-     * @param city a {@link java.lang.String} object.
+     * @return a {@link java.util.List} object.
      */
-    public UpdateOperation(Integer nodeId, String foreignSource, String foreignId, String nodeLabel, String building, String city) {
-		super(nodeId, foreignSource, foreignId, nodeLabel, building, city);
-	}
-
-	/**
-	 * <p>doPersist</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
     @Override
-	public List<Event> doPersist() {
-		OnmsNode imported = getNode();
-		OnmsNode db = getNodeDao().getHierarchy(imported.getId());
+    public List<Event> doPersist() {
+        OnmsNode imported = getNode();
+        OnmsNode db = getNodeDao().getHierarchy(imported.getId());
 
-		List<Event> events = new LinkedList<Event>();
+        List<Event> events = new LinkedList<Event>();
 
-		// verify that the node label is still the same
-		if (!db.getLabel().equals(imported.getLabel())) {
-			db.setLabel(imported.getLabel());
-			// TODO: nodeLabelChanged event
-		}
+        // verify that the node label is still the same
+        if (!db.getLabel().equals(imported.getLabel())) {
+            db.setLabel(imported.getLabel());
+            // TODO: nodeLabelChanged event
+        }
 
         if (!nullSafeEquals(db.getForeignSource(), imported.getForeignSource())) {
             db.setForeignSource(imported.getForeignSource());
@@ -369,45 +381,45 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
 
         if (isSnmpDataForNodeUpToDate()) {
 
-			if (!nullSafeEquals(db.getSysContact(), imported.getSysContact())) {
-				db.setSysContact(imported.getSysContact());
-			}
+            if (!nullSafeEquals(db.getSysContact(), imported.getSysContact())) {
+                db.setSysContact(imported.getSysContact());
+            }
 
-			if (!nullSafeEquals(db.getSysDescription(), imported.getSysDescription())) {
-				db.setSysDescription(imported.getSysDescription());
-			}
+            if (!nullSafeEquals(db.getSysDescription(), imported.getSysDescription())) {
+                db.setSysDescription(imported.getSysDescription());
+            }
 
-			if (!nullSafeEquals(db.getSysLocation(), imported.getSysLocation())) {
-				db.setSysLocation(imported.getSysLocation());
-			}
+            if (!nullSafeEquals(db.getSysLocation(), imported.getSysLocation())) {
+                db.setSysLocation(imported.getSysLocation());
+            }
 
-			if (!nullSafeEquals(db.getSysName(), imported.getSysName())) {
-				db.setSysName(imported.getSysName());
-			}
+            if (!nullSafeEquals(db.getSysName(), imported.getSysName())) {
+                db.setSysName(imported.getSysName());
+            }
 
-			if (!nullSafeEquals(db.getSysObjectId(), imported.getSysObjectId())) {
-				db.setSysObjectId(imported.getSysObjectId());
-			}
+            if (!nullSafeEquals(db.getSysObjectId(), imported.getSysObjectId())) {
+                db.setSysObjectId(imported.getSysObjectId());
+            }
 
-		}
+        }
 
         if (isSnmpDataForInterfacesUpToDate())
             updateSnmpInterfaces(db, imported);
 
         updateInterfaces(db, imported, events);
-		updateCategories(db, imported);
+        updateCategories(db, imported);
 
-		getNodeDao().update(db);
+        getNodeDao().update(db);
 
-		return events;
+        return events;
 
-	}
+    }
 
     private void updateSnmpInterfaces(OnmsNode db, OnmsNode imported) {
         new SnmpInterfaceUpdater(db, imported).execute();
-	}
+    }
 
-	private void updateCategories(OnmsNode db, OnmsNode imported) {
+    private void updateCategories(OnmsNode db, OnmsNode imported) {
         if (!db.getCategories().equals(imported.getCategories()))
             db.setCategories(imported.getCategories());
     }
@@ -417,12 +429,14 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-       return "UPDATE: Node: "+getNode().getId()+": "+getNode().getLabel();
+        return "UPDATE: Node: " + getNode().getId() + ": " + getNode().getLabel();
     }
 }

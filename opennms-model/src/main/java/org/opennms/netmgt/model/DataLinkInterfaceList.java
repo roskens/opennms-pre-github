@@ -37,12 +37,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>OnmsMapList class.</p>
+ * <p>
+ * OnmsMapList class.
+ * </p>
  */
 @XmlRootElement(name = "links")
 public class DataLinkInterfaceList extends LinkedList<DataLinkInterface> {
-
-
 
     /**
      *
@@ -50,23 +50,30 @@ public class DataLinkInterfaceList extends LinkedList<DataLinkInterface> {
     private static final long serialVersionUID = 1980683067851461914L;
 
     /**
-     * <p>Constructor for OnmsMapList.</p>
+     * <p>
+     * Constructor for OnmsMapList.
+     * </p>
      */
     public DataLinkInterfaceList() {
         super();
     }
 
     /**
-     * <p>Constructor for OnmsMapList.</p>
+     * <p>
+     * Constructor for OnmsMapList.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public DataLinkInterfaceList(Collection<? extends DataLinkInterface> c) {
         super(c);
     }
 
     /**
-     * <p>getMaps</p>
+     * <p>
+     * getMaps
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -76,22 +83,28 @@ public class DataLinkInterfaceList extends LinkedList<DataLinkInterface> {
     }
 
     /**
-     * <p>setMaps</p>
+     * <p>
+     * setMaps
+     * </p>
      *
-     * @param maps a {@link java.util.List} object.
+     * @param maps
+     *            a {@link java.util.List} object.
      */
     public void setLinks(List<DataLinkInterface> links) {
-        if (links == this) return;
+        if (links == this)
+            return;
         clear();
         addAll(links);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
         return this.size();
     }

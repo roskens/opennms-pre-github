@@ -55,7 +55,6 @@ import org.opennms.netmgt.config.filter.Table;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * database schema for the filters from the database-schema XML file.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -64,7 +63,9 @@ import org.opennms.netmgt.config.filter.Table;
  */
 public final class DatabaseSchemaConfigFactory {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
@@ -82,7 +83,7 @@ public final class DatabaseSchemaConfigFactory {
      * primary table
      */
     // FIXME: m_joinable is never read
-    //private Set m_joinable = null;
+    // private Set m_joinable = null;
 
     /**
      * A map from a table to the join to use to get 'closer' to the primary
@@ -97,9 +98,9 @@ public final class DatabaseSchemaConfigFactory {
 
     /**
      * Private constructor
+     *
      * @throws ValidationException
      * @throws MarshalException
-     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -107,7 +108,8 @@ public final class DatabaseSchemaConfigFactory {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private DatabaseSchemaConfigFactory(final String configFile) throws IOException, MarshalException, ValidationException {
+    private DatabaseSchemaConfigFactory(final String configFile) throws IOException, MarshalException,
+            ValidationException {
         InputStream cfgStream = null;
         try {
             cfgStream = new FileInputStream(configFile);
@@ -119,11 +121,16 @@ public final class DatabaseSchemaConfigFactory {
     }
 
     /**
-     * <p>Constructor for DatabaseSchemaConfigFactory.</p>
+     * <p>
+     * Constructor for DatabaseSchemaConfigFactory.
+     * </p>
      *
-     * @param is a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param is
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public DatabaseSchemaConfigFactory(final InputStream is) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(DatabaseSchema.class, is);
@@ -148,9 +155,12 @@ public final class DatabaseSchemaConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -173,9 +183,12 @@ public final class DatabaseSchemaConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -199,9 +212,14 @@ public final class DatabaseSchemaConfigFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.DatabaseSchemaConfigFactory} object.
+     * @param instance
+     *            a
+     *            {@link org.opennms.netmgt.config.DatabaseSchemaConfigFactory}
+     *            object.
      */
     public static synchronized void setInstance(final DatabaseSchemaConfigFactory instance) {
         m_singleton = instance;
@@ -215,7 +233,7 @@ public final class DatabaseSchemaConfigFactory {
      */
     public DatabaseSchema getDatabaseSchema() {
         final Lock lock = getReadLock();
-		lock.lock();
+        lock.lock();
         try {
             return m_config;
         } finally {
@@ -259,7 +277,8 @@ public final class DatabaseSchemaConfigFactory {
             joinableCount = joinableSet.size();
             final Set<String> newSet = new HashSet<String>(joinableSet);
             for (final Table t : getDatabaseSchema().getTableCollection()) {
-                if (!joinableSet.contains(t.getName()) && (t.getVisible() == null || t.getVisible().equalsIgnoreCase("true"))) {
+                if (!joinableSet.contains(t.getName())
+                        && (t.getVisible() == null || t.getVisible().equalsIgnoreCase("true"))) {
                     for (final Join j : t.getJoinCollection()) {
                         if (joinableSet.contains(j.getTable())) {
                             newSet.add(t.getName());
@@ -301,7 +320,8 @@ public final class DatabaseSchemaConfigFactory {
      *
      * @return the table containing column 'colName', null if colName is not a
      *         valid column or if is not visible.
-     * @param colName a {@link java.lang.String} object.
+     * @param colName
+     *            a {@link java.lang.String} object.
      */
     public Table findTableByVisibleColumn(final String colName) {
         Table table = null;
@@ -330,7 +350,7 @@ public final class DatabaseSchemaConfigFactory {
      */
     public int getTableCount() {
         final Lock lock = getReadLock();
-		lock.lock();
+        lock.lock();
         try {
             return getDatabaseSchema().getTableCount();
         } finally {
@@ -374,7 +394,8 @@ public final class DatabaseSchemaConfigFactory {
     }
 
     /**
-     * Construct a SQL FROM clause joining the given tables to the primary table.
+     * Construct a SQL FROM clause joining the given tables to the primary
+     * table.
      *
      * @param tables
      *            list of Tables to join
@@ -390,14 +411,15 @@ public final class DatabaseSchemaConfigFactory {
             for (int i = 1; i < joinTables.size(); i++) {
                 final Join currentJoin = m_primaryJoins.get(joinTables.get(i));
                 if (currentJoin.getType() != null && !currentJoin.getType().equalsIgnoreCase("inner")) {
-                  joinExpr.append(" " + currentJoin.getType().toUpperCase());
+                    joinExpr.append(" " + currentJoin.getType().toUpperCase());
                 }
                 joinExpr.append(" JOIN " + joinTables.get(i) + " ON (");
                 joinExpr.append(currentJoin.getTable() + "." + currentJoin.getTableColumn() + " = ");
                 joinExpr.append(joinTables.get(i) + "." + currentJoin.getColumn() + ")");
             }
 
-            if (joinExpr.length() > 0) return "FROM " + joinExpr.toString();
+            if (joinExpr.length() > 0)
+                return "FROM " + joinExpr.toString();
             return "";
         } finally {
             getReadLock().unlock();

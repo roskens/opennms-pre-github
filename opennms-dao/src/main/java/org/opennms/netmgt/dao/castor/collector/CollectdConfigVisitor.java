@@ -33,32 +33,48 @@ import org.opennms.netmgt.config.collectd.Collector;
 
 public interface CollectdConfigVisitor {
 
-        /**
-         * <p>visitCollectdConfiguration</p>
-         *
-         * @param collectdConfiguration a {@link org.opennms.netmgt.config.collectd.CollectdConfiguration} object.
-         */
-        public abstract void visitCollectdConfiguration(CollectdConfiguration collectdConfiguration);
+    /**
+     * <p>
+     * visitCollectdConfiguration
+     * </p>
+     *
+     * @param collectdConfiguration
+     *            a
+     *            {@link org.opennms.netmgt.config.collectd.CollectdConfiguration}
+     *            object.
+     */
+    public abstract void visitCollectdConfiguration(CollectdConfiguration collectdConfiguration);
 
-        /**
-         * <p>completeCollectdConfiguration</p>
-         *
-         * @param collectdConfiguration a {@link org.opennms.netmgt.config.collectd.CollectdConfiguration} object.
-         */
-        public abstract void completeCollectdConfiguration(CollectdConfiguration collectdConfiguration);
+    /**
+     * <p>
+     * completeCollectdConfiguration
+     * </p>
+     *
+     * @param collectdConfiguration
+     *            a
+     *            {@link org.opennms.netmgt.config.collectd.CollectdConfiguration}
+     *            object.
+     */
+    public abstract void completeCollectdConfiguration(CollectdConfiguration collectdConfiguration);
 
-        /**
-         * <p>visitCollectorCollection</p>
-         *
-         * @param collector a {@link org.opennms.netmgt.config.collectd.Collector} object.
-         */
-        public abstract void visitCollectorCollection(Collector collector);
+    /**
+     * <p>
+     * visitCollectorCollection
+     * </p>
+     *
+     * @param collector
+     *            a {@link org.opennms.netmgt.config.collectd.Collector} object.
+     */
+    public abstract void visitCollectorCollection(Collector collector);
 
-        /**
-         * <p>completeCollectorCollection</p>
-         *
-         * @param collector a {@link org.opennms.netmgt.config.collectd.Collector} object.
-         */
-        public abstract void completeCollectorCollection(Collector collector);
+    /**
+     * <p>
+     * completeCollectorCollection
+     * </p>
+     *
+     * @param collector
+     *            a {@link org.opennms.netmgt.config.collectd.Collector} object.
+     */
+    public abstract void completeCollectorCollection(Collector collector);
 
 }

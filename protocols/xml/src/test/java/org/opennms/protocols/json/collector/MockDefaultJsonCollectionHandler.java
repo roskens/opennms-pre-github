@@ -37,35 +37,46 @@ import org.opennms.protocols.xml.config.XmlResourceUtils;
 
 /**
  * The Mock Class for DefaultJSONCollectionHandler.
- * <p>This file is created in order to avoid calling a real server to retrieve a valid file and  parse a provided sample file through MockDocumentBuilder</p>
+ * <p>
+ * This file is created in order to avoid calling a real server to retrieve a
+ * valid file and parse a provided sample file through MockDocumentBuilder
+ * </p>
  *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MockDefaultJsonCollectionHandler extends DefaultJsonCollectionHandler {
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.json.collector.AbstractJsonCollectionHandler#getJSONObject(java.lang.String, org.opennms.protocols.xml.config.Request)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.json.collector.AbstractJsonCollectionHandler#
+     * getJSONObject(java.lang.String, org.opennms.protocols.xml.config.Request)
      */
     @Override
     protected JSONObject getJSONObject(String urlString, Request request) {
         return MockDocumentBuilder.getJSONDocument();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#parseUrl(java.lang.String, org.opennms.netmgt.collectd.CollectionAgent, java.lang.Integer)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#parseUrl
+     * (java.lang.String, org.opennms.netmgt.collectd.CollectionAgent,
+     * java.lang.Integer)
      */
     @Override
     protected String parseUrl(String unformattedUrl, CollectionAgent agent, Integer collectionStep) {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#getXmlResourceType(org.opennms.netmgt.collectd.CollectionAgent, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#
+     * getXmlResourceType(org.opennms.netmgt.collectd.CollectionAgent,
+     * java.lang.String)
      */
     @Override
     protected XmlResourceType getXmlResourceType(CollectionAgent agent, String resourceType) {
         return XmlResourceUtils.getXmlResourceType(agent, resourceType);
     }
 }
-

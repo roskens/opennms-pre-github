@@ -52,22 +52,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml",
         "classpath:/org/opennms/web/svclayer/applicationContext-svclayer.xml",
         "classpath*:/META-INF/opennms/applicationContext-reportingCore.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
+        "classpath*:/META-INF/opennms/component-dao.xml", "classpath*:/META-INF/opennms/component-service.xml",
         "classpath:/org/opennms/dashboard/applicationContext-svclayer-dashboard-test.xml",
         "classpath:/META-INF/opennms/applicationContext-insertData-enabled.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DefaultSurveillanceServiceIntegrationTest implements InitializingBean {
@@ -99,7 +95,10 @@ public class DefaultSurveillanceServiceIntegrationTest implements InitializingBe
 
     private static UserDetails populateSecurityContext() {
         UserDetails details = new User("user", "password", true, true, true, true, new ArrayList<GrantedAuthority>());
-        org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(details, null, details.getAuthorities());
+        org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(
+                                                                                                        details,
+                                                                                                        null,
+                                                                                                        details.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
         return details;
     }

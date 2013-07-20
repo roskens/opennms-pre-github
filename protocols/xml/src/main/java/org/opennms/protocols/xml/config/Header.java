@@ -38,28 +38,31 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="header")
+@XmlRootElement(name = "header")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Header {
 
     /** The name. */
-    @XmlAttribute(required=true)
+    @XmlAttribute(required = true)
     private String name;
 
     /** The value. */
-    @XmlAttribute(required=true)
+    @XmlAttribute(required = true)
     private String value;
 
     /**
      * Instantiates a new header.
      */
-    public Header() {}
+    public Header() {
+    }
 
     /**
      * Instantiates a new header.
      *
-     * @param name the name
-     * @param value the value
+     * @param name
+     *            the name
+     * @param value
+     *            the value
      */
     public Header(String name, String value) {
         this.name = name;
@@ -87,7 +90,8 @@ public class Header {
     /**
      * Sets the name.
      *
-     * @param name the new name
+     * @param name
+     *            the new name
      */
     public void setName(String name) {
         this.name = name;
@@ -96,7 +100,8 @@ public class Header {
     /**
      * Sets the value.
      *
-     * @param value the new value
+     * @param value
+     *            the new value
      */
     public void setValue(String value) {
         this.value = value;

@@ -56,9 +56,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>AsyncBasicDetectorNettyImpl class.</p>
- *
- * CAUTION: This class is unused. This implementation has never been in production.
+ * <p>
+ * AsyncBasicDetectorNettyImpl class.
+ * </p>
+ * CAUTION: This class is unused. This implementation has never been in
+ * production.
  *
  * @author Seth
  */
@@ -67,47 +69,82 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
     private static final Logger LOG = LoggerFactory.getLogger(AsyncBasicDetectorNettyImpl.class);
 
     private static final ChannelFactory m_factory = new NioClientSocketChannelFactory(
-        Executors.newFixedThreadPool(
-          Runtime.getRuntime().availableProcessors()
-          // TODO: Should be uncommented when merging to master
-          //new LogPreservingThreadFactory(getClass().getSimpleName() + ".boss", Integer.MAX_VALUE, false)
-        ),
-        Executors.newFixedThreadPool(
-          Runtime.getRuntime().availableProcessors()
-          // TODO: Should be uncommented when merging to master
-          //new LogPreservingThreadFactory(getClass().getSimpleName() + ".worker", Integer.MAX_VALUE, false)
-        )
-    );
+                                                                                      Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()
+                                                                                      // TODO:
+                                                                                      // Should
+                                                                                      // be
+                                                                                      // uncommented
+                                                                                      // when
+                                                                                      // merging
+                                                                                      // to
+                                                                                      // master
+                                                                                      // new
+                                                                                      // LogPreservingThreadFactory(getClass().getSimpleName()
+                                                                                      // +
+                                                                                      // ".boss",
+                                                                                      // Integer.MAX_VALUE,
+                                                                                      // false)
+                                                                                      ),
+                                                                                      Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()
+                                                                                      // TODO:
+                                                                                      // Should
+                                                                                      // be
+                                                                                      // uncommented
+                                                                                      // when
+                                                                                      // merging
+                                                                                      // to
+                                                                                      // master
+                                                                                      // new
+                                                                                      // LogPreservingThreadFactory(getClass().getSimpleName()
+                                                                                      // +
+                                                                                      // ".worker",
+                                                                                      // Integer.MAX_VALUE,
+                                                                                      // false)
+                                                                                      ));
 
     /**
-     * <p>Constructor for AsyncBasicDetector.</p>
+     * <p>
+     * Constructor for AsyncBasicDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
-     * @param <Request> a Request object.
-     * @param <Response> a Response object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param <Request>
+     *            a Request object.
+     * @param <Response>
+     *            a Response object.
      */
     public AsyncBasicDetectorNettyImpl(final String serviceName, final int port) {
         super(serviceName, port);
     }
 
     /**
-     * <p>Constructor for AsyncBasicDetector.</p>
+     * <p>
+     * Constructor for AsyncBasicDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
-     * @param timeout a int.
-     * @param retries a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
+     * @param retries
+     *            a int.
      */
-    public AsyncBasicDetectorNettyImpl(final String serviceName, final int port, final int timeout, final int retries){
+    public AsyncBasicDetectorNettyImpl(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
     }
 
     /**
-     * <p>dispose</p>
+     * <p>
+     * dispose
+     * </p>
      */
     @Override
-    public void dispose(){
+    public void dispose() {
         LOG.debug("calling dispose on detector {}", getServiceName());
         m_factory.releaseExternalResources();
     }
@@ -127,7 +164,8 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
                     ChannelPipeline retval = Channels.pipeline();
 
                     // Upstream handlers
-                    //retval.addLast("retryHandler", new RetryChannelHandler());
+                    // retval.addLast("retryHandler", new
+                    // RetryChannelHandler());
                     appendToPipeline(retval);
 
                     // Downstream handlers
@@ -160,21 +198,24 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
         // Do nothing by default.
     }
 
-    protected DetectorHandlerNettyImpl<Request, Response> getDetectorHandler(AsyncClientConversation<Request,Response> conversation) {
+    protected DetectorHandlerNettyImpl<Request, Response> getDetectorHandler(
+            AsyncClientConversation<Request, Response> conversation) {
         DetectorHandlerNettyImpl<Request, Response> handler = new DetectorHandlerNettyImpl<Request, Response>();
         handler.setConversation(conversation);
-        //handler.setFuture(detectFuture);
+        // handler.setFuture(detectFuture);
         return handler;
     }
 
     /**
-     * Upstream handler that will reattempt connections if an exception is generated on the
+     * Upstream handler that will reattempt connections if an exception is
+     * generated on the
      * channel.
-     *
-     * TODO: This doesn't work yet... need to figure out how to do retries with Netty
+     * TODO: This doesn't work yet... need to figure out how to do retries with
+     * Netty
      */
     private class RetryChannelFutureListener implements ChannelFutureListener {
         private final SocketAddress m_remoteAddress;
+
         private int m_retries;
 
         public RetryChannelFutureListener(SocketAddress remoteAddress, int retries) {
@@ -186,18 +227,21 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
         public void operationComplete(ChannelFuture future) {
             final Throwable cause = future.getCause();
 
-            if(cause instanceof IOException) {
+            if (cause instanceof IOException) {
                 if (m_retries == 0) {
-                    LOG.info("Service {} detected false",getServiceName());
+                    LOG.info("Service {} detected false", getServiceName());
                     future.setFailure(new ServiceDetectionFailedException());
                 } else {
-                    LOG.info("Connection exception occurred {} for service {}, retrying attempt {}", cause, getServiceName(), m_retries);
+                    LOG.info("Connection exception occurred {} for service {}, retrying attempt {}", cause,
+                             getServiceName(), m_retries);
                     // Get an ephemeral port on the localhost interface
-                    final InetSocketAddress localAddress = new InetSocketAddress(InetAddressUtils.getLocalHostAddress(), 0);
+                    final InetSocketAddress localAddress = new InetSocketAddress(
+                                                                                 InetAddressUtils.getLocalHostAddress(),
+                                                                                 0);
 
                     // Disconnect the channel
-                    //future.getChannel().disconnect().awaitUninterruptibly();
-                    //future.getChannel().unbind().awaitUninterruptibly();
+                    // future.getChannel().disconnect().awaitUninterruptibly();
+                    // future.getChannel().unbind().awaitUninterruptibly();
 
                     // Remove the current RetryChannelHandler
                     future.removeListener(this);
@@ -208,7 +252,7 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
                     future.getChannel().bind(localAddress);
                     future.getChannel().connect(m_remoteAddress);
                 }
-            } else if(cause instanceof Throwable) {
+            } else if (cause instanceof Throwable) {
                 LOG.info("Threw a Throwable and detection is false for service {}", getServiceName(), cause);
                 future.setFailure(new ServiceDetectionFailedException());
             }

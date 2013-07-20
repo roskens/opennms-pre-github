@@ -54,7 +54,6 @@ abstract public class AbstractServiceMonitor implements ServiceMonitor {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * This method is called after the framework creates an instance of the
      * plug-in. The framework passes the object a proxy object that can be used
@@ -62,12 +61,12 @@ abstract public class AbstractServiceMonitor implements ServiceMonitor {
      * Additionally, any parameters for the plug-in from the package definition
      * are passed using the parameters element.
      * </P>
-     *
      * <P>
-     * If there is a critical error, like missing service libraries, the
-     * monitor may throw a ServiceMonitorException. If the plug-in throws an
-     * exception then the plug-in will be disabled in the framework.
+     * If there is a critical error, like missing service libraries, the monitor
+     * may throw a ServiceMonitorException. If the plug-in throws an exception
+     * then the plug-in will be disabled in the framework.
      * </P>
+     *
      * @exception java.lang.RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                plug-in from functioning.
@@ -83,7 +82,6 @@ abstract public class AbstractServiceMonitor implements ServiceMonitor {
      * resource and save any state information using the proxy object from the
      * initialization routine.
      * </P>
-     *
      * <P>
      * Even if the plug-in throws a monitor exception, it will not prevent the
      * plug-in from being unloaded. The plug-in should not return until all of
@@ -105,7 +103,6 @@ abstract public class AbstractServiceMonitor implements ServiceMonitor {
      * load and/or associate configuration information with the interface before
      * the framework begins scheduling the new device.
      * </P>
-     *
      * <P>
      * Should a monitor exception be thrown during an initialization call then
      * the framework will log an error and discard the interface from
@@ -115,14 +112,15 @@ abstract public class AbstractServiceMonitor implements ServiceMonitor {
      * @exception java.lang.RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                interface from being monitored.
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
-    public void initialize(MonitoredService svc) {}
+    public void initialize(MonitoredService svc) {
+    }
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * This method is the called whenever an interface is being removed from the
      * scheduler. For example, if a service is determined as being no longer
@@ -130,11 +128,11 @@ abstract public class AbstractServiceMonitor implements ServiceMonitor {
      * associated with this device. This gives the implementor of the interface
      * the ability to serialize any data prior to the interface being discarded.
      * </P>
-     *
      * <P>
      * If an exception is thrown during the release the exception will be
      * logged, but the interface will still be discarded for garbage collection.
      * </P>
+     *
      * @exception java.lang.RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                interface from being monitored.

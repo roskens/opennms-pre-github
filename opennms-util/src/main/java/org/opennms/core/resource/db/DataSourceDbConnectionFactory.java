@@ -34,7 +34,9 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 /**
- * <p>DataSourceDbConnectionFactory class.</p>
+ * <p>
+ * DataSourceDbConnectionFactory class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -43,28 +45,37 @@ public class DataSourceDbConnectionFactory implements DbConnectionFactory {
     private DataSource m_dataSource;
 
     /**
-     * <p>Constructor for DataSourceDbConnectionFactory.</p>
+     * <p>
+     * Constructor for DataSourceDbConnectionFactory.
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public DataSourceDbConnectionFactory(DataSource dataSource) {
         m_dataSource = dataSource;
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public void destroy() throws SQLException {
     }
 
     /**
-     * <p>getConnection</p>
+     * <p>
+     * getConnection
+     * </p>
      *
      * @return a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public Connection getConnection() throws SQLException {
@@ -73,7 +84,8 @@ public class DataSourceDbConnectionFactory implements DbConnectionFactory {
 
     /** {@inheritDoc} */
     @Override
-    public void init(String dbUrl, String dbDriver, String username, String password) throws ClassNotFoundException, SQLException {
+    public void init(String dbUrl, String dbDriver, String username, String password) throws ClassNotFoundException,
+            SQLException {
         throw new UnsupportedOperationException("not implemented");
     }
 

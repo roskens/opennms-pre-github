@@ -41,15 +41,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.core.style.ToStringCreator;
 
-
 /**
- * <p>OnmsServiceType class.</p>
+ * <p>
+ * OnmsServiceType class.
+ * </p>
  *
  * @hibernate.class table="service"
  */
 @XmlRootElement(name = "serviceType")
 @Entity
-@Table(name="service")
+@Table(name = "service")
 public class OnmsServiceType implements Serializable {
 
     private static final long serialVersionUID = -459218937667452586L;
@@ -63,7 +64,8 @@ public class OnmsServiceType implements Serializable {
     /**
      * full constructor
      *
-     * @param servicename a {@link java.lang.String} object.
+     * @param servicename
+     *            a {@link java.lang.String} object.
      */
     public OnmsServiceType(String servicename) {
         m_name = servicename;
@@ -76,72 +78,83 @@ public class OnmsServiceType implements Serializable {
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @XmlAttribute(name="id")
-    @Column(name="serviceId", nullable=false)
-    @SequenceGenerator(name="serviceTypeSequence", sequenceName="serviceNxtId")
-    @GeneratedValue(generator="serviceTypeSequence")
+    @XmlAttribute(name = "id")
+    @Column(name = "serviceId", nullable = false)
+    @SequenceGenerator(name = "serviceTypeSequence", sequenceName = "serviceNxtId")
+    @GeneratedValue(generator = "serviceTypeSequence")
     public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param serviceid a {@link java.lang.Integer} object.
+     * @param serviceid
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer serviceid) {
         m_id = serviceid;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="serviceName", nullable=false, unique=true, length=255)
+    @Column(name = "serviceName", nullable = false, unique = true, length = 255)
     public String getName() {
         return m_name;
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-            .append("id", getId())
-            .append("name", getName())
-            .toString();
+        return new ToStringCreator(this).append("id", getId()).append("name", getName()).toString();
     }
 
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof OnmsServiceType) {
-            OnmsServiceType t = (OnmsServiceType)obj;
+            OnmsServiceType t = (OnmsServiceType) obj;
             return m_id.equals(t.m_id);
         }
         return false;
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */

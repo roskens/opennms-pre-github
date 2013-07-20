@@ -56,7 +56,9 @@ public class AccessPointMonitorConfig implements Serializable, Comparable<Access
     private static final long serialVersionUID = -7884808420236892997L;
 
     private static final ServiceTemplate[] OF_TEMPLATES = new ServiceTemplate[0];
+
     private static final Package[] OF_PACKAGES = new Package[0];
+
     private static final Monitor[] OF_MONITORS = new Monitor[0];
 
     @XmlAttribute(name = "threads")
@@ -139,12 +141,10 @@ public class AccessPointMonitorConfig implements Serializable, Comparable<Access
 
     @Override
     public int compareTo(AccessPointMonitorConfig obj) {
-        return new CompareToBuilder()
-            .append(getThreads(), obj.getThreads())
-            .append(getServiceTemplates().toArray(OF_TEMPLATES), obj.getServiceTemplates().toArray(OF_TEMPLATES))
-            .append(getPackages().toArray(OF_PACKAGES), obj.getPackages().toArray(OF_PACKAGES))
-            .append(getMonitors().toArray(OF_MONITORS), obj.getMonitors().toArray(OF_MONITORS))
-            .toComparison();
+        return new CompareToBuilder().append(getThreads(), obj.getThreads()).append(getServiceTemplates().toArray(OF_TEMPLATES),
+                                                                                    obj.getServiceTemplates().toArray(OF_TEMPLATES)).append(getPackages().toArray(OF_PACKAGES),
+                                                                                                                                            obj.getPackages().toArray(OF_PACKAGES)).append(getMonitors().toArray(OF_MONITORS),
+                                                                                                                                                                                           obj.getMonitors().toArray(OF_MONITORS)).toComparison();
     }
 
     @Override
@@ -163,12 +163,10 @@ public class AccessPointMonitorConfig implements Serializable, Comparable<Access
     public boolean equals(Object obj) {
         if (obj instanceof AccessPointMonitorConfig) {
             AccessPointMonitorConfig other = (AccessPointMonitorConfig) obj;
-            return new EqualsBuilder()
-                .append(getThreads(), other.getThreads())
-                .append(getServiceTemplates().toArray(OF_TEMPLATES), other.getServiceTemplates().toArray(OF_TEMPLATES))
-                .append(getPackages().toArray(OF_PACKAGES), other.getPackages().toArray(OF_PACKAGES))
-                .append(getMonitors().toArray(OF_MONITORS), other.getMonitors().toArray(OF_MONITORS))
-                .isEquals();
+            return new EqualsBuilder().append(getThreads(), other.getThreads()).append(getServiceTemplates().toArray(OF_TEMPLATES),
+                                                                                       other.getServiceTemplates().toArray(OF_TEMPLATES)).append(getPackages().toArray(OF_PACKAGES),
+                                                                                                                                                 other.getPackages().toArray(OF_PACKAGES)).append(getMonitors().toArray(OF_MONITORS),
+                                                                                                                                                                                                  other.getMonitors().toArray(OF_MONITORS)).isEquals();
         }
         return false;
     }

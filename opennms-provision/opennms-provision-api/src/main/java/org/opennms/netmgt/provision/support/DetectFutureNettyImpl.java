@@ -35,9 +35,11 @@ import org.opennms.netmgt.provision.DetectFuture;
 import org.opennms.netmgt.provision.DetectFutureListener;
 
 /**
- * <p>DetectFutureNettyImpl class.</p>
- *
- * CAUTION: This class is unused. This implementation has never been in production.
+ * <p>
+ * DetectFutureNettyImpl class.
+ * </p>
+ * CAUTION: This class is unused. This implementation has never been in
+ * production.
  *
  * @author Seth
  */
@@ -47,23 +49,31 @@ public class DetectFutureNettyImpl implements DetectFuture {
         private static final long serialVersionUID = -3784608501286028523L;
     }
 
-    private final AsyncBasicDetectorNettyImpl<?,?> m_detector;
+    private final AsyncBasicDetectorNettyImpl<?, ?> m_detector;
+
     private final ChannelFuture m_future;
 
     /**
-     * <p>Constructor for DefaultDetectFuture.</p>
+     * <p>
+     * Constructor for DefaultDetectFuture.
+     * </p>
      *
-     * @param detector a {@link org.opennms.netmgt.provision.AsyncServiceDetector} object.
+     * @param detector
+     *            a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
+     *            object.
      */
-    public DetectFutureNettyImpl(final AsyncBasicDetectorNettyImpl<?,?> detector, final ChannelFuture future) {
+    public DetectFutureNettyImpl(final AsyncBasicDetectorNettyImpl<?, ?> detector, final ChannelFuture future) {
         m_detector = detector;
         m_future = future;
     }
 
     /**
-     * <p>getServiceDetector</p>
+     * <p>
+     * getServiceDetector
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector} object.
+     * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
+     *         object.
      */
     @Override
     public AsyncServiceDetector getServiceDetector() {
@@ -71,7 +81,9 @@ public class DetectFutureNettyImpl implements DetectFuture {
     }
 
     /**
-     * <p>isServiceDetected</p>
+     * <p>
+     * isServiceDetected
+     * </p>
      *
      * @return a boolean.
      */
@@ -81,7 +93,9 @@ public class DetectFutureNettyImpl implements DetectFuture {
     }
 
     /**
-     * <p>getException</p>
+     * <p>
+     * getException
+     * </p>
      *
      * @return a {@link java.lang.Throwable} object.
      */

@@ -54,9 +54,12 @@ import org.opennms.acl.domain.Group;
 public interface GroupFactory {
 
     /**
-     * <p>getGroup</p>
+     * <p>
+     * getGroup
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.acl.domain.Group} object.
      */
     public Group getGroup(Integer id);

@@ -60,7 +60,8 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * </EM> to inform other threads.
      * </P>
      *
-     * @param address TODO
+     * @param address
+     *            TODO
      * @see IfXTableEntry
      */
     public IfXTable(InetAddress address) {
@@ -68,10 +69,14 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     }
 
     /**
-     * <p>Constructor for IfXTable.</p>
+     * <p>
+     * Constructor for IfXTable.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param ifIndices a {@link java.util.Set} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param ifIndices
+     *            a {@link java.util.Set} object.
      */
     public IfXTable(InetAddress address, Set<SnmpInstId> ifIndices) {
         super(address, "ifXTable", IfXTableEntry.ms_elemList, ifIndices);
@@ -84,9 +89,12 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     }
 
     /**
-     * <p>getIfName</p>
+     * <p>
+     * getIfName
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getIfName(int ifIndex) {
@@ -94,9 +102,12 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     }
 
     /**
-     * <p>getIfAlias</p>
+     * <p>
+     * getIfAlias
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getIfAlias(int ifIndex) {
@@ -104,20 +115,28 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     }
 
     /**
-     * <p>updateSnmpInterfaceData</p>
+     * <p>
+     * updateSnmpInterfaceData
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void updateSnmpInterfaceData(OnmsNode node) {
-        for(IfXTableEntry entry : getEntries()) {
+        for (IfXTableEntry entry : getEntries()) {
             updateSnmpInterfaceData(node, entry.getIfIndex());
         }
     }
+
     /**
-     * <p>updateSnmpInterfaceData</p>
+     * <p>
+     * updateSnmpInterfaceData
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
-     * @param ifIndex a {@link java.lang.Integer} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param ifIndex
+     *            a {@link java.lang.Integer} object.
      */
     public void updateSnmpInterfaceData(OnmsNode node, Integer ifIndex) {
         // first look to see if an snmpIf was created already

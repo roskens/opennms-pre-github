@@ -59,7 +59,8 @@ public class FilesystemForeignSourceRepositoryTest extends ForeignSourceReposito
     }
 
     private Requisition createRequisition() throws Exception {
-        Requisition r = m_foreignSourceRepository.importResourceRequisition(new ClassPathResource("/requisition-test.xml"));
+        Requisition r = m_foreignSourceRepository.importResourceRequisition(new ClassPathResource(
+                                                                                                  "/requisition-test.xml"));
         m_foreignSourceRepository.save(r);
         m_foreignSourceRepository.flush();
         return r;
@@ -68,7 +69,8 @@ public class FilesystemForeignSourceRepositoryTest extends ForeignSourceReposito
     private ForeignSource createForeignSource(String foreignSource) throws Exception {
         ForeignSource fs = new ForeignSource(foreignSource);
         fs.addDetector(new PluginConfig("HTTP", "org.opennms.netmgt.provision.detector.simple.HttpDetector"));
-        fs.addPolicy(new PluginConfig("all-ipinterfaces", "org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy"));
+        fs.addPolicy(new PluginConfig("all-ipinterfaces",
+                                      "org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy"));
         m_foreignSourceRepository.save(fs);
         m_foreignSourceRepository.flush();
         return fs;
@@ -90,7 +92,8 @@ public class FilesystemForeignSourceRepositoryTest extends ForeignSourceReposito
         ForeignSource foreignSource = createForeignSource(m_defaultForeignSourceName);
         Set<ForeignSource> foreignSources = m_foreignSourceRepository.getForeignSources();
         assertEquals("number of foreign sources must be 1", 1, foreignSources.size());
-        assertEquals("getAll() foreign source name must match", m_defaultForeignSourceName, foreignSources.iterator().next().getName());
+        assertEquals("getAll() foreign source name must match", m_defaultForeignSourceName,
+                     foreignSources.iterator().next().getName());
 
         // check that the foreign source matches
         final ForeignSource newForeignSource = m_foreignSourceRepository.getForeignSource(m_defaultForeignSourceName);
@@ -105,14 +108,18 @@ public class FilesystemForeignSourceRepositoryTest extends ForeignSourceReposito
     public void testGetRequisition() throws Exception {
         Requisition requisition = createRequisition();
         ForeignSource foreignSource = createForeignSource(m_defaultForeignSourceName);
-        assertRequisitionsMatch("requisitions must match", m_foreignSourceRepository.getRequisition(m_defaultForeignSourceName), m_foreignSourceRepository.getRequisition(foreignSource));
-        assertRequisitionsMatch("foreign source is the expected one", requisition, m_foreignSourceRepository.getRequisition(foreignSource));
+        assertRequisitionsMatch("requisitions must match",
+                                m_foreignSourceRepository.getRequisition(m_defaultForeignSourceName),
+                                m_foreignSourceRepository.getRequisition(foreignSource));
+        assertRequisitionsMatch("foreign source is the expected one", requisition,
+                                m_foreignSourceRepository.getRequisition(foreignSource));
     }
 
     @Test
     public void testDefaultForeignSource() throws Exception {
         createRequisition();
-        List<String> detectorList = Arrays.asList(new String[]{ "DNS", "FTP", "HTTP", "HTTPS", "ICMP", "IMAP", "LDAP", "NRPE", "POP3", "SMTP", "SNMP", "SSH" });
+        List<String> detectorList = Arrays.asList(new String[] { "DNS", "FTP", "HTTP", "HTTPS", "ICMP", "IMAP", "LDAP",
+                "NRPE", "POP3", "SMTP", "SNMP", "SSH" });
         String uuid = UUID.randomUUID().toString();
         ForeignSource defaultForeignSource = m_foreignSourceRepository.getForeignSource(uuid);
         assertEquals("name must match requested foreign source repository name", uuid, defaultForeignSource.getName());

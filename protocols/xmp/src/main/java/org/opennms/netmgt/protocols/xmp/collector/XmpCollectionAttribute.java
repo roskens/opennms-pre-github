@@ -34,19 +34,19 @@
  ************************************************************************/
 
 /*
-* OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
-* DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
-*
-* This file was contributed to the OpenNMS(R) project under the
-* terms of the OpenNMS Contributor Agreement (OCA).  For details on
-* the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
-*
-* Contributed under the terms of the OCA by:
-*
-* Bobby Krupczak <rdk@krupczak.org>
-* THE KRUPCZAK ORGANIZATION, LLC
-* http://www.krupczak.org/
-*/
+ * OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
+ * DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
+ *
+ * This file was contributed to the OpenNMS(R) project under the
+ * terms of the OpenNMS Contributor Agreement (OCA).  For details on
+ * the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
+ *
+ * Contributed under the terms of the OCA by:
+ *
+ * Bobby Krupczak <rdk@krupczak.org>
+ * THE KRUPCZAK ORGANIZATION, LLC
+ * http://www.krupczak.org/
+ */
 
 /**
  *   XmpCollectionAttribute is an actual data point collected via XMP;
@@ -66,116 +66,147 @@ import org.opennms.netmgt.config.collector.CollectionAttribute;
 import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.ServiceParameters;
-public class XmpCollectionAttribute extends AbstractCollectionAttribute
-implements CollectionAttribute
-{
+
+public class XmpCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
     /* class variables and methods *********************** */
 
     /* instance variables ******************************** */
     private XmpVar aVar;
+
     private String alias;
+
     private XmpCollectionResource resource;
+
     private CollectionAttributeType attribType;
 
-    /* constructors  ************************************* */
-    XmpCollectionAttribute() { aVar = null; }
+    /* constructors ************************************* */
+    XmpCollectionAttribute() {
+        aVar = null;
+    }
 
-    XmpCollectionAttribute(XmpVar aVar, String alias, XmpCollectionResource res)
-    {
+    XmpCollectionAttribute(XmpVar aVar, String alias, XmpCollectionResource res) {
         this.aVar = aVar;
         this.alias = alias;
         this.resource = res;
     }
 
-    XmpCollectionAttribute(XmpCollectionResource res,
-                           CollectionAttributeType attribType,
-                           String alias, XmpVar aVar)
-                           {
-        this(aVar,alias,res);
+    XmpCollectionAttribute(XmpCollectionResource res, CollectionAttributeType attribType, String alias, XmpVar aVar) {
+        this(aVar, alias, res);
         this.attribType = attribType;
-                           }
+    }
 
     /* private methods *********************************** */
 
     /* public methods ************************************ */
 
     /**
-     * <p>getAttributeType</p>
+     * <p>
+     * getAttributeType
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionAttributeType} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
+     *         object.
      */
     @Override
-    public CollectionAttributeType getAttributeType() { return attribType; }
+    public CollectionAttributeType getAttributeType() {
+        return attribType;
+    }
 
     /**
-     * <p>setAttributeType</p>
+     * <p>
+     * setAttributeType
+     * </p>
      *
-     * @param attribType a {@link org.opennms.netmgt.config.collector.CollectionAttributeType} object.
+     * @param attribType
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
+     *            object.
      */
-    public void setAttributeType(CollectionAttributeType attribType)
-    {
+    public void setAttributeType(CollectionAttributeType attribType) {
         this.attribType = attribType;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String getName()
-    {
+    public String getName() {
         return new String(alias);
     }
 
     /**
-     * <p>Getter for the field <code>resource</code>.</p>
+     * <p>
+     * Getter for the field <code>resource</code>.
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
+     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *         object.
      */
     @Override
-    public CollectionResource getResource() { return resource; }
-
-    /**
-     * <p>getNumericValue</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public String getNumericValue() { return aVar.getValue(); }
-
-    /**
-     * <p>getType</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public String getType() { return Xmp.syntaxToString(aVar.xmpSyntax); }
-
-    /** {@inheritDoc} */
-    @Override
-    public boolean shouldPersist(ServiceParameters params) { return true; }
-
-    //public void visit(CollectionSetVisitor visitor) { super(visitor); }
-
-    /**
-     * <p>toString</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public String toString()
-    {
-        return "XmpCollectionAttribute "+alias+"="+aVar.getValue()+" attribType="+attribType;
+    public CollectionResource getResource() {
+        return resource;
     }
 
     /**
-     * <p>getStringValue</p>
+     * <p>
+     * getNumericValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String getStringValue() { return aVar.getValue(); }
+    public String getNumericValue() {
+        return aVar.getValue();
+    }
+
+    /**
+     * <p>
+     * getType
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getType() {
+        return Xmp.syntaxToString(aVar.xmpSyntax);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean shouldPersist(ServiceParameters params) {
+        return true;
+    }
+
+    // public void visit(CollectionSetVisitor visitor) { super(visitor); }
+
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return "XmpCollectionAttribute " + alias + "=" + aVar.getValue() + " attribType=" + attribType;
+    }
+
+    /**
+     * <p>
+     * getStringValue
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getStringValue() {
+        return aVar.getValue();
+    }
 
     @Override
     public String getMetricIdentifier() {

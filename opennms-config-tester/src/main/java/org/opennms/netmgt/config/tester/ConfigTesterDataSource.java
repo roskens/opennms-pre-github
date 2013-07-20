@@ -40,62 +40,61 @@ import javax.sql.DataSource;
 
 class ConfigTesterDataSource implements DataSource {
 
-	private List<SQLException> m_connectionGetAttempts = new ArrayList<SQLException>();
+    private List<SQLException> m_connectionGetAttempts = new ArrayList<SQLException>();
 
-        @Override
-	public PrintWriter getLogWriter() throws SQLException {
-		return null;
-	}
+    @Override
+    public PrintWriter getLogWriter() throws SQLException {
+        return null;
+    }
 
-        @Override
-	public int getLoginTimeout() throws SQLException {
-		return 0;
-	}
+    @Override
+    public int getLoginTimeout() throws SQLException {
+        return 0;
+    }
 
-        @Override
-	public void setLogWriter(PrintWriter arg0) throws SQLException {
-	}
+    @Override
+    public void setLogWriter(PrintWriter arg0) throws SQLException {
+    }
 
-        @Override
-	public void setLoginTimeout(int arg0) throws SQLException {
-	}
+    @Override
+    public void setLoginTimeout(int arg0) throws SQLException {
+    }
 
-	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-		throw new SQLFeatureNotSupportedException("getParentLogger not supported");
-	}
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        throw new SQLFeatureNotSupportedException("getParentLogger not supported");
+    }
 
-        @Override
-	public boolean isWrapperFor(Class<?> arg0) throws SQLException {
-		return false;
-	}
+    @Override
+    public boolean isWrapperFor(Class<?> arg0) throws SQLException {
+        return false;
+    }
 
-        @Override
-	public <T> T unwrap(Class<T> arg0) throws SQLException {
-		return null;
-	}
+    @Override
+    public <T> T unwrap(Class<T> arg0) throws SQLException {
+        return null;
+    }
 
-        @Override
-	public Connection getConnection() throws SQLException {
-		return createStoreAndThrowException();
-	}
+    @Override
+    public Connection getConnection() throws SQLException {
+        return createStoreAndThrowException();
+    }
 
-        @Override
-	public Connection getConnection(String arg0, String arg1)
-			throws SQLException {
-		return createStoreAndThrowException();
-	}
+    @Override
+    public Connection getConnection(String arg0, String arg1) throws SQLException {
+        return createStoreAndThrowException();
+    }
 
-	private Connection createStoreAndThrowException() throws SQLException {
-		SQLException e = createException();
-		m_connectionGetAttempts.add(e);
-		throw e;
-	}
+    private Connection createStoreAndThrowException() throws SQLException {
+        SQLException e = createException();
+        m_connectionGetAttempts.add(e);
+        throw e;
+    }
 
-	private SQLException createException() {
-		return new SQLException("No database connections should be requested when reading a configuration file, dude.");
-	}
+    private SQLException createException() {
+        return new SQLException("No database connections should be requested when reading a configuration file, dude.");
+    }
 
-	public List<SQLException> getConnectionGetAttempts() {
-		return m_connectionGetAttempts;
-	}
+    public List<SQLException> getConnectionGetAttempts() {
+        return m_connectionGetAttempts;
+    }
 }

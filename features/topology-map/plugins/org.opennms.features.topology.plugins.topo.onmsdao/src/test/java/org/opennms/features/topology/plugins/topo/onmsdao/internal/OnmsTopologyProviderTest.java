@@ -37,39 +37,36 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:/META-INF/opennms/applicationContext-mock.xml"
-})
-
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-mock.xml" })
 public class OnmsTopologyProviderTest {
 
-	@Autowired
-	private OnmsTopologyProvider m_topologyProvider;
+    @Autowired
+    private OnmsTopologyProvider m_topologyProvider;
 
-	@Autowired
-	private EasyMockDataPopulator m_databasePopulator;
+    @Autowired
+    private EasyMockDataPopulator m_databasePopulator;
 
-	@Before
-	public void setUp() {
-		m_databasePopulator.populateDatabase();
-	}
+    @Before
+    public void setUp() {
+        m_databasePopulator.populateDatabase();
+    }
 
-	@After
-	public void tearDown() {
-		if(m_topologyProvider != null) {
-			m_topologyProvider.resetContainer();
-		}
-		m_databasePopulator.tearDown();
-	}
+    @After
+    public void tearDown() {
+        if (m_topologyProvider != null) {
+            m_topologyProvider.resetContainer();
+        }
+        m_databasePopulator.tearDown();
+    }
 
-	@Test
-	public void testLoad1() {
-		m_topologyProvider.load("1");
-	}
+    @Test
+    public void testLoad1() {
+        m_topologyProvider.load("1");
+    }
 
-	@Test
-	public void testLoad2() {
-		m_topologyProvider.load("2");
-	}
+    @Test
+    public void testLoad2() {
+        m_topologyProvider.load("2");
+    }
 
 }

@@ -62,14 +62,16 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class SupportController extends AbstractController implements InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SupportController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SupportController.class);
 
     private SystemReport m_systemReport = null;
+
     private SupportRtConfigDao m_configDao = null;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response)
+            throws Exception {
         final String operation = request.getParameter("operation");
         final HttpSession session = request.getSession(true);
 
@@ -88,7 +90,7 @@ public class SupportController extends AbstractController implements Initializin
             results = createTicket(request);
         }
 
-        RequestTracker rt = (RequestTracker)session.getAttribute("requestTracker");
+        RequestTracker rt = (RequestTracker) session.getAttribute("requestTracker");
 
         if (results.getNeedsLogin() == false) {
             if (results.getQueue() == null) {
@@ -109,13 +111,13 @@ public class SupportController extends AbstractController implements Initializin
     private SupportResults createTicket(final HttpServletRequest request) {
         final HttpSession session = request.getSession();
 
-        final RequestTracker rt = (RequestTracker)session.getAttribute("requestTracker");
+        final RequestTracker rt = (RequestTracker) session.getAttribute("requestTracker");
 
         // get ticket and user information
         final String subject = request.getParameter("subject").trim();
         String body = request.getParameter("text").trim();
         final String includeReport = request.getParameter("include-report");
-        final boolean report  = Boolean.parseBoolean(includeReport);
+        final boolean report = Boolean.parseBoolean(includeReport);
         LOG.debug("include report?: {} (parsed as {})", includeReport, Boolean.valueOf(report));
 
         final RTUser user = rt.getUserInfo(rt.getUsername());
@@ -136,12 +138,14 @@ public class SupportController extends AbstractController implements Initializin
         // create report if necessary
         if (report) {
             final FtpSystemReportFormatter formatter = new FtpSystemReportFormatter();
-            final String url = m_configDao.getFtpBaseURL() + "/" + queue.getName() + "-" + user.getUsername() + "-" + UUID.randomUUID() + ".zip";
+            final String url = m_configDao.getFtpBaseURL() + "/" + queue.getName() + "-" + user.getUsername() + "-"
+                    + UUID.randomUUID() + ".zip";
             formatter.setOutput(url);
 
             formatter.begin();
             for (final SystemReportPlugin plugin : m_systemReport.getPlugins()) {
-                if (plugin.getName().equals("Logs")) continue;
+                if (plugin.getName().equals("Logs"))
+                    continue;
 
                 formatter.write(plugin);
             }
@@ -150,21 +154,23 @@ public class SupportController extends AbstractController implements Initializin
             body = body.concat("\n\nSystem report is available at: " + url + "\n");
         }
 
-
         final SupportResults results = new SupportResults();
         results.setNeedsLogin(false);
         results.setUsername(rt.getUsername());
         results.setQueue(queue.getName());
 
         List<CustomField> customFields = new ArrayList<CustomField>();
-        customFields.add(new CustomField(m_configDao.getVersionFieldName(), "Version " + Vault.getProperty("version.display"), false));
-        customFields.add(new CustomField(m_configDao.getOSFieldName(), System.getProperty("os.name")+" "+System.getProperty("os.version")+" ("+System.getProperty("os.arch")+")", false));
+        customFields.add(new CustomField(m_configDao.getVersionFieldName(), "Version "
+                + Vault.getProperty("version.display"), false));
+        customFields.add(new CustomField(m_configDao.getOSFieldName(), System.getProperty("os.name") + " "
+                + System.getProperty("os.version") + " (" + System.getProperty("os.arch") + ")", false));
 
         final RTTicket ticket = new RTTicket(queue.getName(), email, subject, body, customFields);
         try {
             final long id = rt.createTicket(ticket);
             results.setSuccess(true);
-            results.setMessage("New ticket created: <a href=\"" + m_configDao.getBaseURL() + "/Ticket/Display.html?id=" + id + "\">" + id + "</a>");
+            results.setMessage("New ticket created: <a href=\"" + m_configDao.getBaseURL() + "/Ticket/Display.html?id="
+                    + id + "\">" + id + "</a>");
         } catch (final RequestTrackerException e) {
             LOG.warn("Unable to create ticket {}", ticket, e);
             results.setSuccess(false);
@@ -177,7 +183,8 @@ public class SupportController extends AbstractController implements Initializin
         final String username = request.getParameter("username").trim();
         final String password = request.getParameter("password").trim();
 
-        final RequestTracker rt = new RequestTracker(m_configDao.getBaseURL(), username, password, m_configDao.getTimeout(), m_configDao.getRetry());
+        final RequestTracker rt = new RequestTracker(m_configDao.getBaseURL(), username, password,
+                                                     m_configDao.getTimeout(), m_configDao.getRetry());
         LOG.debug("tracker = {}", rt);
 
         final SupportResults results = new SupportResults();
@@ -200,7 +207,8 @@ public class SupportController extends AbstractController implements Initializin
 
                 m_configDao.setQueueId(queue.getId());
             } else {
-                LOG.debug("Existing queue found in support.properties ({}), will not overwrite.", m_configDao.getQueueId().toString());
+                LOG.debug("Existing queue found in support.properties ({}), will not overwrite.",
+                          m_configDao.getQueueId().toString());
             }
 
             m_configDao.setUsername(username);
@@ -228,7 +236,7 @@ public class SupportController extends AbstractController implements Initializin
 
     private SupportResults logout(final HttpServletRequest request) {
         final HttpSession session = request.getSession(true);
-        final RequestTracker rt = (RequestTracker)session.getAttribute("requestTracker");
+        final RequestTracker rt = (RequestTracker) session.getAttribute("requestTracker");
         session.setAttribute("requestTracker", null);
 
         m_configDao.setUsername(null);

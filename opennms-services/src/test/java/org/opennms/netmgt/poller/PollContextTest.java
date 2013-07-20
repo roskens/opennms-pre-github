@@ -62,14 +62,23 @@ import org.opennms.netmgt.xml.event.Event;
 public class PollContextTest {
 
     private MockNetwork m_mNetwork;
+
     private MockDatabase m_db;
+
     private MockPollerConfig m_pollerConfig;
+
     private DefaultPollContext m_pollContext;
+
     private PollableNetwork m_pNetwork;
+
     private PollableService m_pSvc;
+
     private MockService m_mSvc;
+
     private EventAnticipator m_anticipator;
+
     private OutageAnticipator m_outageAnticipator;
+
     private MockEventIpcManager m_eventMgr;
 
     @Before
@@ -133,8 +142,8 @@ public class PollContextTest {
         m_pollContext.setPollerConfig(m_pollerConfig);
         m_pollContext.setQueryManager(qm);
 
-       m_pNetwork = new PollableNetwork(m_pollContext);
-       m_pSvc = m_pNetwork.createService(1, "Router", InetAddressUtils.addr("192.168.1.1"), "ICMP");
+        m_pNetwork = new PollableNetwork(m_pollContext);
+        m_pSvc = m_pNetwork.createService(1, "Router", InetAddressUtils.addr("192.168.1.1"), "ICMP");
 
     }
 
@@ -180,32 +189,37 @@ public class PollContextTest {
         assertEquals(0, m_anticipator.waitForAnticipated(0).size());
         assertEquals(0, m_anticipator.unanticipatedEvents().size());
 
-
     }
 
     @Test
     public void testCreateEvent() throws Exception {
         Date date = new Date(1222222222000L);
-        Event nodeEvent = m_pollContext.createEvent(EventConstants.NODE_DOWN_EVENT_UEI, 1, null, null, date, String.valueOf(PollStatus.SERVICE_UNAVAILABLE));
+        Event nodeEvent = m_pollContext.createEvent(EventConstants.NODE_DOWN_EVENT_UEI, 1, null, null, date,
+                                                    String.valueOf(PollStatus.SERVICE_UNAVAILABLE));
         assertEquals(EventConstants.NODE_DOWN_EVENT_UEI, nodeEvent.getUei());
         assertEquals(Long.valueOf(1), nodeEvent.getNodeid());
         assertNull(nodeEvent.getInterface());
         assertNull(nodeEvent.getService());
-        assertEquals("Unexpected time for event",date.toString(), EventConstants.parseToDate(nodeEvent.getTime()).toString());
+        assertEquals("Unexpected time for event", date.toString(),
+                     EventConstants.parseToDate(nodeEvent.getTime()).toString());
 
-        Event ifEvent = m_pollContext.createEvent(EventConstants.INTERFACE_UP_EVENT_UEI, 1, InetAddressUtils.addr("192.168.1.1"), null, date, null);
+        Event ifEvent = m_pollContext.createEvent(EventConstants.INTERFACE_UP_EVENT_UEI, 1,
+                                                  InetAddressUtils.addr("192.168.1.1"), null, date, null);
         assertEquals(EventConstants.INTERFACE_UP_EVENT_UEI, ifEvent.getUei());
         assertEquals(Long.valueOf(1), ifEvent.getNodeid());
         assertEquals("192.168.1.1", ifEvent.getInterface());
         assertNull(ifEvent.getService());
-        assertEquals("Unexpected time for event", date.toString(), EventConstants.parseToDate(ifEvent.getTime()).toString());
+        assertEquals("Unexpected time for event", date.toString(),
+                     EventConstants.parseToDate(ifEvent.getTime()).toString());
 
-        Event svcEvent = m_pollContext.createEvent(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, 1, InetAddressUtils.addr("192.168.1.1"), "ICMP", date, null);
+        Event svcEvent = m_pollContext.createEvent(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, 1,
+                                                   InetAddressUtils.addr("192.168.1.1"), "ICMP", date, null);
         assertEquals(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, svcEvent.getUei());
         assertEquals(Long.valueOf(1), svcEvent.getNodeid());
         assertEquals("192.168.1.1", svcEvent.getInterface());
         assertEquals("ICMP", svcEvent.getService());
-        assertEquals("Unexpected time for event", date.toString(), EventConstants.parseToDate(svcEvent.getTime()).toString());
+        assertEquals("Unexpected time for event", date.toString(),
+                     EventConstants.parseToDate(svcEvent.getTime()).toString());
 
     }
 
@@ -226,7 +240,8 @@ public class PollContextTest {
 
         verifyOutages();
 
-        // doing this a second time to ensure the database doesn't hose the outages
+        // doing this a second time to ensure the database doesn't hose the
+        // outages
         // this was added to detect an actual bug
 
         Event downEvent2 = m_mSvc.createDownEvent();
@@ -244,7 +259,6 @@ public class PollContextTest {
 
         verifyOutages();
 
-
     }
 
     /**
@@ -252,8 +266,10 @@ public class PollContextTest {
      */
     private void verifyOutages() {
         m_eventMgr.finishProcessingEvents();
-        assertEquals("Wrong number of outages opened", m_outageAnticipator.getExpectedOpens(), m_outageAnticipator.getActualOpens());
-        assertEquals("Wrong number of outages in outage table", m_outageAnticipator.getExpectedOutages(), m_outageAnticipator.getActualOutages());
+        assertEquals("Wrong number of outages opened", m_outageAnticipator.getExpectedOpens(),
+                     m_outageAnticipator.getActualOpens());
+        assertEquals("Wrong number of outages in outage table", m_outageAnticipator.getExpectedOutages(),
+                     m_outageAnticipator.getActualOutages());
         assertTrue("Created outages don't match the expected outages", m_outageAnticipator.checkAnticipated());
     }
 

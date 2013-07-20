@@ -53,16 +53,13 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-// TODO when a new resource type is added, the resourceType list passed to GroupFieldFactory must be updated.
+// TODO when a new resource type is added, the resourceType list passed to
+// GroupFieldFactory must be updated.
 @SuppressWarnings("serial")
 public abstract class GroupForm extends Form implements ClickListener {
 
     /** The Constant FORM_ITEMS. */
-    public static final String[] FORM_ITEMS = new String[] {
-        "name",
-        "ifType",
-        "mibObjCollection"
-    };
+    public static final String[] FORM_ITEMS = new String[] { "name", "ifType", "mibObjCollection" };
 
     /** The Edit button. */
     private final Button edit = new Button("Edit");
@@ -79,8 +76,10 @@ public abstract class GroupForm extends Form implements ClickListener {
     /**
      * Instantiates a new group form.
      *
-     * @param dataCollectionConfigDao the OpenNMS Data Collection Configuration DAO
-     * @param source the OpenNMS Data Collection Group object
+     * @param dataCollectionConfigDao
+     *            the OpenNMS Data Collection Configuration DAO
+     * @param source
+     *            the OpenNMS Data Collection Group object
      */
     public GroupForm(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup source) {
         setCaption("MIB Group Detail");
@@ -132,7 +131,8 @@ public abstract class GroupForm extends Form implements ClickListener {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Form#setReadOnly(boolean)
      */
     @Override
@@ -144,8 +144,10 @@ public abstract class GroupForm extends Form implements ClickListener {
         delete.setVisible(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(ClickEvent event) {
@@ -167,11 +169,11 @@ public abstract class GroupForm extends Form implements ClickListener {
             setReadOnly(false);
         }
         if (source == delete) {
-            // FIXME You cannot delete a group if it is being used on any systemDef
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
-                                           "Are you sure?",
-                                           MessageBox.Icon.QUESTION,
-                                           "Do you really want to remove the Group " + getGroup().getName() + "?<br/>This action cannot be undone.",
+            // FIXME You cannot delete a group if it is being used on any
+            // systemDef
+            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(), "Are you sure?",
+                                           MessageBox.Icon.QUESTION, "Do you really want to remove the Group "
+                                                   + getGroup().getName() + "?<br/>This action cannot be undone.",
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
             mb.addStyleName(Runo.WINDOW_DIALOG);
@@ -190,14 +192,16 @@ public abstract class GroupForm extends Form implements ClickListener {
     /**
      * Save group.
      *
-     * @param group the group
+     * @param group
+     *            the group
      */
     public abstract void saveGroup(Group group);
 
     /**
      * Delete group.
      *
-     * @param group the group
+     * @param group
+     *            the group
      */
     public abstract void deleteGroup(Group group);
 

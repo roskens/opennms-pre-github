@@ -36,8 +36,11 @@ import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.Distributable;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.opennms.netmgt.poller.ServiceMonitor;
+
 /**
- * <p>LoopMonitor class.</p>
+ * <p>
+ * LoopMonitor class.
+ * </p>
  *
  * @author david
  * @version $Id: $
@@ -46,8 +49,11 @@ import org.opennms.netmgt.poller.ServiceMonitor;
 @Distributable
 public class LoopMonitor implements ServiceMonitor {
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.ServiceMonitor#initialize(org.opennms.netmgt.config.PollerConfig, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.ServiceMonitor#initialize(org.opennms.netmgt
+     * .config.PollerConfig, java.util.Map)
      */
     /** {@inheritDoc} */
     @Override
@@ -55,32 +61,44 @@ public class LoopMonitor implements ServiceMonitor {
         return;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.poller.ServiceMonitor#release()
      */
     /**
-     * <p>release</p>
+     * <p>
+     * release
+     * </p>
      */
     @Override
     public void release() {
         return;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.ServiceMonitor#initialize(org.opennms.netmgt.poller.MonitoredService)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.ServiceMonitor#initialize(org.opennms.netmgt
+     * .poller.MonitoredService)
      */
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
     public void initialize(MonitoredService svc) {
         return;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.ServiceMonitor#release(org.opennms.netmgt.poller.MonitoredService)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.ServiceMonitor#release(org.opennms.netmgt.poller
+     * .MonitoredService)
      */
     /** {@inheritDoc} */
     @Override
@@ -88,8 +106,12 @@ public class LoopMonitor implements ServiceMonitor {
         return;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.ServiceMonitor#poll(org.opennms.netmgt.poller.MonitoredService, java.util.Map, org.opennms.netmgt.config.poller.Package)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.ServiceMonitor#poll(org.opennms.netmgt.poller
+     * .MonitoredService, java.util.Map,
+     * org.opennms.netmgt.config.poller.Package)
      */
     /** {@inheritDoc} */
     @Override

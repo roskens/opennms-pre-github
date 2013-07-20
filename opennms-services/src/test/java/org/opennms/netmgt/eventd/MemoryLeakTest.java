@@ -37,7 +37,6 @@ import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.utils.TcpEventProxy;
 
-
 /**
  * MemoryLeakTest
  *
@@ -45,7 +44,7 @@ import org.opennms.netmgt.utils.TcpEventProxy;
  */
 public class MemoryLeakTest {
 
-    private static final long MINS = 8*60*60*1000L;
+    private static final long MINS = 8 * 60 * 60 * 1000L;
 
     @Test
     @Ignore
@@ -55,21 +54,23 @@ public class MemoryLeakTest {
 
         long start = System.currentTimeMillis();
         long count = 0;
-        while(System.currentTimeMillis() - start < MINS) {
+        while (System.currentTimeMillis() - start < MINS) {
             long now = Math.max(System.currentTimeMillis(), 1);
-            double actualRate = ((double)count) / ((double)(now - start));
+            double actualRate = ((double) count) / ((double) (now - start));
             if (actualRate < eventRate) {
                 sendEvent(proxy, count);
                 count++;
             }
             Thread.sleep(30);
-            System.err.println(String.format("Expected Rate: %f Actual Rate: %f Events Sent: %d", eventRate, actualRate, count));
+            System.err.println(String.format("Expected Rate: %f Actual Rate: %f Events Sent: %d", eventRate,
+                                             actualRate, count));
         }
 
     }
 
     private void sendEvent(EventProxy proxy, long count) throws Exception {
-        EventBuilder bldr = new EventBuilder("uei.opennms.org/internal/authentication/successfulLogin", "MemoryLeakTest");
+        EventBuilder bldr = new EventBuilder("uei.opennms.org/internal/authentication/successfulLogin",
+                                             "MemoryLeakTest");
         bldr.addParam("user", "brozow");
 
         proxy.send(bldr.getEvent());
@@ -77,8 +78,8 @@ public class MemoryLeakTest {
         long free = Runtime.getRuntime().freeMemory();
         long max = Runtime.getRuntime().maxMemory();
 
-        double pct = ((double)free)/((double)max);
-        System.err.println("% Free Memory is "+pct);
+        double pct = ((double) free) / ((double) max);
+        System.err.println("% Free Memory is " + pct);
 
         if (pct < 0.01) {
             throw new IllegalStateException("Memory Used up!");

@@ -15,7 +15,8 @@ public class MockRrdDao implements RrdDao {
     }
 
     @Override
-    public double[] getPrintValues(OnmsAttribute attribute, String rraConsolidationFunction, long startTimeInMillis, long endTimeInMillis, String... printFunctions) {
+    public double[] getPrintValues(OnmsAttribute attribute, String rraConsolidationFunction, long startTimeInMillis,
+            long endTimeInMillis, String... printFunctions) {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 

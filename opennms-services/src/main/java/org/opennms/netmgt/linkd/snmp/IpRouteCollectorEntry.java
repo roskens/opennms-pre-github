@@ -41,19 +41,31 @@ public abstract class IpRouteCollectorEntry extends SnmpStore {
         super(list);
     }
 
-    public final static     String  IP_ROUTE_DEST           = "ipRouteDest";
-    public final static     String  IP_ROUTE_IFINDEX        = "ipRouteIfIndex";
-    public final static     String  IP_ROUTE_METRIC1        = "ipRouteMetric1";
-    public final static     String  IP_ROUTE_METRIC2        = "ipRouteMetric2";
-    public final static     String  IP_ROUTE_METRIC3        = "ipRouteMetric3";
-    public final static     String  IP_ROUTE_METRIC4        = "ipRouteMetric4";
-    public final static     String  IP_ROUTE_NXTHOP         = "ipRouteNextHop";
-    public final static     String  IP_ROUTE_TYPE           = "ipRouteType";
-    public final static     String  IP_ROUTE_PROTO          = "ipRouteProto";
-    public final static     String  IP_ROUTE_AGE            = "ipRouteAge";
-    public final static     String  IP_ROUTE_MASK           = "ipRouteMask";
-    public final static     String  IP_ROUTE_METRIC5        = "ipRouteMetric5";
-    public final static     String  IP_ROUTE_INFO           = "ipRouteInfo";
+    public final static String IP_ROUTE_DEST = "ipRouteDest";
+
+    public final static String IP_ROUTE_IFINDEX = "ipRouteIfIndex";
+
+    public final static String IP_ROUTE_METRIC1 = "ipRouteMetric1";
+
+    public final static String IP_ROUTE_METRIC2 = "ipRouteMetric2";
+
+    public final static String IP_ROUTE_METRIC3 = "ipRouteMetric3";
+
+    public final static String IP_ROUTE_METRIC4 = "ipRouteMetric4";
+
+    public final static String IP_ROUTE_NXTHOP = "ipRouteNextHop";
+
+    public final static String IP_ROUTE_TYPE = "ipRouteType";
+
+    public final static String IP_ROUTE_PROTO = "ipRouteProto";
+
+    public final static String IP_ROUTE_AGE = "ipRouteAge";
+
+    public final static String IP_ROUTE_MASK = "ipRouteMask";
+
+    public final static String IP_ROUTE_METRIC5 = "ipRouteMetric5";
+
+    public final static String IP_ROUTE_INFO = "ipRouteInfo";
 
     public InetAddress getIpRouteDest() {
         return getIPAddress(IP_ROUTE_DEST);
@@ -109,7 +121,7 @@ public abstract class IpRouteCollectorEntry extends SnmpStore {
     }
 
     public OnmsIpRouteInterface getOnmsIpRouteInterface(OnmsIpRouteInterface ipRouteInterface) {
-    	ipRouteInterface.setRouteDest(str(getIpRouteDest()));
+        ipRouteInterface.setRouteDest(str(getIpRouteDest()));
         ipRouteInterface.setRouteIfIndex(getIpRouteIfIndex());
         ipRouteInterface.setRouteMask(str(getIpRouteMask()));
         ipRouteInterface.setRouteMetric1(getIpRouteMetric1());
@@ -121,6 +133,6 @@ public abstract class IpRouteCollectorEntry extends SnmpStore {
         ipRouteInterface.setRouteProto(getIpRouteProto());
         ipRouteInterface.setRouteType(RouteType.get(getIpRouteType()));
 
-    	return ipRouteInterface;
+        return ipRouteInterface;
     }
 }

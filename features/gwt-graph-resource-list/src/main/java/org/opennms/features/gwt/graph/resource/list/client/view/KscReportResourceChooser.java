@@ -38,7 +38,9 @@ import com.google.gwt.user.client.ui.Widget;
 public class KscReportResourceChooser implements ViewChoiceDisplay {
 
     VerticalPanel m_vertPanel;
+
     private Button m_chooseBtn;
+
     private Button m_viewBtn;
 
     public KscReportResourceChooser() {

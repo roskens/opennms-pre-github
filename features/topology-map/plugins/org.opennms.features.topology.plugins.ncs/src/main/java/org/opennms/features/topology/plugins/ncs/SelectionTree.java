@@ -12,19 +12,23 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Tree;
 
-@SuppressWarnings({"serial", "unchecked"})
+@SuppressWarnings({ "serial", "unchecked" })
 public abstract class SelectionTree extends Tree {
 
     private static class TreeItemClickTracker {
 
         private Object m_clickedItemId;
+
         private boolean m_remove;
-        public TreeItemClickTracker() {}
+
+        public TreeItemClickTracker() {
+        }
 
         public void setClickedItemId(Object itemId) {
             m_clickedItemId = itemId;
             m_remove = false;
         }
+
         public Object getClickedItemId() {
             return m_clickedItemId;
         }
@@ -39,6 +43,7 @@ public abstract class SelectionTree extends Tree {
     }
 
     private final TreeItemClickTracker m_treeItemClickTracker = new TreeItemClickTracker();
+
     private boolean m_itemClicked = false;
 
     protected GraphContainer m_graphContainer;
@@ -51,19 +56,19 @@ public abstract class SelectionTree extends Tree {
             @Override
             public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
 
-                //if(m_itemClicked) {
-                    Set<Object> selectedIds = (Set<Object>) event.getProperty().getValue();
+                // if(m_itemClicked) {
+                Set<Object> selectedIds = (Set<Object>) event.getProperty().getValue();
 
-                    Collection<Object> allIds = (Collection<Object>) getContainerDataSource().getItemIds();
+                Collection<Object> allIds = (Collection<Object>) getContainerDataSource().getItemIds();
 
-                    Set<Object> itemsToSelect = getSelectedItemIds(selectedIds);
+                Set<Object> itemsToSelect = getSelectedItemIds(selectedIds);
 
-                    Set<Object> itemsToDeselected = getItemsToDeselect(allIds, itemsToSelect);
+                Set<Object> itemsToDeselected = getItemsToDeselect(allIds, itemsToSelect);
 
-                    deselectContainerItems(itemsToDeselected);
+                deselectContainerItems(itemsToDeselected);
 
-                    selectContainerItemAndChildren(itemsToSelect);
-                //}
+                selectContainerItemAndChildren(itemsToSelect);
+                // }
 
             }
         });
@@ -81,7 +86,7 @@ public abstract class SelectionTree extends Tree {
                 Object itemId = event.getItemId();
                 m_treeItemClickTracker.setClickedItemId(itemId);
 
-                if((event.isCtrlKey() || event.isMetaKey()) && selectedIds.contains(itemId)) {
+                if ((event.isCtrlKey() || event.isMetaKey()) && selectedIds.contains(itemId)) {
                     m_treeItemClickTracker.setRemove(true);
                 }
 
@@ -91,9 +96,9 @@ public abstract class SelectionTree extends Tree {
 
     private Set<Object> getSelectedItemIds(Set<Object> selectedIds) {
         Set<Object> itemsToSelect = new LinkedHashSet<Object>(selectedIds);
-        if(m_treeItemClickTracker.isRemoved()) {
-            if(getParent(m_treeItemClickTracker.getClickedItemId()) != null) {
-                unselect( getParent(m_treeItemClickTracker.getClickedItemId() ) );
+        if (m_treeItemClickTracker.isRemoved()) {
+            if (getParent(m_treeItemClickTracker.getClickedItemId()) != null) {
+                unselect(getParent(m_treeItemClickTracker.getClickedItemId()));
             }
             unselect(m_treeItemClickTracker.getClickedItemId());
             itemsToSelect.remove(m_treeItemClickTracker.getClickedItemId());
@@ -108,24 +113,24 @@ public abstract class SelectionTree extends Tree {
     }
 
     private void deselectContainerItems(Set<Object> itemsToDeselected) {
-        for(Object itemId : itemsToDeselected) {
+        for (Object itemId : itemsToDeselected) {
             Property property = getContainerDataSource().getContainerProperty(itemId, "selected");
             // If it's selected, deselect it
-            if ((Boolean)property.getValue()) {
+            if ((Boolean) property.getValue()) {
                 property.setValue(false);
             }
         }
     }
 
     private void selectContainerItemAndChildren(Set<Object> itemsToSelect) {
-        for(Object itemId : itemsToSelect) {
+        for (Object itemId : itemsToSelect) {
             Property property = getContainerDataSource().getContainerProperty(itemId, "selected");
             // If it's not selected, select it
-            if (!(Boolean)property.getValue()) {
+            if (!(Boolean) property.getValue()) {
                 property.setValue(true);
             }
-            if( hasChildren(itemId) ) {
-                for(Object id : getChildren(itemId)) {
+            if (hasChildren(itemId)) {
+                for (Object id : getChildren(itemId)) {
                     select(id);
                 }
             }
@@ -135,7 +140,7 @@ public abstract class SelectionTree extends Tree {
 
     @Override
     public FilterableHierarchicalContainer getContainerDataSource() {
-        return (FilterableHierarchicalContainer)super.getContainerDataSource();
+        return (FilterableHierarchicalContainer) super.getContainerDataSource();
     }
 
     public void setGraphContainer(GraphContainer graphContainer) {

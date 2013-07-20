@@ -59,87 +59,75 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class ChartUtilsTest {
     private static final Logger LOG = LoggerFactory.getLogger(ChartUtilsTest.class);
 
-    private static final String CHART_CONFIG = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<tns:chart-configuration xmlns:tns=\"http://xmlns.opennms.org/xsd/config/charts\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.opennms.org/xsd/config/charts ../src/services/org/opennms/netmgt/config/chart-configuration.xsd \">\n" +
-            "\n" +
-            "  <tns:bar-chart name=\"sample-bar-chart\" \n" +
-            "   variation=\"2d\" \n" +
-            "   domain-axis-label=\"Severity\" \n" +
-            "   show-legend=\"true\" \n" +
-            "   plot-orientation=\"vertical\" \n" +
-            "   draw-bar-outline=\"true\" \n" +
-            "   range-axis-label=\"Count\" \n" +
-            "   show-urls=\"false\"\n" +
-            "    show-tool-tips=\"false\">\n" +
-            "      \n" +
-            "    <tns:title font=\"SansSerif\" style=\"\" value=\"Alarms\" pitch=\"12\" />\n" +
-            "    <tns:image-size>\n" +
-            "      <tns:hz-size>\n" +
-            "        <tns:pixels>300</tns:pixels>\n" +
-            "      </tns:hz-size>\n" +
-            "      <tns:vt-size>\n" +
-            "        <tns:pixels>300</tns:pixels>\n" +
-            "      </tns:vt-size>\n" +
-            "    </tns:image-size>\n" +
-            "    <tns:sub-title position=\"top\" horizontal-alignment=\"center\">\n" +
-            "           <tns:title font=\"SansSerif\" style=\"\" value=\"Severity Chart\" pitch=\"10\" />\n" +
-            "    </tns:sub-title>\n" +
-            "    <tns:grid-lines visible=\"true\">\n" +
-            "        <tns:rgb>\n" +
-            "            <tns:red>\n" +
-            "                <tns:rgb-color>255</tns:rgb-color>\n" +
-            "            </tns:red>\n" +
-            "            <tns:green>\n" +
-            "                <tns:rgb-color>255</tns:rgb-color>\n" +
-            "            </tns:green>\n" +
-            "            <tns:blue>\n" +
-            "                <tns:rgb-color>255</tns:rgb-color>\n" +
-            "            </tns:blue>\n" +
-            "        </tns:rgb>\n" +
-            "    </tns:grid-lines>\n" +
-            "    <tns:series-def number=\"1\" series-name=\"Events\" use-labels=\"true\" >\n" +
-            "     <tns:jdbc-data-set db-name=\"opennms\" sql=\"select eventseverity, count(*) from events where eventseverity &gt; 4 group by eventseverity\" />\n" +
-            "      <tns:rgb>\n" +
-            "        <tns:red>\n" +
-            "          <tns:rgb-color>255</tns:rgb-color>\n" +
-            "        </tns:red>\n" +
-            "        <tns:green>\n" +
-            "          <tns:rgb-color>255</tns:rgb-color>\n" +
-            "        </tns:green>\n" +
-            "        <tns:blue>\n" +
-            "          <tns:rgb-color>0</tns:rgb-color>\n" +
-            "        </tns:blue>\n" +
-            "      </tns:rgb>\n" +
-            "    </tns:series-def>\n" +
-            "    <tns:series-def number=\"1\" series-name=\"Alarms\" use-labels=\"true\" >\n" +
-            "     <tns:jdbc-data-set db-name=\"opennms\" sql=\"select severity, count(*) from alarms where severity &gt; 4 group by severity\" />\n" +
-            "      <tns:rgb>\n" +
-            "        <tns:red>\n" +
-            "          <tns:rgb-color>255</tns:rgb-color>\n" +
-            "        </tns:red>\n" +
-            "        <tns:green>\n" +
-            "          <tns:rgb-color>0</tns:rgb-color>\n" +
-            "        </tns:green>\n" +
-            "        <tns:blue>\n" +
-            "          <tns:rgb-color>0</tns:rgb-color>\n" +
-            "        </tns:blue>\n" +
-            "      </tns:rgb>\n" +
-            "    </tns:series-def>\n" +
-            "  </tns:bar-chart>\n" +
-            "</tns:chart-configuration>\n" +
-            "";
-//    private ChartConfiguration m_config;
+    private static final String CHART_CONFIG = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+            + "<tns:chart-configuration xmlns:tns=\"http://xmlns.opennms.org/xsd/config/charts\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.opennms.org/xsd/config/charts ../src/services/org/opennms/netmgt/config/chart-configuration.xsd \">\n"
+            + "\n"
+            + "  <tns:bar-chart name=\"sample-bar-chart\" \n"
+            + "   variation=\"2d\" \n"
+            + "   domain-axis-label=\"Severity\" \n"
+            + "   show-legend=\"true\" \n"
+            + "   plot-orientation=\"vertical\" \n"
+            + "   draw-bar-outline=\"true\" \n"
+            + "   range-axis-label=\"Count\" \n"
+            + "   show-urls=\"false\"\n"
+            + "    show-tool-tips=\"false\">\n"
+            + "      \n"
+            + "    <tns:title font=\"SansSerif\" style=\"\" value=\"Alarms\" pitch=\"12\" />\n"
+            + "    <tns:image-size>\n"
+            + "      <tns:hz-size>\n"
+            + "        <tns:pixels>300</tns:pixels>\n"
+            + "      </tns:hz-size>\n"
+            + "      <tns:vt-size>\n"
+            + "        <tns:pixels>300</tns:pixels>\n"
+            + "      </tns:vt-size>\n"
+            + "    </tns:image-size>\n"
+            + "    <tns:sub-title position=\"top\" horizontal-alignment=\"center\">\n"
+            + "           <tns:title font=\"SansSerif\" style=\"\" value=\"Severity Chart\" pitch=\"10\" />\n"
+            + "    </tns:sub-title>\n"
+            + "    <tns:grid-lines visible=\"true\">\n"
+            + "        <tns:rgb>\n"
+            + "            <tns:red>\n"
+            + "                <tns:rgb-color>255</tns:rgb-color>\n"
+            + "            </tns:red>\n"
+            + "            <tns:green>\n"
+            + "                <tns:rgb-color>255</tns:rgb-color>\n"
+            + "            </tns:green>\n"
+            + "            <tns:blue>\n"
+            + "                <tns:rgb-color>255</tns:rgb-color>\n"
+            + "            </tns:blue>\n"
+            + "        </tns:rgb>\n"
+            + "    </tns:grid-lines>\n"
+            + "    <tns:series-def number=\"1\" series-name=\"Events\" use-labels=\"true\" >\n"
+            + "     <tns:jdbc-data-set db-name=\"opennms\" sql=\"select eventseverity, count(*) from events where eventseverity &gt; 4 group by eventseverity\" />\n"
+            + "      <tns:rgb>\n"
+            + "        <tns:red>\n"
+            + "          <tns:rgb-color>255</tns:rgb-color>\n"
+            + "        </tns:red>\n"
+            + "        <tns:green>\n"
+            + "          <tns:rgb-color>255</tns:rgb-color>\n"
+            + "        </tns:green>\n"
+            + "        <tns:blue>\n"
+            + "          <tns:rgb-color>0</tns:rgb-color>\n"
+            + "        </tns:blue>\n"
+            + "      </tns:rgb>\n"
+            + "    </tns:series-def>\n"
+            + "    <tns:series-def number=\"1\" series-name=\"Alarms\" use-labels=\"true\" >\n"
+            + "     <tns:jdbc-data-set db-name=\"opennms\" sql=\"select severity, count(*) from alarms where severity &gt; 4 group by severity\" />\n"
+            + "      <tns:rgb>\n" + "        <tns:red>\n" + "          <tns:rgb-color>255</tns:rgb-color>\n"
+            + "        </tns:red>\n" + "        <tns:green>\n" + "          <tns:rgb-color>0</tns:rgb-color>\n"
+            + "        </tns:green>\n" + "        <tns:blue>\n" + "          <tns:rgb-color>0</tns:rgb-color>\n"
+            + "        </tns:blue>\n" + "      </tns:rgb>\n" + "    </tns:series-def>\n" + "  </tns:bar-chart>\n"
+            + "</tns:chart-configuration>\n" + "";
+
+    // private ChartConfiguration m_config;
 
     @Before
     public void setUp() throws Exception {
@@ -152,7 +140,8 @@ public class ChartUtilsTest {
     }
 
     @Test
-    public void testGetBarChartConfig() throws MarshalException, ValidationException, FileNotFoundException, IOException {
+    public void testGetBarChartConfig() throws MarshalException, ValidationException, FileNotFoundException,
+            IOException {
 
         assertNotNull(ChartUtils.getBarChartConfigByName("sample-bar-chart"));
         assertTrue(ChartUtils.getBarChartConfigByName("sample-bar-chart").getClass() == BarChart.class);
@@ -162,12 +151,13 @@ public class ChartUtilsTest {
     public void testGetBarChart() throws MarshalException, ValidationException, IOException, SQLException {
         JFreeChart barChart = ChartUtils.getBarChart("sample-bar-chart");
         assertNotNull(barChart);
-        //SubTitle count includes "LegendTitle"
+        // SubTitle count includes "LegendTitle"
         assertEquals(2, barChart.getSubtitleCount());
     }
 
     @Test
-    public void testGetChartWithInvalidChartName() throws MarshalException, ValidationException, IOException, SQLException {
+    public void testGetChartWithInvalidChartName() throws MarshalException, ValidationException, IOException,
+            SQLException {
 
         JFreeChart chart = null;
         try {
@@ -179,8 +169,9 @@ public class ChartUtilsTest {
     }
 
     @Test
-    public void testGetChartAsFileOutputStream() throws FileNotFoundException, IOException, SQLException, ValidationException, MarshalException {
-    	final File tempFile = File.createTempFile("sample-bar-chart", "png");
+    public void testGetChartAsFileOutputStream() throws FileNotFoundException, IOException, SQLException,
+            ValidationException, MarshalException {
+        final File tempFile = File.createTempFile("sample-bar-chart", "png");
         OutputStream stream = new FileOutputStream(tempFile);
         ChartUtils.getBarChart("sample-bar-chart", stream);
         stream.close();
@@ -197,7 +188,7 @@ public class ChartUtilsTest {
         ByteArrayInputStream rdr = new ByteArrayInputStream(CHART_CONFIG.getBytes("UTF-8"));
         ChartConfigFactory.parseXml(rdr);
         rdr.close();
-//        m_config = ChartConfigFactory.getInstance().getConfiguration();
+        // m_config = ChartConfigFactory.getInstance().getConfiguration();
     }
 
 }

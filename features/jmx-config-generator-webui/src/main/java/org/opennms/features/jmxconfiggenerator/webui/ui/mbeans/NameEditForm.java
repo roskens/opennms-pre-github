@@ -50,117 +50,121 @@ import com.vaadin.ui.TextField;
  * @author Markus von Rüden
  */
 public class NameEditForm extends Form implements ModelChangeListener<Item>, ViewStateChangedListener,
-		EditControls.Callback {
+        EditControls.Callback {
 
-	private final EditControls footer = new EditControls(this);
-	private final MBeansController controller;
-	private final Validator nameValidator = new NameValidator();
-	private final FormParameter parameter;
+    private final EditControls footer = new EditControls(this);
 
-	public NameEditForm(MBeansController controller, final FormParameter parameter) {
-		this.controller = controller;
-		this.parameter = parameter;
-		setFormFieldFactory(new FormFieldFactory() {
-			@Override
-			public Field createField(Item item, Object propertyId, Component uiContext) {
-				if (propertyId.toString().equals(MetaMBeanItem.SELECTED)) {
-					CheckBox c = new CheckBox(MetaMBeanItem.SELECTED);
-					return c;
-				}
-				if (propertyId.toString().equals(parameter.getNonEditablePropertyName())) {
-					final TextField tf = new TextField(parameter.getNonEditablePropertyName()) {
-						@Override
-						public void setReadOnly(boolean readOnly) {
-							super.setReadOnly(true); // never ever edit me
-						}
-					};
-					tf.setWidth(100, UNITS_PERCENTAGE);
-					return tf;
-				}
-				if (propertyId.toString().equals(parameter.getEditablePropertyName())) {
-					TextField tf = new TextField(parameter.getEditablePropertyName());
-					tf.setWidth(100, UNITS_PERCENTAGE);
-					tf.setValidationVisible(true);
-					tf.setRequired(true);
-					tf.setRequiredError("You must provide a name.");
-					tf.addValidator(nameValidator);
-					return tf;
-				}
-				return null;
-			}
-		});
-		setWidth(100, UNITS_PERCENTAGE);
-		setHeight(Config.NAME_EDIT_FORM_HEIGHT + (parameter.hasFooter() ? 0 : -60), UNITS_PIXELS);
-		setReadOnly(true);
-		setImmediate(true);
-		setBuffered(true);
-		if (parameter.hasFooter()) setFooter(footer);
-		addFooterHooks();
-		setCaption(parameter.getCaption());
-		setVisibleItemProperties(parameter.getVisiblePropertieNames());
-	}
+    private final MBeansController controller;
 
-	@Override
-	public void modelChanged(Item newItem) {
-		setItemDataSource(newItem);
-		setVisibleItemProperties(getVisibleItemProperties());
-	}
+    private final Validator nameValidator = new NameValidator();
 
-	@Override
-	public void viewStateChanged(ViewStateChangedEvent event) {
-		switch (event.getNewState()) {
-			case Init:
-			case NonLeafSelected:
-				modelChanged(null); // reset
-			case Edit: // no reset, just hide
-				setEnabled(event.getSource() == this);
-				getFooter().setVisible(event.getSource() == this);
-				break;
-			// activate
-			case LeafSelected:
-				setReadOnly(true);
-				setEnabled(true);
-				getFooter().setVisible(true);
-				break;
-		}
-	}
+    private final FormParameter parameter;
 
-	// lock or unlock the whole view!
-	private void addFooterHooks() {
-		footer.addCancelHook(this);
-		footer.addEditHook(this);
-		footer.addSaveHook(this);
-	}
+    public NameEditForm(MBeansController controller, final FormParameter parameter) {
+        this.controller = controller;
+        this.parameter = parameter;
+        setFormFieldFactory(new FormFieldFactory() {
+            @Override
+            public Field createField(Item item, Object propertyId, Component uiContext) {
+                if (propertyId.toString().equals(MetaMBeanItem.SELECTED)) {
+                    CheckBox c = new CheckBox(MetaMBeanItem.SELECTED);
+                    return c;
+                }
+                if (propertyId.toString().equals(parameter.getNonEditablePropertyName())) {
+                    final TextField tf = new TextField(parameter.getNonEditablePropertyName()) {
+                        @Override
+                        public void setReadOnly(boolean readOnly) {
+                            super.setReadOnly(true); // never ever edit me
+                        }
+                    };
+                    tf.setWidth(100, UNITS_PERCENTAGE);
+                    return tf;
+                }
+                if (propertyId.toString().equals(parameter.getEditablePropertyName())) {
+                    TextField tf = new TextField(parameter.getEditablePropertyName());
+                    tf.setWidth(100, UNITS_PERCENTAGE);
+                    tf.setValidationVisible(true);
+                    tf.setRequired(true);
+                    tf.setRequiredError("You must provide a name.");
+                    tf.addValidator(nameValidator);
+                    return tf;
+                }
+                return null;
+            }
+        });
+        setWidth(100, UNITS_PERCENTAGE);
+        setHeight(Config.NAME_EDIT_FORM_HEIGHT + (parameter.hasFooter() ? 0 : -60), UNITS_PIXELS);
+        setReadOnly(true);
+        setImmediate(true);
+        setBuffered(true);
+        if (parameter.hasFooter())
+            setFooter(footer);
+        addFooterHooks();
+        setCaption(parameter.getCaption());
+        setVisibleItemProperties(parameter.getVisiblePropertieNames());
+    }
 
-	@Override
-	public void callback(ButtonType type, Component outer) {
-		if (type == ButtonType.cancel) {
-			controller.fireViewStateChanged(ViewState.LeafSelected, this);
-			callAdditionalCallbacksIfThereAreAny(type, outer);
-		}
-		if (type == ButtonType.edit) {
-			controller.fireViewStateChanged(ViewState.Edit, this);
-			callAdditionalCallbacksIfThereAreAny(type, outer);
-		}
-		// save must be handled with care
-		if (type == ButtonType.save) {
-			if (isValid()) {
-				commit();
-				controller.fireViewStateChanged(ViewState.LeafSelected, this);
-				callAdditionalCallbacksIfThereAreAny(type, outer);
-			} else {
-				UIHelper.showValidationError(
-						"There are errors in this view. Please fix them first or cancel.");
-			}
-		}
-	}
+    @Override
+    public void modelChanged(Item newItem) {
+        setItemDataSource(newItem);
+        setVisibleItemProperties(getVisibleItemProperties());
+    }
 
-	private void callAdditionalCallbacksIfThereAreAny(ButtonType type, Component outer) {
-		if (parameter.getAdditionalCallback() == null) return;
-		parameter.getAdditionalCallback().callback(type, outer);
-	}
+    @Override
+    public void viewStateChanged(ViewStateChangedEvent event) {
+        switch (event.getNewState()) {
+        case Init:
+        case NonLeafSelected:
+            modelChanged(null); // reset
+        case Edit: // no reset, just hide
+            setEnabled(event.getSource() == this);
+            getFooter().setVisible(event.getSource() == this);
+            break;
+        // activate
+        case LeafSelected:
+            setReadOnly(true);
+            setEnabled(true);
+            getFooter().setVisible(true);
+            break;
+        }
+    }
 
-	protected FormParameter getFormParameter() {
-		return parameter;
-	}
+    // lock or unlock the whole view!
+    private void addFooterHooks() {
+        footer.addCancelHook(this);
+        footer.addEditHook(this);
+        footer.addSaveHook(this);
+    }
+
+    @Override
+    public void callback(ButtonType type, Component outer) {
+        if (type == ButtonType.cancel) {
+            controller.fireViewStateChanged(ViewState.LeafSelected, this);
+            callAdditionalCallbacksIfThereAreAny(type, outer);
+        }
+        if (type == ButtonType.edit) {
+            controller.fireViewStateChanged(ViewState.Edit, this);
+            callAdditionalCallbacksIfThereAreAny(type, outer);
+        }
+        // save must be handled with care
+        if (type == ButtonType.save) {
+            if (isValid()) {
+                commit();
+                controller.fireViewStateChanged(ViewState.LeafSelected, this);
+                callAdditionalCallbacksIfThereAreAny(type, outer);
+            } else {
+                UIHelper.showValidationError("There are errors in this view. Please fix them first or cancel.");
+            }
+        }
+    }
+
+    private void callAdditionalCallbacksIfThereAreAny(ButtonType type, Component outer) {
+        if (parameter.getAdditionalCallback() == null)
+            return;
+        parameter.getAdditionalCallback().callback(type, outer);
+    }
+
+    protected FormParameter getFormParameter() {
+        return parameter;
+    }
 }

@@ -43,14 +43,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * <p>LegacyLocalReportsDaoTest class.</p>
+ * <p>
+ * LegacyLocalReportsDaoTest class.
+ * </p>
  *
  * @author Ronny Trommer <ronny@opennms.org>
  * @version $Id: $
  * @since 1.8.1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/opennms/applicationContext-reportingDaoTest.xml"})
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDaoTest.xml" })
 public class LegacyLocalReportsDaoTest implements InitializingBean {
 
     /**
@@ -65,7 +67,9 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
     }
 
     /**
-     * <p>tearDown</p>
+     * <p>
+     * tearDown
+     * </p>
      * <p/>
      * Cleanup
      *
@@ -77,7 +81,9 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
     }
 
     /**
-     * <p>testReportDescription</p>
+     * <p>
+     * testReportDescription
+     * </p>
      * <p/>
      * Tests to retrieve all descriptions from report configuration file
      *
@@ -85,13 +91,18 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      */
     @Test
     public void testReportDescription() throws Exception {
-        assertEquals("First report description test", "sample Jasper report using jdbc datasource", m_legacyLocalReportsDao.getReports().get(0).getDescription());
-        assertEquals("Second report description test", "online sample Jasper report using jdbc datasource", m_legacyLocalReportsDao.getReports().get(1).getDescription());
-        assertEquals("Third report description test", "NOT online sample Jasper report using jdbc datasource", m_legacyLocalReportsDao.getReports().get(2).getDescription());
+        assertEquals("First report description test", "sample Jasper report using jdbc datasource",
+                     m_legacyLocalReportsDao.getReports().get(0).getDescription());
+        assertEquals("Second report description test", "online sample Jasper report using jdbc datasource",
+                     m_legacyLocalReportsDao.getReports().get(1).getDescription());
+        assertEquals("Third report description test", "NOT online sample Jasper report using jdbc datasource",
+                     m_legacyLocalReportsDao.getReports().get(2).getDescription());
     }
 
     /**
-     * <p>testReportId</p>
+     * <p>
+     * testReportId
+     * </p>
      * <p/>
      * Tests to retrieve all IDs from report file
      *
@@ -100,12 +111,16 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
     @Test
     public void testReportId() throws Exception {
         assertEquals("First report id test", "sample-report", m_legacyLocalReportsDao.getReports().get(0).getId());
-        assertEquals("Second report id test", "online-sample-report", m_legacyLocalReportsDao.getReports().get(1).getId());
-        assertEquals("Third report id test", "not-online-sample-report", m_legacyLocalReportsDao.getReports().get(2).getId());
+        assertEquals("Second report id test", "online-sample-report",
+                     m_legacyLocalReportsDao.getReports().get(1).getId());
+        assertEquals("Third report id test", "not-online-sample-report",
+                     m_legacyLocalReportsDao.getReports().get(2).getId());
     }
 
     /**
-     * <p>testReportDisplayName</p>
+     * <p>
+     * testReportDisplayName
+     * </p>
      * <p/>
      * Test to retrieve all DisplayNames from report configuration file
      *
@@ -113,13 +128,18 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      */
     @Test
     public void testReportDisplayName() throws Exception {
-        assertEquals("First report display name test", "sample JasperReport", m_legacyLocalReportsDao.getReports().get(0).getDisplayName());
-        assertEquals("Second report display name test", "online sample JasperReport", m_legacyLocalReportsDao.getReports().get(1).getDisplayName());
-        assertEquals("Third report display name test", "NOT online sample JasperReport", m_legacyLocalReportsDao.getReports().get(2).getDisplayName());
+        assertEquals("First report display name test", "sample JasperReport",
+                     m_legacyLocalReportsDao.getReports().get(0).getDisplayName());
+        assertEquals("Second report display name test", "online sample JasperReport",
+                     m_legacyLocalReportsDao.getReports().get(1).getDisplayName());
+        assertEquals("Third report display name test", "NOT online sample JasperReport",
+                     m_legacyLocalReportsDao.getReports().get(2).getDisplayName());
     }
 
     /**
-     * <p>testReportService</p>
+     * <p>
+     * testReportService
+     * </p>
      * <p/>
      * Test to retrieve all report services from report configuration file
      *
@@ -127,16 +147,22 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      */
     @Test
     public void testReportService() throws Exception {
-        assertEquals("First report report-service test", "jasperReportService", m_legacyLocalReportsDao.getReports().get(0).getReportService());
-        assertEquals("Second report report-service test", "jasperReportService", m_legacyLocalReportsDao.getReports().get(1).getReportService());
-        assertEquals("Third report report-service test", "jasperReportService", m_legacyLocalReportsDao.getReports().get(2).getReportService());
+        assertEquals("First report report-service test", "jasperReportService",
+                     m_legacyLocalReportsDao.getReports().get(0).getReportService());
+        assertEquals("Second report report-service test", "jasperReportService",
+                     m_legacyLocalReportsDao.getReports().get(1).getReportService());
+        assertEquals("Third report report-service test", "jasperReportService",
+                     m_legacyLocalReportsDao.getReports().get(2).getReportService());
     }
 
     /**
-     * <p>testReportRepositoryId</p>
+     * <p>
+     * testReportRepositoryId
+     * </p>
      * <p/>
-     * Test to retrieve repository IDs. The configuration is read in a repository. The repository will set his
-     * repository id. For this reason the repository ID should be NULL.
+     * Test to retrieve repository IDs. The configuration is read in a
+     * repository. The repository will set his repository id. For this reason
+     * the repository ID should be NULL.
      *
      * @throws Exception
      */
@@ -148,10 +174,13 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
     }
 
     /**
-     * <p>testReportAllowAccess</p>
+     * <p>
+     * testReportAllowAccess
+     * </p>
      * <p/>
-     * Test to retrieve the allow access configuration. The implementation of a repository configure this property. By
-     * default the allowAccess property is set to "FALSE"
+     * Test to retrieve the allow access configuration. The implementation of a
+     * repository configure this property. By default the allowAccess property
+     * is set to "FALSE"
      *
      * @throws Exception
      */
@@ -163,7 +192,9 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
     }
 
     /**
-     * <p>testReportIsOnline</p>
+     * <p>
+     * testReportIsOnline
+     * </p>
      * <p/>
      * Test to retrieve is online property.
      *

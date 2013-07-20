@@ -38,12 +38,17 @@ import java.io.InputStream;
  */
 public class DefaultRrdGraphDetails implements RrdGraphDetails {
     private InputStream m_inputStream;
+
     private String[] m_printLines;
+
     private int m_width;
+
     private int m_height;
 
     /**
-     * <p>getHeight</p>
+     * <p>
+     * getHeight
+     * </p>
      *
      * @return a int.
      */
@@ -53,16 +58,21 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>setHeight</p>
+     * <p>
+     * setHeight
+     * </p>
      *
-     * @param height a int.
+     * @param height
+     *            a int.
      */
     public void setHeight(int height) {
         m_height = height;
     }
 
     /**
-     * <p>getInputStream</p>
+     * <p>
+     * getInputStream
+     * </p>
      *
      * @return a {@link java.io.InputStream} object.
      */
@@ -72,16 +82,21 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>setInputStream</p>
+     * <p>
+     * setInputStream
+     * </p>
      *
-     * @param inputStream a {@link java.io.InputStream} object.
+     * @param inputStream
+     *            a {@link java.io.InputStream} object.
      */
     public void setInputStream(InputStream inputStream) {
         m_inputStream = inputStream;
     }
 
     /**
-     * <p>getPrintLines</p>
+     * <p>
+     * getPrintLines
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -91,16 +106,21 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>setPrintLines</p>
+     * <p>
+     * setPrintLines
+     * </p>
      *
-     * @param printLines an array of {@link java.lang.String} objects.
+     * @param printLines
+     *            an array of {@link java.lang.String} objects.
      */
     public void setPrintLines(String[] printLines) {
         m_printLines = printLines;
     }
 
     /**
-     * <p>getWidth</p>
+     * <p>
+     * getWidth
+     * </p>
      *
      * @return a int.
      */
@@ -110,9 +130,12 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>setWidth</p>
+     * <p>
+     * setWidth
+     * </p>
      *
-     * @param width a int.
+     * @param width
+     *            a int.
      */
     public void setWidth(int width) {
         m_width = width;

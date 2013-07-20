@@ -60,22 +60,28 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
     private static final long serialVersionUID = -6571388103047893262L;
 
     private static final String AUTOENABLE = "A";
+
     private static final String SSH_CONNECTION = "ssh";
+
     private static final String TELNET_CONNECTION = "telnet";
+
     private static final String RSH_CONNECTION = "rsh";
 
     private static ArrayList<String> s_autoenableOptions = new ArrayList<String>();
+
     private static ArrayList<String> s_connectionOptions = new ArrayList<String>();
 
     static {
         s_autoenableOptions.add(AUTOENABLE);
-        //TODO added "" to be able to remove AUTOENABLE again. this could cause problems at the AUTOENABLE reading code.
+        // TODO added "" to be able to remove AUTOENABLE again. this could cause
+        // problems at the AUTOENABLE reading code.
         s_autoenableOptions.add("");
 
         s_connectionOptions.add(TELNET_CONNECTION);
         s_connectionOptions.add(SSH_CONNECTION);
         s_connectionOptions.add(RSH_CONNECTION);
-        //TODO added "" to be able to remove connection again. this could cause problems at the connection reading code.
+        // TODO added "" to be able to remove connection again. this could cause
+        // problems at the connection reading code.
         s_connectionOptions.add("");
     }
 
@@ -139,14 +145,14 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
         // copy all assetRecord properties to assetCommand for gui
         BeanUtils.copyProperties(m_onmsAssetRecord, assetCommand);
 
-        //This manual null to "" settings is to prevent problems caused by different behavior of browsers in null handling in select boxes
+        // This manual null to "" settings is to prevent problems caused by
+        // different behavior of browsers in null handling in select boxes
         if (assetCommand.getConnection() == null) {
             assetCommand.setConnection("");
         }
         if (assetCommand.getAutoenable() == null) {
             assetCommand.setAutoenable("");
         }
-
 
         // set node specific properties for the asset node page
         assetCommand.setSnmpSysContact(m_onmsNode.getSysContact());
@@ -167,7 +173,8 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
 
         // This is a poor re-implementation of modify permission based on spring
         // roles
-        if (m_securityContext.hasRole(Authentication.ROLE_ADMIN) || m_securityContext.hasRole(Authentication.ROLE_PROVISION)) {
+        if (m_securityContext.hasRole(Authentication.ROLE_ADMIN)
+                || m_securityContext.hasRole(Authentication.ROLE_PROVISION)) {
             assetCommand.setAllowModify(true);
         } else {
             assetCommand.setAllowModify(false);
@@ -188,7 +195,8 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
         // The suggestion model transfered by RPC between webui and service
         final AssetSuggCommand suggestion = new AssetSuggCommand();
 
-        // a list of all asset records which contains all distinct asset properties for suggestion
+        // a list of all asset records which contains all distinct asset
+        // properties for suggestion
         final List<OnmsAssetRecord> distinctAssetProperties = m_assetRecordDao.getDistinctProperties();
 
         // Map all distinct asset properties
@@ -267,9 +275,11 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
         logger.debug("gelocation before: {}", geolocation);
 
         // copy the transfer object for rpc back to the hibernate model
-        final AssetCommand sanitizeBeanStringProperties = WebSecurityUtils.sanitizeBeanStringProperties(assetCommand, m_allowHtmlFields);
+        final AssetCommand sanitizeBeanStringProperties = WebSecurityUtils.sanitizeBeanStringProperties(assetCommand,
+                                                                                                        m_allowHtmlFields);
 
-        // logger.debug("nodeId: '{}' sanitized assetCommand: '{}'", nodeId, sanitizeBeanStringProperties);
+        // logger.debug("nodeId: '{}' sanitized assetCommand: '{}'", nodeId,
+        // sanitizeBeanStringProperties);
 
         BeanUtils.copyProperties(sanitizeBeanStringProperties, m_onmsAssetRecord);
 
@@ -332,7 +342,8 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
      * setAssetRecordDao
      * </p>
      *
-     * @param m_assetRecordDao a {@link org.opennms.netmgt.model.OnmsAssetRecord}
+     * @param m_assetRecordDao
+     *            a {@link org.opennms.netmgt.model.OnmsAssetRecord}
      */
     public void setAssetRecordDao(AssetRecordDao assetRecordDao) {
         m_assetRecordDao = assetRecordDao;
@@ -354,7 +365,8 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
      * setNodeDao
      * </p>
      *
-     * @param m_nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao}
+     * @param m_nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao}
      */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;

@@ -52,12 +52,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>DefaultQueryManager class.</p>
+ * <p>
+ * DefaultQueryManager class.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public class DefaultQueryManager implements QueryManager {
@@ -89,8 +91,7 @@ public class DefaultQueryManager implements QueryManager {
      */
     final static String SQL_FETCH_IFSERVICES_TO_POLL = "SELECT if.serviceid FROM ifservices if, service s WHERE if.serviceid = s.serviceid AND if.status = 'A' AND if.ipaddr = ?";
 
-    final static String SQL_FETCH_INTERFACES_AND_SERVICES_ON_NODE ="SELECT ipaddr,servicename FROM ifservices,service WHERE nodeid= ? AND ifservices.serviceid=service.serviceid";
-
+    final static String SQL_FETCH_INTERFACES_AND_SERVICES_ON_NODE = "SELECT ipaddr,servicename FROM ifservices,service WHERE nodeid= ? AND ifservices.serviceid=service.serviceid";
 
     private DataSource m_dataSource;
 
@@ -101,7 +102,9 @@ public class DefaultQueryManager implements QueryManager {
     }
 
     /**
-     * <p>getDataSource</p>
+     * <p>
+     * getDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -113,7 +116,6 @@ public class DefaultQueryManager implements QueryManager {
     private Connection getConnection() throws SQLException {
         return getDataSource().getConnection();
     }
-
 
     /** {@inheritDoc} */
     @Override
@@ -191,7 +193,8 @@ public class DefaultQueryManager implements QueryManager {
             // Issue query and extract nodeLabel from result set
             stmt = dbConn.createStatement();
             d.watch(stmt);
-            String sql = "SELECT node.nodeid FROM node, ipinterface WHERE ipinterface.ipaddr='" + ipaddr + "' AND ipinterface.nodeid=node.nodeid";
+            String sql = "SELECT node.nodeid FROM node, ipinterface WHERE ipinterface.ipaddr='" + ipaddr
+                    + "' AND ipinterface.nodeid=node.nodeid";
             rs = stmt.executeQuery(sql);
             d.watch(rs);
             if (rs.next()) {
@@ -271,25 +274,25 @@ public class DefaultQueryManager implements QueryManager {
 
         try {
 
-        java.sql.Connection dbConn = getConnection();
-        d.watch(dbConn);
+            java.sql.Connection dbConn = getConnection();
+            d.watch(dbConn);
 
-        LOG.debug("scheduleExistingInterfaces: dbConn = {}, svcName = {}", dbConn, svcName);
+            LOG.debug("scheduleExistingInterfaces: dbConn = {}, svcName = {}", dbConn, svcName);
 
-        PreparedStatement stmt = dbConn.prepareStatement(DefaultQueryManager.SQL_RETRIEVE_INTERFACES);
-        d.watch(stmt);
-        stmt.setString(1, svcName); // Service name
-        ResultSet rs = stmt.executeQuery();
-        d.watch(rs);
+            PreparedStatement stmt = dbConn.prepareStatement(DefaultQueryManager.SQL_RETRIEVE_INTERFACES);
+            d.watch(stmt);
+            stmt.setString(1, svcName); // Service name
+            ResultSet rs = stmt.executeQuery();
+            d.watch(rs);
 
-        // Iterate over result set and schedule each
-        // interface/service
-        // pair which passes the criteria
-        //
-        while (rs.next()) {
-            IfKey key = new IfKey(rs.getInt(1), rs.getString(2));
-            ifkeys.add(key);
-        }
+            // Iterate over result set and schedule each
+            // interface/service
+            // pair which passes the criteria
+            //
+            while (rs.next()) {
+                IfKey key = new IfKey(rs.getInt(1), rs.getString(2));
+                ifkeys.add(key);
+            }
 
         } finally {
             d.cleanUp();
@@ -374,11 +377,13 @@ public class DefaultQueryManager implements QueryManager {
         return svcLostDate;
     }
 
-
     /**
-     * <p>convertEventTimeToTimeStamp</p>
+     * <p>
+     * convertEventTimeToTimeStamp
+     * </p>
      *
-     * @param time a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.lang.String} object.
      * @return a {@link java.sql.Timestamp} object.
      */
     public Timestamp convertEventTimeToTimeStamp(String time) {
@@ -387,7 +392,7 @@ public class DefaultQueryManager implements QueryManager {
             Timestamp eventTime = new Timestamp(date.getTime());
             return eventTime;
         } catch (ParseException e) {
-            throw new RuntimeException("Invalid date format "+time, e);
+            throw new RuntimeException("Invalid date format " + time, e);
         }
     }
 
@@ -401,32 +406,30 @@ public class DefaultQueryManager implements QueryManager {
 
         while (attempt < 2 && notUpdated) {
             try {
-                LOG.info("openOutage: opening outage for {}:{}:{} with cause {}:{}", nodeId, ipAddr, svcName, dbId, time);
+                LOG.info("openOutage: opening outage for {}:{}:{} with cause {}:{}", nodeId, ipAddr, svcName, dbId,
+                         time);
 
                 SingleResultQuerier srq = new SingleResultQuerier(getDataSource(), outageIdSQL);
                 srq.execute();
                 Object outageId = srq.getResult();
 
                 if (outageId == null) {
-                    throw (new Exception("Null outageId returned from Querier with SQL: "+outageIdSQL));
+                    throw (new Exception("Null outageId returned from Querier with SQL: " + outageIdSQL));
                 }
 
-                String sql = "insert into outages (outageId, svcLostEventId, nodeId, ipAddr, serviceId, ifLostService) values ("+outageId+", ?, ?, ?, ?, ?)";
+                String sql = "insert into outages (outageId, svcLostEventId, nodeId, ipAddr, serviceId, ifLostService) values ("
+                        + outageId + ", ?, ?, ?, ?, ?)";
 
-                Object values[] = {
-                        Integer.valueOf(dbId),
-                        Integer.valueOf(nodeId),
-                        ipAddr,
-                        Integer.valueOf(serviceId),
-                        convertEventTimeToTimeStamp(time),
-                };
+                Object values[] = { Integer.valueOf(dbId), Integer.valueOf(nodeId), ipAddr, Integer.valueOf(serviceId),
+                        convertEventTimeToTimeStamp(time), };
 
                 Updater updater = new Updater(getDataSource(), sql);
                 updater.execute(values);
                 notUpdated = false;
             } catch (Throwable e) {
                 if (attempt > 1) {
-                    LOG.error("openOutage: Second and final attempt failed opening outage for {}:{}:{}", nodeId, ipAddr, svcName, e);
+                    LOG.error("openOutage: Second and final attempt failed opening outage for {}:{}:{}", nodeId,
+                              ipAddr, svcName, e);
                 } else {
                     LOG.info("openOutage: First attempt failed opening outage for {}:{}:{}", nodeId, ipAddr, svcName, e);
                 }
@@ -448,22 +451,19 @@ public class DefaultQueryManager implements QueryManager {
 
                 String sql = "update outages set svcRegainedEventId=?, ifRegainedService=? where nodeId = ? and ipAddr = ? and serviceId = ? and ifRegainedService is null";
 
-                Object values[] = {
-                        Integer.valueOf(dbId),
-                        convertEventTimeToTimeStamp(time),
-                        Integer.valueOf(nodeId),
-                        ipAddr,
-                        Integer.valueOf(serviceId),
-                };
+                Object values[] = { Integer.valueOf(dbId), convertEventTimeToTimeStamp(time), Integer.valueOf(nodeId),
+                        ipAddr, Integer.valueOf(serviceId), };
 
                 Updater updater = new Updater(getDataSource(), sql);
                 updater.execute(values);
                 notUpdated = false;
             } catch (Throwable e) {
                 if (attempt > 1) {
-                    LOG.error("resolveOutage: Second and final attempt failed resolving outage for {}:{}:{}", nodeId, ipAddr, svcName, e);
+                    LOG.error("resolveOutage: Second and final attempt failed resolving outage for {}:{}:{}", nodeId,
+                              ipAddr, svcName, e);
                 } else {
-                    LOG.info("resolveOutage: first attempt failed resolving outage for {}:{}:{}", nodeId, ipAddr, svcName, e);
+                    LOG.info("resolveOutage: first attempt failed resolving outage for {}:{}:{}", nodeId, ipAddr,
+                             svcName, e);
                 }
             }
             attempt++;
@@ -477,11 +477,7 @@ public class DefaultQueryManager implements QueryManager {
             LOG.info("reparenting outages for {}:{} to new node {}", oldNodeId, ipAddr, newNodeId);
             String sql = "update outages set nodeId = ? where nodeId = ? and ipaddr = ?";
 
-            Object[] values = {
-                    Integer.valueOf(newNodeId),
-                    Integer.valueOf(oldNodeId),
-                    ipAddr,
-                };
+            Object[] values = { Integer.valueOf(newNodeId), Integer.valueOf(oldNodeId), ipAddr, };
 
             Updater updater = new Updater(getDataSource(), sql);
             updater.execute(values);
@@ -492,17 +488,22 @@ public class DefaultQueryManager implements QueryManager {
     }
 
     /**
-     * <p>getServiceID</p>
+     * <p>
+     * getServiceID
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @return a int.
      */
     public int getServiceID(String serviceName) {
-        if (serviceName == null) return -1;
+        if (serviceName == null)
+            return -1;
 
-        SingleResultQuerier querier = new SingleResultQuerier(getDataSource(), "select serviceId from service where serviceName = ?");
+        SingleResultQuerier querier = new SingleResultQuerier(getDataSource(),
+                                                              "select serviceId from service where serviceName = ?");
         querier.execute(serviceName);
-        final Integer result = (Integer)querier.getResult();
+        final Integer result = (Integer) querier.getResult();
         return result == null ? -1 : result.intValue();
     }
 
@@ -510,7 +511,8 @@ public class DefaultQueryManager implements QueryManager {
     @Override
     public String[] getCriticalPath(int nodeId) {
         final String[] cpath = new String[2];
-        Querier querier = new Querier(getDataSource(), "SELECT criticalpathip, criticalpathservicename FROM pathoutage where nodeid=?") {
+        Querier querier = new Querier(getDataSource(),
+                                      "SELECT criticalpathip, criticalpathservicename FROM pathoutage where nodeid=?") {
 
             @Override
             public void processRow(ResultSet rs) throws SQLException {
@@ -532,9 +534,9 @@ public class DefaultQueryManager implements QueryManager {
     }
 
     @Override
-    public List<String[]> getNodeServices(int nodeId){
+    public List<String[]> getNodeServices(int nodeId) {
         final LinkedList<String[]> servicemap = new LinkedList<String[]>();
-        Querier querier = new Querier(getDataSource(),SQL_FETCH_INTERFACES_AND_SERVICES_ON_NODE) {
+        Querier querier = new Querier(getDataSource(), SQL_FETCH_INTERFACES_AND_SERVICES_ON_NODE) {
 
             @Override
             public void processRow(ResultSet rs) throws SQLException {
@@ -554,6 +556,5 @@ public class DefaultQueryManager implements QueryManager {
         return servicemap;
 
     }
-
 
 }

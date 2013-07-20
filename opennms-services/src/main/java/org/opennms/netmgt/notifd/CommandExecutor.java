@@ -54,10 +54,10 @@ import org.slf4j.LoggerFactory;
  */
 public class CommandExecutor implements ExecutorStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(CommandExecutor.class);
+
     /**
-     * {@inheritDoc}
-     *
-     * This method executes the command using a Process. The method will decide
+     * {@inheritDoc} This method executes the command using a Process. The
+     * method will decide
      * if an input stream needs to be used.
      */
     @Override
@@ -116,7 +116,8 @@ public class CommandExecutor implements ExecutorStrategy {
             // see if we have streamed arguments
             if (streamed) {
                 // make sure the output we are writing is buffered
-                BufferedWriter processInput = new BufferedWriter(new OutputStreamWriter(command.getOutputStream(), "UTF-8"));
+                BufferedWriter processInput = new BufferedWriter(new OutputStreamWriter(command.getOutputStream(),
+                                                                                        "UTF-8"));
 
                 // put the streamed arguments into the stream
                 LOG.debug("Streamed arguments: {}", streamBuffer);

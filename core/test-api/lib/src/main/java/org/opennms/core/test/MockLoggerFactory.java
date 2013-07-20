@@ -8,12 +8,13 @@ import org.slf4j.Logger;
 
 public class MockLoggerFactory implements ILoggerFactory {
     final static MockLoggerFactory INSTANCE = new MockLoggerFactory();
+
     static MockLogAppender s_appender = MockLogAppender.getInstance();
 
-    final Map<String,Logger> m_loggerMap;
+    final Map<String, Logger> m_loggerMap;
 
     public MockLoggerFactory() {
-        m_loggerMap = new HashMap<String,Logger>();
+        m_loggerMap = new HashMap<String, Logger>();
     }
 
     public static void setAppender(final MockLogAppender appender) {

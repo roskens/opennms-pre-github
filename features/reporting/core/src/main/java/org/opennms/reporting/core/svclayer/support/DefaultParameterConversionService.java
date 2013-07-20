@@ -42,10 +42,11 @@ import org.opennms.netmgt.config.reporting.Parameters;
 import org.opennms.reporting.core.svclayer.ParameterConversionService;
 
 /**
- * <p>DefaultParameterConversionService class.</p>
+ * <p>
+ * DefaultParameterConversionService class.
+ * </p>
  */
-public class DefaultParameterConversionService implements
-        ParameterConversionService {
+public class DefaultParameterConversionService implements ParameterConversionService {
 
     /** {@inheritDoc} */
     @Override
@@ -62,7 +63,7 @@ public class DefaultParameterConversionService implements
         ArrayList<ReportDateParm> dateParms = new ArrayList<ReportDateParm>();
         DateParm[] dates = configParameters.getDateParm();
         if (dates.length > 0) {
-            for (int i = 0 ; i < dates.length ; i++ ) {
+            for (int i = 0; i < dates.length; i++) {
                 ReportDateParm dateParm = new ReportDateParm();
                 dateParm.setUseAbsoluteDate(dates[i].getUseAbsoluteDate());
                 dateParm.setDisplayName(dates[i].getDisplayName());
@@ -80,7 +81,7 @@ public class DefaultParameterConversionService implements
                     cal.set(Calendar.MINUTE, 0);
                 }
                 cal.set(Calendar.SECOND, 0);
-                cal.set(Calendar.MILLISECOND,0);
+                cal.set(Calendar.MILLISECOND, 0);
                 int amount = 0 - dates[i].getDefaultCount();
                 if (dates[i].getDefaultInterval().equals("year")) {
                     cal.add(Calendar.YEAR, amount);
@@ -102,7 +103,7 @@ public class DefaultParameterConversionService implements
         ArrayList<ReportStringParm> stringParms = new ArrayList<ReportStringParm>();
         StringParm[] strings = configParameters.getStringParm();
         if (strings.length > 0) {
-            for (int i = 0 ; i < strings.length ; i++ ) {
+            for (int i = 0; i < strings.length; i++) {
                 ReportStringParm stringParm = new ReportStringParm();
                 stringParm.setDisplayName(strings[i].getDisplayName());
                 stringParm.setName(strings[i].getName());
@@ -118,7 +119,7 @@ public class DefaultParameterConversionService implements
         ArrayList<ReportIntParm> intParms = new ArrayList<ReportIntParm>();
         IntParm[] integers = configParameters.getIntParm();
         if (integers.length > 0) {
-            for (int i = 0 ; i < integers.length ; i++ ) {
+            for (int i = 0; i < integers.length; i++) {
                 ReportIntParm intParm = new ReportIntParm();
                 intParm.setDisplayName(integers[i].getDisplayName());
                 intParm.setName(integers[i].getName());

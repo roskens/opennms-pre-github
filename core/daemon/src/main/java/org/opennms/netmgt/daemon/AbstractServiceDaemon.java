@@ -34,7 +34,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Abstract AbstractServiceDaemon class.</p>
+ * <p>
+ * Abstract AbstractServiceDaemon class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -42,10 +44,14 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServiceDaemon {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceDaemon.class);
+
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -62,42 +68,63 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     private Object m_statusLock = new Object();
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     abstract protected void onInit();
 
     /**
-     * <p>onPause</p>
+     * <p>
+     * onPause
+     * </p>
      */
-    protected void onPause() {}
+    protected void onPause() {
+    }
 
     /**
-     * <p>onResume</p>
+     * <p>
+     * onResume
+     * </p>
      */
-    protected void onResume() {}
+    protected void onResume() {
+    }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
-    protected void onStart() {}
+    protected void onStart() {
+    }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
-    protected void onStop() {}
+    protected void onStop() {
+    }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    final public String getName() { return m_name; }
+    final public String getName() {
+        return m_name;
+    }
 
     /**
-     * <p>Constructor for AbstractServiceDaemon.</p>
+     * <p>
+     * Constructor for AbstractServiceDaemon.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     protected AbstractServiceDaemon(final String name) {
         m_name = name;
@@ -105,9 +132,12 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param status a int.
+     * @param status
+     *            a int.
      */
     protected final void setStatus(final int status) {
         synchronized (m_statusLock) {
@@ -117,11 +147,16 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>waitForStatus</p>
+     * <p>
+     * waitForStatus
+     * </p>
      *
-     * @param status a int.
-     * @param timeout a long.
-     * @throws java.lang.InterruptedException if any.
+     * @param status
+     *            a int.
+     * @param timeout
+     *            a long.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     protected final void waitForStatus(final int status, final long timeout) throws InterruptedException {
         synchronized (m_statusLock) {
@@ -138,10 +173,14 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>waitForStatus</p>
+     * <p>
+     * waitForStatus
+     * </p>
      *
-     * @param status a int.
-     * @throws java.lang.InterruptedException if any.
+     * @param status
+     *            a int.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     protected final void waitForStatus(final int status) throws InterruptedException {
         synchronized (m_statusLock) {
@@ -152,7 +191,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -164,7 +205,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -174,19 +217,22 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     *
      * @deprecated Use {@link #getStatusText()} instead. This field is only for
-     * backwards compatibility with JMX operations.
+     *             backwards compatibility with JMX operations.
      */
     public String status() {
         return getStatusText();
     }
 
     /**
-     * <p>isRunning</p>
+     * <p>
+     * isRunning
+     * </p>
      *
      * @return a boolean.
      */
@@ -195,7 +241,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>isPaused</p>
+     * <p>
+     * isPaused
+     * </p>
      *
      * @return a boolean.
      */
@@ -204,7 +252,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>isStarting</p>
+     * <p>
+     * isStarting
+     * </p>
      *
      * @return a boolean.
      */
@@ -213,7 +263,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     final public void init() {
 
@@ -231,10 +283,10 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
         });
     }
 
-
-
     /**
-     * <p>pause</p>
+     * <p>
+     * pause
+     * </p>
      */
     @Override
     final public void pause() {
@@ -242,7 +294,8 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
 
             @Override
             public void run() {
-                if (!isRunning()) return;
+                if (!isRunning())
+                    return;
 
                 LOG.info("{} pausing.", getName());
 
@@ -257,7 +310,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     }
 
     /**
-     * <p>resume</p>
+     * <p>
+     * resume
+     * </p>
      */
     @Override
     final public void resume() {
@@ -266,7 +321,8 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
 
             @Override
             public void run() {
-                if (!isPaused()) return;
+                if (!isPaused())
+                    return;
 
                 LOG.info("{} resuming.", getName());
 
@@ -280,9 +336,10 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
         });
     }
 
-
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     final public synchronized void start() {

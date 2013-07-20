@@ -38,7 +38,9 @@ import org.springframework.core.io.Resource;
 public class DefaultJaspertReportConfigDaoTest {
 
     private static final String ID = "sample-report";
+
     private static final String TEMPLATE = "sample-report.jxrml";
+
     private static final String ENGINE = "jdbc";
 
     private static DefaultJasperReportConfigDao m_dao;

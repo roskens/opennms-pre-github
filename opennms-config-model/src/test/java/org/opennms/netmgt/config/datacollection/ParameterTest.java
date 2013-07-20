@@ -48,11 +48,8 @@ public class ParameterTest extends XmlTest<Parameter> {
         parm.setKey("foo");
         parm.setValue("bar");
 
-        return Arrays.asList(new Object[][] { {
-                parm,
-                "<parameter key=\"foo\" value=\"bar\" />",
+        return Arrays.asList(new Object[][] { { parm, "<parameter key=\"foo\" value=\"bar\" />",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

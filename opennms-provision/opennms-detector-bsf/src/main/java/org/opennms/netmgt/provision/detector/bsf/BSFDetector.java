@@ -48,13 +48,19 @@ import org.springframework.stereotype.Component;
 public class BSFDetector extends BasicDetector<BSFRequest, BSFResponse> {
 
     private String m_fileName;
+
     private String m_langClass;
+
     private String m_bsfEngine;
+
     private String m_fileExtensions = "";
+
     private String m_runType = "eval";
 
     /**
-     * <p>Constructor for BsfDetector.</p>
+     * <p>
+     * Constructor for BsfDetector.
+     * </p>
      */
     protected BSFDetector() {
         super("BSF", 0);
@@ -80,7 +86,7 @@ public class BSFDetector extends BasicDetector<BSFRequest, BSFResponse> {
     }
 
     private static ResponseValidator<BSFResponse> responseMatches(final String banner) {
-        return new ResponseValidator<BSFResponse>(){
+        return new ResponseValidator<BSFResponse>() {
 
             @Override
             public boolean validate(final BSFResponse response) {

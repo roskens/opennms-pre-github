@@ -41,18 +41,28 @@ import org.springframework.core.io.Resource;
 public class DefaultOnmsReportDaoTest {
 
     private static final String ID = "defaultCalendarReport";
-    private static final String ALTERNATE_ID = "defaultClassicReport";
-    private static final String TYPE = "calendar";
-    private static final String SVG_TEMPLATE = "SVGAvailReport.xsl";
-    private static final String PDF_TEMPLATE = "PDFAvailReport.xsl";
-    private static final String HTML_TEMPLATE = "HTMLAvailReport.xsl";
-    private static final String LOGO = "logo.gif";
-    private static final String DATE_DISPLAY_NAME = "end date";
-    private static final String DATE_NAME = "endDate";
-    private static final String STRING_NAME = "offenderCount";
-    private static final String STRING_DISPLAY_NAME = "top offender count";
-    private static DefaultOnmsReportConfigDao m_dao;
 
+    private static final String ALTERNATE_ID = "defaultClassicReport";
+
+    private static final String TYPE = "calendar";
+
+    private static final String SVG_TEMPLATE = "SVGAvailReport.xsl";
+
+    private static final String PDF_TEMPLATE = "PDFAvailReport.xsl";
+
+    private static final String HTML_TEMPLATE = "HTMLAvailReport.xsl";
+
+    private static final String LOGO = "logo.gif";
+
+    private static final String DATE_DISPLAY_NAME = "end date";
+
+    private static final String DATE_NAME = "endDate";
+
+    private static final String STRING_NAME = "offenderCount";
+
+    private static final String STRING_DISPLAY_NAME = "top offender count";
+
+    private static DefaultOnmsReportConfigDao m_dao;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -65,7 +75,7 @@ public class DefaultOnmsReportDaoTest {
     @Test
     public void testGetRenderParms() throws Exception {
 
-        assertEquals(m_dao.getType(ID),TYPE);
+        assertEquals(m_dao.getType(ID), TYPE);
         assertEquals(m_dao.getSvgStylesheetLocation(ID), SVG_TEMPLATE);
         assertEquals(m_dao.getPdfStylesheetLocation(ID), PDF_TEMPLATE);
         assertEquals(m_dao.getHtmlStylesheetLocation(ID), HTML_TEMPLATE);
@@ -79,19 +89,19 @@ public class DefaultOnmsReportDaoTest {
 
         DateParm[] dates = m_dao.getDateParms(ID);
         assertEquals(1, dates.length);
-        assertEquals(DATE_NAME,dates[0].getName());
-        assertEquals(DATE_DISPLAY_NAME,dates[0].getDisplayName());
-        assertEquals(false,dates[0].getUseAbsoluteDate());
-        assertEquals(1,dates[0].getDefaultCount());
-        assertEquals("day",dates[0].getDefaultInterval());
-        assertEquals(23,dates[0].getDefaultTime().getHours());
-        assertEquals(59,dates[0].getDefaultTime().getMinutes());
+        assertEquals(DATE_NAME, dates[0].getName());
+        assertEquals(DATE_DISPLAY_NAME, dates[0].getDisplayName());
+        assertEquals(false, dates[0].getUseAbsoluteDate());
+        assertEquals(1, dates[0].getDefaultCount());
+        assertEquals("day", dates[0].getDefaultInterval());
+        assertEquals(23, dates[0].getDefaultTime().getHours());
+        assertEquals(59, dates[0].getDefaultTime().getMinutes());
 
         IntParm[] integers = m_dao.getIntParms(ID);
-        assertEquals(1,integers.length);
-        assertEquals(STRING_NAME,integers[0].getName());
-        assertEquals(STRING_DISPLAY_NAME,integers[0].getDisplayName());
-        assertEquals(20,integers[0].getDefault());
+        assertEquals(1, integers.length);
+        assertEquals(STRING_NAME, integers[0].getName());
+        assertEquals(STRING_DISPLAY_NAME, integers[0].getDisplayName());
+        assertEquals(20, integers[0].getDefault());
 
     }
 

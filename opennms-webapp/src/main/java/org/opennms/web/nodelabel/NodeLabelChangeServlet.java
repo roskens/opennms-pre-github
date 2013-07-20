@@ -68,12 +68,16 @@ public class NodeLabelChangeServlet extends HttpServlet {
      *
      */
     private static final long serialVersionUID = -7766362068448931124L;
+
     protected EventProxy proxy;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -138,7 +142,8 @@ public class NodeLabelChangeServlet extends HttpServlet {
             this.sendLabelChangeEvent(nodeId, oldLabel, newLabel);
 
             if (foreignSource != null) {
-                response.sendRedirect(Util.calculateUrlBase(request, "admin/nodelabelProvisioned.jsp?node=" + nodeIdString + "&foreignSource=" + foreignSource));
+                response.sendRedirect(Util.calculateUrlBase(request, "admin/nodelabelProvisioned.jsp?node="
+                        + nodeIdString + "&foreignSource=" + foreignSource));
             } else {
                 NodeLabel.assignLabel(nodeId, newLabel);
                 response.sendRedirect(Util.calculateUrlBase(request, "element/node.jsp?node=" + nodeIdString));
@@ -151,14 +156,21 @@ public class NodeLabelChangeServlet extends HttpServlet {
     }
 
     /**
-     * <p>sendLabelChangeEvent</p>
+     * <p>
+     * sendLabelChangeEvent
+     * </p>
      *
-     * @param nodeId a int.
-     * @param oldNodeLabel a {@link org.opennms.netmgt.utils.NodeLabel} object.
-     * @param newNodeLabel a {@link org.opennms.netmgt.utils.NodeLabel} object.
-     * @throws org.opennms.netmgt.model.events.EventProxyException if any.
+     * @param nodeId
+     *            a int.
+     * @param oldNodeLabel
+     *            a {@link org.opennms.netmgt.utils.NodeLabel} object.
+     * @param newNodeLabel
+     *            a {@link org.opennms.netmgt.utils.NodeLabel} object.
+     * @throws org.opennms.netmgt.model.events.EventProxyException
+     *             if any.
      */
-    protected void sendLabelChangeEvent(int nodeId, NodeLabel oldNodeLabel, NodeLabel newNodeLabel) throws EventProxyException {
+    protected void sendLabelChangeEvent(int nodeId, NodeLabel oldNodeLabel, NodeLabel newNodeLabel)
+            throws EventProxyException {
 
         EventBuilder bldr = new EventBuilder(EventConstants.NODE_LABEL_CHANGED_EVENT_UEI, "NodeLabelChangeServlet");
 
@@ -167,7 +179,7 @@ public class NodeLabelChangeServlet extends HttpServlet {
 
         if (oldNodeLabel != null) {
             bldr.addParam(EventConstants.PARM_OLD_NODE_LABEL, oldNodeLabel.getLabel());
-            bldr.addParam(EventConstants.PARM_OLD_NODE_LABEL_SOURCE,oldNodeLabel.getSource() );
+            bldr.addParam(EventConstants.PARM_OLD_NODE_LABEL_SOURCE, oldNodeLabel.getSource());
         }
 
         if (newNodeLabel != null) {

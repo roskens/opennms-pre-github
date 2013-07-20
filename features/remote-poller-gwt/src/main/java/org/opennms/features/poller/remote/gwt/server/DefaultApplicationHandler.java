@@ -44,7 +44,9 @@ import org.opennms.netmgt.model.OnmsApplication;
 import de.novanic.eventservice.service.EventExecutorService;
 
 /**
- * <p>DefaultApplicationHandler class.</p>
+ * <p>
+ * DefaultApplicationHandler class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -52,37 +54,59 @@ import de.novanic.eventservice.service.EventExecutorService;
  */
 public class DefaultApplicationHandler implements ApplicationHandler {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultApplicationHandler.class);
+
     private LocationDataService m_locationDataService;
 
     private EventExecutorService m_eventService;
 
     private Set<String> m_oldApplicationNames = null;
+
     private Set<String> m_foundApplicationNames = new HashSet<String>();
 
     /**
-     * <p>Constructor for DefaultApplicationHandler.</p>
+     * <p>
+     * Constructor for DefaultApplicationHandler.
+     * </p>
      */
-    public DefaultApplicationHandler() {}
+    public DefaultApplicationHandler() {
+    }
 
     /**
-     * <p>Constructor for DefaultApplicationHandler.</p>
+     * <p>
+     * Constructor for DefaultApplicationHandler.
+     * </p>
      *
-     * @param locationDataService a {@link org.opennms.features.poller.remote.gwt.server.LocationDataService} object.
-     * @param eventService a {@link de.novanic.eventservice.service.EventExecutorService} object.
+     * @param locationDataService
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
+     *            object.
+     * @param eventService
+     *            a {@link de.novanic.eventservice.service.EventExecutorService}
+     *            object.
      */
-    public DefaultApplicationHandler(final LocationDataService locationDataService, final EventExecutorService eventService) {
+    public DefaultApplicationHandler(final LocationDataService locationDataService,
+            final EventExecutorService eventService) {
         setLocationDataService(locationDataService);
         m_eventService = eventService;
     }
 
     /**
-     * <p>Constructor for DefaultApplicationHandler.</p>
+     * <p>
+     * Constructor for DefaultApplicationHandler.
+     * </p>
      *
-     * @param locationDataService a {@link org.opennms.features.poller.remote.gwt.server.LocationDataService} object.
-     * @param eventService a {@link de.novanic.eventservice.service.EventExecutorService} object.
-     * @param currentApplications a {@link java.util.Collection} object.
+     * @param locationDataService
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
+     *            object.
+     * @param eventService
+     *            a {@link de.novanic.eventservice.service.EventExecutorService}
+     *            object.
+     * @param currentApplications
+     *            a {@link java.util.Collection} object.
      */
-    public DefaultApplicationHandler(final LocationDataService locationDataService, final EventExecutorService eventService, final Collection<String> currentApplications) {
+    public DefaultApplicationHandler(final LocationDataService locationDataService,
+            final EventExecutorService eventService, final Collection<String> currentApplications) {
         this(locationDataService, eventService);
         if (currentApplications != null) {
             m_oldApplicationNames = new HashSet<String>(currentApplications);
@@ -95,9 +119,12 @@ public class DefaultApplicationHandler implements ApplicationHandler {
     }
 
     /**
-     * <p>handle</p>
+     * <p>
+     * handle
+     * </p>
      *
-     * @param application a {@link org.opennms.netmgt.model.OnmsApplication} object.
+     * @param application
+     *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
      */
     @Override
     public void handle(final OnmsApplication application) {
@@ -111,7 +138,9 @@ public class DefaultApplicationHandler implements ApplicationHandler {
     }
 
     /**
-     * <p>finish</p>
+     * <p>
+     * finish
+     * </p>
      */
     @Override
     public void finish() {
@@ -123,7 +152,9 @@ public class DefaultApplicationHandler implements ApplicationHandler {
     }
 
     /**
-     * <p>getApplicationNames</p>
+     * <p>
+     * getApplicationNames
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -132,9 +163,14 @@ public class DefaultApplicationHandler implements ApplicationHandler {
     }
 
     /**
-     * <p>sendEvent</p>
+     * <p>
+     * sendEvent
+     * </p>
      *
-     * @param event a {@link org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEvent} object.
+     * @param event
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEvent}
+     *            object.
      */
     protected void sendEvent(final MapRemoteEvent event) {
         LOG.debug("sending event: {}", event);
@@ -142,25 +178,33 @@ public class DefaultApplicationHandler implements ApplicationHandler {
     }
 
     /**
-     * <p>getEventService</p>
+     * <p>
+     * getEventService
+     * </p>
      *
-     * @return a {@link de.novanic.eventservice.service.EventExecutorService} object.
+     * @return a {@link de.novanic.eventservice.service.EventExecutorService}
+     *         object.
      */
     protected EventExecutorService getEventService() {
         return m_eventService;
     }
 
     /**
-     * <p>setLocationDataService</p>
+     * <p>
+     * setLocationDataService
+     * </p>
      *
-     * @param locationDataService the locationDataService to set
+     * @param locationDataService
+     *            the locationDataService to set
      */
     public void setLocationDataService(LocationDataService locationDataService) {
         m_locationDataService = locationDataService;
     }
 
     /**
-     * <p>getLocationDataService</p>
+     * <p>
+     * getLocationDataService
+     * </p>
      *
      * @return the locationDataService
      */

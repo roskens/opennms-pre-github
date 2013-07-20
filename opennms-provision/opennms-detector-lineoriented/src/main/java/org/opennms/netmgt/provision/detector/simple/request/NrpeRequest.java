@@ -33,7 +33,9 @@ import java.io.OutputStream;
 import java.util.Arrays;
 
 /**
- * <p>NrpeRequest class.</p>
+ * <p>
+ * NrpeRequest class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -50,9 +52,12 @@ public class NrpeRequest {
     private final byte[] m_command;
 
     /**
-     * <p>Constructor for NrpeRequest.</p>
+     * <p>
+     * Constructor for NrpeRequest.
+     * </p>
      *
-     * @param command an array of byte.
+     * @param command
+     *            an array of byte.
      */
     public NrpeRequest(final byte[] command) {
         if (command != null) {
@@ -63,17 +68,23 @@ public class NrpeRequest {
     }
 
     /**
-     * <p>send</p>
+     * <p>
+     * send
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @param out a {@link java.io.OutputStream} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @param out
+     *            a {@link java.io.OutputStream} object.
      */
     public void send(final OutputStream out) throws IOException {
-        out.write( m_command);
+        out.write(m_command);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

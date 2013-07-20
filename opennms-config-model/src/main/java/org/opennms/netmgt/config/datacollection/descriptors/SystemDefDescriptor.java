@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.datacollection.descriptors;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.opennms.netmgt.config.datacollection.SystemDef;
@@ -46,12 +46,12 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
  *
  * @version $Revision$ $Date$
  */
-@SuppressWarnings("all") public class SystemDefDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
+@SuppressWarnings("all")
+public class SystemDefDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _elementDefinition.
@@ -78,10 +78,9 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
      */
     private org.exolab.castor.xml.XMLFieldDescriptor _identity;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public SystemDefDescriptor() {
         super();
@@ -89,35 +88,35 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         _xmlName = "systemDef";
         _elementDefinition = true;
 
-        //-- set grouping compositor
+        // -- set grouping compositor
         setCompositorAsSequence();
-        org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
-        org.exolab.castor.mapping.FieldHandler             handler        = null;
-        org.exolab.castor.xml.FieldValidator               fieldValidator = null;
-        //-- initialize attribute descriptors
+        org.exolab.castor.xml.util.XMLFieldDescriptorImpl desc = null;
+        org.exolab.castor.mapping.FieldHandler handler = null;
+        org.exolab.castor.xml.FieldValidator fieldValidator = null;
+        // -- initialize attribute descriptors
 
-        //-- _name
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_name", "name", org.exolab.castor.xml.NodeType.Attribute);
+        // -- _name
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_name", "name",
+                                                                     org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 SystemDef target = (SystemDef) object;
                 return target.getName();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     SystemDef target = (SystemDef) object;
-                    target.setName( (java.lang.String) value);
+                    target.setName((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -130,39 +129,41 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
 
-        //-- validation code for: _name
+        // -- validation code for: _name
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- initialize element descriptors
+        // -- initialize element descriptors
 
-        //-- _systemDefChoice
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.datacollection.SystemDefChoice.class, "_systemDefChoice", "-error-if-this-is-used-", org.exolab.castor.xml.NodeType.Element);
+        // -- _systemDefChoice
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(
+                                                                     org.opennms.netmgt.config.datacollection.SystemDefChoice.class,
+                                                                     "_systemDefChoice", "-error-if-this-is-used-",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 SystemDef target = (SystemDef) object;
                 return target.getSystemDefChoice();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     SystemDef target = (SystemDef) object;
-                    target.setSystemDefChoice( (org.opennms.netmgt.config.datacollection.SystemDefChoice) value);
+                    target.setSystemDefChoice((org.opennms.netmgt.config.datacollection.SystemDefChoice) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -179,33 +180,35 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _systemDefChoice
+        // -- validation code for: _systemDefChoice
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
-        { //-- local scope
+        { // -- local scope
         }
         desc.setValidator(fieldValidator);
-        //-- _ipList
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.datacollection.IpList.class, "_ipList", "ipList", org.exolab.castor.xml.NodeType.Element);
+        // -- _ipList
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(
+                                                                     org.opennms.netmgt.config.datacollection.IpList.class,
+                                                                     "_ipList", "ipList",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 SystemDef target = (SystemDef) object;
                 return target.getIpList();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     SystemDef target = (SystemDef) object;
-                    target.setIpList( (org.opennms.netmgt.config.datacollection.IpList) value);
+                    target.setIpList((org.opennms.netmgt.config.datacollection.IpList) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -219,32 +222,34 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _ipList
+        // -- validation code for: _ipList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
         }
         desc.setValidator(fieldValidator);
-        //-- _collect
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.datacollection.Collect.class, "_collect", "collect", org.exolab.castor.xml.NodeType.Element);
+        // -- _collect
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(
+                                                                     org.opennms.netmgt.config.datacollection.Collect.class,
+                                                                     "_collect", "collect",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 SystemDef target = (SystemDef) object;
                 return target.getCollect();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     SystemDef target = (SystemDef) object;
-                    target.setCollect( (org.opennms.netmgt.config.datacollection.Collect) value);
+                    target.setCollect((org.opennms.netmgt.config.datacollection.Collect) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -259,18 +264,17 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _collect
+        // -- validation code for: _collect
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
-        { //-- local scope
+        { // -- local scope
         }
         desc.setValidator(fieldValidator);
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Method getAccessMode.
@@ -278,8 +282,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
      * @return the access mode specified for this class.
      */
     @Override()
-    public org.exolab.castor.mapping.AccessMode getAccessMode(
-    ) {
+    public org.exolab.castor.mapping.AccessMode getAccessMode() {
         return null;
     }
 
@@ -287,11 +290,10 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
      * Method getIdentity.
      *
      * @return the identity field, null if this class has no
-     * identity.
+     *         identity.
      */
     @Override()
-    public org.exolab.castor.mapping.FieldDescriptor getIdentity(
-    ) {
+    public org.exolab.castor.mapping.FieldDescriptor getIdentity() {
         return _identity;
     }
 
@@ -301,8 +303,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
      * @return the Java class represented by this descriptor.
      */
     @Override()
-    public java.lang.Class<?> getJavaClass(
-    ) {
+    public java.lang.Class<?> getJavaClass() {
         return org.opennms.netmgt.config.datacollection.SystemDef.class;
     }
 
@@ -312,8 +313,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpacePrefix(
-    ) {
+    public java.lang.String getNameSpacePrefix() {
         return _nsPrefix;
     }
 
@@ -321,11 +321,10 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
      * Method getNameSpaceURI.
      *
      * @return the namespace URI used when marshaling and
-     * unmarshaling as XML.
+     *         unmarshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpaceURI(
-    ) {
+    public java.lang.String getNameSpaceURI() {
         return _nsURI;
     }
 
@@ -333,11 +332,10 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
      * Method getValidator.
      *
      * @return a specific validator for the class described by this
-     * ClassDescriptor.
+     *         ClassDescriptor.
      */
     @Override()
-    public org.exolab.castor.xml.TypeValidator getValidator(
-    ) {
+    public org.exolab.castor.xml.TypeValidator getValidator() {
         return this;
     }
 
@@ -347,8 +345,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
      * @return the XML Name for the Class being described.
      */
     @Override()
-    public java.lang.String getXMLName(
-    ) {
+    public java.lang.String getXMLName() {
         return _xmlName;
     }
 
@@ -356,12 +353,11 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
      * Method isElementDefinition.
      *
      * @return true if XML schema definition of this Class is that
-     * of a global
-     * element or element with anonymous type definition.
+     *         of a global
+     *         element or element with anonymous type definition.
      */
     @Override
-    public boolean isElementDefinition(
-    ) {
+    public boolean isElementDefinition() {
         return _elementDefinition;
     }
 

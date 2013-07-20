@@ -41,12 +41,12 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
  */
 public interface StringRenderer<T> {
 
-	/**
-	 * Transforms the input-object to a String.
-	 *
-	 * @param input
-	 *            The input object.
-	 * @return The formatted string of the input object.
-	 */
-	String render(T input);
+    /**
+     * Transforms the input-object to a String.
+     *
+     * @param input
+     *            The input object.
+     * @return The formatted string of the input object.
+     */
+    String render(T input);
 }

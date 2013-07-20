@@ -41,6 +41,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 public class KscCustomReportAppController implements Presenter {
 
     private JsArray<ResourceListItem> m_resourceList;
+
     private String m_baseUrl;
 
     public KscCustomReportAppController(JsArray<ResourceListItem> resourceList, String baseUrl) {
@@ -50,7 +51,8 @@ public class KscCustomReportAppController implements Presenter {
 
     @Override
     public void go(HasWidgets container) {
-        new KscCustomReportListPresenter(new DefaultResourceListViewImpl(), new SearchPopup(), m_resourceList, new KscCustomSelectionView(), m_baseUrl).go(container);
+        new KscCustomReportListPresenter(new DefaultResourceListViewImpl(), new SearchPopup(), m_resourceList,
+                                         new KscCustomSelectionView(), m_baseUrl).go(container);
 
     }
 

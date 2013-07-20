@@ -33,7 +33,8 @@ import java.util.StringTokenizer;
 import org.opennms.netmgt.config.collector.CollectionResource;
 
 /**
- * This class use the new implementation of SnmpStorageStrategy extending the new
+ * This class use the new implementation of SnmpStorageStrategy extending the
+ * new
  * IndexStorageStrategy from opennms-services
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
@@ -51,15 +52,19 @@ public class FrameRelayStorageStrategy extends IndexStorageStrategy {
     }
 
     /**
-     * <p>getInterfaceName</p>
+     * <p>
+     * getInterfaceName
+     * </p>
      *
-     * @param nodeId a {@link java.lang.String} object.
-     * @param ifIndex a {@link java.lang.String} object.
+     * @param nodeId
+     *            a {@link java.lang.String} object.
+     * @param ifIndex
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getInterfaceName(String nodeId, String ifIndex) {
-       String label = m_storageStrategyService.getSnmpInterfaceLabel(new Integer(ifIndex));
-       return label != null ? label : ifIndex;
+        String label = m_storageStrategyService.getSnmpInterfaceLabel(new Integer(ifIndex));
+        return label != null ? label : ifIndex;
     }
 
 }

@@ -46,7 +46,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Initializes our internal servlet systems at servlet container startup, and
  * destroys any pool resources at servlet container shutdown.
- *
  * This listener is specified in the web.xml to listen to
  * <code>ServletContext</code> lifecyle events. On startup it calls
  * ServletInitializer.init and initializes the UserFactory, GroupFactory. On
@@ -56,8 +55,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InitializerServletContextListener implements ServletContextListener {
 
-	private static final Logger LOG = LoggerFactory.getLogger(InitializerServletContextListener.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(InitializerServletContextListener.class);
 
     private Timer rtcCheckTimer = null;
 
@@ -85,7 +83,6 @@ public class InitializerServletContextListener implements ServletContextListener
             LOG.error("Error while initializing RTC check timer: {}", e, e);
         }
     }
-
 
     /** {@inheritDoc} */
     @Override

@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -43,11 +42,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -65,20 +65,18 @@ import javax.xml.bind.annotation.XmlValue;
  *   &lt;/simpleContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "value"
-})
+@XmlType(name = "", propOrder = { "value" })
 @XmlRootElement(name = "logmsg")
 public class Logmsg {
 
     @XmlValue
     protected String value;
+
     @XmlAttribute(name = "notify")
     protected Boolean notify;
+
     @XmlAttribute(name = "dest")
     protected String dest;
 
@@ -86,9 +84,7 @@ public class Logmsg {
      * Gets the value of the value property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getValue() {
         return value;
@@ -98,9 +94,7 @@ public class Logmsg {
      * Sets the value of the value property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setValue(String value) {
         this.value = value;
@@ -110,9 +104,7 @@ public class Logmsg {
      * Gets the value of the notify property.
      *
      * @return
-     *     possible object is
-     *     {@link Boolean }
-     *
+     *         possible object is {@link Boolean }
      */
     public boolean isNotify() {
         if (notify == null) {
@@ -126,9 +118,7 @@ public class Logmsg {
      * Sets the value of the notify property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *
+     *            allowed object is {@link Boolean }
      */
     public void setNotify(Boolean value) {
         this.notify = value;
@@ -138,9 +128,7 @@ public class Logmsg {
      * Gets the value of the dest property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getDest() {
         if (dest == null) {
@@ -154,9 +142,7 @@ public class Logmsg {
      * Sets the value of the dest property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setDest(String value) {
         this.dest = value;

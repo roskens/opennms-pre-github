@@ -56,7 +56,8 @@ public class WallboardUI extends UI implements DashletSelectorAccess {
     /**
      * Assigns the associated {@link DashletSelector}.
      *
-     * @param dashletSelector the dashlet selector to be used
+     * @param dashletSelector
+     *            the dashlet selector to be used
      */
     public void setDashletSelector(DashletSelector dashletSelector) {
         this.m_dashletSelector = dashletSelector;
@@ -74,7 +75,8 @@ public class WallboardUI extends UI implements DashletSelectorAccess {
     /**
      * Entry point for a VAADIN application.
      *
-     * @param request the {@link VaadinRequest} instance
+     * @param request
+     *            the {@link VaadinRequest} instance
      */
     @Override
     protected void init(VaadinRequest request) {

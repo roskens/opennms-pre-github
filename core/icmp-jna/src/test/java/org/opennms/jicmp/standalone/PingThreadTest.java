@@ -39,7 +39,6 @@ import org.junit.Test;
 
 import com.sun.jna.Platform;
 
-
 /**
  * PingThreadTest
  *
@@ -62,9 +61,9 @@ public class PingThreadTest {
         int pingCount = 10;
         V4Pinger listener = new V4Pinger();
         try {
-        listener.start();
+            listener.start();
 
-        listener.ping((Inet4Address)InetAddress.getByName("127.0.0.1"), 1000, 0, pingCount, 1000);
+            listener.ping((Inet4Address) InetAddress.getByName("127.0.0.1"), 1000, 0, pingCount, 1000);
 
         } finally {
             listener.stop();
@@ -77,25 +76,25 @@ public class PingThreadTest {
     public void testManyThreadSocketUse() throws Exception {
         V4Pinger listener = new V4Pinger();
         try {
-        listener.start();
+            listener.start();
 
-        Thread t1 = pingThead(listener, 1000, 5);
-        Thread t2 = pingThead(listener, 2000, 5);
-        Thread t3 = pingThead(listener, 3000, 5);
-        Thread t4 = pingThead(listener, 4000, 5);
-        Thread t5 = pingThead(listener, 5000, 5);
+            Thread t1 = pingThead(listener, 1000, 5);
+            Thread t2 = pingThead(listener, 2000, 5);
+            Thread t3 = pingThead(listener, 3000, 5);
+            Thread t4 = pingThead(listener, 4000, 5);
+            Thread t5 = pingThead(listener, 5000, 5);
 
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
-        t5.start();
+            t1.start();
+            t2.start();
+            t3.start();
+            t4.start();
+            t5.start();
 
-        t1.join();
-        t2.join();
-        t3.join();
-        t4.join();
-        t5.join();
+            t1.join();
+            t2.join();
+            t3.join();
+            t4.join();
+            t5.join();
 
         } finally {
             listener.stop();
@@ -109,14 +108,13 @@ public class PingThreadTest {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(id/10);
-                    listener.ping((Inet4Address)InetAddress.getByName("127.0.0.1"), id, 0, count, 1000);
-                } catch(Throwable e) {
+                    Thread.sleep(id / 10);
+                    listener.ping((Inet4Address) InetAddress.getByName("127.0.0.1"), id, 0, count, 1000);
+                } catch (Throwable e) {
                     e.printStackTrace();
                 }
             }
         };
     }
-
 
 }

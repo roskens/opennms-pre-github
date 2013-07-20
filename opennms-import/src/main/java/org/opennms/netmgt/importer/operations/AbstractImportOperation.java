@@ -28,14 +28,14 @@
 
 package org.opennms.netmgt.importer.operations;
 
-
 /**
- * <p>Abstract AbstractImportOperation class.</p>
+ * <p>
+ * Abstract AbstractImportOperation class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public abstract class AbstractImportOperation implements ImportOperation {
-
 
 }

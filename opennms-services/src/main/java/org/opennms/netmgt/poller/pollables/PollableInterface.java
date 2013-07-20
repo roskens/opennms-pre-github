@@ -48,10 +48,15 @@ public class PollableInterface extends PollableContainer {
     private final InetAddress m_addr;
 
     /**
-     * <p>Constructor for PollableInterface.</p>
+     * <p>
+     * Constructor for PollableInterface.
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.poller.pollables.PollableNode} object.
-     * @param addr a {@link java.net.InetAddress} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.poller.pollables.PollableNode}
+     *            object.
+     * @param addr
+     *            a {@link java.net.InetAddress} object.
      */
     public PollableInterface(PollableNode node, InetAddress addr) {
         super(node, Scope.INTERFACE);
@@ -59,12 +64,15 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNode} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNode}
+     *         object.
      */
     public PollableNode getNode() {
-        return (PollableNode)getParent();
+        return (PollableNode) getParent();
     }
 
     private void setNode(PollableNode newNode) {
@@ -72,16 +80,21 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * <p>getNetwork</p>
+     * <p>
+     * getNetwork
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNetwork} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNetwork}
+     *         object.
      */
     public PollableNetwork getNetwork() {
         return getNode().getNetwork();
     }
 
     /**
-     * <p>getContext</p>
+     * <p>
+     * getContext
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollContext} object.
      */
@@ -91,7 +104,9 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * <p>getIpAddr</p>
+     * <p>
+     * getIpAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,7 +115,9 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * <p>getAddress</p>
+     * <p>
+     * getAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -109,7 +126,9 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -118,7 +137,9 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * <p>getNodeLabel</p>
+     * <p>
+     * getNodeLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -127,10 +148,14 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * <p>createService</p>
+     * <p>
+     * createService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableService} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableService}
+     *         object.
      */
     public PollableService createService(final String svcName) {
         return withTreeLock(new Callable<PollableService>() {
@@ -148,19 +173,23 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * <p>getService</p>
+     * <p>
+     * getService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableService} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableService}
+     *         object.
      */
     public PollableService getService(String svcName) {
-        return (PollableService)getMember(svcName);
+        return (PollableService) getMember(svcName);
     }
 
     /** {@inheritDoc} */
     @Override
     protected Object createMemberKey(PollableElement member) {
-        PollableService svc = (PollableService)member;
+        PollableService svc = (PollableService) member;
         return svc.getSvcName();
     }
 
@@ -172,7 +201,9 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * <p>recalculateStatus</p>
+     * <p>
+     * recalculateStatus
+     * </p>
      */
     @Override
     public void recalculateStatus() {
@@ -192,11 +223,13 @@ public class PollableInterface extends PollableContainer {
         return getService(getContext().getCriticalServiceName());
     }
 
-
     /**
-     * <p>selectPollElement</p>
+     * <p>
+     * selectPollElement
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableElement} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableElement}
+     *         object.
      */
     @Override
     public PollableElement selectPollElement() {
@@ -219,7 +252,6 @@ public class PollableInterface extends PollableContainer {
     public PollStatus pollRemainingMembers(PollableElement member) {
         PollableService critSvc = getCriticalService();
 
-
         if (critSvc != null && getStatus().isUp()) {
             if (member != critSvc)
                 critSvc.poll();
@@ -234,36 +266,47 @@ public class PollableInterface extends PollableContainer {
         }
 
     }
+
     /** {@inheritDoc} */
     @Override
     public Event createDownEvent(Date date) {
-        return getContext().createEvent(EventConstants.INTERFACE_DOWN_EVENT_UEI, getNodeId(), getAddress(), null, date, getStatus().getReason());
+        return getContext().createEvent(EventConstants.INTERFACE_DOWN_EVENT_UEI, getNodeId(), getAddress(), null, date,
+                                        getStatus().getReason());
     }
-
 
     /** {@inheritDoc} */
     @Override
     public Event createUpEvent(Date date) {
-        return getContext().createEvent(EventConstants.INTERFACE_UP_EVENT_UEI, getNodeId(), getAddress(), null, date, getStatus().getReason());
+        return getContext().createEvent(EventConstants.INTERFACE_UP_EVENT_UEI, getNodeId(), getAddress(), null, date,
+                                        getStatus().getReason());
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String toString() { return getNode()+":"+getIpAddr(); }
+    public String toString() {
+        return getNode() + ":" + getIpAddr();
+    }
 
     /**
-     * <p>reparentTo</p>
+     * <p>
+     * reparentTo
+     * </p>
      *
-     * @param newNode a {@link org.opennms.netmgt.poller.pollables.PollableNode} object.
+     * @param newNode
+     *            a {@link org.opennms.netmgt.poller.pollables.PollableNode}
+     *            object.
      */
     public void reparentTo(final PollableNode newNode) {
         final PollableNode oldNode = getNode();
 
-        if (oldNode.equals(newNode)) return;
+        if (oldNode.equals(newNode))
+            return;
 
         // always lock the nodes in nodeId order so deadlock is not possible
         final PollableNode firstNode = (oldNode.getNodeId() <= newNode.getNodeId() ? oldNode : newNode);
@@ -286,14 +329,18 @@ public class PollableInterface extends PollableContainer {
                 getContext().reparentOutages(oldIp, oldNodeId, newNodeId);
 
                 if (getCause() == null || getCause().equals(oldNode.getCause())) {
-                    // the current interface outage is a node outage or no outage at all
+                    // the current interface outage is a node outage or no
+                    // outage at all
                     if (newNode.getCause() != null) {
-                        // if the new Node has a node outage then we recursively set the
-                        // causes so when process events we properly handle the causes
+                        // if the new Node has a node outage then we recursively
+                        // set the
+                        // causes so when process events we properly handle the
+                        // causes
                         PollableVisitor visitor = new PollableVisitorAdaptor() {
                             @Override
                             public void visitElement(PollableElement element) {
-                                boolean matches = (element.getCause() == null ? oldNode.getCause() == null : element.getCause().equals(oldNode.getCause()));
+                                boolean matches = (element.getCause() == null ? oldNode.getCause() == null
+                                    : element.getCause().equals(oldNode.getCause()));
                                 if (matches) {
                                     element.setCause(newNode.getCause());
                                 }
@@ -302,7 +349,6 @@ public class PollableInterface extends PollableContainer {
                         visit(visitor);
                     }
                 }
-
 
                 // process the status changes related to the
                 Date date = new Date();
@@ -324,7 +370,5 @@ public class PollableInterface extends PollableContainer {
         firstNode.withTreeLock(lockSecondNodeAndRun);
 
     }
-
-
 
 }

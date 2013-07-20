@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.snmp;
 
-
 public interface SnmpTrapBuilder {
 
     void send(String destAddr, int destPort, String community) throws Exception;

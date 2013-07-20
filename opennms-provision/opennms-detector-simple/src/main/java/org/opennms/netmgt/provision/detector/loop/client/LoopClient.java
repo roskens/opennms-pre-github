@@ -37,7 +37,9 @@ import org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest;
 import org.opennms.netmgt.provision.support.Client;
 
 /**
- * <p>LoopClient class.</p>
+ * <p>
+ * LoopClient class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,10 +47,13 @@ import org.opennms.netmgt.provision.support.Client;
 public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
 
     private String m_address;
+
     private boolean m_isSupported = false;
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
@@ -62,11 +67,17 @@ public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
     }
 
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.detector.loop.response.LoopResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.loop.response.LoopResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public LoopResponse receiveBanner() throws IOException, Exception {
@@ -74,12 +85,21 @@ public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.loop.response.LoopResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.loop.response.LoopResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public LoopResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
@@ -93,16 +113,21 @@ public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
     }
 
     /**
-     * <p>setSupported</p>
+     * <p>
+     * setSupported
+     * </p>
      *
-     * @param isSupported a boolean.
+     * @param isSupported
+     *            a boolean.
      */
     public void setSupported(boolean isSupported) {
         m_isSupported = isSupported;
     }
 
     /**
-     * <p>isSupported</p>
+     * <p>
+     * isSupported
+     * </p>
      *
      * @return a boolean.
      */

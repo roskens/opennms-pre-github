@@ -38,17 +38,20 @@ import org.opennms.netmgt.model.ResourceReference;
  * @see ResourceReference
  * @version $Id: $
  */
-public class ResourceReferenceDaoHibernate extends AbstractDaoHibernate<ResourceReference, Integer> implements ResourceReferenceDao {
+public class ResourceReferenceDaoHibernate extends AbstractDaoHibernate<ResourceReference, Integer> implements
+        ResourceReferenceDao {
 
-	/**
-	 * <p>Constructor for ResourceReferenceDaoHibernate.</p>
-	 */
-	public ResourceReferenceDaoHibernate() {
-		super(ResourceReference.class);
-	}
+    /**
+     * <p>
+     * Constructor for ResourceReferenceDaoHibernate.
+     * </p>
+     */
+    public ResourceReferenceDaoHibernate() {
+        super(ResourceReference.class);
+    }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public ResourceReference getByResourceId(String resourceId) {
         return findUnique("from ResourceReference where resourceId = ?", resourceId);
     }

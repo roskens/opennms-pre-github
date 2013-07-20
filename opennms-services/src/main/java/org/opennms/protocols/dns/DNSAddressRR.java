@@ -39,12 +39,10 @@ import org.opennms.core.utils.InetAddressUtils;
  * Holds a DNS resource record which is a DNS response that gives the IP address
  * of a particular hostname. A resource record typically has:
  * </P>
- *
  * <TABLE BORDER=0>
  * <TH>
  * <TD>Element</TD>
- * <TD>Description</TD>
- * </TH>
+ * <TD>Description</TD></TH>
  * <TR>
  * <TD>Name</TD>
  * <TD>Domain name that the resource record describes.</TD>
@@ -150,7 +148,8 @@ public final class DNSAddressRR {
      * @exception java.io.IOException
      *                Thrown if an error occurs decoding data from the passed
      *                DNSInputStream.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public DNSAddressRR(String name, int type, int clas, long ttl, DNSInputStream dnsIn) throws IOException {
         m_name = name;
@@ -188,7 +187,8 @@ public final class DNSAddressRR {
      * @return The InetAddress of the address
      * @exception java.net.UnknownHostException
      *                Thrown if the InetAddress object cannot be constructed.
-     * @throws java.net.UnknownHostException if any.
+     * @throws java.net.UnknownHostException
+     *             if any.
      */
     public InetAddress getInetAddress() throws UnknownHostException {
         return InetAddressUtils.addr(AddressToByteString());

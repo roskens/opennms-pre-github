@@ -39,21 +39,33 @@ import java.util.Date;
 
 import org.opennms.netmgt.model.PrefabGraph;
 import org.opennms.netmgt.model.OnmsResource;
+
 public class KscResultSet {
     private final String m_title;
+
     private final Date m_start;
+
     private final Date m_end;
+
     private final OnmsResource m_resource;
+
     private final PrefabGraph m_prefabGraph;
 
     /**
-     * <p>Constructor for KscResultSet.</p>
+     * <p>
+     * Constructor for KscResultSet.
+     * </p>
      *
-     * @param title a {@link java.lang.String} object.
-     * @param start a java$util$Date object.
-     * @param end a java$util$Date object.
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
-     * @param prefabGraph a {@link org.opennms.netmgt.model.PrefabGraph} object.
+     * @param title
+     *            a {@link java.lang.String} object.
+     * @param start
+     *            a java$util$Date object.
+     * @param end
+     *            a java$util$Date object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param prefabGraph
+     *            a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */
     public KscResultSet(String title, Date start, Date end, OnmsResource resource, PrefabGraph prefabGraph) {
         m_title = title;
@@ -64,7 +76,9 @@ public class KscResultSet {
     }
 
     /**
-     * <p>getTitle</p>
+     * <p>
+     * getTitle
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -73,7 +87,9 @@ public class KscResultSet {
     }
 
     /**
-     * <p>getStart</p>
+     * <p>
+     * getStart
+     * </p>
      *
      * @return a java$util$Date object.
      */
@@ -82,7 +98,9 @@ public class KscResultSet {
     }
 
     /**
-     * <p>getEnd</p>
+     * <p>
+     * getEnd
+     * </p>
      *
      * @return a java$util$Date object.
      */
@@ -91,7 +109,9 @@ public class KscResultSet {
     }
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
@@ -100,7 +120,9 @@ public class KscResultSet {
     }
 
     /**
-     * <p>getPrefabGraph</p>
+     * <p>
+     * getPrefabGraph
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */

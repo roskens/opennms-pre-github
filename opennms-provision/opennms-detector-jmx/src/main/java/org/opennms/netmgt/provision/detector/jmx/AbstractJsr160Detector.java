@@ -32,7 +32,9 @@ import org.opennms.netmgt.provision.detector.jmx.client.JMXClient;
 import org.opennms.netmgt.provision.detector.jmx.client.Jsr160Client;
 
 /**
- * <p>Abstract AbstractJsr160Detector class.</p>
+ * <p>
+ * Abstract AbstractJsr160Detector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,18 +45,28 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
     protected static int DEFAULT_PORT = 9003;
 
     private String m_factory = "STANDARD";
+
     private String m_friendlyName = "jsr160";
+
     private String m_protocol = "rmi";
+
     private String m_type = "default";
+
     private String m_urlPath = "/jmxrmi";
+
     private String m_username = "opennms";
+
     private String m_password = "OPENNMS";
 
     /**
-     * <p>Constructor for AbstractJsr160Detector.</p>
+     * <p>
+     * Constructor for AbstractJsr160Detector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     protected AbstractJsr160Detector(String serviceName, int port) {
         super(serviceName, port);
@@ -77,16 +89,21 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
     }
 
     /**
-     * <p>setFactory</p>
+     * <p>
+     * setFactory
+     * </p>
      *
-     * @param factory a {@link java.lang.String} object.
+     * @param factory
+     *            a {@link java.lang.String} object.
      */
     public void setFactory(String factory) {
         m_factory = factory;
     }
 
     /**
-     * <p>getFactory</p>
+     * <p>
+     * getFactory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,16 +112,21 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
     }
 
     /**
-     * <p>setFriendlyName</p>
+     * <p>
+     * setFriendlyName
+     * </p>
      *
-     * @param friendlyName a {@link java.lang.String} object.
+     * @param friendlyName
+     *            a {@link java.lang.String} object.
      */
     public void setFriendlyName(String friendlyName) {
         m_friendlyName = friendlyName;
     }
 
     /**
-     * <p>getFriendlyName</p>
+     * <p>
+     * getFriendlyName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,16 +135,21 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
     }
 
     /**
-     * <p>setProtocol</p>
+     * <p>
+     * setProtocol
+     * </p>
      *
-     * @param protocol a {@link java.lang.String} object.
+     * @param protocol
+     *            a {@link java.lang.String} object.
      */
     public void setProtocol(String protocol) {
         m_protocol = protocol;
     }
 
     /**
-     * <p>getProtocol</p>
+     * <p>
+     * getProtocol
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,16 +158,21 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
     }
 
     /**
-     * <p>setType</p>
+     * <p>
+     * setType
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public void setType(String type) {
         m_type = type;
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -149,16 +181,21 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
     }
 
     /**
-     * <p>setUrlPath</p>
+     * <p>
+     * setUrlPath
+     * </p>
      *
-     * @param urlPath a {@link java.lang.String} object.
+     * @param urlPath
+     *            a {@link java.lang.String} object.
      */
     public void setUrlPath(String urlPath) {
         m_urlPath = urlPath;
     }
 
     /**
-     * <p>getUrlPath</p>
+     * <p>
+     * getUrlPath
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -167,16 +204,21 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
     }
 
     /**
-     * <p>setUsername</p>
+     * <p>
+     * setUsername
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      */
     public void setUsername(String username) {
         m_username = username;
     }
 
     /**
-     * <p>getUsername</p>
+     * <p>
+     * getUsername
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -185,16 +227,21 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
     }
 
     /**
-     * <p>setPassword</p>
+     * <p>
+     * setPassword
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         m_password = password;
     }
 
     /**
-     * <p>getPassword</p>
+     * <p>
+     * getPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

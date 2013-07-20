@@ -31,7 +31,9 @@ package org.opennms.core.utils;
 import java.net.InetAddress;
 
 /**
- * <p>IPLike class.</p>
+ * <p>
+ * IPLike class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -57,14 +59,18 @@ public abstract class IPLike {
     }
 
     public static boolean matches(final InetAddress address, final String pattern) {
-    	return matches(InetAddressUtils.str(address), pattern);
+        return matches(InetAddressUtils.str(address), pattern);
     }
 
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param address a {@link java.lang.String} object.
-     * @param pattern a {@link java.lang.String} object.
+     * @param address
+     *            a {@link java.lang.String} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public static boolean matches(String address, String pattern) {
@@ -80,7 +86,8 @@ public abstract class IPLike {
             final String[] addressAndScope = address.split("%");
             address = addressAndScope[0];
             if (patternAndScope.length < 2) {
-                // Do nothing; there was no pattern specified for the scope identifier
+                // Do nothing; there was no pattern specified for the scope
+                // identifier
             } else if (patternAndScope.length == 2) {
                 if (addressAndScope.length < 2) {
                     return false;
@@ -132,12 +139,14 @@ public abstract class IPLike {
      * "*" matches any
      * This method is commonly used for matching IP octets or ports
      *
-     * @param value a {@link java.lang.String} object.
-     * @param patterns a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
+     * @param patterns
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public static boolean matchNumericListOrRange(final String value, final String patterns, final RangeMatcher matcher) {
-    	final String patternList[] = patterns.split(",", 0);
+        final String patternList[] = patterns.split(",", 0);
         for (final String element : patternList) {
             if (matcher.match(value, element)) {
                 return true;
@@ -149,17 +158,19 @@ public abstract class IPLike {
     /**
      * Helper method in support of matchNumericListOrRange
      *
-     * @param value a {@link java.lang.String} object.
-     * @param pattern a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public static boolean matchRange(final String value, final String pattern) {
-    	final int dashCount = countChar('-', pattern);
+        final int dashCount = countChar('-', pattern);
 
         if ("*".equals(pattern)) {
             return true;
         } else if (dashCount == 0) {
-            return Long.parseLong(pattern, 10) ==  Long.parseLong(value, 10);
+            return Long.parseLong(pattern, 10) == Long.parseLong(value, 10);
         } else if (dashCount > 1) {
             return false;
         } else if (dashCount == 1) {
@@ -175,22 +186,24 @@ public abstract class IPLike {
     /**
      * Helper method in support of matchNumericListOrRange
      *
-     * @param value a {@link java.lang.String} object.
-     * @param pattern a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public static boolean matchRangeHex(final String value, final String pattern) {
-    	final int dashCount = countChar('-', pattern);
+        final int dashCount = countChar('-', pattern);
 
         if ("*".equals(pattern)) {
             return true;
         } else if (dashCount == 0) {
             // Convert values to hex integers and compare
-            return Long.parseLong(pattern, 16) ==  Long.parseLong(value, 16);
+            return Long.parseLong(pattern, 16) == Long.parseLong(value, 16);
         } else if (dashCount > 1) {
             return false;
         } else if (dashCount == 1) {
-        	final String ar[] = pattern.split("-");
+            final String ar[] = pattern.split("-");
             final long rangeBegin = Long.parseLong(ar[0], 16);
             final long rangeEnd = Long.parseLong(ar[1], 16);
             final long ip = Long.parseLong(value, 16);
@@ -200,21 +213,25 @@ public abstract class IPLike {
     }
 
     /**
-     * <p>countChar</p>
+     * <p>
+     * countChar
+     * </p>
      *
-     * @param charIn a char.
-     * @param stingIn a {@link java.lang.String} object.
+     * @param charIn
+     *            a char.
+     * @param stingIn
+     *            a {@link java.lang.String} object.
      * @return a int.
      */
     public static int countChar(final char charIn, final String stingIn) {
 
         int charCount = 0;
         int charIndex = 0;
-        for (int i=0; i<stingIn.length(); i++) {
+        for (int i = 0; i < stingIn.length(); i++) {
             charIndex = stingIn.indexOf(charIn, i);
             if (charIndex != -1) {
                 charCount++;
-                i = charIndex +1;
+                i = charIndex + 1;
             }
         }
         return charCount;

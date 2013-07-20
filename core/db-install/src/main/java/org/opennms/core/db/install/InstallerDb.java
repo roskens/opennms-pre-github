@@ -75,16 +75,17 @@ public class InstallerDb {
     private static final String IPLIKE_SQL_RESOURCE = "iplike.sql";
 
     public static final float POSTGRES_MIN_VERSION = 7.4f;
+
     public static final float POSTGRES_MAX_VERSION_PLUS_ONE = 9.9f;
 
     private static final int s_fetch_size = 1024;
 
     private static Comparator<Constraint> constraintComparator = new Comparator<Constraint>() {
 
-                @Override
-		public int compare(final Constraint o1, final Constraint o2) {
-			return o1.getName().compareTo(o2.getName());
-		}
+        @Override
+        public int compare(final Constraint o1, final Constraint o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
 
     };
 
@@ -131,8 +132,11 @@ public class InstallerDb {
     private Map<String, Integer> m_dbtypes = null;
 
     private HashMap<String, String[]> m_seqmapping = null;
+
     private Connection m_connection;
+
     private Connection m_adminConnection;
+
     private String m_user;
 
     private boolean m_force = false;
@@ -141,70 +145,75 @@ public class InstallerDb {
 
     private boolean m_no_revert = false;
 
-	private final Pattern m_seqmappingPattern = Pattern.compile("\\s*--#\\s+install:\\s*"
-	        + "(\\S+)\\s+(\\S+)\\s+(\\S+)\\s*.*");
+    private final Pattern m_seqmappingPattern = Pattern.compile("\\s*--#\\s+install:\\s*"
+            + "(\\S+)\\s+(\\S+)\\s+(\\S+)\\s*.*");
 
-	private final Pattern m_createPattern = Pattern.compile("(?i)\\s*create\\b.*");
+    private final Pattern m_createPattern = Pattern.compile("(?i)\\s*create\\b.*");
 
-	private final Pattern m_criteriaPattern = Pattern.compile("\\s*--#\\s+criteria:\\s*(.*)");
+    private final Pattern m_criteriaPattern = Pattern.compile("\\s*--#\\s+criteria:\\s*(.*)");
 
-	private final Pattern m_insertPattern = Pattern.compile("(?i)INSERT INTO "
-	        + "[\"']?([\\w_]+)[\"']?.*");
+    private final Pattern m_insertPattern = Pattern.compile("(?i)INSERT INTO " + "[\"']?([\\w_]+)[\"']?.*");
 
-	private final Pattern m_dropPattern = Pattern.compile("(?i)DROP TABLE [\"']?"
-	        + "([\\w_]+)[\"']?.*");
+    private final Pattern m_dropPattern = Pattern.compile("(?i)DROP TABLE [\"']?" + "([\\w_]+)[\"']?.*");
 
-	private final Pattern m_emptyLine = Pattern.compile("^\\s*(\\\\.*)?$");
+    private final Pattern m_emptyLine = Pattern.compile("^\\s*(\\\\.*)?$");
 
-	private final Pattern m_createUnique = Pattern.compile("(?i)\\s*create\\s+((?:unique )?\\w+)\\s+[\"']?(\\w+)[\"']?.*");
+    private final Pattern m_createUnique = Pattern.compile("(?i)\\s*create\\s+((?:unique )?\\w+)\\s+[\"']?(\\w+)[\"']?.*");
 
-	private final Pattern m_createLanguagePattern = Pattern.compile("(?i)\\s*create\\s+trusted procedural language\\s+[\"']?(\\w+)[\"']?.*");
+    private final Pattern m_createLanguagePattern = Pattern.compile("(?i)\\s*create\\s+trusted procedural language\\s+[\"']?(\\w+)[\"']?.*");
 
-	private final FileFilter m_sqlFilter = new FileFilter() {
-            @Override
-	    public boolean accept(final File pathname) {
-	        return (pathname.getName().startsWith("get") && pathname.getName().endsWith(".sql"))
-	             || pathname.getName().endsWith("Trigger.sql");
-	    }
-	};
+    private final FileFilter m_sqlFilter = new FileFilter() {
+        @Override
+        public boolean accept(final File pathname) {
+            return (pathname.getName().startsWith("get") && pathname.getName().endsWith(".sql"))
+                    || pathname.getName().endsWith("Trigger.sql");
+        }
+    };
 
-	private final Pattern m_createFunction = Pattern.compile("(?is)\\b(CREATE(?: OR REPLACE)? FUNCTION\\s+"
-	                                    + "(\\w+)\\s*\\((.*?)\\)\\s+"
-	                                    + "RETURNS\\s+(\\S+)\\s+AS\\s+"
-	                                    + "(.+? language ['\"]?\\w+['\"]?);)");
+    private final Pattern m_createFunction = Pattern.compile("(?is)\\b(CREATE(?: OR REPLACE)? FUNCTION\\s+"
+            + "(\\w+)\\s*\\((.*?)\\)\\s+" + "RETURNS\\s+(\\S+)\\s+AS\\s+" + "(.+? language ['\"]?\\w+['\"]?);)");
 
-	private final SimpleDateFormat m_dateParser = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+    private final SimpleDateFormat m_dateParser = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 
-	private final SimpleDateFormat m_dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private final SimpleDateFormat m_dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	private final char m_spins[] = { '/', '-', '\\', '|' };
+    private final char m_spins[] = { '/', '-', '\\', '|' };
 
-	private LinkedList<Constraint> m_constraints;
+    private LinkedList<Constraint> m_constraints;
 
     /**
-     * <p>Constructor for InstallerDb.</p>
+     * <p>
+     * Constructor for InstallerDb.
+     * </p>
      */
     public InstallerDb() {
 
     }
 
     /**
-     * <p>readTables</p>
+     * <p>
+     * readTables
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void readTables() throws Exception {
         readTables(new InputStreamReader(new FileInputStream(m_createSqlLocation), "UTF-8"));
     }
 
     /**
-     * <p>readTables</p>
+     * <p>
+     * readTables
+     * </p>
      *
-     * @param reader a {@link java.io.Reader} object.
-     * @throws java.lang.Exception if any.
+     * @param reader
+     *            a {@link java.io.Reader} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void readTables(final Reader reader) throws Exception {
-    	final BufferedReader r = new BufferedReader(reader);
+        final BufferedReader r = new BufferedReader(reader);
         String line;
 
         m_tables = new LinkedList<String>();
@@ -225,7 +234,7 @@ public class InstallerDb {
 
             m = m_seqmappingPattern.matcher(line);
             if (m.matches()) {
-            	final String[] a = { m.group(2), m.group(3) };
+                final String[] a = { m.group(2), m.group(3) };
                 m_seqmapping.put(m.group(1), a);
                 continue;
             }
@@ -244,7 +253,7 @@ public class InstallerDb {
                 m = m_createUnique.matcher(line);
                 if (m.matches()) {
                     String type = m.group(1);
-                    String name = m.group(2).replaceAll("^[\"']", "").replaceAll("[\"']$",  "");
+                    String name = m.group(2).replaceAll("^[\"']", "").replaceAll("[\"']$", "");
 
                     if (type.toLowerCase().indexOf("table") != -1) {
                         m_tables.add(name);
@@ -252,18 +261,20 @@ public class InstallerDb {
                         m_sequences.add(name);
                     } else if (type.toLowerCase().indexOf("function") != -1) {
                         if (type.toLowerCase().indexOf("language 'c'") != -1) {
-                            //m_cfunctions.add(name);
+                            // m_cfunctions.add(name);
                         } else {
-                            //m_functions.add(name);
+                            // m_functions.add(name);
                         }
                     } else if (type.toLowerCase().indexOf("trusted") != -1) {
                         m = m_createLanguagePattern.matcher(line);
                         if (!m.matches()) {
-                            throw new Exception("Could not match name and type of the trusted procedural language in this line: " + line);
+                            throw new Exception(
+                                                "Could not match name and type of the trusted procedural language in this line: "
+                                                        + line);
                         }
-                        //m_languages.add(m.group(1));
+                        // m_languages.add(m.group(1));
                     } else if (type.toLowerCase().matches("^.*\\bindex\\b.*$")) {
-                    	final Index i = Index.findIndexInString(line);
+                        final Index i = Index.findIndexInString(line);
                         if (i == null) {
                             throw new Exception("Could not match name and type of the index in this line: " + line);
                         }
@@ -281,7 +292,7 @@ public class InstallerDb {
 
             m = m_insertPattern.matcher(line);
             if (m.matches()) {
-            	final String table = m.group(1);
+                final String table = m.group(1);
                 final Insert insert = new Insert(table, line, criteria);
                 criteria = null;
                 if (!m_inserts.containsKey(table)) {
@@ -293,7 +304,7 @@ public class InstallerDb {
             }
 
             if (line.toLowerCase().startsWith("select setval ")) {
-            	final String table = "select_setval";
+                final String table = "select_setval";
                 final Insert insert = new Insert("select_setval", line, null);
                 if (!m_inserts.containsKey(table)) {
                     m_inserts.put(table, new LinkedList<Insert>());
@@ -323,15 +334,17 @@ public class InstallerDb {
         m_sql = cleanText(sql_l);
     }
 
-
     /**
-     * <p>cleanText</p>
+     * <p>
+     * cleanText
+     * </p>
      *
-     * @param list a {@link java.util.List} object.
+     * @param list
+     *            a {@link java.util.List} object.
      * @return a {@link java.lang.String} object.
      */
     public static String cleanText(final List<String> list) {
-    	final StringBuffer s = new StringBuffer();
+        final StringBuffer s = new StringBuffer();
 
         for (final String l : list) {
             s.append(l.replaceAll("\\s+", " "));
@@ -343,11 +356,13 @@ public class InstallerDb {
         return s.toString();
     }
 
-
     /**
-     * <p>createSequences</p>
+     * <p>
+     * createSequences
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void createSequences() throws Exception {
         assertUserSet();
@@ -359,7 +374,10 @@ public class InstallerDb {
 
         for (final String sequence : getSequenceNames()) {
             if (getSequenceMapping(sequence) == null) {
-                throw new Exception("Cannot find sequence mapping for " + sequence + "-- sequence mapping is setup by comments in the create.sql script. Look:--# DO NOT forget to add an \"install\" comment" );
+                throw new Exception(
+                                    "Cannot find sequence mapping for "
+                                            + sequence
+                                            + "-- sequence mapping is setup by comments in the create.sql script. Look:--# DO NOT forget to add an \"install\" comment");
             }
         }
 
@@ -376,8 +394,7 @@ public class InstallerDb {
             } else {
                 m_out.println("DOES NOT EXIST");
                 m_out.print("    - creating sequence \"" + sequence + "\"... ");
-                st.execute("CREATE SEQUENCE " + sequence + " minvalue "
-                           + minvalue);
+                st.execute("CREATE SEQUENCE " + sequence + " minvalue " + minvalue);
                 m_out.println("OK");
                 grantAccessToObject(sequence, 4);
             }
@@ -387,32 +404,34 @@ public class InstallerDb {
     }
 
     /**
-     * <p>updatePlPgsql</p>
+     * <p>
+     * updatePlPgsql
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void updatePlPgsql() throws Exception {
-    	final Statement st = getConnection().createStatement();
+        final Statement st = getConnection().createStatement();
         ResultSet rs;
 
         m_out.print("- adding PL/pgSQL call handler... ");
-        rs = st.executeQuery("SELECT oid FROM pg_proc WHERE " + "proname='plpgsql_call_handler' AND " + "proargtypes = ''");
+        rs = st.executeQuery("SELECT oid FROM pg_proc WHERE " + "proname='plpgsql_call_handler' AND "
+                + "proargtypes = ''");
         if (rs.next()) {
             m_out.println("EXISTS");
         } else if (isPgPlPgsqlLibPresent()) {
-            st.execute("CREATE FUNCTION plpgsql_call_handler () " + "RETURNS OPAQUE AS '" + m_pg_plpgsql + "' LANGUAGE 'c'");
+            st.execute("CREATE FUNCTION plpgsql_call_handler () " + "RETURNS OPAQUE AS '" + m_pg_plpgsql
+                    + "' LANGUAGE 'c'");
             m_out.println("OK");
         } else {
             m_out.println("SKIPPED (location of PL/pgSQL library not set, will try to continue)");
         }
 
         m_out.print("- adding PL/pgSQL language module... ");
-        rs = st.executeQuery("SELECT pg_language.oid FROM "
-                + "pg_language, pg_proc WHERE "
-                + "pg_proc.proname='plpgsql_call_handler' AND "
-                + "pg_proc.proargtypes = '' AND "
-                + "pg_proc.oid = pg_language.lanplcallfoid AND "
-                + "pg_language.lanname = 'plpgsql'");
+        rs = st.executeQuery("SELECT pg_language.oid FROM " + "pg_language, pg_proc WHERE "
+                + "pg_proc.proname='plpgsql_call_handler' AND " + "pg_proc.proargtypes = '' AND "
+                + "pg_proc.oid = pg_language.lanplcallfoid AND " + "pg_language.lanname = 'plpgsql'");
         if (rs.next()) {
             m_out.println("EXISTS");
         } else {
@@ -422,7 +441,9 @@ public class InstallerDb {
     }
 
     /**
-     * <p>isIpLikeUsable</p>
+     * <p>
+     * isIpLikeUsable
+     * </p>
      *
      * @return a boolean.
      */
@@ -454,20 +475,23 @@ public class InstallerDb {
     }
 
     /**
-     * <p>updateIplike</p>
+     * <p>
+     * updateIplike
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void updateIplike() throws Exception {
 
         boolean insert_iplike = !isIpLikeUsable();
 
         if (insert_iplike) {
-        	dropExistingIpLike();
+            dropExistingIpLike();
 
-        	if (!installCIpLike()) {
+            if (!installCIpLike()) {
                 setupPlPgsqlIplike();
-        	}
+            }
         }
 
         // XXX This error is generated from Postgres if eventtime(text)
@@ -483,11 +507,10 @@ public class InstallerDb {
             /*
              * SQL Status code: 42883: ERROR: function %s does not exist
              */
-            if (e.toString().indexOf("does not exist") != -1
-                    || "42883".equals(e.getSQLState())) {
+            if (e.toString().indexOf("does not exist") != -1 || "42883".equals(e.getSQLState())) {
                 m_out.println("OK");
             } else {
-            	m_out.println("FAILED");
+                m_out.println("FAILED");
                 throw e;
             }
         } finally {
@@ -504,16 +527,17 @@ public class InstallerDb {
             m_out.println("SKIPPED (location of iplike function not set)");
         } else {
             Statement st = null;
-        	try {
+            try {
                 st = getConnection().createStatement();
 
-                st.execute("CREATE FUNCTION iplike(text,text) RETURNS bool " + "AS '" + m_pg_iplike + "' LANGUAGE 'c' WITH(isstrict)");
+                st.execute("CREATE FUNCTION iplike(text,text) RETURNS bool " + "AS '" + m_pg_iplike
+                        + "' LANGUAGE 'c' WITH(isstrict)");
 
                 success = true;
                 m_out.println("OK");
-        	} catch (final SQLException e) {
+            } catch (final SQLException e) {
                 success = false;
-        		m_out.println("FAILED (" + e + ")");
+                m_out.println("FAILED (" + e + ")");
             } finally {
                 closeQuietly(st);
             }
@@ -526,26 +550,27 @@ public class InstallerDb {
         m_out.print("- removing existing iplike definition (if any)... ");
         try {
             st = getConnection().createStatement();
-        	st.execute("DROP FUNCTION iplike(text,text)");
-        	m_out.println("OK");
+            st.execute("DROP FUNCTION iplike(text,text)");
+            m_out.println("OK");
         } catch (final SQLException dropException) {
-        	if (dropException.toString().contains("does not exist")
-        			|| "42883".equals(dropException.getSQLState())) {
-        		m_out.println("OK");
-        	} else {
-        		m_out.println("FAILED");
-        		throw dropException;
-        	}
-        }
-        finally {
+            if (dropException.toString().contains("does not exist") || "42883".equals(dropException.getSQLState())) {
+                m_out.println("OK");
+            } else {
+                m_out.println("FAILED");
+                throw dropException;
+            }
+        } finally {
             closeQuietly(st);
         }
     }
 
     /**
-     * <p>setupPlPgsqlIplike</p>
+     * <p>
+     * setupPlPgsqlIplike
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void setupPlPgsqlIplike() throws Exception {
         InputStream sqlfile = null;
@@ -554,29 +579,28 @@ public class InstallerDb {
             st = getConnection().createStatement();
             m_out.print("- inserting PL/pgSQL iplike function... ");
 
-        	sqlfile = getClass().getResourceAsStream(IPLIKE_SQL_RESOURCE);
-        	if (sqlfile == null) {
+            sqlfile = getClass().getResourceAsStream(IPLIKE_SQL_RESOURCE);
+            if (sqlfile == null) {
                 String message = "unable to locate " + IPLIKE_SQL_RESOURCE;
                 m_out.println("FAILED (" + message + ")");
-        		throw new Exception(message);
-        	}
+                throw new Exception(message);
+            }
 
-        	final BufferedReader in = new BufferedReader(new InputStreamReader(sqlfile, "UTF-8"));
-        	final StringBuffer createFunction = new StringBuffer();
-        	String line;
-        	while ((line = in.readLine()) != null) {
-        		createFunction.append(line).append("\n");
-        	}
-        	st.execute(createFunction.toString());
-        	m_out.println("OK");
+            final BufferedReader in = new BufferedReader(new InputStreamReader(sqlfile, "UTF-8"));
+            final StringBuffer createFunction = new StringBuffer();
+            String line;
+            while ((line = in.readLine()) != null) {
+                createFunction.append(line).append("\n");
+            }
+            st.execute(createFunction.toString());
+            m_out.println("OK");
         } catch (final Throwable e) {
-        	m_out.println("FAILED");
-        	if (e instanceof Exception) {
-        	    throw (Exception)e;
-        	}
-        	else {
-        	    throw new Exception(e);
-        	}
+            m_out.println("FAILED");
+            if (e instanceof Exception) {
+                throw (Exception) e;
+            } else {
+                throw new Exception(e);
+            }
         } finally {
             // don't forget to close the statement
             closeQuietly(st);
@@ -585,13 +609,12 @@ public class InstallerDb {
         }
     }
 
-
     private void closeQuietly(final InputStream sqlfile) {
         try {
             if (sqlfile != null) {
                 sqlfile.close();
             }
-        } catch(final IOException e) {
+        } catch (final IOException e) {
 
         }
     }
@@ -601,14 +624,17 @@ public class InstallerDb {
             if (st != null) {
                 st.close();
             }
-        } catch(final Throwable e) {
+        } catch (final Throwable e) {
         }
     }
 
     /**
-     * <p>addStoredProcedures</p>
+     * <p>
+     * addStoredProcedures
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void addStoredProcedures() throws Exception {
         m_triggerDao.reset();
@@ -620,7 +646,7 @@ public class InstallerDb {
         File[] list = new File(m_storedProcedureDirectory).listFiles(m_sqlFilter);
 
         for (final File element : list) {
-        	final LinkedList<String> drop = new LinkedList<String>();
+            final LinkedList<String> drop = new LinkedList<String>();
             final StringBuffer create = new StringBuffer();
             String line;
 
@@ -634,8 +660,7 @@ public class InstallerDb {
                     continue;
                 }
 
-                if (line.toLowerCase().startsWith("drop function")
-                    || line.toLowerCase().startsWith("drop trigger")) {
+                if (line.toLowerCase().startsWith("drop function") || line.toLowerCase().startsWith("drop trigger")) {
                     drop.add(line);
                 } else {
                     create.append(line);
@@ -657,18 +682,14 @@ public class InstallerDb {
             final Matcher m = m_createFunction.matcher(create.toString());
 
             if (!m.find()) {
-                throw new Exception("For stored procedure in file '"
-                                    + element.getName()
-                                    + "' couldn't match \""
-                                    + m.pattern().pattern()
-                                    + "\" in string \"" + create + "\"");
+                throw new Exception("For stored procedure in file '" + element.getName() + "' couldn't match \""
+                        + m.pattern().pattern() + "\" in string \"" + create + "\"");
             }
             final String createSql = m.group(1);
             final String function = m.group(2);
             final String columns = m.group(3);
             final String returns = m.group(4);
             // final String rest = m.group(5);
-
 
             if (functionExists(function, columns, returns)) {
                 if (t != null && t.isOnDatabase(getConnection())) {
@@ -686,23 +707,28 @@ public class InstallerDb {
         m_out.println("");
     }
 
-
     /**
-     * <p>functionExists</p>
+     * <p>
+     * functionExists
+     * </p>
      *
-     * @param function a {@link java.lang.String} object.
-     * @param columns a {@link java.lang.String} object.
-     * @param returnType a {@link java.lang.String} object.
+     * @param function
+     *            a {@link java.lang.String} object.
+     * @param columns
+     *            a {@link java.lang.String} object.
+     * @param returnType
+     *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public boolean functionExists(final String function, String columns, final String returnType) throws Exception {
-    	final Map<String, Integer> types = getTypesFromDB();
+        final Map<String, Integer> types = getTypesFromDB();
 
-    	int[] columnTypes = new int[0];
+        int[] columnTypes = new int[0];
         columns = columns.trim();
         if (columns.length() > 0) {
-        	final String[] splitColumns = columns.split("\\s*,\\s*");
+            final String[] splitColumns = columns.split("\\s*,\\s*");
             columnTypes = new int[splitColumns.length];
             Column c;
             for (int j = 0; j < splitColumns.length; j++) {
@@ -716,7 +742,8 @@ public class InstallerDb {
         try {
             c.parseColumnType(returnType);
         } catch (final Throwable e) {
-            throw new Exception("Could not parse column type '" + returnType + "' for function '" + function + "'.  Nested exception: " + e.getMessage(), e);
+            throw new Exception("Could not parse column type '" + returnType + "' for function '" + function
+                    + "'.  Nested exception: " + e.getMessage(), e);
         }
         final int retType = (types.get(c.getType())).intValue();
 
@@ -724,16 +751,22 @@ public class InstallerDb {
     }
 
     /**
-     * <p>functionExists</p>
+     * <p>
+     * functionExists
+     * </p>
      *
-     * @param function a {@link java.lang.String} object.
-     * @param columnTypes an array of int.
-     * @param retType a int.
+     * @param function
+     *            a {@link java.lang.String} object.
+     * @param columnTypes
+     *            an array of int.
+     * @param retType
+     *            a int.
      * @return a boolean.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public boolean functionExists(final String function, final int[] columnTypes, final int retType) throws Exception {
-    	final Statement st = getConnection().createStatement();
+        final Statement st = getConnection().createStatement();
         ResultSet rs;
 
         final StringBuffer ct = new StringBuffer();
@@ -741,19 +774,21 @@ public class InstallerDb {
             ct.append(" " + columnType);
         }
 
-        final String query = "SELECT oid FROM pg_proc WHERE proname='"
-                + function.toLowerCase() + "' AND " + "prorettype=" + retType
-                + " AND " + "proargtypes='" + ct.toString().trim() + "'";
+        final String query = "SELECT oid FROM pg_proc WHERE proname='" + function.toLowerCase() + "' AND "
+                + "prorettype=" + retType + " AND " + "proargtypes='" + ct.toString().trim() + "'";
 
         rs = st.executeQuery(query);
         return rs.next();
     }
 
     /**
-     * <p>getTypesFromDB</p>
+     * <p>
+     * getTypesFromDB
+     * </p>
      *
      * @return a {@link java.util.Map} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Map<String, Integer> getTypesFromDB() throws SQLException {
         if (m_dbtypes != null) {
@@ -768,7 +803,7 @@ public class InstallerDb {
 
         while (rs.next()) {
             try {
-                m.put(Column.normalizeColumnType(rs.getString(2),  (rs.getInt(3) < 0)), Integer.valueOf(rs.getInt(1)));
+                m.put(Column.normalizeColumnType(rs.getString(2), (rs.getInt(3) < 0)), Integer.valueOf(rs.getInt(1)));
             } catch (final Throwable e) {
                 // ignore
             }
@@ -779,13 +814,17 @@ public class InstallerDb {
     }
 
     /**
-     * <p>addTriggersForTable</p>
+     * <p>
+     * addTriggersForTable
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void addTriggersForTable(final String table) throws SQLException {
-    	final List<Trigger> triggers = m_triggerDao.getTriggersForTable(table.toLowerCase());
+        final List<Trigger> triggers = m_triggerDao.getTriggersForTable(table.toLowerCase());
         for (final Trigger trigger : triggers) {
             m_out.print("    - checking trigger '" + trigger.getName() + "' on this table... ");
             if (!trigger.isOnDatabase(getConnection())) {
@@ -796,9 +835,12 @@ public class InstallerDb {
     }
 
     /**
-     * <p>createTables</p>
+     * <p>
+     * createTables
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void createTables() throws Exception {
         assertUserSet();
@@ -816,8 +858,7 @@ public class InstallerDb {
 
                 boolean remove;
 
-                rs = st.executeQuery("SELECT relname FROM pg_class "
-                        + "WHERE relname = '" + tableName + "'");
+                rs = st.executeQuery("SELECT relname FROM pg_class " + "WHERE relname = '" + tableName + "'");
 
                 remove = rs.next();
 
@@ -847,7 +888,7 @@ public class InstallerDb {
                 if (newTable.equals(oldTable)) {
                     addIndexesForTable(tableName);
                     addTriggersForTable(tableName);
-                    m_out.println("  - checking table \"" + tableName  + "\"... UPTODATE");
+                    m_out.println("  - checking table \"" + tableName + "\"... UPTODATE");
                 } else {
                     if (oldTable == null) {
                         final String create = getTableCreateFromSQL(tableName);
@@ -863,7 +904,8 @@ public class InstallerDb {
                         try {
                             changeTable(tableName, oldTable, newTable);
                         } catch (final Throwable e) {
-                            throw new Exception("Error changing table '" + tableName + "'.  Nested exception: " + e.getMessage(), e);
+                            throw new Exception("Error changing table '" + tableName + "'.  Nested exception: "
+                                    + e.getMessage(), e);
                         }
                     }
                 }
@@ -873,19 +915,22 @@ public class InstallerDb {
         m_out.println("- creating tables... DONE");
     }
 
-
     /**
-     * <p>getTableFromSQL</p>
+     * <p>
+     * getTableFromSQL
+     * </p>
      *
-     * @param tableName a {@link java.lang.String} object.
+     * @param tableName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.dao.db.Table} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public Table getTableFromSQL(String tableName) throws Exception {
-    	final Table table = new Table();
+        final Table table = new Table();
 
-    	final LinkedList<Column> columns = new LinkedList<Column>();
-    	final LinkedList<Constraint> constraints = new LinkedList<Constraint>();
+        final LinkedList<Column> columns = new LinkedList<Column>();
+        final LinkedList<Constraint> constraints = new LinkedList<Constraint>();
 
         boolean parens = false;
         StringBuffer accumulator = new StringBuffer();
@@ -905,35 +950,32 @@ public class InstallerDb {
             }
 
             if (((c == ',') && !parens) || i == create.length()) {
-            	final String a = accumulator.toString().trim();
+                final String a = accumulator.toString().trim();
 
                 if (a.toLowerCase().startsWith("constraint ")) {
                     Constraint constraint;
                     try {
                         constraint = new Constraint(tableName, a);
                     } catch (final Throwable e) {
-                        throw new Exception("Could not parse constraint for table '" + tableName + "'.  Nested exception: " + e.getMessage(), e);
+                        throw new Exception("Could not parse constraint for table '" + tableName
+                                + "'.  Nested exception: " + e.getMessage(), e);
                     }
                     final List<String> constraintColumns = constraint.getColumns();
                     if (constraint.getType() != Constraint.CHECK) {
-                        Assert.state(constraintColumns.size() > 0, "constraint '" + constraint.getName() + "' has no constrained columns");
+                        Assert.state(constraintColumns.size() > 0, "constraint '" + constraint.getName()
+                                + "' has no constrained columns");
 
-                    	for (final String constrainedName : constraintColumns) {
-                    		final Column constrained = findColumn(columns, constrainedName);
-                    		if (constrained == null) {
-                    			throw new Exception(
-                                                	"constraint "
-                                                        + constraint.getName()
-                                                        + " references column \""
-                                                        + constrainedName
-                                                        + "\", which is not a column in the table "
-                                                        + tableName);
-                    		}
-                    	}
+                        for (final String constrainedName : constraintColumns) {
+                            final Column constrained = findColumn(columns, constrainedName);
+                            if (constrained == null) {
+                                throw new Exception("constraint " + constraint.getName() + " references column \""
+                                        + constrainedName + "\", which is not a column in the table " + tableName);
+                            }
+                        }
                     }
                     constraints.add(constraint);
                 } else {
-                	final Column column = new Column();
+                    final Column column = new Column();
                     try {
                         column.parse(accumulator.toString());
                         columns.add(column);
@@ -957,19 +999,27 @@ public class InstallerDb {
         return table;
     }
 
-
     /**
-     * <p>getXFromSQL</p>
+     * <p>
+     * getXFromSQL
+     * </p>
      *
-     * @param item a {@link java.lang.String} object.
-     * @param regex a {@link java.lang.String} object.
-     * @param itemGroup a int.
-     * @param returnGroup a int.
-     * @param description a {@link java.lang.String} object.
+     * @param item
+     *            a {@link java.lang.String} object.
+     * @param regex
+     *            a {@link java.lang.String} object.
+     * @param itemGroup
+     *            a int.
+     * @param returnGroup
+     *            a int.
+     * @param description
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public String getXFromSQL(String item, final String regex, final int itemGroup, final int returnGroup, final String description) throws Exception {
+    public String getXFromSQL(String item, final String regex, final int itemGroup, final int returnGroup,
+            final String description) throws Exception {
 
         item = item.toLowerCase();
         final Matcher m = Pattern.compile(regex).matcher(getSql());
@@ -983,12 +1033,15 @@ public class InstallerDb {
         throw new Exception("could not find " + description + " \"" + item + "\"");
     }
 
-
     /**
-     * <p>findColumn</p>
+     * <p>
+     * findColumn
+     * </p>
      *
-     * @param columns a {@link java.util.List} object.
-     * @param column a {@link java.lang.String} object.
+     * @param columns
+     *            a {@link java.util.List} object.
+     * @param column
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.dao.db.Column} object.
      */
     public Column findColumn(final List<Column> columns, final String column) {
@@ -1002,39 +1055,51 @@ public class InstallerDb {
     }
 
     /**
-     * <p>tableColumnExists</p>
+     * <p>
+     * tableColumnExists
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
-     * @param column a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @param column
+     *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public boolean tableColumnExists(final String table, final String column) throws Exception {
         return (findColumn(getTableColumnsFromDB(table), column) != null);
     }
 
     /**
-     * <p>getTableColumnsFromDB</p>
+     * <p>
+     * getTableColumnsFromDB
+     * </p>
      *
-     * @param tableName a {@link java.lang.String} object.
+     * @param tableName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public List<Column> getTableColumnsFromDB(final String tableName) throws Exception {
-    	final Table table = getTableFromDB(tableName);
+        final Table table = getTableFromDB(tableName);
         if (table == null) {
             return null;
         }
         return table.getColumns();
     }
 
-
     /**
-     * <p>getTableFromDB</p>
+     * <p>
+     * getTableFromDB
+     * </p>
      *
-     * @param tableName a {@link java.lang.String} object.
+     * @param tableName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.dao.db.Table} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public Table getTableFromDB(final String tableName) throws Exception {
         if (!tableExists(tableName)) {
@@ -1053,62 +1118,60 @@ public class InstallerDb {
         return table;
     }
 
-
     /**
-     * <p>tableExists</p>
+     * <p>
+     * tableExists
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public boolean tableExists(final String table) throws SQLException {
-    	final Statement st = getConnection().createStatement();
+        final Statement st = getConnection().createStatement();
         ResultSet rs;
 
-        rs = st.executeQuery("SELECT DISTINCT tablename FROM pg_tables WHERE lower(tablename) = '" + table.toLowerCase() + "'");
+        rs = st.executeQuery("SELECT DISTINCT tablename FROM pg_tables WHERE lower(tablename) = '"
+                + table.toLowerCase() + "'");
         return rs.next();
     }
 
     /**
-     * <p>getColumnsFromDB</p>
+     * <p>
+     * getColumnsFromDB
+     * </p>
      *
-     * @param tableName a {@link java.lang.String} object.
+     * @param tableName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public List<Column> getColumnsFromDB(final String tableName) throws Exception {
-    	final LinkedList<Column> columns = new LinkedList<Column>();
+        final LinkedList<Column> columns = new LinkedList<Column>();
 
-    	Statement st = getConnection().createStatement();
+        Statement st = getConnection().createStatement();
 
-    	String query = "SELECT "
-                + "        attname, "
-                + "        format_type(atttypid, atttypmod), "
-                + "        attnotnull "
-                + "FROM "
-                + "        pg_attribute "
-                + "WHERE "
+        String query = "SELECT " + "        attname, " + "        format_type(atttypid, atttypmod), "
+                + "        attnotnull " + "FROM " + "        pg_attribute " + "WHERE "
                 + "        attrelid = (SELECT oid FROM pg_class WHERE relname = '" + tableName.toLowerCase() + "') "
-                + "    AND "
-                + "        attnum > 0"
-                + "    AND "
-                + "        attisdropped = false";
+                + "    AND " + "        attnum > 0" + "    AND " + "        attisdropped = false";
 
         query = query + " ORDER BY attnum";
 
         ResultSet rs = st.executeQuery(query);
 
         while (rs.next()) {
-        	final Column c = new Column();
+            final Column c = new Column();
             c.setName(rs.getString(1));
             final String columnType = rs.getString(2);
             try {
                 c.parseColumnType(columnType);
             } catch (final Throwable e) {
-                throw new Exception("Error parsing column type '"
-                        + columnType + "' for column '" + rs.getString(1)
-                        + "' in table '" + tableName + "'.  Nested: "
-                        + e.getMessage(), e);
+                throw new Exception("Error parsing column type '" + columnType + "' for column '" + rs.getString(1)
+                        + "' in table '" + tableName + "'.  Nested: " + e.getMessage(), e);
             }
             c.setNotNull(rs.getBoolean(3));
 
@@ -1120,24 +1183,12 @@ public class InstallerDb {
 
         st = getConnection().createStatement();
 
-        query = "SELECT "
-                + "        attr.attname, "
-                + "        pg_get_expr(def.adbin, def.adrelid) "
-                + "FROM "
-                + "        pg_attribute attr, "
-                + "        pg_attrdef def "
-                + "WHERE "
-                + "        attr.attrelid = (SELECT oid FROM pg_class WHERE relname = '" + tableName.toLowerCase() + "') "
-                + "    AND "
-                + "        attr.attnum > 0"
-                + "    AND "
-                + "        attr.atthasdef = 't' "
-                + "    AND "
-                + "        attr.attrelid = def.adrelid"
-                + "    AND "
-                + "        attr.attnum = def.adnum"
-                + "    AND "
-                + "        attr.attisdropped = false";
+        query = "SELECT " + "        attr.attname, " + "        pg_get_expr(def.adbin, def.adrelid) " + "FROM "
+                + "        pg_attribute attr, " + "        pg_attrdef def " + "WHERE "
+                + "        attr.attrelid = (SELECT oid FROM pg_class WHERE relname = '" + tableName.toLowerCase()
+                + "') " + "    AND " + "        attr.attnum > 0" + "    AND " + "        attr.atthasdef = 't' "
+                + "    AND " + "        attr.attrelid = def.adrelid" + "    AND " + "        attr.attnum = def.adnum"
+                + "    AND " + "        attr.attisdropped = false";
 
         rs = st.executeQuery(query);
 
@@ -1151,7 +1202,8 @@ public class InstallerDb {
             }
 
             if (column == null) {
-                throw new Exception("Could not find column '" + rs.getString(1) + "' in original column list when adding default values");
+                throw new Exception("Could not find column '" + rs.getString(1)
+                        + "' in original column list when adding default values");
             }
 
             column.setDefaultValue(rs.getString(2).replaceAll("'(.*)'::([a-zA-Z ]+)", "'$1'"));
@@ -1164,31 +1216,35 @@ public class InstallerDb {
 
     }
 
-
     /**
-     * <p>getConstraintsFromDB</p>
+     * <p>
+     * getConstraintsFromDB
+     * </p>
      *
-     * @param tableName a {@link java.lang.String} object.
+     * @param tableName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException if any.
-     * @throws java.lang.Exception if any.
+     * @throws java.sql.SQLException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public List<Constraint> getConstraintsFromDB(final String tableName) throws SQLException, Exception {
-    	final Statement st = getConnection().createStatement();
+        final Statement st = getConnection().createStatement();
         ResultSet rs;
 
         final LinkedList<Constraint> constraints = new LinkedList<Constraint>();
 
         final String query = "SELECT c.oid, c.conname, c.contype, c.conrelid, "
-            + "c.confrelid, a.relname, c.confupdtype, c.confdeltype, c.consrc from pg_class a "
-            + "right join pg_constraint c on c.confrelid = a.oid "
-            + "where c.conrelid = (select oid from pg_class where relname = '"
-                + tableName.toLowerCase() + "') order by c.oid";
+                + "c.confrelid, a.relname, c.confupdtype, c.confdeltype, c.consrc from pg_class a "
+                + "right join pg_constraint c on c.confrelid = a.oid "
+                + "where c.conrelid = (select oid from pg_class where relname = '" + tableName.toLowerCase()
+                + "') order by c.oid";
 
         rs = st.executeQuery(query);
 
         while (rs.next()) {
-        	final int oid = rs.getInt(1);
+            final int oid = rs.getInt(1);
             final String name = rs.getString(2);
             final String type = rs.getString(3);
             final int conrelid = rs.getInt(4);
@@ -1200,14 +1256,15 @@ public class InstallerDb {
 
             final Constraint constraint;
             if ("p".equals(type)) {
-            	final List<String> columns = getConstrainedColumnsFromDBForConstraint(oid, conrelid);
+                final List<String> columns = getConstrainedColumnsFromDBForConstraint(oid, conrelid);
                 constraint = new Constraint(tableName.toLowerCase(), name, columns);
             } else if ("f".equals(type)) {
-            	final List<String> columns = getConstrainedColumnsFromDBForConstraint(oid, conrelid);
+                final List<String> columns = getConstrainedColumnsFromDBForConstraint(oid, conrelid);
                 final List<String> fcolumns = getForeignColumnsFromDBForConstraint(oid, confrelid);
-                constraint = new Constraint(tableName.toLowerCase(), name, columns, ftable, fcolumns, foreignUpdType, foreignDelType);
+                constraint = new Constraint(tableName.toLowerCase(), name, columns, ftable, fcolumns, foreignUpdType,
+                                            foreignDelType);
             } else if ("c".equals(type)) {
-            	constraint = new Constraint(tableName.toLowerCase(), name, checkExpression);
+                constraint = new Constraint(tableName.toLowerCase(), name, checkExpression);
             } else {
                 throw new Exception("Do not support constraint type \"" + type + "\" in constraint \"" + name + "\"");
             }
@@ -1218,15 +1275,13 @@ public class InstallerDb {
         return constraints;
     }
 
-
-
     private List<String> getConstrainedColumnsFromDBForConstraint(final int oid, final int conrelid) throws Exception {
-    	final Statement st = getConnection().createStatement();
-    	final ResultSet rs;
+        final Statement st = getConnection().createStatement();
+        final ResultSet rs;
 
-    	final LinkedList<String> columns = new LinkedList<String>();
+        final LinkedList<String> columns = new LinkedList<String>();
 
-    	final String query = "select a.attname from pg_attribute a, pg_constraint c where a.attrelid = c.conrelid and a.attnum = ANY (c.conkey) and c.oid = "
+        final String query = "select a.attname from pg_attribute a, pg_constraint c where a.attrelid = c.conrelid and a.attnum = ANY (c.conkey) and c.oid = "
                 + oid + " and a.attrelid = " + conrelid;
         rs = st.executeQuery(query);
 
@@ -1241,12 +1296,12 @@ public class InstallerDb {
     }
 
     private List<String> getForeignColumnsFromDBForConstraint(final int oid, final int confrelid) throws Exception {
-    	final Statement st = getConnection().createStatement();
-    	final ResultSet rs;
+        final Statement st = getConnection().createStatement();
+        final ResultSet rs;
 
-    	final LinkedList<String> columns = new LinkedList<String>();
+        final LinkedList<String> columns = new LinkedList<String>();
 
-    	final String query = "select a.attname from pg_attribute a, pg_constraint c where a.attrelid = c.confrelid and a.attnum = ANY (c.confkey) and c.oid = "
+        final String query = "select a.attname from pg_attribute a, pg_constraint c where a.attrelid = c.confrelid and a.attnum = ANY (c.confkey) and c.oid = "
                 + oid + " and a.attrelid = " + confrelid;
         rs = st.executeQuery(query);
 
@@ -1261,12 +1316,18 @@ public class InstallerDb {
     }
 
     /**
-     * <p>changeTable</p>
+     * <p>
+     * changeTable
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
-     * @param oldTable a {@link org.opennms.netmgt.dao.db.Table} object.
-     * @param newTable a {@link org.opennms.netmgt.dao.db.Table} object.
-     * @throws java.lang.Exception if any.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @param oldTable
+     *            a {@link org.opennms.netmgt.dao.db.Table} object.
+     * @param newTable
+     *            a {@link org.opennms.netmgt.dao.db.Table} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void changeTable(final String table, final Table oldTable, final Table newTable) throws Throwable {
         assertUserSet();
@@ -1286,8 +1347,7 @@ public class InstallerDb {
 
         tableChanged(table);
 
-        m_out.println("  - checking table \"" + table
-                      + "\"... SCHEMA DOES NOT MATCH");
+        m_out.println("  - checking table \"" + table + "\"... SCHEMA DOES NOT MATCH");
 
         m_out.println("    - differences:");
         for (final Constraint newConstraint : newTable.getConstraints()) {
@@ -1298,7 +1358,7 @@ public class InstallerDb {
         }
 
         for (final Column newColumn : newColumns) {
-        	final Column oldColumn = findColumn(oldColumns, newColumn.getName());
+            final Column oldColumn = findColumn(oldColumns, newColumn.getName());
 
             if (oldColumn == null || !newColumn.equals(oldColumn)) {
                 m_out.println("      - column \"" + newColumn.getName() + "\" is different");
@@ -1327,10 +1387,8 @@ public class InstallerDb {
             }
             if (newColumn.isNotNull() && columnChange.getColumnReplacement() == null) {
                 if (oldColumn == null) {
-                    String message = "Column " + newColumn.getName()
-                            + " in new table has NOT NULL "
-                            + "constraint, however this column "
-                            + "did not exist before and there is "
+                    String message = "Column " + newColumn.getName() + " in new table has NOT NULL "
+                            + "constraint, however this column " + "did not exist before and there is "
                             + "no change replacement for this column";
                     if (m_ignore_notnull) {
                         m_out.println(message + ".  Ignoring due to '-N'");
@@ -1338,12 +1396,9 @@ public class InstallerDb {
                         throw new Exception(message);
                     }
                 } else if (!oldColumn.isNotNull()) {
-                    final String message = "Column " + newColumn.getName()
-                            + " in new table has NOT NULL "
-                            + "constraint, however this column "
-                            + "did not have the NOT NULL "
-                            + "constraint before and there is "
-                            + "no change replacement for this column";
+                    final String message = "Column " + newColumn.getName() + " in new table has NOT NULL "
+                            + "constraint, however this column " + "did not have the NOT NULL "
+                            + "constraint before and there is " + "no change replacement for this column";
                     if (m_ignore_notnull) {
                         m_out.println(message + ".  Ignoring due to '-N'");
                     } else {
@@ -1364,10 +1419,8 @@ public class InstallerDb {
                     columnChange.setUpgradeTimestamp(true);
                 }
             } else {
-                m_out.println("      * WARNING: column \""
-                        + oldColumn.getName() + "\" exists in the "
-                        + "database but is not in the new schema.  "
-                        + "REMOVING COLUMN");
+                m_out.println("      * WARNING: column \"" + oldColumn.getName() + "\" exists in the "
+                        + "database but is not in the new schema.  " + "REMOVING COLUMN");
             }
 
             i++;
@@ -1382,15 +1435,13 @@ public class InstallerDb {
 
             m_out.print("    - creating temporary table... ");
             st.execute("CREATE TABLE " + tmpTable + " AS SELECT "
-                       + StringUtils.arrayToDelimitedString(oldColumnNames, ", ")
-                       + " FROM " + table);
+                    + StringUtils.arrayToDelimitedString(oldColumnNames, ", ") + " FROM " + table);
             m_out.println("done");
 
             st.execute("DROP TABLE " + table + " CASCADE");
 
             m_out.print("    - creating new '" + table + "' table... ");
-            st.execute("CREATE TABLE " + table + " ("
-                    + getTableCreateFromSQL(table) + ")");
+            st.execute("CREATE TABLE " + table + " (" + getTableCreateFromSQL(table) + ")");
             m_out.println("done");
 
             addIndexesForTable(table);
@@ -1405,8 +1456,7 @@ public class InstallerDb {
             m_out.println("DONE");
         } catch (final Throwable e) {
             if (m_no_revert) {
-                m_out.println("FAILED!  Not reverting due to '-R' being "
-                        + "passed.  Old data in " + tmpTable);
+                m_out.println("FAILED!  Not reverting due to '-R' being " + "passed.  Old data in " + tmpTable);
                 throw e;
             }
 
@@ -1418,14 +1468,11 @@ public class InstallerDb {
                     st.execute("DROP TABLE " + table + " CASCADE");
                 }
                 st.execute("CREATE TABLE " + table + " AS SELECT "
-                           + StringUtils.arrayToDelimitedString(oldColumnNames, ", ")
-                           + " FROM " + tmpTable);
+                        + StringUtils.arrayToDelimitedString(oldColumnNames, ", ") + " FROM " + tmpTable);
                 st.execute("DROP TABLE " + tmpTable);
             } catch (final SQLException se) {
-                throw new Exception("Got SQLException while trying to "
-                        + "revert table changes due to original " + "error: "
-                        + e + "\n" + "SQLException while reverting table: "
-                        + se, e);
+                throw new Exception("Got SQLException while trying to " + "revert table changes due to original "
+                        + "error: " + e + "\n" + "SQLException while reverting table: " + se, e);
             }
             m_out.println("FAILED!  Old data restored, however indexes and "
                     + "constraints on this table were not re-added");
@@ -1436,9 +1483,7 @@ public class InstallerDb {
         // completed copying it, so it's outside of the try/catch block above.
         st.execute("DROP TABLE " + tmpTable);
 
-
-        m_out.println("  - checking table \"" + table
-                      + "\"... COMPLETED UPDATING TABLE");
+        m_out.println("  - checking table \"" + table + "\"... COMPLETED UPDATING TABLE");
     }
 
     /*
@@ -1446,21 +1491,31 @@ public class InstallerDb {
      * the column name, a null replacement, if any, and the indexes for
      * selected rows (for using in ResultSet.getXXX()) and prepared rows
      * (PreparedStatement.setObject()).
-     * Monkey.  Make monkey dance.
+     * Monkey. Make monkey dance.
      */
     /**
-     * <p>transformData</p>
+     * <p>
+     * transformData
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
-     * @param oldTable a {@link java.lang.String} object.
-     * @param columnChanges a {@link java.util.TreeMap} object.
-     * @param oldColumnNames an array of {@link java.lang.String} objects.
-     * @throws java.sql.SQLException if any.
-     * @throws java.text.ParseException if any.
-     * @throws java.lang.Exception if any.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @param oldTable
+     *            a {@link java.lang.String} object.
+     * @param columnChanges
+     *            a {@link java.util.TreeMap} object.
+     * @param oldColumnNames
+     *            an array of {@link java.lang.String} objects.
+     * @throws java.sql.SQLException
+     *             if any.
+     * @throws java.text.ParseException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public void transformData(final String table, final String oldTable, final TreeMap<String, ColumnChange> columnChanges, final String[] oldColumnNames) throws SQLException, ParseException,
-            Exception {
+    public void transformData(final String table, final String oldTable,
+            final TreeMap<String, ColumnChange> columnChanges, final String[] oldColumnNames) throws SQLException,
+            ParseException, Exception {
         final Statement st = getConnection().createStatement();
         int i;
 
@@ -1479,8 +1534,7 @@ public class InstallerDb {
             c.setColumnType(c.getColumn().getColumnSqlType());
 
             final ColumnChangeReplacement r = c.getColumnReplacement();
-            if (r == null || c.getSelectIndex() > 0
-                    || r.addColumnIfColumnIsNew()) {
+            if (r == null || c.getSelectIndex() > 0 || r.addColumnIfColumnIsNew()) {
                 insertColumns.add(c.getColumn().getName());
                 questionMarks.add("?");
                 c.setPrepareIndex(questionMarks.size());
@@ -1505,10 +1559,8 @@ public class InstallerDb {
             order = "";
         }
 
-        String dbcmd = "SELECT "
-            + StringUtils.arrayToDelimitedString(oldColumnNames, ", ")
-            + " FROM "
-            + oldTable + order;
+        String dbcmd = "SELECT " + StringUtils.arrayToDelimitedString(oldColumnNames, ", ") + " FROM " + oldTable
+                + order;
         if (m_debug) {
             m_out.println("    - performing select: " + dbcmd);
         }
@@ -1516,11 +1568,8 @@ public class InstallerDb {
         final PreparedStatement select = getConnection().prepareStatement(dbcmd);
         select.setFetchSize(s_fetch_size);
 
-        dbcmd = "INSERT INTO " + table + " ("
-            + StringUtils.collectionToDelimitedString(insertColumns, ", ")
-            + ") values ("
-            + StringUtils.collectionToDelimitedString(questionMarks, ", ")
-            + ")";
+        dbcmd = "INSERT INTO " + table + " (" + StringUtils.collectionToDelimitedString(insertColumns, ", ")
+                + ") values (" + StringUtils.collectionToDelimitedString(questionMarks, ", ") + ")";
         if (m_debug) {
             m_out.println("    - performing insert: " + dbcmd);
         }
@@ -1537,8 +1586,7 @@ public class InstallerDb {
             for (final ColumnChange change : columnChanges.values()) {
                 final String name = change.getColumn().getName();
 
-                if (change.getSelectIndex() == 0 &&
-                        change.hasColumnReplacement()
+                if (change.getSelectIndex() == 0 && change.hasColumnReplacement()
                         && !change.getColumnReplacement().addColumnIfColumnIsNew()) {
                     continue;
                 }
@@ -1550,32 +1598,25 @@ public class InstallerDb {
                     }
                 } else {
                     if (m_debug) {
-                        m_out.println("      - don't know what to do "
-                                + "for \"" + name + "\", prepared column "
-                                + change.getPrepareIndex()
-                                + ": setting to null");
+                        m_out.println("      - don't know what to do " + "for \"" + name + "\", prepared column "
+                                + change.getPrepareIndex() + ": setting to null");
                     }
                     obj = null;
                 }
 
                 if (obj == null && change.hasColumnReplacement()) {
-                    ColumnChangeReplacement replacement =
-                        change.getColumnReplacement();
+                    ColumnChangeReplacement replacement = change.getColumnReplacement();
                     obj = replacement.getColumnReplacement(rs, columnChanges);
                     if (m_debug) {
-                        m_out.println("      - " + name
-                                + " was NULL but is a "
-                                + "requires NULL replacement -- "
+                        m_out.println("      - " + name + " was NULL but is a " + "requires NULL replacement -- "
                                 + "replacing with '" + obj + "'");
                     }
                 }
 
                 if (obj != null) {
-                    if (change.isUpgradeTimestamp()
-                            && !obj.getClass().equals(java.sql.Timestamp.class)) {
+                    if (change.isUpgradeTimestamp() && !obj.getClass().equals(java.sql.Timestamp.class)) {
                         if (m_debug) {
-                            m_out.println("      - " + name
-                                    + " is an old-style timestamp");
+                            m_out.println("      - " + name + " is an old-style timestamp");
                         }
                         final String newObj = m_dateFormatter.format(m_dateParser.parse((String) obj));
                         if (m_debug) {
@@ -1594,8 +1635,7 @@ public class InstallerDb {
                 }
 
                 if (obj == null) {
-                    insert.setNull(change.getPrepareIndex(),
-                                   change.getColumnType());
+                    insert.setNull(change.getPrepareIndex(), change.getColumnType());
                 } else {
                     insert.setObject(change.getPrepareIndex(), obj);
                 }
@@ -1604,16 +1644,9 @@ public class InstallerDb {
             try {
                 insert.execute();
             } catch (final SQLException e) {
-                final SQLException ex = new SQLException(
-                                                   "Statement.execute() threw an "
-                                                           + "SQLException while inserting a row: "
-                                                           + "\""
-                                                           + insert.toString()
-                                                           + "\".  "
-                                                           + "Original exception: "
-                                                           + e.toString(),
-                                                   e.getSQLState(),
-                                                   e.getErrorCode());
+                final SQLException ex = new SQLException("Statement.execute() threw an "
+                        + "SQLException while inserting a row: " + "\"" + insert.toString() + "\".  "
+                        + "Original exception: " + e.toString(), e.getSQLState(), e.getErrorCode());
                 ex.setNextException(e);
                 throw ex;
             }
@@ -1621,11 +1654,9 @@ public class InstallerDb {
             current_row++;
 
             if ((current_row % 20) == 0) {
-                System.err.print("    - transforming data into the new "
-                        + "table... "
-                        + (int) Math.floor((current_row * 100.0) / num_rows)
-                        + "%  [" + m_spins[(current_row / 20) % m_spins.length]
-                        + "]\r");
+                System.err.print("    - transforming data into the new " + "table... "
+                        + (int) Math.floor((current_row * 100.0) / num_rows) + "%  ["
+                        + m_spins[(current_row / 20) % m_spins.length] + "]\r");
             }
         }
 
@@ -1638,28 +1669,30 @@ public class InstallerDb {
 
         if (table.equals("events") && num_rows == 0) {
             st.execute("INSERT INTO events (eventid, eventuei, eventtime, "
-                    + "eventsource, eventdpname, eventcreatetime, "
-                    + "eventseverity, eventlog, eventdisplay) values "
+                    + "eventsource, eventdpname, eventcreatetime, " + "eventseverity, eventlog, eventdisplay) values "
                     + "(0, 'http://uei.opennms.org/dummyevent', now(), "
                     + "'OpenNMS.Eventd', 'localhost', now(), 1, 'Y', 'Y')");
         }
 
         st.close();
 
-        m_out.println("    - transforming data into the new table... "
-                + "DONE           ");
+        m_out.println("    - transforming data into the new table... " + "DONE           ");
     }
 
     /**
-     * <p>checkOldTables</p>
+     * <p>
+     * checkOldTables
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
-     * @throws org.opennms.netmgt.dao.db.BackupTablesFoundException if any.
+     * @throws java.sql.SQLException
+     *             if any.
+     * @throws org.opennms.netmgt.dao.db.BackupTablesFoundException
+     *             if any.
      */
     public void checkOldTables() throws SQLException, BackupTablesFoundException {
-    	final Statement st = getConnection().createStatement();
-        final ResultSet rs = st.executeQuery("SELECT relname FROM pg_class "
-                + "WHERE relkind = 'r' AND " + "relname LIKE '%_old_%'");
+        final Statement st = getConnection().createStatement();
+        final ResultSet rs = st.executeQuery("SELECT relname FROM pg_class " + "WHERE relkind = 'r' AND "
+                + "relname LIKE '%_old_%'");
         LinkedList<String> oldTables = new LinkedList<String>();
 
         m_out.print("- checking database for old backup tables... ");
@@ -1681,35 +1714,41 @@ public class InstallerDb {
     }
 
     /**
-     * <p>getForeignKeyConstraints</p>
+     * <p>
+     * getForeignKeyConstraints
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public List<Constraint> getForeignKeyConstraints() throws Exception {
-    	if (m_constraints == null) {
-	    	m_constraints = new LinkedList<Constraint>();
+        if (m_constraints == null) {
+            m_constraints = new LinkedList<Constraint>();
 
-	        for (final String table : getTableNames()) {
-	        	final String tableLower = table.toLowerCase();
-	            for (final Constraint constraint : getTableFromSQL(tableLower).getConstraints()) {
-	                if (constraint.getType() == Constraint.FOREIGN_KEY) {
-	                    m_constraints.add(constraint);
-	                }
-	            }
-	        }
-    	}
+            for (final String table : getTableNames()) {
+                final String tableLower = table.toLowerCase();
+                for (final Constraint constraint : getTableFromSQL(tableLower).getConstraints()) {
+                    if (constraint.getType() == Constraint.FOREIGN_KEY) {
+                        m_constraints.add(constraint);
+                    }
+                }
+            }
+        }
 
         return m_constraints;
     }
 
     /**
-     * <p>checkConstraints</p>
+     * <p>
+     * checkConstraints
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void checkConstraints() throws Exception {
-    	final List<Constraint> constraints = getForeignKeyConstraints();
+        final List<Constraint> constraints = getForeignKeyConstraints();
 
         m_out.println("- checking for rows that violate constraints...");
 
@@ -1723,13 +1762,17 @@ public class InstallerDb {
     }
 
     /**
-     * <p>checkConstraint</p>
+     * <p>
+     * checkConstraint
+     * </p>
      *
-     * @param constraint a {@link org.opennms.netmgt.dao.db.Constraint} object.
-     * @throws java.lang.Exception if any.
+     * @param constraint
+     *            a {@link org.opennms.netmgt.dao.db.Constraint} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void checkConstraint(final Constraint constraint) throws Exception {
-    	final String name = constraint.getName();
+        final String name = constraint.getName();
         final String table = constraint.getTable();
         final List<String> columns = constraint.getColumns();
         final String ftable = constraint.getForeignTable();
@@ -1752,11 +1795,10 @@ public class InstallerDb {
          * m_out.print("Skipping usersNotified.id"); continue; }
          */
 
-//        String partialQuery = "FROM " + table + " WHERE "
-//                + getForeignConstraintWhere(table, columns, ftable, fcolumns);
+        // String partialQuery = "FROM " + table + " WHERE "
+        // + getForeignConstraintWhere(table, columns, ftable, fcolumns);
 
         final String partialQuery = getJoinForRowsThatFailConstraint(table, columns, ftable, fcolumns);
-
 
         final Statement st = getConnection().createStatement();
         ResultSet rs;
@@ -1764,8 +1806,7 @@ public class InstallerDb {
         try {
             rs = st.executeQuery(query);
         } catch (final SQLException e) {
-            throw new Exception("Failed to execute query '" + query + "'.  "
-                                + "Nested exception: " + e.getMessage(), e);
+            throw new Exception("Failed to execute query '" + query + "'.  " + "Nested exception: " + e.getMessage(), e);
         }
 
         rs.next();
@@ -1779,23 +1820,21 @@ public class InstallerDb {
             rs.close();
             st.close();
 
-            throw new Exception("Table " + table + " contains " + count
-                    + " rows " + "(out of " + total
-                    + ") that violate new constraint " + name + ".  "
-                    + "See the install guide for details "
+            throw new Exception("Table " + table + " contains " + count + " rows " + "(out of " + total
+                    + ") that violate new constraint " + name + ".  " + "See the install guide for details "
                     + "on how to correct this problem.  You can execute this "
-                    + "SQL query to see a list of the rows that violate the "
-                    + "constraint:\n"
-                    + "SELECT * " + partialQuery);
+                    + "SQL query to see a list of the rows that violate the " + "constraint:\n" + "SELECT * "
+                    + partialQuery);
         }
 
         st.close();
 
     }
 
-    private String getJoinForRowsThatFailConstraint(final String table, final List<String> columns, final String ftable, final List<String> fcolumns) throws Exception {
-    	final String notNulls = notNullWhereClause(table, columns);
-    	final String noForeign = "FROM " + table + " WHERE " + notNulls;
+    private String getJoinForRowsThatFailConstraint(final String table, final List<String> columns,
+            final String ftable, final List<String> fcolumns) throws Exception {
+        final String notNulls = notNullWhereClause(table, columns);
+        final String noForeign = "FROM " + table + " WHERE " + notNulls;
 
         if (!tableExists(ftable)) {
             return noForeign;
@@ -1807,35 +1846,42 @@ public class InstallerDb {
             }
         }
 
-
         String partialQuery = "FROM " + table + " LEFT JOIN " + ftable + " ON (";
         for (int i = 0; i < columns.size(); i++) {
-        	final String column = columns.get(i);
+            final String column = columns.get(i);
             final String fcolumn = fcolumns.get(i);
             if (i != 0) {
                 partialQuery += " AND ";
             }
 
-            partialQuery += table+'.'+column+" = "+ftable+'.'+fcolumn;
+            partialQuery += table + '.' + column + " = " + ftable + '.' + fcolumn;
         }
 
-        partialQuery += ") WHERE "+ftable+'.'+fcolumns.get(0)+" is NULL AND "+ notNulls;
+        partialQuery += ") WHERE " + ftable + '.' + fcolumns.get(0) + " is NULL AND " + notNulls;
 
         return partialQuery;
     }
 
     /**
-     * <p>getForeignConstraintWhere</p>
+     * <p>
+     * getForeignConstraintWhere
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
-     * @param columns a {@link java.util.List} object.
-     * @param ftable a {@link java.lang.String} object.
-     * @param fcolumns a {@link java.util.List} object.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @param columns
+     *            a {@link java.util.List} object.
+     * @param ftable
+     *            a {@link java.lang.String} object.
+     * @param fcolumns
+     *            a {@link java.util.List} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public String getForeignConstraintWhere(final String table, final List<String> columns, final String ftable, final List<String> fcolumns) throws Exception {
-    	final String notNulls = notNullWhereClause(table, columns);
+    public String getForeignConstraintWhere(final String table, final List<String> columns, final String ftable,
+            final List<String> fcolumns) throws Exception {
+        final String notNulls = notNullWhereClause(table, columns);
 
         if (!tableExists(ftable)) {
             return notNulls;
@@ -1846,22 +1892,25 @@ public class InstallerDb {
             }
         }
 
-        return notNulls + " AND ( "
-            + StringUtils.collectionToDelimitedString(tableColumnList(table, columns), ", ")
-            + " ) NOT IN (SELECT "
-            + StringUtils.collectionToDelimitedString(tableColumnList(ftable, fcolumns), ", ")
-            + " FROM " + ftable + ")";
+        return notNulls + " AND ( " + StringUtils.collectionToDelimitedString(tableColumnList(table, columns), ", ")
+                + " ) NOT IN (SELECT "
+                + StringUtils.collectionToDelimitedString(tableColumnList(ftable, fcolumns), ", ") + " FROM " + ftable
+                + ")";
     }
 
     /**
-     * <p>notNullWhereClause</p>
+     * <p>
+     * notNullWhereClause
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
-     * @param columns a {@link java.util.List} object.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @param columns
+     *            a {@link java.util.List} object.
      * @return a {@link java.lang.String} object.
      */
     public String notNullWhereClause(final String table, final List<String> columns) {
-    	final List<String> isNotNulls = new ArrayList<String>(columns.size());
+        final List<String> isNotNulls = new ArrayList<String>(columns.size());
 
         for (final String column : columns) {
             isNotNulls.add(table + "." + column + " IS NOT NULL");
@@ -1871,14 +1920,18 @@ public class InstallerDb {
     }
 
     /**
-     * <p>tableColumnList</p>
+     * <p>
+     * tableColumnList
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
-     * @param columns a {@link java.util.List} object.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @param columns
+     *            a {@link java.util.List} object.
      * @return a {@link java.util.List} object.
      */
     public List<String> tableColumnList(final String table, final List<String> columns) {
-    	final List<String> tableColumns = new ArrayList<String>(columns.size());
+        final List<String> tableColumns = new ArrayList<String>(columns.size());
 
         for (final String column : columns) {
             tableColumns.add(table + "." + column);
@@ -1887,16 +1940,20 @@ public class InstallerDb {
         return tableColumns;
     }
 
-
     /**
-     * <p>fixConstraint</p>
+     * <p>
+     * fixConstraint
+     * </p>
      *
-     * @param constraintName a {@link java.lang.String} object.
-     * @param removeRows a boolean.
-     * @throws java.lang.Exception if any.
+     * @param constraintName
+     *            a {@link java.lang.String} object.
+     * @param removeRows
+     *            a boolean.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void fixConstraint(final String constraintName, final boolean removeRows) throws Exception {
-    	final List<Constraint> constraints = getForeignKeyConstraints();
+        final List<Constraint> constraints = getForeignKeyConstraints();
 
         m_out.print("- fixing rows that violate constraint " + constraintName + "... ");
 
@@ -1907,55 +1964,54 @@ public class InstallerDb {
             }
         }
 
-        throw new Exception("Did not find constraint "
-                            + constraintName + " in the database.");
+        throw new Exception("Did not find constraint " + constraintName + " in the database.");
     }
 
     /**
-     * <p>fixConstraint</p>
+     * <p>
+     * fixConstraint
+     * </p>
      *
-     * @param constraint a {@link org.opennms.netmgt.dao.db.Constraint} object.
-     * @param removeRows a boolean.
+     * @param constraint
+     *            a {@link org.opennms.netmgt.dao.db.Constraint} object.
+     * @param removeRows
+     *            a boolean.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public String fixConstraint(final Constraint constraint, final boolean removeRows) throws Exception {
-    	final String table = constraint.getTable();
+        final String table = constraint.getTable();
         final List<String> columns = constraint.getColumns();
         final String ftable = constraint.getForeignTable();
         final List<String> fcolumns = constraint.getForeignColumns();
 
         if (!tableExists(table)) {
-            throw new Exception("Constraint " + constraint.getName()
-                    + " is on table " + table + ", but table does "
-                    + "not exist (so fixing this constraint does "
-                    + "nothing).");
+            throw new Exception("Constraint " + constraint.getName() + " is on table " + table + ", but table does "
+                    + "not exist (so fixing this constraint does " + "nothing).");
         }
 
         for (final String column : columns) {
             if (!tableColumnExists(table, column)) {
-                throw new Exception("Constraint " + constraint.getName()
-                                    + " constrains column " + column
-                                    + " of table " + table
-                                    + ", but column does "
-                                    + "not exist (so fixing this constraint "
-                                    + "does nothing).");
+                throw new Exception("Constraint " + constraint.getName() + " constrains column " + column
+                        + " of table " + table + ", but column does " + "not exist (so fixing this constraint "
+                        + "does nothing).");
             }
         }
 
-//        String where = getForeignConstraintWhere(table, columns, ftable,
-//                                                 fcolumns);
+        // String where = getForeignConstraintWhere(table, columns, ftable,
+        // fcolumns);
 
         String tuple = "";
-        for(int i = 0; i < columns.size(); i++) {
-                if (i != 0) {
-                        tuple += ", ";
-                }
-                tuple += table+'.'+columns.get(i);
+        for (int i = 0; i < columns.size(); i++) {
+            if (i != 0) {
+                tuple += ", ";
+            }
+            tuple += table + '.' + columns.get(i);
         }
 
-        final String where = "( "+ tuple + ") IN ( SELECT " + tuple + " " +
-                getJoinForRowsThatFailConstraint(table, columns, ftable, fcolumns) +")";
+        final String where = "( " + tuple + ") IN ( SELECT " + tuple + " "
+                + getJoinForRowsThatFailConstraint(table, columns, ftable, fcolumns) + ")";
 
         String query;
         String change_text;
@@ -1964,14 +2020,13 @@ public class InstallerDb {
             query = "DELETE FROM " + table + " WHERE " + where;
             change_text = "DELETED";
         } else {
-        	final List<String> sets = new ArrayList<String>(columns.size());
-        	for (final String column : columns) {
+            final List<String> sets = new ArrayList<String>(columns.size());
+            for (final String column : columns) {
                 sets.add(column + " = NULL");
             }
 
-            query = "UPDATE " + table + " SET "
-                + StringUtils.collectionToDelimitedString(sets, ", ") + " "
-                + "WHERE " + where;
+            query = "UPDATE " + table + " SET " + StringUtils.collectionToDelimitedString(sets, ", ") + " " + "WHERE "
+                    + where;
             change_text = "UPDATED";
         }
 
@@ -1982,10 +2037,13 @@ public class InstallerDb {
     }
 
     /**
-     * <p>databaseUserExists</p>
+     * <p>
+     * databaseUserExists
+     * </p>
      *
      * @return a boolean.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public boolean databaseUserExists() throws SQLException {
         assertUserSet();
@@ -1993,8 +2051,7 @@ public class InstallerDb {
         boolean exists;
 
         final Statement st = getAdminConnection().createStatement();
-        final ResultSet rs = st.executeQuery("SELECT usename FROM pg_user WHERE "
-                + "usename = '" + m_user + "'");
+        final ResultSet rs = st.executeQuery("SELECT usename FROM pg_user WHERE " + "usename = '" + m_user + "'");
 
         exists = rs.next();
 
@@ -2005,12 +2062,15 @@ public class InstallerDb {
     }
 
     /**
-     * <p>databaseSetUser</p>
+     * <p>
+     * databaseSetUser
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void databaseSetUser() throws SQLException {
-    	final ResultSet rs = getAdminConnection().getMetaData().getTables(null, "public", "%", null);
+        final ResultSet rs = getAdminConnection().getMetaData().getTables(null, "public", "%", null);
         final HashSet<String> objects = new HashSet<String>();
         while (rs.next()) {
             objects.add(rs.getString("TABLE_NAME"));
@@ -2025,9 +2085,12 @@ public class InstallerDb {
     }
 
     /**
-     * <p>databaseAddUser</p>
+     * <p>
+     * databaseAddUser
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Deprecated
     public void databaseAddUser() throws SQLException {
@@ -2038,17 +2101,20 @@ public class InstallerDb {
     }
 
     /**
-     * <p>databaseDBExists</p>
+     * <p>
+     * databaseDBExists
+     * </p>
      *
      * @return a boolean.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public boolean databaseDBExists() throws SQLException {
         boolean exists;
 
         final Statement st = getAdminConnection().createStatement();
-        final ResultSet rs = st.executeQuery("SELECT datname from pg_database "
-                + "WHERE datname = '" + getDatabaseName() + "'");
+        final ResultSet rs = st.executeQuery("SELECT datname from pg_database " + "WHERE datname = '"
+                + getDatabaseName() + "'");
 
         exists = rs.next();
 
@@ -2059,9 +2125,12 @@ public class InstallerDb {
     }
 
     /**
-     * <p>databaseAddDB</p>
+     * <p>
+     * databaseAddDB
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Deprecated
     public void databaseAddDB() throws Exception {
@@ -2076,9 +2145,12 @@ public class InstallerDb {
     }
 
     /**
-     * <p>databaseRemoveDB</p>
+     * <p>
+     * databaseRemoveDB
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void databaseRemoveDB() throws SQLException {
         assertUserSet();
@@ -2091,16 +2163,19 @@ public class InstallerDb {
     }
 
     /**
-     * <p>addIndexesForTable</p>
+     * <p>
+     * addIndexesForTable
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void addIndexesForTable(final String table) throws SQLException {
-    	final List<Index> indexes = getIndexDao().getIndexesForTable(table.toLowerCase());
+        final List<Index> indexes = getIndexDao().getIndexesForTable(table.toLowerCase());
         for (final Index index : indexes) {
-            m_out.print("    - checking index '" + index.getName()
-                        + "' on this table... ");
+            m_out.print("    - checking index '" + index.getName() + "' on this table... ");
             if (!index.isOnDatabase(getConnection())) {
                 index.addToDatabase(getConnection());
             }
@@ -2110,11 +2185,16 @@ public class InstallerDb {
     }
 
     /**
-     * <p>grantAccessToObject</p>
+     * <p>
+     * grantAccessToObject
+     * </p>
      *
-     * @param object a {@link java.lang.String} object.
-     * @param indent a int.
-     * @throws java.sql.SQLException if any.
+     * @param object
+     *            a {@link java.lang.String} object.
+     * @param indent
+     *            a int.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void grantAccessToObject(final String object, final int indent) throws SQLException {
         assertUserSet();
@@ -2137,30 +2217,34 @@ public class InstallerDb {
     }
 
     /**
-     * <p>fixData</p>
+     * <p>
+     * fixData
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void fixData() throws Exception {
-    	final Statement st = getConnection().createStatement();
+        final Statement st = getConnection().createStatement();
 
-        st.execute("UPDATE ipinterface SET issnmpprimary='N' "
-                + "WHERE issnmpprimary IS NULL");
-        st.execute("UPDATE service SET servicename='SSH' "
-                + "WHERE servicename='OpenSSH'");
+        st.execute("UPDATE ipinterface SET issnmpprimary='N' " + "WHERE issnmpprimary IS NULL");
+        st.execute("UPDATE service SET servicename='SSH' " + "WHERE servicename='OpenSSH'");
         st.execute("UPDATE snmpinterface SET snmpipadentnetmask=NULL");
     }
 
     // XXX This causes the following Postgres error:
     // ERROR: duplicate key violates unique constraint "pk_dpname"
     /**
-     * <p>insertData</p>
+     * <p>
+     * insertData
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void insertData() throws Exception {
 
-        for (final Entry<String,List<Insert>> entry : getInserts().entrySet()) {
+        for (final Entry<String, List<Insert>> entry : getInserts().entrySet()) {
             final String table = entry.getKey();
             final List<Insert> inserts = entry.getValue();
             Status status = Status.OK;
@@ -2177,7 +2261,7 @@ public class InstallerDb {
                 }
             }
 
-            for(final Insert insert : toBeInserted) {
+            for (final Insert insert : toBeInserted) {
                 status = status.combine(insert.doInsert());
             }
 
@@ -2186,9 +2270,12 @@ public class InstallerDb {
     }
 
     /**
-     * <p>checkUnicode</p>
+     * <p>
+     * checkUnicode
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void checkUnicode() throws Exception {
         assertUserSet();
@@ -2203,7 +2290,8 @@ public class InstallerDb {
                 st = getAdminConnection().createStatement();
 
                 try {
-                    rs = st.executeQuery("SELECT encoding FROM pg_database WHERE LOWER(datname)='" + getDatabaseName().toLowerCase() + "'");
+                    rs = st.executeQuery("SELECT encoding FROM pg_database WHERE LOWER(datname)='"
+                            + getDatabaseName().toLowerCase() + "'");
                     if (rs.next()) {
                         if (rs.getInt(1) == 5 || rs.getInt(1) == 6) {
                             m_out.println("ALREADY UNICODE");
@@ -2212,7 +2300,8 @@ public class InstallerDb {
                     }
                     m_out.println("NOT UNICODE");
 
-                    throw new Exception("OpenNMS requires a Unicode database.  Please delete and recreate your\ndatabase and try again.");
+                    throw new Exception(
+                                        "OpenNMS requires a Unicode database.  Please delete and recreate your\ndatabase and try again.");
                 } finally {
                     if (rs != null) {
                         rs.close();
@@ -2228,16 +2317,18 @@ public class InstallerDb {
         }
     }
 
-
     /**
-     * <p>checkIndexUniqueness</p>
+     * <p>
+     * checkIndexUniqueness
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void checkIndexUniqueness() throws Exception {
-    	final Collection<Index> indexes = getIndexDao().getAllIndexes();
+        final Collection<Index> indexes = getIndexDao().getAllIndexes();
 
-    	final Statement st = getConnection().createStatement();
+        final Statement st = getConnection().createStatement();
 
         for (final Index index : indexes) {
             if (!index.isUnique()) {
@@ -2261,8 +2352,8 @@ public class InstallerDb {
                 continue;
             }
 
-            final String countQuery = query.replaceFirst("(?i)\\s(\\S+)\\s+FROM",
-                " count(\\1) FROM").replaceFirst("(?i)\\s*ORDER\\s+BY\\s+[^()]+$", "");
+            final String countQuery = query.replaceFirst("(?i)\\s(\\S+)\\s+FROM", " count(\\1) FROM").replaceFirst("(?i)\\s*ORDER\\s+BY\\s+[^()]+$",
+                                                                                                                   "");
 
             final ResultSet rs = st.executeQuery(countQuery);
 
@@ -2272,84 +2363,92 @@ public class InstallerDb {
 
             if (count > 0) {
                 st.close();
-                throw new Exception("Unique index '" +  index.getName() + "' "
-                                    + "cannot be added to table '" +
-                                    index.getTable() + "' because " + count
-                                    + " rows are not unique.  See the "
-                                    + "install guide for details on how to "
-                                    + "correct this problem.  You can use the "
-                                    + "following SQL to see which rows are not "
-                                    + "unique:\n"
-                                    + query);
+                throw new Exception("Unique index '" + index.getName() + "' " + "cannot be added to table '"
+                        + index.getTable() + "' because " + count + " rows are not unique.  See the "
+                        + "install guide for details on how to " + "correct this problem.  You can use the "
+                        + "following SQL to see which rows are not " + "unique:\n" + query);
             }
         }
 
         st.close();
     }
 
-
     /**
-     * <p>getTableColumnsFromSQL</p>
+     * <p>
+     * getTableColumnsFromSQL
+     * </p>
      *
-     * @param tableName a {@link java.lang.String} object.
+     * @param tableName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public List<Column> getTableColumnsFromSQL(final String tableName) throws Exception {
         return getTableFromSQL(tableName).getColumns();
     }
 
-
     /**
-     * <p>getTableCreateFromSQL</p>
+     * <p>
+     * getTableCreateFromSQL
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public String getTableCreateFromSQL(final String table) throws Exception {
-        return getXFromSQL(table, "(?i)\\bcreate table\\s+['\"]?(\\S+)['\"]?"
-                + "\\s+\\((.+?)\\);", 1, 2, "table");
+        return getXFromSQL(table, "(?i)\\bcreate table\\s+['\"]?(\\S+)['\"]?" + "\\s+\\((.+?)\\);", 1, 2, "table");
     }
 
     /**
-     * <p>getIndexFromSQL</p>
+     * <p>
+     * getIndexFromSQL
+     * </p>
      *
-     * @param index a {@link java.lang.String} object.
+     * @param index
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public String getIndexFromSQL(final String index) throws Exception {
-        return getXFromSQL(index, "(?i)\\b(create (?:unique )?index\\s+"
-                + "['\"]?(\\S+)['\"]?\\s+.+?);", 2, 1, "index");
+        return getXFromSQL(index, "(?i)\\b(create (?:unique )?index\\s+" + "['\"]?(\\S+)['\"]?\\s+.+?);", 2, 1, "index");
     }
 
     /**
-     * <p>getFunctionFromSQL</p>
+     * <p>
+     * getFunctionFromSQL
+     * </p>
      *
-     * @param function a {@link java.lang.String} object.
+     * @param function
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public String getFunctionFromSQL(final String function) throws Exception {
-        return getXFromSQL(function, "(?is)\\bcreate function\\s+"
-                + "['\"]?(\\S+)['\"]?\\s+"
+        return getXFromSQL(function, "(?is)\\bcreate function\\s+" + "['\"]?(\\S+)['\"]?\\s+"
                 + "(.+? language ['\"]?\\w+['\"]?);", 1, 2, "function");
     }
 
     /**
-     * <p>getLanguageFromSQL</p>
+     * <p>
+     * getLanguageFromSQL
+     * </p>
      *
-     * @param language a {@link java.lang.String} object.
+     * @param language
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public String getLanguageFromSQL(final String language) throws Exception {
-        return getXFromSQL(language, "(?is)\\bcreate trusted procedural "
-                + "language\\s+['\"]?(\\S+)['\"]?\\s+(.+?);", 1, 2,
-                           "language");
+        return getXFromSQL(language, "(?is)\\bcreate trusted procedural " + "language\\s+['\"]?(\\S+)['\"]?\\s+(.+?);",
+                           1, 2, "language");
     }
-
 
     private void assertUserSet() {
         Assert.state(m_user != null, "postgresOpennmsUser property has not been set");
@@ -2368,14 +2467,18 @@ public class InstallerDb {
         try {
             m_connection = getDataSource().getConnection();
         } catch (final SQLException e) {
-            rethrowDatabaseConnectionException(getDataSource(), e, "Could not get a connection to the OpenNMS database.");
+            rethrowDatabaseConnectionException(getDataSource(), e,
+                                               "Could not get a connection to the OpenNMS database.");
         }
     }
 
     /**
-     * <p>closeConnection</p>
+     * <p>
+     * closeConnection
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void closeConnection() throws SQLException {
         if (m_connection == null) {
@@ -2398,14 +2501,18 @@ public class InstallerDb {
         try {
             m_adminConnection = getAdminDataSource().getConnection();
         } catch (final SQLException e) {
-            rethrowDatabaseConnectionException(getAdminDataSource(), e, "Could not get an administrative connection to the database.");
+            rethrowDatabaseConnectionException(getAdminDataSource(), e,
+                                               "Could not get an administrative connection to the database.");
         }
     }
 
     /**
-     * <p>closeAdminConnection</p>
+     * <p>
+     * closeAdminConnection
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void closeAdminConnection() throws SQLException {
         if (m_adminConnection == null) {
@@ -2418,7 +2525,8 @@ public class InstallerDb {
     /**
      * Close all connections to the database.
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void disconnect() throws SQLException {
         this.closeColumnReplacements();
@@ -2426,23 +2534,32 @@ public class InstallerDb {
         this.closeAdminConnection();
     }
 
-    private void rethrowDatabaseConnectionException(final DataSource ds, final SQLException e, final String msg) throws SQLException {
-    	final SQLException newE = new DatabaseConnectionException(msg + "  Is the database running, listening for TCP connections, and allowing us to connect and authenticate from localhost?  Tried connecting to database specified by data source " + ds.toString() + ".  Original error: " + e);
+    private void rethrowDatabaseConnectionException(final DataSource ds, final SQLException e, final String msg)
+            throws SQLException {
+        final SQLException newE = new DatabaseConnectionException(
+                                                                  msg
+                                                                          + "  Is the database running, listening for TCP connections, and allowing us to connect and authenticate from localhost?  Tried connecting to database specified by data source "
+                                                                          + ds.toString() + ".  Original error: " + e);
         newE.initCause(e);
         throw newE;
     }
 
     /**
-     * <p>setCreateSqlLocation</p>
+     * <p>
+     * setCreateSqlLocation
+     * </p>
      *
-     * @param createSqlLocation a {@link java.lang.String} object.
+     * @param createSqlLocation
+     *            a {@link java.lang.String} object.
      */
     public void setCreateSqlLocation(final String createSqlLocation) {
         m_createSqlLocation = createSqlLocation;
     }
 
     /**
-     * <p>getCreateSqlLocation</p>
+     * <p>
+     * getCreateSqlLocation
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -2451,7 +2568,9 @@ public class InstallerDb {
     }
 
     /**
-     * <p>getTableNames</p>
+     * <p>
+     * getTableNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -2460,7 +2579,9 @@ public class InstallerDb {
     }
 
     /**
-     * <p>getSequenceNames</p>
+     * <p>
+     * getSequenceNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -2469,9 +2590,12 @@ public class InstallerDb {
     }
 
     /**
-     * <p>getSequenceMapping</p>
+     * <p>
+     * getSequenceMapping
+     * </p>
      *
-     * @param sequence a {@link java.lang.String} object.
+     * @param sequence
+     *            a {@link java.lang.String} object.
      * @return an array of {@link java.lang.String} objects.
      */
     public String[] getSequenceMapping(final String sequence) {
@@ -2479,7 +2603,9 @@ public class InstallerDb {
     }
 
     /**
-     * <p>getIndexDao</p>
+     * <p>
+     * getIndexDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.db.IndexDao} object.
      */
@@ -2488,7 +2614,9 @@ public class InstallerDb {
     }
 
     /**
-     * <p>getInserts</p>
+     * <p>
+     * getInserts
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -2497,7 +2625,9 @@ public class InstallerDb {
     }
 
     /**
-     * <p>getSql</p>
+     * <p>
+     * getSql
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -2506,9 +2636,12 @@ public class InstallerDb {
     }
 
     /**
-     * <p>hasTableChanged</p>
+     * <p>
+     * hasTableChanged
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean hasTableChanged(final String table) {
@@ -2516,25 +2649,33 @@ public class InstallerDb {
     }
 
     /**
-     * <p>tableChanged</p>
+     * <p>
+     * tableChanged
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
      */
     public void tableChanged(final String table) {
         m_changed.add(table);
     }
 
     /**
-     * <p>setOutputStream</p>
+     * <p>
+     * setOutputStream
+     * </p>
      *
-     * @param out a {@link java.io.PrintStream} object.
+     * @param out
+     *            a {@link java.io.PrintStream} object.
      */
     public void setOutputStream(final PrintStream out) {
         m_out = out;
     }
 
     /**
-     * <p>getTriggerDao</p>
+     * <p>
+     * getTriggerDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.db.TriggerDao} object.
      */
@@ -2543,16 +2684,21 @@ public class InstallerDb {
     }
 
     /**
-     * <p>setStoredProcedureDirectory</p>
+     * <p>
+     * setStoredProcedureDirectory
+     * </p>
      *
-     * @param directory a {@link java.lang.String} object.
+     * @param directory
+     *            a {@link java.lang.String} object.
      */
     public void setStoredProcedureDirectory(final String directory) {
         m_storedProcedureDirectory = directory;
     }
 
     /**
-     * <p>getStoredProcedureDirectory</p>
+     * <p>
+     * getStoredProcedureDirectory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -2561,16 +2707,21 @@ public class InstallerDb {
     }
 
     /**
-     * <p>setDataSource</p>
+     * <p>
+     * setDataSource
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public void setDataSource(final DataSource dataSource) {
         m_dataSource = dataSource;
     }
 
     /**
-     * <p>getDataSource</p>
+     * <p>
+     * getDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -2579,16 +2730,21 @@ public class InstallerDb {
     }
 
     /**
-     * <p>setAdminDataSource</p>
+     * <p>
+     * setAdminDataSource
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public void setAdminDataSource(final DataSource dataSource) {
         m_adminDataSource = dataSource;
     }
 
     /**
-     * <p>getAdminDataSource</p>
+     * <p>
+     * getAdminDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -2597,16 +2753,21 @@ public class InstallerDb {
     }
 
     /**
-     * <p>setForce</p>
+     * <p>
+     * setForce
+     * </p>
      *
-     * @param force a boolean.
+     * @param force
+     *            a boolean.
      */
     public void setForce(final boolean force) {
         m_force = force;
     }
 
     /**
-     * <p>getForce</p>
+     * <p>
+     * getForce
+     * </p>
      *
      * @return a boolean.
      */
@@ -2615,16 +2776,21 @@ public class InstallerDb {
     }
 
     /**
-     * <p>setDebug</p>
+     * <p>
+     * setDebug
+     * </p>
      *
-     * @param debug a boolean.
+     * @param debug
+     *            a boolean.
      */
     public void setDebug(final boolean debug) {
         m_debug = debug;
     }
 
     /**
-     * <p>getDebug</p>
+     * <p>
+     * getDebug
+     * </p>
      *
      * @return a boolean.
      */
@@ -2633,26 +2799,36 @@ public class InstallerDb {
     }
 
     /**
-     * <p>addColumnReplacement</p>
+     * <p>
+     * addColumnReplacement
+     * </p>
      *
-     * @param tableColumn a {@link java.lang.String} object.
-     * @param replacement a {@link org.opennms.netmgt.dao.db.ColumnChangeReplacement} object.
+     * @param tableColumn
+     *            a {@link java.lang.String} object.
+     * @param replacement
+     *            a {@link org.opennms.netmgt.dao.db.ColumnChangeReplacement}
+     *            object.
      */
     public void addColumnReplacement(final String tableColumn, final ColumnChangeReplacement replacement) {
         m_columnReplacements.put(tableColumn, replacement);
     }
 
     /**
-     * <p>setIgnoreNotNull</p>
+     * <p>
+     * setIgnoreNotNull
+     * </p>
      *
-     * @param ignoreNotNull a boolean.
+     * @param ignoreNotNull
+     *            a boolean.
      */
     public void setIgnoreNotNull(final boolean ignoreNotNull) {
         m_ignore_notnull = ignoreNotNull;
     }
 
     /**
-     * <p>getDatabaseName</p>
+     * <p>
+     * getDatabaseName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -2661,42 +2837,53 @@ public class InstallerDb {
     }
 
     /**
-     * <p>setDatabaseName</p>
+     * <p>
+     * setDatabaseName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setDatabaseName(final String name) {
         m_databaseName = name;
     }
 
     public String getSchemaName() {
-    	return m_schemaName;
+        return m_schemaName;
     }
 
     public void setSchemaName(final String name) {
-    	m_schemaName = name;
+        m_schemaName = name;
     }
 
     /**
-     * <p>setNoRevert</p>
+     * <p>
+     * setNoRevert
+     * </p>
      *
-     * @param noRevert a boolean.
+     * @param noRevert
+     *            a boolean.
      */
     public void setNoRevert(final boolean noRevert) {
         m_no_revert = noRevert;
     }
 
     /**
-     * <p>setPostgresOpennmsUser</p>
+     * <p>
+     * setPostgresOpennmsUser
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public void setPostgresOpennmsUser(final String user) {
         m_user = user;
     }
 
     /**
-     * <p>getPostgresOpennmsUser</p>
+     * <p>
+     * getPostgresOpennmsUser
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -2705,16 +2892,21 @@ public class InstallerDb {
     }
 
     /**
-     * <p>setPostgresOpennmsPassword</p>
+     * <p>
+     * setPostgresOpennmsPassword
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPostgresOpennmsPassword(final String password) {
         m_pass = password;
     }
 
     /**
-     * <p>getPostgresOpennmsPassword</p>
+     * <p>
+     * getPostgresOpennmsPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -2723,15 +2915,19 @@ public class InstallerDb {
     }
 
     /**
-     * <p>setPostgresIpLikeLocation</p>
+     * <p>
+     * setPostgresIpLikeLocation
+     * </p>
      *
-     * @param location a {@link java.lang.String} object.
+     * @param location
+     *            a {@link java.lang.String} object.
      */
     public void setPostgresIpLikeLocation(final String location) {
         if (location != null) {
-        	final File iplike = new File(location);
+            final File iplike = new File(location);
             if (!iplike.exists()) {
-                m_out.println("WARNING: missing " + location + ": OpenNMS will use a slower stored procedure if the native library is not available");
+                m_out.println("WARNING: missing " + location
+                        + ": OpenNMS will use a slower stored procedure if the native library is not available");
             }
         }
 
@@ -2739,7 +2935,9 @@ public class InstallerDb {
     }
 
     /**
-     * <p>getPgIpLikeLocation</p>
+     * <p>
+     * getPgIpLikeLocation
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -2748,15 +2946,20 @@ public class InstallerDb {
     }
 
     /**
-     * <p>setPostgresPlPgsqlLocation</p>
+     * <p>
+     * setPostgresPlPgsqlLocation
+     * </p>
      *
-     * @param location a {@link java.lang.String} object.
+     * @param location
+     *            a {@link java.lang.String} object.
      */
     public void setPostgresPlPgsqlLocation(final String location) {
         if (location != null) {
-        	final File plpgsql = new File(location);
+            final File plpgsql = new File(location);
             if (!plpgsql.exists()) {
-                m_out.println("FATAL: missing " + location + ": Unable to set up even the slower IPLIKE stored procedure without PL/PGSQL language support");
+                m_out.println("FATAL: missing "
+                        + location
+                        + ": Unable to set up even the slower IPLIKE stored procedure without PL/PGSQL language support");
             }
         }
 
@@ -2764,7 +2967,9 @@ public class InstallerDb {
     }
 
     /**
-     * <p>getPgPlPgsqlLocation</p>
+     * <p>
+     * getPgPlPgsqlLocation
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -2773,7 +2978,9 @@ public class InstallerDb {
     }
 
     /**
-     * <p>isPgPlPgsqlLibPresent</p>
+     * <p>
+     * isPgPlPgsqlLibPresent
+     * </p>
      *
      * @return a boolean.
      */
@@ -2789,13 +2996,17 @@ public class InstallerDb {
     }
 
     /**
-     * <p>addColumnReplacements</p>
+     * <p>
+     * addColumnReplacements
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void addColumnReplacements() throws SQLException {
         /*
-         * The DEFAULT value for these columns will take care of these primary keys
+         * The DEFAULT value for these columns will take care of these primary
+         * keys
          */
         addColumnReplacement("snmpinterface.id", new DoNotAddColumnReplacement());
         addColumnReplacement("ipinterface.id", new DoNotAddColumnReplacement());
@@ -2817,7 +3028,8 @@ public class InstallerDb {
 
         addColumnReplacement("snmpinterface.nodeid", new RowHasBogusDataReplacement("snmpInterface", "nodeId"));
 
-        addColumnReplacement("snmpinterface.snmpifindex", new RowHasBogusDataReplacement("snmpInterface", "snmpIfIndex"));
+        addColumnReplacement("snmpinterface.snmpifindex",
+                             new RowHasBogusDataReplacement("snmpInterface", "snmpIfIndex"));
 
         addColumnReplacement("ipinterface.nodeid", new RowHasBogusDataReplacement("ipInterface", "nodeId"));
 
@@ -2838,21 +3050,33 @@ public class InstallerDb {
         addColumnReplacement("alarms.x733probablecause", new FixedIntegerReplacement(0));
 
         /*
-         *   - checking table "alarms"... SCHEMA DOES NOT MATCH
-         *   - differences:
-         * new constraint: alarms: constraint fk_eventidak2 foreign key (lasteventid) references events (eventid) on delete cascade
+         * - checking table "alarms"... SCHEMA DOES NOT MATCH
+         * - differences:
+         * new constraint: alarms: constraint fk_eventidak2 foreign key
+         * (lasteventid) references events (eventid) on delete cascade
          * new constraint: alarms: constraint pk_alarmid primary key (alarmid)
-         *      - column "alarmid" is different
-         * Exception in thread "main" java.lang.Exception: Error changing table 'alarms'.  Nested exception: Column alarmid in new table has NOT NULL constraint, however this column did not have the NOT NULL constraint before and there is no change replacement for this column
-         *         at org.opennms.netmgt.dao.db.InstallerDb.createTables(InstallerDb.java:785)
-         *         at org.opennms.install.Installer.install(Installer.java:251)
-         *         at org.opennms.install.Installer.main(Installer.java:778)
-         * Caused by: java.lang.Exception: Column alarmid in new table has NOT NULL constraint, however this column did not have the NOT NULL constraint before and there is no change replacement for this column
-         *         at org.opennms.netmgt.dao.db.InstallerDb.changeTable(InstallerDb.java:1224)
-         *         at org.opennms.netmgt.dao.db.InstallerDb.createTables(InstallerDb.java:783)
-         *
-         * Not sure if this is the proper fix, but it seems like in some cases folks have alarms
-         * without an alarmid properly set.  Should it have a default?
+         * - column "alarmid" is different
+         * Exception in thread "main" java.lang.Exception: Error changing table
+         * 'alarms'. Nested exception: Column alarmid in new table has NOT NULL
+         * constraint, however this column did not have the NOT NULL constraint
+         * before and there is no change replacement for this column
+         * at
+         * org.opennms.netmgt.dao.db.InstallerDb.createTables(InstallerDb.java
+         * :785)
+         * at org.opennms.install.Installer.install(Installer.java:251)
+         * at org.opennms.install.Installer.main(Installer.java:778)
+         * Caused by: java.lang.Exception: Column alarmid in new table has NOT
+         * NULL constraint, however this column did not have the NOT NULL
+         * constraint before and there is no change replacement for this column
+         * at
+         * org.opennms.netmgt.dao.db.InstallerDb.changeTable(InstallerDb.java:
+         * 1224)
+         * at
+         * org.opennms.netmgt.dao.db.InstallerDb.createTables(InstallerDb.java
+         * :783)
+         * Not sure if this is the proper fix, but it seems like in some cases
+         * folks have alarms
+         * without an alarmid properly set. Should it have a default?
          */
         addColumnReplacement("alarms.alarmid", new NextValReplacement("alarmsNxtId", getDataSource()));
 
@@ -2866,9 +3090,12 @@ public class InstallerDb {
     }
 
     /**
-     * <p>closeColumnReplacements</p>
+     * <p>
+     * closeColumnReplacements
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void closeColumnReplacements() throws SQLException {
         for (ColumnChangeReplacement r : m_columnReplacements.values()) {
@@ -2876,11 +3103,8 @@ public class InstallerDb {
         }
     }
 
-
     enum Status {
-        OK,
-        SKIPPED,
-        EXISTS;
+        OK, SKIPPED, EXISTS;
 
         Status combine(Status s) {
             if (this.ordinal() > s.ordinal()) {
@@ -2894,7 +3118,9 @@ public class InstallerDb {
     public class Insert {
 
         private final String m_table;
+
         private final String m_insertStatement;
+
         private final String m_criteria;
 
         public Insert(final String table, final String line, final String criteria) {
@@ -2961,8 +3187,7 @@ public class InstallerDb {
                  * SQL Status codes: 23505: ERROR: duplicate key violates
                  * unique constraint "%s"
                  */
-                if (e.toString().indexOf("duplicate key") != -1
-                        || "23505".equals(e.getSQLState())) {
+                if (e.toString().indexOf("duplicate key") != -1 || "23505".equals(e.getSQLState())) {
                     return Status.EXISTS;
                 } else {
                     throw e;
@@ -2975,18 +3200,20 @@ public class InstallerDb {
             return Status.OK;
         }
 
-
-
     }
 
     /**
-     * <p>vacuumDatabase</p>
+     * <p>
+     * vacuumDatabase
+     * </p>
      *
-     * @param full a boolean.
-     * @throws java.sql.SQLException if any.
+     * @param full
+     *            a boolean.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void vacuumDatabase(final boolean full) throws SQLException {
-    	final Statement st = getConnection().createStatement();
+        final Statement st = getConnection().createStatement();
         m_out.print("- optimizing database (VACUUM ANALYZE)... ");
         st.execute("VACUUM ANALYZE");
         m_out.println("OK");

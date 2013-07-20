@@ -115,7 +115,8 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
     /**
      * Initializes this object with a given parameter map.
      *
-     * @param parameters the parameter map to use
+     * @param parameters
+     *            the parameter map to use
      */
     @Override
     public void initialize(Map<String, Object> parameters) {
@@ -128,8 +129,10 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
     /**
      * This method queries the Vmware hypervisor for sensor data.
      *
-     * @param svc        the monitored service
-     * @param parameters the parameter map
+     * @param svc
+     *            the monitored service
+     * @param parameters
+     *            the parameter map
      * @return the poll status for this system
      */
     @Override
@@ -151,28 +154,39 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
             try {
                 vmwareViJavaAccess = new VmwareViJavaAccess(vmwareManagementServer);
             } catch (MarshalException e) {
-                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
+                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer
+                        + "'");
             } catch (ValidationException e) {
-                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
+                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer
+                        + "'");
             } catch (IOException e) {
-                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
+                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer
+                        + "'");
             }
 
             try {
                 vmwareViJavaAccess.connect();
             } catch (MalformedURLException e) {
-                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
+                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer
+                        + "'");
             } catch (RemoteException e) {
-                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
+                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer
+                        + "'");
             }
 
             if (!vmwareViJavaAccess.setTimeout(tracker.getConnectionTimeout())) {
-                logger.warn("Error setting connection timeout for VMware management server '{}'", vmwareManagementServer);
+                logger.warn("Error setting connection timeout for VMware management server '{}'",
+                            vmwareManagementServer);
             }
 
             HostSystem hostSystem = vmwareViJavaAccess.getHostSystemByManagedObjectId(vmwareManagedObjectId);
@@ -201,17 +215,21 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
                 try {
                     cimObjects = vmwareViJavaAccess.queryCimObjects(hostSystem, "CIM_NumericSensor", svc.getIpAddr());
                 } catch (RemoteException e) {
-                    logger.warn("Error retrieving CIM values from host system '{}'", vmwareManagedObjectId, e.getMessage());
+                    logger.warn("Error retrieving CIM values from host system '{}'", vmwareManagedObjectId,
+                                e.getMessage());
 
                     vmwareViJavaAccess.disconnect();
 
-                    return PollStatus.unavailable("Error retrieving cim values from host system '" + vmwareManagedObjectId + "'");
+                    return PollStatus.unavailable("Error retrieving cim values from host system '"
+                            + vmwareManagedObjectId + "'");
                 } catch (CIMException e) {
-                    logger.warn("Error retrieving CIM values from host system '{}'", vmwareManagedObjectId, e.getMessage());
+                    logger.warn("Error retrieving CIM values from host system '{}'", vmwareManagedObjectId,
+                                e.getMessage());
 
                     vmwareViJavaAccess.disconnect();
 
-                    return PollStatus.unavailable("Error retrieving cim values from host system '" + vmwareManagedObjectId + "'");
+                    return PollStatus.unavailable("Error retrieving cim values from host system '"
+                            + vmwareManagedObjectId + "'");
                 }
 
                 boolean success = true;
@@ -254,14 +272,14 @@ public class VmwareCimMonitor extends AbstractServiceMonitor {
             vmwareViJavaAccess.disconnect();
         }
 
-
         return serviceStatus;
     }
 
     /**
      * Sets the NodeDao object for this instance.
      *
-     * @param nodeDao the NodeDao object to use
+     * @param nodeDao
+     *            the NodeDao object to use
      */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;

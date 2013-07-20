@@ -56,7 +56,8 @@ public class RequestTrackerTest extends TestCase {
     @Override
     protected void runTest() throws Throwable {
         if (!isRunTest()) {
-            System.err.println("Skipping test '" + getName() + "' because system property '" + getRunTestProperty() + "' is not set to 'true'");
+            System.err.println("Skipping test '" + getName() + "' because system property '" + getRunTestProperty()
+                    + "' is not set to 'true'");
             return;
         }
 
@@ -80,18 +81,21 @@ public class RequestTrackerTest extends TestCase {
     protected void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
-        final String testHome = System.getProperty("user.home") + File.separatorChar + ".opennms" + File.separatorChar + "test-home";
+        final String testHome = System.getProperty("user.home") + File.separatorChar + ".opennms" + File.separatorChar
+                + "test-home";
         final File testProp = new File(testHome + File.separatorChar + "etc" + File.separatorChar + "rt.properties");
         if (testProp.exists()) {
             LOG.debug("{} exists, using it instead of src/test/opennms-home", testHome);
             System.setProperty("opennms.home", testHome);
         } else {
-            System.setProperty("opennms.home", "src" + File.separatorChar + "test" + File.separatorChar + "opennms-home");
+            System.setProperty("opennms.home", "src" + File.separatorChar + "test" + File.separatorChar
+                    + "opennms-home");
         }
 
         RtConfigDao dao = new ReadOnlyRtConfigDao();
 
-        m_tracker = new RequestTracker(dao.getBaseURL(), dao.getUsername(), dao.getPassword(), dao.getTimeout(), dao.getRetry());
+        m_tracker = new RequestTracker(dao.getBaseURL(), dao.getUsername(), dao.getPassword(), dao.getTimeout(),
+                                       dao.getRetry());
         m_ticket = new RTTicket();
         m_ticket.setQueue(dao.getQueue());
         m_ticket.setStatus("open");
@@ -125,6 +129,7 @@ public class RequestTrackerTest extends TestCase {
         ticket = m_tracker.getTicket(id, true);
         assertEquals(text, ticket.getText());
     }
+
     public void testGetUser() throws Exception {
         RTUser user = m_tracker.getUserInfo("root");
         assertNotNull(user);

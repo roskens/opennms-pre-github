@@ -87,7 +87,7 @@ import org.slf4j.LoggerFactory;
  *  this archiver are all doneexclusively in the 'events.archiver.properties'
  *  property file
  *
-
+ *
  *  @author &lt;A HREF=&quot;mailto:sowmya@opennms.org&quot;&gt;Sowmya Nataraj&lt;/A&gt;
  *  @author &lt;A HREF=&quot;http://www.opennms.org&quot;&gt;OpenNMS&lt;/A&gt;
  *  @author &lt;A HREF=&quot;mailto:sowmya@opennms.org&quot;&gt;Sowmya Nataraj&lt;/A&gt;
@@ -102,18 +102,13 @@ public class EventsArchiver {
      * The SQL statement to select events that have their eventCreateTime
      * earlier than a specified age
      */
-    private static final String DB_SELECT_EVENTS_TO_ARCHIVE =
-        "SELECT * " +
-        "FROM events " +
-        "WHERE (eventcreatetime < ?)";
+    private static final String DB_SELECT_EVENTS_TO_ARCHIVE = "SELECT * " + "FROM events "
+            + "WHERE (eventcreatetime < ?)";
 
     /**
      * The SQL statement to delete events based on their eventID
      */
-    private static final String DB_DELETE_EVENT =
-        "DELETE " +
-        "FROM events " +
-        "WHERE (eventID = ?)";
+    private static final String DB_DELETE_EVENT = "DELETE " + "FROM events " + "WHERE (eventID = ?)";
 
     /**
      * The column name for eventID in the events table
@@ -145,7 +140,6 @@ public class EventsArchiver {
      */
     private static final String MSG_NO = "N";
 
-
     /**
      * The archive age in milliseconds. Events created before this are
      * archived/deleted.
@@ -174,7 +168,10 @@ public class EventsArchiver {
 
     /**
      * Read the required properties and set up the logs, the archive etc.
-     * @throws ArchiverException Thrown if a required property is not specified or is incorrect
+     *
+     * @throws ArchiverException
+     *             Thrown if a required property is not specified or is
+     *             incorrect
      */
     private void init() throws ArchiverException {
 
@@ -182,8 +179,7 @@ public class EventsArchiver {
 
         try {
             EventsArchiverConfigFactory.init();
-             eaFactory =
-                EventsArchiverConfigFactory.getInstance();
+            eaFactory = EventsArchiverConfigFactory.getInstance();
         } catch (MarshalException ex) {
             LOG.error("MarshalException", ex);
             throw new UndeclaredThrowableException(ex);
@@ -201,9 +197,7 @@ public class EventsArchiver {
         try {
             archAge = TimeConverter.convertToMillis(archAgeStr);
         } catch (NumberFormatException nfe) {
-            throw new ArchiverException("Archive age: " + archAgeStr
-                                        + "- Incorrect format "
-                                        + nfe.getMessage());
+            throw new ArchiverException("Archive age: " + archAgeStr + "- Incorrect format " + nfe.getMessage());
         }
 
         /*
@@ -280,7 +274,6 @@ public class EventsArchiver {
     /**
      * Select the events created before 'age', log them to the archive file if
      * required and delete these events.
-     *
      * NOTE: Postgres does not have the ResultSet.deleteRow() implemented! - so
      * use the eventID to delete!
      */
@@ -320,7 +313,8 @@ public class EventsArchiver {
                 // eventAckUser for this event
                 eventAckUser = eventsRS.getString(EVENT_ACK_USER);
 
-                LOG.debug("Event id: {} uei: {} log: {} display: {} eventAck: {}", eventID, eventUEI, eventLog, eventDisplay, eventAckUser);
+                LOG.debug("Event id: {} uei: {} log: {} display: {} eventAck: {}", eventID, eventUEI, eventLog,
+                          eventDisplay, eventAckUser);
 
                 if (eventLog.equals(MSG_NO) && eventDisplay.equals(MSG_NO)) {
                     // log = N, display = N, delete event
@@ -328,8 +322,7 @@ public class EventsArchiver {
                     if (ret) {
                         remCount++;
                     }
-                } else if (eventLog.equals(MSG_YES)
-                           && eventDisplay.equals(MSG_NO)) {
+                } else if (eventLog.equals(MSG_YES) && eventDisplay.equals(MSG_NO)) {
                     // log = Y, display = N, archive event, then delete
                     ret = removeEvent(eventID);
                     if (ret) {
@@ -340,8 +333,7 @@ public class EventsArchiver {
 
                         remCount++;
                     }
-                } else if (eventLog.equals(MSG_NO)
-                           && eventDisplay.equals(MSG_YES)) {
+                } else if (eventLog.equals(MSG_NO) && eventDisplay.equals(MSG_YES)) {
                     /*
                      * log = N, display = Y, delete event only if event has been
                      * acknowledged.
@@ -404,8 +396,7 @@ public class EventsArchiver {
                     String colValue;
                     try {
                         colValue = eventsRS.getString(index);
-                    }
-                    catch (SQLException sqlerr) {
+                    } catch (SQLException sqlerr) {
                         throw new RuntimeException(sqlerr);
                     }
 
@@ -452,7 +443,8 @@ public class EventsArchiver {
      * the database connection and the prepared statements to select and delete
      * events
      *
-     * @throws org.opennms.netmgt.archive.ArchiverException if any.
+     * @throws org.opennms.netmgt.archive.ArchiverException
+     *             if any.
      */
     public EventsArchiver() throws ArchiverException {
         // call init
@@ -460,22 +452,25 @@ public class EventsArchiver {
 
         // initialize the prepared statements
         try {
-            m_eventsGetStmt =
-                m_conn.prepareStatement(DB_SELECT_EVENTS_TO_ARCHIVE);
+            m_eventsGetStmt = m_conn.prepareStatement(DB_SELECT_EVENTS_TO_ARCHIVE);
             m_eventDeleteStmt = m_conn.prepareStatement(DB_DELETE_EVENT);
         } catch (SQLException e) {
-            LOG.error("EventsArchiver: Exception in opening the database connection or in the prepared statement for the get events", e);
+            LOG.error("EventsArchiver: Exception in opening the database connection or in the prepared statement for the get events",
+                      e);
             throw new ArchiverException("EventsArchiver: " + e.getMessage());
         }
     }
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param args an array of {@link java.lang.String} objects.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
      */
     public static void main(String[] args) {
-    	Logging.withPrefix("archiver", new Runnable() {
+        Logging.withPrefix("archiver", new Runnable() {
 
             @Override
             public void run() {
@@ -484,7 +479,7 @@ public class EventsArchiver {
                     EventsArchiver ea = new EventsArchiver();
 
                     /*
-                     * Remove events.  This method sends removed events
+                     * Remove events. This method sends removed events
                      * to archive file if configured for archival.
                      */
                     ea.archiveEvents();

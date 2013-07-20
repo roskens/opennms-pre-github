@@ -32,7 +32,9 @@ import org.opennms.web.filter.EqualsFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>EventDisplayFilter class.</p>
+ * <p>
+ * EventDisplayFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,11 +45,14 @@ public class EventDisplayFilter extends EqualsFilter<String> {
     public static final String TYPE = "eventDisplay";
 
     /**
-     * <p>Constructor for EventDisplayFilter.</p>
+     * <p>
+     * Constructor for EventDisplayFilter.
+     * </p>
      *
-     * @param displayType a {@link java.lang.String} object.
+     * @param displayType
+     *            a {@link java.lang.String} object.
      */
-    public EventDisplayFilter(String displayType){
+    public EventDisplayFilter(String displayType) {
         super(TYPE, SQLType.STRING, "EVENTDISPLAY", "eventDisplay", displayType);
     }
 

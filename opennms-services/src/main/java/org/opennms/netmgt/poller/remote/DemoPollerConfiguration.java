@@ -40,7 +40,9 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsServiceType;
 
 /**
- * <p>DemoPollerConfiguration class.</p>
+ * <p>
+ * DemoPollerConfiguration class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -48,7 +50,9 @@ import org.opennms.netmgt.model.OnmsServiceType;
 public class DemoPollerConfiguration implements PollerConfiguration {
 
     Date m_timestamp;
+
     PolledService[] m_polledServices;
+
     private long m_serverTime = 0;
 
     DemoPollerConfiguration(Date timestamp) {
@@ -62,12 +66,12 @@ public class DemoPollerConfiguration implements PollerConfiguration {
         NetworkBuilder m_builder = new NetworkBuilder(distPoller);
         m_builder.addNode("Google").setId(1);
         m_builder.addInterface("64.233.161.99").setId(11);
-        polledServices.add(createPolledService(111, m_builder.addService(http), new HashMap<String,Object>(), 3000));
+        polledServices.add(createPolledService(111, m_builder.addService(http), new HashMap<String, Object>(), 3000));
         m_builder.addInterface("64.233.161.104").setId(12);
-        polledServices.add(createPolledService(121, m_builder.addService(http), new HashMap<String,Object>(), 3000));
+        polledServices.add(createPolledService(121, m_builder.addService(http), new HashMap<String, Object>(), 3000));
         m_builder.addNode("OpenNMS").setId(2);
         m_builder.addInterface("209.61.128.9").setId(21);
-        polledServices.add(createPolledService(211, m_builder.addService(http), new HashMap<String,Object>(), 3000));
+        polledServices.add(createPolledService(211, m_builder.addService(http), new HashMap<String, Object>(), 3000));
 
         m_polledServices = (PolledService[]) polledServices.toArray(new PolledService[polledServices.size()]);
 
@@ -78,7 +82,9 @@ public class DemoPollerConfiguration implements PollerConfiguration {
     }
 
     /**
-     * <p>getConfigurationTimestamp</p>
+     * <p>
+     * getConfigurationTimestamp
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -88,22 +94,28 @@ public class DemoPollerConfiguration implements PollerConfiguration {
     }
 
     /**
-     * <p>getPolledServices</p>
+     * <p>
+     * getPolledServices
+     * </p>
      *
-     * @return an array of {@link org.opennms.netmgt.poller.remote.PolledService} objects.
+     * @return an array of
+     *         {@link org.opennms.netmgt.poller.remote.PolledService} objects.
      */
     @Override
     public PolledService[] getPolledServices() {
         return m_polledServices;
     }
 
-    private PolledService createPolledService(int serviceID, OnmsMonitoredService service, Map<String,Object> monitorConfiguration, long interval) {
+    private PolledService createPolledService(int serviceID, OnmsMonitoredService service,
+            Map<String, Object> monitorConfiguration, long interval) {
         service.setId(serviceID);
         return new PolledService(service, monitorConfiguration, new OnmsPollModel(interval));
     }
 
     /**
-     * <p>getFirstId</p>
+     * <p>
+     * getFirstId
+     * </p>
      *
      * @return a int.
      */
@@ -112,7 +124,9 @@ public class DemoPollerConfiguration implements PollerConfiguration {
     }
 
     /**
-     * <p>getFirstService</p>
+     * <p>
+     * getFirstService
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.poller.remote.PolledService} object.
      */
@@ -121,7 +135,8 @@ public class DemoPollerConfiguration implements PollerConfiguration {
     }
 
     /**
-     * @param serverTime the serverTime to set
+     * @param serverTime
+     *            the serverTime to set
      */
     public void setServerTime(long serverTime) {
         m_serverTime = serverTime;
@@ -134,7 +149,5 @@ public class DemoPollerConfiguration implements PollerConfiguration {
     public long getServerTime() {
         return m_serverTime;
     }
-
-
 
 }

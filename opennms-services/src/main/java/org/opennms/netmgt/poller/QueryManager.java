@@ -35,91 +35,130 @@ import java.util.List;
 import javax.sql.DataSource;
 
 /**
- * <p>QueryManager interface.</p>
+ * <p>
+ * QueryManager interface.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public interface QueryManager {
     /**
-     * <p>activeServiceExists</p>
+     * <p>
+     * activeServiceExists
+     * </p>
      *
-     * @param whichEvent a {@link java.lang.String} object.
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param serviceName a {@link java.lang.String} object.
+     * @param whichEvent
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean activeServiceExists(String whichEvent, int nodeId, String ipAddr, String serviceName);
 
     /**
-     * <p>getActiveServiceIdsForInterface</p>
+     * <p>
+     * getActiveServiceIdsForInterface
+     * </p>
      *
-     * @param ipaddr a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
+     * @throws java.sql.SQLException
+     *             if any.
      * @return a {@link java.util.List} object.
      */
     public List<Integer> getActiveServiceIdsForInterface(String ipaddr) throws SQLException;
 
     /**
-     * <p>getNodeIDForInterface</p>
+     * <p>
+     * getNodeIDForInterface
+     * </p>
      *
-     * @param ipaddr a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
+     * @throws java.sql.SQLException
+     *             if any.
      * @return a int.
      */
     public int getNodeIDForInterface(String ipaddr) throws SQLException;
 
     /**
-     * <p>getNodeLabel</p>
+     * <p>
+     * getNodeLabel
+     * </p>
      *
-     * @param nodeId a int.
-     * @throws java.sql.SQLException if any.
+     * @param nodeId
+     *            a int.
+     * @throws java.sql.SQLException
+     *             if any.
      * @return a {@link java.lang.String} object.
      */
     public String getNodeLabel(int nodeId) throws SQLException;
 
     /**
-     * <p>getServiceCountForInterface</p>
+     * <p>
+     * getServiceCountForInterface
+     * </p>
      *
-     * @param ipaddr a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
+     * @throws java.sql.SQLException
+     *             if any.
      * @return a int.
      */
     public int getServiceCountForInterface(String ipaddr) throws SQLException;
 
     /**
-     * <p>getInterfacesWithService</p>
+     * <p>
+     * getInterfacesWithService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @throws java.sql.SQLException
+     *             if any.
      * @return a {@link java.util.List} object.
      */
     public List<IfKey> getInterfacesWithService(String svcName) throws SQLException;
 
     /**
-     * <p>getServiceLostDate</p>
+     * <p>
+     * getServiceLostDate
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @param serviceId a int.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a int.
      * @return a {@link java.util.Date} object.
      */
     public Date getServiceLostDate(int nodeId, String ipAddr, String svcName, int serviceId);
 
     /**
-     * <p>setDataSource</p>
+     * <p>
+     * setDataSource
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public void setDataSource(DataSource dataSource);
 
     /**
-     * <p>getDataSource</p>
+     * <p>
+     * getDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -127,43 +166,64 @@ public interface QueryManager {
     public DataSource getDataSource();
 
     /**
-     * <p>openOutage</p>
+     * <p>
+     * openOutage
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param svcName TODO
-     * @param dbid a int.
-     * @param time a {@link java.lang.String} object.
-     * @param outageIdSQL a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            TODO
+     * @param dbid
+     *            a int.
+     * @param time
+     *            a {@link java.lang.String} object.
+     * @param outageIdSQL
+     *            a {@link java.lang.String} object.
      */
     public void openOutage(String outageIdSQL, int nodeId, String ipAddr, String svcName, int dbid, String time);
 
     /**
-     * <p>resolveOutage</p>
+     * <p>
+     * resolveOutage
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param svcName TODO
-     * @param dbid a int.
-     * @param time a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            TODO
+     * @param dbid
+     *            a int.
+     * @param time
+     *            a {@link java.lang.String} object.
      */
     public void resolveOutage(int nodeId, String ipAddr, String svcName, int dbid, String time);
 
     /**
-     * <p>reparentOutages</p>
+     * <p>
+     * reparentOutages
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param oldNodeId a int.
-     * @param newNodeId a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param oldNodeId
+     *            a int.
+     * @param newNodeId
+     *            a int.
      */
     public void reparentOutages(String ipAddr, int oldNodeId, int newNodeId);
 
-
-
     /**
-     * <p>getCriticalPath</p>
+     * <p>
+     * getCriticalPath
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return an array of {@link java.lang.String} objects.
      */
     public String[] getCriticalPath(int nodeId);

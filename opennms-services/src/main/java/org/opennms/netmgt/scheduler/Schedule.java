@@ -33,7 +33,6 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Represents a Schedule
  *
@@ -42,18 +41,20 @@ import org.slf4j.LoggerFactory;
  */
 public class Schedule {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(Schedule.class);
 
-	/** Constant <code>random</code> */
-	public static final Random random = new Random();
+    /** Constant <code>random</code> */
+    public static final Random random = new Random();
 
     private final ReadyRunnable m_schedulable;
-    private final ScheduleInterval m_interval;
-    private final ScheduleTimer m_timer;
-    private volatile int m_currentExpirationCode;
-    private volatile boolean m_scheduled = false;
 
+    private final ScheduleInterval m_interval;
+
+    private final ScheduleTimer m_timer;
+
+    private volatile int m_currentExpirationCode;
+
+    private volatile boolean m_scheduled = false;
 
     class ScheduleEntry implements ReadyRunnable {
         private final int m_expirationCode;
@@ -85,12 +86,12 @@ public class Schedule {
                 try {
                     Schedule.this.run();
                 } catch (PostponeNecessary e) {
-				   // Chose a random number of seconds between 5 and 14 to wait before trying again
-                    m_timer.schedule(random.nextInt(10)*1000+5000, this);
+                    // Chose a random number of seconds between 5 and 14 to wait
+                    // before trying again
+                    m_timer.schedule(random.nextInt(10) * 1000 + 5000, this);
                     return;
                 }
             }
-
 
             // if it is expired by the current run then don't reschedule
             if (isExpired()) {
@@ -105,15 +106,23 @@ public class Schedule {
         }
 
         @Override
-        public String toString() { return "ScheduleEntry[expCode="+m_expirationCode+"] for "+m_schedulable; }
+        public String toString() {
+            return "ScheduleEntry[expCode=" + m_expirationCode + "] for " + m_schedulable;
+        }
     }
 
     /**
-     * <p>Constructor for Schedule.</p>
+     * <p>
+     * Constructor for Schedule.
+     * </p>
      *
-     * @param interval a {@link org.opennms.netmgt.scheduler.ScheduleInterval} object.
-     * @param timer a {@link org.opennms.netmgt.scheduler.ScheduleTimer} object.
-     * @param schedulable a {@link org.opennms.netmgt.scheduler.ReadyRunnable} object.
+     * @param interval
+     *            a {@link org.opennms.netmgt.scheduler.ScheduleInterval}
+     *            object.
+     * @param timer
+     *            a {@link org.opennms.netmgt.scheduler.ScheduleTimer} object.
+     * @param schedulable
+     *            a {@link org.opennms.netmgt.scheduler.ReadyRunnable} object.
      */
     public Schedule(ReadyRunnable schedulable, ScheduleInterval interval, ScheduleTimer timer) {
         m_schedulable = schedulable;
@@ -123,7 +132,9 @@ public class Schedule {
     }
 
     /**
-     * <p>schedule</p>
+     * <p>
+     * schedule
+     * </p>
      */
     public void schedule() {
         m_scheduled = true;
@@ -136,21 +147,27 @@ public class Schedule {
     }
 
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      */
     public void run() {
         m_schedulable.run();
     }
 
     /**
-     * <p>adjustSchedule</p>
+     * <p>
+     * adjustSchedule
+     * </p>
      */
     public void adjustSchedule() {
         schedule(m_interval.getInterval());
     }
 
     /**
-     * <p>unschedule</p>
+     * <p>
+     * unschedule
+     * </p>
      */
     public void unschedule() {
         m_scheduled = false;

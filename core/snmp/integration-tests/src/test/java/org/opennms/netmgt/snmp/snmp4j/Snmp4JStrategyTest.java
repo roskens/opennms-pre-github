@@ -46,13 +46,12 @@ import org.snmp4j.smi.VariableBinding;
  */
 public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
 
-	@Override
-	protected boolean usingMockStrategy() {
-		return false;
-	}
+    @Override
+    protected boolean usingMockStrategy() {
+        return false;
+    }
 
-	private final Snmp4JStrategy m_strategy = new Snmp4JStrategy();
-
+    private final Snmp4JStrategy m_strategy = new Snmp4JStrategy();
 
     @Test
     @Ignore
@@ -92,10 +91,7 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
 
     @Test
     public void testSendWithGetPduMultipleValues() throws Exception {
-        SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
         Snmp4JAgentConfig agentConfig = new Snmp4JAgentConfig(getAgentConfig());
         SnmpValue[] retvalues = null;
 
@@ -111,7 +107,6 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_INT32, 42, values[0]);
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_GAUGE32, 42, values[1]);
     }
-
 
     @Test
     public void testSendWithGetNextPduSingleValue() throws Exception {
@@ -134,10 +129,7 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
 
     @Test
     public void testSendWithGetNextPduMultipleValues() throws Exception {
-        SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
         Snmp4JAgentConfig agentConfig = new Snmp4JAgentConfig(getAgentConfig());
         SnmpValue[] retvalues = null;
 
@@ -173,10 +165,7 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
 
     @Test
     public void testGetMultipleValues() throws Exception {
-        SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
 
         SnmpValue[] values = m_strategy.get(getAgentConfig(), oids);
 
@@ -200,10 +189,7 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
 
     @Test
     public void testGetNextMultipleValues() throws Exception {
-        SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
 
         SnmpValue[] values = m_strategy.getNext(getAgentConfig(), oids);
 
@@ -217,10 +203,7 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
 
     @Test
     public void testPreparePduWithNoValues() throws Exception {
-        SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
 
         SnmpValue[] values = null;
 
@@ -233,21 +216,16 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
             VariableBinding vb = pdu.get(i);
             assertEquals("PDU variable binding " + i + " OID", oids[i].toString(), "." + vb.getOid().toString());
             assertEquals("PDU variable binding " + i + " syntax", vb.getSyntax(), SMIConstants.SYNTAX_NULL);
-            assertEquals("PDU variable binding " + i + " variable syntax", vb.getVariable().getSyntax(), SMIConstants.SYNTAX_NULL);
+            assertEquals("PDU variable binding " + i + " variable syntax", vb.getVariable().getSyntax(),
+                         SMIConstants.SYNTAX_NULL);
         }
     }
 
     @Test
     public void testPreparePduWithValues() throws Exception {
-        SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
 
-        SnmpValue[] values = new SnmpValue[] {
-                snmpValue("foo"),
-                snmpValue("bar")
-        };
+        SnmpValue[] values = new SnmpValue[] { snmpValue("foo"), snmpValue("bar") };
 
         PDU pdu = m_strategy.buildPdu(new Snmp4JAgentConfig(getAgentConfig()), PDU.SET, oids, values);
         assertNotNull("PDU should not be null", pdu);
@@ -258,21 +236,18 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
             VariableBinding vb = pdu.get(i);
             assertEquals("PDU variable binding " + i + " OID", oids[i].toString(), "." + vb.getOid().toString());
             assertEquals("PDU variable binding " + i + " syntax", vb.getSyntax(), SMIConstants.SYNTAX_OCTET_STRING);
-            assertEquals("PDU variable binding " + i + " variable syntax", vb.getVariable().getSyntax(), SMIConstants.SYNTAX_OCTET_STRING);
-            assertEquals("PDU variable binding " + i + " variable value", vb.getVariable().toString(), values[i].toString());
+            assertEquals("PDU variable binding " + i + " variable syntax", vb.getVariable().getSyntax(),
+                         SMIConstants.SYNTAX_OCTET_STRING);
+            assertEquals("PDU variable binding " + i + " variable value", vb.getVariable().toString(),
+                         values[i].toString());
         }
     }
 
     @Test
     public void testPreparePduWithTooFewValues() throws Exception {
-        SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
 
-        SnmpValue[] values = new SnmpValue[] {
-                snmpValue("foo"),
-        };
+        SnmpValue[] values = new SnmpValue[] { snmpValue("foo"), };
 
         PDU pdu = m_strategy.buildPdu(new Snmp4JAgentConfig(getAgentConfig()), PDU.SET, oids, values);
         assertNull("PDU should be null", pdu);
@@ -283,16 +258,9 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
 
     @Test
     public void testPreparePduWithTooManyValues() throws Exception {
-        SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
 
-        SnmpValue[] values = new SnmpValue[] {
-                snmpValue("foo"),
-                snmpValue("bar"),
-                snmpValue("baz")
-        };
+        SnmpValue[] values = new SnmpValue[] { snmpValue("foo"), snmpValue("bar"), snmpValue("baz") };
 
         PDU pdu = m_strategy.buildPdu(new Snmp4JAgentConfig(getAgentConfig()), PDU.SET, oids, values);
         assertNull("PDU should be null", pdu);
@@ -302,12 +270,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
     }
 
     private void assertSnmpValueEquals(String message, int expectedType, int expectedValue, SnmpValue value) {
-    	assertNotNull(message + " is null", value);
+        assertNotNull(message + " is null", value);
         assertEquals(message + " getType()", expectedType, value.getType());
         assertEquals(message + " toInt()", expectedValue, value.toInt());
     }
 
     SnmpValue snmpValue(String val) {
-    	return m_strategy.getValueFactory().getOctetString(val.getBytes());
+        return m_strategy.getValueFactory().getOctetString(val.getBytes());
     }
 }

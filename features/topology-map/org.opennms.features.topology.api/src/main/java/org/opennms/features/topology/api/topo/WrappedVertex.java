@@ -46,142 +46,167 @@ import org.slf4j.LoggerFactory;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WrappedVertex implements VertexRef {
 
-	public String iconKey;
-	@XmlID
-	public String id;
-	public String ipAddr;
-	public String label;
-	@XmlTransient
-	public String namespace;
-	public Integer nodeID;
-	public String styleName;
-	public String tooltipText;
-	public Integer x;
-	public Integer y;
-	@XmlTransient
-	public boolean group;
-	public boolean locked;
-	public boolean selected;
-	@XmlIDREF
-	public WrappedVertex parent;
+    public String iconKey;
 
-	public static WrappedVertex create(Vertex vertex) {
-		return (vertex.isGroup() ? new WrappedGroup(vertex) : new WrappedLeafVertex(vertex));
-	}
+    @XmlID
+    public String id;
 
-	/**
-	 * No-arg constructor for JAXB.
-	 */
-	public WrappedVertex() {}
+    public String ipAddr;
 
-	protected WrappedVertex(VertexRef vertex) {
-		if (vertex.getId() == null) {
-			throw new IllegalArgumentException("Vertex has null ID: " + vertex);
-		} else if (vertex.getNamespace() == null) {
-			throw new IllegalArgumentException("Vertex has null namespace: " + vertex);
-		}
-		id = vertex.getId();
-		label = vertex.getLabel();
-		namespace = vertex.getNamespace();
-	}
+    public String label;
 
-	protected WrappedVertex(Vertex vertex) {
-		this((VertexRef)vertex);
-		iconKey = vertex.getIconKey();
-		ipAddr = vertex.getIpAddress();
-		nodeID = vertex.getNodeID();
-		if (vertex.getParent() != null) parent = new WrappedVertex(vertex.getParent());
-		styleName = vertex.getStyleName();
-		tooltipText = vertex.getTooltipText();
-		x = vertex.getX();
-		y = vertex.getY();
-		group = vertex.isGroup();
-		locked = vertex.isLocked();
-		selected = vertex.isSelected();
-	}
+    @XmlTransient
+    public String namespace;
 
-	/**
-	 * This JAXB function is used to set the namespace since we expect it to be set in the parent object.
-	 */
-	public void afterUnmarshal(Unmarshaller u, Object parent) {
-		if (namespace == null) {
-			try {
-				BeanInfo info = Introspector.getBeanInfo(parent.getClass());
-				for (PropertyDescriptor descriptor : info.getPropertyDescriptors()) {
-					if ("namespace".equals(descriptor.getName())) {
-						namespace = (String)descriptor.getReadMethod().invoke(parent);
-						LoggerFactory.getLogger(this.getClass()).debug("Setting namespace on {} to {} from parent", this, namespace);
-					}
-				}
-			} catch (IntrospectionException e) {
-				LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class " + parent.getClass(), e);
-			} catch (IllegalArgumentException e) {
-				LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class " + parent.getClass(), e);
-			} catch (IllegalAccessException e) {
-				LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class " + parent.getClass(), e);
-			} catch (InvocationTargetException e) {
-				LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class " + parent.getClass(), e);
-			}
-		}
-	}
+    public Integer nodeID;
 
-	@Override
-	public String getId() {
-		return id;
-	}
+    public String styleName;
 
-	@Override
-	public String getNamespace() {
-		return namespace;
-	}
+    public String tooltipText;
 
-	@Override
-	public String getLabel() {
-		return label;
-	}
+    public Integer x;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-		result = prime * result
-				+ ((getNamespace() == null) ? 0 : getNamespace().hashCode());
-		return result;
-	}
+    public Integer y;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
+    @XmlTransient
+    public boolean group;
 
-		if (!(obj instanceof VertexRef)) return false;
+    public boolean locked;
 
-		VertexRef ref = (VertexRef)obj;
+    public boolean selected;
 
-		return getNamespace().equals(ref.getNamespace()) && getId().equals(ref.getId());
+    @XmlIDREF
+    public WrappedVertex parent;
 
-	}
+    public static WrappedVertex create(Vertex vertex) {
+        return (vertex.isGroup() ? new WrappedGroup(vertex) : new WrappedLeafVertex(vertex));
+    }
 
-	@Override
-	public int compareTo(Ref o) {
-		if (this.equals(o)) {
-			return 0;
-		} else {
-			// Order by namespace, then ID
-			if (this.getNamespace().equals(o.getNamespace())) {
-				if (this.getId().equals(o.getId())) {
-					// Shouldn't happen because equals() should return true
-					throw new IllegalStateException("equals() was inaccurate in " + this.getClass().getName());
-				} else {
-					return this.getId().compareTo(o.getId());
-				}
-			} else {
-				return this.getNamespace().compareTo(o.getNamespace());
-			}
-		}
-	}
+    /**
+     * No-arg constructor for JAXB.
+     */
+    public WrappedVertex() {
+    }
 
-	@Override
-	public String toString() { return "WrappedVertex:"+namespace+":"+id+ "[label="+label+", styleName="+styleName+"]"; }
+    protected WrappedVertex(VertexRef vertex) {
+        if (vertex.getId() == null) {
+            throw new IllegalArgumentException("Vertex has null ID: " + vertex);
+        } else if (vertex.getNamespace() == null) {
+            throw new IllegalArgumentException("Vertex has null namespace: " + vertex);
+        }
+        id = vertex.getId();
+        label = vertex.getLabel();
+        namespace = vertex.getNamespace();
+    }
+
+    protected WrappedVertex(Vertex vertex) {
+        this((VertexRef) vertex);
+        iconKey = vertex.getIconKey();
+        ipAddr = vertex.getIpAddress();
+        nodeID = vertex.getNodeID();
+        if (vertex.getParent() != null)
+            parent = new WrappedVertex(vertex.getParent());
+        styleName = vertex.getStyleName();
+        tooltipText = vertex.getTooltipText();
+        x = vertex.getX();
+        y = vertex.getY();
+        group = vertex.isGroup();
+        locked = vertex.isLocked();
+        selected = vertex.isSelected();
+    }
+
+    /**
+     * This JAXB function is used to set the namespace since we expect it to be
+     * set in the parent object.
+     */
+    public void afterUnmarshal(Unmarshaller u, Object parent) {
+        if (namespace == null) {
+            try {
+                BeanInfo info = Introspector.getBeanInfo(parent.getClass());
+                for (PropertyDescriptor descriptor : info.getPropertyDescriptors()) {
+                    if ("namespace".equals(descriptor.getName())) {
+                        namespace = (String) descriptor.getReadMethod().invoke(parent);
+                        LoggerFactory.getLogger(this.getClass()).debug("Setting namespace on {} to {} from parent",
+                                                                       this, namespace);
+                    }
+                }
+            } catch (IntrospectionException e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class "
+                                                                      + parent.getClass(), e);
+            } catch (IllegalArgumentException e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class "
+                                                                      + parent.getClass(), e);
+            } catch (IllegalAccessException e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class "
+                                                                      + parent.getClass(), e);
+            } catch (InvocationTargetException e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class "
+                                                                      + parent.getClass(), e);
+            }
+        }
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String getNamespace() {
+        return namespace;
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getNamespace() == null) ? 0 : getNamespace().hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (!(obj instanceof VertexRef))
+            return false;
+
+        VertexRef ref = (VertexRef) obj;
+
+        return getNamespace().equals(ref.getNamespace()) && getId().equals(ref.getId());
+
+    }
+
+    @Override
+    public int compareTo(Ref o) {
+        if (this.equals(o)) {
+            return 0;
+        } else {
+            // Order by namespace, then ID
+            if (this.getNamespace().equals(o.getNamespace())) {
+                if (this.getId().equals(o.getId())) {
+                    // Shouldn't happen because equals() should return true
+                    throw new IllegalStateException("equals() was inaccurate in " + this.getClass().getName());
+                } else {
+                    return this.getId().compareTo(o.getId());
+                }
+            } else {
+                return this.getNamespace().compareTo(o.getNamespace());
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "WrappedVertex:" + namespace + ":" + id + "[label=" + label + ", styleName=" + styleName + "]";
+    }
 }

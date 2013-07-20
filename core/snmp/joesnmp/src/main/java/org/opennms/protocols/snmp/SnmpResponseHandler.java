@@ -28,7 +28,6 @@
 
 package org.opennms.protocols.snmp;
 
-
 /**
  * The SNMP handler used to receive responses from individual sessions. When a
  * response is received that matches a system object identifier request the
@@ -109,7 +108,6 @@ public final class SnmpResponseHandler implements SnmpHandler {
     /**
      * Returns the recovered SNMP system object identifier, if any. If one was
      * not returned then a null value is returned to the caller.
-     *
      */
     public SnmpVarBind getFirstResponseVarBind() {
         return getResponseVarBind(0);

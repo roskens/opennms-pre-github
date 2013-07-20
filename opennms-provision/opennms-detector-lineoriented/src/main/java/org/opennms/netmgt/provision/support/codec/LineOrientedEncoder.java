@@ -41,7 +41,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>LineOrientedEncoder class.</p>
+ * <p>
+ * LineOrientedEncoder class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -49,13 +51,18 @@ import org.slf4j.LoggerFactory;
 public class LineOrientedEncoder extends ProtocolEncoderAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(LineOrientedEncoder.class);
+
     private final AttributeKey ENCODER = new AttributeKey(getClass(), "encoder");
+
     private final Charset m_charset;
 
     /**
-     * <p>Constructor for LineOrientedEncoder.</p>
+     * <p>
+     * Constructor for LineOrientedEncoder.
+     * </p>
      *
-     * @param charset a {@link java.nio.charset.Charset} object.
+     * @param charset
+     *            a {@link java.nio.charset.Charset} object.
      */
     public LineOrientedEncoder(final Charset charset) {
         m_charset = charset;
@@ -66,7 +73,7 @@ public class LineOrientedEncoder extends ProtocolEncoderAdapter {
     public void encode(final IoSession session, final Object message, final ProtocolEncoderOutput out) throws Exception {
         final LineOrientedRequest request = (LineOrientedRequest) message;
 
-        if(request.getRequest().contains("null")) {
+        if (request.getRequest().contains("null")) {
 
             return;
         }

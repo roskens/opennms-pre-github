@@ -27,7 +27,7 @@ public class MockAtInterfaceDao extends AbstractMockDao<OnmsAtInterface, Integer
     public void markDeletedIfNodeDeleted() {
         final CriteriaBuilder builder = new CriteriaBuilder(OnmsAtInterface.class);
         builder.alias("node", "node").eq("node.type", "D");
-        for (final OnmsAtInterface iface :findMatching(builder.toCriteria())) {
+        for (final OnmsAtInterface iface : findMatching(builder.toCriteria())) {
             iface.setStatus(StatusType.DELETED);
             saveOrUpdate(iface);
         }
@@ -65,7 +65,8 @@ public class MockAtInterfaceDao extends AbstractMockDao<OnmsAtInterface, Integer
     }
 
     @Override
-    public OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final InetAddress ipAddress, final String macAddress) {
+    public OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final InetAddress ipAddress,
+            final String macAddress) {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 

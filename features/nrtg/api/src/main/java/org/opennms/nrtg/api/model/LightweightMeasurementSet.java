@@ -28,24 +28,29 @@
 
 package org.opennms.nrtg.api.model;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * Result of a {@link CollectionJob}. List of metricId/values pairs with minimal redundancy (timestamp, nodeId, service
- * and interface are stored only once). The list of {@link Measurement} will be generated on the fly.
+ * Result of a {@link CollectionJob}. List of metricId/values pairs with minimal
+ * redundancy (timestamp, nodeId, service
+ * and interface are stored only once). The list of {@link Measurement} will be
+ * generated on the fly.
  *
  * @author Christian Pape
  * @author Markus Neumann
-*/
+ */
 public class LightweightMeasurementSet implements MeasurementSet {
     private static final long serialVersionUID = 1166779403641774595L;
+
     private HashMap<String, ArrayList<String>> m_values = new HashMap<String, ArrayList<String>>();
+
     private int m_nodeId;
+
     private String m_interface, m_service;
+
     private Date m_timestamp = new Date();
 
     public LightweightMeasurementSet() {
@@ -153,10 +158,12 @@ public class LightweightMeasurementSet implements MeasurementSet {
     }
 
     /**
-     * This toString method is for displaying reasons in the webapp NrtGrapher only.
+     * This toString method is for displaying reasons in the webapp NrtGrapher
+     * only.
      * It's for prototyping only.
      *
-     * @return a {@link String} that contains the metrics and there values in a easy parsable way.
+     * @return a {@link String} that contains the metrics and there values in a
+     *         easy parsable way.
      */
     @Override
     public String toString() {

@@ -27,19 +27,19 @@
  *******************************************************************************/
 
 /*
-* OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
-* DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
-*
-* This file was contributed to the OpenNMS(R) project under the
-* terms of the OpenNMS Contributor Agreement (OCA).  For details on
-* the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
-*
-* Contributed under the terms of the OCA by:
-*
-* Bobby Krupczak <rdk@krupczak.org>
-* THE KRUPCZAK ORGANIZATION, LLC
-* http://www.krupczak.org/
-*/
+ * OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
+ * DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
+ *
+ * This file was contributed to the OpenNMS(R) project under the
+ * terms of the OpenNMS Contributor Agreement (OCA).  For details on
+ * the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
+ *
+ * Contributed under the terms of the OCA by:
+ *
+ * Bobby Krupczak <rdk@krupczak.org>
+ * THE KRUPCZAK ORGANIZATION, LLC
+ * http://www.krupczak.org/
+ */
 
 /**
  *
@@ -64,23 +64,30 @@ import org.exolab.castor.xml.Unmarshaller;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.netmgt.config.xmpConfig.XmpConfig;
+
 public class XmpConfigFactory {
 
     /* class variables and methods *********************** */
     private static XmpConfigFactory instance;
+
     private XmpConfig config = null;
 
     // initialize our class for the creation of instances
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException
-    {
+    public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
 
         if (instance == null) {
             File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.XMP_CONFIG_FILE_NAME);
@@ -91,54 +98,71 @@ public class XmpConfigFactory {
     }
 
     /**
-     * <p>getXmpConfig</p>
+     * <p>
+     * getXmpConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.xmpConfig.XmpConfig} object.
      */
-    public XmpConfig getXmpConfig() { return config; }
+    public XmpConfig getXmpConfig() {
+        return config;
+    }
 
     /**
-     * <p>Getter for the field <code>instance</code>.</p>
+     * <p>
+     * Getter for the field <code>instance</code>.
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.protocols.xmp.config.XmpConfigFactory} object.
+     * @return a
+     *         {@link org.opennms.netmgt.protocols.xmp.config.XmpConfigFactory}
+     *         object.
      */
-    public static XmpConfigFactory getInstance() { return instance; }
+    public static XmpConfigFactory getInstance() {
+        return instance;
+    }
 
     /* instance variables ******************************** */
 
-    /* constructors  ************************************* */
+    /* constructors ************************************* */
 
     /**
-     * <p>Constructor for XmpConfigFactory.</p>
+     * <p>
+     * Constructor for XmpConfigFactory.
+     * </p>
      *
-     * @param configFile a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param configFile
+     *            a {@link java.lang.String} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public XmpConfigFactory(String configFile)
-    throws MarshalException, ValidationException, IOException
-    {
+    public XmpConfigFactory(String configFile) throws MarshalException, ValidationException, IOException {
         InputStream cfgIn = new FileInputStream(configFile);
 
-        config = (XmpConfig)Unmarshaller.unmarshal(XmpConfig.class,
-                                                   new InputStreamReader(cfgIn, "UTF-8"));
+        config = (XmpConfig) Unmarshaller.unmarshal(XmpConfig.class, new InputStreamReader(cfgIn, "UTF-8"));
         cfgIn.close();
         return;
     }
 
     /**
-     * <p>Constructor for XmpConfigFactory.</p>
+     * <p>
+     * Constructor for XmpConfigFactory.
+     * </p>
      *
-     * @param rdr a {@link java.io.Reader} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param rdr
+     *            a {@link java.io.Reader} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public XmpConfigFactory(Reader rdr)
-    throws MarshalException, ValidationException, IOException
-    {
-        config = (XmpConfig)Unmarshaller.unmarshal(XmpConfig.class,rdr);
+    public XmpConfigFactory(Reader rdr) throws MarshalException, ValidationException, IOException {
+        config = (XmpConfig) Unmarshaller.unmarshal(XmpConfig.class, rdr);
     }
 
     /* private methods *********************************** */

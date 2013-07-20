@@ -39,12 +39,19 @@ public class SupportResults implements Serializable {
      *
      */
     private static final long serialVersionUID = 2119247915337079075L;
+
     private boolean m_success = true;
+
     private boolean m_needsLogin = false;
+
     private String m_baseUrl;
+
     private String m_username;
+
     private String m_queue;
+
     private List<RTTicket> m_latestTickets;
+
     private String m_message;
 
     public SupportResults() {
@@ -108,15 +115,12 @@ public class SupportResults implements Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("success", m_success)
-            .append("needsLogin", m_needsLogin)
-            .append("baseUrl", m_baseUrl)
-            .append("username", m_username)
-            .append("queue", m_queue)
-            .append("message", m_message)
-            .append("latestTickets", m_latestTickets)
-            .toString();
+        return new ToStringBuilder(this).append("success", m_success).append("needsLogin", m_needsLogin).append("baseUrl",
+                                                                                                                m_baseUrl).append("username",
+                                                                                                                                  m_username).append("queue",
+                                                                                                                                                     m_queue).append("message",
+                                                                                                                                                                     m_message).append("latestTickets",
+                                                                                                                                                                                       m_latestTickets).toString();
     }
 
 }

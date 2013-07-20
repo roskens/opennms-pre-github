@@ -47,26 +47,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-@JUnitSnmpAgent(host=SnmpNodeScannerTest.TEST_IP_ADDRESS, resource="classpath:org/opennms/netmgt/provision/scan/snmp/snmpTestData1.properties")
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitSnmpAgent(host = SnmpNodeScannerTest.TEST_IP_ADDRESS, resource = "classpath:org/opennms/netmgt/provision/scan/snmp/snmpTestData1.properties")
 public class SnmpNodeScannerTest implements InitializingBean {
-	static final String TEST_IP_ADDRESS = "172.20.1.205";
+    static final String TEST_IP_ADDRESS = "172.20.1.205";
 
-	@Autowired
-	private SnmpPeerFactory m_snmpPeerFactory;
+    @Autowired
+    private SnmpPeerFactory m_snmpPeerFactory;
 
     /**
      * @author brozow
-     *
      */
     private static class MockScanContext implements ScanContext {
         String m_sysObjectId;
+
         String m_sysContact;
+
         String m_sysDescription;
+
         String m_sysLocation;
+
         String m_sysName;
+
         InetAddress m_agentAddress;
 
         public MockScanContext(InetAddress agentAddress) {
@@ -126,6 +128,7 @@ public class SnmpNodeScannerTest implements InitializingBean {
     }
 
     private InetAddress m_agentAddress;
+
     private MockScanContext m_scanContext;
 
     @Override
@@ -145,14 +148,15 @@ public class SnmpNodeScannerTest implements InitializingBean {
     @Test
     public void testScan() throws Exception {
 
-    	final SnmpNodeScanner scanner = new SnmpNodeScanner();
+        final SnmpNodeScanner scanner = new SnmpNodeScanner();
         scanner.setSnmpAgentConfigFactory(m_snmpPeerFactory);
         scanner.init();
         scanner.scan(m_scanContext);
 
         assertEquals(".1.3.6.1.4.1.8072.3.2.255", m_scanContext.getSysObjectId());
         assertEquals("brozow.local", m_scanContext.getSysName());
-        assertEquals("Darwin brozow.local 7.9.0 Darwin Kernel Version 7.9.0: Wed Mar 30 20:11:17 PST 2005; root:xnu/xnu-517.12.7.obj~1/RELEASE_PPC  Power Macintosh", m_scanContext.getSysDescription());
+        assertEquals("Darwin brozow.local 7.9.0 Darwin Kernel Version 7.9.0: Wed Mar 30 20:11:17 PST 2005; root:xnu/xnu-517.12.7.obj~1/RELEASE_PPC  Power Macintosh",
+                     m_scanContext.getSysDescription());
         assertEquals("Unknown", m_scanContext.getSysLocation());
         assertEquals("root@@no.where", m_scanContext.getSysContact());
     }

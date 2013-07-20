@@ -50,13 +50,14 @@ public class LightweightMeasurementSetTest {
         // metricId, metricValue
         HashMap<String, String> metrics = new HashMap<String, String>();
 
-        for (int i=0;i<numberOfMetrics;i++) {
-            metrics.put("metric"+i, "value"+i);
+        for (int i = 0; i < numberOfMetrics; i++) {
+            metrics.put("metric" + i, "value" + i);
         }
 
         Date date = new Date();
 
-        LightweightMeasurementSet lightweightMeasurementSet = new LightweightMeasurementSet(1, "service", "interface", date);
+        LightweightMeasurementSet lightweightMeasurementSet = new LightweightMeasurementSet(1, "service", "interface",
+                                                                                            date);
 
         for (String metricId : metrics.keySet()) {
             lightweightMeasurementSet.addMeasurement(metricId, "int32", metrics.get(metricId), "DummyName");
@@ -66,7 +67,7 @@ public class LightweightMeasurementSetTest {
 
         Assert.assertEquals(measurementList.size(), metrics.size());
 
-        for(Measurement measurement : measurementList) {
+        for (Measurement measurement : measurementList) {
             Assert.assertEquals(measurement.getNodeId(), 1);
             Assert.assertEquals(measurement.getService(), "service");
             Assert.assertEquals(measurement.getNetInterface(), "interface");

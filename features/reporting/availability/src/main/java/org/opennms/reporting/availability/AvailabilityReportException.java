@@ -29,17 +29,23 @@
 package org.opennms.reporting.availability;
 
 /**
- * <p>AvailabilityReportException class.</p>
+ * <p>
+ * AvailabilityReportException class.
+ * </p>
  */
 public class AvailabilityReportException extends Exception {
 
     private static final long serialVersionUID = 7517318175420733757L;
 
     /**
-     * <p>Constructor for AvailabilityReportException.</p>
+     * <p>
+     * Constructor for AvailabilityReportException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public AvailabilityReportException(String message, Throwable cause) {
         super(message, cause);
@@ -47,9 +53,12 @@ public class AvailabilityReportException extends Exception {
     }
 
     /**
-     * <p>Constructor for AvailabilityReportException.</p>
+     * <p>
+     * Constructor for AvailabilityReportException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public AvailabilityReportException(String message) {
         super(message);
@@ -57,9 +66,12 @@ public class AvailabilityReportException extends Exception {
     }
 
     /**
-     * <p>Constructor for AvailabilityReportException.</p>
+     * <p>
+     * Constructor for AvailabilityReportException.
+     * </p>
      *
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public AvailabilityReportException(Throwable cause) {
         super(cause);

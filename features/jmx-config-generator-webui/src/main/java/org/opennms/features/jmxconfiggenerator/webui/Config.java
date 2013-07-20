@@ -33,7 +33,10 @@ package org.opennms.features.jmxconfiggenerator.webui;
 public interface Config {
 
     String STYLE_NAME = "opennms";
+
     String IMG_FOLDER = "img";
+
     int ATTRIBUTES_ALIAS_MAX_LENGTH = 19;
+
     int NAME_EDIT_FORM_HEIGHT = 170;
 }

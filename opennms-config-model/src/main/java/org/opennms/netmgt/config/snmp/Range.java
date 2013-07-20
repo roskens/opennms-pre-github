@@ -49,27 +49,27 @@ import org.xml.sax.ContentHandler;
  * IP Address Range
  */
 
-@XmlRootElement(name="range")
+@XmlRootElement(name = "range")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Range implements Serializable {
-	private static final long serialVersionUID = 3386982883357355619L;
+    private static final long serialVersionUID = 3386982883357355619L;
 
-
-	/* Note: Until a way to specify the order is found...
-	 * The jaxb code seems to put things in the reverse order
-	 * of the order the attributes are declared.  So PRESERVE this
-	 * ordering so we don't end up with end="" begin=""
-	 */
+    /*
+     * Note: Until a way to specify the order is found...
+     * The jaxb code seems to put things in the reverse order
+     * of the order the attributes are declared. So PRESERVE this
+     * ordering so we don't end up with end="" begin=""
+     */
     /**
      * Ending IP address of the range.
      */
-	@XmlAttribute(name="end", required=true)
+    @XmlAttribute(name = "end", required = true)
     private String _end;
 
     /**
      * Starting IP address of the range.
      */
-    @XmlAttribute(name="begin", required=true)
+    @XmlAttribute(name = "begin", required = true)
     private String _begin;
 
     public Range() {
@@ -77,9 +77,9 @@ public class Range implements Serializable {
     }
 
     public Range(final String begin, String end) {
-    	_begin = begin;
-    	_end = end;
-	}
+        _begin = begin;
+        _end = end;
+    }
 
     /**
      * Returns the value of field 'begin'. The field 'begin' has
@@ -116,28 +116,29 @@ public class Range implements Serializable {
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
@@ -147,7 +148,8 @@ public class Range implements Serializable {
      * Sets the value of field 'begin'. The field 'begin' has the
      * following description: Starting IP address of the range.
      *
-     * @param begin the value of field 'begin'.
+     * @param begin
+     *            the value of field 'begin'.
      */
     public void setBegin(final String begin) {
         this._begin = begin;
@@ -157,7 +159,8 @@ public class Range implements Serializable {
      * Sets the value of field 'end'. The field 'end' has the
      * following description: Ending IP address of the range.
      *
-     * @param end the value of field 'end'.
+     * @param end
+     *            the value of field 'end'.
      */
     public void setEnd(final String end) {
         this._end = end;
@@ -167,10 +170,12 @@ public class Range implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled Range
      */
     public static Range unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -178,10 +183,9 @@ public class Range implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     public void validate() throws ValidationException {
         new Validator().validate(this);
@@ -203,18 +207,23 @@ public class Range implements Serializable {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
 
         final Range other = (Range) obj;
         if (_begin == null) {
-            if (other._begin != null) return false;
+            if (other._begin != null)
+                return false;
         } else if (!_begin.equals(other._begin)) {
             return false;
         }
         if (_end == null) {
-            if (other._end != null) return false;
+            if (other._end != null)
+                return false;
         } else if (!_end.equals(other._end)) {
             return false;
         }

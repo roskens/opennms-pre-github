@@ -31,13 +31,12 @@ package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
 import java.util.Map;
 
 /**
- *
  * @author Markus von Rüden
  */
 public interface NameProvider {
 
-	/**
-	 * itemid, name/alias....
-	 */
-	Map<Object, String> getNames();
+    /**
+     * itemid, name/alias....
+     */
+    Map<Object, String> getNames();
 }

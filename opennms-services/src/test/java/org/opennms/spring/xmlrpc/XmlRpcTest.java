@@ -43,7 +43,6 @@ import org.opennms.core.test.MockLogAppender;
 import org.springframework.remoting.RemoteAccessException;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
@@ -61,7 +60,7 @@ public class XmlRpcTest {
         wsf.setSecure(false);
         wsf.afterPropertiesSet();
 
-        m_webServer = (WebServer)wsf.getObject();
+        m_webServer = (WebServer) wsf.getObject();
     }
 
     @After
@@ -71,34 +70,32 @@ public class XmlRpcTest {
     }
 
     @Test
-	public void testXmlRpcProxyFactoryBeanAndServiceExporter() throws Throwable {
-		TestBean target = new TestBean("myname", 99);
+    public void testXmlRpcProxyFactoryBeanAndServiceExporter() throws Throwable {
+        TestBean target = new TestBean("myname", 99);
 
-
-		final XmlRpcServiceExporter exporter = new XmlRpcServiceExporter();
-		exporter.setServiceInterface(ITestBean.class);
-		exporter.setService(target);
+        final XmlRpcServiceExporter exporter = new XmlRpcServiceExporter();
+        exporter.setServiceInterface(ITestBean.class);
+        exporter.setService(target);
         exporter.setWebServer(m_webServer);
-		exporter.afterPropertiesSet();
+        exporter.afterPropertiesSet();
 
-		XmlRpcProxyFactoryBean<ITestBean> pfb = new XmlRpcProxyFactoryBean<ITestBean>();
-		pfb.setServiceInterface(ITestBean.class);
-		pfb.setServiceUrl("http://localhost:9192/RPC2");
-		pfb.afterPropertiesSet();
+        XmlRpcProxyFactoryBean<ITestBean> pfb = new XmlRpcProxyFactoryBean<ITestBean>();
+        pfb.setServiceInterface(ITestBean.class);
+        pfb.setServiceUrl("http://localhost:9192/RPC2");
+        pfb.afterPropertiesSet();
 
         ITestBean proxy = pfb.getObject();
-		assertEquals("myname", proxy.getName());
-		assertEquals(99, proxy.getAge());
-		proxy.setAge(50);
-		assertEquals(50, proxy.getAge());
+        assertEquals("myname", proxy.getName());
+        assertEquals(99, proxy.getAge());
+        proxy.setAge(50);
+        assertEquals(50, proxy.getAge());
 
-	}
+    }
 
     @Test
     @Ignore("We're not set up for HTTPS for these tests.")
     public void testXmlRpcProxyFactoryBeanAndServiceExporterWithHttps() throws Throwable {
         TestBean target = new TestBean("myname", 99);
-
 
         final XmlRpcServiceExporter exporter = new XmlRpcServiceExporter();
         exporter.setServiceInterface(ITestBean.class);
@@ -121,39 +118,43 @@ public class XmlRpcTest {
 
     @Test
     @Ignore("If you're using OpenDNS, myurl gives an IP address")
-	public void testXmlRpcProxyFactoryBeanAndServiceExporterWithIOException() throws Exception {
-		TestBean target = new TestBean("myname", 99);
+    public void testXmlRpcProxyFactoryBeanAndServiceExporterWithIOException() throws Exception {
+        TestBean target = new TestBean("myname", 99);
 
-		final XmlRpcServiceExporter exporter = new XmlRpcServiceExporter();
-		exporter.setServiceInterface(ITestBean.class);
-		exporter.setService(target);
+        final XmlRpcServiceExporter exporter = new XmlRpcServiceExporter();
+        exporter.setServiceInterface(ITestBean.class);
+        exporter.setService(target);
         exporter.setWebServer(m_webServer);
-		exporter.afterPropertiesSet();
+        exporter.afterPropertiesSet();
 
-		XmlRpcProxyFactoryBean<ITestBean> pfb = new XmlRpcProxyFactoryBean<ITestBean>();
-		pfb.setServiceInterface(ITestBean.class);
-		pfb.setServiceUrl("http://127.0.0.1:9191/RPC2"); // this is wrong (we hope) so we throw an exception
-		pfb.afterPropertiesSet();
+        XmlRpcProxyFactoryBean<ITestBean> pfb = new XmlRpcProxyFactoryBean<ITestBean>();
+        pfb.setServiceInterface(ITestBean.class);
+        pfb.setServiceUrl("http://127.0.0.1:9191/RPC2"); // this is wrong (we
+                                                         // hope) so we throw an
+                                                         // exception
+        pfb.afterPropertiesSet();
 
         ITestBean proxy = pfb.getObject();
-		try {
-			proxy.setAge(50);
-			fail("Should have thrown RemoteAccessException");
-		}
-		catch (RemoteAccessException ex) {
-			// expected
-			assertTrue(ex.getCause() instanceof IOException);
-		}
-	}
+        try {
+            proxy.setAge(50);
+            fail("Should have thrown RemoteAccessException");
+        } catch (RemoteAccessException ex) {
+            // expected
+            assertTrue(ex.getCause() instanceof IOException);
+        }
+    }
 
     public static interface ITestBean {
         public String getName();
+
         public int getAge();
+
         public void setAge(int age);
     }
 
-     static class TestBean implements ITestBean {
+    static class TestBean implements ITestBean {
         private String name;
+
         private int age;
 
         TestBean(String name, int age) {
@@ -176,7 +177,5 @@ public class XmlRpcTest {
             this.age = age;
         }
     }
-
-
 
 }

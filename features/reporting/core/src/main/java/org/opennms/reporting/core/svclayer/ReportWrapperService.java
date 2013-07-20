@@ -46,34 +46,45 @@ import org.opennms.reporting.core.DeliveryOptions;
 public interface ReportWrapperService {
 
     /**
-     * This method validates that the map of report parameters matches the report
+     * This method validates that the map of report parameters matches the
+     * report
      * parameters accepted by the report. Used by the web interface.
      *
-     * @param parameters runtime report parameters
-     * @param reportId reportId as defined in database-reports.xml
-     * @return true if the reportParms supplied match those in the report definition.
+     * @param parameters
+     *            runtime report parameters
+     * @param reportId
+     *            reportId as defined in database-reports.xml
+     * @return true if the reportParms supplied match those in the report
+     *         definition.
      */
-    public abstract boolean validate(ReportParameters parameters,
-            String reportId);
+    public abstract boolean validate(ReportParameters parameters, String reportId);
 
     /**
      * This method runs the report
      *
-     * @param parameters runtime report parameters
-     * @param deliveryOptions delivery options for the report
-     * @param reportId reportId as defined in database-reports.xml
-     * @param mode in which to run the report (ONLINE, BATCH or IMMEDIATE)
+     * @param parameters
+     *            runtime report parameters
+     * @param deliveryOptions
+     *            delivery options for the report
+     * @param reportId
+     *            reportId as defined in database-reports.xml
+     * @param mode
+     *            in which to run the report (ONLINE, BATCH or IMMEDIATE)
      */
     public abstract void run(ReportParameters parameters, ReportMode mode, DeliveryOptions deliveryOptions,
             String reportId);
 
     /**
-     * This method returns the delivery options for the report. Providing a userID will
+     * This method returns the delivery options for the report. Providing a
+     * userID will
      * allow the report service to pre-populate the destination address
      *
-     * @param userId a {@link java.lang.String} object.
-     * @param reportId a {@link java.lang.String} object.
-     * @return a delivery options object containing information that describes how the report might
+     * @param userId
+     *            a {@link java.lang.String} object.
+     * @param reportId
+     *            a {@link java.lang.String} object.
+     * @return a delivery options object containing information that describes
+     *         how the report might
      *         be delivered.
      */
     public abstract DeliveryOptions getDeliveryOptions(String userId, String reportId);
@@ -81,7 +92,8 @@ public interface ReportWrapperService {
     /**
      * This method provides a list of formats supported by the report
      *
-     * @param reportId reportId as defined in database-reports.xml
+     * @param reportId
+     *            reportId as defined in database-reports.xml
      * @return a list of supported formats
      */
     public abstract List<ReportFormat> getFormats(String reportId);
@@ -90,36 +102,45 @@ public interface ReportWrapperService {
      * This method runs the report and renders in into the given output stream
      * with no intermediate steps
      *
-     * @param parameters runtime report parameters
-     * @param outputStream stream to render the resulting report
-     * @param mode in which to run the report (ONLINE, BATCH or IMMEDIATE)
+     * @param parameters
+     *            runtime report parameters
+     * @param outputStream
+     *            stream to render the resulting report
+     * @param mode
+     *            in which to run the report (ONLINE, BATCH or IMMEDIATE)
      */
     public abstract void runAndRender(ReportParameters parameters, ReportMode mode, OutputStream outputStream);
 
     /**
      * This method renders the report into a given output stream.
      *
-     * @param ReportId reportId as defined in database-reports.xml
-     * @param location location of the report on disk
-     * @param format format to render the report
-     * @param outputStream stream to render the resulting report
+     * @param ReportId
+     *            reportId as defined in database-reports.xml
+     * @param location
+     *            location of the report on disk
+     * @param format
+     *            format to render the report
+     * @param outputStream
+     *            stream to render the resulting report
      */
     public abstract void render(String ReportId, String location, ReportFormat format, OutputStream outputStream);
-
 
     /**
      * This method is used to determine whether the report takes any parameters
      *
-     *  @return true if the report takes parameters, false if not.
-     * @param ReportId a {@link java.lang.String} object.
+     * @return true if the report takes parameters, false if not.
+     * @param ReportId
+     *            a {@link java.lang.String} object.
      */
     public abstract Boolean hasParameters(String ReportId);
 
     /**
      * This method retrieves the runtime parameters taken by the report
      *
-     * @return a ReportParameters object containing the parameters taken by the report
-     * @param ReportId a {@link java.lang.String} object.
+     * @return a ReportParameters object containing the parameters taken by the
+     *         report
+     * @param ReportId
+     *            a {@link java.lang.String} object.
      */
     public abstract ReportParameters getParameters(String ReportId);
 

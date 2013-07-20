@@ -61,7 +61,6 @@ public class TestMenuBarBuilder {
         builder.addMenuCommand(null, "Edit");
         builder.addMenuCommand(createEmpyCommand(), "File|Test");
 
-
         MenuBar menuBar = builder.get();
         List<MenuItem> menuItems = menuBar.getItems();
         assertEquals(3, menuItems.size());
@@ -174,7 +173,6 @@ public class TestMenuBarBuilder {
         cmdManager.onBind(getTestOperation(), getProps(null, "Get Info?group=new", ""));
         cmdManager.onBind(getTestOperation(), getProps("Device", "NewOperation?group=additions", ""));
 
-
         MenuBar menuBar = cmdManager.getMenuBar(null, null);
 
         List<MenuItem> menuItems = menuBar.getItems();
@@ -200,7 +198,6 @@ public class TestMenuBarBuilder {
         cmdManager.onBind(getTestOperation(), getProps("Edit", "KK Layout?group=layout", ""));
         cmdManager.onBind(getTestOperation(), getProps("Edit", "Redo Layout", ""));
         cmdManager.onBind(getTestOperation(), getProps("Edit", "Spring Layout?group=layout", ""));
-
 
         MenuBar menuBar = cmdManager.getMenuBar(null, null);
 
@@ -229,7 +226,6 @@ public class TestMenuBarBuilder {
         cmdManager.onBind(getTestOperation(), getProps("Edit", "KK Layout?group=layout", ""));
         cmdManager.onBind(getTestOperation(), getProps("Edit", "Redo Layout", ""));
         cmdManager.onBind(getTestOperation(), getProps("Edit", "Spring Layout?group=layout", ""));
-
 
         MenuBar menuBar = cmdManager.getMenuBar(null, null);
 
@@ -320,30 +316,29 @@ public class TestMenuBarBuilder {
                 return null;
             }
 
-			@Override
-			public boolean isChecked(List<VertexRef> targets,
-					OperationContext operationContext) {
-				// TODO Auto-generated method stub
-				return false;
-			}
+            @Override
+            public boolean isChecked(List<VertexRef> targets, OperationContext operationContext) {
+                // TODO Auto-generated method stub
+                return false;
+            }
 
-			@Override
-			public void applyHistory(GraphContainer context,
-					Map<String, String> settings) {
-				// TODO Auto-generated method stub
+            @Override
+            public void applyHistory(GraphContainer context, Map<String, String> settings) {
+                // TODO Auto-generated method stub
 
-			}
+            }
 
-			@Override
-			public Map<String, String> createHistory(GraphContainer context) {
-				// TODO Auto-generated method stub
-				return null;
-			}};
-	}
+            @Override
+            public Map<String, String> createHistory(GraphContainer context) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+        };
+    }
 
-	@Test
+    @Test
     public void commandManagerParseConfigTest() {
-        Dictionary<String,String> props = new Hashtable<String,String>();
+        Dictionary<String, String> props = new Hashtable<String, String>();
         props.put("toplevelMenuOrder", "File,Edit,View,Additions,Help");
         props.put("submenu.File.groups", "start,new,close,save,print,open,import,additions,end");
         props.put("submenu.Edit.groups", "start,undo,cut,find,add,end,additions");
@@ -351,10 +346,10 @@ public class TestMenuBarBuilder {
         props.put("submenu.Help.groups", "start,main,tools,updates,end,additions");
         props.put("submenu.Default.groups", "start,main,end,additions");
 
-
         Map<String, List<String>> expected = new HashMap<String, List<String>>();
-        expected.put("File", Arrays.asList("start", "new", "close", "save", "print", "open", "import", "additions", "end"));
-        expected.put("Edit", Arrays.asList("start", "undo", "cut", "find", "add", "end","additions"));
+        expected.put("File",
+                     Arrays.asList("start", "new", "close", "save", "print", "open", "import", "additions", "end"));
+        expected.put("Edit", Arrays.asList("start", "undo", "cut", "find", "add", "end", "additions"));
         expected.put("View", Arrays.asList("start", "additions", "end"));
         expected.put("Help", Arrays.asList("start", "main", "tools", "updates", "end", "additions"));
         expected.put("Default", Arrays.asList("start", "main", "end", "additions"));
@@ -369,9 +364,7 @@ public class TestMenuBarBuilder {
         assertEquals(expected.get("Help"), actual.get("Help"));
         assertEquals(expected.get("Default"), actual.get("Default"));
 
-
     }
-
 
     private Map<String, String> getProps(String menuLocation, String label, String contextMenuLocation) {
         Map<String, String> props = new HashMap<String, String>();
@@ -406,7 +399,8 @@ public class TestMenuBarBuilder {
             public String getId() {
                 // TODO Auto-generated method stub
                 return null;
-            }};
+            }
+        };
     }
 
     private Command createEmpyCommand() {

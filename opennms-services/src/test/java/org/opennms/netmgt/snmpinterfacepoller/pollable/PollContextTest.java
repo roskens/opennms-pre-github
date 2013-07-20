@@ -50,8 +50,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
@@ -60,8 +59,7 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/META-INF/opennms/applicationContext-snmpinterfacepollerd.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class PollContextTest {
@@ -129,9 +127,12 @@ public class PollContextTest {
     }
 
     /*
-     * This test has been designed to verify the workaround for using the IP address on the SNMP
-     * Interface based Criteria, because in 1.8, the ipaddr was a valid column of the snmpinterface
-     * table, and that column has been removed in order to promote the usage of the ipinterface table.
+     * This test has been designed to verify the workaround for using the IP
+     * address on the SNMP
+     * Interface based Criteria, because in 1.8, the ipaddr was a valid column
+     * of the snmpinterface
+     * table, and that column has been removed in order to promote the usage of
+     * the ipinterface table.
      */
     @Test
     public void testCriterias() throws Exception {
@@ -144,15 +145,18 @@ public class PollContextTest {
         Assert.assertNotNull(ipInterfaces);
         Assert.assertEquals(2, ipInterfaces.size());
 
-        ipInterfaces = m_pollContext.getPollableNodesByIp("10.1.4.2"); // Primary Interface
+        ipInterfaces = m_pollContext.getPollableNodesByIp("10.1.4.2"); // Primary
+                                                                       // Interface
         Assert.assertNotNull(ipInterfaces);
         Assert.assertEquals(1, ipInterfaces.size());
 
-        ipInterfaces = m_pollContext.getPollableNodesByIp("10.1.5.1"); // Secondary Interface
+        ipInterfaces = m_pollContext.getPollableNodesByIp("10.1.5.1"); // Secondary
+                                                                       // Interface
         Assert.assertNotNull(ipInterfaces);
         Assert.assertEquals(0, ipInterfaces.size());
 
-        // Because the criteria is an SQL restriction, the access to ipinterface table is through the
+        // Because the criteria is an SQL restriction, the access to ipinterface
+        // table is through the
         // internal alias created by hibernate, in this case ipinterfac1_.
         String criteria = "snmpifdescr like '%Ethernet%' and ipinterfac1_.ipaddr like '10.1.5.%'";
         List<OnmsSnmpInterface> snmpInterfaces = m_pollContext.get(node.getId(), criteria);

@@ -64,9 +64,11 @@ public class DashboardLayout extends PortalColumns {
     }
 
     /**
-     * Method for retrieving {@link Dashlet} instances for a given {@link DashletSpec}.
+     * Method for retrieving {@link Dashlet} instances for a given
+     * {@link DashletSpec}.
      *
-     * @param dashletSpec the {@link DashletSpec} to be used
+     * @param dashletSpec
+     *            the {@link DashletSpec} to be used
      * @return the new {@link Dashlet} instance
      */
     private Dashlet getDashletInstance(DashletSpec dashletSpec) {
@@ -77,7 +79,8 @@ public class DashboardLayout extends PortalColumns {
     /**
      * This method sets the {@link List} of {@link DashletSpec} instances.
      *
-     * @param dashletSpecs the list of {@link DashletSpec} instances
+     * @param dashletSpecs
+     *            the list of {@link DashletSpec} instances
      */
     public void setDashletSpecs(List<DashletSpec> dashletSpecs) {
 

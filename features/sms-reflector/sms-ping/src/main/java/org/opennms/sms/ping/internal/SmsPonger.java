@@ -28,7 +28,6 @@
 
 package org.opennms.sms.ping.internal;
 
-
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -46,7 +45,6 @@ import org.smslib.OutboundMessage;
 import org.smslib.TimeoutException;
 import org.smslib.Message.MessageTypes;
 
-
 /**
  * SmsMessenger
  *
@@ -56,7 +54,7 @@ import org.smslib.Message.MessageTypes;
 public class SmsPonger implements OnmsInboundMessageNotification {
     private static final Logger LOG = LoggerFactory.getLogger(SmsPonger.class);
 
-    Map<String,String> s_tokenResponses = buildTokenResponses();
+    Map<String, String> s_tokenResponses = buildTokenResponses();
 
     /** {@inheritDoc} */
     @Override
@@ -70,17 +68,13 @@ public class SmsPonger implements OnmsInboundMessageNotification {
     }
 
     private boolean isPingRequest(InboundMessage msg) {
-        return (!(msg instanceof InboundBinaryMessage))
-            && msg.getText() != null &&
-                (isPseudoPingRequest(msg)
-                   || isCanonicalPingRequest(msg));
+        return (!(msg instanceof InboundBinaryMessage)) && msg.getText() != null
+                && (isPseudoPingRequest(msg) || isCanonicalPingRequest(msg));
     }
 
     private boolean isCanonicalPingRequest(InboundMessage msg) {
-        return (!(msg instanceof InboundBinaryMessage))
-            && msg.getText() != null
-            && msg.getText().length() >= 4
-            && "ping".equalsIgnoreCase(msg.getText().substring(0, 4));
+        return (!(msg instanceof InboundBinaryMessage)) && msg.getText() != null && msg.getText().length() >= 4
+                && "ping".equalsIgnoreCase(msg.getText().substring(0, 4));
     }
 
     private boolean isPseudoPingRequest(InboundMessage msg) {
@@ -130,9 +124,9 @@ public class SmsPonger implements OnmsInboundMessageNotification {
         return "";
     }
 
-    private static Map<String,String> buildTokenResponses() {
+    private static Map<String, String> buildTokenResponses() {
         // Use a LinkedHashMap to preserve ordering
-        Map<String,String> tokenResponses = new LinkedHashMap<String,String>();
+        Map<String, String> tokenResponses = new LinkedHashMap<String, String>();
 
         String pseudoPingTokensPsv = System.getProperty("sms.ping.tokens", "");
         String pseudoPingResponsesPsv = System.getProperty("sms.ping.responses", "");
@@ -143,7 +137,8 @@ public class SmsPonger implements OnmsInboundMessageNotification {
             return tokenResponses;
         }
         if (tokens.length != responses.length) {
-            LOG.error("Length of sms.ping.tokens ({}) is mismatched with length of sms.ping.responses ({})", tokens.length, responses.length);
+            LOG.error("Length of sms.ping.tokens ({}) is mismatched with length of sms.ping.responses ({})",
+                      tokens.length, responses.length);
             return tokenResponses;
         }
 

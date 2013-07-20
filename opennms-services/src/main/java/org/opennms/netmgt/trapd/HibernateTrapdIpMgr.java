@@ -51,7 +51,7 @@ import org.springframework.util.Assert;
  */
 public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(HibernateTrapdIpMgr.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateTrapdIpMgr.class);
 
     private IpInterfaceDao m_ipInterfaceDao;
 
@@ -66,11 +66,14 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
     public HibernateTrapdIpMgr() {
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.trapd.TrapdIpMgr#dataSourceSync()
      */
     /**
-     * <p>dataSourceSync</p>
+     * <p>
+     * dataSourceSync
+     * </p>
      */
     @Transactional(readOnly = true)
     @Override
@@ -78,7 +81,8 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
         m_knownips = m_ipInterfaceDao.getInterfacesForNodes();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.trapd.TrapdIpMgr#getNodeId(java.lang.String)
      */
     /** {@inheritDoc} */
@@ -90,8 +94,10 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
         return longValue(m_knownips.get(InetAddressUtils.getInetAddress(addr)));
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.trapd.TrapdIpMgr#setNodeId(java.lang.String, long)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.netmgt.trapd.TrapdIpMgr#setNodeId(java.lang.String,
+     * long)
      */
     /** {@inheritDoc} */
     @Override
@@ -99,17 +105,20 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
         if (addr == null || nodeid == -1) {
             return -1;
         }
-        // Only add the address if it doesn't exist on the map. If it exists, only replace the current one if the new address is primary.
+        // Only add the address if it doesn't exist on the map. If it exists,
+        // only replace the current one if the new address is primary.
         boolean add = true;
         if (m_knownips.containsKey(InetAddressUtils.getInetAddress(addr))) {
             OnmsIpInterface intf = m_ipInterfaceDao.findByNodeIdAndIpAddress(Integer.valueOf((int) nodeid), addr);
             add = intf != null && intf.isPrimary();
             LOG.info("setNodeId: address found {}. Should be added? {}", intf, add);
         }
-        return add ? longValue(m_knownips.put(InetAddressUtils.getInetAddress(addr), Integer.valueOf((int) nodeid))) : -1;
+        return add ? longValue(m_knownips.put(InetAddressUtils.getInetAddress(addr), Integer.valueOf((int) nodeid)))
+            : -1;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.trapd.TrapdIpMgr#removeNodeId(java.lang.String)
      */
     /** {@inheritDoc} */
@@ -121,11 +130,14 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
         return longValue(m_knownips.remove(InetAddressUtils.getInetAddress(addr)));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.trapd.TrapdIpMgr#clearKnownIpsMap()
      */
     /**
-     * <p>clearKnownIpsMap</p>
+     * <p>
+     * clearKnownIpsMap
+     * </p>
      */
     @Override
     public synchronized void clearKnownIpsMap() {
@@ -137,9 +149,12 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -147,7 +162,9 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
     }
 
     /**
-     * <p>getIpInterfaceDao</p>
+     * <p>
+     * getIpInterfaceDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
@@ -156,9 +173,12 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
     }
 
     /**
-     * <p>setIpInterfaceDao</p>
+     * <p>
+     * setIpInterfaceDao
+     * </p>
      *
-     * @param ipInterfaceDao a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
+     * @param ipInterfaceDao
+     *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
     public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;

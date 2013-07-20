@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.xmpConfig;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.exolab.castor.xml.Marshaller;
@@ -44,21 +44,21 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * Top-level element for the xmp-config.xml configuration
- *  file.
+ * file.
  *
  * @version $Revision$ $Date$
  */
 
-@SuppressWarnings("all") public class XmpConfig implements java.io.Serializable {
+@SuppressWarnings("all")
+public class XmpConfig implements java.io.Serializable {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * If set, overrides TCP port 5270 as the port
-     *  where XMP documents (queries) are sent.
+     * where XMP documents (queries) are sent.
      */
     private int _port;
 
@@ -92,39 +92,34 @@ import org.exolab.castor.xml.Unmarshaller;
      */
     private java.lang.String _authenUser;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public XmpConfig() {
         super();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      */
-    public void deletePort(
-    ) {
-        this._has_port= false;
+    public void deletePort() {
+        this._has_port = false;
     }
 
     /**
      */
-    public void deleteRetry(
-    ) {
-        this._has_retry= false;
+    public void deleteRetry() {
+        this._has_retry = false;
     }
 
     /**
      */
-    public void deleteTimeout(
-    ) {
-        this._has_timeout= false;
+    public void deleteTimeout() {
+        this._has_timeout = false;
     }
 
     /**
@@ -134,14 +129,13 @@ import org.exolab.castor.xml.Unmarshaller;
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
-        if ( this == obj )
+    public boolean equals(final java.lang.Object obj) {
+        if (this == obj)
             return true;
 
         if (obj instanceof XmpConfig) {
 
-            XmpConfig temp = (XmpConfig)obj;
+            XmpConfig temp = (XmpConfig) obj;
             if (this._port != temp._port)
                 return false;
             if (this._has_port != temp._has_port)
@@ -155,11 +149,11 @@ import org.exolab.castor.xml.Unmarshaller;
             if (this._has_timeout != temp._has_timeout)
                 return false;
             if (this._authenUser != null) {
-                if (temp._authenUser == null) return false;
+                if (temp._authenUser == null)
+                    return false;
                 else if (!(this._authenUser.equals(temp._authenUser)))
                     return false;
-            }
-            else if (temp._authenUser != null)
+            } else if (temp._authenUser != null)
                 return false;
             return true;
         }
@@ -173,8 +167,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'AuthenUser'.
      */
-    public java.lang.String getAuthenUser(
-    ) {
+    public java.lang.String getAuthenUser() {
         return this._authenUser;
     }
 
@@ -182,12 +175,11 @@ import org.exolab.castor.xml.Unmarshaller;
      * Returns the value of field 'port'. The field 'port' has the
      * following description: If set, overrides TCP port 5270 as
      * the port
-     *  where XMP documents (queries) are sent.
+     * where XMP documents (queries) are sent.
      *
      * @return the value of field 'Port'.
      */
-    public int getPort(
-    ) {
+    public int getPort() {
         return this._port;
     }
 
@@ -197,8 +189,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Retry'.
      */
-    public int getRetry(
-    ) {
+    public int getRetry() {
         return this._retry;
     }
 
@@ -209,8 +200,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Timeout'.
      */
-    public int getTimeout(
-    ) {
+    public int getTimeout() {
         return this._timeout;
     }
 
@@ -219,8 +209,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if at least one Port has been added
      */
-    public boolean hasPort(
-    ) {
+    public boolean hasPort() {
         return this._has_port;
     }
 
@@ -229,8 +218,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if at least one Retry has been added
      */
-    public boolean hasRetry(
-    ) {
+    public boolean hasRetry() {
         return this._has_retry;
     }
 
@@ -239,22 +227,20 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if at least one Timeout has been added
      */
-    public boolean hasTimeout(
-    ) {
+    public boolean hasTimeout() {
         return this._has_timeout;
     }
 
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
     @Override
-    public int hashCode(
-    ) {
+    public int hashCode() {
         int result = 17;
 
         long tmp;
@@ -262,7 +248,7 @@ import org.exolab.castor.xml.Unmarshaller;
         result = 37 * result + _retry;
         result = 37 * result + _timeout;
         if (_authenUser != null) {
-           result = 37 * result + _authenUser.hashCode();
+            result = 37 * result + _authenUser.hashCode();
         }
 
         return result;
@@ -273,8 +259,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if this object is valid according to the schema
      */
-    public boolean isValid(
-    ) {
+    public boolean isValid() {
         try {
             validate();
         } catch (org.exolab.castor.xml.ValidationException vex) {
@@ -284,34 +269,33 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void marshal(
-            final java.io.Writer out)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
+            org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
-    public void marshal(
-            final org.xml.sax.ContentHandler handler)
-    throws java.io.IOException, org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
+            org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, handler);
     }
 
@@ -319,10 +303,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'authenUser'. The field 'authenUser'
      * has the following description: Default XMP user/profile
      *
-     * @param authenUser the value of field 'authenUser'.
+     * @param authenUser
+     *            the value of field 'authenUser'.
      */
-    public void setAuthenUser(
-            final java.lang.String authenUser) {
+    public void setAuthenUser(final java.lang.String authenUser) {
         this._authenUser = authenUser;
     }
 
@@ -330,12 +314,12 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'port'. The field 'port' has the
      * following description: If set, overrides TCP port 5270 as
      * the port
-     *  where XMP documents (queries) are sent.
+     * where XMP documents (queries) are sent.
      *
-     * @param port the value of field 'port'.
+     * @param port
+     *            the value of field 'port'.
      */
-    public void setPort(
-            final int port) {
+    public void setPort(final int port) {
         this._port = port;
         this._has_port = true;
     }
@@ -344,10 +328,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'retry'. The field 'retry' has the
      * following description: Default number of retries
      *
-     * @param retry the value of field 'retry'.
+     * @param retry
+     *            the value of field 'retry'.
      */
-    public void setRetry(
-            final int retry) {
+    public void setRetry(final int retry) {
         this._retry = retry;
         this._has_retry = true;
     }
@@ -356,10 +340,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'timeout'. The field 'timeout' has
      * the following description: Default timeout (in milliseconds)
      *
-     * @param timeout the value of field 'timeout'.
+     * @param timeout
+     *            the value of field 'timeout'.
      */
-    public void setTimeout(
-            final int timeout) {
+    public void setTimeout(final int timeout) {
         this._timeout = timeout;
         this._has_timeout = true;
     }
@@ -368,28 +352,27 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * org.opennms.netmgt.config.xmpConfig.XmpConfig
+     *         org.opennms.netmgt.config.xmpConfig.XmpConfig
      */
-    public static org.opennms.netmgt.config.xmpConfig.XmpConfig unmarshal(
-            final java.io.Reader reader)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
-        return (org.opennms.netmgt.config.xmpConfig.XmpConfig) Unmarshaller.unmarshal(org.opennms.netmgt.config.xmpConfig.XmpConfig.class, reader);
+    public static org.opennms.netmgt.config.xmpConfig.XmpConfig unmarshal(final java.io.Reader reader)
+            throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+        return (org.opennms.netmgt.config.xmpConfig.XmpConfig) Unmarshaller.unmarshal(org.opennms.netmgt.config.xmpConfig.XmpConfig.class,
+                                                                                      reader);
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void validate(
-    )
-    throws org.exolab.castor.xml.ValidationException {
+    public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();
         validator.validate(this);
     }

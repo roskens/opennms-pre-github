@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- *
  * Overwrite Default ProcessRowsCallback to enable date filtering.
  * Example code from Nathan MA
  *
@@ -44,23 +43,18 @@ import java.util.Collection;
  * @since 1.8.1
  */
 @SuppressWarnings("unchecked")
-public class DateProcessRowsCallback extends ProcessRowsCallback
-{
+public class DateProcessRowsCallback extends ProcessRowsCallback {
     /** {@inheritDoc} */
     @Override
-    public final Collection filterRows(final TableModel model, final Collection rows)
-        throws Exception
-    {
+    public final Collection filterRows(final TableModel model, final Collection rows) throws Exception {
         boolean filtered = model.getLimit().isFiltered();
         boolean cleared = model.getLimit().isCleared();
 
-        if (!filtered || cleared)
-        {
-             return rows;
+        if (!filtered || cleared) {
+            return rows;
         }
 
-        if (filtered)
-        {
+        if (filtered) {
             Collection collection = new ArrayList();
             Predicate filterPredicate = new DateFilterPredicate(model);
             CollectionUtils.select(rows, filterPredicate, collection);

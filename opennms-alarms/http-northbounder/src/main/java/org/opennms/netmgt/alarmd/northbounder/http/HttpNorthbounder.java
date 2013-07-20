@@ -84,15 +84,16 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         super("HttpNorthbounder");
     }
 
-    //FIXME: This should be wired with Spring but is implmented as was in the PSM
+    // FIXME: This should be wired with Spring but is implmented as was in the
+    // PSM
     // Make sure that the {@link EmptyKeyRelaxedTrustSSLContext} algorithm
     // is available to JSSE
     static {
 
-        //this is a safe call because the method returns -1 if it is already installed (by PageSequenceMonitor, etc.)
+        // this is a safe call because the method returns -1 if it is already
+        // installed (by PageSequenceMonitor, etc.)
         java.security.Security.addProvider(new EmptyKeyRelaxedTrustProvider());
     }
-
 
     @Override
     public boolean accepts(NorthboundAlarm alarm) {
@@ -102,13 +103,12 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         return false;
     }
 
-
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
 
         LOG.info("Forwarding {} alarms", alarms.size());
 
-        //Need a configuration bean for these
+        // Need a configuration bean for these
 
         int connectionTimeout = 3000;
         int socketTimeout = 3000;
@@ -119,8 +119,8 @@ public class HttpNorthbounder extends AbstractNorthbounder {
 
         URI uri = m_config.getURI();
 
-        DefaultHttpClient client = new DefaultHttpClient(buildParams(httpVersion, connectionTimeout,
-                socketTimeout, policy, m_config.getVirtualHost()));
+        DefaultHttpClient client = new DefaultHttpClient(buildParams(httpVersion, connectionTimeout, socketTimeout,
+                                                                     policy, m_config.getVirtualHost()));
 
         client.setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler(retryCount, false));
 
@@ -132,7 +132,8 @@ public class HttpNorthbounder extends AbstractNorthbounder {
             SSLSocketFactory factory = null;
 
             try {
-                factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM), SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+                factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM),
+                                               SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
             } catch (Throwable e) {
                 throw new NorthbounderException(e);
             }
@@ -147,10 +148,10 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         if (HttpMethod.POST == (m_config.getMethod())) {
             HttpPost postMethod = new HttpPost(uri);
 
-            //TODO: need to configure these
+            // TODO: need to configure these
             List<NameValuePair> postParms = new ArrayList<NameValuePair>();
 
-            //FIXME:do this for now
+            // FIXME:do this for now
             NameValuePair p = new BasicNameValuePair("foo", "bar");
             postParms.add(p);
 
@@ -163,7 +164,7 @@ public class HttpNorthbounder extends AbstractNorthbounder {
 
             HttpEntity entity = null;
             try {
-                //I have no idea what I'm doing here ;)
+                // I have no idea what I'm doing here ;)
                 entity = new StringEntity("XML HERE");
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
@@ -174,8 +175,8 @@ public class HttpNorthbounder extends AbstractNorthbounder {
             method = postMethod;
         } else if (HttpMethod.GET == m_config.getMethod()) {
 
-            //TODO: need to configure these
-            //List<NameValuePair> getParms = null;
+            // TODO: need to configure these
+            // List<NameValuePair> getParms = null;
             method = new HttpGet(uri);
         }
 
@@ -195,13 +196,13 @@ public class HttpNorthbounder extends AbstractNorthbounder {
             HttpResponseRange range = new HttpResponseRange("200-399");
             if (!range.contains(code)) {
                 LOG.debug("response code out of range for uri:{}.  Expected {} but received {}", uri, range, code);
-                throw new NorthbounderException("response code out of range for uri:" + uri + ".  Expected " + range + " but received " + code);
+                throw new NorthbounderException("response code out of range for uri:" + uri + ".  Expected " + range
+                        + " but received " + code);
             }
         }
 
         LOG.debug(response != null ? response.getStatusLine().getReasonPhrase() : "Response was null");
     }
-
 
     private HttpVersion determineHttpVersion(String version) {
         HttpVersion httpVersion = null;
@@ -213,9 +214,8 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         return httpVersion;
     }
 
-    private HttpParams buildParams(HttpVersion protocolVersion,
-            int connectionTimeout, int socketTimeout, String policy,
-            String vHost) {
+    private HttpParams buildParams(HttpVersion protocolVersion, int connectionTimeout, int socketTimeout,
+            String policy, String vHost) {
         HttpParams parms = new BasicHttpParams();
         parms.setParameter(CoreProtocolPNames.PROTOCOL_VERSION, protocolVersion);
         parms.setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, connectionTimeout);

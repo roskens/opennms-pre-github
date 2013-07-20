@@ -40,10 +40,11 @@ import org.slf4j.LoggerFactory;
 import org.opennms.systemreport.AbstractSystemReportPlugin;
 import org.springframework.core.io.Resource;
 
-
 public class OSReportPlugin extends AbstractSystemReportPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(OSReportPlugin.class);
+
     private static final Map<String, String> m_oses = new LinkedHashMap<String, String>();
+
     public OSReportPlugin() {
         if (m_oses.size() == 0) {
             m_oses.put("/etc/SUSE-release", "SuSE");
@@ -85,7 +86,8 @@ public class OSReportPlugin extends AbstractSystemReportPlugin {
         map.put("Version", getResourceFromProperty("os.version"));
         map.put("Distribution", map.get("Name"));
 
-        OperatingSystemMXBean osBean = getBean(ManagementFactory.OPERATING_SYSTEM_MXBEAN_NAME, OperatingSystemMXBean.class);
+        OperatingSystemMXBean osBean = getBean(ManagementFactory.OPERATING_SYSTEM_MXBEAN_NAME,
+                                               OperatingSystemMXBean.class);
         if (osBean == null) {
             LOG.info("falling back to local VM OperatingSystemMXBean");
             osBean = ManagementFactory.getOperatingSystemMXBean();
@@ -98,16 +100,19 @@ public class OSReportPlugin extends AbstractSystemReportPlugin {
         File solaris = new File("/var/sadm/softinfo/INST_RELEASE");
         if (lsb.exists()) {
             final String text = slurpCommand(new String[] { "/bin/lsb_release", "-a" });
-            final Map<String,String> distMap = splitMultilineString(": +", text);
-            for (final Map.Entry<String,String> entry : distMap.entrySet()) {
+            final Map<String, String> distMap = splitMultilineString(": +", text);
+            for (final Map.Entry<String, String> entry : distMap.entrySet()) {
                 map.put("Distribution " + entry.getKey(), getResource(entry.getValue()));
             }
         } else if (solaris.exists()) {
             map.put("Distribution OS", getResource("Solaris"));
             final String solarisText = slurp(solaris);
-            final Map<String,String> distMap = splitMultilineString("=", solarisText);
-            for (final Map.Entry<String,String> entry : distMap.entrySet()) {
-                map.put("Distribution " + entry.getKey().toLowerCase().replaceFirst("^.", entry.getKey().substring(0, 1).toUpperCase()), getResource(entry.getValue()));
+            final Map<String, String> distMap = splitMultilineString("=", solarisText);
+            for (final Map.Entry<String, String> entry : distMap.entrySet()) {
+                map.put("Distribution "
+                                + entry.getKey().toLowerCase().replaceFirst("^.",
+                                                                            entry.getKey().substring(0, 1).toUpperCase()),
+                        getResource(entry.getValue()));
             }
             if (map.containsKey("Distribution OS")) {
                 map.put("Distribution", map.remove("Distribution OS"));

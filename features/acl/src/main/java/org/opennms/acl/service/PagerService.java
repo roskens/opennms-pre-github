@@ -52,7 +52,9 @@ package org.opennms.acl.service;
 public interface PagerService {
 
     /**
-     * <p>getTotalItemsNumber</p>
+     * <p>
+     * getTotalItemsNumber
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */

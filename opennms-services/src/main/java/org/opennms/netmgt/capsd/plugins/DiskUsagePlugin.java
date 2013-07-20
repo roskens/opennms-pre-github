@@ -44,8 +44,6 @@ import org.opennms.core.utils.ParameterMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 /**
  * This class is used to test passed address for SNMP support. The configuration
  * used to determine the SNMP information is managed by the
@@ -71,15 +69,17 @@ public final class DiskUsagePlugin extends AbstractPlugin {
      */
     private static final String DEFAULT_OID = ".1.3.6.1.2.1.1.2.0";
 
-
     private static final String hrStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3";
 
     /**
      * The available match-types for this plugin
      */
     private static final int MATCH_TYPE_EXACT = 0;
+
     private static final int MATCH_TYPE_STARTSWITH = 1;
+
     private static final int MATCH_TYPE_ENDSWITH = 2;
+
     private static final int MATCH_TYPE_REGEX = 3;
 
     /**
@@ -94,9 +94,8 @@ public final class DiskUsagePlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -117,9 +116,8 @@ public final class DiskUsagePlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -131,9 +129,10 @@ public final class DiskUsagePlugin extends AbstractPlugin {
 
         try {
 
-            //String oid = ParameterMap.getKeyedString(qualifiers, "vbname", DEFAULT_OID);
+            // String oid = ParameterMap.getKeyedString(qualifiers, "vbname",
+            // DEFAULT_OID);
 
-        	String disk = ParameterMap.getKeyedString(qualifiers, "disk",null);
+            String disk = ParameterMap.getKeyedString(qualifiers, "disk", null);
 
             SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(address);
             if (qualifiers != null) {
@@ -167,7 +166,7 @@ public final class DiskUsagePlugin extends AbstractPlugin {
                     else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION2C);
 
-                    //TODO: make sure JoeSnmpStrategy correctly handles this.
+                    // TODO: make sure JoeSnmpStrategy correctly handles this.
                     else if (version.equalsIgnoreCase("snmpv3"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION3);
                 }
@@ -189,29 +188,30 @@ public final class DiskUsagePlugin extends AbstractPlugin {
                     }
                 }
 
+            }
+
+            SnmpObjId hrStorageDescrSnmpObject = SnmpObjId.get(hrStorageDescr);
+
+            Map<SnmpInstId, SnmpValue> descrResults = SnmpUtils.getOidValues(agentConfig, "DiskUsagePoller",
+                                                                             hrStorageDescrSnmpObject);
+
+            if (descrResults.size() == 0) {
+                return false;
+            }
+
+            for (Map.Entry<SnmpInstId, SnmpValue> e : descrResults.entrySet()) {
+                LOG.debug("capsd: SNMPwalk succeeded, addr={} oid={} instance={} value={}",
+                          InetAddressUtils.str(address), hrStorageDescrSnmpObject, e.getKey(), e.getValue());
+
+                if (isMatch(e.getValue().toString(), disk, matchType)) {
+                    LOG.debug("Found disk '{}' (matching hrStorageDescr was '{}')", disk, e.getValue());
+                    return true;
+
+                }
 
             }
 
-                SnmpObjId hrStorageDescrSnmpObject = SnmpObjId.get(hrStorageDescr);
-
-                Map<SnmpInstId, SnmpValue> descrResults = SnmpUtils.getOidValues(agentConfig, "DiskUsagePoller", hrStorageDescrSnmpObject);
-
-                if(descrResults.size() == 0) {
-                    return false;
-                }
-
-                for (Map.Entry<SnmpInstId, SnmpValue> e : descrResults.entrySet()) {
-                    LOG.debug("capsd: SNMPwalk succeeded, addr={} oid={} instance={} value={}", InetAddressUtils.str(address), hrStorageDescrSnmpObject, e.getKey(), e.getValue());
-
-                    if (isMatch(e.getValue().toString(), disk, matchType)) {
-			LOG.debug("Found disk '{}' (matching hrStorageDescr was '{}')", disk, e.getValue());
-                    	return true;
-
-                    }
-
-                }
-
-                return false;
+            return false;
 
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);

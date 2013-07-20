@@ -28,9 +28,10 @@
 
 package org.opennms.netmgt.provision;
 
-
 /**
- * <p>DetectFuture interface.</p>
+ * <p>
+ * DetectFuture interface.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -38,59 +39,80 @@ package org.opennms.netmgt.provision;
 public interface DetectFuture {
 
     /**
-     * <p>getServiceDetector</p>
+     * <p>
+     * getServiceDetector
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector} object.
+     * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
+     *         object.
      */
     AsyncServiceDetector getServiceDetector();
 
     /**
-     * <p>isServiceDetected</p>
+     * <p>
+     * isServiceDetected
+     * </p>
      *
      * @return a boolean.
      */
     boolean isServiceDetected();
 
     /**
-     * <p>getException</p>
+     * <p>
+     * getException
+     * </p>
      *
      * @return a {@link java.lang.Throwable} object.
      */
     Throwable getException();
 
     /**
-     * <p>setServiceDetected</p>
+     * <p>
+     * setServiceDetected
+     * </p>
      *
-     * @param serviceDetected a boolean.
+     * @param serviceDetected
+     *            a boolean.
      */
     void setServiceDetected(boolean serviceDetected);
 
     /**
-     * <p>setException</p>
+     * <p>
+     * setException
+     * </p>
      *
-     * @param throwable a {@link java.lang.Throwable} object.
+     * @param throwable
+     *            a {@link java.lang.Throwable} object.
      */
     void setException(Throwable throwable);
 
     /**
-     * <p>awaitFor</p>
+     * <p>
+     * awaitFor
+     * </p>
      *
      * @throws InterruptedException
      */
     void awaitFor() throws InterruptedException;
 
     /**
-     * <p>awaitForUninterruptibly</p>
+     * <p>
+     * awaitForUninterruptibly
+     * </p>
      */
     void awaitForUninterruptibly();
 
     /**
-     * <p>isDone</p>
+     * <p>
+     * isDone
+     * </p>
      */
     boolean isDone();
 
     /**
-     * <p>addListener</p>
+     * <p>
+     * addListener
+     * </p>
      */
     public DetectFuture addListener(DetectFutureListener<DetectFuture> listener);
 }

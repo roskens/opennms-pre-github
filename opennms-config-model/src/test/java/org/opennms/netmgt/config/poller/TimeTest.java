@@ -48,13 +48,8 @@ public class TimeTest extends XmlTest<Time> {
         time.setBegins("13:30:00");
         time.setEnds("14:45:00");
 
-        return Arrays.asList(new Object[][] {
-            {
-                time,
-                "<time day='monday' begins='13:30:00' ends='14:45:00'/>\n",
-                "target/classes/xsds/poll-outages.xsd"
-            }
-        });
+        return Arrays.asList(new Object[][] { { time, "<time day='monday' begins='13:30:00' ends='14:45:00'/>\n",
+                "target/classes/xsds/poll-outages.xsd" } });
     }
 
 }

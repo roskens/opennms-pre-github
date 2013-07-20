@@ -131,6 +131,8 @@ public class GroupRepositoryIbatisTest {
     }
 
     private DBGroup dbGroup = new DBGroup();
+
     private DbGroupMemeber dbGroupMember = new DbGroupMemeber();
+
     private static GroupRepositoryIbatis repo;
 }

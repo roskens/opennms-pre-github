@@ -35,7 +35,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * <p>DefaultLinkMatchResolverImpl class.</p>
+ * <p>
+ * DefaultLinkMatchResolverImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

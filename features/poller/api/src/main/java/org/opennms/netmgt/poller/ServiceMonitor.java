@@ -38,16 +38,14 @@ import org.opennms.netmgt.model.PollStatus;
  * framework. This well defined interface allows the framework to treat each
  * plugin identically.
  * </p>
- *
  * <p>
  * When a service monitor plug-in is loaded and initialized, the framework will
- * initialize the monitor by calling the <EM>initialize()</EM> method.
- * Likewise, when the monitor is unloaded the framework calls the <EM>release()
+ * initialize the monitor by calling the <EM>initialize()</EM> method. Likewise,
+ * when the monitor is unloaded the framework calls the <EM>release()
  * </EM> method is called. If the plug-in needs to save or read any
  * configuration information after the initialize() call, a reference to the
  * proxy object should be saved at initialization.
  * </p>
- *
  * <P>
  * <STRONG>NOTE: </STRONG> The plug-in <EM>poll()</EM> must be thread safe in
  * order to operate. Any synchronized methods or data accessed in the <EM>
@@ -73,7 +71,6 @@ public interface ServiceMonitor {
      * Additionally, any parameters for the plug-in from the package definition
      * are passed using the parameters element.
      * </P>
-     *
      * <P>
      * If there is a critical error, like missing service libraries, the the
      * Monitor may throw a ServiceMonitorException. If the plug-in throws an
@@ -95,7 +92,6 @@ public interface ServiceMonitor {
      * resource and save any state information using the proxy object from the
      * initialization routine.
      * </P>
-     *
      * <P>
      * Even if the plug-in throws a monitor exception, it will not prevent the
      * plug-in from being unloaded. The plug-in should not return until all of
@@ -115,14 +111,14 @@ public interface ServiceMonitor {
      * load and/or associate configuration information with the interface before
      * the framework begins scheduling the new device.
      * </P>
-     *
      * <P>
      * Should a monitor exception be thrown during an initialization call then
      * the framework will log an error and discard the interface from
      * scheduling.
      * </P>
      *
-     * @param svc TODO
+     * @param svc
+     *            TODO
      * @exception java.lang.RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                interface from being monitored.
@@ -137,13 +133,13 @@ public interface ServiceMonitor {
      * associated with this device. This gives the implementor of the interface
      * the ability to serialize any data prior to the interface being discarded.
      * </P>
-     *
      * <P>
      * If an exception is thrown during the release the exception will be
      * logged, but the interface will still be discarded for garbage collection.
      * </P>
      *
-     * @param svc TODO
+     * @param svc
+     *            TODO
      * @exception java.lang.RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                interface from being monitored.
@@ -156,7 +152,6 @@ public interface ServiceMonitor {
      * requires a check to be performed as defined by the scheduler the poll
      * method is invoked. The poll is passed the interface to check
      * </P>
-     *
      * <P>
      * By default when the status transition from up to down or vice versa the
      * framework will generate an event. Additionally, if the polling interval
@@ -165,7 +160,8 @@ public interface ServiceMonitor {
      * default events by setting the suppress event bit in the returned integer.
      * </P>
      *
-     * @param svc TODO
+     * @param svc
+     *            TODO
      * @param parameters
      *            The package parameters (timeout, retry, etc...) to be used for
      *            this poll.

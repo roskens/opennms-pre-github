@@ -60,12 +60,10 @@ public class Rrd implements java.io.Serializable {
     /**
      * @param vRra
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addRra(
-            final java.lang.String vRra)
-            throws java.lang.IndexOutOfBoundsException {
+    public void addRra(final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         this._rraList.add(vRra);
     }
 
@@ -73,13 +71,10 @@ public class Rrd implements java.io.Serializable {
      * @param index
      * @param vRra
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addRra(
-            final int index,
-            final java.lang.String vRra)
-            throws java.lang.IndexOutOfBoundsException {
+    public void addRra(final int index, final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         this._rraList.add(index, vRra);
     }
 
@@ -89,8 +84,7 @@ public class Rrd implements java.io.Serializable {
      * @return an Enumeration over all possible elements of this
      *         collection
      */
-    public java.util.Enumeration<java.lang.String> enumerateRra(
-    ) {
+    public java.util.Enumeration<java.lang.String> enumerateRra() {
         return java.util.Collections.enumeration(this._rraList);
     }
 
@@ -101,14 +95,10 @@ public class Rrd implements java.io.Serializable {
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
+    public boolean equals(final java.lang.Object obj) {
         if (obj instanceof Rrd) {
             Rrd other = (Rrd) obj;
-            return new EqualsBuilder()
-                    .append(getRra(), other.getRra())
-                    .append(getStep(), other.getStep())
-                    .isEquals();
+            return new EqualsBuilder().append(getRra(), other.getRra()).append(getStep(), other.getStep()).isEquals();
         }
         return false;
     }
@@ -119,15 +109,14 @@ public class Rrd implements java.io.Serializable {
      * @param index
      * @return the value of the java.lang.String at the given index
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public java.lang.String getRra(
-            final int index)
-            throws java.lang.IndexOutOfBoundsException {
+    public java.lang.String getRra(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._rraList.size()) {
-            throw new IndexOutOfBoundsException("getRra: Index value '" + index + "' not in range [0.." + (this._rraList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getRra: Index value '" + index + "' not in range [0.."
+                    + (this._rraList.size() - 1) + "]");
         }
 
         return (java.lang.String) _rraList.get(index);
@@ -135,15 +124,16 @@ public class Rrd implements java.io.Serializable {
 
     /**
      * Method getRra.Returns the contents of the collection in an
-     * Array.  <p>Note:  Just in case the collection contents are
-     * changing in another thread, we pass a 0-length Array of the
-     * correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public java.lang.String[] getRra(
-    ) {
+    public java.lang.String[] getRra() {
         java.lang.String[] array = new java.lang.String[0];
         return (java.lang.String[]) this._rraList.toArray(array);
     }
@@ -155,8 +145,7 @@ public class Rrd implements java.io.Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<java.lang.String> getRraCollection(
-    ) {
+    public java.util.List<java.lang.String> getRraCollection() {
         return this._rraList;
     }
 
@@ -165,8 +154,7 @@ public class Rrd implements java.io.Serializable {
      *
      * @return the size of this collection
      */
-    public int getRraCount(
-    ) {
+    public int getRraCount() {
         return this._rraList.size();
     }
 
@@ -176,8 +164,7 @@ public class Rrd implements java.io.Serializable {
      *
      * @return the value of field 'Step'.
      */
-    public Integer getStep(
-    ) {
+    public Integer getStep() {
         return this._step == null ? 0 : this._step;
     }
 
@@ -187,15 +174,13 @@ public class Rrd implements java.io.Serializable {
      * @return an Iterator over all possible elements in this
      *         collection
      */
-    public java.util.Iterator<java.lang.String> iterateRra(
-    ) {
+    public java.util.Iterator<java.lang.String> iterateRra() {
         return this._rraList.iterator();
     }
 
     /**
      */
-    public void removeAllRra(
-    ) {
+    public void removeAllRra() {
         this._rraList.clear();
     }
 
@@ -205,8 +190,7 @@ public class Rrd implements java.io.Serializable {
      * @param vRra
      * @return true if the object was removed from the collection.
      */
-    public boolean removeRra(
-            final java.lang.String vRra) {
+    public boolean removeRra(final java.lang.String vRra) {
         boolean removed = _rraList.remove(vRra);
         return removed;
     }
@@ -217,8 +201,7 @@ public class Rrd implements java.io.Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public java.lang.String removeRraAt(
-            final int index) {
+    public java.lang.String removeRraAt(final int index) {
         java.lang.Object obj = this._rraList.remove(index);
         return (java.lang.String) obj;
     }
@@ -227,16 +210,14 @@ public class Rrd implements java.io.Serializable {
      * @param index
      * @param vRra
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setRra(
-            final int index,
-            final java.lang.String vRra)
-            throws java.lang.IndexOutOfBoundsException {
+    public void setRra(final int index, final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._rraList.size()) {
-            throw new IndexOutOfBoundsException("setRra: Index value '" + index + "' not in range [0.." + (this._rraList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setRra: Index value '" + index + "' not in range [0.."
+                    + (this._rraList.size() - 1) + "]");
         }
 
         this._rraList.set(index, vRra);
@@ -245,9 +226,8 @@ public class Rrd implements java.io.Serializable {
     /**
      * @param vRraArray
      */
-    public void setRra(
-            final java.lang.String[] vRraArray) {
-        //-- copy array
+    public void setRra(final java.lang.String[] vRraArray) {
+        // -- copy array
         _rraList.clear();
 
         for (int i = 0; i < vRraArray.length; i++) {
@@ -259,10 +239,10 @@ public class Rrd implements java.io.Serializable {
      * Sets the value of '_rraList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vRraList the Vector to copy.
+     * @param vRraList
+     *            the Vector to copy.
      */
-    public void setRra(
-            final java.util.List<java.lang.String> vRraList) {
+    public void setRra(final java.util.List<java.lang.String> vRraList) {
         // copy vector
         this._rraList.clear();
 
@@ -273,10 +253,10 @@ public class Rrd implements java.io.Serializable {
      * Sets the value of field 'step'. The field 'step' has the
      * following description: step size for the RRD
      *
-     * @param step the value of field 'step'.
+     * @param step
+     *            the value of field 'step'.
      */
-    public void setStep(
-            final int step) {
+    public void setStep(final int step) {
         this._step = step;
     }
 }

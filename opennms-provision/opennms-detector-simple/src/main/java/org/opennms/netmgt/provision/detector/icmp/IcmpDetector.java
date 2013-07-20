@@ -39,7 +39,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>IcmpDetector class.</p>
+ * <p>
+ * IcmpDetector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -49,8 +51,11 @@ import org.springframework.stereotype.Component;
 public class IcmpDetector extends SyncAbstractDetector {
 
     private static final Logger LOG = LoggerFactory.getLogger(IcmpDetector.class);
+
     /**
-     * <p>Constructor for IcmpDetector.</p>
+     * <p>
+     * Constructor for IcmpDetector.
+     * </p>
      */
     public IcmpDetector() {
         super("ICMP", -1);
@@ -64,7 +69,7 @@ public class IcmpDetector extends SyncAbstractDetector {
 
         boolean found = false;
         try {
-            for(int i = 0; i < getRetries() && !found; i++) {
+            for (int i = 0; i < getRetries() && !found; i++) {
                 Number retval = PingerFactory.getInstance().ping(address, getTimeout(), getRetries());
 
                 LOG.debug("isServiceDetected: Response time for address: {} is: {}.", address, retval);
@@ -77,15 +82,16 @@ public class IcmpDetector extends SyncAbstractDetector {
             LOG.info("isServiceDetected: ICMP based service for address: {} is detected: {}.", address, found);
 
         } catch (final InterruptedException e) {
-            LOG.info("isServiceDetected: ICMP based service for address: {} is detected: {}. Received an InterruptedException.", address, false);
+            LOG.info("isServiceDetected: ICMP based service for address: {} is detected: {}. Received an InterruptedException.",
+                     address, false);
             Thread.currentThread().interrupt();
         } catch (Throwable e) {
-            LOG.info("isServiceDetected: ICMP based service for address: {} is detected: {}. Received an Exception {}.", address, false, e);
+            LOG.info("isServiceDetected: ICMP based service for address: {} is detected: {}. Received an Exception {}.",
+                     address, false, e);
         }
 
         return found;
     }
-
 
     /** {@inheritDoc} */
     @Override

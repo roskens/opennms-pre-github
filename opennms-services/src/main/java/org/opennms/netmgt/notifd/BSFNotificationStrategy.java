@@ -54,15 +54,16 @@ import org.opennms.netmgt.model.notifd.NotificationStrategy;
 /**
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
  * @author <A HREF="http://www.opennms.org">OpenNMS</A>
- *
  */
 public class BSFNotificationStrategy implements NotificationStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(BSFNotificationStrategy.class);
 
     private List<Argument> m_arguments;
-    private Map<String,String> m_notifParams = new HashMap<String,String>();
 
-    /* (non-Javadoc)
+    private Map<String, String> m_notifParams = new HashMap<String, String>();
+
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.notifd.NotificationStrategy#send(java.util.List)
      */
     @Override
@@ -80,19 +81,21 @@ public class BSFNotificationStrategy implements NotificationStrategy {
 
         try {
 
-            if(lang==null) lang = BSFManager.getLangFromFilename(fileName);
+            if (lang == null)
+                lang = BSFManager.getLangFromFilename(fileName);
 
             // Declare some beans that can be used inside the script
-            HashMap<String,String> results = new HashMap<String,String>();
+            HashMap<String, String> results = new HashMap<String, String>();
             bsfManager.declareBean("results", results, HashMap.class);
             declareBeans(bsfManager);
 
-            if(engine != null && lang != null && extensions != null && extensions.length > 0 ){
+            if (engine != null && lang != null && extensions != null && extensions.length > 0) {
                 BSFManager.registerScriptingEngine(lang, engine, extensions);
             }
 
-            if(scriptFile.exists() && scriptFile.canRead()){
-                String code = IOUtils.getStringFromReader(new InputStreamReader(new FileInputStream(scriptFile), "UTF-8"));
+            if (scriptFile.exists() && scriptFile.canRead()) {
+                String code = IOUtils.getStringFromReader(new InputStreamReader(new FileInputStream(scriptFile),
+                                                                                "UTF-8"));
 
                 // Check foot before firing
                 checkAberrantScriptBehaviors(code);
@@ -105,7 +108,8 @@ public class BSFNotificationStrategy implements NotificationStrategy {
                     LOG.info("Execution succeeded and successful status passed back for script '{}'", scriptFile);
                     returnCode = 0;
                 } else {
-                    LOG.warn("Execution succeeded for script '{}', but script did not indicate successful notification by putting an entry into the 'results' bean with key 'status' and value 'OK'", scriptFile);
+                    LOG.warn("Execution succeeded for script '{}', but script did not indicate successful notification by putting an entry into the 'results' bean with key 'status' and value 'OK'",
+                             scriptFile);
                     returnCode = -1;
                 }
             } else {
@@ -115,7 +119,7 @@ public class BSFNotificationStrategy implements NotificationStrategy {
         } catch (BSFException e) {
             LOG.warn("Execution of script '{}' failed with BSFException: {}", scriptFile, e.getMessage(), e);
             returnCode = -1;
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             LOG.warn("Could not find BSF script file '{}'.", fileName);
             returnCode = -1;
         } catch (IOException e) {
@@ -172,22 +176,38 @@ public class BSFNotificationStrategy implements NotificationStrategy {
         bsfManager.declareBean("node", node, OnmsNode.class);
 
         for (Argument arg : m_arguments) {
-            if (NotificationManager.PARAM_TEXT_MSG.equals(arg.getSwitch())) bsfManager.declareBean("text_message", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_NUM_MSG.equals(arg.getSwitch())) bsfManager.declareBean("numeric_message", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_NODE.equals(arg.getSwitch())) bsfManager.declareBean("node_id", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_INTERFACE.equals(arg.getSwitch())) bsfManager.declareBean("ip_addr", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_SERVICE.equals(arg.getSwitch())) bsfManager.declareBean("svc_name", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_SUBJECT.equals(arg.getSwitch())) bsfManager.declareBean("subject", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_EMAIL.equals(arg.getSwitch())) bsfManager.declareBean("email", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_PAGER_EMAIL.equals(arg.getSwitch())) bsfManager.declareBean("pager_email", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_XMPP_ADDRESS.equals(arg.getSwitch())) bsfManager.declareBean("xmpp_address", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_TEXT_PAGER_PIN.equals(arg.getSwitch())) bsfManager.declareBean("text_pin", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_NUM_PAGER_PIN.equals(arg.getSwitch())) bsfManager.declareBean("numeric_pin", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_WORK_PHONE.equals(arg.getSwitch())) bsfManager.declareBean("work_phone", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_HOME_PHONE.equals(arg.getSwitch())) bsfManager.declareBean("home_phone", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_MOBILE_PHONE.equals(arg.getSwitch())) bsfManager.declareBean("mobile_phone", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_TUI_PIN.equals(arg.getSwitch())) bsfManager.declareBean("phone_pin", arg.getValue(), String.class);
-            if (NotificationManager.PARAM_MICROBLOG_USERNAME.equals(arg.getSwitch())) bsfManager.declareBean("microblog_username", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_TEXT_MSG.equals(arg.getSwitch()))
+                bsfManager.declareBean("text_message", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_NUM_MSG.equals(arg.getSwitch()))
+                bsfManager.declareBean("numeric_message", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_NODE.equals(arg.getSwitch()))
+                bsfManager.declareBean("node_id", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_INTERFACE.equals(arg.getSwitch()))
+                bsfManager.declareBean("ip_addr", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_SERVICE.equals(arg.getSwitch()))
+                bsfManager.declareBean("svc_name", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_SUBJECT.equals(arg.getSwitch()))
+                bsfManager.declareBean("subject", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_EMAIL.equals(arg.getSwitch()))
+                bsfManager.declareBean("email", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_PAGER_EMAIL.equals(arg.getSwitch()))
+                bsfManager.declareBean("pager_email", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_XMPP_ADDRESS.equals(arg.getSwitch()))
+                bsfManager.declareBean("xmpp_address", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_TEXT_PAGER_PIN.equals(arg.getSwitch()))
+                bsfManager.declareBean("text_pin", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_NUM_PAGER_PIN.equals(arg.getSwitch()))
+                bsfManager.declareBean("numeric_pin", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_WORK_PHONE.equals(arg.getSwitch()))
+                bsfManager.declareBean("work_phone", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_HOME_PHONE.equals(arg.getSwitch()))
+                bsfManager.declareBean("home_phone", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_MOBILE_PHONE.equals(arg.getSwitch()))
+                bsfManager.declareBean("mobile_phone", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_TUI_PIN.equals(arg.getSwitch()))
+                bsfManager.declareBean("phone_pin", arg.getValue(), String.class);
+            if (NotificationManager.PARAM_MICROBLOG_USERNAME.equals(arg.getSwitch()))
+                bsfManager.declareBean("microblog_username", arg.getValue(), String.class);
         }
     }
 
@@ -199,7 +219,8 @@ public class BSFNotificationStrategy implements NotificationStrategy {
                 value = arg.getValue();
             }
         }
-        if (value != null && value.equals("")) value = null;
+        if (value != null && value.equals(""))
+            value = null;
 
         return value;
     }
@@ -211,7 +232,8 @@ public class BSFNotificationStrategy implements NotificationStrategy {
                 value = arg.getSubstitution();
             }
         }
-        if (value != null && value.equals("")) value = null;
+        if (value != null && value.equals(""))
+            value = null;
 
         return value;
     }
@@ -237,7 +259,8 @@ public class BSFNotificationStrategy implements NotificationStrategy {
 
     private String[] getFileExtensions() {
         String exts = getSwitchSubstitution("file-extensions");
-        if (exts == null) return null;
+        if (exts == null)
+            return null;
         return exts.split(",");
     }
 
@@ -248,11 +271,17 @@ public class BSFNotificationStrategy implements NotificationStrategy {
     }
 
     public void log(String level, String format, Object... args) {
-        if ("TRACE".equals(level)) LOG.trace(format, args);
-        if ("DEBUG".equals(level)) LOG.debug(format, args);
-        if ("INFO".equals(level)) LOG.info(format, args);
-        if ("WARN".equals(level)) LOG.warn(format, args);
-        if ("ERROR".equals(level)) LOG.error(format, args);
-        if ("FATAL".equals(level)) LOG.error(format, args);
+        if ("TRACE".equals(level))
+            LOG.trace(format, args);
+        if ("DEBUG".equals(level))
+            LOG.debug(format, args);
+        if ("INFO".equals(level))
+            LOG.info(format, args);
+        if ("WARN".equals(level))
+            LOG.warn(format, args);
+        if ("ERROR".equals(level))
+            LOG.error(format, args);
+        if ("FATAL".equals(level))
+            LOG.error(format, args);
     }
 }

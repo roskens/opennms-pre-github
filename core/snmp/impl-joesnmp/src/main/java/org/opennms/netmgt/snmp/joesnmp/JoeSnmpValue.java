@@ -58,7 +58,7 @@ class JoeSnmpValue extends AbstractSnmpValue {
     }
 
     JoeSnmpValue(final int typeId, final byte[] bytes) {
-        switch(typeId) {
+        switch (typeId) {
         case SnmpSMI.SMI_COUNTER64: {
             m_value = new SnmpCounter64(new BigInteger(bytes));
             break;
@@ -96,23 +96,23 @@ class JoeSnmpValue extends AbstractSnmpValue {
             break;
         }
         case SnmpSMI.SMI_ENDOFMIBVIEW: {
-        	m_value = new SnmpEndOfMibView();
-        	break;
+            m_value = new SnmpEndOfMibView();
+            break;
         }
         case SnmpSMI.SMI_NOSUCHINSTANCE: {
-        	m_value = new SnmpNoSuchInstance();
-        	break;
+            m_value = new SnmpNoSuchInstance();
+            break;
         }
         case SnmpSMI.SMI_NOSUCHOBJECT: {
-        	m_value = new SnmpNoSuchObject();
-        	break;
+            m_value = new SnmpNoSuchObject();
+            break;
         }
         case SnmpSMI.SMI_NULL: {
             m_value = new SnmpNull();
             break;
         }
         default:
-            throw new IllegalArgumentException("invaldi type id "+typeId);
+            throw new IllegalArgumentException("invaldi type id " + typeId);
         }
     }
 
@@ -128,17 +128,17 @@ class JoeSnmpValue extends AbstractSnmpValue {
         case SnmpSMI.SMI_IPADDRESS:
             return toInetAddress().getAddress();
         case SnmpSMI.SMI_OBJECTID:
-            return ((SnmpObjectId)m_value).toString().getBytes();
+            return ((SnmpObjectId) m_value).toString().getBytes();
         case SnmpSMI.SMI_OPAQUE:
         case SnmpSMI.SMI_STRING:
-            return ((SnmpOctetString)m_value).getString();
+            return ((SnmpOctetString) m_value).getString();
         case SnmpSMI.SMI_ENDOFMIBVIEW:
         case SnmpSMI.SMI_NOSUCHINSTANCE:
         case SnmpSMI.SMI_NOSUCHOBJECT:
         case SnmpSMI.SMI_NULL:
             return new byte[0];
         default:
-            throw new IllegalArgumentException("cannot convert "+m_value+" to a byte array");
+            throw new IllegalArgumentException("cannot convert " + m_value + " to a byte array");
         }
     }
 
@@ -177,13 +177,13 @@ class JoeSnmpValue extends AbstractSnmpValue {
     public int toInt() {
         switch (m_value.typeId()) {
         case SnmpSMI.SMI_COUNTER64:
-            return ((SnmpCounter64)m_value).getValue().intValue();
+            return ((SnmpCounter64) m_value).getValue().intValue();
         case SnmpSMI.SMI_INTEGER:
-            return ((SnmpInt32)m_value).getValue();
+            return ((SnmpInt32) m_value).getValue();
         case SnmpSMI.SMI_COUNTER32:
         case SnmpSMI.SMI_TIMETICKS:
         case SnmpSMI.SMI_UNSIGNED32:
-            return (int)((SnmpUInt32)m_value).getValue();
+            return (int) ((SnmpUInt32) m_value).getValue();
         default:
             return Integer.parseInt(m_value.toString());
         }
@@ -193,26 +193,23 @@ class JoeSnmpValue extends AbstractSnmpValue {
     public long toLong() {
         switch (m_value.typeId()) {
         case SnmpSMI.SMI_COUNTER64:
-            return ((SnmpCounter64)m_value).getValue().longValue();
+            return ((SnmpCounter64) m_value).getValue().longValue();
         case SnmpSMI.SMI_INTEGER:
-            return ((SnmpInt32)m_value).getValue();
+            return ((SnmpInt32) m_value).getValue();
         case SnmpSMI.SMI_COUNTER32:
         case SnmpSMI.SMI_TIMETICKS:
         case SnmpSMI.SMI_UNSIGNED32:
-            return ((SnmpUInt32)m_value).getValue();
+            return ((SnmpUInt32) m_value).getValue();
         case SnmpSMI.SMI_STRING:
-	    return (convertStringToLong());
+            return (convertStringToLong());
         default:
             return Long.parseLong(m_value.toString());
         }
     }
 
-
     private long convertStringToLong() {
         return Double.valueOf(m_value.toString()).longValue();
     }
-
-
 
     @Override
     public int getType() {
@@ -223,11 +220,11 @@ class JoeSnmpValue extends AbstractSnmpValue {
     public String toDisplayString() {
 
         switch (m_value.typeId()) {
-        case SnmpSMI.SMI_TIMETICKS :
+        case SnmpSMI.SMI_TIMETICKS:
             return Long.toString(toLong());
         case SnmpSMI.SMI_STRING:
-            return SnmpOctetString.toDisplayString((SnmpOctetString)m_value);
-        default :
+            return SnmpOctetString.toDisplayString((SnmpOctetString) m_value);
+        default:
             return m_value.toString();
         }
     }
@@ -235,10 +232,10 @@ class JoeSnmpValue extends AbstractSnmpValue {
     @Override
     public InetAddress toInetAddress() {
         switch (m_value.typeId()) {
-            case SnmpSMI.SMI_IPADDRESS:
-                return SnmpIPAddress.toInetAddress((SnmpIPAddress)m_value);
-            default:
-                throw new IllegalArgumentException("cannot convert "+m_value+" to an InetAddress");
+        case SnmpSMI.SMI_IPADDRESS:
+            return SnmpIPAddress.toInetAddress((SnmpIPAddress) m_value);
+        default:
+            throw new IllegalArgumentException("cannot convert " + m_value + " to an InetAddress");
         }
     }
 
@@ -246,9 +243,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
     public String toHexString() {
         switch (m_value.typeId()) {
         case SnmpSMI.SMI_STRING:
-            return SnmpOctetString.toHexString((SnmpOctetString)m_value);
+            return SnmpOctetString.toHexString((SnmpOctetString) m_value);
         default:
-            throw new IllegalArgumentException("cannt convert "+m_value+" to a HexString");
+            throw new IllegalArgumentException("cannt convert " + m_value + " to a HexString");
         }
     }
 
@@ -261,13 +258,13 @@ class JoeSnmpValue extends AbstractSnmpValue {
     public BigInteger toBigInteger() {
         switch (m_value.typeId()) {
         case SnmpSMI.SMI_COUNTER64:
-            return ((SnmpCounter64)m_value).getValue();
+            return ((SnmpCounter64) m_value).getValue();
         case SnmpSMI.SMI_INTEGER:
-            return BigInteger.valueOf(((SnmpInt32)m_value).getValue());
+            return BigInteger.valueOf(((SnmpInt32) m_value).getValue());
         case SnmpSMI.SMI_COUNTER32:
         case SnmpSMI.SMI_TIMETICKS:
         case SnmpSMI.SMI_UNSIGNED32:
-            return BigInteger.valueOf(((SnmpUInt32)m_value).getValue());
+            return BigInteger.valueOf(((SnmpUInt32) m_value).getValue());
         default:
             return new BigInteger(m_value.toString());
         }
@@ -277,9 +274,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
     public SnmpObjId toSnmpObjId() {
         switch (m_value.typeId()) {
         case SnmpSMI.SMI_OBJECTID:
-            return SnmpObjId.get(((SnmpObjectId)m_value).getIdentifiers());
+            return SnmpObjId.get(((SnmpObjectId) m_value).getIdentifiers());
         default:
-            throw new IllegalArgumentException("cannt convert "+m_value+" to a SnmpObjId");
+            throw new IllegalArgumentException("cannt convert " + m_value + " to a SnmpObjId");
         }
     }
 
@@ -309,18 +306,22 @@ class JoeSnmpValue extends AbstractSnmpValue {
 
     @Override
     public int hashCode() {
-        if (m_value == null) return 2677;
+        if (m_value == null)
+            return 2677;
         return m_value.hashCode();
     }
 
     @Override
     public boolean equals(final Object obj) {
-           if (obj == null) return false;
-           if (obj == this) return true;
-           if (obj.getClass() != getClass()) return false;
+        if (obj == null)
+            return false;
+        if (obj == this)
+            return true;
+        if (obj.getClass() != getClass())
+            return false;
 
-           final JoeSnmpValue that = (JoeSnmpValue)obj;
-           return m_value == null ? that.m_value == null : m_value.equals(that.m_value);
+        final JoeSnmpValue that = (JoeSnmpValue) obj;
+        return m_value == null ? that.m_value == null : m_value.equals(that.m_value);
 
     }
 

@@ -29,7 +29,9 @@
 package org.opennms.dashboard.client;
 
 /**
- * <p>SurveillanceListener interface.</p>
+ * <p>
+ * SurveillanceListener interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -41,25 +43,39 @@ package org.opennms.dashboard.client;
 public interface SurveillanceListener {
 
     /**
-     * <p>onAllClicked</p>
+     * <p>
+     * onAllClicked
+     * </p>
      *
-     * @param viewer a {@link org.opennms.dashboard.client.Dashlet} object.
+     * @param viewer
+     *            a {@link org.opennms.dashboard.client.Dashlet} object.
      */
     public void onAllClicked(Dashlet viewer);
 
     /**
-     * <p>onSurveillanceGroupClicked</p>
+     * <p>
+     * onSurveillanceGroupClicked
+     * </p>
      *
-     * @param viewer a {@link org.opennms.dashboard.client.Dashlet} object.
-     * @param group a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
+     * @param viewer
+     *            a {@link org.opennms.dashboard.client.Dashlet} object.
+     * @param group
+     *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
+     *            object.
      */
     public void onSurveillanceGroupClicked(Dashlet viewer, SurveillanceGroup group);
 
     /**
-     * <p>onIntersectionClicked</p>
+     * <p>
+     * onIntersectionClicked
+     * </p>
      *
-     * @param viewer a {@link org.opennms.dashboard.client.Dashlet} object.
-     * @param intersection a {@link org.opennms.dashboard.client.SurveillanceIntersection} object.
+     * @param viewer
+     *            a {@link org.opennms.dashboard.client.Dashlet} object.
+     * @param intersection
+     *            a
+     *            {@link org.opennms.dashboard.client.SurveillanceIntersection}
+     *            object.
      */
     public void onIntersectionClicked(Dashlet viewer, SurveillanceIntersection intersection);
 

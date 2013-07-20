@@ -34,7 +34,9 @@ import org.opennms.netmgt.config.collector.CollectionAttribute;
 import org.opennms.netmgt.config.collector.Persister;
 
 /**
- * <p>StringAttributeType class.</p>
+ * <p>
+ * StringAttributeType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,9 +44,12 @@ import org.opennms.netmgt.config.collector.Persister;
 public class StringAttributeType extends SnmpAttributeType {
 
     /**
-     * <p>supportsType</p>
+     * <p>
+     * supportsType
+     * </p>
      *
-     * @param rawType a {@link java.lang.String} object.
+     * @param rawType
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public static boolean supportsType(String rawType) {
@@ -52,14 +57,23 @@ public class StringAttributeType extends SnmpAttributeType {
     }
 
     /**
-     * <p>Constructor for StringAttributeType.</p>
+     * <p>
+     * Constructor for StringAttributeType.
+     * </p>
      *
-     * @param resourceType a {@link org.opennms.netmgt.collectd.ResourceType} object.
-     * @param collectionName a {@link java.lang.String} object.
-     * @param mibObj a {@link org.opennms.netmgt.config.MibObject} object.
-     * @param groupType a {@link org.opennms.netmgt.config.collector.AttributeGroupType} object.
+     * @param resourceType
+     *            a {@link org.opennms.netmgt.collectd.ResourceType} object.
+     * @param collectionName
+     *            a {@link java.lang.String} object.
+     * @param mibObj
+     *            a {@link org.opennms.netmgt.config.MibObject} object.
+     * @param groupType
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.AttributeGroupType}
+     *            object.
      */
-    public StringAttributeType(ResourceType resourceType, String collectionName, MibObject mibObj, AttributeGroupType groupType) {
+    public StringAttributeType(ResourceType resourceType, String collectionName, MibObject mibObj,
+            AttributeGroupType groupType) {
         super(resourceType, collectionName, mibObj, groupType);
     }
 

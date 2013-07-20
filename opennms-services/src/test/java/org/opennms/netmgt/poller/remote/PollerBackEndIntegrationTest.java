@@ -77,22 +77,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/applicationContext-pollerBackEnd.xml",
         "classpath:/META-INF/opennms/applicationContext-exportedPollerBackEnd-http.xml",
         "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml",
-        "classpath:/org/opennms/netmgt/poller/remote/applicationContext-configOverride.xml"
-})
+        "classpath:/org/opennms/netmgt/poller/remote/applicationContext-configOverride.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class PollerBackEndIntegrationTest implements InitializingBean {
 
-    @Resource(name="daemon")
+    @Resource(name = "daemon")
     PollerBackEnd m_backEnd;
 
     @Autowired
@@ -119,7 +116,7 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockLogAppender.setupLogging();
     }
 
@@ -228,7 +225,8 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         final int serviceId = service.getId();
 
         // make sure there is no rrd data
-        final File rrdFile = new File("target/test-data/distributed/"+locationMonitorId+"/"+ InetAddressUtils.str(iface.getIpAddress()) +"/http" + RrdUtils.getExtension());
+        final File rrdFile = new File("target/test-data/distributed/" + locationMonitorId + "/"
+                + InetAddressUtils.str(iface.getIpAddress()) + "/http" + RrdUtils.getExtension());
         if (rrdFile.exists()) {
             rrdFile.delete();
         }
@@ -239,7 +237,10 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         Thread.sleep(1000);
         m_backEnd.reportResult(locationMonitorId, serviceId, PollStatus.unavailable());
 
-        final Collection<OnmsLocationSpecificStatus> statuses = m_locationMonitorDao.getStatusChangesForLocationBetween(new Date(0L), new Date(), "RDU");
+        final Collection<OnmsLocationSpecificStatus> statuses = m_locationMonitorDao.getStatusChangesForLocationBetween(new Date(
+                                                                                                                                 0L),
+                                                                                                                        new Date(),
+                                                                                                                        "RDU");
         assertEquals(2, statuses.size());
 
         final Iterator<OnmsLocationSpecificStatus> statusIterator = statuses.iterator();

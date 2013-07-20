@@ -34,18 +34,22 @@ public class Profiler {
 
     public static class Timer {
         long startTime;
+
         long endTime;
+
         int count;
+
         int sum;
 
         synchronized public void start() {
-            if (!isStarted()) startTime = System.currentTimeMillis();
+            if (!isStarted())
+                startTime = System.currentTimeMillis();
             count++;
         }
 
         synchronized public void stop() {
             endTime = System.currentTimeMillis();
-            sum += (endTime -startTime);
+            sum += (endTime - startTime);
             startTime = 0;
             endTime = 0;
         }
@@ -63,14 +67,15 @@ public class Profiler {
         }
 
         synchronized public double getAVG() {
-            return ((double)getSum()) / ((double)count);    // ms
+            return ((double) getSum()) / ((double) count); // ms
         }
     }
 
     protected final Map<String, Timer> timerMap = new HashMap<String, Timer>();
 
     public void start(final String key) {
-        if (timerMap.get(key) == null) timerMap.put(key, new Timer());
+        if (timerMap.get(key) == null)
+            timerMap.put(key, new Timer());
         timerMap.get(key).start();
     }
 
@@ -86,13 +91,8 @@ public class Profiler {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format(HEADER, "key", "count", "avg (ms)", "sum (sec)"));
         for (String eachKey : timerMap.keySet()) {
-            sb.append(
-                String.format(
-                        ROW,
-                        eachKey,
-                        timerMap.get(eachKey).getCount(),
-                        timerMap.get(eachKey).getAVG(),
-                        toSeconds(timerMap.get(eachKey).getSum())));
+            sb.append(String.format(ROW, eachKey, timerMap.get(eachKey).getCount(), timerMap.get(eachKey).getAVG(),
+                                    toSeconds(timerMap.get(eachKey).getSum())));
         }
         return sb.toString();
     }

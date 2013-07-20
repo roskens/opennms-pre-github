@@ -43,14 +43,14 @@ import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-
 /**
- * <p>AddMapsController class.</p>
+ * <p>
+ * AddMapsController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
@@ -62,15 +62,15 @@ public abstract class MapsLoggingController implements Controller, ServletContex
     public void setServletContext(ServletContext servletContext) {
         m_servletContext = servletContext;
     }
-    
+
     public ServletContext getServletContext() {
         return m_servletContext;
     }
 
-
     /** {@inheritDoc} */
     @Override
-    final public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    final public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response)
+            throws Exception {
         return Logging.withPrefix(MapsConstants.LOG4J_CATEGORY, new Callable<ModelAndView>() {
 
             @Override
@@ -82,6 +82,7 @@ public abstract class MapsLoggingController implements Controller, ServletContex
 
     }
 
-    abstract protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    abstract protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception;
 
 }

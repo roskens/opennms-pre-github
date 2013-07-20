@@ -37,15 +37,13 @@ import org.opennms.netmgt.snmp.AbstractSnmpStore;
  * constructor and passing in a variable list from an SNMP PDU. The actual data
  * can be recovered via the base class map interface.
  * </P>
- *
  * <P>
  * Once an instance is created and its data set either via the constructor or
  * from the update method, the actual elements can be retrieved using the
  * instance names. The names include: <EM>ifName</EM>,<EM>ifInMulticastPts
- * </EM>,<EM>ifInBroadcastPkts</EM>,<EM>etc al</EM>. The information
- * can also be accessed by using the complete object identifier for the entry.
+ * </EM>,<EM>ifInBroadcastPkts</EM>,<EM>etc al</EM>. The information can also be
+ * accessed by using the complete object identifier for the entry.
  * </P>
- *
  * <P>
  * For more information on the individual fields, and to find out their
  * respective object identifiers see RFC1573 from the IETF.
@@ -53,7 +51,6 @@ import org.opennms.netmgt.snmp.AbstractSnmpStore;
  *
  * @author <A HREF="mailto:mike@opennms.org">Mike </A>
  * @author <A HREF="mailto:weave@oculan.com">Weave </A>
- *
  * @see <A HREF="http://www.ietf.org/rfc/rfc1573.txt">RFC1573 </A>
  */
 public final class IfXTableEntry extends SnmpTableEntry {
@@ -74,7 +71,10 @@ public final class IfXTableEntry extends SnmpTableEntry {
     /** Constant <code>IF_OUT_BCAST_PKTS="ifOutBroadcastPkts"</code> */
     public final static String IF_OUT_BCAST_PKTS = "ifOutBroadcastPkts";
 
-    /** Constant <code>IF_LINK_UP_DOWN_TRAP_ENABLE="ifLinkUpDownTrapEnable"</code> */
+    /**
+     * Constant
+     * <code>IF_LINK_UP_DOWN_TRAP_ENABLE="ifLinkUpDownTrapEnable"</code>
+     */
     public final static String IF_LINK_UP_DOWN_TRAP_ENABLE = "ifLinkUpDownTrapEnable";
 
     /** Constant <code>IF_HIGH_SPEED="ifHighSpeed"</code> */
@@ -89,7 +89,10 @@ public final class IfXTableEntry extends SnmpTableEntry {
     /** Constant <code>IF_ALIAS="ifAlias"</code> */
     public final static String IF_ALIAS = "ifAlias";
 
-    /** Constant <code>IF_COUNTER_DISCONTINUITY_TIME="ifCounterDiscontinuityTime"</code> */
+    /**
+     * Constant
+     * <code>IF_COUNTER_DISCONTINUITY_TIME="ifCounterDiscontinuityTime"</code>
+     */
     public final static String IF_COUNTER_DISCONTINUITY_TIME = "ifCounterDiscontinuityTime";
 
     //
@@ -106,7 +109,6 @@ public final class IfXTableEntry extends SnmpTableEntry {
 
     /**
      * Number of object identifiers making up the interface extensions table
-     *
      * WARNING: This value must be incremented by one for each new object added
      * to the ms_elemList variable
      */
@@ -126,15 +128,22 @@ public final class IfXTableEntry extends SnmpTableEntry {
         int ndx = 0;
 
         ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, IF_NAME, ".1.3.6.1.2.1.31.1.1.1.1", 1);
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_MCAST_PKTS, ".1.3.6.1.2.1.31.1.1.1.2", 2);
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_BCAST_PKTS, ".1.3.6.1.2.1.31.1.1.1.3", 3);
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_MCAST_PKTS, ".1.3.6.1.2.1.31.1.1.1.4", 4);
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_LINK_UP_DOWN_TRAP_ENABLE, ".1.3.6.1.2.1.31.1.1.1.14", 5);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_MCAST_PKTS, ".1.3.6.1.2.1.31.1.1.1.2",
+                                              2);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_BCAST_PKTS, ".1.3.6.1.2.1.31.1.1.1.3",
+                                              3);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_MCAST_PKTS, ".1.3.6.1.2.1.31.1.1.1.4",
+                                              4);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_LINK_UP_DOWN_TRAP_ENABLE,
+                                              ".1.3.6.1.2.1.31.1.1.1.14", 5);
         ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPGAUGE32, IF_HIGH_SPEED, ".1.3.6.1.2.1.31.1.1.1.15", 6);
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_PROMISCUOUS_MODE, ".1.3.6.1.2.1.31.1.1.1.16", 7);
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_CONNECTOR_PRESENT, ".1.3.6.1.2.1.31.1.1.1.17", 8);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_PROMISCUOUS_MODE, ".1.3.6.1.2.1.31.1.1.1.16",
+                                              7);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_CONNECTOR_PRESENT, ".1.3.6.1.2.1.31.1.1.1.17",
+                                              8);
         ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, IF_ALIAS, ".1.3.6.1.2.1.31.1.1.1.18", 9);
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPTIMETICKS, IF_COUNTER_DISCONTINUITY_TIME, ".1.3.6.1.2.1.31.1.1.1.19", 10);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPTIMETICKS, IF_COUNTER_DISCONTINUITY_TIME,
+                                              ".1.3.6.1.2.1.31.1.1.1.19", 10);
     }
 
     /**
@@ -156,7 +165,8 @@ public final class IfXTableEntry extends SnmpTableEntry {
      * from an SnmpPduRequest that was received from a remote host.
      * </P>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      */
     public IfXTableEntry(final int ifIndex) {
         super(ms_elemList);
@@ -165,7 +175,9 @@ public final class IfXTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getIfName</p>
+     * <p>
+     * getIfName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -174,7 +186,9 @@ public final class IfXTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getIfAlias</p>
+     * <p>
+     * getIfAlias
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

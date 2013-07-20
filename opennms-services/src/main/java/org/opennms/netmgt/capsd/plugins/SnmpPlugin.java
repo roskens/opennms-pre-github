@@ -76,9 +76,8 @@ public class SnmpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -97,17 +96,14 @@ public class SnmpPlugin extends AbstractPlugin {
         SnmpValue val = SnmpUtils.get(agentConfig, SnmpObjId.get(oid));
         if (val == null || val.isNull() || val.isEndOfMib() || val.isError()) {
             return null;
-        }
-        else {
+        } else {
             return val.toString();
         }
     }
 
-
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -154,7 +150,7 @@ public class SnmpPlugin extends AbstractPlugin {
                     else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION2C);
 
-                    //TODO: make sure JoeSnmpStrategy correctly handles this.
+                    // TODO: make sure JoeSnmpStrategy correctly handles this.
                     else if (version.equalsIgnoreCase("snmpv3"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION3);
                 }
@@ -165,33 +161,34 @@ public class SnmpPlugin extends AbstractPlugin {
                     expectedValue = (String) qualifiers.get("vbvalue");
                 }
 
-                if(qualifiers.get("table") != null) {
-                	isTable = (String) qualifiers.get("table");
+                if (qualifiers.get("table") != null) {
+                    isTable = (String) qualifiers.get("table");
                 }
             }
 
             if (isTable != null && isTable.equalsIgnoreCase("true")) {
 
-            	 SnmpObjId snmpObjId = SnmpObjId.get(oid);
+                SnmpObjId snmpObjId = SnmpObjId.get(oid);
 
-            	  Map<SnmpInstId, SnmpValue> table = SnmpUtils.getOidValues(agentConfig, "SnmpPlugin", snmpObjId);
-		  for (Map.Entry<SnmpInstId, SnmpValue> e : table.entrySet()) {
-                      if (e.getValue().toString().equals(expectedValue)) {
-                      	return true;
-                      }
-                  }
+                Map<SnmpInstId, SnmpValue> table = SnmpUtils.getOidValues(agentConfig, "SnmpPlugin", snmpObjId);
+                for (Map.Entry<SnmpInstId, SnmpValue> e : table.entrySet()) {
+                    if (e.getValue().toString().equals(expectedValue)) {
+                        return true;
+                    }
+                }
             }
 
             else {
-            	String retrievedValue = getValue(agentConfig, oid);
+                String retrievedValue = getValue(agentConfig, oid);
 
-            	if (retrievedValue != null && expectedValue != null) {
-            		return (Pattern.compile(expectedValue).matcher(retrievedValue).find());
-            	} else {
-            		return (retrievedValue != null);
+                if (retrievedValue != null && expectedValue != null) {
+                    return (Pattern.compile(expectedValue).matcher(retrievedValue).find());
+                } else {
+                    return (retrievedValue != null);
 
-                //return (expectedValue == null ? true : retrievedValue.equals(expectedValue));
-            	}
+                    // return (expectedValue == null ? true :
+                    // retrievedValue.equals(expectedValue));
+                }
 
             }
 

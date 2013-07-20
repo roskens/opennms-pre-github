@@ -42,9 +42,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>RequisitionNode class.</p>
+ * <p>
+ * RequisitionNode class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -56,9 +57,11 @@ public class RequisitionNode {
 
     @XmlElement(name = "interface")
     protected List<RequisitionInterface> m_interfaces = new ArrayList<RequisitionInterface>();
-    @XmlElement(name="category")
+
+    @XmlElement(name = "category")
     protected List<RequisitionCategory> m_categories = new ArrayList<RequisitionCategory>();
-    @XmlElement(name="asset")
+
+    @XmlElement(name = "asset")
     protected List<RequisitionAsset> m_assets = new ArrayList<RequisitionAsset>();
 
     @XmlAttribute(name = "building")
@@ -83,20 +86,26 @@ public class RequisitionNode {
     protected String m_parentNodeLabel;
 
     /**
-     * <p>getInterfaceCount</p>
+     * <p>
+     * getInterfaceCount
+     * </p>
      *
      * @return a int.
      */
     @XmlTransient
     public int getInterfaceCount() {
-        return (m_interfaces == null)? 0 : m_interfaces.size();
+        return (m_interfaces == null) ? 0 : m_interfaces.size();
     }
 
     /* backwards-compat with ModelImport */
     /**
-     * <p>getInterface</p>
+     * <p>
+     * getInterface
+     * </p>
      *
-     * @return an array of {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface} objects.
+     * @return an array of
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface}
+     *         objects.
      */
     @XmlTransient
     public RequisitionInterface[] getInterface() {
@@ -104,7 +113,9 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>getInterfaces</p>
+     * <p>
+     * getInterfaces
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -113,24 +124,33 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>setInterfaces</p>
+     * <p>
+     * setInterfaces
+     * </p>
      *
-     * @param interfaces a {@link java.util.List} object.
+     * @param interfaces
+     *            a {@link java.util.List} object.
      */
     public void setInterfaces(Collection<RequisitionInterface> interfaces) {
         if (interfaces == null) {
             interfaces = new TreeSet<RequisitionInterface>();
         }
-        if (m_interfaces == interfaces) return;
+        if (m_interfaces == interfaces)
+            return;
         m_interfaces.clear();
         m_interfaces.addAll(interfaces);
     }
 
     /**
-     * <p>getInterface</p>
+     * <p>
+     * getInterface
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface}
+     *         object.
      */
     public RequisitionInterface getInterface(String ipAddress) {
         for (RequisitionInterface iface : m_interfaces) {
@@ -142,18 +162,26 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>removeInterface</p>
+     * <p>
+     * removeInterface
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface} object.
+     * @param iface
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface}
+     *            object.
      */
     public boolean deleteInterface(final RequisitionInterface iface) {
         return m_interfaces.remove(iface);
     }
 
     /**
-     * <p>deleteInterface</p>
+     * <p>
+     * deleteInterface
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public boolean deleteInterface(final String ipAddress) {
         final Iterator<RequisitionInterface> i = m_interfaces.iterator();
@@ -168,9 +196,14 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>putInterface</p>
+     * <p>
+     * putInterface
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface} object.
+     * @param iface
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface}
+     *            object.
      */
     public void putInterface(RequisitionInterface iface) {
         deleteInterface(iface.getIpAddr());
@@ -178,20 +211,26 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>getCategoryCount</p>
+     * <p>
+     * getCategoryCount
+     * </p>
      *
      * @return a int.
      */
     @XmlTransient
     public int getCategoryCount() {
-        return (m_categories == null)? 0 : m_categories.size();
+        return (m_categories == null) ? 0 : m_categories.size();
     }
 
     /* backwards compatibility with ModelImport */
     /**
-     * <p>getCategory</p>
+     * <p>
+     * getCategory
+     * </p>
      *
-     * @return an array of {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} objects.
+     * @return an array of
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *         objects.
      */
     @XmlTransient
     public RequisitionCategory[] getCategory() {
@@ -199,7 +238,9 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>getCategories</p>
+     * <p>
+     * getCategories
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -208,24 +249,33 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>setCategories</p>
+     * <p>
+     * setCategories
+     * </p>
      *
-     * @param categories a {@link java.util.List} object.
+     * @param categories
+     *            a {@link java.util.List} object.
      */
     public void setCategories(Collection<RequisitionCategory> categories) {
         if (categories == null) {
             categories = new TreeSet<RequisitionCategory>();
         }
-        if (m_categories == categories) return;
+        if (m_categories == categories)
+            return;
         m_categories.clear();
         m_categories.addAll(categories);
     }
 
     /**
-     * <p>getCategory</p>
+     * <p>
+     * getCategory
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} object.
+     * @param category
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *         object.
      */
     public RequisitionCategory getCategory(String category) {
         for (RequisitionCategory cat : m_categories) {
@@ -237,18 +287,26 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>deleteCategory</p>
+     * <p>
+     * deleteCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} object.
+     * @param category
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *            object.
      */
     public boolean deleteCategory(final RequisitionCategory category) {
         return m_categories.remove(category);
     }
 
     /**
-     * <p>deleteCategory</p>
+     * <p>
+     * deleteCategory
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
      */
     public boolean deleteCategory(final String category) {
         if (m_categories != null) {
@@ -265,9 +323,14 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>putCategory</p>
+     * <p>
+     * putCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} object.
+     * @param category
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *            object.
      */
     public void putCategory(RequisitionCategory category) {
         deleteCategory(category.getName());
@@ -275,20 +338,26 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>getAssetCount</p>
+     * <p>
+     * getAssetCount
+     * </p>
      *
      * @return a int.
      */
     @XmlTransient
     public int getAssetCount() {
-        return (m_assets == null)? 0 : m_assets.size();
+        return (m_assets == null) ? 0 : m_assets.size();
     }
 
     /* backwards compatibility with ModelImport */
     /**
-     * <p>getAsset</p>
+     * <p>
+     * getAsset
+     * </p>
      *
-     * @return an array of {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset} objects.
+     * @return an array of
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset}
+     *         objects.
      */
     @XmlTransient
     public RequisitionAsset[] getAsset() {
@@ -296,7 +365,9 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>getAssets</p>
+     * <p>
+     * getAssets
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -305,24 +376,33 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>setAssets</p>
+     * <p>
+     * setAssets
+     * </p>
      *
-     * @param assets a {@link java.util.List} object.
+     * @param assets
+     *            a {@link java.util.List} object.
      */
     public void setAssets(Collection<RequisitionAsset> assets) {
         if (assets == null) {
             assets = new TreeSet<RequisitionAsset>();
         }
-        if (m_assets == assets) return;
+        if (m_assets == assets)
+            return;
         m_assets.clear();
         m_assets.addAll(assets);
     }
 
     /**
-     * <p>getAsset</p>
+     * <p>
+     * getAsset
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset}
+     *         object.
      */
     public RequisitionAsset getAsset(String name) {
         for (RequisitionAsset asset : m_assets) {
@@ -334,9 +414,12 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>deleteAsset</p>
+     * <p>
+     * deleteAsset
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public boolean deleteAsset(final String name) {
         final Iterator<RequisitionAsset> i = m_assets.iterator();
@@ -351,18 +434,28 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>deleteAsset</p>
+     * <p>
+     * deleteAsset
+     * </p>
      *
-     * @param asset a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset} object.
+     * @param asset
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset}
+     *            object.
      */
     public boolean deleteAsset(final RequisitionAsset asset) {
         return m_assets.remove(asset);
     }
 
     /**
-     * <p>putAsset</p>
+     * <p>
+     * putAsset
+     * </p>
      *
-     * @param asset a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset} object.
+     * @param asset
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset}
+     *            object.
      */
     public void putAsset(RequisitionAsset asset) {
         deleteAsset(asset.getName());
@@ -370,7 +463,9 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>Getter for the field <code>building</code>.</p>
+     * <p>
+     * Getter for the field <code>building</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -379,16 +474,21 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>Setter for the field <code>building</code>.</p>
+     * <p>
+     * Setter for the field <code>building</code>.
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setBuilding(String value) {
         m_building = value;
     }
 
     /**
-     * <p>Getter for the field <code>city</code>.</p>
+     * <p>
+     * Getter for the field <code>city</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -397,16 +497,21 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>Setter for the field <code>city</code>.</p>
+     * <p>
+     * Setter for the field <code>city</code>.
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setCity(String value) {
         m_city = value;
     }
 
     /**
-     * <p>Getter for the field <code>foreignId</code>.</p>
+     * <p>
+     * Getter for the field <code>foreignId</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -415,16 +520,21 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>Setter for the field <code>foreignId</code>.</p>
+     * <p>
+     * Setter for the field <code>foreignId</code>.
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setForeignId(String value) {
         m_foreignId = value;
     }
 
     /**
-     * <p>Getter for the field <code>nodeLabel</code>.</p>
+     * <p>
+     * Getter for the field <code>nodeLabel</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -433,16 +543,21 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>Setter for the field <code>nodeLabel</code>.</p>
+     * <p>
+     * Setter for the field <code>nodeLabel</code>.
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setNodeLabel(String value) {
         m_nodeLabel = value;
     }
 
     /**
-     * <p>Getter for the field <code>parentForeignSource</code>.</p>
+     * <p>
+     * Getter for the field <code>parentForeignSource</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -451,16 +566,21 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>Setter for the field <code>parentForeignSource</code>.</p>
+     * <p>
+     * Setter for the field <code>parentForeignSource</code>.
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setParentForeignSource(String value) {
         m_parentForeignSource = value;
     }
 
     /**
-     * <p>Getter for the field <code>parentForeignId</code>.</p>
+     * <p>
+     * Getter for the field <code>parentForeignId</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -469,16 +589,21 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>Setter for the field <code>parentForeignId</code>.</p>
+     * <p>
+     * Setter for the field <code>parentForeignId</code>.
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setParentForeignId(String value) {
         m_parentForeignId = value;
     }
 
     /**
-     * <p>Getter for the field <code>parentNodeLabel</code>.</p>
+     * <p>
+     * Getter for the field <code>parentNodeLabel</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -487,9 +612,12 @@ public class RequisitionNode {
     }
 
     /**
-     * <p>Setter for the field <code>parentNodeLabel</code>.</p>
+     * <p>
+     * Setter for the field <code>parentNodeLabel</code>.
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setParentNodeLabel(String value) {
         m_parentNodeLabel = value;
@@ -514,57 +642,70 @@ public class RequisitionNode {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof RequisitionNode)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof RequisitionNode))
+            return false;
         final RequisitionNode other = (RequisitionNode) obj;
         if (m_building == null) {
-            if (other.m_building != null) return false;
+            if (other.m_building != null)
+                return false;
         } else if (!m_building.equals(other.m_building)) {
             return false;
         }
         if (m_city == null) {
-            if (other.m_city != null) return false;
+            if (other.m_city != null)
+                return false;
         } else if (!m_city.equals(other.m_city)) {
             return false;
         }
         if (m_foreignId == null) {
-            if (other.m_foreignId != null) return false;
+            if (other.m_foreignId != null)
+                return false;
         } else if (!m_foreignId.equals(other.m_foreignId)) {
             return false;
         }
         if (m_assets == null) {
-            if (other.m_assets != null) return false;
+            if (other.m_assets != null)
+                return false;
         } else if (!m_assets.equals(other.m_assets)) {
             return false;
         }
         if (m_categories == null) {
-            if (other.m_categories != null) return false;
+            if (other.m_categories != null)
+                return false;
         } else if (!m_categories.equals(other.m_categories)) {
             return false;
         }
         if (m_interfaces == null) {
-            if (other.m_interfaces != null) return false;
+            if (other.m_interfaces != null)
+                return false;
         } else if (!m_interfaces.equals(other.m_interfaces)) {
             return false;
         }
         if (m_nodeLabel == null) {
-            if (other.m_nodeLabel != null) return false;
+            if (other.m_nodeLabel != null)
+                return false;
         } else if (!m_nodeLabel.equals(other.m_nodeLabel)) {
             return false;
         }
         if (m_parentForeignId == null) {
-            if (other.m_parentForeignId != null) return false;
+            if (other.m_parentForeignId != null)
+                return false;
         } else if (!m_parentForeignId.equals(other.m_parentForeignId)) {
             return false;
         }
         if (m_parentForeignSource == null) {
-            if (other.m_parentForeignSource != null) return false;
+            if (other.m_parentForeignSource != null)
+                return false;
         } else if (!m_parentForeignSource.equals(other.m_parentForeignSource)) {
             return false;
         }
         if (m_parentNodeLabel == null) {
-            if (other.m_parentNodeLabel != null) return false;
+            if (other.m_parentNodeLabel != null)
+                return false;
         } else if (!m_parentNodeLabel.equals(other.m_parentNodeLabel)) {
             return false;
         }
@@ -573,13 +714,10 @@ public class RequisitionNode {
 
     @Override
     public String toString() {
-        return "RequisitionNode [interfaces=" + m_interfaces
-                + ", categories=" + m_categories + ", assets=" + m_assets
-                + ", building=" + m_building + ", city=" + m_city
-                + ", foreignId=" + m_foreignId + ", nodeLabel=" + m_nodeLabel
-                + ", parentForeignSource=" + m_parentForeignSource
-                + ", parentForeignId=" + m_parentForeignId
-                + ", parentNodeLabel=" + m_parentNodeLabel + "]";
+        return "RequisitionNode [interfaces=" + m_interfaces + ", categories=" + m_categories + ", assets=" + m_assets
+                + ", building=" + m_building + ", city=" + m_city + ", foreignId=" + m_foreignId + ", nodeLabel="
+                + m_nodeLabel + ", parentForeignSource=" + m_parentForeignSource + ", parentForeignId="
+                + m_parentForeignId + ", parentNodeLabel=" + m_parentNodeLabel + "]";
     }
 
 }

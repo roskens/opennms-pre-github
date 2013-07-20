@@ -58,8 +58,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
@@ -104,10 +103,9 @@ public class IfIndexNullTest extends ProvisioningTestCase implements Initializin
     }
 
     @Test
-    @JUnitSnmpAgents(value={
-        @JUnitSnmpAgent(host="172.20.1.201", port=161, resource="classpath:snmpTestData-null.properties"),
-        @JUnitSnmpAgent(host="172.20.1.204", port=161, resource="classpath:snmpTestData-null.properties")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = "172.20.1.201", port = 161, resource = "classpath:snmpTestData-null.properties"),
+            @JUnitSnmpAgent(host = "172.20.1.204", port = 161, resource = "classpath:snmpTestData-null.properties") })
     public void testNullIfIndex() throws Exception {
         final CountDownLatch eventRecieved = anticipateEvents(1, EventConstants.PROVISION_SCAN_COMPLETE_UEI, EventConstants.PROVISION_SCAN_ABORTED_UEI);
 
@@ -122,13 +120,13 @@ public class IfIndexNullTest extends ProvisioningTestCase implements Initializin
         final NodeScan scan = m_provisioner.createNodeScan(node.getId(), node.getForeignSource(), node.getForeignId());
         runScan(scan);
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(2, getInterfaceDao().countAll());
 
     }
 
     public void runScan(final NodeScan scan) throws InterruptedException, ExecutionException {
-    	final Task t = scan.createTask();
+        final Task t = scan.createTask();
         t.schedule();
         t.waitFor();
         waitForEverything();

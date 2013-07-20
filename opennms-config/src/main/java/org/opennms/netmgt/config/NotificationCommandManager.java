@@ -43,24 +43,31 @@ import org.opennms.netmgt.config.notificationCommands.Command;
 import org.opennms.netmgt.config.notificationCommands.NotificationCommands;
 
 /**
- * <p>Abstract NotificationCommandManager class.</p>
+ * <p>
+ * Abstract NotificationCommandManager class.
+ * </p>
  *
  * @author David Hustace <david@opennms.org>
  * @version $Id: $
  */
 public abstract class NotificationCommandManager {
     private static final Logger LOG = LoggerFactory.getLogger(NotificationCommandManager.class);
+
     /**
-     * List of all configuration notification commands.  parseXml must be called to populate this.
+     * List of all configuration notification commands. parseXml must be called
+     * to populate this.
      */
     private Map<String, Command> m_commands;
 
     /**
      * Populate the internal list of notification commands from an XML file.
      *
-     * @param reader contains the XML file to be parsed
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param reader
+     *            contains the XML file to be parsed
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     protected void parseXML(InputStream reader) throws MarshalException, ValidationException {
         NotificationCommands config = CastorUtils.unmarshal(NotificationCommands.class, reader);
@@ -86,17 +93,22 @@ public abstract class NotificationCommandManager {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public abstract void update() throws Exception;
 
     /**
      * Gets a notification command for a particular command name.
      *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.notificationCommands.Command} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.config.notificationCommands.Command}
+     *         object.
      */
     public Command getCommand(String name) {
         return m_commands.get(name);

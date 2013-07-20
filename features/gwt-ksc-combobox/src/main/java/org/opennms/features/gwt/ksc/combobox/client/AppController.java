@@ -38,7 +38,6 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 public class AppController implements Presenter {
 
-
     private JsArray<KscReportDetail> m_kscReportDetails;
 
     public AppController(JsArray<KscReportDetail> kscReportDetails) {

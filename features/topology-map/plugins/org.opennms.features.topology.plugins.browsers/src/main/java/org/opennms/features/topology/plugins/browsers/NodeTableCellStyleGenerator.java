@@ -25,9 +25,10 @@ import org.opennms.netmgt.model.OnmsSeverity;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.CellStyleGenerator;
 
-public class NodeTableCellStyleGenerator  implements CellStyleGenerator {
+public class NodeTableCellStyleGenerator implements CellStyleGenerator {
 
     private final AlarmCellStyleRenderer cellStyleRenderer = new AlarmCellStyleRenderer();
+
     private AlarmDao alarmDao;
 
     protected AlarmDao getAlarmDao() {
@@ -40,8 +41,9 @@ public class NodeTableCellStyleGenerator  implements CellStyleGenerator {
 
     @Override
     public String getStyle(Table source, Object itemId, Object propertyId) {
-        if (itemId == null || !(itemId instanceof Integer)) return "";
-        OnmsAlarm alarm = getAlarm(((Integer)itemId).intValue());
+        if (itemId == null || !(itemId instanceof Integer))
+            return "";
+        OnmsAlarm alarm = getAlarm(((Integer) itemId).intValue());
         return cellStyleRenderer.getStyle(alarm);
     }
 

@@ -36,16 +36,18 @@ import javax.management.ObjectInstance;
 import org.opennms.netmgt.config.service.Service;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class InvokerService {
     private Service m_service;
+
     private ObjectInstance m_mbean;
+
     private Throwable m_badThrowable;
 
     /**
-     * No public constructor.  Use @{link InvokerService#createServiceArray(Service[])}.
+     * No public constructor. Use @{link
+     * InvokerService#createServiceArray(Service[])}.
      */
     private InvokerService(Service service) {
         setService(service);
@@ -86,7 +88,9 @@ class InvokerService {
     }
 
     /**
-     * <p>isBadService</p>
+     * <p>
+     * isBadService
+     * </p>
      *
      * @return a boolean.
      */

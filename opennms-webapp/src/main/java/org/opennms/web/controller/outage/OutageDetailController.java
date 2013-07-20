@@ -42,7 +42,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>OutageDetailController class.</p>
+ * <p>
+ * OutageDetailController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,11 +53,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class OutageDetailController extends AbstractController implements InitializingBean {
 
     private String m_successView;
+
     private WebOutageRepository m_webOutageRepository;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         int outageId = -1;
 
         String outageIdString = request.getParameter("id");
@@ -65,8 +69,7 @@ public class OutageDetailController extends AbstractController implements Initia
 
         try {
             outageId = WebSecurityUtils.safeParseInt(WebSecurityUtils.sanitizeString(outageIdString, false));
-        }
-        catch( NumberFormatException e ) {
+        } catch (NumberFormatException e) {
             throw new OutageIdNotFoundException("The outage id must be an integer.", outageIdString);
         }
 
@@ -78,9 +81,12 @@ public class OutageDetailController extends AbstractController implements Initia
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -93,18 +99,24 @@ public class OutageDetailController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>setWebOutageRepository</p>
+     * <p>
+     * setWebOutageRepository
+     * </p>
      *
-     * @param webOutageRepository a {@link org.opennms.web.outage.WebOutageRepository} object.
+     * @param webOutageRepository
+     *            a {@link org.opennms.web.outage.WebOutageRepository} object.
      */
     public void setWebOutageRepository(WebOutageRepository webOutageRepository) {
         m_webOutageRepository = webOutageRepository;

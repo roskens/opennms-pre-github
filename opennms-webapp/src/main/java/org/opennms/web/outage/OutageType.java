@@ -34,17 +34,16 @@ import java.util.Map;
 import org.springframework.util.Assert;
 
 /**
- * <p>OutageType class.</p>
+ * <p>
+ * OutageType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public enum OutageType {
-    CURRENT("current"),
-    RESOLVED("resolved"),
-    BOTH("both"),
-    SUPPRESSED("suppressed");
+    CURRENT("current"), RESOLVED("resolved"), BOTH("both"), SUPPRESSED("suppressed");
 
     /** Constant <code>s_outageTypesString</code> */
     private static final Map<String, OutageType> s_outageTypesString;
@@ -64,7 +63,9 @@ public enum OutageType {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -74,7 +75,9 @@ public enum OutageType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,7 +86,9 @@ public enum OutageType {
     }
 
     /**
-     * <p>getShortName</p>
+     * <p>
+     * getShortName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,9 +126,12 @@ public enum OutageType {
     }
 
     /**
-     * <p>getOutageType</p>
+     * <p>
+     * getOutageType
+     * </p>
      *
-     * @param outageTypeString a {@link java.lang.String} object.
+     * @param outageTypeString
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.outage.OutageType} object.
      */
     public static OutageType getOutageType(String outageTypeString) {

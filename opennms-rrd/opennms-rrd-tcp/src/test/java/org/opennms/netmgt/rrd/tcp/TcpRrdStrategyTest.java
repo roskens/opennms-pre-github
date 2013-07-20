@@ -53,11 +53,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /*
-import org.python.core.PyException;
-import org.python.core.PyDictionary;
-import org.python.core.PyInteger;
-import org.python.core.PyObject;
-import org.python.util.PythonInterpreter;
+ import org.python.core.PyException;
+ import org.python.core.PyDictionary;
+ import org.python.core.PyInteger;
+ import org.python.core.PyObject;
+ import org.python.util.PythonInterpreter;
  */
 
 /**
@@ -68,9 +68,12 @@ import org.python.util.PythonInterpreter;
 public class TcpRrdStrategyTest {
     private static final Logger LOG = LoggerFactory.getLogger(TcpRrdStrategyTest.class);
 
-    private RrdStrategy<Object,Object> m_strategy;
+    private RrdStrategy<Object, Object> m_strategy;
+
     private FileAnticipator m_fileAnticipator;
+
     private static Thread m_listenerThread;
+
     private static String m_tempDir;
 
     @BeforeClass
@@ -85,21 +88,26 @@ public class TcpRrdStrategyTest {
                     while (true) {
                         try {
                             /*
-                             * This python code is not working properly under Jython. My
-                             * hunch is that it would be better under the new Jython 2.5.1
-                             * but that version is not easy to use under Maven, see:
-                             *
+                             * This python code is not working properly under
+                             * Jython. My
+                             * hunch is that it would be better under the new
+                             * Jython 2.5.1
+                             * but that version is not easy to use under Maven,
+                             * see:
                              * http://bugs.jython.org/issue1512
                              * http://bugs.jython.org/issue1513
-                             *
-                            PythonInterpreter python = new PythonInterpreter();
-                            python.execfile(
-                                    // Load the python path parser script from the classpath
-                                    Thread.currentThread().getContextClassLoader().getResourceAsStream(
-                                            "rrdPathParser.py"
-                                    )
-                            );
-                            python.eval("configureRrdPaths('" + m_tempDir + "')");
+                             * PythonInterpreter python = new
+                             * PythonInterpreter();
+                             * python.execfile(
+                             * // Load the python path parser script from the
+                             * classpath
+                             * Thread.currentThread().getContextClassLoader().
+                             * getResourceAsStream(
+                             * "rrdPathParser.py"
+                             * )
+                             * );
+                             * python.eval("configureRrdPaths('" + m_tempDir +
+                             * "')");
                              */
 
                             Socket socket = ssocket.accept();
@@ -109,20 +117,23 @@ public class TcpRrdStrategyTest {
                                 StringBuffer values = new StringBuffer();
                                 values.append("{ ");
                                 for (int i = 0; i < message.getValueCount(); i++) {
-                                    if (i != 0) { values.append(", "); }
+                                    if (i != 0) {
+                                        values.append(", ");
+                                    }
                                     values.append(message.getValue(i));
                                 }
                                 values.append(" }");
-                                System.out.println("Message received: { " +
-                                        "path: \"" + message.getPath() + "\", " +
-                                        "owner: \"" + message.getOwner() + "\", " +
-                                        "timestamp: \"" + message.getTimestamp() + "\", " +
-                                        "values: " + values.toString() + " }");
+                                System.out.println("Message received: { " + "path: \"" + message.getPath() + "\", "
+                                        + "owner: \"" + message.getOwner() + "\", " + "timestamp: \""
+                                        + message.getTimestamp() + "\", " + "values: " + values.toString() + " }");
 
                                 /*
                                  * See comments above re: Jython
-                                PyDictionary attributes = (PyDictionary)python.eval("parseRrdPath('" + message.getPath() + "')");
-                                System.out.println(attributes.getClass().getName());
+                                 * PyDictionary attributes =
+                                 * (PyDictionary)python.eval("parseRrdPath('" +
+                                 * message.getPath() + "')");
+                                 * System.out.println(attributes.getClass().getName
+                                 * ());
                                  */
                             }
                         } catch (SocketTimeoutException e) {
@@ -184,7 +195,7 @@ public class TcpRrdStrategyTest {
         File rrdFile = createRrdFile();
 
         Object openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
-        //m_strategy.updateFile(openedFile, "huh?", "N:1,234234");
+        // m_strategy.updateFile(openedFile, "huh?", "N:1,234234");
 
         m_strategy.closeFile(openedFile);
     }
@@ -194,13 +205,14 @@ public class TcpRrdStrategyTest {
         File rrdFile = createRrdFile();
 
         Object openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
-        long currentTimeInSeconds = (long)(new Date().getTime() / 100);
+        long currentTimeInSeconds = (long) (new Date().getTime() / 100);
         m_strategy.updateFile(openedFile, "huh?", String.valueOf(currentTimeInSeconds - 9) + ":1.234234");
         m_strategy.updateFile(openedFile, "oh  ", String.valueOf(currentTimeInSeconds - 8) + ":1.234234");
         m_strategy.updateFile(openedFile, "ok  ", String.valueOf(currentTimeInSeconds - 7) + ":1.234234");
-        // Sleep in between updates so that we don't underrun the 1-second step size
+        // Sleep in between updates so that we don't underrun the 1-second step
+        // size
         Thread.sleep(5000);
-        currentTimeInSeconds = (long)(new Date().getTime() / 100);
+        currentTimeInSeconds = (long) (new Date().getTime() / 100);
         m_strategy.updateFile(openedFile, "lol ", String.valueOf(currentTimeInSeconds - 6) + ":1.234234");
         m_strategy.updateFile(openedFile, "lolz", String.valueOf(currentTimeInSeconds - 5) + ":1.234234");
         m_strategy.updateFile(openedFile, "lolz", String.valueOf(currentTimeInSeconds - 4) + ":1.234234");
@@ -217,7 +229,8 @@ public class TcpRrdStrategyTest {
 
         // This is so the RrdUtils.getExtension() call in the strategy works
         // Properties properties = new Properties();
-        // properties.setProperty("org.opennms.rrd.fileExtension", rrdExtension);
+        // properties.setProperty("org.opennms.rrd.fileExtension",
+        // rrdExtension);
         // RrdConfig.getInstance().setProperties(properties);
 
         List<RrdDataSource> dataSources = new ArrayList<RrdDataSource>();
@@ -228,8 +241,10 @@ public class TcpRrdStrategyTest {
         m_tempDir = tempDir.getAbsolutePath();
         // Create an '/rrd/snmp/1' directory in the temp directory so that the
         // RRDs created by the test will have a realistic path
-        File rrdDir = m_fileAnticipator.tempDir(m_fileAnticipator.tempDir(m_fileAnticipator.tempDir(tempDir, "rrd"), "snmp"), "1");
-        Object def = m_strategy.createDefinition("hello!", rrdDir.getAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
+        File rrdDir = m_fileAnticipator.tempDir(m_fileAnticipator.tempDir(m_fileAnticipator.tempDir(tempDir, "rrd"),
+                                                                          "snmp"), "1");
+        Object def = m_strategy.createDefinition("hello!", rrdDir.getAbsolutePath(), rrdFileBase, 300, dataSources,
+                                                 rraList);
         m_strategy.createFile(def, null);
 
         return m_fileAnticipator.expecting(rrdDir, rrdFileBase + rrdExtension);

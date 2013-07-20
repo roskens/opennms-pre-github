@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -30,7 +29,10 @@
 package org.opennms.netmgt.asterisk.agi.jmx;
 
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
-public class AsteriskGateway extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.asterisk.agi.AsteriskGateway> implements AsteriskGatewayMBean {
+
+public class AsteriskGateway extends
+        AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.asterisk.agi.AsteriskGateway> implements
+        AsteriskGatewayMBean {
 
     /** {@inheritDoc} */
     @Override

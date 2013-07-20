@@ -55,8 +55,11 @@ import org.slf4j.LoggerFactory;
 public class JmxDatacollectionConfiggeneratorTest {
 
     private static Logger logger = LoggerFactory.getLogger(JmxDatacollectionConfiggenerator.class);
+
     private JmxDatacollectionConfiggenerator jmxConfiggenerator;
+
     private MBeanServer platformMBeanServer;
+
     private Map<String, String> dictionary = new HashMap<String, String>();
 
     @Before
@@ -71,55 +74,74 @@ public class JmxDatacollectionConfiggeneratorTest {
     @After
     public void tearDown() throws Exception {
         jmxConfiggenerator = null;
-        platformMBeanServer.unregisterMBean(new ObjectName("org.opennms.tools.jmxconfiggenerator.jmxconfig:type=JmxTest"));
+        platformMBeanServer.unregisterMBean(new ObjectName(
+                                                           "org.opennms.tools.jmxconfiggenerator.jmxconfig:type=JmxTest"));
         platformMBeanServer = null;
     }
 
     @Test
     public void testGenerateJmxConfigModelSkipJvmMBeans() {
-        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer, "testService", false, false, dictionary);
+        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer,
+                                                                                           "testService", false, false,
+                                                                                           dictionary);
         Assert.assertEquals(1, jmxConfigModel.getJmxCollection().size());
         Assert.assertEquals(1, jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().size());
-        Assert.assertEquals("org.opennms.tools.jmxconfiggenerator.jmxconfig.JmxTest", jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
-        Assert.assertEquals(3, jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getAttrib().size());
+        Assert.assertEquals("org.opennms.tools.jmxconfiggenerator.jmxconfig.JmxTest",
+                            jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
+        Assert.assertEquals(3,
+                            jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getAttrib().size());
     }
 
     @Test
     public void testGenerateJmxConfigModelRunWritableMBeans() {
-        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer, "testService", false, true, dictionary);
+        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer,
+                                                                                           "testService", false, true,
+                                                                                           dictionary);
         Assert.assertEquals(1, jmxConfigModel.getJmxCollection().size());
         Assert.assertEquals(1, jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().size());
-        Assert.assertEquals("org.opennms.tools.jmxconfiggenerator.jmxconfig.JmxTest", jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
-        Assert.assertEquals(4, jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getAttrib().size());
+        Assert.assertEquals("org.opennms.tools.jmxconfiggenerator.jmxconfig.JmxTest",
+                            jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
+        Assert.assertEquals(4,
+                            jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getAttrib().size());
     }
 
     @Test
     public void testGenerateJmxConfigModelRunJvmMBeans() {
-        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer, "testService", true, false, dictionary);
+        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer,
+                                                                                           "testService", true, false,
+                                                                                           dictionary);
         Assert.assertEquals(1, jmxConfigModel.getJmxCollection().size());
         Assert.assertTrue(10 < jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().size());
-        Assert.assertEquals("org.opennms.tools.jmxconfiggenerator.jmxconfig.JmxTest", jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
-        Assert.assertEquals(3, jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getAttrib().size());
+        Assert.assertEquals("org.opennms.tools.jmxconfiggenerator.jmxconfig.JmxTest",
+                            jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
+        Assert.assertEquals(3,
+                            jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getAttrib().size());
     }
 
-    //@Test
+    // @Test
     public void testGenerateJmxConfigCassandraLocal() throws MalformedURLException, IOException {
-        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer, "cassandra", false, false, dictionary);
+        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer,
+                                                                                           "cassandra", false, false,
+                                                                                           dictionary);
         Assert.assertEquals(1, jmxConfigModel.getJmxCollection().size());
         Assert.assertEquals(35, jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().size());
-        Assert.assertEquals("org.apache.cassandra.internal.MemtablePostFlusher", jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
+        Assert.assertEquals("org.apache.cassandra.internal.MemtablePostFlusher",
+                            jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
     }
 
-    //@Test
+    // @Test
     public void testGenerateJmxConfigJmxMp() throws MalformedURLException, IOException {
 
-    	JMXServiceURL url = jmxConfiggenerator.getJmxServiceURL(false, "connect.opennms-edu.net", "9998");
-    	JMXConnector jmxConnector = jmxConfiggenerator.getJmxConnector(null, null, url);
+        JMXServiceURL url = jmxConfiggenerator.getJmxServiceURL(false, "connect.opennms-edu.net", "9998");
+        JMXConnector jmxConnector = jmxConfiggenerator.getJmxConnector(null, null, url);
         MBeanServerConnection mBeanServerConnection = jmxConfiggenerator.createMBeanServerConnection(jmxConnector);
-        logger.debug("MBeanServerConnection: '{}'",mBeanServerConnection);
-        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(mBeanServerConnection, "RemoteRepository", true, true, dictionary);
+        logger.debug("MBeanServerConnection: '{}'", mBeanServerConnection);
+        JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(mBeanServerConnection,
+                                                                                           "RemoteRepository", true,
+                                                                                           true, dictionary);
         Assert.assertEquals(1, jmxConfigModel.getJmxCollection().size());
         Assert.assertEquals(35, jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().size());
-        Assert.assertEquals("org.apache.cassandra.internal.MemtablePostFlusher", jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
+        Assert.assertEquals("org.apache.cassandra.internal.MemtablePostFlusher",
+                            jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getName());
     }
 }

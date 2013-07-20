@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.Serializable;
@@ -50,72 +50,65 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The Mask for event configuration: The mask contains one
- *  or more 'maskelements' which uniquely identify an event. This
+ * or more 'maskelements' which uniquely identify an event. This
  * can only
- *  include elements from the following subset: uei, source, host,
+ * include elements from the following subset: uei, source, host,
  * snmphost,
- *  nodeid, interface, service, id(SNMP EID), specific, generic,
- *  community
+ * nodeid, interface, service, id(SNMP EID), specific, generic,
+ * community
  *
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="mask")
+@XmlRootElement(name = "mask")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@ValidateUsing("event.xsd")
+// @ValidateUsing("event.xsd")
 public class Mask implements Serializable {
-	private static final long serialVersionUID = 6553429078798831778L;
+    private static final long serialVersionUID = 6553429078798831778L;
 
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
-	/**
+    /**
      * The mask element
      */
-	@XmlElement(name="maskelement", required=true, nillable = false)
+    @XmlElement(name = "maskelement", required = true, nillable = false)
     private java.util.List<org.opennms.netmgt.xml.event.Maskelement> _maskelementList;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Mask() {
         super();
         this._maskelementList = new java.util.ArrayList<org.opennms.netmgt.xml.event.Maskelement>();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
-     *
-     *
      * @param vMaskelement
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addMaskelement(
-            final org.opennms.netmgt.xml.event.Maskelement vMaskelement)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addMaskelement(final org.opennms.netmgt.xml.event.Maskelement vMaskelement)
+            throws java.lang.IndexOutOfBoundsException {
         this._maskelementList.add(vMaskelement);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vMaskelement
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addMaskelement(
-            final int index,
-            final org.opennms.netmgt.xml.event.Maskelement vMaskelement)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addMaskelement(final int index, final org.opennms.netmgt.xml.event.Maskelement vMaskelement)
+            throws java.lang.IndexOutOfBoundsException {
         this._maskelementList.add(index, vMaskelement);
     }
 
@@ -123,10 +116,9 @@ public class Mask implements Serializable {
      * Method enumerateMaskelement.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
-    public java.util.Enumeration<org.opennms.netmgt.xml.event.Maskelement> enumerateMaskelement(
-    ) {
+    public java.util.Enumeration<org.opennms.netmgt.xml.event.Maskelement> enumerateMaskelement() {
         return java.util.Collections.enumeration(this._maskelementList);
     }
 
@@ -134,17 +126,18 @@ public class Mask implements Serializable {
      * Method getMaskelement.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * org.opennms.netmgt.xml.event.Maskelement at the given index
+     *         org.opennms.netmgt.xml.event.Maskelement at the given index
      */
-    public org.opennms.netmgt.xml.event.Maskelement getMaskelement(
-            final int index)
-    throws java.lang.IndexOutOfBoundsException {
+    public org.opennms.netmgt.xml.event.Maskelement getMaskelement(final int index)
+            throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._maskelementList.size()) {
-            throw new IndexOutOfBoundsException("getMaskelement: Index value '" + index + "' not in range [0.." + (this._maskelementList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getMaskelement: Index value '" + index + "' not in range [0.."
+                    + (this._maskelementList.size() - 1) + "]");
         }
 
         return (org.opennms.netmgt.xml.event.Maskelement) _maskelementList.get(index);
@@ -152,15 +145,16 @@ public class Mask implements Serializable {
 
     /**
      * Method getMaskelement.Returns the contents of the collection
-     * in an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public org.opennms.netmgt.xml.event.Maskelement[] getMaskelement(
-    ) {
+    public org.opennms.netmgt.xml.event.Maskelement[] getMaskelement() {
         org.opennms.netmgt.xml.event.Maskelement[] array = new org.opennms.netmgt.xml.event.Maskelement[0];
         return (org.opennms.netmgt.xml.event.Maskelement[]) this._maskelementList.toArray(array);
     }
@@ -172,8 +166,7 @@ public class Mask implements Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<org.opennms.netmgt.xml.event.Maskelement> getMaskelementCollection(
-    ) {
+    public java.util.List<org.opennms.netmgt.xml.event.Maskelement> getMaskelementCollection() {
         return this._maskelementList;
     }
 
@@ -182,8 +175,7 @@ public class Mask implements Serializable {
      *
      * @return the size of this collection
      */
-    public int getMaskelementCount(
-    ) {
+    public int getMaskelementCount() {
         return this._maskelementList.size();
     }
 
@@ -191,17 +183,15 @@ public class Mask implements Serializable {
      * Method iterateMaskelement.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
-    public java.util.Iterator<org.opennms.netmgt.xml.event.Maskelement> iterateMaskelement(
-    ) {
+    public java.util.Iterator<org.opennms.netmgt.xml.event.Maskelement> iterateMaskelement() {
         return this._maskelementList.iterator();
     }
 
     /**
      */
-    public void removeAllMaskelement(
-    ) {
+    public void removeAllMaskelement() {
         this._maskelementList.clear();
     }
 
@@ -211,8 +201,7 @@ public class Mask implements Serializable {
      * @param vMaskelement
      * @return true if the object was removed from the collection.
      */
-    public boolean removeMaskelement(
-            final org.opennms.netmgt.xml.event.Maskelement vMaskelement) {
+    public boolean removeMaskelement(final org.opennms.netmgt.xml.event.Maskelement vMaskelement) {
         boolean removed = _maskelementList.remove(vMaskelement);
         return removed;
     }
@@ -223,44 +212,38 @@ public class Mask implements Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public org.opennms.netmgt.xml.event.Maskelement removeMaskelementAt(
-            final int index) {
+    public org.opennms.netmgt.xml.event.Maskelement removeMaskelementAt(final int index) {
         java.lang.Object obj = this._maskelementList.remove(index);
         return (org.opennms.netmgt.xml.event.Maskelement) obj;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vMaskelement
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setMaskelement(
-            final int index,
-            final org.opennms.netmgt.xml.event.Maskelement vMaskelement)
-    throws java.lang.IndexOutOfBoundsException {
+    public void setMaskelement(final int index, final org.opennms.netmgt.xml.event.Maskelement vMaskelement)
+            throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._maskelementList.size()) {
-            throw new IndexOutOfBoundsException("setMaskelement: Index value '" + index + "' not in range [0.." + (this._maskelementList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setMaskelement: Index value '" + index + "' not in range [0.."
+                    + (this._maskelementList.size() - 1) + "]");
         }
 
         this._maskelementList.set(index, vMaskelement);
     }
 
     /**
-     *
-     *
      * @param vMaskelementArray
      */
-    public void setMaskelement(
-            final org.opennms.netmgt.xml.event.Maskelement[] vMaskelementArray) {
-        //-- copy array
+    public void setMaskelement(final org.opennms.netmgt.xml.event.Maskelement[] vMaskelementArray) {
+        // -- copy array
         _maskelementList.clear();
 
         for (int i = 0; i < vMaskelementArray.length; i++) {
-                this._maskelementList.add(vMaskelementArray[i]);
+            this._maskelementList.add(vMaskelementArray[i]);
         }
     }
 
@@ -268,10 +251,10 @@ public class Mask implements Serializable {
      * Sets the value of '_maskelementList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param vMaskelementList the Vector to copy.
+     * @param vMaskelementList
+     *            the Vector to copy.
      */
-    public void setMaskelement(
-            final java.util.List<org.opennms.netmgt.xml.event.Maskelement> vMaskelementList) {
+    public void setMaskelement(final java.util.List<org.opennms.netmgt.xml.event.Maskelement> vMaskelementList) {
         // copy vector
         this._maskelementList.clear();
 
@@ -281,19 +264,17 @@ public class Mask implements Serializable {
     /**
      * Sets the value of '_maskelementList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param maskelementList the Vector to set.
+     * @deprecated
+     * @param maskelementList
+     *            the Vector to set.
      */
-    public void setMaskelementCollection(
-            final java.util.List<org.opennms.netmgt.xml.event.Maskelement> maskelementList) {
+    public void setMaskelementCollection(final java.util.List<org.opennms.netmgt.xml.event.Maskelement> maskelementList) {
         this._maskelementList = maskelementList;
     }
 
-        @Override
+    @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("maskelement", _maskelementList)
-    		.toString();
+        return new ToStringBuilder(this).append("maskelement", _maskelementList).toString();
     }
 }

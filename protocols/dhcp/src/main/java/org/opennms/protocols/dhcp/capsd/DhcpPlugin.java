@@ -43,12 +43,9 @@ import org.slf4j.LoggerFactory;
  * <P>
  * This class is designed to be used by the capabilities daemon to test if a
  * remote interface is running a functional DHCP server as defined by RFC 2131.
- *
  * This class relies on the DHCP API provided by JDHCP v1.1.1. (please refer to
- * http://www.dhcp.org/javadhcp).
- *
- * The class implements the Plugin interface that allows it to be used along
- * with other plugins by the daemon.
+ * http://www.dhcp.org/javadhcp). The class implements the Plugin interface that
+ * allows it to be used along with other plugins by the daemon.
  * </P>
  *
  * @author <a href="mailto:mike@opennms.org">Mike</a>
@@ -57,7 +54,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class DhcpPlugin extends AbstractPlugin {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DhcpPlugin.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DhcpPlugin.class);
 
     /**
      * The port where the DHCP server is detected. This is a well known port and
@@ -93,7 +90,6 @@ public final class DhcpPlugin extends AbstractPlugin {
      *            The maximum number of attempts to try.
      * @param timeout
      *            The time to wait for a response to each request.
-     *
      * @return True if the remote host supports DHCP.
      */
     private boolean isServer(InetAddress host, int retries, int timeout) {
@@ -138,9 +134,8 @@ public final class DhcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is used to test the passed host for DHCP server support. The
+     * {@inheritDoc} This method is used to test the passed host for DHCP server
+     * support. The
      * remote host is queried using the DHCP protocol by sending a formatted
      * datagram to the DHCP server port. If a response is received by the DHCP
      * listenter that matches our original request then a value of true is
@@ -152,9 +147,8 @@ public final class DhcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is used to test the passed host for DHCP server support. The
+     * {@inheritDoc} This method is used to test the passed host for DHCP server
+     * support. The
      * remote host is queried using the DHCP protocol by sending a formatted
      * datagram to the DHCP server port. If a response is received by the DHCP
      * listenter that matches our original request then a value of true is

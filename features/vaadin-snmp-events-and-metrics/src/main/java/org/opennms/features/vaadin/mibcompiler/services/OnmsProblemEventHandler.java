@@ -77,16 +77,21 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
     /**
      * Instantiates a new OpenNMS problem event handler.
      *
-     * @param parser the parser
+     * @param parser
+     *            the parser
      */
     public OnmsProblemEventHandler(SmiDefaultParser parser) {
         m_out = new PrintStream(m_outputStream);
-        ProblemReporterFactory problemReporterFactory = new DefaultProblemReporterFactory(getClass().getClassLoader(), this);
+        ProblemReporterFactory problemReporterFactory = new DefaultProblemReporterFactory(getClass().getClassLoader(),
+                                                                                          this);
         parser.setProblemReporterFactory(problemReporterFactory);
     }
 
-    /* (non-Javadoc)
-     * @see org.jsmiparser.util.problem.ProblemEventHandler#handle(org.jsmiparser.util.problem.ProblemEvent)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jsmiparser.util.problem.ProblemEventHandler#handle(org.jsmiparser
+     * .util.problem.ProblemEvent)
      */
     @Override
     public void handle(ProblemEvent event) {
@@ -95,7 +100,8 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
         print(m_out, event.getSeverity().toString(), event.getLocation(), event.getLocalizedMessage());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsmiparser.util.problem.ProblemEventHandler#isOk()
      */
     @Override
@@ -111,7 +117,8 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsmiparser.util.problem.ProblemEventHandler#isNotOk()
      */
     @Override
@@ -119,15 +126,19 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
         return !isOk();
     }
 
-    /* (non-Javadoc)
-     * @see org.jsmiparser.util.problem.ProblemEventHandler#getSeverityCount(org.jsmiparser.util.problem.annotations.ProblemSeverity)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jsmiparser.util.problem.ProblemEventHandler#getSeverityCount(org.
+     * jsmiparser.util.problem.annotations.ProblemSeverity)
      */
     @Override
     public int getSeverityCount(ProblemSeverity severity) {
         return m_severityCounters[severity.ordinal()];
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsmiparser.util.problem.ProblemEventHandler#getTotalCount()
      */
     @Override
@@ -138,17 +149,21 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
     /**
      * Prints the error message
      *
-     * @param stream the stream
-     * @param sev the severity
-     * @param location the location
-     * @param localizedMessage the localized message
+     * @param stream
+     *            the stream
+     * @param sev
+     *            the severity
+     * @param location
+     *            the location
+     * @param localizedMessage
+     *            the localized message
      */
     private void print(PrintStream stream, String sev, Location location, String localizedMessage) {
         LOG.debug("[{}] Location: {}, Message: {}", sev, location, localizedMessage);
         int n = localizedMessage.indexOf(FILE_PREFIX);
         if (n > 0) {
             String source = localizedMessage.substring(n).replaceAll(FILE_PREFIX, "");
-            String message = localizedMessage.substring(0,n) + source.split(":")[3];
+            String message = localizedMessage.substring(0, n) + source.split(":")[3];
             processMessage(stream, sev, source, message);
         } else {
             if (location == null) {
@@ -164,10 +179,14 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
     /**
      * Process the error message
      *
-     * @param stream the stream
-     * @param sev the severity
-     * @param source the location source
-     * @param message the message
+     * @param stream
+     *            the stream
+     * @param sev
+     *            the severity
+     * @param source
+     *            the location source
+     * @param message
+     *            the message
      */
     // TODO This implementation might be expensive.
     private void processMessage(PrintStream stream, String sev, String source, String message) {
@@ -179,7 +198,7 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
                 LOG.warn("File {} doesn't exist", file);
                 return;
             }
-            FileInputStream fs= new FileInputStream(file);
+            FileInputStream fs = new FileInputStream(file);
             BufferedReader br = new BufferedReader(new InputStreamReader(fs));
             int line = Integer.parseInt(data[1]);
             for (int i = 1; i < line; i++)
@@ -231,7 +250,8 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
     /**
      * Adds a new error message.
      *
-     * @param errorMessage the error message
+     * @param errorMessage
+     *            the error message
      */
     public void addError(String errorMessage) {
         m_out.println(errorMessage);

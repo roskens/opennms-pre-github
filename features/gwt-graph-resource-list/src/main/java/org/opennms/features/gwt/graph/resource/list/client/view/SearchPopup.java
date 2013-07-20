@@ -49,12 +49,19 @@ import com.google.gwt.user.client.ui.Widget;
 public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
 
     private Label m_label;
+
     private TextBox m_tf;
+
     private Button m_okBtn;
+
     private Button m_cancelBtn;
+
     private SimpleEventBus m_eventBus = new SimpleEventBus();
+
     private UIObject m_target;
+
     private LayoutPanel m_layoutPanel;
+
     private int m_heightOffset = 274;
 
     public SearchPopup() {
@@ -162,7 +169,5 @@ public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
     private int getHeightOffset() {
         return m_heightOffset;
     }
-
-
 
 }

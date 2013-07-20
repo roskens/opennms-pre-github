@@ -95,8 +95,11 @@ public class AuthorityFactoryTest {
     }
 
     private DBUser dbUser = new DBUser();
+
     private DBAuthority dbAuth = new DBAuthority();
+
     // private DBAuthoritiesAuth dbAuthoritiesAuth = new DBAuthoritiesAuth();
     private DBGroup dbGroup = new DBGroup();
+
     private static AutorityFactory factory;
 }

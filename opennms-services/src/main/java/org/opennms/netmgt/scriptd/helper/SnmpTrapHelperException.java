@@ -84,9 +84,8 @@ public class SnmpTrapHelperException extends Exception {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Print the stack trace associated with this exception to the specified
+     * {@inheritDoc} Print the stack trace associated with this exception to the
+     * specified
      * print stream. If this exception has an associated cause exception, the
      * stack trace associated with the cause exception is printed.
      */

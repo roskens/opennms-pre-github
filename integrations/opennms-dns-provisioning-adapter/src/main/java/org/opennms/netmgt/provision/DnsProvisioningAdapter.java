@@ -54,9 +54,9 @@ import org.xbill.DNS.TSIG;
 import org.xbill.DNS.Type;
 import org.xbill.DNS.Update;
 
-
 /**
- * A Dynamic DNS provisioning adapter for integration with OpenNMS Provisioning daemon API.
+ * A Dynamic DNS provisioning adapter for integration with OpenNMS Provisioning
+ * daemon API.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -68,27 +68,34 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * A read-only DAO will be set by the Provisioning Daemon.
      */
     private NodeDao m_nodeDao;
+
     private EventForwarder m_eventForwarder;
+
     private Resolver m_resolver = null;
+
     private String m_signature;
 
     private TransactionTemplate m_template;
 
     private static final String MESSAGE_PREFIX = "Dynamic DNS provisioning failed: ";
-    private static final String ADAPTER_NAME="DNS Provisioning Adapter";
+
+    private static final String ADAPTER_NAME = "DNS Provisioning Adapter";
 
     private volatile static ConcurrentMap<Integer, DnsRecord> m_nodeDnsRecordMap;
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_nodeDao, "DnsProvisioner requires a NodeDao which is not null.");
 
-        //load current nodes into the map
+        // load current nodes into the map
         m_template.execute(new TransactionCallbackWithoutResult() {
             @Override
             public void doInTransactionWithoutResult(TransactionStatus arg0) {
@@ -130,33 +137,45 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
     }
 
     /**
-     * <p>getNodeDao</p>
+     * <p>
+     * getNodeDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
+
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param dao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param dao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public void setNodeDao(NodeDao dao) {
         m_nodeDao = dao;
     }
 
     /**
-     * <p>setEventForwarder</p>
+     * <p>
+     * setEventForwarder
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
 
     /**
-     * <p>getEventForwarder</p>
+     * <p>
+     * getEventForwarder
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -165,7 +184,9 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -202,7 +223,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                 }
             });
         } else if (op.getType() == AdapterOperationType.CONFIG_CHANGE) {
-            //do nothing in this adapter
+            // do nothing in this adapter
         } else {
             LOG.warn("unknown operation: {}", op.getType());
         }
@@ -214,7 +235,8 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         try {
             node = m_nodeDao.get(op.getNodeId());
             DnsRecord record = new DnsRecord(node);
-            LOG.debug("doUpdate: DnsRecord: hostname: {} zone: {} ip address {}", record.getIp().getHostAddress(), record.getHostname(), record.getZone());
+            LOG.debug("doUpdate: DnsRecord: hostname: {} zone: {} ip address {}", record.getIp().getHostAddress(),
+                      record.getHostname(), record.getZone());
             DnsRecord oldRecord = m_nodeDnsRecordMap.get(Integer.valueOf(node.getId()));
 
             Update update = new Update(Name.fromString(record.getZone()));
@@ -251,13 +273,10 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
 
     private void sendAndThrow(int nodeId, Throwable e) {
         String message = e.getLocalizedMessage() == null ? "" : ": " + e.getLocalizedMessage();
-        Event event = buildEvent(
-                EventConstants.PROVISIONING_ADAPTER_FAILED,
-                nodeId
-            ).addParam(
-                "reason",
-                MESSAGE_PREFIX + e.getClass().getName() + message
-            ).getEvent();
+        Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED, nodeId).addParam("reason",
+                                                                                              MESSAGE_PREFIX
+                                                                                                      + e.getClass().getName()
+                                                                                                      + message).getEvent();
         m_eventForwarder.sendNow(event);
         throw new ProvisioningAdapterException(MESSAGE_PREFIX, e);
     }
@@ -269,18 +288,27 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
     }
 
     /**
-     * <p>setTemplate</p>
+     * <p>
+     * setTemplate
+     * </p>
      *
-     * @param template a {@link org.springframework.transaction.support.TransactionTemplate} object.
+     * @param template
+     *            a
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
      */
     public void setTemplate(TransactionTemplate template) {
         m_template = template;
     }
 
     /**
-     * <p>getTemplate</p>
+     * <p>
+     * getTemplate
+     * </p>
      *
-     * @return a {@link org.springframework.transaction.support.TransactionTemplate} object.
+     * @return a
+     *         {@link org.springframework.transaction.support.TransactionTemplate}
+     *         object.
      */
     public TransactionTemplate getTemplate() {
         return m_template;

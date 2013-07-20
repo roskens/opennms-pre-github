@@ -44,68 +44,70 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>SwitchRoleController class.</p>
+ * <p>
+ * SwitchRoleController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class SwitchRoleController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SwitchRoleController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SwitchRoleController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        String adminModeStr = request.getParameter("adminMode");
+        boolean adminMode = false;
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+        try {
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+            if (adminModeStr != null) {
+                adminMode = Boolean.parseBoolean(adminModeStr);
+                LOG.info("Swithing to mode admin: {}", !adminMode);
+                bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.SWITCH_MODE_ACTION));
+            } else {
+                throw new IllegalStateException("Parameter adminMode is null");
+            }
+        } catch (Throwable e) {
+            LOG.error("Exception found when changing adminMode", e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.SWITCH_MODE_ACTION));
+        } finally {
+            bw.close();
+        }
 
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String adminModeStr = request.getParameter("adminMode");
-		boolean adminMode = false;
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
-				.getOutputStream(), "UTF-8"));
-		try {
-
-			if (adminModeStr != null) {
-				adminMode=Boolean.parseBoolean(adminModeStr);
-				LOG.info("Swithing to mode admin: {}", !adminMode);
-				bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.SWITCH_MODE_ACTION));
-			} else {
-				throw new IllegalStateException("Parameter adminMode is null");
-			}
-		} catch (Throwable e) {
-			LOG.error("Exception found when changing adminMode", e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.SWITCH_MODE_ACTION));
-		} finally {
-			bw.close();
-		}
-
-
-		return null;
-	}
+        return null;
+    }
 
 }

@@ -30,17 +30,27 @@ public class MockEventWriter implements EventProcessor, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(MockEventWriter.class);
 
     private static final int EVENT_AUTOACTION_FIELD_SIZE = 256;
+
     private static final int EVENT_CORRELATION_FIELD_SIZE = 1024;
+
     private static final int EVENT_FORWARD_FIELD_SIZE = 256;
+
     private static final int EVENT_OPERACTION_FIELD_SIZE = 256;
+
     private static final int EVENT_OPERACTION_MENU_FIELD_SIZE = 64;
+
     private static final int EVENT_SNMPHOST_FIELD_SIZE = 256;
+
     private static final int EVENT_SNMP_FIELD_SIZE = 256;
+
     private static final int EVENT_TTICKET_FIELD_SIZE = 128;
 
     private EventDao m_eventDao;
+
     private DistPollerDao m_distPollerDao;
+
     private NodeDao m_nodeDao;
+
     private ServiceTypeDao m_serviceTypeDao;
 
     public EventDao getEventDao() {
@@ -87,8 +97,11 @@ public class MockEventWriter implements EventProcessor, InitializingBean {
     public void process(final Header eventHeader, final Event event) throws EventProcessorException {
         LOG.debug("Writing event: {}", event);
         final OnmsEvent oe = new OnmsEvent();
-        oe.setEventAutoAction((event.getAutoactionCount() > 0) ? AutoAction.format(event.getAutoaction(), EVENT_AUTOACTION_FIELD_SIZE) : null);
-        oe.setEventCorrelation((event.getCorrelation() != null) ? org.opennms.netmgt.dao.util.Correlation.format(event.getCorrelation(), EVENT_CORRELATION_FIELD_SIZE) : null);
+        oe.setEventAutoAction((event.getAutoactionCount() > 0) ? AutoAction.format(event.getAutoaction(),
+                                                                                   EVENT_AUTOACTION_FIELD_SIZE) : null);
+        oe.setEventCorrelation((event.getCorrelation() != null) ? org.opennms.netmgt.dao.util.Correlation.format(event.getCorrelation(),
+                                                                                                                 EVENT_CORRELATION_FIELD_SIZE)
+            : null);
         try {
             oe.setEventCreateTime(EventConstants.parseToDate(event.getCreationTime()));
         } catch (final ParseException e) {
@@ -102,7 +115,9 @@ public class MockEventWriter implements EventProcessor, InitializingBean {
             throw new EventProcessorException(e);
         }
         oe.setEventHost(event.getHost());
-        oe.setEventForward((event.getForwardCount() > 0) ? org.opennms.netmgt.dao.util.Forward.format(event.getForward(), EVENT_FORWARD_FIELD_SIZE) : null);
+        oe.setEventForward((event.getForwardCount() > 0) ? org.opennms.netmgt.dao.util.Forward.format(event.getForward(),
+                                                                                                      EVENT_FORWARD_FIELD_SIZE)
+            : null);
         oe.setIfIndex(event.getIfIndex());
         oe.setIpAddr(event.getInterfaceAddress());
 

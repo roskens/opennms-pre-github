@@ -32,13 +32,21 @@ import org.opennms.core.logging.Logging;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
+ * <p>
+ * DefaultCollectdInstrumentation class.
+ * </p>
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class DefaultCollectdInstrumentation implements CollectdInstrumentation {
     public static final Logger LOG = LoggerFactory.getLogger(DefaultCollectdInstrumentation.class);
 
+    /**
+     * <p>
+     * beginScheduleExistingInterfaces
+     * </p>
+     */
     @Override
     public void beginScheduleExistingInterfaces() {
         Logging.withPrefix("instrumentation", new Runnable() {
@@ -48,6 +56,11 @@ public class DefaultCollectdInstrumentation implements CollectdInstrumentation {
         });
     }
 
+    /**
+     * <p>
+     * endScheduleExistingInterfaces
+     * </p>
+     */
     @Override
     public void endScheduleExistingInterfaces() {
         Logging.withPrefix("instrumentation", new Runnable() {

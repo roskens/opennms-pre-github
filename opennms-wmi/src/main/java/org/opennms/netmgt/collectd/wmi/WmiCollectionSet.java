@@ -39,20 +39,27 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * <p>WmiCollectionSet class.</p>
+ * <p>
+ * WmiCollectionSet class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class WmiCollectionSet implements CollectionSet {
     private int m_status;
+
     private List<WmiCollectionResource> m_collectionResources;
+
     private Date m_timestamp;
 
     /**
-     * <p>Constructor for WmiCollectionSet.</p>
+     * <p>
+     * Constructor for WmiCollectionSet.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
     public WmiCollectionSet(final CollectionAgent agent) {
         m_status = ServiceCollector.COLLECTION_FAILED;
@@ -60,7 +67,9 @@ public class WmiCollectionSet implements CollectionSet {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -70,9 +79,12 @@ public class WmiCollectionSet implements CollectionSet {
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param status a int.
+     * @param status
+     *            a int.
      */
     public void setStatus(final int status) {
         m_status = status;
@@ -83,15 +95,17 @@ public class WmiCollectionSet implements CollectionSet {
     public void visit(final CollectionSetVisitor visitor) {
         visitor.visitCollectionSet(this);
 
-        for(final CollectionResource resource : getResources()) {
-                resource.visit(visitor);
+        for (final CollectionResource resource : getResources()) {
+            resource.visit(visitor);
         }
 
         visitor.completeCollectionSet(this);
     }
 
     /**
-     * <p>getResources</p>
+     * <p>
+     * getResources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -100,7 +114,9 @@ public class WmiCollectionSet implements CollectionSet {
     }
 
     /**
-     * <p>ignorePersist</p>
+     * <p>
+     * ignorePersist
+     * </p>
      *
      * @return a boolean.
      */
@@ -110,11 +126,12 @@ public class WmiCollectionSet implements CollectionSet {
     }
 
     @Override
-	public Date getCollectionTimestamp() {
-		return m_timestamp;
-	}
+    public Date getCollectionTimestamp() {
+        return m_timestamp;
+    }
+
     public void setCollectionTimestamp(Date timestamp) {
-    	this.m_timestamp = timestamp;
-	}
+        this.m_timestamp = timestamp;
+    }
 
 }

@@ -44,7 +44,6 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.opennms.org">OpenNMS </a>
  * @version 1.1.1.1
- *
  */
 public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
     /**
@@ -120,7 +119,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Constructs a new SnmpPduTrap with the default values.
-     *
      */
     public SnmpPduTrap() {
         m_enterprise = new SnmpObjectId();
@@ -136,7 +134,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *
      * @param second
      *            The object to copy.
-     *
      */
     protected SnmpPduTrap(SnmpPduTrap second) {
         m_enterprise = second.m_enterprise;
@@ -152,7 +149,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Used to get the enterpise identifier of the trap.
-     *
      */
     public SnmpObjectId getEnterprise() {
         return m_enterprise;
@@ -174,7 +170,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *
      * @param id
      *            The new identifier.
-     *
      */
     public void setEnterprise(String id) {
         m_enterprise = new SnmpObjectId(id);
@@ -182,7 +177,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Gets the remote agent's IP address.
-     *
      */
     public SnmpIPAddress getAgentAddress() {
         return m_agentAddr;
@@ -217,7 +211,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Returns the specific code for the trap.
-     *
      */
     public int getSpecific() {
         return m_specific;
@@ -228,7 +221,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *
      * @param spec
      *            The new specific identifier.
-     *
      */
     public void setSpecific(int spec) {
         m_specific = spec;
@@ -236,7 +228,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Returns the timeticks from the trap.
-     *
      */
     public long getTimeStamp() {
         return m_tstamp;
@@ -247,7 +238,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *
      * @param ts
      *            The timeticks for the trap.
-     *
      */
     public void setTimeStamp(long ts) {
         m_tstamp = ts;
@@ -255,7 +245,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Returns the number of variables contained in the PDU.
-     *
      */
     public int getLength() {
         return m_variables.size();
@@ -279,7 +268,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *            The index of the variable
      * @param vb
      *            The new variable.
-     *
      */
     public void addVarBindAt(int ndx, SnmpVarBind vb) {
         m_variables.add(ndx, vb);
@@ -290,9 +278,7 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *
      * @param ndx
      *            The index of the variable
-     *
      * @return The variable at the specified index
-     *
      */
     public SnmpVarBind getVarBindAt(int ndx) {
         return m_variables.get(ndx);
@@ -305,7 +291,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *            The location to set
      * @param vb
      *            The new variable
-     *
      */
     public void setVarBindAt(int ndx, SnmpVarBind vb) {
         m_variables.set(ndx, vb);
@@ -316,9 +301,7 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *
      * @param ndx
      *            The index of the variable to remove
-     *
      * @return The removed variable
-     *
      */
     public SnmpVarBind removeVarBindAt(int ndx) {
         return m_variables.remove(ndx);
@@ -328,7 +311,6 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      * Returns a list of all the variables managed by this protocol data unit.
      *
      * @return An array of the internal variable.
-     *
      */
     public SnmpVarBind[] toVarBindArray() {
         return m_variables.toArray(new SnmpVarBind[m_variables.size()]);
@@ -355,9 +337,7 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *            The offset to start writing information
      * @param encoder
      *            The encoder object.
-     *
      * @return The offset of the byte immediantly after the last encoded byte.
-     *
      * @exception AsnEncodingException
      *                Thrown if the encoder finds an error in the buffer.
      */
@@ -442,10 +422,8 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *            The offset byte to begin decoding
      * @param encoder
      *            The decoder object.
-     *
      * @return The index of the byte immediantly after the last decoded byte of
      *         information.
-     *
      * @exception AsnDecodingException
      *                Thrown by the encoder if an error occurs trying to decode
      *                the data buffer.

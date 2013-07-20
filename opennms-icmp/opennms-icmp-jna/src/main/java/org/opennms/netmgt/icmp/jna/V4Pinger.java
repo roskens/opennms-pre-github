@@ -52,12 +52,16 @@ import com.sun.jna.Platform;
 public class V4Pinger extends AbstractPinger<Inet4Address> {
     private static final Logger LOG = LoggerFactory.getLogger(V4Pinger.class);
 
-
     public V4Pinger(final int pingerId) throws Exception {
-        super(pingerId, NativeDatagramSocket.create(NativeDatagramSocket.PF_INET, Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM : NativeDatagramSocket.SOCK_RAW, NativeDatagramSocket.IPPROTO_ICMP));
+        super(pingerId, NativeDatagramSocket.create(NativeDatagramSocket.PF_INET,
+                                                    Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM
+                                                        : NativeDatagramSocket.SOCK_RAW,
+                                                    NativeDatagramSocket.IPPROTO_ICMP));
 
-        // Windows requires at least one packet sent before a receive call can be made without error
-        // so we send a packet here to make sure...  This one should not match the normal ping requests
+        // Windows requires at least one packet sent before a receive call can
+        // be made without error
+        // so we send a packet here to make sure... This one should not match
+        // the normal ping requests
         // since it does not contain the cookie so it won't interface.
         if (Platform.isWindows()) {
             final ICMPEchoPacket packet = new ICMPEchoPacket(64);
@@ -80,13 +84,14 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
                 final long received = System.nanoTime();
 
                 final ICMPPacket icmpPacket = new ICMPPacket(getIPPayload(datagram));
-                final V4PingReply echoReply = icmpPacket.getType() == Type.EchoReply ? new V4PingReply(icmpPacket, received) : null;
+                final V4PingReply echoReply = icmpPacket.getType() == Type.EchoReply ? new V4PingReply(icmpPacket,
+                                                                                                       received) : null;
 
-                if (echoReply != null && echoReply.getIdentifier() ==  pingerId && echoReply.isValid()) {
+                if (echoReply != null && echoReply.getIdentifier() == pingerId && echoReply.isValid()) {
                     notifyPingListeners(datagram.getAddress(), echoReply);
                 }
             }
-        } catch(final Throwable t) {
+        } catch (final Throwable t) {
             setThrowable(t);
             LOG.debug("Error caught while processing ping packets: {}", t.getMessage(), t);
         }
@@ -97,10 +102,11 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
     }
 
     @Override
-    public void ping(final Inet4Address addr, final int identifier, final int sequenceNumber, final long threadId, final long count, final long interval, final int packetSize) throws InterruptedException {
+    public void ping(final Inet4Address addr, final int identifier, final int sequenceNumber, final long threadId,
+            final long count, final long interval, final int packetSize) throws InterruptedException {
         final NativeDatagramSocket socket = getPingSocket();
-        for(int i = sequenceNumber; i < sequenceNumber + count; i++) {
-            final V4PingRequest request = new V4PingRequest(identifier, i, threadId,packetSize);
+        for (int i = sequenceNumber; i < sequenceNumber + count; i++) {
+            final V4PingRequest request = new V4PingRequest(identifier, i, threadId, packetSize);
             request.send(socket, addr);
             Thread.sleep(interval);
         }

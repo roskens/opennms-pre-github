@@ -67,7 +67,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 /**
- * <p>DefaultPollerFrontEnd class.</p>
+ * <p>
+ * DefaultPollerFrontEnd class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -125,7 +127,8 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
             } catch (final RuntimeException e) {
                 setState(new FatalExceptionOccurred());
 
-                // rethrow the exception on initialize so we exit if we fail to initialize
+                // rethrow the exception on initialize so we exit if we fail to
+                // initialize
                 throw e;
             }
         }
@@ -192,24 +195,24 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
             try {
                 final MonitorStatus status = doCheckIn();
                 switch (status) {
-                    case CONFIG_CHANGED:
-                        onConfigChanged();
-                        break;
-                    case DELETED:
-                        onDeleted();
-                        break;
-                    case DISCONNECTED:
-                        onDisconnected();
-                        break;
-                    case PAUSED:
-                        onPaused();
-                        break;
-                    case STARTED:
-                        onStarted();
-                        break;
-                    default:
-                        LOG.debug("Unhandled status on checkIn(): {}", status);
-                        break;
+                case CONFIG_CHANGED:
+                    onConfigChanged();
+                    break;
+                case DELETED:
+                    onDeleted();
+                    break;
+                case DISCONNECTED:
+                    onDisconnected();
+                    break;
+                case PAUSED:
+                    onPaused();
+                    break;
+                case STARTED:
+                    onStarted();
+                    break;
+                default:
+                    LOG.debug("Unhandled status on checkIn(): {}", status);
+                    break;
                 }
             } catch (final Exception e) {
                 LOG.error("Unexpected exception occurred while checking in.", e);
@@ -305,7 +308,8 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
 
     private abstract class State {
         public void checkIn() {
-            // a pollerCheckingIn in any state that doesn't respond just does nothing
+            // a pollerCheckingIn in any state that doesn't respond just does
+            // nothing
         }
 
         public IllegalStateException illegalState(final String msg) {
@@ -349,7 +353,8 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
         }
 
         public void stop() {
-            // do nothing here by default as the actual exit is managed by the external program
+            // do nothing here by default as the actual exit is managed by the
+            // external program
         }
 
         @Override
@@ -390,21 +395,27 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>doResume</p>
+     * <p>
+     * doResume
+     * </p>
      */
     public void doResume() {
         doLoadConfig();
     }
 
     /**
-     * <p>doPause</p>
+     * <p>
+     * doPause
+     * </p>
      */
     public void doPause() {
         // do I need to do anything here?
     }
 
     /**
-     * <p>doDisconnected</p>
+     * <p>
+     * doDisconnected
+     * </p>
      */
     public void doDisconnected() {
         doLoadConfig();
@@ -423,9 +434,12 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -434,16 +448,21 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>checkConfig</p>
+     * <p>
+     * checkConfig
+     * </p>
      */
     public void checkConfig() {
         m_state.checkIn();
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void destroy() throws Exception {
@@ -451,23 +470,31 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>doCheckIn</p>
+     * <p>
+     * doCheckIn
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus} object.
+     * @return a
+     *         {@link org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus}
+     *         object.
      */
     public MonitorStatus doCheckIn() {
         return m_backEnd.pollerCheckingIn(getMonitorId(), getCurrentConfigTimestamp());
     }
 
     /**
-     * <p>doDelete</p>
+     * <p>
+     * doDelete
+     * </p>
      */
     public void doDelete() {
         setMonitorId(null);
     }
 
     /**
-     * <p>doInitialize</p>
+     * <p>
+     * doInitialize
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -480,7 +507,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>doPollerStart</p>
+     * <p>
+     * doPollerStart
+     * </p>
      *
      * @return a boolean.
      */
@@ -498,9 +527,12 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>doPollService</p>
+     * <p>
+     * doPollService
+     * </p>
      *
-     * @param polledServiceId a {@link java.lang.Integer} object.
+     * @param polledServiceId
+     *            a {@link java.lang.Integer} object.
      */
     public void doPollService(final Integer polledServiceId) {
         final PollStatus result = doPoll(polledServiceId);
@@ -513,9 +545,12 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>doRegister</p>
+     * <p>
+     * doRegister
+     * </p>
      *
-     * @param location a {@link java.lang.String} object.
+     * @param location
+     *            a {@link java.lang.String} object.
      */
     public void doRegister(final String location) {
 
@@ -527,14 +562,18 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>doStop</p>
+     * <p>
+     * doStop
+     * </p>
      */
     public void doStop() {
         m_backEnd.pollerStopping(getMonitorId());
     }
 
     /**
-     * <p>getDetails</p>
+     * <p>
+     * getDetails
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -556,7 +595,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>getMonitorId</p>
+     * <p>
+     * getMonitorId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -565,7 +606,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>getMonitoringLocations</p>
+     * <p>
+     * getMonitoringLocations
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -576,7 +619,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>getMonitorName</p>
+     * <p>
+     * getMonitorName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -586,7 +631,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>getPolledServices</p>
+     * <p>
+     * getPolledServices
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -596,7 +643,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>getPollerPollState</p>
+     * <p>
+     * getPollerPollState
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -616,7 +665,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -625,7 +676,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>isRegistered</p>
+     * <p>
+     * isRegistered
+     * </p>
      *
      * @return a boolean.
      */
@@ -635,7 +688,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>isStarted</p>
+     * <p>
+     * isStarted
+     * </p>
      *
      * @return a boolean.
      */
@@ -678,57 +733,75 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     @Override
     public void setInitialPollTime(final Integer polledServiceId, final Date initialPollTime) {
         final ServicePollState pollState = getServicePollState(polledServiceId);
-        if (pollState == null) return;
+        if (pollState == null)
+            return;
 
         pollState.setInitialPollTime(initialPollTime);
         fireServicePollStateChanged(pollState.getPolledService(), pollState.getIndex());
     }
 
     /**
-     * <p>setMonitorId</p>
+     * <p>
+     * setMonitorId
+     * </p>
      *
-     * @param monitorId a {@link java.lang.Integer} object.
+     * @param monitorId
+     *            a {@link java.lang.Integer} object.
      */
     public void setMonitorId(final Integer monitorId) {
         m_pollerSettings.setMonitorId(monitorId);
     }
 
     /**
-     * <p>setPollerBackEnd</p>
+     * <p>
+     * setPollerBackEnd
+     * </p>
      *
-     * @param backEnd a {@link org.opennms.netmgt.poller.remote.PollerBackEnd} object.
+     * @param backEnd
+     *            a {@link org.opennms.netmgt.poller.remote.PollerBackEnd}
+     *            object.
      */
     public void setPollerBackEnd(final PollerBackEnd backEnd) {
         m_backEnd = backEnd;
     }
 
     /**
-     * <p>setPollerSettings</p>
+     * <p>
+     * setPollerSettings
+     * </p>
      *
-     * @param settings a {@link org.opennms.netmgt.poller.remote.PollerSettings} object.
+     * @param settings
+     *            a {@link org.opennms.netmgt.poller.remote.PollerSettings}
+     *            object.
      */
     public void setPollerSettings(final PollerSettings settings) {
         m_pollerSettings = settings;
     }
 
     /**
-     * @param timeAdjustment the timeAdjustment to set
+     * @param timeAdjustment
+     *            the timeAdjustment to set
      */
     public void setTimeAdjustment(TimeAdjustment timeAdjustment) {
         m_timeAdjustment = timeAdjustment;
     }
 
     /**
-     * <p>setPollService</p>
+     * <p>
+     * setPollService
+     * </p>
      *
-     * @param pollService a {@link org.opennms.netmgt.poller.remote.PollService} object.
+     * @param pollService
+     *            a {@link org.opennms.netmgt.poller.remote.PollService} object.
      */
     public void setPollService(final PollService pollService) {
         m_pollService = pollService;
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
@@ -783,7 +856,8 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     private PollStatus doPoll(final Integer polledServiceId) {
 
         final PolledService polledService = getPolledService(polledServiceId);
-        if (polledService == null) return null;
+        if (polledService == null)
+            return null;
         final PollStatus result = m_pollService.poll(polledService);
         return result;
     }
@@ -857,7 +931,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     }
 
     /**
-     * <p>isExitNecessary</p>
+     * <p>
+     * isExitNecessary
+     * </p>
      *
      * @return a boolean.
      */
@@ -868,7 +944,8 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
 
     private void updateServicePollState(final Integer polledServiceId, final PollStatus result) {
         final ServicePollState pollState = getServicePollState(polledServiceId);
-        if (pollState == null) return;
+        if (pollState == null)
+            return;
         pollState.setLastPoll(result);
         fireServicePollStateChanged(pollState.getPolledService(), pollState.getIndex());
     }

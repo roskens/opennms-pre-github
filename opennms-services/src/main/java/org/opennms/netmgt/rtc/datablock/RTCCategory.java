@@ -58,8 +58,11 @@ public class RTCCategory extends Category {
     /**
      * The default constructor - initializes the values
      *
-     * @param cat a {@link org.opennms.netmgt.config.categories.Category} object.
-     * @param commonRule a {@link java.lang.String} object.
+     * @param cat
+     *            a {@link org.opennms.netmgt.config.categories.Category}
+     *            object.
+     * @param commonRule
+     *            a {@link java.lang.String} object.
      */
     public RTCCategory(Category cat, String commonRule) {
         setLabel(cat.getLabel());
@@ -118,7 +121,8 @@ public class RTCCategory extends Category {
      *
      * @return true if the service is in the services list in this category or
      *         if service list is null
-     * @param svcname a {@link java.lang.String} object.
+     * @param svcname
+     *            a {@link java.lang.String} object.
      */
     public boolean containsService(String svcname) {
         if (getServiceCount() <= 0) {

@@ -41,133 +41,167 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * <p>SmsServiceListFactoryBean class.</p>
+ * <p>
+ * SmsServiceListFactoryBean class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(SmsServiceListFactoryBean.class);
-	private GatewayGroup[] m_gatewayGroups;
-	private SmsService[] m_services;
 
-	/**
-	 * <p>setOutboundMessageNotification</p>
-	 *
-	 * @param mOutboundMessageNotification a {@link org.smslib.IOutboundMessageNotification} object.
-	 */
-	public void setOutboundMessageNotification(IOutboundMessageNotification mOutboundMessageNotification) {
-		m_outboundMessageNotification = mOutboundMessageNotification;
-	}
+    private GatewayGroup[] m_gatewayGroups;
 
-	/**
-	 * <p>setInboundMessageNotification</p>
-	 *
-	 * @param mInboundMessageNotification a {@link org.opennms.sms.reflector.smsservice.OnmsInboundMessageNotification} object.
-	 */
-	public void setInboundMessageNotification(OnmsInboundMessageNotification mInboundMessageNotification) {
-		m_inboundMessageNotification = mInboundMessageNotification;
-	}
+    private SmsService[] m_services;
 
-	/**
-	 * <p>setGatewayStatusNotification</p>
-	 *
-	 * @param mGatewayStatusNotification a {@link org.smslib.IGatewayStatusNotification} object.
-	 */
-	public void setGatewayStatusNotification(IGatewayStatusNotification mGatewayStatusNotification) {
-		m_gatewayStatusNotification = mGatewayStatusNotification;
-	}
+    /**
+     * <p>
+     * setOutboundMessageNotification
+     * </p>
+     *
+     * @param mOutboundMessageNotification
+     *            a {@link org.smslib.IOutboundMessageNotification} object.
+     */
+    public void setOutboundMessageNotification(IOutboundMessageNotification mOutboundMessageNotification) {
+        m_outboundMessageNotification = mOutboundMessageNotification;
+    }
 
-	private IOutboundMessageNotification m_outboundMessageNotification;
-	private OnmsInboundMessageNotification m_inboundMessageNotification;
-	@SuppressWarnings("unused")
-	private IGatewayStatusNotification m_gatewayStatusNotification;
+    /**
+     * <p>
+     * setInboundMessageNotification
+     * </p>
+     *
+     * @param mInboundMessageNotification
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.OnmsInboundMessageNotification}
+     *            object.
+     */
+    public void setInboundMessageNotification(OnmsInboundMessageNotification mInboundMessageNotification) {
+        m_inboundMessageNotification = mInboundMessageNotification;
+    }
 
-	/**
-	 * <p>Constructor for SmsServiceListFactoryBean.</p>
-	 */
-	public SmsServiceListFactoryBean() {
+    /**
+     * <p>
+     * setGatewayStatusNotification
+     * </p>
+     *
+     * @param mGatewayStatusNotification
+     *            a {@link org.smslib.IGatewayStatusNotification} object.
+     */
+    public void setGatewayStatusNotification(IGatewayStatusNotification mGatewayStatusNotification) {
+        m_gatewayStatusNotification = mGatewayStatusNotification;
+    }
 
-	}
+    private IOutboundMessageNotification m_outboundMessageNotification;
 
-	/**
-	 * <p>setGatewayGroupList</p>
-	 *
-	 * @param groupList an array of {@link org.opennms.sms.reflector.smsservice.GatewayGroup} objects.
-	 */
-	public void setGatewayGroupList(GatewayGroup[] groupList) {
-		m_gatewayGroups = groupList;
-	}
+    private OnmsInboundMessageNotification m_inboundMessageNotification;
 
-	/**
-	 * <p>afterPropertiesSet</p>
-	 */
-	@Override
-	public void afterPropertiesSet() {
-		m_services = new SmsService[m_gatewayGroups.length];
+    @SuppressWarnings("unused")
+    private IGatewayStatusNotification m_gatewayStatusNotification;
 
-		int count = 0;
-		for (GatewayGroup group : m_gatewayGroups) {
-			AGateway[] gateways = group.getGateways();
+    /**
+     * <p>
+     * Constructor for SmsServiceListFactoryBean.
+     * </p>
+     */
+    public SmsServiceListFactoryBean() {
 
-			if (gateways.length == 0) {
-				LOG.warn("A Gateway group was registered with ZERO gateways!");
-			    return;
-			}
+    }
 
-			SmsServiceImpl smsService = new SmsServiceImpl();
-			smsService.setOutboundNotification(m_outboundMessageNotification);
-			smsService.setInboundNotification(m_inboundMessageNotification);
-	        // smsService.setGatewayStatusNotification(m_gatewayStatusNotification);
+    /**
+     * <p>
+     * setGatewayGroupList
+     * </p>
+     *
+     * @param groupList
+     *            an array of
+     *            {@link org.opennms.sms.reflector.smsservice.GatewayGroup}
+     *            objects.
+     */
+    public void setGatewayGroupList(GatewayGroup[] groupList) {
+        m_gatewayGroups = groupList;
+    }
 
-			for(int i = 0; i < gateways.length; i++){
+    /**
+     * <p>
+     * afterPropertiesSet
+     * </p>
+     */
+    @Override
+    public void afterPropertiesSet() {
+        m_services = new SmsService[m_gatewayGroups.length];
 
-				try {
-					if(smsService.getServiceStatus() == ServiceStatus.STARTED){
-						smsService.stop();
-					}
-					smsService.addGateway(gateways[i]);
+        int count = 0;
+        for (GatewayGroup group : m_gatewayGroups) {
+            AGateway[] gateways = group.getGateways();
 
-				} catch (final Exception e) {
-				    LOG.warn("Unable to add gateway ({}) to SMS service", gateways[i], e);
-				}
-			}
+            if (gateways.length == 0) {
+                LOG.warn("A Gateway group was registered with ZERO gateways!");
+                return;
+            }
 
-			smsService.start();
+            SmsServiceImpl smsService = new SmsServiceImpl();
+            smsService.setOutboundNotification(m_outboundMessageNotification);
+            smsService.setInboundNotification(m_inboundMessageNotification);
+            // smsService.setGatewayStatusNotification(m_gatewayStatusNotification);
 
-			m_services[count++] = smsService;
-		}
-	}
+            for (int i = 0; i < gateways.length; i++) {
 
-	/**
-	 * <p>getObject</p>
-	 *
-	 * @return an array of {@link org.opennms.sms.reflector.smsservice.SmsService} objects.
-	 * @throws java.lang.Exception if any.
-	 */
-        @Override
-	public SmsService[] getObject() throws Exception {
-		return m_services;
-	}
+                try {
+                    if (smsService.getServiceStatus() == ServiceStatus.STARTED) {
+                        smsService.stop();
+                    }
+                    smsService.addGateway(gateways[i]);
 
-	/**
-	 * <p>getObjectType</p>
-	 *
-	 * @return a {@link java.lang.Class} object.
-	 */
-        @Override
-	public Class<? extends SmsService[]> getObjectType() {
-		return SmsService[].class;
-	}
+                } catch (final Exception e) {
+                    LOG.warn("Unable to add gateway ({}) to SMS service", gateways[i], e);
+                }
+            }
 
-	/**
-	 * <p>isSingleton</p>
-	 *
-	 * @return a boolean.
-	 */
-        @Override
-	public boolean isSingleton() {
-		return true;
-	}
+            smsService.start();
+
+            m_services[count++] = smsService;
+        }
+    }
+
+    /**
+     * <p>
+     * getObject
+     * </p>
+     *
+     * @return an array of
+     *         {@link org.opennms.sms.reflector.smsservice.SmsService} objects.
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    @Override
+    public SmsService[] getObject() throws Exception {
+        return m_services;
+    }
+
+    /**
+     * <p>
+     * getObjectType
+     * </p>
+     *
+     * @return a {@link java.lang.Class} object.
+     */
+    @Override
+    public Class<? extends SmsService[]> getObjectType() {
+        return SmsService[].class;
+    }
+
+    /**
+     * <p>
+     * isSingleton
+     * </p>
+     *
+     * @return a boolean.
+     */
+    @Override
+    public boolean isSingleton() {
+        return true;
+    }
 
 }

@@ -22,7 +22,7 @@ public class MockEventDao extends AbstractMockDao<OnmsEvent, Integer> implements
     @Override
     protected Integer getId(final OnmsEvent event) {
         final Integer id = event.getId();
-        return id == null || id == 0? null : id;
+        return id == null || id == 0 ? null : id;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MockEventDao extends AbstractMockDao<OnmsEvent, Integer> implements
 
     @Override
     public Set<CountedObject<String>> getUeiCounts(final Integer limit) {
-        final Map<String,Long> counts = new HashMap<String,Long>();
+        final Map<String, Long> counts = new HashMap<String, Long>();
         for (final OnmsEvent event : findAll()) {
             final String eventUei = event.getEventUei();
             if (!counts.containsKey(eventUei)) {

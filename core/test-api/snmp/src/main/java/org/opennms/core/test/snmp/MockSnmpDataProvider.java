@@ -35,8 +35,8 @@ import org.springframework.core.io.Resource;
 
 public interface MockSnmpDataProvider {
 
-	public void setDataForAddress(SnmpAgentAddress address, Resource resource) throws IOException ;
+    public void setDataForAddress(SnmpAgentAddress address, Resource resource) throws IOException;
 
-	public void resetData();
+    public void resetData();
 
 }

@@ -38,13 +38,14 @@ import com.vaadin.ui.UI;
 
 public class TopologyWidgetTestApplicationFactory extends AbstractApplicationFactory {
 
-	private final BlueprintContainer m_blueprintContainer;
-	private final String m_beanName;
+    private final BlueprintContainer m_blueprintContainer;
 
-	public TopologyWidgetTestApplicationFactory(BlueprintContainer container, String beanName) {
-		m_blueprintContainer = container;
-		m_beanName = beanName;
-	}
+    private final String m_beanName;
+
+    public TopologyWidgetTestApplicationFactory(BlueprintContainer container, String beanName) {
+        m_blueprintContainer = container;
+        m_beanName = beanName;
+    }
 
     @Override
     public Class<? extends UI> getUIClass() {
@@ -53,10 +54,11 @@ public class TopologyWidgetTestApplicationFactory extends AbstractApplicationFac
 
     @Override
     public Map<String, String> getAdditionalHeaders() {
-        final Map<String,String> headers = new HashMap<String,String>();
+        final Map<String, String> headers = new HashMap<String, String>();
         headers.put("X-UA-Compatible", "chrome=1");
-        //headers.put("X-Frame-Options", "ALLOW-FROM http://cdn.leafletjs.com/");
-        //headers.put("X-Frame-Options", "ALLOW-FROM http://maps.google.com/");
+        // headers.put("X-Frame-Options",
+        // "ALLOW-FROM http://cdn.leafletjs.com/");
+        // headers.put("X-Frame-Options", "ALLOW-FROM http://maps.google.com/");
         return headers;
     }
 

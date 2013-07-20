@@ -27,6 +27,7 @@
  *******************************************************************************/
 
 package org.opennms.web.svclayer.etable;
+
 //
 //
 //OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
@@ -63,50 +64,56 @@ import org.extremecomponents.table.view.AbstractHtmlView;
 import org.extremecomponents.util.HtmlBuilder;
 
 /**
- * <p>FixedRowCompact class.</p>
+ * <p>
+ * FixedRowCompact class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @version $Id: $
  * @since 1.8.1
  */
 public class FixedRowCompact extends AbstractHtmlView {
-	/** {@inheritDoc} */
-        @Override
-	protected void beforeBodyInternal(TableModel model) {
-		getTableBuilder().tableStart();
+    /** {@inheritDoc} */
+    @Override
+    protected void beforeBodyInternal(TableModel model) {
+        getTableBuilder().tableStart();
 
-		getTableBuilder().theadStart();
+        getTableBuilder().theadStart();
 
-		getTableBuilder().titleRowSpanColumns();
+        getTableBuilder().titleRowSpanColumns();
 
-		toolbar(getHtmlBuilder(), getTableModel());
+        toolbar(getHtmlBuilder(), getTableModel());
 
-		getTableBuilder().filterRow();
+        getTableBuilder().filterRow();
 
-		getTableBuilder().headerRow();
+        getTableBuilder().headerRow();
 
-		getTableBuilder().theadEnd();
+        getTableBuilder().theadEnd();
 
-		getTableBuilder().tbodyStart();
-	}
+        getTableBuilder().tbodyStart();
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	protected void afterBodyInternal(TableModel model) {
-		getCalcBuilder().defaultCalcLayout();
+    /** {@inheritDoc} */
+    @Override
+    protected void afterBodyInternal(TableModel model) {
+        getCalcBuilder().defaultCalcLayout();
 
-		getTableBuilder().tbodyEnd();
+        getTableBuilder().tbodyEnd();
 
-		getTableBuilder().tableEnd();
-	}
+        getTableBuilder().tableEnd();
+    }
 
-	/**
-	 * <p>toolbar</p>
-	 *
-	 * @param html a {@link org.extremecomponents.util.HtmlBuilder} object.
-	 * @param model a {@link org.extremecomponents.table.core.TableModel} object.
-	 */
-	protected void toolbar(HtmlBuilder html, TableModel model) {
-		new CompactFixedRowToolbar(html, model).layout();
-	}
+    /**
+     * <p>
+     * toolbar
+     * </p>
+     *
+     * @param html
+     *            a {@link org.extremecomponents.util.HtmlBuilder} object.
+     * @param model
+     *            a {@link org.extremecomponents.table.core.TableModel} object.
+     */
+    protected void toolbar(HtmlBuilder html, TableModel model) {
+        new CompactFixedRowToolbar(html, model).layout();
+    }
 }

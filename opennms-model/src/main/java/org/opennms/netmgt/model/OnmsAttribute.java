@@ -29,25 +29,36 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>OnmsAttribute interface.</p>
+ * <p>
+ * OnmsAttribute interface.
+ * </p>
  */
 public interface OnmsAttribute {
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getName();
+
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResource();
+
     /**
-     * <p>setResource</p>
+     * <p>
+     * setResource
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public void setResource(OnmsResource resource);
 }

@@ -58,29 +58,32 @@ import org.springframework.beans.factory.DisposableBean;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  */
-@EventListener(name=Ackd.NAME, logPrefix="ackd")
+@EventListener(name = Ackd.NAME, logPrefix = "ackd")
 public class Ackd implements SpringServiceDaemon, DisposableBean {
     private static final Logger LOG = LoggerFactory.getLogger(Ackd.class);
 
-	/** Constant <code>NAME="Ackd"</code> */
-	public static final String NAME = "Ackd";
-	private volatile AckdConfigurationDao m_configDao;
+    /** Constant <code>NAME="Ackd"</code> */
+    public static final String NAME = "Ackd";
 
-	private volatile AcknowledgmentDao m_ackDao;
+    private volatile AckdConfigurationDao m_configDao;
 
-	private volatile EventForwarder m_eventForwarder;
+    private volatile AcknowledgmentDao m_ackDao;
+
+    private volatile EventForwarder m_eventForwarder;
 
     private volatile ScheduledThreadPoolExecutor m_executor;
 
+    // FIXME change this to be like provisiond's adapters
+    private List<AckReader> m_ackReaders;
 
-	//FIXME change this to be like provisiond's adapters
-	private List<AckReader> m_ackReaders;
     private Object m_lock = new Object();
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
-        @Override
+    @Override
     public void start() {
         LOG.info("start: Starting {} readers...", m_ackReaders.size());
         startReaders();
@@ -88,9 +91,11 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      */
-        @Override
+    @Override
     public void destroy() {
         LOG.info("destroy: shutting down readers...");
         try {
@@ -98,7 +103,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
             m_executor.purge();
             m_executor.shutdown();
 
-            //fairly arbitrary time (grin)
+            // fairly arbitrary time (grin)
             m_executor.awaitTermination(10, TimeUnit.SECONDS);
         } catch (Throwable e) {
             LOG.error("destroy: error destroying readers.", e);
@@ -108,16 +113,19 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * Starts the AckReaders without indicating a reload of their configuration is necessary.
+     * Starts the AckReaders without indicating a reload of their configuration
+     * is necessary.
      */
     protected void startReaders() {
         this.startReaders(false);
     }
 
     /**
-     * Starts the AckReaders indicating a reload of their configuration is necessary.
+     * Starts the AckReaders indicating a reload of their configuration is
+     * necessary.
      *
-     * @param reloadConfig a boolean.
+     * @param reloadConfig
+     *            a boolean.
      */
     protected void startReaders(boolean reloadConfig) {
         int enabledReaderCount = getConfigDao().getEnabledReaderCount();
@@ -129,7 +137,8 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
 
         m_executor.setCorePoolSize(enabledReaderCount);
 
-        LOG.info("startReaders: starting {} enabled readers of {} readers registered.", enabledReaderCount, m_ackReaders.size());
+        LOG.info("startReaders: starting {} enabled readers of {} readers registered.", enabledReaderCount,
+                 m_ackReaders.size());
         for (AckReader reader : m_ackReaders) {
 
             LOG.debug("startReaders: starting reader: {}", reader.getName());
@@ -149,7 +158,9 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>stopReaders</p>
+     * <p>
+     * stopReaders
+     * </p>
      */
     protected void stopReaders() {
         LOG.info("stopReaders: stopping {} readers...", m_ackReaders.size());
@@ -176,7 +187,9 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>pauseReaders</p>
+     * <p>
+     * pauseReaders
+     * </p>
      */
     protected void pauseReaders() {
         for (AckReader reader : m_ackReaders) {
@@ -193,7 +206,9 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>resumeReaders</p>
+     * <p>
+     * resumeReaders
+     * </p>
      */
     protected void resumeReaders() {
         for (AckReader reader : m_ackReaders) {
@@ -208,11 +223,13 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
         }
     }
 
-
     /**
-     * <p>restartReaders</p>
+     * <p>
+     * restartReaders
+     * </p>
      *
-     * @param reloadConfigs a boolean.
+     * @param reloadConfigs
+     *            a boolean.
      */
     protected void restartReaders(boolean reloadConfigs) {
         LOG.info("restartReaders: restarting readers...");
@@ -222,16 +239,17 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
 
     }
 
-    private void adjustReaderState(AckReader reader,
-            AckReaderState requestedState, List<AckReaderState> allowedCurrentStates, boolean reloadConfig) {
+    private void adjustReaderState(AckReader reader, AckReaderState requestedState,
+            List<AckReaderState> allowedCurrentStates, boolean reloadConfig) {
 
         synchronized (m_lock) {
 
             if (!getConfigDao().isReaderEnabled(reader.getName())) {
 
-                //stop a disabled reader if necessary
+                // stop a disabled reader if necessary
                 if (!AckReaderState.STOPPED.equals(reader.getState())) {
-                    LOG.warn("adjustReaderState: ignoring requested state and stopping the disabled reader: {}...", reader.getName());
+                    LOG.warn("adjustReaderState: ignoring requested state and stopping the disabled reader: {}...",
+                             reader.getName());
                     reader.stop();
                     LOG.warn("adjustReaderState: disabled reader: {} stopped", reader.getName());
                     return;
@@ -243,7 +261,8 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
 
             if (allowedCurrentStates.contains(reader.getState())) {
 
-                LOG.debug("adjustReaderState: adjusting reader state from: {} to: {}...", reader.getState(), requestedState);
+                LOG.debug("adjustReaderState: adjusting reader state from: {} to: {}...", reader.getState(),
+                          requestedState);
 
                 org.opennms.netmgt.config.ackd.ReaderSchedule configSchedule = getConfigDao().getReaderSchedule(reader.getName());
 
@@ -251,9 +270,12 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
                 String unit = configSchedule.getUnit();
 
                 /**
-                 * TODO: Make this so that a reference to the executor doesn't have to be passed in and
-                 * the start method simply returns the task to be scheduled.  The schedule can be adjusted
-                 * by the AckReader.  We just need to make sure that the future gets set in the AckReaer.
+                 * TODO: Make this so that a reference to the executor doesn't
+                 * have to be passed in and
+                 * the start method simply returns the task to be scheduled. The
+                 * schedule can be adjusted
+                 * by the AckReader. We just need to make sure that the future
+                 * gets set in the AckReaer.
                  */
                 if (AckReaderState.STARTED.equals(requestedState)) {
                     reader.start(m_executor, ReaderSchedule.createSchedule(interval, unit), reloadConfig);
@@ -268,13 +290,17 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
                     reader.resume(m_executor);
 
                 } else {
-                    IllegalStateException e = new IllegalStateException("adjustReaderState: cannot request state: "+requestedState);
+                    IllegalStateException e = new IllegalStateException("adjustReaderState: cannot request state: "
+                            + requestedState);
                     LOG.error(e.getLocalizedMessage(), e);
                     throw e;
                 }
 
             } else {
-                IllegalStateException e = new IllegalStateException("error adjusting reader state; reader cannot be change from: "+reader.getState()+" to: "+requestedState);
+                IllegalStateException e = new IllegalStateException(
+                                                                    "error adjusting reader state; reader cannot be change from: "
+                                                                            + reader.getState() + " to: "
+                                                                            + requestedState);
                 LOG.error(e.getLocalizedMessage(), e);
                 throw e;
             }
@@ -282,16 +308,19 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * Handles the event driven access to acknowledging <code>OnmsAcknowledgable</code>s.  The acknowledgment event
+     * Handles the event driven access to acknowledging
+     * <code>OnmsAcknowledgable</code>s. The acknowledgment event
      * contains 4 parameters:
-     *     ackUser: The user acknowledging the <code>OnmsAcknowledgable</code>
-     *     ackAction: ack, unack, esc, clear
-     *     ackType: <code>AckType</code. representing either an <code>OnmsAlarm</code>, <code>OnmsNotification</code>, etc.
-     *     refId: The ID of the <code>OnmsAcknowledgable</code>
+     * ackUser: The user acknowledging the <code>OnmsAcknowledgable</code>
+     * ackAction: ack, unack, esc, clear
+     * ackType: <code>AckType</code. representing either an
+     * <code>OnmsAlarm</code>, <code>OnmsNotification</code>, etc.
+     * refId: The ID of the <code>OnmsAcknowledgable</code>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.ACKNOWLEDGE_EVENT_UEI)
+    @EventHandler(uei = EventConstants.ACKNOWLEDGE_EVENT_UEI)
     public void handleAckEvent(Event event) {
 
         LOG.info("handleAckEvent: Received acknowledgment event: {}", event);
@@ -307,11 +336,14 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>handleReloadConfigEvent</p>
+     * <p>
+     * handleReloadConfigEvent
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.RELOAD_DAEMON_CONFIG_UEI)
+    @EventHandler(uei = EventConstants.RELOAD_DAEMON_CONFIG_UEI)
     public void handleReloadConfigEvent(Event event) {
         String specifiedDaemon = null;
 
@@ -325,13 +357,12 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
             if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName())
                     && getName().equalsIgnoreCase(specifiedDaemon)) {
 
-                LOG.debug("handleReloadConfigEvent: reload event is for this daemon: {}; reloading configuration...", getName());
+                LOG.debug("handleReloadConfigEvent: reload event is for this daemon: {}; reloading configuration...",
+                          getName());
 
                 try {
                     m_configDao.reloadConfiguration();
-                    EventBuilder bldr = new EventBuilder(
-                                                         EventConstants.RELOAD_DAEMON_CONFIG_SUCCESSFUL_UEI,
-                                                         getName(),
+                    EventBuilder bldr = new EventBuilder(EventConstants.RELOAD_DAEMON_CONFIG_SUCCESSFUL_UEI, getName(),
                                                          Calendar.getInstance().getTime());
                     bldr.addParam(EventConstants.PARM_DAEMON_NAME, getName());
                     m_eventForwarder.sendNow(bldr.getEvent());
@@ -340,9 +371,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
                     this.restartReaders(true);
                 } catch (Throwable e) {
                     LOG.error("handleReloadConfigEvent: ", e);
-                    EventBuilder bldr = new EventBuilder(
-                                                         EventConstants.RELOAD_DAEMON_CONFIG_FAILED_UEI,
-                                                         getName(),
+                    EventBuilder bldr = new EventBuilder(EventConstants.RELOAD_DAEMON_CONFIG_FAILED_UEI, getName(),
                                                          Calendar.getInstance().getTime());
                     bldr.addParam(EventConstants.PARM_DAEMON_NAME, getName());
                     bldr.addParam(EventConstants.PARM_REASON, e.getLocalizedMessage().substring(0, 128));
@@ -351,33 +380,43 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
 
                 LOG.debug("handleReloadConfigEvent: configuration reloaded.");
 
-                return;  //return here because we are done.
+                return; // return here because we are done.
             }
 
         }
-        LOG.debug("handleReloadConfigEvent: reload event not for this daemon: {}; daemon specified is: {}", getName(), specifiedDaemon);
+        LOG.debug("handleReloadConfigEvent: reload event not for this daemon: {}; daemon specified is: {}", getName(),
+                  specifiedDaemon);
     }
 
     /**
-     * <p>setExecutor</p>
+     * <p>
+     * setExecutor
+     * </p>
      *
-     * @param executor a {@link java.util.concurrent.ScheduledThreadPoolExecutor} object.
+     * @param executor
+     *            a {@link java.util.concurrent.ScheduledThreadPoolExecutor}
+     *            object.
      */
     public void setExecutor(ScheduledThreadPoolExecutor executor) {
         m_executor = executor;
     }
 
     /**
-     * <p>getExecutor</p>
+     * <p>
+     * getExecutor
+     * </p>
      *
-     * @return a {@link java.util.concurrent.ScheduledThreadPoolExecutor} object.
+     * @return a {@link java.util.concurrent.ScheduledThreadPoolExecutor}
+     *         object.
      */
     public ScheduledThreadPoolExecutor getExecutor() {
         return m_executor;
     }
 
     /**
-     * <p>getEventForwarder</p>
+     * <p>
+     * getEventForwarder
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -386,16 +425,22 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>setEventForwarder</p>
+     * <p>
+     * setEventForwarder
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
 
     /**
-     * <p>getAckReaders</p>
+     * <p>
+     * getAckReaders
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -403,17 +448,20 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
         return m_ackReaders;
     }
 
-    //FIXME:this is probably bogus
+    // FIXME:this is probably bogus
     /**
-     * <p>setAckReaders</p>
+     * <p>
+     * setAckReaders
+     * </p>
      *
-     * @param ackReaders a {@link java.util.List} object.
+     * @param ackReaders
+     *            a {@link java.util.List} object.
      */
     public void setAckReaders(List<AckReader> ackReaders) {
         m_ackReaders = ackReaders;
     }
 
-     /**
+    /**
      * @return a {@link org.opennms.netmgt.dao.api.AcknowledgmentDao} object.
      */
     public AcknowledgmentDao getAcknowledgmentDao() {
@@ -421,14 +469,17 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * @param ackDao a {@link org.opennms.netmgt.dao.api.AcknowledgmentDao} object.
+     * @param ackDao
+     *            a {@link org.opennms.netmgt.dao.api.AcknowledgmentDao} object.
      */
     public void setAcknowledgmentDao(AcknowledgmentDao ackDao) {
         m_ackDao = ackDao;
     }
 
     /**
-     * <p>getConfigDao</p>
+     * <p>
+     * getConfigDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao} object.
      */
@@ -437,25 +488,34 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>setConfigDao</p>
+     * <p>
+     * setConfigDao
+     * </p>
      *
-     * @param config a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao}
+     *            object.
      */
     public void setConfigDao(AckdConfigurationDao config) {
         m_configDao = config;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

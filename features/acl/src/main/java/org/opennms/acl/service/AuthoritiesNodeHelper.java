@@ -60,110 +60,125 @@ import org.opennms.acl.model.AuthorityView;
 /* This class retrieve the nodes that an authority can view */
 class AuthoritiesNodeHelper {
 
-	/**
-	 * <p>Constructor for AuthoritiesNodeHelper.</p>
-	 *
-	 * @param authorities a {@link java.util.List} object.
-	 */
-	public AuthoritiesNodeHelper(List<AuthorityDTO> authorities) {
+    /**
+     * <p>
+     * Constructor for AuthoritiesNodeHelper.
+     * </p>
+     *
+     * @param authorities
+     *            a {@link java.util.List} object.
+     */
+    public AuthoritiesNodeHelper(List<AuthorityDTO> authorities) {
 
-		authItemsMap = new HashMap<String, Set<Integer>>();
-		itemsSet = new HashSet<Integer>();
-		if (authorities != null && authorities.size() > 0) {
-			for (AuthorityDTO authority : authorities) {
-				if (authority.hasItems()) {
-					addAuthorityWithNodes(authority);
-				}
-			}
-		}
-	}
+        authItemsMap = new HashMap<String, Set<Integer>>();
+        itemsSet = new HashSet<Integer>();
+        if (authorities != null && authorities.size() > 0) {
+            for (AuthorityDTO authority : authorities) {
+                if (authority.hasItems()) {
+                    addAuthorityWithNodes(authority);
+                }
+            }
+        }
+    }
 
-	/**
-	 * <p>deleteAuthority</p>
-	 *
-	 * @param authority a {@link java.lang.String} object.
-	 * @return a {@link java.lang.Boolean} object.
-	 */
-	public Boolean deleteAuthority(String authority) {
-		return authItemsMap.remove(authority) != null;
-	}
+    /**
+     * <p>
+     * deleteAuthority
+     * </p>
+     *
+     * @param authority
+     *            a {@link java.lang.String} object.
+     * @return a {@link java.lang.Boolean} object.
+     */
+    public Boolean deleteAuthority(String authority) {
+        return authItemsMap.remove(authority) != null;
+    }
 
-	/**
-	 * <p>deleteItem</p>
-	 *
-	 * @param id a {@link java.lang.Integer} object.
-	 * @return a {@link java.lang.Boolean} object.
-	 */
-	public synchronized Boolean deleteItem(Integer id) {
+    /**
+     * <p>
+     * deleteItem
+     * </p>
+     *
+     * @param id
+     *            a {@link java.lang.Integer} object.
+     * @return a {@link java.lang.Boolean} object.
+     */
+    public synchronized Boolean deleteItem(Integer id) {
 
-		Set<String> keys = authItemsMap.keySet();
-		for (String key : keys) {
-			authItemsMap.get(key).remove(id);
-		}
-		return itemsSet.remove(id);
-	}
+        Set<String> keys = authItemsMap.keySet();
+        for (String key : keys) {
+            authItemsMap.get(key).remove(id);
+        }
+        return itemsSet.remove(id);
+    }
 
-	/**
-	 * <p>getAuthorities</p>
-	 *
-	 * @return a {@link java.util.Set} object.
-	 */
-	public Set<String> getAuthorities() {
-		return Collections.unmodifiableSet(authItemsMap.keySet());
-	}
+    /**
+     * <p>
+     * getAuthorities
+     * </p>
+     *
+     * @return a {@link java.util.Set} object.
+     */
+    public Set<String> getAuthorities() {
+        return Collections.unmodifiableSet(authItemsMap.keySet());
+    }
 
-	// TODO put in a cache
-	/**
-	 * <p>getAuthoritiesItems</p>
-	 *
-	 * @param authorities a {@link java.util.Set} object.
-	 * @return a {@link java.util.Set} object.
-	 */
-	public Set<Integer> getAuthoritiesItems(Set<AuthorityView> authorities) {
-		Set<Integer> authItems = new HashSet<Integer>();
-		for (AuthorityView auth : authorities) {
-			if (authItemsMap.containsKey(auth.getName())) {
-				authItems.addAll(new HashSet<Integer>(authItemsMap.get(auth
-						.getName())));
-			}
-		}
-		return authItems;
-	}
+    // TODO put in a cache
+    /**
+     * <p>
+     * getAuthoritiesItems
+     * </p>
+     *
+     * @param authorities
+     *            a {@link java.util.Set} object.
+     * @return a {@link java.util.Set} object.
+     */
+    public Set<Integer> getAuthoritiesItems(Set<AuthorityView> authorities) {
+        Set<Integer> authItems = new HashSet<Integer>();
+        for (AuthorityView auth : authorities) {
+            if (authItemsMap.containsKey(auth.getName())) {
+                authItems.addAll(new HashSet<Integer>(authItemsMap.get(auth.getName())));
+            }
+        }
+        return authItems;
+    }
 
-	/**
-	 * <p>addAuthorityWithNodes</p>
-	 *
-	 * @param authority a {@link org.opennms.acl.model.AuthorityDTO} object.
-	 */
-	@SuppressWarnings("unchecked")
-	public void addAuthorityWithNodes(AuthorityDTO authority) {
+    /**
+     * <p>
+     * addAuthorityWithNodes
+     * </p>
+     *
+     * @param authority
+     *            a {@link org.opennms.acl.model.AuthorityDTO} object.
+     */
+    @SuppressWarnings("unchecked")
+    public void addAuthorityWithNodes(AuthorityDTO authority) {
 
-		if (authItemsMap.containsKey(authority.getName())) {
+        if (authItemsMap.containsKey(authority.getName())) {
 
-			Set<Integer> oldItems = authItemsMap.get(authority.getName());
-			Set<Integer> itemsNew = createFreshAuthorityItems((List<String>) authority
-					.getItems());
-			itemsSet.addAll(itemsNew);
-			oldItems.addAll(itemsNew);
-			authItemsMap.put(authority.getName(), oldItems);
+            Set<Integer> oldItems = authItemsMap.get(authority.getName());
+            Set<Integer> itemsNew = createFreshAuthorityItems((List<String>) authority.getItems());
+            itemsSet.addAll(itemsNew);
+            oldItems.addAll(itemsNew);
+            authItemsMap.put(authority.getName(), oldItems);
 
-		} else {
+        } else {
 
-			Set<Integer> itemsNew = createFreshAuthorityItems((List<String>) authority
-					.getItems());
-			itemsSet.addAll(itemsNew);
-			authItemsMap.put(authority.getName(), itemsNew);
-		}
-	}
+            Set<Integer> itemsNew = createFreshAuthorityItems((List<String>) authority.getItems());
+            itemsSet.addAll(itemsNew);
+            authItemsMap.put(authority.getName(), itemsNew);
+        }
+    }
 
-	private Set<Integer> createFreshAuthorityItems(List<String> list) {
-		Set<Integer> authItems = new HashSet<Integer>();
-		for (String nodeONMSDTO : list) {
-			authItems.add(new Integer(nodeONMSDTO));
-		}
-		return authItems;
-	}
+    private Set<Integer> createFreshAuthorityItems(List<String> list) {
+        Set<Integer> authItems = new HashSet<Integer>();
+        for (String nodeONMSDTO : list) {
+            authItems.add(new Integer(nodeONMSDTO));
+        }
+        return authItems;
+    }
 
-	private Map<String, Set<Integer>> authItemsMap;
-	private Set<Integer> itemsSet;
+    private Map<String, Set<Integer>> authItemsMap;
+
+    private Set<Integer> itemsSet;
 }

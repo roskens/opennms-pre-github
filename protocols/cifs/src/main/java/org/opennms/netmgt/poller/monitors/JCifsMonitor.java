@@ -42,9 +42,12 @@ import java.net.MalformedURLException;
 import java.util.Map;
 
 /**
- * This class is designed to be used by the service poller framework to test the availability
- * of the existence of files or directories on remote interfaces via CIFS. The class implements
- * the ServiceMonitor interface that allows it to be used along with other plug-ins by the service
+ * This class is designed to be used by the service poller framework to test the
+ * availability
+ * of the existence of files or directories on remote interfaces via CIFS. The
+ * class implements
+ * the ServiceMonitor interface that allows it to be used along with other
+ * plug-ins by the service
  * poller framework.
  *
  * @author <a mailto:christian.pape@informatik.hs-fulda.de>Christian Pape</a>
@@ -53,8 +56,8 @@ import java.util.Map;
 public class JCifsMonitor extends AbstractServiceMonitor {
 
     /*
-    * default retries
-    */
+     * default retries
+     */
     private static final int DEFAULT_RETRY = 0;
 
     /*
@@ -82,8 +85,10 @@ public class JCifsMonitor extends AbstractServiceMonitor {
     /**
      * This method queries the CIFS share.
      *
-     * @param svc        the monitored service
-     * @param parameters the parameter map
+     * @param svc
+     *            the monitored service
+     * @param parameters
+     *            the parameter map
      * @return the poll status for this system
      */
     @Override
@@ -95,14 +100,16 @@ public class JCifsMonitor extends AbstractServiceMonitor {
         String mode = parameters.containsKey("mode") ? ((String) parameters.get("mode")).toUpperCase() : "PATH_EXIST";
         String path = parameters.containsKey("path") ? (String) parameters.get("path") : "";
         String smbHost = parameters.containsKey("smbHost") ? (String) parameters.get("smbHost") : "";
-        final String folderIgnoreFiles = parameters.containsKey("folderIgnoreFiles") ? (String) parameters.get("folderIgnoreFiles") : "";
+        final String folderIgnoreFiles = parameters.containsKey("folderIgnoreFiles") ? (String) parameters.get("folderIgnoreFiles")
+            : "";
 
         // changing to Ip address of MonitoredService if no smbHost is given
         if ("".equals(smbHost)) {
             smbHost = svc.getIpAddr();
         }
 
-        // Filename filter to give user the possibility to ignore specific files in folder for the folder check.
+        // Filename filter to give user the possibility to ignore specific files
+        // in folder for the folder check.
         SmbFilenameFilter smbFilenameFilter = new SmbFilenameFilter() {
             @Override
             public boolean accept(SmbFile smbFile, String s) throws SmbException {
@@ -126,7 +133,8 @@ public class JCifsMonitor extends AbstractServiceMonitor {
             logger.debug("Added leading / to path.");
         }
 
-        // Build authentication string for NtlmPasswordAuthentication: syntax: domain;username:password
+        // Build authentication string for NtlmPasswordAuthentication: syntax:
+        // domain;username:password
         String authString = "";
 
         // Setting up authenticationString...
@@ -139,7 +147,8 @@ public class JCifsMonitor extends AbstractServiceMonitor {
         // ... and path
         String fullUrl = "smb://" + smbHost + path;
 
-        logger.debug("Domain: [{}], Username: [{}], Password: [{}], Mode: [{}], Path: [{}], Authentication: [{}], Full Url: [{}]", new Object[]{domain, username, password, mode, path, authString, fullUrl});
+        logger.debug("Domain: [{}], Username: [{}], Password: [{}], Mode: [{}], Path: [{}], Authentication: [{}], Full Url: [{}]",
+                     new Object[] { domain, username, password, mode, path, authString, fullUrl });
 
         // Initializing TimeoutTracker with default values
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
@@ -160,45 +169,45 @@ public class JCifsMonitor extends AbstractServiceMonitor {
                 boolean smbFileExists = smbFile.exists();
 
                 switch (enumMode) {
-                    case PATH_EXIST:
-                        if (smbFileExists) {
+                case PATH_EXIST:
+                    if (smbFileExists) {
+                        serviceStatus = PollStatus.up();
+                    } else {
+                        serviceStatus = PollStatus.down("File " + fullUrl + " should exists but doesn't!");
+                    }
+                    break;
+                case PATH_NOT_EXIST:
+                    if (!smbFileExists) {
+                        serviceStatus = PollStatus.up();
+                    } else {
+                        serviceStatus = PollStatus.down("File " + fullUrl + " should not exists but does!");
+                    }
+                    break;
+                case FOLDER_EMPTY:
+                    if (smbFileExists) {
+                        if (smbFile.list(smbFilenameFilter).length == 0) {
                             serviceStatus = PollStatus.up();
                         } else {
-                            serviceStatus = PollStatus.down("File " + fullUrl + " should exists but doesn't!");
+                            serviceStatus = PollStatus.down("Directory " + fullUrl + " should be empty but isn't!");
                         }
-                        break;
-                    case PATH_NOT_EXIST:
-                        if (!smbFileExists) {
+                    } else {
+                        serviceStatus = PollStatus.down("Directory " + fullUrl + " should exists but doesn't!");
+                    }
+                    break;
+                case FOLDER_NOT_EMPTY:
+                    if (smbFileExists) {
+                        if (smbFile.list(smbFilenameFilter).length > 0) {
                             serviceStatus = PollStatus.up();
                         } else {
-                            serviceStatus = PollStatus.down("File " + fullUrl + " should not exists but does!");
+                            serviceStatus = PollStatus.down("Directory " + fullUrl + " should not be empty but is!");
                         }
-                        break;
-                    case FOLDER_EMPTY:
-                        if (smbFileExists) {
-                            if (smbFile.list(smbFilenameFilter).length == 0) {
-                                serviceStatus = PollStatus.up();
-                            } else {
-                                serviceStatus = PollStatus.down("Directory " + fullUrl + " should be empty but isn't!");
-                            }
-                        } else {
-                            serviceStatus = PollStatus.down("Directory " + fullUrl + " should exists but doesn't!");
-                        }
-                        break;
-                    case FOLDER_NOT_EMPTY:
-                        if (smbFileExists) {
-                            if (smbFile.list(smbFilenameFilter).length > 0) {
-                                serviceStatus = PollStatus.up();
-                            } else {
-                                serviceStatus = PollStatus.down("Directory " + fullUrl + " should not be empty but is!");
-                            }
-                        } else {
-                            serviceStatus = PollStatus.down("Directory " + fullUrl + " should exists but doesn't!");
-                        }
-                        break;
-                    default:
-                        logger.warn("There is no implementation for the specified mode '{}'", mode);
-                        break;
+                    } else {
+                        serviceStatus = PollStatus.down("Directory " + fullUrl + " should exists but doesn't!");
+                    }
+                    break;
+                default:
+                    logger.warn("There is no implementation for the specified mode '{}'", mode);
+                    break;
                 }
 
             } catch (MalformedURLException exception) {
@@ -217,9 +226,6 @@ public class JCifsMonitor extends AbstractServiceMonitor {
      * Supported modes for CIFS monitor
      */
     private enum Mode {
-        PATH_EXIST,
-        PATH_NOT_EXIST,
-        FOLDER_EMPTY,
-        FOLDER_NOT_EMPTY
+        PATH_EXIST, PATH_NOT_EXIST, FOLDER_EMPTY, FOLDER_NOT_EMPTY
     }
 }

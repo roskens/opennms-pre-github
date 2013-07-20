@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -60,31 +59,47 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
     private static final long serialVersionUID = 6694654071513990997L;
 
     /**
-     * <p>create</p>
+     * <p>
+     * create
+     * </p>
      *
-     * @param ifaceId a {@link java.lang.Integer} object.
-     * @param ifaceDao a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
-     * @param transMgr a {@link org.springframework.transaction.PlatformTransactionManager} object.
+     * @param ifaceId
+     *            a {@link java.lang.Integer} object.
+     * @param ifaceDao
+     *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
+     * @param transMgr
+     *            a
+     *            {@link org.springframework.transaction.PlatformTransactionManager}
+     *            object.
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
-    public static CollectionAgent create(final Integer ifaceId, final IpInterfaceDao ifaceDao, final PlatformTransactionManager transMgr) {
+    public static CollectionAgent create(final Integer ifaceId, final IpInterfaceDao ifaceDao,
+            final PlatformTransactionManager transMgr) {
         return new DefaultCollectionAgent(DefaultCollectionAgentService.create(ifaceId, ifaceDao, transMgr));
     }
 
     // miscellaneous junk?
     private int m_ifCount = -1;
+
     private long m_sysUpTime = -1;
 
-        // cached attributes
+    // cached attributes
     private int m_nodeId = -1;
+
     private InetAddress m_inetAddress = null;
+
     private int m_ifIndex = -1;
+
     private PrimaryType m_isSnmpPrimary = null;
+
     private String m_sysObjId = null;
+
     private String m_foreignSource = null;
+
     private String m_foreignId = null;
 
     private CollectionAgentService m_agentService;
+
     private Set<SnmpIfData> m_snmpIfData;
 
     private DefaultCollectionAgent(final CollectionAgentService agentService) {
@@ -111,11 +126,14 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return m_inetAddress;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#isStoreByForeignSource()
      */
     /**
-     * <p>isStoreByForeignSource</p>
+     * <p>
+     * isStoreByForeignSource
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -124,11 +142,14 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return Boolean.getBoolean("org.opennms.rrd.storeByForeignSource");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getHostAddress()
      */
     /**
-     * <p>getHostAddress</p>
+     * <p>
+     * getHostAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -137,7 +158,8 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return InetAddressUtils.str(getInetAddress());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#setSavedIfCount(int)
      */
     /** {@inheritDoc} */
@@ -146,11 +168,14 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         m_ifCount = ifCount;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getSavedIfCount()
      */
     /**
-     * <p>getSavedIfCount</p>
+     * <p>
+     * getSavedIfCount
+     * </p>
      *
      * @return a int.
      */
@@ -159,11 +184,14 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return m_ifCount;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getNodeId()
      */
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -175,11 +203,14 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return m_nodeId;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getForeignSource()
      */
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -191,11 +222,14 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return m_foreignSource;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getForeignId()
      */
     /**
-     * <p>getForeignId</p>
+     * <p>
+     * getForeignId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -207,23 +241,27 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return m_foreignId;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getStorageDir()
      */
     /**
-     * <p>getStorageDir</p>
+     * <p>
+     * getStorageDir
+     * </p>
      *
      * @return a {@link java.io.File} object.
      */
     @Override
     public File getStorageDir() {
-       File dir = new File(String.valueOf(getNodeId()));
-       if(isStoreByForeignSource() && !(getForeignSource() == null) && !(getForeignId() == null)) {
-               File fsDir = new File(DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY, m_foreignSource);
-               dir = new File(fsDir, m_foreignId);
-       }
-        LOG.debug("getStorageDir: isStoreByForeignSource = {}, foreignSource = {}, foreignId = {}, dir = {}", isStoreByForeignSource(), m_foreignSource, m_foreignId, dir);
-       return dir;
+        File dir = new File(String.valueOf(getNodeId()));
+        if (isStoreByForeignSource() && !(getForeignSource() == null) && !(getForeignId() == null)) {
+            File fsDir = new File(DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY, m_foreignSource);
+            dir = new File(fsDir, m_foreignId);
+        }
+        LOG.debug("getStorageDir: isStoreByForeignSource = {}, foreignSource = {}, foreignId = {}, dir = {}",
+                  isStoreByForeignSource(), m_foreignSource, m_foreignId, dir);
+        return dir;
     }
 
     private int getIfIndex() {
@@ -234,11 +272,14 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getSysObjectId()
      */
     /**
-     * <p>getSysObjectId</p>
+     * <p>
+     * getSysObjectId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -261,27 +302,26 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
     }
 
     private void logCompletion() {
-        LOG.debug("initialize: initialization completed: nodeid = {}, address = {}, primaryIfIndex = {}, isSnmpPrimary = {}, sysoid = {}", getNodeId(), getHostAddress(), getIfIndex(), getIsSnmpPrimary(), getSysObjectId());
+        LOG.debug("initialize: initialization completed: nodeid = {}, address = {}, primaryIfIndex = {}, isSnmpPrimary = {}, sysoid = {}",
+                  getNodeId(), getHostAddress(), getIfIndex(), getIsSnmpPrimary(), getSysObjectId());
     }
 
     private void validateSysObjId() throws CollectionInitializationException {
         if (getSysObjectId() == null) {
-            throw new CollectionInitializationException("System Object ID for interface "
-                                       + getHostAddress()
-                                       + " does not exist in the database.");
+            throw new CollectionInitializationException("System Object ID for interface " + getHostAddress()
+                    + " does not exist in the database.");
         }
     }
 
     private void logCollectionParms() {
-        LOG.debug("initialize: db retrieval info: nodeid = {}, address = {}, primaryIfIndex = {}, isSnmpPrimary = {}, sysoid = {}", getNodeId(), getHostAddress(), getIfIndex(), getIsSnmpPrimary(), getSysObjectId());
+        LOG.debug("initialize: db retrieval info: nodeid = {}, address = {}, primaryIfIndex = {}, isSnmpPrimary = {}, sysoid = {}",
+                  getNodeId(), getHostAddress(), getIfIndex(), getIsSnmpPrimary(), getSysObjectId());
     }
 
     private void validateIsSnmpPrimary() throws CollectionInitializationException {
         if (!PrimaryType.PRIMARY.equals(getIsSnmpPrimary())) {
-            throw new CollectionInitializationException("Interface "
-                                       + getHostAddress()
-                                       + " is not the primary SNMP interface for nodeid "
-                                       + getNodeId());
+            throw new CollectionInitializationException("Interface " + getHostAddress()
+                    + " is not the primary SNMP interface for nodeid " + getNodeId());
         }
     }
 
@@ -290,15 +330,20 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
             // allow this for nodes without ipAddrTables
             // throw new RuntimeException("Unable to retrieve ifIndex for
             // interface " + ipAddr.getHostAddress());
-            LOG.debug("initialize: db retrieval info: node {} does not have a legitimate primaryIfIndex.  Assume node does not supply ipAddrTable and continue...", getNodeId());
+            LOG.debug("initialize: db retrieval info: node {} does not have a legitimate primaryIfIndex.  Assume node does not supply ipAddrTable and continue...",
+                      getNodeId());
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#validateAgent()
      */
     /**
-     * <p>validateAgent</p>
+     * <p>
+     * validateAgent
+     * </p>
+     *
      * @throws CollectionInitializationException
      */
     @Override
@@ -310,24 +355,30 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         logCompletion();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#toString()
      */
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return "Agent[nodeid = "+getNodeId()+" ipaddr= "+getHostAddress()+']';
+        return "Agent[nodeid = " + getNodeId() + " ipaddr= " + getHostAddress() + ']';
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getAgentConfig()
      */
     /**
-     * <p>getAgentConfig</p>
+     * <p>
+     * getAgentConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
@@ -344,8 +395,11 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
 
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.CollectionAgent#getSnmpInterfaceInfo(org.opennms.netmgt.collectd.IfResourceType)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.CollectionAgent#getSnmpInterfaceInfo(org.
+     * opennms.netmgt.collectd.IfResourceType)
      */
     /** {@inheritDoc} */
     @Override
@@ -371,7 +425,9 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
     }
 
     /**
-     * <p>getSavedSysUpTime</p>
+     * <p>
+     * getSavedSysUpTime
+     * </p>
      *
      * @return a long.
      */
@@ -385,6 +441,5 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
     public void setSavedSysUpTime(final long sysUpTime) {
         m_sysUpTime = sysUpTime;
     }
-
 
 }

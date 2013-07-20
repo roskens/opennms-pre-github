@@ -329,12 +329,12 @@ public class Interface extends StandardNamedObject {
     public long getDownTime(long currentTime, long rollingWindow) {
         long outageTime = 0;
         if (m_services != null && m_services.size() > 0) {
-        	for (Service service : m_services) {
-				long down = service.getDownTime(currentTime, rollingWindow);
-				if (down > 0) {
-					outageTime += down;
-				}
-			}
+            for (Service service : m_services) {
+                long down = service.getDownTime(currentTime, rollingWindow);
+                if (down > 0) {
+                    outageTime += down;
+                }
+            }
         }
         return outageTime;
     }
@@ -358,11 +358,11 @@ public class Interface extends StandardNamedObject {
     public int getServiceAffectCount() {
         int count = 0;
         if (m_services != null && m_services.size() > 0) {
-        	for (Service service : m_services) {
-				if (service.getOutages().size() > 0) {
-					count++;
-				}
-			}
+            for (Service service : m_services) {
+                if (service.getOutages().size() > 0) {
+                    count++;
+                }
+            }
         }
         return count;
     }

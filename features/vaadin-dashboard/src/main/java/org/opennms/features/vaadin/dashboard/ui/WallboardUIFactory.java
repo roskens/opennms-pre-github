@@ -42,6 +42,7 @@ public class WallboardUIFactory extends AbstractApplicationFactory {
      * The {@link BlueprintContainer} associated with this object
      */
     private final BlueprintContainer m_blueprintContainer;
+
     /**
      * The bean name
      */
@@ -50,8 +51,10 @@ public class WallboardUIFactory extends AbstractApplicationFactory {
     /**
      * Constructor for instantiating a new factory.
      *
-     * @param container the bean container to use
-     * @param beanName  the beam name to use
+     * @param container
+     *            the bean container to use
+     * @param beanName
+     *            the beam name to use
      */
     public WallboardUIFactory(BlueprintContainer container, String beanName) {
         m_blueprintContainer = container;

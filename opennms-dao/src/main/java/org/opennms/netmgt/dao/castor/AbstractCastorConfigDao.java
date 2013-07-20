@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.dao.castor;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.opennms.core.utils.FileReloadCallback;
@@ -39,31 +38,47 @@ import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 /**
- * <p>Abstract AbstractCastorConfigDao class.</p>
+ * <p>
+ * Abstract AbstractCastorConfigDao class.
+ * </p>
  *
  * @author <a href="mailto:dj@gregor.com">DJ Gregor</a>
- * @param <K> Castor class
- * @param <V> Configuration object that is stored in memory (might be the same
+ * @param <K>
+ *            Castor class
+ * @param <V>
+ *            Configuration object that is stored in memory (might be the same
  *            as the Castor class or could be a different class)
  * @version $Id: $
  */
 public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCastorConfigDao.class);
+
     private Class<K> m_castorClass;
+
     private String m_description;
+
     private Resource m_configResource;
+
     private FileReloadContainer<V> m_container;
+
     private CastorReloadCallback m_callback = new CastorReloadCallback();
+
     private Long m_reloadCheckInterval = null;
 
     /**
-     * <p>Constructor for AbstractCastorConfigDao.</p>
+     * <p>
+     * Constructor for AbstractCastorConfigDao.
+     * </p>
      *
-     * @param entityClass a {@link java.lang.Class} object.
-     * @param description a {@link java.lang.String} object.
-     * @param <K> a K object.
-     * @param <V> a V object.
+     * @param entityClass
+     *            a {@link java.lang.Class} object.
+     * @param description
+     *            a {@link java.lang.String} object.
+     * @param <K>
+     *            a K object.
+     * @param <V>
+     *            a V object.
      */
     public AbstractCastorConfigDao(final Class<K> entityClass, final String description) {
         super();
@@ -73,17 +88,23 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     }
 
     /**
-     * <p>translateConfig</p>
+     * <p>
+     * translateConfig
+     * </p>
      *
-     * @param castorConfig a K object.
+     * @param castorConfig
+     *            a K object.
      * @return a V object.
      */
     public abstract V translateConfig(K castorConfig);
 
     /**
-     * <p>loadConfig</p>
+     * <p>
+     * loadConfig
+     * </p>
      *
-     * @param resource a {@link org.springframework.core.io.Resource} object.
+     * @param resource
+     *            a {@link org.springframework.core.io.Resource} object.
      * @return a V object.
      */
     protected V loadConfig(final Resource resource) {
@@ -100,10 +121,14 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     }
 
     /**
-     * <p>createLoadedLogMessage</p>
+     * <p>
+     * createLoadedLogMessage
+     * </p>
      *
-     * @param translatedConfig a V object.
-     * @param diffTime a long.
+     * @param translatedConfig
+     *            a V object.
+     * @param diffTime
+     *            a long.
      * @return a {@link java.lang.String} object.
      */
     protected String createLoadedLogMessage(final V translatedConfig, final long diffTime) {
@@ -111,7 +136,9 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -126,7 +153,9 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     }
 
     /**
-     * <p>getConfigResource</p>
+     * <p>
+     * getConfigResource
+     * </p>
      *
      * @return a {@link org.springframework.core.io.Resource} object.
      */
@@ -135,16 +164,21 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     }
 
     /**
-     * <p>setConfigResource</p>
+     * <p>
+     * setConfigResource
+     * </p>
      *
-     * @param configResource a {@link org.springframework.core.io.Resource} object.
+     * @param configResource
+     *            a {@link org.springframework.core.io.Resource} object.
      */
     public void setConfigResource(final Resource configResource) {
         m_configResource = configResource;
     }
 
     /**
-     * <p>getContainer</p>
+     * <p>
+     * getContainer
+     * </p>
      *
      * @return a {@link org.opennms.core.utils.FileReloadContainer} object.
      */
@@ -160,7 +194,9 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     }
 
     /**
-     * <p>getReloadCheckInterval</p>
+     * <p>
+     * getReloadCheckInterval
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -169,9 +205,12 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     }
 
     /**
-     * <p>setReloadCheckInterval</p>
+     * <p>
+     * setReloadCheckInterval
+     * </p>
      *
-     * @param reloadCheckInterval a {@link java.lang.Long} object.
+     * @param reloadCheckInterval
+     *            a {@link java.lang.Long} object.
      */
     public void setReloadCheckInterval(final Long reloadCheckInterval) {
         m_reloadCheckInterval = reloadCheckInterval;
@@ -181,7 +220,9 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     }
 
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

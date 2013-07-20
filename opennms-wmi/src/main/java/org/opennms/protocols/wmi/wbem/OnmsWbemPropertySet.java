@@ -31,7 +31,9 @@ package org.opennms.protocols.wmi.wbem;
 import org.opennms.protocols.wmi.WmiException;
 
 /**
- * <p>OnmsWbemPropertySet interface.</p>
+ * <p>
+ * OnmsWbemPropertySet interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,28 +41,39 @@ import org.opennms.protocols.wmi.WmiException;
 public interface OnmsWbemPropertySet {
 
     /**
-     * <p>count</p>
+     * <p>
+     * count
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public Integer count() throws WmiException;
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param idx a {@link java.lang.Integer} object.
+     * @param idx
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemProperty} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public OnmsWbemProperty get(Integer idx) throws WmiException;
 
     /**
-     * <p>getByName</p>
+     * <p>
+     * getByName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemProperty} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public OnmsWbemProperty getByName(String name) throws WmiException;
 }

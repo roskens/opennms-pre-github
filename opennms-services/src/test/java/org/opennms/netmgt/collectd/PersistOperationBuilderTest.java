@@ -62,12 +62,17 @@ import java.util.HashMap;
  */
 public class PersistOperationBuilderTest extends TestCase {
     private FileAnticipator m_fileAnticipator;
+
     private File m_snmpDirectory;
+
     private OnmsIpInterface m_intf;
+
     private OnmsNode m_node;
+
     private PlatformTransactionManager m_transMgr = new MockPlatformTransactionManager();
 
     private IpInterfaceDao m_ifDao;
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -117,7 +122,9 @@ public class PersistOperationBuilderTest extends TestCase {
 
         MockDataCollectionConfig dataCollectionConfig = new MockDataCollectionConfig();
 
-        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent, new ServiceParameters(new HashMap<String, Object>()), dataCollectionConfig);
+        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent,
+                                                               new ServiceParameters(new HashMap<String, Object>()),
+                                                               dataCollectionConfig);
 
         NodeResourceType resourceType = new NodeResourceType(agent, collection);
 
@@ -126,7 +133,6 @@ public class PersistOperationBuilderTest extends TestCase {
         PersistOperationBuilder builder = new PersistOperationBuilder(repository, resource, "rrdName");
         builder.commit();
     }
-
 
     public void testCommitWithDeclaredAttribute() throws Exception {
         File nodeDir = m_fileAnticipator.expecting(getSnmpRrdDirectory(), m_node.getId().toString());
@@ -139,7 +145,9 @@ public class PersistOperationBuilderTest extends TestCase {
 
         MockDataCollectionConfig dataCollectionConfig = new MockDataCollectionConfig();
 
-        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent, new ServiceParameters(new HashMap<String, Object>()), dataCollectionConfig);
+        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent,
+                                                               new ServiceParameters(new HashMap<String, Object>()),
+                                                               dataCollectionConfig);
 
         NodeResourceType resourceType = new NodeResourceType(agent, collection);
 
@@ -155,14 +163,16 @@ public class PersistOperationBuilderTest extends TestCase {
 
         SnmpCollectionSet collectionSet = new SnmpCollectionSet(agent, collection);
 
-        SnmpAttributeType attributeType = new StringAttributeType(resourceType, "some-collection", mibObject, new AttributeGroupType("mibGroup", "ignore"));
-        attributeType.storeResult(collectionSet, null, new SnmpResult(mibObject.getSnmpObjId(), new SnmpInstId(mibObject.getInstance()), SnmpUtils.getValueFactory().getOctetString("hello".getBytes())));
+        SnmpAttributeType attributeType = new StringAttributeType(resourceType, "some-collection", mibObject,
+                                                                  new AttributeGroupType("mibGroup", "ignore"));
+        attributeType.storeResult(collectionSet, null,
+                                  new SnmpResult(mibObject.getSnmpObjId(), new SnmpInstId(mibObject.getInstance()),
+                                                 SnmpUtils.getValueFactory().getOctetString("hello".getBytes())));
 
         PersistOperationBuilder builder = new PersistOperationBuilder(repository, resource, "rrdName");
         builder.declareAttribute(attributeType);
         builder.commit();
     }
-
 
     public void testCommitWithDeclaredAttributeAndValue() throws Exception {
         File nodeDir = m_fileAnticipator.expecting(getSnmpRrdDirectory(), m_node.getId().toString());
@@ -175,7 +185,9 @@ public class PersistOperationBuilderTest extends TestCase {
 
         MockDataCollectionConfig dataCollectionConfig = new MockDataCollectionConfig();
 
-        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent, new ServiceParameters(new HashMap<String, Object>()), dataCollectionConfig);
+        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent,
+                                                               new ServiceParameters(new HashMap<String, Object>()),
+                                                               dataCollectionConfig);
 
         NodeResourceType resourceType = new NodeResourceType(agent, collection);
 
@@ -191,15 +203,17 @@ public class PersistOperationBuilderTest extends TestCase {
 
         SnmpCollectionSet collectionSet = new SnmpCollectionSet(agent, collection);
 
-        SnmpAttributeType attributeType = new StringAttributeType(resourceType, "some-collection", mibObject, new AttributeGroupType("mibGroup", "ignore"));
-        attributeType.storeResult(collectionSet, null, new SnmpResult(mibObject.getSnmpObjId(), new SnmpInstId(mibObject.getInstance()), SnmpUtils.getValueFactory().getOctetString("hello".getBytes())));
+        SnmpAttributeType attributeType = new StringAttributeType(resourceType, "some-collection", mibObject,
+                                                                  new AttributeGroupType("mibGroup", "ignore"));
+        attributeType.storeResult(collectionSet, null,
+                                  new SnmpResult(mibObject.getSnmpObjId(), new SnmpInstId(mibObject.getInstance()),
+                                                 SnmpUtils.getValueFactory().getOctetString("hello".getBytes())));
 
         PersistOperationBuilder builder = new PersistOperationBuilder(repository, resource, "rrdName");
         builder.declareAttribute(attributeType);
         builder.setAttributeValue(attributeType, "6.022E23");
         builder.commit();
     }
-
 
     private RrdRepository createRrdRepository() throws IOException {
         RrdRepository repository = new RrdRepository();

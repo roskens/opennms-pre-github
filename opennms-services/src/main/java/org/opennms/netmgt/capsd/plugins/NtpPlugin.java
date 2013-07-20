@@ -54,6 +54,7 @@ import org.opennms.protocols.ntp.NtpMessage;
  */
 public final class NtpPlugin extends AbstractPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(NtpPlugin.class);
+
     /**
      * </P>
      * The protocol name that is tested by this plugin.
@@ -79,14 +80,12 @@ public final class NtpPlugin extends AbstractPlugin {
     private final static int DEFAULT_TIMEOUT = 3000; // in milliseconds
 
     /**
-     *
      * @param nserver
      *            The address for the NTP server test.
      * @param port
      *            The port to test for NTP
      * @param timeout
      *            Timeout in milliseconds
-     *
      * @return True if server, false if not.
      */
     private boolean isServer(InetAddress nserver, int port, int retries, int timeout) {
@@ -153,9 +152,8 @@ public final class NtpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -165,7 +163,6 @@ public final class NtpPlugin extends AbstractPlugin {
 
     /**
      * {@inheritDoc}
-     *
      * <p>
      * Returns true if the protocol defined by this plugin is supported. If the
      * protocol is not supported then a false value is returned to the caller.
@@ -173,7 +170,6 @@ public final class NtpPlugin extends AbstractPlugin {
      * additional information by key-name. These key-value pairs can be added to
      * service events if needed.
      * </p>
-     *
      * <p>
      * In addition, the input qualifiers map also provides information about how
      * the plugin should contact the remote server. The plugin may check the
@@ -189,7 +185,8 @@ public final class NtpPlugin extends AbstractPlugin {
         if (qualifiers != null) {
             port = ParameterMap.getKeyedInteger(qualifiers, "port", DEFAULT_PORT);
             timeout = ParameterMap.getKeyedInteger(qualifiers, "timeout", DEFAULT_TIMEOUT);
-            retries = ParameterMap.getKeyedInteger(qualifiers, "retry", ParameterMap.getKeyedInteger(qualifiers, "retries", DEFAULT_RETRY));
+            retries = ParameterMap.getKeyedInteger(qualifiers, "retry",
+                                                   ParameterMap.getKeyedInteger(qualifiers, "retries", DEFAULT_RETRY));
         }
 
         boolean result = isServer(address, port, retries, timeout);

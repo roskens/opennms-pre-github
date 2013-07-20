@@ -63,10 +63,10 @@ import org.springframework.core.io.FileSystemResource;
  * This class is the main repository for WMI configuration information used by
  * the capabilities daemon. When this class is loaded it reads the WMI
  * configuration into memory, and uses the configuration to find the
- * {@link org.opennms.protocols.wmi.WmiAgentConfig WmiAgentConfig} objects for specific
+ * {@link org.opennms.protocols.wmi.WmiAgentConfig WmiAgentConfig} objects for
+ * specific
  * addresses. If an address cannot be located in the configuration then a
  * default peer instance is returned to the caller.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -78,6 +78,7 @@ import org.springframework.core.io.FileSystemResource;
  */
 public class WmiPeerFactory {
     private static final Logger LOG = LoggerFactory.getLogger(WmiPeerFactory.class);
+
     /**
      * The singleton instance of this factory
      */
@@ -102,19 +103,24 @@ public class WmiPeerFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     *
-     * @param configFile the path to the config file to load in.
+     * @param configFile
+     *            the path to the config file to load in.
      */
     private WmiPeerFactory(String configFile) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(WmiConfig.class, new FileSystemResource(configFile));
     }
 
     /**
-     * <p>Constructor for WmiPeerFactory.</p>
+     * <p>
+     * Constructor for WmiPeerFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public WmiPeerFactory(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(WmiConfig.class, stream);
@@ -130,9 +136,12 @@ public class WmiPeerFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -159,9 +168,12 @@ public class WmiPeerFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -180,7 +192,8 @@ public class WmiPeerFactory {
     /**
      * Saves the current settings to disk
      *
-     * @throws java.lang.Exception if saving settings to disk fails.
+     * @throws java.lang.Exception
+     *             if saving settings to disk fails.
      */
     public static synchronized void saveCurrent() throws Exception {
         optimize();
@@ -191,7 +204,10 @@ public class WmiPeerFactory {
         StringWriter stringWriter = new StringWriter();
         Marshaller.marshal(m_config, stringWriter);
         if (stringWriter.toString() != null) {
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.WMI_CONFIG_FILE_NAME)), "UTF-8");
+            Writer fileWriter = new OutputStreamWriter(
+                                                       new FileOutputStream(
+                                                                            ConfigFileConstants.getFile(ConfigFileConstants.WMI_CONFIG_FILE_NAME)),
+                                                       "UTF-8");
             fileWriter.write(stringWriter.toString());
             fileWriter.flush();
             fileWriter.close();
@@ -203,16 +219,17 @@ public class WmiPeerFactory {
     /**
      * Combine specific and range elements so that WMIPeerFactory has to spend
      * less time iterating all these elements.
-     * TODO This really should be pulled up into PeerFactory somehow, but I'm not sure how (given that "Definition" is different for both
-     * SNMP and WMI.  Maybe some sort of visitor methodology would work.  The basic logic should be fine as it's all IP address manipulation
+     * TODO This really should be pulled up into PeerFactory somehow, but I'm
+     * not sure how (given that "Definition" is different for both
+     * SNMP and WMI. Maybe some sort of visitor methodology would work. The
+     * basic logic should be fine as it's all IP address manipulation
      *
      * @throws UnknownHostException
      */
     static void optimize() throws UnknownHostException {
 
         // First pass: Remove empty definition elements
-        for (Iterator<Definition> definitionsIterator = m_config.getDefinitionCollection().iterator();
-        definitionsIterator.hasNext();) {
+        for (Iterator<Definition> definitionsIterator = m_config.getDefinitionCollection().iterator(); definitionsIterator.hasNext();) {
             Definition definition = definitionsIterator.next();
             if (definition.getSpecificCount() == 0 && definition.getRangeCount() == 0) {
 
@@ -223,7 +240,7 @@ public class WmiPeerFactory {
 
         // Second pass: Replace single IP range elements with specific elements
         for (Definition definition : m_config.getDefinitionCollection()) {
-            synchronized(definition) {
+            synchronized (definition) {
                 for (Iterator<Range> rangesIterator = definition.getRangeCollection().iterator(); rangesIterator.hasNext();) {
                     Range range = rangesIterator.next();
                     if (range.getBegin().equals(range.getEnd())) {
@@ -236,17 +253,18 @@ public class WmiPeerFactory {
 
         // Third pass: Sort specific and range elements for improved XML
         // readability and then combine them into fewer elements where possible
-        for (Iterator<Definition> defIterator = m_config.getDefinitionCollection().iterator(); defIterator.hasNext(); ) {
+        for (Iterator<Definition> defIterator = m_config.getDefinitionCollection().iterator(); defIterator.hasNext();) {
             Definition definition = defIterator.next();
 
             // Sort specifics
-            final TreeMap<InetAddress,String> specificsMap = new TreeMap<InetAddress,String>(new InetAddressComparator());
+            final TreeMap<InetAddress, String> specificsMap = new TreeMap<InetAddress, String>(
+                                                                                               new InetAddressComparator());
             for (String specific : definition.getSpecificCollection()) {
                 specificsMap.put(InetAddressUtils.getInetAddress(specific), specific.trim());
             }
 
             // Sort ranges
-            final TreeMap<InetAddress,Range> rangesMap = new TreeMap<InetAddress,Range>(new InetAddressComparator());
+            final TreeMap<InetAddress, Range> rangesMap = new TreeMap<InetAddress, Range>(new InetAddressComparator());
             for (Range range : definition.getRangeCollection()) {
                 rangesMap.put(InetAddressUtils.getInetAddress(range.getBegin()), range);
             }
@@ -260,8 +278,8 @@ public class WmiPeerFactory {
                     continue;
                 }
 
-                if (BigInteger.ONE.equals(InetAddressUtils.difference(specific, priorSpecific)) &&
-                        InetAddressUtils.inSameScope(specific, priorSpecific)) {
+                if (BigInteger.ONE.equals(InetAddressUtils.difference(specific, priorSpecific))
+                        && InetAddressUtils.inSameScope(specific, priorSpecific)) {
                     if (addedRange == null) {
                         addedRange = new Range();
                         addedRange.setBegin(InetAddressUtils.toIpAddrString(priorSpecific));
@@ -271,8 +289,7 @@ public class WmiPeerFactory {
 
                     addedRange.setEnd(InetAddressUtils.toIpAddrString(specific));
                     specificsMap.remove(specific);
-                }
-                else {
+                } else {
                     addedRange = null;
                 }
 
@@ -298,10 +315,8 @@ public class WmiPeerFactory {
                         continue;
                     }
 
-                    if (
-                            InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(begin)) >= 0 &&
-                            InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(end)) <= 0
-                    ) {
+                    if (InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(begin)) >= 0
+                            && InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(end)) <= 0) {
                         specificsMap.remove(specific);
                         break;
                     }
@@ -332,10 +347,13 @@ public class WmiPeerFactory {
                 final InetAddress endAddress = InetAddressUtils.getInetAddress(range.getEnd());
 
                 if (priorRange != null) {
-                    if (InetAddressUtils.inSameScope(beginAddress, priorEnd) && InetAddressUtils.difference(beginAddress, priorEnd).compareTo(BigInteger.ONE) <= 0) {
-                        priorBegin = new InetAddressComparator().compare(priorBegin, beginAddress) < 0 ? priorBegin : beginAddress;
+                    if (InetAddressUtils.inSameScope(beginAddress, priorEnd)
+                            && InetAddressUtils.difference(beginAddress, priorEnd).compareTo(BigInteger.ONE) <= 0) {
+                        priorBegin = new InetAddressComparator().compare(priorBegin, beginAddress) < 0 ? priorBegin
+                            : beginAddress;
                         priorRange.setBegin(InetAddressUtils.toIpAddrString(priorBegin));
-                        priorEnd = new InetAddressComparator().compare(priorEnd, endAddress) > 0 ? priorEnd : endAddress;
+                        priorEnd = new InetAddressComparator().compare(priorEnd, endAddress) > 0 ? priorEnd
+                            : endAddress;
                         priorRange.setEnd(InetAddressUtils.toIpAddrString(priorEnd));
 
                         rangesIterator.remove();
@@ -369,9 +387,12 @@ public class WmiPeerFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param singleton a {@link org.opennms.netmgt.config.WmiPeerFactory} object.
+     * @param singleton
+     *            a {@link org.opennms.netmgt.config.WmiPeerFactory} object.
      */
     public static synchronized void setInstance(WmiPeerFactory singleton) {
         m_singleton = singleton;
@@ -379,9 +400,12 @@ public class WmiPeerFactory {
     }
 
     /**
-     * <p>getAgentConfig</p>
+     * <p>
+     * getAgentConfig
+     * </p>
      *
-     * @param agentInetAddress a {@link java.net.InetAddress} object.
+     * @param agentInetAddress
+     *            a {@link java.net.InetAddress} object.
      * @return a {@link org.opennms.protocols.wmi.WmiAgentConfig} object.
      */
     public synchronized WmiAgentConfig getAgentConfig(InetAddress agentInetAddress) {
@@ -392,7 +416,7 @@ public class WmiPeerFactory {
 
         WmiAgentConfig agentConfig = new WmiAgentConfig(agentInetAddress);
 
-        //Now set the defaults from the m_config
+        // Now set the defaults from the m_config
         setWmiAgentConfig(agentConfig, new Definition());
 
         // Attempt to locate the node
@@ -412,7 +436,8 @@ public class WmiPeerFactory {
 
             // check the ranges
             for (Range rng : def.getRangeCollection()) {
-                if (InetAddressUtils.isInetAddressInRange(InetAddressUtils.str(agentConfig.getAddress()), rng.getBegin(), rng.getEnd())) {
+                if (InetAddressUtils.isInetAddressInRange(InetAddressUtils.str(agentConfig.getAddress()),
+                                                          rng.getBegin(), rng.getEnd())) {
                     setWmiAgentConfig(agentConfig, def);
                     break DEFLOOP;
                 }
@@ -445,14 +470,15 @@ public class WmiPeerFactory {
     }
 
     /**
-     * This is a helper method to set all the common attributes in the agentConfig.
+     * This is a helper method to set all the common attributes in the
+     * agentConfig.
      *
      * @param agentConfig
      * @param def
      */
     private void setCommonAttributes(WmiAgentConfig agentConfig, Definition def) {
         agentConfig.setRetries(determineRetries(def));
-        agentConfig.setTimeout((int)determineTimeout(def));
+        agentConfig.setTimeout((int) determineTimeout(def));
         agentConfig.setUsername(determineUsername(def));
         agentConfig.setPassword(determinePassword(def));
         agentConfig.setDomain(determineDomain(def));
@@ -460,39 +486,52 @@ public class WmiPeerFactory {
 
     /**
      * Helper method to search the wmi-config for the appropriate username
+     *
      * @param def
-     * @return a string containing the username. will return the default if none is set.
+     * @return a string containing the username. will return the default if none
+     *         is set.
      */
     private String determineUsername(Definition def) {
-        return (def.getPassword() == null ? (m_config.getUsername() == null ? WmiAgentConfig.DEFAULT_USERNAME :m_config.getUsername()) : def.getUsername());
+        return (def.getPassword() == null ? (m_config.getUsername() == null ? WmiAgentConfig.DEFAULT_USERNAME
+            : m_config.getUsername()) : def.getUsername());
     }
 
     /**
-     * Helper method to search the wmi-config for the appropriate domain/workgroup.
+     * Helper method to search the wmi-config for the appropriate
+     * domain/workgroup.
+     *
      * @param def
-     * @return a string containing the domain. will return the default if none is set.
+     * @return a string containing the domain. will return the default if none
+     *         is set.
      */
     private String determineDomain(Definition def) {
-        return (def.getDomain() == null ? (m_config.getDomain() == null ? WmiAgentConfig.DEFAULT_DOMAIN :m_config.getDomain()) : def.getDomain());
+        return (def.getDomain() == null ? (m_config.getDomain() == null ? WmiAgentConfig.DEFAULT_DOMAIN
+            : m_config.getDomain()) : def.getDomain());
     }
 
     /**
      * Helper method to search the wmi-config for the appropriate password
+     *
      * @param def
-     * @return a string containing the password. will return the default if none is set.
+     * @return a string containing the password. will return the default if none
+     *         is set.
      */
     private String determinePassword(Definition def) {
-        return (def.getPassword() == null ? (m_config.getPassword() == null ? WmiAgentConfig.DEFAULT_PASSWORD :m_config.getPassword()) : def.getPassword());
+        return (def.getPassword() == null ? (m_config.getPassword() == null ? WmiAgentConfig.DEFAULT_PASSWORD
+            : m_config.getPassword()) : def.getPassword());
     }
 
     /**
      * Helper method to search the wmi-config
+     *
      * @param def
-     * @return a long containing the timeout, WmiAgentConfig.DEFAULT_TIMEOUT if not specified.
+     * @return a long containing the timeout, WmiAgentConfig.DEFAULT_TIMEOUT if
+     *         not specified.
      */
     private long determineTimeout(Definition def) {
         long timeout = WmiAgentConfig.DEFAULT_TIMEOUT;
-        return (long)(def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? timeout : m_config.getTimeout()) : def.getTimeout());
+        return (long) (def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? timeout : m_config.getTimeout())
+            : def.getTimeout());
     }
 
     private int determineRetries(Definition def) {
@@ -501,7 +540,9 @@ public class WmiPeerFactory {
     }
 
     /**
-     * <p>getWmiConfig</p>
+     * <p>
+     * getWmiConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.wmi.WmiConfig} object.
      */
@@ -510,9 +551,12 @@ public class WmiPeerFactory {
     }
 
     /**
-     * <p>setWmiConfig</p>
+     * <p>
+     * setWmiConfig
+     * </p>
      *
-     * @param m_config a {@link org.opennms.netmgt.config.wmi.WmiConfig} object.
+     * @param m_config
+     *            a {@link org.opennms.netmgt.config.wmi.WmiConfig} object.
      */
     public static synchronized void setWmiConfig(WmiConfig m_config) {
         WmiPeerFactory.m_config = m_config;

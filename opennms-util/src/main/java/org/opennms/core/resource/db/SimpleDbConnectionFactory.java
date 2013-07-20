@@ -35,7 +35,6 @@ import java.sql.SQLException;
 /**
  * A trivial implementation of <code>DbConnectionFactory</code> that creates a
  * new connection for every request and does no caching or connection sharing.
- *
  * <p>
  * Note that no real connection pooling is occurring within this class. This
  * factory will be an inefficient connection management scheme for most
@@ -44,7 +43,6 @@ import java.sql.SQLException;
  * used. In those cases, caching idle database connections for long periods of
  * time can be wasteful, and this pooling scheme would be appropriate.
  * </p>
- *
  * <p>
  * This manager simply initializes the JDBC driver and then stores the database
  * credential information (if any). Then when a connection is requested, a new
@@ -61,15 +59,15 @@ public class SimpleDbConnectionFactory extends Object implements DbConnectionFac
     protected String password = null;
 
     /**
-     * {@inheritDoc}
-     *
-     * Initialize a new database pool with the given database username and
+     * {@inheritDoc} Initialize a new database pool with the given database
+     * username and
      * password. This method will load the JDBC driver and store the given
      * database credentials. When a connection is requested, a new connection
      * will be made using the credentials.
      */
     @Override
-    public void init(String dbUrl, String dbDriver, String username, String password) throws ClassNotFoundException, SQLException {
+    public void init(String dbUrl, String dbDriver, String username, String password) throws ClassNotFoundException,
+            SQLException {
         if (dbUrl == null || dbDriver == null || username == null || password == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -99,7 +97,8 @@ public class SimpleDbConnectionFactory extends Object implements DbConnectionFac
      * those will be used when creating the new connection.
      *
      * @return a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public Connection getConnection() throws SQLException {
@@ -119,9 +118,7 @@ public class SimpleDbConnectionFactory extends Object implements DbConnectionFac
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Close the given connection.
+     * {@inheritDoc} Close the given connection.
      */
     @Override
     public void releaseConnection(Connection connection) throws SQLException {

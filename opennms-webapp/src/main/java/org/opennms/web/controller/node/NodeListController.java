@@ -53,11 +53,13 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
 public class NodeListController extends AbstractCommandController implements InitializingBean {
 
     private String m_successView;
+
     private NodeListService m_nodeListService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object cmd, BindException errors) throws Exception {
+    protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object cmd,
+            BindException errors) throws Exception {
         NodeListCommand command = (NodeListCommand) cmd;
 
         NodeListModel model = m_nodeListService.createNodeList(command);
@@ -67,9 +69,12 @@ public class NodeListController extends AbstractCommandController implements Ini
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -78,7 +83,9 @@ public class NodeListController extends AbstractCommandController implements Ini
     }
 
     /**
-     * <p>getSuccessView</p>
+     * <p>
+     * getSuccessView
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,16 +94,21 @@ public class NodeListController extends AbstractCommandController implements Ini
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>getNodeListService</p>
+     * <p>
+     * getNodeListService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.NodeListService} object.
      */
@@ -105,9 +117,12 @@ public class NodeListController extends AbstractCommandController implements Ini
     }
 
     /**
-     * <p>setNodeListService</p>
+     * <p>
+     * setNodeListService
+     * </p>
      *
-     * @param nodeListService a {@link org.opennms.web.svclayer.NodeListService} object.
+     * @param nodeListService
+     *            a {@link org.opennms.web.svclayer.NodeListService} object.
      */
     public void setNodeListService(NodeListService nodeListService) {
         m_nodeListService = nodeListService;

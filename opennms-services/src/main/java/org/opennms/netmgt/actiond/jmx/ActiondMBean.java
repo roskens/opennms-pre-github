@@ -31,7 +31,9 @@ package org.opennms.netmgt.actiond.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>ActiondMBean interface.</p>
+ * <p>
+ * ActiondMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

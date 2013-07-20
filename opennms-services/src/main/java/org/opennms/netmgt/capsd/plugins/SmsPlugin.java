@@ -36,8 +36,11 @@ import org.opennms.netmgt.capsd.Plugin;
 import org.opennms.sms.phonebook.Phonebook;
 import org.opennms.sms.phonebook.PhonebookException;
 import org.opennms.sms.phonebook.PropertyPhonebook;
+
 /**
- * <p>SmsPlugin class.</p>
+ * <p>
+ * SmsPlugin class.
+ * </p>
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -48,11 +51,14 @@ public class SmsPlugin implements Plugin {
 
     private final Phonebook m_smsDirectory = new PropertyPhonebook();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.capsd.Plugin#getProtocolName()
      */
     /**
-     * <p>getProtocolName</p>
+     * <p>
+     * getProtocolName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,8 +67,10 @@ public class SmsPlugin implements Plugin {
         return PROTOCOL_NAME;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress)
      */
     /** {@inheritDoc} */
     @Override
@@ -70,8 +78,11 @@ public class SmsPlugin implements Plugin {
         return isProtocolSupported(address, null);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress,
+     * java.util.Map)
      */
     /** {@inheritDoc} */
     @Override
@@ -87,7 +98,9 @@ public class SmsPlugin implements Plugin {
     }
 
     /**
-     * <p>getSmsDirectory</p>
+     * <p>
+     * getSmsDirectory
+     * </p>
      *
      * @return a {@link org.opennms.sms.phonebook.Phonebook} object.
      */

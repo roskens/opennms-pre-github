@@ -28,7 +28,6 @@
 
 package org.opennms.nrtg.web.internal;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -62,12 +61,14 @@ public class NrtServlet extends HttpServlet {
                 resp.getOutputStream().println(m_controller.getMeasurementSetsForDestination(req.getParameter("nrtCollectionTaskId")));
             }
         } else if (req.getParameter("resourceId") != null && req.getParameter("report") != null) {
-            ModelAndView modelAndView = m_controller.nrtStart(req.getParameter("resourceId"), req.getParameter("report"), httpSession);
+            ModelAndView modelAndView = m_controller.nrtStart(req.getParameter("resourceId"),
+                                                              req.getParameter("report"), httpSession);
 
             String template = getTemplateAsString(modelAndView.getViewName() + ".template");
 
             for (Entry<String, Object> entry : modelAndView.getModel().entrySet()) {
-                template = template.replaceAll("\\$\\{" + entry.getKey() + "\\}", (entry.getValue() != null ? entry.getValue().toString() : "null"));
+                template = template.replaceAll("\\$\\{" + entry.getKey() + "\\}",
+                                               (entry.getValue() != null ? entry.getValue().toString() : "null"));
             }
 
             resp.getOutputStream().write(template.getBytes());

@@ -41,62 +41,64 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 @XmlTransient
-public class JAXBMapAdapter extends XmlAdapter<JAXBMapAdapter.JAXBMap, Map<String,String>> {
+public class JAXBMapAdapter extends XmlAdapter<JAXBMapAdapter.JAXBMap, Map<String, String>> {
 
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlRootElement(name = "attributes")
-	public static class JAXBMap {
-	    @XmlElement(name = "attribute", required = true)
-	    private final List<JAXBMapEntry> a = new ArrayList<JAXBMapEntry>();
-	    public List<JAXBMapEntry> getA() {
-	        return this.a;
-	    }
-	}
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlRootElement(name = "attributes")
+    public static class JAXBMap {
+        @XmlElement(name = "attribute", required = true)
+        private final List<JAXBMapEntry> a = new ArrayList<JAXBMapEntry>();
 
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlRootElement(name = "attribute")
-	public static class JAXBMapEntry {
+        public List<JAXBMapEntry> getA() {
+            return this.a;
+        }
+    }
 
-	    @XmlElement(name = "key", required = true)
-	    private final String key;
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlRootElement(name = "attribute")
+    public static class JAXBMapEntry {
 
-	    @XmlElement(name = "value", required = true)
-	    private final String value;
+        @XmlElement(name = "key", required = true)
+        private final String key;
 
-	    public JAXBMapEntry(String key, String value) {
-	        this.key = key;
-	        this.value = value;
-	    }
+        @XmlElement(name = "value", required = true)
+        private final String value;
 
-	    public JAXBMapEntry() {
-	        this.key = null;
-	        this.value = null;
-	    }
+        public JAXBMapEntry(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
 
-	    public String getKey() {
-	        return key;
-	    }
+        public JAXBMapEntry() {
+            this.key = null;
+            this.value = null;
+        }
 
-	    public String getValue() {
-	        return value;
-	    }
-	}
+        public String getKey() {
+            return key;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
 
     @Override
-    public JAXBMap marshal(Map<String,String> v) throws Exception {
-    	if (v.isEmpty()) return null;
+    public JAXBMap marshal(Map<String, String> v) throws Exception {
+        if (v.isEmpty())
+            return null;
         JAXBMap myMap = new JAXBMap();
         List<JAXBMapEntry> aList = myMap.getA();
-        for ( Map.Entry<String,String> e : v.entrySet() ) {
+        for (Map.Entry<String, String> e : v.entrySet()) {
             aList.add(new JAXBMapEntry(e.getKey(), e.getValue()));
         }
         return myMap;
     }
 
     @Override
-    public Map<String,String> unmarshal(JAXBMap v) throws Exception {
-        Map<String,String> map = new LinkedHashMap<String,String>();
-        for ( JAXBMapEntry e : v.getA() ) {
+    public Map<String, String> unmarshal(JAXBMap v) throws Exception {
+        Map<String, String> map = new LinkedHashMap<String, String>();
+        for (JAXBMapEntry e : v.getA()) {
             map.put(e.getKey(), e.getValue());
         }
         return map;

@@ -74,7 +74,7 @@ final class SyslogProcessor implements EndOfTheWaterfall {
     public Callable<Void> call() {
         // get a logger
         try {
-            if (LOG.isTraceEnabled())  {
+            if (LOG.isTraceEnabled()) {
                 LOG.trace("Processing a syslog to event dispatch", m_event.toString());
                 String uuid = m_event.getEvent().getUuid();
                 LOG.trace("Event {");
@@ -85,12 +85,12 @@ final class SyslogProcessor implements EndOfTheWaterfall {
                 LOG.trace("  time  = {}", m_event.getEvent().getTime());
                 LOG.trace("  Msg   = {}", m_event.getEvent().getLogmsg().getContent());
                 LOG.trace("  Dst   = {}", m_event.getEvent().getLogmsg().getDest());
-                List<Parm> parms = (m_event.getEvent().getParmCollection() == null ? null : m_event.getEvent().getParmCollection());
+                List<Parm> parms = (m_event.getEvent().getParmCollection() == null ? null
+                    : m_event.getEvent().getParmCollection());
                 if (parms != null) {
                     LOG.trace("  parms {");
                     for (Parm parm : parms) {
-                        if ((parm.getParmName() != null)
-                                && (parm.getValue().getContent() != null)) {
+                        if ((parm.getParmName() != null) && (parm.getValue().getContent() != null)) {
                             LOG.trace("    ({}, {})", parm.getParmName().trim(), parm.getValue().getContent().trim());
                         }
                     }
@@ -110,7 +110,8 @@ final class SyslogProcessor implements EndOfTheWaterfall {
             LOG.error("Unexpected error processing SyslogMessage - Could not send", t);
         }
 
-        // This task is the terminal task of syslogd so it doesn't return a Callable
+        // This task is the terminal task of syslogd so it doesn't return a
+        // Callable
         return null;
     }
 

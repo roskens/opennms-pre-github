@@ -28,13 +28,14 @@
 
 package org.opennms.web.svclayer.outage;
 
-
 import org.extremecomponents.table.bean.Column;
 import org.extremecomponents.table.core.TableModel;
 import org.extremecomponents.table.interceptor.ColumnInterceptor;
 
 /**
- * <p>GroupColumnInterceptor class.</p>
+ * <p>
+ * GroupColumnInterceptor class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -46,7 +47,7 @@ public class GroupColumnInterceptor implements ColumnInterceptor {
     /** {@inheritDoc} */
     @Override
     public void addColumnAttributes(final TableModel tableModel, final Column column) {
-        //do nothing
+        // do nothing
     }
 
     /** {@inheritDoc} */

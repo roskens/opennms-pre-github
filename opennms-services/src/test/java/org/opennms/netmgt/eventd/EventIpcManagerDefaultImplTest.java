@@ -45,15 +45,19 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EventIpcManagerDefaultImplTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private EventIpcManagerDefaultImpl m_manager;
+
     private EventHandler m_eventHandler = m_mocks.createMock(EventHandler.class);
+
     private MockEventListener m_listener = new MockEventListener();
+
     private Throwable m_caughtThrowable = null;
+
     private Thread m_caughtThrowableThread = null;
 
     @Override
@@ -79,7 +83,8 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         assertEquals("unprocessed received events", 0, m_listener.getEvents().size());
 
         if (m_caughtThrowable != null) {
-            throw new Exception("Thread " + m_caughtThrowableThread + " threw an uncaught exception: " + m_caughtThrowable, m_caughtThrowable);
+            throw new Exception("Thread " + m_caughtThrowableThread + " threw an uncaught exception: "
+                    + m_caughtThrowable, m_caughtThrowable);
         }
     }
 
@@ -229,9 +234,9 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
     }
 
     public void testAddEventListenerTwoArgumentStringWithUeiPartAndBroadcast() throws Exception {
-        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringWithUeiPartAndBroadcast");
+        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
+                                             "testAddEventListenerTwoArgumentStringWithUeiPartAndBroadcast");
         Event e = bldr.getEvent();
-
 
         m_mocks.replayAll();
 
@@ -245,7 +250,8 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
     }
 
     public void testAddEventListenerTwoArgumentStringWithUeiPartMultipleTrimAndBroadcast() throws Exception {
-        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringWithUeiPartMultipleTrimAndBroadcast");
+        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
+                                             "testAddEventListenerTwoArgumentStringWithUeiPartMultipleTrimAndBroadcast");
         Event e = bldr.getEvent();
 
         m_mocks.replayAll();
@@ -260,7 +266,8 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
     }
 
     public void testAddEventListenerTwoArgumentStringWithUeiPartTooLittleAndBroadcast() throws Exception {
-        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringWithUeiPartTooLittleAndBroadcast");
+        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
+                                             "testAddEventListenerTwoArgumentStringWithUeiPartTooLittleAndBroadcast");
         Event e = bldr.getEvent();
 
         m_mocks.replayAll();
@@ -273,7 +280,8 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
     }
 
     public void testAddEventListenerTwoArgumentStringWithUeiPartTooMuchAndBroadcast() throws Exception {
-        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringWithUeiPartTooMuchAndBroadcast");
+        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
+                                             "testAddEventListenerTwoArgumentStringWithUeiPartTooMuchAndBroadcast");
         Event e = bldr.getEvent();
 
         m_mocks.replayAll();
@@ -286,7 +294,8 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
     }
 
     public void testAddEventListenerWithUeiAndSubUeiMatchAndBroadcast() throws Exception {
-        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerWithUeiAndSubUeiMatchAndBroadcast");
+        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
+                                             "testAddEventListenerWithUeiAndSubUeiMatchAndBroadcast");
         Event e = bldr.getEvent();
 
         m_mocks.replayAll();
@@ -393,7 +402,8 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
     }
 
     public void testAddEventListenerThenAddEventListenerWithUeiAndBroadcast() throws Exception {
-        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerThenAddEventListenerWithUeiAndBroadcast");
+        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
+                                             "testAddEventListenerThenAddEventListenerWithUeiAndBroadcast");
         Event e = bldr.getEvent();
 
         m_mocks.replayAll();
@@ -409,7 +419,8 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
     }
 
     public void testAddEventListenerWithUeiAndBroadcastThenAddEventListener() throws Exception {
-        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerWithUeiAndBroadcastThenAddEventListener");
+        EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
+                                             "testAddEventListenerWithUeiAndBroadcastThenAddEventListener");
         Event e = bldr.getEvent();
 
         m_mocks.replayAll();
@@ -424,21 +435,24 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
 
-
     /**
      * This is the type of exception we want to catch.
-     *
-     * 2006-05-28 18:30:12,532 WARN  [EventHandlerPool-fiber0] OpenNMS.Xmlrpcd.org.opennms.netmgt.eventd.EventHandler: Unknown exception processing event
+     * 2006-05-28 18:30:12,532 WARN [EventHandlerPool-fiber0]
+     * OpenNMS.Xmlrpcd.org.opennms.netmgt.eventd.EventHandler: Unknown exception
+     * processing event
      * java.lang.NullPointerException
-     *    at java.text.SimpleDateFormat.parse(SimpleDateFormat.java:1076)
-     *    at java.text.DateFormat.parse(DateFormat.java:333)
-     *    at org.opennms.netmgt.EventConstants.parseToDate(EventConstants.java:744)
-     *    at org.opennms.netmgt.eventd.Persist.getEventTime(Persist.java:801)
-     *    at org.opennms.netmgt.eventd.Persist.insertEvent(Persist.java:581)
-     *    at org.opennms.netmgt.eventd.EventWriter.persistEvent(EventWriter.java:131)
-     *    at org.opennms.netmgt.eventd.EventHandler.run(EventHandler.java:154)
-     *    at org.opennms.core.concurrent.RunnableConsumerThreadPool$FiberThreadImpl.run(RunnableConsumerThreadPool.java:412)
-     *    at java.lang.Thread.run(Thread.java:613)
+     * at java.text.SimpleDateFormat.parse(SimpleDateFormat.java:1076)
+     * at java.text.DateFormat.parse(DateFormat.java:333)
+     * at org.opennms.netmgt.EventConstants.parseToDate(EventConstants.java:744)
+     * at org.opennms.netmgt.eventd.Persist.getEventTime(Persist.java:801)
+     * at org.opennms.netmgt.eventd.Persist.insertEvent(Persist.java:581)
+     * at
+     * org.opennms.netmgt.eventd.EventWriter.persistEvent(EventWriter.java:131)
+     * at org.opennms.netmgt.eventd.EventHandler.run(EventHandler.java:154)
+     * at
+     * org.opennms.core.concurrent.RunnableConsumerThreadPool$FiberThreadImpl.
+     * run(RunnableConsumerThreadPool.java:412)
+     * at java.lang.Thread.run(Thread.java:613)
      */
     public void testNoDateDate() throws InterruptedException {
         EventBuilder bldr = new EventBuilder(EventConstants.NODE_LOST_SERVICE_EVENT_UEI, "the one true event source");

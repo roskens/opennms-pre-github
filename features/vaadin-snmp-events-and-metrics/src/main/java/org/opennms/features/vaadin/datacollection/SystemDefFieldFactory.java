@@ -49,14 +49,17 @@ public final class SystemDefFieldFactory implements FormFieldFactory {
     /**
      * Instantiates a new system definition field factory.
      *
-     * @param groups the available groups
+     * @param groups
+     *            the available groups
      */
     public SystemDefFieldFactory(List<String> groups) {
         this.groups = groups;
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item, java.lang.Object, com.vaadin.ui.Component)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item,
+     * java.lang.Object, com.vaadin.ui.Component)
      */
     @Override
     public Field<?> createField(Item item, Object propertyId, Component uiContext) {

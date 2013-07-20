@@ -29,19 +29,21 @@
 package org.opennms.netmgt.mock;
 
 /**
- * <p>MockVisitorAdapter class.</p>
+ * <p>
+ * MockVisitorAdapter class.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public class MockVisitorAdapter implements MockVisitor {
 
     /** {@inheritDoc} */
     @Override
-    public void visitContainer(MockContainer<?,?> n) {
+    public void visitContainer(MockContainer<?, ?> n) {
     }
 
     /** {@inheritDoc} */

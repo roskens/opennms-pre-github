@@ -1,6 +1,5 @@
 package org.opennms.features.topology.plugins.browsers;
 
-
 import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,8 +21,8 @@ public class OnmsDaoContainerTest {
         alarmList.add(alarm);
 
         final AlarmDao alarmDaoMock = EasyMock.createNiceMock(AlarmDao.class);
-        EasyMock.expect(alarmDaoMock.countMatching((Criteria)EasyMock.anyObject())).andReturn(1);
-        EasyMock.expect(alarmDaoMock.findMatching((Criteria)EasyMock.anyObject())).andReturn(alarmList);
+        EasyMock.expect(alarmDaoMock.countMatching((Criteria) EasyMock.anyObject())).andReturn(1);
+        EasyMock.expect(alarmDaoMock.findMatching((Criteria) EasyMock.anyObject())).andReturn(alarmList);
         EasyMock.replay(alarmDaoMock);
 
         OnmsDaoContainer container = new AlarmDaoContainer(alarmDaoMock);

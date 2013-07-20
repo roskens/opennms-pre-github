@@ -48,7 +48,6 @@ import org.springframework.beans.factory.access.BeanFactoryReference;
 /**
  * This class implements a script execution service. This service subscribes to
  * all events, and passes received events to the set of configured scripts.
- *
  * This services uses the Bean Scripting Framework (BSF) in order to allow
  * scripts to be written in a variety of registered languages.
  *
@@ -80,7 +79,7 @@ public final class Scriptd extends AbstractServiceDaemon {
      * Constructs a new Script execution daemon.
      */
     private Scriptd() {
-    	super(NAME);
+        super(NAME);
         m_execution = null;
         m_eventReader = null;
     }
@@ -130,24 +129,28 @@ public final class Scriptd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
-		if (m_execution == null) {
-		    init();
-		}
+        if (m_execution == null) {
+            init();
+        }
 
-		m_execution.start();
-		LOG.info("Scriptd running");
-	}
+        m_execution.start();
+        LOG.info("Scriptd running");
+    }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
-		try {
+        try {
             if (m_execution != null) {
                 m_execution.stop();
             }
@@ -160,23 +163,27 @@ public final class Scriptd extends AbstractServiceDaemon {
 
         m_eventReader = null;
         m_execution = null;
-	}
+    }
 
     /**
-     * <p>onPause</p>
+     * <p>
+     * onPause
+     * </p>
      */
     @Override
     protected void onPause() {
-		m_execution.pause();
-	}
+        m_execution.pause();
+    }
 
     /**
-     * <p>onResume</p>
+     * <p>
+     * onResume
+     * </p>
      */
     @Override
     protected void onResume() {
-		m_execution.resume();
-	}
+        m_execution.resume();
+    }
 
     /**
      * Returns the singular instance of the <em>Scriptd</em> daemon. There can

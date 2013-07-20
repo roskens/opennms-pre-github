@@ -47,7 +47,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="xml-source")
+@XmlRootElement(name = "xml-source")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlSource extends XmlGroups implements Serializable, Comparable<XmlSource> {
 
@@ -59,15 +59,15 @@ public class XmlSource extends XmlGroups implements Serializable, Comparable<Xml
     private static final XmlGroup[] OF_XML_GROUPS = new XmlGroup[0];
 
     /** Import Groups List. */
-    @XmlElement(name="import-groups", required=false)
+    @XmlElement(name = "import-groups", required = false)
     private List<String> m_importGroupsList = new ArrayList<String>();
 
     /** The request object. */
-    @XmlElement(name="request", required=false)
+    @XmlElement(name = "request", required = false)
     private Request m_request;
 
     /** The source URL. */
-    @XmlAttribute(name="url", required=true)
+    @XmlAttribute(name = "url", required = true)
     private String m_url;
 
     /**
@@ -88,7 +88,8 @@ public class XmlSource extends XmlGroups implements Serializable, Comparable<Xml
     /**
      * Sets the URL.
      *
-     * @param url the new URL
+     * @param url
+     *            the new URL
      */
     public void setUrl(String url) {
         m_url = url;
@@ -106,7 +107,8 @@ public class XmlSource extends XmlGroups implements Serializable, Comparable<Xml
     /**
      * Sets the request.
      *
-     * @param request the new request
+     * @param request
+     *            the new request
      */
     public void setRequest(Request request) {
         this.m_request = request;
@@ -124,7 +126,8 @@ public class XmlSource extends XmlGroups implements Serializable, Comparable<Xml
     /**
      * Sets the import groups list.
      *
-     * @param importGroupsList the new import groups list
+     * @param importGroupsList
+     *            the new import groups list
      */
     public void setImportGroupsList(List<String> importGroupsList) {
         this.m_importGroupsList = importGroupsList;
@@ -139,28 +142,26 @@ public class XmlSource extends XmlGroups implements Serializable, Comparable<Xml
         return m_importGroupsList != null && !m_importGroupsList.isEmpty();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
     public int compareTo(XmlSource obj) {
-        return new CompareToBuilder()
-        .append(getUrl(), obj.getUrl())
-        .append(getXmlGroups().toArray(OF_XML_GROUPS), obj.getXmlGroups().toArray(OF_XML_GROUPS))
-        .toComparison();
+        return new CompareToBuilder().append(getUrl(), obj.getUrl()).append(getXmlGroups().toArray(OF_XML_GROUPS),
+                                                                            obj.getXmlGroups().toArray(OF_XML_GROUPS)).toComparison();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof XmlSource) {
             XmlSource other = (XmlSource) obj;
-            return new EqualsBuilder()
-            .append(getUrl(), other.getUrl())
-            .append(getXmlGroups().toArray(OF_XML_GROUPS), other.getXmlGroups().toArray(OF_XML_GROUPS))
-            .isEquals();
+            return new EqualsBuilder().append(getUrl(), other.getUrl()).append(getXmlGroups().toArray(OF_XML_GROUPS),
+                                                                               other.getXmlGroups().toArray(OF_XML_GROUPS)).isEquals();
         }
         return false;
     }

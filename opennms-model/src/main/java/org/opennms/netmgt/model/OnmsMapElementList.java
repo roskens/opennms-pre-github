@@ -37,30 +37,39 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>OnmsMapElementList class.</p>
+ * <p>
+ * OnmsMapElementList class.
+ * </p>
  */
 @XmlRootElement(name = "mapElements")
 public class OnmsMapElementList extends LinkedList<OnmsMapElement> {
     private static final long serialVersionUID = 474241792322520294L;
 
     /**
-     * <p>Constructor for OnmsMapElementList.</p>
+     * <p>
+     * Constructor for OnmsMapElementList.
+     * </p>
      */
     public OnmsMapElementList() {
         super();
     }
 
     /**
-     * <p>Constructor for OnmsMapElementList.</p>
+     * <p>
+     * Constructor for OnmsMapElementList.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public OnmsMapElementList(Collection<? extends OnmsMapElement> c) {
         super(c);
     }
 
     /**
-     * <p>getMapElements</p>
+     * <p>
+     * getMapElements
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -70,22 +79,28 @@ public class OnmsMapElementList extends LinkedList<OnmsMapElement> {
     }
 
     /**
-     * <p>setMapElements</p>
+     * <p>
+     * setMapElements
+     * </p>
      *
-     * @param mapElements a {@link java.util.List} object.
+     * @param mapElements
+     *            a {@link java.util.List} object.
      */
     public void setMapElements(List<OnmsMapElement> mapElements) {
-        if (mapElements == this) return;
+        if (mapElements == this)
+            return;
         clear();
         addAll(mapElements);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
         return this.size();
     }

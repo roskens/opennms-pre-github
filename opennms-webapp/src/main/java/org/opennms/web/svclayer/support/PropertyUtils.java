@@ -42,7 +42,9 @@ import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.util.Assert;
 
 /**
- * <p>BeanUtils class.</p>
+ * <p>
+ * BeanUtils class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,9 +53,12 @@ import org.springframework.util.Assert;
 public abstract class PropertyUtils {
 
     /**
-     * <p>getProperties</p>
+     * <p>
+     * getProperties
+     * </p>
      *
-     * @param bean a {@link java.lang.Object} object.
+     * @param bean
+     *            a {@link java.lang.Object} object.
      * @return a {@link java.util.Collection} object.
      */
     public static Collection<String> getProperties(final Object bean) {
@@ -67,12 +72,18 @@ public abstract class PropertyUtils {
     }
 
     /**
-     * <p>getPathValue</p>
+     * <p>
+     * getPathValue
+     * </p>
      *
-     * @param bean a {@link java.lang.Object} object.
-     * @param path a {@link java.lang.String} object.
-     * @param expectedClass a {@link java.lang.Class} object.
-     * @param <T> a T object.
+     * @param bean
+     *            a {@link java.lang.Object} object.
+     * @param path
+     *            a {@link java.lang.String} object.
+     * @param expectedClass
+     *            a {@link java.lang.Class} object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
     @SuppressWarnings("unchecked")
@@ -84,11 +95,14 @@ public abstract class PropertyUtils {
         final Class<?> propType = wrapper.getPropertyType(path);
         if (propType == null) {
             // we were unable to find the property
-            Assert.notNull(propType, "propType in BeanUtils is null path: " + path); //for debug purposes
+            Assert.notNull(propType, "propType in BeanUtils is null path: " + path); // for
+                                                                                     // debug
+                                                                                     // purposes
             return null;
         }
         if (!expectedClass.isAssignableFrom(propType)) {
-            throw new IllegalArgumentException("Could not retrieve property of type "+propType+" as type "+expectedClass);
+            throw new IllegalArgumentException("Could not retrieve property of type " + propType + " as type "
+                    + expectedClass);
         }
         return (T) wrapper.getPropertyValue(path);
     }

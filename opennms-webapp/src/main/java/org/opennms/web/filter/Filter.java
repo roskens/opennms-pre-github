@@ -34,7 +34,9 @@ import java.sql.SQLException;
 import org.hibernate.criterion.Criterion;
 
 /**
- * <p>Filter interface.</p>
+ * <p>
+ * Filter interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,7 +53,7 @@ public interface Filter {
     public String getSql();
 
     /**
-     * Returns a parameterized SQL where clause.  Remember to include a
+     * Returns a parameterized SQL where clause. Remember to include a
      * trailing space, but no leading AND or OR.
      *
      * @return a {@link java.lang.String} object.
@@ -60,20 +62,22 @@ public interface Filter {
 
     /**
      * Binds the parameter values corresponding to the ? tokens in the string
-     * returned from getParamSql() to a prepared statement.  Returns the number
+     * returned from getParamSql() to a prepared statement. Returns the number
      * of parameters that were bound.
      *
-     * @param ps a {@link java.sql.PreparedStatement} object.
-     * @param parameterIndex a int.
+     * @param ps
+     *            a {@link java.sql.PreparedStatement} object.
+     * @param parameterIndex
+     *            a int.
      * @return a int.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException;
 
     /**
      * Returns a terse string (including a "=") that describes this filter in
      * such a way to easily be included in an HTTP GET parameter.
-     *
      * <p>
      * Some examples:
      * <ul>
@@ -91,10 +95,9 @@ public interface Filter {
     /**
      * Returns a terse but human-readable string describing this filter in such
      * a way to easily be included in a search results list.
-     *
      * <p>
-     * Some examples (corresponding to the examples in
-     * {@link #getDescription getDescription}):
+     * Some examples (corresponding to the examples in {@link #getDescription
+     * getDescription}):
      * <ul>
      * <li>"node=nodelabel_of_node_1"</li>
      * <li>"interface=192.168.0.1"</li>
@@ -111,7 +114,7 @@ public interface Filter {
      * Criterion used to construction an OnmsCritieria
      *
      * @return A Criterion that represents a criteria restriction
-     * imposed by this filter
+     *         imposed by this filter
      */
     public Criterion getCriterion();
 

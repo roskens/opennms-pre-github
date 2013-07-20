@@ -38,30 +38,35 @@ import com.google.common.collect.Collections2;
 
 public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvider implements GraphProvider {
     protected static final String SIMPLE_VERTEX_ID_PREFIX = "v";
-	protected static final String SIMPLE_GROUP_ID_PREFIX = "g";
-	protected static final String SIMPLE_EDGE_ID_PREFIX = "e";
 
-	/**
-	 * This class generates an unique id.
-	 * The generated id has the format '<prefix><counter>' (e.g. v100).
-	 * So the generator must be initialized with a prefix and the initial counter.
-	 *
-	 * @author Markus von Rüden
-	 *
-	 */
+    protected static final String SIMPLE_GROUP_ID_PREFIX = "g";
+
+    protected static final String SIMPLE_EDGE_ID_PREFIX = "e";
+
+    /**
+     * This class generates an unique id.
+     * The generated id has the format '<prefix><counter>' (e.g. v100).
+     * So the generator must be initialized with a prefix and the initial
+     * counter.
+     *
+     * @author Markus von Rüden
+     */
     protected static abstract class IdGenerator {
         /**
          * The topology provider. It is needed to initialize the counter.
          */
         private final AbstractTopologyProvider provider;
+
         /**
          * The prefix of the generated id. Must not be null.
          */
         private final String idPrefix;
+
         /**
          * The counter of the "next" (not current) id.
          */
         private int counter;
+
         /**
          * Defines if this generator is initialized or not.
          */
@@ -74,16 +79,18 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
 
         /**
          * Returns the next id in format '<prefix><counter>' (e.g. v100).
+         * If an entry with the generated id (see {@link #createId()} already
+         * exists in {@link #provider} a new one is created.
+         * This process is done until a key is created which is not already in
+         * {@link #provider}
          *
-         * If an entry with the generated id (see {@link #createId()}
-         * already exists in {@link #provider} a new one is created.
-         * This process is done until a key is created which is not already in {@link #provider}
          * @return The next id in format '<prefix><counter>' (e.g. v100).
          */
         public String getNextId() {
             try {
                 initializeIfNeeded();
-                while (!isValid(createId())) counter++;
+                while (!isValid(createId()))
+                    counter++;
                 return createId();
             } finally {
                 counter++;
@@ -92,6 +99,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
 
         /**
          * Creates the id in format '<prefix><counter>' (e.g. v100)
+         *
          * @return the id in format '<prefix><counter>' (e.g. v100)
          */
         private String createId() {
@@ -100,9 +108,10 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
 
         /**
          * Returns the initial value of counter.
-         *
-         * Therefore the maximum number of each id from the {@link #getContent()} values are used.
-         * A id can start with any prefix (or none) so only ids which starts with the same id as {@link #idPrefix} are considered.
+         * Therefore the maximum number of each id from the
+         * {@link #getContent()} values are used.
+         * A id can start with any prefix (or none) so only ids which starts
+         * with the same id as {@link #idPrefix} are considered.
          * If there is no matching content, 0 is returned.
          *
          * @return The initial value of counter.
@@ -110,16 +119,21 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         private int getInitValue() {
             int max = 0;
             for (Ref ref : getContent()) {
-                if (!ref.getId().startsWith(idPrefix)) continue;
+                if (!ref.getId().startsWith(idPrefix))
+                    continue;
                 max = Math.max(max, extractIntegerFromId(ref.getId()));
             }
             return max;
         }
 
         /**
-         * Returns true if the {@link #provider} does not contain a vertex id '<generatedId>', false otherwise.
-         * @param generatedId The generated id
-         * @return true if the {@link #provider} does not contain a vertex id '<generatedId>', false otherwise.
+         * Returns true if the {@link #provider} does not contain a vertex id
+         * '<generatedId>', false otherwise.
+         *
+         * @param generatedId
+         *            The generated id
+         * @return true if the {@link #provider} does not contain a vertex id
+         *         '<generatedId>', false otherwise.
          */
         @SuppressWarnings("deprecation")
         private boolean isValid(String generatedId) {
@@ -133,10 +147,14 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
 
         /**
          * Gets the integer value from the id.
-         * If the id does not match to this generator or the id cannot be parsed as an integer 0 is returned.
+         * If the id does not match to this generator or the id cannot be parsed
+         * as an integer 0 is returned.
          *
-         * @param id the generated id. Should start with {@link #idPrefix}.
-         * @return the integer value from the id. If the id does not match to this generator or the id cannot be parsed as an integer 0 is returned.
+         * @param id
+         *            the generated id. Should start with {@link #idPrefix}.
+         * @return the integer value from the id. If the id does not match to
+         *         this generator or the id cannot be parsed as an integer 0 is
+         *         returned.
          */
         private int extractIntegerFromId(String id) {
             try {
@@ -158,65 +176,64 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         public abstract List<Ref> getContent();
     }
 
-	private IdGenerator groupIdGenerator = new IdGenerator(SIMPLE_GROUP_ID_PREFIX, this) {
+    private IdGenerator groupIdGenerator = new IdGenerator(SIMPLE_GROUP_ID_PREFIX, this) {
         @Override
         public List<Ref> getContent() {
             return new ArrayList<Ref>(getGroups());
         }
-	};
+    };
 
-	private IdGenerator edgeIdGenerator = new IdGenerator(SIMPLE_EDGE_ID_PREFIX, this) {
+    private IdGenerator edgeIdGenerator = new IdGenerator(SIMPLE_EDGE_ID_PREFIX, this) {
         @Override
         public List<Ref> getContent() {
             return new ArrayList<Ref>(getEdges());
         }
-	};
+    };
 
-	private IdGenerator vertexIdGenerator = new IdGenerator(SIMPLE_VERTEX_ID_PREFIX, this) {
-	    @Override
-	    public List<Ref> getContent() {
-	        return new ArrayList<Ref>(getVerticesWithoutGroups());
+    private IdGenerator vertexIdGenerator = new IdGenerator(SIMPLE_VERTEX_ID_PREFIX, this) {
+        @Override
+        public List<Ref> getContent() {
+            return new ArrayList<Ref>(getVerticesWithoutGroups());
         }
-	};
+    };
 
-	protected String getNextVertexId() {
-	    return vertexIdGenerator.getNextId();
-	}
+    protected String getNextVertexId() {
+        return vertexIdGenerator.getNextId();
+    }
 
-	protected String getNextGroupId() {
-	    return groupIdGenerator.getNextId();
-	}
+    protected String getNextGroupId() {
+        return groupIdGenerator.getNextId();
+    }
 
-	protected String getNextEdgeId() {
-	    return edgeIdGenerator.getNextId();
-	}
+    protected String getNextEdgeId() {
+        return edgeIdGenerator.getNextId();
+    }
 
     protected AbstractTopologyProvider(String namespace) {
-		super(namespace);
-	}
+        super(namespace);
+    }
 
     public List<Vertex> getVerticesWithoutGroups() {
-        return new ArrayList<Vertex>(
-                Collections2.filter(getVertices(), new Predicate<Vertex>() {
-                    public boolean apply(Vertex input) {
-                        return input != null && !input.isGroup();
-                    };
-                }));
+        return new ArrayList<Vertex>(Collections2.filter(getVertices(), new Predicate<Vertex>() {
+            public boolean apply(Vertex input) {
+                return input != null && !input.isGroup();
+            };
+        }));
     }
 
     public List<Vertex> getGroups() {
-        return new ArrayList<Vertex>(
-                Collections2.filter(getVertices(), new Predicate<Vertex>() {
-                    public boolean apply(Vertex input) {
-                        return input != null && input.isGroup();
-                    };
-                }));
+        return new ArrayList<Vertex>(Collections2.filter(getVertices(), new Predicate<Vertex>() {
+            public boolean apply(Vertex input) {
+                return input != null && input.isGroup();
+            };
+        }));
     }
 
     @Override
     public final void removeVertex(VertexRef... vertexId) {
         for (VertexRef vertex : vertexId) {
-            if (vertex == null) continue;
+            if (vertex == null)
+                continue;
 
             getSimpleVertexProvider().remove(vertexId);
 
@@ -272,11 +289,13 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
 
     @Override
     public final EdgeRef[] getEdgeIdsForVertex(VertexRef vertex) {
-        if (vertex == null) return new EdgeRef[0];
+        if (vertex == null)
+            return new EdgeRef[0];
         List<EdgeRef> retval = new ArrayList<EdgeRef>();
         for (Edge edge : getEdges()) {
             // If the vertex is connected to the edge then add it
-            if (new RefComparator().compare(edge.getSource().getVertex(), vertex) == 0 || new RefComparator().compare(edge.getTarget().getVertex(), vertex) == 0) {
+            if (new RefComparator().compare(edge.getSource().getVertex(), vertex) == 0
+                    || new RefComparator().compare(edge.getTarget().getVertex(), vertex) == 0) {
                 retval.add(edge);
             }
         }
@@ -284,14 +303,16 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
     }
 
     @Override
-	public Edge connectVertices(VertexRef sourceVertextId, VertexRef targetVertextId) {
+    public Edge connectVertices(VertexRef sourceVertextId, VertexRef targetVertextId) {
         String nextEdgeId = getNextEdgeId();
         return connectVertices(nextEdgeId, sourceVertextId, targetVertextId);
     }
 
     protected final AbstractEdge connectVertices(String id, VertexRef sourceId, VertexRef targetId) {
-        SimpleConnector source = new SimpleConnector(getEdgeNamespace(), sourceId.getId()+"-"+id+"-connector", sourceId);
-        SimpleConnector target = new SimpleConnector(getEdgeNamespace(), targetId.getId()+"-"+id+"-connector", targetId);
+        SimpleConnector source = new SimpleConnector(getEdgeNamespace(), sourceId.getId() + "-" + id + "-connector",
+                                                     sourceId);
+        SimpleConnector target = new SimpleConnector(getEdgeNamespace(), targetId.getId() + "-" + id + "-connector",
+                                                     targetId);
 
         AbstractEdge edge = new AbstractEdge(getEdgeNamespace(), id, source, target);
 
@@ -313,4 +334,3 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         edgeIdGenerator.reset();
     }
 }
-

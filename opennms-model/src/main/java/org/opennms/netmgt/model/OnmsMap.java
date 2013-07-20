@@ -48,7 +48,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * <p>OnmsMap class.</p>
+ * <p>
+ * OnmsMap class.
+ * </p>
  */
 @XmlRootElement(name = "map")
 @Entity
@@ -65,13 +67,16 @@ public class OnmsMap implements Serializable {
 
     /** Constant <code>AUTOMATIC_SAVED_MAP="S"</code> */
     public static final String AUTOMATIC_SAVED_MAP = "S";
+
     /** Constant <code>DELETED_MAP="D"</code> */
-    public static final String DELETED_MAP = "D"; //for future use
+    public static final String DELETED_MAP = "D"; // for future use
 
     /** Constant <code>ACCESS_MODE_ADMIN="RW"</code> */
     public static final String ACCESS_MODE_ADMIN = "RW";
+
     /** Constant <code>ACCESS_MODE_USER="RO"</code> */
     public static final String ACCESS_MODE_USER = "RO";
+
     /** Constant <code>ACCESS_MODE_GROUP="RWRO"</code> */
     public static final String ACCESS_MODE_GROUP = "RWRO";
 
@@ -107,9 +112,10 @@ public class OnmsMap implements Serializable {
 
     private Set<OnmsMapElement> mapElements = new LinkedHashSet<OnmsMapElement>();
 
-
     /**
-     * <p>Constructor for OnmsMap.</p>
+     * <p>
+     * Constructor for OnmsMap.
+     * </p>
      */
     public OnmsMap() {
         this.createTime = new Date();
@@ -117,10 +123,14 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Constructor for OnmsMap.</p>
+     * <p>
+     * Constructor for OnmsMap.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param owner a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param owner
+     *            a {@link java.lang.String} object.
      */
     public OnmsMap(String name, String owner) {
         this.name = name;
@@ -129,18 +139,24 @@ public class OnmsMap implements Serializable {
         this.createTime = new Date();
         this.lastModifiedTime = new Date();
         this.accessMode = ACCESS_MODE_USER;
-        this.type=OnmsMap.USER_GENERATED_MAP;
+        this.type = OnmsMap.USER_GENERATED_MAP;
         this.width = 800;
         this.height = 600;
     }
 
     /**
-     * <p>Constructor for OnmsMap.</p>
+     * <p>
+     * Constructor for OnmsMap.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param owner a {@link java.lang.String} object.
-     * @param width a int.
-     * @param height a int.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param owner
+     *            a {@link java.lang.String} object.
+     * @param width
+     *            a int.
+     * @param height
+     *            a int.
      */
     public OnmsMap(String name, String owner, int width, int height) {
         this.name = name;
@@ -149,19 +165,26 @@ public class OnmsMap implements Serializable {
         this.createTime = new Date();
         this.lastModifiedTime = new Date();
         this.accessMode = ACCESS_MODE_USER;
-        this.type=OnmsMap.USER_GENERATED_MAP;
+        this.type = OnmsMap.USER_GENERATED_MAP;
         this.width = width;
         this.height = height;
     }
 
     /**
-     * <p>Constructor for OnmsMap.</p>
+     * <p>
+     * Constructor for OnmsMap.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param owner a {@link java.lang.String} object.
-     * @param accessMode a {@link java.lang.String} object.
-     * @param width a int.
-     * @param height a int.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param owner
+     *            a {@link java.lang.String} object.
+     * @param accessMode
+     *            a {@link java.lang.String} object.
+     * @param width
+     *            a int.
+     * @param height
+     *            a int.
      */
     public OnmsMap(String name, String owner, String accessMode, int width, int height) {
         this.name = name;
@@ -170,26 +193,35 @@ public class OnmsMap implements Serializable {
         this.createTime = new Date();
         this.lastModifiedTime = new Date();
         setAccessMode(accessMode);
-        this.type=OnmsMap.USER_GENERATED_MAP;
+        this.type = OnmsMap.USER_GENERATED_MAP;
         this.width = width;
         this.height = height;
     }
 
     /**
-     * <p>Constructor for OnmsMap.</p>
+     * <p>
+     * Constructor for OnmsMap.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param mapGroup a {@link java.lang.String} object.
-     * @param background a {@link java.lang.String} object.
-     * @param owner a {@link java.lang.String} object.
-     * @param accessMode a {@link java.lang.String} object.
-     * @param type a {@link java.lang.String} object.
-     * @param width a int.
-     * @param height a int.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param mapGroup
+     *            a {@link java.lang.String} object.
+     * @param background
+     *            a {@link java.lang.String} object.
+     * @param owner
+     *            a {@link java.lang.String} object.
+     * @param accessMode
+     *            a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
+     * @param width
+     *            a int.
+     * @param height
+     *            a int.
      */
-    public OnmsMap(String name, String mapGroup, String background,
-            String owner, String accessMode, String type, int width,
-            int height) {
+    public OnmsMap(String name, String mapGroup, String background, String owner, String accessMode, String type,
+            int width, int height) {
         this.name = name;
         this.mapGroup = mapGroup;
         this.background = background;
@@ -204,13 +236,15 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>id</code>.</p>
+     * <p>
+     * Getter for the field <code>id</code>.
+     * </p>
      *
      * @return a int.
      */
     @XmlTransient
     @Id
-    @Column(name="mapId", nullable=false)
+    @Column(name = "mapId", nullable = false)
     @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
     @GeneratedValue(generator = "opennmsSequence")
     public int getId() {
@@ -218,7 +252,9 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>getMapId</p>
+     * <p>
+     * getMapId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -229,16 +265,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>id</code>.</p>
+     * <p>
+     * Setter for the field <code>id</code>.
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * <p>Getter for the field <code>name</code>.</p>
+     * <p>
+     * Getter for the field <code>name</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -248,16 +289,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>name</code>.</p>
+     * <p>
+     * Setter for the field <code>name</code>.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * <p>Getter for the field <code>mapGroup</code>.</p>
+     * <p>
+     * Getter for the field <code>mapGroup</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -267,16 +313,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>mapGroup</code>.</p>
+     * <p>
+     * Setter for the field <code>mapGroup</code>.
+     * </p>
      *
-     * @param mapGroup a {@link java.lang.String} object.
+     * @param mapGroup
+     *            a {@link java.lang.String} object.
      */
     public void setMapGroup(String mapGroup) {
         this.mapGroup = mapGroup;
     }
 
     /**
-     * <p>Getter for the field <code>background</code>.</p>
+     * <p>
+     * Getter for the field <code>background</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -286,16 +337,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>background</code>.</p>
+     * <p>
+     * Setter for the field <code>background</code>.
+     * </p>
      *
-     * @param background a {@link java.lang.String} object.
+     * @param background
+     *            a {@link java.lang.String} object.
      */
     public void setBackground(String background) {
         this.background = background;
     }
 
     /**
-     * <p>Getter for the field <code>owner</code>.</p>
+     * <p>
+     * Getter for the field <code>owner</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -305,16 +361,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>owner</code>.</p>
+     * <p>
+     * Setter for the field <code>owner</code>.
+     * </p>
      *
-     * @param owner a {@link java.lang.String} object.
+     * @param owner
+     *            a {@link java.lang.String} object.
      */
     public void setOwner(String owner) {
         this.owner = owner;
     }
 
     /**
-     * <p>Getter for the field <code>accessMode</code>.</p>
+     * <p>
+     * Getter for the field <code>accessMode</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -324,19 +385,24 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>accessMode</code>.</p>
+     * <p>
+     * Setter for the field <code>accessMode</code>.
+     * </p>
      *
-     * @param accessMode a {@link java.lang.String} object.
+     * @param accessMode
+     *            a {@link java.lang.String} object.
      */
     public void setAccessMode(String accessMode) {
-        if(accessMode.trim().equalsIgnoreCase(ACCESS_MODE_GROUP))
+        if (accessMode.trim().equalsIgnoreCase(ACCESS_MODE_GROUP))
             this.accessMode = ACCESS_MODE_GROUP;
         else
             this.accessMode = ACCESS_MODE_ADMIN;
     }
 
     /**
-     * <p>Getter for the field <code>userLastModifies</code>.</p>
+     * <p>
+     * Getter for the field <code>userLastModifies</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -346,16 +412,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>userLastModifies</code>.</p>
+     * <p>
+     * Setter for the field <code>userLastModifies</code>.
+     * </p>
      *
-     * @param userLastModifies a {@link java.lang.String} object.
+     * @param userLastModifies
+     *            a {@link java.lang.String} object.
      */
     public void setUserLastModifies(String userLastModifies) {
         this.userLastModifies = userLastModifies;
     }
 
     /**
-     * <p>Getter for the field <code>createTime</code>.</p>
+     * <p>
+     * Getter for the field <code>createTime</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -366,16 +437,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>createTime</code>.</p>
+     * <p>
+     * Setter for the field <code>createTime</code>.
+     * </p>
      *
-     * @param createTime a {@link java.util.Date} object.
+     * @param createTime
+     *            a {@link java.util.Date} object.
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     /**
-     * <p>Getter for the field <code>lastModifiedTime</code>.</p>
+     * <p>
+     * Getter for the field <code>lastModifiedTime</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -386,16 +462,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>lastModifiedTime</code>.</p>
+     * <p>
+     * Setter for the field <code>lastModifiedTime</code>.
+     * </p>
      *
-     * @param lastModifiedTime a {@link java.util.Date} object.
+     * @param lastModifiedTime
+     *            a {@link java.util.Date} object.
      */
     public void setLastModifiedTime(Date lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
     }
 
     /**
-     * <p>Getter for the field <code>scale</code>.</p>
+     * <p>
+     * Getter for the field <code>scale</code>.
+     * </p>
      *
      * @return a float.
      */
@@ -405,16 +486,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>scale</code>.</p>
+     * <p>
+     * Setter for the field <code>scale</code>.
+     * </p>
      *
-     * @param scale a float.
+     * @param scale
+     *            a float.
      */
     public void setScale(float scale) {
         this.scale = scale;
     }
 
     /**
-     * <p>Getter for the field <code>offsetX</code>.</p>
+     * <p>
+     * Getter for the field <code>offsetX</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -424,16 +510,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>offsetX</code>.</p>
+     * <p>
+     * Setter for the field <code>offsetX</code>.
+     * </p>
      *
-     * @param offsetX a int.
+     * @param offsetX
+     *            a int.
      */
     public void setOffsetX(int offsetX) {
         this.offsetX = offsetX;
     }
 
     /**
-     * <p>Getter for the field <code>offsetY</code>.</p>
+     * <p>
+     * Getter for the field <code>offsetY</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -443,16 +534,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>offsetY</code>.</p>
+     * <p>
+     * Setter for the field <code>offsetY</code>.
+     * </p>
      *
-     * @param offsetY a int.
+     * @param offsetY
+     *            a int.
      */
     public void setOffsetY(int offsetY) {
         this.offsetY = offsetY;
     }
 
     /**
-     * <p>Getter for the field <code>type</code>.</p>
+     * <p>
+     * Getter for the field <code>type</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -462,9 +558,12 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>type</code>.</p>
+     * <p>
+     * Setter for the field <code>type</code>.
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public void setType(String type) {
         if (type.equalsIgnoreCase(OnmsMap.AUTOMATICALLY_GENERATED_MAP))
@@ -476,7 +575,9 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>width</code>.</p>
+     * <p>
+     * Getter for the field <code>width</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -486,17 +587,21 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>width</code>.</p>
+     * <p>
+     * Setter for the field <code>width</code>.
+     * </p>
      *
-     * @param width a int.
+     * @param width
+     *            a int.
      */
     public void setWidth(int width) {
         this.width = width;
     }
 
-
     /**
-     * <p>Getter for the field <code>height</code>.</p>
+     * <p>
+     * Getter for the field <code>height</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -506,46 +611,55 @@ public class OnmsMap implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>height</code>.</p>
+     * <p>
+     * Setter for the field <code>height</code>.
+     * </p>
      *
-     * @param height a int.
+     * @param height
+     *            a int.
      */
     public void setHeight(int height) {
         this.height = height;
     }
 
     /**
-     * <p>Getter for the field <code>mapElements</code>.</p>
+     * <p>
+     * Getter for the field <code>mapElements</code>.
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
     @XmlTransient
-    @OneToMany(mappedBy="map")
-    @org.hibernate.annotations.Cascade( {
-        org.hibernate.annotations.CascadeType.ALL,
-        org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
+    @OneToMany(mappedBy = "map")
+    @org.hibernate.annotations.Cascade({ org.hibernate.annotations.CascadeType.ALL,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
     public Set<OnmsMapElement> getMapElements() {
         return this.mapElements;
     }
 
     /**
-     * <p>Setter for the field <code>mapElements</code>.</p>
+     * <p>
+     * Setter for the field <code>mapElements</code>.
+     * </p>
      *
-     * @param mapElements a {@link java.util.Set} object.
+     * @param mapElements
+     *            a {@link java.util.Set} object.
      */
     public void setMapElements(Set<OnmsMapElement> mapElements) {
         this.mapElements = mapElements;
     }
 
     /**
-     * <p>addMapElement</p>
+     * <p>
+     * addMapElement
+     * </p>
      *
-     * @param element a {@link org.opennms.netmgt.model.OnmsMapElement} object.
+     * @param element
+     *            a {@link org.opennms.netmgt.model.OnmsMapElement} object.
      */
     public void addMapElement(OnmsMapElement element) {
         element.setMap(this);
         getMapElements().add(element);
     }
-
 
 }

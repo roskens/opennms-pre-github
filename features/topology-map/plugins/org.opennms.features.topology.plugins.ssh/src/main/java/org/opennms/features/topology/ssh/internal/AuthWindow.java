@@ -47,26 +47,41 @@ import com.vaadin.ui.Window;
 /**
  * This class creates a window to authorize usernames
  * and passwords for the SSH server.
+ *
  * @author pdgrenon
  * @author lmbell
- *
  */
 @SuppressWarnings("serial")
-public class AuthWindow extends Window implements Button.ClickListener{
+public class AuthWindow extends Window implements Button.ClickListener {
 
-    SSHWindow sshWindow; // The SSH window that will arise after the auth window connects
-    private String m_host;  // The hostname to connect to
-    private int m_port;  // The port to connect to
-    private int TERM_WIDTH = 800;  // The width of the terminal
-    private int TERM_HEIGHT = 520;   // The height of the terminal
-    private ClientSession session = null; // The ClientSession object used to track each SSH session
+    SSHWindow sshWindow; // The SSH window that will arise after the auth window
+                         // connects
+
+    private String m_host; // The hostname to connect to
+
+    private int m_port; // The port to connect to
+
+    private int TERM_WIDTH = 800; // The width of the terminal
+
+    private int TERM_HEIGHT = 520; // The height of the terminal
+
+    private ClientSession session = null; // The ClientSession object used to
+                                          // track each SSH session
+
     final SshClient client;
+
     protected String testString; // used to unit test the button click event
+
     protected TextField hostField;
+
     protected TextField portField;
+
     protected TextField usernameField;
+
     protected PasswordField passwordField;
+
     private boolean showOptions = false;
+
     private final int FIELD_BUFFER = 20;
 
     /**
@@ -76,8 +91,10 @@ public class AuthWindow extends Window implements Button.ClickListener{
      * given port through SSH, and the terminal emulator this window
      * will be replaced by a terminal emulator.
      *
-     * @param host - The host name to connect to
-     * @param port - The port number to connect to
+     * @param host
+     *            - The host name to connect to
+     * @param port
+     *            - The port number to connect to
      */
     public AuthWindow(String host, int port) {
         super("Login");
@@ -90,20 +107,21 @@ public class AuthWindow extends Window implements Button.ClickListener{
         setModal(true);
         setWidth("260px");
         setHeight("190px");
-        if (showOptions) setHeight("260px");
+        if (showOptions)
+            setHeight("260px");
         setResizable(false);
 
         Label hostLabel = new Label("Host: ");
         hostField = new TextField();
-//        hostField.setMaxLength(FIELD_BUFFER);
+        // hostField.setMaxLength(FIELD_BUFFER);
 
         Label portLabel = new Label("Port: ");
         portField = new TextField();
-//        portField.setMaxLength(FIELD_BUFFER);
+        // portField.setMaxLength(FIELD_BUFFER);
 
         Label usernameLabel = new Label("Username: ");
         usernameField = new TextField();
-//        usernameField.setMaxLength(FIELD_BUFFER);
+        // usernameField.setMaxLength(FIELD_BUFFER);
 
         Label passwordLabel = new Label("Password: ");
         passwordField = new PasswordField();
@@ -114,9 +132,9 @@ public class AuthWindow extends Window implements Button.ClickListener{
         client = SshClient.setUpDefaultClient();
         client.start();
         loginButton.addClickListener(this);
-        GridLayout grid = new GridLayout(2,2);
+        GridLayout grid = new GridLayout(2, 2);
         if (showOptions) {
-            grid = new GridLayout(2,4);
+            grid = new GridLayout(2, 4);
             grid.addComponent(hostLabel);
             grid.addComponent(hostField);
             grid.addComponent(portLabel);
@@ -136,16 +154,21 @@ public class AuthWindow extends Window implements Button.ClickListener{
     }
 
     /**
-     * The validateInput method attempts to set the host and port variables. If the port
-     * is not an integer, an exception is thrown. If the port is not between 1 and 65535,
+     * The validateInput method attempts to set the host and port variables. If
+     * the port
+     * is not an integer, an exception is thrown. If the port is not between 1
+     * and 65535,
      * the method returns false;
+     *
      * @return Validity of the users input
-     * @throws NumberFormatException Port was not an integer
+     * @throws NumberFormatException
+     *             Port was not an integer
      */
     protected boolean validateInput() throws NumberFormatException {
         m_host = hostField.getValue();
         m_port = Integer.parseInt(portField.getValue());
-        if (m_port < 0 || m_port > 65535) return false;
+        if (m_port < 0 || m_port > 65535)
+            return false;
         return true;
     }
 
@@ -153,12 +176,14 @@ public class AuthWindow extends Window implements Button.ClickListener{
     public void attach() {
         super.attach();
 
-        int posX = (int)(getUI().getPage().getBrowserWindowWidth() - this.getWidth())/2;
-        int posY = (int)(getUI().getPage().getBrowserWindowHeight() - this.getHeight())/2;
+        int posX = (int) (getUI().getPage().getBrowserWindowWidth() - this.getWidth()) / 2;
+        int posY = (int) (getUI().getPage().getBrowserWindowHeight() - this.getHeight()) / 2;
         setPositionX(posX);
         setPositionY(posY);
-        if (showOptions) hostField.focus();
-        else usernameField.focus();
+        if (showOptions)
+            hostField.focus();
+        else
+            usernameField.focus();
     }
 
     /**
@@ -173,7 +198,7 @@ public class AuthWindow extends Window implements Button.ClickListener{
     @Override
     public void buttonClick(ClickEvent event) {
         String login = usernameField.getValue();
-        String password = (String)passwordField.getValue();
+        String password = (String) passwordField.getValue();
         boolean validInput = false;
         try {
             if (showOptions) {
@@ -182,7 +207,8 @@ public class AuthWindow extends Window implements Button.ClickListener{
                     testString = "Port must be between 1 and 65535";
                     Notification.show("Port must be between 1 and 65535", Notification.Type.WARNING_MESSAGE);
                 }
-            } else validInput = true;
+            } else
+                validInput = true;
         } catch (NumberFormatException e) {
             testString = "Port must be an integer";
             Notification.show("Port must be an integer", Notification.Type.WARNING_MESSAGE);
@@ -192,7 +218,7 @@ public class AuthWindow extends Window implements Button.ClickListener{
                 session = client.connect(m_host, m_port).await().getSession();
 
                 int ret = ClientSession.WAIT_AUTH;
-                if (session != null){
+                if (session != null) {
                     while ((ret & ClientSession.WAIT_AUTH) != 0) {
                         session.authPassword(login, password);
                         ret = session.waitFor(ClientSession.WAIT_AUTH | ClientSession.CLOSED | ClientSession.AUTHED, 0);
@@ -213,4 +239,3 @@ public class AuthWindow extends Window implements Button.ClickListener{
     }
 
 }
-

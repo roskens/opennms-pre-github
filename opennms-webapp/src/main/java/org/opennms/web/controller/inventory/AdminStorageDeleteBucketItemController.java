@@ -41,9 +41,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-
 /**
- * <p>AdminStorageDeleteBucketItemController class.</p>
+ * <p>
+ * AdminStorageDeleteBucketItemController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,24 +52,30 @@ import org.springframework.web.servlet.mvc.Controller;
  */
 public class AdminStorageDeleteBucketItemController implements Controller {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AdminStorageDeleteBucketItemController.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(AdminStorageDeleteBucketItemController.class);
 
     InventoryService m_inventoryService;
 
     /**
-     * <p>getInventoryService</p>
+     * <p>
+     * getInventoryService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *         object.
      */
     public InventoryService getInventoryService() {
         return m_inventoryService;
     }
 
     /**
-     * <p>setInventoryService</p>
+     * <p>
+     * setInventoryService
+     * </p>
      *
-     * @param inventoryService a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @param inventoryService
+     *            a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *            object.
      */
     public void setInventoryService(InventoryService inventoryService) {
         m_inventoryService = inventoryService;
@@ -76,8 +83,7 @@ public class AdminStorageDeleteBucketItemController implements Controller {
 
     /** {@inheritDoc} */
     @Override
-    public ModelAndView handleRequest(HttpServletRequest request,
-            HttpServletResponse arg1) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse arg1) throws Exception {
 
         String node = request.getParameter("node");
         int nodeid = WebSecurityUtils.safeParseInt(node);
@@ -86,16 +92,14 @@ public class AdminStorageDeleteBucketItemController implements Controller {
         String filename = request.getParameter("filename");
         if (bucket != null && filename != null && request.isUserInRole(Authentication.ROLE_ADMIN)) {
             boolean done = m_inventoryService.deleteBucketItem(bucket, filename);
-            if (!done){
-                LOG.debug("AdminStorageDeleteBucketItemController ModelAndView onSubmit error while deleting status for: {}", bucket);
+            if (!done) {
+                LOG.debug("AdminStorageDeleteBucketItemController ModelAndView onSubmit error while deleting status for: {}",
+                          bucket);
             }
-     }
-        Map<String, Object> model  = m_inventoryService.getBuckets(nodeid);
-        ModelAndView modelAndView = new ModelAndView("admin/storage/storageAdmin","model",model);
+        }
+        Map<String, Object> model = m_inventoryService.getBuckets(nodeid);
+        ModelAndView modelAndView = new ModelAndView("admin/storage/storageAdmin", "model", model);
         return modelAndView;
     }
-
-
-
 
 }

@@ -37,42 +37,53 @@ import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>MockInterface class.</p>
+ * <p>
+ * MockInterface class.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
-public class MockInterface extends MockContainer<MockNode,MockService> {
+public class MockInterface extends MockContainer<MockNode, MockService> {
 
-	private String m_ifAlias;
+    private String m_ifAlias;
+
     private final InetAddress m_inetAddr;
+
     private final int m_ifIndex;
 
-
     /**
-     * <p>Constructor for MockInterface.</p>
+     * <p>
+     * Constructor for MockInterface.
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      */
     public MockInterface(MockNode node, String ipAddr) {
         super(node);
         m_ifIndex = node.getNextIfIndex();
         m_inetAddr = InetAddressUtils.addr(ipAddr);
         if (m_inetAddr == null) {
-            throw new IllegalArgumentException("unable to convert "+ipAddr+" to an InetAddress.");
+            throw new IllegalArgumentException("unable to convert " + ipAddr + " to an InetAddress.");
         }
     }
 
     // model
     /**
-     * <p>addService</p>
+     * <p>
+     * addService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
-     * @param serviceId a int.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a int.
      * @return a {@link org.opennms.netmgt.mock.MockService} object.
      */
     public MockService addService(String svcName, int serviceId) {
@@ -81,7 +92,9 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
 
     // model
     /**
-     * <p>getIpAddr</p>
+     * <p>
+     * getIpAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,25 +103,29 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
     }
 
     // impl
-        @Override
+    @Override
     Object getKey() {
         return getIpAddr();
     }
 
     // model
     /**
-     * <p>getNetwork</p>
+     * <p>
+     * getNetwork
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.mock.MockNetwork} object.
      */
-        @Override
+    @Override
     public MockNetwork getNetwork() {
         return getNode().getNetwork();
     }
 
     // model
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.mock.MockNode} object.
      */
@@ -118,7 +135,9 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
 
     // model
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -128,7 +147,9 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
 
     // model
     /**
-     * <p>getNodeLabel</p>
+     * <p>
+     * getNodeLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -138,11 +159,13 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
 
     // FIXME: model?
     /**
-     * <p>getPollStatus</p>
+     * <p>
+     * getPollStatus
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
-        @Override
+    @Override
     public PollStatus getPollStatus() {
         final String critSvcName = getNetwork().getCriticalService();
         final MockService critSvc = getService(critSvcName);
@@ -170,9 +193,12 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
 
     // model
     /**
-     * <p>getService</p>
+     * <p>
+     * getService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.mock.MockService} object.
      */
     public MockService getService(String svcName) {
@@ -181,7 +207,9 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
 
     // model
     /**
-     * <p>getServices</p>
+     * <p>
+     * getServices
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -191,9 +219,12 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
 
     // model
     /**
-     * <p>removeService</p>
+     * <p>
+     * removeService
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      */
     public void removeService(MockService svc) {
         removeMember(svc);
@@ -201,23 +232,22 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
 
     // impl
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("ifAlias", m_ifAlias)
-    		.append("ifIndex", m_ifIndex)
-    		.append("inetAddr", InetAddressUtils.str(m_inetAddr))
-    		.append("members", getMembers())
-    		.toString();
+        return new ToStringBuilder(this).append("ifAlias", m_ifAlias).append("ifIndex", m_ifIndex).append("inetAddr",
+                                                                                                          InetAddressUtils.str(m_inetAddr)).append("members",
+                                                                                                                                                   getMembers()).toString();
     }
 
     // impl
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void visit(MockVisitor v) {
         super.visit(v);
         v.visitInterface(this);
@@ -225,57 +255,70 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
     }
 
     /**
-     * <p>createDownEvent</p>
+     * <p>
+     * createDownEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-        @Override
+    @Override
     public Event createDownEvent() {
         return MockEventUtil.createInterfaceDownEvent("Test", this);
     }
 
     /**
-     * <p>createUpEvent</p>
+     * <p>
+     * createUpEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-        @Override
+    @Override
     public Event createUpEvent() {
         return MockEventUtil.createInterfaceUpEvent("Test", this);
     }
 
     /**
-     * <p>createNewEvent</p>
+     * <p>
+     * createNewEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-        @Override
+    @Override
     public Event createNewEvent() {
         return MockEventUtil.createNodeGainedInterfaceEvent("Test", this);
     }
 
     /**
-     * <p>createDeleteEvent</p>
+     * <p>
+     * createDeleteEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-        @Override
+    @Override
     public Event createDeleteEvent() {
         return MockEventUtil.createInterfaceDeletedEvent("Test", this);
     }
 
-	/**
-	 * <p>setIfAlias</p>
-	 *
-	 * @param ifAlias a {@link java.lang.String} object.
-	 */
-	public void setIfAlias(String ifAlias) {
-		// ifAlias for an interface
-		m_ifAlias = ifAlias;
-	}
+    /**
+     * <p>
+     * setIfAlias
+     * </p>
+     *
+     * @param ifAlias
+     *            a {@link java.lang.String} object.
+     */
+    public void setIfAlias(String ifAlias) {
+        // ifAlias for an interface
+        m_ifAlias = ifAlias;
+    }
 
     /**
-     * <p>getIfAlias</p>
+     * <p>
+     * getIfAlias
+     * </p>
      *
      * @return Returns the ifAlias.
      */
@@ -284,7 +327,9 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
     }
 
     /**
-     * <p>getAddress</p>
+     * <p>
+     * getAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -293,13 +338,14 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a int.
      */
     public int getIfIndex() {
         return m_ifIndex;
     }
-
 
 }

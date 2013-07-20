@@ -48,7 +48,7 @@ public abstract class AbstractFilter implements Filter {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Filter) {
-            Filter f = (Filter)o;
+            Filter f = (Filter) o;
             return toString().equals(f.toString());
         }
         return false;

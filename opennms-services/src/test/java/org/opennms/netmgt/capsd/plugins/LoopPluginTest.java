@@ -36,6 +36,7 @@ import junit.framework.TestCase;
 
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.capsd.Plugin;
+
 public class LoopPluginTest extends TestCase {
 
     @Override
@@ -49,7 +50,8 @@ public class LoopPluginTest extends TestCase {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.capsd.plugins.LoopPlugin.getProtocolName()'
+     * Test method for
+     * 'org.opennms.netmgt.capsd.plugins.LoopPlugin.getProtocolName()'
      */
     public void testGetProtocolName() {
         Plugin plugin = new LoopPlugin();
@@ -57,7 +59,8 @@ public class LoopPluginTest extends TestCase {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.capsd.plugins.LoopPlugin.isProtocolSupported(InetAddress)'
+     * Test method for
+     * 'org.opennms.netmgt.capsd.plugins.LoopPlugin.isProtocolSupported(InetAddress)'
      */
     public void testIsProtocolSupportedInetAddress() throws UnknownHostException {
         Plugin plugin = new LoopPlugin();
@@ -65,7 +68,9 @@ public class LoopPluginTest extends TestCase {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.capsd.plugins.LoopPlugin.isProtocolSupported(InetAddress, Map)'
+     * Test method for
+     * 'org.opennms.netmgt.capsd.plugins.LoopPlugin.isProtocolSupported(InetAddress,
+     * Map)'
      */
     public void testIsProtocolSupportedInetAddressMap() throws UnknownHostException {
         Map<String, Object> qualifiers = new HashMap<String, Object>();

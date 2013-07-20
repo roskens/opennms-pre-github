@@ -52,25 +52,19 @@ public class DateFormatLocaleTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {Locale.CANADA},
-                // Doesn't work because fr_CA drops the second digit in FULL format
+                { Locale.CANADA },
+                // Doesn't work because fr_CA drops the second digit in FULL
+                // format
                 // {Locale.CANADA_FRENCH},
-                {Locale.CHINA},
-                // Doesn't work because fr_FR drops the second digit in FULL format
+                { Locale.CHINA },
+                // Doesn't work because fr_FR drops the second digit in FULL
+                // format
                 // {Locale.FRANCE},
-                // Doesn't work because de_DE drops the second digit in FULL format
+                // Doesn't work because de_DE drops the second digit in FULL
+                // format
                 // {Locale.GERMANY},
-                {Locale.ITALY},
-                {Locale.JAPAN},
-                {Locale.KOREA},
-                {Locale.PRC},
-                {Locale.TAIWAN},
-                {Locale.UK},
-                {Locale.US},
-                {new Locale("no_NN")},
-                {new Locale("no_NB")},
-                {new Locale("no_NO")}
-        });
+                { Locale.ITALY }, { Locale.JAPAN }, { Locale.KOREA }, { Locale.PRC }, { Locale.TAIWAN }, { Locale.UK },
+                { Locale.US }, { new Locale("no_NN") }, { new Locale("no_NB") }, { new Locale("no_NO") } });
     }
 
     public DateFormatLocaleTest(final Locale locale) {

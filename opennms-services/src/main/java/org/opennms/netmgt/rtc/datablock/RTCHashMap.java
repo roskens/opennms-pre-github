@@ -49,24 +49,25 @@ import java.util.Map;
 // FIXME: 2011-05-18 Seth: OK it is less insane now... but still insane
 public class RTCHashMap {
 
-    Map<RTCNodeKey,List<RTCNode>> m_map;
+    Map<RTCNodeKey, List<RTCNode>> m_map;
 
     /**
      * constructor
      *
-     * @param initialCapacity a int.
+     * @param initialCapacity
+     *            a int.
      */
     public RTCHashMap(int initialCapacity) {
-        m_map = new HashMap<RTCNodeKey,List<RTCNode>>(initialCapacity);
+        m_map = new HashMap<RTCNodeKey, List<RTCNode>>(initialCapacity);
     }
 
     private List<Long> getNodeIDs() {
-    	List<Long> nodes = new LinkedList<Long>();
-    	for (Iterator<RTCNodeKey> it = m_map.keySet().iterator(); it.hasNext();) {
-			RTCNodeKey key = it.next();
-			nodes.add(key.getNodeID());
-		}
-    	return nodes;
+        List<Long> nodes = new LinkedList<Long>();
+        for (Iterator<RTCNodeKey> it = m_map.keySet().iterator(); it.hasNext();) {
+            RTCNodeKey key = it.next();
+            nodes.add(key.getNodeID());
+        }
+        return nodes;
     }
 
     /**
@@ -126,25 +127,28 @@ public class RTCHashMap {
     /**
      * Add an rtc node
      *
-     * @param rtcN the rtcNode to add
+     * @param rtcN
+     *            the rtcNode to add
      */
     public void add(RTCNode rtcN) {
-    	add(rtcN.getNodeID(), rtcN);
-    	add(rtcN.getNodeID(), rtcN.getIP(), rtcN);
-    	add(rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), rtcN);
+        add(rtcN.getNodeID(), rtcN);
+        add(rtcN.getNodeID(), rtcN.getIP(), rtcN);
+        add(rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), rtcN);
     }
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param rtcN a {@link org.opennms.netmgt.rtc.datablock.RTCNode} object.
+     * @param rtcN
+     *            a {@link org.opennms.netmgt.rtc.datablock.RTCNode} object.
      */
     public void delete(RTCNode rtcN) {
-    	delete(rtcN.getNodeID(), rtcN);
-    	delete(rtcN.getNodeID(), rtcN.getIP(), rtcN);
-    	delete(rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), rtcN);
+        delete(rtcN.getNodeID(), rtcN);
+        delete(rtcN.getNodeID(), rtcN.getIP(), rtcN);
+        delete(rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), rtcN);
     }
-
 
     /**
      * Delete the node from list with nodeid as key
@@ -183,8 +187,8 @@ public class RTCHashMap {
     }
 
     private void delete(long nodeid, InetAddress ip, String svcName, RTCNode rtcN) {
-    	RTCNodeKey key = new RTCNodeKey(nodeid, ip, svcName);
-    	m_map.remove(key);
+        RTCNodeKey key = new RTCNodeKey(nodeid, ip, svcName);
+        m_map.remove(key);
     }
 
     /**
@@ -377,71 +381,92 @@ public class RTCHashMap {
         return count;
     }
 
-	/**
-	 * <p>getRTCNode</p>
-	 *
-	 * @param key a {@link org.opennms.netmgt.rtc.datablock.RTCNodeKey} object.
-	 * @return a {@link org.opennms.netmgt.rtc.datablock.RTCNode} object.
-	 */
-	public RTCNode getRTCNode(RTCNodeKey key) {
-		List<RTCNode> nodes = m_map.get(key);
-		if (nodes == null) return null;
-		if (nodes.size() != 1) {
-		    throw new IllegalStateException("Could not find single RTCNode that matched key: " + key.toString());
-		}
-		return nodes.get(0);
-	}
+    /**
+     * <p>
+     * getRTCNode
+     * </p>
+     *
+     * @param key
+     *            a {@link org.opennms.netmgt.rtc.datablock.RTCNodeKey} object.
+     * @return a {@link org.opennms.netmgt.rtc.datablock.RTCNode} object.
+     */
+    public RTCNode getRTCNode(RTCNodeKey key) {
+        List<RTCNode> nodes = m_map.get(key);
+        if (nodes == null)
+            return null;
+        if (nodes.size() != 1) {
+            throw new IllegalStateException("Could not find single RTCNode that matched key: " + key.toString());
+        }
+        return nodes.get(0);
+    }
 
-	/**
-	 * <p>getRTCNode</p>
-	 *
-	 * @param nodeid a long.
-	 * @param ipaddr a {@link java.lang.String} object.
-	 * @param svcname a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.netmgt.rtc.datablock.RTCNode} object.
-	 */
-	public RTCNode getRTCNode(long nodeid, InetAddress ipaddr, String svcname) {
-		return getRTCNode(new RTCNodeKey(nodeid, ipaddr, svcname));
-	}
+    /**
+     * <p>
+     * getRTCNode
+     * </p>
+     *
+     * @param nodeid
+     *            a long.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
+     * @param svcname
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.rtc.datablock.RTCNode} object.
+     */
+    public RTCNode getRTCNode(long nodeid, InetAddress ipaddr, String svcname) {
+        return getRTCNode(new RTCNodeKey(nodeid, ipaddr, svcname));
+    }
 
-	/**
-	 * <p>getRTCNodes</p>
-	 *
-	 * @param nodeid a long.
-	 * @return a {@link java.util.List} object.
-	 */
-	public List<RTCNode> getRTCNodes(long nodeid) {
-		RTCNodeKey key = new RTCNodeKey(nodeid, null, null);
-		List<RTCNode> nodes = m_map.get(key);
-		if (nodes == null) return Collections.emptyList();
-		return Collections.unmodifiableList(nodes);
-	}
+    /**
+     * <p>
+     * getRTCNodes
+     * </p>
+     *
+     * @param nodeid
+     *            a long.
+     * @return a {@link java.util.List} object.
+     */
+    public List<RTCNode> getRTCNodes(long nodeid) {
+        RTCNodeKey key = new RTCNodeKey(nodeid, null, null);
+        List<RTCNode> nodes = m_map.get(key);
+        if (nodes == null)
+            return Collections.emptyList();
+        return Collections.unmodifiableList(nodes);
+    }
 
-	/**
-	 * <p>getRTCNodes</p>
-	 *
-	 * @param nodeid a long.
-	 * @param ip a {@link java.lang.String} object.
-	 * @return a {@link java.util.List} object.
-	 */
-	public List<RTCNode> getRTCNodes(long nodeid, InetAddress ip) {
-		RTCNodeKey key = new RTCNodeKey(nodeid, ip, null);
-		List<RTCNode> nodes = m_map.get(key);
-		if (nodes == null) return Collections.emptyList();
-		return Collections.unmodifiableList(nodes);
-	}
+    /**
+     * <p>
+     * getRTCNodes
+     * </p>
+     *
+     * @param nodeid
+     *            a long.
+     * @param ip
+     *            a {@link java.lang.String} object.
+     * @return a {@link java.util.List} object.
+     */
+    public List<RTCNode> getRTCNodes(long nodeid, InetAddress ip) {
+        RTCNodeKey key = new RTCNodeKey(nodeid, ip, null);
+        List<RTCNode> nodes = m_map.get(key);
+        if (nodes == null)
+            return Collections.emptyList();
+        return Collections.unmodifiableList(nodes);
+    }
 
-	/**
-	 * <p>deleteNode</p>
-	 *
-	 * @param nodeid a long.
-	 */
-	public void deleteNode(long nodeid) {
-	    // Construct a new ArrayList to contain the members of this collection
-	    // to avoid running into a java.util.ConcurrentModificationException
-	    // on the Collections.unmodifiableList() view.
-		for (RTCNode node : new ArrayList<RTCNode>(getRTCNodes(nodeid))) {
-			delete(node);
-		}
-	}
+    /**
+     * <p>
+     * deleteNode
+     * </p>
+     *
+     * @param nodeid
+     *            a long.
+     */
+    public void deleteNode(long nodeid) {
+        // Construct a new ArrayList to contain the members of this collection
+        // to avoid running into a java.util.ConcurrentModificationException
+        // on the Collections.unmodifiableList() view.
+        for (RTCNode node : new ArrayList<RTCNode>(getRTCNodes(nodeid))) {
+            delete(node);
+        }
+    }
 }

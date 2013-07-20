@@ -45,7 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Notifd class.</p>
+ * <p>
+ * Notifd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -60,14 +62,18 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
     private static String LOG4J_CATEGORY = "notifd";
 
     /**
-     * <p>Constructor for Notifd.</p>
+     * <p>
+     * Constructor for Notifd.
+     * </p>
      */
     public Notifd() {
         super(LOG4J_CATEGORY);
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -149,7 +155,9 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -157,7 +165,9 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {

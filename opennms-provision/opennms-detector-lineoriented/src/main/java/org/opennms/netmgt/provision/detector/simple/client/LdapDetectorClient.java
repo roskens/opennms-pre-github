@@ -40,7 +40,9 @@ import com.novell.ldap.LDAPConnection;
 import com.novell.ldap.LDAPSocketFactory;
 
 /**
- * <p>LdapDetectorClient class.</p>
+ * <p>
+ * LdapDetectorClient class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $

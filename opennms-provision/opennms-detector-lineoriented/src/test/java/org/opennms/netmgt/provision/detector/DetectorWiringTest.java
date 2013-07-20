@@ -51,50 +51,59 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * @author brozow
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class DetectorWiringTest implements InitializingBean {
 
     @Autowired
-    @Qualifier(value="org.opennms.netmgt.provision.detector.simple.HttpDetector")
+    @Qualifier(value = "org.opennms.netmgt.provision.detector.simple.HttpDetector")
     @SuppressWarnings("unused")
     private HttpDetector m_httpDetector;
+
     @Autowired
     @SuppressWarnings("unused")
     private Pop3Detector m_pop3Detector;
+
     @Autowired
     @SuppressWarnings("unused")
     private CitrixDetector m_citrixDetector;
+
     @Autowired
     @SuppressWarnings("unused")
     private DominoIIOPDetector m_dominoIIOPDetector;
+
     @Autowired
     @SuppressWarnings("unused")
     private FtpDetector m_ftpDetector;
+
     @Autowired
     @SuppressWarnings("unused")
     private HttpsDetector m_httpsDetector;
+
     @Autowired
     @SuppressWarnings("unused")
     private ImapDetector m_imapDetector;
+
     @Autowired
-    @Qualifier(value="org.opennms.netmgt.provision.detector.simple.LdapDetector")
+    @Qualifier(value = "org.opennms.netmgt.provision.detector.simple.LdapDetector")
     @SuppressWarnings("unused")
     private LdapDetector m_ldapDetector;
+
     @Autowired
     @SuppressWarnings("unused")
     private LdapsDetector m_ldapsDetector;
+
     @Autowired
     @SuppressWarnings("unused")
     private NrpeDetector m_nrpeDetector;
+
     @Autowired
     @SuppressWarnings("unused")
     private SmtpDetector m_smtpDetector;
+
     @Autowired
     @SuppressWarnings("unused")
     private TcpDetector m_tcpDetector;

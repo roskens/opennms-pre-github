@@ -57,26 +57,37 @@ import org.springframework.transaction.support.TransactionTemplate;
  */
 public class ImportOperationsManager {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ImportOperationsManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ImportOperationsManager.class);
 
+    private List<ImportOperation> m_inserts = new LinkedList<ImportOperation>();
 
-	private List<ImportOperation> m_inserts = new LinkedList<ImportOperation>();
     private List<ImportOperation> m_updates = new LinkedList<ImportOperation>();
+
     private Map<String, Integer> m_foreignIdToNodeMap;
 
     private ImportOperationFactory m_operationFactory;
-    private ImportStatistics m_stats = new DefaultImportStatistics();
-	private EventIpcManager m_eventMgr;
 
-	private int m_scanThreads = 50;
-	private int m_writeThreads = 4;
+    private ImportStatistics m_stats = new DefaultImportStatistics();
+
+    private EventIpcManager m_eventMgr;
+
+    private int m_scanThreads = 50;
+
+    private int m_writeThreads = 4;
+
     private String m_foreignSource;
 
     /**
-     * <p>Constructor for ImportOperationsManager.</p>
+     * <p>
+     * Constructor for ImportOperationsManager.
+     * </p>
      *
-     * @param foreignIdToNodeMap a {@link java.util.Map} object.
-     * @param operationFactory a {@link org.opennms.netmgt.importer.operations.ImportOperationFactory} object.
+     * @param foreignIdToNodeMap
+     *            a {@link java.util.Map} object.
+     * @param operationFactory
+     *            a
+     *            {@link org.opennms.netmgt.importer.operations.ImportOperationFactory}
+     *            object.
      */
     public ImportOperationsManager(Map<String, Integer> foreignIdToNodeMap, ImportOperationFactory operationFactory) {
         m_foreignIdToNodeMap = new HashMap<String, Integer>(foreignIdToNodeMap);
@@ -84,13 +95,21 @@ public class ImportOperationsManager {
     }
 
     /**
-     * <p>foundNode</p>
+     * <p>
+     * foundNode
+     * </p>
      *
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
-     * @param city a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.importer.operations.SaveOrUpdateOperation} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.importer.operations.SaveOrUpdateOperation}
+     *         object.
      */
     public SaveOrUpdateOperation foundNode(String foreignId, String nodeLabel, String building, String city) {
 
@@ -106,21 +125,25 @@ public class ImportOperationsManager {
     }
 
     private SaveOrUpdateOperation insertNode(String foreignId, String nodeLabel, String building, String city) {
-        InsertOperation insertOperation = m_operationFactory.createInsertOperation(getForeignSource(), foreignId, nodeLabel, building, city);
+        InsertOperation insertOperation = m_operationFactory.createInsertOperation(getForeignSource(), foreignId,
+                                                                                   nodeLabel, building, city);
         m_inserts.add(insertOperation);
         return insertOperation;
     }
 
     private SaveOrUpdateOperation updateNode(String foreignId, String nodeLabel, String building, String city) {
         Integer nodeId = processForeignId(foreignId);
-        UpdateOperation updateOperation = m_operationFactory.createUpdateOperation(nodeId, getForeignSource(), foreignId, nodeLabel, building, city);
+        UpdateOperation updateOperation = m_operationFactory.createUpdateOperation(nodeId, getForeignSource(),
+                                                                                   foreignId, nodeLabel, building, city);
         m_updates.add(updateOperation);
         return updateOperation;
     }
 
     /**
-     * Return NodeId and remove it from the Map so we know which nodes have been operated on thereby
+     * Return NodeId and remove it from the Map so we know which nodes have been
+     * operated on thereby
      * tracking nodes to be deleted.
+     *
      * @param foreignId
      * @return a nodeId
      */
@@ -129,7 +152,9 @@ public class ImportOperationsManager {
     }
 
     /**
-     * <p>getOperationCount</p>
+     * <p>
+     * getOperationCount
+     * </p>
      *
      * @return a int.
      */
@@ -138,98 +163,108 @@ public class ImportOperationsManager {
     }
 
     /**
-     * <p>getInsertCount</p>
+     * <p>
+     * getInsertCount
+     * </p>
      *
      * @return a int.
      */
     public int getInsertCount() {
-    	return m_inserts.size();
+        return m_inserts.size();
     }
 
     /**
-     * <p>getUpdateCount</p>
+     * <p>
+     * getUpdateCount
+     * </p>
      *
      * @return a int.
      */
-    public int  getUpdateCount() {
+    public int getUpdateCount() {
         return m_updates.size();
     }
 
     /**
-     * <p>getDeleteCount</p>
+     * <p>
+     * getDeleteCount
+     * </p>
      *
      * @return a int.
      */
     public int getDeleteCount() {
-    	return m_foreignIdToNodeMap.size();
+        return m_foreignIdToNodeMap.size();
     }
 
     class DeleteIterator implements Iterator<ImportOperation> {
 
-    	private Iterator<Entry<String, Integer>> m_foreignIdIterator = m_foreignIdToNodeMap.entrySet().iterator();
+        private Iterator<Entry<String, Integer>> m_foreignIdIterator = m_foreignIdToNodeMap.entrySet().iterator();
 
-            @Override
-		public boolean hasNext() {
-			return m_foreignIdIterator.hasNext();
-		}
+        @Override
+        public boolean hasNext() {
+            return m_foreignIdIterator.hasNext();
+        }
 
-            @Override
-		public ImportOperation next() {
+        @Override
+        public ImportOperation next() {
             Entry<String, Integer> entry = m_foreignIdIterator.next();
             Integer nodeId = entry.getValue();
             String foreignId = entry.getKey();
             return m_operationFactory.createDeleteOperation(nodeId, m_foreignSource, foreignId);
 
-		}
+        }
 
-            @Override
-		public void remove() {
-			m_foreignIdIterator.remove();
-		}
+        @Override
+        public void remove() {
+            m_foreignIdIterator.remove();
+        }
 
     }
 
     class OperationIterator implements Iterator<ImportOperation> {
 
-    	Iterator<Iterator<ImportOperation>> m_iterIter;
-    	Iterator<ImportOperation> m_currentIter;
+        Iterator<Iterator<ImportOperation>> m_iterIter;
 
-    	OperationIterator() {
-    		List<Iterator<ImportOperation>> iters = new ArrayList<Iterator<ImportOperation>>(3);
-    		iters.add(new DeleteIterator());
-    		iters.add(m_updates.iterator());
-    		iters.add(m_inserts.iterator());
-    		m_iterIter = iters.iterator();
-    	}
+        Iterator<ImportOperation> m_currentIter;
 
-            @Override
-		public boolean hasNext() {
-			while((m_currentIter == null || !m_currentIter.hasNext()) && m_iterIter.hasNext()) {
-				m_currentIter = m_iterIter.next();
-				m_iterIter.remove();
-			}
+        OperationIterator() {
+            List<Iterator<ImportOperation>> iters = new ArrayList<Iterator<ImportOperation>>(3);
+            iters.add(new DeleteIterator());
+            iters.add(m_updates.iterator());
+            iters.add(m_inserts.iterator());
+            m_iterIter = iters.iterator();
+        }
 
-			return (m_currentIter == null ? false: m_currentIter.hasNext());
-		}
+        @Override
+        public boolean hasNext() {
+            while ((m_currentIter == null || !m_currentIter.hasNext()) && m_iterIter.hasNext()) {
+                m_currentIter = m_iterIter.next();
+                m_iterIter.remove();
+            }
 
-            @Override
-		public ImportOperation next() {
-			return m_currentIter.next();
-		}
+            return (m_currentIter == null ? false : m_currentIter.hasNext());
+        }
 
-            @Override
-		public void remove() {
-			m_currentIter.remove();
-		}
+        @Override
+        public ImportOperation next() {
+            return m_currentIter.next();
+        }
 
+        @Override
+        public void remove() {
+            m_currentIter.remove();
+        }
 
     }
 
     /**
-     * <p>shutdownAndWaitForCompletion</p>
+     * <p>
+     * shutdownAndWaitForCompletion
+     * </p>
      *
-     * @param executorService a {@link java.util.concurrent.ExecutorService} object.
-     * @param msg a {@link java.lang.String} object.
+     * @param executorService
+     *            a {@link java.util.concurrent.ExecutorService} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
      */
     public void shutdownAndWaitForCompletion(ExecutorService executorService, String msg) {
         executorService.shutdown();
@@ -243,192 +278,244 @@ public class ImportOperationsManager {
     }
 
     /**
-     * <p>persistOperations</p>
+     * <p>
+     * persistOperations
+     * </p>
      *
-     * @param template a {@link org.springframework.transaction.support.TransactionTemplate} object.
-     * @param dao a {@link org.opennms.netmgt.dao.api.OnmsDao} object.
+     * @param template
+     *            a
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
+     * @param dao
+     *            a {@link org.opennms.netmgt.dao.api.OnmsDao} object.
      */
     public void persistOperations(TransactionTemplate template, OnmsDao<?, ?> dao) {
-    	m_stats.beginProcessingOps();
-    	m_stats.setDeleteCount(getDeleteCount());
-    	m_stats.setInsertCount(getInsertCount());
-    	m_stats.setUpdateCount(getUpdateCount());
-    	ExecutorService pool = Executors.newFixedThreadPool(m_writeThreads, new LogPreservingThreadFactory(getClass().getSimpleName() + ".persistOperations", m_writeThreads, false));
+        m_stats.beginProcessingOps();
+        m_stats.setDeleteCount(getDeleteCount());
+        m_stats.setInsertCount(getInsertCount());
+        m_stats.setUpdateCount(getUpdateCount());
+        ExecutorService pool = Executors.newFixedThreadPool(m_writeThreads,
+                                                            new LogPreservingThreadFactory(getClass().getSimpleName()
+                                                                    + ".persistOperations", m_writeThreads, false));
 
-		preprocessOperations(template, dao, new OperationIterator(), pool);
+        preprocessOperations(template, dao, new OperationIterator(), pool);
 
-		shutdownAndWaitForCompletion(pool, "persister interrupted!");
+        shutdownAndWaitForCompletion(pool, "persister interrupted!");
 
-		m_stats.finishProcessingOps();
+        m_stats.finishProcessingOps();
 
     }
 
-	private void preprocessOperations(final TransactionTemplate template, final OnmsDao<?, ?> dao, OperationIterator iterator, final ExecutorService dbPool) {
+    private void preprocessOperations(final TransactionTemplate template, final OnmsDao<?, ?> dao,
+            OperationIterator iterator, final ExecutorService dbPool) {
 
-		m_stats.beginPreprocessingOps();
+        m_stats.beginPreprocessingOps();
 
-		ExecutorService pool = Executors.newFixedThreadPool(m_scanThreads, new LogPreservingThreadFactory(getClass().getSimpleName() + ".preprocessOperations", m_scanThreads, false));
-		for (Iterator<ImportOperation> it = iterator; it.hasNext();) {
-    		final ImportOperation oper = it.next();
-    		Runnable r = new Runnable() {
-                            @Override
-    			public void run() {
-    				preprocessOperation(oper, template, dao, dbPool);
-    			}
-    		};
-    		pool.execute(r);
+        ExecutorService pool = Executors.newFixedThreadPool(m_scanThreads,
+                                                            new LogPreservingThreadFactory(getClass().getSimpleName()
+                                                                    + ".preprocessOperations", m_scanThreads, false));
+        for (Iterator<ImportOperation> it = iterator; it.hasNext();) {
+            final ImportOperation oper = it.next();
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    preprocessOperation(oper, template, dao, dbPool);
+                }
+            };
+            pool.execute(r);
 
-    	}
+        }
 
-		shutdownAndWaitForCompletion(pool, "preprocessor interrupted!");
+        shutdownAndWaitForCompletion(pool, "preprocessor interrupted!");
 
-		m_stats.finishPreprocessingOps();
-	}
+        m_stats.finishPreprocessingOps();
+    }
 
-	/**
-	 * <p>preprocessOperation</p>
-	 *
-	 * @param oper a {@link org.opennms.netmgt.importer.operations.ImportOperation} object.
-	 * @param template a {@link org.springframework.transaction.support.TransactionTemplate} object.
-	 * @param dao a {@link org.opennms.netmgt.dao.api.OnmsDao} object.
-	 * @param dbPool a {@link java.util.concurrent.ExecutorService} object.
-	 */
-	protected void preprocessOperation(final ImportOperation oper, final TransactionTemplate template, final OnmsDao<?, ?> dao, final ExecutorService dbPool) {
-		m_stats.beginPreprocessing(oper);
-		LOG.info("Preprocess: {}", oper);
-		oper.gatherAdditionalData();
-		Runnable r = new Runnable() {
-                        @Override
-			public void run() {
-				persistOperation(oper, template, dao);
-			}
-		};
+    /**
+     * <p>
+     * preprocessOperation
+     * </p>
+     *
+     * @param oper
+     *            a
+     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
+     *            object.
+     * @param template
+     *            a
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
+     * @param dao
+     *            a {@link org.opennms.netmgt.dao.api.OnmsDao} object.
+     * @param dbPool
+     *            a {@link java.util.concurrent.ExecutorService} object.
+     */
+    protected void preprocessOperation(final ImportOperation oper, final TransactionTemplate template,
+            final OnmsDao<?, ?> dao, final ExecutorService dbPool) {
+        m_stats.beginPreprocessing(oper);
+        LOG.info("Preprocess: {}", oper);
+        oper.gatherAdditionalData();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                persistOperation(oper, template, dao);
+            }
+        };
 
-		dbPool.execute(r);
+        dbPool.execute(r);
 
-		m_stats.finishPreprocessing(oper);
-	}
+        m_stats.finishPreprocessing(oper);
+    }
 
-	/**
-	 * <p>persistOperation</p>
-	 *
-	 * @param oper a {@link org.opennms.netmgt.importer.operations.ImportOperation} object.
-	 * @param template a {@link org.springframework.transaction.support.TransactionTemplate} object.
-	 * @param dao a {@link org.opennms.netmgt.dao.api.OnmsDao} object.
-	 */
-	protected void persistOperation(final ImportOperation oper, TransactionTemplate template, final OnmsDao<?, ?> dao) {
-		m_stats.beginPersisting(oper);
-		LOG.info("Persist: {}", oper);
+    /**
+     * <p>
+     * persistOperation
+     * </p>
+     *
+     * @param oper
+     *            a
+     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
+     *            object.
+     * @param template
+     *            a
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
+     * @param dao
+     *            a {@link org.opennms.netmgt.dao.api.OnmsDao} object.
+     */
+    protected void persistOperation(final ImportOperation oper, TransactionTemplate template, final OnmsDao<?, ?> dao) {
+        m_stats.beginPersisting(oper);
+        LOG.info("Persist: {}", oper);
 
-		List<Event> events = persistToDatabase(oper, template);
+        List<Event> events = persistToDatabase(oper, template);
 
-		m_stats.finishPersisting(oper);
+        m_stats.finishPersisting(oper);
 
+        if (m_eventMgr != null && events != null) {
+            m_stats.beginSendingEvents(oper, events);
+            LOG.info("Send Events: {}", oper);
+            // now send the events for the update
+            for (Iterator<Event> eventIt = events.iterator(); eventIt.hasNext();) {
+                Event event = eventIt.next();
+                m_eventMgr.sendNow(event);
+            }
+            m_stats.finishSendingEvents(oper, events);
+        }
 
-		if (m_eventMgr != null && events != null) {
-			m_stats.beginSendingEvents(oper, events);
-			LOG.info("Send Events: {}", oper);
-			// now send the events for the update
-			for (Iterator<Event> eventIt = events.iterator(); eventIt.hasNext();) {
-				Event event = eventIt.next();
-				m_eventMgr.sendNow(event);
-			}
-			m_stats.finishSendingEvents(oper, events);
-		}
+        LOG.info("Clear cache: {}", oper);
+        // clear the cache to we don't use up all the memory
+        dao.clear();
+    }
 
-		LOG.info("Clear cache: {}", oper);
-		// clear the cache to we don't use up all the memory
-		dao.clear();
-	}
-
-	/**
+    /**
      * Persist the import operation changes to the database.
      *
-     * @param oper changes to persist
-     * @param template transaction template in which to perform the persist operation
+     * @param oper
+     *            changes to persist
+     * @param template
+     *            transaction template in which to perform the persist operation
      * @return list of events
-	 */
+     */
     private List<Event> persistToDatabase(final ImportOperation oper, TransactionTemplate template) {
-		List<Event> events = template.execute(new TransactionCallback<List<Event>>() {
-                        @Override
-			public List<Event> doInTransaction(TransactionStatus status) {
-				List<Event> result = oper.persist();
+        List<Event> events = template.execute(new TransactionCallback<List<Event>>() {
+            @Override
+            public List<Event> doInTransaction(TransactionStatus status) {
+                List<Event> result = oper.persist();
                 return result;
-			}
-		});
+            }
+        });
         return events;
     }
 
-
-	/**
-	 * <p>setScanThreads</p>
-	 *
-	 * @param scanThreads a int.
-	 */
-	public void setScanThreads(int scanThreads) {
-		m_scanThreads = scanThreads;
-	}
-
-	/**
-	 * <p>setWriteThreads</p>
-	 *
-	 * @param writeThreads a int.
-	 */
-	public void setWriteThreads(int writeThreads) {
-		m_writeThreads = writeThreads;
-	}
-
-
-
-	/**
-	 * <p>getEventMgr</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
-	 */
-	public EventIpcManager getEventMgr() {
-		return m_eventMgr;
-	}
-
-
-
-	/**
-	 * <p>setEventMgr</p>
-	 *
-	 * @param eventMgr a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
-	 */
-	public void setEventMgr(EventIpcManager eventMgr) {
-		m_eventMgr = eventMgr;
-	}
-
-	/**
-	 * <p>getStats</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.importer.operations.ImportStatistics} object.
-	 */
-	public ImportStatistics getStats() {
-		return m_stats;
-	}
-
-	/**
-	 * <p>setStats</p>
-	 *
-	 * @param stats a {@link org.opennms.netmgt.importer.operations.ImportStatistics} object.
-	 */
-	public void setStats(ImportStatistics stats) {
-		m_stats = stats;
-	}
+    /**
+     * <p>
+     * setScanThreads
+     * </p>
+     *
+     * @param scanThreads
+     *            a int.
+     */
+    public void setScanThreads(int scanThreads) {
+        m_scanThreads = scanThreads;
+    }
 
     /**
-     * <p>setForeignSource</p>
+     * <p>
+     * setWriteThreads
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
+     * @param writeThreads
+     *            a int.
+     */
+    public void setWriteThreads(int writeThreads) {
+        m_writeThreads = writeThreads;
+    }
+
+    /**
+     * <p>
+     * getEventMgr
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     */
+    public EventIpcManager getEventMgr() {
+        return m_eventMgr;
+    }
+
+    /**
+     * <p>
+     * setEventMgr
+     * </p>
+     *
+     * @param eventMgr
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
+     */
+    public void setEventMgr(EventIpcManager eventMgr) {
+        m_eventMgr = eventMgr;
+    }
+
+    /**
+     * <p>
+     * getStats
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.importer.operations.ImportStatistics}
+     *         object.
+     */
+    public ImportStatistics getStats() {
+        return m_stats;
+    }
+
+    /**
+     * <p>
+     * setStats
+     * </p>
+     *
+     * @param stats
+     *            a
+     *            {@link org.opennms.netmgt.importer.operations.ImportStatistics}
+     *            object.
+     */
+    public void setStats(ImportStatistics stats) {
+        m_stats = stats;
+    }
+
+    /**
+     * <p>
+     * setForeignSource
+     * </p>
+     *
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
      */
     public void setForeignSource(String foreignSource) {
         m_foreignSource = foreignSource;
     }
 
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

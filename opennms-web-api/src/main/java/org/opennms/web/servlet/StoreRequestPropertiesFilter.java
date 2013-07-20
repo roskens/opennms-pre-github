@@ -39,7 +39,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * <p>StoreRequestPropertiesFilter class.</p>
+ * <p>
+ * StoreRequestPropertiesFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,6 +50,7 @@ import javax.servlet.http.HttpServletRequest;
 public class StoreRequestPropertiesFilter implements Filter {
 
     private String m_servletPathAttribute;
+
     private String m_relativeServletPathAttribute;
 
     /** {@inheritDoc} */
@@ -59,28 +62,28 @@ public class StoreRequestPropertiesFilter implements Filter {
 
     /** {@inheritDoc} */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
+            ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         if (m_servletPathAttribute != null) {
-            request.setAttribute(m_servletPathAttribute,
-                                 httpRequest.getServletPath());
+            request.setAttribute(m_servletPathAttribute, httpRequest.getServletPath());
         }
         if (m_relativeServletPathAttribute != null) {
             String servletPath = httpRequest.getServletPath();
             if (servletPath != null && servletPath.length() > 0 && servletPath.charAt(0) == '/') {
                 servletPath = servletPath.substring(1);
             }
-            request.setAttribute(m_relativeServletPathAttribute,
-                                 servletPath);
+            request.setAttribute(m_relativeServletPathAttribute, servletPath);
         }
 
         chain.doFilter(request, response);
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      */
     @Override
     public void destroy() {

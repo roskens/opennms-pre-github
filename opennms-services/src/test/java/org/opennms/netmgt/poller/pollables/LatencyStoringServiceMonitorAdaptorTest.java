@@ -85,12 +85,14 @@ import org.springframework.core.io.FileSystemResource;
 
 public class LatencyStoringServiceMonitorAdaptorTest {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private PollerConfig m_pollerConfig = m_mocks.createMock(PollerConfig.class);
 
-    // Cannot avoid this warning since there is no way to fetch the class object for an interface
+    // Cannot avoid this warning since there is no way to fetch the class object
+    // for an interface
     // that uses generics
     @SuppressWarnings("unchecked")
-    private RrdStrategy<Object,Object> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
+    private RrdStrategy<Object, Object> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
 
     @Before
     public void setUp() throws Exception {
@@ -116,9 +118,11 @@ public class LatencyStoringServiceMonitorAdaptorTest {
 
         // Make sure we actually have a valid test
         NumberFormat nf = NumberFormat.getInstance();
-        Assert.assertEquals("ensure that the newly set default locale (" + Locale.getDefault() + ") uses ',' as the decimal marker", "1,5", nf.format(1.5));
+        Assert.assertEquals("ensure that the newly set default locale (" + Locale.getDefault()
+                + ") uses ',' as the decimal marker", "1,5", nf.format(1.5));
 
-        LatencyStoringServiceMonitorAdaptor adaptor = new LatencyStoringServiceMonitorAdaptor(null, m_pollerConfig, new Package());
+        LatencyStoringServiceMonitorAdaptor adaptor = new LatencyStoringServiceMonitorAdaptor(null, m_pollerConfig,
+                                                                                              new Package());
         LinkedHashMap<String, Number> map = new LinkedHashMap<String, Number>();
         map.put("cheese", 1.5);
 
@@ -126,7 +130,9 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         expect(m_pollerConfig.getRRAList(isA(Package.class))).andReturn(new ArrayList<String>(0));
 
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".rrd").anyTimes();
-        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
+        expect(
+               m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(),
+                                              isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
         m_rrdStrategy.createFile(isA(Object.class), (Map<String, String>) eq(null));
         expect(m_rrdStrategy.openFile(isA(String.class))).andReturn(new Object());
         m_rrdStrategy.updateFile(isA(Object.class), isA(String.class), endsWith(":1.5"));
@@ -140,7 +146,8 @@ public class LatencyStoringServiceMonitorAdaptorTest {
 
     @Test
     public void testThresholds() throws Exception {
-        EventBuilder bldr = new EventBuilder(EventConstants.HIGH_THRESHOLD_EVENT_UEI, "LatencyStoringServiceMonitorAdaptorTest");
+        EventBuilder bldr = new EventBuilder(EventConstants.HIGH_THRESHOLD_EVENT_UEI,
+                                             "LatencyStoringServiceMonitorAdaptorTest");
         bldr.setNodeid(1);
         bldr.setInterface(addr("127.0.0.1"));
         bldr.setService("ICMP");
@@ -151,7 +158,8 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         anticipator.verifyAnticipated();
     }
 
-    // TODO: This test will fail if you have a default locale with >3 characters for month, e.g. Locale.FRENCH
+    // TODO: This test will fail if you have a default locale with >3 characters
+    // for month, e.g. Locale.FRENCH
     @Test
     public void testThresholdsWithScheduledOutage() throws Exception {
         DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
@@ -182,14 +190,14 @@ public class LatencyStoringServiceMonitorAdaptorTest {
     private void executeThresholdTest(EventAnticipator anticipator) throws Exception {
         System.setProperty("opennms.home", "src/test/resources");
 
-        Map<String,Object> parameters = new HashMap<String,Object>();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("rrd-repository", "/tmp");
         parameters.put("ds-name", "icmp");
         parameters.put("rrd-base-name", "icmp");
         parameters.put("thresholding-enabled", "true");
 
         FilterDao filterDao = m_mocks.createMock(FilterDao.class);
-        expect(filterDao.getActiveIPAddressList((String)EasyMock.anyObject())).andReturn(Collections.singletonList(addr("127.0.0.1"))).anyTimes();
+        expect(filterDao.getActiveIPAddressList((String) EasyMock.anyObject())).andReturn(Collections.singletonList(addr("127.0.0.1"))).anyTimes();
         FilterDaoFactory.setInstance(filterDao);
 
         MonitoredService svc = m_mocks.createMock(MonitoredService.class);
@@ -214,7 +222,9 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         expect(m_pollerConfig.getStep(pkg)).andReturn(step).anyTimes();
 
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".rrd").anyTimes();
-        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
+        expect(
+               m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(),
+                                              isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
         m_rrdStrategy.createFile(isA(Object.class), (Map<String, String>) eq(null));
         expect(m_rrdStrategy.openFile(isA(String.class))).andReturn(new Object());
         m_rrdStrategy.updateFile(isA(Object.class), isA(String.class), endsWith(":100"));
@@ -223,7 +233,7 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         MockEventIpcManager eventMgr = new MockEventIpcManager();
         eventMgr.setEventAnticipator(anticipator);
         eventMgr.setSynchronous(true);
-        EventIpcManager eventdIpcMgr = (EventIpcManager)eventMgr;
+        EventIpcManager eventdIpcMgr = (EventIpcManager) eventMgr;
         EventIpcManagerFactory.setIpcManager(eventdIpcMgr);
 
         MockNetwork network = new MockNetwork();
@@ -240,7 +250,8 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         Vault.setDataSource(db);
 
         m_mocks.replayAll();
-        LatencyStoringServiceMonitorAdaptor adaptor = new LatencyStoringServiceMonitorAdaptor(service, m_pollerConfig, pkg);
+        LatencyStoringServiceMonitorAdaptor adaptor = new LatencyStoringServiceMonitorAdaptor(service, m_pollerConfig,
+                                                                                              pkg);
         adaptor.poll(svc, parameters);
         m_mocks.verifyAll();
     }

@@ -51,12 +51,14 @@ public class IncludeCollectionWrapper {
     /**
      * Instantiates a new include collection Wrapper.
      */
-    public IncludeCollectionWrapper() {}
+    public IncludeCollectionWrapper() {
+    }
 
     /**
      * Instantiates a new include collection Wrapper.
      *
-     * @param ic the source include collection
+     * @param ic
+     *            the source include collection
      */
     public IncludeCollectionWrapper(IncludeCollection ic) {
         if (ic.getSystemDef() == null || ic.getSystemDef().trim().equals("")) {
@@ -71,8 +73,10 @@ public class IncludeCollectionWrapper {
     /**
      * Instantiates a new include object.
      *
-     * @param type the type
-     * @param value the value
+     * @param type
+     *            the type
+     * @param value
+     *            the value
      */
     public IncludeCollectionWrapper(String type, String value) {
         setType(type);
@@ -91,7 +95,8 @@ public class IncludeCollectionWrapper {
     /**
      * Sets the type.
      *
-     * @param type the new type
+     * @param type
+     *            the new type
      */
     public void setType(String type) {
         this.type = type;
@@ -109,7 +114,8 @@ public class IncludeCollectionWrapper {
     /**
      * Sets the value.
      *
-     * @param value the new value
+     * @param value
+     *            the new value
      */
     public void setValue(String value) {
         this.value = value;
@@ -129,7 +135,8 @@ public class IncludeCollectionWrapper {
         return ic;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

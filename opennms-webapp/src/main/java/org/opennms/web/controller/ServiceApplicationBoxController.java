@@ -42,7 +42,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>ServiceApplicationBoxController class.</p>
+ * <p>
+ * ServiceApplicationBoxController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,14 +55,13 @@ public class ServiceApplicationBoxController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         Service service = ElementUtil.getServiceByParams(request, getServletContext());
 
         List<OnmsApplication> applications = m_adminApplicationService.findByMonitoredService(service.getId());
 
-        ModelAndView modelAndView =
-            new ModelAndView("/includes/serviceApplication-box", "applications",
-                             applications);
+        ModelAndView modelAndView = new ModelAndView("/includes/serviceApplication-box", "applications", applications);
         modelAndView.addObject("service", service);
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
             modelAndView.addObject("isAdmin", "true");
@@ -69,18 +70,25 @@ public class ServiceApplicationBoxController extends AbstractController {
     }
 
     /**
-     * <p>getAdminApplicationService</p>
+     * <p>
+     * getAdminApplicationService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.AdminApplicationService} object.
+     * @return a {@link org.opennms.web.svclayer.AdminApplicationService}
+     *         object.
      */
     public final AdminApplicationService getAdminApplicationService() {
         return m_adminApplicationService;
     }
 
     /**
-     * <p>setAdminApplicationService</p>
+     * <p>
+     * setAdminApplicationService
+     * </p>
      *
-     * @param adminApplicationService a {@link org.opennms.web.svclayer.AdminApplicationService} object.
+     * @param adminApplicationService
+     *            a {@link org.opennms.web.svclayer.AdminApplicationService}
+     *            object.
      */
     public final void setAdminApplicationService(final AdminApplicationService adminApplicationService) {
         m_adminApplicationService = adminApplicationService;

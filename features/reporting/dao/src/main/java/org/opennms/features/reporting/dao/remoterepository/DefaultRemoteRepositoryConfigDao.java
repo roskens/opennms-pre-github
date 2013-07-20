@@ -46,7 +46,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>DefaultRemoteRepositoryConfigDao class.</p>
+ * <p>
+ * DefaultRemoteRepositoryConfigDao class.
+ * </p>
  * <p/>
  * Class realize the data access to remote-repository.xml.
  *
@@ -55,13 +57,13 @@ import java.util.List;
  * @version $Id: $
  * @since 1.10.1
  */
-@ContextConfiguration(locations = {"classpath:META-INF/opennms/applicationContext-reportingDao.xml"})
-public class DefaultRemoteRepositoryConfigDao implements
-        RemoteRepositoryConfigDao {
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
+public class DefaultRemoteRepositoryConfigDao implements RemoteRepositoryConfigDao {
     /**
      * Logging
      */
-    private Logger logger = LoggerFactory.getLogger("OpenNMS.Report." + DefaultRemoteRepositoryConfigDao.class.getName());
+    private Logger logger = LoggerFactory.getLogger("OpenNMS.Report."
+            + DefaultRemoteRepositoryConfigDao.class.getName());
 
     /**
      * Config resource for remote repository configuration file
@@ -123,7 +125,7 @@ public class DefaultRemoteRepositoryConfigDao implements
         logger.debug("Unmarshalling config file '{}'", file.getAbsolutePath());
         logger.debug("Remote repository configuration assigned: '{}'", m_remoteRepositoryConfig.toString());
 
-        //TODO indigo: The jasper report version should be configured here?
+        // TODO indigo: The jasper report version should be configured here?
         setJasperReportsVersion(m_remoteRepositoryConfig.getJasperReportsVersion());
     }
 
@@ -236,7 +238,7 @@ public class DefaultRemoteRepositoryConfigDao implements
      */
     @Override
     public RemoteRepositoryDefinition getRepositoryById(String repositoryID) {
-        //TODO Tak: How to fail safe this?
+        // TODO Tak: How to fail safe this?
         RemoteRepositoryDefinition result = null;
         for (RemoteRepositoryDefinition repository : this.getAllRepositories()) {
             if (repositoryID.equals(repository.getRepositoryId())) {
@@ -247,33 +249,45 @@ public class DefaultRemoteRepositoryConfigDao implements
     }
 
     /**
-     * <p>setRemoteRepositoryConfig</p>
+     * <p>
+     * setRemoteRepositoryConfig
+     * </p>
      * <p/>
      * Set remote repository configuration
      *
-     * @param remoteRepositoryConfig a {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryConfig} object
+     * @param remoteRepositoryConfig
+     *            a 
+     *            {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryConfig}
+     *            object
      */
     private void setRemoteRepositoryConfig(RemoteRepositoryConfig remoteRepositoryConfig) {
         m_remoteRepositoryConfig = remoteRepositoryConfig;
     }
 
     /**
-     * <p>getRemoteRepositoryConfig</p>
+     * <p>
+     * getRemoteRepositoryConfig
+     * </p>
      * <p/>
      * Get remote repository configuration
      *
-     * @return a {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryConfig} object
+     * @return a
+     *         {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryConfig}
+     *         object
      */
     private RemoteRepositoryConfig getRemoteRepositoryConfig() {
         return m_remoteRepositoryConfig;
     }
 
     /**
-     * <p>setJasperReportsVersion</p>
+     * <p>
+     * setJasperReportsVersion
+     * </p>
      * <p/>
      * Set version for jasper report
      *
-     * @param jasperReportsVersion a {@link java.lang.String} object
+     * @param jasperReportsVersion
+     *            a {@link java.lang.String} object
      */
     private void setJasperReportsVersion(String jasperReportsVersion) {
         m_jasperReportsVersion = jasperReportsVersion;

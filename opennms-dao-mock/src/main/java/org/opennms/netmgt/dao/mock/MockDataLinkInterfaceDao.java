@@ -13,7 +13,8 @@ import org.opennms.netmgt.dao.api.DataLinkInterfaceDao;
 import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 
-public class MockDataLinkInterfaceDao extends AbstractMockDao<DataLinkInterface, Integer> implements DataLinkInterfaceDao {
+public class MockDataLinkInterfaceDao extends AbstractMockDao<DataLinkInterface, Integer> implements
+        DataLinkInterfaceDao {
     private AtomicInteger m_id = new AtomicInteger(0);
 
     @Override
@@ -58,8 +59,8 @@ public class MockDataLinkInterfaceDao extends AbstractMockDao<DataLinkInterface,
         builder.alias("node", "node").eq("node.type", "D");
 
         for (final DataLinkInterface dataLinkIface : findMatching(builder.toCriteria())) {
-                dataLinkIface.setStatus(StatusType.DELETED);
-                saveOrUpdate(dataLinkIface);
+            dataLinkIface.setStatus(StatusType.DELETED);
+            saveOrUpdate(dataLinkIface);
         }
     }
 
@@ -104,16 +105,19 @@ public class MockDataLinkInterfaceDao extends AbstractMockDao<DataLinkInterface,
 
     @Override
     public void setStatusForNode(final Integer nodeid, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE nodeid = ? OR nodeparentid = ?
+        // UPDATE datalinkinterface set status = ? WHERE nodeid = ? OR
+        // nodeparentid = ?
         setStatusForNode(nodeid, null, action);
     }
 
     @Override
     public void setStatusForNode(final Integer nodeid, final String source, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? OR nodeparentid = ?) and source = ?
+        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? OR
+        // nodeparentid = ?) and source = ?
 
         final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
-        if (source != null) builder.eq("source", source);
+        if (source != null)
+            builder.eq("source", source);
         builder.or(new EqRestriction("node.id", nodeid), new EqRestriction("nodeParentId", nodeid));
 
         for (final DataLinkInterface iface : findMatching(builder.toCriteria())) {
@@ -124,28 +128,25 @@ public class MockDataLinkInterfaceDao extends AbstractMockDao<DataLinkInterface,
 
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?)
+        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? and ifindex
+        // = ?) OR (nodeparentid = ? AND parentifindex = ?)
 
         setStatusForNodeAndIfIndex(nodeid, ifIndex, null, action);
     }
 
     @Override
-    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, String source, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE source = ? and ((nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?))
+    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, String source,
+            final StatusType action) {
+        // UPDATE datalinkinterface set status = ? WHERE source = ? and ((nodeid
+        // = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?))
 
         final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
         builder.alias("node", "node", JoinType.LEFT_JOIN);
-        if (source != null) builder.eq("source", source);
-        builder.or(
-            new AllRestriction(
-                new EqRestriction("node.id", nodeid),
-                new EqRestriction("ifIndex", ifIndex)
-            ),
-            new AllRestriction(
-                new EqRestriction("nodeParentId", nodeid),
-                new EqRestriction("parentIfIndex", ifIndex)
-            )
-        );
+        if (source != null)
+            builder.eq("source", source);
+        builder.or(new AllRestriction(new EqRestriction("node.id", nodeid), new EqRestriction("ifIndex", ifIndex)),
+                   new AllRestriction(new EqRestriction("nodeParentId", nodeid), new EqRestriction("parentIfIndex",
+                                                                                                   ifIndex)));
 
         for (final DataLinkInterface iface : findMatching(builder.toCriteria())) {
             iface.setStatus(action);

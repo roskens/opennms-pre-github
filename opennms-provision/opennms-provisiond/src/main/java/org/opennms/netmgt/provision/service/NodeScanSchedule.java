@@ -33,28 +33,42 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.Duration;
 
 /**
- * <p>NodeScanSchedule class.</p>
+ * <p>
+ * NodeScanSchedule class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class NodeScanSchedule {
     private int m_nodeId;
+
     private String m_foreignSource;
+
     private String m_foreignId;
+
     private Duration m_initialDelay;
+
     private Duration m_scanInterval;
 
     /**
-     * <p>Constructor for NodeScanSchedule.</p>
+     * <p>
+     * Constructor for NodeScanSchedule.
+     * </p>
      *
-     * @param nodeId a int.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param initialDelay a {@link org.joda.time.Duration} object.
-     * @param scanInterval a {@link org.joda.time.Duration} object.
+     * @param nodeId
+     *            a int.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param initialDelay
+     *            a {@link org.joda.time.Duration} object.
+     * @param scanInterval
+     *            a {@link org.joda.time.Duration} object.
      */
-    public NodeScanSchedule(int nodeId, String foreignSource, String foreignId, Duration initialDelay, Duration scanInterval) {
+    public NodeScanSchedule(int nodeId, String foreignSource, String foreignId, Duration initialDelay,
+            Duration scanInterval) {
         m_nodeId = nodeId;
         m_foreignSource = foreignSource;
         m_foreignId = foreignId;
@@ -63,7 +77,9 @@ public class NodeScanSchedule {
     }
 
     /**
-     * <p>getForeignId</p>
+     * <p>
+     * getForeignId
+     * </p>
      *
      * @return the foreignId
      */
@@ -72,7 +88,9 @@ public class NodeScanSchedule {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return the nodeId
      */
@@ -81,7 +99,9 @@ public class NodeScanSchedule {
     }
 
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return the foreignSource
      */
@@ -90,7 +110,9 @@ public class NodeScanSchedule {
     }
 
     /**
-     * <p>getInitialDelay</p>
+     * <p>
+     * getInitialDelay
+     * </p>
      *
      * @return the initialDelay
      */
@@ -99,7 +121,9 @@ public class NodeScanSchedule {
     }
 
     /**
-     * <p>getScanInterval</p>
+     * <p>
+     * getScanInterval
+     * </p>
      *
      * @return the scanInterval
      */
@@ -108,34 +132,29 @@ public class NodeScanSchedule {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("foreign source", m_foreignSource)
-            .append("foreign id", m_foreignId)
-            .append("node id", m_nodeId)
-            .append("initial delay", m_initialDelay)
-            .append("scan interval", m_scanInterval)
-            .toString();
+        return new ToStringBuilder(this).append("foreign source", m_foreignSource).append("foreign id", m_foreignId).append("node id",
+                                                                                                                            m_nodeId).append("initial delay",
+                                                                                                                                             m_initialDelay).append("scan interval",
+                                                                                                                                                                    m_scanInterval).toString();
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder()
-            .append(m_foreignSource)
-            .append(m_foreignId)
-            .append(m_nodeId)
-            .append(m_initialDelay)
-            .append(m_scanInterval)
-            .toHashCode();
+        return new HashCodeBuilder().append(m_foreignSource).append(m_foreignId).append(m_nodeId).append(m_initialDelay).append(m_scanInterval).toHashCode();
     }
 }

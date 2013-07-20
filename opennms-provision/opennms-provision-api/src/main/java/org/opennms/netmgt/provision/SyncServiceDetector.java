@@ -39,9 +39,12 @@ import java.net.InetAddress;
 public interface SyncServiceDetector extends ServiceDetector {
 
     /**
-     * <p>isServiceDetected</p>
+     * <p>
+     * isServiceDetected
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      * @return a boolean.
      */
     boolean isServiceDetected(InetAddress address);

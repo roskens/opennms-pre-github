@@ -45,7 +45,9 @@ package org.opennms.acl.model;
 import java.util.List;
 
 /**
- * <p>AuthorityDTO class.</p>
+ * <p>
+ * AuthorityDTO class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -54,7 +56,9 @@ import java.util.List;
 public class AuthorityDTO implements AuthorityView {
 
     /**
-     * <p>Getter for the field <code>name</code>.</p>
+     * <p>
+     * Getter for the field <code>name</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -64,7 +68,9 @@ public class AuthorityDTO implements AuthorityView {
     }
 
     /**
-     * <p>Getter for the field <code>id</code>.</p>
+     * <p>
+     * Getter for the field <code>id</code>.
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -74,25 +80,33 @@ public class AuthorityDTO implements AuthorityView {
     }
 
     /**
-     * <p>Setter for the field <code>name</code>.</p>
+     * <p>
+     * Setter for the field <code>name</code>.
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setName(String value) {
         this.name = value;
     }
 
     /**
-     * <p>Setter for the field <code>id</code>.</p>
+     * <p>
+     * Setter for the field <code>id</code>.
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * <p>isNew</p>
+     * <p>
+     * isNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -101,7 +115,9 @@ public class AuthorityDTO implements AuthorityView {
     }
 
     /**
-     * <p>hasItems</p>
+     * <p>
+     * hasItems
+     * </p>
      *
      * @return a boolean.
      */
@@ -110,7 +126,9 @@ public class AuthorityDTO implements AuthorityView {
     }
 
     /**
-     * <p>Getter for the field <code>items</code>.</p>
+     * <p>
+     * Getter for the field <code>items</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -120,16 +138,21 @@ public class AuthorityDTO implements AuthorityView {
     }
 
     /**
-     * <p>Setter for the field <code>items</code>.</p>
+     * <p>
+     * Setter for the field <code>items</code>.
+     * </p>
      *
-     * @param items a {@link java.util.List} object.
+     * @param items
+     *            a {@link java.util.List} object.
      */
     public void setItems(List<?> items) {
         this.items = items;
     }
 
     /**
-     * <p>Getter for the field <code>description</code>.</p>
+     * <p>
+     * Getter for the field <code>description</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -139,15 +162,20 @@ public class AuthorityDTO implements AuthorityView {
     }
 
     /**
-     * <p>Setter for the field <code>description</code>.</p>
+     * <p>
+     * Setter for the field <code>description</code>.
+     * </p>
      *
-     * @param description a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     private List<?> items;
+
     private String name, description;
+
     private Integer id = 0;
 }

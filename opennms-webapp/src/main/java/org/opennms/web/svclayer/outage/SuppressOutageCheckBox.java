@@ -42,51 +42,43 @@ import org.extremecomponents.table.bean.Column;
 import org.extremecomponents.table.cell.Cell;
 import org.extremecomponents.table.core.TableModel;
 import org.extremecomponents.table.view.html.ColumnBuilder;
+
 public class SuppressOutageCheckBox implements Cell {
-	/** {@inheritDoc} */
-        @Override
+    /** {@inheritDoc} */
+    @Override
     public final String getExportDisplay(final TableModel model, final Column column) {
-		return null;
-	}
+        return null;
+    }
 
-	/** {@inheritDoc} */
-        @Override
+    /** {@inheritDoc} */
+    @Override
     public final String getHtmlDisplay(final TableModel model, final Column column) {
-		ColumnBuilder columnBuilder = new ColumnBuilder(column);
+        ColumnBuilder columnBuilder = new ColumnBuilder(column);
 
-		columnBuilder.tdStart();
+        columnBuilder.tdStart();
 
-		try {
-			Object bean = model.getCurrentRowBean();
-			String outageid = BeanUtils.getProperty(bean, "outageid");
+        try {
+            Object bean = model.getCurrentRowBean();
+            String outageid = BeanUtils.getProperty(bean, "outageid");
 
-			@SuppressWarnings("unchecked")
-			Collection<String> selectedoutagesIds = (Collection<String>) model.getContext()
-					.getSessionAttribute(
-							SuppressOutageCheckBoxConstants.SELECTED_OUTAGES);
-			if (selectedoutagesIds != null
-					&& selectedoutagesIds.contains(outageid)) {
-				columnBuilder.getHtmlBuilder().input("hidden").name(
-						"chkbx_" + outageid).value(
-						SuppressOutageCheckBoxConstants.SELECTED).xclose();
-				columnBuilder.getHtmlBuilder().input("checkbox").name(
-						BeanUtils.getProperty(bean, "outageid"));
-				columnBuilder.getHtmlBuilder().onclick("setOutageState(this)");
-				columnBuilder.getHtmlBuilder().checked();
-				columnBuilder.getHtmlBuilder().xclose();
-			} else {
-				columnBuilder.getHtmlBuilder().input("hidden").name(
-						"chkbx_" + outageid).value(
-						SuppressOutageCheckBoxConstants.UNSELECTED).xclose();
-				columnBuilder.getHtmlBuilder().input("checkbox").name(
-						BeanUtils.getProperty(bean, "outageid"));
-				columnBuilder.getHtmlBuilder().onclick("setOutageState(this)");
-				columnBuilder.getHtmlBuilder().xclose();
-			}
-		} catch (Throwable e) {
-		}
+            @SuppressWarnings("unchecked")
+            Collection<String> selectedoutagesIds = (Collection<String>) model.getContext().getSessionAttribute(SuppressOutageCheckBoxConstants.SELECTED_OUTAGES);
+            if (selectedoutagesIds != null && selectedoutagesIds.contains(outageid)) {
+                columnBuilder.getHtmlBuilder().input("hidden").name("chkbx_" + outageid).value(SuppressOutageCheckBoxConstants.SELECTED).xclose();
+                columnBuilder.getHtmlBuilder().input("checkbox").name(BeanUtils.getProperty(bean, "outageid"));
+                columnBuilder.getHtmlBuilder().onclick("setOutageState(this)");
+                columnBuilder.getHtmlBuilder().checked();
+                columnBuilder.getHtmlBuilder().xclose();
+            } else {
+                columnBuilder.getHtmlBuilder().input("hidden").name("chkbx_" + outageid).value(SuppressOutageCheckBoxConstants.UNSELECTED).xclose();
+                columnBuilder.getHtmlBuilder().input("checkbox").name(BeanUtils.getProperty(bean, "outageid"));
+                columnBuilder.getHtmlBuilder().onclick("setOutageState(this)");
+                columnBuilder.getHtmlBuilder().xclose();
+            }
+        } catch (Throwable e) {
+        }
 
-		columnBuilder.tdEnd();
-		return columnBuilder.toString();
-	}
+        columnBuilder.tdEnd();
+        return columnBuilder.toString();
+    }
 }

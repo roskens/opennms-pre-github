@@ -55,9 +55,13 @@ public class PropertiesCache {
 
     private static class PropertiesHolder {
         private Properties m_properties;
+
         private final File m_file;
+
         private final Lock lock = new ReentrantLock();
+
         private long m_lastModify = 0;
+
         private boolean m_checkLastModify = Boolean.getBoolean(CHECK_LAST_MODIFY_STRING);
 
         PropertiesHolder(File file) {
@@ -114,7 +118,8 @@ public class PropertiesCache {
         private void readWithDefault(Properties deflt) throws IOException {
             // this is
             if (deflt == null && !m_file.canRead()) {
-                // nothing to load so m_properties remains null no writing necessary
+                // nothing to load so m_properties remains null no writing
+                // necessary
                 // just return to avoid getting the write lock
                 return;
             }
@@ -142,7 +147,7 @@ public class PropertiesCache {
             lock.lock();
             try {
                 boolean save = false;
-                for(Entry<String, String> e : props.entrySet()) {
+                for (Entry<String, String> e : props.entrySet()) {
                     if (!e.getValue().equals(get().get(e.getKey()))) {
                         get().put(e.getKey(), e.getValue());
                         save = true;
@@ -194,7 +199,6 @@ public class PropertiesCache {
 
     }
 
-
     Map<String, PropertiesHolder> m_cache = new TreeMap<String, PropertiesHolder>();
 
     private PropertiesHolder getHolder(File propFile) throws IOException {
@@ -210,7 +214,9 @@ public class PropertiesCache {
     }
 
     /**
-     * <p>clear</p>
+     * <p>
+     * clear
+     * </p>
      */
     public void clear() {
         synchronized (m_cache) {
@@ -221,8 +227,10 @@ public class PropertiesCache {
     /**
      * Get the current properties object from the cache loading it in memory
      *
-     * @param propFile a {@link java.io.File} object.
-     * @throws java.io.IOException if any.
+     * @param propFile
+     *            a {@link java.io.File} object.
+     * @throws java.io.IOException
+     *             if any.
      * @return a {@link java.util.Properties} object.
      */
     public Properties getProperties(File propFile) throws IOException {
@@ -230,60 +238,85 @@ public class PropertiesCache {
     }
 
     /**
-     * <p>findProperties</p>
+     * <p>
+     * findProperties
+     * </p>
      *
-     * @param propFile a {@link java.io.File} object.
+     * @param propFile
+     *            a {@link java.io.File} object.
      * @return a {@link java.util.Properties} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public Properties findProperties(File propFile) throws IOException {
         return getHolder(propFile).find();
     }
+
     /**
-     * <p>saveProperties</p>
+     * <p>
+     * saveProperties
+     * </p>
      *
-     * @param propFile a {@link java.io.File} object.
-     * @param properties a {@link java.util.Properties} object.
-     * @throws java.io.IOException if any.
+     * @param propFile
+     *            a {@link java.io.File} object.
+     * @param properties
+     *            a {@link java.util.Properties} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void saveProperties(File propFile, Properties properties) throws IOException {
         getHolder(propFile).put(properties);
     }
 
     /**
-     * <p>updateProperties</p>
+     * <p>
+     * updateProperties
+     * </p>
      *
-     * @param propFile a {@link java.io.File} object.
-     * @param props a {@link java.util.Map} object.
-     * @throws java.io.IOException if any.
+     * @param propFile
+     *            a {@link java.io.File} object.
+     * @param props
+     *            a {@link java.util.Map} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void updateProperties(File propFile, Map<String, String> props) throws IOException {
         getHolder(propFile).update(props);
     }
 
     /**
-     * <p>setProperty</p>
+     * <p>
+     * setProperty
+     * </p>
      *
-     * @param propFile a {@link java.io.File} object.
-     * @param key a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param propFile
+     *            a {@link java.io.File} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void setProperty(File propFile, String key, String value) throws IOException {
         getHolder(propFile).setProperty(key, value);
     }
 
     /**
-     * <p>getProperty</p>
+     * <p>
+     * getProperty
+     * </p>
      *
-     * @param propFile a {@link java.io.File} object.
-     * @param key a {@link java.lang.String} object.
+     * @param propFile
+     *            a {@link java.io.File} object.
+     * @param key
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public String getProperty(File propFile, String key) throws IOException {
         return getHolder(propFile).getProperty(key);
     }
-
 
 }

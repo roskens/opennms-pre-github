@@ -32,7 +32,9 @@ import org.opennms.web.filter.EqualsFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>AlarmTypeFilter class.</p>
+ * <p>
+ * AlarmTypeFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,16 +45,21 @@ public class AlarmTypeFilter extends EqualsFilter<Integer> {
     public static final String TYPE = "alarmTypeFilter";
 
     /**
-     * <p>Constructor for AlarmTypeFilter.</p>
+     * <p>
+     * Constructor for AlarmTypeFilter.
+     * </p>
      *
-     * @param alarmType a int.
+     * @param alarmType
+     *            a int.
      */
-    public AlarmTypeFilter(int alarmType){
+    public AlarmTypeFilter(int alarmType) {
         super(TYPE, SQLType.INT, "ALARMTYPE", "alarmType", alarmType);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,12 +68,12 @@ public class AlarmTypeFilter extends EqualsFilter<Integer> {
         return TYPE + " = " + getAlarmTypeLabel(getValue());
     }
 
-    private String getAlarmTypeLabel(int alarmType){
-        if(alarmType == 1){
+    private String getAlarmTypeLabel(int alarmType) {
+        if (alarmType == 1) {
             return "PROBLEM_TYPE";
-        }else if(alarmType == 2){
+        } else if (alarmType == 2) {
             return "RESOLUTION_TYPE";
-        }else{
+        } else {
             return null;
         }
     }

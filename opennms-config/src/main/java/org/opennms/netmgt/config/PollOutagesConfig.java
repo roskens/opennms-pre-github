@@ -28,14 +28,15 @@
 
 package org.opennms.netmgt.config;
 
-
 /**
- * <p>PollOutagesConfig interface.</p>
+ * <p>
+ * PollOutagesConfig interface.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public interface PollOutagesConfig {
@@ -83,11 +84,13 @@ public interface PollOutagesConfig {
     public abstract boolean isTimeInOutage(long time, String outName);
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public abstract void update() throws Exception;
-
 
 }

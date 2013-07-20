@@ -29,7 +29,9 @@
 package org.opennms.netmgt.config;
 
 /**
- * <p>PassiveStatusKey class.</p>
+ * <p>
+ * PassiveStatusKey class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,15 +39,22 @@ package org.opennms.netmgt.config;
 public class PassiveStatusKey {
 
     private String m_nodeLabel;
+
     private String m_ipAddr;
+
     private String m_serviceName;
 
     /**
-     * <p>Constructor for PassiveStatusKey.</p>
+     * <p>
+     * Constructor for PassiveStatusKey.
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param serviceName a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public PassiveStatusKey(String nodeLabel, String ipAddr, String serviceName) {
         m_nodeLabel = nodeLabel;
@@ -54,7 +63,9 @@ public class PassiveStatusKey {
     }
 
     /**
-     * <p>getIpAddr</p>
+     * <p>
+     * getIpAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -63,7 +74,9 @@ public class PassiveStatusKey {
     }
 
     /**
-     * <p>getNodeLabel</p>
+     * <p>
+     * getNodeLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +85,9 @@ public class PassiveStatusKey {
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,15 +100,16 @@ public class PassiveStatusKey {
     public boolean equals(Object o) {
         if (o instanceof PassiveStatusKey) {
             PassiveStatusKey key = (PassiveStatusKey) o;
-            return getNodeLabel().equals(key.getNodeLabel()) &&
-                    getIpAddr().equals(key.getIpAddr()) &&
-                    getServiceName().equals(key.getServiceName());
+            return getNodeLabel().equals(key.getNodeLabel()) && getIpAddr().equals(key.getIpAddr())
+                    && getServiceName().equals(key.getServiceName());
         }
         return false;
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
@@ -103,14 +119,15 @@ public class PassiveStatusKey {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return getNodeLabel()+':'+getIpAddr()+':'+getServiceName();
+        return getNodeLabel() + ':' + getIpAddr() + ':' + getServiceName();
     }
-
 
 }

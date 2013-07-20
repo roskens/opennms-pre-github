@@ -65,28 +65,34 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
 
     }
 
-
     /**
-     * <p>getCategory</p>
+     * <p>
+     * getCategory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Require(value = { })
+    @Require(value = {})
     public String getCategory() {
         return m_category;
     }
 
     /**
-     * <p>setCategory</p>
+     * <p>
+     * setCategory
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
      */
     public void setCategory(String category) {
         m_category = category;
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,16 +101,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setType</p>
+     * <p>
+     * setType
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public void setType(String type) {
         putCriteria("type", type);
     }
 
     /**
-     * <p>getSysObjectId</p>
+     * <p>
+     * getSysObjectId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,16 +124,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setSysObjectId</p>
+     * <p>
+     * setSysObjectId
+     * </p>
      *
-     * @param sysObjectId a {@link java.lang.String} object.
+     * @param sysObjectId
+     *            a {@link java.lang.String} object.
      */
     public void setSysObjectId(String sysObjectId) {
         putCriteria("sysObjectId", sysObjectId);
     }
 
     /**
-     * <p>getSysName</p>
+     * <p>
+     * getSysName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,16 +147,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setSysName</p>
+     * <p>
+     * setSysName
+     * </p>
      *
-     * @param sysName a {@link java.lang.String} object.
+     * @param sysName
+     *            a {@link java.lang.String} object.
      */
     public void setSysName(String sysName) {
         putCriteria("sysName", sysName);
     }
 
     /**
-     * <p>getSysDescription</p>
+     * <p>
+     * getSysDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -149,16 +170,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setSysDescription</p>
+     * <p>
+     * setSysDescription
+     * </p>
      *
-     * @param sysDescription a {@link java.lang.String} object.
+     * @param sysDescription
+     *            a {@link java.lang.String} object.
      */
     public void setSysDescription(String sysDescription) {
         putCriteria("sysDescription", sysDescription);
     }
 
     /**
-     * <p>getSysLocation</p>
+     * <p>
+     * getSysLocation
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -167,16 +193,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setSysLocation</p>
+     * <p>
+     * setSysLocation
+     * </p>
      *
-     * @param sysLocation a {@link java.lang.String} object.
+     * @param sysLocation
+     *            a {@link java.lang.String} object.
      */
     public void setSysLocation(String sysLocation) {
         putCriteria("sysLocation", sysLocation);
     }
 
     /**
-     * <p>getSysContact</p>
+     * <p>
+     * getSysContact
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -185,16 +216,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setSysContact</p>
+     * <p>
+     * setSysContact
+     * </p>
      *
-     * @param sysContact a {@link java.lang.String} object.
+     * @param sysContact
+     *            a {@link java.lang.String} object.
      */
     public void setSysContact(String sysContact) {
         putCriteria("sysContact", sysContact);
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -203,16 +239,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setLabel</p>
+     * <p>
+     * setLabel
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public void setLabel(String label) {
         putCriteria("label", label);
     }
 
     /**
-     * <p>getLabelSource</p>
+     * <p>
+     * getLabelSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -221,16 +262,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setLabelSource</p>
+     * <p>
+     * setLabelSource
+     * </p>
      *
-     * @param labelSource a {@link java.lang.String} object.
+     * @param labelSource
+     *            a {@link java.lang.String} object.
      */
     public void setLabelSource(String labelSource) {
         putCriteria("labelSource", labelSource);
     }
 
     /**
-     * <p>getNetBiosName</p>
+     * <p>
+     * getNetBiosName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -239,16 +285,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setNetBiosName</p>
+     * <p>
+     * setNetBiosName
+     * </p>
      *
-     * @param netBiosName a {@link java.lang.String} object.
+     * @param netBiosName
+     *            a {@link java.lang.String} object.
      */
     public void setNetBiosName(String netBiosName) {
         putCriteria("netBiosName", netBiosName);
     }
 
     /**
-     * <p>getNetBiosDomain</p>
+     * <p>
+     * getNetBiosDomain
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -257,16 +308,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setNetBiosDomain</p>
+     * <p>
+     * setNetBiosDomain
+     * </p>
      *
-     * @param netBiosDomain a {@link java.lang.String} object.
+     * @param netBiosDomain
+     *            a {@link java.lang.String} object.
      */
     public void setNetBiosDomain(String netBiosDomain) {
         putCriteria("netBiosDomain", netBiosDomain);
     }
 
     /**
-     * <p>getOperatingSystem</p>
+     * <p>
+     * getOperatingSystem
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -275,16 +331,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setOperatingSystem</p>
+     * <p>
+     * setOperatingSystem
+     * </p>
      *
-     * @param operatingSystem a {@link java.lang.String} object.
+     * @param operatingSystem
+     *            a {@link java.lang.String} object.
      */
     public void setOperatingSystem(String operatingSystem) {
         putCriteria("operatingSystem", operatingSystem);
     }
 
     /**
-     * <p>getForeignId</p>
+     * <p>
+     * getForeignId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -293,16 +354,21 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setForeignId</p>
+     * <p>
+     * setForeignId
+     * </p>
      *
-     * @param foreignId a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
      */
     public void setForeignId(String foreignId) {
         putCriteria("foreignId", foreignId);
     }
 
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -311,9 +377,12 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
     }
 
     /**
-     * <p>setForeignSource</p>
+     * <p>
+     * setForeignSource
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
      */
     public void setForeignSource(String foreignSource) {
         putCriteria("foreignSource", foreignSource);

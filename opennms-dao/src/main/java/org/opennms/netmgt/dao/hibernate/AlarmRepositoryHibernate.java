@@ -55,7 +55,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>DaoWebAlarmRepository class.</p>
+ * <p>
+ * DaoWebAlarmRepository class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -149,7 +151,8 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
     public int[] countMatchingAlarmsBySeverity(final OnmsCriteria criteria) {
         final int[] alarmCounts = new int[8];
         for (final OnmsSeverity value : OnmsSeverity.values()) {
-            alarmCounts[value.getId()] = m_alarmDao.countMatching(criteria.doClone().add(Restrictions.eq("severity", value)));
+            alarmCounts[value.getId()] = m_alarmDao.countMatching(criteria.doClone().add(Restrictions.eq("severity",
+                                                                                                         value)));
         }
         return alarmCounts;
     }

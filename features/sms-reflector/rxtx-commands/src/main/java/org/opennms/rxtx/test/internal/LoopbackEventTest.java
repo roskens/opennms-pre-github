@@ -41,7 +41,9 @@ import java.io.OutputStream;
 import java.util.TooManyListenersException;
 
 /**
- * <p>LoopbackEventTest class.</p>
+ * <p>
+ * LoopbackEventTest class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -49,24 +51,28 @@ import java.util.TooManyListenersException;
 public class LoopbackEventTest {
 
     private SerialPort serialPort;
+
     private OutputStream outStream;
+
     private InputStream inStream;
 
     /**
-     * <p>connect</p>
+     * <p>
+     * connect
+     * </p>
      *
-     * @param portName a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param portName
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void connect(String portName) throws IOException {
         try {
             // Obtain a CommPortIdentifier object for the port you want to open
-            CommPortIdentifier portId =
-                    CommPortIdentifier.getPortIdentifier(portName);
+            CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier(portName);
 
             // Get the port's ownership
-            serialPort =
-                    (SerialPort) portId.open("Demo application", 5000);
+            serialPort = (SerialPort) portId.open("Demo application", 5000);
 
             // Set the parameters of the connection.
             setSerialPortParameters();
@@ -107,10 +113,10 @@ public class LoopbackEventTest {
     /**
      * Register event handler for data available event
      *
-     * @param eventHandler Event handler
+     * @param eventHandler
+     *            Event handler
      */
-    public void addDataAvailableEventHandler(
-            SerialPortEventListener eventHandler) {
+    public void addDataAvailableEventHandler(SerialPortEventListener eventHandler) {
         try {
             // Add the serial port event listener
             serialPort.addEventListener(eventHandler);
@@ -131,7 +137,7 @@ public class LoopbackEventTest {
                 inStream.close();
             } catch (IOException ex) {
                 // don't care
-                }
+            }
             // Close the port.
             serialPort.close();
         }
@@ -145,13 +151,10 @@ public class LoopbackEventTest {
 
         try {
             // Set serial port to 57600bps-8N1..my favourite
-            serialPort.setSerialPortParams(
-                    baudRate,
-                    SerialPort.DATABITS_8,
-                    SerialPort.STOPBITS_1,
-                    SerialPort.PARITY_NONE);
+            serialPort.setSerialPortParams(baudRate, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
+                                           SerialPort.PARITY_NONE);
 
-            //serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
+            // serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
             serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN);
         } catch (UnsupportedCommOperationException ex) {
             throw new IOException("Unsupported serial port parameter");
@@ -161,8 +164,11 @@ public class LoopbackEventTest {
     public static class SerialEventHandler implements SerialPortEventListener {
 
         private InputStream inStream;
+
         private int readBufferLen;
+
         private int readBufferOffset;
+
         private byte[] readBuffer;
 
         public SerialEventHandler(InputStream inStream, int readBufferLen) {
@@ -182,10 +188,10 @@ public class LoopbackEventTest {
         @Override
         public void serialEvent(SerialPortEvent event) {
             switch (event.getEventType()) {
-                case SerialPortEvent.DATA_AVAILABLE:
-		    System.out.println("DATA_AVAILABLE");
-                    readSerial();
-                    break;
+            case SerialPortEvent.DATA_AVAILABLE:
+                System.out.println("DATA_AVAILABLE");
+                readSerial();
+                break;
             }
         }
 
@@ -195,21 +201,21 @@ public class LoopbackEventTest {
                 System.out.println("inStream " + availableBytes + " available");
                 if (availableBytes > 0) {
                     // Read the serial port
-                	int n = inStream.read(readBuffer, readBufferOffset, 1);
-                	if (n > 0) {
-                		byte b = readBuffer[readBufferOffset];
-                		System.out.println(String.format("READ: %d bytes: %c (0x%02x)", n, (char)b, b));
-                		readBufferOffset += n;
-                	} else {
-                		System.out.println("No bytes read.");
-                	}
+                    int n = inStream.read(readBuffer, readBufferOffset, 1);
+                    if (n > 0) {
+                        byte b = readBuffer[readBufferOffset];
+                        System.out.println(String.format("READ: %d bytes: %c (0x%02x)", n, (char) b, b));
+                        readBufferOffset += n;
+                    } else {
+                        System.out.println("No bytes read.");
+                    }
 
                 }
                 Thread.sleep(100);
             } catch (InterruptedException e) {
 
             } catch (IOException e) {
-            	System.out.println(e);
+                System.out.println(e);
             }
 
         }
@@ -224,26 +230,23 @@ public class LoopbackEventTest {
                 loopbackTest.connect(args[0]);
 
                 // Register the serial event handler
-                String testString = args.length < 2
-                	? "The quick brown fox jumps over the lazy dog"
+                String testString = args.length < 2 ? "The quick brown fox jumps over the lazy dog"
                     : args[1].replace("\\r", "\r").replace("\\n", "\n").replace("\\\\", "\\");
-                InputStream inStream =
-                        loopbackTest.getSerialInputStream();
+                InputStream inStream = loopbackTest.getSerialInputStream();
 
-                String result = args.length < 3 ? testString : args[2].replace("\\r", "\r").replace("\\n", "\n").replace("\\\\", "\\");
+                String result = args.length < 3 ? testString
+                    : args[2].replace("\\r", "\r").replace("\\n", "\n").replace("\\\\", "\\");
 
-                SerialEventHandler serialEventHandler =
-                        new SerialEventHandler(inStream, 2048);
+                SerialEventHandler serialEventHandler = new SerialEventHandler(inStream, 2048);
                 loopbackTest.addDataAvailableEventHandler(serialEventHandler);
 
                 // Send the testing string
-                OutputStream outStream =
-                        loopbackTest.getSerialOutputStream();
+                OutputStream outStream = loopbackTest.getSerialOutputStream();
 
                 byte[] bytes = testString.getBytes();
 
-                for(int i = 0; i < bytes.length; i++) {
-                	outStream.write(bytes[i]);
+                for (int i = 0; i < bytes.length; i++) {
+                    outStream.write(bytes[i]);
                 }
 
                 // Wait until all the data is received
@@ -270,8 +273,7 @@ public class LoopbackEventTest {
                     } else {
                         System.out.println("Test failed");
                         System.out.println("Sent:" + testString);
-                        System.out.println("Received:" +
-                                serialEventHandler.getReadBuffer());
+                        System.out.println("Received:" + serialEventHandler.getReadBuffer());
                     }
                 } else {
                     System.err.println("Timeout");

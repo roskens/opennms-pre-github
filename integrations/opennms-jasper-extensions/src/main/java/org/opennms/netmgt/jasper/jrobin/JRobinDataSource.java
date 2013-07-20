@@ -40,8 +40,11 @@ import org.opennms.netmgt.jasper.jrobin.RrdXportCmd.XPort;
 public class JRobinDataSource implements JRDataSource {
 
     private int m_currentRow = -1;
+
     private long[] m_timestamps;
+
     private long m_step;
+
     private List<XPort> m_xports;
 
     public JRobinDataSource(long step, long[] timestamps, List<XPort> xports) {
@@ -59,7 +62,7 @@ public class JRobinDataSource implements JRDataSource {
     private Object computeFieldValue(JRField field) {
         if ("Timestamp".equalsIgnoreCase(getColumnName(field))) {
             return new Date(m_timestamps[m_currentRow] * 1000L);
-        } else if("Step".equalsIgnoreCase(getColumnName(field))) {
+        } else if ("Step".equalsIgnoreCase(getColumnName(field))) {
             return m_step;
         }
         XPort xport = findXPortForField(getColumnName(field));
@@ -67,19 +70,18 @@ public class JRobinDataSource implements JRDataSource {
     }
 
     private String getColumnName(JRField field) {
-        return field.getDescription() == null || field.getDescription().trim().equals("")
-                ? field.getName() : field.getDescription();
+        return field.getDescription() == null || field.getDescription().trim().equals("") ? field.getName()
+            : field.getDescription();
     }
 
     private XPort findXPortForField(String description) {
-        for(XPort xport : m_xports) {
-            if(xport.legend.equalsIgnoreCase(description)) {
+        for (XPort xport : m_xports) {
+            if (xport.legend.equalsIgnoreCase(description)) {
                 return xport;
             }
         }
         return null;
     }
-
 
     @Override
     public boolean next() throws JRException {

@@ -29,7 +29,9 @@
 package org.opennms.sms.monitor.internal.config;
 
 /**
- * <p>TransactionTypeCollection class.</p>
+ * <p>
+ * TransactionTypeCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

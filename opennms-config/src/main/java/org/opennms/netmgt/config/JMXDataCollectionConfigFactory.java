@@ -58,9 +58,9 @@ import org.springframework.core.io.Resource;
 
 /**
  * This class is the main repository for JMX data collection configuration
- * information used by the an instance of the JMX service monitor. When this class is loaded it
+ * information used by the an instance of the JMX service monitor. When this
+ * class is loaded it
  * reads the jmx data collection configuration into memory.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -73,6 +73,7 @@ import org.springframework.core.io.Resource;
  */
 public final class JMXDataCollectionConfigFactory {
     private static final Logger LOG = LoggerFactory.getLogger(JMXDataCollectionConfigFactory.class);
+
     /**
      * The singleton instance of this factory
      */
@@ -82,7 +83,6 @@ public final class JMXDataCollectionConfigFactory {
      * The config class loaded from the config file
      */
     private JmxDatacollectionConfig m_config;
-
 
     /**
      * This member is set to true if the configuration file has been loaded.
@@ -100,9 +100,12 @@ public final class JMXDataCollectionConfigFactory {
     private Map<String, JmxCollection> m_collectionMap;
 
     /**
-     * <p>Constructor for JMXDataCollectionConfigFactory.</p>
+     * <p>
+     * Constructor for JMXDataCollectionConfigFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
      */
     public JMXDataCollectionConfigFactory(InputStream stream) {
         initialize(new InputStreamResource(stream));
@@ -150,7 +153,8 @@ public final class JMXDataCollectionConfigFactory {
         m_collectionMap = new HashMap<String, JmxCollection>();
         m_collectionGroupMap = new HashMap<String, Map<String, Mbean>>();
 
-        // BOZO isn't the collection name defined in the jmx-datacollection.xml file and
+        // BOZO isn't the collection name defined in the jmx-datacollection.xml
+        // file and
         // global to all the mbeans?
         Collection<JmxCollection> collections = m_config.getJmxCollectionCollection();
         Iterator<JmxCollection> citer = collections.iterator();
@@ -187,15 +191,14 @@ public final class JMXDataCollectionConfigFactory {
             return;
         }
 
-
         try {
             File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.JMX_DATA_COLLECTION_CONF_FILE_NAME);
 
             LOG.debug("init: config file path: {}", cfgFile.getPath());
             m_singleton = new JMXDataCollectionConfigFactory(cfgFile.getPath());
         } catch (IOException ioe) {
-        	LOG.error("Unable to open JMX data collection config file", ioe);
-        	throw ioe;
+            LOG.error("Unable to open JMX data collection config file", ioe);
+            throw ioe;
         }
 
         m_loaded = true;
@@ -229,15 +232,19 @@ public final class JMXDataCollectionConfigFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param singleton a {@link org.opennms.netmgt.config.JMXDataCollectionConfigFactory} object.
+     * @param singleton
+     *            a
+     *            {@link org.opennms.netmgt.config.JMXDataCollectionConfigFactory}
+     *            object.
      */
     public static synchronized void setInstance(JMXDataCollectionConfigFactory singleton) {
-    	m_singleton = singleton;
-    	m_loaded = true;
+        m_singleton = singleton;
+        m_loaded = true;
     }
-
 
     /**
      * This method returns the list of MIB objects associated with a particular
@@ -255,7 +262,6 @@ public final class JMXDataCollectionConfigFactory {
     public Map<String, List<Attrib>> getAttributeMap(String cName, String aSysoid, String anAddress) {
 
         Map<String, List<Attrib>> attributeMap = new HashMap<String, List<Attrib>>();
-
 
         LOG.debug("getMibObjectList: collection: {} sysoid: {} address: {}", anAddress, cName, aSysoid);
 
@@ -300,9 +306,12 @@ public final class JMXDataCollectionConfigFactory {
     }
 
     /**
-     * <p>getMBeanInfo</p>
+     * <p>
+     * getMBeanInfo
+     * </p>
      *
-     * @param cName a {@link java.lang.String} object.
+     * @param cName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Map} object.
      */
     public Map<String, BeanInfo> getMBeanInfo(String cName) {
@@ -334,17 +343,17 @@ public final class JMXDataCollectionConfigFactory {
                 List<String> compAttribNameList = new ArrayList<String>();
 
                 for (Object ca : compositeAttributes) {
-                    CompAttrib myCa = (CompAttrib)ca;
+                    CompAttrib myCa = (CompAttrib) ca;
                     CompMember[] compositeMembers = myCa.getCompMember();
                     for (Object cm : compositeMembers) {
-                        CompMember myCm = (CompMember)cm;
+                        CompMember myCm = (CompMember) cm;
                         attribNameList.add(myCa.getName() + "|" + myCm.getName());
                         compAttribNameList.add(myCa.getName() + "|" + myCm.getName());
                     }
                 }
 
                 for (Object a : attributes) {
-                    Attrib myA = (Attrib)a;
+                    Attrib myA = (Attrib) a;
                     attribNameList.add(myA.getName());
                 }
 
@@ -357,9 +366,12 @@ public final class JMXDataCollectionConfigFactory {
     }
 
     /**
-     * <p>getMBeanInfo_save</p>
+     * <p>
+     * getMBeanInfo_save
+     * </p>
      *
-     * @param cName a {@link java.lang.String} object.
+     * @param cName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Map} object.
      */
     public Map<String, String[]> getMBeanInfo_save(String cName) {
@@ -396,9 +408,9 @@ public final class JMXDataCollectionConfigFactory {
      *            List of MibObject objects currently being built
      */
     static void processObjectList(List<Attrib> objectList, List<Attr> mibObjectList) {
-        //TODO: Make mibObjectList a Set
-        //TODO: Delete this method, it is not referenced anywhere
-        Iterator<Attrib>i = objectList.iterator();
+        // TODO: Make mibObjectList a Set
+        // TODO: Delete this method, it is not referenced anywhere
+        Iterator<Attrib> i = objectList.iterator();
         while (i.hasNext()) {
             Attrib mibObj = i.next();
 
@@ -452,7 +464,8 @@ public final class JMXDataCollectionConfigFactory {
      * Retrieves the configured path to the RRD file repository.
      *
      * @return RRD repository path.
-     * @param collectionName a {@link java.lang.String} object.
+     * @param collectionName
+     *            a {@link java.lang.String} object.
      */
     public RrdRepository getRrdRepository(String collectionName) {
         RrdRepository repo = new RrdRepository();
@@ -461,19 +474,20 @@ public final class JMXDataCollectionConfigFactory {
         repo.setStep(getStep(collectionName));
         repo.setHeartBeat((2 * getStep(collectionName)));
         return repo;
-        //return m_config.getRrdRepository();
+        // return m_config.getRrdRepository();
     }
 
     /**
-     * <p>getRrdPath</p>
+     * <p>
+     * getRrdPath
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getRrdPath() {
         String rrdPath = m_config.getRrdRepository();
         if (rrdPath == null) {
-            throw new RuntimeException("Configuration error, failed to "
-                    + "retrieve path to RRD repository.");
+            throw new RuntimeException("Configuration error, failed to " + "retrieve path to RRD repository.");
         }
 
         /*

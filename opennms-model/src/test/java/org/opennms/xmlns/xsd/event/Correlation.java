@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import java.util.ArrayList;
@@ -45,11 +44,12 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -79,49 +79,41 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "cuei",
-    "cmin",
-    "cmax",
-    "ctime"
-})
+@XmlType(name = "", propOrder = { "cuei", "cmin", "cmax", "ctime" })
 @XmlRootElement(name = "correlation")
 public class Correlation {
 
     protected List<String> cuei;
+
     protected String cmin;
+
     protected String cmax;
+
     protected String ctime;
+
     @XmlAttribute(name = "state")
     protected String state;
+
     @XmlAttribute(name = "path")
     protected String path;
 
     /**
      * Gets the value of the cuei property.
-     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the cuei property.
-     *
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the cuei property.
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getCuei().add(newItem);
+     * getCuei().add(newItem);
      * </pre>
-     *
-     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     *
-     *
+     * Objects of the following type(s) are allowed in the list {@link String }
      */
     public List<String> getCuei() {
         if (cuei == null) {
@@ -134,9 +126,7 @@ public class Correlation {
      * Gets the value of the cmin property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getCmin() {
         return cmin;
@@ -146,9 +136,7 @@ public class Correlation {
      * Sets the value of the cmin property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setCmin(String value) {
         this.cmin = value;
@@ -158,9 +146,7 @@ public class Correlation {
      * Gets the value of the cmax property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getCmax() {
         return cmax;
@@ -170,9 +156,7 @@ public class Correlation {
      * Sets the value of the cmax property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setCmax(String value) {
         this.cmax = value;
@@ -182,9 +166,7 @@ public class Correlation {
      * Gets the value of the ctime property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getCtime() {
         return ctime;
@@ -194,9 +176,7 @@ public class Correlation {
      * Sets the value of the ctime property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setCtime(String value) {
         this.ctime = value;
@@ -206,9 +186,7 @@ public class Correlation {
      * Gets the value of the state property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getState() {
         if (state == null) {
@@ -222,9 +200,7 @@ public class Correlation {
      * Sets the value of the state property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setState(String value) {
         this.state = value;
@@ -234,9 +210,7 @@ public class Correlation {
      * Gets the value of the path property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getPath() {
         if (path == null) {
@@ -250,9 +224,7 @@ public class Correlation {
      * Sets the value of the path property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setPath(String value) {
         this.path = value;

@@ -39,25 +39,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath*:/META-INF/spring/bundle-context.xml",
-        "classpath*:/META-INF/opennms/bundle-context-opennms.xml",
-        "classpath:/testGatewayContext.xml"
-}
-)
+@ContextConfiguration(locations = { "classpath*:/META-INF/spring/bundle-context.xml",
+        "classpath*:/META-INF/opennms/bundle-context-opennms.xml", "classpath:/testGatewayContext.xml" })
 public class SmsServiceTest implements InitializingBean {
 
-	@Autowired
-	SmsService m_service;
+    @Autowired
+    SmsService m_service;
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-	    BeanUtils.assertAutowiring(this);
-	}
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        BeanUtils.assertAutowiring(this);
+    }
 
-	@Test
-	public void testInitialization() {
-		assertEquals("must have one gateway", 1, m_service.getGateways().size());
-		assertEquals("gateway ID must be 'ACM0'", "ACM0", m_service.getGateways().iterator().next().getGatewayId());
-	}
+    @Test
+    public void testInitialization() {
+        assertEquals("must have one gateway", 1, m_service.getGateways().size());
+        assertEquals("gateway ID must be 'ACM0'", "ACM0", m_service.getGateways().iterator().next().getGatewayId());
+    }
 }

@@ -39,15 +39,25 @@ public class NodeMarker extends Marker {
 
     public static class Property {
         public static final String CATEGORIES = "categories";
+
         public static final String NODE_ID = "nodeId";
+
         public static final String NODE_LABEL = "nodeLabel";
+
         public static final String FOREIGN_SOURCE = "foreignSource";
+
         public static final String FOREIGN_ID = "foreignId";
+
         public static final String IP_ADDRESS = "ipAddress";
+
         public static final String SEVERITY_LABEL = "severityLabel";
+
         public static final String DESCRIPTION = "description";
+
         public static final String MAINTCONTRACT = "maintcontract";
+
         public static final String SEVERITY = "severity";
+
         public static final String UNACKED_COUNT = "unackedCount";
     }
 
@@ -77,14 +87,14 @@ public class NodeMarker extends Marker {
     }
 
     private native JsArrayString getNativePropertyNames(final JSObject self) /*-{
-        var props = [];
-        for (var prop in self) {
-            if (self.hasOwnProperty(prop) && typeof self[prop] === 'string') {
-                props.push(prop);
-            }
-        }
-        return props;
-    }-*/;
+                                                                             var props = [];
+                                                                             for (var prop in self) {
+                                                                             if (self.hasOwnProperty(prop) && typeof self[prop] === 'string') {
+                                                                             props.push(prop);
+                                                                             }
+                                                                             }
+                                                                             return props;
+                                                                             }-*/;
 
     public JsArrayString getCategories() {
         final JSObject property = getJSObject().getProperty(Property.CATEGORIES);
@@ -125,7 +135,7 @@ public class NodeMarker extends Marker {
 
     public Integer getNodeId() {
         final String id = getProperty(Property.NODE_ID);
-        return id == null? null : Integer.valueOf(id);
+        return id == null ? null : Integer.valueOf(id);
     }
 
     public String getNodeLabel() {
@@ -158,12 +168,12 @@ public class NodeMarker extends Marker {
 
     public int getSeverity() {
         final String severity = getProperty(Property.SEVERITY);
-        return severity == null? 0 : Integer.valueOf(severity);
+        return severity == null ? 0 : Integer.valueOf(severity);
     }
 
     public Integer getUnackedCount() {
         final String count = getProperty(Property.UNACKED_COUNT);
-        return count == null? 0 : Integer.valueOf(count);
+        return count == null ? 0 : Integer.valueOf(count);
     }
 
     @Override

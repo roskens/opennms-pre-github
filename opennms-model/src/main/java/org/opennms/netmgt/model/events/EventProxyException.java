@@ -29,7 +29,9 @@
 package org.opennms.netmgt.model.events;
 
 /**
- * <p>EventProxyException class.</p>
+ * <p>
+ * EventProxyException class.
+ * </p>
  */
 public class EventProxyException extends Exception {
 
@@ -39,35 +41,47 @@ public class EventProxyException extends Exception {
     private static final long serialVersionUID = -5163171630068781718L;
 
     /**
-     * <p>Constructor for EventProxyException.</p>
+     * <p>
+     * Constructor for EventProxyException.
+     * </p>
      */
     public EventProxyException() {
         super();
     }
 
     /**
-     * <p>Constructor for EventProxyException.</p>
+     * <p>
+     * Constructor for EventProxyException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public EventProxyException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for EventProxyException.</p>
+     * <p>
+     * Constructor for EventProxyException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public EventProxyException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * <p>Constructor for EventProxyException.</p>
+     * <p>
+     * Constructor for EventProxyException.
+     * </p>
      *
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public EventProxyException(Throwable cause) {
         super(cause);

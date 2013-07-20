@@ -42,57 +42,69 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
-
 /**
- * An adapter manager.  Makes writing tests much easier.
+ * An adapter manager. Makes writing tests much easier.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
-@EventListener(name="ProvisioningAdapterManager:EventListener", logPrefix="provisiond")
+@EventListener(name = "ProvisioningAdapterManager:EventListener", logPrefix = "provisiond")
 public class ProvisioningAdapterManager implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(ProvisioningAdapterManager.class);
 
     private PluginRegistry m_pluginRegistry;
+
     private Collection<ProvisioningAdapter> m_adapters;
 
-    //may use this at some point
+    // may use this at some point
     private volatile EventForwarder m_eventForwarder;
 
-
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_pluginRegistry, "pluginRegistry must be set");
-        m_adapters =  m_pluginRegistry.getAllPlugins(ProvisioningAdapter.class);
+        m_adapters = m_pluginRegistry.getAllPlugins(ProvisioningAdapter.class);
     }
 
     /**
-     * <p>getPluginRegistry</p>
+     * <p>
+     * getPluginRegistry
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.service.PluginRegistry} object.
+     * @return a {@link org.opennms.netmgt.provision.service.PluginRegistry}
+     *         object.
      */
     public PluginRegistry getPluginRegistry() {
         return m_pluginRegistry;
     }
 
     /**
-     * <p>setPluginRegistry</p>
+     * <p>
+     * setPluginRegistry
+     * </p>
      *
-     * @param pluginRegistry a {@link org.opennms.netmgt.provision.service.PluginRegistry} object.
+     * @param pluginRegistry
+     *            a {@link org.opennms.netmgt.provision.service.PluginRegistry}
+     *            object.
      */
     public void setPluginRegistry(PluginRegistry pluginRegistry) {
         m_pluginRegistry = pluginRegistry;
     }
 
     /**
-     * <p>handleNodeAddedEvent</p>
+     * <p>
+     * handleNodeAddedEvent
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_ADDED_EVENT_UEI)
     public void handleNodeAddedEvent(Event e) {
@@ -109,9 +121,12 @@ public class ProvisioningAdapterManager implements InitializingBean {
     }
 
     /**
-     * <p>handleNodeUpdatedEvent</p>
+     * <p>
+     * handleNodeUpdatedEvent
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_UPDATED_EVENT_UEI)
     public void handleNodeUpdatedEvent(Event e) {
@@ -122,15 +137,19 @@ public class ProvisioningAdapterManager implements InitializingBean {
             } catch (ProvisioningAdapterException pae) {
                 LOG.error("handleNodeUpdatedEvent: Adapter threw known exception: {}", adapter.getName(), pae);
             } catch (Throwable t) {
-                LOG.error("handleNodeUpdatedEvent: Unanticpated exception when calling adapter: {}", adapter.getName(), t);
+                LOG.error("handleNodeUpdatedEvent: Unanticpated exception when calling adapter: {}", adapter.getName(),
+                          t);
             }
         }
     }
 
     /**
-     * <p>handleNodeDeletedEvent</p>
+     * <p>
+     * handleNodeDeletedEvent
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_DELETED_EVENT_UEI)
     public void handleNodeDeletedEvent(Event e) {
@@ -141,18 +160,23 @@ public class ProvisioningAdapterManager implements InitializingBean {
             } catch (ProvisioningAdapterException pae) {
                 LOG.error("handleNodeDeletedEvent: Adapter threw known exception: {}", adapter.getName(), pae);
             } catch (Throwable t) {
-                LOG.error("handleNodeDeletedEvent: Unanticpated exception when calling adapter: {}", adapter.getName(), t);
+                LOG.error("handleNodeDeletedEvent: Unanticpated exception when calling adapter: {}", adapter.getName(),
+                          t);
             }
         }
     }
 
     /**
-     * <p>handleNodeScanCompletedEvent</p>
+     * <p>
+     * handleNodeScanCompletedEvent
+     * </p>
+     * Note: If the operations are properly scheduled and handled using the
+     * SimpleQueuedProvisioningAdapter, even though
+     * this event is sent following a nodeUpdated event, the update operation
+     * task should be reduced to 1 operation on the queue.
      *
-     * Note: If the operations are properly scheduled and handled using the SimpleQueuedProvisioningAdapter, even though
-     * this event is sent following a nodeUpdated event, the update operation task should be reduced to 1 operation on the queue.
-     *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.PROVISION_SCAN_COMPLETE_UEI)
     public void handleNodeScanCompletedEvent(Event e) {
@@ -163,15 +187,19 @@ public class ProvisioningAdapterManager implements InitializingBean {
             } catch (ProvisioningAdapterException pae) {
                 LOG.error("handleNodeScanCompletedEvent: Adapter threw known exception: {}", adapter.getName(), pae);
             } catch (Throwable t) {
-                LOG.error("handleNodeScanCompletedEvent: Unanticpated exception when calling adapter: {}", adapter.getName(), t);
+                LOG.error("handleNodeScanCompletedEvent: Unanticpated exception when calling adapter: {}",
+                          adapter.getName(), t);
             }
         }
     }
 
     /**
-     * <p>handleNodeChangedEvent</p>
+     * <p>
+     * handleNodeChangedEvent
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_CONFIG_CHANGE_UEI)
     public void handleNodeChangedEvent(Event e) {
@@ -186,22 +214,29 @@ public class ProvisioningAdapterManager implements InitializingBean {
             } catch (ProvisioningAdapterException pae) {
                 LOG.error("handleNodeChangedEvent: Adapter threw known exception: {}", adapter.getName(), pae);
             } catch (Throwable t) {
-                LOG.error("handleNodeChangedEvent: Unanticpated exception when calling adapter: {}", adapter.getName(), t);
+                LOG.error("handleNodeChangedEvent: Unanticpated exception when calling adapter: {}", adapter.getName(),
+                          t);
             }
         }
     }
 
     /**
-     * <p>setEventForwarder</p>
+     * <p>
+     * setEventForwarder
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
 
     /**
-     * <p>getEventForwarder</p>
+     * <p>
+     * getEventForwarder
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -210,7 +245,9 @@ public class ProvisioningAdapterManager implements InitializingBean {
     }
 
     /**
-     * <p>initializeAdapters</p>
+     * <p>
+     * initializeAdapters
+     * </p>
      */
     public void initializeAdapters() {
         for (ProvisioningAdapter adapter : m_adapters) {

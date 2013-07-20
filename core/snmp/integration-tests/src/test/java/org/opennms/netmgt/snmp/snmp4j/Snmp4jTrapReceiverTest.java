@@ -82,16 +82,15 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
 
     /*
      * IMPORTANT:
-     *
-     * The sentence <code>snmp.getUSM().addUser(...)</code>, is the only requirement
+     * The sentence <code>snmp.getUSM().addUser(...)</code>, is the only
+     * requirement
      * in order to properly process SNMPv3 traps.
-     *
-     * This is related with the credentials that should be created for Trapd in order
+     * This is related with the credentials that should be created for Trapd in
+     * order
      * to properly authenticate and/or decode SNMPv3 traps in OpenNMS.
-     *
-     * This is a user that should be configured (or should be used) by the external
+     * This is a user that should be configured (or should be used) by the
+     * external
      * devices to send SNMPv3 Traps to OpenNMS.
-     *
      * The SNMPv3 users should be configured in trapd-configuration.xml
      */
     @Test
@@ -106,16 +105,9 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
             snmp = new Snmp(transportMapping);
 
             snmp.addCommandResponder(this);
-            snmp.getUSM().addUser(
-                new OctetString("opennmsUser"),
-                new UsmUser(
-                    new OctetString("opennmsUser"),
-                    AuthMD5.ID,
-                    new OctetString("0p3nNMSv3"),
-                    PrivDES.ID,
-                    new OctetString("0p3nNMSv3")
-                )
-            );
+            snmp.getUSM().addUser(new OctetString("opennmsUser"),
+                                  new UsmUser(new OctetString("opennmsUser"), AuthMD5.ID, new OctetString("0p3nNMSv3"),
+                                              PrivDES.ID, new OctetString("0p3nNMSv3")));
 
             long start = System.currentTimeMillis();
             snmp.listen();
@@ -124,7 +116,8 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
             do {
                 Thread.sleep(200);
                 System.err.print(".");
-                if (m_trapCount == 2) break;
+                if (m_trapCount == 2)
+                    break;
             } while (System.currentTimeMillis() < waitUntil);
             System.err.println("");
             LOG.debug("waited for {} milliseconds", System.currentTimeMillis() - start);
@@ -166,7 +159,8 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
             do {
                 Thread.sleep(200);
                 System.err.print(".");
-                if (m_trapCount == 2) break;
+                if (m_trapCount == 2)
+                    break;
             } while (System.currentTimeMillis() < waitUntil);
             System.err.println("");
             LOG.debug("waited for {} milliseconds", System.currentTimeMillis() - start);
@@ -209,15 +203,17 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
         pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.1.0"), m_strategy.getValueFactory().getObjectId(trapOID));
         pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.3.0"), m_strategy.getValueFactory().getObjectId(enterpriseId));
         pdu.send(hostAddress, 9162, "public");
-        
-        //Thread.sleep(10000);
+
+        // Thread.sleep(10000);
 
         LOG.debug("Sending V3 Trap");
         SnmpV3TrapBuilder pduv3 = m_strategy.getV3TrapBuilder();
         pduv3.addVarBind(SnmpObjId.get(".1.3.6.1.2.1.1.3.0"), m_strategy.getValueFactory().getTimeTicks(0));
         pduv3.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.1.0"), m_strategy.getValueFactory().getObjectId(trapOID));
-        pduv3.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.3.0"), m_strategy.getValueFactory().getObjectId(enterpriseId));
-        pduv3.send(hostAddress, 9162, SnmpConfiguration.AUTH_PRIV, "opennmsUser", "0p3nNMSv3", SnmpConfiguration.DEFAULT_AUTH_PROTOCOL, "0p3nNMSv3", SnmpConfiguration.DEFAULT_PRIV_PROTOCOL);
+        pduv3.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.3.0"),
+                         m_strategy.getValueFactory().getObjectId(enterpriseId));
+        pduv3.send(hostAddress, 9162, SnmpConfiguration.AUTH_PRIV, "opennmsUser", "0p3nNMSv3",
+                   SnmpConfiguration.DEFAULT_AUTH_PROTOCOL, "0p3nNMSv3", SnmpConfiguration.DEFAULT_PRIV_PROTOCOL);
     }
 
     @Override
@@ -240,6 +236,7 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
 
     private final class TestTrapListener implements TrapNotificationListener {
         private List<TrapNotification> m_traps = new ArrayList<TrapNotification>();
+
         private List<String> m_errors = new ArrayList<String>();
 
         @Override
@@ -248,7 +245,7 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
 
             if (trapNotification != null) {
                 LOG.debug(trapNotification.getClass().getName());
-                TestTrapProcessor processor = (TestTrapProcessor)trapNotification.getTrapProcessor();
+                TestTrapProcessor processor = (TestTrapProcessor) trapNotification.getTrapProcessor();
                 LOG.debug("processor is {}", processor);
             }
 
@@ -273,18 +270,32 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
 
     private final class TestTrapProcessor implements TrapProcessor {
         @Override
-        public void setCommunity(String community) {}
+        public void setCommunity(String community) {
+        }
+
         @Override
-        public void setTimeStamp(long timeStamp) {}
+        public void setTimeStamp(long timeStamp) {
+        }
+
         @Override
-        public void setVersion(String version) { LOG.debug("Processed Trap with version: {}", version); }
+        public void setVersion(String version) {
+            LOG.debug("Processed Trap with version: {}", version);
+        }
+
         @Override
-        public void setAgentAddress(InetAddress agentAddress) {}
+        public void setAgentAddress(InetAddress agentAddress) {
+        }
+
         @Override
-        public void setTrapAddress(InetAddress trapAddress) {}
+        public void setTrapAddress(InetAddress trapAddress) {
+        }
+
         @Override
-        public void processVarBind(SnmpObjId name, SnmpValue value) {}
+        public void processVarBind(SnmpObjId name, SnmpValue value) {
+        }
+
         @Override
-        public void setTrapIdentity(TrapIdentity trapIdentity) {}
+        public void setTrapIdentity(TrapIdentity trapIdentity) {
+        }
     }
 }

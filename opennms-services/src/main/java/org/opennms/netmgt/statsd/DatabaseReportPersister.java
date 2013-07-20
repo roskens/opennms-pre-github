@@ -40,13 +40,16 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>DatabaseReportPersister class.</p>
+ * <p>
+ * DatabaseReportPersister class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class DatabaseReportPersister implements ReportPersister, InitializingBean {
     private StatisticsReportDao m_statisticsReportDao;
+
     private ResourceReferenceDao m_resourceReferenceDao;
 
     /** {@inheritDoc} */
@@ -88,7 +91,9 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -97,7 +102,9 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
     }
 
     /**
-     * <p>getStatisticsReportDao</p>
+     * <p>
+     * getStatisticsReportDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
      */
@@ -106,16 +113,22 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
     }
 
     /**
-     * <p>setStatisticsReportDao</p>
+     * <p>
+     * setStatisticsReportDao
+     * </p>
      *
-     * @param statisticsReportDao a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
+     * @param statisticsReportDao
+     *            a {@link org.opennms.netmgt.dao.api.StatisticsReportDao}
+     *            object.
      */
     public void setStatisticsReportDao(StatisticsReportDao statisticsReportDao) {
         m_statisticsReportDao = statisticsReportDao;
     }
 
     /**
-     * <p>getResourceReferenceDao</p>
+     * <p>
+     * getResourceReferenceDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceReferenceDao} object.
      */
@@ -124,9 +137,13 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
     }
 
     /**
-     * <p>setResourceReferenceDao</p>
+     * <p>
+     * setResourceReferenceDao
+     * </p>
      *
-     * @param resourceReferenceDao a {@link org.opennms.netmgt.dao.api.ResourceReferenceDao} object.
+     * @param resourceReferenceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceReferenceDao}
+     *            object.
      */
     public void setResourceReferenceDao(ResourceReferenceDao resourceReferenceDao) {
         m_resourceReferenceDao = resourceReferenceDao;

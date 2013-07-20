@@ -31,7 +31,9 @@ package org.opennms.gwt.web.ui.client;
 import com.google.gwt.core.client.EntryPoint;
 
 /**
- * <p>CoreWeb class.</p>
+ * <p>
+ * CoreWeb class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,7 +42,9 @@ import com.google.gwt.core.client.EntryPoint;
 public class CoreWeb implements EntryPoint {
 
     /**
-     * <p>onModuleLoad</p>
+     * <p>
+     * onModuleLoad
+     * </p>
      */
     @Override
     public void onModuleLoad() {

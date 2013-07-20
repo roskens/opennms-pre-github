@@ -47,56 +47,73 @@ public class TimeRange {
         LAST_SEVEN_DAYS {
             @Override
             public Date getStartDate() {
-                return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR), new GregorianCalendar().get(Calendar.MONTH), new GregorianCalendar().get(Calendar.DATE) - 7).getTimeInMillis());
+                return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR),
+                                                      new GregorianCalendar().get(Calendar.MONTH),
+                                                      new GregorianCalendar().get(Calendar.DATE) - 7).getTimeInMillis());
             }
 
-        }, LAST_MONTH {
+        },
+        LAST_MONTH {
             @Override
             public Date getStartDate() {
-                return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR), new GregorianCalendar().get(Calendar.MONTH) -1, 1).getTimeInMillis());
+                return new Date(
+                                new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR),
+                                                      new GregorianCalendar().get(Calendar.MONTH) - 1, 1).getTimeInMillis());
             }
 
             @Override
             public Date getEndDate() {
-                return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR), new GregorianCalendar().get(Calendar.MONTH), 0, 23, 59, 59).getTimeInMillis());
+                return new Date(
+                                new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR),
+                                                      new GregorianCalendar().get(Calendar.MONTH), 0, 23, 59, 59).getTimeInMillis());
             }
 
-        }, LAST_YEAR {
+        },
+        LAST_YEAR {
             @Override
             public Date getStartDate() {
-                return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR) - 1, 0, 1).getTimeInMillis());
+                return new Date(
+                                new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR) - 1, 0, 1).getTimeInMillis());
             }
 
             @Override
             public Date getEndDate() {
-                return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR) - 1, 12, 0, 23, 59, 59).getTimeInMillis());
+                return new Date(
+                                new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR) - 1, 12, 0, 23, 59, 59).getTimeInMillis());
             }
 
-        },THIS_MONTH {
+        },
+        THIS_MONTH {
             @Override
             public Date getStartDate() {
-                return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR), new GregorianCalendar().get(Calendar.MONTH), 1).getTimeInMillis());
+                return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR),
+                                                      new GregorianCalendar().get(Calendar.MONTH), 1).getTimeInMillis());
             }
 
-        }, THIS_YEAR {
+        },
+        THIS_YEAR {
             @Override
             public Date getStartDate() {
-                return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR), 0, 1).getTimeInMillis());
+                return new Date(
+                                new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR), 0, 1).getTimeInMillis());
             }
 
         };
 
         abstract public Date getStartDate();
+
         public Date getEndDate() {
-            return new Date( new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR), new GregorianCalendar().get(Calendar.MONTH), new GregorianCalendar().get(Calendar.DATE) ).getTimeInMillis() );
+            return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR),
+                                                  new GregorianCalendar().get(Calendar.MONTH),
+                                                  new GregorianCalendar().get(Calendar.DATE)).getTimeInMillis());
         };
     }
-
 
     /**
      * Constructor init now
      */
-    public TimeRange() {}
+    public TimeRange() {
+    }
 
     /**
      * <p>

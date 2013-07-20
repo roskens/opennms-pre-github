@@ -27,21 +27,17 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public final class ResourceServlet
-    extends HttpServlet
-{
+public final class ResourceServlet extends HttpServlet {
     private static final long serialVersionUID = -7387663368560295529L;
+
     private final String path;
 
-    public ResourceServlet(String path)
-    {
+    public ResourceServlet(String path) {
         this.path = path;
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException
-    {
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String target = req.getPathInfo();
         if (target == null) {
             target = "";
@@ -61,15 +57,13 @@ public final class ResourceServlet
         }
     }
 
-    private void handle(HttpServletRequest req, HttpServletResponse res, URL url, String resName)
-        throws IOException
-    {
+    private void handle(HttpServletRequest req, HttpServletResponse res, URL url, String resName) throws IOException {
         String contentType = getServletContext().getMimeType(resName);
         if (contentType != null) {
             res.setContentType(contentType);
         }
 
-        long lastModified  = getLastModified(url);
+        long lastModified = getLastModified(url);
         if (lastModified != 0) {
             res.setDateHeader("Last-Modified", lastModified);
         }
@@ -81,15 +75,13 @@ public final class ResourceServlet
         }
     }
 
-    private long getLastModified(URL url)
-    {
+    private long getLastModified(URL url) {
         long lastModified = 0;
 
         try {
             URLConnection conn = url.openConnection();
             lastModified = conn.getLastModified();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             // Do nothing
         }
 
@@ -106,17 +98,14 @@ public final class ResourceServlet
         return lastModified;
     }
 
-    private boolean resourceModified(long resTimestamp, long modSince)
-    {
+    private boolean resourceModified(long resTimestamp, long modSince) {
         modSince /= 1000;
         resTimestamp /= 1000;
 
         return resTimestamp == 0 || modSince == -1 || resTimestamp > modSince;
     }
 
-    private void copyResource(URL url, HttpServletResponse res)
-        throws IOException
-    {
+    private void copyResource(URL url, HttpServletResponse res) throws IOException {
         OutputStream os = null;
         InputStream is = null;
 

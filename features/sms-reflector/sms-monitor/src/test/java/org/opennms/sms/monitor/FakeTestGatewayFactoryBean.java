@@ -36,34 +36,32 @@ import org.springframework.util.Assert;
 
 public class FakeTestGatewayFactoryBean implements InitializingBean {
 
+    private ServiceRegistry m_serviceRegistry;
 
-	private ServiceRegistry m_serviceRegistry;
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Assert.notNull(getServiceRegistry(), "serviceRegistry must not be null");
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(getServiceRegistry(), "serviceRegistry must not be null");
+        GatewayGroup gatewayGroup = new GatewayGroup() {
 
-		GatewayGroup gatewayGroup = new GatewayGroup() {
+            @Override
+            public AGateway[] getGateways() {
+                System.err.println("getting ACM0");
+                return new AGateway[] { new FakeTestGateway("ACM0") };
+            }
 
-                        @Override
-			public AGateway[] getGateways() {
-				System.err.println("getting ACM0");
-				return new AGateway[] { new FakeTestGateway( "ACM0" ) };
-			}
+        };
 
-		};
+        getServiceRegistry().register(gatewayGroup, GatewayGroup.class);
 
-		getServiceRegistry().register(gatewayGroup, GatewayGroup.class);
+    }
 
-	}
+    public void setServiceRegistry(ServiceRegistry serviceRegistry) {
+        m_serviceRegistry = serviceRegistry;
+    }
 
-	public void setServiceRegistry(ServiceRegistry serviceRegistry) {
-		m_serviceRegistry = serviceRegistry;
-	}
-
-	public ServiceRegistry getServiceRegistry() {
-		return m_serviceRegistry;
-	}
-
+    public ServiceRegistry getServiceRegistry() {
+        return m_serviceRegistry;
+    }
 
 }

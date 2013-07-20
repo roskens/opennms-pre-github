@@ -32,7 +32,9 @@ import org.smslib.USSDRequest;
 import org.springframework.core.style.ToStringCreator;
 
 /**
- * <p>UssdRequest class.</p>
+ * <p>
+ * UssdRequest class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -42,31 +44,47 @@ public class UssdRequest extends MobileMsgRequest {
     private USSDRequest m_msg;
 
     /**
-     * <p>Constructor for UssdRequest.</p>
+     * <p>
+     * Constructor for UssdRequest.
+     * </p>
      *
-     * @param msg a {@link org.smslib.USSDRequest} object.
-     * @param timeout a long.
-     * @param retries a int.
-     * @param cb a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback} object.
-     * @param responseMatcher a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher} object.
+     * @param msg
+     *            a {@link org.smslib.USSDRequest} object.
+     * @param timeout
+     *            a long.
+     * @param retries
+     *            a int.
+     * @param cb
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
+     *            object.
+     * @param responseMatcher
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
+     *            object.
      */
-    public UssdRequest(USSDRequest msg, long timeout, int retries, MobileMsgResponseCallback cb, MobileMsgResponseMatcher responseMatcher) {
+    public UssdRequest(USSDRequest msg, long timeout, int retries, MobileMsgResponseCallback cb,
+            MobileMsgResponseMatcher responseMatcher) {
         super(timeout, retries, cb, responseMatcher);
         m_msg = msg;
 
     }
 
     /**
-     * <p>getGatewayId</p>
+     * <p>
+     * getGatewayId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getGatewayId() {
-    	return m_msg.getGatewayId();
+        return m_msg.getGatewayId();
     }
 
     /**
-     * <p>getContent</p>
+     * <p>
+     * getContent
+     * </p>
      *
      * @return the text
      */
@@ -80,14 +98,16 @@ public class UssdRequest extends MobileMsgRequest {
         return "1";
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.sms.reflector.smsservice.MobileMsgRequest#createNextRetry()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.sms.reflector.smsservice.MobileMsgRequest#createNextRetry()
      */
     /** {@inheritDoc} */
     @Override
     public MobileMsgRequest createNextRetry() {
         if (getRetries() > 0) {
-            return new UssdRequest(m_msg, getTimeout(), getRetries()-1, getCb(), getResponseMatcher());
+            return new UssdRequest(m_msg, getTimeout(), getRetries() - 1, getCb(), getResponseMatcher());
         } else {
             return null;
         }
@@ -95,7 +115,9 @@ public class UssdRequest extends MobileMsgRequest {
     }
 
     /**
-     * <p>getMessage</p>
+     * <p>
+     * getMessage
+     * </p>
      *
      * @return a {@link org.smslib.USSDRequest} object.
      */
@@ -104,17 +126,16 @@ public class UssdRequest extends MobileMsgRequest {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-    	return new ToStringCreator(this)
-    		.append("id", getId())
-    		.append("gatewayId", getGatewayId())
-    		.append("content", getContent())
-    		.append("message", getMessage())
-    		.toString();
+        return new ToStringCreator(this).append("id", getId()).append("gatewayId", getGatewayId()).append("content",
+                                                                                                          getContent()).append("message",
+                                                                                                                               getMessage()).toString();
     }
 }

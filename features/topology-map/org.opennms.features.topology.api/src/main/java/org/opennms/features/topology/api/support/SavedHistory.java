@@ -27,33 +27,35 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
 
 /**
- * Immutable class that stores a snapshot of the topology layout at a given time.
+ * Immutable class that stores a snapshot of the topology layout at a given
+ * time.
  */
-@XmlRootElement(name="saved-history")
+@XmlRootElement(name = "saved-history")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SavedHistory {
 
-    @XmlAttribute(name="semantic-zoom-level")
+    @XmlAttribute(name = "semantic-zoom-level")
     public int m_szl;
 
-    @XmlElement(name="bounding-box")
+    @XmlElement(name = "bounding-box")
     @XmlJavaTypeAdapter(BoundingBoxAdapter.class)
     public BoundingBox m_boundBox;
 
-    @XmlElement(name="locations")
+    @XmlElement(name = "locations")
     @XmlJavaTypeAdapter(VertexRefPointMapAdapter.class)
     public Map<VertexRef, Point> m_locations = new HashMap<VertexRef, Point>();
 
-    @XmlElement(name="selection")
+    @XmlElement(name = "selection")
     @XmlJavaTypeAdapter(VertexRefSetAdapter.class)
     private Set<VertexRef> m_selectedVertices;
 
     /**
-     * A map of key-value settings for the HistoryOperation components that are registered.
+     * A map of key-value settings for the HistoryOperation components that are
+     * registered.
      */
-    @XmlElement(name="settings")
+    @XmlElement(name = "settings")
     @XmlJavaTypeAdapter(StringMapAdapter.class)
-    public final Map<String,String> m_settings = new HashMap<String,String>();
+    public final Map<String, String> m_settings = new HashMap<String, String>();
 
     protected SavedHistory() {
         // Here for JAXB support
@@ -65,8 +67,9 @@ public class SavedHistory {
         return Collections.unmodifiableSet(selectedVertices);
     }
 
-    private static Map<String,String> getOperationSettings(GraphContainer graphContainer, Collection<HistoryOperation> operations) {
-        Map<String,String> retval = new HashMap<String,String>();
+    private static Map<String, String> getOperationSettings(GraphContainer graphContainer,
+            Collection<HistoryOperation> operations) {
+        Map<String, String> retval = new HashMap<String, String>();
         for (HistoryOperation operation : operations) {
             retval.putAll(operation.createHistory(graphContainer));
         }
@@ -74,17 +77,15 @@ public class SavedHistory {
     }
 
     public SavedHistory(GraphContainer graphContainer, Collection<HistoryOperation> operations) {
-        this(
-            graphContainer.getSemanticZoomLevel(),
-            graphContainer.getMapViewManager().getCurrentBoundingBox(),
-            saveLocations(graphContainer.getGraph()),
-            getUnmodifiableSet(graphContainer.getSelectionManager().getSelectedVertexRefs()),
-            getOperationSettings(graphContainer, operations)
-        );
+        this(graphContainer.getSemanticZoomLevel(), graphContainer.getMapViewManager().getCurrentBoundingBox(),
+             saveLocations(graphContainer.getGraph()),
+             getUnmodifiableSet(graphContainer.getSelectionManager().getSelectedVertexRefs()),
+             getOperationSettings(graphContainer, operations));
         saveLocations(graphContainer.getGraph());
     }
 
-    SavedHistory(int szl, BoundingBox box, Map<VertexRef,Point> locations, Set<VertexRef> selectedVertices, Map<String,String> operationSettings) {
+    SavedHistory(int szl, BoundingBox box, Map<VertexRef, Point> locations, Set<VertexRef> selectedVertices,
+            Map<String, String> operationSettings) {
         m_szl = szl;
         m_boundBox = box;
         m_locations = locations;
@@ -93,15 +94,14 @@ public class SavedHistory {
         LoggerFactory.getLogger(this.getClass()).debug("Created " + toString());
     }
 
-    private static Map<VertexRef,Point> saveLocations(Graph graph) {
+    private static Map<VertexRef, Point> saveLocations(Graph graph) {
         Collection<? extends Vertex> vertices = graph.getDisplayVertices();
-        Map<VertexRef,Point> locations = new HashMap<VertexRef,Point>();
-        for(Vertex vert : vertices) {
+        Map<VertexRef, Point> locations = new HashMap<VertexRef, Point>();
+        for (Vertex vert : vertices) {
             locations.put(vert, graph.getLayout().getLocation(vert));
         }
         return locations;
     }
-
 
     public int getSemanticZoomLevel() {
         return m_szl;
@@ -113,9 +113,10 @@ public class SavedHistory {
 
     public String getFragment() {
         StringBuffer retval = new StringBuffer().append("(").append(m_szl).append("),").append(m_boundBox.fragment()).append(",").append(m_boundBox.getCenter());
-        // Add a CRC of all of the key-value pairs in m_settings to make the fragment unique
+        // Add a CRC of all of the key-value pairs in m_settings to make the
+        // fragment unique
         CRC32 settingsCrc = new CRC32();
-        for (Map.Entry<String,String> entry : m_settings.entrySet()) {
+        for (Map.Entry<String, String> entry : m_settings.entrySet()) {
             try {
                 settingsCrc.update(entry.getKey().getBytes("UTF-8"));
                 settingsCrc.update(entry.getValue().getBytes("UTF-8"));
@@ -126,23 +127,23 @@ public class SavedHistory {
         retval.append(String.format(",(%X)", settingsCrc.getValue()));
 
         CRC32 locationsCrc = new CRC32();
-        for(Map.Entry<VertexRef, Point> entry : m_locations.entrySet()) {
+        for (Map.Entry<VertexRef, Point> entry : m_locations.entrySet()) {
             try {
                 locationsCrc.update(entry.getKey().getId().getBytes("UTF-8"));
                 locationsCrc.update(entry.getValue().getX());
                 locationsCrc.update(entry.getValue().getY());
-            } catch(UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException e) {
                 // Impossible on modern JVMs
             }
         }
         retval.append(String.format(",(%X)", locationsCrc.getValue()));
 
         CRC32 selectionsCrc = new CRC32();
-        for(VertexRef entry : m_selectedVertices) {
+        for (VertexRef entry : m_selectedVertices) {
             try {
                 selectionsCrc.update(entry.getNamespace().getBytes("UTF-8"));
                 selectionsCrc.update(entry.getId().getBytes("UTF-8"));
-            } catch(UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException e) {
                 // Impossible on modern JVMs
             }
         }
@@ -152,7 +153,8 @@ public class SavedHistory {
     }
 
     public void apply(GraphContainer graphContainer, Collection<HistoryOperation> operations) {
-        // LoggerFactory.getLogger(this.getClass()).debug("Applying " + toString());
+        // LoggerFactory.getLogger(this.getClass()).debug("Applying " +
+        // toString());
 
         // Apply the history for each registered HistoryOperation
         for (HistoryOperation operation : operations) {
@@ -168,7 +170,7 @@ public class SavedHistory {
     }
 
     private static void applySavedLocations(Map<VertexRef, Point> locations, Layout layout) {
-        for(VertexRef ref : locations.keySet()) {
+        for (VertexRef ref : locations.keySet()) {
             layout.setLocation(ref, locations.get(ref));
         }
     }
@@ -176,7 +178,7 @@ public class SavedHistory {
     @Override
     public String toString() {
         StringBuffer retval = new StringBuffer().append(this.getClass().getSimpleName()).append(": ").append(getFragment());
-        for (Map.Entry<String,String> entry : m_settings.entrySet()) {
+        for (Map.Entry<String, String> entry : m_settings.entrySet()) {
             retval.append(",[").append(entry.getKey()).append("->").append(entry.getValue()).append("]");
         }
         for (VertexRef entry : m_selectedVertices) {

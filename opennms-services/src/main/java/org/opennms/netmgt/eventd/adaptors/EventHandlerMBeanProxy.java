@@ -52,6 +52,7 @@ import org.opennms.netmgt.xml.event.EventReceipt;
  */
 public class EventHandlerMBeanProxy implements EventHandler {
     private static final Logger LOG = LoggerFactory.getLogger(EventHandlerMBeanProxy.class);
+
     private MBeanServer m_mbserver;
 
     private ObjectName m_listener;
@@ -80,11 +81,16 @@ public class EventHandlerMBeanProxy implements EventHandler {
     }
 
     /**
-     * <p>Constructor for EventHandlerMBeanProxy.</p>
+     * <p>
+     * Constructor for EventHandlerMBeanProxy.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @throws javax.management.MalformedObjectNameException if any.
-     * @throws javax.management.InstanceNotFoundException if any.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @throws javax.management.MalformedObjectNameException
+     *             if any.
+     * @throws javax.management.InstanceNotFoundException
+     *             if any.
      */
     public EventHandlerMBeanProxy(final String name) throws MalformedObjectNameException, InstanceNotFoundException {
         m_listener = new ObjectName(name);
@@ -92,10 +98,14 @@ public class EventHandlerMBeanProxy implements EventHandler {
     }
 
     /**
-     * <p>Constructor for EventHandlerMBeanProxy.</p>
+     * <p>
+     * Constructor for EventHandlerMBeanProxy.
+     * </p>
      *
-     * @param name a {@link javax.management.ObjectName} object.
-     * @throws javax.management.InstanceNotFoundException if any.
+     * @param name
+     *            a {@link javax.management.ObjectName} object.
+     * @throws javax.management.InstanceNotFoundException
+     *             if any.
      */
     public EventHandlerMBeanProxy(final ObjectName name) throws InstanceNotFoundException {
         m_listener = name;
@@ -103,10 +113,14 @@ public class EventHandlerMBeanProxy implements EventHandler {
     }
 
     /**
-     * <p>Constructor for EventHandlerMBeanProxy.</p>
+     * <p>
+     * Constructor for EventHandlerMBeanProxy.
+     * </p>
      *
-     * @param name a {@link javax.management.ObjectName} object.
-     * @param server a {@link javax.management.MBeanServer} object.
+     * @param name
+     *            a {@link javax.management.ObjectName} object.
+     * @param server
+     *            a {@link javax.management.MBeanServer} object.
      */
     public EventHandlerMBeanProxy(final ObjectName name, final MBeanServer server) {
         m_listener = name;
@@ -118,7 +132,8 @@ public class EventHandlerMBeanProxy implements EventHandler {
     public boolean processEvent(final Event event) {
         boolean result = false;
         try {
-            result = (Boolean) m_mbserver.invoke(m_listener, "processEvent", new Object[] { event }, new String[] { "org.opennms.netmgt.xml.event.Event" });
+            result = (Boolean) m_mbserver.invoke(m_listener, "processEvent", new Object[] { event },
+                                                 new String[] { "org.opennms.netmgt.xml.event.Event" });
         } catch (final Throwable t) {
             LOG.warn("Invocation on object {} failed", t, m_listener);
         }
@@ -130,7 +145,8 @@ public class EventHandlerMBeanProxy implements EventHandler {
     @Override
     public void receiptSent(final EventReceipt receipt) {
         try {
-            m_mbserver.invoke(m_listener, "receiptSent", new Object[] { receipt }, new String[] { "org.opennms.netmgt.xml.event.EventReceipt" });
+            m_mbserver.invoke(m_listener, "receiptSent", new Object[] { receipt },
+                              new String[] { "org.opennms.netmgt.xml.event.EventReceipt" });
         } catch (final Throwable t) {
             LOG.warn("Invocation on object {} failed", t, m_listener);
         }
@@ -139,10 +155,7 @@ public class EventHandlerMBeanProxy implements EventHandler {
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(9, 13)
-            .append(m_mbserver)
-            .append(m_listener)
-            .toHashCode();
+        return new HashCodeBuilder(9, 13).append(m_mbserver).append(m_listener).toHashCode();
     }
 
     /** {@inheritDoc} */

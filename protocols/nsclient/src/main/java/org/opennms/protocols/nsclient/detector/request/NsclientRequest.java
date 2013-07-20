@@ -32,7 +32,9 @@ import org.opennms.protocols.nsclient.NsclientCheckParams;
 import org.opennms.protocols.nsclient.NsclientManager;
 
 /**
- * <p>NsclientRequest class.</p>
+ * <p>
+ * NsclientRequest class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $

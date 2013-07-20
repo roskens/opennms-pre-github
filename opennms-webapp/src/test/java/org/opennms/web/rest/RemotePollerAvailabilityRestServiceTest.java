@@ -101,32 +101,30 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         DaoTestConfigBean bean = new DaoTestConfigBean();
         bean.afterPropertiesSet();
 
-
-        if(USE_EXISTING) {
+        if (USE_EXISTING) {
             TemporaryDatabase db = new TemporaryDatabasePostgreSQL("opennms", true);
             db.setPopulateSchema(false);
             db.create();
             DataSourceFactory.setInstance(db);
-        }else {
+        } else {
             MockDatabase db = new MockDatabase(true);
             DataSourceFactory.setInstance(db);
         }
 
-
         setServletContext(new MockServletContext("file:src/main/webapp"));
 
         getServletContext().addInitParameter("contextConfigLocation",
-                "classpath:/org/opennms/web/rest/applicationContext-test.xml " +
-                "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml " +
-                "classpath*:/META-INF/opennms/component-service.xml " +
-                "classpath*:/META-INF/opennms/component-dao.xml " +
-                "classpath:/META-INF/opennms/applicationContext-reportingCore.xml " +
-                "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml " +
-                "classpath:/org/opennms/web/svclayer/applicationContext-svclayer.xml " +
-                "classpath:/META-INF/opennms/applicationContext-mockEventProxy.xml " +
-                "classpath:/META-INF/opennms/applicationContext-reporting.xml " +
-                "/WEB-INF/applicationContext-spring-security.xml " +
-                "/WEB-INF/applicationContext-jersey.xml");
+                                             "classpath:/org/opennms/web/rest/applicationContext-test.xml "
+                                                     + "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml "
+                                                     + "classpath*:/META-INF/opennms/component-service.xml "
+                                                     + "classpath*:/META-INF/opennms/component-dao.xml "
+                                                     + "classpath:/META-INF/opennms/applicationContext-reportingCore.xml "
+                                                     + "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml "
+                                                     + "classpath:/org/opennms/web/svclayer/applicationContext-svclayer.xml "
+                                                     + "classpath:/META-INF/opennms/applicationContext-mockEventProxy.xml "
+                                                     + "classpath:/META-INF/opennms/applicationContext-reporting.xml "
+                                                     + "/WEB-INF/applicationContext-spring-security.xml "
+                                                     + "/WEB-INF/applicationContext-jersey.xml");
 
         getServletContext().addInitParameter("parentContextKey", "daoContext");
 
@@ -136,7 +134,8 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
         getServletContext().setContextPath(contextPath);
         setServletConfig(new MockServletConfig(getServletContext(), "dispatcher"));
-        getServletConfig().addInitParameter("com.sun.jersey.config.property.resourceConfigClass", "com.sun.jersey.api.core.PackagesResourceConfig");
+        getServletConfig().addInitParameter("com.sun.jersey.config.property.resourceConfigClass",
+                                            "com.sun.jersey.api.core.PackagesResourceConfig");
         getServletConfig().addInitParameter("com.sun.jersey.config.property.packages", "org.opennms.web.rest");
 
         try {
@@ -154,7 +153,6 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
         setWebAppContext(WebApplicationContextUtils.getWebApplicationContext(getServletContext()));
 
-
         afterServletStart();
 
         System.err.println("------------------------------------------------------------------------------");
@@ -170,7 +168,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         m_locationMonitorDao = getBean("locationMonitorDao", LocationMonitorDao.class);
         m_monServiceDao = getBean("monitoredServiceDao", MonitoredServiceDao.class);
 
-        if(!USE_EXISTING) {
+        if (!USE_EXISTING) {
             m_databasePopulator.populateDatabase();
 
             try {
@@ -194,14 +192,19 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
             protected void doInTransactionWithoutResult(final TransactionStatus status) {
                 long startMillis = System.currentTimeMillis() - 12000;
                 long totalTime = new Date().getTime() - startMillis;
-                TimeChunker timeChunker = new TimeChunker((int)totalTime, new Date(System.currentTimeMillis() - 12000), new Date());
-                @SuppressWarnings("unused") // increment the time segment
+                TimeChunker timeChunker = new TimeChunker((int) totalTime,
+                                                          new Date(System.currentTimeMillis() - 12000), new Date());
+                @SuppressWarnings("unused")
+                // increment the time segment
                 final TimeChunk timeChunk = timeChunker.getNextSegment();
-                Collection<OnmsLocationSpecificStatus> allStatusChanges = m_locationMonitorDao.getStatusChangesForApplicationBetween(new Date(startMillis), new Date(), "IPv6");
+                Collection<OnmsLocationSpecificStatus> allStatusChanges = m_locationMonitorDao.getStatusChangesForApplicationBetween(new Date(
+                                                                                                                                              startMillis),
+                                                                                                                                     new Date(),
+                                                                                                                                     "IPv6");
 
                 final AvailCalculator calc = new AvailCalculator(timeChunker);
 
-                for(OnmsLocationSpecificStatus statusChange : allStatusChanges) {
+                for (OnmsLocationSpecificStatus statusChange : allStatusChanges) {
                     calc.onStatusChange(statusChange);
                 }
 
@@ -212,7 +215,6 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         });
 
     }
-
 
     @Test
     public final void testGetLocations() throws Exception {
@@ -236,30 +238,27 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         String url = BASE_REST_URL;
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("resolution", "minute");
-        //addStartTime(parameters);
-        //addEndTime(parameters);
+        // addStartTime(parameters);
+        // addEndTime(parameters);
 
         String responseString = sendRequest(GET, url, parameters, 200);
 
-
-
-        if(USE_EXISTING) {
+        if (USE_EXISTING) {
             assertTrue(responseString.contains("HTTP-v6"));
             assertTrue(responseString.contains("HTTP-v4"));
         } else {
             assertTrue(responseString.contains("IPv6"));
             assertTrue(responseString.contains("IPv4"));
         }
-        System.err.println("total time taken: " + (System.currentTimeMillis() - startTime) + "UptimeCalculator.count = " + UptimeCalculator.count);
+        System.err.println("total time taken: " + (System.currentTimeMillis() - startTime)
+                + "UptimeCalculator.count = " + UptimeCalculator.count);
 
         Thread.sleep(360000);
 
         startTime = System.currentTimeMillis();
         responseString = sendRequest(GET, url, parameters, 200);
 
-
-
-        if(USE_EXISTING) {
+        if (USE_EXISTING) {
             assertTrue(responseString.contains("HTTP-v6"));
             assertTrue(responseString.contains("HTTP-v4"));
         } else {
@@ -267,7 +266,8 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
             assertTrue(responseString.contains("IPv4"));
         }
 
-        System.err.println("total time taken for cache: " + (System.currentTimeMillis() - startTime) + "UptimeCalculator.count = " + UptimeCalculator.count);
+        System.err.println("total time taken for cache: " + (System.currentTimeMillis() - startTime)
+                + "UptimeCalculator.count = " + UptimeCalculator.count);
     }
 
     @Test
@@ -281,7 +281,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
         String responseString = sendRequest(GET, url, parameters, 200);
 
-        if(USE_EXISTING) {
+        if (USE_EXISTING) {
             assertTrue(responseString.contains("HTTP-v6"));
             assertTrue(responseString.contains("HTTP-v4"));
         } else {
@@ -292,7 +292,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
     }
 
     private void addEndTime(final Map<String, String> parameters) {
-        if(USE_EXISTING) {
+        if (USE_EXISTING) {
             parameters.put("endTime", "" + 1307101853449L);
         } else {
             parameters.put("endTime", "" + System.currentTimeMillis());
@@ -300,9 +300,9 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
     }
 
     private void addStartTime(final Map<String, String> parameters) {
-        if(USE_EXISTING) {
+        if (USE_EXISTING) {
             parameters.put("startTime", "" + 1306943136422L);
-        }else {
+        } else {
             parameters.put("startTime", "" + (System.currentTimeMillis() - 300001));
         }
     }
@@ -321,7 +321,6 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         assertTrue(responseString.contains("IPv4"));
 
     }
-
 
     private void createLocationMonitors() throws InterruptedException {
         TransactionTemplate txTemplate = getBean("transactionTemplate", TransactionTemplate.class);
@@ -352,7 +351,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
                 m_applicationDao.saveOrUpdate(ipv4App);
 
                 List<OnmsMonitoredService> services = m_monServiceDao.findByType("HTTP");
-                for(OnmsMonitoredService service : services) {
+                for (OnmsMonitoredService service : services) {
 
                     service = m_monServiceDao.findByType("HTTP").get(0);
                     service.addApplication(ipv6App);
@@ -380,7 +379,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
             @Override
             protected void doInTransactionWithoutResult(final TransactionStatus status) {
                 List<OnmsMonitoredService> services = m_monServiceDao.findByType("HTTP");
-                for(OnmsMonitoredService service : services) {
+                for (OnmsMonitoredService service : services) {
 
                     OnmsLocationMonitor locMon = m_locationMonitorDao.findAll().get(0);
                     OnmsLocationSpecificStatus statusChange = new OnmsLocationSpecificStatus();
@@ -400,7 +399,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
             @Override
             protected void doInTransactionWithoutResult(final TransactionStatus status) {
                 List<OnmsMonitoredService> services = m_monServiceDao.findByType("HTTP");
-                for(OnmsMonitoredService service : services) {
+                for (OnmsMonitoredService service : services) {
 
                     OnmsLocationMonitor locMon = m_locationMonitorDao.findAll().get(0);
                     OnmsLocationSpecificStatus statusChange = new OnmsLocationSpecificStatus();

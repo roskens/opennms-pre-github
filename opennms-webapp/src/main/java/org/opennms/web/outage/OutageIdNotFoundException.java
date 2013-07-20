@@ -29,7 +29,9 @@
 package org.opennms.web.outage;
 
 /**
- * <p>OutageIdNotFoundException class.</p>
+ * <p>
+ * OutageIdNotFoundException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -46,10 +48,14 @@ public class OutageIdNotFoundException extends RuntimeException {
     protected String message;
 
     /**
-     * <p>Constructor for OutageIdNotFoundException.</p>
+     * <p>
+     * Constructor for OutageIdNotFoundException.
+     * </p>
      *
-     * @param msg a {@link java.lang.String} object.
-     * @param id a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      */
     public OutageIdNotFoundException(String msg, String id) {
         this.message = msg;
@@ -57,7 +63,9 @@ public class OutageIdNotFoundException extends RuntimeException {
     }
 
     /**
-     * <p>Getter for the field <code>message</code>.</p>
+     * <p>
+     * Getter for the field <code>message</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -67,7 +75,9 @@ public class OutageIdNotFoundException extends RuntimeException {
     }
 
     /**
-     * <p>getBadID</p>
+     * <p>
+     * getBadID
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

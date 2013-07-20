@@ -63,7 +63,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Markus Neumann <Markus@OpenNMS.org>
  */
 public class JMXCollectorTest {
@@ -127,15 +126,16 @@ public class JMXCollectorTest {
         List<String> attributes = new ArrayList<String>();
         attributes.add("X");
         attributes.add("Name");
-//TODO Tak: Test attributes that will return null is the next step
-//        attributes.add("NullString");
+        // TODO Tak: Test attributes that will return null is the next step
+        // attributes.add("NullString");
         beanInfo.setAttributes(attributes);
         mBeans.put("first", beanInfo);
         jmxNodeInfo.setMBeans(mBeans);
         Map<String, JMXDataSource> dataSourceMap = new HashMap<String, JMXDataSource>();
         dataSourceMap.put(mBeansObjectName + "|X", new JMXDataSource());
         dataSourceMap.put(mBeansObjectName + "|Name", new JMXDataSource());
-//        dataSourceMap.put("org.opennms.netmgt.collectd.jmxhelper:type=JmxTest|NullString", new JMXDataSource());
+        // dataSourceMap.put("org.opennms.netmgt.collectd.jmxhelper:type=JmxTest|NullString",
+        // new JMXDataSource());
         jmxNodeInfo.setDsMap(dataSourceMap);
         CollectionSet collectionSet = jmxCollector.collect(collectionAgent, null, null);
         assertEquals("Collection of two dummy values run successfully", 1, collectionSet.getStatus());
@@ -147,15 +147,16 @@ public class JMXCollectorTest {
         jmxNodeInfo.setMBeans(jmxConfigFactory.getMBeanInfo(collectionName));
         jmxNodeInfo.setDsMap(generateDataSourceMap(jmxConfigFactory.getAttributeMap(collectionName, "", "")));
 
-        //start collection
+        // start collection
         CollectionSet collectionSet = jmxCollector.collect(collectionAgent, null, null);
         JMXCollectionSet jmxCollectionSet = (JMXCollectionSet) collectionSet;
         JMXCollectionResource jmxCollectionResource = jmxCollectionSet.getResource();
-        AttributeGroup group = jmxCollectionResource.getGroup(new AttributeGroupType("java_lang_type_Compilation", "all"));
+        AttributeGroup group = jmxCollectionResource.getGroup(new AttributeGroupType("java_lang_type_Compilation",
+                                                                                     "all"));
         assertEquals(1, group.getAttributes().size());
         printDebugAttributeGroup(group);
 
-        //ToDo Tak how to check if all metrics where collected?
+        // ToDo Tak how to check if all metrics where collected?
         assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
     }
 
@@ -168,11 +169,12 @@ public class JMXCollectorTest {
         jmxNodeInfo.setMBeans(jmxConfigFactory.getMBeanInfo(collectionName));
         jmxNodeInfo.setDsMap(generateDataSourceMap(jmxConfigFactory.getAttributeMap(collectionName, "", "")));
 
-        //start collection
+        // start collection
         CollectionSet collectionSet = jmxCollector.collect(collectionAgent, null, null);
         JMXCollectionSet jmxCollectionSet = (JMXCollectionSet) collectionSet;
         JMXCollectionResource jmxCollectionResource = jmxCollectionSet.getResource();
-        AttributeGroup group = jmxCollectionResource.getGroup(new AttributeGroupType("java_lang_type_Compilation", "all"));
+        AttributeGroup group = jmxCollectionResource.getGroup(new AttributeGroupType("java_lang_type_Compilation",
+                                                                                     "all"));
         assertEquals(0, group.getAttributes().size());
         printDebugAttributeGroup(group);
 
@@ -185,11 +187,12 @@ public class JMXCollectorTest {
         jmxNodeInfo.setMBeans(jmxConfigFactory.getMBeanInfo(collectionName));
         jmxNodeInfo.setDsMap(generateDataSourceMap(jmxConfigFactory.getAttributeMap(collectionName, "", "")));
 
-        //start collection
+        // start collection
         CollectionSet collectionSet = jmxCollector.collect(collectionAgent, null, null);
         JMXCollectionSet jmxCollectionSet = (JMXCollectionSet) collectionSet;
         JMXCollectionResource jmxCollectionResource = jmxCollectionSet.getResource();
-        AttributeGroup group = jmxCollectionResource.getGroup(new AttributeGroupType("java_lang_type_Compilation", "all"));
+        AttributeGroup group = jmxCollectionResource.getGroup(new AttributeGroupType("java_lang_type_Compilation",
+                                                                                     "all"));
         assertEquals(1, group.getAttributes().size());
         printDebugAttributeGroup(group);
 
@@ -202,11 +205,12 @@ public class JMXCollectorTest {
         jmxNodeInfo.setMBeans(jmxConfigFactory.getMBeanInfo(collectionName));
         jmxNodeInfo.setDsMap(generateDataSourceMap(jmxConfigFactory.getAttributeMap(collectionName, "", "")));
 
-        //start collection
+        // start collection
         CollectionSet collectionSet = jmxCollector.collect(collectionAgent, null, null);
         JMXCollectionSet jmxCollectionSet = (JMXCollectionSet) collectionSet;
         JMXCollectionResource jmxCollectionResource = jmxCollectionSet.getResource();
-        AttributeGroup group = jmxCollectionResource.getGroup(new AttributeGroupType("java_lang_type_OperatingSystem", "all"));
+        AttributeGroup group = jmxCollectionResource.getGroup(new AttributeGroupType("java_lang_type_OperatingSystem",
+                                                                                     "all"));
         assertEquals(8, group.getAttributes().size());
         printDebugAttributeGroup(group);
 
@@ -219,7 +223,7 @@ public class JMXCollectorTest {
         jmxNodeInfo.setMBeans(jmxConfigFactory.getMBeanInfo(collectionName));
         jmxNodeInfo.setDsMap(generateDataSourceMap(jmxConfigFactory.getAttributeMap(collectionName, "", "")));
 
-        //start collection
+        // start collection
         CollectionSet collectionSet = jmxCollector.collect(collectionAgent, null, null);
         JMXCollectionSet jmxCollectionSet = (JMXCollectionSet) collectionSet;
         JMXCollectionResource jmxCollectionResource = jmxCollectionSet.getResource();
@@ -236,7 +240,7 @@ public class JMXCollectorTest {
         jmxNodeInfo.setMBeans(jmxConfigFactory.getMBeanInfo(collectionName));
         jmxNodeInfo.setDsMap(generateDataSourceMap(jmxConfigFactory.getAttributeMap(collectionName, "", "")));
 
-        //start collection
+        // start collection
         CollectionSet collectionSet = jmxCollector.collect(collectionAgent, null, null);
         JMXCollectionSet jmxCollectionSet = (JMXCollectionSet) collectionSet;
         JMXCollectionResource jmxCollectionResource = jmxCollectionSet.getResource();
@@ -246,6 +250,7 @@ public class JMXCollectorTest {
 
         assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
     }
+
     /**
      * Check if CompositeAttributes will be collected
      */
@@ -269,7 +274,7 @@ public class JMXCollectorTest {
         jmxNodeInfo.setMBeans(mBeans);
         Map<String, JMXDataSource> dataSourceMap = new HashMap<String, JMXDataSource>();
         dataSourceMap.put(mBeansObjectName + "|CollectionCount", new JMXDataSource());
-        //ToDo Tak set the JmxDataSource type to composite?
+        // ToDo Tak set the JmxDataSource type to composite?
         dataSourceMap.put(mBeansObjectName + "|LastGcInfo", new JMXDataSource());
 
         jmxNodeInfo.setDsMap(dataSourceMap);

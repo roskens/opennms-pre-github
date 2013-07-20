@@ -58,9 +58,12 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
     }
 
     /**
-     * <p>authenticateUser</p>
+     * <p>
+     * authenticateUser
+     * </p>
      *
-     * @throws org.asteriskjava.fastagi.AgiException if any.
+     * @throws org.asteriskjava.fastagi.AgiException
+     *             if any.
      */
     public void authenticateUser() throws AgiException {
         String actualPin = getVariable(VAR_OPENNMS_USER_PIN);
@@ -70,7 +73,7 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
         }
         String inputPin = null;
         int attempts = 0;
-        while (! String.valueOf(inputPin).equals(String.valueOf(actualPin)) && attempts < 3) {
+        while (!String.valueOf(inputPin).equals(String.valueOf(actualPin)) && attempts < 3) {
             if (attempts > 0) {
                 streamFile("auth-incorrect");
             }
@@ -88,9 +91,12 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
     }
 
     /**
-     * <p>sayNode</p>
+     * <p>
+     * sayNode
+     * </p>
      *
-     * @throws org.asteriskjava.fastagi.AgiException if any.
+     * @throws org.asteriskjava.fastagi.AgiException
+     *             if any.
      */
     public void sayNode() throws AgiException {
         String nodeID = null;
@@ -98,8 +104,7 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
         nodeID = getVariable(VAR_OPENNMS_NODEID);
         nodeLabel = getVariable(VAR_OPENNMS_NODELABEL);
 
-
-        if (! "".equals(nodeLabel)) {
+        if (!"".equals(nodeLabel)) {
             LOG.debug("Reading node label to user: {}", nodeLabel);
             streamFileInterruptible("node");
             try {
@@ -118,9 +123,12 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
     }
 
     /**
-     * <p>sayIpAddr</p>
+     * <p>
+     * sayIpAddr
+     * </p>
      *
-     * @throws org.asteriskjava.fastagi.AgiException if any.
+     * @throws org.asteriskjava.fastagi.AgiException
+     *             if any.
      */
     public void sayIpAddr() throws AgiException {
         String ipAddr = null;
@@ -136,9 +144,12 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
     }
 
     /**
-     * <p>sayServiceName</p>
+     * <p>
+     * sayServiceName
+     * </p>
      *
-     * @throws org.asteriskjava.fastagi.AgiException if any.
+     * @throws org.asteriskjava.fastagi.AgiException
+     *             if any.
      */
     public void sayServiceName() throws AgiException {
         String svcName = null;

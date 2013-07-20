@@ -42,7 +42,9 @@ import org.opennms.netmgt.config.capsd.Range;
 import org.opennms.netmgt.config.capsd.SmbAuth;
 
 /**
- * <p>CapsdConfig interface.</p>
+ * <p>
+ * CapsdConfig interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -58,25 +60,29 @@ public interface CapsdConfig {
     /**
      * Saves the current in-memory configuration to disk and reloads
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     void save() throws MarshalException, IOException, ValidationException;
 
     /**
      * Return the Capsd configuration object.
      *
-     * @return a {@link org.opennms.netmgt.config.capsd.CapsdConfiguration} object.
+     * @return a {@link org.opennms.netmgt.config.capsd.CapsdConfiguration}
+     *         object.
      */
     CapsdConfiguration getConfiguration();
 
     /**
      * Finds the SMB authentication object using the netbios name.
-     *
      * The target of the search.
      *
-     * @param target a {@link java.lang.String} object.
+     * @param target
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.capsd.SmbAuth} object.
      */
     SmbAuth getSmbAuth(String target);
@@ -92,28 +98,36 @@ public interface CapsdConfig {
     boolean isAddressUnmanaged(InetAddress target);
 
     /**
-     * <p>getRescanFrequency</p>
+     * <p>
+     * getRescanFrequency
+     * </p>
      *
      * @return a long.
      */
     long getRescanFrequency();
 
     /**
-     * <p>getInitialSleepTime</p>
+     * <p>
+     * getInitialSleepTime
+     * </p>
      *
      * @return a long.
      */
     long getInitialSleepTime();
 
     /**
-     * <p>getMaxSuspectThreadPoolSize</p>
+     * <p>
+     * getMaxSuspectThreadPoolSize
+     * </p>
      *
      * @return a int.
      */
     int getMaxSuspectThreadPoolSize();
 
     /**
-     * <p>getMaxRescanThreadPoolSize</p>
+     * <p>
+     * getMaxRescanThreadPoolSize
+     * </p>
      *
      * @return a int.
      */
@@ -129,7 +143,9 @@ public interface CapsdConfig {
     boolean getAbortProtocolScansFlag();
 
     /**
-     * <p>getDeletePropagationEnabled</p>
+     * <p>
+     * getDeletePropagationEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -144,86 +160,126 @@ public interface CapsdConfig {
     String getXmlrpc();
 
     /**
-     * <p>isXmlRpcEnabled</p>
+     * <p>
+     * isXmlRpcEnabled
+     * </p>
      *
      * @return a boolean.
      */
     boolean isXmlRpcEnabled();
 
     /**
-     * <p>getProtocolPlugin</p>
+     * <p>
+     * getProtocolPlugin
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin} object.
      */
     ProtocolPlugin getProtocolPlugin(String svcName);
 
     /**
-     * <p>addProtocolPlugin</p>
+     * <p>
+     * addProtocolPlugin
+     * </p>
      *
-     * @param plugin a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin} object.
+     * @param plugin
+     *            a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin}
+     *            object.
      */
     void addProtocolPlugin(ProtocolPlugin plugin);
 
     /**
-     * <p>determinePrimarySnmpInterface</p>
+     * <p>
+     * determinePrimarySnmpInterface
+     * </p>
      *
-     * @param addressList a {@link java.util.List} object.
-     * @param strict a boolean.
+     * @param addressList
+     *            a {@link java.util.List} object.
+     * @param strict
+     *            a boolean.
      * @return a {@link java.net.InetAddress} object.
      */
     InetAddress determinePrimarySnmpInterface(List<InetAddress> addressList, boolean strict);
 
     /**
-     * <p>getConfiguredProtocols</p>
+     * <p>
+     * getConfiguredProtocols
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<String> getConfiguredProtocols();
 
     /**
-     * <p>getProtocolPlugins</p>
+     * <p>
+     * getProtocolPlugins
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<ProtocolPlugin> getProtocolPlugins();
 
     /**
-     * <p>getProtocolConfigurations</p>
+     * <p>
+     * getProtocolConfigurations
+     * </p>
      *
-     * @param plugin a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin} object.
+     * @param plugin
+     *            a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin}
+     *            object.
      * @return a {@link java.util.List} object.
      */
     List<ProtocolConfiguration> getProtocolConfigurations(ProtocolPlugin plugin);
 
     /**
-     * <p>getSpecifics</p>
+     * <p>
+     * getSpecifics
+     * </p>
      *
-     * @param pluginConf a {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration} object.
+     * @param pluginConf
+     *            a
+     *            {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration}
+     *            object.
      * @return a {@link java.util.List} object.
      */
     List<String> getSpecifics(ProtocolConfiguration pluginConf);
 
     /**
-     * <p>getRanges</p>
+     * <p>
+     * getRanges
+     * </p>
      *
-     * @param pluginConf a {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration} object.
+     * @param pluginConf
+     *            a
+     *            {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration}
+     *            object.
      * @return a {@link java.util.List} object.
      */
     List<Range> getRanges(ProtocolConfiguration pluginConf);
 
     /**
-     * <p>getPluginProperties</p>
+     * <p>
+     * getPluginProperties
+     * </p>
      *
-     * @param plugin a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin} object.
+     * @param plugin
+     *            a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin}
+     *            object.
      * @return a {@link java.util.List} object.
      */
     List<Property> getPluginProperties(ProtocolPlugin plugin);
 
     /**
-     * <p>getProtocolConfigurationProperties</p>
+     * <p>
+     * getProtocolConfigurationProperties
+     * </p>
      *
-     * @param pluginConf a {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration} object.
+     * @param pluginConf
+     *            a
+     *            {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration}
+     *            object.
      * @return a {@link java.util.List} object.
      */
     List<Property> getProtocolConfigurationProperties(ProtocolConfiguration pluginConf);

@@ -53,20 +53,18 @@ public class IPInterfaceTableTracker extends TableTracker {
 
     /** Constant <code>IP_ADDR_ENT_ADDR</code> */
     public static final SnmpObjId IP_ADDR_ENT_ADDR = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "1");
+
     /** Constant <code>IP_ADDR_IF_INDEX</code> */
     public static final SnmpObjId IP_ADDR_IF_INDEX = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "2");
+
     /** Constant <code>IP_ADDR_ENT_NETMASK</code> */
     public static final SnmpObjId IP_ADDR_ENT_NETMASK = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "3");
+
     /** Constant <code>IP_ADDR_ENT_BCASTADDR</code> */
     public static final SnmpObjId IP_ADDR_ENT_BCASTADDR = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "4");
 
-
-    private static SnmpObjId[] s_tableColumns = new SnmpObjId[] {
-        IP_ADDR_ENT_ADDR,
-        IP_ADDR_IF_INDEX,
-        IP_ADDR_ENT_NETMASK,
-        IP_ADDR_ENT_BCASTADDR
-    };
+    private static SnmpObjId[] s_tableColumns = new SnmpObjId[] { IP_ADDR_ENT_ADDR, IP_ADDR_IF_INDEX,
+            IP_ADDR_ENT_NETMASK, IP_ADDR_ENT_BCASTADDR };
 
     class IPInterfaceRow extends SnmpRowResult {
 
@@ -87,11 +85,11 @@ public class IPInterfaceTableTracker extends TableTracker {
                 // instance for ipAddr Table it ipAddr
                 SnmpInstId inst = getInstance();
                 if (inst != null) {
-                	final String addr = InetAddressUtils.normalize(inst.toString());
-                	if (addr == null) {
-                		throw new IllegalArgumentException("cannot convert "+inst+" to an InetAddress");
-                	}
-					return addr;
+                    final String addr = InetAddressUtils.normalize(inst.toString());
+                    if (addr == null) {
+                        throw new IllegalArgumentException("cannot convert " + inst + " to an InetAddress");
+                    }
+                    return addr;
                 }
             }
             return null;
@@ -118,9 +116,11 @@ public class IPInterfaceTableTracker extends TableTracker {
 
             iface.setIfIndex(ifIndex);
             String hostName = null;
-            if (inetAddress != null) hostName = inetAddress.getHostName();
-            if (hostName == null) hostName = InetAddressUtils.normalize(ipAddr);
-            iface.setIpHostName(hostName == null? ipAddr : hostName);
+            if (inetAddress != null)
+                hostName = inetAddress.getHostName();
+            if (hostName == null)
+                hostName = InetAddressUtils.normalize(ipAddr);
+            iface.setIpHostName(hostName == null ? ipAddr : hostName);
 
             return iface;
         }
@@ -128,16 +128,21 @@ public class IPInterfaceTableTracker extends TableTracker {
     }
 
     /**
-     * <p>Constructor for IPInterfaceTableTracker.</p>
+     * <p>
+     * Constructor for IPInterfaceTableTracker.
+     * </p>
      */
     public IPInterfaceTableTracker() {
         super(s_tableColumns);
     }
 
     /**
-     * <p>Constructor for IPInterfaceTableTracker.</p>
+     * <p>
+     * Constructor for IPInterfaceTableTracker.
+     * </p>
      *
-     * @param rowProcessor a {@link org.opennms.netmgt.snmp.RowCallback} object.
+     * @param rowProcessor
+     *            a {@link org.opennms.netmgt.snmp.RowCallback} object.
      */
     public IPInterfaceTableTracker(RowCallback rowProcessor) {
         super(rowProcessor, s_tableColumns);
@@ -152,13 +157,18 @@ public class IPInterfaceTableTracker extends TableTracker {
     /** {@inheritDoc} */
     @Override
     public void rowCompleted(SnmpRowResult row) {
-        processIPInterfaceRow((IPInterfaceRow)row);
+        processIPInterfaceRow((IPInterfaceRow) row);
     }
 
     /**
-     * <p>processIPInterfaceRow</p>
+     * <p>
+     * processIPInterfaceRow
+     * </p>
      *
-     * @param row a {@link org.opennms.netmgt.provision.service.IPInterfaceTableTracker.IPInterfaceRow} object.
+     * @param row
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.IPInterfaceTableTracker.IPInterfaceRow}
+     *            object.
      */
     public void processIPInterfaceRow(IPInterfaceRow row) {
 

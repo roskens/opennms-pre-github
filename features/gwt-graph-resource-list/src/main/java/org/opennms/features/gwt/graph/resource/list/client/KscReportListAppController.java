@@ -39,8 +39,8 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 public class KscReportListAppController implements Presenter {
 
-
     private JsArray<ResourceListItem> m_resourceList;
+
     private String m_baseUrl;
 
     public KscReportListAppController(JsArray<ResourceListItem> resourceListData, String baseUrl) {

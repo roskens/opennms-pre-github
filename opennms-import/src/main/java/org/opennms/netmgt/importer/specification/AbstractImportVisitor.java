@@ -36,7 +36,9 @@ import org.opennms.netmgt.importer.config.MonitoredService;
 import org.opennms.netmgt.importer.config.Node;
 
 /**
- * <p>AbstractImportVisitor class.</p>
+ * <p>
+ * AbstractImportVisitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

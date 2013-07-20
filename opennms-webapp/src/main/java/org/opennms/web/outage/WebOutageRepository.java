@@ -32,7 +32,9 @@ import org.opennms.netmgt.model.outage.OutageSummary;
 import org.opennms.web.outage.filter.OutageCriteria;
 
 /**
- * <p>WebOutageRepository interface.</p>
+ * <p>
+ * WebOutageRepository interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,42 +43,58 @@ import org.opennms.web.outage.filter.OutageCriteria;
 public interface WebOutageRepository {
 
     /**
-     * <p>countMatchingOutages</p>
+     * <p>
+     * countMatchingOutages
+     * </p>
      *
-     * @param criteria a {@link org.opennms.web.outage.filter.OutageCriteria} object.
+     * @param criteria
+     *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
      * @return a int.
      */
     public abstract int countMatchingOutages(OutageCriteria criteria);
 
     /**
-     * <p>getOutage</p>
+     * <p>
+     * getOutage
+     * </p>
      *
-     * @param OutageId a int.
+     * @param OutageId
+     *            a int.
      * @return a {@link org.opennms.web.outage.Outage} object.
      */
     public abstract Outage getOutage(int OutageId);
 
     /**
-     * <p>getMatchingOutages</p>
+     * <p>
+     * getMatchingOutages
+     * </p>
      *
-     * @param criteria a {@link org.opennms.web.outage.filter.OutageCriteria} object.
+     * @param criteria
+     *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
      */
     public abstract Outage[] getMatchingOutages(OutageCriteria criteria);
 
     /**
-     * <p>countMatchingOutageSummaries</p>
+     * <p>
+     * countMatchingOutageSummaries
+     * </p>
      *
-     * @param criteria a {@link org.opennms.web.outage.filter.OutageCriteria} object.
+     * @param criteria
+     *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
      * @return a int.
      */
     public abstract int countMatchingOutageSummaries(OutageCriteria criteria);
 
     /**
-     * <p>getMatchingOutageSummaries</p>
+     * <p>
+     * getMatchingOutageSummaries
+     * </p>
      *
-     * @param criteria a {@link org.opennms.web.outage.filter.OutageCriteria} object.
-     * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary} objects.
+     * @param criteria
+     *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
+     * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary}
+     *         objects.
      */
     public abstract OutageSummary[] getMatchingOutageSummaries(OutageCriteria criteria);
 
@@ -87,7 +105,9 @@ public interface WebOutageRepository {
 
     /**
      * Get the current list of outages by node.
-     * @param rows the number of outages to return.
+     *
+     * @param rows
+     *            the number of outages to return.
      * @return
      */
     public abstract OutageSummary[] getCurrentOutages(int rows);

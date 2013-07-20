@@ -41,8 +41,11 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.charts.ChartUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
- * <p>PurdyChartServlet class.</p>
+ * <p>
+ * PurdyChartServlet class.
+ * </p>
  *
  * @author david
  * @version $Id: $
@@ -50,7 +53,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PurdyChartServlet extends HttpServlet {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PurdyChartServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PurdyChartServlet.class);
 
     /**
      *
@@ -58,27 +61,30 @@ public class PurdyChartServlet extends HttpServlet {
     private static final long serialVersionUID = 2449309268355063862L;
 
     /**
-     * <p>Constructor for PurdyChartServlet.</p>
+     * <p>
+     * Constructor for PurdyChartServlet.
+     * </p>
      */
     public PurdyChartServlet() {
         super();
     }
 
-/*    public void init() {
-        try {
-            ChartConfigFactory.init();
-            DataSourceFactory.init();
-        } catch (MarshalException e) {
-            log().error("init: Error marshalling chart-configuration.xml: ",e);
-        } catch (ValidationException e) {
-            log().error("init: Error validating chart-configuration.xml: ",e);
-        } catch (IOException e) {
-            log().error("init: Error reading chart-configuration.xml: ",e);
-        } catch (ClassNotFoundException e) {
-            log().error("init: Error initializing database connection factory: ",e);
-        }
-    }
-*/
+    /*
+     * public void init() {
+     * try {
+     * ChartConfigFactory.init();
+     * DataSourceFactory.init();
+     * } catch (MarshalException e) {
+     * log().error("init: Error marshalling chart-configuration.xml: ",e);
+     * } catch (ValidationException e) {
+     * log().error("init: Error validating chart-configuration.xml: ",e);
+     * } catch (IOException e) {
+     * log().error("init: Error reading chart-configuration.xml: ",e);
+     * } catch (ClassNotFoundException e) {
+     * log().error("init: Error initializing database connection factory: ",e);
+     * }
+     * }
+     */
 
     /** {@inheritDoc} */
     @Override
@@ -96,40 +102,40 @@ public class PurdyChartServlet extends HttpServlet {
             buffered = "0";
         }
 
-/*        response.setContentType("text/html");
-        PrintWriter pw = response.getWriter();
-        pw.println("<html>");
-        pw.println("<body>");
-        pw.println("<h1>"+chartName+"</h1>");
-        pw.close();
-*/
+        /*
+         * response.setContentType("text/html");
+         * PrintWriter pw = response.getWriter();
+         * pw.println("<html>");
+         * pw.println("<body>");
+         * pw.println("<h1>"+chartName+"</h1>");
+         * pw.close();
+         */
         response.setContentType("image/png");
         OutputStream out = response.getOutputStream();
 
         LOG.debug("doGet: displaying chart: {}", chartName);
 
         try {
-                ChartUtils.getBarChartPNG(chartName, out);
+            ChartUtils.getBarChartPNG(chartName, out);
         } catch (MarshalException e) {
-            LOG.error("Error marshalling chart-configuration.xml: ",e);
+            LOG.error("Error marshalling chart-configuration.xml: ", e);
         } catch (ValidationException e) {
-            LOG.error("Error validating chart-configuration.xml: ",e);
+            LOG.error("Error validating chart-configuration.xml: ", e);
         } catch (IOException e) {
-            LOG.error("Error reading chart-configuration.xml: ",e);
+            LOG.error("Error reading chart-configuration.xml: ", e);
         } catch (SQLException e) {
-            LOG.error("Error in SQL for chart: {}", chartName,e);
+            LOG.error("Error in SQL for chart: {}", chartName, e);
         }
 
         out.flush();
         out.close();
 
-/*        pw = response.getWriter();
-        response.setContentType("text/html");
-        pw.println("</body>");
-        pw.println("</html>");
-*/
+        /*
+         * pw = response.getWriter();
+         * response.setContentType("text/html");
+         * pw.println("</body>");
+         * pw.println("</html>");
+         */
     }
-
-
 
 }

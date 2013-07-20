@@ -31,7 +31,8 @@ public class FasterFilesystemForeignSourceRepositoryTest {
     public void testGetForeignSourceCount() throws Exception {
         FileSystemBuilder bldr = new FileSystemBuilder("target", "testGetForeignSourceCount");
 
-        File fsDir = bldr.dir("foreignSource").file("test.xml", fs("test")).file("noreq.xml", fs("noreq")).file("another.xml", fs("another")).pop();
+        File fsDir = bldr.dir("foreignSource").file("test.xml", fs("test")).file("noreq.xml", fs("noreq")).file("another.xml",
+                                                                                                                fs("another")).pop();
         File reqDir = bldr.dir("requisitions").file("test.xml").file("pending.xml").pop();
 
         FasterFilesystemForeignSourceRepository repo = repo(fsDir, reqDir);
@@ -105,27 +106,23 @@ public class FasterFilesystemForeignSourceRepositoryTest {
     }
 
     private String fs(String name) {
-        String template = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<foreign-source date-stamp=\"2012-12-17T13:59:04.299-05:00\" name=\"_TEMPLATE_\" xmlns=\"http://xmlns.opennms.org/xsd/config/foreign-source\">\n" +
-                "    <scan-interval>1d</scan-interval>\n" +
-                "    <detectors>\n" +
-                "        <detector class=\"org.opennms.netmgt.provision.detector.icmp.IcmpDetector\" name=\"ICMP\"/>\n" +
-                "        <detector class=\"org.opennms.netmgt.provision.detector.snmp.SnmpDetector\" name=\"SNMP\"/>\n" +
-                "    </detectors>\n" +
-                "    <policies/>\n" +
-                "</foreign-source>";
+        String template = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                + "<foreign-source date-stamp=\"2012-12-17T13:59:04.299-05:00\" name=\"_TEMPLATE_\" xmlns=\"http://xmlns.opennms.org/xsd/config/foreign-source\">\n"
+                + "    <scan-interval>1d</scan-interval>\n"
+                + "    <detectors>\n"
+                + "        <detector class=\"org.opennms.netmgt.provision.detector.icmp.IcmpDetector\" name=\"ICMP\"/>\n"
+                + "        <detector class=\"org.opennms.netmgt.provision.detector.snmp.SnmpDetector\" name=\"SNMP\"/>\n"
+                + "    </detectors>\n" + "    <policies/>\n" + "</foreign-source>";
 
         return template.replaceAll("_TEMPLATE_", name);
     }
 
     private String req(String name) {
-        String template = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<model-import last-import=\"2012-12-17T14:00:08.997-05:00\" foreign-source=\"_TEMPLATE_\" date-stamp=\"2012-12-17T14:00:08.757-05:00\" xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\">\n" +
-                "    <node node-label=\"node1\" foreign-id=\"1234\" building=\"_TEMPLATE_\">\n" +
-                "        <interface snmp-primary=\"P\" status=\"1\" ip-addr=\"127.0.0.1\" descr=\"\"/>\n" +
-                "    </node>\n" +
-                "</model-import>\n" +
-                "";
+        String template = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                + "<model-import last-import=\"2012-12-17T14:00:08.997-05:00\" foreign-source=\"_TEMPLATE_\" date-stamp=\"2012-12-17T14:00:08.757-05:00\" xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\">\n"
+                + "    <node node-label=\"node1\" foreign-id=\"1234\" building=\"_TEMPLATE_\">\n"
+                + "        <interface snmp-primary=\"P\" status=\"1\" ip-addr=\"127.0.0.1\" descr=\"\"/>\n"
+                + "    </node>\n" + "</model-import>\n" + "";
 
         return template.replaceAll("_TEMPLATE_", name);
 

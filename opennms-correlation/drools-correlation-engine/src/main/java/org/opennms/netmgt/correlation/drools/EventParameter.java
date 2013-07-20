@@ -31,60 +31,84 @@ package org.opennms.netmgt.correlation.drools;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>EventParameter class.</p>
+ * <p>
+ * EventParameter class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class EventParameter {
     private String m_name;
+
     private Object m_value;
+
     private Event m_event;
 
     /**
-     * <p>getEvent</p>
+     * <p>
+     * getEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public Event getEvent() {
         return m_event;
     }
+
     /**
-     * <p>setEvent</p>
+     * <p>
+     * setEvent
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public void setEvent(final Event event) {
         m_event = event;
     }
+
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getName() {
         return m_name;
     }
+
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(final String name) {
         m_name = name;
     }
+
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
      */
     public Object getValue() {
         return m_value;
     }
+
     /**
-     * <p>setValue</p>
+     * <p>
+     * setValue
+     * </p>
      *
-     * @param value a {@link java.lang.Object} object.
+     * @param value
+     *            a {@link java.lang.Object} object.
      */
     public void setValue(final Object value) {
         m_value = value;

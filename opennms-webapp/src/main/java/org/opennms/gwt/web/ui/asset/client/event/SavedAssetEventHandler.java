@@ -35,11 +35,11 @@ import com.google.gwt.event.shared.EventHandler;
  *         Basic interface that defines a event to signal that asset is saved.
  */
 public interface SavedAssetEventHandler extends EventHandler {
-	/**
-	 * Handle event on asset save...
-	 *
-	 * @param event
-	 *            {@link event}
-	 */
-	void onSavedAsset(SavedAssetEvent event);
+    /**
+     * Handle event on asset save...
+     *
+     * @param event
+     *            {@link event}
+     */
+    void onSavedAsset(SavedAssetEvent event);
 }

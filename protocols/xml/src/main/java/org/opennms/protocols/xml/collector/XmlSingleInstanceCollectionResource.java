@@ -40,29 +40,36 @@ public class XmlSingleInstanceCollectionResource extends XmlCollectionResource {
     /**
      * Instantiates a new XML single instance collection resource.
      *
-     * @param agent the agent
+     * @param agent
+     *            the agent
      */
     public XmlSingleInstanceCollectionResource(CollectionAgent agent) {
         super(agent);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.XmlCollectionResource#getResourceTypeName()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.XmlCollectionResource#getResourceTypeName
+     * ()
      */
     @Override
     public String getResourceTypeName() {
         return "node";
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.XmlCollectionResource#getInstance()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.XmlCollectionResource#getInstance()
      */
     @Override
     public String getInstance() {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

@@ -29,36 +29,43 @@
 package org.opennms.web.admin.nodeManagement;
 
 /**
- * <p>NoManagedInterfacesException class.</p>
+ * <p>
+ * NoManagedInterfacesException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public class NoManagedInterfacesException extends RuntimeException {
-	/**
+    /**
 	 *
 	 */
-	private static final long serialVersionUID = -1302515550652984154L;
+    private static final long serialVersionUID = -1302515550652984154L;
 
-	private String m_nodeListUri;
+    private String m_nodeListUri;
 
-	/**
-	 * <p>Constructor for NoManagedInterfacesException.</p>
-	 *
-	 * @param nodeListUri a {@link java.lang.String} object.
-	 */
-	public NoManagedInterfacesException(String nodeListUri) {
-		super();
-		m_nodeListUri = nodeListUri;
-	}
+    /**
+     * <p>
+     * Constructor for NoManagedInterfacesException.
+     * </p>
+     *
+     * @param nodeListUri
+     *            a {@link java.lang.String} object.
+     */
+    public NoManagedInterfacesException(String nodeListUri) {
+        super();
+        m_nodeListUri = nodeListUri;
+    }
 
-	/**
-	 * <p>getNodeListUri</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getNodeListUri() {
-		return m_nodeListUri;
-	}
+    /**
+     * <p>
+     * getNodeListUri
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getNodeListUri() {
+        return m_nodeListUri;
+    }
 }

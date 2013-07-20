@@ -43,34 +43,26 @@ public class HelloWorldTest {
     private BundleContext m_context;
 
     /*
-    @Inject
-    private Action m_action;
-    */
+     * @Inject
+     * private Action m_action;
+     */
 
     public HelloWorldTest() {
     }
 
     @Configuration
     public Option[] config() {
-        InputStream inp = bundle()
-            .add(MockNCSComponentRepository.class)
-            .add(MockNCSCompontentRepositoryActivator.class)
-            .set(Constants.BUNDLE_SYMBOLICNAME, "Mock NCS Component Repository")
-            .set(Constants.IMPORT_PACKAGE, "org.osgi.framework,org.opennms.netmgt.model.ncs")
-            .set(Constants.BUNDLE_ACTIVATOR, MockNCSCompontentRepositoryActivator.class.getName())
-            .build();
+        InputStream inp = bundle().add(MockNCSComponentRepository.class).add(MockNCSCompontentRepositoryActivator.class).set(Constants.BUNDLE_SYMBOLICNAME,
+                                                                                                                             "Mock NCS Component Repository").set(Constants.IMPORT_PACKAGE,
+                                                                                                                                                                  "org.osgi.framework,org.opennms.netmgt.model.ncs").set(Constants.BUNDLE_ACTIVATOR,
+                                                                                                                                                                                                                         MockNCSCompontentRepositoryActivator.class.getName()).build();
 
-        return options(
-            karafDistributionConfiguration().frameworkUrl(maven().groupId("org.apache.karaf").artifactId("apache-karaf").type("tar.gz").version("2.2.7")).karafVersion("2.2.7").name("Apache Karaf").unpackDirectory(new File("target/exam")),
-            bootClasspathLibrary(maven().groupId("org.opennms.features.ncs").artifactId("ncs-model").versionAsInProject()),
-            systemPackages(
-                "org.opennms.netmgt.model.ncs;version=1.11.5"
-            ),
-            bundle("reference:file:" + PathUtils.getBaseDir() + "/target/classes/"),
-            provision(inp),
-            junitBundles(),
-            keepRuntimeFolder()
-        );
+        return options(karafDistributionConfiguration().frameworkUrl(maven().groupId("org.apache.karaf").artifactId("apache-karaf").type("tar.gz").version("2.2.7")).karafVersion("2.2.7").name("Apache Karaf").unpackDirectory(new File(
+                                                                                                                                                                                                                                         "target/exam")),
+                       bootClasspathLibrary(maven().groupId("org.opennms.features.ncs").artifactId("ncs-model").versionAsInProject()),
+                       systemPackages("org.opennms.netmgt.model.ncs;version=1.11.5"), bundle("reference:file:"
+                               + PathUtils.getBaseDir() + "/target/classes/"), provision(inp), junitBundles(),
+                       keepRuntimeFolder());
     }
 
     @Before

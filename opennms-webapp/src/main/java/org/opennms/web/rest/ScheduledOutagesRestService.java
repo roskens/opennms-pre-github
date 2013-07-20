@@ -63,29 +63,50 @@ import org.springframework.stereotype.Component;
 import com.sun.jersey.spi.resource.PerRequest;
 
 /**
- * <p>ScheduledOutagesRestService class.</p>
- *
+ * <p>
+ * ScheduledOutagesRestService class.
+ * </p>
  * <ul>
- * <li><b>GET /sched-outages</b><br>to get a list of configured scheduled outages.</li>
- * <li><b>POST /sched-outages</b><br>to add a new outage (or update an existing one).</li>
- * <li><b>GET /sched-outages/{outageName}</b><br>to get the details of a specific outage.</li>
- * <li><b>DELETE /sched-outages/{outageName}</b><br>to delete a specific outage.</li>
- * <li><b>PUT /sched-outages/{outageName}/collectd/{package}</b><br>to add a specific outage to a collectd's package.</li>
- * <li><b>PUT /sched-outages/{outageName}/pollerd/{package}</b><br>to add a specific outage to a pollerd's package.</li>
- * <li><b>PUT /sched-outages/{outageName}/threshd/{package}</b><br>to add a specific outage to a threshd's package.</li>
- * <li><b>PUT /sched-outages/{outageName}/notifd</b><br>to add a specific outage to the notifications.</li>
- * <li><b>DELETE /sched-outages/{outageName}/collectd/{package}</b><br>to remove a specific outage from a collectd's package.</li>
- * <li><b>DELETE /sched-outages/{outageName}/pollerd/{package}</b><br>to remove a specific outage from a pollerd's package.</li>
- * <li><b>DELETE /sched-outages/{outageName}/threshd/{package}</b><br>to remove a specific outage from a threshd's package.</li>
- * <li><b>DELETE /sched-outages/{outageName}/notifd</b><br>to remove a specific outage from the notifications.</li>
+ * <li><b>GET /sched-outages</b><br>
+ * to get a list of configured scheduled outages.</li>
+ * <li><b>POST /sched-outages</b><br>
+ * to add a new outage (or update an existing one).</li>
+ * <li><b>GET /sched-outages/{outageName}</b><br>
+ * to get the details of a specific outage.</li>
+ * <li><b>DELETE /sched-outages/{outageName}</b><br>
+ * to delete a specific outage.</li>
+ * <li><b>PUT /sched-outages/{outageName}/collectd/{package}</b><br>
+ * to add a specific outage to a collectd's package.</li>
+ * <li><b>PUT /sched-outages/{outageName}/pollerd/{package}</b><br>
+ * to add a specific outage to a pollerd's package.</li>
+ * <li><b>PUT /sched-outages/{outageName}/threshd/{package}</b><br>
+ * to add a specific outage to a threshd's package.</li>
+ * <li><b>PUT /sched-outages/{outageName}/notifd</b><br>
+ * to add a specific outage to the notifications.</li>
+ * <li><b>DELETE /sched-outages/{outageName}/collectd/{package}</b><br>
+ * to remove a specific outage from a collectd's package.</li>
+ * <li><b>DELETE /sched-outages/{outageName}/pollerd/{package}</b><br>
+ * to remove a specific outage from a pollerd's package.</li>
+ * <li><b>DELETE /sched-outages/{outageName}/threshd/{package}</b><br>
+ * to remove a specific outage from a threshd's package.</li>
+ * <li><b>DELETE /sched-outages/{outageName}/notifd</b><br>
+ * to remove a specific outage from the notifications.</li>
  * </ul>
- *
- * <p>Node and Interface status (the requests return true or false):</p>
+ * <p>
+ * Node and Interface status (the requests return true or false):
+ * </p>
  * <ul>
- * <li><b>GET /sched-outages/{outageName}/nodeInOutage/{nodeId}</b><br>to check if a node (with a specific nodeId) is currently on outage for a specific scheduled outage calendar.</li>
- * <li><b>GET /sched-outages/{outageName}/interfaceInOutage/{ipAddr}</b><br>to check if an interface (with a specific IP address) is currently on outage for a specific scheduled outage calendar.</li>
- * <li><b>GET /sched-outages/nodeInOutage/{nodeId}</b><br>to check if a node (with a specific nodeId) is currently in outage.</li>
- * <li><b>GET /sched-outages/interfaceInOutage/{ipAddr}</b><br>to check if an interface (with a specific IP address) is currently on outage.</li>
+ * <li><b>GET /sched-outages/{outageName}/nodeInOutage/{nodeId}</b><br>
+ * to check if a node (with a specific nodeId) is currently on outage for a
+ * specific scheduled outage calendar.</li>
+ * <li><b>GET /sched-outages/{outageName}/interfaceInOutage/{ipAddr}</b><br>
+ * to check if an interface (with a specific IP address) is currently on outage
+ * for a specific scheduled outage calendar.</li>
+ * <li><b>GET /sched-outages/nodeInOutage/{nodeId}</b><br>
+ * to check if a node (with a specific nodeId) is currently in outage.</li>
+ * <li><b>GET /sched-outages/interfaceInOutage/{ipAddr}</b><br>
+ * to check if an interface (with a specific IP address) is currently on outage.
+ * </li>
  * </ul>
  *
  * @author Alejandro Galue <agalue@opennms.org>
@@ -96,10 +117,11 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("sched-outages")
 public class ScheduledOutagesRestService extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ScheduledOutagesRestService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ScheduledOutagesRestService.class);
 
-
-    private enum ConfigAction { ADD, REMOVE, REMOVE_FROM_ALL };
+    private enum ConfigAction {
+        ADD, REMOVE, REMOVE_FROM_ALL
+    };
 
     @Context
     UriInfo m_uriInfo;
@@ -111,7 +133,7 @@ public class ScheduledOutagesRestService extends OnmsRestService {
     protected EventProxy m_eventProxy;
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     public Outages getOutages() {
         readLock();
         try {
@@ -125,12 +147,14 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @GET
     @Path("{outageName}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
-    public Outage getOutage(@PathParam("outageName") String outageName) throws IllegalArgumentException {
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
+    public Outage getOutage(@PathParam("outageName")
+    String outageName) throws IllegalArgumentException {
         readLock();
         try {
             Outage outage = m_configFactory.getOutage(outageName);
-            if (outage == null) throw new IllegalArgumentException("Scheduled outage " + outageName + " does not exist.");
+            if (outage == null)
+                throw new IllegalArgumentException("Scheduled outage " + outageName + " does not exist.");
             return outage;
         } finally {
             readUnlock();
@@ -138,11 +162,12 @@ public class ScheduledOutagesRestService extends OnmsRestService {
     }
 
     @POST
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Response saveOrUpdateOutage(final Outage newOutage) {
         writeLock();
         try {
-            if (newOutage == null) throw getException(Status.BAD_REQUEST, "Outage object can't be null");
+            if (newOutage == null)
+                throw getException(Status.BAD_REQUEST, "Outage object can't be null");
             Outage oldOutage = m_configFactory.getOutage(newOutage.getName());
             if (oldOutage == null) {
                 LOG.debug("saveOrUpdateOutage: adding outage {}", newOutage.getName());
@@ -155,7 +180,8 @@ public class ScheduledOutagesRestService extends OnmsRestService {
             sendConfigChangedEvent();
             return Response.seeOther(getRedirectUri(m_uriInfo, newOutage.getName())).build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't save or update the scheduled outage " + newOutage.getName() + " because, " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Can't save or update the scheduled outage " + newOutage.getName()
+                    + " because, " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -163,7 +189,8 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @DELETE
     @Path("{outageName}")
-    public Response deleteOutage(@PathParam("outageName") String outageName) {
+    public Response deleteOutage(@PathParam("outageName")
+    String outageName) {
         writeLock();
         try {
             LOG.debug("deleteOutage: deleting outage {}", outageName);
@@ -176,7 +203,8 @@ public class ScheduledOutagesRestService extends OnmsRestService {
             sendConfigChangedEvent();
             return Response.ok().build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't delete the scheduled outage " + outageName + " because, " + e.getMessage());
+            throw getException(Status.BAD_REQUEST,
+                               "Can't delete the scheduled outage " + outageName + " because, " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -184,14 +212,17 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @PUT
     @Path("{outageName}/collectd/{packageName}")
-    public Response addOutageToCollector(@PathParam("outageName") String outageName, @PathParam("packageName") String packageName) {
+    public Response addOutageToCollector(@PathParam("outageName")
+    String outageName, @PathParam("packageName")
+    String packageName) {
         writeLock();
         try {
             updateCollectd(ConfigAction.ADD, outageName, packageName);
             sendConfigChangedEvent();
             return Response.seeOther(getRedirectUri(m_uriInfo)).build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't add scheduled outage " + outageName + " to collector package " + packageName + ", because: " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Can't add scheduled outage " + outageName
+                    + " to collector package " + packageName + ", because: " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -199,14 +230,17 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @DELETE
     @Path("{outageName}/collectd/{packageName}")
-    public Response removeOutageFromCollector(@PathParam("outageName") String outageName, @PathParam("packageName") String packageName) {
+    public Response removeOutageFromCollector(@PathParam("outageName")
+    String outageName, @PathParam("packageName")
+    String packageName) {
         writeLock();
         try {
             updateCollectd(ConfigAction.REMOVE, outageName, packageName);
             sendConfigChangedEvent();
             return Response.ok().build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't remove scheduled outage " + outageName + " from collector package " + packageName + ", because: " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Can't remove scheduled outage " + outageName
+                    + " from collector package " + packageName + ", because: " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -214,7 +248,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @PUT
     @Path("{outageName}/pollerd/{packageName}")
-    public Response addOutageToPoller(@PathParam("outageName") String outageName, @PathParam("packageName") String packageName) {
+    public Response addOutageToPoller(@PathParam("outageName")
+    String outageName, @PathParam("packageName")
+    String packageName) {
         writeLock();
         try {
             updatePollerd(ConfigAction.ADD, outageName, packageName);
@@ -222,7 +258,8 @@ public class ScheduledOutagesRestService extends OnmsRestService {
             return Response.seeOther(getRedirectUri(m_uriInfo)).build();
             // return Response.ok().build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't add scheduled outage " + outageName + " to poller package " + packageName  + ", because: " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Can't add scheduled outage " + outageName + " to poller package "
+                    + packageName + ", because: " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -230,14 +267,17 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @DELETE
     @Path("{outageName}/pollerd/{packageName}")
-    public Response removeOutageFromPoller(@PathParam("outageName") String outageName, @PathParam("packageName") String packageName) {
+    public Response removeOutageFromPoller(@PathParam("outageName")
+    String outageName, @PathParam("packageName")
+    String packageName) {
         writeLock();
         try {
             updatePollerd(ConfigAction.REMOVE, outageName, packageName);
             sendConfigChangedEvent();
             return Response.ok().build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't remove scheduled outage " + outageName + " from poller package " + packageName + ", because: " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Can't remove scheduled outage " + outageName
+                    + " from poller package " + packageName + ", because: " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -245,14 +285,17 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @PUT
     @Path("{outageName}/threshd/{packageName}")
-    public Response addOutageToThresholder(@PathParam("outageName") String outageName, @PathParam("packageName") String packageName) {
+    public Response addOutageToThresholder(@PathParam("outageName")
+    String outageName, @PathParam("packageName")
+    String packageName) {
         writeLock();
         try {
             updateThreshd(ConfigAction.ADD, outageName, packageName);
             sendConfigChangedEvent();
             return Response.seeOther(getRedirectUri(m_uriInfo)).build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't add scheduled outage " + outageName + " to threshold package " + packageName + ", because: " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Can't add scheduled outage " + outageName
+                    + " to threshold package " + packageName + ", because: " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -260,14 +303,17 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @DELETE
     @Path("{outageName}/threshd/{packageName}")
-    public Response removeOutageFromThresholder(@PathParam("outageName") String outageName, @PathParam("packageName") String packageName) {
+    public Response removeOutageFromThresholder(@PathParam("outageName")
+    String outageName, @PathParam("packageName")
+    String packageName) {
         writeLock();
         try {
             updateThreshd(ConfigAction.REMOVE, outageName, packageName);
             sendConfigChangedEvent();
             return Response.ok().build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't remove scheduled outage " + outageName + " from threshold package " + packageName + ", because: " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Can't remove scheduled outage " + outageName
+                    + " from threshold package " + packageName + ", because: " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -275,14 +321,16 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @PUT
     @Path("{outageName}/notifd")
-    public Response addOutageToNotifications(@PathParam("outageName") String outageName) {
+    public Response addOutageToNotifications(@PathParam("outageName")
+    String outageName) {
         writeLock();
         try {
             updateNotifd(ConfigAction.ADD, outageName);
             sendConfigChangedEvent();
             return Response.seeOther(getRedirectUri(m_uriInfo, outageName)).build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't add scheduled outage " + outageName + " to notifications because: " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Can't add scheduled outage " + outageName
+                    + " to notifications because: " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -290,14 +338,16 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     @DELETE
     @Path("{outageName}/notifd")
-    public Response removeOutageFromNotifications(@PathParam("outageName") String outageName) {
+    public Response removeOutageFromNotifications(@PathParam("outageName")
+    String outageName) {
         writeLock();
         try {
             updateNotifd(ConfigAction.REMOVE, outageName);
             sendConfigChangedEvent();
             return Response.ok().build();
         } catch (Exception e) {
-            throw getException(Status.BAD_REQUEST, "Can't remove scheduled outage " + outageName + " from notifications because: " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Can't remove scheduled outage " + outageName
+                    + " from notifications because: " + e.getMessage());
         } finally {
             writeUnlock();
         }
@@ -306,11 +356,14 @@ public class ScheduledOutagesRestService extends OnmsRestService {
     @GET
     @Path("{outageName}/nodeInOutage/{nodeId}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String isNodeInOutage(@PathParam("outageName") String outageName, @PathParam("nodeId") Integer nodeId) {
+    public String isNodeInOutage(@PathParam("outageName")
+    String outageName, @PathParam("nodeId")
+    Integer nodeId) {
         readLock();
         try {
             Outage outage = getOutage(outageName);
-            Boolean inOutage = m_configFactory.isNodeIdInOutage(nodeId, outage) && m_configFactory.isCurTimeInOutage(outage);
+            Boolean inOutage = m_configFactory.isNodeIdInOutage(nodeId, outage)
+                    && m_configFactory.isCurTimeInOutage(outage);
             return inOutage.toString();
         } finally {
             readUnlock();
@@ -320,7 +373,8 @@ public class ScheduledOutagesRestService extends OnmsRestService {
     @GET
     @Path("nodeInOutage/{nodeId}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String isNodeInOutage(@PathParam("nodeId") Integer nodeId) {
+    public String isNodeInOutage(@PathParam("nodeId")
+    Integer nodeId) {
         readLock();
         try {
             for (Outage outage : m_configFactory.getOutages()) {
@@ -337,12 +391,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
     @GET
     @Path("{outageName}/interfaceInOutage/{ipAddr}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String isInterfaceInOutage(@PathParam("outageName") String outageName, @PathParam("ipAddr") String ipAddr) {
+    public String isInterfaceInOutage(@PathParam("outageName")
+    String outageName, @PathParam("ipAddr")
+    String ipAddr) {
         readLock();
         try {
             validateAddress(ipAddr);
             Outage outage = getOutage(outageName);
-            Boolean inOutage = m_configFactory.isInterfaceInOutage(ipAddr, outage) && m_configFactory.isCurTimeInOutage(outage);
+            Boolean inOutage = m_configFactory.isInterfaceInOutage(ipAddr, outage)
+                    && m_configFactory.isCurTimeInOutage(outage);
             return inOutage.toString();
         } finally {
             readUnlock();
@@ -352,7 +409,8 @@ public class ScheduledOutagesRestService extends OnmsRestService {
     @GET
     @Path("interfaceInOutage/{ipAddr}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String isInterfaceInOutage(@PathParam("ipAddr") String ipAddr) {
+    public String isInterfaceInOutage(@PathParam("ipAddr")
+    String ipAddr) {
         readLock();
         try {
             for (Outage outage : m_configFactory.getOutages()) {
@@ -399,7 +457,8 @@ public class ScheduledOutagesRestService extends OnmsRestService {
 
     private CollectdPackage getCollectdPackage(String packageName) throws IllegalArgumentException {
         CollectdPackage pkg = CollectdConfigFactory.getInstance().getPackage(packageName);
-        if (pkg == null) throw new IllegalArgumentException("Collectd package " + packageName + " does not exist.");
+        if (pkg == null)
+            throw new IllegalArgumentException("Collectd package " + packageName + " does not exist.");
         return pkg;
     }
 
@@ -422,9 +481,11 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         PollerConfigFactory.getInstance().save();
     }
 
-    private org.opennms.netmgt.config.poller.Package getPollerdPackage(String packageName) throws IllegalArgumentException {
+    private org.opennms.netmgt.config.poller.Package getPollerdPackage(String packageName)
+            throws IllegalArgumentException {
         org.opennms.netmgt.config.poller.Package pkg = PollerConfigFactory.getInstance().getPackage(packageName);
-        if (pkg == null) throw new IllegalArgumentException("Poller package " + packageName + " does not exist.");
+        if (pkg == null)
+            throw new IllegalArgumentException("Poller package " + packageName + " does not exist.");
         return pkg;
     }
 
@@ -447,9 +508,11 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         ThreshdConfigFactory.getInstance().saveCurrent();
     }
 
-    private org.opennms.netmgt.config.threshd.Package getThreshdPackage(String packageName) throws IllegalArgumentException {
+    private org.opennms.netmgt.config.threshd.Package getThreshdPackage(String packageName)
+            throws IllegalArgumentException {
         org.opennms.netmgt.config.threshd.Package pkg = ThreshdConfigFactory.getInstance().getPackage(packageName);
-        if (pkg == null) throw new IllegalArgumentException("Threshold package " + packageName + " does not exist.");
+        if (pkg == null)
+            throw new IllegalArgumentException("Threshold package " + packageName + " does not exist.");
         return pkg;
     }
 
@@ -470,7 +533,8 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         try {
             m_eventProxy.send(builder.getEvent());
         } catch (Throwable e) {
-            throw getException(Status.BAD_REQUEST, "Could not send event " + builder.getEvent().getUei() + " because, " + e.getMessage());
+            throw getException(Status.BAD_REQUEST, "Could not send event " + builder.getEvent().getUei() + " because, "
+                    + e.getMessage());
         }
     }
 

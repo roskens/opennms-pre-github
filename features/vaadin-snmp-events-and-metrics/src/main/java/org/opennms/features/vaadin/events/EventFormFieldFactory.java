@@ -48,8 +48,10 @@ import com.vaadin.ui.AbstractSelect.NewItemHandler;
 @SuppressWarnings("serial")
 public final class EventFormFieldFactory implements FormFieldFactory {
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item, java.lang.Object, com.vaadin.ui.Component)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item,
+     * java.lang.Object, com.vaadin.ui.Component)
      */
     @Override
     public Field<?> createField(Item item, Object propertyId, Component uiContext) {
@@ -82,7 +84,8 @@ public final class EventFormFieldFactory implements FormFieldFactory {
                 public void addNewItem(String newItemCaption) {
                     try {
                         f.addItem(new Integer(newItemCaption));
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                    }
                 }
             });
             f.setDescription("<b>1</b> to be a problem that has a possible resolution, alarm-type set to <b>2</b> to be a resolution event, and alarm-type set to <b>3</b> for events that have no possible resolution");
@@ -126,7 +129,8 @@ public final class EventFormFieldFactory implements FormFieldFactory {
         if ("operinstruct".equals(propertyId)) {
             final TextArea oper = new TextArea("Operator Instructions") {
                 @Override
-                public String getValue() { // This is because of the intern usage on Event.setOperInstruct()
+                public String getValue() { // This is because of the intern
+                                           // usage on Event.setOperInstruct()
                     return super.getValue() == null ? "" : super.getValue();
                 }
             };

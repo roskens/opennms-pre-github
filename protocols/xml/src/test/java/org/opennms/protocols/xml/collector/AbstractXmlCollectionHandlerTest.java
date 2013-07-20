@@ -50,22 +50,20 @@ public class AbstractXmlCollectionHandlerTest {
     /**
      * Test parse string.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testParseString() throws Exception {
         AbstractXmlCollectionHandler handler = new AbstractXmlCollectionHandler() {
             @Override
-            public XmlCollectionSet collect(CollectionAgent agent,
-                    XmlDataCollection collection,
-                    Map<String, Object> parameters)
-                            throws CollectionException {
+            public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection,
+                    Map<String, Object> parameters) throws CollectionException {
                 return null;
             }
 
             @Override
-            protected void processXmlResource(
-                    XmlCollectionResource collectionResource,
+            protected void processXmlResource(XmlCollectionResource collectionResource,
                     AttributeGroupType attribGroupType) {
             }
         };
@@ -75,7 +73,8 @@ public class AbstractXmlCollectionHandlerTest {
         OnmsAssetRecord asset = new OnmsAssetRecord();
         asset.setSerialNumber("1001");
         node.setAssetRecord(asset);
-        String url = handler.parseString("URL", "http://{nodeLabel}/{ipAddress}/serial/{serialNumber}", node, "127.0.0.1");
+        String url = handler.parseString("URL", "http://{nodeLabel}/{ipAddress}/serial/{serialNumber}", node,
+                                         "127.0.0.1");
         Assert.assertEquals("http://mynode.local/127.0.0.1/serial/1001", url);
         String multiline = "<data>\n   <source label='{nodeLabel}'/>\n</data>";
         String xml = handler.parseString("Content", multiline, node, "127.0.0.1");

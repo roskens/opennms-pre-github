@@ -42,12 +42,14 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.web.api.Util;
 
 /**
- * <p>DeleteInterfaceServlet class.</p>
+ * <p>
+ * DeleteInterfaceServlet class.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  * @since 1.8.1
  */
@@ -60,9 +62,10 @@ public class DeleteInterfaceServlet extends HttpServlet {
 
     /*
      * (non-Javadoc)
-     *
-     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
-     *      javax.servlet.http.HttpServletResponse)
+     * @see
+     * javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest
+     * ,
+     * javax.servlet.http.HttpServletResponse)
      */
     /** {@inheritDoc} */
     @Override
@@ -94,9 +97,12 @@ public class DeleteInterfaceServlet extends HttpServlet {
     }
 
     /**
-     * <p>checkParameters</p>
+     * <p>
+     * checkParameters
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      */
     public void checkParameters(HttpServletRequest request) {
         String nodeIdString = request.getParameter("node");
@@ -104,11 +110,13 @@ public class DeleteInterfaceServlet extends HttpServlet {
         String ifIndex = request.getParameter("ifindex");
 
         if (nodeIdString == null) {
-            throw new org.opennms.web.servlet.MissingParameterException("node", new String[] { "node", "intf or ifindex" });
+            throw new org.opennms.web.servlet.MissingParameterException("node", new String[] { "node",
+                    "intf or ifindex" });
         }
 
         if (ipAddr == null && ifIndex == null) {
-            throw new org.opennms.web.servlet.MissingParameterException("intf or ifindex", new String[] { "node", "intf or ifindex" });
+            throw new org.opennms.web.servlet.MissingParameterException("intf or ifindex", new String[] { "node",
+                    "intf or ifindex" });
         }
 
     }

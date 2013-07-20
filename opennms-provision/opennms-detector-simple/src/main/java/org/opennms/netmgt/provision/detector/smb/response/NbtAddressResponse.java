@@ -31,7 +31,9 @@ package org.opennms.netmgt.provision.detector.smb.response;
 import jcifs.netbios.NbtAddress;
 
 /**
- * <p>NbtAddressResponse class.</p>
+ * <p>
+ * NbtAddressResponse class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -39,13 +41,18 @@ import jcifs.netbios.NbtAddress;
 public class NbtAddressResponse {
 
     private String m_address;
+
     private NbtAddress m_nbtAddress;
 
     /**
-     * <p>receive</p>
+     * <p>
+     * receive
+     * </p>
      *
-     * @param address a {@link java.lang.String} object.
-     * @param nbtAddress a {@link jcifs.netbios.NbtAddress} object.
+     * @param address
+     *            a {@link java.lang.String} object.
+     * @param nbtAddress
+     *            a {@link jcifs.netbios.NbtAddress} object.
      */
     public void receive(String address, NbtAddress nbtAddress) {
         m_address = address;
@@ -53,21 +60,20 @@ public class NbtAddressResponse {
     }
 
     /**
-     * <p>validateAddressIsNotSame</p>
-     *
+     * <p>
+     * validateAddressIsNotSame
+     * </p>
      * TODO: In ticket 1608, Antonio is asking why this validation is used.
      * Maybe the behavior needs to be changed?
-     *
      * "Something weird is here....why the address must be different?"
      *
      * @see https://mynms.opennms.com/Ticket/Display.html?id=1608
-     *
      * @return a boolean.
      */
     public boolean validateAddressIsNotSame() {
-        if(m_nbtAddress.getHostName().equals(m_address)) {
-           return false;
-        }else {
+        if (m_nbtAddress.getHostName().equals(m_address)) {
+            return false;
+        } else {
             return true;
         }
     }

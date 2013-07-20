@@ -30,7 +30,6 @@ package org.opennms.jicmp.jna;
 
 import java.net.UnknownHostException;
 
-
 import com.sun.jna.Platform;
 
 /**
@@ -41,22 +40,22 @@ import com.sun.jna.Platform;
 public abstract class NativeDatagramSocket {
 
     public static final int AF_INET = 2;
+
     public static final int PF_INET = AF_INET;
-    public static final int AF_INET6 = Platform.isMac() ? 30
-                                     : Platform.isLinux() ? 10
-                                     : Platform.isWindows() ? 23
-                                     : Platform.isFreeBSD() ? 28
-                                     : Platform.isSolaris() ? 26
-                                     : -1;
+
+    public static final int AF_INET6 = Platform.isMac() ? 30 : Platform.isLinux() ? 10 : Platform.isWindows() ? 23
+        : Platform.isFreeBSD() ? 28 : Platform.isSolaris() ? 26 : -1;
+
     public static final int PF_INET6 = AF_INET6;
 
-    public static final int SOCK_DGRAM = Platform.isSolaris() ? 1
-                                        : 2;
-    public static final int SOCK_RAW = Platform.isSolaris() ? 4
-                                     : 3;
+    public static final int SOCK_DGRAM = Platform.isSolaris() ? 1 : 2;
+
+    public static final int SOCK_RAW = Platform.isSolaris() ? 4 : 3;
 
     public static final int IPPROTO_ICMP = 1;
+
     public static final int IPPROTO_UDP = 17;
+
     public static final int IPPROTO_ICMPV6 = 58;
 
     public NativeDatagramSocket() {
@@ -68,9 +67,10 @@ public abstract class NativeDatagramSocket {
     public static NativeDatagramSocket create(int family, int type, int protocol) throws Exception {
         String implClassName = NativeDatagramSocket.getImplementationClassName(family);
         System.err.println(String.format("%s(%d, %d, %d)", implClassName, family, type, protocol));
-        Class<? extends NativeDatagramSocket> implementationClass =
-             Class.forName(implClassName).asSubclass(NativeDatagramSocket.class);
-        return implementationClass.getDeclaredConstructor(Integer.TYPE, Integer.TYPE, Integer.TYPE).newInstance(family, type, protocol);
+        Class<? extends NativeDatagramSocket> implementationClass = Class.forName(implClassName).asSubclass(NativeDatagramSocket.class);
+        return implementationClass.getDeclaredConstructor(Integer.TYPE, Integer.TYPE, Integer.TYPE).newInstance(family,
+                                                                                                                type,
+                                                                                                                protocol);
     }
 
     private static String getClassPackage() {
@@ -78,10 +78,8 @@ public abstract class NativeDatagramSocket {
     }
 
     private static String getClassPrefix() {
-        return Platform.isWindows() ? "Win32"
-              : Platform.isSolaris() ? "Sun"
-              : (Platform.isMac() || Platform.isFreeBSD() || Platform.isOpenBSD()) ? "BSD"
-              : "Unix";
+        return Platform.isWindows() ? "Win32" : Platform.isSolaris() ? "Sun" : (Platform.isMac()
+                || Platform.isFreeBSD() || Platform.isOpenBSD()) ? "BSD" : "Unix";
     }
 
     private static String getFamilyPrefix(int family) {
@@ -90,20 +88,19 @@ public abstract class NativeDatagramSocket {
         } else if (AF_INET6 == family) {
             return "V6";
         } else {
-            throw new IllegalArgumentException("Unsupported Protocol Family: "+ family);
+            throw new IllegalArgumentException("Unsupported Protocol Family: " + family);
         }
     }
 
     private static String getImplementationClassName(int family) {
-        return NativeDatagramSocket.getClassPackage()+
-            "."+
-            NativeDatagramSocket.getClassPrefix()+
-            NativeDatagramSocket.getFamilyPrefix(family)+
-            "NativeSocket";
+        return NativeDatagramSocket.getClassPackage() + "." + NativeDatagramSocket.getClassPrefix()
+                + NativeDatagramSocket.getFamilyPrefix(family) + "NativeSocket";
     }
 
     public abstract int receive(NativeDatagramPacket p) throws UnknownHostException;
+
     public abstract int send(NativeDatagramPacket p);
+
     public abstract int close();
 
 }

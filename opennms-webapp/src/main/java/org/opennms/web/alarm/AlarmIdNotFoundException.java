@@ -29,7 +29,9 @@
 package org.opennms.web.alarm;
 
 /**
- * <p>AlarmIdNotFoundException class.</p>
+ * <p>
+ * AlarmIdNotFoundException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -46,10 +48,14 @@ public class AlarmIdNotFoundException extends RuntimeException {
     protected String message;
 
     /**
-     * <p>Constructor for AlarmIdNotFoundException.</p>
+     * <p>
+     * Constructor for AlarmIdNotFoundException.
+     * </p>
      *
-     * @param msg a {@link java.lang.String} object.
-     * @param id a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      */
     public AlarmIdNotFoundException(String msg, String id) {
         this.message = msg;
@@ -57,7 +63,9 @@ public class AlarmIdNotFoundException extends RuntimeException {
     }
 
     /**
-     * <p>Getter for the field <code>message</code>.</p>
+     * <p>
+     * Getter for the field <code>message</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -66,7 +74,9 @@ public class AlarmIdNotFoundException extends RuntimeException {
     }
 
     /**
-     * <p>getBadID</p>
+     * <p>
+     * getBadID
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

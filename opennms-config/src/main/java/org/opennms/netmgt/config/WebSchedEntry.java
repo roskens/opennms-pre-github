@@ -36,7 +36,9 @@ import org.opennms.netmgt.config.groups.Schedule;
 import org.opennms.netmgt.config.groups.Time;
 
 /**
- * <p>WebSchedEntry class.</p>
+ * <p>
+ * WebSchedEntry class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,33 +47,53 @@ import org.opennms.netmgt.config.groups.Time;
 public class WebSchedEntry {
 
     int m_schedIndex;
+
     int m_timeIndex;
+
     String m_user;
+
     String m_type;
+
     String m_begins;
+
     String m_ends;
 
     /**
-     * <p>Constructor for WebSchedEntry.</p>
+     * <p>
+     * Constructor for WebSchedEntry.
+     * </p>
      *
-     * @param schedIndex a int.
-     * @param timeIndex a int.
-     * @param user a {@link java.lang.String} object.
-     * @param startDate a java$util$Date object.
-     * @param endDate a java$util$Date object.
+     * @param schedIndex
+     *            a int.
+     * @param timeIndex
+     *            a int.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param startDate
+     *            a java$util$Date object.
+     * @param endDate
+     *            a java$util$Date object.
      */
     public WebSchedEntry(int schedIndex, int timeIndex, String user, Date startDate, Date endDate) {
-        this(schedIndex, timeIndex, user, new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(startDate), new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(endDate));
+        this(schedIndex, timeIndex, user, new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(startDate),
+             new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(endDate));
     }
 
     /**
-     * <p>Constructor for WebSchedEntry.</p>
+     * <p>
+     * Constructor for WebSchedEntry.
+     * </p>
      *
-     * @param schedIndex a int.
-     * @param timeIndex a int.
-     * @param user a {@link java.lang.String} object.
-     * @param begins a {@link java.lang.String} object.
-     * @param ends a {@link java.lang.String} object.
+     * @param schedIndex
+     *            a int.
+     * @param timeIndex
+     *            a int.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param begins
+     *            a {@link java.lang.String} object.
+     * @param ends
+     *            a {@link java.lang.String} object.
      */
     public WebSchedEntry(int schedIndex, int timeIndex, String user, String begins, String ends) {
         // this is a specific entry
@@ -84,7 +106,9 @@ public class WebSchedEntry {
     }
 
     /**
-     * <p>isNew</p>
+     * <p>
+     * isNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -93,9 +117,12 @@ public class WebSchedEntry {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @param role a {@link org.opennms.netmgt.config.groups.Role} object.
+     * @param role
+     *            a {@link org.opennms.netmgt.config.groups.Role} object.
      */
     public void update(Role role) {
         if (isNew()) {

@@ -36,31 +36,31 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
 
 public class OpenNMSUserDetailsService implements UserDetailsService, InitializingBean {
-	private SpringSecurityUserDao m_userDao;
+    private SpringSecurityUserDao m_userDao;
 
-        @Override
-	public void afterPropertiesSet() throws Exception {
-	    Assert.notNull(m_userDao);
-	}
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Assert.notNull(m_userDao);
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException, DataAccessException {
-	    final UserDetails userDetails = m_userDao.getByUsername(username);
+    /** {@inheritDoc} */
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException, DataAccessException {
+        final UserDetails userDetails = m_userDao.getByUsername(username);
 
-		if (userDetails == null) {
-			throw new UsernameNotFoundException("Unable to locate " + username + " in the userDao");
-		}
+        if (userDetails == null) {
+            throw new UsernameNotFoundException("Unable to locate " + username + " in the userDao");
+        }
 
-		return userDetails;
-	}
+        return userDetails;
+    }
 
-	public void setUserDao(final SpringSecurityUserDao userDao) {
-		m_userDao = userDao;
+    public void setUserDao(final SpringSecurityUserDao userDao) {
+        m_userDao = userDao;
 
-	}
+    }
 
-	public SpringSecurityUserDao getUserDao() {
-		return m_userDao;
-	}
+    public SpringSecurityUserDao getUserDao() {
+        return m_userDao;
+    }
 }

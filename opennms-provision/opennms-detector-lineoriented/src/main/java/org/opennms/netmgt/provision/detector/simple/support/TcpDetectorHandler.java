@@ -38,16 +38,17 @@ import org.slf4j.LoggerFactory;
 public class TcpDetectorHandler extends BaseDetectorHandler<LineOrientedRequest, LineOrientedResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(TcpDetectorHandler.class);
+
     @Override
     public void sessionOpened(IoSession session) throws Exception {
         Object request = getConversation().getRequest();
-        if(!getConversation().hasBanner() &&  request != null) {
+        if (!getConversation().hasBanner() && request != null) {
             session.write(request);
-       }else if(!getConversation().hasBanner() && request == null) {
-           LOG.info("TCP session was opened, no banner was expected, and there are no more pending requests. Setting service detection to true.");
-           getFuture().setServiceDetected(true);
-           session.close(true);
-       }
+        } else if (!getConversation().hasBanner() && request == null) {
+            LOG.info("TCP session was opened, no banner was expected, and there are no more pending requests. Setting service detection to true.");
+            getFuture().setServiceDetected(true);
+            session.close(true);
+        }
     }
 
 }

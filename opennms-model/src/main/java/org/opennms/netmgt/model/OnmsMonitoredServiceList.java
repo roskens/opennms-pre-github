@@ -37,7 +37,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>OnmsMonitoredServiceList class.</p>
+ * <p>
+ * OnmsMonitoredServiceList class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,23 +50,30 @@ public class OnmsMonitoredServiceList extends LinkedList<OnmsMonitoredService> {
     private static final long serialVersionUID = 8031737923157780179L;
 
     /**
-     * <p>Constructor for OnmsMonitoredServiceList.</p>
+     * <p>
+     * Constructor for OnmsMonitoredServiceList.
+     * </p>
      */
     public OnmsMonitoredServiceList() {
         super();
     }
 
     /**
-     * <p>Constructor for OnmsMonitoredServiceList.</p>
+     * <p>
+     * Constructor for OnmsMonitoredServiceList.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public OnmsMonitoredServiceList(Collection<? extends OnmsMonitoredService> c) {
         super(c);
     }
 
     /**
-     * <p>getServices</p>
+     * <p>
+     * getServices
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -74,35 +83,44 @@ public class OnmsMonitoredServiceList extends LinkedList<OnmsMonitoredService> {
     }
 
     /**
-     * <p>setServices</p>
+     * <p>
+     * setServices
+     * </p>
      *
-     * @param services a {@link java.util.List} object.
+     * @param services
+     *            a {@link java.util.List} object.
      */
     public void setServices(List<OnmsMonitoredService> services) {
-        if (services == this) return;
+        if (services == this)
+            return;
         clear();
         addAll(services);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
         return this.size();
     }
 
     /**
-     * <p>getTotalCount</p>
-     *
-     * Note that this list is different than others: count always equals totalCount
-     * because we don't perform any limit/offset queries inside {$link OnmsMonitoredServiceResource}
+     * <p>
+     * getTotalCount
+     * </p>
+     * Note that this list is different than others: count always equals
+     * totalCount
+     * because we don't perform any limit/offset queries inside {$link
+     * OnmsMonitoredServiceResource}
      *
      * @return a int.
      */
-    @XmlAttribute(name="totalCount")
+    @XmlAttribute(name = "totalCount")
     public int getTotalCount() {
         return this.size();
     }

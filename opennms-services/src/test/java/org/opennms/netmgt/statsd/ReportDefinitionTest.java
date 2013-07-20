@@ -56,14 +56,17 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class ReportDefinitionTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private NodeDao m_nodeDao = m_mocks.createMock(NodeDao.class);
+
     private ResourceDao m_resourceDao = m_mocks.createMock(ResourceDao.class);
+
     private RrdDao m_rrdDao = m_mocks.createMock(RrdDao.class);
+
     private FilterDao m_filterDao = m_mocks.createMock(FilterDao.class);
 
     @Override
@@ -154,7 +157,8 @@ public class ReportDefinitionTest extends TestCase {
         def.setResourceAttributeValueMatch(externalValueAttribute.getValue());
         ReportInstance report = def.createReport(m_nodeDao, m_resourceDao, m_rrdDao, m_filterDao);
 
-        EasyMock.expect(m_rrdDao.getPrintValue(rrdAttribute, def.getConsolidationFunction(), report.getStartTime(), report.getEndTime())).andReturn(1.0);
+        EasyMock.expect(m_rrdDao.getPrintValue(rrdAttribute, def.getConsolidationFunction(), report.getStartTime(),
+                                               report.getEndTime())).andReturn(1.0);
 
         m_mocks.replayAll();
 
@@ -176,7 +180,8 @@ public class ReportDefinitionTest extends TestCase {
         MockResourceType resourceType = new MockResourceType();
         resourceType.setName("interfaceSnmp");
         OnmsAttribute attribute = new RrdGraphAttribute("IfInOctets", "something", "something else");
-        OnmsResource resource = new OnmsResource(node.getId().toString(), node.getLabel(), resourceType, Collections.singleton(attribute));
+        OnmsResource resource = new OnmsResource(node.getId().toString(), node.getLabel(), resourceType,
+                                                 Collections.singleton(attribute));
 
         ReportDefinition def = createReportDefinition();
         def.getReport().getPackage().setFilter("");
@@ -184,7 +189,7 @@ public class ReportDefinitionTest extends TestCase {
         def.setResourceAttributeValueMatch("100000000");
         ReportInstance report = def.createReport(m_nodeDao, m_resourceDao, m_rrdDao, m_filterDao);
 
-        SortedMap<Integer,String> sortedNodeMap = new TreeMap<Integer, String>();
+        SortedMap<Integer, String> sortedNodeMap = new TreeMap<Integer, String>();
         sortedNodeMap.put(node.getId(), node.getLabel());
         EasyMock.expect(m_filterDao.getNodeMap("")).andReturn(sortedNodeMap);
 
@@ -196,7 +201,6 @@ public class ReportDefinitionTest extends TestCase {
 
         assertEquals("results size", 0, report.getResults().size());
     }
-
 
     public void testFilteredResourceAttributeFilteringWithMatch() throws Exception {
         OnmsAttribute rrdAttribute = new RrdGraphAttribute("IfInOctets", "something", "something else");
@@ -221,13 +225,14 @@ public class ReportDefinitionTest extends TestCase {
         def.setResourceAttributeValueMatch(externalValueAttribute.getValue());
         ReportInstance report = def.createReport(m_nodeDao, m_resourceDao, m_rrdDao, m_filterDao);
 
-        SortedMap<Integer,String> sortedNodeMap = new TreeMap<Integer, String>();
+        SortedMap<Integer, String> sortedNodeMap = new TreeMap<Integer, String>();
         sortedNodeMap.put(node.getId(), node.getLabel());
         EasyMock.expect(m_filterDao.getNodeMap("")).andReturn(sortedNodeMap);
 
         EasyMock.expect(m_resourceDao.getResourceForNode(node)).andReturn(resource);
 
-        EasyMock.expect(m_rrdDao.getPrintValue(rrdAttribute, def.getConsolidationFunction(), report.getStartTime(), report.getEndTime())).andReturn(1.0);
+        EasyMock.expect(m_rrdDao.getPrintValue(rrdAttribute, def.getConsolidationFunction(), report.getStartTime(),
+                                               report.getEndTime())).andReturn(1.0);
 
         m_mocks.replayAll();
 

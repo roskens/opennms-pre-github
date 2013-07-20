@@ -29,7 +29,9 @@
 package org.opennms.features.poller.remote.gwt.client.utils;
 
 /**
- * <p>Interval class.</p>
+ * <p>
+ * Interval class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,13 +39,18 @@ package org.opennms.features.poller.remote.gwt.client.utils;
  */
 public class Interval implements Comparable<Interval> {
     private long m_start;
+
     private long m_end;
 
     /**
-     * <p>Constructor for Interval.</p>
+     * <p>
+     * Constructor for Interval.
+     * </p>
      *
-     * @param start a long.
-     * @param end a long.
+     * @param start
+     *            a long.
+     * @param end
+     *            a long.
      */
     public Interval(long start, long end) {
         m_start = start;
@@ -51,7 +58,9 @@ public class Interval implements Comparable<Interval> {
     }
 
     /**
-     * <p>getStartMillis</p>
+     * <p>
+     * getStartMillis
+     * </p>
      *
      * @return a long.
      */
@@ -60,16 +69,21 @@ public class Interval implements Comparable<Interval> {
     }
 
     /**
-     * <p>setStartMillis</p>
+     * <p>
+     * setStartMillis
+     * </p>
      *
-     * @param start a long.
+     * @param start
+     *            a long.
      */
     public void setStartMillis(final long start) {
         m_start = start;
     }
 
     /**
-     * <p>getEndMillis</p>
+     * <p>
+     * getEndMillis
+     * </p>
      *
      * @return a long.
      */
@@ -78,18 +92,26 @@ public class Interval implements Comparable<Interval> {
     }
 
     /**
-     * <p>setEndMillis</p>
+     * <p>
+     * setEndMillis
+     * </p>
      *
-     * @param end a long.
+     * @param end
+     *            a long.
      */
     public void setEndMillis(final long end) {
         m_end = end;
     }
 
     /**
-     * <p>overlaps</p>
+     * <p>
+     * overlaps
+     * </p>
      *
-     * @param that a {@link org.opennms.features.poller.remote.gwt.client.utils.Interval} object.
+     * @param that
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.utils.Interval}
+     *            object.
      * @return a boolean.
      */
     public boolean overlaps(final Interval that) {
@@ -110,18 +132,22 @@ public class Interval implements Comparable<Interval> {
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param that a {@link org.opennms.features.poller.remote.gwt.client.utils.Interval} object.
+     * @param that
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.utils.Interval}
+     *            object.
      * @return a int.
      */
     @Override
     public int compareTo(final Interval that) {
-        if (that == null) return -1;
-        return new CompareToBuilder()
-        .append(this.getStartMillis(), that.getStartMillis())
-        .append(this.getEndMillis(), that.getEndMillis())
-        .toComparison();
+        if (that == null)
+            return -1;
+        return new CompareToBuilder().append(this.getStartMillis(), that.getStartMillis()).append(this.getEndMillis(),
+                                                                                                  that.getEndMillis()).toComparison();
     }
 
 }

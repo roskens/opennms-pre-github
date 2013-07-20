@@ -41,7 +41,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>AsteriskOriginateNotificationStrategy class.</p>
+ * <p>
+ * AsteriskOriginateNotificationStrategy class.
+ * </p>
  *
  * @author Jeff Gehlbach <A HREF="mailto:jeffg@opennms.org">jeffg</A>
  * @version $Id: $
@@ -50,12 +52,15 @@ public class AsteriskOriginateNotificationStrategy implements NotificationStrate
     private static final Logger LOG = LoggerFactory.getLogger(AsteriskOriginateNotificationStrategy.class);
 
     /**
-     * <p>Constructor for AsteriskOriginateNotificationStrategy.</p>
+     * <p>
+     * Constructor for AsteriskOriginateNotificationStrategy.
+     * </p>
      */
     public AsteriskOriginateNotificationStrategy() {
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.notifd.NotificationStrategy#send(java.util.List)
      */
     /** {@inheritDoc} */
@@ -103,7 +108,8 @@ public class AsteriskOriginateNotificationStrategy implements NotificationStrate
                 LOG.debug("Found: PARAM_NODE => {}", arg.getValue());
                 ao.setChannelVariable(BaseOnmsAgiScript.VAR_OPENNMS_NODEID, arg.getValue());
                 try {
-                    ao.setChannelVariable(BaseOnmsAgiScript.VAR_OPENNMS_NODELABEL, Notifd.getInstance().getNodeDao().get(arg.getValue()).getLabel());
+                    ao.setChannelVariable(BaseOnmsAgiScript.VAR_OPENNMS_NODELABEL,
+                                          Notifd.getInstance().getNodeDao().get(arg.getValue()).getLabel());
                 } catch (Throwable e) {
                     ao.setChannelVariable(BaseOnmsAgiScript.VAR_OPENNMS_NODELABEL, null);
                 }

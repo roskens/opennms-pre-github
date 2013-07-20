@@ -38,38 +38,36 @@ import org.opennms.features.topology.app.internal.gwt.client.view.TopologyView;
 
 import com.google.gwt.user.client.Event;
 
-public class PanObject extends DragObject{
-	/**
+public class PanObject extends DragObject {
+    /**
      *
      */
     private SVGMatrix m_stateTf;
-	private SVGPoint m_stateOrigin;
 
-	public PanObject(TopologyView<TopologyViewRenderer> topologyView) {
-		super(topologyView, topologyView.getSVGViewPort(), topologyView.getSVGElement(), D3.d3().selectAll(GWTVertex.VERTEX_CLASS_NAME));
+    private SVGPoint m_stateOrigin;
 
-		SVGGElement g = topologyView.getSVGViewPort().cast();
-		m_stateTf = g.getCTM().inverse();
+    public PanObject(TopologyView<TopologyViewRenderer> topologyView) {
+        super(topologyView, topologyView.getSVGViewPort(), topologyView.getSVGElement(),
+              D3.d3().selectAll(GWTVertex.VERTEX_CLASS_NAME));
 
-		SVGPoint eventPoint = getEventPoint(D3.getEvent());
-        m_stateOrigin = topologyView.getPoint((int)eventPoint.getX(), (int)eventPoint.getY());
-	}
+        SVGGElement g = topologyView.getSVGViewPort().cast();
+        m_stateTf = g.getCTM().inverse();
 
-	@Override
-	public void move() {
-		Event event = D3.getEvent().cast();
-		SVGPoint eventPoint = getEventPoint(event);
+        SVGPoint eventPoint = getEventPoint(D3.getEvent());
+        m_stateOrigin = topologyView.getPoint((int) eventPoint.getX(), (int) eventPoint.getY());
+    }
+
+    @Override
+    public void move() {
+        Event event = D3.getEvent().cast();
+        SVGPoint eventPoint = getEventPoint(event);
         SVGPoint p = eventPoint.matrixTransform(m_stateTf);
 
-		SVGMatrix m = m_stateTf.inverse().translate(p.getX() - m_stateOrigin.getX(), p.getY() - m_stateOrigin.getY() );
+        SVGMatrix m = m_stateTf.inverse().translate(p.getX() - m_stateOrigin.getX(), p.getY() - m_stateOrigin.getY());
 
-		String matrixTransform = "matrix(" + m.getA() +
-				", " + m.getB() +
-				", " + m.getC() +
-				", " + m.getD() +
-				", " + m.getE() +
-				", " + m.getF() + ")";
-		getDraggableElement().setAttribute("transform", matrixTransform);
-	}
+        String matrixTransform = "matrix(" + m.getA() + ", " + m.getB() + ", " + m.getC() + ", " + m.getD() + ", "
+                + m.getE() + ", " + m.getF() + ")";
+        getDraggableElement().setAttribute("transform", matrixTransform);
+    }
 
 }

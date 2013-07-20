@@ -42,9 +42,11 @@ import org.springframework.stereotype.Component;
 public class NotesHttpDetector extends MultilineHttpDetector {
 
     /**
-     * <p>Constructor for NotesHttpDetector.</p>
+     * <p>
+     * Constructor for NotesHttpDetector.
+     * </p>
      */
-    public NotesHttpDetector(){
+    public NotesHttpDetector() {
         super();
         setServiceName("NOTES");
     }

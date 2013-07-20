@@ -43,22 +43,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({
-    DependencyInjectionTestExecutionListener.class
-})
-@ContextConfiguration(locations={
-        "classpath:org/opennms/reporting/availability/svclayer/AvailabilityReportServiceTest.xml"
-})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:org/opennms/reporting/availability/svclayer/AvailabilityReportServiceTest.xml" })
 public class AvailabilityReportServiceTest implements InitializingBean {
 
     @Autowired
     @Qualifier("mockClassicCalculator")
     AvailabilityCalculator m_classicCalculator;
+
     @Autowired
     @Qualifier("mockCalendarCalculator")
     AvailabilityCalculator m_calendarCalculator;
+
     @Autowired
     OnmsReportConfigDao m_configDao;
+
     @Autowired
     ParameterConversionService m_parameterConversionService;
 

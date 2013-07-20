@@ -59,71 +59,98 @@ import com.google.gwt.user.client.ui.RequiresResize;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <p>LocationPanel class.</p>
+ * <p>
+ * LocationPanel class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class LocationPanel extends Composite implements LocationPanelSelectEventHandler, TagResizeEventHandler, RequiresResize, ResizeHandler {
+public class LocationPanel extends Composite implements LocationPanelSelectEventHandler, TagResizeEventHandler,
+        RequiresResize, ResizeHandler {
 
-	interface Binder extends UiBinder<Widget, LocationPanel> { }
+    interface Binder extends UiBinder<Widget, LocationPanel> {
+    }
 
-	private static final Binder BINDER = GWT.create(Binder.class);
-	private transient HandlerManager m_eventBus;
-	private transient List<HandlerRegistration> eventRegistrations = new ArrayList<HandlerRegistration>();
+    private static final Binder BINDER = GWT.create(Binder.class);
 
-	@UiField FlowPanel locationPanel;
-	@UiField PageableLocationList locationList;
-	@UiField PageableApplicationList applicationList;
-	@UiField FilterPanel filterPanel;
-	@UiField TagPanel tagPanel;
-	@UiField HTMLPanel filterOptionsPanel;
-	@UiField FlowPanel listsPanel;
+    private transient HandlerManager m_eventBus;
 
-	/**
-	 * <p>Constructor for LocationPanel.</p>
-	 */
-	public LocationPanel() {
-		super();
-		initWidget(BINDER.createAndBindUi(this));
-		locationList.addLocationPanelSelectEventHandler(this);
+    private transient List<HandlerRegistration> eventRegistrations = new ArrayList<HandlerRegistration>();
 
-		// Blank out the selected applications list
-		this.updateSelectedApplications(new TreeSet<ApplicationInfo>());
+    @UiField
+    FlowPanel locationPanel;
 
-		Window.addResizeHandler(this);
-		listsPanel.getElement().setId("listsPanel");
-		locationList.getElement().setId("locationList");
-		applicationList.getElement().setId("applicationList");
-	}
+    @UiField
+    PageableLocationList locationList;
+
+    @UiField
+    PageableApplicationList applicationList;
+
+    @UiField
+    FilterPanel filterPanel;
+
+    @UiField
+    TagPanel tagPanel;
+
+    @UiField
+    HTMLPanel filterOptionsPanel;
+
+    @UiField
+    FlowPanel listsPanel;
 
     /**
-     * <p>setEventBus</p>
+     * <p>
+     * Constructor for LocationPanel.
+     * </p>
+     */
+    public LocationPanel() {
+        super();
+        initWidget(BINDER.createAndBindUi(this));
+        locationList.addLocationPanelSelectEventHandler(this);
+
+        // Blank out the selected applications list
+        this.updateSelectedApplications(new TreeSet<ApplicationInfo>());
+
+        Window.addResizeHandler(this);
+        listsPanel.getElement().setId("listsPanel");
+        locationList.getElement().setId("locationList");
+        applicationList.getElement().setId("applicationList");
+    }
+
+    /**
+     * <p>
+     * setEventBus
+     * </p>
      *
-     * @param eventBus a {@link com.google.gwt.event.shared.HandlerManager} object.
+     * @param eventBus
+     *            a {@link com.google.gwt.event.shared.HandlerManager} object.
      */
     public void setEventBus(final HandlerManager eventBus) {
-	    // Remove any existing handler registrations
-	    for (HandlerRegistration registration : eventRegistrations) {
-	        registration.removeHandler();
-	    }
-	    m_eventBus = eventBus;
-	    m_eventBus.addHandler(TagResizeEvent.TYPE, this);
+        // Remove any existing handler registrations
+        for (HandlerRegistration registration : eventRegistrations) {
+            registration.removeHandler();
+        }
+        m_eventBus = eventBus;
+        m_eventBus.addHandler(TagResizeEvent.TYPE, this);
 
-	    filterPanel.setEventBus(eventBus);
-	    tagPanel.setEventBus(eventBus);
-	    applicationList.setEventBus(eventBus);
-	    // eventRegistrations.add(m_eventBus.addHandler(MapPanelBoundsChangedEvent.TYPE, this));
-	    // eventRegistrations.add(m_eventBus.addHandler(LocationsUpdatedEvent.TYPE, this));
-	}
+        filterPanel.setEventBus(eventBus);
+        tagPanel.setEventBus(eventBus);
+        applicationList.setEventBus(eventBus);
+        // eventRegistrations.add(m_eventBus.addHandler(MapPanelBoundsChangedEvent.TYPE,
+        // this));
+        // eventRegistrations.add(m_eventBus.addHandler(LocationsUpdatedEvent.TYPE,
+        // this));
+    }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void onLocationSelected(final LocationPanelSelectEvent event) {
         m_eventBus.fireEvent(event);
 
     }
+
     /**
      * Switches view to Pageable Location List
      */
@@ -143,30 +170,39 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
     }
 
     /**
-     * <p>updateSelectedApplications</p>
+     * <p>
+     * updateSelectedApplications
+     * </p>
      *
-     * @param selectedApplications a {@link java.util.Set} object.
+     * @param selectedApplications
+     *            a {@link java.util.Set} object.
      */
     public void updateSelectedApplications(final Set<ApplicationInfo> selectedApplications) {
         filterPanel.updateSelectedApplications(selectedApplications);
         applicationList.updateSelectedApplications(selectedApplications);
-        //Trigger the resize of the panel
+        // Trigger the resize of the panel
         resizeDockPanel();
     }
 
     /**
-     * <p>updateApplicationNames</p>
+     * <p>
+     * updateApplicationNames
+     * </p>
      *
-     * @param allApplicationNames a {@link java.util.Set} object.
+     * @param allApplicationNames
+     *            a {@link java.util.Set} object.
      */
     public void updateApplicationNames(final Set<String> allApplicationNames) {
         filterPanel.updateApplicationNames(allApplicationNames);
     }
 
     /**
-     * <p>updateApplicationList</p>
+     * <p>
+     * updateApplicationList
+     * </p>
      *
-     * @param appList a {@link java.util.ArrayList} object.
+     * @param appList
+     *            a {@link java.util.ArrayList} object.
      */
     public void updateApplicationList(final ArrayList<ApplicationInfo> appList) {
         Collections.sort(appList, new Comparator<ApplicationInfo>() {
@@ -182,9 +218,12 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
     }
 
     /**
-     * <p>updateLocationList</p>
+     * <p>
+     * updateLocationList
+     * </p>
      *
-     * @param visibleLocations a {@link java.util.ArrayList} object.
+     * @param visibleLocations
+     *            a {@link java.util.ArrayList} object.
      */
     public void updateLocationList(final ArrayList<LocationInfo> visibleLocations) {
         Collections.sort(visibleLocations, new Comparator<LocationInfo>() {
@@ -199,25 +238,33 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
     }
 
     /**
-     * <p>selectTag</p>
+     * <p>
+     * selectTag
+     * </p>
      *
-     * @param tag a {@link java.lang.String} object.
+     * @param tag
+     *            a {@link java.lang.String} object.
      */
     public void selectTag(String tag) {
         tagPanel.selectTag(tag);
     }
 
     /**
-     * <p>clearTagPanel</p>
+     * <p>
+     * clearTagPanel
+     * </p>
      */
     public void clearTagPanel() {
         tagPanel.clear();
     }
 
     /**
-     * <p>addAllTags</p>
+     * <p>
+     * addAllTags
+     * </p>
      *
-     * @param tags a {@link java.util.Collection} object.
+     * @param tags
+     *            a {@link java.util.Collection} object.
      * @return a boolean.
      */
     public boolean addAllTags(final Collection<String> tags) {
@@ -225,30 +272,36 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
     }
 
     /**
-     * <p>showApplicationFilters</p>
+     * <p>
+     * showApplicationFilters
+     * </p>
      *
-     * @param isApplicationView a boolean.
+     * @param isApplicationView
+     *            a boolean.
      */
     public void showApplicationFilters(boolean isApplicationView) {
         filterPanel.showApplicationFilters(isApplicationView);
     }
 
     /**
-     * <p>resizeDockPanel</p>
+     * <p>
+     * resizeDockPanel
+     * </p>
      */
     public void resizeDockPanel() {
         int verticalSpacer = 3;
         Element element = listsPanel.getElement();
 
-        if(getUserAgent().contains("msie")) {
+        if (getUserAgent().contains("msie")) {
             int newHeight = 100;
 
-            if(locationPanel.getOffsetHeight() > 1) {
-                newHeight = locationPanel.getOffsetHeight() - (tagPanel.getOffsetHeight() + filterPanel.getOffsetHeight() + verticalSpacer);
+            if (locationPanel.getOffsetHeight() > 1) {
+                newHeight = locationPanel.getOffsetHeight()
+                        - (tagPanel.getOffsetHeight() + filterPanel.getOffsetHeight() + verticalSpacer);
             }
 
             element.getStyle().setHeight(newHeight, Unit.PX);
-        }else {
+        } else {
             int newTop = tagPanel.getOffsetHeight() + filterPanel.getOffsetHeight() + verticalSpacer;
             element.getStyle().setTop(newTop, Unit.PX);
         }
@@ -256,32 +309,36 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
     }
 
     /**
-     * <p>onTagPanelResize</p>
+     * <p>
+     * onTagPanelResize
+     * </p>
      */
-        @Override
+    @Override
     public void onTagPanelResize() {
         resizeDockPanel();
     }
 
     /**
-     * <p>onResize</p>
+     * <p>
+     * onResize
+     * </p>
      */
-        @Override
+    @Override
     public void onResize() {
-        if(applicationList.isVisible()) {
+        if (applicationList.isVisible()) {
             applicationList.refreshApplicationListResize();
-        }else if(locationList.isVisible()) {
+        } else if (locationList.isVisible()) {
             locationList.refreshLocationListResize();
         }
     }
 
-        @Override
+    @Override
     public void onResize(ResizeEvent event) {
         resizeDockPanel();
     }
 
     public static native String getUserAgent() /*-{
-        return navigator.userAgent.toLowerCase();
-    }-*/;
+                                               return navigator.userAgent.toLowerCase();
+                                               }-*/;
 
 }

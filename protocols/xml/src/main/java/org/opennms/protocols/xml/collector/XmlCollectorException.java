@@ -41,8 +41,10 @@ public class XmlCollectorException extends RuntimeException {
     /**
      * Instantiates a new XML collector exception.
      *
-     * @param message the message
-     * @param cause the cause
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
      */
     public XmlCollectorException(String message, Throwable cause) {
         super(message, cause);
@@ -51,7 +53,8 @@ public class XmlCollectorException extends RuntimeException {
     /**
      * Instantiates a new XML collector exception.
      *
-     * @param message the message
+     * @param message
+     *            the message
      */
     public XmlCollectorException(String message) {
         super(message);

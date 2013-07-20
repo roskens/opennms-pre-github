@@ -40,7 +40,9 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 public class AppController implements Presenter {
     private final SimpleEventBus m_eventBus;
+
     private SuggestionComboboxView<NodeDetail> m_suggestionComboboxView;
+
     private HasWidgets m_container;
 
     public AppController(SimpleEventBus eventBus) {
@@ -51,7 +53,7 @@ public class AppController implements Presenter {
     public void go(HasWidgets container) {
         m_container = container;
 
-        if(m_suggestionComboboxView == null) {
+        if (m_suggestionComboboxView == null) {
             m_suggestionComboboxView = new SuggestionComboboxViewImpl();
         }
 

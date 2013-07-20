@@ -32,11 +32,14 @@ import java.net.InetAddress;
 
 public final class SnmpAgentAddress {
     private final InetAddress m_address;
+
     private final Integer m_port;
 
     public SnmpAgentAddress(final InetAddress agentAddress, final Integer agentPort) {
-    	if (agentAddress == null) throw new NullPointerException("agentAddress cannot be null");
-    	if (agentPort == null) throw new NullPointerException("agentPort cannot be null");
+        if (agentAddress == null)
+            throw new NullPointerException("agentAddress cannot be null");
+        if (agentPort == null)
+            throw new NullPointerException("agentPort cannot be null");
 
         m_address = agentAddress;
         m_port = agentPort;
@@ -53,21 +56,22 @@ public final class SnmpAgentAddress {
 
     @Override
     public boolean equals(final Object obj) {
-        if (!(obj instanceof SnmpAgentAddress)) return false;
-        final SnmpAgentAddress that = (SnmpAgentAddress)obj;
+        if (!(obj instanceof SnmpAgentAddress))
+            return false;
+        final SnmpAgentAddress that = (SnmpAgentAddress) obj;
         return m_address.equals(that.m_address) && m_port.equals(that.m_port);
     }
 
     @Override
     public int hashCode() {
-    	int hashCode = 1;
-    	hashCode = hashCode*37 + m_address.hashCode();
-    	hashCode = hashCode*37 + m_port.hashCode();
-    	return hashCode;
+        int hashCode = 1;
+        hashCode = hashCode * 37 + m_address.hashCode();
+        hashCode = hashCode * 37 + m_port.hashCode();
+        return hashCode;
     }
 
     @Override
     public String toString() {
-    	return InetAddrUtils.str(m_address) + ":" + m_port;
+        return InetAddrUtils.str(m_address) + ":" + m_port;
     }
 }

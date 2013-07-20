@@ -42,30 +42,35 @@ import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.xml.event.Event;
+
 public final class AddEventVisitor extends AbstractEntityVisitor {
-	private final List<Event> m_events;
+    private final List<Event> m_events;
 
-	AddEventVisitor(List<Event> events) {
-		m_events = events;
-	}
+    AddEventVisitor(List<Event> events) {
+        m_events = events;
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void visitNode(OnmsNode node) {
-		m_events.add(EventUtils.createNodeAddedEvent(node.getId().intValue(), node.getLabel(), node.getLabelSource()));
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void visitNode(OnmsNode node) {
+        m_events.add(EventUtils.createNodeAddedEvent(node.getId().intValue(), node.getLabel(), node.getLabelSource()));
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void visitIpInterface(OnmsIpInterface iface) {
-		m_events.add(EventUtils.createNodeGainedInterfaceEvent("ModelImporter", iface.getNode().getId().intValue(), iface.getIpAddress()));
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void visitIpInterface(OnmsIpInterface iface) {
+        m_events.add(EventUtils.createNodeGainedInterfaceEvent("ModelImporter", iface.getNode().getId().intValue(),
+                                                               iface.getIpAddress()));
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void visitMonitoredService(OnmsMonitoredService monSvc) {
-		OnmsIpInterface iface = monSvc.getIpInterface();
-		OnmsNode node = iface.getNode();
-		m_events.add(EventUtils.createNodeGainedServiceEvent("ModelImporter", monSvc.getNodeId().intValue(), iface.getIpAddress(), monSvc.getServiceType().getName(), node.getLabel(), node.getLabelSource(), node.getSysName(), node.getSysDescription()));
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void visitMonitoredService(OnmsMonitoredService monSvc) {
+        OnmsIpInterface iface = monSvc.getIpInterface();
+        OnmsNode node = iface.getNode();
+        m_events.add(EventUtils.createNodeGainedServiceEvent("ModelImporter", monSvc.getNodeId().intValue(),
+                                                             iface.getIpAddress(), monSvc.getServiceType().getName(),
+                                                             node.getLabel(), node.getLabelSource(), node.getSysName(),
+                                                             node.getSysDescription()));
+    }
 }

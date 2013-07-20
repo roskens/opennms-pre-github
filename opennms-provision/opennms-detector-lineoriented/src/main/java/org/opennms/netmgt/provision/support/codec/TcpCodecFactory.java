@@ -36,7 +36,9 @@ import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolEncoder;
 
 /**
- * <p>TcpCodecFactory class.</p>
+ * <p>
+ * TcpCodecFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,23 +46,31 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
 public class TcpCodecFactory implements ProtocolCodecFactory {
 
     private final LineOrientedEncoder m_encoder;
+
     private final TcpLineDecoder m_decoder;
 
     /**
-     * <p>Constructor for TcpCodecFactory.</p>
+     * <p>
+     * Constructor for TcpCodecFactory.
+     * </p>
      *
-     * @param charset a {@link java.nio.charset.Charset} object.
+     * @param charset
+     *            a {@link java.nio.charset.Charset} object.
      */
     public TcpCodecFactory(final Charset charset) {
         this(charset, null);
     }
 
     /**
-     * <p>Constructor for TcpCodecFactory.</p>
-     * FIXME: Why does this exist?  It drops the second argument.
+     * <p>
+     * Constructor for TcpCodecFactory.
+     * </p>
+     * FIXME: Why does this exist? It drops the second argument.
      *
-     * @param charset a {@link java.nio.charset.Charset} object.
-     * @param delimit a {@link java.lang.String} object.
+     * @param charset
+     *            a {@link java.nio.charset.Charset} object.
+     * @param delimit
+     *            a {@link java.lang.String} object.
      */
     public TcpCodecFactory(final Charset charset, final String delimit) {
         m_encoder = new LineOrientedEncoder(charset);

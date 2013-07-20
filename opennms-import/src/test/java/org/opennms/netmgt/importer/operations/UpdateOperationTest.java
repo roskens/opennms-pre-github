@@ -40,37 +40,35 @@ import org.opennms.netmgt.importer.config.types.InterfaceSnmpPrimaryType;
 
 public class UpdateOperationTest extends TestCase {
 
-        @Override
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
 
-        @Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 
-	/*
-	 * Test method for 'org.opennms.netmgt.importer.operations.AbstractSaveOrUpdateOperation.scanForSnmpData(Node)'
-	 */
-	public final void testScanForSnmpData() throws MarshalException, ValidationException, IOException {
+    /*
+     * Test method for
+     * 'org.opennms.netmgt.importer.operations.AbstractSaveOrUpdateOperation.scanForSnmpData(Node)'
+     */
+    public final void testScanForSnmpData() throws MarshalException, ValidationException, IOException {
 
-		ByteArrayInputStream in = new ByteArrayInputStream(("<?xml version=\"1.0\"?>\n" +
-				"<snmp-config port=\"161\" retry=\"3\" timeout=\"800\"\n" +
-				"             read-community=\"public\" \n" +
-				"                 version=\"v1\">\n" +
-				"\n" +
-				"</snmp-config>").getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream(("<?xml version=\"1.0\"?>\n"
+                + "<snmp-config port=\"161\" retry=\"3\" timeout=\"800\"\n"
+                + "             read-community=\"public\" \n" + "                 version=\"v1\">\n" + "\n"
+                + "</snmp-config>").getBytes());
 
-		SnmpPeerFactory.setInstance(new SnmpPeerFactory(in));
+        SnmpPeerFactory.setInstance(new SnmpPeerFactory(in));
 
+        AbstractSaveOrUpdateOperation op = new UpdateOperation(new Integer(1), "imported:", "1", "node1", "theoffice",
+                                                               "pittsboro");
+        op.foundInterface("192.168.0.102", "if1", InterfaceSnmpPrimaryType.P, true, 1);
+        op.foundInterface("127.0.0.1", "if2", InterfaceSnmpPrimaryType.N, true, 1);
+        op.updateSnmpData();
 
-		AbstractSaveOrUpdateOperation op = new UpdateOperation(new Integer(1), "imported:", "1", "node1", "theoffice", "pittsboro");
-		op.foundInterface("192.168.0.102", "if1", InterfaceSnmpPrimaryType.P, true, 1);
-		op.foundInterface("127.0.0.1", "if2", InterfaceSnmpPrimaryType.N, true, 1);
-		op.updateSnmpData();
-
-
-	}
+    }
 
 }

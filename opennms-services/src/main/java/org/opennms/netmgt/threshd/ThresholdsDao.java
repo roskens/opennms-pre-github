@@ -31,7 +31,9 @@ package org.opennms.netmgt.threshd;
 import org.opennms.netmgt.config.ThresholdingConfigFactory;
 
 /**
- * <p>ThresholdsDao interface.</p>
+ * <p>
+ * ThresholdsDao interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -42,23 +44,34 @@ import org.opennms.netmgt.config.ThresholdingConfigFactory;
 public interface ThresholdsDao {
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.threshd.ThresholdGroup} object.
      */
     ThresholdGroup get(String name);
+
     /**
-     * <p>merge</p>
+     * <p>
+     * merge
+     * </p>
      *
-     * @param group a {@link org.opennms.netmgt.threshd.ThresholdGroup} object.
+     * @param group
+     *            a {@link org.opennms.netmgt.threshd.ThresholdGroup} object.
      * @return a {@link org.opennms.netmgt.threshd.ThresholdGroup} object.
      */
     ThresholdGroup merge(ThresholdGroup group);
+
     /**
-     * <p>getThresholdingConfigFactory</p>
+     * <p>
+     * getThresholdingConfigFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.ThresholdingConfigFactory} object.
+     * @return a {@link org.opennms.netmgt.config.ThresholdingConfigFactory}
+     *         object.
      */
     ThresholdingConfigFactory getThresholdingConfigFactory();
 }

@@ -37,33 +37,34 @@ import com.google.gwt.core.client.GWT;
  *         Validates a String against a regexp.
  */
 public class StringRegexpValidator implements Validator {
-	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
-	private String regexp;
+    private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
-	public StringRegexpValidator(String regexp) {
-		this.regexp = regexp;
-	}
+    private String regexp;
 
-	/**
-	 * The regexp used to validate.
-	 *
-	 * @return String regexp
-	 */
-	public String getRegexp() {
-		return regexp;
-	}
+    public StringRegexpValidator(String regexp) {
+        this.regexp = regexp;
+    }
 
-	/**
-	 * Validates length of a String against a maximum. Validation will run
-	 * against <code>(String) object</code> so make sure to use a proper object.
-	 *
-	 * @param object
-	 */
-	@Override
-	public String validate(Object object) {
-		if (!((String) object).matches(regexp)) {
-			return con.stringNotMatchingRegexpError() + " " + regexp;
-		}
-		return "";
-	}
+    /**
+     * The regexp used to validate.
+     *
+     * @return String regexp
+     */
+    public String getRegexp() {
+        return regexp;
+    }
+
+    /**
+     * Validates length of a String against a maximum. Validation will run
+     * against <code>(String) object</code> so make sure to use a proper object.
+     *
+     * @param object
+     */
+    @Override
+    public String validate(Object object) {
+        if (!((String) object).matches(regexp)) {
+            return con.stringNotMatchingRegexpError() + " " + regexp;
+        }
+        return "";
+    }
 }

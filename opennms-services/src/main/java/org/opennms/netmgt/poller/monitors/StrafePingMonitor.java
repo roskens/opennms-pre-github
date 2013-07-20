@@ -64,25 +64,27 @@ import org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException;
 @Distributable
 final public class StrafePingMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(StrafePingMonitor.class);
+
     private static final int DEFAULT_MULTI_PING_COUNT = 20;
+
     private static final long DEFAULT_PING_INTERVAL = 50;
+
     private static final int DEFAULT_FAILURE_PING_COUNT = 20;
 
     /**
      * Constructs a new monitor.
      *
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public StrafePingMonitor() throws IOException {
     }
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Poll the specified address for ICMP service availability.
      * </P>
-     *
      * <P>
      * The ICMP service monitor relies on Discovery for the actual generation of
      * IMCP 'ping' requests. A JSDT session with two channels (send/receive) is
@@ -97,7 +99,8 @@ final public class StrafePingMonitor extends AbstractServiceMonitor {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
 
         PollStatus serviceStatus = PollStatus.unavailable();
         InetAddress host = (InetAddress) iface.getAddress();
@@ -110,15 +113,18 @@ final public class StrafePingMonitor extends AbstractServiceMonitor {
             long timeout = ParameterMap.getKeyedLong(parameters, "timeout", PingConstants.DEFAULT_TIMEOUT);
             int count = ParameterMap.getKeyedInteger(parameters, "ping-count", DEFAULT_MULTI_PING_COUNT);
             long pingInterval = ParameterMap.getKeyedLong(parameters, "wait-interval", DEFAULT_PING_INTERVAL);
-            int failurePingCount = ParameterMap.getKeyedInteger(parameters, "failure-ping-count", DEFAULT_FAILURE_PING_COUNT);
+            int failurePingCount = ParameterMap.getKeyedInteger(parameters, "failure-ping-count",
+                                                                DEFAULT_FAILURE_PING_COUNT);
 
-            responseTimes = new ArrayList<Number>(PingerFactory.getInstance().parallelPing(host, count, timeout, pingInterval));
+            responseTimes = new ArrayList<Number>(PingerFactory.getInstance().parallelPing(host, count, timeout,
+                                                                                           pingInterval));
 
             if (CollectionMath.countNull(responseTimes) >= failurePingCount) {
-		LOG.debug("Service {} on interface {} is down, but continuing to gather latency data", svc.getSvcName(), svc.getIpAddr());
+                LOG.debug("Service {} on interface {} is down, but continuing to gather latency data",
+                          svc.getSvcName(), svc.getIpAddr());
                 serviceStatus = PollStatus.unavailable("the failure ping count (" + failurePingCount + ") was reached");
             } else {
-            	serviceStatus = PollStatus.available();
+                serviceStatus = PollStatus.available();
             }
 
             Collections.sort(responseTimes, new Comparator<Number>() {

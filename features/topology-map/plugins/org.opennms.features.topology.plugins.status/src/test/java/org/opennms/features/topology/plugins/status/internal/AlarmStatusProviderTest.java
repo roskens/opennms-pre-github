@@ -58,7 +58,8 @@ public class AlarmStatusProviderTest {
         }
 
         @Override
-        public void setParent(VertexRef parent) {}
+        public void setParent(VertexRef parent) {
+        }
 
         @Override
         public VertexRef getParent() {
@@ -98,6 +99,7 @@ public class AlarmStatusProviderTest {
     }
 
     private AlarmDao m_alarmDao;
+
     private AlarmStatusProvider m_statusProvider;
 
     @Before
@@ -107,11 +109,9 @@ public class AlarmStatusProviderTest {
         m_statusProvider.setAlarmDao(m_alarmDao);
     }
 
-
     @Test
     public void testGetAlarmStatus() {
         Vertex vertex = new TestVertex();
-
 
         EasyMock.expect(m_alarmDao.getNodeAlarmSummaries(EasyMock.anyInt())).andReturn(createNormalAlarmSummaryList());
 
@@ -123,7 +123,6 @@ public class AlarmStatusProviderTest {
 
         EasyMock.verify(m_alarmDao);
     }
-
 
     private List<AlarmSummary> createNormalAlarmSummaryList() {
         List<AlarmSummary> alarms = new ArrayList<AlarmSummary>();

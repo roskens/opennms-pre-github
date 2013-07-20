@@ -45,57 +45,81 @@ import org.opennms.netmgt.xml.event.Event;
 public interface PollContext {
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getServiceName();
 
     /**
-     * <p>setServiceName</p>
+     * <p>
+     * setServiceName
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public void setServiceName(String serviceName);
 
     /**
-     * <p>sendEvent</p>
+     * <p>
+     * sendEvent
+     * </p>
      *
-     * @param event the event to send
+     * @param event
+     *            the event to send
      */
     public void sendEvent(Event event);
 
     /**
-     * <p>createEvent</p>
+     * <p>
+     * createEvent
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
-     * @param nodeId a int.
-     * @param address a {@link java.lang.String} object.
-     * @param date a {@link java.util.Date} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param address
+     *            a {@link java.lang.String} object.
+     * @param date
+     *            a {@link java.util.Date} object.
      * @return the event
-     * @param snmpinterface a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
+     * @param snmpinterface
+     *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      */
     public Event createEvent(String uei, int nodeId, String address, Date date, OnmsSnmpInterface snmpinterface);
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param nodeId a int.
-     * @param criteria a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param criteria
+     *            a {@link java.lang.String} object.
      * @return The List of OnmsSnmpInterfaces to be polled
      */
     public List<OnmsSnmpInterface> get(int nodeId, String criteria);
 
     /**
-     * <p>getPollableNodesByIp</p>
+     * <p>
+     * getPollableNodesByIp
+     * </p>
      *
-     * @param ipaddr the ip address of the node.
+     * @param ipaddr
+     *            the ip address of the node.
      * @return The List of OnmsIpInterfaces to be polled
      */
     public List<OnmsIpInterface> getPollableNodesByIp(String ipaddr);
 
     /**
-     * <p>getPollableNodes</p>
+     * <p>
+     * getPollableNodes
+     * </p>
      *
      * @return The List of OnmsIpInterfaces to be polled
      */
@@ -104,7 +128,8 @@ public interface PollContext {
     /**
      * Update the OnmsSnmpInterface
      *
-     * @param snmpinteface a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
+     * @param snmpinteface
+     *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      */
     public void update(OnmsSnmpInterface snmpinteface);
 

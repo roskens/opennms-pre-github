@@ -71,8 +71,10 @@ public class NsclientDetector extends BasicDetector<NsclientRequest, NsclientPac
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public NsclientDetector(final String serviceName, final int port) {
         super(serviceName, port);
@@ -88,9 +90,8 @@ public class NsclientDetector extends BasicDetector<NsclientRequest, NsclientPac
             @Override
             public boolean validate(final NsclientPacket pack) {
                 // only fail on critical and unknown returns.
-                return pack != null
-                    && pack.getResultCode() != NsclientPacket.RES_STATE_CRIT
-                    && pack.getResultCode() != NsclientPacket.RES_STATE_UNKNOWN;
+                return pack != null && pack.getResultCode() != NsclientPacket.RES_STATE_CRIT
+                        && pack.getResultCode() != NsclientPacket.RES_STATE_UNKNOWN;
             }
         };
     }

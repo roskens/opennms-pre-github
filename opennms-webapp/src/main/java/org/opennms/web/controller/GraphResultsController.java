@@ -48,9 +48,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
 
-
 /**
- * <p>GraphResultsController class.</p>
+ * <p>
+ * GraphResultsController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -65,16 +66,13 @@ public class GraphResultsController extends AbstractController implements Initia
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        String[] requiredParameters = new String[] {
-                "resourceId",
-                "reports"
-        };
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
+        String[] requiredParameters = new String[] { "resourceId", "reports" };
 
         for (String requiredParameter : requiredParameters) {
             if (request.getParameter(requiredParameter) == null) {
-                throw new MissingParameterException(requiredParameter,
-                                                    requiredParameters);
+                throw new MissingParameterException(requiredParameter, requiredParameters);
             }
         }
 
@@ -101,86 +99,80 @@ public class GraphResultsController extends AbstractController implements Initia
         long endLong = 0;
 
         if (start != null || end != null) {
-            String[] ourRequiredParameters = new String[] {
-                    "start",
-                    "end"
-            };
+            String[] ourRequiredParameters = new String[] { "start", "end" };
 
             if (start == null) {
-                throw new MissingParameterException("start",
-                                                    ourRequiredParameters);
+                throw new MissingParameterException("start", ourRequiredParameters);
             }
 
             if (end == null) {
-                throw new MissingParameterException("end",
-                                                    ourRequiredParameters);
+                throw new MissingParameterException("end", ourRequiredParameters);
             }
-            //The following is very similar to RrdGraphController.parseTimes, but modified for the local context a bit
-            // There's merging possibilities, but I don't know how (common parent class seems wrong; service bean for a single
-            // method isn't much better.  Ideas?
+            // The following is very similar to RrdGraphController.parseTimes,
+            // but modified for the local context a bit
+            // There's merging possibilities, but I don't know how (common
+            // parent class seems wrong; service bean for a single
+            // method isn't much better. Ideas?
 
-    		//Try a simple 'long' parsing.  If either fails, do a full parse.  If one is a straight 'long' but the other isn't
-    		// that's fine, the TimeParser code will handle it fine (as long as we convert milliseconds to seconds)
-            // Indeed, we *have* to use TimeParse for both to ensure any relative references (using "start" or "end") work correctly.
-		// NB: can't do a "safe" parsing using the WebSecurityUtils; if we did, it would filter out all the possible rrdfetch
-    		// format text and always work :)
+            // Try a simple 'long' parsing. If either fails, do a full parse. If
+            // one is a straight 'long' but the other isn't
+            // that's fine, the TimeParser code will handle it fine (as long as
+            // we convert milliseconds to seconds)
+            // Indeed, we *have* to use TimeParse for both to ensure any
+            // relative references (using "start" or "end") work correctly.
+            // NB: can't do a "safe" parsing using the WebSecurityUtils; if we
+            // did, it would filter out all the possible rrdfetch
+            // format text and always work :)
 
-        	boolean startIsInteger = false;
-        	boolean endIsInteger = false;
+            boolean startIsInteger = false;
+            boolean endIsInteger = false;
 
-        	//If either of start/end *is* a long, convert from the incoming milliseconds to seconds that
-        	// is expected for epoch times by TimeParser
-        	try {
-        		startLong = Long.valueOf(start);
-        		startIsInteger = true;
-        		start = ""+(startLong/1000);
-        	} catch (NumberFormatException e) {
-        	}
+            // If either of start/end *is* a long, convert from the incoming
+            // milliseconds to seconds that
+            // is expected for epoch times by TimeParser
+            try {
+                startLong = Long.valueOf(start);
+                startIsInteger = true;
+                start = "" + (startLong / 1000);
+            } catch (NumberFormatException e) {
+            }
 
-        	try {
-        		endLong = Long.valueOf(end);
-        		endIsInteger = true;
-        		end = "" +(endLong/1000);
-        	} catch (NumberFormatException e) {
-        	}
+            try {
+                endLong = Long.valueOf(end);
+                endIsInteger = true;
+                end = "" + (endLong / 1000);
+            } catch (NumberFormatException e) {
+            }
 
-		if(!endIsInteger || !startIsInteger) {
-        		//One or both of start/end aren't integers, so we need to do full parsing using TimeParser
-        		TimeParser startParser = new TimeParser(start);
-        		TimeParser endParser = new TimeParser(end);
-	            try {
+            if (!endIsInteger || !startIsInteger) {
+                // One or both of start/end aren't integers, so we need to do
+                // full parsing using TimeParser
+                TimeParser startParser = new TimeParser(start);
+                TimeParser endParser = new TimeParser(end);
+                try {
 
-	            	TimeSpec specStart = startParser.parse();
-	            	TimeSpec specEnd = endParser.parse();
-			long[] results = TimeSpec.getTimestamps(specStart, specEnd);
-			//Multiply by 1000.  TimeSpec returns timestamps in Seconds, not Milliseconds.
-			startLong = results[0] * 1000;
-			endLong = results[1] * 1000;
-	            } catch (RrdException e1) {
-	    			throw new IllegalArgumentException("Could not parse start '"+ start+"' and end '"+end+"' as valid time specifications", e1);
-	    		}
-        	}
+                    TimeSpec specStart = startParser.parse();
+                    TimeSpec specEnd = endParser.parse();
+                    long[] results = TimeSpec.getTimestamps(specStart, specEnd);
+                    // Multiply by 1000. TimeSpec returns timestamps in Seconds,
+                    // not Milliseconds.
+                    startLong = results[0] * 1000;
+                    endLong = results[1] * 1000;
+                } catch (RrdException e1) {
+                    throw new IllegalArgumentException("Could not parse start '" + start + "' and end '" + end
+                            + "' as valid time specifications", e1);
+                }
+            }
 
-        } else if (startMonth != null || startDate != null
-                   || startYear != null || startHour != null
-                   || endMonth != null || endDate != null || endYear != null
-                   || endHour != null) {
+        } else if (startMonth != null || startDate != null || startYear != null || startHour != null
+                || endMonth != null || endDate != null || endYear != null || endHour != null) {
 
-            String[] ourRequiredParameters = new String[] {
-                    "startMonth",
-                    "startDate",
-                    "startYear",
-                    "startHour",
-                    "endMonth",
-                    "endDate",
-                    "endYear",
-                    "endHour"
-            };
+            String[] ourRequiredParameters = new String[] { "startMonth", "startDate", "startYear", "startHour",
+                    "endMonth", "endDate", "endYear", "endHour" };
 
             for (String requiredParameter : ourRequiredParameters) {
                 if (request.getParameter(requiredParameter) == null) {
-                    throw new MissingParameterException(requiredParameter,
-                                                        ourRequiredParameters);
+                    throw new MissingParameterException(requiredParameter, ourRequiredParameters);
                 }
             }
 
@@ -226,7 +218,9 @@ public class GraphResultsController extends AbstractController implements Initia
     }
 
     /**
-     * <p>getGraphResultsService</p>
+     * <p>
+     * getGraphResultsService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.GraphResultsService} object.
      */
@@ -235,9 +229,12 @@ public class GraphResultsController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setGraphResultsService</p>
+     * <p>
+     * setGraphResultsService
+     * </p>
      *
-     * @param graphResultsService a {@link org.opennms.web.svclayer.GraphResultsService} object.
+     * @param graphResultsService
+     *            a {@link org.opennms.web.svclayer.GraphResultsService} object.
      */
     public final void setGraphResultsService(final GraphResultsService graphResultsService) {
         m_graphResultsService = graphResultsService;
@@ -247,7 +244,8 @@ public class GraphResultsController extends AbstractController implements Initia
      * Ensures that required properties are set to valid values.
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {

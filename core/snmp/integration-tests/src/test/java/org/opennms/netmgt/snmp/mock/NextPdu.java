@@ -34,5 +34,4 @@ public class NextPdu extends RequestPdu {
         super();
     }
 
-
 }

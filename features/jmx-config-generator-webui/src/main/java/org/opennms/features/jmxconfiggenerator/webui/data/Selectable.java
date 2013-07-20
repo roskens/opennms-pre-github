@@ -35,10 +35,10 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
  */
 public interface Selectable {
 
-	/**
-	 * Returns if selected or not.
-	 *
-	 * @return true if selected, false otherwise.
-	 */
-	boolean isSelected();
+    /**
+     * Returns if selected or not.
+     *
+     * @return true if selected, false otherwise.
+     */
+    boolean isSelected();
 }

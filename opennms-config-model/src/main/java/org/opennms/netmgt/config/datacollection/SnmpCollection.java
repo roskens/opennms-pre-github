@@ -56,17 +56,18 @@ import org.xml.sax.ContentHandler;
 
 /**
  * a grouping of SNMP related RRD parms, MIB object groups
- *  and sysoid based system definitions.
+ * and sysoid based system definitions.
  */
 
-@XmlRootElement(name="snmp-collection", namespace="http://xmlns.opennms.org/xsd/config/datacollection")
+@XmlRootElement(name = "snmp-collection", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder={"rrd", "includeCollection", "resourceType", "groups", "systems"})
+@XmlType(propOrder = { "rrd", "includeCollection", "resourceType", "groups", "systems" })
 @ValidateUsing("datacollection-config.xsd")
 public class SnmpCollection implements Serializable {
     private static final long serialVersionUID = 2466351093869349285L;
 
     private static final ResourceType[] EMPTY_RESOURCETYPE_ARRAY = new ResourceType[0];
+
     private static final IncludeCollection[] EMPTY_INCLUDECOLLECTION_ARRAY = new IncludeCollection[0];
 
     /**
@@ -78,8 +79,8 @@ public class SnmpCollection implements Serializable {
 
     /**
      * indicates if collected SNMP data is to be stored for
-     *  "all" interfaces or only for the "primary"
-     *  interface.
+     * "all" interfaces or only for the "primary"
+     * interface.
      */
     private String m_snmpStorageFlag;
 
@@ -90,7 +91,7 @@ public class SnmpCollection implements Serializable {
 
     /**
      * Include Collection by specifying
-     *  System Definition Name or Data Collection Group Name.
+     * System Definition Name or Data Collection Group Name.
      */
     private List<IncludeCollection> m_includeCollections = new ArrayList<IncludeCollection>();
 
@@ -109,11 +110,9 @@ public class SnmpCollection implements Serializable {
      */
     private Systems m_systems;
 
-
     public SnmpCollection() {
         super();
     }
-
 
     /**
      * Returns the value of field 'name'. The field 'name' has the
@@ -121,7 +120,7 @@ public class SnmpCollection implements Serializable {
      *
      * @return the value of field 'Name'.
      */
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     public String getName() {
         return m_name;
     }
@@ -132,7 +131,7 @@ public class SnmpCollection implements Serializable {
      *
      * @return the value of field 'MaxVarsPerPdu'.
      */
-    @XmlAttribute(name="maxVarsPerPdu")
+    @XmlAttribute(name = "maxVarsPerPdu")
     public Integer getMaxVarsPerPdu() {
         return m_maxVarsPerPdu;
     }
@@ -141,12 +140,12 @@ public class SnmpCollection implements Serializable {
      * Returns the value of field 'snmpStorageFlag'. The field
      * 'snmpStorageFlag' has the following description: indicates
      * if collected SNMP data is to be stored for
-     *  "all" interfaces or only for the "primary"
-     *  interface.
+     * "all" interfaces or only for the "primary"
+     * interface.
      *
      * @return the value of field 'SnmpStorageFlag'.
      */
-    @XmlAttribute(name="snmpStorageFlag", required=true)
+    @XmlAttribute(name = "snmpStorageFlag", required = true)
     public String getSnmpStorageFlag() {
         return m_snmpStorageFlag;
     }
@@ -157,37 +156,39 @@ public class SnmpCollection implements Serializable {
      *
      * @return the value of field 'Rrd'.
      */
-    @XmlElement(name="rrd", required=true)
+    @XmlElement(name = "rrd", required = true)
     public Rrd getRrd() {
         return m_rrd;
     }
 
     /**
      * Method getIncludeCollection.Returns the contents of the
-     * collection in an Array.  <p>Note:  Just in case the
-     * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of
-     * exactly the correct length.
+     * collection in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="include-collection")
+    @XmlElement(name = "include-collection")
     public IncludeCollection[] getIncludeCollection() {
         return m_includeCollections.toArray(EMPTY_INCLUDECOLLECTION_ARRAY);
     }
 
     /**
      * Method getResourceType.Returns the contents of the
-     * collection in an Array.  <p>Note:  Just in case the
-     * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of
-     * exactly the correct length.
+     * collection in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="resourceType")
+    @XmlElement(name = "resourceType")
     public ResourceType[] getResourceType() {
         return m_resourceTypes.toArray(EMPTY_RESOURCETYPE_ARRAY);
     }
@@ -198,7 +199,7 @@ public class SnmpCollection implements Serializable {
      *
      * @return the value of field 'Groups'.
      */
-    @XmlElement(name="groups")
+    @XmlElement(name = "groups")
     public Groups getGroups() {
         return m_groups;
     }
@@ -209,52 +210,49 @@ public class SnmpCollection implements Serializable {
      *
      * @return the value of field 'Systems'.
      */
-    @XmlElement(name="systems")
+    @XmlElement(name = "systems")
     public Systems getSystems() {
         return m_systems;
     }
 
     /**
-     *
-     *
      * @param includeCollection
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addIncludeCollection(final IncludeCollection includeCollection) throws IndexOutOfBoundsException {
         m_includeCollections.add(includeCollection);
     }
 
     /**
-     *
-     *
      * @param index
      * @param includeCollection
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addIncludeCollection(final int index, final IncludeCollection includeCollection) throws IndexOutOfBoundsException {
+    public void addIncludeCollection(final int index, final IncludeCollection includeCollection)
+            throws IndexOutOfBoundsException {
         m_includeCollections.add(index, includeCollection);
     }
 
     /**
-     *
-     *
      * @param resourceType
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addResourceType(final ResourceType resourceType) throws IndexOutOfBoundsException {
         m_resourceTypes.add(resourceType);
     }
 
     /**
-     *
-     *
      * @param index
      * @param resourceType
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addResourceType(final int index, final ResourceType resourceType) throws IndexOutOfBoundsException {
         m_resourceTypes.add(index, resourceType);
@@ -268,7 +266,7 @@ public class SnmpCollection implements Serializable {
      * Method enumerateIncludeCollection.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<IncludeCollection> enumerateIncludeCollection() {
         return Collections.enumeration(m_includeCollections);
@@ -278,7 +276,7 @@ public class SnmpCollection implements Serializable {
      * Method enumerateResourceType.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<ResourceType> enumerateResourceType() {
         return Collections.enumeration(m_resourceTypes);
@@ -292,22 +290,19 @@ public class SnmpCollection implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof SnmpCollection) {
-            final SnmpCollection temp = (SnmpCollection)obj;
+            final SnmpCollection temp = (SnmpCollection) obj;
 
-            return new EqualsBuilder()
-                .append(m_name, temp.m_name)
-                .append(m_maxVarsPerPdu, temp.m_maxVarsPerPdu)
-                .append(m_snmpStorageFlag, temp.m_snmpStorageFlag)
-                .append(m_rrd, temp.m_rrd)
-                .append(m_includeCollections, temp.m_includeCollections)
-                .append(m_resourceTypes, temp.m_resourceTypes)
-                .append(m_groups, temp.m_groups)
-                .append(m_systems, temp.m_systems)
-                .isEquals();
+            return new EqualsBuilder().append(m_name, temp.m_name).append(m_maxVarsPerPdu, temp.m_maxVarsPerPdu).append(m_snmpStorageFlag,
+                                                                                                                        temp.m_snmpStorageFlag).append(m_rrd,
+                                                                                                                                                       temp.m_rrd).append(m_includeCollections,
+                                                                                                                                                                          temp.m_includeCollections).append(m_resourceTypes,
+                                                                                                                                                                                                            temp.m_resourceTypes).append(m_groups,
+                                                                                                                                                                                                                                         temp.m_groups).append(m_systems,
+                                                                                                                                                                                                                                                               temp.m_systems).isEquals();
         }
         return false;
     }
@@ -316,15 +311,17 @@ public class SnmpCollection implements Serializable {
      * Method getIncludeCollection.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * IncludeCollection
-     * at the given index
+     *         IncludeCollection
+     *         at the given index
      */
     public IncludeCollection getIncludeCollection(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_includeCollections.size()) {
-            throw new IndexOutOfBoundsException("getIncludeCollection: Index value '" + index + "' not in range [0.." + (m_includeCollections.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getIncludeCollection: Index value '" + index + "' not in range [0.."
+                    + (m_includeCollections.size() - 1) + "]");
         }
         return m_includeCollections.get(index);
     }
@@ -353,15 +350,17 @@ public class SnmpCollection implements Serializable {
      * Method getResourceType.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * types.ResourceType
-     * at the given index
+     *         types.ResourceType
+     *         at the given index
      */
-    public ResourceType getResourceType(final int index)  throws IndexOutOfBoundsException {
+    public ResourceType getResourceType(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_resourceTypes.size()) {
-            throw new IndexOutOfBoundsException("getResourceType: Index value '" + index + "' not in range [0.." + (m_resourceTypes.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getResourceType: Index value '" + index + "' not in range [0.."
+                    + (m_resourceTypes.size() - 1) + "]");
         }
         return m_resourceTypes.get(index);
     }
@@ -398,8 +397,8 @@ public class SnmpCollection implements Serializable {
     /**
      * Overrides the Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -408,28 +407,28 @@ public class SnmpCollection implements Serializable {
         int result = 17;
 
         if (m_name != null) {
-           result = 37 * result + m_name.hashCode();
+            result = 37 * result + m_name.hashCode();
         }
         if (m_maxVarsPerPdu != null) {
             result = 37 * result + m_maxVarsPerPdu;
         }
         if (m_snmpStorageFlag != null) {
-           result = 37 * result + m_snmpStorageFlag.hashCode();
+            result = 37 * result + m_snmpStorageFlag.hashCode();
         }
         if (m_rrd != null) {
-           result = 37 * result + m_rrd.hashCode();
+            result = 37 * result + m_rrd.hashCode();
         }
         if (m_includeCollections != null) {
-           result = 37 * result + m_includeCollections.hashCode();
+            result = 37 * result + m_includeCollections.hashCode();
         }
         if (m_resourceTypes != null) {
-           result = 37 * result + m_resourceTypes.hashCode();
+            result = 37 * result + m_resourceTypes.hashCode();
         }
         if (m_groups != null) {
-           result = 37 * result + m_groups.hashCode();
+            result = 37 * result + m_groups.hashCode();
         }
         if (m_systems != null) {
-           result = 37 * result + m_systems.hashCode();
+            result = 37 * result + m_systems.hashCode();
         }
 
         return result;
@@ -454,7 +453,7 @@ public class SnmpCollection implements Serializable {
      * Method iterateIncludeCollection.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<IncludeCollection> iterateIncludeCollection() {
         return m_includeCollections.iterator();
@@ -464,20 +463,20 @@ public class SnmpCollection implements Serializable {
      * Method iterateResourceType.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<ResourceType> iterateResourceType() {
         return m_resourceTypes.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -485,15 +484,16 @@ public class SnmpCollection implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -552,7 +552,8 @@ public class SnmpCollection implements Serializable {
      * Sets the value of field 'groups'. The field 'groups' has the
      * following description: MIB object groups
      *
-     * @param groups the value of field 'groups'.
+     * @param groups
+     *            the value of field 'groups'.
      */
     public void setGroups(final Groups groups) {
         m_groups = groups;
@@ -561,12 +562,15 @@ public class SnmpCollection implements Serializable {
     /**
      * @param index
      * @param includeCollection
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setIncludeCollection(final int index, final IncludeCollection includeCollection) throws IndexOutOfBoundsException {
+    public void setIncludeCollection(final int index, final IncludeCollection includeCollection)
+            throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_includeCollections.size()) {
-            throw new IndexOutOfBoundsException("setIncludeCollection: Index value '" + index + "' not in range [0.." + (m_includeCollections.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setIncludeCollection: Index value '" + index + "' not in range [0.."
+                    + (m_includeCollections.size() - 1) + "]");
         }
         m_includeCollections.set(index, includeCollection);
     }
@@ -577,7 +581,7 @@ public class SnmpCollection implements Serializable {
     public void setIncludeCollection(final IncludeCollection[] includeCollections) {
         m_includeCollections.clear();
         for (int i = 0; i < includeCollections.length; i++) {
-                m_includeCollections.add(includeCollections[i]);
+            m_includeCollections.add(includeCollections[i]);
         }
     }
 
@@ -585,10 +589,12 @@ public class SnmpCollection implements Serializable {
      * Sets the value of '_includeCollectionList' by copying the
      * given Vector. All elements will be checked for type safety.
      *
-     * @param includeCollections the Vector to copy.
+     * @param includeCollections
+     *            the Vector to copy.
      */
     public void setIncludeCollection(final List<IncludeCollection> includeCollections) {
-        if (m_includeCollections == includeCollections) return;
+        if (m_includeCollections == includeCollections)
+            return;
         m_includeCollections.clear();
         m_includeCollections.addAll(includeCollections);
     }
@@ -596,9 +602,10 @@ public class SnmpCollection implements Serializable {
     /**
      * Sets the value of '_includeCollectionList' by setting it to
      * the given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param includeCollections the Vector to set.
+     * @deprecated
+     * @param includeCollections
+     *            the Vector to set.
      */
     public void setIncludeCollectionCollection(final List<IncludeCollection> includeCollections) {
         m_includeCollections = includeCollections;
@@ -608,7 +615,8 @@ public class SnmpCollection implements Serializable {
      * Sets the value of field 'maxVarsPerPdu'. The field
      * 'maxVarsPerPdu' has the following description: DEPRECATED
      *
-     * @param maxVarsPerPdu the value of field 'maxVarsPerPdu'.
+     * @param maxVarsPerPdu
+     *            the value of field 'maxVarsPerPdu'.
      */
     public void setMaxVarsPerPdu(final Integer maxVarsPerPdu) {
         m_maxVarsPerPdu = maxVarsPerPdu;
@@ -618,7 +626,8 @@ public class SnmpCollection implements Serializable {
      * Sets the value of field 'name'. The field 'name' has the
      * following description: collector name
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
     public void setName(final String name) {
         m_name = name.intern();
@@ -627,12 +636,14 @@ public class SnmpCollection implements Serializable {
     /**
      * @param index
      * @param resourceType
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setResourceType(final int index, final ResourceType resourceType) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_resourceTypes.size()) {
-            throw new IndexOutOfBoundsException("setResourceType: Index value '" + index + "' not in range [0.." + (m_resourceTypes.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setResourceType: Index value '" + index + "' not in range [0.."
+                    + (m_resourceTypes.size() - 1) + "]");
         }
         m_resourceTypes.set(index, resourceType);
     }
@@ -643,7 +654,7 @@ public class SnmpCollection implements Serializable {
     public void setResourceType(final ResourceType[] resourceTypes) {
         m_resourceTypes.clear();
         for (int i = 0; i < resourceTypes.length; i++) {
-                m_resourceTypes.add(resourceTypes[i]);
+            m_resourceTypes.add(resourceTypes[i]);
         }
     }
 
@@ -651,10 +662,12 @@ public class SnmpCollection implements Serializable {
      * Sets the value of '_resourceTypeList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param resourceTypes the Vector to copy.
+     * @param resourceTypes
+     *            the Vector to copy.
      */
     public void setResourceType(final List<ResourceType> resourceTypes) {
-        if (m_resourceTypes == resourceTypes) return;
+        if (m_resourceTypes == resourceTypes)
+            return;
         m_resourceTypes.clear();
         m_resourceTypes.addAll(resourceTypes);
     }
@@ -662,9 +675,10 @@ public class SnmpCollection implements Serializable {
     /**
      * Sets the value of '_resourceTypeList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param resourceTypes the Vector to set.
+     * @deprecated
+     * @param resourceTypes
+     *            the Vector to set.
      */
     public void setResourceTypeCollection(final List<ResourceType> resourceTypes) {
         m_resourceTypes = resourceTypes;
@@ -674,7 +688,8 @@ public class SnmpCollection implements Serializable {
      * Sets the value of field 'rrd'. The field 'rrd' has the
      * following description: RRD parms
      *
-     * @param rrd the value of field 'rrd'.
+     * @param rrd
+     *            the value of field 'rrd'.
      */
     public void setRrd(final Rrd rrd) {
         m_rrd = rrd;
@@ -684,10 +699,11 @@ public class SnmpCollection implements Serializable {
      * Sets the value of field 'snmpStorageFlag'. The field
      * 'snmpStorageFlag' has the following description: indicates
      * if collected SNMP data is to be stored for
-     *  "all" interfaces or only for the "primary"
-     *  interface.
+     * "all" interfaces or only for the "primary"
+     * interface.
      *
-     * @param snmpStorageFlag the value of field 'snmpStorageFlag'.
+     * @param snmpStorageFlag
+     *            the value of field 'snmpStorageFlag'.
      */
     public void setSnmpStorageFlag(final String snmpStorageFlag) {
         m_snmpStorageFlag = snmpStorageFlag.intern();
@@ -697,7 +713,8 @@ public class SnmpCollection implements Serializable {
      * Sets the value of field 'systems'. The field 'systems' has
      * the following description: sysOid-based sytems
      *
-     * @param systems the value of field 'systems'.
+     * @param systems
+     *            the value of field 'systems'.
      */
     public void setSystems(final Systems systems) {
         m_systems = systems;
@@ -707,12 +724,14 @@ public class SnmpCollection implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * SnmpCollection
+     *         SnmpCollection
      */
     @Deprecated
     public static SnmpCollection unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -720,10 +739,9 @@ public class SnmpCollection implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

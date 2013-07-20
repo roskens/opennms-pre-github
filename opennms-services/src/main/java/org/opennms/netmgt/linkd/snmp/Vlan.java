@@ -35,57 +35,59 @@ import org.opennms.netmgt.model.OnmsVlan.VlanType;
 import org.opennms.netmgt.snmp.SnmpResult;
 
 /**
- * <p>VlanCollectorEntry interface.</p>
+ * <p>
+ * VlanCollectorEntry interface.
+ * </p>
  *
  * @author antonio
- *
  * @version $Id: $
  */
 public abstract class Vlan extends SnmpStore {
 
-	private boolean hasVlanIndex = false;
+    private boolean hasVlanIndex = false;
 
-	private Integer vlanIndex = null;
+    private Integer vlanIndex = null;
 
-	public final static String VLAN_INDEX = "vlanIndex";
+    public final static String VLAN_INDEX = "vlanIndex";
 
-	public final static String VLAN_NAME = "vlanName";
+    public final static String VLAN_NAME = "vlanName";
 
-	public final static String VLAN_STATUS = "vlanStatus";
+    public final static String VLAN_STATUS = "vlanStatus";
 
-	public final static String VLAN_TYPE = "vlanType";
+    public final static String VLAN_TYPE = "vlanType";
 
-	public Vlan(NamedSnmpVar[] list) {
-		super(list);
-	}
+    public Vlan(NamedSnmpVar[] list) {
+        super(list);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void storeResult(SnmpResult res) {
-		if (!hasVlanIndex && !hasVlanIndexOid() ) {
-			vlanIndex = res.getInstance().getLastSubId();
-			hasVlanIndex = true;
-		}
-		super.storeResult(res);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void storeResult(SnmpResult res) {
+        if (!hasVlanIndex && !hasVlanIndexOid()) {
+            vlanIndex = res.getInstance().getLastSubId();
+            hasVlanIndex = true;
+        }
+        super.storeResult(res);
+    }
 
-	abstract protected boolean hasVlanIndexOid();
+    abstract protected boolean hasVlanIndexOid();
 
-	public Integer getVlanIndex() {
-		if (hasVlanIndex)
-			return vlanIndex;
-		return getInt32(VLAN_INDEX);
-	}
+    public Integer getVlanIndex() {
+        if (hasVlanIndex)
+            return vlanIndex;
+        return getInt32(VLAN_INDEX);
+    }
 
     public String getVlanName() {
-    	return getDisplayString(VLAN_NAME);
+        return getDisplayString(VLAN_NAME);
     }
 
     abstract public VlanStatus getVlanStatus();
+
     abstract public VlanType getVlanType();
 
     public OnmsVlan getOnmsVlan() {
-    	return new OnmsVlan(getVlanIndex(),getVlanName(),getVlanStatus(),getVlanType());
+        return new OnmsVlan(getVlanIndex(), getVlanName(), getVlanStatus(), getVlanType());
     }
 
 }

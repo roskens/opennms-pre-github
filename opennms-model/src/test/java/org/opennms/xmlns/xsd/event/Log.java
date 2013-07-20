@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -42,11 +41,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -60,19 +60,15 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "header",
-    "events"
-})
+@XmlType(name = "", propOrder = { "header", "events" })
 @XmlRootElement(name = "log")
 public class Log {
 
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Header header;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event", required = true)
     protected Events events;
 
@@ -80,9 +76,7 @@ public class Log {
      * Gets the value of the header property.
      *
      * @return
-     *     possible object is
-     *     {@link Header }
-     *
+     *         possible object is {@link Header }
      */
     public Header getHeader() {
         return header;
@@ -92,9 +86,7 @@ public class Log {
      * Sets the value of the header property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Header }
-     *
+     *            allowed object is {@link Header }
      */
     public void setHeader(Header value) {
         this.header = value;
@@ -104,9 +96,7 @@ public class Log {
      * Gets the value of the events property.
      *
      * @return
-     *     possible object is
-     *     {@link Events }
-     *
+     *         possible object is {@link Events }
      */
     public Events getEvents() {
         return events;
@@ -116,9 +106,7 @@ public class Log {
      * Sets the value of the events property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Events }
-     *
+     *            allowed object is {@link Events }
      */
     public void setEvents(Events value) {
         this.events = value;

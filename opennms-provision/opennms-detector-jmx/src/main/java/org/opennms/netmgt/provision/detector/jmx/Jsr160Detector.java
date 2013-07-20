@@ -32,14 +32,16 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>Jsr160Detector class.</p>
+ * <p>
+ * Jsr160Detector class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
  */
 @Component
 @Scope("prototype")
-public class Jsr160Detector extends AbstractJsr160Detector{
+public class Jsr160Detector extends AbstractJsr160Detector {
 
     private static final String DEFAULT_SERVICE_NAME = "JSR160";
 
@@ -49,7 +51,6 @@ public class Jsr160Detector extends AbstractJsr160Detector{
     public Jsr160Detector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
-
 
     /** {@inheritDoc} */
     @Override

@@ -50,10 +50,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The JBossConnectionFactory class handles the creation of a connection to the
- * remote JBoss server.  The connections can be either RMI or HTTP based.  RMI is
- * more efficient but doesn't work with firewalls.  The HTTP connection is suited
- * for that.  Before attempting to use the HTTP connector, you need to make sure that
- * the invoker-suffix is properly set.  It must match the InvokerURLSuffix value in
+ * remote JBoss server. The connections can be either RMI or HTTP based. RMI is
+ * more efficient but doesn't work with firewalls. The HTTP connection is suited
+ * for that. Before attempting to use the HTTP connector, you need to make sure
+ * that
+ * the invoker-suffix is properly set. It must match the InvokerURLSuffix value
+ * in
  * the jboss-service.xml found in the
  * <jboss-home>/server/default/deploy/http-invoker/META-INF directory
  *
@@ -62,39 +64,50 @@ import org.slf4j.LoggerFactory;
 public class JBossConnectionFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(JBossConnectionFactory.class);
-    static String[] packages = {"org.jboss.naming.*", "org.jboss.interfaces.*"};
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.utils.jmx.connectors.ConnectionFactory#getMBeanServer()
+    static String[] packages = { "org.jboss.naming.*", "org.jboss.interfaces.*" };
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.utils.jmx.connectors.ConnectionFactory#getMBeanServer
+     * ()
      */
     /**
-     * <p>getMBeanServerConnection</p>
+     * <p>
+     * getMBeanServerConnection
+     * </p>
      *
-     * @param propertiesMap a {@link java.util.Map} object.
-     * @param address a {@link java.net.InetAddress} object.
-     * @return a {@link org.opennms.netmgt.provision.support.jmx.connectors.JBossConnectionWrapper} object.
+     * @param propertiesMap
+     *            a {@link java.util.Map} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.support.jmx.connectors.JBossConnectionWrapper}
+     *         object.
      */
-    public static JBossConnectionWrapper getMBeanServerConnection(Map<String,Object> propertiesMap, InetAddress address) {
+    public static JBossConnectionWrapper getMBeanServerConnection(Map<String, Object> propertiesMap, InetAddress address) {
 
         JBossConnectionWrapper wrapper = null;
-        //IsolatingClassLoader   icl     = null;
+        // IsolatingClassLoader icl = null;
         ClassLoader icl = null;
         final ClassLoader originalLoader = Thread.currentThread().getContextClassLoader();
 
         String connectionType = ParameterMap.getKeyedString(propertiesMap, "factory", "RMI");
-        String timeout        = ParameterMap.getKeyedString(propertiesMap, "timeout", "3000");
-        String jbossVersion   = ParameterMap.getKeyedString(propertiesMap, "version", "4");
-        String port           = ParameterMap.getKeyedString(propertiesMap, "port",    "1099");
-
+        String timeout = ParameterMap.getKeyedString(propertiesMap, "timeout", "3000");
+        String jbossVersion = ParameterMap.getKeyedString(propertiesMap, "version", "4");
+        String port = ParameterMap.getKeyedString(propertiesMap, "port", "1099");
 
         if (connectionType == null) {
             return null;
         }
 
         if (jbossVersion == null || jbossVersion.startsWith("4")) {
-            icl = createIsolatingClassloader(originalLoader, new File(System.getProperty("opennms.home") + "/lib/jboss/jbossall-client.jar"));
-        } else if (jbossVersion.startsWith("3")){
-            icl = createIsolatingClassloader(originalLoader, new File(System.getProperty("opennms.home") + "/lib/jboss/jbossall-client32.jar"));
+            icl = createIsolatingClassloader(originalLoader, new File(System.getProperty("opennms.home")
+                    + "/lib/jboss/jbossall-client.jar"));
+        } else if (jbossVersion.startsWith("3")) {
+            icl = createIsolatingClassloader(originalLoader, new File(System.getProperty("opennms.home")
+                    + "/lib/jboss/jbossall-client32.jar"));
         }
 
         if (icl == null) {
@@ -111,7 +124,7 @@ public class JBossConnectionFactory {
 
                     Hashtable<String, String> props = new Hashtable<String, String>();
 
-                    //"org.jboss.naming.NamingContextFactory"
+                    // "org.jboss.naming.NamingContextFactory"
                     props.put(Context.INITIAL_CONTEXT_FACTORY, "org.jnp.interfaces.NamingContextFactory");
                     props.put(Context.PROVIDER_URL, "jnp://" + InetAddressUtils.str(address) + ":" + port);
                     props.put(Context.URL_PKG_PREFIXES, "org.jboss.naming:org.jnp.interfaces");
@@ -141,7 +154,8 @@ public class JBossConnectionFactory {
 
                     Hashtable<String, String> props = new Hashtable<String, String>();
                     props.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.HttpNamingContextFactory");
-                    props.put(Context.PROVIDER_URL, "http://" + InetAddressUtils.str(address) + ":" + port + "/invoker/JNDIFactory");
+                    props.put(Context.PROVIDER_URL, "http://" + InetAddressUtils.str(address) + ":" + port
+                            + "/invoker/JNDIFactory");
                     props.put("jnp.sotimeout", timeout);
 
                     ctx = new InitialContext(props);
@@ -150,14 +164,15 @@ public class JBossConnectionFactory {
                     wrapper = new JBossConnectionWrapper(MBeanServerProxy.buildServerProxy(rmiAdaptor));
 
                 } catch (Throwable e) {
-                    //log.debug("JBossConnectionFactory - unable to get MBeanServer using HTTP on " + InetAddressUtils.str(address) + invokerSuffix);
+                    // log.debug("JBossConnectionFactory - unable to get MBeanServer using HTTP on "
+                    // + InetAddressUtils.str(address) + invokerSuffix);
                 } finally {
                     try {
                         if (ctx != null) {
                             ctx.close();
                         }
                     } catch (NamingException e1) {
-                        //log.debug("JBossConnectionFactory error closing initial context");
+                        // log.debug("JBossConnectionFactory error closing initial context");
                     }
                 }
             }
@@ -167,15 +182,15 @@ public class JBossConnectionFactory {
         return wrapper;
     }
 
-    private static ClassLoader createIsolatingClassloader(
-            final ClassLoader originalLoader, final File clientJar) {
+    private static ClassLoader createIsolatingClassloader(final ClassLoader originalLoader, final File clientJar) {
         ClassLoader icl;
 
         final PrivilegedAction<ClassLoader> p = new PrivilegedAction<ClassLoader>() {
             @Override
             public ClassLoader run() {
                 try {
-                    return new IsolatingClassLoader("jboss", new URL[] { clientJar.toURI().toURL() }, originalLoader, packages, true);
+                    return new IsolatingClassLoader("jboss", new URL[] { clientJar.toURI().toURL() }, originalLoader,
+                                                    packages, true);
                 } catch (MalformedURLException e) {
                 } catch (InvalidContextClassLoaderException e) {
                 }

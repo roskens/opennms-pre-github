@@ -46,7 +46,9 @@ import org.opennms.netmgt.config.linkd.Package;
 
 public class MockLinkdConfig implements LinkdConfig {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     @Override
@@ -209,8 +211,7 @@ public class MockLinkdConfig implements LinkdConfig {
     }
 
     @Override
-    public void reload() throws IOException, MarshalException,
-            ValidationException {
+    public void reload() throws IOException, MarshalException, ValidationException {
     }
 
     @Override

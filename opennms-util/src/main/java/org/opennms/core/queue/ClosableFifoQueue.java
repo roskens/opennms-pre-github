@@ -44,7 +44,8 @@ public interface ClosableFifoQueue<T> extends FifoQueue<T> {
      * Returns true if the queue is currently open.
      *
      * @return True if the queue is open.
-     * @param <T> a T object.
+     * @param <T>
+     *            a T object.
      */
     public boolean isOpen();
 
@@ -62,7 +63,8 @@ public interface ClosableFifoQueue<T> extends FifoQueue<T> {
      *
      * @exception org.opennms.core.queue.FifoQueueException
      *                Thrown if an error occurs closing the queue.
-     * @throws org.opennms.core.queue.FifoQueueException if any.
+     * @throws org.opennms.core.queue.FifoQueueException
+     *             if any.
      */
     public void close() throws FifoQueueException;
 
@@ -72,7 +74,8 @@ public interface ClosableFifoQueue<T> extends FifoQueue<T> {
      *
      * @exception org.opennms.core.queue.FifoQueueException
      *                Thrown if an error occurs opening the queue.
-     * @throws org.opennms.core.queue.FifoQueueException if any.
+     * @throws org.opennms.core.queue.FifoQueueException
+     *             if any.
      */
     public void open() throws FifoQueueException;
 }

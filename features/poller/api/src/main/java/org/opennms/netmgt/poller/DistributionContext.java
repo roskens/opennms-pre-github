@@ -29,13 +29,13 @@
 package org.opennms.netmgt.poller;
 
 /**
- * <p>DistributionContext class.</p>
+ * <p>
+ * DistributionContext class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public enum DistributionContext {
-    ALL,
-    DAEMON,
-    REMOTE_MONITOR
+    ALL, DAEMON, REMOTE_MONITOR
 }

@@ -38,14 +38,16 @@ import org.opennms.netmgt.model.StatisticsReport;
  * @see StatisticsReport
  * @version $Id: $
  */
-public class StatisticsReportDaoHibernate extends AbstractDaoHibernate<StatisticsReport, Integer> implements StatisticsReportDao {
+public class StatisticsReportDaoHibernate extends AbstractDaoHibernate<StatisticsReport, Integer> implements
+        StatisticsReportDao {
 
-	/**
-	 * <p>Constructor for StatisticsReportDaoHibernate.</p>
-	 */
-	public StatisticsReportDaoHibernate() {
-		super(StatisticsReport.class);
-	}
-
+    /**
+     * <p>
+     * Constructor for StatisticsReportDaoHibernate.
+     * </p>
+     */
+    public StatisticsReportDaoHibernate() {
+        super(StatisticsReport.class);
+    }
 
 }

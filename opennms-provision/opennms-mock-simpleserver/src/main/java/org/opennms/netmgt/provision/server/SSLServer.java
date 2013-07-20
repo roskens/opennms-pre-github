@@ -46,39 +46,57 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>SSLServer class.</p>
+ * <p>
+ * SSLServer class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class SSLServer extends SimpleServer{
+public class SSLServer extends SimpleServer {
 
     private static final Logger LOG = LoggerFactory.getLogger(SSLServer.class);
 
     /** Constant <code>DEFAULT_TESTING_PORT=7070</code> */
     public static final int DEFAULT_TESTING_PORT = 7070;
+
     /** Constant <code>DEFAULT_PASSWORD="123456"</code> */
     public static final String DEFAULT_PASSWORD = "123456";
-    /** Constant <code>DEFAULT_PATH_TO_KEY_STORE="src/main/resources/org/opennms/netmgt/p"{trunked}</code> */
+
+    /**
+     * Constant
+     * <code>DEFAULT_PATH_TO_KEY_STORE="src/main/resources/org/opennms/netmgt/p"{trunked}</code>
+     */
     public static final String DEFAULT_PATH_TO_KEY_STORE = "src/main/resources/org/opennms/netmgt/provision/server/mySrvKeystore";
+
     /** Constant <code>DEFAULT_KEY_MANAGER_ALGORITHM="SunX509"</code> */
     public static final String DEFAULT_KEY_MANAGER_ALGORITHM = "SunX509";
+
     /** Constant <code>DEFAULT_KEY_MANAGER_PROVIDER="SunJSSE"</code> */
     public static final String DEFAULT_KEY_MANAGER_PROVIDER = "SunJSSE";
+
     /** Constant <code>DEFAULT_SSL_CONTEXT_PROTOCOL="SSL"</code> */
     public static final String DEFAULT_SSL_CONTEXT_PROTOCOL = "SSL";
 
     private int m_port = DEFAULT_TESTING_PORT;
+
     private String m_password = DEFAULT_PASSWORD;
+
     private String m_pathToKeyStore = DEFAULT_PATH_TO_KEY_STORE;
+
     private String m_keyManagerAlgorithm = DEFAULT_KEY_MANAGER_ALGORITHM;
+
     private String m_keyManagerProvider = DEFAULT_KEY_MANAGER_PROVIDER;
+
     private String m_sslContextProtocol = DEFAULT_SSL_CONTEXT_PROTOCOL;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void init() throws Exception {
@@ -89,11 +107,11 @@ public class SSLServer extends SimpleServer{
 
         java.io.FileInputStream fis = null;
         try {
-        fis = new java.io.FileInputStream(getPathToKeyStore());
-        ks.load(fis, password);
+            fis = new java.io.FileInputStream(getPathToKeyStore());
+            ks.load(fis, password);
         } finally {
             if (fis != null) {
-            fis.close();
+                fis.close();
             }
         }
 
@@ -108,30 +126,37 @@ public class SSLServer extends SimpleServer{
     }
 
     /**
-     * <p>getRunnable</p>
+     * <p>
+     * getRunnable
+     * </p>
      *
      * @return a {@link java.lang.Runnable} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     protected Runnable getRunnable() throws Exception {
-        return new Runnable(){
+        return new Runnable() {
 
             @Override
-            public void run(){
-                try{
+            public void run() {
+                try {
                     OutputStream out = null;
                     BufferedReader in = null;
                     try {
                         getServerSocket().setSoTimeout(getTimeout());
                         setSocket(getServerSocket().accept());
 
-                        if(getThreadSleepLength() > 0) { Thread.sleep(getThreadSleepLength()); }
+                        if (getThreadSleepLength() > 0) {
+                            Thread.sleep(getThreadSleepLength());
+                        }
                         getSocket().setSoTimeout(getTimeout());
 
                         out = getSocket().getOutputStream();
-                        if(getBanner() != null){sendBanner(out);};
-
+                        if (getBanner() != null) {
+                            sendBanner(out);
+                        }
+                        ;
 
                         in = new BufferedReader(new InputStreamReader(getSocket().getInputStream()));
                         attemptConversation(in, out);
@@ -140,7 +165,7 @@ public class SSLServer extends SimpleServer{
                         IOUtils.closeQuietly(out);
                         getSocket().close();
                     }
-                }catch(Throwable e){
+                } catch (Throwable e) {
                     throw new UndeclaredThrowableException(e);
                 } finally {
                     try {
@@ -155,16 +180,21 @@ public class SSLServer extends SimpleServer{
     }
 
     /**
-     * <p>setPort</p>
+     * <p>
+     * setPort
+     * </p>
      *
-     * @param port a int.
+     * @param port
+     *            a int.
      */
     public void setPort(int port) {
         m_port = port;
     }
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a int.
      */
@@ -173,16 +203,21 @@ public class SSLServer extends SimpleServer{
     }
 
     /**
-     * <p>setPassword</p>
+     * <p>
+     * setPassword
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         m_password = password;
     }
 
     /**
-     * <p>getPassword</p>
+     * <p>
+     * getPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -191,16 +226,21 @@ public class SSLServer extends SimpleServer{
     }
 
     /**
-     * <p>setPathToKeyStore</p>
+     * <p>
+     * setPathToKeyStore
+     * </p>
      *
-     * @param pathToKeyStore a {@link java.lang.String} object.
+     * @param pathToKeyStore
+     *            a {@link java.lang.String} object.
      */
     public void setPathToKeyStore(String pathToKeyStore) {
         m_pathToKeyStore = pathToKeyStore;
     }
 
     /**
-     * <p>getPathToKeyStore</p>
+     * <p>
+     * getPathToKeyStore
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -209,16 +249,21 @@ public class SSLServer extends SimpleServer{
     }
 
     /**
-     * <p>setKeyManagerAlgorithm</p>
+     * <p>
+     * setKeyManagerAlgorithm
+     * </p>
      *
-     * @param keyManagerAlgorithm a {@link java.lang.String} object.
+     * @param keyManagerAlgorithm
+     *            a {@link java.lang.String} object.
      */
     public void setKeyManagerAlgorithm(String keyManagerAlgorithm) {
         m_keyManagerAlgorithm = keyManagerAlgorithm;
     }
 
     /**
-     * <p>getKeyManagerAlgorithm</p>
+     * <p>
+     * getKeyManagerAlgorithm
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -227,16 +272,21 @@ public class SSLServer extends SimpleServer{
     }
 
     /**
-     * <p>setKeyManagerProvider</p>
+     * <p>
+     * setKeyManagerProvider
+     * </p>
      *
-     * @param keyManagerProvider a {@link java.lang.String} object.
+     * @param keyManagerProvider
+     *            a {@link java.lang.String} object.
      */
     public void setKeyManagerProvider(String keyManagerProvider) {
         m_keyManagerProvider = keyManagerProvider;
     }
 
     /**
-     * <p>getKeyManagerProvider</p>
+     * <p>
+     * getKeyManagerProvider
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -245,16 +295,21 @@ public class SSLServer extends SimpleServer{
     }
 
     /**
-     * <p>setSslContextProtocol</p>
+     * <p>
+     * setSslContextProtocol
+     * </p>
      *
-     * @param sslContextProtocol a {@link java.lang.String} object.
+     * @param sslContextProtocol
+     *            a {@link java.lang.String} object.
      */
     public void setSslContextProtocol(String sslContextProtocol) {
         m_sslContextProtocol = sslContextProtocol;
     }
 
     /**
-     * <p>getSslContextProtocol</p>
+     * <p>
+     * getSslContextProtocol
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

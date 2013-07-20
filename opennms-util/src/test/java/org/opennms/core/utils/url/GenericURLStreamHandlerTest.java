@@ -38,9 +38,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-
 /**
- * <p>GenericURLStreamHandlerTest class.</p>
+ * <p>
+ * GenericURLStreamHandlerTest class.
+ * </p>
  *
  * @author Ronny Trommer <ronny@opennms.org>
  * @version $Id: $
@@ -63,12 +64,15 @@ public class GenericURLStreamHandlerTest {
     }
 
     /**
-     * Test should expect a NoSuchMethodException and this exception is thrown. I don't know why this test will not work.
+     * Test should expect a NoSuchMethodException and this exception is thrown.
+     * I don't know why this test will not work.
      * <p/>
      * TODO indigo: Fix this test to verify NoSuchMethodException
      * <p/>
-     * java.lang.AssertionError: Expected exception: java.lang.NoSuchMethodException
-     * java.lang.NoSuchMethodException: org.opennms.core.utils.url.ProtectedStubGenericURLConnection.<init>(java.net.URL)
+     * java.lang.AssertionError: Expected exception:
+     * java.lang.NoSuchMethodException java.lang.NoSuchMethodException:
+     * org.opennms
+     * .core.utils.url.ProtectedStubGenericURLConnection.<init>(java.net.URL)
      */
     @Ignore
     @Test(expected = NoSuchMethodException.class)
@@ -92,7 +96,8 @@ public class GenericURLStreamHandlerTest {
     @Test
     public void testGetDefaultPort() {
         Assert.assertEquals("Default should be -1", new GenericURLStreamHandler(m_testClass).getDefaultPort(), -1);
-        Assert.assertEquals("Default should be 42", new GenericURLStreamHandler(m_testClass, m_defaultPort).getDefaultPort(), m_defaultPort);
+        Assert.assertEquals("Default should be 42",
+                            new GenericURLStreamHandler(m_testClass, m_defaultPort).getDefaultPort(), m_defaultPort);
     }
 
     @Test

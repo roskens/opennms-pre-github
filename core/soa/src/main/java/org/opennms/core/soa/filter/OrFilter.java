@@ -53,7 +53,7 @@ public class OrFilter extends AbstractFilter {
 
     @Override
     public boolean match(Map<String, String> properties) {
-        for(Filter f : m_filters) {
+        for (Filter f : m_filters) {
             if (f.match(properties)) {
                 return true;
             }
@@ -65,7 +65,7 @@ public class OrFilter extends AbstractFilter {
     public String toString() {
         StringBuilder buf = new StringBuilder();
         buf.append("(|");
-        for(Filter f : m_filters) {
+        for (Filter f : m_filters) {
             buf.append(f);
         }
         buf.append(")");

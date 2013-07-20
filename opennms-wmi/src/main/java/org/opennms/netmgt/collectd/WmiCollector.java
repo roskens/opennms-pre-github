@@ -70,7 +70,7 @@ import org.slf4j.LoggerFactory;
 /**
  * <P>
  * This class is designed to be used by the performance collection daemon to
- * collect various  WMI performance metrics from a remote server.
+ * collect various WMI performance metrics from a remote server.
  * </P>
  *
  * @author <a href="mailto:matt.raykowski@gmail.com">Matt Raykowski</a>
@@ -78,20 +78,24 @@ import org.slf4j.LoggerFactory;
  */
 public class WmiCollector implements ServiceCollector {
 
-	private static final Logger LOG = LoggerFactory.getLogger(WmiCollector.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(WmiCollector.class);
 
     // Don't make this static because each service will have its own
     // copy and the key won't require the service name as part of the key.
     private final HashMap<Integer, WmiAgentState> m_scheduledNodes = new HashMap<Integer, WmiAgentState>();
+
     private HashMap<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
+
     private HashMap<String, WmiCollectionAttributeType> m_attribTypeList = new HashMap<String, WmiCollectionAttributeType>();
 
     /** {@inheritDoc} */
     @Override
-    public CollectionSet collect(final CollectionAgent agent, final EventProxy eproxy, final Map<String, Object> parameters) {
+    public CollectionSet collect(final CollectionAgent agent, final EventProxy eproxy,
+            final Map<String, Object> parameters) {
 
-        String collectionName = ParameterMap.getKeyedString(parameters, "collection", ParameterMap.getKeyedString(parameters, "wmi-collection", null));
+        String collectionName = ParameterMap.getKeyedString(parameters, "collection",
+                                                            ParameterMap.getKeyedString(parameters, "wmi-collection",
+                                                                                        null));
         // Find attributes to collect - check groups in configuration. For each,
         // check scheduled nodes to see if that group should be collected
         final WmiCollection collection = WmiDataCollectionConfigFactory.getInstance().getWmiCollection(collectionName);
@@ -126,12 +130,15 @@ public class WmiCollector implements ServiceCollector {
                     // And retrieve the client object for working.
                     client = (WmiClient) agentState.getWmiClient();
 
-                    // Retrieve the WbemObjectSet from the class defined on the group.
+                    // Retrieve the WbemObjectSet from the class defined on the
+                    // group.
                     final OnmsWbemObjectSet wOS = client.performInstanceOf(wpm.getWmiClass());
 
-                    // If we received a WbemObjectSet result, lets go through it and collect it.
+                    // If we received a WbemObjectSet result, lets go through it
+                    // and collect it.
                     if (wOS != null) {
-                        //  Go through each object (class instance) in the object set.
+                        // Go through each object (class instance) in the object
+                        // set.
                         for (int i = 0; i < wOS.count(); i++) {
                             // Create a new collection resource.
                             WmiCollectionResource resource = null;
@@ -139,22 +146,23 @@ public class WmiCollector implements ServiceCollector {
                             // Fetch our WBEM Object
                             final OnmsWbemObject obj = wOS.get(i);
 
-                            // If this is multi-instance, fetch the instance name and store it.
-                            if(wOS.count()>1) {
+                            // If this is multi-instance, fetch the instance
+                            // name and store it.
+                            if (wOS.count() > 1) {
                                 // Fetch the value of the key value. e.g. Name.
                                 final OnmsWbemProperty prop = obj.getWmiProperties().getByName(wpm.getKeyvalue());
                                 final Object propVal = prop.getWmiValue();
                                 String instance = null;
-                                if(propVal instanceof String) {
-                                    instance = (String)propVal;
+                                if (propVal instanceof String) {
+                                    instance = (String) propVal;
                                 } else {
                                     instance = propVal.toString();
                                 }
-                                resource = new WmiMultiInstanceCollectionResource(agent,instance,wpm.getResourceType());
+                                resource = new WmiMultiInstanceCollectionResource(agent, instance,
+                                                                                  wpm.getResourceType());
                             } else {
                                 resource = new WmiSingleInstanceCollectionResource(agent);
                             }
-
 
                             for (final Attrib attrib : wpm.getAttrib()) {
                                 final OnmsWbemProperty prop = obj.getWmiProperties().getByName(attrib.getWmiObject());
@@ -204,8 +212,10 @@ public class WmiCollector implements ServiceCollector {
 
         /*
          * We provide a bogus comparison value and use an operator of "NOOP"
-         * to ensure that, regardless of results, we receive a result and perform
-         * no logic. We're only validating that the agent is reachable and gathering
+         * to ensure that, regardless of results, we receive a result and
+         * perform
+         * no logic. We're only validating that the agent is reachable and
+         * gathering
          * the result objects.
          */
         try {
@@ -213,7 +223,8 @@ public class WmiCollector implements ServiceCollector {
             manager = agentState.getManager();
             manager.init();
 
-            final WmiParams params = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF, "not-applicable", "NOOP", wpm.getWmiClass(), wpm.getKeyvalue());
+            final WmiParams params = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF, "not-applicable", "NOOP",
+                                                   wpm.getWmiClass(), wpm.getKeyvalue());
             final WmiResult result = manager.performOp(params);
 
             final boolean isAvailable = (result.getResultCode() == WmiResult.RES_STATE_OK);
@@ -299,7 +310,9 @@ public class WmiCollector implements ServiceCollector {
         final File f = new File(WmiDataCollectionConfigFactory.getInstance().getRrdPath());
         if (!f.isDirectory()) {
             if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + DataCollectionConfigFactory.getInstance().getRrdPath());
+                throw new RuntimeException(
+                                           "Unable to create RRD file repository.  Path doesn't already exist and could not make directory: "
+                                                   + DataCollectionConfigFactory.getInstance().getRrdPath());
             }
         }
     }
@@ -338,7 +351,9 @@ public class WmiCollector implements ServiceCollector {
     }
 
     /**
-     * <p>release</p>
+     * <p>
+     * release
+     * </p>
      */
     @Override
     public void release() {
@@ -359,7 +374,5 @@ public class WmiCollector implements ServiceCollector {
     public RrdRepository getRrdRepository(final String collectionName) {
         return WmiDataCollectionConfigFactory.getInstance().getRrdRepository(collectionName);
     }
-
-
 
 }

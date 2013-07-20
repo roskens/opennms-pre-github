@@ -44,13 +44,12 @@ public class PhysicalInterfaceTable extends CellTable<PhysicalInterface> {
 
     SimpleEventBus m_eventBus = new SimpleEventBus();
 
-
     public PhysicalInterfaceTable() {
         super(15, (CellTable.Resources) GWT.create(OnmsTableResources.class));
         initialize();
     }
 
-    //TODO:finish handler
+    // TODO:finish handler
     public void addSelectEventHandler(PhysicalInterfaceSelectionHandler handler) {
         getEventBus().addHandler(PhysicalInterfaceSelectionEvent.TYPE, handler);
     }
@@ -61,18 +60,17 @@ public class PhysicalInterfaceTable extends CellTable<PhysicalInterface> {
             @Override
             public String getStyleNames(PhysicalInterface physicalInterface, int rowIndex) {
                 String bgStyle = null;
-                if(physicalInterface.getIfAdminStatus() != 1){
+                if (physicalInterface.getIfAdminStatus() != 1) {
                     bgStyle = "onms-ipinterface-status-unknown";
-                }else if(physicalInterface.getIfAdminStatus() == 1 && physicalInterface.getIfOperStatus() == 1){
+                } else if (physicalInterface.getIfAdminStatus() == 1 && physicalInterface.getIfOperStatus() == 1) {
                     bgStyle = "onms-ipinterface-status-up";
-                }else if(physicalInterface.getIfAdminStatus() == 1 && physicalInterface.getIfOperStatus() != 1){
+                } else if (physicalInterface.getIfAdminStatus() == 1 && physicalInterface.getIfOperStatus() != 1) {
                     bgStyle = "onms-ipinterface-status-down";
                 }
 
                 return bgStyle;
             }
         });
-
 
         addColumns();
 
@@ -87,17 +85,17 @@ public class PhysicalInterfaceTable extends CellTable<PhysicalInterface> {
             }
         });
 
-        addCellPreviewHandler(new CellPreviewEvent.Handler<PhysicalInterface>(){
+        addCellPreviewHandler(new CellPreviewEvent.Handler<PhysicalInterface>() {
 
             @Override
             public void onCellPreview(CellPreviewEvent<PhysicalInterface> event) {
                 Event evt = Event.as(event.getNativeEvent());
 
-                switch(evt.getTypeInt()) {
-                    case Event.ONDBLCLICK:
-                        PhysicalInterface selected = selectionModel.getSelectedObject();
-                        getEventBus().fireEvent(new PhysicalInterfaceSelectionEvent(selected.getIfIndex()));
-                        break;
+                switch (evt.getTypeInt()) {
+                case Event.ONDBLCLICK:
+                    PhysicalInterface selected = selectionModel.getSelectedObject();
+                    getEventBus().fireEvent(new PhysicalInterfaceSelectionEvent(selected.getIfIndex()));
+                    break;
                 }
             }
 
@@ -154,17 +152,17 @@ public class PhysicalInterfaceTable extends CellTable<PhysicalInterface> {
         };
         addColumn(snmpIfSpeedColumn, "SNMP ifSpeed");
 
-//        DblClickTextColumn<PhysicalInterface> ipAddresColumn = new DblClickTextColumn<PhysicalInterface>() {
-//
-//            @Override
-//            public String getValue(PhysicalInterface physIface) {
-//                return physIface.getIpAddress();
-//            }
-//
-//        };
-//        addColumn(ipAddresColumn, "IP Address");
+        // DblClickTextColumn<PhysicalInterface> ipAddresColumn = new
+        // DblClickTextColumn<PhysicalInterface>() {
+        //
+        // @Override
+        // public String getValue(PhysicalInterface physIface) {
+        // return physIface.getIpAddress();
+        // }
+        //
+        // };
+        // addColumn(ipAddresColumn, "IP Address");
     }
-
 
     public SimpleEventBus getEventBus() {
         return m_eventBus;

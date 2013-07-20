@@ -53,7 +53,7 @@ public class JasperReportServiceGetJprintTest {
     }
 
     @Before
-    public void initialize () {
+    public void initialize() {
         service = new JasperReportService();
     }
 
@@ -61,9 +61,11 @@ public class JasperReportServiceGetJprintTest {
     @Test
     public void runAndRenderTrivialReportTest() throws ReportException {
         try {
-            service.runAndRender(new HashMap<String, Object>(), "local_trivial-report", ReportFormat.PDF, new FileOutputStream("/tmp/trivial-report.pdf"));
+            service.runAndRender(new HashMap<String, Object>(), "local_trivial-report", ReportFormat.PDF,
+                                 new FileOutputStream("/tmp/trivial-report.pdf"));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace(); // To change body of catch statement use File |
+                                 // Settings | File Templates.
         }
     }
 
@@ -71,12 +73,13 @@ public class JasperReportServiceGetJprintTest {
     @Test
     public void runAndRenderSubreportTest() throws ReportException {
         try {
-            service.runAndRender(new HashMap<String, Object>(), "local_main-subreport-test", ReportFormat.PDF, new FileOutputStream("/tmp/main-subreport.pdf"));
+            service.runAndRender(new HashMap<String, Object>(), "local_main-subreport-test", ReportFormat.PDF,
+                                 new FileOutputStream("/tmp/main-subreport.pdf"));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace(); // To change body of catch statement use File |
+                                 // Settings | File Templates.
         }
     }
-
 
     @Ignore
     @Test

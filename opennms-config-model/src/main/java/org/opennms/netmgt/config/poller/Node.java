@@ -48,10 +48,9 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Node to which the outage applies.
- *
  */
 
-@XmlRootElement(name="node", namespace="http://xmlns.opennms.org/xsd/config/poller/outages")
+@XmlRootElement(name = "node", namespace = "http://xmlns.opennms.org/xsd/config/poller/outages")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("poll-outages.xsd")
 public class Node implements Serializable {
@@ -60,7 +59,7 @@ public class Node implements Serializable {
     /**
      * Field _id.
      */
-    @XmlAttribute(name="id")
+    @XmlAttribute(name = "id")
     private Integer _id;
 
     public Node() {
@@ -81,12 +80,12 @@ public class Node implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof Node) {
 
-            Node temp = (Node)obj;
+            Node temp = (Node) obj;
             if (this._id != temp._id)
                 return false;
             return true;
@@ -100,7 +99,7 @@ public class Node implements Serializable {
      * @return the value of field 'Id'.
      */
     public Integer getId() {
-        return _id == null? 0 : _id;
+        return _id == null ? 0 : _id;
     }
 
     /**
@@ -115,8 +114,8 @@ public class Node implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -145,13 +144,13 @@ public class Node implements Serializable {
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -159,15 +158,16 @@ public class Node implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -177,7 +177,8 @@ public class Node implements Serializable {
     /**
      * Sets the value of field 'id'.
      *
-     * @param id the value of field 'id'.
+     * @param id
+     *            the value of field 'id'.
      */
     public void setId(final Integer id) {
         this._id = id;
@@ -187,10 +188,12 @@ public class Node implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled org.opennms.netmgt.config.poller.Node
      */
     @Deprecated
@@ -199,10 +202,9 @@ public class Node implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

@@ -33,7 +33,6 @@ import java.io.File;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.model.RrdRepository;
 
-
 /**
  * This class encapsulates all of the node-level data required by the SNMP data
  * collector in order to successfully perform data collection for a scheduled
@@ -47,15 +46,21 @@ import org.opennms.netmgt.model.RrdRepository;
  */
 public final class NodeInfo extends SnmpCollectionResource {
 
-	private SNMPCollectorEntry m_entry;
+    private SNMPCollectorEntry m_entry;
+
     private int m_nodeId;
+
     private CollectionAgent m_agent;
 
     /**
-     * <p>Constructor for NodeInfo.</p>
+     * <p>
+     * Constructor for NodeInfo.
+     * </p>
      *
-     * @param def a {@link org.opennms.netmgt.collectd.NodeResourceType} object.
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param def
+     *            a {@link org.opennms.netmgt.collectd.NodeResourceType} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
     public NodeInfo(NodeResourceType def, CollectionAgent agent) {
         super(def);
@@ -63,44 +68,54 @@ public final class NodeInfo extends SnmpCollectionResource {
         m_nodeId = agent.getNodeId();
     }
 
-     /**
-      * <p>getType</p>
-      *
-      * @return a int.
-      */
-        @Override
-     public int getType() {
+    /**
+     * <p>
+     * getType
+     * </p>
+     *
+     * @return a int.
+     */
+    @Override
+    public int getType() {
         return -1;
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public File getResourceDir(RrdRepository repository) {
         File rrdBaseDir = repository.getRrdBaseDir();
         return new File(rrdBaseDir, getCollectionAgent().getStorageDir().toString());
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String toString() {
-        return "node["+m_nodeId+']';
+        return "node[" + m_nodeId + ']';
     }
 
     /**
-     * <p>setEntry</p>
+     * <p>
+     * setEntry
+     * </p>
      *
-     * @param nodeEntry a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry} object.
+     * @param nodeEntry
+     *            a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry}
+     *            object.
      */
     public void setEntry(SNMPCollectorEntry nodeEntry) {
         m_entry = nodeEntry;
     }
 
     /**
-     * <p>getEntry</p>
+     * <p>
+     * getEntry
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry} object.
      */
@@ -109,43 +124,48 @@ public final class NodeInfo extends SnmpCollectionResource {
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public boolean shouldPersist(ServiceParameters params) {
         return true;
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String getResourceTypeName() {
-        return "node"; //This is a nodeInfo; must be a node type resource
+        return "node"; // This is a nodeInfo; must be a node type resource
     }
 
-
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String getInstance() {
-        return null; //For node type resources, use the default instance
+        return null; // For node type resources, use the default instance
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String getLabel() {
         return null;
     }
 
-        @Override
+    @Override
     public String getParent() {
         return m_agent.getStorageDir().toString();
     }

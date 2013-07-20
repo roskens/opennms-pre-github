@@ -37,7 +37,9 @@ import org.opennms.core.utils.DefaultTimeKeeper;
 import org.opennms.core.utils.TimeKeeper;
 
 /**
- * <p>RelativeTime class.</p>
+ * <p>
+ * RelativeTime class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -69,7 +71,7 @@ public enum RelativeTime {
 
         @Override
         public Date getEnd() {
-                  return getStartOfToday();
+            return getStartOfToday();
         }
     },
 
@@ -81,7 +83,7 @@ public enum RelativeTime {
 
         @Override
         public Date getEnd() {
-                  return getStartOfToday();
+            return getStartOfToday();
         }
     },
 
@@ -125,127 +127,130 @@ public enum RelativeTime {
     },
 
     SLIDINGHOUR {
-               @Override
-       	public Date getStart() {
-           Calendar calendar = new GregorianCalendar(getTimeZone());
-           calendar.setTimeInMillis(getCurrentTime());
+        @Override
+        public Date getStart() {
+            Calendar calendar = new GregorianCalendar(getTimeZone());
+            calendar.setTimeInMillis(getCurrentTime());
 
-           calendar.set(Calendar.MILLISECOND, 0);
-           calendar.set(Calendar.SECOND, 0);
-           calendar.add(Calendar.HOUR, -1);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.add(Calendar.HOUR, -1);
 
-           return calendar.getTime();
-       	}
+            return calendar.getTime();
+        }
 
-               @Override
-       	public Date getEnd() {
-           Calendar calendar = new GregorianCalendar(getTimeZone());
-           calendar.setTimeInMillis(getCurrentTime());
+        @Override
+        public Date getEnd() {
+            Calendar calendar = new GregorianCalendar(getTimeZone());
+            calendar.setTimeInMillis(getCurrentTime());
 
-           calendar.set(Calendar.MILLISECOND, 0);
-           calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
 
-           return calendar.getTime();
-       	}
+            return calendar.getTime();
+        }
     },
 
     SLIDING4HOURS {
-               @Override
-       	public Date getStart() {
-           Calendar calendar = new GregorianCalendar(getTimeZone());
-           calendar.setTimeInMillis(getCurrentTime());
+        @Override
+        public Date getStart() {
+            Calendar calendar = new GregorianCalendar(getTimeZone());
+            calendar.setTimeInMillis(getCurrentTime());
 
-           calendar.set(Calendar.MILLISECOND, 0);
-           calendar.set(Calendar.SECOND, 0);
-           calendar.add(Calendar.HOUR, -4);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.add(Calendar.HOUR, -4);
 
-           return calendar.getTime();
-       	}
+            return calendar.getTime();
+        }
 
-               @Override
-       	public Date getEnd() {
-           Calendar calendar = new GregorianCalendar(getTimeZone());
-           calendar.setTimeInMillis(getCurrentTime());
+        @Override
+        public Date getEnd() {
+            Calendar calendar = new GregorianCalendar(getTimeZone());
+            calendar.setTimeInMillis(getCurrentTime());
 
-           calendar.set(Calendar.MILLISECOND, 0);
-           calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
 
-           return calendar.getTime();
-	}
+            return calendar.getTime();
+        }
     },
 
     SLIDING8HOURS {
         @Override
-	public Date getStart() {
-           Calendar calendar = new GregorianCalendar(getTimeZone());
-           calendar.setTimeInMillis(getCurrentTime());
+        public Date getStart() {
+            Calendar calendar = new GregorianCalendar(getTimeZone());
+            calendar.setTimeInMillis(getCurrentTime());
 
-           calendar.set(Calendar.MILLISECOND, 0);
-           calendar.set(Calendar.SECOND, 0);
-           calendar.add(Calendar.HOUR, -8);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.add(Calendar.HOUR, -8);
 
-           return calendar.getTime();
-       }
+            return calendar.getTime();
+        }
 
         @Override
-       	public Date getEnd() {
-           Calendar calendar = new GregorianCalendar(getTimeZone());
-           calendar.setTimeInMillis(getCurrentTime());
+        public Date getEnd() {
+            Calendar calendar = new GregorianCalendar(getTimeZone());
+            calendar.setTimeInMillis(getCurrentTime());
 
-           calendar.set(Calendar.MILLISECOND, 0);
-           calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
 
-           return calendar.getTime();
-	}
+            return calendar.getTime();
+        }
     },
 
     SLIDINGDAY {
-               @Override
-       	public Date getStart() {
-           Calendar calendar = new GregorianCalendar(getTimeZone());
-           calendar.setTimeInMillis(getCurrentTime());
+        @Override
+        public Date getStart() {
+            Calendar calendar = new GregorianCalendar(getTimeZone());
+            calendar.setTimeInMillis(getCurrentTime());
 
-           calendar.set(Calendar.MILLISECOND, 0);
-           calendar.set(Calendar.SECOND, 0);
-           calendar.add(Calendar.HOUR, -24);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.add(Calendar.HOUR, -24);
 
-           return calendar.getTime();
-       	}
+            return calendar.getTime();
+        }
 
-               @Override
-       	public Date getEnd() {
-           Calendar calendar = new GregorianCalendar(getTimeZone());
-           calendar.setTimeInMillis(getCurrentTime());
+        @Override
+        public Date getEnd() {
+            Calendar calendar = new GregorianCalendar(getTimeZone());
+            calendar.setTimeInMillis(getCurrentTime());
 
-           calendar.set(Calendar.MILLISECOND, 0);
-           calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
 
-           return calendar.getTime();
-	}
+            return calendar.getTime();
+        }
     },
 
     TODAY {
-               @Override
-       	public Date getStart() {
-               return getStartOfToday();
-       	}
+        @Override
+        public Date getStart() {
+            return getStartOfToday();
+        }
 
-               @Override
-       	public Date getEnd() {
-           Calendar calendar = new GregorianCalendar(getTimeZone());
-           calendar.setTimeInMillis(getCurrentTime());
+        @Override
+        public Date getEnd() {
+            Calendar calendar = new GregorianCalendar(getTimeZone());
+            calendar.setTimeInMillis(getCurrentTime());
 
-           calendar.set(Calendar.MILLISECOND, 0);
-           calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
 
-           return calendar.getTime();
-	}
+            return calendar.getTime();
+        }
     };
 
     /**
-     * <p>getStartDate</p>
+     * <p>
+     * getStartDate
+     * </p>
      *
-     * @param offset a int.
+     * @param offset
+     *            a int.
      * @return a {@link java.util.Date} object.
      */
     protected Date getStartDate(int offset) {
@@ -262,7 +267,9 @@ public enum RelativeTime {
     }
 
     /**
-     * <p>getStartOfToday</p>
+     * <p>
+     * getStartOfToday
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -279,13 +286,18 @@ public enum RelativeTime {
     }
 
     /**
-     * <p>getStart</p>
+     * <p>
+     * getStart
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     public abstract Date getStart();
+
     /**
-     * <p>getEnd</p>
+     * <p>
+     * getEnd
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -296,7 +308,9 @@ public enum RelativeTime {
     private TimeKeeper m_timeKeeper = null;
 
     /**
-     * <p>getTimeKeeper</p>
+     * <p>
+     * getTimeKeeper
+     * </p>
      *
      * @return a {@link org.opennms.core.utils.TimeKeeper} object.
      */
@@ -305,16 +319,21 @@ public enum RelativeTime {
     }
 
     /**
-     * <p>setTimeKeeper</p>
+     * <p>
+     * setTimeKeeper
+     * </p>
      *
-     * @param timeKeeper a {@link org.opennms.core.utils.TimeKeeper} object.
+     * @param timeKeeper
+     *            a {@link org.opennms.core.utils.TimeKeeper} object.
      */
     public void setTimeKeeper(TimeKeeper timeKeeper) {
         m_timeKeeper = timeKeeper;
     }
 
     /**
-     * <p>getCurrentTime</p>
+     * <p>
+     * getCurrentTime
+     * </p>
      *
      * @return a long.
      */
@@ -327,6 +346,6 @@ public enum RelativeTime {
     }
 
     protected TimeKeeper myTimeKeeper() {
-        return getTimeKeeper() == null? DEFAULT_TIME_KEEPER : getTimeKeeper();
+        return getTimeKeeper() == null ? DEFAULT_TIME_KEEPER : getTimeKeeper();
     }
 }

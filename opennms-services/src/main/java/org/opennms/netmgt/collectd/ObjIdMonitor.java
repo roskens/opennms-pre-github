@@ -35,7 +35,9 @@ import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpValue;
 
 /**
- * <p>ObjIdMonitor class.</p>
+ * <p>
+ * ObjIdMonitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,10 +46,14 @@ public class ObjIdMonitor extends SingleInstanceTracker {
     SnmpValue value;
 
     /**
-     * <p>Constructor for ObjIdMonitor.</p>
+     * <p>
+     * Constructor for ObjIdMonitor.
+     * </p>
      *
-     * @param base a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
-     * @param inst a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
+     * @param base
+     *            a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
+     * @param inst
+     *            a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
      */
     public ObjIdMonitor(SnmpObjId base, SnmpInstId inst) {
         super(base, inst);
@@ -73,7 +79,9 @@ public class ObjIdMonitor extends SingleInstanceTracker {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

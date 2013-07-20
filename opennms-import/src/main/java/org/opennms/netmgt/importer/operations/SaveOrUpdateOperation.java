@@ -30,45 +30,64 @@ package org.opennms.netmgt.importer.operations;
 
 import org.opennms.netmgt.importer.config.types.InterfaceSnmpPrimaryType;
 
-
 /**
- * <p>SaveOrUpdateOperation interface.</p>
+ * <p>
+ * SaveOrUpdateOperation interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public interface SaveOrUpdateOperation extends ImportOperation{
+public interface SaveOrUpdateOperation extends ImportOperation {
 
     /**
-     * <p>foundInterface</p>
+     * <p>
+     * foundInterface
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param descr a {@link java.lang.Object} object.
-     * @param interfaceSnmpPrimaryType a {@link InterfaceSnmpPrimaryType} object.
-     * @param managed a boolean.
-     * @param status a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param descr
+     *            a {@link java.lang.Object} object.
+     * @param interfaceSnmpPrimaryType
+     *            a {@link InterfaceSnmpPrimaryType} object.
+     * @param managed
+     *            a boolean.
+     * @param status
+     *            a int.
      */
-    void foundInterface(String ipAddr, Object descr, InterfaceSnmpPrimaryType interfaceSnmpPrimaryType, boolean managed, int status);
+    void foundInterface(String ipAddr, Object descr, InterfaceSnmpPrimaryType interfaceSnmpPrimaryType,
+            boolean managed, int status);
 
     /**
-     * <p>foundMonitoredService</p>
+     * <p>
+     * foundMonitoredService
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     void foundMonitoredService(String serviceName);
 
     /**
-     * <p>foundCategory</p>
+     * <p>
+     * foundCategory
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     void foundCategory(String name);
 
     /**
-     * <p>foundAsset</p>
+     * <p>
+     * foundAsset
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     void foundAsset(String name, String value);
 }

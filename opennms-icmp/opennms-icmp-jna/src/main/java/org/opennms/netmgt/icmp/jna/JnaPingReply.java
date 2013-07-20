@@ -37,10 +37,9 @@ import org.opennms.protocols.rt.ResponseWithId;
 /**
  * <p>
  * This class is use to encapsulate an ICMP reply that conforms to the
- * {@link EchoPacket packet}class. The reply must be of type ICMP Echo Reply and be
- * the correct length.
+ * {@link EchoPacket packet}class. The reply must be of type ICMP Echo Reply and
+ * be the correct length.
  * </p>
- *
  * <p>
  * When constructed by the <code>create</code> method the returned reply
  * encapsulates the sender's address and the received packet as final,
@@ -76,7 +75,9 @@ public final class JnaPingReply implements ResponseWithId<JnaPingRequestId>, Ech
     }
 
     /**
-     * <p>getRequestId</p>
+     * <p>
+     * getRequestId
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.icmp.spi.PingRequestId} object.
      */

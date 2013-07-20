@@ -45,41 +45,51 @@ public class MockCollectionResourceWrapper extends CollectionResourceWrapper {
             public String getInstance() {
                 return instance;
             }
+
             @Override
             public String getLabel() {
                 return null;
             }
+
             @Override
             public String getResourceTypeName() {
                 return null;
             }
+
             @Override
             public int getType() {
                 return 0;
             }
+
             @Override
             public boolean rescanNeeded() {
                 return false;
             }
+
             @Override
             public boolean shouldPersist(ServiceParameters params) {
                 return false;
             }
+
             @Override
             public void visit(CollectionSetVisitor visitor) {
             }
+
             @Override
             public String getOwnerName() {
                 return null;
             }
+
             @Override
             public File getResourceDir(RrdRepository repository) {
                 return null;
             }
+
             @Override
             public String getParent() {
                 return null;
             }
+
             @Override
             public TimeKeeper getTimeKeeper() {
                 return null;

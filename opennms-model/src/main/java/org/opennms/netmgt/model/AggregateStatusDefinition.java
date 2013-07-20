@@ -39,22 +39,31 @@ import java.util.Set;
 public class AggregateStatusDefinition {
 
     private int m_id;
+
     private String m_name;
+
     private String m_reportCategory;
+
     private Set<OnmsCategory> m_categories;
 
     /**
-     * <p>Constructor for AggregateStatusDefinition.</p>
+     * <p>
+     * Constructor for AggregateStatusDefinition.
+     * </p>
      */
     public AggregateStatusDefinition() {
 
     }
 
     /**
-     * <p>Constructor for AggregateStatusDefinition.</p>
+     * <p>
+     * Constructor for AggregateStatusDefinition.
+     * </p>
      *
-     * @param aggrStatus a {@link java.lang.String} object.
-     * @param categories a {@link java.util.Set} object.
+     * @param aggrStatus
+     *            a {@link java.lang.String} object.
+     * @param categories
+     *            a {@link java.util.Set} object.
      */
     public AggregateStatusDefinition(String aggrStatus, Set<OnmsCategory> categories) {
         if (aggrStatus == null || categories == null || categories.isEmpty()) {
@@ -66,7 +75,9 @@ public class AggregateStatusDefinition {
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -75,53 +86,67 @@ public class AggregateStatusDefinition {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
-	/**
-	 * <p>getName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getName() {
-		return m_name;
-	}
+    /**
+     * <p>
+     * getName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getName() {
+        return m_name;
+    }
 
-	/**
-	 * <p>setName</p>
-	 *
-	 * @param name a {@link java.lang.String} object.
-	 */
-	public void setName(String name) {
-		m_name = name;
-	}
+    /**
+     * <p>
+     * setName
+     * </p>
+     *
+     * @param name
+     *            a {@link java.lang.String} object.
+     */
+    public void setName(String name) {
+        m_name = name;
+    }
 
-
-	/**
-	 * <p>getCategories</p>
-	 *
-	 * @return a {@link java.util.Set} object.
-	 */
-	public Set<OnmsCategory> getCategories() {
+    /**
+     * <p>
+     * getCategories
+     * </p>
+     *
+     * @return a {@link java.util.Set} object.
+     */
+    public Set<OnmsCategory> getCategories() {
         return m_categories;
     }
 
     /**
-     * <p>setCategories</p>
+     * <p>
+     * setCategories
+     * </p>
      *
-     * @param categories a {@link java.util.Set} object.
+     * @param categories
+     *            a {@link java.util.Set} object.
      */
     public void setCategories(Set<OnmsCategory> categories) {
         m_categories = categories;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,7 +156,9 @@ public class AggregateStatusDefinition {
     }
 
     /**
-     * <p>getReportCategory</p>
+     * <p>
+     * getReportCategory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,9 +167,12 @@ public class AggregateStatusDefinition {
     }
 
     /**
-     * <p>setReportCategory</p>
+     * <p>
+     * setReportCategory
+     * </p>
      *
-     * @param reportCategory a {@link java.lang.String} object.
+     * @param reportCategory
+     *            a {@link java.lang.String} object.
      */
     public void setReportCategory(String reportCategory) {
         m_reportCategory = reportCategory;

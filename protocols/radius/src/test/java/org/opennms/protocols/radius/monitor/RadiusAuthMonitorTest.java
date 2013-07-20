@@ -49,22 +49,23 @@ import org.opennms.test.mock.MockUtil;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/emptyContext.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class RadiusAuthMonitorTest {
 
-	@Before
-	public void setup() throws Exception {
-	    MockLogAppender.setupLogging();
-	}
+    @Before
+    public void setup() throws Exception {
+        MockLogAppender.setupLogging();
+    }
 
-	@Test
-	@Ignore("have to have a radius server set up")
-	public void testResponse() throws Exception {
-		final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
+    @Test
+    @Ignore("have to have a radius server set up")
+    public void testResponse() throws Exception {
+        final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
-		final ServiceMonitor monitor = new RadiusAuthMonitor();
-		final MonitoredService svc = MonitorTestUtils.getMonitoredService(99, InetAddressUtils.addr("192.168.211.11"), "RADIUS");
+        final ServiceMonitor monitor = new RadiusAuthMonitor();
+        final MonitoredService svc = MonitorTestUtils.getMonitoredService(99, InetAddressUtils.addr("192.168.211.11"),
+                                                                          "RADIUS");
 
         m.put("user", "testing");
         m.put("password", "password");
@@ -73,8 +74,8 @@ public class RadiusAuthMonitorTest {
         m.put("authtype", "chap");
 
         final PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
-	}
+    }
 
 }

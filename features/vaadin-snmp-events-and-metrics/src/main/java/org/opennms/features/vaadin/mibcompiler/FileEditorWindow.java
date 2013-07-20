@@ -68,9 +68,12 @@ public class FileEditorWindow extends Window implements Button.ClickListener {
     /**
      * Instantiates a new file editor window.
      *
-     * @param file the file
-     * @param logger the logger
-     * @param readOnly true, if you want to display a read only window.
+     * @param file
+     *            the file
+     * @param logger
+     *            the logger
+     * @param readOnly
+     *            true, if you want to display a read only window.
      */
     public FileEditorWindow(final File file, final Logger logger, boolean readOnly) {
         this.file = file;
@@ -111,8 +114,10 @@ public class FileEditorWindow extends Window implements Button.ClickListener {
         setContent(layout);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(ClickEvent event) {

@@ -29,7 +29,7 @@
 package org.opennms.netmgt.trapd;
 
 /**
- * A TrapdIpMgr that doesn't talk to the database.  If we want something
+ * A TrapdIpMgr that doesn't talk to the database. If we want something
  * there for our test, we'll populate it.
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>

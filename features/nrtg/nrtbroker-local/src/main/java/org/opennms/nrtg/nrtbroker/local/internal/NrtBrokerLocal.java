@@ -46,6 +46,7 @@ public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
 
     private class TimedOutMap {
         private Map<String, List<MeasurementSet>> m_measurementSets = new HashMap<String, List<MeasurementSet>>();
+
         private Map<String, Date> m_lastAccess = new HashMap<String, Date>();
 
         public List<MeasurementSet> getAndRemove(String key) {
@@ -105,6 +106,7 @@ public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + NrtBrokerLocal.class);
 
     private List<ProtocolCollector> m_protocolCollectors;
+
     private TimedOutMap m_measurementSets = new TimedOutMap();
 
     @Override

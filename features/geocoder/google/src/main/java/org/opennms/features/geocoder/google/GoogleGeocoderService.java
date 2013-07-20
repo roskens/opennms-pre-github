@@ -18,8 +18,8 @@ public class GoogleGeocoderService implements GeocoderService {
         final GeocodeResponse response = m_geocoder.geocode(request);
 
         switch (response.getStatus()) {
-            case OK:
-                return new GoogleCoordinates(response.getResults().get(0));
+        case OK:
+            return new GoogleCoordinates(response.getResults().get(0));
         case ERROR:
         case INVALID_REQUEST:
         case OVER_QUERY_LIMIT:
@@ -27,7 +27,8 @@ public class GoogleGeocoderService implements GeocoderService {
         case UNKNOWN_ERROR:
         case ZERO_RESULTS:
         default:
-            throw new GeocoderException("Failed to get coordinates for " + address + " using Google Geocoder.  Response was: " + response.getStatus().toString());
+            throw new GeocoderException("Failed to get coordinates for " + address
+                    + " using Google Geocoder.  Response was: " + response.getStatus().toString());
         }
     }
 }

@@ -46,7 +46,9 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.util.Assert;
 
 /**
- * <p>JdbcEventdServiceManager class.</p>
+ * <p>
+ * JdbcEventdServiceManager class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -63,13 +65,18 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
     private Map<String, Integer> m_serviceMap = new HashMap<String, Integer>();
 
     /**
-     * <p>Constructor for JdbcEventdServiceManager.</p>
+     * <p>
+     * Constructor for JdbcEventdServiceManager.
+     * </p>
      */
     public JdbcEventdServiceManager() {
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.eventd.EventdServiceManager#getServiceId(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.eventd.EventdServiceManager#getServiceId(java.lang
+     * .String)
      */
     /** {@inheritDoc} */
     @Override
@@ -83,7 +90,8 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
 
             int serviceId;
             try {
-                serviceId = new JdbcTemplate(m_dataSource).queryForInt("SELECT serviceID FROM service WHERE serviceName = ?", new Object[] { serviceName });
+                serviceId = new JdbcTemplate(m_dataSource).queryForInt("SELECT serviceID FROM service WHERE serviceName = ?",
+                                                                       new Object[] { serviceName });
             } catch (IncorrectResultSizeDataAccessException e) {
                 if (e.getActualSize() == 0) {
                     LOG.debug("Did not find entry for '{}' in database.", serviceName);
@@ -95,17 +103,21 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
 
             m_serviceMap.put(serviceName, serviceId);
 
-            LOG.debug("Found entry for '{}' (ID {}) in database.  Adding to service name cache.", serviceName, serviceId);
+            LOG.debug("Found entry for '{}' (ID {}) in database.  Adding to service name cache.", serviceName,
+                      serviceId);
 
             return serviceId;
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.eventd.EventdServiceManager#dataSourceSync()
      */
     /**
-     * <p>dataSourceSync</p>
+     * <p>
+     * dataSourceSync
+     * </p>
      */
     @Override
     public synchronized void dataSourceSync() {
@@ -120,9 +132,12 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -130,7 +145,9 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
     }
 
     /**
-     * <p>getDataSource</p>
+     * <p>
+     * getDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -139,9 +156,12 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
     }
 
     /**
-     * <p>setDataSource</p>
+     * <p>
+     * setDataSource
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public void setDataSource(DataSource dataSource) {
         m_dataSource = dataSource;

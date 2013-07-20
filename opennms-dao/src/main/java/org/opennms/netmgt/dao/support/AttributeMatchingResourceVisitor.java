@@ -36,13 +36,16 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>AttributeMatchingResourceVisitor class.</p>
+ * <p>
+ * AttributeMatchingResourceVisitor class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class AttributeMatchingResourceVisitor implements ResourceVisitor, InitializingBean {
     private AttributeVisitor m_attributeVisitor;
+
     private String m_attributeMatch;
 
     /** {@inheritDoc} */
@@ -56,7 +59,9 @@ public class AttributeMatchingResourceVisitor implements ResourceVisitor, Initia
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -67,7 +72,9 @@ public class AttributeMatchingResourceVisitor implements ResourceVisitor, Initia
     }
 
     /**
-     * <p>getAttributeMatch</p>
+     * <p>
+     * getAttributeMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -76,16 +83,21 @@ public class AttributeMatchingResourceVisitor implements ResourceVisitor, Initia
     }
 
     /**
-     * <p>setAttributeMatch</p>
+     * <p>
+     * setAttributeMatch
+     * </p>
      *
-     * @param attributeMatch a {@link java.lang.String} object.
+     * @param attributeMatch
+     *            a {@link java.lang.String} object.
      */
     public void setAttributeMatch(String attributeMatch) {
         m_attributeMatch = attributeMatch;
     }
 
     /**
-     * <p>getAttributeVisitor</p>
+     * <p>
+     * getAttributeVisitor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.AttributeVisitor} object.
      */
@@ -94,9 +106,12 @@ public class AttributeMatchingResourceVisitor implements ResourceVisitor, Initia
     }
 
     /**
-     * <p>setAttributeVisitor</p>
+     * <p>
+     * setAttributeVisitor
+     * </p>
      *
-     * @param attributeVisitor a {@link org.opennms.netmgt.model.AttributeVisitor} object.
+     * @param attributeVisitor
+     *            a {@link org.opennms.netmgt.model.AttributeVisitor} object.
      */
     public void setAttributeVisitor(AttributeVisitor attributeVisitor) {
         m_attributeVisitor = attributeVisitor;

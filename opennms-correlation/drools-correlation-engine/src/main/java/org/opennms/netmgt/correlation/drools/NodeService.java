@@ -31,7 +31,9 @@ package org.opennms.netmgt.correlation.drools;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>NodeService interface.</p>
+ * <p>
+ * NodeService interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -40,9 +42,12 @@ import org.springframework.transaction.annotation.Transactional;
 public interface NodeService {
 
     /**
-     * <p>getParentNode</p>
+     * <p>
+     * getParentNode
+     * </p>
      *
-     * @param node a {@link java.lang.Long} object.
+     * @param node
+     *            a {@link java.lang.Long} object.
      * @return a {@link java.lang.Long} object.
      */
     public Long getParentNode(Long node);

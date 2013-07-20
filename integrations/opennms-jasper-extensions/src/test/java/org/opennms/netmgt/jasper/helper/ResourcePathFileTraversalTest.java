@@ -47,6 +47,7 @@ public class ResourcePathFileTraversalTest {
     private String m_sourceDir = "target/test-classes/share/rrd/snmp";
     private String m_baseDir = "target/file-traversal-test";
     private String m_resourceName = "nsVpnMonitor";
+
     private int m_nodeId = 10;
 
     @Before
@@ -126,7 +127,8 @@ public class ResourcePathFileTraversalTest {
         assertEquals(1, paths.size());
         assertTrue(paths.get(0).matches(".*/10/storeby-group-jvm"));
 
-        ResourcePathFileTraversal traverser2 = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/storeby-group-jvm"));
+        ResourcePathFileTraversal traverser2 = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId
+                + "/storeby-group-jvm"));
         traverser2.addDatasourceFilter("Bogus");
         paths = traverser2.traverseDirectory();
 

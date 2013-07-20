@@ -48,46 +48,44 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class SnmpInterfaceDaoTest implements InitializingBean {
-	@Autowired
-	private SnmpInterfaceDao m_snmpInterfaceDao;
+    @Autowired
+    private SnmpInterfaceDao m_snmpInterfaceDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Before
-	public void setUp() {
-		m_databasePopulator.populateDatabase();
-	}
+    @Before
+    public void setUp() {
+        m_databasePopulator.populateDatabase();
+    }
 
-	@Test
-	@Transactional
-	public void testGet() throws Exception {
-		Collection<OnmsSnmpInterface> snmpIfs = m_snmpInterfaceDao.findAll();
-		assertEquals(4, snmpIfs.size());
-		for (OnmsSnmpInterface snmpIf : snmpIfs) {
-			assertEquals(10000000, snmpIf.getIfSpeed().intValue());
-			assertNotNull(snmpIf.getNode());
-			assertEquals(1, snmpIf.getNode().getId().intValue());
-			assertEquals("node1", snmpIf.getNode().getLabel());
+    @Test
+    @Transactional
+    public void testGet() throws Exception {
+        Collection<OnmsSnmpInterface> snmpIfs = m_snmpInterfaceDao.findAll();
+        assertEquals(4, snmpIfs.size());
+        for (OnmsSnmpInterface snmpIf : snmpIfs) {
+            assertEquals(10000000, snmpIf.getIfSpeed().intValue());
+            assertNotNull(snmpIf.getNode());
+            assertEquals(1, snmpIf.getNode().getId().intValue());
+            assertEquals("node1", snmpIf.getNode().getLabel());
 
-		}
+        }
 
-	}
+    }
 
 }

@@ -44,18 +44,28 @@ import org.hibernate.criterion.Criterion;
 public abstract class BaseFilter<T> implements Filter {
 
     protected String m_filterName;
+
     protected SQLType<T> m_sqlType;
+
     private String m_fieldName;
+
     private String m_propertyName;
 
     /**
-     * <p>Constructor for BaseFilter.</p>
+     * <p>
+     * Constructor for BaseFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param sqlType a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param <T> a T object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param sqlType
+     *            a {@link org.opennms.web.filter.SQLType} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param <T>
+     *            a T object.
      */
     public BaseFilter(String filterType, SQLType<T> sqlType, String fieldName, String propertyName) {
         m_filterName = filterType;
@@ -64,9 +74,10 @@ public abstract class BaseFilter<T> implements Filter {
         m_propertyName = propertyName;
     }
 
-
     /**
-     * <p>getSQLFieldName</p>
+     * <p>
+     * getSQLFieldName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,7 +86,9 @@ public abstract class BaseFilter<T> implements Filter {
     }
 
     /**
-     * <p>getPropertyName</p>
+     * <p>
+     * getPropertyName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,31 +97,42 @@ public abstract class BaseFilter<T> implements Filter {
     }
 
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getDescription() {
-        return m_filterName+"="+getValueString();
+        return m_filterName + "=" + getValueString();
     }
 
     /**
-     * <p>bindValue</p>
+     * <p>
+     * bindValue
+     * </p>
      *
-     * @param ps a {@link java.sql.PreparedStatement} object.
-     * @param parameterIndex a int.
-     * @param value a T object.
-     * @throws java.sql.SQLException if any.
+     * @param ps
+     *            a {@link java.sql.PreparedStatement} object.
+     * @param parameterIndex
+     *            a int.
+     * @param value
+     *            a T object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     final public void bindValue(PreparedStatement ps, int parameterIndex, T value) throws SQLException {
         m_sqlType.bindParam(ps, parameterIndex, value);
     }
 
     /**
-     * <p>formatValue</p>
+     * <p>
+     * formatValue
+     * </p>
      *
-     * @param value a T object.
+     * @param value
+     *            a T object.
      * @return a {@link java.lang.String} object.
      */
     public String formatValue(T value) {
@@ -116,9 +140,12 @@ public abstract class BaseFilter<T> implements Filter {
     }
 
     /**
-     * <p>getValueAsString</p>
+     * <p>
+     * getValueAsString
+     * </p>
      *
-     * @param value a T object.
+     * @param value
+     *            a T object.
      * @return a {@link java.lang.String} object.
      */
     final public String getValueAsString(T value) {
@@ -126,14 +153,18 @@ public abstract class BaseFilter<T> implements Filter {
     }
 
     /**
-     * <p>getValueString</p>
+     * <p>
+     * getValueString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getValueString();
 
     /**
-     * <p>getCriterion</p>
+     * <p>
+     * getCriterion
+     * </p>
      *
      * @return a {@link org.hibernate.criterion.Criterion} object.
      */
@@ -145,7 +176,9 @@ public abstract class BaseFilter<T> implements Filter {
     public abstract int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException;
 
     /**
-     * <p>getParamSql</p>
+     * <p>
+     * getParamSql
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -153,7 +186,9 @@ public abstract class BaseFilter<T> implements Filter {
     public abstract String getParamSql();
 
     /**
-     * <p>getSql</p>
+     * <p>
+     * getSql
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -161,7 +196,9 @@ public abstract class BaseFilter<T> implements Filter {
     public abstract String getSql();
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -169,17 +206,17 @@ public abstract class BaseFilter<T> implements Filter {
     public abstract String getTextDescription();
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("description", getDescription())
-            .append("text description", getTextDescription())
-            .append("SQL field name", getSQLFieldName())
-            .append("property name", getPropertyName())
-            .toString();
+        return new ToStringBuilder(this).append("description", getDescription()).append("text description",
+                                                                                        getTextDescription()).append("SQL field name",
+                                                                                                                     getSQLFieldName()).append("property name",
+                                                                                                                                               getPropertyName()).toString();
     }
 }

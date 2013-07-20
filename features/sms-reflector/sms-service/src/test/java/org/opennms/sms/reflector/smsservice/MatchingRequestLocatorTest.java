@@ -38,7 +38,6 @@ import org.junit.Test;
 import org.smslib.InboundMessage;
 import org.smslib.OutboundMessage;
 
-
 /**
  * MatchingRequestLocator
  *
@@ -56,8 +55,10 @@ public class MatchingRequestLocatorTest {
     @Test
     public void testMatchPingPong() {
 
-        MobileMsgRequest request = new SmsRequest(getMessage("+19195551212", "+19195552121", "ping"), 60000, 0, null, new PingResponseMatcher());
-        MobileMsgRequest request2 = new SmsRequest(getMessage("+19195551313", "+19195553131", "ping"), 60000, 0, null, new PingResponseMatcher());
+        MobileMsgRequest request = new SmsRequest(getMessage("+19195551212", "+19195552121", "ping"), 60000, 0, null,
+                                                  new PingResponseMatcher());
+        MobileMsgRequest request2 = new SmsRequest(getMessage("+19195551313", "+19195553131", "ping"), 60000, 0, null,
+                                                   new PingResponseMatcher());
 
         m_locator.trackRequest(request);
         m_locator.trackRequest(request2);
@@ -77,7 +78,6 @@ public class MatchingRequestLocatorTest {
 
         m_locator.requestComplete(request);
 
-
     }
 
     OutboundMessage getMessage(String originator, String recipient, String text) {
@@ -87,11 +87,11 @@ public class MatchingRequestLocatorTest {
         return msg;
     }
 
-
     @Test
     public void testMatchPingPingPong() {
 
-        MobileMsgRequest request = new SmsRequest(getMessage("+19195551212", "+19195552121", "ping"), 60000, 0, null, new PingResponseMatcher());
+        MobileMsgRequest request = new SmsRequest(getMessage("+19195551212", "+19195552121", "ping"), 60000, 0, null,
+                                                  new PingResponseMatcher());
 
         m_locator.trackRequest(request);
 
@@ -101,13 +101,11 @@ public class MatchingRequestLocatorTest {
 
         assertNull(matchedRequest);
 
-
         MobileMsgResponse goodResponse = createResponse("+19195552121", "+19195551212", "pong");
 
         matchedRequest = m_locator.locateMatchingRequest(goodResponse);
 
         assertSame(request, matchedRequest);
-
 
     }
 
@@ -117,11 +115,11 @@ public class MatchingRequestLocatorTest {
 
     }
 
-
     @Test
     public void testMatchPingPingTimeoutPong() {
 
-        MobileMsgRequest request = new SmsRequest(getMessage("+19195551212", "+19195552121", "ping"), 60000, 0, null, new PingResponseMatcher());
+        MobileMsgRequest request = new SmsRequest(getMessage("+19195551212", "+19195552121", "ping"), 60000, 0, null,
+                                                  new PingResponseMatcher());
 
         m_locator.trackRequest(request);
 
@@ -139,9 +137,6 @@ public class MatchingRequestLocatorTest {
 
         assertNull(matchedRequest);
 
-
     }
-
-
 
 }

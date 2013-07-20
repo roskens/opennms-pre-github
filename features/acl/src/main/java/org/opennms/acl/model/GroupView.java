@@ -45,7 +45,9 @@ package org.opennms.acl.model;
 import java.util.List;
 
 /**
- * <p>GroupView interface.</p>
+ * <p>
+ * GroupView interface.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -54,21 +56,27 @@ import java.util.List;
 public interface GroupView {
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return Name of the Authority
      */
     public String getName();
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return Unique identifier
      */
     public Integer getId();
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return List of authorities contained in this group
      */
@@ -76,7 +84,9 @@ public interface GroupView {
     public List<?> getGroups();
 
     /**
-     * <p>getEmptyUsers</p>
+     * <p>
+     * getEmptyUsers
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */

@@ -47,12 +47,14 @@ public class RRA {
     /**
      * Instantiates a new RRA.
      */
-    public RRA() {}
+    public RRA() {
+    }
 
     /**
      * Instantiates a new RRA.
      *
-     * @param rra the RRA
+     * @param rra
+     *            the RRA
      */
     public RRA(String rra) {
         setRra(rra);
@@ -70,7 +72,8 @@ public class RRA {
     /**
      * Sets the consolidation function.
      *
-     * @param cf the new consolidation function
+     * @param cf
+     *            the new consolidation function
      */
     public void setCf(String cf) {
         this.cf = cf;
@@ -88,7 +91,8 @@ public class RRA {
     /**
      * Sets the XFF.
      *
-     * @param xff the new XFF
+     * @param xff
+     *            the new XFF
      */
     public void setXff(Double xff) {
         this.xff = xff;
@@ -106,7 +110,8 @@ public class RRA {
     /**
      * Sets the steps.
      *
-     * @param steps the new steps
+     * @param steps
+     *            the new steps
      */
     public void setSteps(Integer steps) {
         this.steps = steps;
@@ -124,7 +129,8 @@ public class RRA {
     /**
      * Sets the rows.
      *
-     * @param rows the new rows
+     * @param rows
+     *            the new rows
      */
     public void setRows(Integer rows) {
         this.rows = rows;
@@ -142,10 +148,11 @@ public class RRA {
     /**
      * Sets the RRA.
      *
-     * @param rra the new RRA
+     * @param rra
+     *            the new RRA
      */
     public void setRra(String rra) {
-        String [] parts = rra.split(":");
+        String[] parts = rra.split(":");
         if (parts.length < 5)
             throw new IllegalArgumentException("Malformed RRA");
         try {

@@ -28,9 +28,10 @@
 
 package org.opennms.web.map.db;
 
-
 /**
- * <p>LinkInfo class.</p>
+ * <p>
+ * LinkInfo class.
+ * </p>
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
@@ -38,53 +39,63 @@ package org.opennms.web.map.db;
  */
 public class LinkInfo {
     int id;
-	int nodeid;
-	int ifindex;
-	int nodeparentid;
-	int parentifindex;
-	int linktypeid;
-	int snmpiftype;
-	long snmpifspeed;
-	int snmpifoperstatus;
+
+    int nodeid;
+
+    int ifindex;
+
+    int nodeparentid;
+
+    int parentifindex;
+
+    int linktypeid;
+
+    int snmpiftype;
+
+    long snmpifspeed;
+
+    int snmpifoperstatus;
+
     int snmpifadminstatus;
+
     String status;
 
-
-
-	LinkInfo(int id, int nodeid, int ifindex, int nodeparentid, int parentifindex, int snmpiftype, long snmpifspeed, int snmpifoperstatus, int snmpifadminstatus, String status, int linktypeid) {
-		super();
-		this.id = id;
-		this.nodeid = nodeid;
-		this.ifindex = ifindex;
-		this.nodeparentid = nodeparentid;
-		this.parentifindex = parentifindex;
-		this.snmpiftype = snmpiftype;
-		this.snmpifspeed = snmpifspeed;
-		this.snmpifoperstatus = snmpifoperstatus;
+    LinkInfo(int id, int nodeid, int ifindex, int nodeparentid, int parentifindex, int snmpiftype, long snmpifspeed,
+            int snmpifoperstatus, int snmpifadminstatus, String status, int linktypeid) {
+        super();
+        this.id = id;
+        this.nodeid = nodeid;
+        this.ifindex = ifindex;
+        this.nodeparentid = nodeparentid;
+        this.parentifindex = parentifindex;
+        this.snmpiftype = snmpiftype;
+        this.snmpifspeed = snmpifspeed;
+        this.snmpifoperstatus = snmpifoperstatus;
         this.snmpifadminstatus = snmpifadminstatus;
         this.status = status;
         this.linktypeid = linktypeid;
-	}
+    }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public boolean equals(Object obj) {
-		if (obj instanceof LinkInfo ) {
-			LinkInfo ol = (LinkInfo) obj;
-			return
-			(ol.id == this.id);
-		}
-		return false;
-	}
+    public boolean equals(Object obj) {
+        if (obj instanceof LinkInfo) {
+            LinkInfo ol = (LinkInfo) obj;
+            return (ol.id == this.id);
+        }
+        return false;
+    }
 
-	/**
-	 * <p>hashCode</p>
-	 *
-	 * @return a int.
-	 */
+    /**
+     * <p>
+     * hashCode
+     * </p>
+     *
+     * @return a int.
+     */
     @Override
-	public int hashCode() {
-		return this.id;
-	}
+    public int hashCode() {
+        return this.id;
+    }
 
 }

@@ -82,7 +82,8 @@ public class DNSInputStream extends ByteArrayInputStream {
      * @exception java.io.IOException
      *                Thrown if the end-of-file is encountered trying to read
      *                the next byte.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public int readByte() throws IOException {
         int rc = read();
@@ -100,7 +101,8 @@ public class DNSInputStream extends ByteArrayInputStream {
      * @exception java.io.IOException
      *                Thrown if the end-of-file is encountered trying to read
      *                the next short.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public int readShort() throws IOException {
         return (readByte() << 8 | readByte());
@@ -114,7 +116,8 @@ public class DNSInputStream extends ByteArrayInputStream {
      * @return The int from the input stream.
      * @exception java.io.IOException
      *                Thrown if there is an error while read.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public long readInt() throws IOException {
         long rc = 0;
@@ -131,7 +134,8 @@ public class DNSInputStream extends ByteArrayInputStream {
      * @return the string from the input stream
      * @exception java.io.IOException
      *                Thrown if there is an error while read
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public String readString() throws IOException {
         int len = readByte();
@@ -159,7 +163,8 @@ public class DNSInputStream extends ByteArrayInputStream {
      * @exception java.io.IOException
      *                Thrown if an error occurs decoding the string from the
      *                stream.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public String readDomainName() throws IOException {
         //
@@ -227,7 +232,8 @@ public class DNSInputStream extends ByteArrayInputStream {
      * @return The DNSAddressRR that is in response to the address request.
      * @exception java.io.IOException
      *                Thrown if data does not decode to a DNSAddressRRl.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public DNSAddressRR readRR() throws IOException {
         String rrName = readDomainName();
@@ -253,7 +259,8 @@ public class DNSInputStream extends ByteArrayInputStream {
             DNSAddressRR rr = new DNSAddressRR(rrName, rrType, rrClass, rrTTL, rrDNSIn);
             return rr;
         } catch (Throwable ex) {
-            throw new IOException("Unknown DNSAddressRR (type " + " (" + rrType + "))" + "\nOriginating Exception: " + ex.getMessage());
+            throw new IOException("Unknown DNSAddressRR (type " + " (" + rrType + "))" + "\nOriginating Exception: "
+                    + ex.getMessage());
         }
     }
 }

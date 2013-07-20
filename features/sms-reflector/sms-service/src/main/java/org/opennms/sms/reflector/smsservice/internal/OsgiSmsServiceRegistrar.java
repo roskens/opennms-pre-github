@@ -37,36 +37,38 @@ import org.osgi.framework.ServiceRegistration;
 import org.springframework.osgi.context.BundleContextAware;
 
 /**
- * <p>OsgiSmsServiceRegistrar class.</p>
+ * <p>
+ * OsgiSmsServiceRegistrar class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class OsgiSmsServiceRegistrar implements SmsServiceRegistrar, BundleContextAware {
 
-	private BundleContext m_bundleContext;
-	private Map<SmsService, ServiceRegistration<SmsService>> m_registrationMap = new HashMap<SmsService, ServiceRegistration<SmsService>>();
+    private BundleContext m_bundleContext;
 
-	/** {@inheritDoc} */
-        @Override
-	public void registerSmsService(SmsService service) {
-	    ServiceRegistration<SmsService> registration = m_bundleContext.registerService(SmsService.class, service, null);
-	    m_registrationMap.put(service, registration);
-	}
+    private Map<SmsService, ServiceRegistration<SmsService>> m_registrationMap = new HashMap<SmsService, ServiceRegistration<SmsService>>();
 
-	/** {@inheritDoc} */
-        @Override
-	public void unregisterSmsService(SmsService smsService) {
-	    ServiceRegistration<SmsService> registration = m_registrationMap.remove(smsService);
-	    registration.unregister();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void registerSmsService(SmsService service) {
+        ServiceRegistration<SmsService> registration = m_bundleContext.registerService(SmsService.class, service, null);
+        m_registrationMap.put(service, registration);
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void setBundleContext(BundleContext bundleContext) {
-		m_bundleContext = bundleContext;
+    /** {@inheritDoc} */
+    @Override
+    public void unregisterSmsService(SmsService smsService) {
+        ServiceRegistration<SmsService> registration = m_registrationMap.remove(smsService);
+        registration.unregister();
+    }
 
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setBundleContext(BundleContext bundleContext) {
+        m_bundleContext = bundleContext;
 
+    }
 
 }

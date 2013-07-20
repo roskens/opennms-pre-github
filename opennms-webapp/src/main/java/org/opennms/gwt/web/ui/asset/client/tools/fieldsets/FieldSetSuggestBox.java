@@ -52,126 +52,127 @@ import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
  *         Additional a suggestion box will support the user.
  */
 public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<String>,
-		SelectionHandler<Suggestion>, KeyUpHandler, MouseUpHandler {
+        SelectionHandler<Suggestion>, KeyUpHandler, MouseUpHandler {
 
-	private SuggestBox suggBox;
-	private Collection<String> suggestions;
-	private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+    private SuggestBox suggBox;
 
-	public FieldSetSuggestBox(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value, null, -1);
-	}
+    private Collection<String> suggestions;
 
-	public FieldSetSuggestBox(String name, String value, String helpText, Collection<String> suggestions) {
-		super(name, helpText);
-		init(value, suggestions, -1);
-	}
+    private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
 
-	@UiConstructor
-	public FieldSetSuggestBox(String name, String value, String helpText, int maxLength) {
-		super(name, helpText);
-		init(value, null, maxLength);
-	}
+    public FieldSetSuggestBox(String name, String value, String helpText) {
+        super(name, helpText);
+        init(value, null, -1);
+    }
 
-	public Collection<String> getSuggestions() {
-		return suggestions;
-	}
+    public FieldSetSuggestBox(String name, String value, String helpText, Collection<String> suggestions) {
+        super(name, helpText);
+        init(value, suggestions, -1);
+    }
 
-	@Override
-	public String getValue() {
-		return suggBox.getText();
-	}
+    @UiConstructor
+    public FieldSetSuggestBox(String name, String value, String helpText, int maxLength) {
+        super(name, helpText);
+        init(value, null, maxLength);
+    }
 
-	private void init(String value, Collection<String> suggestions, int maxLength) {
-		if (maxLength > 0) {
-			addErrorValidator(new StringMaxLengthValidator(maxLength));
-		}
-		if (suggestions != null) {
-			oracle.addAll(suggestions);
-			oracle.setDefaultSuggestionsFromText(suggestions);
-		}
-		inititalValue = value;
-		suggBox = new SuggestBox(oracle);
+    public Collection<String> getSuggestions() {
+        return suggestions;
+    }
 
-		suggBox.setText(value);
+    @Override
+    public String getValue() {
+        return suggBox.getText();
+    }
 
-		suggBox.getTextBox().addFocusHandler(this);
-		suggBox.getTextBox().addChangeHandler(this);
-		suggBox.getTextBox().addValueChangeHandler(this);
-		suggBox.getTextBox().addMouseUpHandler(this);
-		suggBox.addValueChangeHandler(this);
-		suggBox.addKeyUpHandler(this);
-		suggBox.addSelectionHandler(this);
+    private void init(String value, Collection<String> suggestions, int maxLength) {
+        if (maxLength > 0) {
+            addErrorValidator(new StringMaxLengthValidator(maxLength));
+        }
+        if (suggestions != null) {
+            oracle.addAll(suggestions);
+            oracle.setDefaultSuggestionsFromText(suggestions);
+        }
+        inititalValue = value;
+        suggBox = new SuggestBox(oracle);
 
-		suggBox.setStyleName("suggBox");
-		suggBox.setSize("300px", "18px");
-		panel.add(suggBox);
-	}
+        suggBox.setText(value);
 
-	@Override
-	public void onFocus(FocusEvent event) {
-		suggBox.showSuggestionList();
-	}
+        suggBox.getTextBox().addFocusHandler(this);
+        suggBox.getTextBox().addChangeHandler(this);
+        suggBox.getTextBox().addValueChangeHandler(this);
+        suggBox.getTextBox().addMouseUpHandler(this);
+        suggBox.addValueChangeHandler(this);
+        suggBox.addKeyUpHandler(this);
+        suggBox.addSelectionHandler(this);
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event
-	 * .dom.client.KeyUpEvent)
-	 */
-	@Override
-	public void onKeyUp(KeyUpEvent event) {
-		checkField();
-	}
+        suggBox.setStyleName("suggBox");
+        suggBox.setSize("300px", "18px");
+        panel.add(suggBox);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt
-	 * .event.dom.client.MouseUpEvent)
-	 */
-	@Override
-	public void onMouseUp(MouseUpEvent event) {
-		checkField();
-	}
+    @Override
+    public void onFocus(FocusEvent event) {
+        suggBox.showSuggestionList();
+    }
 
-	@Override
-	public void onSelection(SelectionEvent<Suggestion> event) {
-		String selected = event.getSelectedItem().getReplacementString();
-		ValueChangeEvent.fire(suggBox, selected);
-		checkField();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event
+     * .dom.client.KeyUpEvent)
+     */
+    @Override
+    public void onKeyUp(KeyUpEvent event) {
+        checkField();
+    }
 
-	@Override
-	public void onValueChange(ValueChangeEvent<String> event) {
-		checkField();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt
+     * .event.dom.client.MouseUpEvent)
+     */
+    @Override
+    public void onMouseUp(MouseUpEvent event) {
+        checkField();
+    }
 
-	@Override
-	public void setEnabled(Boolean enabled) {
-		suggBox.getTextBox().setEnabled(enabled);
-	}
+    @Override
+    public void onSelection(SelectionEvent<Suggestion> event) {
+        String selected = event.getSelectedItem().getReplacementString();
+        ValueChangeEvent.fire(suggBox, selected);
+        checkField();
+    }
 
-	/**
-	 * Takes a Collection of Strings as suggestion model to support the uses.
-	 * @param suggestions
-	 */
-	public void setSuggestions(Collection<String> suggestions) {
-		this.suggestions = suggestions;
-		oracle.clear();
-		if (suggestions != null) {
-			oracle.addAll(suggestions);
-			oracle.setDefaultSuggestionsFromText(suggestions);
-		}
-	}
+    @Override
+    public void onValueChange(ValueChangeEvent<String> event) {
+        checkField();
+    }
 
-	@Override
-	public void setValue(String value) {
-		suggBox.setText(value);
-		inititalValue = value;
-		validate(this.getValue());
-	}
+    @Override
+    public void setEnabled(Boolean enabled) {
+        suggBox.getTextBox().setEnabled(enabled);
+    }
+
+    /**
+     * Takes a Collection of Strings as suggestion model to support the uses.
+     *
+     * @param suggestions
+     */
+    public void setSuggestions(Collection<String> suggestions) {
+        this.suggestions = suggestions;
+        oracle.clear();
+        if (suggestions != null) {
+            oracle.addAll(suggestions);
+            oracle.setDefaultSuggestionsFromText(suggestions);
+        }
+    }
+
+    @Override
+    public void setValue(String value) {
+        suggBox.setText(value);
+        inititalValue = value;
+        validate(this.getValue());
+    }
 }

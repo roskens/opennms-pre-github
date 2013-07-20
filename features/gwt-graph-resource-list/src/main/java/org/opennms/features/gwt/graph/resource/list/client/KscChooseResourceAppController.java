@@ -41,6 +41,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 public class KscChooseResourceAppController implements Presenter {
 
     private JsArray<ResourceListItem> m_resourceList;
+
     private String m_baseUrl;
 
     public KscChooseResourceAppController(JsArray<ResourceListItem> resourceList, String baseUrl) {
@@ -50,7 +51,8 @@ public class KscChooseResourceAppController implements Presenter {
 
     @Override
     public void go(HasWidgets container) {
-        new KscGraphResourceListPresenter(new DefaultResourceListViewImpl(), new SearchPopup(), m_resourceList, new KscReportResourceChooser(), m_baseUrl).go(container);
+        new KscGraphResourceListPresenter(new DefaultResourceListViewImpl(), new SearchPopup(), m_resourceList,
+                                          new KscReportResourceChooser(), m_baseUrl).go(container);
     }
 
 }

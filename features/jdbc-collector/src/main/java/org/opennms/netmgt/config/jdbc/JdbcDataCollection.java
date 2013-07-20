@@ -42,20 +42,20 @@ import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
-@XmlType(name="jdbc-collection")
+@XmlType(name = "jdbc-collection")
 public class JdbcDataCollection implements Serializable, Comparable<JdbcDataCollection> {
     private static final long serialVersionUID = -7451959128852991463L;
 
     private static final JdbcQuery[] OF_QUERIES = new JdbcQuery[0];
 
-    @XmlAttribute(name="name")
+    @XmlAttribute(name = "name")
     private String m_name;
 
-    @XmlElement(name="rrd")
+    @XmlElement(name = "rrd")
     private JdbcRrd m_jdbcRrd;
 
-    @XmlElementWrapper(name="queries")
-    @XmlElement(name="query")
+    @XmlElementWrapper(name = "queries")
+    @XmlElement(name = "query")
     private List<JdbcQuery> m_jdbcQueries = new ArrayList<JdbcQuery>();
 
     public JdbcDataCollection() {
@@ -98,9 +98,9 @@ public class JdbcDataCollection implements Serializable, Comparable<JdbcDataColl
     }
 
     public void removeQueryByName(String name) {
-        for (Iterator<JdbcQuery> itr = m_jdbcQueries.iterator(); itr.hasNext(); ) {
+        for (Iterator<JdbcQuery> itr = m_jdbcQueries.iterator(); itr.hasNext();) {
             JdbcQuery query = itr.next();
-            if(query.getQueryName().equals(name)) {
+            if (query.getQueryName().equals(name)) {
                 m_jdbcQueries.remove(query);
                 return;
             }
@@ -109,22 +109,16 @@ public class JdbcDataCollection implements Serializable, Comparable<JdbcDataColl
 
     @Override
     public int compareTo(JdbcDataCollection obj) {
-        return new CompareToBuilder()
-            .append(getName(), obj.getName())
-            .append(getJdbcRrd(), obj.getJdbcRrd())
-            .append(getQueries().toArray(OF_QUERIES), obj.getQueries().toArray(OF_QUERIES))
-            .toComparison();
+        return new CompareToBuilder().append(getName(), obj.getName()).append(getJdbcRrd(), obj.getJdbcRrd()).append(getQueries().toArray(OF_QUERIES),
+                                                                                                                     obj.getQueries().toArray(OF_QUERIES)).toComparison();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcDataCollection) {
             JdbcDataCollection other = (JdbcDataCollection) obj;
-            return new EqualsBuilder()
-                .append(getName(), other.getName())
-                .append(getJdbcRrd(), other.getJdbcRrd())
-                .append(getQueries().toArray(OF_QUERIES), other.getQueries().toArray(OF_QUERIES))
-                .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getJdbcRrd(), other.getJdbcRrd()).append(getQueries().toArray(OF_QUERIES),
+                                                                                                                          other.getQueries().toArray(OF_QUERIES)).isEquals();
         }
         return false;
     }

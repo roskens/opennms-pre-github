@@ -83,7 +83,9 @@ public final class SSLCertPlugin extends AbstractPlugin {
     private final static int DEFAULT_PORT = -1;
 
     public static final String PARAMETER_TIMEOUT = "timeout";
+
     public static final String PARAMETER_RETRY = "retry";
+
     public static final String PARAMETER_PORT = "port";
 
     /**
@@ -98,9 +100,8 @@ public final class SSLCertPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -109,9 +110,8 @@ public final class SSLCertPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -121,7 +121,7 @@ public final class SSLCertPlugin extends AbstractPlugin {
     public boolean isProtocolSupported(InetAddress address, Map<String, Object> qualifiers) {
         int retries = ParameterMap.getKeyedInteger(qualifiers, PARAMETER_RETRY, DEFAULT_RETRY);
         int timeout = ParameterMap.getKeyedInteger(qualifiers, PARAMETER_TIMEOUT, DEFAULT_TIMEOUT);
-        int port    = ParameterMap.getKeyedInteger(qualifiers, PARAMETER_PORT, DEFAULT_PORT);
+        int port = ParameterMap.getKeyedInteger(qualifiers, PARAMETER_PORT, DEFAULT_PORT);
 
         // verify the port
         //
@@ -159,11 +159,13 @@ public final class SSLCertPlugin extends AbstractPlugin {
                 LOG.debug("Did not connect to host within timeout: {}, attempt: {}", timeout, attempts);
                 hasSSLCert = false;
             } catch (IOException e) {
-                LOG.info("An expected I/O exception occured connecting to host {} on port {}", InetAddressUtils.str(address), port, e);
+                LOG.info("An expected I/O exception occured connecting to host {} on port {}",
+                         InetAddressUtils.str(address), port, e);
                 hasSSLCert = false;
             } catch (Throwable t) {
                 hasSSLCert = false;
-                LOG.warn("An undeclared throwable exception was caught connecting to host {} on port {}", InetAddressUtils.str(address), port, t);
+                LOG.warn("An undeclared throwable exception was caught connecting to host {} on port {}",
+                         InetAddressUtils.str(address), port, t);
             } finally {
                 try {
                     if (socket != null) {
@@ -177,11 +179,15 @@ public final class SSLCertPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>wrapSocket</p>
+     * <p>
+     * wrapSocket
+     * </p>
      *
-     * @param socket a {@link java.net.Socket} object.
+     * @param socket
+     *            a {@link java.net.Socket} object.
      * @return a {@link java.net.Socket} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected SocketWrapper getSocketWrapper() {
         return new SslSocketWrapper();

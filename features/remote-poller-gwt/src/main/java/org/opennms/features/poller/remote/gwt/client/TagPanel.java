@@ -53,7 +53,9 @@ import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <p>TagPanel class.</p>
+ * <p>
+ * TagPanel class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -63,21 +65,34 @@ public class TagPanel extends Composite implements Collection<String> {
 
     private final List<String> m_delegate = new ArrayList<String>();
 
-    interface Binder extends UiBinder<Widget, TagPanel> { }
+    interface Binder extends UiBinder<Widget, TagPanel> {
+    }
+
     private static final Binder BINDER = GWT.create(Binder.class);
 
     interface TagStyles extends CssResource {
         public final static double COUNT = 10.0;
+
         String selectedTag();
+
         String tag0();
+
         String tag1();
+
         String tag2();
+
         String tag3();
+
         String tag4();
+
         String tag5();
+
         String tag6();
+
         String tag7();
+
         String tag8();
+
         String tag9();
     }
 
@@ -100,12 +115,11 @@ public class TagPanel extends Composite implements Collection<String> {
         public void onTagCleared();
     }
 
-    public interface TagResizeEventHandler extends EventHandler{
+    public interface TagResizeEventHandler extends EventHandler {
         public void onTagPanelResize();
     }
 
-    public static class TagSelectedEvent extends GwtEvent<TagSelectedEventHandler>
-    {
+    public static class TagSelectedEvent extends GwtEvent<TagSelectedEventHandler> {
         public static Type<TagSelectedEventHandler> TYPE = new Type<TagSelectedEventHandler>();
 
         private final String m_tagName;
@@ -125,11 +139,11 @@ public class TagPanel extends Composite implements Collection<String> {
         }
     }
 
-    public static class TagClearedEvent extends GwtEvent<TagClearedEventHandler>
-    {
+    public static class TagClearedEvent extends GwtEvent<TagClearedEventHandler> {
         public static Type<TagClearedEventHandler> TYPE = new Type<TagClearedEventHandler>();
 
-        public TagClearedEvent() {}
+        public TagClearedEvent() {
+        }
 
         @Override
         protected void dispatch(TagClearedEventHandler handler) {
@@ -142,9 +156,10 @@ public class TagPanel extends Composite implements Collection<String> {
         }
     }
 
-    public static class TagResizeEvent extends GwtEvent<TagResizeEventHandler>{
+    public static class TagResizeEvent extends GwtEvent<TagResizeEventHandler> {
 
         public static Type<TagResizeEventHandler> TYPE = new Type<TagResizeEventHandler>();
+
         @Override
         protected void dispatch(TagResizeEventHandler handler) {
             handler.onTagPanelResize();
@@ -158,7 +173,9 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>Constructor for TagPanel.</p>
+     * <p>
+     * Constructor for TagPanel.
+     * </p>
      */
     public TagPanel() {
         super();
@@ -166,18 +183,24 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>setEventBus</p>
+     * <p>
+     * setEventBus
+     * </p>
      *
-     * @param eventBus a {@link com.google.gwt.event.shared.HandlerManager} object.
+     * @param eventBus
+     *            a {@link com.google.gwt.event.shared.HandlerManager} object.
      */
     public void setEventBus(final HandlerManager eventBus) {
         m_eventBus = eventBus;
     }
 
     /**
-     * <p>onClearTagsClick</p>
+     * <p>
+     * onClearTagsClick
+     * </p>
      *
-     * @param event a {@link com.google.gwt.event.dom.client.ClickEvent} object.
+     * @param event
+     *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.
      */
     @UiHandler("clearTags")
     public void onClearTagsClick(ClickEvent event) {
@@ -189,9 +212,12 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param e a {@link java.lang.String} object.
+     * @param e
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     @Override
@@ -211,7 +237,9 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>clear</p>
+     * <p>
+     * clear
+     * </p>
      */
     @Override
     public void clear() {
@@ -232,7 +260,9 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>isEmpty</p>
+     * <p>
+     * isEmpty
+     * </p>
      *
      * @return a boolean.
      */
@@ -242,7 +272,9 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>iterator</p>
+     * <p>
+     * iterator
+     * </p>
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -276,7 +308,9 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>size</p>
+     * <p>
+     * size
+     * </p>
      *
      * @return a int.
      */
@@ -286,7 +320,9 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>toArray</p>
+     * <p>
+     * toArray
+     * </p>
      *
      * @return an array of {@link java.lang.Object} objects.
      */
@@ -296,10 +332,14 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>toArray</p>
+     * <p>
+     * toArray
+     * </p>
      *
-     * @param a an array of T objects.
-     * @param <T> a T object.
+     * @param a
+     *            an array of T objects.
+     * @param <T>
+     *            a T object.
      * @return an array of T objects.
      */
     @Override
@@ -308,14 +348,17 @@ public class TagPanel extends Composite implements Collection<String> {
     }
 
     /**
-     * <p>selectTag</p>
+     * <p>
+     * selectTag
+     * </p>
      *
-     * @param tag a {@link java.lang.String} object.
+     * @param tag
+     *            a {@link java.lang.String} object.
      */
     public void selectTag(String tag) {
         for (Widget widget : tagPanel) {
             if (widget instanceof Anchor) {
-                Anchor anchor = (Anchor)widget;
+                Anchor anchor = (Anchor) widget;
                 if (tag != null && tag.replaceAll(" ", "&nbsp;").equals(anchor.getHTML())) {
                     anchor.addStyleName(tagStyles.selectedTag());
                 } else {
@@ -327,7 +370,7 @@ public class TagPanel extends Composite implements Collection<String> {
 
     private void updatePanel() {
         int minCount = Integer.MAX_VALUE, maxCount = Integer.MIN_VALUE;
-        Map<String,Integer> tagCounts = new TreeMap<String,Integer>();
+        Map<String, Integer> tagCounts = new TreeMap<String, Integer>();
         for (String tag : m_delegate) {
             if (tagCounts.containsKey(tag)) {
                 tagCounts.put(tag, tagCounts.get(tag).intValue() + 1);
@@ -337,8 +380,10 @@ public class TagPanel extends Composite implements Collection<String> {
         }
 
         for (int entry : tagCounts.values()) {
-            if (entry < minCount) minCount = entry;
-            if (entry > maxCount) maxCount = entry;
+            if (entry < minCount)
+                minCount = entry;
+            if (entry > maxCount)
+                maxCount = entry;
         }
 
         tagPanel.clear();
@@ -346,7 +391,7 @@ public class TagPanel extends Composite implements Collection<String> {
         for (final Map.Entry<String, Integer> entry : tagCounts.entrySet()) {
             final String tagText = entry.getKey();
             final Anchor tagLabel = new Anchor();
-            double rawValue = (double)(entry.getValue() - minCount) * TagStyles.COUNT / (double)(maxCount - minCount);
+            double rawValue = (double) (entry.getValue() - minCount) * TagStyles.COUNT / (double) (maxCount - minCount);
             tagLabel.setHTML(tagText.replace(" ", "&nbsp;"));
             tagLabel.addClickHandler(new ClickHandler() {
                 @Override
@@ -355,37 +400,37 @@ public class TagPanel extends Composite implements Collection<String> {
                     m_eventBus.fireEvent(new TagSelectedEvent(tagText));
                 }
             });
-            switch ((int)Math.round(rawValue)) {
-            case(0):
+            switch ((int) Math.round(rawValue)) {
+            case (0):
                 tagLabel.addStyleName(tagStyles.tag0());
-            break;
-            case(1):
+                break;
+            case (1):
                 tagLabel.addStyleName(tagStyles.tag1());
-            break;
-            case(2):
+                break;
+            case (2):
                 tagLabel.addStyleName(tagStyles.tag2());
-            break;
-            case(3):
+                break;
+            case (3):
                 tagLabel.addStyleName(tagStyles.tag3());
-            break;
-            case(4):
+                break;
+            case (4):
                 tagLabel.addStyleName(tagStyles.tag4());
-            break;
-            case(5):
+                break;
+            case (5):
                 tagLabel.addStyleName(tagStyles.tag5());
-            break;
-            case(6):
+                break;
+            case (6):
                 tagLabel.addStyleName(tagStyles.tag6());
-            break;
-            case(7):
+                break;
+            case (7):
                 tagLabel.addStyleName(tagStyles.tag7());
-            break;
-            case(8):
+                break;
+            case (8):
                 tagLabel.addStyleName(tagStyles.tag8());
-            break;
-            case(9):
+                break;
+            case (9):
                 tagLabel.addStyleName(tagStyles.tag9());
-            break;
+                break;
             default:
                 tagLabel.addStyleName(tagStyles.tag9());
             }

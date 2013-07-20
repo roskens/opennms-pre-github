@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="xml-groups")
+@XmlRootElement(name = "xml-groups")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlGroups implements Serializable {
 
@@ -51,7 +51,7 @@ public class XmlGroups implements Serializable {
     private static final long serialVersionUID = 8626665420339279584L;
 
     /** The XML groups list. */
-    @XmlElement(name="xml-group", required=true)
+    @XmlElement(name = "xml-group", required = true)
     private List<XmlGroup> m_xmlGroups = new ArrayList<XmlGroup>();
 
     /**
@@ -72,7 +72,8 @@ public class XmlGroups implements Serializable {
     /**
      * Sets the XML groups.
      *
-     * @param xmlGroups the new XML groups
+     * @param xmlGroups
+     *            the new XML groups
      */
     public void setXmlGroups(List<XmlGroup> xmlGroups) {
         m_xmlGroups = xmlGroups;
@@ -81,7 +82,8 @@ public class XmlGroups implements Serializable {
     /**
      * Adds the XML group.
      *
-     * @param group the group
+     * @param group
+     *            the group
      */
     public void addXmlGroup(XmlGroup group) {
         m_xmlGroups.add(group);
@@ -90,7 +92,8 @@ public class XmlGroups implements Serializable {
     /**
      * Removes the XML group.
      *
-     * @param group the group
+     * @param group
+     *            the group
      */
     public void removeXmlGroup(XmlGroup group) {
         m_xmlGroups.remove(group);
@@ -99,12 +102,13 @@ public class XmlGroups implements Serializable {
     /**
      * Removes the group by name.
      *
-     * @param name the name
+     * @param name
+     *            the name
      */
     public void removeGroupByName(String name) {
         for (Iterator<XmlGroup> itr = m_xmlGroups.iterator(); itr.hasNext();) {
             XmlGroup query = itr.next();
-            if(query.getName().equals(name)) {
+            if (query.getName().equals(name)) {
                 m_xmlGroups.remove(query);
                 return;
             }

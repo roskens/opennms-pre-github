@@ -34,10 +34,15 @@ package org.opennms.features.jmxconfiggenerator.graphs;
  */
 public class Graph {
     private String id;
+
     private String description;
+
     private String resourceName;
+
     private String coloreA;
+
     private String coloreB;
+
     private String coloreC;
 
     public Graph(String id, String description, String resourceName, String coloreA, String coloreB, String coloreC) {
@@ -99,6 +104,7 @@ public class Graph {
 
     @Override
     public String toString() {
-        return "Graph{" + "id=" + id + ", description=" + description + ", resourceName=" + resourceName + ", coloreA=" + coloreA + ", coloreB=" + coloreB + ", coloreC=" + coloreC + '}';
+        return "Graph{" + "id=" + id + ", description=" + description + ", resourceName=" + resourceName + ", coloreA="
+                + coloreA + ", coloreB=" + coloreB + ", coloreC=" + coloreC + '}';
     }
 }

@@ -94,8 +94,7 @@ public class JasperReportService implements ReportService {
      * @throws ReportException
      */
     @Override
-    public ReportParameters getParameters(String reportId)
-            throws ReportException {
+    public ReportParameters getParameters(String reportId) throws ReportException {
 
         ReportParameters reportParameters = new ReportParameters();
         ArrayList<ReportIntParm> intParms;
@@ -111,8 +110,7 @@ public class JasperReportService implements ReportService {
 
         try {
             jasperReport = JasperCompileManager.compileReport(m_globalReportRepository.getTemplateStream(reportId));
-            defaultValues = JRParameterDefaultValuesEvaluator.evaluateParameterDefaultValues(jasperReport,
-                    null);
+            defaultValues = JRParameterDefaultValuesEvaluator.evaluateParameterDefaultValues(jasperReport, null);
         } catch (JRException e) {
             LOG.error("unable to compile jasper report", e);
             throw new ReportException("unable to compile jasperReport", e);
@@ -289,9 +287,7 @@ public class JasperReportService implements ReportService {
                     continue;
                 }
 
-                throw new ReportException(
-                        "Unsupported report parameter type "
-                                + reportParm.getValueClassName());
+                throw new ReportException("Unsupported report parameter type " + reportParm.getValueClassName());
 
             }
         }
@@ -303,26 +299,26 @@ public class JasperReportService implements ReportService {
      * {@inheritDoc}
      */
     @Override
-    public void render(String ReportId, String location, ReportFormat format,
-                       OutputStream outputStream) throws ReportException {
+    public void render(String ReportId, String location, ReportFormat format, OutputStream outputStream)
+            throws ReportException {
         try {
 
             JasperPrint jasperPrint = getJasperPrint(location);
 
             switch (format) {
-                case PDF:
-                    LOG.debug("rendering as PDF");
-                    exportReportToPdf(jasperPrint, outputStream);
-                    break;
+            case PDF:
+                LOG.debug("rendering as PDF");
+                exportReportToPdf(jasperPrint, outputStream);
+                break;
 
-                case CSV:
-                    LOG.debug("rendering as CSV");
-                    exportReportToCsv(jasperPrint, outputStream);
-                    break;
+            case CSV:
+                LOG.debug("rendering as CSV");
+                exportReportToCsv(jasperPrint, outputStream);
+                break;
 
-                default:
-                    LOG.debug("rendering as PDF as no valid format found");
-                    exportReportToPdf(jasperPrint, outputStream);
+            default:
+                LOG.debug("rendering as PDF as no valid format found");
+                exportReportToPdf(jasperPrint, outputStream);
             }
         } catch (JRException e) {
             LOG.error("unable to render report", e);
@@ -342,8 +338,7 @@ public class JasperReportService implements ReportService {
      * {@inheritDoc}
      */
     @Override
-    public String run(HashMap<String, Object> reportParms, String reportId)
-            throws ReportException {
+    public String run(HashMap<String, Object> reportParms, String reportId) throws ReportException {
         String baseDir = System.getProperty("opennms.report.dir");
         JasperReport jasperReport = null;
         String outputFileName = null;
@@ -358,69 +353,57 @@ public class JasperReportService implements ReportService {
             throw new ReportException("unable to compile jasperReport", e);
         }
 
-        jrReportParms = buildJRparameters(reportParms,
-                jasperReport.getParameters());
+        jrReportParms = buildJRparameters(reportParms, jasperReport.getParameters());
 
         // Find sub reports and provide sub reports as parameter
         jrReportParms.putAll(buildSubreport(reportId, jasperReport));
 
         outputFileName = new String(baseDir + "/" + jasperReport.getName()
-                + new SimpleDateFormat("-MMddyyyy-HHmm").format(new Date())
-                + ".jrprint");
+                + new SimpleDateFormat("-MMddyyyy-HHmm").format(new Date()) + ".jrprint");
         LOG.debug("jrprint output file: {}", outputFileName);
 
         if ("jdbc".equalsIgnoreCase(m_globalReportRepository.getEngine(reportId))) {
             Connection connection;
             try {
                 connection = DataSourceFactory.getDataSource().getConnection();
-                JasperFillManager.fillReportToFile(jasperReport,
-                        outputFileName,
-                        reportParms, connection);
+                JasperFillManager.fillReportToFile(jasperReport, outputFileName, reportParms, connection);
 
                 connection.close();
             } catch (SQLException e) {
                 LOG.error("sql exception getting or closing datasource ", e);
-                throw new ReportException(
-                        "sql exception getting or closing datasource",
-                        e);
+                throw new ReportException("sql exception getting or closing datasource", e);
             } catch (JRException e) {
                 LOG.error("jasper report exception ", e);
-                throw new ReportException(
-                        "unable to run emptyDataSource jasperReport",
-                        e);
+                throw new ReportException("unable to run emptyDataSource jasperReport", e);
             }
         } else if (m_globalReportRepository.getEngine(reportId).equals("null")) {
 
             try {
 
-                JasperFillManager.fillReportToFile(jasperReport,
-                        outputFileName,
-                        reportParms,
-                        new JREmptyDataSource());
+                JasperFillManager.fillReportToFile(jasperReport, outputFileName, reportParms, new JREmptyDataSource());
             } catch (JRException e) {
                 LOG.error("jasper report exception ", e);
-                throw new ReportException(
-                        "unable to run emptyDataSource jasperReport",
-                        e);
+                throw new ReportException("unable to run emptyDataSource jasperReport", e);
             }
 
         } else {
-            throw new ReportException(
-                    "no suitable datasource configured for reportId: "
-                            + reportId);
+            throw new ReportException("no suitable datasource configured for reportId: " + reportId);
         }
 
         return outputFileName;
     }
 
-
     /**
-     * Method to find all sub reports as parameter. Compile sub reports and put all compile sub reports in a parameter map.
+     * Method to find all sub reports as parameter. Compile sub reports and put
+     * all compile sub reports in a parameter map.
      * Returned map is compatible to common jasper report parameter map.
      *
-     * @param mainReportId String for specific main report identified by a report id
-     * @param mainReport   JasperReport a compiled main report
-     * @return a sub report parameter map as {@link java.util.HashMap<String,Object>} object
+     * @param mainReportId
+     *            String for specific main report identified by a report id
+     * @param mainReport
+     *            JasperReport a compiled main report
+     * @return a sub report parameter map as {@link java.util.HashMap
+     *         <String,Object>} object
      */
     private HashMap<String, Object> buildSubreport(String mainReportId, JasperReport mainReport) {
         String repositoryId = mainReportId.substring(0, mainReportId.indexOf("_"));
@@ -428,21 +411,25 @@ public class JasperReportService implements ReportService {
 
         // Filter parameter for sub reports
         for (JRParameter parameter : mainReport.getParameters()) {
-            // We need only parameter for Sub reports and we *DON'T* need the default parameter JASPER_REPORT
-            if ("net.sf.jasperreports.engine.JasperReport".equals(parameter.getValueClassName()) && !"JASPER_REPORT".equals(parameter.getName())) {
+            // We need only parameter for Sub reports and we *DON'T* need the
+            // default parameter JASPER_REPORT
+            if ("net.sf.jasperreports.engine.JasperReport".equals(parameter.getValueClassName())
+                    && !"JASPER_REPORT".equals(parameter.getName())) {
                 subreportMap.put(parameter.getName(), parameter.getValueClassName());
             }
         }
 
-        for (Map.Entry<String,Object> entry : subreportMap.entrySet()) {
+        for (Map.Entry<String, Object> entry : subreportMap.entrySet()) {
             try {
-                entry.setValue(JasperCompileManager.compileReport(m_globalReportRepository.getTemplateStream(repositoryId + "_" + entry.getKey())));
+                entry.setValue(JasperCompileManager.compileReport(m_globalReportRepository.getTemplateStream(repositoryId
+                        + "_" + entry.getKey())));
             } catch (JRException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace(); // To change body of catch statement use
+                                     // File | Settings | File Templates.
             }
         }
 
-        for (Map.Entry<String,Object> entry : subreportMap.entrySet()) {
+        for (Map.Entry<String, Object> entry : subreportMap.entrySet()) {
             System.out.println("Key: " + entry.getKey() + " - " + "Value: " + entry.getValue());
         }
         return subreportMap;
@@ -452,9 +439,8 @@ public class JasperReportService implements ReportService {
      * {@inheritDoc}
      */
     @Override
-    public void runAndRender(HashMap<String, Object> reportParms,
-                             String reportId, ReportFormat format, OutputStream outputStream)
-            throws ReportException {
+    public void runAndRender(HashMap<String, Object> reportParms, String reportId, ReportFormat format,
+            OutputStream outputStream) throws ReportException {
 
         JasperReport jasperReport = null;
         JasperPrint jasperPrint = null;
@@ -467,71 +453,58 @@ public class JasperReportService implements ReportService {
             throw new ReportException("unable to compile jasperReport", e);
         }
 
-        jrReportParms = buildJRparameters(reportParms,
-                jasperReport.getParameters());
+        jrReportParms = buildJRparameters(reportParms, jasperReport.getParameters());
         jrReportParms.putAll(buildSubreport(reportId, jasperReport));
 
         if ("jdbc".equalsIgnoreCase(m_globalReportRepository.getEngine(reportId))) {
             Connection connection;
             try {
                 connection = DataSourceFactory.getDataSource().getConnection();
-                jasperPrint = JasperFillManager.fillReport(jasperReport,
-                        jrReportParms,
-                        connection);
+                jasperPrint = JasperFillManager.fillReport(jasperReport, jrReportParms, connection);
                 exportReport(format, jasperPrint, outputStream);
                 connection.close();
             } catch (SQLException e) {
                 LOG.error("sql exception getting or closing datasource ", e);
-                throw new ReportException(
-                        "sql exception getting or closing datasource",
-                        e);
+                throw new ReportException("sql exception getting or closing datasource", e);
             } catch (JRException e) {
                 LOG.error("jasper report exception ", e);
-                throw new ReportException(
-                        "unable to run or render jdbc jasperReport",
-                        e);
+                throw new ReportException("unable to run or render jdbc jasperReport", e);
             }
         } else if ("null".equalsIgnoreCase(m_globalReportRepository.getEngine(reportId))) {
             try {
-                jasperPrint = JasperFillManager.fillReport(jasperReport,
-                        jrReportParms,
-                        new JREmptyDataSource());
+                jasperPrint = JasperFillManager.fillReport(jasperReport, jrReportParms, new JREmptyDataSource());
                 exportReport(format, jasperPrint, outputStream);
             } catch (JRException e) {
                 LOG.error("jasper report exception ", e);
-                throw new ReportException(
-                        "unable to run or render emptyDataSource jasperReport",
-                        e);
+                throw new ReportException("unable to run or render emptyDataSource jasperReport", e);
             }
 
         }
 
     }
 
-    private void exportReport(ReportFormat format, JasperPrint jasperPrint,
-                              OutputStream outputStream) throws JRException {
+    private void exportReport(ReportFormat format, JasperPrint jasperPrint, OutputStream outputStream)
+            throws JRException {
         switch (format) {
-            case PDF:
-                exportReportToPdf(jasperPrint, outputStream);
-                break;
+        case PDF:
+            exportReportToPdf(jasperPrint, outputStream);
+            break;
 
-            case CSV:
-                exportReportToCsv(jasperPrint, outputStream);
-                break;
+        case CSV:
+            exportReportToCsv(jasperPrint, outputStream);
+            break;
 
-            default:
-                break;
+        default:
+            break;
         }
 
     }
 
-    private void exportReportToPdf(JasperPrint jasperPrint,
-                                   OutputStream outputStream) throws JRException {
+    private void exportReportToPdf(JasperPrint jasperPrint, OutputStream outputStream) throws JRException {
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
     }
 
-    private void exportReportToCsv(JasperPrint jasperPrint,
-                                   OutputStream outputStream) throws JRException {
+    private void exportReportToCsv(JasperPrint jasperPrint, OutputStream outputStream) throws JRException {
         JRCsvExporter exporter = new JRCsvExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
@@ -539,8 +512,7 @@ public class JasperReportService implements ReportService {
         exporter.exportReport();
     }
 
-    private HashMap<String, Object> buildJRparameters(
-            HashMap<String, Object> onmsReportParms, JRParameter[] reportParms)
+    private HashMap<String, Object> buildJRparameters(HashMap<String, Object> onmsReportParms, JRParameter[] reportParms)
             throws ReportException {
 
         HashMap<String, Object> jrReportParms = new HashMap<String, Object>();
@@ -557,35 +529,26 @@ public class JasperReportService implements ReportService {
                 }
 
                 if (onmsReportParms.containsKey(parmName) == false)
-                    throw new ReportException("Required parameter "
-                            + parmName
+                    throw new ReportException("Required parameter " + parmName
                             + " not supplied to JasperReports by OpenNMS");
 
                 if (reportParm.getValueClassName().equals("java.lang.String")) {
-                    jrReportParms.put(parmName,
-                            new String(
-                                    (String) onmsReportParms.get(parmName)));
+                    jrReportParms.put(parmName, new String((String) onmsReportParms.get(parmName)));
                     continue;
                 }
 
                 if (reportParm.getValueClassName().equals("java.lang.Integer")) {
-                    jrReportParms.put(parmName,
-                            new Integer(
-                                    (Integer) onmsReportParms.get(parmName)));
+                    jrReportParms.put(parmName, new Integer((Integer) onmsReportParms.get(parmName)));
                     continue;
                 }
 
                 if (reportParm.getValueClassName().equals("java.lang.Float")) {
-                    jrReportParms.put(parmName,
-                            new Float(
-                                    (Float) onmsReportParms.get(parmName)));
+                    jrReportParms.put(parmName, new Float((Float) onmsReportParms.get(parmName)));
                     continue;
                 }
 
                 if (reportParm.getValueClassName().equals("java.lang.Double")) {
-                    jrReportParms.put(parmName,
-                            new Double(
-                                    (Double) onmsReportParms.get(parmName)));
+                    jrReportParms.put(parmName, new Double((Double) onmsReportParms.get(parmName)));
                     continue;
                 }
 
@@ -597,21 +560,17 @@ public class JasperReportService implements ReportService {
 
                 if (reportParm.getValueClassName().equals("java.sql.Date")) {
                     Date date = (Date) onmsReportParms.get(parmName);
-                    jrReportParms.put(parmName,
-                            new java.sql.Date(date.getTime()));
+                    jrReportParms.put(parmName, new java.sql.Date(date.getTime()));
                     continue;
                 }
 
                 if (reportParm.getValueClassName().equals("java.sql.Timestamp")) {
                     Date date = (Date) onmsReportParms.get(parmName);
-                    jrReportParms.put(parmName,
-                            new java.sql.Timestamp(date.getTime()));
+                    jrReportParms.put(parmName, new java.sql.Timestamp(date.getTime()));
                     continue;
                 }
 
-                throw new ReportException(
-                        "Unsupported report parameter type "
-                                + reportParm.getValueClassName());
+                throw new ReportException("Unsupported report parameter type " + reportParm.getValueClassName());
 
             }
         }
@@ -624,8 +583,7 @@ public class JasperReportService implements ReportService {
      * {@inheritDoc}
      */
     @Override
-    public boolean validate(HashMap<String, Object> reportParms,
-                            String reportId) {
+    public boolean validate(HashMap<String, Object> reportParms, String reportId) {
         // returns true until we can take parameters
         return true;
     }

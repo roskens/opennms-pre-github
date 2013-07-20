@@ -57,7 +57,8 @@ public class StatusGetter {
 
     static {
         try {
-            DEFAULT_INVOKE_URL = new URL("http://127.0.0.1:8181/invoke?objectname=OpenNMS:Name=Manager&operation=status");
+            DEFAULT_INVOKE_URL = new URL(
+                                         "http://127.0.0.1:8181/invoke?objectname=OpenNMS:Name=Manager&operation=status");
         } catch (final MalformedURLException e) {
             // This should never happen
             throw new UndeclaredThrowableException(e);
@@ -65,13 +66,17 @@ public class StatusGetter {
     }
 
     /**
-     * <p>Constructor for StatusGetter.</p>
+     * <p>
+     * Constructor for StatusGetter.
+     * </p>
      */
     public StatusGetter() {
     }
 
     /**
-     * <p>isVerbose</p>
+     * <p>
+     * isVerbose
+     * </p>
      *
      * @return a boolean.
      */
@@ -80,16 +85,21 @@ public class StatusGetter {
     }
 
     /**
-     * <p>setVerbose</p>
+     * <p>
+     * setVerbose
+     * </p>
      *
-     * @param verbose a boolean.
+     * @param verbose
+     *            a boolean.
      */
     public void setVerbose(boolean verbose) {
         m_verbose = verbose;
     }
 
     /**
-     * <p>getInvokeURL</p>
+     * <p>
+     * getInvokeURL
+     * </p>
      *
      * @return a {@link java.net.URL} object.
      */
@@ -98,16 +108,21 @@ public class StatusGetter {
     }
 
     /**
-     * <p>setInvokeURL</p>
+     * <p>
+     * setInvokeURL
+     * </p>
      *
-     * @param invokeURL a {@link java.net.URL} object.
+     * @param invokeURL
+     *            a {@link java.net.URL} object.
      */
     public void setInvokeURL(URL invokeURL) {
         m_invokeURL = invokeURL;
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.vmmgr.StatusGetter.Status} object.
      */
@@ -116,10 +131,14 @@ public class StatusGetter {
     }
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param argv an array of {@link java.lang.String} objects.
-     * @throws java.lang.Exception if any.
+     * @param argv
+     *            an array of {@link java.lang.String} objects.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public static void main(String[] argv) throws Exception {
         StatusGetter statusGetter = new StatusGetter();
@@ -130,8 +149,7 @@ public class StatusGetter {
                 System.out.println("Accepted options:");
                 System.out.println("        -v              Verbose mode.");
                 System.out.println("        -u <URL>        Alternate invoker URL.");
-                System.out.println("The default invoker URL is: "
-                        + statusGetter.getInvokeURL());
+                System.out.println("The default invoker URL is: " + statusGetter.getInvokeURL());
                 statusGetter.setVerbose(true);
             } else if (argv[i].equals("-v")) {
                 statusGetter.setVerbose(true);
@@ -139,23 +157,20 @@ public class StatusGetter {
                 statusGetter.setInvokeURL(new URL(argv[i + 1]));
                 i++;
             } else {
-                throw new Exception("Invalid command-line option: \""
-                        + argv[i] + "\"");
+                throw new Exception("Invalid command-line option: \"" + argv[i] + "\"");
             }
         }
 
         Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("manager",
-                                                  "manager".toCharArray());
+                return new PasswordAuthentication("manager", "manager".toCharArray());
             }
         });
 
         statusGetter.queryStatus();
 
-        if (statusGetter.getStatus() == Status.NOT_RUNNING
-                || statusGetter.getStatus() == Status.CONNECTION_REFUSED) {
+        if (statusGetter.getStatus() == Status.NOT_RUNNING || statusGetter.getStatus() == Status.CONNECTION_REFUSED) {
             System.exit(3); // According to LSB: 3 - service not running
         } else if (statusGetter.getStatus() == Status.PARTIALLY_RUNNING) {
             /*
@@ -166,15 +181,18 @@ public class StatusGetter {
         } else if (statusGetter.getStatus() == Status.RUNNING) {
             System.exit(0); // everything should be good and running
         } else {
-            throw new Exception("Unknown status returned from "
-                    + "statusGetter.getStatus(): " + statusGetter.getStatus());
+            throw new Exception("Unknown status returned from " + "statusGetter.getStatus(): "
+                    + statusGetter.getStatus());
         }
     }
 
     /**
-     * <p>queryStatus</p>
+     * <p>
+     * queryStatus
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void queryStatus() throws Exception {
 
@@ -182,17 +200,12 @@ public class StatusGetter {
         BufferedReader reader;
         try {
             connection.connect();
-            reader = new BufferedReader(
-                                        new InputStreamReader(
-                                                              connection.getInputStream(), "UTF-8"));
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
         } catch (ConnectException e) {
             if (isVerbose()) {
-                System.out.println("Could not connect to "
-                        + getInvokeURL().getHost() + " on port "
-                        + getInvokeURL().getPort()
-                        + " (OpenNMS might not be running or "
-                        + "could be starting up or shutting down): "
-                        + e.getMessage());
+                System.out.println("Could not connect to " + getInvokeURL().getHost() + " on port "
+                        + getInvokeURL().getPort() + " (OpenNMS might not be running or "
+                        + "could be starting up or shutting down): " + e.getMessage());
             }
             m_status = Status.CONNECTION_REFUSED;
             return;
@@ -238,8 +251,7 @@ public class StatusGetter {
 
             Matcher m = p.matcher(result);
             if (!m.matches()) {
-                throw new Exception("Result \"" + result
-                        + "\" does not match our regular expression");
+                throw new Exception("Result \"" + result + "\" does not match our regular expression");
             }
             results.put(m.group(1), m.group(2));
 
@@ -252,7 +264,7 @@ public class StatusGetter {
 
         /*
          * We want our output to look like this:
-         *     OpenNMS.Eventd         : running
+         * OpenNMS.Eventd : running
          */
         String spaces = "               ";
         int running = 0;
@@ -266,8 +278,7 @@ public class StatusGetter {
                 running++;
             }
             if (m_verbose) {
-                System.out.println("OpenNMS." + daemon
-                        + spaces.substring(daemon.length()) + ": " + status);
+                System.out.println("OpenNMS." + daemon + spaces.substring(daemon.length()) + ": " + status);
             }
         }
 

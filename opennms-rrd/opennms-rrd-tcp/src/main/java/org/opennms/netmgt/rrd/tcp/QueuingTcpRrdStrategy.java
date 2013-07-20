@@ -58,29 +58,38 @@ import org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition;
  * @author ranger
  * @version $Id: $
  */
-public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,String> {
+public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition, String> {
     private static final Logger LOG = LoggerFactory.getLogger(QueuingTcpRrdStrategy.class);
 
     private final BlockingQueue<PerformanceDataReading> m_queue = new LinkedBlockingQueue<PerformanceDataReading>(50000);
+
     private final ConsumerThread m_consumerThread;
+
     private final TcpRrdStrategy m_delegate;
+
     private int m_skippedReadings = 0;
 
     private static class PerformanceDataReading {
         private String m_filename;
+
         private String m_owner;
+
         private String m_data;
+
         public PerformanceDataReading(String filename, String owner, String data) {
             m_filename = filename;
             m_owner = owner;
             m_data = data;
         }
+
         public String getFilename() {
             return m_filename;
         }
+
         public String getOwner() {
             return m_owner;
         }
+
         public String getData() {
             return m_data;
         }
@@ -88,7 +97,9 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     private static class ConsumerThread extends Thread {
         private final BlockingQueue<PerformanceDataReading> m_myQueue;
+
         private final TcpRrdStrategy m_strategy;
+
         public ConsumerThread(final TcpRrdStrategy strategy, final BlockingQueue<PerformanceDataReading> queue) {
             m_strategy = strategy;
             m_myQueue = queue;
@@ -119,9 +130,12 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /**
-     * <p>Constructor for QueuingTcpRrdStrategy.</p>
+     * <p>
+     * Constructor for QueuingTcpRrdStrategy.
+     * </p>
      *
-     * @param delegate a {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy} object.
+     * @param delegate
+     *            a {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy} object.
      */
     public QueuingTcpRrdStrategy(TcpRrdStrategy delegate) {
         m_delegate = delegate;
@@ -136,7 +150,9 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /**
-     * <p>getDefaultFileExtension</p>
+     * <p>
+     * getDefaultFileExtension
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -147,20 +163,26 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     /** {@inheritDoc} */
     @Override
-    public TcpRrdStrategy.RrdDefinition createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
+    public TcpRrdStrategy.RrdDefinition createDefinition(String creator, String directory, String rrdName, int step,
+            List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         return new TcpRrdStrategy.RrdDefinition(directory, rrdName);
     }
 
     /**
-     * <p>createFile</p>
+     * <p>
+     * createFile
+     * </p>
      *
-     * @param rrdDef a {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition} object.
-     * @throws java.lang.Exception if any.
+     * @param rrdDef
+     *            a
+     *            {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition}
+     *            object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
-	public void createFile(RrdDefinition rrdDef,
-			Map<String, String> attributeMappings) throws Exception {
-		// done nothing
+    public void createFile(RrdDefinition rrdDef, Map<String, String> attributeMappings) throws Exception {
+        // done nothing
     }
 
     /** {@inheritDoc} */
@@ -183,10 +205,14 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /**
-     * <p>closeFile</p>
+     * <p>
+     * closeFile
+     * </p>
      *
-     * @param rrd a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @param rrd
+     *            a {@link java.lang.String} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void closeFile(String rrd) throws Exception {
@@ -201,13 +227,15 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException {
+    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval)
+            throws NumberFormatException {
         return m_delegate.fetchLastValue(rrdFile, ds, consolidationFunction, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException {
+    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
+            throws NumberFormatException {
         return m_delegate.fetchLastValueInRange(rrdFile, ds, interval, range);
     }
 
@@ -224,7 +252,9 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /**
-     * <p>getGraphLeftOffset</p>
+     * <p>
+     * getGraphLeftOffset
+     * </p>
      *
      * @return a int.
      */
@@ -234,7 +264,9 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /**
-     * <p>getGraphRightOffset</p>
+     * <p>
+     * getGraphRightOffset
+     * </p>
      *
      * @return a int.
      */
@@ -244,7 +276,9 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /**
-     * <p>getGraphTopOffsetWithText</p>
+     * <p>
+     * getGraphTopOffsetWithText
+     * </p>
      *
      * @return a int.
      */
@@ -254,7 +288,9 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     }
 
     /**
-     * <p>getStats</p>
+     * <p>
+     * getStats
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

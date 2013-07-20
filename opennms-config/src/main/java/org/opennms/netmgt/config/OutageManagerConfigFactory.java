@@ -41,7 +41,6 @@ import org.springframework.core.io.FileSystemResource;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * OutageManager from the outage-configuration xml file.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -76,7 +75,8 @@ public final class OutageManagerConfigFactory implements OutageManagerConfig {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private OutageManagerConfigFactory(final String configFile) throws IOException, MarshalException, ValidationException {
+    private OutageManagerConfigFactory(final String configFile) throws IOException, MarshalException,
+            ValidationException {
         m_config = CastorUtils.unmarshal(OutageConfiguration.class, new FileSystemResource(configFile));
     }
 
@@ -90,9 +90,12 @@ public final class OutageManagerConfigFactory implements OutageManagerConfig {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -115,9 +118,12 @@ public final class OutageManagerConfigFactory implements OutageManagerConfig {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;

@@ -46,25 +46,29 @@ import org.slf4j.LoggerFactory;
 
 public class ProxySnmpAgentConfigFactory extends SnmpPeerFactory {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ProxySnmpAgentConfigFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProxySnmpAgentConfigFactory.class);
 
-    public ProxySnmpAgentConfigFactory(InputStream config) throws MarshalException, ValidationException, FileNotFoundException, IOException {
+    public ProxySnmpAgentConfigFactory(InputStream config) throws MarshalException, ValidationException,
+            FileNotFoundException, IOException {
         super(config);
     }
 
     @Override
     public SnmpAgentConfig getAgentConfig(final InetAddress address) {
-    	final SnmpAgentConfigProxyMapper mapper = SnmpAgentConfigProxyMapper.getInstance();
-    	final SnmpAgentAddress agentAddress = mapper.getAddress(address);
+        final SnmpAgentConfigProxyMapper mapper = SnmpAgentConfigProxyMapper.getInstance();
+        final SnmpAgentAddress agentAddress = mapper.getAddress(address);
 
-    	final String addressString = str(address);
-		if (agentAddress == null) {
-			LOG.debug("No agent address mapping found for {}!  Try adding a @JUnitSnmpAgent(host=\"{}\", resource=\"...\" entry...", addressString, addressString);
-    		return super.getAgentConfig(address);
-    		// throw new IllegalArgumentException("No agent address mapping found for " + addressString);
-    	}
+        final String addressString = str(address);
+        if (agentAddress == null) {
+            LOG.debug("No agent address mapping found for {}!  Try adding a @JUnitSnmpAgent(host=\"{}\", resource=\"...\" entry...",
+                      addressString, addressString);
+            return super.getAgentConfig(address);
+            // throw new
+            // IllegalArgumentException("No agent address mapping found for " +
+            // addressString);
+        }
 
-		final SnmpAgentConfig config = new SnmpAgentConfig(agentAddress.getAddress());
+        final SnmpAgentConfig config = new SnmpAgentConfig(agentAddress.getAddress());
         config.setProxyFor(address);
         config.setPort(agentAddress.getPort());
 

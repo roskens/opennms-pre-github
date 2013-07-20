@@ -50,7 +50,9 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
     private static final Logger LOG = LoggerFactory.getLogger(AbstractForeignSourceRepository.class);
 
     /**
-     * <p>Constructor for AbstractForeignSourceRepository.</p>
+     * <p>
+     * Constructor for AbstractForeignSourceRepository.
+     * </p>
      */
     public AbstractForeignSourceRepository() {
     }
@@ -68,16 +70,22 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
     }
 
     /**
-     * <p>getDefaultForeignSource</p>
+     * <p>
+     * getDefaultForeignSource
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     @Override
     public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException {
         Resource defaultForeignSource = new ClassPathResource("/default-foreign-source.xml");
         if (!defaultForeignSource.exists()) {
-            defaultForeignSource = new ClassPathResource("/org/opennms/netmgt/provision/persist/default-foreign-source.xml");
+            defaultForeignSource = new ClassPathResource(
+                                                         "/org/opennms/netmgt/provision/persist/default-foreign-source.xml");
         }
         final ForeignSource fs = JaxbUtils.unmarshal(ForeignSource.class, defaultForeignSource);
         fs.setDefault(true);
@@ -99,7 +107,7 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
         try {
             foreignSource.updateDateStamp();
             outputStream = new FileOutputStream(outputFile);
-			writer = new OutputStreamWriter(outputStream, "UTF-8");
+            writer = new OutputStreamWriter(outputStream, "UTF-8");
             JaxbUtils.marshal(foreignSource, writer);
         } catch (final Throwable e) {
             throw new ForeignSourceRepositoryException("unable to write requisition to " + outputFile.getPath(), e);
@@ -110,13 +118,16 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
     }
 
     /**
-     * <p>resetDefaultForeignSource</p>
+     * <p>
+     * resetDefaultForeignSource
+     * </p>
      *
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     @Override
     public void resetDefaultForeignSource() throws ForeignSourceRepositoryException {
-    	final File deleteFile = new File(ConfigFileConstants.getFilePathString() + "default-foreign-source.xml");
+        final File deleteFile = new File(ConfigFileConstants.getFilePathString() + "default-foreign-source.xml");
         if (!deleteFile.exists()) {
             return;
         }
@@ -127,34 +138,39 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
 
     /** {@inheritDoc} */
     @Override
-    public OnmsNodeRequisition getNodeRequisition(String foreignSource, String foreignId) throws ForeignSourceRepositoryException {
+    public OnmsNodeRequisition getNodeRequisition(String foreignSource, String foreignId)
+            throws ForeignSourceRepositoryException {
         Requisition req = getRequisition(foreignSource);
         return (req == null ? null : req.getNodeRequistion(foreignId));
     }
 
     @Override
     public void validate(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
-    	/*
-    	final String name = foreignSource.getName();
-		if (name.contains(":")) {
-    		throw new ForeignSourceRepositoryException("Foreign Source (" + name + ") cannot contain a colon!");
-    	}
-    	*/
+        /*
+         * final String name = foreignSource.getName();
+         * if (name.contains(":")) {
+         * throw new ForeignSourceRepositoryException("Foreign Source (" + name
+         * + ") cannot contain a colon!");
+         * }
+         */
     }
 
     @Override
     public void validate(final Requisition requisition) throws ForeignSourceRepositoryException {
-    	/*
-    	final String foreignSource = requisition.getForeignSource();
-		if (foreignSource.contains(":")) {
-    		throw new ForeignSourceRepositoryException("Foreign Source (" + foreignSource + ") cannot contain a colon!");
-    	}
-    	for (final RequisitionNode node : requisition.getNodes()) {
-    		final String foreignId = node.getForeignId();
-			if (foreignId.contains(":")) {
-        		throw new ForeignSourceRepositoryException("Foreign ID (" + foreignId + ") for node " + node.getNodeLabel() + " in Foreign Source " + foreignSource + " cannot contain a colon!");
-    		}
-    	}
-    	*/
+        /*
+         * final String foreignSource = requisition.getForeignSource();
+         * if (foreignSource.contains(":")) {
+         * throw new ForeignSourceRepositoryException("Foreign Source (" +
+         * foreignSource + ") cannot contain a colon!");
+         * }
+         * for (final RequisitionNode node : requisition.getNodes()) {
+         * final String foreignId = node.getForeignId();
+         * if (foreignId.contains(":")) {
+         * throw new ForeignSourceRepositoryException("Foreign ID (" + foreignId
+         * + ") for node " + node.getNodeLabel() + " in Foreign Source " +
+         * foreignSource + " cannot contain a colon!");
+         * }
+         * }
+         */
     }
 }

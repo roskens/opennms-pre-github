@@ -43,7 +43,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>JDBCClient class.</p>
+ * <p>
+ * JDBCClient class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -51,20 +53,26 @@ import org.slf4j.LoggerFactory;
 public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(JDBCClient.class);
+
     private String m_dbDriver;
+
     private String m_user;
+
     private String m_password;
+
     private String m_url;
 
-//    private ResultSet m_result;
+    // private ResultSet m_result;
     private Connection m_connection;
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
-        if(m_connection != null) {
+        if (m_connection != null) {
             try {
                 m_connection.close();
             } catch (final SQLException e) {
@@ -78,7 +86,7 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
         LOG.info("connecting to JDBC on {}", address);
         LOG.debug("Loading JDBC driver: '{}'", getDbDriver());
-        Driver driver = (Driver)Class.forName(getDbDriver()).newInstance();
+        Driver driver = (Driver) Class.forName(getDbDriver()).newInstance();
         LOG.debug("JDBC driver loaded: '{}'", getDbDriver());
 
         String url = DBTools.constructUrl(getUrl(), address.getCanonicalHostName());
@@ -87,18 +95,24 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
         Properties props = new Properties();
         props.setProperty("user", getUser());
         props.setProperty("password", getPassword());
-        props.setProperty("timeout", String.valueOf(timeout/1000));
+        props.setProperty("timeout", String.valueOf(timeout / 1000));
         m_connection = driver.connect(url, props);
 
         LOG.debug("Got database connection: '{}' ({}, {}, {})", m_connection, url, getUser(), getPassword());
     }
 
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public JDBCResponse receiveBanner() throws IOException, Exception {
@@ -108,12 +122,21 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.provision.detector.jdbc.request.JDBCRequest} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.netmgt.provision.detector.jdbc.request.JDBCRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public JDBCResponse sendRequest(JDBCRequest request) throws IOException, Exception {
@@ -121,16 +144,21 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
     }
 
     /**
-     * <p>setDbDriver</p>
+     * <p>
+     * setDbDriver
+     * </p>
      *
-     * @param dbDriver a {@link java.lang.String} object.
+     * @param dbDriver
+     *            a {@link java.lang.String} object.
      */
     public void setDbDriver(String dbDriver) {
         m_dbDriver = dbDriver;
     }
 
     /**
-     * <p>getDbDriver</p>
+     * <p>
+     * getDbDriver
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -139,16 +167,21 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
     }
 
     /**
-     * <p>setUser</p>
+     * <p>
+     * setUser
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public void setUser(String user) {
         m_user = user;
     }
 
     /**
-     * <p>getUser</p>
+     * <p>
+     * getUser
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -157,16 +190,21 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
     }
 
     /**
-     * <p>setPassword</p>
+     * <p>
+     * setPassword
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         m_password = password;
     }
 
     /**
-     * <p>getPassword</p>
+     * <p>
+     * getPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -175,16 +213,21 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
     }
 
     /**
-     * <p>setUrl</p>
+     * <p>
+     * setUrl
+     * </p>
      *
-     * @param url a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
      */
     public void setUrl(String url) {
         m_url = url;
     }
 
     /**
-     * <p>getUrl</p>
+     * <p>
+     * getUrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

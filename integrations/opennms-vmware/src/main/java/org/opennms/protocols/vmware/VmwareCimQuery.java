@@ -69,13 +69,16 @@ public class VmwareCimQuery {
                         String powerState = hostSystem.getRuntime().getPowerState().toString();
 
                         if (!"poweredOn".equals(powerState)) {
-                            System.out.println("  Ignoring host system " + hostSystem.getName() + " (powerState=" + powerState + ")... ");
+                            System.out.println("  Ignoring host system " + hostSystem.getName() + " (powerState="
+                                    + powerState + ")... ");
                             continue;
                         } else {
-                            System.out.print("  Determining primary Ip address of host system " + hostSystem.getName() + " (powerState=" + powerState + ")... ");
+                            System.out.print("  Determining primary Ip address of host system " + hostSystem.getName()
+                                    + " (powerState=" + powerState + ")... ");
                         }
                     } else {
-                        System.out.println("  Ignoring host system " + hostSystem.getName() + " (powerState=unknown)... ");
+                        System.out.println("  Ignoring host system " + hostSystem.getName()
+                                + " (powerState=unknown)... ");
                         continue;
                     }
                 } else {
@@ -94,7 +97,8 @@ public class VmwareCimQuery {
                 }
 
                 if (ipAddress != null) {
-                    System.out.print(ipAddress + "\n  Querying host system " + hostSystem.getName() + " for numeric sensors... ");
+                    System.out.print(ipAddress + "\n  Querying host system " + hostSystem.getName()
+                            + " for numeric sensors... ");
 
                     List<CIMObject> cimObjects;
 

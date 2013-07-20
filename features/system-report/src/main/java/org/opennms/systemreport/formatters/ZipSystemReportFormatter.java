@@ -49,8 +49,11 @@ import org.springframework.core.io.Resource;
 
 public class ZipSystemReportFormatter extends AbstractSystemReportFormatter implements SystemReportFormatter {
     private static final Logger LOG = LoggerFactory.getLogger(ZipSystemReportFormatter.class);
+
     private File m_tempFile;
+
     private ZipOutputStream m_zipOutputStream;
+
     private Set<String> m_directories = new HashSet<String>();
 
     public ZipSystemReportFormatter() {
@@ -126,7 +129,7 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
 
         byte[] buf = new byte[1024];
 
-        for (final Map.Entry<String,Resource> entry : plugin.getEntries().entrySet()) {
+        for (final Map.Entry<String, Resource> entry : plugin.getEntries().entrySet()) {
             final Resource resource = entry.getValue();
             if (isFile(resource)) {
                 try {
@@ -191,7 +194,8 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
     }
 
     private void createDirectory(final String name) throws IOException {
-        if (m_directories.contains(name)) return;
+        if (m_directories.contains(name))
+            return;
         createEntry(name + "/");
         m_directories.add(name);
     }

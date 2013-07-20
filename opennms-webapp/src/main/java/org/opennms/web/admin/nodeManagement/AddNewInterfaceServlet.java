@@ -62,7 +62,8 @@ import org.opennms.web.api.Util;
 public class AddNewInterfaceServlet extends HttpServlet {
     private static final long serialVersionUID = 8246413657214969476L;
 
-    private static final String SQL_INTERFACE_EXIST = "SELECT nodeid FROM ipinterface WHERE ipaddr = ? " + "AND ismanaged in ('M', 'A', 'U', 'F')";
+    private static final String SQL_INTERFACE_EXIST = "SELECT nodeid FROM ipinterface WHERE ipaddr = ? "
+            + "AND ismanaged in ('M', 'A', 'U', 'F')";
 
     /**
      * The value used as the source of the event
@@ -70,9 +71,12 @@ public class AddNewInterfaceServlet extends HttpServlet {
     final static String EVENT_SOURCE_VALUE = "Web UI";
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -112,7 +116,6 @@ public class AddNewInterfaceServlet extends HttpServlet {
         EventBuilder bldr = new EventBuilder(EventConstants.NEW_SUSPECT_INTERFACE_EVENT_UEI, EVENT_SOURCE_VALUE);
         bldr.setInterface(addr(ipaddr));
         bldr.setHost(InetAddressUtils.getLocalHostName());
-
 
         try {
             Util.createEventProxy().send(bldr.getEvent());

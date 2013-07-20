@@ -27,48 +27,58 @@
  *******************************************************************************/
 
 package org.opennms.core.utils;
+
 /**
- *
  * <p>
  * CommandBeanMockup class.
  * </p>
  *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *
  */
 public class CommandBeanMockup {
-	String script = "<script>foo</script>";
-	String htmlTable = "<table>";
-	int number = 1;
-	Boolean cool = false;
+    String script = "<script>foo</script>";
 
-	public String getScript() {
-		return script;
-	}
-	public void setScript(String script) {
-		this.script = script;
-	}
-	public String getHtmlTable() {
-		return htmlTable;
-	}
-	public void setHtmlTable(String htmlTable) {
-		this.htmlTable = htmlTable;
-	}
-	public int getNumber() {
-		return number;
-	}
-	public void setNumber(int number) {
-		this.number = number;
-	}
-	public Boolean getCool() {
-		return cool;
-	}
-	public void setCool(Boolean cool) {
-		this.cool = cool;
-	}
-	@Override
-	public String toString() {
-		return "CommandBean [script=" + script + ", htmlTable=" + htmlTable
-				+ ", number=" + number + ", cool=" + cool + "]";
-	}
+    String htmlTable = "<table>";
+
+    int number = 1;
+
+    Boolean cool = false;
+
+    public String getScript() {
+        return script;
+    }
+
+    public void setScript(String script) {
+        this.script = script;
+    }
+
+    public String getHtmlTable() {
+        return htmlTable;
+    }
+
+    public void setHtmlTable(String htmlTable) {
+        this.htmlTable = htmlTable;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public Boolean getCool() {
+        return cool;
+    }
+
+    public void setCool(Boolean cool) {
+        this.cool = cool;
+    }
+
+    @Override
+    public String toString() {
+        return "CommandBean [script=" + script + ", htmlTable=" + htmlTable + ", number=" + number + ", cool=" + cool
+                + "]";
+    }
 }

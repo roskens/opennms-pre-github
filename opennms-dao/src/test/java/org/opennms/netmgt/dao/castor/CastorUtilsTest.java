@@ -68,11 +68,14 @@ public class CastorUtilsTest extends TestCase {
         CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForConfigFile("users.xml"));
     }
 
-    public void testUnmarshalResource() throws MarshalException, ValidationException, FileNotFoundException, IOException {
-        CastorUtils.unmarshal(Userinfo.class, new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("users.xml")));
+    public void testUnmarshalResource() throws MarshalException, ValidationException, FileNotFoundException,
+            IOException {
+        CastorUtils.unmarshal(Userinfo.class,
+                              new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("users.xml")));
     }
 
-    public void testExceptionContainsFileNameUnmarshalResourceWithBadResource() throws MarshalException, ValidationException, FileNotFoundException, IOException {
+    public void testExceptionContainsFileNameUnmarshalResourceWithBadResource() throws MarshalException,
+            ValidationException, FileNotFoundException, IOException {
         /*
          * We are going to attempt to unmarshal groups.xml with the wrong
          * class so we get a MarshalException and we can then test to see if the
@@ -87,7 +90,9 @@ public class CastorUtilsTest extends TestCase {
             if (e.toString().contains(matchString)) {
                 gotException = true;
             } else {
-                AssertionFailedError ae = new AssertionFailedError("Got an exception, but not one containing the message we were expecting ('" + matchString + "'): " + e);
+                AssertionFailedError ae = new AssertionFailedError(
+                                                                   "Got an exception, but not one containing the message we were expecting ('"
+                                                                           + matchString + "'): " + e);
                 ae.initCause(e);
                 throw ae;
             }
@@ -98,30 +103,39 @@ public class CastorUtilsTest extends TestCase {
         }
     }
 
-    public void testUnmarshalInputStreamQuietly() throws MarshalException, ValidationException, FileNotFoundException, IOException {
+    public void testUnmarshalInputStreamQuietly() throws MarshalException, ValidationException, FileNotFoundException,
+            IOException {
         CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForConfigFile("users.xml"));
 
         /*
          * Ensure that nothing was logged.
          * In particular, we want to make sure that we don't see this message:
-         * 2008-07-28 16:04:53,260 DEBUG [main] org.exolab.castor.xml.Unmarshaller: *static* unmarshal method called, this will ignore any mapping files or changes made to an Unmarshaller instance.
+         * 2008-07-28 16:04:53,260 DEBUG [main]
+         * org.exolab.castor.xml.Unmarshaller: *static* unmarshal method called,
+         * this will ignore any mapping files or changes made to an Unmarshaller
+         * instance.
          */
         MockLogAppender.assertNoLogging();
     }
 
-    public void testUnmarshalReaderQuietly() throws MarshalException, ValidationException, FileNotFoundException, IOException {
+    public void testUnmarshalReaderQuietly() throws MarshalException, ValidationException, FileNotFoundException,
+            IOException {
         CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForConfigFile("users.xml"));
 
         /*
          * Ensure that nothing was logged.
          * In particular, we want to make sure that we don't see this message:
-         * 2008-07-28 16:04:53,260 DEBUG [main] org.exolab.castor.xml.Unmarshaller: *static* unmarshal method called, this will ignore any mapping files or changes made to an Unmarshaller instance.
+         * 2008-07-28 16:04:53,260 DEBUG [main]
+         * org.exolab.castor.xml.Unmarshaller: *static* unmarshal method called,
+         * this will ignore any mapping files or changes made to an Unmarshaller
+         * instance.
          */
         MockLogAppender.assertNoLogging();
     }
 
     public void testUnmarshallInputStreamWithUtf8() throws MarshalException, ValidationException, IOException {
-        Userinfo users = CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForResource(this, "/users-utf8.xml"));
+        Userinfo users = CastorUtils.unmarshal(Userinfo.class,
+                                               ConfigurationTestUtils.getInputStreamForResource(this, "/users-utf8.xml"));
 
         assertEquals("user count", 1, users.getUsers().getUserCount());
         // \u00f1 is unicode for n~
@@ -129,7 +143,10 @@ public class CastorUtilsTest extends TestCase {
     }
 
     public void testUnmarshallResourceWithUtf8() throws MarshalException, ValidationException, IOException {
-        Userinfo users = CastorUtils.unmarshal(Userinfo.class, new InputStreamResource(ConfigurationTestUtils.getInputStreamForResource(this, "/users-utf8.xml")));
+        Userinfo users = CastorUtils.unmarshal(Userinfo.class,
+                                               new InputStreamResource(
+                                                                       ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                                                                        "/users-utf8.xml")));
 
         assertEquals("user count", 1, users.getUsers().getUserCount());
         // \u00f1 is unicode for n~

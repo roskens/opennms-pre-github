@@ -35,7 +35,7 @@ import org.opennms.netmgt.model.OnmsStpNode;
 
 public interface StpNodeDao extends OnmsDao<OnmsStpNode, Integer> {
 
-	void markDeletedIfNodeDeleted();
+    void markDeletedIfNodeDeleted();
 
     void deactivateForNodeIdIfOlderThan(int nodeid, Date scanTime);
 

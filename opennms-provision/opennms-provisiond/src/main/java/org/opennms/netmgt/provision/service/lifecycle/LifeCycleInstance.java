@@ -43,94 +43,133 @@ import org.opennms.core.tasks.DefaultTaskCoordinator;
 public interface LifeCycleInstance {
 
     /**
-     * <p>getPhaseNames</p>
+     * <p>
+     * getPhaseNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<String> getPhaseNames();
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getName();
 
     /**
-     * <p>setAttribute</p>
+     * <p>
+     * setAttribute
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
-     * @param value a {@link java.lang.Object} object.
-     * @return a {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.Object} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance}
+     *         object.
      */
     LifeCycleInstance setAttribute(String key, Object value);
 
     /**
-     * <p>getAttribute</p>
+     * <p>
+     * getAttribute
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
     Object getAttribute(String key);
 
     /**
-     * <p>findAttributeByType</p>
+     * <p>
+     * findAttributeByType
+     * </p>
      *
-     * @param clazz a {@link java.lang.Class} object.
-     * @param <T> a T object.
+     * @param clazz
+     *            a {@link java.lang.Class} object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
     <T> T findAttributeByType(Class<T> clazz);
 
     /**
-     * <p>getAttribute</p>
+     * <p>
+     * getAttribute
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
-     * @param type a {@link java.lang.Class} object.
-     * @param <T> a T object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.Class} object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
     <T> T getAttribute(String key, Class<T> type);
 
     /**
-     * <p>getAttribute</p>
+     * <p>
+     * getAttribute
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
-     * @param defaultValue a T object.
-     * @param <T> a T object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param defaultValue
+     *            a T object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
     <T> T getAttribute(String key, T defaultValue);
 
     /**
-     * <p>createNestedLifeCycle</p>
+     * <p>
+     * createNestedLifeCycle
+     * </p>
      *
-     * @param currentPhase a {@link org.opennms.core.tasks.BatchTask} object.
-     * @param lifeCycleName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance} object.
+     * @param currentPhase
+     *            a {@link org.opennms.core.tasks.BatchTask} object.
+     * @param lifeCycleName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance}
+     *         object.
      */
     LifeCycleInstance createNestedLifeCycle(BatchTask currentPhase, String lifeCycleName);
 
     /**
-     * <p>trigger</p>
+     * <p>
+     * trigger
+     * </p>
      */
     void trigger();
 
     /**
-     * <p>waitFor</p>
+     * <p>
+     * waitFor
+     * </p>
      *
-     * @throws java.lang.InterruptedException if any.
-     * @throws java.util.concurrent.ExecutionException if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
+     * @throws java.util.concurrent.ExecutionException
+     *             if any.
      */
     void waitFor() throws InterruptedException, ExecutionException;
 
     /**
-     * <p>getCoordinator</p>
+     * <p>
+     * getCoordinator
+     * </p>
      *
      * @return a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
      */
     DefaultTaskCoordinator getCoordinator();
-
-
 
 }

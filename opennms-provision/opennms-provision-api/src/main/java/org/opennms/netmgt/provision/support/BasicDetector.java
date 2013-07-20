@@ -40,7 +40,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Abstract BasicDetector class.</p>
+ * <p>
+ * Abstract BasicDetector class.
+ * </p>
  *
  * @author <a href=mailto:desloge@opennms.com>Donald Desloge</a>
  * @version $Id: $
@@ -52,24 +54,36 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
     private ClientConversation<Request, Response> m_conversation = new ClientConversation<Request, Response>();
 
     /**
-     * <p>Constructor for BasicDetector.</p>
+     * <p>
+     * Constructor for BasicDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
-     * @param timeout a int.
-     * @param retries a int.
-     * @param <Request> a Request object.
-     * @param <Response> a Response object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
+     * @param retries
+     *            a int.
+     * @param <Request>
+     *            a Request object.
+     * @param <Response>
+     *            a Response object.
      */
     protected BasicDetector(String serviceName, int port, int timeout, int retries) {
         super(serviceName, port, timeout, retries);
     }
 
     /**
-     * <p>Constructor for BasicDetector.</p>
+     * <p>
+     * Constructor for BasicDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     protected BasicDetector(String serviceName, int port) {
         super(serviceName, port);
@@ -78,18 +92,20 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
     /** {@inheritDoc} */
     @Override
     public final boolean isServiceDetected(final InetAddress address) {
-    	final String ipAddr = InetAddressUtils.str(address);
-    	final int port = getPort();
-    	final int retries = getRetries();
+        final String ipAddr = InetAddressUtils.str(address);
+        final int port = getPort();
+        final int retries = getRetries();
         final int timeout = getTimeout();
-        LOG.info("isServiceDetected: Checking address: {} for {} capability on port {}", ipAddr, getServiceName(), getPort());
+        LOG.info("isServiceDetected: Checking address: {} for {} capability on port {}", ipAddr, getServiceName(),
+                 getPort());
 
         final Client<Request, Response> client = getClient();
         for (int attempts = 0; attempts <= retries; attempts++) {
 
             try {
                 client.connect(address, port, timeout);
-                LOG.info("isServiceDetected: Attempting to connect to address: {}, port: {}, attempt: #{}", ipAddr, port, attempts);
+                LOG.info("isServiceDetected: Attempting to connect to address: {}, port: {}, attempt: #{}", ipAddr,
+                         port, attempts);
 
                 if (attemptConversation(client)) {
                     return true;
@@ -97,20 +113,25 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
 
             } catch (ConnectException e) {
                 // Connection refused!! Continue to retry.
-                LOG.info("isServiceDetected: {}: Unable to connect to address: {} port {}, attempt #{}",getServiceName(), ipAddr, port, attempts, e);
+                LOG.info("isServiceDetected: {}: Unable to connect to address: {} port {}, attempt #{}",
+                         getServiceName(), ipAddr, port, attempts, e);
             } catch (NoRouteToHostException e) {
                 // No Route to host!!!
                 LOG.info("isServiceDetected: {}: No route to address {} was available", getServiceName(), ipAddr, e);
             } catch (final PortUnreachableException e) {
                 // Port unreachable
-                LOG.info("isServiceDetected: {}: Port unreachable while connecting to address {} port {} within timeout: {} attempt: {}", getServiceName(), ipAddr, port, timeout, attempts, e);
+                LOG.info("isServiceDetected: {}: Port unreachable while connecting to address {} port {} within timeout: {} attempt: {}",
+                         getServiceName(), ipAddr, port, timeout, attempts, e);
             } catch (InterruptedIOException e) {
                 // Expected exception
-                LOG.info("isServiceDetected: {}: Did not connect to address {} port {} within timeout: {} attempt: {}", getServiceName(), ipAddr, port, timeout, attempts, e);
+                LOG.info("isServiceDetected: {}: Did not connect to address {} port {} within timeout: {} attempt: {}",
+                         getServiceName(), ipAddr, port, timeout, attempts, e);
             } catch (IOException e) {
-                LOG.error("isServiceDetected: {}: An unexpected I/O exception occured contacting address {} port {}",getServiceName(), ipAddr, port, e);
+                LOG.error("isServiceDetected: {}: An unexpected I/O exception occured contacting address {} port {}",
+                          getServiceName(), ipAddr, port, e);
             } catch (Throwable t) {
-                LOG.error("isServiceDetected: {}: Unexpected error trying to detect {} on address {} port {}", getServiceName(), getServiceName(), ipAddr, port, t);
+                LOG.error("isServiceDetected: {}: Unexpected error trying to detect {} on address {} port {}",
+                          getServiceName(), getServiceName(), ipAddr, port, t);
             } finally {
                 client.close();
             }
@@ -119,15 +140,19 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
     }
 
     /**
-     * <p>dispose</p>
+     * <p>
+     * dispose
+     * </p>
      */
     @Override
-    public void dispose(){
+    public void dispose() {
         // Do nothing by default
     }
 
     /**
-     * <p>getClient</p>
+     * <p>
+     * getClient
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.provision.support.Client} object.
      */
@@ -138,37 +163,59 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
     }
 
     /**
-     * <p>expectBanner</p>
+     * <p>
+     * expectBanner
+     * </p>
      *
-     * @param bannerValidator a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param bannerValidator
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *            object.
      */
     protected final void expectBanner(ResponseValidator<Response> bannerValidator) {
         getConversation().expectBanner(bannerValidator);
     }
 
     /**
-     * <p>send</p>
+     * <p>
+     * send
+     * </p>
      *
-     * @param requestBuilder a {@link org.opennms.netmgt.provision.support.RequestBuilder} object.
-     * @param responseValidator a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param requestBuilder
+     *            a {@link org.opennms.netmgt.provision.support.RequestBuilder}
+     *            object.
+     * @param responseValidator
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *            object.
      */
     protected final void send(RequestBuilder<Request> requestBuilder, ResponseValidator<Response> responseValidator) {
         getConversation().addExchange(requestBuilder, responseValidator);
     }
+
     /**
-     * <p>send</p>
+     * <p>
+     * send
+     * </p>
      *
-     * @param request a Request object.
-     * @param responseValidator a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param request
+     *            a Request object.
+     * @param responseValidator
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *            object.
      */
     protected void send(Request request, ResponseValidator<Response> responseValidator) {
         getConversation().addExchange(request, responseValidator);
     }
 
     /**
-     * <p>getConversation</p>
+     * <p>
+     * getConversation
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.support.ClientConversation} object.
+     * @return a {@link org.opennms.netmgt.provision.support.ClientConversation}
+     *         object.
      */
     protected final ClientConversation<Request, Response> getConversation() {
         return m_conversation;

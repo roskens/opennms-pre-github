@@ -42,40 +42,46 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import org.springframework.util.Assert;
 
 /**
- * <p>TransactionAwareEventForwarder class.</p>
+ * <p>
+ * TransactionAwareEventForwarder class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
-public class TransactionAwareEventForwarder implements EventForwarder,
-        InitializingBean {
+public class TransactionAwareEventForwarder implements EventForwarder, InitializingBean {
 
     /**
-     * <p>Constructor for TransactionAwareEventForwarder.</p>
+     * <p>
+     * Constructor for TransactionAwareEventForwarder.
+     * </p>
      */
     public TransactionAwareEventForwarder() {
     }
 
     /**
-     * <p>Constructor for TransactionAwareEventForwarder.</p>
+     * <p>
+     * Constructor for TransactionAwareEventForwarder.
+     * </p>
      *
-     * @param forwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
-     * @throws java.lang.Exception if any.
+     * @param forwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public TransactionAwareEventForwarder(EventForwarder forwarder)
-            throws Exception {
+    public TransactionAwareEventForwarder(EventForwarder forwarder) throws Exception {
         setEventForwarder(forwarder);
         afterPropertiesSet();
     }
 
-    public static class PendingEventsSynchronization extends
-            TransactionSynchronizationAdapter {
+    public static class PendingEventsSynchronization extends TransactionSynchronizationAdapter {
 
         private PendingEventsHolder m_eventsHolder;
+
         private EventForwarder m_eventForwarder;
 
-        public PendingEventsSynchronization(PendingEventsHolder eventsHolder,
-                EventForwarder eventForwarder) {
+        public PendingEventsSynchronization(PendingEventsHolder eventsHolder, EventForwarder eventForwarder) {
             m_eventsHolder = eventsHolder;
             m_eventForwarder = eventForwarder;
         }
@@ -95,8 +101,7 @@ public class TransactionAwareEventForwarder implements EventForwarder,
         @Override
         public void afterCompletion(int status) {
             if (TransactionSynchronizationManager.hasResource(m_eventForwarder)) {
-                TransactionSynchronizationManager
-                        .unbindResource(m_eventForwarder);
+                TransactionSynchronizationManager.unbindResource(m_eventForwarder);
             }
         }
 
@@ -138,23 +143,29 @@ public class TransactionAwareEventForwarder implements EventForwarder,
     private EventForwarder m_eventForwarder;
 
     /**
-     * <p>setEventForwarder</p>
+     * <p>
+     * setEventForwarder
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.state(m_eventForwarder != null,
-                "eventForwarder property must be set");
+        Assert.state(m_eventForwarder != null, "eventForwarder property must be set");
     }
 
     /** {@inheritDoc} */
@@ -168,9 +179,12 @@ public class TransactionAwareEventForwarder implements EventForwarder,
     }
 
     /**
-     * <p>sendNow</p>
+     * <p>
+     * sendNow
+     * </p>
      *
-     * @param eventLog a {@link org.opennms.netmgt.xml.event.Log} object.
+     * @param eventLog
+     *            a {@link org.opennms.netmgt.xml.event.Log} object.
      */
     @Override
     public void sendNow(Log eventLog) {
@@ -182,16 +196,15 @@ public class TransactionAwareEventForwarder implements EventForwarder,
     }
 
     /**
-     * <p>requestPendingEventsList</p>
+     * <p>
+     * requestPendingEventsList
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<Log> requestPendingEventsList() {
-        PendingEventsHolder eventsHolder = (PendingEventsHolder) TransactionSynchronizationManager
-                .getResource(m_eventForwarder);
-        if (eventsHolder != null
-                && (eventsHolder.hasPendingEvents() || eventsHolder
-                        .isSynchronizedWithTransaction())) {
+        PendingEventsHolder eventsHolder = (PendingEventsHolder) TransactionSynchronizationManager.getResource(m_eventForwarder);
+        if (eventsHolder != null && (eventsHolder.hasPendingEvents() || eventsHolder.isSynchronizedWithTransaction())) {
             eventsHolder.requested();
             if (!eventsHolder.hasPendingEvents()) {
                 eventsHolder.setPendingEventsList(new LinkedList<Log>());
@@ -209,13 +222,11 @@ public class TransactionAwareEventForwarder implements EventForwarder,
                 holderToUse.setPendingEventsList(pendingEvents);
             }
             holderToUse.requested();
-            TransactionSynchronizationManager
-                    .registerSynchronization(new PendingEventsSynchronization(
-                            holderToUse, m_eventForwarder));
+            TransactionSynchronizationManager.registerSynchronization(new PendingEventsSynchronization(holderToUse,
+                                                                                                       m_eventForwarder));
             holderToUse.setSynchronizedWithTransaction(true);
             if (holderToUse != eventsHolder) {
-                TransactionSynchronizationManager.bindResource(
-                        m_eventForwarder, holderToUse);
+                TransactionSynchronizationManager.bindResource(m_eventForwarder, holderToUse);
             }
         }
 
@@ -223,9 +234,12 @@ public class TransactionAwareEventForwarder implements EventForwarder,
     }
 
     /**
-     * <p>releasePendingEventsList</p>
+     * <p>
+     * releasePendingEventsList
+     * </p>
      *
-     * @param pendingEvents a {@link java.util.List} object.
+     * @param pendingEvents
+     *            a {@link java.util.List} object.
      */
     public void releasePendingEventsList(List<Log> pendingEvents) {
         if (pendingEvents == null) {
@@ -233,10 +247,8 @@ public class TransactionAwareEventForwarder implements EventForwarder,
 
         }
 
-        PendingEventsHolder eventsHolder = (PendingEventsHolder) TransactionSynchronizationManager
-                .getResource(m_eventForwarder);
-        if (eventsHolder != null
-                && eventHolderHolds(eventsHolder, pendingEvents)) {
+        PendingEventsHolder eventsHolder = (PendingEventsHolder) TransactionSynchronizationManager.getResource(m_eventForwarder);
+        if (eventsHolder != null && eventHolderHolds(eventsHolder, pendingEvents)) {
             // It's the transactional Connection: Don't close it.
             eventsHolder.released();
         } else {
@@ -247,8 +259,7 @@ public class TransactionAwareEventForwarder implements EventForwarder,
 
     }
 
-    private boolean eventHolderHolds(PendingEventsHolder eventsHolder,
-            List<Log> passedInEvents) {
+    private boolean eventHolderHolds(PendingEventsHolder eventsHolder, List<Log> passedInEvents) {
         if (!eventsHolder.hasPendingEvents()) {
             return false;
         }

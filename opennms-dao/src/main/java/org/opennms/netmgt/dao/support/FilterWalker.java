@@ -38,7 +38,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>FilterWalker class.</p>
+ * <p>
+ * FilterWalker class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -46,12 +48,17 @@ import org.springframework.util.Assert;
 public class FilterWalker implements InitializingBean {
 
     private NodeDao m_nodeDao;
+
     private FilterDao m_filterDao;
+
     private String m_filter;
+
     private EntityVisitor m_visitor;
 
     /**
-     * <p>walk</p>
+     * <p>
+     * walk
+     * </p>
      */
     public void walk() {
         SortedMap<Integer, String> map = getFilterDao().getNodeMap(m_filter);
@@ -64,14 +71,16 @@ public class FilterWalker implements InitializingBean {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
-        Assert.state(m_visitor !=  null, "property visitor must be set to a non-null value");
-        Assert.state(m_filterDao !=  null, "property filterDao must be set to a non-null value");
-        Assert.state(m_nodeDao !=  null, "property nodeDao must be set to a non-null value");
-        Assert.state(m_filter !=  null, "property filter must be set to a non-null value");
+        Assert.state(m_visitor != null, "property visitor must be set to a non-null value");
+        Assert.state(m_filterDao != null, "property filterDao must be set to a non-null value");
+        Assert.state(m_nodeDao != null, "property nodeDao must be set to a non-null value");
+        Assert.state(m_filter != null, "property filter must be set to a non-null value");
     }
 
     /**
@@ -82,14 +91,17 @@ public class FilterWalker implements InitializingBean {
     }
 
     /**
-     * @param nodeDao the nodeDao to set
+     * @param nodeDao
+     *            the nodeDao to set
      */
     public void setNodeDao(NodeDao nodeDao) {
         this.m_nodeDao = nodeDao;
     }
 
     /**
-     * <p>getVisitor</p>
+     * <p>
+     * getVisitor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
@@ -98,16 +110,21 @@ public class FilterWalker implements InitializingBean {
     }
 
     /**
-     * <p>setVisitor</p>
+     * <p>
+     * setVisitor
+     * </p>
      *
-     * @param visitor a {@link org.opennms.netmgt.model.ResourceVisitor} object.
+     * @param visitor
+     *            a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
     public void setVisitor(EntityVisitor visitor) {
         m_visitor = visitor;
     }
 
     /**
-     * <p>getFilterDao</p>
+     * <p>
+     * getFilterDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.filter.FilterDao} object.
      */
@@ -116,16 +133,21 @@ public class FilterWalker implements InitializingBean {
     }
 
     /**
-     * <p>setFilterDao</p>
+     * <p>
+     * setFilterDao
+     * </p>
      *
-     * @param filterDao a {@link org.opennms.netmgt.filter.FilterDao} object.
+     * @param filterDao
+     *            a {@link org.opennms.netmgt.filter.FilterDao} object.
      */
     public void setFilterDao(FilterDao filterDao) {
         m_filterDao = filterDao;
     }
 
     /**
-     * <p>getFilter</p>
+     * <p>
+     * getFilter
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -134,9 +156,12 @@ public class FilterWalker implements InitializingBean {
     }
 
     /**
-     * <p>setFilter</p>
+     * <p>
+     * setFilter
+     * </p>
      *
-     * @param filter a {@link java.lang.String} object.
+     * @param filter
+     *            a {@link java.lang.String} object.
      */
     public void setFilter(String filter) {
         m_filter = filter;

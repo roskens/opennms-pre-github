@@ -49,9 +49,13 @@ import org.opennms.test.mock.EasyMockUtils;
  */
 public class RrdStatisticAttributeVisitorTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private RrdDao m_rrdDao = m_mocks.createMock(RrdDao.class);
+
     private Long m_startTime = System.currentTimeMillis();
+
     private Long m_endTime = m_startTime + (24 * 60 * 60 * 1000); // one day
+
     private AttributeStatisticVisitor m_statisticVisitor = m_mocks.createMock(AttributeStatisticVisitor.class);
 
     public void testAfterPropertiesSet() throws Exception {
@@ -63,7 +67,6 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         attributeVisitor.setStatisticVisitor(m_statisticVisitor);
         attributeVisitor.afterPropertiesSet();
     }
-
 
     public void testAfterPropertiesSetNoStatisticVisitor() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
@@ -178,7 +181,9 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         resourceType.setName("interfaceSnmp");
         OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", "something", "something else");
         new OnmsResource("1", "Node One", resourceType, Collections.singleton(attribute));
-        expect(m_rrdDao.getPrintValue(attribute, attributeVisitor.getConsolidationFunction(), attributeVisitor.getStartTime(), attributeVisitor.getEndTime())).andReturn(1.0);
+        expect(
+               m_rrdDao.getPrintValue(attribute, attributeVisitor.getConsolidationFunction(),
+                                      attributeVisitor.getStartTime(), attributeVisitor.getEndTime())).andReturn(1.0);
         m_statisticVisitor.visit(attribute, 1.0);
 
         m_mocks.replayAll();
@@ -218,7 +223,9 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         resourceType.setName("something other than interfaceSnmp");
         OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", "something", "something else");
         new OnmsResource("1", "Node One", resourceType, Collections.singleton(attribute));
-        expect(m_rrdDao.getPrintValue(attribute, attributeVisitor.getConsolidationFunction(), attributeVisitor.getStartTime(), attributeVisitor.getEndTime())).andReturn(Double.NaN);
+        expect(
+               m_rrdDao.getPrintValue(attribute, attributeVisitor.getConsolidationFunction(),
+                                      attributeVisitor.getStartTime(), attributeVisitor.getEndTime())).andReturn(Double.NaN);
 
         m_mocks.replayAll();
         attributeVisitor.visit(attribute);

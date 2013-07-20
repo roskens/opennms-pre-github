@@ -44,61 +44,63 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>ReloadConfigController class.</p>
+ * <p>
+ * ReloadConfigController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class ReloadConfigController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ReloadConfigController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ReloadConfigController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+        try {
+            manager.reloadConfig();
+            bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.RELOAD_CONFIG_ACTION));
+        } catch (Throwable e) {
+            LOG.error("Exception found when changing adminMode: ", e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.RELOAD_CONFIG_ACTION));
+        } finally {
+            bw.close();
+        }
 
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
-				.getOutputStream(), "UTF-8"));
-		try {
-		    manager.reloadConfig();
-			bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.RELOAD_CONFIG_ACTION));
-		} catch (Throwable e) {
-			LOG.error("Exception found when changing adminMode: ", e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.RELOAD_CONFIG_ACTION));
-		} finally {
-			bw.close();
-		}
-
-
-		return null;
-	}
+        return null;
+    }
 
 }

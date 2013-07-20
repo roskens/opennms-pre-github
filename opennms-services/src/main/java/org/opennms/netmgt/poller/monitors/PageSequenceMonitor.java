@@ -96,9 +96,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class is designed to be used by the service poller framework to test the availability
- * of the HTTP service on remote interfaces. The class implements the ServiceMonitor interface
- * that allows it to be used along with other plug-ins by the service poller framework.
+ * This class is designed to be used by the service poller framework to test the
+ * availability
+ * of the HTTP service on remote interfaces. The class implements the
+ * ServiceMonitor interface
+ * that allows it to be used along with other plug-ins by the service poller
+ * framework.
  *
  * @author <a mailto:brozow@opennms.org>Mathew Brozowski</a>
  * @version $Id: $
@@ -106,12 +109,12 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public class PageSequenceMonitor extends AbstractServiceMonitor {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(PageSequenceMonitor.class);
 
-    protected class SequenceTracker{
+    protected class SequenceTracker {
 
         TimeoutTracker m_tracker;
+
         public SequenceTracker(Map<String, Object> parameterMap, int defaultSequenceRetry, int defaultTimeout) {
             Map<String, Object> parameters = new HashMap<String, Object>();
             parameters.put("retry", ParameterMap.getKeyedInteger(parameterMap, "sequence-retry", defaultSequenceRetry));
@@ -119,18 +122,23 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             parameters.put("strict-timeout", ParameterMap.getKeyedBoolean(parameterMap, "strict-timeout", false));
             m_tracker = new TimeoutTracker(parameters, defaultSequenceRetry, defaultTimeout);
         }
+
         public void reset() {
             m_tracker.reset();
         }
+
         public boolean shouldRetry() {
             return m_tracker.shouldRetry();
         }
+
         public void nextAttempt() {
             m_tracker.nextAttempt();
         }
+
         public void startAttempt() {
             m_tracker.startAttempt();
         }
+
         public double elapsedTimeInMillis() {
             return m_tracker.elapsedTimeInMillis();
         }
@@ -138,7 +146,7 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
 
     private static final int DEFAULT_SEQUENCE_RETRY = 0;
 
-    //FIXME: This should be wired with Spring
+    // FIXME: This should be wired with Spring
     // Make sure that the {@link EmptyKeyRelaxedTrustSSLContext} algorithm
     // is available to JSSE
     static {
@@ -162,13 +170,17 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
     }
 
     private static final int DEFAULT_TIMEOUT = 3000;
+
     private static final int DEFAULT_RETRY = 0;
 
     public static class HttpPageSequence {
         final PageSequence m_sequence;
+
         final List<HttpPage> m_pages;
+
         Properties m_sequenceProperties;
-        Map<String,String> m_parameters = new HashMap<String,String>();
+
+        Map<String, String> m_parameters = new HashMap<String, String>();
 
         HttpPageSequence(PageSequence sequence) {
             m_sequence = sequence;
@@ -181,11 +193,11 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             m_sequenceProperties = new Properties();
         }
 
-        public Map<String,String> getParameters() {
+        public Map<String, String> getParameters() {
             return m_parameters;
         }
 
-        public void setParameters(Map<String,String> parameters) {
+        public void setParameters(Map<String, String> parameters) {
             m_parameters = parameters;
         }
 
@@ -193,7 +205,7 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return m_pages;
         }
 
-        private void execute(DefaultHttpClient client, MonitoredService svc, Map<String,Number> responseTimes) {
+        private void execute(DefaultHttpClient client, MonitoredService svc, Map<String, Number> responseTimes) {
             // Clear the sequence properties before each run
             clearSequenceProperties();
 
@@ -272,11 +284,17 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
 
     public static class HttpPage {
         private final Page m_page;
+
         private final HttpResponseRange m_range;
+
         private final Pattern m_successPattern;
+
         private final Pattern m_failurePattern;
+
         private final Pattern m_locationPattern;
+
         private final HttpPageSequence m_parentSequence;
+
         private double m_responseTime;
 
         private final List<NameValuePair> m_parms = new ArrayList<NameValuePair>();
@@ -318,13 +336,29 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                 PageSequenceHttpUriRequest method = getMethod(uri);
 
                 if (getVirtualHost(svc) != null) {
-                    // According to the standard, adding the default ports to the host header is optional, and this makes IIS 7.5 happy.
+                    // According to the standard, adding the default ports to
+                    // the host header is optional, and this makes IIS 7.5
+                    // happy.
                     HttpHost host = null;
-                    if ("https".equals(uri.getScheme()) && uri.getPort() == 443) { // Suppress the addition of default port for HTTPS
+                    if ("https".equals(uri.getScheme()) && uri.getPort() == 443) { // Suppress
+                                                                                   // the
+                                                                                   // addition
+                                                                                   // of
+                                                                                   // default
+                                                                                   // port
+                                                                                   // for
+                                                                                   // HTTPS
                         host = new HttpHost(getVirtualHost(svc));
-                    } else if ("http".equals(uri.getScheme()) && uri.getPort() == 80) { //  Suppress the addition of default port for HTTP
+                    } else if ("http".equals(uri.getScheme()) && uri.getPort() == 80) { // Suppress
+                                                                                        // the
+                                                                                        // addition
+                                                                                        // of
+                                                                                        // default
+                                                                                        // port
+                                                                                        // for
+                                                                                        // HTTP
                         host = new HttpHost(getVirtualHost(svc));
-                    } else {  // Add the port if it is non-standard
+                    } else { // Add the port if it is non-standard
                         host = new HttpHost(getVirtualHost(svc), uri.getPort());
                     }
                     method.getParams().setParameter(ClientPNames.VIRTUAL_HOST, host);
@@ -333,7 +367,9 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                 if (getUserAgent() != null) {
                     method.getParams().setParameter(CoreProtocolPNames.USER_AGENT, getUserAgent());
                 } else {
-                    method.getParams().setParameter(CoreProtocolPNames.USER_AGENT, "OpenNMS PageSequenceMonitor (Service name: " + svc.getSvcName() + ")");
+                    method.getParams().setParameter(CoreProtocolPNames.USER_AGENT,
+                                                    "OpenNMS PageSequenceMonitor (Service name: " + svc.getSvcName()
+                                                            + ")");
                 }
 
                 if ("https".equals(uri.getScheme())) {
@@ -341,8 +377,11 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                         final SchemeRegistry registry = client.getConnectionManager().getSchemeRegistry();
                         final Scheme https = registry.getScheme("https");
 
-                        // Override the trust validation with a lenient implementation
-                        final SSLSocketFactory factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM), SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+                        // Override the trust validation with a lenient
+                        // implementation
+                        final SSLSocketFactory factory = new SSLSocketFactory(
+                                                                              SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM),
+                                                                              SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 
                         final Scheme lenient = new Scheme(https.getName(), https.getDefaultPort(), factory);
                         // This will replace the existing "https" schema
@@ -358,7 +397,9 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                     String userInfo = getUserInfo();
                     String[] streetCred = userInfo.split(":", 2);
                     if (streetCred.length == 2) {
-                        client.getCredentialsProvider().setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(streetCred[0], streetCred[1]));
+                        client.getCredentialsProvider().setCredentials(AuthScope.ANY,
+                                                                       new UsernamePasswordCredentials(streetCred[0],
+                                                                                                       streetCred[1]));
                     } else {
                         LOG.warn("Illegal value found for username/password HTTP credentials: {}", userInfo);
                     }
@@ -367,11 +408,12 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                 long startTime = System.nanoTime();
                 HttpResponse response = client.execute(method);
                 long endTime = System.nanoTime();
-                m_responseTime = (endTime - startTime)/1000000.0;
+                m_responseTime = (endTime - startTime) / 1000000.0;
 
                 int code = response.getStatusLine().getStatusCode();
                 if (!getRange().contains(code)) {
-                    throw new PageSequenceMonitorException("response code out of range for uri:" + uri + ".  Expected " + getRange() + " but received " + code);
+                    throw new PageSequenceMonitorException("response code out of range for uri:" + uri + ".  Expected "
+                            + getRange() + " but received " + code);
                 }
 
                 String responseString = EntityUtils.toString(response.getEntity());
@@ -379,13 +421,18 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                 if (getLocationPattern() != null) {
                     Header locationHeader = response.getFirstHeader("location");
                     if (locationHeader == null) {
-                        LOG.debug("locationMatch was set, but no Location: header was returned at {}", uri, new Exception());
-                        throw new PageSequenceMonitorException("locationMatch was set, but no Location: header was returned at " + uri);
+                        LOG.debug("locationMatch was set, but no Location: header was returned at {}", uri,
+                                  new Exception());
+                        throw new PageSequenceMonitorException(
+                                                               "locationMatch was set, but no Location: header was returned at "
+                                                                       + uri);
                     }
                     Matcher matcher = getLocationPattern().matcher(locationHeader.getValue());
                     if (!matcher.find()) {
-                        LOG.debug("failed to find '{}' in Location: header at {}:\n{}", getLocationPattern(), uri, locationHeader.getValue(), new Exception());
-                        throw new PageSequenceMonitorException("failed to find '" + getLocationPattern() + "' in Location: header at " + uri);
+                        LOG.debug("failed to find '{}' in Location: header at {}:\n{}", getLocationPattern(), uri,
+                                  locationHeader.getValue(), new Exception());
+                        throw new PageSequenceMonitorException("failed to find '" + getLocationPattern()
+                                + "' in Location: header at " + uri);
                     }
                 }
 
@@ -399,8 +446,10 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                 if (getSuccessPattern() != null) {
                     Matcher matcher = getSuccessPattern().matcher(responseString);
                     if (!matcher.find()) {
-                        LOG.debug("failed to find '{}' in page content at {}:\n{}", getSuccessPattern(), uri, responseString.trim(), new Exception());
-                        throw new PageSequenceMonitorException("failed to find '" + getSuccessPattern() + "' in page content at " + uri);
+                        LOG.debug("failed to find '{}' in page content at {}:\n{}", getSuccessPattern(), uri,
+                                  responseString.trim(), new Exception());
+                        throw new PageSequenceMonitorException("failed to find '" + getSuccessPattern()
+                                + "' in page content at " + uri);
                     }
                     updateSequenceProperties(sequenceProperties, matcher);
                 }
@@ -427,9 +476,10 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                 LOG.debug("I have {} sequence properties.", seqProps.size());
             }
             for (NameValuePair nvp : m_parms) {
-                String value = PropertiesUtils.substitute((String)nvp.getValue(), getServiceProperties(svc), getSequenceProperties());
+                String value = PropertiesUtils.substitute((String) nvp.getValue(), getServiceProperties(svc),
+                                                          getSequenceProperties());
                 expandedParms.add(new BasicNameValuePair(nvp.getName(), value));
-                if (!nvp.getValue().equals(value) ) {
+                if (!nvp.getValue().equals(value)) {
                     LOG.debug("Expanded parm with name '{}' from '{}' to '{}'", nvp.getName(), nvp.getValue(), value);
                 }
             }
@@ -454,7 +504,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         }
 
         private String getVirtualHost(MonitoredService svc) {
-            return PropertiesUtils.substitute(m_page.getVirtualHost(), getServiceProperties(svc), getSequenceProperties());
+            return PropertiesUtils.substitute(m_page.getVirtualHost(), getServiceProperties(svc),
+                                              getSequenceProperties());
         }
 
         private URI getURI(MonitoredService svc) throws URISyntaxException {
@@ -464,7 +515,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             if (m_page.getRequireIPv4()) {
                 try {
                     InetAddress address = InetAddressUtils.resolveHostname(host, false);
-                    if (!(address instanceof Inet4Address)) throw new UnknownHostException();
+                    if (!(address instanceof Inet4Address))
+                        throw new UnknownHostException();
                     host = InetAddressUtils.str(address);
                 } catch (UnknownHostException e) {
                     throw new PageSequenceMonitorException("failed to find IPv4 address for hostname: " + host);
@@ -477,7 +529,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                     throw new PageSequenceMonitorException("failed to find IPv6 address for hostname: " + host);
                 }
             } else {
-                // Just leave the hostname as-is, let httpclient resolve it using the platform preferences
+                // Just leave the hostname as-is, let httpclient resolve it
+                // using the platform preferences
             }
             URIBuilder ub = new URIBuilder();
             ub.setScheme(getScheme());
@@ -586,7 +639,9 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         }
 
         private final Map<String, String> m_parameterMap;
+
         private final HttpParams m_clientParams;
+
         private final HttpPageSequence m_pageSequence;
 
         @SuppressWarnings("unchecked")
@@ -615,11 +670,14 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
 
         PageSequence parsePageSequence(String sequenceString) {
             try {
-                return CastorUtils.unmarshal(PageSequence.class, new ByteArrayInputStream(sequenceString.getBytes("UTF-8")));
+                return CastorUtils.unmarshal(PageSequence.class,
+                                             new ByteArrayInputStream(sequenceString.getBytes("UTF-8")));
             } catch (MarshalException e) {
-                throw new IllegalArgumentException("Unable to parse page-sequence for HttpMonitor: " + e + "\nConfig: " + sequenceString, e);
+                throw new IllegalArgumentException("Unable to parse page-sequence for HttpMonitor: " + e + "\nConfig: "
+                        + sequenceString, e);
             } catch (ValidationException e) {
-                throw new IllegalArgumentException("Unable to validate page-sequence for HttpMonitor: " + e + "\nConfig: " + sequenceString, e);
+                throw new IllegalArgumentException("Unable to validate page-sequence for HttpMonitor: " + e
+                        + "\nConfig: " + sequenceString, e);
             } catch (UnsupportedEncodingException e) {
                 throw new IllegalArgumentException("UTF-8 encoding not supported", e);
             }
@@ -639,7 +697,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             clientParams.setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, getTimeout());
             clientParams.setIntParameter(CoreConnectionPNames.SO_TIMEOUT, getTimeout());
             clientParams.setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.BROWSER_COMPATIBILITY);
-            // Not sure if this flag has any effect under the new httpcomponents-client code
+            // Not sure if this flag has any effect under the new
+            // httpcomponents-client code
             clientParams.setBooleanParameter("http.protocol.single-cookie-header", true);
             return clientParams;
         }
@@ -671,10 +730,10 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         DefaultHttpClient client = null;
         PollStatus serviceStatus = PollStatus.unavailable("Poll not completed yet");
 
-        Map<String,Number> responseTimes = new LinkedHashMap<String,Number>();
+        Map<String, Number> responseTimes = new LinkedHashMap<String, Number>();
 
         SequenceTracker tracker = new SequenceTracker(parameterMap, DEFAULT_SEQUENCE_RETRY, DEFAULT_TIMEOUT);
-        for(tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt() ) {
+        for (tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt()) {
             try {
                 PageSequenceMonitorParameters parms = PageSequenceMonitorParameters.get(parameterMap);
 
@@ -694,7 +753,8 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                 serviceStatus.setProperties(responseTimes);
             } catch (IllegalArgumentException e) {
                 LOG.error("Invalid parameters to monitor", e);
-                serviceStatus = PollStatus.unavailable("Invalid parameter to monitor: " + e.getMessage() + ".  See log for details.");
+                serviceStatus = PollStatus.unavailable("Invalid parameter to monitor: " + e.getMessage()
+                        + ".  See log for details.");
                 serviceStatus.setProperties(responseTimes);
             } finally {
                 if (client != null) {

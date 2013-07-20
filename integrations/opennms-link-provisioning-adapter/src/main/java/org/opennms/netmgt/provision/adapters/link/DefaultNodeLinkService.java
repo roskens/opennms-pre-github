@@ -31,8 +31,6 @@ package org.opennms.netmgt.provision.adapters.link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 import java.util.Collection;
 import java.util.Date;
 
@@ -146,23 +144,23 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
         onmsLinkState.setDataLinkInterface(dli);
 
         Boolean nodeParentEndPoint = getEndPointStatus(nodeParentId);
-        Boolean nodeEndPoint =  getEndPointStatus(nodeId);
+        Boolean nodeEndPoint = getEndPointStatus(nodeId);
 
         LinkState state = LinkState.LINK_UP;
         LinkEventSendingStateTransition transition = new LinkEventSendingStateTransition(dli, m_eventForwarder, this);
 
         if (nodeParentEndPoint == null) {
-			state = state.parentNodeEndPointDeleted(transition);
-		} else if (!nodeParentEndPoint) {
-			state = state.parentNodeDown(transition);
-		}
-		if (nodeEndPoint == null) {
-			state = state.nodeEndPointDeleted(transition);
-		} else if (!nodeEndPoint) {
-			state = state.nodeDown(null);
-		}
-		dli.setStatus(StatusType.get(state.getDataLinkInterfaceStateType()));
-		onmsLinkState.setLinkState(state);
+            state = state.parentNodeEndPointDeleted(transition);
+        } else if (!nodeParentEndPoint) {
+            state = state.parentNodeDown(transition);
+        }
+        if (nodeEndPoint == null) {
+            state = state.nodeEndPointDeleted(transition);
+        } else if (!nodeEndPoint) {
+            state = state.nodeDown(null);
+        }
+        dli.setStatus(StatusType.get(state.getDataLinkInterfaceStateType()));
+        onmsLinkState.setLinkState(state);
 
         dli.setLastPollTime(new Date());
         dli.setLinkTypeId(777);
@@ -174,52 +172,49 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
     }
 
     private int getPrimaryIfIndexForNode(OnmsNode node) {
-        if(node.getPrimaryInterface() != null && node.getPrimaryInterface().getIfIndex() != null){
+        if (node.getPrimaryInterface() != null && node.getPrimaryInterface().getIfIndex() != null) {
             return node.getPrimaryInterface().getIfIndex();
-        }else{
+        } else {
             return -1;
         }
     }
 
     /** {@inheritDoc} */
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public Integer getNodeId(String endPoint) {
         Collection<OnmsNode> nodes = m_nodeDao.findByLabel(endPoint);
 
-        if(nodes.size() > 0){
+        if (nodes.size() > 0) {
             return nodes.iterator().next().getId();
         }
         return null;
     }
 
     /** {@inheritDoc} */
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public String getNodeLabel(int nodeId) {
         OnmsNode node = m_nodeDao.get(nodeId);
-        if(node != null){
+        if (node != null) {
             return node.getLabel();
         }
         return null;
     }
 
     /** {@inheritDoc} */
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public Collection<DataLinkInterface> getLinkContainingNodeId(int nodeId) {
         OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.or(
-            Restrictions.eq("node.id", nodeId),
-            Restrictions.eq("nodeParentId", nodeId)
-        ));
+        criteria.add(Restrictions.or(Restrictions.eq("node.id", nodeId), Restrictions.eq("nodeParentId", nodeId)));
 
         return m_dataLinkDao.findMatching(criteria);
     }
 
     /** {@inheritDoc} */
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public OnmsLinkState getLinkStateForInterface(DataLinkInterface dataLinkInterface) {
         return m_linkStateDao.findByDataLinkInterfaceId(dataLinkInterface.getId());
@@ -236,7 +231,7 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
 
         Collection<DataLinkInterface> dataLinkInterface = m_dataLinkDao.findMatching(criteria);
 
-        if(dataLinkInterface.size() > 0){
+        if (dataLinkInterface.size() > 0) {
             DataLinkInterface dataLink = dataLinkInterface.iterator().next();
             dataLink.setStatus(StatusType.get(status));
 
@@ -246,13 +241,13 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
     }
 
     /** {@inheritDoc} */
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public String getPrimaryAddress(int nodeId) {
         OnmsNode node = m_nodeDao.get(nodeId);
         if (node != null) {
             OnmsIpInterface primaryInterface = node.getPrimaryInterface();
-            if(primaryInterface != null) {
+            if (primaryInterface != null) {
                 return InetAddressUtils.str(primaryInterface.getIpAddress());
             }
         }
@@ -261,22 +256,24 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
     }
 
     /** {@inheritDoc} */
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public boolean nodeHasEndPointService(int nodeId) {
 
-        OnmsMonitoredService endPointService = m_monitoredServiceDao.getPrimaryService(nodeId, m_endPointConfigDao.getValidator().getServiceName());
+        OnmsMonitoredService endPointService = m_monitoredServiceDao.getPrimaryService(nodeId,
+                                                                                       m_endPointConfigDao.getValidator().getServiceName());
 
         return endPointService == null ? false : true;
     }
 
     /** {@inheritDoc} */
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public Boolean getEndPointStatus(int nodeId) {
-        OnmsMonitoredService endPointService = m_monitoredServiceDao.getPrimaryService(nodeId, m_endPointConfigDao.getValidator().getServiceName());
+        OnmsMonitoredService endPointService = m_monitoredServiceDao.getPrimaryService(nodeId,
+                                                                                       m_endPointConfigDao.getValidator().getServiceName());
         if (endPointService == null) {
-        	return null;
+            return null;
         }
 
         // want true to be UP, not DOWN

@@ -31,7 +31,9 @@ package org.opennms.netmgt.config;
 import java.util.Collection;
 
 /**
- * <p>WebGroupManager interface.</p>
+ * <p>
+ * WebGroupManager interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,16 +42,21 @@ import java.util.Collection;
 public interface WebGroupManager {
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     public Collection<WebGroup> getGroups();
 
     /**
-     * <p>getGroup</p>
+     * <p>
+     * getGroup
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.WebGroup} object.
      */
     public WebGroup getGroup(String groupName);

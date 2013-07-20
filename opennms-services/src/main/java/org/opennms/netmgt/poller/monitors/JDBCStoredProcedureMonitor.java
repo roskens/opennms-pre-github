@@ -51,63 +51,58 @@ import org.opennms.netmgt.model.PollStatus;
  * @since 0.1
  * @version $Id: $
  */
-final public class JDBCStoredProcedureMonitor extends JDBCMonitor
-{
-   /**
-    * Class constructor.
-    *
-    * @throws java.lang.ClassNotFoundException if any.
-    * @throws java.lang.InstantiationException if any.
-    * @throws java.lang.IllegalAccessException if any.
-    */
-   public JDBCStoredProcedureMonitor() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-   }
+final public class JDBCStoredProcedureMonitor extends JDBCMonitor {
+    /**
+     * Class constructor.
+     *
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
+     * @throws java.lang.InstantiationException
+     *             if any.
+     * @throws java.lang.IllegalAccessException
+     *             if any.
+     */
+    public JDBCStoredProcedureMonitor() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    }
 
-   /** {@inheritDoc} */
-   @Override
-   public PollStatus checkDatabaseStatus(Connection con, Map<String, Object> parameters)
-   {
+    /** {@inheritDoc} */
+    @Override
+    public PollStatus checkDatabaseStatus(Connection con, Map<String, Object> parameters) {
 
-      PollStatus status = PollStatus.unavailable();
-      CallableStatement cs = null;
-      try
-      {
-         boolean bPass = false;
-         String storedProcedure = ParameterMap.getKeyedString(parameters, "stored-procedure", null);
-         if ( storedProcedure == null )
-            return status;
+        PollStatus status = PollStatus.unavailable();
+        CallableStatement cs = null;
+        try {
+            boolean bPass = false;
+            String storedProcedure = ParameterMap.getKeyedString(parameters, "stored-procedure", null);
+            if (storedProcedure == null)
+                return status;
 
-         String schemaName = ParameterMap.getKeyedString(parameters, "schema", "test");
+            String schemaName = ParameterMap.getKeyedString(parameters, "schema", "test");
 
-         String procedureCall = "{ ? = call " + schemaName + "." + storedProcedure + "()}";
-         cs = con.prepareCall(procedureCall);
+            String procedureCall = "{ ? = call " + schemaName + "." + storedProcedure + "()}";
+            cs = con.prepareCall(procedureCall);
 
-         LOG.debug("Calling stored procedure: {}", procedureCall);
+            LOG.debug("Calling stored procedure: {}", procedureCall);
 
-         cs.registerOutParameter(1, java.sql.Types.BIT);
-         cs.executeUpdate();
-         bPass = cs.getBoolean(1);
+            cs.registerOutParameter(1, java.sql.Types.BIT);
+            cs.executeUpdate();
+            bPass = cs.getBoolean(1);
 
-         LOG.debug("Stored procedure returned: {}", bPass);
+            LOG.debug("Stored procedure returned: {}", bPass);
 
-         // If the query worked, assume than the server is ok
-         if (bPass)
-         {
-            status = PollStatus.available();
-         }
-      }
-      catch (SQLException sqlEx)
-      {
-            String reason = "JDBC stored procedure call not functional: " + sqlEx.getSQLState() + ", " + sqlEx.toString();
-        LOG.debug(reason, sqlEx);
+            // If the query worked, assume than the server is ok
+            if (bPass) {
+                status = PollStatus.available();
+            }
+        } catch (SQLException sqlEx) {
+            String reason = "JDBC stored procedure call not functional: " + sqlEx.getSQLState() + ", "
+                    + sqlEx.toString();
+            LOG.debug(reason, sqlEx);
             status = PollStatus.unavailable(reason);
-      }
-      finally
-      {
-    	  closeStmt(cs);
-      }
-      return status;
-   }
+        } finally {
+            closeStmt(cs);
+        }
+        return status;
+    }
 } // End of class
-
 

@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -44,7 +43,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * <p>DefaultChooseResourceService class.</p>
+ * <p>
+ * DefaultChooseResourceService class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -52,8 +53,7 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class DefaultChooseResourceService implements ChooseResourceService, InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultChooseResourceService.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultChooseResourceService.class);
 
     public ResourceDao m_resourceDao;
 
@@ -79,17 +79,17 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
         model.setResource(resource);
         Map<OnmsResourceType, List<OnmsResource>> resourceTypeMap = new LinkedHashMap<OnmsResourceType, List<OnmsResource>>();
 
-
         for (OnmsResource childResource : resource.getChildResources()) {
             if (!resourceTypeMap.containsKey(childResource.getResourceType())) {
                 resourceTypeMap.put(childResource.getResourceType(), new LinkedList<OnmsResource>());
             }
-            // See bug 3760: These values have been known to contain a % sign so they are
+            // See bug 3760: These values have been known to contain a % sign so
+            // they are
             // not safe to pass to LogUtils.infof()
             // http://bugzilla.opennms.org/show_bug.cgi?id=3760
-                LOG.info("getId(): {}", childResource.getId());
-                LOG.info("getName(): {}", childResource.getName());
-            //checkLabelForQuotes(
+            LOG.info("getId(): {}", childResource.getId());
+            LOG.info("getName(): {}", childResource.getName());
+            // checkLabelForQuotes(
             resourceTypeMap.get(childResource.getResourceType()).add(checkLabelForQuotes(childResource));
         }
 
@@ -100,9 +100,10 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
 
     private OnmsResource checkLabelForQuotes(final OnmsResource childResource) {
 
-        String lbl  = Util.convertToJsSafeString(childResource.getLabel());
+        String lbl = Util.convertToJsSafeString(childResource.getLabel());
 
-        OnmsResource resource = new OnmsResource(childResource.getName(), lbl, childResource.getResourceType(), childResource.getAttributes());
+        OnmsResource resource = new OnmsResource(childResource.getName(), lbl, childResource.getResourceType(),
+                                                 childResource.getAttributes());
         resource.setParent(childResource.getParent());
         resource.setEntity(childResource.getEntity());
         resource.setLink(childResource.getLink());
@@ -110,7 +111,9 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {
@@ -120,7 +123,9 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
     }
 
     /**
-     * <p>getResourceDao</p>
+     * <p>
+     * getResourceDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -129,9 +134,12 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
     }
 
     /**
-     * <p>setResourceDao</p>
+     * <p>
+     * setResourceDao
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
     public final void setResourceDao(final ResourceDao resourceDao) {
         m_resourceDao = resourceDao;

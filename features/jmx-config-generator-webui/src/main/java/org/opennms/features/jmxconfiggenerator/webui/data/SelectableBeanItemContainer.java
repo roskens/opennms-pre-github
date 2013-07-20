@@ -39,125 +39,138 @@ import java.util.Map;
 /**
  * This class represents a vaadin container (data source). Therefore it extends
  * <code>AbstractInMemoryContainer</code>. Usually
- * <code>BeanItemContainer</code> or
- * <code>AbstractBeanContainer</code> would be the best container to use. But we need to add a property to the
- * container items which indicates if any item is selected. Due to some limitations we cannot inherit BeanItemContainer
- * or AbstractBeanContainer to fulfill this requirement. Therefore this class is mainly a rough copy of the
- * <code>BeanItemContainer</code> but does not support any kind of filtering. This may be included in future releases.
+ * <code>BeanItemContainer</code> or <code>AbstractBeanContainer</code> would be
+ * the best container to use. But we need to add a property to the
+ * container items which indicates if any item is selected. Due to some
+ * limitations we cannot inherit BeanItemContainer
+ * or AbstractBeanContainer to fulfill this requirement. Therefore this class is
+ * mainly a rough copy of the <code>BeanItemContainer</code> but does not
+ * support any kind of filtering. This may be included in future releases.
  *
- *
- * @param <T> the type of the bean we want to store in SelectableItem
+ * @param <T>
+ *            the type of the bean we want to store in SelectableItem
  * @author Markus von Rüden
  * @see SelectableItem
  */
 public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T, String, SelectableItem<T>> {
 
-	/**
-	 * Mapping of an itemId to a
-	 * <code>SelectableItem</code>
-	 */
-	private final Map<T, SelectableItem<T>> itemIdToItem = new HashMap<T, SelectableItem<T>>();
-	/**
-	 * We build a model to make a mapping between bean objects and the selected property. In this case we do not have to
-	 * deal with reading and writing the data to the underlying been.
-	 */
-	private final Map<String, VaadinPropertyDescriptor> model;
-	/**
-	 * The type of our bean
-	 */
-	private final Class<? super T> type;
+    /**
+     * Mapping of an itemId to a <code>SelectableItem</code>
+     */
+    private final Map<T, SelectableItem<T>> itemIdToItem = new HashMap<T, SelectableItem<T>>();
 
-	public SelectableBeanItemContainer(Class<? super T> type) {
-		model = SelectableItem.getPropertyDescriptors(type);
-		this.type = type;
-	}
+    /**
+     * We build a model to make a mapping between bean objects and the selected
+     * property. In this case we do not have to
+     * deal with reading and writing the data to the underlying been.
+     */
+    private final Map<String, VaadinPropertyDescriptor> model;
 
-	@Override
-	protected SelectableItem<T> getUnfilteredItem(Object itemId) {
-		return itemIdToItem.get(itemId);
-	}
+    /**
+     * The type of our bean
+     */
+    private final Class<? super T> type;
 
-	@Override
-	public Collection<String> getContainerPropertyIds() {
-		return model.keySet();
-	}
+    public SelectableBeanItemContainer(Class<? super T> type) {
+        model = SelectableItem.getPropertyDescriptors(type);
+        this.type = type;
+    }
 
-	@Override
-	public Property getContainerProperty(Object itemId, Object propertyId) {
-		Item item = getItem(itemId);
-		if (item == null) return null;
-		return item.getItemProperty(propertyId);
-	}
+    @Override
+    protected SelectableItem<T> getUnfilteredItem(Object itemId) {
+        return itemIdToItem.get(itemId);
+    }
 
-	@Override
-	public Class<?> getType(Object propertyId) {
-		return model.get(propertyId).getPropertyType();
-	}
+    @Override
+    public Collection<String> getContainerPropertyIds() {
+        return model.keySet();
+    }
 
-	private boolean isValid(Object itemId) {
-		return itemId != null && type.isAssignableFrom(itemId.getClass());
-	}
+    @Override
+    public Property getContainerProperty(Object itemId, Object propertyId) {
+        Item item = getItem(itemId);
+        if (item == null)
+            return null;
+        return item.getItemProperty(propertyId);
+    }
 
-	@Override
-	public Item addItemAt(int index, Object newItemId) {
-		if (!isValid(newItemId)) return null;
-		return internalAddItemAt(index, (T) newItemId, createItem((T) newItemId), true);
-	}
+    @Override
+    public Class<?> getType(Object propertyId) {
+        return model.get(propertyId).getPropertyType();
+    }
 
-	private SelectableItem<T> createItem(T itemId) {
-		if (itemId == null) return null;
-		return new SelectableItem<T>(itemId, model);
-	}
+    private boolean isValid(Object itemId) {
+        return itemId != null && type.isAssignableFrom(itemId.getClass());
+    }
 
-	@Override
-	public Item addItemAfter(Object previousItemId, Object newItemId) {
-		if (!isValid(previousItemId) || !isValid(newItemId)) return null;
-		return internalAddItemAfter((T) previousItemId, (T) newItemId, createItem((T) newItemId), true);
-	}
+    @Override
+    public Item addItemAt(int index, Object newItemId) {
+        if (!isValid(newItemId))
+            return null;
+        return internalAddItemAt(index, (T) newItemId, createItem((T) newItemId), true);
+    }
 
-	@Override
-	public Item addItem(Object itemId) {
-		if (!isValid(itemId)) return null;
-		return internalAddItemAtEnd((T) itemId, createItem((T) itemId), true);
-	}
+    private SelectableItem<T> createItem(T itemId) {
+        if (itemId == null)
+            return null;
+        return new SelectableItem<T>(itemId, model);
+    }
 
-	@Override
-	public boolean removeItem(Object itemId) {
-		int position = indexOfId(itemId);
-		if (internalRemoveItem(itemId)) {
-			itemIdToItem.remove(itemId);
-			fireItemRemoved(position, itemId);
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public Item addItemAfter(Object previousItemId, Object newItemId) {
+        if (!isValid(previousItemId) || !isValid(newItemId))
+            return null;
+        return internalAddItemAfter((T) previousItemId, (T) newItemId, createItem((T) newItemId), true);
+    }
 
-	@Override
-	public boolean removeAllItems() {
-		internalRemoveAllItems();
-		itemIdToItem.clear();
-		fireItemSetChange();
-		return true;
-	}
+    @Override
+    public Item addItem(Object itemId) {
+        if (!isValid(itemId))
+            return null;
+        return internalAddItemAtEnd((T) itemId, createItem((T) itemId), true);
+    }
 
-	@Override
-	protected void registerNewItem(int position, T itemId, SelectableItem<T> item) {
-		itemIdToItem.put(itemId, item);
-	}
+    @Override
+    public boolean removeItem(Object itemId) {
+        int position = indexOfId(itemId);
+        if (internalRemoveItem(itemId)) {
+            itemIdToItem.remove(itemId);
+            fireItemRemoved(position, itemId);
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * we do not allow adding additional properties to the container.
-	 */
-	@Override
-	public boolean addContainerProperty(Object propertyId, Class<?> type, Object defaultValue) throws UnsupportedOperationException {
-		throw new UnsupportedOperationException("Adding container properties not supported. Override the addContainerProperty() method if required.");
-	}
+    @Override
+    public boolean removeAllItems() {
+        internalRemoveAllItems();
+        itemIdToItem.clear();
+        fireItemSetChange();
+        return true;
+    }
 
-	/**
-	 * We do not allow removing properties from the container. This may change in future releases.
-	 */
-	@Override
-	public boolean removeContainerProperty(Object propertyId) throws UnsupportedOperationException {
-		throw new UnsupportedOperationException("Removing container properties not supported. Override the addContainerProperty() method if required.");
-	}
+    @Override
+    protected void registerNewItem(int position, T itemId, SelectableItem<T> item) {
+        itemIdToItem.put(itemId, item);
+    }
+
+    /**
+     * we do not allow adding additional properties to the container.
+     */
+    @Override
+    public boolean addContainerProperty(Object propertyId, Class<?> type, Object defaultValue)
+            throws UnsupportedOperationException {
+        throw new UnsupportedOperationException(
+                                                "Adding container properties not supported. Override the addContainerProperty() method if required.");
+    }
+
+    /**
+     * We do not allow removing properties from the container. This may change
+     * in future releases.
+     */
+    @Override
+    public boolean removeContainerProperty(Object propertyId) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException(
+                                                "Removing container properties not supported. Override the addContainerProperty() method if required.");
+    }
 }

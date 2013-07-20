@@ -34,7 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.snmp.AbstractSnmpStore;
 
-
 /**
  * <P>
  * This object contains a list of all the elements defined in the MIB-II
@@ -42,15 +41,13 @@ import org.opennms.netmgt.snmp.AbstractSnmpStore;
  * and passing in a variable list from an SNMP PDU. The actual data can be
  * recovered via the base class map interface.
  * </P>
- *
  * <P>
  * Once an instance is created and its data set either via the constructor or
  * from the update method, the actual elements can be retrieved using the
  * instance names. The names include: <EM>ifIndex</EM>,<EM>ifDescr</EM>,
- * <EM>ifSpeed</EM>,<EM>etc al</EM>. The information can also be accessed
- * by using the complete object identifier for the entry.
+ * <EM>ifSpeed</EM>,<EM>etc al</EM>. The information can also be accessed by
+ * using the complete object identifier for the entry.
  * </P>
- *
  * <P>
  * For more information on the individual fields, and to find out their
  * respective object identifiers see RFC1213 from the IETF.
@@ -63,6 +60,7 @@ import org.opennms.netmgt.snmp.AbstractSnmpStore;
  */
 public final class IfTableEntry extends SnmpTableEntry {
     private static final Logger LOG = LoggerFactory.getLogger(IfTableEntry.class);
+
     //
     // Lookup strings for specific table entries
     //
@@ -189,8 +187,8 @@ public final class IfTableEntry extends SnmpTableEntry {
      * </P>
      */
     public static final String TABLE_OID = ".1.3.6.1.2.1.2.2.1"; // start of
-                                                                    // table
-                                                                    // (GETNEXT)
+                                                                 // table
+                                                                 // (GETNEXT)
 
     /**
      * <P>
@@ -206,7 +204,9 @@ public final class IfTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getIfType</p>
+     * <p>
+     * getIfType
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -215,7 +215,9 @@ public final class IfTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getIfAdminStatus</p>
+     * <p>
+     * getIfAdminStatus
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -224,7 +226,9 @@ public final class IfTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getIfDescr</p>
+     * <p>
+     * getIfDescr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -233,7 +237,9 @@ public final class IfTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getPhysAddr</p>
+     * <p>
+     * getPhysAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      * @see {@link org.opennms.netmgt.linkd.snmp.IpNetToMediaTableEntry#getIpNetToMediaPhysAddress()}
@@ -243,14 +249,20 @@ public final class IfTableEntry extends SnmpTableEntry {
             // Try to fetch the physical address value as a hex string.
             String hexString = getHexString(IfTableEntry.IF_PHYS_ADDR);
             if (hexString != null && hexString.length() == 12) {
-                // If the hex string is 12 characters long, than the agent is kinda weird and
-                // is returning the value as a raw binary value that is 6 bytes in length.
-                // But that's OK, as long as we can convert it into a string, that's fine.
+                // If the hex string is 12 characters long, than the agent is
+                // kinda weird and
+                // is returning the value as a raw binary value that is 6 bytes
+                // in length.
+                // But that's OK, as long as we can convert it into a string,
+                // that's fine.
                 return hexString;
             } else {
-                // This is the normal case that most agents conform to: the value is an ASCII
-                // string representing the colon-separated MAC address. We just need to reformat
-                // it to remove the colons and convert it into a 12-character string.
+                // This is the normal case that most agents conform to: the
+                // value is an ASCII
+                // string representing the colon-separated MAC address. We just
+                // need to reformat
+                // it to remove the colons and convert it into a 12-character
+                // string.
                 return normalizeMacAddress(getDisplayString(IfTableEntry.IF_PHYS_ADDR));
             }
         } catch (IllegalArgumentException e) {
@@ -260,7 +272,9 @@ public final class IfTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getIfOperStatus</p>
+     * <p>
+     * getIfOperStatus
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -269,7 +283,9 @@ public final class IfTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getIfSpeed</p>
+     * <p>
+     * getIfSpeed
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */

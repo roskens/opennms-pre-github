@@ -75,12 +75,16 @@ public class Fetch {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof Fetch)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Fetch))
+            return false;
         final Fetch other = (Fetch) obj;
         if (m_attribute == null) {
-            if (other.m_attribute != null) return false;
+            if (other.m_attribute != null)
+                return false;
         } else if (!m_attribute.equals(other.m_attribute)) {
             return false;
         }

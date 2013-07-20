@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="request")
+@XmlRootElement(name = "request")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Request {
 
@@ -51,11 +51,11 @@ public class Request {
     private String method = "GET";
 
     /** The parameters. */
-    @XmlElement(name="parameter")
+    @XmlElement(name = "parameter")
     private List<Parameter> parameters = new ArrayList<Parameter>();
 
     /** The headers. */
-    @XmlElement(name="header")
+    @XmlElement(name = "header")
     private List<Header> headers = new ArrayList<Header>();
 
     /** The content. */
@@ -83,7 +83,8 @@ public class Request {
     /**
      * Gets the value of a specific parameter.
      *
-     * @param name the name
+     * @param name
+     *            the name
      * @return the parameter
      */
     public String getParameter(String name) {
@@ -98,7 +99,8 @@ public class Request {
     /**
      * Gets the parameter as integer.
      *
-     * @param name the name
+     * @param name
+     *            the name
      * @return the parameter value as integer
      */
     public int getParameterAsInt(String name) {
@@ -126,7 +128,8 @@ public class Request {
     /**
      * Gets the value of a specific header.
      *
-     * @param name the name
+     * @param name
+     *            the name
      * @return the header value
      */
     public String getHeader(String name) {
@@ -150,7 +153,8 @@ public class Request {
     /**
      * Sets the method.
      *
-     * @param method the new method
+     * @param method
+     *            the new method
      */
     public void setMethod(String method) {
         this.method = method;
@@ -159,7 +163,8 @@ public class Request {
     /**
      * Sets the parameters.
      *
-     * @param parameters the new parameters
+     * @param parameters
+     *            the new parameters
      */
     public void setParameters(List<Parameter> parameters) {
         this.parameters = parameters;
@@ -168,8 +173,10 @@ public class Request {
     /**
      * Adds the parameter.
      *
-     * @param name the name
-     * @param value the value
+     * @param name
+     *            the name
+     * @param value
+     *            the value
      */
     public void addParameter(String name, String value) {
         getParameters().add(new Parameter(name, value));
@@ -178,7 +185,8 @@ public class Request {
     /**
      * Sets the headers.
      *
-     * @param headers the new headers
+     * @param headers
+     *            the new headers
      */
     public void setHeaders(List<Header> headers) {
         this.headers = headers;
@@ -187,8 +195,10 @@ public class Request {
     /**
      * Adds the header.
      *
-     * @param name the name
-     * @param value the value
+     * @param name
+     *            the name
+     * @param value
+     *            the value
      */
     public void addHeader(String name, String value) {
         getHeaders().add(new Header(name, value));
@@ -197,7 +207,8 @@ public class Request {
     /**
      * Sets the content.
      *
-     * @param content the new content
+     * @param content
+     *            the new content
      */
     public void setContent(Content content) {
         this.content = content;

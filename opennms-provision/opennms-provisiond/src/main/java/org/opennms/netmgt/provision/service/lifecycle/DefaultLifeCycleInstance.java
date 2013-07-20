@@ -46,36 +46,50 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
 
     /*
      * Complications...
-     * separation between 'phase list... lifecycle definition', 'provider set', 'phase running'
-     *
+     * separation between 'phase list... lifecycle definition', 'provider set',
+     * 'phase running'
      * also
      * confusion.. about definitions and factories
-     *
      * other notes:
-     * phase runners can and should be built at lifecycle creation time rather than 'on the fly'
+     * phase runners can and should be built at lifecycle creation time rather
+     * than 'on the fly'
      * only strange case is 'fan-out' of lifecycles
-     *
-     *
-     *
      */
 
     final BatchTask m_containingPhase;
+
     final LifeCycleRepository m_repository;
+
     final DefaultTaskCoordinator m_coordinator;
+
     final String m_name;
+
     final Phase[] m_phases;
+
     final Object[] m_providers;
+
     final Map<String, Object> m_attributes = new HashMap<String, Object>();
 
     /**
-     * <p>Constructor for DefaultLifeCycleInstance.</p>
+     * <p>
+     * Constructor for DefaultLifeCycleInstance.
+     * </p>
      *
-     * @param containingPhase a {@link org.opennms.core.tasks.BatchTask} object.
-     * @param repository a {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleRepository} object.
-     * @param coordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
-     * @param lifeCycleName a {@link java.lang.String} object.
-     * @param phaseNames an array of {@link java.lang.String} objects.
-     * @param providers an array of {@link java.lang.Object} objects.
+     * @param containingPhase
+     *            a {@link org.opennms.core.tasks.BatchTask} object.
+     * @param repository
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleRepository}
+     *            object.
+     * @param coordinator
+     *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     * @param lifeCycleName
+     *            a {@link java.lang.String} object.
+     * @param phaseNames
+     *            an array of {@link java.lang.String} objects.
+     * @param providers
+     *            an array of {@link java.lang.Object} objects.
      */
     public DefaultLifeCycleInstance(BatchTask containingPhase, LifeCycleRepository repository,
             DefaultTaskCoordinator coordinator, String lifeCycleName, String[] phaseNames, Object[] providers) {
@@ -90,7 +104,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
         LOG.debug("Set up default lifecycle instance");
 
         m_phases = new Phase[phaseNames.length];
-        for(int i = 0; i < phaseNames.length; i++) {
+        for (int i = 0; i < phaseNames.length; i++) {
             m_phases[i] = new Phase(this, this, phaseNames[i], m_providers);
             LOG.debug("Adding phase {} to lifecycle", m_phases[i].getName());
             add(m_phases[i]);
@@ -99,36 +113,50 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
         setAttribute("lifeCycleInstance", this);
     }
 
-
     /**
-     * <p>Constructor for DefaultLifeCycleInstance.</p>
+     * <p>
+     * Constructor for DefaultLifeCycleInstance.
+     * </p>
      *
-     * @param repository a {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleRepository} object.
-     * @param coordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
-     * @param lifeCycleName a {@link java.lang.String} object.
-     * @param phaseNames an array of {@link java.lang.String} objects.
-     * @param providers an array of {@link java.lang.Object} objects.
+     * @param repository
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleRepository}
+     *            object.
+     * @param coordinator
+     *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     * @param lifeCycleName
+     *            a {@link java.lang.String} object.
+     * @param phaseNames
+     *            an array of {@link java.lang.String} objects.
+     * @param providers
+     *            an array of {@link java.lang.Object} objects.
      */
-    public DefaultLifeCycleInstance(LifeCycleRepository repository, DefaultTaskCoordinator coordinator, String lifeCycleName, String[] phaseNames, Object[] providers) {
+    public DefaultLifeCycleInstance(LifeCycleRepository repository, DefaultTaskCoordinator coordinator,
+            String lifeCycleName, String[] phaseNames, Object[] providers) {
         this(null, repository, coordinator, lifeCycleName, phaseNames, providers);
     }
 
     /**
-     * <p>getPhaseNames</p>
+     * <p>
+     * getPhaseNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     @Override
     public List<String> getPhaseNames() {
         List<String> phaseNames = new ArrayList<String>(m_phases.length);
-        for(Phase phase : m_phases) {
+        for (Phase phase : m_phases) {
             phaseNames.add(phase.getName());
         }
         return phaseNames;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -144,11 +172,16 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
     }
 
     /**
-     * <p>getAttribute</p>
+     * <p>
+     * getAttribute
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
-     * @param defaultValue a T object.
-     * @param <T> a T object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param defaultValue
+     *            a T object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
     @Override
@@ -162,10 +195,14 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
     }
 
     /**
-     * <p>getClass</p>
+     * <p>
+     * getClass
+     * </p>
      *
-     * @param t a T object.
-     * @param <T> a T object.
+     * @param t
+     *            a T object.
+     * @param <T>
+     *            a T object.
      * @return a {@link java.lang.Class} object.
      */
     @SuppressWarnings("unchecked")
@@ -190,10 +227,11 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
     @Override
     public <T> T findAttributeByType(Class<T> clazz) {
         T result = null;
-        for(Entry<String, Object> entry : m_attributes.entrySet()) {
+        for (Entry<String, Object> entry : m_attributes.entrySet()) {
             if (clazz.isInstance(entry.getValue())) {
                 if (result != null) {
-                    throw new IllegalStateException("More than one attribute of type "+clazz+" in lifecycle "+this);
+                    throw new IllegalStateException("More than one attribute of type " + clazz + " in lifecycle "
+                            + this);
                 } else {
                     result = clazz.cast(entry.getValue());
                 }
@@ -202,7 +240,6 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
         return result;
     }
 
-
     /** {@inheritDoc} */
     @Override
     public LifeCycleInstance createNestedLifeCycle(BatchTask containingPhase, String lifeCycleName) {
@@ -210,7 +247,9 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
     }
 
     /**
-     * <p>trigger</p>
+     * <p>
+     * trigger
+     * </p>
      */
     @Override
     public void trigger() {
@@ -222,17 +261,16 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("name", m_name)
-            .append("containing phase", m_containingPhase)
-            .append("repository", m_repository)
-            .append("coordinator", m_coordinator)
-            .toString();
-   }
+        return new ToStringBuilder(this).append("name", m_name).append("containing phase", m_containingPhase).append("repository",
+                                                                                                                     m_repository).append("coordinator",
+                                                                                                                                          m_coordinator).toString();
+    }
 }

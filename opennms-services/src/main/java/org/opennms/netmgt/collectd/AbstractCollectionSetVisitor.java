@@ -35,7 +35,9 @@ import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 
 /**
- * <p>AbstractCollectionSetVisitor class.</p>
+ * <p>
+ * AbstractCollectionSetVisitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

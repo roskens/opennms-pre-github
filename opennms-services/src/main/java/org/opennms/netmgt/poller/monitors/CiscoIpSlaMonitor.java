@@ -56,7 +56,8 @@ import org.slf4j.LoggerFactory;
  * specified "ip sla tag"
  * </p>
  * <p>
- * This does SNMP and therefore relies on the SNMP configuration so it is not distributable.
+ * This does SNMP and therefore relies on the SNMP configuration so it is not
+ * distributable.
  * </p>
  *
  * @author <A HREF="mailto:r.trommer@open-factory.org">Ronny Trommer</A>
@@ -90,7 +91,8 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
     private static final String RTT_LATEST_OPERSENSE_OID = ".1.3.6.1.4.1.9.9.42.1.2.10.1.2";
 
     /**
-     * his object defines an administrative threshold limit. If the RTT operation
+     * his object defines an administrative threshold limit. If the RTT
+     * operation
      * time exceeds this limit and if the conditions specified in
      * rttMonReactAdminThresholdType or rttMonHistoryAdminFilter are satisfied,
      * a threshold is generated.
@@ -107,13 +109,11 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
      */
     private static final String RTT_LATEST_OID = ".1.3.6.1.4.1.9.9.42.1.2.10.1.1";
 
-
     /**
      * Implement the rttMonCtrlOperState
      */
     private enum RTT_MON_OPER_STATE {
-        RESET(1), ORDERLY_STOP(2), IMMEDIATE_STOP(3), PENDING(4), INACTIVE(5), ACTIVE(
-                6), RESTART(7);
+        RESET(1), ORDERLY_STOP(2), IMMEDIATE_STOP(3), PENDING(4), INACTIVE(5), ACTIVE(6), RESTART(7);
 
         private final int state; // state code
 
@@ -130,11 +130,9 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
      * Implement the rttMonCtrlOperSense
      */
     private enum RTT_MON_OPER_SENSE {
-        OTHER(0), OK(1), DISCONNECTED(2), OVER_THRESHOLD(3), TIMEOUT(4), BUSY(
-                5), NOT_CONNECTED(6), DROPPED(7), SEQUENCE_ERROR(8), VERIFY_ERROR(
-                9), APPLICATION_SPECIFIC(10), DNS_SERVER_TIMEOUT(11), TCP_CONNECT_TIMEOUT(
-                12), HTTP_TRANSACTION_TIMEOUT(13), DNS_QUERY_ERROR(14), HTTP_ERROR(
-                15), ERROR(16);
+        OTHER(0), OK(1), DISCONNECTED(2), OVER_THRESHOLD(3), TIMEOUT(4), BUSY(5), NOT_CONNECTED(6), DROPPED(7), SEQUENCE_ERROR(
+                8), VERIFY_ERROR(9), APPLICATION_SPECIFIC(10), DNS_SERVER_TIMEOUT(11), TCP_CONNECT_TIMEOUT(12), HTTP_TRANSACTION_TIMEOUT(
+                13), DNS_QUERY_ERROR(14), HTTP_ERROR(15), ERROR(16);
 
         private final int state; // state code
 
@@ -151,8 +149,8 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
      * Implement the rttMonCtrlAdminRttType
      */
     private enum RTT_MON_ADMIN_TYPE {
-        ECHO(1), PATH_ECHO(2), FILE_IO(3), SCRIPT(4), UDP_ECHO(5),TCP_CONNECT(
-                6), HTTP(7), DNS(8), JITTER(9), DLSW(10), DHCP(11), FTP(12);
+        ECHO(1), PATH_ECHO(2), FILE_IO(3), SCRIPT(4), UDP_ECHO(5), TCP_CONNECT(6), HTTP(7), DNS(8), JITTER(9), DLSW(10), DHCP(
+                11), FTP(12);
 
         private final int state; // state code
 
@@ -179,16 +177,16 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Initialize the service monitor.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents
      *                the plug-in from functioning.
      */
     @Override
-    public void initialize(Map<String,Object> parameters) {
+    public void initialize(Map<String, Object> parameters) {
         // Initialize the SnmpPeerFactory
         //
         try {
@@ -211,7 +209,8 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents
      *                the interface from being monitored.
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
     public void initialize(MonitoredService svc) {
@@ -221,16 +220,16 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * The poll() method is responsible for polling the specified address for
      * SNMP service availability.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown for any uncrecoverable errors.
      */
     @Override
-    public PollStatus poll(MonitoredService svc, Map<String,Object> parameters) {
+    public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         String returnValue = "SNMP request failed or Cisco IP SLA tag ";
@@ -242,12 +241,13 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        if (agentConfig == null)
+            throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
         final String hostAddress = InetAddressUtils.str(ipaddr);
-		LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
+        LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
 
         // Get configuration parameters for tag to monitor
-        String adminTag = ParameterMap.getKeyedString(parameters,"admin-tag", null);
+        String adminTag = ParameterMap.getKeyedString(parameters, "admin-tag", null);
         if (adminTag == null) {
             LOG.debug("No IP SLA admin-tag parameter defined! ");
             status = PollStatus.unavailable("No IP SLA admin-tag parameter defined! ");
@@ -258,7 +258,7 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
         returnValue += adminTag + " not found";
 
         // Get configuration parameter to check if threshold should monitor
-        String ignoreThreshold = ParameterMap.getKeyedString(parameters,"ignore-thresh",null);
+        String ignoreThreshold = ParameterMap.getKeyedString(parameters, "ignore-thresh", null);
         if (ignoreThreshold == null) {
             LOG.debug("No ignoreThreshold parmater defined! ");
             status = PollStatus.unavailable("No ignoreThreshold parmater defined! ");
@@ -272,16 +272,19 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
 
         // set timeout and retries on SNMP peer object
         //
-        agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters,"timeout",agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters,"retry",ParameterMap.getKeyedInteger(parameters,"retries",agentConfig.getRetries())));
-        agentConfig.setPort(ParameterMap.getKeyedInteger(parameters,"port",agentConfig.getPort()));
+        agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(parameters, "retries",
+                                                                                         agentConfig.getRetries())));
+        agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
 
         // Establish SNMP session with interface
         try {
             LOG.debug("poll: SnmpAgentConfig address: {}", agentConfig);
 
             // Get all configured ip sla tags
-            Map<SnmpInstId, SnmpValue> tagResults = SnmpUtils.getOidValues(agentConfig,"CiscoIpSlaMonitor",SnmpObjId.get(RTT_ADMIN_TAG_OID));
+            Map<SnmpInstId, SnmpValue> tagResults = SnmpUtils.getOidValues(agentConfig, "CiscoIpSlaMonitor",
+                                                                           SnmpObjId.get(RTT_ADMIN_TAG_OID));
             if (tagResults == null) {
                 LOG.debug("No admin tags received! ");
                 status = PollStatus.unavailable("No admin tags received! ");
@@ -295,7 +298,9 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
                 if (tagResults.get(ipslaInstance).toString().equals(adminTag)) {
 
                     // Get all operation sense
-                    Map<SnmpInstId, SnmpValue> operSenseResults = SnmpUtils.getOidValues(agentConfig,"CiscoIpSlaMonitor",SnmpObjId.get(RTT_LATEST_OPERSENSE_OID));
+                    Map<SnmpInstId, SnmpValue> operSenseResults = SnmpUtils.getOidValues(agentConfig,
+                                                                                         "CiscoIpSlaMonitor",
+                                                                                         SnmpObjId.get(RTT_LATEST_OPERSENSE_OID));
                     if (operSenseResults == null) {
                         LOG.debug("No latest oper sense received! ");
                         status = PollStatus.unavailable("No latest oper sense received! ");
@@ -303,7 +308,9 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
                     }
 
                     // Get all operation states
-                    Map<SnmpInstId, SnmpValue> operStateResults = SnmpUtils.getOidValues(agentConfig,"CiscoIpSlaMonitor",SnmpObjId.get(RTT_OPER_STATE_OID));
+                    Map<SnmpInstId, SnmpValue> operStateResults = SnmpUtils.getOidValues(agentConfig,
+                                                                                         "CiscoIpSlaMonitor",
+                                                                                         SnmpObjId.get(RTT_OPER_STATE_OID));
                     if (operStateResults == null) {
                         LOG.debug("No oper state received! ");
                         status = PollStatus.unavailable("No oper state received! ");
@@ -311,7 +318,9 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
                     }
 
                     // Get all configured ip sla types
-                    Map<SnmpInstId, SnmpValue> adminTypeResults = SnmpUtils.getOidValues(agentConfig,"CiscoIpSlaMonitor",SnmpObjId.get(RTT_ADMIN_TYPE_OID));
+                    Map<SnmpInstId, SnmpValue> adminTypeResults = SnmpUtils.getOidValues(agentConfig,
+                                                                                         "CiscoIpSlaMonitor",
+                                                                                         SnmpObjId.get(RTT_ADMIN_TYPE_OID));
                     if (adminTypeResults == null) {
                         LOG.debug("No ip sla types received! ");
                         status = PollStatus.unavailable("No ip sla types received! ");
@@ -319,24 +328,27 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
                     }
 
                     // Get all configured ip sla latest RTT
-                    Map<SnmpInstId, SnmpValue> latestRttResults = SnmpUtils.getOidValues(agentConfig,"CiscoIpSlaMonitor",SnmpObjId.get(RTT_LATEST_OID));
+                    Map<SnmpInstId, SnmpValue> latestRttResults = SnmpUtils.getOidValues(agentConfig,
+                                                                                         "CiscoIpSlaMonitor",
+                                                                                         SnmpObjId.get(RTT_LATEST_OID));
                     if (latestRttResults == null) {
                         LOG.debug("No ip sla latest RTT received! ");
                         status = PollStatus.unavailable("No ip sla latest RTT received! ");
                         return status;
                     }
 
-                    LOG.debug("poll: instance={} admin tag={} value={} oper state={} ignoreThreshold={} latest RTT{}", ipslaInstance.toInt(), adminTag, tagResults.get(ipslaInstance), operStateResults.get(ipslaInstance), ignoreThreshold, latestRttResults.get(ipslaInstance));
+                    LOG.debug("poll: instance={} admin tag={} value={} oper state={} ignoreThreshold={} latest RTT{}",
+                              ipslaInstance.toInt(), adminTag, tagResults.get(ipslaInstance),
+                              operStateResults.get(ipslaInstance), ignoreThreshold, latestRttResults.get(ipslaInstance));
 
                     // Build return value for service down
-                    returnValue = "Cisco IP SLA tag "
-                        + adminTag
-                        + " with oper state "
-                        + resolveOperSate(operStateResults.get(ipslaInstance).toInt())
-                        + " returned with oper sense "
-                        + resolveOperSense(operSenseResults.get(ipslaInstance).toInt())
-                        + ". Configured IP SLA type is " + resolveAdminType(adminTypeResults.get(ipslaInstance).toInt())
-                        + ". Latest RTT is " + latestRttResults.get(ipslaInstance);
+                    returnValue = "Cisco IP SLA tag " + adminTag + " with oper state "
+                            + resolveOperSate(operStateResults.get(ipslaInstance).toInt())
+                            + " returned with oper sense "
+                            + resolveOperSense(operSenseResults.get(ipslaInstance).toInt())
+                            + ". Configured IP SLA type is "
+                            + resolveAdminType(adminTypeResults.get(ipslaInstance).toInt()) + ". Latest RTT is "
+                            + latestRttResults.get(ipslaInstance);
                     LOG.debug(returnValue);
 
                     // Check if thresholding is relevant
@@ -344,7 +356,9 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
                             && (operSenseResults.get(ipslaInstance).toInt() == RTT_MON_OPER_SENSE.OVER_THRESHOLD.value())) {
 
                         // Get all configured ip sla thresholds
-                        Map<SnmpInstId, SnmpValue> threshResults = SnmpUtils.getOidValues(agentConfig,"CiscoIpSlaMonitor",SnmpObjId.get(RTT_ADMIN_THRESH_OID));
+                        Map<SnmpInstId, SnmpValue> threshResults = SnmpUtils.getOidValues(agentConfig,
+                                                                                          "CiscoIpSlaMonitor",
+                                                                                          SnmpObjId.get(RTT_ADMIN_THRESH_OID));
                         if (monitorThresh && threshResults == null) {
                             LOG.debug("No ip sla thresholds received! ");
                             status = PollStatus.unavailable("No ip sla thresholds received! ");
@@ -354,19 +368,20 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
                         // Threshold monitoring
                         LOG.debug("IP SLA: {} threshold exceeded.", tagResults.get(ipslaInstance));
                         returnValue += ". Monitoring threshold is enabled. Threshold value is "
-                            + threshResults.get(ipslaInstance);
+                                + threshResults.get(ipslaInstance);
                         // Configured threshold is exceeded, service unavailable
                         return PollStatus.unavailable(returnValue);
                     } else {
                         /*
-                         *  Threshold should be ignored, check if OK or
-                         *  OVER_THRESHOLD.
-                         *  Over threshold means also OK, no timeout or other
-                         *  error occurred.
+                         * Threshold should be ignored, check if OK or
+                         * OVER_THRESHOLD.
+                         * Over threshold means also OK, no timeout or other
+                         * error occurred.
                          */
                         if (operSenseResults.get(ipslaInstance).toInt() == RTT_MON_OPER_SENSE.OK.value()
                                 || operSenseResults.get(ipslaInstance).toInt() == RTT_MON_OPER_SENSE.OVER_THRESHOLD.value()) {
-                            LOG.debug("Threshold is ignored rttMonLatestOperSense: {}", operSenseResults.get(ipslaInstance).toInt());
+                            LOG.debug("Threshold is ignored rttMonLatestOperSense: {}",
+                                      operSenseResults.get(ipslaInstance).toInt());
                             LOG.debug(returnValue);
                             status = PollStatus.available(Double.parseDouble(latestRttResults.get(ipslaInstance).toString()));
                             // No error or connection timeout, service available
@@ -380,23 +395,19 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
             status = PollStatus.unavailable(returnValue);
 
         } catch (NullPointerException e) {
-            String reason = "Unexpected error during SNMP poll of interface "
-                     + hostAddress;
+            String reason = "Unexpected error during SNMP poll of interface " + hostAddress;
             LOG.debug(reason, e);
             status = PollStatus.unavailable(reason);
         } catch (NumberFormatException e) {
-            String reason = "Number operator used on a non-number "
-                     + e.getMessage();
+            String reason = "Number operator used on a non-number " + e.getMessage();
             LOG.debug(reason);
             status = PollStatus.unavailable(reason);
         } catch (IllegalArgumentException e) {
-            String reason = "Invalid SNMP Criteria: "
-                    + e.getMessage();
+            String reason = "Invalid SNMP Criteria: " + e.getMessage();
             LOG.debug(reason);
             status = PollStatus.unavailable(reason);
         } catch (Throwable t) {
-            String reason = "Unexpected exception during SNMP poll of interface "
-                     + hostAddress;
+            String reason = "Unexpected exception during SNMP poll of interface " + hostAddress;
             LOG.debug(reason, t);
             status = PollStatus.unavailable(reason);
         }
@@ -434,7 +445,8 @@ final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
     }
 
     /**
-     * Method to resolve a given ip sla operation sense code to human readable string.
+     * Method to resolve a given ip sla operation sense code to human readable
+     * string.
      * TODO: Check if there is a better way to resolve the states backward
      *
      * @param sc

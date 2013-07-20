@@ -30,9 +30,10 @@ package org.opennms.core.utils;
 
 import java.util.Date;
 
-
 /**
- * <p>OwnedIntervalSequence class.</p>
+ * <p>
+ * OwnedIntervalSequence class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

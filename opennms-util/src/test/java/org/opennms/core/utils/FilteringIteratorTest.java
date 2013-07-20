@@ -38,7 +38,7 @@ import junit.framework.TestCase;
 
 public class FilteringIteratorTest extends TestCase {
 
-    public List<Integer> list(Integer...integers) {
+    public List<Integer> list(Integer... integers) {
         ArrayList<Integer> list = new ArrayList<Integer>();
         Collections.addAll(list, integers);
         return list;
@@ -141,7 +141,7 @@ public class FilteringIteratorTest extends TestCase {
         try {
             it.next();
             fail("Expected NoSuchElementException");
-        } catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             // expected this
         }
     }
@@ -184,7 +184,5 @@ public class FilteringIteratorTest extends TestCase {
 
         assertEquals(list(2, 4), items);
     }
-
-
 
 }

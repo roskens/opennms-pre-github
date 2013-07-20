@@ -48,299 +48,340 @@ import org.opennms.xmlns.xsd.config.jmx_datacollection.CompAttrib;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
 
 /**
- *
  * @author Markus von Rüden
  */
 public class MBeansContentTabSheet extends TabSheet implements ModelChangeListener<Mbean>, ViewStateChangedListener {
 
-	private AttributesLayout attributesLayout;
-	private CompositesLayout compositesLayout;
-	private final MBeansController controller;
-	private int selectedTabPosition;
+    private AttributesLayout attributesLayout;
 
-	public MBeansContentTabSheet(final MBeansController controller) {
-		this.controller = controller;
-		setSizeFull();
-		attributesLayout = new AttributesLayout();
-		compositesLayout = new CompositesLayout();
-		attributesLayout.setSizeFull();
-		compositesLayout.setSizeFull();
+    private CompositesLayout compositesLayout;
 
-		addTab(attributesLayout, "Attributes");
-		addTab(compositesLayout, "Composites");
-	}
+    private final MBeansController controller;
 
-	@Override
-	public void modelChanged(Mbean newModel) {
-		//forward
-		attributesLayout.modelChanged(newModel);
-		compositesLayout.modelChanged(newModel);
-		disableCompositesTabIfNecessary(newModel);
-	}
+    private int selectedTabPosition;
 
-	@Override
-	public void viewStateChanged(ViewStateChangedEvent event) {
-		//just forward
-		attributesLayout.viewStateChanged(event);
-		compositesLayout.viewStateChanged(event);
-		selectedTabPosition = UIHelper.enableTabs(this, event, selectedTabPosition);
-		disableCompositesTabIfNecessary(controller.getSelectedMBean());
-	}
+    public MBeansContentTabSheet(final MBeansController controller) {
+        this.controller = controller;
+        setSizeFull();
+        attributesLayout = new AttributesLayout();
+        compositesLayout = new CompositesLayout();
+        attributesLayout.setSizeFull();
+        compositesLayout.setSizeFull();
 
-	private void disableCompositesTabIfNecessary(Mbean newModel) {
-		boolean alreadyDisabled = !getTab(compositesLayout).isEnabled();
-		boolean shouldDisable = newModel == null || newModel.getCompAttrib().isEmpty();
-		boolean disabled = shouldDisable || alreadyDisabled; //so we do not overwrite enable/disable while already disabled due to another component
-		//disable composites tab, if there are no composites
-		getTab(compositesLayout).setEnabled(!disabled);
-		getTab(compositesLayout).setDescription(disabled ? "no composites available" : null);
-	}
+        addTab(attributesLayout, "Attributes");
+        addTab(compositesLayout, "Composites");
+    }
 
-	private class CompositesLayout extends VerticalLayout implements ViewStateChangedListener, ModelChangeListener<Mbean> {
+    @Override
+    public void modelChanged(Mbean newModel) {
+        // forward
+        attributesLayout.modelChanged(newModel);
+        compositesLayout.modelChanged(newModel);
+        disableCompositesTabIfNecessary(newModel);
+    }
 
-		private final TabSheet tabSheet = new TabSheet();
-		private int selectedCompositesTabPosition;
+    @Override
+    public void viewStateChanged(ViewStateChangedEvent event) {
+        // just forward
+        attributesLayout.viewStateChanged(event);
+        compositesLayout.viewStateChanged(event);
+        selectedTabPosition = UIHelper.enableTabs(this, event, selectedTabPosition);
+        disableCompositesTabIfNecessary(controller.getSelectedMBean());
+    }
 
-		public CompositesLayout() {
-			setSizeFull();
-			setSpacing(false);
-			setMargin(false);
-			tabSheet.setSizeFull();
-			addComponent(tabSheet);
-		}
+    private void disableCompositesTabIfNecessary(Mbean newModel) {
+        boolean alreadyDisabled = !getTab(compositesLayout).isEnabled();
+        boolean shouldDisable = newModel == null || newModel.getCompAttrib().isEmpty();
+        boolean disabled = shouldDisable || alreadyDisabled; // so we do not
+                                                             // overwrite
+                                                             // enable/disable
+                                                             // while already
+                                                             // disabled due to
+                                                             // another
+                                                             // component
+        // disable composites tab, if there are no composites
+        getTab(compositesLayout).setEnabled(!disabled);
+        getTab(compositesLayout).setDescription(disabled ? "no composites available" : null);
+    }
 
-		@Override
-		public void viewStateChanged(ViewStateChangedEvent event) {
-				selectedCompositesTabPosition = UIHelper.enableTabs(tabSheet, event, selectedCompositesTabPosition);
-				if (tabSheet.getSelectedTab() == null) return;
-				((CompositeTabLayout)tabSheet.getSelectedTab()).viewStateChanged((event)); //forwared
-		}
+    private class CompositesLayout extends VerticalLayout implements ViewStateChangedListener,
+            ModelChangeListener<Mbean> {
 
-		@Override
-		public void modelChanged(Mbean newModel) {
-			tabSheet.removeAllComponents();
-			int no = 1;
-			for (CompAttrib attrib : newModel.getCompAttrib()) {
-				final String tabLabel = String.format("#%d %s", no++, attrib.getName());
-				final CompositeTabLayout tabContent = new CompositeTabLayout(getCompositeForm(newModel, attrib), getCompAttribTable(newModel, attrib));
-				tabSheet.addTab(tabContent, tabLabel);
-			}
-		}
+        private final TabSheet tabSheet = new TabSheet();
 
-		private NameEditForm getCompositeForm(final Mbean mbean, final CompAttrib compAttrib) {
-			NameEditForm form = new NameEditForm(controller, new FormParameter() {
-				@Override public boolean hasFooter() { return false; }
-				@Override public String getCaption() { return null; }
-				@Override public String getEditablePropertyName() { return "name"; }
-				@Override public String getNonEditablePropertyName() { return "alias"; }
-				@Override public Object[] getVisiblePropertieNames() { return new Object[]{"selected", getNonEditablePropertyName(), getEditablePropertyName()};}
-				@Override public EditControls.Callback getAdditionalCallback() { return null; }
-			});
-			Item item = controller.getCompositeAttributeContainer(mbean).getItem(compAttrib);
-			form.setItemDataSource(item);
-			return form;
-		}
+        private int selectedCompositesTabPosition;
 
-		private Table getCompAttribTable(final Mbean mbean, final CompAttrib attrib) {
-			AttributesTable memberTable = new AttributesTable(controller, new Callback() {
-				@Override
-				public Container getContainer() {
-					return controller.getCompositeMemberContainer(attrib);
-				}
-			});
-			memberTable.modelChanged(mbean);
-			return memberTable;
-		}
+        public CompositesLayout() {
+            setSizeFull();
+            setSpacing(false);
+            setMargin(false);
+            tabSheet.setSizeFull();
+            addComponent(tabSheet);
+        }
 
-		private class CompositeTabLayout extends VerticalLayout implements Property.ReadOnlyStatusChangeNotifier, EditControls.Callback, ViewStateChangedListener {
+        @Override
+        public void viewStateChanged(ViewStateChangedEvent event) {
+            selectedCompositesTabPosition = UIHelper.enableTabs(tabSheet, event, selectedCompositesTabPosition);
+            if (tabSheet.getSelectedTab() == null)
+                return;
+            ((CompositeTabLayout) tabSheet.getSelectedTab()).viewStateChanged((event)); // forwared
+        }
 
-			private final NameEditForm compositeForm;
-			private final Table compositeTable;
-			private final FormButtonHandler<NameEditForm> formButtonHandler;
-			private final TableButtonHandler<Table> tableButtonHandler;
-			private final EditControls<AbstractField> footer;
+        @Override
+        public void modelChanged(Mbean newModel) {
+            tabSheet.removeAllComponents();
+            int no = 1;
+            for (CompAttrib attrib : newModel.getCompAttrib()) {
+                final String tabLabel = String.format("#%d %s", no++, attrib.getName());
+                final CompositeTabLayout tabContent = new CompositeTabLayout(getCompositeForm(newModel, attrib),
+                                                                             getCompAttribTable(newModel, attrib));
+                tabSheet.addTab(tabContent, tabLabel);
+            }
+        }
 
-			private CompositeTabLayout(NameEditForm compositeForm, Table compositeTable) {
-				this.compositeForm = compositeForm;
-				this.compositeTable = compositeTable;
-				formButtonHandler = new FormButtonHandler<NameEditForm>(compositeForm);
-				tableButtonHandler = new TableButtonHandler<Table>(compositeTable);
-				footer = new EditControls<AbstractField>(this, new ButtonHandler<AbstractField>() {
-					@Override
-					public void handleSave() {
-						if (formButtonHandler.getOuter().isValid() && tableButtonHandler.getOuter().isValid()) {
-							formButtonHandler.handleSave();
-							tableButtonHandler.handleSave();
-						} else {
-							UIHelper.showValidationError("There are some errors on this view. Please fix them first");
-						}
-					}
+        private NameEditForm getCompositeForm(final Mbean mbean, final CompAttrib compAttrib) {
+            NameEditForm form = new NameEditForm(controller, new FormParameter() {
+                @Override
+                public boolean hasFooter() {
+                    return false;
+                }
 
-					@Override
-					public void handleCancel() {
-						formButtonHandler.handleCancel();
-						tableButtonHandler.handleCancel();
-					}
+                @Override
+                public String getCaption() {
+                    return null;
+                }
 
-					@Override
-					public void handleEdit() {
-						formButtonHandler.handleEdit();
-						tableButtonHandler.handleEdit();
-					}
+                @Override
+                public String getEditablePropertyName() {
+                    return "name";
+                }
 
-					@Override
-					public AbstractField getOuter() {
-						return null;
-					}
-				});
-				setSizeFull();
-				setSpacing(false);
-				setReadOnly(true);
-				addComponent(footer);
-				addComponent(compositeForm);
-				addComponent(compositeTable);
-				addFooterHooks(footer);
-				setExpandRatio(compositeTable, 1);
-			}
+                @Override
+                public String getNonEditablePropertyName() {
+                    return "alias";
+                }
 
-			@Override
-			public void addListener(ReadOnlyStatusChangeListener listener) {
-				addReadOnlyStatusChangeListener(listener);
-			}
+                @Override
+                public Object[] getVisiblePropertieNames() {
+                    return new Object[] { "selected", getNonEditablePropertyName(), getEditablePropertyName() };
+                }
 
-			@Override
-			public void addReadOnlyStatusChangeListener(ReadOnlyStatusChangeListener listener) {
-				compositeForm.addListener(listener);
-				compositeTable.addListener(listener);
-			}
+                @Override
+                public EditControls.Callback getAdditionalCallback() {
+                    return null;
+                }
+            });
+            Item item = controller.getCompositeAttributeContainer(mbean).getItem(compAttrib);
+            form.setItemDataSource(item);
+            return form;
+        }
 
-			@Override
-			public void removeListener(ReadOnlyStatusChangeListener listener) {
-				removeReadOnlyStatusChangeListener(listener);
-			}
+        private Table getCompAttribTable(final Mbean mbean, final CompAttrib attrib) {
+            AttributesTable memberTable = new AttributesTable(controller, new Callback() {
+                @Override
+                public Container getContainer() {
+                    return controller.getCompositeMemberContainer(attrib);
+                }
+            });
+            memberTable.modelChanged(mbean);
+            return memberTable;
+        }
 
-			@Override
-			public void removeReadOnlyStatusChangeListener(ReadOnlyStatusChangeListener listener) {
-				compositeForm.removeListener(listener);
-				compositeTable.removeListener(listener);
-			}
+        private class CompositeTabLayout extends VerticalLayout implements Property.ReadOnlyStatusChangeNotifier,
+                EditControls.Callback, ViewStateChangedListener {
 
-			@Override
-			public void setReadOnly(boolean readOnly) {
-				super.setReadOnly(readOnly);
-				compositeForm.setReadOnly(readOnly);
-				compositeTable.setReadOnly(readOnly);
+            private final NameEditForm compositeForm;
 
-			}
+            private final Table compositeTable;
 
-			@Override
-			public void callback(ButtonType type, Component outer) {
-				if (type == ButtonType.edit) {
-					controller.fireViewStateChanged(ViewState.Edit, outer);
-				}
-				if (type == ButtonType.cancel){
-					controller.fireViewStateChanged(ViewState.LeafSelected, outer);
-				}
-				if (type == ButtonType.save && compositeForm.isValid() && compositeTable.isValid()) {
-					controller.fireViewStateChanged(ViewState.LeafSelected, CompositeTabLayout.this);
-				}
-			}
+            private final FormButtonHandler<NameEditForm> formButtonHandler;
 
-			private void addFooterHooks(final EditControls footer) {
-				footer.addSaveHook(this);
-				footer.addCancelHook(this);
-				footer.addEditHook(this);
-			}
+            private final TableButtonHandler<Table> tableButtonHandler;
 
-			@Override
-			public void viewStateChanged(ViewStateChangedEvent event) {
-				switch(event.getNewState()) {
-					case Init:
-					case LeafSelected:
-						setEnabled(true);
-						footer.setVisible(true);
-						break;
-					case NonLeafSelected:
-					case Edit:
-						setEnabled(event.getSource() == this);
-						footer.setVisible(event.getSource() == this);
-						break;
-				}
-			}
-		}
-	}
+            private final EditControls<AbstractField> footer;
 
-	private class AttributesLayout extends VerticalLayout implements ViewStateChangedListener, EditControls.Callback<Table> {
+            private CompositeTabLayout(NameEditForm compositeForm, Table compositeTable) {
+                this.compositeForm = compositeForm;
+                this.compositeTable = compositeTable;
+                formButtonHandler = new FormButtonHandler<NameEditForm>(compositeForm);
+                tableButtonHandler = new TableButtonHandler<Table>(compositeTable);
+                footer = new EditControls<AbstractField>(this, new ButtonHandler<AbstractField>() {
+                    @Override
+                    public void handleSave() {
+                        if (formButtonHandler.getOuter().isValid() && tableButtonHandler.getOuter().isValid()) {
+                            formButtonHandler.handleSave();
+                            tableButtonHandler.handleSave();
+                        } else {
+                            UIHelper.showValidationError("There are some errors on this view. Please fix them first");
+                        }
+                    }
 
-		private final AttributesTable attributesTable;
-		private final EditControls footer;
+                    @Override
+                    public void handleCancel() {
+                        formButtonHandler.handleCancel();
+                        tableButtonHandler.handleCancel();
+                    }
 
-		private AttributesLayout() {
-			attributesTable = new AttributesTable(controller, new Callback() {
-				@Override
-				public Container getContainer() {
-					return controller.getAttributeContainer(controller.getSelectedMBean());
-				}
-			});
-			footer = new EditControls(this.attributesTable);
-			setSizeFull();
-			addComponent(footer);
-			addComponent(attributesTable);
-			setSpacing(false);
-			setMargin(false);
-			addFooterHooks();
-			setExpandRatio(attributesTable, 1);
-		}
+                    @Override
+                    public void handleEdit() {
+                        formButtonHandler.handleEdit();
+                        tableButtonHandler.handleEdit();
+                    }
 
-		@Override
-		public void callback(ButtonType type, Table outer) {
-			if (type == ButtonType.cancel) {
-				outer.discard();
-				controller.fireViewStateChanged(ViewState.LeafSelected, outer);
-			}
-			if (type == ButtonType.edit) {
-				controller.fireViewStateChanged(ViewState.Edit, outer);
-			}
-			if (type == ButtonType.save) {
-				if (outer.isValid()) {
-					outer.commit();
-					controller.fireViewStateChanged(ViewState.LeafSelected, outer);
-				} else {
-					UIHelper.showValidationError(
-							"There are errors in this view. Please fix them first or cancel.");
-				}
-			}
-		}
+                    @Override
+                    public AbstractField getOuter() {
+                        return null;
+                    }
+                });
+                setSizeFull();
+                setSpacing(false);
+                setReadOnly(true);
+                addComponent(footer);
+                addComponent(compositeForm);
+                addComponent(compositeTable);
+                addFooterHooks(footer);
+                setExpandRatio(compositeTable, 1);
+            }
 
-		private void addFooterHooks() {
-			footer.addSaveHook(this);
-			footer.addCancelHook(this);
-			footer.addEditHook(this);
-		}
+            @Override
+            public void addListener(ReadOnlyStatusChangeListener listener) {
+                addReadOnlyStatusChangeListener(listener);
+            }
 
-		@Override
-		public void setEnabled(boolean enabled) {
-			super.setEnabled(enabled);
-			footer.setVisible(enabled);
-		}
+            @Override
+            public void addReadOnlyStatusChangeListener(ReadOnlyStatusChangeListener listener) {
+                compositeForm.addListener(listener);
+                compositeTable.addListener(listener);
+            }
 
-		@Override
-		public void viewStateChanged(ViewStateChangedEvent event) {
-			switch (event.getNewState()) {
-				case Init:
-				case NonLeafSelected:
-				case Edit:
-					footer.setVisible(event.getSource() == attributesTable);
-					break;
-				case LeafSelected:
-					footer.setVisible(true);
-					break;
-			}
-			attributesTable.viewStateChanged(event);//forward
-		}
+            @Override
+            public void removeListener(ReadOnlyStatusChangeListener listener) {
+                removeReadOnlyStatusChangeListener(listener);
+            }
 
-		private void modelChanged(Mbean newModel) {
-			attributesTable.modelChanged(newModel); //forward
-		}
-	}
+            @Override
+            public void removeReadOnlyStatusChangeListener(ReadOnlyStatusChangeListener listener) {
+                compositeForm.removeListener(listener);
+                compositeTable.removeListener(listener);
+            }
+
+            @Override
+            public void setReadOnly(boolean readOnly) {
+                super.setReadOnly(readOnly);
+                compositeForm.setReadOnly(readOnly);
+                compositeTable.setReadOnly(readOnly);
+
+            }
+
+            @Override
+            public void callback(ButtonType type, Component outer) {
+                if (type == ButtonType.edit) {
+                    controller.fireViewStateChanged(ViewState.Edit, outer);
+                }
+                if (type == ButtonType.cancel) {
+                    controller.fireViewStateChanged(ViewState.LeafSelected, outer);
+                }
+                if (type == ButtonType.save && compositeForm.isValid() && compositeTable.isValid()) {
+                    controller.fireViewStateChanged(ViewState.LeafSelected, CompositeTabLayout.this);
+                }
+            }
+
+            private void addFooterHooks(final EditControls footer) {
+                footer.addSaveHook(this);
+                footer.addCancelHook(this);
+                footer.addEditHook(this);
+            }
+
+            @Override
+            public void viewStateChanged(ViewStateChangedEvent event) {
+                switch (event.getNewState()) {
+                case Init:
+                case LeafSelected:
+                    setEnabled(true);
+                    footer.setVisible(true);
+                    break;
+                case NonLeafSelected:
+                case Edit:
+                    setEnabled(event.getSource() == this);
+                    footer.setVisible(event.getSource() == this);
+                    break;
+                }
+            }
+        }
+    }
+
+    private class AttributesLayout extends VerticalLayout implements ViewStateChangedListener,
+            EditControls.Callback<Table> {
+
+        private final AttributesTable attributesTable;
+
+        private final EditControls footer;
+
+        private AttributesLayout() {
+            attributesTable = new AttributesTable(controller, new Callback() {
+                @Override
+                public Container getContainer() {
+                    return controller.getAttributeContainer(controller.getSelectedMBean());
+                }
+            });
+            footer = new EditControls(this.attributesTable);
+            setSizeFull();
+            addComponent(footer);
+            addComponent(attributesTable);
+            setSpacing(false);
+            setMargin(false);
+            addFooterHooks();
+            setExpandRatio(attributesTable, 1);
+        }
+
+        @Override
+        public void callback(ButtonType type, Table outer) {
+            if (type == ButtonType.cancel) {
+                outer.discard();
+                controller.fireViewStateChanged(ViewState.LeafSelected, outer);
+            }
+            if (type == ButtonType.edit) {
+                controller.fireViewStateChanged(ViewState.Edit, outer);
+            }
+            if (type == ButtonType.save) {
+                if (outer.isValid()) {
+                    outer.commit();
+                    controller.fireViewStateChanged(ViewState.LeafSelected, outer);
+                } else {
+                    UIHelper.showValidationError("There are errors in this view. Please fix them first or cancel.");
+                }
+            }
+        }
+
+        private void addFooterHooks() {
+            footer.addSaveHook(this);
+            footer.addCancelHook(this);
+            footer.addEditHook(this);
+        }
+
+        @Override
+        public void setEnabled(boolean enabled) {
+            super.setEnabled(enabled);
+            footer.setVisible(enabled);
+        }
+
+        @Override
+        public void viewStateChanged(ViewStateChangedEvent event) {
+            switch (event.getNewState()) {
+            case Init:
+            case NonLeafSelected:
+            case Edit:
+                footer.setVisible(event.getSource() == attributesTable);
+                break;
+            case LeafSelected:
+                footer.setVisible(true);
+                break;
+            }
+            attributesTable.viewStateChanged(event);// forward
+        }
+
+        private void modelChanged(Mbean newModel) {
+            attributesTable.modelChanged(newModel); // forward
+        }
+    }
 }

@@ -60,13 +60,15 @@ public class MockLogAppenderTest {
     @Test
     public void testWarn() {
         LOG.warn("A warn message");
-        assertFalse("Messages were not logged with a warning level or higher", MockLogAppender.noWarningsOrHigherLogged());
+        assertFalse("Messages were not logged with a warning level or higher",
+                    MockLogAppender.noWarningsOrHigherLogged());
     }
 
     @Test
     public void testError() {
         LOG.error("An error message");
-        assertFalse("Messages were not logged with a warning level or higher", MockLogAppender.noWarningsOrHigherLogged());
+        assertFalse("Messages were not logged with a warning level or higher",
+                    MockLogAppender.noWarningsOrHigherLogged());
 
     }
 
@@ -79,7 +81,8 @@ public class MockLogAppenderTest {
     @Test
     public void testErrorWithException() {
         LOG.error("An error message with exception", new NullPointerException());
-        assertFalse("Messages were not logged with a warning level or higher", MockLogAppender.noWarningsOrHigherLogged());
+        assertFalse("Messages were not logged with a warning level or higher",
+                    MockLogAppender.noWarningsOrHigherLogged());
     }
 
     @Test
@@ -101,7 +104,8 @@ public class MockLogAppenderTest {
         LOG.info("An Info message");
         LOG.warn("A warn message");
 
-        assertFalse("Messages were not logged with a warning level or higher", MockLogAppender.noWarningsOrHigherLogged());
+        assertFalse("Messages were not logged with a warning level or higher",
+                    MockLogAppender.noWarningsOrHigherLogged());
 
         final LoggingEvent[] events = MockLogAppender.getEventsGreaterOrEqual(Level.WARN);
 

@@ -28,11 +28,12 @@
 
 package org.opennms.report.configuration.svclayer;
 
-
 import org.opennms.report.configuration.ConfigurationReportRunner;
 
 /**
- * <p>DefaultConfigurationReportService class.</p>
+ * <p>
+ * DefaultConfigurationReportService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,18 +43,27 @@ public class DefaultConfigurationReportService implements ConfigurationReportSer
     ConfigurationReportRunner m_reportRunner;
 
     /**
-     * <p>getReportRunner</p>
+     * <p>
+     * getReportRunner
+     * </p>
      *
-     * @return a {@link org.opennms.report.configuration.ConfigurationReportRunner} object.
+     * @return a
+     *         {@link org.opennms.report.configuration.ConfigurationReportRunner}
+     *         object.
      */
     public ConfigurationReportRunner getReportRunner() {
         return m_reportRunner;
     }
 
     /**
-     * <p>setReportRunner</p>
+     * <p>
+     * setReportRunner
+     * </p>
      *
-     * @param reportRunner a {@link org.opennms.report.configuration.ConfigurationReportRunner} object.
+     * @param reportRunner
+     *            a
+     *            {@link org.opennms.report.configuration.ConfigurationReportRunner}
+     *            object.
      */
     public void setReportRunner(ConfigurationReportRunner reportRunner) {
         m_reportRunner = reportRunner;
@@ -61,17 +71,17 @@ public class DefaultConfigurationReportService implements ConfigurationReportSer
 
     /** {@inheritDoc} */
     @Override
-    public boolean runReport(ConfigurationReportCriteria criteria){
+    public boolean runReport(ConfigurationReportCriteria criteria) {
 
-          m_reportRunner.setUser(criteria.getUser());
-          m_reportRunner.setTheDate(criteria.getTheDate());
-          m_reportRunner.setReportEmail(criteria.getReportEmail());
-          m_reportRunner.setReportFormat(criteria.getReportFormat());
-          m_reportRunner.setReportRequestDate(criteria.getReportRequestDate());
+        m_reportRunner.setUser(criteria.getUser());
+        m_reportRunner.setTheDate(criteria.getTheDate());
+        m_reportRunner.setReportEmail(criteria.getReportEmail());
+        m_reportRunner.setReportFormat(criteria.getReportFormat());
+        m_reportRunner.setReportRequestDate(criteria.getReportRequestDate());
 
-          new Thread(m_reportRunner, m_reportRunner.getClass().getSimpleName()).start();
+        new Thread(m_reportRunner, m_reportRunner.getClass().getSimpleName()).start();
 
-          return true;
+        return true;
     }
 
 }

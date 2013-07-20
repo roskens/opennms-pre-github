@@ -34,19 +34,19 @@
  ************************************************************************/
 
 /*
-* OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
-* DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
-*
-* This file was contributed to the OpenNMS(R) project under the
-* terms of the OpenNMS Contributor Agreement (OCA).  For details on
-* the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
-*
-* Contributed under the terms of the OCA by:
-*
-* Bobby Krupczak <rdk@krupczak.org>
-* THE KRUPCZAK ORGANIZATION, LLC
-* http://www.krupczak.org/
-*/
+ * OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
+ * DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
+ *
+ * This file was contributed to the OpenNMS(R) project under the
+ * terms of the OpenNMS Contributor Agreement (OCA).  For details on
+ * the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
+ *
+ * Contributed under the terms of the OCA by:
+ *
+ * Bobby Krupczak <rdk@krupczak.org>
+ * THE KRUPCZAK ORGANIZATION, LLC
+ * http://www.krupczak.org/
+ */
 
 /**
  *   OpenNMS XMP Collector class allows for the querying of XMP-enabled
@@ -91,28 +91,34 @@ import org.opennms.netmgt.protocols.xmp.config.XmpConfigFactory;
 import org.opennms.netmgt.protocols.xmp.config.XmpPeerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 public class XmpCollector implements ServiceCollector {
 
-	private static final Logger LOG = LoggerFactory.getLogger(XmpCollector.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(XmpCollector.class);
 
     /* class variables and methods *********************** */
     static final String SERVICE_NAME = "XMP";
 
     /* instance variables ******************************** */
     int xmpPort;
-    int timeout;  /* millseconds */
+
+    int timeout; /* millseconds */
+
     int retries;
+
     Set<CollectionAgent> setOfNodes;
+
     SocketOpts sockopts;
+
     String authenUser;
 
-    /* constructors  ************************************* */
+    /* constructors ************************************* */
     /**
-     * <p>Constructor for XmpCollector.</p>
+     * <p>
+     * Constructor for XmpCollector.
+     * </p>
      */
-    public XmpCollector()
-    {
+    public XmpCollector() {
         LOG.debug("XmpCollector created");
 
         // initialize collections and containers for storing
@@ -130,18 +136,12 @@ public class XmpCollector implements ServiceCollector {
 
     /* private methods *********************************** */
 
-
     // handle scalar query and put in a single collection resource
     // devoted to scalars; check sysUptime if its present
     // and indicate if data should be persisted
 
-    private boolean handleScalarQuery(String groupName,
-            XmpCollectionSet collectionSet,
-            long oldUptime,
-            XmpSession session,
-            XmpCollectionResource scalarResource,
-            XmpVar[] queryVars)
-    {
+    private boolean handleScalarQuery(String groupName, XmpCollectionSet collectionSet, long oldUptime,
+            XmpSession session, XmpCollectionResource scalarResource, XmpVar[] queryVars) {
         XmpMessage reply;
         AttributeGroupType agt;
         AttributeGroup ag;
@@ -151,16 +151,17 @@ public class XmpCollector implements ServiceCollector {
         XmpCollectionAttribute aVar;
         XmpCollectionAttributeType attribType;
 
-        //log().debug("sending scalar query");
+        // log().debug("sending scalar query");
         reply = session.queryVars(queryVars);
 
         if (reply == null) {
-            LOG.warn("collect: query to {} failed, {}", collectionSet.getCollectionAgent(), Xmp.errorStatusToString(session.getErrorStatus()));
+            LOG.warn("collect: query to {} failed, {}", collectionSet.getCollectionAgent(),
+                     Xmp.errorStatusToString(session.getErrorStatus()));
             return false;
         }
 
-        agt = new AttributeGroupType(groupName,"ignore");
-        ag = new AttributeGroup(scalarResource,agt);
+        agt = new AttributeGroupType(groupName, "ignore");
+        ag = new AttributeGroup(scalarResource, agt);
 
         // for each variable in reply, store it in collectionSet
         // hack alert: somewhere in some query, we asked for
@@ -172,20 +173,16 @@ public class XmpCollector implements ServiceCollector {
 
         newUptime = 0;
 
-        for (i=0; i<vars.length; i++) {
+        for (i = 0; i < vars.length; i++) {
 
-            if (vars[i].getMibName().equals("core") &&
-                    vars[i].getObjName().equals("sysUpTime")) {
+            if (vars[i].getMibName().equals("core") && vars[i].getObjName().equals("sysUpTime")) {
                 newUptime = vars[i].getValueLong();
             }
 
             // put in collectionSet via this attribute group
 
-            attribType = new XmpCollectionAttributeType(vars[i],agt);
-            aVar = new XmpCollectionAttribute(scalarResource,
-                                              attribType,
-                                              vars[i].getObjName(),
-                                              vars[i]);
+            attribType = new XmpCollectionAttributeType(vars[i], agt);
+            aVar = new XmpCollectionAttribute(scalarResource, attribType, vars[i].getObjName(), vars[i]);
 
             ag.addAttribute(aVar);
         }
@@ -207,16 +204,11 @@ public class XmpCollector implements ServiceCollector {
 
     // handle a tabular query, save each row in its own
     // collection resource
-    private boolean handleTableQuery(String groupName,
-            String resourceType,
-            XmpCollectionSet collectionSet,
-            String[] tableInfo,
-            XmpSession session,
-            XmpVar[] queryVars)
-    {
-        int numColumns,numRows;
+    private boolean handleTableQuery(String groupName, String resourceType, XmpCollectionSet collectionSet,
+            String[] tableInfo, XmpSession session, XmpVar[] queryVars) {
+        int numColumns, numRows;
         XmpMessage reply;
-        int i,j;
+        int i, j;
         XmpVar[] vars;
         String targetInstance;
 
@@ -238,10 +230,11 @@ public class XmpCollector implements ServiceCollector {
 
         LOG.debug("sending table query {},{},{} target: {}", tableInfo[0], tableInfo[1], tableInfo[2], targetInstance);
 
-        reply = session.queryTableVars(tableInfo,0,queryVars);
+        reply = session.queryTableVars(tableInfo, 0, queryVars);
 
         if (reply == null) {
-            LOG.warn("collect: query to {} failed, {}", collectionSet.getCollectionAgent(), Xmp.errorStatusToString(session.getErrorStatus()));
+            LOG.warn("collect: query to {} failed, {}", collectionSet.getCollectionAgent(),
+                     Xmp.errorStatusToString(session.getErrorStatus()));
             return false;
         }
 
@@ -251,15 +244,15 @@ public class XmpCollector implements ServiceCollector {
         // many rows we have
 
         // for each row: create a CollectionResource of
-        //               appropriate type, instance, etc.
-        //               create AttributeGroup to put
-        //               the values in
+        // appropriate type, instance, etc.
+        // create AttributeGroup to put
+        // the values in
 
         numRows = vars.length / numColumns;
 
         LOG.info("query returned valid table data for {} numRows={} numColumns={}", groupName, numRows, numColumns);
 
-        for (i=0; i<numRows; i++) {
+        for (i = 0; i < numRows; i++) {
 
             XmpCollectionResource rowResource;
             AttributeGroup ag;
@@ -274,30 +267,29 @@ public class XmpCollector implements ServiceCollector {
             // we use that instance for specifying the RRD file
             // and collection resource
 
-            rowInstance = vars[i*numColumns].getKey();
+            rowInstance = vars[i * numColumns].getKey();
 
             // instead of using '*' for the nodeTypeName, use the
             // table name so that the proper rrd file is spec'd
 
             if (targetInstance != null)
-                rowResource = new XmpCollectionResource(collectionSet.getCollectionAgent(),resourceType, tableInfo[1],targetInstance);
+                rowResource = new XmpCollectionResource(collectionSet.getCollectionAgent(), resourceType, tableInfo[1],
+                                                        targetInstance);
             else
-                rowResource = new XmpCollectionResource(collectionSet.getCollectionAgent(),resourceType, tableInfo[1],rowInstance);
+                rowResource = new XmpCollectionResource(collectionSet.getCollectionAgent(), resourceType, tableInfo[1],
+                                                        rowInstance);
 
-            agt = new AttributeGroupType(groupName,"all");
-            ag = new AttributeGroup(rowResource,agt);
+            agt = new AttributeGroupType(groupName, "all");
+            ag = new AttributeGroup(rowResource, agt);
 
             LOG.debug("queryTable instance={}", rowInstance);
 
-            for (j=0; j<numColumns; j++) {
+            for (j = 0; j < numColumns; j++) {
 
-                XmpCollectionAttributeType attribType = new XmpCollectionAttributeType(vars[i*numColumns+j],agt);
+                XmpCollectionAttributeType attribType = new XmpCollectionAttributeType(vars[i * numColumns + j], agt);
 
-                XmpCollectionAttribute aVar =
-                    new XmpCollectionAttribute(rowResource,
-                                               attribType,
-                                               vars[i*numColumns+j].getObjName(),
-                                               vars[i*numColumns+j]);
+                XmpCollectionAttribute aVar = new XmpCollectionAttribute(rowResource, attribType, vars[i * numColumns
+                        + j].getObjName(), vars[i * numColumns + j]);
 
                 ag.addAttribute(aVar);
 
@@ -316,13 +308,10 @@ public class XmpCollector implements ServiceCollector {
     /* public methods ************************************ */
 
     /**
-     * {@inheritDoc}
-     *
-     * initialize our XmpCollector with global parameters *
+     * {@inheritDoc} initialize our XmpCollector with global parameters *
      */
     @Override
-    public void initialize(Map<String, String> parameters)
-    {
+    public void initialize(Map<String, String> parameters) {
         // parameters come from collectd-configuration.xml
         // and they are the service parameters specified in xml
         // with keyname and value
@@ -362,8 +351,9 @@ public class XmpCollector implements ServiceCollector {
         File f = new File(XmpCollectionFactory.getInstance().getRrdPath());
         if (!f.isDirectory()) {
             if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file " + "repository.  Path doesn't already exist and could not make directory: " +
-                                           XmpCollectionFactory.getInstance().getRrdPath());
+                throw new RuntimeException("Unable to create RRD file "
+                        + "repository.  Path doesn't already exist and could not make directory: "
+                        + XmpCollectionFactory.getInstance().getRrdPath());
             }
         }
 
@@ -389,14 +379,12 @@ public class XmpCollector implements ServiceCollector {
     } /* initialize() */
 
     /**
-     * {@inheritDoc}
-     *
-     * initialize the querying of a particular agent/interface with
+     * {@inheritDoc} initialize the querying of a particular agent/interface
+     * with
      * parameters specific to this agent/interface *
      */
     @Override
-    public void initialize(CollectionAgent agent, Map<String, Object> parameters)
-    {
+    public void initialize(CollectionAgent agent, Map<String, Object> parameters) {
         LOG.debug("initialize agent/params called for {}", agent);
 
         // add an agent to our set to query
@@ -409,17 +397,15 @@ public class XmpCollector implements ServiceCollector {
         // superset of parameters passed in main initialize
         // ignore for now; other parameters like collection name
 
-
         return;
     }
 
     /**
      * Release/stop all querying of agents/interfaces and release
-     *       state associated with them *
+     * state associated with them *
      */
     @Override
-    public void release()
-    {
+    public void release() {
         LOG.info("release()");
 
         // orphan existing set thus making them available
@@ -430,14 +416,11 @@ public class XmpCollector implements ServiceCollector {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Release/stop querying a particular agent *
+     * {@inheritDoc} Release/stop querying a particular agent *
      */
     @Override
-    public void release(CollectionAgent agent)
-    {
-        LOG.info("release agent called for {}",agent);
+    public void release(CollectionAgent agent) {
+        LOG.info("release agent called for {}", agent);
 
         // remove agent from set; ignore return value
         setOfNodes.remove(agent);
@@ -450,23 +433,22 @@ public class XmpCollector implements ServiceCollector {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String serviceName() { return SERVICE_NAME; }
+    public String serviceName() {
+        return SERVICE_NAME;
+    }
 
     /**
-     * {@inheritDoc}
-     *
-     * Collect data, via XMP, from a particular agent EventProxy is
-     *       used to send opennms events into the system in case a
-     *       collection fails or if a system is back working again after a
-     *       failure (suceed event).  But otherwise, no events sent if
-     *       collection succeeds.  Collect is called once per agent per
-     *       collection cycle.  Parameters are a map of String Key/String
-     *       Value passed in.  Keys come from collectd config
+     * {@inheritDoc} Collect data, via XMP, from a particular agent EventProxy
+     * is
+     * used to send opennms events into the system in case a
+     * collection fails or if a system is back working again after a
+     * failure (suceed event). But otherwise, no events sent if
+     * collection succeeds. Collect is called once per agent per
+     * collection cycle. Parameters are a map of String Key/String
+     * Value passed in. Keys come from collectd config
      */
     @Override
-    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy,
-            Map<String, Object> parameters)
-    {
+    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) {
         XmpCollectionSet collectionSet;
         XmpSession session;
         long oldUptime;
@@ -474,14 +456,14 @@ public class XmpCollector implements ServiceCollector {
         XmpCollection collection;
         XmpCollectionResource scalarResource;
 
-        LOG.debug("collect agent {}",agent);
+        LOG.debug("collect agent {}", agent);
 
         oldUptime = 0;
 
         // First go to the peer factory
         XmpAgentConfig peerConfig = XmpPeerFactory.getInstance().getAgentConfig(agent.getInetAddress());
         authenUser = peerConfig.getAuthenUser();
-        timeout = (int)peerConfig.getTimeout();
+        timeout = (int) peerConfig.getTimeout();
         retries = peerConfig.getRetry();
         xmpPort = peerConfig.getPort();
 
@@ -498,14 +480,14 @@ public class XmpCollector implements ServiceCollector {
         parameters.get("collection");
 
         if (parameters.get("port") != null) {
-            xmpPort = Integer.valueOf((String)parameters.get("port"));
+            xmpPort = Integer.valueOf((String) parameters.get("port"));
         }
 
-        //log().debug("collect got parameters for "+agent);
+        // log().debug("collect got parameters for "+agent);
 
         String collectionName = ParameterMap.getKeyedString(parameters, "collection", null);
 
-        //log().debug("XMP collection name "+collectionName);
+        // log().debug("XMP collection name "+collectionName);
 
         // collectionName tells us what set of data to get
         // this would/will come from xmp-datacollection.xml
@@ -515,7 +497,7 @@ public class XmpCollector implements ServiceCollector {
             return null;
         }
 
-        //log().debug("collect got collectionName for "+agent);
+        // log().debug("collect got collectionName for "+agent);
         LOG.debug("XmpCollector: collect {} from {}", collectionName, agent);
 
         // get/create our collections set
@@ -525,7 +507,7 @@ public class XmpCollector implements ServiceCollector {
         collectionSet.ignorePersistTrue(); // default not to persist
 
         // default collection resource for putting scalars in
-        scalarResource = new XmpCollectionResource(agent,null,"node",null);
+        scalarResource = new XmpCollectionResource(agent, null, "node", null);
         collectionSet.addResource(scalarResource);
 
         // get the collection, again, from the data config file factory
@@ -548,7 +530,7 @@ public class XmpCollector implements ServiceCollector {
         // Set the SO_TIMEOUT, why don't we...
         sockopts.setConnectTimeout(timeout);
 
-        session = new XmpSession(sockopts, agent.getInetAddress(), xmpPort,authenUser);
+        session = new XmpSession(sockopts, agent.getInetAddress(), xmpPort, authenUser);
 
         if (session.isClosed()) {
             LOG.warn("collect unable to open XMP session with {}", agent);
@@ -570,18 +552,14 @@ public class XmpCollector implements ServiceCollector {
             LOG.debug("collecting XMP group {} with {} mib objects", groupName, mibObjects.length);
 
             // prepare the query vars
-            for (i=0 ; i< mibObjects.length; i++) {
+            for (i = 0; i < mibObjects.length; i++) {
 
-                vars[i] = new XmpVar(mibObjects[i].getMib(),
-                                     mibObjects[i].getVar(),
-                                     mibObjects[i].getInstance(),
-                                     "",
+                vars[i] = new XmpVar(mibObjects[i].getMib(), mibObjects[i].getVar(), mibObjects[i].getInstance(), "",
                                      Xmp.SYNTAX_NULLSYNTAX);
 
             } /* for each MIB object in a particular group */
 
-            if ((mibObjects[0].getTable() != null) &&
-                    (mibObjects[0].getTable().length() != 0)) {
+            if ((mibObjects[0].getTable() != null) && (mibObjects[0].getTable().length() != 0)) {
 
                 String[] tableInfo = new String[3];
                 tableInfo[0] = mibObjects[0].getMib();
@@ -589,24 +567,13 @@ public class XmpCollector implements ServiceCollector {
                 tableInfo[2] = mibObjects[0].getInstance();
 
                 // tabular query
-                if (handleTableQuery(group.getName(),
-                                     group.getResourceType(),
-                                     collectionSet,
-                                     tableInfo,
-                                     session,
-                                     vars) == false) {
+                if (handleTableQuery(group.getName(), group.getResourceType(), collectionSet, tableInfo, session, vars) == false) {
                     session.closeSession();
                     return collectionSet;
                 }
-            }
-            else {
+            } else {
                 // scalar query
-                if (handleScalarQuery(group.getName(),
-                                      collectionSet,
-                                      oldUptime,
-                                      session,
-                                      scalarResource,
-                                      vars) == false) {
+                if (handleScalarQuery(group.getName(), collectionSet, oldUptime, session, scalarResource, vars) == false) {
                     session.closeSession();
                     return collectionSet;
                 }
@@ -617,7 +584,7 @@ public class XmpCollector implements ServiceCollector {
         // done talking to this agent; close session
         session.closeSession();
 
-        // Did agent restart since last query?  If so, set
+        // Did agent restart since last query? If so, set
         // ignorePersist to true; our scalar
         // query will have handled this by searching returned
         // MIB objects for sysUpTime
@@ -634,8 +601,7 @@ public class XmpCollector implements ServiceCollector {
 
     /** {@inheritDoc} */
     @Override
-    public RrdRepository getRrdRepository(String collectionName)
-    {
+    public RrdRepository getRrdRepository(String collectionName) {
         LOG.debug("XMP getRrdRepository called for {}", collectionName);
 
         // return the Rrd that I initialized but

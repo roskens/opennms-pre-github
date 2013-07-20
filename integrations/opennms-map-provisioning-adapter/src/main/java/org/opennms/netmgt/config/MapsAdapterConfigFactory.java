@@ -43,7 +43,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>MapsAdapterConfigFactory class.</p>
+ * <p>
+ * MapsAdapterConfigFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -66,7 +68,6 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      */
     private long m_currentVersion = -1L;
 
-
     /**
      * constructor constructor
      *
@@ -76,19 +77,26 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @param currentVersion a long.
-     * @param reader a {@link java.io.InputStream} object.
-     * @param localServer a {@link java.lang.String} object.
-     * @param verifyServer a boolean.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param currentVersion
+     *            a long.
+     * @param reader
+     *            a {@link java.io.InputStream} object.
+     * @param localServer
+     *            a {@link java.lang.String} object.
+     * @param verifyServer
+     *            a boolean.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public MapsAdapterConfigFactory(long currentVersion, InputStream reader, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
+    public MapsAdapterConfigFactory(long currentVersion, InputStream reader, String localServer, boolean verifyServer)
+            throws MarshalException, ValidationException, IOException {
         super(reader, localServer, verifyServer);
         m_currentVersion = currentVersion;
     }
-
 
     /**
      * Load the config from the default config file and create the singleton
@@ -100,9 +108,12 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -118,7 +129,9 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
         LOG.debug("init: config file path: {}", cfgFile.getPath());
 
         InputStream reader = new FileInputStream(cfgFile);
-        MapsAdapterConfigFactory config = new MapsAdapterConfigFactory(cfgFile.lastModified(), reader,onmsSvrConfig.getServerName(),onmsSvrConfig.verifyServer());
+        MapsAdapterConfigFactory config = new MapsAdapterConfigFactory(cfgFile.lastModified(), reader,
+                                                                       onmsSvrConfig.getServerName(),
+                                                                       onmsSvrConfig.verifyServer());
         reader.close();
         setInstance(config);
 
@@ -133,9 +146,12 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         init();
@@ -162,10 +178,14 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
     }
 
     /**
-     * <p>saveXml</p>
+     * <p>
+     * saveXml
+     * </p>
      *
-     * @param xml a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param xml
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
@@ -186,11 +206,16 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {

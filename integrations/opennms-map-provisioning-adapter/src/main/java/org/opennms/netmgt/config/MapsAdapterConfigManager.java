@@ -63,7 +63,9 @@ import org.opennms.netmgt.config.map.adapter.Package;
 import org.opennms.netmgt.filter.FilterDaoFactory;
 
 /**
- * <p>Abstract MapsAdapterConfigManager class.</p>
+ * <p>
+ * Abstract MapsAdapterConfigManager class.
+ * </p>
  *
  * @author <a href="mailto:antonio@openms.it">Antonio Russo</a>
  * @author <a href="mailto:brozow@openms.org">Mathew Brozowski</a>
@@ -71,22 +73,34 @@ import org.opennms.netmgt.filter.FilterDaoFactory;
  */
 abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     private static final Logger LOG = LoggerFactory.getLogger(MapsAdapterConfigManager.class);
+
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-   /**
-    * <p>Constructor for MapsAdapterConfigManager.</p>
-    *
-    * @author <a href="mailto:antonio@opennms.org">Antonio Russo</a>
-    * @param reader a {@link java.io.InputStream} object.
-    * @param verifyServer a boolean.
-    * @throws org.exolab.castor.xml.MarshalException if any.
-    * @throws org.exolab.castor.xml.ValidationException if any.
-    * @throws java.io.IOException if any.
-    * @param serverName a {@link java.lang.String} object.
-    */
-   public MapsAdapterConfigManager(final InputStream reader, final String serverName, final boolean verifyServer) throws MarshalException, ValidationException, IOException {
+    /**
+     * <p>
+     * Constructor for MapsAdapterConfigManager.
+     * </p>
+     *
+     * @author <a href="mailto:antonio@opennms.org">Antonio Russo</a>
+     * @param reader
+     *            a {@link java.io.InputStream} object.
+     * @param verifyServer
+     *            a boolean.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @param serverName
+     *            a {@link java.lang.String} object.
+     */
+    public MapsAdapterConfigManager(final InputStream reader, final String serverName, final boolean verifyServer)
+            throws MarshalException, ValidationException, IOException {
         m_localServer = serverName;
         m_verifyServer = verifyServer;
         reloadXML(reader);
@@ -95,7 +109,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     /**
      * The config class loaded from the config file
      */
-     private MapsAdapterConfiguration m_config;
+    private MapsAdapterConfiguration m_config;
 
     /**
      * A boolean flag to indicate If a filter rule against the local OpenNMS
@@ -123,38 +137,44 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     /**
      * A mapping of the configured sub-maps to a list of maps
      */
-    private Map<String,List<String>> m_submapNameMapNameMap;
-
+    private Map<String, List<String>> m_submapNameMapNameMap;
 
     /**
      * A mapping of the configured mapName to cmaps
      */
-    private Map<String,Cmap> m_mapNameCmapMap;
-
-
-     /**
-      * <p>Constructor for MapsAdapterConfigManager.</p>
-      */
-     public MapsAdapterConfigManager() {
-     }
-
-    @Override
-     public Lock getReadLock() {
-         return m_readLock;
-     }
-
-    @Override
-     public Lock getWriteLock() {
-         return m_writeLock;
-     }
+    private Map<String, Cmap> m_mapNameCmapMap;
 
     /**
-     * <p>reloadXML</p>
+     * <p>
+     * Constructor for MapsAdapterConfigManager.
+     * </p>
+     */
+    public MapsAdapterConfigManager() {
+    }
+
+    @Override
+    public Lock getReadLock() {
+        return m_readLock;
+    }
+
+    @Override
+    public Lock getWriteLock() {
+        return m_writeLock;
+    }
+
+    /**
+     * <p>
+     * reloadXML
+     * </p>
      *
-     * @param reader a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param reader
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected void reloadXML(final InputStream reader) throws MarshalException, ValidationException, IOException {
         getWriteLock().lock();
@@ -178,7 +198,6 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     /**
      * Go through the maps adapter configuration and build a mapping of each
      * configured map name to container cmap.
-     *
      */
 
     private void createmapNameCmapMap() {
@@ -191,11 +210,9 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         }
     }
 
-
     /**
      * Go through the maps adapter configuration and build a mapping of each
      * configured sub-map to container map.
-     *
      */
 
     private void createSubMapMapMap() {
@@ -210,15 +227,16 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
                     }
                     containermaps.add(cmap.getMapName());
                     m_submapNameMapNameMap.put(subMapName, containermaps);
-                    LOG.debug("createSubMapMapMap: added container map: {} to submap: {}", cmap.getMapName(), subMapName);
+                    LOG.debug("createSubMapMapMap: added container map: {} to submap: {}", cmap.getMapName(),
+                              subMapName);
                 }
             }
         }
     }
 
     /**
-      *  Verify that no loop are in maps definition
-    */
+     * Verify that no loop are in maps definition
+     */
 
     private void verifyMapConsistency() throws ValidationException {
         for (final String mapName : m_submapNameMapNameMap.keySet()) {
@@ -230,42 +248,47 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     }
 
     /**
-     *  Verify that all maps are well defined
-   */
+     * Verify that all maps are well defined
+     */
 
-   private void verifyMapHasLoop() throws ValidationException {
-       // TODO use the Floyd's Cycle-Finding Algorithm
-       /*
-        * String startnode;
-        * String slownode = startnode;
-        * String fastnode1 = startnode;
-        * String fastnode2 = startnode;
-        * while (slownode && fastnode1 = fastnode2.next && fastnode2 = fastnode1.next) {
-        *   if (slownode == fastnode1 || slownode == fastnode2) return true;
-        *   slownode.next;
+    private void verifyMapHasLoop() throws ValidationException {
+        // TODO use the Floyd's Cycle-Finding Algorithm
+        /*
+         * String startnode;
+         * String slownode = startnode;
+         * String fastnode1 = startnode;
+         * String fastnode2 = startnode;
+         * while (slownode && fastnode1 = fastnode2.next && fastnode2 =
+         * fastnode1.next) {
+         * if (slownode == fastnode1 || slownode == fastnode2) return true;
+         * slownode.next;
          * }
-        * return false;
-        */
-       /*       Iterator<String> ite = m_submapNameMapNameMap.keySet().iterator();
-       while (ite.hasNext()) {
-           // verify cmap exists!
-           String mapName = ite.next();
-           Iterator<String> sub_ite = m_submapNameMapNameMap.get(mapName).iterator();
-           while (sub_ite.hasNext()) {
-               String nextElementMap = sub_ite.next();
-           }
-       }
-       */
-   }
+         * return false;
+         */
+        /*
+         * Iterator<String> ite = m_submapNameMapNameMap.keySet().iterator();
+         * while (ite.hasNext()) {
+         * // verify cmap exists!
+         * String mapName = ite.next();
+         * Iterator<String> sub_ite =
+         * m_submapNameMapNameMap.get(mapName).iterator();
+         * while (sub_ite.hasNext()) {
+         * String nextElementMap = sub_ite.next();
+         * }
+         * }
+         */
+    }
 
     private boolean cmapExist(final String mapName) {
         if (hasCmaps()) {
             for (Cmap cmap : m_config.getCmaps().getCmapCollection()) {
-                if (cmap.getMapName().equals(mapName)) return true;
+                if (cmap.getMapName().equals(mapName))
+                    return true;
             }
         }
         return false;
     }
+
     /**
      * Go through the maps adapter configuration and build a mapping of each
      * configured URL to a list of IPs configured in that URL - done at init()
@@ -274,8 +297,8 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     private void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
 
-        for(final Package pkg : packages()) {
-            for(final String url : includeURLs(pkg)) {
+        for (final Package pkg : packages()) {
+            for (final String url : includeURLs(pkg)) {
                 final List<String> iplist = IpListFromUrl.parse(url);
                 if (iplist.size() > 0) {
                     m_urlIPMap.put(url, iplist);
@@ -295,9 +318,10 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         try {
             m_pkgIpMap = new HashMap<Package, List<InetAddress>>();
 
-            for(final Package pkg : packages()) {
+            for (final Package pkg : packages()) {
 
-                // Get a list of IP addresses per package against the filter rules from
+                // Get a list of IP addresses per package against the filter
+                // rules from
                 // database and populate the package, IP list map.
                 //
                 try {
@@ -308,7 +332,8 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
                         m_pkgIpMap.put(pkg, ipList);
                     }
                 } catch (final Throwable t) {
-                    LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"", pkg.getName(), pkg.getFilter().getContent(), t);
+                    LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"",
+                              pkg.getName(), pkg.getFilter().getContent(), t);
                 }
 
             }
@@ -336,7 +361,6 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
      * the passed package definition. If the interface belongs to the package
      * then a value of true is returned. If the interface does not belong to the
      * package a false value is returned.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -344,7 +368,6 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
      *            The interface to test against the package.
      * @param pkg
      *            The package to check for the inclusion of the interface.
-     *
      * @return True if the interface is included in the package, false
      *         otherwise.
      */
@@ -357,7 +380,8 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
             filterPassed = ipList.contains(addr(iface));
         }
 
-        LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", iface, pkg.getName(), String.valueOf(filterPassed));
+        LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", iface, pkg.getName(),
+                  String.valueOf(filterPassed));
 
         if (!filterPassed)
             return false;
@@ -431,7 +455,6 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
      *            The interface to test against the package's URL
      * @param url
      *            The URL file to read
-     *
      * @return True if the interface is included in the URL, false otherwise.
      */
     private boolean interfaceInUrl(final String addr, final String url) {
@@ -448,7 +471,6 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
 
     /**
      * Returns a list of package names that the ip belongs to, null if none.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -462,7 +484,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         try {
             final List<String> matchingPkgs = new ArrayList<String>();
 
-            for(final Package pkg : packages()) {
+            for (final Package pkg : packages()) {
                 final boolean inPkg = interfaceInPackage(ipaddr, pkg);
                 if (inPkg) {
                     matchingPkgs.add(pkg.getName());
@@ -474,10 +496,10 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         }
     }
 
-
-
     /**
-     * <p>packages</p>
+     * <p>
+     * packages
+     * </p>
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -491,9 +513,13 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     }
 
     /**
-     * <p>includeURLs</p>
+     * <p>
+     * includeURLs
+     * </p>
      *
-     * @param pkg a {@link org.opennms.netmgt.config.map.adapter.Package} object.
+     * @param pkg
+     *            a {@link org.opennms.netmgt.config.map.adapter.Package}
+     *            object.
      * @return a {@link java.lang.Iterable} object.
      */
     public Iterable<String> includeURLs(final Package pkg) {
@@ -508,7 +534,9 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     /**
      * Return the poller configuration object.
      *
-     * @return a {@link org.opennms.netmgt.config.map.adapter.MapsAdapterConfiguration} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.map.adapter.MapsAdapterConfiguration}
+     *         object.
      */
     public MapsAdapterConfiguration getConfiguration() {
         getReadLock().lock();
@@ -519,10 +547,12 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         }
     }
 
-// methods from interface
+    // methods from interface
 
     /**
-     * <p>getAllMaps</p>
+     * <p>
+     * getAllMaps
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -544,7 +574,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     public Map<String, Celement> getElementByAddress(final String ipaddr) {
         getReadLock().lock();
         try {
-            final Map<String,Celement> mapAndElements = new HashMap<String, Celement>();
+            final Map<String, Celement> mapAndElements = new HashMap<String, Celement>();
             if (hasCmaps()) {
                 final List<String> pkgs = getAllPackageMatches(ipaddr);
                 for (final Cmap cmap : getConfiguration().getCmaps().getCmapCollection()) {
@@ -560,7 +590,8 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
                                 break;
                             }
                         }
-                        if (found) break;
+                        if (found)
+                            break;
                     }
                 }
             }
@@ -577,7 +608,8 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         try {
             if (hasCmaps()) {
                 for (final Cmap cmap : getConfiguration().getCmaps().getCmapCollection()) {
-                    if (cmap.getMapName().equals(mapName)) return cmap.getCsubmapCollection();
+                    if (cmap.getMapName().equals(mapName))
+                        return cmap.getCsubmapCollection();
                 }
             }
             return Collections.emptyList();
@@ -587,7 +619,9 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     }
 
     /**
-     * <p>getMapElementDimension</p>
+     * <p>
+     * getMapElementDimension
+     * </p>
      *
      * @return a int.
      */
@@ -603,16 +637,16 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
 
     /** {@inheritDoc} */
     @Override
-    public Map<String,Csubmap> getContainerMaps(final String submapName) {
+    public Map<String, Csubmap> getContainerMaps(final String submapName) {
         getReadLock().lock();
         try {
-            final Map<String,Csubmap> cmaps = new HashMap<String, Csubmap>();
+            final Map<String, Csubmap> cmaps = new HashMap<String, Csubmap>();
             if (m_submapNameMapNameMap.containsKey(submapName)) {
                 for (final String mapName : m_submapNameMapNameMap.get(submapName)) {
                     final Cmap cmap = m_mapNameCmapMap.get(mapName);
                     for (final Csubmap csubmap : cmap.getCsubmapCollection()) {
                         if (csubmap.getName().equals(submapName)) {
-                            cmaps.put(mapName,csubmap);
+                            cmaps.put(mapName, csubmap);
                             break;
                         }
                     }
@@ -625,7 +659,9 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     }
 
     /**
-     * <p>getsubMaps</p>
+     * <p>
+     * getsubMaps
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -633,7 +669,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     public Map<String, List<Csubmap>> getsubMaps() {
         getReadLock().lock();
         try {
-            final Map<String,List<Csubmap>> csubmaps = new HashMap<String, List<Csubmap>>();
+            final Map<String, List<Csubmap>> csubmaps = new HashMap<String, List<Csubmap>>();
             if (hasCmaps()) {
                 for (final Cmap cmap : getConfiguration().getCmaps().getCmapCollection()) {
                     if (cmap.getCsubmapCount() > 0) {
@@ -648,15 +684,17 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     }
 
     /**
-     * <p>getCelements</p>
+     * <p>
+     * getCelements
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     @Override
-    public Map<String,List<Celement>> getCelements() {
+    public Map<String, List<Celement>> getCelements() {
         getReadLock().lock();
         try {
-            final Map<String,List<Celement>> celements = new HashMap<String, List<Celement>>();
+            final Map<String, List<Celement>> celements = new HashMap<String, List<Celement>>();
             if (hasCmaps()) {
                 for (final Cmap cmap : getConfiguration().getCmaps().getCmapCollection()) {
                     if (cmap.getCelementCount() > 0) {

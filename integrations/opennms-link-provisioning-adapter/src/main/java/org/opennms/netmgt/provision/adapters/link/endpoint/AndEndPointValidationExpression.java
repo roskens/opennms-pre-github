@@ -45,21 +45,28 @@ import org.opennms.netmgt.provision.adapters.link.EndPoint;
 import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 import org.opennms.netmgt.provision.adapters.link.EndPointValidationExpression;
 
-@XmlRootElement(name="and")
+@XmlRootElement(name = "and")
 public class AndEndPointValidationExpression extends EndPointValidationExpressionImpl {
     @XmlElementRef
     private List<EndPointValidationExpressionImpl> m_validators = Collections.synchronizedList(new ArrayList<EndPointValidationExpressionImpl>());
 
     /**
-     * <p>Constructor for AndEndPointValidationExpression.</p>
+     * <p>
+     * Constructor for AndEndPointValidationExpression.
+     * </p>
      */
     public AndEndPointValidationExpression() {
     }
 
     /**
-     * <p>Constructor for AndEndPointValidationExpression.</p>
+     * <p>
+     * Constructor for AndEndPointValidationExpression.
+     * </p>
      *
-     * @param validators an array of {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl} objects.
+     * @param validators
+     *            an array of
+     *            {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
+     *            objects.
      */
     public AndEndPointValidationExpression(EndPointValidationExpressionImpl[] validators) {
         for (EndPointValidationExpressionImpl e : validators) {
@@ -70,13 +77,15 @@ public class AndEndPointValidationExpression extends EndPointValidationExpressio
     /** {@inheritDoc} */
     @Override
     public void validate(EndPoint endPoint) throws EndPointStatusException {
-        for(EndPointValidationExpression validator : m_validators) {
+        for (EndPointValidationExpression validator : m_validators) {
             validator.validate(endPoint);
         }
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,8 +94,8 @@ public class AndEndPointValidationExpression extends EndPointValidationExpressio
         StringBuffer sb = new StringBuffer();
         sb.append("and(");
         boolean first = true;
-        for(EndPointValidationExpression validator : m_validators) {
-            if(first) {
+        for (EndPointValidationExpression validator : m_validators) {
+            if (first) {
                 first = false;
             } else {
                 sb.append(", ");

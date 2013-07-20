@@ -56,7 +56,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
- * <p>DefaultForeignSourceService class.</p>
+ * <p>
+ * DefaultForeignSourceService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -76,8 +78,10 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
     @Qualifier("pending")
     private ForeignSourceRepository m_pendingForeignSourceRepository;
 
-    private static Map<String,String> m_detectors;
-    private static Map<String,String> m_policies;
+    private static Map<String, String> m_detectors;
+
+    private static Map<String, String> m_policies;
+
     private static Map<String, PluginWrapper> m_wrappers;
 
     @Override
@@ -90,6 +94,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
     public void setDeployedForeignSourceRepository(ForeignSourceRepository repo) {
         m_deployedForeignSourceRepository = repo;
     }
+
     /** {@inheritDoc} */
     @Override
     public void setPendingForeignSourceRepository(ForeignSourceRepository repo) {
@@ -97,7 +102,9 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
     }
 
     /**
-     * <p>getAllForeignSources</p>
+     * <p>
+     * getAllForeignSources
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -130,6 +137,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         m_pendingForeignSourceRepository.save(fs);
         return fs;
     }
+
     /** {@inheritDoc} */
     @Override
     public void deleteForeignSource(String name) {
@@ -142,6 +150,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
             m_deployedForeignSourceRepository.delete(fs);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ForeignSource cloneForeignSource(String name, String target) {
@@ -165,9 +174,9 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         } catch (NoSuchMethodException e) {
             throw new IllegalArgumentException("Unable to call addParameter on object of type " + obj.getClass(), e);
         } catch (IllegalAccessException e) {
-            throw new IllegalArgumentException("unable to access property "+pathToAdd, e);
+            throw new IllegalArgumentException("unable to access property " + pathToAdd, e);
         } catch (InvocationTargetException e) {
-            throw new IllegalArgumentException("an execption occurred adding a parameter to "+pathToAdd, e);
+            throw new IllegalArgumentException("an execption occurred adding a parameter to " + pathToAdd, e);
         }
 
         m_pendingForeignSourceRepository.save(fs);
@@ -184,23 +193,23 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         Object parentObject = path.getParent() == null ? fs : path.getParent().getValue(fs);
 
         String propName = path.getPropertyName();
-        String methodSuffix = Character.toUpperCase(propName.charAt(0))+propName.substring(1);
-        String methodName = "delete"+methodSuffix;
+        String methodSuffix = Character.toUpperCase(propName.charAt(0)) + propName.substring(1);
+        String methodName = "delete" + methodSuffix;
 
         try {
             MethodUtils.invokeMethod(parentObject, methodName, new Object[] { objToDelete });
         } catch (NoSuchMethodException e) {
-            throw new IllegalArgumentException("Unable to find method "+methodName+" on object of type "+parentObject.getClass()+" with argument " + objToDelete, e);
+            throw new IllegalArgumentException("Unable to find method " + methodName + " on object of type "
+                    + parentObject.getClass() + " with argument " + objToDelete, e);
         } catch (IllegalAccessException e) {
-            throw new IllegalArgumentException("unable to access property "+pathToDelete, e);
+            throw new IllegalArgumentException("unable to access property " + pathToDelete, e);
         } catch (InvocationTargetException e) {
-            throw new IllegalArgumentException("an execption occurred deleting "+pathToDelete, e);
+            throw new IllegalArgumentException("an execption occurred deleting " + pathToDelete, e);
         }
 
         m_pendingForeignSourceRepository.save(fs);
         return fs;
     }
-
 
     /** {@inheritDoc} */
     @Override
@@ -211,12 +220,13 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         m_pendingForeignSourceRepository.save(fs);
         return fs;
     }
+
     /** {@inheritDoc} */
     @Override
     public ForeignSource deleteDetector(String foreignSource, String name) {
         ForeignSource fs = getForeignSource(foreignSource);
         List<PluginConfig> detectors = fs.getDetectors();
-        for (Iterator<PluginConfig> i = detectors.iterator(); i.hasNext(); ) {
+        for (Iterator<PluginConfig> i = detectors.iterator(); i.hasNext();) {
             PluginConfig pc = i.next();
             if (pc.getName().equals(name)) {
                 i.remove();
@@ -236,12 +246,13 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         m_pendingForeignSourceRepository.save(fs);
         return fs;
     }
+
     /** {@inheritDoc} */
     @Override
     public ForeignSource deletePolicy(String foreignSource, String name) {
         ForeignSource fs = getForeignSource(foreignSource);
         List<PluginConfig> policies = fs.getPolicies();
-        for (Iterator<PluginConfig> i = policies.iterator(); i.hasNext(); ) {
+        for (Iterator<PluginConfig> i = policies.iterator(); i.hasNext();) {
             PluginConfig pc = i.next();
             if (pc.getName().equals(name)) {
                 i.remove();
@@ -253,14 +264,16 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
     }
 
     /**
-     * <p>getDetectorTypes</p>
+     * <p>
+     * getDetectorTypes
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     @Override
     public Map<String, String> getDetectorTypes() {
         if (m_detectors == null) {
-            Map<String,String> detectors = new TreeMap<String,String>();
+            Map<String, String> detectors = new TreeMap<String, String>();
             for (ServiceDetector d : m_serviceRegistry.findProviders(ServiceDetector.class)) {
                 String serviceName = d.getServiceName();
                 if (serviceName == null) {
@@ -269,23 +282,26 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
                 detectors.put(serviceName, d.getClass().getName());
             }
 
-            m_detectors = new LinkedHashMap<String,String>();
-            for (Entry<String,String> e : detectors.entrySet()) {
+            m_detectors = new LinkedHashMap<String, String>();
+            for (Entry<String, String> e : detectors.entrySet()) {
                 m_detectors.put(e.getValue(), e.getKey());
             }
         }
 
         return m_detectors;
     }
+
     /**
-     * <p>getPolicyTypes</p>
+     * <p>
+     * getPolicyTypes
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     @Override
     public Map<String, String> getPolicyTypes() {
         if (m_policies == null) {
-            Map<String,String> policies = new TreeMap<String,String>();
+            Map<String, String> policies = new TreeMap<String, String>();
             for (OnmsPolicy p : m_serviceRegistry.findProviders(OnmsPolicy.class)) {
                 String policyName = p.getClass().getSimpleName();
                 if (p.getClass().isAnnotationPresent(Policy.class)) {
@@ -297,8 +313,8 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
                 policies.put(policyName, p.getClass().getName());
             }
 
-            m_policies = new LinkedHashMap<String,String>();
-            for (Entry<String,String> e : policies.entrySet()) {
+            m_policies = new LinkedHashMap<String, String>();
+            for (Entry<String, String> e : policies.entrySet()) {
                 m_policies.put(e.getValue(), e.getKey());
             }
         }
@@ -307,14 +323,16 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
     }
 
     /**
-     * <p>getWrappers</p>
+     * <p>
+     * getWrappers
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     @Override
-    public Map<String,PluginWrapper> getWrappers() {
+    public Map<String, PluginWrapper> getWrappers() {
         if (m_wrappers == null && m_policies != null && m_detectors != null) {
-            m_wrappers = new HashMap<String,PluginWrapper>(m_policies.size());
+            m_wrappers = new HashMap<String, PluginWrapper>(m_policies.size());
             for (String key : m_policies.keySet()) {
                 try {
                     PluginWrapper wrapper = new PluginWrapper(key);
@@ -348,8 +366,8 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         if (m_wrappers.containsKey(pc.getPluginClass())) {
             PluginWrapper w = m_wrappers.get(pc.getPluginClass());
             if (w != null) {
-                Map<String,String> parameters = pc.getParameterMap();
-                Map<String,Set<String>> required = w.getRequiredItems();
+                Map<String, String> parameters = pc.getParameterMap();
+                Map<String, Set<String>> required = w.getRequiredItems();
                 for (String key : required.keySet()) {
                     String value = "";
                     if (!parameters.containsKey(key)) {

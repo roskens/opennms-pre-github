@@ -28,7 +28,6 @@ public class ProfilerTest {
         Assert.assertFalse(profiler.timerMap.get("test").isStarted());
         Assert.assertEquals(2, profiler.timerMap.get("test").getCount());
 
-
         System.out.println(profiler.toString());
     }
 }

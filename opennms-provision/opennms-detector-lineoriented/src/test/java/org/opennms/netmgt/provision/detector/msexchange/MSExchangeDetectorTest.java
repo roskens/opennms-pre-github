@@ -48,7 +48,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class MSExchangeDetectorTest implements InitializingBean {
 
     private static String TEST_BANNER = "Microsoft Exchange";
@@ -57,8 +57,8 @@ public class MSExchangeDetectorTest implements InitializingBean {
     MSExchangeDetector m_detector;
 
     SimpleServer m_pop3Server;
-    SimpleServer m_imapServer;
 
+    SimpleServer m_imapServer;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -66,24 +66,23 @@ public class MSExchangeDetectorTest implements InitializingBean {
     }
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
-        m_pop3Server = new SimpleServer(){
+        m_pop3Server = new SimpleServer() {
 
             @Override
-            public void onInit(){
+            public void onInit() {
                 setBanner(TEST_BANNER);
             }
         };
         m_pop3Server.init();
         m_pop3Server.startServer();
 
-
-        m_imapServer = new SimpleServer(){
+        m_imapServer = new SimpleServer() {
 
             @Override
-            public void onInit(){
+            public void onInit() {
                 setBanner(TEST_BANNER);
             }
         };
@@ -93,49 +92,49 @@ public class MSExchangeDetectorTest implements InitializingBean {
     }
 
     @After
-    public void tearDown() throws IOException{
-        if(m_imapServer != null){
+    public void tearDown() throws IOException {
+        if (m_imapServer != null) {
             m_imapServer.stopServer();
             m_imapServer = null;
         }
 
-        if(m_pop3Server != null){
+        if (m_pop3Server != null) {
             m_pop3Server.stopServer();
             m_pop3Server = null;
         }
     }
 
-    @Test(timeout=90000)
-    public void testDetectorWired(){
+    @Test(timeout = 90000)
+    public void testDetectorWired() {
         assertNotNull(m_detector);
     }
 
-    @Test(timeout=90000)
-    public void testDetectorSuccess() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testDetectorSuccess() throws UnknownHostException {
         m_detector.setImapPort(m_imapServer.getLocalPort());
         m_detector.setPop3Port(m_pop3Server.getLocalPort());
         m_detector.onInit();
         assertTrue(m_detector.isServiceDetected(m_pop3Server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
-    public void testDetectorSuccessPop3FailImap() throws IOException{
+    @Test(timeout = 90000)
+    public void testDetectorSuccessPop3FailImap() throws IOException {
         m_imapServer.stopServer();
         m_detector.setPop3Port(m_pop3Server.getLocalPort());
         m_detector.onInit();
         assertTrue(m_detector.isServiceDetected(m_pop3Server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
-    public void testDetectorSuccessImapFailPop3() throws IOException{
+    @Test(timeout = 90000)
+    public void testDetectorSuccessImapFailPop3() throws IOException {
         m_pop3Server.stopServer();
         m_detector.setImapPort(m_imapServer.getLocalPort());
         m_detector.onInit();
         assertTrue(m_detector.isServiceDetected(m_pop3Server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
-    public void testDetectorFailWrongPort(){
+    @Test(timeout = 90000)
+    public void testDetectorFailWrongPort() {
         m_detector.setImapPort(9000);
         m_detector.setPop3Port(9001);
         m_detector.onInit();

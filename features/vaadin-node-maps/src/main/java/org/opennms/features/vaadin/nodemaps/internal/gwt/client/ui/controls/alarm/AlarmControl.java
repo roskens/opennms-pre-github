@@ -22,6 +22,7 @@ public class AlarmControl extends Control {
     Logger logger = Logger.getLogger(getClass().getName());
 
     private ListBox m_severityBox;
+
     private final SearchConsumer m_searchConsumer;
 
     private SearchEventCallback m_onChange;
@@ -65,7 +66,7 @@ public class AlarmControl extends Control {
             protected void onEvent(final NativeEvent event) {
                 final Widget widget = getWidget();
                 final SearchConsumer searchConsumer = getSearchConsumer();
-                final ListBox severityBox = (ListBox)widget;
+                final ListBox severityBox = (ListBox) widget;
                 final int selected = severityBox.getSelectedIndex();
                 logger.log(Level.INFO, "new selection index = " + selected);
                 final String value = severityBox.getValue(selected);
@@ -74,7 +75,8 @@ public class AlarmControl extends Control {
                     final int severity = Integer.valueOf(value).intValue();
                     searchConsumer.setMinimumSeverity(severity);
                     Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-                        @Override public void execute() {
+                        @Override
+                        public void execute() {
                             searchConsumer.refresh();
                             logger.log(Level.INFO, "successfully set new severity to " + severity);
                         }
@@ -94,21 +96,22 @@ public class AlarmControl extends Control {
     public void doOnRemove(final JavaScriptObject map) {
         logger.log(Level.INFO, "doOnRemove() called");
         DomEvent.removeListener(m_onChange);
-        if (m_searchConsumer != null) m_searchConsumer.clearSearch();
+        if (m_searchConsumer != null)
+            m_searchConsumer.clearSearch();
     }
 
     @Override
     public AlarmControl addTo(final Map map) {
-        return (AlarmControl)super.addTo(map);
+        return (AlarmControl) super.addTo(map);
     }
 
     @Override
     public AlarmControl setPosition(final String position) {
-        return (AlarmControl)super.setPosition(position);
+        return (AlarmControl) super.setPosition(position);
     }
 
     @Override
     public AlarmControl removeFrom(final Map map) {
-        return (AlarmControl)super.removeFrom(map);
+        return (AlarmControl) super.removeFrom(map);
     }
 }

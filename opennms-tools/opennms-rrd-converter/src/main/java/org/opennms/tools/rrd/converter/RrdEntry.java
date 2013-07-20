@@ -35,11 +35,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 class RrdEntry implements Cloneable {
     private TreeMap<String, Double> m_entryMap;
+
     private long m_timestamp;
+
     private List<String> m_dsNames;
 
     RrdEntry(final long timestamp, final List<String> dsNames) {
-        m_entryMap = new TreeMap<String,Double>();
+        m_entryMap = new TreeMap<String, Double>();
         m_timestamp = timestamp;
         m_dsNames = dsNames;
     }
@@ -90,9 +92,6 @@ class RrdEntry implements Cloneable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("timestamp", m_timestamp)
-            .append("entries", m_entryMap)
-            .toString();
+        return new ToStringBuilder(this).append("timestamp", m_timestamp).append("entries", m_entryMap).toString();
     }
 }

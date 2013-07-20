@@ -51,7 +51,6 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  * @author <a href="mailto:mike@opennms.org">Mike </a>
  * @author <a href="http://www.opennms.org">OpenNMS </a>
- *
  */
 final class IfSmbCollector implements Runnable {
 
@@ -108,7 +107,6 @@ final class IfSmbCollector implements Runnable {
      *
      * @param mac
      *            The 6 byte MAC address
-     *
      * @return The formatted MAC address.
      */
     private String toMacString(byte[] mac) {
@@ -127,7 +125,6 @@ final class IfSmbCollector implements Runnable {
      *
      * @param target
      *            The target IP address.
-     *
      */
     IfSmbCollector(InetAddress target) {
         m_target = target;
@@ -148,7 +145,6 @@ final class IfSmbCollector implements Runnable {
      *            The target IP address.
      * @param hasExchange
      *            Sets the presence or absence of an exchange server.
-     *
      */
     IfSmbCollector(InetAddress target, boolean hasExchange) {
         m_target = target;
@@ -235,7 +231,6 @@ final class IfSmbCollector implements Runnable {
      *
      * @param nbName
      *            NetBIOS name to check
-     *
      * @return true if string contains control chars, false otherwise.
      */
     boolean containsCtrlChars(String nbName) {
@@ -271,7 +266,8 @@ final class IfSmbCollector implements Runnable {
         }
 
         if (m_addr != null && containsCtrlChars(m_addr.getHostName())) {
-            LOG.warn("IfSmbCollector: Retrieved SMB name for address {} contains control chars: '{}', discarding.", InetAddressUtils.str(m_target), m_addr.getHostName());
+            LOG.warn("IfSmbCollector: Retrieved SMB name for address {} contains control chars: '{}', discarding.",
+                     InetAddressUtils.str(m_target), m_addr.getHostName());
             m_addr = null;
         }
 
@@ -287,7 +283,8 @@ final class IfSmbCollector implements Runnable {
                     m_mac = null;
                 }
             } catch (UnknownHostException e) {
-                LOG.debug("IfSmbCollector: failed to get MAC for {} due to address failure", InetAddressUtils.str(m_target), e);
+                LOG.debug("IfSmbCollector: failed to get MAC for {} due to address failure",
+                          InetAddressUtils.str(m_target), e);
             }
 
             // Domain name
@@ -299,7 +296,8 @@ final class IfSmbCollector implements Runnable {
                 m_domain = SmbUtils.getAuthenticationDomainName(m_allAddrs, m_addr.getHostName());
                 LOG.debug("IfSmbCollector: domain name: '{}'", m_domain);
             } catch (UnknownHostException e) {
-                LOG.debug("IfSmbCollector: failed to get all the addresses for the interface {}", InetAddressUtils.str(m_target), e);
+                LOG.debug("IfSmbCollector: failed to get all the addresses for the interface {}",
+                          InetAddressUtils.str(m_target), e);
             }
 
             // get the SMB authentication object
@@ -320,7 +318,8 @@ final class IfSmbCollector implements Runnable {
                 return;
 
             /*
-             * --------------------------------------------------------------------- /*
+             * ------------------------------------------------------------------
+             * --- /*
              * Commenting the share enumeration code out for now...saw a
              * scenario /* where a thread blocked indefinitely waiting for the
              * jCIFS code to /* return. Will be doing additional testing to try
@@ -341,9 +340,11 @@ final class IfSmbCollector implements Runnable {
                 LOG.debug("IfSmbCollector: shares list retrieved...");
 
             } catch (MalformedURLException e) {
-                LOG.debug("IfSmbCollector: failed to get SMB resource and OS name for host {}", InetAddressUtils.str(m_target), e);
+                LOG.debug("IfSmbCollector: failed to get SMB resource and OS name for host {}",
+                          InetAddressUtils.str(m_target), e);
             } catch (SmbAuthException e) {
-                LOG.debug("IfSmbCollector: unable to list SMB shares, authentication failed, reason: {}", e.getMessage());
+                LOG.debug("IfSmbCollector: unable to list SMB shares, authentication failed, reason: {}",
+                          e.getMessage());
             } catch (SmbException e) {
                 LOG.debug("IfSmbCollector: unable to list SMB shares, reason: {}", e.getMessage());
             }

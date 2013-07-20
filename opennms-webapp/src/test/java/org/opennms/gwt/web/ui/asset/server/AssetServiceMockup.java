@@ -41,214 +41,215 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *
  */
 public class AssetServiceMockup extends RemoteServiceServlet implements AssetService {
 
-	private static final long serialVersionUID = 386558445935186134L;
+    private static final long serialVersionUID = 386558445935186134L;
 
-	private AssetCommand asset = new AssetCommand();
-	private SimpleDateFormat onmsFormatter = new SimpleDateFormat("yyyy-MM-dd");
-	private AssetSuggCommand assetSugg = new AssetSuggCommand();
+    private AssetCommand asset = new AssetCommand();
 
-	public AssetServiceMockup() {
-		setData();
-	}
+    private SimpleDateFormat onmsFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-        @Override
+    private AssetSuggCommand assetSugg = new AssetSuggCommand();
+
+    public AssetServiceMockup() {
+        setData();
+    }
+
+    @Override
     public final AssetCommand getAssetByNodeId(final int nodeId) throws Exception {
-		if (nodeId == 666) {
-			throw new NullPointerException("just testing error-case: nodeid 666");
-		}
-		return asset;
-	}
+        if (nodeId == 666) {
+            throw new NullPointerException("just testing error-case: nodeid 666");
+        }
+        return asset;
+    }
 
-        @Override
+    @Override
     public final Boolean saveOrUpdateAssetByNodeId(final int nodeId, final AssetCommand asset) throws Exception {
-		if (nodeId == 999) {
-			throw new NullPointerException("just testing error-case: nodeid 999, you will not save!!");
-		}
-		this.asset = asset;
-		assetSugg.addCpu(asset.getCpu());
-		assetSugg.addAdditionalhardware(asset.getAdditionalhardware());
-		asset.setLastModifiedDate(new Date());
-		asset.setLastModifiedBy("admin");
-		return true;
-	}
+        if (nodeId == 999) {
+            throw new NullPointerException("just testing error-case: nodeid 999, you will not save!!");
+        }
+        this.asset = asset;
+        assetSugg.addCpu(asset.getCpu());
+        assetSugg.addAdditionalhardware(asset.getAdditionalhardware());
+        asset.setLastModifiedDate(new Date());
+        asset.setLastModifiedBy("admin");
+        return true;
+    }
 
-	public final AssetCommand setData() {
-		asset.setNodeId("23");
-		asset.setNodeLabel("Cronojon");
-		asset.setLoggedInUser("admin");
-		saveDataSNMP();
-		saveDataConfigCategories();
-		saveDataIdentification();
-		saveDataLocation();
-		saveDataVendor();
-		saveDataAuthentication();
-		saveDataHardware();
-		saveDataComments();
-		asset.setLastModifiedBy("admin");
-		asset.setLastModifiedDate(new Date());
-		return asset;
-	}
+    public final AssetCommand setData() {
+        asset.setNodeId("23");
+        asset.setNodeLabel("Cronojon");
+        asset.setLoggedInUser("admin");
+        saveDataSNMP();
+        saveDataConfigCategories();
+        saveDataIdentification();
+        saveDataLocation();
+        saveDataVendor();
+        saveDataAuthentication();
+        saveDataHardware();
+        saveDataComments();
+        asset.setLastModifiedBy("admin");
+        asset.setLastModifiedDate(new Date());
+        return asset;
+    }
 
-	private void saveDataSNMP() {
-		asset.setSnmpSysObjectId(".1.3.6.1.4.1.8072.3.2.10");
-		//asset.setSnmpSysObjectId("");
-		asset.setSnmpSysName("tak-ThinkPad-X200s");
-		asset.setSnmpSysLocation("Sitting on the Dock of the Bay");
-		asset.setSnmpSysContact("Me <me@example.org>");
-		asset.setSnmpSysDescription("Linux tak-ThinkPad-X200s 2.6.35-28-generic #50-Ubuntu SMP Fri Mar 18 18:42:20 UTC 2011 x86_64");
-	}
+    private void saveDataSNMP() {
+        asset.setSnmpSysObjectId(".1.3.6.1.4.1.8072.3.2.10");
+        // asset.setSnmpSysObjectId("");
+        asset.setSnmpSysName("tak-ThinkPad-X200s");
+        asset.setSnmpSysLocation("Sitting on the Dock of the Bay");
+        asset.setSnmpSysContact("Me <me@example.org>");
+        asset.setSnmpSysDescription("Linux tak-ThinkPad-X200s 2.6.35-28-generic #50-Ubuntu SMP Fri Mar 18 18:42:20 UTC 2011 x86_64");
+    }
 
-	private void saveDataConfigCategories() {
-		asset.setDisplayCategory("DisplayCategory");
-		asset.setNotifyCategory("NotifyCategory");
-		asset.setPollerCategory("PollerCategory");
-		asset.setThresholdCategory("ThresholdCategory");
-	}
+    private void saveDataConfigCategories() {
+        asset.setDisplayCategory("DisplayCategory");
+        asset.setNotifyCategory("NotifyCategory");
+        asset.setPollerCategory("PollerCategory");
+        asset.setThresholdCategory("ThresholdCategory");
+    }
 
-	private void saveDataIdentification() {
-		asset.setDescription("Description");
-		asset.setCategory("Category");
-		asset.setManufacturer("Manufacturer");
-		asset.setModelNumber("ModelNumber");
-		asset.setSerialNumber("SerialNumber");
-		asset.setAssetNumber("AssetNumber");
-		asset.setOperatingSystem("OperatingSystem");
-		Date installDate;
-		try {
-			installDate = onmsFormatter.parse("2000-12-27");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			installDate = new Date();
-		}
-		asset.setDateInstalled(onmsFormatter.format(installDate));
-	}
+    private void saveDataIdentification() {
+        asset.setDescription("Description");
+        asset.setCategory("Category");
+        asset.setManufacturer("Manufacturer");
+        asset.setModelNumber("ModelNumber");
+        asset.setSerialNumber("SerialNumber");
+        asset.setAssetNumber("AssetNumber");
+        asset.setOperatingSystem("OperatingSystem");
+        Date installDate;
+        try {
+            installDate = onmsFormatter.parse("2000-12-27");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            installDate = new Date();
+        }
+        asset.setDateInstalled(onmsFormatter.format(installDate));
+    }
 
-	private void saveDataLocation() {
-		asset.setRegion("Region");
-		asset.setDivision("Division");
-		asset.setDepartment("Department");
-		asset.setAddress1("Address1");
-		asset.setAddress2("Address2");
-		asset.setCity("City");
-		asset.setCountry("Country");
-		asset.setLongitude(0f);
-		asset.setLatitude(0f);
-		asset.setState("State");
-		asset.setZip("Zip");
-		asset.setBuilding("Building");
-		asset.setFloor("Floor");
-		asset.setRoom("Room");
-		asset.setRack("Rack");
-		asset.setSlot("Slot");
-		asset.setPort("Port");
-		asset.setCircuitId("CircuitId");
-	}
+    private void saveDataLocation() {
+        asset.setRegion("Region");
+        asset.setDivision("Division");
+        asset.setDepartment("Department");
+        asset.setAddress1("Address1");
+        asset.setAddress2("Address2");
+        asset.setCity("City");
+        asset.setCountry("Country");
+        asset.setLongitude(0f);
+        asset.setLatitude(0f);
+        asset.setState("State");
+        asset.setZip("Zip");
+        asset.setBuilding("Building");
+        asset.setFloor("Floor");
+        asset.setRoom("Room");
+        asset.setRack("Rack");
+        asset.setSlot("Slot");
+        asset.setPort("Port");
+        asset.setCircuitId("CircuitId");
+    }
 
-	private void saveDataVendor() {
-		asset.setVendor("Vendor");
-		asset.setVendorPhone("VendorPhone");
-		asset.setVendorFax("VendorFax");
-		asset.setLease("Lease");
-		// asset.setLeaseExpires(formatter.format(new Date()));
-		asset.setLeaseExpires("FooDate");
-		asset.setVendorAssetNumber("VendorAssetNumber");
-		asset.setMaintcontract("423423423_contract+Plus");
+    private void saveDataVendor() {
+        asset.setVendor("Vendor");
+        asset.setVendorPhone("VendorPhone");
+        asset.setVendorFax("VendorFax");
+        asset.setLease("Lease");
+        // asset.setLeaseExpires(formatter.format(new Date()));
+        asset.setLeaseExpires("FooDate");
+        asset.setVendorAssetNumber("VendorAssetNumber");
+        asset.setMaintcontract("423423423_contract+Plus");
 
-		Date maintConExp;
-		try {
-			maintConExp = onmsFormatter.parse("2000-12-27");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			maintConExp = new Date();
-		}
+        Date maintConExp;
+        try {
+            maintConExp = onmsFormatter.parse("2000-12-27");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            maintConExp = new Date();
+        }
 
-		asset.setMaintContractExpiration(onmsFormatter.format(maintConExp));
-		asset.setSupportPhone("SupportPhone");
-	}
+        asset.setMaintContractExpiration(onmsFormatter.format(maintConExp));
+        asset.setSupportPhone("SupportPhone");
+    }
 
-	private void saveDataAuthentication() {
-		asset.setUsername("Username");
-		asset.setPassword("Password");
-		asset.setEnable("Enable");
+    private void saveDataAuthentication() {
+        asset.setUsername("Username");
+        asset.setPassword("Password");
+        asset.setEnable("Enable");
 
-		asset.setConnection("");
-		ArrayList<String> connectionOptions = new ArrayList<String>();
-		connectionOptions.add("");
-		connectionOptions.add("telnet");
-		connectionOptions.add("ssh");
-		connectionOptions.add("rsh");
-		asset.setConnectionOptions(connectionOptions);
+        asset.setConnection("");
+        ArrayList<String> connectionOptions = new ArrayList<String>();
+        connectionOptions.add("");
+        connectionOptions.add("telnet");
+        connectionOptions.add("ssh");
+        connectionOptions.add("rsh");
+        asset.setConnectionOptions(connectionOptions);
 
-		asset.setAutoenable("");
-		ArrayList<String> autoenableOptions = new ArrayList<String>();
-		autoenableOptions.add("");
-		autoenableOptions.add("A");
-		asset.setAutoenableOptions(autoenableOptions);
+        asset.setAutoenable("");
+        ArrayList<String> autoenableOptions = new ArrayList<String>();
+        autoenableOptions.add("");
+        autoenableOptions.add("A");
+        asset.setAutoenableOptions(autoenableOptions);
 
-	}
+    }
 
-	private void saveDataHardware() {
-		asset.setCpu("Intel Centrino2");
-		asset.setRam("8GB DDR3");
-		asset.setStoragectrl("SATA");
-		asset.setAdditionalhardware("Rocket-Tower");
-		asset.setNumpowersupplies("1");
-		asset.setInputpower("2400 W");
+    private void saveDataHardware() {
+        asset.setCpu("Intel Centrino2");
+        asset.setRam("8GB DDR3");
+        asset.setStoragectrl("SATA");
+        asset.setAdditionalhardware("Rocket-Tower");
+        asset.setNumpowersupplies("1");
+        asset.setInputpower("2400 W");
 
-		asset.setHdd1("for Comics");
-		asset.setHdd2("for Musik");
-		asset.setHdd3("for Games");
-		asset.setHdd4("for Programs");
-		asset.setHdd5("for Chaos");
-		asset.setHdd6("for failing");
-	}
+        asset.setHdd1("for Comics");
+        asset.setHdd2("for Musik");
+        asset.setHdd3("for Games");
+        asset.setHdd4("for Programs");
+        asset.setHdd5("for Chaos");
+        asset.setHdd6("for failing");
+    }
 
-	private void saveDataComments() {
-		asset.setComment("Es soll manchen Dichter geben, der muss dichten, um zu leben.Ist das immer so? Mitnichten,manche leben um zu dichten.");
-	}
+    private void saveDataComments() {
+        asset.setComment("Es soll manchen Dichter geben, der muss dichten, um zu leben.Ist das immer so? Mitnichten,manche leben um zu dichten.");
+    }
 
-        @Override
+    @Override
     public final AssetSuggCommand getAssetSuggestions() throws Exception {
 
-		assetSugg.addDescription("001");
-		assetSugg.addDescription("001");
-		assetSugg.addDescription("002");
-		assetSugg.addDescription("003");
-		assetSugg.addDescription("004");
+        assetSugg.addDescription("001");
+        assetSugg.addDescription("001");
+        assetSugg.addDescription("002");
+        assetSugg.addDescription("003");
+        assetSugg.addDescription("004");
 
-		assetSugg.addCategory("allo");
-		assetSugg.addCategory("aallo");
-		assetSugg.addCategory("ballo");
-		assetSugg.addCategory("callo");
+        assetSugg.addCategory("allo");
+        assetSugg.addCategory("aallo");
+        assetSugg.addCategory("ballo");
+        assetSugg.addCategory("callo");
 
-		assetSugg.addCpu("AMD");
-		assetSugg.addCpu("ARM");
-		assetSugg.addCpu("INTEL");
-		assetSugg.addCpu("MOTOROLA");
+        assetSugg.addCpu("AMD");
+        assetSugg.addCpu("ARM");
+        assetSugg.addCpu("INTEL");
+        assetSugg.addCpu("MOTOROLA");
 
-		assetSugg.addAdditionalhardware("Laser-Canon");
-		assetSugg.addAdditionalhardware("Magic-Door");
-		assetSugg.addAdditionalhardware("Blackhole-Port");
+        assetSugg.addAdditionalhardware("Laser-Canon");
+        assetSugg.addAdditionalhardware("Magic-Door");
+        assetSugg.addAdditionalhardware("Blackhole-Port");
 
-		assetSugg.addAdmin("Super Mario");
-		assetSugg.addAdmin("Medium Mario");
-		assetSugg.addAdmin("Bad Mario");
-		assetSugg.addAdmin("Pure Mario");
+        assetSugg.addAdmin("Super Mario");
+        assetSugg.addAdmin("Medium Mario");
+        assetSugg.addAdmin("Bad Mario");
+        assetSugg.addAdmin("Pure Mario");
 
-		assetSugg.addManufacturer("Atari");
-		assetSugg.addManufacturer("Atari");
-		assetSugg.addManufacturer("Bell-Labs");
-		assetSugg.addManufacturer("Comodore");
-		assetSugg.addManufacturer("Dell");
+        assetSugg.addManufacturer("Atari");
+        assetSugg.addManufacturer("Atari");
+        assetSugg.addManufacturer("Bell-Labs");
+        assetSugg.addManufacturer("Comodore");
+        assetSugg.addManufacturer("Dell");
 
-		assetSugg.addSnmpcommunity("public");
-		assetSugg.addSnmpcommunity("not so public");
-		assetSugg.addSnmpcommunity("private");
+        assetSugg.addSnmpcommunity("public");
+        assetSugg.addSnmpcommunity("not so public");
+        assetSugg.addSnmpcommunity("private");
 
-		return assetSugg;
-	}
+        return assetSugg;
+    }
 }

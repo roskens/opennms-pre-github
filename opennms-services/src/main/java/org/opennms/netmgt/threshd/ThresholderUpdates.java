@@ -37,20 +37,17 @@ import java.util.Map;
  * with a SnmpThresholder object the updates represented by the class are to be
  * applied to the SnmpThresholder AFTER being popped from the interval queues
  * for scheduling but BEFORE the next collection takes place.
- *
  * This is necessary because it isn't possible to make modifications to the
  * SnmpThresholder objects at the time that a particular event is received by
  * the BroadcastEventProcessor class...the interface may in fact be in the
  * process of being checked. So we make "note" of the updates using this class
  * and wait for the thresholder object to be popped from the interval queues
  * before the updates are actually applied.
- *
  * The only "updates" currently handled by this class are new/modified
  * attributes, a flag indicating that the service has been marked for deletion,
  * a flag indicating the service has been marked for reparenting, a flag
  * indicating the service has been marked for reinitialization, and finally a
  * flag indicating that the SNMP service on the interface has a new status.
- *
  */
 final class ThresholderUpdates {
     /**
@@ -61,7 +58,7 @@ final class ThresholderUpdates {
     /**
      * Holds new/modified network interface attributes
      */
-    private Map<String,Object> m_properties;
+    private Map<String, Object> m_properties;
 
     /**
      * Set to true if the interface has been marked for deletion and should no

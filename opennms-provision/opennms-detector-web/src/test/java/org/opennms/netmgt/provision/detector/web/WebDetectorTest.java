@@ -52,15 +52,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * <p>JUnit Test class for WebDetector.</p>
- * <p>The WebDetector should work at least like the HttpDetector.</p>
- * <p>The JUnit tests are basically the same as the HttpDetector with some minor changes in order to let HttpClient works.</p>
+ * <p>
+ * JUnit Test class for WebDetector.
+ * </p>
+ * <p>
+ * The WebDetector should work at least like the HttpDetector.
+ * </p>
+ * <p>
+ * The JUnit tests are basically the same as the HttpDetector with some minor
+ * changes in order to let HttpClient works.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class WebDetectorTest implements InitializingBean {
 
     @Autowired
@@ -68,40 +75,21 @@ public class WebDetectorTest implements InitializingBean {
 
     private SimpleServer m_server;
 
-    private String headers = "HTTP/1.1 200 OK\r\n"
-        + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
-        + "Server: Apache/2.0.54\r\n"
-        + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
-        + "ETag: \"778216aa-2f-aa66cf80\"\r\n"
-        + "Accept-Ranges: bytes\r\n"
-        + "Vary: Accept-Encoding,User-Agent\r\n"
-        + "Connection: close\r\n"
-        + "Content-Type: text/html\r\n";
+    private String headers = "HTTP/1.1 200 OK\r\n" + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
+            + "Server: Apache/2.0.54\r\n" + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
+            + "ETag: \"778216aa-2f-aa66cf80\"\r\n" + "Accept-Ranges: bytes\r\n"
+            + "Vary: Accept-Encoding,User-Agent\r\n" + "Connection: close\r\n" + "Content-Type: text/html\r\n";
 
-    private String serverContent = "<html>\r\n"
-        + "<body>\r\n"
-        + "<!-- default -->\r\n"
-        + "</body>\r\n"
-        + "</html>\r\n";
+    private String serverContent = "<html>\r\n" + "<body>\r\n" + "<!-- default -->\r\n" + "</body>\r\n" + "</html>\r\n";
 
-    private String serverOKResponse = headers + String.format("Content-Length: %s\r\n", serverContent.length()) + "\r\n" + serverContent;
+    private String serverOKResponse = headers + String.format("Content-Length: %s\r\n", serverContent.length())
+            + "\r\n" + serverContent;
 
-    private String notFoundResponse = "HTTP/1.1 404 Not Found\r\n"
-        + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
-        + "Server: Apache/2.0.54\r\n"
-        + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
-        + "ETag: \"778216aa-2f-aa66cf80\"\r\n"
-        + "Accept-Ranges: bytes\r\n"
-        + "Content-Length: 52\r\n"
-        + "Vary: Accept-Encoding,User-Agent\r\n"
-        + "Connection: close\rn"
-        + "Content-Type: text/html\r\n"
-        + "\r\n"
-        + "<html>\r\n"
-        + "<body>\r\n"
-        + "<!-- default -->\r\n"
-        + "</body>\r\n"
-        + "</html>";
+    private String notFoundResponse = "HTTP/1.1 404 Not Found\r\n" + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
+            + "Server: Apache/2.0.54\r\n" + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
+            + "ETag: \"778216aa-2f-aa66cf80\"\r\n" + "Accept-Ranges: bytes\r\n" + "Content-Length: 52\r\n"
+            + "Vary: Accept-Encoding,User-Agent\r\n" + "Connection: close\rn" + "Content-Type: text/html\r\n" + "\r\n"
+            + "<html>\r\n" + "<body>\r\n" + "<!-- default -->\r\n" + "</body>\r\n" + "</html>";
 
     private String notAServerResponse = "NOT A SERVER";
 
@@ -124,7 +112,7 @@ public class WebDetectorTest implements InitializingBean {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testRegexMatch() {
         System.err.println(notFoundResponse);
         String expectedTest = "~404 Not Found";
@@ -136,7 +124,7 @@ public class WebDetectorTest implements InitializingBean {
         assertFalse(m2.find());
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailNotAServerResponse() throws Exception {
         m_server = createServer(notAServerResponse);
         m_detector.setPort(m_server.getLocalPort());
@@ -145,7 +133,7 @@ public class WebDetectorTest implements InitializingBean {
         assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailNotFoundResponseMaxRetCode399() throws Exception {
         m_server = createServer(notFoundResponse);
         m_detector.setPath("/blog");
@@ -156,7 +144,7 @@ public class WebDetectorTest implements InitializingBean {
         assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSucessMaxRetCode399() throws Exception {
         m_server = createServer(getServerOKResponse());
         m_detector.setPath("/blog");
@@ -167,7 +155,7 @@ public class WebDetectorTest implements InitializingBean {
         assertTrue(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailMaxRetCodeBelow200() throws Exception {
         m_server = createServer(getServerOKResponse());
         m_detector.setPath("/blog");
@@ -178,7 +166,7 @@ public class WebDetectorTest implements InitializingBean {
         assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorMaxRetCode600() throws Exception {
         m_server = createServer(getServerOKResponse());
         m_detector.setResponseRange("100-600");
@@ -188,7 +176,7 @@ public class WebDetectorTest implements InitializingBean {
         assertTrue(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSucessCheckCodeTrue() throws Exception {
         m_server = createServer(getServerOKResponse());
         m_detector.setPath("http://localhost/");
@@ -198,7 +186,7 @@ public class WebDetectorTest implements InitializingBean {
         assertTrue(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSuccessCheckCodeFalse() throws Exception {
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());

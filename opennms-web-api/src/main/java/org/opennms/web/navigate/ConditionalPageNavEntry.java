@@ -32,10 +32,15 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface ConditionalPageNavEntry extends PageNavEntry {
     /**
-     * <p>evaluate</p>
+     * <p>
+     * evaluate
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param target an optional object to be evaluated when determining whether to create a link.  (may be null)
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param target
+     *            an optional object to be evaluated when determining whether to
+     *            create a link. (may be null)
      * @return a {@link org.opennms.web.navigate.DisplayStatus} object.
      */
     public abstract DisplayStatus evaluate(HttpServletRequest request, Object target);

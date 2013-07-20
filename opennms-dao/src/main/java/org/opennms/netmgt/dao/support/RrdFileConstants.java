@@ -54,7 +54,7 @@ public class RrdFileConstants extends Object {
         }
     }
 
-	/** The longest an RRD filename can be, currently 1024 characters. */
+    /** The longest an RRD filename can be, currently 1024 characters. */
     public static final int MAX_RRD_FILENAME_LENGTH = 1024;
 
     /** Convenience filter that matches only RRD files. */
@@ -93,9 +93,12 @@ public class RrdFileConstants extends Object {
     };
 
     /**
-     * <p>isValidRRDNodeDir</p>
+     * <p>
+     * isValidRRDNodeDir
+     * </p>
      *
-     * @param file a {@link java.io.File} object.
+     * @param file
+     *            a {@link java.io.File} object.
      * @return a boolean.
      */
     public static final boolean isValidRRDNodeDir(final File file) {
@@ -130,7 +133,7 @@ public class RrdFileConstants extends Object {
      * Convenience filter that matches integer-named directories that either
      * contain RRD files or directories that contain RRD files.
      */
-     public static final FileFilter NODESOURCE_DIRECTORY_FILTER = new FileFilter() {
+    public static final FileFilter NODESOURCE_DIRECTORY_FILTER = new FileFilter() {
         @Override
         public boolean accept(File file) {
             return isValidRRDNodeSourceDir(file);
@@ -138,12 +141,15 @@ public class RrdFileConstants extends Object {
     };
 
     /**
-     * <p>isValidRRDNodeSourceDir</p>
+     * <p>
+     * isValidRRDNodeSourceDir
+     * </p>
      *
-     * @param file a {@link java.io.File} object.
+     * @param file
+     *            a {@link java.io.File} object.
      * @return a boolean.
      */
-     public static final boolean isValidRRDNodeSourceDir(final File file) {
+    public static final boolean isValidRRDNodeSourceDir(final File file) {
         if (!file.isDirectory()) {
             return false;
         }
@@ -205,9 +211,12 @@ public class RrdFileConstants extends Object {
     }
 
     /**
-     * <p>isValidRRDDomainDir</p>
+     * <p>
+     * isValidRRDDomainDir
+     * </p>
      *
-     * @param file a {@link java.io.File} object.
+     * @param file
+     *            a {@link java.io.File} object.
      * @return a boolean.
      */
     public static final boolean isValidRRDDomainDir(final File file) {
@@ -240,9 +249,12 @@ public class RrdFileConstants extends Object {
     }
 
     /**
-     * <p>isValidRRDInterfaceDir</p>
+     * <p>
+     * isValidRRDInterfaceDir
+     * </p>
      *
-     * @param file a {@link java.io.File} object.
+     * @param file
+     *            a {@link java.io.File} object.
      * @return a boolean.
      */
     public static final boolean isValidRRDInterfaceDir(final File file) {
@@ -265,7 +277,8 @@ public class RrdFileConstants extends Object {
         }
 
         try {
-            // if the interface directory name is an integer (Long) its not part of a domain
+            // if the interface directory name is an integer (Long) its not part
+            // of a domain
             Long.valueOf(file.getName());
         } catch (final Throwable ee) {
             final File[] intfRRDs = file.listFiles(RRD_FILENAME_FILTER);
@@ -282,7 +295,8 @@ public class RrdFileConstants extends Object {
      * Determines if the provided File object represents a valid RRD latency
      * directory.
      *
-     * @param file a {@link java.io.File} object.
+     * @param file
+     *            a {@link java.io.File} object.
      * @return a boolean.
      */
     public static final boolean isValidRRDLatencyDir(final File file) {
@@ -302,15 +316,15 @@ public class RrdFileConstants extends Object {
     /**
      * Checks an RRD filename to make sure it is of the proper length and does
      * not contain any unexpected charaters.
-     *
-     * The maximum length is specified by the
-     * {@link #MAX_RRD_FILENAME_LENGTH MAX_RRD_FILENAME_LENGTH}constant. The
+     * The maximum length is specified by the {@link #MAX_RRD_FILENAME_LENGTH
+     * MAX_RRD_FILENAME_LENGTH}constant. The
      * only valid characters are letters (A-Z and a-z), numbers (0-9), dashes
      * (-), dots (.), and underscores (_). These precautions are necessary since
      * the RRD filename is used on the commandline and specified in the graph
      * URL.
      *
-     * @param rrd a {@link java.lang.String} object.
+     * @param rrd
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public static boolean isValidRRDName(final String rrd) {
@@ -330,9 +344,10 @@ public class RrdFileConstants extends Object {
         }
 
         for (int i = 0; i < length; i++) {
-        	final char c = rrd.charAt(i);
+            final char c = rrd.charAt(i);
 
-            if (!(('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') || ('0' <= c && c <= '9') || (c == '_') || (c == '.') || (c == '-') || (c == '/'))) {
+            if (!(('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') || ('0' <= c && c <= '9') || (c == '_')
+                    || (c == '.') || (c == '-') || (c == '/'))) {
                 return false;
             }
         }
@@ -344,7 +359,8 @@ public class RrdFileConstants extends Object {
      * Note this method will <strong>not </strong> handle references to higher
      * directories ("..").
      *
-     * @param rrd a {@link java.lang.String} object.
+     * @param rrd
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String convertToValidRrdName(final String rrd) {
@@ -364,7 +380,8 @@ public class RrdFileConstants extends Object {
         for (int i = 0; i < length; i++) {
             char c = buffer.charAt(i);
 
-            if (!(('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') || ('0' <= c && c <= '9') || (c == '_') || (c == '.') || (c == '-') || (c == '/'))) {
+            if (!(('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') || ('0' <= c && c <= '9') || (c == '_')
+                    || (c == '.') || (c == '-') || (c == '/'))) {
                 buffer.setCharAt(i, '_');
             }
         }
@@ -373,12 +390,14 @@ public class RrdFileConstants extends Object {
     }
 
     public static String escapeForGraphing(final String path) {
-    	final Matcher matcher = GRAPHING_ESCAPE_PATTERN.matcher(path);
-    	return matcher.replaceAll("\\\\$1");
+        final Matcher matcher = GRAPHING_ESCAPE_PATTERN.matcher(path);
+        return matcher.replaceAll("\\\\$1");
     }
 
     /**
-     * <p>getRrdSuffix</p>
+     * <p>
+     * getRrdSuffix
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

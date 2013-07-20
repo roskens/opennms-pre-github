@@ -33,15 +33,11 @@ package org.opennms.core.utils;
 
 import java.security.Provider;
 
-
 public final class EmptyKeyRelaxedTrustProvider extends Provider {
     private static final long serialVersionUID = -543349021655585769L;
 
     public EmptyKeyRelaxedTrustProvider() {
         super(EmptyKeyRelaxedTrustSSLContext.ALGORITHM + "Provider", 1.0, null);
-        put(
-            "SSLContext." + EmptyKeyRelaxedTrustSSLContext.ALGORITHM,
-            EmptyKeyRelaxedTrustSSLContext.class.getName()
-        );
+        put("SSLContext." + EmptyKeyRelaxedTrustSSLContext.ALGORITHM, EmptyKeyRelaxedTrustSSLContext.class.getName());
     }
 }

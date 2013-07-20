@@ -50,75 +50,82 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 
 /**
  * Invoke the trouble ticketer using notifd instead of automations.
- * This allows tickets to be used in conjunction with path-outages and esclation paths.
+ * This allows tickets to be used in conjunction with path-outages and esclation
+ * paths.
  *
  * @author <a href="mailto:jwhite@datavlaet.com">Jesse White</a>
  * @version $Id: $
  */
 public class TicketNotificationStrategy implements NotificationStrategy {
 
-	private static final Logger LOG = LoggerFactory.getLogger(TicketNotificationStrategy.class);
-	private EventIpcManager m_eventManager;
-	private List<Argument> m_arguments;
-	private DefaultEventConfDao m_eventConfDao;
+    private static final Logger LOG = LoggerFactory.getLogger(TicketNotificationStrategy.class);
 
-	enum AlarmType {
-		NOT_AN_ALARM,
-		PROBLEM,
-		RESULTION
-	};
+    private EventIpcManager m_eventManager;
 
-	public static class AlarmState {
-		int m_alarmID;
-		String m_tticketID;
-		int m_tticketState;
+    private List<Argument> m_arguments;
 
-		AlarmState(int alarmID) {
-			m_alarmID = alarmID;
-			m_tticketID = "";
-			m_tticketState = 0;
-		}
+    private DefaultEventConfDao m_eventConfDao;
 
-		AlarmState(int alarmID, String tticketID, int tticketState) {
-			m_alarmID = alarmID;
-			m_tticketID = tticketID;
-			m_tticketState = tticketState;
-		}
+    enum AlarmType {
+        NOT_AN_ALARM, PROBLEM, RESULTION
+    };
 
-		public int getAlarmID() {
-			return m_alarmID;
-		}
+    public static class AlarmState {
+        int m_alarmID;
 
-		public String getTticketID() {
-			return m_tticketID;
-		}
+        String m_tticketID;
 
-		public int getTticketState() {
-			return m_tticketState;
-		}
-	}
+        int m_tticketState;
 
-	protected class AlarmStateRowCallbackHandler implements RowCallbackHandler {
-		AlarmState m_alarmState;
-		public AlarmStateRowCallbackHandler() {
-			m_alarmState = null;
-		}
-                @Override
+        AlarmState(int alarmID) {
+            m_alarmID = alarmID;
+            m_tticketID = "";
+            m_tticketState = 0;
+        }
+
+        AlarmState(int alarmID, String tticketID, int tticketState) {
+            m_alarmID = alarmID;
+            m_tticketID = tticketID;
+            m_tticketState = tticketState;
+        }
+
+        public int getAlarmID() {
+            return m_alarmID;
+        }
+
+        public String getTticketID() {
+            return m_tticketID;
+        }
+
+        public int getTticketState() {
+            return m_tticketState;
+        }
+    }
+
+    protected class AlarmStateRowCallbackHandler implements RowCallbackHandler {
+        AlarmState m_alarmState;
+
+        public AlarmStateRowCallbackHandler() {
+            m_alarmState = null;
+        }
+
+        @Override
         public void processRow(ResultSet rs) throws SQLException {
-        	m_alarmState = new AlarmState(rs.getInt(1), rs.getString(2), rs.getInt(3));
+            m_alarmState = new AlarmState(rs.getInt(1), rs.getString(2), rs.getInt(3));
         }
-        public AlarmState getAlarmState() {
-        	return m_alarmState;
-        }
-	}
 
-	public TicketNotificationStrategy() {
-		m_eventManager = EventIpcManagerFactory.getIpcManager();
-	}
+        public AlarmState getAlarmState() {
+            return m_alarmState;
+        }
+    }
+
+    public TicketNotificationStrategy() {
+        m_eventManager = EventIpcManagerFactory.getIpcManager();
+    }
 
     /** {@inheritDoc} */
-        @Override
-	public int send(List<Argument> arguments) {
+    @Override
+    public int send(List<Argument> arguments) {
         String eventID = null;
         String eventUEI = null;
         String noticeID = null;
@@ -127,94 +134,106 @@ public class TicketNotificationStrategy implements NotificationStrategy {
 
         // Pull the arguments we're interested in from the list.
         for (Argument arg : m_arguments) {
-		LOG.debug("arguments: {} = {}", arg.getSwitch(), arg.getValue());
+            LOG.debug("arguments: {} = {}", arg.getSwitch(), arg.getValue());
 
             if ("eventID".equalsIgnoreCase(arg.getSwitch())) {
-            	eventID = arg.getValue();
+                eventID = arg.getValue();
             } else if ("eventUEI".equalsIgnoreCase(arg.getSwitch())) {
-            	eventUEI = arg.getValue();
+                eventUEI = arg.getValue();
             } else if ("noticeid".equalsIgnoreCase(arg.getSwitch())) {
-            	noticeID = arg.getValue();
+                noticeID = arg.getValue();
             }
         }
 
         // Make sure we have the arguments we need.
-        if( StringUtils.isBlank(eventID) ) {
-		LOG.error("There is no event-id associated with the notice-id='{}'. Cannot create ticket.", noticeID);
-        	return 1;
-        } else if( StringUtils.isBlank(eventUEI) ) {
-		LOG.error("There is no event-uei associated with the notice-id='{}'. Cannot create ticket.", noticeID);
-        	return 1;
+        if (StringUtils.isBlank(eventID)) {
+            LOG.error("There is no event-id associated with the notice-id='{}'. Cannot create ticket.", noticeID);
+            return 1;
+        } else if (StringUtils.isBlank(eventUEI)) {
+            LOG.error("There is no event-uei associated with the notice-id='{}'. Cannot create ticket.", noticeID);
+            return 1;
         }
 
         // Determine the type of alarm based on the UEI.
         AlarmType alarmType = getAlarmTypeFromUEI(eventUEI);
-        if( alarmType == AlarmType.NOT_AN_ALARM ) {
-		LOG.warn("The event type associated with the notice-id='{}' is not an alarm. Will not create ticket.", noticeID);
-        	return 0;
+        if (alarmType == AlarmType.NOT_AN_ALARM) {
+            LOG.warn("The event type associated with the notice-id='{}' is not an alarm. Will not create ticket.",
+                     noticeID);
+            return 0;
         }
 
-        // We know the event is an alarm, pull the alarm and current ticket details from the database
+        // We know the event is an alarm, pull the alarm and current ticket
+        // details from the database
         AlarmState alarmState = getAlarmStateFromEvent(Integer.parseInt(eventID));
-        if( alarmState.getAlarmID() == 0 ) {
-		LOG.error("There is no alarm-id associated with the event-id='{}'. Will not create ticket.", eventID);
-        	return 1;
+        if (alarmState.getAlarmID() == 0) {
+            LOG.error("There is no alarm-id associated with the event-id='{}'. Will not create ticket.", eventID);
+            return 1;
         }
 
-        /* Log everything we know so far.
+        /*
+         * Log everything we know so far.
          * The tticketid and tticketstate are only informational.
          */
-        LOG.info("Got event-uei='{}' with event-id='{}', notice-id='{}', alarm-type='{}', alarm-id='{}', tticket-id='{}'and tticket-state='{}'", eventUEI, eventID, noticeID, alarmType, alarmState.getAlarmID(), alarmState.getTticketID(), alarmState.getTticketState());
+        LOG.info("Got event-uei='{}' with event-id='{}', notice-id='{}', alarm-type='{}', alarm-id='{}', tticket-id='{}'and tticket-state='{}'",
+                 eventUEI, eventID, noticeID, alarmType, alarmState.getAlarmID(), alarmState.getTticketID(),
+                 alarmState.getTticketState());
 
         sendCreateTicketEvent(alarmState.getAlarmID(), eventUEI);
 
         return 0;
-	}
+    }
 
     /**
-     * <p>Helper function that gets the alarmid from the eventid</p>
+     * <p>
+     * Helper function that gets the alarmid from the eventid
+     * </p>
      *
      * @return 0 if alarmid is null
      */
-	protected AlarmState getAlarmStateFromEvent(int eventID) {
-		AlarmStateRowCallbackHandler callbackHandler = new AlarmStateRowCallbackHandler();
+    protected AlarmState getAlarmStateFromEvent(int eventID) {
+        AlarmStateRowCallbackHandler callbackHandler = new AlarmStateRowCallbackHandler();
 
         JdbcTemplate template = new JdbcTemplate(DataSourceFactory.getInstance());
-        template.query("SELECT a.alarmid, a.tticketid, a.tticketstate FROM events AS e " +
-				       "LEFT JOIN alarms AS a ON a.alarmid = e.alarmid " +
-				       "WHERE e.eventid = ?", new Object[] {eventID}, callbackHandler);
+        template.query("SELECT a.alarmid, a.tticketid, a.tticketstate FROM events AS e "
+                               + "LEFT JOIN alarms AS a ON a.alarmid = e.alarmid " + "WHERE e.eventid = ?",
+                       new Object[] { eventID },
+                       callbackHandler);
 
         return callbackHandler.getAlarmState();
-	}
+    }
 
     /**
-     * <p>Helper function that determines the alarm type for a given UEI.</p>
+     * <p>
+     * Helper function that determines the alarm type for a given UEI.
+     * </p>
      *
      * @return 0 if alarmid is null
      */
-	protected AlarmType getAlarmTypeFromUEI(String eventUEI) {
+    protected AlarmType getAlarmTypeFromUEI(String eventUEI) {
         Event event = m_eventConfDao.findByUei(eventUEI);
-        if( event == null )
-        	return AlarmType.NOT_AN_ALARM;
+        if (event == null)
+            return AlarmType.NOT_AN_ALARM;
 
         AlarmData alarmData = event.getAlarmData();
-        if( alarmData != null && alarmData.hasAlarmType() ) {
-        	if( alarmData.getAlarmType() == 2) {
-        		return AlarmType.RESULTION;
-        	} else {
-        		return AlarmType.PROBLEM;
-        	}
+        if (alarmData != null && alarmData.hasAlarmType()) {
+            if (alarmData.getAlarmType() == 2) {
+                return AlarmType.RESULTION;
+            } else {
+                return AlarmType.PROBLEM;
+            }
         }
 
-		return AlarmType.NOT_AN_ALARM;
-	}
+        return AlarmType.NOT_AN_ALARM;
+    }
 
     /**
-     * <p>Helper function that sends the create ticket event</p>
+     * <p>
+     * Helper function that sends the create ticket event
+     * </p>
      *
      * @return
      */
-	public void sendCreateTicketEvent(int alarmID, String alarmUEI) {
+    public void sendCreateTicketEvent(int alarmID, String alarmUEI) {
         LOG.debug("Sending create ticket for alarm '{}' with id={}", alarmUEI, alarmID);
         EventBuilder ebldr = new EventBuilder(EventConstants.TROUBLETICKET_CREATE_UEI, getName());
         ebldr.addParam(EventConstants.PARM_ALARM_ID, alarmID);
@@ -222,10 +241,12 @@ public class TicketNotificationStrategy implements NotificationStrategy {
         ebldr.addParam(EventConstants.PARM_ALARM_UEI, alarmUEI);
         ebldr.addParam(EventConstants.PARM_USER, "admin");
         m_eventManager.sendNow(ebldr.getEvent());
-	}
+    }
 
     /**
-     * <p>Return an id for this notification strategy</p>
+     * <p>
+     * Return an id for this notification strategy
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

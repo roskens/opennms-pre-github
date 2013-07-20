@@ -39,7 +39,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Abstract SnmpMonitorStrategy class.</p>
+ * <p>
+ * Abstract SnmpMonitorStrategy class.
+ * </p>
  *
  * @author david
  * @version $Id: $
@@ -53,43 +55,53 @@ public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
      * Constant for less-than operand
      */
     protected static final String LESS_THAN = "<";
+
     /** Constant <code>GREATER_THAN=">"</code> */
     protected static final String GREATER_THAN = ">";
+
     /** Constant <code>LESS_THAN_EQUALS="<="</code> */
     protected static final String LESS_THAN_EQUALS = "<=";
+
     /** Constant <code>GREATER_THAN_EQUALS=">="</code> */
     protected static final String GREATER_THAN_EQUALS = ">=";
+
     /** Constant <code>EQUALS="="</code> */
     protected static final String EQUALS = "=";
+
     /** Constant <code>NOT_EQUAL="!="</code> */
     protected static final String NOT_EQUAL = "!=";
+
     /** Constant <code>MATCHES="~"</code> */
     protected static final String MATCHES = "~";
 
     boolean hex = false;
+
     /*
      * TODO: Use it or loose it.
      * Commented out because it is not currently used in this monitor
      */
-    //private Category log = ThreadCategory.getInstance(getClass());
+    // private Category log = ThreadCategory.getInstance(getClass());
 
     /** {@inheritDoc} */
     @Override
     abstract public PollStatus poll(MonitoredService svc, Map<String, Object> parameters);
 
-
     public String getStringValue(SnmpValue result) {
-    	if (hex)
-    		return result.toHexString();
-    	return result.toString();
+        if (hex)
+            return result.toHexString();
+        return result.toString();
     }
+
     /**
      * Verifies that the result of the SNMP query meets the criteria specified
      * by the operator and the operand from the configuration file.
      *
-     * @param result a {@link org.opennms.netmgt.snmp.SnmpValue} object.
-     * @param operator a {@link java.lang.String} object.
-     * @param operand a {@link java.lang.String} object.
+     * @param result
+     *            a {@link org.opennms.netmgt.snmp.SnmpValue} object.
+     * @param operator
+     *            a {@link java.lang.String} object.
+     * @param operand
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean meetsCriteria(SnmpValue result, String operator, String operand) {
@@ -99,7 +111,7 @@ public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
         retVal = isCriteriaNull(result, operator, operand);
 
         if (retVal == null) {
-        	String value = getStringValue(result);
+            String value = getStringValue(result);
             retVal = checkStringCriteria(operator, operand, value);
 
             if (retVal == null) {

@@ -29,101 +29,132 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>PollResult class.</p>
+ * <p>
+ * PollResult class.
+ * </p>
  */
 public class PollResult {
 
-	private Integer m_id;
-	private DemandPoll m_demandPoll;
-	private OnmsMonitoredService m_monitoredService;
-	private PollStatus m_status;
+    private Integer m_id;
 
-	/**
-	 * <p>Constructor for PollResult.</p>
-	 */
-	public PollResult() {
+    private DemandPoll m_demandPoll;
 
-	}
+    private OnmsMonitoredService m_monitoredService;
 
-	/**
-	 * <p>Constructor for PollResult.</p>
-	 *
-	 * @param id a int.
-	 */
-	public PollResult(int id) {
-		m_id = id;
-	}
+    private PollStatus m_status;
 
-	/**
-	 * <p>getId</p>
-	 *
-	 * @return a {@link java.lang.Integer} object.
-	 */
-	public Integer getId() {
-		return m_id;
-	}
+    /**
+     * <p>
+     * Constructor for PollResult.
+     * </p>
+     */
+    public PollResult() {
 
-	/**
-	 * <p>setId</p>
-	 *
-	 * @param id a int.
-	 */
-	public void setId(int id) {
-		m_id = id;
-	}
+    }
 
-	/**
-	 * <p>getMonitoredService</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
-	 */
-	public OnmsMonitoredService getMonitoredService() {
-		return m_monitoredService;
-	}
+    /**
+     * <p>
+     * Constructor for PollResult.
+     * </p>
+     *
+     * @param id
+     *            a int.
+     */
+    public PollResult(int id) {
+        m_id = id;
+    }
 
-	/**
-	 * <p>setMonitoredService</p>
-	 *
-	 * @param monitoredService a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
-	 */
-	public void setMonitoredService(OnmsMonitoredService monitoredService) {
-		m_monitoredService = monitoredService;
-	}
+    /**
+     * <p>
+     * getId
+     * </p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
+    public Integer getId() {
+        return m_id;
+    }
 
-	/**
-	 * <p>getStatus</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.model.PollStatus} object.
-	 */
-	public PollStatus getStatus() {
-		return m_status;
-	}
+    /**
+     * <p>
+     * setId
+     * </p>
+     *
+     * @param id
+     *            a int.
+     */
+    public void setId(int id) {
+        m_id = id;
+    }
 
-	/**
-	 * <p>setStatus</p>
-	 *
-	 * @param status a {@link org.opennms.netmgt.model.PollStatus} object.
-	 */
-	public void setStatus(PollStatus status) {
-		m_status = status;
-	}
+    /**
+     * <p>
+     * getMonitoredService
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
+     */
+    public OnmsMonitoredService getMonitoredService() {
+        return m_monitoredService;
+    }
 
-	/**
-	 * <p>getDemandPoll</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.model.DemandPoll} object.
-	 */
-	public DemandPoll getDemandPoll() {
-		return m_demandPoll;
-	}
+    /**
+     * <p>
+     * setMonitoredService
+     * </p>
+     *
+     * @param monitoredService
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
+     */
+    public void setMonitoredService(OnmsMonitoredService monitoredService) {
+        m_monitoredService = monitoredService;
+    }
 
-	/**
-	 * <p>setDemandPoll</p>
-	 *
-	 * @param poll a {@link org.opennms.netmgt.model.DemandPoll} object.
-	 */
-	public void setDemandPoll(DemandPoll poll) {
-		this.m_demandPoll = poll;
-	}
+    /**
+     * <p>
+     * getStatus
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.model.PollStatus} object.
+     */
+    public PollStatus getStatus() {
+        return m_status;
+    }
+
+    /**
+     * <p>
+     * setStatus
+     * </p>
+     *
+     * @param status
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
+     */
+    public void setStatus(PollStatus status) {
+        m_status = status;
+    }
+
+    /**
+     * <p>
+     * getDemandPoll
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.model.DemandPoll} object.
+     */
+    public DemandPoll getDemandPoll() {
+        return m_demandPoll;
+    }
+
+    /**
+     * <p>
+     * setDemandPoll
+     * </p>
+     *
+     * @param poll
+     *            a {@link org.opennms.netmgt.model.DemandPoll} object.
+     */
+    public void setDemandPoll(DemandPoll poll) {
+        this.m_demandPoll = poll;
+    }
 
 }

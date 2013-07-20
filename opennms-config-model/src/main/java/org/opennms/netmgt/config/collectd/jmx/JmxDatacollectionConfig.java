@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.collectd.jmx;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -54,67 +54,59 @@ import org.exolab.castor.xml.Unmarshaller;
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="jmx-datacollection-config")
+@XmlRootElement(name = "jmx-datacollection-config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@SuppressWarnings("all") public class JmxDatacollectionConfig implements java.io.Serializable {
+@SuppressWarnings("all")
+public class JmxDatacollectionConfig implements java.io.Serializable {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _rrdRepository.
      */
-    @XmlAttribute(name="rrdRepository", required=true)
+    @XmlAttribute(name = "rrdRepository", required = true)
     private java.lang.String _rrdRepository;
 
     /**
      * Field _jmxCollectionList.
      */
-    @XmlElement(name="jmx-collection", required=true)
+    @XmlElement(name = "jmx-collection", required = true)
     private java.util.List<JmxCollection> _jmxCollectionList;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public JmxDatacollectionConfig() {
         super();
         this._jmxCollectionList = new java.util.ArrayList<JmxCollection>();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
-     *
-     *
      * @param vJmxCollection
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addJmxCollection(
-            final JmxCollection vJmxCollection)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addJmxCollection(final JmxCollection vJmxCollection) throws java.lang.IndexOutOfBoundsException {
         this._jmxCollectionList.add(vJmxCollection);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vJmxCollection
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addJmxCollection(
-            final int index,
-            final JmxCollection vJmxCollection)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addJmxCollection(final int index, final JmxCollection vJmxCollection)
+            throws java.lang.IndexOutOfBoundsException {
         this._jmxCollectionList.add(index, vJmxCollection);
     }
 
@@ -122,10 +114,9 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method enumerateJmxCollection.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
-    public java.util.Enumeration<JmxCollection> enumerateJmxCollection(
-    ) {
+    public java.util.Enumeration<JmxCollection> enumerateJmxCollection() {
         return java.util.Collections.enumeration(this._jmxCollectionList);
     }
 
@@ -136,27 +127,26 @@ import org.exolab.castor.xml.Unmarshaller;
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
-        if ( this == obj )
+    public boolean equals(final java.lang.Object obj) {
+        if (this == obj)
             return true;
 
         if (obj instanceof JmxDatacollectionConfig) {
 
-            JmxDatacollectionConfig temp = (JmxDatacollectionConfig)obj;
+            JmxDatacollectionConfig temp = (JmxDatacollectionConfig) obj;
             if (this._rrdRepository != null) {
-                if (temp._rrdRepository == null) return false;
+                if (temp._rrdRepository == null)
+                    return false;
                 else if (!(this._rrdRepository.equals(temp._rrdRepository)))
                     return false;
-            }
-            else if (temp._rrdRepository != null)
+            } else if (temp._rrdRepository != null)
                 return false;
             if (this._jmxCollectionList != null) {
-                if (temp._jmxCollectionList == null) return false;
+                if (temp._jmxCollectionList == null)
+                    return false;
                 else if (!(this._jmxCollectionList.equals(temp._jmxCollectionList)))
                     return false;
-            }
-            else if (temp._jmxCollectionList != null)
+            } else if (temp._jmxCollectionList != null)
                 return false;
             return true;
         }
@@ -167,18 +157,18 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getJmxCollection.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * org.opennms.netmgt.config.collectd.jmx.JmxCollection at the
-     * given index
+     *         org.opennms.netmgt.config.collectd.jmx.JmxCollection at the
+     *         given index
      */
-    public JmxCollection getJmxCollection(
-            final int index)
-    throws java.lang.IndexOutOfBoundsException {
+    public JmxCollection getJmxCollection(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._jmxCollectionList.size()) {
-            throw new IndexOutOfBoundsException("getJmxCollection: Index value '" + index + "' not in range [0.." + (this._jmxCollectionList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getJmxCollection: Index value '" + index + "' not in range [0.."
+                    + (this._jmxCollectionList.size() - 1) + "]");
         }
 
         return (JmxCollection) _jmxCollectionList.get(index);
@@ -186,16 +176,16 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getJmxCollection.Returns the contents of the
-     * collection in an Array.  <p>Note:  Just in case the
-     * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of
-     * exactly the correct length.
+     * collection in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public JmxCollection[] getJmxCollection(
-    ) {
+    public JmxCollection[] getJmxCollection() {
         JmxCollection[] array = new JmxCollection[0];
         return (JmxCollection[]) this._jmxCollectionList.toArray(array);
     }
@@ -207,8 +197,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<JmxCollection> getJmxCollectionCollection(
-    ) {
+    public java.util.List<JmxCollection> getJmxCollectionCollection() {
         return this._jmxCollectionList;
     }
 
@@ -217,8 +206,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the size of this collection
      */
-    public int getJmxCollectionCount(
-    ) {
+    public int getJmxCollectionCount() {
         return this._jmxCollectionList.size();
     }
 
@@ -227,30 +215,28 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'RrdRepository'.
      */
-    public java.lang.String getRrdRepository(
-    ) {
+    public java.lang.String getRrdRepository() {
         return this._rrdRepository;
     }
 
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
     @Override
-    public int hashCode(
-    ) {
+    public int hashCode() {
         int result = 17;
 
         long tmp;
         if (_rrdRepository != null) {
-           result = 37 * result + _rrdRepository.hashCode();
+            result = 37 * result + _rrdRepository.hashCode();
         }
         if (_jmxCollectionList != null) {
-           result = 37 * result + _jmxCollectionList.hashCode();
+            result = 37 * result + _jmxCollectionList.hashCode();
         }
 
         return result;
@@ -262,8 +248,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * @return true if this object is valid according to the schema
      */
     @Deprecated
-    public boolean isValid(
-    ) {
+    public boolean isValid() {
         try {
             validate();
         } catch (org.exolab.castor.xml.ValidationException vex) {
@@ -276,51 +261,48 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method iterateJmxCollection.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
-    public java.util.Iterator<JmxCollection> iterateJmxCollection(
-    ) {
+    public java.util.Iterator<JmxCollection> iterateJmxCollection() {
         return this._jmxCollectionList.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
-    public void marshal(
-            final java.io.Writer out)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
+            org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
-    public void marshal(
-            final org.xml.sax.ContentHandler handler)
-    throws java.io.IOException, org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
+            org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, handler);
     }
 
     /**
      */
-    public void removeAllJmxCollection(
-    ) {
+    public void removeAllJmxCollection() {
         this._jmxCollectionList.clear();
     }
 
@@ -330,8 +312,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * @param vJmxCollection
      * @return true if the object was removed from the collection.
      */
-    public boolean removeJmxCollection(
-            final JmxCollection vJmxCollection) {
+    public boolean removeJmxCollection(final JmxCollection vJmxCollection) {
         boolean removed = _jmxCollectionList.remove(vJmxCollection);
         return removed;
     }
@@ -342,44 +323,38 @@ import org.exolab.castor.xml.Unmarshaller;
      * @param index
      * @return the element removed from the collection
      */
-    public JmxCollection removeJmxCollectionAt(
-            final int index) {
+    public JmxCollection removeJmxCollectionAt(final int index) {
         java.lang.Object obj = this._jmxCollectionList.remove(index);
         return (JmxCollection) obj;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vJmxCollection
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setJmxCollection(
-            final int index,
-            final JmxCollection vJmxCollection)
-    throws java.lang.IndexOutOfBoundsException {
+    public void setJmxCollection(final int index, final JmxCollection vJmxCollection)
+            throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._jmxCollectionList.size()) {
-            throw new IndexOutOfBoundsException("setJmxCollection: Index value '" + index + "' not in range [0.." + (this._jmxCollectionList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setJmxCollection: Index value '" + index + "' not in range [0.."
+                    + (this._jmxCollectionList.size() - 1) + "]");
         }
 
         this._jmxCollectionList.set(index, vJmxCollection);
     }
 
     /**
-     *
-     *
      * @param vJmxCollectionArray
      */
-    public void setJmxCollection(
-            final JmxCollection[] vJmxCollectionArray) {
-        //-- copy array
+    public void setJmxCollection(final JmxCollection[] vJmxCollectionArray) {
+        // -- copy array
         _jmxCollectionList.clear();
 
         for (int i = 0; i < vJmxCollectionArray.length; i++) {
-                this._jmxCollectionList.add(vJmxCollectionArray[i]);
+            this._jmxCollectionList.add(vJmxCollectionArray[i]);
         }
     }
 
@@ -387,10 +362,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_jmxCollectionList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param vJmxCollectionList the Vector to copy.
+     * @param vJmxCollectionList
+     *            the Vector to copy.
      */
-    public void setJmxCollection(
-            final java.util.List<JmxCollection> vJmxCollectionList) {
+    public void setJmxCollection(final java.util.List<JmxCollection> vJmxCollectionList) {
         // copy vector
         this._jmxCollectionList.clear();
 
@@ -400,22 +375,22 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_jmxCollectionList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param jmxCollectionList the Vector to set.
+     * @deprecated
+     * @param jmxCollectionList
+     *            the Vector to set.
      */
-    public void setJmxCollectionCollection(
-            final java.util.List<JmxCollection> jmxCollectionList) {
+    public void setJmxCollectionCollection(final java.util.List<JmxCollection> jmxCollectionList) {
         this._jmxCollectionList = jmxCollectionList;
     }
 
     /**
      * Sets the value of field 'rrdRepository'.
      *
-     * @param rrdRepository the value of field 'rrdRepository'.
+     * @param rrdRepository
+     *            the value of field 'rrdRepository'.
      */
-    public void setRrdRepository(
-            final java.lang.String rrdRepository) {
+    public void setRrdRepository(final java.lang.String rrdRepository) {
         this._rrdRepository = rrdRepository;
     }
 
@@ -423,30 +398,28 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * org.opennms.netmgt.config.collectd.jmx.JmxDatacollectionConfig
+     *         org.opennms.netmgt.config.collectd.jmx.JmxDatacollectionConfig
      */
     @Deprecated
-    public static JmxDatacollectionConfig unmarshal(
-            final java.io.Reader reader)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public static JmxDatacollectionConfig unmarshal(final java.io.Reader reader)
+            throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
         return (JmxDatacollectionConfig) Unmarshaller.unmarshal(JmxDatacollectionConfig.class, reader);
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
-    public void validate(
-    )
-    throws org.exolab.castor.xml.ValidationException {
+    public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();
         validator.validate(this);
     }

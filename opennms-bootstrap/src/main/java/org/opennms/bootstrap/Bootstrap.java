@@ -49,8 +49,11 @@ import java.util.StringTokenizer;
  */
 public class Bootstrap {
     protected static final String BOOT_PROPERTIES_NAME = "bootstrap.properties";
+
     protected static final String RRD_PROPERTIES_NAME = "rrd-configuration.properties";
+
     protected static final String LIBRARY_PROPERTIES_NAME = "libraries.properties";
+
     protected static final String OPENNMS_HOME_PROPERTY = "opennms.home";
 
     /**
@@ -82,12 +85,15 @@ public class Bootstrap {
      * @param recursive
      *            Whether to recurse into subdirectories of the directories in
      *            dirStr
-     * @param append TODO
+     * @param append
+     *            TODO
      * @returns A new ClassLoader containing the found JARs
      * @return a {@link java.lang.ClassLoader} object.
-     * @throws java.net.MalformedURLException if any.
+     * @throws java.net.MalformedURLException
+     *             if any.
      */
-    public static ClassLoader loadClasses(String dirStr, boolean recursive, boolean append) throws MalformedURLException {
+    public static ClassLoader loadClasses(String dirStr, boolean recursive, boolean append)
+            throws MalformedURLException {
         LinkedList<URL> urls = new LinkedList<URL>();
 
         if (append) {
@@ -121,10 +127,10 @@ public class Bootstrap {
      *            Whether to recurse into subdirectories of dir
      * @returns A new ClassLoader containing the found JARs
      * @return a {@link java.lang.ClassLoader} object.
-     * @throws java.net.MalformedURLException if any.
+     * @throws java.net.MalformedURLException
+     *             if any.
      */
-    public static ClassLoader loadClasses(File dir, boolean recursive)
-            throws MalformedURLException {
+    public static ClassLoader loadClasses(File dir, boolean recursive) throws MalformedURLException {
         LinkedList<URL> urls = new LinkedList<URL>();
         loadClasses(dir, recursive, urls);
         return newClassLoader(urls);
@@ -154,7 +160,8 @@ public class Bootstrap {
      *            dir
      * @param urls
      *            LinkedList to append found JARs onto
-     * @throws java.net.MalformedURLException if any.
+     * @throws java.net.MalformedURLException
+     *             if any.
      */
     public static void loadClasses(File dir, boolean recursive, LinkedList<URL> urls) throws MalformedURLException {
         // Add the directory
@@ -164,7 +171,7 @@ public class Bootstrap {
             // Descend into sub-directories
             File[] dirlist = dir.listFiles(m_dirFilter);
             if (dirlist != null) {
-            	Arrays.sort(dirlist);
+                Arrays.sort(dirlist);
                 for (File childDir : dirlist) {
                     loadClasses(childDir, recursive, urls);
                 }
@@ -174,7 +181,7 @@ public class Bootstrap {
         // Add individual JAR files
         File[] children = dir.listFiles(m_jarFilter);
         if (children != null) {
-        	Arrays.sort(children);
+            Arrays.sort(children);
             for (File childFile : children) {
                 urls.add(childFile.toURI().toURL());
             }
@@ -236,59 +243,61 @@ public class Bootstrap {
      * Copy properties from a property file to the system properties.
      */
     protected static boolean loadProperties(File f) throws IOException {
-    	if (!f.exists()) {
-    		return false;
-    	}
-    	InputStream is = null;
-    	try {
-    		is = new FileInputStream(f);
-    		loadProperties(is);
-    		return true;
-    	}
-    	finally {
-    		if (is != null) {
-    			is.close();
-    		}
-    	}
+        if (!f.exists()) {
+            return false;
+        }
+        InputStream is = null;
+        try {
+            is = new FileInputStream(f);
+            loadProperties(is);
+            return true;
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+        }
     }
 
     /**
      * Load default properties from the specified OpenNMS home into the
      * system properties.
-     * @param opennmsHome the OpenNMS home directory
-     * @return whether the property file was able to be loaded into the System properties
+     *
+     * @param opennmsHome
+     *            the OpenNMS home directory
+     * @return whether the property file was able to be loaded into the System
+     *         properties
      * @throws IOException
      */
     protected static boolean loadDefaultProperties(File opennmsHome) throws IOException {
-		boolean propertiesLoaded = true;
-		File etc = new File(opennmsHome, "etc");
-		File bootstrapFile = new File(etc, BOOT_PROPERTIES_NAME);
-		loadProperties(bootstrapFile);
+        boolean propertiesLoaded = true;
+        File etc = new File(opennmsHome, "etc");
+        File bootstrapFile = new File(etc, BOOT_PROPERTIES_NAME);
+        loadProperties(bootstrapFile);
 
-		File rrdFile = new File(etc, RRD_PROPERTIES_NAME);
-		loadProperties(rrdFile);
+        File rrdFile = new File(etc, RRD_PROPERTIES_NAME);
+        loadProperties(rrdFile);
 
-		File libraryFile = new File(etc, LIBRARY_PROPERTIES_NAME);
-		if (!loadProperties(libraryFile)) {
-			propertiesLoaded = false;
-		}
+        File libraryFile = new File(etc, LIBRARY_PROPERTIES_NAME);
+        if (!loadProperties(libraryFile)) {
+            propertiesLoaded = false;
+        }
 
-		return propertiesLoaded;
-	}
+        return propertiesLoaded;
+    }
 
     /**
      * Bootloader main method. Takes the following steps to initialize a
      * ClassLoader, set properties, and start OpenNMS:
      * <ul>
      * <li>Checks for existence of opennms.home system property, and loads
-     * properties file located at ${opennms.home}/etc/bootstrap.properties if
-     * it exists.</li>
+     * properties file located at ${opennms.home}/etc/bootstrap.properties if it
+     * exists.</li>
      * <li>Calls {@link #findOpenNMSHome findOpenNMSHome} to determine the
-     * OpenNMS home directory if the bootstrap.properties file has not yet
-     * been loaded. Sets the opennms.home system property to the path returned
-     * from findOpenNMSHome.</li>
-     * <li>Calls {@link #loadClasses(String, boolean, boolean) loadClasses} to create
-     * a new ClassLoader. ${opennms.home}/etc and ${opennms.home}/lib are
+     * OpenNMS home directory if the bootstrap.properties file has not yet been
+     * loaded. Sets the opennms.home system property to the path returned from
+     * findOpenNMSHome.</li>
+     * <li>Calls {@link #loadClasses(String, boolean, boolean) loadClasses} to
+     * create a new ClassLoader. ${opennms.home}/etc and ${opennms.home}/lib are
      * passed to loadClasses.</li>
      * <li>Determines the proper default value for configuration options when
      * overriding system properties have not been set. Below are the default
@@ -308,7 +317,8 @@ public class Bootstrap {
      *
      * @param args
      *            Command line arguments
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public static void main(String[] args) throws Exception {
         loadDefaultProperties();
@@ -320,27 +330,28 @@ public class Bootstrap {
         executeClass(classToExec, classToExecMethod, classToExecArgs, false);
     }
 
-    protected static void executeClass(final String classToExec, final String classToExecMethod, final String[] classToExecArgs, boolean appendClasspath) throws MalformedURLException, ClassNotFoundException, NoSuchMethodException {
+    protected static void executeClass(final String classToExec, final String classToExecMethod,
+            final String[] classToExecArgs, boolean appendClasspath) throws MalformedURLException,
+            ClassNotFoundException, NoSuchMethodException {
         executeClass(classToExec, classToExecMethod, classToExecArgs, appendClasspath, false);
     }
 
-    protected static void executeClass(final String classToExec, final String classToExecMethod, final String[] classToExecArgs, boolean appendClasspath, final boolean recurse) throws MalformedURLException, ClassNotFoundException, NoSuchMethodException {
+    protected static void executeClass(final String classToExec, final String classToExecMethod,
+            final String[] classToExecArgs, boolean appendClasspath, final boolean recurse)
+            throws MalformedURLException, ClassNotFoundException, NoSuchMethodException {
         String dir = System.getProperty("opennms.classpath");
         if (dir == null) {
-            dir = System.getProperty(OPENNMS_HOME_PROPERTY) + File.separator
-            		+ "classes" + File.pathSeparator
-            		+ System.getProperty(OPENNMS_HOME_PROPERTY) + File.separator
-                    + "lib" + File.pathSeparator
-                    + System.getProperty(OPENNMS_HOME_PROPERTY)
-                    + File.separator + "etc";
+            dir = System.getProperty(OPENNMS_HOME_PROPERTY) + File.separator + "classes" + File.pathSeparator
+                    + System.getProperty(OPENNMS_HOME_PROPERTY) + File.separator + "lib" + File.pathSeparator
+                    + System.getProperty(OPENNMS_HOME_PROPERTY) + File.separator + "etc";
         }
 
         if (System.getProperty("org.opennms.protocols.icmp.interfaceJar") != null) {
-        	dir += File.pathSeparator + System.getProperty("org.opennms.protocols.icmp.interfaceJar");
+            dir += File.pathSeparator + System.getProperty("org.opennms.protocols.icmp.interfaceJar");
         }
 
         if (System.getProperty("org.opennms.rrd.interfaceJar") != null) {
-        	dir += File.pathSeparator + System.getProperty("org.opennms.rrd.interfaceJar");
+            dir += File.pathSeparator + System.getProperty("org.opennms.rrd.interfaceJar");
         }
 
         final boolean debug = Boolean.getBoolean("opennms.bootstrap.debug");
@@ -386,10 +397,8 @@ public class Bootstrap {
         if (!propertiesLoaded) {
             File parent = findOpenNMSHome();
             if (parent == null) {
-                System.err.println("Could not determine OpenNMS home "
-                        + "directory.  Use \"-Dopennms.home=...\" "
-                        + "option to Java to specify a specific "
-                        + "OpenNMS home directory.  " + "E.g.: "
+                System.err.println("Could not determine OpenNMS home " + "directory.  Use \"-Dopennms.home=...\" "
+                        + "option to Java to specify a specific " + "OpenNMS home directory.  " + "E.g.: "
                         + "\"java -Dopennms.home=... -jar ...\".");
                 System.exit(1);
             }

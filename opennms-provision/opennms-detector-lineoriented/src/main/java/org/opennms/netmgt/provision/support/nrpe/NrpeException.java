@@ -36,18 +36,23 @@ public class NrpeException extends Exception {
     private static final long serialVersionUID = 215200184476127614L;
 
     /**
-     * <p>Constructor for NrpeException.</p>
+     * <p>
+     * Constructor for NrpeException.
+     * </p>
      */
     public NrpeException() {
-		super();
-	}
+        super();
+    }
 
-	/**
-	 * <p>Constructor for NrpeException.</p>
-	 *
-	 * @param message a {@link java.lang.String} object.
-	 */
-	public NrpeException(final String message) {
-		super(message);
-	}
+    /**
+     * <p>
+     * Constructor for NrpeException.
+     * </p>
+     *
+     * @param message
+     *            a {@link java.lang.String} object.
+     */
+    public NrpeException(final String message) {
+        super(message);
+    }
 }

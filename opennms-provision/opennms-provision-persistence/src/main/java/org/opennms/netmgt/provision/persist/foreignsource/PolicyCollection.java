@@ -37,50 +37,62 @@ import java.util.ListIterator;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
- * <p>PolicyCollection class.</p>
+ * <p>
+ * PolicyCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="policies")
+@XmlRootElement(name = "policies")
 public class PolicyCollection implements List<PluginConfig> {
     LinkedList<PluginConfig> m_list = null;
 
-	/**
-	 * <p>Constructor for PolicyCollection.</p>
-	 */
-	public PolicyCollection() {
-	    m_list = new LinkedList<PluginConfig>();
+    /**
+     * <p>
+     * Constructor for PolicyCollection.
+     * </p>
+     */
+    public PolicyCollection() {
+        m_list = new LinkedList<PluginConfig>();
     }
 
     /**
-     * <p>Constructor for PolicyCollection.</p>
+     * <p>
+     * Constructor for PolicyCollection.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public PolicyCollection(Collection<? extends PluginConfig> c) {
         m_list = new LinkedList<PluginConfig>(c);
     }
 
     /**
-     * <p>getPolicies</p>
+     * <p>
+     * getPolicies
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    @XmlElement(name="policy")
+    @XmlElement(name = "policy")
     public List<PluginConfig> getPolicies() {
         return this;
     }
 
     /**
-     * <p>setPolicies</p>
+     * <p>
+     * setPolicies
+     * </p>
      *
-     * @param policies a {@link java.util.List} object.
+     * @param policies
+     *            a {@link java.util.List} object.
      */
     public void setPolicies(List<PluginConfig> policies) {
-        if (policies == this) return;
+        if (policies == this)
+            return;
         clear();
         addAll(policies);
     }
@@ -200,4 +212,3 @@ public class PolicyCollection implements List<PluginConfig> {
         return m_list.toArray(type);
     }
 }
-

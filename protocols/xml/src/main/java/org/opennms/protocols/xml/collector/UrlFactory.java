@@ -51,16 +51,23 @@ public class UrlFactory {
     /**
      * Instantiates a new URL factory.
      */
-    private UrlFactory() {}
+    private UrlFactory() {
+    }
 
     /**
      * Gets the URL Object.
-     * <p>This method has been created because it is not possible to call URL.setURLStreamHandlerFactory more than once.</p>
+     * <p>
+     * This method has been created because it is not possible to call
+     * URL.setURLStreamHandlerFactory more than once.
+     * </p>
      *
-     * @param urlStr the URL String
-     * @param request the request
+     * @param urlStr
+     *            the URL String
+     * @param request
+     *            the request
      * @return the URL Object
-     * @throws MalformedURLException the malformed URL exception
+     * @throws MalformedURLException
+     *             the malformed URL exception
      */
     public static URL getUrl(String urlStr, Request request) throws MalformedURLException {
         URL url = null;
@@ -87,13 +94,25 @@ public class UrlFactory {
     /**
      * Disconnect.
      *
-     * @param connection the URL connection
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @param connection
+     *            the URL connection
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void disconnect(URLConnection connection) throws IOException {
-        if (connection != null && connection instanceof SftpUrlConnection) // We need to be sure to close the connections for SFTP
-            ((SftpUrlConnection)connection).disconnect();
+        if (connection != null && connection instanceof SftpUrlConnection) // We
+                                                                           // need
+                                                                           // to
+                                                                           // be
+                                                                           // sure
+                                                                           // to
+                                                                           // close
+                                                                           // the
+                                                                           // connections
+                                                                           // for
+                                                                           // SFTP
+            ((SftpUrlConnection) connection).disconnect();
         if (connection != null && connection instanceof HttpUrlConnection)
-            ((HttpUrlConnection)connection).disconnect();
+            ((HttpUrlConnection) connection).disconnect();
     }
 }

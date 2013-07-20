@@ -51,20 +51,20 @@ import org.xml.sax.ContentHandler;
  * The forwarding information for this event - state determines
  * if event is forwarded, mechanism determines how event is forwarded
  */
-@XmlRootElement(name="forward")
+@XmlRootElement(name = "forward")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Forward implements Serializable {
-	private static final long serialVersionUID = 3228625263305682743L;
+    private static final long serialVersionUID = 3228625263305682743L;
 
-	@XmlValue
+    @XmlValue
     private String m_content = "";
 
-	@XmlAttribute(name="state", required=false)
+    @XmlAttribute(name = "state", required = false)
     private String m_state;
 
-	// @Pattern(regexp="(snmpudp|snmptcp|xmltcp|xmludp)")
-	@XmlAttribute(name="mechanism", required=false)
+    // @Pattern(regexp="(snmpudp|snmptcp|xmltcp|xmludp)")
+    @XmlAttribute(name = "mechanism", required = false)
     private String m_mechanism;
 
     public String getContent() {
@@ -72,11 +72,13 @@ public class Forward implements Serializable {
     }
 
     public String getMechanism() {
-        return m_mechanism == null? "snmpudp" : m_mechanism; // Defaults to snmpudp in the XSD
+        return m_mechanism == null ? "snmpudp" : m_mechanism; // Defaults to
+                                                              // snmpudp in the
+                                                              // XSD
     }
 
     public String getState() {
-        return m_state == null? "off" : m_state; // Defaults to off in the XSD
+        return m_state == null ? "off" : m_state; // Defaults to off in the XSD
     }
 
     /**
@@ -119,38 +121,44 @@ public class Forward implements Serializable {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_content == null) ? 0 : m_content.hashCode());
-		result = prime * result + ((m_mechanism == null) ? 0 : m_mechanism.hashCode());
-		result = prime * result + ((m_state == null) ? 0 : m_state.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_content == null) ? 0 : m_content.hashCode());
+        result = prime * result + ((m_mechanism == null) ? 0 : m_mechanism.hashCode());
+        result = prime * result + ((m_state == null) ? 0 : m_state.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Forward)) return false;
-		final Forward other = (Forward) obj;
-		if (m_content == null) {
-			if (other.m_content != null) return false;
-		} else if (!m_content.equals(other.m_content)) {
-			return false;
-		}
-		if (m_mechanism == null) {
-			if (other.m_mechanism != null) return false;
-		} else if (!m_mechanism.equals(other.m_mechanism)) {
-			return false;
-		}
-		if (m_state == null) {
-			if (other.m_state != null) return false;
-		} else if (!m_state.equals(other.m_state)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Forward))
+            return false;
+        final Forward other = (Forward) obj;
+        if (m_content == null) {
+            if (other.m_content != null)
+                return false;
+        } else if (!m_content.equals(other.m_content)) {
+            return false;
+        }
+        if (m_mechanism == null) {
+            if (other.m_mechanism != null)
+                return false;
+        } else if (!m_mechanism.equals(other.m_mechanism)) {
+            return false;
+        }
+        if (m_state == null) {
+            if (other.m_state != null)
+                return false;
+        } else if (!m_state.equals(other.m_state)) {
+            return false;
+        }
+        return true;
+    }
 
 }

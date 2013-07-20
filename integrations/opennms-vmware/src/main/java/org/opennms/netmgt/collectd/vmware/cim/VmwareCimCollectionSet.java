@@ -40,7 +40,9 @@ import java.util.List;
 
 public class VmwareCimCollectionSet implements CollectionSet {
     private int m_status;
+
     private List<VmwareCimCollectionResource> m_collectionResources;
+
     private Date m_timestamp;
 
     public VmwareCimCollectionSet(final CollectionAgent agent) {

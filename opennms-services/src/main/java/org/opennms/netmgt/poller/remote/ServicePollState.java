@@ -37,7 +37,9 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.opennms.netmgt.model.PollStatus;
 
 /**
- * <p>ServicePollState class.</p>
+ * <p>
+ * ServicePollState class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -47,15 +49,23 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     private static final long serialVersionUID = -8169533436306268574L;
 
     private PolledService m_polledService;
+
     private int m_index;
+
     private PollStatus m_lastPoll;
+
     private Date m_initialPollTime;
 
     /**
-     * <p>Constructor for ServicePollState.</p>
+     * <p>
+     * Constructor for ServicePollState.
+     * </p>
      *
-     * @param polledService a {@link org.opennms.netmgt.poller.remote.PolledService} object.
-     * @param index a int.
+     * @param polledService
+     *            a {@link org.opennms.netmgt.poller.remote.PolledService}
+     *            object.
+     * @param index
+     *            a int.
      */
     public ServicePollState(final PolledService polledService, final int index) {
         m_polledService = polledService;
@@ -63,7 +73,9 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     }
 
     /**
-     * <p>getLastPoll</p>
+     * <p>
+     * getLastPoll
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -72,16 +84,21 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     }
 
     /**
-     * <p>setLastPoll</p>
+     * <p>
+     * setLastPoll
+     * </p>
      *
-     * @param lastPoll a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param lastPoll
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public void setLastPoll(final PollStatus lastPoll) {
         m_lastPoll = lastPoll;
     }
 
     /**
-     * <p>getLastPollTime</p>
+     * <p>
+     * getLastPollTime
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -90,21 +107,24 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     }
 
     /**
-     * <p>getNextPollTime</p>
+     * <p>
+     * getNextPollTime
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     public Date getNextPollTime() {
         if (m_lastPoll == null) {
             return m_initialPollTime;
-        }
-        else {
+        } else {
             return m_polledService.getPollModel().getNextPollTime(getLastPollTime());
         }
     }
 
     /**
-     * <p>getIndex</p>
+     * <p>
+     * getIndex
+     * </p>
      *
      * @return a int.
      */
@@ -113,7 +133,9 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     }
 
     /**
-     * <p>getPolledService</p>
+     * <p>
+     * getPolledService
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.poller.remote.PolledService} object.
      */
@@ -122,9 +144,12 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     }
 
     /**
-     * <p>setInitialPollTime</p>
+     * <p>
+     * setInitialPollTime
+     * </p>
      *
-     * @param initialPollTime a {@link java.util.Date} object.
+     * @param initialPollTime
+     *            a {@link java.util.Date} object.
      */
     public void setInitialPollTime(final Date initialPollTime) {
         m_initialPollTime = initialPollTime;
@@ -133,43 +158,42 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(5, 37)
-            .append(this.getIndex())
-            .append(this.getLastPoll())
-            .append(this.getPolledService())
-            .toHashCode();
+        return new HashCodeBuilder(5, 37).append(this.getIndex()).append(this.getLastPoll()).append(this.getPolledService()).toHashCode();
     }
 
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
-        if (o == null) return false;
-        if (!(o instanceof ServicePollState)) return false;
-        final ServicePollState that = (ServicePollState)o;
-        return new EqualsBuilder()
-            .append(this.getIndex(), that.getIndex())
-            .append(this.getPolledService(), that.getPolledService())
-            .isEquals();
+        if (o == null)
+            return false;
+        if (!(o instanceof ServicePollState))
+            return false;
+        final ServicePollState that = (ServicePollState) o;
+        return new EqualsBuilder().append(this.getIndex(), that.getIndex()).append(this.getPolledService(),
+                                                                                   that.getPolledService()).isEquals();
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param that a {@link org.opennms.netmgt.poller.remote.ServicePollState} object.
+     * @param that
+     *            a {@link org.opennms.netmgt.poller.remote.ServicePollState}
+     *            object.
      * @return a int.
      */
     @Override
     public int compareTo(final ServicePollState that) {
-        if (that == null) return -1;
+        if (that == null)
+            return -1;
         final PolledService thisService = this.getPolledService();
         final PolledService thatService = that.getPolledService();
-        return new CompareToBuilder()
-            .append(thisService.getNodeLabel(), thatService.getNodeLabel())
-            .append(thisService.getIpAddr(), thatService.getIpAddr())
-            .append(this.getLastPoll().getStatusName(), that.getLastPoll().getStatusName())
-            .append(thisService.getServiceId(), thatService.getServiceId())
-            .append(thisService.getNodeId(), thatService.getNodeId())
-            .toComparison();
+        return new CompareToBuilder().append(thisService.getNodeLabel(), thatService.getNodeLabel()).append(thisService.getIpAddr(),
+                                                                                                            thatService.getIpAddr()).append(this.getLastPoll().getStatusName(),
+                                                                                                                                            that.getLastPoll().getStatusName()).append(thisService.getServiceId(),
+                                                                                                                                                                                       thatService.getServiceId()).append(thisService.getNodeId(),
+                                                                                                                                                                                                                          thatService.getNodeId()).toComparison();
     }
 
 }

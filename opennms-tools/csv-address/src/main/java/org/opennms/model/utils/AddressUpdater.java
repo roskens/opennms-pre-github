@@ -62,9 +62,9 @@ public class AddressUpdater {
     private static final String PROPERTY_DB_USER = "db.user";
     private static final String PROPERTY_DB_PW = "db.password";
     private static final String PROPERTY_FOREIGN_SOURCE = "foreign.source";
-    
+
     protected static final String PROPERTY_FIELD_PREFIX = "field";
-    
+
     private static File m_csvFile = new File("/tmp/addresses.csv");
     private static String m_dbSvr = "127.0.0.1";
     private static String m_dbName = "opennms";
@@ -77,7 +77,7 @@ public class AddressUpdater {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Runtime.getRuntime().addShutdownHook(createShutdownHook());
-        
+
         if (args.length > 0) {
             try {
                 usageReport();
@@ -86,7 +86,7 @@ public class AddressUpdater {
             }
             System.exit(0);
         }
-        
+
         try {
         	Properties props = System.getProperties();
         	validateProperties(props);
@@ -99,19 +99,19 @@ public class AddressUpdater {
 			}
         	System.exit(1);
         }
-        
+
         try {
         	List<Address> addresses = parseCsv(m_csvFile);
 			updateAssetTable(addresses);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        
+
         System.out.println("Finished.");
     }
-    
+
     private static void updateAssetTable(List<Address> addresses) throws ClassNotFoundException, SQLException {
-    	
+
     	String sql = "" +
     			"SELECT a.id AS \"id\", " +
     			"       a.nodeid AS \"nodeid\", " +
@@ -126,17 +126,17 @@ public class AddressUpdater {
     			"  FROM assets a " +
     			"  JOIN node n on n.nodeid = a.nodeid " +
     			" WHERE n.foreignsource = ?";
-    	
+
     	Connection con = createConnection();
     	con.setAutoCommit(false);
     	PreparedStatement ps = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-    	
+
     	for (Address address : addresses) {
 			String foreignSource = "Store" + StringUtils.leftPad(address.getForeignSource(), 4, '0');
 			ps.setString(1, foreignSource);
-			
+
 			ResultSet rs = ps.executeQuery();
-			
+
 			rs.last();
 			int rows = rs.getRow();
 			if (rows < 1) {
@@ -144,9 +144,9 @@ public class AddressUpdater {
 				System.out.println("No results found for foreignsource: "+foreignSource+"; continuing to next foreignsource...");
 				continue;
 			}
-			
+
 			rs.beforeFirst();
-			
+
 			while (rs.next()) {
 				System.out.println("Updating node: "+rs.getInt("nodeid"));
 				rs.updateString("address1", address.getAddress());
@@ -161,7 +161,7 @@ public class AddressUpdater {
 			}
 			rs.close();
 		}
-    	
+
     	ps.close();
     	try {
 			con.commit();
@@ -257,7 +257,7 @@ public class AddressUpdater {
 	protected static List<Address> parseCsv(final File csv) throws IOException {
 	    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csv)));
 	    List<Address> addresses = new LinkedList<Address>();
-	    
+
 	    String line = null;
 	    int lineNum = 0;
 	    while ((line = br.readLine()) != null) {
@@ -265,19 +265,19 @@ public class AddressUpdater {
 	        if (line != null && line.startsWith("#")) {
 	            continue;
 	        }
-	        
+
 	        String[] fields = line.split(",", _csvFields);
 	        int fieldCount = fields.length;
 	        if (fieldCount != _csvFields) {
 	            System.err.println("Error on line: "+Integer.toString(lineNum)+". Found "+Integer.toString(fieldCount)+" fields and expected: "+_csvFields+".");
 	            continue;
 	        }
-	                    
+
 	        Address address = new Address(fields);
 	        System.out.println("Line "+Integer.toString(lineNum)+":"+address.toString());
-	        
+
 	        addresses.add(address);
-	        
+
 	    }
 	    br.close();
 	    return addresses;
@@ -368,7 +368,7 @@ public class AddressUpdater {
 		m_fieldMap.put(9, "region");
 	}
 
-    private static void usageReport() throws IOException {        
+    private static void usageReport() throws IOException {
         System.err.println("Usage: java CsvRequistionParser [<Property>...]\n" +
                 "\n" +
                 "Supported Properties:\n" +

@@ -43,12 +43,12 @@ public class IndexStorageStrategy implements StorageStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(IndexStorageStrategy.class);
 
     private String m_resourceTypeName;
+
     protected StorageStrategyService m_storageStrategyService;
 
     /** {@inheritDoc} */
     @Override
-    public String getRelativePathForAttribute(String resourceParent, String resource,
-            String attribute) {
+    public String getRelativePathForAttribute(String resourceParent, String resource, String attribute) {
         StringBuffer buffer = new StringBuffer();
         buffer.append(resourceParent);
         buffer.append(File.separator);
@@ -70,7 +70,9 @@ public class IndexStorageStrategy implements StorageStrategy {
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

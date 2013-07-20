@@ -47,9 +47,9 @@ import org.snmp4j.smi.VariableBinding;
 
 public class Snmp4JWalker extends SnmpWalker {
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(Snmp4JWalker.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(Snmp4JWalker.class);
 
-	public static abstract class Snmp4JPduBuilder extends WalkerPduBuilder {
+    public static abstract class Snmp4JPduBuilder extends WalkerPduBuilder {
         public Snmp4JPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
         }
@@ -136,7 +136,9 @@ public class Snmp4JWalker extends SnmpWalker {
 
         private void processResponse(PDU response) {
             try {
-                LOG.debug("Received a tracker PDU of type {} from {} of size {}, errorStatus = {}, errorStatusText = {}, errorIndex = {}", PDU.getTypeString(response.getType()), getAddress(), response.size(), response.getErrorStatus(), response.getErrorStatusText(), response.getErrorIndex());
+                LOG.debug("Received a tracker PDU of type {} from {} of size {}, errorStatus = {}, errorStatusText = {}, errorIndex = {}",
+                          PDU.getTypeString(response.getType()), getAddress(), response.size(),
+                          response.getErrorStatus(), response.getErrorStatusText(), response.getErrorIndex());
                 if (response.getType() == PDU.REPORT) {
                     handleAuthError("A REPORT PDU was returned from the agent.  This is most likely an authentication problem.  Please check the config");
                 } else {
@@ -157,35 +159,41 @@ public class Snmp4JWalker extends SnmpWalker {
 
         @Override
         public void onResponse(ResponseEvent responseEvent) {
-            // need to cancel the request here otherwise SNMP4J Keeps it around forever... go figure
+            // need to cancel the request here otherwise SNMP4J Keeps it around
+            // forever... go figure
             m_session.cancel(responseEvent.getRequest(), this);
 
             // Check to see if we got an interrupted exception
             if (responseEvent.getError() instanceof InterruptedException) {
-                LOG.debug("Interruption event.  We have probably tried to close the session due to an error", responseEvent.getError());
-            // Check to see if the response is null, indicating a timeout
+                LOG.debug("Interruption event.  We have probably tried to close the session due to an error",
+                          responseEvent.getError());
+                // Check to see if the response is null, indicating a timeout
             } else if (responseEvent.getResponse() == null) {
-                handleTimeout(getName()+": snmpTimeoutError for: " + getAddress());
-            // Check to see if we got any kind of error
-            } else if (responseEvent.getError() != null){
-                handleError(getName()+": snmpInternalError: " + responseEvent.getError() + " for: " + getAddress(), responseEvent.getError());
-            // If we have a PDU in the response, process it
+                handleTimeout(getName() + ": snmpTimeoutError for: " + getAddress());
+                // Check to see if we got any kind of error
+            } else if (responseEvent.getError() != null) {
+                handleError(getName() + ": snmpInternalError: " + responseEvent.getError() + " for: " + getAddress(),
+                            responseEvent.getError());
+                // If we have a PDU in the response, process it
             } else {
                 processResponse(responseEvent.getResponse());
             }
 
         }
 
-
     }
 
     private Snmp m_session;
+
     private final Target m_tgt;
+
     private final ResponseListener m_listener;
+
     private final Snmp4JAgentConfig m_agentConfig;
 
     public Snmp4JWalker(Snmp4JAgentConfig agentConfig, String name, CollectionTracker tracker) {
-        super(agentConfig.getInetAddress(), name, agentConfig.getMaxVarsPerPdu(), agentConfig.getMaxRepetitions(), tracker);
+        super(agentConfig.getInetAddress(), name, agentConfig.getMaxVarsPerPdu(), agentConfig.getMaxRepetitions(),
+              tracker);
 
         m_agentConfig = agentConfig;
 
@@ -193,24 +201,24 @@ public class Snmp4JWalker extends SnmpWalker {
         m_listener = new Snmp4JResponseListener();
     }
 
-        @Override
+    @Override
     public void start() {
 
-        LOG.info("Walking {} for {} using version {} with config: {}", getName(), getAddress(), m_agentConfig.getVersionString(), m_agentConfig);
+        LOG.info("Walking {} for {} using version {} with config: {}", getName(), getAddress(),
+                 m_agentConfig.getVersionString(), m_agentConfig);
 
         super.start();
     }
 
-        @Override
+    @Override
     protected WalkerPduBuilder createPduBuilder(int maxVarsPerPdu) {
-        return (getVersion() == SnmpConstants.version1
-                ? (WalkerPduBuilder)new GetNextBuilder(maxVarsPerPdu)
-                : (WalkerPduBuilder)new GetBulkBuilder(maxVarsPerPdu));
+        return (getVersion() == SnmpConstants.version1 ? (WalkerPduBuilder) new GetNextBuilder(maxVarsPerPdu)
+            : (WalkerPduBuilder) new GetBulkBuilder(maxVarsPerPdu));
     }
 
-        @Override
+    @Override
     protected void sendNextPdu(WalkerPduBuilder pduBuilder) throws IOException {
-        Snmp4JPduBuilder snmp4JPduBuilder = (Snmp4JPduBuilder)pduBuilder;
+        Snmp4JPduBuilder snmp4JPduBuilder = (Snmp4JPduBuilder) pduBuilder;
         if (m_session == null) {
             m_session = m_agentConfig.createSnmpSession();
             m_session.listen();
@@ -224,7 +232,7 @@ public class Snmp4JWalker extends SnmpWalker {
         return m_tgt.getVersion();
     }
 
-        @Override
+    @Override
     protected void close() throws IOException {
         if (m_session != null) {
             m_session.close();

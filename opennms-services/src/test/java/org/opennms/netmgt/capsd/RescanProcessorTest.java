@@ -48,7 +48,7 @@ import org.opennms.netmgt.snmp.SnmpValueFactory;
 public class RescanProcessorTest extends TestCase {
 
     @Override
-    protected void setUp(){
+    protected void setUp() {
         MockLogAppender.setupLogging();
     }
 
@@ -64,7 +64,8 @@ public class RescanProcessorTest extends TestCase {
         RescanProcessor.setQueuedRescansTracker(new HashSet<Integer>());
 
         IfTableEntry ifTableEntry = new IfTableEntry();
-        ifTableEntry.storeResult(new SnmpResult(SnmpObjId.get(".1.3.6.1.2.1.2.2.1.5"), new SnmpInstId("0"), valFactory.getOctetString("".getBytes())));
+        ifTableEntry.storeResult(new SnmpResult(SnmpObjId.get(".1.3.6.1.2.1.2.2.1.5"), new SnmpInstId("0"),
+                                                valFactory.getOctetString("".getBytes())));
         DbSnmpInterfaceEntry dbSnmpInterfaceEntry = DbSnmpInterfaceEntry.create(nodeId, ifIndex);
         RescanProcessor.updateSpeed(ifIndex, ifTableEntry, null, dbSnmpInterfaceEntry);
 
@@ -76,13 +77,15 @@ public class RescanProcessorTest extends TestCase {
         DbIpInterfaceEntry[] dbInterfaces = new DbIpInterfaceEntry[1];
         DbIpInterfaceEntry entry1 = DbIpInterfaceEntry.create(1, ifaddr1, 1);
         dbInterfaces[0] = entry1;
-        assertTrue("Should scan 127.0.0.1 if it is the only interface in the list", RescanProcessor.scannableInterface(dbInterfaces, ifaddr1));
+        assertTrue("Should scan 127.0.0.1 if it is the only interface in the list",
+                   RescanProcessor.scannableInterface(dbInterfaces, ifaddr1));
         dbInterfaces = new DbIpInterfaceEntry[2];
         InetAddress ifaddr2 = InetAddressUtils.addr("10.0.0.1");
         DbIpInterfaceEntry entry2 = DbIpInterfaceEntry.create(2, ifaddr2, 1);
         dbInterfaces[0] = entry1;
         dbInterfaces[1] = entry2;
-        assertFalse("Do not rescan 127.0.0.1 when there are multiple interfaces in the list.",RescanProcessor.scannableInterface(dbInterfaces, ifaddr1));
+        assertFalse("Do not rescan 127.0.0.1 when there are multiple interfaces in the list.",
+                    RescanProcessor.scannableInterface(dbInterfaces, ifaddr1));
         assertTrue(RescanProcessor.scannableInterface(dbInterfaces, ifaddr2));
     }
 }

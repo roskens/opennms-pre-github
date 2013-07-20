@@ -43,15 +43,13 @@ import org.apache.commons.io.IOUtils;
 
 /**
  * <P>
- * Runs external executables, optionally under a watched thread.
- *
- * In addition, probably the most useful feature of ExecRunner is using it to
- * run a command-line program and obtain its stdout and stderr results in two
- * strings. This is done with exec(String) - see that method for an example.
- *
- * With acknowledgements to Michael C. Daconta, author of "Java Pitfalls, Time
- * Saving Solutions, and Workarounds to Improve Programs." and his article in
- * JavaWorld "When Runtime.exec() Won't".
+ * Runs external executables, optionally under a watched thread. In addition,
+ * probably the most useful feature of ExecRunner is using it to run a
+ * command-line program and obtain its stdout and stderr results in two strings.
+ * This is done with exec(String) - see that method for an example. With
+ * acknowledgements to Michael C. Daconta, author of "Java Pitfalls, Time Saving
+ * Solutions, and Workarounds to Improve Programs." and his article in JavaWorld
+ * "When Runtime.exec() Won't".
  * </P>
  *
  * @author <a href="mailto:smccrory@users.sourceforge.net">Scott McCrory </a>.
@@ -206,7 +204,8 @@ public class ExecRunner {
      * @throws java.lang.InterruptedException
      *             thrown if a problem occurs
      */
-    public int exec(final String command, final OutputStream stdoutStream, final OutputStream stderrStream) throws IOException, InterruptedException {
+    public int exec(final String command, final OutputStream stdoutStream, final OutputStream stderrStream)
+            throws IOException, InterruptedException {
 
         PrintWriter pwOut = null;
         PrintWriter pwErr = null;
@@ -239,7 +238,8 @@ public class ExecRunner {
      * @throws java.lang.InterruptedException
      *             thrown if a problem occurs
      */
-    public int exec(final String command, final PrintWriter stdoutWriter, final PrintWriter stderrWriter) throws IOException, InterruptedException {
+    public int exec(final String command, final PrintWriter stdoutWriter, final PrintWriter stderrWriter)
+            throws IOException, InterruptedException {
 
         // Default exit value is non-zero to indicate a problem.
         int exitVal = 1;
@@ -262,7 +262,8 @@ public class ExecRunner {
             cmd[0] = WINDOWS_9X_ME_COMMAND_1;
             cmd[1] = WINDOWS_9X_ME_COMMAND_2;
             cmd[2] = command;
-        } else if (osName.contains("Windows")) { // "Windows NT", "Windows 2000", etc.
+        } else if (osName.contains("Windows")) { // "Windows NT",
+                                                 // "Windows 2000", etc.
             cmd = new String[3];
             cmd[0] = WINDOWS_NT_2000_COMMAND_1;
             cmd[1] = WINDOWS_NT_2000_COMMAND_2;

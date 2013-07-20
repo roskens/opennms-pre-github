@@ -53,38 +53,52 @@ public class ListController extends AbstractController implements InitializingBe
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         List<StatisticsReport> reports = m_statisticsReportService.getStatisticsReports();
-        // Reverse the list for intuitive presentation -- it should come out of the DAO
-        // in ascending order of ID, but users will expect newer reports to be at the top
+        // Reverse the list for intuitive presentation -- it should come out of
+        // the DAO
+        // in ascending order of ID, but users will expect newer reports to be
+        // at the top
         Collections.reverse(reports);
 
         return new ModelAndView("statisticsReports/index", "model", reports);
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.state(m_statisticsReportService != null, "property statisticsReportService must be set to a non-null value");
+        Assert.state(m_statisticsReportService != null,
+                     "property statisticsReportService must be set to a non-null value");
     }
 
     /**
-     * <p>getStatisticsReportService</p>
+     * <p>
+     * getStatisticsReportService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.StatisticsReportService} object.
+     * @return a {@link org.opennms.web.svclayer.StatisticsReportService}
+     *         object.
      */
     public StatisticsReportService getStatisticsReportService() {
         return m_statisticsReportService;
     }
 
     /**
-     * <p>setStatisticsReportService</p>
+     * <p>
+     * setStatisticsReportService
+     * </p>
      *
-     * @param statisticsReportService a {@link org.opennms.web.svclayer.StatisticsReportService} object.
+     * @param statisticsReportService
+     *            a {@link org.opennms.web.svclayer.StatisticsReportService}
+     *            object.
      */
     public void setStatisticsReportService(StatisticsReportService statisticsReportService) {
         m_statisticsReportService = statisticsReportService;

@@ -19,83 +19,81 @@ import org.opennms.features.topology.api.topo.Vertex;
 
 public class MergingGraphProviderTest {
 
-	private GraphProvider m_graphProvider;
-	private EdgeProvider m_edgeProvider;
-	private MergingGraphProvider m_mergedProvider;
+    private GraphProvider m_graphProvider;
 
+    private EdgeProvider m_edgeProvider;
 
-	@Before
-	public void setUp() {
+    private MergingGraphProvider m_mergedProvider;
 
-		MockLogAppender.setupLogging();
+    @Before
+    public void setUp() {
 
-		m_graphProvider = new SimpleGraphBuilder("nodes")
-			.vertex("g0").vLabel("group0").vIconKey("group").vTooltip("root group").vStyleName("vertex")
-			.vertex("g1").parent("g0").vLabel("group1").vIconKey("group").vTooltip("group 1").vStyleName("vertex")
-			.vertex("v1").parent("g1").vLabel("vertex1").vIconKey("server").vTooltip("tooltip").vStyleName("vertex")
-			.vertex("v2").parent("g1").vLabel("vertex2").vIconKey("server").vTooltip("tooltip").vStyleName("vertex")
-			.vertex("g2").parent("g0").vLabel("group2").vIconKey("group").vTooltip("group 2").vStyleName("vertex")
-			.vertex("v3").parent("g2").vLabel("vertex3").vIconKey("server").vTooltip("tooltip").vStyleName("vertex")
-			.vertex("v4").parent("g2").vLabel("vertex4").vIconKey("server").vTooltip("tooltip").vStyleName("vertex")
-			.edge("e1", "v1", "v2").eLabel("edge1").eStyleName("edge")
-			.edge("e2", "v2", "v3").eLabel("edge2").eStyleName("edge")
-			.edge("e3", "v3", "v4").eLabel("edge3").eStyleName("edge")
-			.edge("e4", "v4", "v1").eLabel("edge4").eStyleName("edge")
-			.get();
+        MockLogAppender.setupLogging();
 
-		m_edgeProvider = new SimpleEdgeBuilder("ncs", "nodes")
-			.edge("ncs1", "nodes", "v1", "nodes", "v3").label("ncsedge1")
-			.edge("ncs2", "nodes", "v2", "nodes", "v4").label("ncsedge2")
-			.get();
+        m_graphProvider = new SimpleGraphBuilder("nodes").vertex("g0").vLabel("group0").vIconKey("group").vTooltip("root group").vStyleName("vertex").vertex("g1").parent("g0").vLabel("group1").vIconKey("group").vTooltip("group 1").vStyleName("vertex").vertex("v1").parent("g1").vLabel("vertex1").vIconKey("server").vTooltip("tooltip").vStyleName("vertex").vertex("v2").parent("g1").vLabel("vertex2").vIconKey("server").vTooltip("tooltip").vStyleName("vertex").vertex("g2").parent("g0").vLabel("group2").vIconKey("group").vTooltip("group 2").vStyleName("vertex").vertex("v3").parent("g2").vLabel("vertex3").vIconKey("server").vTooltip("tooltip").vStyleName("vertex").vertex("v4").parent("g2").vLabel("vertex4").vIconKey("server").vTooltip("tooltip").vStyleName("vertex").edge("e1",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       "v1",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       "v2").eLabel("edge1").eStyleName("edge").edge("e2",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "v2",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "v3").eLabel("edge2").eStyleName("edge").edge("e3",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "v3",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "v4").eLabel("edge3").eStyleName("edge").edge("e4",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 "v4",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 "v1").eLabel("edge4").eStyleName("edge").get();
 
-		ProviderManager providerManager = new ProviderManager();
-		providerManager.onEdgeProviderBind(m_edgeProvider);
+        m_edgeProvider = new SimpleEdgeBuilder("ncs", "nodes").edge("ncs1", "nodes", "v1", "nodes", "v3").label("ncsedge1").edge("ncs2",
+                                                                                                                                 "nodes",
+                                                                                                                                 "v2",
+                                                                                                                                 "nodes",
+                                                                                                                                 "v4").label("ncsedge2").get();
 
-		m_mergedProvider = new MergingGraphProvider(m_graphProvider, providerManager);
-	}
+        ProviderManager providerManager = new ProviderManager();
+        providerManager.onEdgeProviderBind(m_edgeProvider);
 
-	@Test
-	public void testGraphProvider() {
-		List<? extends Vertex> roots = m_graphProvider.getRootGroup();
-		assertEquals(1, roots.size());
-		Vertex root = roots.get(0);
-		assertNotNull(root);
+        m_mergedProvider = new MergingGraphProvider(m_graphProvider, providerManager);
+    }
 
-		assertEquals("nodes", root.getNamespace());
-		assertEquals("g0", root.getId());
+    @Test
+    public void testGraphProvider() {
+        List<? extends Vertex> roots = m_graphProvider.getRootGroup();
+        assertEquals(1, roots.size());
+        Vertex root = roots.get(0);
+        assertNotNull(root);
 
-		List<? extends Vertex> children = m_graphProvider.getChildren(root);
-		assertEquals(2, children.size());
-		assertEquals(root, m_graphProvider.getParent(children.get(0)));
-	}
+        assertEquals("nodes", root.getNamespace());
+        assertEquals("g0", root.getId());
 
-	@Test
-	public void testGetVertex() {
-		assertEquals("vertex1", m_mergedProvider.getVertex("nodes", "v1").getLabel());
-		assertEquals("vertex2", m_mergedProvider.getVertex(new AbstractVertexRef("nodes", "v2")).getLabel());
-	}
+        List<? extends Vertex> children = m_graphProvider.getChildren(root);
+        assertEquals(2, children.size());
+        assertEquals(root, m_graphProvider.getParent(children.get(0)));
+    }
 
-	@Test
-	public void testGetEdge() {
-		assertEquals("edge1", m_mergedProvider.getEdge("nodes", "e1").getLabel());
-		assertEquals("ncsedge2", m_mergedProvider.getEdge(new AbstractEdgeRef("ncs", "ncs2")).getLabel());
-	}
+    @Test
+    public void testGetVertex() {
+        assertEquals("vertex1", m_mergedProvider.getVertex("nodes", "v1").getLabel());
+        assertEquals("vertex2", m_mergedProvider.getVertex(new AbstractVertexRef("nodes", "v2")).getLabel());
+    }
 
-	@Test
-	public void testGetEdges() {
-		// with no criteria set.. just base edges
-		List<? extends Edge> edges = m_mergedProvider.getEdges();
+    @Test
+    public void testGetEdge() {
+        assertEquals("edge1", m_mergedProvider.getEdge("nodes", "e1").getLabel());
+        assertEquals("ncsedge2", m_mergedProvider.getEdge(new AbstractEdgeRef("ncs", "ncs2")).getLabel());
+    }
 
-		assertEquals(4, edges.size());
-		assertEquals(m_graphProvider.getEdges(), edges);
+    @Test
+    public void testGetEdges() {
+        // with no criteria set.. just base edges
+        List<? extends Edge> edges = m_mergedProvider.getEdges();
 
-		// set a criteria now and get some ncs edges
-		m_mergedProvider.setCriteria(SimpleEdgeProvider.labelMatches("ncs", "ncsedge2"));
+        assertEquals(4, edges.size());
+        assertEquals(m_graphProvider.getEdges(), edges);
 
-		edges = m_mergedProvider.getEdges();
+        // set a criteria now and get some ncs edges
+        m_mergedProvider.setCriteria(SimpleEdgeProvider.labelMatches("ncs", "ncsedge2"));
 
-		assertEquals(5, edges.size());
-		assertTrue(edges.contains(new AbstractEdgeRef("ncs", "ncs2")));
+        edges = m_mergedProvider.getEdges();
 
-	}
+        assertEquals(5, edges.size());
+        assertTrue(edges.contains(new AbstractEdgeRef("ncs", "ncs2")));
+
+    }
 }

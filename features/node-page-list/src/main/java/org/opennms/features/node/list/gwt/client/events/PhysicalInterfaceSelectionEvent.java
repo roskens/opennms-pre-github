@@ -32,8 +32,8 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class PhysicalInterfaceSelectionEvent extends GwtEvent<PhysicalInterfaceSelectionHandler> {
 
-
     public static Type<PhysicalInterfaceSelectionHandler> TYPE = new Type<PhysicalInterfaceSelectionHandler>();
+
     private String m_ifIndex;
 
     public PhysicalInterfaceSelectionEvent(String ifIndex) {

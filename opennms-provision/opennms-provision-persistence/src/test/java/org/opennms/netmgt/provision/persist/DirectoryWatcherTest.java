@@ -19,80 +19,80 @@ import org.springframework.core.io.Resource;
 
 public class DirectoryWatcherTest {
 
-	private FileSystemBuilder m_bldr;
-	private DirectoryWatcher<String> m_watcher;
+    private FileSystemBuilder m_bldr;
 
-	@Before
-	public void setUp() throws IOException {
+    private DirectoryWatcher<String> m_watcher;
 
-		m_bldr = new FileSystemBuilder("target", "DirectoryWatcherTest");
-		m_bldr.file("file1.xml", "file1Contents").file("file2.xml", "file2Contents");
+    @Before
+    public void setUp() throws IOException {
 
-		File dir = m_bldr.getCurrentDir();
+        m_bldr = new FileSystemBuilder("target", "DirectoryWatcherTest");
+        m_bldr.file("file1.xml", "file1Contents").file("file2.xml", "file2Contents");
 
-		FileReloadCallback<String> loader = new FileReloadCallback<String>() {
+        File dir = m_bldr.getCurrentDir();
 
-			@Override
-			public String reload(String object, Resource resource) throws IOException {
-				return FileUtils.readFileToString(resource.getFile());
-			}
-		};
+        FileReloadCallback<String> loader = new FileReloadCallback<String>() {
 
-		m_watcher = new DirectoryWatcher<String>(dir, loader);
-	}
+            @Override
+            public String reload(String object, Resource resource) throws IOException {
+                return FileUtils.readFileToString(resource.getFile());
+            }
+        };
 
-	@After
-	public void tearDown() throws IOException {
-		m_bldr.cleanup();
-	}
+        m_watcher = new DirectoryWatcher<String>(dir, loader);
+    }
 
-	@Test
-	public void testGetContents() throws FileNotFoundException {
-		assertEquals("file1Contents", m_watcher.getContents("file1.xml"));
-		assertEquals("file2Contents", m_watcher.getContents("file2.xml"));
-	}
+    @After
+    public void tearDown() throws IOException {
+        m_bldr.cleanup();
+    }
 
-	@Test(expected=FileNotFoundException.class)
-	public void testFileDoesntExist() throws FileNotFoundException {
-		m_watcher.getContents("doesnotexist.xml");
-	}
+    @Test
+    public void testGetContents() throws FileNotFoundException {
+        assertEquals("file1Contents", m_watcher.getContents("file1.xml"));
+        assertEquals("file2Contents", m_watcher.getContents("file2.xml"));
+    }
 
-	@Test
-	public void testFileAdded() throws IOException {
-		assertEquals("file2Contents", m_watcher.getContents("file2.xml"));
+    @Test(expected = FileNotFoundException.class)
+    public void testFileDoesntExist() throws FileNotFoundException {
+        m_watcher.getContents("doesnotexist.xml");
+    }
 
-		m_bldr.file("file3.xml", "file3Contents");
+    @Test
+    public void testFileAdded() throws IOException {
+        assertEquals("file2Contents", m_watcher.getContents("file2.xml"));
 
-		assertEquals("file3Contents", m_watcher.getContents("file3.xml"));
-	}
+        m_bldr.file("file3.xml", "file3Contents");
 
-	@Test(expected=FileNotFoundException.class)
-	public void testFileDeleted() throws IOException {
-		assertEquals("file2Contents", m_watcher.getContents("file2.xml"));
+        assertEquals("file3Contents", m_watcher.getContents("file3.xml"));
+    }
 
-		File file2 = new File(m_bldr.getCurrentDir(), "file2.xml");
+    @Test(expected = FileNotFoundException.class)
+    public void testFileDeleted() throws IOException {
+        assertEquals("file2Contents", m_watcher.getContents("file2.xml"));
 
-		file2.delete();
+        File file2 = new File(m_bldr.getCurrentDir(), "file2.xml");
 
-		// expect this to throw a file not found
-		m_watcher.getContents("file2.xml");
+        file2.delete();
 
-		fail("This should not get here!");
+        // expect this to throw a file not found
+        m_watcher.getContents("file2.xml");
 
-	}
+        fail("This should not get here!");
 
-	@Test
-	public void testGetFilesNames() {
-		assertEquals(set("file1.xml", "file2.xml"), m_watcher.getFileNames());
-		assertEquals(set("file1", "file2"), m_watcher.getBaseNamesWithExtension(".xml"));
-		assertEquals(set(), m_watcher.getBaseNamesWithExtension(".txt"));
-	}
+    }
 
+    @Test
+    public void testGetFilesNames() {
+        assertEquals(set("file1.xml", "file2.xml"), m_watcher.getFileNames());
+        assertEquals(set("file1", "file2"), m_watcher.getBaseNamesWithExtension(".xml"));
+        assertEquals(set(), m_watcher.getBaseNamesWithExtension(".txt"));
+    }
 
-	public <T> Set<T> set(T... items) {
-		Set<T> set = new LinkedHashSet<T>();
-		Collections.addAll(set, items);
-		return set;
-	}
+    public <T> Set<T> set(T... items) {
+        Set<T> set = new LinkedHashSet<T>();
+        Collections.addAll(set, items);
+        return set;
+    }
 
 }

@@ -50,8 +50,10 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 
 /**
- * The TracerouteWindow class creates a Vaadin Sub-window with a form and results section
+ * The TracerouteWindow class creates a Vaadin Sub-window with a form and
+ * results section
  * for the Traceroute functionality of a Node.
+ *
  * @author Leonardo Bell
  * @author Philip Grenon
  * @version 1.0
@@ -59,240 +61,302 @@ import com.vaadin.ui.Button.ClickEvent;
 @SuppressWarnings("serial")
 public class TracerouteWindow extends Window {
 
-	private final double sizePercentage = 0.80; // Window size proportionate to main window
-	protected NativeSelect ipDropdown = null; //Dropdown component for IP Address
-	private Label nodeLabel = null; //Label displaying the name of the Node at the top of the window
-	protected TextField forcedHopField = null; //Textfield for the "Forced Hop" variable
-	protected CheckBox numericalDataCheckBox = null; //Checkbox which toggles numeric output
-	protected Button tracerouteButton; //Button to execute the traceroute operation
-	private Embedded resultsBrowser = null; //Browser component which displays the results of Traceroute
-	private VerticalLayout topLayout = null; //Contains the form for Traceroute
-	private VerticalLayout bottomLayout = null; //Contains the results Browser for a Traceroute
-	private VerticalSplitPanel vSplit = null; //Splits up the top and bottom layout
-	private int margin = 40; //Padding around the results browser
-	private int splitHeight = 180;//Height from top of the window to the split location in pixels
-	private int topHeight = 220;//Set height size for everything above the split
-	private final String noLabel = "no such label"; //Label given to vertexes that have no real label.
-	private String tracerouteUrl;
+    private final double sizePercentage = 0.80; // Window size proportionate to
+                                                // main window
 
-	/**
-	 * The TracerouteWindow method constructs a TracerouteWindow component with a size proportionate to the
-	 * width and height of the main window.
-	 * @param node
-	 * @param width Width of Main window
-	 * @param height Height of Main window
-	 */
-	public TracerouteWindow(final Node node, final String url) {
+    protected NativeSelect ipDropdown = null; // Dropdown component for IP
+                                              // Address
 
-		this.tracerouteUrl = url;
+    private Label nodeLabel = null; // Label displaying the name of the Node at
+                                    // the top of the window
 
-		String label = "";
-		String ipAddress = "";
-		if (node != null) {
-			label = node.getLabel();
-			ipAddress = node.getIPAddress();
-		}
-		String caption = "";
-		/*Sets up window settings*/
-		if (label == null || label.equals("") || label.equalsIgnoreCase(noLabel)) {
-			label = "";
-		}
-		if (!label.equals("")) caption = " - " + label;
-		setCaption("Traceroute" + caption);
-		setImmediate(true);
-		setResizable(false);
+    protected TextField forcedHopField = null; // Textfield for the "Forced Hop"
+                                               // variable
 
-		/*Initialize the header of the Sub-window with the name of the selected Node*/
-		String nodeName = "<div style=\"text-align: center; font-size: 18pt; font-weight:bold;\">" + label + "</div>";
-		nodeLabel = new Label(nodeName);
-		nodeLabel.setContentMode(ContentMode.HTML);
+    protected CheckBox numericalDataCheckBox = null; // Checkbox which toggles
+                                                     // numeric output
 
-		/*Creating various layouts to encapsulate all of the components*/
-		VerticalLayout mainLayout = new VerticalLayout();
-		mainLayout.setSizeFull();
-		vSplit = new VerticalSplitPanel();
-		topLayout = new VerticalLayout();
-		bottomLayout = new VerticalLayout();
-		VerticalLayout form = new VerticalLayout();
-		GridLayout grid = new GridLayout(2,2);
-		grid.setWidth("420");
-		grid.setHeight("62");
+    protected Button tracerouteButton; // Button to execute the traceroute
+                                       // operation
 
-		/*Sets up IP Address dropdown with the Name as default*/
-		ipDropdown = new NativeSelect();
-		ipDropdown.addItem(ipAddress);
-		ipDropdown.select(ipAddress);
+    private Embedded resultsBrowser = null; // Browser component which displays
+                                            // the results of Traceroute
 
-		/*Creates the Numerical Output Check box and sets up the listener*/
-		numericalDataCheckBox = new CheckBox("Use Numerical Node Names");
-		numericalDataCheckBox.setImmediate(true);
-		numericalDataCheckBox.setValue(false);
+    private VerticalLayout topLayout = null; // Contains the form for Traceroute
 
-		/*Creates the form labels and text fields*/
-		Label ipLabel = new Label("IP Address: ");
-		Label forcedHopLabel = new Label("Forced Hop IP: ");
-		forcedHopField = new TextField();
-		forcedHopField.setMaxLength(15);
+    private VerticalLayout bottomLayout = null; // Contains the results Browser
+                                                // for a Traceroute
 
-		/*Add all of the components to the GridLayout*/
-		grid.addComponent(ipLabel);
-		grid.setComponentAlignment(ipLabel, Alignment.MIDDLE_LEFT);
-		grid.addComponent(ipDropdown);
-		grid.setComponentAlignment(ipDropdown, Alignment.MIDDLE_LEFT);
-		grid.addComponent(forcedHopLabel);
-		grid.setComponentAlignment(forcedHopLabel, Alignment.MIDDLE_LEFT);
-		grid.addComponent(forcedHopField);
-		grid.setComponentAlignment(forcedHopField, Alignment.MIDDLE_LEFT);
+    private VerticalSplitPanel vSplit = null; // Splits up the top and bottom
+                                              // layout
 
-		/*Creates the Ping button and sets up the listener*/
-		tracerouteButton = new Button("Traceroute");
-		tracerouteButton.addClickListener(new Button.ClickListener() {
-                        @Override
-			public void buttonClick(ClickEvent event) {
-				changeBrowserURL(buildURL());
-			}
-		});
+    private int margin = 40; // Padding around the results browser
 
-		/*Adds components to the form and sets the width and spacing*/
-		form.addComponent(grid);
-		form.addComponent(numericalDataCheckBox);
-		form.addComponent(tracerouteButton);
-		form.setWidth("100%");
-		form.setSpacing(true);
+    private int splitHeight = 180;// Height from top of the window to the split
+                                  // location in pixels
 
-		/*Adds components to the Top Layout and sets the width and margins*/
-		topLayout.addComponent(nodeLabel);
-		topLayout.setComponentAlignment(nodeLabel, Alignment.MIDDLE_CENTER);
-		topLayout.addComponent(form);
-		topLayout.setSizeFull();
-		topLayout.setMargin(new MarginInfo(true, true, false, true));
+    private int topHeight = 220;// Set height size for everything above the
+                                // split
 
-		/*Adds components to the Bottom Layout and sets the width and margins*/
-		bottomLayout.setSizeFull();
-		bottomLayout.setMargin(true);
-		bottomLayout.setImmediate(true);
+    private final String noLabel = "no such label"; // Label given to vertexes
+                                                    // that have no real label.
 
-		buildEmbeddedBrowser();
+    private String tracerouteUrl;
 
-		/*Setting first and second components for the split panel and setting the panel divider position*/
-		vSplit.setFirstComponent(topLayout);
-		vSplit.setSecondComponent(bottomLayout);
-		vSplit.setSplitPosition(splitHeight, Unit.PIXELS);
-		vSplit.setLocked(true);
+    /**
+     * The TracerouteWindow method constructs a TracerouteWindow component with
+     * a size proportionate to the
+     * width and height of the main window.
+     *
+     * @param node
+     * @param width
+     *            Width of Main window
+     * @param height
+     *            Height of Main window
+     */
+    public TracerouteWindow(final Node node, final String url) {
 
-		/*Adds split panel to the main layout and expands the split panel to 100% of the layout space*/
-		mainLayout.addComponent(vSplit);
-		mainLayout.setExpandRatio(vSplit, 1);
+        this.tracerouteUrl = url;
 
-		setContent(mainLayout);
-	}
+        String label = "";
+        String ipAddress = "";
+        if (node != null) {
+            label = node.getLabel();
+            ipAddress = node.getIPAddress();
+        }
+        String caption = "";
+        /* Sets up window settings */
+        if (label == null || label.equals("") || label.equalsIgnoreCase(noLabel)) {
+            label = "";
+        }
+        if (!label.equals(""))
+            caption = " - " + label;
+        setCaption("Traceroute" + caption);
+        setImmediate(true);
+        setResizable(false);
 
-	@Override
-	public void attach() {
-		super.attach();
+        /*
+         * Initialize the header of the Sub-window with the name of the selected
+         * Node
+         */
+        String nodeName = "<div style=\"text-align: center; font-size: 18pt; font-weight:bold;\">" + label + "</div>";
+        nodeLabel = new Label(nodeName);
+        nodeLabel.setContentMode(ContentMode.HTML);
 
-		int width = (int)getUI().getWidth();
-		int height = (int)getUI().getHeight();
+        /* Creating various layouts to encapsulate all of the components */
+        VerticalLayout mainLayout = new VerticalLayout();
+        mainLayout.setSizeFull();
+        vSplit = new VerticalSplitPanel();
+        topLayout = new VerticalLayout();
+        bottomLayout = new VerticalLayout();
+        VerticalLayout form = new VerticalLayout();
+        GridLayout grid = new GridLayout(2, 2);
+        grid.setWidth("420");
+        grid.setHeight("62");
 
-		int windowWidth = (int)(sizePercentage * width), windowHeight = (int)(sizePercentage * height);
-		setWidth("" + windowWidth + "px");
-		setHeight("" + windowHeight + "px");
-		setPositionX((width - windowWidth)/2);
-		setPositionY((height - windowHeight)/2);
+        /* Sets up IP Address dropdown with the Name as default */
+        ipDropdown = new NativeSelect();
+        ipDropdown.addItem(ipAddress);
+        ipDropdown.select(ipAddress);
 
-		resultsBrowser.setWidth("" + (int)(this.getWidth()-margin) + "px"); //Cuts off "close" button from window
-		resultsBrowser.setHeight("" + (int)(this.getHeight() - topHeight - margin) + "px");
-	}
+        /* Creates the Numerical Output Check box and sets up the listener */
+        numericalDataCheckBox = new CheckBox("Use Numerical Node Names");
+        numericalDataCheckBox.setImmediate(true);
+        numericalDataCheckBox.setValue(false);
 
-	/**
-	 * The changeBrowserURL method changes the address of the results browser whenever a new
-	 * traceroute request form is submitted and refreshes the browser.
-	 * @param url New web address
-	 */
-	private void changeBrowserURL(URL url) {
-		if (url != null) {
-			/* This setVisible(false/true) toggle is used to refresh the browser.
-			 * Due to to the fact that the updates to the client require a call to
-			 * the server, this is currently one of the only ways to accomplish the
-			 * the needed update.
-			 */
-			resultsBrowser.setVisible(false);
-			resultsBrowser.setSource(new ExternalResource(url));
-			resultsBrowser.setVisible(true);
-		}
-	}
+        /* Creates the form labels and text fields */
+        Label ipLabel = new Label("IP Address: ");
+        Label forcedHopLabel = new Label("Forced Hop IP: ");
+        forcedHopField = new TextField();
+        forcedHopField.setMaxLength(15);
 
-	/**
-	 * The buildURL method takes the current values in the form and formats them into the
-	 * URL string that is used to redirect the results browser to the Traceroute page.
-	 * @return Web address for traceroute command with submitted parameters
-	 * @throws MalformedURLException
-	 */
-	protected URL buildURL() {
-		boolean validInput = false;
-		try {
-			validInput = validateInput();
-		} catch (Exception e) {
-			Notification.show(e.getMessage(), Notification.Type.WARNING_MESSAGE);
-			return null;
-		}
-		if (validInput) {
-			final StringBuilder options = new StringBuilder(tracerouteUrl);
-			try {
-				URL baseUrl = getUI().getPage().getLocation().toURL();
+        /* Add all of the components to the GridLayout */
+        grid.addComponent(ipLabel);
+        grid.setComponentAlignment(ipLabel, Alignment.MIDDLE_LEFT);
+        grid.addComponent(ipDropdown);
+        grid.setComponentAlignment(ipDropdown, Alignment.MIDDLE_LEFT);
+        grid.addComponent(forcedHopLabel);
+        grid.setComponentAlignment(forcedHopLabel, Alignment.MIDDLE_LEFT);
+        grid.addComponent(forcedHopField);
+        grid.setComponentAlignment(forcedHopField, Alignment.MIDDLE_LEFT);
 
-				options.append(tracerouteUrl.contains("?") ? "&" : "?");
+        /* Creates the Ping button and sets up the listener */
+        tracerouteButton = new Button("Traceroute");
+        tracerouteButton.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                changeBrowserURL(buildURL());
+            }
+        });
 
-				options.append("address=").append(ipDropdown.getValue());
-				if (!("".equals(forcedHopField.getValue().toString()))) {
-					options.append("&hopAddress=").append(forcedHopField.getValue());
-				}
-				if (numericalDataCheckBox.getValue().equals(true)) {
-					options.append("&numericOutput=true");
-				}
+        /* Adds components to the form and sets the width and spacing */
+        form.addComponent(grid);
+        form.addComponent(numericalDataCheckBox);
+        form.addComponent(tracerouteButton);
+        form.setWidth("100%");
+        form.setSpacing(true);
 
-				return new URL(baseUrl, options.toString());
-			} catch (final MalformedURLException e) {
-				Notification.show("Could not build URL: " + options.toString(), Notification.Type.WARNING_MESSAGE);
-				return null;
-			}
-		} else {
-			Notification.show("Invalid IP addresss", Notification.Type.WARNING_MESSAGE);
-			return null;
-		}
-	}
+        /* Adds components to the Top Layout and sets the width and margins */
+        topLayout.addComponent(nodeLabel);
+        topLayout.setComponentAlignment(nodeLabel, Alignment.MIDDLE_CENTER);
+        topLayout.addComponent(form);
+        topLayout.setSizeFull();
+        topLayout.setMargin(new MarginInfo(true, true, false, true));
 
-	/**
-	 * The validateInput method checks the forced hop text field to
-	 * make sure the input given by the user was formatted correctly.
-	 * @return Whether input was correctly formatted
-	 * @throws Exception If an input field was left empty
-	 */
-	protected boolean validateInput() throws Exception {
-		String forcedHop = forcedHopField.getValue().toString();
-		if ("".equals(forcedHop)) return true;
-		Scanner line = new Scanner(forcedHop);
-		line.useDelimiter("[.]");
-		int count = 0;
-		while (line.hasNextInt()) {
-			int n = line.nextInt();
-			if (n < 0 || n > 255) return false; //Integers in an IP address must be within 0-255
-			else count++;
-		}
-		line.close();
-		return (count == 4); //IP address must has 4 integer values separated by a '.'
-	}
+        /* Adds components to the Bottom Layout and sets the width and margins */
+        bottomLayout.setSizeFull();
+        bottomLayout.setMargin(true);
+        bottomLayout.setImmediate(true);
 
-	/**
-	 * The buildEmbeddedBrowser method creates a new browser instance and adds it to the
-	 * bottom layout. The browser is set to invisible by default.
-	 */
-	private void buildEmbeddedBrowser() {
-		resultsBrowser = new Embedded();
-		resultsBrowser.setType(Embedded.TYPE_BROWSER);
-		resultsBrowser.setImmediate(true);
-		resultsBrowser.setVisible(false);
-		bottomLayout.addComponent(resultsBrowser);
-	}
+        buildEmbeddedBrowser();
+
+        /*
+         * Setting first and second components for the split panel and setting
+         * the panel divider position
+         */
+        vSplit.setFirstComponent(topLayout);
+        vSplit.setSecondComponent(bottomLayout);
+        vSplit.setSplitPosition(splitHeight, Unit.PIXELS);
+        vSplit.setLocked(true);
+
+        /*
+         * Adds split panel to the main layout and expands the split panel to
+         * 100% of the layout space
+         */
+        mainLayout.addComponent(vSplit);
+        mainLayout.setExpandRatio(vSplit, 1);
+
+        setContent(mainLayout);
+    }
+
+    @Override
+    public void attach() {
+        super.attach();
+
+        int width = (int) getUI().getWidth();
+        int height = (int) getUI().getHeight();
+
+        int windowWidth = (int) (sizePercentage * width), windowHeight = (int) (sizePercentage * height);
+        setWidth("" + windowWidth + "px");
+        setHeight("" + windowHeight + "px");
+        setPositionX((width - windowWidth) / 2);
+        setPositionY((height - windowHeight) / 2);
+
+        resultsBrowser.setWidth("" + (int) (this.getWidth() - margin) + "px"); // Cuts
+                                                                               // off
+                                                                               // "close"
+                                                                               // button
+                                                                               // from
+                                                                               // window
+        resultsBrowser.setHeight("" + (int) (this.getHeight() - topHeight - margin) + "px");
+    }
+
+    /**
+     * The changeBrowserURL method changes the address of the results browser
+     * whenever a new
+     * traceroute request form is submitted and refreshes the browser.
+     *
+     * @param url
+     *            New web address
+     */
+    private void changeBrowserURL(URL url) {
+        if (url != null) {
+            /*
+             * This setVisible(false/true) toggle is used to refresh the
+             * browser.
+             * Due to to the fact that the updates to the client require a call
+             * to
+             * the server, this is currently one of the only ways to accomplish
+             * the
+             * the needed update.
+             */
+            resultsBrowser.setVisible(false);
+            resultsBrowser.setSource(new ExternalResource(url));
+            resultsBrowser.setVisible(true);
+        }
+    }
+
+    /**
+     * The buildURL method takes the current values in the form and formats them
+     * into the
+     * URL string that is used to redirect the results browser to the Traceroute
+     * page.
+     *
+     * @return Web address for traceroute command with submitted parameters
+     * @throws MalformedURLException
+     */
+    protected URL buildURL() {
+        boolean validInput = false;
+        try {
+            validInput = validateInput();
+        } catch (Exception e) {
+            Notification.show(e.getMessage(), Notification.Type.WARNING_MESSAGE);
+            return null;
+        }
+        if (validInput) {
+            final StringBuilder options = new StringBuilder(tracerouteUrl);
+            try {
+                URL baseUrl = getUI().getPage().getLocation().toURL();
+
+                options.append(tracerouteUrl.contains("?") ? "&" : "?");
+
+                options.append("address=").append(ipDropdown.getValue());
+                if (!("".equals(forcedHopField.getValue().toString()))) {
+                    options.append("&hopAddress=").append(forcedHopField.getValue());
+                }
+                if (numericalDataCheckBox.getValue().equals(true)) {
+                    options.append("&numericOutput=true");
+                }
+
+                return new URL(baseUrl, options.toString());
+            } catch (final MalformedURLException e) {
+                Notification.show("Could not build URL: " + options.toString(), Notification.Type.WARNING_MESSAGE);
+                return null;
+            }
+        } else {
+            Notification.show("Invalid IP addresss", Notification.Type.WARNING_MESSAGE);
+            return null;
+        }
+    }
+
+    /**
+     * The validateInput method checks the forced hop text field to
+     * make sure the input given by the user was formatted correctly.
+     *
+     * @return Whether input was correctly formatted
+     * @throws Exception
+     *             If an input field was left empty
+     */
+    protected boolean validateInput() throws Exception {
+        String forcedHop = forcedHopField.getValue().toString();
+        if ("".equals(forcedHop))
+            return true;
+        Scanner line = new Scanner(forcedHop);
+        line.useDelimiter("[.]");
+        int count = 0;
+        while (line.hasNextInt()) {
+            int n = line.nextInt();
+            if (n < 0 || n > 255)
+                return false; // Integers in an IP address must be within 0-255
+            else
+                count++;
+        }
+        line.close();
+        return (count == 4); // IP address must has 4 integer values separated
+                             // by a '.'
+    }
+
+    /**
+     * The buildEmbeddedBrowser method creates a new browser instance and adds
+     * it to the
+     * bottom layout. The browser is set to invisible by default.
+     */
+    private void buildEmbeddedBrowser() {
+        resultsBrowser = new Embedded();
+        resultsBrowser.setType(Embedded.TYPE_BROWSER);
+        resultsBrowser.setImmediate(true);
+        resultsBrowser.setVisible(false);
+        bottomLayout.addComponent(resultsBrowser);
+    }
 
 }

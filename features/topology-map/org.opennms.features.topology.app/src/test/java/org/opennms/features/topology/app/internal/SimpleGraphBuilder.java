@@ -11,93 +11,94 @@ import org.opennms.features.topology.plugins.topo.simple.SimpleGraphProvider;
 
 public class SimpleGraphBuilder {
 
-	private final GraphProvider m_graphProvider;
-	private AbstractVertex m_currentVertex;
-	private AbstractEdge m_currentEdge;
+    private final GraphProvider m_graphProvider;
 
-	public SimpleGraphBuilder(String namespace) {
-		m_graphProvider = new SimpleGraphProvider(namespace);
-	}
+    private AbstractVertex m_currentVertex;
 
-	public SimpleGraphBuilder vertex(String id) {
-		m_currentVertex = new AbstractVertex(ns(), id);
-		m_graphProvider.addVertices(m_currentVertex);
-		return this;
-	}
+    private AbstractEdge m_currentEdge;
 
-	public SimpleGraphBuilder parent(String parentId) {
-		Vertex parent = m_graphProvider.getVertex(ns(), parentId);
-		m_graphProvider.setParent(m_currentVertex, parent);
-		return this;
-	}
+    public SimpleGraphBuilder(String namespace) {
+        m_graphProvider = new SimpleGraphProvider(namespace);
+    }
 
-	public SimpleGraphBuilder vLabel(String label) {
-		m_currentVertex.setLabel(label);
-		return this;
-	}
+    public SimpleGraphBuilder vertex(String id) {
+        m_currentVertex = new AbstractVertex(ns(), id);
+        m_graphProvider.addVertices(m_currentVertex);
+        return this;
+    }
 
-	public SimpleGraphBuilder vTooltip(String tooltipText) {
-		m_currentVertex.setTooltipText(tooltipText);
-		return this;
-	}
+    public SimpleGraphBuilder parent(String parentId) {
+        Vertex parent = m_graphProvider.getVertex(ns(), parentId);
+        m_graphProvider.setParent(m_currentVertex, parent);
+        return this;
+    }
 
-	public SimpleGraphBuilder vIconKey(String iconKey) {
-		m_currentVertex.setIconKey(iconKey);
-		return this;
-	}
+    public SimpleGraphBuilder vLabel(String label) {
+        m_currentVertex.setLabel(label);
+        return this;
+    }
 
-	public SimpleGraphBuilder vStyleName(String styleName) {
-		m_currentVertex.setStyleName(styleName);
-		return this;
-	}
+    public SimpleGraphBuilder vTooltip(String tooltipText) {
+        m_currentVertex.setTooltipText(tooltipText);
+        return this;
+    }
 
-	public SimpleGraphBuilder edge(String id, String srcId, String tgtId) {
+    public SimpleGraphBuilder vIconKey(String iconKey) {
+        m_currentVertex.setIconKey(iconKey);
+        return this;
+    }
 
-		VertexRef srcVertex = m_graphProvider.getVertex(ns(), srcId);
-		if (srcVertex == null) {
-			srcVertex = new AbstractVertexRef(ns(), srcId);
-		}
+    public SimpleGraphBuilder vStyleName(String styleName) {
+        m_currentVertex.setStyleName(styleName);
+        return this;
+    }
 
-		VertexRef tgtVertex = m_graphProvider.getVertex(ns(), tgtId);
-		if (tgtVertex == null) {
-			tgtVertex = new AbstractVertexRef(ns(), tgtId);
-		}
+    public SimpleGraphBuilder edge(String id, String srcId, String tgtId) {
 
+        VertexRef srcVertex = m_graphProvider.getVertex(ns(), srcId);
+        if (srcVertex == null) {
+            srcVertex = new AbstractVertexRef(ns(), srcId);
+        }
 
-		SimpleConnector source = new SimpleConnector(ns(), srcId+"-"+id+"-connector", srcVertex);
-		SimpleConnector target = new SimpleConnector(ns(), tgtId+"-"+id+"-connector", tgtVertex);
+        VertexRef tgtVertex = m_graphProvider.getVertex(ns(), tgtId);
+        if (tgtVertex == null) {
+            tgtVertex = new AbstractVertexRef(ns(), tgtId);
+        }
 
-		m_currentEdge = new AbstractEdge(ns(), id, source, target);
+        SimpleConnector source = new SimpleConnector(ns(), srcId + "-" + id + "-connector", srcVertex);
+        SimpleConnector target = new SimpleConnector(ns(), tgtId + "-" + id + "-connector", tgtVertex);
 
-		source.setEdge(m_currentEdge);
-		target.setEdge(m_currentEdge);
+        m_currentEdge = new AbstractEdge(ns(), id, source, target);
 
-		m_graphProvider.addEdges(m_currentEdge);
+        source.setEdge(m_currentEdge);
+        target.setEdge(m_currentEdge);
 
-		return this;
-	}
+        m_graphProvider.addEdges(m_currentEdge);
 
-	public SimpleGraphBuilder eLabel(String label) {
-		m_currentEdge.setLabel(label);
-		return this;
-	}
+        return this;
+    }
 
-	public SimpleGraphBuilder eTooltip(String tooltipText) {
-		m_currentEdge.setTooltipText(tooltipText);
-		return this;
-	}
+    public SimpleGraphBuilder eLabel(String label) {
+        m_currentEdge.setLabel(label);
+        return this;
+    }
 
-	public SimpleGraphBuilder eStyleName(String styleName) {
-		m_currentEdge.setStyleName(styleName);
-		return this;
-	}
+    public SimpleGraphBuilder eTooltip(String tooltipText) {
+        m_currentEdge.setTooltipText(tooltipText);
+        return this;
+    }
 
-	public GraphProvider get() {
-		return m_graphProvider;
-	}
+    public SimpleGraphBuilder eStyleName(String styleName) {
+        m_currentEdge.setStyleName(styleName);
+        return this;
+    }
 
-	private String ns() {
-		return m_graphProvider.getVertexNamespace();
-	}
+    public GraphProvider get() {
+        return m_graphProvider;
+    }
+
+    private String ns() {
+        return m_graphProvider.getVertexNamespace();
+    }
 
 }

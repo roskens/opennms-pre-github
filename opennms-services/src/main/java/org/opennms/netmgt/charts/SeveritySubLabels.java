@@ -33,7 +33,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>SeveritySubLabels class.</p>
+ * <p>
+ * SeveritySubLabels class.
+ * </p>
  *
  * @author <a href="david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -45,28 +47,32 @@ public class SeveritySubLabels extends ExtendedCategoryAxis {
     private static final long serialVersionUID = 4985544589299368239L;
 
     /**
-     * <p>Constructor for SeveritySubLabels.</p>
+     * <p>
+     * Constructor for SeveritySubLabels.
+     * </p>
      */
     public SeveritySubLabels() {
         super(null);
     }
 
     /**
-     * <p>Constructor for SeveritySubLabels.</p>
+     * <p>
+     * Constructor for SeveritySubLabels.
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public SeveritySubLabels(String label) {
         super(label);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Adds a sublabel for a category.
+     * {@inheritDoc} Adds a sublabel for a category.
      */
     @Override
-    public void addSubLabel(@SuppressWarnings("unchecked") Comparable category, String label) {
+    public void addSubLabel(@SuppressWarnings("unchecked")
+    Comparable category, String label) {
         super.addSubLabel(category, convertLabel(label));
     }
 
@@ -82,28 +88,28 @@ public class SeveritySubLabels extends ExtendedCategoryAxis {
         }
 
         switch (sev) {
-        case 0 :
+        case 0:
             converted = "Unk";
             break;
-        case 1 :
+        case 1:
             converted = "Ind";
             break;
-        case 2 :
+        case 2:
             converted = "Cleared";
             break;
-        case 3 :
+        case 3:
             converted = "Normal";
             break;
-        case 4 :
+        case 4:
             converted = "Warn";
             break;
-        case 5 :
+        case 5:
             converted = "Minor";
             break;
-        case 6 :
+        case 6:
             converted = "Major";
             break;
-        case 7 :
+        case 7:
             converted = "Critical";
             break;
         }

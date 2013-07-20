@@ -43,24 +43,37 @@ import org.opennms.netmgt.provision.service.lifecycle.annotations.Activity;
 import org.opennms.netmgt.provision.service.lifecycle.annotations.Attribute;
 
 /**
- * <p>Phase class.</p>
+ * <p>
+ * Phase class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Phase extends BatchTask {
     private static final Logger LOG = LoggerFactory.getLogger(Phase.class);
+
     private LifeCycleInstance m_lifecycle;
+
     private String m_name;
+
     private Object[] m_providers;
 
     /**
-     * <p>Constructor for Phase.</p>
+     * <p>
+     * Constructor for Phase.
+     * </p>
      *
-     * @param parent a {@link org.opennms.core.tasks.ContainerTask} object.
-     * @param lifecycle a {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance} object.
-     * @param name a {@link java.lang.String} object.
-     * @param providers an array of {@link java.lang.Object} objects.
+     * @param parent
+     *            a {@link org.opennms.core.tasks.ContainerTask} object.
+     * @param lifecycle
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance}
+     *            object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param providers
+     *            an array of {@link java.lang.Object} objects.
      */
     public Phase(ContainerTask<?> parent, LifeCycleInstance lifecycle, String name, Object[] providers) {
         super(lifecycle.getCoordinator(), parent);
@@ -72,7 +85,9 @@ public class Phase extends BatchTask {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,68 +96,82 @@ public class Phase extends BatchTask {
     }
 
     /**
-     * <p>getLifeCycleInstance</p>
+     * <p>
+     * getLifeCycleInstance
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance}
+     *         object.
      */
     public LifeCycleInstance getLifeCycleInstance() {
         return m_lifecycle;
     }
 
     /**
-     * <p>createNestedLifeCycle</p>
+     * <p>
+     * createNestedLifeCycle
+     * </p>
      *
-     * @param lifeCycleName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance} object.
+     * @param lifeCycleName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance}
+     *         object.
      */
     public LifeCycleInstance createNestedLifeCycle(String lifeCycleName) {
         return m_lifecycle.createNestedLifeCycle(this, lifeCycleName);
     }
 
     /**
-     * <p>addPhaseMethods</p>
+     * <p>
+     * addPhaseMethods
+     * </p>
      */
     public void addPhaseMethods() {
-        for(Object provider : m_providers) {
+        for (Object provider : m_providers) {
             addPhaseMethods(provider);
         }
     }
 
     /**
-     * <p>addPhaseMethods</p>
+     * <p>
+     * addPhaseMethods
+     * </p>
      *
-     * @param provider a {@link java.lang.Object} object.
+     * @param provider
+     *            a {@link java.lang.Object} object.
      */
     public void addPhaseMethods(Object provider) {
-        for(Method method : provider.getClass().getMethods()) {
+        for (Method method : provider.getClass().getMethods()) {
             String schedulingHint = isPhaseMethod(method);
             if (schedulingHint != null) {
-                //this.setPreferredExecutor(schedulingHint);
+                // this.setPreferredExecutor(schedulingHint);
                 add(createPhaseMethod(provider, method, schedulingHint));
             }
         }
     }
 
-//    public void run() {
-//        for(Object provider : m_providers) {
-//            PhaseMethod[] methods = findPhaseMethods(provider);
-//            for(PhaseMethod method : methods) {
-//                method.invoke();
-//            }
-//
-//        }
-//
-//    }
-//
-//    private PhaseMethod[] findPhaseMethods(Object provider) {
-//        List<PhaseMethod> methods = new ArrayList<PhaseMethod>();
-//        for(Method method : provider.getClass().getMethods()) {
-//            if (isPhaseMethod(method)) {
-//                methods.add(new PhaseMethod(this, provider, method));
-//            }
-//        }
-//        return methods.toArray(new PhaseMethod[methods.size()]);
-//    }
+    // public void run() {
+    // for(Object provider : m_providers) {
+    // PhaseMethod[] methods = findPhaseMethods(provider);
+    // for(PhaseMethod method : methods) {
+    // method.invoke();
+    // }
+    //
+    // }
+    //
+    // }
+    //
+    // private PhaseMethod[] findPhaseMethods(Object provider) {
+    // List<PhaseMethod> methods = new ArrayList<PhaseMethod>();
+    // for(Method method : provider.getClass().getMethods()) {
+    // if (isPhaseMethod(method)) {
+    // methods.add(new PhaseMethod(this, provider, method));
+    // }
+    // }
+    // return methods.toArray(new PhaseMethod[methods.size()]);
+    // }
 
     private String isPhaseMethod(Method method) {
         Activity activity = method.getAnnotation(Activity.class);
@@ -158,7 +187,9 @@ public class Phase extends BatchTask {
 
     public static class PhaseMethod extends BatchTask {
         private Phase m_phase;
+
         private Object m_target;
+
         private Method m_method;
 
         public PhaseMethod(Phase phase, Object target, Method method, String schedulingHint) {
@@ -179,9 +210,10 @@ public class Phase extends BatchTask {
                         LOG.info("failed to invoke lifecycle instance", e);
                     }
                 }
+
                 @Override
                 public String toString() {
-                    return "Runner for "+m_phase.toString();
+                    return "Runner for " + m_phase.toString();
                 }
             };
         }
@@ -196,9 +228,8 @@ public class Phase extends BatchTask {
             Attribute retValAttr = m_method.getAnnotation(Attribute.class);
             if (retValAttr != null) {
                 lifeCycle.setAttribute(retValAttr.value(), retVal);
-            }
-            else if (retVal instanceof Task) {
-                add((Task)retVal);
+            } else if (retVal instanceof Task) {
+                add((Task) retVal);
             } else if (retVal != null) {
                 lifeCycle.setAttribute(retVal.getClass().getName(), retVal);
             }
@@ -209,17 +240,17 @@ public class Phase extends BatchTask {
             Type[] types = m_method.getGenericParameterTypes();
 
             Object[] args = new Object[types.length];
-            for(int i = 0; i < types.length; i++) {
+            for (int i = 0; i < types.length; i++) {
                 Attribute annot = getParameterAnnotation(m_method, i, Attribute.class);
                 if (annot != null) {
                     args[i] = lifeCycle.getAttribute(annot.value());
                 } else {
                     Type type = types[i];
                     if (type instanceof Class<?>) {
-                        Class<?> clazz = (Class<?>)type;
+                        Class<?> clazz = (Class<?>) type;
                         args[i] = lifeCycle.findAttributeByType(clazz);
                     } else if (type instanceof ParameterizedType) {
-                        ParameterizedType paramType = (ParameterizedType)type;
+                        ParameterizedType paramType = (ParameterizedType) type;
                         args[i] = lifeCycle.findAttributeByType((Class<?>) paramType.getRawType());
                     } else {
                         args[i] = null;
@@ -231,11 +262,10 @@ public class Phase extends BatchTask {
             return args;
         }
 
-
         private <T extends Annotation> T getParameterAnnotation(Method method, int parmIndex, Class<T> annotationClass) {
             Annotation[] annotations = method.getParameterAnnotations()[parmIndex];
 
-            for(Annotation a : annotations) {
+            for (Annotation a : annotations) {
                 if (annotationClass.isInstance(a)) {
                     return annotationClass.cast(a);
                 }
@@ -246,14 +276,16 @@ public class Phase extends BatchTask {
 
         @Override
         public String toString() {
-            return String.format("%s.%s(%s)", m_target.getClass().getSimpleName(), m_method.getName(), m_phase.getLifeCycleInstance());
+            return String.format("%s.%s(%s)", m_target.getClass().getSimpleName(), m_method.getName(),
+                                 m_phase.getLifeCycleInstance());
         }
 
     }
 
-
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

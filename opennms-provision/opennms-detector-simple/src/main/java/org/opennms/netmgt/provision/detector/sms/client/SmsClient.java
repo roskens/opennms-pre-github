@@ -46,7 +46,9 @@ public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
     private boolean m_isSupported = false;
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
@@ -59,11 +61,17 @@ public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
     }
 
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.detector.sms.response.SmsResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.sms.response.SmsResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public SmsResponse receiveBanner() throws IOException, Exception {
@@ -71,12 +79,21 @@ public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.sms.response.SmsResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.sms.response.SmsResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public SmsResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
@@ -89,16 +106,21 @@ public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
     }
 
     /**
-     * <p>setSupported</p>
+     * <p>
+     * setSupported
+     * </p>
      *
-     * @param isSupported a boolean.
+     * @param isSupported
+     *            a boolean.
      */
     public void setSupported(boolean isSupported) {
         m_isSupported = isSupported;
     }
 
     /**
-     * <p>isSupported</p>
+     * <p>
+     * isSupported
+     * </p>
      *
      * @return a boolean.
      */

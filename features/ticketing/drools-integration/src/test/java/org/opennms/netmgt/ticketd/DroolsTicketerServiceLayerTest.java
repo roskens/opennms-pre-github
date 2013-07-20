@@ -48,7 +48,6 @@ import org.springframework.core.io.ResourceLoader;
 import junit.framework.TestCase;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -57,12 +56,19 @@ import junit.framework.TestCase;
 public class DroolsTicketerServiceLayerTest extends TestCase {
 
     private DefaultTicketerServiceLayer m_droolsTicketerServiceLayer;
+
     private EasyMockUtils m_easyMockUtils;
+
     private DroolsTicketerConfigDao m_configDao;
+
     private AlarmDao m_alarmDao;
+
     private Plugin m_ticketerPlugin;
+
     private OnmsAlarm m_alarm;
+
     private Ticket m_ticket;
+
     private MockEventIpcManager m_eventIpcManager;
 
     @Override
@@ -142,7 +148,9 @@ public class DroolsTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}.
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}
+     * .
      */
     public void testCreateTicketForAlarm() {
         EasyMock.expect(m_alarmDao.get(m_alarm.getId())).andReturn(m_alarm);
@@ -159,8 +167,11 @@ public class DroolsTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}.
-     * Tests for correct alarm TroubleTicketState set as CREATE_FAILED when ticketer plugin fails
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}
+     * .
+     * Tests for correct alarm TroubleTicketState set as CREATE_FAILED when
+     * ticketer plugin fails
      */
     public void testFailedCreateTicketForAlarm() {
 
@@ -178,7 +189,7 @@ public class DroolsTicketerServiceLayerTest extends TestCase {
 
         m_easyMockUtils.replayAll();
 
-        m_droolsTicketerServiceLayer.createTicketForAlarm(m_alarm.getId(),new HashMap<String, String>());
+        m_droolsTicketerServiceLayer.createTicketForAlarm(m_alarm.getId(), new HashMap<String, String>());
 
         m_easyMockUtils.verifyAll();
     }

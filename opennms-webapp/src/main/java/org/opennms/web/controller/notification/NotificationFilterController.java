@@ -59,7 +59,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>NotificationFilterController class.</p>
+ * <p>
+ * NotificationFilterController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -71,24 +73,30 @@ public class NotificationFilterController extends AbstractController implements 
     public static final int DEFAULT_MULTIPLE = 0;
 
     private String m_successView;
+
     private Integer m_defaultShortLimit;
+
     private Integer m_defaultLongLimit;
+
     private SortStyle m_defaultSortStyle = SortStyle.ID;
+
     private AcknowledgeType m_defaultAckType = AcknowledgeType.UNACKNOWLEDGED;
 
     private WebEventRepository m_webEventRepository;
+
     private WebNotificationRepository m_webNotificationRepository;
+
     private NodeDao m_nodeDao;
 
     /**
-     * {@inheritDoc}
-     *
-     * Parses the query string to determine what types of notification filters to use
+     * {@inheritDoc} Parses the query string to determine what types of
+     * notification filters to use
      * (for example, what to filter on or sort by), then does the database query
      * and then forwards the results to a JSP for display.
      */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         String display = request.getParameter("display");
 
         // handle the style sort parameter
@@ -165,15 +173,16 @@ public class NotificationFilterController extends AbstractController implements 
         parms.display = display;
         parms.filters = filterList;
         parms.limit = limit;
-        parms.multiple =  multiple;
+        parms.multiple = multiple;
         parms.sortStyle = sortStyle;
 
-        NotificationCriteria queryCriteria = new NotificationCriteria(filters, sortStyle, ackType, limit, limit * multiple);
+        NotificationCriteria queryCriteria = new NotificationCriteria(filters, sortStyle, ackType, limit, limit
+                * multiple);
         NotificationCriteria countCriteria = new NotificationCriteria(ackType, filters);
 
         Notification[] notices = m_webNotificationRepository.getMatchingNotifications(queryCriteria);
         int noticeCount = m_webNotificationRepository.countMatchingNotifications(countCriteria);
-        Map<Integer,String[]> nodeLabels = new HashMap<Integer,String[]>();
+        Map<Integer, String[]> nodeLabels = new HashMap<Integer, String[]>();
         Set<Integer> eventIds = new TreeSet<Integer>();
 
         // really inefficient, is there a better way to do this?
@@ -184,11 +193,11 @@ public class NotificationFilterController extends AbstractController implements 
                 OnmsNode node = m_nodeDao.get(notice.getNodeId());
                 if (node != null) {
                     String longLabel = node.getLabel();
-                    if( longLabel == null ) {
+                    if (longLabel == null) {
                         labels = new String[] { "&lt;No Node Label&gt;", "&lt;No Node Label&gt;" };
                     } else {
-                        if ( longLabel.length() > 32 ) {
-                            String shortLabel = longLabel.substring( 0, 31 ) + "...";
+                        if (longLabel.length() > 32) {
+                            String shortLabel = longLabel.substring(0, 31) + "...";
                             labels = new String[] { shortLabel, longLabel };
                         } else {
                             labels = new String[] { longLabel, longLabel };
@@ -199,7 +208,7 @@ public class NotificationFilterController extends AbstractController implements 
             }
         }
 
-        Map<Integer,Event> events = new HashMap<Integer,Event>();
+        Map<Integer, Event> events = new HashMap<Integer, Event>();
         if (eventIds.size() > 0) {
             for (Event e : m_webEventRepository.getMatchingEvents(new EventCriteria(new EventIdListFilter(eventIds)))) {
                 events.put(e.getId(), e);
@@ -216,70 +225,95 @@ public class NotificationFilterController extends AbstractController implements 
     }
 
     /**
-     * <p>setDefaultShortLimit</p>
+     * <p>
+     * setDefaultShortLimit
+     * </p>
      *
-     * @param limit a {@link java.lang.Integer} object.
+     * @param limit
+     *            a {@link java.lang.Integer} object.
      */
     public void setDefaultShortLimit(Integer limit) {
         m_defaultShortLimit = limit;
     }
 
     /**
-     * <p>setDefaultLongLimit</p>
+     * <p>
+     * setDefaultLongLimit
+     * </p>
      *
-     * @param limit a {@link java.lang.Integer} object.
+     * @param limit
+     *            a {@link java.lang.Integer} object.
      */
     public void setDefaultLongLimit(Integer limit) {
         m_defaultLongLimit = limit;
     }
 
     /**
-     * <p>setDefaultSortStyle</p>
+     * <p>
+     * setDefaultSortStyle
+     * </p>
      *
-     * @param sortStyle a {@link org.opennms.web.notification.SortStyle} object.
+     * @param sortStyle
+     *            a {@link org.opennms.web.notification.SortStyle} object.
      */
     public void setDefaultSortStyle(SortStyle sortStyle) {
         m_defaultSortStyle = sortStyle;
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>setWebEventRepository</p>
+     * <p>
+     * setWebEventRepository
+     * </p>
      *
-     * @param webEventRepository a {@link org.opennms.web.event.WebEventRepository} object.
+     * @param webEventRepository
+     *            a {@link org.opennms.web.event.WebEventRepository} object.
      */
     public void setWebEventRepository(WebEventRepository webEventRepository) {
         m_webEventRepository = webEventRepository;
     }
 
     /**
-     * <p>setWebNotificationRepository</p>
+     * <p>
+     * setWebNotificationRepository
+     * </p>
      *
-     * @param webNotificationRepository a {@link org.opennms.web.notification.WebNotificationRepository} object.
+     * @param webNotificationRepository
+     *            a
+     *            {@link org.opennms.web.notification.WebNotificationRepository}
+     *            object.
      */
     public void setWebNotificationRepository(WebNotificationRepository webNotificationRepository) {
         m_webNotificationRepository = webNotificationRepository;
     }
 
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {

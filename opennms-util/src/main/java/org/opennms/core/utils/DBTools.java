@@ -36,7 +36,8 @@ import java.util.regex.PatternSyntaxException;
  * This class is intended to be group some utility classes related with RDBMS
  * and the capsd and monitoring plugins.
  *
- * @author Jose Vicente Nunez Zuleta (josevnz@users.sourceforge.net) - RHCE, SJCD, SJCP
+ * @author Jose Vicente Nunez Zuleta (josevnz@users.sourceforge.net) - RHCE,
+ *         SJCD, SJCP
  * @version 0.1 - 07/22/2002
  * @since 0.1
  */
@@ -145,7 +146,8 @@ public class DBTools {
      *             If the JDBC_HOST is not part of the JDBC url
      * @return a {@link java.lang.String} object.
      */
-    public static String constructUrl(String url_, String hostname_) throws IllegalArgumentException, NullPointerException {
+    public static String constructUrl(String url_, String hostname_) throws IllegalArgumentException,
+            NullPointerException {
         String url = null;
 
         if (url_ == null) {

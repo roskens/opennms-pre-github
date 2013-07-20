@@ -36,14 +36,15 @@ public class SnmpObjIdTest extends TestCase {
 
     private void assertArrayEquals(int[] a, int[] b) {
         if (a == null) {
-            assertNull("expected value is null but actual value is "+Arrays.toString(b), b);
+            assertNull("expected value is null but actual value is " + Arrays.toString(b), b);
         } else {
             if (b == null) {
-                fail("Expected value is "+Arrays.toString(a)+" but actual value is null");
+                fail("Expected value is " + Arrays.toString(a) + " but actual value is null");
             }
             assertEquals("arrays have different length", a.length, b.length);
-            for(int i = 0; i < a.length; i++) {
-                assertEquals("array differ at index "+i+" expected: "+Arrays.toString(a)+", actual: "+Arrays.toString(b), a[i], b[i]);
+            for (int i = 0; i < a.length; i++) {
+                assertEquals("array differ at index " + i + " expected: " + Arrays.toString(a) + ", actual: "
+                                     + Arrays.toString(b), a[i], b[i]);
             }
         }
     }
@@ -67,7 +68,7 @@ public class SnmpObjIdTest extends TestCase {
     public void testSnmpOidCompare() {
         SnmpObjId oid1 = SnmpObjId.get("1.3.5.7");
         SnmpObjId oid1b = SnmpObjId.get(".1.3.5.7");
-        SnmpObjId oid2 = SnmpObjId.get(new int[] {1, 3, 5, 7});
+        SnmpObjId oid2 = SnmpObjId.get(new int[] { 1, 3, 5, 7 });
         SnmpObjId oid3 = SnmpObjId.get(".1.3.5.8");
         SnmpObjId oid4 = SnmpObjId.get(".1.3.5.7.0");
         SnmpObjId oid5 = SnmpObjId.get(oid4);
@@ -113,7 +114,7 @@ public class SnmpObjIdTest extends TestCase {
         SnmpObjId result = SnmpObjId.get(".1.3.5.7.9.8.7.6");
         SnmpInstId inst = new SnmpInstId("9.8.7.6");
 
-        assertEquals(result, base.append(new int[] {9,8,7,6}));
+        assertEquals(result, base.append(new int[] { 9, 8, 7, 6 }));
         assertEquals(result, base.append("9.8.7.6"));
         assertEquals(result, base.append(inst));
 
@@ -133,7 +134,5 @@ public class SnmpObjIdTest extends TestCase {
         SnmpObjId oid2 = SnmpObjId.get(".1.3.5.7.0");
         assertEquals(oid, oid2.decrement());
     }
-
-
 
 }

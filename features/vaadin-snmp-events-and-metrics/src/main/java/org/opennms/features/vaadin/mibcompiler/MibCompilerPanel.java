@@ -77,7 +77,10 @@ public class MibCompilerPanel extends Panel {
     private static final String MIB_FILE_EXTENTION = ".mib";
 
     /** The Constant MIBS_ROOT_DIR. */
-    private static final File MIBS_ROOT_DIR = new File(ConfigFileConstants.getHome(),  "/share/mibs"); // TODO Must be configurable
+    private static final File MIBS_ROOT_DIR = new File(ConfigFileConstants.getHome(), "/share/mibs"); // TODO
+                                                                                                      // Must
+                                                                                                      // be
+                                                                                                      // configurable
 
     /** The Constant MIBS_COMPILED_DIR. */
     private static final File MIBS_COMPILED_DIR = new File(MIBS_ROOT_DIR, COMPILED);
@@ -121,13 +124,19 @@ public class MibCompilerPanel extends Panel {
     /**
      * Instantiates a new MIB tree panel.
      *
-     * @param dataCollectionDao the OpenNMS Data Collection Configuration DAO
-     * @param eventsDao the OpenNMS Events Configuration DAO
-     * @param eventsProxy the OpenNMS Events Proxy
-     * @param mibParser the MIB parser
-     * @param logger the logger
+     * @param dataCollectionDao
+     *            the OpenNMS Data Collection Configuration DAO
+     * @param eventsDao
+     *            the OpenNMS Events Configuration DAO
+     * @param eventsProxy
+     *            the OpenNMS Events Proxy
+     * @param mibParser
+     *            the MIB parser
+     * @param logger
+     *            the logger
      */
-    public MibCompilerPanel(final DataCollectionConfigDao dataCollectionDao, final EventConfDao eventsDao, final EventProxy eventsProxy, final MibParser mibParser, final Logger logger) {
+    public MibCompilerPanel(final DataCollectionConfigDao dataCollectionDao, final EventConfDao eventsDao,
+            final EventProxy eventsProxy, final MibParser mibParser, final Logger logger) {
         super("MIB Compiler");
 
         if (dataCollectionDao == null)
@@ -177,9 +186,9 @@ public class MibCompilerPanel extends Panel {
 
         mibsTree = new Tree("MIB Tree");
         initMibTree(logger);
-        final Label label = new Label("<p>Use the right-click context menu over the MIB tree files, to display the compiler operations.</p>");
+        final Label label = new Label(
+                                      "<p>Use the right-click context menu over the MIB tree files, to display the compiler operations.</p>");
         label.setContentMode(ContentMode.HTML);
-
 
         layout.addComponent(label);
         layout.addComponent(mibsTree);
@@ -196,7 +205,8 @@ public class MibCompilerPanel extends Panel {
     /**
      * Initialize the MIB tree.
      *
-     * @param logger the logger
+     * @param logger
+     *            the logger
      */
     private void initMibTree(final Logger logger) {
         File[] folders = new File[] { MIBS_COMPILED_DIR, MIBS_PENDING_DIR };
@@ -205,7 +215,8 @@ public class MibCompilerPanel extends Panel {
         }
         for (File folder : folders) {
             String[] files = folder.list();
-            if (files == null) continue;
+            if (files == null)
+                continue;
             for (String file : files) {
                 addTreeItem(file, folder.getName());
             }
@@ -236,10 +247,9 @@ public class MibCompilerPanel extends Panel {
             public void handleAction(Action action, Object sender, Object target) {
                 final String fileName = (String) target;
                 if (action == ACTION_DELETE) {
-                    MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
-                                                   "Are you sure?",
-                                                   MessageBox.Icon.QUESTION,
-                                                   "Do you really want to delete " + fileName + "?<br/>This cannot be undone.",
+                    MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(), "Are you sure?",
+                                                   MessageBox.Icon.QUESTION, "Do you really want to delete " + fileName
+                                                           + "?<br/>This cannot be undone.",
                                                    new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
                                                    new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
                     mb.addStyleName(Runo.WINDOW_DIALOG);
@@ -248,7 +258,8 @@ public class MibCompilerPanel extends Panel {
                         public void buttonClicked(ButtonType buttonType) {
                             if (buttonType == MessageBox.ButtonType.YES) {
                                 String source = mibsTree.getParent(fileName).toString();
-                                File file = new File(PENDING.equals(source) ? MIBS_PENDING_DIR : MIBS_COMPILED_DIR, fileName);
+                                File file = new File(PENDING.equals(source) ? MIBS_PENDING_DIR : MIBS_COMPILED_DIR,
+                                                     fileName);
                                 if (file.delete()) {
                                     mibsTree.removeItem(fileName);
                                     logger.info("MIB " + file + " has been successfully removed.");
@@ -269,7 +280,8 @@ public class MibCompilerPanel extends Panel {
                 }
                 if (action == ACTION_COMPILE) {
                     if (parseMib(logger, new File(MIBS_PENDING_DIR, fileName))) {
-                        // Renaming the file to be sure that the target name is correct and always has a file extension.
+                        // Renaming the file to be sure that the target name is
+                        // correct and always has a file extension.
                         String mibFileName = mibParser.getMibName() + MIB_FILE_EXTENTION;
                         logger.info("Renaming file " + fileName + " to " + mibFileName);
                         mibsTree.removeItem(target);
@@ -291,8 +303,10 @@ public class MibCompilerPanel extends Panel {
     /**
      * Adds the tree item.
      *
-     * @param label the label
-     * @param parent the parent
+     * @param label
+     *            the label
+     * @param parent
+     *            the parent
      */
     // FIXME: It sounds reasonable to sort the tree after adding a new MIB ?
     private void addTreeItem(final String label, final String parent) {
@@ -310,8 +324,10 @@ public class MibCompilerPanel extends Panel {
     /**
      * Parses the MIB.
      *
-     * @param logger the logger
-     * @param mibFile the MIB file
+     * @param logger
+     *            the logger
+     * @param mibFile
+     *            the MIB file
      * @return true, if successful
      */
     private boolean parseMib(final Logger logger, final File mibFile) {
@@ -333,8 +349,10 @@ public class MibCompilerPanel extends Panel {
     /**
      * Generate events.
      *
-     * @param logger the logger
-     * @param fileName the file name
+     * @param logger
+     *            the logger
+     * @param fileName
+     *            the file name
      */
     private void generateEvents(final Logger logger, final String fileName) {
         if (parseMib(logger, new File(MIBS_COMPILED_DIR, fileName))) {
@@ -351,14 +369,18 @@ public class MibCompilerPanel extends Panel {
     /**
      * Shows the events window.
      *
-     * @param logger the logger
-     * @param fileName the file name
-     * @param ueiBase the UEI base
+     * @param logger
+     *            the logger
+     * @param fileName
+     *            the file name
+     * @param ueiBase
+     *            the UEI base
      */
     private void showEventsWindow(final Logger logger, final String fileName, final String ueiBase) {
-        final Events events =  mibParser.getEvents(ueiBase);
+        final Events events = mibParser.getEvents(ueiBase);
         if (events == null) {
-            Notification.show("The MIB couldn't be processed for events because: " + mibParser.getFormattedErrors(), Notification.Type.ERROR_MESSAGE);
+            Notification.show("The MIB couldn't be processed for events because: " + mibParser.getFormattedErrors(),
+                              Notification.Type.ERROR_MESSAGE);
         } else {
             if (events.getEventCount() > 0) {
                 try {
@@ -378,25 +400,30 @@ public class MibCompilerPanel extends Panel {
     /**
      * Generate data collection.
      *
-     * @param logger the logger
-     * @param fileName the file name
+     * @param logger
+     *            the logger
+     * @param fileName
+     *            the file name
      */
     private void generateDataCollection(final Logger logger, final String fileName) {
         if (parseMib(logger, new File(MIBS_COMPILED_DIR, fileName))) {
             final DatacollectionGroup dcGroup = mibParser.getDataCollection();
             if (dcGroup == null) {
-                Notification.show("The MIB couldn't be processed for data collection because: " + mibParser.getFormattedErrors(), Notification.Type.ERROR_MESSAGE);
+                Notification.show("The MIB couldn't be processed for data collection because: "
+                                          + mibParser.getFormattedErrors(), Notification.Type.ERROR_MESSAGE);
             } else {
                 if (dcGroup.getGroupCount() > 0) {
                     try {
                         final String dataFileName = fileName.replaceFirst("\\..*$", ".xml");
-                        final DataCollectionWindow w = new DataCollectionWindow(mibParser, dataCollectionDao, dataFileName, dcGroup, logger);
+                        final DataCollectionWindow w = new DataCollectionWindow(mibParser, dataCollectionDao,
+                                                                                dataFileName, dcGroup, logger);
                         getUI().addWindow(w);
                     } catch (Throwable t) {
                         Notification.show(t.getMessage(), Notification.Type.ERROR_MESSAGE);
                     }
                 } else {
-                    Notification.show("The MIB doesn't contain any metric for data collection.", Notification.Type.WARNING_MESSAGE);
+                    Notification.show("The MIB doesn't contain any metric for data collection.",
+                                      Notification.Type.WARNING_MESSAGE);
                 }
             }
         }

@@ -67,13 +67,15 @@ public class HeaderLayout extends HorizontalLayout {
         nativeSelect.setNullSelectionAllowed(false);
 
         /*
-        Button dashboardButton = new Button("Dashboard", new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo("dashboard/" + nativeSelect.getContainerProperty(nativeSelect.getValue(), "title"));
-            }
-        });
-        */
+         * Button dashboardButton = new Button("Dashboard", new
+         * Button.ClickListener() {
+         * @Override
+         * public void buttonClick(Button.ClickEvent event) {
+         * UI.getCurrent().getNavigator().navigateTo("dashboard/" +
+         * nativeSelect.getContainerProperty(nativeSelect.getValue(), "title"));
+         * }
+         * });
+         */
 
         /**
          * Adding the wallboard button
@@ -81,13 +83,15 @@ public class HeaderLayout extends HorizontalLayout {
         Button wallboardButton = new Button("Wallboard", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo("wallboard/" + nativeSelect.getContainerProperty(nativeSelect.getValue(), "title"));
+                UI.getCurrent().getNavigator().navigateTo("wallboard/"
+                                                                  + nativeSelect.getContainerProperty(nativeSelect.getValue(),
+                                                                                                      "title"));
             }
         });
 
-        addComponents(nativeSelect, /*dashboardButton,*/ wallboardButton);
+        addComponents(nativeSelect, /* dashboardButton, */wallboardButton);
         setComponentAlignment(nativeSelect, Alignment.MIDDLE_CENTER);
-        //setComponentAlignment(dashboardButton, Alignment.MIDDLE_CENTER);
+        // setComponentAlignment(dashboardButton, Alignment.MIDDLE_CENTER);
         setComponentAlignment(wallboardButton, Alignment.MIDDLE_CENTER);
     }
 }

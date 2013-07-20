@@ -9,16 +9,20 @@ import com.vaadin.server.PaintException;
 
 public class BaseGraphVisitor implements GraphVisitor {
 
-	@Override
-	public void visitGraph(Graph graph) throws PaintException {}
+    @Override
+    public void visitGraph(Graph graph) throws PaintException {
+    }
 
-	@Override
-	public void visitVertex(Vertex vertex) throws PaintException {}
+    @Override
+    public void visitVertex(Vertex vertex) throws PaintException {
+    }
 
-	@Override
-	public void visitEdge(Edge edge) throws PaintException {}
+    @Override
+    public void visitEdge(Edge edge) throws PaintException {
+    }
 
-	@Override
-	public void completeGraph(Graph graph) throws PaintException {}
+    @Override
+    public void completeGraph(Graph graph) throws PaintException {
+    }
 
 }

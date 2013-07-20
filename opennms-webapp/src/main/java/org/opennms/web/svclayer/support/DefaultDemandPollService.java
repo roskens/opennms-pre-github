@@ -39,7 +39,9 @@ import org.opennms.web.services.PollerService;
 import org.opennms.web.svclayer.DemandPollService;
 
 /**
- * <p>DefaultDemandPollService class.</p>
+ * <p>
+ * DefaultDemandPollService class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -47,57 +49,70 @@ import org.opennms.web.svclayer.DemandPollService;
  */
 public class DefaultDemandPollService implements DemandPollService {
 
-	private PollerService m_pollerService;
-	private DemandPollDao m_demandPollDao;
-	private MonitoredServiceDao m_monitoredServiceDao;
+    private PollerService m_pollerService;
 
-	/**
-	 * <p>setDemandPollDao</p>
-	 *
-	 * @param demandPollDao a {@link org.opennms.netmgt.dao.api.DemandPollDao} object.
-	 */
-	public void setDemandPollDao(final DemandPollDao demandPollDao) {
-		m_demandPollDao = demandPollDao;
-	}
+    private DemandPollDao m_demandPollDao;
 
-	/**
-	 * <p>setPollerAPI</p>
-	 *
-	 * @param pollerAPI a {@link org.opennms.web.services.PollerService} object.
-	 */
-	public void setPollerAPI(final PollerService pollerAPI) {
-		m_pollerService = pollerAPI;
-	}
+    private MonitoredServiceDao m_monitoredServiceDao;
 
-	/**
-	 * <p>setMonitoredServiceDao</p>
-	 *
-	 * @param monitoredServiceDao a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao} object.
-	 */
-	public void setMonitoredServiceDao(final MonitoredServiceDao monitoredServiceDao) {
-		m_monitoredServiceDao = monitoredServiceDao;
-	}
+    /**
+     * <p>
+     * setDemandPollDao
+     * </p>
+     *
+     * @param demandPollDao
+     *            a {@link org.opennms.netmgt.dao.api.DemandPollDao} object.
+     */
+    public void setDemandPollDao(final DemandPollDao demandPollDao) {
+        m_demandPollDao = demandPollDao;
+    }
 
-        @Override
-	public DemandPoll pollMonitoredService(final int nodeId, final InetAddress ipAddr, final int ifIndex, final int serviceId) {
-	    final DemandPoll demandPoll = new DemandPoll();
-		demandPoll.setRequestTime(new Date());
+    /**
+     * <p>
+     * setPollerAPI
+     * </p>
+     *
+     * @param pollerAPI
+     *            a {@link org.opennms.web.services.PollerService} object.
+     */
+    public void setPollerAPI(final PollerService pollerAPI) {
+        m_pollerService = pollerAPI;
+    }
 
-		m_demandPollDao.save(demandPoll);
+    /**
+     * <p>
+     * setMonitoredServiceDao
+     * </p>
+     *
+     * @param monitoredServiceDao
+     *            a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao}
+     *            object.
+     */
+    public void setMonitoredServiceDao(final MonitoredServiceDao monitoredServiceDao) {
+        m_monitoredServiceDao = monitoredServiceDao;
+    }
 
-		final OnmsMonitoredService monSvc = m_monitoredServiceDao.get(nodeId, ipAddr, ifIndex, serviceId);
+    @Override
+    public DemandPoll pollMonitoredService(final int nodeId, final InetAddress ipAddr, final int ifIndex,
+            final int serviceId) {
+        final DemandPoll demandPoll = new DemandPoll();
+        demandPoll.setRequestTime(new Date());
 
-		if (monSvc == null) {
-			throw new RuntimeException("Service doesn't exist: "+monSvc);
-		}
-		m_pollerService.poll(monSvc, demandPoll.getId());
-		return demandPoll;
-	}
+        m_demandPollDao.save(demandPoll);
 
-	/** {@inheritDoc} */
-        @Override
-	public DemandPoll getUpdatedResults(final int pollId) {
-		return m_demandPollDao.get(pollId);
-	}
+        final OnmsMonitoredService monSvc = m_monitoredServiceDao.get(nodeId, ipAddr, ifIndex, serviceId);
+
+        if (monSvc == null) {
+            throw new RuntimeException("Service doesn't exist: " + monSvc);
+        }
+        m_pollerService.poll(monSvc, demandPoll.getId());
+        return demandPoll;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public DemandPoll getUpdatedResults(final int pollId) {
+        return m_demandPollDao.get(pollId);
+    }
 
 }

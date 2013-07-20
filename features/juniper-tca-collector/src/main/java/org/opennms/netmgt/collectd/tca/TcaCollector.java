@@ -51,124 +51,154 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class TcaCollector.
- *
- * <p>A collector specialized to retrieve special SNMP data from Juniper TCA Devices.</p>
+ * <p>
+ * A collector specialized to retrieve special SNMP data from Juniper TCA
+ * Devices.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public class TcaCollector implements ServiceCollector {
-	private static final Logger LOG = LoggerFactory.getLogger(TcaCollector.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TcaCollector.class);
 
-	/** The service name. */
-	private String m_serviceName;
+    /** The service name. */
+    private String m_serviceName;
 
-	/** The TCA Data Collection Configuration DAO. */
-	private TcaDataCollectionConfigDao m_configDao;
+    /** The TCA Data Collection Configuration DAO. */
+    private TcaDataCollectionConfigDao m_configDao;
 
-	/**
-	 * Gets the TCA Data Collection Configuration DAO.
-	 *
-	 * @return the TCA Data Collection Configuration DAO
-	 */
-	public TcaDataCollectionConfigDao getConfigDao() {
-		return m_configDao;
-	}
+    /**
+     * Gets the TCA Data Collection Configuration DAO.
+     *
+     * @return the TCA Data Collection Configuration DAO
+     */
+    public TcaDataCollectionConfigDao getConfigDao() {
+        return m_configDao;
+    }
 
-	/**
-	 * Sets the TCA Data Collection Configuration DAO.
-	 *
-	 * @param configDao the new TCA Data Collection Configuration DAO
-	 */
-	public void setConfigDao(TcaDataCollectionConfigDao configDao) {
-		this.m_configDao = configDao;
-	}
+    /**
+     * Sets the TCA Data Collection Configuration DAO.
+     *
+     * @param configDao
+     *            the new TCA Data Collection Configuration DAO
+     */
+    public void setConfigDao(TcaDataCollectionConfigDao configDao) {
+        this.m_configDao = configDao;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(java.util.Map)
-	 */
-	@Override
-	public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
-		LOG.debug("initialize: initializing TCA collector");
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#initialize(java.util.Map)
+     */
+    @Override
+    public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
+        LOG.debug("initialize: initializing TCA collector");
 
-		// Initialize SNMP Factory
-		try {
-			SnmpPeerFactory.init();
-		} catch (IOException e) {
-			LOG.error("initSnmpPeerFactory: Failed to load SNMP configuration: {}", e, e);
-			throw new UndeclaredThrowableException(e);
-		}
+        // Initialize SNMP Factory
+        try {
+            SnmpPeerFactory.init();
+        } catch (IOException e) {
+            LOG.error("initSnmpPeerFactory: Failed to load SNMP configuration: {}", e, e);
+            throw new UndeclaredThrowableException(e);
+        }
 
-		// Retrieve the DAO for our configuration file.
-		if (m_configDao == null)
-			m_configDao = BeanUtils.getBean("daoContext", "tcaDataCollectionConfigDao", TcaDataCollectionConfigDao.class);
+        // Retrieve the DAO for our configuration file.
+        if (m_configDao == null)
+            m_configDao = BeanUtils.getBean("daoContext", "tcaDataCollectionConfigDao",
+                                            TcaDataCollectionConfigDao.class);
 
-		// If the RRD file repository directory does NOT already exist, create it.
-		LOG.debug("initialize: Initializing RRD repo from XmlCollector...");
-		File f = new File(m_configDao.getConfig().getRrdRepository());
-		if (!f.isDirectory()) {
-			if (!f.mkdirs()) {
-				throw new CollectionInitializationException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_configDao.getConfig().getRrdRepository());
-			}
-		}
-	}
+        // If the RRD file repository directory does NOT already exist, create
+        // it.
+        LOG.debug("initialize: Initializing RRD repo from XmlCollector...");
+        File f = new File(m_configDao.getConfig().getRrdRepository());
+        if (!f.isDirectory()) {
+            if (!f.mkdirs()) {
+                throw new CollectionInitializationException(
+                                                            "Unable to create RRD file repository.  Path doesn't already exist and could not make directory: "
+                                                                    + m_configDao.getConfig().getRrdRepository());
+            }
+        }
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(org.opennms.netmgt.collectd.CollectionAgent, java.util.Map)
-	 */
-	@Override
-	public void initialize(CollectionAgent agent, Map<String, Object> parameters) throws CollectionInitializationException {
-		LOG.debug("initialize: initializing TCA collection handling using {} for collection agent {}", parameters, agent);
-		m_serviceName = ParameterMap.getKeyedString(parameters, "SERVICE", "TCA");
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#initialize(org.opennms.netmgt
+     * .collectd.CollectionAgent, java.util.Map)
+     */
+    @Override
+    public void initialize(CollectionAgent agent, Map<String, Object> parameters)
+            throws CollectionInitializationException {
+        LOG.debug("initialize: initializing TCA collection handling using {} for collection agent {}", parameters,
+                  agent);
+        m_serviceName = ParameterMap.getKeyedString(parameters, "SERVICE", "TCA");
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.collectd.ServiceCollector#release()
-	 */
-	@Override
-	public void release() {
-		LOG.debug("release: realeasing TCA collection");
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.ServiceCollector#release()
+     */
+    @Override
+    public void release() {
+        LOG.debug("release: realeasing TCA collection");
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.collectd.ServiceCollector#release(org.opennms.netmgt.collectd.CollectionAgent)
-	 */
-	@Override
-	public void release(CollectionAgent agent) {
-		LOG.debug("release: realeasing TCA collection for agent {}", agent);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#release(org.opennms.netmgt
+     * .collectd.CollectionAgent)
+     */
+    @Override
+    public void release(CollectionAgent agent) {
+        LOG.debug("release: realeasing TCA collection for agent {}", agent);
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.collectd.ServiceCollector#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, java.util.Map)
-	 */
-	@Override
-	public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
-		try {
-			String collectionName = ParameterMap.getKeyedString(parameters, "collection", null);
-			if (collectionName == null) {
-				collectionName = ParameterMap.getKeyedString(parameters, "tca-collection", null);
-			}
-			if (collectionName == null) {
-				throw new CollectionException("Parameter collection is required for the TCA Collector!");
-			}
-			Collectd.instrumentation().beginCollectingServiceData(agent.getNodeId(), agent.getHostAddress(), m_serviceName);
-			TcaCollectionSet collectionSet = new TcaCollectionSet(agent, getRrdRepository(collectionName));
-			collectionSet.setCollectionTimestamp(new Date());
-			collectionSet.collect();
-			return collectionSet;
-		} catch (Throwable t) {
-			CollectionException e = new CollectionException("Unexpected error during node TCA collection for: " + agent.getHostAddress() + ": " + t, t);
-			Collectd.instrumentation().reportCollectionException(agent.getNodeId(), agent.getHostAddress(), m_serviceName, e);
-			throw e;
-		} finally {
-			Collectd.instrumentation().endCollectingServiceData(agent.getNodeId(), agent.getHostAddress(), m_serviceName);
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#collect(org.opennms.netmgt
+     * .collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy,
+     * java.util.Map)
+     */
+    @Override
+    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters)
+            throws CollectionException {
+        try {
+            String collectionName = ParameterMap.getKeyedString(parameters, "collection", null);
+            if (collectionName == null) {
+                collectionName = ParameterMap.getKeyedString(parameters, "tca-collection", null);
+            }
+            if (collectionName == null) {
+                throw new CollectionException("Parameter collection is required for the TCA Collector!");
+            }
+            Collectd.instrumentation().beginCollectingServiceData(agent.getNodeId(), agent.getHostAddress(),
+                                                                  m_serviceName);
+            TcaCollectionSet collectionSet = new TcaCollectionSet(agent, getRrdRepository(collectionName));
+            collectionSet.setCollectionTimestamp(new Date());
+            collectionSet.collect();
+            return collectionSet;
+        } catch (Throwable t) {
+            CollectionException e = new CollectionException("Unexpected error during node TCA collection for: "
+                    + agent.getHostAddress() + ": " + t, t);
+            Collectd.instrumentation().reportCollectionException(agent.getNodeId(), agent.getHostAddress(),
+                                                                 m_serviceName, e);
+            throw e;
+        } finally {
+            Collectd.instrumentation().endCollectingServiceData(agent.getNodeId(), agent.getHostAddress(),
+                                                                m_serviceName);
+        }
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.collectd.ServiceCollector#getRrdRepository(java.lang.String)
-	 */
-	@Override
-	public RrdRepository getRrdRepository(String collectionName) {
-		return m_configDao.getConfig().buildRrdRepository(collectionName);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#getRrdRepository(java.lang
+     * .String)
+     */
+    @Override
+    public RrdRepository getRrdRepository(String collectionName) {
+        return m_configDao.getConfig().buildRrdRepository(collectionName);
+    }
 }

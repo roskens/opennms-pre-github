@@ -47,7 +47,9 @@ import org.opennms.netmgt.poller.remote.PollerConfiguration;
 import org.springframework.remoting.RemoteAccessException;
 
 /**
- * <p>ServerUnreachableAdaptor class.</p>
+ * <p>
+ * ServerUnreachableAdaptor class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -56,21 +58,28 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
     private static final Logger LOG = LoggerFactory.getLogger(ServerUnreachableAdaptor.class);
 
     private String m_monitorName;
+
     private PollerBackEnd m_remoteBackEnd;
+
     private boolean m_serverUnresponsive = false;
 
     /**
-     * <p>setRemoteBackEnd</p>
+     * <p>
+     * setRemoteBackEnd
+     * </p>
      *
-     * @param remoteBackEnd a {@link org.opennms.netmgt.poller.remote.PollerBackEnd} object.
+     * @param remoteBackEnd
+     *            a {@link org.opennms.netmgt.poller.remote.PollerBackEnd}
+     *            object.
      */
     public void setRemoteBackEnd(final PollerBackEnd remoteBackEnd) {
         m_remoteBackEnd = remoteBackEnd;
     }
 
-
     /**
-     * <p>checkForDisconnectedMonitors</p>
+     * <p>
+     * checkForDisconnectedMonitors
+     * </p>
      */
     @Override
     public void checkForDisconnectedMonitors() {
@@ -78,7 +87,9 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
     }
 
     /**
-     * <p>configurationUpdated</p>
+     * <p>
+     * configurationUpdated
+     * </p>
      */
     @Override
     public void configurationUpdated() {
@@ -86,13 +97,16 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
     }
 
     /**
-     * <p>getMonitoringLocations</p>
+     * <p>
+     * getMonitoringLocations
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     @Override
     public Collection<OnmsMonitoringLocationDefinition> getMonitoringLocations() {
-        // leave this method as it is a 'before registration' method and we want errors to occur?
+        // leave this method as it is a 'before registration' method and we want
+        // errors to occur?
         return m_remoteBackEnd.getMonitoringLocations();
     }
 
@@ -116,9 +130,11 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
     /** {@inheritDoc} */
     @Override
     public MonitorStatus pollerCheckingIn(final int locationMonitorId, final Date currentConfigurationVersion) {
-        // if we check in and get a remote exception then we switch to the EmptyConfiguration
+        // if we check in and get a remote exception then we switch to the
+        // EmptyConfiguration
         try {
-            final MonitorStatus result = m_remoteBackEnd.pollerCheckingIn(locationMonitorId, currentConfigurationVersion);
+            final MonitorStatus result = m_remoteBackEnd.pollerCheckingIn(locationMonitorId,
+                                                                          currentConfigurationVersion);
             m_serverUnresponsive = false;
             return result;
         } catch (final RemoteAccessException e) {
@@ -134,7 +150,8 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
     public boolean pollerStarting(final int locationMonitorId, final Map<String, String> pollerDetails) {
         try {
             final boolean pollerStarting = m_remoteBackEnd.pollerStarting(locationMonitorId, pollerDetails);
-            // If false was returned, this location monitor doesn't exist on the server, so we can't get its name
+            // If false was returned, this location monitor doesn't exist on the
+            // server, so we can't get its name
             if (pollerStarting) {
                 m_monitorName = m_remoteBackEnd.getMonitorName(locationMonitorId);
             }
@@ -157,8 +174,9 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
     /** {@inheritDoc} */
     @Override
     public int registerLocationMonitor(final String monitoringLocationId) {
-        // leave this method as it is a 'before registration' method and we want errors to occur?
-    	return m_remoteBackEnd.registerLocationMonitor(monitoringLocationId);
+        // leave this method as it is a 'before registration' method and we want
+        // errors to occur?
+        return m_remoteBackEnd.registerLocationMonitor(monitoringLocationId);
     }
 
     /** {@inheritDoc} */
@@ -174,7 +192,6 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
         }
     }
 
-
     /** {@inheritDoc} */
     @Override
     public Collection<ServiceMonitorLocator> getServiceMonitorLocators(DistributionContext context) {
@@ -187,7 +204,6 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
         }
     }
 
-
     /** {@inheritDoc} */
     @Override
     public String getMonitorName(int locationMonitorId) {
@@ -195,13 +211,13 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
             return m_remoteBackEnd.getMonitorName(locationMonitorId);
         } catch (RemoteAccessException e) {
             LOG.warn("Server is unable to respond due to the following exception.", e);
-            return (m_monitorName == null ? ""+locationMonitorId : m_monitorName);
+            return (m_monitorName == null ? "" + locationMonitorId : m_monitorName);
         }
     }
 
-
     @Override
-    public void saveResponseTimeData(String locationMonitor, OnmsMonitoredService monSvc, double responseTime, Package pkg) {
+    public void saveResponseTimeData(String locationMonitor, OnmsMonitoredService monSvc, double responseTime,
+            Package pkg) {
         try {
             m_remoteBackEnd.saveResponseTimeData(locationMonitor, monSvc, responseTime, pkg);
         } catch (RemoteAccessException e) {
@@ -209,6 +225,5 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
             LOG.warn("Server is unable to respond due to the following exception.", e);
         }
     }
-
 
 }

@@ -131,11 +131,11 @@ public abstract class SmbUtils {
 
     /** Constant <code>INTERNET_INFORMATION_SERVER_G=0x1C</code> */
     public static final int INTERNET_INFORMATION_SERVER_G = 0x1C; // INET~SERVICES
-                                                                    // (GROUP)
+                                                                  // (GROUP)
 
     /** Constant <code>INTERNET_INFORMATION_SERVER_U=0x00</code> */
     public static final int INTERNET_INFORMATION_SERVER_U = 0x00; // IS~<computername>
-                                                                    // (UNIQUE)
+                                                                  // (UNIQUE)
 
     /** Constant <code>LOTUS_NOTES_SERVER_SERVICE=0x2B</code> */
     public static final int LOTUS_NOTES_SERVER_SERVICE = 0x2B; // <computername>
@@ -160,7 +160,6 @@ public abstract class SmbUtils {
      *            List of NbtAddress objects associated with the remote host.
      * @param cname
      *            NetBIOS name of the remote host.
-     *
      * @return remote host's authentication domain or null if unavailable.
      */
     static String getAuthenticationDomainName(NbtAddress[] addresses, String cname) {
@@ -214,7 +213,6 @@ public abstract class SmbUtils {
      *            is running Samba.
      * @param hasExchange
      *            <em>true</em> if the service supports microsoft exhange.
-     *
      * @return The Operating system label
      */
     static String getOsLabel(String nativeOS, NbtAddress[] addresses, boolean isSamba, boolean hasExchange) {
@@ -279,14 +277,12 @@ public abstract class SmbUtils {
      * objects associated with a particular node and determining if that node is
      * an NT server versus an NT workstation based on the services it has
      * registered.
-     *
      * If the remote host is registered as a DOMAIN_CONTROLLERS or a
      * MS_EXCHANGE_MTA we return 'true'; otherwise, 'false' is returned.
      *
      * @param addresses
      *            Array of NbtAddress objects associated with the remote host
      *            being tested.
-     *
      * @return <em>true</em> if NT Server, <em>false</em> otherwise.
      */
     static boolean isNTServer(NbtAddress[] addresses) {
@@ -365,7 +361,6 @@ public abstract class SmbUtils {
      *            SMB Authentication object w/ userid/password info
      * @param cname
      *            NetBIOS address of remote server
-     *
      * @return URL string which can be used in a subsequent SmbFile() call.
      */
     static String getSmbURL(SmbAuth smbAuth, String cname) {

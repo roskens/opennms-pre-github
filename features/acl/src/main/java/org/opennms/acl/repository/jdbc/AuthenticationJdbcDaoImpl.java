@@ -62,9 +62,7 @@ import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 public class AuthenticationJdbcDaoImpl extends JdbcDaoImpl {
 
     /**
-     * {@inheritDoc}
-     *
-     * Load the user detail in the authentication phase
+     * {@inheritDoc} Load the user detail in the authentication phase
      */
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -72,7 +70,8 @@ public class AuthenticationJdbcDaoImpl extends JdbcDaoImpl {
             UserDetails user = super.loadUserByUsername(username);
             Map<String, Object> userInfo = new HashMap<String, Object>();
             // put in userInfo your custom objects
-            return new AclUser(user.getUsername(), user.getPassword(), user.isEnabled(), user.getAuthorities(), userInfo);
+            return new AclUser(user.getUsername(), user.getPassword(), user.isEnabled(), user.getAuthorities(),
+                               userInfo);
         } catch (UsernameNotFoundException userEx) {
             throw new UsernameNotFoundException("Username not found:" + username);
         } catch (DataAccessException dataEx) {

@@ -44,117 +44,120 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ConfigTester implements ApplicationContextAware {
-	private ApplicationContext m_context;
-	private Map<String, String> m_configs;
+    private ApplicationContext m_context;
 
-	public Map<String, String> getConfigs() {
-		return m_configs;
-	}
+    private Map<String, String> m_configs;
 
-	public void setConfigs(Map<String, String> configs) {
-		m_configs = configs;
-	}
+    public Map<String, String> getConfigs() {
+        return m_configs;
+    }
 
-	public ApplicationContext getApplicationContext() {
-		return m_context;
-	}
+    public void setConfigs(Map<String, String> configs) {
+        m_configs = configs;
+    }
 
-        @Override
-	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		m_context = context;
-	}
+    public ApplicationContext getApplicationContext() {
+        return m_context;
+    }
 
-	public void testConfig(String name, boolean ignoreUnknown) {
-		checkConfigNameValid(name, ignoreUnknown);
+    @Override
+    public void setApplicationContext(ApplicationContext context) throws BeansException {
+        m_context = context;
+    }
 
-		m_context.getBean(m_configs.get(name));
-	}
+    public void testConfig(String name, boolean ignoreUnknown) {
+        checkConfigNameValid(name, ignoreUnknown);
 
-	private void checkConfigNameValid(String name, boolean ignoreUnknown) {
-		if (!m_configs.containsKey(name)) {
-			if (ignoreUnknown) {
-				System.err.println("Unknown configuration: " + name + "... skipping.");
-			} else {
-				throw new IllegalArgumentException("config '" + name + "' is not a known config name");
-			}
-		}
-	}
+        m_context.getBean(m_configs.get(name));
+    }
 
-	public static void main(String[] argv) {
+    private void checkConfigNameValid(String name, boolean ignoreUnknown) {
+        if (!m_configs.containsKey(name)) {
+            if (ignoreUnknown) {
+                System.err.println("Unknown configuration: " + name + "... skipping.");
+            } else {
+                throw new IllegalArgumentException("config '" + name + "' is not a known config name");
+            }
+        }
+    }
 
-		ApplicationContext context = BeanUtils.getFactory("configTesterContext", ClassPathXmlApplicationContext.class);
-		ConfigTester tester = context.getBean("configTester", ConfigTester.class);
+    public static void main(String[] argv) {
 
-		final CommandLineParser parser = new PosixParser();
+        ApplicationContext context = BeanUtils.getFactory("configTesterContext", ClassPathXmlApplicationContext.class);
+        ConfigTester tester = context.getBean("configTester", ConfigTester.class);
 
-		final Options options = new Options();
-		options.addOption("h", "help",           false, "print this help and exit");
-		options.addOption("a", "all",         	 false, "check all supported configuration files");
-		options.addOption("l", "list",   		 false, "list supported configuration files and exit");
-		options.addOption("v", "verbose", 		 false, "list each configuration file as it is tested");
-		options.addOption("i", "ignore-unknown", false, "ignore unknown configuration files and continue processing");
+        final CommandLineParser parser = new PosixParser();
 
-		final CommandLine line;
-		try {
-			line = parser.parse(options, argv, false);
-		} catch (ParseException e) {
-			System.err.println("Invalid usage: " + e.getMessage());
-			System.err.println("Run 'config-tester -h' for help.");
-			System.exit(1);
+        final Options options = new Options();
+        options.addOption("h", "help", false, "print this help and exit");
+        options.addOption("a", "all", false, "check all supported configuration files");
+        options.addOption("l", "list", false, "list supported configuration files and exit");
+        options.addOption("v", "verbose", false, "list each configuration file as it is tested");
+        options.addOption("i", "ignore-unknown", false, "ignore unknown configuration files and continue processing");
 
-			return; // not reached; here to eliminate warning on line being uninitialized
-		}
+        final CommandLine line;
+        try {
+            line = parser.parse(options, argv, false);
+        } catch (ParseException e) {
+            System.err.println("Invalid usage: " + e.getMessage());
+            System.err.println("Run 'config-tester -h' for help.");
+            System.exit(1);
 
-		final boolean ignoreUnknown = line.hasOption("i");
+            return; // not reached; here to eliminate warning on line being
+                    // uninitialized
+        }
 
-		if ((line.hasOption('l') || line.hasOption('h') || line.hasOption('a'))) {
-			if (line.getArgList().size() > 0) {
-				System.err.println("Invalid usage: No arguments allowed when using the '-a', '-h', or '-l' options.");
-				System.err.println("Run 'config-tester -h' for help.");
-				System.exit(1);
-			}
-		} else {
-			if (line.getArgs().length == 0) {
-				System.err.println("Invalid usage: too few arguments.  Use the '-h' option for help.");
-				System.exit(1);
-			}
-		}
+        final boolean ignoreUnknown = line.hasOption("i");
 
-		boolean verbose = line.hasOption('v');
+        if ((line.hasOption('l') || line.hasOption('h') || line.hasOption('a'))) {
+            if (line.getArgList().size() > 0) {
+                System.err.println("Invalid usage: No arguments allowed when using the '-a', '-h', or '-l' options.");
+                System.err.println("Run 'config-tester -h' for help.");
+                System.exit(1);
+            }
+        } else {
+            if (line.getArgs().length == 0) {
+                System.err.println("Invalid usage: too few arguments.  Use the '-h' option for help.");
+                System.exit(1);
+            }
+        }
 
-		DataSourceFactory.setInstance(new ConfigTesterDataSource());
+        boolean verbose = line.hasOption('v');
 
-		if (line.hasOption('l')) {
-			System.out.println("Supported configuration files: ");
-			for (String configFile : tester.getConfigs().keySet()) {
-				System.out.println("    " + configFile);
-			}
-			System.out.println("Note: not all OpenNMS configuration files are currently supported.");
-		} else if (line.hasOption('h')) {
-			 final HelpFormatter formatter = new HelpFormatter();
-			 formatter.printHelp("config-tester -a\nOR: config-tester [config files]\nOR: config-tester -l\nOR: config-tester -h", options);
-		} else if (line.hasOption('a')) {
-			for (String configFile : tester.getConfigs().keySet()) {
-				tester.testConfig(configFile, verbose, ignoreUnknown);
-			}
-		} else {
-			for (String configFile : line.getArgs()) {
-				tester.testConfig(configFile, verbose, ignoreUnknown);
-			}
-		}
-	}
+        DataSourceFactory.setInstance(new ConfigTesterDataSource());
 
-	private void testConfig(String configFile, boolean verbose, boolean ignoreUnknown) {
-		if (verbose) {
-			System.out.print("Testing " + configFile + " ... ");
-		}
+        if (line.hasOption('l')) {
+            System.out.println("Supported configuration files: ");
+            for (String configFile : tester.getConfigs().keySet()) {
+                System.out.println("    " + configFile);
+            }
+            System.out.println("Note: not all OpenNMS configuration files are currently supported.");
+        } else if (line.hasOption('h')) {
+            final HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("config-tester -a\nOR: config-tester [config files]\nOR: config-tester -l\nOR: config-tester -h",
+                                options);
+        } else if (line.hasOption('a')) {
+            for (String configFile : tester.getConfigs().keySet()) {
+                tester.testConfig(configFile, verbose, ignoreUnknown);
+            }
+        } else {
+            for (String configFile : line.getArgs()) {
+                tester.testConfig(configFile, verbose, ignoreUnknown);
+            }
+        }
+    }
 
-		long start = System.currentTimeMillis();
-		testConfig(configFile, ignoreUnknown);
-		long end = System.currentTimeMillis();
+    private void testConfig(String configFile, boolean verbose, boolean ignoreUnknown) {
+        if (verbose) {
+            System.out.print("Testing " + configFile + " ... ");
+        }
 
-		if (verbose) {
-			System.out.println("OK (" + (((float) (end - start)) / 1000) + "s)");
-		}
-	}
+        long start = System.currentTimeMillis();
+        testConfig(configFile, ignoreUnknown);
+        long end = System.currentTimeMillis();
+
+        if (verbose) {
+            System.out.println("OK (" + (((float) (end - start)) / 1000) + "s)");
+        }
+    }
 }

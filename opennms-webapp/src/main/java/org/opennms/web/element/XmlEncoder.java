@@ -35,35 +35,39 @@
 package org.opennms.web.element;
 
 /**
- * <p>XmlEncoder class.</p>
+ * <p>
+ * XmlEncoder class.
+ * </p>
  *
  * @author micmas
- *
- * Per modificare il modello associato al commento di questo tipo generato, aprire
- * Finestra&gt;Preferenze&gt;Java&gt;Generazione codice&gt;Codice e commenti
+ *         Per modificare il modello associato al commento di questo tipo
+ *         generato, aprire
+ *         Finestra&gt;Preferenze&gt;Java&gt;Generazione codice&gt;Codice e
+ *         commenti
  * @version $Id: $
  * @since 1.8.1
  */
 public final class XmlEncoder {
-	/**
-	 * <p>encode</p>
-	 *
-	 * @param str a {@link java.lang.String} object.
-	 * @return a {@link java.lang.String} object.
-	 */
-	public static String encode(String str)
-	{
-		char[] specialChar = {'&', '<', '>', '"', '\''};
+    /**
+     * <p>
+     * encode
+     * </p>
+     *
+     * @param str
+     *            a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
+    public static String encode(String str) {
+        char[] specialChar = { '&', '<', '>', '"', '\'' };
 
-		int n = specialChar.length;
-		for (int i = 0; i < n; i++)
-		{
-			char a = specialChar[i];
-			String aa = Integer.toHexString((int)a);
-			String substitute = "&#x" + aa + ";";
-			str = str.replaceAll(String.valueOf(a), substitute);
-		}
+        int n = specialChar.length;
+        for (int i = 0; i < n; i++) {
+            char a = specialChar[i];
+            String aa = Integer.toHexString((int) a);
+            String substitute = "&#x" + aa + ";";
+            str = str.replaceAll(String.valueOf(a), substitute);
+        }
 
-		return str;
-	}
+        return str;
+    }
 }

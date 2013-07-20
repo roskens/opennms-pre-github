@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.provision.service.snmp;
 
-
 import java.net.InetAddress;
 
 import org.slf4j.Logger;
@@ -57,26 +56,32 @@ public final class SystemGroup extends AggregateTracker {
     //
     /** Constant <code>SYS_OBJECTID_ALIAS="sysObjectID"</code> */
     public final static String SYS_OBJECTID_ALIAS = "sysObjectID";
+
     private static final String SYS_OBJECTID = ".1.3.6.1.2.1.1.2";
 
     /** Constant <code>SYS_UPTIME_ALIAS="sysUptime"</code> */
     public final static String SYS_UPTIME_ALIAS = "sysUptime";
+
     private static final String SYS_UPTIME = ".1.3.6.1.2.1.1.3";
 
     /** Constant <code>SYS_NAME_ALIAS="sysName"</code> */
     public final static String SYS_NAME_ALIAS = "sysName";
+
     private static final String SYS_NAME = ".1.3.6.1.2.1.1.5";
 
     /** Constant <code>SYS_DESCR_ALIAS="sysDescr"</code> */
     public final static String SYS_DESCR_ALIAS = "sysDescr";
+
     private static final String SYS_DESCR = ".1.3.6.1.2.1.1.1";
 
     /** Constant <code>SYS_LOCATION_ALIAS="sysLocation"</code> */
     public final static String SYS_LOCATION_ALIAS = "sysLocation";
+
     private static final String SYS_LOCATION = ".1.3.6.1.2.1.1.6";
 
     /** Constant <code>SYS_CONTACT_ALIAS="sysContact"</code> */
     public final static String SYS_CONTACT_ALIAS = "sysContact";
+
     private static final String SYS_CONTACT = ".1.3.6.1.2.1.1.4";
 
     /**
@@ -167,7 +172,6 @@ public final class SystemGroup extends AggregateTracker {
          * This is a bit encode integer that allows the management entity to
          * determine if the agent supports the following standards
          * </P>
-         *
          * <UL>
          * <LI>physical (e.g. repeaters)</LI>
          * <LI>datalink/subnetwork (e.g. bridges)</LI>
@@ -175,7 +179,6 @@ public final class SystemGroup extends AggregateTracker {
          * <LI>end-to-end (e.g. IP hosts)</LI>
          * <LI>applications (e.g. mail relays)</LI>
          * </UL>
-         *
          * <P>
          * To get more information about the encoding see Page 123 of "SNMP,
          * SNMPv2, SNMPv3 and RMON 1 and 2 3rd Ed." by William Stallings [ISBN
@@ -197,6 +200,7 @@ public final class SystemGroup extends AggregateTracker {
     public static final String SYSTEM_OID = ".1.3.6.1.2.1.1";
 
     private final SnmpStore m_store;
+
     private final InetAddress m_address;
 
     /**
@@ -207,7 +211,8 @@ public final class SystemGroup extends AggregateTracker {
      * signaler object is <EM>notified</em> using the notifyAll() method.
      * </P>
      *
-     * @param address TODO
+     * @param address
+     *            TODO
      */
     public SystemGroup(InetAddress address) {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
@@ -216,7 +221,9 @@ public final class SystemGroup extends AggregateTracker {
     }
 
     /**
-     * <p>getSysName</p>
+     * <p>
+     * getSysName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -225,7 +232,9 @@ public final class SystemGroup extends AggregateTracker {
     }
 
     /**
-     * <p>getSysObjectID</p>
+     * <p>
+     * getSysObjectID
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -234,7 +243,9 @@ public final class SystemGroup extends AggregateTracker {
     }
 
     /**
-     * <p>getSysDescr</p>
+     * <p>
+     * getSysDescr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -243,7 +254,9 @@ public final class SystemGroup extends AggregateTracker {
     }
 
     /**
-     * <p>getSysLocation</p>
+     * <p>
+     * getSysLocation
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -252,7 +265,9 @@ public final class SystemGroup extends AggregateTracker {
     }
 
     /**
-     * <p>getSysContact</p>
+     * <p>
+     * getSysContact
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -279,9 +294,14 @@ public final class SystemGroup extends AggregateTracker {
     }
 
     /**
-     * <p>updateSnmpDataForResource</p>
+     * <p>
+     * updateSnmpDataForResource
+     * </p>
      *
-     * @param sr a {@link org.opennms.netmgt.provision.service.operations.ScanResource} object.
+     * @param sr
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.operations.ScanResource}
+     *            object.
      */
     public void updateSnmpDataForResource(ScanResource sr) {
         if (!failed()) {
@@ -294,9 +314,12 @@ public final class SystemGroup extends AggregateTracker {
     }
 
     /**
-     * <p>updateSnmpDataForNode</p>
+     * <p>
+     * updateSnmpDataForNode
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void updateSnmpDataForNode(OnmsNode node) {
         ScanResource sr = new ScanResource("SNMP");

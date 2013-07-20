@@ -48,44 +48,42 @@ public class ServiceReferenceIntegrationTest {
 
     @Autowired
     @Qualifier("reference")
-	Hello m_hello;
+    Hello m_hello;
 
-	@Autowired
+    @Autowired
     @Qualifier("reference")
-	Goodbye m_goodbye;
+    Goodbye m_goodbye;
 
-	@Autowired
-	ServiceRegistry m_serviceRegistry;
+    @Autowired
+    ServiceRegistry m_serviceRegistry;
 
-	@Autowired
-	MyProvider m_myProvider;
+    @Autowired
+    MyProvider m_myProvider;
 
+    @Test
+    @DirtiesContext
+    public void testWiring() throws IOException {
 
-	@Test
-	@DirtiesContext
-	public void testWiring() throws IOException{
-
-		assertNotNull(m_serviceRegistry);
+        assertNotNull(m_serviceRegistry);
         assertNotNull(m_hello);
         assertNotNull(m_goodbye);
 
-		assertNotNull(m_myProvider);
+        assertNotNull(m_myProvider);
 
-		assertEquals(0, m_myProvider.helloSaid());
+        assertEquals(0, m_myProvider.helloSaid());
 
-		m_hello.sayHello();
+        m_hello.sayHello();
 
-		int helloSaid = m_myProvider.helloSaid();
+        int helloSaid = m_myProvider.helloSaid();
 
-		assertEquals(1, helloSaid);
+        assertEquals(1, helloSaid);
 
-		assertEquals(0, m_myProvider.goodbyeSaid());
+        assertEquals(0, m_myProvider.goodbyeSaid());
 
-		m_goodbye.sayGoodbye();
+        m_goodbye.sayGoodbye();
 
-		assertEquals(1, m_myProvider.goodbyeSaid());
+        assertEquals(1, m_myProvider.goodbyeSaid());
 
-
-	}
+    }
 
 }

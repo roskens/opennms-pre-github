@@ -35,17 +35,21 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedC
 import org.springframework.util.Assert;
 
 /**
- * <p>RequestAttributePreAuthenticationProcessingFilter class. This filter should be used
- * PRE_AUTH_FILTER position in the filter chain.</p>
+ * <p>
+ * RequestAttributePreAuthenticationProcessingFilter class. This filter should
+ * be used PRE_AUTH_FILTER position in the filter chain.
+ * </p>
  *
- * @see http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html
+ * @see http
+ *      ://static.springsource.org/spring-security/site/docs/3.1.x/reference/
+ *      springsecurity-single.html
  * @author Timothy Nowaczyk, tan7f@virginia.edu
  */
 public class RequestAttributePreAuthenticationProcessingFilter extends AbstractPreAuthenticatedProcessingFilter {
 
     private String m_principalRequestAttribute = "REMOTE_USER";
-    private String m_credentialsRequestAttribute;
 
+    private String m_credentialsRequestAttribute;
 
     /** {@inheritDoc} */
     @Override
@@ -74,9 +78,12 @@ public class RequestAttributePreAuthenticationProcessingFilter extends AbstractP
     }
 
     /**
-     * <p>setPrincipalRequestHeader</p>
+     * <p>
+     * setPrincipalRequestHeader
+     * </p>
      *
-     * @param principalRequestAttribute a {@link java.lang.String} object.
+     * @param principalRequestAttribute
+     *            a {@link java.lang.String} object.
      */
     public void setPrincipalRequestHeader(String principalRequestAttribute) {
         Assert.hasText(principalRequestAttribute, "principalRequestAttribute must not be empty or null");
@@ -84,9 +91,12 @@ public class RequestAttributePreAuthenticationProcessingFilter extends AbstractP
     }
 
     /**
-     * <p>setCredentialsRequestHeader</p>
+     * <p>
+     * setCredentialsRequestHeader
+     * </p>
      *
-     * @param credentialsRequestAttribute a {@link java.lang.String} object.
+     * @param credentialsRequestAttribute
+     *            a {@link java.lang.String} object.
      */
     public void setCredentialsRequestHeader(String credentialsRequestAttribute) {
         Assert.hasText(credentialsRequestAttribute, "credentialsRequestAttribute must not be empty or null");

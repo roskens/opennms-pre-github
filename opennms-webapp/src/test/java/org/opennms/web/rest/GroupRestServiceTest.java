@@ -103,12 +103,9 @@ public class GroupRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     protected void createGroup(final String groupname) throws Exception {
-        String group = "<group>" +
-                "<name>" + groupname + "</name>" +
-                "<comments>" + groupname + "</comments>" +
-                "</group>";
+        String group = "<group>" + "<name>" + groupname + "</name>" + "<comments>" + groupname + "</comments>"
+                + "</group>";
         sendPost("/groups", group, 303, "/groups/" + groupname);
     }
-
 
 }

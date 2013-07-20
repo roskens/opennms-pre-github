@@ -48,21 +48,31 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 public class ProvisioningGroupsController extends SimpleFormController {
 
     private ManualProvisioningService m_provisioningService;
+
     private ForeignSourceService m_foreignSourceService;
 
     /**
-     * <p>setProvisioningService</p>
+     * <p>
+     * setProvisioningService
+     * </p>
      *
-     * @param provisioningService a {@link org.opennms.web.svclayer.ManualProvisioningService} object.
+     * @param provisioningService
+     *            a {@link org.opennms.web.svclayer.ManualProvisioningService}
+     *            object.
      */
     public final void setProvisioningService(final ManualProvisioningService provisioningService) {
         m_provisioningService = provisioningService;
     }
 
     /**
-     * <p>setForeignSourceService</p>
+     * <p>
+     * setForeignSourceService
+     * </p>
      *
-     * @param fss a {@link org.opennms.netmgt.provision.persist.ForeignSourceService} object.
+     * @param fss
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.ForeignSourceService}
+     *            object.
      */
     public final void setForeignSourceService(final ForeignSourceService fss) {
         m_foreignSourceService = fss;
@@ -70,18 +80,23 @@ public class ProvisioningGroupsController extends SimpleFormController {
 
     public static class GroupAction {
         private String m_groupName;
+
         private String m_action = "show";
+
         private String m_actionTarget;
 
         public final String getAction() {
             return m_action;
         }
+
         public final void setAction(final String action) {
             m_action = action;
         }
+
         public final String getGroupName() {
             return m_groupName;
         }
+
         public final void setGroupName(final String groupName) {
             m_groupName = groupName;
         }
@@ -89,13 +104,16 @@ public class ProvisioningGroupsController extends SimpleFormController {
         public final String getActionTarget() {
             return m_actionTarget;
         }
+
         public final void setActionTarget(final String target) {
             m_actionTarget = target;
         }
     }
 
     /**
-     * <p>Constructor for ProvisioningGroupsController.</p>
+     * <p>
+     * Constructor for ProvisioningGroupsController.
+     * </p>
      */
     public ProvisioningGroupsController() {
         setCommandClass(GroupAction.class);
@@ -103,8 +121,9 @@ public class ProvisioningGroupsController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView onSubmit(final HttpServletRequest request, final HttpServletResponse response, final Object cmd, final BindException errors) throws Exception {
-        GroupAction command = (GroupAction)cmd;
+    protected final ModelAndView onSubmit(final HttpServletRequest request, final HttpServletResponse response,
+            final Object cmd, final BindException errors) throws Exception {
+        GroupAction command = (GroupAction) cmd;
         String action = command.getAction();
 
         if (action == null || "show".equalsIgnoreCase(action)) {
@@ -122,34 +141,39 @@ public class ProvisioningGroupsController extends SimpleFormController {
         } else if ("resetDefaultForeignSource".equalsIgnoreCase(action)) {
             return doResetDefaultForeignSource(request, response, command, errors);
         } else {
-            errors.reject("Unrecognized action: "+action);
+            errors.reject("Unrecognized action: " + action);
             return super.onSubmit(request, response, command, errors);
         }
 
     }
 
-    private ModelAndView doShow(final HttpServletRequest request, final HttpServletResponse response, final GroupAction command, final BindException errors) throws Exception {
+    private ModelAndView doShow(final HttpServletRequest request, final HttpServletResponse response,
+            final GroupAction command, final BindException errors) throws Exception {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doDeleteGroup(final HttpServletRequest request, final HttpServletResponse response, final GroupAction command, final BindException errors) throws Exception {
+    private ModelAndView doDeleteGroup(final HttpServletRequest request, final HttpServletResponse response,
+            final GroupAction command, final BindException errors) throws Exception {
         m_provisioningService.deleteProvisioningGroup(command.getGroupName());
         m_foreignSourceService.deleteForeignSource(command.getGroupName());
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doImport(final HttpServletRequest request, final HttpServletResponse response, final GroupAction command, final BindException errors) throws Exception {
+    private ModelAndView doImport(final HttpServletRequest request, final HttpServletResponse response,
+            final GroupAction command, final BindException errors) throws Exception {
         m_provisioningService.importProvisioningGroup(command.getGroupName());
         Thread.sleep(500);
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doDeleteNodes(final HttpServletRequest request, final HttpServletResponse response, final GroupAction command, final BindException errors) throws Exception {
+    private ModelAndView doDeleteNodes(final HttpServletRequest request, final HttpServletResponse response,
+            final GroupAction command, final BindException errors) throws Exception {
         m_provisioningService.deleteAllNodes(command.getGroupName());
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doAddGroup(final HttpServletRequest request, final HttpServletResponse response, final GroupAction command, final BindException errors) throws Exception {
+    private ModelAndView doAddGroup(final HttpServletRequest request, final HttpServletResponse response,
+            final GroupAction command, final BindException errors) throws Exception {
         String groupName = command.getGroupName();
         if (groupName.equals("default") || groupName.equals("")) {
             return showForm(request, response, errors);
@@ -159,27 +183,29 @@ public class ProvisioningGroupsController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doCloneForeignSource(final HttpServletRequest request, final HttpServletResponse response, final GroupAction command, final BindException errors) throws Exception {
+    private ModelAndView doCloneForeignSource(final HttpServletRequest request, final HttpServletResponse response,
+            final GroupAction command, final BindException errors) throws Exception {
         m_foreignSourceService.cloneForeignSource(command.getGroupName(), command.getActionTarget());
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doResetDefaultForeignSource(final HttpServletRequest request, final HttpServletResponse response, final GroupAction command, final BindException errors) throws Exception {
+    private ModelAndView doResetDefaultForeignSource(final HttpServletRequest request,
+            final HttpServletResponse response, final GroupAction command, final BindException errors) throws Exception {
         m_foreignSourceService.deleteForeignSource("default");
         return showForm(request, response, errors);
     }
 
     /** {@inheritDoc} */
     @Override
-    protected final Map<String,Object> referenceData(final HttpServletRequest request) throws Exception {
+    protected final Map<String, Object> referenceData(final HttpServletRequest request) throws Exception {
         Map<String, Object> refData = new HashMap<String, Object>();
 
-        Set<String>               names          = new TreeSet<String>();
-        Map<String,Requisition>   groups         = new TreeMap<String,Requisition>();
-        Map<String,ForeignSource> foreignSources = new TreeMap<String,ForeignSource>();
+        Set<String> names = new TreeSet<String>();
+        Map<String, Requisition> groups = new TreeMap<String, Requisition>();
+        Map<String, ForeignSource> foreignSources = new TreeMap<String, ForeignSource>();
 
         for (Requisition mi : m_provisioningService.getAllGroups()) {
-            if(mi != null){
+            if (mi != null) {
                 names.add(mi.getForeignSource());
                 groups.put(mi.getForeignSource(), mi);
             }
@@ -198,6 +224,5 @@ public class ProvisioningGroupsController extends SimpleFormController {
 
         return refData;
     }
-
 
 }

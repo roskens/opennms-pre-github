@@ -57,10 +57,7 @@ public class Monitor implements Serializable, Comparable<Monitor> {
 
     @Override
     public int compareTo(Monitor obj) {
-        return new CompareToBuilder()
-            .append(getService(), obj.getService())
-            .append(getClassName(), obj.getClassName())
-            .toComparison();
+        return new CompareToBuilder().append(getService(), obj.getService()).append(getClassName(), obj.getClassName()).toComparison();
     }
 
     @Override
@@ -76,10 +73,8 @@ public class Monitor implements Serializable, Comparable<Monitor> {
     public boolean equals(Object obj) {
         if (obj instanceof Monitor) {
             Monitor other = (Monitor) obj;
-            return new EqualsBuilder()
-                .append(getService(), other.getService())
-                .append(getClassName(), other.getClassName())
-                .isEquals();
+            return new EqualsBuilder().append(getService(), other.getService()).append(getClassName(),
+                                                                                       other.getClassName()).isEquals();
         }
         return false;
     }

@@ -71,7 +71,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsMapRestService extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OnmsMapRestService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OnmsMapRestService.class);
 
     @Autowired
     private OnmsMapDao m_mapDao;
@@ -83,12 +83,14 @@ public class OnmsMapRestService extends OnmsRestService {
     ResourceContext m_context;
 
     /**
-     * <p>getMaps</p>
+     * <p>
+     * getMaps
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsMapList} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public OnmsMapList getMaps() {
         readLock();
 
@@ -103,15 +105,19 @@ public class OnmsMapRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getMap</p>
+     * <p>
+     * getMap
+     * </p>
      *
-     * @param mapId a int.
+     * @param mapId
+     *            a int.
      * @return a {@link org.opennms.netmgt.model.OnmsMap} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("{mapId}")
-    public OnmsMap getMap(@PathParam("mapId") final int mapId) {
+    public OnmsMap getMap(@PathParam("mapId")
+    final int mapId) {
         readLock();
         try {
             return m_mapDao.get(mapId);
@@ -121,9 +127,12 @@ public class OnmsMapRestService extends OnmsRestService {
     }
 
     /**
-     * <p>addMap</p>
+     * <p>
+     * addMap
+     * </p>
      *
-     * @param map a {@link org.opennms.netmgt.model.OnmsMap} object.
+     * @param map
+     *            a {@link org.opennms.netmgt.model.OnmsMap} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @POST
@@ -141,18 +150,23 @@ public class OnmsMapRestService extends OnmsRestService {
     }
 
     /**
-     * <p>deleteMap</p>
+     * <p>
+     * deleteMap
+     * </p>
      *
-     * @param mapId a int.
+     * @param mapId
+     *            a int.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @DELETE
     @Path("{mapId}")
-    public Response deleteMap(@PathParam("mapId") final int mapId) {
+    public Response deleteMap(@PathParam("mapId")
+    final int mapId) {
         writeLock();
         try {
             final OnmsMap map = m_mapDao.get(mapId);
-            if (map == null) throw getException(Response.Status.BAD_REQUEST, "deleteMap: Can't find map with id " + mapId);
+            if (map == null)
+                throw getException(Response.Status.BAD_REQUEST, "deleteMap: Can't find map with id " + mapId);
             LOG.debug("deleteMap: deleting map {}", mapId);
             m_mapDao.delete(map);
             return Response.ok().build();
@@ -162,29 +176,36 @@ public class OnmsMapRestService extends OnmsRestService {
     }
 
     /**
-     * <p>updateMap</p>
+     * <p>
+     * updateMap
+     * </p>
      *
-     * @param mapId a int.
-     * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @param mapId
+     *            a int.
+     * @param params
+     *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{mapId}")
-    public Response updateMap(@PathParam("mapId") final int mapId, final MultivaluedMapImpl params) {
+    public Response updateMap(@PathParam("mapId")
+    final int mapId, final MultivaluedMapImpl params) {
         writeLock();
 
         try {
             final OnmsMap map = m_mapDao.get(mapId);
-            if (map == null) throw getException(Response.Status.BAD_REQUEST, "updateMap: Can't find map with id " + mapId);
+            if (map == null)
+                throw getException(Response.Status.BAD_REQUEST, "updateMap: Can't find map with id " + mapId);
 
             LOG.debug("updateMap: updating map {}", map);
 
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(map);
-            for(final String key : params.keySet()) {
+            for (final String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
                     final String stringValue = params.getFirst(key);
-                    final Object value = wrapper.convertIfNecessary(stringValue, (Class<?>)wrapper.getPropertyType(key));
+                    final Object value = wrapper.convertIfNecessary(stringValue,
+                                                                    (Class<?>) wrapper.getPropertyType(key));
                     wrapper.setPropertyValue(key, value);
                 }
             }
@@ -199,7 +220,9 @@ public class OnmsMapRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getMapElementResource</p>
+     * <p>
+     * getMapElementResource
+     * </p>
      *
      * @return a {@link org.opennms.web.rest.OnmsMapElementResource} object.
      */

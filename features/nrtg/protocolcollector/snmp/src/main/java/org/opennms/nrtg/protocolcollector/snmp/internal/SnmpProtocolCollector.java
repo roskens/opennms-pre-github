@@ -47,7 +47,6 @@ import org.opennms.nrtg.api.model.CollectionJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * A ProtocolCollector to execute CollectionJobs for SNMP
  *
@@ -71,28 +70,28 @@ public class SnmpProtocolCollector implements ProtocolCollector {
 
     private String typeToString(int type) {
         switch (type) {
-            case SnmpValue.SNMP_COUNTER32:
-                return "counter32";
-            case SnmpValue.SNMP_COUNTER64:
-                return "counter64";
-            case SnmpValue.SNMP_GAUGE32:
-                return "gauge32";
-            case SnmpValue.SNMP_INT32:
-                return "int32";
-            case SnmpValue.SNMP_IPADDRESS:
-                return "ipAddress";
-            case SnmpValue.SNMP_OCTET_STRING:
-                return "octetString";
-            case SnmpValue.SNMP_OPAQUE:
-                return "opaque";
-            case SnmpValue.SNMP_TIMETICKS:
-                return "timeticks";
-            case SnmpValue.SNMP_OBJECT_IDENTIFIER:
-                return "objectIdentifier";
-            case SnmpValue.SNMP_NULL:
-                return "null";
-            default:
-                return "unknown";
+        case SnmpValue.SNMP_COUNTER32:
+            return "counter32";
+        case SnmpValue.SNMP_COUNTER64:
+            return "counter64";
+        case SnmpValue.SNMP_GAUGE32:
+            return "gauge32";
+        case SnmpValue.SNMP_INT32:
+            return "int32";
+        case SnmpValue.SNMP_IPADDRESS:
+            return "ipAddress";
+        case SnmpValue.SNMP_OCTET_STRING:
+            return "octetString";
+        case SnmpValue.SNMP_OPAQUE:
+            return "opaque";
+        case SnmpValue.SNMP_TIMETICKS:
+            return "timeticks";
+        case SnmpValue.SNMP_OBJECT_IDENTIFIER:
+            return "objectIdentifier";
+        case SnmpValue.SNMP_NULL:
+            return "null";
+        default:
+            return "unknown";
         }
     }
 
@@ -105,58 +104,60 @@ public class SnmpProtocolCollector implements ProtocolCollector {
         List<Collectable> trackers = new ArrayList<Collectable>();
         for (final String metricObjId : collectionJob.getAllMetrics()) {
 
-        	SnmpObjId requestOid = SnmpObjId.get(metricObjId);
-        	SnmpObjId base = requestOid.getPrefix(requestOid.length()-1);
-        	int lastId = requestOid.getLastSubId();
+            SnmpObjId requestOid = SnmpObjId.get(metricObjId);
+            SnmpObjId base = requestOid.getPrefix(requestOid.length() - 1);
+            int lastId = requestOid.getLastSubId();
 
-        	SingleInstanceTracker instanceTracker = new SingleInstanceTracker(base, new SnmpInstId(lastId)) {
+            SingleInstanceTracker instanceTracker = new SingleInstanceTracker(base, new SnmpInstId(lastId)) {
 
-				@Override
-				protected void storeResult(SnmpResult result) {
-		            logger.trace("Collected SnmpValue '{}'", result);
-					SnmpValue value = result.getValue();
-					String metricType = value == null ? "unknown" : typeToString(value.getType());
-					collectionJob.setMetricValue(metricObjId, metricType, value == null ? null : value.toDisplayString());
-				}
+                @Override
+                protected void storeResult(SnmpResult result) {
+                    logger.trace("Collected SnmpValue '{}'", result);
+                    SnmpValue value = result.getValue();
+                    String metricType = value == null ? "unknown" : typeToString(value.getType());
+                    collectionJob.setMetricValue(metricObjId, metricType,
+                                                 value == null ? null : value.toDisplayString());
+                }
 
-				@Override
-				public void setFailed(boolean failed) {
-					super.setFailed(failed);
-		            logger.trace("Collection Failed for metricObjId '{}'", metricObjId);
-					collectionJob.setMetricValue(metricObjId, "unknown", null);
-				}
+                @Override
+                public void setFailed(boolean failed) {
+                    super.setFailed(failed);
+                    logger.trace("Collection Failed for metricObjId '{}'", metricObjId);
+                    collectionJob.setMetricValue(metricObjId, "unknown", null);
+                }
 
-				@Override
-				public void setTimedOut(boolean timedOut) {
-					super.setTimedOut(timedOut);
-		            logger.trace("Collection timedOut for metricObjId '{}'", metricObjId);
-					collectionJob.setMetricValue(metricObjId, "unknown", null);
-				}
+                @Override
+                public void setTimedOut(boolean timedOut) {
+                    super.setTimedOut(timedOut);
+                    logger.trace("Collection timedOut for metricObjId '{}'", metricObjId);
+                    collectionJob.setMetricValue(metricObjId, "unknown", null);
+                }
 
-        	};
-			trackers.add(instanceTracker);
+            };
+            trackers.add(instanceTracker);
 
         }
 
         CollectionTracker tracker = new AggregateTracker(trackers);
 
-        SnmpWalker walker = m_snmpStrategy.createWalker(snmpAgentConfig, "SnmpProtocolCollector for " + snmpAgentConfig.getAddress(), tracker);
+        SnmpWalker walker = m_snmpStrategy.createWalker(snmpAgentConfig,
+                                                        "SnmpProtocolCollector for " + snmpAgentConfig.getAddress(),
+                                                        tracker);
 
         walker.start();
         try {
-			walker.waitFor();
-		} catch (InterruptedException e) {
-			// TODO What should we do here
-		}
+            walker.waitFor();
+        } catch (InterruptedException e) {
+            // TODO What should we do here
+        }
         return collectionJob;
 
     }
 
     /*
-      * (non-Javadoc)
-      *
-      * @see org.opennms.nrtg.api.ProtocolCollector#getProtcol()
-      */
+     * (non-Javadoc)
+     * @see org.opennms.nrtg.api.ProtocolCollector#getProtcol()
+     */
     @Override
     public String getProtcol() {
         return PROTOCOL;

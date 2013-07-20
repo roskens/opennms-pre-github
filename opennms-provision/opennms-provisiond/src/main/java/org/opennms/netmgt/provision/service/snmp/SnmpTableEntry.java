@@ -31,9 +31,14 @@ package org.opennms.netmgt.provision.service.snmp;
 public abstract class SnmpTableEntry extends SnmpStore {
 
     /**
-     * <p>Constructor for SnmpTableEntry.</p>
+     * <p>
+     * Constructor for SnmpTableEntry.
+     * </p>
      *
-     * @param list an array of {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar} objects.
+     * @param list
+     *            an array of
+     *            {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
+     *            objects.
      */
     protected SnmpTableEntry(NamedSnmpVar[] list) {
         super(list);

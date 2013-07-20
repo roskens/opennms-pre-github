@@ -34,7 +34,9 @@ import org.opennms.web.filter.InFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>EventIdListFilter class.</p>
+ * <p>
+ * EventIdListFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,7 +52,7 @@ public class EventIdListFilter extends InFilter<Integer> {
         }
 
         Integer[] boxed = new Integer[values.length];
-        for(int i = 0; i < values.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             boxed[i] = values[i];
         }
 
@@ -58,25 +60,33 @@ public class EventIdListFilter extends InFilter<Integer> {
     }
 
     /**
-     * <p>Constructor for EventIdListFilter.</p>
+     * <p>
+     * Constructor for EventIdListFilter.
+     * </p>
      *
-     * @param eventIds an array of int.
+     * @param eventIds
+     *            an array of int.
      */
     public EventIdListFilter(int[] eventIds) {
         super(TYPE, SQLType.INT, "EVENTID", "id", box(eventIds));
     }
 
     /**
-     * <p>Constructor for EventIdListFilter.</p>
+     * <p>
+     * Constructor for EventIdListFilter.
+     * </p>
      *
-     * @param eventIds a {@link java.util.Collection} object.
+     * @param eventIds
+     *            a {@link java.util.Collection} object.
      */
     public EventIdListFilter(Collection<Integer> eventIds) {
         super(TYPE, SQLType.INT, "EVENTID", "id", eventIds.toArray(new Integer[0]));
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

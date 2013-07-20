@@ -52,7 +52,9 @@ package org.opennms.acl.model;
 public class NodeONMSDTO {
 
     /**
-     * <p>Getter for the field <code>dpname</code>.</p>
+     * <p>
+     * Getter for the field <code>dpname</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,16 +63,21 @@ public class NodeONMSDTO {
     }
 
     /**
-     * <p>Setter for the field <code>dpname</code>.</p>
+     * <p>
+     * Setter for the field <code>dpname</code>.
+     * </p>
      *
-     * @param dpname a {@link java.lang.String} object.
+     * @param dpname
+     *            a {@link java.lang.String} object.
      */
     public void setDpname(String dpname) {
         this.dpname = dpname;
     }
 
     /**
-     * <p>Getter for the field <code>nodelabel</code>.</p>
+     * <p>
+     * Getter for the field <code>nodelabel</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -79,16 +86,21 @@ public class NodeONMSDTO {
     }
 
     /**
-     * <p>Setter for the field <code>nodelabel</code>.</p>
+     * <p>
+     * Setter for the field <code>nodelabel</code>.
+     * </p>
      *
-     * @param nodelabel a {@link java.lang.String} object.
+     * @param nodelabel
+     *            a {@link java.lang.String} object.
      */
     public void setNodelabel(String nodelabel) {
         this.nodelabel = nodelabel;
     }
 
     /**
-     * <p>Getter for the field <code>nodeid</code>.</p>
+     * <p>
+     * Getter for the field <code>nodeid</code>.
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -97,9 +109,12 @@ public class NodeONMSDTO {
     }
 
     /**
-     * <p>Setter for the field <code>nodeid</code>.</p>
+     * <p>
+     * Setter for the field <code>nodeid</code>.
+     * </p>
      *
-     * @param nodeid a {@link java.lang.Integer} object.
+     * @param nodeid
+     *            a {@link java.lang.Integer} object.
      */
     public void setNodeid(Integer nodeid) {
         this.nodeid = nodeid;
@@ -130,6 +145,8 @@ public class NodeONMSDTO {
     }
 
     private String dpname, nodelabel;
+
     private Integer nodeid;
+
     private volatile int hashCode;
 }

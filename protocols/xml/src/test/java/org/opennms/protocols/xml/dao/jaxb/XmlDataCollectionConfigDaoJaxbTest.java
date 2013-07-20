@@ -72,7 +72,8 @@ public class XmlDataCollectionConfigDaoJaxbTest {
     /**
      * Test after properties set with bogus file resource.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testAfterPropertiesSetWithBogusFileResource() throws Exception {
@@ -94,14 +95,17 @@ public class XmlDataCollectionConfigDaoJaxbTest {
     /**
      * Test after properties set with good configuration file.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testAfterPropertiesSetWithGoodConfigFile() throws Exception {
         XmlDataCollectionConfigDaoJaxb dao = new XmlDataCollectionConfigDaoJaxb();
 
-        File xmlCollectionConfig= new File("src/test/resources/", XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE);
-        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable", xmlCollectionConfig.canRead());
+        File xmlCollectionConfig = new File("src/test/resources/",
+                                            XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE);
+        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable",
+                   xmlCollectionConfig.canRead());
         InputStream in = new FileInputStream(xmlCollectionConfig);
 
         dao.setConfigResource(new InputStreamResource(in));
@@ -111,17 +115,21 @@ public class XmlDataCollectionConfigDaoJaxbTest {
     }
 
     /**
-     * Test after properties set with nested files (external references to XML groups).
+     * Test after properties set with nested files (external references to XML
+     * groups).
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testAfterPropertiesSetWithNestedFiles() throws Exception {
         System.setProperty("opennms.home", "src/test/resources");
         XmlDataCollectionConfigDaoJaxb dao = new XmlDataCollectionConfigDaoJaxb();
 
-        File xmlCollectionConfig= new File("src/test/resources/etc", XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE);
-        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable", xmlCollectionConfig.canRead());
+        File xmlCollectionConfig = new File("src/test/resources/etc",
+                                            XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE);
+        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable",
+                   xmlCollectionConfig.canRead());
         InputStream in = new FileInputStream(xmlCollectionConfig);
 
         dao.setConfigResource(new InputStreamResource(in));

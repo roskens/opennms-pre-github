@@ -60,8 +60,8 @@ import org.opennms.web.servlet.MissingParameterException;
 
 /**
  * This servlet takes a large and specific request parameter set and maps it to
- * the more robust "filter" parameter set of the
- * {@link AlarmFilterController AlarmFilterController}via a redirect.
+ * the more robust "filter" parameter set of the {@link AlarmFilterController
+ * AlarmFilterController}via a redirect.
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -78,7 +78,10 @@ public class AlarmQueryServlet extends HttpServlet {
      * The list of parameters that are extracted by this servlet and not passed
      * on to the {@link AlarmFilterController AlarmFilterController}.
      */
-    protected static String[] IGNORE_LIST = new String[] { "msgsub", "msgmatchany", "nodenamelike", "service", "iplike", "severity", "relativetime", "usebeforetime", "beforehour", "beforeminute", "beforeampm", "beforedate", "beforemonth", "beforeyear", "useaftertime", "afterhour", "afterminute", "afterampm", "afterdate", "aftermonth", "afteryear" };
+    protected static String[] IGNORE_LIST = new String[] { "msgsub", "msgmatchany", "nodenamelike", "service",
+            "iplike", "severity", "relativetime", "usebeforetime", "beforehour", "beforeminute", "beforeampm",
+            "beforedate", "beforemonth", "beforeyear", "useaftertime", "afterhour", "afterminute", "afterampm",
+            "afterdate", "aftermonth", "afteryear" };
 
     /**
      * The URL for the {@link AlarmFilterController AlarmFilterController}. The
@@ -88,9 +91,12 @@ public class AlarmQueryServlet extends HttpServlet {
     protected String redirectUrl = "filter";
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -102,9 +108,8 @@ public class AlarmQueryServlet extends HttpServlet {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Extracts the key parameters from the parameter set, translates them into
+     * {@inheritDoc} Extracts the key parameters from the parameter set,
+     * translates them into
      * filter-based parameters, and then passes the modified parameter set to
      * the {@link AlarmFilterController AlarmFilterController}.
      */
@@ -229,10 +234,14 @@ public class AlarmQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getBeforeFirstEventTimeFilter</p>
+     * <p>
+     * getBeforeFirstEventTimeFilter
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.web.alarm.filter.BeforeFirstEventTimeFilter} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @return a {@link org.opennms.web.alarm.filter.BeforeFirstEventTimeFilter}
+     *         object.
      */
     protected BeforeFirstEventTimeFilter getBeforeFirstEventTimeFilter(HttpServletRequest request) {
         Date beforeFirstEventDate = this.getDateFromRequest(request, "beforefirsteventtime");
@@ -240,10 +249,14 @@ public class AlarmQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getAfterFirstEventTimeFilter</p>
+     * <p>
+     * getAfterFirstEventTimeFilter
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.web.alarm.filter.AfterFirstEventTimeFilter} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @return a {@link org.opennms.web.alarm.filter.AfterFirstEventTimeFilter}
+     *         object.
      */
     protected AfterFirstEventTimeFilter getAfterFirstEventTimeFilter(HttpServletRequest request) {
         Date afterFirstEventDate = this.getDateFromRequest(request, "afterfirsteventtime");
@@ -251,10 +264,14 @@ public class AlarmQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getBeforeLastEventTimeFilter</p>
+     * <p>
+     * getBeforeLastEventTimeFilter
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.web.alarm.filter.BeforeLastEventTimeFilter} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @return a {@link org.opennms.web.alarm.filter.BeforeLastEventTimeFilter}
+     *         object.
      */
     protected BeforeLastEventTimeFilter getBeforeLastEventTimeFilter(HttpServletRequest request) {
         Date beforeLastEventDate = this.getDateFromRequest(request, "beforelasteventtime");
@@ -262,10 +279,14 @@ public class AlarmQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getAfterLastEventTimeFilter</p>
+     * <p>
+     * getAfterLastEventTimeFilter
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @return a {@link org.opennms.web.alarm.filter.AfterLastEventTimeFilter} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @return a {@link org.opennms.web.alarm.filter.AfterLastEventTimeFilter}
+     *         object.
      */
     protected AfterLastEventTimeFilter getAfterLastEventTimeFilter(HttpServletRequest request) {
         Date afterLastEventDate = this.getDateFromRequest(request, "afterlasteventtime");
@@ -273,12 +294,17 @@ public class AlarmQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getDateFromRequest</p>
+     * <p>
+     * getDateFromRequest
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param prefix a {@link java.lang.String} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Date} object.
-     * @throws org.opennms.web.servlet.MissingParameterException if any.
+     * @throws org.opennms.web.servlet.MissingParameterException
+     *             if any.
      */
     protected Date getDateFromRequest(HttpServletRequest request, String prefix) throws MissingParameterException {
         if (request == null || prefix == null) {
@@ -349,13 +375,17 @@ public class AlarmQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getRequiredDateFields</p>
+     * <p>
+     * getRequiredDateFields
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      * @return an array of {@link java.lang.String} objects.
      */
     protected String[] getRequiredDateFields(String prefix) {
-        return new String[] { prefix + "hour", prefix + "minute", prefix + "ampm", prefix + "date", prefix + "month", prefix + "year" };
+        return new String[] { prefix + "hour", prefix + "minute", prefix + "ampm", prefix + "date", prefix + "month",
+                prefix + "year" };
     }
 
 }

@@ -42,7 +42,6 @@ import org.opennms.netmgt.icmp.PingResponseCallback;
 import org.opennms.netmgt.icmp.Pinger;
 
 /**
- *
  * @author <a href="mailto:ranger@opennms.org>Ben Reed</a>
  */
 public class JniPingTest extends TestCase {
@@ -50,6 +49,7 @@ public class JniPingTest extends TestCase {
     static private JniPinger s_jniPinger = new JniPinger();
 
     private InetAddress m_goodHost = null;
+
     private InetAddress m_badHost = null;
 
     /**
@@ -59,15 +59,16 @@ public class JniPingTest extends TestCase {
     @Override
     protected void runTest() throws Throwable {
         if (!isRunTest()) {
-            System.err.println("Skipping test '" + getName() + "' because system property '" + getRunTestProperty() + "' is not set to 'true'");
+            System.err.println("Skipping test '" + getName() + "' because system property '" + getRunTestProperty()
+                    + "' is not set to 'true'");
             return;
         }
 
         try {
-            System.err.println("------------------- begin "+getName()+" ---------------------");
+            System.err.println("------------------- begin " + getName() + " ---------------------");
             super.runTest();
         } finally {
-            System.err.println("------------------- end "+getName()+" -----------------------");
+            System.err.println("------------------- end " + getName() + " -----------------------");
         }
     }
 
@@ -88,7 +89,7 @@ public class JniPingTest extends TestCase {
         super.setUp();
         m_goodHost = InetAddress.getLocalHost();
         // 192.0.2.0/24 is reserved for documentation purposes
-        m_badHost  = InetAddress.getByName("192.0.2.123");
+        m_badHost = InetAddress.getByName("192.0.2.123");
     }
 
     public void testSinglePingJni() throws Exception {
@@ -103,9 +104,13 @@ public class JniPingTest extends TestCase {
 
     private static class TestPingResponseCallback implements PingResponseCallback {
         private final CountDownLatch m_latch = new CountDownLatch(1);
+
         private InetAddress m_address;
+
         private EchoPacket m_packet;
+
         private Throwable m_throwable;
+
         private boolean m_timeout = false;
 
         @Override
@@ -173,12 +178,13 @@ public class JniPingTest extends TestCase {
 
         TestPingResponseCallback cb = new TestPingResponseCallback();
 
-        pinger.ping(m_badHost, PingConstants.DEFAULT_TIMEOUT, PingConstants.DEFAULT_RETRIES, PingConstants.DEFAULT_PACKET_SIZE, 1, cb);
+        pinger.ping(m_badHost, PingConstants.DEFAULT_TIMEOUT, PingConstants.DEFAULT_RETRIES,
+                    PingConstants.DEFAULT_PACKET_SIZE, 1, cb);
 
         cb.await();
 
         assertTrue("Unexpected Error sending ping to " + m_badHost + ": " + cb.getThrowable(),
-                cb.getThrowable() == null || cb.getThrowable() instanceof NoRouteToHostException);
+                   cb.getThrowable() == null || cb.getThrowable() instanceof NoRouteToHostException);
         assertTrue(cb.isTimeout());
         assertNotNull(cb.getPacket());
         assertNotNull(cb.getAddress());
@@ -209,7 +215,8 @@ public class JniPingTest extends TestCase {
         List<Number> items = pinger.parallelPing(m_goodHost, 20, PingConstants.DEFAULT_TIMEOUT, 50);
         Thread.sleep(1000);
         printResponse(items);
-        assertTrue("Collection contained all null values, all parallel pings failed", CollectionMath.countNotNull(items) > 0);
+        assertTrue("Collection contained all null values, all parallel pings failed",
+                   CollectionMath.countNotNull(items) > 0);
         for (Number item : items) {
             assertNotNull("Found a null reponse time in the response", item);
             assertTrue("Negative RTT value returned from ping", item.floatValue() > 0);
@@ -224,7 +231,8 @@ public class JniPingTest extends TestCase {
         List<Number> items = pinger.parallelPing(m_badHost, 20, PingConstants.DEFAULT_TIMEOUT, 50);
         Thread.sleep(PingConstants.DEFAULT_TIMEOUT + 100);
         printResponse(items);
-        assertTrue("Collection contained some numeric values when all parallel pings should have failed", CollectionMath.countNotNull(items) == 0);
+        assertTrue("Collection contained some numeric values when all parallel pings should have failed",
+                   CollectionMath.countNotNull(items) == 0);
     }
 
     private void printResponse(List<Number> items) {
@@ -235,9 +243,12 @@ public class JniPingTest extends TestCase {
         Number average = CollectionMath.average(items);
         Number median = CollectionMath.median(items);
 
-        if (passedPercent == null) passedPercent = Long.valueOf(0);
-        if (failedPercent == null) failedPercent = Long.valueOf(100);
-        if (median        == null) median        = Double.valueOf(0);
+        if (passedPercent == null)
+            passedPercent = Long.valueOf(0);
+        if (failedPercent == null)
+            failedPercent = Long.valueOf(100);
+        if (median == null)
+            median = Double.valueOf(0);
 
         if (average == null) {
             average = new Double(0);

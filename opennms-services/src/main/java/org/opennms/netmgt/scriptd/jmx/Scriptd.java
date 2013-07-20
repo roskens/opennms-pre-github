@@ -29,14 +29,18 @@
 package org.opennms.netmgt.scriptd.jmx;
 
 /**
- * <p>Scriptd class.</p>
+ * <p>
+ * Scriptd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Scriptd implements ScriptdMBean {
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
@@ -45,7 +49,9 @@ public class Scriptd implements ScriptdMBean {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public void start() {
@@ -54,7 +60,9 @@ public class Scriptd implements ScriptdMBean {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
@@ -63,7 +71,9 @@ public class Scriptd implements ScriptdMBean {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -74,7 +84,9 @@ public class Scriptd implements ScriptdMBean {
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,7 +96,9 @@ public class Scriptd implements ScriptdMBean {
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

@@ -40,14 +40,16 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * <p>Abstract AbstractSpringContextJmxServiceDaemon class.</p>
+ * <p>
+ * Abstract AbstractSpringContextJmxServiceDaemon class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServiceDaemon> implements BaseOnmsMBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractSpringContextJmxServiceDaemon.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractSpringContextJmxServiceDaemon.class);
 
     /** Constant <code>DAEMON_BEAN_NAME="daemon"</code> */
     public static final String DAEMON_BEAN_NAME = "daemon";
@@ -57,23 +59,30 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
     private int m_status = Fiber.START_PENDING;
 
     /**
-     * <p>Constructor for AbstractSpringContextJmxServiceDaemon.</p>
+     * <p>
+     * Constructor for AbstractSpringContextJmxServiceDaemon.
+     * </p>
      *
-     * @param <T> a T object.
+     * @param <T>
+     *            a T object.
      */
     public AbstractSpringContextJmxServiceDaemon() {
         super();
     }
 
     /**
-     * <p>getSpringContext</p>
+     * <p>
+     * getSpringContext
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     protected abstract String getSpringContext();
 
     /**
-     * <p>getLoggingPrefix</p>
+     * <p>
+     * getLoggingPrefix
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,7 +98,9 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public final void init() {
@@ -102,7 +113,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
 
                 m_context = BeanUtils.getFactory(getSpringContext(), ClassPathXmlApplicationContext.class);
 
-                LOG.debug("SPRING: context.classLoader= {}",  m_context.getClassLoader());
+                LOG.debug("SPRING: context.classLoader= {}", m_context.getClassLoader());
                 LOG.info("{} initialization complete.", getLoggingPrefix());
             }
 
@@ -110,7 +121,9 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public final void start() {
@@ -143,7 +156,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
                 }
                 setStatus(Fiber.RUNNING);
 
-                LOG.debug("SPRING: context.classLoader= {}",  m_context.getClassLoader());
+                LOG.debug("SPRING: context.classLoader= {}", m_context.getClassLoader());
                 LOG.info("{} initialization complete.", getLoggingPrefix());
             }
 
@@ -162,7 +175,9 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public final void stop() {
@@ -184,7 +199,9 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -198,7 +215,9 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -220,7 +239,9 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

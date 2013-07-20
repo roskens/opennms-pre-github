@@ -38,7 +38,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 /**
- * <p>LocationMonitorIdValidator class.</p>
+ * <p>
+ * LocationMonitorIdValidator class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -59,19 +61,18 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
         LocationMonitorIdCommand cmd = (LocationMonitorIdCommand) obj;
 
         if (cmd.getMonitorId() == null) {
-            errors.rejectValue("monitorId", "monitorId.notSpecified",
-                               new Object[] { "monitorId" },
-                               "Value required.");
+            errors.rejectValue("monitorId", "monitorId.notSpecified", new Object[] { "monitorId" }, "Value required.");
         } else {
             try {
                 int monitorId = cmd.getMonitorId();
                 OnmsLocationMonitor monitor = m_locationMonitorDao.get(monitorId);
                 if (monitor == null) {
-                    throw new ObjectRetrievalFailureException(OnmsLocationMonitor.class, monitorId, "Could not find location monitor with id " + monitorId, null);
+                    throw new ObjectRetrievalFailureException(OnmsLocationMonitor.class, monitorId,
+                                                              "Could not find location monitor with id " + monitorId,
+                                                              null);
                 }
             } catch (DataAccessException e) {
-                errors.rejectValue("monitorId", "monitorId.notFound",
-                                   new Object[] { "monitorId", cmd.getMonitorId() },
+                errors.rejectValue("monitorId", "monitorId.notFound", new Object[] { "monitorId", cmd.getMonitorId() },
                                    "Valid location monitor ID required.");
 
             }
@@ -79,7 +80,9 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {
@@ -89,7 +92,9 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
     }
 
     /**
-     * <p>getLocationMonitorDao</p>
+     * <p>
+     * getLocationMonitorDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -98,9 +103,13 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
     }
 
     /**
-     * <p>setLocationMonitorDao</p>
+     * <p>
+     * setLocationMonitorDao
+     * </p>
      *
-     * @param locationMonitorDao a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
+     * @param locationMonitorDao
+     *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}
+     *            object.
      */
     public final void setLocationMonitorDao(final LocationMonitorDao locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;

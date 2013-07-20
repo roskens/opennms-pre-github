@@ -42,33 +42,38 @@ import com.vaadin.ui.Window;
 
 public class EventsAlarmsWindowTest {
 
-	EventsAlarmsWindow window;
-	EventsAlarmsWindow window2;
-	Window mainWindow;
-	UI app;
-	@Before
-	public void setUp() throws Exception {
-		Node testNode1 = new Node(9,"172.20.1.10","Cartman");
-		final URL url = new URL("http://localhost:8080/");
+    EventsAlarmsWindow window;
+
+    EventsAlarmsWindow window2;
+
+    Window mainWindow;
+
+    UI app;
+
+    @Before
+    public void setUp() throws Exception {
+        Node testNode1 = new Node(9, "172.20.1.10", "Cartman");
+        final URL url = new URL("http://localhost:8080/");
         window = new EventsAlarmsWindow(null, url, url);
-		window2 = new EventsAlarmsWindow(testNode1, url, url);
-		mainWindow = new Window();
-		app = new UI() { //Empty Application
+        window2 = new EventsAlarmsWindow(testNode1, url, url);
+        mainWindow = new Window();
+        app = new UI() { // Empty Application
 
-			private static final long serialVersionUID = -7197916089135471254L;
+            private static final long serialVersionUID = -7197916089135471254L;
 
-			@Override
-			public void init(VaadinRequest request) {}
-		};
-	}
+            @Override
+            public void init(VaadinRequest request) {
+            }
+        };
+    }
 
-	@Test
-	public void testAttach() {
-		app.addWindow(mainWindow);
-		app.addWindow(window);
-		assertTrue(app.getWindows().contains(window));
-		app.removeWindow(window);
-		assertFalse(app.getWindows().contains(window));
-	}
+    @Test
+    public void testAttach() {
+        app.addWindow(mainWindow);
+        app.addWindow(window);
+        assertTrue(app.getWindows().contains(window));
+        app.removeWindow(window);
+        assertFalse(app.getWindows().contains(window));
+    }
 
 }

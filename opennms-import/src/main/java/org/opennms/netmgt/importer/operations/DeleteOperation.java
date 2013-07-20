@@ -38,7 +38,9 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>DeleteOperation class.</p>
+ * <p>
+ * DeleteOperation class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -46,15 +48,22 @@ import org.opennms.netmgt.xml.event.Event;
 public class DeleteOperation extends AbstractImportOperation {
 
     Integer m_nodeId;
+
     NodeDao m_nodeDao;
 
     /**
-     * <p>Constructor for DeleteOperation.</p>
+     * <p>
+     * Constructor for DeleteOperation.
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public DeleteOperation(Integer nodeId, String foreignSource, String foreignId, NodeDao nodeDao) {
         m_nodeId = nodeId;
@@ -62,44 +71,50 @@ public class DeleteOperation extends AbstractImportOperation {
     }
 
     /**
-     * <p>persist</p>
+     * <p>
+     * persist
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     @Override
     public List<Event> persist() {
 
-    	//TODO: whatif node comes back as null?  can this happend?
-    	OnmsNode node = m_nodeDao.get(m_nodeId);
-    	if (node == null) return new ArrayList<Event>(0);
+        // TODO: whatif node comes back as null? can this happend?
+        OnmsNode node = m_nodeDao.get(m_nodeId);
+        if (node == null)
+            return new ArrayList<Event>(0);
 
-    	m_nodeDao.delete(node);
+        m_nodeDao.delete(node);
 
-    	final List<Event> events = new LinkedList<Event>();
+        final List<Event> events = new LinkedList<Event>();
 
-    	EntityVisitor eventAccumlator = new DeleteEventVisitor(events);
+        EntityVisitor eventAccumlator = new DeleteEventVisitor(events);
 
-    	node.visit(eventAccumlator);
+        node.visit(eventAccumlator);
 
-    	return events;
+        return events;
     }
 
-
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-    	return "DELETE: Node "+m_nodeId;
+        return "DELETE: Node " + m_nodeId;
     }
 
-	/**
-	 * <p>gatherAdditionalData</p>
-	 */
+    /**
+     * <p>
+     * gatherAdditionalData
+     * </p>
+     */
     @Override
-	public void gatherAdditionalData() {
-		// no additional data to gather
-	}
+    public void gatherAdditionalData() {
+        // no additional data to gather
+    }
 }

@@ -40,9 +40,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
-
 /**
- * <p>ChooseResourceController class.</p>
+ * <p>
+ * ChooseResourceController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,11 +51,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class ChooseResourceController extends AbstractController implements InitializingBean {
     private ChooseResourceService m_chooseResourceService;
+
     private String m_defaultEndUrl;
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         String[] requiredParameters = new String[] { "parentResourceId or", "parentResourceType and parentResource" };
 
         String endUrl = WebSecurityUtils.sanitizeString(request.getParameter("endUrl"));
@@ -77,17 +80,15 @@ public class ChooseResourceController extends AbstractController implements Init
             endUrl = m_defaultEndUrl;
         }
 
-        ChooseResourceModel model =
-            m_chooseResourceService.findChildResources(resourceId,
-                                                       endUrl);
+        ChooseResourceModel model = m_chooseResourceService.findChildResources(resourceId, endUrl);
 
-        return new ModelAndView("/graph/chooseresource",
-                                "model",
-                                model);
+        return new ModelAndView("/graph/chooseresource", "model", model);
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {
@@ -101,7 +102,9 @@ public class ChooseResourceController extends AbstractController implements Init
     }
 
     /**
-     * <p>getChooseResourceService</p>
+     * <p>
+     * getChooseResourceService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.ChooseResourceService} object.
      */
@@ -110,17 +113,22 @@ public class ChooseResourceController extends AbstractController implements Init
     }
 
     /**
-     * <p>setChooseResourceService</p>
+     * <p>
+     * setChooseResourceService
+     * </p>
      *
-     * @param chooseResourceService a {@link org.opennms.web.svclayer.ChooseResourceService} object.
+     * @param chooseResourceService
+     *            a {@link org.opennms.web.svclayer.ChooseResourceService}
+     *            object.
      */
-    public final void setChooseResourceService(
-            final ChooseResourceService chooseResourceService) {
+    public final void setChooseResourceService(final ChooseResourceService chooseResourceService) {
         m_chooseResourceService = chooseResourceService;
     }
 
     /**
-     * <p>getDefaultEndUrl</p>
+     * <p>
+     * getDefaultEndUrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,9 +137,12 @@ public class ChooseResourceController extends AbstractController implements Init
     }
 
     /**
-     * <p>setDefaultEndUrl</p>
+     * <p>
+     * setDefaultEndUrl
+     * </p>
      *
-     * @param defaultEndUrl a {@link java.lang.String} object.
+     * @param defaultEndUrl
+     *            a {@link java.lang.String} object.
      */
     public final void setDefaultEndUrl(final String defaultEndUrl) {
         m_defaultEndUrl = defaultEndUrl;

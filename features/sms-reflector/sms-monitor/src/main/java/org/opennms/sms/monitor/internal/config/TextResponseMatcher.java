@@ -39,33 +39,40 @@ import org.opennms.sms.reflector.smsservice.MobileMsgRequest;
 import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 
 /**
- * <p>TextResponseMatcher class.</p>
+ * <p>
+ * TextResponseMatcher class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="matches")
+@XmlRootElement(name = "matches")
 public class TextResponseMatcher extends SequenceResponseMatcher {
     private static final Logger LOG = LoggerFactory.getLogger(TextResponseMatcher.class);
 
-	/**
-	 * <p>Constructor for TextResponseMatcher.</p>
-	 */
-	public TextResponseMatcher() {
-	}
+    /**
+     * <p>
+     * Constructor for TextResponseMatcher.
+     * </p>
+     */
+    public TextResponseMatcher() {
+    }
 
-	/**
-	 * <p>Constructor for TextResponseMatcher.</p>
-	 *
-	 * @param text a {@link java.lang.String} object.
-	 */
-	public TextResponseMatcher(String text) {
-		this();
-		setText(text);
-	}
+    /**
+     * <p>
+     * Constructor for TextResponseMatcher.
+     * </p>
+     *
+     * @param text
+     *            a {@link java.lang.String} object.
+     */
+    public TextResponseMatcher(String text) {
+        this();
+        setText(text);
+    }
 
-	/** {@inheritDoc} */
-	@Override
+    /** {@inheritDoc} */
+    @Override
     public boolean matches(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
         LOG.trace("textMatches({}, {}, {})", Arrays.asList(session.substitute(getText()), request, response));
         String responseText = response.getText() == null ? "" : response.getText();

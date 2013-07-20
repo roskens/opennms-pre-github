@@ -57,32 +57,19 @@ public class PollerConfigFactoryTest extends TestCase {
         junit.textui.TestRunner.run(PollerConfigFactoryTest.class);
     }
 
-    public static final String POLLER_CONFIG = "\n" +
-            "<poller-configuration\n" +
-            "   threads=\"10\"\n" +
-            "   nextOutageId=\"SELECT nextval(\'outageNxtId\')\"\n" +
-            "   serviceUnresponsiveEnabled=\"false\">\n" +
-            "   <node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>\n" +
-            "   <package name=\"default\">\n" +
-            "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n" +
-            "       <rrd step = \"300\">\n" +
-            "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
-            "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" +
-            "           <rra>RRA:MIN:0.5:12:4464</rra>\n" +
-            "           <rra>RRA:MAX:0.5:12:4464</rra>\n" +
-            "       </rrd>\n" +
-            "       <service name=\"ICMP\" interval=\"300000\">\n" +
-            "         <parameter key=\"test-key\" value=\"test-value\"/>\n" +
-            "         <parameter key=\"any-parm\">" +
-            "            <config>" +
-            "              <data/>" +
-            "            </config>" +
-            "         </parameter>" +
-            "       </service>\n" +
-            "       <downtime begin=\"0\" end=\"30000\"/>\n" +
-            "   </package>\n" +
-            "   <monitor service=\"ICMP\" class-name=\"org.opennms.netmgt.mock.MockMonitor\"/>\n"+
-            "</poller-configuration>\n";
+    public static final String POLLER_CONFIG = "\n" + "<poller-configuration\n" + "   threads=\"10\"\n"
+            + "   nextOutageId=\"SELECT nextval(\'outageNxtId\')\"\n" + "   serviceUnresponsiveEnabled=\"false\">\n"
+            + "   <node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>\n"
+            + "   <package name=\"default\">\n" + "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n"
+            + "       <rrd step = \"300\">\n" + "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n"
+            + "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" + "           <rra>RRA:MIN:0.5:12:4464</rra>\n"
+            + "           <rra>RRA:MAX:0.5:12:4464</rra>\n" + "       </rrd>\n"
+            + "       <service name=\"ICMP\" interval=\"300000\">\n"
+            + "         <parameter key=\"test-key\" value=\"test-value\"/>\n" + "         <parameter key=\"any-parm\">"
+            + "            <config>" + "              <data/>" + "            </config>" + "         </parameter>"
+            + "       </service>\n" + "       <downtime begin=\"0\" end=\"30000\"/>\n" + "   </package>\n"
+            + "   <monitor service=\"ICMP\" class-name=\"org.opennms.netmgt.mock.MockMonitor\"/>\n"
+            + "</poller-configuration>\n";
 
     @Override
     protected void setUp() throws Exception {
@@ -134,20 +121,22 @@ public class PollerConfigFactoryTest extends TestCase {
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-		MockLogAppender.assertNoWarningsOrGreater();
+        MockLogAppender.assertNoWarningsOrGreater();
     }
 
     static class TestPollerConfigManager extends PollerConfigManager {
         private String m_xml;
 
-        public TestPollerConfigManager(String xml, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
+        public TestPollerConfigManager(String xml, String localServer, boolean verifyServer) throws MarshalException,
+                ValidationException, IOException {
             super(new ByteArrayInputStream(xml.getBytes("UTF-8")), localServer, verifyServer);
             save();
         }
 
         @Override
         public void update() throws IOException, MarshalException, ValidationException {
-            m_config = CastorUtils.unmarshal(PollerConfiguration.class, new ByteArrayInputStream(m_xml.getBytes("UTF-8")));
+            m_config = CastorUtils.unmarshal(PollerConfiguration.class,
+                                             new ByteArrayInputStream(m_xml.getBytes("UTF-8")));
             setUpInternalData();
         }
 
@@ -210,8 +199,6 @@ public class PollerConfigFactoryTest extends TestCase {
 
         assertTrue("Expected 192.168.1.1 to be in the package", factory.isInterfaceInPackage("192.168.1.1", pkg));
 
-
-
     }
 
     public void testSpecific() throws Exception {
@@ -250,9 +237,12 @@ public class PollerConfigFactoryTest extends TestCase {
         Package p = newFactory.getPackage("TestPkg");
         assertNotNull(p);
         System.out.println(factory.getXml());
-        assertTrue("Expect 123.12.123.121 to be part of the package", newFactory.isInterfaceInPackage("123.12.123.121", p));
-        assertTrue("Expect 123.12.123.122 to be part of the package", newFactory.isInterfaceInPackage("123.12.123.122", p));
-        assertFalse("Expected 192.168.1.1 to be excluded from the package", newFactory.isInterfaceInPackage("192.168.1.1", p));
+        assertTrue("Expect 123.12.123.121 to be part of the package",
+                   newFactory.isInterfaceInPackage("123.12.123.121", p));
+        assertTrue("Expect 123.12.123.122 to be part of the package",
+                   newFactory.isInterfaceInPackage("123.12.123.122", p));
+        assertFalse("Expected 192.168.1.1 to be excluded from the package",
+                    newFactory.isInterfaceInPackage("192.168.1.1", p));
 
     }
 

@@ -48,58 +48,58 @@ import org.opennms.features.topology.api.topo.WrappedVertex;
 
 public class SaveToXmlOperation implements Operation {
 
-	@Override
-	public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
+    @Override
+    public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
 
-		GraphProvider graphProvider = operationContext.getGraphContainer().getBaseTopology();
+        GraphProvider graphProvider = operationContext.getGraphContainer().getBaseTopology();
 
-		Map<String, WrappedVertex> idMap = new HashMap<String, WrappedVertex>();
+        Map<String, WrappedVertex> idMap = new HashMap<String, WrappedVertex>();
 
-		// first create all the vertices;
-		List<WrappedVertex> vertices = new ArrayList<WrappedVertex>();
-		for(Vertex vertex : graphProvider.getVertices()) {
-			WrappedVertex wrappedVertex = WrappedVertex.create(vertex);
-			vertices.add(wrappedVertex);
-			idMap.put(vertex.getId(), wrappedVertex);
-		}
+        // first create all the vertices;
+        List<WrappedVertex> vertices = new ArrayList<WrappedVertex>();
+        for (Vertex vertex : graphProvider.getVertices()) {
+            WrappedVertex wrappedVertex = WrappedVertex.create(vertex);
+            vertices.add(wrappedVertex);
+            idMap.put(vertex.getId(), wrappedVertex);
+        }
 
-		// then set the parents for each
-		for(Vertex vertex : graphProvider.getVertices()) {
-			Vertex parent = graphProvider.getParent(vertex);
-			if (parent != null) {
-				WrappedVertex wrappedVertex = idMap.get(vertex.getId());
-				WrappedVertex wrappedParent = idMap.get(parent.getId());
-				wrappedVertex.parent = wrappedParent;
-			}
-		}
+        // then set the parents for each
+        for (Vertex vertex : graphProvider.getVertices()) {
+            Vertex parent = graphProvider.getParent(vertex);
+            if (parent != null) {
+                WrappedVertex wrappedVertex = idMap.get(vertex.getId());
+                WrappedVertex wrappedParent = idMap.get(parent.getId());
+                wrappedVertex.parent = wrappedParent;
+            }
+        }
 
-		// then create the edges
-		List<WrappedEdge> edges = new ArrayList<WrappedEdge>();
-		for(Edge edge : graphProvider.getEdges()) {
-			WrappedVertex wrappedSource = idMap.get(edge.getSource().getVertex().getId());
-			WrappedVertex wrappedTarget = idMap.get(edge.getTarget().getVertex().getId());
-			edges.add(new WrappedEdge(edge, wrappedSource, wrappedTarget));
-		}
+        // then create the edges
+        List<WrappedEdge> edges = new ArrayList<WrappedEdge>();
+        for (Edge edge : graphProvider.getEdges()) {
+            WrappedVertex wrappedSource = idMap.get(edge.getSource().getVertex().getId());
+            WrappedVertex wrappedTarget = idMap.get(edge.getTarget().getVertex().getId());
+            edges.add(new WrappedEdge(edge, wrappedSource, wrappedTarget));
+        }
 
-		WrappedGraph graph = new WrappedGraph(graphProvider.getVertexNamespace(), vertices, edges);
+        WrappedGraph graph = new WrappedGraph(graphProvider.getVertexNamespace(), vertices, edges);
 
-		JAXB.marshal(graph, new File("/tmp/saved-graph.xml"));
+        JAXB.marshal(graph, new File("/tmp/saved-graph.xml"));
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public boolean display(List<VertexRef> targets, OperationContext operationContext) {
-		return true;
-	}
+    @Override
+    public boolean display(List<VertexRef> targets, OperationContext operationContext) {
+        return true;
+    }
 
-	@Override
-	public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
-		return true;
-	}
+    @Override
+    public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
+        return true;
+    }
 
-	@Override
-	public String getId() {
-		return "SaveToXML";
-	}
+    @Override
+    public String getId() {
+        return "SaveToXML";
+    }
 }

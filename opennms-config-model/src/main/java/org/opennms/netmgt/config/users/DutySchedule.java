@@ -51,6 +51,7 @@ import org.springframework.util.Assert;
  */
 public class DutySchedule {
     private static final Logger LOG = LoggerFactory.getLogger(DutySchedule.class);
+
     /**
      * Each boolean in the bit set represents a day of the week. Monday = 0,
      * Tuesday = 1 ... Sunday = 6
@@ -100,7 +101,8 @@ public class DutySchedule {
      * A mapping between the days of the week as indexed by the DutySchedule
      * class and those of the Calendar class
      */
-    private static final int[] CALENDAR_DAY_MAPPING = { Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY };
+    private static final int[] CALENDAR_DAY_MAPPING = { Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY,
+            Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY };
 
     /**
      * Default constructor, builds the BitSet used to identify the days of the
@@ -143,9 +145,12 @@ public class DutySchedule {
      * converting from a table display to save the information to a string
      * format for the users.xml.
      *
-     * @param schedule a {@link java.util.List} object.
-     * @param start a int.
-     * @param end a int.
+     * @param schedule
+     *            a {@link java.util.List} object.
+     * @param start
+     *            a int.
+     * @param end
+     *            a int.
      */
     public DutySchedule(List<Boolean> schedule, int start, int end) {
         Assert.notNull(schedule, "argument schedule must not be null");
@@ -160,6 +165,7 @@ public class DutySchedule {
         m_startTime = start;
         m_stopTime = end;
     }
+
     /**
      * This constructor is designed to build a new DutySchedule from a String
      * representation formatted as such. <day_of_week_abbr><start>- <stop>eg.
@@ -286,7 +292,8 @@ public class DutySchedule {
 
         // make two new Calendar objects from the YEAR, MONTH and DATE of the
         // date we are checking.
-        Calendar startTime = new GregorianCalendar(aTime.get(Calendar.YEAR), aTime.get(Calendar.MONTH), aTime.get(Calendar.DATE));
+        Calendar startTime = new GregorianCalendar(aTime.get(Calendar.YEAR), aTime.get(Calendar.MONTH),
+                                                   aTime.get(Calendar.DATE));
 
         // the hour will be the integer part of the start time divided by 100
         // cause it should be
@@ -298,7 +305,8 @@ public class DutySchedule {
         startTime.set(Calendar.MINUTE, (m_startTime % 100));
         startTime.set(Calendar.SECOND, 0);
 
-        Calendar endTime = new GregorianCalendar(aTime.get(Calendar.YEAR), aTime.get(Calendar.MONTH), aTime.get(Calendar.DATE));
+        Calendar endTime = new GregorianCalendar(aTime.get(Calendar.YEAR), aTime.get(Calendar.MONTH),
+                                                 aTime.get(Calendar.DATE));
 
         endTime.set(Calendar.HOUR_OF_DAY, (m_stopTime / 100));
         endTime.set(Calendar.MINUTE, (m_stopTime % 100));
@@ -347,40 +355,43 @@ public class DutySchedule {
      * start time of the duty schedule, saving the smallest of these as the
      * return value as we iterate through the BitSet.???
      *
-     * @param nTime The time to check.
+     * @param nTime
+     *            The time to check.
      * @return long - number of milliseconds
      */
     public long nextInSchedule(Calendar nTime) {
         long next = -1;
         long tempnext = -1;
-        //make two new Calendar objects from the YEAR, MONTH and DATE of the
-        //date we are checking.
-        Calendar startTime = new GregorianCalendar(nTime.get(Calendar.YEAR), nTime.get(Calendar.MONTH), nTime.get(Calendar.DATE));
-        //the hour will be the integer part of the start time divided by 100
-        //cause it should be in military time
-        startTime.set(Calendar.HOUR_OF_DAY, (m_startTime/100));
+        // make two new Calendar objects from the YEAR, MONTH and DATE of the
+        // date we are checking.
+        Calendar startTime = new GregorianCalendar(nTime.get(Calendar.YEAR), nTime.get(Calendar.MONTH),
+                                                   nTime.get(Calendar.DATE));
+        // the hour will be the integer part of the start time divided by 100
+        // cause it should be in military time
+        startTime.set(Calendar.HOUR_OF_DAY, (m_startTime / 100));
 
-        //the minute will be the start time mod 100 cause it should be in
-        //military time
+        // the minute will be the start time mod 100 cause it should be in
+        // military time
         startTime.set(Calendar.MINUTE, (m_startTime % 100));
         startTime.set(Calendar.SECOND, 0);
 
-        Calendar endTime = new GregorianCalendar(nTime.get(Calendar.YEAR), nTime.get(Calendar.MONTH), nTime.get(Calendar.DATE));
+        Calendar endTime = new GregorianCalendar(nTime.get(Calendar.YEAR), nTime.get(Calendar.MONTH),
+                                                 nTime.get(Calendar.DATE));
 
-        endTime.set(Calendar.HOUR_OF_DAY, (m_stopTime/100));
+        endTime.set(Calendar.HOUR_OF_DAY, (m_stopTime / 100));
         endTime.set(Calendar.MINUTE, (m_stopTime % 100));
         endTime.set(Calendar.SECOND, 0);
 
-        //we want the begin and end times for the ranges to be includsive,
-        //so convert to milliseconds so we can do a greater than/less than
-        //equal to comparisons
+        // we want the begin and end times for the ranges to be includsive,
+        // so convert to milliseconds so we can do a greater than/less than
+        // equal to comparisons
         long dateMillis = nTime.getTime().getTime();
         long startMillis = startTime.getTime().getTime();
         long endMillis = endTime.getTime().getTime();
 
-        //look at the BitSet to see what days are set for this duty schedule,
-        //reassign the day of week for the start and stop time, then see if
-        //the argument Calendar is between these times.
+        // look at the BitSet to see what days are set for this duty schedule,
+        // reassign the day of week for the start and stop time, then see if
+        // the argument Calendar is between these times.
         int itoday = -1;
         for (int i = 0; i < 7; i++) {
             // does i correspond to today?
@@ -389,16 +400,16 @@ public class DutySchedule {
                 LOG.debug("nextInSchedule: day of week is {}", i);
             }
 
-            //is duty schedule for today?
-            //see if the now time corresponds to a day when the user is on duty
+            // is duty schedule for today?
+            // see if the now time corresponds to a day when the user is on duty
             if (m_days.get(i) && CALENDAR_DAY_MAPPING[i] == nTime.get(Calendar.DAY_OF_WEEK)) {
                 LOG.debug("nextInSchedule: Today is in schedule");
-                //is start time > current time?
+                // is start time > current time?
                 if (startMillis > dateMillis) {
                     next = startMillis - dateMillis;
                     LOG.debug("nextInSchedule: duty starts in {} millisec", next);
                 } else {
-                    //is end time >= now
+                    // is end time >= now
                     if (endMillis >= dateMillis) {
                         next = 0;
                         LOG.debug("nextInSchedule: on duty now");
@@ -477,9 +488,12 @@ public class DutySchedule {
     }
 
     /**
-     * <p>isInSchedule</p>
+     * <p>
+     * isInSchedule
+     * </p>
      *
-     * @param time a {@link java.util.Date} object.
+     * @param time
+     *            a {@link java.util.Date} object.
      * @return a boolean.
      */
     public boolean isInSchedule(Date time) {
@@ -489,9 +503,12 @@ public class DutySchedule {
     }
 
     /**
-     * <p>hasDay</p>
+     * <p>
+     * hasDay
+     * </p>
      *
-     * @param aDay a int.
+     * @param aDay
+     *            a int.
      * @return a boolean.
      */
     public boolean hasDay(int aDay) {

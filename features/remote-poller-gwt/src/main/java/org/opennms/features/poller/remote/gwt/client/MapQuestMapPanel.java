@@ -79,13 +79,16 @@ import com.googlecode.gwtmapquest.transaction.event.ZoomEndEvent;
 import com.googlecode.gwtmapquest.transaction.event.ZoomEndHandler;
 
 /**
- * <p>MapQuestMapPanel class.</p>
+ * <p>
+ * MapQuestMapPanel class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleClickHandlers, HasClickHandlers, RequiresResize {
+public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleClickHandlers, HasClickHandlers,
+        RequiresResize {
 
     public GWTLatLng m_currentInfoWindowLatLng = null;
 
@@ -99,7 +102,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
 
         @Override
         public void onClick(final ClickEvent event) {
-            m_currentInfoWindowLatLng  = getMarkerState().getLatLng();
+            m_currentInfoWindowLatLng = getMarkerState().getLatLng();
             m_eventBus.fireEvent(new GWTMarkerClickedEvent(getMarkerState()));
         }
 
@@ -113,17 +116,19 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
 
     }
 
-    private class ClickCounter{
+    private class ClickCounter {
 
         private int m_incr = 0;
+
         private MQALatLng m_latlng = null;
+
         private Timer m_timer = new Timer() {
 
             @Override
             public void run() {
-                if(m_incr == 1) {
+                if (m_incr == 1) {
                     m_map.panToLatLng(m_latlng);
-                }else if(m_incr == 3) {
+                } else if (m_incr == 3) {
                     m_map.setCenter(m_latlng);
                     m_map.zoomIn();
                 }
@@ -174,11 +179,13 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
     }
 
     /**
-     * <p>initializeMap</p>
+     * <p>
+     * initializeMap
+     * </p>
      */
     private void initializeMap() {
 
-    	m_map = MQATileMap.newInstance(m_mapHolder.getElement());
+        m_map = MQATileMap.newInstance(m_mapHolder.getElement());
 
         m_map.addControl(MQALargeZoomControl.newInstance());
         m_map.setZoomLevel(1);
@@ -256,7 +263,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
 
     private MQAPoi createMarker(final GWTMarkerState marker) {
         final MQALatLng latLng = toMQALatLng(marker.getLatLng());
-        final MQAPoi point = (MQAPoi)MQAPoi.newInstance(latLng);
+        final MQAPoi point = (MQAPoi) MQAPoi.newInstance(latLng);
         point.setVisible(marker.isVisible());
         point.setInfoTitleHTML(marker.getName());
 
@@ -277,9 +284,12 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
     }
 
     /**
-     * <p>getBounds</p>
+     * <p>
+     * getBounds
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds} object.
+     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
+     *         object.
      */
     @Override
     public GWTBounds getBounds() {
@@ -326,7 +336,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         } else {
             updateMarker(m, marker);
             GWTLatLng latLng = new GWTLatLng(m.getLatLng().getLatitude(), m.getLatLng().getLongitude());
-            if(latLng.equals(m_currentInfoWindowLatLng) && !m_map.getInfoWindow().isHidden()) {
+            if (latLng.equals(m_currentInfoWindowLatLng) && !m_map.getInfoWindow().isHidden()) {
                 m_eventBus.fireEvent(new GWTMarkerInfoWindowRefreshEvent(marker));
             }
         }
@@ -343,7 +353,9 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
     }
 
     /**
-     * <p>getWidget</p>
+     * <p>
+     * getWidget
+     * </p>
      *
      * @return a {@link com.google.gwt.user.client.ui.Widget} object.
      */
@@ -379,20 +391,23 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         String markerImageSrc = Element.as(markerElement.getFirstChild()).getAttribute("src");
         String currentStyles = markerElement.getAttribute("style");
 
-        if(markerImageSrc.equals("images/selected-DOWN.png") || markerImageSrc.equals("images/deselected-DOWN.png")) {
+        if (markerImageSrc.equals("images/selected-DOWN.png") || markerImageSrc.equals("images/deselected-DOWN.png")) {
             markerElement.setAttribute("style", currentStyles.replace("z-index: 90", "z-index: 90"));
-        }else if(markerImageSrc.equals("images/selected-DISCONNECTED.png") || markerImageSrc.equals("images/deselected-DISCONNECTED.png")) {
+        } else if (markerImageSrc.equals("images/selected-DISCONNECTED.png")
+                || markerImageSrc.equals("images/deselected-DISCONNECTED.png")) {
             markerElement.setAttribute("style", currentStyles.replace("z-index: 90", "z-index: 80"));
-        }else if(markerImageSrc.equals("images/selected-MARGINAL.png") || markerImageSrc.equals("images/deselected-MARGINAL.png")) {
+        } else if (markerImageSrc.equals("images/selected-MARGINAL.png")
+                || markerImageSrc.equals("images/deselected-MARGINAL.png")) {
             markerElement.setAttribute("style", currentStyles.replace("z-index: 90", "z-index: 70"));
-        }else if(markerImageSrc.equals("images/selected-UP.png") || markerImageSrc.equals("images/deselected-UP.png")) {
+        } else if (markerImageSrc.equals("images/selected-UP.png") || markerImageSrc.equals("images/deselected-UP.png")) {
             markerElement.setAttribute("style", currentStyles.replace("z-index: 90", "z-index: 60"));
-        }else if(markerImageSrc.equals("images/selected-STOPPED.png") || markerImageSrc.equals("images/deselected-STOPPED.png")) {
+        } else if (markerImageSrc.equals("images/selected-STOPPED.png")
+                || markerImageSrc.equals("images/deselected-STOPPED.png")) {
             markerElement.setAttribute("style", currentStyles.replace("z-index: 90", "z-index: 50"));
-        }else if(markerImageSrc.equals("images/selected-UNKNOWN.png") || markerImageSrc.equals("images/deselected-UNKNOWN.png")) {
+        } else if (markerImageSrc.equals("images/selected-UNKNOWN.png")
+                || markerImageSrc.equals("images/deselected-UNKNOWN.png")) {
             markerElement.setAttribute("style", currentStyles.replace("z-index: 90", "z-index: 40"));
         }
-
 
     }
 }

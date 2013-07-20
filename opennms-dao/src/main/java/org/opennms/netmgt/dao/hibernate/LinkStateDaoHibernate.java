@@ -38,14 +38,18 @@ import org.opennms.netmgt.model.OnmsLinkState;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 /**
- * <p>LinkStateDaoHibernate class.</p>
+ * <p>
+ * LinkStateDaoHibernate class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class LinkStateDaoHibernate extends AbstractDaoHibernate<OnmsLinkState, Integer> implements LinkStateDao {
     /**
-     * <p>Constructor for LinkStateDaoHibernate.</p>
+     * <p>
+     * Constructor for LinkStateDaoHibernate.
+     * </p>
      */
     public LinkStateDaoHibernate() {
         super(OnmsLinkState.class);
@@ -59,10 +63,7 @@ public class LinkStateDaoHibernate extends AbstractDaoHibernate<OnmsLinkState, I
 
             @Override
             public Collection<OnmsLinkState> doInHibernate(Session session) throws HibernateException, SQLException {
-                return session.createCriteria(OnmsLinkState.class)
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .list();
+                return session.createCriteria(OnmsLinkState.class).setFirstResult(offset).setMaxResults(limit).list();
             }
         });
     }

@@ -29,7 +29,9 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>PrefabGraphType class.</p>
+ * <p>
+ * PrefabGraphType class.
+ * </p>
  */
 public class PrefabGraphType {
 
@@ -50,22 +52,29 @@ public class PrefabGraphType {
     private int m_includeRescanInterval;
 
     /**
-     * <p>Constructor for PrefabGraphType.</p>
+     * <p>
+     * Constructor for PrefabGraphType.
+     * </p>
      */
     public PrefabGraphType() {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -74,16 +83,21 @@ public class PrefabGraphType {
     }
 
     /**
-     * <p>setDefaultReport</p>
+     * <p>
+     * setDefaultReport
+     * </p>
      *
-     * @param defaultReport a {@link java.lang.String} object.
+     * @param defaultReport
+     *            a {@link java.lang.String} object.
      */
     public void setDefaultReport(String defaultReport) {
         m_defaultReport = defaultReport;
     }
 
     /**
-     * <p>getDefaultReport</p>
+     * <p>
+     * getDefaultReport
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -91,18 +105,22 @@ public class PrefabGraphType {
         return m_defaultReport;
     }
 
-
     /**
-     * <p>setGraphWidth</p>
+     * <p>
+     * setGraphWidth
+     * </p>
      *
-     * @param graphWidth a {@link java.lang.String} object.
+     * @param graphWidth
+     *            a {@link java.lang.String} object.
      */
     public void setGraphWidth(String graphWidth) {
         m_graphWidth = graphWidth;
     }
 
     /**
-     * <p>getGraphWidth</p>
+     * <p>
+     * getGraphWidth
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,16 +129,21 @@ public class PrefabGraphType {
     }
 
     /**
-     * <p>setGraphHeight</p>
+     * <p>
+     * setGraphHeight
+     * </p>
      *
-     * @param graphHeight a {@link java.lang.String} object.
+     * @param graphHeight
+     *            a {@link java.lang.String} object.
      */
     public void setGraphHeight(String graphHeight) {
         m_graphHeight = graphHeight;
     }
 
     /**
-     * <p>getGraphHeight</p>
+     * <p>
+     * getGraphHeight
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,16 +152,21 @@ public class PrefabGraphType {
     }
 
     /**
-     * <p>setCommandPrefix</p>
+     * <p>
+     * setCommandPrefix
+     * </p>
      *
-     * @param commandPrefix a {@link java.lang.String} object.
+     * @param commandPrefix
+     *            a {@link java.lang.String} object.
      */
     public void setCommandPrefix(String commandPrefix) {
         m_commandPrefix = commandPrefix;
     }
 
     /**
-     * <p>getCommandPrefix</p>
+     * <p>
+     * getCommandPrefix
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -147,16 +175,21 @@ public class PrefabGraphType {
     }
 
     /**
-     * <p>setOutputMimeType</p>
+     * <p>
+     * setOutputMimeType
+     * </p>
      *
-     * @param outputMimeType a {@link java.lang.String} object.
+     * @param outputMimeType
+     *            a {@link java.lang.String} object.
      */
     public void setOutputMimeType(String outputMimeType) {
         m_outputMimeType = outputMimeType;
     }
 
     /**
-     * <p>getOutputMimeType</p>
+     * <p>
+     * getOutputMimeType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -166,25 +199,33 @@ public class PrefabGraphType {
 
     /**
      * Set the directory from which individual graph files should be included
-     * @param includeDirectory - the new path for the include directory
-     * If not absolute, is a path relative to the directory containing the main configuration file
+     *
+     * @param includeDirectory
+     *            - the new path for the include directory
+     *            If not absolute, is a path relative to the directory
+     *            containing the main configuration file
      */
     public void setIncludeDirectory(String includeDirectory) {
         m_includeDirectory = includeDirectory;
     }
 
     /**
-     * @return the include directory in which to look for any individual graph files
+     * @return the include directory in which to look for any individual graph
+     *         files
      */
     public String getIncludeDirectory() {
         return m_includeDirectory;
     }
 
     /**
-     * Set the interval between rescans of the include directory, in milliseconds.
-     * The includeDirectory will only be rescanned for new files if it's been at least
+     * Set the interval between rescans of the include directory, in
+     * milliseconds.
+     * The includeDirectory will only be rescanned for new files if it's been at
+     * least
      * this long since the last scan, or the initial load.
-     * @param timeout - the new timeout, in milliseconds
+     *
+     * @param timeout
+     *            - the new timeout, in milliseconds
      */
     public void setIncludeDirectoryRescanInterval(int interval) {
         m_includeRescanInterval = interval;

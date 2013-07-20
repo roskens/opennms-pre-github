@@ -29,7 +29,9 @@
 package org.opennms.netmgt.config;
 
 /**
- * <p>WebUser class.</p>
+ * <p>
+ * WebUser class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,16 +42,21 @@ public class WebUser {
     private String m_name;
 
     /**
-     * <p>Constructor for WebUser.</p>
+     * <p>
+     * Constructor for WebUser.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public WebUser(String name) {
         m_name = name;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -58,7 +65,9 @@ public class WebUser {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,14 +80,16 @@ public class WebUser {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof WebUser) {
-            WebUser u = (WebUser)obj;
+            WebUser u = (WebUser) obj;
             return m_name.equals(u.m_name);
         }
         return false;
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
@@ -86,7 +97,5 @@ public class WebUser {
     public int hashCode() {
         return m_name.hashCode();
     }
-
-
 
 }

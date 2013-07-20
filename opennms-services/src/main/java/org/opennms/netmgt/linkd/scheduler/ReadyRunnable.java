@@ -43,52 +43,68 @@ public interface ReadyRunnable extends Runnable {
     public boolean isReady();
 
     /**
-     * <p>suspend</p>
+     * <p>
+     * suspend
+     * </p>
      */
     public void suspend();
 
     /**
-     * <p>isSuspended</p>
+     * <p>
+     * isSuspended
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isSuspended();
 
     /**
-     * <p>wakeUp</p>
+     * <p>
+     * wakeUp
+     * </p>
      */
     public void wakeUp();
 
     /**
-     * <p>unschedule</p>
+     * <p>
+     * unschedule
+     * </p>
      */
     public void unschedule();
 
     /**
-     * <p>schedule</p>
+     * <p>
+     * schedule
+     * </p>
      */
     public void schedule();
 
     /**
-     * <p>getInfo</p>
+     * <p>
+     * getInfo
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getInfo();
 
     /**
-     * <p>getPackageName</p>
+     * <p>
+     * getPackageName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getPackageName();
 
     /**
-     * <p>setPackageName</p>
+     * <p>
+     * setPackageName
+     * </p>
      *
-     * @param pkg a {@link java.lang.String} object.
+     * @param pkg
+     *            a {@link java.lang.String} object.
      */
     public void setPackageName(String pkg);
-
 
 }

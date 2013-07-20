@@ -54,24 +54,29 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * <p>ConfigurationReportCalculator class.</p>
+ * <p>
+ * ConfigurationReportCalculator class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class ConfigurationReportCalculator implements InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ConfigurationReportCalculator.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigurationReportCalculator.class);
 
     String m_baseDir;
+
     // output file name
 
     private String m_outputFileName;
 
     ConnectionProperties m_cp;
+
     /**
-     * <p>getOutputFileName</p>
+     * <p>
+     * getOutputFileName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -80,9 +85,12 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>setOutputFileName</p>
+     * <p>
+     * setOutputFileName
+     * </p>
      *
-     * @param outputFileName a {@link java.lang.String} object.
+     * @param outputFileName
+     *            a {@link java.lang.String} object.
      */
     public void setOutputFileName(String outputFileName) {
         m_outputFileName = outputFileName;
@@ -91,13 +99,17 @@ public class ConfigurationReportCalculator implements InitializingBean {
     RWSConfig m_rwsConfig;
 
     String theDate;
+
     String user;
+
     Date reportRequestDate;
 
     RwsRancidlistreport rlist;
 
     /**
-     * <p>Getter for the field <code>theDate</code>.</p>
+     * <p>
+     * Getter for the field <code>theDate</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,16 +118,21 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>Setter for the field <code>theDate</code>.</p>
+     * <p>
+     * Setter for the field <code>theDate</code>.
+     * </p>
      *
-     * @param theDate a {@link java.lang.String} object.
+     * @param theDate
+     *            a {@link java.lang.String} object.
      */
     public void setTheDate(String theDate) {
         this.theDate = theDate;
     }
 
     /**
-     * <p>Getter for the field <code>user</code>.</p>
+     * <p>
+     * Getter for the field <code>user</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,16 +141,21 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>Setter for the field <code>user</code>.</p>
+     * <p>
+     * Setter for the field <code>user</code>.
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public void setUser(String user) {
         this.user = user;
     }
 
     /**
-     * <p>Getter for the field <code>reportRequestDate</code>.</p>
+     * <p>
+     * Getter for the field <code>reportRequestDate</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -142,16 +164,21 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>Setter for the field <code>reportRequestDate</code>.</p>
+     * <p>
+     * Setter for the field <code>reportRequestDate</code>.
+     * </p>
      *
-     * @param reportRequestDate a {@link java.util.Date} object.
+     * @param reportRequestDate
+     *            a {@link java.util.Date} object.
      */
     public void setReportRequestDate(Date reportRequestDate) {
         this.reportRequestDate = reportRequestDate;
     }
 
     /**
-     * <p>getRwsConfig</p>
+     * <p>
+     * getRwsConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.RWSConfig} object.
      */
@@ -160,16 +187,21 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>setRwsConfig</p>
+     * <p>
+     * setRwsConfig
+     * </p>
      *
-     * @param rwsConfig a {@link org.opennms.netmgt.config.RWSConfig} object.
+     * @param rwsConfig
+     *            a {@link org.opennms.netmgt.config.RWSConfig} object.
      */
     public void setRwsConfig(RWSConfig rwsConfig) {
         m_rwsConfig = rwsConfig;
     }
 
     /**
-     * <p>getBaseDir</p>
+     * <p>
+     * getBaseDir
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -178,19 +210,24 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>setBaseDir</p>
+     * <p>
+     * setBaseDir
+     * </p>
      *
-     * @param baseDir a {@link java.lang.String} object.
+     * @param baseDir
+     *            a {@link java.lang.String} object.
      */
     public void setBaseDir(String baseDir) {
         m_baseDir = baseDir;
     }
 
-
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -229,7 +266,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
 
     private RancidNode getFullNode(String groupName, String deviceName) {
         try {
-            return RWSClientApi.getRWSRancidNodeInventory(m_cp ,groupName, deviceName);
+            return RWSClientApi.getRWSRancidNodeInventory(m_cp, groupName, deviceName);
         } catch (RancidApiException e) {
             LOG.error("getFullNode:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage());
         }
@@ -237,7 +274,9 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>calculate</p>
+     * <p>
+     * calculate
+     * </p>
      */
     public void calculate() {
 
@@ -245,13 +284,12 @@ public class ConfigurationReportCalculator implements InitializingBean {
         rlist.setUser(user);
         rlist.setReportRequestDate(reportRequestDate.toString());
 
-        //parse date
+        // parse date
         SimpleDateFormat format = new SimpleDateFormat("yyyy/M/d");
         Date tmp_date = new Date();
         try {
             tmp_date = format.parse(theDate);
-        }
-        catch (ParseException pe){
+        } catch (ParseException pe) {
             tmp_date = Calendar.getInstance().getTime();
         }
         LOG.debug("calculate:report date[{}]", tmp_date.toString());
@@ -263,7 +301,6 @@ public class ConfigurationReportCalculator implements InitializingBean {
         int groupsWithNodesWithoutconfigurationAtAll = 0;
         int groupsWithNodesWithoutconfigurationAtReportDate = 0;
 
-
         for (String groupName : getGroups()) {
             LOG.debug("calculate:report group [{}]", groupName);
             totalGroups++;
@@ -271,12 +308,12 @@ public class ConfigurationReportCalculator implements InitializingBean {
             gs.setGroupXSetName(groupName);
             int totalNodes = 0;
             int nodeMatching = 0;
-            int nodesWithoutConfigurationAtAll=0;
-            int nodesWithoutConfigurationAtReportDate=0;
+            int nodesWithoutConfigurationAtAll = 0;
+            int nodesWithoutConfigurationAtReportDate = 0;
             boolean groupHasDevices = false;
             boolean groupHasNodesWithoutconfigurationAtAll = false;
             boolean groupHasNodesWithoutconfigurationAtrequestDate = false;
-            for (String deviceName: getDeviceListOnGroup(groupName)) {
+            for (String deviceName : getDeviceListOnGroup(groupName)) {
                 totalNodes++;
                 NodeSet ns = new NodeSet();
                 ns.setDevicename(deviceName);
@@ -284,7 +321,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
                 LOG.debug("calculate:report device [{}]", deviceName);
 
                 RancidNode rancidNode = getFullNode(groupName, deviceName);
-                if ( rancidNode == null ) {
+                if (rancidNode == null) {
                     ns.setVersion("No Configurations found");
                     groupHasNodesWithoutconfigurationAtAll = true;
                     nodesWithoutConfigurationAtAll++;
@@ -297,24 +334,25 @@ public class ConfigurationReportCalculator implements InitializingBean {
 
                 for (String versionMatch : getVersionListOnDevice(deviceName, groupName)) {
 
+                    invNode = (InventoryNode) rancidNode.getNodeVersions().get(versionMatch);
 
-                    invNode = (InventoryNode)rancidNode.getNodeVersions().get(versionMatch);
+                    LOG.debug("calculate:report parsing InventoryNode version[{}] date [{}]", invNode.getVersionId(),
+                              invNode.getCreationDate());
 
-                    LOG.debug("calculate:report parsing InventoryNode version[{}] date [{}]", invNode.getVersionId(), invNode.getCreationDate());
-
-                    if (tmp_date.compareTo(invNode.getCreationDate()) >  0 ) {
+                    if (tmp_date.compareTo(invNode.getCreationDate()) > 0) {
                         found = true;
-                        LOG.debug("calculate:report Date found is [{}] version is [{}]", invNode.getCreationDate(), versionMatch);
+                        LOG.debug("calculate:report Date found is [{}] version is [{}]", invNode.getCreationDate(),
+                                  versionMatch);
                         break;
                     }
-                }  //end for on version
+                } // end for on version
                 if (found == false) {
                     // skip device
                     LOG.debug("calculate:report device has no inventory at this date[{}]", deviceName);
                     groupHasNodesWithoutconfigurationAtrequestDate = true;
                     nodesWithoutConfigurationAtReportDate++;
                     ns.setVersion("No configuration found at Report Date");
-                } else{
+                } else {
                     ns.setVersion(invNode.getVersionId());
                     ns.setConfigurationurl(invNode.getConfigurationUrl());
                     ns.setSwconfigurationurl(invNode.getSoftwareImageUrl());
@@ -323,22 +361,24 @@ public class ConfigurationReportCalculator implements InitializingBean {
 
                     groupHasDevices = true;
                     nodeMatching++;
-               }
+                }
                 gs.addNodeSet(ns);
-            } //end for on devices
+            } // end for on devices
 
             gs.setTotalNodes(totalNodes);
             gs.setNodesMatching(nodeMatching);
             gs.setNodesWithoutconfigurationAtReportDate(nodesWithoutConfigurationAtReportDate);
             gs.setNodesWithoutconfigurationAtAll(nodesWithoutConfigurationAtAll);
             rlist.addGroupXSet(gs);
-            if (groupHasDevices) groupsMatching++;
-            else groupWithoutNodes++;
+            if (groupHasDevices)
+                groupsMatching++;
+            else
+                groupWithoutNodes++;
             if (groupHasDevices && groupHasNodesWithoutconfigurationAtAll)
                 groupsWithNodesWithoutconfigurationAtAll++;
-            if (groupHasDevices &&groupHasNodesWithoutconfigurationAtrequestDate)
+            if (groupHasDevices && groupHasNodesWithoutconfigurationAtrequestDate)
                 groupsWithNodesWithoutconfigurationAtReportDate++;
-        } //end for of groups
+        } // end for of groups
         rlist.setTotalGroups(totalGroups);
         rlist.setGroupWithoutNodes(groupWithoutNodes);
         rlist.setGroupsMatching(groupsMatching);
@@ -347,9 +387,12 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>writeXML</p>
+     * <p>
+     * writeXML
+     * </p>
      *
-     * @throws org.opennms.report.configuration.ConfigurationCalculationException if any.
+     * @throws org.opennms.report.configuration.ConfigurationCalculationException
+     *             if any.
      */
     public void writeXML() throws ConfigurationCalculationException {
         try {
@@ -357,7 +400,6 @@ public class ConfigurationReportCalculator implements InitializingBean {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmmss");
             String datestamp = fmt.format(reportRequestDate);
             m_outputFileName = "/RANCIDLISTREPORT" + datestamp + ".xml";
-
 
             // Create a file name of type Category-monthFormat-startDate.xml
             LOG.debug("Report Store XML file: {}", m_outputFileName);
@@ -370,15 +412,17 @@ public class ConfigurationReportCalculator implements InitializingBean {
         }
     }
 
-
     /**
-     * <p>marshal</p>
+     * <p>
+     * marshal
+     * </p>
      *
-     * @param outputFile a {@link java.io.File} object.
-     * @throws org.opennms.report.configuration.ConfigurationCalculationException if any.
+     * @param outputFile
+     *            a {@link java.io.File} object.
+     * @throws org.opennms.report.configuration.ConfigurationCalculationException
+     *             if any.
      */
-    public void marshal(File outputFile)
-    throws ConfigurationCalculationException {
+    public void marshal(File outputFile) throws ConfigurationCalculationException {
         try {
             Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outputFile), "UTF-8");
             Marshaller marshaller = new Marshaller(fileWriter);
@@ -397,6 +441,5 @@ public class ConfigurationReportCalculator implements InitializingBean {
             throw new ConfigurationCalculationException(ioe);
         }
     }
-
 
 }

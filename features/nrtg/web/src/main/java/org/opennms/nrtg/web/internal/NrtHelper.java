@@ -34,17 +34,13 @@ import org.opennms.netmgt.model.PrefabGraph;
  */
 public class NrtHelper {
 
-    public final static List<String> RRD_KEYWORDS = Arrays.asList(
-            "--",
-            "DEF",
-            "CDEF",
-            "LINE",
-            "GPRINT");
+    public final static List<String> RRD_KEYWORDS = Arrays.asList("--", "DEF", "CDEF", "LINE", "GPRINT");
 
-    public String cleanUpRrdGraphStringForWebUi(final PrefabGraph prefabGraph, final Map<String,String> externalPropertyAttributes, final Map<String,String> stringPropertyAttributes) {
+    public String cleanUpRrdGraphStringForWebUi(final PrefabGraph prefabGraph,
+            final Map<String, String> externalPropertyAttributes, final Map<String, String> stringPropertyAttributes) {
         String graphString = prefabGraph.getCommand();
 
-        //Overwrite height and width by cinematic ration 1x2.40
+        // Overwrite height and width by cinematic ration 1x2.40
         graphString = "--height=400 " + graphString;
         graphString = "--width=960 " + graphString;
 
@@ -85,11 +81,12 @@ public class NrtHelper {
             rrdFileMapping.put(matcher.group(2), matcher.group(1));
         }
 
-        for (final Map.Entry<String,String> entry : rrdGraphAttributesToMetricIds.entrySet()) {
-            final String row = String.format("'%s': '%s:%s', \n", entry.getValue(), rrdFileMapping.get(entry.getKey()), entry.getKey());
+        for (final Map.Entry<String, String> entry : rrdGraphAttributesToMetricIds.entrySet()) {
+            final String row = String.format("'%s': '%s:%s', \n", entry.getValue(), rrdFileMapping.get(entry.getKey()),
+                                             entry.getKey());
             stringBuilder.append(row);
         }
 
-        return stringBuilder.toString().substring(0,stringBuilder.toString().length() - ", \n".length());
+        return stringBuilder.toString().substring(0, stringBuilder.toString().length() - ", \n".length());
     }
 }

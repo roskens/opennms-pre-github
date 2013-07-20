@@ -51,14 +51,19 @@ import org.smslib.USSDSessionStatus;
  */
 public class MobileMsgSequenceBuilderTest {
 
-	private static final String PHONE_NUMBER = "+19195551212";
+    private static final String PHONE_NUMBER = "+19195551212";
+
     public static final String TMOBILE_RESPONSE = "37.28 received on 08/31/09. For continued service through 10/28/09, please pay 79.56 by 09/28/09.    ";
+
     public static final String TMOBILE_USSD_MATCH = "^.*[\\d\\.]+ received on \\d\\d/\\d\\d/\\d\\d. For continued service through \\d\\d/\\d\\d/\\d\\d, please pay [\\d\\.]+ by \\d\\d/\\d\\d/\\d\\d.*$";
 
-	TestMessenger m_messenger;
+    TestMessenger m_messenger;
+
     MobileMsgTrackerImpl m_tracker;
-	DefaultTaskCoordinator m_coordinator;
-	MobileSequenceSession m_session;
+
+    DefaultTaskCoordinator m_coordinator;
+
+    MobileSequenceSession m_session;
 
     @Before
     public void setUp() throws Exception {
@@ -70,14 +75,17 @@ public class MobileMsgSequenceBuilderTest {
 
         m_session = new MobileSequenceSession(m_tracker);
 
-        m_coordinator = new DefaultTaskCoordinator("MobileMsgSequenceBuilderTest", Executors.newSingleThreadExecutor(
-            new LogPreservingThreadFactory("MobileMsgSequenceBuilderTest", 1, false)
-        ));
+        m_coordinator = new DefaultTaskCoordinator(
+                                                   "MobileMsgSequenceBuilderTest",
+                                                   Executors.newSingleThreadExecutor(new LogPreservingThreadFactory(
+                                                                                                                    "MobileMsgSequenceBuilderTest",
+                                                                                                                    1,
+                                                                                                                    false)));
 
         System.err.println("=== STARTING TEST ===");
     }
 
-	@Test(expected=java.net.SocketTimeoutException.class)
+    @Test(expected = java.net.SocketTimeoutException.class)
     public void testPingTimeoutWithBuilder() throws Throwable {
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
 
@@ -102,7 +110,7 @@ public class MobileMsgSequenceBuilderTest {
         sendPong();
         bldr.getSequence().waitFor(m_session, execution);
 
-        Map<String,Number> timing = execution.getResponseTimes();
+        Map<String, Number> timing = execution.getResponseTimes();
 
         assertNotNull(timing);
         assertTrue(latency(timing, "SMS Ping") > 400);
@@ -114,15 +122,15 @@ public class MobileMsgSequenceBuilderTest {
 
         balanceInquiry(bldr);
 
-		MobileSequenceExecution execution = bldr.getSequence().start(m_session, m_coordinator);
+        MobileSequenceExecution execution = bldr.getSequence().start(m_session, m_coordinator);
 
-		Thread.sleep(500);
+        Thread.sleep(500);
 
         sendBalance();
 
         bldr.getSequence().waitFor(m_session, execution);
 
-        Map<String,Number> timing = execution.getResponseTimes();
+        Map<String, Number> timing = execution.getResponseTimes();
 
         assertNotNull(timing);
         assertTrue(latency(timing, "USSD request") > 400);
@@ -135,11 +143,11 @@ public class MobileMsgSequenceBuilderTest {
         ping(bldr);
         balanceInquiry(bldr);
 
-		MobileSequenceExecution execution = bldr.getSequence().start(m_session, m_coordinator);
+        MobileSequenceExecution execution = bldr.getSequence().start(m_session, m_coordinator);
 
-		Thread.sleep(100);
+        Thread.sleep(100);
 
-		sendPong();
+        sendPong();
 
         Thread.sleep(100);
 
@@ -147,8 +155,7 @@ public class MobileMsgSequenceBuilderTest {
 
         bldr.getSequence().waitFor(m_session, execution);
 
-        Map<String,Number> timing = execution.getResponseTimes();
-
+        Map<String, Number> timing = execution.getResponseTimes();
 
         assertNotNull(m_session);
         assertEquals(PHONE_NUMBER, m_session.substitute("${SMS Pong.smsOriginator}"));
@@ -175,14 +182,11 @@ public class MobileMsgSequenceBuilderTest {
     }
 
     private void balanceInquiry(MobileSequenceConfigBuilder bldr) {
-        bldr.ussdRequest("USSD request","G", "#225#").expectUssdResponse("USSD response")
-            .matching(TMOBILE_USSD_MATCH)
-            .withSessionStatus(USSDSessionStatus.NO_FURTHER_ACTION_REQUIRED);
+        bldr.ussdRequest("USSD request", "G", "#225#").expectUssdResponse("USSD response").matching(TMOBILE_USSD_MATCH).withSessionStatus(USSDSessionStatus.NO_FURTHER_ACTION_REQUIRED);
     }
 
     private void sendBalance() {
         m_messenger.sendTestResponse("G", TMOBILE_RESPONSE, USSDSessionStatus.NO_FURTHER_ACTION_REQUIRED);
     }
-
 
 }

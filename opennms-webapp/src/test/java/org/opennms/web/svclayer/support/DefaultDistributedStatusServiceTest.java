@@ -82,21 +82,33 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
     private EasyMockUtils m_easyMockUtils = new EasyMockUtils();
 
     private MonitoredServiceDao m_monitoredServiceDao = m_easyMockUtils.createMock(MonitoredServiceDao.class);
+
     private LocationMonitorDao m_locationMonitorDao = m_easyMockUtils.createMock(LocationMonitorDao.class);
+
     private ApplicationDao m_applicationDao = m_easyMockUtils.createMock(ApplicationDao.class);
+
     private ResourceDao m_resourceDao = m_easyMockUtils.createMock(ResourceDao.class);
+
     private GraphDao m_graphDao = m_easyMockUtils.createMock(GraphDao.class);
 
     private OnmsMonitoringLocationDefinition m_locationDefinition1;
+
     private OnmsMonitoringLocationDefinition m_locationDefinition2;
+
     private OnmsMonitoringLocationDefinition m_locationDefinition3;
+
     private OnmsLocationMonitor m_locationMonitor1_1;
+
     private OnmsLocationMonitor m_locationMonitor2_1;
+
     private OnmsLocationMonitor m_locationMonitor2_2;
+
     private OnmsApplication m_application1;
+
     private OnmsApplication m_application2;
 
     private Collection<OnmsMonitoredService> m_services;
+
     private OnmsNode m_node;
 
     private String m_ip;
@@ -173,20 +185,19 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         m_applicationServices1 = new TreeSet<OnmsMonitoredService>();
         m_applicationServices1.add(findMonitoredService(m_services, m_ip, "HTTP"));
         m_applicationServices1.add(findMonitoredService(m_services, m_ip, "HTTPS"));
-//        m_application1.setMemberServices(applicationServices1);
+        // m_application1.setMemberServices(applicationServices1);
 
         m_applicationServices2 = new TreeSet<OnmsMonitoredService>();
         m_applicationServices2.add(findMonitoredService(m_services, m_ip, "HTTPS"));
-//        m_application2.setMemberServices(applicationServices2);
-
+        // m_application2.setMemberServices(applicationServices2);
 
         /*
-        m_application2 = new OnmsApplication();
-        m_application2.setLabel("Application 2");
-        // XXX shuffle to verify sorting? create new list and do: Collections.shuffle(applicationServices2)
-        m_application2.setMemberServices(applicationServices1);
-        */
-
+         * m_application2 = new OnmsApplication();
+         * m_application2.setLabel("Application 2");
+         * // XXX shuffle to verify sorting? create new list and do:
+         * Collections.shuffle(applicationServices2)
+         * m_application2.setMemberServices(applicationServices1);
+         */
 
     }
 
@@ -232,7 +243,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expect(m_locationMonitorDao.findMonitoringLocationDefinition(command.getLocation())).andReturn(null);
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new IllegalArgumentException("Could not find location for location name \"" + command.getLocation() + "\""));
+        ta.anticipate(new IllegalArgumentException("Could not find location for location name \""
+                + command.getLocation() + "\""));
 
         m_easyMockUtils.replayAll();
         try {
@@ -255,7 +267,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expect(m_applicationDao.findByName(command.getApplication())).andReturn(null);
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new IllegalArgumentException("Could not find application for application name \"" + command.getApplication() + "\""));
+        ta.anticipate(new IllegalArgumentException("Could not find application for application name \""
+                + command.getApplication() + "\""));
 
         m_easyMockUtils.replayAll();
         try {
@@ -280,8 +293,7 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
         m_easyMockUtils.replayAll();
 
-        List<OnmsLocationSpecificStatus> status =
-            m_service.findLocationSpecificStatus(command, errors);
+        List<OnmsLocationSpecificStatus> status = m_service.findLocationSpecificStatus(command, errors);
 
         m_easyMockUtils.verifyAll();
 
@@ -343,7 +355,6 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertTableEquals(expectedTable, table);
     }
 
-
     public final void testCreateStatusPutUnreportedServicesLast() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
         Errors errors = new BindException(command, "command");
@@ -359,7 +370,10 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         OnmsMonitoredService httpsService = findMonitoredService(m_services, m_ip, "HTTPS");
 
         expect(m_locationMonitorDao.getMostRecentStatusChange(m_locationMonitor1_1, httpService)).andReturn(null);
-        expect(m_locationMonitorDao.getMostRecentStatusChange(m_locationMonitor1_1, httpsService)).andReturn(new OnmsLocationSpecificStatus(m_locationMonitor1_1, httpsService, PollStatus.available()));
+        expect(m_locationMonitorDao.getMostRecentStatusChange(m_locationMonitor1_1, httpsService)).andReturn(new OnmsLocationSpecificStatus(
+                                                                                                                                            m_locationMonitor1_1,
+                                                                                                                                            httpsService,
+                                                                                                                                            PollStatus.available()));
 
         expect(m_monitoredServiceDao.findByApplication(m_application1)).andReturn(m_applicationServices1);
 
@@ -399,8 +413,6 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
         assertTableEquals(expectedTable, table);
     }
-
-
 
     public final void testCreateStatusNoLocationMonitor() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
@@ -459,10 +471,12 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
     public final void testCreateFacilityStatusTableStateDateNotBefore() {
         Date start = new Date();
-        Date end = new Date(start.getTime() - 1000); // one second before start time
+        Date end = new Date(start.getTime() - 1000); // one second before start
+                                                     // time
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new IllegalArgumentException("start date (" + start + ") must be older than end date (" + end + ")"));
+        ta.anticipate(new IllegalArgumentException("start date (" + start + ") must be older than end date (" + end
+                + ")"));
 
         m_easyMockUtils.replayAll();
         try {
@@ -478,7 +492,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         Date startAndEnd = new Date();
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new IllegalArgumentException("start date (" + startAndEnd + ") must be older than end date (" + startAndEnd + ")"));
+        ta.anticipate(new IllegalArgumentException("start date (" + startAndEnd + ") must be older than end date ("
+                + startAndEnd + ")"));
 
         m_easyMockUtils.replayAll();
         try {
@@ -498,7 +513,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         ta.anticipate(new IllegalArgumentException("there are no applications"));
 
         Date start = new Date();
-        Date end = new Date(start.getTime() + 1000); // one second after start time
+        Date end = new Date(start.getTime() + 1000); // one second after start
+                                                     // time
 
         m_easyMockUtils.replayAll();
         try {
@@ -511,7 +527,7 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
     }
 
     public final void testCreateFacilityStatusTable() throws Exception {
-         // No need to shuffle, since this is a list
+        // No need to shuffle, since this is a list
         List<OnmsMonitoringLocationDefinition> locationDefinitions = new LinkedList<OnmsMonitoringLocationDefinition>();
         locationDefinitions.add(m_locationDefinition1);
         locationDefinitions.add(m_locationDefinition2);
@@ -527,18 +543,25 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         OnmsMonitoredService icmpService = findMonitoredService(m_services, m_ip, "ICMP");
 
         Collection<OnmsLocationSpecificStatus> mostRecentStatuses = new LinkedList<OnmsLocationSpecificStatus>();
-        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpService, PollStatus.available(), "20061011-00:00:00"));
-        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.available(), "20061012-06:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpService, PollStatus.available(),
+                                            "20061011-00:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.available(),
+                                            "20061012-06:00:00"));
 
-        mostRecentStatuses.add(createStatus(m_locationMonitor2_1, httpService, PollStatus.available(), "20061011-00:00:00"));
-        mostRecentStatuses.add(createStatus(m_locationMonitor2_1, httpsService, PollStatus.available(), "20061012-06:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor2_1, httpService, PollStatus.available(),
+                                            "20061011-00:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor2_1, httpsService, PollStatus.available(),
+                                            "20061012-06:00:00"));
 
-        mostRecentStatuses.add(createStatus(m_locationMonitor2_2, httpService, PollStatus.available(), "20061011-00:00:00"));
-        mostRecentStatuses.add(createStatus(m_locationMonitor2_2, httpsService, PollStatus.available(), "20061012-06:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor2_2, httpService, PollStatus.available(),
+                                            "20061011-00:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor2_2, httpsService, PollStatus.available(),
+                                            "20061012-06:00:00"));
 
         Collection<OnmsLocationSpecificStatus> statusChanges = new LinkedList<OnmsLocationSpecificStatus>();
         statusChanges.add(createStatus(m_locationMonitor1_1, httpService, PollStatus.available(), "20061011-00:00:00"));
-        statusChanges.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.unavailable(), "20061012-00:00:00"));
+        statusChanges.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.unavailable(),
+                                       "20061012-00:00:00"));
         statusChanges.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.available(), "20061012-06:00:00"));
         statusChanges.add(createStatus(m_locationMonitor1_1, icmpService, PollStatus.down(), "20061010-06:00:00"));
 
@@ -574,8 +597,10 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expectedTable.newRow();
         expectedTable.addCell("OpenNMS NC", "");
         expectedTable.addCell("Raleigh", "");
-        expectedTable.addCell("75.000%", "Normal", "distributedStatusHistory.htm?location=Raleigh&application=Application+1");
-        expectedTable.addCell("75.000%", "Normal", "distributedStatusHistory.htm?location=Raleigh&application=Application+2");
+        expectedTable.addCell("75.000%", "Normal",
+                              "distributedStatusHistory.htm?location=Raleigh&application=Application+1");
+        expectedTable.addCell("75.000%", "Normal",
+                              "distributedStatusHistory.htm?location=Raleigh&application=Application+2");
 
         expectedTable.newRow();
         expectedTable.addCell("OpenNMS NC", "");
@@ -592,8 +617,6 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertTableEquals(expectedTable, table);
     }
 
-
-
     /*
      * XXX need to check sorting
      */
@@ -608,7 +631,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         OnmsMonitoredService httpsService = findMonitoredService(m_services, m_ip, "HTTPS");
 
         Collection<OnmsLocationSpecificStatus> mostRecentStatuses = new LinkedList<OnmsLocationSpecificStatus>();
-        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.available(), "20061011-00:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.available(),
+                                            "20061011-00:00:00"));
 
         Collection<OnmsLocationSpecificStatus> statusChanges = new LinkedList<OnmsLocationSpecificStatus>();
         statusChanges.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.available(), "20061011-00:00:00"));
@@ -639,7 +663,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expectedTable.newRow();
         expectedTable.addCell("OpenNMS NC", "");
         expectedTable.addCell("Raleigh", "");
-        expectedTable.addCell("100.000%", "Normal", "distributedStatusHistory.htm?location=Raleigh&application=Application+2");
+        expectedTable.addCell("100.000%", "Normal",
+                              "distributedStatusHistory.htm?location=Raleigh&application=Application+2");
 
         expectedTable.newRow();
         expectedTable.addCell("OpenNMS NC", "");
@@ -648,6 +673,7 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
         assertTableEquals(expectedTable, table);
     }
+
     /*
      * XXX need to check sorting
      */
@@ -668,16 +694,23 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         OnmsMonitoredService icmpService = findMonitoredService(m_services, m_ip, "ICMP");
 
         Collection<OnmsLocationSpecificStatus> mostRecentStatuses = new LinkedList<OnmsLocationSpecificStatus>();
-        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpService, PollStatus.available(), "20061011-00:00:00"));
-        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.available(), "20061012-06:00:00"));
-        mostRecentStatuses.add(createStatus(m_locationMonitor2_1, httpService, PollStatus.available(), "20061011-00:00:00"));
-        mostRecentStatuses.add(createStatus(m_locationMonitor2_1, httpsService, PollStatus.available(), "20061012-06:00:00"));
-        mostRecentStatuses.add(createStatus(m_locationMonitor2_2, httpService, PollStatus.available(), "20061011-00:00:00"));
-        mostRecentStatuses.add(createStatus(m_locationMonitor2_2, httpsService, PollStatus.available(), "20061012-06:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpService, PollStatus.available(),
+                                            "20061011-00:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.available(),
+                                            "20061012-06:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor2_1, httpService, PollStatus.available(),
+                                            "20061011-00:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor2_1, httpsService, PollStatus.available(),
+                                            "20061012-06:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor2_2, httpService, PollStatus.available(),
+                                            "20061011-00:00:00"));
+        mostRecentStatuses.add(createStatus(m_locationMonitor2_2, httpsService, PollStatus.available(),
+                                            "20061012-06:00:00"));
 
         Collection<OnmsLocationSpecificStatus> statusChanges = new LinkedList<OnmsLocationSpecificStatus>();
         statusChanges.add(createStatus(m_locationMonitor1_1, httpService, PollStatus.available(), "20061011-00:00:00"));
-        statusChanges.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.unavailable(), "20061012-00:00:00"));
+        statusChanges.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.unavailable(),
+                                       "20061012-00:00:00"));
         statusChanges.add(createStatus(m_locationMonitor1_1, httpsService, PollStatus.available(), "20061012-06:00:00"));
         statusChanges.add(createStatus(m_locationMonitor1_1, icmpService, PollStatus.down(), "20061010-06:00:00"));
 
@@ -712,22 +745,22 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expectedTable.addColumn("Durham", "");
         expectedTable.addColumn("Columbus", "");
 
-
         expectedTable.newRow();
         expectedTable.addCell("Application 1", "");
-        expectedTable.addCell("75.000%", "Normal", "distributedStatusHistory.htm?location=Raleigh&application=Application+1");
+        expectedTable.addCell("75.000%", "Normal",
+                              "distributedStatusHistory.htm?location=Raleigh&application=Application+1");
         expectedTable.addCell("No data", "Normal");
         expectedTable.addCell("No data", "Indeterminate");
 
         expectedTable.newRow();
         expectedTable.addCell("Application 2", "");
-        expectedTable.addCell("75.000%", "Normal", "distributedStatusHistory.htm?location=Raleigh&application=Application+2");
+        expectedTable.addCell("75.000%", "Normal",
+                              "distributedStatusHistory.htm?location=Raleigh&application=Application+2");
         expectedTable.addCell("No data", "Normal");
         expectedTable.addCell("No data", "Indeterminate");
 
         assertTableEquals(expectedTable, table);
     }
-
 
     public final void testPercentageCalculationAllAvailableStartInMiddleOfDay() throws ParseException {
         OnmsMonitoredService httpService = findMonitoredService(m_services, m_ip, "HTTP");
@@ -743,7 +776,7 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         Date endDate = s_dbDate.parse("2006-10-13 00:00:00.0");
 
         m_easyMockUtils.replayAll();
-        String percentage = m_service.calculatePercentageUptime(m_applicationServices1, statuses,  startDate, endDate);
+        String percentage = m_service.calculatePercentageUptime(m_applicationServices1, statuses, startDate, endDate);
         m_easyMockUtils.verifyAll();
 
         assertEquals("percentage", "100.000%", percentage);
@@ -764,7 +797,7 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         Date endDate = s_dbDate.parse("2006-10-13 00:00:00.0");
 
         m_easyMockUtils.replayAll();
-        String percentage = m_service.calculatePercentageUptime(m_applicationServices1, statuses,  startDate, endDate);
+        String percentage = m_service.calculatePercentageUptime(m_applicationServices1, statuses, startDate, endDate);
         m_easyMockUtils.verifyAll();
 
         assertEquals("percentage", "75.000%", percentage);
@@ -806,7 +839,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expectResourceDaoCall(m_locationMonitor2_1, m_applicationServices2);
 
         m_easyMockUtils.replayAll();
-        DistributedStatusHistoryModel summary =  m_service.createHistoryModel(locationName, monitorId, applicationName, timeSpan, previousLocation);
+        DistributedStatusHistoryModel summary = m_service.createHistoryModel(locationName, monitorId, applicationName,
+                                                                             timeSpan, previousLocation);
         m_easyMockUtils.verifyAll();
 
         assertNotNull("summary should not be null", summary);
@@ -830,18 +864,25 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
         // And verify that they are in the lists in the right place
         assertEquals("summary chosen location matches list", summary.getLocations().get(1), summary.getChosenLocation());
-        assertEquals("summary chosen application matches list", summary.getApplications().get(1), summary.getChosenApplication());
+        assertEquals("summary chosen application matches list", summary.getApplications().get(1),
+                     summary.getChosenApplication());
 
         assertEquals("graph URL map size", 1, summary.getServiceGraphs().size());
         assertNotNull("graph 0 URL should not be null", summary.getServiceGraphs().iterator().next().getUrl());
     }
 
-    private void expectResourceDaoCall(final OnmsLocationMonitor monitor, final Collection<OnmsMonitoredService> services) {
-        PrefabGraph httpGraph = new PrefabGraph("http", "title", new String[] { "http" }, "command", new String[0], new String[0], 0, new String[] { "distributedStatus" }, null, null, null, new String[0]);
-        PrefabGraph httpsGraph = new PrefabGraph("https", "title", new String[] { "https" }, "command", new String[0], new String[0], 0, new String[] { "distributedStatus" }, null, null, null, new String[0]);
+    private void expectResourceDaoCall(final OnmsLocationMonitor monitor,
+            final Collection<OnmsMonitoredService> services) {
+        PrefabGraph httpGraph = new PrefabGraph("http", "title", new String[] { "http" }, "command", new String[0],
+                                                new String[0], 0, new String[] { "distributedStatus" }, null, null,
+                                                null, new String[0]);
+        PrefabGraph httpsGraph = new PrefabGraph("https", "title", new String[] { "https" }, "command", new String[0],
+                                                 new String[0], 0, new String[] { "distributedStatus" }, null, null,
+                                                 null, new String[0]);
 
         for (OnmsMonitoredService service : services) {
-            OnmsResource resource = new OnmsResource("foo", "even more foo", new MockResourceType(), new HashSet<OnmsAttribute>(0));
+            OnmsResource resource = new OnmsResource("foo", "even more foo", new MockResourceType(),
+                                                     new HashSet<OnmsAttribute>(0));
             expect(m_resourceDao.getResourceForIpInterface(service.getIpInterface(), monitor)).andReturn(resource);
 
             expect(m_graphDao.getPrefabGraphsForResource(resource)).andReturn(new PrefabGraph[] { httpGraph, httpsGraph });
@@ -886,7 +927,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expectResourceDaoCall(m_locationMonitor1_1, m_applicationServices2);
 
         m_easyMockUtils.replayAll();
-        DistributedStatusHistoryModel summary = m_service.createHistoryModel(locationName, monitorId, applicationName, timeSpan, previousLocation);
+        DistributedStatusHistoryModel summary = m_service.createHistoryModel(locationName, monitorId, applicationName,
+                                                                             timeSpan, previousLocation);
         m_easyMockUtils.verifyAll();
 
         assertNotNull("summary should not be null", summary);
@@ -913,7 +955,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
         // And verify that they are in the lists in the right place
         assertEquals("summary chosen location matches list", summary.getLocations().get(0), summary.getChosenLocation());
-        assertEquals("summary chosen application matches list", summary.getApplications().get(1), summary.getChosenApplication());
+        assertEquals("summary chosen application matches list", summary.getApplications().get(1),
+                     summary.getChosenApplication());
 
     }
 
@@ -953,7 +996,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expectResourceDaoCall(m_locationMonitor2_1, m_applicationServices1);
 
         m_easyMockUtils.replayAll();
-        DistributedStatusHistoryModel summary = m_service.createHistoryModel(locationName, monitorId, applicationName, timeSpan, previousLocation);
+        DistributedStatusHistoryModel summary = m_service.createHistoryModel(locationName, monitorId, applicationName,
+                                                                             timeSpan, previousLocation);
         m_easyMockUtils.verifyAll();
 
         assertNotNull("summary should not be null", summary);
@@ -972,7 +1016,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertEquals("summary applications 2", m_application2, summary.getApplications().get(1));
 
         // Verify errors
-        assertEquals("summary error 1", "Could not find application 'Big Bad Voodoo Daddy Application'", summary.getErrors().get(0));
+        assertEquals("summary error 1", "Could not find application 'Big Bad Voodoo Daddy Application'",
+                     summary.getErrors().get(0));
 
         // Verify chosen ones
         assertEquals("summary chosen location", m_locationDefinition2, summary.getChosenLocation());
@@ -980,7 +1025,8 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
         // And verify that they are in the lists in the right place
         assertEquals("summary chosen location matches list", summary.getLocations().get(1), summary.getChosenLocation());
-        assertEquals("summary chosen application matches list", summary.getApplications().get(0), summary.getChosenApplication());
+        assertEquals("summary chosen application matches list", summary.getApplications().get(0),
+                     summary.getChosenApplication());
     }
 
     private OnmsLocationSpecificStatus createStatus(final OnmsLocationMonitor locationMonitor,
@@ -1000,10 +1046,12 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
     public final void assertTableEquals(final SimpleWebTable expectedTable, final SimpleWebTable table) {
         assertEquals("table title", expectedTable.getTitle(), table.getTitle());
 
-        assertEquals("number of table columns headers", expectedTable.getColumnHeaders().size(), table.getColumnHeaders().size());
+        assertEquals("number of table columns headers", expectedTable.getColumnHeaders().size(),
+                     table.getColumnHeaders().size());
         ListIterator<Cell> columnHeaderIterator = expectedTable.getColumnHeaders().listIterator();
         for (Cell tableColumnHeader : table.getColumnHeaders()) {
-            assertEquals("column header " + (columnHeaderIterator.nextIndex() + 1), columnHeaderIterator.next(), tableColumnHeader);
+            assertEquals("column header " + (columnHeaderIterator.nextIndex() + 1), columnHeaderIterator.next(),
+                         tableColumnHeader);
         }
 
         assertEquals("number of rows", expectedTable.getRows().size(), table.getRows().size());
@@ -1012,30 +1060,24 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         for (List<Cell> row : table.getRows()) {
             List<Cell> expectedRow = expectedRowIterator.next();
 
-            assertEquals("row " + (expectedRowIterator.previousIndex() + 1) + " column count", expectedRow.size(), row.size());
+            assertEquals("row " + (expectedRowIterator.previousIndex() + 1) + " column count", expectedRow.size(),
+                         row.size());
 
             ListIterator<Cell> expectedColumnIterator = expectedRow.listIterator();
             for (Cell column : row) {
                 Cell expectedColumn = expectedColumnIterator.next();
 
-                String rowColumn = "row "
-                    + (expectedRowIterator.previousIndex() + 1) + " column "
-                    + (expectedColumnIterator.previousIndex() + 1) + " ";
+                String rowColumn = "row " + (expectedRowIterator.previousIndex() + 1) + " column "
+                        + (expectedColumnIterator.previousIndex() + 1) + " ";
 
                 if (!IGNORE_MATCH.equals(expectedColumn.getContent())) {
-                    assertEquals(rowColumn + "content",
-                                 expectedColumn.getContent(),
-                                 column.getContent());
+                    assertEquals(rowColumn + "content", expectedColumn.getContent(), column.getContent());
                 }
                 if (!IGNORE_MATCH.equals(expectedColumn.getStyleClass())) {
-                    assertEquals(rowColumn + "styleClass",
-                                 expectedColumn.getStyleClass(),
-                                   column.getStyleClass());
+                    assertEquals(rowColumn + "styleClass", expectedColumn.getStyleClass(), column.getStyleClass());
                 }
                 if (!IGNORE_MATCH.equals(expectedColumn.getLink())) {
-                    assertEquals(rowColumn + "link",
-                                 expectedColumn.getLink(),
-                                 column.getLink());
+                    assertEquals(rowColumn + "link", expectedColumn.getLink(), column.getLink());
                 }
             }
         }
@@ -1049,15 +1091,20 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         OnmsMonitoredService httpService = findMonitoredService(m_services, m_ip, "HTTP");
         OnmsMonitoredService httpsService = findMonitoredService(m_services, m_ip, "HTTPS");
 
-        expect(m_locationMonitorDao.getMostRecentStatusChange(m_locationMonitor1_1, httpService)).andReturn(new OnmsLocationSpecificStatus(m_locationMonitor1_1, httpService, PollStatus.available()));
+        expect(m_locationMonitorDao.getMostRecentStatusChange(m_locationMonitor1_1, httpService)).andReturn(new OnmsLocationSpecificStatus(
+                                                                                                                                           m_locationMonitor1_1,
+                                                                                                                                           httpService,
+                                                                                                                                           PollStatus.available()));
         expect(m_locationMonitorDao.getMostRecentStatusChange(m_locationMonitor1_1, httpsService)).andReturn(null);
     }
 
-    public final OnmsMonitoredService findMonitoredService(final Collection<OnmsMonitoredService> services, final String interfaceIp, final String serviceName) {
+    public final OnmsMonitoredService findMonitoredService(final Collection<OnmsMonitoredService> services,
+            final String interfaceIp, final String serviceName) {
         return findMonitoredService(services, addr(interfaceIp), serviceName);
     }
 
-    private OnmsMonitoredService findMonitoredService(final Collection<OnmsMonitoredService> services, final InetAddress ipaddr, final String serviceName) {
+    private OnmsMonitoredService findMonitoredService(final Collection<OnmsMonitoredService> services,
+            final InetAddress ipaddr, final String serviceName) {
         for (OnmsMonitoredService service : services) {
             if (ipaddr.equals(service.getIpAddress()) && serviceName.equals(service.getServiceName())) {
                 return service;

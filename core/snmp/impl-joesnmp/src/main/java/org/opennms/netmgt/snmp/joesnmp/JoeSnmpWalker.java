@@ -49,9 +49,9 @@ import org.slf4j.LoggerFactory;
 
 public class JoeSnmpWalker extends SnmpWalker {
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(JoeSnmpWalker.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(JoeSnmpWalker.class);
 
-	static public abstract class JoeSnmpPduBuilder extends WalkerPduBuilder {
+    static public abstract class JoeSnmpPduBuilder extends WalkerPduBuilder {
         public JoeSnmpPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
         }
@@ -139,10 +139,11 @@ public class JoeSnmpWalker extends SnmpWalker {
         public void snmpReceivedPdu(SnmpSession session, int command, SnmpPduPacket pdu) {
 
             try {
-                SnmpPduRequest response = (SnmpPduRequest)pdu;
-                LOG.debug("Received a tracker pdu from {} of size {} errorStatus = {}, errorIndex = {}", getAddress(), pdu.getLength(), response.getErrorStatus(), response.getErrorIndex());
+                SnmpPduRequest response = (SnmpPduRequest) pdu;
+                LOG.debug("Received a tracker pdu from {} of size {} errorStatus = {}, errorIndex = {}", getAddress(),
+                          pdu.getLength(), response.getErrorStatus(), response.getErrorIndex());
                 if (!processErrors(response.getErrorStatus(), response.getErrorIndex())) {
-                    for(int i = 0; i < response.getLength(); i++) {
+                    for (int i = 0; i < response.getLength(); i++) {
                         SnmpVarBind vb = response.getVarBindAt(i);
                         SnmpObjId receivedOid = SnmpObjId.get(vb.getName().getIdentifiers());
                         SnmpValue val = new JoeSnmpValue(vb.getValue());
@@ -157,22 +158,23 @@ public class JoeSnmpWalker extends SnmpWalker {
 
         @Override
         public void snmpInternalError(SnmpSession session, int err, SnmpSyntax pdu) {
-            handleError(getName()+": snmpInternalError: " + err + " for: " + getAddress());
+            handleError(getName() + ": snmpInternalError: " + err + " for: " + getAddress());
         }
 
         @Override
         public void snmpTimeoutError(SnmpSession session, SnmpSyntax pdu) {
-            handleTimeout(getName()+": snmpTimeoutError for: " + getAddress());
+            handleTimeout(getName() + ": snmpTimeoutError for: " + getAddress());
         }
 
     }
 
-
-
     private JoeSnmpResponseHandler m_handler;
+
     private SnmpPeer m_peer;
+
     private SnmpSession m_session;
-	private JoeSnmpAgentConfig m_agentConfig;
+
+    private JoeSnmpAgentConfig m_agentConfig;
 
     public JoeSnmpWalker(JoeSnmpAgentConfig agentConfig, String name, CollectionTracker tracker) {
         super(agentConfig.getAddress(), name, agentConfig.getMaxVarsPerPdu(), agentConfig.getMaxRepetitions(), tracker);
@@ -192,23 +194,24 @@ public class JoeSnmpWalker extends SnmpWalker {
         return peer;
     }
 
-        @Override
+    @Override
     public void start() {
-        LOG.info("Walking {} for {} using version {} with config: {}", getName(), getAddress(), SnmpSMI.getVersionString(getVersion()), m_agentConfig);
+        LOG.info("Walking {} for {} using version {} with config: {}", getName(), getAddress(),
+                 SnmpSMI.getVersionString(getVersion()), m_agentConfig);
         super.start();
     }
 
-        @Override
+    @Override
     protected WalkerPduBuilder createPduBuilder(int maxVarsPerPdu) {
-        return (getVersion() == SnmpSMI.SNMPV1
-                ? (JoeSnmpPduBuilder)new GetNextBuilder(maxVarsPerPdu)
-                : (JoeSnmpPduBuilder)new GetBulkBuilder(maxVarsPerPdu));
+        return (getVersion() == SnmpSMI.SNMPV1 ? (JoeSnmpPduBuilder) new GetNextBuilder(maxVarsPerPdu)
+            : (JoeSnmpPduBuilder) new GetBulkBuilder(maxVarsPerPdu));
     }
 
-        @Override
+    @Override
     protected void sendNextPdu(WalkerPduBuilder pduBuilder) throws SocketException {
-        JoeSnmpPduBuilder joePduBuilder = (JoeSnmpPduBuilder)pduBuilder;
-        if (m_session == null) m_session = new SnmpSession(m_peer);
+        JoeSnmpPduBuilder joePduBuilder = (JoeSnmpPduBuilder) pduBuilder;
+        if (m_session == null)
+            m_session = new SnmpSession(m_peer);
         LOG.debug("Sending tracker pdu of size {}", joePduBuilder.getPdu().getLength());
         m_session.send(joePduBuilder.getPdu(), m_handler);
     }
@@ -217,7 +220,7 @@ public class JoeSnmpWalker extends SnmpWalker {
         return m_peer.getParameters().getVersion();
     }
 
-        @Override
+    @Override
     protected void close() {
         if (m_session != null) {
             m_session.close();

@@ -51,26 +51,32 @@ import org.springframework.stereotype.Component;
 public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> implements IpInterfacePolicy {
     private static final Logger LOG = LoggerFactory.getLogger(MatchingIpInterfacePolicy.class);
 
-
-
-    public static enum Action { MANAGE, UNMANAGE, DO_NOT_PERSIST, ENABLE_SNMP_POLL,DISABLE_SNMP_POLL, ENABLE_COLLECTION, DISABLE_COLLECTION };
+    public static enum Action {
+        MANAGE, UNMANAGE, DO_NOT_PERSIST, ENABLE_SNMP_POLL, DISABLE_SNMP_POLL, ENABLE_COLLECTION, DISABLE_COLLECTION
+    };
 
     private Action m_action = Action.DO_NOT_PERSIST;
 
     /**
-     * <p>getAction</p>
+     * <p>
+     * getAction
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Require({"MANAGE", "UNMANAGE", "DO_NOT_PERSIST", "ENABLE_SNMP_POLL", "DISABLE_SNMP_POLL", "ENABLE_COLLECTION", "DISABLE_COLLECTION"})
+    @Require({ "MANAGE", "UNMANAGE", "DO_NOT_PERSIST", "ENABLE_SNMP_POLL", "DISABLE_SNMP_POLL", "ENABLE_COLLECTION",
+            "DISABLE_COLLECTION" })
     public String getAction() {
         return m_action.toString();
     }
 
     /**
-     * <p>setAction</p>
+     * <p>
+     * setAction
+     * </p>
      *
-     * @param action a {@link java.lang.String} object.
+     * @param action
+     *            a {@link java.lang.String} object.
      */
     public void setAction(String action) {
         if (Action.MANAGE.toString().equalsIgnoreCase(action)) {
@@ -132,31 +138,44 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
     }
 
     /**
-     * <p>setIpAddress</p>
+     * <p>
+     * setIpAddress
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddress(String ipAddress) {
         putCriteria("ipAddress", ipAddress);
     }
+
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getIpAddress() {
         return getCriteria("ipAddress");
     }
+
     /**
-     * <p>setHostName</p>
+     * <p>
+     * setHostName
+     * </p>
      *
-     * @param hostName a {@link java.lang.String} object.
+     * @param hostName
+     *            a {@link java.lang.String} object.
      */
     public void setHostName(String hostName) {
         putCriteria("ipHostName", hostName);
     }
+
     /**
-     * <p>getHostName</p>
+     * <p>
+     * getHostName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

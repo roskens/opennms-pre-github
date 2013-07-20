@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.client.events;
 import com.google.gwt.event.shared.EventHandler;
 
 /**
- * <p>SortOrderUpdateHandler interface.</p>
+ * <p>
+ * SortOrderUpdateHandler interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,9 +41,14 @@ import com.google.gwt.event.shared.EventHandler;
  */
 public interface SortOrderUpdateHandler extends EventHandler {
     /**
-     * <p>onSortOrderUpdated</p>
+     * <p>
+     * onSortOrderUpdated
+     * </p>
      *
-     * @param e a {@link org.opennms.features.poller.remote.gwt.client.events.SortOrderUpdateEvent} object.
+     * @param e
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.events.SortOrderUpdateEvent}
+     *            object.
      */
     public void onSortOrderUpdated(SortOrderUpdateEvent e);
 }

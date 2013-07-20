@@ -43,7 +43,7 @@ public class Snmp4JV1TrapBuilder extends Snmp4JV2TrapBuilder implements SnmpV1Tr
     }
 
     protected PDUv1 getPDUv1() {
-        return (PDUv1)getPDU();
+        return (PDUv1) getPDU();
     }
 
     @Override
@@ -70,6 +70,5 @@ public class Snmp4JV1TrapBuilder extends Snmp4JV2TrapBuilder implements SnmpV1Tr
     public void setTimeStamp(long timeStamp) {
         getPDUv1().setTimestamp(timeStamp);
     }
-
 
 }

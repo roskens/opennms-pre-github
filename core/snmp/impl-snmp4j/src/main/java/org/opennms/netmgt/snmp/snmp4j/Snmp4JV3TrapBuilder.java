@@ -40,8 +40,9 @@ public class Snmp4JV3TrapBuilder extends Snmp4JV2TrapBuilder implements SnmpV3Tr
 
     @Override
     public void send(String destAddr, int destPort, String community) throws Exception {
-    	super.send(destAddr, destPort, SnmpConfiguration.NOAUTH_NOPRIV, community, SnmpConfiguration.DEFAULT_AUTH_PASS_PHRASE,
-    			SnmpConfiguration.DEFAULT_AUTH_PROTOCOL, SnmpConfiguration.DEFAULT_PRIV_PASS_PHRASE, SnmpConfiguration.DEFAULT_PRIV_PROTOCOL);
+        super.send(destAddr, destPort, SnmpConfiguration.NOAUTH_NOPRIV, community,
+                   SnmpConfiguration.DEFAULT_AUTH_PASS_PHRASE, SnmpConfiguration.DEFAULT_AUTH_PROTOCOL,
+                   SnmpConfiguration.DEFAULT_PRIV_PASS_PHRASE, SnmpConfiguration.DEFAULT_PRIV_PROTOCOL);
     }
 
 }

@@ -36,63 +36,76 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
- * <p>RequisitionNodeCollection class.</p>
+ * <p>
+ * RequisitionNodeCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="nodes")
+@XmlRootElement(name = "nodes")
 public class RequisitionNodeCollection extends LinkedList<RequisitionNode> {
 
     private static final long serialVersionUID = 7563467532077046047L;
 
     /**
-	 * <p>Constructor for RequisitionNodeCollection.</p>
-	 */
-	public RequisitionNodeCollection() {
+     * <p>
+     * Constructor for RequisitionNodeCollection.
+     * </p>
+     */
+    public RequisitionNodeCollection() {
         super();
     }
 
     /**
-     * <p>Constructor for RequisitionNodeCollection.</p>
+     * <p>
+     * Constructor for RequisitionNodeCollection.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public RequisitionNodeCollection(Collection<? extends RequisitionNode> c) {
         super(c);
     }
 
     /**
-     * <p>getNodes</p>
+     * <p>
+     * getNodes
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    @XmlElement(name="node")
+    @XmlElement(name = "node")
     public List<RequisitionNode> getNodes() {
         return this;
     }
 
     /**
-     * <p>setNodes</p>
+     * <p>
+     * setNodes
+     * </p>
      *
-     * @param requisitions a {@link java.util.List} object.
+     * @param requisitions
+     *            a {@link java.util.List} object.
      */
     public void setNodes(List<RequisitionNode> requisitions) {
-        if (requisitions == this) return;
+        if (requisitions == this)
+            return;
         clear();
         addAll(requisitions);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
-    	return this.size();
+        return this.size();
     }
 }
-

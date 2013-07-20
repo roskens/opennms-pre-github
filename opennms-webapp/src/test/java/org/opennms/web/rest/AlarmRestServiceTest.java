@@ -67,10 +67,12 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     @Test
     public void testAlarms() throws Exception {
-        String xml = sendRequest(GET, "/alarms", parseParamData("orderBy=lastEventTime&order=desc&alarmAckUser=null&limit=1"), 200);
+        String xml = sendRequest(GET, "/alarms",
+                                 parseParamData("orderBy=lastEventTime&order=desc&alarmAckUser=null&limit=1"), 200);
         assertTrue(xml.contains("This is a test alarm"));
 
-        xml = sendRequest(GET, "/alarms/1", parseParamData("orderBy=lastEventTime&order=desc&alarmAckUser=null&limit=1"), 200);
+        xml = sendRequest(GET, "/alarms/1",
+                          parseParamData("orderBy=lastEventTime&order=desc&alarmAckUser=null&limit=1"), 200);
         assertTrue(xml.contains("This is a test alarm"));
         assertTrue(xml.contains("<nodeLabel>node1</nodeLabel>"));
     }
@@ -231,7 +233,8 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
         // acked - modified version:
         // http://localhost:8980/opennms/rest/alarms?offset=00&limit=10&orderBy=lastEventTime&order=desc&query=lastEventTime%20%3E%20'2011-08-19T11%3A11%3A11.000-07%3A00'%20AND%20severity%20%3E%20MAJOR%20AND%20alarmAckUser%20%3D%20'admin'
-        parameters.put("query", "lastEventTime > '2011-08-19T11:11:11.000-07:00' AND severity > MAJOR AND alarmAckUser = 'admin'");
+        parameters.put("query",
+                       "lastEventTime > '2011-08-19T11:11:11.000-07:00' AND severity > MAJOR AND alarmAckUser = 'admin'");
         xml = sendRequest(GET, "/alarms", parameters, 200);
         // assertFalse(xml.contains("<alarm severity=\"NORMAL\" id=\"1\""));
         assertXpathDoesNotMatch(xml, "//alarm[@severity='NORMAL' and @id='1']");
@@ -240,14 +243,16 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
         // unacked - modified version:
         // http://localhost:8980/opennms/rest/alarms?offset=00&limit=10&orderBy=lastEventTime&order=desc&query=lastEventTime%20%3E%20'2011-08-19T11%3A11%3A11.000-07%3A00'%20AND%20severity%20%3E%20MAJOR%20AND%20alarmAckUser%20IS%20NULL
-        parameters.put("query", "lastEventTime > '2011-08-19T11:11:11.000-07:00' AND severity > MAJOR AND alarmAckUser IS NULL");
+        parameters.put("query",
+                       "lastEventTime > '2011-08-19T11:11:11.000-07:00' AND severity > MAJOR AND alarmAckUser IS NULL");
         xml = sendRequest(GET, "/alarms", parameters, 200);
         // assertTrue(xml.contains("count=\"0\""));
         assertXpathMatches(xml, "//alarms[@count='0']");
 
         // unacked - modified version:
         // http://localhost:8980/opennms/rest/alarms?offset=00&limit=10&orderBy=lastEventTime&order=desc&query=lastEventTime%20%3E%20'2011-08-19T11%3A11%3A11.000-07%3A00'%20AND%20severity%20%3C%20MAJOR%20AND%20alarmAckUser%20IS%20NULL
-        parameters.put("query", "lastEventTime > '2011-08-19T11:11:11.000-07:00' AND severity < MAJOR AND alarmAckUser IS NULL");
+        parameters.put("query",
+                       "lastEventTime > '2011-08-19T11:11:11.000-07:00' AND severity < MAJOR AND alarmAckUser IS NULL");
         xml = sendRequest(GET, "/alarms", parameters, 200);
         // assertTrue(xml.contains("<alarm severity=\"NORMAL\" id=\"1\""));
         assertXpathMatches(xml, "//alarm[@severity='NORMAL' and @id='1']");

@@ -36,7 +36,6 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-
 /**
  * UssdMessageParsing
  *
@@ -69,9 +68,9 @@ public class UssdMessageParsingTest {
         parseMessage("+CUSD: 4\r", 2, "4", null, null);
     }
 
-
     public void parseMessage(String msg, int expectedCount, String status, String content, String encoding) {
-        //Pattern MSG_PATTERN = Pattern.compile("(?s)^\\+CUSD:\\s+(\\d),\"(.*)(\"(,(\\d+))?\r)?$");
+        // Pattern MSG_PATTERN =
+        // Pattern.compile("(?s)^\\+CUSD:\\s+(\\d),\"(.*)(\"(,(\\d+))?\r)?$");
         Pattern MSG_PATTERN = Pattern.compile("(?s)^\\+CUSD:\\s+(\\d)(?:,\\s*\"([^\"]*))?(?:\",\\s*(\\d+))?(?:\"\r|\r)$");
         int STATUS_INDEX = 1;
         int CONTENT_INDEX = 2;
@@ -79,7 +78,7 @@ public class UssdMessageParsingTest {
 
         Matcher matcher = MSG_PATTERN.matcher(msg);
         assertTrue(matcher.matches());
-        //assertEquals(expectedCount, matcher.groupCount());
+        // assertEquals(expectedCount, matcher.groupCount());
 
         assertEquals(status, group(matcher, STATUS_INDEX));
         assertEquals(content, group(matcher, CONTENT_INDEX));

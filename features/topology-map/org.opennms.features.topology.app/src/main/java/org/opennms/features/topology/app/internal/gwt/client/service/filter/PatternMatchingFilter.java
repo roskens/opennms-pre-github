@@ -75,9 +75,9 @@ public class PatternMatchingFilter extends AttributeComparisonFilter {
 
     public static String escapeAll(String input, String chars) {
         String output = input;
-        for(int i = 0; i < chars.length(); i++) {
+        for (int i = 0; i < chars.length(); i++) {
             char ch = chars.charAt(i);
-            output = output.replace(Character.toString(ch), "\\"+ch);
+            output = output.replace(Character.toString(ch), "\\" + ch);
         }
         return output;
     }

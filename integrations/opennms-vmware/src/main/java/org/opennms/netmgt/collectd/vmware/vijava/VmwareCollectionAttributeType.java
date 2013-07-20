@@ -36,6 +36,7 @@ import org.opennms.netmgt.config.vmware.vijava.Attrib;
 
 public class VmwareCollectionAttributeType implements CollectionAttributeType {
     private Attrib m_attribute;
+
     private AttributeGroupType m_groupType;
 
     public VmwareCollectionAttributeType(final Attrib attribute, final AttributeGroupType groupType) {

@@ -44,7 +44,7 @@ public abstract class VmwareCollectionResource extends AbstractCollectionResourc
 
     @Override
     public int getType() {
-        return -1; //Is this right?
+        return -1; // Is this right?
     }
 
     @Override

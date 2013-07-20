@@ -28,7 +28,6 @@
 
 package org.opennms.reporting.datablock;
 
-
 /**
  * This class holds the service information and list of outages for the service.
  *
@@ -78,9 +77,12 @@ public class Service extends StandardNamedObject {
     }
 
     /**
-     * <p>Constructor for Service.</p>
+     * <p>
+     * Constructor for Service.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public Service(String name) {
         setName(name);
@@ -182,8 +184,10 @@ public class Service extends StandardNamedObject {
     /**
      * Added outage.
      *
-     * @param lost a long.
-     * @param regained a long.
+     * @param lost
+     *            a long.
+     * @param regained
+     *            a long.
      */
     public void addOutage(long lost, long regained) {
         if (m_outageList == null)
@@ -194,7 +198,8 @@ public class Service extends StandardNamedObject {
     /**
      * Added outage.
      *
-     * @param lost a long.
+     * @param lost
+     *            a long.
      */
     public void addOutage(long lost) {
         if (m_outageList == null)
@@ -205,7 +210,8 @@ public class Service extends StandardNamedObject {
     /**
      * Adds a lost time / regained time combination for the node.
      *
-     * @param outage a {@link org.opennms.reporting.datablock.Outage} object.
+     * @param outage
+     *            a {@link org.opennms.reporting.datablock.Outage} object.
      */
     public void addOutage(Outage outage) {
         if (m_outageList == null)
@@ -216,8 +222,10 @@ public class Service extends StandardNamedObject {
     /**
      * Return the outage for this service.
      *
-     * @param currentTime a long.
-     * @param rollingWindow a long.
+     * @param currentTime
+     *            a long.
+     * @param rollingWindow
+     *            a long.
      * @return a long.
      */
     public long getDownTime(long currentTime, long rollingWindow) {
@@ -246,9 +254,7 @@ public class Service extends StandardNamedObject {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Equals method.
+     * {@inheritDoc} Equals method.
      */
     @Override
     public boolean equals(Object obj) {

@@ -48,7 +48,9 @@ import org.springframework.core.io.Resource;
 
 public abstract class AbstractSystemReportFormatter implements SystemReportFormatter {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSystemReportFormatter.class);
+
     protected OutputStream m_outputStream = null;
+
     private String m_output;
 
     public AbstractSystemReportFormatter() {
@@ -107,10 +109,9 @@ public abstract class AbstractSystemReportFormatter implements SystemReportForma
 
     @Override
     public final int compareTo(final SystemReportFormatter o) {
-        return new CompareToBuilder()
-            .append(this.getName(), (o == null? null:o.getName()))
-            .append(this.getDescription(), (o == null? null:o.getDescription()))
-            .toComparison();
+        return new CompareToBuilder().append(this.getName(), (o == null ? null : o.getName())).append(this.getDescription(),
+                                                                                                      (o == null ? null
+                                                                                                          : o.getDescription())).toComparison();
     }
 
     protected boolean isDisplayable(final Resource r) {
@@ -154,7 +155,7 @@ public abstract class AbstractSystemReportFormatter implements SystemReportForma
     }
 
     protected boolean hasDisplayable(final SystemReportPlugin plugin) {
-        for (final Map.Entry<String,Resource> entry : plugin.getEntries().entrySet()) {
+        for (final Map.Entry<String, Resource> entry : plugin.getEntries().entrySet()) {
             if (isDisplayable(entry.getValue())) {
                 return true;
             }

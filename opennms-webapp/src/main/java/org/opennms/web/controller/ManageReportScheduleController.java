@@ -42,7 +42,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
- * <p>ManageReportScheduleController class.</p>
+ * <p>
+ * ManageReportScheduleController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,27 +53,37 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 public class ManageReportScheduleController extends SimpleFormController {
 
     private SchedulerService m_reportSchedulerService;
+
     private int m_pageSize;
 
     /**
-     * <p>Constructor for ManageReportScheduleController.</p>
+     * <p>
+     * Constructor for ManageReportScheduleController.
+     * </p>
      */
     public ManageReportScheduleController() {
         setFormView("report/database/manageSchedule");
     }
 
     /**
-     * <p>setReportSchedulerService</p>
+     * <p>
+     * setReportSchedulerService
+     * </p>
      *
-     * @param schedulerService a {@link org.opennms.web.svclayer.SchedulerService} object.
+     * @param schedulerService
+     *            a {@link org.opennms.web.svclayer.SchedulerService} object.
      */
     public final void setReportSchedulerService(final SchedulerService schedulerService) {
         m_reportSchedulerService = schedulerService;
     }
+
     /**
-     * <p>setPageSize</p>
+     * <p>
+     * setPageSize
+     * </p>
      *
-     * @param pageSize a int.
+     * @param pageSize
+     *            a int.
      */
     public final void setPageSize(final int pageSize) {
         m_pageSize = pageSize;
@@ -81,7 +93,8 @@ public class ManageReportScheduleController extends SimpleFormController {
     @Override
     protected final Map<String, Object> referenceData(final HttpServletRequest req) throws Exception {
         Map<String, Object> data = new HashMap<String, Object>();
-        PagedListHolder<TriggerDescription> pagedListHolder = new PagedListHolder<TriggerDescription>(m_reportSchedulerService.getTriggerDescriptions());
+        PagedListHolder<TriggerDescription> pagedListHolder = new PagedListHolder<TriggerDescription>(
+                                                                                                      m_reportSchedulerService.getTriggerDescriptions());
         pagedListHolder.setPageSize(m_pageSize);
         int page = ServletRequestUtils.getIntParameter(req, "p", 0);
         pagedListHolder.setPage(page);

@@ -33,24 +33,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * <p>AckType class.</p>
+ * <p>
+ * AckType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public enum AckType {
-    UNSPECIFIED(1, "Unspecified"),
-    ALARM(2, "Alarm"),
-    NOTIFICATION(3, "Notification");
+    UNSPECIFIED(1, "Unspecified"), ALARM(2, "Alarm"), NOTIFICATION(3, "Notification");
 
     /** Constant <code>m_idMap</code> */
     private static final Map<Integer, AckType> m_idMap;
+
     private static final List<Integer> m_ids;
 
-
     private int m_id;
+
     private String m_label;
 
     static {
@@ -61,7 +61,6 @@ public enum AckType {
             m_idMap.put(action.getId(), action);
         }
     }
-
 
     private AckType(int id, String label) {
         m_id = id;
@@ -79,9 +78,12 @@ public enum AckType {
     }
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      * @return a {@link org.opennms.netmgt.model.AckType} object.
      */
     public static AckType get(int id) {

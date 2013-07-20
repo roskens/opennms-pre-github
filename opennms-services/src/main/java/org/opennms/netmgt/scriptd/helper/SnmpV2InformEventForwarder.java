@@ -32,42 +32,41 @@ import java.net.UnknownHostException;
 
 import org.opennms.netmgt.xml.event.Event;
 
-public class SnmpV2InformEventForwarder extends SnmpTrapForwarderHelper implements
-		EventForwarder {
+public class SnmpV2InformEventForwarder extends SnmpTrapForwarderHelper implements EventForwarder {
 
-	public SnmpV2InformEventForwarder(String ip, int port, String community, int timeout, int retries, SnmpTrapHelper snmpTrapHelper) {
-		super(ip, port, community, timeout, retries, snmpTrapHelper);
-	}
+    public SnmpV2InformEventForwarder(String ip, int port, String community, int timeout, int retries,
+            SnmpTrapHelper snmpTrapHelper) {
+        super(ip, port, community, timeout, retries, snmpTrapHelper);
+    }
 
-        @Override
-	public void flushEvent(Event event) {
-		event =	super.filter(event);
-		if (event != null) {
-		try {
-			sendV2EventInform(event);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (SnmpTrapHelperException e) {
-			e.printStackTrace();
-		}
-		}
+    @Override
+    public void flushEvent(Event event) {
+        event = super.filter(event);
+        if (event != null) {
+            try {
+                sendV2EventInform(event);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (SnmpTrapHelperException e) {
+                e.printStackTrace();
+            }
+        }
 
-	}
+    }
 
-        @Override
-	public void flushSyncEvent(Event event) {
-		flushEvent(event);
-	}
+    @Override
+    public void flushSyncEvent(Event event) {
+        flushEvent(event);
+    }
 
-        @Override
-	public void sendStartSync() {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public void sendStartSync() {
+        throw new UnsupportedOperationException();
+    }
 
-        @Override
-	public void sendEndSync() {
-		throw new UnsupportedOperationException();
-	}
-
+    @Override
+    public void sendEndSync() {
+        throw new UnsupportedOperationException();
+    }
 
 }

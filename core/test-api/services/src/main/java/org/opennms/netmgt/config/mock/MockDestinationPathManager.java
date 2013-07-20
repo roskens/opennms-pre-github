@@ -37,13 +37,15 @@ import java.io.UnsupportedEncodingException;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.DestinationPathManager;
+
 /**
  * @author david hustace <david@opennms.org>
  */
 
 public class MockDestinationPathManager extends DestinationPathManager {
 
-    public MockDestinationPathManager(String xmlString) throws MarshalException, ValidationException, UnsupportedEncodingException {
+    public MockDestinationPathManager(String xmlString) throws MarshalException, ValidationException,
+            UnsupportedEncodingException {
         InputStream reader = new ByteArrayInputStream(xmlString.getBytes("UTF-8"));
         parseXML(reader);
     }
@@ -53,12 +55,12 @@ public class MockDestinationPathManager extends DestinationPathManager {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.DestinationPathManager#update()
      */
     @Override
-    public void update() throws IOException, MarshalException,
-            ValidationException, FileNotFoundException {
+    public void update() throws IOException, MarshalException, ValidationException, FileNotFoundException {
         // TODO Auto-generated method stub
 
     }

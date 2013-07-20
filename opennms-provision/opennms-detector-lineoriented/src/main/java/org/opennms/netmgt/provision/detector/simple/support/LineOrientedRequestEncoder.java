@@ -34,19 +34,22 @@ import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
 import org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest;
 
 /**
- * <p>LineOrientedRequestEncoder class.</p>
+ * <p>
+ * LineOrientedRequestEncoder class.
+ * </p>
  *
  * @author Seth
  */
 public class LineOrientedRequestEncoder extends OneToOneEncoder {
 
     /**
-     * This method encodes {@link LineOrientedRequest} objects into {@link String} instances
+     * This method encodes {@link LineOrientedRequest} objects into
+     * {@link String} instances
      * that contain the byte representation of the request.
      */
     @Override
     public Object encode(final ChannelHandlerContext ctx, final Channel channel, final Object msg) throws Exception {
-        LineOrientedRequest request = (LineOrientedRequest)msg;
+        LineOrientedRequest request = (LineOrientedRequest) msg;
         return request.getRequest();
     }
 }

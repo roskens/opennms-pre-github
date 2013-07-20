@@ -54,7 +54,9 @@ import org.springframework.core.io.Resource;
 public class DataCollectionConfigParserTest {
 
     private static final int resourceTypesCount = 141;
+
     private static final int systemDefCount = 149;
+
     private static final int groupsCount = 228;
 
     @Before
@@ -93,7 +95,8 @@ public class DataCollectionConfigParserTest {
     @Test
     public void testLoadWithOnlyExternalReferences() throws Exception {
         // Create DatacollectionConfig
-        Resource resource = new InputStreamResource(this.getClass().getResourceAsStream("datacollection-config-onlyimports.xml"));
+        Resource resource = new InputStreamResource(
+                                                    this.getClass().getResourceAsStream("datacollection-config-onlyimports.xml"));
         DatacollectionConfig config = CastorUtils.unmarshal(DatacollectionConfig.class, resource, false);
 
         // Validate default datacollection content
@@ -107,15 +110,25 @@ public class DataCollectionConfigParserTest {
         executeParser(collection);
 
         // Validate SNMP Collection
-        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource Types should live on a special collection
+        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource
+                                                                   // Types
+                                                                   // should
+                                                                   // live on a
+                                                                   // special
+                                                                   // collection
         Assert.assertEquals(142, collection.getSystems().getSystemDefCount());
-        Assert.assertEquals(167, collection.getGroups().getGroupCount()); // Unused groups will be ignored
+        Assert.assertEquals(167, collection.getGroups().getGroupCount()); // Unused
+                                                                          // groups
+                                                                          // will
+                                                                          // be
+                                                                          // ignored
     }
 
     @Test
     public void testLoadHybridConfiguration() throws Exception {
         // Create DatacollectionConfig
-        Resource resource = new InputStreamResource(this.getClass().getResourceAsStream("datacollection-config-hybrid.xml"));
+        Resource resource = new InputStreamResource(
+                                                    this.getClass().getResourceAsStream("datacollection-config-hybrid.xml"));
         DatacollectionConfig config = CastorUtils.unmarshal(DatacollectionConfig.class, resource, false);
 
         // Validate default datacollection content
@@ -129,7 +142,12 @@ public class DataCollectionConfigParserTest {
         executeParser(collection);
 
         // Validate SNMP Collection
-        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource Types should live on a special collection
+        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource
+                                                                   // Types
+                                                                   // should
+                                                                   // live on a
+                                                                   // special
+                                                                   // collection
         Assert.assertEquals(17, collection.getSystems().getSystemDefCount());
         Assert.assertEquals(64, collection.getGroups().getGroupCount());
     }
@@ -137,7 +155,8 @@ public class DataCollectionConfigParserTest {
     @Test
     public void testLoadSimple() throws Exception {
         // Create DatacollectionConfig
-        Resource resource = new InputStreamResource(this.getClass().getResourceAsStream("datacollection-config-simple.xml"));
+        Resource resource = new InputStreamResource(
+                                                    this.getClass().getResourceAsStream("datacollection-config-simple.xml"));
         DatacollectionConfig config = CastorUtils.unmarshal(DatacollectionConfig.class, resource, false);
 
         // Validate default datacollection content
@@ -151,7 +170,12 @@ public class DataCollectionConfigParserTest {
         executeParser(collection);
 
         // Validate SNMP Collection
-        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource Types should live on a special collection
+        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource
+                                                                   // Types
+                                                                   // should
+                                                                   // live on a
+                                                                   // special
+                                                                   // collection
         Assert.assertEquals(71, collection.getSystems().getSystemDefCount());
         Assert.assertEquals(27, collection.getGroups().getGroupCount());
     }
@@ -159,7 +183,8 @@ public class DataCollectionConfigParserTest {
     @Test
     public void testLoadSimpleWithExclusions() throws Exception {
         // Create DatacollectionConfig
-        Resource resource = new InputStreamResource(this.getClass().getResourceAsStream("datacollection-config-excludes.xml"));
+        Resource resource = new InputStreamResource(
+                                                    this.getClass().getResourceAsStream("datacollection-config-excludes.xml"));
         DatacollectionConfig config = CastorUtils.unmarshal(DatacollectionConfig.class, resource, false);
 
         // Validate default datacollection content
@@ -173,15 +198,35 @@ public class DataCollectionConfigParserTest {
         executeParser(collection);
 
         // Validate SNMP Collection
-        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource Types should live on a special collection
-        Assert.assertEquals(41, collection.getSystems().getSystemDefCount()); // 48 systemDef to exclude
-        Assert.assertEquals(26, collection.getGroups().getGroupCount()); //  1 group to exclude (used only on Cisco PIX or Cisco AS)
+        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource
+                                                                   // Types
+                                                                   // should
+                                                                   // live on a
+                                                                   // special
+                                                                   // collection
+        Assert.assertEquals(41, collection.getSystems().getSystemDefCount()); // 48
+                                                                              // systemDef
+                                                                              // to
+                                                                              // exclude
+        Assert.assertEquals(26, collection.getGroups().getGroupCount()); // 1
+                                                                         // group
+                                                                         // to
+                                                                         // exclude
+                                                                         // (used
+                                                                         // only
+                                                                         // on
+                                                                         // Cisco
+                                                                         // PIX
+                                                                         // or
+                                                                         // Cisco
+                                                                         // AS)
     }
 
     @Test
     public void testSingleSystemDefs() throws Exception {
         // Create DatacollectionConfig
-        Resource resource = new InputStreamResource(this.getClass().getResourceAsStream("datacollection-config-single-systemdef.xml"));
+        Resource resource = new InputStreamResource(
+                                                    this.getClass().getResourceAsStream("datacollection-config-single-systemdef.xml"));
         DatacollectionConfig config = CastorUtils.unmarshal(DatacollectionConfig.class, resource, false);
 
         // Validate default datacollection content
@@ -195,7 +240,12 @@ public class DataCollectionConfigParserTest {
         executeParser(collection);
 
         // Validate SNMP Collection
-        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource Types should live on a special collection
+        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource
+                                                                   // Types
+                                                                   // should
+                                                                   // live on a
+                                                                   // special
+                                                                   // collection
         Assert.assertEquals(2, collection.getSystems().getSystemDefCount());
         Assert.assertEquals(31, collection.getGroups().getGroupCount());
     }
@@ -203,7 +253,8 @@ public class DataCollectionConfigParserTest {
     @Test
     public void testPrecedence() throws Exception {
         // Create DatacollectionConfig
-        Resource resource = new InputStreamResource(this.getClass().getResourceAsStream("datacollection-config-hybrid-precedence.xml"));
+        Resource resource = new InputStreamResource(
+                                                    this.getClass().getResourceAsStream("datacollection-config-hybrid-precedence.xml"));
         DatacollectionConfig config = CastorUtils.unmarshal(DatacollectionConfig.class, resource, false);
 
         // Validate default datacollection content
@@ -217,13 +268,21 @@ public class DataCollectionConfigParserTest {
         executeParser(collection);
 
         // Validate SNMP Collection
-        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource Types should live on a special collection
+        Assert.assertEquals(0, collection.getResourceTypeCount()); // Resource
+                                                                   // Types
+                                                                   // should
+                                                                   // live on a
+                                                                   // special
+                                                                   // collection
         Assert.assertEquals(71, collection.getSystems().getSystemDefCount());
         Assert.assertEquals(14, collection.getGroups().getGroupCount());
 
-        // Test Precedence ~ any group/systemDef directly defined inside the SNMP collection will have precedence over any definition
-        // from external files. That means, the definitions from external files will be ignored and won't be included in the collection.
-        // This is a way to "override" the content of a specific datacollection-group.
+        // Test Precedence ~ any group/systemDef directly defined inside the
+        // SNMP collection will have precedence over any definition
+        // from external files. That means, the definitions from external files
+        // will be ignored and won't be included in the collection.
+        // This is a way to "override" the content of a specific
+        // datacollection-group.
         for (Group group : collection.getGroups().getGroupCollection()) {
             if (group.getName().equals("cisco-frame-relay")) {
                 Assert.assertEquals(4, group.getMibObjCount());
@@ -252,7 +311,7 @@ public class DataCollectionConfigParserTest {
     }
 
     private static void validateParser(DataCollectionConfigParser parser) {
-        Map<String,DatacollectionGroup> groupMap = parser.getExternalGroupMap();
+        Map<String, DatacollectionGroup> groupMap = parser.getExternalGroupMap();
         int currentResourceTypes = 0;
         int currentSystemDefs = 0;
         int currentMibGroups = 0;

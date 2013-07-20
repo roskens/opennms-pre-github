@@ -33,13 +33,16 @@ import java.net.InetAddress;
 import org.opennms.netmgt.model.DemandPoll;
 
 /**
- * <p>DemandPollService interface.</p>
+ * <p>
+ * DemandPollService interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public interface DemandPollService {
 
     DemandPoll pollMonitoredService(int nodeid, InetAddress ipAddr, int ifIndex, int serviceId);
+
     DemandPoll getUpdatedResults(int resultId);
 
 }

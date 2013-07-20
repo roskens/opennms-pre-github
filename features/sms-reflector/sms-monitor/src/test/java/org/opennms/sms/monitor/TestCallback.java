@@ -42,16 +42,19 @@ import org.smslib.USSDResponse;
 public class TestCallback implements MobileMsgResponseCallback {
 
     CountDownLatch m_latch = new CountDownLatch(1);
-    AtomicReference<MobileMsgResponse> m_response = new AtomicReference<MobileMsgResponse>(null);
 
+    AtomicReference<MobileMsgResponse> m_response = new AtomicReference<MobileMsgResponse>(null);
 
     MobileMsgResponse getResponse() throws InterruptedException {
         m_latch.await();
         return m_response.get();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleError(org.opennms.sms.reflector.smsservice.SmsRequest, java.lang.Throwable)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleError(
+     * org.opennms.sms.reflector.smsservice.SmsRequest, java.lang.Throwable)
      */
     @Override
     public void handleError(MobileMsgRequest request, Throwable t) {
@@ -59,8 +62,12 @@ public class TestCallback implements MobileMsgResponseCallback {
         m_latch.countDown();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleResponse(org.opennms.sms.reflector.smsservice.SmsRequest, org.opennms.sms.reflector.smsservice.SmsResponse)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleResponse
+     * (org.opennms.sms.reflector.smsservice.SmsRequest,
+     * org.opennms.sms.reflector.smsservice.SmsResponse)
      */
     @Override
     public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse response) {
@@ -69,8 +76,11 @@ public class TestCallback implements MobileMsgResponseCallback {
         return true;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleTimeout(org.opennms.sms.reflector.smsservice.SmsRequest)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleTimeout
+     * (org.opennms.sms.reflector.smsservice.SmsRequest)
      */
     @Override
     public void handleTimeout(MobileMsgRequest request) {
@@ -85,16 +95,16 @@ public class TestCallback implements MobileMsgResponseCallback {
     public InboundMessage getMessage() throws InterruptedException {
         MobileMsgResponse response = getResponse();
         if (response instanceof SmsResponse) {
-            return ((SmsResponse)response).getMessage();
+            return ((SmsResponse) response).getMessage();
         }
         return null;
 
     }
 
-    public USSDResponse getUSSDResponse() throws InterruptedException{
+    public USSDResponse getUSSDResponse() throws InterruptedException {
         MobileMsgResponse response = getResponse();
         if (response instanceof UssdResponse) {
-            return ((UssdResponse)response).getMessage();
+            return ((UssdResponse) response).getMessage();
         }
         return null;
     }

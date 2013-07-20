@@ -53,16 +53,26 @@ public class OnmsNodeRequisition {
     private static final Logger LOG = LoggerFactory.getLogger(OnmsNodeRequisition.class);
 
     private String m_foreignSource;
+
     private RequisitionNode m_node;
+
     private List<OnmsAssetRequisition> m_assetReqs;
+
     private List<OnmsIpInterfaceRequisition> m_ifaceReqs;
+
     private List<OnmsNodeCategoryRequisition> m_categoryReqs;
 
     /**
-     * <p>Constructor for OnmsNodeRequisition.</p>
+     * <p>
+     * Constructor for OnmsNodeRequisition.
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionNode} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionNode}
+     *            object.
      */
     public OnmsNodeRequisition(final String foreignSource, final RequisitionNode node) {
         m_foreignSource = foreignSource;
@@ -72,11 +82,15 @@ public class OnmsNodeRequisition {
         m_categoryReqs = constructCategoryRequistions();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.NodeRequisition#getForeignSource()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.provision.persist.NodeRequisition#getForeignSource()
      */
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,46 +99,56 @@ public class OnmsNodeRequisition {
     }
 
     private List<OnmsAssetRequisition> constructAssetRequistions() {
-    	final List<OnmsAssetRequisition> reqs = new ArrayList<OnmsAssetRequisition>(m_node.getAssets().size());
-        for(final RequisitionAsset asset : m_node.getAssets()) {
+        final List<OnmsAssetRequisition> reqs = new ArrayList<OnmsAssetRequisition>(m_node.getAssets().size());
+        for (final RequisitionAsset asset : m_node.getAssets()) {
             reqs.add(new OnmsAssetRequisition(asset));
         }
         return reqs;
     }
 
     private List<OnmsIpInterfaceRequisition> constructIpInterfaceRequistions() {
-    	final List<OnmsIpInterfaceRequisition> reqs = new ArrayList<OnmsIpInterfaceRequisition>(m_node.getInterfaces().size());
-        for(final RequisitionInterface iface : m_node.getInterfaces()) {
+        final List<OnmsIpInterfaceRequisition> reqs = new ArrayList<OnmsIpInterfaceRequisition>(
+                                                                                                m_node.getInterfaces().size());
+        for (final RequisitionInterface iface : m_node.getInterfaces()) {
             reqs.add(new OnmsIpInterfaceRequisition(iface));
         }
         return reqs;
     }
 
     private List<OnmsNodeCategoryRequisition> constructCategoryRequistions() {
-    	final List<OnmsNodeCategoryRequisition> reqs = new ArrayList<OnmsNodeCategoryRequisition>(m_node.getCategories().size());
-        for(final RequisitionCategory category : m_node.getCategories()) {
+        final List<OnmsNodeCategoryRequisition> reqs = new ArrayList<OnmsNodeCategoryRequisition>(
+                                                                                                  m_node.getCategories().size());
+        for (final RequisitionCategory category : m_node.getCategories()) {
             reqs.add(new OnmsNodeCategoryRequisition(category));
         }
         return reqs;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.NodeRequisition#visit(org.opennms.netmgt.provision.persist.RequisitionVisitor)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.provision.persist.NodeRequisition#visit(org.opennms
+     * .netmgt.provision.persist.RequisitionVisitor)
      */
     /**
-     * <p>visit</p>
+     * <p>
+     * visit
+     * </p>
      *
-     * @param visitor a {@link org.opennms.netmgt.provision.persist.RequisitionVisitor} object.
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.RequisitionVisitor}
+     *            object.
      */
     public void visit(final RequisitionVisitor visitor) {
         visitor.visitNode(this);
         for (final OnmsNodeCategoryRequisition catReq : m_categoryReqs) {
             catReq.visit(visitor);
         }
-        for(final OnmsIpInterfaceRequisition ipReq : m_ifaceReqs) {
+        for (final OnmsIpInterfaceRequisition ipReq : m_ifaceReqs) {
             ipReq.visit(visitor);
         }
-        for(final OnmsAssetRequisition assetReq : m_assetReqs) {
+        for (final OnmsAssetRequisition assetReq : m_assetReqs) {
             assetReq.visit(visitor);
         }
         visitor.completeNode(this);
@@ -149,10 +173,11 @@ public class OnmsNodeRequisition {
 
         @Override
         public void visitInterface(final OnmsIpInterfaceRequisition ifaceReq) {
-        	final String ipAddr = ifaceReq.getIpAddr();
+            final String ipAddr = ifaceReq.getIpAddr();
             if (ipAddr == null || "".equals(ipAddr)) {
                 bldr.clearInterface();
-                LOG.error("Found interface on node {} with an empty ipaddr! Ignoring!", bldr.getCurrentNode().getLabel());
+                LOG.error("Found interface on node {} with an empty ipaddr! Ignoring!",
+                          bldr.getCurrentNode().getLabel());
                 return;
             }
 
@@ -169,7 +194,7 @@ public class OnmsNodeRequisition {
 
         @Override
         public void visitNode(final OnmsNodeRequisition nodeReq) {
-        	final NodeBuilder nodeBldr = bldr.addNode(nodeReq.getNodeLabel());
+            final NodeBuilder nodeBldr = bldr.addNode(nodeReq.getNodeLabel());
             nodeBldr.setLabelSource("U");
             nodeBldr.setType("A");
             nodeBldr.setForeignSource(nodeReq.getForeignSource());
@@ -180,25 +205,32 @@ public class OnmsNodeRequisition {
 
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.NodeRequisition#constructOnmsNodeFromRequisition()
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.NodeRequisition#
+     * constructOnmsNodeFromRequisition()
      */
     /**
-     * <p>constructOnmsNodeFromRequisition</p>
+     * <p>
+     * constructOnmsNodeFromRequisition
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public OnmsNode constructOnmsNodeFromRequisition() {
-    	final OnmsNodeBuilder visitor = new OnmsNodeBuilder();
+        final OnmsNodeBuilder visitor = new OnmsNodeBuilder();
         visit(visitor);
         return visitor.getNode();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.persist.NodeRequisition#getNodeLabel()
      */
     /**
-     * <p>getNodeLabel</p>
+     * <p>
+     * getNodeLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -206,11 +238,14 @@ public class OnmsNodeRequisition {
         return m_node.getNodeLabel();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.persist.NodeRequisition#getForeignId()
      */
     /**
-     * <p>getForeignId</p>
+     * <p>
+     * getForeignId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -218,11 +253,14 @@ public class OnmsNodeRequisition {
         return m_node.getForeignId();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.persist.NodeRequisition#getBuilding()
      */
     /**
-     * <p>getBuilding</p>
+     * <p>
+     * getBuilding
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -230,11 +268,14 @@ public class OnmsNodeRequisition {
         return m_node.getBuilding();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.persist.NodeRequisition#getCity()
      */
     /**
-     * <p>getCity</p>
+     * <p>
+     * getCity
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -242,11 +283,16 @@ public class OnmsNodeRequisition {
         return m_node.getCity();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.NodeRequisition#getParentForeignSource()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.provision.persist.NodeRequisition#getParentForeignSource
+     * ()
      */
     /**
-     * <p>getParentForeignSource</p>
+     * <p>
+     * getParentForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -254,11 +300,15 @@ public class OnmsNodeRequisition {
         return m_node.getParentForeignSource();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.NodeRequisition#getParentForeignId()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.provision.persist.NodeRequisition#getParentForeignId()
      */
     /**
-     * <p>getParentForeignId</p>
+     * <p>
+     * getParentForeignId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -266,11 +316,15 @@ public class OnmsNodeRequisition {
         return m_node.getParentForeignId();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.persist.NodeRequisition#getParentNodeLabel()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.provision.persist.NodeRequisition#getParentNodeLabel()
      */
     /**
-     * <p>getParentNodeLabel</p>
+     * <p>
+     * getParentNodeLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -278,13 +332,18 @@ public class OnmsNodeRequisition {
         return m_node.getParentNodeLabel();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.persist.NodeRequisition#getNode()
      */
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionNode} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionNode}
+     *         object.
      */
     public RequisitionNode getNode() {
         return m_node;

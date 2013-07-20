@@ -33,7 +33,9 @@ import org.extremecomponents.table.core.TableModel;
 import org.extremecomponents.table.interceptor.ColumnInterceptor;
 
 /**
- * <p>FivePercentWidthId class.</p>
+ * <p>
+ * FivePercentWidthId class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @version $Id: $
@@ -41,26 +43,24 @@ import org.extremecomponents.table.interceptor.ColumnInterceptor;
  */
 public class FivePercentWidthId implements ColumnInterceptor {
 
-	/** {@inheritDoc} */
-        @Override
+    /** {@inheritDoc} */
+    @Override
     public final void addColumnAttributes(final TableModel arg0, final Column arg1) {
-		String value = arg1.getPropertyValueAsString();
+        String value = arg1.getPropertyValueAsString();
 
-            //String style = "width:5%";
-            arg1.setStyle(value);
-            arg1.setFilterStyle(value);
-            arg1.setWidth("100");
-            arg1.addAttribute("width",Integer.toString(100));
+        // String style = "width:5%";
+        arg1.setStyle(value);
+        arg1.setFilterStyle(value);
+        arg1.setWidth("100");
+        arg1.addAttribute("width", Integer.toString(100));
 
+    }
 
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void modifyColumnAttributes(final TableModel arg0, final Column arg1) {
+        // TODO Auto-generated method stub
 
-	/** {@inheritDoc} */
-        @Override
-	public void modifyColumnAttributes(final TableModel arg0, final Column arg1) {
-		// TODO Auto-generated method stub
-
-	}
+    }
 
 }
-

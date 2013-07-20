@@ -47,7 +47,9 @@ import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.util.Assert;
 
 /**
- * <p>DefaultManualProvisioningDao class.</p>
+ * <p>
+ * DefaultManualProvisioningDao class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -56,18 +58,23 @@ import org.springframework.util.Assert;
 public class DefaultManualProvisioningDao implements ManualProvisioningDao {
 
     private static final Pattern XML_FILE_PATTERN = Pattern.compile("^(.*)\\.xml$");
+
     private File m_importFileDir;
 
     /**
-     * <p>setImportFileDirectory</p>
+     * <p>
+     * setImportFileDirectory
+     * </p>
      *
-     * @param importFileDir a {@link java.io.File} object.
+     * @param importFileDir
+     *            a {@link java.io.File} object.
      */
     public void setImportFileDirectory(final File importFileDir) {
         m_importFileDir = importFileDir;
         if (!m_importFileDir.exists()) {
             if (!m_importFileDir.mkdirs()) {
-                throw new NonTransientDataAccessResourceException("import file directory (" + m_importFileDir.getPath() + ") does not exist");
+                throw new NonTransientDataAccessResourceException("import file directory (" + m_importFileDir.getPath()
+                        + ") does not exist");
             }
         }
     }
@@ -84,7 +91,7 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
         }
 
         if (!importFile.canRead()) {
-            throw new PermissionDeniedDataAccessException("Unable to read file "+importFile, null);
+            throw new PermissionDeniedDataAccessException("Unable to read file " + importFile, null);
         }
 
         return CastorUtils.unmarshalWithTranslatedExceptions(Requisition.class, new FileSystemResource(importFile));
@@ -95,7 +102,9 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
     }
 
     /**
-     * <p>getProvisioningGroupNames</p>
+     * <p>
+     * getProvisioningGroupNames
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -122,7 +131,8 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
         if (importFile.exists()) {
             final Requisition currentData = get(groupName);
             if (currentData.getDateStamp().compare(group.getDateStamp()) > 0) {
-                throw new OptimisticLockingFailureException("Data in file "+importFile+" is newer than data to be saved!");
+                throw new OptimisticLockingFailureException("Data in file " + importFile
+                        + " is newer than data to be saved!");
             }
         }
 
@@ -130,7 +140,7 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
         try {
             writer = new FileWriter(importFile);
         } catch (final IOException e) {
-            throw new PermissionDeniedDataAccessException("Unable to write file "+importFile, e);
+            throw new PermissionDeniedDataAccessException("Unable to write file " + importFile, e);
         }
         group.updateDateStamp();
         CastorUtils.marshalWithTranslatedExceptions(group, writer);
@@ -138,11 +148,13 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
 
     private File getImportFile(final String groupName) {
         checkGroupName(groupName);
-        return new File(m_importFileDir, groupName+".xml");
+        return new File(m_importFileDir, groupName + ".xml");
     }
 
     /**
-     * <p>getImportFilenameFilter</p>
+     * <p>
+     * getImportFilenameFilter
+     * </p>
      *
      * @return a {@link java.io.FilenameFilter} object.
      */
@@ -160,12 +172,11 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
     private String getGroupNameForImportFileName(final String filename) {
         final Matcher matcher = XML_FILE_PATTERN.matcher(filename);
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("Invalid import gorup file name "+filename+", doesn't match form *.xml");
+            throw new IllegalArgumentException("Invalid import gorup file name " + filename
+                    + ", doesn't match form *.xml");
         }
         return matcher.group(1);
     }
-
-
 
     /** {@inheritDoc} */
     @Override

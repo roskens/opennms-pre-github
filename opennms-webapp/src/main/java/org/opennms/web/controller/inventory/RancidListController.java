@@ -38,9 +38,10 @@ import org.opennms.web.svclayer.inventory.InventoryService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-
 /**
- * <p>RancidListController class.</p>
+ * <p>
+ * RancidListController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,18 +52,25 @@ public class RancidListController implements Controller {
     InventoryService m_inventoryService;
 
     /**
-     * <p>getInventoryService</p>
+     * <p>
+     * getInventoryService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *         object.
      */
     public InventoryService getInventoryService() {
         return m_inventoryService;
     }
 
     /**
-     * <p>setInventoryService</p>
+     * <p>
+     * setInventoryService
+     * </p>
      *
-     * @param inventoryService a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @param inventoryService
+     *            a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *            object.
      */
     public void setInventoryService(InventoryService inventoryService) {
         m_inventoryService = inventoryService;
@@ -70,21 +78,19 @@ public class RancidListController implements Controller {
 
     /** {@inheritDoc} */
     @Override
-    public ModelAndView handleRequest(HttpServletRequest request,
-            HttpServletResponse arg1) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse arg1) throws Exception {
 
         String node = request.getParameter("node");
         int nodeid = WebSecurityUtils.safeParseInt(node);
         String group = request.getParameter("groupname");
         Map<String, Object> model;
-        if (WebSecurityUtils.sanitizeString(group).compareTo("*") == 0){
+        if (WebSecurityUtils.sanitizeString(group).compareTo("*") == 0) {
             model = m_inventoryService.getRancidNodeList(nodeid);
-        }
-        else {
-            model = m_inventoryService.getRancidNodeList(nodeid,WebSecurityUtils.sanitizeString(group));
+        } else {
+            model = m_inventoryService.getRancidNodeList(nodeid, WebSecurityUtils.sanitizeString(group));
         }
 
-        ModelAndView modelAndView = new ModelAndView("inventory/rancidList","model",model);
+        ModelAndView modelAndView = new ModelAndView("inventory/rancidList", "model", model);
         return modelAndView;
     }
 

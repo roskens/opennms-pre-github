@@ -40,174 +40,173 @@ import com.vaadin.ui.TextField;
  * table does not show any error indicator on a failed validation. The Vertical-
  * or HorizontalLayout does show an error indicator, so we wrap the layout
  * around the text field.
- *
  */
 public class TableTextFieldWrapper extends HorizontalLayout implements Field<String> {
 
-	private TextField textField;
+    private TextField textField;
 
-	public TableTextFieldWrapper(final TextField field) {
-		this.textField = field;
-		addComponent(field);
-	}
+    public TableTextFieldWrapper(final TextField field) {
+        this.textField = field;
+        addComponent(field);
+    }
 
-	@Override
-	public boolean isInvalidCommitted() {
-		return this.textField.isInvalidCommitted();
-	}
+    @Override
+    public boolean isInvalidCommitted() {
+        return this.textField.isInvalidCommitted();
+    }
 
-	@Override
-	public void setInvalidCommitted(final boolean isCommitted) {
-		this.textField.setInvalidCommitted(isCommitted);
-	}
+    @Override
+    public void setInvalidCommitted(final boolean isCommitted) {
+        this.textField.setInvalidCommitted(isCommitted);
+    }
 
-	@Override
-	public void commit() throws SourceException, InvalidValueException {
-		this.textField.commit();
-	}
+    @Override
+    public void commit() throws SourceException, InvalidValueException {
+        this.textField.commit();
+    }
 
-	@Override
-	public void discard() throws SourceException {
-		this.textField.discard();
-	}
+    @Override
+    public void discard() throws SourceException {
+        this.textField.discard();
+    }
 
-	@Override
-	public boolean isBuffered() {
-		return this.textField.isBuffered();
-	}
+    @Override
+    public boolean isBuffered() {
+        return this.textField.isBuffered();
+    }
 
-	@Override
-	public void setBuffered(final boolean readThrough) throws SourceException {
-		this.textField.setBuffered(readThrough);
-	}
+    @Override
+    public void setBuffered(final boolean readThrough) throws SourceException {
+        this.textField.setBuffered(readThrough);
+    }
 
-	@Override
-	public boolean isModified() {
-		return this.textField.isModified();
-	}
+    @Override
+    public boolean isModified() {
+        return this.textField.isModified();
+    }
 
-	@Override
-	public void addValidator(final Validator validator) {
-		this.textField.addValidator(validator);
-	}
+    @Override
+    public void addValidator(final Validator validator) {
+        this.textField.addValidator(validator);
+    }
 
-	@Override
-	public void removeValidator(final Validator validator) {
-		this.textField.removeValidator(validator);
-	}
+    @Override
+    public void removeValidator(final Validator validator) {
+        this.textField.removeValidator(validator);
+    }
 
-	@Override
-	public void removeAllValidators() {
-		this.textField.removeAllValidators();
-	}
+    @Override
+    public void removeAllValidators() {
+        this.textField.removeAllValidators();
+    }
 
-	@Override
-	public Collection<Validator> getValidators() {
-		return this.textField.getValidators();
-	}
+    @Override
+    public Collection<Validator> getValidators() {
+        return this.textField.getValidators();
+    }
 
-	@Override
-	public boolean isValid() {
-		return this.textField.isValid();
-	}
+    @Override
+    public boolean isValid() {
+        return this.textField.isValid();
+    }
 
-	@Override
-	public void validate() throws InvalidValueException {
-		this.textField.validate();
-	}
+    @Override
+    public void validate() throws InvalidValueException {
+        this.textField.validate();
+    }
 
-	@Override
-	public boolean isInvalidAllowed() {
-		return this.textField.isInvalidAllowed();
-	}
+    @Override
+    public boolean isInvalidAllowed() {
+        return this.textField.isInvalidAllowed();
+    }
 
-	@Override
-	public void setInvalidAllowed(final boolean invalidValueAllowed) throws UnsupportedOperationException {
-		this.textField.setInvalidAllowed(invalidValueAllowed);
-	}
+    @Override
+    public void setInvalidAllowed(final boolean invalidValueAllowed) throws UnsupportedOperationException {
+        this.textField.setInvalidAllowed(invalidValueAllowed);
+    }
 
-	@Override
-	public String getValue() {
-		return this.textField.getValue();
-	}
+    @Override
+    public String getValue() {
+        return this.textField.getValue();
+    }
 
-	@Override
-	public void setValue(final String newValue) throws ReadOnlyException {
-		this.textField.setValue(newValue);
-	}
+    @Override
+    public void setValue(final String newValue) throws ReadOnlyException {
+        this.textField.setValue(newValue);
+    }
 
-	@Override
-	public Class<String> getType() {
-		return this.textField.getType();
-	}
+    @Override
+    public Class<String> getType() {
+        return this.textField.getType();
+    }
 
-	@Override
-	public void addListener(final ValueChangeListener listener) {
-		addValueChangeListener(listener);
-	}
+    @Override
+    public void addListener(final ValueChangeListener listener) {
+        addValueChangeListener(listener);
+    }
 
-	@Override
-	public void addValueChangeListener(final ValueChangeListener listener) {
-		this.textField.addValueChangeListener(listener);
-	}
+    @Override
+    public void addValueChangeListener(final ValueChangeListener listener) {
+        this.textField.addValueChangeListener(listener);
+    }
 
-	@Override
-	public void removeListener(final ValueChangeListener listener) {
-		removeValueChangeListener(listener);
-	}
+    @Override
+    public void removeListener(final ValueChangeListener listener) {
+        removeValueChangeListener(listener);
+    }
 
-	@Override
-	public void removeValueChangeListener(final ValueChangeListener listener) {
-		this.textField.removeValueChangeListener(listener);
-	}
+    @Override
+    public void removeValueChangeListener(final ValueChangeListener listener) {
+        this.textField.removeValueChangeListener(listener);
+    }
 
-	@Override
-	public void valueChange(final com.vaadin.data.Property.ValueChangeEvent event) {
-		this.textField.valueChange(event);
-	}
+    @Override
+    public void valueChange(final com.vaadin.data.Property.ValueChangeEvent event) {
+        this.textField.valueChange(event);
+    }
 
-	@Override
-	public void setPropertyDataSource(final Property newDataSource) {
-		this.textField.setPropertyDataSource(newDataSource);
-	}
+    @Override
+    public void setPropertyDataSource(final Property newDataSource) {
+        this.textField.setPropertyDataSource(newDataSource);
+    }
 
-	@Override
-	public Property getPropertyDataSource() {
-		return this.textField.getPropertyDataSource();
-	}
+    @Override
+    public Property getPropertyDataSource() {
+        return this.textField.getPropertyDataSource();
+    }
 
-	@Override
-	public int getTabIndex() {
-		return this.textField.getTabIndex();
-	}
+    @Override
+    public int getTabIndex() {
+        return this.textField.getTabIndex();
+    }
 
-	@Override
-	public void setTabIndex(final int tabIndex) {
-		this.textField.setTabIndex(tabIndex);
-	}
+    @Override
+    public void setTabIndex(final int tabIndex) {
+        this.textField.setTabIndex(tabIndex);
+    }
 
-	@Override
-	public boolean isRequired() {
-		return this.textField.isRequired();
-	}
+    @Override
+    public boolean isRequired() {
+        return this.textField.isRequired();
+    }
 
-	@Override
-	public void setRequired(final boolean required) {
-		this.textField.setRequired(required);
-	}
+    @Override
+    public void setRequired(final boolean required) {
+        this.textField.setRequired(required);
+    }
 
-	@Override
-	public void setRequiredError(final String requiredMessage) {
-		this.textField.setRequiredError(requiredMessage);
-	}
+    @Override
+    public void setRequiredError(final String requiredMessage) {
+        this.textField.setRequiredError(requiredMessage);
+    }
 
-	@Override
-	public String getRequiredError() {
-		return this.textField.getRequiredError();
-	}
+    @Override
+    public String getRequiredError() {
+        return this.textField.getRequiredError();
+    }
 
-	@Override
-	public void focus() {
-		super.focus();
-	}
+    @Override
+    public void focus() {
+        super.focus();
+    }
 }

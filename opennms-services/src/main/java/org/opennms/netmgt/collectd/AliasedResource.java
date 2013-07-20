@@ -41,9 +41,10 @@ import org.opennms.netmgt.utils.NodeLabel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>AliasedResource class.</p>
+ * <p>
+ * AliasedResource class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,20 +54,31 @@ public class AliasedResource extends SnmpCollectionResource {
     private static final Logger LOG = LoggerFactory.getLogger(AliasedResource.class);
 
     private final IfInfo m_ifInfo;
+
     private final String m_ifAliasComment;
+
     private final String m_domain;
+
     private final String m_ifAlias;
 
     /**
-     * <p>Constructor for AliasedResource.</p>
+     * <p>
+     * Constructor for AliasedResource.
+     * </p>
      *
-     * @param resourceType a {@link org.opennms.netmgt.collectd.ResourceType} object.
-     * @param domain a {@link java.lang.String} object.
-     * @param ifInfo a {@link org.opennms.netmgt.collectd.IfInfo} object.
-     * @param ifAliasComment a {@link java.lang.String} object.
-     * @param ifAlias a {@link java.lang.String} object.
+     * @param resourceType
+     *            a {@link org.opennms.netmgt.collectd.ResourceType} object.
+     * @param domain
+     *            a {@link java.lang.String} object.
+     * @param ifInfo
+     *            a {@link org.opennms.netmgt.collectd.IfInfo} object.
+     * @param ifAliasComment
+     *            a {@link java.lang.String} object.
+     * @param ifAlias
+     *            a {@link java.lang.String} object.
      */
-    public AliasedResource(final ResourceType resourceType, final String domain, final IfInfo ifInfo, final String ifAliasComment, final String ifAlias) {
+    public AliasedResource(final ResourceType resourceType, final String domain, final IfInfo ifInfo,
+            final String ifAliasComment, final String ifAlias) {
         super(resourceType);
         m_domain = domain;
         m_ifInfo = ifInfo;
@@ -75,7 +87,9 @@ public class AliasedResource extends SnmpCollectionResource {
     }
 
     /**
-     * <p>getIfInfo</p>
+     * <p>
+     * getIfInfo
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.IfInfo} object.
      */
@@ -88,7 +102,9 @@ public class AliasedResource extends SnmpCollectionResource {
     }
 
     /**
-     * <p>getDomain</p>
+     * <p>
+     * getDomain
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,12 +114,11 @@ public class AliasedResource extends SnmpCollectionResource {
         } else if ("nodelabel".equalsIgnoreCase(m_domain)) {
             try {
                 return NodeLabel.retrieveLabel(getIfInfo().getNodeId()).getLabel();
-            }
-            catch (Throwable e) {
+            } catch (Throwable e) {
                 return "nodeid-" + Integer.toString(getIfInfo().getNodeId());
             }
         } else {
-        return m_domain;
+            return m_domain;
         }
     }
 
@@ -116,31 +131,37 @@ public class AliasedResource extends SnmpCollectionResource {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return getDomain()+'/'+getAliasDir()+" ["+m_ifInfo+']';
+        return getDomain() + '/' + getAliasDir() + " [" + m_ifInfo + ']';
     }
 
     /**
-     * <p>rescanNeeded</p>
+     * <p>
+     * rescanNeeded
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean rescanNeeded() {
         boolean outOfDate = getIfInfo().currentAliasIsOutOfDate(m_ifAlias);
-        if(outOfDate) {
+        if (outOfDate) {
             getIfInfo().setIfAlias(m_ifAlias);
         }
         return outOfDate;
     }
 
     /**
-     * <p>isScheduledForCollection</p>
+     * <p>
+     * isScheduledForCollection
+     * </p>
      *
      * @return a boolean.
      */
@@ -151,13 +172,16 @@ public class AliasedResource extends SnmpCollectionResource {
     /** {@inheritDoc} */
     @Override
     public boolean shouldPersist(final ServiceParameters serviceParameters) {
-        boolean shdPrsist = (serviceParameters.aliasesEnabled() && getAliasDir() != null && !getAliasDir().equals("")) && (isScheduledForCollection() || serviceParameters.forceStoreByAlias(getAliasDir()));
+        boolean shdPrsist = (serviceParameters.aliasesEnabled() && getAliasDir() != null && !getAliasDir().equals(""))
+                && (isScheduledForCollection() || serviceParameters.forceStoreByAlias(getAliasDir()));
         LOG.debug("shouldPersist = {}", shdPrsist);
         return shdPrsist;
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a int.
      */
@@ -180,42 +204,54 @@ public class AliasedResource extends SnmpCollectionResource {
     }
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     @Override
     public Collection<AttributeGroup> getGroups() {
-    	return getIfInfo().getGroups();
+        return getIfInfo().getGroups();
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getResourceTypeName() {
-        return "if"; //AliasedResources are implicitly interface type data, at least as far as I (Craig Miskell) understand.  If anyone is sure, please adjust this comment
+        return "if"; // AliasedResources are implicitly interface type data, at
+                     // least as far as I (Craig Miskell) understand. If anyone
+                     // is sure, please adjust this comment
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getInstance() {
-        return null; //For node and interface type resources, use the default instance
+        return null; // For node and interface type resources, use the default
+                     // instance
     }
 
     @Override
     public String getParent() {
-        return null; //For node and interface type resources, use the default parent
+        return null; // For node and interface type resources, use the default
+                     // parent
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

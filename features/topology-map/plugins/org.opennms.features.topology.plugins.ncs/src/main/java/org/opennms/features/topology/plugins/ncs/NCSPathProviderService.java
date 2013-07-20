@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 public class NCSPathProviderService {
 
     private CamelContext m_camelContext;
+
     private ProducerTemplate m_template;
 
     public NCSPathProviderService(CamelContext camelContext) {
@@ -23,11 +24,11 @@ public class NCSPathProviderService {
             LoggerFactory.getLogger(this.getClass()).warn("Exception Occurred while creating route: ", e);
         }
 
-
     }
 
-    public NCSServicePath getPath(String foreignId, String foreignSource, String deviceAForeignId, String deviceZForeignId, String nodeForeignSource, String serviceName) throws Exception {
-        Map<String, Object> headers = new HashMap<String,Object>();
+    public NCSServicePath getPath(String foreignId, String foreignSource, String deviceAForeignId,
+            String deviceZForeignId, String nodeForeignSource, String serviceName) throws Exception {
+        Map<String, Object> headers = new HashMap<String, Object>();
         headers.put("foreignId", foreignId);
         headers.put("foreignSource", foreignSource);
         headers.put("deviceA", deviceAForeignId);
@@ -37,6 +38,5 @@ public class NCSPathProviderService {
 
         return m_template.requestBodyAndHeaders("direct:start", null, headers, NCSServicePath.class);
     }
-
 
 }

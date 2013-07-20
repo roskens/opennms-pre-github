@@ -49,20 +49,22 @@ import org.slf4j.LoggerFactory;
  * processing of traps
  * </p>
  */
- /**
-  * <p>Syslogd class.</p>
-  *
-  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
-  * @author <a href="mailto:david@opennms.org">David Hustace</a>
-  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
-  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
-  * @author <a href="mailto:mhuot@opennms.org">Mike Huot</a>
-  */
- public class Syslogd extends AbstractServiceDaemon {
+/**
+ * <p>
+ * Syslogd class.
+ * </p>
+ *
+ * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
+ * @author <a href="mailto:david@opennms.org">David Hustace</a>
+ * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
+ * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
+ * @author <a href="mailto:mhuot@opennms.org">Mike Huot</a>
+ */
+public class Syslogd extends AbstractServiceDaemon {
 
-     private static final Logger LOG = LoggerFactory.getLogger(Syslogd.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Syslogd.class);
 
-     /**
+    /**
      * The name of the logging category for Syslogd.
      */
     static final String LOG4J_CATEGORY = "syslogd";
@@ -73,7 +75,9 @@ import org.slf4j.LoggerFactory;
     private static final Syslogd m_singleton = new Syslogd();
 
     /**
-     * <p>getSingleton</p>
+     * <p>
+     * getSingleton
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.syslogd.Syslogd} object.
      */
@@ -86,14 +90,18 @@ import org.slf4j.LoggerFactory;
     private EventDao m_eventDao;
 
     /**
-     * <p>Constructor for Syslogd.</p>
+     * <p>
+     * Constructor for Syslogd.
+     * </p>
      */
     public Syslogd() {
         super(LOG4J_CATEGORY);
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -128,7 +136,9 @@ import org.slf4j.LoggerFactory;
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -148,7 +158,9 @@ import org.slf4j.LoggerFactory;
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -180,10 +192,12 @@ import org.slf4j.LoggerFactory;
     }
 
     /*
-    * @return EventDao
+     * @return EventDao
      */
     /**
-     * <p>getEventDao</p>
+     * <p>
+     * getEventDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.EventDao} object.
      */
@@ -192,9 +206,12 @@ import org.slf4j.LoggerFactory;
     }
 
     /**
-     * <p>setEventDao</p>
+     * <p>
+     * setEventDao
+     * </p>
      *
-     * @param eventDao a {@link org.opennms.netmgt.dao.api.EventDao} object.
+     * @param eventDao
+     *            a {@link org.opennms.netmgt.dao.api.EventDao} object.
      */
     public void setEventDao(EventDao eventDao) {
         m_eventDao = eventDao;

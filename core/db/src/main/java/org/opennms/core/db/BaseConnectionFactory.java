@@ -47,42 +47,57 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class BaseConnectionFactory implements ClosableDataSource {
 
-	private static final Logger LOG = LoggerFactory.getLogger(BaseConnectionFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BaseConnectionFactory.class);
 
     /**
-     * @param stream A configuration file as an {@link InputStream}.
-     * @param dsName The data source's name.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.beans.PropertyVetoException if any.
-     * @throws java.sql.SQLException if any.
+     * @param stream
+     *            A configuration file as an {@link InputStream}.
+     * @param dsName
+     *            The data source's name.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.beans.PropertyVetoException
+     *             if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    protected BaseConnectionFactory(final InputStream stream, final String dsName) throws MarshalException, ValidationException, PropertyVetoException, SQLException {
-    	LOG.info("Setting up data source {} from input stream.", dsName);
+    protected BaseConnectionFactory(final InputStream stream, final String dsName) throws MarshalException,
+            ValidationException, PropertyVetoException, SQLException {
+        LOG.info("Setting up data source {} from input stream.", dsName);
         final JdbcDataSource ds = ConnectionFactoryUtil.marshalDataSourceFromConfig(stream, dsName);
         initializePool(ds);
     }
 
     /**
-     * @param configFile A configuration file name.
-     * @param dsName The data source's name.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.beans.PropertyVetoException if any.
-     * @throws java.sql.SQLException if any.
+     * @param configFile
+     *            A configuration file name.
+     * @param dsName
+     *            The data source's name.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.beans.PropertyVetoException
+     *             if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    protected BaseConnectionFactory(final String configFile, final String dsName) throws IOException, MarshalException, ValidationException, PropertyVetoException, SQLException {
+    protected BaseConnectionFactory(final String configFile, final String dsName) throws IOException, MarshalException,
+            ValidationException, PropertyVetoException, SQLException {
         /*
          * Set the system identifier for the source of the input stream.
          * This is necessary so that any location information can
          * positively identify the source of the error.
          */
-    	final FileInputStream fileInputStream = new FileInputStream(configFile);
-    	LOG.info("Setting up data sources from {}.", configFile);
+        final FileInputStream fileInputStream = new FileInputStream(configFile);
+        LOG.info("Setting up data sources from {}.", configFile);
         try {
-        	final JdbcDataSource ds = ConnectionFactoryUtil.marshalDataSourceFromConfig(fileInputStream, dsName);
-        	initializePool(ds);
+            final JdbcDataSource ds = ConnectionFactoryUtil.marshalDataSourceFromConfig(fileInputStream, dsName);
+            initializePool(ds);
         } finally {
             IOUtils.closeQuietly(fileInputStream);
         }
@@ -91,81 +106,108 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
     protected abstract void initializePool(final JdbcDataSource ds) throws SQLException;
 
     /**
-     * <p>getUrl</p>
+     * <p>
+     * getUrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getUrl();
 
     /**
-     * <p>setUrl</p>
+     * <p>
+     * setUrl
+     * </p>
      *
-     * @param url a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
      */
     public abstract void setUrl(final String url);
 
     /**
-     * <p>getUser</p>
+     * <p>
+     * getUser
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getUser();
 
     /**
-     * <p>setUser</p>
+     * <p>
+     * setUser
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public abstract void setUser(final String user);
 
     /**
-     * <p>getDataSource</p>
+     * <p>
+     * getDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
     public abstract DataSource getDataSource();
 
     /**
-     * <p>getLoginTimeout</p>
+     * <p>
+     * getLoginTimeout
+     * </p>
      *
      * @return a int.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public abstract int getLoginTimeout() throws SQLException;
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public void close() throws SQLException {
     }
 
     /**
-     * <p>unwrap</p>
+     * <p>
+     * unwrap
+     * </p>
      *
-     * @param iface a {@link java.lang.Class} object.
-     * @param <T> a T object.
+     * @param iface
+     *            a {@link java.lang.Class} object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public <T> T unwrap(final Class<T> iface) throws SQLException {
-        return null;  //TODO
+        return null; // TODO
     }
 
     /**
-     * <p>isWrapperFor</p>
+     * <p>
+     * isWrapperFor
+     * </p>
      *
-     * @param iface a {@link java.lang.Class} object.
+     * @param iface
+     *            a {@link java.lang.Class} object.
      * @return a boolean.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public boolean isWrapperFor(final Class<?> iface) throws SQLException {
-        return false;  //TODO
+        return false; // TODO
     }
 
     protected static void validateJdbcUrl(String url) {
@@ -178,7 +220,7 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
                 throw new IllegalArgumentException("JDBC URL cannot contain replacement tokens");
             }
         } catch (IllegalArgumentException e) {
-        	LOG.error("Invalid JDBC URL specified: {}", e.getMessage(), e);
+            LOG.error("Invalid JDBC URL specified: {}", e.getMessage(), e);
             throw e;
         }
     }

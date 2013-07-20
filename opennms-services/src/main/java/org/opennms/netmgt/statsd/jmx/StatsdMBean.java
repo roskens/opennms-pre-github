@@ -31,7 +31,9 @@ package org.opennms.netmgt.statsd.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>StatsdMBean interface.</p>
+ * <p>
+ * StatsdMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

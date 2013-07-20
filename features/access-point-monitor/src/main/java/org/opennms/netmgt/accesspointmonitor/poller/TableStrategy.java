@@ -31,8 +31,11 @@ public class TableStrategy implements AccessPointPoller {
     private static final Logger LOG = LoggerFactory.getLogger(TableStrategy.class);
 
     private OnmsIpInterface m_iface;
+
     private Package m_package;
+
     private Map<String, String> m_parameters;
+
     private AccessPointDao m_accessPointDao;
 
     public TableStrategy() {
@@ -62,7 +65,9 @@ public class TableStrategy implements AccessPointPoller {
 
         // Set timeout and retries on SNMP peer object
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(m_parameters, "timeout", agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(m_parameters, "retry", ParameterMap.getKeyedInteger(m_parameters, "retries", agentConfig.getRetries())));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(m_parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(m_parameters, "retries",
+                                                                                         agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(m_parameters, "port", agentConfig.getPort()));
 
         LOG.debug("TableStrategy.poll: SnmpAgentConfig address={}", agentConfig);
@@ -71,7 +76,8 @@ public class TableStrategy implements AccessPointPoller {
         try {
             SnmpObjId snmpObjectId = SnmpObjId.get(oid);
 
-            Map<SnmpInstId, SnmpValue> map = SnmpUtils.getOidValues(agentConfig, "AccessPointMonitor::TableStrategy", snmpObjectId);
+            Map<SnmpInstId, SnmpValue> map = SnmpUtils.getOidValues(agentConfig, "AccessPointMonitor::TableStrategy",
+                                                                    snmpObjectId);
 
             if (map.size() <= 0) {
                 throw new IOException("No entries found in table (possible timeout).");
@@ -82,7 +88,8 @@ public class TableStrategy implements AccessPointPoller {
 
                 String physAddr = getPhysAddrFromValue(value);
 
-                LOG.debug("AP at value '{}' with MAC '{}' is considered to be ONLINE on controller '{}'", value.toHexString(), physAddr, m_iface.getIpAddress());
+                LOG.debug("AP at value '{}' with MAC '{}' is considered to be ONLINE on controller '{}'",
+                          value.toHexString(), physAddr, m_iface.getIpAddress());
                 OnmsAccessPoint ap = m_accessPointDao.get(physAddr);
                 if (ap != null) {
                     if (ap.getPollingPackage().compareToIgnoreCase(getPackage().getName()) == 0) {

@@ -33,21 +33,21 @@ import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
 
 public class FRLayoutOperation extends LayoutOperation {
 
-	public FRLayoutOperation() {
-		super(new LayoutFactory() {
+    public FRLayoutOperation() {
+        super(new LayoutFactory() {
 
-		    private final FRLayoutAlgorithm m_layoutAlgorithm = new FRLayoutAlgorithm();
+            private final FRLayoutAlgorithm m_layoutAlgorithm = new FRLayoutAlgorithm();
 
-		    @Override
-			public LayoutAlgorithm getLayoutAlgorithm() {
-				return m_layoutAlgorithm;
-			}
-		});
-	}
+            @Override
+            public LayoutAlgorithm getLayoutAlgorithm() {
+                return m_layoutAlgorithm;
+            }
+        });
+    }
 
-	@Override
-	public String getId() {
-		return getClass().getSimpleName();
-	}
+    @Override
+    public String getId() {
+        return getClass().getSimpleName();
+    }
 
 }

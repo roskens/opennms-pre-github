@@ -31,7 +31,10 @@ package org.opennms.core.concurrent;
 import java.util.concurrent.Callable;
 
 /**
- * This interface is used to denote a WaterfallCallable that terminates the chain of
- * execution by not returning a subsequent Callable&lt;Callable&lt;?&gt;&gt; value.
+ * This interface is used to denote a WaterfallCallable that terminates the
+ * chain of
+ * execution by not returning a subsequent Callable&lt;Callable&lt;?&gt;&gt;
+ * value.
  */
-public interface EndOfTheWaterfall extends Callable<Callable<Void>> {}
+public interface EndOfTheWaterfall extends Callable<Callable<Void>> {
+}

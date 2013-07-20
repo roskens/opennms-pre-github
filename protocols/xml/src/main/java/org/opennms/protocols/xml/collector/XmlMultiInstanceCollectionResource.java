@@ -43,8 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public class XmlMultiInstanceCollectionResource extends XmlCollectionResource {
 
-	private static final Logger LOG = LoggerFactory.getLogger(XmlMultiInstanceCollectionResource.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(XmlMultiInstanceCollectionResource.class);
 
     /** The collection resource instance. */
     private String m_instance;
@@ -58,9 +57,12 @@ public class XmlMultiInstanceCollectionResource extends XmlCollectionResource {
     /**
      * Instantiates a new XML Multi-instance collection resource.
      *
-     * @param agent the collection agent
-     * @param instance the resource instance
-     * @param type the XML resource type
+     * @param agent
+     *            the collection agent
+     * @param instance
+     *            the resource instance
+     * @param type
+     *            the XML resource type
      */
     public XmlMultiInstanceCollectionResource(CollectionAgent agent, String instance, XmlResourceType type) {
         super(agent);
@@ -68,51 +70,64 @@ public class XmlMultiInstanceCollectionResource extends XmlCollectionResource {
         m_instance = instance;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionResource#shouldPersist(
+     * org.opennms.netmgt.config.collector.ServiceParameters)
      */
     @Override
     public boolean shouldPersist(ServiceParameters params) {
         return m_resourceType.getPersistenceSelectorStrategy().shouldPersist(this);
     }
 
-
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getResourceDir(org.opennms.netmgt.model.RrdRepository)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionResource#getResourceDir
+     * (org.opennms.netmgt.model.RrdRepository)
      */
     @Override
     public File getResourceDir(RrdRepository repository) {
-        String resourcePath = m_resourceType.getStorageStrategy().getRelativePathForAttribute(getParent(), getLabel(), null);
+        String resourcePath = m_resourceType.getStorageStrategy().getRelativePathForAttribute(getParent(), getLabel(),
+                                                                                              null);
         File resourceDir = new File(repository.getRrdBaseDir(), resourcePath);
-            LOG.debug("getResourceDir: {}", resourceDir);
+        LOG.debug("getResourceDir: {}", resourceDir);
         return resourceDir;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.XmlCollectionResource#getResourceTypeName()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.XmlCollectionResource#getResourceTypeName
+     * ()
      */
     @Override
     public String getResourceTypeName() {
         return m_resourceType.getName();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.XmlCollectionResource#getInstance()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.XmlCollectionResource#getInstance()
      */
     @Override
     public String getInstance() {
         return m_instance;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "node[" + m_agent.getNodeId() + "]." + getResourceTypeName() + "[" + getLabel() +"]";
+        return "node[" + m_agent.getNodeId() + "]." + getResourceTypeName() + "[" + getLabel() + "]";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getLabel()
      */
     @Override

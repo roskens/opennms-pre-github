@@ -34,7 +34,7 @@ import org.extremecomponents.util.HtmlBuilder;
 
 /**
  * A stupidly simple class that extends TwoColumnRowLayout but allows us to
- * override the bit of code that creates the table.  We need to do this so we
+ * override the bit of code that creates the table. We need to do this so we
  * can customize its CSS class.
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -44,10 +44,14 @@ import org.extremecomponents.util.HtmlBuilder;
  */
 public abstract class CustomizableTwoColumnRowLayout extends TwoColumnRowLayout {
     /**
-     * <p>Constructor for CustomizableTwoColumnRowLayout.</p>
+     * <p>
+     * Constructor for CustomizableTwoColumnRowLayout.
+     * </p>
      *
-     * @param html a {@link org.extremecomponents.util.HtmlBuilder} object.
-     * @param model a {@link org.extremecomponents.table.core.TableModel} object.
+     * @param html
+     *            a {@link org.extremecomponents.util.HtmlBuilder} object.
+     * @param model
+     *            a {@link org.extremecomponents.table.core.TableModel} object.
      */
     public CustomizableTwoColumnRowLayout(HtmlBuilder html, TableModel model) {
         super(html, model);
@@ -88,9 +92,12 @@ public abstract class CustomizableTwoColumnRowLayout extends TwoColumnRowLayout 
     }
 
     /**
-     * <p>startTable</p>
+     * <p>
+     * startTable
+     * </p>
      *
-     * @param html a {@link org.extremecomponents.util.HtmlBuilder} object.
+     * @param html
+     *            a {@link org.extremecomponents.util.HtmlBuilder} object.
      * @return a {@link org.extremecomponents.util.HtmlBuilder} object.
      */
     protected HtmlBuilder startTable(HtmlBuilder html) {

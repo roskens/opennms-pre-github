@@ -41,52 +41,52 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class FieldSetTextBox extends AbstractFieldSet implements FieldSet, KeyUpHandler {
 
-	protected TextBox textBox = new TextBox();
+    protected TextBox textBox = new TextBox();
 
-	public FieldSetTextBox(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value, -1);
-	}
+    public FieldSetTextBox(String name, String value, String helpText) {
+        super(name, helpText);
+        init(value, -1);
+    }
 
-	@UiConstructor
-	public FieldSetTextBox(String name, String value, String helpText, int maxLength) {
-		super(name, helpText);
-		init(value, maxLength);
-	}
+    @UiConstructor
+    public FieldSetTextBox(String name, String value, String helpText, int maxLength) {
+        super(name, helpText);
+        init(value, maxLength);
+    }
 
-	@Override
-	public String getValue() {
-		return textBox.getText();
-	}
+    @Override
+    public String getValue() {
+        return textBox.getText();
+    }
 
-	private void init(String value, int maxLength) {
-		if (maxLength > 0) {
-			addErrorValidator(new StringMaxLengthValidator(maxLength));
-		}
-		inititalValue = value;
-		textBox.setText(value);
-		textBox.setEnabled(enabled);
-		textBox.addChangeHandler(this);
-		textBox.addKeyUpHandler(this);
-		textBox.setStyleName("textBox");
-		textBox.setSize("300px", "18px");
-		panel.add(textBox);
-	}
+    private void init(String value, int maxLength) {
+        if (maxLength > 0) {
+            addErrorValidator(new StringMaxLengthValidator(maxLength));
+        }
+        inititalValue = value;
+        textBox.setText(value);
+        textBox.setEnabled(enabled);
+        textBox.addChangeHandler(this);
+        textBox.addKeyUpHandler(this);
+        textBox.setStyleName("textBox");
+        textBox.setSize("300px", "18px");
+        panel.add(textBox);
+    }
 
-	@Override
-	public void onKeyUp(KeyUpEvent event) {
-		checkField();
-	}
+    @Override
+    public void onKeyUp(KeyUpEvent event) {
+        checkField();
+    }
 
-	@Override
-	public void setEnabled(Boolean enabled) {
-		textBox.setEnabled(enabled);
-	}
+    @Override
+    public void setEnabled(Boolean enabled) {
+        textBox.setEnabled(enabled);
+    }
 
-	@Override
-	public void setValue(String value) {
-		textBox.setText(value);
-		inititalValue = value;
-		validate(this.getValue());
-	}
+    @Override
+    public void setValue(String value) {
+        textBox.setText(value);
+        inititalValue = value;
+        validate(this.getValue());
+    }
 }

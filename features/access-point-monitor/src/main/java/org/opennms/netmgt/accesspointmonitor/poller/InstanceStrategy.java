@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class InstanceStrategy implements AccessPointPoller {
-	private static final Logger LOG = LoggerFactory.getLogger(InstanceStrategy.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InstanceStrategy.class);
 
     /**
      * Constant for less-than operand
@@ -57,8 +57,11 @@ public class InstanceStrategy implements AccessPointPoller {
     private static final String MATCHES = "~";
 
     private OnmsIpInterface m_iface;
+
     private Package m_package;
+
     private Map<String, String> m_parameters;
+
     private AccessPointDao m_accessPointDao;
 
     public InstanceStrategy() {
@@ -76,7 +79,9 @@ public class InstanceStrategy implements AccessPointPoller {
 
         // Set timeout and retries on SNMP peer object
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(m_parameters, "timeout", agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(m_parameters, "retry", ParameterMap.getKeyedInteger(m_parameters, "retries", agentConfig.getRetries())));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(m_parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(m_parameters, "retries",
+                                                                                         agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(m_parameters, "port", agentConfig.getPort()));
 
         return agentConfig;
@@ -107,7 +112,9 @@ public class InstanceStrategy implements AccessPointPoller {
         try {
             SnmpObjId snmpObjectId = SnmpObjId.get(oid);
 
-            Map<SnmpInstId, SnmpValue> map = SnmpUtils.getOidValues(agentConfig, "AccessPointMonitor::InstanceStrategy", snmpObjectId);
+            Map<SnmpInstId, SnmpValue> map = SnmpUtils.getOidValues(agentConfig,
+                                                                    "AccessPointMonitor::InstanceStrategy",
+                                                                    snmpObjectId);
 
             if (map.size() <= 0) {
                 throw new IOException("No entries found in table (possible timeout).");
@@ -131,7 +138,8 @@ public class InstanceStrategy implements AccessPointPoller {
                 // of online APs
                 if (isUp) {
                     String physAddr = getPhysAddrFromInstance(instance);
-                    LOG.debug("AP at instance '{}' with MAC '{}' is considered to be ONLINE on controller '{}'", instance, physAddr, m_iface.getIpAddress());
+                    LOG.debug("AP at instance '{}' with MAC '{}' is considered to be ONLINE on controller '{}'",
+                              instance, physAddr, m_iface.getIpAddress());
                     OnmsAccessPoint ap = m_accessPointDao.get(physAddr);
                     if (ap != null) {
                         if (ap.getPollingPackage().compareToIgnoreCase(getPackage().getName()) == 0) {

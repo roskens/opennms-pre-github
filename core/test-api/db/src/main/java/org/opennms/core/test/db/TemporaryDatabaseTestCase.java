@@ -43,15 +43,18 @@ import org.opennms.core.db.install.SimpleDataSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 /**
- * <p>For each unit test method, creates a temporary database before the unit
- * test is run and destroys the database after each test (optionally leaving
- * around the test database, either always or on a test failure).  Tests do
- * get run by default, but the system property "mock.rundbtests" can be set
- * to "false" to disable this (and the database won't be touched).</p>
- *
- * <p>If you get errors about not being able to delete a database because
- * it is in use, make sure that your tests always close their database
- * connections (even in case of failures).</p>
+ * <p>
+ * For each unit test method, creates a temporary database before the unit test
+ * is run and destroys the database after each test (optionally leaving around
+ * the test database, either always or on a test failure). Tests do get run by
+ * default, but the system property "mock.rundbtests" can be set to "false" to
+ * disable this (and the database won't be touched).
+ * </p>
+ * <p>
+ * If you get errors about not being able to delete a database because it is in
+ * use, make sure that your tests always close their database connections (even
+ * in case of failures).
+ * </p>
  *
  * @author djgregor
  */
@@ -62,18 +65,25 @@ public class TemporaryDatabaseTestCase extends TestCase {
     private static final String TEST_DB_NAME_PREFIX = "opennms_test_";
 
     private static final String RUN_PROPERTY = "mock.rundbtests";
+
     private static final String LEAVE_PROPERTY = "mock.leaveDatabase";
-    private static final String LEAVE_ON_FAILURE_PROPERTY =
-        "mock.leaveDatabaseOnFailure";
+
+    private static final String LEAVE_ON_FAILURE_PROPERTY = "mock.leaveDatabaseOnFailure";
 
     private static final String DRIVER_PROPERTY = "mock.db.driver";
+
     private static final String URL_PROPERTY = "mock.db.url";
+
     private static final String ADMIN_USER_PROPERTY = "mock.db.adminUser";
+
     private static final String ADMIN_PASSWORD_PROPERTY = "mock.db.adminPassword";
 
     private static final String DEFAULT_DRIVER = "org.postgresql.Driver";
+
     private static final String DEFAULT_URL = "jdbc:postgresql://localhost:5432/";
+
     private static final String DEFAULT_ADMIN_USER = "postgres";
+
     private static final String DEFAULT_ADMIN_PASSWORD = "";
 
     private static final int MAX_DATABASE_DROP_ATTEMPTS = 10;
@@ -81,28 +91,32 @@ public class TemporaryDatabaseTestCase extends TestCase {
     private String m_testDatabase;
 
     private boolean m_leaveDatabase = false;
+
     private boolean m_leaveDatabaseOnFailure = false;
+
     private Throwable m_throwable = null;
 
     private boolean m_destroyed = false;
 
     private String m_driver;
+
     private String m_url;
+
     private String m_adminUser;
+
     private String m_adminPassword;
 
     private DataSource m_dataSource;
+
     private DataSource m_adminDataSource;
 
     public TemporaryDatabaseTestCase() {
-        this(System.getProperty(DRIVER_PROPERTY, DEFAULT_DRIVER),
-             System.getProperty(URL_PROPERTY, DEFAULT_URL),
-             System.getProperty(ADMIN_USER_PROPERTY, DEFAULT_ADMIN_USER),
-             System.getProperty(ADMIN_PASSWORD_PROPERTY, DEFAULT_ADMIN_PASSWORD));
+        this(System.getProperty(DRIVER_PROPERTY, DEFAULT_DRIVER), System.getProperty(URL_PROPERTY, DEFAULT_URL),
+             System.getProperty(ADMIN_USER_PROPERTY, DEFAULT_ADMIN_USER), System.getProperty(ADMIN_PASSWORD_PROPERTY,
+                                                                                             DEFAULT_ADMIN_PASSWORD));
     }
 
-    public TemporaryDatabaseTestCase(String driver, String url,
-            String adminUser, String adminPassword) {
+    public TemporaryDatabaseTestCase(String driver, String url, String adminUser, String adminPassword) {
         m_driver = driver;
         m_url = url;
         m_adminUser = adminUser;
@@ -125,15 +139,12 @@ public class TemporaryDatabaseTestCase extends TestCase {
         }
 
         m_leaveDatabase = "true".equals(System.getProperty(LEAVE_PROPERTY));
-        m_leaveDatabaseOnFailure =
-            "true".equals(System.getProperty(LEAVE_ON_FAILURE_PROPERTY));
+        m_leaveDatabaseOnFailure = "true".equals(System.getProperty(LEAVE_ON_FAILURE_PROPERTY));
 
         setTestDatabase(getTestDatabaseName());
 
-        setDataSource(new SimpleDataSource(m_driver, m_url + getTestDatabase(),
-                                           m_adminUser, m_adminPassword));
-        setAdminDataSource(new SimpleDataSource(m_driver, m_url + "template1",
-                                           m_adminUser, m_adminPassword));
+        setDataSource(new SimpleDataSource(m_driver, m_url + getTestDatabase(), m_adminUser, m_adminPassword));
+        setAdminDataSource(new SimpleDataSource(m_driver, m_url + "template1", m_adminUser, m_adminPassword));
 
         createTestDatabase();
 
@@ -170,7 +181,7 @@ public class TemporaryDatabaseTestCase extends TestCase {
                 /*
                  * Do some fancy footwork to catch and reasonably report cases
                  * where both the test method and destroyTestDatabase throw
-                 * exceptions.  Otherwise, a test that fails in a really
+                 * exceptions. Otherwise, a test that fails in a really
                  * funky way may cause destroyTestDatabase() to throw an
                  * exception, which would mask the root cause, since JUnit
                  * will only report the latter exception.
@@ -261,10 +272,8 @@ public class TemporaryDatabaseTestCase extends TestCase {
     }
 
     public static void notifyTestDisabled(String testMethodName) {
-        System.out.println("Test '" + testMethodName
-                           + "' disabled.  Set '"
-                           + RUN_PROPERTY
-                           + "' property from 'false' to 'true' to enable.");
+        System.out.println("Test '" + testMethodName + "' disabled.  Set '" + RUN_PROPERTY
+                + "' property from 'false' to 'true' to enable.");
     }
 
     private void createTestDatabase() throws Exception {
@@ -272,8 +281,7 @@ public class TemporaryDatabaseTestCase extends TestCase {
         Statement st = null;
         try {
             st = adminConnection.createStatement();
-            st.execute("CREATE DATABASE " + getTestDatabase()
-                    + " WITH ENCODING='UNICODE'");
+            st.execute("CREATE DATABASE " + getTestDatabase() + " WITH ENCODING='UNICODE'");
         } finally {
             if (st != null) {
                 st.close();
@@ -287,7 +295,7 @@ public class TemporaryDatabaseTestCase extends TestCase {
             public void run() {
                 try {
                     destroyTestDatabase();
-                } catch(Throwable e) {
+                } catch (Throwable e) {
                     e.printStackTrace();
                 }
             }
@@ -301,10 +309,8 @@ public class TemporaryDatabaseTestCase extends TestCase {
             return;
         }
 
-        if (m_leaveDatabase
-                || (m_leaveDatabaseOnFailure && hasTestFailed())) {
-            System.err.println("Not dropping database '" + getTestDatabase()
-                    + "' for test '" + getName() + "'");
+        if (m_leaveDatabase || (m_leaveDatabaseOnFailure && hasTestFailed())) {
+            System.err.println("Not dropping database '" + getTestDatabase() + "' for test '" + getName() + "'");
             return;
         }
 
@@ -328,7 +334,8 @@ public class TemporaryDatabaseTestCase extends TestCase {
                     break;
                 } catch (SQLException e) {
                     if ((dropAttempt + 1) >= MAX_DATABASE_DROP_ATTEMPTS) {
-                        final String message = "Failed to drop test database on last attempt " + (dropAttempt + 1) + ": " + e;
+                        final String message = "Failed to drop test database on last attempt " + (dropAttempt + 1)
+                                + ": " + e;
                         System.err.println(new Date().toString() + ": " + message);
                         if (dataSource instanceof TemporaryDatabasePostgreSQL) {
                             TemporaryDatabasePostgreSQL.dumpThreads();
@@ -338,7 +345,8 @@ public class TemporaryDatabaseTestCase extends TestCase {
                         newException.initCause(e);
                         throw newException;
                     } else {
-                        System.err.println(new Date().toString() + ": Failed to drop test database on attempt " + (dropAttempt + 1) + ": " + e);
+                        System.err.println(new Date().toString() + ": Failed to drop test database on attempt "
+                                + (dropAttempt + 1) + ": " + e);
                         Thread.sleep(1000);
                     }
                 } finally {
@@ -357,9 +365,8 @@ public class TemporaryDatabaseTestCase extends TestCase {
             try {
                 adminConnection.close();
             } catch (SQLException e) {
-                System.err.println("Error closing administrative database "
-                                   + "connection after attempting to drop "
-                                   + "test database");
+                System.err.println("Error closing administrative database " + "connection after attempting to drop "
+                        + "test database");
                 e.printStackTrace();
             }
 
@@ -427,8 +434,7 @@ public class TemporaryDatabaseTestCase extends TestCase {
     }
 
     public void fail(String message, Throwable t) throws AssertionFailedError {
-        AssertionFailedError e = new AssertionFailedError(message + ": "
-                + t.getMessage());
+        AssertionFailedError e = new AssertionFailedError(message + ": " + t.getMessage());
         e.initCause(t);
         throw e;
     }
@@ -441,24 +447,22 @@ public class TemporaryDatabaseTestCase extends TestCase {
      */
     public class TestFailureAndTearDownErrorException extends Exception {
         private static final long serialVersionUID = -5664844942506660064L;
+
         private Throwable m_tearDownError;
 
-        public TestFailureAndTearDownErrorException(Throwable testFailure,
-                Throwable tearDownError) {
+        public TestFailureAndTearDownErrorException(Throwable testFailure, Throwable tearDownError) {
             super(testFailure);
             m_tearDownError = tearDownError;
         }
 
         @Override
         public String toString() {
-            return super.toString()
-                + "\nAlso received error on tearDown: "
-                + m_tearDownError.toString();
+            return super.toString() + "\nAlso received error on tearDown: " + m_tearDownError.toString();
         }
     }
 
     public SimpleJdbcTemplate getJdbcTemplate() {
-    	return jdbcTemplate;
+        return jdbcTemplate;
     }
 
 }

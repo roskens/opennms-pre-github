@@ -37,10 +37,13 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 public class SpringBoard implements SpringBoardMBean {
 
     private File contextDir;
+
     private FileSystemXmlApplicationContext m_context;
 
     /**
-     * <p>Getter for the field <code>contextDir</code>.</p>
+     * <p>
+     * Getter for the field <code>contextDir</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -57,7 +60,9 @@ public class SpringBoard implements SpringBoardMBean {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public void start() {
@@ -68,7 +73,9 @@ public class SpringBoard implements SpringBoardMBean {
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -78,12 +85,13 @@ public class SpringBoard implements SpringBoardMBean {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
         m_context.close();
     }
-
 
 }

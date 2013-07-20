@@ -52,7 +52,6 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         visitor.afterPropertiesSet();
     }
 
-
     public void testAfterPropertiesSetNoCount() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
 
@@ -200,9 +199,9 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         }
     }
 
-
     public class MockAttribute implements OnmsAttribute {
         private String m_name;
+
         private OnmsResource m_resource;
 
         public MockAttribute(String name) {

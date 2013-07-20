@@ -42,7 +42,8 @@ import org.opennms.netmgt.config.UserManager;
 import org.opennms.netmgt.config.users.User;
 
 /**
- * A servlet that retrieves a user's password in preparation for changing the password
+ * A servlet that retrieves a user's password in preparation for changing the
+ * password
  *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -56,10 +57,10 @@ public class NewPasswordEntryServlet extends HttpServlet {
 
     /** {@inheritDoc} */
     @Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession userSession = request.getSession(false);
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession userSession = request.getSession(false);
 
-		try {
+        try {
             UserFactory.init();
         } catch (Throwable e) {
             throw new ServletException("NewPasswordEntryServlet: Error initialising user factory." + e);
@@ -71,12 +72,11 @@ public class NewPasswordEntryServlet extends HttpServlet {
             try {
                 User user = userFactory.getUser(userid);
                 userSession.setAttribute("user.newPassword.jsp", user);
-            }
-            catch (Throwable e) {
+            } catch (Throwable e) {
                 throw new ServletException("Couldn't initialize UserFactory", e);
             }
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/account/selfService/newPassword.jsp");
             dispatcher.forward(request, response);
         }
-	}
+    }
 }

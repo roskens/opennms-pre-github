@@ -36,7 +36,9 @@ import com.google.gwt.core.client.GWT;
 import de.novanic.eventservice.client.event.Event;
 
 /**
- * <p>DefaultLocationListener class.</p>
+ * <p>
+ * DefaultLocationListener class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,34 +46,40 @@ import de.novanic.eventservice.client.event.Event;
  */
 public class DefaultLocationListener implements LocationListener {
 
-	private final MapRemoteEventHandler m_locationManager;
+    private final MapRemoteEventHandler m_locationManager;
 
-	/** {@inheritDoc} */
-        @Override
-	public void apply(final Event event) {
-		if (event == null) return;
-		if (event instanceof MapRemoteEvent) {
-			((MapRemoteEvent)event).dispatch(m_locationManager);
-		} else {
-			onEvent(event);
-		}
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void apply(final Event event) {
+        if (event == null)
+            return;
+        if (event instanceof MapRemoteEvent) {
+            ((MapRemoteEvent) event).dispatch(m_locationManager);
+        } else {
+            onEvent(event);
+        }
+    }
 
-	/**
-	 * <p>Constructor for DefaultLocationListener.</p>
-	 *
-	 * @param manager a {@link org.opennms.features.poller.remote.gwt.client.RemotePollerPresenter} object.
-	 */
-	public DefaultLocationListener(final MapRemoteEventHandler manager) {
-		m_locationManager = manager;
-	}
+    /**
+     * <p>
+     * Constructor for DefaultLocationListener.
+     * </p>
+     *
+     * @param manager
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.RemotePollerPresenter}
+     *            object.
+     */
+    public DefaultLocationListener(final MapRemoteEventHandler manager) {
+        m_locationManager = manager;
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void onEvent(final Event event) {
-		if (event == null) {
-			return;
-		}
-		GWT.log("unhandled location event received: " + event.toString());
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void onEvent(final Event event) {
+        if (event == null) {
+            return;
+        }
+        GWT.log("unhandled location event received: " + event.toString());
+    }
 }

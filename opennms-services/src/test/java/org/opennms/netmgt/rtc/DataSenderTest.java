@@ -53,22 +53,26 @@ import org.xml.sax.SAXException;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DataSenderTest {
     /*
-     * This doesn't work unless we have a receiver on the other end.... more of an integration test
+     * This doesn't work unless we have a receiver on the other end.... more of
+     * an integration test
      */
     @Test
     @Ignore
-    public void testSendData() throws MarshalException, ValidationException, IOException, FilterParseException, SAXException, SQLException, RTCException {
-        InputStream stream = ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/config/rtc-configuration.xml");
+    public void testSendData() throws MarshalException, ValidationException, IOException, FilterParseException,
+            SAXException, SQLException, RTCException {
+        InputStream stream = ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                              "/org/opennms/netmgt/config/rtc-configuration.xml");
         RTCConfigFactory.setInstance(new RTCConfigFactory(stream));
         stream.close();
 
-        Resource categoryResource = ConfigurationTestUtils.getSpringResourceForResource(this, "/org/opennms/netmgt/config/categories.xml");
+        Resource categoryResource = ConfigurationTestUtils.getSpringResourceForResource(this,
+                                                                                        "/org/opennms/netmgt/config/categories.xml");
         CategoryFactory.setInstance(new CategoryFactory(categoryResource));
 
-        stream = ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/config/test-database-schema.xml");
+        stream = ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                  "/org/opennms/netmgt/config/test-database-schema.xml");
         DatabaseSchemaConfigFactory.setInstance(new DatabaseSchemaConfigFactory(stream));
         stream.close();
-
 
         DataManager dataManager = new DataManager();
         RTCManager.setDataManager(dataManager);

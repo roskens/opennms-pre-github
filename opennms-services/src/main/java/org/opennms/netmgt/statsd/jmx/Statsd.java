@@ -31,12 +31,15 @@ package org.opennms.netmgt.statsd.jmx;
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
 
 /**
- * <p>Statsd class.</p>
+ * <p>
+ * Statsd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class Statsd extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.statsd.Statsd> implements StatsdMBean {
+public class Statsd extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.statsd.Statsd> implements
+        StatsdMBean {
     /** {@inheritDoc} */
     @Override
     protected String getLoggingPrefix() {

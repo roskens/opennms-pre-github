@@ -49,27 +49,32 @@ public class AlarmPersisterImpl implements AlarmPersister {
     private static final Logger LOG = LoggerFactory.getLogger(AlarmPersisterImpl.class);
 
     private AlarmDao m_alarmDao;
+
     private EventDao m_eventDao;
 
-    /** {@inheritDoc}
-     * @return */
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public OnmsAlarm persist(Event event) {
         if (!checkEventSanityAndDoWeProcess(event)) {
             return null;
         }
-        LOG.debug("process: {}; nodeid: {}; ipaddr: {}; serviceid: {}", event.getUei(), event.getNodeid(), event.getInterface(), event.getService());
+        LOG.debug("process: {}; nodeid: {}; ipaddr: {}; serviceid: {}", event.getUei(), event.getNodeid(),
+                  event.getInterface(), event.getService());
 
         return addOrReduceEventAsAlarm(event);
     }
 
     private OnmsAlarm addOrReduceEventAsAlarm(Event event) {
-        //TODO: Understand why we use Assert
+        // TODO: Understand why we use Assert
         Assert.notNull(event, "Incoming event was null, aborting");
         Assert.isTrue(event.getDbid() > 0, "Incoming event has an illegal dbid (" + event.getDbid() + "), aborting");
 
-
-        //for some reason when we get here the event from the DB doesn't have the LogMsg (in my tests anyway)
+        // for some reason when we get here the event from the DB doesn't have
+        // the LogMsg (in my tests anyway)
         OnmsEvent e = m_eventDao.get(event.getDbid());
         Assert.notNull(e, "Event was deleted before we could retrieve it and create an alarm.");
 
@@ -81,11 +86,12 @@ public class AlarmPersisterImpl implements AlarmPersister {
             LOG.debug("addOrReduceEventAsAlarm: reductionKey:{} not found, instantiating new alarm", reductionKey);
             alarm = createNewAlarm(e, event);
 
-            //FIXME: this should be a cascaded save
+            // FIXME: this should be a cascaded save
             m_alarmDao.save(alarm);
             m_eventDao.saveOrUpdate(e);
         } else {
-            LOG.debug("addOrReduceEventAsAlarm: reductionKey:{} found, reducing event to existing alarm: {}", reductionKey, alarm.getIpAddr());
+            LOG.debug("addOrReduceEventAsAlarm: reductionKey:{} found, reducing event to existing alarm: {}",
+                      reductionKey, alarm.getIpAddr());
             reduceEvent(e, alarm, event);
             m_alarmDao.update(alarm);
             m_eventDao.update(e);
@@ -100,21 +106,22 @@ public class AlarmPersisterImpl implements AlarmPersister {
 
     private static void reduceEvent(OnmsEvent e, OnmsAlarm alarm, Event event) {
 
-        //Always set these
+        // Always set these
         alarm.setLastEvent(e);
         alarm.setLastEventTime(e.getEventTime());
         alarm.setCounter(alarm.getCounter() + 1);
 
         if (!event.getAlarmData().hasUpdateFields()) {
 
-            //We always set these even if there are not update fields specified
+            // We always set these even if there are not update fields specified
             alarm.setLogMsg(e.getEventLogMsg());
             alarm.setEventParms(e.getEventParms());
         } else {
 
             for (UpdateField field : event.getAlarmData().getUpdateFieldList()) {
 
-                //Always set these, unless specified not to, in order to maintain current behavior
+                // Always set these, unless specified not to, in order to
+                // maintain current behavior
                 if (field.getFieldName().equalsIgnoreCase("LogMsg") && field.isUpdateOnReduction() == false) {
                     continue;
                 } else {
@@ -127,8 +134,7 @@ public class AlarmPersisterImpl implements AlarmPersister {
                     alarm.setEventParms(e.getEventParms());
                 }
 
-
-                //Set these others
+                // Set these others
                 if (field.isUpdateOnReduction()) {
 
                     if (field.getFieldName().toLowerCase().startsWith("distpoller")) {
@@ -148,16 +154,21 @@ public class AlarmPersisterImpl implements AlarmPersister {
                         LOG.warn("reduceEvent: The specified field: {}, is not supported.", field.getFieldName());
                     }
 
-                    /* This doesn't work because the properties are not consistent from OnmsEvent to OnmsAlarm
-                    try {
-                        final BeanWrapper ew = PropertyAccessorFactory.forBeanPropertyAccess(e);
-                        final BeanWrapper aw = PropertyAccessorFactory.forBeanPropertyAccess(alarm);
-                        aw.setPropertyValue(field.getFieldName(), ew.getPropertyValue(field.getFieldName()));
-                    } catch (BeansException be) {
-                        LOG.error("reduceEvent", be);
-                        continue;
-                    }
-                    */
+                    /*
+                     * This doesn't work because the properties are not
+                     * consistent from OnmsEvent to OnmsAlarm
+                     * try {
+                     * final BeanWrapper ew =
+                     * PropertyAccessorFactory.forBeanPropertyAccess(e);
+                     * final BeanWrapper aw =
+                     * PropertyAccessorFactory.forBeanPropertyAccess(alarm);
+                     * aw.setPropertyValue(field.getFieldName(),
+                     * ew.getPropertyValue(field.getFieldName()));
+                     * } catch (BeansException be) {
+                     * LOG.error("reduceEvent", be);
+                     * continue;
+                     * }
+                     */
 
                 }
             }
@@ -187,11 +198,14 @@ public class AlarmPersisterImpl implements AlarmPersister {
         alarm.setOperInstruct(e.getEventOperInstruct());
         alarm.setReductionKey(event.getAlarmData().getReductionKey());
         alarm.setServiceType(e.getServiceType());
-        alarm.setSeverity(OnmsSeverity.get(e.getEventSeverity())); //TODO: what to do?
-        alarm.setSuppressedUntil(e.getEventTime()); //TODO: fix UI to not require this be set
-        alarm.setSuppressedTime(e.getEventTime()); //TODO: Fix UI to not require this be set
-        //alarm.setTTicketId(e.getEventTTicket());
-        //alarm.setTTicketState(TroubleTicketState.CANCEL_FAILED);  //FIXME
+        alarm.setSeverity(OnmsSeverity.get(e.getEventSeverity())); // TODO: what
+                                                                   // to do?
+        alarm.setSuppressedUntil(e.getEventTime()); // TODO: fix UI to not
+                                                    // require this be set
+        alarm.setSuppressedTime(e.getEventTime()); // TODO: Fix UI to not
+                                                   // require this be set
+        // alarm.setTTicketId(e.getEventTTicket());
+        // alarm.setTTicketState(TroubleTicketState.CANCEL_FAILED); //FIXME
         alarm.setUei(e.getEventUei());
         e.setAlarm(alarm);
         return alarm;
@@ -200,10 +214,13 @@ public class AlarmPersisterImpl implements AlarmPersister {
     private static boolean checkEventSanityAndDoWeProcess(final Event event) {
         Assert.notNull(event, "event argument must not be null");
 
-        //Events that are marked donotpersist have a dbid of 0
-        //Assert.isTrue(event.getDbid() > 0, "event does not have a dbid");//TODO: figure out what happens when this exception is thrown
+        // Events that are marked donotpersist have a dbid of 0
+        // Assert.isTrue(event.getDbid() > 0,
+        // "event does not have a dbid");//TODO: figure out what happens when
+        // this exception is thrown
 
-        if (event.getLogmsg() != null && event.getLogmsg().getDest() != null && "donotpersist".equals(event.getLogmsg().getDest())) {
+        if (event.getLogmsg() != null && event.getLogmsg().getDest() != null
+                && "donotpersist".equals(event.getLogmsg().getDest())) {
             LOG.debug("checkEventSanity: uei '{}' marked as 'donotpersist'; not processing event.", event.getUei());
             return false;
         }
@@ -216,16 +233,21 @@ public class AlarmPersisterImpl implements AlarmPersister {
     }
 
     /**
-     * <p>setAlarmDao</p>
+     * <p>
+     * setAlarmDao
+     * </p>
      *
-     * @param alarmDao a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
+     * @param alarmDao
+     *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
      */
     public void setAlarmDao(AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
     }
 
     /**
-     * <p>getAlarmDao</p>
+     * <p>
+     * getAlarmDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
      */
@@ -234,16 +256,21 @@ public class AlarmPersisterImpl implements AlarmPersister {
     }
 
     /**
-     * <p>setEventDao</p>
+     * <p>
+     * setEventDao
+     * </p>
      *
-     * @param eventDao a {@link org.opennms.netmgt.dao.api.EventDao} object.
+     * @param eventDao
+     *            a {@link org.opennms.netmgt.dao.api.EventDao} object.
      */
     public void setEventDao(EventDao eventDao) {
         m_eventDao = eventDao;
     }
 
     /**
-     * <p>getEventDao</p>
+     * <p>
+     * getEventDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.EventDao} object.
      */

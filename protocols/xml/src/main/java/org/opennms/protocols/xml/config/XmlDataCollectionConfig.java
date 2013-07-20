@@ -50,7 +50,7 @@ import org.opennms.netmgt.model.RrdRepository;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="xml-datacollection-config")
+@XmlRootElement(name = "xml-datacollection-config")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlDataCollectionConfig implements Serializable, Comparable<XmlDataCollectionConfig> {
 
@@ -65,11 +65,11 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
     private static final XmlDataCollection[] OF_DATA_COLLECTIONS = new XmlDataCollection[0];
 
     /** The XML data collections list. */
-    @XmlElement(name="xml-collection")
+    @XmlElement(name = "xml-collection")
     private List<XmlDataCollection> m_xmlDataCollections = new ArrayList<XmlDataCollection>();
 
     /** The RRD Repository. */
-    @XmlAttribute(name="rrdRepository")
+    @XmlAttribute(name = "rrdRepository")
     private String m_rrdRepository;
 
     /**
@@ -91,7 +91,8 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
     /**
      * Sets the XML data collections.
      *
-     * @param xmlDataCollections the new XML data collections
+     * @param xmlDataCollections
+     *            the new XML data collections
      */
     public void setXmlDataCollections(List<XmlDataCollection> xmlDataCollections) {
         m_xmlDataCollections = xmlDataCollections;
@@ -109,7 +110,8 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
     /**
      * Sets the RRD repository.
      *
-     * @param rrdRepository the new RRD repository
+     * @param rrdRepository
+     *            the new RRD repository
      */
     public void setRrdRepository(String rrdRepository) {
         m_rrdRepository = rrdRepository;
@@ -118,7 +120,8 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
     /**
      * Adds the data collection.
      *
-     * @param dataCollection the data collection
+     * @param dataCollection
+     *            the data collection
      */
     public void addDataCollection(XmlDataCollection dataCollection) {
         m_xmlDataCollections.add(dataCollection);
@@ -127,7 +130,8 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
     /**
      * Removes the data collection.
      *
-     * @param dataCollection the data collection
+     * @param dataCollection
+     *            the data collection
      */
     public void removeDataCollection(XmlDataCollection dataCollection) {
         m_xmlDataCollections.remove(dataCollection);
@@ -136,12 +140,13 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
     /**
      * Removes the data collection by name.
      *
-     * @param name the name
+     * @param name
+     *            the name
      */
     public void removeDataCollectionByName(String name) {
-        for (Iterator<XmlDataCollection> itr = m_xmlDataCollections.iterator(); itr.hasNext(); ) {
+        for (Iterator<XmlDataCollection> itr = m_xmlDataCollections.iterator(); itr.hasNext();) {
             XmlDataCollection dataCollection = itr.next();
-            if(dataCollection.getName().equals(name)) {
+            if (dataCollection.getName().equals(name)) {
                 m_xmlDataCollections.remove(dataCollection);
                 return;
             }
@@ -151,12 +156,13 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
     /**
      * Gets the data collection by name.
      *
-     * @param name the name
+     * @param name
+     *            the name
      * @return the data collection by name
      */
     public XmlDataCollection getDataCollectionByName(String name) {
-        for (XmlDataCollection dataCol :  m_xmlDataCollections) {
-            if(dataCol.getName().equals(name)) {
+        for (XmlDataCollection dataCol : m_xmlDataCollections) {
+            if (dataCol.getName().equals(name)) {
                 return dataCol;
             }
         }
@@ -166,7 +172,8 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
     /**
      * Builds the RRD repository.
      *
-     * @param collectionName the collection name
+     * @param collectionName
+     *            the collection name
      * @return the RRD repository
      */
     public RrdRepository buildRrdRepository(String collectionName) {
@@ -182,28 +189,26 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
         return repo;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
     public int compareTo(XmlDataCollectionConfig obj) {
-        return new CompareToBuilder()
-        .append(getRrdRepository(), obj.getRrdRepository())
-        .append(getXmlDataCollections().toArray(OF_DATA_COLLECTIONS), obj.getXmlDataCollections().toArray(OF_DATA_COLLECTIONS))
-        .toComparison();
+        return new CompareToBuilder().append(getRrdRepository(), obj.getRrdRepository()).append(getXmlDataCollections().toArray(OF_DATA_COLLECTIONS),
+                                                                                                obj.getXmlDataCollections().toArray(OF_DATA_COLLECTIONS)).toComparison();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof XmlDataCollectionConfig) {
             XmlDataCollectionConfig other = (XmlDataCollectionConfig) obj;
-            return new EqualsBuilder()
-            .append(getRrdRepository(), other.getRrdRepository())
-            .append(getXmlDataCollections().toArray(OF_DATA_COLLECTIONS), other.getXmlDataCollections().toArray(OF_DATA_COLLECTIONS))
-            .isEquals();
+            return new EqualsBuilder().append(getRrdRepository(), other.getRrdRepository()).append(getXmlDataCollections().toArray(OF_DATA_COLLECTIONS),
+                                                                                                   other.getXmlDataCollections().toArray(OF_DATA_COLLECTIONS)).isEquals();
         }
         return false;
     }

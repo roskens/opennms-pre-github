@@ -41,15 +41,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>NsclientClient class.</p>
+ * <p>
+ * NsclientClient class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
  */
 public class NsclientClient implements Client<NsclientRequest, NsclientPacket> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NsclientClient.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(NsclientClient.class);
 
     private String password;
 
@@ -86,7 +87,7 @@ public class NsclientClient implements Client<NsclientRequest, NsclientPacket> {
                 message.append("sendRequest: Check failed... NsclientManager returned exception: ");
                 message.append(e.getMessage());
                 message.append(" : ");
-                message.append((e.getCause() == null ? "": e.getCause().getMessage()));
+                message.append((e.getCause() == null ? "" : e.getCause().getMessage()));
                 LOG.info(message.toString());
                 isAServer = false;
             }

@@ -38,9 +38,13 @@ import org.jrobin.core.RrdDb;
 
 public class RrdDatabase extends BaseRrdDataSource {
     private final RrdDb m_rrd;
+
     private final SortedSet<RrdArchive> m_archives;
+
     private final long m_endTime;
+
     private final long m_startTime;
+
     private final long m_step;
 
     public RrdDatabase(final RrdDb rrd) throws IOException {
@@ -92,11 +96,15 @@ public class RrdDatabase extends BaseRrdDataSource {
     }
 
     public RrdEntry getDataAt(final long timestamp) throws IOException {
-        if (LogUtils.isTraceEnabled(this)) LogUtils.tracef(this, "archives size = %d", m_archives.size());
+        if (LogUtils.isTraceEnabled(this))
+            LogUtils.tracef(this, "archives size = %d", m_archives.size());
         for (final RrdArchive archive : m_archives) {
-            if (LogUtils.isTraceEnabled(this)) LogUtils.tracef(this, "trying archive %s", archive);
+            if (LogUtils.isTraceEnabled(this))
+                LogUtils.tracef(this, "trying archive %s", archive);
             if (archive.isValidTimestamp(timestamp)) {
-                if (LogUtils.isTraceEnabled(this)) LogUtils.tracef(this, "%s <= %d < %d", archive.getStartTime(), timestamp, archive.getEndTime() + getNativeStep());
+                if (LogUtils.isTraceEnabled(this))
+                    LogUtils.tracef(this, "%s <= %d < %d", archive.getStartTime(), timestamp, archive.getEndTime()
+                            + getNativeStep());
                 return archive.getDataAt(timestamp);
             }
         }
@@ -108,8 +116,6 @@ public class RrdDatabase extends BaseRrdDataSource {
     }
 
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("rrd", m_rrd)
-            .toString();
+        return new ToStringBuilder(this).append("rrd", m_rrd).toString();
     }
 }

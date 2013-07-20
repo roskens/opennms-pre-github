@@ -34,34 +34,34 @@ import javax.xml.bind.JAXBException;
 
 public interface GraphProvider extends VertexProvider, EdgeProvider {
 
-	void save();
+    void save();
 
-	void load(String filename) throws MalformedURLException, JAXBException;
+    void load(String filename) throws MalformedURLException, JAXBException;
 
     public void refresh();
 
-	void resetContainer();
+    void resetContainer();
 
-	void addVertices(Vertex... vertices);
+    void addVertices(Vertex... vertices);
 
-	void removeVertex(VertexRef... vertexId);
+    void removeVertex(VertexRef... vertexId);
 
-	/**
-	 * @deprecated Convert calls to this to addVertices
-	 */
-	Vertex addVertex(int x, int y);
+    /**
+     * @deprecated Convert calls to this to addVertices
+     */
+    Vertex addVertex(int x, int y);
 
-	Vertex addGroup(String label, String iconKey);
+    Vertex addGroup(String label, String iconKey);
 
-	EdgeRef[] getEdgeIdsForVertex(VertexRef vertex);
+    EdgeRef[] getEdgeIdsForVertex(VertexRef vertex);
 
-	void addEdges(Edge... edges);
+    void addEdges(Edge... edges);
 
-	void removeEdges(EdgeRef... edges);
+    void removeEdges(EdgeRef... edges);
 
-        @Override
-	boolean setParent(VertexRef vertexId, VertexRef parentId);
+    @Override
+    boolean setParent(VertexRef vertexId, VertexRef parentId);
 
-	Edge connectVertices(VertexRef sourceVertextId, VertexRef targetVertextId);
+    Edge connectVertices(VertexRef sourceVertextId, VertexRef targetVertextId);
 
 }

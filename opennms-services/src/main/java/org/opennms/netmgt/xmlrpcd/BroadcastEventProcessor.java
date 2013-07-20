@@ -42,7 +42,6 @@ import org.opennms.netmgt.model.events.EventListener;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:jamesz@opennms.com">James Zuo </a>
@@ -75,7 +74,8 @@ final class BroadcastEventProcessor implements EventListener {
     /**
      * Create message selector to set to the subscription
      */
-    BroadcastEventProcessor(final String nameSuffix, final FifoQueue<Event> eventQ, final int maxQSize, final List<SubscribedEvent> eventList) {
+    BroadcastEventProcessor(final String nameSuffix, final FifoQueue<Event> eventQ, final int maxQSize,
+            final List<SubscribedEvent> eventList) {
         m_nameSuffix = nameSuffix;
 
         // Create the selector for the ueis this service is interested in
@@ -102,15 +102,14 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is invoked by the EventIpcManager when a new event is
+     * {@inheritDoc} This method is invoked by the EventIpcManager when a new
+     * event is
      * available for processing. Each message is examined for its Universal
      * Event Identifier and the appropriate action is taking based on each UEI.
      */
     @Override
     public void onEvent(final Event event) {
-    	final String eventUei = event.getUei();
+        final String eventUei = event.getUei();
         if (eventUei == null) {
             return;
         }
@@ -130,7 +129,7 @@ final class BroadcastEventProcessor implements EventListener {
                 LOG.debug("Event {} added to event queue", eventUei);
             }
         } catch (final InterruptedException ex) {
-		LOG.error("Failed to process event", ex);
+            LOG.error("Failed to process event", ex);
             return;
         } catch (final FifoQueueException ex) {
             LOG.error("Failed to process event", ex);

@@ -75,7 +75,7 @@ public class NewPasswordActionServlet extends HttpServlet {
             throw new ServletException("User " + user.getUserId() + " is read-only");
         }
 
-        if (! userFactory.comparePasswords(user.getUserId(), currentPassword)) {
+        if (!userFactory.comparePasswords(user.getUserId(), currentPassword)) {
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/account/selfService/newPassword.jsp?action=redo");
             dispatcher.forward(request, response);
         } else {
@@ -86,10 +86,9 @@ public class NewPasswordActionServlet extends HttpServlet {
 
             userSession.setAttribute("user.newPassword.jsp", user);
             try {
-            	userFactory.saveUser(user.getUserId(), user);
-            }
-            catch (Throwable e) {
-            	throw new ServletException("Error saving user " + user.getUserId(), e);
+                userFactory.saveUser(user.getUserId(), user);
+            } catch (Throwable e) {
+                throw new ServletException("Error saving user " + user.getUserId(), e);
             }
 
             // forward the request for proper display

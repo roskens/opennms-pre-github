@@ -69,7 +69,6 @@ public class IPPollAddress {
      *            The timeout between retries in 1/1000th of a second.
      * @param retries
      *            The number of times to attempt to contact the address.
-     *
      */
     public IPPollAddress(final InetAddress ipAddress, final long timeout, final int retries) {
         m_address = ipAddress;
@@ -114,17 +113,21 @@ public class IPPollAddress {
      * equal in address, timeout, and the number of retries.
      * </P>
      *
-     * @return True if the objects are logically equal. False is returned otherwise.
-     * @param pollAddr a {@link org.opennms.netmgt.model.discovery.IPPollAddress} object.
+     * @return True if the objects are logically equal. False is returned
+     *         otherwise.
+     * @param pollAddr
+     *            a {@link org.opennms.netmgt.model.discovery.IPPollAddress}
+     *            object.
      */
     @Override
     public boolean equals(final Object object) {
         if (object instanceof IPPollAddress) {
-            IPPollAddress pollAddr = (IPPollAddress)object;
+            IPPollAddress pollAddr = (IPPollAddress) object;
             if (pollAddr != null) {
                 if (pollAddr == this) {
                     return true;
-                } else if (pollAddr.getAddress().equals(m_address) && pollAddr.getRetries() == m_retries && pollAddr.getTimeout() == m_timeout) {
+                } else if (pollAddr.getAddress().equals(m_address) && pollAddr.getRetries() == m_retries
+                        && pollAddr.getTimeout() == m_timeout) {
                     return true;
                 }
             }
@@ -134,10 +137,7 @@ public class IPPollAddress {
 
     @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("address", m_address)
-    		.append("retries", m_retries)
-    		.append("timeout", m_timeout)
-    		.toString();
+        return new ToStringBuilder(this).append("address", m_address).append("retries", m_retries).append("timeout",
+                                                                                                          m_timeout).toString();
     }
 }

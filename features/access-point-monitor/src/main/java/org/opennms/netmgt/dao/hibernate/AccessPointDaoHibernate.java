@@ -73,7 +73,8 @@ public class AccessPointDaoHibernate extends AbstractDaoHibernate<OnmsAccessPoin
         final HibernateCallback<List<String>> callback = new HibernateCallback<List<String>>() {
             @Override
             public List<String> doInHibernate(final Session session) throws SQLException {
-                return session.createCriteria(OnmsAccessPoint.class).setProjection(Projections.groupProperty("pollingPackage")).add(Restrictions.like("pollingPackage", pkg)).list();
+                return session.createCriteria(OnmsAccessPoint.class).setProjection(Projections.groupProperty("pollingPackage")).add(Restrictions.like("pollingPackage",
+                                                                                                                                                      pkg)).list();
             }
         };
         return getHibernateTemplate().executeFind(callback);

@@ -33,25 +33,19 @@ import com.vaadin.data.Validator;
 import org.junit.Test;
 
 /**
- *
  * @author Markus von Rüden
  */
 public class AttributeNameValidatorTest {
 
-	@Test
-	public void testValidate() {
-		final String[] OK = new String[]{
-			"com", "comwebserver", "someEntry",
-			"HELLOWORLD", "HellowoRlD", "a", "ab"
-			};
-		final String[] FAIL = new String[]{
-			"", ".", ".org", "opennms.", ".serviceopennms.org", "servicename!",
-			"someadditional-entry", "some_Entry",
-			"com.java.op-erating-system","some.entry.separated.by_.dots.a__.lot.of_.dots",
-			"ab.cd", "a.bc", "ab.c",
-			"service name", "service,name", "service, name", "straße", "schädel", "hühner", "hölle"};
-		Validator validator = new AttributeNameValidator();
-		MBeansNameValidatorTest.validate(validator, OK, true);
-		MBeansNameValidatorTest.validate(validator, FAIL, false);
-	}
+    @Test
+    public void testValidate() {
+        final String[] OK = new String[] { "com", "comwebserver", "someEntry", "HELLOWORLD", "HellowoRlD", "a", "ab" };
+        final String[] FAIL = new String[] { "", ".", ".org", "opennms.", ".serviceopennms.org", "servicename!",
+                "someadditional-entry", "some_Entry", "com.java.op-erating-system",
+                "some.entry.separated.by_.dots.a__.lot.of_.dots", "ab.cd", "a.bc", "ab.c", "service name",
+                "service,name", "service, name", "straße", "schädel", "hühner", "hölle" };
+        Validator validator = new AttributeNameValidator();
+        MBeansNameValidatorTest.validate(validator, OK, true);
+        MBeansNameValidatorTest.validate(validator, FAIL, false);
+    }
 }

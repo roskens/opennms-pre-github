@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -42,11 +41,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -65,30 +65,26 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "id",
-    "idtext",
-    "version",
-    "specific",
-    "generic",
-    "community",
-    "timeStamp"
-})
+@XmlType(name = "", propOrder = { "id", "idtext", "version", "specific", "generic", "community", "timeStamp" })
 @XmlRootElement(name = "snmp")
 public class Snmp {
 
     @XmlElement(required = true)
     protected String id;
+
     protected String idtext;
+
     @XmlElement(required = true)
     protected String version;
+
     protected Integer specific;
+
     protected Integer generic;
+
     protected String community;
+
     @XmlElement(name = "time-stamp")
     protected Long timeStamp;
 
@@ -96,9 +92,7 @@ public class Snmp {
      * Gets the value of the id property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getId() {
         return id;
@@ -108,9 +102,7 @@ public class Snmp {
      * Sets the value of the id property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setId(String value) {
         this.id = value;
@@ -120,9 +112,7 @@ public class Snmp {
      * Gets the value of the idtext property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getIdtext() {
         return idtext;
@@ -132,9 +122,7 @@ public class Snmp {
      * Sets the value of the idtext property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setIdtext(String value) {
         this.idtext = value;
@@ -144,9 +132,7 @@ public class Snmp {
      * Gets the value of the version property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getVersion() {
         return version;
@@ -156,9 +142,7 @@ public class Snmp {
      * Sets the value of the version property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setVersion(String value) {
         this.version = value;
@@ -168,9 +152,7 @@ public class Snmp {
      * Gets the value of the specific property.
      *
      * @return
-     *     possible object is
-     *     {@link Integer }
-     *
+     *         possible object is {@link Integer }
      */
     public Integer getSpecific() {
         return specific;
@@ -180,9 +162,7 @@ public class Snmp {
      * Sets the value of the specific property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *
+     *            allowed object is {@link Integer }
      */
     public void setSpecific(Integer value) {
         this.specific = value;
@@ -192,9 +172,7 @@ public class Snmp {
      * Gets the value of the generic property.
      *
      * @return
-     *     possible object is
-     *     {@link Integer }
-     *
+     *         possible object is {@link Integer }
      */
     public Integer getGeneric() {
         return generic;
@@ -204,9 +182,7 @@ public class Snmp {
      * Sets the value of the generic property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *
+     *            allowed object is {@link Integer }
      */
     public void setGeneric(Integer value) {
         this.generic = value;
@@ -216,9 +192,7 @@ public class Snmp {
      * Gets the value of the community property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getCommunity() {
         return community;
@@ -228,9 +202,7 @@ public class Snmp {
      * Sets the value of the community property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setCommunity(String value) {
         this.community = value;
@@ -240,9 +212,7 @@ public class Snmp {
      * Gets the value of the timeStamp property.
      *
      * @return
-     *     possible object is
-     *     {@link Long }
-     *
+     *         possible object is {@link Long }
      */
     public Long getTimeStamp() {
         return timeStamp;
@@ -252,9 +222,7 @@ public class Snmp {
      * Sets the value of the timeStamp property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Long }
-     *
+     *            allowed object is {@link Long }
      */
     public void setTimeStamp(Long value) {
         this.timeStamp = value;

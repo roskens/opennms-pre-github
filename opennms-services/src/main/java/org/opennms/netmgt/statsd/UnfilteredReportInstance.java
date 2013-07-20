@@ -43,50 +43,72 @@ import org.opennms.netmgt.model.AttributeStatisticVisitorWithResults;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * <p>UnfilteredReportInstance class.</p>
+ * <p>
+ * UnfilteredReportInstance class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class UnfilteredReportInstance extends AbstractReportInstance implements ReportInstance, InitializingBean {
     private final AttributeStatisticVisitorWithResults m_attributeStatisticVisitor;
+
     private final RrdStatisticAttributeVisitor m_rrdVisitor = new RrdStatisticAttributeVisitor();
+
     private final AttributeMatchingResourceVisitor m_attributeVisitor = new AttributeMatchingResourceVisitor();
+
     private final ResourceTypeFilteringResourceVisitor m_resourceTypeVisitor = new ResourceTypeFilteringResourceVisitor();
+
     private final ResourceTreeWalker m_walker = new ResourceTreeWalker();
+
     private String m_resourceAttributeKey;
+
     private String m_resourceAttributeValueMatch;
+
     private ResourceAttributeFilteringResourceVisitor m_resourceAttributeVisitor;
 
     /**
-     * <p>Constructor for UnfilteredReportInstance.</p>
+     * <p>
+     * Constructor for UnfilteredReportInstance.
+     * </p>
      *
-     * @param visitor a {@link org.opennms.netmgt.model.AttributeStatisticVisitorWithResults} object.
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.model.AttributeStatisticVisitorWithResults}
+     *            object.
      */
     public UnfilteredReportInstance(AttributeStatisticVisitorWithResults visitor) {
         m_attributeStatisticVisitor = visitor;
     }
 
     /**
-     * <p>setResourceDao</p>
+     * <p>
+     * setResourceDao
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
     public void setResourceDao(ResourceDao resourceDao) {
         m_walker.setResourceDao(resourceDao);
     }
 
     /**
-     * <p>setRrdDao</p>
+     * <p>
+     * setRrdDao
+     * </p>
      *
-     * @param rrdDao a {@link org.opennms.netmgt.dao.api.RrdDao} object.
+     * @param rrdDao
+     *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
     public void setRrdDao(RrdDao rrdDao) {
         m_rrdVisitor.setRrdDao(rrdDao);
     }
 
     /**
-     * <p>walk</p>
+     * <p>
+     * walk
+     * </p>
      */
     @Override
     public void walk() {
@@ -96,7 +118,9 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
     }
 
     /**
-     * <p>getResults</p>
+     * <p>
+     * getResults
+     * </p>
      *
      * @return a {@link java.util.SortedSet} object.
      */
@@ -105,11 +129,14 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         return m_attributeStatisticVisitor.getResults();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#getResourceTypeMatch()
      */
     /**
-     * <p>getResourceTypeMatch</p>
+     * <p>
+     * getResourceTypeMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,8 +145,10 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         return m_resourceTypeVisitor.getResourceTypeMatch();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.topn.Report#setResourceTypeMatch(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.topn.Report#setResourceTypeMatch(java.lang.String)
      */
     /** {@inheritDoc} */
     @Override
@@ -127,11 +156,14 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         m_resourceTypeVisitor.setResourceTypeMatch(resourceType);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#getAttributeMatch()
      */
     /**
-     * <p>getAttributeMatch</p>
+     * <p>
+     * getAttributeMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,7 +172,8 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         return m_attributeVisitor.getAttributeMatch();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#setAttributeMatch(java.lang.String)
      */
     /** {@inheritDoc} */
@@ -149,11 +182,14 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         m_attributeVisitor.setAttributeMatch(attr);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#getStartTime()
      */
     /**
-     * <p>getStartTime</p>
+     * <p>
+     * getStartTime
+     * </p>
      *
      * @return a long.
      */
@@ -162,7 +198,8 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         return m_rrdVisitor.getStartTime();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#setStartTime(long)
      */
     /** {@inheritDoc} */
@@ -171,11 +208,14 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         m_rrdVisitor.setStartTime(start);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#getEndTime()
      */
     /**
-     * <p>getEndTime</p>
+     * <p>
+     * getEndTime
+     * </p>
      *
      * @return a long.
      */
@@ -184,7 +224,8 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         return m_rrdVisitor.getEndTime();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#setEndTime(long)
      */
     /** {@inheritDoc} */
@@ -193,11 +234,14 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         m_rrdVisitor.setEndTime(end);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#getConsolidationFunction()
      */
     /**
-     * <p>getConsolidationFunction</p>
+     * <p>
+     * getConsolidationFunction
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -206,8 +250,10 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         return m_rrdVisitor.getConsolidationFunction();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.topn.Report#setConsolidationFunction(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.topn.Report#setConsolidationFunction(java.lang.String)
      */
     /** {@inheritDoc} */
     @Override
@@ -215,11 +261,14 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         m_rrdVisitor.setConsolidationFunction(cf);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#getCount()
      */
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a int.
      */
@@ -228,7 +277,8 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         return m_attributeStatisticVisitor.getCount();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#setCount(int)
      */
     /** {@inheritDoc} */
@@ -237,11 +287,14 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
         m_attributeStatisticVisitor.setCount(count);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#afterPropertiesSet()
      */
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -284,7 +337,9 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
     }
 
     /**
-     * <p>getResourceAttributeKey</p>
+     * <p>
+     * getResourceAttributeKey
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -294,7 +349,9 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
     }
 
     /**
-     * <p>getResourceAttributeValueMatch</p>
+     * <p>
+     * getResourceAttributeValueMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

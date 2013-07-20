@@ -37,16 +37,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * <p>Provisioner class.</p>
+ * <p>
+ * Provisioner class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Provisioner implements ProvisionerMBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Provisioner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Provisioner.class);
 
     private ClassPathXmlApplicationContext m_context;
+
     int m_status = Fiber.START_PENDING;
 
     // used only for testing
@@ -55,7 +58,9 @@ public class Provisioner implements ProvisionerMBean {
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
@@ -63,7 +68,9 @@ public class Provisioner implements ProvisionerMBean {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public void start() {
@@ -75,13 +82,14 @@ public class Provisioner implements ProvisionerMBean {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
         m_status = Fiber.STOP_PENDING;
         m_context.close();
-
 
         m_status = Fiber.STOPPED;
     }
@@ -97,7 +105,9 @@ public class Provisioner implements ProvisionerMBean {
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,7 +117,9 @@ public class Provisioner implements ProvisionerMBean {
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

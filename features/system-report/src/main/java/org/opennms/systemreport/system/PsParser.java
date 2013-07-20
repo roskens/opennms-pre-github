@@ -41,10 +41,15 @@ import org.slf4j.LoggerFactory;
 
 public final class PsParser extends Thread {
     private static final Logger LOG = LoggerFactory.getLogger(PsParser.class);
+
     private final Set<Integer> m_processes = Collections.synchronizedSet(new HashSet<Integer>());
+
     private DataInputStream m_input;
+
     private final String m_matchText;
+
     private final String m_skipText;
+
     private final int m_matchField;
 
     public PsParser(final DataInputStream input, final String matchText, String skipText, final int matchField) {
@@ -81,10 +86,12 @@ public final class PsParser extends Thread {
             if (e.getMessage().contains("Write end dead")) {
                 // ignore this, the stream is finished
             } else {
-                LOG.debug("An error occurred matching '{}' for field '{}' in the input stream.", m_matchText, m_matchField, e);
+                LOG.debug("An error occurred matching '{}' for field '{}' in the input stream.", m_matchText,
+                          m_matchField, e);
             }
         } catch (final Exception e) {
-            LOG.debug("An error occurred matching '{}' for field '{}' in the input stream.", m_matchText, m_matchField, e);
+            LOG.debug("An error occurred matching '{}' for field '{}' in the input stream.", m_matchText, m_matchField,
+                      e);
         }
     }
 

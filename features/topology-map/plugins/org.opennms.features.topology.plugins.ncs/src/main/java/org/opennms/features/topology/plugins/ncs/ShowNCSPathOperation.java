@@ -39,26 +39,30 @@ import com.vaadin.ui.Window;
 
 public class ShowNCSPathOperation implements Operation {
 
-
     private NCSEdgeProvider m_ncsEdgeProvider;
+
     private NCSPathProviderService m_ncsPathProvider;
+
     private NCSComponentRepository m_dao;
+
     private NodeDao m_nodeDao;
+
     private NCSServiceCriteria m_storedCriteria;
+
     private NCSCriteriaServiceManager m_serviceManager;
 
     @Override
     public Undoer execute(List<VertexRef> targets, final OperationContext operationContext) {
-        //Get the current NCS criteria from here you can get the foreignIds foreignSource and deviceA and Z
+        // Get the current NCS criteria from here you can get the foreignIds
+        // foreignSource and deviceA and Z
         final NCSServiceCriteria criteria = (NCSServiceCriteria) operationContext.getGraphContainer().getCriteria(m_ncsEdgeProvider.getEdgeNamespace());
-        if(criteria.size() > 0) {
+        if (criteria.size() > 0) {
             m_storedCriteria = criteria;
         }
 
-
         final VertexRef defaultVertRef = targets.get(0);
         final SelectionManager selectionManager = operationContext.getGraphContainer().getSelectionManager();
-        final Collection<VertexRef> vertexRefs = getVertexRefsForNCSService(m_storedCriteria); //selectionManager.getSelectedVertexRefs();
+        final Collection<VertexRef> vertexRefs = getVertexRefsForNCSService(m_storedCriteria); // selectionManager.getSelectedVertexRefs();
 
         final UI mainWindow = operationContext.getMainWindow();
 
@@ -68,11 +72,10 @@ public class ShowNCSPathOperation implements Operation {
         ncsPathPrompt.setWidth("300px");
         ncsPathPrompt.setHeight("220px");
 
-        //Items used in form field
+        // Items used in form field
         final PropertysetItem item = new PropertysetItem();
         item.addItemProperty("Device A", new ObjectProperty<String>("", String.class));
         item.addItemProperty("Device Z", new ObjectProperty<String>("", String.class));
-
 
         FormFieldFactory fieldFactory = new FormFieldFactory() {
             private static final long serialVersionUID = 1L;
@@ -82,7 +85,7 @@ public class ShowNCSPathOperation implements Operation {
                 String pid = (String) propertyId;
 
                 Select select = new Select();
-                for(VertexRef vertRef : vertexRefs) {
+                for (VertexRef vertRef : vertexRefs) {
                     select.addItem(vertRef.getId());
                     select.setItemCaption(vertRef.getId(), vertRef.getLabel());
                 }
@@ -91,7 +94,7 @@ public class ShowNCSPathOperation implements Operation {
                 select.setImmediate(true);
                 select.setScrollToSelectedItem(true);
 
-                if("Device A".equals(pid)) {
+                if ("Device A".equals(pid)) {
                     select.setCaption("Device A");
                 } else {
                     select.setCaption("Device Z");
@@ -105,16 +108,17 @@ public class ShowNCSPathOperation implements Operation {
 
         final Form promptForm = new Form() {
 
-
             @Override
             public void commit() {
-                String deviceA = (String)getField("Device A").getValue();
-                String deviceZ = (String)getField("Device Z").getValue();
+                String deviceA = (String) getField("Device A").getValue();
+                String deviceZ = (String) getField("Device Z").getValue();
 
                 OnmsNode nodeA = m_nodeDao.get(Integer.valueOf(deviceA));
                 String deviceANodeForeignId = nodeA.getForeignId();
-                //Use nodeA's foreignSource, deviceZ should have the same foreignSource. It's an assumption
-                // which might need to changed in the future. Didn't want to hard code it it "space" if they
+                // Use nodeA's foreignSource, deviceZ should have the same
+                // foreignSource. It's an assumption
+                // which might need to changed in the future. Didn't want to
+                // hard code it it "space" if they
                 // change it in the future
                 String nodeForeignSource = nodeA.getForeignSource();
 
@@ -125,39 +129,50 @@ public class ShowNCSPathOperation implements Operation {
                 String foreignId = ncsComponent.getForeignId();
                 String serviceName = ncsComponent.getName();
                 try {
-                    NCSServicePath path = getNcsPathProvider().getPath(foreignId, foreignSource, deviceANodeForeignId, deviceZNodeForeignId, nodeForeignSource, serviceName);
+                    NCSServicePath path = getNcsPathProvider().getPath(foreignId, foreignSource, deviceANodeForeignId,
+                                                                       deviceZNodeForeignId, nodeForeignSource,
+                                                                       serviceName);
 
-                    if(path.getStatusCode() == 200) {
+                    if (path.getStatusCode() == 200) {
                         NCSServicePathCriteria criteria = new NCSServicePathCriteria(path.getEdges());
                         m_serviceManager.registerCriteria(criteria, operationContext.getGraphContainer().getSessionId());
 
-                        //Select only the vertices in the path
+                        // Select only the vertices in the path
                         selectionManager.setSelectedVertexRefs(path.getVertices());
                     } else {
-                        LoggerFactory.getLogger(this.getClass()).warn("An error occured while retrieving the NCS Path, Juniper NetworkAppsApi send error code: " + path.getStatusCode());
-                        mainWindow.showNotification("An error occurred while retrieving the NCS Path\nStatus Code: " + path.getStatusCode(), Notification.TYPE_ERROR_MESSAGE);
+                        LoggerFactory.getLogger(this.getClass()).warn("An error occured while retrieving the NCS Path, Juniper NetworkAppsApi send error code: "
+                                                                              + path.getStatusCode());
+                        mainWindow.showNotification("An error occurred while retrieving the NCS Path\nStatus Code: "
+                                + path.getStatusCode(), Notification.TYPE_ERROR_MESSAGE);
                     }
-
 
                 } catch (Exception e) {
                     LoggerFactory.getLogger(this.getClass()).warn("Exception Occurred while retreiving path {}", e);
-                    Notification.show("An error occurred while calculating the path please check the karaf.log file for the exception: \n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
-                    if(e.getCause() instanceof ConnectException ) {
-                        LoggerFactory.getLogger(this.getClass()).warn("Connection Exception Occurred while retreiving path {}", e);
-                        mainWindow.showNotification("Connection Refused when attempting to reach the NetworkAppsApi", Notification.TYPE_ERROR_MESSAGE);
-                    } else if(e.getCause() instanceof HttpOperationFailedException) {
+                    Notification.show("An error occurred while calculating the path please check the karaf.log file for the exception: \n"
+                                              + e.getMessage(), Notification.Type.ERROR_MESSAGE);
+                    if (e.getCause() instanceof ConnectException) {
+                        LoggerFactory.getLogger(this.getClass()).warn("Connection Exception Occurred while retreiving path {}",
+                                                                      e);
+                        mainWindow.showNotification("Connection Refused when attempting to reach the NetworkAppsApi",
+                                                    Notification.TYPE_ERROR_MESSAGE);
+                    } else if (e.getCause() instanceof HttpOperationFailedException) {
                         HttpOperationFailedException httpException = (HttpOperationFailedException) e.getCause();
-                        if(httpException.getStatusCode() == 401) {
-                            LoggerFactory.getLogger(this.getClass()).warn("Authentication error when connecting to NetworkAppsApi {}", httpException);
-                            mainWindow.showNotification("Authentication error when connecting to NetworkAppsApi, please check the username and password", Notification.TYPE_ERROR_MESSAGE);
+                        if (httpException.getStatusCode() == 401) {
+                            LoggerFactory.getLogger(this.getClass()).warn("Authentication error when connecting to NetworkAppsApi {}",
+                                                                          httpException);
+                            mainWindow.showNotification("Authentication error when connecting to NetworkAppsApi, please check the username and password",
+                                                        Notification.TYPE_ERROR_MESSAGE);
                         } else {
-                            LoggerFactory.getLogger(this.getClass()).warn("An error occured while retrieving the NCS Path {}", httpException);
-                            mainWindow.showNotification("An error occurred while retrieving the NCS Path\n" + httpException.getMessage(), Notification.TYPE_ERROR_MESSAGE);
+                            LoggerFactory.getLogger(this.getClass()).warn("An error occured while retrieving the NCS Path {}",
+                                                                          httpException);
+                            mainWindow.showNotification("An error occurred while retrieving the NCS Path\n"
+                                    + httpException.getMessage(), Notification.TYPE_ERROR_MESSAGE);
                         }
                     } else {
 
                         LoggerFactory.getLogger(this.getClass()).warn("Exception Occurred while retreiving path {}", e);
-                        mainWindow.showNotification("An error occurred while calculating the path please check the karaf.log file for the exception: \n" + e.getMessage(), Notification.TYPE_ERROR_MESSAGE);
+                        mainWindow.showNotification("An error occurred while calculating the path please check the karaf.log file for the exception: \n"
+                                                            + e.getMessage(), Notification.TYPE_ERROR_MESSAGE);
                     }
                 }
             }
@@ -183,7 +198,7 @@ public class ShowNCSPathOperation implements Operation {
         promptForm.getFooter().addComponent(ok);
 
         Button cancel = new Button("Cancel");
-        cancel.addClickListener(new ClickListener(){
+        cancel.addClickListener(new ClickListener() {
             private static final long serialVersionUID = -9026067481179449095L;
 
             @Override
@@ -199,10 +214,10 @@ public class ShowNCSPathOperation implements Operation {
         return null;
     }
 
-    private Collection<VertexRef> getVertexRefsForNCSService( NCSServiceCriteria storedCriteria ) {
+    private Collection<VertexRef> getVertexRefsForNCSService(NCSServiceCriteria storedCriteria) {
         List<Edge> edges = m_ncsEdgeProvider.getEdges(storedCriteria);
         Set<VertexRef> vertRefList = new HashSet<VertexRef>();
-        for(Edge edge : edges) {
+        for (Edge edge : edges) {
             vertRefList.add(edge.getSource().getVertex());
             vertRefList.add(edge.getTarget().getVertex());
         }
@@ -218,11 +233,11 @@ public class ShowNCSPathOperation implements Operation {
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
 
-        for(VertexRef targetRef : targets) {
+        for (VertexRef targetRef : targets) {
             String namespace = targetRef.getNamespace();
-            if(!namespace.equals("nodes")) {
+            if (!namespace.equals("nodes")) {
                 return false;
-            }else {
+            } else {
                 NCSServiceCriteria criteria = (NCSServiceCriteria) operationContext.getGraphContainer().getCriteria("ncs");
                 return criteria != null && criteria.size() == 1;
             }
@@ -233,11 +248,11 @@ public class ShowNCSPathOperation implements Operation {
 
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
-        for(VertexRef targetRef : targets) {
+        for (VertexRef targetRef : targets) {
             String namespace = targetRef.getNamespace();
-            if(!namespace.equals("nodes")) {
+            if (!namespace.equals("nodes")) {
                 return false;
-            }else {
+            } else {
                 NCSServiceCriteria criteria = (NCSServiceCriteria) operationContext.getGraphContainer().getCriteria("ncs");
                 return criteria != null && criteria.size() == 1;
             }

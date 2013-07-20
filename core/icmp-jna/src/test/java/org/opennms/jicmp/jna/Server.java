@@ -37,9 +37,13 @@ import java.util.concurrent.atomic.AtomicReference;
 class Server implements Runnable {
 
     private AtomicReference<Throwable> m_exception = new AtomicReference<Throwable>();
+
     private AtomicBoolean m_stopped = new AtomicBoolean(false);
+
     private CountDownLatch m_latch = new CountDownLatch(1);
+
     private Thread m_thread;
+
     private int m_port;
 
     Server(int port) {
@@ -86,9 +90,9 @@ class Server implements Runnable {
         } catch (Exception e) {
             m_exception.set(e);
         } finally {
-            if (socket != null) socket.close();
+            if (socket != null)
+                socket.close();
         }
     }
-
 
 }

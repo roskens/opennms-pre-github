@@ -36,10 +36,12 @@ import org.slf4j.LoggerFactory;
 
 public class TrapIdentity {
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(TrapIdentity.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(TrapIdentity.class);
 
     private int m_generic;
+
     private int m_specific;
+
     private String m_enterpriseId;
 
     /**
@@ -55,7 +57,6 @@ public class TrapIdentity {
     /**
      * The SNMP trap enterprise OID, which if present in a V2 trap is the last
      * varbind.
-     *
      * ref - book 'SNMP, SNMPv2, SNMPv3..' by William Stallings, third edition,
      * section 13.1.3
      */
@@ -167,10 +168,9 @@ public class TrapIdentity {
         m_enterpriseId = enterpriseId;
     }
 
-        @Override
+    @Override
     public String toString() {
-        return "[Generic="+getGeneric()+", Specific="+getSpecific()+", EnterpriseId="+getEnterpriseId()+"]";
+        return "[Generic=" + getGeneric() + ", Specific=" + getSpecific() + ", EnterpriseId=" + getEnterpriseId() + "]";
     }
-
 
 }

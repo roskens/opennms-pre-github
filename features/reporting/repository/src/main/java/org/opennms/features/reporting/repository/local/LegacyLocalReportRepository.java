@@ -47,7 +47,9 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * <p>LegacyLocalReportRepository class.</p>
+ * <p>
+ * LegacyLocalReportRepository class.
+ * </p>
  * <p/>
  * Class realize the local repository for OpenNMS community reports.
  *
@@ -56,9 +58,8 @@ import java.util.logging.Level;
  * @version $Id: $
  * @since 1.10.1
  */
-@ContextConfiguration(locations = {
-        "classpath:META-INF/opennms/applicationContext-reportingRepository.xml",
-        "classpath:META-INF/opennms/applicationContext-reportingDao.xml"})
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingRepository.xml",
+        "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
 public class LegacyLocalReportRepository implements ReportRepository {
 
     /**
@@ -97,10 +98,17 @@ public class LegacyLocalReportRepository implements ReportRepository {
     private final String MANAGEMENT_URL = "blank";
 
     /**
-     * Default constructor creates one local repositories for OpenNMS community reports.
+     * Default constructor creates one local repositories for OpenNMS community
+     * reports.
      *
-     * @param localReportsDao       a {@link org.opennms.features.reporting.dao.LegacyLocalReportsDao} object
-     * @param localJasperReportsDao a {@link org.opennms.features.reporting.dao.jasper.LegacyLocalJasperReportsDao} object
+     * @param localReportsDao
+     *            a
+     *            {@link org.opennms.features.reporting.dao.LegacyLocalReportsDao}
+     *            object
+     * @param localJasperReportsDao
+     *            a
+     *            {@link org.opennms.features.reporting.dao.jasper.LegacyLocalJasperReportsDao}
+     *            object
      */
     public LegacyLocalReportRepository(LocalReportsDao localReportsDao, LocalJasperReportsDao localJasperReportsDao) {
         m_localReportsDao = localReportsDao;
@@ -123,13 +131,16 @@ public class LegacyLocalReportRepository implements ReportRepository {
             try {
                 BeanUtils.copyProperties(resultReport, report);
                 resultReport.setId(REPOSITORY_ID + "_" + report.getId());
-                // Community reports are allowed by default, no permission restriction
+                // Community reports are allowed by default, no permission
+                // restriction
                 resultReport.setAllowAccess(true);
             } catch (IllegalAccessException e) {
-                logger.error("IllegalAccessException during BeanUtils.copyProperties for BasicReportDefinion '{}'", e.getMessage());
+                logger.error("IllegalAccessException during BeanUtils.copyProperties for BasicReportDefinion '{}'",
+                             e.getMessage());
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                logger.error("InvocationTargetException during BeanUtils.copyProperties for BasicReportDefinion '{}'", e.getMessage());
+                logger.error("InvocationTargetException during BeanUtils.copyProperties for BasicReportDefinion '{}'",
+                             e.getMessage());
                 e.printStackTrace();
             }
             resultList.add(resultReport);
@@ -148,13 +159,16 @@ public class LegacyLocalReportRepository implements ReportRepository {
             try {
                 BeanUtils.copyProperties(resultReport, report);
                 resultReport.setId(REPOSITORY_ID + "_" + report.getId());
-                // Community reports are allowed by default, no permission restriction
+                // Community reports are allowed by default, no permission
+                // restriction
                 resultReport.setAllowAccess(true);
             } catch (IllegalAccessException e) {
-                logger.error("IllegalAccessException during BeanUtils.copyProperties for BasicReportDefinion '{}'", e.getMessage());
+                logger.error("IllegalAccessException during BeanUtils.copyProperties for BasicReportDefinion '{}'",
+                             e.getMessage());
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                logger.error("InvocationTargetException during BeanUtils.copyProperties for BasicReportDefinion '{}'", e.getMessage());
+                logger.error("InvocationTargetException during BeanUtils.copyProperties for BasicReportDefinion '{}'",
+                             e.getMessage());
                 e.printStackTrace();
             }
             resultList.add(resultReport);
@@ -199,8 +213,9 @@ public class LegacyLocalReportRepository implements ReportRepository {
         try {
             result = m_localJasperReportsDao.getTemplateStream(id);
         } catch (FileNotFoundException e) {
-            //TODO indigo: Catch this exception and logging
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            // TODO indigo: Catch this exception and logging
+            e.printStackTrace(); // To change body of catch statement use File |
+                                 // Settings | File Templates.
         }
         return result;
     }
@@ -238,44 +253,60 @@ public class LegacyLocalReportRepository implements ReportRepository {
     }
 
     /**
-     * <p>setLocalReportsDao</p>
+     * <p>
+     * setLocalReportsDao
+     * </p>
      * <p/>
      * Set local reports DAO to access database-reports.xml
      *
-     * @param localReportsDao a {@link org.opennms.features.reporting.dao.LocalReportsDao} object
+     * @param localReportsDao
+     *            a {@link org.opennms.features.reporting.dao.LocalReportsDao}
+     *            object
      */
     public void setLocalReportsDao(LocalReportsDao localReportsDao) {
         m_localReportsDao = localReportsDao;
     }
 
     /**
-     * <p>getLocalReportsDao</p>
+     * <p>
+     * getLocalReportsDao
+     * </p>
      * <p/>
      * Get local reports DAO to access database-reports.xml
      *
-     * @return a {@link org.opennms.features.reporting.dao.LocalReportsDao} object
+     * @return a {@link org.opennms.features.reporting.dao.LocalReportsDao}
+     *         object
      */
     public LocalReportsDao getLocalReportsDao() {
         return m_localReportsDao;
     }
 
     /**
-     * <p>setLocalJasperReportsDao</p>
+     * <p>
+     * setLocalJasperReportsDao
+     * </p>
      * <p/>
      * Set local jasper reports dao to access jasper-reports.xml
      *
-     * @param localJasperReportsDao a {@link org.opennms.features.reporting.dao.jasper.LocalJasperReportsDao} object
+     * @param localJasperReportsDao
+     *            a
+     *            {@link org.opennms.features.reporting.dao.jasper.LocalJasperReportsDao}
+     *            object
      */
     public void setLocalJasperReportsDao(LocalJasperReportsDao localJasperReportsDao) {
         m_localJasperReportsDao = localJasperReportsDao;
     }
 
     /**
-     * <p>getLocalJasperReportsDao</p>
+     * <p>
+     * getLocalJasperReportsDao
+     * </p>
      * <p/>
      * Get local jasper reports dao to access jasper-reports.xml
      *
-     * @return a {@link org.opennms.features.reporting.dao.jasper.LocalJasperReportsDao} object
+     * @return a
+     *         {@link org.opennms.features.reporting.dao.jasper.LocalJasperReportsDao}
+     *         object
      */
     public LocalJasperReportsDao getLocalJasperReportsDao() {
         return m_localJasperReportsDao;

@@ -33,30 +33,38 @@ import java.util.List;
 import org.opennms.netmgt.snmp.SnmpV3User;
 
 /**
- * <p>TrapdConfig interface.</p>
+ * <p>
+ * TrapdConfig interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public interface TrapdConfig {
-	public abstract String getSnmpTrapAddress();
+    public abstract String getSnmpTrapAddress();
 
     /**
-     * <p>getSnmpTrapPort</p>
+     * <p>
+     * getSnmpTrapPort
+     * </p>
      *
      * @return a int.
      */
     public abstract int getSnmpTrapPort();
 
     /**
-     * <p>getNewSuspectOnTrap</p>
+     * <p>
+     * getNewSuspectOnTrap
+     * </p>
      *
      * @return a boolean.
      */
     public abstract boolean getNewSuspectOnTrap();
 
     /**
-     * <p>getSnmpV3Users</p>
+     * <p>
+     * getSnmpV3Users
+     * </p>
      *
      * @return a java.util.List.
      */

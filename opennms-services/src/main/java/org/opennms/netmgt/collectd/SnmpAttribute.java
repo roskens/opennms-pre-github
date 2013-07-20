@@ -39,7 +39,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>SnmpAttribute class.</p>
+ * <p>
+ * SnmpAttribute class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -49,15 +51,25 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
     public static final Logger LOG = LoggerFactory.getLogger(SnmpAttribute.class);
 
     private CollectionResource m_resource;
+
     private SnmpAttributeType m_type;
+
     private SnmpValue m_val;
 
     /**
-     * <p>Constructor for SnmpAttribute.</p>
+     * <p>
+     * Constructor for SnmpAttribute.
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
-     * @param type a {@link org.opennms.netmgt.collectd.SnmpAttributeType} object.
-     * @param val a {@link org.opennms.netmgt.snmp.SnmpValue} object.
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
+     * @param type
+     *            a {@link org.opennms.netmgt.collectd.SnmpAttributeType}
+     *            object.
+     * @param val
+     *            a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      */
     public SnmpAttribute(CollectionResource resource, SnmpAttributeType type, SnmpValue val) {
         super();
@@ -77,7 +89,9 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
@@ -95,7 +109,9 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
     }
 
     /**
-     * <p>getAttributeType</p>
+     * <p>
+     * getAttributeType
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.SnmpAttributeType} object.
      */
@@ -105,9 +121,12 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
     }
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
+     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *         object.
      */
     @Override
     public CollectionResource getResource() {
@@ -115,7 +134,9 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      */
@@ -134,17 +155,21 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return getResource()+"."+getAttributeType()+" = "+getValue();
+        return getResource() + "." + getAttributeType() + " = " + getValue();
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -160,7 +185,9 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -169,18 +196,19 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
         return getAttributeType().getName();
     }
 
-
     @Override
     public String getMetricIdentifier() {
         String instance = m_resource.getInstance();
         if (instance == null) {
             instance = m_type.getInstance();
         }
-        return "SNMP_"+SnmpObjId.get(m_type.getSnmpObjId(), instance);
+        return "SNMP_" + SnmpObjId.get(m_type.getSnmpObjId(), instance);
     }
 
     /**
-     * <p>getNumericValue</p>
+     * <p>
+     * getNumericValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -196,28 +224,32 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
         } else {
             try {
                 return Double.valueOf(getValue().toString()).toString();
-            } catch(NumberFormatException e) {
-                LOG.trace("Unable to process data received for attribute {} maybe this is not a number? See bug 1473 for more information. Skipping.", this);
-		if (getValue().getType() == SnmpValue.SNMP_OCTET_STRING) {
-		    try {
-			return Long.valueOf(getValue().toHexString(), 16).toString();
-		    } catch(NumberFormatException ex) {
-			LOG.trace("Unable to process data received for attribute {} maybe this is not a number? See bug 1473 for more information. Skipping.", this);
-		    }
-		}
-	    }
+            } catch (NumberFormatException e) {
+                LOG.trace("Unable to process data received for attribute {} maybe this is not a number? See bug 1473 for more information. Skipping.",
+                          this);
+                if (getValue().getType() == SnmpValue.SNMP_OCTET_STRING) {
+                    try {
+                        return Long.valueOf(getValue().toHexString(), 16).toString();
+                    } catch (NumberFormatException ex) {
+                        LOG.trace("Unable to process data received for attribute {} maybe this is not a number? See bug 1473 for more information. Skipping.",
+                                  this);
+                    }
+                }
+            }
             return null;
         }
     }
 
     /**
-     * <p>getStringValue</p>
+     * <p>
+     * getStringValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getStringValue() {
-        SnmpValue value=getValue();
+        SnmpValue value = getValue();
         return (value == null ? null : value.toString());
     }
 }

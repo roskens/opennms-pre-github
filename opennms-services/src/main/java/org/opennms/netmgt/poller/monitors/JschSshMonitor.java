@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -39,9 +38,9 @@ import org.opennms.netmgt.poller.MonitoredService;
 /**
  * <P>
  * This class is designed to be used by the service poller framework to test the
- * availability of SSH remote interfaces. The class implements the ServiceMonitor
- * interface that allows it to be used along with other plug-ins by the service
- * poller framework.
+ * availability of SSH remote interfaces. The class implements the
+ * ServiceMonitor interface that allows it to be used along with other plug-ins
+ * by the service poller framework.
  * </P>
  * <P>
  * This plugin is just an exact copy of the {@link SshMonitor} now.
@@ -60,7 +59,9 @@ final public class JschSshMonitor extends AbstractServiceMonitor {
     private SshMonitor m_monitor;
 
     /**
-     * <p>Constructor for JschSshMonitor.</p>
+     * <p>
+     * Constructor for JschSshMonitor.
+     * </p>
      */
     public JschSshMonitor() {
         m_monitor = new SshMonitor();

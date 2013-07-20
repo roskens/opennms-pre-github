@@ -44,13 +44,15 @@ public class SimpleLogMessage implements LogMessage {
     private SimpleLogMessage(String logMessage) {
         m_logMessage = logMessage;
     }
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#getMessage()
      */
     public String getMessage () {
         return m_logMessage;
     }
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#isEndMessage()
      */
     @Override
@@ -61,7 +63,8 @@ public class SimpleLogMessage implements LogMessage {
     public String toString() {
         return m_logMessage;
     }
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#isPersistMessage()
      */
     @Override
@@ -76,28 +79,35 @@ public class SimpleLogMessage implements LogMessage {
     public boolean isPersistEndMessage() {
         return getMessage().contains("persistDataQueueing: end");
     }
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#isBeginMessage()
      */
     @Override
     public boolean isBeginMessage() {
         return getMessage().contains("begin");
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#isErrorMessage()
      */
     @Override
     public boolean isErrorMessage() {
         return getMessage().contains("error");
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#isCollectorBeginMessage()
      */
     @Override
     public boolean isCollectorBeginMessage() {
         return getMessage().contains("collectData: begin:") || getMessage().contains("collector.initialize: begin");
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#isCollectorEndMessage()
      */
     @Override
@@ -105,7 +115,8 @@ public class SimpleLogMessage implements LogMessage {
         return getMessage().contains("collectData: end:") || getMessage().contains("collector.initialize: end");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#getDate()
      */
     @Override
@@ -120,11 +131,13 @@ public class SimpleLogMessage implements LogMessage {
             } catch (ParseException e) {
                 throw (new IllegalArgumentException(e));
             }
-        }else{
+        } else {
             throw (new IllegalArgumentException("Does not match"));
         }
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#getServiceID()
      */
     @Override
@@ -132,23 +145,24 @@ public class SimpleLogMessage implements LogMessage {
         String regex = "\\d+/\\d+\\.\\d+\\.\\d+\\.\\d+/[\\w-]+";
         Pattern service = Pattern.compile(regex);
         Matcher serviceMatcher = service.matcher(getMessage());
-        if(serviceMatcher.find()) {
+        if (serviceMatcher.find()) {
             return serviceMatcher.group();
         }
         return null;
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
      * @see org.opennms.util.ilr.LogMessage#getThread()
      */
     @Override
     public String getThread() {
-        String regex = "\\[(\\w+Scheduler-[^\\]]+)\\]";
-        //example: [CollectdScheduler-50 Pool-fiber11]
-        //         [LegacyScheduler-Thread-34-of-50]
+        String regex = "\\[\\w+-\\d+\\s\\w+-\\w+\\d+\\]";
+        // example: [CollectdScheduler-50 Pool-fiber11]
         Pattern thread = Pattern.compile(regex);
         Matcher threadMatcher = thread.matcher(getMessage());
-        if(threadMatcher.find()) {
-            return threadMatcher.group(1);
+        if (threadMatcher.find()) {
+            return threadMatcher.group();
         }
         return null;
     }

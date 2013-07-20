@@ -61,22 +61,25 @@ import org.springframework.dao.DataAccessResourceFailureException;
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
-// FIXME How to deal with duplications outside snmp-collection boundaries? That make sense?; for example: check externalGroupsMap?
-// FIXME What are the real ways to validate if two elements are the same? Just the element name? additional parameters?
-// FIXME How to apply rules about duplicates? Just warn?, Override?, Override with priorities? Silent ignore?
+// FIXME How to deal with duplications outside snmp-collection boundaries? That
+// make sense?; for example: check externalGroupsMap?
+// FIXME What are the real ways to validate if two elements are the same? Just
+// the element name? additional parameters?
+// FIXME How to apply rules about duplicates? Just warn?, Override?, Override
+// with priorities? Silent ignore?
 public class DataCollectionConfigParser {
     private static final Logger LOG = LoggerFactory.getLogger(DataCollectionConfigParser.class);
 
     private String configDirectory;
 
-    private final Map<String,DatacollectionGroup> externalGroupsMap;
+    private final Map<String, DatacollectionGroup> externalGroupsMap;
 
     public DataCollectionConfigParser(String configDirectory) {
         this.configDirectory = configDirectory;
         this.externalGroupsMap = new ConcurrentHashMap<String, DatacollectionGroup>();
     }
 
-    protected Map<String,DatacollectionGroup> getExternalGroupMap() {
+    protected Map<String, DatacollectionGroup> getExternalGroupMap() {
         return Collections.unmodifiableMap(externalGroupsMap);
     }
 
@@ -92,11 +95,14 @@ public class DataCollectionConfigParser {
             // Add systemDefs and dependencies
             for (IncludeCollection include : collection.getIncludeCollection()) {
                 if (include.getDataCollectionGroup() != null) {
-                    // Include All system definitions from a specific datacollection group
-                    addDatacollectionGroup(collection, include.getDataCollectionGroup(), include.getExcludeFilterCollection());
+                    // Include All system definitions from a specific
+                    // datacollection group
+                    addDatacollectionGroup(collection, include.getDataCollectionGroup(),
+                                           include.getExcludeFilterCollection());
                 } else {
                     if (include.getSystemDef() == null) {
-                        throwException("You must specify at least the data collection group name or system definition name for the include-collection attribute", null);
+                        throwException("You must specify at least the data collection group name or system definition name for the include-collection attribute",
+                                       null);
                     } else {
                         // Include One system definition
                         addSystemDef(collection, include.getSystemDef());
@@ -139,11 +145,13 @@ public class DataCollectionConfigParser {
 
     /**
      * Verify if the resourceTypes list contains a specific resourceType.
-     * <p>One resource type will be considered the same as another one, if they have the same name.</p>
+     * <p>
+     * One resource type will be considered the same as another one, if they
+     * have the same name.
+     * </p>
      *
      * @param globalContainer
      * @param resourceType
-     *
      * @return true, if the list contains the resourceType
      */
     private boolean contains(Collection<ResourceType> resourceTypes, ResourceType resourceType) {
@@ -156,7 +164,10 @@ public class DataCollectionConfigParser {
 
     /**
      * Verify if the groups list contains a specific group.
-     * <p>One group will be considered the same as another one, if they have the same name.</p>
+     * <p>
+     * One group will be considered the same as another one, if they have the
+     * same name.
+     * </p>
      *
      * @param globalContainer
      * @param group
@@ -172,11 +183,13 @@ public class DataCollectionConfigParser {
 
     /**
      * Verify if the systemDefs list contains a specific system definition.
-     * <p>One system definition will be considered the same as another one, if they have the same name.</p>
+     * <p>
+     * One system definition will be considered the same as another one, if they
+     * have the same name.
+     * </p>
      *
      * @param globalContainer
      * @param systemDef
-     *
      * @return true, if the list contains the system definition
      */
     // TODO Include sysoid and sysoidMask on validation process
@@ -189,7 +202,8 @@ public class DataCollectionConfigParser {
     }
 
     /**
-     * Read all XML files from datacollection directory and parse them to create a list of DatacollectionGroup objects.
+     * Read all XML files from datacollection directory and parse them to create
+     * a list of DatacollectionGroup objects.
      */
     private void parseExternalResources() {
         // Ensure that this is called only once.
@@ -222,9 +236,10 @@ public class DataCollectionConfigParser {
                 public void run() {
                     try {
                         LOG.debug("parseExternalResources: parsing {}", file);
-                        DatacollectionGroup group = JaxbUtils.unmarshal(DatacollectionGroup.class, new FileSystemResource(file));
+                        DatacollectionGroup group = JaxbUtils.unmarshal(DatacollectionGroup.class,
+                                                                        new FileSystemResource(file));
                         // Synchronize around the map that holds the results
-                        synchronized(externalGroupsMap) {
+                        synchronized (externalGroupsMap) {
                             externalGroupsMap.put(group.getName(), group);
                         }
                     } catch (Throwable e) {
@@ -247,7 +262,8 @@ public class DataCollectionConfigParser {
     /**
      * Get a system definition from datacollection-group map.
      *
-     * @param systemDefName the systemDef object name.
+     * @param systemDefName
+     *            the systemDef object name.
      * @return the systemDef object.
      */
     private SystemDef getSystemDef(String systemDefName) {
@@ -264,7 +280,8 @@ public class DataCollectionConfigParser {
     /**
      * Get a MIB object group from datacollection-group map.
      *
-     * @param groupName the group name
+     * @param groupName
+     *            the group name
      * @return the group object
      */
     private Group getMibObjectGroup(String groupName) {
@@ -281,11 +298,14 @@ public class DataCollectionConfigParser {
     /**
      * Add a specific system definition into a SNMP collection.
      *
-     * @param collection the target SNMP collection object.
-     * @param systemDefName the system definition name.
+     * @param collection
+     *            the target SNMP collection object.
+     * @param systemDefName
+     *            the system definition name.
      */
     private void addSystemDef(SnmpCollection collection, String systemDefName) {
-        LOG.debug("addSystemDef: merging system defintion {} into snmp-collection {}", collection.getName(), systemDefName);
+        LOG.debug("addSystemDef: merging system defintion {} into snmp-collection {}", collection.getName(),
+                  systemDefName);
         // Find System Definition
         SystemDef systemDef = getSystemDef(systemDefName);
         if (systemDef == null) {
@@ -293,9 +313,11 @@ public class DataCollectionConfigParser {
         }
         // Add System Definition to target SNMP collection
         if (contains(collection.getSystems().getSystemDefCollection(), systemDef)) {
-            LOG.warn("addSystemDef: system definition {} already exist on SNMP collection {}", collection.getName(), systemDefName);
+            LOG.warn("addSystemDef: system definition {} already exist on SNMP collection {}", collection.getName(),
+                     systemDefName);
         } else {
-            LOG.debug("addSystemDef: adding system definition {} to snmp-collection {}", collection.getName(), systemDef.getName());
+            LOG.debug("addSystemDef: adding system definition {} to snmp-collection {}", collection.getName(),
+                      systemDef.getName());
             collection.getSystems().addSystemDef(systemDef);
             // Add Groups
             for (String groupName : systemDef.getCollect().getIncludeGroupCollection()) {
@@ -304,9 +326,11 @@ public class DataCollectionConfigParser {
                     LOG.warn("addSystemDef: group {} does not exist on global container", groupName);
                 } else {
                     if (contains(collection.getGroups().getGroupCollection(), group)) {
-                        LOG.debug("addSystemDef: group {} already exist on SNMP collection {}", collection.getName(), groupName);
+                        LOG.debug("addSystemDef: group {} already exist on SNMP collection {}", collection.getName(),
+                                  groupName);
                     } else {
-                        LOG.debug("addSystemDef: adding mib object group {} to snmp-collection {}", collection.getName(), group.getName());
+                        LOG.debug("addSystemDef: adding mib object group {} to snmp-collection {}",
+                                  collection.getName(), group.getName());
                         collection.getGroups().addGroup(group);
                     }
                 }
@@ -315,18 +339,25 @@ public class DataCollectionConfigParser {
     }
 
     /**
-     * Add all system definitions defined on a specific data collection group, into a SNMP collection.
+     * Add all system definitions defined on a specific data collection group,
+     * into a SNMP collection.
      *
-     * @param collection the target SNMP collection object.
-     * @param dataCollectionGroupName the data collection group name.
-     * @param excludeList the list of regular expression to exclude certain system definitions.
+     * @param collection
+     *            the target SNMP collection object.
+     * @param dataCollectionGroupName
+     *            the data collection group name.
+     * @param excludeList
+     *            the list of regular expression to exclude certain system
+     *            definitions.
      */
-    private void addDatacollectionGroup(SnmpCollection collection, String dataCollectionGroupName, List<String> excludeList) {
+    private void addDatacollectionGroup(SnmpCollection collection, String dataCollectionGroupName,
+            List<String> excludeList) {
         DatacollectionGroup group = externalGroupsMap.get(dataCollectionGroupName);
         if (group == null) {
             throwException("Group " + dataCollectionGroupName + " does not exist.", null);
         }
-        LOG.debug("addDatacollectionGroup: adding all definitions from group {} to snmp-collection {}", collection.getName(), group.getName());
+        LOG.debug("addDatacollectionGroup: adding all definitions from group {} to snmp-collection {}",
+                  collection.getName(), group.getName());
         for (SystemDef systemDef : group.getSystemDefCollection()) {
             String sysDef = systemDef.getName();
             if (shouldAdd(sysDef, excludeList)) {

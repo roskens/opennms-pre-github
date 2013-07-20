@@ -39,7 +39,7 @@ public class SaveOperation implements Operation {
 
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
-        ((OnmsTopologyProvider)operationContext.getGraphContainer().getBaseTopology()).save();
+        ((OnmsTopologyProvider) operationContext.getGraphContainer().getBaseTopology()).save();
         return null;
     }
 

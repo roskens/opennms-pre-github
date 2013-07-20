@@ -31,7 +31,9 @@ package org.opennms.web.rss;
 import javax.servlet.ServletRequest;
 
 /**
- * <p>Feed interface.</p>
+ * <p>
+ * Feed interface.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @version $Id: $
@@ -40,59 +42,85 @@ import javax.servlet.ServletRequest;
 public interface Feed {
 
     /**
-     * <p>getUrlBase</p>
+     * <p>
+     * getUrlBase
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getUrlBase();
+
     /**
-     * <p>setUrlBase</p>
+     * <p>
+     * setUrlBase
+     * </p>
      *
-     * @param base a {@link java.lang.String} object.
+     * @param base
+     *            a {@link java.lang.String} object.
      */
     public void setUrlBase(String base);
 
     /**
-     * <p>getFeedType</p>
+     * <p>
+     * getFeedType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getFeedType();
+
     /**
-     * <p>setFeedType</p>
+     * <p>
+     * setFeedType
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public void setFeedType(String type);
 
     /**
-     * <p>getMaxEntries</p>
+     * <p>
+     * getMaxEntries
+     * </p>
      *
      * @return a int.
      */
     public int getMaxEntries();
+
     /**
-     * <p>setMaxEntries</p>
+     * <p>
+     * setMaxEntries
+     * </p>
      *
-     * @param maxEntries a int.
+     * @param maxEntries
+     *            a int.
      */
     public void setMaxEntries(int maxEntries);
 
     /**
-     * <p>getRequest</p>
+     * <p>
+     * getRequest
+     * </p>
      *
      * @return a {@link javax.servlet.ServletRequest} object.
      */
     public ServletRequest getRequest();
+
     /**
-     * <p>setRequest</p>
+     * <p>
+     * setRequest
+     * </p>
      *
-     * @param request a {@link javax.servlet.ServletRequest} object.
+     * @param request
+     *            a {@link javax.servlet.ServletRequest} object.
      */
     public void setRequest(ServletRequest request);
 
     /**
-     * <p>render</p>
+     * <p>
+     * render
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

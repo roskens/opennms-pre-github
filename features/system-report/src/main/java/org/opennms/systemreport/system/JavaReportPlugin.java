@@ -59,7 +59,7 @@ public class JavaReportPlugin extends AbstractSystemReportPlugin {
 
     @Override
     public TreeMap<String, Resource> getEntries() {
-        final TreeMap<String,Resource> map = new TreeMap<String,Resource>();
+        final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
         map.put("Class Version", getResourceFromProperty("java.class.version"));
         map.put("Compiler", getResourceFromProperty("java.compiler"));
         map.put("Home", getResourceFromProperty("java.home"));
@@ -92,27 +92,29 @@ public class JavaReportPlugin extends AbstractSystemReportPlugin {
 
         addGetters(classBean, map);
 
-        /* this stuff is really not giving us anything useful
-        List<GarbageCollectorMXBean> beans = getBeans(ManagementFactory.GARBAGE_COLLECTOR_MXBEAN_DOMAIN_TYPE, GarbageCollectorMXBean.class);
-        if (beans == null || beans.size() == 0) {
-            LOG.info("falling back to local VM MemoryMXBean");
-            beans = ManagementFactory.getGarbageCollectorMXBeans();
-        }
-
-        LOG.trace("beans = {}", beans);
-        int collectorNum = 1;
-        for (final GarbageCollectorMXBean bean : beans) {
-            final Map<String,Resource> temp = new TreeMap<String,Resource>();
-            addGetters(bean, map);
-
-            StringBuilder sb = new StringBuilder();
-            for (final String s : temp.keySet()) {
-                sb.append(s).append(": ").append(temp.get(s)).append("\n");
-            }
-            if (sb.length() > 0) sb.deleteCharAt(sb.length());
-            map.put("Garbage Collector " + collectorNum, getResource(sb.toString()));
-        }
-        */
+        /*
+         * this stuff is really not giving us anything useful
+         * List<GarbageCollectorMXBean> beans =
+         * getBeans(ManagementFactory.GARBAGE_COLLECTOR_MXBEAN_DOMAIN_TYPE,
+         * GarbageCollectorMXBean.class);
+         * if (beans == null || beans.size() == 0) {
+         * LOG.info("falling back to local VM MemoryMXBean");
+         * beans = ManagementFactory.getGarbageCollectorMXBeans();
+         * }
+         * LOG.trace("beans = {}", beans);
+         * int collectorNum = 1;
+         * for (final GarbageCollectorMXBean bean : beans) {
+         * final Map<String,Resource> temp = new TreeMap<String,Resource>();
+         * addGetters(bean, map);
+         * StringBuilder sb = new StringBuilder();
+         * for (final String s : temp.keySet()) {
+         * sb.append(s).append(": ").append(temp.get(s)).append("\n");
+         * }
+         * if (sb.length() > 0) sb.deleteCharAt(sb.length());
+         * map.put("Garbage Collector " + collectorNum,
+         * getResource(sb.toString()));
+         * }
+         */
 
         return map;
     }

@@ -32,185 +32,246 @@ import liquibase.resource.ResourceAccessor;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-
 /**
- * <p>Migration class.</p>
+ * <p>
+ * Migration class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Migration {
     private String m_jdbcUrl;
+
     private String m_jdbcDriver = "org.postgresql.Driver";
+
     private String m_databaseHost;
+
     private String m_databaseName;
+
     private String m_schemaName;
+
     private String m_databaseUser;
+
     private String m_databasePassword;
+
     private String m_adminUser;
+
     private String m_adminPassword;
+
     private String m_changeLog;
+
     private ResourceAccessor m_accessor;
 
     /**
-     * Get the JDBC connection URL.  Defaults to jdbc:postgresql://host/database.
+     * Get the JDBC connection URL. Defaults to jdbc:postgresql://host/database.
      *
      * @return the JDBC URL
      */
     public String getJdbcUrl() {
         if (m_jdbcUrl == null) {
-               return String.format("jdbc:postgresql://%s/%s", getDatabaseHost(), getDatabaseName());
+            return String.format("jdbc:postgresql://%s/%s", getDatabaseHost(), getDatabaseName());
         }
         return m_jdbcUrl;
     }
+
     /**
-     * <p>setJdbcUrl</p>
+     * <p>
+     * setJdbcUrl
+     * </p>
      *
-     * @param jdbcUrl a {@link java.lang.String} object.
+     * @param jdbcUrl
+     *            a {@link java.lang.String} object.
      */
-    public void  setJdbcUrl(String jdbcUrl) {
+    public void setJdbcUrl(String jdbcUrl) {
         m_jdbcUrl = jdbcUrl;
     }
 
     /**
-     * Get the JDBC driver class name.  Defaults to "org.postgresql.Driver"
+     * Get the JDBC driver class name. Defaults to "org.postgresql.Driver"
      *
      * @return the class name
      */
     public String getJdbcDriver() {
         return m_jdbcDriver;
     }
+
     /**
-     * <p>setJdbcDriver</p>
+     * <p>
+     * setJdbcDriver
+     * </p>
      *
-     * @param jdbcDriver a {@link java.lang.String} object.
+     * @param jdbcDriver
+     *            a {@link java.lang.String} object.
      */
     public void setJdbcDriver(String jdbcDriver) {
         m_jdbcDriver = jdbcDriver;
     }
 
     /**
-     * <p>getDatabaseHost</p>
+     * <p>
+     * getDatabaseHost
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getDatabaseHost() {
         return m_databaseHost;
     }
+
     /**
-     * <p>setDatabaseHost</p>
+     * <p>
+     * setDatabaseHost
+     * </p>
      *
-     * @param databaseHost a {@link java.lang.String} object.
+     * @param databaseHost
+     *            a {@link java.lang.String} object.
      */
     public void setDatabaseHost(String databaseHost) {
         m_databaseHost = databaseHost;
     }
 
     /**
-     * <p>getDatabaseName</p>
+     * <p>
+     * getDatabaseName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getDatabaseName() {
         return m_databaseName;
     }
+
     /**
-     * <p>setDatabaseName</p>
+     * <p>
+     * setDatabaseName
+     * </p>
      *
-     * @param databaseName a {@link java.lang.String} object.
+     * @param databaseName
+     *            a {@link java.lang.String} object.
      */
     public void setDatabaseName(String databaseName) {
         m_databaseName = databaseName;
     }
 
     public String getSchemaName() {
-    	return m_schemaName;
+        return m_schemaName;
     }
 
     public void setSchemaName(final String schemaName) {
-    	m_schemaName = schemaName;
+        m_schemaName = schemaName;
     }
 
     /**
-     * <p>getDatabaseUser</p>
+     * <p>
+     * getDatabaseUser
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getDatabaseUser() {
         return m_databaseUser;
     }
+
     /**
-     * <p>setDatabaseUser</p>
+     * <p>
+     * setDatabaseUser
+     * </p>
      *
-     * @param databaseUser a {@link java.lang.String} object.
+     * @param databaseUser
+     *            a {@link java.lang.String} object.
      */
     public void setDatabaseUser(String databaseUser) {
         m_databaseUser = databaseUser;
     }
 
     /**
-     * <p>getDatabasePassword</p>
+     * <p>
+     * getDatabasePassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getDatabasePassword() {
         return m_databasePassword;
     }
+
     /**
-     * <p>setDatabasePassword</p>
+     * <p>
+     * setDatabasePassword
+     * </p>
      *
-     * @param databasePassword a {@link java.lang.String} object.
+     * @param databasePassword
+     *            a {@link java.lang.String} object.
      */
     public void setDatabasePassword(String databasePassword) {
         m_databasePassword = databasePassword;
     }
 
     /**
-     * <p>getAdminUser</p>
+     * <p>
+     * getAdminUser
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getAdminUser() {
         return m_adminUser;
     }
+
     /**
-     * <p>setAdminUser</p>
+     * <p>
+     * setAdminUser
+     * </p>
      *
-     * @param adminUser a {@link java.lang.String} object.
+     * @param adminUser
+     *            a {@link java.lang.String} object.
      */
     public void setAdminUser(String adminUser) {
         m_adminUser = adminUser;
     }
 
     /**
-     * <p>getAdminPassword</p>
+     * <p>
+     * getAdminPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getAdminPassword() {
         return m_adminPassword;
     }
+
     /**
-     * <p>setAdminPassword</p>
+     * <p>
+     * setAdminPassword
+     * </p>
      *
-     * @param adminPassword a {@link java.lang.String} object.
+     * @param adminPassword
+     *            a {@link java.lang.String} object.
      */
     public void setAdminPassword(String adminPassword) {
         m_adminPassword = adminPassword;
     }
 
     /**
-     * <p>getChangeLog</p>
+     * <p>
+     * getChangeLog
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getChangeLog() {
         return m_changeLog;
     }
+
     /**
-     * <p>setChangeLog</p>
+     * <p>
+     * setChangeLog
+     * </p>
      *
-     * @param changeLog a {@link java.lang.String} object.
+     * @param changeLog
+     *            a {@link java.lang.String} object.
      */
     public void setChangeLog(String changeLog) {
         m_changeLog = changeLog;
@@ -225,22 +286,21 @@ public class Migration {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("database", m_databaseName)
-            .append("schema", m_schemaName)
-            .append("host", m_databaseHost)
-            .append("driver", m_jdbcDriver)
-            .append("url", m_jdbcUrl)
-            .append("admin-user", m_adminUser)
-            .append("user", m_databasePassword)
-            .append("changelog", m_changeLog)
-            .append("accessor", m_accessor)
-            .toString();
+        return new ToStringBuilder(this).append("database", m_databaseName).append("schema", m_schemaName).append("host",
+                                                                                                                  m_databaseHost).append("driver",
+                                                                                                                                         m_jdbcDriver).append("url",
+                                                                                                                                                              m_jdbcUrl).append("admin-user",
+                                                                                                                                                                                m_adminUser).append("user",
+                                                                                                                                                                                                    m_databasePassword).append("changelog",
+                                                                                                                                                                                                                               m_changeLog).append("accessor",
+                                                                                                                                                                                                                                                   m_accessor).toString();
     }
 }

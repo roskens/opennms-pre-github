@@ -49,7 +49,7 @@ import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 /**
- * Represents an SNMP Agent for the nodes in a MockNetwork.  SNMP Configuration
+ * Represents an SNMP Agent for the nodes in a MockNetwork. SNMP Configuration
  * for the interfaces for the mock network need to be configured to proxy to the
  * host running this agent.
  *
@@ -60,7 +60,9 @@ public class MockProxy implements CommandResponder {
     private static final Logger LOG = LoggerFactory.getLogger(MockProxy.class);
 
     private TransportMapping m_transport;
+
     private Snmp m_snmp;
+
     private MockAgent m_agent;
 
     public MockProxy(int port) throws IOException {
@@ -77,29 +79,24 @@ public class MockProxy implements CommandResponder {
     @Override
     public void processPdu(CommandResponderEvent e) {
         PDU command = e.getPDU();
-        if (command == null) return;
+        if (command == null)
+            return;
 
         PDU response = processRequest(command);
-          if (response == null) return;
+        if (response == null)
+            return;
 
-          StatusInformation statusInformation = new StatusInformation();
-          StateReference ref = e.getStateReference();
-          try {
-              LOG.debug("Replying with: {}", command);
-              e.setProcessed(true);
-              e.getMessageDispatcher().returnResponsePdu(e.getMessageProcessingModel(),
-                                                         e.getSecurityModel(),
-                                                         e.getSecurityName(),
-                                                         e.getSecurityLevel(),
-                                                         command,
-                                                         e.getMaxSizeResponsePDU(),
-                                                         ref,
-                                                         statusInformation);
-          }
-          catch (MessageException ex) {
-              LOG.error("Error while sending response", ex);
-          }
-
+        StatusInformation statusInformation = new StatusInformation();
+        StateReference ref = e.getStateReference();
+        try {
+            LOG.debug("Replying with: {}", command);
+            e.setProcessed(true);
+            e.getMessageDispatcher().returnResponsePdu(e.getMessageProcessingModel(), e.getSecurityModel(),
+                                                       e.getSecurityName(), e.getSecurityLevel(), command,
+                                                       e.getMaxSizeResponsePDU(), ref, statusInformation);
+        } catch (MessageException ex) {
+            LOG.error("Error while sending response", ex);
+        }
 
     }
 
@@ -108,9 +105,10 @@ public class MockProxy implements CommandResponder {
      * @return
      */
     private PDU processRequest(PDU request) {
-        if (!isRequestPDU(request)) return null;
+        if (!isRequestPDU(request))
+            return null;
 
-        switch(request.getType()) {
+        switch (request.getType()) {
         case PDU.GET:
             return processGet(request);
         case PDU.GETNEXT:
@@ -175,13 +173,13 @@ public class MockProxy implements CommandResponder {
         response.setType(PDU.RESPONSE);
 
         Vector<VariableBinding> varBinds = response.getVariableBindings();
-        for(int i = 0; i < varBinds.size(); i++) {
+        for (int i = 0; i < varBinds.size(); i++) {
             VariableBinding varBind = varBinds.get(i);
             VariableBinding nextVarBind = m_agent.get(varBind.getOid());
             if (nextVarBind == null) {
                 if (response instanceof PDUv1) {
                     if (response.getErrorIndex() == 0) {
-                        response.setErrorIndex(i+1);
+                        response.setErrorIndex(i + 1);
                         response.setErrorStatus(PDU.noSuchName);
                     }
                 } else {
@@ -207,13 +205,13 @@ public class MockProxy implements CommandResponder {
         response.setType(PDU.RESPONSE);
 
         Vector<VariableBinding> varBinds = response.getVariableBindings();
-        for(int i = 0; i < varBinds.size(); i++) {
+        for (int i = 0; i < varBinds.size(); i++) {
             VariableBinding varBind = varBinds.get(i);
             VariableBinding nextVarBind = m_agent.getNext(varBind.getOid());
             if (nextVarBind == null) {
                 if (response instanceof PDUv1) {
                     if (response.getErrorIndex() == 0) {
-                        response.setErrorIndex(i+1);
+                        response.setErrorIndex(i + 1);
                         response.setErrorStatus(PDU.noSuchName);
                     }
                 } else {
@@ -233,10 +231,8 @@ public class MockProxy implements CommandResponder {
      * @return
      */
     private boolean isRequestPDU(PDU command) {
-        return (command.getType() != PDU.TRAP) &&
-                (command.getType() != PDU.V1TRAP) &&
-                (command.getType() != PDU.REPORT) &&
-                (command.getType() != PDU.RESPONSE);
+        return (command.getType() != PDU.TRAP) && (command.getType() != PDU.V1TRAP)
+                && (command.getType() != PDU.REPORT) && (command.getType() != PDU.RESPONSE);
     }
 
     /**
@@ -252,6 +248,5 @@ public class MockProxy implements CommandResponder {
     public void stop() throws IOException {
         m_snmp.close();
     }
-
 
 }

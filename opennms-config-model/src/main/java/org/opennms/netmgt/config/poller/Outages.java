@@ -51,13 +51,11 @@ import org.exolab.castor.xml.Validator;
 import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
-
 /**
  * Top-level element for the poll-outages.xml configuration file.
- *
  */
 
-@XmlRootElement(name="outages", namespace="http://xmlns.opennms.org/xsd/config/poller/outages")
+@XmlRootElement(name = "outages", namespace = "http://xmlns.opennms.org/xsd/config/poller/outages")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("poll-outages.xsd")
 public class Outages implements Serializable {
@@ -66,9 +64,8 @@ public class Outages implements Serializable {
     /**
      * A scheduled outage
      */
-    @XmlElement(name="outage")
+    @XmlElement(name = "outage")
     private List<Outage> _outageList;
-
 
     public Outages() {
         super();
@@ -79,8 +76,9 @@ public class Outages implements Serializable {
      * Adds a new Scheduled Outage
      *
      * @param vOutage
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addOutage(final Outage vOutage) throws IndexOutOfBoundsException {
         this._outageList.add(vOutage);
@@ -91,10 +89,11 @@ public class Outages implements Serializable {
      *
      * @param index
      * @param vOutage
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addOutage( final int index, final Outage vOutage) throws IndexOutOfBoundsException {
+    public void addOutage(final int index, final Outage vOutage) throws IndexOutOfBoundsException {
         this._outageList.add(index, vOutage);
     }
 
@@ -102,7 +101,7 @@ public class Outages implements Serializable {
      * Method enumerateOutage.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<Outage> enumerateOutage() {
         return Collections.enumeration(this._outageList);
@@ -116,18 +115,18 @@ public class Outages implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof Outages) {
 
-            Outages temp = (Outages)obj;
+            Outages temp = (Outages) obj;
             if (this._outageList != null) {
-                if (temp._outageList == null) return false;
+                if (temp._outageList == null)
+                    return false;
                 else if (!(this._outageList.equals(temp._outageList)))
                     return false;
-            }
-            else if (temp._outageList != null)
+            } else if (temp._outageList != null)
                 return false;
             return true;
         }
@@ -138,15 +137,17 @@ public class Outages implements Serializable {
      * Method getOutage.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * org.opennms.netmgt.config.poller.Outage at the given index
+     *         org.opennms.netmgt.config.poller.Outage at the given index
      */
     public Outage getOutage(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._outageList.size()) {
-            throw new IndexOutOfBoundsException("getOutage: Index value '" + index + "' not in range [0.." + (this._outageList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getOutage: Index value '" + index + "' not in range [0.."
+                    + (this._outageList.size() - 1) + "]");
         }
 
         return _outageList.get(index);
@@ -154,10 +155,12 @@ public class Outages implements Serializable {
 
     /**
      * Method getOutage.Returns the contents of the collection in
-     * an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -189,8 +192,8 @@ public class Outages implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -224,20 +227,20 @@ public class Outages implements Serializable {
      * Method iterateOutage.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<Outage> iterateOutage() {
         return this._outageList.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -245,15 +248,16 @@ public class Outages implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -288,29 +292,27 @@ public class Outages implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param vOutage
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setOutage(final int index, final Outage vOutage) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._outageList.size()) {
-            throw new IndexOutOfBoundsException("setOutage: Index value '" + index + "' not in range [0.." + (this._outageList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setOutage: Index value '" + index + "' not in range [0.."
+                    + (this._outageList.size() - 1) + "]");
         }
 
         this._outageList.set(index, vOutage);
     }
 
     /**
-     *
-     *
      * @param vOutageArray
      */
     public void setOutage(final Outage[] vOutageArray) {
-        //-- copy array
+        // -- copy array
         _outageList.clear();
 
         for (int i = 0; i < vOutageArray.length; i++) {
@@ -322,7 +324,8 @@ public class Outages implements Serializable {
      * Sets the value of '_outageList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vOutageList the Vector to copy.
+     * @param vOutageList
+     *            the Vector to copy.
      */
     public void setOutage(final List<Outage> vOutageList) {
         // copy vector
@@ -334,9 +337,10 @@ public class Outages implements Serializable {
     /**
      * Sets the value of '_outageList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param outageList the Vector to set.
+     * @deprecated
+     * @param outageList
+     *            the Vector to set.
      */
     public void setOutageCollection(final List<Outage> outageList) {
         this._outageList = outageList;
@@ -346,12 +350,14 @@ public class Outages implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * org.opennms.netmgt.config.poller.Outages
+     *         org.opennms.netmgt.config.poller.Outages
      */
     @Deprecated
     public static Outages unmarshal(final java.io.Reader reader) throws MarshalException, ValidationException {
@@ -359,10 +365,9 @@ public class Outages implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

@@ -84,21 +84,24 @@ public abstract class DbUnit extends DBTestCase {
 
     @Override
     public IDatabaseTester newDatabaseTester() throws Exception {
-    	return new DefaultDatabaseTester(setUpConnection());
+        return new DefaultDatabaseTester(setUpConnection());
     }
 
     public static void main(String[] args) throws Exception {
         Config config = new Config();
         Class.forName(config.getDbDriver());
-        Connection jdbcConnection = DriverManager.getConnection(config.getDbUrl(), config.getDbUser(), config.getDbPass());
+        Connection jdbcConnection = DriverManager.getConnection(config.getDbUrl(), config.getDbUser(),
+                                                                config.getDbPass());
         IDatabaseConnection connection = new DatabaseConnection(jdbcConnection, "public");
 
         // dtd
-        FlatDtdDataSet.write(connection.createDataSet(), new FileOutputStream("src/test/java/it/pronetics/acl/conf/dbunit/database-schema.dtd"));
+        FlatDtdDataSet.write(connection.createDataSet(),
+                             new FileOutputStream("src/test/java/it/pronetics/acl/conf/dbunit/database-schema.dtd"));
 
         // export
         IDataSet fullDataSet = connection.createDataSet();
-        FlatXmlDataSet.write(fullDataSet, new FileOutputStream("src/test/java/opennms/opennms/acl/conf/dbunit/full.xml"));
+        FlatXmlDataSet.write(fullDataSet,
+                             new FileOutputStream("src/test/java/opennms/opennms/acl/conf/dbunit/full.xml"));
     }
 
     public void prepareDb() {
@@ -127,10 +130,11 @@ public abstract class DbUnit extends DBTestCase {
                 // connection.close();
             }
         } catch (Throwable e) {
-            /* do we care?
-            System.err.print("An error occurred deleting dataset: ");
-            e.printStackTrace();
-            */
+            /*
+             * do we care?
+             * System.err.print("An error occurred deleting dataset: ");
+             * e.printStackTrace();
+             */
         }
 
         ++operation;
@@ -153,5 +157,6 @@ public abstract class DbUnit extends DBTestCase {
     }
 
     private static IDatabaseConnection dbConn = setUpConnection();
+
     private static int operation;
 }

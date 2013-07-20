@@ -74,7 +74,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class UserRestService extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UserRestService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserRestService.class);
 
     @Autowired
     private UserManager m_userManager;
@@ -86,7 +86,7 @@ public class UserRestService extends OnmsRestService {
     ResourceContext m_context;
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     public OnmsUserList getUsers() {
         final OnmsUserList list;
         readLock();
@@ -107,16 +107,19 @@ public class UserRestService extends OnmsRestService {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{username}")
-    public OnmsUser getUser(@PathParam("username") final String username) {
+    public OnmsUser getUser(@PathParam("username")
+    final String username) {
         readLock();
         try {
             final OnmsUser user = m_userManager.getOnmsUser(username);
-            if (user != null) return user;
+            if (user != null)
+                return user;
             throw getException(Status.NOT_FOUND, username + " does not exist");
         } catch (final Throwable t) {
-            if (t instanceof WebApplicationException) throw (WebApplicationException)t;
+            if (t instanceof WebApplicationException)
+                throw (WebApplicationException) t;
             throw getException(Status.BAD_REQUEST, t);
         } finally {
             readUnlock();
@@ -141,7 +144,8 @@ public class UserRestService extends OnmsRestService {
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{userCriteria}")
-    public Response updateUser(@PathParam("userCriteria") final String userCriteria, final MultivaluedMapImpl params) {
+    public Response updateUser(@PathParam("userCriteria")
+    final String userCriteria, final MultivaluedMapImpl params) {
         OnmsUser user = null;
         writeLock();
         try {
@@ -150,10 +154,11 @@ public class UserRestService extends OnmsRestService {
             } catch (final Throwable t) {
                 throw getException(Status.BAD_REQUEST, t);
             }
-            if (user == null) throw getException(Status.BAD_REQUEST, "updateUser: User does not exist: " + userCriteria);
+            if (user == null)
+                throw getException(Status.BAD_REQUEST, "updateUser: User does not exist: " + userCriteria);
             LOG.debug("updateUser: updating user {}", user);
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(user);
-            for(final String key : params.keySet()) {
+            for (final String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
                     final String stringValue = params.getFirst(key);
                     @SuppressWarnings("unchecked")
@@ -175,7 +180,8 @@ public class UserRestService extends OnmsRestService {
 
     @DELETE
     @Path("{userCriteria}")
-    public Response deleteUser(@PathParam("userCriteria") final String userCriteria) {
+    public Response deleteUser(@PathParam("userCriteria")
+    final String userCriteria) {
         writeLock();
         try {
             OnmsUser user = null;
@@ -184,7 +190,8 @@ public class UserRestService extends OnmsRestService {
             } catch (final Throwable t) {
                 throw getException(Status.BAD_REQUEST, t);
             }
-            if (user == null) throw getException(Status.BAD_REQUEST, "deleteUser: User does not exist: " + userCriteria);
+            if (user == null)
+                throw getException(Status.BAD_REQUEST, "deleteUser: User does not exist: " + userCriteria);
             LOG.debug("deleteUser: deleting user {}", user);
             try {
                 m_userManager.deleteUser(user.getUsername());

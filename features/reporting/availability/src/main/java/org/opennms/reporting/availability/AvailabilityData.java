@@ -59,6 +59,7 @@ import org.opennms.reporting.datablock.Node;
  */
 public class AvailabilityData {
     private static final Logger LOG = LoggerFactory.getLogger(AvailabilityData.class);
+
     /**
      * The log4j category used to log debug messsages and statements.
      */
@@ -100,33 +101,44 @@ public class AvailabilityData {
     private int m_sectionIndex = 0;
 
     /**
-    * Availability Data Service
-    */
+     * Availability Data Service
+     */
 
     private AvailabilityDataService m_availabilityDataService;
 
-    // This version used when end date availalable as strings (from command line?)
+    // This version used when end date availalable as strings (from command
+    // line?)
 
     /**
-     * <p>fillReport</p>
+     * <p>
+     * fillReport
+     * </p>
      *
-     * @param categoryName a {@link java.lang.String} object.
-     * @param report a {@link org.opennms.reporting.availability.Report} object.
-     * @param format a {@link java.lang.String} object.
-     * @param monthFormat a {@link java.lang.String} object.
-     * @param startMonth a {@link java.lang.String} object.
-     * @param startDate a {@link java.lang.String} object.
-     * @param startYear a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.lang.Exception if any.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
+     * @param report
+     *            a {@link org.opennms.reporting.availability.Report} object.
+     * @param format
+     *            a {@link java.lang.String} object.
+     * @param monthFormat
+     *            a {@link java.lang.String} object.
+     * @param startMonth
+     *            a {@link java.lang.String} object.
+     * @param startDate
+     *            a {@link java.lang.String} object.
+     * @param startYear
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public void fillReport(String categoryName, Report report,
-            String format, String monthFormat,
-            String startMonth, String startDate, String startYear)
-            throws IOException, MarshalException, ValidationException,
-            Exception {
+    public void fillReport(String categoryName, Report report, String format, String monthFormat, String startMonth,
+            String startDate, String startYear) throws IOException, MarshalException, ValidationException, Exception {
 
         Calendar cal = new GregorianCalendar();
         cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(startDate));
@@ -135,38 +147,43 @@ public class AvailabilityData {
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
         cal.set(Calendar.SECOND, 59);
-        generateData(categoryName, report, format, monthFormat,
-                     new Date(cal.getTimeInMillis()));
+        generateData(categoryName, report, format, monthFormat, new Date(cal.getTimeInMillis()));
     }
 
     // This version used when end date availalable as a java Date
 
     /**
-     * <p>fillReport</p>
+     * <p>
+     * fillReport
+     * </p>
      *
-     * @param categoryName a {@link java.lang.String} object.
-     * @param report a {@link org.opennms.reporting.availability.Report} object.
-     * @param format a {@link java.lang.String} object.
-     * @param monthFormat a {@link java.lang.String} object.
-     * @param periodEndDate a {@link java.util.Date} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.lang.Exception if any.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
+     * @param report
+     *            a {@link org.opennms.reporting.availability.Report} object.
+     * @param format
+     *            a {@link java.lang.String} object.
+     * @param monthFormat
+     *            a {@link java.lang.String} object.
+     * @param periodEndDate
+     *            a {@link java.util.Date} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public void fillReport(String categoryName, Report report,
-            String format, String monthFormat, Date periodEndDate)
-            throws IOException, MarshalException, ValidationException,
-            Exception {
-       generateData(categoryName, report, format, monthFormat, periodEndDate);
+    public void fillReport(String categoryName, Report report, String format, String monthFormat, Date periodEndDate)
+            throws IOException, MarshalException, ValidationException, Exception {
+        generateData(categoryName, report, format, monthFormat, periodEndDate);
     }
 
-
-    private void generateData(final String categoryName, final Report report,
-            final String format, final String monthFormat,
-            final Date periodEndDate)
-            throws IOException, MarshalException, ValidationException,
-            Exception {
+    private void generateData(final String categoryName, final Report report, final String format,
+            final String monthFormat, final Date periodEndDate) throws IOException, MarshalException,
+            ValidationException, Exception {
 
         Logging.withPrefix(LOG4J_CATEGORY, new Callable<Void>() {
 
@@ -194,7 +211,8 @@ public class AvailabilityData {
                     throw e;
                 }
 
-                // FIXME There's some magic in here regarding multiple categories in a report
+                // FIXME There's some magic in here regarding multiple
+                // categories in a report
 
                 LOG.debug("CATEGORY {}", categoryName);
 
@@ -204,9 +222,9 @@ public class AvailabilityData {
                         int catCount = 0;
                         LOG.debug("catCount {}", catCount);
 
-                        for(final Categorygroup cg : config.getCategorygroupCollection()) {
+                        for (final Categorygroup cg : config.getCategorygroupCollection()) {
 
-                            for(org.opennms.netmgt.config.categories.Category cat : cg.getCategories().getCategoryCollection()) {
+                            for (org.opennms.netmgt.config.categories.Category cat : cg.getCategories().getCategoryCollection()) {
 
                                 LOG.debug("CATEGORY {}", cat.getLabel());
                                 catCount++;
@@ -221,7 +239,8 @@ public class AvailabilityData {
                     }
 
                     final SimpleDateFormat simplePeriod = new SimpleDateFormat("MMMMMMMMMMM dd, yyyy");
-                    final String reportPeriod = simplePeriod.format(new java.util.Date(m_startTime)) + " - " + simplePeriod.format(new java.util.Date(m_endTime));
+                    final String reportPeriod = simplePeriod.format(new java.util.Date(m_startTime)) + " - "
+                            + simplePeriod.format(new java.util.Date(m_endTime));
                     Created created = report.getCreated();
                     if (created == null) {
                         created = new Created();
@@ -250,8 +269,7 @@ public class AvailabilityData {
      * @param format
      *            SVG-specific/all reports
      */
-    private void populateDataStructures(
-            org.opennms.netmgt.config.categories.Category cat, Report report,
+    private void populateDataStructures(org.opennms.netmgt.config.categories.Category cat, Report report,
             String format, String monthFormat, int catIndex) throws Exception {
 
         LOG.debug("Inside populate data Structures {}", catIndex);
@@ -288,21 +306,11 @@ public class AvailabilityData {
                 m_nodes = null;
             }
             if (m_nodes != null) {
-                AvailCalculations availCalculations = new AvailCalculations(
-                                                                            m_nodes,
-                                                                            m_endTime,
-                                                                            m_lastMonthEndTime,
-                                                                            monitoredServices,
-                                                                            report,
-                                                                            topOffenders,
-                                                                            cat.getWarning(),
-                                                                            cat.getNormal(),
-                                                                            cat.getComment(),
-                                                                            cat.getLabel(),
-                                                                            format,
-                                                                            monthFormat,
-                                                                            catIndex,
-                                                                            m_sectionIndex);
+                AvailCalculations availCalculations = new AvailCalculations(m_nodes, m_endTime, m_lastMonthEndTime,
+                                                                            monitoredServices, report, topOffenders,
+                                                                            cat.getWarning(), cat.getNormal(),
+                                                                            cat.getComment(), cat.getLabel(), format,
+                                                                            monthFormat, catIndex, m_sectionIndex);
                 m_sectionIndex = availCalculations.getSectionIndex();
                 report.setSectionCount(m_sectionIndex - 1);
             } else {
@@ -331,7 +339,8 @@ public class AvailabilityData {
     }
 
     /**
-     * Initialize the endTime, start Time, last Months end time and number of days in the
+     * Initialize the endTime, start Time, last Months end time and number of
+     * days in the
      * last month.
      */
 
@@ -340,7 +349,8 @@ public class AvailabilityData {
         Calendar tempCal = new GregorianCalendar();
         tempCal.setTime(periodEndDate);
 
-        // This used to be the day prior to the report being run, which is confusing
+        // This used to be the day prior to the report being run, which is
+        // confusing
         // tempCal.add(Calendar.DAY_OF_MONTH, -1);
         tempCal.set(Calendar.HOUR_OF_DAY, 23);
         tempCal.set(Calendar.MINUTE, 59);
@@ -386,7 +396,6 @@ public class AvailabilityData {
         return m_nodes;
     }
 
-
     /**
      * Returns percent/node combinations for the last month. This is used to
      * get the last months top 20 offenders
@@ -405,7 +414,7 @@ public class AvailabilityData {
         LOG.debug("getPercentNode: End time {}", new java.util.Date(endTime));
         TreeMap<Double, List<String>> percentNode = new TreeMap<Double, List<String>>();
 
-        for(Node node : m_nodes) {
+        for (Node node : m_nodes) {
             if (node != null) {
                 double percent = node.getPercentAvail(endTime, rollingWindow);
                 String nodeName = node.getName();
@@ -424,14 +433,17 @@ public class AvailabilityData {
         return percentNode;
     }
 
-
     /**
-     * <p>setAvailabilityDataService</p>
+     * <p>
+     * setAvailabilityDataService
+     * </p>
      *
-     * @param availabilityDataService a {@link org.opennms.reporting.availability.svclayer.AvailabilityDataService} object.
+     * @param availabilityDataService
+     *            a
+     *            {@link org.opennms.reporting.availability.svclayer.AvailabilityDataService}
+     *            object.
      */
-    public void setAvailabilityDataService(
-            AvailabilityDataService availabilityDataService) {
+    public void setAvailabilityDataService(AvailabilityDataService availabilityDataService) {
         LOG.debug("setting m_availabilityDataService");
         m_availabilityDataService = availabilityDataService;
     }

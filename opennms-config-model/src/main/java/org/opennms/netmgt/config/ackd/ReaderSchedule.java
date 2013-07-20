@@ -45,8 +45,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * A very basic configuration for defining simple input to a schedule
  * (java.lang.concurrent)
- * 
- * 
+ *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "reader-schedule")
@@ -94,7 +93,7 @@ public class ReaderSchedule implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -122,7 +121,7 @@ public class ReaderSchedule implements Serializable {
 
     /**
      * Returns the value of field 'interval'.
-     * 
+     *
      * @return the value of field 'Interval'.
      */
     public long getInterval() {
@@ -131,7 +130,7 @@ public class ReaderSchedule implements Serializable {
 
     /**
      * Returns the value of field 'unit'.
-     * 
+     *
      * @return the value of field 'Unit'.
      */
     public java.lang.String getUnit() {
@@ -143,22 +142,21 @@ public class ReaderSchedule implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming Language
      * Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result
-                + ((_interval == null) ? 0 : _interval.hashCode());
+        result = prime * result + ((_interval == null) ? 0 : _interval.hashCode());
         result = prime * result + ((_unit == null) ? 0 : _unit.hashCode());
         return result;
     }
 
     /**
      * Sets the value of field 'interval'.
-     * 
+     *
      * @param interval
      *            the value of field 'interval'.
      */
@@ -168,7 +166,7 @@ public class ReaderSchedule implements Serializable {
 
     /**
      * Sets the value of field 'unit'.
-     * 
+     *
      * @param unit
      *            the value of field 'unit'.
      */

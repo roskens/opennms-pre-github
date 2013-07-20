@@ -48,16 +48,21 @@ import org.springframework.stereotype.Component;
 public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExchangeResponse> {
 
     private static String SERVICE_NAME = "MSExchange";
+
     private static String DEFAULT_BANNER = "Microsoft Exchange";
 
     private static int DEFAULT_POP3_PORT = 110;
+
     private static int DEFAULT_IMAP_PORT = 143;
 
     private int m_pop3Port;
+
     private int m_imapPort;
 
     /**
-     * <p>Constructor for MSExchangeDetector.</p>
+     * <p>
+     * Constructor for MSExchangeDetector.
+     * </p>
      */
     protected MSExchangeDetector() {
         super(SERVICE_NAME, 0);
@@ -81,12 +86,16 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
     }
 
     /**
-     * <p>find</p>
+     * <p>
+     * find
+     * </p>
      *
-     * @param regex a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param regex
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *         object.
      */
-    protected static ResponseValidator<MSExchangeResponse> find(final String regex){
+    protected static ResponseValidator<MSExchangeResponse> find(final String regex) {
         return new ResponseValidator<MSExchangeResponse>() {
 
             @Override
@@ -94,21 +103,25 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
                 return response.contains(regex);
             }
 
-
         };
     }
 
     /**
-     * <p>setPop3Port</p>
+     * <p>
+     * setPop3Port
+     * </p>
      *
-     * @param pop3Port a int.
+     * @param pop3Port
+     *            a int.
      */
     public void setPop3Port(final int pop3Port) {
         m_pop3Port = pop3Port;
     }
 
     /**
-     * <p>getPop3Port</p>
+     * <p>
+     * getPop3Port
+     * </p>
      *
      * @return a int.
      */
@@ -117,16 +130,21 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
     }
 
     /**
-     * <p>setImapPort</p>
+     * <p>
+     * setImapPort
+     * </p>
      *
-     * @param imapPort a int.
+     * @param imapPort
+     *            a int.
      */
     public void setImapPort(final int imapPort) {
         m_imapPort = imapPort;
     }
 
     /**
-     * <p>getImapPort</p>
+     * <p>
+     * getImapPort
+     * </p>
      *
      * @return a int.
      */

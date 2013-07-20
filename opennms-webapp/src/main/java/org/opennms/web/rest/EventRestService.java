@@ -65,6 +65,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("events")
 public class EventRestService extends OnmsRestService {
     private static final DateTimeFormatter ISO8601_FORMATTER_MILLIS = ISODateTimeFormat.dateTime();
+
     private static final DateTimeFormatter ISO8601_FORMATTER = ISODateTimeFormat.dateTimeNoMillis();
 
     @Autowired
@@ -89,10 +90,11 @@ public class EventRestService extends OnmsRestService {
      * @return a {@link org.opennms.netmgt.model.OnmsEvent} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{eventId}")
     @Transactional
-    public OnmsEvent getEvent(@PathParam("eventId") final String eventId) {
+    public OnmsEvent getEvent(@PathParam("eventId")
+    final String eventId) {
         readLock();
         try {
             return m_eventDao.get(new Integer(eventId));
@@ -128,7 +130,7 @@ public class EventRestService extends OnmsRestService {
      *             if any.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Transactional
     public OnmsEventCollection getEvents() throws ParseException {
         readLock();
@@ -156,7 +158,7 @@ public class EventRestService extends OnmsRestService {
      *             if any.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("between")
     @Transactional
     public OnmsEventCollection getEventsBetween() throws ParseException {
@@ -227,7 +229,9 @@ public class EventRestService extends OnmsRestService {
     @Path("{eventId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public Response updateEvent(@PathParam("eventId") final String eventId, @FormParam("ack") final Boolean ack) {
+    public Response updateEvent(@PathParam("eventId")
+    final String eventId, @FormParam("ack")
+    final Boolean ack) {
         writeLock();
 
         try {

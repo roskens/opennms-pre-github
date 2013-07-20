@@ -29,7 +29,9 @@
 package org.opennms.netmgt.provision.detector.bsf.request;
 
 /**
- * <p>BSFRequest class.</p>
+ * <p>
+ * BSFRequest class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $

@@ -20,9 +20,11 @@ import org.slf4j.LoggerFactory;
 
 public class NominatimGeocoderService implements GeocoderService {
     private static final String GEOCODE_URL = "http://open.mapquestapi.com/nominatim/v1/search?format=xml";
+
     private static final HttpClient m_httpClient = new DefaultHttpClient();
 
     private String m_emailAddress;
+
     private String m_referer;
 
     private Logger m_log = LoggerFactory.getLogger(getClass());
@@ -49,7 +51,8 @@ public class NominatimGeocoderService implements GeocoderService {
             responseStream = m_httpClient.execute(method).getEntity().getContent();
             final ElementTree tree = ElementTree.fromStream(responseStream);
             if (tree == null) {
-                throw new GeocoderException("an error occurred connecting to the Nominatim geocoding service (no XML tree was found)");
+                throw new GeocoderException(
+                                            "an error occurred connecting to the Nominatim geocoding service (no XML tree was found)");
             }
 
             final List<ElementTree> places = tree.findAll("//place");
@@ -61,7 +64,7 @@ public class NominatimGeocoderService implements GeocoderService {
             final ElementTree place = places.get(0);
 
             final Float longitude = Float.valueOf(place.getAttribute("lon"));
-            final Float latitude  = Float.valueOf(place.getAttribute("lat"));
+            final Float latitude = Float.valueOf(place.getAttribute("lat"));
             return new Coordinates(longitude, latitude);
         } catch (final GeocoderException e) {
             throw e;

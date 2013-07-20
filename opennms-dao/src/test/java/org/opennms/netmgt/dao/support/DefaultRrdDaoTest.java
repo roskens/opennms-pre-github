@@ -55,7 +55,8 @@ import org.springframework.util.StringUtils;
  */
 public class DefaultRrdDaoTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
-    private RrdStrategy<?,?> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
+
+    private RrdStrategy<?, ?> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
 
     private DefaultRrdDao m_dao;
 
@@ -139,7 +140,9 @@ public class DefaultRrdDaoTest extends TestCase {
         m_mocks.replayAll();
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new DataAccessResourceFailureException("Value of line 1 of output from RRD is not a valid floating point number: '" + printLine + "'"));
+        ta.anticipate(new DataAccessResourceFailureException(
+                                                             "Value of line 1 of output from RRD is not a valid floating point number: '"
+                                                                     + printLine + "'"));
         try {
             m_dao.getPrintValue(childResource.getAttributes().iterator().next(), "AVERAGE", start, end);
         } catch (Throwable t) {
@@ -156,22 +159,16 @@ public class DefaultRrdDaoTest extends TestCase {
         String rrdFile = "ifInOctets.jrb";
 
         String escapedFile = rrdDir + File.separator + rrdFile;
-        if  (File.separatorChar == '\\') {
-        	escapedFile = escapedFile.replace("\\", "\\\\");
+        if (File.separatorChar == '\\') {
+            escapedFile = escapedFile.replace("\\", "\\\\");
         }
 
-        String[] command = new String[] {
-                m_dao.getRrdBinaryPath(),
-                "graph",
-                "-",
-                "--start=" + (start / 1000),
-                "--end=" + (end / 1000),
-                "DEF:ds=" + escapedFile + ":ifInOctets:AVERAGE",
-                "PRINT:ds:AVERAGE:\"%le\""
-        };
+        String[] command = new String[] { m_dao.getRrdBinaryPath(), "graph", "-", "--start=" + (start / 1000),
+                "--end=" + (end / 1000), "DEF:ds=" + escapedFile + ":ifInOctets:AVERAGE", "PRINT:ds:AVERAGE:\"%le\"" };
         String commandString = StringUtils.arrayToDelimitedString(command, " ");
 
-        OnmsResource topResource = new OnmsResource("1", "Node One", new MockResourceType(), new HashSet<OnmsAttribute>(0));
+        OnmsResource topResource = new OnmsResource("1", "Node One", new MockResourceType(),
+                                                    new HashSet<OnmsAttribute>(0));
 
         OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", rrdDir, rrdFile);
         HashSet<OnmsAttribute> attributeSet = new HashSet<OnmsAttribute>(1);
@@ -192,7 +189,8 @@ public class DefaultRrdDaoTest extends TestCase {
         String rrdDir = "snmp" + File.separator + "1" + File.separator + "eth0";
         String rrdFile = "ifInOctets.jrb";
 
-        OnmsResource topResource = new OnmsResource("1", "Node One", new MockResourceType(), new HashSet<OnmsAttribute>(0));
+        OnmsResource topResource = new OnmsResource("1", "Node One", new MockResourceType(),
+                                                    new HashSet<OnmsAttribute>(0));
 
         OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", rrdDir, rrdFile);
         HashSet<OnmsAttribute> attributeSet = new HashSet<OnmsAttribute>(1);
@@ -205,7 +203,8 @@ public class DefaultRrdDaoTest extends TestCase {
         int interval = 300000;
         Double expectedValue = new Double(1.0);
 
-        String fullRrdFilePath = m_dao.getRrdBaseDirectory().getAbsolutePath() + File.separator + rrdDir + File.separator + rrdFile;
+        String fullRrdFilePath = m_dao.getRrdBaseDirectory().getAbsolutePath() + File.separator + rrdDir
+                + File.separator + rrdFile;
         expect(m_rrdStrategy.fetchLastValue(fullRrdFilePath, attribute.getName(), interval)).andReturn(expectedValue);
 
         m_mocks.replayAll();
@@ -220,7 +219,8 @@ public class DefaultRrdDaoTest extends TestCase {
         String rrdDir = "snmp" + File.separator + "1" + File.separator + "eth0";
         String rrdFile = "ifInOctets.jrb";
 
-        OnmsResource topResource = new OnmsResource("1", "Node One", new MockResourceType(), new HashSet<OnmsAttribute>(0));
+        OnmsResource topResource = new OnmsResource("1", "Node One", new MockResourceType(),
+                                                    new HashSet<OnmsAttribute>(0));
 
         OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", rrdDir, rrdFile);
         HashSet<OnmsAttribute> attributeSet = new HashSet<OnmsAttribute>(1);
@@ -234,7 +234,8 @@ public class DefaultRrdDaoTest extends TestCase {
         int range = 300000;
         Double expectedValue = new Double(1.0);
 
-        String fullRrdFilePath = m_dao.getRrdBaseDirectory().getAbsolutePath() + File.separator + rrdDir + File.separator + rrdFile;
+        String fullRrdFilePath = m_dao.getRrdBaseDirectory().getAbsolutePath() + File.separator + rrdDir
+                + File.separator + rrdFile;
         expect(m_rrdStrategy.fetchLastValueInRange(fullRrdFilePath, attribute.getName(), interval, range)).andReturn(expectedValue);
 
         m_mocks.replayAll();

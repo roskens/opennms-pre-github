@@ -40,8 +40,7 @@ import org.slf4j.LoggerFactory;
 
 public class SupportRtConfigDao extends ReadOnlyRtConfigDao {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SupportRtConfigDao.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(SupportRtConfigDao.class);
 
     @Override
     protected String getPrefix() {

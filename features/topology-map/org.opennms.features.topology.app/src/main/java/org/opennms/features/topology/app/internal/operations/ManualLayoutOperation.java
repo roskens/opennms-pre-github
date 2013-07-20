@@ -33,21 +33,21 @@ import org.opennms.features.topology.app.internal.ManualLayoutAlgorithm;
 
 public class ManualLayoutOperation extends LayoutOperation {
 
-	public ManualLayoutOperation() {
-		super(new LayoutFactory() {
+    public ManualLayoutOperation() {
+        super(new LayoutFactory() {
 
-		    private final ManualLayoutAlgorithm m_layoutAlgorithm = new ManualLayoutAlgorithm();
+            private final ManualLayoutAlgorithm m_layoutAlgorithm = new ManualLayoutAlgorithm();
 
-			@Override
-			public LayoutAlgorithm getLayoutAlgorithm() {
-				return m_layoutAlgorithm;
-			}
-		});
-	}
+            @Override
+            public LayoutAlgorithm getLayoutAlgorithm() {
+                return m_layoutAlgorithm;
+            }
+        });
+    }
 
-	@Override
-	public String getId() {
-		return getClass().getSimpleName();
-	}
+    @Override
+    public String getId() {
+        return getClass().getSimpleName();
+    }
 
 }

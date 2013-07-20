@@ -55,7 +55,6 @@ import org.slf4j.LoggerFactory;
  * or UDP/67 or will unicast responses back to the client's UDP port on from
  * which the request originated.
  * </p>
- *
  * <p>
  * The DHCP daemon accepts client connections on TCP/5818. Once a client is
  * connected it can begin forwarding requests. A list of all currently connected
@@ -64,28 +63,24 @@ import org.slf4j.LoggerFactory;
  * <ul>
  * <li>byte 1 - byte 4 : 32-bit remote host IP address</li>
  * <li>byte 5 - byte 8 : 32-bit buffer length</li>
- * <li>byte 9 - byte n : buffer containing the formatted DHCP discover request.
- * </li>
+ * <li>byte 9 - byte n : buffer containing the formatted DHCP discover request.</li>
  * </ul>
- *
  * <p>
  * The client indicates that it is finished by sending a request with the remote
  * host IP address set to zero (0).
  * </p>
- *
  * <p>
  * Incoming requests are sent to UDP/67 on specified remote host. If the remote
  * host is runnning a DHCP server it will send/broadcast an appropriate response
  * to UDP/68 or UDP/67 (or will unicast the response).
  * </p>
- *
  * <p>
  * The DHCP daemon includes a listener thread which binds to UDP/68 or UDP/67
- * and simply listens for any incoming DHCP responses. In extended mode,
- * threads are started on both ports. When a datagram is received by the
- * listener thread(s) it loops through the list of currently connected clients
- * and forwards the DHCP response packet to each client. It is the responsibility
- * of the client to validate that the datagram is in response to a DHCP request
+ * and simply listens for any incoming DHCP responses. In extended mode, threads
+ * are started on both ports. When a datagram is received by the listener
+ * thread(s) it loops through the list of currently connected clients and
+ * forwards the DHCP response packet to each client. It is the responsibility of
+ * the client to validate that the datagram is in response to a DHCP request
  * packet that it generated.
  * </p>
  *
@@ -95,7 +90,6 @@ import org.slf4j.LoggerFactory;
 public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Observer {
 
     private static final Logger LOG = LoggerFactory.getLogger(Dhcpd.class);
-
 
     /**
      * The singular instance of the DHCP server.
@@ -131,10 +125,9 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
     /**
      * Constructs a new DHCP server instance. All of the internal fields are
      * initialized to <code>null</code>.
-     *
      */
     private Dhcpd() {
-    	super("dhcpd");
+        super("dhcpd");
         m_clients = null;
         m_server = null;
         m_listener = null;
@@ -143,7 +136,9 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -191,15 +186,15 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
         // see if we have a valid relay address
         String myIpStr = DhcpdConfigFactory.getInstance().getMyIpAddress();
         LOG.debug("Checking string \"{}\" to see if we have an IP address", myIpStr);
-        if (myIpStr != null &&  !myIpStr.equals("") && !myIpStr.equalsIgnoreCase("broadcast")) {
-            if(IpValidator.isIpValid(myIpStr)) {
+        if (myIpStr != null && !myIpStr.equals("") && !myIpStr.equalsIgnoreCase("broadcast")) {
+            if (IpValidator.isIpValid(myIpStr)) {
                 relayMode = true;
             }
         }
         LOG.debug("Setting relay mode {}", relayMode);
 
         // open the receiver socket(s)
-        if(!relayMode || (dFactory.getExtendedMode() != null && dFactory.getExtendedMode().equalsIgnoreCase("true"))) {
+        if (!relayMode || (dFactory.getExtendedMode() != null && dFactory.getExtendedMode().equalsIgnoreCase("true"))) {
             try {
                 LOG.debug("start: starting receiver thread for port 68");
                 m_listener = new Receiver(m_clients);
@@ -213,7 +208,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
             }
         }
 
-        if(relayMode) {
+        if (relayMode) {
             try {
                 LOG.debug("start: starting receiver thread for port 67");
                 m_listener2 = new Receiver2(m_clients);
@@ -229,14 +224,16 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
 
         m_worker = new Thread(this, getName());
         m_worker.start();
-	}
+    }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
-	if (m_worker == null) {
+        if (m_worker == null) {
             return;
         }
 
@@ -247,7 +244,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
 
         // stop the other receiver
         if (m_listener2 != null) {
-        	m_listener2.stop();
+            m_listener2.stop();
         }
 
         // close the server socket
@@ -295,7 +292,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
          */
         try {
             m_server.setSoTimeout(1000); // Wake up every second to check the
-                                            // status
+                                         // status
 
             for (;;) {
                 synchronized (this) {
@@ -340,9 +337,8 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is called by the observable instances that the server has
+     * {@inheritDoc} This method is called by the observable instances that the
+     * server has
      * registered to receive.
      */
     @Override
@@ -398,7 +394,9 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {

@@ -41,8 +41,10 @@ public class SftpUrlException extends RuntimeException {
     /**
      * Instantiates a new XML collector exception.
      *
-     * @param message the message
-     * @param cause the cause
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
      */
     public SftpUrlException(String message, Throwable cause) {
         super(message, cause);
@@ -51,7 +53,8 @@ public class SftpUrlException extends RuntimeException {
     /**
      * Instantiates a new XML collector exception.
      *
-     * @param message the message
+     * @param message
+     *            the message
      */
     public SftpUrlException(String message) {
         super(message);

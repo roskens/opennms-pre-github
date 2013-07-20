@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.datacollection.descriptors;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.opennms.netmgt.config.datacollection.Groups;
@@ -46,12 +46,12 @@ import org.opennms.netmgt.config.datacollection.Groups;
  *
  * @version $Revision$ $Date$
  */
-@SuppressWarnings("all") public class GroupsDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
+@SuppressWarnings("all")
+public class GroupsDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _elementDefinition.
@@ -78,10 +78,9 @@ import org.opennms.netmgt.config.datacollection.Groups;
      */
     private org.exolab.castor.xml.XMLFieldDescriptor _identity;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public GroupsDescriptor() {
         super();
@@ -89,36 +88,38 @@ import org.opennms.netmgt.config.datacollection.Groups;
         _xmlName = "groups";
         _elementDefinition = true;
 
-        //-- set grouping compositor
+        // -- set grouping compositor
         setCompositorAsSequence();
-        org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
-        org.exolab.castor.mapping.FieldHandler             handler        = null;
-        org.exolab.castor.xml.FieldValidator               fieldValidator = null;
-        //-- initialize attribute descriptors
+        org.exolab.castor.xml.util.XMLFieldDescriptorImpl desc = null;
+        org.exolab.castor.mapping.FieldHandler handler = null;
+        org.exolab.castor.xml.FieldValidator fieldValidator = null;
+        // -- initialize attribute descriptors
 
-        //-- initialize element descriptors
+        // -- initialize element descriptors
 
-        //-- _groupList
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.datacollection.Group.class, "_groupList", "group", org.exolab.castor.xml.NodeType.Element);
+        // -- _groupList
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(
+                                                                     org.opennms.netmgt.config.datacollection.Group.class,
+                                                                     "_groupList", "group",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Groups target = (Groups) object;
                 return target.getGroup();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Groups target = (Groups) object;
-                    target.addGroup( (org.opennms.netmgt.config.datacollection.Group) value);
+                    target.addGroup((org.opennms.netmgt.config.datacollection.Group) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             public void resetValue(Object object) throws IllegalStateException, IllegalArgumentException {
                 try {
@@ -128,6 +129,7 @@ import org.opennms.netmgt.config.datacollection.Groups;
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -142,18 +144,17 @@ import org.opennms.netmgt.config.datacollection.Groups;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _groupList
+        // -- validation code for: _groupList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
-        { //-- local scope
+        { // -- local scope
         }
         desc.setValidator(fieldValidator);
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Method getAccessMode.
@@ -161,8 +162,7 @@ import org.opennms.netmgt.config.datacollection.Groups;
      * @return the access mode specified for this class.
      */
     @Override()
-    public org.exolab.castor.mapping.AccessMode getAccessMode(
-    ) {
+    public org.exolab.castor.mapping.AccessMode getAccessMode() {
         return null;
     }
 
@@ -170,11 +170,10 @@ import org.opennms.netmgt.config.datacollection.Groups;
      * Method getIdentity.
      *
      * @return the identity field, null if this class has no
-     * identity.
+     *         identity.
      */
     @Override()
-    public org.exolab.castor.mapping.FieldDescriptor getIdentity(
-    ) {
+    public org.exolab.castor.mapping.FieldDescriptor getIdentity() {
         return _identity;
     }
 
@@ -184,8 +183,7 @@ import org.opennms.netmgt.config.datacollection.Groups;
      * @return the Java class represented by this descriptor.
      */
     @Override()
-    public java.lang.Class<?> getJavaClass(
-    ) {
+    public java.lang.Class<?> getJavaClass() {
         return org.opennms.netmgt.config.datacollection.Groups.class;
     }
 
@@ -195,8 +193,7 @@ import org.opennms.netmgt.config.datacollection.Groups;
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpacePrefix(
-    ) {
+    public java.lang.String getNameSpacePrefix() {
         return _nsPrefix;
     }
 
@@ -204,11 +201,10 @@ import org.opennms.netmgt.config.datacollection.Groups;
      * Method getNameSpaceURI.
      *
      * @return the namespace URI used when marshaling and
-     * unmarshaling as XML.
+     *         unmarshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpaceURI(
-    ) {
+    public java.lang.String getNameSpaceURI() {
         return _nsURI;
     }
 
@@ -216,11 +212,10 @@ import org.opennms.netmgt.config.datacollection.Groups;
      * Method getValidator.
      *
      * @return a specific validator for the class described by this
-     * ClassDescriptor.
+     *         ClassDescriptor.
      */
     @Override()
-    public org.exolab.castor.xml.TypeValidator getValidator(
-    ) {
+    public org.exolab.castor.xml.TypeValidator getValidator() {
         return this;
     }
 
@@ -230,8 +225,7 @@ import org.opennms.netmgt.config.datacollection.Groups;
      * @return the XML Name for the Class being described.
      */
     @Override()
-    public java.lang.String getXMLName(
-    ) {
+    public java.lang.String getXMLName() {
         return _xmlName;
     }
 
@@ -239,12 +233,11 @@ import org.opennms.netmgt.config.datacollection.Groups;
      * Method isElementDefinition.
      *
      * @return true if XML schema definition of this Class is that
-     * of a global
-     * element or element with anonymous type definition.
+     *         of a global
+     *         element or element with anonymous type definition.
      */
     @Override
-    public boolean isElementDefinition(
-    ) {
+    public boolean isElementDefinition() {
         return _elementDefinition;
     }
 

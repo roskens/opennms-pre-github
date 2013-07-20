@@ -42,7 +42,8 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
 public class DatacollectionGroupTest extends XmlTest<DatacollectionGroup> {
 
-    public DatacollectionGroupTest(final DatacollectionGroup sampleObject, final String sampleXml, final String schemaFile) {
+    public DatacollectionGroupTest(final DatacollectionGroup sampleObject, final String sampleXml,
+            final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
@@ -65,22 +66,15 @@ public class DatacollectionGroupTest extends XmlTest<DatacollectionGroup> {
 
         return Arrays.asList(new Object[][] { {
                 dcg,
-                "<datacollection-group name=\"Trango\">\n" +
-                "\n" +
-                "      <group  name=\"trangolink45-rssi\" ifType=\"ignore\">\n" +
-                "        <mibObj oid=\".1.3.6.1.4.1.5454.1.40.2.12\" instance=\"0\" alias=\"trangoRssi\" type=\"integer\" />\n" +
-                "      </group>\n" +
-                "      \n" +
-                "      <systemDef name = \"TrangoLink-45\">\n" +
-                "        <sysoid>.1.3.6.1.4.1.5454.1.40</sysoid>\n" +
-                "        <collect>\n" +
-                "          <includeGroup>trangolink45-rssi</includeGroup>\n" +
-                "        </collect>\n" +
-                "      </systemDef>\n" +
-                "\n" +
-                "</datacollection-group>",
+                "<datacollection-group name=\"Trango\">\n"
+                        + "\n"
+                        + "      <group  name=\"trangolink45-rssi\" ifType=\"ignore\">\n"
+                        + "        <mibObj oid=\".1.3.6.1.4.1.5454.1.40.2.12\" instance=\"0\" alias=\"trangoRssi\" type=\"integer\" />\n"
+                        + "      </group>\n" + "      \n" + "      <systemDef name = \"TrangoLink-45\">\n"
+                        + "        <sysoid>.1.3.6.1.4.1.5454.1.40</sysoid>\n" + "        <collect>\n"
+                        + "          <includeGroup>trangolink45-rssi</includeGroup>\n" + "        </collect>\n"
+                        + "      </systemDef>\n" + "\n" + "</datacollection-group>",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

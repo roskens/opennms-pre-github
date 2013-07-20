@@ -56,7 +56,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * <p>AuthRoleToOnmsGroupMapFilterEnabler class.</p>
+ * <p>
+ * AuthRoleToOnmsGroupMapFilterEnabler class.
+ * </p>
  *
  * @author rssntn67
  * @version $Id: $
@@ -70,54 +72,60 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
     private SecurityContextService m_contextService;
 
     public SecurityContextService getContextService() {
-		return m_contextService;
-	}
+        return m_contextService;
+    }
 
     @Autowired
-	public void setContextService(SecurityContextService contextService) {
-		m_contextService = contextService;
-	}
+    public void setContextService(SecurityContextService contextService) {
+        m_contextService = contextService;
+    }
 
     public void setRoleToOnmsGroupMap(Map<String, List<String>> roleToOnmsGroupMap) {
         this.roleToOnmsGroupMap = roleToOnmsGroupMap;
     }
 
-
     /**
-     * <p>setFilterManager</p>
+     * <p>
+     * setFilterManager
+     * </p>
      *
-     * @param filterManager a {@link org.opennms.netmgt.model.FilterManager} object.
+     * @param filterManager
+     *            a {@link org.opennms.netmgt.model.FilterManager} object.
      */
     public void setFilterManager(FilterManager filterManager) {
         m_filterManager = filterManager;
     }
 
-
-    /* (non-Javadoc)
-     * @see org.springframework.security.ui.SpringSecurityFilter#doFilterHttp(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.security.ui.SpringSecurityFilter#doFilterHttp(javax
+     * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+     * javax.servlet.FilterChain)
      */
     /** {@inheritDoc} */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
+            ServletException {
 
         boolean shouldFilter = AclUtils.shouldFilter(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
         List<String> groups = new ArrayList<String>();
 
         if (shouldFilter) {
 
-            for (String role: roleToOnmsGroupMap.keySet()) {
-               if (userHasAuthority(role))
-                   groups.addAll(roleToOnmsGroupMap.get(role));
+            for (String role : roleToOnmsGroupMap.keySet()) {
+                if (userHasAuthority(role))
+                    groups.addAll(roleToOnmsGroupMap.get(role));
             }
             if (groups.isEmpty())
-                shouldFilter=false;
+                shouldFilter = false;
         }
 
         try {
             if (shouldFilter) {
 
                 String[] groupNames = new String[groups.size()];
-                for(int i = 0; i < groups.size(); i++) {
+                for (int i = 0; i < groups.size(); i++) {
                     groupNames[i] = groups.get(i);
                 }
 
@@ -131,21 +139,18 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
             }
         }
 
-
     }
 
     private boolean userHasAuthority(String role) {
-    	return getContextService().hasRole(role);
+        return getContextService().hasRole(role);
     }
 
+    @Override
+    public void destroy() {
+    }
 
-	@Override
-	public void destroy() {
-	}
-
-
-	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-	}
+    @Override
+    public void init(FilterConfig arg0) throws ServletException {
+    }
 
 }

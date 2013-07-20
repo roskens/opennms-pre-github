@@ -40,60 +40,63 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- *
  * @author <a href="mailto:galea.melania@gmail.com">Melania Galea</a>
  */
 @Controller
 @RequestMapping("/element/service.htm")
 public class ServiceController implements InitializingBean {
-	@Autowired
-	private MonitoredServiceDao m_monitoredServiceDao;
+    @Autowired
+    private MonitoredServiceDao m_monitoredServiceDao;
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-	    BeanUtils.assertAutowiring(this);
-	}
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        BeanUtils.assertAutowiring(this);
+    }
 
-	@RequestMapping(method = RequestMethod.GET, params = { "ifserviceid" })
-	public ModelAndView handleService(@RequestParam("ifserviceid") int ifServiceId) {
-		OnmsMonitoredService service = m_monitoredServiceDao.get(ifServiceId);
-		if (service == null) {
-			return createErrorModelAndView(ifServiceId);
-		} else {
-			return createSuccessModelAndView(service);
-		}
-	}
+    @RequestMapping(method = RequestMethod.GET, params = { "ifserviceid" })
+    public ModelAndView handleService(@RequestParam("ifserviceid")
+    int ifServiceId) {
+        OnmsMonitoredService service = m_monitoredServiceDao.get(ifServiceId);
+        if (service == null) {
+            return createErrorModelAndView(ifServiceId);
+        } else {
+            return createSuccessModelAndView(service);
+        }
+    }
 
-	@RequestMapping(method = RequestMethod.GET, params = { "node", "intf", "service" })
-	public ModelAndView handleService(@RequestParam("node") int node, @RequestParam("intf") String intf, @RequestParam("service") int serviceId) {
-		OnmsMonitoredService service = m_monitoredServiceDao.get(node, intf, serviceId);
-		if (service == null) {
-			return createErrorModelAndView(node, intf, serviceId);
-		} else {
-			return createSuccessModelAndView(service);
-		}
-	}
+    @RequestMapping(method = RequestMethod.GET, params = { "node", "intf", "service" })
+    public ModelAndView handleService(@RequestParam("node")
+    int node, @RequestParam("intf")
+    String intf, @RequestParam("service")
+    int serviceId) {
+        OnmsMonitoredService service = m_monitoredServiceDao.get(node, intf, serviceId);
+        if (service == null) {
+            return createErrorModelAndView(node, intf, serviceId);
+        } else {
+            return createSuccessModelAndView(service);
+        }
+    }
 
-	private ModelAndView createErrorModelAndView(int ifServiceId) {
-		ModelAndView modelAndView = new ModelAndView("element/errorPageOneKeyService");
-		modelAndView.addObject("ifServiceId", ifServiceId);
+    private ModelAndView createErrorModelAndView(int ifServiceId) {
+        ModelAndView modelAndView = new ModelAndView("element/errorPageOneKeyService");
+        modelAndView.addObject("ifServiceId", ifServiceId);
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	private ModelAndView createErrorModelAndView(int node, String intf, int serviceId) {
-		ModelAndView modelAndView = new ModelAndView("element/errorPageService");
-		modelAndView.addObject("node", node);
-		modelAndView.addObject("intf", intf);
-		modelAndView.addObject("serviceId", serviceId);
+    private ModelAndView createErrorModelAndView(int node, String intf, int serviceId) {
+        ModelAndView modelAndView = new ModelAndView("element/errorPageService");
+        modelAndView.addObject("node", node);
+        modelAndView.addObject("intf", intf);
+        modelAndView.addObject("serviceId", serviceId);
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	private ModelAndView createSuccessModelAndView(OnmsMonitoredService service) {
-		ModelAndView modelAndView = new ModelAndView("element/service");
-		modelAndView.addObject("service", service);
+    private ModelAndView createSuccessModelAndView(OnmsMonitoredService service) {
+        ModelAndView modelAndView = new ModelAndView("element/service");
+        modelAndView.addObject("service", service);
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 }

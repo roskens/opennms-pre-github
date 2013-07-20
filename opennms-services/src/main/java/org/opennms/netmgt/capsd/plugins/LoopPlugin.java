@@ -35,8 +35,11 @@ import org.opennms.core.utils.IPLike;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.netmgt.capsd.Plugin;
+
 /**
- * <p>LoopPlugin class.</p>
+ * <p>
+ * LoopPlugin class.
+ * </p>
  *
  * @author david
  * @version $Id: $
@@ -45,11 +48,14 @@ public class LoopPlugin implements Plugin {
 
     private final String m_protocolName = "LOOP";
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.capsd.Plugin#getProtocolName()
      */
     /**
-     * <p>getProtocolName</p>
+     * <p>
+     * getProtocolName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -58,8 +64,10 @@ public class LoopPlugin implements Plugin {
         return m_protocolName;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress)
      */
     /** {@inheritDoc} */
     @Override
@@ -67,8 +75,11 @@ public class LoopPlugin implements Plugin {
         return isProtocolSupported(address, null);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress,
+     * java.util.Map)
      */
     /** {@inheritDoc} */
     @Override

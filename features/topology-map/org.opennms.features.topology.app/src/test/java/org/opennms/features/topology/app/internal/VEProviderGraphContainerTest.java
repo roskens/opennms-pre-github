@@ -29,155 +29,159 @@ import org.opennms.features.topology.api.topo.VertexRef;
 
 public class VEProviderGraphContainerTest {
 
-	private GraphProvider m_graphProvider;
-	private EdgeProvider m_edgeProvider;
-	private GraphContainer m_graphContainer;
-	private Set<VertexRef> m_expectedVertices = new HashSet<VertexRef>();
-	private Map<VertexRef, String> m_expectedVertexStyles = new HashMap<VertexRef, String>();
-	private Set<EdgeRef> m_expectedEdges = new HashSet<EdgeRef>();
-	private Map<EdgeRef, String> m_expectedEdgeStyles = new HashMap<EdgeRef, String>();
+    private GraphProvider m_graphProvider;
 
+    private EdgeProvider m_edgeProvider;
 
-	@Before
-	public void setUp() {
+    private GraphContainer m_graphContainer;
 
-		MockLogAppender.setupLogging();
+    private Set<VertexRef> m_expectedVertices = new HashSet<VertexRef>();
 
-		m_graphProvider = new SimpleGraphBuilder("nodes")
-			.vertex("g0").vLabel("group0").vIconKey("group").vTooltip("root group").vStyleName("vertex")
-			.vertex("g1").parent("g0").vLabel("group1").vIconKey("group").vTooltip("group 1").vStyleName("vertex")
-			.vertex("v1").parent("g1").vLabel("vertex1").vIconKey("server").vTooltip("tooltip").vStyleName("vertex")
-			.vertex("v2").parent("g1").vLabel("vertex2").vIconKey("server").vTooltip("tooltip").vStyleName("vertex")
-			.vertex("g2").parent("g0").vLabel("group2").vIconKey("group").vTooltip("group 2").vStyleName("vertex")
-			.vertex("v3").parent("g2").vLabel("vertex3").vIconKey("server").vTooltip("tooltip").vStyleName("vertex")
-			.vertex("v4").parent("g2").vLabel("vertex4").vIconKey("server").vTooltip("tooltip").vStyleName("vertex")
-			.edge("e1", "v1", "v2").eStyleName("edge")
-			.edge("e2", "v2", "v3").eStyleName("edge")
-			.edge("e3", "v3", "v4").eStyleName("edge")
-			.edge("e4", "v4", "v1").eStyleName("edge")
-			.get();
+    private Map<VertexRef, String> m_expectedVertexStyles = new HashMap<VertexRef, String>();
 
-		m_edgeProvider = new SimpleEdgeBuilder("ncs", "nodes")
-			.edge("ncs1", "nodes", "v1", "nodes", "v3").label("ncsedge1").styleName("ncs edge")
-			.edge("ncs2", "nodes", "v2", "nodes", "v4").label("ncsedge2").styleName("ncs edge")
-			.edge("ncs3", "nodes", "v1", "nodes", "v2").label("ncsedge3").styleName("ncs edge")
-			.get();
+    private Set<EdgeRef> m_expectedEdges = new HashSet<EdgeRef>();
 
-		ProviderManager providerManager = new ProviderManager();
-		providerManager.onEdgeProviderBind(m_edgeProvider);
+    private Map<EdgeRef, String> m_expectedEdgeStyles = new HashMap<EdgeRef, String>();
 
-		GraphContainer graphContainer = new VEProviderGraphContainer(m_graphProvider, providerManager);
+    @Before
+    public void setUp() {
 
-		m_graphContainer = graphContainer;
-	}
+        MockLogAppender.setupLogging();
 
-	@Test
-	public void testGraphProvider() {
-		List<? extends Vertex> roots = m_graphProvider.getRootGroup();
-		assertEquals(1, roots.size());
-		Vertex root = roots.get(0);
-		assertNotNull(root);
+        m_graphProvider = new SimpleGraphBuilder("nodes").vertex("g0").vLabel("group0").vIconKey("group").vTooltip("root group").vStyleName("vertex").vertex("g1").parent("g0").vLabel("group1").vIconKey("group").vTooltip("group 1").vStyleName("vertex").vertex("v1").parent("g1").vLabel("vertex1").vIconKey("server").vTooltip("tooltip").vStyleName("vertex").vertex("v2").parent("g1").vLabel("vertex2").vIconKey("server").vTooltip("tooltip").vStyleName("vertex").vertex("g2").parent("g0").vLabel("group2").vIconKey("group").vTooltip("group 2").vStyleName("vertex").vertex("v3").parent("g2").vLabel("vertex3").vIconKey("server").vTooltip("tooltip").vStyleName("vertex").vertex("v4").parent("g2").vLabel("vertex4").vIconKey("server").vTooltip("tooltip").vStyleName("vertex").edge("e1",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       "v1",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       "v2").eStyleName("edge").edge("e2",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "v2",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "v3").eStyleName("edge").edge("e3",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "v3",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "v4").eStyleName("edge").edge("e4",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 "v4",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 "v1").eStyleName("edge").get();
 
-		assertEquals("nodes", root.getNamespace());
-		assertEquals("g0", root.getId());
+        m_edgeProvider = new SimpleEdgeBuilder("ncs", "nodes").edge("ncs1", "nodes", "v1", "nodes", "v3").label("ncsedge1").styleName("ncs edge").edge("ncs2",
+                                                                                                                                                       "nodes",
+                                                                                                                                                       "v2",
+                                                                                                                                                       "nodes",
+                                                                                                                                                       "v4").label("ncsedge2").styleName("ncs edge").edge("ncs3",
+                                                                                                                                                                                                          "nodes",
+                                                                                                                                                                                                          "v1",
+                                                                                                                                                                                                          "nodes",
+                                                                                                                                                                                                          "v2").label("ncsedge3").styleName("ncs edge").get();
 
-		List<? extends Vertex> children = m_graphProvider.getChildren(root);
-		assertEquals(2, children.size());
-		assertEquals(root, m_graphProvider.getParent(children.get(0)));
-	}
+        ProviderManager providerManager = new ProviderManager();
+        providerManager.onEdgeProviderBind(m_edgeProvider);
 
-	@Test
-	public void testContainer() throws Exception {
+        GraphContainer graphContainer = new VEProviderGraphContainer(m_graphProvider, providerManager);
 
-		Graph graph = m_graphContainer.getGraph();
+        m_graphContainer = graphContainer;
+    }
 
-		expectVertex("nodes", "g0", "vertex");
+    @Test
+    public void testGraphProvider() {
+        List<? extends Vertex> roots = m_graphProvider.getRootGroup();
+        assertEquals(1, roots.size());
+        Vertex root = roots.get(0);
+        assertNotNull(root);
 
-		graph.visit(verifier());
+        assertEquals("nodes", root.getNamespace());
+        assertEquals("g0", root.getId());
 
-		verify();
+        List<? extends Vertex> children = m_graphProvider.getChildren(root);
+        assertEquals(2, children.size());
+        assertEquals(root, m_graphProvider.getParent(children.get(0)));
+    }
 
-		reset();
+    @Test
+    public void testContainer() throws Exception {
 
-		m_graphContainer.setSemanticZoomLevel(1);
+        Graph graph = m_graphContainer.getGraph();
 
-		expectVertex("nodes", "g1", "vertex");
-		expectVertex("nodes", "g2", "vertex");
-		expectEdge("pseudo-nodes", "<nodes:g1>-<nodes:g2>", "edge");
+        expectVertex("nodes", "g0", "vertex");
 
-		graph = m_graphContainer.getGraph();
+        graph.visit(verifier());
 
-		graph.visit(verifier());
+        verify();
 
-		verify();
+        reset();
 
-		reset();
+        m_graphContainer.setSemanticZoomLevel(1);
 
-		m_graphContainer.setCriteria(SimpleEdgeProvider.labelMatches("ncs", "ncsedge."));
+        expectVertex("nodes", "g1", "vertex");
+        expectVertex("nodes", "g2", "vertex");
+        expectEdge("pseudo-nodes", "<nodes:g1>-<nodes:g2>", "edge");
 
-		expectVertex("nodes", "g1", "vertex");
-		expectVertex("nodes", "g2", "vertex");
-		expectEdge("pseudo-nodes", "<nodes:g1>-<nodes:g2>", "edge");
-		expectEdge("pseudo-ncs", "<nodes:g1>-<nodes:g2>", "ncs edge");
+        graph = m_graphContainer.getGraph();
 
-		graph = m_graphContainer.getGraph();
+        graph.visit(verifier());
 
-		graph.visit(verifier());
+        verify();
 
-		verify();
+        reset();
 
-		reset();
+        m_graphContainer.setCriteria(SimpleEdgeProvider.labelMatches("ncs", "ncsedge."));
 
-	}
+        expectVertex("nodes", "g1", "vertex");
+        expectVertex("nodes", "g2", "vertex");
+        expectEdge("pseudo-nodes", "<nodes:g1>-<nodes:g2>", "edge");
+        expectEdge("pseudo-ncs", "<nodes:g1>-<nodes:g2>", "ncs edge");
 
-	private void verify() {
-		if (!m_expectedVertices.isEmpty()) {
-			fail("Expected Vertices not seen: " + m_expectedVertices);
-		}
+        graph = m_graphContainer.getGraph();
 
-		if (!m_expectedEdges.isEmpty()) {
-			fail("Expected Edges not seen: " + m_expectedEdges);
-		}
-	}
+        graph.visit(verifier());
 
-	private GraphVisitor verifier() {
-		return new BaseGraphVisitor() {
+        verify();
 
-			@Override
-			public void visitVertex(Vertex vertex) {
-				assertTrue("Unexpected vertex " + vertex + " encountered!", m_expectedVertices.contains(vertex));
-				m_expectedVertices.remove(vertex);
-				assertEquals("Unexpected style for vertex " + vertex, m_expectedVertexStyles.get(vertex), vertex.getStyleName());
-			}
+        reset();
 
-			@Override
-			public void visitEdge(Edge edge) {
-				assertTrue("Unexpected edge " + edge + " encountered!", m_expectedEdges.contains(edge));
-				m_expectedEdges.remove(edge);
-				assertEquals("Unexpected style for edge " + edge, m_expectedEdgeStyles.get(edge), edge.getStyleName());
-			}
+    }
 
-		};
-	}
+    private void verify() {
+        if (!m_expectedVertices.isEmpty()) {
+            fail("Expected Vertices not seen: " + m_expectedVertices);
+        }
 
+        if (!m_expectedEdges.isEmpty()) {
+            fail("Expected Edges not seen: " + m_expectedEdges);
+        }
+    }
 
+    private GraphVisitor verifier() {
+        return new BaseGraphVisitor() {
 
-	private void expectVertex(String namespace, String vertexId, String styles) {
-		AbstractVertexRef vertexRef = new AbstractVertexRef(namespace, vertexId);
-		m_expectedVertices.add(vertexRef);
-		m_expectedVertexStyles.put(vertexRef, styles);
-	}
+            @Override
+            public void visitVertex(Vertex vertex) {
+                assertTrue("Unexpected vertex " + vertex + " encountered!", m_expectedVertices.contains(vertex));
+                m_expectedVertices.remove(vertex);
+                assertEquals("Unexpected style for vertex " + vertex, m_expectedVertexStyles.get(vertex),
+                             vertex.getStyleName());
+            }
 
-	private void expectEdge(String namespace, String edgeId, String styles) {
-		AbstractEdgeRef edgeRef = new AbstractEdgeRef(namespace, edgeId);
-		m_expectedEdges.add(edgeRef);
-		m_expectedEdgeStyles.put(edgeRef, styles);
-	}
+            @Override
+            public void visitEdge(Edge edge) {
+                assertTrue("Unexpected edge " + edge + " encountered!", m_expectedEdges.contains(edge));
+                m_expectedEdges.remove(edge);
+                assertEquals("Unexpected style for edge " + edge, m_expectedEdgeStyles.get(edge), edge.getStyleName());
+            }
 
-	private void reset() {
-		m_expectedVertices.clear();
-		m_expectedEdges.clear();
-		m_expectedVertexStyles.clear();
-		m_expectedEdgeStyles.clear();
-	}
+        };
+    }
+
+    private void expectVertex(String namespace, String vertexId, String styles) {
+        AbstractVertexRef vertexRef = new AbstractVertexRef(namespace, vertexId);
+        m_expectedVertices.add(vertexRef);
+        m_expectedVertexStyles.put(vertexRef, styles);
+    }
+
+    private void expectEdge(String namespace, String edgeId, String styles) {
+        AbstractEdgeRef edgeRef = new AbstractEdgeRef(namespace, edgeId);
+        m_expectedEdges.add(edgeRef);
+        m_expectedEdgeStyles.put(edgeRef, styles);
+    }
+
+    private void reset() {
+        m_expectedVertices.clear();
+        m_expectedEdges.clear();
+        m_expectedVertexStyles.clear();
+        m_expectedEdgeStyles.clear();
+    }
 }

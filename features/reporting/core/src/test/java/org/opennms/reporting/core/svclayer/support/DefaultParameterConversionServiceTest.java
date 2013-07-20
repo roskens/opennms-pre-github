@@ -47,6 +47,7 @@ import org.springframework.core.io.Resource;
 public class DefaultParameterConversionServiceTest {
 
     private static DefaultOnmsReportConfigDao m_dao;
+
     private static DefaultParameterConversionService m_conversionService;
 
     private static final String ID = "defaultCalendarReport";
@@ -63,7 +64,7 @@ public class DefaultParameterConversionServiceTest {
     @Test
     public void testGetDateParms() {
         assertNotNull(m_dao.getDateParms(ID));
-        assertEquals(1,m_dao.getDateParms(ID).length);
+        assertEquals(1, m_dao.getDateParms(ID).length);
     }
 
     @Test
@@ -73,7 +74,7 @@ public class DefaultParameterConversionServiceTest {
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
         cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND,0);
+        cal.set(Calendar.MILLISECOND, 0);
         System.out.println("test date " + cal.getTime().toString());
         cal.add(Calendar.DATE, -1);
         Date configDate = parameters.getDateParms().get(0).getDate();
@@ -88,16 +89,15 @@ public class DefaultParameterConversionServiceTest {
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND,0);
+        cal.set(Calendar.MILLISECOND, 0);
         ReportDateParm dateParm = parameters.getDateParms().get(0);
         dateParm.setCount(1);
         dateParm.setInterval("month");
         dateParm.setHours(0);
         dateParm.setMinutes(0);
-        Map <String, Object> parmMap = parameters.getReportParms(ReportMode.SCHEDULED);
+        Map<String, Object> parmMap = parameters.getReportParms(ReportMode.SCHEDULED);
         Date storedDate = (Date) parmMap.get("endDate");
         assertEquals(0, storedDate.compareTo(cal.getTime()));
     }
-
 
 }

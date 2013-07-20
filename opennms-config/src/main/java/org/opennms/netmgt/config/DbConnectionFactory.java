@@ -28,10 +28,10 @@
 
 package org.opennms.netmgt.config;
 
-
-
 /**
- * <p>DbConnectionFactory interface.</p>
+ * <p>
+ * DbConnectionFactory interface.
+ * </p>
  *
  * @author brozow
  */

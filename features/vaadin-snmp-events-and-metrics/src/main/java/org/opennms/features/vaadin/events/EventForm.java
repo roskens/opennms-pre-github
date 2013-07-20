@@ -55,29 +55,24 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 public abstract class EventForm extends Form implements ClickListener {
 
     /** The Constant FORM_ITEMS. */
-    public static final String[] FORM_ITEMS = new String[] {
-        "uei",
-        "eventLabel",
-        "descr",
-        "logMsgContent",         // Embedded from LogMsg object
-        "logMsgDest",            // Embedded from LogMsg object
-        "severity",
-        "alarmDataReductionKey", // Embedded from AlarmData object
-        "alarmDataClearKey",     // Embedded from AlarmData object
-        "alarmDataAlarmType",    // Embedded from AlarmData object
-        "alarmDataAutoClean",    // Embedded from AlarmData object
-        "operinstruct",
-        "maskElements",
-        "maskVarbinds",
-        "varbindsdecodeCollection"
-        /*
-         * Not Implemented:
-         *
-         * autoactionCollection (CustomField)
-         * operactionCollection (CustomField)
-         * correlation (CustomField)
-         * autoacknowledge (CustomField)
-         */
+    public static final String[] FORM_ITEMS = new String[] { "uei", "eventLabel", "descr", "logMsgContent", // Embedded
+                                                                                                            // from
+                                                                                                            // LogMsg
+                                                                                                            // object
+            "logMsgDest", // Embedded from LogMsg object
+            "severity", "alarmDataReductionKey", // Embedded from AlarmData
+                                                 // object
+            "alarmDataClearKey", // Embedded from AlarmData object
+            "alarmDataAlarmType", // Embedded from AlarmData object
+            "alarmDataAutoClean", // Embedded from AlarmData object
+            "operinstruct", "maskElements", "maskVarbinds", "varbindsdecodeCollection"
+    /*
+     * Not Implemented:
+     * autoactionCollection (CustomField)
+     * operactionCollection (CustomField)
+     * correlation (CustomField)
+     * autoacknowledge (CustomField)
+     */
     };
 
     /** The Edit button. */
@@ -139,11 +134,14 @@ public abstract class EventForm extends Form implements ClickListener {
     /**
      * Creates the event item.
      *
-     * @param event the event
+     * @param event
+     *            the event
      * @return the bean item
      */
-    private BeanItem<org.opennms.netmgt.xml.eventconf.Event> createEventItem(org.opennms.netmgt.xml.eventconf.Event event) {
-        // Be sure that the nested elements exists to avoid problems with vaadin fields.
+    private BeanItem<org.opennms.netmgt.xml.eventconf.Event> createEventItem(
+            org.opennms.netmgt.xml.eventconf.Event event) {
+        // Be sure that the nested elements exists to avoid problems with vaadin
+        // fields.
         if (event.getMask() == null) {
             event.setMask(new Mask());
         }
@@ -156,14 +154,20 @@ public abstract class EventForm extends Form implements ClickListener {
             event.setAlarmData(a);
         }
         // Creating BeanItem
-        BeanItem<org.opennms.netmgt.xml.eventconf.Event> item = new BeanItem<org.opennms.netmgt.xml.eventconf.Event>(event);
+        BeanItem<org.opennms.netmgt.xml.eventconf.Event> item = new BeanItem<org.opennms.netmgt.xml.eventconf.Event>(
+                                                                                                                     event);
         item.addItemProperty("logMsgContent", new NestedMethodProperty<String>(item.getBean(), "logmsg.content"));
         item.addItemProperty("logMsgDest", new NestedMethodProperty<String>(item.getBean(), "logmsg.dest"));
-        item.addItemProperty("alarmDataReductionKey", new NestedMethodProperty<String>(item.getBean(), "alarmData.ReductionKey"));
-        item.addItemProperty("alarmDataClearKey", new NestedMethodProperty<String>(item.getBean(), "alarmData.ClearKey"));
-        item.addItemProperty("alarmDataAlarmType", new NestedMethodProperty<String>(item.getBean(), "alarmData.AlarmType"));
-        item.addItemProperty("alarmDataAutoClean", new NestedMethodProperty<String>(item.getBean(), "alarmData.AutoClean"));
-        item.addItemProperty("maskElements", new NestedMethodProperty<String>(item.getBean(), "mask.maskelementCollection"));
+        item.addItemProperty("alarmDataReductionKey", new NestedMethodProperty<String>(item.getBean(),
+                                                                                       "alarmData.ReductionKey"));
+        item.addItemProperty("alarmDataClearKey",
+                             new NestedMethodProperty<String>(item.getBean(), "alarmData.ClearKey"));
+        item.addItemProperty("alarmDataAlarmType", new NestedMethodProperty<String>(item.getBean(),
+                                                                                    "alarmData.AlarmType"));
+        item.addItemProperty("alarmDataAutoClean", new NestedMethodProperty<String>(item.getBean(),
+                                                                                    "alarmData.AutoClean"));
+        item.addItemProperty("maskElements", new NestedMethodProperty<String>(item.getBean(),
+                                                                              "mask.maskelementCollection"));
         item.addItemProperty("maskVarbinds", new NestedMethodProperty<String>(item.getBean(), "mask.varbindCollection"));
         return item;
     }
@@ -171,14 +175,16 @@ public abstract class EventForm extends Form implements ClickListener {
     /**
      * Sets the Event Data Source
      *
-     * @param event the OpenNMS event
+     * @param event
+     *            the OpenNMS event
      */
     public void setEventDataSource(org.opennms.netmgt.xml.eventconf.Event event) {
         BeanItem<org.opennms.netmgt.xml.eventconf.Event> item = createEventItem(event);
         setItemDataSource(item, Arrays.asList(FORM_ITEMS));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Form#setReadOnly(boolean)
      */
     @Override
@@ -190,8 +196,10 @@ public abstract class EventForm extends Form implements ClickListener {
         delete.setVisible(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(ClickEvent event) {
@@ -209,10 +217,10 @@ public abstract class EventForm extends Form implements ClickListener {
             setReadOnly(false);
         }
         if (source == delete) {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
-                                           "Are you sure?",
+            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(), "Are you sure?",
                                            MessageBox.Icon.QUESTION,
-                                           "Do you really want to remove the event definition " + getEvent().getUei() + "?<br/>This action cannot be undone.",
+                                           "Do you really want to remove the event definition " + getEvent().getUei()
+                                                   + "?<br/>This action cannot be undone.",
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
             mb.addStyleName(Runo.WINDOW_DIALOG);
@@ -231,14 +239,16 @@ public abstract class EventForm extends Form implements ClickListener {
     /**
      * Save event.
      *
-     * @param event the event
+     * @param event
+     *            the event
      */
     public abstract void saveEvent(org.opennms.netmgt.xml.eventconf.Event event);
 
     /**
      * Delete event.
      *
-     * @param event the event
+     * @param event
+     *            the event
      */
     public abstract void deleteEvent(org.opennms.netmgt.xml.eventconf.Event event);
 

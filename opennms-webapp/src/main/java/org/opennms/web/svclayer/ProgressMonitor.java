@@ -29,7 +29,9 @@
 package org.opennms.web.svclayer;
 
 /**
- * <p>ProgressMonitor class.</p>
+ * <p>
+ * ProgressMonitor class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -40,113 +42,142 @@ package org.opennms.web.svclayer;
  */
 public class ProgressMonitor {
 
-	private int m_phaseCount = 1;
-	private int m_phase = 0;
-	private String m_phaseLabel = "Loading";
-	private Object m_result = null;
-	private Throwable m_throwable = null;
+    private int m_phaseCount = 1;
 
-	/**
-	 * <p>getPhaseCount</p>
-	 *
-	 * @return a int.
-	 */
-	public int getPhaseCount() {
-		return m_phaseCount;
-	}
+    private int m_phase = 0;
 
-	/**
-	 * <p>setPhaseCount</p>
-	 *
-	 * @param phaseCount a int.
-	 */
-	public void setPhaseCount(int phaseCount) {
-		m_phaseCount = phaseCount;
-	}
+    private String m_phaseLabel = "Loading";
 
-	/**
-	 * <p>getPhaseLabel</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getPhaseLabel() {
-		return m_phaseLabel;
-	}
+    private Object m_result = null;
 
-	/**
-	 * <p>getPhase</p>
-	 *
-	 * @return a int.
-	 */
-	public int getPhase() {
-		return m_phase;
-	}
+    private Throwable m_throwable = null;
 
-	/**
-	 * <p>beginNextPhase</p>
-	 *
-	 * @param phaseLabel a {@link java.lang.String} object.
-	 */
-	public void beginNextPhase(String phaseLabel) {
-		m_phaseLabel = phaseLabel;
-		m_phase++;
-	}
+    /**
+     * <p>
+     * getPhaseCount
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getPhaseCount() {
+        return m_phaseCount;
+    }
 
-	/**
-	 * <p>finished</p>
-	 *
-	 * @param result a {@link java.lang.Object} object.
-	 */
-	public void finished(Object result) {
-		m_result = result;
-		m_phaseLabel = "Done";
-		m_phase = m_phaseCount;
-	}
+    /**
+     * <p>
+     * setPhaseCount
+     * </p>
+     *
+     * @param phaseCount
+     *            a int.
+     */
+    public void setPhaseCount(int phaseCount) {
+        m_phaseCount = phaseCount;
+    }
 
-	/**
-	 * <p>isFinished</p>
-	 *
-	 * @return a boolean.
-	 */
-	public boolean isFinished() {
-		return m_result != null;
-	}
+    /**
+     * <p>
+     * getPhaseLabel
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getPhaseLabel() {
+        return m_phaseLabel;
+    }
 
-	/**
-	 * <p>getResult</p>
-	 *
-	 * @return a {@link java.lang.Object} object.
-	 */
-	public Object getResult() {
-		return m_result;
-	}
+    /**
+     * <p>
+     * getPhase
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getPhase() {
+        return m_phase;
+    }
 
-	/**
-	 * <p>isError</p>
-	 *
-	 * @return a boolean.
-	 */
-	public boolean isError() {
-		return m_throwable != null;
-	}
+    /**
+     * <p>
+     * beginNextPhase
+     * </p>
+     *
+     * @param phaseLabel
+     *            a {@link java.lang.String} object.
+     */
+    public void beginNextPhase(String phaseLabel) {
+        m_phaseLabel = phaseLabel;
+        m_phase++;
+    }
 
-	/**
-	 * <p>getThrowable</p>
-	 *
-	 * @return a {@link java.lang.Throwable} object.
-	 */
-	public Throwable getThrowable() {
-		return m_throwable;
-	}
+    /**
+     * <p>
+     * finished
+     * </p>
+     *
+     * @param result
+     *            a {@link java.lang.Object} object.
+     */
+    public void finished(Object result) {
+        m_result = result;
+        m_phaseLabel = "Done";
+        m_phase = m_phaseCount;
+    }
 
-	/**
-	 * <p>errorOccurred</p>
-	 *
-	 * @param t a {@link java.lang.Throwable} object.
-	 */
-	public void errorOccurred(Throwable t) {
-		m_throwable = t;
-	}
+    /**
+     * <p>
+     * isFinished
+     * </p>
+     *
+     * @return a boolean.
+     */
+    public boolean isFinished() {
+        return m_result != null;
+    }
 
+    /**
+     * <p>
+     * getResult
+     * </p>
+     *
+     * @return a {@link java.lang.Object} object.
+     */
+    public Object getResult() {
+        return m_result;
+    }
+
+    /**
+     * <p>
+     * isError
+     * </p>
+     *
+     * @return a boolean.
+     */
+    public boolean isError() {
+        return m_throwable != null;
+    }
+
+    /**
+     * <p>
+     * getThrowable
+     * </p>
+     *
+     * @return a {@link java.lang.Throwable} object.
+     */
+    public Throwable getThrowable() {
+        return m_throwable;
+    }
+
+    /**
+     * <p>
+     * errorOccurred
+     * </p>
+     *
+     * @param t
+     *            a {@link java.lang.Throwable} object.
+     */
+    public void errorOccurred(Throwable t) {
+        m_throwable = t;
+    }
 
 }

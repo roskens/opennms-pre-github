@@ -32,7 +32,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>ThresholdResourceType class.</p>
+ * <p>
+ * ThresholdResourceType class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -44,16 +46,21 @@ public class ThresholdResourceType {
     private Map<String, Set<ThresholdEntity>> m_thresholdMap;
 
     /**
-     * <p>Constructor for ThresholdResourceType.</p>
+     * <p>
+     * Constructor for ThresholdResourceType.
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public ThresholdResourceType(final String type) {
         m_dsType = type.intern();
     }
 
     /**
-     * <p>getDsType</p>
+     * <p>
+     * getDsType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +69,9 @@ public class ThresholdResourceType {
     }
 
     /**
-     * <p>getThresholdMap</p>
+     * <p>
+     * getThresholdMap
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -71,13 +80,15 @@ public class ThresholdResourceType {
     }
 
     /**
-     * <p>setThresholdMap</p>
+     * <p>
+     * setThresholdMap
+     * </p>
      *
-     * @param thresholdMap a {@link java.util.Map} object.
+     * @param thresholdMap
+     *            a {@link java.util.Map} object.
      */
     public void setThresholdMap(Map<String, Set<ThresholdEntity>> thresholdMap) {
-    	m_thresholdMap = thresholdMap;
+        m_thresholdMap = thresholdMap;
     }
-
 
 }

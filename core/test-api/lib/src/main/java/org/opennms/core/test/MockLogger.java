@@ -1,6 +1,5 @@
 package org.opennms.core.test;
 
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -19,10 +18,14 @@ import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.helpers.Util;
 
 /**
- * <p>Simple implementation of {@link Logger} based on SimpleLogger from SLF4J</p>
- *
- * <p>This implementation is heavily inspired by
- * <a href="http://commons.apache.org/logging/">Apache Commons Logging</a>'s SimpleLog.</p>
+ * <p>
+ * Simple implementation of {@link Logger} based on SimpleLogger from SLF4J
+ * </p>
+ * <p>
+ * This implementation is heavily inspired by <a
+ * href="http://commons.apache.org/logging/">Apache Commons Logging</a>'s
+ * SimpleLog.
+ * </p>
  *
  * @author Ceki G&uuml;lc&uuml;
  * @author <a href="mailto:sanders@apache.org">Scott Sanders</a>
@@ -36,39 +39,58 @@ public class MockLogger extends MarkerIgnoringBase {
     private static final String CONFIGURATION_FILE = "mocklogger.properties";
 
     private static long START_TIME = System.currentTimeMillis();
+
     private static final Properties SIMPLE_LOGGER_PROPS = new Properties();
 
     private static boolean INITIALIZED = false;
 
     private static Level DEFAULT_LOG_LEVEL = Level.INFO;
+
     private static boolean SHOW_DATE_TIME = true;
+
     private static String DATE_TIME_FORMAT_STR = "yyyy-MM-dd HH:mm:ss,SSS";
+
     private static DateFormat DATE_FORMATTER = null;
+
     private static boolean SHOW_THREAD_NAME = true;
+
     private static boolean SHOW_LOG_NAME = true;
+
     private static boolean SHOW_SHORT_LOG_NAME = false;
+
     private static String LOG_FILE = "System.out";
+
     private static PrintStream TARGET_STREAM = null;
+
     private static boolean LEVEL_IN_BRACKETS = false;
+
     private static String WARN_LEVEL_STRING = "WARN";
 
-
-    /** All system properties used by <code>MockLogger</code> start with this prefix */
+    /**
+     * All system properties used by <code>MockLogger</code> start with this
+     * prefix
+     */
     public static final String SYSTEM_PREFIX = "org.opennms.core.test.mockLogger.";
 
     public static final String DEFAULT_LOG_LEVEL_KEY = SYSTEM_PREFIX + "defaultLogLevel";
+
     public static final String SHOW_DATE_TIME_KEY = SYSTEM_PREFIX + "showDateTime";
+
     public static final String DATE_TIME_FORMAT_KEY = SYSTEM_PREFIX + "dateTimeFormat";
+
     public static final String SHOW_THREAD_NAME_KEY = SYSTEM_PREFIX + "showThreadName";
+
     public static final String SHOW_LOG_NAME_KEY = SYSTEM_PREFIX + "showLogName";
+
     public static final String SHOW_SHORT_LOG_NAME_KEY = SYSTEM_PREFIX + "showShortLogName";
+
     public static final String LOG_FILE_KEY = SYSTEM_PREFIX + "logFile";
+
     public static final String LEVEL_IN_BRACKETS_KEY = SYSTEM_PREFIX + "levelInBrackets";
+
     public static final String WARN_LEVEL_STRING_KEY = SYSTEM_PREFIX + "warnLevelString";
 
-
     public static final String LOG_KEY_PREFIX = SYSTEM_PREFIX + "log.";
-
 
     private static String getStringProperty(String name) {
         String prop = null;
@@ -89,7 +111,6 @@ public class MockLogger extends MarkerIgnoringBase {
         String prop = getStringProperty(name);
         return (prop == null) ? defaultValue : "true".equalsIgnoreCase(prop);
     }
-
 
     // Initialize class attributes.
     // Load properties file, if found.
@@ -124,7 +145,6 @@ public class MockLogger extends MarkerIgnoringBase {
         }
     }
 
-
     private static PrintStream computeTargetStream(String logFile) {
         if ("System.err".equalsIgnoreCase(logFile))
             return System.err;
@@ -144,17 +164,16 @@ public class MockLogger extends MarkerIgnoringBase {
 
     private static void loadProperties() {
         // Add props from the resource mocklogger.properties
-        InputStream in = AccessController.doPrivileged(
-                                                       new PrivilegedAction<InputStream>() {
-                                                           public InputStream run() {
-                                                               ClassLoader threadCL = Thread.currentThread().getContextClassLoader();
-                                                               if (threadCL != null) {
-                                                                   return threadCL.getResourceAsStream(CONFIGURATION_FILE);
-                                                               } else {
-                                                                   return ClassLoader.getSystemResourceAsStream(CONFIGURATION_FILE);
-                                                               }
-                                                           }
-                                                       });
+        InputStream in = AccessController.doPrivileged(new PrivilegedAction<InputStream>() {
+            public InputStream run() {
+                ClassLoader threadCL = Thread.currentThread().getContextClassLoader();
+                if (threadCL != null) {
+                    return threadCL.getResourceAsStream(CONFIGURATION_FILE);
+                } else {
+                    return ClassLoader.getSystemResourceAsStream(CONFIGURATION_FILE);
+                }
+            }
+        });
         if (null != in) {
             try {
                 SIMPLE_LOGGER_PROPS.load(in);
@@ -167,12 +186,14 @@ public class MockLogger extends MarkerIgnoringBase {
 
     /** The current log level */
     protected Level currentLogLevel = Level.INFO;
+
     /** The short name of this simple log instance */
     private transient String shortLogName = null;
 
     /**
      * Package access allows only {@link MockLoggerFactory} to instantiate
      * MockLogger instances.
+     *
      * @param appender
      */
     MockLogger(String name) {
@@ -196,7 +217,8 @@ public class MockLogger extends MarkerIgnoringBase {
         while ((levelString == null) && (indexOfLastDot > -1)) {
             tempName = tempName.substring(0, indexOfLastDot);
             levelString = getStringProperty(LOG_KEY_PREFIX + tempName, null);
-            //System.err.println("tempName = " + tempName + ", levelString = " + levelString);
+            // System.err.println("tempName = " + tempName + ", levelString = "
+            // + levelString);
             indexOfLastDot = String.valueOf(tempName).lastIndexOf(".");
         }
         return levelString;
@@ -211,14 +233,17 @@ public class MockLogger extends MarkerIgnoringBase {
         return level;
     }
 
-
     /**
-     * This is our internal implementation for logging regular (non-parameterized)
+     * This is our internal implementation for logging regular
+     * (non-parameterized)
      * log messages.
      *
-     * @param level   One of the Level.XXX constants defining the log level
-     * @param message The message itself
-     * @param t       The exception whose stack trace should be logged
+     * @param level
+     *            One of the Level.XXX constants defining the log level
+     * @param message
+     *            The message itself
+     * @param t
+     *            The exception whose stack trace should be logged
      */
     private void log(Level level, String message, Throwable t) {
         if (!isLevelEnabled(level)) {
@@ -240,9 +265,11 @@ public class MockLogger extends MarkerIgnoringBase {
             }
         }
 
-        if (LEVEL_IN_BRACKETS) buf.append('[');
+        if (LEVEL_IN_BRACKETS)
+            buf.append('[');
         buf.append(level.toString());
-        if (LEVEL_IN_BRACKETS) buf.append(']');
+        if (LEVEL_IN_BRACKETS)
+            buf.append(']');
         buf.append(' ');
 
         // Append current thread name if so configured
@@ -254,7 +281,8 @@ public class MockLogger extends MarkerIgnoringBase {
 
         // Append the name of the log instance if so configured
         if (SHOW_SHORT_LOG_NAME) {
-            if (shortLogName == null) shortLogName = computeShortName();
+            if (shortLogName == null)
+                shortLogName = computeShortName();
             buf.append(String.valueOf(shortLogName)).append(" - ");
         } else if (SHOW_LOG_NAME) {
             buf.append(String.valueOf(name)).append(" - ");
@@ -296,8 +324,7 @@ public class MockLogger extends MarkerIgnoringBase {
      * @param arg1
      * @param arg2
      */
-    private void formatAndLog(Level level, String format, Object arg1,
-            Object arg2) {
+    private void formatAndLog(Level level, String format, Object arg1, Object arg2) {
         if (!isLevelEnabled(level)) {
             return;
         }
@@ -310,7 +337,8 @@ public class MockLogger extends MarkerIgnoringBase {
      *
      * @param level
      * @param format
-     * @param arguments a list of 3 ore more arguments
+     * @param arguments
+     *            a list of 3 ore more arguments
      */
     private void formatAndLog(Level level, String format, Object... arguments) {
         if (!isLevelEnabled(level)) {
@@ -323,7 +351,8 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Is the given log level currently enabled?
      *
-     * @param logLevel is this level enabled?
+     * @param logLevel
+     *            is this level enabled?
      */
     protected boolean isLevelEnabled(Level logLevel) {
         // log level are numerically ordered so can use simple numeric
@@ -463,7 +492,8 @@ public class MockLogger extends MarkerIgnoringBase {
     }
 
     /**
-     * A simple implementation which always logs messages of level WARN according
+     * A simple implementation which always logs messages of level WARN
+     * according
      * to the format outlined above.
      */
     public void warn(String msg) {
@@ -505,7 +535,8 @@ public class MockLogger extends MarkerIgnoringBase {
     }
 
     /**
-     * A simple implementation which always logs messages of level ERROR according
+     * A simple implementation which always logs messages of level ERROR
+     * according
      * to the format outlined above.
      */
     public void error(String msg) {

@@ -51,21 +51,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/opennms/applicationContext-datasource.xml",
-                "classpath:META-INF/opennms/applicationContext-testDao.xml",
-                "classpath:META-INF/opennms/applicationContext-soa.xml",
-		"classpath*:META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-datasource.xml",
+        "classpath:META-INF/opennms/applicationContext-testDao.xml",
+        "classpath:META-INF/opennms/applicationContext-soa.xml", "classpath*:META-INF/opennms/component-dao.xml",
         "classpath:META-INF/opennms/applicationContext-daemon.xml",
-        "classpath:META-INF/opennms/correlation-engine.xml",
-        "classpath:test-context.xml"
-})
+        "classpath:META-INF/opennms/correlation-engine.xml", "classpath:test-context.xml" })
 @JUnitConfigurationEnvironment
 public abstract class CorrelationRulesTestCase {
 
     @Autowired
     @Qualifier("mock")
     private MockEventIpcManager m_eventIpcMgr;
+
     protected Integer m_anticipatedMemorySize = 0;
 
     @Autowired
@@ -80,9 +77,10 @@ public abstract class CorrelationRulesTestCase {
     }
 
     protected void verify(DroolsCorrelationEngine engine) {
-    	getAnticipator().verifyAnticipated(0, 0, 0, 0, 0);
+        getAnticipator().verifyAnticipated(0, 0, 0, 0, 0);
         if (m_anticipatedMemorySize != null) {
-            assertEquals("Unexpected number of objects in working memory: "+engine.getMemoryObjects(), m_anticipatedMemorySize.intValue(), engine.getMemorySize());
+            assertEquals("Unexpected number of objects in working memory: " + engine.getMemoryObjects(),
+                         m_anticipatedMemorySize.intValue(), engine.getMemorySize());
         }
     }
 
@@ -95,32 +93,26 @@ public abstract class CorrelationRulesTestCase {
     }
 
     protected void anticipate(Collection<Event> events) {
-        for(Event event : events) {
+        for (Event event : events) {
             getAnticipator().anticipateEvent(event);
         }
     }
 
     protected Event createRemoteNodeLostServiceEvent(int nodeId, String ipAddr, String svcName, int locationMonitor) {
-    	return createEvent(EventConstants.REMOTE_NODE_LOST_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
+        return createEvent(EventConstants.REMOTE_NODE_LOST_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
     }
 
     protected Event createRemoteNodeRegainedServiceEvent(int nodeId, String ipAddr, String svcName, int locationMonitor) {
-    	return createEvent(EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
+        return createEvent(EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
     }
 
     protected Event createEvent(String uei, int nodeId, String ipAddr, String svcName, int locationMonitor) {
-    	return new EventBuilder(uei, "test")
-        .setNodeid(nodeId).setInterface(addr(ipAddr))
-        	.setService(svcName)
-        	.addParam(EventConstants.PARM_LOCATION_MONITOR_ID, locationMonitor)
-            .getEvent();
+        return new EventBuilder(uei, "test").setNodeid(nodeId).setInterface(addr(ipAddr)).setService(svcName).addParam(EventConstants.PARM_LOCATION_MONITOR_ID,
+                                                                                                                       locationMonitor).getEvent();
     }
 
     protected Event createServiceEvent(String uei, int nodeId, String ipAddr, String svcName) {
-        return new EventBuilder(uei, "test")
-        .setNodeid(nodeId).setInterface(addr("192.168.1.1"))
-            .setService("HTTP")
-            .getEvent();
+        return new EventBuilder(uei, "test").setNodeid(nodeId).setInterface(addr("192.168.1.1")).setService("HTTP").getEvent();
     }
 
     /**

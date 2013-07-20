@@ -28,9 +28,10 @@
 
 package org.opennms.netmgt.poller.remote;
 
-
 /**
- * <p>MonitorConfiguration class.</p>
+ * <p>
+ * MonitorConfiguration class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -38,9 +39,9 @@ package org.opennms.netmgt.poller.remote;
 public class MonitorConfiguration {
 
     /*
-    private String m_monitorServiceName;
-    private String m_monitorIdentifier;
-    private Map m_parameterMap;
-    */
+     * private String m_monitorServiceName;
+     * private String m_monitorIdentifier;
+     * private Map m_parameterMap;
+     */
 
 }

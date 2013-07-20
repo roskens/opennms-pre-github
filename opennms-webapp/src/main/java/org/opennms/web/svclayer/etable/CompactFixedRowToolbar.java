@@ -71,7 +71,9 @@ import org.extremecomponents.table.view.html.ToolbarBuilder;
 import org.extremecomponents.util.HtmlBuilder;
 
 /**
- * <p>CompactFixedRowToolbar class.</p>
+ * <p>
+ * CompactFixedRowToolbar class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @author Jeff Johnston
@@ -79,130 +81,132 @@ import org.extremecomponents.util.HtmlBuilder;
  * @since 1.8.1
  */
 public class CompactFixedRowToolbar extends CustomizableTwoColumnRowLayout {
-	/**
-	 * <p>Constructor for CompactFixedRowToolbar.</p>
-	 *
-	 * @param html a {@link org.extremecomponents.util.HtmlBuilder} object.
-	 * @param model a {@link org.extremecomponents.table.core.TableModel} object.
-	 */
-	public CompactFixedRowToolbar(HtmlBuilder html, TableModel model) {
-		super(html, model);
-	}
+    /**
+     * <p>
+     * Constructor for CompactFixedRowToolbar.
+     * </p>
+     *
+     * @param html
+     *            a {@link org.extremecomponents.util.HtmlBuilder} object.
+     * @param model
+     *            a {@link org.extremecomponents.table.core.TableModel} object.
+     */
+    public CompactFixedRowToolbar(HtmlBuilder html, TableModel model) {
+        super(html, model);
+    }
 
     /** {@inheritDoc} */
     @Override
-	protected boolean showLayout(TableModel model) {
-		boolean showStatusBar = BuilderUtils.showStatusBar(model);
-		boolean filterable = BuilderUtils.filterable(model);
-		boolean showExports = BuilderUtils.showExports(model);
-		boolean showPagination = BuilderUtils.showPagination(model);
-		boolean showTitle = BuilderUtils.showTitle(model);
-		if (!showStatusBar && !filterable && !showExports && !showPagination
-				&& !showTitle) {
-			return false;
-		}
+    protected boolean showLayout(TableModel model) {
+        boolean showStatusBar = BuilderUtils.showStatusBar(model);
+        boolean filterable = BuilderUtils.filterable(model);
+        boolean showExports = BuilderUtils.showExports(model);
+        boolean showPagination = BuilderUtils.showPagination(model);
+        boolean showTitle = BuilderUtils.showTitle(model);
+        if (!showStatusBar && !filterable && !showExports && !showPagination && !showTitle) {
+            return false;
+        }
 
-		return true;
-	}
-
-    /** {@inheritDoc} */
-    @Override
-	protected void columnLeft(HtmlBuilder html, TableModel model) {
-		boolean showStatusBar = BuilderUtils.showStatusBar(model);
-		if (!showStatusBar) {
-			return;
-		}
-
-		html.td(4).styleClass(BuilderConstants.STATUS_BAR_CSS).close();
-
-		new StatusBarBuilder(html, model).statusMessage();
-
-		html.tdEnd();
-	}
+        return true;
+    }
 
     /** {@inheritDoc} */
     @Override
-	protected void columnRight(HtmlBuilder html, TableModel model) {
-		boolean filterable = BuilderUtils.filterable(model);
-		boolean showPagination = BuilderUtils.showPagination(model);
-		boolean showExports = BuilderUtils.showExports(model);
+    protected void columnLeft(HtmlBuilder html, TableModel model) {
+        boolean showStatusBar = BuilderUtils.showStatusBar(model);
+        if (!showStatusBar) {
+            return;
+        }
 
-		if (showPagination || showExports) {
+        html.td(4).styleClass(BuilderConstants.STATUS_BAR_CSS).close();
 
-			ToolbarBuilder toolbarBuilder = new ToolbarBuilder(html, model);
+        new StatusBarBuilder(html, model).statusMessage();
 
-			html.td(4).styleClass(BuilderConstants.COMPACT_TOOLBAR_CSS).align("right").close();
+        html.tdEnd();
+    }
 
-			html.table(4).styleClass("normal").style("margin-bottom: 0px;").close();
-			html.tr(5).close();
+    /** {@inheritDoc} */
+    @Override
+    protected void columnRight(HtmlBuilder html, TableModel model) {
+        boolean filterable = BuilderUtils.filterable(model);
+        boolean showPagination = BuilderUtils.showPagination(model);
+        boolean showExports = BuilderUtils.showExports(model);
 
-			if (showPagination) {
-				html.td(5).close();
-				toolbarBuilder.firstPageItemAsImage();
-				html.tdEnd();
+        if (showPagination || showExports) {
 
-				html.td(5).close();
-				toolbarBuilder.prevPageItemAsImage();
-				html.tdEnd();
+            ToolbarBuilder toolbarBuilder = new ToolbarBuilder(html, model);
 
-				html.td(5).close();
-				toolbarBuilder.nextPageItemAsImage();
-				html.tdEnd();
+            html.td(4).styleClass(BuilderConstants.COMPACT_TOOLBAR_CSS).align("right").close();
 
-				html.td(5).close();
-				toolbarBuilder.lastPageItemAsImage();
-				html.tdEnd();
+            html.table(4).styleClass("normal").style("margin-bottom: 0px;").close();
+            html.tr(5).close();
 
-				// html.td(5).close();
-				// toolbarBuilder.separator();
-				// html.tdEnd();
-				// Disabled the row dropdown for a fixedrow table....
-				// html.td(5).close();
-				// toolbarBuilder.rowsDisplayedDroplist();
-				// html.tdEnd();
+            if (showPagination) {
+                html.td(5).close();
+                toolbarBuilder.firstPageItemAsImage();
+                html.tdEnd();
 
-				// if (showExports) {
-				// html.td(5).close();
-				// toolbarBuilder.separator();
-				// html.tdEnd();
-				// }
-			}
+                html.td(5).close();
+                toolbarBuilder.prevPageItemAsImage();
+                html.tdEnd();
 
-			if (showExports) {
-				@SuppressWarnings("unchecked")
-				Iterator<Export> iterator = model.getExportHandler().getExports()
-						.iterator();
-				for (Iterator<Export> iter = iterator; iter.hasNext();) {
-					html.td(5).close();
-					Export export = iter.next();
-					toolbarBuilder.exportItemAsImage(export);
-					html.tdEnd();
-				}
-			}
+                html.td(5).close();
+                toolbarBuilder.nextPageItemAsImage();
+                html.tdEnd();
 
-			if (filterable) {
-				if (showExports || showPagination) {
-					html.td(5).close();
-					toolbarBuilder.separator();
-					html.tdEnd();
-				}
+                html.td(5).close();
+                toolbarBuilder.lastPageItemAsImage();
+                html.tdEnd();
 
-				html.td(5).close();
-				toolbarBuilder.filterItemAsImage();
-				html.tdEnd();
+                // html.td(5).close();
+                // toolbarBuilder.separator();
+                // html.tdEnd();
+                // Disabled the row dropdown for a fixedrow table....
+                // html.td(5).close();
+                // toolbarBuilder.rowsDisplayedDroplist();
+                // html.tdEnd();
 
-				html.td(5).close();
-				toolbarBuilder.clearItemAsImage();
-				html.tdEnd();
-			}
+                // if (showExports) {
+                // html.td(5).close();
+                // toolbarBuilder.separator();
+                // html.tdEnd();
+                // }
+            }
 
-			html.trEnd(5);
+            if (showExports) {
+                @SuppressWarnings("unchecked")
+                Iterator<Export> iterator = model.getExportHandler().getExports().iterator();
+                for (Iterator<Export> iter = iterator; iter.hasNext();) {
+                    html.td(5).close();
+                    Export export = iter.next();
+                    toolbarBuilder.exportItemAsImage(export);
+                    html.tdEnd();
+                }
+            }
 
-			html.tableEnd(4);
+            if (filterable) {
+                if (showExports || showPagination) {
+                    html.td(5).close();
+                    toolbarBuilder.separator();
+                    html.tdEnd();
+                }
 
-			html.tdEnd();
-		}
-	}
+                html.td(5).close();
+                toolbarBuilder.filterItemAsImage();
+                html.tdEnd();
+
+                html.td(5).close();
+                toolbarBuilder.clearItemAsImage();
+                html.tdEnd();
+            }
+
+            html.trEnd(5);
+
+            html.tableEnd(4);
+
+            html.tdEnd();
+        }
+    }
 
     /** {@inheritDoc} */
     @Override

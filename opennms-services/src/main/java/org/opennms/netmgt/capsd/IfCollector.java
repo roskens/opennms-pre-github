@@ -110,7 +110,6 @@ public final class IfCollector implements Runnable {
      * and the in/out qualifiers for the plugin.
      *
      * @author <a href="mailto:weave@oculan.com">Weave </a>
-     *
      */
     static final class SupportedProtocol {
         /**
@@ -163,7 +162,6 @@ public final class IfCollector implements Runnable {
      *            The target to probe
      * @param supports
      *            The supported protocols (SupportedProtocol)
-     *
      */
     private void probe(InetAddress target, List<SupportedProtocol> supports) {
         String logAddr = InetAddressUtils.str(target);
@@ -205,7 +203,8 @@ public final class IfCollector implements Runnable {
                              plugins[i].getProtocol(), logAddr, utE);
                 }
             } catch (Throwable t) {
-                LOG.warn("IfCollector: Caught an exception when testing for protocol {} on host {}", plugins[i].getProtocol(), logAddr, t);
+                LOG.warn("IfCollector: Caught an exception when testing for protocol {} on host {}",
+                         plugins[i].getProtocol(), logAddr, t);
             }
             LOG.debug("{} plugin {} completed!", logAddr, plugins[i].getProtocol());
         }
@@ -222,13 +221,13 @@ public final class IfCollector implements Runnable {
      *            The target of the poll.
      * @param doSnmpCollection
      *            Flag which indicates if SNMP collection should be done.
-     *
      */
     IfCollector(PluginManager pluginManager, InetAddress addr, boolean doSnmpCollection) {
         this(pluginManager, addr, doSnmpCollection, new HashSet<InetAddress>());
     }
 
-    IfCollector(PluginManager pluginManager, InetAddress addr, boolean doSnmpCollection, Set<InetAddress> previouslyProbed) {
+    IfCollector(PluginManager pluginManager, InetAddress addr, boolean doSnmpCollection,
+            Set<InetAddress> previouslyProbed) {
         m_pluginManager = pluginManager;
         m_target = addr;
         m_doSnmpCollection = doSnmpCollection;
@@ -265,7 +264,6 @@ public final class IfCollector implements Runnable {
      * Returns the map of additional interface targets. The keys are instances
      * of {@link java.net.InetAddress addresses}and the mapped values are
      * {@link java.util.List lists}of supported protocols.
-     *
      */
     Map<InetAddress, List<SupportedProtocol>> getAdditionalTargets() {
         return m_subTargets;
@@ -280,7 +278,6 @@ public final class IfCollector implements Runnable {
 
     /**
      * Returns the list of non-IP interfaces..
-     *
      */
     List<Integer> getNonIpInterfaces() {
         return m_nonIpInterfaces;
@@ -324,7 +321,8 @@ public final class IfCollector implements Runnable {
      */
     @Override
     public void run() {
-        LOG.debug("IfCollector.run: run method invoked to collect information for address {}", InetAddressUtils.str(m_target));
+        LOG.debug("IfCollector.run: run method invoked to collect information for address {}",
+                  InetAddressUtils.str(m_target));
 
         // Now go throught the successful plugin checks
         // and see if either SMB, MSExchange, or SNMP is
@@ -364,7 +362,8 @@ public final class IfCollector implements Runnable {
                 m_smbCollector.run();
             } catch (Throwable t) {
                 m_smbCollector = null;
-                LOG.warn("IfCollector.run: Caught an exception when collecting SMB information from target {}", InetAddressUtils.str(m_target), t);
+                LOG.warn("IfCollector.run: Caught an exception when collecting SMB information from target {}",
+                         InetAddressUtils.str(m_target), t);
             }
 
             LOG.debug("IfCollector.run: SMB collection completed");
@@ -417,7 +416,8 @@ public final class IfCollector implements Runnable {
                             // if the target failed to convert or if it
                             // is equal to the current target then skip it
                             //
-                            if (subtarget == null || subtarget.equals(m_target) || m_previouslyProbed.contains(subtarget))
+                            if (subtarget == null || subtarget.equals(m_target)
+                                    || m_previouslyProbed.contains(subtarget))
                                 continue;
 
                             // now find the ifType
@@ -432,7 +432,8 @@ public final class IfCollector implements Runnable {
                             // now check for loopback
                             if (subtarget.isLoopbackAddress()) {
                                 // Skip if loopback
-                                LOG.debug("ifCollector.run: Loopback interface: {}, skipping...", InetAddressUtils.str(subtarget));
+                                LOG.debug("ifCollector.run: Loopback interface: {}, skipping...",
+                                          InetAddressUtils.str(subtarget));
                                 continue;
                             }
 
@@ -454,7 +455,8 @@ public final class IfCollector implements Runnable {
                             probe(subtarget, probelist);
                             m_previouslyProbed.add(subtarget);
 
-                            LOG.debug("ifCollector.run: adding subtarget {} # supported protocols: {}", InetAddressUtils.str(subtarget), probelist.size());
+                            LOG.debug("ifCollector.run: adding subtarget {} # supported protocols: {}",
+                                      InetAddressUtils.str(subtarget), probelist.size());
                             LOG.debug("----------------------------------------------------------------------------------------");
                             m_subTargets.put(subtarget, probelist);
                         } // end while(more ip addresses)
@@ -481,10 +483,10 @@ public final class IfCollector implements Runnable {
                         // now check for loopback
                         if (subtarget.isLoopbackAddress()) {
                             // Skip if loopback
-                            LOG.debug("ifCollector.run: Loopback interface: {}, skipping...", InetAddressUtils.str(subtarget));
+                            LOG.debug("ifCollector.run: Loopback interface: {}, skipping...",
+                                      InetAddressUtils.str(subtarget));
                             continue;
                         }
-
 
                         // ok it appears to be ok, so probe it!
                         //
@@ -494,7 +496,8 @@ public final class IfCollector implements Runnable {
                         probe(subtarget, probelist);
                         m_previouslyProbed.add(subtarget);
 
-                        LOG.debug("ifCollector.run: adding subtarget {} # supported protocols: {}", InetAddressUtils.str(subtarget), probelist.size());
+                        LOG.debug("ifCollector.run: adding subtarget {} # supported protocols: {}",
+                                  InetAddressUtils.str(subtarget), probelist.size());
                         LOG.debug("----------------------------------------------------------------------------------------");
                         m_subTargets.put(subtarget, probelist);
                     } // end while(more ip addresses)
@@ -502,12 +505,14 @@ public final class IfCollector implements Runnable {
             } // end try()
             catch (Throwable t) {
                 m_snmpCollector = null;
-                LOG.warn("IfCollector.run: Caught an exception when collecting SNMP information from target {}", InetAddressUtils.str(m_target), t);
+                LOG.warn("IfCollector.run: Caught an exception when collecting SNMP information from target {}",
+                         InetAddressUtils.str(m_target), t);
             }
 
             LOG.debug("IfCollector.run: SNMP collection completed");
         } // end if(SNMP supported)
 
-        LOG.debug("IfCollector.run: run method exiting after collecting information from address {}", InetAddressUtils.str(m_target));
+        LOG.debug("IfCollector.run: run method exiting after collecting information from address {}",
+                  InetAddressUtils.str(m_target));
     }
 }

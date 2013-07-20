@@ -35,7 +35,7 @@ import org.opennms.util.ilr.Collector.SortColumn;
 
 public class EnumTest {
     @Test
-    public void testSetSortColumn(){
+    public void testSetSortColumn() {
         String param = "TOTALCOLLECTS";
         assertEquals(SortColumn.TOTALCOLLECTS, SortColumn.valueOf(param));
     }

@@ -54,7 +54,8 @@ import org.slf4j.LoggerFactory;
  * Check for BgpPeering states via RFC1269-MIB.
  * </p>
  * <p>
- * This does SNMP and therefore relies on the SNMP configuration so it is not distributable.
+ * This does SNMP and therefore relies on the SNMP configuration so it is not
+ * distributable.
  * </p>
  *
  * @author <A HREF="mailto:r.trommer@open-factory.org">Ronny Trommer</A>
@@ -99,8 +100,7 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
      * Implement the BGP Peer states
      */
     private enum BGP_PEER_STATE {
-        IDLE(1), CONNECT(2), ACTIVE(3), OPEN_SENT(4), OPEN_CONFIRM(5), ESTABLISHED(
-                6);
+        IDLE(1), CONNECT(2), ACTIVE(3), OPEN_SENT(4), OPEN_CONFIRM(5), ESTABLISHED(6);
 
         private final int state; // state code
 
@@ -143,10 +143,10 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Initialize the service monitor.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                plug-in from functioning.
@@ -175,7 +175,8 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                interface from being monitored.
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
     public void initialize(MonitoredService svc) {
@@ -185,11 +186,11 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * The poll() method is responsible for polling the specified address for
      * SNMP service availability.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown for any uncrecoverable errors.
      */
@@ -212,13 +213,15 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        if (agentConfig == null)
+            throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
         final String hostAddress = InetAddressUtils.str(ipaddr);
-		LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
+        LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
 
         // Get configuration parameters
         //
-        // This should never need to be overridden, but it can be in order to be used with similar tables.
+        // This should never need to be overridden, but it can be in order to be
+        // used with similar tables.
         String bgpPeerIp = ParameterMap.getKeyedString(parameters, "bgpPeerIp", null);
         if (bgpPeerIp == null) {
             LOG.warn("poll: No BGP-Peer IP Defined! ");
@@ -228,7 +231,9 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
         // set timeout and retries on SNMP peer object
         //
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry", ParameterMap.getKeyedInteger(parameters, "retries", agentConfig.getRetries())));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(parameters, "retries",
+                                                                                         agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
 
         // Establish SNMP session with interface
@@ -240,7 +245,8 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
             SnmpObjId bgpPeerStateSnmpObject = SnmpObjId.get(BGP_PEER_STATE_OID + "." + bgpPeerIp);
             SnmpValue bgpPeerState = SnmpUtils.get(agentConfig, bgpPeerStateSnmpObject);
 
-            // If no peer state is received or SNMP is not possible, service is down
+            // If no peer state is received or SNMP is not possible, service is
+            // down
             if (bgpPeerState == null) {
                 LOG.warn("No BGP peer state received!");
                 return status;
@@ -250,8 +256,8 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
             }
 
             /*
-             *  Do no unnecessary SNMP requests, if peer state is up, return with
-             *  service available and go away.
+             * Do no unnecessary SNMP requests, if peer state is up, return with
+             * service available and go away.
              */
             if (bgpPeerState.toInt() == BGP_PEER_STATE.ESTABLISHED.value()) {
                 LOG.debug("poll: bgpPeerState: {}", BGP_PEER_STATE.ESTABLISHED.name());
@@ -262,8 +268,7 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
             SnmpObjId bgpPeerAdminStateSnmpObject = SnmpObjId.get(BGP_PEER_ADMIN_STATE_OID + "." + bgpPeerIp);
             SnmpValue bgpPeerAdminState = SnmpUtils.get(agentConfig, bgpPeerAdminStateSnmpObject);
             // Check correct MIB-Support
-            if (bgpPeerAdminState == null)
-            {
+            if (bgpPeerAdminState == null) {
                 LOG.warn("Cannot receive bgpAdminState");
             } else {
                 LOG.debug("poll: bgpPeerAdminState: {}", bgpPeerAdminState);
@@ -273,8 +278,7 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
             SnmpObjId bgpPeerRemoteAsSnmpObject = SnmpObjId.get(BGP_PEER_REMOTEAS_OID + "." + bgpPeerIp);
             SnmpValue bgpPeerRemoteAs = SnmpUtils.get(agentConfig, bgpPeerRemoteAsSnmpObject);
             // Check correct MIB-Support
-            if (bgpPeerRemoteAs == null)
-            {
+            if (bgpPeerRemoteAs == null) {
                 LOG.warn("Cannot receive bgpPeerRemoteAs");
             } else {
                 LOG.debug("poll: bgpPeerRemoteAs: {}", bgpPeerRemoteAs);
@@ -284,8 +288,7 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
             SnmpObjId bgpPeerLastErrorSnmpObject = SnmpObjId.get(BGP_PEER_LAST_ERROR_OID + "." + bgpPeerIp);
             SnmpValue bgpPeerLastError = SnmpUtils.get(agentConfig, bgpPeerLastErrorSnmpObject);
             // Check correct MIB-Support
-            if (bgpPeerLastError == null)
-            {
+            if (bgpPeerLastError == null) {
                 LOG.warn("Cannot receive bgpPeerLastError");
             } else {
                 LOG.debug("poll: bgpPeerLastError: {}", bgpPeerLastError);
@@ -295,19 +298,16 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
             SnmpObjId bgpPeerFsmEstTimeSnmpObject = SnmpObjId.get(BGP_PEER_FSM_EST_TIME_OID + "." + bgpPeerIp);
             SnmpValue bgpPeerFsmEstTime = SnmpUtils.get(agentConfig, bgpPeerFsmEstTimeSnmpObject);
             // Check correct MIB-Support
-            if (bgpPeerFsmEstTime == null)
-            {
+            if (bgpPeerFsmEstTime == null) {
                 LOG.warn("Cannot receive bgpPeerFsmEstTime");
             } else {
                 LOG.debug("poll: bgpPeerFsmEsmTime: {}", bgpPeerFsmEstTime);
                 estTimeMsg = bgpPeerFsmEstTime.toString();
             }
 
-            returnValue = "BGP Session state to AS-" + remoteAsMsg
-                + " via " + bgpPeerIp + " is " + peerStateMsg + "! Last peer "
-                +"error message is " + lastErrorMsg + ". BGP admin state is "
-                + adminStateMsg + ". BGP Session established time: "
-                + estTimeMsg;
+            returnValue = "BGP Session state to AS-" + remoteAsMsg + " via " + bgpPeerIp + " is " + peerStateMsg
+                    + "! Last peer " + "error message is " + lastErrorMsg + ". BGP admin state is " + adminStateMsg
+                    + ". BGP Session established time: " + estTimeMsg;
             // Set service down and return gathered information
             status = PollStatus.unavailable(returnValue);
 
@@ -329,7 +329,8 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
             status = PollStatus.unavailable(reason);
         }
 
-        // If matchAll is set to true, then the status is set to available above with a single match.
+        // If matchAll is set to true, then the status is set to available above
+        // with a single match.
         // Otherwise, the service will be unavailable.
         return status;
     }
@@ -341,9 +342,9 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
      *            BGP Hex code
      * @return Plain text error message
      */
-    private String resolveBgpErrorCode (String bgpCode) {
+    private String resolveBgpErrorCode(String bgpCode) {
         String clearCode = "unknown error";
-        HashMap<String, String> codeMap = new HashMap<String, String> ();
+        HashMap<String, String> codeMap = new HashMap<String, String>();
         codeMap.put("0100", "Message Header Error");
         codeMap.put("0101", "Message Header Error - Connection Not Synchronized");
         codeMap.put("0102", "Message Header Error - Bad Message Length");
@@ -379,8 +380,7 @@ final public class BgpSessionMonitor extends SnmpMonitorStrategy {
         codeMap.put("0607", "Cease - Connection Collision Resolution");
         codeMap.put("0608", "Cease - Out of Resources");
 
-        if (codeMap.containsKey(bgpCode))
-        {
+        if (codeMap.containsKey(bgpCode)) {
             clearCode = codeMap.get(bgpCode);
         }
         return clearCode;

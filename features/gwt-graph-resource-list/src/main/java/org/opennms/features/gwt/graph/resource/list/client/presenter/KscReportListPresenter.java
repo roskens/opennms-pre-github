@@ -37,11 +37,10 @@ import com.google.gwt.user.client.Window.Location;
 
 public class KscReportListPresenter extends DefaultResourceListPresenter {
 
-
-    public KscReportListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopup searchPopup, JsArray<ResourceListItem> dataList, String baseUrl) {
+    public KscReportListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopup searchPopup,
+            JsArray<ResourceListItem> dataList, String baseUrl) {
         super(view, searchPopup, dataList, baseUrl);
     }
-
 
     @Override
     public void onResourceItemSelected() {
@@ -52,6 +51,5 @@ public class KscReportListPresenter extends DefaultResourceListPresenter {
 
         Location.assign(urlBuilder.toString());
     }
-
 
 }

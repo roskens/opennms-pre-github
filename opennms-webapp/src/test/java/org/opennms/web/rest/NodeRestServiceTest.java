@@ -118,7 +118,8 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
         // Testing PUT
         url += "/1";
-        sendPut(url, "sysContact=OpenNMS&assetRecord.manufacturer=Apple&assetRecord.operatingSystem=MacOSX Leopard", 303, "/nodes/1");
+        sendPut(url, "sysContact=OpenNMS&assetRecord.manufacturer=Apple&assetRecord.operatingSystem=MacOSX Leopard",
+                303, "/nodes/1");
 
         // Testing GET Single Object
         xml = sendRequest(GET, url, 200);
@@ -142,13 +143,14 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         // Testing GET Collection
         String xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0"));
-        OnmsNodeList list = (OnmsNodeList)unmarshaller.unmarshal(new StringReader(xml));
+        OnmsNodeList list = (OnmsNodeList) unmarshaller.unmarshal(new StringReader(xml));
         assertEquals(1, list.getNodes().size());
         assertEquals("TestMachine0", list.getNodes().get(0).getLabel());
 
         // Testing PUT
         url += "/1";
-        sendPut(url, "sysContact=OpenNMS&assetRecord.manufacturer=Apple&assetRecord.operatingSystem=MacOSX Leopard", 303, "/nodes/1");
+        sendPut(url, "sysContact=OpenNMS&assetRecord.manufacturer=Apple&assetRecord.operatingSystem=MacOSX Leopard",
+                303, "/nodes/1");
 
         // Testing GET Single Object to make sure that the parameters changed
         xml = sendRequest(GET, url, 200);
@@ -171,7 +173,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         }
         String url = "/nodes";
         // Testing GET Collection
-        Map<String,String> parameters = new HashMap<String,String>();
+        Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("limit", "10");
         parameters.put("orderBy", "id");
         String xml = sendRequest(GET, url, parameters, 200);
@@ -185,7 +187,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertEquals("should get 10 nodes back", 10, count);
 
         // Validate object by unmarshalling
-        OnmsNodeList list = (OnmsNodeList)unmarshaller.unmarshal(new StringReader(xml));
+        OnmsNodeList list = (OnmsNodeList) unmarshaller.unmarshal(new StringReader(xml));
         assertEquals(10, list.getCount());
         assertEquals(10, list.getNodes().size());
         assertEquals(20, list.getTotalCount());
@@ -229,7 +231,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public final void testIpInterfaceLimit() throws Exception{
+    public final void testIpInterfaceLimit() throws Exception {
         createTwoIpInterface();
         String url = "/nodes/1/ipinterfaces";
         String xml = sendRequest(GET, url, parseParamData("limit=1"), 200);
@@ -244,7 +246,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public final void testIpInterfaceByIpAddress() throws Exception{
+    public final void testIpInterfaceByIpAddress() throws Exception {
         createTwoIpInterface();
         String url = "/nodes/1/ipinterfaces";
         String xml = sendRequest(GET, url, parseParamData("ipAddress=11&comparator=contains"), 200);
@@ -253,7 +255,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public final void testIpInterfaceIpLikeFilter() throws Exception{
+    public final void testIpInterfaceIpLikeFilter() throws Exception {
         createTwoIpInterface();
         String url = "/nodes/1/ipinterfaces";
         String xml = sendRequest(GET, url, parseParamData("ipAddress=*.*.*.11&comparator=iplike"), 200);
@@ -318,12 +320,18 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     public final void testIPhoneNodeSearch() throws Exception {
         createIpInterface();
         String url = "/nodes";
-        String xml = sendRequest(GET, url, parseParamData("comparator=ilike&match=any&label=1%25&ipInterface.ipAddress=1%25&ipInterface.ipHostName=1%25"), 200);
+        String xml = sendRequest(GET,
+                                 url,
+                                 parseParamData("comparator=ilike&match=any&label=1%25&ipInterface.ipAddress=1%25&ipInterface.ipHostName=1%25"),
+                                 200);
         assertXpathMatches(xml, "//node[@type='A' and @id='1' and @label='TestMachine0']");
         assertTrue(xml, xml.contains("count=\"1\""));
         assertTrue(xml, xml.contains("totalCount=\"1\""));
 
-        xml = sendRequest(GET, url, parseParamData("comparator=ilike&match=any&label=8%25&ipInterface.ipAddress=8%25&ipInterface.ipHostName=8%25"), 200);
+        xml = sendRequest(GET,
+                          url,
+                          parseParamData("comparator=ilike&match=any&label=8%25&ipInterface.ipAddress=8%25&ipInterface.ipHostName=8%25"),
+                          200);
         // Make sure that there were no matches
         assertTrue(xml, xml.contains("count=\"0\""));
         assertTrue(xml, xml.contains("totalCount=\"0\""));
@@ -331,42 +339,34 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     @Override
     protected void createNode() throws Exception {
-        String node = "<node type=\"A\" label=\"TestMachine" + m_nodeCounter + "\">" +
-        "<labelSource>H</labelSource>" +
-        "<sysContact>The Owner</sysContact>" +
-        "<sysDescription>" +
-        "Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0: Mon Jun  9 19:30:53 PDT 2008; root:xnu-1228.5.20~1/RELEASE_I386 i386" +
-        "</sysDescription>" +
-        "<sysLocation>DevJam</sysLocation>" +
-        "<sysName>TestMachine" + m_nodeCounter + "</sysName>" +
-        "<sysObjectId>.1.3.6.1.4.1.8072.3.2.255</sysObjectId>" +
-        "</node>";
+        String node = "<node type=\"A\" label=\"TestMachine"
+                + m_nodeCounter
+                + "\">"
+                + "<labelSource>H</labelSource>"
+                + "<sysContact>The Owner</sysContact>"
+                + "<sysDescription>"
+                + "Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0: Mon Jun  9 19:30:53 PDT 2008; root:xnu-1228.5.20~1/RELEASE_I386 i386"
+                + "</sysDescription>" + "<sysLocation>DevJam</sysLocation>" + "<sysName>TestMachine" + m_nodeCounter
+                + "</sysName>" + "<sysObjectId>.1.3.6.1.4.1.8072.3.2.255</sysObjectId>" + "</node>";
         sendPost("/nodes", node, 303, null);
     }
 
     @Override
     protected void createIpInterface() throws Exception {
         createNode();
-        String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" +
-        "<ipAddress>10.10.10.10</ipAddress>" +
-        "<hostName>TestMachine" + m_nodeCounter + "</hostName>" +
-        "</ipInterface>";
+        String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" + "<ipAddress>10.10.10.10</ipAddress>"
+                + "<hostName>TestMachine" + m_nodeCounter + "</hostName>" + "</ipInterface>";
         sendPost("/nodes/1/ipinterfaces", ipInterface, 303, "/nodes/1/ipinterfaces/10.10.10.10");
     }
 
-
     protected final void createTwoIpInterface() throws Exception {
         createNode();
-        String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" +
-        "<ipAddress>10.10.10.10</ipAddress>" +
-        "<hostName>TestMachine" + m_nodeCounter + "</hostName>" +
-        "</ipInterface>";
+        String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" + "<ipAddress>10.10.10.10</ipAddress>"
+                + "<hostName>TestMachine" + m_nodeCounter + "</hostName>" + "</ipInterface>";
         sendPost("/nodes/1/ipinterfaces", ipInterface, 303, "/nodes/1/ipinterfaces/10.10.10.10");
 
-        String ipInterface2 = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" +
-        "<ipAddress>10.10.10.11</ipAddress>" +
-        "<hostName>TestMachine" + (m_nodeCounter + 1) + "</hostName>" +
-        "</ipInterface>";
+        String ipInterface2 = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" + "<ipAddress>10.10.10.11</ipAddress>"
+                + "<hostName>TestMachine" + (m_nodeCounter + 1) + "</hostName>" + "</ipInterface>";
         sendPost("/nodes/1/ipinterfaces", ipInterface2, 303, "/nodes/1/ipinterfaces/10.10.10.11");
 
     }

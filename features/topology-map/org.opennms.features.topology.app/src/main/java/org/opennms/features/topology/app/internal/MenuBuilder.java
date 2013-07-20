@@ -40,223 +40,226 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-
-public abstract class MenuBuilder<T, K>{
+public abstract class MenuBuilder<T, K> {
 
     private static final String TOP_LEVEL_ADDITIONS = "Additions";
-	protected LinkedHashMap<String, Object> m_menuBar = new LinkedHashMap<String, Object>();
-	private List<String> m_menuOrder = new ArrayList<String>();
-	private Map<String, List<String>> m_submenuOrderMap = new HashMap<String, List<String>>();
 
-	private void add(List<String> menuPath, T command, Map<String, Object> menu) {
-	    if(menuPath.isEmpty()) {
-	        return;
-	    }
+    protected LinkedHashMap<String, Object> m_menuBar = new LinkedHashMap<String, Object>();
 
-	    String first = menuPath.get(0).contains(".") ? menuPath.get(0).substring(0, menuPath.get(0).indexOf('.')) : menuPath.get(0);
+    private List<String> m_menuOrder = new ArrayList<String>();
 
-	    if(menuPath.size() == 1) {
-	        if(menu.containsKey(first)) {
-	            add(Collections.singletonList(first + "_dup"), command, menu);
-	        }else {
-	            menu.put(first, command);
-	        }
+    private Map<String, List<String>> m_submenuOrderMap = new HashMap<String, List<String>>();
 
-	    }else {
-	        Object item = menu.get(first);
-	        if(item == null) {
-	            Map<String, Object> subMenu = new LinkedHashMap<String, Object>();
-	            menu.put(first, subMenu);
-	            add(menuPath.subList(1, menuPath.size()), command, subMenu);
-	        }else if(item instanceof Map<?,?>) {
-	            @SuppressWarnings("unchecked")
-				Map<String, Object> subMenu = (Map<String, Object>) item;
-	            add(menuPath.subList(1, menuPath.size()), command, subMenu);
-	        }else {
-	            List<String> newMenuPath = new LinkedList<String>();
-	            newMenuPath.add(first + "_dup");
-	            newMenuPath.addAll(menuPath.subList(1, menuPath.size()));
-	            add(newMenuPath, command, menu);
-	        }
+    private void add(List<String> menuPath, T command, Map<String, Object> menu) {
+        if (menuPath.isEmpty()) {
+            return;
+        }
 
-	    }
-	}
+        String first = menuPath.get(0).contains(".") ? menuPath.get(0).substring(0, menuPath.get(0).indexOf('.'))
+            : menuPath.get(0);
 
-	private void add(LinkedList<String> menuPath, T command) {
-	    add(menuPath, command, m_menuBar);
-	}
+        if (menuPath.size() == 1) {
+            if (menu.containsKey(first)) {
+                add(Collections.singletonList(first + "_dup"), command, menu);
+            } else {
+                menu.put(first, command);
+            }
 
-	public void addMenuCommand(T t, String menuPosition) {
-	    if(menuPosition != null) {
-	        LinkedList<String> menuPath = new LinkedList<String>(Arrays.asList(menuPosition.split("\\|")));
-	        add(menuPath, t);
-	    }
-	}
+        } else {
+            Object item = menu.get(first);
+            if (item == null) {
+                Map<String, Object> subMenu = new LinkedHashMap<String, Object>();
+                menu.put(first, subMenu);
+                add(menuPath.subList(1, menuPath.size()), command, subMenu);
+            } else if (item instanceof Map<?, ?>) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> subMenu = (Map<String, Object>) item;
+                add(menuPath.subList(1, menuPath.size()), command, subMenu);
+            } else {
+                List<String> newMenuPath = new LinkedList<String>();
+                newMenuPath.add(first + "_dup");
+                newMenuPath.addAll(menuPath.subList(1, menuPath.size()));
+                add(newMenuPath, command, menu);
+            }
 
-	protected abstract void addMenuItems(K subMenu, Map<String, Object> value);
+        }
+    }
 
-	protected Set<Entry<String, Object>> getSortedMenuItems() {
-	    LinkedHashMap<String, Object> sortedList = new LinkedHashMap<String, Object>();
+    private void add(LinkedList<String> menuPath, T command) {
+        add(menuPath, command, m_menuBar);
+    }
 
-	    List<String> keys = new ArrayList<String>(m_menuBar.keySet());
-	    Collections.sort(keys, new Comparator<String>() {
+    public void addMenuCommand(T t, String menuPosition) {
+        if (menuPosition != null) {
+            LinkedList<String> menuPath = new LinkedList<String>(Arrays.asList(menuPosition.split("\\|")));
+            add(menuPath, t);
+        }
+    }
 
-	        @Override
-	        public int compare(String menuName1, String menuName2) {
-	            int index1 = -1;
-	            int index2 = -1;
+    protected abstract void addMenuItems(K subMenu, Map<String, Object> value);
 
-	            if(m_menuOrder.contains(menuName1)) {
-	                index1 = m_menuOrder.indexOf(menuName1);
-	            }else {
-	                if(m_menuOrder.contains(TOP_LEVEL_ADDITIONS)) {
-	                    index1 = m_menuOrder.indexOf(TOP_LEVEL_ADDITIONS);
-	                }else {
-	                    index1 = m_menuOrder.size();
-	                }
-	            }
+    protected Set<Entry<String, Object>> getSortedMenuItems() {
+        LinkedHashMap<String, Object> sortedList = new LinkedHashMap<String, Object>();
 
-	            if(m_menuOrder.contains(menuName2)) {
-	                index2 = m_menuOrder.indexOf(menuName2);
-	            }else {
-	                if(m_menuOrder.contains(TOP_LEVEL_ADDITIONS)) {
-	                    index2 = m_menuOrder.indexOf(TOP_LEVEL_ADDITIONS);
-	                }else {
-	                    index2 = m_menuOrder.size();
-	                }
-	            }
+        List<String> keys = new ArrayList<String>(m_menuBar.keySet());
+        Collections.sort(keys, new Comparator<String>() {
 
-	            return index1 == index2 ? menuName1.compareTo(menuName2) : index1 - index2;
-	        }
-	    });
+            @Override
+            public int compare(String menuName1, String menuName2) {
+                int index1 = -1;
+                int index2 = -1;
 
-	    for(String key : keys) {
+                if (m_menuOrder.contains(menuName1)) {
+                    index1 = m_menuOrder.indexOf(menuName1);
+                } else {
+                    if (m_menuOrder.contains(TOP_LEVEL_ADDITIONS)) {
+                        index1 = m_menuOrder.indexOf(TOP_LEVEL_ADDITIONS);
+                    } else {
+                        index1 = m_menuOrder.size();
+                    }
+                }
 
-	        sortedList.put(key, m_menuBar.get(key));
-	    }
+                if (m_menuOrder.contains(menuName2)) {
+                    index2 = m_menuOrder.indexOf(menuName2);
+                } else {
+                    if (m_menuOrder.contains(TOP_LEVEL_ADDITIONS)) {
+                        index2 = m_menuOrder.indexOf(TOP_LEVEL_ADDITIONS);
+                    } else {
+                        index2 = m_menuOrder.size();
+                    }
+                }
 
-	    return sortedList.entrySet();
-	}
+                return index1 == index2 ? menuName1.compareTo(menuName2) : index1 - index2;
+            }
+        });
 
-	protected String removeLabelProperties(String commandKey) {
-	    if(commandKey.contains("?")) {
-	        return commandKey.substring(0, commandKey.indexOf('?'));
-	    }else {
-	        return commandKey;
-	    }
+        for (String key : keys) {
 
+            sortedList.put(key, m_menuBar.get(key));
+        }
 
-	}
+        return sortedList.entrySet();
+    }
 
-	private Map<String, String> getLabelProperties(String commandLabel) {
-	    Map<String, String> propMap = new HashMap<String, String>();
+    protected String removeLabelProperties(String commandKey) {
+        if (commandKey.contains("?")) {
+            return commandKey.substring(0, commandKey.indexOf('?'));
+        } else {
+            return commandKey;
+        }
 
-	    if(commandLabel.contains("?")) {
-	        String propStr = commandLabel.substring(commandLabel.indexOf('?') + 1, commandLabel.length());
-	        String[] properties = propStr.split(";");
+    }
 
-	        for(String property : properties) {
-	            String[] propKeyVal = property.split("=");
-	            if(propKeyVal.length > 1) {
-	                propMap.put(propKeyVal[0],propKeyVal[1]);
-	            }
-	        }
-	    }
+    private Map<String, String> getLabelProperties(String commandLabel) {
+        Map<String, String> propMap = new HashMap<String, String>();
 
-	    return propMap;
-	}
+        if (commandLabel.contains("?")) {
+            String propStr = commandLabel.substring(commandLabel.indexOf('?') + 1, commandLabel.length());
+            String[] properties = propStr.split(";");
 
-	protected Set<Entry<String, Object>> getSortedSubmenuGroup(final String parentMenuName, Map<String, Object> value) {
+            for (String property : properties) {
+                String[] propKeyVal = property.split("=");
+                if (propKeyVal.length > 1) {
+                    propMap.put(propKeyVal[0], propKeyVal[1]);
+                }
+            }
+        }
 
-	        LinkedHashMap<String, Object> sortedList = new LinkedHashMap<String, Object>();
+        return propMap;
+    }
 
-	        List<String> keys = new ArrayList<String>(value.keySet());
-	        final List<String> submenuOrder = m_submenuOrderMap.get(parentMenuName) != null ? m_submenuOrderMap.get(parentMenuName) :  m_submenuOrderMap.containsKey("default") ? m_submenuOrderMap.get("default") : new ArrayList<String>();
-	        Collections.sort(keys, new Comparator<String>() {
+    protected Set<Entry<String, Object>> getSortedSubmenuGroup(final String parentMenuName, Map<String, Object> value) {
 
-	            @Override
-	            public int compare(String menuName1, String menuName2) {
+        LinkedHashMap<String, Object> sortedList = new LinkedHashMap<String, Object>();
 
-	                int index1 = -1;
-	                int index2 = -1;
+        List<String> keys = new ArrayList<String>(value.keySet());
+        final List<String> submenuOrder = m_submenuOrderMap.get(parentMenuName) != null ? m_submenuOrderMap.get(parentMenuName)
+            : m_submenuOrderMap.containsKey("default") ? m_submenuOrderMap.get("default") : new ArrayList<String>();
+        Collections.sort(keys, new Comparator<String>() {
 
-	                String group1 = getGroupForLabel(menuName1, submenuOrder);
-	                if(submenuOrder.contains(menuName1.toLowerCase()) && group1 == null) {
-	                    group1 = menuName1.toLowerCase();
-	                }
+            @Override
+            public int compare(String menuName1, String menuName2) {
 
-	                String group2 = getGroupForLabel(menuName2, submenuOrder);
-	                if(submenuOrder.contains(menuName2.toLowerCase()) && group2 == null) {
-	                    group2 = menuName2.toLowerCase();
-	                }
+                int index1 = -1;
+                int index2 = -1;
 
-	                if(submenuOrder.contains(group1)) {
-	                    index1 = submenuOrder.indexOf(group1);
-	                }else {
-	                    if(submenuOrder.contains("additions".toLowerCase())) {
-	                        index1 = submenuOrder.indexOf("additions".toLowerCase());
-	                    }else {
-	                        index1 = submenuOrder.size();
-	                    }
-	                }
+                String group1 = getGroupForLabel(menuName1, submenuOrder);
+                if (submenuOrder.contains(menuName1.toLowerCase()) && group1 == null) {
+                    group1 = menuName1.toLowerCase();
+                }
 
-	                if(submenuOrder.contains(group2)) {
-	                    index2 = submenuOrder.indexOf(group2);
-	                }else {
-	                    if(submenuOrder.contains("additions")) {
-	                        index2 = submenuOrder.indexOf("additions");
-	                    }else {
-	                        index2 = submenuOrder.size();
-	                    }
-	                }
+                String group2 = getGroupForLabel(menuName2, submenuOrder);
+                if (submenuOrder.contains(menuName2.toLowerCase()) && group2 == null) {
+                    group2 = menuName2.toLowerCase();
+                }
 
-	                return index1 == index2 ? menuName1.compareTo(menuName2) : index1 - index2;
-	            }
-	        });
+                if (submenuOrder.contains(group1)) {
+                    index1 = submenuOrder.indexOf(group1);
+                } else {
+                    if (submenuOrder.contains("additions".toLowerCase())) {
+                        index1 = submenuOrder.indexOf("additions".toLowerCase());
+                    } else {
+                        index1 = submenuOrder.size();
+                    }
+                }
 
-	        String prevGroup = null;
-	        int separatorCount = 0;
-	        for(String key : keys) {
-	            if(prevGroup != null && !prevGroup.equals(getGroupForLabel(key, submenuOrder))) {
-	                sortedList.put("separator" + separatorCount++, null);
-	            }
+                if (submenuOrder.contains(group2)) {
+                    index2 = submenuOrder.indexOf(group2);
+                } else {
+                    if (submenuOrder.contains("additions")) {
+                        index2 = submenuOrder.indexOf("additions");
+                    } else {
+                        index2 = submenuOrder.size();
+                    }
+                }
 
-	            Object command = value.get(key);
-	//            if(key.contains("?")) {
-	//                sortedList.put(key.substring(0, key.indexOf("?")), command);
-	//            }else {
-	//
-	//            }
-	            sortedList.put(key, command);
+                return index1 == index2 ? menuName1.compareTo(menuName2) : index1 - index2;
+            }
+        });
 
-	            prevGroup = getGroupForLabel(key, submenuOrder);
-	        }
+        String prevGroup = null;
+        int separatorCount = 0;
+        for (String key : keys) {
+            if (prevGroup != null && !prevGroup.equals(getGroupForLabel(key, submenuOrder))) {
+                sortedList.put("separator" + separatorCount++, null);
+            }
 
-	        return sortedList.entrySet();
-	    }
+            Object command = value.get(key);
+            // if(key.contains("?")) {
+            // sortedList.put(key.substring(0, key.indexOf("?")), command);
+            // }else {
+            //
+            // }
+            sortedList.put(key, command);
 
-	public void setTopLevelMenuOrder(List<String> menuOrder) {
-	    m_menuOrder = menuOrder;
-	}
+            prevGroup = getGroupForLabel(key, submenuOrder);
+        }
 
-	public void setSubMenuGroupOder(Map<String, List<String>> submenOrderMap) {
-	    m_submenuOrderMap = submenOrderMap;
-	}
+        return sortedList.entrySet();
+    }
 
-	private String getGroupForLabel(String label, List<String> submenuOrder) {
-	    String group = null;
-	    String[] groupParams = label.split("\\?");
+    public void setTopLevelMenuOrder(List<String> menuOrder) {
+        m_menuOrder = menuOrder;
+    }
 
-	    for(String param : groupParams) {
-	        if(param.contains("group")) {
-	            String[] keyValue = param.split("=");
-	            group = keyValue[1];
-	            return submenuOrder.contains(group) ? group : null;
+    public void setSubMenuGroupOder(Map<String, List<String>> submenOrderMap) {
+        m_submenuOrderMap = submenOrderMap;
+    }
 
-	        }
-	    }
+    private String getGroupForLabel(String label, List<String> submenuOrder) {
+        String group = null;
+        String[] groupParams = label.split("\\?");
 
-	    return null;
-	}
+        for (String param : groupParams) {
+            if (param.contains("group")) {
+                String[] keyValue = param.split("=");
+                group = keyValue[1];
+                return submenuOrder.contains(group) ? group : null;
+
+            }
+        }
+
+        return null;
+    }
 
 }

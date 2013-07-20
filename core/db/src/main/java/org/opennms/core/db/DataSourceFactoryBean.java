@@ -28,7 +28,6 @@
 
 package org.opennms.core.db;
 
-
 import javax.sql.DataSource;
 
 import org.opennms.core.resource.Vault;
@@ -39,17 +38,22 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * <p>DataSourceFactoryBean class.</p>
+ * <p>
+ * DataSourceFactoryBean class.
+ * </p>
  */
 public class DataSourceFactoryBean implements FactoryBean<DataSource>, InitializingBean, DisposableBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DataSourceFactoryBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataSourceFactoryBean.class);
 
     /**
-     * <p>getObject</p>
+     * <p>
+     * getObject
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public DataSource getObject() throws Exception {
@@ -57,17 +61,22 @@ public class DataSourceFactoryBean implements FactoryBean<DataSource>, Initializ
     }
 
     /**
-     * <p>getObjectType</p>
+     * <p>
+     * getObjectType
+     * </p>
      *
      * @return a {@link java.lang.Class} object.
      */
     @Override
     public Class<? extends DataSource> getObjectType() {
-        return (DataSourceFactory.getDataSource() == null ? DataSource.class : DataSourceFactory.getDataSource().getClass());
+        return (DataSourceFactory.getDataSource() == null ? DataSource.class
+            : DataSourceFactory.getDataSource().getClass());
     }
 
     /**
-     * <p>isSingleton</p>
+     * <p>
+     * isSingleton
+     * </p>
      *
      * @return a boolean.
      */
@@ -77,20 +86,27 @@ public class DataSourceFactoryBean implements FactoryBean<DataSource>, Initializ
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
         DataSourceFactory.init();
-        Vault.setDataSource(DataSourceFactory.getInstance()); // Fix for Bug 4117
+        Vault.setDataSource(DataSourceFactory.getInstance()); // Fix for Bug
+                                                              // 4117
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void destroy() throws Exception {

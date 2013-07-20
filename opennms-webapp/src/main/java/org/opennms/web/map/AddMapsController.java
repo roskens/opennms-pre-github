@@ -49,85 +49,89 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>AddMapsController class.</p>
+ * <p>
+ * AddMapsController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class AddMapsController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AddMapsController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AddMapsController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws UnsupportedEncodingException, IOException {
+        String elems = request.getParameter("elems");
+        LOG.debug("Adding Maps: elems={}", elems);
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+        try {
+            VMap map = manager.openMap();
+            List<VElement> velems = new ArrayList<VElement>();
+            // response for addElement
+            List<Integer> mapsWithLoop = new ArrayList<Integer>();
+            LOG.debug("Got map from manager {}", map);
 
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-	    String elems = request.getParameter("elems");
-	    LOG.debug("Adding Maps: elems={}", elems);
+            LOG.debug("Adding maps by id: {}", elems);
+            String[] smapids = elems.split(",");
 
-	    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
-	    try {
-	        VMap map = manager.openMap();
-	        List<VElement> velems = new ArrayList<VElement>();
-	        // response for addElement
-	        List<Integer> mapsWithLoop = new ArrayList<Integer>();
-	        LOG.debug("Got map from manager {}", map);
+            for (int i = 0; i < smapids.length; i++) {
+                Integer id = new Integer(smapids[i]);
+                if (map.containsElement(id, MapsConstants.MAP_TYPE)) {
+                    LOG.debug(" Map Contains Element: {}", id + MapsConstants.MAP_TYPE);
+                    continue;
 
-	        LOG.debug("Adding maps by id: {}", elems);
-	        String[] smapids = elems.split(",");
+                }
+                boolean foundLoop = manager.foundLoopOnMaps(map, id);
 
-	        for (int i = 0; i<smapids.length; i++) {
-	            Integer id = new Integer(smapids[i]);
-	            if (map.containsElement(id, MapsConstants.MAP_TYPE)) {
-	                LOG.debug(" Map Contains Element: {}", id+MapsConstants.MAP_TYPE);
-	                continue;
+                if (foundLoop) {
+                    mapsWithLoop.add(id);
+                } else {
+                    velems.add(manager.newElement(map.getId(), id, MapsConstants.MAP_TYPE));
+                }
+            } // end for
 
-	            }
-	            boolean foundLoop = manager.foundLoopOnMaps(map, id);
+            // get map
+            map = manager.addElements(map, velems);
+            bw.write(ResponseAssembler.getAddElementResponse(mapsWithLoop, velems, map.getLinks()));
+        } catch (Throwable e) {
+            LOG.error("Error while adding Maps: ", e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.ADDMAPS_ACTION));
+        } finally {
+            bw.close();
+        }
 
-	            if(foundLoop) {
-	                mapsWithLoop.add(id);
-	            } else {
-	                velems.add(manager.newElement(map.getId(), id, MapsConstants.MAP_TYPE));
-	            }
-	        } // end for
-
-	        //get map
-	        map = manager.addElements(map, velems);
-	        bw.write(ResponseAssembler.getAddElementResponse(mapsWithLoop, velems, map.getLinks()));
-	    } catch (Throwable e) {
-	        LOG.error("Error while adding Maps: ", e);
-	        bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.ADDMAPS_ACTION));
-	    } finally {
-	        bw.close();
-	    }
-
-	    return null;
-	}
+        return null;
+    }
 
 }

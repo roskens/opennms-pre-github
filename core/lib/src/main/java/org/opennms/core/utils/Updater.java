@@ -33,23 +33,27 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-
 /**
- * <p>Updater class.</p>
+ * <p>
+ * Updater class.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public class Updater extends JDBCTemplate {
 
     /**
-     * <p>Constructor for Updater.</p>
+     * <p>
+     * Constructor for Updater.
+     * </p>
      *
-     * @param db a {@link javax.sql.DataSource} object.
-     * @param sql a {@link java.lang.String} object.
+     * @param db
+     *            a {@link javax.sql.DataSource} object.
+     * @param sql
+     *            a {@link java.lang.String} object.
      */
     public Updater(DataSource db, String sql) {
         super(db, sql);

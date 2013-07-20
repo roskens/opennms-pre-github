@@ -40,11 +40,12 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
-public class PausibleScheduledThreadPoolExecutor extends
-        ScheduledThreadPoolExecutor {
+public class PausibleScheduledThreadPoolExecutor extends ScheduledThreadPoolExecutor {
 
     private AtomicBoolean isPaused = new AtomicBoolean(false);
+
     private ReentrantLock pauseLock = new ReentrantLock();
+
     private Condition unpaused = pauseLock.newCondition();
 
     public PausibleScheduledThreadPoolExecutor(final int corePoolSize) {
@@ -56,7 +57,9 @@ public class PausibleScheduledThreadPoolExecutor extends
     }
 
     /**
-     * <p>isPaused</p>
+     * <p>
+     * isPaused
+     * </p>
      *
      * @return a boolean.
      */
@@ -67,43 +70,45 @@ public class PausibleScheduledThreadPoolExecutor extends
     /** {@inheritDoc} */
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
-      super.beforeExecute(t, r);
-      pauseLock.lock();
-      try {
-        while (isPaused.get()) unpaused.await();
-      } catch(InterruptedException ie) {
-        t.interrupt();
-      } finally {
-        pauseLock.unlock();
-      }
+        super.beforeExecute(t, r);
+        pauseLock.lock();
+        try {
+            while (isPaused.get())
+                unpaused.await();
+        } catch (InterruptedException ie) {
+            t.interrupt();
+        } finally {
+            pauseLock.unlock();
+        }
     }
 
     /**
-     * <p>pause</p>
+     * <p>
+     * pause
+     * </p>
      */
     public void pause() {
-      pauseLock.lock();
-      try {
-        isPaused.set(true);
-      } finally {
-        pauseLock.unlock();
-      }
+        pauseLock.lock();
+        try {
+            isPaused.set(true);
+        } finally {
+            pauseLock.unlock();
+        }
     }
 
     /**
-     * <p>resume</p>
+     * <p>
+     * resume
+     * </p>
      */
     public void resume() {
-      pauseLock.lock();
-      try {
-        isPaused.set(false);
-        unpaused.signalAll();
-      } finally {
-        pauseLock.unlock();
-      }
+        pauseLock.lock();
+        try {
+            isPaused.set(false);
+            unpaused.signalAll();
+        } finally {
+            pauseLock.unlock();
+        }
     }
-
-
-
 
 }

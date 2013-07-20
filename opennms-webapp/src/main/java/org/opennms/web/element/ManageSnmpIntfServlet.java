@@ -55,20 +55,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>ManageSnmpIntfServlet class.</p>
+ * <p>
+ * ManageSnmpIntfServlet class.
+ * </p>
  *
  * @author micmas
- *
- * Per modificare il modello associato al commento di questo tipo generato,
- * aprire Finestra&gt;Preferenze&gt;Java&gt;Generazione codice&gt;Codice e
- * commenti
- *
- * La servlet prende i seguenti parametri dal file web.xml
+ *         Per modificare il modello associato al commento di questo tipo
+ *         generato,
+ *         aprire Finestra&gt;Preferenze&gt;Java&gt;Generazione codice&gt;Codice
+ *         e
+ *         commenti
+ *         La servlet prende i seguenti parametri dal file web.xml
  * @version $Id: $
  * @since 1.8.1
  */
 public final class ManageSnmpIntfServlet extends HttpServlet {
-	private static final Logger LOG = LoggerFactory.getLogger(ManageSnmpIntfServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ManageSnmpIntfServlet.class);
 
     /**
      *
@@ -82,9 +84,12 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
     protected String pageToRedirect;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -92,25 +97,21 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
             this.snmpServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("SNMP");
             SnmpPeerFactory.init();
         } catch (Throwable e) {
-            throw new ServletException(
-                    "Could not determine the SNMP service ID", e);
+            throw new ServletException("Could not determine the SNMP service ID", e);
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    protected void doGet(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         doPost(request, response);
     }
 
     /** {@inheritDoc} */
     @Override
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
-
-		HttpSession userSession = request.getSession(false);
+        HttpSession userSession = request.getSession(false);
         if (userSession == null)
             throw new ServletException("Session exceeded");
 
@@ -136,12 +137,12 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
         String snmpIp = null;
         Service[] snmpServices = null;
         try {
-            snmpServices = NetworkElementFactory.getInstance(getServletContext()).getServicesOnNode(nodeId, this.snmpServiceId);
+            snmpServices = NetworkElementFactory.getInstance(getServletContext()).getServicesOnNode(nodeId,
+                                                                                                    this.snmpServiceId);
             if (snmpServices != null && snmpServices.length > 0) {
                 List<InetAddress> ips = new ArrayList<InetAddress>();
                 for (int i = 0; i < snmpServices.length; i++) {
-                    ips.add(InetAddressUtils.addr(snmpServices[i]
-                            .getIpAddress()));
+                    ips.add(InetAddressUtils.addr(snmpServices[i].getIpAddress()));
                 }
 
                 InetAddress lowest = InetAddressUtils.getLowestInetAddress(ips);
@@ -154,12 +155,13 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
             InetAddress[] inetAddress = InetAddress.getAllByName(snmpIp);
             SnmpAgentConfig agent = SnmpPeerFactory.getInstance().getAgentConfig(inetAddress[0]);
 
-            LOG.debug("ManageSnmpIntfServlet.doPost: agent SNMP version/write community {}/{}", agent.getVersion(), agent.getWriteCommunity());
+            LOG.debug("ManageSnmpIntfServlet.doPost: agent SNMP version/write community {}/{}", agent.getVersion(),
+                      agent.getWriteCommunity());
             SnmpIfAdmin snmpIfAdmin = new SnmpIfAdmin(nodeId, agent);
             if (snmpIfAdmin.setIfAdmin(intfId, status)) {
                 LOG.debug("ManageSnmpIntfServlet.doPost: snmpIAdmin return OK ");
             } else {
-            	LOG.debug("ManageSnmpIntfServlet.doPost: snmpIAdmin return error ");
+                LOG.debug("ManageSnmpIntfServlet.doPost: snmpIAdmin return error ");
             }
             redirect(request, response);
 
@@ -172,8 +174,7 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
         }
     }
 
-    private void redirect(HttpServletRequest request,
-            HttpServletResponse response) throws IOException {
+    private void redirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String redirectURL = request.getHeader("Referer");
         response.sendRedirect(redirectURL);
     }

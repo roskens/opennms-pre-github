@@ -52,14 +52,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/daoWebRepositoryTestContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/daoWebRepositoryTestContext.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DaoWebNotificationRepositoryTest implements InitializingBean {
@@ -71,7 +67,7 @@ public class DaoWebNotificationRepositoryTest implements InitializingBean {
     WebNotificationRepository m_daoNotificationRepo;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
@@ -82,11 +78,12 @@ public class DaoWebNotificationRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testNotificationCount(){
+    public void testNotificationCount() {
         List<Filter> filterList = new ArrayList<Filter>();
         Filter[] filters = filterList.toArray(new Filter[0]);
         AcknowledgeType ackType = AcknowledgeType.UNACKNOWLEDGED;
-        int notificationCount = m_daoNotificationRepo.countMatchingNotifications(new NotificationCriteria(ackType, filters));
+        int notificationCount = m_daoNotificationRepo.countMatchingNotifications(new NotificationCriteria(ackType,
+                                                                                                          filters));
         assertEquals(1, notificationCount);
     }
 
@@ -99,27 +96,38 @@ public class DaoWebNotificationRepositoryTest implements InitializingBean {
         AcknowledgeType ackType = AcknowledgeType.UNACKNOWLEDGED;
         SortStyle sortStyle = SortStyle.DEFAULT_SORT_STYLE;
         Filter[] filters = filterList.toArray(new Filter[0]);
-        Notification[] notices = m_daoNotificationRepo.getMatchingNotifications(new NotificationCriteria(filters, sortStyle, ackType, limit, limit * multiple));
+        Notification[] notices = m_daoNotificationRepo.getMatchingNotifications(new NotificationCriteria(
+                                                                                                         filters,
+                                                                                                         sortStyle,
+                                                                                                         ackType,
+                                                                                                         limit,
+                                                                                                         limit
+                                                                                                                 * multiple));
         assertEquals(1, notices.length);
         assertEquals("This is a test notification", notices[0].getTextMessage());
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testGetNotification(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public void testGetNotification() {
         Notification notice = m_daoNotificationRepo.getNotification(1);
         assertNotNull(notice);
     }
 
     @Test
     @Transactional
-    public void testAcknowledgeNotification(){
+    public void testAcknowledgeNotification() {
         m_daoNotificationRepo.acknowledgeMatchingNotification("TestUser", new Date(), new NotificationCriteria());
 
-        int notifCount = m_daoNotificationRepo.countMatchingNotifications(new NotificationCriteria(new AcknowledgedByFilter("TestUser")));
+        int notifCount = m_daoNotificationRepo.countMatchingNotifications(new NotificationCriteria(
+                                                                                                   new AcknowledgedByFilter(
+                                                                                                                            "TestUser")));
         assertEquals(1, notifCount);
 
-        Notification[] notif = m_daoNotificationRepo.getMatchingNotifications(new NotificationCriteria(new AcknowledgedByFilter("TestUser")));
+        Notification[] notif = m_daoNotificationRepo.getMatchingNotifications(new NotificationCriteria(
+                                                                                                       new AcknowledgedByFilter(
+                                                                                                                                "TestUser")));
         assertEquals(1, notif.length);
         assertEquals("TestUser", notif[0].m_responder);
     }

@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.provision;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -56,16 +55,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-		"classpath:/META-INF/opennms/applicationContext-soa.xml",
-		"classpath:/META-INF/opennms/applicationContext-dao.xml",
-		"classpath*:/META-INF/opennms/component-dao.xml",
-		"classpath:/META-INF/opennms/applicationContext-daemon.xml",
-		"classpath:/META-INF/opennms/mockEventIpcManager.xml",
-		"classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-		"classpath*:/META-INF/opennms/provisiond-extensions.xml",
-	        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-daemon.xml",
+        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+        "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 /**
@@ -107,12 +103,13 @@ public class RancidProvisioningAdapterIntegrationTest implements InitializingBea
     }
 
     /**
-     * TODO: This test needs to be updated so that it properly connects to the JUnitHttpServer
+     * TODO: This test needs to be updated so that it properly connects to the
+     * JUnitHttpServer
      * for simulated RANCID REST operations.
      */
     @Test
     @Transactional
-    @JUnitHttpServer(port=7081,basicAuth=true)
+    @JUnitHttpServer(port = 7081, basicAuth = true)
     public void testAddNode() {
         List<OnmsNode> nodes = m_nodeDao.findAll();
 
@@ -122,15 +119,17 @@ public class RancidProvisioningAdapterIntegrationTest implements InitializingBea
     }
 
     /**
-     * TODO: This test needs to be updated so that it properly connects to the JUnitHttpServer
+     * TODO: This test needs to be updated so that it properly connects to the
+     * JUnitHttpServer
      * for simulated RANCID REST operations.
      */
     @Test
     @Transactional
-    @JUnitHttpServer(port=7081,basicAuth=true)
+    @JUnitHttpServer(port = 7081, basicAuth = true)
     @Ignore
     public void testAddSameOperationTwice() throws InterruptedException {
-        // AdapterOperationChecker verifyOperations = new AdapterOperationChecker(2);
+        // AdapterOperationChecker verifyOperations = new
+        // AdapterOperationChecker(2);
         // m_adapter.getOperationQueue().addListener(verifyOperations);
         OnmsNode node = m_nodeDao.get(NODE_ID);
         assertNotNull(node);

@@ -48,26 +48,41 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     private static final long serialVersionUID = 7080084239250489410L;
 
     protected int m_id;
+
     protected int m_nodeId;
+
     protected int m_ifIndex;
+
     protected String m_ipHostname;
+
     protected String m_snmpStatus;
+
     protected String m_ifDescr;
+
     protected int m_ifType;
+
     protected String m_ifName;
+
     protected String m_ifAlias;
+
     protected String m_collectFlag;
 
     /**
-     * <p>setSnmpInterfaceId</p>
+     * <p>
+     * setSnmpInterfaceId
+     * </p>
      *
-     * @param newId a int.
+     * @param newId
+     *            a int.
      */
     public void setSnmpInterfaceId(int newId) {
         m_id = newId;
     }
+
     /**
-     * <p>getSnmpInterfaceId</p>
+     * <p>
+     * getSnmpInterfaceId
+     * </p>
      *
      * @return a int.
      */
@@ -76,16 +91,21 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>setNodeid</p>
+     * <p>
+     * setNodeid
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      */
     public void setNodeid(int id) {
         m_nodeId = id;
     }
 
     /**
-     * <p>getNodeid</p>
+     * <p>
+     * getNodeid
+     * </p>
      *
      * @return a int.
      */
@@ -94,16 +114,21 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>setIfIndex</p>
+     * <p>
+     * setIfIndex
+     * </p>
      *
-     * @param index a int.
+     * @param index
+     *            a int.
      */
     public void setIfIndex(int index) {
         m_ifIndex = index;
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a int.
      */
@@ -112,16 +137,21 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>setIpHostname</p>
+     * <p>
+     * setIpHostname
+     * </p>
      *
-     * @param newIpHostname a {@link java.lang.String} object.
+     * @param newIpHostname
+     *            a {@link java.lang.String} object.
      */
     public void setIpHostname(String newIpHostname) {
         m_ipHostname = newIpHostname;
     }
 
     /**
-     * <p>getIpHostname</p>
+     * <p>
+     * getIpHostname
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,16 +160,21 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param newStatus a {@link java.lang.String} object.
+     * @param newStatus
+     *            a {@link java.lang.String} object.
      */
     public void setStatus(String newStatus) {
         m_snmpStatus = newStatus;
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -148,16 +183,21 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>setIfDescr</p>
+     * <p>
+     * setIfDescr
+     * </p>
      *
-     * @param newIfDescr a {@link java.lang.String} object.
+     * @param newIfDescr
+     *            a {@link java.lang.String} object.
      */
     public void setIfDescr(String newIfDescr) {
         m_ifDescr = newIfDescr;
     }
 
     /**
-     * <p>getIfDescr</p>
+     * <p>
+     * getIfDescr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -166,16 +206,21 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>setIfType</p>
+     * <p>
+     * setIfType
+     * </p>
      *
-     * @param newIfType a int.
+     * @param newIfType
+     *            a int.
      */
     public void setIfType(int newIfType) {
         m_ifType = newIfType;
     }
 
     /**
-     * <p>getIfType</p>
+     * <p>
+     * getIfType
+     * </p>
      *
      * @return a int.
      */
@@ -184,16 +229,21 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>setIfName</p>
+     * <p>
+     * setIfName
+     * </p>
      *
-     * @param newIfName a {@link java.lang.String} object.
+     * @param newIfName
+     *            a {@link java.lang.String} object.
      */
     public void setIfName(String newIfName) {
         m_ifName = newIfName;
     }
 
     /**
-     * <p>getIfName</p>
+     * <p>
+     * getIfName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -202,7 +252,9 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>getIfAlias</p>
+     * <p>
+     * getIfAlias
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -211,16 +263,21 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>setIfAlias</p>
+     * <p>
+     * setIfAlias
+     * </p>
      *
-     * @param newIfAlias a {@link java.lang.String} object.
+     * @param newIfAlias
+     *            a {@link java.lang.String} object.
      */
     public void setIfAlias(String newIfAlias) {
         m_ifAlias = newIfAlias;
     }
 
     /**
-     * <p>getCollectFlag</p>
+     * <p>
+     * getCollectFlag
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -229,9 +286,12 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     }
 
     /**
-     * <p>setCollectFlag</p>
+     * <p>
+     * setCollectFlag
+     * </p>
      *
-     * @param newCollectFlag a {@link java.lang.String} object.
+     * @param newCollectFlag
+     *            a {@link java.lang.String} object.
      */
     public void setCollectFlag(String newCollectFlag) {
         m_collectFlag = newCollectFlag;
@@ -240,38 +300,38 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getSnmpInterfaceId())
-            .append("ifIndex", getIfIndex())
-            .append("ipHostname", getIpHostname())
-            .append("ifType", getIfType())
-            .append("ifDescr", getIfDescr())
-            .append("ifName", getIfName())
-            .append("ifAlias", getIfAlias())
-            .append("status", getStatus())
-            .append("collect", getCollectFlag())
-            .toString();
+        return new ToStringBuilder(this).append("id", getSnmpInterfaceId()).append("ifIndex", getIfIndex()).append("ipHostname",
+                                                                                                                   getIpHostname()).append("ifType",
+                                                                                                                                           getIfType()).append("ifDescr",
+                                                                                                                                                               getIfDescr()).append("ifName",
+                                                                                                                                                                                    getIfName()).append("ifAlias",
+                                                                                                                                                                                                        getIfAlias()).append("status",
+                                                                                                                                                                                                                             getStatus()).append("collect",
+                                                                                                                                                                                                                                                 getCollectFlag()).toString();
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param obj a {@link org.opennms.web.admin.nodeManagement.SnmpManagedInterface} object.
+     * @param obj
+     *            a
+     *            {@link org.opennms.web.admin.nodeManagement.SnmpManagedInterface}
+     *            object.
      * @return a int.
      */
     @Override
     public int compareTo(SnmpManagedInterface obj) {
-        return new CompareToBuilder()
-            .append(getSnmpInterfaceId(), obj.getSnmpInterfaceId())
-            .append(getIfIndex(), obj.getIfIndex())
-            .append(getIpHostname(), obj.getIpHostname())
-            .append(getIfType(), obj.getIfType())
-            .append(getIfDescr(), obj.getIfDescr())
-            .append(getIfName(), obj.getIfName())
-            .append(getIfAlias(), obj.getIfAlias())
-            .append(getStatus(), obj.getStatus())
-            .append(getCollectFlag(), obj.getCollectFlag())
-            .toComparison();
+        return new CompareToBuilder().append(getSnmpInterfaceId(), obj.getSnmpInterfaceId()).append(getIfIndex(),
+                                                                                                    obj.getIfIndex()).append(getIpHostname(),
+                                                                                                                             obj.getIpHostname()).append(getIfType(),
+                                                                                                                                                         obj.getIfType()).append(getIfDescr(),
+                                                                                                                                                                                 obj.getIfDescr()).append(getIfName(),
+                                                                                                                                                                                                          obj.getIfName()).append(getIfAlias(),
+                                                                                                                                                                                                                                  obj.getIfAlias()).append(getStatus(),
+                                                                                                                                                                                                                                                           obj.getStatus()).append(getCollectFlag(),
+                                                                                                                                                                                                                                                                                   obj.getCollectFlag()).toComparison();
     }
 
     /** {@inheritDoc} */
@@ -279,17 +339,15 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     public boolean equals(Object obj) {
         if (obj instanceof SnmpManagedInterface) {
             SnmpManagedInterface other = (SnmpManagedInterface) obj;
-            return new EqualsBuilder()
-                .append(getSnmpInterfaceId(), other.getSnmpInterfaceId())
-                .append(getIfIndex(), other.getIfIndex())
-                .append(getIpHostname(), other.getIpHostname())
-                .append(getIfType(), other.getIfType())
-                .append(getIfDescr(), other.getIfDescr())
-                .append(getIfName(), other.getIfName())
-                .append(getIfAlias(), other.getIfAlias())
-                .append(getStatus(), other.getStatus())
-                .append(getCollectFlag(), other.getCollectFlag())
-                .isEquals();
+            return new EqualsBuilder().append(getSnmpInterfaceId(), other.getSnmpInterfaceId()).append(getIfIndex(),
+                                                                                                       other.getIfIndex()).append(getIpHostname(),
+                                                                                                                                  other.getIpHostname()).append(getIfType(),
+                                                                                                                                                                other.getIfType()).append(getIfDescr(),
+                                                                                                                                                                                          other.getIfDescr()).append(getIfName(),
+                                                                                                                                                                                                                     other.getIfName()).append(getIfAlias(),
+                                                                                                                                                                                                                                               other.getIfAlias()).append(getStatus(),
+                                                                                                                                                                                                                                                                          other.getStatus()).append(getCollectFlag(),
+                                                                                                                                                                                                                                                                                                    other.getCollectFlag()).isEquals();
         }
         return false;
     }
@@ -297,16 +355,6 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(617, 2677)
-            .append(getSnmpInterfaceId())
-            .append(getIfIndex())
-            .append(getIpHostname())
-            .append(getIfType())
-            .append(getIfDescr())
-            .append(getIfName())
-            .append(getIfAlias())
-            .append(getStatus())
-            .append(getCollectFlag())
-            .toHashCode();
-      }
+        return new HashCodeBuilder(617, 2677).append(getSnmpInterfaceId()).append(getIfIndex()).append(getIpHostname()).append(getIfType()).append(getIfDescr()).append(getIfName()).append(getIfAlias()).append(getStatus()).append(getCollectFlag()).toHashCode();
+    }
 }

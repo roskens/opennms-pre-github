@@ -46,17 +46,23 @@ public class EventWindow extends Window {
     /**
      * Instantiates a new events window.
      *
-     * @param eventConfDao the OpenNMS Events Configuration DAO
-     * @param eventProxy the OpenNMS Events Proxy
-     * @param fileName the MIB's file name
-     * @param events the OpenNMS events object
-     * @param logger the logger object
-     *
-     * @throws Exception the exception
+     * @param eventConfDao
+     *            the OpenNMS Events Configuration DAO
+     * @param eventProxy
+     *            the OpenNMS Events Proxy
+     * @param fileName
+     *            the MIB's file name
+     * @param events
+     *            the OpenNMS events object
+     * @param logger
+     *            the logger object
+     * @throws Exception
+     *             the exception
      */
-    public EventWindow(final EventConfDao eventConfDao, final EventProxy eventProxy, final String fileName, final Events events, final Logger logger) throws Exception {
+    public EventWindow(final EventConfDao eventConfDao, final EventProxy eventProxy, final String fileName,
+            final Events events, final Logger logger) throws Exception {
         super(fileName); // Using fileName for as the window's name.
-        //setScrollable(true);
+        // setScrollable(true);
         setModal(false);
         setClosable(false);
         setDraggable(false);
@@ -68,10 +74,12 @@ public class EventWindow extends Window {
             public void cancel() {
                 close();
             }
+
             @Override
             public void success() {
                 close();
             }
+
             @Override
             public void failure() {
                 close();

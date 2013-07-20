@@ -31,7 +31,6 @@ package org.opennms.netmgt.poller.pollables;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.scheduler.Timer;
 
-
 /**
  * Represents a PollConfig
  *
@@ -41,14 +40,18 @@ import org.opennms.netmgt.scheduler.Timer;
 public interface PollConfig extends Timer {
 
     /**
-     * <p>poll</p>
+     * <p>
+     * poll
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public PollStatus poll();
 
     /**
-     * <p>getCurrentTime</p>
+     * <p>
+     * getCurrentTime
+     * </p>
      *
      * @return a long.
      */
@@ -56,12 +59,16 @@ public interface PollConfig extends Timer {
     public long getCurrentTime();
 
     /**
-     * <p>refresh</p>
+     * <p>
+     * refresh
+     * </p>
      */
     public void refresh();
 
     /**
-     * <p>refreshThresholds</p>
+     * <p>
+     * refreshThresholds
+     * </p>
      */
     public void refreshThresholds();
 

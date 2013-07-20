@@ -36,31 +36,30 @@ import org.opennms.netmgt.model.OnmsLinkState.LinkState;
 import org.opennms.netmgt.model.OnmsLinkState.LinkStateTransition;
 import org.opennms.test.mock.EasyMockUtils;
 
-
 public class LinkStateTest {
 
     EasyMockUtils m_easyMockUtils = new EasyMockUtils();
 
     @Test
-    public void testMoveFromBothUnmanagedToLinkNodeUnmanaged(){
+    public void testMoveFromBothUnmanagedToLinkNodeUnmanaged() {
 
-       LinkState linkState = LinkState.LINK_BOTH_UNMANAGED;
+        LinkState linkState = LinkState.LINK_BOTH_UNMANAGED;
 
-       linkState = linkState.parentNodeEndPointFound(expectNoTransition());
+        linkState = linkState.parentNodeEndPointFound(expectNoTransition());
 
-       assertEquals(LinkState.LINK_NODE_UNMANAGED, linkState);
-       verify();
+        assertEquals(LinkState.LINK_NODE_UNMANAGED, linkState);
+        verify();
     }
 
     @Test
-    public void testMoveFromBothUnmanagedToParentUnmanaged(){
+    public void testMoveFromBothUnmanagedToParentUnmanaged() {
 
-       LinkState linkState = LinkState.LINK_BOTH_UNMANAGED;
+        LinkState linkState = LinkState.LINK_BOTH_UNMANAGED;
 
-       linkState = linkState.nodeEndPointFound(expectNoTransition());
+        linkState = linkState.nodeEndPointFound(expectNoTransition());
 
-       assertEquals(LinkState.LINK_PARENT_NODE_UNMANAGED, linkState);
-       verify();
+        assertEquals(LinkState.LINK_PARENT_NODE_UNMANAGED, linkState);
+        verify();
     }
 
     @Test
@@ -159,13 +158,15 @@ public class LinkStateTest {
             @Override
             public void onLinkUp() {
 
-
-
             }
+
             @Override
-            public void onLinkUnknown() {}
+            public void onLinkUnknown() {
+            }
+
             @Override
-            public void onLinkDown() {}
+            public void onLinkDown() {
+            }
         };
     }
 
@@ -211,6 +212,5 @@ public class LinkStateTest {
 
         return transition;
     }
-
 
 }

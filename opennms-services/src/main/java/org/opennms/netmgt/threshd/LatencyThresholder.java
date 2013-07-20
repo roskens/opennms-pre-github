@@ -61,9 +61,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author <A HREF="mailto:mike@opennms.org">Mike Davidson </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- *
- * FIXME: This thresholder does not support ranges yet.
- *
+ *         FIXME: This thresholder does not support ranges yet.
  */
 final class LatencyThresholder implements ServiceThresholder {
 
@@ -76,7 +74,6 @@ final class LatencyThresholder implements ServiceThresholder {
 
     /**
      * Default thresholding interval (in milliseconds).
-     *
      */
     static final int DEFAULT_INTERVAL = 300000; // 300s or 5m
 
@@ -85,7 +82,6 @@ final class LatencyThresholder implements ServiceThresholder {
      */
 
     static final int DEFAULT_RANGE = 0;
-
 
     /**
      * Interface attribute key used to store the interface's node id
@@ -121,16 +117,16 @@ final class LatencyThresholder implements ServiceThresholder {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Initialize the service thresholder.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                plug-in from functioning.
      */
     @Override
-    public void initialize(Map<?,?> parameters) {
+    public void initialize(Map<?, ?> parameters) {
         // Service name
         //
         m_svcName = (String) parameters.get("svcName");
@@ -138,11 +134,13 @@ final class LatencyThresholder implements ServiceThresholder {
     }
 
     /**
-     * <p>reinitialize</p>
+     * <p>
+     * reinitialize
+     * </p>
      */
     @Override
     public void reinitialize() {
-        //Nothing to do
+        // Nothing to do
     }
 
     /**
@@ -154,13 +152,12 @@ final class LatencyThresholder implements ServiceThresholder {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Responsible for performing all necessary initialization for the specified
+     * {@inheritDoc} Responsible for performing all necessary initialization for
+     * the specified
      * interface in preparation for thresholding.
      */
     @Override
-    public void initialize(ThresholdNetworkInterface iface, Map<?,?> parameters) {
+    public void initialize(ThresholdNetworkInterface iface, Map<?, ?> parameters) {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET)
@@ -204,7 +201,7 @@ final class LatencyThresholder implements ServiceThresholder {
         int nodeId = -1;
 
         final String hostAddress = InetAddressUtils.str(ipAddr);
-		try {
+        try {
             // Prepare & execute the SQL statement to get the 'nodeid',
             // 'ifIndex' and 'isSnmpPrimary' fields from the ipInterface table.
             //
@@ -222,7 +219,8 @@ final class LatencyThresholder implements ServiceThresholder {
                 }
             } catch (SQLException sqle) {
                 LOG.debug("initialize: SQL exception!!", sqle);
-                throw new RuntimeException("SQL exception while attempting to retrieve node id for interface " + hostAddress);
+                throw new RuntimeException("SQL exception while attempting to retrieve node id for interface "
+                        + hostAddress);
             }
 
             LOG.debug("initialize: db retrieval info: nodeid = {}, address = {}", nodeId, hostAddress);
@@ -269,7 +267,7 @@ final class LatencyThresholder implements ServiceThresholder {
                     continue; // continue with the next threshold...
                 }
                 try {
-                    BaseThresholdDefConfigWrapper wrapper=BaseThresholdDefConfigWrapper.getConfigWrapper(thresh);
+                    BaseThresholdDefConfigWrapper wrapper = BaseThresholdDefConfigWrapper.getConfigWrapper(thresh);
                     // First attempt to lookup the entry in the map
                     thresholdEntity = thresholdMap.get(wrapper.getDatasourceExpression());
 
@@ -283,7 +281,8 @@ final class LatencyThresholder implements ServiceThresholder {
                     try {
                         thresholdEntity.addThreshold(wrapper);
                     } catch (IllegalStateException e) {
-                        LOG.warn("Encountered duplicate {} for datasource {}", thresh.getType(), wrapper.getDatasourceExpression(), e);
+                        LOG.warn("Encountered duplicate {} for datasource {}", thresh.getType(),
+                                 wrapper.getDatasourceExpression(), e);
                     }
 
                     // Add new entity to the map
@@ -316,9 +315,8 @@ final class LatencyThresholder implements ServiceThresholder {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Responsible for releasing any resources associated with the specified
+     * {@inheritDoc} Responsible for releasing any resources associated with the
+     * specified
      * interface.
      */
     @Override
@@ -327,21 +325,20 @@ final class LatencyThresholder implements ServiceThresholder {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Perform threshold checking.
+     * {@inheritDoc} Perform threshold checking.
      */
     @Override
-    public int check(ThresholdNetworkInterface iface, EventProxy eproxy, Map<?,?> parameters) {
-		LatencyInterface latIface = new LatencyInterface(iface, m_svcName);
-		LatencyParameters latParms = new LatencyParameters(parameters, m_svcName);
+    public int check(ThresholdNetworkInterface iface, EventProxy eproxy, Map<?, ?> parameters) {
+        LatencyInterface latIface = new LatencyInterface(iface, m_svcName);
+        LatencyParameters latParms = new LatencyParameters(parameters, m_svcName);
 
         try {
 
             // Get configuration parameters
             //
             // NodeId attribute
-            LOG.debug("check: service={} interface={} nodeId={} thresholding-group={} interval={}ms", m_svcName, latIface.getHostAddress(), latIface.getNodeId(), latParms.getGroupName(), latParms.getInterval());
+            LOG.debug("check: service={} interface={} nodeId={} thresholding-group={} interval={}ms", m_svcName,
+                      latIface.getHostAddress(), latIface.getNodeId(), latParms.getGroupName(), latParms.getInterval());
 
             // RRD Repository attribute
             //
@@ -357,7 +354,7 @@ final class LatencyThresholder implements ServiceThresholder {
             //
             return THRESHOLDING_SUCCEEDED;
 
-        } catch(ThresholdingException e) {
+        } catch (ThresholdingException e) {
             LOG.error(e.getMessage());
             return e.getFailureCode();
         } catch (EventProxyException e) {
@@ -366,7 +363,7 @@ final class LatencyThresholder implements ServiceThresholder {
         }
     }
 
-	private void sendEvents(EventProxy eproxy, Events events) throws EventProxyException {
+    private void sendEvents(EventProxy eproxy, Events events) throws EventProxyException {
         if (events != null && events.getEventCount() > 0) {
             Log eventLog = new Log();
             eventLog.setEvents(events);
@@ -378,8 +375,11 @@ final class LatencyThresholder implements ServiceThresholder {
      * Performs threshold checking on an directory which contains one or more
      * RRD files containing latency/response time information. ThresholdEntity
      * objects are stored for performing threshold checking.
-     * @param latIface TODO
-     * @param latParms TODO
+     *
+     * @param latIface
+     *            TODO
+     * @param latParms
+     *            TODO
      * @param parameters
      * @param iface
      * @param directory
@@ -402,12 +402,14 @@ final class LatencyThresholder implements ServiceThresholder {
      *             if path parameter is not a directory.
      * @throws ThresholdingException
      */
-    Events checkRrdDir(LatencyInterface latIface, LatencyParameters latParms) throws IllegalArgumentException, ThresholdingException {
-		Map<String,ThresholdEntity> thresholdMap = latIface.getThresholdMap();
+    Events checkRrdDir(LatencyInterface latIface, LatencyParameters latParms) throws IllegalArgumentException,
+            ThresholdingException {
+        Map<String, ThresholdEntity> thresholdMap = latIface.getThresholdMap();
 
         // Sanity Check
         if (latIface.getInetAddress() == null || thresholdMap == null) {
-            throw new ThresholdingException("check: Threshold checking failed for " + m_svcName + "/" + latIface.getHostAddress(), THRESHOLDING_FAILED);
+            throw new ThresholdingException("check: Threshold checking failed for " + m_svcName + "/"
+                    + latIface.getHostAddress(), THRESHOLDING_FAILED);
         }
 
         Events events = new Events();
@@ -418,7 +420,7 @@ final class LatencyThresholder implements ServiceThresholder {
             ThresholdEntity threshold = thresholdMap.get(datasource);
             if (threshold != null) {
                 Double dsValue = threshold.fetchLastValue(latIface, latParms);
-                Map<String, Double> dsValues=new HashMap<String, Double>();
+                Map<String, Double> dsValues = new HashMap<String, Double>();
                 dsValues.put(datasource, dsValue);
                 List<Event> eventList = threshold.evaluateAndCreateEvents(dsValues, date);
                 if (eventList.size() == 0) {
@@ -428,17 +430,17 @@ final class LatencyThresholder implements ServiceThresholder {
 
                 completeEventListAndAddToEvents(events, eventList, latIface);
 
-
                 /*
-                threshold.evaluateThreshold(dsValue, events, date, latIface);
-                */
+                 * threshold.evaluateThreshold(dsValue, events, date, latIface);
+                 */
             }
         }
 
         return events;
     }
 
-    private void completeEventListAndAddToEvents(Events events, List<Event> eventList, LatencyInterface latIface) throws ThresholdingException {
+    private void completeEventListAndAddToEvents(Events events, List<Event> eventList, LatencyInterface latIface)
+            throws ThresholdingException {
         for (Event event : eventList) {
             event.setNodeid((long) latIface.getNodeId());
             event.setInterfaceAddress(latIface.getInetAddress());

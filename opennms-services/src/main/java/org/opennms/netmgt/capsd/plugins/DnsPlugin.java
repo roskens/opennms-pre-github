@@ -60,6 +60,7 @@ import org.opennms.protocols.dns.DNSAddressRequest;
  */
 public final class DnsPlugin extends AbstractPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(DnsPlugin.class);
+
     /**
      * </P>
      * The protocol name that is tested by this plugin.
@@ -90,7 +91,6 @@ public final class DnsPlugin extends AbstractPlugin {
     private final static String DEFAULT_LOOKUP = "localhost";
 
     /**
-     *
      * @param nserver
      *            The address for the name server test.
      * @param port
@@ -99,7 +99,6 @@ public final class DnsPlugin extends AbstractPlugin {
      *            Timeout in milliseconds
      * @param lookup
      *            Host name to be used in DNS lookup packet
-     *
      * @return True if server, false if not.
      */
     private boolean isServer(InetAddress nserver, int port, int retries, int timeout, String lookup) {
@@ -173,9 +172,8 @@ public final class DnsPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -185,7 +183,6 @@ public final class DnsPlugin extends AbstractPlugin {
 
     /**
      * {@inheritDoc}
-     *
      * <p>
      * Returns true if the protocol defined by this plugin is supported. If the
      * protocol is not supported then a false value is returned to the caller.
@@ -193,7 +190,6 @@ public final class DnsPlugin extends AbstractPlugin {
      * additional information by key-name. These key-value pairs can be added to
      * service events if needed.
      * </p>
-     *
      * <p>
      * In addition, the input qualifiers map also provides information about how
      * the plugin should contact the remote server. The plugin may check the
@@ -210,7 +206,8 @@ public final class DnsPlugin extends AbstractPlugin {
         if (qualifiers != null) {
             port = ParameterMap.getKeyedInteger(qualifiers, "port", DEFAULT_PORT);
             timeout = ParameterMap.getKeyedInteger(qualifiers, "timeout", DEFAULT_TIMEOUT);
-            retries = ParameterMap.getKeyedInteger(qualifiers, "retry", ParameterMap.getKeyedInteger(qualifiers, "retries", DEFAULT_RETRY));
+            retries = ParameterMap.getKeyedInteger(qualifiers, "retry",
+                                                   ParameterMap.getKeyedInteger(qualifiers, "retries", DEFAULT_RETRY));
             lookup = ParameterMap.getKeyedString(qualifiers, "lookup", DEFAULT_LOOKUP);
         }
 

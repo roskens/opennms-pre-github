@@ -86,13 +86,19 @@ public abstract class EventPanel extends Panel {
     /**
      * Instantiates a new event panel.
      *
-     * @param eventConfDao the OpenNMS Events Configuration DAO
-     * @param eventProxy the OpenNMS Events Proxy
-     * @param fileName the MIB's file name
-     * @param events the OpenNMS events object
-     * @param logger the logger object
+     * @param eventConfDao
+     *            the OpenNMS Events Configuration DAO
+     * @param eventProxy
+     *            the OpenNMS Events Proxy
+     * @param fileName
+     *            the MIB's file name
+     * @param events
+     *            the OpenNMS events object
+     * @param logger
+     *            the logger object
      */
-    public EventPanel(final EventConfDao eventConfDao, final EventProxy eventProxy, final String fileName, final Events events, final Logger logger) {
+    public EventPanel(final EventConfDao eventConfDao, final EventProxy eventProxy, final String fileName,
+            final Events events, final Logger logger) {
 
         if (eventProxy == null)
             throw new RuntimeException("eventProxy cannot be null.");
@@ -173,6 +179,7 @@ public abstract class EventPanel extends Panel {
                 }
                 eventTable.refreshRowCache();
             }
+
             @Override
             public void deleteEvent(org.opennms.netmgt.xml.eventconf.Event event) {
                 logger.info("Event " + event.getUei() + " has been removed.");
@@ -189,7 +196,8 @@ public abstract class EventPanel extends Panel {
     /**
      * Sets the value of the ifNew flag.
      *
-     * @param isNew true, if the group is new.
+     * @param isNew
+     *            true, if the group is new.
      */
     public void setIsNew(boolean isNew) {
         this.isNew = isNew;
@@ -213,14 +221,17 @@ public abstract class EventPanel extends Panel {
     /**
      * Process events.
      *
-     * @param events the OpenNMS Events
-     * @param logger the logger
+     * @param events
+     *            the OpenNMS Events
+     * @param logger
+     *            the logger
      */
     public void processEvents(final Events events, final Logger logger) {
         final File configDir = new File(ConfigFileConstants.getHome(), "etc/events/");
         final File file = new File(configDir, fileName);
         if (file.exists()) {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
                                            "Do you really want to override the existig file?<br/>All current information will be lost.",
@@ -243,9 +254,12 @@ public abstract class EventPanel extends Panel {
     /**
      * Validate file.
      *
-     * @param file the file
-     * @param events the events
-     * @param logger the logger
+     * @param file
+     *            the file
+     * @param events
+     *            the events
+     * @param logger
+     *            the logger
      */
     private void validateFile(final File file, final Events events, final Logger logger) {
         int eventCount = 0;
@@ -256,10 +270,12 @@ public abstract class EventPanel extends Panel {
         if (eventCount == 0) {
             saveFile(file, events, logger);
         } else {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
-                                           eventCount + " of the new events are already on the configuration files. Do you really want to override those events ?",
+                                           eventCount
+                                                   + " of the new events are already on the configuration files. Do you really want to override those events ?",
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
             mb.addStyleName(Runo.WINDOW_DIALOG);
@@ -277,9 +293,12 @@ public abstract class EventPanel extends Panel {
     /**
      * Save file.
      *
-     * @param file the file
-     * @param events the events
-     * @param logger the logger
+     * @param file
+     *            the file
+     * @param events
+     *            the events
+     * @param logger
+     *            the logger
      */
     private void saveFile(final File file, final Events events, final Logger logger) {
         try {

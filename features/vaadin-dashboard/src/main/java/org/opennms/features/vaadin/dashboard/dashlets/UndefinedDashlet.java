@@ -34,7 +34,8 @@ import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
 /**
- * This class represents a "undefined" {@link Dashlet} used for error conditions when the
+ * This class represents a "undefined" {@link Dashlet} used for error conditions
+ * when the
  * required {@link Dashlet} cannot be found.
  *
  * @author Christian Pape
@@ -48,7 +49,8 @@ public class UndefinedDashlet extends VerticalLayout implements Dashlet {
     /**
      * Constructor for instantiating this {@link Dashlet}
      *
-     * @param dashletSpec the {@link DashletSpec} to use
+     * @param dashletSpec
+     *            the {@link DashletSpec} to use
      */
     public UndefinedDashlet(String name, DashletSpec dashletSpec) {
         /**

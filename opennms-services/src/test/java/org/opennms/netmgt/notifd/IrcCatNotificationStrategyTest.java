@@ -42,19 +42,21 @@ import org.opennms.netmgt.config.NotificationManager;
  */
 public class IrcCatNotificationStrategyTest {
     /**
-     * This doesn't really do anything, but it's a placeholder so that the testSend() test can be left disabled.
+     * This doesn't really do anything, but it's a placeholder so that the
+     * testSend() test can be left disabled.
      */
     @Test
     public void testInstantiate() {
         new IrcCatNotificationStrategy();
     }
 
-    //@Test
+    // @Test
     public void testSend() throws UnknownHostException {
         IrcCatNotificationStrategy strategy = new IrcCatNotificationStrategy();
         List<Argument> arguments = new ArrayList<Argument>();
         arguments.add(new Argument(NotificationManager.PARAM_EMAIL, null, "#opennms-test", false));
-        arguments.add(new Argument(NotificationManager.PARAM_TEXT_MSG, null, "Test notification from " + getClass() + " from " + InetAddress.getLocalHost(), false));
+        arguments.add(new Argument(NotificationManager.PARAM_TEXT_MSG, null, "Test notification from " + getClass()
+                + " from " + InetAddress.getLocalHost(), false));
         strategy.send(arguments);
     }
 }

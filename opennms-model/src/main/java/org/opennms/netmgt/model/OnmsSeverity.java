@@ -41,18 +41,16 @@ import java.util.Map;
  */
 public enum OnmsSeverity implements Serializable {
     // Keep this ordered by ID so we can use the internal enum compareTo
-    INDETERMINATE(1, "Indeterminate", "lightblue"),
-    CLEARED(2, "Cleared", "white"),
-    NORMAL(3, "Normal", "green"),
-    WARNING(4, "Warning", "cyan"),
-    MINOR(5, "Minor", "yellow"),
-    MAJOR(6, "Major", "orange"),
-    CRITICAL(7, "Critical", "red");
+    INDETERMINATE(1, "Indeterminate", "lightblue"), CLEARED(2, "Cleared", "white"), NORMAL(3, "Normal", "green"), WARNING(
+            4, "Warning", "cyan"), MINOR(5, "Minor", "yellow"), MAJOR(6, "Major", "orange"), CRITICAL(7, "Critical",
+            "red");
 
     private static final Map<Integer, OnmsSeverity> m_idMap;
 
     private int m_id;
+
     private String m_label;
+
     private String m_color;
 
     static {
@@ -69,7 +67,9 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a int.
      */
@@ -78,7 +78,9 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,7 +89,9 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>getColor</p>
+     * <p>
+     * getColor
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,9 +100,12 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>isLessThan</p>
+     * <p>
+     * isLessThan
+     * </p>
      *
-     * @param other a {@link org.opennms.netmgt.model.OnmsSeverity} object.
+     * @param other
+     *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      * @return a boolean.
      */
     public boolean isLessThan(final OnmsSeverity other) {
@@ -106,9 +113,12 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>isLessThanOrEqual</p>
+     * <p>
+     * isLessThanOrEqual
+     * </p>
      *
-     * @param other a {@link org.opennms.netmgt.model.OnmsSeverity} object.
+     * @param other
+     *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      * @return a boolean.
      */
     public boolean isLessThanOrEqual(final OnmsSeverity other) {
@@ -116,9 +126,12 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>isGreaterThan</p>
+     * <p>
+     * isGreaterThan
+     * </p>
      *
-     * @param other a {@link org.opennms.netmgt.model.OnmsSeverity} object.
+     * @param other
+     *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      * @return a boolean.
      */
     public boolean isGreaterThan(final OnmsSeverity other) {
@@ -126,9 +139,12 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>isGreaterThanOrEqual</p>
+     * <p>
+     * isGreaterThanOrEqual
+     * </p>
      *
-     * @param other a {@link org.opennms.netmgt.model.OnmsSeverity} object.
+     * @param other
+     *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      * @return a boolean.
      */
     public boolean isGreaterThanOrEqual(final OnmsSeverity other) {
@@ -136,9 +152,12 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      * @return a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
     public static OnmsSeverity get(final int id) {
@@ -150,9 +169,12 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
     public static OnmsSeverity get(final String label) {
@@ -165,14 +187,17 @@ public enum OnmsSeverity implements Serializable {
     }
 
     /**
-     * <p>escalate</p>
+     * <p>
+     * escalate
+     * </p>
      *
-     * @param sev a {@link org.opennms.netmgt.model.OnmsSeverity} object.
+     * @param sev
+     *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      * @return a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
     public static OnmsSeverity escalate(final OnmsSeverity sev) {
         if (sev.isLessThan(OnmsSeverity.CRITICAL)) {
-            return OnmsSeverity.get(sev.getId()+1);
+            return OnmsSeverity.get(sev.getId() + 1);
         } else {
             return OnmsSeverity.get(sev.getId());
         }

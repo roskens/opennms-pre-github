@@ -49,30 +49,33 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class LoopDetectorTest implements ApplicationContextAware {
 
     private ApplicationContext m_applicationContext;
+
     private LoopDetector m_detector;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockLogAppender.setupLogging();
         m_detector = getDetector(LoopDetector.class);
         m_detector.setSupported(true);
     }
 
-    @Test(timeout=90000)
-    public void testDetectorSuccess() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testDetectorSuccess() throws UnknownHostException {
         m_detector.setIpMatch(InetAddressUtils.str(InetAddress.getLocalHost()));
         m_detector.init();
-        assertTrue("Service detection for loopDetector failed.", m_detector.isServiceDetected(InetAddress.getLocalHost()));
+        assertTrue("Service detection for loopDetector failed.",
+                   m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
-    @Test(timeout=90000)
-    public void testDetectorFail() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testDetectorFail() throws UnknownHostException {
         m_detector.init();
-        assertFalse("Service detection was supposed to be false but was true:", m_detector.isServiceDetected(InetAddress.getLocalHost()));
+        assertFalse("Service detection was supposed to be false but was true:",
+                    m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
     private LoopDetector getDetector(Class<? extends ServiceDetector> detectorClass) {

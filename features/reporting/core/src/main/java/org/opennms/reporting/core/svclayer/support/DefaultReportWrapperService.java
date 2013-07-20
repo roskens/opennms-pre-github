@@ -58,7 +58,9 @@ import org.opennms.reporting.core.svclayer.ReportStoreService;
 import org.opennms.reporting.core.svclayer.ReportWrapperService;
 
 /**
- * <p>DefaultReportWrapperService class.</p>
+ * <p>
+ * DefaultReportWrapperService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -73,7 +75,9 @@ public class DefaultReportWrapperService implements ReportWrapperService {
     private static final String LOG4J_CATEGORY = "reports";
 
     /**
-     * <p>Constructor for DefaultReportWrapperService.</p>
+     * <p>
+     * Constructor for DefaultReportWrapperService.
+     * </p>
      */
     public DefaultReportWrapperService() {
         // TODO this should wrap the other methods
@@ -133,7 +137,7 @@ public class DefaultReportWrapperService implements ReportWrapperService {
     public Boolean hasParameters(String reportId) {
 
         Map<String, Object> reportParms = getParameters(reportId).getReportParms();
-        if ((reportParms == null)||(reportParms.isEmpty())) {
+        if ((reportParms == null) || (reportParms.isEmpty())) {
             return false;
         } else {
             return true;
@@ -142,11 +146,9 @@ public class DefaultReportWrapperService implements ReportWrapperService {
 
     /** {@inheritDoc} */
     @Override
-    public void render(String reportId, String location, ReportFormat format,
-            OutputStream outputStream) {
+    public void render(String reportId, String location, ReportFormat format, OutputStream outputStream) {
         try {
-            getReportService(reportId).render(reportId, location, format,
-                                              outputStream);
+            getReportService(reportId).render(reportId, location, format, outputStream);
         } catch (ReportException e) {
             LOG.error("failed to render report", e);
         }
@@ -155,20 +157,14 @@ public class DefaultReportWrapperService implements ReportWrapperService {
 
     /** {@inheritDoc} */
     @Override
-    public void run(ReportParameters parameters,
-            ReportMode mode,
-            DeliveryOptions deliveryOptions,
-            String reportId) {
+    public void run(ReportParameters parameters, ReportMode mode, DeliveryOptions deliveryOptions, String reportId) {
 
         if (!deliveryOptions.getPersist()) {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             BufferedOutputStream bout = new BufferedOutputStream(out);
             try {
-                getReportService(reportId).runAndRender(
-                                                        parameters.getReportParms(mode),
-                                                        reportId,
-                                                        deliveryOptions.getFormat(),
-                                                        bout);
+                getReportService(reportId).runAndRender(parameters.getReportParms(mode), reportId,
+                                                        deliveryOptions.getFormat(), bout);
             } catch (ReportException reportException) {
                 LOG.error("failed to run or render report: {}", reportId, reportException);
             }
@@ -176,9 +172,7 @@ public class DefaultReportWrapperService implements ReportWrapperService {
         } else {
             String outputPath;
             try {
-                outputPath = getReportService(reportId).run(
-                                                                   parameters.getReportParms(mode),
-                                                                   reportId);
+                outputPath = getReportService(reportId).run(parameters.getReportParms(mode), reportId);
                 ReportCatalogEntry catalogEntry = new ReportCatalogEntry();
                 catalogEntry.setReportId(reportId);
                 catalogEntry.setTitle(deliveryOptions.getInstanceId());
@@ -188,11 +182,7 @@ public class DefaultReportWrapperService implements ReportWrapperService {
                 if (deliveryOptions.getMailTo().length() != 0) {
                     ByteArrayOutputStream out = new ByteArrayOutputStream();
                     BufferedOutputStream bout = new BufferedOutputStream(out);
-                    getReportService(reportId).render(
-                                                      reportId,
-                                                      outputPath,
-                                                      deliveryOptions.getFormat(),
-                                                      bout);
+                    getReportService(reportId).render(reportId, outputPath, deliveryOptions.getFormat(), bout);
                     mailReport(deliveryOptions, out);
                 }
             } catch (ReportException reportException) {
@@ -202,15 +192,13 @@ public class DefaultReportWrapperService implements ReportWrapperService {
 
     }
 
-    private void mailReport(DeliveryOptions deliveryOptions,
-            ByteArrayOutputStream outputStream) {
+    private void mailReport(DeliveryOptions deliveryOptions, ByteArrayOutputStream outputStream) {
         try {
             JavaMailer jm = new JavaMailer();
             jm.setTo(deliveryOptions.getMailTo());
             jm.setSubject(deliveryOptions.getInstanceId());
             jm.setMessageText("Here is your report from the OpenNMS report service.");
-            jm.setInputStream(new ByteArrayInputStream(
-                                                       outputStream.toByteArray()));
+            jm.setInputStream(new ByteArrayInputStream(outputStream.toByteArray()));
             switch (deliveryOptions.getFormat()) {
 
             case HTML:
@@ -222,11 +210,11 @@ public class DefaultReportWrapperService implements ReportWrapperService {
                 jm.setInputStreamContentType("application/pdf");
                 break;
             case SVG:
-                jm.setInputStreamName(deliveryOptions.getInstanceId()+ ".pdf");
+                jm.setInputStreamName(deliveryOptions.getInstanceId() + ".pdf");
                 jm.setInputStreamContentType("application/pdf");
                 break;
             case CSV:
-                jm.setInputStreamName(deliveryOptions.getInstanceId()+ ".csv");
+                jm.setInputStreamName(deliveryOptions.getInstanceId() + ".csv");
                 jm.setInputStreamContentType("text/csv");
                 break;
             default:
@@ -243,9 +231,7 @@ public class DefaultReportWrapperService implements ReportWrapperService {
     /** {@inheritDoc} */
     @Override
     public boolean validate(ReportParameters parameters, String reportId) {
-        return getReportService(reportId).validate(
-                                                   parameters.getReportParms(),
-                                                   reportId);
+        return getReportService(reportId).validate(parameters.getReportParms(), reportId);
     }
 
     private ReportService getReportService(String reportId) {
@@ -253,19 +239,28 @@ public class DefaultReportWrapperService implements ReportWrapperService {
     }
 
     /**
-     * <p>setReportServiceLocator</p>
+     * <p>
+     * setReportServiceLocator
+     * </p>
      *
-     * @param reportServiceLocator a {@link org.opennms.reporting.core.svclayer.ReportServiceLocator} object.
+     * @param reportServiceLocator
+     *            a
+     *            {@link org.opennms.reporting.core.svclayer.ReportServiceLocator}
+     *            object.
      */
-    public void setReportServiceLocator(
-            ReportServiceLocator reportServiceLocator) {
+    public void setReportServiceLocator(ReportServiceLocator reportServiceLocator) {
         m_reportServiceLocator = reportServiceLocator;
     }
 
     /**
-     * <p>setReportStoreService</p>
+     * <p>
+     * setReportStoreService
+     * </p>
      *
-     * @param reportStoreService a {@link org.opennms.reporting.core.svclayer.ReportStoreService} object.
+     * @param reportStoreService
+     *            a
+     *            {@link org.opennms.reporting.core.svclayer.ReportStoreService}
+     *            object.
      */
     public void setReportStoreService(ReportStoreService reportStoreService) {
         m_reportStoreService = reportStoreService;
@@ -274,8 +269,7 @@ public class DefaultReportWrapperService implements ReportWrapperService {
     /** {@inheritDoc} */
 
     @Override
-    public void runAndRender(ReportParameters parameters, ReportMode mode,
-            OutputStream outputStream) {
+    public void runAndRender(ReportParameters parameters, ReportMode mode, OutputStream outputStream) {
 
         // TODO remove this debug code
         Map<String, Object> reportParms = parameters.getReportParms(mode);
@@ -290,10 +284,8 @@ public class DefaultReportWrapperService implements ReportWrapperService {
         }
 
         try {
-            getReportService(parameters.getReportId()).runAndRender(
-                                                                    parameters.getReportParms(mode),
-                                                                    parameters.getReportId(),
-                                                                    parameters.getFormat(),
+            getReportService(parameters.getReportId()).runAndRender(parameters.getReportParms(mode),
+                                                                    parameters.getReportId(), parameters.getFormat(),
                                                                     outputStream);
         } catch (ReportException reportException) {
             LOG.error("failed to run or render report: ", parameters.getReportId(), reportException);

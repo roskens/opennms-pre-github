@@ -65,7 +65,8 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * </EM> to inform other threads.
      * </P>
      *
-     * @param address TODO
+     * @param address
+     *            TODO
      * @see IfXTableEntry
      */
     public IfXTable(InetAddress address) {
@@ -79,13 +80,16 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     }
 
     /**
-     * <p>getEntry</p>
+     * <p>
+     * getEntry
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link org.opennms.netmgt.capsd.snmp.IfXTableEntry} object.
      */
     public IfXTableEntry getEntry(int ifIndex) {
-        for(IfXTableEntry entry : this) {
+        for (IfXTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
                 return entry;
@@ -96,16 +100,19 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     }
 
     /**
-     * <p>getIfName</p>
+     * <p>
+     * getIfName
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getIfName(int ifIndex) {
 
         // Find ifXTable entry with matching ifIndex
 
-        for(IfXTableEntry ifXEntry : this) {
+        for (IfXTableEntry ifXEntry : this) {
 
             int ifXIndex = -1;
             Integer snmpIfIndex = ifXEntry.getIfIndex();
@@ -123,15 +130,18 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     }
 
     /**
-     * <p>getIfAlias</p>
+     * <p>
+     * getIfAlias
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getIfAlias(int ifIndex) {
         // Find ifXTable entry with matching ifIndex
 
-        for(IfXTableEntry ifXEntry : this) {
+        for (IfXTableEntry ifXEntry : this) {
 
             int ifXIndex = -1;
             Integer snmpIfIndex = ifXEntry.getIfIndex();
@@ -149,13 +159,16 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     }
 
     /**
-     * <p>getIfHighSpeed</p>
+     * <p>
+     * getIfHighSpeed
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.Long} object.
      */
     public Long getIfHighSpeed(int ifIndex) {
-        for(IfXTableEntry ifXEntry : this) {
+        for (IfXTableEntry ifXEntry : this) {
 
             int ifXIndex = -1;
             Integer snmpIfIndex = ifXEntry.getIfIndex();

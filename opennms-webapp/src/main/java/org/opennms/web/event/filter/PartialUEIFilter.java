@@ -42,16 +42,21 @@ public class PartialUEIFilter extends SubstringFilter {
     public static final String TYPE = "partialUei";
 
     /**
-     * <p>Constructor for PartialUEIFilter.</p>
+     * <p>
+     * Constructor for PartialUEIFilter.
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      */
     public PartialUEIFilter(String uei) {
         super(TYPE, "EVENTUEI", "eventUei", uei);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,7 +66,9 @@ public class PartialUEIFilter extends SubstringFilter {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,7 +78,9 @@ public class PartialUEIFilter extends SubstringFilter {
     }
 
     /**
-     * <p>getUEI</p>
+     * <p>
+     * getUEI
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

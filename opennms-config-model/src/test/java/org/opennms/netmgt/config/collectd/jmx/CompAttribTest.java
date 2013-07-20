@@ -45,9 +45,12 @@ public class CompAttribTest extends XmlTest<CompAttrib> {
     /**
      * Instantiates a new attribute test.
      *
-     * @param sampleObject the sample object
-     * @param sampleXml the sample XML
-     * @param schemaFile the schema file
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample XML
+     * @param schemaFile
+     *            the schema file
      */
     public CompAttribTest(CompAttrib sampleObject, String sampleXml, String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
@@ -57,7 +60,8 @@ public class CompAttribTest extends XmlTest<CompAttrib> {
      * Data.
      *
      * @return the collection
-     * @throws ParseException the parse exception
+     * @throws ParseException
+     *             the parse exception
      */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
@@ -77,11 +81,10 @@ public class CompAttribTest extends XmlTest<CompAttrib> {
         a.addCompMember(m2);
 
         return Arrays.asList(new Object[][] { {
-            a,
-            "<comp-attrib name=\"PeakUsage\" alias=\"EdenPeakUsage\" type=\"Composite\">"
-            + "<comp-member name=\"used\" alias=\"EdenPeakUsageUsed\" type=\"gauge\" />"
-            + "<comp-member name=\"committed\" alias=\"EdenPeakUsgCmmttd\" type=\"gauge\" />"
-            + "</comp-attrib>",
-            "target/classes/xsds/jmx-datacollection-config.xsd" } });
+                a,
+                "<comp-attrib name=\"PeakUsage\" alias=\"EdenPeakUsage\" type=\"Composite\">"
+                        + "<comp-member name=\"used\" alias=\"EdenPeakUsageUsed\" type=\"gauge\" />"
+                        + "<comp-member name=\"committed\" alias=\"EdenPeakUsgCmmttd\" type=\"gauge\" />"
+                        + "</comp-attrib>", "target/classes/xsds/jmx-datacollection-config.xsd" } });
     }
 }

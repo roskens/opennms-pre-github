@@ -52,7 +52,6 @@ import org.springframework.core.io.FileSystemResource;
  * from the opennms-database.xml. This provides convenience methods to create
  * database connections to the database configured in this default xml
  * </p>
- *
  * <p>
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
@@ -63,11 +62,13 @@ import org.springframework.core.io.FileSystemResource;
  */
 public class DatabaseChecker {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DatabaseChecker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DatabaseChecker.class);
 
     private static List<String> m_required = new ArrayList<String>();
+
     private static List<String> m_optional = new ArrayList<String>();
-    private Map<String,JdbcDataSource> m_dataSources = new HashMap<String,JdbcDataSource>();
+
+    private Map<String, JdbcDataSource> m_dataSources = new HashMap<String, JdbcDataSource>();
 
     static {
         m_required.add("opennms");
@@ -83,14 +84,21 @@ public class DatabaseChecker {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @param configFile a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @param configFile
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
-    protected DatabaseChecker(final String configFile) throws IOException, MarshalException, ValidationException, ClassNotFoundException {
-        final DataSourceConfiguration database = CastorUtils.unmarshal(DataSourceConfiguration.class, new FileSystemResource(configFile), false);
+    protected DatabaseChecker(final String configFile) throws IOException, MarshalException, ValidationException,
+            ClassNotFoundException {
+        final DataSourceConfiguration database = CastorUtils.unmarshal(DataSourceConfiguration.class,
+                                                                       new FileSystemResource(configFile), false);
 
         for (final JdbcDataSource dataSource : database.getJdbcDataSourceCollection()) {
             m_dataSources.put(dataSource.getName(), dataSource);
@@ -107,20 +115,29 @@ public class DatabaseChecker {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
     protected DatabaseChecker() throws IOException, MarshalException, ValidationException, ClassNotFoundException {
-    	this(ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME).getPath());
+        this(ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME).getPath());
     }
 
     /**
-     * <p>Check whether the data sources in opennms-datasources.xml are valid.</p>
+     * <p>
+     * Check whether the data sources in opennms-datasources.xml are valid.
+     * </p>
      *
-     * @throws MissingDataSourceException A required data source was not found in opennms-datasources.xml.
-     * @throws InvalidDataSourceException A required data source could not be connected to.
+     * @throws MissingDataSourceException
+     *             A required data source was not found in
+     *             opennms-datasources.xml.
+     * @throws InvalidDataSourceException
+     *             A required data source could not be connected to.
      */
     public void check() throws MissingDataSourceException, InvalidDataSourceException {
 
@@ -128,7 +145,7 @@ public class DatabaseChecker {
         boolean dataSourcesFound = true;
         for (final String dataSource : m_required) {
             if (!m_dataSources.containsKey(dataSource)) {
-            	LOG.error("Required data source '{}' is missing from opennms-datasources.xml", dataSource);
+                LOG.error("Required data source '{}' is missing from opennms-datasources.xml", dataSource);
                 dataSourcesFound = false;
             }
         }
@@ -136,26 +153,30 @@ public class DatabaseChecker {
             throw new MissingDataSourceException("OpenNMS is missing one or more data sources required for startup.");
         }
 
-        // Then, check for the optional ones so we can warn about them going missing.
+        // Then, check for the optional ones so we can warn about them going
+        // missing.
         for (final String dataSource : m_optional) {
             if (!m_dataSources.containsKey(dataSource)) {
-            	LOG.info("Data source '{}' is missing from opennms-datasources.xml", dataSource);
+                LOG.info("Data source '{}' is missing from opennms-datasources.xml", dataSource);
             }
         }
 
-        // Finally, try connecting to all data sources, and warn or error as appropriate.
+        // Finally, try connecting to all data sources, and warn or error as
+        // appropriate.
         for (final JdbcDataSource dataSource : m_dataSources.values()) {
             final String name = dataSource.getName();
             if (!m_required.contains(name) && !m_optional.contains(name)) {
-            	LOG.warn("Unknown datasource '{}' was found.", name);
+                LOG.warn("Unknown datasource '{}' was found.", name);
             }
             try {
                 Class.forName(dataSource.getClassName());
-                final Connection connection = DriverManager.getConnection(dataSource.getUrl(), dataSource.getUserName(), dataSource.getPassword());
+                final Connection connection = DriverManager.getConnection(dataSource.getUrl(),
+                                                                          dataSource.getUserName(),
+                                                                          dataSource.getPassword());
                 connection.close();
             } catch (final Throwable t) {
                 final String errorMessage = "Unable to connect to data source '{}' at URL '{}' with username '{}', check opennms-datasources.xml and your database permissions.";
-            	LOG.error(errorMessage, name, dataSource.getUrl(), dataSource.getUserName());
+                LOG.error(errorMessage, name, dataSource.getUrl(), dataSource.getUserName());
                 if (m_required.contains(name)) {
                     throw new InvalidDataSourceException("Data source '" + name + "' failed.", t);
                 }
@@ -165,13 +186,17 @@ public class DatabaseChecker {
     }
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param argv an array of {@link java.lang.String} objects.
-     * @throws java.lang.Exception if any.
+     * @param argv
+     *            an array of {@link java.lang.String} objects.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public static void main(final String[] argv) throws Exception {
         final DatabaseChecker checker = new DatabaseChecker();
-    	checker.check();
+        checker.check();
     }
 }

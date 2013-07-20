@@ -37,19 +37,20 @@ import com.google.gwt.core.client.GWT;
  *         Validates that String doesn't contain whitespaces.
  */
 public class StringNoWhiteSpacesValidator implements Validator {
-	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
+    private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
-	/**
-	 * Validates that String doesn't contain any whitespaces. Validation will run
-	 * against <code>(String) object</code> so make sure to use a proper object.
-	 *
-	 * @param object
-	 */
-	@Override
-	public String validate(Object object) {
-		if (((String) object).contains(" ")) {
-			return con.stringContainsWhiteSpacesError();
-		}
-		return "";
-	}
+    /**
+     * Validates that String doesn't contain any whitespaces. Validation will
+     * run
+     * against <code>(String) object</code> so make sure to use a proper object.
+     *
+     * @param object
+     */
+    @Override
+    public String validate(Object object) {
+        if (((String) object).contains(" ")) {
+            return con.stringContainsWhiteSpacesError();
+        }
+        return "";
+    }
 }

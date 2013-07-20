@@ -38,9 +38,9 @@ import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 
 /**
- * Container for details from a JRobin RRD graph.  Stores the same details
+ * Container for details from a JRobin RRD graph. Stores the same details
  * as RrdGraphDetails, in addition to the JRobin RrdGraph object itself and
- * the graph command String used to generate the graph.  We keep the graph
+ * the graph command String used to generate the graph. We keep the graph
  * command string around so we can generate a detailed error if
  * getInputStream() is called, but no graph was produced.
  *
@@ -51,13 +51,18 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     private static final Logger LOG = LoggerFactory.getLogger(JRobinRrdGraphDetails.class);
 
     private RrdGraph m_rrdGraph;
+
     private String m_graphCommand;
 
     /**
-     * <p>Constructor for JRobinRrdGraphDetails.</p>
+     * <p>
+     * Constructor for JRobinRrdGraphDetails.
+     * </p>
      *
-     * @param rrdGraph a {@link org.jrobin.graph.RrdGraph} object.
-     * @param graphCommand a {@link java.lang.String} object.
+     * @param rrdGraph
+     *            a {@link org.jrobin.graph.RrdGraph} object.
+     * @param graphCommand
+     *            a {@link java.lang.String} object.
      */
     public JRobinRrdGraphDetails(RrdGraph rrdGraph, String graphCommand) {
         m_rrdGraph = rrdGraph;
@@ -65,7 +70,9 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>getRrdGraph</p>
+     * <p>
+     * getRrdGraph
+     * </p>
      *
      * @return a {@link org.jrobin.graph.RrdGraph} object.
      */
@@ -74,7 +81,9 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>getGraphCommand</p>
+     * <p>
+     * getGraphCommand
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,10 +92,13 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>getInputStream</p>
+     * <p>
+     * getInputStream
+     * </p>
      *
      * @return a {@link java.io.InputStream} object.
-     * @throws org.opennms.netmgt.rrd.RrdException if any.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
      */
     @Override
     public InputStream getInputStream() throws RrdException {
@@ -96,7 +108,9 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>getPrintLines</p>
+     * <p>
+     * getPrintLines
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -106,10 +120,13 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>getHeight</p>
+     * <p>
+     * getHeight
+     * </p>
      *
      * @return a int.
-     * @throws org.opennms.netmgt.rrd.RrdException if any.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
      */
     @Override
     public int getHeight() throws RrdException {
@@ -119,10 +136,13 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     }
 
     /**
-     * <p>getWidth</p>
+     * <p>
+     * getWidth
+     * </p>
      *
      * @return a int.
-     * @throws org.opennms.netmgt.rrd.RrdException if any.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
      */
     @Override
     public int getWidth() throws RrdException {
@@ -133,7 +153,9 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
 
     private void assertGraphProduced() throws RrdException {
         if (m_rrdGraph.getRrdGraphInfo().getBytes() == null) {
-            String message = "no graph was produced by JRobin for command '" + getGraphCommand() + "'.  Does the command have any drawing commands (e.g.: LINE1, LINE2, LINE3, AREA, STACK, GPRINT)?";
+            String message = "no graph was produced by JRobin for command '"
+                    + getGraphCommand()
+                    + "'.  Does the command have any drawing commands (e.g.: LINE1, LINE2, LINE3, AREA, STACK, GPRINT)?";
             LOG.error(message);
             throw new RrdException(message);
         }

@@ -35,7 +35,6 @@ import org.opennms.web.api.Util;
 import org.springframework.validation.Errors;
 
 /**
- *
  * The idea of this class is to represent a simple table that has column headers
  * and rows.
  *
@@ -48,266 +47,295 @@ import org.springframework.validation.Errors;
  */
 public class SimpleWebTable {
 
-	public static class Cell {
-		private Object m_content;
-		private String m_styleClass;
-		private String m_link;
+    public static class Cell {
+        private Object m_content;
 
-		public Cell() {}
+        private String m_styleClass;
 
-		public Cell(Object content, String styleClass) {
-			m_content = content;
-			m_styleClass = styleClass;
-		}
+        private String m_link;
 
-		public Cell(Object content, String styleClass, String link) {
-			m_content = content;
-			m_styleClass = styleClass;
-			m_link = link;
-		}
+        public Cell() {
+        }
 
-		public Object getContent() {
-			return m_content;
-		}
+        public Cell(Object content, String styleClass) {
+            m_content = content;
+            m_styleClass = styleClass;
+        }
 
-		public void setContent(Object content) {
-			m_content = content;
-		}
+        public Cell(Object content, String styleClass, String link) {
+            m_content = content;
+            m_styleClass = styleClass;
+            m_link = link;
+        }
 
-		public String getStyleClass() {
-			return m_styleClass;
-		}
+        public Object getContent() {
+            return m_content;
+        }
 
-		public void setStyleClass(String styleClass) {
-			m_styleClass = styleClass;
-		}
+        public void setContent(Object content) {
+            m_content = content;
+        }
 
-		public String getLink() {
-			return m_link;
-		}
+        public String getStyleClass() {
+            return m_styleClass;
+        }
 
-		public void setLink(String link) {
-			m_link = link;
-		}
+        public void setStyleClass(String styleClass) {
+            m_styleClass = styleClass;
+        }
 
-		@Override
-		public boolean equals(Object o) {
-			if (o == null || !(o instanceof Cell)) {
-				return false;
-			}
+        public String getLink() {
+            return m_link;
+        }
 
-			Cell c = (Cell) o;
+        public void setLink(String link) {
+            m_link = link;
+        }
 
-			if ((m_content != null || c.m_content != null)
-					&& (m_content == null
-							|| !m_content.equals(c.m_content))) {
-				return false;
-			}
-
-			if ((m_styleClass != null || c.m_styleClass != null)
-					&& (m_styleClass == null
-							|| !m_styleClass.equals(c.m_styleClass))) {
-				return false;
-			}
-
-			if ((m_link != null || c.m_link != null)
-					&& (m_link == null
-							|| !m_link.equals(c.m_link))) {
-				return false;
-			}
-
-			return true;
-		}
-
-		@Override
-		public String toString() {
-			return "Content: \"" + m_content + "\", styleClass: \""
-			+ m_styleClass + "\", link: \"" + m_link + "\"";
-		}
-	}
-
-
-	private List<Cell> m_columnHeaders = new ArrayList<Cell>();
-	private List<List<Cell>> m_rows = new ArrayList<List<Cell>>();
-	private List<Cell> m_currentRow = null;
-	private String m_title = "";
-	private Errors m_errors = null;
-
-	/**
-	 * <p>getColumnHeaders</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	public List<Cell> getColumnHeaders() {
-		return m_columnHeaders;
-	}
-
-	/**
-	 * <p>getRows</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	public List<List<Cell>> getRows() {
-		return m_rows;
-	}
-
-	/**
-	 * <p>getTitle</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getTitle() {
-		return m_title;
-	}
-
-	/**
-	 * <p>setTitle</p>
-	 *
-	 * @param title a {@link java.lang.String} object.
-	 */
-	public void setTitle(String title) {
-		m_title  = title;
-	}
-
-	/**
-	 * <p>addColumn</p>
-	 *
-	 * @param headerContent a {@link java.lang.Object} object.
-	 * @param headerStyle a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
-	 */
-	public Cell addColumn(Object headerContent, String headerStyle) {
-		Cell headerCell = new Cell(headerContent, headerStyle);
-		m_columnHeaders.add(headerCell);
-		return headerCell;
-	}
-
-
-	/**
-	 * <p>addColumn</p>
-	 *
-	 * @param headerContent a {@link java.lang.Object} object.
-	 * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
-	 */
-	public Cell addColumn(Object headerContent) {
-		return addColumn(headerContent, "");
-	}
-
-	/**
-	 * <p>newRow</p>
-	 */
-	public void newRow() {
-		List<Cell> row = new ArrayList<Cell>();
-		m_rows.add(row);
-		m_currentRow = row;
-	}
-
-	/**
-	 * <p>addCell</p>
-	 *
-	 * @param cellContent a {@link java.lang.Object} object.
-	 * @param cellStyle a {@link java.lang.String} object.
-	 * @param link a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
-	 */
-	public Cell addCell(Object cellContent, String cellStyle, String link) {
-		if (m_currentRow == null) {
-			throw new IllegalStateException("make sure you call newRow before trying to add any cells to the table!");
-		}
-
-		Cell cell = new Cell(cellContent, cellStyle, link);
-		m_currentRow.add(cell);
-		return cell;
-	}
-
-	/**
-	 * <p>addCell</p>
-	 *
-	 * @param cellContent a {@link java.lang.Object} object.
-	 * @param cellStyle a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
-	 */
-	public Cell addCell(Object cellContent, String cellStyle) {
-		return addCell(cellContent, cellStyle, null);
-	}
-
-
-	/**
-	 * <p>addCell</p>
-	 *
-	 * @param cellContent a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
-	 */
-	public Cell addCell(String cellContent) {
-		return addCell(cellContent, "", null);
-	}
-
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
         @Override
-	public String toString() {
-		StringBuffer buf = new StringBuffer();
+        public boolean equals(Object o) {
+            if (o == null || !(o instanceof Cell)) {
+                return false;
+            }
 
-		buf.append("<h2>" + Util.htmlify(getTitle()) + "</h2>\n");
+            Cell c = (Cell) o;
 
-		buf.append("<table>\n");
+            if ((m_content != null || c.m_content != null) && (m_content == null || !m_content.equals(c.m_content))) {
+                return false;
+            }
 
-		buf.append("  <tr>\n");
-		for (Cell cell : getColumnHeaders()) {
-			buf.append("    <th style=\"" + cell.getStyleClass()
-					+ "\">\n");
-			if (cell.getLink() != null) {
-				buf.append("      <a href=\""
-						+ Util.htmlify(cell.getLink()) + "\">"
-						+ cell.getContent() + "</a>\n");
-			} else {
-				buf.append("      " + cell.getContent() + "\n");
-			}
-			buf.append("    </th>\n");
-		}
-		buf.append("  </tr>\n");
+            if ((m_styleClass != null || c.m_styleClass != null)
+                    && (m_styleClass == null || !m_styleClass.equals(c.m_styleClass))) {
+                return false;
+            }
 
-		for (List<Cell> cells : getRows()) {
-			buf.append("  <tr>\n");
-			for (Cell cell : cells) {
-				buf.append("    <td style=\"" + cell.getStyleClass()
-						+ "\">\n");
-				if (cell.getLink() != null) {
-					buf.append("      <a href=\""
-							+ Util.htmlify(cell.getLink()) + "\">"
-							+ cell.getContent() + "</a>\n");
-				} else {
-					buf.append("      " + cell.getContent() + "\n");
-				}
-				buf.append("    </td>\n");
-			}
-			buf.append("  </tr>\n");
-		}
+            if ((m_link != null || c.m_link != null) && (m_link == null || !m_link.equals(c.m_link))) {
+                return false;
+            }
 
-		buf.append("</table>\n");
+            return true;
+        }
 
-		return buf.toString();
-	}
+        @Override
+        public String toString() {
+            return "Content: \"" + m_content + "\", styleClass: \"" + m_styleClass + "\", link: \"" + m_link + "\"";
+        }
+    }
 
-	/**
-	 * <p>getErrors</p>
-	 *
-	 * @return a {@link org.springframework.validation.Errors} object.
-	 */
-	public Errors getErrors() {
-		return m_errors;
-	}
+    private List<Cell> m_columnHeaders = new ArrayList<Cell>();
 
-	/**
-	 * <p>setErrors</p>
-	 *
-	 * @param errors a {@link org.springframework.validation.Errors} object.
-	 */
-	public void setErrors(Errors errors) {
-		m_errors = errors;
-	}
+    private List<List<Cell>> m_rows = new ArrayList<List<Cell>>();
+
+    private List<Cell> m_currentRow = null;
+
+    private String m_title = "";
+
+    private Errors m_errors = null;
+
+    /**
+     * <p>
+     * getColumnHeaders
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    public List<Cell> getColumnHeaders() {
+        return m_columnHeaders;
+    }
+
+    /**
+     * <p>
+     * getRows
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    public List<List<Cell>> getRows() {
+        return m_rows;
+    }
+
+    /**
+     * <p>
+     * getTitle
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getTitle() {
+        return m_title;
+    }
+
+    /**
+     * <p>
+     * setTitle
+     * </p>
+     *
+     * @param title
+     *            a {@link java.lang.String} object.
+     */
+    public void setTitle(String title) {
+        m_title = title;
+    }
+
+    /**
+     * <p>
+     * addColumn
+     * </p>
+     *
+     * @param headerContent
+     *            a {@link java.lang.Object} object.
+     * @param headerStyle
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
+     */
+    public Cell addColumn(Object headerContent, String headerStyle) {
+        Cell headerCell = new Cell(headerContent, headerStyle);
+        m_columnHeaders.add(headerCell);
+        return headerCell;
+    }
+
+    /**
+     * <p>
+     * addColumn
+     * </p>
+     *
+     * @param headerContent
+     *            a {@link java.lang.Object} object.
+     * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
+     */
+    public Cell addColumn(Object headerContent) {
+        return addColumn(headerContent, "");
+    }
+
+    /**
+     * <p>
+     * newRow
+     * </p>
+     */
+    public void newRow() {
+        List<Cell> row = new ArrayList<Cell>();
+        m_rows.add(row);
+        m_currentRow = row;
+    }
+
+    /**
+     * <p>
+     * addCell
+     * </p>
+     *
+     * @param cellContent
+     *            a {@link java.lang.Object} object.
+     * @param cellStyle
+     *            a {@link java.lang.String} object.
+     * @param link
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
+     */
+    public Cell addCell(Object cellContent, String cellStyle, String link) {
+        if (m_currentRow == null) {
+            throw new IllegalStateException("make sure you call newRow before trying to add any cells to the table!");
+        }
+
+        Cell cell = new Cell(cellContent, cellStyle, link);
+        m_currentRow.add(cell);
+        return cell;
+    }
+
+    /**
+     * <p>
+     * addCell
+     * </p>
+     *
+     * @param cellContent
+     *            a {@link java.lang.Object} object.
+     * @param cellStyle
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
+     */
+    public Cell addCell(Object cellContent, String cellStyle) {
+        return addCell(cellContent, cellStyle, null);
+    }
+
+    /**
+     * <p>
+     * addCell
+     * </p>
+     *
+     * @param cellContent
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.web.svclayer.SimpleWebTable.Cell} object.
+     */
+    public Cell addCell(String cellContent) {
+        return addCell(cellContent, "", null);
+    }
+
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+
+        buf.append("<h2>" + Util.htmlify(getTitle()) + "</h2>\n");
+
+        buf.append("<table>\n");
+
+        buf.append("  <tr>\n");
+        for (Cell cell : getColumnHeaders()) {
+            buf.append("    <th style=\"" + cell.getStyleClass() + "\">\n");
+            if (cell.getLink() != null) {
+                buf.append("      <a href=\"" + Util.htmlify(cell.getLink()) + "\">" + cell.getContent() + "</a>\n");
+            } else {
+                buf.append("      " + cell.getContent() + "\n");
+            }
+            buf.append("    </th>\n");
+        }
+        buf.append("  </tr>\n");
+
+        for (List<Cell> cells : getRows()) {
+            buf.append("  <tr>\n");
+            for (Cell cell : cells) {
+                buf.append("    <td style=\"" + cell.getStyleClass() + "\">\n");
+                if (cell.getLink() != null) {
+                    buf.append("      <a href=\"" + Util.htmlify(cell.getLink()) + "\">" + cell.getContent() + "</a>\n");
+                } else {
+                    buf.append("      " + cell.getContent() + "\n");
+                }
+                buf.append("    </td>\n");
+            }
+            buf.append("  </tr>\n");
+        }
+
+        buf.append("</table>\n");
+
+        return buf.toString();
+    }
+
+    /**
+     * <p>
+     * getErrors
+     * </p>
+     *
+     * @return a {@link org.springframework.validation.Errors} object.
+     */
+    public Errors getErrors() {
+        return m_errors;
+    }
+
+    /**
+     * <p>
+     * setErrors
+     * </p>
+     *
+     * @param errors
+     *            a {@link org.springframework.validation.Errors} object.
+     */
+    public void setErrors(Errors errors) {
+        m_errors = errors;
+    }
 
 }

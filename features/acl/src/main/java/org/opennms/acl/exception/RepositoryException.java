@@ -43,7 +43,9 @@
 package org.opennms.acl.exception;
 
 /**
- * <p>RepositoryException class.</p>
+ * <p>
+ * RepositoryException class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -53,19 +55,26 @@ package org.opennms.acl.exception;
 public class RepositoryException extends RuntimeException {
 
     /**
-     * <p>Constructor for RepositoryException.</p>
+     * <p>
+     * Constructor for RepositoryException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public RepositoryException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for RepositoryException.</p>
+     * <p>
+     * Constructor for RepositoryException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public RepositoryException(String message, Throwable cause) {
         super(message, cause);

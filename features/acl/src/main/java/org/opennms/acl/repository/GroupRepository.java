@@ -59,7 +59,8 @@ public interface GroupRepository {
     /**
      * Save a GroupDTO
      *
-     * @param group a {@link org.opennms.acl.model.GroupDTO} object.
+     * @param group
+     *            a {@link org.opennms.acl.model.GroupDTO} object.
      * @return the result of the operation
      */
     public Boolean save(GroupDTO group);
@@ -67,7 +68,8 @@ public interface GroupRepository {
     /**
      * Retrieve a group by id
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return group
      */
     public GroupDTO getGroup(Integer id);
@@ -75,53 +77,70 @@ public interface GroupRepository {
     /**
      * Remove a group by id
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return the result of the operation
      */
     public Boolean removeGroup(Integer id);
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
+     * @param pager
+     *            a {@link org.opennms.acl.model.Pager} object.
      * @return paginated list of groups
      */
     public List<GroupDTO> getGroups(Pager pager);
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return list of all authorities
      */
     public List<GroupDTO> getGroups();
 
     /**
-     * <p>getGroupsNumber</p>
+     * <p>
+     * getGroupsNumber
+     * </p>
      *
      * @return numbers of authorities present in the system
      */
     public Integer getGroupsNumber();
 
     /**
-     * <p>getUserGroups</p>
+     * <p>
+     * getUserGroups
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the list of user's authorities by username
      */
     public List<GroupDTO> getUserGroups(String username);
 
     /**
-     * <p>getUserGroupsWithAutorities</p>
+     * <p>
+     * getUserGroupsWithAutorities
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the list of user's authorities by username
      */
     public List<GroupDTO> getUserGroupsWithAutorities(String username);
 
     /**
-     * <p>getFreeGroups</p>
+     * <p>
+     * getFreeGroups
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the list of authorities that user doesn't have
      */
     public List<GroupDTO> getFreeGroups(String username);
@@ -129,8 +148,10 @@ public interface GroupRepository {
     /**
      * Save a list of authorities for a given user
      *
-     * @param username a {@link java.lang.String} object.
-     * @param groups a {@link java.util.List} object.
+     * @param username
+     *            a {@link java.lang.String} object.
+     * @param groups
+     *            a {@link java.util.List} object.
      * @return the result of operation
      */
     public Boolean saveGroups(String username, List<Integer> groups);
@@ -138,15 +159,19 @@ public interface GroupRepository {
     /**
      * Delete all user's authorities
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the result of the operation
      */
     public Boolean deleteUserGroups(String username);
 
     /**
-     * <p>hasUsers</p>
+     * <p>
+     * hasUsers
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.lang.Boolean} object.
      */
     public Boolean hasUsers(Integer id);

@@ -29,7 +29,9 @@
 package org.opennms.netmgt.config;
 
 /**
- * <p>WebRolesException class.</p>
+ * <p>
+ * WebRolesException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,35 +44,47 @@ public class WebRolesException extends RuntimeException {
     private static final long serialVersionUID = 7520091278102237241L;
 
     /**
-     * <p>Constructor for WebRolesException.</p>
+     * <p>
+     * Constructor for WebRolesException.
+     * </p>
      */
     public WebRolesException() {
         super();
     }
 
     /**
-     * <p>Constructor for WebRolesException.</p>
+     * <p>
+     * Constructor for WebRolesException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public WebRolesException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for WebRolesException.</p>
+     * <p>
+     * Constructor for WebRolesException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public WebRolesException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * <p>Constructor for WebRolesException.</p>
+     * <p>
+     * Constructor for WebRolesException.
+     * </p>
      *
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public WebRolesException(Throwable cause) {
         super(cause);

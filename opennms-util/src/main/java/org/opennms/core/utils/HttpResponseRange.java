@@ -33,7 +33,9 @@ import java.util.regex.Pattern;
 
 public class HttpResponseRange {
     private static final Pattern RANGE_PATTERN = Pattern.compile("([1-5][0-9][0-9])(?:-([1-5][0-9][0-9]))?");
+
     private final int m_begin;
+
     private final int m_end;
 
     public HttpResponseRange(String rangeSpec) {

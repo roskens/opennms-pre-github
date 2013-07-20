@@ -36,7 +36,6 @@ import org.junit.Test;
 import org.opennms.core.soa.Registration;
 import org.opennms.core.soa.ServiceRegistry;
 
-
 /**
  * RegistrationListenerBeanTest
  *
@@ -83,8 +82,6 @@ public class RegistrationListenerBeanTest {
         reg3.unregister();
 
         assertEquals(0, getTotalProvided());
-
-
 
     }
 

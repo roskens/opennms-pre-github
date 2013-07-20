@@ -43,7 +43,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>LineOrientedClient class.</p>
+ * <p>
+ * LineOrientedClient class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -51,8 +53,11 @@ import org.slf4j.LoggerFactory;
 public class LineOrientedClient implements Client<LineOrientedRequest, LineOrientedResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LineOrientedClient.class);
+
     protected Socket m_socket;
+
     private OutputStream m_out;
+
     private BufferedReader m_in;
 
     /** {@inheritDoc} */
@@ -68,11 +73,19 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse} object.
-     * @throws java.io.IOException if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
      */
     @Override
     public LineOrientedResponse sendRequest(final LineOrientedRequest request) throws IOException {
@@ -90,21 +103,26 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
         return response;
     }
 
-
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @return a {@link org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse}
+     *         object.
      */
     @Override
     public LineOrientedResponse receiveBanner() throws IOException {
         return receiveResponse();
     }
 
-
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
@@ -120,16 +138,21 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
     }
 
     /**
-     * <p>setOutput</p>
+     * <p>
+     * setOutput
+     * </p>
      *
-     * @param out a {@link java.io.OutputStream} object.
+     * @param out
+     *            a {@link java.io.OutputStream} object.
      */
     public void setOutput(final OutputStream out) {
         m_out = out;
     }
 
     /**
-     * <p>getOutput</p>
+     * <p>
+     * getOutput
+     * </p>
      *
      * @return a {@link java.io.OutputStream} object.
      */
@@ -138,16 +161,21 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
     }
 
     /**
-     * <p>setInput</p>
+     * <p>
+     * setInput
+     * </p>
      *
-     * @param in a {@link java.io.BufferedReader} object.
+     * @param in
+     *            a {@link java.io.BufferedReader} object.
      */
     public void setInput(final BufferedReader in) {
         m_in = in;
     }
 
     /**
-     * <p>getInput</p>
+     * <p>
+     * getInput
+     * </p>
      *
      * @return a {@link java.io.BufferedReader} object.
      */

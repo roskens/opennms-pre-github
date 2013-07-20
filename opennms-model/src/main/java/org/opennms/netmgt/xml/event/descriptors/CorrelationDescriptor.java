@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event.descriptors;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.opennms.netmgt.xml.event.Correlation;
@@ -46,12 +46,12 @@ import org.opennms.netmgt.xml.event.Correlation;
  *
  * @version $Revision$ $Date$
  */
-@SuppressWarnings("all") public class CorrelationDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
+@SuppressWarnings("all")
+public class CorrelationDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _elementDefinition.
@@ -78,10 +78,9 @@ import org.opennms.netmgt.xml.event.Correlation;
      */
     private org.exolab.castor.xml.XMLFieldDescriptor _identity;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public CorrelationDescriptor() {
         super();
@@ -89,35 +88,35 @@ import org.opennms.netmgt.xml.event.Correlation;
         _xmlName = "correlation";
         _elementDefinition = true;
 
-        //-- set grouping compositor
+        // -- set grouping compositor
         setCompositorAsSequence();
-        org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
-        org.exolab.castor.mapping.FieldHandler             handler        = null;
-        org.exolab.castor.xml.FieldValidator               fieldValidator = null;
-        //-- initialize attribute descriptors
+        org.exolab.castor.xml.util.XMLFieldDescriptorImpl desc = null;
+        org.exolab.castor.mapping.FieldHandler handler = null;
+        org.exolab.castor.xml.FieldValidator fieldValidator = null;
+        // -- initialize attribute descriptors
 
-        //-- _state
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_state", "state", org.exolab.castor.xml.NodeType.Attribute);
+        // -- _state
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_state", "state",
+                                                                     org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Correlation target = (Correlation) object;
                 return target.getState();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Correlation target = (Correlation) object;
-                    target.setState( (java.lang.String) value);
+                    target.setState((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -129,9 +128,9 @@ import org.opennms.netmgt.xml.event.Correlation;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
 
-        //-- validation code for: _state
+        // -- validation code for: _state
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
@@ -139,28 +138,28 @@ import org.opennms.netmgt.xml.event.Correlation;
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- _path
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_path", "path", org.exolab.castor.xml.NodeType.Attribute);
+        // -- _path
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_path", "path",
+                                                                     org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Correlation target = (Correlation) object;
                 return target.getPath();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Correlation target = (Correlation) object;
-                    target.setPath( (java.lang.String) value);
+                    target.setPath((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -172,9 +171,9 @@ import org.opennms.netmgt.xml.event.Correlation;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
 
-        //-- validation code for: _path
+        // -- validation code for: _path
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
@@ -182,30 +181,30 @@ import org.opennms.netmgt.xml.event.Correlation;
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- initialize element descriptors
+        // -- initialize element descriptors
 
-        //-- _cueiList
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_cueiList", "cuei", org.exolab.castor.xml.NodeType.Element);
+        // -- _cueiList
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_cueiList", "cuei",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Correlation target = (Correlation) object;
                 return target.getCuei();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Correlation target = (Correlation) object;
-                    target.addCuei( (java.lang.String) value);
+                    target.addCuei((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             public void resetValue(Object object) throws IllegalStateException, IllegalArgumentException {
                 try {
@@ -215,6 +214,7 @@ import org.opennms.netmgt.xml.event.Correlation;
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -227,38 +227,38 @@ import org.opennms.netmgt.xml.event.Correlation;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _cueiList
+        // -- validation code for: _cueiList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(0);
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- _cmin
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_cmin", "cmin", org.exolab.castor.xml.NodeType.Element);
+        // -- _cmin
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_cmin", "cmin",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Correlation target = (Correlation) object;
                 return target.getCmin();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Correlation target = (Correlation) object;
-                    target.setCmin( (java.lang.String) value);
+                    target.setCmin((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -271,37 +271,37 @@ import org.opennms.netmgt.xml.event.Correlation;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _cmin
+        // -- validation code for: _cmin
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- _cmax
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_cmax", "cmax", org.exolab.castor.xml.NodeType.Element);
+        // -- _cmax
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_cmax", "cmax",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Correlation target = (Correlation) object;
                 return target.getCmax();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Correlation target = (Correlation) object;
-                    target.setCmax( (java.lang.String) value);
+                    target.setCmax((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -314,37 +314,37 @@ import org.opennms.netmgt.xml.event.Correlation;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _cmax
+        // -- validation code for: _cmax
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- _ctime
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_ctime", "ctime", org.exolab.castor.xml.NodeType.Element);
+        // -- _ctime
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_ctime", "ctime",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Correlation target = (Correlation) object;
                 return target.getCtime();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Correlation target = (Correlation) object;
-                    target.setCtime( (java.lang.String) value);
+                    target.setCtime((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -357,9 +357,9 @@ import org.opennms.netmgt.xml.event.Correlation;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _ctime
+        // -- validation code for: _ctime
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
@@ -368,10 +368,9 @@ import org.opennms.netmgt.xml.event.Correlation;
         desc.setValidator(fieldValidator);
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Method getAccessMode.
@@ -379,8 +378,7 @@ import org.opennms.netmgt.xml.event.Correlation;
      * @return the access mode specified for this class.
      */
     @Override()
-    public org.exolab.castor.mapping.AccessMode getAccessMode(
-    ) {
+    public org.exolab.castor.mapping.AccessMode getAccessMode() {
         return null;
     }
 
@@ -388,11 +386,10 @@ import org.opennms.netmgt.xml.event.Correlation;
      * Method getIdentity.
      *
      * @return the identity field, null if this class has no
-     * identity.
+     *         identity.
      */
     @Override()
-    public org.exolab.castor.mapping.FieldDescriptor getIdentity(
-    ) {
+    public org.exolab.castor.mapping.FieldDescriptor getIdentity() {
         return _identity;
     }
 
@@ -402,8 +399,7 @@ import org.opennms.netmgt.xml.event.Correlation;
      * @return the Java class represented by this descriptor.
      */
     @Override()
-    public java.lang.Class<?> getJavaClass(
-    ) {
+    public java.lang.Class<?> getJavaClass() {
         return org.opennms.netmgt.xml.event.Correlation.class;
     }
 
@@ -413,8 +409,7 @@ import org.opennms.netmgt.xml.event.Correlation;
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpacePrefix(
-    ) {
+    public java.lang.String getNameSpacePrefix() {
         return _nsPrefix;
     }
 
@@ -422,11 +417,10 @@ import org.opennms.netmgt.xml.event.Correlation;
      * Method getNameSpaceURI.
      *
      * @return the namespace URI used when marshaling and
-     * unmarshaling as XML.
+     *         unmarshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpaceURI(
-    ) {
+    public java.lang.String getNameSpaceURI() {
         return _nsURI;
     }
 
@@ -434,11 +428,10 @@ import org.opennms.netmgt.xml.event.Correlation;
      * Method getValidator.
      *
      * @return a specific validator for the class described by this
-     * ClassDescriptor.
+     *         ClassDescriptor.
      */
     @Override()
-    public org.exolab.castor.xml.TypeValidator getValidator(
-    ) {
+    public org.exolab.castor.xml.TypeValidator getValidator() {
         return this;
     }
 
@@ -448,8 +441,7 @@ import org.opennms.netmgt.xml.event.Correlation;
      * @return the XML Name for the Class being described.
      */
     @Override()
-    public java.lang.String getXMLName(
-    ) {
+    public java.lang.String getXMLName() {
         return _xmlName;
     }
 
@@ -457,12 +449,11 @@ import org.opennms.netmgt.xml.event.Correlation;
      * Method isElementDefinition.
      *
      * @return true if XML schema definition of this Class is that
-     * of a global
-     * element or element with anonymous type definition.
+     *         of a global
+     *         element or element with anonymous type definition.
      */
     @Override
-    public boolean isElementDefinition(
-    ) {
+    public boolean isElementDefinition() {
         return _elementDefinition;
     }
 

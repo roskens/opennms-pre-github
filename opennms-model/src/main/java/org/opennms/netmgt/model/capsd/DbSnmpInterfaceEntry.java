@@ -42,37 +42,35 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * <p>
  * Once loaded or create, the class tracks any changes and will write those
- * changes to the database whenever the <code>store</code> method is invoked.
- * If a database connection is not passed to the store method, then a temporary
- * one is allocated to write the results.
+ * changes to the database whenever the <code>store</code> method is invoked. If
+ * a database connection is not passed to the store method, then a temporary one
+ * is allocated to write the results.
  * </p>
- *
  * <p>
  * NOTE: if the connection is passed in and is not in auto commit mode, then the
  * caller must call <code>commit</code> to inform the database that the
  * transaction is complete.
  *
- * @deprecated Objects like this that control their own data access are deprecated in favor
- * of the JAXB beans (opennms-model) and DAO objects (opennms-dao).
- *
+ * @deprecated Objects like this that control their own data access are
+ *             deprecated in favor
+ *             of the JAXB beans (opennms-model) and DAO objects (opennms-dao).
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class DbSnmpInterfaceEntry {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DbSnmpInterfaceEntry.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DbSnmpInterfaceEntry.class);
 
     /**
      * The SQL statement used to read a node from the database. This record is
      * keyed by the node identifier and the ifIndex.
      */
     private static final String SQL_LOAD_REC = "SELECT "
-        + "snmpIpAdEntNetMask, snmpPhysAddr, snmpIfDescr, snmpIfType, "
-        + "snmpIfName, snmpIfSpeed, snmpIfAdminStatus, snmpIfOperStatus, "
-        + "snmpIfAlias, snmpCollect FROM snmpInterface WHERE nodeID = ? AND snmpIfIndex = ?";
+            + "snmpIpAdEntNetMask, snmpPhysAddr, snmpIfDescr, snmpIfType, "
+            + "snmpIfName, snmpIfSpeed, snmpIfAdminStatus, snmpIfOperStatus, "
+            + "snmpIfAlias, snmpCollect FROM snmpInterface WHERE nodeID = ? AND snmpIfIndex = ?";
 
     /**
      * True if this recored was loaded from the database. False if it's new.
@@ -144,7 +142,6 @@ public final class DbSnmpInterfaceEntry {
      *
      * @param c
      *            The connection to the database.
-     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -152,7 +149,6 @@ public final class DbSnmpInterfaceEntry {
         if (m_fromDb) {
             throw new IllegalStateException("The record already exists in the database");
         }
-
 
         // first extract the next node identifier
         StringBuffer names = new StringBuffer("INSERT INTO snmpInterface (nodeID,snmpIfIndex");
@@ -211,7 +207,8 @@ public final class DbSnmpInterfaceEntry {
         names.append(") VALUES (").append(values).append(')');
         LOG.debug("DbSnmpInterfaceEntry.insert: SQL insert statment = {}", names.toString());
 
-        // create the Prepared statement and then start setting the result values
+        // create the Prepared statement and then start setting the result
+        // values
         PreparedStatement stmt = null;
         final DBUtils d = new DBUtils(getClass());
 
@@ -286,7 +283,6 @@ public final class DbSnmpInterfaceEntry {
      *
      * @param c
      *            The connection used for the update.
-     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -294,7 +290,6 @@ public final class DbSnmpInterfaceEntry {
         if (!m_fromDb) {
             throw new IllegalStateException("The record does not exists in the database");
         }
-
 
         // first extract the next node identifier
         StringBuffer sqlText = new StringBuffer("UPDATE snmpInterface SET ");
@@ -355,7 +350,8 @@ public final class DbSnmpInterfaceEntry {
 
         LOG.debug("DbSnmpInterfaceEntry.update: SQL update statment = {}", sqlText.toString());
 
-        // create the Prepared statement and then start setting the result values
+        // create the Prepared statement and then start setting the result
+        // values
         PreparedStatement stmt = null;
         final DBUtils d = new DBUtils(getClass());
 
@@ -479,7 +475,6 @@ public final class DbSnmpInterfaceEntry {
      *
      * @param c
      *            The connection used to load the data.
-     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -512,7 +507,7 @@ public final class DbSnmpInterfaceEntry {
             // get the netmask
             String str = rset.getString(ndx++);
             if (str != null && !rset.wasNull()) {
-            	m_netmask = InetAddressUtils.addr(str);
+                m_netmask = InetAddressUtils.addr(str);
             }
 
             // get the physical address
@@ -580,7 +575,6 @@ public final class DbSnmpInterfaceEntry {
 
     /**
      * Default constructor.
-     *
      */
     private DbSnmpInterfaceEntry() {
         throw new UnsupportedOperationException("Default constructor not supported!");
@@ -593,7 +587,6 @@ public final class DbSnmpInterfaceEntry {
      *            The node identifier.
      * @param ifIndex
      *            The interface index to load
-     *
      */
     private DbSnmpInterfaceEntry(long nodeId, int ifIndex) {
         this(nodeId, ifIndex, true);
@@ -608,7 +601,6 @@ public final class DbSnmpInterfaceEntry {
      *            The interface index to load
      * @param exists
      *            True if the interface already exists.
-     *
      */
     private DbSnmpInterfaceEntry(long nodeId, int ifIndex, boolean exists) {
         m_fromDb = exists;
@@ -631,7 +623,6 @@ public final class DbSnmpInterfaceEntry {
      * Returns the node entry's unique identifier. This is a non-mutable
      * element. If the record does not yet exist in the database then a -1 is
      * returned.
-     *
      */
     public long getNodeId() {
         return m_nodeId;
@@ -721,8 +712,7 @@ public final class DbSnmpInterfaceEntry {
     }
 
     public boolean updateDescription(String newIfDescription) {
-        if (newIfDescription == null
-                || newIfDescription.equals(m_ifDescription)) {
+        if (newIfDescription == null || newIfDescription.equals(m_ifDescription)) {
             return false;
         } else {
             setDescription(newIfDescription);
@@ -908,7 +898,6 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
-
     /**
      * Updates the interface information in the configured database. If the
      * interface does not exist the a new row in the table is created. If the
@@ -964,7 +953,6 @@ public final class DbSnmpInterfaceEntry {
      *            The node id of the interface.
      * @param ifIndex
      *            The ifIndex of the interface
-     *
      * @return A new interface record.
      */
     public static DbSnmpInterfaceEntry create(int nid, int ifIndex) {
@@ -980,9 +968,7 @@ public final class DbSnmpInterfaceEntry {
      *            The node id key
      * @param ifIndex
      *            the interface index.
-     *
      * @return The loaded entry or null if one could not be found.
-     *
      */
     public static DbSnmpInterfaceEntry get(long nodeId, int ifIndex) throws SQLException {
         Connection db = null;
@@ -1011,12 +997,9 @@ public final class DbSnmpInterfaceEntry {
      *            The node id key
      * @param ifIndex
      *            The interface index.
-     *
      * @return The loaded entry or null if one could not be found.
-     *
      */
-    public static DbSnmpInterfaceEntry get(Connection db, long nodeId, int ifIndex)
-    throws SQLException {
+    public static DbSnmpInterfaceEntry get(Connection db, long nodeId, int ifIndex) throws SQLException {
         DbSnmpInterfaceEntry entry = new DbSnmpInterfaceEntry(nodeId, ifIndex);
         if (!entry.load(db)) {
             entry = null;
@@ -1054,14 +1037,13 @@ public final class DbSnmpInterfaceEntry {
     /**
      * For debugging only
      *
-     * @param args an array of {@link java.lang.String} objects.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
      */
     public static void main(String[] args) {
         try {
             Integer temp = new Integer(args[1]);
-            DbSnmpInterfaceEntry entry =
-                DbSnmpInterfaceEntry.get(Integer.parseInt(args[0]),
-                                         temp.intValue());
+            DbSnmpInterfaceEntry entry = DbSnmpInterfaceEntry.get(Integer.parseInt(args[0]), temp.intValue());
             System.out.println(entry.toString());
         } catch (Throwable t) {
             t.printStackTrace();

@@ -51,14 +51,17 @@ public final class GroupFieldFactory implements FormFieldFactory {
     /**
      * Instantiates a new group field factory.
      *
-     * @param resourceTypes the available resource types
+     * @param resourceTypes
+     *            the available resource types
      */
     public GroupFieldFactory(final List<String> resourceTypes) {
         this.resourceTypes = resourceTypes;
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item, java.lang.Object, com.vaadin.ui.Component)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item,
+     * java.lang.Object, com.vaadin.ui.Component)
      */
     @Override
     public Field<?> createField(Item item, Object propertyId, Component uiContext) {

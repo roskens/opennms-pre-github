@@ -52,7 +52,6 @@ public class NativeSocketTest {
 
     Server m_server;
 
-
     @Before
     public void setUp() throws Exception {
         m_server = new Server(7777);
@@ -70,13 +69,13 @@ public class NativeSocketTest {
     }
 
     @Test
-    public void testServer() throws Exception  {
+    public void testServer() throws Exception {
         String[] cmds = new String[] { "echo", "echo2", "quit" };
         DatagramSocket socket = null;
         try {
             socket = new DatagramSocket();
 
-            for(String cmd : cmds) {
+            for (String cmd : cmds) {
 
                 printf("Sending cmd: %s\n", cmd);
 
@@ -97,7 +96,8 @@ public class NativeSocketTest {
             }
 
         } finally {
-            if (socket != null) socket.close();
+            if (socket != null)
+                socket.close();
         }
     }
 
@@ -117,9 +117,9 @@ public class NativeSocketTest {
 
         try {
             socket = NativeDatagramSocket.create(family, NativeDatagramSocket.SOCK_DGRAM,
-                    NativeDatagramSocket.IPPROTO_UDP);
+                                                 NativeDatagramSocket.IPPROTO_UDP);
 
-            for(String cmd : cmds) {
+            for (String cmd : cmds) {
 
                 printf("Sending cmd: %s\n", cmd);
 
@@ -140,28 +140,31 @@ public class NativeSocketTest {
             }
 
         } finally {
-            if (socket != null) socket.close();
+            if (socket != null)
+                socket.close();
         }
     }
 
-    @Test(timeout=10000)
+    @Test(timeout = 10000)
     @Ignore("This is ignored since I haven't found a way to interrupt a socket blocked on recvfrom in linux")
     public void testCloseInReceive() throws Exception {
-        final NativeDatagramSocket socket = NativeDatagramSocket.create(NativeDatagramSocket.PF_INET, NativeDatagramSocket.SOCK_DGRAM,
-                NativeDatagramSocket.IPPROTO_UDP);
+        final NativeDatagramSocket socket = NativeDatagramSocket.create(NativeDatagramSocket.PF_INET,
+                                                                        NativeDatagramSocket.SOCK_DGRAM,
+                                                                        NativeDatagramSocket.IPPROTO_UDP);
 
         Thread t = new Thread("Listener") {
             @Override
             public void run() {
                 try {
-                    while(true) {
+                    while (true) {
                         NativeDatagramPacket r = new NativeDatagramPacket(128);
                         System.err.println("About to receive");
                         socket.receive(r);
                         System.err.println("Returned from receive");
                         String response = UTF_8.decode(r.getContent()).toString();
 
-                        printf("Received Response: %s from %s:%d\n", response, r.getAddress().getHostAddress(), r.getPort());
+                        printf("Received Response: %s from %s:%d\n", response, r.getAddress().getHostAddress(),
+                               r.getPort());
                     }
                 } catch (Throwable e) {
                     e.printStackTrace();
@@ -181,7 +184,6 @@ public class NativeSocketTest {
         socket.close();
 
         t.join();
-
 
     }
 

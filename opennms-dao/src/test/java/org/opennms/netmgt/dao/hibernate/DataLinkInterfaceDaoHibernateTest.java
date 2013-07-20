@@ -59,14 +59,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
@@ -99,9 +97,12 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
     @Test
     @JUnitTemporaryDatabase
     public void testFindById() throws Exception {
-        // Note: This ID is based upon the creation order in DatabasePopulator - if you change
-        // the DatabasePopulator by adding additional new objects that use the onmsNxtId sequence
-        // before the creation of this object then this ID may change and this test will fail.
+        // Note: This ID is based upon the creation order in DatabasePopulator -
+        // if you change
+        // the DatabasePopulator by adding additional new objects that use the
+        // onmsNxtId sequence
+        // before the creation of this object then this ID may change and this
+        // test will fail.
         //
         int id = 64;
         DataLinkInterface dli = m_dataLinkInterfaceDao.findById(id);
@@ -126,10 +127,8 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
     public void testFindByCriteria() throws Exception {
         OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
-        criteria.add(Restrictions.or(
-            Restrictions.eq("node.id", m_databasePopulator.getNode1().getId()),
-            Restrictions.eq("nodeParentId", m_databasePopulator.getNode1().getId())
-        ));
+        criteria.add(Restrictions.or(Restrictions.eq("node.id", m_databasePopulator.getNode1().getId()),
+                                     Restrictions.eq("nodeParentId", m_databasePopulator.getNode1().getId())));
 
         final List<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findMatching(criteria);
         for (final DataLinkInterface iface : dlis) {
@@ -151,10 +150,13 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
     }
 
     @Test
-    @Transactional // why is this necessary?
+    @Transactional
+    // why is this necessary?
     public void testSaveDataLinkInterface() {
         // Create a new data link interface and save it.
-        DataLinkInterface dli = new DataLinkInterface(m_databasePopulator.getNode2(), 2, m_databasePopulator.getNode1().getId(), 1, StatusType.UNKNOWN, new Date());
+        DataLinkInterface dli = new DataLinkInterface(m_databasePopulator.getNode2(), 2,
+                                                      m_databasePopulator.getNode1().getId(), 1, StatusType.UNKNOWN,
+                                                      new Date());
         dli.setLinkTypeId(101);
         m_dataLinkInterfaceDao.save(dli);
         m_dataLinkInterfaceDao.flush();
@@ -175,10 +177,13 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
     }
 
     @Test
-    @Transactional // why is this necessary?
+    @Transactional
+    // why is this necessary?
     public void testSaveDataLinkInterface2() {
         // Create a new data link interface and save it.
-        DataLinkInterface dli = new DataLinkInterface(m_databasePopulator.getNode3(), -1, m_databasePopulator.getNode1().getId(), 3, StatusType.UNKNOWN, new Date());
+        DataLinkInterface dli = new DataLinkInterface(m_databasePopulator.getNode3(), -1,
+                                                      m_databasePopulator.getNode1().getId(), 3, StatusType.UNKNOWN,
+                                                      new Date());
         dli.setLinkTypeId(101);
         dli.setSource("rest");
         m_dataLinkInterfaceDao.save(dli);
@@ -200,16 +205,20 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
     }
 
     @Test
-    @Transactional // why is this necessary?
+    @Transactional
+    // why is this necessary?
     public void testUpdate() {
         // Create a new data link interface and save it.
-        DataLinkInterface dli = new DataLinkInterface(m_databasePopulator.getNode4(), -1, m_databasePopulator.getNode1().getId(), 3, StatusType.UNKNOWN, new Date());
+        DataLinkInterface dli = new DataLinkInterface(m_databasePopulator.getNode4(), -1,
+                                                      m_databasePopulator.getNode1().getId(), 3, StatusType.UNKNOWN,
+                                                      new Date());
         dli.setLinkTypeId(101);
         dli.setSource("updatetest");
         m_dataLinkInterfaceDao.save(dli);
         m_dataLinkInterfaceDao.flush();
 
-        m_dataLinkInterfaceDao.setStatusForNode(m_databasePopulator.getNode4().getId(), "updatetest",StatusType.DELETED);
+        m_dataLinkInterfaceDao.setStatusForNode(m_databasePopulator.getNode4().getId(), "updatetest",
+                                                StatusType.DELETED);
 
         assertNotNull(m_dataLinkInterfaceDao.get(dli.getId()));
 

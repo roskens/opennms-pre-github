@@ -44,140 +44,158 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>LatencyInterface class.</p>
+ * <p>
+ * LatencyInterface class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class LatencyInterface {
 
+    private static final Logger LOG = LoggerFactory.getLogger(LatencyInterface.class);
 
-        private static final Logger LOG = LoggerFactory.getLogger(LatencyInterface.class);
+    private NetworkInterface<InetAddress> m_iface;
 
-        private NetworkInterface<InetAddress> m_iface;
-	private String m_serviceName;
+    private String m_serviceName;
 
-	/**
-	 * <p>Constructor for LatencyInterface.</p>
-	 *
-	 * @param iface a {@link org.opennms.netmgt.poller.NetworkInterface} object.
-	 * @param serviceName a {@link java.lang.String} object.
-	 */
-	public LatencyInterface(NetworkInterface<InetAddress> iface, String serviceName) {
-		m_iface = iface;
-		m_serviceName = serviceName;
-	}
+    /**
+     * <p>
+     * Constructor for LatencyInterface.
+     * </p>
+     *
+     * @param iface
+     *            a {@link org.opennms.netmgt.poller.NetworkInterface} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     */
+    public LatencyInterface(NetworkInterface<InetAddress> iface, String serviceName) {
+        m_iface = iface;
+        m_serviceName = serviceName;
+    }
 
-	/**
-	 * <p>getNetworkInterface</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.poller.NetworkInterface} object.
-	 */
-	public NetworkInterface<InetAddress> getNetworkInterface() {
-		return m_iface;
-	}
+    /**
+     * <p>
+     * getNetworkInterface
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.poller.NetworkInterface} object.
+     */
+    public NetworkInterface<InetAddress> getNetworkInterface() {
+        return m_iface;
+    }
 
-	Map<String, ThresholdEntity> getThresholdMap() {
-	    NetworkInterface<InetAddress> iface = getNetworkInterface();
-		// ThresholdEntity map attributes
-	    //
-	    Map<String, ThresholdEntity> thresholdMap = iface.getAttribute(LatencyThresholder.THRESHOLD_MAP_KEY);
-	    return Collections.unmodifiableMap(thresholdMap);
-	}
+    Map<String, ThresholdEntity> getThresholdMap() {
+        NetworkInterface<InetAddress> iface = getNetworkInterface();
+        // ThresholdEntity map attributes
+        //
+        Map<String, ThresholdEntity> thresholdMap = iface.getAttribute(LatencyThresholder.THRESHOLD_MAP_KEY);
+        return Collections.unmodifiableMap(thresholdMap);
+    }
 
-	InetAddress getInetAddress() {
-	    return getNetworkInterface().getAddress();
-	}
+    InetAddress getInetAddress() {
+        return getNetworkInterface().getAddress();
+    }
 
-	/**
-	 * <p>getServiceName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getServiceName() {
-		// TODO Auto-generated method stub
-		return m_serviceName;
-	}
+    /**
+     * <p>
+     * getServiceName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getServiceName() {
+        // TODO Auto-generated method stub
+        return m_serviceName;
+    }
 
-	int getNodeId() throws ThresholdingException {
-	    NetworkInterface<InetAddress> iface = getNetworkInterface();
+    int getNodeId() throws ThresholdingException {
+        NetworkInterface<InetAddress> iface = getNetworkInterface();
 
-		int nodeId = -1;
-	    Integer tmp = iface.getAttribute(LatencyThresholder.NODE_ID_KEY);
-	    if (tmp != null)
-	        nodeId = tmp.intValue();
-	    if (nodeId == -1) {
-	        throw new ThresholdingException("Threshold checking failed for " + getServiceName() + "/" + getHostAddress() + ", missing nodeId.", LatencyThresholder.THRESHOLDING_FAILED);
-	    }
-	    return nodeId;
-	}
+        int nodeId = -1;
+        Integer tmp = iface.getAttribute(LatencyThresholder.NODE_ID_KEY);
+        if (tmp != null)
+            nodeId = tmp.intValue();
+        if (nodeId == -1) {
+            throw new ThresholdingException("Threshold checking failed for " + getServiceName() + "/"
+                    + getHostAddress() + ", missing nodeId.", LatencyThresholder.THRESHOLDING_FAILED);
+        }
+        return nodeId;
+    }
 
-	/**
-	 * <p>getHostName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getHostAddress() {
-		return InetAddressUtils.str(getInetAddress());
-	}
+    /**
+     * <p>
+     * getHostName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getHostAddress() {
+        return InetAddressUtils.str(getInetAddress());
+    }
 
-	File getLatencyDir() throws ThresholdingException {
-		String repository = getNetworkInterface().getAttribute(LatencyThresholder.RRD_REPOSITORY_KEY);
-	    LOG.debug("check: rrd repository=", repository);
-	    // Get File object representing the
-	    // '/opt/OpenNMS/share/rrd/<svc_name>/<ipAddress>/' directory
-	    File latencyDir = new File(repository + File.separator + getHostAddress());
-	    if (!latencyDir.exists()) {
-	        throw new ThresholdingException("Latency directory for " + getServiceName() + "/" + getHostAddress() + " does not exist. Threshold checking failed for " + getHostAddress(), LatencyThresholder.THRESHOLDING_FAILED);
-	    } else if (!RrdFileConstants.isValidRRDLatencyDir(latencyDir)) {
-	        throw new ThresholdingException("Latency directory for " + getServiceName() + "/" + getHostAddress() + " is not a valid RRD latency directory. Threshold checking failed for " + getHostAddress(), LatencyThresholder.THRESHOLDING_FAILED);
-	    }
-	    return latencyDir;
-	}
+    File getLatencyDir() throws ThresholdingException {
+        String repository = getNetworkInterface().getAttribute(LatencyThresholder.RRD_REPOSITORY_KEY);
+        LOG.debug("check: rrd repository=", repository);
+        // Get File object representing the
+        // '/opt/OpenNMS/share/rrd/<svc_name>/<ipAddress>/' directory
+        File latencyDir = new File(repository + File.separator + getHostAddress());
+        if (!latencyDir.exists()) {
+            throw new ThresholdingException("Latency directory for " + getServiceName() + "/" + getHostAddress()
+                    + " does not exist. Threshold checking failed for " + getHostAddress(),
+                                            LatencyThresholder.THRESHOLDING_FAILED);
+        } else if (!RrdFileConstants.isValidRRDLatencyDir(latencyDir)) {
+            throw new ThresholdingException("Latency directory for " + getServiceName() + "/" + getHostAddress()
+                    + " is not a valid RRD latency directory. Threshold checking failed for " + getHostAddress(),
+                                            LatencyThresholder.THRESHOLDING_FAILED);
+        }
+        return latencyDir;
+    }
 
-	/**
-	 * Creates a new threshold event from the specified parms.
-	 * @param dsValue
-	 *            Data source value which triggered the threshold event
-	 * @param threshold
-	 *            Configured threshold
-	 * @param uei
-	 *            Event identifier
-	 * @param date
-	 *            source of event's timestamp
-	 * @param m_nodeId
-	 *            Node identifier of the affected interface
-	 * @param ipAddr
-	 *            IP address of the affected interface
-	 * @param thresholder TODO
-	 * @return new threshold event to be sent to Eventd
-	 * @throws ThresholdingException
-	 */
-	Event createEvent(double dsValue, Threshold threshold, String uei, Date date) throws ThresholdingException {
-		int nodeId = getNodeId();
-		InetAddress ipAddr = getInetAddress();
+    /**
+     * Creates a new threshold event from the specified parms.
+     *
+     * @param dsValue
+     *            Data source value which triggered the threshold event
+     * @param threshold
+     *            Configured threshold
+     * @param uei
+     *            Event identifier
+     * @param date
+     *            source of event's timestamp
+     * @param m_nodeId
+     *            Node identifier of the affected interface
+     * @param ipAddr
+     *            IP address of the affected interface
+     * @param thresholder
+     *            TODO
+     * @return new threshold event to be sent to Eventd
+     * @throws ThresholdingException
+     */
+    Event createEvent(double dsValue, Threshold threshold, String uei, Date date) throws ThresholdingException {
+        int nodeId = getNodeId();
+        InetAddress ipAddr = getInetAddress();
 
-		if (threshold == null)
-	        throw new IllegalArgumentException("threshold cannot be null.");
+        if (threshold == null)
+            throw new IllegalArgumentException("threshold cannot be null.");
 
-	    LOG.debug("createEvent: ds={} uei={}", threshold.getDsName(), uei);
+        LOG.debug("createEvent: ds={} uei={}", threshold.getDsName(), uei);
 
-	    // create the event to be sent
-	    EventBuilder bldr = new EventBuilder(uei, "OpenNMS.Threshd:" + threshold.getDsName(), date);
-	    bldr.setNodeid(nodeId);
-	    bldr.setInterface(ipAddr);
-	    bldr.setService(getServiceName());
+        // create the event to be sent
+        EventBuilder bldr = new EventBuilder(uei, "OpenNMS.Threshd:" + threshold.getDsName(), date);
+        bldr.setNodeid(nodeId);
+        bldr.setInterface(ipAddr);
+        bldr.setService(getServiceName());
 
-
-	    // Set event host
+        // Set event host
         bldr.setHost(InetAddressUtils.getLocalHostName());
 
-	    bldr.addParam("ds", threshold.getDsName());
-	    bldr.addParam("value", dsValue);
-	    bldr.addParam("threshold", threshold.getValue());
-	    bldr.addParam("trigger", threshold.getTrigger());
-	    bldr.addParam("rearm", threshold.getRearm());
+        bldr.addParam("ds", threshold.getDsName());
+        bldr.addParam("value", dsValue);
+        bldr.addParam("threshold", threshold.getValue());
+        bldr.addParam("trigger", threshold.getTrigger());
+        bldr.addParam("rearm", threshold.getRearm());
 
-	    return bldr.getEvent();
-	}
+        return bldr.getEvent();
+    }
 }

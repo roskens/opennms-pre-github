@@ -44,80 +44,77 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DefaultNCSCorrelationService implements NCSCorrelationService {
 
-	@Autowired
-	NCSComponentRepository m_componentRepo;
+    @Autowired
+    NCSComponentRepository m_componentRepo;
 
-	@Autowired
-	NodeDao m_nodeDao;
-
-	@Override
-	public List<NCSComponent> findComponentsThatDependOn(Long componentId) {
-
-		NCSComponent comp = m_componentRepo.get(componentId);
-
-		List<NCSComponent> parents = m_componentRepo.findComponentsThatDependOn(comp);
-
-		for(NCSComponent parent : parents) {
-			m_componentRepo.initialize(parent);
-
-		}
-
-		return parents;
-
-	}
+    @Autowired
+    NodeDao m_nodeDao;
 
     @Override
-	public List<NCSComponent> findComponentsByNodeIdAndEventParameters(Event e, String... parameterNames) {
+    public List<NCSComponent> findComponentsThatDependOn(Long componentId) {
 
-		assert e.getNodeid() != null;
-		assert e.getNodeid() != 0;
+        NCSComponent comp = m_componentRepo.get(componentId);
 
+        List<NCSComponent> parents = m_componentRepo.findComponentsThatDependOn(comp);
 
-		List<NCSComponent> components = m_componentRepo.findComponentsByNodeId(e.getNodeid().intValue());
+        for (NCSComponent parent : parents) {
+            m_componentRepo.initialize(parent);
 
-		List<NCSComponent> matching = new LinkedList<NCSComponent>();
-		for(NCSComponent component : components)
-		{
-			if (matches(component, e, parameterNames)) {
-				matching.add(component);
-			}
-		}
+        }
 
-		return matching;
-	}
+        return parents;
 
-	private boolean matches(NCSComponent component, Event e, String... parameters) {
+    }
 
-		for(String key : parameters) {
-			if (!component.getAttributes().containsKey(key)) {
-				return false;
-			}
+    @Override
+    public List<NCSComponent> findComponentsByNodeIdAndEventParameters(Event e, String... parameterNames) {
 
-			String val = component.getAttributes().get(key);
+        assert e.getNodeid() != null;
+        assert e.getNodeid() != 0;
 
-			if (!val.equals(EventUtils.getParm(e, key))) {
-				return false;
-			}
-		}
+        List<NCSComponent> components = m_componentRepo.findComponentsByNodeId(e.getNodeid().intValue());
 
-		return true;
+        List<NCSComponent> matching = new LinkedList<NCSComponent>();
+        for (NCSComponent component : components) {
+            if (matches(component, e, parameterNames)) {
+                matching.add(component);
+            }
+        }
 
-	}
+        return matching;
+    }
+
+    private boolean matches(NCSComponent component, Event e, String... parameters) {
+
+        for (String key : parameters) {
+            if (!component.getAttributes().containsKey(key)) {
+                return false;
+            }
+
+            String val = component.getAttributes().get(key);
+
+            if (!val.equals(EventUtils.getParm(e, key))) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
 
     @Override
     public List<NCSComponent> findSubComponents(Long componentId) {
 
+        NCSComponent comp = m_componentRepo.get(componentId);
 
-            NCSComponent comp = m_componentRepo.get(componentId);
+        Set<NCSComponent> subcomponents = comp.getSubcomponents();
 
-            Set<NCSComponent> subcomponents = comp.getSubcomponents();
+        for (NCSComponent subcomponent : subcomponents) {
+            m_componentRepo.initialize(subcomponent);
 
-            for(NCSComponent subcomponent : subcomponents) {
-                m_componentRepo.initialize(subcomponent);
+        }
 
-            }
-
-            return new ArrayList<NCSComponent>(subcomponents);
+        return new ArrayList<NCSComponent>(subcomponents);
 
     }
 
@@ -126,12 +123,10 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
         assert e.getNodeid() != null;
         assert e.getNodeid() != 0;
 
-
         List<NCSComponent> components = m_componentRepo.findComponentsByNodeId(e.getNodeid().intValue());
 
         List<NCSComponent> matching = new LinkedList<NCSComponent>();
-        for(NCSComponent component : components)
-        {
+        for (NCSComponent component : components) {
             if (matches(component, e, parameterMap)) {
                 matching.add(component);
             }
@@ -141,7 +136,7 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
     }
 
     private boolean matches(NCSComponent component, Event e, AttrParmMap[] parameterMap) {
-        for(AttrParmMap map : parameterMap) {
+        for (AttrParmMap map : parameterMap) {
             if (!map.matches(component, e)) {
                 return false;
             }
@@ -149,6 +144,5 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
 
         return true;
     }
-
 
 }

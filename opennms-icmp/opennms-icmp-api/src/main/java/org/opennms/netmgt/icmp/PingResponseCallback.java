@@ -31,33 +31,50 @@ package org.opennms.netmgt.icmp;
 import java.net.InetAddress;
 
 /**
- * <p>PingResponseCallback interface.</p>
+ * <p>
+ * PingResponseCallback interface.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Ben Reed</a>
  * @version $Id: $
  */
 public interface PingResponseCallback {
 
-	/**
-	 * <p>handleResponse</p>
-	 *
-	 * @param address a {@link java.net.InetAddress} object.
-	 * @param response a {@link org.opennms.netmgt.icmp.EchoPacket} object.
-	 */
-	public void handleResponse(InetAddress address, EchoPacket response);
-	/**
-	 * <p>handleTimeout</p>
-	 *
-	 * @param address a {@link java.net.InetAddress} object.
-	 * @param request TODO
-	 */
-	public void handleTimeout(InetAddress address, EchoPacket request);
     /**
-     * <p>handleError</p>
+     * <p>
+     * handleResponse
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param request a {@link org.opennms.netmgt.icmp.EchoPacket} object.
-     * @param t a {@link java.lang.Throwable} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param response
+     *            a {@link org.opennms.netmgt.icmp.EchoPacket} object.
+     */
+    public void handleResponse(InetAddress address, EchoPacket response);
+
+    /**
+     * <p>
+     * handleTimeout
+     * </p>
+     *
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param request
+     *            TODO
+     */
+    public void handleTimeout(InetAddress address, EchoPacket request);
+
+    /**
+     * <p>
+     * handleError
+     * </p>
+     *
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param request
+     *            a {@link org.opennms.netmgt.icmp.EchoPacket} object.
+     * @param t
+     *            a {@link java.lang.Throwable} object.
      */
     public void handleError(InetAddress address, EchoPacket request, Throwable t);
 

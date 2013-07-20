@@ -41,13 +41,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class OpennmsSeleniumExample {
     private WebDriver driver;
-    private String baseUrl="";
+
+    private String baseUrl = "";
+
     private int timeout = 3;
+
     private StringBuffer verificationErrors = new StringBuffer();
 
     public OpennmsSeleniumExample(String url, int timeoutInSeconds) {
-         baseUrl = url;
-         timeout = timeoutInSeconds;
+        baseUrl = url;
+        timeout = timeoutInSeconds;
     }
 
     @Before
@@ -67,7 +70,8 @@ public class OpennmsSeleniumExample {
         driver.findElement(By.linkText("Our Story")).click();
 
         // assertText | link=Contact Us | Contact Us
-        //assertEquals("Contact Us", driver.findElement(By.linkText("Contact Us")).getText());
+        // assertEquals("Contact Us",
+        // driver.findElement(By.linkText("Contact Us")).getText());
         assertEquals("Contact Us", driver.findElement(By.linkText("Contact Us")).getText());
     }
 
@@ -76,7 +80,6 @@ public class OpennmsSeleniumExample {
         System.err.println("After is being called in Groovy Script: " + this.hashCode());
         assertNotNull("Driver is null, it should not be null", driver);
         driver.quit();
-
 
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {

@@ -32,7 +32,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * <p>StringSqlType class.</p>
+ * <p>
+ * StringSqlType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,12 +43,18 @@ import java.sql.SQLException;
 public class StringSqlType implements SQLType<String> {
 
     /**
-     * <p>bindParam</p>
+     * <p>
+     * bindParam
+     * </p>
      *
-     * @param ps a {@link java.sql.PreparedStatement} object.
-     * @param parameterIndex a int.
-     * @param value a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @param ps
+     *            a {@link java.sql.PreparedStatement} object.
+     * @param parameterIndex
+     *            a int.
+     * @param value
+     *            a {@link java.lang.String} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public void bindParam(PreparedStatement ps, int parameterIndex, String value) throws SQLException {
@@ -54,9 +62,12 @@ public class StringSqlType implements SQLType<String> {
     }
 
     /**
-     * <p>getValueAsString</p>
+     * <p>
+     * getValueAsString
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -65,9 +76,12 @@ public class StringSqlType implements SQLType<String> {
     }
 
     /**
-     * <p>formatValue</p>
+     * <p>
+     * formatValue
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -76,10 +90,14 @@ public class StringSqlType implements SQLType<String> {
     }
 
     /**
-     * <p>createArray</p>
+     * <p>
+     * createArray
+     * </p>
      *
-     * @param value1 a {@link java.lang.String} object.
-     * @param value2 a {@link java.lang.String} object.
+     * @param value1
+     *            a {@link java.lang.String} object.
+     * @param value2
+     *            a {@link java.lang.String} object.
      * @return an array of {@link java.lang.String} objects.
      */
     @Override

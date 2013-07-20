@@ -66,7 +66,7 @@ public class StorageStrategyField extends CustomField<StorageStrategy> implement
     private final Table table = new Table();
 
     /** The Container. */
-    private final BeanContainer<String,Parameter> container = new BeanContainer<String,Parameter>(Parameter.class);
+    private final BeanContainer<String, Parameter> container = new BeanContainer<String, Parameter>(Parameter.class);
 
     /** The Toolbar. */
     private final HorizontalLayout toolbar = new HorizontalLayout();
@@ -101,7 +101,7 @@ public class StorageStrategyField extends CustomField<StorageStrategy> implement
         table.setCaption("Parameters");
         table.setContainerDataSource(container);
         table.setStyleName(Runo.TABLE_SMALL);
-        table.setVisibleColumns(new Object[]{"key", "value"});
+        table.setVisibleColumns(new Object[] { "key", "value" });
         table.setColumnHeader("key", "Parameter Name");
         table.setColumnHeader("value", "Parameter Value");
         table.setColumnExpandRatio("value", 1);
@@ -152,13 +152,14 @@ public class StorageStrategyField extends CustomField<StorageStrategy> implement
     public StorageStrategy getValue() {
         StorageStrategy dto = new StorageStrategy();
         dto.setClazz((String) combo.getValue());
-        for (Object itemId: container.getItemIds()) {
+        for (Object itemId : container.getItemIds()) {
             dto.getParameterCollection().add(container.getItem(itemId).getBean());
         }
         return dto;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
      */
     @Override
@@ -169,8 +170,10 @@ public class StorageStrategyField extends CustomField<StorageStrategy> implement
         super.setReadOnly(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
@@ -200,7 +203,8 @@ public class StorageStrategyField extends CustomField<StorageStrategy> implement
         if (itemId == null) {
             Notification.show("Please select a Parameter from the table.");
         } else {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
                                            "Do you really want to remove the selected Storage Strategy?<br/>This action cannot be undone.",

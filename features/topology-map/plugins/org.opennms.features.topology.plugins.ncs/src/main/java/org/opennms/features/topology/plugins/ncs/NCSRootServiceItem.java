@@ -13,7 +13,7 @@ public class NCSRootServiceItem extends NCSServiceItem {
     }
 
     private String computerName(String foreignSource) {
-        if(foreignSource.startsWith("space_")) {
+        if (foreignSource.startsWith("space_")) {
             return foreignSource.substring("space_".length(), foreignSource.length());
         }
         return foreignSource;

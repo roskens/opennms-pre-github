@@ -31,40 +31,34 @@ package org.opennms.netmgt.correlation.ncs;
 import org.opennms.netmgt.xml.event.Event;
 
 public class Resolved {
-	private Event m_cause;
-	private Event m_resolution;
+    private Event m_cause;
 
-	public Resolved(Event cause, Event resolution) {
-		m_cause = cause;
-		m_resolution = resolution;
-	}
+    private Event m_resolution;
 
-	public Event getCause() {
-		return m_cause;
-	}
+    public Resolved(Event cause, Event resolution) {
+        m_cause = cause;
+        m_resolution = resolution;
+    }
 
-	public void setCause(Event cause) {
-		m_cause = cause;
-	}
+    public Event getCause() {
+        return m_cause;
+    }
 
-	public Event getResolution() {
-		return m_resolution;
-	}
+    public void setCause(Event cause) {
+        m_cause = cause;
+    }
 
-	public void setResolution(Event resolution) {
-		m_resolution = resolution;
-	}
+    public Event getResolution() {
+        return m_resolution;
+    }
 
-	@Override
-	public String toString() {
-		return "Resolved[ " +
-				"cause=" + m_cause +
-				", resolution="
-				+ m_resolution + " ]";
-	}
+    public void setResolution(Event resolution) {
+        m_resolution = resolution;
+    }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Resolved[ " + "cause=" + m_cause + ", resolution=" + m_resolution + " ]";
+    }
 
 }

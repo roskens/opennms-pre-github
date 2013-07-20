@@ -37,7 +37,9 @@ package org.opennms.netmgt.poller.pollables;
 public class PollableVisitorAdaptor implements PollableVisitor {
 
     /**
-     * <p>Constructor for PollableVisitorAdaptor.</p>
+     * <p>
+     * Constructor for PollableVisitorAdaptor.
+     * </p>
      */
     public PollableVisitorAdaptor() {
     }

@@ -38,67 +38,68 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import liquibase.statement.SqlStatement;
 
 public class SetSequenceStatement implements SqlStatement {
-	private final String m_sequenceName;
-	private final List<String> m_tables = new ArrayList<String>();
-	private Map<String, String> m_columns = new LinkedHashMap<String, String>();
-	private Map<String, String> m_schemas = new LinkedHashMap<String, String>();
-	private Integer m_value;
+    private final String m_sequenceName;
 
-	public SetSequenceStatement(final String sequenceName) {
-		m_sequenceName = sequenceName;
-	}
+    private final List<String> m_tables = new ArrayList<String>();
 
-        @Override
-	public boolean skipOnUnsupported() {
-		return true;
-	}
+    private Map<String, String> m_columns = new LinkedHashMap<String, String>();
 
-	public String getSequenceName() {
-		return m_sequenceName;
-	}
+    private Map<String, String> m_schemas = new LinkedHashMap<String, String>();
 
-	public List<String> getTables() {
-		return m_tables;
-	}
+    private Integer m_value;
 
-	public Map<String,String> getColumns() {
-		return m_columns;
-	}
+    public SetSequenceStatement(final String sequenceName) {
+        m_sequenceName = sequenceName;
+    }
 
-	public Map<String,String> getSchemas() {
-		return m_schemas;
-	}
+    @Override
+    public boolean skipOnUnsupported() {
+        return true;
+    }
 
-	public Integer getValue() {
-		return m_value;
-	}
+    public String getSequenceName() {
+        return m_sequenceName;
+    }
 
-	public SetSequenceStatement setValue(final Integer value) {
-		m_value = value;
-		return this;
-	}
+    public List<String> getTables() {
+        return m_tables;
+    }
 
-	SetSequenceStatement addTable(final String name, final String column) {
-		getTables().add(name);
-		getColumns().put(name, column);
-		return this;
-	}
+    public Map<String, String> getColumns() {
+        return m_columns;
+    }
 
-	SetSequenceStatement addTable(final String name, final String schemaName, final String column) {
-		getTables().add(name);
-		getColumns().put(name, column);
-		getSchemas().put(name, schemaName);
-		return this;
-	}
+    public Map<String, String> getSchemas() {
+        return m_schemas;
+    }
 
-        @Override
-	public String toString() {
-		return new ToStringBuilder(this)
-			.append("sequenceName", m_sequenceName)
-			.append("value", m_value)
-			.append("tables", m_tables)
-			.append("columns", m_columns)
-			.append("schemas", m_schemas)
-			.toString();
-	}
+    public Integer getValue() {
+        return m_value;
+    }
+
+    public SetSequenceStatement setValue(final Integer value) {
+        m_value = value;
+        return this;
+    }
+
+    SetSequenceStatement addTable(final String name, final String column) {
+        getTables().add(name);
+        getColumns().put(name, column);
+        return this;
+    }
+
+    SetSequenceStatement addTable(final String name, final String schemaName, final String column) {
+        getTables().add(name);
+        getColumns().put(name, column);
+        getSchemas().put(name, schemaName);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("sequenceName", m_sequenceName).append("value", m_value).append("tables",
+                                                                                                                m_tables).append("columns",
+                                                                                                                                 m_columns).append("schemas",
+                                                                                                                                                   m_schemas).toString();
+    }
 }

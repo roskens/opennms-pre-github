@@ -37,10 +37,14 @@ package org.opennms.core.tasks;
 public interface Async<T> {
 
     /**
-     * <p>submit</p>
+     * <p>
+     * submit
+     * </p>
      *
-     * @param cb a {@link org.opennms.core.tasks.Callback} object.
-     * @param <T> a T object.
+     * @param cb
+     *            a {@link org.opennms.core.tasks.Callback} object.
+     * @param <T>
+     *            a T object.
      */
     void submit(Callback<T> cb);
 

@@ -28,7 +28,6 @@
 
 package org.opennms.web.controller.admin.group;
 
-
 /**
  * A servlet that handles putting the Group object into the request and
  * forwarding on to a particular jsp

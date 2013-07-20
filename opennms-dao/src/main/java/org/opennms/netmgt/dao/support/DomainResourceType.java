@@ -42,23 +42,31 @@ import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;
 
 /**
- * <p>DomainResourceType class.</p>
+ * <p>
+ * DomainResourceType class.
+ * </p>
  */
 public class DomainResourceType implements OnmsResourceType {
     private static final Set<OnmsAttribute> s_emptyAttributeSet = Collections.unmodifiableSet(new HashSet<OnmsAttribute>());
+
     private ResourceDao m_resourceDao;
 
     /**
-     * <p>Constructor for DomainResourceType.</p>
+     * <p>
+     * Constructor for DomainResourceType.
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
     public DomainResourceType(ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,7 +76,9 @@ public class DomainResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,20 +126,25 @@ public class DomainResourceType implements OnmsResourceType {
     /** {@inheritDoc} */
     @Override
     public String getLinkForResource(OnmsResource resource) {
-        // Need a search for hosts in a domain. The present nodeList capability won't support it.
+        // Need a search for hosts in a domain. The present nodeList capability
+        // won't support it.
         // Just return null for now
         return null;
     }
 
     /**
-     * <p>createChildResource</p>
+     * <p>
+     * createChildResource
+     * </p>
      *
-     * @param domain a {@link java.lang.String} object.
+     * @param domain
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource createChildResource(String domain) {
         DomainChildResourceLoader loader = new DomainChildResourceLoader(domain);
-        OnmsResource resource = new OnmsResource(domain, domain, this, s_emptyAttributeSet, new LazyList<OnmsResource>(loader));
+        OnmsResource resource = new OnmsResource(domain, domain, this, s_emptyAttributeSet,
+                                                 new LazyList<OnmsResource>(loader));
         loader.setParent(resource);
 
         return resource;
@@ -137,6 +152,7 @@ public class DomainResourceType implements OnmsResourceType {
 
     public class DomainChildResourceLoader implements LazyList.Loader<OnmsResource> {
         private String m_domain;
+
         private OnmsResource m_parent;
 
         public DomainChildResourceLoader(String domain) {

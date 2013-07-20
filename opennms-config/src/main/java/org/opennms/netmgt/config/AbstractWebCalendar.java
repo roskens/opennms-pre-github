@@ -31,7 +31,9 @@ package org.opennms.netmgt.config;
 import java.util.Date;
 
 /**
- * <p>Abstract AbstractWebCalendar class.</p>
+ * <p>
+ * Abstract AbstractWebCalendar class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,7 +42,9 @@ import java.util.Date;
 public abstract class AbstractWebCalendar implements WebCalendar {
 
     /**
-     * <p>getMonthAndYear</p>
+     * <p>
+     * getMonthAndYear
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -48,7 +52,9 @@ public abstract class AbstractWebCalendar implements WebCalendar {
     abstract public String getMonthAndYear();
 
     /**
-     * <p>getPreviousMonth</p>
+     * <p>
+     * getPreviousMonth
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -56,7 +62,9 @@ public abstract class AbstractWebCalendar implements WebCalendar {
     abstract public Date getPreviousMonth();
 
     /**
-     * <p>getNextMonth</p>
+     * <p>
+     * getNextMonth
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -64,7 +72,9 @@ public abstract class AbstractWebCalendar implements WebCalendar {
     abstract public Date getNextMonth();
 
     /**
-     * <p>getWeeks</p>
+     * <p>
+     * getWeeks
+     * </p>
      *
      * @return an array of {@link org.opennms.web.admin.roles.Week} objects.
      */

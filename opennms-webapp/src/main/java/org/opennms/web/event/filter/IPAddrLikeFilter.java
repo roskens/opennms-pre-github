@@ -42,16 +42,21 @@ public class IPAddrLikeFilter extends IPLikeFilter {
     public static final String TYPE = "iplike";
 
     /**
-     * <p>Constructor for IPAddrLikeFilter.</p>
+     * <p>
+     * Constructor for IPAddrLikeFilter.
+     * </p>
      *
-     * @param ipLikePattern a {@link java.lang.String} object.
+     * @param ipLikePattern
+     *            a {@link java.lang.String} object.
      */
     public IPAddrLikeFilter(String ipLikePattern) {
         super(TYPE, "IPADDR", "ipAddr", ipLikePattern);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,7 +66,9 @@ public class IPAddrLikeFilter extends IPLikeFilter {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,7 +78,9 @@ public class IPAddrLikeFilter extends IPLikeFilter {
     }
 
     /**
-     * <p>getIpLikePattern</p>
+     * <p>
+     * getIpLikePattern
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

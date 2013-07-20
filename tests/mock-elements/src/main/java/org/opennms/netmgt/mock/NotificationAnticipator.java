@@ -43,8 +43,11 @@ import org.opennms.test.mock.MockUtil;
 public class NotificationAnticipator {
 
     List<MockNotification> m_anticipated = new ArrayList<MockNotification>();
+
     List<MockNotification> m_unanticipated = new ArrayList<MockNotification>();
+
     List<MockNotification[]> m_earlyArrival = new ArrayList<MockNotification[]>();
+
     List<MockNotification[]> m_lateBloomers = new ArrayList<MockNotification[]>();
 
     long m_expectedDiff = 1000;
@@ -62,7 +65,6 @@ public class NotificationAnticipator {
     }
 
     /**
-     *
      * @return
      */
     public long getExpectedDifference() {
@@ -71,7 +73,6 @@ public class NotificationAnticipator {
 
     /**
      * @param event
-     *
      */
     public void anticipateNotification(MockNotification mn) {
         MockUtil.println("Anticipating notification: " + mn);
@@ -147,12 +148,10 @@ public class NotificationAnticipator {
         return getAnticipatedNotifications();
     }
 
-    public void verifyAnticipated(long lastNotifyTime, long waitTime,
-            long sleepTime) {
+    public void verifyAnticipated(long lastNotifyTime, long waitTime, long sleepTime) {
         StringBuffer problems = new StringBuffer();
 
-        long totalWaitTime = Math.max(0, lastNotifyTime + waitTime
-                - System.currentTimeMillis());
+        long totalWaitTime = Math.max(0, lastNotifyTime + waitTime - System.currentTimeMillis());
 
         Collection<MockNotification> missingNotifications = waitForAnticipated(totalWaitTime);
         // make sure that we didn't start before we should have
@@ -163,29 +162,24 @@ public class NotificationAnticipator {
         }
 
         if (missingNotifications.size() != 0) {
-            problems.append(missingNotifications.size() +
-            " expected notifications still outstanding:\n");
+            problems.append(missingNotifications.size() + " expected notifications still outstanding:\n");
             problems.append(listNotifications("\t", missingNotifications));
         }
         if (getUnanticipated().size() != 0) {
-            problems.append(getUnanticipated().size() +
-            " unanticipated notifications received:\n");
+            problems.append(getUnanticipated().size() + " unanticipated notifications received:\n");
             problems.append(listNotifications("\t", getUnanticipated()));
         }
         if (m_earlyArrival.size() != 0) {
-            problems.append(m_earlyArrival.size() +
-            " early notifications received:\n");
+            problems.append(m_earlyArrival.size() + " early notifications received:\n");
             problems.append(listNotifications("\t", m_earlyArrival));
         }
         if (m_lateBloomers.size() != 0) {
-            problems.append(m_lateBloomers.size() +
-            " late notifications received:\n");
+            problems.append(m_lateBloomers.size() + " late notifications received:\n");
             problems.append(listNotifications("\t", m_lateBloomers));
         }
         if (lastNotifyTime > now) {
-            problems.append("Anticipated notifications received at " +
-                    lastNotifyTime + ", later than the last expected time of " +
-                    now + "\n");
+            problems.append("Anticipated notifications received at " + lastNotifyTime
+                    + ", later than the last expected time of " + now + "\n");
         }
 
         if (problems.length() > 0) {
@@ -194,8 +188,7 @@ public class NotificationAnticipator {
         }
     }
 
-    private static String listNotifications(String prefix,
-            Collection<?> notifications) {
+    private static String listNotifications(String prefix, Collection<?> notifications) {
         StringBuffer b = new StringBuffer();
 
         for (Object o : notifications) {

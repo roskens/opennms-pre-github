@@ -68,7 +68,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>CustomViewController class.</p>
+ * <p>
+ * CustomViewController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -76,27 +78,28 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class CustomViewController extends AbstractController implements InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CustomViewController.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(CustomViewController.class);
 
     public enum Parameters {
-        report,
-        type,
-        timespan,
-        graphtype
+        report, type, timespan, graphtype
     }
 
     private KSC_PerformanceReportFactory m_kscReportFactory;
+
     private KscReportService m_kscReportService;
+
     private ResourceService m_resourceService;
+
     private int m_defaultGraphsPerLine = 0;
+
     private Executor m_executor;
 
     private Set<String> m_resourcesPendingPromotion = Collections.synchronizedSet(new HashSet<String>());
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         String[] requiredParameters = new String[] { "report", "type" };
 
         // Get Form Variable
@@ -142,7 +145,8 @@ public class CustomViewController extends AbstractController implements Initiali
                 throw new ServletException("Report could not be found in config file for index '" + reportId + "'");
             }
         } else {
-            throw new IllegalArgumentException("value to 'type' parameter of '" + reportType + "' is not supported.  Must be one of: node, nodeSource, domain, or custom");
+            throw new IllegalArgumentException("value to 'type' parameter of '" + reportType
+                    + "' is not supported.  Must be one of: node, nodeSource, domain, or custom");
         }
 
         // Get the list of available prefabricated graph options
@@ -157,7 +161,7 @@ public class CustomViewController extends AbstractController implements Initiali
                 OnmsResource resource = null;
                 try {
                     resource = resources.get(i);
-                }catch(IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
                     LOG.debug("Resource List Index Out Of Bounds Caught ", e);
                 }
 
@@ -168,17 +172,15 @@ public class CustomViewController extends AbstractController implements Initiali
                     prefabGraphs.addAll(Arrays.asList(getResourceService().findPrefabGraphsForResource(resource)));
                 }
 
-
             }
 
             // Get default graph type from first element of graph_options
             // XXX Do we care about the tests on reportType?
             if (("node".equals(reportType) || "nodeSource".equals(reportType) || "domain".equals(reportType))
-                    && overrideGraphType == null
-                    && !prefabGraphs.isEmpty()) {
-                // Get the name of the first item.  prefabGraphs is sorted.
+                    && overrideGraphType == null && !prefabGraphs.isEmpty()) {
+                // Get the name of the first item. prefabGraphs is sorted.
                 overrideGraphType = prefabGraphs.iterator().next().getName();
-                    LOG.debug("custom_view: setting default graph type to {}", overrideGraphType);
+                LOG.debug("custom_view: setting default graph type to {}", overrideGraphType);
             }
         }
 
@@ -200,7 +202,7 @@ public class CustomViewController extends AbstractController implements Initiali
             try {
                 displayGraph = getResourceService().getPrefabGraph(displayGraphType);
             } catch (ObjectRetrievalFailureException e) {
-                    LOG.debug("The prefabricated graph '{}' does not exist: {}", displayGraphType, e, e);
+                LOG.debug("The prefabricated graph '{}' does not exist: {}", displayGraphType, e, e);
                 displayGraph = null;
             }
 
@@ -229,7 +231,8 @@ public class CustomViewController extends AbstractController implements Initiali
             Calendar endTime = Calendar.getInstance();
             KSC_PerformanceReportFactory.getBeginEndTime(displayTimespan, beginTime, endTime);
 
-            KscResultSet resultSet = new KscResultSet(graph.getTitle(), beginTime.getTime(), endTime.getTime(), resource, displayGraph);
+            KscResultSet resultSet = new KscResultSet(graph.getTitle(), beginTime.getTime(), endTime.getTime(),
+                                                      resource, displayGraph);
             resultSets.add(resultSet);
         }
 
@@ -274,7 +277,9 @@ public class CustomViewController extends AbstractController implements Initiali
             modelAndView.addObject("graphType", null);
         }
 
-        modelAndView.addObject("showCustomizeButton", ( request.isUserInRole( Authentication.ROLE_ADMIN ) || !request.isUserInRole(Authentication.ROLE_READONLY) ) && (request.getRemoteUser() != null));
+        modelAndView.addObject("showCustomizeButton",
+                               (request.isUserInRole(Authentication.ROLE_ADMIN) || !request.isUserInRole(Authentication.ROLE_READONLY))
+                                       && (request.getRemoteUser() != null));
 
         if (report.getGraphs_per_line() > 0) {
             modelAndView.addObject("graphsPerLine", report.getGraphs_per_line());
@@ -291,7 +296,8 @@ public class CustomViewController extends AbstractController implements Initiali
             try {
                 getKscReportService().getResourceFromGraph(graph);
             } catch (ObjectRetrievalFailureException orfe) {
-                LOG.error("Removing graph '{}' in KSC report '{}' because the resource it refers to could not be found. Perhaps resource '{}' (or its ancestor) referenced by this graph no longer exists?", graph.getTitle(), report.getTitle(), graph.getResourceId());
+                LOG.error("Removing graph '{}' in KSC report '{}' because the resource it refers to could not be found. Perhaps resource '{}' (or its ancestor) referenced by this graph no longer exists?",
+                          graph.getTitle(), report.getTitle(), graph.getResourceId());
                 itr.remove();
             } catch (Throwable e) {
                 LOG.error("Unexpected error while scanning through graphs in report: {}", e.getMessage(), e);
@@ -302,7 +308,7 @@ public class CustomViewController extends AbstractController implements Initiali
 
     private void promoteResourceAttributesIfNecessary(final OnmsResource resource) {
         boolean needToSchedule = false;
-        if(resource != null && resource.getId() != null) {
+        if (resource != null && resource.getId() != null) {
             needToSchedule = m_resourcesPendingPromotion.add(resource.getId());
         }
         if (needToSchedule) {
@@ -310,8 +316,8 @@ public class CustomViewController extends AbstractController implements Initiali
 
                 @Override
                 public void run() {
-                        getResourceService().promoteGraphAttributesForResource(resource);
-                        m_resourcesPendingPromotion.remove(resource.getId());
+                    getResourceService().promoteGraphAttributesForResource(resource);
+                    m_resourcesPendingPromotion.remove(resource.getId());
                 }
 
             });
@@ -319,27 +325,36 @@ public class CustomViewController extends AbstractController implements Initiali
 
     }
 
-
     /**
-     * <p>getKscReportFactory</p>
+     * <p>
+     * getKscReportFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *         object.
      */
     public KSC_PerformanceReportFactory getKscReportFactory() {
         return m_kscReportFactory;
     }
 
     /**
-     * <p>setKscReportFactory</p>
+     * <p>
+     * setKscReportFactory
+     * </p>
      *
-     * @param kscReportFactory a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @param kscReportFactory
+     *            a
+     *            {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *            object.
      */
     public void setKscReportFactory(KSC_PerformanceReportFactory kscReportFactory) {
         m_kscReportFactory = kscReportFactory;
     }
 
     /**
-     * <p>getDefaultGraphsPerLine</p>
+     * <p>
+     * getDefaultGraphsPerLine
+     * </p>
      *
      * @return a int.
      */
@@ -348,9 +363,12 @@ public class CustomViewController extends AbstractController implements Initiali
     }
 
     /**
-     * <p>setDefaultGraphsPerLine</p>
+     * <p>
+     * setDefaultGraphsPerLine
+     * </p>
      *
-     * @param defaultGraphsPerLine a int.
+     * @param defaultGraphsPerLine
+     *            a int.
      */
     public void setDefaultGraphsPerLine(int defaultGraphsPerLine) {
         Assert.isTrue(defaultGraphsPerLine > 0, "property defaultGraphsPerLine must be greater than zero");
@@ -359,7 +377,9 @@ public class CustomViewController extends AbstractController implements Initiali
     }
 
     /**
-     * <p>getKscReportService</p>
+     * <p>
+     * getKscReportService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -368,16 +388,21 @@ public class CustomViewController extends AbstractController implements Initiali
     }
 
     /**
-     * <p>setKscReportService</p>
+     * <p>
+     * setKscReportService
+     * </p>
      *
-     * @param kscReportService a {@link org.opennms.web.svclayer.KscReportService} object.
+     * @param kscReportService
+     *            a {@link org.opennms.web.svclayer.KscReportService} object.
      */
     public void setKscReportService(KscReportService kscReportService) {
         m_kscReportService = kscReportService;
     }
 
     /**
-     * <p>getResourceService</p>
+     * <p>
+     * getResourceService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -386,18 +411,24 @@ public class CustomViewController extends AbstractController implements Initiali
     }
 
     /**
-     * <p>setResourceService</p>
+     * <p>
+     * setResourceService
+     * </p>
      *
-     * @param resourceService a {@link org.opennms.web.svclayer.ResourceService} object.
+     * @param resourceService
+     *            a {@link org.opennms.web.svclayer.ResourceService} object.
      */
     public void setResourceService(ResourceService resourceService) {
         m_resourceService = resourceService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -406,9 +437,8 @@ public class CustomViewController extends AbstractController implements Initiali
         Assert.state(m_resourceService != null, "property resourceService must be set");
         Assert.state(m_defaultGraphsPerLine != 0, "property defaultGraphsPerLine must be set");
 
-        m_executor = Executors.newSingleThreadExecutor(
-            new LogPreservingThreadFactory(getClass().getSimpleName(), 1, false)
-        );
+        m_executor = Executors.newSingleThreadExecutor(new LogPreservingThreadFactory(getClass().getSimpleName(), 1,
+                                                                                      false));
     }
 
 }

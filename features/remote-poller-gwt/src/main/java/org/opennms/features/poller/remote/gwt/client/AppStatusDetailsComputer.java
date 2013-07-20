@@ -51,21 +51,33 @@ import org.opennms.features.poller.remote.gwt.client.utils.StringUtils;
 public class AppStatusDetailsComputer {
 
     final Date m_startTime;
+
     final Date m_endTime;
+
     final Collection<GWTLocationMonitor> m_monitors;
+
     final Collection<GWTMonitoredService> m_services;
+
     final Collection<GWTLocationSpecificStatus> m_statuses;
 
     /**
-     * <p>Constructor for AppStatusDetailsComputer.</p>
+     * <p>
+     * Constructor for AppStatusDetailsComputer.
+     * </p>
      *
-     * @param startTime a {@link java.util.Date} object.
-     * @param endTime a {@link java.util.Date} object.
-     * @param monitors a {@link java.util.Collection} object.
-     * @param services a {@link java.util.Collection} object.
-     * @param statuses a {@link java.util.Collection} object.
+     * @param startTime
+     *            a {@link java.util.Date} object.
+     * @param endTime
+     *            a {@link java.util.Date} object.
+     * @param monitors
+     *            a {@link java.util.Collection} object.
+     * @param services
+     *            a {@link java.util.Collection} object.
+     * @param statuses
+     *            a {@link java.util.Collection} object.
      */
-    public AppStatusDetailsComputer(Date startTime, Date endTime, Collection<GWTLocationMonitor> monitors, Collection<GWTMonitoredService> services, Collection<GWTLocationSpecificStatus> statuses) {
+    public AppStatusDetailsComputer(Date startTime, Date endTime, Collection<GWTLocationMonitor> monitors,
+            Collection<GWTMonitoredService> services, Collection<GWTLocationSpecificStatus> statuses) {
         m_monitors = monitors;
         m_services = services;
         m_statuses = statuses;
@@ -74,9 +86,13 @@ public class AppStatusDetailsComputer {
     }
 
     /**
-     * <p>compute</p>
+     * <p>
+     * compute
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.StatusDetails} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
+     *         object.
      */
     public StatusDetails compute() {
         if (m_statuses == null || m_statuses.size() == 0) {
@@ -98,7 +114,7 @@ public class AppStatusDetailsComputer {
                 monitorIds.add(monitor.getId());
             }
         }
-        if (! foundActiveMonitor) {
+        if (!foundActiveMonitor) {
             return StatusDetails.unknown("No location monitors are currently reporting.");
         }
 
@@ -114,7 +130,7 @@ public class AppStatusDetailsComputer {
 
             GWTMonitoredService service = null;
             if (locationOutages.size() > 0) {
-                 service = locationOutages.iterator().next().getService();
+                service = locationOutages.iterator().next().getService();
             } else {
                 return StatusDetails.unknown("No locations reporting for service ID " + serviceId);
             }
@@ -145,7 +161,7 @@ public class AppStatusDetailsComputer {
         outages = null;
 
         Set<String> allServiceNames = new HashSet<String>();
-        Map<String,Integer> unmonitoredServiceCounts = new HashMap<String,Integer>();
+        Map<String, Integer> unmonitoredServiceCounts = new HashMap<String, Integer>();
         for (final GWTMonitoredService service : m_services) {
             final String serviceName = service.getServiceName();
             allServiceNames.add(serviceName);
@@ -171,9 +187,10 @@ public class AppStatusDetailsComputer {
             final Set<String> names = new TreeSet<String>();
             for (final String key : unmonitoredServiceCounts.keySet()) {
                 final Integer count = unmonitoredServiceCounts.get(key);
-                names.add((count > 1)? key + " (" + count + ")" : key);
+                names.add((count > 1) ? key + " (" + count + ")" : key);
             }
-            return StatusDetails.unknown("The following services were not being reported on by any monitor: " + StringUtils.join(names, ", "));
+            return StatusDetails.unknown("The following services were not being reported on by any monitor: "
+                    + StringUtils.join(names, ", "));
         }
 
         if (servicesDown.size() > 0) {
@@ -181,7 +198,8 @@ public class AppStatusDetailsComputer {
             for (final GWTMonitoredService service : servicesDown) {
                 names.add(service.getServiceName());
             }
-            return StatusDetails.down("The following services were reported as down by all monitors: " + StringUtils.join(names, ","));
+            return StatusDetails.down("The following services were reported as down by all monitors: "
+                    + StringUtils.join(names, ","));
         }
 
         if (servicesWithOutages.size() == m_services.size()) {
@@ -189,7 +207,8 @@ public class AppStatusDetailsComputer {
             for (final GWTMonitoredService service : servicesWithOutages) {
                 names.add(service.getServiceName());
             }
-            return StatusDetails.marginal("The following services were reported to have outages in this application: " + StringUtils.join(names, ", "));
+            return StatusDetails.marginal("The following services were reported to have outages in this application: "
+                    + StringUtils.join(names, ", "));
         }
 
         return StatusDetails.up();
@@ -242,7 +261,8 @@ public class AppStatusDetailsComputer {
                 // there's no existing outage
 
                 if (status.getPollResult().isDown()) {
-                    // but the service is down on this monitor, start a new outage
+                    // but the service is down on this monitor, start a new
+                    // outage
                     lastOutage = new GWTServiceOutage();
                     lastOutage.setService(status.getMonitoredService());
                     lastOutage.setMonitor(status.getLocationMonitor());
@@ -285,6 +305,5 @@ public class AppStatusDetailsComputer {
     private Date getEndTime() {
         return m_endTime;
     }
-
 
 }

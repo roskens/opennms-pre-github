@@ -31,7 +31,9 @@ package org.opennms.web.asset;
 import java.util.Date;
 
 /**
- * <p>Asset class.</p>
+ * <p>
+ * Asset class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -63,8 +65,12 @@ public class Asset extends Object {
     /** Constant <code>OTHER_CATEGORY="Other"</code> */
     public static final String OTHER_CATEGORY = "Other";
 
-    /** Constant <code>CATEGORIES="new String[] { UNSPECIFIED_CATEGORY, IN"{trunked}</code> */
-    public static final String[] CATEGORIES = new String[] { UNSPECIFIED_CATEGORY, INFRASTRUCTURE_CATEGORY, SERVER_CATEGORY, DESKTOP_CATEGORY, LAPTOP_CATEGORY, PRINTER_CATEGORY, TELEPHONY_CATEGORY, OTHER_CATEGORY };
+    /**
+     * Constant
+     * <code>CATEGORIES="new String[] { UNSPECIFIED_CATEGORY, IN"{trunked}</code>
+     */
+    public static final String[] CATEGORIES = new String[] { UNSPECIFIED_CATEGORY, INFRASTRUCTURE_CATEGORY,
+            SERVER_CATEGORY, DESKTOP_CATEGORY, LAPTOP_CATEGORY, PRINTER_CATEGORY, TELEPHONY_CATEGORY, OTHER_CATEGORY };
 
     /** Constant <code>AUTOENABLE="A"</code> */
     public static final String AUTOENABLE = "A";
@@ -81,8 +87,11 @@ public class Asset extends Object {
     /** Constant <code>RSH_CONNECTION="rsh"</code> */
     public static final String RSH_CONNECTION = "rsh";
 
-    /** Constant <code>CONNECTIONS="new String[] { TELNET_CONNECTION,SSH_CO"{trunked}</code> */
-    public static final String[] CONNECTIONS = new String[] { TELNET_CONNECTION, SSH_CONNECTION, RSH_CONNECTION};
+    /**
+     * Constant
+     * <code>CONNECTIONS="new String[] { TELNET_CONNECTION,SSH_CO"{trunked}</code>
+     */
+    public static final String[] CONNECTIONS = new String[] { TELNET_CONNECTION, SSH_CONNECTION, RSH_CONNECTION };
 
     protected int nodeId;
 
@@ -170,48 +179,50 @@ public class Asset extends Object {
 
     protected String comments = "";
 
-    protected String username ="";
+    protected String username = "";
 
-    protected String password ="";
+    protected String password = "";
 
-    protected String enable ="";
+    protected String enable = "";
 
-    protected String connection ="";
+    protected String connection = "";
 
-    protected String autoenable ="";
+    protected String autoenable = "";
 
-    protected String cpu ="";
+    protected String cpu = "";
 
-    protected String ram ="";
+    protected String ram = "";
 
-    protected String storagectrl ="";
+    protected String storagectrl = "";
 
-    protected String hdd1 ="";
+    protected String hdd1 = "";
 
-    protected String hdd2 ="";
+    protected String hdd2 = "";
 
-    protected String hdd3 ="";
+    protected String hdd3 = "";
 
-    protected String hdd4 ="";
+    protected String hdd4 = "";
 
-    protected String hdd5 ="";
+    protected String hdd5 = "";
 
-    protected String hdd6 ="";
+    protected String hdd6 = "";
 
-    protected String numpowersupplies ="";
+    protected String numpowersupplies = "";
 
-    protected String inputpower ="";
+    protected String inputpower = "";
 
-    protected String additionalhardware ="";
+    protected String additionalhardware = "";
 
-    protected String admin ="";
+    protected String admin = "";
 
-    protected String snmpcommunity ="";
+    protected String snmpcommunity = "";
 
-    protected String rackunitheight ="";
+    protected String rackunitheight = "";
 
     /**
-     * <p>Getter for the field <code>rackunitheight</code>.</p>
+     * <p>
+     * Getter for the field <code>rackunitheight</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -220,9 +231,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>rackunitheight</code>.</p>
+     * <p>
+     * Setter for the field <code>rackunitheight</code>.
+     * </p>
      *
-     * @param rackunitheight a {@link java.lang.String} object.
+     * @param rackunitheight
+     *            a {@link java.lang.String} object.
      */
     public void setRackunitheight(String rackunitheight) {
         if (rackunitheight != null) {
@@ -230,9 +244,12 @@ public class Asset extends Object {
         } else {
             this.rackunitheight = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>snmpcommunity</code>.</p>
+     * <p>
+     * Getter for the field <code>snmpcommunity</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -241,9 +258,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>snmpcommunity</code>.</p>
+     * <p>
+     * Setter for the field <code>snmpcommunity</code>.
+     * </p>
      *
-     * @param snmpcommunity a {@link java.lang.String} object.
+     * @param snmpcommunity
+     *            a {@link java.lang.String} object.
      */
     public void setSnmpcommunity(String snmpcommunity) {
         if (snmpcommunity != null) {
@@ -251,9 +271,12 @@ public class Asset extends Object {
         } else {
             this.snmpcommunity = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>admin</code>.</p>
+     * <p>
+     * Getter for the field <code>admin</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -262,9 +285,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>admin</code>.</p>
+     * <p>
+     * Setter for the field <code>admin</code>.
+     * </p>
      *
-     * @param admin a {@link java.lang.String} object.
+     * @param admin
+     *            a {@link java.lang.String} object.
      */
     public void setAdmin(String admin) {
         if (admin != null) {
@@ -272,9 +298,12 @@ public class Asset extends Object {
         } else {
             this.admin = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>additionalhardware</code>.</p>
+     * <p>
+     * Getter for the field <code>additionalhardware</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -283,9 +312,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>additionalhardware</code>.</p>
+     * <p>
+     * Setter for the field <code>additionalhardware</code>.
+     * </p>
      *
-     * @param additionalhardware a {@link java.lang.String} object.
+     * @param additionalhardware
+     *            a {@link java.lang.String} object.
      */
     public void setAdditionalhardware(String additionalhardware) {
         if (additionalhardware != null) {
@@ -293,9 +325,12 @@ public class Asset extends Object {
         } else {
             this.additionalhardware = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>inputpower</code>.</p>
+     * <p>
+     * Getter for the field <code>inputpower</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -304,9 +339,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>inputpower</code>.</p>
+     * <p>
+     * Setter for the field <code>inputpower</code>.
+     * </p>
      *
-     * @param inputpower a {@link java.lang.String} object.
+     * @param inputpower
+     *            a {@link java.lang.String} object.
      */
     public void setInputpower(String inputpower) {
         if (inputpower != null) {
@@ -314,9 +352,12 @@ public class Asset extends Object {
         } else {
             this.inputpower = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>numpowersupplies</code>.</p>
+     * <p>
+     * Getter for the field <code>numpowersupplies</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -325,9 +366,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>numpowersupplies</code>.</p>
+     * <p>
+     * Setter for the field <code>numpowersupplies</code>.
+     * </p>
      *
-     * @param numpowersupplies a {@link java.lang.String} object.
+     * @param numpowersupplies
+     *            a {@link java.lang.String} object.
      */
     public void setNumpowersupplies(String numpowersupplies) {
         if (numpowersupplies != null) {
@@ -335,9 +379,12 @@ public class Asset extends Object {
         } else {
             this.numpowersupplies = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>hdd6</code>.</p>
+     * <p>
+     * Getter for the field <code>hdd6</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -346,9 +393,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>hdd6</code>.</p>
+     * <p>
+     * Setter for the field <code>hdd6</code>.
+     * </p>
      *
-     * @param hdd6 a {@link java.lang.String} object.
+     * @param hdd6
+     *            a {@link java.lang.String} object.
      */
     public void setHdd6(String hdd6) {
         if (hdd6 != null) {
@@ -356,9 +406,12 @@ public class Asset extends Object {
         } else {
             this.hdd6 = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>hdd5</code>.</p>
+     * <p>
+     * Getter for the field <code>hdd5</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -367,9 +420,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>hdd5</code>.</p>
+     * <p>
+     * Setter for the field <code>hdd5</code>.
+     * </p>
      *
-     * @param hdd5 a {@link java.lang.String} object.
+     * @param hdd5
+     *            a {@link java.lang.String} object.
      */
     public void setHdd5(String hdd5) {
         if (hdd5 != null) {
@@ -377,9 +433,12 @@ public class Asset extends Object {
         } else {
             this.hdd5 = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>hdd4</code>.</p>
+     * <p>
+     * Getter for the field <code>hdd4</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -388,9 +447,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>hdd4</code>.</p>
+     * <p>
+     * Setter for the field <code>hdd4</code>.
+     * </p>
      *
-     * @param hdd4 a {@link java.lang.String} object.
+     * @param hdd4
+     *            a {@link java.lang.String} object.
      */
     public void setHdd4(String hdd4) {
         if (hdd4 != null) {
@@ -398,9 +460,12 @@ public class Asset extends Object {
         } else {
             this.hdd4 = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>hdd3</code>.</p>
+     * <p>
+     * Getter for the field <code>hdd3</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -409,9 +474,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>hdd3</code>.</p>
+     * <p>
+     * Setter for the field <code>hdd3</code>.
+     * </p>
      *
-     * @param hdd3 a {@link java.lang.String} object.
+     * @param hdd3
+     *            a {@link java.lang.String} object.
      */
     public void setHdd3(String hdd3) {
         if (hdd3 != null) {
@@ -419,9 +487,12 @@ public class Asset extends Object {
         } else {
             this.hdd3 = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>hdd2</code>.</p>
+     * <p>
+     * Getter for the field <code>hdd2</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -430,9 +501,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>hdd2</code>.</p>
+     * <p>
+     * Setter for the field <code>hdd2</code>.
+     * </p>
      *
-     * @param hdd2 a {@link java.lang.String} object.
+     * @param hdd2
+     *            a {@link java.lang.String} object.
      */
     public void setHdd2(String hdd2) {
         if (hdd2 != null) {
@@ -440,9 +514,12 @@ public class Asset extends Object {
         } else {
             this.hdd2 = "";
         }
-      }
+    }
+
     /**
-     * <p>Getter for the field <code>hdd1</code>.</p>
+     * <p>
+     * Getter for the field <code>hdd1</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -451,9 +528,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>hdd1</code>.</p>
+     * <p>
+     * Setter for the field <code>hdd1</code>.
+     * </p>
      *
-     * @param hdd1 a {@link java.lang.String} object.
+     * @param hdd1
+     *            a {@link java.lang.String} object.
      */
     public void setHdd1(String hdd1) {
         if (hdd1 != null) {
@@ -461,10 +541,12 @@ public class Asset extends Object {
         } else {
             this.hdd1 = "";
         }
-      }
+    }
 
     /**
-     * <p>Getter for the field <code>storagectrl</code>.</p>
+     * <p>
+     * Getter for the field <code>storagectrl</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -473,9 +555,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>storagectrl</code>.</p>
+     * <p>
+     * Setter for the field <code>storagectrl</code>.
+     * </p>
      *
-     * @param storagectrl a {@link java.lang.String} object.
+     * @param storagectrl
+     *            a {@link java.lang.String} object.
      */
     public void setStoragectrl(String storagectrl) {
         if (storagectrl != null) {
@@ -483,19 +568,24 @@ public class Asset extends Object {
         } else {
             this.storagectrl = "";
         }
-      }
+    }
 
     /**
-     * <p>Setter for the field <code>nodeId</code>.</p>
+     * <p>
+     * Setter for the field <code>nodeId</code>.
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     public void setNodeId(int nodeId) {
         this.nodeId = nodeId;
     }
 
     /**
-     * <p>Getter for the field <code>nodeId</code>.</p>
+     * <p>
+     * Getter for the field <code>nodeId</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -504,16 +594,21 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>lastModifiedDate</code>.</p>
+     * <p>
+     * Setter for the field <code>lastModifiedDate</code>.
+     * </p>
      *
-     * @param lastModifiedDate a {@link java.util.Date} object.
+     * @param lastModifiedDate
+     *            a {@link java.util.Date} object.
      */
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
     /**
-     * <p>Getter for the field <code>lastModifiedDate</code>.</p>
+     * <p>
+     * Getter for the field <code>lastModifiedDate</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -522,9 +617,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>category</code>.</p>
+     * <p>
+     * Setter for the field <code>category</code>.
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
      */
     public void setCategory(String category) {
         if (category != null) {
@@ -535,7 +633,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>category</code>.</p>
+     * <p>
+     * Getter for the field <code>category</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -544,9 +644,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>displayCategory</code>.</p>
+     * <p>
+     * Setter for the field <code>displayCategory</code>.
+     * </p>
      *
-     * @param displayCategory a {@link java.lang.String} object.
+     * @param displayCategory
+     *            a {@link java.lang.String} object.
      */
     public void setDisplayCategory(String displayCategory) {
         if (displayCategory != null) {
@@ -557,7 +660,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>displayCategory</code>.</p>
+     * <p>
+     * Getter for the field <code>displayCategory</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -566,9 +671,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>notifyCategory</code>.</p>
+     * <p>
+     * Setter for the field <code>notifyCategory</code>.
+     * </p>
      *
-     * @param notifyCategory a {@link java.lang.String} object.
+     * @param notifyCategory
+     *            a {@link java.lang.String} object.
      */
     public void setNotifyCategory(String notifyCategory) {
         if (notifyCategory != null) {
@@ -579,7 +687,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>notifyCategory</code>.</p>
+     * <p>
+     * Getter for the field <code>notifyCategory</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -588,9 +698,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>pollerCategory</code>.</p>
+     * <p>
+     * Setter for the field <code>pollerCategory</code>.
+     * </p>
      *
-     * @param pollerCategory a {@link java.lang.String} object.
+     * @param pollerCategory
+     *            a {@link java.lang.String} object.
      */
     public void setPollerCategory(String pollerCategory) {
         if (pollerCategory != null) {
@@ -601,7 +714,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>pollerCategory</code>.</p>
+     * <p>
+     * Getter for the field <code>pollerCategory</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -610,9 +725,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>thresholdCategory</code>.</p>
+     * <p>
+     * Setter for the field <code>thresholdCategory</code>.
+     * </p>
      *
-     * @param thresholdCategory a {@link java.lang.String} object.
+     * @param thresholdCategory
+     *            a {@link java.lang.String} object.
      */
     public void setThresholdCategory(String thresholdCategory) {
         if (thresholdCategory != null) {
@@ -623,7 +741,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>thresholdCategory</code>.</p>
+     * <p>
+     * Getter for the field <code>thresholdCategory</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -632,9 +752,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>manufacturer</code>.</p>
+     * <p>
+     * Setter for the field <code>manufacturer</code>.
+     * </p>
      *
-     * @param manufacturer a {@link java.lang.String} object.
+     * @param manufacturer
+     *            a {@link java.lang.String} object.
      */
     public void setManufacturer(String manufacturer) {
         if (manufacturer != null) {
@@ -645,7 +768,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>manufacturer</code>.</p>
+     * <p>
+     * Getter for the field <code>manufacturer</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -654,9 +779,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>vendor</code>.</p>
+     * <p>
+     * Setter for the field <code>vendor</code>.
+     * </p>
      *
-     * @param vendor a {@link java.lang.String} object.
+     * @param vendor
+     *            a {@link java.lang.String} object.
      */
     public void setVendor(String vendor) {
         if (vendor != null) {
@@ -667,7 +795,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>vendor</code>.</p>
+     * <p>
+     * Getter for the field <code>vendor</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -676,9 +806,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>modelNumber</code>.</p>
+     * <p>
+     * Setter for the field <code>modelNumber</code>.
+     * </p>
      *
-     * @param modelNumber a {@link java.lang.String} object.
+     * @param modelNumber
+     *            a {@link java.lang.String} object.
      */
     public void setModelNumber(String modelNumber) {
         if (modelNumber != null) {
@@ -689,7 +822,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>modelNumber</code>.</p>
+     * <p>
+     * Getter for the field <code>modelNumber</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -698,9 +833,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>serialNumber</code>.</p>
+     * <p>
+     * Setter for the field <code>serialNumber</code>.
+     * </p>
      *
-     * @param serialNumber a {@link java.lang.String} object.
+     * @param serialNumber
+     *            a {@link java.lang.String} object.
      */
     public void setSerialNumber(String serialNumber) {
         if (serialNumber != null) {
@@ -711,7 +849,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>serialNumber</code>.</p>
+     * <p>
+     * Getter for the field <code>serialNumber</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -720,9 +860,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>description</code>.</p>
+     * <p>
+     * Setter for the field <code>description</code>.
+     * </p>
      *
-     * @param description a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
      */
     public void setDescription(String description) {
         if (description != null) {
@@ -733,7 +876,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>description</code>.</p>
+     * <p>
+     * Getter for the field <code>description</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -742,9 +887,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>circuitId</code>.</p>
+     * <p>
+     * Setter for the field <code>circuitId</code>.
+     * </p>
      *
-     * @param circuitId a {@link java.lang.String} object.
+     * @param circuitId
+     *            a {@link java.lang.String} object.
      */
     public void setCircuitId(String circuitId) {
         if (circuitId != null) {
@@ -755,7 +903,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>circuitId</code>.</p>
+     * <p>
+     * Getter for the field <code>circuitId</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -764,9 +914,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>assetNumber</code>.</p>
+     * <p>
+     * Setter for the field <code>assetNumber</code>.
+     * </p>
      *
-     * @param assetNumber a {@link java.lang.String} object.
+     * @param assetNumber
+     *            a {@link java.lang.String} object.
      */
     public void setAssetNumber(String assetNumber) {
         if (assetNumber != null) {
@@ -777,7 +930,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>assetNumber</code>.</p>
+     * <p>
+     * Getter for the field <code>assetNumber</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -786,9 +941,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>operatingSystem</code>.</p>
+     * <p>
+     * Setter for the field <code>operatingSystem</code>.
+     * </p>
      *
-     * @param operatingSystem a {@link java.lang.String} object.
+     * @param operatingSystem
+     *            a {@link java.lang.String} object.
      */
     public void setOperatingSystem(String operatingSystem) {
         if (operatingSystem != null) {
@@ -799,7 +957,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>operatingSystem</code>.</p>
+     * <p>
+     * Getter for the field <code>operatingSystem</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -808,9 +968,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>rack</code>.</p>
+     * <p>
+     * Setter for the field <code>rack</code>.
+     * </p>
      *
-     * @param rack a {@link java.lang.String} object.
+     * @param rack
+     *            a {@link java.lang.String} object.
      */
     public void setRack(String rack) {
         if (rack != null) {
@@ -821,7 +984,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>rack</code>.</p>
+     * <p>
+     * Getter for the field <code>rack</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -830,9 +995,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>slot</code>.</p>
+     * <p>
+     * Setter for the field <code>slot</code>.
+     * </p>
      *
-     * @param slot a {@link java.lang.String} object.
+     * @param slot
+     *            a {@link java.lang.String} object.
      */
     public void setSlot(String slot) {
         if (slot != null) {
@@ -843,7 +1011,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>slot</code>.</p>
+     * <p>
+     * Getter for the field <code>slot</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -852,9 +1022,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>port</code>.</p>
+     * <p>
+     * Setter for the field <code>port</code>.
+     * </p>
      *
-     * @param port a {@link java.lang.String} object.
+     * @param port
+     *            a {@link java.lang.String} object.
      */
     public void setPort(String port) {
         if (port != null) {
@@ -865,7 +1038,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>port</code>.</p>
+     * <p>
+     * Getter for the field <code>port</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -874,9 +1049,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>region</code>.</p>
+     * <p>
+     * Setter for the field <code>region</code>.
+     * </p>
      *
-     * @param region a {@link java.lang.String} object.
+     * @param region
+     *            a {@link java.lang.String} object.
      */
     public void setRegion(String region) {
         if (region != null) {
@@ -887,7 +1065,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>region</code>.</p>
+     * <p>
+     * Getter for the field <code>region</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -896,9 +1076,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>division</code>.</p>
+     * <p>
+     * Setter for the field <code>division</code>.
+     * </p>
      *
-     * @param division a {@link java.lang.String} object.
+     * @param division
+     *            a {@link java.lang.String} object.
      */
     public void setDivision(String division) {
         if (division != null) {
@@ -909,7 +1092,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>division</code>.</p>
+     * <p>
+     * Getter for the field <code>division</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -918,9 +1103,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>department</code>.</p>
+     * <p>
+     * Setter for the field <code>department</code>.
+     * </p>
      *
-     * @param department a {@link java.lang.String} object.
+     * @param department
+     *            a {@link java.lang.String} object.
      */
     public void setDepartment(String department) {
         if (department != null) {
@@ -931,7 +1119,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>department</code>.</p>
+     * <p>
+     * Getter for the field <code>department</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -940,9 +1130,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>address1</code>.</p>
+     * <p>
+     * Setter for the field <code>address1</code>.
+     * </p>
      *
-     * @param address1 a {@link java.lang.String} object.
+     * @param address1
+     *            a {@link java.lang.String} object.
      */
     public void setAddress1(String address1) {
         if (address1 != null) {
@@ -953,7 +1146,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>address1</code>.</p>
+     * <p>
+     * Getter for the field <code>address1</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -962,9 +1157,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>address2</code>.</p>
+     * <p>
+     * Setter for the field <code>address2</code>.
+     * </p>
      *
-     * @param address2 a {@link java.lang.String} object.
+     * @param address2
+     *            a {@link java.lang.String} object.
      */
     public void setAddress2(String address2) {
         if (address2 != null) {
@@ -975,7 +1173,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>address2</code>.</p>
+     * <p>
+     * Getter for the field <code>address2</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -984,9 +1184,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>city</code>.</p>
+     * <p>
+     * Setter for the field <code>city</code>.
+     * </p>
      *
-     * @param city a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
      */
     public void setCity(String city) {
         if (city != null) {
@@ -997,7 +1200,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>city</code>.</p>
+     * <p>
+     * Getter for the field <code>city</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1006,9 +1211,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>state</code>.</p>
+     * <p>
+     * Setter for the field <code>state</code>.
+     * </p>
      *
-     * @param state a {@link java.lang.String} object.
+     * @param state
+     *            a {@link java.lang.String} object.
      */
     public void setState(String state) {
         if (state != null) {
@@ -1019,7 +1227,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>state</code>.</p>
+     * <p>
+     * Getter for the field <code>state</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1028,9 +1238,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>zip</code>.</p>
+     * <p>
+     * Setter for the field <code>zip</code>.
+     * </p>
      *
-     * @param zip a {@link java.lang.String} object.
+     * @param zip
+     *            a {@link java.lang.String} object.
      */
     public void setZip(String zip) {
         if (zip != null) {
@@ -1041,7 +1254,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>zip</code>.</p>
+     * <p>
+     * Getter for the field <code>zip</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1050,9 +1265,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>country</code>.</p>
+     * <p>
+     * Setter for the field <code>country</code>.
+     * </p>
      *
-     * @param country a {@link java.lang.String} object.
+     * @param country
+     *            a {@link java.lang.String} object.
      */
     public void setCountry(String country) {
         if (country != null) {
@@ -1063,7 +1281,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>country</code>.</p>
+     * <p>
+     * Getter for the field <code>country</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1072,9 +1292,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>longitude</code>.</p>
+     * <p>
+     * Setter for the field <code>longitude</code>.
+     * </p>
      *
-     * @param longitude a {@link java.lang.String} object.
+     * @param longitude
+     *            a {@link java.lang.String} object.
      */
     public void setLongitude(String longitude) {
         if (longitude != null) {
@@ -1085,7 +1308,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>longitude</code>.</p>
+     * <p>
+     * Getter for the field <code>longitude</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1094,9 +1319,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>latitude</code>.</p>
+     * <p>
+     * Setter for the field <code>latitude</code>.
+     * </p>
      *
-     * @param latitude a {@link java.lang.String} object.
+     * @param latitude
+     *            a {@link java.lang.String} object.
      */
     public void setLatitude(String latitude) {
         if (latitude != null) {
@@ -1107,7 +1335,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>latitude</code>.</p>
+     * <p>
+     * Getter for the field <code>latitude</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1116,9 +1346,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>building</code>.</p>
+     * <p>
+     * Setter for the field <code>building</code>.
+     * </p>
      *
-     * @param building a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
      */
     public void setBuilding(String building) {
         if (building != null) {
@@ -1129,7 +1362,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>building</code>.</p>
+     * <p>
+     * Getter for the field <code>building</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1138,9 +1373,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>floor</code>.</p>
+     * <p>
+     * Setter for the field <code>floor</code>.
+     * </p>
      *
-     * @param floor a {@link java.lang.String} object.
+     * @param floor
+     *            a {@link java.lang.String} object.
      */
     public void setFloor(String floor) {
         if (floor != null) {
@@ -1151,7 +1389,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>floor</code>.</p>
+     * <p>
+     * Getter for the field <code>floor</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1160,9 +1400,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>room</code>.</p>
+     * <p>
+     * Setter for the field <code>room</code>.
+     * </p>
      *
-     * @param room a {@link java.lang.String} object.
+     * @param room
+     *            a {@link java.lang.String} object.
      */
     public void setRoom(String room) {
         if (room != null) {
@@ -1173,7 +1416,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>room</code>.</p>
+     * <p>
+     * Getter for the field <code>room</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1182,9 +1427,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>vendorPhone</code>.</p>
+     * <p>
+     * Setter for the field <code>vendorPhone</code>.
+     * </p>
      *
-     * @param vendorPhone a {@link java.lang.String} object.
+     * @param vendorPhone
+     *            a {@link java.lang.String} object.
      */
     public void setVendorPhone(String vendorPhone) {
         if (vendorPhone != null) {
@@ -1195,7 +1443,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>vendorPhone</code>.</p>
+     * <p>
+     * Getter for the field <code>vendorPhone</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1204,9 +1454,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>vendorFax</code>.</p>
+     * <p>
+     * Setter for the field <code>vendorFax</code>.
+     * </p>
      *
-     * @param vendorFax a {@link java.lang.String} object.
+     * @param vendorFax
+     *            a {@link java.lang.String} object.
      */
     public void setVendorFax(String vendorFax) {
         if (vendorFax != null) {
@@ -1217,7 +1470,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>vendorFax</code>.</p>
+     * <p>
+     * Getter for the field <code>vendorFax</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1226,9 +1481,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>userLastModified</code>.</p>
+     * <p>
+     * Setter for the field <code>userLastModified</code>.
+     * </p>
      *
-     * @param userLastModified a {@link java.lang.String} object.
+     * @param userLastModified
+     *            a {@link java.lang.String} object.
      */
     public void setUserLastModified(String userLastModified) {
         if (userLastModified != null) {
@@ -1239,7 +1497,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>userLastModified</code>.</p>
+     * <p>
+     * Getter for the field <code>userLastModified</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1248,9 +1508,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>dateInstalled</code>.</p>
+     * <p>
+     * Setter for the field <code>dateInstalled</code>.
+     * </p>
      *
-     * @param dateInstalled a {@link java.lang.String} object.
+     * @param dateInstalled
+     *            a {@link java.lang.String} object.
      */
     public void setDateInstalled(String dateInstalled) {
         if (dateInstalled != null) {
@@ -1261,7 +1524,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>dateInstalled</code>.</p>
+     * <p>
+     * Getter for the field <code>dateInstalled</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1270,9 +1535,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>lease</code>.</p>
+     * <p>
+     * Setter for the field <code>lease</code>.
+     * </p>
      *
-     * @param lease a {@link java.lang.String} object.
+     * @param lease
+     *            a {@link java.lang.String} object.
      */
     public void setLease(String lease) {
         if (lease != null) {
@@ -1283,7 +1551,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>lease</code>.</p>
+     * <p>
+     * Getter for the field <code>lease</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1292,9 +1562,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>leaseExpires</code>.</p>
+     * <p>
+     * Setter for the field <code>leaseExpires</code>.
+     * </p>
      *
-     * @param leaseExpires a {@link java.lang.String} object.
+     * @param leaseExpires
+     *            a {@link java.lang.String} object.
      */
     public void setLeaseExpires(String leaseExpires) {
         if (leaseExpires != null) {
@@ -1305,7 +1578,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>leaseExpires</code>.</p>
+     * <p>
+     * Getter for the field <code>leaseExpires</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1314,9 +1589,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>supportPhone</code>.</p>
+     * <p>
+     * Setter for the field <code>supportPhone</code>.
+     * </p>
      *
-     * @param supportPhone a {@link java.lang.String} object.
+     * @param supportPhone
+     *            a {@link java.lang.String} object.
      */
     public void setSupportPhone(String supportPhone) {
         if (supportPhone != null) {
@@ -1327,7 +1605,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>supportPhone</code>.</p>
+     * <p>
+     * Getter for the field <code>supportPhone</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1336,9 +1616,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>maintContract</code>.</p>
+     * <p>
+     * Setter for the field <code>maintContract</code>.
+     * </p>
      *
-     * @param maintContract a {@link java.lang.String} object.
+     * @param maintContract
+     *            a {@link java.lang.String} object.
      */
     public void setMaintContract(String maintContract) {
         if (maintContract != null) {
@@ -1349,7 +1632,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>maintContract</code>.</p>
+     * <p>
+     * Getter for the field <code>maintContract</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1358,9 +1643,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>vendorAssetNumber</code>.</p>
+     * <p>
+     * Setter for the field <code>vendorAssetNumber</code>.
+     * </p>
      *
-     * @param vendorAssetNumber a {@link java.lang.String} object.
+     * @param vendorAssetNumber
+     *            a {@link java.lang.String} object.
      */
     public void setVendorAssetNumber(String vendorAssetNumber) {
         if (vendorAssetNumber != null) {
@@ -1371,7 +1659,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>vendorAssetNumber</code>.</p>
+     * <p>
+     * Getter for the field <code>vendorAssetNumber</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1380,9 +1670,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>maintContractExpires</code>.</p>
+     * <p>
+     * Setter for the field <code>maintContractExpires</code>.
+     * </p>
      *
-     * @param maintContractExpires a {@link java.lang.String} object.
+     * @param maintContractExpires
+     *            a {@link java.lang.String} object.
      */
     public void setMaintContractExpires(String maintContractExpires) {
         if (maintContractExpires != null) {
@@ -1393,7 +1686,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>maintContractExpires</code>.</p>
+     * <p>
+     * Getter for the field <code>maintContractExpires</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1402,9 +1697,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>comments</code>.</p>
+     * <p>
+     * Setter for the field <code>comments</code>.
+     * </p>
      *
-     * @param comments a {@link java.lang.String} object.
+     * @param comments
+     *            a {@link java.lang.String} object.
      */
     public void setComments(String comments) {
         if (comments != null) {
@@ -1415,7 +1713,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>comments</code>.</p>
+     * <p>
+     * Getter for the field <code>comments</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1424,7 +1724,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>username</code>.</p>
+     * <p>
+     * Getter for the field <code>username</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1433,9 +1735,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>username</code>.</p>
+     * <p>
+     * Setter for the field <code>username</code>.
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      */
     public void setUsername(String username) {
         if (username != null) {
@@ -1446,7 +1751,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>password</code>.</p>
+     * <p>
+     * Getter for the field <code>password</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1455,9 +1762,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>password</code>.</p>
+     * <p>
+     * Setter for the field <code>password</code>.
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         if (password != null) {
@@ -1468,7 +1778,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>enable</code>.</p>
+     * <p>
+     * Getter for the field <code>enable</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1477,9 +1789,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>enable</code>.</p>
+     * <p>
+     * Setter for the field <code>enable</code>.
+     * </p>
      *
-     * @param enable a {@link java.lang.String} object.
+     * @param enable
+     *            a {@link java.lang.String} object.
      */
     public void setEnable(String enable) {
         if (enable != null) {
@@ -1490,7 +1805,9 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Getter for the field <code>connection</code>.</p>
+     * <p>
+     * Getter for the field <code>connection</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1499,9 +1816,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>connection</code>.</p>
+     * <p>
+     * Setter for the field <code>connection</code>.
+     * </p>
      *
-     * @param connection a {@link java.lang.String} object.
+     * @param connection
+     *            a {@link java.lang.String} object.
      */
     public void setConnection(String connection) {
         if (connection != null) {
@@ -1509,10 +1829,12 @@ public class Asset extends Object {
         } else {
             this.connection = "";
         }
-   }
+    }
 
     /**
-     * <p>Getter for the field <code>autoenable</code>.</p>
+     * <p>
+     * Getter for the field <code>autoenable</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1521,9 +1843,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>autoenable</code>.</p>
+     * <p>
+     * Setter for the field <code>autoenable</code>.
+     * </p>
      *
-     * @param autoenable a {@link java.lang.String} object.
+     * @param autoenable
+     *            a {@link java.lang.String} object.
      */
     public void setAutoenable(String autoenable) {
         if (autoenable != null) {
@@ -1531,10 +1856,12 @@ public class Asset extends Object {
         } else {
             this.autoenable = "";
         }
-      }
+    }
 
     /**
-     * <p>Getter for the field <code>cpu</code>.</p>
+     * <p>
+     * Getter for the field <code>cpu</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1543,9 +1870,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>cpu</code>.</p>
+     * <p>
+     * Setter for the field <code>cpu</code>.
+     * </p>
      *
-     * @param cpu a {@link java.lang.String} object.
+     * @param cpu
+     *            a {@link java.lang.String} object.
      */
     public void setCpu(String cpu) {
         if (cpu != null) {
@@ -1553,10 +1883,12 @@ public class Asset extends Object {
         } else {
             this.cpu = "";
         }
-      }
+    }
 
     /**
-     * <p>Getter for the field <code>ram</code>.</p>
+     * <p>
+     * Getter for the field <code>ram</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1565,9 +1897,12 @@ public class Asset extends Object {
     }
 
     /**
-     * <p>Setter for the field <code>ram</code>.</p>
+     * <p>
+     * Setter for the field <code>ram</code>.
+     * </p>
      *
-     * @param ram a {@link java.lang.String} object.
+     * @param ram
+     *            a {@link java.lang.String} object.
      */
     public void setRam(String ram) {
         if (ram != null) {

@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.client.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * <p>LocationsUpdatedEvent class.</p>
+ * <p>
+ * LocationsUpdatedEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,34 +47,41 @@ public class LocationsUpdatedEvent extends GwtEvent<LocationsUpdatedEventHandler
     private String m_eventString = "You have got the event String";
 
     /**
-     * <p>Constructor for LocationsUpdatedEvent.</p>
+     * <p>
+     * Constructor for LocationsUpdatedEvent.
+     * </p>
      */
     public LocationsUpdatedEvent() {
     }
 
-	/** {@inheritDoc} */
-	@Override
-	protected void dispatch(LocationsUpdatedEventHandler handler) {
-		handler.onLocationsUpdated(this);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected void dispatch(LocationsUpdatedEventHandler handler) {
+        handler.onLocationsUpdated(this);
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<LocationsUpdatedEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<LocationsUpdatedEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
     /**
-     * <p>setEventString</p>
+     * <p>
+     * setEventString
+     * </p>
      *
-     * @param eventString a {@link java.lang.String} object.
+     * @param eventString
+     *            a {@link java.lang.String} object.
      */
     public void setEventString(final String eventString) {
         m_eventString = eventString;
     }
 
     /**
-     * <p>getEventString</p>
+     * <p>
+     * getEventString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

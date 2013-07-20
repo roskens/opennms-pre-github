@@ -38,7 +38,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 /**
- * <p>DistributedStatusDetailsValidator class.</p>
+ * <p>
+ * DistributedStatusDetailsValidator class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -47,6 +49,7 @@ import org.springframework.validation.Validator;
 public class DistributedStatusDetailsValidator implements Validator, InitializingBean {
 
     private LocationMonitorDao m_locationMonitorDao;
+
     private ApplicationDao m_applicationDao;
 
     /** {@inheritDoc} */
@@ -61,36 +64,31 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
         DistributedStatusDetailsCommand cmd = (DistributedStatusDetailsCommand) obj;
 
         if (cmd.getLocation() == null) {
-            errors.rejectValue("location", "location.not-specified",
-                               new Object[] { "location" },
-                               "Value required.");
+            errors.rejectValue("location", "location.not-specified", new Object[] { "location" }, "Value required.");
         } else {
-            OnmsMonitoringLocationDefinition locationDef =
-                m_locationMonitorDao.findMonitoringLocationDefinition(cmd.getLocation());
+            OnmsMonitoringLocationDefinition locationDef = m_locationMonitorDao.findMonitoringLocationDefinition(cmd.getLocation());
             if (locationDef == null) {
-                errors.rejectValue("location", "location.not-found",
-                                   new Object[] { cmd.getLocation() },
-                "Valid location definition required.");
+                errors.rejectValue("location", "location.not-found", new Object[] { cmd.getLocation() },
+                                   "Valid location definition required.");
             }
         }
 
         if (cmd.getApplication() == null) {
-            errors.rejectValue("application", "application.not-specified",
-                               new Object[] { "application" },
+            errors.rejectValue("application", "application.not-specified", new Object[] { "application" },
                                "Value required.");
         } else {
-            OnmsApplication app =
-                m_applicationDao.findByName(cmd.getApplication());
+            OnmsApplication app = m_applicationDao.findByName(cmd.getApplication());
             if (app == null) {
-                errors.rejectValue("application", "application.not-found",
-                                   new Object[] { cmd.getApplication() },
+                errors.rejectValue("application", "application.not-found", new Object[] { cmd.getApplication() },
                                    "Valid application required.");
             }
         }
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {
@@ -103,7 +101,9 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
     }
 
     /**
-     * <p>getApplicationDao</p>
+     * <p>
+     * getApplicationDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
      */
@@ -112,16 +112,21 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
     }
 
     /**
-     * <p>setApplicationDao</p>
+     * <p>
+     * setApplicationDao
+     * </p>
      *
-     * @param applicationDao a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
+     * @param applicationDao
+     *            a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
      */
     public final void setApplicationDao(final ApplicationDao applicationDao) {
         m_applicationDao = applicationDao;
     }
 
     /**
-     * <p>getLocationMonitorDao</p>
+     * <p>
+     * getLocationMonitorDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -130,9 +135,13 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
     }
 
     /**
-     * <p>setLocationMonitorDao</p>
+     * <p>
+     * setLocationMonitorDao
+     * </p>
      *
-     * @param locationMonitorDao a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
+     * @param locationMonitorDao
+     *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}
+     *            object.
      */
     public final void setLocationMonitorDao(final LocationMonitorDao locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;

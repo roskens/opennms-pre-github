@@ -39,16 +39,27 @@ import com.google.gwt.user.client.ui.Widget;
 public class KscCustomSelectionView implements SelectionDisplay {
 
     public static final String VIEW = "view";
+
     public static final String CUSTOMIZE = "customize";
+
     public static final String CREATE_NEW = "createNew";
+
     public static final String CREATE_NEW_FROM_EXISTING = "createNewExisting";
+
     public static final String DELETE = "delete";
+
     VerticalPanel m_vertPanel;
+
     Button m_submitButton;
+
     RadioButton m_viewRB;
+
     RadioButton m_customizeRB;
+
     RadioButton m_createNewRB;
+
     RadioButton m_createNewExistingRB;
+
     RadioButton m_deleteRB;
 
     public KscCustomSelectionView() {
@@ -56,10 +67,10 @@ public class KscCustomSelectionView implements SelectionDisplay {
         m_vertPanel.setStyleName("onms-table-no-borders-margin");
         m_submitButton = new Button("Submit");
         m_viewRB = new RadioButton("group1", "View");
-        m_customizeRB = new RadioButton("group1","Customize");
-        m_createNewRB = new RadioButton("group1","Create New");
-        m_createNewExistingRB = new RadioButton("group1","Create New from Existing");
-        m_deleteRB = new RadioButton("group1","Delete");
+        m_customizeRB = new RadioButton("group1", "Customize");
+        m_createNewRB = new RadioButton("group1", "Create New");
+        m_createNewExistingRB = new RadioButton("group1", "Create New from Existing");
+        m_deleteRB = new RadioButton("group1", "Delete");
 
         m_vertPanel.add(m_viewRB);
         m_vertPanel.add(m_customizeRB);
@@ -77,15 +88,15 @@ public class KscCustomSelectionView implements SelectionDisplay {
 
     @Override
     public String getSelectAction() {
-        if(m_viewRB.getValue()) {
+        if (m_viewRB.getValue()) {
             return VIEW;
-        }else if(m_customizeRB.getValue()) {
+        } else if (m_customizeRB.getValue()) {
             return CUSTOMIZE;
-        }else if(m_createNewRB.getValue()) {
+        } else if (m_createNewRB.getValue()) {
             return CREATE_NEW;
-        }else if(m_createNewExistingRB.getValue()) {
+        } else if (m_createNewExistingRB.getValue()) {
             return CREATE_NEW_FROM_EXISTING;
-        }else if(m_deleteRB.getValue()) {
+        } else if (m_deleteRB.getValue()) {
             return DELETE;
         }
         return null;

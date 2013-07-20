@@ -50,8 +50,7 @@ public class HistoryOperation implements Operation {
     }
 
     @Override
-    public Undoer execute(List<VertexRef> targets,
-            OperationContext operationContext) {
+    public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         UI mainWindow = operationContext.getMainWindow();
         CommandManager commandManager = m_commandManager;
 
@@ -59,7 +58,7 @@ public class HistoryOperation implements Operation {
         window.setModal(true);
 
         VerticalLayout layout = new VerticalLayout();
-        for(Command command : commandManager.getHistoryList()) {
+        for (Command command : commandManager.getHistoryList()) {
             layout.addComponent(new Label(command.toString()));
         }
         window.setContent(layout);

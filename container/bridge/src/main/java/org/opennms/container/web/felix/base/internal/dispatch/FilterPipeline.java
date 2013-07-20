@@ -27,20 +27,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.handler.FilterHandler;
 
-public final class FilterPipeline
-{
+public final class FilterPipeline {
     private final FilterHandler[] handlers;
+
     private final ServletPipeline servletPipeline;
 
-    public FilterPipeline(FilterHandler[] handlers, ServletPipeline servletPipeline)
-    {
+    public FilterPipeline(FilterHandler[] handlers, ServletPipeline servletPipeline) {
         this.handlers = handlers;
         this.servletPipeline = servletPipeline;
     }
 
     public void dispatch(HttpServletRequest req, HttpServletResponse res, FilterChain proceedingChain)
-        throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         FilterChain chain = new InvocationFilterChain(this.handlers, this.servletPipeline, proceedingChain);
 
         if (this.servletPipeline.hasServletsMapped()) {
@@ -50,17 +48,13 @@ public final class FilterPipeline
         chain.doFilter(req, res);
     }
 
-    private final class RequestWrapper
-        extends HttpServletRequestWrapper
-    {
-        public RequestWrapper(HttpServletRequest req)
-        {
+    private final class RequestWrapper extends HttpServletRequestWrapper {
+        public RequestWrapper(HttpServletRequest req) {
             super(req);
         }
 
         @Override
-        public RequestDispatcher getRequestDispatcher(String path)
-        {
+        public RequestDispatcher getRequestDispatcher(String path) {
             final RequestDispatcher dispatcher = servletPipeline.getRequestDispatcher(path);
             return (null != dispatcher) ? dispatcher : super.getRequestDispatcher(path);
         }

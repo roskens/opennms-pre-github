@@ -31,9 +31,10 @@ package org.opennms.netmgt.provision.scan.snmp;
 import org.opennms.netmgt.provision.ScanContext;
 import org.opennms.netmgt.snmp.SnmpResult;
 
-
 /**
- * <p>SnmpNodeScanner class.</p>
+ * <p>
+ * SnmpNodeScanner class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,7 +42,9 @@ import org.opennms.netmgt.snmp.SnmpResult;
 public class SnmpNodeScanner extends AbstractSnmpScanner {
 
     /**
-     * <p>Constructor for SnmpNodeScanner.</p>
+     * <p>
+     * Constructor for SnmpNodeScanner.
+     * </p>
      */
     public SnmpNodeScanner() {
         super("Node Scanner");
@@ -58,7 +61,9 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
     }
 
     /**
-     * <p>sysObjectId</p>
+     * <p>
+     * sysObjectId
+     * </p>
      *
      * @return a Storer object.
      */
@@ -72,7 +77,9 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
     }
 
     /**
-     * <p>sysName</p>
+     * <p>
+     * sysName
+     * </p>
      *
      * @return a Storer object.
      */
@@ -86,7 +93,9 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
     }
 
     /**
-     * <p>sysDescription</p>
+     * <p>
+     * sysDescription
+     * </p>
      *
      * @return a Storer object.
      */
@@ -100,7 +109,9 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
     }
 
     /**
-     * <p>sysLocation</p>
+     * <p>
+     * sysLocation
+     * </p>
      *
      * @return a Storer object.
      */
@@ -114,7 +125,9 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
     }
 
     /**
-     * <p>sysContact</p>
+     * <p>
+     * sysContact
+     * </p>
      *
      * @return a Storer object.
      */

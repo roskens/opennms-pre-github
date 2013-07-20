@@ -102,7 +102,8 @@ public class BundleLists extends Object {
      * @param objArray
      *            The object array to be formatted as a comma-delimited string.
      * @return The comma-delimited string.
-     * @param delimiter a {@link java.lang.String} object.
+     * @param delimiter
+     *            a {@link java.lang.String} object.
      */
     public static String createBundleList(Object[] objArray, String delimiter) {
         if (objArray == null || delimiter == null) {

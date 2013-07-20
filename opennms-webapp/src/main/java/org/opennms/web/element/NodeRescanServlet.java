@@ -43,7 +43,9 @@ import org.opennms.web.api.Util;
 import org.opennms.web.servlet.MissingParameterException;
 
 /**
- * <p>NodeRescanServlet class.</p>
+ * <p>
+ * NodeRescanServlet class.
+ * </p>
  *
  * @author <A HREF="larry@opennms.org">Larry Karnowski </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -57,12 +59,16 @@ public class NodeRescanServlet extends HttpServlet {
      *
      */
     private static final long serialVersionUID = -3183139374532183137L;
+
     protected EventProxy proxy;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {

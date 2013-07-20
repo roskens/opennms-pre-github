@@ -41,27 +41,40 @@ import org.opennms.netmgt.scheduler.Schedule;
  */
 public class PollableNetwork {
 
-    private final Map<String, PollableInterface>m_members = new HashMap<String, PollableInterface>();
-    private final Map<Integer,String> m_node = new HashMap<Integer, String>();
+    private final Map<String, PollableInterface> m_members = new HashMap<String, PollableInterface>();
+
+    private final Map<Integer, String> m_node = new HashMap<Integer, String>();
 
     private PollContext m_context;
 
     /**
-     * <p>Constructor for PollableNetwork.</p>
+     * <p>
+     * Constructor for PollableNetwork.
+     * </p>
      *
-     * @param context a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext} object.
+     * @param context
+     *            a
+     *            {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext}
+     *            object.
      */
     public PollableNetwork(PollContext context) {
         m_context = context;
     }
 
     /**
-     * <p>create</p>
+     * <p>
+     * create
+     * </p>
      *
-     * @param nodeid a int.
-     * @param ipaddress a {@link java.lang.String} object.
-     * @param packageName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableInterface} object.
+     * @param nodeid
+     *            a int.
+     * @param ipaddress
+     *            a {@link java.lang.String} object.
+     * @param packageName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableInterface}
+     *         object.
      */
     public PollableInterface create(int nodeid, String ipaddress, String packageName) {
         PollableInterface nodeGroup = new PollableInterface(this);
@@ -75,36 +88,44 @@ public class PollableNetwork {
     }
 
     /**
-     * <p>schedule</p>
+     * <p>
+     * schedule
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableSnmpInterface} object.
-     * @param criteria a {@link java.lang.String} object.
-     * @param interval a long.
-     * @param scheduler a {@link org.opennms.netmgt.scheduler.Scheduler} object.
+     * @param node
+     *            a
+     *            {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableSnmpInterface}
+     *            object.
+     * @param criteria
+     *            a {@link java.lang.String} object.
+     * @param interval
+     *            a long.
+     * @param scheduler
+     *            a {@link org.opennms.netmgt.scheduler.Scheduler} object.
      */
     public void schedule(PollableSnmpInterface node, long interval, org.opennms.netmgt.scheduler.Scheduler scheduler) {
 
-
-
-        PollableSnmpInterfaceConfig nodeconfig = new PollableSnmpInterfaceConfig(scheduler,interval);
+        PollableSnmpInterfaceConfig nodeconfig = new PollableSnmpInterfaceConfig(scheduler, interval);
 
         node.setSnmppollableconfig(nodeconfig);
 
-        synchronized(node) {
+        synchronized (node) {
             if (node.getSchedule() == null) {
                 Schedule schedule = new Schedule(node, nodeconfig, scheduler);
                 node.setSchedule(schedule);
             }
         }
 
-            node.schedule();
+        node.schedule();
     }
 
     /**
-     * <p>deleteAll</p>
+     * <p>
+     * deleteAll
+     * </p>
      */
     public void deleteAll() {
-        for (PollableInterface pi: m_members.values()) {
+        for (PollableInterface pi : m_members.values()) {
             pi.delete();
         }
         m_members.clear();
@@ -112,9 +133,12 @@ public class PollableNetwork {
     }
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param ipaddress a {@link java.lang.String} object.
+     * @param ipaddress
+     *            a {@link java.lang.String} object.
      */
     public void delete(String ipaddress) {
         PollableInterface pi = getInterface(ipaddress);
@@ -126,69 +150,95 @@ public class PollableNetwork {
     }
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      */
     public void delete(int nodeid) {
         delete(getIp(nodeid));
     }
 
     /**
-     * <p>refresh</p>
+     * <p>
+     * refresh
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      */
     public void refresh(int nodeid) {
         String ipaddress = getIp(nodeid);
-        if (ipaddress != null ) {
+        if (ipaddress != null) {
             getInterface(ipaddress).refresh();
         }
     }
 
     /**
-     * <p>suspend</p>
+     * <p>
+     * suspend
+     * </p>
      *
-     * @param ipaddress a {@link java.lang.String} object.
+     * @param ipaddress
+     *            a {@link java.lang.String} object.
      */
     public void suspend(String ipaddress) {
         PollableInterface pi = getInterface(ipaddress);
-        if (pi != null) pi.suspend();
+        if (pi != null)
+            pi.suspend();
     }
 
     /**
-     * <p>activate</p>
+     * <p>
+     * activate
+     * </p>
      *
-     * @param ipaddress a {@link java.lang.String} object.
+     * @param ipaddress
+     *            a {@link java.lang.String} object.
      */
     public void activate(String ipaddress) {
         PollableInterface pi = getInterface(ipaddress);
-        if (pi != null) pi.activate();
+        if (pi != null)
+            pi.activate();
     }
+
     /**
-     * <p>suspend</p>
+     * <p>
+     * suspend
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      */
     public void suspend(int nodeid) {
         String ipprimary = getIp(nodeid);
-        if (ipprimary != null) suspend(ipprimary);
+        if (ipprimary != null)
+            suspend(ipprimary);
     }
 
     /**
-     * <p>activate</p>
+     * <p>
+     * activate
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      */
     public void activate(int nodeid) {
         String ipprimary = getIp(nodeid);
-        if (ipprimary != null) activate(ipprimary);
+        if (ipprimary != null)
+            activate(ipprimary);
     }
 
     /**
-     * <p>getIp</p>
+     * <p>
+     * getIp
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getIp(int nodeid) {
@@ -196,14 +246,18 @@ public class PollableNetwork {
     }
 
     private PollableInterface getInterface(String ipaddress) {
-        if ( m_members.containsKey(ipaddress)) return m_members.get(ipaddress);
+        if (m_members.containsKey(ipaddress))
+            return m_members.get(ipaddress);
         return null;
     }
 
     /**
-     * <p>hasPollableInterface</p>
+     * <p>
+     * hasPollableInterface
+     * </p>
      *
-     * @param ipaddr a {@link java.lang.String} object.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean hasPollableInterface(String ipaddr) {
@@ -211,18 +265,27 @@ public class PollableNetwork {
     }
 
     /**
-     * <p>getContext</p>
+     * <p>
+     * getContext
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext} object.
+     * @return a
+     *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext}
+     *         object.
      */
     public PollContext getContext() {
         return m_context;
     }
 
     /**
-     * <p>setContext</p>
+     * <p>
+     * setContext
+     * </p>
      *
-     * @param context a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext} object.
+     * @param context
+     *            a
+     *            {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext}
+     *            object.
      */
     public void setContext(PollContext context) {
         m_context = context;

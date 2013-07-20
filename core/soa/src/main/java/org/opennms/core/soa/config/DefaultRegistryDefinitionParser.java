@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
  * @author brozow
  * @version $Id: $
  */
-public class DefaultRegistryDefinitionParser extends  AbstractSingleBeanDefinitionParser {
+public class DefaultRegistryDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
     /** {@inheritDoc} */
     @Override
@@ -58,13 +58,9 @@ public class DefaultRegistryDefinitionParser extends  AbstractSingleBeanDefiniti
 
     /** {@inheritDoc} */
     @Override
-    protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
+    protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext)
+            throws BeanDefinitionStoreException {
         return Constants.SERVICE_REGISTRY_BEAN_NAME;
     }
-
-
-
-
-
 
 }

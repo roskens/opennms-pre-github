@@ -67,27 +67,26 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-        "classpath:/META-INF/opennms/provisiond-extensions.xml",
-        "classpath:/testConfigContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/provisiond-extensions.xml", "classpath:/testConfigContext.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     private int END_POINT1_ID;
+
     private int END_POINT2_ID;
+
     private int END_POINT3_ID;
+
     private String END_POINT1_LABEL = "node1";
+
     // private String END_POINT2_LABEL = "node2";
     // private String END_POINT3_LABEL = "node3";
     public String NO_SUCH_NODE_LABEL = "noSuchNode";
@@ -123,7 +122,7 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
     TransactionTemplate m_transactionTemplate;
 
     @Before
-    public void setup(){
+    public void setup() {
         m_dbPopulator.populateDatabase();
         END_POINT1_ID = m_dbPopulator.getNode1().getId();
         END_POINT1_LABEL = m_dbPopulator.getNode1().getLabel();
@@ -138,7 +137,7 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void dwoTestGetNodeLabel(){
+    public void dwoTestGetNodeLabel() {
         String nodeLabel = m_nodeLinkService.getNodeLabel(END_POINT1_ID);
 
         assertNotNull(nodeLabel);
@@ -147,14 +146,14 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void dwoTestNodeNotThere(){
+    public void dwoTestNodeNotThere() {
         String nodeLabel = m_nodeLinkService.getNodeLabel(200);
         assertNull(nodeLabel);
     }
 
     @Test
     @Transactional
-    public void dwoTestGetNodeId(){
+    public void dwoTestGetNodeId() {
         Integer nodeId = m_nodeLinkService.getNodeId(END_POINT1_LABEL);
         assertNotNull(nodeId);
         assertEquals(END_POINT1_ID, nodeId.intValue());
@@ -162,14 +161,14 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void dwoTestGetNodeIdNull(){
+    public void dwoTestGetNodeIdNull() {
         Integer nodeId = m_nodeLinkService.getNodeId(NO_SUCH_NODE_LABEL);
         assertNull(nodeId);
     }
 
     @Test
     @Transactional
-    public void dwoTestCreateLink(){
+    public void dwoTestCreateLink() {
         Collection<DataLinkInterface> dataLinks = m_dataLinkDao.findByNodeId(END_POINT3_ID);
         assertEquals(0, dataLinks.size());
 
@@ -182,7 +181,7 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void dwoTestLinkAlreadyExists(){
+    public void dwoTestLinkAlreadyExists() {
         Collection<DataLinkInterface> dataLinks = m_dataLinkDao.findByNodeId(END_POINT2_ID);
         assertEquals(1, dataLinks.size());
 
@@ -194,7 +193,7 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void dwoTestUpdateLinkStatus(){
+    public void dwoTestUpdateLinkStatus() {
         Collection<DataLinkInterface> dataLinks = m_dataLinkDao.findByNodeId(END_POINT2_ID);
         assertEquals(StatusType.ACTIVE, dataLinks.iterator().next().getStatus());
         int parentNodeId = END_POINT1_ID;
@@ -208,7 +207,7 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void dwoTestUpdateLinkFailedStatus(){
+    public void dwoTestUpdateLinkFailedStatus() {
         int parentNodeId = END_POINT1_ID;
         int nodeId = END_POINT2_ID;
 
@@ -223,7 +222,7 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void dwoTestUpdateLinkGoodThenFailedStatus(){
+    public void dwoTestUpdateLinkGoodThenFailedStatus() {
         int parentNodeId = END_POINT1_ID;
         int nodeId = END_POINT2_ID;
 
@@ -313,8 +312,7 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         OnmsLinkState linkState = new OnmsLinkState();
         linkState.setDataLinkInterface(dli);
 
-
-        for(LinkState ls : LinkState.values()){
+        for (LinkState ls : LinkState.values()) {
             linkState.setLinkState(ls);
             saveLinkState(linkState);
         }
@@ -323,7 +321,7 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void dwoTestAddPrimaryServiceToNode(){
+    public void dwoTestAddPrimaryServiceToNode() {
         final String END_POINT_SERVICE_NAME = "EndPoint";
         addPrimaryServiceToNode(END_POINT1_ID, END_POINT_SERVICE_NAME);
 
@@ -331,12 +329,10 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertNotNull(service);
         assertEquals("ICMP", service.getServiceName());
 
-
         service = m_monitoredServiceDao.getPrimaryService(END_POINT1_ID, END_POINT_SERVICE_NAME);
         assertNotNull(service);
-        assertEquals(END_POINT_SERVICE_NAME,service.getServiceName());
+        assertEquals(END_POINT_SERVICE_NAME, service.getServiceName());
     }
-
 
     @Test
     @Transactional
@@ -351,13 +347,13 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     }
 
-    public void addPrimaryServiceToNode(final int nodeId, final String serviceName){
+    public void addPrimaryServiceToNode(final int nodeId, final String serviceName) {
         m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
 
             @Override
             public void doInTransactionWithoutResult(TransactionStatus status) {
                 OnmsServiceType svcType = m_serviceTypeDao.findByName(serviceName);
-                if(svcType == null){
+                if (svcType == null) {
                     svcType = new OnmsServiceType(serviceName);
                     m_serviceTypeDao.save(svcType);
                     m_serviceTypeDao.flush();
@@ -375,11 +371,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
             }
         });
 
-
-
     }
 
-    public void saveLinkState(final OnmsLinkState linkState){
+    public void saveLinkState(final OnmsLinkState linkState) {
         m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
 
             @Override

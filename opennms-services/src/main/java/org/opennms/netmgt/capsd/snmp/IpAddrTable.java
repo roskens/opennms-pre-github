@@ -54,7 +54,6 @@ import org.slf4j.LoggerFactory;
  */
 public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(IpAddrTable.class);
 
     /**
@@ -65,7 +64,8 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * </EM> to inform other threads.
      * </P>
      *
-     * @param address TODO
+     * @param address
+     *            TODO
      * @see IpAddrTableEntry
      */
     public IpAddrTable(InetAddress address) {
@@ -78,14 +78,17 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
         return new IpAddrTableEntry();
     }
 
-     /**
-      * <p>getIfAddressAndMask</p>
-      *
-      * @param ifIndex a int.
-      * @return an array of {@link java.net.InetAddress} objects.
-      */
-     public InetAddress[] getIfAddressAndMask(int ifIndex) {
-        for(IpAddrTableEntry entry : this) {
+    /**
+     * <p>
+     * getIfAddressAndMask
+     * </p>
+     *
+     * @param ifIndex
+     *            a int.
+     * @return an array of {@link java.net.InetAddress} objects.
+     */
+    public InetAddress[] getIfAddressAndMask(int ifIndex) {
+        for (IpAddrTableEntry entry : this) {
 
             Integer ndx = entry.getIpAdEntIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
@@ -102,15 +105,18 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      * @return a int.
      */
     public int getIfIndex(InetAddress address) {
         LOG.debug("getIfIndex: num ipAddrTable entries: {}", this.size());
 
-        for(IpAddrTableEntry entry : this) {
+        for (IpAddrTableEntry entry : this) {
 
             InetAddress ifAddr = entry.getIpAdEntAddr();
             if (ifAddr != null && ifAddr.equals(address)) {
@@ -133,7 +139,8 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      *
      * @return list of InetAddress objects representing each of the interfaces
      *         IP addresses.
-     * @param index a int.
+     * @param index
+     *            a int.
      */
     public List<InetAddress> getIpAddresses(int index) {
         if (index == -1) {
@@ -142,7 +149,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
 
         List<InetAddress> addresses = new ArrayList<InetAddress>();
 
-        for(IpAddrTableEntry entry : this) {
+        for (IpAddrTableEntry entry : this) {
 
             Integer ndx = entry.getIpAdEntIfIndex();
             if (ndx != null && ndx.intValue() == index) {
@@ -164,9 +171,9 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      *         IP addresses.
      */
     public List<InetAddress> getIpAddresses() {
-        List <InetAddress>addresses = new ArrayList<InetAddress>();
+        List<InetAddress> addresses = new ArrayList<InetAddress>();
 
-        for(IpAddrTableEntry entry : this) {
+        for (IpAddrTableEntry entry : this) {
 
             Integer ndx = entry.getIpAdEntIfIndex();
             if (ndx != null) {

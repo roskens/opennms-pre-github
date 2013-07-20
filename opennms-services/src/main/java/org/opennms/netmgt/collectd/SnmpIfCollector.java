@@ -47,12 +47,10 @@ import org.slf4j.LoggerFactory;
  * collection for a node over a specified network interface. The SnmpIfCollector
  * implements the SnmpHandler class in order to receive notifications when an
  * SNMP reply is received or error occurs.
- *
  * The SnmpIfCollector is provided a list of MIB objects to collect and an
  * interface over which to collect the data. Data collection can be via SNMPv1
  * GetNext requests or SNMPv2 GetBulk requests depending upon the parms used to
  * construct the collector.
- *
  */
 public class SnmpIfCollector extends AggregateTracker {
 
@@ -70,30 +68,32 @@ public class SnmpIfCollector extends AggregateTracker {
     private SnmpCollectionSet m_collectionSet;
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-    	StringBuffer buffer = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
 
-    	buffer.append(getClass().getName());
-    	buffer.append("@");
-    	buffer.append(Integer.toHexString(hashCode()));
+        buffer.append(getClass().getName());
+        buffer.append("@");
+        buffer.append(Integer.toHexString(hashCode()));
 
-    	buffer.append(": Primary Interface: " + m_primaryIf);
-    	buffer.append(", object list: " + m_objList);
-    	buffer.append(", CollectionSet: ");
-    	if (m_collectionSet == null) {
-    		buffer.append("(null)");
-    	} else {
-    		buffer.append(m_collectionSet.getClass().getName());
-    		buffer.append("@");
-        	buffer.append(Integer.toHexString(m_collectionSet.hashCode()));
-    	}
+        buffer.append(": Primary Interface: " + m_primaryIf);
+        buffer.append(", object list: " + m_objList);
+        buffer.append(", CollectionSet: ");
+        if (m_collectionSet == null) {
+            buffer.append("(null)");
+        } else {
+            buffer.append(m_collectionSet.getClass().getName());
+            buffer.append("@");
+            buffer.append(Integer.toHexString(m_collectionSet.hashCode()));
+        }
 
-    	return buffer.toString();
+        return buffer.toString();
     }
 
     /**
@@ -102,9 +102,12 @@ public class SnmpIfCollector extends AggregateTracker {
      * store by the object. When all the data has been collected the passed
      * signaler object is <EM>notified</EM> using the notifyAll() method.
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param objList TODO
-     * @param collectionSet TODO
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param objList
+     *            TODO
+     * @param collectionSet
+     *            TODO
      */
     public SnmpIfCollector(InetAddress address, List<SnmpAttributeType> objList, SnmpCollectionSet collectionSet) {
         super(SnmpAttributeType.getCollectionTrackers(objList));
@@ -128,9 +131,9 @@ public class SnmpIfCollector extends AggregateTracker {
         return new ArrayList<SNMPCollectorEntry>(m_results.values());
     }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	protected void reportGenErr(String msg) {
+    protected void reportGenErr(String msg) {
         LOG.warn("{} : genErr collecting ifData. {}", m_primaryIf, msg);
     }
 
@@ -149,7 +152,8 @@ public class SnmpIfCollector extends AggregateTracker {
     /** {@inheritDoc} */
     @Override
     protected void storeResult(SnmpResult res) {
-        if(res.getBase().toString().equals(SnmpCollector.IFALIAS_OID) && (res.getValue().isNull() || res.getValue().toDisplayString() == null || res.getValue().toDisplayString().equals(""))) {
+        if (res.getBase().toString().equals(SnmpCollector.IFALIAS_OID)
+                && (res.getValue().isNull() || res.getValue().toDisplayString() == null || res.getValue().toDisplayString().equals(""))) {
             LOG.debug("Skipping storeResult. Null or zero length ifAlias");
             return;
         }
@@ -164,7 +168,9 @@ public class SnmpIfCollector extends AggregateTracker {
     }
 
     /**
-     * <p>hasData</p>
+     * <p>
+     * hasData
+     * </p>
      *
      * @return a boolean.
      */
@@ -173,9 +179,12 @@ public class SnmpIfCollector extends AggregateTracker {
     }
 
     /**
-     * <p>getCollectionSet</p>
+     * <p>
+     * getCollectionSet
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionSet} object.
+     * @return a {@link org.opennms.netmgt.config.collector.CollectionSet}
+     *         object.
      */
     public CollectionSet getCollectionSet() {
         return m_collectionSet;

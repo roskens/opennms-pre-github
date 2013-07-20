@@ -35,16 +35,21 @@ import org.slf4j.LoggerFactory;
  */
 public class TimeoutSecureXmlRpcTransport extends DefaultXmlRpcTransport {
     private static final Logger LOG = LoggerFactory.getLogger(TimeoutSecureXmlRpcTransport.class);
+
     protected int m_timeout = 0;
 
     /**
      * Create a new TimeoutSecureXmlRpcTransport with the specified URL and
      * basic authorization string.
      *
-     * @deprecated Use setBasicAuthentication instead of passing an encoded authentication String.
-     * @param url the url to POST XML-RPC requests to.
-     * @param auth the Base64 encoded HTTP Basic authentication value.
-     * @param timeout a int.
+     * @deprecated Use setBasicAuthentication instead of passing an encoded
+     *             authentication String.
+     * @param url
+     *            the url to POST XML-RPC requests to.
+     * @param auth
+     *            the Base64 encoded HTTP Basic authentication value.
+     * @param timeout
+     *            a int.
      */
     public TimeoutSecureXmlRpcTransport(final URL url, final String auth, final int timeout) {
         super(url, auth);
@@ -54,27 +59,30 @@ public class TimeoutSecureXmlRpcTransport extends DefaultXmlRpcTransport {
     /**
      * Create a new DefaultXmlRpcTransport with the specified URL.
      *
-     * @param url the url to POST XML-RPC requests to.
-     * @param timeout a int.
+     * @param url
+     *            the url to POST XML-RPC requests to.
+     * @param timeout
+     *            a int.
      */
     @SuppressWarnings("deprecation")
-	public TimeoutSecureXmlRpcTransport(final URL url, final int timeout) {
+    public TimeoutSecureXmlRpcTransport(final URL url, final int timeout) {
         super(url, null);
         this.m_timeout = timeout;
     }
 
     /**
      * Sends the actual XMLRPC request.
-     *
      * Taken from org.apache.xmlrpc.DefaultXmlRpcTransport with a socket
      * timeout added.
      *
-     * @param request an array of byte.
+     * @param request
+     *            an array of byte.
      * @return a {@link java.io.InputStream} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     @Override
-    public InputStream sendXmlRpc(final byte [] request) throws IOException {
+    public InputStream sendXmlRpc(final byte[] request) throws IOException {
         con = url.openConnection();
         LOG.debug("Setting read timeout to {}", m_timeout);
         con.setReadTimeout(m_timeout);
@@ -89,12 +97,12 @@ public class TimeoutSecureXmlRpcTransport extends DefaultXmlRpcTransport {
         }
         OutputStream out = null;
         try {
-        	out = con.getOutputStream();
+            out = con.getOutputStream();
             out.write(request);
             out.flush();
         } finally {
-        	IOUtils.closeQuietly(out);
-        	out = null;
+            IOUtils.closeQuietly(out);
+            out = null;
         }
         return con.getInputStream();
     }

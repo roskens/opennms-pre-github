@@ -37,19 +37,28 @@ package org.opennms.core.soa;
 public interface RegistrationListener<T> {
 
     /**
-     * <p>providerRegistered</p>
+     * <p>
+     * providerRegistered
+     * </p>
      *
-     * @param registration a {@link org.opennms.core.soa.Registration} object.
-     * @param provider a T object.
-     * @param <T> a T object.
+     * @param registration
+     *            a {@link org.opennms.core.soa.Registration} object.
+     * @param provider
+     *            a T object.
+     * @param <T>
+     *            a T object.
      */
     public void providerRegistered(Registration registration, T provider);
 
     /**
-     * <p>providerUnregistered</p>
+     * <p>
+     * providerUnregistered
+     * </p>
      *
-     * @param registration a {@link org.opennms.core.soa.Registration} object.
-     * @param provider a T object.
+     * @param registration
+     *            a {@link org.opennms.core.soa.Registration} object.
+     * @param provider
+     *            a T object.
      */
     public void providerUnregistered(Registration registration, T provider);
 

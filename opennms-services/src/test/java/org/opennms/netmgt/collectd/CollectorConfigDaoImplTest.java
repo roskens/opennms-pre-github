@@ -55,11 +55,11 @@ public class CollectorConfigDaoImplTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
+        MockUtil.println("------------ Begin Test " + getName() + " --------------------------");
         MockLogAppender.setupLogging();
 
         MockDatabase m_db = new MockDatabase();
-        //        m_db.populate(m_network);
+        // m_db.populate(m_network);
 
         DataSourceFactory.setInstance(m_db);
 
@@ -73,7 +73,7 @@ public class CollectorConfigDaoImplTest extends TestCase {
 
     @Override
     protected void tearDown() throws Exception {
-        MockUtil.println("------------ End Test "+getName()+" --------------------------");
+        MockUtil.println("------------ End Test " + getName() + " --------------------------");
         super.tearDown();
     }
 
@@ -86,7 +86,8 @@ public class CollectorConfigDaoImplTest extends TestCase {
     }
 
     private CollectorConfigDao initialize() throws IOException, MarshalException, ValidationException, Exception {
-        System.setProperty("opennms.home", ConfigurationTestUtils.getDaemonEtcDirectory().getParentFile().getAbsolutePath());
+        System.setProperty("opennms.home",
+                           ConfigurationTestUtils.getDaemonEtcDirectory().getParentFile().getAbsolutePath());
         RrdUtils.setStrategy(new JRobinRrdStrategy());
 
         InputStream stream = null;

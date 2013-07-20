@@ -76,11 +76,15 @@ import org.opennms.netmgt.xml.event.Tticket;
 import org.springframework.util.Assert;
 
 /**
- * <p>Abstract NotificationManager class.</p>
+ * <p>
+ * Abstract NotificationManager class.
+ * </p>
  *
  * @author David Hustace <david@opennms.org>
- * This base class was refactored from NotificationFactory to support non-global
- * references during JUnit testing and later to support distributed processes.
+ *         This base class was refactored from NotificationFactory to support
+ *         non-global
+ *         references during JUnit testing and later to support distributed
+ *         processes.
  * @version $Id: $
  */
 public abstract class NotificationManager {
@@ -90,50 +94,71 @@ public abstract class NotificationManager {
      * Object containing all Notification objects parsed from the xml file
      */
     public Notifications m_notifications;
+
     /**
      *
      */
     private Header oldHeader;
+
     /** Constant <code>PARAM_TYPE="-t"</code> */
     public static final String PARAM_TYPE = "-t";
+
     /** Constant <code>PARAM_DESTINATION="-d"</code> */
     public static final String PARAM_DESTINATION = "-d";
+
     /** Constant <code>PARAM_TEXT_MSG="-tm"</code> */
     public static final String PARAM_TEXT_MSG = "-tm";
+
     /** Constant <code>PARAM_NUM_MSG="-nm"</code> */
     public static final String PARAM_NUM_MSG = "-nm";
+
     /** Constant <code>PARAM_RESPONSE="-r"</code> */
     public static final String PARAM_RESPONSE = "-r";
+
     /** Constant <code>PARAM_NODE="-nodeid"</code> */
     public static final String PARAM_NODE = "-nodeid";
+
     /** Constant <code>PARAM_INTERFACE="-interface"</code> */
     public static final String PARAM_INTERFACE = "-interface";
+
     /** Constant <code>PARAM_SERVICE="-service"</code> */
     public static final String PARAM_SERVICE = "-service";
+
     /** Constant <code>PARAM_SUBJECT="-subject"</code> */
     public static final String PARAM_SUBJECT = "-subject";
+
     /** Constant <code>PARAM_EMAIL="-email"</code> */
     public static final String PARAM_EMAIL = "-email";
+
     /** Constant <code>PARAM_PAGER_EMAIL="-pemail"</code> */
     public static final String PARAM_PAGER_EMAIL = "-pemail";
+
     /** Constant <code>PARAM_XMPP_ADDRESS="-xmpp"</code> */
     public static final String PARAM_XMPP_ADDRESS = "-xmpp";
+
     /** Constant <code>PARAM_TEXT_PAGER_PIN="-tp"</code> */
     public static final String PARAM_TEXT_PAGER_PIN = "-tp";
+
     /** Constant <code>PARAM_NUM_PAGER_PIN="-np"</code> */
     public static final String PARAM_NUM_PAGER_PIN = "-np";
+
     /** Constant <code>PARAM_WORK_PHONE="-wphone"</code> */
     public static final String PARAM_WORK_PHONE = "-wphone";
+
     /** Constant <code>PARAM_HOME_PHONE="-hphone"</code> */
     public static final String PARAM_HOME_PHONE = "-hphone";
+
     /** Constant <code>PARAM_MOBILE_PHONE="-mphone"</code> */
     public static final String PARAM_MOBILE_PHONE = "-mphone";
+
     /** Constant <code>PARAM_TUI_PIN="-tuipin"</code> */
     public static final String PARAM_TUI_PIN = "-tuipin";
+
     /** Constant <code>PARAM_MICROBLOG_USERNAME="-ublog"</code> */
     public static final String PARAM_MICROBLOG_USERNAME = "-ublog";
 
     NotifdConfigManager m_configManager;
+
     private DataSource m_dataSource;
 
     /**
@@ -156,9 +181,11 @@ public abstract class NotificationManager {
             // this shouldn't throw an exception, should be tested prior to
             // runtime
             LOG.error("failed to compile RE {}", NOTIFD_EXPANSION_PARM, e);
-            // FIXME: wrap this in runtime exception since SOMETIMES we are using
+            // FIXME: wrap this in runtime exception since SOMETIMES we are
+            // using
             // an incorrect version of regexp pulled from xalan that is doesn't
-            // extend RuntimeException only Exception.  We really need to fix that.
+            // extend RuntimeException only Exception. We really need to fix
+            // that.
             // See Bug# 1736 in Bugzilla.
             throw new RuntimeException(e);
         }
@@ -167,9 +194,10 @@ public abstract class NotificationManager {
     /**
      * A parameter expansion algorithm, designed to replace strings delimited by
      * percent signs '%' with a value supplied by a Map object.
-     *
-     * <p>NOTE: This function only replaces one particular parameter, the
-     * <code>%noticeid%</code> parameter.</p>
+     * <p>
+     * NOTE: This function only replaces one particular parameter, the
+     * <code>%noticeid%</code> parameter.
+     * </p>
      *
      * @param input
      *            the input string
@@ -192,12 +220,19 @@ public abstract class NotificationManager {
     }
 
     /**
-     * <p>Constructor for NotificationManager.</p>
+     * <p>
+     * Constructor for NotificationManager.
+     * </p>
      *
-     * @throws MarshalException if any.
-     * @throws ValidationException if any.
-     * @param configManager a {@link org.opennms.netmgt.config.NotifdConfigManager} object.
-     * @param dcf a {@link javax.sql.DataSource} object.
+     * @throws MarshalException
+     *             if any.
+     * @throws ValidationException
+     *             if any.
+     * @param configManager
+     *            a {@link org.opennms.netmgt.config.NotifdConfigManager}
+     *            object.
+     * @param dcf
+     *            a {@link javax.sql.DataSource} object.
      */
     protected NotificationManager(final NotifdConfigManager configManager, final DataSource dcf) {
         m_configManager = configManager;
@@ -205,11 +240,16 @@ public abstract class NotificationManager {
     }
 
     /**
-     * <p>parseXML</p>
+     * <p>
+     * parseXML
+     * </p>
      *
-     * @param reader a {@link java.io.Reader} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param reader
+     *            a {@link java.io.Reader} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Deprecated
     public synchronized void parseXML(final Reader reader) throws MarshalException, ValidationException {
@@ -218,11 +258,16 @@ public abstract class NotificationManager {
     }
 
     /**
-     * <p>parseXML</p>
+     * <p>
+     * parseXML
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public synchronized void parseXML(final InputStream stream) throws MarshalException, ValidationException {
         m_notifications = CastorUtils.unmarshal(Notifications.class, stream, true);
@@ -230,24 +275,30 @@ public abstract class NotificationManager {
     }
 
     /**
-     * <p>hasUei</p>
+     * <p>
+     * hasUei
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public boolean hasUei(final String uei) throws IOException, MarshalException, ValidationException {
         update();
 
         for (Notification notif : m_notifications.getNotificationCollection()) {
             if (uei.equals(notif.getUei()) || "MATCH-ANY-UEI".equals(notif.getUei())) {
-                 return true;
+                return true;
             } else if (notif.getUei().charAt(0) == '~') {
-               if (uei.matches(notif.getUei().substring(1))) {
-                       return true;
-               }
+                if (uei.matches(notif.getUei().substring(1))) {
+                    return true;
+                }
 
             }
         }
@@ -256,20 +307,29 @@ public abstract class NotificationManager {
     }
 
     /**
-     * <p>getNotifForEvent</p>
+     * <p>
+     * getNotifForEvent
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @return an array of {@link org.opennms.netmgt.config.notifications.Notification} objects.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @return an array of
+     *         {@link org.opennms.netmgt.config.notifications.Notification}
+     *         objects.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public Notification[] getNotifForEvent(final Event event) throws IOException, MarshalException, ValidationException {
         update();
         List<Notification> notifList = new ArrayList<Notification>();
         boolean matchAll = getConfigManager().getNotificationMatch();
 
-        // This if statement will check to see if notification should be suppressed for this event.
+        // This if statement will check to see if notification should be
+        // suppressed for this event.
 
         if (event == null) {
             LOG.warn("unable to get notification for null event!");
@@ -285,15 +345,15 @@ public abstract class NotificationManager {
             LOG.debug("Checking {} against {}", curNotif.getUei(), event.getUei());
 
             if (event.getUei().equals(curNotif.getUei()) || "MATCH-ANY-UEI".equals(curNotif.getUei())) {
-               // Match!
+                // Match!
             } else if (curNotif.getUei().charAt(0) == '~') {
-               if (event.getUei().matches(curNotif.getUei().substring(1))) {
+                if (event.getUei().matches(curNotif.getUei().substring(1))) {
                     // Match!
-               } else {
+                } else {
 
-                   LOG.debug("Notification regex {} failed to match event UEI: {}", event.getUei(), curNotif.getUei());
-                   continue;
-               }
+                    LOG.debug("Notification regex {} failed to match event UEI: {}", event.getUei(), curNotif.getUei());
+                    continue;
+                }
             } else {
 
                 LOG.debug("Event UEI {} did not match {}", curNotif.getUei(), event.getUei());
@@ -304,7 +364,8 @@ public abstract class NotificationManager {
              * Check if event severity matches pattern in notification
              */
 
-            LOG.debug("Checking event severity: {} against notification severity: {}", curNotif.getEventSeverity(), event.getSeverity());
+            LOG.debug("Checking event severity: {} against notification severity: {}", curNotif.getEventSeverity(),
+                      event.getSeverity());
             // parameter is optional, return true if not set
             if (curNotif.getEventSeverity() == null) {
                 // Skip matching on severity
@@ -312,15 +373,18 @@ public abstract class NotificationManager {
                 // Severities match
             } else {
 
-                LOG.debug("Event severity: {} did not match notification severity: {}", curNotif.getEventSeverity(), event.getSeverity());
+                LOG.debug("Event severity: {} did not match notification severity: {}", curNotif.getEventSeverity(),
+                          event.getSeverity());
                 continue;
             }
 
             // The notice has to be "on"
-            // The notice has to match a severity if configured - currHasSeverity should be true if there is no severity rule
+            // The notice has to match a severity if configured -
+            // currHasSeverity should be true if there is no severity rule
             // The notice has to match the UEI of the event or MATCH-ANY-UEI
             // If all those things are true:
-            // Then the service has to match if configured, the interface if configured, and the node if configured.
+            // Then the service has to match if configured, the interface if
+            // configured, and the node if configured.
 
             if (curNotif.getStatus().equals("on")) {
                 if (nodeInterfaceServiceValid(curNotif, event)) {
@@ -333,7 +397,6 @@ public abstract class NotificationManager {
                     }
                     // Add this notification to the return value
                     notifList.add(curNotif);
-
 
                     LOG.debug("Event {} matched notice {}", curNotif.getName(), event.getUei());
 
@@ -357,7 +420,9 @@ public abstract class NotificationManager {
     }
 
     /**
-     * <p>getConfigManager</p>
+     * <p>
+     * getConfigManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.NotifdConfigManager} object.
      */
@@ -366,10 +431,15 @@ public abstract class NotificationManager {
     }
 
     /**
-     * <p>nodeInterfaceServiceValid</p>
+     * <p>
+     * nodeInterfaceServiceValid
+     * </p>
      *
-     * @param notif a {@link org.opennms.netmgt.config.notifications.Notification} object.
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param notif
+     *            a {@link org.opennms.netmgt.config.notifications.Notification}
+     *            object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     protected boolean nodeInterfaceServiceValid(final Notification notif, final Event event) {
@@ -378,18 +448,20 @@ public abstract class NotificationManager {
         Assert.notNull(notif.getRule(), "getRule() on notif argument must not return null");
 
         /*
-         *  If the event doesn't have a nodeId, interface, or service,
-         *  return true since there is nothing on which to filter.
+         * If the event doesn't have a nodeId, interface, or service,
+         * return true since there is nothing on which to filter.
          */
         if (event.getNodeid() == 0 && event.getInterface() == null && event.getService() == null) {
             if ("MATCH-ANY-UEI".equals(notif.getUei())) {
-               // TODO: Trim parentheses from the filter and trim whitespace from inside the
-               // filter statement. This comparison is very brittle as it is.
-               if ("ipaddr != '0.0.0.0'".equals(notif.getRule().toLowerCase()) || "ipaddr iplike *.*.*.*".equals(notif.getRule().toLowerCase())) {
-                   return true;
-               } else {
-                   return false;
-               }
+                // TODO: Trim parentheses from the filter and trim whitespace
+                // from inside the
+                // filter statement. This comparison is very brittle as it is.
+                if ("ipaddr != '0.0.0.0'".equals(notif.getRule().toLowerCase())
+                        || "ipaddr iplike *.*.*.*".equals(notif.getRule().toLowerCase())) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
             return true;
         }
@@ -399,8 +471,7 @@ public abstract class NotificationManager {
             constraints.append(" & (nodeId == " + event.getNodeid() + ")");
         }
 
-        if (event.getInterface() != null
-                && !"0.0.0.0".equals(event.getInterface())) {
+        if (event.getInterface() != null && !"0.0.0.0".equals(event.getInterface())) {
             constraints.append(" & (ipAddr == '" + event.getInterface() + "')");
             if (event.getService() != null) {
                 constraints.append(" & (serviceName == '" + event.getService() + "')");
@@ -435,32 +506,42 @@ public abstract class NotificationManager {
      *
      * @return int, the sequence id from the database, 0 by default if there is
      *         database trouble
-     * @throws java.sql.SQLException if any.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.sql.SQLException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public int getNoticeId() throws SQLException, IOException, MarshalException, ValidationException {
         return getNxtId(m_configManager.getNextNotifIdSql());
     }
 
     /**
-     * <p>getUserNotifId</p>
+     * <p>
+     * getUserNotifId
+     * </p>
      *
      * @return a int.
-     * @throws java.sql.SQLException if any.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.sql.SQLException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public int getUserNotifId() throws SQLException, IOException, MarshalException, ValidationException {
         return getNxtId(m_configManager.getNextUserNotifIdSql());
     }
 
-	private int getNxtId(final String sql) throws SQLException {
-		int id = 0;
-		Connection connection = null;
-		try {
+    private int getNxtId(final String sql) throws SQLException {
+        int id = 0;
+        Connection connection = null;
+        try {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet results = stmt.executeQuery(sql);
@@ -479,17 +560,22 @@ public abstract class NotificationManager {
                 }
             }
         }
-		return id;
-	}
+        return id;
+    }
+
     /**
      * This method returns a boolean indicating if the page has been responded
      * to by any member of the group the page was sent to.
      *
-     * @param noticeId a int.
+     * @param noticeId
+     *            a int.
      * @return a boolean.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public boolean noticeOutstanding(final int noticeId) throws IOException, MarshalException, ValidationException {
         boolean outstanding = false;
@@ -526,19 +612,30 @@ public abstract class NotificationManager {
 
         return outstanding;
     }
+
     /**
-     * <p>acknowledgeNotice</p>
+     * <p>
+     * acknowledgeNotice
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param matchList an array of {@link java.lang.String} objects.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param matchList
+     *            an array of {@link java.lang.String} objects.
      * @return a {@link java.util.Collection} object.
-     * @throws java.sql.SQLException if any.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.sql.SQLException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public Collection<Integer> acknowledgeNotice(final Event event, final String uei, final String[] matchList) throws SQLException, IOException, MarshalException, ValidationException {
+    public Collection<Integer> acknowledgeNotice(final Event event, final String uei, final String[] matchList)
+            throws SQLException, IOException, MarshalException, ValidationException {
         Connection connection = null;
         List<Integer> notifIDs = new LinkedList<Integer>();
         final DBUtils d = new DBUtils(getClass());
@@ -581,7 +678,6 @@ public abstract class NotificationManager {
 
                 LOG.debug("EventID for notice(s) to be acked: {}", eventID);
 
-
                 sql = new StringBuffer("SELECT notifyid, answeredby, respondtime FROM notifications WHERE eventID=?");
 
                 statement = connection.prepareStatement(sql.toString());
@@ -594,10 +690,10 @@ public abstract class NotificationManager {
                         int notifID = results.getInt(1);
                         String ansBy = results.getString(2);
                         Timestamp ts = results.getTimestamp(3);
-                        if(ansBy == null) {
+                        if (ansBy == null) {
                             ansBy = "auto-acknowledged";
                             ts = new Timestamp((new Date()).getTime());
-                        } else if(ansBy.indexOf("auto-acknowledged") > -1) {
+                        } else if (ansBy.indexOf("auto-acknowledged") > -1) {
 
                             LOG.debug("Notice has previously been auto-acknowledged. Skipping...");
                             continue;
@@ -606,7 +702,8 @@ public abstract class NotificationManager {
                             ansBy = ansBy + "/auto-acknowledged";
                         }
 
-                        LOG.debug("Matching DOWN notifyID = {}, was acked by user = {}, ansBy = {}", ansBy, notifID, wasAcked);
+                        LOG.debug("Matching DOWN notifyID = {}, was acked by user = {}, ansBy = {}", ansBy, notifID,
+                                  wasAcked);
                         final PreparedStatement update = connection.prepareStatement(getConfigManager().getConfiguration().getAcknowledgeUpdateSql());
                         d.watch(update);
 
@@ -616,7 +713,7 @@ public abstract class NotificationManager {
 
                         update.executeUpdate();
                         update.close();
-                        if(wasAcked) {
+                        if (wasAcked) {
                             notifIDs.add(-1 * notifID);
                         } else {
                             notifIDs.add(notifID);
@@ -632,14 +729,19 @@ public abstract class NotificationManager {
         }
         return notifIDs;
     }
+
     /**
-     * <p>getActiveNodes</p>
+     * <p>
+     * getActiveNodes
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public List<Integer> getActiveNodes() throws SQLException {
-        String NODE_QUERY = "SELECT   n.nodeid " + "FROM     node n " + "WHERE    n.nodetype != 'D' " + "ORDER BY n.nodelabel";
+        String NODE_QUERY = "SELECT   n.nodeid " + "FROM     node n " + "WHERE    n.nodetype != 'D' "
+                + "ORDER BY n.nodelabel";
 
         java.sql.Connection connection = null;
         final List<Integer> allNodes = new ArrayList<Integer>();
@@ -667,16 +769,24 @@ public abstract class NotificationManager {
             d.cleanUp();
         }
     }
+
     /**
-     * <p>getServiceNoticeStatus</p>
+     * <p>
+     * getServiceNoticeStatus
+     * </p>
      *
-     * @param nodeID a {@link java.lang.String} object.
-     * @param ipaddr a {@link java.lang.String} object.
-     * @param service a {@link java.lang.String} object.
+     * @param nodeID
+     *            a {@link java.lang.String} object.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
+     * @param service
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public String getServiceNoticeStatus(final String nodeID, final String ipaddr, final String service) throws SQLException {
+    public String getServiceNoticeStatus(final String nodeID, final String ipaddr, final String service)
+            throws SQLException {
         String notify = "Y";
 
         final String query = "SELECT notify FROM ifservices, service WHERE nodeid=? AND ipaddr=? AND ifservices.serviceid=service.serviceid AND service.servicename=?";
@@ -706,23 +816,39 @@ public abstract class NotificationManager {
             d.cleanUp();
         }
     }
+
     /**
-     * <p>updateNoticeWithUserInfo</p>
+     * <p>
+     * updateNoticeWithUserInfo
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @param userId a {@link java.lang.String} object.
-     * @param noticeId a int.
-     * @param media a {@link java.lang.String} object.
-     * @param contactInfo a {@link java.lang.String} object.
-     * @param autoNotify a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @param userId
+     *            a {@link java.lang.String} object.
+     * @param noticeId
+     *            a int.
+     * @param media
+     *            a {@link java.lang.String} object.
+     * @param contactInfo
+     *            a {@link java.lang.String} object.
+     * @param autoNotify
+     *            a {@link java.lang.String} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public void updateNoticeWithUserInfo(final String userId, final int noticeId, final String media, final String contactInfo, final String autoNotify) throws SQLException, MarshalException, ValidationException, IOException {
-        if (noticeId < 0) return;
+    public void updateNoticeWithUserInfo(final String userId, final int noticeId, final String media,
+            final String contactInfo, final String autoNotify) throws SQLException, MarshalException,
+            ValidationException, IOException {
+        if (noticeId < 0)
+            return;
         int userNotifId = getUserNotifId();
-        LOG.debug("updating usersnotified: ID = {} User = {}, notice ID = {}, conctactinfo = {}, media = {}, autoNotify = {}", autoNotify, userNotifId, userId, noticeId, contactInfo, media);
+        LOG.debug("updating usersnotified: ID = {} User = {}, notice ID = {}, conctactinfo = {}, media = {}, autoNotify = {}",
+                  autoNotify, userNotifId, userId, noticeId, contactInfo, media);
         Connection connection = null;
         final DBUtils d = new DBUtils(getClass());
         try {
@@ -746,25 +872,32 @@ public abstract class NotificationManager {
             d.cleanUp();
         }
     }
+
     /**
      * This method inserts a row into the notifications table in the database.
      * This row indicates that the page has been sent out.
      *
-     * @param queueID a {@link java.lang.String} object.
-     * @param notification TODO
-     * @param notifyId a int.
-     * @param params a {@link java.util.Map} object.
-     * @throws java.sql.SQLException if any.
+     * @param queueID
+     *            a {@link java.lang.String} object.
+     * @param notification
+     *            TODO
+     * @param notifyId
+     *            a int.
+     * @param params
+     *            a {@link java.util.Map} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public void insertNotice(final int notifyId, final Map<String, String> params, final String queueID, final Notification notification) throws SQLException {
+    public void insertNotice(final int notifyId, final Map<String, String> params, final String queueID,
+            final Notification notification) throws SQLException {
         Connection connection = null;
         final DBUtils d = new DBUtils(getClass());
         try {
             connection = getConnection();
             d.watch(connection);
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO notifications (" +
-                    "textmsg, numericmsg, notifyid, pagetime, nodeid, interfaceid, serviceid, eventid, " +
-                    "eventuei, subject, queueID, notifConfigName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO notifications ("
+                    + "textmsg, numericmsg, notifyid, pagetime, nodeid, interfaceid, serviceid, eventid, "
+                    + "eventuei, subject, queueID, notifConfigName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             d.watch(statement);
 
             // notifications textMsg field
@@ -791,7 +924,8 @@ public abstract class NotificationManager {
 
             // notifications nodeID field
             String node = params.get(NotificationManager.PARAM_NODE);
-            if (node != null && !node.trim().equals("") && !node.equalsIgnoreCase("null") && !node.equalsIgnoreCase("%nodeid%")) {
+            if (node != null && !node.trim().equals("") && !node.equalsIgnoreCase("null")
+                    && !node.equalsIgnoreCase("%nodeid%")) {
                 statement.setInt(5, Integer.parseInt(node));
             } else {
                 statement.setNull(5, Types.INTEGER);
@@ -799,7 +933,8 @@ public abstract class NotificationManager {
 
             // notifications interfaceID field
             String ipaddr = params.get(NotificationManager.PARAM_INTERFACE);
-            if (ipaddr != null && !ipaddr.trim().equals("") && !ipaddr.equalsIgnoreCase("null") && !ipaddr.equalsIgnoreCase("%interface%")) {
+            if (ipaddr != null && !ipaddr.trim().equals("") && !ipaddr.equalsIgnoreCase("null")
+                    && !ipaddr.equalsIgnoreCase("%interface%")) {
                 statement.setString(6, ipaddr);
             } else {
                 statement.setString(6, null);
@@ -807,7 +942,8 @@ public abstract class NotificationManager {
 
             // notifications serviceID field
             String service = params.get(NotificationManager.PARAM_SERVICE);
-            if (service != null && !service.trim().equals("") && !service.equalsIgnoreCase("null") && !service.equalsIgnoreCase("%service%")) {
+            if (service != null && !service.trim().equals("") && !service.equalsIgnoreCase("null")
+                    && !service.equalsIgnoreCase("%service%")) {
                 statement.setInt(7, getServiceId(service));
             } else {
                 statement.setNull(7, Types.INTEGER);
@@ -832,6 +968,7 @@ public abstract class NotificationManager {
             d.cleanUp();
         }
     }
+
     /**
      * This method queries the database in search of a service id for a given
      * serivice name
@@ -864,13 +1001,19 @@ public abstract class NotificationManager {
             d.cleanUp();
         }
     }
+
     /**
-     * <p>getNotifications</p>
+     * <p>
+     * getNotifications
+     * </p>
      *
      * @return a {@link java.util.Map} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public Map<String, Notification> getNotifications() throws IOException, MarshalException, ValidationException {
         update();
@@ -884,11 +1027,15 @@ public abstract class NotificationManager {
 
         return Collections.unmodifiableMap(newMap);
     }
+
     /**
-     * <p>getServiceNames</p>
+     * <p>
+     * getServiceNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public List<String> getServiceNames() throws SQLException {
         Connection connection = null;
@@ -915,27 +1062,41 @@ public abstract class NotificationManager {
 
         return services;
     }
+
     /**
-     * <p>getNotification</p>
+     * <p>
+     * getNotification
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.notifications.Notification} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.config.notifications.Notification}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public Notification getNotification(final String name) throws IOException, MarshalException, ValidationException {
         update();
 
         return getNotifications().get(name);
     }
+
     /**
-     * <p>getNotificationNames</p>
+     * <p>
+     * getNotificationNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public List<String> getNotificationNames() throws IOException, MarshalException, ValidationException {
         update();
@@ -948,77 +1109,103 @@ public abstract class NotificationManager {
 
         return notificationNames;
     }
+
     /**
-     * <p>removeNotification</p>
+     * <p>
+     * removeNotification
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
-    public synchronized void removeNotification(final String name) throws MarshalException, ValidationException, IOException, ClassNotFoundException {
+    public synchronized void removeNotification(final String name) throws MarshalException, ValidationException,
+            IOException, ClassNotFoundException {
         m_notifications.removeNotification(getNotification(name));
         saveCurrent();
     }
+
     /**
      * Handles adding a new Notification.
      *
      * @param notice
      *            The Notification to add.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
-    public synchronized void addNotification(final Notification notice) throws MarshalException, ValidationException, IOException, ClassNotFoundException {
+    public synchronized void addNotification(final Notification notice) throws MarshalException, ValidationException,
+            IOException, ClassNotFoundException {
         // remove any existing notice with the same name
         m_notifications.removeNotification(getNotification(notice.getName()));
 
         m_notifications.addNotification(notice);
         saveCurrent();
     }
+
     /**
-     * <p>replaceNotification</p>
+     * <p>
+     * replaceNotification
+     * </p>
      *
-     * @param oldName a {@link java.lang.String} object.
-     * @param newNotice a {@link org.opennms.netmgt.config.notifications.Notification} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @param oldName
+     *            a {@link java.lang.String} object.
+     * @param newNotice
+     *            a {@link org.opennms.netmgt.config.notifications.Notification}
+     *            object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
-    public synchronized void replaceNotification(final String oldName, final Notification newNotice) throws MarshalException, ValidationException, IOException, ClassNotFoundException {
-        //   In order to preserve the order of the notices, we have to replace "in place".
+    public synchronized void replaceNotification(final String oldName, final Notification newNotice)
+            throws MarshalException, ValidationException, IOException, ClassNotFoundException {
+        // In order to preserve the order of the notices, we have to replace
+        // "in place".
 
         Notification notice = getNotification(oldName);
-	if (notice != null) {
-       	notice.setWriteable(newNotice.getWriteable());
-       	notice.setName(newNotice.getName());
-	        notice.setDescription(newNotice.getDescription());
-	        notice.setUei(newNotice.getUei());
-	        notice.setRule(newNotice.getRule());
-	        notice.setDestinationPath(newNotice.getDestinationPath());
-	        notice.setNoticeQueue(newNotice.getNoticeQueue());
-	        notice.setTextMessage(newNotice.getTextMessage());
-	        notice.setSubject(newNotice.getSubject());
-	        notice.setNumericMessage(newNotice.getNumericMessage());
-	        notice.setStatus(newNotice.getStatus());
-	        notice.setVarbind(newNotice.getVarbind());
+        if (notice != null) {
+            notice.setWriteable(newNotice.getWriteable());
+            notice.setName(newNotice.getName());
+            notice.setDescription(newNotice.getDescription());
+            notice.setUei(newNotice.getUei());
+            notice.setRule(newNotice.getRule());
+            notice.setDestinationPath(newNotice.getDestinationPath());
+            notice.setNoticeQueue(newNotice.getNoticeQueue());
+            notice.setTextMessage(newNotice.getTextMessage());
+            notice.setSubject(newNotice.getSubject());
+            notice.setNumericMessage(newNotice.getNumericMessage());
+            notice.setStatus(newNotice.getStatus());
+            notice.setVarbind(newNotice.getVarbind());
 
-	        Parameter parameters[] = newNotice.getParameter();
-	        for (int i = 0; i < parameters.length; i++) {
-		            Parameter newParam = new Parameter();
-		            newParam.setName(parameters[i].getName());
-		            newParam.setValue(parameters[i].getValue());
+            Parameter parameters[] = newNotice.getParameter();
+            for (int i = 0; i < parameters.length; i++) {
+                Parameter newParam = new Parameter();
+                newParam.setName(parameters[i].getName());
+                newParam.setValue(parameters[i].getValue());
 
-		            notice.addParameter(newParam);
-	        }
-                saveCurrent();
-	}
-	else
-        	addNotification(newNotice);
-     }
+                notice.addParameter(newParam);
+            }
+            saveCurrent();
+        } else
+            addNotification(newNotice);
+    }
 
     /**
      * Sets the status on an individual notification configuration and saves to
@@ -1028,12 +1215,17 @@ public abstract class NotificationManager {
      *            The name of the notification.
      * @param status
      *            The status (either "on" or "off").
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
-    public synchronized void updateStatus(final String name, final String status) throws MarshalException, ValidationException, IOException, ClassNotFoundException {
+    public synchronized void updateStatus(final String name, final String status) throws MarshalException,
+            ValidationException, IOException, ClassNotFoundException {
         if ("on".equals(status) || "off".equals(status)) {
             Notification notice = getNotification(name);
             notice.setStatus(status);
@@ -1042,15 +1234,23 @@ public abstract class NotificationManager {
         } else
             throw new IllegalArgumentException("Status must be on|off, not " + status);
     }
+
     /**
-     * <p>saveCurrent</p>
+     * <p>
+     * saveCurrent
+     * </p>
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
-    public synchronized void saveCurrent() throws MarshalException, ValidationException, IOException, ClassNotFoundException {
+    public synchronized void saveCurrent() throws MarshalException, ValidationException, IOException,
+            ClassNotFoundException {
         m_notifications.setHeader(rebuildHeader());
 
         // Marshal to a string first, then write the string to the file. This
@@ -1063,11 +1263,16 @@ public abstract class NotificationManager {
 
         update();
     }
+
     /**
-     * <p>saveXML</p>
+     * <p>
+     * saveXML
+     * </p>
      *
-     * @param xmlString a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param xmlString
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected abstract void saveXML(String xmlString) throws IOException;
 
@@ -1081,64 +1286,69 @@ public abstract class NotificationManager {
 
         return header;
     }
+
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public abstract void update() throws IOException, MarshalException, ValidationException;
 
     /**
-     * <p>rebuildParameterMap</p>
+     * <p>
+     * rebuildParameterMap
+     * </p>
      *
-     * @param notifId a int.
-     * @param resolutionPrefix a {@link java.lang.String} object.
-     * @param skipNumericPrefix a boolean.
+     * @param notifId
+     *            a int.
+     * @param resolutionPrefix
+     *            a {@link java.lang.String} object.
+     * @param skipNumericPrefix
+     *            a boolean.
      * @return a {@link java.util.Map} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public Map<String, String> rebuildParameterMap(final int notifId, final String resolutionPrefix, final boolean skipNumericPrefix) throws Exception {
+    public Map<String, String> rebuildParameterMap(final int notifId, final String resolutionPrefix,
+            final boolean skipNumericPrefix) throws Exception {
         final Map<String, String> parmMap = new HashMap<String, String>();
-        Querier querier = new Querier(m_dataSource, "select notifications.*, service.* from notifications left outer join service on notifications.serviceID = service.serviceID  where notifyId = ?") {
+        Querier querier = new Querier(
+                                      m_dataSource,
+                                      "select notifications.*, service.* from notifications left outer join service on notifications.serviceID = service.serviceID  where notifyId = ?") {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
 
                 /*
-                 * Note, getString on results is valid for any SQL data type except the new SQL types:
-                 *    Blog, Clob, Array, Struct, Ref
-                 * of which we have none in this table so this row processor is using getString
+                 * Note, getString on results is valid for any SQL data type
+                 * except the new SQL types:
+                 * Blog, Clob, Array, Struct, Ref
+                 * of which we have none in this table so this row processor is
+                 * using getString
                  * to correctly align with annotated types in the map.
                  */
-                parmMap.put(
-                    NotificationManager.PARAM_TEXT_MSG,
-                    expandNotifParms(
-                        resolutionPrefix,
-                        Collections.singletonMap("noticeid", String.valueOf(notifId))
-                    ) + rs.getString("textMsg")
-                );
+                parmMap.put(NotificationManager.PARAM_TEXT_MSG,
+                            expandNotifParms(resolutionPrefix,
+                                             Collections.singletonMap("noticeid", String.valueOf(notifId)))
+                                    + rs.getString("textMsg"));
                 if (skipNumericPrefix) {
-                    parmMap.put(
-                        NotificationManager.PARAM_NUM_MSG,
-                        rs.getString("numericMsg")
-                    );
+                    parmMap.put(NotificationManager.PARAM_NUM_MSG, rs.getString("numericMsg"));
                 } else {
-                    parmMap.put(
-                        NotificationManager.PARAM_NUM_MSG,
-                        expandNotifParms(
-                            resolutionPrefix,
-                            Collections.singletonMap("noticeid", String.valueOf(notifId))
-                        ) + rs.getString("numericMsg")
-                    );
+                    parmMap.put(NotificationManager.PARAM_NUM_MSG,
+                                expandNotifParms(resolutionPrefix,
+                                                 Collections.singletonMap("noticeid", String.valueOf(notifId)))
+                                        + rs.getString("numericMsg"));
                 }
-                parmMap.put(
-                    NotificationManager.PARAM_SUBJECT,
-                    expandNotifParms(
-                        resolutionPrefix,
-                        Collections.singletonMap("noticeid", String.valueOf(notifId))
-                    ) + rs.getString("subject")
-                );
+                parmMap.put(NotificationManager.PARAM_SUBJECT,
+                            expandNotifParms(resolutionPrefix,
+                                             Collections.singletonMap("noticeid", String.valueOf(notifId)))
+                                    + rs.getString("subject"));
                 parmMap.put(NotificationManager.PARAM_NODE, rs.getString("nodeID"));
                 parmMap.put(NotificationManager.PARAM_INTERFACE, rs.getString("interfaceID"));
                 parmMap.put(NotificationManager.PARAM_SERVICE, rs.getString("serviceName"));
@@ -1167,8 +1377,11 @@ public abstract class NotificationManager {
      * Adds additional parameters defined by the user in the notificaiton
      * configuration XML.
      *
-     * @param paramMap a {@link java.util.Map} object.
-     * @param notification a {@link org.opennms.netmgt.config.notifications.Notification} object.
+     * @param paramMap
+     *            a {@link java.util.Map} object.
+     * @param notification
+     *            a {@link org.opennms.netmgt.config.notifications.Notification}
+     *            object.
      */
     public static void addNotificationParams(final Map<String, String> paramMap, final Notification notification) {
         Collection<Parameter> parameters = notification.getParameterCollection();
@@ -1179,33 +1392,46 @@ public abstract class NotificationManager {
     }
 
     /**
-     * <p>forEachUserNotification</p>
+     * <p>
+     * forEachUserNotification
+     * </p>
      *
-     * @param notifId a int.
-     * @param rp a {@link org.opennms.netmgt.utils.RowProcessor} object.
+     * @param notifId
+     *            a int.
+     * @param rp
+     *            a {@link org.opennms.netmgt.utils.RowProcessor} object.
      */
     public void forEachUserNotification(final int notifId, final RowProcessor rp) {
-        final Querier querier = new Querier(m_dataSource, "select * from usersNotified where notifyId = ? order by notifytime", rp);
+        final Querier querier = new Querier(m_dataSource,
+                                            "select * from usersNotified where notifyId = ? order by notifytime", rp);
         querier.execute(notifId);
     }
 
     /**
-     * <p>getQueueForNotification</p>
+     * <p>
+     * getQueueForNotification
+     * </p>
      *
-     * @param notifId a int.
+     * @param notifId
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getQueueForNotification(final int notifId) {
-        final SingleResultQuerier querier = new SingleResultQuerier(m_dataSource, "select queueID from notifications where notifyId = ?");
+        final SingleResultQuerier querier = new SingleResultQuerier(m_dataSource,
+                                                                    "select queueID from notifications where notifyId = ?");
         querier.execute(notifId);
-        return (String)querier.getResult();
+        return (String) querier.getResult();
     }
 
     /**
-     * <p>expandMapValues</p>
+     * <p>
+     * expandMapValues
+     * </p>
      *
-     * @param map a {@link java.util.Map} object.
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param map
+     *            a {@link java.util.Map} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static void expandMapValues(Map<String, String> map, final Event event) {
         for (String key : map.keySet()) {
@@ -1215,7 +1441,8 @@ public abstract class NotificationManager {
             }
             String expandedValue = EventUtil.expandParms(map.get(key), event);
             if (expandedValue == null) {
-                // Don't use this value to replace the existing value if it's null
+                // Don't use this value to replace the existing value if it's
+                // null
             } else {
                 map.put(key, expandedValue);
             }
@@ -1223,14 +1450,17 @@ public abstract class NotificationManager {
     }
 
     /**
-     * In the absence of DAOs and ORMs this creates an Event object from the persisted
+     * In the absence of DAOs and ORMs this creates an Event object from the
+     * persisted
      * record.
      *
-     * @param eventid a int.
+     * @param eventid
+     *            a int.
      * @return a populated Event object
      */
     public Event getEvent(final int eventid) {
-        // don't switch using event builder since this event is read from the database
+        // don't switch using event builder since this event is read from the
+        // database
         final Event event = new Event();
         Querier querier = new Querier(m_dataSource, "select * from events where eventid = ?", new RowProcessor() {
 
@@ -1255,8 +1485,9 @@ public abstract class NotificationManager {
             }
 
             private String getServiceName(int serviceid) {
-                SingleResultQuerier querier = new SingleResultQuerier(m_dataSource, "select servicename from service where serviceid = ?");
-                return (String)querier.getResult();
+                SingleResultQuerier querier = new SingleResultQuerier(m_dataSource,
+                                                                      "select servicename from service where serviceid = ?");
+                return (String) querier.getResult();
             }
 
         });

@@ -48,7 +48,7 @@ import org.xml.sax.ContentHandler;
  * Parameters to be used for configuration this strategy.
  */
 
-@XmlRootElement(name="parameter", namespace="http://xmlns.opennms.org/xsd/config/datacollection")
+@XmlRootElement(name = "parameter", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Parameter implements Serializable {
     private static final long serialVersionUID = -81271205406892996L;
@@ -63,10 +63,9 @@ public class Parameter implements Serializable {
      */
     private String m_value;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Parameter() {
         super();
@@ -77,7 +76,6 @@ public class Parameter implements Serializable {
         m_value = value.intern();
     }
 
-
     /**
      * Overrides the java.lang.Object.equals method.
      *
@@ -86,25 +84,25 @@ public class Parameter implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof Parameter) {
 
-            final Parameter temp = (Parameter)obj;
+            final Parameter temp = (Parameter) obj;
             if (m_key != null) {
-                if (temp.m_key == null) return false;
+                if (temp.m_key == null)
+                    return false;
                 else if (!(m_key.equals(temp.m_key)))
                     return false;
-            }
-            else if (temp.m_key != null)
+            } else if (temp.m_key != null)
                 return false;
             if (m_value != null) {
-                if (temp.m_value == null) return false;
+                if (temp.m_value == null)
+                    return false;
                 else if (!(m_value.equals(temp.m_value)))
                     return false;
-            }
-            else if (temp.m_value != null)
+            } else if (temp.m_value != null)
                 return false;
             return true;
         }
@@ -116,7 +114,7 @@ public class Parameter implements Serializable {
      *
      * @return the value of field 'Key'.
      */
-    @XmlAttribute(name="key", required=true)
+    @XmlAttribute(name = "key", required = true)
     public String getKey() {
         return m_key;
     }
@@ -126,7 +124,7 @@ public class Parameter implements Serializable {
      *
      * @return the value of field 'Value'.
      */
-    @XmlAttribute(name="value", required=true)
+    @XmlAttribute(name = "value", required = true)
     public String getValue() {
         return m_value;
     }
@@ -134,8 +132,8 @@ public class Parameter implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -144,10 +142,10 @@ public class Parameter implements Serializable {
         int result = 17;
 
         if (m_key != null) {
-           result = 37 * result + m_key.hashCode();
+            result = 37 * result + m_key.hashCode();
         }
         if (m_value != null) {
-           result = 37 * result + m_value.hashCode();
+            result = 37 * result + m_value.hashCode();
         }
 
         return result;
@@ -169,13 +167,13 @@ public class Parameter implements Serializable {
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -183,15 +181,16 @@ public class Parameter implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -201,7 +200,8 @@ public class Parameter implements Serializable {
     /**
      * Sets the value of field 'key'.
      *
-     * @param key the value of field 'key'.
+     * @param key
+     *            the value of field 'key'.
      */
     public void setKey(final String key) {
         m_key = key.intern();
@@ -210,7 +210,8 @@ public class Parameter implements Serializable {
     /**
      * Sets the value of field 'value'.
      *
-     * @param value the value of field 'value'.
+     * @param value
+     *            the value of field 'value'.
      */
     public void setValue(final String value) {
         m_value = value.intern();
@@ -220,23 +221,24 @@ public class Parameter implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * org.opennms.netmgt.config.datacollection.types.Parameter
+     *         org.opennms.netmgt.config.datacollection.types.Parameter
      */
     @Deprecated
     public static Parameter unmarshal(final Reader reader) throws MarshalException, ValidationException {
-        return (Parameter)Unmarshaller.unmarshal(Parameter.class, reader);
+        return (Parameter) Unmarshaller.unmarshal(Parameter.class, reader);
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

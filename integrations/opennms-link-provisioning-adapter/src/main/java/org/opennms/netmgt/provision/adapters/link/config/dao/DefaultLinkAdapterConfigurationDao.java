@@ -49,21 +49,29 @@ import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
-public class DefaultLinkAdapterConfigurationDao extends AbstractJaxbConfigDao<LinkAdapterConfiguration, LinkAdapterConfiguration> implements LinkAdapterConfigurationDao {
+public class DefaultLinkAdapterConfigurationDao extends
+        AbstractJaxbConfigDao<LinkAdapterConfiguration, LinkAdapterConfiguration> implements
+        LinkAdapterConfigurationDao {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultLinkAdapterConfigurationDao.class);
 
     /**
-     * <p>Constructor for DefaultLinkAdapterConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultLinkAdapterConfigurationDao.
+     * </p>
      */
     public DefaultLinkAdapterConfigurationDao() {
         super(LinkAdapterConfiguration.class, "Map Link Adapter Configuration");
     }
 
     /**
-     * <p>Constructor for DefaultLinkAdapterConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultLinkAdapterConfigurationDao.
+     * </p>
      *
-     * @param entityClass a {@link java.lang.Class} object.
-     * @param description a {@link java.lang.String} object.
+     * @param entityClass
+     *            a {@link java.lang.Class} object.
+     * @param description
+     *            a {@link java.lang.String} object.
      */
     public DefaultLinkAdapterConfigurationDao(Class<LinkAdapterConfiguration> entityClass, String description) {
         super(entityClass, description);
@@ -76,7 +84,9 @@ public class DefaultLinkAdapterConfigurationDao extends AbstractJaxbConfigDao<Li
     }
 
     /**
-     * <p>getPatterns</p>
+     * <p>
+     * getPatterns
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -96,7 +106,9 @@ public class DefaultLinkAdapterConfigurationDao extends AbstractJaxbConfigDao<Li
     }
 
     /**
-     * <p>saveCurrent</p>
+     * <p>
+     * saveCurrent
+     * </p>
      */
     @Override
     public synchronized void saveCurrent() {
@@ -104,7 +116,8 @@ public class DefaultLinkAdapterConfigurationDao extends AbstractJaxbConfigDao<Li
         try {
             file = getConfigResource().getFile();
         } catch (IOException e) {
-            throw new DataAccessResourceFailureException("Unable to determine file for " + getConfigResource() + ": " + e, e);
+            throw new DataAccessResourceFailureException("Unable to determine file for " + getConfigResource() + ": "
+                    + e, e);
         }
         if (file == null) {
             throw new DataAccessResourceFailureException("Unable to determine file for " + getConfigResource());
@@ -121,7 +134,8 @@ public class DefaultLinkAdapterConfigurationDao extends AbstractJaxbConfigDao<Li
                 fileWriter = new OutputStreamWriter(os, "UTF-8");
                 fileWriter.write(stringWriter.toString());
             } catch (final IOException e) {
-                throw new DataAccessResourceFailureException("Could not write resource " + getConfigResource() + " to file " + file.getPath() + ": " + e, e);
+                throw new DataAccessResourceFailureException("Could not write resource " + getConfigResource()
+                        + " to file " + file.getPath() + ": " + e, e);
             } finally {
                 IOUtils.closeQuietly(fileWriter);
                 IOUtils.closeQuietly(os);

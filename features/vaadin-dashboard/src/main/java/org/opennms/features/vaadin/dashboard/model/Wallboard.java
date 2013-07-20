@@ -45,6 +45,7 @@ public class Wallboard {
      * A {@link List} holding the associated {@link DashletSpec} instances
      */
     private List<DashletSpec> m_dashletSpecs = new LinkedList<DashletSpec>();
+
     /**
      * The title of this wallboard
      */
@@ -59,7 +60,8 @@ public class Wallboard {
     /**
      * Copy constructor.
      *
-     * @param wallboard the {@link Wallboard} to be cloned
+     * @param wallboard
+     *            the {@link Wallboard} to be cloned
      */
     public Wallboard(Wallboard wallboard) {
         m_title = wallboard.getTitle();
@@ -71,7 +73,8 @@ public class Wallboard {
     /**
      * Sets the title of this wallboard.
      *
-     * @param title the name to be set
+     * @param title
+     *            the name to be set
      */
     public void setTitle(String title) {
         m_title = title;

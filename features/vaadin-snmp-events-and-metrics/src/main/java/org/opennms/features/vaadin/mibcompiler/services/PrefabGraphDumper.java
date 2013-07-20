@@ -44,11 +44,16 @@ public class PrefabGraphDumper {
 
     /**
      * Dump.
-     * <p>This only cover the main variables from the PrefabGraph.</p>
+     * <p>
+     * This only cover the main variables from the PrefabGraph.
+     * </p>
      *
-     * @param graphs the graphs
-     * @param writer the writer
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @param graphs
+     *            the graphs
+     * @param writer
+     *            the writer
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void dump(List<PrefabGraph> graphs, Writer writer) throws IOException {
         List<String> templates = new ArrayList<String>();

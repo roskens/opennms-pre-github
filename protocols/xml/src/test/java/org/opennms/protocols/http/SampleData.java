@@ -43,19 +43,21 @@ import org.opennms.protocols.xml.config.Parameter;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="sample-data")
+@XmlRootElement(name = "sample-data")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SampleData {
 
     /** The parameters. */
-    @XmlElement(name="parameter")
+    @XmlElement(name = "parameter")
     private List<Parameter> parameters = new ArrayList<Parameter>();
 
     /**
      * Adds the parameter.
      *
-     * @param name the name
-     * @param value the value
+     * @param name
+     *            the name
+     * @param value
+     *            the value
      */
     public void addParameter(String name, String value) {
         parameters.add(new Parameter(name, value));
@@ -64,7 +66,8 @@ public class SampleData {
     /**
      * Gets the parameter.
      *
-     * @param name the name
+     * @param name
+     *            the name
      * @return the parameter
      */
     public String getParameter(String name) {
@@ -86,7 +89,8 @@ public class SampleData {
     /**
      * Sets the parameters.
      *
-     * @param parameters the new parameters
+     * @param parameters
+     *            the new parameters
      */
     public void setParameters(List<Parameter> parameters) {
         this.parameters = parameters;

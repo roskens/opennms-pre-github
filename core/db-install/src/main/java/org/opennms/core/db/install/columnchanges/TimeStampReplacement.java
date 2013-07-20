@@ -46,9 +46,12 @@ public class TimeStampReplacement implements ColumnChangeReplacement {
     private final Date m_replacement;
 
     /**
-     * <p>Constructor for TimeStampReplacement.</p>
+     * <p>
+     * Constructor for TimeStampReplacement.
+     * </p>
      *
-     * @param value a {@link java.util.Date} object.
+     * @param value
+     *            a {@link java.util.Date} object.
      */
     public TimeStampReplacement(Date value) {
         m_replacement = value;
@@ -61,7 +64,9 @@ public class TimeStampReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -71,7 +76,9 @@ public class TimeStampReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {

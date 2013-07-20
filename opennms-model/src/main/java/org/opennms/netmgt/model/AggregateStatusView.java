@@ -33,7 +33,6 @@ import java.util.Set;
 /**
  * Really a container class for persisting arrangements of status definitions
  * created by the user.
- *
  * Perhaps a new package called model.config is in order.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -41,14 +40,21 @@ import java.util.Set;
 public class AggregateStatusView {
 
     private Integer m_id;
+
     private String m_name;
+
     private String m_tableName;
+
     private String m_columnName;
+
     private String m_columnValue;
+
     private Set<AggregateStatusDefinition> m_statusDefinitions;
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -57,16 +63,21 @@ public class AggregateStatusView {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,16 +86,21 @@ public class AggregateStatusView {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
     /**
-     * <p>getTableName</p>
+     * <p>
+     * getTableName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,16 +109,21 @@ public class AggregateStatusView {
     }
 
     /**
-     * <p>setTableName</p>
+     * <p>
+     * setTableName
+     * </p>
      *
-     * @param tableName a {@link java.lang.String} object.
+     * @param tableName
+     *            a {@link java.lang.String} object.
      */
     public void setTableName(String tableName) {
         m_tableName = tableName;
     }
 
     /**
-     * <p>getColumnName</p>
+     * <p>
+     * getColumnName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,16 +132,21 @@ public class AggregateStatusView {
     }
 
     /**
-     * <p>setColumnName</p>
+     * <p>
+     * setColumnName
+     * </p>
      *
-     * @param columnName a {@link java.lang.String} object.
+     * @param columnName
+     *            a {@link java.lang.String} object.
      */
     public void setColumnName(String columnName) {
         m_columnName = columnName;
     }
 
     /**
-     * <p>getColumnValue</p>
+     * <p>
+     * getColumnValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,51 +155,60 @@ public class AggregateStatusView {
     }
 
     /**
-     * <p>setColumnValue</p>
+     * <p>
+     * setColumnValue
+     * </p>
      *
-     * @param columnValue a {@link java.lang.String} object.
+     * @param columnValue
+     *            a {@link java.lang.String} object.
      */
     public void setColumnValue(String columnValue) {
         m_columnValue = columnValue;
     }
 
     /**
-     * <p>getStatusDefinitions</p>
+     * <p>
+     * getStatusDefinitions
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
     public Set<AggregateStatusDefinition> getStatusDefinitions() {
         return m_statusDefinitions;
     }
+
     /**
-     * <p>setStatusDefinitions</p>
+     * <p>
+     * setStatusDefinitions
+     * </p>
      *
-     * @param statusDefinitions a {@link java.util.Set} object.
+     * @param statusDefinitions
+     *            a {@link java.util.Set} object.
      */
     public void setStatusDefinitions(Set<AggregateStatusDefinition> statusDefinitions) {
         m_statusDefinitions = statusDefinitions;
     }
 
-	/**
-	 * Good for debug logs and viewing in a debugger.
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
+    /**
+     * Good for debug logs and viewing in a debugger.
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-	public String toString() {
-		StringBuffer result = new StringBuffer(50);
-		result.append("AggregateStatusView { id: ");
-		result.append(m_id);
-		result.append(", name: ");
-		result.append(m_name);
-		result.append(", tableName: ");
-		result.append(m_tableName);
-		result.append(", columnName: ");
-		result.append(m_columnName);
-		result.append(", columnValue: ");
-		result.append(m_columnValue);
-		result.append(" }");
-		return result.toString();
-	}
+    public String toString() {
+        StringBuffer result = new StringBuffer(50);
+        result.append("AggregateStatusView { id: ");
+        result.append(m_id);
+        result.append(", name: ");
+        result.append(m_name);
+        result.append(", tableName: ");
+        result.append(m_tableName);
+        result.append(", columnName: ");
+        result.append(m_columnName);
+        result.append(", columnValue: ");
+        result.append(m_columnValue);
+        result.append(" }");
+        return result.toString();
+    }
 
 }

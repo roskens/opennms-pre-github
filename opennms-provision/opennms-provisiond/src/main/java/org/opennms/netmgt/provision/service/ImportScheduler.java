@@ -50,7 +50,8 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.StringUtils;
 
 /**
- * Maintains the Provisioner's import schedule defined in provisiond-configuration.xml
+ * Maintains the Provisioner's import schedule defined in
+ * provisiond-configuration.xml
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -75,16 +76,21 @@ public class ImportScheduler implements InitializingBean {
     private JobFactory m_importJobFactory;
 
     /**
-     * <p>Constructor for ImportScheduler.</p>
+     * <p>
+     * Constructor for ImportScheduler.
+     * </p>
      *
-     * @param scheduler a {@link org.quartz.Scheduler} object.
+     * @param scheduler
+     *            a {@link org.quartz.Scheduler} object.
      */
     protected ImportScheduler(Scheduler scheduler) {
         m_scheduler = scheduler;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -102,45 +108,60 @@ public class ImportScheduler implements InitializingBean {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      *
-     * @throws org.quartz.SchedulerException if any.
+     * @throws org.quartz.SchedulerException
+     *             if any.
      */
     public void start() throws SchedulerException {
         getScheduler().start();
     }
 
     /**
-     * <p>pause</p>
+     * <p>
+     * pause
+     * </p>
      *
-     * @throws org.quartz.SchedulerException if any.
+     * @throws org.quartz.SchedulerException
+     *             if any.
      */
     public void pause() throws SchedulerException {
         getScheduler().pauseAll();
     }
 
     /**
-     * <p>standBy</p>
+     * <p>
+     * standBy
+     * </p>
      *
-     * @throws org.quartz.SchedulerException if any.
+     * @throws org.quartz.SchedulerException
+     *             if any.
      */
     public void standBy() throws SchedulerException {
         getScheduler().standby();
     }
 
     /**
-     * <p>resume</p>
+     * <p>
+     * resume
+     * </p>
      *
-     * @throws org.quartz.SchedulerException if any.
+     * @throws org.quartz.SchedulerException
+     *             if any.
      */
     public void resume() throws SchedulerException {
         getScheduler().resumeAll();
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      *
-     * @throws org.quartz.SchedulerException if any.
+     * @throws org.quartz.SchedulerException
+     *             if any.
      */
     public void stop() throws SchedulerException {
         getScheduler().shutdown();
@@ -148,10 +169,12 @@ public class ImportScheduler implements InitializingBean {
 
     /**
      * Removes all jobs from the current scheduled and the builds a new schedule
-     * from the reloaded configuration.  Since all jobs are Cron like, removing and re-adding
+     * from the reloaded configuration. Since all jobs are Cron like, removing
+     * and re-adding
      * shouldn't be an issue.
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     protected void rebuildImportSchedule() throws Exception {
 
@@ -172,11 +195,11 @@ public class ImportScheduler implements InitializingBean {
                 printCurrentSchedule();
 
             } catch (DataAccessResourceFailureException e) {
-                LOG.error("rebuildImportSchedule: {}", e.getLocalizedMessage(),e);
+                LOG.error("rebuildImportSchedule: {}", e.getLocalizedMessage(), e);
                 throw new IllegalStateException(e);
 
             } catch (SchedulerException e) {
-                LOG.error("rebuildImportSchedule: {}", e.getLocalizedMessage(),e);
+                LOG.error("rebuildImportSchedule: {}", e.getLocalizedMessage(), e);
                 throw e;
             }
 
@@ -186,9 +209,11 @@ public class ImportScheduler implements InitializingBean {
     }
 
     /**
-     * Iterates of current job list and removes each job from the underlying schedule
+     * Iterates of current job list and removes each job from the underlying
+     * schedule
      *
-     * @throws org.quartz.SchedulerException if any.
+     * @throws org.quartz.SchedulerException
+     *             if any.
      */
     protected void removeCurrentJobsFromSchedule() throws SchedulerException {
 
@@ -210,7 +235,9 @@ public class ImportScheduler implements InitializingBean {
     }
 
     /**
-     * <p>buildImportSchedule</p>
+     * <p>
+     * buildImportSchedule
+     * </p>
      */
     protected void buildImportSchedule() {
 
@@ -244,7 +271,9 @@ public class ImportScheduler implements InitializingBean {
     }
 
     /**
-     * <p>getScheduler</p>
+     * <p>
+     * getScheduler
+     * </p>
      *
      * @return a {@link org.quartz.Scheduler} object.
      */
@@ -253,35 +282,46 @@ public class ImportScheduler implements InitializingBean {
     }
 
     /**
-     * <p>setProvisioner</p>
+     * <p>
+     * setProvisioner
+     * </p>
      *
-     * @param provisioner a {@link org.opennms.netmgt.provision.service.Provisioner} object.
+     * @param provisioner
+     *            a {@link org.opennms.netmgt.provision.service.Provisioner}
+     *            object.
      */
     public void setProvisioner(Provisioner provisioner) {
         m_provisioner = provisioner;
     }
 
     /**
-     * <p>getProvisioner</p>
+     * <p>
+     * getProvisioner
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.service.Provisioner} object.
+     * @return a {@link org.opennms.netmgt.provision.service.Provisioner}
+     *         object.
      */
     protected final Provisioner getProvisioner() {
         return m_provisioner;
     }
 
-
     /**
-     * <p>setImportJobFactory</p>
+     * <p>
+     * setImportJobFactory
+     * </p>
      *
-     * @param importJobFactory a {@link org.quartz.spi.JobFactory} object.
+     * @param importJobFactory
+     *            a {@link org.quartz.spi.JobFactory} object.
      */
     public void setImportJobFactory(JobFactory importJobFactory) {
         m_importJobFactory = importJobFactory;
     }
 
     /**
-     * <p>getImportJobFactory</p>
+     * <p>
+     * getImportJobFactory
+     * </p>
      *
      * @return a {@link org.quartz.spi.JobFactory} object.
      */
@@ -293,21 +333,21 @@ public class ImportScheduler implements InitializingBean {
 
         try {
             LOG.info("calendarNames: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getCalendarNames()));
-            LOG.info("current executing jobs: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getCurrentlyExecutingJobs().toArray()));
-            LOG.info("current job names: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getJobNames(JOB_GROUP)));
+            LOG.info("current executing jobs: {}",
+                     StringUtils.arrayToCommaDelimitedString(getScheduler().getCurrentlyExecutingJobs().toArray()));
+            LOG.info("current job names: {}",
+                     StringUtils.arrayToCommaDelimitedString(getScheduler().getJobNames(JOB_GROUP)));
             LOG.info("scheduler metadata: {}", getScheduler().getMetaData());
-            LOG.info("trigger names: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getTriggerNames(JOB_GROUP)));
+            LOG.info("trigger names: {}",
+                     StringUtils.arrayToCommaDelimitedString(getScheduler().getTriggerNames(JOB_GROUP)));
 
             Iterator<String> it = Arrays.asList(getScheduler().getTriggerNames(JOB_GROUP)).iterator();
             while (it.hasNext()) {
                 String triggerName = it.next();
                 CronTrigger t = (CronTrigger) getScheduler().getTrigger(triggerName, JOB_GROUP);
                 LOG.info("trigger: {}, calendar name: {}, cron expression: {}, URL: {}, next fire time: {}, time zone: {}, priority: {}",
-                         triggerName, t.getCalendarName(),
-                         t.getCronExpression(),
-                         t.getJobDataMap().get(ImportJob.KEY),
-                         t.getNextFireTime(), t.getPreviousFireTime(),
-                         t.getTimeZone(), t.getPriority());
+                         triggerName, t.getCalendarName(), t.getCronExpression(), t.getJobDataMap().get(ImportJob.KEY),
+                         t.getNextFireTime(), t.getPreviousFireTime(), t.getTimeZone(), t.getPriority());
             }
 
         } catch (Throwable e) {

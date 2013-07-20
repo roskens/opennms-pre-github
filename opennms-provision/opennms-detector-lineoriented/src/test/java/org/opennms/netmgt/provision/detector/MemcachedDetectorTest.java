@@ -53,7 +53,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class MemcachedDetectorTest implements InitializingBean {
 
     @Autowired
@@ -67,7 +67,7 @@ public class MemcachedDetectorTest implements InitializingBean {
     }
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         MockLogAppender.setupLogging();
         m_detector.setServiceName("Memcached");
         m_detector.setTimeout(1000);
@@ -75,16 +75,16 @@ public class MemcachedDetectorTest implements InitializingBean {
     }
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         if (m_server != null) {
             m_server.stopServer();
             m_server = null;
         }
     }
 
-    @Test(timeout=90000)
-    public void testServerSuccess() throws Exception{
-        m_server  = new SimpleServer() {
+    @Test(timeout = 90000)
+    public void testServerSuccess() throws Exception {
+        m_server = new SimpleServer() {
             @Override
             public void onInit() {
                 addResponseHandler(contains("version"), new RequestHandler() {
@@ -110,9 +110,9 @@ public class MemcachedDetectorTest implements InitializingBean {
         }
     }
 
-    @Test(timeout=90000)
-    public void testServerFail() throws Exception{
-        m_server  = new SimpleServer() {
+    @Test(timeout = 90000)
+    public void testServerFail() throws Exception {
+        m_server = new SimpleServer() {
             @Override
             public void onInit() {
                 addResponseHandler(contains("version"), new RequestHandler() {

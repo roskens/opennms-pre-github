@@ -38,60 +38,54 @@ import org.opennms.features.topology.api.topo.VertexRef;
 
 public class DeleteGroupOperation implements Operation {
 
-	@Override
-	public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
-		if (targets == null || targets.isEmpty() || targets.size() != 1) {
-			return null;
-		}
+    @Override
+    public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
+        if (targets == null || targets.isEmpty() || targets.size() != 1) {
+            return null;
+        }
 
-		GraphContainer graphContainer = operationContext.getGraphContainer();
+        GraphContainer graphContainer = operationContext.getGraphContainer();
 
-		// TODO: Add a confirmation dialog before the group is deleted
+        // TODO: Add a confirmation dialog before the group is deleted
 
-		Vertex deleteMe = graphContainer.getBaseTopology().getVertex(targets.get(0));
+        Vertex deleteMe = graphContainer.getBaseTopology().getVertex(targets.get(0));
 
-		if (deleteMe.isGroup()) {
-			Vertex parent = graphContainer.getBaseTopology().getParent(deleteMe);
+        if (deleteMe.isGroup()) {
+            Vertex parent = graphContainer.getBaseTopology().getParent(deleteMe);
 
-			// Detach all children from the group
-			for(VertexRef childRef : graphContainer.getBaseTopology().getChildren(deleteMe)) {
-				graphContainer.getBaseTopology().setParent(childRef, parent);
-			}
+            // Detach all children from the group
+            for (VertexRef childRef : graphContainer.getBaseTopology().getChildren(deleteMe)) {
+                graphContainer.getBaseTopology().setParent(childRef, parent);
+            }
 
-			// Remove the group from the topology
-			graphContainer.getBaseTopology().removeVertex(deleteMe);
+            // Remove the group from the topology
+            graphContainer.getBaseTopology().removeVertex(deleteMe);
 
-			// Save the topology
-			graphContainer.getBaseTopology().save();
+            // Save the topology
+            graphContainer.getBaseTopology().save();
 
-			graphContainer.redoLayout();
-		} else {
-			// Display a warning that the vertex cannot be deleted
-		}
+            graphContainer.redoLayout();
+        } else {
+            // Display a warning that the vertex cannot be deleted
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public boolean display(List<VertexRef> targets, OperationContext operationContext) {
-		return targets != null &&
-		targets.size() == 1 &&
-		targets.get(0) != null
-		;
-	}
+    @Override
+    public boolean display(List<VertexRef> targets, OperationContext operationContext) {
+        return targets != null && targets.size() == 1 && targets.get(0) != null;
+    }
 
-	@Override
-	public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
-		// Only allow the operation on single non-leaf vertices (groups)
-		return targets != null &&
-		targets.size() == 1 &&
-		targets.get(0) != null &&
-		operationContext.getGraphContainer().getBaseTopology().getVertex(targets.get(0)).isGroup()
-		;
-	}
+    @Override
+    public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
+        // Only allow the operation on single non-leaf vertices (groups)
+        return targets != null && targets.size() == 1 && targets.get(0) != null
+                && operationContext.getGraphContainer().getBaseTopology().getVertex(targets.get(0)).isGroup();
+    }
 
-	@Override
-	public String getId() {
-		return "DeleteGroup";
-	}
+    @Override
+    public String getId() {
+        return "DeleteGroup";
+    }
 }

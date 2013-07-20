@@ -50,10 +50,10 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http;//www.opennms.org">OpenNMS </a>
- *
  */
 final class TcpRecordHandler implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(TcpRecordHandler.class);
+
     /**
      * When set the runnable should exit as fast as possible.
      */
@@ -168,7 +168,7 @@ final class TcpRecordHandler implements Runnable {
                 LOG.debug("Pipe Signaled");
             }
         } catch (final InterruptedException e) {
-		LOG.debug("An I/O error occured.", e);
+            LOG.debug("An I/O error occured.", e);
             throw new IOException("The thread was interrupted");
         }
 
@@ -186,7 +186,7 @@ final class TcpRecordHandler implements Runnable {
                 m_out.write((int) ch);
             }
         } catch (final IOException e) {
-		LOG.debug("An I/O error occured.", e);
+            LOG.debug("An I/O error occured.", e);
             throw e;
         }
     }
@@ -230,7 +230,7 @@ final class TcpRecordHandler implements Runnable {
                 onTransition(ch);
                 if (ch == 'l') {
                     return 5;
-                } else if (Character.isLetterOrDigit(ch)){
+                } else if (Character.isLetterOrDigit(ch)) {
                     return 3;
                 }
                 return 0;
@@ -285,24 +285,24 @@ final class TcpRecordHandler implements Runnable {
             }
         },
 
-        // The state tree starts here!
-        new StateManager(8, this) { // gobbles up white space after
-            // record
-            @Override
-            int next(final char ch) throws IOException {
-                if (ch == '<') {
-                    onTransition(ch);
-                    return 1;
-                } // else discard
-                return m_level;
-            }
+                // The state tree starts here!
+                new StateManager(8, this) { // gobbles up white space after
+                    // record
+                    @Override
+                    int next(final char ch) throws IOException {
+                        if (ch == '<') {
+                            onTransition(ch);
+                            return 1;
+                        } // else discard
+                        return m_level;
+                    }
 
-            @Override
-            void onTransition(final char ch) throws IOException {
-                m_handler.newStream();
-                super.onTransition(ch);
-            }
-        } };
+                    @Override
+                    void onTransition(final char ch) throws IOException {
+                        m_handler.newStream();
+                        super.onTransition(ch);
+                    }
+                } };
     }
 
     /**
@@ -322,7 +322,7 @@ final class TcpRecordHandler implements Runnable {
     void stop() throws InterruptedException {
         m_stop = true;
         if (m_context != null) {
-		LOG.debug("Interrupting thread {}", m_context.getName());
+            LOG.debug("Interrupting thread {}", m_context.getName());
             m_context.interrupt();
             LOG.debug("Joining Thread {}", m_context.getName());
             m_context.join();

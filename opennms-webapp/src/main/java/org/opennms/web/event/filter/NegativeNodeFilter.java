@@ -45,13 +45,18 @@ import org.springframework.context.ApplicationContext;
 public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     /** Constant <code>TYPE="nodenot"</code> */
     public static final String TYPE = "nodenot";
+
     private ServletContext m_servletContext;
+
     private ApplicationContext m_appContext;
 
     /**
-     * <p>Constructor for NegativeNodeFilter.</p>
+     * <p>
+     * Constructor for NegativeNodeFilter.
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
@@ -64,7 +69,9 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +79,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     public String getTextDescription() {
         String nodeName = getNodeLabel();
 
-        if(nodeName == null) {
+        if (nodeName == null) {
             nodeName = Integer.toString(getValue());
         }
 
@@ -80,11 +87,14 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     private String getNodeLabel() {
-        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue()) : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getValue());
+        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue())
+            : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getValue());
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,7 +104,9 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */

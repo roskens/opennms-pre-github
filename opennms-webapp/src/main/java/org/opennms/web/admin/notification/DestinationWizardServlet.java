@@ -65,7 +65,9 @@ public class DestinationWizardServlet extends HttpServlet {
     private static final long serialVersionUID = 836611092234429387L;
 
     private String SESSION_ATTRIBUTE_NEW_PATH = "newPath";
+
     private String SESSION_ATTRIBUTE_OLD_PATH = "oldPath";
+
     private String SESSION_ATTRIBUTE_OLD_PATH_NAME = "oldName";
 
     private String SOURCE_PAGE_PATHS = "destinationPaths.jsp";
@@ -79,11 +81,11 @@ public class DestinationWizardServlet extends HttpServlet {
     private String SOURCE_PAGE_COMMANDS = "chooseCommands.jsp";
 
     // FIXME: Unused
-//    private String SOURCE_PAGE_NAME = "pathName.jsp";
-//
-//    private String SOURCE_PAGE_ESCALATE_REMOVE = "removeEscalation.jsp";
-//
-//    private String SOURCE_PAGE_ESCALATE_ADD = "addEscalation.jsp";
+    // private String SOURCE_PAGE_NAME = "pathName.jsp";
+    //
+    // private String SOURCE_PAGE_ESCALATE_REMOVE = "removeEscalation.jsp";
+    //
+    // private String SOURCE_PAGE_ESCALATE_ADD = "addEscalation.jsp";
 
     /** {@inheritDoc} */
     @Override
@@ -91,13 +93,13 @@ public class DestinationWizardServlet extends HttpServlet {
         try {
             DestinationPathFactory.init();
         } catch (MarshalException e1) {
-            throw new ServletException("Exception initializing DestinationPatchFactory "+e1.getMessage(), e1);
+            throw new ServletException("Exception initializing DestinationPatchFactory " + e1.getMessage(), e1);
         } catch (ValidationException e1) {
-            throw new ServletException("Exception initializing DestinationPatchFactory "+e1.getMessage(), e1);
+            throw new ServletException("Exception initializing DestinationPatchFactory " + e1.getMessage(), e1);
         } catch (FileNotFoundException e1) {
-            throw new ServletException("Exception initializing DestinationPatchFactory "+e1.getMessage(), e1);
+            throw new ServletException("Exception initializing DestinationPatchFactory " + e1.getMessage(), e1);
         } catch (IOException e1) {
-            throw new ServletException("Exception initializing DestinationPatchFactory "+e1.getMessage(), e1);
+            throw new ServletException("Exception initializing DestinationPatchFactory " + e1.getMessage(), e1);
         }
         String sourcePage = request.getParameter("sourcePage");
         HttpSession user = request.getSession(true);
@@ -131,7 +133,8 @@ public class DestinationWizardServlet extends HttpServlet {
             } else if (action.equals("new")) {
                 Path newPath = new Path();
                 user.setAttribute(SESSION_ATTRIBUTE_NEW_PATH, newPath);
-                // Make sure that no oldPath is set since we're creating a new path from scratch
+                // Make sure that no oldPath is set since we're creating a new
+                // path from scratch
                 user.removeAttribute(SESSION_ATTRIBUTE_OLD_PATH);
                 user.removeAttribute(SESSION_ATTRIBUTE_OLD_PATH_NAME);
 
@@ -141,12 +144,14 @@ public class DestinationWizardServlet extends HttpServlet {
             String action = request.getParameter("userAction");
             Path path = (Path) user.getAttribute(SESSION_ATTRIBUTE_NEW_PATH);
 
-            // If the session has expired then just redirect back to the top page
+            // If the session has expired then just redirect back to the top
+            // page
             // http://issues.opennms.org/browse/NMS-5269
             if (path == null) {
                 redirectString.append(SOURCE_PAGE_PATHS);
             } else {
-                // load all changeable values from the outline page into the editing
+                // load all changeable values from the outline page into the
+                // editing
                 // path
                 saveOutlineForm(path, request);
 
@@ -351,8 +356,8 @@ public class DestinationWizardServlet extends HttpServlet {
                         targets[i].addCommand(commands[j]);
                     }
                 }
-                String[] autoNotify =  request.getParameterValues(name + "AutoNotify");
-                if(autoNotify[0] == null) {
+                String[] autoNotify = request.getParameterValues(name + "AutoNotify");
+                if (autoNotify[0] == null) {
                     autoNotify[0] = "auto";
                 }
                 targets[i].setAutoNotify(autoNotify[0]);
@@ -378,7 +383,7 @@ public class DestinationWizardServlet extends HttpServlet {
         path.removeEscalate(escalate);
     }
 
-    private static String makeQueryString(Map<String,String> map) {
+    private static String makeQueryString(Map<String, String> map) {
         StringBuffer buffer = new StringBuffer();
         String separator = "?";
 

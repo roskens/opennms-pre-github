@@ -32,7 +32,9 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * <p>Abstract LessThanFilter class.</p>
+ * <p>
+ * Abstract LessThanFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,16 +43,24 @@ import org.hibernate.criterion.Restrictions;
 public abstract class LessThanFilter<T> extends OneArgFilter<T> {
 
     /**
-     * <p>Constructor for LessThanFilter.</p>
+     * <p>
+     * Constructor for LessThanFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param type a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param daoPropertyName a {@link java.lang.String} object.
-     * @param value a T object.
-     * @param <T> a T object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param type
+     *            a {@link org.opennms.web.filter.SQLType} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param daoPropertyName
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a T object.
+     * @param <T>
+     *            a T object.
      */
-    public LessThanFilter(String filterType, SQLType<T> type, String fieldName, String daoPropertyName, T value){
+    public LessThanFilter(String filterType, SQLType<T> type, String fieldName, String daoPropertyName, T value) {
         super(filterType, type, fieldName, daoPropertyName, value);
     }
 

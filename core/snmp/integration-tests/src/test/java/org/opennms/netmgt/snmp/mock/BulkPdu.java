@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.snmp.mock;
 
-
 public class BulkPdu extends RequestPdu {
     int m_nonRepeaters;
+
     int m_maxRepititions;
 
     public BulkPdu() {

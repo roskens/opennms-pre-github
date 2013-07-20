@@ -42,7 +42,9 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
- * <p>ApplicationController class.</p>
+ * <p>
+ * ApplicationController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,18 +55,19 @@ public class ApplicationController extends AbstractController {
     private AdminApplicationService m_adminApplicationService;
 
     private String getNonEmptyParameter(final HttpServletRequest request, final String parameter) {
-    	if (request != null) {
-    		String p = request.getParameter(parameter);
-    		if (p != null && !p.equals("")) {
-    			return p;
-    		}
-    	}
-    	return null;
+        if (request != null) {
+            String p = request.getParameter(parameter);
+            if (p != null && !p.equals("")) {
+                return p;
+            }
+        }
+        return null;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         String removeApplicationIdString = getNonEmptyParameter(request, "removeApplicationId");
         String newApplicationName = getNonEmptyParameter(request, "newApplicationName");
         String applicationIdString = getNonEmptyParameter(request, "applicationid");
@@ -73,7 +76,6 @@ public class ApplicationController extends AbstractController {
 
         if (removeApplicationIdString != null) {
             m_adminApplicationService.removeApplication(removeApplicationIdString);
-
 
             return new ModelAndView(new RedirectView("/admin/applications.htm", true));
         }
@@ -86,7 +88,7 @@ public class ApplicationController extends AbstractController {
              * for this new application, which would be great, however it's
              * not so great if the site has a huge number of available
              * applications and they need to edit application member services
-             * from the service pages.  So, we don't do it.
+             * from the service pages. So, we don't do it.
              */
             return new ModelAndView(new RedirectView("/admin/applications.htm", true));
         }
@@ -97,29 +99,21 @@ public class ApplicationController extends AbstractController {
                 String[] toAdd = request.getParameterValues("toAdd");
                 String[] toDelete = request.getParameterValues("toDelete");
 
-                m_adminApplicationService.performEdit(applicationIdString,
-                                                      editAction,
-                                                      toAdd,
-                                                      toDelete);
+                m_adminApplicationService.performEdit(applicationIdString, editAction, toAdd, toDelete);
 
-                ModelAndView modelAndView =
-                    new ModelAndView(new RedirectView("/admin/applications.htm", true));
+                ModelAndView modelAndView = new ModelAndView(new RedirectView("/admin/applications.htm", true));
                 modelAndView.addObject("applicationid", applicationIdString);
                 modelAndView.addObject("edit", "edit");
                 return modelAndView;
             }
 
-            EditModel model =
-                m_adminApplicationService.findApplicationAndAllMonitoredServices(applicationIdString);
+            EditModel model = m_adminApplicationService.findApplicationAndAllMonitoredServices(applicationIdString);
 
-            return new ModelAndView("/admin/editApplication",
-                                    "model",
-                                    model);
+            return new ModelAndView("/admin/editApplication", "model", model);
         }
 
         if (applicationIdString != null) {
-            return new ModelAndView("/admin/showApplication",
-                                    "model",
+            return new ModelAndView("/admin/showApplication", "model",
                                     m_adminApplicationService.getApplication(applicationIdString));
         }
 
@@ -129,50 +123,46 @@ public class ApplicationController extends AbstractController {
                 String[] toAdd = request.getParameterValues("toAdd");
                 String[] toDelete = request.getParameterValues("toDelete");
 
-                m_adminApplicationService.performServiceEdit(ifServiceIdString,
-                                                       editAction,
-                                                       toAdd,
-                                                       toDelete);
+                m_adminApplicationService.performServiceEdit(ifServiceIdString, editAction, toAdd, toDelete);
 
-                ModelAndView modelAndView =
-                    new ModelAndView(new RedirectView("/admin/applications.htm", true));
+                ModelAndView modelAndView = new ModelAndView(new RedirectView("/admin/applications.htm", true));
                 modelAndView.addObject("ifserviceid", ifServiceIdString);
                 modelAndView.addObject("edit", "edit");
                 return modelAndView;
             }
 
-            ServiceEditModel model =
-                m_adminApplicationService.findServiceApplications(ifServiceIdString);
+            ServiceEditModel model = m_adminApplicationService.findServiceApplications(ifServiceIdString);
 
-            return new ModelAndView("/admin/editServiceApplications",
-                                    "model",
-                                    model);
+            return new ModelAndView("/admin/editServiceApplications", "model", model);
         }
 
-        List<OnmsApplication> sortedApplications
-            = m_adminApplicationService.findAllApplications();
+        List<OnmsApplication> sortedApplications = m_adminApplicationService.findAllApplications();
 
-        return new ModelAndView("/admin/applications",
-                                "applications",
-                                sortedApplications);
+        return new ModelAndView("/admin/applications", "applications", sortedApplications);
     }
 
     /**
-     * <p>getAdminApplicationService</p>
+     * <p>
+     * getAdminApplicationService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.AdminApplicationService} object.
+     * @return a {@link org.opennms.web.svclayer.AdminApplicationService}
+     *         object.
      */
     public final AdminApplicationService getAdminApplicationService() {
         return m_adminApplicationService;
     }
 
     /**
-     * <p>setAdminApplicationService</p>
+     * <p>
+     * setAdminApplicationService
+     * </p>
      *
-     * @param adminApplicationService a {@link org.opennms.web.svclayer.AdminApplicationService} object.
+     * @param adminApplicationService
+     *            a {@link org.opennms.web.svclayer.AdminApplicationService}
+     *            object.
      */
-    public final void setAdminApplicationService(
-            final AdminApplicationService adminApplicationService) {
+    public final void setAdminApplicationService(final AdminApplicationService adminApplicationService) {
         m_adminApplicationService = adminApplicationService;
     }
 

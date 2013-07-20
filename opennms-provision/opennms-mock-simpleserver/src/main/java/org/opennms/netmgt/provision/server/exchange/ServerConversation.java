@@ -29,7 +29,9 @@
 package org.opennms.netmgt.provision.server.exchange;
 
 /**
- * <p>ServerConversation class.</p>
+ * <p>
+ * ServerConversation class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $

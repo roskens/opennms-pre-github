@@ -42,10 +42,11 @@ public class StatusTypeUserType implements UserType {
 
     private static final int[] SQL_TYPES = new int[] { java.sql.Types.CHAR };
 
-	/**
+    /**
      * A public default constructor is required by Hibernate.
      */
-    public StatusTypeUserType() {}
+    public StatusTypeUserType() {
+    }
 
     @Override
     public Object assemble(final Serializable cached, final Object owner) throws HibernateException {
@@ -53,7 +54,8 @@ public class StatusTypeUserType implements UserType {
     }
 
     /**
-     * Since {@link java.net.InetAddress} is immutable, we just return the original
+     * Since {@link java.net.InetAddress} is immutable, we just return the
+     * original
      * value without copying it.
      */
     @Override
@@ -63,23 +65,25 @@ public class StatusTypeUserType implements UserType {
         } else if (value instanceof StatusType) {
             return value;
         } else {
-            throw new IllegalArgumentException("Unexpected type that is mapped with " + this.getClass().getSimpleName() + ": " + value.getClass().getName());
+            throw new IllegalArgumentException("Unexpected type that is mapped with " + this.getClass().getSimpleName()
+                    + ": " + value.getClass().getName());
         }
     }
 
     @Override
     public Serializable disassemble(final Object value) throws HibernateException {
-        return (Serializable)deepCopy(value);
+        return (Serializable) deepCopy(value);
     }
 
     @Override
     public boolean equals(final Object x, final Object y) throws HibernateException {
-        if (x == null || y == null) return false;
+        if (x == null || y == null)
+            return false;
 
-        if (! (x instanceof StatusType) || ! (y instanceof StatusType))
-        	return false;
+        if (!(x instanceof StatusType) || !(y instanceof StatusType))
+            return false;
 
-    	return ((StatusType)x).getCharCode() == ((StatusType)y).getCharCode();
+        return ((StatusType) x).getCharCode() == ((StatusType) y).getCharCode();
     }
 
     @Override
@@ -93,21 +97,23 @@ public class StatusTypeUserType implements UserType {
     }
 
     @Override
-    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException, SQLException {
+    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException,
+            SQLException {
         return StatusType.get(Hibernate.CHARACTER.nullSafeGet(rs, names[0]).toString());
     }
 
     @Override
-    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException, SQLException {
+    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException,
+            SQLException {
         if (value == null) {
             Hibernate.CHARACTER.nullSafeSet(st, null, index);
-        } else if (value instanceof StatusType){
+        } else if (value instanceof StatusType) {
             Hibernate.CHARACTER.nullSafeSet(st, new Character(((StatusType) value).getCharCode()), index);
-        } else if (value instanceof String){
+        } else if (value instanceof String) {
             try {
-                Hibernate.CHARACTER.nullSafeSet(st, new Character(StatusType.get((String)value).getCharCode()), index);
+                Hibernate.CHARACTER.nullSafeSet(st, new Character(StatusType.get((String) value).getCharCode()), index);
             } catch (final IllegalArgumentException e) {
-                Hibernate.CHARACTER.nullSafeSet(st, new Character(((String)value).charAt(0)), index);
+                Hibernate.CHARACTER.nullSafeSet(st, new Character(((String) value).charAt(0)), index);
             }
         }
     }

@@ -37,84 +37,110 @@ import org.opennms.netmgt.poller.NetworkInterface;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
 /**
- * <p>CollectionAgent interface.</p>
+ * <p>
+ * CollectionAgent interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
-public interface CollectionAgent extends NetworkInterface<InetAddress>,StorageStrategyService {
+public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageStrategyService {
 
     /**
-     * <p>isStoreByForeignSource</p>
+     * <p>
+     * isStoreByForeignSource
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */
     public abstract Boolean isStoreByForeignSource();
 
     /**
-     * <p>getHostAddress</p>
+     * <p>
+     * getHostAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getHostAddress();
 
     /**
-     * <p>setSavedIfCount</p>
+     * <p>
+     * setSavedIfCount
+     * </p>
      *
-     * @param ifCount a int.
+     * @param ifCount
+     *            a int.
      */
     public abstract void setSavedIfCount(int ifCount);
 
     /**
-     * <p>getSavedIfCount</p>
+     * <p>
+     * getSavedIfCount
+     * </p>
      *
      * @return a int.
      */
     public abstract int getSavedIfCount();
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
     public abstract int getNodeId();
 
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getForeignSource();
 
     /**
-     * <p>getForeignId</p>
+     * <p>
+     * getForeignId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getForeignId();
 
     /**
-     * <p>getStorageDir</p>
+     * <p>
+     * getStorageDir
+     * </p>
      *
      * @return a {@link java.io.File} object.
      */
     public abstract File getStorageDir();
 
     /**
-     * <p>getSysObjectId</p>
+     * <p>
+     * getSysObjectId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getSysObjectId();
 
     /**
-     * <p>validateAgent</p>
+     * <p>
+     * validateAgent
+     * </p>
+     *
      * @throws CollectionInitializationException
      */
     public abstract void validateAgent() throws CollectionInitializationException;
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -122,7 +148,9 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>,StorageSt
     public abstract String toString();
 
     /**
-     * <p>getAgentConfig</p>
+     * <p>
+     * getAgentConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
@@ -130,31 +158,41 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>,StorageSt
     public abstract SnmpAgentConfig getAgentConfig();
 
     /**
-     * <p>getSnmpInterfaceInfo</p>
+     * <p>
+     * getSnmpInterfaceInfo
+     * </p>
      *
-     * @param type a {@link org.opennms.netmgt.collectd.IfResourceType} object.
+     * @param type
+     *            a {@link org.opennms.netmgt.collectd.IfResourceType} object.
      * @return a {@link java.util.Set} object.
      */
     public abstract Set<IfInfo> getSnmpInterfaceInfo(IfResourceType type);
 
     /**
-     * <p>getInetAddress</p>
+     * <p>
+     * getInetAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
     public abstract InetAddress getInetAddress();
 
     /**
-     * <p>getSavedSysUpTime</p>
+     * <p>
+     * getSavedSysUpTime
+     * </p>
      *
      * @return a long.
      */
     public abstract long getSavedSysUpTime();
 
     /**
-     * <p>setSavedSysUpTime</p>
+     * <p>
+     * setSavedSysUpTime
+     * </p>
      *
-     * @param sysUpTime a long.
+     * @param sysUpTime
+     *            a long.
      */
     public abstract void setSavedSysUpTime(long sysUpTime);
 

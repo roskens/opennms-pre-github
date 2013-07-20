@@ -49,7 +49,9 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
 /**
- * <p>ResourceTypeUtils class.</p>
+ * <p>
+ * ResourceTypeUtils class.
+ * </p>
  */
 public abstract class ResourceTypeUtils {
 
@@ -61,15 +63,19 @@ public abstract class ResourceTypeUtils {
     private static PropertiesCache s_cache = new PropertiesCache();
 
     /**
-     * <p>getAttributesAtRelativePath</p>
+     * <p>
+     * getAttributesAtRelativePath
+     * </p>
      *
-     * @param rrdDirectory a {@link java.io.File} object.
-     * @param relativePath a {@link java.lang.String} object.
+     * @param rrdDirectory
+     *            a {@link java.io.File} object.
+     * @param relativePath
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Set} object.
      */
     public static Set<OnmsAttribute> getAttributesAtRelativePath(File rrdDirectory, String relativePath) {
 
-        Set<OnmsAttribute> attributes =  new HashSet<OnmsAttribute>();
+        Set<OnmsAttribute> attributes = new HashSet<OnmsAttribute>();
 
         loadRrdAttributes(rrdDirectory, relativePath, attributes);
         loadStringAttributes(rrdDirectory, relativePath, attributes);
@@ -78,11 +84,10 @@ public abstract class ResourceTypeUtils {
 
     }
 
-    private static void loadStringAttributes(File rrdDirectory,
-            String relativePath, Set<OnmsAttribute> attributes) {
+    private static void loadStringAttributes(File rrdDirectory, String relativePath, Set<OnmsAttribute> attributes) {
         Properties properties = getStringProperties(rrdDirectory, relativePath);
         if (properties != null) {
-            for (Entry<Object,Object> entry : properties.entrySet()) {
+            for (Entry<Object, Object> entry : properties.entrySet()) {
                 attributes.add(new StringPropertyAttribute(entry.getKey().toString(), entry.getValue().toString()));
             }
         }
@@ -103,7 +108,7 @@ public abstract class ResourceTypeUtils {
                 String groupName = fileName.substring(0, fileName.length() - suffixLength);
                 Properties props = getDsProperties(resourceDir);
                 for (Object o : props.keySet()) {
-                    String dsName = (String)o;
+                    String dsName = (String) o;
                     if (props.getProperty(dsName).equals(groupName)) {
                         attributes.add(new RrdGraphAttribute(dsName, relativePath, fileName));
                     }
@@ -116,26 +121,33 @@ public abstract class ResourceTypeUtils {
     }
 
     /**
-     * <p>getDsProperties</p>
+     * <p>
+     * getDsProperties
+     * </p>
      *
-     * @param directory a {@link java.io.File} object.
+     * @param directory
+     *            a {@link java.io.File} object.
      * @return a {@link java.util.Properties} object.
      */
     public static Properties getDsProperties(File directory) {
         File propertiesFile = new File(directory, DS_PROPERTIES_FILE);
         try {
             return s_cache.getProperties(propertiesFile);
-        } catch(IOException e) {
+        } catch (IOException e) {
             LOG.error("ds.properties error", e);
             return new Properties();
         }
     }
 
     /**
-     * <p>getRrdFileForDs</p>
+     * <p>
+     * getRrdFileForDs
+     * </p>
      *
-     * @param directory a {@link java.io.File} object.
-     * @param ds a {@link java.lang.String} object.
+     * @param directory
+     *            a {@link java.io.File} object.
+     * @param ds
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
      */
     public static File getRrdFileForDs(File directory, String ds) {
@@ -152,7 +164,9 @@ public abstract class ResourceTypeUtils {
     }
 
     /**
-     * <p>isStoreByGroup</p>
+     * <p>
+     * isStoreByGroup
+     * </p>
      *
      * @return a boolean.
      */
@@ -161,9 +175,12 @@ public abstract class ResourceTypeUtils {
     }
 
     /**
-     * <p>isResponseTime</p>
+     * <p>
+     * isResponseTime
+     * </p>
      *
-     * @param relativePath a {@link java.lang.String} object.
+     * @param relativePath
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public static boolean isResponseTime(String relativePath) {
@@ -171,10 +188,14 @@ public abstract class ResourceTypeUtils {
     }
 
     /**
-     * <p>getStringProperties</p>
+     * <p>
+     * getStringProperties
+     * </p>
      *
-     * @param rrdDirectory a {@link java.io.File} object.
-     * @param relativePath a {@link java.lang.String} object.
+     * @param rrdDirectory
+     *            a {@link java.io.File} object.
+     * @param relativePath
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Properties} object.
      */
     public static Properties getStringProperties(File rrdDirectory, String relativePath) {
@@ -192,9 +213,12 @@ public abstract class ResourceTypeUtils {
     }
 
     /**
-     * <p>getProperties</p>
+     * <p>
+     * getProperties
+     * </p>
      *
-     * @param file a {@link java.io.File} object.
+     * @param file
+     *            a {@link java.io.File} object.
      * @return a {@link java.util.Properties} object.
      */
     public static Properties getProperties(File file) {
@@ -208,22 +232,33 @@ public abstract class ResourceTypeUtils {
     }
 
     /**
-     * <p>saveUpdatedProperties</p>
+     * <p>
+     * saveUpdatedProperties
+     * </p>
      *
-     * @param propertiesFile a {@link java.io.File} object.
-     * @param props a {@link java.util.Properties} object.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws java.io.IOException if any.
+     * @param propertiesFile
+     *            a {@link java.io.File} object.
+     * @param props
+     *            a {@link java.util.Properties} object.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public static void saveUpdatedProperties(File propertiesFile, Properties props) throws FileNotFoundException, IOException {
+    public static void saveUpdatedProperties(File propertiesFile, Properties props) throws FileNotFoundException,
+            IOException {
         s_cache.saveProperties(propertiesFile, props);
     }
 
     /**
-     * <p>updateDsProperties</p>
+     * <p>
+     * updateDsProperties
+     * </p>
      *
-     * @param resourceDir a {@link java.io.File} object.
-     * @param dsNamesToRrdNames a {@link java.util.Map} object.
+     * @param resourceDir
+     *            a {@link java.io.File} object.
+     * @param dsNamesToRrdNames
+     *            a {@link java.util.Map} object.
      */
     public static void updateDsProperties(File resourceDir, Map<String, String> dsNamesToRrdNames) {
         try {
@@ -234,24 +269,36 @@ public abstract class ResourceTypeUtils {
     }
 
     /**
-     * <p>updateStringProperty</p>
+     * <p>
+     * updateStringProperty
+     * </p>
      *
-     * @param resourceDir a {@link java.io.File} object.
-     * @param attrVal a {@link java.lang.String} object.
-     * @param attrName a {@link java.lang.String} object.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws java.io.IOException if any.
+     * @param resourceDir
+     *            a {@link java.io.File} object.
+     * @param attrVal
+     *            a {@link java.lang.String} object.
+     * @param attrName
+     *            a {@link java.lang.String} object.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public static void updateStringProperty(File resourceDir, String attrVal, String attrName) throws FileNotFoundException, IOException {
+    public static void updateStringProperty(File resourceDir, String attrVal, String attrName)
+            throws FileNotFoundException, IOException {
         File propertiesFile = new File(resourceDir, DefaultResourceDao.STRINGS_PROPERTIES_FILE_NAME);
         s_cache.setProperty(propertiesFile, attrName, attrVal);
     }
 
     /**
-     * <p>getStringProperty</p>
+     * <p>
+     * getStringProperty
+     * </p>
      *
-     * @param directory a {@link java.io.File} object.
-     * @param key a {@link java.lang.String} object.
+     * @param directory
+     *            a {@link java.io.File} object.
+     * @param key
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String getStringProperty(File directory, String key) {
@@ -266,12 +313,13 @@ public abstract class ResourceTypeUtils {
     }
 
     /**
-     *
-     * @param nodeSource a {@link java.lang.String} object.
+     * @param nodeSource
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
      */
     public static File getRelativeNodeSourceDirectory(String nodeSource) {
         String[] ident = nodeSource.split(":");
-        return new File(DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY, File.separator + ident[0] + File.separator + ident[1]);
+        return new File(DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY, File.separator + ident[0] + File.separator
+                + ident[1]);
     }
 }

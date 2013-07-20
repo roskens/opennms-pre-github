@@ -38,6 +38,7 @@ import java.util.List;
 
 public class OnmsWbemObjectBiosStub implements OnmsWbemObject {
     public OnmsWbemPropertySet props;
+
     public OnmsWbemObjectBiosStub(OnmsWbemPropertySet propset) {
         props = propset;
     }

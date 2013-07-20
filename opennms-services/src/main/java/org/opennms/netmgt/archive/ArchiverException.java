@@ -45,16 +45,21 @@ public class ArchiverException extends Exception {
     private static final long serialVersionUID = -1724554468082066017L;
 
     /**
-     * <p>Constructor for ArchiverException.</p>
+     * <p>
+     * Constructor for ArchiverException.
+     * </p>
      */
     public ArchiverException() {
         super();
     }
 
     /**
-     * <p>Constructor for ArchiverException.</p>
+     * <p>
+     * Constructor for ArchiverException.
+     * </p>
      *
-     * @param s a {@link java.lang.String} object.
+     * @param s
+     *            a {@link java.lang.String} object.
      */
     public ArchiverException(String s) {
         super(s);

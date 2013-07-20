@@ -34,7 +34,9 @@ import java.util.SortedSet;
 import org.opennms.netmgt.model.AttributeStatistic;
 
 /**
- * <p>ReportInstance interface.</p>
+ * <p>
+ * ReportInstance interface.
+ * </p>
  *
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -42,173 +44,232 @@ import org.opennms.netmgt.model.AttributeStatistic;
 public interface ReportInstance {
 
     /**
-     * <p>walk</p>
+     * <p>
+     * walk
+     * </p>
      */
     void walk();
 
     /**
-     * <p>getResults</p>
+     * <p>
+     * getResults
+     * </p>
      *
      * @return a {@link java.util.SortedSet} object.
      */
     SortedSet<AttributeStatistic> getResults();
 
     /**
-     * <p>getResourceTypeMatch</p>
+     * <p>
+     * getResourceTypeMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getResourceTypeMatch();
 
     /**
-     * <p>setResourceTypeMatch</p>
+     * <p>
+     * setResourceTypeMatch
+     * </p>
      *
-     * @param resourceType a {@link java.lang.String} object.
+     * @param resourceType
+     *            a {@link java.lang.String} object.
      */
     void setResourceTypeMatch(String resourceType);
 
     /**
-     * <p>getAttributeMatch</p>
+     * <p>
+     * getAttributeMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getAttributeMatch();
 
     /**
-     * <p>setAttributeMatch</p>
+     * <p>
+     * setAttributeMatch
+     * </p>
      *
-     * @param attr a {@link java.lang.String} object.
+     * @param attr
+     *            a {@link java.lang.String} object.
      */
     void setAttributeMatch(String attr);
 
     /**
-     * <p>getStartTime</p>
+     * <p>
+     * getStartTime
+     * </p>
      *
      * @return a long.
      */
     long getStartTime();
 
     /**
-     * <p>setStartTime</p>
+     * <p>
+     * setStartTime
+     * </p>
      *
-     * @param start a long.
+     * @param start
+     *            a long.
      */
     void setStartTime(long start);
 
     /**
-     * <p>getEndTime</p>
+     * <p>
+     * getEndTime
+     * </p>
      *
      * @return a long.
      */
     long getEndTime();
 
     /**
-     * <p>setEndTime</p>
+     * <p>
+     * setEndTime
+     * </p>
      *
-     * @param end a long.
+     * @param end
+     *            a long.
      */
     void setEndTime(long end);
 
     /**
-     * <p>getConsolidationFunction</p>
+     * <p>
+     * getConsolidationFunction
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getConsolidationFunction();
 
     /**
-     * <p>setConsolidationFunction</p>
+     * <p>
+     * setConsolidationFunction
+     * </p>
      *
-     * @param cf a {@link java.lang.String} object.
+     * @param cf
+     *            a {@link java.lang.String} object.
      */
     void setConsolidationFunction(String cf);
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a int.
      */
     int getCount();
 
     /**
-     * <p>setCount</p>
+     * <p>
+     * setCount
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      */
     void setCount(int count);
 
     /**
-     * <p>getJobStartedDate</p>
+     * <p>
+     * getJobStartedDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     Date getJobStartedDate();
 
     /**
-     * <p>getJobCompletedDate</p>
+     * <p>
+     * getJobCompletedDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     Date getJobCompletedDate();
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getName();
 
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getDescription();
 
     /**
-     * <p>getRetainInterval</p>
+     * <p>
+     * getRetainInterval
+     * </p>
      *
      * @return a long.
      */
     long getRetainInterval();
 
     /**
-     * <p>getReportDefinition</p>
+     * <p>
+     * getReportDefinition
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
      */
     ReportDefinition getReportDefinition();
 
     /**
-     * <p>setReportDefinition</p>
+     * <p>
+     * setReportDefinition
+     * </p>
      *
-     * @param definition a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
+     * @param definition
+     *            a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
      */
     void setReportDefinition(ReportDefinition definition);
 
     /**
-     * <p>setResourceAttributeKey</p>
+     * <p>
+     * setResourceAttributeKey
+     * </p>
      *
-     * @param resourceAttributeKey a {@link java.lang.String} object.
+     * @param resourceAttributeKey
+     *            a {@link java.lang.String} object.
      */
     void setResourceAttributeKey(String resourceAttributeKey);
 
     /**
-     * <p>getResourceAttributeKey</p>
+     * <p>
+     * getResourceAttributeKey
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getResourceAttributeKey();
 
     /**
-     * <p>setResourceAttributeValueMatch</p>
+     * <p>
+     * setResourceAttributeValueMatch
+     * </p>
      *
-     * @param resourceAttributeValueMatch a {@link java.lang.String} object.
+     * @param resourceAttributeValueMatch
+     *            a {@link java.lang.String} object.
      */
     void setResourceAttributeValueMatch(String resourceAttributeValueMatch);
 
     /**
-     * <p>getResourceAttributeValueMatch</p>
+     * <p>
+     * getResourceAttributeValueMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

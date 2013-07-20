@@ -40,7 +40,9 @@ import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 
 public class JdbcCollectionSet implements CollectionSet {
     private int m_status;
+
     private List<JdbcCollectionResource> m_collectionResources;
+
     private Date m_timestamp;
 
     public JdbcCollectionSet(CollectionAgent agent) {
@@ -69,8 +71,8 @@ public class JdbcCollectionSet implements CollectionSet {
     public void visit(CollectionSetVisitor visitor) {
         visitor.visitCollectionSet(this);
 
-        for(CollectionResource resource : getCollectionResources())
-                resource.visit(visitor);
+        for (CollectionResource resource : getCollectionResources())
+            resource.visit(visitor);
 
         visitor.completeCollectionSet(this);
     }
@@ -81,11 +83,12 @@ public class JdbcCollectionSet implements CollectionSet {
     }
 
     @Override
-	public Date getCollectionTimestamp() {
-		return m_timestamp;
-	}
+    public Date getCollectionTimestamp() {
+        return m_timestamp;
+    }
+
     public void setCollectionTimestamp(Date timestamp) {
-    	this.m_timestamp = timestamp;
-	}
+        this.m_timestamp = timestamp;
+    }
 
 }

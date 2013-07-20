@@ -34,75 +34,98 @@ import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 
 /**
- * <p>JniGraphDetails class.</p>
+ * <p>
+ * JniGraphDetails class.
+ * </p>
  *
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
  * @version $Id: $
  */
 public class JniGraphDetails implements RrdGraphDetails {
 
-	private int m_height;
-	private int m_width;
-	private String[] m_printLines;
-	private InputStream m_inputStream;
+    private int m_height;
 
-	/**
-	 * <p>Constructor for JniGraphDetails.</p>
-	 *
-	 * @param height a int.
-	 * @param width a int.
-	 * @param lines an array of {@link java.lang.String} objects.
-	 * @param stream a {@link java.io.InputStream} object.
-	 */
-	public JniGraphDetails(int height, int width, String[] lines, InputStream stream) {
-		m_height = height;
-		m_width = width;
-		m_printLines = lines;
-		m_inputStream = stream;
-	}
+    private int m_width;
 
-	/**
-	 * <p>getHeight</p>
-	 *
-	 * @return a int.
-	 * @throws org.opennms.netmgt.rrd.RrdException if any.
-	 */
-        @Override
-	public int getHeight() throws RrdException {
-		return m_height;
-	}
+    private String[] m_printLines;
 
-	/**
-	 * <p>getInputStream</p>
-	 *
-	 * @return a {@link java.io.InputStream} object.
-	 * @throws org.opennms.netmgt.rrd.RrdException if any.
-	 */
-        @Override
-	public InputStream getInputStream() throws RrdException {
-		return m_inputStream;
-	}
+    private InputStream m_inputStream;
 
-	/**
-	 * <p>getPrintLines</p>
-	 *
-	 * @return an array of {@link java.lang.String} objects.
-	 * @throws org.opennms.netmgt.rrd.RrdException if any.
-	 */
-        @Override
-	public String[] getPrintLines() throws RrdException {
-		return m_printLines;
-	}
+    /**
+     * <p>
+     * Constructor for JniGraphDetails.
+     * </p>
+     *
+     * @param height
+     *            a int.
+     * @param width
+     *            a int.
+     * @param lines
+     *            an array of {@link java.lang.String} objects.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     */
+    public JniGraphDetails(int height, int width, String[] lines, InputStream stream) {
+        m_height = height;
+        m_width = width;
+        m_printLines = lines;
+        m_inputStream = stream;
+    }
 
-	/**
-	 * <p>getWidth</p>
-	 *
-	 * @return a int.
-	 * @throws org.opennms.netmgt.rrd.RrdException if any.
-	 */
-        @Override
-	public int getWidth() throws RrdException {
-		return m_width;
-	}
+    /**
+     * <p>
+     * getHeight
+     * </p>
+     *
+     * @return a int.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
+     */
+    @Override
+    public int getHeight() throws RrdException {
+        return m_height;
+    }
+
+    /**
+     * <p>
+     * getInputStream
+     * </p>
+     *
+     * @return a {@link java.io.InputStream} object.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
+     */
+    @Override
+    public InputStream getInputStream() throws RrdException {
+        return m_inputStream;
+    }
+
+    /**
+     * <p>
+     * getPrintLines
+     * </p>
+     *
+     * @return an array of {@link java.lang.String} objects.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
+     */
+    @Override
+    public String[] getPrintLines() throws RrdException {
+        return m_printLines;
+    }
+
+    /**
+     * <p>
+     * getWidth
+     * </p>
+     *
+     * @return a int.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
+     */
+    @Override
+    public int getWidth() throws RrdException {
+        return m_width;
+    }
 
 }

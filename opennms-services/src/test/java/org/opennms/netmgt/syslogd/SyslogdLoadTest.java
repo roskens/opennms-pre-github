@@ -83,29 +83,32 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-        "classpath:/META-INF/opennms/applicationContext-eventDaemon.xml",
-        "classpath:/syslogdTest.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-eventDaemon.xml", "classpath:/syslogdTest.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class SyslogdLoadTest implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(SyslogdLoadTest.class);
 
     private EventCounter m_eventCounter;
+
     private static final String MATCH_PATTERN = "^.*\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)";
+
     private static final int HOST_GROUP = 6;
+
     private static final int MESSAGE_GROUP = 8;
+
     private static final HideMessage HIDE_MESSAGE = new HideMessage();
+
     private static final String DISCARD_UEI = "DISCARD-MATCHING-MESSAGES";
+
     private static final UeiList UEI_LIST = new UeiList();
 
     @Autowired
@@ -117,17 +120,19 @@ public class SyslogdLoadTest implements InitializingBean {
     private Syslogd m_syslogd;
 
     private final List<ExecutorService> m_executorServices = Arrays.asList(new ExecutorService[] {
-            Executors.newFixedThreadPool(3),
-            Executors.newFixedThreadPool(3)
-    });
+            Executors.newFixedThreadPool(3), Executors.newFixedThreadPool(3) });
 
     static {
         UeiMatch ueiMatch;
         Match match;
         for (int i = 0; i < 10000; i++) {
-            /* <ueiMatch>
-             *   <match type="regex" expression=".*foo0: .*load test (\S+) on ((pts\/\d+)|(tty\d+)).*"/><uei>uei.example.org/syslog/loadTest/foo0</uei>
-             * </ueiMatch> */
+            /*
+             * <ueiMatch>
+             * <match type="regex" expression=".*foo0: .*load test (\S+) on
+             * ((pts
+             * \/\d+)|(tty\d+)).*"/><uei>uei.example.org/syslog/loadTest/foo0</uei>
+             * </ueiMatch>
+             */
 
             ueiMatch = new UeiMatch();
             match = new Match();
@@ -146,7 +151,7 @@ public class SyslogdLoadTest implements InitializingBean {
 
     @Before
     public void setUp() throws Exception {
-    	MockLogAppender.setupLogging(true, "WARN");
+        MockLogAppender.setupLogging(true, "WARN");
 
         loadSyslogConfiguration("/etc/syslogd-loadtest-configuration.xml");
 
@@ -161,7 +166,8 @@ public class SyslogdLoadTest implements InitializingBean {
         }
     }
 
-    private void loadSyslogConfiguration(final String configuration) throws IOException, MarshalException, ValidationException {
+    private void loadSyslogConfiguration(final String configuration) throws IOException, MarshalException,
+            ValidationException {
         InputStream stream = null;
         try {
             stream = ConfigurationTestUtils.getInputStreamForResource(this, configuration);
@@ -212,7 +218,9 @@ public class SyslogdLoadTest implements InitializingBean {
         for (int i = 0; i < eventCount; i++) {
             int foo = foos.get(i);
             DatagramPacket pkt = sc.getPacket(SyslogClient.LOG_DEBUG, String.format(testPduFormat, foo, foo));
-            WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP, MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE, DISCARD_UEI));
+            WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP,
+                                                                                 MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE,
+                                                                                 DISCARD_UEI));
         }
 
         long mid = System.currentTimeMillis();
@@ -221,7 +229,8 @@ public class SyslogdLoadTest implements InitializingBean {
 
         final long total = (end - start);
         final double eventsPerSecond = (eventCount * 1000.0 / total);
-        System.err.println(String.format("total time: %d, wait time: %d, events per second: %8.4f", total, (end - mid), eventsPerSecond));
+        System.err.println(String.format("total time: %d, wait time: %d, events per second: %8.4f", total, (end - mid),
+                                         eventsPerSecond));
     }
 
     @Test
@@ -238,12 +247,16 @@ public class SyslogdLoadTest implements InitializingBean {
         // handle an invalid packet
         byte[] bytes = "<34>1 2010-08-19T22:14:15.000Z localhost - - - - BOMfoo0: load test 0 on tty1\0".getBytes();
         DatagramPacket pkt = new DatagramPacket(bytes, bytes.length, address, SyslogClient.PORT);
-        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP, MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE, DISCARD_UEI));
+        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP,
+                                                                             MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE,
+                                                                             DISCARD_UEI));
 
         // handle a valid packet
         bytes = "<34>1 2003-10-11T22:14:15.000Z plonk -ev/pts/8\0".getBytes();
         pkt = new DatagramPacket(bytes, bytes.length, address, SyslogClient.PORT);
-        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP, MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE, DISCARD_UEI));
+        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP,
+                                                                             MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE,
+                                                                             DISCARD_UEI));
 
         m_eventCounter.waitForFinish(120000);
 
@@ -264,12 +277,16 @@ public class SyslogdLoadTest implements InitializingBean {
         // handle an invalid packet
         byte[] bytes = "<34>main: 2010-08-19 localhost foo0: load test 0 on tty1\0".getBytes();
         DatagramPacket pkt = new DatagramPacket(bytes, bytes.length, address, SyslogClient.PORT);
-        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP, MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE, DISCARD_UEI));
+        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP,
+                                                                             MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE,
+                                                                             DISCARD_UEI));
 
         // handle a valid packet
         bytes = "<34>monkeysatemybrain!\0".getBytes();
         pkt = new DatagramPacket(bytes, bytes.length, address, SyslogClient.PORT);
-        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP, MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE, DISCARD_UEI));
+        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP,
+                                                                             MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE,
+                                                                             DISCARD_UEI));
 
         m_eventCounter.waitForFinish(120000);
 
@@ -279,7 +296,7 @@ public class SyslogdLoadTest implements InitializingBean {
     @Test
     @Transactional
     public void testEventd() throws Exception {
-    	m_eventd.start();
+        m_eventd.start();
 
         EventProxy ep = createEventProxy();
 
@@ -295,11 +312,8 @@ public class SyslogdLoadTest implements InitializingBean {
             String expectedUei = "uei.example.org/syslog/loadTest/foo" + eventNum;
             final EventBuilder eb = new EventBuilder(expectedUei, "SyslogdLoadTest");
 
-            Event thisEvent = eb.setInterface(addr("127.0.0.1"))
-                .setLogDest("logndisplay")
-                .setLogMessage("A load test has been received as a Syslog Message")
-                .getEvent();
-//            LOG.debug("event = {}", thisEvent);
+            Event thisEvent = eb.setInterface(addr("127.0.0.1")).setLogDest("logndisplay").setLogMessage("A load test has been received as a Syslog Message").getEvent();
+            // LOG.debug("event = {}", thisEvent);
             events.addEvent(thisEvent);
         }
 
@@ -314,12 +328,14 @@ public class SyslogdLoadTest implements InitializingBean {
 
         final long total = (end - start);
         final double eventsPerSecond = (eventCount * 1000.0 / total);
-        System.err.println(String.format("total time: %d, wait time: %d, events per second: %8.4f", total, (end - mid), eventsPerSecond));
+        System.err.println(String.format("total time: %d, wait time: %d, events per second: %8.4f", total, (end - mid),
+                                         eventsPerSecond));
     }
 
     private static EventProxy createEventProxy() throws UnknownHostException {
         /*
-         * Rather than defaulting to localhost all the time, give an option in properties
+         * Rather than defaulting to localhost all the time, give an option in
+         * properties
          */
         String proxyHostName = "127.0.0.1";
         String proxyHostPort = "5837";
@@ -330,15 +346,17 @@ public class SyslogdLoadTest implements InitializingBean {
         proxyAddr = InetAddressUtils.addr(proxyHostName);
 
         if (proxyAddr == null) {
-        	proxy = new TcpEventProxy();
+            proxy = new TcpEventProxy();
         } else {
-            proxy = new TcpEventProxy(new InetSocketAddress(proxyAddr, Integer.parseInt(proxyHostPort)), Integer.parseInt(proxyHostTimeout));
+            proxy = new TcpEventProxy(new InetSocketAddress(proxyAddr, Integer.parseInt(proxyHostPort)),
+                                      Integer.parseInt(proxyHostTimeout));
         }
         return proxy;
     }
 
     public static class EventCounter implements EventListener {
         private AtomicInteger m_eventCount = new AtomicInteger(0);
+
         private int m_expectedCount = 0;
 
         @Override

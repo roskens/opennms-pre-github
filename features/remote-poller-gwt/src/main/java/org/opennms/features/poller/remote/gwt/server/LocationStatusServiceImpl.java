@@ -46,7 +46,9 @@ import de.novanic.eventservice.service.EventExecutorServiceFactory;
 import de.novanic.eventservice.service.RemoteEventServiceServlet;
 
 /**
- * <p>LocationStatusServiceImpl class.</p>
+ * <p>
+ * LocationStatusServiceImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -55,13 +57,15 @@ import de.novanic.eventservice.service.RemoteEventServiceServlet;
 public class LocationStatusServiceImpl extends RemoteEventServiceServlet implements LocationStatusService {
     private static final Logger LOG = LoggerFactory.getLogger(LocationStatusServiceImpl.class);
 
-	private static final long serialVersionUID = 7152723329766982720L;
+    private static final long serialVersionUID = 7152723329766982720L;
 
-	volatile Set<String> m_activeApplications = new HashSet<String>();
+    volatile Set<String> m_activeApplications = new HashSet<String>();
 
     private ApplicationContext m_context;
+
     @SuppressWarnings("unused")
     private LocationBroadcastProcessor m_locationBroadcastProcessor;
+
     private LocationDataManager m_locationDataManager;
 
     private void initialize() {
@@ -75,21 +79,26 @@ public class LocationStatusServiceImpl extends RemoteEventServiceServlet impleme
             m_locationDataManager = m_context.getBean(LocationDataManager.class);
         }
 
-        // Don't do event handling since we update location and app status on a schedule
-//        if (m_locationBroadcastProcessor == null) {
-//            m_locationBroadcastProcessor = m_context.getBean(LocationBroadcastProcessor.class);
-//            m_locationBroadcastProcessor.setEventHandler(new LocationEventHandler() {
-//                public void sendEvent(final MapRemoteEvent event) {
-//                    addEvent(MapRemoteEventHandler.LOCATION_EVENT_DOMAIN, event);
-//                }
-//            });
-//        }
+        // Don't do event handling since we update location and app status on a
+        // schedule
+        // if (m_locationBroadcastProcessor == null) {
+        // m_locationBroadcastProcessor =
+        // m_context.getBean(LocationBroadcastProcessor.class);
+        // m_locationBroadcastProcessor.setEventHandler(new
+        // LocationEventHandler() {
+        // public void sendEvent(final MapRemoteEvent event) {
+        // addEvent(MapRemoteEventHandler.LOCATION_EVENT_DOMAIN, event);
+        // }
+        // });
+        // }
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
-        @Override
+    @Override
     public void start() {
         LOG.debug("starting location status service");
         initialize();
@@ -97,25 +106,25 @@ public class LocationStatusServiceImpl extends RemoteEventServiceServlet impleme
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public LocationInfo getLocationInfo(final String locationName) {
         return m_locationDataManager.getLocationInfo(locationName);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public LocationDetails getLocationDetails(final String locationName) {
         return m_locationDataManager.getLocationDetails(locationName);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public ApplicationInfo getApplicationInfo(final String applicationName) {
         return m_locationDataManager.getApplicationInfo(applicationName);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public ApplicationDetails getApplicationDetails(final String applicationName) {
         return m_locationDataManager.getApplicationDetails(applicationName);
     }

@@ -38,7 +38,9 @@ import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsOutage;
 
 /**
- * <p>DefaultOutageService class.</p>
+ * <p>
+ * DefaultOutageService class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -49,23 +51,30 @@ public class DefaultOutageService implements OutageService {
     private OutageDao m_dao;
 
     /**
-     * <p>Constructor for DefaultOutageService.</p>
+     * <p>
+     * Constructor for DefaultOutageService.
+     * </p>
      */
     public DefaultOutageService() {
 
     }
 
     /**
-     * <p>Constructor for DefaultOutageService.</p>
+     * <p>
+     * Constructor for DefaultOutageService.
+     * </p>
      *
-     * @param dao a {@link org.opennms.netmgt.dao.api.OutageDao} object.
+     * @param dao
+     *            a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
     public DefaultOutageService(final OutageDao dao) {
         m_dao = dao;
     }
 
     /**
-     * <p>getDao</p>
+     * <p>
+     * getDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
@@ -74,16 +83,21 @@ public class DefaultOutageService implements OutageService {
     }
 
     /**
-     * <p>setDao</p>
+     * <p>
+     * setDao
+     * </p>
      *
-     * @param dao a {@link org.opennms.netmgt.dao.api.OutageDao} object.
+     * @param dao
+     *            a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
     public final void setDao(final OutageDao dao) {
         this.m_dao = dao;
     }
 
     /**
-     * <p>getCurrentOutageCount</p>
+     * <p>
+     * getCurrentOutageCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -106,7 +120,9 @@ public class DefaultOutageService implements OutageService {
     }
 
     /**
-     * <p>getCurrentOutages</p>
+     * <p>
+     * getCurrentOutages
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -116,9 +132,12 @@ public class DefaultOutageService implements OutageService {
     }
 
     /**
-     * <p>getCurrentOutagesOrdered</p>
+     * <p>
+     * getCurrentOutagesOrdered
+     * </p>
      *
-     * @param orderBy a {@link java.lang.String} object.
+     * @param orderBy
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     public final Collection<OnmsOutage> getCurrentOutagesOrdered(final String orderBy) {
@@ -141,23 +160,26 @@ public class DefaultOutageService implements OutageService {
 
     /** {@inheritDoc} */
     @Override
-    public final Collection<OnmsOutage> getOutagesForInterface(final int nodeId,
-                                                         final String ipInterface) {
+    public final Collection<OnmsOutage> getOutagesForInterface(final int nodeId, final String ipInterface) {
         // TODO Auto-generated method stub
         return null;
     }
 
     /**
-     * <p>getOutagesForInterface</p>
+     * <p>
+     * getOutagesForInterface
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param time a java$util$Date object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a java$util$Date object.
      * @return a {@link java.util.Collection} object.
      */
     @Override
-    public final Collection<OnmsOutage> getOutagesForInterface(final int nodeId,
-                                                         final String ipAddr, final Date time) {
+    public final Collection<OnmsOutage> getOutagesForInterface(final int nodeId, final String ipAddr, final Date time) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -170,10 +192,14 @@ public class DefaultOutageService implements OutageService {
     }
 
     /**
-     * <p>getOutagesForNode</p>
+     * <p>
+     * getOutagesForNode
+     * </p>
      *
-     * @param nodeId a int.
-     * @param time a java$util$Date object.
+     * @param nodeId
+     *            a int.
+     * @param time
+     *            a java$util$Date object.
      * @return a {@link java.util.Collection} object.
      */
     @Override
@@ -184,30 +210,38 @@ public class DefaultOutageService implements OutageService {
 
     /** {@inheritDoc} */
     @Override
-    public final Collection<OnmsOutage> getOutagesForService(final int nodeId,
-                                                       final String ipInterface, final int serviceId) {
+    public final Collection<OnmsOutage> getOutagesForService(final int nodeId, final String ipInterface,
+            final int serviceId) {
         // TODO Auto-generated method stub
         return null;
     }
 
     /**
-     * <p>getOutagesForService</p>
+     * <p>
+     * getOutagesForService
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param serviceId a int.
-     * @param time a java$util$Date object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a int.
+     * @param time
+     *            a java$util$Date object.
      * @return a {@link java.util.Collection} object.
      */
     @Override
-    public final Collection<OnmsOutage> getOutagesForService(final int nodeId,
-                                                       final String ipAddr, final int serviceId, final Date time) {
+    public final Collection<OnmsOutage> getOutagesForService(final int nodeId, final String ipAddr,
+            final int serviceId, final Date time) {
         // TODO Auto-generated method stub
         return null;
     }
 
     /**
-     * <p>getSuppressedOutageCount</p>
+     * <p>
+     * getSuppressedOutageCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -217,7 +251,9 @@ public class DefaultOutageService implements OutageService {
     }
 
     /**
-     * <p>getSuppressedOutages</p>
+     * <p>
+     * getSuppressedOutages
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -227,7 +263,9 @@ public class DefaultOutageService implements OutageService {
     }
 
     /**
-     * <p>getOpenAndResolved</p>
+     * <p>
+     * getOpenAndResolved
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -237,7 +275,8 @@ public class DefaultOutageService implements OutageService {
 
     /** {@inheritDoc} */
     @Override
-    public final Collection<OnmsOutage> getOutagesByRange(final Integer offset, final Integer limit, final String orderProperty, final String direction, final OnmsCriteria criteria) {
+    public final Collection<OnmsOutage> getOutagesByRange(final Integer offset, final Integer limit,
+            final String orderProperty, final String direction, final OnmsCriteria criteria) {
         criteria.setFirstResult(offset);
         criteria.setMaxResults(limit);
 
@@ -263,7 +302,6 @@ public class DefaultOutageService implements OutageService {
 
         return m_dao.findMatching(criteria);
     }
-
 
     private Order getHibernateOrder(final String orderProperty, final String direction) {
         if (orderProperty == null) {
@@ -297,26 +335,32 @@ public class DefaultOutageService implements OutageService {
     }
 
     /**
-     * <p>getSuppressedOutagesByRange</p>
+     * <p>
+     * getSuppressedOutagesByRange
+     * </p>
      *
-     * @param Offset a {@link java.lang.Integer} object.
-     * @param Limit a {@link java.lang.Integer} object.
+     * @param Offset
+     *            a {@link java.lang.Integer} object.
+     * @param Limit
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.util.Collection} object.
      */
-    public final Collection<OnmsOutage> getSuppressedOutagesByRange(final Integer Offset,
-                                                              final Integer Limit) {
+    public final Collection<OnmsOutage> getSuppressedOutagesByRange(final Integer Offset, final Integer Limit) {
         throw new UnsupportedOperationException("not implemented since switch to hibernate");
     }
 
     /**
-     * <p>getOpenAndResolved</p>
+     * <p>
+     * getOpenAndResolved
+     * </p>
      *
-     * @param Offset a {@link java.lang.Integer} object.
-     * @param Limit a {@link java.lang.Integer} object.
+     * @param Offset
+     *            a {@link java.lang.Integer} object.
+     * @param Limit
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.util.Collection} object.
      */
-    public final Collection<OnmsOutage> getOpenAndResolved(final Integer Offset,
-                                                     final Integer Limit) {
+    public final Collection<OnmsOutage> getOpenAndResolved(final Integer Offset, final Integer Limit) {
         throw new UnsupportedOperationException("not implemented since switch to hibernate");
 
     }
@@ -340,35 +384,52 @@ public class DefaultOutageService implements OutageService {
     }
 
     /**
-     * <p>getOutagesByRange</p>
+     * <p>
+     * getOutagesByRange
+     * </p>
      *
-     * @param offset a {@link java.lang.Integer} object.
-     * @param limit a {@link java.lang.Integer} object.
-     * @param orderProperty a {@link java.lang.String} object.
-     * @param direction a {@link java.lang.String} object.
+     * @param offset
+     *            a {@link java.lang.Integer} object.
+     * @param limit
+     *            a {@link java.lang.Integer} object.
+     * @param orderProperty
+     *            a {@link java.lang.String} object.
+     * @param direction
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
-    public final Collection<OnmsOutage> getOutagesByRange(final Integer offset, final Integer limit, final String orderProperty, final String direction) {
+    public final Collection<OnmsOutage> getOutagesByRange(final Integer offset, final Integer limit,
+            final String orderProperty, final String direction) {
         throw new UnsupportedOperationException("not implemented since switch to hibernate");
     }
 
     /**
-     * <p>getOutagesByRange</p>
+     * <p>
+     * getOutagesByRange
+     * </p>
      *
-     * @param offset a {@link java.lang.Integer} object.
-     * @param limit a {@link java.lang.Integer} object.
-     * @param orderProperty a {@link java.lang.String} object.
-     * @param direction a {@link java.lang.String} object.
-     * @param filter a {@link java.lang.String} object.
+     * @param offset
+     *            a {@link java.lang.Integer} object.
+     * @param limit
+     *            a {@link java.lang.Integer} object.
+     * @param orderProperty
+     *            a {@link java.lang.String} object.
+     * @param direction
+     *            a {@link java.lang.String} object.
+     * @param filter
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     @Override
-    public final Collection<OnmsOutage> getOutagesByRange(final Integer offset, final Integer limit, final String orderProperty, final String direction, final String filter) {
+    public final Collection<OnmsOutage> getOutagesByRange(final Integer offset, final Integer limit,
+            final String orderProperty, final String direction, final String filter) {
         throw new UnsupportedOperationException("not implemented since switch to hibernate");
     }
 
     /**
-     * <p>getOutageCount</p>
+     * <p>
+     * getOutageCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -385,13 +446,15 @@ public class DefaultOutageService implements OutageService {
 
     /** {@inheritDoc} */
     @Override
-    public final Collection<OnmsOutage> getSuppressedOutagesByRange(final Integer offset, final Integer limit, final String orderProperty, final String direction) {
+    public final Collection<OnmsOutage> getSuppressedOutagesByRange(final Integer offset, final Integer limit,
+            final String orderProperty, final String direction) {
         throw new UnsupportedOperationException("not implemented since switch to hibernate");
     }
 
     /** {@inheritDoc} */
     @Override
-    public final Collection<OnmsOutage> getResolvedOutagesByRange(final Integer offset, final Integer limit, final String orderProperty, final String direction, final String filter) {
+    public final Collection<OnmsOutage> getResolvedOutagesByRange(final Integer offset, final Integer limit,
+            final String orderProperty, final String direction, final String filter) {
         throw new UnsupportedOperationException("not implemented since switch to hibernate");
     }
 

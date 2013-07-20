@@ -33,9 +33,8 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
  * Class designed for gathering Aggreate Status of nodes to be displayed
- * in a cross sectional view of categories.  This service provides the objects
+ * in a cross sectional view of categories. This service provides the objects
  * requried for a view used by a surveillance/operations team within a NOC.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -57,36 +56,48 @@ import org.springframework.transaction.annotation.Transactional;
  * @version $Id: $
  * @since 1.8.1
  */
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 public interface SurveillanceService {
 
     /**
-     * <p>createSurveillanceTable</p>
+     * <p>
+     * createSurveillanceTable
+     * </p>
      *
-     * @param surveillanceViewName a {@link java.lang.String} object.
-     * @param progressMonitor a {@link org.opennms.web.svclayer.ProgressMonitor} object.
+     * @param surveillanceViewName
+     *            a {@link java.lang.String} object.
+     * @param progressMonitor
+     *            a {@link org.opennms.web.svclayer.ProgressMonitor} object.
      * @return a {@link org.opennms.web.svclayer.SimpleWebTable} object.
      */
     public SimpleWebTable createSurveillanceTable(String surveillanceViewName, ProgressMonitor progressMonitor);
 
     /**
-     * <p>getHeaderRefreshSeconds</p>
+     * <p>
+     * getHeaderRefreshSeconds
+     * </p>
      *
-     * @param viewName a {@link java.lang.String} object.
+     * @param viewName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getHeaderRefreshSeconds(String viewName);
 
     /**
-     * <p>isViewName</p>
+     * <p>
+     * isViewName
+     * </p>
      *
-     * @param viewName a {@link java.lang.String} object.
+     * @param viewName
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean isViewName(String viewName);
 
     /**
-     * <p>getViewNames</p>
+     * <p>
+     * getViewNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */

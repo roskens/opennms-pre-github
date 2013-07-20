@@ -34,31 +34,40 @@ import org.opennms.protocols.wmi.WmiException;
 import org.opennms.protocols.wmi.wbem.OnmsWbemMethod;
 
 /**
- * <p>OnmsWbemMethodImpl class.</p>
+ * <p>
+ * OnmsWbemMethodImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class OnmsWbemMethodImpl implements OnmsWbemMethod {
-        private IJIDispatch wbemMethodDispatch;
+    private IJIDispatch wbemMethodDispatch;
 
     /**
-     * <p>Constructor for OnmsWbemMethodImpl.</p>
+     * <p>
+     * Constructor for OnmsWbemMethodImpl.
+     * </p>
      *
-     * @param wbemMethodDispatch a {@link org.jinterop.dcom.impls.automation.IJIDispatch} object.
+     * @param wbemMethodDispatch
+     *            a {@link org.jinterop.dcom.impls.automation.IJIDispatch}
+     *            object.
      */
     public OnmsWbemMethodImpl(IJIDispatch wbemMethodDispatch) {
         this.wbemMethodDispatch = wbemMethodDispatch;
     }
 
     /**
-     * <p>getWmiName</p>
+     * <p>
+     * getWmiName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
-        @Override
-    public String getWmiName()throws WmiException {
+    @Override
+    public String getWmiName() throws WmiException {
         try {
             return wbemMethodDispatch.get("Name").getObjectAsString2();
         } catch (final JIException e) {
@@ -67,12 +76,15 @@ public class OnmsWbemMethodImpl implements OnmsWbemMethod {
     }
 
     /**
-     * <p>getWmiOrigin</p>
+     * <p>
+     * getWmiOrigin
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
-        @Override
+    @Override
     public String getWmiOrigin() throws WmiException {
         try {
             return wbemMethodDispatch.get("Origin").getObjectAsString2();
@@ -82,17 +94,21 @@ public class OnmsWbemMethodImpl implements OnmsWbemMethod {
     }
 
     /**
-     * <p>getWmiOutParameters</p>
+     * <p>
+     * getWmiOutParameters
+     * </p>
      */
-        @Override
+    @Override
     public void getWmiOutParameters() {
         return; // TODO IMPLEEMNT THIS
     }
 
     /**
-     * <p>getWmiInParameters</p>
+     * <p>
+     * getWmiInParameters
+     * </p>
      */
-        @Override
+    @Override
     public void getWmiInParameters() {
         return; // TODO IMPLEEMNT THIS
     }

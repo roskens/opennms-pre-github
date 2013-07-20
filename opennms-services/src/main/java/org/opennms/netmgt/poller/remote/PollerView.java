@@ -29,16 +29,20 @@
 package org.opennms.netmgt.poller.remote;
 
 /**
- * <p>PollerView interface.</p>
+ * <p>
+ * PollerView interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public interface PollerView {
 
-	/**
-	 * <p>showView</p>
-	 */
-	public void showView();
+    /**
+     * <p>
+     * showView
+     * </p>
+     */
+    public void showView();
 
 }

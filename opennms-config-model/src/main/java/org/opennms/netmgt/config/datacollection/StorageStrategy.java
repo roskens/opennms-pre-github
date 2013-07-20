@@ -51,12 +51,11 @@ import org.exolab.castor.xml.ValidationException;
 import org.exolab.castor.xml.Validator;
 import org.xml.sax.ContentHandler;
 
-
 /**
  * Selects a StorageStrategy that decides where data is stored.
  */
 
-@XmlRootElement(name="storageStrategy", namespace="http://xmlns.opennms.org/xsd/config/datacollection")
+@XmlRootElement(name = "storageStrategy", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 public class StorageStrategy implements Serializable {
     private static final long serialVersionUID = -2689731640740067448L;
@@ -71,7 +70,7 @@ public class StorageStrategy implements Serializable {
 
     /**
      * list of parameters to pass to the strategy
-     *  for strategy-specific configuration information
+     * for strategy-specific configuration information
      */
     private List<Parameter> m_parameters = new ArrayList<Parameter>();
 
@@ -86,20 +85,20 @@ public class StorageStrategy implements Serializable {
 
     /**
      * @param parameter
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addParameter(final Parameter parameter) throws IndexOutOfBoundsException {
         m_parameters.add(parameter);
     }
 
     /**
-     *
-     *
      * @param index
      * @param parameter
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addParameter(final int index, final Parameter parameter) throws IndexOutOfBoundsException {
         m_parameters.add(index, parameter);
@@ -109,7 +108,7 @@ public class StorageStrategy implements Serializable {
      * Method enumerateParameter.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<Parameter> enumerateParameter() {
         return Collections.enumeration(m_parameters);
@@ -123,25 +122,25 @@ public class StorageStrategy implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof StorageStrategy) {
 
-            final StorageStrategy temp = (StorageStrategy)obj;
+            final StorageStrategy temp = (StorageStrategy) obj;
             if (m_clazz != null) {
-                if (temp.m_clazz == null) return false;
+                if (temp.m_clazz == null)
+                    return false;
                 else if (!(m_clazz.equals(temp.m_clazz)))
                     return false;
-            }
-            else if (temp.m_clazz != null)
+            } else if (temp.m_clazz != null)
                 return false;
             if (m_parameters != null) {
-                if (temp.m_parameters == null) return false;
+                if (temp.m_parameters == null)
+                    return false;
                 else if (!(m_parameters.equals(temp.m_parameters)))
                     return false;
-            }
-            else if (temp.m_parameters != null)
+            } else if (temp.m_parameters != null)
                 return false;
             return true;
         }
@@ -155,7 +154,7 @@ public class StorageStrategy implements Serializable {
      *
      * @return the value of field 'Clazz'.
      */
-    @XmlAttribute(name="class", required=true)
+    @XmlAttribute(name = "class", required = true)
     public String getClazz() {
         return m_clazz;
     }
@@ -164,30 +163,33 @@ public class StorageStrategy implements Serializable {
      * Method getParameter.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * Parameter at
-     * the given index
+     *         Parameter at
+     *         the given index
      */
-    public Parameter getParameter(final int index)
-    throws IndexOutOfBoundsException {
+    public Parameter getParameter(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_parameters.size()) {
-            throw new IndexOutOfBoundsException("getParameter: Index value '" + index + "' not in range [0.." + (m_parameters.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getParameter: Index value '" + index + "' not in range [0.."
+                    + (m_parameters.size() - 1) + "]");
         }
         return m_parameters.get(index);
     }
 
     /**
      * Method getParameter.Returns the contents of the collection
-     * in an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="parameter")
+    @XmlElement(name = "parameter")
     public Parameter[] getParameter() {
         return m_parameters.toArray(EMPTY_PARAMETER_ARRAY);
     }
@@ -215,8 +217,8 @@ public class StorageStrategy implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -225,10 +227,10 @@ public class StorageStrategy implements Serializable {
         int result = 17;
 
         if (m_clazz != null) {
-           result = 37 * result + m_clazz.hashCode();
+            result = 37 * result + m_clazz.hashCode();
         }
         if (m_parameters != null) {
-           result = 37 * result + m_parameters.hashCode();
+            result = 37 * result + m_parameters.hashCode();
         }
 
         return result;
@@ -253,20 +255,20 @@ public class StorageStrategy implements Serializable {
      * Method iterateParameter.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<Parameter> iterateParameter() {
         return m_parameters.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -274,15 +276,16 @@ public class StorageStrategy implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -320,36 +323,35 @@ public class StorageStrategy implements Serializable {
      * following description: Java class name of the class that
      * implements the StorageStrategy.
      *
-     * @param clazz the value of field 'clazz'.
+     * @param clazz
+     *            the value of field 'clazz'.
      */
     public void setClazz(final String clazz) {
         m_clazz = clazz.intern();
     }
 
     /**
-     *
-     *
      * @param index
      * @param parameter
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setParameter(final int index, final Parameter parameter) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_parameters.size()) {
-            throw new IndexOutOfBoundsException("setParameter: Index value '" + index + "' not in range [0.." + (m_parameters.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setParameter: Index value '" + index + "' not in range [0.."
+                    + (m_parameters.size() - 1) + "]");
         }
         m_parameters.set(index, parameter);
     }
 
     /**
-     *
-     *
      * @param parameters
      */
     public void setParameter(final Parameter[] parameters) {
         m_parameters.clear();
         for (int i = 0; i < parameters.length; i++) {
-                m_parameters.add(parameters[i]);
+            m_parameters.add(parameters[i]);
         }
     }
 
@@ -357,10 +359,12 @@ public class StorageStrategy implements Serializable {
      * Sets the value of '_parameterList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param parameters the Vector to copy.
+     * @param parameters
+     *            the Vector to copy.
      */
     public void setParameter(final List<Parameter> parameters) {
-        if (m_parameters == parameters) return;
+        if (m_parameters == parameters)
+            return;
         m_parameters.clear();
         m_parameters.addAll(parameters);
     }
@@ -368,9 +372,10 @@ public class StorageStrategy implements Serializable {
     /**
      * Sets the value of '_parameterList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param parameters the Vector to set.
+     * @deprecated
+     * @param parameters
+     *            the Vector to set.
      */
     public void setParameterCollection(final List<Parameter> parameters) {
         m_parameters = parameters;
@@ -380,12 +385,14 @@ public class StorageStrategy implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * StorageStrateg
+     *         StorageStrateg
      */
     @Deprecated
     public static StorageStrategy unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -393,14 +400,12 @@ public class StorageStrategy implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
-    public void validate()
-    throws ValidationException {
+    public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 }

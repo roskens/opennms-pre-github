@@ -35,9 +35,9 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * <P>
- * CdpCacheTable uses a SnmpSession to collect the CdpCache table
- * entries. It implements the SnmpHandler to receive notifications when a reply
- * is received/error occurs in the SnmpSession used to send requests/receive
+ * CdpCacheTable uses a SnmpSession to collect the CdpCache table entries. It
+ * implements the SnmpHandler to receive notifications when a reply is
+ * received/error occurs in the SnmpSession used to send requests/receive
  * replies.
  * </P>
  *
@@ -49,19 +49,21 @@ public class CdpCacheTable extends SnmpTable<CdpCacheTableEntry> {
 
     /**
      * <P>
-     * Constructs an CdpCacheTable object that is used to collect the Cisco Discovery Protocol
-     * elements from the remote agent. Once all the elements are collected, or
-     * there is an error in the collection the signaler object is <EM>notified
+     * Constructs an CdpCacheTable object that is used to collect the Cisco
+     * Discovery Protocol elements from the remote agent. Once all the elements
+     * are collected, or there is an error in the collection the signaler object
+     * is <EM>notified
      * </EM> to inform other threads.
      * </P>
      *
      * @see CdpCacheTableEntry
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      */
-    public CdpCacheTable(InetAddress address)
-	{
+    public CdpCacheTable(InetAddress address) {
         super(address, "cdpCacheTable", CdpCacheTableEntry.cdpCache_elemList);
-	}
+    }
+
     /** {@inheritDoc} */
     @Override
     protected CdpCacheTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

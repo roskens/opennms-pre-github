@@ -37,7 +37,9 @@ import org.smslib.Service;
 import org.smslib.Service.ServiceStatus;
 
 /**
- * <p>GatewayListener class.</p>
+ * <p>
+ * GatewayListener class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,83 +47,103 @@ import org.smslib.Service.ServiceStatus;
 public class GatewayListener {
     private static final Logger LOG = LoggerFactory.getLogger(GatewayListener.class);
 
-	private Service m_service;
+    private Service m_service;
 
+    /**
+     * <p>
+     * setService
+     * </p>
+     *
+     * @param service
+     *            a {@link org.smslib.Service} object.
+     */
+    public void setService(Service service) {
+        m_service = service;
+    }
 
-	/**
-	 * <p>setService</p>
-	 *
-	 * @param service a {@link org.smslib.Service} object.
-	 */
-	public void setService(Service service){
-		m_service = service;
-	}
+    /**
+     * <p>
+     * addGateway
+     * </p>
+     *
+     * @param gateway
+     *            a {@link org.smslib.AGateway} object.
+     * @param properties
+     *            a {@link java.util.Map} object.
+     */
+    public void addGateway(AGateway gateway, Map<?, ?> properties) {
+        if (m_service != null) {
+            try {
+                if (m_service.getServiceStatus() == ServiceStatus.STARTED) {
+                    m_service.stopService();
+                }
 
-	/**
-	 * <p>addGateway</p>
-	 *
-	 * @param gateway a {@link org.smslib.AGateway} object.
-	 * @param properties a {@link java.util.Map} object.
-	 */
-    public void addGateway(AGateway gateway, Map<?,?> properties){
-		if(m_service != null){
-			try{
-				if(m_service.getServiceStatus() == ServiceStatus.STARTED){
-					m_service.stopService();
-				}
+                m_service.addGateway(gateway);
+                m_service.startService();
 
-				m_service.addGateway(gateway);
-				m_service.startService();
+            } catch (final Exception e) {
+                LOG.warn("Unable to add gateway ({}) to SMS service", gateway, e);
+            }
 
-			}catch(final Exception e){
-			    LOG.warn("Unable to add gateway ({}) to SMS service", gateway, e);
-			}
+        }
+    }
 
-		}
-	}
+    /**
+     * <p>
+     * removeGateway
+     * </p>
+     *
+     * @param gateway
+     *            a {@link org.smslib.AGateway} object.
+     * @param properties
+     *            a {@link java.util.Map} object.
+     */
+    public void removeGateway(AGateway gateway, Map<?, ?> properties) {
+        if (m_service != null) {
+            try {
+                if (m_service.getServiceStatus() == ServiceStatus.STARTED) {
+                    m_service.stopService();
+                }
+                m_service.removeGateway(gateway);
+                m_service.startService();
+            } catch (final Exception e) {
+                LOG.warn("Unable to remove gateway ({}) from SMS service", gateway, e);
+            }
 
-	/**
-	 * <p>removeGateway</p>
-	 *
-	 * @param gateway a {@link org.smslib.AGateway} object.
-	 * @param properties a {@link java.util.Map} object.
-	 */
-    public void removeGateway(AGateway gateway, Map<?,?> properties){
-		if(m_service != null){
-			try{
-				if(m_service.getServiceStatus() == ServiceStatus.STARTED){
-					m_service.stopService();
-				}
-				m_service.removeGateway(gateway);
-				m_service.startService();
-			}catch(final Exception e){
-			    LOG.warn("Unable to remove gateway ({}) from SMS service", gateway, e);
-			}
+        }
+    }
 
-		}
-	}
+    /**
+     * <p>
+     * bind
+     * </p>
+     *
+     * @param arg0
+     *            a {@link java.lang.Object} object.
+     * @param arg1
+     *            a {@link java.util.Map} object.
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    public void bind(Object arg0, Map<?, ?> arg1) throws Exception {
+        // TODO Auto-generated method stub
 
-	/**
-	 * <p>bind</p>
-	 *
-	 * @param arg0 a {@link java.lang.Object} object.
-	 * @param arg1 a {@link java.util.Map} object.
-	 * @throws java.lang.Exception if any.
-	 */
-    public void bind(Object arg0, Map<?,?> arg1) throws Exception {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    /**
+     * <p>
+     * unbind
+     * </p>
+     *
+     * @param arg0
+     *            a {@link java.lang.Object} object.
+     * @param arg1
+     *            a {@link java.util.Map} object.
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    public void unbind(Object arg0, Map<?, ?> arg1) throws Exception {
+        // TODO Auto-generated method stub
 
-	/**
-	 * <p>unbind</p>
-	 *
-	 * @param arg0 a {@link java.lang.Object} object.
-	 * @param arg1 a {@link java.util.Map} object.
-	 * @throws java.lang.Exception if any.
-	 */
-    public void unbind(Object arg0, Map<?,?> arg1) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
+    }
 }

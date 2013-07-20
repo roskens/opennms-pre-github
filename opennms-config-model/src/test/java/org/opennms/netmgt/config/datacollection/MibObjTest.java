@@ -58,5 +58,4 @@ public class MibObjTest extends XmlTest<MibObj> {
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
 
-
 }

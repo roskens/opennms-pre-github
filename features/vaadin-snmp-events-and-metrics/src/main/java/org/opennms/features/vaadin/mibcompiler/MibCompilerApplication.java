@@ -64,7 +64,8 @@ public class MibCompilerApplication extends UI {
     /**
      * Sets the OpenNMS Event Proxy.
      *
-     * @param eventConfDao the new OpenNMS Event Proxy
+     * @param eventConfDao
+     *            the new OpenNMS Event Proxy
      */
     public void setEventProxy(EventProxy eventProxy) {
         this.eventProxy = eventProxy;
@@ -73,7 +74,8 @@ public class MibCompilerApplication extends UI {
     /**
      * Sets the OpenNMS Event configuration DAO.
      *
-     * @param eventConfDao the new OpenNMS Event configuration DAO
+     * @param eventConfDao
+     *            the new OpenNMS Event configuration DAO
      */
     public void setEventConfDao(EventConfDao eventConfDao) {
         this.eventConfDao = eventConfDao;
@@ -82,7 +84,8 @@ public class MibCompilerApplication extends UI {
     /**
      * Sets the MIB Parser.
      *
-     * @param mibParser the new MIB Parser
+     * @param mibParser
+     *            the new MIB Parser
      */
     public void setMibParser(MibParser mibParser) {
         this.mibParser = mibParser;
@@ -91,13 +94,15 @@ public class MibCompilerApplication extends UI {
     /**
      * Sets the OpenNMS Data Collection Configuration DAO.
      *
-     * @param eventConfDao the new OpenNMS Data Collection Configuration DAO
+     * @param eventConfDao
+     *            the new OpenNMS Data Collection Configuration DAO
      */
     public void setDataCollectionDao(DataCollectionConfigDao dataCollectionDao) {
         this.dataCollectionDao = dataCollectionDao;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.Application#init()
      */
     @Override
@@ -111,7 +116,8 @@ public class MibCompilerApplication extends UI {
 
         final HorizontalSplitPanel mainPanel = new HorizontalSplitPanel();
         final MibConsolePanel mibConsole = new MibConsolePanel();
-        final MibCompilerPanel mibPanel = new MibCompilerPanel(dataCollectionDao, eventConfDao, eventProxy, mibParser, mibConsole);
+        final MibCompilerPanel mibPanel = new MibCompilerPanel(dataCollectionDao, eventConfDao, eventProxy, mibParser,
+                                                               mibConsole);
 
         mainPanel.setSizeFull();
         mainPanel.setSplitPosition(25, Unit.PERCENTAGE);

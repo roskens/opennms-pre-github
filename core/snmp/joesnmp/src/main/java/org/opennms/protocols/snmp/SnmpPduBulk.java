@@ -32,10 +32,8 @@ package org.opennms.protocols.snmp;
  * This class defines the SNMPv2 GetBulk request sent from the management
  * platform to the agent. The Get Bulk request is designed to minimize the
  * number of message exchanges to get a large amount of information.
- *
  * The Get Bulk works in the same way as multiple Get Next requests would work.
  * It returns a set of lexicograpical successors that are selected.
- *
  * For more information on the use of a GetBulk request see [Stallings99] page
  * 378-383.
  *
@@ -55,7 +53,6 @@ public class SnmpPduBulk extends SnmpPduPacket {
      *
      * @param second
      *            The object to copy.
-     *
      */
     public SnmpPduBulk(SnmpPduBulk second) {
         super(second);
@@ -92,7 +89,6 @@ public class SnmpPduBulk extends SnmpPduPacket {
      *
      * @param nonreps
      *            The number of non-repeaters
-     *
      */
     public void setNonRepeaters(int nonreps) {
         super.m_errStatus = nonreps;
@@ -103,7 +99,6 @@ public class SnmpPduBulk extends SnmpPduPacket {
      * variables.
      *
      * @return The number of maximum reptitions.
-     *
      */
     public int getMaxRepititions() {
         return super.m_errIndex;
@@ -114,7 +109,6 @@ public class SnmpPduBulk extends SnmpPduPacket {
      *
      * @param maxreps
      *            The maximum number of repititions
-     *
      */
     public void setMaxRepititions(int maxreps) {
         super.m_errIndex = maxreps;

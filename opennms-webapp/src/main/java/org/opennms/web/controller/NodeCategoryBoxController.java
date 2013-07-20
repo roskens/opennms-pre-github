@@ -42,7 +42,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>NodeCategoryBoxController class.</p>
+ * <p>
+ * NodeCategoryBoxController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,7 +55,8 @@ public class NodeCategoryBoxController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         String nodeIdString = request.getParameter("node");
 
         if (nodeIdString == null) {
@@ -64,9 +67,7 @@ public class NodeCategoryBoxController extends AbstractController {
 
         List<OnmsCategory> categories = m_adminCategoryService.findByNode(nodeId);
 
-        ModelAndView modelAndView =
-            new ModelAndView("/includes/nodeCategory-box", "categories",
-                             categories);
+        ModelAndView modelAndView = new ModelAndView("/includes/nodeCategory-box", "categories", categories);
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
             modelAndView.addObject("isAdmin", "true");
         }
@@ -74,7 +75,9 @@ public class NodeCategoryBoxController extends AbstractController {
     }
 
     /**
-     * <p>getAdminCategoryService</p>
+     * <p>
+     * getAdminCategoryService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.AdminCategoryService} object.
      */
@@ -83,9 +86,13 @@ public class NodeCategoryBoxController extends AbstractController {
     }
 
     /**
-     * <p>setAdminCategoryService</p>
+     * <p>
+     * setAdminCategoryService
+     * </p>
      *
-     * @param adminCategoryService a {@link org.opennms.web.svclayer.AdminCategoryService} object.
+     * @param adminCategoryService
+     *            a {@link org.opennms.web.svclayer.AdminCategoryService}
+     *            object.
      */
     public final void setAdminCategoryService(final AdminCategoryService adminCategoryService) {
         m_adminCategoryService = adminCategoryService;

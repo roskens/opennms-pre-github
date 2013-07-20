@@ -42,25 +42,31 @@ import org.springframework.beans.factory.InitializingBean;
  * @author brozow
  * @version $Id: $
  */
-public class MobileMsgTrackerImpl extends RequestTracker<MobileMsgRequest, MobileMsgResponse> implements MobileMsgTracker, InitializingBean {
+public class MobileMsgTrackerImpl extends RequestTracker<MobileMsgRequest, MobileMsgResponse> implements
+        MobileMsgTracker, InitializingBean {
 
     /**
-     * <p>Constructor for MobileMsgTrackerImpl.</p>
+     * <p>
+     * Constructor for MobileMsgTrackerImpl.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param messenger a {@link org.opennms.protocols.rt.Messenger} object.
-     * @throws java.io.IOException if any.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param messenger
+     *            a {@link org.opennms.protocols.rt.Messenger} object.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public MobileMsgTrackerImpl(String name,  Messenger<MobileMsgRequest, MobileMsgResponse> messenger)
+    public MobileMsgTrackerImpl(String name, Messenger<MobileMsgRequest, MobileMsgResponse> messenger)
             throws IOException {
         super(name, messenger, new MatchingRequestLocator());
 
     }
 
-
     /** {@inheritDoc} */
     @Override
-    public MobileMsgRequest sendSmsRequest(OutboundMessage msg, long timeout, int retries, MobileMsgResponseCallback cb, MobileMsgResponseMatcher matcher) throws Exception {
+    public MobileMsgRequest sendSmsRequest(OutboundMessage msg, long timeout, int retries,
+            MobileMsgResponseCallback cb, MobileMsgResponseMatcher matcher) throws Exception {
         SmsRequest request = new SmsRequest(msg, timeout, retries, cb, matcher);
         sendRequest(request);
         return request;
@@ -68,17 +74,20 @@ public class MobileMsgTrackerImpl extends RequestTracker<MobileMsgRequest, Mobil
 
     /** {@inheritDoc} */
     @Override
-    public MobileMsgRequest sendUssdRequest(USSDRequest msg, long timeout, int retries, MobileMsgResponseCallback cb, MobileMsgResponseMatcher matcher) throws Exception {
+    public MobileMsgRequest sendUssdRequest(USSDRequest msg, long timeout, int retries, MobileMsgResponseCallback cb,
+            MobileMsgResponseMatcher matcher) throws Exception {
         UssdRequest request = new UssdRequest(msg, timeout, retries, cb, matcher);
         sendRequest(request);
         return request;
     }
 
-
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

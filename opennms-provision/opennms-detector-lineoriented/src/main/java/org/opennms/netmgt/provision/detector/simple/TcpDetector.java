@@ -40,7 +40,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>TcpDetector class.</p>
+ * <p>
+ * TcpDetector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,6 +52,7 @@ import org.springframework.stereotype.Component;
 public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
 
     private static final String DEFAULT_SERVICE_NAME = "TCP";
+
     private static final int DEFAULT_PORT = 23;
 
     private String m_banner = null;
@@ -64,8 +67,10 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public TcpDetector(final String serviceName, final int port) {
         super(serviceName, port);
@@ -74,13 +79,15 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
-        if(getBanner() != null) {
+        if (getBanner() != null) {
             expectBanner(matches(getBanner()));
-        }else {
+        } else {
             getConversation().addExchange(testBannerlessConnection());
         }
     }
@@ -102,17 +109,23 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
     }
 
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param regex a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.support.AsyncClientConversation.ResponseValidator} object.
+     * @param regex
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.support.AsyncClientConversation.ResponseValidator}
+     *         object.
      */
-    public static ResponseValidator<LineOrientedResponse> matches(final String regex){
+    public static ResponseValidator<LineOrientedResponse> matches(final String regex) {
         return new ResponseValidator<LineOrientedResponse>() {
 
             @Override
             public boolean validate(final LineOrientedResponse response) {
-                // Make sure that the response matches the regex and that it is not an instance of the
+                // Make sure that the response matches the regex and that it is
+                // not an instance of the
                 // special token that represents that no banner was received.
                 return response.matches(regex) && !response.equals(TcpLineDecoder.NO_MESSAGES_RECEIVED);
             }
@@ -121,16 +134,21 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
     }
 
     /**
-     * <p>setBanner</p>
+     * <p>
+     * setBanner
+     * </p>
      *
-     * @param banner a {@link java.lang.String} object.
+     * @param banner
+     *            a {@link java.lang.String} object.
      */
     public void setBanner(final String banner) {
         m_banner = banner;
     }
 
     /**
-     * <p>getBanner</p>
+     * <p>
+     * getBanner
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

@@ -31,27 +31,37 @@ package org.opennms.netmgt.config;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
 /**
- * <p>StorageStrategyService interface.</p>
+ * <p>
+ * StorageStrategyService interface.
+ * </p>
  */
 public interface StorageStrategyService {
 
     /**
-     * <p>getAgentConfig</p>
+     * <p>
+     * getAgentConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     public SnmpAgentConfig getAgentConfig();
 
     /*
-     * This method is used on StorageStrategy implementation when the resource index is associated to a
-     * physical interface like frame relay resources. OpenNMS always track changes on ifTable so, make SNMP
-     * queries on this table is redundant, and implementations of CollectionAgent know ifTable content always.
+     * This method is used on StorageStrategy implementation when the resource
+     * index is associated to a
+     * physical interface like frame relay resources. OpenNMS always track
+     * changes on ifTable so, make SNMP
+     * queries on this table is redundant, and implementations of
+     * CollectionAgent know ifTable content always.
      * This method give interface information from a specific ifIndex.
      */
     /**
-     * <p>getSnmpInterfaceLabel</p>
+     * <p>
+     * getSnmpInterfaceLabel
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getSnmpInterfaceLabel(int ifIndex);

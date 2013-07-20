@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.eventd;
 
-
 import java.util.Collection;
 
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
@@ -43,18 +42,15 @@ import org.springframework.util.Assert;
  * Eventd listens for events from the discovery, capsd, trapd processes and
  * sends events to the Master Station when queried for.
  * </p>
- *
  * <p>
  * Eventd receives events sent in as XML, looks up the event.conf and adds
  * information to these events and stores them to the db. It also reconverts
  * them back to XML to be sent to other processes like 'actiond'
  * </p>
- *
  * <p>
  * Process like trapd, capsd etc. that are local to the distributed poller send
  * events to the eventd. Events can also be sent via TCP or UDP to eventd.
  * </p>
- *
  * <p>
  * Eventd listens for incoming events, loads info from the 'event.conf', adds
  * events to the database and sends the events added to the database to
@@ -62,7 +58,6 @@ import org.springframework.util.Assert;
  * from the services table so as to prevent a database lookup for each incoming
  * event
  * </P>
- *
  * <P>
  * The number of threads that processes events is configurable via the eventd
  * configuration xml
@@ -104,7 +99,9 @@ public final class Eventd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -116,7 +113,9 @@ public final class Eventd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -130,7 +129,9 @@ public final class Eventd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -149,7 +150,9 @@ public final class Eventd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>getEventdServiceManager</p>
+     * <p>
+     * getEventdServiceManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.EventdServiceManager} object.
      */
@@ -158,34 +161,47 @@ public final class Eventd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setEventdServiceManager</p>
+     * <p>
+     * setEventdServiceManager
+     * </p>
      *
-     * @param eventdServiceManager a {@link org.opennms.netmgt.dao.api.EventdServiceManager} object.
+     * @param eventdServiceManager
+     *            a {@link org.opennms.netmgt.dao.api.EventdServiceManager}
+     *            object.
      */
     public void setEventdServiceManager(EventdServiceManager eventdServiceManager) {
         m_eventdServiceManager = eventdServiceManager;
     }
 
     /**
-     * <p>getReceiver</p>
+     * <p>
+     * getReceiver
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.eventd.BroadcastEventProcessor} object.
+     * @return a {@link org.opennms.netmgt.eventd.BroadcastEventProcessor}
+     *         object.
      */
     public BroadcastEventProcessor getReceiver() {
         return m_receiver;
     }
 
     /**
-     * <p>setReceiver</p>
+     * <p>
+     * setReceiver
+     * </p>
      *
-     * @param receiver a {@link org.opennms.netmgt.eventd.BroadcastEventProcessor} object.
+     * @param receiver
+     *            a {@link org.opennms.netmgt.eventd.BroadcastEventProcessor}
+     *            object.
      */
     public void setReceiver(BroadcastEventProcessor receiver) {
         m_receiver = receiver;
     }
 
     /**
-     * <p>getEventReceivers</p>
+     * <p>
+     * getEventReceivers
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -194,9 +210,12 @@ public final class Eventd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setEventReceivers</p>
+     * <p>
+     * setEventReceivers
+     * </p>
      *
-     * @param eventReceivers a {@link java.util.Collection} object.
+     * @param eventReceivers
+     *            a {@link java.util.Collection} object.
      */
     public void setEventReceivers(Collection<EventReceiver> eventReceivers) {
         m_eventReceivers = eventReceivers;

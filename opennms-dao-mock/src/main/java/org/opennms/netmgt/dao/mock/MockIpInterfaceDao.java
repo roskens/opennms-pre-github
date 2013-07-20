@@ -80,7 +80,8 @@ public class MockIpInterfaceDao extends AbstractMockDao<OnmsIpInterface, Integer
     }
 
     @Override
-    public OnmsIpInterface findByForeignKeyAndIpAddress(final String foreignSource, final String foreignId, final String ipAddress) {
+    public OnmsIpInterface findByForeignKeyAndIpAddress(final String foreignSource, final String foreignId,
+            final String ipAddress) {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 

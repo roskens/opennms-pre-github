@@ -84,7 +84,9 @@ public final class FtpPlugin extends AbstractTcpPlugin {
     private static final String PROTOCOL_NAME = "FTP";
 
     /**
-     * <p>Constructor for FtpPlugin.</p>
+     * <p>
+     * Constructor for FtpPlugin.
+     * </p>
      */
     public FtpPlugin() {
         super(PROTOCOL_NAME, DEFAULT_PORT, DEFAULT_TIMEOUT, DEFAULT_RETRY);

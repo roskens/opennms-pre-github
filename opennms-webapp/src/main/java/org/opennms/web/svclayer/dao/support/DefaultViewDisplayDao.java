@@ -39,7 +39,9 @@ import org.opennms.web.svclayer.dao.ViewDisplayDao;
 import org.springframework.dao.DataRetrievalFailureException;
 
 /**
- * <p>DefaultViewDisplayDao class.</p>
+ * <p>
+ * DefaultViewDisplayDao class.
+ * </p>
  *
  * @author <a href="mailto:jason.aras@opennms.org">Jason Aras</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -55,42 +57,46 @@ import org.springframework.dao.DataRetrievalFailureException;
  */
 public class DefaultViewDisplayDao implements ViewDisplayDao {
 
-	/**
-	 * <p>Constructor for DefaultViewDisplayDao.</p>
-	 */
-	public DefaultViewDisplayDao() {
-		try {
-			ViewsDisplayFactory.init();
-		} catch (MarshalException e) {
-			throw new DataRetrievalFailureException("Syntax error in viewsDisplay file", e);
-		} catch (ValidationException e) {
-			throw new DataRetrievalFailureException("Syntax error in viewsDisplay file", e);
-		} catch (FileNotFoundException e) {
-			throw new DataRetrievalFailureException("Unable to locate viewsDisplaly file", e);
-		} catch (IOException e) {
-			throw new DataRetrievalFailureException("Error load viewsDisplay file", e);
-		}
-	}
+    /**
+     * <p>
+     * Constructor for DefaultViewDisplayDao.
+     * </p>
+     */
+    public DefaultViewDisplayDao() {
+        try {
+            ViewsDisplayFactory.init();
+        } catch (MarshalException e) {
+            throw new DataRetrievalFailureException("Syntax error in viewsDisplay file", e);
+        } catch (ValidationException e) {
+            throw new DataRetrievalFailureException("Syntax error in viewsDisplay file", e);
+        } catch (FileNotFoundException e) {
+            throw new DataRetrievalFailureException("Unable to locate viewsDisplaly file", e);
+        } catch (IOException e) {
+            throw new DataRetrievalFailureException("Error load viewsDisplay file", e);
+        }
+    }
 
-	/**
-	 * <p>getView</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.config.viewsdisplay.View} object.
-	 */
-        @Override
-	public View getView() {
-		try {
-			return ViewsDisplayFactory.getInstance().getView("WebConsoleView");
-		} catch (MarshalException e) {
-			throw new DataRetrievalFailureException("Syntax error in viewsDisplay file", e);
-		} catch (ValidationException e) {
-			throw new DataRetrievalFailureException("Syntax error in viewsDisplay file", e);
-		} catch (FileNotFoundException e) {
-			throw new DataRetrievalFailureException("Unable to locate viewsDisplaly file", e);
-		} catch (IOException e) {
-			throw new DataRetrievalFailureException("Error load viewsDisplay file", e);
-		}
+    /**
+     * <p>
+     * getView
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.config.viewsdisplay.View} object.
+     */
+    @Override
+    public View getView() {
+        try {
+            return ViewsDisplayFactory.getInstance().getView("WebConsoleView");
+        } catch (MarshalException e) {
+            throw new DataRetrievalFailureException("Syntax error in viewsDisplay file", e);
+        } catch (ValidationException e) {
+            throw new DataRetrievalFailureException("Syntax error in viewsDisplay file", e);
+        } catch (FileNotFoundException e) {
+            throw new DataRetrievalFailureException("Unable to locate viewsDisplaly file", e);
+        } catch (IOException e) {
+            throw new DataRetrievalFailureException("Error load viewsDisplay file", e);
+        }
 
-	}
+    }
 
 }

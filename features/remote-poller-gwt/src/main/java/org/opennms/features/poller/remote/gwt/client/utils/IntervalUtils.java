@@ -36,7 +36,9 @@ import java.util.TreeSet;
 import org.opennms.features.poller.remote.gwt.client.utils.Interval;
 
 /**
- * <p>IntervalUtils class.</p>
+ * <p>
+ * IntervalUtils class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,11 +47,16 @@ import org.opennms.features.poller.remote.gwt.client.utils.Interval;
 public abstract class IntervalUtils {
 
     /**
-     * <p>invert</p>
+     * <p>
+     * invert
+     * </p>
      *
-     * @param beginning a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
-     * @param intervals a {@link java.util.Set} object.
+     * @param beginning
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
+     * @param intervals
+     *            a {@link java.util.Set} object.
      * @return a {@link java.util.Set} object.
      */
     public static Set<Interval> invert(final Date beginning, final Date end, final Set<Interval> intervals) {
@@ -72,20 +79,20 @@ public abstract class IntervalUtils {
             if (lastInterval == null) {
                 if (interval.getStartMillis() > beginning.getTime()) {
                     final Interval i = new Interval(beginning.getTime(), interval.getStartMillis());
-//                    System.err.println("adding " + i);
+                    // System.err.println("adding " + i);
                     invertedIntervals.add(i);
                 }
                 lastInterval = new Interval(interval.getEndMillis(), interval.getEndMillis());
             } else if (interval.getStartMillis() > lastInterval.getEndMillis()) {
                 final Interval i = new Interval(lastInterval.getStartMillis(), interval.getStartMillis());
-//                System.err.println("adding " + i);
+                // System.err.println("adding " + i);
                 invertedIntervals.add(i);
                 lastInterval = new Interval(interval.getEndMillis(), interval.getEndMillis());
             }
         }
         if (lastInterval != null && lastInterval.getEndMillis() < end.getTime()) {
             final Interval i = new Interval(lastInterval.getEndMillis(), end.getTime());
-//            System.err.println("adding " + i);
+            // System.err.println("adding " + i);
             invertedIntervals.add(i);
         } else if (lastInterval == null) {
             invertedIntervals.add(new Interval(beginning.getTime(), end.getTime()));
@@ -94,9 +101,12 @@ public abstract class IntervalUtils {
     }
 
     /**
-     * <p>normalize</p>
+     * <p>
+     * normalize
+     * </p>
      *
-     * @param intervals a {@link java.util.Set} object.
+     * @param intervals
+     *            a {@link java.util.Set} object.
      * @return a {@link java.util.Set} object.
      */
     public static Set<Interval> normalize(final Set<Interval> intervals) {
@@ -110,10 +120,8 @@ public abstract class IntervalUtils {
                 lastInterval = interval;
             } else {
                 if (interval.overlaps(lastInterval)) {
-                    lastInterval = new Interval(
-                        Math.min(lastInterval.getStartMillis(), interval.getStartMillis()),
-                        Math.max(lastInterval.getEndMillis(), interval.getEndMillis())
-                    );
+                    lastInterval = new Interval(Math.min(lastInterval.getStartMillis(), interval.getStartMillis()),
+                                                Math.max(lastInterval.getEndMillis(), interval.getEndMillis()));
                 } else {
                     combinedIntervals.add(lastInterval);
                     lastInterval = interval;
@@ -127,7 +135,9 @@ public abstract class IntervalUtils {
     }
 
     /**
-     * <p>getIntervalSet</p>
+     * <p>
+     * getIntervalSet
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -135,10 +145,8 @@ public abstract class IntervalUtils {
         return new TreeSet<Interval>(new Comparator<Interval>() {
             @Override
             public int compare(Interval o1, Interval o2) {
-                return new CompareToBuilder()
-                    .append(o1.getStartMillis(), o2.getStartMillis())
-                    .append(o1.getEndMillis(), o2.getEndMillis())
-                    .toComparison();
+                return new CompareToBuilder().append(o1.getStartMillis(), o2.getStartMillis()).append(o1.getEndMillis(),
+                                                                                                      o2.getEndMillis()).toComparison();
             }
         });
     }

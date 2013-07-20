@@ -67,31 +67,33 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/applicationContext-mock-usergroup.xml",
         "classpath:/mockForeignSourceContext.xml",
-        //"classpath:/META-INF/opennms/applicationContext-reportingCore.xml",
-        //"classpath:/org/opennms/web/svclayer/applicationContext-svclayer.xml",
+        // "classpath:/META-INF/opennms/applicationContext-reportingCore.xml",
+        // "classpath:/org/opennms/web/svclayer/applicationContext-svclayer.xml",
         "classpath:/META-INF/opennms/applicationContext-insertData-enabled.xml",
-        "classpath:/testSiteStatusServiceContext.xml"
-})
+        "classpath:/testSiteStatusServiceContext.xml" })
 @JUnitConfigurationEnvironment
 public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean {
 
     @Autowired
     private SiteStatusViewService m_aggregateService;
+
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
     @Autowired
     private OutageDao m_outageDao;
+
     @Autowired
     private EventDao m_eventDao;
+
     @Autowired
     private NodeDao m_nodeDao;
+
     @Autowired
     private CategoryDao m_categoryDao;
 
@@ -121,11 +123,12 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
     public final void testCreateAggregateStatusUsingNodeId() {
         m_databasePopulator.populateDatabase();
 
-        Collection<AggregateStatus> aggrStati = m_aggregateService.createAggregateStatusesUsingNodeId(m_databasePopulator.getNode1().getId(), "default");
+        Collection<AggregateStatus> aggrStati = m_aggregateService.createAggregateStatusesUsingNodeId(m_databasePopulator.getNode1().getId(),
+                                                                                                      "default");
         assertNotNull(aggrStati);
     }
 
-    private void createOutageForNodeInCategory(final String categoryName){
+    private void createOutageForNodeInCategory(final String categoryName) {
         OnmsCategory category = m_categoryDao.findByName(categoryName);
         Collection<OnmsNode> nodes = m_nodeDao.findByCategory(category);
 
@@ -140,7 +143,6 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
             public void visitMonitoredService(final OnmsMonitoredService monSvc) {
                 createOutageForService(monSvc);
             }
-
 
         });
 
@@ -176,24 +178,46 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
         Collection<AggregateStatusDefinition> defs = new ArrayList<AggregateStatusDefinition>();
 
         AggregateStatusDefinition definition;
-        definition = new AggregateStatusDefinition("Routers", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("Routers") })));
+        definition = new AggregateStatusDefinition(
+                                                   "Routers",
+                                                   new HashSet<OnmsCategory>(
+                                                                             Arrays.asList(new OnmsCategory[] { new OnmsCategory(
+                                                                                                                                 "Routers") })));
         defs.add(definition);
-        definition = new AggregateStatusDefinition("Switches", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("Switches") })));
+        definition = new AggregateStatusDefinition(
+                                                   "Switches",
+                                                   new HashSet<OnmsCategory>(
+                                                                             Arrays.asList(new OnmsCategory[] { new OnmsCategory(
+                                                                                                                                 "Switches") })));
         defs.add(definition);
-        definition = new AggregateStatusDefinition("Servers", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("Servers") })));
+        definition = new AggregateStatusDefinition(
+                                                   "Servers",
+                                                   new HashSet<OnmsCategory>(
+                                                                             Arrays.asList(new OnmsCategory[] { new OnmsCategory(
+                                                                                                                                 "Servers") })));
         defs.add(definition);
 
-        //        AggregateStatusDefinition definition;
-        //        definition = new AggregateStatusDefinition("LB/Router", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("DEV_ROUTER"), new OnmsCategory("DEV_LOADBAL") })));
-        //        defs.add(definition);
-        //        definition = new AggregateStatusDefinition("Access Controller", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("DEV_AC") })));
-        //        defs.add(definition);
-        //        definition = new AggregateStatusDefinition("Switches", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("DEV_SWITCH") })));
-        //        defs.add(definition);
-        //        definition = new AggregateStatusDefinition("Access Points", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("DEV_AP") })));
-        //        defs.add(definition);
-        //        definition = new AggregateStatusDefinition("BCPC", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("DEV_BCPC") })));
-        //        defs.add(definition);
+        // AggregateStatusDefinition definition;
+        // definition = new AggregateStatusDefinition("LB/Router", new
+        // HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new
+        // OnmsCategory("DEV_ROUTER"), new OnmsCategory("DEV_LOADBAL") })));
+        // defs.add(definition);
+        // definition = new AggregateStatusDefinition("Access Controller", new
+        // HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new
+        // OnmsCategory("DEV_AC") })));
+        // defs.add(definition);
+        // definition = new AggregateStatusDefinition("Switches", new
+        // HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new
+        // OnmsCategory("DEV_SWITCH") })));
+        // defs.add(definition);
+        // definition = new AggregateStatusDefinition("Access Points", new
+        // HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new
+        // OnmsCategory("DEV_AP") })));
+        // defs.add(definition);
+        // definition = new AggregateStatusDefinition("BCPC", new
+        // HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new
+        // OnmsCategory("DEV_BCPC") })));
+        // defs.add(definition);
 
         AggregateStatusView view = new AggregateStatusView();
         view.setName("building");
@@ -213,12 +237,12 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
         status = aggrStati.get(2);
         assertEquals(status.getStatus(), AggregateStatus.NODES_ARE_DOWN);
 
-        //        status = aggrStati.get(3);
-        //        assertEquals(status.getStatus(), AggregateStatus.NODES_ARE_DOWN);
-        //        assertEquals(new Integer(6), status.getDownEntityCount());
+        // status = aggrStati.get(3);
+        // assertEquals(status.getStatus(), AggregateStatus.NODES_ARE_DOWN);
+        // assertEquals(new Integer(6), status.getDownEntityCount());
         //
-        //        status = aggrStati.get(4);
-        //        assertEquals(status.getStatus(), AggregateStatus.ALL_NODES_UP);
+        // status = aggrStati.get(4);
+        // assertEquals(status.getStatus(), AggregateStatus.ALL_NODES_UP);
 
     }
 

@@ -28,9 +28,6 @@
 
 package org.opennms.netmgt.alarmd.api;
 
-
-
-
 /**
  * North bound Interface API
  *

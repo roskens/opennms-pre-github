@@ -38,7 +38,9 @@ import org.opennms.netmgt.poller.ServiceMonitorLocator;
 import org.springframework.util.Assert;
 
 /**
- * <p>DefaultPollService class.</p>
+ * <p>
+ * DefaultPollService class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -48,11 +50,12 @@ public class DefaultPollService implements PollService {
     TimeAdjustment m_timeAdjustment;
 
     Collection<ServiceMonitorLocator> m_locators;
+
     Map<String, ServiceMonitor> m_monitors;
 
-
     /**
-     * @param timeAdjustment the timeAdjustment to set
+     * @param timeAdjustment
+     *            the timeAdjustment to set
      */
     public void setTimeAdjustment(TimeAdjustment timeAdjustment) {
         m_timeAdjustment = timeAdjustment;
@@ -89,8 +92,8 @@ public class DefaultPollService implements PollService {
 
     private ServiceMonitor getServiceMonitor(PolledService polledService) {
         Assert.notNull(m_monitors, "setServiceMonitorLocators must be called before any other operations");
-        ServiceMonitor monitor = (ServiceMonitor)m_monitors.get(polledService.getSvcName());
-        Assert.notNull(monitor, "Unable to find monitor for service "+polledService.getSvcName());
+        ServiceMonitor monitor = (ServiceMonitor) m_monitors.get(polledService.getSvcName());
+        Assert.notNull(monitor, "Unable to find monitor for service " + polledService.getSvcName());
         return monitor;
     }
 
@@ -102,8 +105,5 @@ public class DefaultPollService implements PollService {
         ServiceMonitor monitor = getServiceMonitor(polledService);
         monitor.release(polledService);
     }
-
-
-
 
 }

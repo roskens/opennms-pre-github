@@ -41,16 +41,20 @@ import org.junit.Test;
  */
 public class XmlCollectorNodeLevelTest extends AbstractXmlCollectorTest {
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlConfigFileName()
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#
+     * getXmlConfigFileName()
      */
     @Override
     public String getXmlConfigFileName() {
         return "src/test/resources/node-level-datacollection-config.xml";
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#
+     * getXmlSampleFileName()
      */
     @Override
     public String getXmlSampleFileName() {
@@ -60,7 +64,8 @@ public class XmlCollectorNodeLevelTest extends AbstractXmlCollectorTest {
     /**
      * Test XML collector with Standard handler.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testDefaultXmlCollector() throws Exception {

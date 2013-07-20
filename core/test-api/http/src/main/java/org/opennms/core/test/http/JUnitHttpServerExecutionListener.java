@@ -34,8 +34,10 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.TestExecutionListener;
 
 /**
- * This {@link TestExecutionListener} looks for the {@link JUnitHttpServer} annotation
- * and uses attributes on it to launch a temporary HTTP server for use during unit tests.
+ * This {@link TestExecutionListener} looks for the {@link JUnitHttpServer}
+ * annotation
+ * and uses attributes on it to launch a temporary HTTP server for use during
+ * unit tests.
  *
  * @author ranger
  */
@@ -48,7 +50,8 @@ public class JUnitHttpServerExecutionListener extends OpenNMSAbstractTestExecuti
         super.beforeTestMethod(testContext);
 
         final JUnitHttpServer config = findTestAnnotation(JUnitHttpServer.class, testContext);
-        if (config == null) return;
+        if (config == null)
+            return;
 
         m_junitServer = new JUnitServer(config);
         m_junitServer.start();
@@ -59,7 +62,8 @@ public class JUnitHttpServerExecutionListener extends OpenNMSAbstractTestExecuti
     public void afterTestMethod(final TestContext testContext) throws Exception {
         super.afterTestMethod(testContext);
 
-        if (m_junitServer != null) m_junitServer.stop();
+        if (m_junitServer != null)
+            m_junitServer.stop();
     }
 
 }

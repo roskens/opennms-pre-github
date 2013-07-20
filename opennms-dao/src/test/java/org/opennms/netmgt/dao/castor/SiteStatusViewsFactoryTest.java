@@ -38,27 +38,28 @@ import org.opennms.netmgt.config.siteStatusViews.View;
 
 public class SiteStatusViewsFactoryTest extends TestCase {
 
-	private SiteStatusViewsFactory m_factory;
+    private SiteStatusViewsFactory m_factory;
 
-        @Override
-	protected void setUp() throws Exception {
-		super.setUp();
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
 
-		m_factory = new SiteStatusViewsFactory(getClass().getResourceAsStream("/org/opennms/netmgt/config/site-status-views.testdata.xml"));
-	}
+        m_factory = new SiteStatusViewsFactory(
+                                               getClass().getResourceAsStream("/org/opennms/netmgt/config/site-status-views.testdata.xml"));
+    }
 
-        @Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 
-	public void testGetName() throws MarshalException, ValidationException, IOException {
-		String viewName = "default";
-		View view = m_factory.getView(viewName);
-		assertNotNull(view);
-		assertEquals(viewName, view.getName());
+    public void testGetName() throws MarshalException, ValidationException, IOException {
+        String viewName = "default";
+        View view = m_factory.getView(viewName);
+        assertNotNull(view);
+        assertEquals(viewName, view.getName());
 
         assertEquals(5, view.getRows().getRowDefCount());
-	}
+    }
 
 }

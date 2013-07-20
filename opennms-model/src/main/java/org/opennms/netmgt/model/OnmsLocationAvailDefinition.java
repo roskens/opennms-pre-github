@@ -35,9 +35,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OnmsLocationAvailDefinition {
 
     private String m_availability;
+
     private String m_application;
 
-    public OnmsLocationAvailDefinition() {}
+    public OnmsLocationAvailDefinition() {
+    }
 
     public OnmsLocationAvailDefinition(String applicationName, String calculatePercentageUptime) {
         setApplication(applicationName);
@@ -48,7 +50,7 @@ public class OnmsLocationAvailDefinition {
         this.m_availability = availability;
     }
 
-    @XmlElement(name="availability")
+    @XmlElement(name = "availability")
     public String getAvailability() {
         return m_availability;
     }
@@ -57,10 +59,9 @@ public class OnmsLocationAvailDefinition {
         m_application = applicationName;
     }
 
-    @XmlElement(name="application")
+    @XmlElement(name = "application")
     public String getApplication() {
         return m_application;
     }
-
 
 }

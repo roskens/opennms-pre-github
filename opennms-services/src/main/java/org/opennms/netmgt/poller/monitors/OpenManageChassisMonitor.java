@@ -55,14 +55,14 @@ import org.slf4j.LoggerFactory;
  * http://support.dell.com/support/edocs/software/svradmin/6.1/en
  * </p>
  * <p>
- * This does SNMP and therefore relies on the SNMP configuration so it is not distributable.
+ * This does SNMP and therefore relies on the SNMP configuration so it is not
+ * distributable.
  * </p>
  *
  * @author <A HREF="mailto:r.trommer@open-factory.org">Ronny Trommer</A>
  */
 @Distributable(DistributionContext.DAEMON)
 final public class OpenManageChassisMonitor extends SnmpMonitorStrategy {
-
 
     public static final Logger LOG = LoggerFactory.getLogger(OpenManageChassisMonitor.class);
 
@@ -126,16 +126,16 @@ final public class OpenManageChassisMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Initialize the service monitor.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents
      *                the plug-in from functioning.
      */
     @Override
-    public void initialize(Map<String,Object> parameters) {
+    public void initialize(Map<String, Object> parameters) {
         // Initialize the SnmpPeerFactory
         //
         try {
@@ -158,7 +158,8 @@ final public class OpenManageChassisMonitor extends SnmpMonitorStrategy {
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents
      *                the interface from being monitored.
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
     public void initialize(MonitoredService svc) {
@@ -168,16 +169,16 @@ final public class OpenManageChassisMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * The poll() method is responsible for polling the specified address for
      * SNMP service availability.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown for any uncrecoverable errors.
      */
     @Override
-    public PollStatus poll(MonitoredService svc, Map<String,Object> parameters) {
+    public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         String returnValue = "";
@@ -198,12 +199,14 @@ final public class OpenManageChassisMonitor extends SnmpMonitorStrategy {
         if (agentConfig == null)
             throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
         final String hostAddress = InetAddressUtils.str(ipaddr);
-		LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
+        LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
 
         // set timeout and retries on SNMP peer object
         //
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry", ParameterMap.getKeyedInteger(parameters, "retries", agentConfig.getRetries())));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(parameters, "retries",
+                                                                                         agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
 
         // Establish SNMP session with interface
@@ -277,8 +280,9 @@ final public class OpenManageChassisMonitor extends SnmpMonitorStrategy {
                 serviceTagTxt = serviceTag.toString();
             }
 
-            returnValue = "Chassis status from " + manufacturerName + " " + modelName + " with service tag " + serviceTagTxt + " is " + chassisStatusTxt
-                    + ". Last event log status is " + eventLogStatusTxt + ". For further information, check your OpenManage website!";
+            returnValue = "Chassis status from " + manufacturerName + " " + modelName + " with service tag "
+                    + serviceTagTxt + " is " + chassisStatusTxt + ". Last event log status is " + eventLogStatusTxt
+                    + ". For further information, check your OpenManage website!";
             // Set service down and return gathered information
             status = PollStatus.unavailable(returnValue);
 

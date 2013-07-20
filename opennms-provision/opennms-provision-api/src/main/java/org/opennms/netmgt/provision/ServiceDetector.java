@@ -30,11 +30,12 @@ package org.opennms.netmgt.provision;
 
 /**
  * ServiceDetector
- *
  * Note: the isServiceDetected method is not defined here because there is
  * a synchronous version of the method and an asynchronous one that are defined
- * in sub interfaces.  This interface is used for the configuration so all service
- * detectors can be found since the would all be initialized and configured the same
+ * in sub interfaces. This interface is used for the configuration so all
+ * service
+ * detectors can be found since the would all be initialized and configured the
+ * same
  * way.
  *
  * @author <a href="mailto:brozow@opennms.org>Mathew Brozowski</a>
@@ -43,7 +44,8 @@ package org.opennms.netmgt.provision;
 public interface ServiceDetector {
 
     /**
-     * Perform any necessary initialization after construction and before detecting.
+     * Perform any necessary initialization after construction and before
+     * detecting.
      */
     void init();
 
@@ -55,10 +57,12 @@ public interface ServiceDetector {
     String getServiceName();
 
     /**
-     * Service name is mutable so that we can create new instances of each implementation
+     * Service name is mutable so that we can create new instances of each
+     * implementation
      * and define a new service detector using the underlying protocol.
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     void setServiceName(String serviceName);
 

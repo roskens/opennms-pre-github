@@ -35,10 +35,10 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * <P>
- * ThreeComVlanTable uses a SnmpSession to collect 3Com vendor-specific VTP VLAN table
- * entries. It implements the SnmpHandler to receive notifications when a reply
- * is received/error occurs in the SnmpSession used to send requests/receive
- * replies.
+ * ThreeComVlanTable uses a SnmpSession to collect 3Com vendor-specific VTP VLAN
+ * table entries. It implements the SnmpHandler to receive notifications when a
+ * reply is received/error occurs in the SnmpSession used to send
+ * requests/receive replies.
  * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo </A>
@@ -47,20 +47,22 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public class ThreeComVlanTable extends VlanTableBasic {
 
-	/**
-	 * <p>Constructor for ThreeComVlanTable.</p>
-	 *
-	 * @param address a {@link java.net.InetAddress} object.
-	 */
-	public ThreeComVlanTable(InetAddress address) {
+    /**
+     * <p>
+     * Constructor for ThreeComVlanTable.
+     * </p>
+     *
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     */
+    public ThreeComVlanTable(InetAddress address) {
         super(address, "threeComVlanTable", ThreeComVlanTableEntry.threeComVlan_elemList);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     protected ThreeComVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new ThreeComVlanTableEntry();
     }
 
 }
-

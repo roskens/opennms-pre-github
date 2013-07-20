@@ -31,8 +31,10 @@ package org.opennms.netmgt.ticketd;
 import org.opennms.api.integration.ticketing.*;
 
 /**
- * OpenNMS Trouble Ticket Plugin API implementation used as a no-op when not custom
- * tickeing plugin is implemented... Allows the daemon to be started without having
+ * OpenNMS Trouble Ticket Plugin API implementation used as a no-op when not
+ * custom
+ * tickeing plugin is implemented... Allows the daemon to be started without
+ * having
  * to have actual implementation or configuration.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -52,9 +54,7 @@ public class NullTicketerPlugin implements Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * No-op implementation
+     * {@inheritDoc} No-op implementation
      */
     @Override
     public void saveOrUpdate(Ticket ticket) {

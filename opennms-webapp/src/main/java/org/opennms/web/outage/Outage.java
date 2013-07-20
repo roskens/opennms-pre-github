@@ -73,55 +73,100 @@ public class Outage {
     protected String building;
 
     /**
-     * <p>Constructor for Outage.</p>
+     * <p>
+     * Constructor for Outage.
+     * </p>
      */
     protected Outage() {
     }
 
     /**
-     * <p>Constructor for Outage.</p>
+     * <p>
+     * Constructor for Outage.
+     * </p>
      *
-     * @param outageId a int.
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param hostname a {@link java.lang.String} object.
-     * @param serviceId a int.
-     * @param serviceName a {@link java.lang.String} object.
-     * @param lostServiceTime a {@link java.util.Date} object.
-     * @param regainedServiceTime a {@link java.util.Date} object.
-     * @param lostServiceEventId a {@link java.lang.Integer} object.
-     * @param regainedServiceEventId a {@link java.lang.Integer} object.
-     * @param lostServiceNotificationId a {@link java.lang.Integer} object.
-     * @param lostServiceNotificationAcknowledgedBy a {@link java.lang.String} object.
-     * @param suppressTime a {@link java.util.Date} object.
-     * @param suppressedBy a {@link java.lang.String} object.
+     * @param outageId
+     *            a int.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param hostname
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param lostServiceTime
+     *            a {@link java.util.Date} object.
+     * @param regainedServiceTime
+     *            a {@link java.util.Date} object.
+     * @param lostServiceEventId
+     *            a {@link java.lang.Integer} object.
+     * @param regainedServiceEventId
+     *            a {@link java.lang.Integer} object.
+     * @param lostServiceNotificationId
+     *            a {@link java.lang.Integer} object.
+     * @param lostServiceNotificationAcknowledgedBy
+     *            a {@link java.lang.String} object.
+     * @param suppressTime
+     *            a {@link java.util.Date} object.
+     * @param suppressedBy
+     *            a {@link java.lang.String} object.
      */
-    protected Outage(int outageId, int nodeId, String nodeLabel, String ipAddress, String hostname, int serviceId, String serviceName, Date lostServiceTime, Date regainedServiceTime, Integer lostServiceEventId, Integer regainedServiceEventId, Integer lostServiceNotificationId, String lostServiceNotificationAcknowledgedBy, Date suppressTime, String suppressedBy) {
-        this(outageId, nodeId, nodeLabel, ipAddress, hostname, serviceId, serviceName, lostServiceTime, regainedServiceTime, lostServiceEventId, regainedServiceEventId, lostServiceNotificationId, lostServiceNotificationAcknowledgedBy, suppressTime, suppressedBy, null);
+    protected Outage(int outageId, int nodeId, String nodeLabel, String ipAddress, String hostname, int serviceId,
+            String serviceName, Date lostServiceTime, Date regainedServiceTime, Integer lostServiceEventId,
+            Integer regainedServiceEventId, Integer lostServiceNotificationId,
+            String lostServiceNotificationAcknowledgedBy, Date suppressTime, String suppressedBy) {
+        this(outageId, nodeId, nodeLabel, ipAddress, hostname, serviceId, serviceName, lostServiceTime,
+             regainedServiceTime, lostServiceEventId, regainedServiceEventId, lostServiceNotificationId,
+             lostServiceNotificationAcknowledgedBy, suppressTime, suppressedBy, null);
     }
 
     /**
-     * <p>Constructor for Outage.</p>
+     * <p>
+     * Constructor for Outage.
+     * </p>
      *
-     * @param outageId a int.
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param hostname a {@link java.lang.String} object.
-     * @param serviceId a int.
-     * @param serviceName a {@link java.lang.String} object.
-     * @param lostServiceTime a {@link java.util.Date} object.
-     * @param regainedServiceTime a {@link java.util.Date} object.
-     * @param lostServiceEventId a {@link java.lang.Integer} object.
-     * @param regainedServiceEventId a {@link java.lang.Integer} object.
-     * @param lostServiceNotificationId a {@link java.lang.Integer} object.
-     * @param lostServiceNotificationAcknowledgedBy a {@link java.lang.String} object.
-     * @param suppressTime a {@link java.util.Date} object.
-     * @param suppressedBy a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
+     * @param outageId
+     *            a int.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param hostname
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param lostServiceTime
+     *            a {@link java.util.Date} object.
+     * @param regainedServiceTime
+     *            a {@link java.util.Date} object.
+     * @param lostServiceEventId
+     *            a {@link java.lang.Integer} object.
+     * @param regainedServiceEventId
+     *            a {@link java.lang.Integer} object.
+     * @param lostServiceNotificationId
+     *            a {@link java.lang.Integer} object.
+     * @param lostServiceNotificationAcknowledgedBy
+     *            a {@link java.lang.String} object.
+     * @param suppressTime
+     *            a {@link java.util.Date} object.
+     * @param suppressedBy
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
      */
-    protected Outage(int outageId, int nodeId, String nodeLabel, String ipAddress, String hostname, int serviceId, String serviceName, Date lostServiceTime, Date regainedServiceTime, Integer lostServiceEventId, Integer regainedServiceEventId, Integer lostServiceNotificationId, String lostServiceNotificationAcknowledgedBy, Date suppressTime, String suppressedBy, String building) {
+    protected Outage(int outageId, int nodeId, String nodeLabel, String ipAddress, String hostname, int serviceId,
+            String serviceName, Date lostServiceTime, Date regainedServiceTime, Integer lostServiceEventId,
+            Integer regainedServiceEventId, Integer lostServiceNotificationId,
+            String lostServiceNotificationAcknowledgedBy, Date suppressTime, String suppressedBy, String building) {
         this.outageId = outageId;
         this.nodeId = nodeId;
         this.nodeLabel = nodeLabel;
@@ -141,7 +186,9 @@ public class Outage {
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a int.
      */
@@ -150,7 +197,9 @@ public class Outage {
     }
 
     /**
-     * <p>Getter for the field <code>nodeId</code>.</p>
+     * <p>
+     * Getter for the field <code>nodeId</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -159,7 +208,9 @@ public class Outage {
     }
 
     /**
-     * <p>Getter for the field <code>ipAddress</code>.</p>
+     * <p>
+     * Getter for the field <code>ipAddress</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -186,7 +237,9 @@ public class Outage {
     }
 
     /**
-     * <p>Getter for the field <code>serviceId</code>.</p>
+     * <p>
+     * Getter for the field <code>serviceId</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -204,7 +257,9 @@ public class Outage {
     }
 
     /**
-     * <p>Getter for the field <code>lostServiceTime</code>.</p>
+     * <p>
+     * Getter for the field <code>lostServiceTime</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -258,7 +313,9 @@ public class Outage {
     }
 
     /**
-     * <p>Getter for the field <code>suppressTime</code>.</p>
+     * <p>
+     * Getter for the field <code>suppressTime</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -267,7 +324,9 @@ public class Outage {
     }
 
     /**
-     * <p>Getter for the field <code>suppressedBy</code>.</p>
+     * <p>
+     * Getter for the field <code>suppressedBy</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -285,9 +344,12 @@ public class Outage {
     }
 
     /**
-     * <p>getTimeDown</p>
+     * <p>
+     * getTimeDown
+     * </p>
      *
-     * @deprecated Please use {@link #getLostServiceTime getLostServiceTime} instead.
+     * @deprecated Please use {@link #getLostServiceTime getLostServiceTime}
+     *             instead.
      * @return a {@link java.util.Date} object.
      */
     public Date getTimeDown() {
@@ -295,25 +357,24 @@ public class Outage {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("ID", getId())
-            .append("node ID", getNodeId())
-            .append("IP Address", getIpAddress())
-            .append("Hostname", getHostname())
-            .append("Node Label", getNodeLabel())
-            .append("Service Name", getServiceName())
-            .append("Lost Service Time", getLostServiceTime())
-            .append("Regained Service Time", getRegainedServiceTime())
-            .append("Acknowledged By", getLostServiceNotificationAcknowledgedBy())
-            .append("Suppress Time", getSuppressTime())
-            .append("Suppressed By", getSuppressedBy())
-            .append("Building", getBuilding())
-            .toString();
+        return new ToStringBuilder(this).append("ID", getId()).append("node ID", getNodeId()).append("IP Address",
+                                                                                                     getIpAddress()).append("Hostname",
+                                                                                                                            getHostname()).append("Node Label",
+                                                                                                                                                  getNodeLabel()).append("Service Name",
+                                                                                                                                                                         getServiceName()).append("Lost Service Time",
+                                                                                                                                                                                                  getLostServiceTime()).append("Regained Service Time",
+                                                                                                                                                                                                                               getRegainedServiceTime()).append("Acknowledged By",
+                                                                                                                                                                                                                                                                getLostServiceNotificationAcknowledgedBy()).append("Suppress Time",
+                                                                                                                                                                                                                                                                                                                   getSuppressTime()).append("Suppressed By",
+                                                                                                                                                                                                                                                                                                                                             getSuppressedBy()).append("Building",
+                                                                                                                                                                                                                                                                                                                                                                       getBuilding()).toString();
     }
 }

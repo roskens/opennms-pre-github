@@ -26,9 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-@XmlSchema(
-   namespace = "http://xmlns.opennms.org/xsd/config/vmmgr",
-   elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED
- )
+@XmlSchema(namespace = "http://xmlns.opennms.org/xsd/config/vmmgr", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package org.opennms.netmgt.config.service;
+
 import javax.xml.bind.annotation.XmlSchema;

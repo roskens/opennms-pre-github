@@ -30,19 +30,30 @@ package org.opennms.netmgt.rrd;
 
 public class RrdDataSource {
     private String m_name;
+
     private String m_type;
+
     private int m_heartBeat;
+
     private String m_min;
+
     private String m_max;
 
     /**
-     * <p>Constructor for RrdDataSource.</p>
+     * <p>
+     * Constructor for RrdDataSource.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param type a {@link java.lang.String} object.
-     * @param heartBeat a int.
-     * @param min a {@link java.lang.String} object.
-     * @param max a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
+     * @param heartBeat
+     *            a int.
+     * @param min
+     *            a {@link java.lang.String} object.
+     * @param max
+     *            a {@link java.lang.String} object.
      */
     public RrdDataSource(String name, String type, int heartBeat, String min, String max) {
         m_name = name;
@@ -53,7 +64,9 @@ public class RrdDataSource {
     }
 
     /**
-     * <p>getHeartBeat</p>
+     * <p>
+     * getHeartBeat
+     * </p>
      *
      * @return a int.
      */
@@ -62,7 +75,9 @@ public class RrdDataSource {
     }
 
     /**
-     * <p>getMax</p>
+     * <p>
+     * getMax
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,7 +86,9 @@ public class RrdDataSource {
     }
 
     /**
-     * <p>getMin</p>
+     * <p>
+     * getMin
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -80,7 +97,9 @@ public class RrdDataSource {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,7 +108,9 @@ public class RrdDataSource {
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

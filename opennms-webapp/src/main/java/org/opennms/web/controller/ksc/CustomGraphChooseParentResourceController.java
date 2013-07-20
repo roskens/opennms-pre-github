@@ -44,7 +44,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>CustomGraphChooseParentResourceController class.</p>
+ * <p>
+ * CustomGraphChooseParentResourceController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -60,16 +62,19 @@ public class CustomGraphChooseParentResourceController extends AbstractControlle
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         /*
-        ModelAndView modelAndView = new ModelAndView("KSC/customGraphChooseParentResource");
-
-        modelAndView.addObject("nodeResources", getResourceService().findNodeResources());
-        modelAndView.addObject("nodeSourceResources", getResourceService().findNodeSourceResources());
-        modelAndView.addObject("domainResources", getResourceService().findDomainResources());
-
-        return modelAndView;
-        */
+         * ModelAndView modelAndView = new
+         * ModelAndView("KSC/customGraphChooseParentResource");
+         * modelAndView.addObject("nodeResources",
+         * getResourceService().findNodeResources());
+         * modelAndView.addObject("nodeSourceResources",
+         * getResourceService().findNodeSourceResources());
+         * modelAndView.addObject("domainResources",
+         * getResourceService().findDomainResources());
+         * return modelAndView;
+         */
 
         ModelAndView modelAndView = new ModelAndView("KSC/customGraphChooseResource");
 
@@ -87,20 +92,22 @@ public class CustomGraphChooseParentResourceController extends AbstractControlle
             modelAndView.addObject("selectedResourceAndParents", selectedResourceAndParents);
         }
 
-
         /*
-        OnmsResource resource = getResourceService().getResourceById(resourceId);
-        modelAndView.addObject("parentResource", resource);
+         * OnmsResource resource =
+         * getResourceService().getResourceById(resourceId);
+         * modelAndView.addObject("parentResource", resource);
+         * modelAndView.addObject("parentResourcePrefabGraphs",
+         * m_resourceService.findPrefabGraphsForResource(resource));
+         */
 
-        modelAndView.addObject("parentResourcePrefabGraphs", m_resourceService.findPrefabGraphsForResource(resource));
-        */
-
-        //List<OnmsResource> childResources = getResourceService().findChildResources(resource);
+        // List<OnmsResource> childResources =
+        // getResourceService().findChildResources(resource);
         List<OnmsResource> nodeResources = getResourceService().findNodeResources();
         List<OnmsResource> nodeSourceResources = getResourceService().findNodeSourceResources();
         List<OnmsResource> domainResources = getResourceService().findDomainResources();
 
-        List<OnmsResource> childResources = new ArrayList<OnmsResource>(nodeResources.size() + nodeSourceResources.size() + domainResources.size());
+        List<OnmsResource> childResources = new ArrayList<OnmsResource>(nodeResources.size()
+                + nodeSourceResources.size() + domainResources.size());
         childResources.addAll(nodeResources);
         childResources.addAll(nodeSourceResources);
         childResources.addAll(domainResources);
@@ -111,7 +118,9 @@ public class CustomGraphChooseParentResourceController extends AbstractControlle
     }
 
     /**
-     * <p>getResourceService</p>
+     * <p>
+     * getResourceService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -120,18 +129,24 @@ public class CustomGraphChooseParentResourceController extends AbstractControlle
     }
 
     /**
-     * <p>setResourceService</p>
+     * <p>
+     * setResourceService
+     * </p>
      *
-     * @param resourceService a {@link org.opennms.web.svclayer.ResourceService} object.
+     * @param resourceService
+     *            a {@link org.opennms.web.svclayer.ResourceService} object.
      */
     public void setResourceService(ResourceService resourceService) {
         m_resourceService = resourceService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

@@ -67,7 +67,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Abstract Class JSON Collection Handler.
- * <p>All JsonCollectionHandler should extend this class.</p>
+ * <p>
+ * All JsonCollectionHandler should extend this class.
+ * </p>
  *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
@@ -78,24 +80,32 @@ public abstract class AbstractJsonCollectionHandler extends AbstractXmlCollectio
     /**
      * Fill collection set.
      *
-     * @param agent the agent
-     * @param collectionSet the collection set
-     * @param source the source
-     * @param json the JSON Object
-     * @throws ParseException the parse exception
+     * @param agent
+     *            the agent
+     * @param collectionSet
+     *            the collection set
+     * @param source
+     *            the source
+     * @param json
+     *            the JSON Object
+     * @throws ParseException
+     *             the parse exception
      */
     @SuppressWarnings("unchecked")
-    protected void fillCollectionSet(CollectionAgent agent, XmlCollectionSet collectionSet, XmlSource source, JSONObject json) throws ParseException {
+    protected void fillCollectionSet(CollectionAgent agent, XmlCollectionSet collectionSet, XmlSource source,
+            JSONObject json) throws ParseException {
         JXPathContext context = JXPathContext.newContext(json);
         for (XmlGroup group : source.getXmlGroups()) {
-            LOG.debug("fillCollectionSet: getting resources for XML group {} using XPATH {}", group.getName(), group.getResourceXpath());
+            LOG.debug("fillCollectionSet: getting resources for XML group {} using XPATH {}", group.getName(),
+                      group.getResourceXpath());
             Date timestamp = getTimeStamp(context, group);
             Iterator<Pointer> itr = context.iteratePointers(group.getResourceXpath());
             while (itr.hasNext()) {
                 JXPathContext relativeContext = context.getRelativeContext(itr.next());
                 String resourceName = getResourceName(relativeContext, group);
                 LOG.debug("fillCollectionSet: processing XML resource {}", resourceName);
-                XmlCollectionResource collectionResource = getCollectionResource(agent, resourceName, group.getResourceType(), timestamp);
+                XmlCollectionResource collectionResource = getCollectionResource(agent, resourceName,
+                                                                                 group.getResourceType(), timestamp);
                 AttributeGroupType attribGroupType = new AttributeGroupType(group.getName(), group.getIfType());
                 for (XmlObject object : group.getXmlObjects()) {
                     String value = (String) relativeContext.getValue(object.getXpath());
@@ -111,8 +121,10 @@ public abstract class AbstractJsonCollectionHandler extends AbstractXmlCollectio
     /**
      * Gets the resource name.
      *
-     * @param context the JXpath context
-     * @param group the group
+     * @param context
+     *            the JXpath context
+     * @param group
+     *            the group
      * @return the resource name
      */
     private String getResourceName(JXPathContext context, XmlGroup group) {
@@ -121,26 +133,29 @@ public abstract class AbstractJsonCollectionHandler extends AbstractXmlCollectio
             List<String> keys = new ArrayList<String>();
             for (String key : group.getXmlResourceKey().getKeyXpathList()) {
                 LOG.debug("getResourceName: getting key for resource's name using {}", key);
-                String keyName = (String)context.getValue(key);
+                String keyName = (String) context.getValue(key);
                 keys.add(keyName);
             }
             return StringUtils.join(keys, "_");
         }
-        // If key-xpath doesn't exist or not found, a node resource will be assumed.
+        // If key-xpath doesn't exist or not found, a node resource will be
+        // assumed.
         if (group.getKeyXpath() == null) {
             return "node";
         }
         // Processing single-key resource name.
         LOG.debug("getResourceName: getting key for resource's name using {}", group.getKeyXpath());
-        String keyName = (String)context.getValue(group.getKeyXpath());
+        String keyName = (String) context.getValue(group.getKeyXpath());
         return keyName;
     }
 
     /**
      * Gets the time stamp.
      *
-     * @param context the JXPath context
-     * @param group the group
+     * @param context
+     *            the JXPath context
+     * @param group
+     *            the group
      * @return the time stamp
      */
     protected Date getTimeStamp(JXPathContext context, XmlGroup group) {
@@ -148,9 +163,10 @@ public abstract class AbstractJsonCollectionHandler extends AbstractXmlCollectio
             return null;
         }
         String pattern = group.getTimestampFormat() == null ? "yyyy-MM-dd HH:mm:ss" : group.getTimestampFormat();
-        LOG.debug("getTimeStamp: retrieving custom timestamp to be used when updating RRDs using XPATH {} and pattern {}", group.getTimestampXpath(), pattern);
+        LOG.debug("getTimeStamp: retrieving custom timestamp to be used when updating RRDs using XPATH {} and pattern {}",
+                  group.getTimestampXpath(), pattern);
         Date date = null;
-        String value = (String)context.getValue(group.getTimestampXpath());
+        String value = (String) context.getValue(group.getTimestampXpath());
         try {
             DateTimeFormatter dtf = DateTimeFormat.forPattern(pattern);
             DateTime dateTime = dtf.parseDateTime(value);
@@ -164,8 +180,10 @@ public abstract class AbstractJsonCollectionHandler extends AbstractXmlCollectio
     /**
      * Gets the JSON object.
      *
-     * @param urlString the URL string
-     * @param request the request
+     * @param urlString
+     *            the URL string
+     * @param request
+     *            the request
      * @return the JSON object
      */
     protected JSONObject getJSONObject(String urlString, Request request) {

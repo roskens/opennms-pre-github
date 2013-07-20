@@ -67,33 +67,34 @@ import org.slf4j.LoggerFactory;
 
 public class JoeSnmpStrategy implements SnmpStrategy {
 
-	public static final transient Logger LOG = LoggerFactory.getLogger(JoeSnmpStrategy.class);
+    public static final transient Logger LOG = LoggerFactory.getLogger(JoeSnmpStrategy.class);
 
     private static Map<TrapNotificationListener, RegistrationInfo> s_registrations = new HashMap<TrapNotificationListener, RegistrationInfo>();
+
     private static SnmpTrapSession s_trapSession;
 
     private JoeSnmpValueFactory m_valueFactory;
 
-        @Override
+    @Override
     public SnmpWalker createWalker(SnmpAgentConfig snmpAgentConfig, String name, CollectionTracker tracker) {
         return new JoeSnmpWalker(new JoeSnmpAgentConfig(snmpAgentConfig), name, tracker);
     }
 
-        @Override
-    public SnmpValue set(SnmpAgentConfig snmpAgentConfig, SnmpObjId oid, SnmpValue value ) {
+    @Override
+    public SnmpValue set(SnmpAgentConfig snmpAgentConfig, SnmpObjId oid, SnmpValue value) {
         SnmpObjId[] oids = { oid };
         SnmpValue[] values = { value };
-        return set(snmpAgentConfig, oids,values)[0];
+        return set(snmpAgentConfig, oids, values)[0];
     }
 
-        @Override
+    @Override
     public SnmpValue[] set(SnmpAgentConfig snmpAgentConfig, SnmpObjId[] oids, SnmpValue[] values) {
         JoeSnmpAgentConfig agentConfig = new JoeSnmpAgentConfig(snmpAgentConfig);
         SnmpSession session = null;
 
         SnmpSyntax[] syntaxvalues = new SnmpSyntax[values.length];
-        for (int i=0; i<values.length;i++) {
-        	syntaxvalues[i] = new JoeSnmpValue(values[i].getType(), values[i].getBytes()).getSnmpSyntax();
+        for (int i = 0; i < values.length; i++) {
+            syntaxvalues[i] = new JoeSnmpValue(values[i].getType(), values[i].getBytes()).getSnmpSyntax();
         }
         values = null;
 
@@ -108,7 +109,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
 
             session = new SnmpSession(peer);
             SnmpObjectId[] jOids = convertOids(oids);
-            SnmpSyntax[]  results = session.set(jOids,syntaxvalues);
+            SnmpSyntax[] results = session.set(jOids, syntaxvalues);
             values = convertSnmpSyntaxs(results);
 
         } catch (SocketException e) {
@@ -118,16 +119,16 @@ public class JoeSnmpStrategy implements SnmpStrategy {
                 session.close();
             }
         }
-    	return values;
+        return values;
     }
 
-        @Override
+    @Override
     public SnmpValue get(SnmpAgentConfig snmpAgentConfig, SnmpObjId oid) {
         SnmpObjId[] oids = { oid };
         return get(snmpAgentConfig, oids)[0];
     }
 
-        @Override
+    @Override
     public SnmpValue[] get(SnmpAgentConfig snmpAgentConfig, SnmpObjId[] oids) {
         JoeSnmpAgentConfig agentConfig = new JoeSnmpAgentConfig(snmpAgentConfig);
         SnmpSession session = null;
@@ -156,13 +157,13 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         return values;
     }
 
-        @Override
+    @Override
     public SnmpValue getNext(SnmpAgentConfig snmpAgentConfig, SnmpObjId oid) {
         SnmpObjId[] oids = { oid };
         return getNext(snmpAgentConfig, oids)[0];
     }
 
-        @Override
+    @Override
     public SnmpValue[] getNext(SnmpAgentConfig snmpAgentConfig, SnmpObjId[] oids) {
         JoeSnmpAgentConfig agentConfig = new JoeSnmpAgentConfig(snmpAgentConfig);
         SnmpSession session = null;
@@ -197,7 +198,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
      *
      * @param results
      * @return
-     *        values as an OpenNMS SnmpValue array
+     *         values as an OpenNMS SnmpValue array
      */
     private SnmpValue[] convertSnmpSyntaxs(SnmpSyntax[] results) {
 
@@ -208,7 +209,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         }
 
         values = new JoeSnmpValue[results.length];
-        for (int i=0; i<results.length; i++) {
+        for (int i = 0; i < results.length; i++) {
             values[i] = new JoeSnmpValue(results[i]);
         }
         return values;
@@ -219,12 +220,12 @@ public class JoeSnmpStrategy implements SnmpStrategy {
      *
      * @param oids
      * @return
-     *        An array of JoeSnmp SnmpObjectIds
+     *         An array of JoeSnmp SnmpObjectIds
      */
     private SnmpObjectId[] convertOids(SnmpObjId[] oids) {
 
         SnmpObjectId[] jOids = new SnmpObjectId[oids.length];
-        for (int i=0; i<oids.length; i++) {
+        for (int i = 0; i < oids.length; i++) {
             jOids[i] = new SnmpObjectId(oids[i].toString());
         }
 
@@ -247,17 +248,20 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         params.setWriteCommunity(agentConfig.getWriteCommunity());
     }
 
-        @Override
+    @Override
     public SnmpValue[] getBulk(SnmpAgentConfig agentConfig, SnmpObjId[] oids) {
-    	throw new UnsupportedOperationException("JoeSnmpStrategy.getBulk() not yet implemented.");
+        throw new UnsupportedOperationException("JoeSnmpStrategy.getBulk() not yet implemented.");
     }
 
     public static class RegistrationInfo {
         private TrapNotificationListener m_listener;
+
         private InetAddress m_address;
+
         private int m_port;
 
         SnmpTrapSession m_trapSession;
+
         JoeSnmpTrapNotifier m_trapHandler;
 
         public RegistrationInfo(final TrapNotificationListener listener, final int trapPort) {
@@ -270,10 +274,10 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         }
 
         public RegistrationInfo(final TrapNotificationListener listener, InetAddress address, int snmpTrapPort) {
-        	m_listener = listener;
-        	m_address = address;
-        	m_port = snmpTrapPort;
-		}
+            m_listener = listener;
+            m_address = address;
+            m_port = snmpTrapPort;
+        }
 
         public void setSession(final SnmpTrapSession trapSession) {
             m_trapSession = trapSession;
@@ -292,11 +296,11 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         }
 
         public InetAddress getAddress() {
-        	return m_address;
+            return m_address;
         }
 
         public int getPort() {
-        	return m_port;
+            return m_port;
         }
 
         @Override
@@ -305,20 +309,23 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         }
 
         @Override
-		public boolean equals(final Object obj) {
+        public boolean equals(final Object obj) {
             if (obj instanceof RegistrationInfo) {
-            	final RegistrationInfo info = (RegistrationInfo) obj;
-                return (m_listener == info.m_listener) && Arrays.equals(m_address.getAddress(), info.getAddress().getAddress()) && m_port == info.getPort();
+                final RegistrationInfo info = (RegistrationInfo) obj;
+                return (m_listener == info.m_listener)
+                        && Arrays.equals(m_address.getAddress(), info.getAddress().getAddress())
+                        && m_port == info.getPort();
             }
             return false;
         }
 
     }
 
-        @Override
-    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, InetAddress address, int snmpTrapPort) throws IOException {
-    	final RegistrationInfo info = new RegistrationInfo(listener, address, snmpTrapPort);
-    	final JoeSnmpTrapNotifier m_trapHandler = new JoeSnmpTrapNotifier(listener, processorFactory);
+    @Override
+    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
+            InetAddress address, int snmpTrapPort) throws IOException {
+        final RegistrationInfo info = new RegistrationInfo(listener, address, snmpTrapPort);
+        final JoeSnmpTrapNotifier m_trapHandler = new JoeSnmpTrapNotifier(listener, processorFactory);
         info.setHandler(m_trapHandler);
         SnmpTrapSession m_trapSession = new SnmpTrapSession(m_trapHandler, address, snmpTrapPort);
         info.setSession(m_trapSession);
@@ -326,29 +333,31 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         s_registrations.put(listener, info);
     }
 
-        @Override
-    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort, final List<SnmpV3User> snmpv3Users) throws IOException {
+    @Override
+    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
+            final InetAddress address, final int snmpTrapPort, final List<SnmpV3User> snmpv3Users) throws IOException {
         registerForTraps(listener, processorFactory, address, snmpTrapPort);
     }
 
-        @Override
-    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, final int snmpTrapPort) throws IOException {
-    	registerForTraps(listener, processorFactory, null, snmpTrapPort);
+    @Override
+    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
+            final int snmpTrapPort) throws IOException {
+        registerForTraps(listener, processorFactory, null, snmpTrapPort);
     }
 
-        @Override
+    @Override
     public void unregisterForTraps(final TrapNotificationListener listener, InetAddress address, int snmpTrapPort) {
-    	RegistrationInfo info = s_registrations.remove(listener);
-    	info.getSession().close();
+        RegistrationInfo info = s_registrations.remove(listener);
+        info.getSession().close();
     }
 
-        @Override
+    @Override
     public void unregisterForTraps(final TrapNotificationListener listener, final int snmpTrapPort) {
         RegistrationInfo info = s_registrations.remove(listener);
         info.getSession().close();
     }
 
-        @Override
+    @Override
     public SnmpValueFactory getValueFactory() {
         if (m_valueFactory == null) {
             m_valueFactory = new JoeSnmpValueFactory();
@@ -357,12 +366,12 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         return m_valueFactory;
     }
 
-        @Override
+    @Override
     public SnmpV1TrapBuilder getV1TrapBuilder() {
         return new JoeSnmpV1TrapBuilder();
     }
 
-        @Override
+    @Override
     public SnmpTrapBuilder getV2TrapBuilder() {
         return new JoeSnmpV2TrapBuilder();
     }
@@ -376,7 +385,8 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         trapSession.send(peer, trap);
     }
 
-    public static void send(final String destAddr, final int destPort, final String community, final SnmpPduRequest pdu) throws Exception {
+    public static void send(final String destAddr, final int destPort, final String community, final SnmpPduRequest pdu)
+            throws Exception {
         SnmpTrapSession trapSession = getTrapSession();
         SnmpPeer peer = new SnmpPeer(InetAddress.getByName(destAddr), destPort);
         SnmpParameters parms = new SnmpParameters(community);
@@ -392,42 +402,46 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         return s_trapSession;
     }
 
-    public static void sendTest(final String destAddr, final int destPort, final String community, final SnmpPduRequest pdu) throws UnknownHostException {
-    	final InetAddress agentAddress = InetAddrUtils.addr(destAddr);
+    public static void sendTest(final String destAddr, final int destPort, final String community,
+            final SnmpPduRequest pdu) throws UnknownHostException {
+        final InetAddress agentAddress = InetAddrUtils.addr(destAddr);
         for (final RegistrationInfo info : s_registrations.values()) {
             if (destPort == info.getPort()) {
-                info.getHandler().snmpReceivedTrap(info.getSession(), agentAddress, destPort, new SnmpOctetString(community.getBytes()), pdu);
+                info.getHandler().snmpReceivedTrap(info.getSession(), agentAddress, destPort,
+                                                   new SnmpOctetString(community.getBytes()), pdu);
             }
         }
     }
 
-    public static void sendTest(String destAddr, int destPort, String community, SnmpPduTrap pdu) throws UnknownHostException {
-    	final InetAddress agentAddress = InetAddrUtils.addr(destAddr);
+    public static void sendTest(String destAddr, int destPort, String community, SnmpPduTrap pdu)
+            throws UnknownHostException {
+        final InetAddress agentAddress = InetAddrUtils.addr(destAddr);
         for (final RegistrationInfo info : s_registrations.values()) {
             if (destPort == info.getPort()) {
-                info.getHandler().snmpReceivedTrap(info.getSession(), agentAddress, destPort, new SnmpOctetString(community.getBytes()), pdu);
+                info.getHandler().snmpReceivedTrap(info.getSession(), agentAddress, destPort,
+                                                   new SnmpOctetString(community.getBytes()), pdu);
             }
         }
     }
 
-        @Override
-	public SnmpV3TrapBuilder getV3TrapBuilder() {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public SnmpV3TrapBuilder getV3TrapBuilder() {
+        throw new UnsupportedOperationException();
+    }
 
-        @Override
-	public SnmpV2TrapBuilder getV2InformBuilder() {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public SnmpV2TrapBuilder getV2InformBuilder() {
+        throw new UnsupportedOperationException();
+    }
 
-        @Override
-	public SnmpV3TrapBuilder getV3InformBuilder() {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public SnmpV3TrapBuilder getV3InformBuilder() {
+        throw new UnsupportedOperationException();
+    }
 
-        @Override
-	public byte[] getLocalEngineID() {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public byte[] getLocalEngineID() {
+        throw new UnsupportedOperationException();
+    }
 
 }

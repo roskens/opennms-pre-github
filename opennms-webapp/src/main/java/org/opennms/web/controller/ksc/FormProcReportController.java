@@ -47,7 +47,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>FormProcReportController class.</p>
+ * <p>
+ * FormProcReportController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -56,27 +58,21 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class FormProcReportController extends AbstractController implements InitializingBean {
 
     public enum Parameters {
-        action,
-        report_title,
-        show_timespan,
-        show_graphtype,
-        graph_index,
-        graphs_per_line
+        action, report_title, show_timespan, show_graphtype, graph_index, graphs_per_line
     }
 
     public enum Actions {
-        Save,
-        AddGraph,
-        DelGraph,
-        ModGraph
+        Save, AddGraph, DelGraph, ModGraph
     }
 
     private KSC_PerformanceReportFactory m_kscReportFactory;
+
     private KscReportService m_kscReportService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), true);
 
         // Get The Customizable Report
@@ -112,20 +108,23 @@ public class FormProcReportController extends AbstractController implements Init
         }
 
         if (Actions.Save.toString().equals(action)) {
-            // The working model is complete now... lets save working model to configuration file
+            // The working model is complete now... lets save working model to
+            // configuration file
             try {
                 // First copy working report into report arrays
                 editor.unloadWorkingReport(getKscReportFactory());
                 // Save the changes to the config file
                 getKscReportFactory().saveCurrent();
-                // Go ahead and unload the editor from the session since we're done using it
+                // Go ahead and unload the editor from the session since we're
+                // done using it
                 KscReportEditor.unloadFromSession(request.getSession());
             } catch (Throwable e) {
                 throw new ServletException("Couldn't save report: " + e.getMessage(), e);
             }
         } else {
             if (Actions.AddGraph.toString().equals(action) || Actions.ModGraph.toString().equals(action)) {
-                // Making a graph change... load it into the working area (the graph_index of -1 indicates a new graph)
+                // Making a graph change... load it into the working area (the
+                // graph_index of -1 indicates a new graph)
                 editor.loadWorkingGraph(graph_index);
             } else {
                 if (Actions.DelGraph.toString().equals(action)) {
@@ -147,35 +146,46 @@ public class FormProcReportController extends AbstractController implements Init
             OnmsResource resource = getKscReportService().getResourceFromGraph(graph);
             String graphType = graph.getGraphtype();
 
-            Map<String,String> modelData = new HashMap<String,String>();
+            Map<String, String> modelData = new HashMap<String, String>();
             modelData.put(CustomGraphEditDetailsController.Parameters.resourceId.toString(), resource.getId());
             modelData.put(CustomGraphEditDetailsController.Parameters.graphtype.toString(), graphType);
             return new ModelAndView("redirect:/KSC/customGraphEditDetails.htm", modelData);
         } else {
-            throw new IllegalArgumentException("Parameter action of '" + action + "' is not supported.  Must be one of: Save, Cancel, Update, AddGraph, or DelGraph");
+            throw new IllegalArgumentException("Parameter action of '" + action
+                    + "' is not supported.  Must be one of: Save, Cancel, Update, AddGraph, or DelGraph");
         }
     }
 
     /**
-     * <p>getKscReportFactory</p>
+     * <p>
+     * getKscReportFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *         object.
      */
     public KSC_PerformanceReportFactory getKscReportFactory() {
         return m_kscReportFactory;
     }
 
     /**
-     * <p>setKscReportFactory</p>
+     * <p>
+     * setKscReportFactory
+     * </p>
      *
-     * @param kscReportFactory a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @param kscReportFactory
+     *            a
+     *            {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *            object.
      */
     public void setKscReportFactory(KSC_PerformanceReportFactory kscReportFactory) {
         m_kscReportFactory = kscReportFactory;
     }
 
     /**
-     * <p>getKscReportService</p>
+     * <p>
+     * getKscReportService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -184,18 +194,24 @@ public class FormProcReportController extends AbstractController implements Init
     }
 
     /**
-     * <p>setKscReportService</p>
+     * <p>
+     * setKscReportService
+     * </p>
      *
-     * @param kscReportService a {@link org.opennms.web.svclayer.KscReportService} object.
+     * @param kscReportService
+     *            a {@link org.opennms.web.svclayer.KscReportService} object.
      */
     public void setKscReportService(KscReportService kscReportService) {
         m_kscReportService = kscReportService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() {

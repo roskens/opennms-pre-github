@@ -47,15 +47,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * The Manager is responsible for launching/starting all services in the VM
- * that it is started for. The Manager operates in two modes, normal and
- * server
+ * The Manager is responsible for launching/starting all services in the VM that
+ * it is started for. The Manager operates in two modes, normal and server
  * </p>
  * <p>
  * normal mode: In the normal mode, the Manager starts all services configured
- * for its VM in the service-configuration.xml and starts listening for
- * control events on the 'control-broadcast' JMS topic for stop control
- * messages for itself
+ * for its VM in the service-configuration.xml and starts listening for control
+ * events on the 'control-broadcast' JMS topic for stop control messages for
+ * itself
  * </p>
  * <p>
  * server mode: In the server mode, the Manager starts up and listens on the
@@ -65,9 +64,9 @@ import org.slf4j.LoggerFactory;
  * an 'error' response to the Controller
  * </p>
  * <p>
- * <strong>Note: </strong>The Manager is NOT intelligent - if it receives a
- * stop control event, it will exit - does not check to see if the services
- * its started are all stopped
+ * <strong>Note: </strong>The Manager is NOT intelligent - if it receives a stop
+ * control event, it will exit - does not check to see if the services its
+ * started are all stopped
  * <p>
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
@@ -75,7 +74,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Controller {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
     private static final String JMX_HTTP_ADAPTER_NAME = ":Name=HttpAdaptorMgmt";
 
@@ -83,8 +82,7 @@ public class Controller {
      * Default invoker URL. This is used for getting status information from a
      * running OpenNMS instance.
      */
-    public static final String DEFAULT_INVOKER_URL =
-        "http://127.0.0.1:8181/invoke?objectname=OpenNMS%3AName=Manager";
+    public static final String DEFAULT_INVOKER_URL = "http://127.0.0.1:8181/invoke?objectname=OpenNMS%3AName=Manager";
 
     /**
      * The log4j category used to log debug messsages and statements.
@@ -98,21 +96,29 @@ public class Controller {
     private static final int DEFAULT_HTTP_REQUEST_READ_TIMEOUT = 0;
 
     private boolean m_verbose = false;
+
     private String m_invokeUrl = DEFAULT_INVOKER_URL;
+
     private Authenticator m_authenticator;
+
     private int m_httpRequestReadTimeout = DEFAULT_HTTP_REQUEST_READ_TIMEOUT;
 
     /**
-     * <p>Constructor for Controller.</p>
+     * <p>
+     * Constructor for Controller.
+     * </p>
      */
     public Controller() {
 
     }
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param argv an array of {@link java.lang.String} objects.
+     * @param argv
+     *            an array of {@link java.lang.String} objects.
      */
     public static void main(String[] argv) {
 
@@ -122,8 +128,7 @@ public class Controller {
 
         for (int i = 0; i < argv.length; i++) {
             if (argv[i].equals("-h")) {
-                System.out.println("Usage: java org.opennms.netmgt.vmmgr.Controller "
-                                   + "[<options>] <command>");
+                System.out.println("Usage: java org.opennms.netmgt.vmmgr.Controller " + "[<options>] <command>");
                 System.out.println("Accepted options:");
                 System.out.println("        -t <timeout>    HTTP connection timeout in seconds.  Defaults to 30.");
                 System.out.println("        -u <URL>        Alternate invoker URL.");
@@ -150,8 +155,7 @@ public class Controller {
         }
 
         if (argv.length == 0) {
-            System.err.println("You must specify a command.  Use \"-h\""
-                               + " option for help");
+            System.err.println("You must specify a command.  Use \"-h\"" + " option for help");
             System.exit(1);
         }
 
@@ -177,7 +181,7 @@ public class Controller {
     }
 
     /**
-     * Start the OpenNMS daemon.  Never returns.
+     * Start the OpenNMS daemon. Never returns.
      */
     public void start() {
         Starter starter = new Starter();
@@ -185,7 +189,9 @@ public class Controller {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      *
      * @return a int.
      */
@@ -194,7 +200,9 @@ public class Controller {
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a int.
      */
@@ -216,7 +224,7 @@ public class Controller {
         try {
             statusGetter.queryStatus();
         } catch (Throwable t) {
-            String message =  "Error invoking status command";
+            String message = "Error invoking status command";
             System.err.println(message);
             LOG.error(message, t);
             return 1;
@@ -225,7 +233,7 @@ public class Controller {
         switch (statusGetter.getStatus()) {
         case NOT_RUNNING:
         case CONNECTION_REFUSED:
-            return 3;  // According to LSB: 3 - service not running
+            return 3; // According to LSB: 3 - service not running
 
         case PARTIALLY_RUNNING:
             /*
@@ -238,13 +246,15 @@ public class Controller {
             return 0; // everything should be good and running
 
         default:
-        	LOG.error("Unknown status returned from statusGetter.getStatus(): {}", statusGetter.getStatus());
+            LOG.error("Unknown status returned from statusGetter.getStatus(): {}", statusGetter.getStatus());
             return 1;
         }
     }
 
     /**
-     * <p>check</p>
+     * <p>
+     * check
+     * </p>
      *
      * @return a int.
      */
@@ -252,14 +262,16 @@ public class Controller {
         try {
             new DatabaseChecker().check();
         } catch (final Throwable t) {
-        	LOG.error("error invoking check command", t);
+            LOG.error("error invoking check command", t);
             return 1;
         }
         return 0;
     }
 
     /**
-     * <p>exit</p>
+     * <p>
+     * exit
+     * </p>
      *
      * @return a int.
      */
@@ -285,13 +297,13 @@ public class Controller {
             System.out.println("");
             System.out.flush();
         } catch (final ConnectException e) {
-        	LOG.error("error when attempting to fetch URL \"{}\"", urlString, e);
+            LOG.error("error when attempting to fetch URL \"{}\"", urlString, e);
             if (isVerbose()) {
                 System.out.println(e.getMessage() + " when attempting to fetch URL \"" + urlString + "\"");
             }
             return 1;
         } catch (final Throwable t) {
-        	LOG.error("error invoking {} operation", operation, t);
+            LOG.error("error invoking {} operation", operation, t);
             System.out.println("error invoking " + operation + " operation");
             return 1;
         }
@@ -307,7 +319,7 @@ public class Controller {
         Service service = getConfiguredService(JMX_HTTP_ADAPTER_NAME);
         if (service == null) {
             // Didn't find the service we were looking for
-        	LOG.warn("Could not find configured service for '{}'", JMX_HTTP_ADAPTER_NAME);
+            LOG.warn("Could not find configured service for '{}'", JMX_HTTP_ADAPTER_NAME);
             return null;
         }
 
@@ -322,7 +334,7 @@ public class Controller {
         for (org.opennms.netmgt.config.service.Attribute attrib : attribs) {
             if (attrib.getName().equals("AuthenticationMethod")) {
                 if (!attrib.getValue().getContent().equals("basic")) {
-                	LOG.error("AuthenticationMethod is \"{}\", but only \"basic\" is supported", attrib.getValue());
+                    LOG.error("AuthenticationMethod is \"{}\", but only \"basic\" is supported", attrib.getValue());
                     return null;
                 }
                 usingBasic = true;
@@ -346,8 +358,7 @@ public class Controller {
         for (Invoke invoke : invokes) {
             if (invoke.getMethod().equals("addAuthorization")) {
                 Argument[] args = invoke.getArgument();
-                if (args != null && args.length == 2
-                        && args[0].getContent().equals("manager")) {
+                if (args != null && args.length == 2 && args[0].getContent().equals("manager")) {
                     username = args[0].getContent();
                     password = args[1].getContent();
                     break;
@@ -366,8 +377,7 @@ public class Controller {
         return new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username_f,
-                                                  password_f.toCharArray());
+                return new PasswordAuthentication(username_f, password_f.toCharArray());
             }
         };
     }
@@ -396,7 +406,9 @@ public class Controller {
     }
 
     /**
-     * <p>isVerbose</p>
+     * <p>
+     * isVerbose
+     * </p>
      *
      * @return a boolean.
      */
@@ -405,16 +417,21 @@ public class Controller {
     }
 
     /**
-     * <p>setVerbose</p>
+     * <p>
+     * setVerbose
+     * </p>
      *
-     * @param verbose a boolean.
+     * @param verbose
+     *            a boolean.
      */
     public void setVerbose(boolean verbose) {
         m_verbose = verbose;
     }
 
     /**
-     * <p>getInvokeUrl</p>
+     * <p>
+     * getInvokeUrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -423,16 +440,21 @@ public class Controller {
     }
 
     /**
-     * <p>setInvokeUrl</p>
+     * <p>
+     * setInvokeUrl
+     * </p>
      *
-     * @param invokerUrl a {@link java.lang.String} object.
+     * @param invokerUrl
+     *            a {@link java.lang.String} object.
      */
     public void setInvokeUrl(String invokerUrl) {
         m_invokeUrl = invokerUrl;
     }
 
     /**
-     * <p>getAuthenticator</p>
+     * <p>
+     * getAuthenticator
+     * </p>
      *
      * @return a {@link java.net.Authenticator} object.
      */
@@ -441,16 +463,21 @@ public class Controller {
     }
 
     /**
-     * <p>setAuthenticator</p>
+     * <p>
+     * setAuthenticator
+     * </p>
      *
-     * @param authenticator a {@link java.net.Authenticator} object.
+     * @param authenticator
+     *            a {@link java.net.Authenticator} object.
      */
     public void setAuthenticator(Authenticator authenticator) {
         m_authenticator = authenticator;
     }
 
     /**
-     * <p>getHttpRequestReadTimeout</p>
+     * <p>
+     * getHttpRequestReadTimeout
+     * </p>
      *
      * @return a int.
      */
@@ -459,9 +486,12 @@ public class Controller {
     }
 
     /**
-     * <p>setHttpRequestReadTimeout</p>
+     * <p>
+     * setHttpRequestReadTimeout
+     * </p>
      *
-     * @param httpRequestReadTimeout a int.
+     * @param httpRequestReadTimeout
+     *            a int.
      */
     public void setHttpRequestReadTimeout(int httpRequestReadTimeout) {
         m_httpRequestReadTimeout = httpRequestReadTimeout;

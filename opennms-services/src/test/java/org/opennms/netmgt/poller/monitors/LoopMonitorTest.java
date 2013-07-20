@@ -53,7 +53,9 @@ public class LoopMonitorTest extends TestCase {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.poller.monitors.LoopMonitor.poll(MonitoredService, Map, Package)'
+     * Test method for
+     * 'org.opennms.netmgt.poller.monitors.LoopMonitor.poll(MonitoredService,
+     * Map, Package)'
      */
     public void testPoll() throws UnknownHostException {
 

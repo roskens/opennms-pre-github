@@ -59,10 +59,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-mockDao.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-mockDao.xml" })
 @JUnitConfigurationEnvironment
 public class CollectionPolicyTest implements InitializingBean {
 
@@ -152,7 +150,8 @@ public class CollectionPolicyTest implements InitializingBean {
         assertTrue(node2.hasCategory(TEST_CATEGORY));
     }
 
-    private static void matchPolicy(List<OnmsSnmpInterface> interfaces, MatchingSnmpInterfacePolicy p, InetAddress matchingIp) {
+    private static void matchPolicy(List<OnmsSnmpInterface> interfaces, MatchingSnmpInterfacePolicy p,
+            InetAddress matchingIp) {
         OnmsSnmpInterface o;
         List<OnmsSnmpInterface> populatedInterfaces = new ArrayList<OnmsSnmpInterface>();
         List<OnmsSnmpInterface> matchedInterfaces = new ArrayList<OnmsSnmpInterface>();

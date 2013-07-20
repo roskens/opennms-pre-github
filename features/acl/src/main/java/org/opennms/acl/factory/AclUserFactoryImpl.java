@@ -76,9 +76,12 @@ public class AclUserFactoryImpl implements AclUserFactory, InitializingBean {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -87,6 +90,7 @@ public class AclUserFactoryImpl implements AclUserFactory, InitializingBean {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private GroupService groupService;
 }

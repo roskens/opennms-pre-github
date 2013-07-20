@@ -29,7 +29,9 @@
 package org.opennms.web.controller.inventory;
 
 /**
- * <p>AdminStorageCommClass class.</p>
+ * <p>
+ * AdminStorageCommClass class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,12 +39,12 @@ package org.opennms.web.controller.inventory;
  */
 public class AdminStorageCommClass {
 
-
     private String bucket;
 
-
     /**
-     * <p>Getter for the field <code>bucket</code>.</p>
+     * <p>
+     * Getter for the field <code>bucket</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -51,9 +53,12 @@ public class AdminStorageCommClass {
     }
 
     /**
-     * <p>Setter for the field <code>bucket</code>.</p>
+     * <p>
+     * Setter for the field <code>bucket</code>.
+     * </p>
      *
-     * @param bucket a {@link java.lang.String} object.
+     * @param bucket
+     *            a {@link java.lang.String} object.
      */
     public void setBucket(String bucket) {
         this.bucket = bucket;

@@ -61,13 +61,14 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 @SuppressWarnings("serial")
 public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayList> implements Button.ClickListener {
 
-	public static class VarbindArrayList extends ArrayList<Varbind> {}
+    public static class VarbindArrayList extends ArrayList<Varbind> {
+    }
 
     /** The Table. */
     private final Table table = new Table();
 
     /** The Container. */
-    private final BeanContainer<Integer,Varbind> container = new BeanContainer<Integer,Varbind>(Varbind.class);
+    private final BeanContainer<Integer, Varbind> container = new BeanContainer<Integer, Varbind>(Varbind.class);
 
     /** The Toolbar. */
     private final HorizontalLayout toolbar = new HorizontalLayout();
@@ -85,7 +86,7 @@ public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayL
         container.setBeanIdProperty("vbnumber");
         table.setContainerDataSource(container);
         table.setStyleName(Runo.TABLE_SMALL);
-        table.setVisibleColumns(new Object[]{"vbnumber", "vbvalueCollection"});
+        table.setVisibleColumns(new Object[] { "vbnumber", "vbvalueCollection" });
         table.setColumnHeader("vbnumber", "Varbind Number");
         table.setColumnHeader("vbvalueCollection", "Varbind Values");
         table.setColumnExpandRatio("vbvalueCollection", 1);
@@ -143,13 +144,14 @@ public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayL
     @Override
     public VarbindArrayList getValue() {
         VarbindArrayList beans = new VarbindArrayList();
-        for (Object itemId: container.getItemIds()) {
+        for (Object itemId : container.getItemIds()) {
             beans.add(container.getItem(itemId).getBean());
         }
         return beans;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
      */
     @Override
@@ -159,8 +161,10 @@ public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayL
         super.setReadOnly(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
@@ -190,7 +194,8 @@ public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayL
         if (itemId == null) {
             Notification.show("Please select a Mask Varbind from the table.");
         } else {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
                                            "Do you really want to remove the selected Mask Varbind field?<br/>This action cannot be undone.",

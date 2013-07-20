@@ -37,9 +37,10 @@ import org.opennms.web.svclayer.inventory.InventoryService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-
 /**
- * <p>InvNodeController class.</p>
+ * <p>
+ * InvNodeController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,18 +51,25 @@ public class InvNodeController implements Controller {
     InventoryService m_inventoryService;
 
     /**
-     * <p>getInventoryService</p>
+     * <p>
+     * getInventoryService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *         object.
      */
     public InventoryService getInventoryService() {
         return m_inventoryService;
     }
 
     /**
-     * <p>setInventoryService</p>
+     * <p>
+     * setInventoryService
+     * </p>
      *
-     * @param inventoryService a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @param inventoryService
+     *            a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *            object.
      */
     public void setInventoryService(InventoryService inventoryService) {
         m_inventoryService = inventoryService;
@@ -69,17 +77,15 @@ public class InvNodeController implements Controller {
 
     /** {@inheritDoc} */
     @Override
-    public ModelAndView handleRequest(HttpServletRequest request,
-            HttpServletResponse arg1) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse arg1) throws Exception {
 
         String node = request.getParameter("node");
         int nodeid = WebSecurityUtils.safeParseInt(node);
         String group = request.getParameter("groupname");
         String version = request.getParameter("version");
-        Map<String, Object> model = m_inventoryService.getInventory(nodeid,
-                                                                         WebSecurityUtils.sanitizeString(group),
-                                                                         WebSecurityUtils.sanitizeString(version));
-        ModelAndView modelAndView = new ModelAndView("inventory/invnode","model",model);
+        Map<String, Object> model = m_inventoryService.getInventory(nodeid, WebSecurityUtils.sanitizeString(group),
+                                                                    WebSecurityUtils.sanitizeString(version));
+        ModelAndView modelAndView = new ModelAndView("inventory/invnode", "model", model);
         return modelAndView;
     }
 

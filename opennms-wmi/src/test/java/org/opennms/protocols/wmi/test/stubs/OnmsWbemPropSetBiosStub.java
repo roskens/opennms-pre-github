@@ -34,9 +34,11 @@ import org.opennms.protocols.wmi.WmiException;
 
 public class OnmsWbemPropSetBiosStub implements OnmsWbemPropertySet {
     public OnmsWbemProperty releaseDate;
+
     public OnmsWbemPropSetBiosStub(OnmsWbemProperty prop) {
         releaseDate = prop;
     }
+
     @Override
     public Integer count() throws WmiException {
         return null;
@@ -49,7 +51,8 @@ public class OnmsWbemPropSetBiosStub implements OnmsWbemPropertySet {
 
     @Override
     public OnmsWbemProperty getByName(String name) throws WmiException {
-        if(name.equals("ReleaseDate")) return releaseDate;
+        if (name.equals("ReleaseDate"))
+            return releaseDate;
         throw new WmiException("Failed to perform WMI operation: Unknown name. [0x80020006]");
     }
 }

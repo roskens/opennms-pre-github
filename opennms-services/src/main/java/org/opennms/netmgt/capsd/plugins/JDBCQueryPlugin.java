@@ -36,9 +36,10 @@ import java.util.Map;
 
 import org.opennms.core.utils.ParameterMap;
 
-
 /**
- * <p>JDBCQueryPlugin class.</p>
+ * <p>
+ * JDBCQueryPlugin class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,7 +52,8 @@ public class JDBCQueryPlugin extends JDBCPlugin {
         Statement st = null;
         String query = ParameterMap.getKeyedString(qualifiers, "query", null);
 
-        if(query == null) return false;
+        if (query == null)
+            return false;
 
         try {
             st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -61,16 +63,14 @@ public class JDBCQueryPlugin extends JDBCPlugin {
             if (rs.getRow() == 1)
                 return true;
 
-        }
-        catch(SQLException exp) {
+        } catch (SQLException exp) {
             return false;
 
         }
 
         catch (Throwable exp) {
             return false;
-        }
-        finally {
+        } finally {
             closeStmt(st);
         }
 

@@ -59,23 +59,37 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 
 @XmlRootElement(name = "ipRouteInterface")
 @Entity
-@Table(name="ipRouteInterface", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "routeDest"})})
+@Table(name = "ipRouteInterface", uniqueConstraints = { @UniqueConstraint(columnNames = { "nodeId", "routeDest" }) })
 public class OnmsIpRouteInterface {
 
     private Integer m_id;
+
     private OnmsNode m_node;
+
     private String m_routeDest;
+
     private String m_routeMask;
+
     private String m_routeNextHop;
+
     private Integer m_routeIfIndex;
+
     private Integer m_routeMetric1;
+
     private Integer m_routeMetric2;
+
     private Integer m_routeMetric3;
+
     private Integer m_routeMetric4;
+
     private Integer m_routeMetric5;
+
     private RouteType m_routeType;
+
     private Integer m_routeProto;
+
     private StatusType m_status = StatusType.UNKNOWN;
+
     private Date m_lastPollTime;
 
     @Embeddable
@@ -83,22 +97,27 @@ public class OnmsIpRouteInterface {
         private static final long serialVersionUID = -4784344871599250528L;
 
         public static final int ROUTE_TYPE_OTHER = 1;
+
         public static final int ROUTE_TYPE_INVALID = 2;
+
         public static final int ROUTE_TYPE_DIRECT = 3;
+
         public static final int ROUTE_TYPE_INDIRECT = 4;
 
-        private static final Integer[] s_order = {ROUTE_TYPE_OTHER, ROUTE_TYPE_INVALID, ROUTE_TYPE_DIRECT, ROUTE_TYPE_INDIRECT};
+        private static final Integer[] s_order = { ROUTE_TYPE_OTHER, ROUTE_TYPE_INVALID, ROUTE_TYPE_DIRECT,
+                ROUTE_TYPE_INDIRECT };
 
         private Integer m_routeType;
 
         private static final Map<Integer, String> routeTypeMap = new HashMap<Integer, String>();
 
         static {
-            routeTypeMap.put(ROUTE_TYPE_OTHER, "Other" );
-            routeTypeMap.put(ROUTE_TYPE_INVALID, "Invalid" );
-            routeTypeMap.put(ROUTE_TYPE_DIRECT, "Direct" );
-            routeTypeMap.put(ROUTE_TYPE_INDIRECT, "Indirect" );
+            routeTypeMap.put(ROUTE_TYPE_OTHER, "Other");
+            routeTypeMap.put(ROUTE_TYPE_INVALID, "Invalid");
+            routeTypeMap.put(ROUTE_TYPE_DIRECT, "Direct");
+            routeTypeMap.put(ROUTE_TYPE_INDIRECT, "Indirect");
         }
+
         @SuppressWarnings("unused")
         private RouteType() {
         }
@@ -107,7 +126,7 @@ public class OnmsIpRouteInterface {
             m_routeType = routeType;
         }
 
-        @Column(name="routeType")
+        @Column(name = "routeType")
         public Integer getIntCode() {
             return m_routeType;
         }
@@ -127,13 +146,13 @@ public class OnmsIpRouteInterface {
                     return i;
                 }
             }
-            throw new IllegalArgumentException("illegal routeType code '"+code+"'");
+            throw new IllegalArgumentException("illegal routeType code '" + code + "'");
         }
 
         @Override
         public boolean equals(Object o) {
             if (o instanceof RouteType) {
-                return m_routeType.intValue() == ((RouteType)o).m_routeType.intValue();
+                return m_routeType.intValue() == ((RouteType) o).m_routeType.intValue();
             }
             return false;
         }
@@ -152,17 +171,23 @@ public class OnmsIpRouteInterface {
             if (code == null)
                 return null;
             switch (code) {
-            case ROUTE_TYPE_OTHER: return OTHER;
-            case ROUTE_TYPE_INVALID: return INVALID;
-            case ROUTE_TYPE_DIRECT: return DIRECT;
-            case ROUTE_TYPE_INDIRECT: return INDIRECT;
+            case ROUTE_TYPE_OTHER:
+                return OTHER;
+            case ROUTE_TYPE_INVALID:
+                return INVALID;
+            case ROUTE_TYPE_DIRECT:
+                return DIRECT;
+            case ROUTE_TYPE_INDIRECT:
+                return INDIRECT;
             default:
-                throw new IllegalArgumentException("Cannot create routeType from code "+code);
+                throw new IllegalArgumentException("Cannot create routeType from code " + code);
             }
         }
 
         /**
-         * <p>getRouteTypeString</p>
+         * <p>
+         * getRouteTypeString
+         * </p>
          *
          * @return a {@link java.lang.String} object.
          */
@@ -170,27 +195,31 @@ public class OnmsIpRouteInterface {
          */
         public static String getRouteTypeString(Integer code) {
             if (routeTypeMap.containsKey(code))
-                    return routeTypeMap.get( code);
+                return routeTypeMap.get(code);
             return null;
         }
 
         public static RouteType OTHER = new RouteType(ROUTE_TYPE_OTHER);
+
         public static RouteType INVALID = new RouteType(ROUTE_TYPE_INVALID);
+
         public static RouteType DIRECT = new RouteType(ROUTE_TYPE_DIRECT);
+
         public static RouteType INDIRECT = new RouteType(ROUTE_TYPE_INDIRECT);
 
     }
-   @Id
-    @Column(nullable=false)
+
+    @Id
+    @Column(nullable = false)
     @XmlTransient
-    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
         return m_id;
     }
 
     @XmlID
-    @XmlAttribute(name="id")
+    @XmlAttribute(name = "id")
     @Transient
     public String getInterfaceId() {
         return getId().toString();
@@ -199,9 +228,10 @@ public class OnmsIpRouteInterface {
     public void setId(final Integer id) {
         m_id = id;
     }
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="nodeId")
-    @XmlElement(name="nodeId")
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "nodeId")
+    @XmlElement(name = "nodeId")
     @XmlIDREF
     public OnmsNode getNode() {
         return m_node;
@@ -212,149 +242,145 @@ public class OnmsIpRouteInterface {
     }
 
     @XmlElement
-    @Column(nullable=false, length=16)
-	public String getRouteDest() {
-		return m_routeDest;
-	}
+    @Column(nullable = false, length = 16)
+    public String getRouteDest() {
+        return m_routeDest;
+    }
 
-	public void setRouteDest(final String routeDest) {
-		m_routeDest = routeDest;
-	}
-
-    @XmlElement
-    @Column(nullable=false, length=16)
-	public String getRouteMask() {
-		return m_routeMask;
-	}
-
-	public void setRouteMask(final String routeMask) {
-		m_routeMask = routeMask;
-	}
+    public void setRouteDest(final String routeDest) {
+        m_routeDest = routeDest;
+    }
 
     @XmlElement
-    @Column(nullable=false, length=16)
-	public String getRouteNextHop() {
-		return m_routeNextHop;
-	}
+    @Column(nullable = false, length = 16)
+    public String getRouteMask() {
+        return m_routeMask;
+    }
 
-	public void setRouteNextHop(final String routeNextHop) {
-		m_routeNextHop = routeNextHop;
-	}
-
-    @XmlElement
-    @Column(nullable=false)
-	public Integer getRouteIfIndex() {
-		return m_routeIfIndex;
-	}
-
-	public void setRouteIfIndex(final Integer routeIfIndex) {
-		m_routeIfIndex = routeIfIndex;
-	}
+    public void setRouteMask(final String routeMask) {
+        m_routeMask = routeMask;
+    }
 
     @XmlElement
-    @Column
-	public Integer getRouteMetric1() {
-		return m_routeMetric1;
-	}
+    @Column(nullable = false, length = 16)
+    public String getRouteNextHop() {
+        return m_routeNextHop;
+    }
 
-	public void setRouteMetric1(final Integer routeMetric1) {
-		m_routeMetric1 = routeMetric1;
-	}
+    public void setRouteNextHop(final String routeNextHop) {
+        m_routeNextHop = routeNextHop;
+    }
+
+    @XmlElement
+    @Column(nullable = false)
+    public Integer getRouteIfIndex() {
+        return m_routeIfIndex;
+    }
+
+    public void setRouteIfIndex(final Integer routeIfIndex) {
+        m_routeIfIndex = routeIfIndex;
+    }
 
     @XmlElement
     @Column
-	public Integer getRouteMetric2() {
-		return m_routeMetric2;
-	}
+    public Integer getRouteMetric1() {
+        return m_routeMetric1;
+    }
 
-	public void setRouteMetric2(final Integer routeMetric2) {
-		m_routeMetric2 = routeMetric2;
-	}
-
-    @XmlElement
-    @Column
-	public Integer getRouteMetric3() {
-		return m_routeMetric3;
-	}
-
-	public void setRouteMetric3(final Integer routeMetric3) {
-		m_routeMetric3 = routeMetric3;
-	}
+    public void setRouteMetric1(final Integer routeMetric1) {
+        m_routeMetric1 = routeMetric1;
+    }
 
     @XmlElement
     @Column
-	public Integer getRouteMetric4() {
-		return m_routeMetric4;
-	}
+    public Integer getRouteMetric2() {
+        return m_routeMetric2;
+    }
 
-	public void setRouteMetric4(final Integer routeMetric4) {
-		m_routeMetric4 = routeMetric4;
-	}
-
-    @XmlElement
-    @Column
-	public Integer getRouteMetric5() {
-		return m_routeMetric5;
-	}
-
-	public void setRouteMetric5(final Integer routeMetric5) {
-		m_routeMetric5 = routeMetric5;
-	}
+    public void setRouteMetric2(final Integer routeMetric2) {
+        m_routeMetric2 = routeMetric2;
+    }
 
     @XmlElement
     @Column
-	public RouteType getRouteType() {
-		return m_routeType;
-	}
+    public Integer getRouteMetric3() {
+        return m_routeMetric3;
+    }
 
-	public void setRouteType(final RouteType routeType) {
-		m_routeType = routeType;
-	}
+    public void setRouteMetric3(final Integer routeMetric3) {
+        m_routeMetric3 = routeMetric3;
+    }
 
     @XmlElement
     @Column
-	public Integer getRouteProto() {
-		return m_routeProto;
-	}
+    public Integer getRouteMetric4() {
+        return m_routeMetric4;
+    }
 
-	public void setRouteProto(final Integer routeProto) {
-		m_routeProto = routeProto;
-	}
+    public void setRouteMetric4(final Integer routeMetric4) {
+        m_routeMetric4 = routeMetric4;
+    }
 
     @XmlElement
-    @Column(nullable=false)
-	public StatusType getStatus() {
-		return m_status;
-	}
+    @Column
+    public Integer getRouteMetric5() {
+        return m_routeMetric5;
+    }
 
-	public void setStatus(final StatusType status) {
-		m_status = status;
-	}
+    public void setRouteMetric5(final Integer routeMetric5) {
+        m_routeMetric5 = routeMetric5;
+    }
+
+    @XmlElement
+    @Column
+    public RouteType getRouteType() {
+        return m_routeType;
+    }
+
+    public void setRouteType(final RouteType routeType) {
+        m_routeType = routeType;
+    }
+
+    @XmlElement
+    @Column
+    public Integer getRouteProto() {
+        return m_routeProto;
+    }
+
+    public void setRouteProto(final Integer routeProto) {
+        m_routeProto = routeProto;
+    }
+
+    @XmlElement
+    @Column(nullable = false)
+    public StatusType getStatus() {
+        return m_status;
+    }
+
+    public void setStatus(final StatusType status) {
+        m_status = status;
+    }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable=false)
+    @Column(nullable = false)
     @XmlElement
-	public Date getLastPollTime() {
-		return m_lastPollTime;
-	}
+    public Date getLastPollTime() {
+        return m_lastPollTime;
+    }
 
-	public void setLastPollTime(final Date lastPollTime) {
-		m_lastPollTime = lastPollTime;
-	}
+    public void setLastPollTime(final Date lastPollTime) {
+        m_lastPollTime = lastPollTime;
+    }
 
     @Override
-	public String toString() {
-		    return new ToStringBuilder(this)
-		        .append("id", m_id)
-		        .append("node", m_node)
-		        .append("routedest", m_routeDest)
-		        .append("routemask", m_routeMask)
-		        .append("routenexthop", m_routeNextHop)
-		        .append("routeifindex", m_routeIfIndex)
-		        .append("routetype", RouteType.getRouteTypeString(m_routeType.getIntCode()))
-		        .append("routeprotocol", m_routeProto)
-		        .append("routemetric1", m_routeMetric1)
-		        .toString();
-	}
+    public String toString() {
+        return new ToStringBuilder(this).append("id", m_id).append("node", m_node).append("routedest", m_routeDest).append("routemask",
+                                                                                                                           m_routeMask).append("routenexthop",
+                                                                                                                                               m_routeNextHop).append("routeifindex",
+                                                                                                                                                                      m_routeIfIndex).append("routetype",
+                                                                                                                                                                                             RouteType.getRouteTypeString(m_routeType.getIntCode())).append("routeprotocol",
+                                                                                                                                                                                                                                                            m_routeProto).append("routemetric1",
+                                                                                                                                                                                                                                                                                 m_routeMetric1).toString();
+    }
 
 }

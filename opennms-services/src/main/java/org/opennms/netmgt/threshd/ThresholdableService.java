@@ -55,15 +55,15 @@ import org.opennms.netmgt.scheduler.ReadyRunnable;
  *
  * @author <A HREF="mailto:mike@opennms.org">Mike Davidson </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- *
  * @deprecated Thresholding now done in CollectableService (in collectd)
  */
 final class ThresholdableService extends InetNetworkInterface implements ThresholdNetworkInterface, ReadyRunnable {
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdableService.class);
-	/**
+
+    /**
 	 *
 	 */
-	private static final long serialVersionUID = 2477161545461824755L;
+    private static final long serialVersionUID = 2477161545461824755L;
 
     /**
      * Interface's parent node identifier
@@ -127,7 +127,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
      * The map of service parameters. These parameters are mapped by the
      * composite key <em>(package name, service name)</em>.
      */
-    private static Map<String,Map<?,?>> SVC_PROP_MAP = new ConcurrentSkipListMap<String,Map<?,?>>();
+    private static Map<String, Map<?, ?>> SVC_PROP_MAP = new ConcurrentSkipListMap<String, Map<?, ?>>();
 
     private Threshd m_threshd;
 
@@ -142,9 +142,9 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
      *            Service name
      * @param pkg
      *            The package containing parms for this collectable service.
-     *
      */
-    ThresholdableService(Threshd threshd, int dbNodeId, InetAddress address, String svcName, org.opennms.netmgt.config.threshd.Package pkg) {
+    ThresholdableService(Threshd threshd, int dbNodeId, InetAddress address, String svcName,
+            org.opennms.netmgt.config.threshd.Package pkg) {
         super(address);
         m_nodeId = dbNodeId;
         m_package = pkg;
@@ -182,7 +182,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
         m_svcPropKey = m_package.getName() + "." + m_service.getName();
         synchronized (SVC_PROP_MAP) {
             if (!SVC_PROP_MAP.containsKey(m_svcPropKey)) {
-                Map<String,String> m = new ConcurrentSkipListMap<String,String>();
+                Map<String, String> m = new ConcurrentSkipListMap<String, String>();
                 for (final Parameter p : m_service.getParameterCollection()) {
                     m.put(p.getKey(), p.getValue());
                 }
@@ -203,7 +203,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
      *
      * @return a int.
      */
-        @Override
+    @Override
     public int getNodeId() {
         return m_nodeId;
     }
@@ -211,7 +211,8 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     /**
      * Set node identifier
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     public void setNodeId(int nodeId) {
         m_nodeId = nodeId;
@@ -236,13 +237,14 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     }
 
     /**
-     * Uses the existing package name to try and re-obtain the package from the threshd config factory.
+     * Uses the existing package name to try and re-obtain the package from the
+     * threshd config factory.
      * Should be called when the threshd config has been reloaded.
      */
     public void refreshPackage() {
-        Package refreshedPackage=m_threshd.getPackage(getPackageName());
-        if(refreshedPackage!=null) {
-            this.m_package=refreshedPackage;
+        Package refreshedPackage = m_threshd.getPackage(getPackageName());
+        if (refreshedPackage != null) {
+            this.m_package = refreshedPackage;
         }
     }
 
@@ -263,7 +265,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
      *
      * @return a boolean.
      */
-        @Override
+    @Override
     public boolean isReady() {
         boolean ready = false;
 
@@ -290,7 +292,6 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
 
     /**
      * Generate event and send it to eventd via the event proxy.
-     *
      * uei Universal event identifier of event to generate.
      */
     private void sendEvent(String uei) {
@@ -312,9 +313,9 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
         LOG.debug("sendEvent: Sent event {} for {}/{}/{}", uei, m_nodeId, getHostAddress(), m_service.getName());
     }
 
-	private String getHostAddress() {
-		return InetAddressUtils.str(m_address);
-	}
+    private String getHostAddress() {
+        return InetAddressUtils.str(m_address);
+    }
 
     /**
      * This is the main method of the class. An instance is normally enqueued on
@@ -323,7 +324,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
      * it's own thread context to execute the query. The last step in the method
      * before it exits is to reschedule the interface.
      */
-        @Override
+    @Override
     public void run() {
         // Process any oustanding updates.
         if (processUpdates() == ABORT_THRESHOLD_CHECK)
@@ -344,11 +345,12 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
         LOG.debug("run: starting new threshold check for {}", getHostAddress());
 
         int status = ServiceThresholder.THRESHOLDING_FAILED;
-        final Map<?,?> propertiesMap = SVC_PROP_MAP.get(m_svcPropKey);
+        final Map<?, ?> propertiesMap = SVC_PROP_MAP.get(m_svcPropKey);
         try {
             status = m_thresholder.check(this, m_proxy, propertiesMap);
         } catch (final Throwable t) {
-            LOG.error("run: An undeclared throwable was caught during SNMP thresholding for interface {}", getHostAddress(), t);
+            LOG.error("run: An undeclared throwable was caught during SNMP thresholding for interface {}",
+                      getHostAddress(), t);
         }
 
         // Update last threshold check time
@@ -384,8 +386,8 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
         return;
     }
 
-    Map<?,?> getPropertyMap() {
-        return Collections.unmodifiableMap((Map<?,?>) SVC_PROP_MAP.get(m_svcPropKey));
+    Map<?, ?> getPropertyMap() {
+        return Collections.unmodifiableMap((Map<?, ?>) SVC_PROP_MAP.get(m_svcPropKey));
     }
 
     /**
@@ -413,8 +415,10 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
             // Does the outage apply to the current time?
             if (outageFactory.isCurTimeInOutage(outageName)) {
                 // Does the outage apply to this interface?
-                if ((outageFactory.isNodeIdInOutage((long) m_nodeId, outageName)) || (outageFactory.isInterfaceInOutage(getHostAddress(), outageName))) {
-                    LOG.debug("scheduledOutage: configured outage '{}' applies, interface {} will not be thresholded for {}", outageName, getHostAddress(), m_service);
+                if ((outageFactory.isNodeIdInOutage((long) m_nodeId, outageName))
+                        || (outageFactory.isInterfaceInOutage(getHostAddress(), outageName))) {
+                    LOG.debug("scheduledOutage: configured outage '{}' applies, interface {} will not be thresholded for {}",
+                              outageName, getHostAddress(), m_service);
                     outageFound = true;
                     break;
                 }
@@ -444,7 +448,8 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
                 // Deletion flag is set, simply return without polling
                 // or rescheduling this collector.
                 //
-                LOG.debug("Collector for  {} is marked for deletion...skipping thresholding, will not reschedule.", getHostAddress());
+                LOG.debug("Collector for  {} is marked for deletion...skipping thresholding, will not reschedule.",
+                          getHostAddress());
 
                 return ABORT_THRESHOLD_CHECK;
             }
@@ -464,7 +469,8 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
                 } catch (final RuntimeException e) {
                     LOG.warn("Unable to reschedule {} for {} thresholding.", getHostAddress(), m_service.getName(), e);
                 } catch (final Throwable t) {
-                    LOG.error("Uncaught exception, failed to reschedule interface {} for {} thresholding.", getHostAddress(), m_service.getName(), t);
+                    LOG.error("Uncaught exception, failed to reschedule interface {} for {} thresholding.",
+                              getHostAddress(), m_service.getName(), t);
                 }
             }
 
@@ -478,7 +484,8 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
                 try {
                     newNodeId = Integer.parseInt(m_updates.getReparentNewNodeId());
                 } catch (final NumberFormatException nfE) {
-                    LOG.warn("Unable to convert new nodeId value to an int while processing reparenting update: {}", m_updates.getReparentNewNodeId(), nfE);
+                    LOG.warn("Unable to convert new nodeId value to an int while processing reparenting update: {}",
+                             m_updates.getReparentNewNodeId(), nfE);
                 }
 
                 // Set this collector's nodeId to the value of the interface's
@@ -497,7 +504,8 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
                 } catch (final RuntimeException rE) {
                     LOG.warn("Unable to initialize {} for {} thresholding.", getHostAddress(), m_service.getName(), rE);
                 } catch (final Throwable t) {
-                    LOG.error("Uncaught exception, failed to initialize interface {} for {} thresholding.", getHostAddress(), m_service.getName(), t);
+                    LOG.error("Uncaught exception, failed to initialize interface {} for {} thresholding.",
+                              getHostAddress(), m_service.getName(), t);
                 }
             }
 

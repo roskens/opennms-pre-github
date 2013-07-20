@@ -51,7 +51,9 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
- * <p>CategoryController class.</p>
+ * <p>
+ * CategoryController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -60,11 +62,13 @@ import org.springframework.web.servlet.view.RedirectView;
 public class CategoryController extends AbstractController {
 
     private AdminCategoryService m_adminCategoryService;
+
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         String removeCategoryIdString = request.getParameter("removeCategoryId");
         String newCategoryName = request.getParameter("newCategoryName");
         String categoryIdString = request.getParameter("categoryid");
@@ -92,7 +96,7 @@ public class CategoryController extends AbstractController {
              * for this new category, which would be great, however it's
              * not so great if the site has a huge number of available
              * category and they need to edit category member nodes
-             * from the node pages.  So, we don't do it.
+             * from the node pages. So, we don't do it.
              */
             return new ModelAndView(redirect);
         }
@@ -119,10 +123,12 @@ public class CategoryController extends AbstractController {
 
         // if we don't have an edit string, we just show the category
         if (categoryIdString != null) {
-            return new ModelAndView("/admin/showCategory", "model", m_adminCategoryService.getCategory(categoryIdString));
+            return new ModelAndView("/admin/showCategory", "model",
+                                    m_adminCategoryService.getCategory(categoryIdString));
         }
 
-        // if we have a nodeId and we're in edit mode, edit the categories for a specific node
+        // if we have a nodeId and we're in edit mode, edit the categories for a
+        // specific node
         if (nodeIdString != null && editString != null) {
             String editAction = request.getParameter("action");
 
@@ -139,7 +145,8 @@ public class CategoryController extends AbstractController {
                 return modelAndView;
             }
 
-            // otherwise, display the edit page for adding and removing categories from a node
+            // otherwise, display the edit page for adding and removing
+            // categories from a node
             NodeEditModel model = m_adminCategoryService.findNodeCategories(nodeIdString);
 
             return new ModelAndView("/admin/editNodeCategories", "model", model);
@@ -151,24 +158,25 @@ public class CategoryController extends AbstractController {
 
         ModelAndView modelAndView = new ModelAndView("/admin/categories");
         modelAndView.addObject("categories", sortedCategories);
-        modelAndView.addObject("surveillanceCategories",surveillanceCategories);
+        modelAndView.addObject("surveillanceCategories", surveillanceCategories);
 
-        return modelAndView; //new ModelAndView("/admin/categories", "categories", sortedCategories);
+        return modelAndView; // new ModelAndView("/admin/categories",
+                             // "categories", sortedCategories);
     }
 
     private List<String> getAllSurveillanceViewCategories() {
         List<String> categoryNames = new ArrayList<String>();
         Views views = getSurveillanceViewConfigDao().getViews();
 
-        for(View view : views.getViewCollection()) {
+        for (View view : views.getViewCollection()) {
             Rows rows = view.getRows();
-            for(RowDef row : rows.getRowDefCollection()) {
+            for (RowDef row : rows.getRowDefCollection()) {
                 List<Category> categoryCollection = row.getCategoryCollection();
                 addCategoryNames(categoryNames, categoryCollection);
             }
 
             Columns columns = view.getColumns();
-            for(ColumnDef column : columns.getColumnDefCollection()) {
+            for (ColumnDef column : columns.getColumnDefCollection()) {
                 List<Category> categoryCollection = column.getCategoryCollection();
                 addCategoryNames(categoryNames, categoryCollection);
             }
@@ -179,15 +187,17 @@ public class CategoryController extends AbstractController {
     }
 
     private void addCategoryNames(final List<String> categoryNames, final List<Category> categoryCollection) {
-        for(Category category : categoryCollection) {
-            if(!categoryNames.contains(category.getName())) {
+        for (Category category : categoryCollection) {
+            if (!categoryNames.contains(category.getName())) {
                 categoryNames.add(category.getName());
             }
         }
     }
 
     /**
-     * <p>getAdminCategoryService</p>
+     * <p>
+     * getAdminCategoryService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.AdminCategoryService} object.
      */
@@ -196,9 +206,13 @@ public class CategoryController extends AbstractController {
     }
 
     /**
-     * <p>setAdminCategoryService</p>
+     * <p>
+     * setAdminCategoryService
+     * </p>
      *
-     * @param adminCategoryService a {@link org.opennms.web.svclayer.AdminCategoryService} object.
+     * @param adminCategoryService
+     *            a {@link org.opennms.web.svclayer.AdminCategoryService}
+     *            object.
      */
     public final void setAdminCategoryService(final AdminCategoryService adminCategoryService) {
         m_adminCategoryService = adminCategoryService;

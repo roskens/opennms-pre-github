@@ -33,7 +33,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <p>Palette class.</p>
+ * <p>
+ * Palette class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -41,60 +43,75 @@ import java.util.List;
  */
 public class Palette {
 
-	private String m_label;
-	private List<PaletteCategory> m_categories = new LinkedList<PaletteCategory>();
+    private String m_label;
 
-	/**
-	 * <p>Constructor for Palette.</p>
-	 */
-	public Palette() {
-		this(null);
-	}
+    private List<PaletteCategory> m_categories = new LinkedList<PaletteCategory>();
 
-	/**
-	 * <p>Constructor for Palette.</p>
-	 *
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public Palette(String label) {
-		m_label = label;
-	}
+    /**
+     * <p>
+     * Constructor for Palette.
+     * </p>
+     */
+    public Palette() {
+        this(null);
+    }
 
-	/**
-	 * <p>getLabel</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getLabel() {
-		return m_label;
-	}
+    /**
+     * <p>
+     * Constructor for Palette.
+     * </p>
+     *
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public Palette(String label) {
+        m_label = label;
+    }
 
-	/**
-	 * <p>setLabel</p>
-	 *
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public void setLabel(String label) {
-		m_label = label;
-	}
+    /**
+     * <p>
+     * getLabel
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getLabel() {
+        return m_label;
+    }
 
-	/**
-	 * <p>getCategories</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	public List<PaletteCategory> getCategories() {
-		return Collections.unmodifiableList(m_categories);
-	}
+    /**
+     * <p>
+     * setLabel
+     * </p>
+     *
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public void setLabel(String label) {
+        m_label = label;
+    }
 
-	/**
-	 * <p>addCategory</p>
-	 *
-	 * @param category a {@link org.opennms.web.svclayer.PaletteCategory} object.
-	 */
-	public void addCategory(PaletteCategory category) {
-		m_categories.add(category);
-	}
+    /**
+     * <p>
+     * getCategories
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    public List<PaletteCategory> getCategories() {
+        return Collections.unmodifiableList(m_categories);
+    }
 
+    /**
+     * <p>
+     * addCategory
+     * </p>
+     *
+     * @param category
+     *            a {@link org.opennms.web.svclayer.PaletteCategory} object.
+     */
+    public void addCategory(PaletteCategory category) {
+        m_categories.add(category);
+    }
 
 }

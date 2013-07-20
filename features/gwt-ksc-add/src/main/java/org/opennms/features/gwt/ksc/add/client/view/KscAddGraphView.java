@@ -40,24 +40,34 @@ public interface KscAddGraphView<T> extends IsWidget {
 
     public interface Presenter<T> {
         void onAddButtonClicked();
+
         void onKeyCodeEvent(KeyCodeEvent<?> event, String searchText);
+
         void onKscReportSelected();
     }
 
     String getSearchText();
+
     void setPresenter(Presenter<T> presenter);
+
     void setDataList(List<T> dataList);
+
     @Override
     Widget asWidget();
 
     String getTitle();
+
     void setTitle(String defaultTitle);
 
     KscReport getSelectedReport();
+
     void select(KscReport report);
+
     void clearSelection();
 
     boolean isPopupShowing();
+
     void hidePopup();
+
     void showPopup();
 }

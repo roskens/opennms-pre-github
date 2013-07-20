@@ -46,6 +46,7 @@ import org.slf4j.LoggerFactory;
 public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTimeResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(TrivialTimeClient.class);
+
     /**
      * Seconds to subtract from a 1970-01-01 00:00:00-based UNIX timestamp
      * to make it comparable to a 1900-01-01 00:00:00-based timestamp from
@@ -54,11 +55,15 @@ public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTime
     private static final int EPOCH_ADJ_FACTOR = 2085978496;
 
     private String protocol;
+
     private int allowedSkew;
+
     private int retries;
 
     private Socket tcpSocket;
+
     private DatagramSocket udpSocket;
+
     private DatagramPacket udpPacket;
 
     public TrivialTimeClient(String protocol, int allowedSkew) {
@@ -71,7 +76,7 @@ public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTime
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
         // Validate Protocol
         if (!isTcp() && !isUdp()) {
-            throw new  IllegalArgumentException("Unsupported protocol, only TCP and UDP currently supported");
+            throw new IllegalArgumentException("Unsupported protocol, only TCP and UDP currently supported");
         } else if (isUdp()) {
             LOG.warn("UDP support is largely untested");
         }
@@ -83,7 +88,10 @@ public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTime
         } else {
             udpSocket = new DatagramSocket();
             udpSocket.setSoTimeout(timeout);
-            udpPacket = new DatagramPacket(new byte[]{}, 0, address, port); // Empty datagram per RFC868
+            udpPacket = new DatagramPacket(new byte[] {}, 0, address, port); // Empty
+                                                                             // datagram
+                                                                             // per
+                                                                             // RFC868
         }
         LOG.debug("Connected to host: {} on {} port: {}", address, protocol.toUpperCase(), port);
     }
@@ -144,7 +152,7 @@ public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTime
                 continue; // to next iteration of for() loop
             }
 
-            localTime = (int)(System.currentTimeMillis() / 1000) - EPOCH_ADJ_FACTOR;
+            localTime = (int) (System.currentTimeMillis() / 1000) - EPOCH_ADJ_FACTOR;
             gotTime = true;
         }
         return gotTime ? new TrivialTimeResponse(remoteTime, localTime, allowedSkew) : new TrivialTimeResponse();

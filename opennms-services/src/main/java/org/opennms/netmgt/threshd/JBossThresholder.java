@@ -34,7 +34,9 @@ package org.opennms.netmgt.threshd;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 /**
- * <p>JBossThresholder class.</p>
+ * <p>
+ * JBossThresholder class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,7 +44,9 @@ package org.opennms.netmgt.threshd;
 public class JBossThresholder extends JMXThresholder {
 
     /**
-     * <p>Constructor for JBossThresholder.</p>
+     * <p>
+     * Constructor for JBossThresholder.
+     * </p>
      */
     public JBossThresholder() {
         super();

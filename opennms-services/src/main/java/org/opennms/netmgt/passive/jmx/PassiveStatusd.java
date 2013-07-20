@@ -43,7 +43,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>PassiveStatusd class.</p>
+ * <p>
+ * PassiveStatusd class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -52,8 +54,11 @@ import org.slf4j.LoggerFactory;
 public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStatusdMBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(PassiveStatusd.class);
+
     /**
-     * <p>Constructor for PassiveStatusd.</p>
+     * <p>
+     * Constructor for PassiveStatusd.
+     * </p>
      */
     public PassiveStatusd() {
         super(NAME);
@@ -62,7 +67,9 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
     public final static String NAME = "passive";
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -93,7 +100,9 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -101,7 +110,9 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -109,7 +120,9 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */

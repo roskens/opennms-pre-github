@@ -43,16 +43,21 @@ public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
     public static final String TYPE = "exactUeiNot";
 
     /**
-     * <p>Constructor for NegativeExactUEIFilter.</p>
+     * <p>
+     * Constructor for NegativeExactUEIFilter.
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      */
     public NegativeExactUEIFilter(String uei) {
         super(TYPE, SQLType.STRING, "EVENTUEI", "uei", uei);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +67,9 @@ public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +79,9 @@ public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
     }
 
     /**
-     * <p>getUEI</p>
+     * <p>
+     * getUEI
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

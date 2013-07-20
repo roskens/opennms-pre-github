@@ -41,31 +41,41 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * @author Christian Pape
  * @author Markus Neumann
  */
 public class DefaultCollectionJob implements CollectionJob {
     private static final long serialVersionUID = -857193182688356245L;
+
     private static final String METRIC_TYPE_UNKNOWN = "metricTypeUnknown";
 
     private static AtomicLong s_idGenerator = new AtomicLong(0L);
+
     private static Logger logger = LoggerFactory.getLogger(DefaultCollectionJob.class);
 
     private String m_id = String.valueOf(s_idGenerator.incrementAndGet());
+
     private String m_site;
+
     private String m_netInterface;
+
     private String m_service;
+
     private int m_nodeId;
+
     private String m_protocolConfiguration;
 
     private Map<Set<String>, Set<String>> m_metricSets = new HashMap<Set<String>, Set<String>>();
+
     private Map<String, ArrayList<String>> m_allMetrics = new HashMap<String, ArrayList<String>>();
+
     private Map<String, String> m_onmsLogicMetricIdMapping = new HashMap<String, String>();
 
     private Map<String, Object> m_parameters = null;
+
     private Date m_creationTimestamp = new Date();
+
     private Date m_finishedTimestamp = null;
 
     @Override
@@ -128,7 +138,6 @@ public class DefaultCollectionJob implements CollectionJob {
         m_protocolConfiguration = protocolConfiguration;
     }
 
-
     @Override
     public void setParameters(Map<String, Object> parameters) {
         this.m_parameters = parameters;
@@ -141,14 +150,17 @@ public class DefaultCollectionJob implements CollectionJob {
 
     @Override
     public MeasurementSet getMeasurementSet() {
-        LightweightMeasurementSet measurementSet = new LightweightMeasurementSet(getNodeId(), getService(), getNetInterface(), getFinishedTimestamp());
+        LightweightMeasurementSet measurementSet = new LightweightMeasurementSet(getNodeId(), getService(),
+                                                                                 getNetInterface(),
+                                                                                 getFinishedTimestamp());
 
         for (Set<String> destinationSet : m_metricSets.keySet()) {
 
             Set<String> metricSet = m_metricSets.get(destinationSet);
 
             for (String metricId : metricSet) {
-                measurementSet.addMeasurement(metricId, getMetricType(metricId), getMetricValue(metricId), getOnmsLogicMetricId(metricId));
+                measurementSet.addMeasurement(metricId, getMetricType(metricId), getMetricValue(metricId),
+                                              getOnmsLogicMetricId(metricId));
             }
         }
 
@@ -176,7 +188,8 @@ public class DefaultCollectionJob implements CollectionJob {
     }
 
     @Override
-    public void addMetric(String metricId, Set<String> destinationSet, String onmsLogicMetricId) throws IllegalArgumentException {
+    public void addMetric(String metricId, Set<String> destinationSet, String onmsLogicMetricId)
+            throws IllegalArgumentException {
         if (destinationSet == null) {
             throw new IllegalArgumentException("destinationSet must not be null");
         } else {
@@ -195,7 +208,8 @@ public class DefaultCollectionJob implements CollectionJob {
         // the destination set to use, initialized with the given parameter
         TreeSet<String> destinationSetToUse = new TreeSet<String>(destinationSet);
 
-        // checking whether a already defined destination set conatins the metricId
+        // checking whether a already defined destination set conatins the
+        // metricId
         for (Set<String> alreadyDefinedDestinationSet : m_metricSets.keySet()) {
             if (m_metricSets.get(alreadyDefinedDestinationSet).contains(metricId)) {
 
@@ -207,10 +221,12 @@ public class DefaultCollectionJob implements CollectionJob {
                 // removing metric from already defined destination set
                 m_metricSets.get(alreadyDefinedDestinationSet).remove(metricId);
 
-                // modifying the destination set to include the already defined set
+                // modifying the destination set to include the already defined
+                // set
                 destinationSetToUse.addAll(alreadyDefinedDestinationSet);
 
-                logger.debug("Metric " + metricId + "already exists in " + alreadyDefinedDestinationSet + ", moving metric to " + destinationSetToUse);
+                logger.debug("Metric " + metricId + "already exists in " + alreadyDefinedDestinationSet
+                        + ", moving metric to " + destinationSetToUse);
             }
         }
 
@@ -226,12 +242,13 @@ public class DefaultCollectionJob implements CollectionJob {
     }
 
     /*
-    public void addAllMetrics(List<String> metric, Set<String> destinationSet) {
-        for (String metricId : metric) {
-            addMetric(metricId, destinationSet);
-        }
-    }
-    */
+     * public void addAllMetrics(List<String> metric, Set<String>
+     * destinationSet) {
+     * for (String metricId : metric) {
+     * addMetric(metricId, destinationSet);
+     * }
+     * }
+     */
 
     @Override
     public void setMetricValue(String metricId, String metricType, String value) throws IllegalArgumentException {
@@ -310,21 +327,27 @@ public class DefaultCollectionJob implements CollectionJob {
     }
 
     /*
-     * Returns a map for each combination of destinations occuring in the collection
-     * job with the corresponding measurements. If a metric is associated with more
-     * than one destination it occurs only in one measurement set for multiple destinations.
+     * Returns a map for each combination of destinations occuring in the
+     * collection
+     * job with the corresponding measurements. If a metric is associated with
+     * more
+     * than one destination it occurs only in one measurement set for multiple
+     * destinations.
      */
     @Override
     public Map<String, MeasurementSet> getMeasurementSetsByDestination() {
         Map<String, MeasurementSet> measurementMap = new TreeMap<String, MeasurementSet>();
 
         for (Set<String> destinationSet : m_metricSets.keySet()) {
-            LightweightMeasurementSet measurementSet = new LightweightMeasurementSet(getNodeId(), getService(), getNetInterface(), getFinishedTimestamp());
+            LightweightMeasurementSet measurementSet = new LightweightMeasurementSet(getNodeId(), getService(),
+                                                                                     getNetInterface(),
+                                                                                     getFinishedTimestamp());
 
             Set<String> metricSet = m_metricSets.get(destinationSet);
 
             for (String metricId : metricSet) {
-                measurementSet.addMeasurement(metricId, getMetricType(metricId), getMetricValue(metricId), getOnmsLogicMetricId(metricId));
+                measurementSet.addMeasurement(metricId, getMetricType(metricId), getMetricValue(metricId),
+                                              getOnmsLogicMetricId(metricId));
             }
 
             measurementMap.put(getDestinationString(destinationSet), measurementSet);

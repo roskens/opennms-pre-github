@@ -28,4 +28,5 @@
 
 @XmlSchema(namespace = "http://xmlns.opennms.org/xsd/config/xml-datacollection", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package org.opennms.protocols.xml.config;
+
 import javax.xml.bind.annotation.XmlSchema;

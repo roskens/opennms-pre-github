@@ -46,15 +46,19 @@ import org.springframework.stereotype.Component;
 public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
 
     private final static String DEFAULT_STORED_PROCEDURE = "isRunning";
+
     private final static String DEFAULT_SCHEMA = "test";
 
     private String m_storedProcedure;
+
     private String m_schema = "test";
 
     /**
-     * <p>Constructor for JdbcStoredProcedureDetector.</p>
+     * <p>
+     * Constructor for JdbcStoredProcedureDetector.
+     * </p>
      */
-    protected JdbcStoredProcedureDetector(){
+    protected JdbcStoredProcedureDetector() {
         super("JdbcStoredProcedureDetector", 3306);
         setSchema(DEFAULT_SCHEMA);
         setStoredProcedure(DEFAULT_STORED_PROCEDURE);
@@ -62,13 +66,13 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
 
     /** {@inheritDoc} */
     @Override
-    protected void onInit(){
+    protected void onInit() {
         expectBanner(resultSetNotNull());
         send(storedProcedure(createProcedureCall(getSchema(), getStoredProcedure())), isValidProcedureCall());
     }
 
     private static ResponseValidator<JDBCResponse> isValidProcedureCall() {
-        return new ResponseValidator<JDBCResponse>(){
+        return new ResponseValidator<JDBCResponse>() {
 
             @Override
             public boolean validate(JDBCResponse response) {
@@ -79,7 +83,7 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
     }
 
     private static RequestBuilder<JDBCRequest> storedProcedure(final String storedProcedure) {
-        return new RequestBuilder<JDBCRequest>(){
+        return new RequestBuilder<JDBCRequest>() {
 
             @Override
             public JDBCRequest getRequest() {
@@ -92,24 +96,29 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
     }
 
     private String createProcedureCall(String schema, String procedure) {
-        if(schema != null){
+        if (schema != null) {
             return String.format("%s.%s", schema, procedure);
-        }else{
+        } else {
             return procedure;
         }
     }
 
     /**
-     * <p>setStoredProcedure</p>
+     * <p>
+     * setStoredProcedure
+     * </p>
      *
-     * @param storedProcedure a {@link java.lang.String} object.
+     * @param storedProcedure
+     *            a {@link java.lang.String} object.
      */
     public void setStoredProcedure(String storedProcedure) {
         m_storedProcedure = storedProcedure;
     }
 
     /**
-     * <p>getStoredProcedure</p>
+     * <p>
+     * getStoredProcedure
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,16 +127,21 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
     }
 
     /**
-     * <p>setSchema</p>
+     * <p>
+     * setSchema
+     * </p>
      *
-     * @param schema a {@link java.lang.String} object.
+     * @param schema
+     *            a {@link java.lang.String} object.
      */
     public void setSchema(String schema) {
         m_schema = schema;
     }
 
     /**
-     * <p>getSchema</p>
+     * <p>
+     * getSchema
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

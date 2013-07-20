@@ -29,7 +29,9 @@
 package org.opennms.web.servlet;
 
 /**
- * <p>MissingParameterException class.</p>
+ * <p>
+ * MissingParameterException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -46,19 +48,26 @@ public class MissingParameterException extends RuntimeException {
     protected String[] requiredParameters;
 
     /**
-     * <p>Constructor for MissingParameterException.</p>
+     * <p>
+     * Constructor for MissingParameterException.
+     * </p>
      *
-     * @param missingParameter a {@link java.lang.String} object.
+     * @param missingParameter
+     *            a {@link java.lang.String} object.
      */
     public MissingParameterException(String missingParameter) {
         this(missingParameter, new String[] { missingParameter });
     }
 
     /**
-     * <p>Constructor for MissingParameterException.</p>
+     * <p>
+     * Constructor for MissingParameterException.
+     * </p>
      *
-     * @param missingParameter a {@link java.lang.String} object.
-     * @param requiredParameters an array of {@link java.lang.String} objects.
+     * @param missingParameter
+     *            a {@link java.lang.String} object.
+     * @param requiredParameters
+     *            an array of {@link java.lang.String} objects.
      */
     public MissingParameterException(String missingParameter, String[] requiredParameters) {
         if (missingParameter == null || requiredParameters == null) {
@@ -70,7 +79,9 @@ public class MissingParameterException extends RuntimeException {
     }
 
     /**
-     * <p>Getter for the field <code>missingParameter</code>.</p>
+     * <p>
+     * Getter for the field <code>missingParameter</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -79,7 +90,9 @@ public class MissingParameterException extends RuntimeException {
     }
 
     /**
-     * <p>Getter for the field <code>requiredParameters</code>.</p>
+     * <p>
+     * Getter for the field <code>requiredParameters</code>.
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -88,25 +101,26 @@ public class MissingParameterException extends RuntimeException {
     }
 
     /**
-     * <p>getMessage</p>
+     * <p>
+     * getMessage
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getMessage() {
-	StringBuffer b = new StringBuffer();
+        StringBuffer b = new StringBuffer();
 
-        b.append("Missing parameter \"" + getMissingParameter()
-                 + "\" out of required parameters: ");
+        b.append("Missing parameter \"" + getMissingParameter() + "\" out of required parameters: ");
 
         String[] requiredParameters = getRequiredParameters();
-	for (int i = 0; i < requiredParameters.length; i++) {
-	    if (i != 0) {
+        for (int i = 0; i < requiredParameters.length; i++) {
+            if (i != 0) {
                 b.append(", ");
-	    }
+            }
             b.append(requiredParameters[i]);
-	}
+        }
 
-	return b.toString();
+        return b.toString();
     }
 }

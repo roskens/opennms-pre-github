@@ -52,14 +52,18 @@ package org.opennms.acl.model;
 public class UserDTO extends UserDTOLight {
 
     /**
-     * <p>Constructor for UserDTO.</p>
+     * <p>
+     * Constructor for UserDTO.
+     * </p>
      */
     public UserDTO() {
         super();
     }
 
     /**
-     * <p>Getter for the field <code>password</code>.</p>
+     * <p>
+     * Getter for the field <code>password</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,16 +72,21 @@ public class UserDTO extends UserDTOLight {
     }
 
     /**
-     * <p>Setter for the field <code>password</code>.</p>
+     * <p>
+     * Setter for the field <code>password</code>.
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * <p>Getter for the field <code>oldPassword</code>.</p>
+     * <p>
+     * Getter for the field <code>oldPassword</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,9 +95,12 @@ public class UserDTO extends UserDTOLight {
     }
 
     /**
-     * <p>Setter for the field <code>oldPassword</code>.</p>
+     * <p>
+     * Setter for the field <code>oldPassword</code>.
+     * </p>
      *
-     * @param oldPassword a {@link java.lang.String} object.
+     * @param oldPassword
+     *            a {@link java.lang.String} object.
      */
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;

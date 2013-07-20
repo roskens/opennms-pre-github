@@ -40,7 +40,7 @@ public class JdbcStatement implements Serializable, Comparable<JdbcStatement> {
 
     private static final long serialVersionUID = 883422287764280313L;
 
-    @XmlElement(name="queryString",required=true)
+    @XmlElement(name = "queryString", required = true)
     private String m_jdbcQuery;
 
     @XmlTransient
@@ -54,18 +54,14 @@ public class JdbcStatement implements Serializable, Comparable<JdbcStatement> {
 
     @Override
     public int compareTo(JdbcStatement obj) {
-        return new CompareToBuilder()
-            .append(getJdbcQuery(), obj.getJdbcQuery())
-            .toComparison();
+        return new CompareToBuilder().append(getJdbcQuery(), obj.getJdbcQuery()).toComparison();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcStatement) {
             JdbcStatement other = (JdbcStatement) obj;
-            return new EqualsBuilder()
-                .append(getJdbcQuery(), other.getJdbcQuery())
-                .isEquals();
+            return new EqualsBuilder().append(getJdbcQuery(), other.getJdbcQuery()).isEquals();
         }
         return false;
     }

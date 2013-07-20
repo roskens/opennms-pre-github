@@ -32,7 +32,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * <p>RelativeTimePeriod class.</p>
+ * <p>
+ * RelativeTimePeriod class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,38 +44,43 @@ public class RelativeTimePeriod {
     private static final RelativeTimePeriod[] s_defaultPeriods;
 
     private String m_id = null;
+
     private String m_name = null;
+
     private int m_offsetField = Calendar.DATE;
+
     private int m_offsetAmount = -1;
 
     static {
-        s_defaultPeriods = new RelativeTimePeriod[] {
-                new RelativeTimePeriod("lastday", "Last Day", Calendar.DATE,
-                                       -1),
-                new RelativeTimePeriod("lastweek", "Last Week",
-                                       Calendar.DATE, -7),
-                new RelativeTimePeriod("lastmonth", "Last Month",
-                                       Calendar.DATE, -31),
-                new RelativeTimePeriod("lastyear", "Last Year",
-                                       Calendar.DATE, -366) };
+        s_defaultPeriods = new RelativeTimePeriod[] { new RelativeTimePeriod("lastday", "Last Day", Calendar.DATE, -1),
+                new RelativeTimePeriod("lastweek", "Last Week", Calendar.DATE, -7),
+                new RelativeTimePeriod("lastmonth", "Last Month", Calendar.DATE, -31),
+                new RelativeTimePeriod("lastyear", "Last Year", Calendar.DATE, -366) };
     }
 
     /**
-     * <p>Constructor for RelativeTimePeriod.</p>
+     * <p>
+     * Constructor for RelativeTimePeriod.
+     * </p>
      */
     public RelativeTimePeriod() {
     }
 
     /**
-     * <p>Constructor for RelativeTimePeriod.</p>
+     * <p>
+     * Constructor for RelativeTimePeriod.
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
-     * @param name a {@link java.lang.String} object.
-     * @param offsetField a int.
-     * @param offsetAmount a int.
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param offsetField
+     *            a int.
+     * @param offsetAmount
+     *            a int.
      */
-    public RelativeTimePeriod(String id, String name, int offsetField,
-                              int offsetAmount) {
+    public RelativeTimePeriod(String id, String name, int offsetField, int offsetAmount) {
         m_id = id;
         m_name = name;
         m_offsetField = offsetField;
@@ -81,7 +88,9 @@ public class RelativeTimePeriod {
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,16 +99,21 @@ public class RelativeTimePeriod {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      */
     public void setId(String id) {
         m_id = id;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -108,16 +122,21 @@ public class RelativeTimePeriod {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
     /**
-     * <p>getOffsetField</p>
+     * <p>
+     * getOffsetField
+     * </p>
      *
      * @return a int.
      */
@@ -126,16 +145,21 @@ public class RelativeTimePeriod {
     }
 
     /**
-     * <p>setOffsetField</p>
+     * <p>
+     * setOffsetField
+     * </p>
      *
-     * @param offsetField a int.
+     * @param offsetField
+     *            a int.
      */
     public void setOffsetField(int offsetField) {
         m_offsetField = offsetField;
     }
 
     /**
-     * <p>getOffsetAmount</p>
+     * <p>
+     * getOffsetAmount
+     * </p>
      *
      * @return a int.
      */
@@ -144,44 +168,58 @@ public class RelativeTimePeriod {
     }
 
     /**
-     * <p>setOffsetAmount</p>
+     * <p>
+     * setOffsetAmount
+     * </p>
      *
-     * @param offsetAmount a int.
+     * @param offsetAmount
+     *            a int.
      */
     public void setOffsetAmount(int offsetAmount) {
         m_offsetAmount = offsetAmount;
     }
 
     /**
-     * <p>getDefaultPeriods</p>
+     * <p>
+     * getDefaultPeriods
+     * </p>
      *
-     * @return an array of {@link org.opennms.web.graph.RelativeTimePeriod} objects.
+     * @return an array of {@link org.opennms.web.graph.RelativeTimePeriod}
+     *         objects.
      */
     public static RelativeTimePeriod[] getDefaultPeriods() {
         return s_defaultPeriods;
     }
 
     /**
-     * <p>getPeriodByIdOrDefault</p>
+     * <p>
+     * getPeriodByIdOrDefault
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.graph.RelativeTimePeriod} object.
      */
     public static RelativeTimePeriod getPeriodByIdOrDefault(String id) {
-        return getPeriodByIdOrDefault(s_defaultPeriods, id,
-                                      s_defaultPeriods[0]);
+        return getPeriodByIdOrDefault(s_defaultPeriods, id, s_defaultPeriods[0]);
     }
+
     /**
-     * <p>getPeriodByIdOrDefault</p>
+     * <p>
+     * getPeriodByIdOrDefault
+     * </p>
      *
-     * @param periods an array of {@link org.opennms.web.graph.RelativeTimePeriod} objects.
-     * @param id a {@link java.lang.String} object.
-     * @param defaultPeriod a {@link org.opennms.web.graph.RelativeTimePeriod} object.
+     * @param periods
+     *            an array of {@link org.opennms.web.graph.RelativeTimePeriod}
+     *            objects.
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @param defaultPeriod
+     *            a {@link org.opennms.web.graph.RelativeTimePeriod} object.
      * @return a {@link org.opennms.web.graph.RelativeTimePeriod} object.
      */
-    public static RelativeTimePeriod
-        getPeriodByIdOrDefault(RelativeTimePeriod[] periods, String id,
-                RelativeTimePeriod defaultPeriod) {
+    public static RelativeTimePeriod getPeriodByIdOrDefault(RelativeTimePeriod[] periods, String id,
+            RelativeTimePeriod defaultPeriod) {
         // default to the first time period
         RelativeTimePeriod chosenPeriod = defaultPeriod;
 
@@ -196,7 +234,9 @@ public class RelativeTimePeriod {
     }
 
     /**
-     * <p>getStartAndEndTimes</p>
+     * <p>
+     * getStartAndEndTimes
+     * </p>
      *
      * @return an array of long.
      */

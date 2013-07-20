@@ -38,26 +38,27 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class IntroductionView extends Panel implements ClickListener {
 
-	private final Button next;
-	private JmxConfigGeneratorApplication app;
+    private final Button next;
 
-	public IntroductionView(JmxConfigGeneratorApplication app) {
-		this.app = app;
-		next = UIHelper.createButton("next",  IconProvider.BUTTON_NEXT, this);
+    private JmxConfigGeneratorApplication app;
 
-		setSizeFull();
-		setContent(new VerticalLayout());
-		getContent().setSizeFull();
+    public IntroductionView(JmxConfigGeneratorApplication app) {
+        this.app = app;
+        next = UIHelper.createButton("next", IconProvider.BUTTON_NEXT, this);
 
-		Layout layout = new VerticalLayout();
-		layout.addComponent(new Label(UIHelper.loadContentFromFile(getClass(), "/descriptions/IntroductionView.html"),
-				ContentMode.HTML));
-		layout.addComponent(next);
-		setContent(layout);
-	}
+        setSizeFull();
+        setContent(new VerticalLayout());
+        getContent().setSizeFull();
 
-	@Override
-	public void buttonClick(ClickEvent event) {
-		app.updateView(UiState.ServiceConfigurationView);
-	}
+        Layout layout = new VerticalLayout();
+        layout.addComponent(new Label(UIHelper.loadContentFromFile(getClass(), "/descriptions/IntroductionView.html"),
+                                      ContentMode.HTML));
+        layout.addComponent(next);
+        setContent(layout);
+    }
+
+    @Override
+    public void buttonClick(ClickEvent event) {
+        app.updateView(UiState.ServiceConfigurationView);
+    }
 }

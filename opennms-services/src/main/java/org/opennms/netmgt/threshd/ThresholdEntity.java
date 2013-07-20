@@ -58,9 +58,11 @@ public final class ThresholdEntity implements Cloneable {
 
     private static List<ThresholdEvaluator> s_thresholdEvaluators;
 
-    //Contains a list of evaluators for each used "instance".  Is populated with the list for the "default" instance (the "null" key)
-    // in the Constructor.  Note that this means we must use a null-key capable map like HashMap
-    private Map<String,List<ThresholdEvaluatorState>> m_thresholdEvaluatorStates = new HashMap<String,List<ThresholdEvaluatorState>>();
+    // Contains a list of evaluators for each used "instance". Is populated with
+    // the list for the "default" instance (the "null" key)
+    // in the Constructor. Note that this means we must use a null-key capable
+    // map like HashMap
+    private Map<String, List<ThresholdEvaluatorState>> m_thresholdEvaluatorStates = new HashMap<String, List<ThresholdEvaluatorState>>();
 
     // the commands for these need to be listed in ThresholdController as well
     static {
@@ -75,22 +77,27 @@ public final class ThresholdEntity implements Cloneable {
      * Constructor.
      */
     public ThresholdEntity() {
-        //Put in a default list for the "null" key (the default evaluators)
+        // Put in a default list for the "null" key (the default evaluators)
         m_thresholdEvaluatorStates.put(null, new LinkedList<ThresholdEvaluatorState>());
     }
 
     /**
-     * <p>getThresholdConfig</p>
+     * <p>
+     * getThresholdConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper} object.
+     * @return a
+     *         {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
+     *         object.
      */
     public BaseThresholdDefConfigWrapper getThresholdConfig() {
         return m_thresholdEvaluatorStates.get(null).get(0).getThresholdConfig();
     }
 
     private boolean hasThresholds() {
-        return m_thresholdEvaluatorStates.get(null).size()!=0;
+        return m_thresholdEvaluatorStates.get(null).size() != 0;
     }
+
     /**
      * Get datasource name
      *
@@ -131,7 +138,8 @@ public final class ThresholdEntity implements Cloneable {
     }
 
     /**
-     * Returns the names of the dataousrces required to evaluate this threshold entity
+     * Returns the names of the dataousrces required to evaluate this threshold
+     * entity
      *
      * @return Collection of the names of datasources
      */
@@ -142,15 +150,15 @@ public final class ThresholdEntity implements Cloneable {
             throw new IllegalStateException("No thresholds have been added.");
         }
     }
+
     /**
      * Returns a copy of this ThresholdEntity object.
-     *
      * NOTE: The m_lowThreshold and m_highThreshold member variables are not
      * actually cloned...the returned ThresholdEntity object will simply contain
      * references to the same castor Threshold objects as the original
      * ThresholdEntity object.
-     *
-     * All state will be lost, particularly instances, so it's not a true clone by any stretch of the imagination
+     * All state will be lost, particularly instances, so it's not a true clone
+     * by any stretch of the imagination
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdEntity} object.
      */
@@ -195,22 +203,23 @@ public final class ThresholdEntity implements Cloneable {
         return buffer.toString();
     }
 
-
     /**
      * Evaluates the threshold in light of the provided datasource value and
      * create any events for thresholds.
-     *
-     * Semi-deprecated method; only used for old Thresholding code (threshd and friends)
-     * Implemented in terms of the other method with the same name and the extra param
+     * Semi-deprecated method; only used for old Thresholding code (threshd and
+     * friends)
+     * Implemented in terms of the other method with the same name and the extra
+     * param
      *
      * @param values
-     *          map of values (by datasource name) to evaluate against the threshold (might be an expression)
+     *            map of values (by datasource name) to evaluate against the
+     *            threshold (might be an expression)
      * @param date
-     *          Date to use in created events
+     *            Date to use in created events
      * @return List of events
      */
-    public  List<Event> evaluateAndCreateEvents(Map<String, Double> values, Date date) {
-           return evaluateAndCreateEvents(null, values, date);
+    public List<Event> evaluateAndCreateEvents(Map<String, Double> values, Date date) {
+        return evaluateAndCreateEvents(null, values, date);
     }
 
     /**
@@ -219,25 +228,28 @@ public final class ThresholdEntity implements Cloneable {
      * create any events for thresholds.
      *
      * @param values
-     *          map of values (by datasource name) to evaluate against the threshold (might be an expression)
+     *            map of values (by datasource name) to evaluate against the
+     *            threshold (might be an expression)
      * @param date
-     *          Date to use in created events
+     *            Date to use in created events
      * @return List of events
-     * @param resource a {@link org.opennms.netmgt.threshd.CollectionResourceWrapper} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.threshd.CollectionResourceWrapper}
+     *            object.
      */
     public List<Event> evaluateAndCreateEvents(CollectionResourceWrapper resource, Map<String, Double> values, Date date) {
         List<Event> events = new LinkedList<Event>();
-        double dsValue=0.0;
+        double dsValue = 0.0;
         String instance = resource != null ? resource.getInstance() : null;
         try {
             if (getThresholdEvaluatorStates(instance).size() > 0) {
-                dsValue=getThresholdConfig().evaluate(values);
+                dsValue = getThresholdConfig().evaluate(values);
             } else {
                 throw new IllegalStateException("No thresholds have been added.");
             }
         } catch (ThresholdExpressionException e) {
             LOG.warn("Failed to evaluate: ", e);
-            return events; //No events to report
+            return events; // No events to report
         }
 
         LOG.debug("evaluate: value= {} against threshold: {}", dsValue, this);
@@ -254,19 +266,26 @@ public final class ThresholdEntity implements Cloneable {
     }
 
     /**
-     * <p>fetchLastValue</p>
+     * <p>
+     * fetchLastValue
+     * </p>
      *
-     * @param latIface a {@link org.opennms.netmgt.threshd.LatencyInterface} object.
-     * @param latParms a {@link org.opennms.netmgt.threshd.LatencyParameters} object.
+     * @param latIface
+     *            a {@link org.opennms.netmgt.threshd.LatencyInterface} object.
+     * @param latParms
+     *            a {@link org.opennms.netmgt.threshd.LatencyParameters} object.
      * @return a {@link java.lang.Double} object.
-     * @throws org.opennms.netmgt.threshd.ThresholdingException if any.
+     * @throws org.opennms.netmgt.threshd.ThresholdingException
+     *             if any.
      */
     public Double fetchLastValue(LatencyInterface latIface, LatencyParameters latParms) throws ThresholdingException {
-        //Assume that this only happens on a simple "Threshold", not an "Expression"
-        //If it is an Expression, then we don't yet know what to do - this will likely just fail with some sort of exception.
-        //perhaps we should figure out how to expand it (or at least use code elsewhere to do so sensibly)
-        String datasource=getDataSourceExpression();
-
+        // Assume that this only happens on a simple "Threshold", not an
+        // "Expression"
+        // If it is an Expression, then we don't yet know what to do - this will
+        // likely just fail with some sort of exception.
+        // perhaps we should figure out how to expand it (or at least use code
+        // elsewhere to do so sensibly)
+        String datasource = getDataSourceExpression();
 
         // Use RRD strategy to "fetch" value of the datasource from the RRD file
         Double dsValue = null;
@@ -274,7 +293,7 @@ public final class ThresholdEntity implements Cloneable {
             if (getDatasourceType().equals("if")) {
                 LOG.debug("Fetching last value from dataSource '{}'", datasource);
 
-                File rrdFile = new  File(latIface.getLatencyDir(), datasource+RrdUtils.getExtension());
+                File rrdFile = new File(latIface.getLatencyDir(), datasource + RrdUtils.getExtension());
                 if (!rrdFile.exists()) {
                     LOG.info("rrd file {} does not exist", rrdFile);
                     return null;
@@ -288,15 +307,18 @@ public final class ThresholdEntity implements Cloneable {
                 if (latParms.getRange() == 0) {
                     dsValue = RrdUtils.fetchLastValue(rrdFile.getAbsolutePath(), datasource, latParms.getInterval());
                 } else {
-                    dsValue = RrdUtils.fetchLastValueInRange(rrdFile.getAbsolutePath(), datasource, latParms.getInterval(), latParms.getRange());
+                    dsValue = RrdUtils.fetchLastValueInRange(rrdFile.getAbsolutePath(), datasource,
+                                                             latParms.getInterval(), latParms.getRange());
                 }
             } else {
-                throw new ThresholdingException("expr types not yet implemented", LatencyThresholder.THRESHOLDING_FAILED);
+                throw new ThresholdingException("expr types not yet implemented",
+                                                LatencyThresholder.THRESHOLDING_FAILED);
             }
 
             LOG.debug("Last value from dataSource '{}' was {}", datasource, dsValue);
         } catch (NumberFormatException nfe) {
-            LOG.warn("Unable to convert retrieved value for datasource '{}' to a double, skipping evaluation.", datasource);
+            LOG.warn("Unable to convert retrieved value for datasource '{}' to a double, skipping evaluation.",
+                     datasource);
         } catch (RrdException e) {
             LOG.error("An error occurred retriving the last value for datasource '{}'", datasource, e);
         }
@@ -305,14 +327,19 @@ public final class ThresholdEntity implements Cloneable {
     }
 
     /**
-     * <p>addThreshold</p>
+     * <p>
+     * addThreshold
+     * </p>
      *
-     * @param threshold a {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper} object.
+     * @param threshold
+     *            a
+     *            {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
+     *            object.
      */
     public void addThreshold(BaseThresholdDefConfigWrapper threshold) {
         ThresholdEvaluator evaluator = getEvaluatorForThreshold(threshold);
-        //Get the default list of evaluators (the null key)
-        List<ThresholdEvaluatorState> defaultList=m_thresholdEvaluatorStates.get(null);
+        // Get the default list of evaluators (the null key)
+        List<ThresholdEvaluatorState> defaultList = m_thresholdEvaluatorStates.get(null);
 
         for (ThresholdEvaluatorState item : defaultList) {
             if (threshold.getType().equals(item.getThresholdConfig().getType())) {
@@ -330,8 +357,8 @@ public final class ThresholdEntity implements Cloneable {
             }
         }
 
-
-        String message = "Threshold type '" + threshold.getType() + "' for "+ threshold.getDatasourceExpression() + " is not supported";
+        String message = "Threshold type '" + threshold.getType() + "' for " + threshold.getDatasourceExpression()
+                + " is not supported";
         LOG.warn(message);
         throw new IllegalArgumentException(message);
     }
@@ -339,31 +366,36 @@ public final class ThresholdEntity implements Cloneable {
     /**
      * Returns the evaluator states *for the given instance.
      *
-     * @param instance The key to use to identify the instance to get states for. Can be null to get the default instance
+     * @param instance
+     *            The key to use to identify the instance to get states for. Can
+     *            be null to get the default instance
      * @return a {@link java.util.List} object.
      */
     public List<ThresholdEvaluatorState> getThresholdEvaluatorStates(String instance) {
-        List<ThresholdEvaluatorState> result= m_thresholdEvaluatorStates.get(instance);
-        if(result==null) {
-            //There is no set of evaluators for this instance; create a list by copying the base ones
-            List<ThresholdEvaluatorState> defaultList=m_thresholdEvaluatorStates.get(null);
+        List<ThresholdEvaluatorState> result = m_thresholdEvaluatorStates.get(instance);
+        if (result == null) {
+            // There is no set of evaluators for this instance; create a list by
+            // copying the base ones
+            List<ThresholdEvaluatorState> defaultList = m_thresholdEvaluatorStates.get(null);
 
-            //Create the new list
-            result=new LinkedList<ThresholdEvaluatorState>();
-            for(ThresholdEvaluatorState state: defaultList) {
+            // Create the new list
+            result = new LinkedList<ThresholdEvaluatorState>();
+            for (ThresholdEvaluatorState state : defaultList) {
                 result.add(state.getCleanClone());
             }
 
-            //Store the new list with the instance as the key
+            // Store the new list with the instance as the key
             m_thresholdEvaluatorStates.put(instance == null ? null : instance.intern(), result);
         }
         return result;
     }
 
     /**
-     * Merges the configuration and update states using parameter entity as a reference.
+     * Merges the configuration and update states using parameter entity as a
+     * reference.
      *
-     * @param entity a {@link org.opennms.netmgt.threshd.ThresholdEntity} object.
+     * @param entity
+     *            a {@link org.opennms.netmgt.threshd.ThresholdEntity} object.
      */
     public void merge(ThresholdEntity entity) {
         if (getThresholdConfig().identical(entity.getThresholdConfig()) == false) {
@@ -399,7 +431,9 @@ public final class ThresholdEntity implements Cloneable {
     }
 
     /**
-     * <p>getThresholdEvaluators</p>
+     * <p>
+     * getThresholdEvaluators
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */

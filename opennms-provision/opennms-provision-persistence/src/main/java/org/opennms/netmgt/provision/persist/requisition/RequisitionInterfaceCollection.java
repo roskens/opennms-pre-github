@@ -36,63 +36,76 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
- * <p>RequisitionInterfaceCollection class.</p>
+ * <p>
+ * RequisitionInterfaceCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="interfaces")
+@XmlRootElement(name = "interfaces")
 public class RequisitionInterfaceCollection extends LinkedList<RequisitionInterface> {
 
     private static final long serialVersionUID = -7279860847652394855L;
 
     /**
-	 * <p>Constructor for RequisitionInterfaceCollection.</p>
-	 */
-	public RequisitionInterfaceCollection() {
+     * <p>
+     * Constructor for RequisitionInterfaceCollection.
+     * </p>
+     */
+    public RequisitionInterfaceCollection() {
         super();
     }
 
     /**
-     * <p>Constructor for RequisitionInterfaceCollection.</p>
+     * <p>
+     * Constructor for RequisitionInterfaceCollection.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public RequisitionInterfaceCollection(Collection<? extends RequisitionInterface> c) {
         super(c);
     }
 
     /**
-     * <p>getInterfaces</p>
+     * <p>
+     * getInterfaces
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    @XmlElement(name="interface")
+    @XmlElement(name = "interface")
     public List<RequisitionInterface> getInterfaces() {
         return this;
     }
 
     /**
-     * <p>setInterfaces</p>
+     * <p>
+     * setInterfaces
+     * </p>
      *
-     * @param interfaces a {@link java.util.List} object.
+     * @param interfaces
+     *            a {@link java.util.List} object.
      */
     public void setInterfaces(List<RequisitionInterface> interfaces) {
-        if (interfaces == this) return;
+        if (interfaces == this)
+            return;
         clear();
         addAll(interfaces);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
-    	return this.size();
+        return this.size();
     }
 }
-

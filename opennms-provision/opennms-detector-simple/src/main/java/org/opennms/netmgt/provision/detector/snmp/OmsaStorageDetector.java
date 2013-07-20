@@ -65,16 +65,17 @@ public class OmsaStorageDetector extends SnmpDetector {
     private String m_virtualDiskNumber = "1";
 
     /**
-     * <p>Constructor for CiscoIpSlaDetector.</p>
+     * <p>
+     * Constructor for CiscoIpSlaDetector.
+     * </p>
      */
-    public OmsaStorageDetector(){
+    public OmsaStorageDetector() {
         setServiceName(PROTOCOL_NAME);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If
      * the protocol is not supported then a false value is returned to the
      * caller. The qualifier map passed to the method is used by the plugin to
      * return additional information by key-name. These key-value pairs can be
@@ -87,7 +88,8 @@ public class OmsaStorageDetector extends SnmpDetector {
             configureAgentPTR(agentConfig);
             configureAgentVersion(agentConfig);
 
-            SnmpObjId virtualDiskRollUpStatusSnmpObject = SnmpObjId.get(virtualDiskRollUpStatus + '.' + m_virtualDiskNumber);
+            SnmpObjId virtualDiskRollUpStatusSnmpObject = SnmpObjId.get(virtualDiskRollUpStatus + '.'
+                    + m_virtualDiskNumber);
             SnmpValue virtualDiskRollUpStatus = SnmpUtils.get(agentConfig, virtualDiskRollUpStatusSnmpObject);
 
             if (virtualDiskRollUpStatus == null || virtualDiskRollUpStatus.isNull()) {

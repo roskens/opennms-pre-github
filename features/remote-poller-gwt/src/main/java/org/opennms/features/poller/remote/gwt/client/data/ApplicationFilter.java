@@ -44,9 +44,9 @@ public class ApplicationFilter implements LocationFilter {
 
     @Override
     public boolean matches(final LocationInfo location) {
-        if(getApplications().size() == 0) {
+        if (getApplications().size() == 0) {
             return true;
-        }else {
+        } else {
             for (final ApplicationInfo app : getApplications()) {
                 if (app.getLocations().contains(location.getName())) {
                     return true;

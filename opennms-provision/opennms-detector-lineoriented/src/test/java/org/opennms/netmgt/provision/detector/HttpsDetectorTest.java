@@ -50,48 +50,28 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
-public class HttpsDetectorTest implements ApplicationContextAware{
-	private static final int SSL_PORT = 7142;
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
+public class HttpsDetectorTest implements ApplicationContextAware {
+    private static final int SSL_PORT = 7142;
 
     private HttpsDetector m_detector;
+
     private SSLServer m_server;
 
-    private String serverOKResponse = "HTTP/1.1 200 OK\r\n"
-        + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
-        + "Server: Apache/2.0.54\r\n"
-        + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
-        + "ETag: \"778216aa-2f-aa66cf80\"\r\n"
-        + "Accept-Ranges: bytes\r\n"
-        + "Content-Length: 47\r\n"
-        + "Vary: Accept-Encoding,User-Agent\r\n"
-        + "Connection: close\rn"
-        + "Content-Type: text/html\r\n"
-        + "\r\n"
-        + "<html>\r\n"
-        + "<body>\r\n"
-        + "<!-- default -->\r\n"
-        + "</body>\r\n"
-        + "</html>";
+    private String serverOKResponse = "HTTP/1.1 200 OK\r\n" + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
+            + "Server: Apache/2.0.54\r\n" + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
+            + "ETag: \"778216aa-2f-aa66cf80\"\r\n" + "Accept-Ranges: bytes\r\n" + "Content-Length: 47\r\n"
+            + "Vary: Accept-Encoding,User-Agent\r\n" + "Connection: close\rn" + "Content-Type: text/html\r\n" + "\r\n"
+            + "<html>\r\n" + "<body>\r\n" + "<!-- default -->\r\n" + "</body>\r\n" + "</html>";
 
-    private String notFoundResponse = "HTTP/1.1 404 Not Found\r\n"
-                    + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
-                    + "Server: Apache/2.0.54\r\n"
-                    + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
-                    + "ETag: \"778216aa-2f-aa66cf80\"\r\n"
-                    + "Accept-Ranges: bytes\r\n"
-                    + "Content-Length: 52\r\n"
-                    + "Vary: Accept-Encoding,User-Agent\r\n"
-                    + "Connection: close\rn"
-                    + "Content-Type: text/html\r\n"
-                    + "\r\n"
-                    + "<html>\r\n"
-                    + "<body>\r\n"
-                    + "<!-- default -->\r\n"
-                    + "</body>\r\n"
-                    + "</html>";
+    private String notFoundResponse = "HTTP/1.1 404 Not Found\r\n" + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
+            + "Server: Apache/2.0.54\r\n" + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
+            + "ETag: \"778216aa-2f-aa66cf80\"\r\n" + "Accept-Ranges: bytes\r\n" + "Content-Length: 52\r\n"
+            + "Vary: Accept-Encoding,User-Agent\r\n" + "Connection: close\rn" + "Content-Type: text/html\r\n" + "\r\n"
+            + "<html>\r\n" + "<body>\r\n" + "<!-- default -->\r\n" + "</body>\r\n" + "</html>";
 
     private String notAServerResponse = "NOT A SERVER";
+
     private ApplicationContext m_applicationContext;
 
     @Before
@@ -103,18 +83,18 @@ public class HttpsDetectorTest implements ApplicationContextAware{
 
     @After
     public void tearDown() throws IOException {
-       if(m_server != null) {
-           m_server.stopServer();
-           m_server = null;
-           try {
-            Thread.sleep(100);
-        } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
+        if (m_server != null) {
+            m_server.stopServer();
+            m_server = null;
+            try {
+                Thread.sleep(100);
+            } catch (final InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
-       }
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws Exception {
         m_detector.setPort(2000);
         m_server = createServer(serverOKResponse);
@@ -122,16 +102,16 @@ public class HttpsDetectorTest implements ApplicationContextAware{
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailNotAServerResponse() throws Exception {
         m_detector.init();
         m_server = createServer(notAServerResponse);
         m_detector.setPort(m_server.getLocalPort());
 
-       assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailNotFoundResponseMaxRetCode399() throws Exception {
         m_detector.setCheckRetCode(true);
         m_detector.setUrl("/blog");
@@ -141,23 +121,22 @@ public class HttpsDetectorTest implements ApplicationContextAware{
         m_server = createServer(notFoundResponse);
         m_detector.setPort(m_server.getLocalPort());
 
-       assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSucessMaxRetCode399() throws Exception {
         m_detector.setCheckRetCode(true);
         m_detector.setUrl("/blog");
         m_detector.setMaxRetCode(399);
 
-
         m_server = createServer(serverOKResponse);
         m_detector.setPort(m_server.getLocalPort());
         m_detector.init();
-       assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailMaxRetCodeBelow200() throws Exception {
         m_detector.setCheckRetCode(true);
         m_detector.setUrl("/blog");
@@ -167,10 +146,10 @@ public class HttpsDetectorTest implements ApplicationContextAware{
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());
 
-       assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorMaxRetCode600() throws Exception {
         m_detector.setCheckRetCode(true);
         m_detector.setMaxRetCode(600);
@@ -179,11 +158,10 @@ public class HttpsDetectorTest implements ApplicationContextAware{
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());
 
-       assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSucessCheckCodeTrue() throws Exception {
         m_detector.setCheckRetCode(true);
         m_detector.setUrl("http://localhost/");
@@ -192,10 +170,10 @@ public class HttpsDetectorTest implements ApplicationContextAware{
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());
 
-       assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSuccessCheckCodeFalse() throws Exception {
         m_detector.setCheckRetCode(false);
         m_detector.init();
@@ -203,10 +181,10 @@ public class HttpsDetectorTest implements ApplicationContextAware{
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());
 
-       assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSuccess() throws Exception {
         m_server = createServer(serverOKResponse);
 
@@ -214,7 +192,6 @@ public class HttpsDetectorTest implements ApplicationContextAware{
         m_detector.init();
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-
 
     /**
      * @param serviceDetected
@@ -251,10 +228,13 @@ public class HttpsDetectorTest implements ApplicationContextAware{
         return serverOKResponse;
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.context.ApplicationContextAware#setApplicationContext
+     * (org.springframework.context.ApplicationContext)
      */
-        @Override
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;
 
@@ -264,6 +244,6 @@ public class HttpsDetectorTest implements ApplicationContextAware{
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
-        return (HttpsDetector)bean;
+        return (HttpsDetector) bean;
     }
 }

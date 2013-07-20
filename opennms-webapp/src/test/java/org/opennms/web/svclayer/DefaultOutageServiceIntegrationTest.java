@@ -53,18 +53,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
         "classpath:META-INF/opennms/applicationContext-dao.xml",
         "classpath:META-INF/opennms/applicationContext-commonConfigs.xml",
         "classpath:/META-INF/opennms/applicationContext-reportingCore.xml",
         "classpath:org/opennms/web/svclayer/applicationContext-svclayer.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
+        "classpath*:/META-INF/opennms/component-dao.xml", "classpath*:/META-INF/opennms/component-service.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-insertData-enabled.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DefaultOutageServiceIntegrationTest implements InitializingBean {
@@ -93,9 +90,11 @@ public class DefaultOutageServiceIntegrationTest implements InitializingBean {
     @Transactional
     @JUnitTemporaryDatabase
     public void testGetRangeOutages() {
-        Collection<OnmsOutage> outages = m_outageService.getOutagesByRange(1,RANGE_LIMIT,"iflostservice","asc", new OnmsCriteria(OnmsOutage.class));
+        Collection<OnmsOutage> outages = m_outageService.getOutagesByRange(1, RANGE_LIMIT, "iflostservice", "asc",
+                                                                           new OnmsCriteria(OnmsOutage.class));
         assertFalse("Collection should not be emtpy", outages.isEmpty());
-        //assertEquals("Collection should be of size " + RANGE_LIMIT, RANGE_LIMIT, outages.size());
+        // assertEquals("Collection should be of size " + RANGE_LIMIT,
+        // RANGE_LIMIT, outages.size());
     }
 
     // More tests should be defined for these
@@ -114,14 +113,14 @@ public class DefaultOutageServiceIntegrationTest implements InitializingBean {
     @JUnitTemporaryDatabase
     public void testLoadOneOutage() {
         OnmsOutage outage = m_outageService.load(1);
-        assertTrue("We loaded one outage ",outage.getId().equals(1));
+        assertTrue("We loaded one outage ", outage.getId().equals(1));
     }
 
     @Test
     @Transactional
     @Ignore
     @JUnitTemporaryDatabase
-    public void testNoOfSuppressedOutages(){
+    public void testNoOfSuppressedOutages() {
         Integer outages = m_outageService.getSuppressedOutageCount();
         assertTrue("We should find suppressed messages ", outages == 0);
     }
@@ -131,7 +130,7 @@ public class DefaultOutageServiceIntegrationTest implements InitializingBean {
     @JUnitTemporaryDatabase
     public void testSuppression() {
         Date time = new Date();
-        //Load Outage manipulate and save it.
+        // Load Outage manipulate and save it.
         OnmsOutage myOutage = m_outageService.load(Integer.valueOf(1));
         assertTrue("Loaded the outage ", myOutage.getId().equals(Integer.valueOf(1)));
         myOutage.setSuppressTime(time);

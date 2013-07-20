@@ -30,7 +30,6 @@ package org.opennms.netmgt.capsd.snmp;
 
 import org.opennms.netmgt.snmp.AbstractSnmpStore;
 
-
 /**
  * <P>
  * This object contains a list of all the elements defined in the MIB-II
@@ -38,15 +37,13 @@ import org.opennms.netmgt.snmp.AbstractSnmpStore;
  * and passing in a variable list from an SNMP PDU. The actual data can be
  * recovered via the base class map interface.
  * </P>
- *
  * <P>
  * Once an instance is created and its data set either via the constructor or
  * from the update method, the actual elements can be retrieved using the
  * instance names. The names include: <EM>ifIndex</EM>,<EM>ifDescr</EM>,
- * <EM>ifSpeed</EM>,<EM>etc</EM>. The information can also be accessed
- * by using the complete object identifier for the entry.
+ * <EM>ifSpeed</EM>,<EM>etc</EM>. The information can also be accessed by using
+ * the complete object identifier for the entry.
  * </P>
- *
  * <P>
  * For more information on the individual fields, and to find out their
  * respective object identifiers see RFC1213 from the IETF.
@@ -130,28 +127,41 @@ public final class IfTableEntry extends SnmpStore {
 
     /** Constant <code>ms_elemList</code> */
     public final static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
-        new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_INDEX, ".1.3.6.1.2.1.2.2.1.1", 1),
-        new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, IF_DESCR, ".1.3.6.1.2.1.2.2.1.2", 2),
-        new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_TYPE, ".1.3.6.1.2.1.2.2.1.3", 3),
-        new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_MTU, ".1.3.6.1.2.1.2.2.1.4", 4),
-        new NamedSnmpVar(NamedSnmpVar.SNMPGAUGE32, IF_SPEED, ".1.3.6.1.2.1.2.2.1.5", 5),
-        new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, IF_PHYS_ADDR, ".1.3.6.1.2.1.2.2.1.6", 6),
-        new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_ADMIN_STATUS, ".1.3.6.1.2.1.2.2.1.7", 7),
-        new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_OPER_STATUS, ".1.3.6.1.2.1.2.2.1.8", 8),
-        new NamedSnmpVar(NamedSnmpVar.SNMPTIMETICKS, IF_LAST_CHANGE, ".1.3.6.1.2.1.2.2.1.9", 9)
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_OCTETS, ".1.3.6.1.2.1.2.2.1.10", 10),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_UCAST, ".1.3.6.1.2.1.2.2.1.11", 11),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_NUCAST, ".1.3.6.1.2.1.2.2.1.12", 12),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_DISCARDS, ".1.3.6.1.2.1.2.2.1.13", 13),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_ERRORS, ".1.3.6.1.2.1.2.2.1.14", 14),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_UKNOWN_PROTOS, ".1.3.6.1.2.1.2.2.1.15", 15),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_OCTETS, ".1.3.6.1.2.1.2.2.1.16", 16),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_UCAST, ".1.3.6.1.2.1.2.2.1.17", 17),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_NUCAST, ".1.3.6.1.2.1.2.2.1.18", 18),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_DISCARDS, ".1.3.6.1.2.1.2.2.1.19", 19),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_ERRORS, ".1.3.6.1.2.1.2.2.1.20", 20),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPGAUGE32, IF_OUT_QLEN, ".1.3.6.1.2.1.2.2.1.21", 21),
-        // new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IF_SPECIFIC, ".1.3.6.1.2.1.2.2.1.22", 22)
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_INDEX, ".1.3.6.1.2.1.2.2.1.1", 1),
+            new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, IF_DESCR, ".1.3.6.1.2.1.2.2.1.2", 2),
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_TYPE, ".1.3.6.1.2.1.2.2.1.3", 3),
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_MTU, ".1.3.6.1.2.1.2.2.1.4", 4),
+            new NamedSnmpVar(NamedSnmpVar.SNMPGAUGE32, IF_SPEED, ".1.3.6.1.2.1.2.2.1.5", 5),
+            new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, IF_PHYS_ADDR, ".1.3.6.1.2.1.2.2.1.6", 6),
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_ADMIN_STATUS, ".1.3.6.1.2.1.2.2.1.7", 7),
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_OPER_STATUS, ".1.3.6.1.2.1.2.2.1.8", 8),
+            new NamedSnmpVar(NamedSnmpVar.SNMPTIMETICKS, IF_LAST_CHANGE, ".1.3.6.1.2.1.2.2.1.9", 9)
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_OCTETS,
+    // ".1.3.6.1.2.1.2.2.1.10", 10),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_UCAST,
+    // ".1.3.6.1.2.1.2.2.1.11", 11),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_NUCAST,
+    // ".1.3.6.1.2.1.2.2.1.12", 12),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_DISCARDS,
+    // ".1.3.6.1.2.1.2.2.1.13", 13),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_ERRORS,
+    // ".1.3.6.1.2.1.2.2.1.14", 14),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_UKNOWN_PROTOS,
+    // ".1.3.6.1.2.1.2.2.1.15", 15),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_OCTETS,
+    // ".1.3.6.1.2.1.2.2.1.16", 16),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_UCAST,
+    // ".1.3.6.1.2.1.2.2.1.17", 17),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_NUCAST,
+    // ".1.3.6.1.2.1.2.2.1.18", 18),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_DISCARDS,
+    // ".1.3.6.1.2.1.2.2.1.19", 19),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_OUT_ERRORS,
+    // ".1.3.6.1.2.1.2.2.1.20", 20),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPGAUGE32, IF_OUT_QLEN,
+    // ".1.3.6.1.2.1.2.2.1.21", 21),
+    // new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IF_SPECIFIC,
+    // ".1.3.6.1.2.1.2.2.1.22", 22)
     };
 
     /**
@@ -161,8 +171,8 @@ public final class IfTableEntry extends SnmpStore {
      * </P>
      */
     public static final String TABLE_OID = ".1.3.6.1.2.1.2.2.1"; // start of
-                                                                    // table
-                                                                    // (GETNEXT)
+                                                                 // table
+                                                                 // (GETNEXT)
 
     /**
      * <P>
@@ -178,7 +188,9 @@ public final class IfTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getIfType</p>
+     * <p>
+     * getIfType
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -187,7 +199,9 @@ public final class IfTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getIfAdminStatus</p>
+     * <p>
+     * getIfAdminStatus
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -196,7 +210,9 @@ public final class IfTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getIfDescr</p>
+     * <p>
+     * getIfDescr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -205,7 +221,9 @@ public final class IfTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getPhysAddr</p>
+     * <p>
+     * getPhysAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -214,7 +232,9 @@ public final class IfTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getIfOperStatus</p>
+     * <p>
+     * getIfOperStatus
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -223,7 +243,9 @@ public final class IfTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getIfSpeed</p>
+     * <p>
+     * getIfSpeed
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */

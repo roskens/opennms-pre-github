@@ -38,17 +38,17 @@ import net.sf.jasperreports.engine.JRException;
 
 public class RrdtoolQueryExecutor extends JRobinQueryExecutor {
 
-	protected RrdtoolQueryExecutor(JRDataset dataset, Map<?,?> parametersMap) {
-		super(dataset, parametersMap);
-	}
+    protected RrdtoolQueryExecutor(JRDataset dataset, Map<?, ?> parametersMap) {
+        super(dataset, parametersMap);
+    }
 
-	@Override
-	public JRDataSource createDatasource() throws JRException {
-		try {
-			return new RrdtoolXportCmd().executeCommand(getQueryString());
-		} catch (Exception e) {
-			throw new JRException("Error creating RrdtoolDataSource", e);
-		}
-	}
+    @Override
+    public JRDataSource createDatasource() throws JRException {
+        try {
+            return new RrdtoolXportCmd().executeCommand(getQueryString());
+        } catch (Exception e) {
+            throw new JRException("Error creating RrdtoolDataSource", e);
+        }
+    }
 
 }

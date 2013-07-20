@@ -35,17 +35,16 @@ import org.opennms.features.topology.api.topo.Vertex;
 
 public interface Graph {
 
-	Layout getLayout();
+    Layout getLayout();
 
-	Collection<Vertex> getDisplayVertices();
+    Collection<Vertex> getDisplayVertices();
 
-	Collection<Edge> getDisplayEdges();
+    Collection<Edge> getDisplayEdges();
 
-	Edge getEdgeByKey(String edgeKey);
+    Edge getEdgeByKey(String edgeKey);
 
-	Vertex getVertexByKey(String vertexKey);
+    Vertex getVertexByKey(String vertexKey);
 
-	void visit(GraphVisitor visitor) throws Exception;
-
+    void visit(GraphVisitor visitor) throws Exception;
 
 }

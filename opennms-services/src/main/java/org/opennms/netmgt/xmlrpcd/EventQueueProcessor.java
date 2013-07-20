@@ -49,10 +49,10 @@ import org.opennms.netmgt.xml.event.Value;
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
  * @author <A HREF="mailto:jamesz@opennms.com">James Zuo </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
- *
  */
 class EventQueueProcessor implements Runnable, PausableFiber {
     private static final Logger LOG = LoggerFactory.getLogger(EventQueueProcessor.class);
+
     /**
      * The input queue
      */
@@ -81,16 +81,17 @@ class EventQueueProcessor implements Runnable, PausableFiber {
 
     /**
      * Use generic messages flag -- based on a setting in the config file,
-     *  if this flags is true, then we will send all events with the sendEvent
-     *  RPC call.  If it's false, we'll use the backward-compatible 6 specific
-     *  event RPC calls.
+     * if this flags is true, then we will send all events with the sendEvent
+     * RPC call. If it's false, we'll use the backward-compatible 6 specific
+     * event RPC calls.
      */
     private boolean m_useGenericMessages;
 
     /**
      * The constructor
      */
-    EventQueueProcessor(final FifoQueue<Event> eventQ, final XmlrpcServer[] rpcServers, final int retries, final int elapseTime, final boolean verifyServer, final String localServer, final int maxQSize) {
+    EventQueueProcessor(final FifoQueue<Event> eventQ, final XmlrpcServer[] rpcServers, final int retries,
+            final int elapseTime, final boolean verifyServer, final String localServer, final int maxQSize) {
         m_eventQ = eventQ;
         m_maxQSize = maxQSize;
         m_notifier = new XmlRpcNotifier(rpcServers, retries, elapseTime, verifyServer, localServer);
@@ -98,7 +99,7 @@ class EventQueueProcessor implements Runnable, PausableFiber {
     }
 
     private void processEvent(final Event event) {
-    	final String uei = event.getUei();
+        final String uei = event.getUei();
         if (uei == null) {
             LOG.debug("Event received with null UEI, ignoring event");
             return;
@@ -150,7 +151,7 @@ class EventQueueProcessor implements Runnable, PausableFiber {
         }
     }
 
-	/**
+    /**
      * Process xmlrpcNotificationEvent according the status flag to determine to
      * send a notifyReceivedEvent, or a notifySuccess, or a notifyFailure
      * notification to XMLRPC Server.
@@ -201,27 +202,28 @@ class EventQueueProcessor implements Runnable, PausableFiber {
             }
         }
 
-        final boolean validParameters = (txNo != -1L) && (sourceUei != null) && (notification != null) && (status != -1);
+        final boolean validParameters = (txNo != -1L) && (sourceUei != null) && (notification != null)
+                && (status != -1);
         if (!validParameters) {
             LOG.error("Invalid parameters.");
             return;
         }
 
         switch (status) {
-	        case EventConstants.XMLRPC_NOTIFY_RECEIVED:
-	            if (!m_notifier.notifyReceivedEvent(txNo, sourceUei, notification)) {
-	                pushBackEvent(event);
-	            }
-	            break;
-	        case EventConstants.XMLRPC_NOTIFY_SUCCESS:
-	            if (!m_notifier.notifySuccess(txNo, sourceUei, notification)) {
-	                pushBackEvent(event);
-	            }
-	            break;
-	        case EventConstants.XMLRPC_NOTIFY_FAILURE:
-	            if (!m_notifier.notifyFailure(txNo, sourceUei, notification)) {
-	                pushBackEvent(event);
-	            }
+        case EventConstants.XMLRPC_NOTIFY_RECEIVED:
+            if (!m_notifier.notifyReceivedEvent(txNo, sourceUei, notification)) {
+                pushBackEvent(event);
+            }
+            break;
+        case EventConstants.XMLRPC_NOTIFY_SUCCESS:
+            if (!m_notifier.notifySuccess(txNo, sourceUei, notification)) {
+                pushBackEvent(event);
+            }
+            break;
+        case EventConstants.XMLRPC_NOTIFY_FAILURE:
+            if (!m_notifier.notifyFailure(txNo, sourceUei, notification)) {
+                pushBackEvent(event);
+            }
         }
     }
 
@@ -250,7 +252,6 @@ class EventQueueProcessor implements Runnable, PausableFiber {
     /**
      * Returns true if the status is ok and the thread should continue running.
      * If the status returend is false then the thread should exit.
-     *
      */
     private synchronized boolean statusOK() {
         boolean exitThread = false;
@@ -260,7 +261,7 @@ class EventQueueProcessor implements Runnable, PausableFiber {
         while (!exitCheck) {
             // check the child thread!
             if (m_worker.isAlive() == false && m_status != STOP_PENDING) {
-		LOG.warn("{} terminated abnormally", getName());
+                LOG.warn("{} terminated abnormally", getName());
                 m_status = STOP_PENDING;
             }
 
@@ -397,13 +398,13 @@ class EventQueueProcessor implements Runnable, PausableFiber {
             try {
                 event = m_eventQ.remove(1000);
             } catch (final InterruptedException iE) {
-		LOG.debug("Caught interrupted exception, transitioning to STOP_PENDING status", iE);
+                LOG.debug("Caught interrupted exception, transitioning to STOP_PENDING status", iE);
 
                 event = null;
 
                 m_status = STOP_PENDING;
             } catch (final FifoQueueException qE) {
-		LOG.debug("Caught FIFO queue exception.", qE);
+                LOG.debug("Caught FIFO queue exception.", qE);
 
                 event = null;
 
@@ -418,7 +419,7 @@ class EventQueueProcessor implements Runnable, PausableFiber {
                 }
             }
             if (event != null && !statusOK()) {
-		LOG.error("EventQueueProcessor not OK, exiting with status: {}", m_status);
+                LOG.error("EventQueueProcessor not OK, exiting with status: {}", m_status);
             }
         }
     }

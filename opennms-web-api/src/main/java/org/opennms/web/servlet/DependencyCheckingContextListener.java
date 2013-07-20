@@ -35,17 +35,19 @@ import javax.servlet.ServletContextListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>DependencyCheckingContextListener class.</p>
+ * <p>
+ * DependencyCheckingContextListener class.
+ * </p>
  *
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  */
 public class DependencyCheckingContextListener implements ServletContextListener {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DependencyCheckingContextListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DependencyCheckingContextListener.class);
 
     private static final String IGNORE_ERRORS_PROPERTY = "dontBlameOpenNMS";
+
     private static final String IGNORE_ERRORS_MESSAGE = "but don't blame OpenNMS for any errors that occur without switching back to a supported JVM and setting the property back to 'false', first.";
 
     /** {@inheritDoc} */
@@ -68,7 +70,8 @@ public class DependencyCheckingContextListener implements ServletContextListener
 
         String vmName = System.getProperty(systemProperty);
         if (vmName == null) {
-            logAndOrDie(context, "System property '" + systemProperty + "' is not set so we can't figure out if this version of Java is supported");
+            logAndOrDie(context, "System property '" + systemProperty
+                    + "' is not set so we can't figure out if this version of Java is supported");
         }
 
         boolean ok = false;
@@ -79,9 +82,12 @@ public class DependencyCheckingContextListener implements ServletContextListener
         }
 
         if (ok) {
-            LOG.info("System property '{}' appears to contain a suitable JVM signature ('{}') -- congratulations!  ;)", systemProperty, vmName);
+            LOG.info("System property '{}' appears to contain a suitable JVM signature ('{}') -- congratulations!  ;)",
+                     systemProperty, vmName);
         } else {
-            logAndOrDie(context, "System property '" + systemProperty + "' does not contain a suitable JVM signature ('" + vmName + "').  OpenNMS recommends the official Sun JVM.");
+            logAndOrDie(context, "System property '" + systemProperty
+                    + "' does not contain a suitable JVM signature ('" + vmName
+                    + "').  OpenNMS recommends the official Sun JVM.");
         }
     }
 
@@ -90,9 +96,11 @@ public class DependencyCheckingContextListener implements ServletContextListener
 
         if (Boolean.parseBoolean(context.getInitParameter(IGNORE_ERRORS_PROPERTY))) {
             LOG.warn(message);
-            LOG.warn("Context parameter '{}' is set in {}, so the above warning is not fatal,  {}", IGNORE_ERRORS_PROPERTY, webXmlPath, IGNORE_ERRORS_MESSAGE);
+            LOG.warn("Context parameter '{}' is set in {}, so the above warning is not fatal,  {}",
+                     IGNORE_ERRORS_PROPERTY, webXmlPath, IGNORE_ERRORS_MESSAGE);
         } else {
-            String howToFixMessage = "You can edit " + webXmlPath + " and change the value for the '" + IGNORE_ERRORS_PROPERTY + "' context parameter from 'false' to 'true', " + IGNORE_ERRORS_MESSAGE;
+            String howToFixMessage = "You can edit " + webXmlPath + " and change the value for the '"
+                    + IGNORE_ERRORS_PROPERTY + "' context parameter from 'false' to 'true', " + IGNORE_ERRORS_MESSAGE;
 
             LOG.error(message);
             LOG.error(howToFixMessage);

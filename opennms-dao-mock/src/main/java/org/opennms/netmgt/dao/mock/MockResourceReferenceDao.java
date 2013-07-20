@@ -5,7 +5,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.opennms.netmgt.dao.api.ResourceReferenceDao;
 import org.opennms.netmgt.model.ResourceReference;
 
-public class MockResourceReferenceDao extends AbstractMockDao<ResourceReference, Integer> implements ResourceReferenceDao {
+public class MockResourceReferenceDao extends AbstractMockDao<ResourceReference, Integer> implements
+        ResourceReferenceDao {
     private AtomicInteger m_id = new AtomicInteger(0);
 
     @Override

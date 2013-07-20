@@ -47,13 +47,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/trapdIpMgr-test.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class HibernateTrapdIpMgrTest implements InitializingBean {
@@ -102,9 +100,15 @@ public class HibernateTrapdIpMgrTest implements InitializingBean {
         // Address already exists on database and it is not primary.
         Assert.assertEquals(-1, m_trapdIpMgr.setNodeId("192.168.1.3", 1));
 
-        // Address already exists on database but the new node also contain the address and is their primary address.
-        Assert.assertEquals(1, m_trapdIpMgr.setNodeId("192.168.1.3", m_testNodeId)); // return old nodeId
-        Assert.assertEquals(m_testNodeId, m_trapdIpMgr.getNodeId("192.168.1.3")); // return the new nodeId
+        // Address already exists on database but the new node also contain the
+        // address and is their primary address.
+        Assert.assertEquals(1, m_trapdIpMgr.setNodeId("192.168.1.3", m_testNodeId)); // return
+                                                                                     // old
+                                                                                     // nodeId
+        Assert.assertEquals(m_testNodeId, m_trapdIpMgr.getNodeId("192.168.1.3")); // return
+                                                                                  // the
+                                                                                  // new
+                                                                                  // nodeId
     }
 
 }

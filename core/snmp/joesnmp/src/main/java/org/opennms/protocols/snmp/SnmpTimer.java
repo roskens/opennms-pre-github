@@ -38,7 +38,6 @@ import java.util.NoSuchElementException;
  * Resolution is provided at the millisecond level.
  *
  * @see SnmpSession
- *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
  */
 class SnmpTimer extends Object {
@@ -64,7 +63,6 @@ class SnmpTimer extends Object {
 
     /**
      * Used to track the individual runnables and when the runnable "expires".
-     *
      */
     private class TimeoutElement {
         /**
@@ -95,14 +93,12 @@ class SnmpTimer extends Object {
     /**
      * This object is the thread of execution that monitors and executes the
      * scheduled runnables.
-     *
      */
     private class Scheduler implements Runnable {
         /**
          * Runs in an infinite loop waiting for new runnables to expire or for
          * the m_exit variable to be set true. The m_sync in the parent class is
          * used to synchronize this method
-         *
          */
         @Override
         public void run() {
@@ -214,7 +210,6 @@ class SnmpTimer extends Object {
     /**
      * Creates an SnmpTime object and it's internal thread that is used to
      * schedule the execution of the runnables.
-     *
      */
     SnmpTimer() {
         m_exit = false;
@@ -234,7 +229,6 @@ class SnmpTimer extends Object {
      *            The runnable object
      * @param milliseconds
      *            The number of milliseconds to wait
-     *
      */
     void schedule(Runnable runner, long milliseconds) {
         if (runner != null) {
@@ -247,7 +241,6 @@ class SnmpTimer extends Object {
 
     /**
      * Cancels the current timer object and terminates the internal thread
-     *
      */
     void cancel() {
         synchronized (m_sync) {

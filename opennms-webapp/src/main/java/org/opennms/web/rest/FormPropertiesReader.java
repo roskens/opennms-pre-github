@@ -49,13 +49,17 @@ public class FormPropertiesReader implements MessageBodyReader<MultivaluedMapImp
 
     /** {@inheritDoc} */
     @Override
-    public boolean isReadable(final Class<?> type, final Type genericType, final Annotation[] annotations, final MediaType mediaTypes) {
+    public boolean isReadable(final Class<?> type, final Type genericType, final Annotation[] annotations,
+            final MediaType mediaTypes) {
         return type.isAssignableFrom(MultivaluedMapImpl.class);
     }
 
     /** {@inheritDoc} */
     @Override
-    public MultivaluedMapImpl readFrom(final Class<MultivaluedMapImpl> type, final Type genericType, final Annotation[] annotations, final MediaType mediaType, final MultivaluedMap<String, String> httpHeaders, final InputStream entityStream) throws IOException, WebApplicationException {
+    public MultivaluedMapImpl readFrom(final Class<MultivaluedMapImpl> type, final Type genericType,
+            final Annotation[] annotations, final MediaType mediaType,
+            final MultivaluedMap<String, String> httpHeaders, final InputStream entityStream) throws IOException,
+            WebApplicationException {
 
         final MultivaluedMapImpl result = new MultivaluedMapImpl();
 

@@ -49,16 +49,20 @@ import org.junit.Test;
  */
 public class XmlCollector3GPPTest extends AbstractXmlCollectorTest {
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlConfigFileName()
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#
+     * getXmlConfigFileName()
      */
     @Override
     public String getXmlConfigFileName() {
         return "src/test/resources/3gpp-xml-datacollection-config.xml";
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#
+     * getXmlSampleFileName()
      */
     @Override
     public String getXmlSampleFileName() {
@@ -68,7 +72,8 @@ public class XmlCollector3GPPTest extends AbstractXmlCollectorTest {
     /**
      * Test time parser.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testTimeParser() throws Exception {
@@ -82,14 +87,17 @@ public class XmlCollector3GPPTest extends AbstractXmlCollectorTest {
 
         MockDefaultXmlCollectionHandler handler = new MockDefaultXmlCollectionHandler();
         XPath xpath = XPathFactory.newInstance().newXPath();
-        date = handler.getTimeStamp(MockDocumentBuilder.getXmlDocument(), xpath, getConfigDao().getDataCollectionByName("3GPP").getXmlSources().get(0).getXmlGroups().get(0));
+        date = handler.getTimeStamp(MockDocumentBuilder.getXmlDocument(),
+                                    xpath,
+                                    getConfigDao().getDataCollectionByName("3GPP").getXmlSources().get(0).getXmlGroups().get(0));
         Assert.assertEquals(expectedTimestamp, date.getTime());
     }
 
     /**
      * Test XML collector with Standard handler.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testDefaultXmlCollector() throws Exception {
@@ -98,7 +106,8 @@ public class XmlCollector3GPPTest extends AbstractXmlCollectorTest {
         parameters.put("handler-class", "org.opennms.protocols.xml.collector.MockDefaultXmlCollectionHandler");
         executeCollectorTest(parameters, 147);
         // Test a JRB.
-        File file = new File("target/snmp/1/platformSystemResource/processor_v1_frame0_shelf0_slot4_sub-slot1/platform-system-resource.jrb");
+        File file = new File(
+                             "target/snmp/1/platformSystemResource/processor_v1_frame0_shelf0_slot4_sub-slot1/platform-system-resource.jrb");
         String[] dsnames = new String[] { "cpuUtilization", "memoryUtilization" };
         Double[] dsvalues = new Double[] { 1.0, 18.0 };
         validateJrb(file, dsnames, dsvalues);

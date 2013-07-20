@@ -29,7 +29,9 @@
 package org.opennms.web.svclayer.catstatus.model;
 
 /**
- * <p>StatusService class.</p>
+ * <p>
+ * StatusService class.
+ * </p>
  *
  * @author <a href="mailto:jason.aras@opennms.org">Jason Aras</a>
  * @version $Id: $
@@ -37,58 +39,79 @@ package org.opennms.web.svclayer.catstatus.model;
  */
 public class StatusService {
 
-	private String m_name;
-	private Boolean m_outagestatus;
-	private long m_outagetime;
+    private String m_name;
 
+    private Boolean m_outagestatus;
 
-	/**
-	 * <p>getName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getName() {
-		return m_name;
-	}
-	/**
-	 * <p>setName</p>
-	 *
-	 * @param m_name a {@link java.lang.String} object.
-	 */
-	public void setName(String m_name) {
-		this.m_name = m_name;
-	}
-	/**
-	 * <p>getOutageStatus</p>
-	 *
-	 * @return a {@link java.lang.Boolean} object.
-	 */
-	public Boolean getOutageStatus() {
-		return m_outagestatus;
-	}
-	/**
-	 * <p>setOutageStatus</p>
-	 *
-	 * @param m_outagestatus a {@link java.lang.Boolean} object.
-	 */
-	public void setOutageStatus(Boolean m_outagestatus) {
-		this.m_outagestatus = m_outagestatus;
-	}
-	/**
-	 * <p>getOutageTime</p>
-	 *
-	 * @return a long.
-	 */
-	public long getOutageTime() {
-		return m_outagetime;
-	}
-	/**
-	 * <p>setOutageTime</p>
-	 *
-	 * @param m_outagetime a long.
-	 */
-	public void setOutageTime(long m_outagetime) {
-		this.m_outagetime = m_outagetime;
-	}
+    private long m_outagetime;
+
+    /**
+     * <p>
+     * getName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getName() {
+        return m_name;
+    }
+
+    /**
+     * <p>
+     * setName
+     * </p>
+     *
+     * @param m_name
+     *            a {@link java.lang.String} object.
+     */
+    public void setName(String m_name) {
+        this.m_name = m_name;
+    }
+
+    /**
+     * <p>
+     * getOutageStatus
+     * </p>
+     *
+     * @return a {@link java.lang.Boolean} object.
+     */
+    public Boolean getOutageStatus() {
+        return m_outagestatus;
+    }
+
+    /**
+     * <p>
+     * setOutageStatus
+     * </p>
+     *
+     * @param m_outagestatus
+     *            a {@link java.lang.Boolean} object.
+     */
+    public void setOutageStatus(Boolean m_outagestatus) {
+        this.m_outagestatus = m_outagestatus;
+    }
+
+    /**
+     * <p>
+     * getOutageTime
+     * </p>
+     *
+     * @return a long.
+     */
+    public long getOutageTime() {
+        return m_outagetime;
+    }
+
+    /**
+     * <p>
+     * setOutageTime
+     * </p>
+     *
+     * @param m_outagetime
+     *            a long.
+     */
+    public void setOutageTime(long m_outagetime) {
+        this.m_outagetime = m_outagetime;
+    }
 
 }

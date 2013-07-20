@@ -28,7 +28,9 @@ import org.springframework.util.Assert;
 
 public class MockEventConfDao implements EventConfDao, InitializingBean {
     private Resource m_resource;
+
     private Events m_events;
+
     private EnterpriseIdPartition m_partition;
 
     public void setResource(final Resource resource) {
@@ -93,10 +95,10 @@ public class MockEventConfDao implements EventConfDao, InitializingBean {
 
     @Override
     public Map<String, String> getEventLabels() {
-        final Map<String,String> labels = new HashMap<String,String>();
-        m_events.forEachEvent(labels, new EventCallback<Map<String,String>>() {
+        final Map<String, String> labels = new HashMap<String, String>();
+        m_events.forEachEvent(labels, new EventCallback<Map<String, String>>() {
             @Override
-            public Map<String,String> process(final Map<String,String> labels, final Event event) {
+            public Map<String, String> process(final Map<String, String> labels, final Event event) {
                 labels.put(event.getUei(), event.getEventLabel());
                 return labels;
             }
@@ -111,18 +113,20 @@ public class MockEventConfDao implements EventConfDao, InitializingBean {
 
     @Override
     public void saveCurrent() {
-            m_events.save(m_resource);
+        m_events.save(m_resource);
     }
 
     @Override
     public List<Event> getEventsByLabel() {
-        SortedSet<Event> events = m_events.forEachEvent(new TreeSet<Event>(new EventLabelComparator()), new EventCallback<SortedSet<Event>>() {
-            @Override
-            public SortedSet<Event> process(SortedSet<Event> accum, Event event) {
-                accum.add(event);
-                return accum;
-            }
-        });
+        SortedSet<Event> events = m_events.forEachEvent(new TreeSet<Event>(new EventLabelComparator()),
+                                                        new EventCallback<SortedSet<Event>>() {
+                                                            @Override
+                                                            public SortedSet<Event> process(SortedSet<Event> accum,
+                                                                    Event event) {
+                                                                accum.add(event);
+                                                                return accum;
+                                                            }
+                                                        });
         return new ArrayList<Event>(events);
     }
 
@@ -149,7 +153,8 @@ public class MockEventConfDao implements EventConfDao, InitializingBean {
     @Override
     public Event findByUei(final String uei) {
         return m_events.findFirstMatchingEvent(new EventCriteria() {
-            @Override public boolean matches(final Event e) {
+            @Override
+            public boolean matches(final Event e) {
                 return uei.equals(e.getUei());
             }
         });

@@ -18,7 +18,8 @@ import com.vaadin.data.util.BeanItem;
 public class NCSPathEdgeProvider implements EdgeProvider {
 
     private static final String HTML_TOOLTIP_TAG_OPEN = "<p>";
-    private static final String HTML_TOOLTIP_TAG_END  = "</p>";
+
+    private static final String HTML_TOOLTIP_TAG_END = "</p>";
 
     public static class NCSServicePathCriteria extends ArrayList<Edge> implements Criteria {
         private static final long serialVersionUID = 5833760704861282509L;
@@ -41,10 +42,12 @@ public class NCSPathEdgeProvider implements EdgeProvider {
 
     public static class NCSPathEdge extends AbstractEdge {
         private final String m_serviceName;
+
         private final String m_deviceA;
+
         private final String m_deviceZ;
 
-        public NCSPathEdge (String serviceName, String deviceA, String deviceZ, NCSVertex source, NCSVertex target) {
+        public NCSPathEdge(String serviceName, String deviceA, String deviceZ, NCSVertex source, NCSVertex target) {
             super("ncsPath", source.getId() + ":::" + target.getId(), source, target);
             m_serviceName = serviceName;
             m_deviceA = deviceA;

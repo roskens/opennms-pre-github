@@ -29,92 +29,119 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>OnmsAgent class.</p>
+ * <p>
+ * OnmsAgent class.
+ * </p>
  */
 public class OnmsAgent extends Object {
 
-	private Integer m_id;
-	private OnmsServiceType m_serviceType;
-	private String m_ipAddress;
-	private OnmsNode m_node;
+    private Integer m_id;
 
-	/**
-	 * <p>Constructor for OnmsAgent.</p>
-	 */
-	public OnmsAgent() {
-		super();
-	}
+    private OnmsServiceType m_serviceType;
 
-	/**
-	 * <p>getId</p>
-	 *
-	 * @return a {@link java.lang.Integer} object.
-	 */
-	public Integer getId() {
-		return m_id;
-	}
+    private String m_ipAddress;
 
-	/**
-	 * <p>setId</p>
-	 *
-	 * @param id a {@link java.lang.Integer} object.
-	 */
-	public void setId(Integer id) {
-		m_id = id;
-	}
+    private OnmsNode m_node;
 
-	/**
-	 * <p>getServiceType</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.model.OnmsServiceType} object.
-	 */
-	public OnmsServiceType getServiceType() {
-		return m_serviceType;
-	}
+    /**
+     * <p>
+     * Constructor for OnmsAgent.
+     * </p>
+     */
+    public OnmsAgent() {
+        super();
+    }
 
-	/**
-	 * <p>setServiceType</p>
-	 *
-	 * @param serviceType a {@link org.opennms.netmgt.model.OnmsServiceType} object.
-	 */
-	public void setServiceType(OnmsServiceType serviceType) {
-		m_serviceType = serviceType;
-	}
+    /**
+     * <p>
+     * getId
+     * </p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
+    public Integer getId() {
+        return m_id;
+    }
 
-	/**
-	 * <p>getIpAddress</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getIpAddress() {
-		return m_ipAddress;
-	}
+    /**
+     * <p>
+     * setId
+     * </p>
+     *
+     * @param id
+     *            a {@link java.lang.Integer} object.
+     */
+    public void setId(Integer id) {
+        m_id = id;
+    }
 
-	/**
-	 * <p>setIpAddress</p>
-	 *
-	 * @param ipAddress a {@link java.lang.String} object.
-	 */
-	public void setIpAddress(String ipAddress) {
-		m_ipAddress = ipAddress;
-	}
+    /**
+     * <p>
+     * getServiceType
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.model.OnmsServiceType} object.
+     */
+    public OnmsServiceType getServiceType() {
+        return m_serviceType;
+    }
 
-	/**
-	 * <p>getNode</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
-	 */
-	public OnmsNode getNode() {
-		return m_node;
-	}
+    /**
+     * <p>
+     * setServiceType
+     * </p>
+     *
+     * @param serviceType
+     *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
+     */
+    public void setServiceType(OnmsServiceType serviceType) {
+        m_serviceType = serviceType;
+    }
 
-	/**
-	 * <p>setNode</p>
-	 *
-	 * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
-	 */
-	public void setNode(OnmsNode node) {
-		m_node = node;
-	}
+    /**
+     * <p>
+     * getIpAddress
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getIpAddress() {
+        return m_ipAddress;
+    }
+
+    /**
+     * <p>
+     * setIpAddress
+     * </p>
+     *
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     */
+    public void setIpAddress(String ipAddress) {
+        m_ipAddress = ipAddress;
+    }
+
+    /**
+     * <p>
+     * getNode
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
+     */
+    public OnmsNode getNode() {
+        return m_node;
+    }
+
+    /**
+     * <p>
+     * setNode
+     * </p>
+     *
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     */
+    public void setNode(OnmsNode node) {
+        m_node = node;
+    }
 
 }

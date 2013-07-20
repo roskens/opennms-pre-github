@@ -40,12 +40,15 @@ public class VmwareCimMultiInstanceCollectionResource extends VmwareCimCollectio
     /**
      * logging for VMware data collection
      */
-    private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareCimMultiInstanceCollectionResource.class.getName());
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware."
+            + VmwareCimMultiInstanceCollectionResource.class.getName());
 
     private String m_inst;
+
     private String m_name;
 
-    public VmwareCimMultiInstanceCollectionResource(final CollectionAgent agent, final String instance, final String name) {
+    public VmwareCimMultiInstanceCollectionResource(final CollectionAgent agent, final String instance,
+            final String name) {
         super(agent);
         m_inst = instance;
         m_name = name;
@@ -56,7 +59,11 @@ public class VmwareCimMultiInstanceCollectionResource extends VmwareCimCollectio
         final File rrdBaseDir = repository.getRrdBaseDir();
         final File nodeDir = new File(rrdBaseDir, String.valueOf(m_agent.getNodeId()));
         final File typeDir = new File(nodeDir, m_name);
-        final File instDir = new File(typeDir, m_inst.replaceAll("/", "_").replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]", "_"));
+        final File instDir = new File(
+                                      typeDir,
+                                      m_inst.replaceAll("/", "_").replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\",
+                                                                                                                          "_").replaceAll("[\\[\\]]",
+                                                                                                                                          "_"));
         logger.debug("getResourceDir: '{}'", instDir);
         return instDir;
     }

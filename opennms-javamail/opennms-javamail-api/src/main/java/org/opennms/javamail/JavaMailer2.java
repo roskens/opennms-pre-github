@@ -52,7 +52,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-
 /**
  * Sends an email message using the Java Mail API
  *
@@ -61,38 +60,47 @@ import org.springframework.util.StringUtils;
  */
 public abstract class JavaMailer2 {
 
-	private static final Logger LOG = LoggerFactory.getLogger(JavaMailer2.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(JavaMailer2.class);
 
     private Session m_session = null;
+
     private Properties m_mailProps;
 
     /**
-     * <p>Constructor for JavaMailer2.</p>
+     * <p>
+     * Constructor for JavaMailer2.
+     * </p>
      *
-     * @param javamailProps a {@link java.util.Properties} object.
-     * @throws org.opennms.javamail.JavaMailerException if any.
+     * @param javamailProps
+     *            a {@link java.util.Properties} object.
+     * @throws org.opennms.javamail.JavaMailerException
+     *             if any.
      */
     public JavaMailer2(Properties javamailProps) throws JavaMailerException {
     }
 
     /**
-     * Default constructor.  Default properties from javamailer-properties are set into session.  To change these
-     * properties, retrieve the current properties from the session and override as needed.
+     * Default constructor. Default properties from javamailer-properties are
+     * set into session. To change these
+     * properties, retrieve the current properties from the session and override
+     * as needed.
      *
-     * @throws IOException if any.
-     * @throws org.opennms.javamail.JavaMailerException if any.
+     * @throws IOException
+     *             if any.
+     * @throws org.opennms.javamail.JavaMailerException
+     *             if any.
      */
     public JavaMailer2() throws JavaMailerException {
         this(new Properties());
     }
 
-
     /**
      * Helper method to create an Authenticator based on Password Authentication
      *
-     * @param user a {@link java.lang.String} object.
-     * @param password a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      * @return a {@link javax.mail.Authenticator} object.
      */
     public Authenticator createAuthenticator(final String user, final String password) {
@@ -107,52 +115,52 @@ public abstract class JavaMailer2 {
     }
 
     /*
-    public Message buildMessage(String m_charSet, String m_encoding, String m_contentType) throws JavaMailerException {
-        try {
-
-            String encodedText = MimeUtility.encodeText(getMessageText(), m_charSet, m_encoding);
-            if (getFileName() == null) {
-                message.setContent(encodedText, m_contentType+"; charset="+m_charSet);
-            } else {
-                BodyPart bp = new MimeBodyPart();
-                bp.setContent(encodedText, m_contentType+"; charset="+m_charSet);
-
-                MimeMultipart mp = new MimeMultipart();
-                mp.addBodyPart(bp);
-                mp = new MimeMultipart();
-                mp.addBodyPart(createFileAttachment(new File(getFileName())));
-                message.setContent(mp);
-            }
-
-            message.setHeader("X-Mailer", getMailer());
-            message.setSentDate(new Date());
-
-            message.saveChanges();
-
-            return message;
-        } catch (AddressException e) {
-            log().error("Java Mailer Addressing exception: ", e);
-            throw new JavaMailerException("Java Mailer Addressing exception: ", e);
-        } catch (MessagingException e) {
-            log().error("Java Mailer messaging exception: ", e);
-            throw new JavaMailerException("Java Mailer messaging exception: ", e);
-        } catch (UnsupportedEncodingException e) {
-            log().error("Java Mailer messaging exception: ", e);
-            throw new JavaMailerException("Java Mailer encoding exception: ", e);
-        }
-    }
-    */
+     * public Message buildMessage(String m_charSet, String m_encoding, String
+     * m_contentType) throws JavaMailerException {
+     * try {
+     * String encodedText = MimeUtility.encodeText(getMessageText(), m_charSet,
+     * m_encoding);
+     * if (getFileName() == null) {
+     * message.setContent(encodedText, m_contentType+"; charset="+m_charSet);
+     * } else {
+     * BodyPart bp = new MimeBodyPart();
+     * bp.setContent(encodedText, m_contentType+"; charset="+m_charSet);
+     * MimeMultipart mp = new MimeMultipart();
+     * mp.addBodyPart(bp);
+     * mp = new MimeMultipart();
+     * mp.addBodyPart(createFileAttachment(new File(getFileName())));
+     * message.setContent(mp);
+     * }
+     * message.setHeader("X-Mailer", getMailer());
+     * message.setSentDate(new Date());
+     * message.saveChanges();
+     * return message;
+     * } catch (AddressException e) {
+     * log().error("Java Mailer Addressing exception: ", e);
+     * throw new JavaMailerException("Java Mailer Addressing exception: ", e);
+     * } catch (MessagingException e) {
+     * log().error("Java Mailer messaging exception: ", e);
+     * throw new JavaMailerException("Java Mailer messaging exception: ", e);
+     * } catch (UnsupportedEncodingException e) {
+     * log().error("Java Mailer messaging exception: ", e);
+     * throw new JavaMailerException("Java Mailer encoding exception: ", e);
+     * }
+     * }
+     */
 
     /**
      * Create a file attachment as a MimeBodyPart, checking to see if the file
      * exists before we create the attachment.
      *
-     * @param file file to attach
+     * @param file
+     *            file to attach
      * @return attachment body part
-     * @throws javax.mail.MessagingException if we can't set the data handler or
-     *      the file name on the MimeBodyPart
-     * @throws org.opennms.javamail.JavaMailerException if the file does not exist or is not
-     *      readable
+     * @throws javax.mail.MessagingException
+     *             if we can't set the data handler or
+     *             the file name on the MimeBodyPart
+     * @throws org.opennms.javamail.JavaMailerException
+     *             if the file does not exist or is not
+     *             readable
      */
     public MimeBodyPart createFileAttachment(final File file) throws MessagingException, JavaMailerException {
         if (!file.exists()) {
@@ -171,11 +179,13 @@ public abstract class JavaMailer2 {
         return bodyPart;
     }
 
-
     /**
-     * <p>setDebug</p>
+     * <p>
+     * setDebug
+     * </p>
      *
-     * @param debug a boolean.
+     * @param debug
+     *            a boolean.
      */
     public void setDebug(boolean debug) {
         if (debug) {
@@ -185,16 +195,15 @@ public abstract class JavaMailer2 {
     }
 
     /**
-     * <p>log</p>
+     * <p>
+     * log
+     * </p>
      *
      * @return log4j Category
      */
 
     public static class LoggingByteArrayOutputStream extends ByteArrayOutputStream {
-    	private static final Logger LOG = LoggerFactory.getLogger(LoggingByteArrayOutputStream.class);
-
-
-
+        private static final Logger LOG = LoggerFactory.getLogger(LoggingByteArrayOutputStream.class);
 
         @Override
         public void flush() throws IOException {
@@ -211,13 +220,13 @@ public abstract class JavaMailer2 {
 
     public static class LoggingTransportListener implements TransportListener {
 
-    	private static final Logger LOG = LoggerFactory.getLogger(LoggingTransportListener.class);
+        private static final Logger LOG = LoggerFactory.getLogger(LoggingTransportListener.class);
 
         private List<Address> m_invalidAddresses = new ArrayList<Address>();
+
         private List<Address> m_validSentAddresses = new ArrayList<Address>();
+
         private List<Address> m_validUnsentAddresses = new ArrayList<Address>();
-
-
 
         @Override
         public void messageDelivered(TransportEvent event) {
@@ -237,26 +246,30 @@ public abstract class JavaMailer2 {
         private void logEvent(String message, TransportEvent event) {
             if (event.getInvalidAddresses() != null && event.getInvalidAddresses().length > 0) {
                 m_invalidAddresses.addAll(Arrays.asList(event.getInvalidAddresses()));
-                LOG.error("{}: invalid addresses: {}", message, StringUtils.arrayToDelimitedString(event.getInvalidAddresses(), ", "));
+                LOG.error("{}: invalid addresses: {}", message,
+                          StringUtils.arrayToDelimitedString(event.getInvalidAddresses(), ", "));
             }
             if (event.getValidSentAddresses() != null && event.getValidSentAddresses().length > 0) {
                 m_validSentAddresses.addAll(Arrays.asList(event.getValidSentAddresses()));
-                LOG.debug("{}: valid sent addresses: {}", message, StringUtils.arrayToDelimitedString(event.getValidSentAddresses(), ", "));
+                LOG.debug("{}: valid sent addresses: {}", message,
+                          StringUtils.arrayToDelimitedString(event.getValidSentAddresses(), ", "));
             }
             if (event.getValidUnsentAddresses() != null && event.getValidUnsentAddresses().length > 0) {
                 m_validUnsentAddresses.addAll(Arrays.asList(event.getValidUnsentAddresses()));
-                LOG.error("{}: valid unsent addresses: {}", message, StringUtils.arrayToDelimitedString(event.getValidUnsentAddresses(), ", "));
+                LOG.error("{}: valid unsent addresses: {}", message,
+                          StringUtils.arrayToDelimitedString(event.getValidUnsentAddresses(), ", "));
             }
         }
 
         public boolean hasAnythingBeenReceived() {
-            return m_invalidAddresses.size() != 0 || m_validSentAddresses.size() != 0 || m_validUnsentAddresses.size() != 0;
+            return m_invalidAddresses.size() != 0 || m_validSentAddresses.size() != 0
+                    || m_validUnsentAddresses.size() != 0;
         }
 
         /**
          * We sleep up to ten times for 10ms, checking to see if anything has
          * been received because the notifications are done by a separate
-         * thread.  We also wait another 50ms after we see the first
+         * thread. We also wait another 50ms after we see the first
          * notification come in, just to see if anything else trickles in.
          * This isn't perfect, but it's somewhat of a shot in the dark to
          * hope that we catch most things, to try to catch as many errors
@@ -289,16 +302,21 @@ public abstract class JavaMailer2 {
                 return;
             }
 
-            throw new JavaMailerException("Not all messages delivered:\n"
-                    + "\t" + m_validSentAddresses.size() + " messages were sent to valid addresses: " + StringUtils.collectionToDelimitedString(m_validSentAddresses, ", ") + "\n"
-                    + "\t" + m_validUnsentAddresses.size() + " messages were not sent to valid addresses: " + StringUtils.collectionToDelimitedString(m_validUnsentAddresses, ", ") + "\n"
-                    + "\t" + m_invalidAddresses.size() + " messages had invalid addresses: " + StringUtils.collectionToDelimitedString(m_invalidAddresses, ", "));
+            throw new JavaMailerException("Not all messages delivered:\n" + "\t" + m_validSentAddresses.size()
+                    + " messages were sent to valid addresses: "
+                    + StringUtils.collectionToDelimitedString(m_validSentAddresses, ", ") + "\n" + "\t"
+                    + m_validUnsentAddresses.size() + " messages were not sent to valid addresses: "
+                    + StringUtils.collectionToDelimitedString(m_validUnsentAddresses, ", ") + "\n" + "\t"
+                    + m_invalidAddresses.size() + " messages had invalid addresses: "
+                    + StringUtils.collectionToDelimitedString(m_invalidAddresses, ", "));
         }
 
     }
 
     /**
-     * <p>getSession</p>
+     * <p>
+     * getSession
+     * </p>
      *
      * @return the session
      */
@@ -307,16 +325,20 @@ public abstract class JavaMailer2 {
     }
 
     /**
-     * <p>setSession</p>
+     * <p>
+     * setSession
+     * </p>
      *
-     * @param session the session to set
+     * @param session
+     *            the session to set
      */
     public void setSession(Session session) {
         m_session = session;
     }
 
     /**
-     * This returns the properties configured in the javamail-configuration.properties file.
+     * This returns the properties configured in the
+     * javamail-configuration.properties file.
      *
      * @return a {@link java.util.Properties} object.
      */

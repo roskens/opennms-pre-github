@@ -34,7 +34,8 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.datacollection.Parameter;
 
 /**
- * PersistAllSelectorStrategy (default implementation of the PersistenceSelectorStrategy interface).
+ * PersistAllSelectorStrategy (default implementation of the
+ * PersistenceSelectorStrategy interface).
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */

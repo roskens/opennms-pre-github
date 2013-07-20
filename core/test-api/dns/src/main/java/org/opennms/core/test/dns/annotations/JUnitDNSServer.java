@@ -35,14 +35,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>JUnitDNSServer class.</p>
+ * <p>
+ * JUnitDNSServer class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitDNSServer {
 
     /** the port to listen on **/

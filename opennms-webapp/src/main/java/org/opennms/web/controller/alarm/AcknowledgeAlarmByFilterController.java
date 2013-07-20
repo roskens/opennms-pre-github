@@ -63,27 +63,36 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
     private String m_redirectView;
 
     /**
-     * <p>setRedirectView</p>
+     * <p>
+     * setRedirectView
+     * </p>
      *
-     * @param redirectView a {@link java.lang.String} object.
+     * @param redirectView
+     *            a {@link java.lang.String} object.
      */
     public final void setRedirectView(final String redirectView) {
         m_redirectView = redirectView;
     }
 
     /**
-     * <p>setWebAlarmRepository</p>
+     * <p>
+     * setWebAlarmRepository
+     * </p>
      *
-     * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
+     * @param webAlarmRepository
+     *            a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
      */
     public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -92,13 +101,13 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Acknowledge the events specified in the POST and then redirect the client
+     * {@inheritDoc} Acknowledge the events specified in the POST and then
+     * redirect the client
      * to an appropriate URL for display.
      */
     @Override
-    public final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    public final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response)
+            throws Exception {
         // required parameter
         String[] filterStrings = request.getParameterValues("filter");
         String action = request.getParameter("actionCode");
@@ -138,11 +147,11 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
         if (redirect != null) {
             viewName = redirect;
         } else {
-            viewName = (redirectParms == null || redirectParms=="" || redirectParms=="null" ? m_redirectView : m_redirectView + "?" + redirectParms);
+            viewName = (redirectParms == null || redirectParms == "" || redirectParms == "null" ? m_redirectView
+                : m_redirectView + "?" + redirectParms);
         }
         RedirectView view = new RedirectView(viewName, true);
         return new ModelAndView(view);
     }
-
 
 }

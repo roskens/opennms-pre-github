@@ -39,7 +39,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
 
 /**
- * <p>DistributedStatusDetailsController class.</p>
+ * <p>
+ * DistributedStatusDetailsController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,36 +50,47 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
 public class DistributedStatusDetailsController extends AbstractCommandController {
 
     private DistributedStatusService m_distributedStatusService;
+
     private String m_successView;
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handle(final HttpServletRequest request, final HttpServletResponse response, final Object command, final BindException errors) throws Exception {
+    protected final ModelAndView handle(final HttpServletRequest request, final HttpServletResponse response,
+            final Object command, final BindException errors) throws Exception {
         DistributedStatusDetailsCommand cmd = (DistributedStatusDetailsCommand) command;
         SimpleWebTable table = m_distributedStatusService.createStatusTable(cmd, errors);
         return new ModelAndView(getSuccessView(), "webTable", table);
     }
 
     /**
-     * <p>getDistributedStatusService</p>
+     * <p>
+     * getDistributedStatusService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.DistributedStatusService} object.
+     * @return a {@link org.opennms.web.svclayer.DistributedStatusService}
+     *         object.
      */
     public final DistributedStatusService getDistributedStatusService() {
         return m_distributedStatusService;
     }
 
     /**
-     * <p>setDistributedStatusService</p>
+     * <p>
+     * setDistributedStatusService
+     * </p>
      *
-     * @param statusService a {@link org.opennms.web.svclayer.DistributedStatusService} object.
+     * @param statusService
+     *            a {@link org.opennms.web.svclayer.DistributedStatusService}
+     *            object.
      */
     public final void setDistributedStatusService(final DistributedStatusService statusService) {
         m_distributedStatusService = statusService;
     }
 
     /**
-     * <p>getSuccessView</p>
+     * <p>
+     * getSuccessView
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,9 +99,12 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public final void setSuccessView(final String successView) {
         m_successView = successView;

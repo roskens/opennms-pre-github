@@ -46,23 +46,31 @@ public class CollectdConfigFile {
 
     private static final Logger LOG = LoggerFactory.getLogger(CollectdConfigFile.class);
 
-	File m_file;
+    File m_file;
 
-	/**
-	 * <p>Constructor for CollectdConfigFile.</p>
-	 *
-	 * @param file a {@link java.io.File} object.
-	 */
-	public CollectdConfigFile(File file) {
-		m_file = file;
-	}
+    /**
+     * <p>
+     * Constructor for CollectdConfigFile.
+     * </p>
+     *
+     * @param file
+     *            a {@link java.io.File} object.
+     */
+    public CollectdConfigFile(File file) {
+        m_file = file;
+    }
 
-	/**
-	 * <p>visit</p>
-	 *
-	 * @param visitor a {@link org.opennms.netmgt.dao.castor.collector.CollectdConfigVisitor} object.
-	 */
-	public void visit(CollectdConfigVisitor visitor) {
+    /**
+     * <p>
+     * visit
+     * </p>
+     *
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.dao.castor.collector.CollectdConfigVisitor}
+     *            object.
+     */
+    public void visit(CollectdConfigVisitor visitor) {
         CollectdConfiguration collectdConfiguration = getCollectdConfiguration();
         visitor.visitCollectdConfiguration(collectdConfiguration);
 
@@ -73,27 +81,27 @@ public class CollectdConfigFile {
         visitor.completeCollectdConfiguration(collectdConfiguration);
     }
 
-	private void doVisit(Collector collector, CollectdConfigVisitor visitor) {
+    private void doVisit(Collector collector, CollectdConfigVisitor visitor) {
         visitor.visitCollectorCollection(collector);
         visitor.completeCollectorCollection(collector);
     }
 
     private CollectdConfiguration getCollectdConfiguration() {
-		try {
-			return CastorUtils.unmarshal(CollectdConfiguration.class, new FileSystemResource(m_file));
-		} catch (MarshalException e) {
-			throw runtimeException("Syntax error in "+m_file, e);
-		} catch (ValidationException e) {
-			throw runtimeException("invalid attribute in "+m_file, e);
+        try {
+            return CastorUtils.unmarshal(CollectdConfiguration.class, new FileSystemResource(m_file));
+        } catch (MarshalException e) {
+            throw runtimeException("Syntax error in " + m_file, e);
+        } catch (ValidationException e) {
+            throw runtimeException("invalid attribute in " + m_file, e);
         } catch (FileNotFoundException e) {
-            throw runtimeException("Unable to find file "+m_file, e);
+            throw runtimeException("Unable to find file " + m_file, e);
         } catch (IOException e) {
-            throw runtimeException("Unable to find access "+m_file, e);
-		}
-	}
+            throw runtimeException("Unable to find access " + m_file, e);
+        }
+    }
 
-	private RuntimeException runtimeException(String msg, Exception e) {
-		LOG.error(msg, e);
-		return new RuntimeException(msg, e);
-	}
+    private RuntimeException runtimeException(String msg, Exception e) {
+        LOG.error(msg, e);
+        return new RuntimeException(msg, e);
+    }
 }

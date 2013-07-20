@@ -53,10 +53,10 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Top-level element for the datacollection-config.xml
- *  configuration file.
+ * configuration file.
  */
 
-@XmlRootElement(name="datacollection-config", namespace="http://xmlns.opennms.org/xsd/config/datacollection")
+@XmlRootElement(name = "datacollection-config", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 @ValidateUsing("datacollection-config.xsd")
 public class DatacollectionConfig implements Serializable {
@@ -66,7 +66,7 @@ public class DatacollectionConfig implements Serializable {
 
     /**
      * full path to the RRD repository for collected SNMP
-     *  data
+     * data
      */
     private String m_rrdRepository;
 
@@ -75,32 +75,29 @@ public class DatacollectionConfig implements Serializable {
      */
     private List<SnmpCollection> m_snmpCollections = new ArrayList<SnmpCollection>();
 
-
     public DatacollectionConfig() {
         super();
     }
 
-
     /**
-     *
-     *
      * @param snmpCollection
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addSnmpCollection(final SnmpCollection snmpCollection) throws IndexOutOfBoundsException {
         m_snmpCollections.add(snmpCollection);
     }
 
     /**
-     *
-     *
      * @param index
      * @param snmpCollection
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addSnmpCollection(final int index, final SnmpCollection snmpCollection) throws IndexOutOfBoundsException {
+    public void addSnmpCollection(final int index, final SnmpCollection snmpCollection)
+            throws IndexOutOfBoundsException {
         m_snmpCollections.add(index, snmpCollection);
     }
 
@@ -108,7 +105,7 @@ public class DatacollectionConfig implements Serializable {
      * Method enumerateSnmpCollection.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<SnmpCollection> enumerateSnmpCollection() {
         return java.util.Collections.enumeration(m_snmpCollections);
@@ -122,25 +119,25 @@ public class DatacollectionConfig implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof DatacollectionConfig) {
 
-            final DatacollectionConfig temp = (DatacollectionConfig)obj;
+            final DatacollectionConfig temp = (DatacollectionConfig) obj;
             if (m_rrdRepository != null) {
-                if (temp.m_rrdRepository == null) return false;
+                if (temp.m_rrdRepository == null)
+                    return false;
                 else if (!(m_rrdRepository.equals(temp.m_rrdRepository)))
                     return false;
-            }
-            else if (temp.m_rrdRepository != null)
+            } else if (temp.m_rrdRepository != null)
                 return false;
             if (m_snmpCollections != null) {
-                if (temp.m_snmpCollections == null) return false;
+                if (temp.m_snmpCollections == null)
+                    return false;
                 else if (!(m_snmpCollections.equals(temp.m_snmpCollections)))
                     return false;
-            }
-            else if (temp.m_snmpCollections != null)
+            } else if (temp.m_snmpCollections != null)
                 return false;
             return true;
         }
@@ -151,11 +148,11 @@ public class DatacollectionConfig implements Serializable {
      * Returns the value of field 'rrdRepository'. The field
      * 'rrdRepository' has the following description: full path to
      * the RRD repository for collected SNMP
-     *  data
+     * data
      *
      * @return the value of field 'RrdRepository'.
      */
-    @XmlAttribute(name="rrdRepository")
+    @XmlAttribute(name = "rrdRepository")
     public String getRrdRepository() {
         return m_rrdRepository;
     }
@@ -164,26 +161,29 @@ public class DatacollectionConfig implements Serializable {
      * Method getSnmpCollection.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * SnmpCollection at
-     * the given index
+     *         SnmpCollection at
+     *         the given index
      */
     public SnmpCollection getSnmpCollection(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_snmpCollections.size()) {
-            throw new IndexOutOfBoundsException("getSnmpCollection: Index value '" + index + "' not in range [0.." + (m_snmpCollections.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getSnmpCollection: Index value '" + index + "' not in range [0.."
+                    + (m_snmpCollections.size() - 1) + "]");
         }
         return m_snmpCollections.get(index);
     }
 
     /**
      * Method getSnmpCollection.Returns the contents of the
-     * collection in an Array.  <p>Note:  Just in case the
-     * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of
-     * exactly the correct length.
+     * collection in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -198,7 +198,7 @@ public class DatacollectionConfig implements Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    @XmlElement(name="snmp-collection")
+    @XmlElement(name = "snmp-collection")
     public List<SnmpCollection> getSnmpCollectionCollection() {
         return m_snmpCollections;
     }
@@ -215,8 +215,8 @@ public class DatacollectionConfig implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -225,10 +225,10 @@ public class DatacollectionConfig implements Serializable {
         int result = 17;
 
         if (m_rrdRepository != null) {
-           result = 37 * result + m_rrdRepository.hashCode();
+            result = 37 * result + m_rrdRepository.hashCode();
         }
         if (m_snmpCollections != null) {
-           result = 37 * result + m_snmpCollections.hashCode();
+            result = 37 * result + m_snmpCollections.hashCode();
         }
 
         return result;
@@ -253,20 +253,20 @@ public class DatacollectionConfig implements Serializable {
      * Method iterateSnmpCollection.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<SnmpCollection> iterateSnmpCollection() {
         return m_snmpCollections.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -274,15 +274,16 @@ public class DatacollectionConfig implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -317,38 +318,38 @@ public class DatacollectionConfig implements Serializable {
      * Sets the value of field 'rrdRepository'. The field
      * 'rrdRepository' has the following description: full path to
      * the RRD repository for collected SNMP
-     *  data
+     * data
      *
-     * @param rrdRepository the value of field 'rrdRepository'.
+     * @param rrdRepository
+     *            the value of field 'rrdRepository'.
      */
     public void setRrdRepository(final String rrdRepository) {
         m_rrdRepository = rrdRepository.intern();
     }
 
     /**
-     *
-     *
      * @param index
      * @param snmpCollection
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setSnmpCollection(final int index, final SnmpCollection snmpCollection) throws IndexOutOfBoundsException {
+    public void setSnmpCollection(final int index, final SnmpCollection snmpCollection)
+            throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_snmpCollections.size()) {
-            throw new IndexOutOfBoundsException("setSnmpCollection: Index value '" + index + "' not in range [0.." + (m_snmpCollections.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setSnmpCollection: Index value '" + index + "' not in range [0.."
+                    + (m_snmpCollections.size() - 1) + "]");
         }
         m_snmpCollections.set(index, snmpCollection);
     }
 
     /**
-     *
-     *
      * @param snmpCollections
      */
     public void setSnmpCollection(final SnmpCollection[] snmpCollections) {
         m_snmpCollections.clear();
         for (int i = 0; i < snmpCollections.length; i++) {
-                m_snmpCollections.add(snmpCollections[i]);
+            m_snmpCollections.add(snmpCollections[i]);
         }
     }
 
@@ -356,10 +357,12 @@ public class DatacollectionConfig implements Serializable {
      * Sets the value of '_snmpCollectionList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param snmpCollections the Vector to copy.
+     * @param snmpCollections
+     *            the Vector to copy.
      */
     public void setSnmpCollection(final List<SnmpCollection> snmpCollections) {
-        if (m_snmpCollections == snmpCollections) return;
+        if (m_snmpCollections == snmpCollections)
+            return;
         m_snmpCollections.clear();
         m_snmpCollections.addAll(snmpCollections);
     }
@@ -367,9 +370,10 @@ public class DatacollectionConfig implements Serializable {
     /**
      * Sets the value of '_snmpCollectionList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param snmpCollections the Vector to set.
+     * @deprecated
+     * @param snmpCollections
+     *            the Vector to set.
      */
     public void setSnmpCollectionCollection(final List<SnmpCollection> snmpCollections) {
         m_snmpCollections = snmpCollections;
@@ -379,12 +383,14 @@ public class DatacollectionConfig implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * DatacollectionConfig
+     *         DatacollectionConfig
      */
     @Deprecated
     public static DatacollectionConfig unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -392,10 +398,9 @@ public class DatacollectionConfig implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

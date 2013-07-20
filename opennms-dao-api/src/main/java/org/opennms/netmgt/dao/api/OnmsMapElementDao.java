@@ -34,119 +34,190 @@ import org.opennms.netmgt.model.OnmsMap;
 import org.opennms.netmgt.model.OnmsMapElement;
 
 /**
- * <p>OnmsMapElementDao interface.</p>
+ * <p>
+ * OnmsMapElementDao interface.
+ * </p>
  */
 public interface OnmsMapElementDao extends OnmsDao<OnmsMapElement, Integer> {
     /**
-     * <p>findAll</p>
+     * <p>
+     * findAll
+     * </p>
      *
-     * @param offset a {@link java.lang.Integer} object.
-     * @param limit a {@link java.lang.Integer} object.
+     * @param offset
+     *            a {@link java.lang.Integer} object.
+     * @param limit
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsMapElement> findAll(Integer offset, Integer limit);
+
     /**
-     * <p>findElementById</p>
+     * <p>
+     * findElementById
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      * @return a {@link org.opennms.netmgt.model.OnmsMapElement} object.
      */
     OnmsMapElement findElementById(int id);
+
     /**
-     * <p>findElement</p>
+     * <p>
+     * findElement
+     * </p>
      *
-     * @param elementId a int.
-     * @param type a {@link java.lang.String} object.
-     * @param map a {@link org.opennms.netmgt.model.OnmsMap} object.
+     * @param elementId
+     *            a int.
+     * @param type
+     *            a {@link java.lang.String} object.
+     * @param map
+     *            a {@link org.opennms.netmgt.model.OnmsMap} object.
      * @return a {@link org.opennms.netmgt.model.OnmsMapElement} object.
      */
     OnmsMapElement findElement(int elementId, String type, OnmsMap map);
+
     /**
-     * <p>findElementsByMapId</p>
+     * <p>
+     * findElementsByMapId
+     * </p>
      *
-     * @param map a {@link org.opennms.netmgt.model.OnmsMap} object.
+     * @param map
+     *            a {@link org.opennms.netmgt.model.OnmsMap} object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsMapElement> findElementsByMapId(OnmsMap map);
+
     /**
-     * <p>findElementsByNodeId</p>
+     * <p>
+     * findElementsByNodeId
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsMapElement> findElementsByNodeId(int nodeId);
+
     /**
-     * <p>findElementsByElementIdAndType</p>
+     * <p>
+     * findElementsByElementIdAndType
+     * </p>
      *
-     * @param elementId a int.
-     * @param type a {@link java.lang.String} object.
+     * @param elementId
+     *            a int.
+     * @param type
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsMapElement> findElementsByElementIdAndType(int elementId, String type);
+
     /**
-     * <p>findElementsByMapIdAndType</p>
+     * <p>
+     * findElementsByMapIdAndType
+     * </p>
      *
-     * @param mapId a int.
-     * @param type a {@link java.lang.String} object.
+     * @param mapId
+     *            a int.
+     * @param type
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsMapElement> findElementsByMapIdAndType(int mapId, String type);
+
     /**
-     * <p>findElementsByType</p>
+     * <p>
+     * findElementsByType
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsMapElement> findElementsByType(String type);
+
     /**
-     * <p>deleteElementsByMapId</p>
+     * <p>
+     * deleteElementsByMapId
+     * </p>
      *
-     * @param map a {@link org.opennms.netmgt.model.OnmsMap} object.
+     * @param map
+     *            a {@link org.opennms.netmgt.model.OnmsMap} object.
      */
     void deleteElementsByMapId(OnmsMap map);
+
     /**
-     * <p>findMapElementsOnMap</p>
+     * <p>
+     * findMapElementsOnMap
+     * </p>
      *
-     * @param mapId a int.
+     * @param mapId
+     *            a int.
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsMapElement> findMapElementsOnMap(int mapId);
+
     /**
-     * <p>findNodeElementsOnMap</p>
+     * <p>
+     * findNodeElementsOnMap
+     * </p>
      *
-     * @param mapId a int.
+     * @param mapId
+     *            a int.
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsMapElement> findNodeElementsOnMap(int mapId);
+
     /**
-     * <p>deleteElementsByNodeid</p>
+     * <p>
+     * deleteElementsByNodeid
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     void deleteElementsByNodeid(int nodeId);
+
     /**
-     * <p>deleteElementsByType</p>
+     * <p>
+     * deleteElementsByType
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     void deleteElementsByType(String type);
+
     /**
-     * <p>deleteElementsByElementIdAndType</p>
+     * <p>
+     * deleteElementsByElementIdAndType
+     * </p>
      *
-     * @param elementId a int.
-     * @param type a {@link java.lang.String} object.
+     * @param elementId
+     *            a int.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     void deleteElementsByElementIdAndType(int elementId, String type);
+
     /**
-     * <p>deleteElementsByMapType</p>
+     * <p>
+     * deleteElementsByMapType
+     * </p>
      *
-     * @param mapType a {@link java.lang.String} object.
+     * @param mapType
+     *            a {@link java.lang.String} object.
      */
     void deleteElementsByMapType(String mapType);
+
     /**
-     * <p>countElementsOnMap</p>
+     * <p>
+     * countElementsOnMap
+     * </p>
      *
-     * @param mapid a int.
+     * @param mapid
+     *            a int.
      * @return a int.
      */
     int countElementsOnMap(int mapid);

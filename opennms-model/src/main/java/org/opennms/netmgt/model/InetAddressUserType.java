@@ -44,10 +44,11 @@ public class InetAddressUserType implements UserType {
 
     private static final int[] SQL_TYPES = new int[] { java.sql.Types.VARCHAR };
 
-	/**
+    /**
      * A public default constructor is required by Hibernate.
      */
-    public InetAddressUserType() {}
+    public InetAddressUserType() {
+    }
 
     @Override
     public Object assemble(final Serializable cached, final Object owner) throws HibernateException {
@@ -55,7 +56,8 @@ public class InetAddressUserType implements UserType {
     }
 
     /**
-     * Since {@link java.net.InetAddress} is immutable, we just return the original
+     * Since {@link java.net.InetAddress} is immutable, we just return the
+     * original
      * value without copying it.
      */
     @Override
@@ -66,22 +68,25 @@ public class InetAddressUserType implements UserType {
             // InetAddress is immutable so return the value without copying it
             return value;
         } else {
-            throw new IllegalArgumentException("Unexpected type that is mapped with " + this.getClass().getSimpleName() + ": " + value.getClass().getName());
+            throw new IllegalArgumentException("Unexpected type that is mapped with " + this.getClass().getSimpleName()
+                    + ": " + value.getClass().getName());
         }
     }
 
     @Override
     public Serializable disassemble(final Object value) throws HibernateException {
-        return (Serializable)deepCopy(value);
+        return (Serializable) deepCopy(value);
     }
 
     @Override
     public boolean equals(final Object x, final Object y) throws HibernateException {
-        if (x == y) return true;
-        if (x == null || y == null) return false;
+        if (x == y)
+            return true;
+        if (x == null || y == null)
+            return false;
         // It's probably more consistent if we use our own comparator here
         // return ((InetAddress)x).equals((InetAddress)y);
-        return new InetAddressComparator().compare((InetAddress)x, (InetAddress)y) == 0;
+        return new InetAddressComparator().compare((InetAddress) x, (InetAddress) y) == 0;
     }
 
     @Override
@@ -95,28 +100,32 @@ public class InetAddressUserType implements UserType {
     }
 
     @Override
-    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException, SQLException {
-        return InetAddressUtils.addr((String)Hibernate.STRING.nullSafeGet(rs, names[0]));
+    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException,
+            SQLException {
+        return InetAddressUtils.addr((String) Hibernate.STRING.nullSafeGet(rs, names[0]));
     }
 
     @Override
-    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException, SQLException {
+    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException,
+            SQLException {
         if (value == null) {
             Hibernate.STRING.nullSafeSet(st, null, index);
-        } else if (value instanceof InetAddress){
+        } else if (value instanceof InetAddress) {
             // Format the IP address into a uniform format
-            Hibernate.STRING.nullSafeSet(st, InetAddressUtils.str((InetAddress)value), index);
-        } else if (value instanceof String){
+            Hibernate.STRING.nullSafeSet(st, InetAddressUtils.str((InetAddress) value), index);
+        } else if (value instanceof String) {
             try {
                 // Format the IP address into a uniform format
-                Hibernate.STRING.nullSafeSet(st, InetAddressUtils.normalize((String)value), index);
+                Hibernate.STRING.nullSafeSet(st, InetAddressUtils.normalize((String) value), index);
             } catch (final IllegalArgumentException e) {
-                // If the argument is not a valid IP address, then just pass it as-is. This
-                // can occur of the query is performing a LIKE query (ie. '192.168.%').
+                // If the argument is not a valid IP address, then just pass it
+                // as-is. This
+                // can occur of the query is performing a LIKE query (ie.
+                // '192.168.%').
                 //
                 // TODO: Add more validation of this string
                 //
-                Hibernate.STRING.nullSafeSet(st, (String)value, index);
+                Hibernate.STRING.nullSafeSet(st, (String) value, index);
             }
         }
     }

@@ -38,7 +38,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>SmbDetector class.</p>
+ * <p>
+ * SmbDetector class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -49,8 +51,11 @@ import org.springframework.stereotype.Component;
 public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressResponse> {
 
     private static final String DEFAULT_SERVICE_NAME = "SMB";
+
     private static final int DEFAULT_RETRIES = 0;
+
     private static final int DEFAULT_TIMEOUT = 1000;
+
     private static final int DEFAULT_PORT = 0;
 
     /**
@@ -63,19 +68,22 @@ public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressRe
     /**
      * Constructor for instantiating a non-default service name of this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public SmbDetector(String serviceName) {
         super(serviceName, DEFAULT_PORT, DEFAULT_TIMEOUT, DEFAULT_RETRIES);
     }
 
-
     /**
      * Constructor for overriding defaults
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param timeout a int.
-     * @param retries a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param timeout
+     *            a int.
+     * @param retries
+     *            a int.
      */
     public SmbDetector(String serviceName, int timeout, int retries) {
         super(serviceName, DEFAULT_PORT, timeout, retries);
@@ -88,7 +96,7 @@ public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressRe
 
     }
 
-    private static ResponseValidator<NbtAddressResponse> validateAddressIsNotSame(){
+    private static ResponseValidator<NbtAddressResponse> validateAddressIsNotSame() {
         return new ResponseValidator<NbtAddressResponse>() {
 
             @Override
@@ -104,6 +112,5 @@ public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressRe
     protected Client<LineOrientedRequest, NbtAddressResponse> getClient() {
         return new SmbClient();
     }
-
 
 }

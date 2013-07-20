@@ -47,17 +47,20 @@ import org.springframework.test.context.TestExecutionListener;
 import org.springframework.test.context.support.AbstractTestExecutionListener;
 
 /**
- * <p>This {@link TestExecutionListener} looks for the {@link JUnitCollector} annotation
- * and uses attributes on it to:</p>
+ * <p>
+ * This {@link TestExecutionListener} looks for the {@link JUnitCollector}
+ * annotation and uses attributes on it to:
+ * </p>
  * <ul>
  * <li>Load configuration files for the {@link ServiceCollector}</li>
- * <li>Set up {@link FileAnticipator} checks for files created
- * during the unit test execution</li>
+ * <li>Set up {@link FileAnticipator} checks for files created during the unit
+ * test execution</li>
  * </ul>
  */
 public class JUnitCollectorExecutionListener extends AbstractTestExecutionListener {
 
     private File m_snmpRrdDirectory;
+
     private FileAnticipator m_fileAnticipator;
 
     @Override
@@ -67,18 +70,20 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
             return;
         }
 
-        // FIXME: Is there a better way to inject the instance into the test class?
+        // FIXME: Is there a better way to inject the instance into the test
+        // class?
         if (testContext.getTestInstance() instanceof TestContextAware) {
             System.err.println("injecting TestContext into TestContextAware test: "
-                            + testContext.getTestInstance().getClass().getSimpleName() + "."
-                            + testContext.getTestMethod().getName());
+                    + testContext.getTestInstance().getClass().getSimpleName() + "."
+                    + testContext.getTestMethod().getName());
             ((TestContextAware) testContext.getTestInstance()).setTestContext(testContext);
         }
 
         RrdUtils.setStrategy(new JRobinRrdStrategy());
 
         // make a fake database schema with hibernate
-        InputStream is = ConfigurationTestUtils.getInputStreamForResource(testContext.getTestInstance(), config.schemaConfig());
+        InputStream is = ConfigurationTestUtils.getInputStreamForResource(testContext.getTestInstance(),
+                                                                          config.schemaConfig());
         DatabaseSchemaConfigFactory.setInstance(new DatabaseSchemaConfigFactory(is));
         is.close();
 
@@ -90,19 +95,29 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
         testContext.setAttribute("rrdDirectory", m_snmpRrdDirectory);
 
         // set up the collection configuration factory
-        if ("http".equalsIgnoreCase(config.datacollectionType()) || "https".equalsIgnoreCase(config.datacollectionType())) {
-        	is = ConfigurationTestUtils.getInputStreamForResourceWithReplacements(testContext.getTestInstance(), config.datacollectionConfig(), new String[] { "%rrdRepository%", m_snmpRrdDirectory.getAbsolutePath() });
+        if ("http".equalsIgnoreCase(config.datacollectionType())
+                || "https".equalsIgnoreCase(config.datacollectionType())) {
+            is = ConfigurationTestUtils.getInputStreamForResourceWithReplacements(testContext.getTestInstance(),
+                                                                                  config.datacollectionConfig(),
+                                                                                  new String[] {
+                                                                                          "%rrdRepository%",
+                                                                                          m_snmpRrdDirectory.getAbsolutePath() });
             HttpCollectionConfigFactory factory = new HttpCollectionConfigFactory(is);
             HttpCollectionConfigFactory.setInstance(factory);
             HttpCollectionConfigFactory.init();
         } else if ("snmp".equalsIgnoreCase(config.datacollectionType())) {
-            Resource r = ConfigurationTestUtils.getSpringResourceForResourceWithReplacements(testContext.getTestInstance(), config.datacollectionConfig(), new String[] { "%rrdRepository%", m_snmpRrdDirectory.getAbsolutePath() });
+            Resource r = ConfigurationTestUtils.getSpringResourceForResourceWithReplacements(testContext.getTestInstance(),
+                                                                                             config.datacollectionConfig(),
+                                                                                             new String[] {
+                                                                                                     "%rrdRepository%",
+                                                                                                     m_snmpRrdDirectory.getAbsolutePath() });
             DefaultDataCollectionConfigDao dataCollectionDao = new DefaultDataCollectionConfigDao();
             dataCollectionDao.setConfigResource(r);
             dataCollectionDao.afterPropertiesSet();
             DataCollectionConfigFactory.setInstance(dataCollectionDao);
         } else {
-            throw new UnsupportedOperationException("data collection type '" + config.datacollectionType() + "' not supported");
+            throw new UnsupportedOperationException("data collection type '" + config.datacollectionType()
+                    + "' not supported");
         }
         IOUtils.closeQuietly(is);
     }
@@ -116,8 +131,7 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
 
         boolean shouldIgnoreNonExistent = testContext.getTestException() != null;
 
-        if (config.anticipateFiles().length > 0 ||
-                config.anticipateRrds().length > 0) {
+        if (config.anticipateFiles().length > 0 || config.anticipateRrds().length > 0) {
             // make sure any RRDs have time to get written
             Thread.sleep(1000);
         }
@@ -126,8 +140,9 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
             for (String rrdFile : config.anticipateRrds()) {
                 m_fileAnticipator.expecting(m_snmpRrdDirectory, rrdFile + RrdUtils.getExtension());
 
-                //the nrtg feature requires .meta files in parallel to the rrd/jrb files.
-                //this .meta files are expected
+                // the nrtg feature requires .meta files in parallel to the
+                // rrd/jrb files.
+                // this .meta files are expected
                 m_fileAnticipator.expecting(m_snmpRrdDirectory, rrdFile + ".meta");
             }
         }
@@ -140,31 +155,32 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
 
         Exception e = null;
         if (m_fileAnticipator.isInitialized()) {
-        	try {
-        		m_fileAnticipator.deleteExpected(shouldIgnoreNonExistent);
-        	} catch (Throwable t) {
-        		e = new RuntimeException(t);
-        	}
+            try {
+                m_fileAnticipator.deleteExpected(shouldIgnoreNonExistent);
+            } catch (Throwable t) {
+                e = new RuntimeException(t);
+            }
         }
 
         deleteResursively(m_snmpRrdDirectory);
         m_fileAnticipator.tearDown();
 
         if (e != null) {
-        	throw e;
+            throw e;
         }
     }
 
     private static void deleteResursively(File directory) {
-    	if (!directory.exists()) return;
+        if (!directory.exists())
+            return;
 
-    	if (directory.isDirectory()) {
-    		for (File f : directory.listFiles()) {
+        if (directory.isDirectory()) {
+            for (File f : directory.listFiles()) {
                 deleteResursively(f);
             }
         }
 
-    	directory.delete();
+        directory.delete();
     }
 
     private static JUnitCollector findCollectorAnnotation(TestContext testContext) {

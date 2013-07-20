@@ -8,7 +8,7 @@ public class BoundingBoxTest {
 
     @Test
     public void test() {
-        BoundingBox rBBox = new BoundingBox(0,0, 100, 150).computeWithAspectRatio(1.5);
+        BoundingBox rBBox = new BoundingBox(0, 0, 100, 150).computeWithAspectRatio(1.5);
 
         assertEquals(225, rBBox.getWidth());
         assertEquals(150, rBBox.getHeight());
@@ -21,13 +21,11 @@ public class BoundingBoxTest {
         assertEquals(300, bBox.getCenter().getX());
         assertEquals(50, bBox.getCenter().getY());
 
-
-        //custom size
-        BoundingBox customBBox = new BoundingBox(60, 53, 2389, 1301).computeWithAspectRatio(1449.0/843.0);
+        // custom size
+        BoundingBox customBBox = new BoundingBox(60, 53, 2389, 1301).computeWithAspectRatio(1449.0 / 843.0);
         assertEquals(2389, customBBox.getWidth());
         assertEquals(1390, customBBox.getHeight());
 
     }
-
 
 }

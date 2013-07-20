@@ -38,7 +38,6 @@ import java.net.InetAddress;
  * an IP Address, its netmask, interface binding, broadcast address, and maximum
  * packet reassembly size.
  * </P>
- *
  * <P>
  * This object is used by the IpAddrTable to hold information single entries in
  * the table. See the IpAddrTable documentation form more information.
@@ -68,17 +67,18 @@ public final class IpAddrTableEntry extends SnmpStore {
 
     /** Constant <code>ms_elemList</code> */
     public final static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
-        new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS, IP_ADDR_ENT_ADDR, ".1.3.6.1.2.1.4.20.1.1", 1),
-        new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IP_ADDR_IF_INDEX, ".1.3.6.1.2.1.4.20.1.2", 2),
-        new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS, IP_ADDR_ENT_NETMASK, ".1.3.6.1.2.1.4.20.1.3", 3),
-        new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IP_ADDR_ENT_BCASTADDR, ".1.3.6.1.2.1.4.20.1.4", 4)
+            new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS, IP_ADDR_ENT_ADDR, ".1.3.6.1.2.1.4.20.1.1", 1),
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IP_ADDR_IF_INDEX, ".1.3.6.1.2.1.4.20.1.2", 2),
+            new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS, IP_ADDR_ENT_NETMASK, ".1.3.6.1.2.1.4.20.1.3", 3),
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IP_ADDR_ENT_BCASTADDR, ".1.3.6.1.2.1.4.20.1.4", 4)
 
-        // Array size has changed from 5 to 4...no longer going after
-        // ipAdEntReasmMaxSize variable because we aren't currently using
-        // it and not all agents implement it which causes the collection
-        // of the ipAddrTable to fail
-        //
-        // new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IP_ADDR_ENT_REASM_MAXSIZE, ".1.3.6.1.2.1.4.20.1.5", 5)
+    // Array size has changed from 5 to 4...no longer going after
+    // ipAdEntReasmMaxSize variable because we aren't currently using
+    // it and not all agents implement it which causes the collection
+    // of the ipAddrTable to fail
+    //
+    // new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IP_ADDR_ENT_REASM_MAXSIZE,
+    // ".1.3.6.1.2.1.4.20.1.5", 5)
     };
 
     /**
@@ -88,8 +88,8 @@ public final class IpAddrTableEntry extends SnmpStore {
      * </P>
      */
     public static final String TABLE_OID = ".1.3.6.1.2.1.4.20.1"; // start of
-                                                                    // table
-                                                                    // (GETNEXT)
+                                                                  // table
+                                                                  // (GETNEXT)
 
     /**
      * <P>
@@ -98,7 +98,6 @@ public final class IpAddrTableEntry extends SnmpStore {
      * created, this constructor will initialize all the variables as per their
      * named variable from the passed array of SNMP varbinds.
      * </P>
-     *
      * <P>
      * If the information in the object should not be modified then a <EM>final
      * </EM> modifier can be applied to the created object.
@@ -109,7 +108,9 @@ public final class IpAddrTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getIpAdEntAddr</p>
+     * <p>
+     * getIpAdEntAddr
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -118,7 +119,9 @@ public final class IpAddrTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getIpAdEntIfIndex</p>
+     * <p>
+     * getIpAdEntIfIndex
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -127,7 +130,9 @@ public final class IpAddrTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getIpAdEntNetMask</p>
+     * <p>
+     * getIpAdEntNetMask
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -136,13 +141,14 @@ public final class IpAddrTableEntry extends SnmpStore {
     }
 
     /**
-     * <p>getIpAdEntBcastAddr</p>
+     * <p>
+     * getIpAdEntBcastAddr
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
     public InetAddress getIpAdEntBcastAddr() {
         return getIPAddress(IpAddrTableEntry.IP_ADDR_ENT_BCASTADDR);
     }
-
 
 }

@@ -37,25 +37,27 @@ import org.opennms.netmgt.xml.event.Event;
 public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
 
     private static final String WS_OUTAGE_UEI = "uei.opennms.org/correlation/remote/wideSpreadOutage";
+
     private static final String WS_RESOLVED_UEI = "uei.opennms.org/correlation/remote/wideSpreadOutageResolved";
+
     private static final String SERVICE_FLAPPING_UEI = "uei.opennms.org/correlation/serviceFlapping";
 
     @Test
     public void testWideSpreadLocationMonitorOutage() throws Exception {
 
-    	resetAnticipated();
+        resetAnticipated();
 
         DroolsCorrelationEngine engine = findEngineByName("locationMonitorRules");
 
-		anticipateWideSpreadOutageEvent();
+        anticipateWideSpreadOutageEvent();
 
         // received outage events for all monitors
         engine.correlate(createRemoteNodeLostServiceEvent(1, "192.168.1.1", "HTTP", 7));
         engine.correlate(createRemoteNodeLostServiceEvent(1, "192.168.1.1", "HTTP", 8));
         engine.correlate(createRemoteNodeLostServiceEvent(1, "192.168.1.1", "HTTP", 9));
 
-
-        // expect memory to contain only the single 'affliction' for this service
+        // expect memory to contain only the single 'affliction' for this
+        // service
         // and the flap tracker for each monitor
         m_anticipatedMemorySize = 4;
 
@@ -71,7 +73,6 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
         // expect the flap tracker to remain
         m_anticipatedMemorySize = 6;
 
-
         verify(engine);
 
         // need to time the flap trackers out
@@ -83,18 +84,18 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
 
     }
 
-
     @Test
     public void testSingleLocationMonitorOutage() throws Exception {
 
-    	resetAnticipated();
+        resetAnticipated();
 
         DroolsCorrelationEngine engine = findEngineByName("locationMonitorRules");
 
-    	// receive outage event for only a single monitor
+        // receive outage event for only a single monitor
         engine.correlate(createRemoteNodeLostServiceEvent(1, "192.168.1.1", "HTTP", 7));
 
-        // expect memory to contain only the single 'application' for this service
+        // expect memory to contain only the single 'application' for this
+        // service
         m_anticipatedMemorySize = 2;
 
         verify(engine);
@@ -116,7 +117,7 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
     @Test
     public void testDoubleLocationMonitorOutage() throws Exception {
 
-    	resetAnticipated();
+        resetAnticipated();
 
         DroolsCorrelationEngine engine = findEngineByName("locationMonitorRules");
 
@@ -124,7 +125,8 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
         engine.correlate(createRemoteNodeLostServiceEvent(1, "192.168.1.1", "HTTP", 7));
         engine.correlate(createRemoteNodeLostServiceEvent(1, "192.168.1.1", "HTTP", 8));
 
-        // expect memory to contain only the single 'application' for this service
+        // expect memory to contain only the single 'application' for this
+        // service
         m_anticipatedMemorySize = 3;
 
         verify(engine);
@@ -146,15 +148,15 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
     @Test
     public void testFlappingMonitor() throws Exception {
 
-    	resetAnticipated();
+        resetAnticipated();
 
-    	DroolsCorrelationEngine engine = findEngineByName("locationMonitorRules");
+        DroolsCorrelationEngine engine = findEngineByName("locationMonitorRules");
 
         /*
-         * for testing the flap rules detect 3 outages that occur within 1000 millis
+         * for testing the flap rules detect 3 outages that occur within 1000
+         * millis
          * when this happens a serviceflapping event is produced
          */
-
 
         anticipateServiceFlappingEvent();
 
@@ -175,10 +177,12 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
         // expect an affliction and a flap for each outage
         m_anticipatedMemorySize = 4;
 
-        // ensure the correct objects are in memory and the service flapping event has been sent
+        // ensure the correct objects are in memory and the service flapping
+        // event has been sent
         verify(engine);
 
-        // wait for one of the flaps to expire - this is kind  of tight an a unresponsive may
+        // wait for one of the flaps to expire - this is kind of tight an a
+        // unresponsive may
         // not wake up in time and the second flap could be expired also
         Thread.sleep(810);
 
@@ -217,15 +221,14 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
 
         verify(engine);
 
-
     }
 
     @Test
     public void testDontFlapWhenOnlyTwoOutages() throws Exception {
 
-    	resetAnticipated();
+        resetAnticipated();
 
-    	DroolsCorrelationEngine engine = findEngineByName("locationMonitorRules");
+        DroolsCorrelationEngine engine = findEngineByName("locationMonitorRules");
 
         engine.correlate(createRemoteNodeLostServiceEvent(1, "192.168.1.1", "AVAIL", 7));
 
@@ -271,27 +274,21 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
 
     }
 
-	private void anticipateWideSpreadOutageEvent() {
+    private void anticipateWideSpreadOutageEvent() {
         anticipate(createWideSpreadOutageEvent());
-	}
+    }
 
     private Event createWideSpreadOutageEvent() {
-        return new EventBuilder(WS_OUTAGE_UEI, "Drools")
-        .setNodeid(1).setInterface(addr("192.168.1.1"))
-			.setService("HTTP")
-            .getEvent();
+        return new EventBuilder(WS_OUTAGE_UEI, "Drools").setNodeid(1).setInterface(addr("192.168.1.1")).setService("HTTP").getEvent();
     }
 
     private void anticipateWideSpreadOutageResolvedEvent() {
         anticipate(createWideSpreadOutageResolvedEvent());
     }
 
-
-
     private Event createWideSpreadOutageResolvedEvent() {
         EventBuilder bldr = new EventBuilder(WS_RESOLVED_UEI, "Drools");
-        bldr.setNodeid(1).setInterface(addr("192.168.1.1"))
-            .setService("HTTP");
+        bldr.setNodeid(1).setInterface(addr("192.168.1.1")).setService("HTTP");
 
         Event event = bldr.getEvent();
         return event;
@@ -302,10 +299,7 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
     }
 
     private Event createServiceFlappingEvent() {
-        return new EventBuilder(SERVICE_FLAPPING_UEI, "Drools")
-        .setNodeid(1).setInterface(addr("192.168.1.1"))
-            .setService("HTTP")
-            .getEvent();
+        return new EventBuilder(SERVICE_FLAPPING_UEI, "Drools").setNodeid(1).setInterface(addr("192.168.1.1")).setService("HTTP").getEvent();
     }
 
 }

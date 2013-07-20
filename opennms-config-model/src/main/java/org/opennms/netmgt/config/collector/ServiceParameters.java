@@ -38,7 +38,9 @@ import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
 /**
- * <p>ServiceParameters class.</p>
+ * <p>
+ * ServiceParameters class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -49,16 +51,21 @@ public class ServiceParameters {
     Map<String, Object> m_parameters;
 
     /**
-     * <p>Constructor for ServiceParameters.</p>
+     * <p>
+     * Constructor for ServiceParameters.
+     * </p>
      *
-     * @param parameters a {@link java.util.Map} object.
+     * @param parameters
+     *            a {@link java.util.Map} object.
      */
     public ServiceParameters(Map<String, Object> parameters) {
         m_parameters = parameters;
     }
 
     /**
-     * <p>getParameters</p>
+     * <p>
+     * getParameters
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -67,42 +74,37 @@ public class ServiceParameters {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return "domain: " + getDomain() + ", "
-        + "storeByNodeID: " + getStoreByNodeID() + ", "
-        + "storeByIfAlias: " + getStoreByIfAlias() + ", "
-        + "storFlagOverride: " + getStorFlagOverride() + ", "
-        + "ifAliasComment: " + getIfAliasComment();
+        return "domain: " + getDomain() + ", " + "storeByNodeID: " + getStoreByNodeID() + ", " + "storeByIfAlias: "
+                + getStoreByIfAlias() + ", " + "storFlagOverride: " + getStorFlagOverride() + ", " + "ifAliasComment: "
+                + getIfAliasComment();
     }
 
     public String getDomain() {
-        return ParameterMap.getKeyedString(getParameters(), "domain",
-        		"default");
+        return ParameterMap.getKeyedString(getParameters(), "domain", "default");
     }
 
     public String getStoreByNodeID() {
-        return ParameterMap.getKeyedString(getParameters(),
-        		"storeByNodeID", "normal");
+        return ParameterMap.getKeyedString(getParameters(), "storeByNodeID", "normal");
     }
 
     public String getStoreByIfAlias() {
-        return ParameterMap.getKeyedString(getParameters(),
-        		"storeByIfAlias", "false");
+        return ParameterMap.getKeyedString(getParameters(), "storeByIfAlias", "false");
     }
 
     public String getStorFlagOverride() {
-        return ParameterMap.getKeyedString(getParameters(),
-        		"storFlagOverride", "false");
+        return ParameterMap.getKeyedString(getParameters(), "storFlagOverride", "false");
     }
 
     public String getIfAliasComment() {
-        return ParameterMap.getKeyedString(getParameters(),
-        		"ifAliasComment", null);
+        return ParameterMap.getKeyedString(getParameters(), "ifAliasComment", null);
     }
 
     public boolean aliasesEnabled() {
@@ -114,19 +116,19 @@ public class ServiceParameters {
     }
 
     public void logIfAliasConfig() {
-	LOG.info("logIfAliasConfig: {}", this);
+        LOG.info("logIfAliasConfig: {}", this);
     }
 
     public boolean forceStoreByAlias(String alias) {
-    	if(alias == null || alias.equals("")) {
-    		return false;
-    	}
-    	String comment = getIfAliasComment();
-    	int si = -1;
-    	if( comment != null && !comment.equals("")) {
+        if (alias == null || alias.equals("")) {
+            return false;
+        }
+        String comment = getIfAliasComment();
+        int si = -1;
+        if (comment != null && !comment.equals("")) {
             si = alias.indexOf(comment);
-    	}
-    	//if ifAlias begins with comment, return false
+        }
+        // if ifAlias begins with comment, return false
         if (si == 0) {
             return false;
         }
@@ -134,25 +136,29 @@ public class ServiceParameters {
     }
 
     public String getCollectionName() {
-        //icky hard coded old names; we need to handle some old cases where configs might be not yet updated, but they should
+        // icky hard coded old names; we need to handle some old cases where
+        // configs might be not yet updated, but they should
         // still work
-        if(getParameters().containsKey("collection")) {
+        if (getParameters().containsKey("collection")) {
             return ParameterMap.getKeyedString(getParameters(), "collection", "default");
-        } else if(getParameters().containsKey("http-collection")) {
+        } else if (getParameters().containsKey("http-collection")) {
             return ParameterMap.getKeyedString(getParameters(), "http-collection", "default");
-        } else if(getParameters().containsKey("nsclient-collection")) {
+        } else if (getParameters().containsKey("nsclient-collection")) {
             return ParameterMap.getKeyedString(getParameters(), "nsclient-collection", "default");
-        } else if(m_parameters.containsKey("wmi-collection")) {
+        } else if (m_parameters.containsKey("wmi-collection")) {
             return ParameterMap.getKeyedString(getParameters(), "wmi-collection", "default");
         } else {
             return "default";
         }
-        //Previous code:  we can return to this in time (maybe 1.6, or even 2.0) when all old
+        // Previous code: we can return to this in time (maybe 1.6, or even 2.0)
+        // when all old
         // configs should be long gone
-        //return ParameterMap.getKeyedString(getParameters(), "collection", "default");
+        // return ParameterMap.getKeyedString(getParameters(), "collection",
+        // "default");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * Parameters corresponding to attributes from snmp-config
      */
 
@@ -185,12 +191,12 @@ public class ServiceParameters {
         String address = ParameterMap.getKeyedString(getParameters(), "proxy-host", null);
         InetAddress addr = null;
         if (address != null) {
-        	addr = InetAddressUtils.addr(address);
-        	if (addr == null) {
-			LOG.error("determineProxyHost: Problem converting proxy host string to InetAddress");
+            addr = InetAddressUtils.addr(address);
+            if (addr == null) {
+                LOG.error("determineProxyHost: Problem converting proxy host string to InetAddress");
             }
         }
-        return addr == null? current : addr;
+        return addr == null ? current : addr;
     }
 
     public int getSnmpVersion(int current) {

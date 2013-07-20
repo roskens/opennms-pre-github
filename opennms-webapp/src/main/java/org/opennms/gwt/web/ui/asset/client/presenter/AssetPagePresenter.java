@@ -50,223 +50,228 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class AssetPagePresenter implements Presenter {
 
-	/**
-	 * Interface that defines the asset page to show edit and create new assets.
-	 * The presenter {@link AssetPagePresenter} will work with every ui that is
-	 * implementing this Display interface.
-	 */
-	public interface Display {
+    /**
+     * Interface that defines the asset page to show edit and create new assets.
+     * The presenter {@link AssetPagePresenter} will work with every ui that is
+     * implementing this Display interface.
+     */
+    public interface Display {
 
-		/**
-		 * Recommend by GWT MVP design. Get the ui widgets up.
-		 *
-		 * @return {@link Widget}
-		 */
-		Widget asWidget();
+        /**
+         * Recommend by GWT MVP design. Get the ui widgets up.
+         *
+         * @return {@link Widget}
+         */
+        Widget asWidget();
 
-		/**
-		 * Cleans all ui changes, notes....
-		 */
-		void cleanUp();
+        /**
+         * Cleans all ui changes, notes....
+         */
+        void cleanUp();
 
-		/**
-		 * Fetches all data from the display as an {@link AssetCommand}.
-		 *
-		 * @return {@link AssetCommand}
-		 */
-		AssetCommand getData();
+        /**
+         * Fetches all data from the display as an {@link AssetCommand}.
+         *
+         * @return {@link AssetCommand}
+         */
+        AssetCommand getData();
 
-		/**
-		 * get the reset button to add manage the related actions
-		 *
-		 * @return {@link HasClickHandlers}
-		 */
-		HasClickHandlers getResetButton();
+        /**
+         * get the reset button to add manage the related actions
+         *
+         * @return {@link HasClickHandlers}
+         */
+        HasClickHandlers getResetButton();
 
-		/**
-		 * get the save button to add manage the related actions
-		 *
-		 * @return {@link HasClickHandlers}
-		 */
-		HasClickHandlers getSaveButton();
+        /**
+         * get the save button to add manage the related actions
+         *
+         * @return {@link HasClickHandlers}
+         */
+        HasClickHandlers getSaveButton();
 
-		/**
-		 * Checks if the display ui is in a valid status. So all inputs are
-		 * valid an ready for save or update.
-		 *
-		 * @return boolean ui is valid ture / false
-		 */
-		boolean isUiValid();
+        /**
+         * Checks if the display ui is in a valid status. So all inputs are
+         * valid an ready for save or update.
+         *
+         * @return boolean ui is valid ture / false
+         */
+        boolean isUiValid();
 
-		/**
-		 * Puts an {@link AssetCommand} to the display. To show all necessary
-		 * content into the ui. AssetCommand contains asset-data and additional.
-		 *
-		 * @param {@link AssetCommand}
-		 */
-		void setData(AssetCommand asset);
+        /**
+         * Puts an {@link AssetCommand} to the display. To show all necessary
+         * content into the ui. AssetCommand contains asset-data and additional.
+         *
+         * @param {@link AssetCommand}
+         */
+        void setData(AssetCommand asset);
 
-		/**
-		 * Puts an {@link AssetSuggCommand} to the display. That contains all
-		 * suggestions for all {@link FieldSetSuggestBox}es at Display.
-		 */
-		void setDataSugg(AssetSuggCommand assetSugg);
+        /**
+         * Puts an {@link AssetSuggCommand} to the display. That contains all
+         * suggestions for all {@link FieldSetSuggestBox}es at Display.
+         */
+        void setDataSugg(AssetSuggCommand assetSugg);
 
-		/**
-		 * Set the display ui in write enable or disable mode. So changing data
-		 * is possible or not.
-		 *
-		 * @param enabled
-		 *            for edit-mode.
-		 */
-		void setEnable(Boolean enabled);
+        /**
+         * Set the display ui in write enable or disable mode. So changing data
+         * is possible or not.
+         *
+         * @param enabled
+         *            for edit-mode.
+         */
+        void setEnable(Boolean enabled);
 
-		/**
-		 * Puts an error with description and throwable to the display ui.
-		 *
-		 * @param description
-		 *            of the error
-		 * @param throwable
-		 *            of the error
-		 */
-		void setError(String description, Throwable throwable);
+        /**
+         * Puts an error with description and throwable to the display ui.
+         *
+         * @param description
+         *            of the error
+         * @param throwable
+         *            of the error
+         */
+        void setError(String description, Throwable throwable);
 
-		/**
-		 * Sets status info to the display ui.
-		 *
-		 * @param String
-		 *            info what will be shown at the display ui.
-		 */
-		void setInfo(String info);
-	}
+        /**
+         * Sets status info to the display ui.
+         *
+         * @param String
+         *            info what will be shown at the display ui.
+         */
+        void setInfo(String info);
+    }
 
-	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
+    private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
-	private final AssetServiceAsync rpcService;
-	private final HandlerManager eventBus;
-	private final Display display;
-	private AssetCommand asset;
-	private AssetSuggCommand assetSugg;
-	private int nodeId;
+    private final AssetServiceAsync rpcService;
 
-	public AssetPagePresenter(AssetServiceAsync rpcService, HandlerManager eventBus, Display view) {
-		this.rpcService = rpcService;
-		this.eventBus = eventBus;
-		display = view;
+    private final HandlerManager eventBus;
 
-		try {
-			nodeId = Integer.parseInt(Window.Location.getParameter("node"));
-		} catch (NumberFormatException e) {
-			GWT.log(con.nodeParamNotValidInt() + Window.Location.getParameter("node"), e);
-			display.setError(con.nodeParamNotValidInt() + Window.Location.getParameter("node"), e);
-		}
-	}
+    private final Display display;
 
-	/**
-	 * adds actions to all buttons of {@link Display}.
-	 */
-	public void bind() {
-		display.getSaveButton().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				if (display.isUiValid()) {
-					display.setInfo(con.infoAssetSaving() + nodeId);
-					saveAssetData();
-				} else {
-					GWT.log("isUiValid -> false; will not save.");
-					display.setError(con.assetPageNotValidDontSave(), null);
-				}
-			}
-		});
+    private AssetCommand asset;
 
-		display.getResetButton().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				display.setInfo(con.infoAssetRestting() + nodeId);
-				display.setData(asset);
-				display.cleanUp();
-				display.setInfo(con.infoAsset() + nodeId);
-			}
-		});
-	}
+    private AssetSuggCommand assetSugg;
 
-	/**
-	 * Fetches asset date from {@link AssetService} an adds them to display.
-	 */
-	private void fetchAssetData() {
-		rpcService.getAssetByNodeId(nodeId, new AsyncCallback<AssetCommand>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				GWT.log(con.errorFatchingAssetData() + nodeId, caught);
-				display.setError(con.errorFatchingAssetData() + nodeId, caught);
-			}
+    private int nodeId;
 
-			@Override
-			public void onSuccess(AssetCommand result) {
-				asset = result;
-				display.setEnable(asset.getAllowModify());
-				display.setData(asset);
-				display.setInfo(con.infoAsset() + nodeId);
-				display.cleanUp();
-				fetchAssetSuggData();
-			}
-		});
-	}
+    public AssetPagePresenter(AssetServiceAsync rpcService, HandlerManager eventBus, Display view) {
+        this.rpcService = rpcService;
+        this.eventBus = eventBus;
+        display = view;
 
-	/**
-	 * Fetches suggestions for all {@link FieldSetSuggestBox}es and add them to
-	 * the display.
-	 */
-	private void fetchAssetSuggData() {
-		rpcService.getAssetSuggestions(new AsyncCallback<AssetSuggCommand>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				GWT.log(con.errorFetchingAssetSuggData() + nodeId, caught);
-				display.setError(con.errorFetchingAssetSuggData() + nodeId, caught);
-			}
+        try {
+            nodeId = Integer.parseInt(Window.Location.getParameter("node"));
+        } catch (NumberFormatException e) {
+            GWT.log(con.nodeParamNotValidInt() + Window.Location.getParameter("node"), e);
+            display.setError(con.nodeParamNotValidInt() + Window.Location.getParameter("node"), e);
+        }
+    }
 
-			@Override
-			public void onSuccess(AssetSuggCommand result) {
-				assetSugg = result;
-				display.setDataSugg(assetSugg);
-			}
-		});
+    /**
+     * adds actions to all buttons of {@link Display}.
+     */
+    public void bind() {
+        display.getSaveButton().addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                if (display.isUiValid()) {
+                    display.setInfo(con.infoAssetSaving() + nodeId);
+                    saveAssetData();
+                } else {
+                    GWT.log("isUiValid -> false; will not save.");
+                    display.setError(con.assetPageNotValidDontSave(), null);
+                }
+            }
+        });
 
-	}
+        display.getResetButton().addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                display.setInfo(con.infoAssetRestting() + nodeId);
+                display.setData(asset);
+                display.cleanUp();
+                display.setInfo(con.infoAsset() + nodeId);
+            }
+        });
+    }
 
-	/**
-	 * start up the presenter.
-	 */
-	@Override
-	public void go(final HasWidgets container) {
-		bind();
-		container.clear();
-		container.add(display.asWidget());
-		display.setInfo(con.infoAssetLoging() + nodeId);
-		fetchAssetData();
-	}
+    /**
+     * Fetches asset date from {@link AssetService} an adds them to display.
+     */
+    private void fetchAssetData() {
+        rpcService.getAssetByNodeId(nodeId, new AsyncCallback<AssetCommand>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                GWT.log(con.errorFatchingAssetData() + nodeId, caught);
+                display.setError(con.errorFatchingAssetData() + nodeId, caught);
+            }
 
-	/**
-	 * saves asset data from display. Collects asset data from display and
-	 * stores them by {@link AssetService} Cleans up the display. Refetches
-	 * asset data.
-	 */
-	private void saveAssetData() {
-		asset = display.getData();
-		rpcService.saveOrUpdateAssetByNodeId(nodeId, asset, new AsyncCallback<Boolean>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				GWT.log(con.errorSavingAssetData() + nodeId, caught);
-				display.setError(con.errorSavingAssetData() + nodeId, caught);
-			}
+            @Override
+            public void onSuccess(AssetCommand result) {
+                asset = result;
+                display.setEnable(asset.getAllowModify());
+                display.setData(asset);
+                display.setInfo(con.infoAsset() + nodeId);
+                display.cleanUp();
+                fetchAssetSuggData();
+            }
+        });
+    }
 
-			@Override
-			public void onSuccess(Boolean result) {
-				eventBus.fireEvent(new SavedAssetEvent(nodeId));
-				display.setInfo(con.infoAssetSaved() + nodeId);
-				display.cleanUp();
-				fetchAssetData();
-			}
-		});
-	}
+    /**
+     * Fetches suggestions for all {@link FieldSetSuggestBox}es and add them to
+     * the display.
+     */
+    private void fetchAssetSuggData() {
+        rpcService.getAssetSuggestions(new AsyncCallback<AssetSuggCommand>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                GWT.log(con.errorFetchingAssetSuggData() + nodeId, caught);
+                display.setError(con.errorFetchingAssetSuggData() + nodeId, caught);
+            }
+
+            @Override
+            public void onSuccess(AssetSuggCommand result) {
+                assetSugg = result;
+                display.setDataSugg(assetSugg);
+            }
+        });
+
+    }
+
+    /**
+     * start up the presenter.
+     */
+    @Override
+    public void go(final HasWidgets container) {
+        bind();
+        container.clear();
+        container.add(display.asWidget());
+        display.setInfo(con.infoAssetLoging() + nodeId);
+        fetchAssetData();
+    }
+
+    /**
+     * saves asset data from display. Collects asset data from display and
+     * stores them by {@link AssetService} Cleans up the display. Refetches
+     * asset data.
+     */
+    private void saveAssetData() {
+        asset = display.getData();
+        rpcService.saveOrUpdateAssetByNodeId(nodeId, asset, new AsyncCallback<Boolean>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                GWT.log(con.errorSavingAssetData() + nodeId, caught);
+                display.setError(con.errorSavingAssetData() + nodeId, caught);
+            }
+
+            @Override
+            public void onSuccess(Boolean result) {
+                eventBus.fireEvent(new SavedAssetEvent(nodeId));
+                display.setInfo(con.infoAssetSaved() + nodeId);
+                display.cleanUp();
+                fetchAssetData();
+            }
+        });
+    }
 }

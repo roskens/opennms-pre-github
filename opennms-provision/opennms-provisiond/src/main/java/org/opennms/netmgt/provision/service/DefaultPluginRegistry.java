@@ -63,20 +63,19 @@ import org.springframework.context.ApplicationContext;
 public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPluginRegistry.class);
 
-
-    @Autowired(required=false)
+    @Autowired(required = false)
     Set<SyncServiceDetector> m_syncDetectors;
 
-    @Autowired(required=false)
+    @Autowired(required = false)
     Set<AsyncServiceDetector> m_asyncDetectors;
 
-    @Autowired(required=false)
+    @Autowired(required = false)
     Set<NodePolicy> m_nodePolicies;
 
-    @Autowired(required=false)
+    @Autowired(required = false)
     Set<IpInterfacePolicy> m_ipInterfacePolicies;
 
-    @Autowired(required=false)
+    @Autowired(required = false)
     Set<SnmpInterfacePolicy> m_snmpInterfacePolicies;
 
     @Autowired
@@ -116,7 +115,7 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
             info("Found NO Extensions for ExtensionPoints %s", Arrays.toString(extensionPoints));
             return;
         }
-        for(T extension : extensions) {
+        for (T extension : extensions) {
             info("Register Extension %s for ExtensionPoints %s", extension, Arrays.toString(extensionPoints));
             m_serviceRegistry.register(extension, extensionPoints);
         }
@@ -138,7 +137,6 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
 
         Map<String, String> parameters = new HashMap<String, String>(pluginConfig.getParameterMap());
 
-
         BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(pluginInstance);
         try {
             wrapper.setPropertyValues(parameters);
@@ -156,9 +154,9 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
     private <T> T beanWithNameOfType(String beanName, Class<T> pluginClass) {
         Map<String, T> beans = beansOfType(pluginClass);
         T bean = beans.get(beanName);
-        if (bean != null) debug("Found bean %s with name %s of type %s", bean, beanName, pluginClass);
+        if (bean != null)
+            debug("Found bean %s with name %s of type %s", bean, beanName, pluginClass);
         return bean;
     }
-
 
 }

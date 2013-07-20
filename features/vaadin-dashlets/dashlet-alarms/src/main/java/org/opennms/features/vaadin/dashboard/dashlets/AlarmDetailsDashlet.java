@@ -53,18 +53,22 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
      * the dashlet's name
      */
     private String m_name;
+
     /**
      * The {@link AlarmDao} used
      */
     private AlarmDao m_alarmDao;
+
     /**
      * The {@link NodeDao} used
      */
     private NodeDao m_nodeDao;
+
     /**
      * The {@link DashletSpec} for this instance
      */
     private DashletSpec m_dashletSpec;
+
     /**
      * boosted value
      */
@@ -77,9 +81,12 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
     /**
      * Constructor for instantiating new objects.
      *
-     * @param dashletSpec the {@link DashletSpec} to be used
-     * @param alarmDao    the {@link AlarmDao} to be used
-     * @param nodeDao     the {@link NodeDao} to be used
+     * @param dashletSpec
+     *            the {@link DashletSpec} to be used
+     * @param alarmDao
+     *            the {@link AlarmDao} to be used
+     * @param nodeDao
+     *            the {@link NodeDao} to be used
      */
     public AlarmDetailsDashlet(String name, DashletSpec dashletSpec, AlarmDao alarmDao, NodeDao nodeDao) {
         /**
@@ -98,7 +105,8 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
     }
 
     /**
-     * Updates the alarm data using the associated {@link AlarmDao} and {@link NodeDao} instances.
+     * Updates the alarm data using the associated {@link AlarmDao} and
+     * {@link NodeDao} instances.
      */
     @Override
     public void update() {
@@ -171,8 +179,10 @@ public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
     /**
      * Returns the component for visualising the alarms data.
      *
-     * @param onmsAlarm an {@link OnmsAlarm} instance
-     * @param onmsNode  an {@link OnmsNode} instance
+     * @param onmsAlarm
+     *            an {@link OnmsAlarm} instance
+     * @param onmsNode
+     *            an {@link OnmsNode} instance
      * @return component for this alarm
      */
     public Component createAlarmComponent(OnmsAlarm onmsAlarm, OnmsNode onmsNode) {

@@ -51,14 +51,16 @@ public class HttpUrlHandler extends URLStreamHandler {
     /**
      * Instantiates a new HTTP URL handler.
      *
-     * @param request the request
+     * @param request
+     *            the request
      */
     public HttpUrlHandler(Request request) {
         super();
         this.request = request;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLStreamHandler#getDefaultPort()
      */
     @Override
@@ -66,7 +68,8 @@ public class HttpUrlHandler extends URLStreamHandler {
         return 80;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLStreamHandler#openConnection(java.net.URL)
      */
     @Override

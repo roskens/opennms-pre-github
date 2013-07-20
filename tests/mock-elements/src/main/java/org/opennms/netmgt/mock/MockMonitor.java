@@ -30,7 +30,6 @@ package org.opennms.netmgt.mock;
 
 import java.util.Map;
 
-
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.opennms.netmgt.poller.ServiceMonitor;
@@ -39,18 +38,18 @@ import org.slf4j.LoggerFactory;
 
 public class MockMonitor implements ServiceMonitor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MockMonitor.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(MockMonitor.class);
 
     private MockNetwork m_network;
 
     private String m_svcName;
 
     /**
-     * Simple constructor so that the MockMonitor can be used as a placeholder {@link ServiceMonitor}
-     * inside config files.
+     * Simple constructor so that the MockMonitor can be used as a placeholder
+     * {@link ServiceMonitor} inside config files.
      */
-    public MockMonitor() {}
+    public MockMonitor() {
+    }
 
     /**
      * @param network
@@ -71,7 +70,7 @@ public class MockMonitor implements ServiceMonitor {
 
     @Override
     public PollStatus poll(MonitoredService monSvc, Map<String, Object> parameters) {
-        synchronized(m_network) {
+        synchronized (m_network) {
             int nodeId = monSvc.getNodeId();
             String ipAddr = monSvc.getIpAddr();
             MockService svc = m_network.getService(nodeId, ipAddr, m_svcName);
@@ -82,7 +81,7 @@ public class MockMonitor implements ServiceMonitor {
             } else {
                 LOG.info("Poll: [{}{}{}]", svc.getInterface().getNode().getLabel(), ipAddr, m_svcName);
                 PollStatus pollStatus = svc.poll();
-				return PollStatus.get(pollStatus.getStatusCode(), pollStatus.getReason());
+                return PollStatus.get(pollStatus.getStatusCode(), pollStatus.getReason());
             }
         }
     }

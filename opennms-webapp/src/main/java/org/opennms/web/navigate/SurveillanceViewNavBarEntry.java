@@ -34,7 +34,9 @@ import org.opennms.netmgt.dao.api.SurveillanceViewConfigDao;
 import org.opennms.web.api.Util;
 
 /**
- * <p>SurveillanceViewNavBarEntry class.</p>
+ * <p>
+ * SurveillanceViewNavBarEntry class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -46,8 +48,10 @@ public class SurveillanceViewNavBarEntry extends LocationBasedNavBarEntry {
     /** {@inheritDoc} */
     @Override
     public DisplayStatus evaluate(HttpServletRequest request) {
-        if (m_surveillanceViewConfigDao.getViews().getViewCount() > 0 && m_surveillanceViewConfigDao.getDefaultView() != null) {
-            setUrl("surveillanceView.htm?viewName=" + Util.htmlify(m_surveillanceViewConfigDao.getDefaultView().getName()));
+        if (m_surveillanceViewConfigDao.getViews().getViewCount() > 0
+                && m_surveillanceViewConfigDao.getDefaultView() != null) {
+            setUrl("surveillanceView.htm?viewName="
+                    + Util.htmlify(m_surveillanceViewConfigDao.getDefaultView().getName()));
 
             return super.evaluate(request);
         } else {
@@ -56,18 +60,25 @@ public class SurveillanceViewNavBarEntry extends LocationBasedNavBarEntry {
     }
 
     /**
-     * <p>getSurveillanceViewConfigDao</p>
+     * <p>
+     * getSurveillanceViewConfigDao
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao} object.
+     * @return a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}
+     *         object.
      */
     public SurveillanceViewConfigDao getSurveillanceViewConfigDao() {
         return m_surveillanceViewConfigDao;
     }
 
     /**
-     * <p>setSurveillanceViewConfigDao</p>
+     * <p>
+     * setSurveillanceViewConfigDao
+     * </p>
      *
-     * @param surveillanceViewConfigDao a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao} object.
+     * @param surveillanceViewConfigDao
+     *            a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}
+     *            object.
      */
     public void setSurveillanceViewConfigDao(SurveillanceViewConfigDao surveillanceViewConfigDao) {
         m_surveillanceViewConfigDao = surveillanceViewConfigDao;

@@ -31,7 +31,6 @@ package org.opennms.core.utils;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-
 /**
  * Helper class used for tracking retires and timeouts for ServiceMonitors.
  *
@@ -44,30 +43,40 @@ import java.util.concurrent.TimeUnit;
 public class TimeoutTracker {
 
     private final int m_retry;
+
     private final long m_timeoutInNanos;
+
     private final long m_timeoutInMillis;
+
     private final long m_timeoutInSeconds;
+
     private final boolean m_strictTimeouts;
 
     private int m_attempt = 0;
+
     private long m_nextRetryTimeNanos = -1L;
+
     private long m_attemptStartTimeNanos = -1L;
 
     /**
-     * <p>Constructor for TimeoutTracker.</p>
+     * <p>
+     * Constructor for TimeoutTracker.
+     * </p>
      *
-     * @param parameters a {@link java.util.Map} object.
-     * @param defaultRetry a int.
-     * @param defaultTimeout a int.
+     * @param parameters
+     *            a {@link java.util.Map} object.
+     * @param defaultRetry
+     *            a int.
+     * @param defaultTimeout
+     *            a int.
      */
-    public TimeoutTracker(Map<String,?> parameters, int defaultRetry, int defaultTimeout) {
+    public TimeoutTracker(Map<String, ?> parameters, int defaultRetry, int defaultTimeout) {
         m_retry = ParameterMap.getKeyedInteger(parameters, "retry", defaultRetry);
 
         // make sure the timeout is a least 10 millis
         m_timeoutInMillis = Math.max(10L, ParameterMap.getKeyedInteger(parameters, "timeout", defaultTimeout));
         m_timeoutInNanos = Math.max(10000000L, TimeUnit.NANOSECONDS.convert(m_timeoutInMillis, TimeUnit.MILLISECONDS));
         m_timeoutInSeconds = Math.max(1L, TimeUnit.SECONDS.convert(m_timeoutInMillis, TimeUnit.MILLISECONDS));
-
 
         m_strictTimeouts = ParameterMap.getKeyedBoolean(parameters, "strict-timeout", false);
 
@@ -76,7 +85,9 @@ public class TimeoutTracker {
     }
 
     /**
-     * <p>shouldRetry</p>
+     * <p>
+     * shouldRetry
+     * </p>
      *
      * @return a boolean.
      */
@@ -85,7 +96,9 @@ public class TimeoutTracker {
     }
 
     /**
-     * <p>getTimeoutInMillis</p>
+     * <p>
+     * getTimeoutInMillis
+     * </p>
      *
      * @return a long.
      */
@@ -94,7 +107,9 @@ public class TimeoutTracker {
     }
 
     /**
-     * <p>getTimeoutInSeconds</p>
+     * <p>
+     * getTimeoutInSeconds
+     * </p>
      *
      * @return a long.
      */
@@ -102,9 +117,10 @@ public class TimeoutTracker {
         return m_timeoutInSeconds;
     }
 
-
     /**
-     * <p>reset</p>
+     * <p>
+     * reset
+     * </p>
      */
     public void reset() {
         m_attempt = 0;
@@ -116,7 +132,9 @@ public class TimeoutTracker {
     }
 
     /**
-     * <p>nextAttempt</p>
+     * <p>
+     * nextAttempt
+     * </p>
      */
     public void nextAttempt() {
         m_attempt++;
@@ -124,7 +142,9 @@ public class TimeoutTracker {
     }
 
     /**
-     * <p>getAttempt</p>
+     * <p>
+     * getAttempt
+     * </p>
      *
      * @return a int.
      */
@@ -133,7 +153,9 @@ public class TimeoutTracker {
     }
 
     /**
-     * <p>startAttempt</p>
+     * <p>
+     * startAttempt
+     * </p>
      */
     public void startAttempt() {
         long now = System.nanoTime();
@@ -149,21 +171,26 @@ public class TimeoutTracker {
 
     private void sleep(long nanos) {
         long millis = nanos / 1000000L;
-        int remainingNanos = (int)(nanos % 1000000L);
+        int remainingNanos = (int) (nanos % 1000000L);
 
-        try { Thread.sleep(millis, remainingNanos); } catch (InterruptedException e) {
+        try {
+            Thread.sleep(millis, remainingNanos);
+        } catch (InterruptedException e) {
             // we ignore InterruptedExceptions
         }
     }
 
     private void assertStarted() {
         if (m_attemptStartTimeNanos < 0) {
-            throw new IllegalStateException("Failed to call startAttempt before requesting elapsedTime.. This is most likely a bug");
+            throw new IllegalStateException(
+                                            "Failed to call startAttempt before requesting elapsedTime.. This is most likely a bug");
         }
     }
 
     /**
-     * <p>elapsedTimeInMillis</p>
+     * <p>
+     * elapsedTimeInMillis
+     * </p>
      *
      * @return a double.
      */
@@ -172,7 +199,9 @@ public class TimeoutTracker {
     }
 
     /**
-     * <p>elapsedTimeNanos</p>
+     * <p>
+     * elapsedTimeNanos
+     * </p>
      *
      * @return a long.
      */
@@ -183,9 +212,12 @@ public class TimeoutTracker {
     }
 
     /**
-     * <p>elapsedTime</p>
+     * <p>
+     * elapsedTime
+     * </p>
      *
-     * @param unit a {@link java.util.concurrent.TimeUnit} object.
+     * @param unit
+     *            a {@link java.util.concurrent.TimeUnit} object.
      * @return a double.
      */
     public double elapsedTime(TimeUnit unit) {
@@ -194,37 +226,36 @@ public class TimeoutTracker {
 
     private double convertFromNanos(double nanos, TimeUnit unit) {
         double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit);
-        return nanos/nanosPerUnit;
+        return nanos / nanosPerUnit;
     }
 
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return new StringBuilder(64)
-            .append("timeout: ").append(getTimeoutInMillis()).append("ms")
-            .append(" retry: ").append(m_attempt).append(" of ").append(m_retry)
-            .toString();
+        return new StringBuilder(64).append("timeout: ").append(getTimeoutInMillis()).append("ms").append(" retry: ").append(m_attempt).append(" of ").append(m_retry).toString();
 
     }
 
     /**
-     * <p>getSoTimeout</p>
+     * <p>
+     * getSoTimeout
+     * </p>
      *
      * @return a int.
      */
     public int getSoTimeout() {
-        return (int)getTimeoutInMillis();
+        return (int) getTimeoutInMillis();
     }
 
     /**
-     * <p>getConnectionTimeout</p>
+     * <p>
+     * getConnectionTimeout
+     * </p>
      *
      * @return a int.
      */
     public int getConnectionTimeout() {
-        return (int)getTimeoutInMillis();
+        return (int) getTimeoutInMillis();
     }
-
-
 
 }

@@ -28,7 +28,6 @@
 
 package org.opennms.core.soa.filter;
 
-
 /**
  * EqFilter
  *
@@ -42,8 +41,6 @@ public class EqFilter extends AttributeComparisonFilter {
         super(attribute);
         m_value = value;
     }
-
-
 
     @Override
     protected boolean valueMatches(String value) {
@@ -63,12 +60,7 @@ public class EqFilter extends AttributeComparisonFilter {
     }
 
     private String escaped(String value) {
-        return value
-            .replace("\\", "\\\\")
-            .replace("*", "\\*")
-            .replace(")", "\\)")
-            .replace("(", "\\(")
-            ;
+        return value.replace("\\", "\\\\").replace("*", "\\*").replace(")", "\\)").replace("(", "\\(");
     }
 
 }

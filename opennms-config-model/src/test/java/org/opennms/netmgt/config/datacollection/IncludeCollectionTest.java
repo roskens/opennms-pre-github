@@ -50,11 +50,9 @@ public class IncludeCollectionTest extends XmlTest<IncludeCollection> {
 
         return Arrays.asList(new Object[][] { {
                 ic,
-                "<include-collection dataCollectionGroup=\"dcg\" systemDef=\"sd\">\n" +
-                "  <exclude-filter>exclude-filter</exclude-filter>\n" +
-                "</include-collection>\n",
+                "<include-collection dataCollectionGroup=\"dcg\" systemDef=\"sd\">\n"
+                        + "  <exclude-filter>exclude-filter</exclude-filter>\n" + "</include-collection>\n",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

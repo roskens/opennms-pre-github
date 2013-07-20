@@ -38,58 +38,69 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>OnmsSmsServiceRegistrar class.</p>
+ * <p>
+ * OnmsSmsServiceRegistrar class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class OnmsSmsServiceRegistrar implements SmsServiceRegistrar, InitializingBean {
 
-	private ServiceRegistry m_serviceRegistry;
-	private Map<SmsService, Registration> m_registrationMap = new HashMap<SmsService, Registration>();
+    private ServiceRegistry m_serviceRegistry;
 
-	/** {@inheritDoc} */
-        @Override
-	public void registerSmsService(SmsService service) {
-		Registration registration = getServiceRegistry().register(service, SmsService.class);
-		m_registrationMap.put(service, registration);
-	}
+    private Map<SmsService, Registration> m_registrationMap = new HashMap<SmsService, Registration>();
 
-	/** {@inheritDoc} */
-        @Override
-	public void unregisterSmsService(SmsService service) {
-	    Registration registration = m_registrationMap.remove(service);
-	    if (registration != null) {
-	        registration.unregister();
-	    }
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void registerSmsService(SmsService service) {
+        Registration registration = getServiceRegistry().register(service, SmsService.class);
+        m_registrationMap.put(service, registration);
+    }
 
-	/**
-	 * <p>setServiceRegistry</p>
-	 *
-	 * @param serviceRegistry a {@link org.opennms.core.soa.ServiceRegistry} object.
-	 */
-	public void setServiceRegistry(ServiceRegistry serviceRegistry) {
-		m_serviceRegistry = serviceRegistry;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void unregisterSmsService(SmsService service) {
+        Registration registration = m_registrationMap.remove(service);
+        if (registration != null) {
+            registration.unregister();
+        }
+    }
 
-	/**
-	 * <p>getServiceRegistry</p>
-	 *
-	 * @return a {@link org.opennms.core.soa.ServiceRegistry} object.
-	 */
-	public ServiceRegistry getServiceRegistry() {
-		return m_serviceRegistry;
-	}
+    /**
+     * <p>
+     * setServiceRegistry
+     * </p>
+     *
+     * @param serviceRegistry
+     *            a {@link org.opennms.core.soa.ServiceRegistry} object.
+     */
+    public void setServiceRegistry(ServiceRegistry serviceRegistry) {
+        m_serviceRegistry = serviceRegistry;
+    }
 
-	/**
-	 * <p>afterPropertiesSet</p>
-	 *
-	 * @throws java.lang.Exception if any.
-	 */
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(m_serviceRegistry);
-	}
+    /**
+     * <p>
+     * getServiceRegistry
+     * </p>
+     *
+     * @return a {@link org.opennms.core.soa.ServiceRegistry} object.
+     */
+    public ServiceRegistry getServiceRegistry() {
+        return m_serviceRegistry;
+    }
+
+    /**
+     * <p>
+     * afterPropertiesSet
+     * </p>
+     *
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Assert.notNull(m_serviceRegistry);
+    }
 
 }

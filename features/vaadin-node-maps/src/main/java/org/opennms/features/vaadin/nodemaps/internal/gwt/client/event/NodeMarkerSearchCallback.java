@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public abstract class NodeMarkerSearchCallback extends JSObjectWrapper {
     Logger logger = Logger.getLogger(getClass().getName());
 
@@ -29,7 +28,7 @@ public abstract class NodeMarkerSearchCallback extends JSObjectWrapper {
     public abstract Collection<NodeMarker> search(final Collection<NodeMarker> markers, final String text);
 
     protected JSObject doSearch(final String text) {
-        logger.log(Level.INFO, "doSearch(" + text +")");
+        logger.log(Level.INFO, "doSearch(" + text + ")");
         final Collection<NodeMarker> markers = search(m_markerProvider.getMarkers(), text);
         logger.log(Level.INFO, markers.size() + " markers returned.");
         final SearchResults results = SearchResults.create();
@@ -40,10 +39,10 @@ public abstract class NodeMarkerSearchCallback extends JSObjectWrapper {
     }
 
     private native final JSObject getCallbackFunction() /*-{
-        var self = this;
-        return function(text) {
-            return self.@org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.NodeMarkerSearchCallback::doSearch(Ljava/lang/String;)(text);
-        };
-    }-*/;
+                                                        var self = this;
+                                                        return function(text) {
+                                                        return self.@org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.NodeMarkerSearchCallback::doSearch(Ljava/lang/String;)(text);
+                                                        };
+                                                        }-*/;
 
 }

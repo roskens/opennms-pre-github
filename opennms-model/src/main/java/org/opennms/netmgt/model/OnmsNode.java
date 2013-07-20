@@ -79,23 +79,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.style.ToStringCreator;
 
-
 /**
  * Contains information on nodes discovered and potentially managed by OpenNMS.
  * sys* properties map to SNMP MIB 2 system table information.
  *
  * @hibernate.class table="node"
  */
-@XmlRootElement(name="node")
+@XmlRootElement(name = "node")
 @Entity()
-@Table(name="node")
-@SecondaryTable(name="pathOutage")
-@Filter(name=FilterManager.AUTH_FILTER_NAME, condition="exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
-public class OnmsNode extends OnmsEntity implements Serializable,
-        Comparable<OnmsNode> {
+@Table(name = "node")
+@SecondaryTable(name = "pathOutage")
+@Filter(name = FilterManager.AUTH_FILTER_NAME, condition = "exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
+public class OnmsNode extends OnmsEntity implements Serializable, Comparable<OnmsNode> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OnmsNode.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(OnmsNode.class);
 
     private static final long serialVersionUID = -5736397583719151493L;
 
@@ -168,19 +165,24 @@ public class OnmsNode extends OnmsEntity implements Serializable,
 
     private Set<OnmsCategory> m_categories = new LinkedHashSet<OnmsCategory>();
 
-	private PathElement m_pathElement;
+    private PathElement m_pathElement;
 
     /**
-     * <p>Constructor for OnmsNode.</p>
+     * <p>
+     * Constructor for OnmsNode.
+     * </p>
      */
     public OnmsNode() {
         this(null);
     }
 
     /**
-     * <p>Constructor for OnmsNode.</p>
+     * <p>
+     * Constructor for OnmsNode.
+     * </p>
      *
-     * @param distPoller a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
+     * @param distPoller
+     *            a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
      */
     public OnmsNode(final OnmsDistPoller distPoller) {
         m_distPoller = distPoller;
@@ -189,8 +191,8 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     public OnmsNode(final OnmsDistPoller distPoller, final String label) {
-    	this(distPoller);
-    	setLabel(label);
+        this(distPoller);
+        setLabel(label);
     }
 
     /**
@@ -199,42 +201,50 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(name="nodeId", nullable=false)
-    @SequenceGenerator(name="nodeSequence", sequenceName="nodeNxtId")
-    @GeneratedValue(generator="nodeSequence")
+    @Column(name = "nodeId", nullable = false)
+    @SequenceGenerator(name = "nodeSequence", sequenceName = "nodeNxtId")
+    @GeneratedValue(generator = "nodeSequence")
     @XmlTransient
     public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @XmlID
-    @XmlAttribute(name="id", required=true)
+    @XmlAttribute(name = "id", required = true)
     @Transient
     public String getNodeId() {
-    	if (getId() != null) {
-    		return getId().toString();
-    	}
-    	return null;
+        if (getId() != null) {
+            return getId().toString();
+        }
+        return null;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param nodeid a {@link java.lang.Integer} object.
+     * @param nodeid
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer nodeid) {
         m_id = nodeid;
     }
 
     /**
-     * <p>setNodeId</p>
+     * <p>
+     * setNodeId
+     * </p>
      *
-     * @param nodeid a {@link java.lang.String} object.
+     * @param nodeid
+     *            a {@link java.lang.String} object.
      */
     public void setNodeId(String nodeid) {
         setId(Integer.valueOf(nodeid));
@@ -246,40 +256,48 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @hibernate.property column="nodecreatetime" length="8" not-null="true"
      * @return a {@link java.util.Date} object.
      */
-    @XmlElement(name="createTime")
+    @XmlElement(name = "createTime")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="nodeCreateTime", nullable=false)
+    @Column(name = "nodeCreateTime", nullable = false)
     public Date getCreateTime() {
         return m_createTime;
     }
 
     /**
-     * <p>setCreateTime</p>
+     * <p>
+     * setCreateTime
+     * </p>
      *
-     * @param nodecreatetime a {@link java.util.Date} object.
+     * @param nodecreatetime
+     *            a {@link java.util.Date} object.
      */
     public void setCreateTime(Date nodecreatetime) {
         m_createTime = nodecreatetime;
     }
 
     /**
-     * In the case that the node is virtual or an independent device in a chassis
-     * that should be reflected as a subcomponent or "child", this field reflects
+     * In the case that the node is virtual or an independent device in a
+     * chassis
+     * that should be reflected as a subcomponent or "child", this field
+     * reflects
      * the nodeID of the chassis/physical node/"parent" device.
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     @XmlTransient
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="nodeParentID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nodeParentID")
     public OnmsNode getParent() {
         return m_parent;
     }
 
     /**
-     * <p>setParent</p>
+     * <p>
+     * setParent
+     * </p>
      *
-     * @param parent a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param parent
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void setParent(OnmsNode parent) {
         m_parent = parent;
@@ -289,21 +307,24 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * Flag indicating status of node
      * - 'A' - active
      * - 'D' - deleted
-     *
-     * TODO: Eventually this will be deprecated and deleted nodes will actually be deleted.
+     * TODO: Eventually this will be deprecated and deleted nodes will actually
+     * be deleted.
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlAttribute(name="type")
-    @Column(name="nodeType", length=1)
+    @XmlAttribute(name = "type")
+    @Column(name = "nodeType", length = 1)
     public String getType() {
         return m_type;
     }
 
     /**
-     * <p>setType</p>
+     * <p>
+     * setType
+     * </p>
      *
-     * @param nodetype a {@link java.lang.String} object.
+     * @param nodetype
+     *            a {@link java.lang.String} object.
      */
     public void setType(String nodetype) {
         m_type = nodetype;
@@ -314,16 +335,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="sysObjectId")
-    @Column(name="nodeSysOID", length=256)
+    @XmlElement(name = "sysObjectId")
+    @Column(name = "nodeSysOID", length = 256)
     public String getSysObjectId() {
         return m_sysObjectId;
     }
 
     /**
-     * <p>setSysObjectId</p>
+     * <p>
+     * setSysObjectId
+     * </p>
      *
-     * @param nodesysoid a {@link java.lang.String} object.
+     * @param nodesysoid
+     *            a {@link java.lang.String} object.
      */
     public void setSysObjectId(String nodesysoid) {
         m_sysObjectId = nodesysoid;
@@ -334,16 +358,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="sysName")
-    @Column(name="nodeSysName", length=256)
+    @XmlElement(name = "sysName")
+    @Column(name = "nodeSysName", length = 256)
     public String getSysName() {
         return m_sysName;
     }
 
     /**
-     * <p>setSysName</p>
+     * <p>
+     * setSysName
+     * </p>
      *
-     * @param nodesysname a {@link java.lang.String} object.
+     * @param nodesysname
+     *            a {@link java.lang.String} object.
      */
     public void setSysName(String nodesysname) {
         m_sysName = nodesysname;
@@ -354,16 +381,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="sysDescription")
-    @Column(name="nodeSysDescription", length=256)
+    @XmlElement(name = "sysDescription")
+    @Column(name = "nodeSysDescription", length = 256)
     public String getSysDescription() {
         return m_sysDescription;
     }
 
     /**
-     * <p>setSysDescription</p>
+     * <p>
+     * setSysDescription
+     * </p>
      *
-     * @param nodesysdescription a {@link java.lang.String} object.
+     * @param nodesysdescription
+     *            a {@link java.lang.String} object.
      */
     public void setSysDescription(String nodesysdescription) {
         m_sysDescription = nodesysdescription;
@@ -374,16 +404,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="sysLocation")
-    @Column(name="nodeSysLocation", length=256)
+    @XmlElement(name = "sysLocation")
+    @Column(name = "nodeSysLocation", length = 256)
     public String getSysLocation() {
         return m_sysLocation;
     }
 
     /**
-     * <p>setSysLocation</p>
+     * <p>
+     * setSysLocation
+     * </p>
      *
-     * @param nodesyslocation a {@link java.lang.String} object.
+     * @param nodesyslocation
+     *            a {@link java.lang.String} object.
      */
     public void setSysLocation(String nodesyslocation) {
         m_sysLocation = nodesyslocation;
@@ -394,16 +427,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="sysContact")
-    @Column(name="nodeSysContact", length=256)
+    @XmlElement(name = "sysContact")
+    @Column(name = "nodeSysContact", length = 256)
     public String getSysContact() {
         return m_sysContact;
     }
 
     /**
-     * <p>setSysContact</p>
+     * <p>
+     * setSysContact
+     * </p>
      *
-     * @param nodesyscontact a {@link java.lang.String} object.
+     * @param nodesyscontact
+     *            a {@link java.lang.String} object.
      */
     public void setSysContact(String nodesyscontact) {
         m_sysContact = nodesyscontact;
@@ -414,16 +450,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlAttribute(name="label")
-    @Column(name="nodeLabel", length=256, nullable=false)
+    @XmlAttribute(name = "label")
+    @Column(name = "nodeLabel", length = 256, nullable = false)
     public String getLabel() {
         return m_label;
     }
 
     /**
-     * <p>setLabel</p>
+     * <p>
+     * setLabel
+     * </p>
      *
-     * @param nodelabel a {@link java.lang.String} object.
+     * @param nodelabel
+     *            a {@link java.lang.String} object.
      */
     public void setLabel(String nodelabel) {
         m_label = nodelabel;
@@ -435,21 +474,23 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * - 'H' = IP hostname
      * - 'S' = sysName
      * - 'A' = IP address
-     *
      * TODO: change this to an enum
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="labelSource")
-    @Column(name="nodeLabelSource", length=1)
+    @XmlElement(name = "labelSource")
+    @Column(name = "nodeLabelSource", length = 1)
     public String getLabelSource() {
         return m_labelSource;
     }
 
     /**
-     * <p>setLabelSource</p>
+     * <p>
+     * setLabelSource
+     * </p>
      *
-     * @param nodelabelsource a {@link java.lang.String} object.
+     * @param nodelabelsource
+     *            a {@link java.lang.String} object.
      */
     public void setLabelSource(String nodelabelsource) {
         m_labelSource = nodelabelsource;
@@ -460,16 +501,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="netBIOSName")
-    @Column(name="nodeNetBIOSName", length=16)
+    @XmlElement(name = "netBIOSName")
+    @Column(name = "nodeNetBIOSName", length = 16)
     public String getNetBiosName() {
         return m_netBiosName;
     }
 
     /**
-     * <p>setNetBiosName</p>
+     * <p>
+     * setNetBiosName
+     * </p>
      *
-     * @param nodenetbiosname a {@link java.lang.String} object.
+     * @param nodenetbiosname
+     *            a {@link java.lang.String} object.
      */
     public void setNetBiosName(String nodenetbiosname) {
         m_netBiosName = nodenetbiosname;
@@ -480,16 +524,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="netBIOSDomainName")
-    @Column(name="nodeDomainName", length=16)
+    @XmlElement(name = "netBIOSDomainName")
+    @Column(name = "nodeDomainName", length = 16)
     public String getNetBiosDomain() {
         return m_netBiosDomain;
     }
 
     /**
-     * <p>setNetBiosDomain</p>
+     * <p>
+     * setNetBiosDomain
+     * </p>
      *
-     * @param nodedomainname a {@link java.lang.String} object.
+     * @param nodedomainname
+     *            a {@link java.lang.String} object.
      */
     public void setNetBiosDomain(String nodedomainname) {
         m_netBiosDomain = nodedomainname;
@@ -500,16 +547,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="operatingSystem")
-    @Column(name="operatingSystem", length=64)
+    @XmlElement(name = "operatingSystem")
+    @Column(name = "operatingSystem", length = 64)
     public String getOperatingSystem() {
         return m_operatingSystem;
     }
 
     /**
-     * <p>setOperatingSystem</p>
+     * <p>
+     * setOperatingSystem
+     * </p>
      *
-     * @param operatingsystem a {@link java.lang.String} object.
+     * @param operatingsystem
+     *            a {@link java.lang.String} object.
      */
     public void setOperatingSystem(String operatingsystem) {
         m_operatingSystem = operatingsystem;
@@ -520,57 +570,70 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link java.util.Date} object.
      */
-    @XmlElement(name="lastCapsdPoll")
+    @XmlElement(name = "lastCapsdPoll")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="lastCapsdPoll")
+    @Column(name = "lastCapsdPoll")
     public Date getLastCapsdPoll() {
         return m_lastCapsdPoll;
     }
 
     /**
-     * <p>setLastCapsdPoll</p>
+     * <p>
+     * setLastCapsdPoll
+     * </p>
      *
-     * @param lastcapsdpoll a {@link java.util.Date} object.
+     * @param lastcapsdpoll
+     *            a {@link java.util.Date} object.
      */
     public void setLastCapsdPoll(Date lastcapsdpoll) {
         m_lastCapsdPoll = lastcapsdpoll;
     }
 
     /**
-     * <p>getForeignId</p>
+     * <p>
+     * getForeignId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlAttribute(name="foreignId")
-    @Column(name="foreignId")
+    @XmlAttribute(name = "foreignId")
+    @Column(name = "foreignId")
     public String getForeignId() {
         return m_foreignId;
     }
 
     /**
-     * <p>setForeignId</p>
+     * <p>
+     * setForeignId
+     * </p>
      *
-     * @param foreignId a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
      */
     public void setForeignId(String foreignId) {
         m_foreignId = foreignId;
     }
 
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlAttribute(name="foreignSource")
-    @Column(name="foreignSource")
+    @XmlAttribute(name = "foreignSource")
+    @Column(name = "foreignSource")
     public String getForeignSource() {
         return m_foreignSource;
     }
 
     /**
-     * <p>setForeignSource</p>
+     * <p>
+     * setForeignSource
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
      */
     public void setForeignSource(String foreignSource) {
         m_foreignSource = foreignSource;
@@ -582,16 +645,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @return a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
      */
     @XmlTransient
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="dpName")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dpName")
     public OnmsDistPoller getDistPoller() {
         return m_distPoller;
     }
 
     /**
-     * <p>setDistPoller</p>
+     * <p>
+     * setDistPoller
+     * </p>
      *
-     * @param distpoller a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
+     * @param distpoller
+     *            a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
      */
     public void setDistPoller(org.opennms.netmgt.model.OnmsDistPoller distpoller) {
         m_distPoller = distpoller;
@@ -602,44 +668,50 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      *
      * @return a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
      */
-    @OneToOne(mappedBy="node", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    @OneToOne(mappedBy = "node", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public OnmsAssetRecord getAssetRecord() {
         return m_assetRecord;
     }
 
     /**
-     * <p>setAssetRecord</p>
+     * <p>
+     * setAssetRecord
+     * </p>
      *
-     * @param asset a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
+     * @param asset
+     *            a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
      */
     public void setAssetRecord(OnmsAssetRecord asset) {
         m_assetRecord = asset;
     }
 
     /**
-     * <p>getPathElement</p>
+     * <p>
+     * getPathElement
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PathElement} object.
      */
     @XmlTransient
     @Embedded
     @AttributeOverrides({
-    	@AttributeOverride(name="ipAddress", column=@Column(name="criticalPathIp", table="pathOutage")),
-    	@AttributeOverride(name="serviceName", column=@Column(name="criticalPathServiceName", table="pathOutage"))
-    })
+            @AttributeOverride(name = "ipAddress", column = @Column(name = "criticalPathIp", table = "pathOutage")),
+            @AttributeOverride(name = "serviceName", column = @Column(name = "criticalPathServiceName", table = "pathOutage")) })
     public PathElement getPathElement() {
-    	return m_pathElement;
+        return m_pathElement;
     }
 
     /**
-     * <p>setPathElement</p>
+     * <p>
+     * setPathElement
+     * </p>
      *
-     * @param pathElement a {@link org.opennms.netmgt.model.PathElement} object.
+     * @param pathElement
+     *            a {@link org.opennms.netmgt.model.PathElement} object.
      */
     public void setPathElement(PathElement pathElement) {
-    	m_pathElement = pathElement;
+        m_pathElement = pathElement;
     }
-
 
     /**
      * The interfaces on this node
@@ -647,29 +719,35 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @return a {@link java.util.Set} object.
      */
     @XmlTransient
-    @OneToMany(mappedBy="node",orphanRemoval=true)
+    @OneToMany(mappedBy = "node", orphanRemoval = true)
     @org.hibernate.annotations.Cascade(org.hibernate.annotations.CascadeType.ALL)
     public Set<OnmsIpInterface> getIpInterfaces() {
         return m_ipInterfaces;
     }
 
     /**
-     * <p>setIpInterfaces</p>
+     * <p>
+     * setIpInterfaces
+     * </p>
      *
-     * @param ipinterfaces a {@link java.util.Set} object.
+     * @param ipinterfaces
+     *            a {@link java.util.Set} object.
      */
     public void setIpInterfaces(Set<OnmsIpInterface> ipinterfaces) {
         m_ipInterfaces = ipinterfaces;
     }
 
     /**
-     * <p>addIpInterface</p>
+     * <p>
+     * addIpInterface
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     public void addIpInterface(OnmsIpInterface iface) {
-    	iface.setNode(this);
-    	getIpInterfaces().add(iface);
+        iface.setNode(this);
+        getIpInterfaces().add(iface);
     }
 
     /**
@@ -678,16 +756,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @return a {@link java.util.Set} object.
      */
     @XmlTransient
-    @OneToMany(mappedBy="node",orphanRemoval=true)
+    @OneToMany(mappedBy = "node", orphanRemoval = true)
     @org.hibernate.annotations.Cascade(org.hibernate.annotations.CascadeType.ALL)
     public Set<OnmsSnmpInterface> getSnmpInterfaces() {
         return m_snmpInterfaces;
     }
 
     /**
-     * <p>setSnmpInterfaces</p>
+     * <p>
+     * setSnmpInterfaces
+     * </p>
      *
-     * @param snmpinterfaces a {@link java.util.Set} object.
+     * @param snmpinterfaces
+     *            a {@link java.util.Set} object.
      */
     public void setSnmpInterfaces(Set<OnmsSnmpInterface> snmpinterfaces) {
         m_snmpInterfaces = snmpinterfaces;
@@ -699,21 +780,23 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @return a {@link java.util.Set} object.
      */
     @XmlTransient
-    @OneToMany(mappedBy="sourceNode",orphanRemoval=true)
+    @OneToMany(mappedBy = "sourceNode", orphanRemoval = true)
     @org.hibernate.annotations.Cascade(org.hibernate.annotations.CascadeType.ALL)
     public Set<OnmsArpInterface> getArpInterfacesBySource() {
         return m_arpInterfacesBySource;
     }
 
     /**
-     * @param arpInterfaces a {@link java.util.Set} object.
+     * @param arpInterfaces
+     *            a {@link java.util.Set} object.
      */
     public void setArpInterfacesBySource(Set<OnmsArpInterface> arpInterfaces) {
         m_arpInterfacesBySource = arpInterfaces;
     }
 
     /**
-     * @param iface a {@link org.opennms.netmgt.model.OnmsArpInterface} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.model.OnmsArpInterface} object.
      */
     public void addArpInterfaceBySource(OnmsArpInterface iface) {
         iface.setNode(this);
@@ -726,24 +809,30 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @return a {@link java.util.Set} object.
      */
     @XmlTransient
-    @OneToMany(mappedBy="node")
+    @OneToMany(mappedBy = "node")
     public Set<OnmsArpInterface> getArpInterfaces() {
         return m_arpInterfaces;
     }
 
     /**
-     * <p>setArpInterfaces</p>
+     * <p>
+     * setArpInterfaces
+     * </p>
      *
-     * @param arpInterfaces a {@link java.util.Set} object.
+     * @param arpInterfaces
+     *            a {@link java.util.Set} object.
      */
     public void setArpInterfaces(Set<OnmsArpInterface> arpInterfaces) {
         m_arpInterfaces = arpInterfaces;
     }
 
     /**
-     * <p>addArpInterface</p>
+     * <p>
+     * addArpInterface
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.model.OnmsArpInterface} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.model.OnmsArpInterface} object.
      */
     public void addArpInterface(OnmsArpInterface iface) {
         iface.setNode(this);
@@ -751,34 +840,38 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>getCategories</p>
+     * <p>
+     * getCategories
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
-    @XmlElement(name="categories")
-    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-    		name="category_node",
-    		joinColumns={@JoinColumn(name="nodeId")},
-    		inverseJoinColumns={@JoinColumn(name="categoryId")}
-    )
+    @XmlElement(name = "categories")
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "category_node", joinColumns = { @JoinColumn(name = "nodeId") }, inverseJoinColumns = { @JoinColumn(name = "categoryId") })
     public Set<OnmsCategory> getCategories() {
         return m_categories;
     }
 
     /**
-     * <p>setCategories</p>
+     * <p>
+     * setCategories
+     * </p>
      *
-     * @param categories a {@link java.util.Set} object.
+     * @param categories
+     *            a {@link java.util.Set} object.
      */
     public void setCategories(Set<OnmsCategory> categories) {
         m_categories = categories;
     }
 
     /**
-     * <p>addCategory</p>
+     * <p>
+     * addCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.model.OnmsCategory} object.
+     * @param category
+     *            a {@link org.opennms.netmgt.model.OnmsCategory} object.
      * @return a boolean.
      */
     public boolean addCategory(OnmsCategory category) {
@@ -786,9 +879,12 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>removeCategory</p>
+     * <p>
+     * removeCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.model.OnmsCategory} object.
+     * @param category
+     *            a {@link org.opennms.netmgt.model.OnmsCategory} object.
      * @return a boolean.
      */
     public boolean removeCategory(OnmsCategory category) {
@@ -796,13 +892,16 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>hasCategory</p>
+     * <p>
+     * hasCategory
+     * </p>
      *
-     * @param categoryName a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean hasCategory(String categoryName) {
-        for(OnmsCategory category : getCategories()) {
+        for (OnmsCategory category : getCategories()) {
             if (category.getName().equals(categoryName)) {
                 return true;
             }
@@ -811,7 +910,9 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -833,38 +934,43 @@ public class OnmsNode extends OnmsEntity implements Serializable,
         return retval.toString();
     }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void visit(EntityVisitor visitor) {
-		visitor.visitNode(this);
+    public void visit(EntityVisitor visitor) {
+        visitor.visitNode(this);
 
-		for (OnmsIpInterface iface : getIpInterfaces()) {
-			iface.visit(visitor);
-		}
+        for (OnmsIpInterface iface : getIpInterfaces()) {
+            iface.visit(visitor);
+        }
 
-		for (OnmsSnmpInterface snmpIface : getSnmpInterfaces()) {
-			snmpIface.visit(visitor);
-		}
+        for (OnmsSnmpInterface snmpIface : getSnmpInterfaces()) {
+            snmpIface.visit(visitor);
+        }
 
-		visitor.visitNodeComplete(this);
-	}
+        visitor.visitNodeComplete(this);
+    }
 
-	/**
-	 * <p>addSnmpInterface</p>
-	 *
-	 * @param snmpIface a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
-	 */
-	public void addSnmpInterface(OnmsSnmpInterface snmpIface) {
-    	snmpIface.setNode(this);
-    	getSnmpInterfaces().add(snmpIface);
-	}
+    /**
+     * <p>
+     * addSnmpInterface
+     * </p>
+     *
+     * @param snmpIface
+     *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
+     */
+    public void addSnmpInterface(OnmsSnmpInterface snmpIface) {
+        snmpIface.setNode(this);
+        getSnmpInterfaces().add(snmpIface);
+    }
 
-	/**
-	 * <p>isDown</p>
-	 *
-	 * @return a boolean.
-	 */
-	@Transient
+    /**
+     * <p>
+     * isDown
+     * </p>
+     *
+     * @return a boolean.
+     */
+    @Transient
     public boolean isDown() {
         boolean down = true;
         for (OnmsIpInterface ipIf : m_ipInterfaces) {
@@ -876,9 +982,12 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>getSnmpInterfaceWithIfIndex</p>
+     * <p>
+     * getSnmpInterfaceWithIfIndex
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      */
     @Transient
@@ -892,9 +1001,12 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>getIpInterfaceByIpAddress</p>
+     * <p>
+     * getIpInterfaceByIpAddress
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     public OnmsIpInterface getIpInterfaceByIpAddress(String ipAddress) {
@@ -902,9 +1014,12 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>getIpInterfaceByIpAddress</p>
+     * <p>
+     * getIpInterfaceByIpAddress
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     public OnmsIpInterface getIpInterfaceByIpAddress(InetAddress ipAddress) {
@@ -917,9 +1032,12 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param o a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param o
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      * @return a int.
      */
     @Override
@@ -941,16 +1059,18 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>getPrimaryInterface</p>
-     *
-     * This function should be kept similar to {@link IpInterfaceDao#findPrimaryInterfaceByNodeId()}.
+     * <p>
+     * getPrimaryInterface
+     * </p>
+     * This function should be kept similar to
+     * {@link IpInterfaceDao#findPrimaryInterfaceByNodeId()}.
      *
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     @Transient
     public OnmsIpInterface getPrimaryInterface() {
         List<OnmsIpInterface> primaryInterfaces = new ArrayList<OnmsIpInterface>();
-        for(OnmsIpInterface iface : getIpInterfaces()) {
+        for (OnmsIpInterface iface : getIpInterfaces()) {
             if (PrimaryType.PRIMARY.equals(iface.getIsSnmpPrimary())) {
                 primaryInterfaces.add(iface);
             }
@@ -959,7 +1079,8 @@ public class OnmsNode extends OnmsEntity implements Serializable,
             return null;
         } else {
             if (primaryInterfaces.size() > 1) {
-                // Sort the list by the last capabilities scan time so that we return the most recent value
+                // Sort the list by the last capabilities scan time so that we
+                // return the most recent value
                 Collections.sort(primaryInterfaces, new Comparator<OnmsIpInterface>() {
                     @Override
                     public int compare(OnmsIpInterface o1, OnmsIpInterface o2) {
@@ -983,7 +1104,8 @@ public class OnmsNode extends OnmsEntity implements Serializable,
                                     if (o2.getIpLastCapsdPoll() == null) {
                                         return -1; // Descending order
                                     } else {
-                                        // Reverse the comparison so that we get a descending order
+                                        // Reverse the comparison so that we get
+                                        // a descending order
                                         return o2.getIpLastCapsdPoll().compareTo(o1.getIpLastCapsdPoll());
                                     }
                                 }
@@ -992,7 +1114,8 @@ public class OnmsNode extends OnmsEntity implements Serializable,
                     }
                 });
                 OnmsIpInterface retval = primaryInterfaces.iterator().next();
-                LOG.warn("Multiple primary SNMP interfaces for node {}, returning most recently scanned interface: {}", m_id, retval.getInterfaceId());
+                LOG.warn("Multiple primary SNMP interfaces for node {}, returning most recently scanned interface: {}",
+                         m_id, retval.getInterfaceId());
                 return retval;
             } else {
                 return primaryInterfaces.iterator().next();
@@ -1001,74 +1124,86 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>getInterfaceWithService</p>
+     * <p>
+     * getInterfaceWithService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     @Transient
-	public OnmsIpInterface getInterfaceWithService(String svcName) {
-		for(OnmsIpInterface iface : getIpInterfaces()) {
-			if (iface.getMonitoredServiceByServiceType(svcName) != null) {
-				return iface;
-			}
-		}
-		return null;
-	}
+    public OnmsIpInterface getInterfaceWithService(String svcName) {
+        for (OnmsIpInterface iface : getIpInterfaces()) {
+            if (iface.getMonitoredServiceByServiceType(svcName) != null) {
+                return iface;
+            }
+        }
+        return null;
+    }
 
     /**
-     * <p>getCriticalInterface</p>
+     * <p>
+     * getCriticalInterface
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     @Transient
     public OnmsIpInterface getCriticalInterface() {
 
-    	OnmsIpInterface critIface = getPrimaryInterface();
-    	if (critIface != null) {
-    		return critIface;
-    	}
+        OnmsIpInterface critIface = getPrimaryInterface();
+        if (critIface != null) {
+            return critIface;
+        }
 
-    	return getInterfaceWithService("ICMP");
+        return getInterfaceWithService("ICMP");
 
     }
 
     /**
-     * <p>mergeAgentAttributes</p>
+     * <p>
+     * mergeAgentAttributes
+     * </p>
      *
-     * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param scannedNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void mergeAgentAttributes(OnmsNode scannedNode) {
         if (hasNewValue(scannedNode.getSysContact(), getSysContact())) {
-        	setSysContact(scannedNode.getSysContact());
+            setSysContact(scannedNode.getSysContact());
         }
 
         if (hasNewValue(scannedNode.getSysDescription(), getSysDescription())) {
-        	setSysDescription(scannedNode.getSysDescription());
+            setSysDescription(scannedNode.getSysDescription());
         }
 
         if (hasNewValue(scannedNode.getSysLocation(), getSysLocation())) {
-        	setSysLocation(scannedNode.getSysLocation());
+            setSysLocation(scannedNode.getSysLocation());
         }
 
         if (hasNewValue(scannedNode.getSysName(), getSysName())) {
-        	setSysName(scannedNode.getSysName());
+            setSysName(scannedNode.getSysName());
         }
 
         if (hasNewValue(scannedNode.getSysObjectId(), getSysObjectId())) {
-        	setSysObjectId(scannedNode.getSysObjectId());
+            setSysObjectId(scannedNode.getSysObjectId());
         }
     }
 
     /**
-     * <p>mergeNodeAttributes</p>
+     * <p>
+     * mergeNodeAttributes
+     * </p>
      *
-     * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param scannedNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void mergeNodeAttributes(OnmsNode scannedNode, EventForwarder eventForwarder) {
         if (hasNewValue(scannedNode.getLabel(), getLabel())) {
             // Create a NODE_LABEL_CHANGED_EVENT_UEI event
-            EventBuilder bldr = new EventBuilder(EventConstants.NODE_LABEL_CHANGED_EVENT_UEI, "OnmsNode.mergeNodeAttributes");
+            EventBuilder bldr = new EventBuilder(EventConstants.NODE_LABEL_CHANGED_EVENT_UEI,
+                                                 "OnmsNode.mergeNodeAttributes");
 
             bldr.setNodeid(scannedNode.getId());
             bldr.setHost("host");
@@ -1119,28 +1254,36 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     }
 
     /**
-     * <p>mergeAdditionalCategories</p>
+     * <p>
+     * mergeAdditionalCategories
+     * </p>
      *
-     * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param scannedNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void mergeAdditionalCategories(OnmsNode scannedNode) {
         getCategories().addAll(scannedNode.getCategories());
     }
 
     /**
-     * <p>mergeSnmpInterfaces</p>
+     * <p>
+     * mergeSnmpInterfaces
+     * </p>
      *
-     * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
-     * @param deleteMissing a boolean.
+     * @param scannedNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param deleteMissing
+     *            a boolean.
      */
     public void mergeSnmpInterfaces(OnmsNode scannedNode, boolean deleteMissing) {
 
-        // we need to skip this step if there is an indication that snmp data collection failed
+        // we need to skip this step if there is an indication that snmp data
+        // collection failed
         if (scannedNode.getSnmpInterfaces().size() == 0) {
-            // we assume here that snmp collection failed and we don't update the snmp data
+            // we assume here that snmp collection failed and we don't update
+            // the snmp data
             return;
         }
-
 
         // Build map of ifIndices to scanned SnmpInterfaces
         Map<Integer, OnmsSnmpInterface> scannedInterfaceMap = new HashMap<Integer, OnmsSnmpInterface>();
@@ -1170,18 +1313,25 @@ public class OnmsNode extends OnmsEntity implements Serializable,
 
         }
 
-        // for any scanned interface that was not found on the node add it the database
+        // for any scanned interface that was not found on the node add it the
+        // database
         for (OnmsSnmpInterface snmpIface : scannedInterfaceMap.values()) {
             addSnmpInterface(snmpIface);
         }
     }
 
     /**
-     * <p>mergeIpInterfaces</p>
+     * <p>
+     * mergeIpInterfaces
+     * </p>
      *
-     * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
-     * @param deleteMissing a boolean.
+     * @param scannedNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
+     * @param deleteMissing
+     *            a boolean.
      */
     public void mergeIpInterfaces(OnmsNode scannedNode, EventForwarder eventForwarder, boolean deleteMissing) {
         OnmsIpInterface oldPrimaryInterface = null;
@@ -1189,9 +1339,9 @@ public class OnmsNode extends OnmsEntity implements Serializable,
         // build a map of ipAddrs to ipInterfaces for the scanned node
         Map<InetAddress, OnmsIpInterface> ipInterfaceMap = new HashMap<InetAddress, OnmsIpInterface>();
         for (OnmsIpInterface iface : scannedNode.getIpInterfaces()) {
-            if(scannedPrimaryIf == null && iface.isPrimary()){
+            if (scannedPrimaryIf == null && iface.isPrimary()) {
                 scannedPrimaryIf = iface;
-            }else if(iface.isPrimary()){
+            } else if (iface.isPrimary()) {
                 iface.setIsSnmpPrimary(PrimaryType.SECONDARY);
             }
 
@@ -1209,24 +1359,24 @@ public class OnmsNode extends OnmsEntity implements Serializable,
                 if (deleteMissing) {
                     it.remove();
                     dbIface.visit(new DeleteEventVisitor(eventForwarder));
-                }else if(scannedPrimaryIf != null && dbIface.isPrimary()){
-                   dbIface.setIsSnmpPrimary(PrimaryType.SECONDARY);
-                   oldPrimaryInterface = dbIface;
+                } else if (scannedPrimaryIf != null && dbIface.isPrimary()) {
+                    dbIface.setIsSnmpPrimary(PrimaryType.SECONDARY);
+                    oldPrimaryInterface = dbIface;
 
                 }
             } else {
                 // else update the database with scanned info
                 dbIface.mergeInterface(scannedIface, eventForwarder, deleteMissing);
-                if(scannedPrimaryIf != null && dbIface.isPrimary() && scannedPrimaryIf != scannedIface){
+                if (scannedPrimaryIf != null && dbIface.isPrimary() && scannedPrimaryIf != scannedIface) {
                     dbIface.setIsSnmpPrimary(PrimaryType.SECONDARY);
                     oldPrimaryInterface = dbIface;
                 }
             }
 
-            // now remove the interface from the map to indicate it was processed
+            // now remove the interface from the map to indicate it was
+            // processed
             ipInterfaceMap.remove(dbIface.getIpAddress());
         }
-
 
         // for any remaining scanned interfaces, add them to the database
         for (OnmsIpInterface iface : ipInterfaceMap.values()) {
@@ -1237,21 +1387,26 @@ public class OnmsNode extends OnmsEntity implements Serializable,
             iface.visit(new AddEventVisitor(eventForwarder));
         }
 
-        if(oldPrimaryInterface != null && scannedPrimaryIf != null){
+        if (oldPrimaryInterface != null && scannedPrimaryIf != null) {
             EventBuilder bldr = new EventBuilder(EventConstants.PRIMARY_SNMP_INTERFACE_CHANGED_EVENT_UEI, "Provisiond");
             bldr.setIpInterface(scannedPrimaryIf);
             bldr.setService("SNMP");
-            bldr.addParam(EventConstants.PARM_OLD_PRIMARY_SNMP_ADDRESS, InetAddressUtils.str(oldPrimaryInterface.getIpAddress()));
-            bldr.addParam(EventConstants.PARM_NEW_PRIMARY_SNMP_ADDRESS, InetAddressUtils.str(scannedPrimaryIf.getIpAddress()));
+            bldr.addParam(EventConstants.PARM_OLD_PRIMARY_SNMP_ADDRESS,
+                          InetAddressUtils.str(oldPrimaryInterface.getIpAddress()));
+            bldr.addParam(EventConstants.PARM_NEW_PRIMARY_SNMP_ADDRESS,
+                          InetAddressUtils.str(scannedPrimaryIf.getIpAddress()));
 
             eventForwarder.sendNow(bldr.getEvent());
         }
     }
 
     /**
-     * <p>mergeCategorySet</p>
+     * <p>
+     * mergeCategorySet
+     * </p>
      *
-     * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param scannedNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void mergeCategorySet(OnmsNode scannedNode) {
         if (!getCategories().equals(scannedNode.getCategories())) {
@@ -1262,7 +1417,8 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     /**
      * Truly merges the node's assert record
      *
-     * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param scannedNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void mergeAssets(OnmsNode scannedNode) {
         this.getAssetRecord().mergeRecord(scannedNode.getAssetRecord());
@@ -1271,32 +1427,39 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     /**
      * Simply replaces the current asset record with the new record
      *
-     * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param scannedNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void replaceCurrentAssetRecord(OnmsNode scannedNode) {
         scannedNode.getAssetRecord().setId(this.getAssetRecord().getId());
-        scannedNode.setId(this.m_id);  //just in case
+        scannedNode.setId(this.m_id); // just in case
         this.setAssetRecord(scannedNode.getAssetRecord());
     }
 
     /**
-     * <p>mergeNode</p>
+     * <p>
+     * mergeNode
+     * </p>
      *
-     * @param scannedNode a {@link org.opennms.netmgt.model.OnmsNode} object.
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
-     * @param deleteMissing a boolean.
+     * @param scannedNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
+     * @param deleteMissing
+     *            a boolean.
      */
     public void mergeNode(OnmsNode scannedNode, EventForwarder eventForwarder, boolean deleteMissing) {
 
         mergeNodeAttributes(scannedNode, eventForwarder);
 
-    	mergeSnmpInterfaces(scannedNode, deleteMissing);
+        mergeSnmpInterfaces(scannedNode, deleteMissing);
 
         mergeIpInterfaces(scannedNode, eventForwarder, deleteMissing);
 
-    	mergeCategorySet(scannedNode);
+        mergeCategorySet(scannedNode);
 
-    	mergeAssets(scannedNode);
+        mergeAssets(scannedNode);
     }
 
 }

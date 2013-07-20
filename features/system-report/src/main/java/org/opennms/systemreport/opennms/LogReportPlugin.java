@@ -55,20 +55,21 @@ public class LogReportPlugin extends AbstractSystemReportPlugin {
 
     @Override
     public TreeMap<String, Resource> getEntries() {
-        final TreeMap<String,Resource> map = new TreeMap<String,Resource>();
+        final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
         File f = new File(System.getProperty("opennms.home") + File.separator + "logs");
         processFile(f, map);
         return map;
     }
 
-    public void processFile(final File file, final Map<String,Resource> map) {
+    public void processFile(final File file, final Map<String, Resource> map) {
         if (file.isDirectory()) {
             for (final File f : file.listFiles()) {
                 processFile(f, map);
             }
         } else {
             String filename = file.getPath();
-            filename = filename.replaceFirst("^" + System.getProperty("opennms.home") + File.separator + "logs" + File.separator + "?", "");
+            filename = filename.replaceFirst("^" + System.getProperty("opennms.home") + File.separator + "logs"
+                    + File.separator + "?", "");
             if (filename.endsWith(".log") && file.length() > 0) {
                 map.put(filename, new FileSystemResource(file));
             }

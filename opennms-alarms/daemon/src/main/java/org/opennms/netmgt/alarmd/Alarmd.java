@@ -46,16 +46,15 @@ import org.springframework.beans.factory.DisposableBean;
 
 /**
  * Alarm management Daemon
- *
  * TODO: Create configuration for Alarm to enable forwarding.
  * TODO: Application Context for wiring in forwarders???
- * TODO: Change this class to use AbstractServiceDaemon instead of SpringServiceDaemon
- *
+ * TODO: Change this class to use AbstractServiceDaemon instead of
+ * SpringServiceDaemon
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
-@EventListener(name=Alarmd.NAME, logPrefix="alarmd")
+@EventListener(name = Alarmd.NAME, logPrefix = "alarmd")
 public class Alarmd implements SpringServiceDaemon, DisposableBean {
     private static final Logger LOG = LoggerFactory.getLogger(Alarmd.class);
 
@@ -68,26 +67,26 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
 
     private AlarmPersister m_persister;
 
-
-
-
-    //Get all events
+    // Get all events
     /**
-     * <p>onEvent</p>
+     * <p>
+     * onEvent
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventHandler.ALL_UEIS)
     public void onEvent(Event e) {
 
-    	if (e.getUei().equals("uei.opennms.org/internal/reloadDaemonConfig")) {
-    		return;
-    	}
+        if (e.getUei().equals("uei.opennms.org/internal/reloadDaemonConfig")) {
+            return;
+        }
 
         OnmsAlarm alarm = m_persister.persist(e);
 
         if (alarm != null) {
-        	NorthboundAlarm a = new NorthboundAlarm(alarm);
+            NorthboundAlarm a = new NorthboundAlarm(alarm);
 
             for (Northbounder nbi : m_northboundInterfaces) {
                 nbi.onAlarm(a);
@@ -98,46 +97,49 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
 
     @EventHandler(uei = "uei.opennms.org/internal/reloadDaemonConfig")
     private void handleReloadEvent(Event e) {
-    	LOG.info("Received reload configuration event: {}", e);
+        LOG.info("Received reload configuration event: {}", e);
 
-    	//Currently, Alarmd has no configuration... I'm sure this will change soon.
+        // Currently, Alarmd has no configuration... I'm sure this will change
+        // soon.
 
+        List<Parm> parmCollection = e.getParmCollection();
+        for (Parm parm : parmCollection) {
 
-    	List<Parm> parmCollection = e.getParmCollection();
-    	for (Parm parm : parmCollection) {
+            String parmName = parm.getParmName();
+            if ("daemonName".equals(parmName)) {
+                if (parm.getValue() == null || parm.getValue().getContent() == null) {
+                    LOG.warn("The daemonName parameter has no value, ignoring.");
+                    return;
+                }
 
-    		String parmName = parm.getParmName();
-    		if("daemonName".equals(parmName)) {
-    			if (parm.getValue() == null || parm.getValue().getContent() == null) {
-    				LOG.warn("The daemonName parameter has no value, ignoring.");
-    				return;
-    			}
-
-    			List<Northbounder> nbis = getNorthboundInterfaces();
-    			for (Northbounder nbi : nbis) {
-    				if (parm.getValue().getContent().contains(nbi.getName())) {
-    					LOG.debug("Handling reload event for NBI: {}", nbi.getName());
-    					LOG.debug("Reloading NBI configuration for interface {} not yet implemented.", nbi.getName());
-    					return;
-    				}
-    			}
-    		}
-    	}
+                List<Northbounder> nbis = getNorthboundInterfaces();
+                for (Northbounder nbi : nbis) {
+                    if (parm.getValue().getContent().contains(nbi.getName())) {
+                        LOG.debug("Handling reload event for NBI: {}", nbi.getName());
+                        LOG.debug("Reloading NBI configuration for interface {} not yet implemented.", nbi.getName());
+                        return;
+                    }
+                }
+            }
+        }
     }
 
-
-
-	/**
-     * <p>setPersister</p>
+    /**
+     * <p>
+     * setPersister
+     * </p>
      *
-     * @param persister a {@link org.opennms.netmgt.alarmd.AlarmPersister} object.
+     * @param persister
+     *            a {@link org.opennms.netmgt.alarmd.AlarmPersister} object.
      */
     public void setPersister(AlarmPersister persister) {
         this.m_persister = persister;
     }
 
     /**
-     * <p>getPersister</p>
+     * <p>
+     * getPersister
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.alarmd.AlarmPersister} object.
      */
@@ -146,7 +148,9 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>getEventForwarder</p>
+     * <p>
+     * getEventForwarder
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -155,20 +159,26 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>setEventForwarder</p>
+     * <p>
+     * setEventForwarder
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
 
     /**
-     *
      * TODO: use onInit() instead
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -180,16 +190,21 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void destroy() throws Exception {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -198,19 +213,22 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void start() throws Exception {
     }
 
-    public void onNorthbounderRegistered(final Northbounder northbounder, final Map<String,String> properties) {
+    public void onNorthbounderRegistered(final Northbounder northbounder, final Map<String, String> properties) {
         northbounder.start();
     }
 
-    public void onNorthbounderUnregistered(final Northbounder northbounder, final Map<String,String> properties) {
+    public void onNorthbounderUnregistered(final Northbounder northbounder, final Map<String, String> properties) {
         northbounder.stop();
     }
 

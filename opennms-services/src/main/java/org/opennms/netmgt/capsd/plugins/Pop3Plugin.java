@@ -99,7 +99,6 @@ public final class Pop3Plugin extends AbstractPlugin {
      *            The remote host to test.
      * @param port
      *            The remote port to test.
-     *
      * @return True if server is running MS Exchange, false otherwise
      */
     private boolean isServer(InetAddress host, int port, int retries, int timeout) {
@@ -157,10 +156,12 @@ public final class Pop3Plugin extends AbstractPlugin {
                 isAServer = false;
             } catch (IOException e) {
                 isAServer = false;
-                LOG.info("Pop3Plugin: An unexpected I/O exception occured contacting host {}", InetAddressUtils.str(host), e);
+                LOG.info("Pop3Plugin: An unexpected I/O exception occured contacting host {}",
+                         InetAddressUtils.str(host), e);
             } catch (Throwable t) {
                 isAServer = false;
-                LOG.error("Pop3Plugin: An undeclared throwable exception was caught contacting host {}", InetAddressUtils.str(host), t);
+                LOG.error("Pop3Plugin: An undeclared throwable exception was caught contacting host {}",
+                          InetAddressUtils.str(host), t);
             } finally {
                 try {
                     if (socket != null)
@@ -185,9 +186,8 @@ public final class Pop3Plugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -196,9 +196,8 @@ public final class Pop3Plugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to

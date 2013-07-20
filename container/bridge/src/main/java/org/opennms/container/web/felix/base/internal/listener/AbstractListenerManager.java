@@ -21,7 +21,6 @@ package org.opennms.container.web.felix.base.internal.listener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
@@ -32,39 +31,29 @@ public class AbstractListenerManager<T> extends ServiceTracker<T, T> {
 
     private final Object lock;
 
-    protected AbstractListenerManager(BundleContext context, Class<T> clazz)
-    {
+    protected AbstractListenerManager(BundleContext context, Class<T> clazz) {
         super(context, clazz, null);
         lock = new Object();
     }
 
-    protected final Iterator<T> getContextListeners()
-    {
+    protected final Iterator<T> getContextListeners() {
         ArrayList<T> result = allContextListeners;
-        if (result == null)
-        {
-            synchronized (lock)
-            {
-                if (allContextListeners == null)
-                {
-                    @SuppressWarnings("unchecked") // Because of OSGi API
-                    T[] services = (T[])getServices();
-                    if (services != null && services.length > 0)
-                    {
+        if (result == null) {
+            synchronized (lock) {
+                if (allContextListeners == null) {
+                    @SuppressWarnings("unchecked")
+                    // Because of OSGi API
+                    T[] services = (T[]) getServices();
+                    if (services != null && services.length > 0) {
                         result = new ArrayList<T>(services.length);
-                        for (T service : services)
-                        {
+                        for (T service : services) {
                             result.add(service);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         result = new ArrayList<T>(0);
                     }
                     this.allContextListeners = result;
-                }
-                else
-                {
+                } else {
                     result = this.allContextListeners;
                 }
             }
@@ -73,10 +62,8 @@ public class AbstractListenerManager<T> extends ServiceTracker<T, T> {
     }
 
     @Override
-    public T addingService(ServiceReference<T> reference)
-    {
-        synchronized (lock)
-        {
+    public T addingService(ServiceReference<T> reference) {
+        synchronized (lock) {
             allContextListeners = null;
         }
 
@@ -84,10 +71,8 @@ public class AbstractListenerManager<T> extends ServiceTracker<T, T> {
     }
 
     @Override
-    public void modifiedService(ServiceReference<T> reference, T service)
-    {
-        synchronized (lock)
-        {
+    public void modifiedService(ServiceReference<T> reference, T service) {
+        synchronized (lock) {
             allContextListeners = null;
         }
 
@@ -95,10 +80,8 @@ public class AbstractListenerManager<T> extends ServiceTracker<T, T> {
     }
 
     @Override
-    public void removedService(ServiceReference<T> reference, T service)
-    {
-        synchronized (lock)
-        {
+    public void removedService(ServiceReference<T> reference, T service) {
+        synchronized (lock) {
             allContextListeners = null;
         }
 

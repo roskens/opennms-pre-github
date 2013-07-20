@@ -31,7 +31,9 @@ package org.opennms.netmgt.trapd.jmx;
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
 
 /**
- * <p>Trapd class.</p>
+ * <p>
+ * Trapd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

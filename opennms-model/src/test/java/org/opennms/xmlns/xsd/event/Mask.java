@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import java.util.ArrayList;
@@ -45,11 +44,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -62,13 +62,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "maskelement"
-})
+@XmlType(name = "", propOrder = { "maskelement" })
 @XmlRootElement(name = "mask")
 public class Mask {
 
@@ -77,25 +73,20 @@ public class Mask {
 
     /**
      * Gets the value of the maskelement property.
-     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the maskelement property.
-     *
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the maskelement property.
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getMaskelement().add(newItem);
+     * getMaskelement().add(newItem);
      * </pre>
-     *
-     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Maskelement }
-     *
-     *
      */
     public List<Maskelement> getMaskelement() {
         if (maskelement == null) {

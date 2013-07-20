@@ -92,19 +92,22 @@ public class CollectdTest extends TestCase {
     private Collectd m_collectd;
 
     private FilterDao m_filterDao;
+
     private EventIpcManager m_eventIpcManager;
+
     private CollectorConfigDao m_collectorConfigDao;
+
     private NodeDao m_nodeDao;
+
     private IpInterfaceDao m_ipIfDao;
+
     private ServiceCollector m_collector;
 
     private MockScheduler m_scheduler;
 
     private PlatformTransactionManager m_transactionManager;
 
-
     private CollectdPackage m_collectdPackage;
-
 
     @Override
     protected void setUp() throws Exception {
@@ -133,31 +136,31 @@ public class CollectdTest extends TestCase {
         m_eventIpcManager.removeEventListener(isA(EventListener.class));
         expectLastCall().anyTimes();
 
-//        MockNetwork m_network = new MockNetwork();
-//        m_network.setCriticalService("ICMP");
-//        m_network.addNode(1, "Router");
-//        m_network.addInterface("192.168.1.1");
-//        m_network.addService("ICMP");
-//        m_network.addService("SMTP");
-//        m_network.addInterface("192.168.1.2");
-//        m_network.addService("ICMP");
-//        m_network.addService("SMTP");
-//        m_network.addNode(2, "Server");
-//        m_network.addInterface("192.168.1.3");
-//        m_network.addService("ICMP");
-//        m_network.addService("HTTP");
-//        m_network.addNode(3, "Firewall");
-//        m_network.addInterface("192.168.1.4");
-//        m_network.addService("SMTP");
-//        m_network.addService("HTTP");
-//        m_network.addInterface("192.168.1.5");
-//        m_network.addService("SMTP");
-//        m_network.addService("HTTP");
-//
-//        MockDatabase m_db = new MockDatabase();
-//        m_db.populate(m_network);
-//
-//        DataSourceFactory.setInstance(m_db);
+        // MockNetwork m_network = new MockNetwork();
+        // m_network.setCriticalService("ICMP");
+        // m_network.addNode(1, "Router");
+        // m_network.addInterface("192.168.1.1");
+        // m_network.addService("ICMP");
+        // m_network.addService("SMTP");
+        // m_network.addInterface("192.168.1.2");
+        // m_network.addService("ICMP");
+        // m_network.addService("SMTP");
+        // m_network.addNode(2, "Server");
+        // m_network.addInterface("192.168.1.3");
+        // m_network.addService("ICMP");
+        // m_network.addService("HTTP");
+        // m_network.addNode(3, "Firewall");
+        // m_network.addInterface("192.168.1.4");
+        // m_network.addService("SMTP");
+        // m_network.addService("HTTP");
+        // m_network.addInterface("192.168.1.5");
+        // m_network.addService("SMTP");
+        // m_network.addService("HTTP");
+        //
+        // MockDatabase m_db = new MockDatabase();
+        // m_db.populate(m_network);
+        //
+        // DataSourceFactory.setInstance(m_db);
 
         m_filterDao = EasyMock.createMock(FilterDao.class);
         List<InetAddress> allIps = new ArrayList<InetAddress>();
@@ -171,14 +174,18 @@ public class CollectdTest extends TestCase {
         EasyMock.replay(m_filterDao);
         FilterDaoFactory.setInstance(m_filterDao);
 
-        // This call will also ensure that the poll-outages.xml file can parse IPv4
+        // This call will also ensure that the poll-outages.xml file can parse
+        // IPv4
         // and IPv6 addresses.
         Resource resource = new ClassPathResource("etc/poll-outages.xml");
         PollOutagesConfigFactory factory = new PollOutagesConfigFactory(resource);
         factory.afterPropertiesSet();
         PollOutagesConfigFactory.setInstance(factory);
 
-        CollectdConfigFactory collectdConfig = new CollectdConfigFactory(ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/config/collectd-testdata.xml"), "nms1", false);
+        CollectdConfigFactory collectdConfig = new CollectdConfigFactory(
+                                                                         ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                                                                          "/org/opennms/netmgt/config/collectd-testdata.xml"),
+                                                                         "nms1", false);
         CollectdConfigFactory.setInstance(collectdConfig);
 
         m_collectd = new Collectd();
@@ -209,23 +216,22 @@ public class CollectdTest extends TestCase {
 
         m_collectdPackage = new CollectdPackage(pkg, "localhost", false);
 
-        ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(ConfigurationTestUtils.getInputStreamForConfigFile("thresholds.xml")));
+        ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(
+                                                                            ConfigurationTestUtils.getInputStreamForConfigFile("thresholds.xml")));
     }
 
     @Override
     public void runTest() throws Throwable {
         super.runTest();
-        // FIXME: we get a Threshd warning still if we enable this  :(
+        // FIXME: we get a Threshd warning still if we enable this :(
         // MockLogAppender.assertNoWarningsOrGreater();
         EasyMock.verify(m_filterDao);
     }
-
 
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-
 
     private ServiceCollector getCollector() {
         return m_collector;
@@ -280,28 +286,29 @@ public class CollectdTest extends TestCase {
     }
 
     /**
-     * Test override of read community string and max repetitions in Collectd configuration parameters
+     * Test override of read community string and max repetitions in Collectd
+     * configuration parameters
      */
     public void testOverrides() {
-    	Map<String, Object> map = new HashMap<String, Object>();
-    	map.put("max-repetitions", "11");
-    	map.put("read-community", "notPublic");
-		ServiceParameters params = new ServiceParameters(map);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("max-repetitions", "11");
+        map.put("read-community", "notPublic");
+        ServiceParameters params = new ServiceParameters(map);
 
-		int reps = params.getSnmpMaxRepetitions(6);
-		assertEquals("Overriding max repetitions failed.", 11, reps);
-		params = new ServiceParameters(map);
-		map.remove("max-repetitions");
-		map.put("maxRepetitions", "11");
-		assertEquals("Overriding max repetitions failed.", 11, reps);
+        int reps = params.getSnmpMaxRepetitions(6);
+        assertEquals("Overriding max repetitions failed.", 11, reps);
+        params = new ServiceParameters(map);
+        map.remove("max-repetitions");
+        map.put("maxRepetitions", "11");
+        assertEquals("Overriding max repetitions failed.", 11, reps);
 
-		String s = params.getSnmpReadCommunity("public");
-		assertEquals("Overriding read community failed.", "notPublic", s);
-		map.remove("read-community");
-		map.put("readCommunity", "notPublic");
-		params = new ServiceParameters(map);
-		s = params.getSnmpReadCommunity("public");
-		assertEquals("Overriding read community failed.", "notPublic", s);
+        String s = params.getSnmpReadCommunity("public");
+        assertEquals("Overriding read community failed.", "notPublic", s);
+        map.remove("read-community");
+        map.put("readCommunity", "notPublic");
+        params = new ServiceParameters(map);
+        s = params.getSnmpReadCommunity("public");
+        assertEquals("Overriding read community failed.", "notPublic", s);
     }
 
     public void testNoMatchingSpecs() throws CollectionInitializationException {
@@ -333,30 +340,33 @@ public class CollectdTest extends TestCase {
         setupCollector(svcName);
 
         m_collector.initialize(isA(CollectionAgent.class), isAMap(String.class, Object.class));
-        CollectionSet collectionSetResult=new CollectionSet() {
-        	private Date m_timestamp = new Date();
-                @Override
+        CollectionSet collectionSetResult = new CollectionSet() {
+            private Date m_timestamp = new Date();
+
+            @Override
             public int getStatus() {
                 return ServiceCollector.COLLECTION_SUCCEEDED;
             }
 
-                @Override
+            @Override
             public void visit(CollectionSetVisitor visitor) {
                 visitor.visitCollectionSet(this);
                 visitor.completeCollectionSet(this);
             }
 
-                @Override
-			public boolean ignorePersist() {
-				return false;
-			}
+            @Override
+            public boolean ignorePersist() {
+                return false;
+            }
 
-                @Override
-			public Date getCollectionTimestamp() {
-				return m_timestamp;
-			}
+            @Override
+            public Date getCollectionTimestamp() {
+                return m_timestamp;
+            }
         };
-        expect(m_collector.collect(isA(CollectionAgent.class), isA(EventProxy.class), isAMap(String.class, Object.class))).andReturn(collectionSetResult);
+        expect(
+               m_collector.collect(isA(CollectionAgent.class), isA(EventProxy.class),
+                                   isAMap(String.class, Object.class))).andReturn(collectionSetResult);
         setupInterface(iface);
 
         setupTransactionManager();
@@ -385,11 +395,11 @@ public class CollectdTest extends TestCase {
     }
 
     /*
-    @SuppressWarnings("unchecked")
-    private <K> List<K> isAList(Class<K> innerClass) {
-        return isA(List.class);
-    }
-    */
+     * @SuppressWarnings("unchecked")
+     * private <K> List<K> isAList(Class<K> innerClass) {
+     * return isA(List.class);
+     * }
+     */
 
     @SuppressWarnings("unchecked")
     private static <K, V> Map<K, V> isAMap(Class<K> keyClass, Class<V> valueClass) {
@@ -404,7 +414,7 @@ public class CollectdTest extends TestCase {
         expect(m_transactionManager.getTransaction(isA(TransactionDefinition.class))).andReturn(new SimpleTransactionStatus()).anyTimes();
         m_transactionManager.rollback(isA(TransactionStatus.class));
         expectLastCall().anyTimes();
-        m_transactionManager.commit(isA(TransactionStatus.class)); //anyTimes();
+        m_transactionManager.commit(isA(TransactionStatus.class)); // anyTimes();
         expectLastCall().anyTimes();
     }
 
@@ -423,13 +433,11 @@ public class CollectdTest extends TestCase {
         EasyMockUtils m_mockUtils = new EasyMockUtils();
         m_collectd.setNodeDao(m_mockUtils.createMock(NodeDao.class));
         // Setup expectation
-        Map<String,String> empty = Collections.emptyMap();
+        Map<String, String> empty = Collections.emptyMap();
         m_collector.initialize(empty);
-
 
         expect(m_collectorConfigDao.getCollectors()).andReturn(Collections.singleton(collector));
     }
-
 
     public static class MockServiceCollector implements ServiceCollector {
         private static ServiceCollector s_delegate;
@@ -443,7 +451,8 @@ public class CollectdTest extends TestCase {
         }
 
         @Override
-        public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
+        public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters)
+                throws CollectionException {
             return s_delegate.collect(agent, eproxy, parameters);
         }
 
@@ -453,7 +462,8 @@ public class CollectdTest extends TestCase {
         }
 
         @Override
-        public void initialize(CollectionAgent agent, Map<String, Object> parameters) throws CollectionInitializationException {
+        public void initialize(CollectionAgent agent, Map<String, Object> parameters)
+                throws CollectionInitializationException {
             s_delegate.initialize(agent, parameters);
         }
 
@@ -470,7 +480,7 @@ public class CollectdTest extends TestCase {
         @Override
         public RrdRepository getRrdRepository(String collectionName) {
             RrdRepository repo = new RrdRepository();
-            ArrayList<String> rras=new ArrayList<String>();
+            ArrayList<String> rras = new ArrayList<String>();
             rras.add("RRA:AVERAGE:0.5:1:8928");
             repo.setRrdBaseDir(new File("/usr/local/opennms/share/rrd/snmp/"));
             repo.setRraList(rras);

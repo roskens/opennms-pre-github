@@ -32,120 +32,125 @@ import javax.xml.bind.annotation.XmlID;
 
 public class SimpleConnector implements Connector {
 
-	// Required
-	private String m_namespace;
-	// Required
-	private String m_id;
-	// Required
-	private String m_label;
-	// Required
-	private VertexRef m_vertex;
-	private AbstractEdge m_edge;
+    // Required
+    private String m_namespace;
 
-	/**
-	 * No-arg constructor for JAXB.
-	 */
-	public SimpleConnector() {}
+    // Required
+    private String m_id;
 
-	/**
-	 * @param namespace
-	 * @param id
-	 * @param label
-	 * @param vertex
-	 */
-	public SimpleConnector(String namespace, String id, String label, VertexRef vertex) {
-		if (namespace == null) {
-			throw new IllegalArgumentException("Namespace is null");
-		} else if (id == null) {
-			throw new IllegalArgumentException("ID is null");
-		} else if (label == null) {
-			throw new IllegalArgumentException("Label is null");
-		} else if (vertex == null) {
-			throw new IllegalArgumentException("Vertex is null");
-		}
-		m_namespace = namespace;
-		m_id = id;
-		m_label = label;
-		m_vertex = vertex;
-	}
+    // Required
+    private String m_label;
 
-	/**
-	 * @param namespace
-	 * @param id
-	 * @param vertex
-	 */
-	public SimpleConnector(String namespace, String id, VertexRef vertex) {
-		this(namespace, id, namespace + ":" + id, vertex);
-	}
+    // Required
+    private VertexRef m_vertex;
 
-	/**
-	 * @param namespace
-	 * @param id
-	 * @param vertex
-	 * @param edge
-	 */
-	public SimpleConnector(String namespace, String id, String label, VertexRef vertex, AbstractEdge edge) {
-		this(namespace, id, label, vertex);
-		m_edge = edge;
-	}
+    private AbstractEdge m_edge;
 
-	/**
-	 * @param namespace
-	 * @param id
-	 * @param label
-	 * @param vertex
-	 * @param edge
-	 */
-	public SimpleConnector(String namespace, String id, VertexRef vertex, AbstractEdge edge) {
-		this(namespace, id, namespace + ":" + id, vertex, edge);
-	}
+    /**
+     * No-arg constructor for JAXB.
+     */
+    public SimpleConnector() {
+    }
 
-	@Override
-	public String getNamespace() {
-		return m_namespace;
-	}
+    /**
+     * @param namespace
+     * @param id
+     * @param label
+     * @param vertex
+     */
+    public SimpleConnector(String namespace, String id, String label, VertexRef vertex) {
+        if (namespace == null) {
+            throw new IllegalArgumentException("Namespace is null");
+        } else if (id == null) {
+            throw new IllegalArgumentException("ID is null");
+        } else if (label == null) {
+            throw new IllegalArgumentException("Label is null");
+        } else if (vertex == null) {
+            throw new IllegalArgumentException("Vertex is null");
+        }
+        m_namespace = namespace;
+        m_id = id;
+        m_label = label;
+        m_vertex = vertex;
+    }
 
-	@XmlID
-	@Override
-	public String getId() {
-		return m_id;
-	}
+    /**
+     * @param namespace
+     * @param id
+     * @param vertex
+     */
+    public SimpleConnector(String namespace, String id, VertexRef vertex) {
+        this(namespace, id, namespace + ":" + id, vertex);
+    }
 
-	@Override
-	public String getLabel() {
-		return m_label;
-	}
+    /**
+     * @param namespace
+     * @param id
+     * @param vertex
+     * @param edge
+     */
+    public SimpleConnector(String namespace, String id, String label, VertexRef vertex, AbstractEdge edge) {
+        this(namespace, id, label, vertex);
+        m_edge = edge;
+    }
 
-	@Override
-	public AbstractEdge getEdge() {
-		return m_edge;
-	}
+    /**
+     * @param namespace
+     * @param id
+     * @param label
+     * @param vertex
+     * @param edge
+     */
+    public SimpleConnector(String namespace, String id, VertexRef vertex, AbstractEdge edge) {
+        this(namespace, id, namespace + ":" + id, vertex, edge);
+    }
 
-	public void setEdge(AbstractEdge edgeRef) {
-		m_edge = edgeRef;
-	}
+    @Override
+    public String getNamespace() {
+        return m_namespace;
+    }
 
-	@Override
-	public VertexRef getVertex() {
-		return m_vertex;
-	}
+    @XmlID
+    @Override
+    public String getId() {
+        return m_id;
+    }
 
-	@Override
-	public int compareTo(Ref o) {
-		if (this.equals(o)) {
-			return 0;
-		} else {
-			// Order by namespace, then ID
-			if (this.getNamespace().equals(o.getNamespace())) {
-				if (this.getId().equals(o.getId())) {
-					// Shouldn't happen because equals() should return true
-					throw new IllegalStateException("equals() was inaccurate in " + this.getClass().getName());
-				} else {
-					return this.getId().compareTo(o.getId());
-				}
-			} else {
-				return this.getNamespace().compareTo(o.getNamespace());
-			}
-		}
-	}
+    @Override
+    public String getLabel() {
+        return m_label;
+    }
+
+    @Override
+    public AbstractEdge getEdge() {
+        return m_edge;
+    }
+
+    public void setEdge(AbstractEdge edgeRef) {
+        m_edge = edgeRef;
+    }
+
+    @Override
+    public VertexRef getVertex() {
+        return m_vertex;
+    }
+
+    @Override
+    public int compareTo(Ref o) {
+        if (this.equals(o)) {
+            return 0;
+        } else {
+            // Order by namespace, then ID
+            if (this.getNamespace().equals(o.getNamespace())) {
+                if (this.getId().equals(o.getId())) {
+                    // Shouldn't happen because equals() should return true
+                    throw new IllegalStateException("equals() was inaccurate in " + this.getClass().getName());
+                } else {
+                    return this.getId().compareTo(o.getId());
+                }
+            } else {
+                return this.getNamespace().compareTo(o.getNamespace());
+            }
+        }
+    }
 }

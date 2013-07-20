@@ -33,7 +33,9 @@ import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * <p>ApplicationDeselectedEvent class.</p>
+ * <p>
+ * ApplicationDeselectedEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,12 +45,18 @@ public class ApplicationDeselectedEvent extends GwtEvent<ApplicationDeselectedEv
 
     /** Constant <code>TYPE</code> */
     public static Type<ApplicationDeselectedEventHandler> TYPE = new Type<ApplicationDeselectedEventHandler>();
+
     private ApplicationInfo m_appInfo;
 
     /**
-     * <p>Constructor for ApplicationDeselectedEvent.</p>
+     * <p>
+     * Constructor for ApplicationDeselectedEvent.
+     * </p>
      *
-     * @param appInfo a {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo} object.
+     * @param appInfo
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo}
+     *            object.
      */
     public ApplicationDeselectedEvent(ApplicationInfo appInfo) {
         setAppInfo(appInfo);
@@ -67,18 +75,27 @@ public class ApplicationDeselectedEvent extends GwtEvent<ApplicationDeselectedEv
     }
 
     /**
-     * <p>setAppInfo</p>
+     * <p>
+     * setAppInfo
+     * </p>
      *
-     * @param appInfo a {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo} object.
+     * @param appInfo
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo}
+     *            object.
      */
     protected void setAppInfo(ApplicationInfo appInfo) {
         m_appInfo = appInfo;
     }
 
     /**
-     * <p>getAppInfo</p>
+     * <p>
+     * getAppInfo
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo}
+     *         object.
      */
     public ApplicationInfo getAppInfo() {
         return m_appInfo;

@@ -48,7 +48,8 @@ public interface EventListener {
     /**
      * Process a sent event.
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public void onEvent(Event e);
 }

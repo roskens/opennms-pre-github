@@ -37,7 +37,9 @@ import java.sql.Statement;
 import org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse;
 
 /**
- * <p>JDBCRequest class.</p>
+ * <p>
+ * JDBCRequest class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -53,23 +55,34 @@ public class JDBCRequest {
     };
 
     private String m_sqyQuery;
+
     private String m_storedProcedure;
+
     private String m_schema = "test";
 
     /**
-     * <p>Constructor for JDBCRequest.</p>
+     * <p>
+     * Constructor for JDBCRequest.
+     * </p>
      */
-    public JDBCRequest() {}
+    public JDBCRequest() {
+    }
 
     /**
-     * <p>send</p>
+     * <p>
+     * send
+     * </p>
      *
-     * @param conn a {@link java.sql.Connection} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse} object.
-     * @throws java.sql.SQLException if any.
+     * @param conn
+     *            a {@link java.sql.Connection} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse}
+     *         object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public JDBCResponse send(Connection conn) throws SQLException {
-        if(getStoredProcedure() != null){
+        if (getStoredProcedure() != null) {
 
             String procedureCall = "{ ? = call " + getStoredProcedure() + "()}";
             CallableStatement cs = conn.prepareCall(procedureCall);
@@ -80,7 +93,7 @@ public class JDBCRequest {
             response.setValidProcedureCall(cs.getBoolean(1));
             return response;
         }
-        if(getSqyQuery() != null) {
+        if (getSqyQuery() != null) {
             Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery(getSqyQuery());
             rs.first();
@@ -95,16 +108,21 @@ public class JDBCRequest {
     }
 
     /**
-     * <p>setStoredProcedure</p>
+     * <p>
+     * setStoredProcedure
+     * </p>
      *
-     * @param storedProcedure a {@link java.lang.String} object.
+     * @param storedProcedure
+     *            a {@link java.lang.String} object.
      */
     public void setStoredProcedure(String storedProcedure) {
         m_storedProcedure = storedProcedure;
     }
 
     /**
-     * <p>getStoredProcedure</p>
+     * <p>
+     * getStoredProcedure
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,16 +131,21 @@ public class JDBCRequest {
     }
 
     /**
-     * <p>setSchema</p>
+     * <p>
+     * setSchema
+     * </p>
      *
-     * @param schema a {@link java.lang.String} object.
+     * @param schema
+     *            a {@link java.lang.String} object.
      */
     public void setSchema(String schema) {
         m_schema = schema;
     }
 
     /**
-     * <p>getSchema</p>
+     * <p>
+     * getSchema
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,16 +154,21 @@ public class JDBCRequest {
     }
 
     /**
-     * <p>setSqyQuery</p>
+     * <p>
+     * setSqyQuery
+     * </p>
      *
-     * @param sqyQuery a {@link java.lang.String} object.
+     * @param sqyQuery
+     *            a {@link java.lang.String} object.
      */
     public void setSqyQuery(String sqyQuery) {
         m_sqyQuery = sqyQuery;
     }
 
     /**
-     * <p>getSqyQuery</p>
+     * <p>
+     * getSqyQuery
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

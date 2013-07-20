@@ -35,12 +35,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Markus Neumann <markus@opennms.com>
  */
 public class NameCutter {
 
     private final static Logger logger = LoggerFactory.getLogger(NameCutter.class);
+
     private Map<String, String> dictionary = new HashMap<String, String>();
 
     public String trimByCamelCase(String name, Integer maxLength) {
@@ -68,14 +68,13 @@ public class NameCutter {
         String result = "";
 
         String[] nameParts = StringUtils.splitByCharacterTypeCamelCase(name);
-        for (int i = 0;
-                i < nameParts.length;
-                i++) {
+        for (int i = 0; i < nameParts.length; i++) {
             String namePart = nameParts[i];
 
             for (String word : dictionary.keySet()) {
                 if (namePart.equalsIgnoreCase(word)) {
-                    logger.debug("dictionary Hit at '{}' result '{}'", name, name.replaceAll(word, dictionary.get(word)));
+                    logger.debug("dictionary Hit at '{}' result '{}'", name,
+                                 name.replaceAll(word, dictionary.get(word)));
                     nameParts[i] = dictionary.get(word);
                 }
             }

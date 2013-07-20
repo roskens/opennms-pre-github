@@ -38,11 +38,11 @@ import org.opennms.netmgt.dao.api.CollectorConfigDao;
 public class CollectorConfigDaoStub implements CollectorConfigDao {
 
     /*
-    public Set getCollectorNames() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    */
+     * public Set getCollectorNames() {
+     * // TODO Auto-generated method stub
+     * return null;
+     * }
+     */
 
     @Override
     public int getSchedulerThreads() {
@@ -51,11 +51,12 @@ public class CollectorConfigDaoStub implements CollectorConfigDao {
     }
 
     /*
-    public Collection getSpecificationsForInterface(OnmsIpInterface iface, String svcName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    */
+     * public Collection getSpecificationsForInterface(OnmsIpInterface iface,
+     * String svcName) {
+     * // TODO Auto-generated method stub
+     * return null;
+     * }
+     */
 
     @Override
     public Collection<Collector> getCollectors() {

@@ -42,84 +42,84 @@ import static org.easymock.EasyMock.*;
 import junit.framework.TestCase;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class CorrelatorTest extends TestCase {
 
-	List<Object> mocks = new ArrayList<Object>();
-	private EventIpcManager m_eventIpcManager;
-	private CorrelationEngine m_engine;
-	private Correlator m_correlator;
+    List<Object> mocks = new ArrayList<Object>();
 
-        @Override
-	protected void setUp() throws Exception {
-		super.setUp();
+    private EventIpcManager m_eventIpcManager;
 
-		m_eventIpcManager = createMock(EventIpcManager.class);
-		m_engine = createMock(CorrelationEngine.class);
+    private CorrelationEngine m_engine;
 
-		expect(m_engine.getName()).andStubReturn("myMockEngine");
+    private Correlator m_correlator;
 
-		m_correlator = new Correlator();
-		m_correlator.setEventIpcManager(m_eventIpcManager);
-		m_correlator.setCorrelationEngines(Collections.singletonList(m_engine));
-	}
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
 
-        @Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
+        m_eventIpcManager = createMock(EventIpcManager.class);
+        m_engine = createMock(CorrelationEngine.class);
 
-	public void testStartStop() throws Exception {
+        expect(m_engine.getName()).andStubReturn("myMockEngine");
 
-		List<String> interestingEvents = Collections.singletonList("uei.opennms.org:/testEvent");
+        m_correlator = new Correlator();
+        m_correlator.setEventIpcManager(m_eventIpcManager);
+        m_correlator.setCorrelationEngines(Collections.singletonList(m_engine));
+    }
 
-		expect(m_engine.getInterestingEvents()).andReturn(interestingEvents);
-		m_eventIpcManager.addEventListener(isA(EventListener.class), same(interestingEvents));
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 
-		replayMocks();
+    public void testStartStop() throws Exception {
 
-		m_correlator.afterPropertiesSet();
-		assertEquals("Expected the correlator to be init'd", Fiber.START_PENDING, m_correlator.getStatus());
-		m_correlator.start();
-		assertEquals("Expected the correlator to be running", Fiber.RUNNING, m_correlator.getStatus());
-		m_correlator.stop();
-		assertEquals("Expected the correlator to be stopped", Fiber.STOPPED, m_correlator.getStatus());
+        List<String> interestingEvents = Collections.singletonList("uei.opennms.org:/testEvent");
 
-		verifyMocks();
-	}
+        expect(m_engine.getInterestingEvents()).andReturn(interestingEvents);
+        m_eventIpcManager.addEventListener(isA(EventListener.class), same(interestingEvents));
 
-	public void testRegisterForEvents() throws Exception {
+        replayMocks();
 
-		List<String> interestingEvents = Collections.singletonList("uei.opennms.org:/testEvent");
+        m_correlator.afterPropertiesSet();
+        assertEquals("Expected the correlator to be init'd", Fiber.START_PENDING, m_correlator.getStatus());
+        m_correlator.start();
+        assertEquals("Expected the correlator to be running", Fiber.RUNNING, m_correlator.getStatus());
+        m_correlator.stop();
+        assertEquals("Expected the correlator to be stopped", Fiber.STOPPED, m_correlator.getStatus());
 
-		expect(m_engine.getInterestingEvents()).andReturn(interestingEvents);
-		m_eventIpcManager.addEventListener(isA(EventListener.class), same(interestingEvents));
+        verifyMocks();
+    }
 
-		replayMocks();
+    public void testRegisterForEvents() throws Exception {
 
-		m_correlator.afterPropertiesSet();
+        List<String> interestingEvents = Collections.singletonList("uei.opennms.org:/testEvent");
 
-		verifyMocks();
+        expect(m_engine.getInterestingEvents()).andReturn(interestingEvents);
+        m_eventIpcManager.addEventListener(isA(EventListener.class), same(interestingEvents));
 
-	}
+        replayMocks();
 
-	private <T> T createMock(Class<T> clazz) {
-		T mock = EasyMock.createMock(clazz);
-		mocks.add(mock);
-		return mock;
-	}
+        m_correlator.afterPropertiesSet();
 
-	private void replayMocks() {
-		EasyMock.replay(mocks.toArray());
-	}
+        verifyMocks();
 
-	private void verifyMocks() {
-		EasyMock.verify(mocks.toArray());
-		EasyMock.reset(mocks.toArray());
-	}
+    }
 
+    private <T> T createMock(Class<T> clazz) {
+        T mock = EasyMock.createMock(clazz);
+        mocks.add(mock);
+        return mock;
+    }
 
+    private void replayMocks() {
+        EasyMock.replay(mocks.toArray());
+    }
+
+    private void verifyMocks() {
+        EasyMock.verify(mocks.toArray());
+        EasyMock.reset(mocks.toArray());
+    }
 
 }

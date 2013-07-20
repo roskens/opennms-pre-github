@@ -45,9 +45,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>MapStartUpController class.</p>
+ * <p>
+ * MapStartUpController class.
+ * </p>
  *
  * @author mmigliore
  * @version $Id: $
@@ -56,53 +57,54 @@ import org.springframework.web.servlet.ModelAndView;
 @SuppressWarnings("deprecation")
 public class MapStartUpController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MapStartUpController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MapStartUpController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-	/** {@inheritDoc} */
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
-				.getOutputStream(), "UTF-8"));
+        try {
+            String user = request.getRemoteUser();
 
-		try {
-	        String user = request.getRemoteUser();
+            LOG.debug("MapStartUp for user:{}", user);
 
-	            LOG.debug("MapStartUp for user:{}", user);
+            bw.write(ResponseAssembler.getStartupResponse(manager.getProperties(request.isUserInRole(org.opennms.web.springframework.security.Authentication.ROLE_ADMIN))));
+        } catch (Throwable e) {
+            LOG.error("Error in map's startup", e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.MAPS_STARTUP_ACTION));
+        } finally {
+            bw.close();
+        }
 
-			bw.write(ResponseAssembler.getStartupResponse(manager.getProperties(
-			                          request.isUserInRole(org.opennms.web.springframework.security.Authentication.ROLE_ADMIN))));
-		} catch (Throwable e) {
-			LOG.error("Error in map's startup", e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.MAPS_STARTUP_ACTION));
-		} finally {
-			bw.close();
-		}
-
-		return null;
-	}
-
-
+        return null;
+    }
 
 }

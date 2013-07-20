@@ -47,7 +47,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>EndPointDetector class.</p>
+ * <p>
+ * EndPointDetector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -64,9 +66,11 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      */
     private static final String SYS_OBJECT_ID = ".1.3.6.1.2.1.1.2.0";
 
-    //These are -1 so by default we use the AgentConfig
+    // These are -1 so by default we use the AgentConfig
     private static final int DEFAULT_PORT = -1;
+
     private static final int DEFAULT_TIMEOUT = -1;
+
     private static final int DEFAULT_RETRIES = -1;
 
     private String m_forceVersion;
@@ -78,7 +82,9 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     private EndPointConfigurationDao m_configDao;
 
     /**
-     * <p>Constructor for EndPointDetector.</p>
+     * <p>
+     * Constructor for EndPointDetector.
+     * </p>
      */
     public EndPointDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT, DEFAULT_TIMEOUT, DEFAULT_RETRIES);
@@ -87,8 +93,10 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public EndPointDetector(String serviceName, int port) {
         super(serviceName, port, DEFAULT_TIMEOUT, DEFAULT_RETRIES);
@@ -120,9 +128,12 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     }
 
     /**
-     * <p>configureAgentVersion</p>
+     * <p>
+     * configureAgentVersion
+     * </p>
      *
-     * @param agentConfig a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
+     * @param agentConfig
+     *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     protected void configureAgentVersion(SnmpAgentConfig agentConfig) {
         if (getForceVersion() != null) {
@@ -139,9 +150,12 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     }
 
     /**
-     * <p>configureAgentPTR</p>
+     * <p>
+     * configureAgentPTR
+     * </p>
      *
-     * @param agentConfig a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
+     * @param agentConfig
+     *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     protected void configureAgentPTR(SnmpAgentConfig agentConfig) {
         if (getPort() > 0) {
@@ -158,34 +172,42 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
-     * @param agentConfig a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
-     * @param oid a {@link java.lang.String} object.
+     * @param agentConfig
+     *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
+     * @param oid
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected String getValue(SnmpAgentConfig agentConfig, String oid) {
         SnmpValue val = SnmpUtils.get(agentConfig, SnmpObjId.get(oid));
         if (val == null || val.isNull() || val.isEndOfMib() || val.isError()) {
             return null;
-        }
-        else {
+        } else {
             return val.toString();
         }
 
     }
 
     /**
-     * <p>setForceVersion</p>
+     * <p>
+     * setForceVersion
+     * </p>
      *
-     * @param forceVersion a {@link java.lang.String} object.
+     * @param forceVersion
+     *            a {@link java.lang.String} object.
      */
     public void setForceVersion(String forceVersion) {
         m_forceVersion = forceVersion;
     }
 
     /**
-     * <p>getForceVersion</p>
+     * <p>
+     * getForceVersion
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -194,36 +216,52 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     }
 
     /**
-     * <p>setAgentConfigFactory</p>
+     * <p>
+     * setAgentConfigFactory
+     * </p>
      *
-     * @param agentConfigFactory a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory} object.
+     * @param agentConfigFactory
+     *            a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
+     *            object.
      */
     public void setAgentConfigFactory(SnmpAgentConfigFactory agentConfigFactory) {
         m_agentConfigFactory = agentConfigFactory;
     }
 
     /**
-     * <p>getAgentConfigFactory</p>
+     * <p>
+     * getAgentConfigFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory} object.
+     * @return a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
+     *         object.
      */
     public SnmpAgentConfigFactory getAgentConfigFactory() {
         return m_agentConfigFactory;
     }
 
     /**
-     * <p>setEndPointConfigurationDao</p>
+     * <p>
+     * setEndPointConfigurationDao
+     * </p>
      *
-     * @param dao a {@link org.opennms.netmgt.provision.adapters.link.endpoint.dao.EndPointConfigurationDao} object.
+     * @param dao
+     *            a
+     *            {@link org.opennms.netmgt.provision.adapters.link.endpoint.dao.EndPointConfigurationDao}
+     *            object.
      */
     public void setEndPointConfigurationDao(EndPointConfigurationDao dao) {
         m_configDao = dao;
     }
 
     /**
-     * <p>getEndPointConfigurationDao</p>
+     * <p>
+     * getEndPointConfigurationDao
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.adapters.link.endpoint.dao.EndPointConfigurationDao} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.dao.EndPointConfigurationDao}
+     *         object.
      */
     public EndPointConfigurationDao getEndPointConfigurationDao() {
         return m_configDao;
@@ -238,6 +276,5 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     @Override
     public void dispose() {
     }
-
 
 }

@@ -32,6 +32,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class ConversationExchangeDefaultImpl<Request, RespType> implements ConversationExchange<Request, RespType> {
     private final RequestBuilder<Request> m_requestBuilder;
+
     private final ResponseValidator<RespType> m_responseValidator;
 
     public ConversationExchangeDefaultImpl(RequestBuilder<Request> reqBuilder, ResponseValidator<RespType> respValidator) {

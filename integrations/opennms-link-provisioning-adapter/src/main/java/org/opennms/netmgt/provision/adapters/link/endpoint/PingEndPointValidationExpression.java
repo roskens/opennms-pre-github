@@ -39,19 +39,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.opennms.netmgt.provision.adapters.link.EndPoint;
 import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 
-@XmlRootElement(name="pingable")
+@XmlRootElement(name = "pingable")
 public class PingEndPointValidationExpression extends EndPointValidationExpressionImpl {
     /** {@inheritDoc} */
     @Override
     public void validate(EndPoint endPoint) throws EndPointStatusException {
-       boolean returnVal = endPoint.ping();
-       if (!returnVal) {
-           throw new EndPointStatusException(String.format("unable to ping endPoint %s", endPoint));
-       }
+        boolean returnVal = endPoint.ping();
+        if (!returnVal) {
+            throw new EndPointStatusException(String.format("unable to ping endPoint %s", endPoint));
+        }
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

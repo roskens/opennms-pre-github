@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.nsclient;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.exolab.castor.xml.Marshaller;
@@ -48,30 +48,27 @@ import org.exolab.castor.xml.Unmarshaller;
  * @version $Revision$ $Date$
  */
 
-@SuppressWarnings("all") public class Wpm implements java.io.Serializable {
+@SuppressWarnings("all")
+public class Wpm implements java.io.Serializable {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * The name of this group, for user id purposes
-     *
      */
     private java.lang.String _name;
 
     /**
      * The Key value which, if present, indicates that the rest of
      * this group should be collected
-     *
      */
     private java.lang.String _keyvalue;
 
     /**
      * Specifies how often the key value of this group
-     *  should be rechecked for existence. In milliseconds
-     *
+     * should be rechecked for existence. In milliseconds
      */
     private int _recheckInterval;
 
@@ -82,68 +79,58 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * An NSClient Object
-     *
      */
     private java.util.List<org.opennms.netmgt.config.nsclient.Attrib> _attribList;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Wpm() {
         super();
         this._attribList = new java.util.ArrayList<org.opennms.netmgt.config.nsclient.Attrib>();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
-     *
-     *
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addAttrib(
-            final org.opennms.netmgt.config.nsclient.Attrib vAttrib)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addAttrib(final org.opennms.netmgt.config.nsclient.Attrib vAttrib)
+            throws java.lang.IndexOutOfBoundsException {
         this._attribList.add(vAttrib);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addAttrib(
-            final int index,
-            final org.opennms.netmgt.config.nsclient.Attrib vAttrib)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addAttrib(final int index, final org.opennms.netmgt.config.nsclient.Attrib vAttrib)
+            throws java.lang.IndexOutOfBoundsException {
         this._attribList.add(index, vAttrib);
     }
 
     /**
      */
-    public void deleteRecheckInterval(
-    ) {
-        this._has_recheckInterval= false;
+    public void deleteRecheckInterval() {
+        this._has_recheckInterval = false;
     }
 
     /**
      * Method enumerateAttrib.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
-    public java.util.Enumeration<org.opennms.netmgt.config.nsclient.Attrib> enumerateAttrib(
-    ) {
+    public java.util.Enumeration<org.opennms.netmgt.config.nsclient.Attrib> enumerateAttrib() {
         return java.util.Collections.enumeration(this._attribList);
     }
 
@@ -154,38 +141,37 @@ import org.exolab.castor.xml.Unmarshaller;
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
-        if ( this == obj )
+    public boolean equals(final java.lang.Object obj) {
+        if (this == obj)
             return true;
 
         if (obj instanceof Wpm) {
 
-            Wpm temp = (Wpm)obj;
+            Wpm temp = (Wpm) obj;
             if (this._name != null) {
-                if (temp._name == null) return false;
+                if (temp._name == null)
+                    return false;
                 else if (!(this._name.equals(temp._name)))
                     return false;
-            }
-            else if (temp._name != null)
+            } else if (temp._name != null)
                 return false;
             if (this._keyvalue != null) {
-                if (temp._keyvalue == null) return false;
+                if (temp._keyvalue == null)
+                    return false;
                 else if (!(this._keyvalue.equals(temp._keyvalue)))
                     return false;
-            }
-            else if (temp._keyvalue != null)
+            } else if (temp._keyvalue != null)
                 return false;
             if (this._recheckInterval != temp._recheckInterval)
                 return false;
             if (this._has_recheckInterval != temp._has_recheckInterval)
                 return false;
             if (this._attribList != null) {
-                if (temp._attribList == null) return false;
+                if (temp._attribList == null)
+                    return false;
                 else if (!(this._attribList.equals(temp._attribList)))
                     return false;
-            }
-            else if (temp._attribList != null)
+            } else if (temp._attribList != null)
                 return false;
             return true;
         }
@@ -196,17 +182,18 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getAttrib.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * org.opennms.netmgt.config.nsclient.Attrib at the given index
+     *         org.opennms.netmgt.config.nsclient.Attrib at the given index
      */
-    public org.opennms.netmgt.config.nsclient.Attrib getAttrib(
-            final int index)
-    throws java.lang.IndexOutOfBoundsException {
+    public org.opennms.netmgt.config.nsclient.Attrib getAttrib(final int index)
+            throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._attribList.size()) {
-            throw new IndexOutOfBoundsException("getAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getAttrib: Index value '" + index + "' not in range [0.."
+                    + (this._attribList.size() - 1) + "]");
         }
 
         return (org.opennms.netmgt.config.nsclient.Attrib) _attribList.get(index);
@@ -214,15 +201,16 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getAttrib.Returns the contents of the collection in
-     * an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public org.opennms.netmgt.config.nsclient.Attrib[] getAttrib(
-    ) {
+    public org.opennms.netmgt.config.nsclient.Attrib[] getAttrib() {
         org.opennms.netmgt.config.nsclient.Attrib[] array = new org.opennms.netmgt.config.nsclient.Attrib[0];
         return (org.opennms.netmgt.config.nsclient.Attrib[]) this._attribList.toArray(array);
     }
@@ -234,8 +222,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<org.opennms.netmgt.config.nsclient.Attrib> getAttribCollection(
-    ) {
+    public java.util.List<org.opennms.netmgt.config.nsclient.Attrib> getAttribCollection() {
         return this._attribList;
     }
 
@@ -244,8 +231,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the size of this collection
      */
-    public int getAttribCount(
-    ) {
+    public int getAttribCount() {
         return this._attribList.size();
     }
 
@@ -255,11 +241,9 @@ import org.exolab.castor.xml.Unmarshaller;
      * present, indicates that the rest of this group should be
      * collected
      *
-     *
      * @return the value of field 'Keyvalue'.
      */
-    public java.lang.String getKeyvalue(
-    ) {
+    public java.lang.String getKeyvalue() {
         return this._keyvalue;
     }
 
@@ -268,11 +252,9 @@ import org.exolab.castor.xml.Unmarshaller;
      * following description: The name of this group, for user id
      * purposes
      *
-     *
      * @return the value of field 'Name'.
      */
-    public java.lang.String getName(
-    ) {
+    public java.lang.String getName() {
         return this._name;
     }
 
@@ -280,13 +262,11 @@ import org.exolab.castor.xml.Unmarshaller;
      * Returns the value of field 'recheckInterval'. The field
      * 'recheckInterval' has the following description: Specifies
      * how often the key value of this group
-     *  should be rechecked for existence. In milliseconds
-     *
+     * should be rechecked for existence. In milliseconds
      *
      * @return the value of field 'RecheckInterval'.
      */
-    public int getRecheckInterval(
-    ) {
+    public int getRecheckInterval() {
         return this._recheckInterval;
     }
 
@@ -295,34 +275,32 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if at least one RecheckInterval has been added
      */
-    public boolean hasRecheckInterval(
-    ) {
+    public boolean hasRecheckInterval() {
         return this._has_recheckInterval;
     }
 
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
     @Override
-    public int hashCode(
-    ) {
+    public int hashCode() {
         int result = 17;
 
         long tmp;
         if (_name != null) {
-           result = 37 * result + _name.hashCode();
+            result = 37 * result + _name.hashCode();
         }
         if (_keyvalue != null) {
-           result = 37 * result + _keyvalue.hashCode();
+            result = 37 * result + _keyvalue.hashCode();
         }
         result = 37 * result + _recheckInterval;
         if (_attribList != null) {
-           result = 37 * result + _attribList.hashCode();
+            result = 37 * result + _attribList.hashCode();
         }
 
         return result;
@@ -333,8 +311,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if this object is valid according to the schema
      */
-    public boolean isValid(
-    ) {
+    public boolean isValid() {
         try {
             validate();
         } catch (org.exolab.castor.xml.ValidationException vex) {
@@ -347,49 +324,46 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method iterateAttrib.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
-    public java.util.Iterator<org.opennms.netmgt.config.nsclient.Attrib> iterateAttrib(
-    ) {
+    public java.util.Iterator<org.opennms.netmgt.config.nsclient.Attrib> iterateAttrib() {
         return this._attribList.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void marshal(
-            final java.io.Writer out)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
+            org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
-    public void marshal(
-            final org.xml.sax.ContentHandler handler)
-    throws java.io.IOException, org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
+            org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, handler);
     }
 
     /**
      */
-    public void removeAllAttrib(
-    ) {
+    public void removeAllAttrib() {
         this._attribList.clear();
     }
 
@@ -399,8 +373,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * @param vAttrib
      * @return true if the object was removed from the collection.
      */
-    public boolean removeAttrib(
-            final org.opennms.netmgt.config.nsclient.Attrib vAttrib) {
+    public boolean removeAttrib(final org.opennms.netmgt.config.nsclient.Attrib vAttrib) {
         boolean removed = _attribList.remove(vAttrib);
         return removed;
     }
@@ -411,44 +384,38 @@ import org.exolab.castor.xml.Unmarshaller;
      * @param index
      * @return the element removed from the collection
      */
-    public org.opennms.netmgt.config.nsclient.Attrib removeAttribAt(
-            final int index) {
+    public org.opennms.netmgt.config.nsclient.Attrib removeAttribAt(final int index) {
         java.lang.Object obj = this._attribList.remove(index);
         return (org.opennms.netmgt.config.nsclient.Attrib) obj;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setAttrib(
-            final int index,
-            final org.opennms.netmgt.config.nsclient.Attrib vAttrib)
-    throws java.lang.IndexOutOfBoundsException {
+    public void setAttrib(final int index, final org.opennms.netmgt.config.nsclient.Attrib vAttrib)
+            throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._attribList.size()) {
-            throw new IndexOutOfBoundsException("setAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setAttrib: Index value '" + index + "' not in range [0.."
+                    + (this._attribList.size() - 1) + "]");
         }
 
         this._attribList.set(index, vAttrib);
     }
 
     /**
-     *
-     *
      * @param vAttribArray
      */
-    public void setAttrib(
-            final org.opennms.netmgt.config.nsclient.Attrib[] vAttribArray) {
-        //-- copy array
+    public void setAttrib(final org.opennms.netmgt.config.nsclient.Attrib[] vAttribArray) {
+        // -- copy array
         _attribList.clear();
 
         for (int i = 0; i < vAttribArray.length; i++) {
-                this._attribList.add(vAttribArray[i]);
+            this._attribList.add(vAttribArray[i]);
         }
     }
 
@@ -456,10 +423,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_attribList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vAttribList the Vector to copy.
+     * @param vAttribList
+     *            the Vector to copy.
      */
-    public void setAttrib(
-            final java.util.List<org.opennms.netmgt.config.nsclient.Attrib> vAttribList) {
+    public void setAttrib(final java.util.List<org.opennms.netmgt.config.nsclient.Attrib> vAttribList) {
         // copy vector
         this._attribList.clear();
 
@@ -469,12 +436,12 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_attribList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param attribList the Vector to set.
+     * @deprecated
+     * @param attribList
+     *            the Vector to set.
      */
-    public void setAttribCollection(
-            final java.util.List<org.opennms.netmgt.config.nsclient.Attrib> attribList) {
+    public void setAttribCollection(final java.util.List<org.opennms.netmgt.config.nsclient.Attrib> attribList) {
         this._attribList = attribList;
     }
 
@@ -483,11 +450,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * the following description: The Key value which, if present,
      * indicates that the rest of this group should be collected
      *
-     *
-     * @param keyvalue the value of field 'keyvalue'.
+     * @param keyvalue
+     *            the value of field 'keyvalue'.
      */
-    public void setKeyvalue(
-            final java.lang.String keyvalue) {
+    public void setKeyvalue(final java.lang.String keyvalue) {
         this._keyvalue = keyvalue;
     }
 
@@ -496,11 +462,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * following description: The name of this group, for user id
      * purposes
      *
-     *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
-    public void setName(
-            final java.lang.String name) {
+    public void setName(final java.lang.String name) {
         this._name = name;
     }
 
@@ -508,13 +473,12 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'recheckInterval'. The field
      * 'recheckInterval' has the following description: Specifies
      * how often the key value of this group
-     *  should be rechecked for existence. In milliseconds
+     * should be rechecked for existence. In milliseconds
      *
-     *
-     * @param recheckInterval the value of field 'recheckInterval'.
+     * @param recheckInterval
+     *            the value of field 'recheckInterval'.
      */
-    public void setRecheckInterval(
-            final int recheckInterval) {
+    public void setRecheckInterval(final int recheckInterval) {
         this._recheckInterval = recheckInterval;
         this._has_recheckInterval = true;
     }
@@ -523,27 +487,26 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled org.opennms.netmgt.config.nsclient.Wp
      */
-    public static org.opennms.netmgt.config.nsclient.Wpm unmarshal(
-            final java.io.Reader reader)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
-        return (org.opennms.netmgt.config.nsclient.Wpm) Unmarshaller.unmarshal(org.opennms.netmgt.config.nsclient.Wpm.class, reader);
+    public static org.opennms.netmgt.config.nsclient.Wpm unmarshal(final java.io.Reader reader)
+            throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+        return (org.opennms.netmgt.config.nsclient.Wpm) Unmarshaller.unmarshal(org.opennms.netmgt.config.nsclient.Wpm.class,
+                                                                               reader);
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void validate(
-    )
-    throws org.exolab.castor.xml.ValidationException {
+    public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();
         validator.validate(this);
     }

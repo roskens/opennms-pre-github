@@ -43,7 +43,7 @@ import edu.bucknell.net.JDHCP.DHCPMessage;
 
 final class Receiver implements Runnable, Fiber {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Receiver.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Receiver.class);
 
     private final static short DHCP_TARGET_PORT = 68;
 
@@ -67,7 +67,9 @@ final class Receiver implements Runnable, Fiber {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public synchronized void start() {
@@ -81,7 +83,9 @@ final class Receiver implements Runnable, Fiber {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public synchronized void stop() {
@@ -91,7 +95,9 @@ final class Receiver implements Runnable, Fiber {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -101,7 +107,9 @@ final class Receiver implements Runnable, Fiber {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,7 +119,9 @@ final class Receiver implements Runnable, Fiber {
     }
 
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      */
     @Override
     public void run() {
@@ -135,7 +145,7 @@ final class Receiver implements Runnable, Fiber {
 
                 synchronized (m_clients) {
                     Iterator<Client> iter = m_clients.iterator();
-                    if(!iter.hasNext()) {
+                    if (!iter.hasNext()) {
                         LOG.debug("No client waiting for response.");
                     }
                     while (iter.hasNext()) {

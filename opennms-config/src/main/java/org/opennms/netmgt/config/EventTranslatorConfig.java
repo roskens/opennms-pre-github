@@ -33,7 +33,9 @@ import java.util.List;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>EventTranslatorConfig interface.</p>
+ * <p>
+ * EventTranslatorConfig interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,7 +45,8 @@ public interface EventTranslatorConfig {
     static final String TRANSLATOR_NAME = "event-translator";
 
     /**
-     * Get the list of UEIs that are registered in the passive status configuration.
+     * Get the list of UEIs that are registered in the passive status
+     * configuration.
      *
      * @return list of UEIs
      */
@@ -52,24 +55,29 @@ public interface EventTranslatorConfig {
     /**
      * Determine if the @param e is a translation event
      *
-     * @param e Event
+     * @param e
+     *            Event
      * @return true if e is a translation event
      */
     boolean isTranslationEvent(Event e);
 
-	/**
-	 * Translate the @param e to a new event
-	 *
-	 * @param e Event
-	 * @return a translated event
-	 */
-	List<Event> translateEvent(Event e);
+    /**
+     * Translate the @param e to a new event
+     *
+     * @param e
+     *            Event
+     * @return a translated event
+     */
+    List<Event> translateEvent(Event e);
 
-	/**
-	 * <p>update</p>
-	 *
-	 * @throws java.lang.Exception if any.
-	 */
-	void update() throws Exception;
+    /**
+     * <p>
+     * update
+     * </p>
+     *
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    void update() throws Exception;
 
 }

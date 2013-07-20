@@ -34,43 +34,63 @@ import org.opennms.netmgt.provision.support.AsyncBasicDetectorMinaImpl;
 import org.opennms.netmgt.provision.support.ResponseValidator;
 
 /**
- * <p>Abstract AsyncMultilineDetector class.</p>
+ * <p>
+ * Abstract AsyncMultilineDetector class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
  */
-public abstract class AsyncMultilineDetectorMinaImpl extends AsyncBasicDetectorMinaImpl<LineOrientedRequest, MultilineOrientedResponse> {
+public abstract class AsyncMultilineDetectorMinaImpl extends
+        AsyncBasicDetectorMinaImpl<LineOrientedRequest, MultilineOrientedResponse> {
 
     /**
-     * <p>Constructor for AsyncMultilineDetector.</p>
+     * <p>
+     * Constructor for AsyncMultilineDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public AsyncMultilineDetectorMinaImpl(final String serviceName, final int port) {
         super(serviceName, port);
     }
 
     /**
-     * <p>Constructor for AsyncMultilineDetector.</p>
+     * <p>
+     * Constructor for AsyncMultilineDetector.
+     * </p>
      *
-     * @param port a int.
-     * @param timeout a int.
-     * @param retries a int.
-     * @param serviceName a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
+     * @param retries
+     *            a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public AsyncMultilineDetectorMinaImpl(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
     }
 
     /**
-     * <p>expectCodeRange</p>
+     * <p>
+     * expectCodeRange
+     * </p>
      *
-     * @param beginRange a int.
-     * @param endRange a int.
-     * @return a {@link org.opennms.netmgt.provision.support.AsyncClientConversation.ResponseValidator} object.
+     * @param beginRange
+     *            a int.
+     * @param endRange
+     *            a int.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.support.AsyncClientConversation.ResponseValidator}
+     *         object.
      */
-    protected static ResponseValidator<MultilineOrientedResponse> expectCodeRange(final int beginRange, final int endRange){
+    protected static ResponseValidator<MultilineOrientedResponse> expectCodeRange(final int beginRange,
+            final int endRange) {
         return new ResponseValidator<MultilineOrientedResponse>() {
 
             @Override
@@ -83,8 +103,8 @@ public abstract class AsyncMultilineDetectorMinaImpl extends AsyncBasicDetectorM
 
     /** {@inheritDoc} */
     @Override
-    public ResponseValidator<MultilineOrientedResponse> startsWith(final String pattern){
-        return new ResponseValidator<MultilineOrientedResponse>(){
+    public ResponseValidator<MultilineOrientedResponse> startsWith(final String pattern) {
+        return new ResponseValidator<MultilineOrientedResponse>() {
 
             @Override
             public boolean validate(final MultilineOrientedResponse response) {
@@ -95,10 +115,15 @@ public abstract class AsyncMultilineDetectorMinaImpl extends AsyncBasicDetectorM
     }
 
     /**
-     * <p>request</p>
+     * <p>
+     * request
+     * </p>
      *
-     * @param command a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
+     * @param command
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *         object.
      */
     public LineOrientedRequest request(final String command) {
         return new LineOrientedRequest(command);

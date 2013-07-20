@@ -42,7 +42,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>DominoIIOPClient class.</p>
+ * <p>
+ * DominoIIOPClient class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -50,12 +52,13 @@ import org.slf4j.LoggerFactory;
 public class DominoIIOPClient extends LineOrientedClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(DominoIIOPClient.class);
+
     private int m_iorPort = 1000;
 
     /** {@inheritDoc} */
     @Override
     public void connect(final InetAddress host, final int port, final int timeout) throws IOException, Exception {
-        if(!preconnect(host, getIorPort(), timeout)) {
+        if (!preconnect(host, getIorPort(), timeout)) {
             throw new Exception("Failed to preconnect");
         }
     }
@@ -81,57 +84,62 @@ public class DominoIIOPClient extends LineOrientedClient {
         String IOR = "";
         final URL u = new URL("http://" + hostAddress + ":" + port + "/diiop_ior.txt");
         try {
-			final URLConnection conn = u.openConnection();
-			conn.setConnectTimeout(timeout);
-			conn.setReadTimeout(timeout);
-			InputStreamReader isr = null;
-			BufferedReader br = null;
-			try {
-			    isr = new InputStreamReader(conn.getInputStream());
-			    br = new BufferedReader(isr);
-			    boolean done = false;
-			    while (!done) {
-			        final String line = br.readLine();
-			        if (line == null) {
-			            // end of stream
-			            done = true;
-			        } else {
-			            IOR += line;
-			            if (IOR.startsWith("IOR:")) {
-			                // the IOR does not span a line, so we're done
-			                done = true;
-			            }
-			        }
-			    }
-			} finally {
-			    IOUtils.closeQuietly(br);
-			    IOUtils.closeQuietly(isr);
-			}
-		} catch (final SocketException e) {
-			LOG.warn("Unable to connect to {}", u, e);
-		}
-        if (!IOR.startsWith("IOR:")) return false;
+            final URLConnection conn = u.openConnection();
+            conn.setConnectTimeout(timeout);
+            conn.setReadTimeout(timeout);
+            InputStreamReader isr = null;
+            BufferedReader br = null;
+            try {
+                isr = new InputStreamReader(conn.getInputStream());
+                br = new BufferedReader(isr);
+                boolean done = false;
+                while (!done) {
+                    final String line = br.readLine();
+                    if (line == null) {
+                        // end of stream
+                        done = true;
+                    } else {
+                        IOR += line;
+                        if (IOR.startsWith("IOR:")) {
+                            // the IOR does not span a line, so we're done
+                            done = true;
+                        }
+                    }
+                }
+            } finally {
+                IOUtils.closeQuietly(br);
+                IOUtils.closeQuietly(isr);
+            }
+        } catch (final SocketException e) {
+            LOG.warn("Unable to connect to {}", u, e);
+        }
+        if (!IOR.startsWith("IOR:"))
+            return false;
 
         return true;
     }
 
     /**
-     * <p>setIorPort</p>
+     * <p>
+     * setIorPort
+     * </p>
      *
-     * @param iorPort a int.
+     * @param iorPort
+     *            a int.
      */
     public void setIorPort(final int iorPort) {
         m_iorPort = iorPort;
     }
 
     /**
-     * <p>getIorPort</p>
+     * <p>
+     * getIorPort
+     * </p>
      *
      * @return a int.
      */
     public int getIorPort() {
         return m_iorPort;
     }
-
 
 }

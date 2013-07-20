@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class SnmpWalker {
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(SnmpWalker.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(SnmpWalker.class);
 
     protected static abstract class WalkerPduBuilder extends PduBuilder {
         protected WalkerPduBuilder(int maxVarsPerPdu) {
@@ -49,19 +49,27 @@ public abstract class SnmpWalker {
     }
 
     private final String m_name;
+
     private final CollectionTracker m_tracker;
 
     private final CountDownLatch m_signal;
 
     private InetAddress m_address;
+
     private WalkerPduBuilder m_pduBuilder;
+
     private ResponseProcessor m_responseProcessor;
+
     private final int m_maxVarsPerPdu;
+
     private boolean m_error = false;
+
     private String m_errorMessage = "";
+
     private Throwable m_errorThrowable = null;
 
-    protected SnmpWalker(InetAddress address, String name, int maxVarsPerPdu, int maxRepititions, CollectionTracker tracker) {
+    protected SnmpWalker(InetAddress address, String name, int maxVarsPerPdu, int maxRepititions,
+            CollectionTracker tracker) {
         m_address = address;
         m_signal = new CountDownLatch(1);
 
@@ -123,13 +131,15 @@ public abstract class SnmpWalker {
     }
 
     protected void handleError(String msg) {
-        // XXX why do we set timedOut to false here?  should we be doing this everywhere?
+        // XXX why do we set timedOut to false here? should we be doing this
+        // everywhere?
         m_tracker.setTimedOut(false);
         processError("Error retrieving", msg, null);
     }
 
     protected void handleError(String msg, Throwable t) {
-        // XXX why do we set timedOut to false here?  should we be doing this everywhere?
+        // XXX why do we set timedOut to false here? should we be doing this
+        // everywhere?
         m_tracker.setTimedOut(false);
         processError("Error retrieving", msg, t);
     }
@@ -186,7 +196,8 @@ public abstract class SnmpWalker {
         m_signal.await(timeout, TimeUnit.MILLISECONDS);
     }
 
-    // processErrors returns true if we need to retry the request and false otherwise
+    // processErrors returns true if we need to retry the request and false
+    // otherwise
     protected boolean processErrors(int errorStatus, int errorIndex) {
         return m_responseProcessor.processErrors(errorStatus, errorIndex);
     }

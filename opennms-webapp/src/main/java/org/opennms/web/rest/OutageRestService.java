@@ -56,13 +56,20 @@ import com.sun.jersey.spi.resource.PerRequest;
  * TODO: Add functionality to getting outages by:
  * nodelabel, nodeid, foreignsource, foreignsource+foreignid, ipaddress, etc.
  * add filters for current, resolved, all
+ * <p>
+ * REST service to the OpenNMS Outage {@link OnmsOutage} data.
+ * </p>
+ * <p>
+ * This service supports getting the list of outages or one specific outage by
+ * ID:
+ * </p>
+ * <p>
+ * Example 1: Query List of outages.
+ * </p>
  *
- *<p>REST service to the OpenNMS Outage {@link OnmsOutage} data.</p>
- *<p>This service supports getting the list of outages or one specific outage by ID:</p>
- *<p>Example 1: Query List of outages.</p>
- *<pre>
- *curl -v -X GET -u admin:admin http://localhost:8980/opennms/rest/outages
- *</pre>
+ * <pre>
+ * curl -v -X GET -u admin:admin http://localhost:8980/opennms/rest/outages
+ * </pre>
  *
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  * @version $Id: $
@@ -87,16 +94,20 @@ public class OutageRestService extends OnmsRestService {
     ServletContext m_servletContext;
 
     /**
-     * <p>getOutage</p>
+     * <p>
+     * getOutage
+     * </p>
      *
-     * @param outageId a {@link java.lang.String} object.
+     * @param outageId
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsOutage} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{outageId}")
     @Transactional
-    public OnmsOutage getOutage(@PathParam("outageId") final String outageId) {
+    public OnmsOutage getOutage(@PathParam("outageId")
+    final String outageId) {
         readLock();
         try {
             return m_outageDao.get(Integer.valueOf(outageId));
@@ -106,7 +117,9 @@ public class OutageRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,12 +137,14 @@ public class OutageRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getOutages</p>
+     * <p>
+     * getOutages
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsOutageCollection} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Transactional
     public OnmsOutageCollection getOutages() {
         readLock();
@@ -139,7 +154,7 @@ public class OutageRestService extends OnmsRestService {
 
             final OnmsOutageCollection coll = new OnmsOutageCollection(m_outageDao.findMatching(builder.toCriteria()));
 
-            //For getting totalCount
+            // For getting totalCount
             coll.setTotalCount(m_outageDao.countMatching(builder.count().toCriteria()));
 
             return coll;
@@ -149,16 +164,20 @@ public class OutageRestService extends OnmsRestService {
     }
 
     /**
-     * <p>forNodeId</p>
+     * <p>
+     * forNodeId
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link org.opennms.netmgt.model.OnmsOutageCollection} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Transactional
     @Path("forNode/{nodeId}")
-    public OnmsOutageCollection forNodeId(@PathParam("nodeId") final int nodeId) {
+    public OnmsOutageCollection forNodeId(@PathParam("nodeId")
+    final int nodeId) {
         readLock();
 
         try {
@@ -182,4 +201,3 @@ public class OutageRestService extends OnmsRestService {
         }
     }
 }
-

@@ -29,7 +29,9 @@
 package org.opennms.protocols.dhcp.detector.request;
 
 /**
- * <p>DhcpRequest class.</p>
+ * <p>
+ * DhcpRequest class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

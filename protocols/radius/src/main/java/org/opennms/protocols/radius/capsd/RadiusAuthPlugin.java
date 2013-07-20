@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class RadiusAuthPlugin extends AbstractPlugin {
 
-	private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthPlugin.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthPlugin.class);
 
     /**
      * <P>
@@ -115,12 +115,11 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
     public static final String DEFAULT_SECRET = "secret";
 
     /**
-     *
      * Default NAS_ID
      */
     public static final String DEFAULT_NAS_ID = "opennms";
+
     /**
-     *
      * @param host
      *            The address for the radius server test.
      * @param authport
@@ -139,15 +138,14 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
      * @param timeout
      *            Timeout in milliseconds
      * @param retry
-     *		  Number of times to retry
-     *
+     *            Number of times to retry
      * @param nasid
      *            NAS Identifier to use
-     *
      * @return True if server, false if not.
      */
     private boolean isRadius(final InetAddress host, final int authport, final int acctport, final String authType,
-            final String user, final String password, final String secret, final String nasid, final int retry, final int timeout) {
+            final String user, final String password, final String secret, final String nasid, final int retry,
+            final int timeout) {
 
         boolean isRadiusServer = false;
 
@@ -202,21 +200,18 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
     public boolean isProtocolSupported(InetAddress address) {
-        return isRadius(address, DEFAULT_AUTH_PORT, DEFAULT_ACCT_PORT, DEFAULT_AUTH_TYPE,
-			DEFAULT_USER, DEFAULT_PASSWORD, DEFAULT_SECRET, DEFAULT_NAS_ID,
-			DEFAULT_RETRY, DEFAULT_TIMEOUT);
+        return isRadius(address, DEFAULT_AUTH_PORT, DEFAULT_ACCT_PORT, DEFAULT_AUTH_TYPE, DEFAULT_USER,
+                        DEFAULT_PASSWORD, DEFAULT_SECRET, DEFAULT_NAS_ID, DEFAULT_RETRY, DEFAULT_TIMEOUT);
     }
 
     /**
      * {@inheritDoc}
-     *
      * <p>
      * Returns true if the protocol defined by this plugin is supported. If the
      * protocol is not supported then a false value is returned to the caller.
@@ -224,7 +219,6 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
      * additional information by key-name. These key-value pairs can be added to
      * service events if needed.
      * </p>
-     *
      * <p>
      * In addition, the input qualifiers map also provides information about how
      * the plugin should contact the remote server. The plugin may check the
@@ -259,6 +253,6 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
     }
 
     private int convertTimeoutToSeconds(int timeout) {
-        return timeout/1000 > 0 ? timeout/1000 : 1;
+        return timeout / 1000 > 0 ? timeout / 1000 : 1;
     }
 }

@@ -53,7 +53,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>GroupServiceImpl class.</p>
+ * <p>
+ * GroupServiceImpl class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -87,7 +89,9 @@ public class GroupServiceImpl implements GroupService, InitializingBean {
     }
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -127,7 +131,9 @@ public class GroupServiceImpl implements GroupService, InitializingBean {
     }
 
     /**
-     * <p>getTotalItemsNumber</p>
+     * <p>
+     * getTotalItemsNumber
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */

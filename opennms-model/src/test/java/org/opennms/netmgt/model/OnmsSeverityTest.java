@@ -35,43 +35,50 @@ import org.junit.Test;
 
 public class OnmsSeverityTest extends TestCase {
 
-    @Test public void testGetId() {
+    @Test
+    public void testGetId() {
         int id = OnmsSeverity.CLEARED.getId();
         OnmsSeverity sev = OnmsSeverity.CLEARED;
         Assert.assertEquals(id, sev.getId());
     }
 
-    @Test public void testGetLabel() {
+    @Test
+    public void testGetLabel() {
         String label = OnmsSeverity.CLEARED.getLabel();
         OnmsSeverity sev = OnmsSeverity.CLEARED;
         Assert.assertEquals(label, sev.getLabel());
     }
 
-    @Test public void testIsLessThan() {
+    @Test
+    public void testIsLessThan() {
         OnmsSeverity major = OnmsSeverity.MAJOR;
         OnmsSeverity minor = OnmsSeverity.MINOR;
         Assert.assertTrue(minor.isLessThan(major));
     }
 
-    @Test public void testIsLessThanOrEqual() {
+    @Test
+    public void testIsLessThanOrEqual() {
         OnmsSeverity major = OnmsSeverity.MAJOR;
         OnmsSeverity minor = OnmsSeverity.MINOR;
         Assert.assertTrue(minor.isLessThanOrEqual(major));
     }
 
-    @Test public void testIsGreaterThan() {
+    @Test
+    public void testIsGreaterThan() {
         OnmsSeverity major = OnmsSeverity.MAJOR;
         OnmsSeverity minor = OnmsSeverity.MINOR;
         Assert.assertTrue(major.isGreaterThan(minor));
     }
 
-    @Test public void testIsGreaterThanOrEqual() {
+    @Test
+    public void testIsGreaterThanOrEqual() {
         OnmsSeverity major = OnmsSeverity.MAJOR;
         OnmsSeverity minor = OnmsSeverity.MINOR;
         Assert.assertTrue(major.isGreaterThanOrEqual(minor));
     }
 
-    @Test public void testEscalate() {
+    @Test
+    public void testEscalate() {
         OnmsSeverity major = OnmsSeverity.MAJOR;
         OnmsSeverity minor = OnmsSeverity.MINOR;
         minor = OnmsSeverity.escalate(minor);

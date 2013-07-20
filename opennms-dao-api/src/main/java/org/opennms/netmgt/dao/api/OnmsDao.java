@@ -35,129 +35,177 @@ import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.model.OnmsCriteria;
 
 /**
- * <p>OnmsDao interface.</p>
+ * <p>
+ * OnmsDao interface.
+ * </p>
  */
 public interface OnmsDao<T, K extends Serializable> {
 
     /**
-     * This is used to lock the table in order to implement upsert type operations
+     * This is used to lock the table in order to implement upsert type
+     * operations
      */
     void lock();
 
-
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param obj a {@link java.lang.Object} object.
-     * @param <T> a T object.
-     * @param <K> a K object.
+     * @param obj
+     *            a {@link java.lang.Object} object.
+     * @param <T>
+     *            a T object.
+     * @param <K>
+     *            a K object.
      */
     void initialize(Object obj);
 
     /**
-     * <p>flush</p>
+     * <p>
+     * flush
+     * </p>
      */
     void flush();
 
     /**
-     * <p>clear</p>
+     * <p>
+     * clear
+     * </p>
      */
     void clear();
 
     /**
-     * <p>countAll</p>
+     * <p>
+     * countAll
+     * </p>
      *
      * @return a int.
      */
     int countAll();
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param entity a T object.
+     * @param entity
+     *            a T object.
      */
     void delete(T entity);
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param key a K object.
+     * @param key
+     *            a K object.
      */
     void delete(K key);
 
     /**
-     * <p>findAll</p>
+     * <p>
+     * findAll
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<T> findAll();
 
     /**
-     * <p>findMatching</p>
+     * <p>
+     * findMatching
+     * </p>
      *
-     * @param criteria a {@link org.opennms.core.criteria.Criteria} object.
+     * @param criteria
+     *            a {@link org.opennms.core.criteria.Criteria} object.
      * @return a {@link java.util.List} object.
      */
     List<T> findMatching(Criteria criteria);
 
     /**
-     * <p>findMatching</p>
+     * <p>
+     * findMatching
+     * </p>
      *
-     * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
+     * @param criteria
+     *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      * @return a {@link java.util.List} object.
      */
     List<T> findMatching(OnmsCriteria criteria);
 
     /**
-     * <p>countMatching</p>
+     * <p>
+     * countMatching
+     * </p>
      *
-     * @param onmsCrit a {@link org.opennms.core.criteria.Criteria} object.
+     * @param onmsCrit
+     *            a {@link org.opennms.core.criteria.Criteria} object.
      * @return a int.
      */
     int countMatching(final Criteria onmsCrit);
 
     /**
-     * <p>countMatching</p>
+     * <p>
+     * countMatching
+     * </p>
      *
-     * @param onmsCrit a {@link org.opennms.netmgt.model.OnmsCriteria} object.
+     * @param onmsCrit
+     *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      * @return a int.
      */
     int countMatching(final OnmsCriteria onmsCrit);
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param id a K object.
+     * @param id
+     *            a K object.
      * @return a T object.
      */
     T get(K id);
 
     /**
-     * <p>load</p>
+     * <p>
+     * load
+     * </p>
      *
-     * @param id a K object.
+     * @param id
+     *            a K object.
      * @return a T object.
      */
     T load(K id);
 
     /**
-     * <p>save</p>
+     * <p>
+     * save
+     * </p>
      *
-     * @param entity a T object.
+     * @param entity
+     *            a T object.
      */
     void save(T entity);
 
     /**
-     * <p>saveOrUpdate</p>
+     * <p>
+     * saveOrUpdate
+     * </p>
      *
-     * @param entity a T object.
+     * @param entity
+     *            a T object.
      */
     void saveOrUpdate(T entity);
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @param entity a T object.
+     * @param entity
+     *            a T object.
      */
     void update(T entity);
 

@@ -61,15 +61,22 @@ import org.opennms.tools.rrd.converter.LogUtils.Level;
 
 public class JRobinConverter {
     private static final int DEFAULT_NUMBER_OF_THREADS = 5;
+
     private static final String DEFAULT_JROBIN_FACTORY = "MNIO";
+
     private static final String DEFAULT_LOG_LEVEL = "INFO";
+
     private static final long ONE_YEAR_IN_SECONDS = 60L * 60L * 24L * 366L;
+
     private static final AtomicInteger m_count = new AtomicInteger(0);
+
     private static final AtomicInteger m_finished = new AtomicInteger(0);
+
     private static final AtomicInteger m_total = new AtomicInteger(0);
 
     private static final class JRobinConsolidationRunnable implements Runnable {
         private final File m_rrdFile;
+
         private final JRobinConverter m_converter;
 
         private JRobinConsolidationRunnable(final File rrdFile, final JRobinConverter converter) {
@@ -79,8 +86,9 @@ public class JRobinConverter {
 
         public void run() {
             try {
-                synchronized(m_total) {
-                    LogUtils.infof(this, "Starting processing %s (%d/%d Started)", m_rrdFile, m_count.incrementAndGet(), m_total.get());
+                synchronized (m_total) {
+                    LogUtils.infof(this, "Starting processing %s (%d/%d Started)", m_rrdFile,
+                                   m_count.incrementAndGet(), m_total.get());
                 }
                 final List<String> dsNames = m_converter.getDsNames(m_rrdFile);
                 if (dsNames.size() == 1) {
@@ -91,7 +99,8 @@ public class JRobinConverter {
                 final File backupRrdFile = new File(m_rrdFile.getAbsolutePath() + ".orig");
                 final File finishedRrdFile = new File(m_rrdFile.getAbsolutePath() + ".finished");
                 if (finishedRrdFile.exists()) {
-                    LogUtils.warnf(this, "File %s has already been converted, because %s exists!  Skipping.", m_rrdFile, finishedRrdFile);
+                    LogUtils.warnf(this, "File %s has already been converted, because %s exists!  Skipping.",
+                                   m_rrdFile, finishedRrdFile);
                     return;
                 }
 
@@ -101,7 +110,8 @@ public class JRobinConverter {
                 renameFile(m_rrdFile, backupRrdFile);
                 renameFile(outputRrdFile, m_rrdFile);
                 renameFile(backupRrdFile, finishedRrdFile);
-                LogUtils.infof(this, "Completed processing %s (%d/%d Complete)", m_rrdFile, m_finished.incrementAndGet(), m_total.get());
+                LogUtils.infof(this, "Completed processing %s (%d/%d Complete)", m_rrdFile,
+                               m_finished.incrementAndGet(), m_total.get());
             } catch (final Exception e) {
                 LogUtils.infof(this, e, "Error while converting %s", m_rrdFile);
             }
@@ -141,7 +151,8 @@ public class JRobinConverter {
         options.addOption("h", "help", false, "This help.");
         options.addOption("f", "factory", true, "The JRobin factory to use. (Default: " + DEFAULT_JROBIN_FACTORY + ")");
         options.addOption("l", "log", true, "The log level to use. (Default: " + DEFAULT_LOG_LEVEL + ")");
-        options.addOption("t", "threads", true, "Number of threads to start. (Default: " + DEFAULT_NUMBER_OF_THREADS + ")");
+        options.addOption("t", "threads", true, "Number of threads to start. (Default: " + DEFAULT_NUMBER_OF_THREADS
+                + ")");
 
         final CommandLineParser parser = new GnuParser();
         final CommandLine cmd = parser.parse(options, args);
@@ -152,7 +163,8 @@ public class JRobinConverter {
         final Set<File> rrds = new ConcurrentSkipListSet<File>();
 
         if (cmd.hasOption("h")) {
-            new HelpFormatter().printHelp("jrobin-converter [options] [file-or-directory1] [...file-or-directoryN]", options);
+            new HelpFormatter().printHelp("jrobin-converter [options] [file-or-directory1] [...file-or-directoryN]",
+                                          options);
             System.exit(1);
         }
         if (cmd.getArgList().size() == 0) {
@@ -172,7 +184,7 @@ public class JRobinConverter {
 
         for (final Object arg : cmd.getArgList()) {
             LogUtils.infof(this, "Scanning %s for storeByGroup data.", arg);
-            final File f = new File((String)arg);
+            final File f = new File((String) arg);
             if (f.exists()) {
                 if (f.isDirectory()) {
                     rrds.addAll(findGroupRrds(f));
@@ -195,7 +207,8 @@ public class JRobinConverter {
     }
 
     public List<File> getMatchingGroupRrds(final File rrdGroupFile) throws ConverterException {
-        if (rrdGroupFile == null) return Collections.emptyList();
+        if (rrdGroupFile == null)
+            return Collections.emptyList();
         final List<String> dsNames;
 
         try {
@@ -242,16 +255,16 @@ public class JRobinConverter {
         }
     }
 
-
     public Map<String, Integer> getDsIndexes(final RrdDb rrd) throws RrdException, IOException {
-        final Map<String,Integer> indexes = new HashMap<String,Integer>();
+        final Map<String, Integer> indexes = new HashMap<String, Integer>();
         for (final String dsName : rrd.getDsNames()) {
             indexes.put(dsName, rrd.getDsIndex(dsName));
         }
         return indexes;
     }
 
-    public void consolidateRrdFile(final File groupFile, final File outputFile) throws IOException, RrdException, ConverterException {
+    public void consolidateRrdFile(final File groupFile, final File outputFile) throws IOException, RrdException,
+            ConverterException {
         final List<RrdDatabase> rrds = new ArrayList<RrdDatabase>();
         rrds.add(new RrdDatabase(new RrdDb(groupFile, true)));
         for (final File individualFile : getMatchingGroupRrds(groupFile)) {
@@ -283,7 +296,7 @@ public class JRobinConverter {
     public List<File> findGroupRrds(final File topDirectory) throws ConverterException {
         final List<File> files = new ArrayList<File>();
         findRrds(topDirectory, files);
-        for (final Iterator<File> it = files.iterator(); it.hasNext(); ) {
+        for (final Iterator<File> it = files.iterator(); it.hasNext();) {
             final File file = it.next();
             try {
                 final List<String> dsNames = getDsNames(file);
@@ -314,7 +327,7 @@ public class JRobinConverter {
         final File outputFile = new File(parentFile, rrdFile.getName() + ".temp");
         outputFile.delete(); // just in case there's an old one lying around
         parentFile.mkdirs();
-//        LogUtils.debugf(this, "created temporary RRD: %s", outputFile);
+        // LogUtils.debugf(this, "created temporary RRD: %s", outputFile);
         final RrdDb oldRrd = new RrdDb(rrdFile.getAbsolutePath(), true);
         final RrdDef rrdDef = oldRrd.getRrdDef();
         rrdDef.setPath(outputFile.getAbsolutePath());
@@ -339,22 +352,26 @@ public class JRobinConverter {
             inChannel.transferTo(0, inChannel.size(), outChannel);
         } finally {
             try {
-                if (inChannel != null) inChannel.close();
+                if (inChannel != null)
+                    inChannel.close();
             } catch (IOException e) {
                 LogUtils.debugf(JRobinConverter.class, "failed to close channel %s", inChannel);
             }
             try {
-                if (outChannel != null) outChannel.close();
+                if (outChannel != null)
+                    outChannel.close();
             } catch (IOException e) {
                 LogUtils.debugf(JRobinConverter.class, "failed to close channel %s", outChannel);
             }
             try {
-                if (fis != null) fis.close();
+                if (fis != null)
+                    fis.close();
             } catch (IOException e) {
                 LogUtils.debugf(JRobinConverter.class, "failed to close stream %s", fis);
             }
             try {
-                if (fos != null) fos.close();
+                if (fos != null)
+                    fos.close();
             } catch (IOException e) {
                 LogUtils.debugf(JRobinConverter.class, "failed to close stream %s", fos);
             }

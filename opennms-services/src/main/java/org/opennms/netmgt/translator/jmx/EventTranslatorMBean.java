@@ -31,7 +31,9 @@ package org.opennms.netmgt.translator.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>EventTranslatorMBean interface.</p>
+ * <p>
+ * EventTranslatorMBean interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $

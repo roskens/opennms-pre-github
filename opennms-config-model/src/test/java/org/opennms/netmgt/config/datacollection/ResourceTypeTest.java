@@ -50,17 +50,16 @@ public class ResourceTypeTest extends XmlTest<ResourceType> {
         type.setName("rbshCpuIndivIndex");
         type.setLabel("Riverbed Steelhead CPU");
         type.setResourceLabel("CPU ${rbshCpuIndivId}");
-        type.setPersistenceSelectorStrategy(new PersistenceSelectorStrategy("org.opennms.netmgt.collectd.PersistAllSelectorStrategy"));
+        type.setPersistenceSelectorStrategy(new PersistenceSelectorStrategy(
+                                                                            "org.opennms.netmgt.collectd.PersistAllSelectorStrategy"));
         type.setStorageStrategy(new StorageStrategy("org.opennms.netmgt.dao.support.IndexStorageStrategy"));
 
         return Arrays.asList(new Object[][] { {
                 type,
-                "    <resourceType name=\"rbshCpuIndivIndex\" label=\"Riverbed Steelhead CPU\" resourceLabel=\"CPU ${rbshCpuIndivId}\">\n" +
-                "      <persistenceSelectorStrategy class=\"org.opennms.netmgt.collectd.PersistAllSelectorStrategy\"/>\n" +
-                "      <storageStrategy class=\"org.opennms.netmgt.dao.support.IndexStorageStrategy\"/>\n" +
-                "    </resourceType>\n",
-                "target/classes/xsds/datacollection-config.xsd" } });
+                "    <resourceType name=\"rbshCpuIndivIndex\" label=\"Riverbed Steelhead CPU\" resourceLabel=\"CPU ${rbshCpuIndivId}\">\n"
+                        + "      <persistenceSelectorStrategy class=\"org.opennms.netmgt.collectd.PersistAllSelectorStrategy\"/>\n"
+                        + "      <storageStrategy class=\"org.opennms.netmgt.dao.support.IndexStorageStrategy\"/>\n"
+                        + "    </resourceType>\n", "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

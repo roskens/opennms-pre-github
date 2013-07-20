@@ -39,20 +39,17 @@ import org.opennms.netmgt.model.OnmsIpInterface;
  * SnmpCollector object the updates represented by the class are to be applied
  * to the SnmpCollector AFTER being popped from the interval queues for
  * scheduling but BEFORE the next collection takes place.
- *
  * This is necessary because it isn't possible to make modifications to the
  * SnmpCollector objects at the time that a particular event is received by the
  * BroadcastEventProcessor class...the interface may in fact be in the process
  * of being collected. So we make "note" of the updates using this class and
  * wait for the collector object to be popped from the interval queues before
  * the updates are actually applied.
- *
  * The only "updates" currently handled by this class are new/modified
  * attributes, a flag indicating that the service has been marked for deletion,
  * a flag indicating the service has been marked for reparenting, a flag
  * indicating the service has been marked for reinitialization, and finally a
  * flag indicating that the SNMP service on the interface has a new status.
- *
  */
 final class CollectorUpdates {
     /**
@@ -151,6 +148,7 @@ final class CollectorUpdates {
 
     /**
      * Set the reparent flag.
+     *
      * @param iface
      */
     void markForReparenting(String oldNodeId, String newNodeId, OnmsIpInterface iface) {
@@ -170,7 +168,7 @@ final class CollectorUpdates {
     }
 
     OnmsIpInterface getUpdatedInterface() {
-    	return m_newIface;
+        return m_newIface;
     }
 
     /**

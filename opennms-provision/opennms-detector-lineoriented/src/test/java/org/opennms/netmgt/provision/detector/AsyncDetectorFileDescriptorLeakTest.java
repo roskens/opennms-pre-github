@@ -55,17 +55,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 @Ignore
 public class AsyncDetectorFileDescriptorLeakTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncDetectorFileDescriptorLeakTest.class);
+
     private SimpleServer m_server;
+
     private ServerSocket m_socket;
 
     @Before
     public void setUp() {
-        // Set the logging to INFO so that it doesn't OutOfMemory Eclipse with logs :)
+        // Set the logging to INFO so that it doesn't OutOfMemory Eclipse with
+        // logs :)
         MockLogAppender.setupLogging(true, "INFO");
     }
 
@@ -85,7 +88,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
 
     @After
     public void tearDown() throws IOException {
-        if(m_server != null){
+        if (m_server != null) {
             m_server.stopServer();
             m_server = null;
         }
@@ -116,7 +119,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
 
         // No timeout
         m_server.setTimeout(0);
-        //m_server.setThreadSleepLength(0);
+        // m_server.setThreadSleepLength(0);
         m_server.init();
         m_server.startServer();
     }
@@ -132,7 +135,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
 
         assertNotNull(detector);
 
-        final DetectFuture future = (DetectFuture)detector.isServiceDetected(address);
+        final DetectFuture future = (DetectFuture) detector.isServiceDetected(address);
 
         assertNotNull(future);
         future.awaitFor();
@@ -145,7 +148,8 @@ public class AsyncDetectorFileDescriptorLeakTest {
     }
 
     /**
-     * TODO: This test will fail if there are more than a few milliseconds of delay
+     * TODO: This test will fail if there are more than a few milliseconds of
+     * delay
      * between the characters of the banner. We need to fix this behavior.
      */
     @Test
@@ -159,7 +163,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
 
         assertNotNull(detector);
 
-        final DetectFuture future = (DetectFuture)detector.isServiceDetected(address);
+        final DetectFuture future = (DetectFuture) detector.isServiceDetected(address);
 
         assertNotNull(future);
         future.awaitFor();
@@ -185,7 +189,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
 
             assertNotNull(detector);
 
-            final DetectFuture future = (DetectFuture)detector.isServiceDetected(address);
+            final DetectFuture future = (DetectFuture) detector.isServiceDetected(address);
 
             assertNotNull(future);
             future.awaitFor();
@@ -215,7 +219,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
 
             assertNotNull(detector);
 
-            final DetectFuture future = (DetectFuture)detector.isServiceDetected(address);
+            final DetectFuture future = (DetectFuture) detector.isServiceDetected(address);
 
             assertNotNull(future);
             future.awaitFor();

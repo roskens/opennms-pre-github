@@ -41,7 +41,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
 /**
- * <p>InboundMessageNotification class.</p>
+ * <p>
+ * InboundMessageNotification class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,51 +52,60 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
 
     private static Logger log = LoggerFactory.getLogger(InboundMessageNotification.class);
 
-	private Collection<OnmsInboundMessageNotification> m_listenerList;
+    private Collection<OnmsInboundMessageNotification> m_listenerList;
+
     // private SmsService m_smsService;
-	@SuppressWarnings("unused")
-	private ApplicationContext m_applicationContext;
+    @SuppressWarnings("unused")
+    private ApplicationContext m_applicationContext;
 
-	/**
-	 * <p>Constructor for InboundMessageNotification.</p>
-	 */
-	public InboundMessageNotification() {
-	}
+    /**
+     * <p>
+     * Constructor for InboundMessageNotification.
+     * </p>
+     */
+    public InboundMessageNotification() {
+    }
 
-	/**
-	 * <p>Constructor for InboundMessageNotification.</p>
-	 *
-	 * @param listeners a {@link java.util.List} object.
-	 */
-	public InboundMessageNotification(List<OnmsInboundMessageNotification> listeners) {
-	    // m_smsService = smsService;
-	    m_listenerList = listeners;
-	}
+    /**
+     * <p>
+     * Constructor for InboundMessageNotification.
+     * </p>
+     *
+     * @param listeners
+     *            a {@link java.util.List} object.
+     */
+    public InboundMessageNotification(List<OnmsInboundMessageNotification> listeners) {
+        // m_smsService = smsService;
+        m_listenerList = listeners;
+    }
 
-	/**
-	 * <p>getListeners</p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
-	public Collection<OnmsInboundMessageNotification> getListeners() {
-		return m_listenerList;
-	}
+    /**
+     * <p>
+     * getListeners
+     * </p>
+     *
+     * @return a {@link java.util.Collection} object.
+     */
+    public Collection<OnmsInboundMessageNotification> getListeners() {
+        return m_listenerList;
+    }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
+    public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
 
-	    deleteMessage(gateway, msg);
+        deleteMessage(gateway, msg);
 
-	    for(OnmsInboundMessageNotification listener : getListeners()){
-	    	if (listener != this) {
-	    		notifyListener(gateway, msgType, msg, listener);
-	    	}
-	    }
+        for (OnmsInboundMessageNotification listener : getListeners()) {
+            if (listener != this) {
+                notifyListener(gateway, msgType, msg, listener);
+            }
+        }
 
-	}
+    }
 
-    private void notifyListener(AGateway gateway, MessageTypes msgType, InboundMessage msg, OnmsInboundMessageNotification listener) {
+    private void notifyListener(AGateway gateway, MessageTypes msgType, InboundMessage msg,
+            OnmsInboundMessageNotification listener) {
         try {
             listener.process(gateway, msgType, msg);
         } catch (Throwable e) {
@@ -110,23 +121,31 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
         }
     }
 
-	/**
-	 * <p>setListenerList</p>
-	 *
-	 * @param listeners a {@link java.util.List} object.
-	 */
-	public void setListenerList(List<OnmsInboundMessageNotification> listeners){
-		m_listenerList = listeners;
-	}
+    /**
+     * <p>
+     * setListenerList
+     * </p>
+     *
+     * @param listeners
+     *            a {@link java.util.List} object.
+     */
+    public void setListenerList(List<OnmsInboundMessageNotification> listeners) {
+        m_listenerList = listeners;
+    }
 
-	/**
-	 * <p>setApplicationContext</p>
-	 *
-	 * @param applicationContext a {@link org.springframework.context.ApplicationContext} object.
-	 * @throws org.springframework.beans.BeansException if any.
-	 */
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		m_applicationContext = applicationContext;
-	}
+    /**
+     * <p>
+     * setApplicationContext
+     * </p>
+     *
+     * @param applicationContext
+     *            a {@link org.springframework.context.ApplicationContext}
+     *            object.
+     * @throws org.springframework.beans.BeansException
+     *             if any.
+     */
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        m_applicationContext = applicationContext;
+    }
 
 }

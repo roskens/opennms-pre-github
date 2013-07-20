@@ -51,7 +51,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>AuthorityServiceImpl class.</p>
+ * <p>
+ * AuthorityServiceImpl class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -67,7 +69,9 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     /**
-     * <p>getFreeAuthoritiesForGroup</p>
+     * <p>
+     * getFreeAuthoritiesForGroup
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -77,7 +81,9 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     /**
-     * <p>getAuthorities</p>
+     * <p>
+     * getAuthorities
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -106,7 +112,9 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     /**
-     * <p>getTotalItemsNumber</p>
+     * <p>
+     * getTotalItemsNumber
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -140,7 +148,9 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     /**
-     * <p>getAuthoritiesNumber</p>
+     * <p>
+     * getAuthoritiesNumber
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -156,9 +166,13 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     /**
-     * <p>Setter for the field <code>authorityRepository</code>.</p>
+     * <p>
+     * Setter for the field <code>authorityRepository</code>.
+     * </p>
      *
-     * @param authorityRepository a {@link org.opennms.acl.repository.AuthorityRepository} object.
+     * @param authorityRepository
+     *            a {@link org.opennms.acl.repository.AuthorityRepository}
+     *            object.
      */
     @Autowired
     public void setAuthorityRepository(AuthorityRepository authorityRepository) {

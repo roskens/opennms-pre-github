@@ -55,35 +55,35 @@ public class RenameGroupServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-        	GroupFactory.init();
+            GroupFactory.init();
         } catch (Throwable e) {
-        	throw new ServletException("RenameGroupServlet: Error initialising group factory." + e);
+            throw new ServletException("RenameGroupServlet: Error initialising group factory." + e);
         }
         GroupManager groupFactory = GroupFactory.getInstance();
 
-    	String groupName = request.getParameter("groupName");
+        String groupName = request.getParameter("groupName");
         String newName = request.getParameter("newName");
         if (newName == null) {
-        	newName = "";
+            newName = "";
         }
 
         // now save to the xml file
         boolean hasGroup = false;
         try {
-        	hasGroup = groupFactory.hasGroup(newName);
+            hasGroup = groupFactory.hasGroup(newName);
         } catch (Throwable e) {
-        	throw new ServletException("Can't determine if group " + newName + " already exists in groups.xml.", e);
+            throw new ServletException("Can't determine if group " + newName + " already exists in groups.xml.", e);
         }
         if (hasGroup) {
-        	response.sendRedirect("list.jsp?action=cantrename");
+            response.sendRedirect("list.jsp?action=cantrename");
         } else {
-	        try {
-	            groupFactory.renameGroup(groupName, newName);
-	        } catch (Throwable e) {
-	            throw new ServletException("Error renaming group " + groupName + " to " + newName, e);
-	        }
+            try {
+                groupFactory.renameGroup(groupName, newName);
+            } catch (Throwable e) {
+                throw new ServletException("Error renaming group " + groupName + " to " + newName, e);
+            }
 
-	        response.sendRedirect("list.jsp");
+            response.sendRedirect("list.jsp");
         }
     }
 

@@ -35,7 +35,9 @@ import java.util.List;
 import org.opennms.netmgt.model.OnmsNode;
 
 /**
- * <p>RtcNodeModel class.</p>
+ * <p>
+ * RtcNodeModel class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -51,16 +53,23 @@ public class RtcNodeModel {
     }
 
     /**
-     * <p>addNode</p>
+     * <p>
+     * addNode
+     * </p>
      *
-     * @param node a {@link org.opennms.web.svclayer.support.RtcNodeModel.RtcNode} object.
+     * @param node
+     *            a
+     *            {@link org.opennms.web.svclayer.support.RtcNodeModel.RtcNode}
+     *            object.
      */
     public final void addNode(final RtcNode node) {
         m_nodeList.add(node);
     }
 
     /**
-     * <p>getNodeList</p>
+     * <p>
+     * getNodeList
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -70,11 +79,15 @@ public class RtcNodeModel {
 
     public static class RtcNode {
         private OnmsNode m_node;
+
         private int m_serviceCount;
+
         private int m_downServiceCount;
+
         private double m_availability;
 
-        public RtcNode(final OnmsNode node, final int serviceCount, final int downServiceCount, final double availability) {
+        public RtcNode(final OnmsNode node, final int serviceCount, final int downServiceCount,
+                final double availability) {
             m_node = node;
             m_serviceCount = serviceCount;
             m_downServiceCount = downServiceCount;
@@ -103,7 +116,8 @@ public class RtcNodeModel {
 
         @Override
         public final String toString() {
-            return m_node.getLabel() + ": " + m_downServiceCount + " of " + m_serviceCount + ": " + getAvailabilityAsString();
+            return m_node.getLabel() + ": " + m_downServiceCount + " of " + m_serviceCount + ": "
+                    + getAvailabilityAsString();
         }
     }
 }

@@ -64,36 +64,41 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>DefaultReportService class.</p>
+ * <p>
+ * DefaultReportService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class DefaultReportService implements ReportService,InitializingBean {
+public class DefaultReportService implements ReportService, InitializingBean {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultReportService.class);
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(DefaultReportService.class);
-
-    private enum Format { pdf,html,xml,xls,csv };
+    private enum Format {
+        pdf, html, xml, xls, csv
+    };
 
     private ReportCatalogDao m_reportCatalogDao;
 
-    /** {@inheritDoc}
-     * @throws ReportRunException */
+    /**
+     * {@inheritDoc}
+     *
+     * @throws ReportRunException
+     */
     @Override
-    public synchronized String runReport(Report report,String reportDirectory) throws ReportRunException {
+    public synchronized String runReport(Report report, String reportDirectory) throws ReportRunException {
 
         String outputFile = null;
         try {
-            outputFile = generateReportName(reportDirectory,report.getReportName(), report.getReportFormat());
+            outputFile = generateReportName(reportDirectory, report.getReportName(), report.getReportFormat());
             JasperPrint print = runAndRender(report);
-            outputFile = saveReport(print,report,outputFile);
+            outputFile = saveReport(print, report, outputFile);
 
         } catch (JRException e) {
             LOG.error("Error running report: {}", e.getMessage(), e);
             throw new ReportRunException("Caught JRException: " + e.getMessage());
-        }  catch (Throwable e){
+        } catch (Throwable e) {
             LOG.error("Unexpected exception: {}", e.getMessage(), e);
             throw new ReportRunException("Caught unexpected " + e.getClass().getName() + ": " + e.getMessage());
         }
@@ -103,7 +108,9 @@ public class DefaultReportService implements ReportService,InitializingBean {
     }
 
     /**
-     * <p>getReportCatalogDao</p>
+     * <p>
+     * getReportCatalogDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.ReportCatalogDao} object.
      */
@@ -112,9 +119,12 @@ public class DefaultReportService implements ReportService,InitializingBean {
     }
 
     /**
-     * <p>setReportCatalogDao</p>
+     * <p>
+     * setReportCatalogDao
+     * </p>
      *
-     * @param reportCatalogDao a {@link org.opennms.netmgt.dao.api.ReportCatalogDao} object.
+     * @param reportCatalogDao
+     *            a {@link org.opennms.netmgt.dao.api.ReportCatalogDao} object.
      */
     public void setReportCatalogDao(ReportCatalogDao reportCatalogDao) {
         this.m_reportCatalogDao = reportCatalogDao;
@@ -122,13 +132,18 @@ public class DefaultReportService implements ReportService,InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.notNull(m_reportCatalogDao,"No Report Catalog DAO set");
+        Assert.notNull(m_reportCatalogDao, "No Report Catalog DAO set");
     }
 
-    private void createReportCatalogEntry(JasperPrint jasperPrint, Report report, String fileName) throws ReportRunException {
+    private void createReportCatalogEntry(JasperPrint jasperPrint, Report report, String fileName)
+            throws ReportRunException {
         ReportCatalogEntry catalogEntry = new ReportCatalogEntry();
         catalogEntry.setDate(new Date());
-        catalogEntry.setReportId("reportd_" + report.getReportTemplate()); // FIXME Is this correct ?
+        catalogEntry.setReportId("reportd_" + report.getReportTemplate()); // FIXME
+                                                                           // Is
+                                                                           // this
+                                                                           // correct
+                                                                           // ?
         catalogEntry.setTitle(report.getReportName());
         catalogEntry.setLocation(fileName);
         try {
@@ -138,27 +153,27 @@ public class DefaultReportService implements ReportService,InitializingBean {
         }
     }
 
-    private String generateReportName(String reportDirectory, String reportName, String reportFormat){
+    private String generateReportName(String reportDirectory, String reportName, String reportFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat();
         sdf.applyPattern("yyyyMMddHHmmss");
-        return  reportDirectory + reportName + sdf.format(new Date())  + "." + reportFormat;
+        return reportDirectory + reportName + sdf.format(new Date()) + "." + reportFormat;
     }
 
-
-    private String saveReport(JasperPrint jasperPrint, Report report, String destFileName) throws JRException, Exception{
+    private String saveReport(JasperPrint jasperPrint, Report report, String destFileName) throws JRException,
+            Exception {
         createReportCatalogEntry(jasperPrint, report, destFileName);
-        String reportName=null;
-        switch(Format.valueOf(report.getReportFormat())){
+        String reportName = null;
+        switch (Format.valueOf(report.getReportFormat())) {
         case pdf:
             JasperExportManager.exportReportToPdfFile(jasperPrint, destFileName);
             reportName = destFileName;
             break;
         case html:
-            JasperExportManager.exportReportToHtmlFile(jasperPrint,destFileName);
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, destFileName);
             reportName = createZip(destFileName);
             break;
         case xml:
-            JasperExportManager.exportReportToXmlFile(jasperPrint,destFileName,true);
+            JasperExportManager.exportReportToXmlFile(jasperPrint, destFileName, true);
             reportName = createZip(destFileName);
             break;
         case csv:
@@ -176,30 +191,24 @@ public class DefaultReportService implements ReportService,InitializingBean {
 
     }
 
-
     private JasperPrint runAndRender(Report report) throws Exception, JRException {
         JasperPrint jasperPrint = new JasperPrint();
 
-        JasperReport jasperReport = JasperCompileManager.compileReport(
-                                                                       System.getProperty("opennms.home") +
-                                                                       File.separator + "etc" +
-                                                                       File.separator + "report-templates" +
-                                                                       File.separator + report.getReportTemplate());
+        JasperReport jasperReport = JasperCompileManager.compileReport(System.getProperty("opennms.home")
+                + File.separator + "etc" + File.separator + "report-templates" + File.separator
+                + report.getReportTemplate());
 
-        if(report.getReportEngine().equals("jdbc")){
+        if (report.getReportEngine().equals("jdbc")) {
             Connection connection = DataSourceFactory.getDataSource().getConnection();
-            jasperPrint = JasperFillManager.fillReport(jasperReport,
-                                                       paramListToMap(report.getParameterCollection()),
+            jasperPrint = JasperFillManager.fillReport(jasperReport, paramListToMap(report.getParameterCollection()),
                                                        connection);
             connection.close();
         }
 
-
-        else if(report.getReportEngine().equals("opennms")){
+        else if (report.getReportEngine().equals("opennms")) {
             LOG.error("Sorry the OpenNMS Data source engine is not yet available");
             jasperPrint = null;
-        }
-        else{
+        } else {
             LOG.error("Unknown report engine: {} ", report.getReportEngine());
             jasperPrint = null;
         }
@@ -208,25 +217,23 @@ public class DefaultReportService implements ReportService,InitializingBean {
 
     }
 
-
     private String createZip(String baseFileName) {
         File reportResourceDirectory = new File(baseFileName + "_files");
         String zipFile = baseFileName + ".zip";
 
-        if (reportResourceDirectory.exists() && reportResourceDirectory.isDirectory()){
+        if (reportResourceDirectory.exists() && reportResourceDirectory.isDirectory()) {
             ZipOutputStream reportArchive;
 
             try {
                 reportArchive = new ZipOutputStream(new FileOutputStream(zipFile));
-                addFileToArchive(reportArchive,baseFileName);
+                addFileToArchive(reportArchive, baseFileName);
 
                 reportArchive.putNextEntry(new ZipEntry(baseFileName));
-                for(String file : Arrays.asList(reportResourceDirectory.list()) ){
+                for (String file : Arrays.asList(reportResourceDirectory.list())) {
                     addFileToArchive(reportArchive, file);
                 }
                 reportArchive.close();
-            }
-            catch (final Exception e) {
+            } catch (final Exception e) {
                 LOG.warn("unable to create {}", zipFile, e);
             }
 
@@ -235,13 +242,12 @@ public class DefaultReportService implements ReportService,InitializingBean {
         return zipFile;
     }
 
-    private void addFileToArchive(ZipOutputStream reportArchive, String file)
-    throws FileNotFoundException, IOException {
+    private void addFileToArchive(ZipOutputStream reportArchive, String file) throws FileNotFoundException, IOException {
         FileInputStream asf = new FileInputStream(file);
         reportArchive.putNextEntry(new ZipEntry(file));
         byte[] buffer = new byte[18024];
         int len;
-        while ((len = asf.read(buffer)) > 0){
+        while ((len = asf.read(buffer)) > 0) {
             reportArchive.write(buffer, 0, len);
         }
 
@@ -249,11 +255,10 @@ public class DefaultReportService implements ReportService,InitializingBean {
         reportArchive.closeEntry();
     }
 
+    private Map<String, String> paramListToMap(List<Parameter> parameters) {
+        Map<String, String> parmMap = new HashMap<String, String>();
 
-    private Map<String,String> paramListToMap(List<Parameter> parameters){
-        Map<String,String> parmMap = new HashMap<String, String>();
-
-        for(Parameter parm : parameters)
+        for (Parameter parm : parameters)
             parmMap.put(parm.getName(), parm.getValue());
 
         return Collections.unmodifiableMap(parmMap);

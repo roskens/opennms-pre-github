@@ -31,19 +31,23 @@ package org.opennms.netmgt.snmp;
 public class SnmpV3User {
 
     private String engineId;
+
     private String securityName;
+
     private String authPassPhrase;
+
     private String privPassPhrase;
+
     private String authProtocol;
+
     private String privProtocol;
 
     public SnmpV3User() {
         super();
     }
 
-    public SnmpV3User(String securityName, String authenticationProtocol,
-            String authenticationPassphrase, String privacyProtocol,
-            String privacyPassphrase) {
+    public SnmpV3User(String securityName, String authenticationProtocol, String authenticationPassphrase,
+            String privacyProtocol, String privacyPassphrase) {
         super();
         this.securityName = securityName;
         this.authProtocol = authenticationProtocol;

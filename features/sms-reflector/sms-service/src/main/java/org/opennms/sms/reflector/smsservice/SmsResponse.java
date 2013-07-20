@@ -31,7 +31,9 @@ package org.opennms.sms.reflector.smsservice;
 import org.smslib.InboundMessage;
 
 /**
- * <p>SmsResponse class.</p>
+ * <p>
+ * SmsResponse class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -41,18 +43,24 @@ public class SmsResponse extends MobileMsgResponse {
     private InboundMessage m_msg;
 
     /**
-     * <p>Constructor for SmsResponse.</p>
+     * <p>
+     * Constructor for SmsResponse.
+     * </p>
      *
-     * @param msg a {@link org.smslib.InboundMessage} object.
-     * @param receiveTime a long.
+     * @param msg
+     *            a {@link org.smslib.InboundMessage} object.
+     * @param receiveTime
+     *            a long.
      */
     public SmsResponse(InboundMessage msg, long receiveTime) {
-    	super(receiveTime);
+        super(receiveTime);
         m_msg = msg;
     }
 
     /**
-     * <p>getOriginator</p>
+     * <p>
+     * getOriginator
+     * </p>
      *
      * @return the originator
      */
@@ -61,7 +69,9 @@ public class SmsResponse extends MobileMsgResponse {
     }
 
     /**
-     * <p>getText</p>
+     * <p>
+     * getText
+     * </p>
      *
      * @return the text
      */
@@ -71,7 +81,9 @@ public class SmsResponse extends MobileMsgResponse {
     }
 
     /**
-     * <p>getMessage</p>
+     * <p>
+     * getMessage
+     * </p>
      *
      * @return a {@link org.smslib.InboundMessage} object.
      */
@@ -85,6 +97,5 @@ public class SmsResponse extends MobileMsgResponse {
     public String toString() {
         return "" + m_msg;
     }
-
 
 }

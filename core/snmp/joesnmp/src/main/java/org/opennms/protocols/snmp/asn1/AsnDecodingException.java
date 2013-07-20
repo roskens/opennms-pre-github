@@ -53,7 +53,6 @@ public class AsnDecodingException extends Exception {
      *
      * @param why
      *            The reason the exception is being raised
-     *
      */
     public AsnDecodingException(String why) {
         super(why);

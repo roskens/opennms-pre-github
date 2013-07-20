@@ -31,7 +31,9 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * <p>NodeStatusDashlet class.</p>
+ * <p>
+ * NodeStatusDashlet class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -42,11 +44,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public class NodeStatusDashlet extends Dashlet {
 
-
     private NodeStatusView m_view = new NodeStatusView(this);
+
     private NodeStatusLoader m_loader = new NodeStatusLoader();
-
-
 
     class NodeStatusLoader extends DashletLoader implements AsyncCallback<NodeRtc[]> {
 
@@ -83,9 +83,12 @@ public class NodeStatusDashlet extends Dashlet {
     }
 
     /**
-     * <p>Constructor for NodeStatusDashlet.</p>
+     * <p>
+     * Constructor for NodeStatusDashlet.
+     * </p>
      *
-     * @param dashboard a {@link org.opennms.dashboard.client.Dashboard} object.
+     * @param dashboard
+     *            a {@link org.opennms.dashboard.client.Dashboard} object.
      */
     public NodeStatusDashlet(Dashboard dashboard) {
         super(dashboard, "Node Status");
@@ -99,15 +102,18 @@ public class NodeStatusDashlet extends Dashlet {
         m_loader.load(set);
     }
 
-
     /**
-     * <p>setSurveillanceService</p>
+     * <p>
+     * setSurveillanceService
+     * </p>
      *
-     * @param svc a {@link org.opennms.dashboard.client.SurveillanceServiceAsync} object.
+     * @param svc
+     *            a
+     *            {@link org.opennms.dashboard.client.SurveillanceServiceAsync}
+     *            object.
      */
     public void setSurveillanceService(SurveillanceServiceAsync svc) {
         m_loader.setSurveillanceService(svc);
     }
-
 
 }

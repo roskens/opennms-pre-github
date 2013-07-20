@@ -39,7 +39,9 @@ import javax.persistence.Transient;
 @Embeddable
 public class PrimaryType implements Comparable<PrimaryType>, Serializable {
     private static final long serialVersionUID = -647348487361201657L;
+
     private static final char[] s_order = { 'N', 'S', 'P' };
+
     private char m_collType;
 
     protected PrimaryType() {
@@ -55,7 +57,7 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
         return String.valueOf(m_collType);
     }
 
-    @Column(name="isSnmpPrimary")
+    @Column(name = "isSnmpPrimary")
     public char getCharCode() {
         return m_collType;
     }
@@ -70,14 +72,15 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
      */
     @Override
     public int hashCode() {
-    	return super.hashCode();
+        return super.hashCode();
     }
 
     @Override
     public boolean equals(final Object o) {
         if (o instanceof PrimaryType) {
-            return this.compareTo((PrimaryType)o) == 0;
-        } else return false;
+            return this.compareTo((PrimaryType) o) == 0;
+        } else
+            return false;
     }
 
     @Override
@@ -91,7 +94,7 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
                 return i;
             }
         }
-        throw new IllegalArgumentException("illegal collType code '"+code+"'");
+        throw new IllegalArgumentException("illegal collType code '" + code + "'");
     }
 
     @Override
@@ -117,11 +120,14 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
 
     public static PrimaryType get(final char code) {
         switch (code) {
-        case 'P': return PRIMARY;
-        case 'S': return SECONDARY;
-        case 'N': return NOT_ELIGIBLE;
+        case 'P':
+            return PRIMARY;
+        case 'S':
+            return SECONDARY;
+        case 'N':
+            return NOT_ELIGIBLE;
         default:
-            throw new IllegalArgumentException("Cannot create collType from code "+code);
+            throw new IllegalArgumentException("Cannot create collType from code " + code);
         }
     }
 
@@ -133,7 +139,7 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
         if (codeText.length() < 1) {
             return NOT_ELIGIBLE;
         } else if (codeText.length() > 1) {
-            throw new IllegalArgumentException("Cannot convert string '"+codeText+"' to a collType");
+            throw new IllegalArgumentException("Cannot convert string '" + codeText + "' to a collType");
         } else {
             return get(codeText.charAt(0));
         }
@@ -148,6 +154,8 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
     }
 
     public static final PrimaryType PRIMARY = new PrimaryType('P');
+
     public static final PrimaryType SECONDARY = new PrimaryType('S');
+
     public static final PrimaryType NOT_ELIGIBLE = new PrimaryType('N');
 }

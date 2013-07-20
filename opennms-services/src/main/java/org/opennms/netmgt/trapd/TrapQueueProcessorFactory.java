@@ -47,7 +47,7 @@ public class TrapQueueProcessorFactory implements InitializingBean {
      * Whether or not a newSuspect event should be generated with a trap from an
      * unknown IP address
      */
-    @Resource(name="newSuspectOnTrap")
+    @Resource(name = "newSuspectOnTrap")
     private Boolean m_newSuspectOnTrap;
 
     /**
@@ -58,7 +58,8 @@ public class TrapQueueProcessorFactory implements InitializingBean {
     }
 
     /**
-     * @param newSuspectOnTrap the newSuspectOnTrap to set
+     * @param newSuspectOnTrap
+     *            the newSuspectOnTrap to set
      */
     public void setNewSuspect(Boolean newSuspectOnTrap) {
         m_newSuspectOnTrap = newSuspectOnTrap;
@@ -77,7 +78,8 @@ public class TrapQueueProcessorFactory implements InitializingBean {
     }
 
     /**
-     * @param eventManager the eventMgr to set
+     * @param eventManager
+     *            the eventMgr to set
      */
     public void setEventManager(EventIpcManager eventManager) {
         m_eventManager = eventManager;

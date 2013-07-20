@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.Serializable;
@@ -51,47 +51,45 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The script information for this event - describes a
- *  script to be executed whenever the event occurs.
+ * script to be executed whenever the event occurs.
  *
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="script")
+@XmlRootElement(name = "script")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@ValidateUsing("event.xsd")
+// @ValidateUsing("event.xsd")
 public class Script implements Serializable {
-	private static final long serialVersionUID = -4421693308782820218L;
+    private static final long serialVersionUID = -4421693308782820218L;
 
-	//--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * internal content storage
      */
-	@XmlValue
+    @XmlValue
     private java.lang.String _content = "";
 
     /**
      * Field _language.
      */
-	@XmlAttribute(name="language", required=true)
+    @XmlAttribute(name = "language", required = true)
     private java.lang.String _language;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Script() {
         super();
         setContent("");
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Returns the value of field 'content'. The field 'content'
@@ -99,8 +97,7 @@ public class Script implements Serializable {
      *
      * @return the value of field 'Content'.
      */
-    public java.lang.String getContent(
-    ) {
+    public java.lang.String getContent() {
         return this._content;
     }
 
@@ -109,8 +106,7 @@ public class Script implements Serializable {
      *
      * @return the value of field 'Language'.
      */
-    public java.lang.String getLanguage(
-    ) {
+    public java.lang.String getLanguage() {
         return this._language;
     }
 
@@ -118,28 +114,25 @@ public class Script implements Serializable {
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
      *
-     * @param content the value of field 'content'.
+     * @param content
+     *            the value of field 'content'.
      */
-    public void setContent(
-            final java.lang.String content) {
+    public void setContent(final java.lang.String content) {
         this._content = content;
     }
 
     /**
      * Sets the value of field 'language'.
      *
-     * @param language the value of field 'language'.
+     * @param language
+     *            the value of field 'language'.
      */
-    public void setLanguage(
-            final java.lang.String language) {
+    public void setLanguage(final java.lang.String language) {
         this._language = language;
     }
 
-        @Override
+    @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("content", _content)
-    		.append("language", _language)
-    		.toString();
+        return new ToStringBuilder(this).append("content", _content).append("language", _language).toString();
     }
 }

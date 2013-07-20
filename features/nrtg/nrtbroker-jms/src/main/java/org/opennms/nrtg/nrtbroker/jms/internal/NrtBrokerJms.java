@@ -48,7 +48,6 @@ import javax.jms.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * @author Markus Neumann
  * @author Christian Pape
@@ -58,8 +57,11 @@ public class NrtBrokerJms implements NrtBroker {
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + NrtBrokerJms.class);
 
     private JmsTemplate m_jmsTemplate;
+
     private final SimpleMessageConverter simpleMessageConverter = new SimpleMessageConverter();
+
     Map<String, List<String>> m_messageStore = new HashMap<String, List<String>>();
+
     Map<String, Date> m_lastMessagePolled = new HashMap<String, Date>();
 
     @Override
@@ -67,7 +69,6 @@ public class NrtBrokerJms implements NrtBroker {
         logger.debug("JmsTemplate '{}'", m_jmsTemplate);
         m_jmsTemplate.convertAndSend("NrtCollectMe", collectionJob);
     }
-
 
     @Override
     public List<MeasurementSet> receiveMeasurementSets(String nrtCollectionTaskId) {

@@ -42,23 +42,31 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>BroadcastEventProcessor class.</p>
+ * <p>
+ * BroadcastEventProcessor class.
+ * </p>
  *
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class BroadcastEventProcessor implements EventListener, InitializingBean, DisposableBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
     private final EventIpcManager m_eventMgr;
+
     private final TrapdIpMgr m_trapdIpMgr;
 
     /**
-     * <p>Constructor for BroadcastEventProcessor.</p>
+     * <p>
+     * Constructor for BroadcastEventProcessor.
+     * </p>
      *
-     * @param eventMgr a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
-     * @param trapdIpMgr a {@link org.opennms.netmgt.trapd.TrapdIpMgr} object.
+     * @param eventMgr
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
+     * @param trapdIpMgr
+     *            a {@link org.opennms.netmgt.trapd.TrapdIpMgr} object.
      */
     public BroadcastEventProcessor(EventIpcManager eventMgr, TrapdIpMgr trapdIpMgr) {
         m_eventMgr = eventMgr;
@@ -66,7 +74,9 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
     }
 
     /**
-     * <p>getEventManager</p>
+     * <p>
+     * getEventManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -75,7 +85,9 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
     }
 
     /**
-     * <p>getTrapdIpMgr</p>
+     * <p>
+     * getTrapdIpMgr
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.trapd.TrapdIpMgr} object.
      */
@@ -102,7 +114,9 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -111,9 +125,12 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void destroy() throws Exception {
@@ -121,9 +138,8 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is invoked by the EventIpcManager when a new event is
+     * {@inheritDoc} This method is invoked by the EventIpcManager when a new
+     * event is
      * available for processing. Each message is examined for its Universal
      * Event Identifier and the appropriate action is taking based on each UEI.
      */
@@ -139,9 +155,8 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
         LOG.debug("Received event: {}", eventUei);
 
         if (eventUei.equals(EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI)
-            || eventUei.equals(EventConstants.INTERFACE_REPARENTED_EVENT_UEI)) {
-            String action = eventUei.equals(EventConstants.INTERFACE_REPARENTED_EVENT_UEI) ?
-                "reparent" : "add";
+                || eventUei.equals(EventConstants.INTERFACE_REPARENTED_EVENT_UEI)) {
+            String action = eventUei.equals(EventConstants.INTERFACE_REPARENTED_EVENT_UEI) ? "reparent" : "add";
             if (Long.toString(event.getNodeid()) == null) {
                 LOG.warn("Not {}ing interface to known node list: nodeId is null", action);
             } else if (event.getInterface() == null) {
@@ -156,7 +171,7 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
                 LOG.debug("Removed {} from known node list", event.getInterface());
             }
         } else {
-            LOG.warn("Received an unexpected event with UEI of \"{}\"" , eventUei);
+            LOG.warn("Received an unexpected event with UEI of \"{}\"", eventUei);
         }
     }
 

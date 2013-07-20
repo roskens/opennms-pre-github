@@ -50,9 +50,12 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
 
     private static final Logger LOG = LoggerFactory.getLogger(QueueingForeignSourceRepository.class);
 
-    private final ConcurrentMap<String,Requisition> m_pendingRequisitions     = new ConcurrentHashMap<String,Requisition>();
-    private final ConcurrentMap<String,ForeignSource> m_pendingForeignSources = new ConcurrentHashMap<String,ForeignSource>();
+    private final ConcurrentMap<String, Requisition> m_pendingRequisitions = new ConcurrentHashMap<String, Requisition>();
+
+    private final ConcurrentMap<String, ForeignSource> m_pendingForeignSources = new ConcurrentHashMap<String, ForeignSource>();
+
     ForeignSourceRepository m_repository = null;
+
     private ExecutorService m_executor = Executors.newSingleThreadExecutor();
 
     public QueueingForeignSourceRepository() {
@@ -157,7 +160,8 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
 
     @Override
     public void save(final Requisition requisition) throws ForeignSourceRepositoryException {
-        LOG.debug("Queueing save of requisition {} (containing {} nodes)", requisition.getForeignSource(), requisition.getNodeCount());
+        LOG.debug("Queueing save of requisition {} (containing {} nodes)", requisition.getForeignSource(),
+                  requisition.getNodeCount());
         m_pendingRequisitions.put(requisition.getForeignSource(), requisition);
         m_executor.execute(new QueuePersistRunnable());
     }
@@ -190,7 +194,8 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
     }
 
     @Override
-    public OnmsNodeRequisition getNodeRequisition(final String foreignSource, final String foreignId) throws ForeignSourceRepositoryException {
+    public OnmsNodeRequisition getNodeRequisition(final String foreignSource, final String foreignId)
+            throws ForeignSourceRepositoryException {
         return m_repository.getNodeRequisition(foreignSource, foreignId);
     }
 
@@ -209,18 +214,18 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
         public void run() {
             try {
                 LOG.debug("persisting repository changes");
-                final Set<Entry<String,ForeignSource>> foreignSources = m_pendingForeignSources.entrySet();
-                final Set<Entry<String,Requisition>>   requisitions   = m_pendingRequisitions.entrySet();
+                final Set<Entry<String, ForeignSource>> foreignSources = m_pendingForeignSources.entrySet();
+                final Set<Entry<String, Requisition>> requisitions = m_pendingRequisitions.entrySet();
 
                 LOG.debug("* {} pending foreign sources", m_pendingForeignSources.size());
-                LOG.debug("* {} pending requisitions",    m_pendingRequisitions.size());
+                LOG.debug("* {} pending requisitions", m_pendingRequisitions.size());
 
-                for (final Entry<String,ForeignSource> entry : foreignSources) {
+                for (final Entry<String, ForeignSource> entry : foreignSources) {
                     final String foreignSourceName = entry.getKey();
                     final ForeignSource foreignSource = entry.getValue();
 
                     if (foreignSource instanceof DeletedForeignSource) {
-                        final DeletedForeignSource deletedForeignSource = (DeletedForeignSource)foreignSource;
+                        final DeletedForeignSource deletedForeignSource = (DeletedForeignSource) foreignSource;
                         m_repository.delete(deletedForeignSource.getOriginal());
                     } else {
                         m_repository.save(foreignSource);
@@ -228,12 +233,12 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
                     m_pendingForeignSources.remove(foreignSourceName, foreignSource);
                 }
 
-                for (final Entry<String,Requisition> entry : requisitions) {
+                for (final Entry<String, Requisition> entry : requisitions) {
                     final String foreignSourceName = entry.getKey();
                     final Requisition requisition = entry.getValue();
 
                     if (requisition instanceof DeletedRequisition) {
-                        final DeletedRequisition deletedRequisition = (DeletedRequisition)requisition;
+                        final DeletedRequisition deletedRequisition = (DeletedRequisition) requisition;
                         m_repository.delete(deletedRequisition.getOriginal());
                     } else {
                         m_repository.save(requisition);
@@ -250,6 +255,7 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
 
     private static final class DeletedForeignSource extends ForeignSource {
         private static final long serialVersionUID = -1484921681168837826L;
+
         private final ForeignSource m_foreignSource;
 
         public DeletedForeignSource(final ForeignSource foreignSource) {
@@ -264,6 +270,7 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
 
     private static final class DeletedRequisition extends Requisition {
         private static final long serialVersionUID = -19738304185310191L;
+
         private final Requisition m_requisition;
 
         public DeletedRequisition(final Requisition requisition) {

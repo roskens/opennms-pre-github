@@ -48,7 +48,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>EventTranslator class.</p>
+ * <p>
+ * EventTranslator class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -61,40 +63,53 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
     private static EventTranslator s_instance = new EventTranslator();
 
     private volatile EventIpcManager m_eventMgr;
+
     private volatile EventTranslatorConfig m_config;
+
     private volatile boolean m_initialized = false;
 
     private DataSource m_dataSource;
 
-
     /**
-     * <p>Constructor for EventTranslator.</p>
+     * <p>
+     * Constructor for EventTranslator.
+     * </p>
      */
     public EventTranslator() {
-    	super(EventTranslatorConfig.TRANSLATOR_NAME);
+        super(EventTranslatorConfig.TRANSLATOR_NAME);
     }
 
     /**
-     * <p>Constructor for EventTranslator.</p>
+     * <p>
+     * Constructor for EventTranslator.
+     * </p>
      *
-     * @param eventMgr a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventMgr
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public EventTranslator(EventIpcManager eventMgr) {
-    	this();
+        this();
         setEventManager(eventMgr);
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param psk a {@link org.opennms.netmgt.translator.EventTranslator} object.
+     * @param psk
+     *            a {@link org.opennms.netmgt.translator.EventTranslator}
+     *            object.
      */
     public synchronized static void setInstance(EventTranslator psk) {
         s_instance = psk;
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.translator.EventTranslator} object.
      */
@@ -102,13 +117,15 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
         return s_instance;
     }
 
-
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
-        if (m_initialized) return;
+        if (m_initialized)
+            return;
 
         checkPreRequisites();
         createMessageSelectorAndSubscribe();
@@ -126,7 +143,9 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -181,7 +200,8 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * Re-marshals the translator specs into the factory's config member and
      * re-registers the UIEs with the eventProxy.
      *
-     * @param e The reload daemon config event<code>Event</code>
+     * @param e
+     *            The reload daemon config event<code>Event</code>
      */
     protected void handleReloadEvent(Event e) {
         LOG.info("onEvent: reloading configuration....");
@@ -190,8 +210,8 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
             List<String> previousUeis = m_config.getUEIList();
             m_config.update();
 
-            //need to re-register the UEIs not including those the daemon
-            //registered separate from the config (i.e. reloadDaemonConfig)
+            // need to re-register the UEIs not including those the daemon
+            // registered separate from the config (i.e. reloadDaemonConfig)
             getEventManager().removeEventListener(this, previousUeis);
             getEventManager().addEventListener(this, m_config.getUEIList());
 
@@ -208,7 +228,8 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
             m_eventMgr.sendNow(ebldr.getEvent());
         }
 
-        LOG.info("onEvent: reload configuration: reload configuration contains {} UEI specs.", m_config.getUEIList().size());
+        LOG.info("onEvent: reload configuration: reload configuration contains {} UEI specs.",
+                 m_config.getUEIList().size());
     }
 
     private boolean isReloadConfigEvent(Event event) {
@@ -219,8 +240,8 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
             List<Parm> parmCollection = event.getParmCollection();
 
             for (Parm parm : parmCollection) {
-                if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) &&
-                        "Translator".equalsIgnoreCase(parm.getValue().getContent())) {
+                if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName())
+                        && "Translator".equalsIgnoreCase(parm.getValue().getContent())) {
                     isTarget = true;
                     break;
                 }
@@ -232,7 +253,9 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
     }
 
     /**
-     * <p>getEventManager</p>
+     * <p>
+     * getEventManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -241,16 +264,22 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
     }
 
     /**
-     * <p>setEventManager</p>
+     * <p>
+     * setEventManager
+     * </p>
      *
-     * @param eventMgr a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventMgr
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public void setEventManager(EventIpcManager eventMgr) {
         m_eventMgr = eventMgr;
     }
 
     /**
-     * <p>getConfig</p>
+     * <p>
+     * getConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.EventTranslatorConfig} object.
      */
@@ -259,16 +288,22 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
     }
 
     /**
-     * <p>setConfig</p>
+     * <p>
+     * setConfig
+     * </p>
      *
-     * @param config a {@link org.opennms.netmgt.config.EventTranslatorConfig} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.config.EventTranslatorConfig}
+     *            object.
      */
     public void setConfig(EventTranslatorConfig config) {
         m_config = config;
     }
 
     /**
-     * <p>getDataSource</p>
+     * <p>
+     * getDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -277,13 +312,15 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
     }
 
     /**
-     * <p>setDataSource</p>
+     * <p>
+     * setDataSource
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public void setDataSource(DataSource dataSource) {
         m_dataSource = dataSource;
     }
-
 
 }

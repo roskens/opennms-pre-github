@@ -38,7 +38,6 @@ import org.opennms.core.soa.Registration;
 import org.opennms.core.soa.RegistrationListener;
 import org.opennms.core.soa.ServiceRegistry;
 
-
 /**
  * ReferenceListFactoryBeanTest
  *
@@ -73,7 +72,6 @@ public class ReferenceListFactoryBeanTest {
     public void testDynamicList() throws Exception {
 
         ServiceRegistry registry = new DefaultServiceRegistry();
-
 
         Registration reg1 = registry.register(new MyProvider("prov1"), Hello.class, Goodbye.class);
         Registration reg2 = registry.register(new MyProvider("prov2"), Hello.class, Goodbye.class);

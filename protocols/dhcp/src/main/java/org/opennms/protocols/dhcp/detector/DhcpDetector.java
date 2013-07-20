@@ -48,10 +48,13 @@ import org.springframework.stereotype.Component;
 public class DhcpDetector extends BasicDetector<DhcpRequest, DhcpResponse> {
 
     private static final int DEFAULT_RETRY = 0;
+
     private static final int DEFAULT_TIMEOUT = 3000;
 
     /**
-     * <p>Constructor for DhcpDetector.</p>
+     * <p>
+     * Constructor for DhcpDetector.
+     * </p>
      */
     public DhcpDetector() {
         super("DHCP", 0);
@@ -66,7 +69,7 @@ public class DhcpDetector extends BasicDetector<DhcpRequest, DhcpResponse> {
     }
 
     private static ResponseValidator<DhcpResponse> responseTimeGreaterThan(final long num) {
-        return new ResponseValidator<DhcpResponse>(){
+        return new ResponseValidator<DhcpResponse>() {
 
             @Override
             public boolean validate(DhcpResponse response) {
@@ -83,6 +86,5 @@ public class DhcpDetector extends BasicDetector<DhcpRequest, DhcpResponse> {
         client.setRetries(1);
         return client;
     }
-
 
 }

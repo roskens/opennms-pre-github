@@ -32,9 +32,10 @@ import java.io.Serializable;
 
 import org.springframework.core.style.ToStringCreator;
 
-
 /**
- * <p>OnmsVulnPlugin class.</p>
+ * <p>
+ * OnmsVulnPlugin class.
+ * </p>
  */
 public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
 
@@ -81,19 +82,31 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     /**
      * full constructor
      *
-     * @param pluginId a {@link java.lang.Integer} object.
-     * @param pluginSubId a {@link java.lang.Integer} object.
-     * @param name a {@link java.lang.String} object.
-     * @param category a {@link java.lang.String} object.
-     * @param copyright a {@link java.lang.String} object.
-     * @param descr a {@link java.lang.String} object.
-     * @param summary a {@link java.lang.String} object.
-     * @param family a {@link java.lang.String} object.
-     * @param version a {@link java.lang.String} object.
-     * @param cveEntry a {@link java.lang.String} object.
-     * @param md5 a {@link java.lang.String} object.
+     * @param pluginId
+     *            a {@link java.lang.Integer} object.
+     * @param pluginSubId
+     *            a {@link java.lang.Integer} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
+     * @param copyright
+     *            a {@link java.lang.String} object.
+     * @param descr
+     *            a {@link java.lang.String} object.
+     * @param summary
+     *            a {@link java.lang.String} object.
+     * @param family
+     *            a {@link java.lang.String} object.
+     * @param version
+     *            a {@link java.lang.String} object.
+     * @param cveEntry
+     *            a {@link java.lang.String} object.
+     * @param md5
+     *            a {@link java.lang.String} object.
      */
-    public OnmsVulnPlugin(Integer pluginId, Integer pluginSubId, String name, String category, String copyright, String descr, String summary, String family, String version, String cveEntry, String md5) {
+    public OnmsVulnPlugin(Integer pluginId, Integer pluginSubId, String name, String category, String copyright,
+            String descr, String summary, String family, String version, String cveEntry, String md5) {
         m_pluginId = pluginId;
         m_pluginSubId = pluginSubId;
         m_name = name;
@@ -125,18 +138,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
-
-
     /**
-     * <p>getPluginId</p>
+     * <p>
+     * getPluginId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -145,16 +161,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setPluginId</p>
+     * <p>
+     * setPluginId
+     * </p>
      *
-     * @param pluginId a {@link java.lang.Integer} object.
+     * @param pluginId
+     *            a {@link java.lang.Integer} object.
      */
     public void setPluginId(Integer pluginId) {
         m_pluginId = pluginId;
     }
 
     /**
-     * <p>getPluginSubId</p>
+     * <p>
+     * getPluginSubId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -163,16 +184,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setPluginSubId</p>
+     * <p>
+     * setPluginSubId
+     * </p>
      *
-     * @param pluginSubId a {@link java.lang.Integer} object.
+     * @param pluginSubId
+     *            a {@link java.lang.Integer} object.
      */
     public void setPluginSubId(Integer pluginSubId) {
         m_pluginSubId = pluginSubId;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -181,16 +207,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
     /**
-     * <p>getCategory</p>
+     * <p>
+     * getCategory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -199,16 +230,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setCategory</p>
+     * <p>
+     * setCategory
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
      */
     public void setCategory(String category) {
         m_category = category;
     }
 
     /**
-     * <p>getCopyright</p>
+     * <p>
+     * getCopyright
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -217,16 +253,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setCopyright</p>
+     * <p>
+     * setCopyright
+     * </p>
      *
-     * @param copyright a {@link java.lang.String} object.
+     * @param copyright
+     *            a {@link java.lang.String} object.
      */
     public void setCopyright(String copyright) {
         m_copyright = copyright;
     }
 
     /**
-     * <p>getDescr</p>
+     * <p>
+     * getDescr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -235,16 +276,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setDescr</p>
+     * <p>
+     * setDescr
+     * </p>
      *
-     * @param descr a {@link java.lang.String} object.
+     * @param descr
+     *            a {@link java.lang.String} object.
      */
     public void setDescr(String descr) {
         m_descr = descr;
     }
 
     /**
-     * <p>getSummary</p>
+     * <p>
+     * getSummary
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -253,16 +299,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setSummary</p>
+     * <p>
+     * setSummary
+     * </p>
      *
-     * @param summary a {@link java.lang.String} object.
+     * @param summary
+     *            a {@link java.lang.String} object.
      */
     public void setSummary(String summary) {
         m_summary = summary;
     }
 
     /**
-     * <p>getFamily</p>
+     * <p>
+     * getFamily
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -271,16 +322,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setFamily</p>
+     * <p>
+     * setFamily
+     * </p>
      *
-     * @param family a {@link java.lang.String} object.
+     * @param family
+     *            a {@link java.lang.String} object.
      */
     public void setFamily(String family) {
         m_family = family;
     }
 
     /**
-     * <p>getVersion</p>
+     * <p>
+     * getVersion
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -289,16 +345,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setVersion</p>
+     * <p>
+     * setVersion
+     * </p>
      *
-     * @param version a {@link java.lang.String} object.
+     * @param version
+     *            a {@link java.lang.String} object.
      */
     public void setVersion(String version) {
         m_version = version;
     }
 
     /**
-     * <p>getCveEntry</p>
+     * <p>
+     * getCveEntry
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -307,16 +368,21 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setCveEntry</p>
+     * <p>
+     * setCveEntry
+     * </p>
      *
-     * @param cveEntry a {@link java.lang.String} object.
+     * @param cveEntry
+     *            a {@link java.lang.String} object.
      */
     public void setCveEntry(String cveEntry) {
         m_cveEntry = cveEntry;
     }
 
     /**
-     * <p>getMd5</p>
+     * <p>
+     * getMd5
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -325,42 +391,44 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setMd5</p>
+     * <p>
+     * setMd5
+     * </p>
      *
-     * @param md5 a {@link java.lang.String} object.
+     * @param md5
+     *            a {@link java.lang.String} object.
      */
     public void setMd5(String md5) {
         m_md5 = md5;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-            .append("pluginId", getPluginId())
-            .append("pluginSubId", getPluginSubId())
-            .append("name", getName())
-            .append("category", getCategory())
-            .append("copyright", getCopyright())
-            .append("descr", getDescr())
-            .append("summary", getSummary())
-            .append("family", getFamily())
-            .append("version", getVersion())
-            .append("cveEntry", getCveEntry())
-            .append("md5", getMd5())
-            .toString();
+        return new ToStringCreator(this).append("pluginId", getPluginId()).append("pluginSubId", getPluginSubId()).append("name",
+                                                                                                                          getName()).append("category",
+                                                                                                                                            getCategory()).append("copyright",
+                                                                                                                                                                  getCopyright()).append("descr",
+                                                                                                                                                                                         getDescr()).append("summary",
+                                                                                                                                                                                                            getSummary()).append("family",
+                                                                                                                                                                                                                                 getFamily()).append("version",
+                                                                                                                                                                                                                                                     getVersion()).append("cveEntry",
+                                                                                                                                                                                                                                                                          getCveEntry()).append("md5",
+                                                                                                                                                                                                                                                                                                getMd5()).toString();
     }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void visit(EntityVisitor visitor) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("visitor method not implemented");
+    public void visit(EntityVisitor visitor) {
+        // TODO Auto-generated method stub
+        throw new RuntimeException("visitor method not implemented");
 
-	}
+    }
 
 }

@@ -31,57 +31,61 @@ package org.opennms.netmgt.poller.remote;
 import java.util.EventObject;
 
 /**
- * <p>ServicePollStateChangedEvent class.</p>
+ * <p>
+ * ServicePollStateChangedEvent class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class ServicePollStateChangedEvent extends EventObject {
 
-	private static final long serialVersionUID = 5224040562319082465L;
+    private static final long serialVersionUID = 5224040562319082465L;
 
-	private int m_index;
+    private int m_index;
 
-	/**
-	 * <p>Constructor for ServicePollStateChangedEvent.</p>
-	 *
-	 * @param polledService a {@link org.opennms.netmgt.poller.remote.PolledService} object.
-	 * @param index a int.
-	 */
-	public ServicePollStateChangedEvent(PolledService polledService, int index) {
-		super(polledService);
-		m_index = index;
-	}
+    /**
+     * <p>
+     * Constructor for ServicePollStateChangedEvent.
+     * </p>
+     *
+     * @param polledService
+     *            a {@link org.opennms.netmgt.poller.remote.PolledService}
+     *            object.
+     * @param index
+     *            a int.
+     */
+    public ServicePollStateChangedEvent(PolledService polledService, int index) {
+        super(polledService);
+        m_index = index;
+    }
 
-	/**
-	 * <p>getPolledService</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.poller.remote.PolledService} object.
-	 */
-	public PolledService getPolledService() {
-		return (PolledService)getSource();
-	}
+    /**
+     * <p>
+     * getPolledService
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.poller.remote.PolledService} object.
+     */
+    public PolledService getPolledService() {
+        return (PolledService) getSource();
+    }
 
-
-	/**
-	 * <p>getIndex</p>
-	 *
-	 * @return a int.
-	 */
-	public int getIndex() {
-		return m_index;
-	}
+    /**
+     * <p>
+     * getIndex
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getIndex() {
+        return m_index;
+    }
 
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return getClass().getName() +
-        "[" +
-        "source=" + getSource() +
-        ", index=" + m_index +
-        "]";
+        return getClass().getName() + "[" + "source=" + getSource() + ", index=" + m_index + "]";
     }
-
-
 
 }

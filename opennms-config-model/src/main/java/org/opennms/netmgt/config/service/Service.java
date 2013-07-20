@@ -87,8 +87,8 @@ public class Service implements Serializable {
         super();
     }
 
-    public Service(final String name, final String className,
-            final List<Attribute> attributes, final List<Invoke> invokes) {
+    public Service(final String name, final String className, final List<Attribute> attributes,
+            final List<Invoke> invokes) {
         super();
         setName(name);
         setClassName(className);
@@ -101,52 +101,40 @@ public class Service implements Serializable {
     // -----------/
 
     /**
-     *
-     *
      * @param vAttribute
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addAttribute(final Attribute vAttribute)
-            throws IndexOutOfBoundsException {
+    public void addAttribute(final Attribute vAttribute) throws IndexOutOfBoundsException {
         this._attributeList.add(vAttribute);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vAttribute
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addAttribute(final int index, final Attribute vAttribute)
-            throws IndexOutOfBoundsException {
+    public void addAttribute(final int index, final Attribute vAttribute) throws IndexOutOfBoundsException {
         this._attributeList.add(index, vAttribute);
     }
 
     /**
-     *
-     *
      * @param vInvoke
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addInvoke(final Invoke vInvoke)
-            throws IndexOutOfBoundsException {
+    public void addInvoke(final Invoke vInvoke) throws IndexOutOfBoundsException {
         this._invokeList.add(vInvoke);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vInvoke
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addInvoke(final int index, final Invoke vInvoke)
-            throws java.lang.IndexOutOfBoundsException {
+    public void addInvoke(final int index, final Invoke vInvoke) throws java.lang.IndexOutOfBoundsException {
         this._invokeList.add(index, vInvoke);
     }
 
@@ -224,12 +212,10 @@ public class Service implements Serializable {
      * @return the value of the org.opennms.netmgt.config.service.Attribute at
      *         the given inde
      */
-    public Attribute getAttribute(final int index)
-            throws IndexOutOfBoundsException {
+    public Attribute getAttribute(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._attributeList.size()) {
-            throw new IndexOutOfBoundsException("getAttribute: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("getAttribute: Index value '" + index + "' not in range [0.."
                     + (this._attributeList.size() - 1) + "]");
         }
 
@@ -241,8 +227,8 @@ public class Service implements Serializable {
      * <p>
      * Note: Just in case the collection contents are changing in another
      * thread, we pass a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of exactly the
-     * correct length.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -294,8 +280,7 @@ public class Service implements Serializable {
     public Invoke getInvoke(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._invokeList.size()) {
-            throw new IndexOutOfBoundsException("getInvoke: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("getInvoke: Index value '" + index + "' not in range [0.."
                     + (this._invokeList.size() - 1) + "]");
         }
 
@@ -307,8 +292,8 @@ public class Service implements Serializable {
      * <p>
      * Note: Just in case the collection contents are changing in another
      * thread, we pass a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of exactly the
-     * correct length.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -394,8 +379,6 @@ public class Service implements Serializable {
     }
 
     /**
-     *
-     *
      * @param out
      */
     public void marshal(final java.io.Writer out) {
@@ -459,19 +442,15 @@ public class Service implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param vAttribute
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void setAttribute(final int index, final Attribute vAttribute)
-            throws IndexOutOfBoundsException {
+    public void setAttribute(final int index, final Attribute vAttribute) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._attributeList.size()) {
-            throw new IndexOutOfBoundsException("setAttribute: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("setAttribute: Index value '" + index + "' not in range [0.."
                     + (this._attributeList.size() - 1) + "]");
         }
 
@@ -479,8 +458,6 @@ public class Service implements Serializable {
     }
 
     /**
-     *
-     *
      * @param vAttributeArray
      */
     public void setAttribute(final Attribute[] vAttributeArray) {
@@ -517,19 +494,15 @@ public class Service implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param vInvoke
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void setInvoke(final int index, final Invoke vInvoke)
-            throws IndexOutOfBoundsException {
+    public void setInvoke(final int index, final Invoke vInvoke) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._invokeList.size()) {
-            throw new IndexOutOfBoundsException("setInvoke: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("setInvoke: Index value '" + index + "' not in range [0.."
                     + (this._invokeList.size() - 1) + "]");
         }
 
@@ -537,8 +510,6 @@ public class Service implements Serializable {
     }
 
     /**
-     *
-     *
      * @param vInvokeArray
      */
     public void setInvoke(final Invoke[] vInvokeArray) {

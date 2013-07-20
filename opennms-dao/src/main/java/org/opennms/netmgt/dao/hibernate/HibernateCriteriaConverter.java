@@ -193,10 +193,12 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
                 aliasType = org.hibernate.Criteria.INNER_JOIN;
                 break;
             }
-            if (alias.hasJoinCondition()) { // an additional condition for the join
+            if (alias.hasJoinCondition()) { // an additional condition for the
+                                            // join
                 final HibernateRestrictionVisitor visitor = new HibernateRestrictionVisitor();
                 alias.getJoinCondition().visit(visitor);
-                m_criteria.createAlias(alias.getAssociationPath(), alias.getAlias(), aliasType, visitor.getCriterions().get(0));
+                m_criteria.createAlias(alias.getAssociationPath(), alias.getAlias(), aliasType,
+                                       visitor.getCriterions().get(0));
             } else { // no additional condition for the join
                 m_criteria.createAlias(alias.getAssociationPath(), alias.getAlias(), aliasType);
             }
@@ -322,7 +324,8 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             final int restrictionSize = restriction.getRestrictions().size();
             final int criterionSize = m_criterions.size();
             if (criterionSize < restrictionSize) {
-                throw new IllegalStateException("AllRestriction with " + restrictionSize + " entries encountered, but we only have " + criterionSize + " criterions!");
+                throw new IllegalStateException("AllRestriction with " + restrictionSize
+                        + " entries encountered, but we only have " + criterionSize + " criterions!");
             }
             final List<Criterion> criterions = m_criterions.subList(criterionSize - restrictionSize, criterionSize);
             final Junction j = org.hibernate.criterion.Restrictions.conjunction();
@@ -338,7 +341,8 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             final int restrictionSize = restriction.getRestrictions().size();
             final int criterionSize = m_criterions.size();
             if (criterionSize < restrictionSize) {
-                throw new IllegalStateException("AllRestriction with " + restrictionSize + " entries encountered, but we only have " + criterionSize + " criterions!");
+                throw new IllegalStateException("AllRestriction with " + restrictionSize
+                        + " entries encountered, but we only have " + criterionSize + " criterions!");
             }
             final List<Criterion> criterions = m_criterions.subList(criterionSize - restrictionSize, criterionSize);
             final Junction j = org.hibernate.criterion.Restrictions.disjunction();
@@ -351,12 +355,14 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
 
         @Override
         public void visitLike(final LikeRestriction restriction) {
-            m_criterions.add(org.hibernate.criterion.Restrictions.like(restriction.getAttribute(), restriction.getValue()));
+            m_criterions.add(org.hibernate.criterion.Restrictions.like(restriction.getAttribute(),
+                                                                       restriction.getValue()));
         }
 
         @Override
         public void visitIlike(final IlikeRestriction restriction) {
-            m_criterions.add(org.hibernate.criterion.Restrictions.ilike(restriction.getAttribute(), restriction.getValue()));
+            m_criterions.add(org.hibernate.criterion.Restrictions.ilike(restriction.getAttribute(),
+                                                                        restriction.getValue()));
         }
 
         @Override
@@ -364,7 +370,8 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             if (restriction.getValues() == null || restriction.getValues().size() == 0) {
                 m_criterions.add(org.hibernate.criterion.Restrictions.sqlRestriction("0"));
             } else {
-                m_criterions.add(org.hibernate.criterion.Restrictions.in(restriction.getAttribute(), restriction.getValues()));
+                m_criterions.add(org.hibernate.criterion.Restrictions.in(restriction.getAttribute(),
+                                                                         restriction.getValues()));
             }
         }
 
@@ -379,7 +386,8 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
 
         @Override
         public void visitBetween(final BetweenRestriction restriction) {
-            m_criterions.add(org.hibernate.criterion.Restrictions.between(restriction.getAttribute(), restriction.getBegin(), restriction.getEnd()));
+            m_criterions.add(org.hibernate.criterion.Restrictions.between(restriction.getAttribute(),
+                                                                          restriction.getBegin(), restriction.getEnd()));
         }
 
         @Override
@@ -389,7 +397,9 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
 
         @Override
         public void visitIplike(final IplikeRestriction restriction) {
-            m_criterions.add(org.hibernate.criterion.Restrictions.sqlRestriction("iplike({alias}.ipAddr, ?)", (String) restriction.getValue(), STRING_TYPE));
+            m_criterions.add(org.hibernate.criterion.Restrictions.sqlRestriction("iplike({alias}.ipAddr, ?)",
+                                                                                 (String) restriction.getValue(),
+                                                                                 STRING_TYPE));
         }
     }
 }

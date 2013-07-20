@@ -34,7 +34,9 @@ import org.opennms.protocols.wmi.WmiException;
 import org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath;
 
 /**
- * <p>OnmsWbemObjectPathImpl class.</p>
+ * <p>
+ * OnmsWbemObjectPathImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,19 +45,26 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
     private IJIDispatch wbemObjectPathDispatch;
 
     /**
-     * <p>Constructor for OnmsWbemObjectPathImpl.</p>
+     * <p>
+     * Constructor for OnmsWbemObjectPathImpl.
+     * </p>
      *
-     * @param wbemObjectPathDispatch a {@link org.jinterop.dcom.impls.automation.IJIDispatch} object.
+     * @param wbemObjectPathDispatch
+     *            a {@link org.jinterop.dcom.impls.automation.IJIDispatch}
+     *            object.
      */
     public OnmsWbemObjectPathImpl(IJIDispatch wbemObjectPathDispatch) {
         this.wbemObjectPathDispatch = wbemObjectPathDispatch;
     }
 
     /**
-     * <p>getWmiAuthority</p>
+     * <p>
+     * getWmiAuthority
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     private String getWmiString(final String name) throws WmiException {
         try {
@@ -94,10 +103,13 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
     }
 
     /**
-     * <p>getWmiNamespace</p>
+     * <p>
+     * getWmiNamespace
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public String getWmiNamespace() throws WmiException {
@@ -105,10 +117,13 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
     }
 
     /**
-     * <p>getWmiParentNamespace</p>
+     * <p>
+     * getWmiParentNamespace
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public String getWmiParentNamespace() throws WmiException {
@@ -116,10 +131,13 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
     }
 
     /**
-     * <p>getWmiPath</p>
+     * <p>
+     * getWmiPath
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public String getWmiPath() throws WmiException {
@@ -127,10 +145,13 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
     }
 
     /**
-     * <p>getWmiRelPath</p>
+     * <p>
+     * getWmiRelPath
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public String getWmiRelPath() throws WmiException {
@@ -138,10 +159,13 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
     }
 
     /**
-     * <p>getWmiServer</p>
+     * <p>
+     * getWmiServer
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public String getWmiServer() throws WmiException {
@@ -149,10 +173,13 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
     }
 
     /**
-     * <p>getWmiIsClass</p>
+     * <p>
+     * getWmiIsClass
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public Boolean getWmiIsClass() throws WmiException {
@@ -160,10 +187,13 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
     }
 
     /**
-     * <p>getWmiIsSingleton</p>
+     * <p>
+     * getWmiIsSingleton
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public Boolean getWmiIsSingleton() throws WmiException {

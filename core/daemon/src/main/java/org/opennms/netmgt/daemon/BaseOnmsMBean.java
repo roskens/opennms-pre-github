@@ -29,7 +29,9 @@
 package org.opennms.netmgt.daemon;
 
 /**
- * <p>BaseOnmsMBean interface.</p>
+ * <p>
+ * BaseOnmsMBean interface.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -61,14 +63,18 @@ public interface BaseOnmsMBean {
     int getStatus();
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String status();
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

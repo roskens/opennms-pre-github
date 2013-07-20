@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -81,6 +80,6 @@ public class DefaultGraphResultsServiceTest {
     public void testLookUpMetricsForColumnsOfPrefabGraphs() {
         DefaultGraphResultsService defaultGraphResultsService = new DefaultGraphResultsService();
         assertNotNull(defaultGraphResultsService);
-        //Sorry not now
+        // Sorry not now
     }
 }

@@ -48,7 +48,7 @@ import org.xml.sax.InputSource;
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class AccessPointMonitorConfigFactory {
-	private static final Logger LOG = LoggerFactory.getLogger(AccessPointMonitorConfigFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AccessPointMonitorConfigFactory.class);
 
     private static final String ACCESS_POINT_MONITOR_CONFIG_FILE_NAME = "access-point-monitor-configuration.xml";
 

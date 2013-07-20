@@ -49,125 +49,126 @@ import org.apache.commons.cli.PosixParser;
 public class CheckNsc {
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param args an array of {@link java.lang.String} objects.
-     * @throws org.apache.commons.cli.ParseException if any.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
+     * @throws org.apache.commons.cli.ParseException
+     *             if any.
      */
     public static void main(String[] args) throws ParseException {
 
-    	Options options = new Options();
-    	options.addOption("port", true, "the port to connect to");
-    	options.addOption("password", true, "the password to use when connecting");
-    	options.addOption("warning", true, "treat the response as a warning if the level is above this value");
-    	options.addOption("critical", true, "treat the response as a critical error if the level is above this value");
+        Options options = new Options();
+        options.addOption("port", true, "the port to connect to");
+        options.addOption("password", true, "the password to use when connecting");
+        options.addOption("warning", true, "treat the response as a warning if the level is above this value");
+        options.addOption("critical", true, "treat the response as a critical error if the level is above this value");
 
-    	CommandLineParser parser = new PosixParser();
-    	CommandLine cmd = parser.parse(options, args);
+        CommandLineParser parser = new PosixParser();
+        CommandLine cmd = parser.parse(options, args);
 
         @SuppressWarnings("unchecked")
-    	List<String> arguments = cmd.getArgList();
-    	if (arguments.size() < 2) {
-    		usage(options, cmd);
-    		System.exit(1);
-    	}
+        List<String> arguments = cmd.getArgList();
+        if (arguments.size() < 2) {
+            usage(options, cmd);
+            System.exit(1);
+        }
 
         NsclientManager client = null;
         NsclientPacket response = null;
         NsclientCheckParams params = null;
 
-    	String host       = arguments.remove(0);
-    	String command    = arguments.remove(0);
-        int warningLevel  = 0;
+        String host = arguments.remove(0);
+        String command = arguments.remove(0);
+        int warningLevel = 0;
         int criticalLevel = 0;
-        int port          = 1248;
+        int port = 1248;
 
         if (cmd.hasOption("warning")) {
-        	warningLevel = Integer.parseInt(cmd.getOptionValue("warning"));
+            warningLevel = Integer.parseInt(cmd.getOptionValue("warning"));
         }
         if (cmd.hasOption("critical")) {
-        	criticalLevel = Integer.parseInt(cmd.getOptionValue("critical"));
+            criticalLevel = Integer.parseInt(cmd.getOptionValue("critical"));
         }
         if (cmd.hasOption("port")) {
-        	port = Integer.parseInt(cmd.getOptionValue("port"));
+            port = Integer.parseInt(cmd.getOptionValue("port"));
         }
 
         /* whatever's left gets merged into "arg1&arg2&arg3" */
         StringBuffer clientParams = new StringBuffer();
         if (!arguments.isEmpty()) {
-        	for (Iterator<String> i = arguments.iterator(); i.hasNext(); ) {
-        		clientParams.append(i.next());
-        		if (i.hasNext()) {
-        			clientParams.append("&");
-        		}
-        	}
+            for (Iterator<String> i = arguments.iterator(); i.hasNext();) {
+                clientParams.append(i.next());
+                if (i.hasNext()) {
+                    clientParams.append("&");
+                }
+            }
         }
-
 
         try {
-        	client = new NsclientManager(host, port);
-        }
-        catch (Throwable e) {
-        	usage(options, cmd, "An error occurred creating a new NsclientManager.", e);
+            client = new NsclientManager(host, port);
+        } catch (Throwable e) {
+            usage(options, cmd, "An error occurred creating a new NsclientManager.", e);
         }
 
         if (cmd.hasOption("password")) {
-        	client.setPassword(cmd.getOptionValue("password"));
+            client.setPassword(cmd.getOptionValue("password"));
         }
 
         try {
-        	client.setTimeout(5000);
-        	client.init();
-        }
-        catch (Throwable e) {
-        	usage(options, cmd, "An error occurred initializing the NsclientManager.", e);
-        }
-
-        try {
-        	params = new NsclientCheckParams( warningLevel, criticalLevel, clientParams.toString() );
-        }
-        catch (Throwable e) {
-        	usage(options, cmd, "An error occurred creating the parameter object.", e);
+            client.setTimeout(5000);
+            client.init();
+        } catch (Throwable e) {
+            usage(options, cmd, "An error occurred initializing the NsclientManager.", e);
         }
 
         try {
-        	response = client.processCheckCommand(
-                                              NsclientManager.convertStringToType(command),
-                                              params);
+            params = new NsclientCheckParams(warningLevel, criticalLevel, clientParams.toString());
+        } catch (Throwable e) {
+            usage(options, cmd, "An error occurred creating the parameter object.", e);
         }
-        catch(Throwable e) {
-        	usage(options, cmd, "An error occurred processing the command.", e);
+
+        try {
+            response = client.processCheckCommand(NsclientManager.convertStringToType(command), params);
+        } catch (Throwable e) {
+            usage(options, cmd, "An error occurred processing the command.", e);
         }
 
         if (response == null) {
-        	usage(options, cmd, "No response was returned.", null);
+            usage(options, cmd, "No response was returned.", null);
         } else {
-            System.out.println("NsclientPlugin: "
-                    + command
-                    + ": "
-                    + NsclientPacket.convertStateToString(response.getResultCode()) /* response.getResultCode() */
+            System.out.println("NsclientPlugin: " + command + ": "
+                    + NsclientPacket.convertStateToString(response.getResultCode()) /*
+                                                                                     * response
+                                                                                     * .
+                                                                                     * getResultCode
+                                                                                     * (
+                                                                                     * )
+                                                                                     */
                     + " (" + response.getResponse() + ")");
         }
     }
 
-	private static void usage(Options options, CommandLine cmd, String error, Throwable e) {
-		HelpFormatter formatter = new HelpFormatter();
-    	PrintWriter pw = new PrintWriter(System.out);
-    	if (error != null) {
-    		pw.println("An error occurred: " + error + "\n");
-    	}
-    	formatter.printHelp("usage: CheckNsc [options] host command [arguments]", options);
+    private static void usage(Options options, CommandLine cmd, String error, Throwable e) {
+        HelpFormatter formatter = new HelpFormatter();
+        PrintWriter pw = new PrintWriter(System.out);
+        if (error != null) {
+            pw.println("An error occurred: " + error + "\n");
+        }
+        formatter.printHelp("usage: CheckNsc [options] host command [arguments]", options);
 
-    	if (e != null) {
-    		pw.println(e.getMessage());
-    		e.printStackTrace(pw);
-    	}
+        if (e != null) {
+            pw.println(e.getMessage());
+            e.printStackTrace(pw);
+        }
 
-    	pw.close();
-	}
+        pw.close();
+    }
 
-	private static void usage(Options options, CommandLine cmd) {
-		usage(options, cmd, null, null);
-	}
+    private static void usage(Options options, CommandLine cmd) {
+        usage(options, cmd, null, null);
+    }
 
 }

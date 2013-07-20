@@ -31,7 +31,6 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.ui.FlexTable;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 class NotificationView extends PageableTableView {
@@ -43,9 +42,13 @@ class NotificationView extends PageableTableView {
     }
 
     /**
-     * <p>setNotifications</p>
+     * <p>
+     * setNotifications
+     * </p>
      *
-     * @param notifications an array of {@link org.opennms.dashboard.client.Notification} objects.
+     * @param notifications
+     *            an array of {@link org.opennms.dashboard.client.Notification}
+     *            objects.
      */
     public void setNotifications(Notification[] notifications) {
         m_notifications = notifications;
@@ -53,25 +56,28 @@ class NotificationView extends PageableTableView {
 
     }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	protected void setRow(FlexTable table, int row, int elementIndex) {
-		Notification notif = m_notifications[elementIndex];
-		if (notif.getIsDashboardRole()) {
+    protected void setRow(FlexTable table, int row, int elementIndex) {
+        Notification notif = m_notifications[elementIndex];
+        if (notif.getIsDashboardRole()) {
             table.setText(row, 0, notif.getNodeLabel());
-		} else {
-            table.setHTML(row, 0, "<a href=\"element/node.jsp?node=" + notif.getNodeId() + "\">" + notif.getNodeLabel() + "</a>");
-		}
+        } else {
+            table.setHTML(row, 0, "<a href=\"element/node.jsp?node=" + notif.getNodeId() + "\">" + notif.getNodeLabel()
+                    + "</a>");
+        }
         table.setText(row, 1, notif.getServiceName());
         table.setHTML(row, 2, notif.getTextMessage());
-        table.setText(row, 3, ""+notif.getSentTime());
+        table.setText(row, 3, "" + notif.getSentTime());
         table.setText(row, 4, notif.getResponder());
         table.setText(row, 5, (notif.getRespondTime() != null) ? notif.getRespondTime().toString() : "");
         table.getRowFormatter().setStyleName(row, notif.getSeverity());
     }
 
     /**
-     * <p>getElementCount</p>
+     * <p>
+     * getElementCount
+     * </p>
      *
      * @return a int.
      */

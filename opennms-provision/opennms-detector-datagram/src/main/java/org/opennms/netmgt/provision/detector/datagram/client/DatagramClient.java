@@ -37,9 +37,10 @@ import org.opennms.netmgt.provision.support.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>DatagramClient class.</p>
+ * <p>
+ * DatagramClient class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -47,21 +48,28 @@ import org.slf4j.LoggerFactory;
 public class DatagramClient implements Client<DatagramPacket, DatagramPacket> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DatagramClient.class);
+
     private DatagramSocket m_socket;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.detector.Client#close()
      */
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
         m_socket.close();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.detector.Client#connect(java.net.InetAddress, int, int)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.provision.detector.Client#connect(java.net.InetAddress
+     * , int, int)
      */
     /** {@inheritDoc} */
     @Override
@@ -73,30 +81,42 @@ public class DatagramClient implements Client<DatagramPacket, DatagramPacket> {
         m_socket.connect(address, port);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.detector.Client#receiveBanner()
      */
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
      * @return a {@link java.net.DatagramPacket} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     @Override
     public DatagramPacket receiveBanner() throws IOException {
-        throw new UnsupportedOperationException("Client<DatagramPacket,DatagramPacket>.receiveBanner is not yet implemented");
+        throw new UnsupportedOperationException(
+                                                "Client<DatagramPacket,DatagramPacket>.receiveBanner is not yet implemented");
 
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.detector.Client#sendRequest(java.lang.Object)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.provision.detector.Client#sendRequest(java.lang.Object
+     * )
      */
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link java.net.DatagramPacket} object.
+     * @param request
+     *            a {@link java.net.DatagramPacket} object.
      * @return a {@link java.net.DatagramPacket} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     @Override
     public DatagramPacket sendRequest(final DatagramPacket request) throws IOException {

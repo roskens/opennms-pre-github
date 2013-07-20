@@ -49,6 +49,7 @@ import org.opennms.netmgt.icmp.PingerFactory;
  */
 public final class IcmpPlugin extends AbstractPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(IcmpPlugin.class);
+
     /**
      * The name of the protocol that is supported by this plugin
      */
@@ -66,28 +67,26 @@ public final class IcmpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
     public boolean isProtocolSupported(InetAddress address) {
-		try {
-	    	Number retval = PingerFactory.getInstance().ping(address);
-	    	if (retval != null) {
-	    		return true;
-	    	}
-		} catch (Throwable e) {
-			LOG.warn("Pinger failed to ping {}", address, e);
-		}
-		return false;
+        try {
+            Number retval = PingerFactory.getInstance().ping(address);
+            if (retval != null) {
+                return true;
+            }
+        } catch (Throwable e) {
+            LOG.warn("Pinger failed to ping {}", address, e);
+        }
+        return false;
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -95,25 +94,25 @@ public final class IcmpPlugin extends AbstractPlugin {
      */
     @Override
     public boolean isProtocolSupported(InetAddress address, Map<String, Object> qualifiers) {
-    	int retries;
-    	long timeout;
+        int retries;
+        long timeout;
 
-    	try {
-    		if (qualifiers != null) {
-    			retries = ParameterMap.getKeyedInteger(qualifiers, "retry", PingConstants.DEFAULT_RETRIES);
-    			timeout = ParameterMap.getKeyedLong(qualifiers, "timeout", PingConstants.DEFAULT_TIMEOUT);
-    		} else {
-    			retries = PingConstants.DEFAULT_RETRIES;
-    			timeout = PingConstants.DEFAULT_TIMEOUT;
-    		}
-    		Number retval = PingerFactory.getInstance().ping(address, timeout, retries);
-    		if (retval != null) {
-    			return true;
-    		}
-    	} catch (Throwable e) {
-			LOG.warn("Pinger failed to ping {}", address, e);
+        try {
+            if (qualifiers != null) {
+                retries = ParameterMap.getKeyedInteger(qualifiers, "retry", PingConstants.DEFAULT_RETRIES);
+                timeout = ParameterMap.getKeyedLong(qualifiers, "timeout", PingConstants.DEFAULT_TIMEOUT);
+            } else {
+                retries = PingConstants.DEFAULT_RETRIES;
+                timeout = PingConstants.DEFAULT_TIMEOUT;
+            }
+            Number retval = PingerFactory.getInstance().ping(address, timeout, retries);
+            if (retval != null) {
+                return true;
+            }
+        } catch (Throwable e) {
+            LOG.warn("Pinger failed to ping {}", address, e);
         }
 
-    	return false;
+        return false;
     }
 }

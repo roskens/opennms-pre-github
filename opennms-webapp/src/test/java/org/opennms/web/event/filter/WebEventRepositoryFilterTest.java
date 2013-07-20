@@ -58,15 +58,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/daoWebRepositoryTestContext.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/daoWebRepositoryTestContext.xml",
         "classpath:/jdbcWebRepositoryTestContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class WebEventRepositoryFilterTest implements InitializingBean {
@@ -91,7 +87,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
     }
 
     @Before
-    public final void setUp(){
+    public final void setUp() {
         m_dbPopulator.populateDatabase();
 
         OnmsEvent event = new OnmsEvent();
@@ -125,24 +121,27 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public final void testEventIdFilter(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public final void testEventIdFilter() {
         EventIdFilter filter = new EventIdFilter(1);
         assert1Result(filter);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public final void testEventIdListFilter(){
-        int[] ids = {1};
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public final void testEventIdListFilter() {
+        int[] ids = { 1 };
         EventIdListFilter filter = new EventIdListFilter(ids);
         assert1Result(filter);
 
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public final void testAcknowledgeByFilter(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public final void testAcknowledgeByFilter() {
         AcknowledgedByFilter filter = new AcknowledgedByFilter("TestUser");
         EventCriteria criteria = new EventCriteria(filter);
 
@@ -168,7 +167,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testAfterDateFilter(){
+    public final void testAfterDateFilter() {
         AfterDateFilter filter = new AfterDateFilter(yesterday());
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -179,8 +178,9 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public final void testAlarmIdFilter(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public final void testAlarmIdFilter() {
         AlarmIdFilter filter = new AlarmIdFilter(1);
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -192,7 +192,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testBeforeDateFilter(){
+    public final void testBeforeDateFilter() {
         BeforeDateFilter filter = new BeforeDateFilter(new Date());
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -204,7 +204,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testDescriptionSubstringFilterTest(){
+    public final void testDescriptionSubstringFilterTest() {
         DescriptionSubstringFilter filter = new DescriptionSubstringFilter("test event");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -218,7 +218,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testExactUEIFilter(){
+    public final void testExactUEIFilter() {
         ExactUEIFilter filter = new ExactUEIFilter("uei.opennms.org/test2");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -232,7 +232,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testIfIndexFilter(){
+    public final void testIfIndexFilter() {
         IfIndexFilter filter = new IfIndexFilter(11);
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -250,7 +250,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testInterfaceFilter(){
+    public final void testInterfaceFilter() {
         InterfaceFilter filter = new InterfaceFilter("192.168.1.1");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -265,7 +265,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testIpAddrLikeFilter(){
+    public final void testIpAddrLikeFilter() {
         IPAddrLikeFilter filter = new IPAddrLikeFilter("192.168.*.*");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -284,7 +284,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testLogMessageMatchesAny(){
+    public final void testLogMessageMatchesAny() {
         LogMessageMatchesAnyFilter filter = new LogMessageMatchesAnyFilter("This is a");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -298,7 +298,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testLogMessageSubstringFilter(){
+    public final void testLogMessageSubstringFilter() {
         LogMessageSubstringFilter filter = new LogMessageSubstringFilter("is a test");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -310,7 +310,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeAcknowledgedByFilter(){
+    public final void testNegativeAcknowledgedByFilter() {
         NegativeAcknowledgedByFilter filter = new NegativeAcknowledgedByFilter("TestUser");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -332,7 +332,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeExactUeiFilter(){
+    public final void testNegativeExactUeiFilter() {
         NegativeExactUEIFilter filter = new NegativeExactUEIFilter("uei.opennms.org/test2");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -352,7 +352,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeInterfaceFilter(){
+    public final void testNegativeInterfaceFilter() {
         NegativeInterfaceFilter filter = new NegativeInterfaceFilter("192.168.1.1");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -372,7 +372,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeNodeFilter(){
+    public final void testNegativeNodeFilter() {
         NegativeNodeFilter filter = new NegativeNodeFilter(m_dbPopulator.getNode2().getId(), m_appContext);
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -394,7 +394,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativePartialUeiFilter(){
+    public final void testNegativePartialUeiFilter() {
         NegativePartialUEIFilter filter = new NegativePartialUEIFilter("uei.opennms.org");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -413,8 +413,9 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public final void testNegativeServiceFilter(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public final void testNegativeServiceFilter() {
         NegativeServiceFilter filter = new NegativeServiceFilter(1, m_appContext);
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -434,7 +435,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeSeverityFilter(){
+    public final void testNegativeSeverityFilter() {
         NegativeSeverityFilter filter = new NegativeSeverityFilter(OnmsSeverity.CRITICAL.getId());
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -452,10 +453,10 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
         assertEquals(1, events.length);
     }
 
-
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public final void testNodeFilter(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public final void testNodeFilter() {
         NodeFilter filter = new NodeFilter(1, m_appContext);
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -477,7 +478,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNodeNameLikeFilter(){
+    public final void testNodeNameLikeFilter() {
         NodeNameLikeFilter filter = new NodeNameLikeFilter("node1");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -498,7 +499,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testPartialUeiFilter(){
+    public final void testPartialUeiFilter() {
         PartialUEIFilter filter = new PartialUEIFilter("uei.opennms.org/t");
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -517,8 +518,9 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public final void testServiceFilter(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public final void testServiceFilter() {
         ServiceFilter filter = new ServiceFilter(2, m_appContext);
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -538,7 +540,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testSeverityFilter(){
+    public final void testSeverityFilter() {
         SeverityFilter filter = new SeverityFilter(OnmsSeverity.CLEARED.getId());
 
         Event[] events = getMatchingDaoEvents(filter);
@@ -556,19 +558,19 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
         assertEquals(0, events.length);
     }
 
-    private static EventCriteria getCriteria(final Filter... filters){
+    private static EventCriteria getCriteria(final Filter... filters) {
         return new EventCriteria(filters);
     }
 
-    private Event[] getMatchingDaoEvents(final Filter...filters) {
+    private Event[] getMatchingDaoEvents(final Filter... filters) {
         return m_daoEventRepo.getMatchingEvents(getCriteria(filters));
     }
 
-    private Event[] getMatchingJdbcEvents(final Filter...filters){
+    private Event[] getMatchingJdbcEvents(final Filter... filters) {
         return m_jdbcEventRepo.getMatchingEvents(getCriteria(filters));
     }
 
-    private void assert1Result(final Filter filter){
+    private void assert1Result(final Filter filter) {
         EventCriteria criteria = new EventCriteria(filter);
 
         Event[] events = m_jdbcEventRepo.getMatchingEvents(criteria);

@@ -86,8 +86,10 @@ public class WebDetector extends BasicDetector<WebRequest, WebResponse> {
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public WebDetector(final String serviceName, final int port) {
         super(serviceName, port);
@@ -99,7 +101,7 @@ public class WebDetector extends BasicDetector<WebRequest, WebResponse> {
     }
 
     private WebRequest getRequest() {
-        WebRequest request =  new WebRequest();
+        WebRequest request = new WebRequest();
         request.parseHeaders(getHeaders());
         request.setResponseRange(getResponseRange());
         request.setResponseText(getResponseText());

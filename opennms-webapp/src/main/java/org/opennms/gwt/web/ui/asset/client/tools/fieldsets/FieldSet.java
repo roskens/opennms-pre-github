@@ -39,85 +39,85 @@ import com.google.gwt.event.dom.client.FocusHandler;
  */
 public interface FieldSet extends FocusHandler, ChangeHandler {
 
-	/**
-	 * Clears the status changed from a {@link FieldSet}.
-	 */
-	public abstract void clearChanged();
+    /**
+     * Clears the status changed from a {@link FieldSet}.
+     */
+    public abstract void clearChanged();
 
-	/**
-	 * clears all error strings from a {@link FieldSet}.
-	 */
-	public abstract void clearErrors();
+    /**
+     * clears all error strings from a {@link FieldSet}.
+     */
+    public abstract void clearErrors();
 
-	/**
-	 * clears all warning strings from a {@link FieldSet}.
-	 */
-	public abstract void clearWarnings();
+    /**
+     * clears all warning strings from a {@link FieldSet}.
+     */
+    public abstract void clearWarnings();
 
-	/**
-	 * @return boolean enabled if writing/changes are allowed/active.
-	 */
-	public abstract Boolean getEnabled();
+    /**
+     * @return boolean enabled if writing/changes are allowed/active.
+     */
+    public abstract Boolean getEnabled();
 
-	/**
-	 * Get the complete error string for the {@link FieldSet}.
-	 *
-	 * @return String error
-	 */
-	public abstract String getError();
+    /**
+     * Get the complete error string for the {@link FieldSet}.
+     *
+     * @return String error
+     */
+    public abstract String getError();
 
-	/**
-	 * Get the description/label text of the {@link FieldSet}.
-	 *
-	 * @return String label
-	 */
-	public abstract String getLabel();
+    /**
+     * Get the description/label text of the {@link FieldSet}.
+     *
+     * @return String label
+     */
+    public abstract String getLabel();
 
-	/**
-	 * @return actual value of {@link FieldSet}.
-	 */
-	public abstract String getValue();
+    /**
+     * @return actual value of {@link FieldSet}.
+     */
+    public abstract String getValue();
 
-	/**
-	 * Get the complete warning string for the {@link FieldSet}.
-	 *
-	 * @return String warning
-	 */
-	public abstract String getWarning();
+    /**
+     * Get the complete warning string for the {@link FieldSet}.
+     *
+     * @return String warning
+     */
+    public abstract String getWarning();
 
-	/**
-	 * Set the {@link FieldSet} into write/write-protected mode.
-	 *
-	 * @param enabled
-	 *            to get write-mode disable to get write-protected mode
-	 */
-	public abstract void setEnabled(Boolean enabled);
+    /**
+     * Set the {@link FieldSet} into write/write-protected mode.
+     *
+     * @param enabled
+     *            to get write-mode disable to get write-protected mode
+     */
+    public abstract void setEnabled(Boolean enabled);
 
-	/**
-	 * Set a error string to the {@link FieldSet}.
-	 *
-	 * @param error
-	 */
-	public abstract void setError(String error);
+    /**
+     * Set a error string to the {@link FieldSet}.
+     *
+     * @param error
+     */
+    public abstract void setError(String error);
 
-	/**
-	 * Sets a text into the description/label of the {@link FieldSet}.
-	 *
-	 * @param label
-	 */
-	public abstract void setLabel(String label);
+    /**
+     * Sets a text into the description/label of the {@link FieldSet}.
+     *
+     * @param label
+     */
+    public abstract void setLabel(String label);
 
-	/**
-	 * Sets a value into the value/input of the {@link FieldSet}.
-	 *
-	 * @param value
-	 */
-	public abstract void setValue(String value);
+    /**
+     * Sets a value into the value/input of the {@link FieldSet}.
+     *
+     * @param value
+     */
+    public abstract void setValue(String value);
 
-	/**
-	 * Set a warning string to the {@link FieldSet}.
-	 *
-	 * @param warning
-	 */
-	public abstract void setWarning(String warning);
+    /**
+     * Set a warning string to the {@link FieldSet}.
+     *
+     * @param warning
+     */
+    public abstract void setWarning(String warning);
 }

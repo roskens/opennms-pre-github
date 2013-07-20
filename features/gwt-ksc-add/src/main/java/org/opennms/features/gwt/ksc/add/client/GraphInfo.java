@@ -32,18 +32,23 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 
 public final class GraphInfo {
-    private String m_report     = null;
-    private String m_title      = null;
+    private String m_report = null;
+
+    private String m_title = null;
+
     private String m_resourceId = null;
-    private String m_timespan   = null;
+
+    private String m_timespan = null;
+
     private Integer m_startTime = null;
-    private Integer m_endTime   = null;
+
+    private Integer m_endTime = null;
 
     public GraphInfo(final Element elem) {
         // required
-        m_report               = elem.getAttribute("reportName");
-        m_resourceId           = elem.getAttribute("resourceId");
-        m_timespan             = elem.getAttribute("timespan");
+        m_report = elem.getAttribute("reportName");
+        m_resourceId = elem.getAttribute("resourceId");
+        m_timespan = elem.getAttribute("timespan");
         if (m_report == null) {
             GWT.log("element missing the required report tag!");
         }
@@ -55,7 +60,7 @@ public final class GraphInfo {
         }
 
         // optional
-        m_title                = elem.getAttribute("graphTitle");
+        m_title = elem.getAttribute("graphTitle");
 
         if ("lastday".equals(m_timespan)) {
             m_timespan = "1_day";

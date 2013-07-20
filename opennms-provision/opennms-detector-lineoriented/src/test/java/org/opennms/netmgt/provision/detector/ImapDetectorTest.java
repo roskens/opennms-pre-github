@@ -48,14 +48,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class ImapDetectorTest implements ApplicationContextAware {
     private ImapDetector m_detector = null;
+
     private SimpleServer m_server = null;
+
     private ApplicationContext m_applicationContext = null;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
         m_detector = getDetector(ImapDetector.class);
@@ -65,16 +67,16 @@ public class ImapDetectorTest implements ApplicationContextAware {
     }
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         if (m_server != null) {
             m_server.stopServer();
             m_server = null;
         }
     }
 
-    @Test(timeout=90000)
-    public void testServerSuccess() throws Exception{
-        m_server  = new SimpleServer() {
+    @Test(timeout = 90000)
+    public void testServerSuccess() throws Exception {
+        m_server = new SimpleServer() {
 
             @Override
             public void onInit() {
@@ -92,12 +94,11 @@ public class ImapDetectorTest implements ApplicationContextAware {
             m_detector.setPort(m_server.getLocalPort());
             m_detector.setIdleTime(1000);
 
-            //assertTrue(m_detector.isServiceDetected(m_server.getInetAddress()));
+            // assertTrue(m_detector.isServiceDetected(m_server.getInetAddress()));
             DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
             assertNotNull(future);
 
             future.awaitForUninterruptibly();
-
 
             assertTrue(future.isServiceDetected());
         } finally {
@@ -105,9 +106,9 @@ public class ImapDetectorTest implements ApplicationContextAware {
         }
     }
 
-    @Test(timeout=90000)
-    public void testDetectorFailUnexpectedBanner() throws Exception{
-        m_server  = new SimpleServer() {
+    @Test(timeout = 90000)
+    public void testDetectorFailUnexpectedBanner() throws Exception {
+        m_server = new SimpleServer() {
 
             @Override
             public void onInit() {
@@ -121,7 +122,7 @@ public class ImapDetectorTest implements ApplicationContextAware {
         try {
             m_detector.setPort(m_server.getLocalPort());
 
-            //assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
+            // assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
 
             DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
             assertNotNull(future);
@@ -134,9 +135,9 @@ public class ImapDetectorTest implements ApplicationContextAware {
         }
     }
 
-    @Test(timeout=90000)
-    public void testDetectorFailUnexpectedLogoutResponse() throws Exception{
-        m_server  = new SimpleServer() {
+    @Test(timeout = 90000)
+    public void testDetectorFailUnexpectedLogoutResponse() throws Exception {
+        m_server = new SimpleServer() {
 
             @Override
             public void onInit() {
@@ -151,7 +152,7 @@ public class ImapDetectorTest implements ApplicationContextAware {
         try {
             m_detector.setPort(m_server.getLocalPort());
 
-            //assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
+            // assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
 
             DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
             assertNotNull(future);
@@ -164,8 +165,11 @@ public class ImapDetectorTest implements ApplicationContextAware {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.context.ApplicationContextAware#setApplicationContext
+     * (org.springframework.context.ApplicationContext)
      */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -176,7 +180,7 @@ public class ImapDetectorTest implements ApplicationContextAware {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
-        return (ImapDetector)bean;
+        return (ImapDetector) bean;
     }
 
 }

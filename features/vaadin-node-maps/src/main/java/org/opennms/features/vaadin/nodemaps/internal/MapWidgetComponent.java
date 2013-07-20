@@ -53,12 +53,17 @@ import java.util.Map;
 public class MapWidgetComponent extends NodeMap {
 
     private Logger m_log = LoggerFactory.getLogger(getClass());
+
     private String m_searchString;
 
     private NodeDao m_nodeDao;
+
     private AssetRecordDao m_assetDao;
+
     private AlarmDao m_alarmDao;
+
     private GeocoderService m_geocoderService;
+
     private TransactionOperations m_transaction;
 
     public void setNodeDao(final NodeDao nodeDao) {
@@ -81,13 +86,13 @@ public class MapWidgetComponent extends NodeMap {
         m_transaction = tx;
     }
 
-
     public void init() {
         showNodes(getNodeData());
     }
 
     private Map<Integer, NodeEntry> getNodeData() {
-        if (m_nodeDao == null) return new HashMap<Integer, NodeEntry>();
+        if (m_nodeDao == null)
+            return new HashMap<Integer, NodeEntry>();
 
         m_log.debug("getting nodes");
         final CriteriaBuilder cb = new CriteriaBuilder(OnmsNode.class);
@@ -121,15 +126,18 @@ public class MapWidgetComponent extends NodeMap {
                     // no real address info, skip it
                     continue;
                 } else {
-                    m_log.debug("Node {} has an asset record with address \"{}\", but no coordinates.", new Object[]{node.getId(), addressString});
+                    m_log.debug("Node {} has an asset record with address \"{}\", but no coordinates.", new Object[] {
+                            node.getId(), addressString });
                     final Coordinates coordinates = getCoordinates(addressString);
                     geolocation.setLongitude(coordinates.getLongitude());
                     geolocation.setLatitude(coordinates.getLatitude());
                     updatedAssets.add(assets);
 
-                    if (coordinates.getLongitude() == Float.NEGATIVE_INFINITY || coordinates.getLatitude() == Float.NEGATIVE_INFINITY) {
+                    if (coordinates.getLongitude() == Float.NEGATIVE_INFINITY
+                            || coordinates.getLatitude() == Float.NEGATIVE_INFINITY) {
                         // we got bad coordinates
-                        m_log.debug("Node {} has an asset record with address, but we were unable to find valid coordinates.", node.getId());
+                        m_log.debug("Node {} has an asset record with address, but we were unable to find valid coordinates.",
+                                    node.getId());
                         continue;
                     } else {
                         // valid coordinates, add to the list
@@ -155,9 +163,11 @@ public class MapWidgetComponent extends NodeMap {
 
             for (final OnmsAlarm alarm : m_alarmDao.findMatching(ab.toCriteria())) {
                 final int nodeId = alarm.getNodeId();
-                m_log.debug("nodeId = {}, lastId = {}, unackedCount = {}", new Object[]{nodeId, lastId, unackedCount});
+                m_log.debug("nodeId = {}, lastId = {}, unackedCount = {}",
+                            new Object[] { nodeId, lastId, unackedCount });
                 if (nodeId != lastId) {
-                    m_log.debug("  setting severity for node {} to {}", new Object[]{nodeId, alarm.getSeverity().getLabel()});
+                    m_log.debug("  setting severity for node {} to {}", new Object[] { nodeId,
+                            alarm.getSeverity().getLabel() });
                     nodes.get(nodeId).setSeverity(alarm.getSeverity());
                     if (lastId != -1) {
                         nodes.get(nodeId).setUnackedCount(unackedCount);
@@ -196,7 +206,8 @@ public class MapWidgetComponent extends NodeMap {
     /**
      * Given an address, return the coordinates for that address.
      *
-     * @param address the complete address, in a format a geolocator can understand
+     * @param address
+     *            the complete address, in a format a geolocator can understand
      * @return the coordinates for the given address
      */
     private Coordinates getCoordinates(final String address) {
@@ -211,7 +222,6 @@ public class MapWidgetComponent extends NodeMap {
         }
         return coordinates;
     }
-
 
     public void setSearchString(final String searchString) {
         m_searchString = searchString;

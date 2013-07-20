@@ -42,35 +42,47 @@ public class JavaMailerException extends Exception {
     private static final long serialVersionUID = -5889585419229061711L;
 
     /**
-     * <p>Constructor for JavaMailerException.</p>
+     * <p>
+     * Constructor for JavaMailerException.
+     * </p>
      */
     public JavaMailerException() {
         super();
     }
 
     /**
-     * <p>Constructor for JavaMailerException.</p>
+     * <p>
+     * Constructor for JavaMailerException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public JavaMailerException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for JavaMailerException.</p>
+     * <p>
+     * Constructor for JavaMailerException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public JavaMailerException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * <p>Constructor for JavaMailerException.</p>
+     * <p>
+     * Constructor for JavaMailerException.
+     * </p>
      *
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public JavaMailerException(Throwable cause) {
         super(cause);

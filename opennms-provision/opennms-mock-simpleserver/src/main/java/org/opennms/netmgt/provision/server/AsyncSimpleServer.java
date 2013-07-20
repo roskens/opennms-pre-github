@@ -41,7 +41,9 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.opennms.netmgt.provision.server.exchange.LineConversation;
 
 /**
- * <p>AsyncSimpleServer class.</p>
+ * <p>
+ * AsyncSimpleServer class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -49,17 +51,26 @@ import org.opennms.netmgt.provision.server.exchange.LineConversation;
 public class AsyncSimpleServer {
 
     protected static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
+
     private LineConversation m_lineConversation;
+
     private IoAcceptor m_acceptor;
+
     private IoHandler m_ioHandler;
+
     private int m_port = 9123;
+
     private int m_bufferSize = 2048;
+
     private int m_idleTime = 10;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public final void init() throws Exception {
         m_lineConversation = new LineConversation();
@@ -67,16 +78,21 @@ public class AsyncSimpleServer {
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     protected void onInit() {
         // Do nothing by default
     }
 
     /**
-     * <p>startServer</p>
+     * <p>
+     * startServer
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void startServer() throws Exception {
 
@@ -93,55 +109,74 @@ public class AsyncSimpleServer {
     }
 
     /**
-     * <p>stopServer</p>
+     * <p>
+     * stopServer
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public void stopServer() throws Exception{
+    public void stopServer() throws Exception {
         m_acceptor.unbind();
         m_acceptor.dispose();
     }
 
     /**
-     * <p>addRequestHandler</p>
+     * <p>
+     * addRequestHandler
+     * </p>
      *
-     * @param request a {@link java.lang.String} object.
-     * @param response a {@link java.lang.String} object.
+     * @param request
+     *            a {@link java.lang.String} object.
+     * @param response
+     *            a {@link java.lang.String} object.
      */
     public void addRequestHandler(String request, String response) {
         m_lineConversation.addRequestHandler(request, response);
     }
 
     /**
-     * <p>setBanner</p>
+     * <p>
+     * setBanner
+     * </p>
      *
-     * @param banner a {@link java.lang.String} object.
+     * @param banner
+     *            a {@link java.lang.String} object.
      */
     public void setBanner(String banner) {
         m_lineConversation.setBanner(banner);
     }
 
     /**
-     * <p>setExpectedClose</p>
+     * <p>
+     * setExpectedClose
+     * </p>
      *
-     * @param closeRequest a {@link java.lang.String} object.
+     * @param closeRequest
+     *            a {@link java.lang.String} object.
      */
     public void setExpectedClose(String closeRequest) {
         m_lineConversation.setExpectedClose(closeRequest);
     }
 
     /**
-     * <p>setExpectedClose</p>
+     * <p>
+     * setExpectedClose
+     * </p>
      *
-     * @param closeRequest a {@link java.lang.String} object.
-     * @param closeResponse a {@link java.lang.String} object.
+     * @param closeRequest
+     *            a {@link java.lang.String} object.
+     * @param closeResponse
+     *            a {@link java.lang.String} object.
      */
     public void setExpectedClose(String closeRequest, String closeResponse) {
         m_lineConversation.setExpectedClose(closeRequest, closeResponse);
     }
 
     /**
-     * <p>getServerHandler</p>
+     * <p>
+     * getServerHandler
+     * </p>
      *
      * @return a {@link org.apache.mina.core.service.IoHandler} object.
      */
@@ -150,25 +185,33 @@ public class AsyncSimpleServer {
     }
 
     /**
-     * <p>setServerHandler</p>
+     * <p>
+     * setServerHandler
+     * </p>
      *
-     * @param handler a {@link org.apache.mina.core.service.IoHandler} object.
+     * @param handler
+     *            a {@link org.apache.mina.core.service.IoHandler} object.
      */
     public void setServerHandler(IoHandler handler) {
         m_ioHandler = handler;
     }
 
     /**
-     * <p>setPort</p>
+     * <p>
+     * setPort
+     * </p>
      *
-     * @param port a int.
+     * @param port
+     *            a int.
      */
     public void setPort(int port) {
         m_port = port;
     }
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a int.
      */
@@ -177,16 +220,21 @@ public class AsyncSimpleServer {
     }
 
     /**
-     * <p>setBufferSize</p>
+     * <p>
+     * setBufferSize
+     * </p>
      *
-     * @param bufferSize a int.
+     * @param bufferSize
+     *            a int.
      */
     public void setBufferSize(int bufferSize) {
         m_bufferSize = bufferSize;
     }
 
     /**
-     * <p>getBufferSize</p>
+     * <p>
+     * getBufferSize
+     * </p>
      *
      * @return a int.
      */
@@ -195,16 +243,21 @@ public class AsyncSimpleServer {
     }
 
     /**
-     * <p>setIdleTime</p>
+     * <p>
+     * setIdleTime
+     * </p>
      *
-     * @param idleTime a int.
+     * @param idleTime
+     *            a int.
      */
     public void setIdleTime(int idleTime) {
         m_idleTime = idleTime;
     }
 
     /**
-     * <p>getIdleTime</p>
+     * <p>
+     * getIdleTime
+     * </p>
      *
      * @return a int.
      */

@@ -42,7 +42,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>DnsDetector class.</p>
+ * <p>
+ * DnsDetector class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -53,10 +55,13 @@ import org.springframework.stereotype.Component;
 public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DnsDetector.class);
+
     private static final String DEFAULT_SERVICE_NAME = "DNS";
 
     private final static int DEFAULT_PORT = 53;
+
     private final static String DEFAULT_LOOKUP = "localhost";
+
     private String m_lookup = DEFAULT_LOOKUP;
 
     /**
@@ -69,15 +74,19 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public DnsDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -132,7 +141,8 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.detector.BasicDetector#getClient()
      */
     /** {@inheritDoc} */
@@ -142,16 +152,21 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
     }
 
     /**
-     * <p>setLookup</p>
+     * <p>
+     * setLookup
+     * </p>
      *
-     * @param lookup the lookup to set
+     * @param lookup
+     *            the lookup to set
      */
     public void setLookup(final String lookup) {
         m_lookup = lookup;
     }
 
     /**
-     * <p>getLookup</p>
+     * <p>
+     * getLookup
+     * </p>
      *
      * @return the lookup
      */

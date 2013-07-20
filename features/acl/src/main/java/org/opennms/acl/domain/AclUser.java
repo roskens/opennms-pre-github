@@ -51,7 +51,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 /**
- * This entity is a ACL application user, extends the {@link org.springframework.security.userdetails.User} to use authentication and authorization Spring Security infrastructure.
+ * This entity is a ACL application user, extends the
+ * {@link org.springframework.security.userdetails.User} to use authentication
+ * and authorization Spring Security infrastructure.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -61,15 +63,24 @@ import org.springframework.security.core.userdetails.User;
 public class AclUser extends User implements Serializable {
 
     /**
-     * Entity that represents an acl application user. Used by Spring Security during authentication. In this constructor you can add additional custom information to AclUser
+     * Entity that represents an acl application user. Used by Spring Security
+     * during authentication. In this constructor you can add additional custom
+     * information to AclUser
      *
-     * @param username a {@link java.lang.String} object.
-     * @param password a {@link java.lang.String} object.
-     * @param isEnabled a boolean.
-     * @param collection an array of {@link org.springframework.security.GrantedAuthority} objects.
-     * @param userInfo a {@link java.util.Map} object.
+     * @param username
+     *            a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
+     * @param isEnabled
+     *            a boolean.
+     * @param collection
+     *            an array of
+     *            {@link org.springframework.security.GrantedAuthority} objects.
+     * @param userInfo
+     *            a {@link java.util.Map} object.
      */
-    public AclUser(String username, String password, boolean isEnabled, Collection<? extends GrantedAuthority> collection, Map<String, ?> userInfo) {
+    public AclUser(String username, String password, boolean isEnabled,
+            Collection<? extends GrantedAuthority> collection, Map<String, ?> userInfo) {
         super(username, password, isEnabled, true, true, true, collection);
         this.userInfo = userInfo;
     }

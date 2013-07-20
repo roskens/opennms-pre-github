@@ -32,8 +32,6 @@ import static org.opennms.core.utils.InetAddressUtils.addr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 import java.net.InetAddress;
 import java.util.Date;
 import java.util.HashSet;
@@ -68,7 +66,9 @@ import org.opennms.netmgt.snmp.TableTracker;
 import org.springframework.util.Assert;
 
 /**
- * <p>NodeScan class.</p>
+ * <p>
+ * NodeScan class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -77,32 +77,56 @@ public class NodeScan implements RunInBatch {
     private static final Logger LOG = LoggerFactory.getLogger(NodeScan.class);
 
     private Integer m_nodeId;
+
     private String m_foreignSource;
+
     private String m_foreignId;
+
     private Date m_scanStamp;
+
     private ProvisionService m_provisionService;
+
     private EventForwarder m_eventForwarder;
+
     private SnmpAgentConfigFactory m_agentConfigFactory;
+
     private DefaultTaskCoordinator m_taskCoordinator;
 
-    //NOTE TO SELF: This is referenced from the AgentScan inner class
+    // NOTE TO SELF: This is referenced from the AgentScan inner class
     private boolean m_aborted = false;
 
     private OnmsNode m_node;
+
     private boolean m_agentFound = false;
 
     /**
-     * <p>Constructor for NodeScan.</p>
+     * <p>
+     * Constructor for NodeScan.
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param provisionService a {@link org.opennms.netmgt.provision.service.ProvisionService} object.
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
-     * @param agentConfigFactory a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory} object.
-     * @param taskCoordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param provisionService
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *            object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
+     * @param agentConfigFactory
+     *            a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
+     *            object.
+     * @param taskCoordinator
+     *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
      */
-    public NodeScan(final Integer nodeId, final String foreignSource, final String foreignId, final ProvisionService provisionService, final EventForwarder eventForwarder, final SnmpAgentConfigFactory agentConfigFactory, final DefaultTaskCoordinator taskCoordinator) {
+    public NodeScan(final Integer nodeId, final String foreignSource, final String foreignId,
+            final ProvisionService provisionService, final EventForwarder eventForwarder,
+            final SnmpAgentConfigFactory agentConfigFactory, final DefaultTaskCoordinator taskCoordinator) {
         m_nodeId = nodeId;
         m_foreignSource = foreignSource;
         m_foreignId = foreignId;
@@ -115,7 +139,9 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,7 +150,9 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>getForeignId</p>
+     * <p>
+     * getForeignId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -133,7 +161,9 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -142,7 +172,9 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -151,7 +183,8 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * @param agentFound the agentFound to set
+     * @param agentFound
+     *            the agentFound to set
      */
     private void setAgentFound(final boolean agentFound) {
         m_agentFound = agentFound;
@@ -165,7 +198,9 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>getScanStamp</p>
+     * <p>
+     * getScanStamp
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -173,10 +208,10 @@ public class NodeScan implements RunInBatch {
         return m_scanStamp;
     }
 
-
-
     /**
-     * <p>getProvisionService</p>
+     * <p>
+     * getProvisionService
+     * </p>
      *
      * @return the provisionService
      */
@@ -185,7 +220,9 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>getEventForwarder</p>
+     * <p>
+     * getEventForwarder
+     * </p>
      *
      * @return the eventForwarder
      */
@@ -194,7 +231,9 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>getTaskCoordinator</p>
+     * <p>
+     * getTaskCoordinator
+     * </p>
      *
      * @return a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
      */
@@ -203,7 +242,9 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>isAborted</p>
+     * <p>
+     * isAborted
+     * </p>
      *
      * @return a boolean.
      */
@@ -212,9 +253,12 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>abort</p>
+     * <p>
+     * abort
+     * </p>
      *
-     * @param reason a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      */
     public void abort(final String reason) {
         m_aborted = true;
@@ -242,66 +286,66 @@ public class NodeScan implements RunInBatch {
     public void run(final BatchTask parent) {
         LOG.info("Scanning node {}/{}/{}", m_nodeId, m_foreignSource, m_foreignId);
 
-        parent.getBuilder().addSequence(
-                new RunInBatch() {
-                    @Override
-                    public void run(final BatchTask phase) {
-                        loadNode(phase);
-                    }
-                },
-                new RunInBatch() {
-                    @Override
-                    public void run(final BatchTask phase) {
-                        detectAgents(phase);
-                    }
-                },
-                new RunInBatch() {
-                    @Override
-                    public void run(final BatchTask phase) {
-                        handleAgentUndetected(phase);
-                    }
-                },
-                new RunInBatch() {
-                    @Override
-                    public void run(final BatchTask phase) {
-                        scanCompleted(phase);
-                    }
-                }
-        );
-
+        parent.getBuilder().addSequence(new RunInBatch() {
+            @Override
+            public void run(final BatchTask phase) {
+                loadNode(phase);
+            }
+        }, new RunInBatch() {
+            @Override
+            public void run(final BatchTask phase) {
+                detectAgents(phase);
+            }
+        }, new RunInBatch() {
+            @Override
+            public void run(final BatchTask phase) {
+                handleAgentUndetected(phase);
+            }
+        }, new RunInBatch() {
+            @Override
+            public void run(final BatchTask phase) {
+                scanCompleted(phase);
+            }
+        });
 
     }
 
-
     ScheduledFuture<?> schedule(ScheduledExecutorService executor, NodeScanSchedule schedule) {
 
-    	final Runnable r = new Runnable() {
+        final Runnable r = new Runnable() {
             @Override
             public void run() {
                 try {
 
-                	final Task t = createTask();
+                    final Task t = createTask();
                     t.schedule();
                     t.waitFor();
 
                     LOG.info("Finished scanning node {}/{}/{}", getNodeId(), getForeignSource(), getForeignId());
                 } catch (final InterruptedException e) {
-                    LOG.warn("The node scan for node {}/{}/{} was interrupted", getNodeId(), getForeignSource(), getForeignId(), e);
+                    LOG.warn("The node scan for node {}/{}/{} was interrupted", getNodeId(), getForeignSource(),
+                             getForeignId(), e);
                     Thread.currentThread().interrupt();
                 } catch (final ExecutionException e) {
-                    LOG.warn("An error occurred while scanning node {}/{}/{}", getNodeId(), getForeignSource(), getForeignId(), e);
+                    LOG.warn("An error occurred while scanning node {}/{}/{}", getNodeId(), getForeignSource(),
+                             getForeignId(), e);
                 }
             }
         };
 
-        final ScheduledFuture<?> future = executor.scheduleWithFixedDelay(r, schedule.getInitialDelay().getMillis(), schedule.getScanInterval().getMillis(), TimeUnit.MILLISECONDS);
+        final ScheduledFuture<?> future = executor.scheduleWithFixedDelay(r, schedule.getInitialDelay().getMillis(),
+                                                                          schedule.getScanInterval().getMillis(),
+                                                                          TimeUnit.MILLISECONDS);
         return future;
     }
 
     /**
-     * <p>loadNode</p>
+     * <p>
+     * loadNode
+     * </p>
      *
-     * @param loadNode a {@link org.opennms.core.tasks.BatchTask} object.
+     * @param loadNode
+     *            a {@link org.opennms.core.tasks.BatchTask} object.
      */
     public void loadNode(final BatchTask loadNode) {
         if (getForeignSource() != null) {
@@ -309,8 +353,9 @@ public class NodeScan implements RunInBatch {
             if (m_node == null) {
                 abort(String.format("Unable to get requisitioned node (%s/%s): aborted", m_foreignSource, m_foreignId));
             } else {
-                for(final OnmsIpInterface iface : m_node.getIpInterfaces()) {
-                    loadNode.add(new IpInterfaceScan(getNodeId(), iface.getIpAddress(), getForeignSource(), getProvisionService()));
+                for (final OnmsIpInterface iface : m_node.getIpInterfaces()) {
+                    loadNode.add(new IpInterfaceScan(getNodeId(), iface.getIpAddress(), getForeignSource(),
+                                                     getProvisionService()));
                 }
             }
         } else {
@@ -320,11 +365,16 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>createAgentScan</p>
+     * <p>
+     * createAgentScan
+     * </p>
      *
-     * @param agentAddress a {@link java.net.InetAddress} object.
-     * @param agentType a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.service.NodeScan.AgentScan} object.
+     * @param agentAddress
+     *            a {@link java.net.InetAddress} object.
+     * @param agentType
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.provision.service.NodeScan.AgentScan}
+     *         object.
      */
     public AgentScan createAgentScan(final InetAddress agentAddress, final String agentType) {
         return new AgentScan(getNodeId(), getNode(), agentAddress, agentType);
@@ -342,9 +392,11 @@ public class NodeScan implements RunInBatch {
     public class AgentScan extends BaseAgentScan implements NeedsContainer, ScanProgress {
 
         private InetAddress m_agentAddress;
+
         private String m_agentType;
 
-        public AgentScan(final Integer nodeId, final OnmsNode node, final InetAddress agentAddress, final String agentType) {
+        public AgentScan(final Integer nodeId, final OnmsNode node, final InetAddress agentAddress,
+                final String agentType) {
             super(nodeId, node);
             m_agentAddress = agentAddress;
             m_agentType = agentType;
@@ -364,10 +416,7 @@ public class NodeScan implements RunInBatch {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this)
-                .append("address", m_agentAddress)
-                .append("type", m_agentType)
-                .toString();
+            return new ToStringBuilder(this).append("address", m_agentAddress).append("type", m_agentType).toString();
         }
 
         public EventForwarder getEventForwarder() {
@@ -376,7 +425,9 @@ public class NodeScan implements RunInBatch {
 
         void completed() {
             if (!isAborted()) {
-            	final EventBuilder bldr = new EventBuilder(EventConstants.REINITIALIZE_PRIMARY_SNMP_INTERFACE_EVENT_UEI, "Provisiond");
+                final EventBuilder bldr = new EventBuilder(
+                                                           EventConstants.REINITIALIZE_PRIMARY_SNMP_INTERFACE_EVENT_UEI,
+                                                           "Provisiond");
                 bldr.setNodeid(getNodeId());
                 bldr.setInterface(getAgentAddress());
                 getEventForwarder().sendNow(bldr.getEvent());
@@ -396,45 +447,47 @@ public class NodeScan implements RunInBatch {
         }
 
         public void detectIpAddressTable(final BatchTask currentPhase) {
-        	final OnmsNode node = getNode();
+            final OnmsNode node = getNode();
 
             LOG.debug("Attempting to scan the IPAddress table for node {}", node);
 
-			// mark all provisioned interfaces as 'in need of scanning' so we can mark them
+            // mark all provisioned interfaces as 'in need of scanning' so we
+            // can mark them
             // as scanned during ipAddrTable processing
             final Set<InetAddress> provisionedIps = new HashSet<InetAddress>();
             if (getForeignSource() != null) {
-                for(final OnmsIpInterface provisioned : node.getIpInterfaces()) {
+                for (final OnmsIpInterface provisioned : node.getIpInterfaces()) {
                     provisionedIps.add(provisioned.getIpAddress());
                 }
             }
 
             final IPAddressTableTracker ipAddressTracker = new IPAddressTableTracker() {
-            	@Override
-            	public void processIPAddressRow(final IPAddressRow row) {
-            		final String ipAddress = row.getIpAddress();
-					LOG.info("Processing IPAddress table row with ipAddr {}", ipAddress);
+                @Override
+                public void processIPAddressRow(final IPAddressRow row) {
+                    final String ipAddress = row.getIpAddress();
+                    LOG.info("Processing IPAddress table row with ipAddr {}", ipAddress);
 
-					final InetAddress address = addr(ipAddress);
+                    final InetAddress address = addr(ipAddress);
 
-					// skip if it's any number of unusual/local address types
-					if (address == null) return;
-					if (address.isAnyLocalAddress()) {
-						LOG.debug("{}.isAnyLocalAddress() == true, Skipping.", ipAddress);
-						return;
-					}
-					if (address.isLinkLocalAddress()) {
-						LOG.debug("{}.isLinkLocalAddress() == true, Skipping.", ipAddress);
-						return;
-					}
-					if (address.isLoopbackAddress()) {
-						LOG.debug("{}.isLoopbackAddress() == true, Skipping.", ipAddress);
-						return;
-					}
-					if (address.isMulticastAddress()) {
-						LOG.debug("{}.isMulticastAddress() == true, Skipping.", ipAddress);
-						return;
-					}
+                    // skip if it's any number of unusual/local address types
+                    if (address == null)
+                        return;
+                    if (address.isAnyLocalAddress()) {
+                        LOG.debug("{}.isAnyLocalAddress() == true, Skipping.", ipAddress);
+                        return;
+                    }
+                    if (address.isLinkLocalAddress()) {
+                        LOG.debug("{}.isLinkLocalAddress() == true, Skipping.", ipAddress);
+                        return;
+                    }
+                    if (address.isLoopbackAddress()) {
+                        LOG.debug("{}.isLoopbackAddress() == true, Skipping.", ipAddress);
+                        return;
+                    }
+                    if (address.isMulticastAddress()) {
+                        LOG.debug("{}.isMulticastAddress() == true, Skipping.", ipAddress);
+                        return;
+                    }
 
                     // mark any provisioned interface as scanned
                     provisionedIps.remove(ipAddress);
@@ -445,8 +498,9 @@ public class NodeScan implements RunInBatch {
                         iface.setIpLastCapsdPoll(getScanStamp());
                         iface.setIsManaged("M");
 
-                        final List<IpInterfacePolicy> policies = getProvisionService().getIpInterfacePoliciesForForeignSource(getForeignSource() == null ? "default" : getForeignSource());
-                        for(final IpInterfacePolicy policy : policies) {
+                        final List<IpInterfacePolicy> policies = getProvisionService().getIpInterfacePoliciesForForeignSource(getForeignSource() == null ? "default"
+                                                                                                                                  : getForeignSource());
+                        for (final IpInterfacePolicy policy : policies) {
                             if (iface != null) {
                                 iface = policy.apply(iface);
                             }
@@ -456,52 +510,55 @@ public class NodeScan implements RunInBatch {
                             currentPhase.add(ipUpdater(currentPhase, iface), "write");
                         }
                     }
-            	}
+                }
             };
 
             walkTable(currentPhase, provisionedIps, ipAddressTracker);
         }
 
         public void detectIpInterfaceTable(final BatchTask currentPhase) {
-        	final OnmsNode node = getNode();
+            final OnmsNode node = getNode();
 
             LOG.debug("Attempting to scan the IPInterface table for node {}", node);
 
-			// mark all provisioned interfaces as 'in need of scanning' so we can mark them
+            // mark all provisioned interfaces as 'in need of scanning' so we
+            // can mark them
             // as scanned during ipAddrTable processing
             final Set<InetAddress> provisionedIps = new HashSet<InetAddress>();
             if (getForeignSource() != null) {
-                for(final OnmsIpInterface provisioned : node.getIpInterfaces()) {
+                for (final OnmsIpInterface provisioned : node.getIpInterfaces()) {
                     provisionedIps.add(provisioned.getIpAddress());
                 }
             }
 
             final IPInterfaceTableTracker ipIfTracker = new IPInterfaceTableTracker() {
-            	@Override
-            	public void processIPInterfaceRow(final IPInterfaceRow row) {
-            		final String ipAddress = row.getIpAddress();
-            		LOG.info("Processing IPInterface table row with ipAddr {} for node {}/{}/{}", ipAddress, node.getId(), node.getForeignSource(), node.getForeignId());
+                @Override
+                public void processIPInterfaceRow(final IPInterfaceRow row) {
+                    final String ipAddress = row.getIpAddress();
+                    LOG.info("Processing IPInterface table row with ipAddr {} for node {}/{}/{}", ipAddress,
+                             node.getId(), node.getForeignSource(), node.getForeignId());
 
-					final InetAddress address = addr(ipAddress);
+                    final InetAddress address = addr(ipAddress);
 
-					// skip if it's any number of unusual/local address types
-					if (address == null) return;
-					if (address.isAnyLocalAddress()) {
-						LOG.debug("{}.isAnyLocalAddress() == true, Skipping.", ipAddress);
-						return;
-					}
-					if (address.isLinkLocalAddress()) {
-						LOG.debug("{}.isLinkLocalAddress() == true, Skipping.", ipAddress);
-						return;
-					}
-					if (address.isLoopbackAddress()) {
-						LOG.debug("{}.isLoopbackAddress() == true, Skipping.", ipAddress);
-						return;
-					}
-					if (address.isMulticastAddress()) {
-						LOG.debug("{}.isMulticastAddress() == true, Skipping.", ipAddress);
-						return;
-					}
+                    // skip if it's any number of unusual/local address types
+                    if (address == null)
+                        return;
+                    if (address.isAnyLocalAddress()) {
+                        LOG.debug("{}.isAnyLocalAddress() == true, Skipping.", ipAddress);
+                        return;
+                    }
+                    if (address.isLinkLocalAddress()) {
+                        LOG.debug("{}.isLinkLocalAddress() == true, Skipping.", ipAddress);
+                        return;
+                    }
+                    if (address.isLoopbackAddress()) {
+                        LOG.debug("{}.isLoopbackAddress() == true, Skipping.", ipAddress);
+                        return;
+                    }
+                    if (address.isMulticastAddress()) {
+                        LOG.debug("{}.isMulticastAddress() == true, Skipping.", ipAddress);
+                        return;
+                    }
 
                     // mark any provisioned interface as scanned
                     provisionedIps.remove(ipAddress);
@@ -510,21 +567,22 @@ public class NodeScan implements RunInBatch {
                     OnmsIpInterface iface = row.createInterfaceFromRow();
 
                     if (iface != null) {
-	                    iface.setIpLastCapsdPoll(getScanStamp());
+                        iface.setIpLastCapsdPoll(getScanStamp());
 
-	                    // add call to the ip interface is managed policies
-	                    iface.setIsManaged("M");
+                        // add call to the ip interface is managed policies
+                        iface.setIsManaged("M");
 
-	                    final List<IpInterfacePolicy> policies = getProvisionService().getIpInterfacePoliciesForForeignSource(getForeignSource() == null ? "default" : getForeignSource());
-	                    for(final IpInterfacePolicy policy : policies) {
-	                        if (iface != null) {
-	                            iface = policy.apply(iface);
-	                        }
-	                    }
+                        final List<IpInterfacePolicy> policies = getProvisionService().getIpInterfacePoliciesForForeignSource(getForeignSource() == null ? "default"
+                                                                                                                                  : getForeignSource());
+                        for (final IpInterfacePolicy policy : policies) {
+                            if (iface != null) {
+                                iface = policy.apply(iface);
+                            }
+                        }
 
-	                    if (iface != null) {
-	                        currentPhase.add(ipUpdater(currentPhase, iface), "write");
-	                    }
+                        if (iface != null) {
+                            currentPhase.add(ipUpdater(currentPhase, iface), "write");
+                        }
                     }
                 }
             };
@@ -532,66 +590,73 @@ public class NodeScan implements RunInBatch {
             walkTable(currentPhase, provisionedIps, ipIfTracker);
         }
 
-		private void walkTable(final BatchTask currentPhase, final Set<InetAddress> provisionedIps, final TableTracker tracker) {
+        private void walkTable(final BatchTask currentPhase, final Set<InetAddress> provisionedIps,
+                final TableTracker tracker) {
             final OnmsNode node = getNode();
-			LOG.info("detecting IP interfaces for node {}/{}/{} using table tracker {}", node.getId(), node.getForeignSource(), node.getForeignId(), tracker);
+            LOG.info("detecting IP interfaces for node {}/{}/{} using table tracker {}", node.getId(),
+                     node.getForeignSource(), node.getForeignId(), tracker);
 
-			if (isAborted()) {
-				LOG.debug("'{}' is marked as aborted; skipping scan of table {}", currentPhase, tracker);
-			} else {
-	            Assert.notNull(getAgentConfigFactory(), "agentConfigFactory was not injected");
+            if (isAborted()) {
+                LOG.debug("'{}' is marked as aborted; skipping scan of table {}", currentPhase, tracker);
+            } else {
+                Assert.notNull(getAgentConfigFactory(), "agentConfigFactory was not injected");
 
-	        	final SnmpAgentConfig agentConfig = getAgentConfigFactory().getAgentConfig(getAgentAddress());
+                final SnmpAgentConfig agentConfig = getAgentConfigFactory().getAgentConfig(getAgentAddress());
 
-				final SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "IP address tables", tracker);
-				walker.start();
+                final SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "IP address tables", tracker);
+                walker.start();
 
-				try {
-				    walker.waitFor();
+                try {
+                    walker.waitFor();
 
-				    if (walker.timedOut()) {
-				        abort("Aborting node scan : Agent timed out while scanning the IP address tables");
-				    }
-				    else if (walker.failed()) {
-				        abort("Aborting node scan : Agent failed while scanning the IP address tables : " + walker.getErrorMessage());
-				    } else {
+                    if (walker.timedOut()) {
+                        abort("Aborting node scan : Agent timed out while scanning the IP address tables");
+                    } else if (walker.failed()) {
+                        abort("Aborting node scan : Agent failed while scanning the IP address tables : "
+                                + walker.getErrorMessage());
+                    } else {
 
-				        // After processing the SNMP provided interfaces then we need to scan any that
-				        // were provisioned but missing from the ip table
-				        for(final InetAddress ipAddr : provisionedIps) {
-				            final OnmsIpInterface iface = node.getIpInterfaceByIpAddress(ipAddr);
+                        // After processing the SNMP provided interfaces then we
+                        // need to scan any that
+                        // were provisioned but missing from the ip table
+                        for (final InetAddress ipAddr : provisionedIps) {
+                            final OnmsIpInterface iface = node.getIpInterfaceByIpAddress(ipAddr);
 
-				            if (iface != null) {
-					            iface.setIpLastCapsdPoll(getScanStamp());
-					            iface.setIsManaged("M");
+                            if (iface != null) {
+                                iface.setIpLastCapsdPoll(getScanStamp());
+                                iface.setIsManaged("M");
 
-					            currentPhase.add(ipUpdater(currentPhase, iface), "write");
-				            }
-				        }
+                                currentPhase.add(ipUpdater(currentPhase, iface), "write");
+                            }
+                        }
 
-				        LOG.debug("Finished phase {}", currentPhase);
+                        LOG.debug("Finished phase {}", currentPhase);
 
-				    }
-				} catch (final InterruptedException e) {
-				    abort("Aborting node scan : Scan thread failed while waiting for the IP address tables");
-				}
-			}
-		}
+                    }
+                } catch (final InterruptedException e) {
+                    abort("Aborting node scan : Scan thread failed while waiting for the IP address tables");
+                }
+            }
+        }
 
         public void detectPhysicalInterfaces(final BatchTask currentPhase) {
-            if (isAborted()) { return; }
+            if (isAborted()) {
+                return;
+            }
             final SnmpAgentConfig agentConfig = getAgentConfigFactory().getAgentConfig(getAgentAddress());
             Assert.notNull(getAgentConfigFactory(), "agentConfigFactory was not injected");
 
             final PhysInterfaceTableTracker physIfTracker = new PhysInterfaceTableTracker() {
                 @Override
                 public void processPhysicalInterfaceRow(PhysicalInterfaceRow row) {
-                	LOG.info("Processing ifTable row for ifIndex {} on node {}/{}/{}", row.getIfIndex(), getNodeId(), getForeignSource(), getForeignId());
-                	OnmsSnmpInterface snmpIface = row.createInterfaceFromRow();
+                    LOG.info("Processing ifTable row for ifIndex {} on node {}/{}/{}", row.getIfIndex(), getNodeId(),
+                             getForeignSource(), getForeignId());
+                    OnmsSnmpInterface snmpIface = row.createInterfaceFromRow();
                     snmpIface.setLastCapsdPoll(getScanStamp());
 
-                    final List<SnmpInterfacePolicy> policies = getProvisionService().getSnmpInterfacePoliciesForForeignSource(getForeignSource() == null ? "default" : getForeignSource());
-                    for(final SnmpInterfacePolicy policy : policies) {
+                    final List<SnmpInterfacePolicy> policies = getProvisionService().getSnmpInterfacePoliciesForForeignSource(getForeignSource() == null ? "default"
+                                                                                                                                  : getForeignSource());
+                    for (final SnmpInterfacePolicy policy : policies) {
                         if (snmpIface != null) {
                             snmpIface = policy.apply(snmpIface);
                         }
@@ -600,7 +665,8 @@ public class NodeScan implements RunInBatch {
                     if (snmpIface != null) {
                         final OnmsSnmpInterface snmpIfaceResult = snmpIface;
 
-                        // add call to the SNMP interface collection enable policies
+                        // add call to the SNMP interface collection enable
+                        // policies
 
                         final Runnable r = new Runnable() {
                             @Override
@@ -621,11 +687,10 @@ public class NodeScan implements RunInBatch {
 
                 if (walker.timedOut()) {
                     abort("Aborting node scan : Agent timed out while scanning the interfaces table");
-                }
-                else if (walker.failed()) {
-                    abort("Aborting node scan : Agent failed while scanning the interfaces table: " + walker.getErrorMessage());
-                }
-                else {
+                } else if (walker.failed()) {
+                    abort("Aborting node scan : Agent failed while scanning the interfaces table: "
+                            + walker.getErrorMessage());
+                } else {
                     LOG.debug("Finished phase {}", currentPhase);
                 }
             } catch (final InterruptedException e) {
@@ -636,44 +701,38 @@ public class NodeScan implements RunInBatch {
 
         @Override
         public void run(final ContainerTask<?> parent) {
-            parent.getBuilder().addSequence(
-                    new NodeInfoScan(getNode(),getAgentAddress(), getForeignSource(), this, getAgentConfigFactory(), getProvisionService(), getNodeId()),
-                    new RunInBatch() {
-                        @Override
-                        public void run(final BatchTask phase) {
-                            detectPhysicalInterfaces(phase);
-                        }
-                    },
-                    new RunInBatch() {
-                        @Override
-                        public void run(final BatchTask phase) {
-                        	detectIpAddressTable(phase);
-                        }
-                    },
-                    new RunInBatch() {
-                        @Override
-                        public void run(final BatchTask phase) {
-                            detectIpInterfaceTable(phase);
-                        }
-                    },
-                    new RunInBatch() {
-                        @Override
-                        public void run(final BatchTask phase) {
-                            deleteObsoleteResources();
-                        }
-                    },
-                    new RunInBatch() {
-                        @Override
-                        public void run(final BatchTask phase) {
-                            completed();
-                        }
-                    }
-            );
+            parent.getBuilder().addSequence(new NodeInfoScan(getNode(), getAgentAddress(), getForeignSource(), this,
+                                                             getAgentConfigFactory(), getProvisionService(),
+                                                             getNodeId()), new RunInBatch() {
+                                                @Override
+                                                public void run(final BatchTask phase) {
+                                                    detectPhysicalInterfaces(phase);
+                                                }
+                                            }, new RunInBatch() {
+                                                @Override
+                                                public void run(final BatchTask phase) {
+                                                    detectIpAddressTable(phase);
+                                                }
+                                            }, new RunInBatch() {
+                                                @Override
+                                                public void run(final BatchTask phase) {
+                                                    detectIpInterfaceTable(phase);
+                                                }
+                                            }, new RunInBatch() {
+                                                @Override
+                                                public void run(final BatchTask phase) {
+                                                    deleteObsoleteResources();
+                                                }
+                                            }, new RunInBatch() {
+                                                @Override
+                                                public void run(final BatchTask phase) {
+                                                    completed();
+                                                }
+                                            });
         }
     }
 
     public class NoAgentScan extends BaseAgentScan implements NeedsContainer {
-
 
         private NoAgentScan(final Integer nodeId, final OnmsNode node) {
             super(nodeId, node);
@@ -684,17 +743,18 @@ public class NodeScan implements RunInBatch {
         }
 
         private void applyNodePolicies(final BatchTask phase) {
-        	final List<NodePolicy> nodePolicies = getProvisionService().getNodePoliciesForForeignSource(getForeignSource() == null ? "default" : getForeignSource());
+            final List<NodePolicy> nodePolicies = getProvisionService().getNodePoliciesForForeignSource(getForeignSource() == null ? "default"
+                                                                                                            : getForeignSource());
 
-        	OnmsNode node = getNode();
-        	for(final NodePolicy policy : nodePolicies) {
+            OnmsNode node = getNode();
+            for (final NodePolicy policy : nodePolicies) {
                 if (node != null) {
                     node = policy.apply(node);
                 }
             }
 
             if (node == null) {
-            	abort("Aborted scan of node due to configured policy");
+                abort("Aborted scan of node due to configured policy");
             } else {
                 setNode(node);
             }
@@ -704,7 +764,7 @@ public class NodeScan implements RunInBatch {
         void stampProvisionedInterfaces(final BatchTask phase) {
             if (!isAborted()) {
 
-                for(final OnmsIpInterface iface : getNode().getIpInterfaces()) {
+                for (final OnmsIpInterface iface : getNode().getIpInterfaces()) {
                     iface.setIpLastCapsdPoll(getScanStamp());
                     phase.add(ipUpdater(phase, iface), "write");
 
@@ -727,32 +787,27 @@ public class NodeScan implements RunInBatch {
 
         @Override
         public void run(final ContainerTask<?> parent) {
-            parent.getBuilder().addSequence(
-                    new RunInBatch() {
-                        @Override
-                        public void run(final BatchTask phase) {
-                            applyNodePolicies(phase);
-                        }
-                    },
-                    new RunInBatch() {
-                        @Override
-                        public void run(final BatchTask phase) {
-                            stampProvisionedInterfaces(phase);
-                        }
-                    },
-                    new RunInBatch() {
-                        @Override
-                        public void run(final BatchTask phase) {
-                            deleteObsoleteResources(phase);
-                        }
-                    },
-                    new RunInBatch() {
-                        @Override
-                        public void run(final BatchTask phase) {
-                            doPersistNodeInfo(phase);
-                        }
-                    }
-            );
+            parent.getBuilder().addSequence(new RunInBatch() {
+                @Override
+                public void run(final BatchTask phase) {
+                    applyNodePolicies(phase);
+                }
+            }, new RunInBatch() {
+                @Override
+                public void run(final BatchTask phase) {
+                    stampProvisionedInterfaces(phase);
+                }
+            }, new RunInBatch() {
+                @Override
+                public void run(final BatchTask phase) {
+                    deleteObsoleteResources(phase);
+                }
+            }, new RunInBatch() {
+                @Override
+                public void run(final BatchTask phase) {
+                    doPersistNodeInfo(phase);
+                }
+            });
         }
 
     }
@@ -760,6 +815,7 @@ public class NodeScan implements RunInBatch {
     public class BaseAgentScan {
 
         private OnmsNode m_node;
+
         private Integer m_nodeId;
 
         private BaseAgentScan(final Integer nodeId, final OnmsNode node) {
@@ -801,18 +857,17 @@ public class NodeScan implements RunInBatch {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this)
-                .append("foreign source", getForeignSource())
-                .append("foreign id", getForeignId())
-                .append("node id", m_nodeId)
-                .append("scan stamp", m_scanStamp)
-                .toString();
+            return new ToStringBuilder(this).append("foreign source", getForeignSource()).append("foreign id",
+                                                                                                 getForeignId()).append("node id",
+                                                                                                                        m_nodeId).append("scan stamp",
+                                                                                                                                         m_scanStamp).toString();
         }
 
         void updateIpInterface(final BatchTask currentPhase, final OnmsIpInterface iface) {
             getProvisionService().updateIpInterfaceAttributes(getNodeId(), iface);
             if (iface.isManaged()) {
-                currentPhase.add(new IpInterfaceScan(getNodeId(), iface.getIpAddress(), getForeignSource(), getProvisionService()));
+                currentPhase.add(new IpInterfaceScan(getNodeId(), iface.getIpAddress(), getForeignSource(),
+                                                     getProvisionService()));
             }
         }
 
@@ -829,45 +884,51 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("foreign source", m_foreignSource)
-            .append("foreign id", m_foreignId)
-            .append("node id", m_nodeId)
-            .append("aborted", m_aborted)
-            .append("provision service", m_provisionService)
-            .toString();
+        return new ToStringBuilder(this).append("foreign source", m_foreignSource).append("foreign id", m_foreignId).append("node id",
+                                                                                                                            m_nodeId).append("aborted",
+                                                                                                                                             m_aborted).append("provision service",
+                                                                                                                                                               m_provisionService).toString();
     }
 
-
     /**
-     * <p>detectAgents</p>
+     * <p>
+     * detectAgents
+     * </p>
      *
-     * @param currentPhase a {@link org.opennms.core.tasks.BatchTask} object.
+     * @param currentPhase
+     *            a {@link org.opennms.core.tasks.BatchTask} object.
      */
     public void detectAgents(final BatchTask currentPhase) {
 
         if (!isAborted()) {
-        	final OnmsNode node = getNode();
-        	final OnmsIpInterface primaryIface = m_provisionService.getPrimaryInterfaceForNode(node);
+            final OnmsNode node = getNode();
+            final OnmsIpInterface primaryIface = m_provisionService.getPrimaryInterfaceForNode(node);
             if (primaryIface != null && primaryIface.getMonitoredServiceByServiceType("SNMP") != null) {
-                LOG.debug("Found primary interface and SNMP service for node {}/{}/{}", node.getId(), node.getForeignSource(), node.getForeignId());
+                LOG.debug("Found primary interface and SNMP service for node {}/{}/{}", node.getId(),
+                          node.getForeignSource(), node.getForeignId());
                 onAgentFound(currentPhase, primaryIface);
             } else {
-                LOG.debug("Failed to locate primary interface and SNMP service for node {}/{}/{}", node.getId(), node.getForeignSource(), node.getForeignId());
+                LOG.debug("Failed to locate primary interface and SNMP service for node {}/{}/{}", node.getId(),
+                          node.getForeignSource(), node.getForeignId());
             }
         }
     }
 
     /**
-     * <p>handleAgentUndetected</p>
+     * <p>
+     * handleAgentUndetected
+     * </p>
      *
-     * @param currentPhase a {@link org.opennms.core.tasks.BatchTask} object.
+     * @param currentPhase
+     *            a {@link org.opennms.core.tasks.BatchTask} object.
      */
     public void handleAgentUndetected(final BatchTask currentPhase) {
 
@@ -884,13 +945,16 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
-     * <p>scanCompleted</p>
+     * <p>
+     * scanCompleted
+     * </p>
      *
-     * @param currentPhase a {@link org.opennms.core.tasks.BatchTask} object.
+     * @param currentPhase
+     *            a {@link org.opennms.core.tasks.BatchTask} object.
      */
     public void scanCompleted(final BatchTask currentPhase) {
         if (!isAborted()) {
-        	final EventBuilder bldr = new EventBuilder(EventConstants.PROVISION_SCAN_COMPLETE_UEI, "Provisiond");
+            final EventBuilder bldr = new EventBuilder(EventConstants.PROVISION_SCAN_COMPLETE_UEI, "Provisiond");
             bldr.setNodeid(getNodeId());
             bldr.addParam(EventConstants.PARM_FOREIGN_SOURCE, getForeignSource());
             bldr.addParam(EventConstants.PARM_FOREIGN_ID, getForeignId());

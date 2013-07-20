@@ -36,7 +36,6 @@ import org.junit.Test;
 
 public class ResourceQueryParserTest {
 
-
     @Test
     public void testCommandParsing() {
         ResourceQueryCommandParser parser = new ResourceQueryCommandParser();

@@ -86,12 +86,8 @@ public class JdbcDataCollectionConfigTest {
         jdbcRrd.setStep(300);
 
         JdbcStatement jdbcStatement = new JdbcStatement();
-        jdbcStatement.setJdbcQuery(
-        "SELECT COUNT(eventid) as EventCount\n"+
-        "FROM events\n"+
-        "WHERE eventtime\n"+
-        "BETWEEN (CURRENT_TIMESTAMP - INTERVAL '1 day')\n"+
-        "AND CURRENT_TIMESTAMP;");
+        jdbcStatement.setJdbcQuery("SELECT COUNT(eventid) as EventCount\n" + "FROM events\n" + "WHERE eventtime\n"
+                + "BETWEEN (CURRENT_TIMESTAMP - INTERVAL '1 day')\n" + "AND CURRENT_TIMESTAMP;");
 
         JdbcColumn column = new JdbcColumn();
         column.setColumnName("eventCount");
@@ -146,7 +142,8 @@ public class JdbcDataCollectionConfigTest {
         StringBuffer exampleXML = new StringBuffer();
         File jdbcCollectionConfig = new File(ClassLoader.getSystemResource("jdbc-datacollection-config.xml").getFile());
         assertTrue("jdbc-datacollection-config.xml is readable", jdbcCollectionConfig.canRead());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jdbcCollectionConfig), "UTF-8"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jdbcCollectionConfig),
+                                                                         "UTF-8"));
         String line;
         while (true) {
             line = reader.readLine();
@@ -165,7 +162,8 @@ public class JdbcDataCollectionConfigTest {
         System.err.println("========================================================================");
         System.err.print(exampleXML.toString());
         DetailedDiff myDiff = getDiff(objectXML, exampleXML);
-        assertEquals("number of XMLUnit differences between the example XML and the mock object XML is 0", 0, myDiff.getAllDifferences().size());
+        assertEquals("number of XMLUnit differences between the example XML and the mock object XML is 0", 0,
+                     myDiff.getAllDifferences().size());
     }
 
     @Test
@@ -180,8 +178,7 @@ public class JdbcDataCollectionConfigTest {
     }
 
     @SuppressWarnings("unchecked")
-    private DetailedDiff getDiff(StringWriter objectXML,
-            StringBuffer exampleXML) throws SAXException, IOException {
+    private DetailedDiff getDiff(StringWriter objectXML, StringBuffer exampleXML) throws SAXException, IOException {
         DetailedDiff myDiff = new DetailedDiff(XMLUnit.compareXML(exampleXML.toString(), objectXML.toString()));
         List<Difference> allDifferences = myDiff.getAllDifferences();
         if (allDifferences.size() > 0) {

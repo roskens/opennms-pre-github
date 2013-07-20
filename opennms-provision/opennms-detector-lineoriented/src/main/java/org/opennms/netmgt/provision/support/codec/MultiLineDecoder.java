@@ -38,7 +38,9 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 import org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedResponse;
 
 /**
- * <p>MultiLineDecoder class.</p>
+ * <p>
+ * MultiLineDecoder class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -46,14 +48,20 @@ import org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedRe
 public class MultiLineDecoder extends CumulativeProtocolDecoder {
 
     private final String m_multilineIndicator;
+
     private Charset m_charset;
+
     protected String CURRENT_RESPONSE = "CURRENT_RESPONSE";
 
     /**
-     * <p>Constructor for MultiLineDecoder.</p>
+     * <p>
+     * Constructor for MultiLineDecoder.
+     * </p>
      *
-     * @param charset a {@link java.nio.charset.Charset} object.
-     * @param multilineIndicator a {@link java.lang.String} object.
+     * @param charset
+     *            a {@link java.nio.charset.Charset} object.
+     * @param multilineIndicator
+     *            a {@link java.lang.String} object.
      */
     public MultiLineDecoder(final Charset charset, final String multilineIndicator) {
         setCharset(charset);
@@ -62,9 +70,10 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
 
     /** {@inheritDoc} */
     @Override
-    protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out) throws Exception {
+    protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out)
+            throws Exception {
         MultilineOrientedResponse response = (MultilineOrientedResponse) session.getAttribute(CURRENT_RESPONSE);
-        if(response == null) {
+        if (response == null) {
             response = new MultilineOrientedResponse();
             session.setAttribute(CURRENT_RESPONSE, response);
         }
@@ -86,19 +95,20 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
                     // The bytes between in.position() and in.limit()
                     // now contain a full CRLF terminated line.
 
-                    // If the multiline indicator is on this line then add the line to
+                    // If the multiline indicator is on this line then add the
+                    // line to
                     // the response object and continue to process the next line
-                    if(checkIndicator(in.slice())) {
+                    if (checkIndicator(in.slice())) {
                         response.addLine(in.getString(getCharset().newDecoder()));
                     } else {
-                        // Otherwise, add the current line and then submit the response
+                        // Otherwise, add the current line and then submit the
+                        // response
                         // to the ProtocolDecoderOutput instance
                         response.addLine(in.getString(getCharset().newDecoder()));
                         out.write(response);
                         session.removeAttribute(CURRENT_RESPONSE);
                         return true;
                     }
-
 
                 } finally {
                     // Set the position to point right after the
@@ -113,7 +123,7 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
                 // buffer.
                 return true;
 
-                }
+            }
 
             previous = current;
         }
@@ -125,11 +135,15 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
     }
 
     /**
-     * <p>checkIndicator</p>
+     * <p>
+     * checkIndicator
+     * </p>
      *
-     * @param in a {@link org.apache.mina.core.buffer.IoBuffer} object.
+     * @param in
+     *            a {@link org.apache.mina.core.buffer.IoBuffer} object.
      * @return a boolean.
-     * @throws java.nio.charset.CharacterCodingException if any.
+     * @throws java.nio.charset.CharacterCodingException
+     *             if any.
      */
     protected boolean checkIndicator(final IoBuffer in) throws CharacterCodingException {
         final String line = in.getString(getCharset().newDecoder());
@@ -137,16 +151,21 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
     }
 
     /**
-     * <p>setCharset</p>
+     * <p>
+     * setCharset
+     * </p>
      *
-     * @param charset a {@link java.nio.charset.Charset} object.
+     * @param charset
+     *            a {@link java.nio.charset.Charset} object.
      */
     public void setCharset(final Charset charset) {
         m_charset = charset;
     }
 
     /**
-     * <p>getCharset</p>
+     * <p>
+     * getCharset
+     * </p>
      *
      * @return a {@link java.nio.charset.Charset} object.
      */
@@ -155,7 +174,9 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
     }
 
     /**
-     * <p>getMultilineIndicator</p>
+     * <p>
+     * getMultilineIndicator
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

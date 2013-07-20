@@ -33,6 +33,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class CountedObject<T> implements Comparable<CountedObject<T>> {
     private T m_object;
+
     private long m_count;
 
     public CountedObject() {
@@ -61,17 +62,13 @@ public class CountedObject<T> implements Comparable<CountedObject<T>> {
 
     @Override
     public int compareTo(final CountedObject<T> o) {
-        return new CompareToBuilder()
-            .append(this.getCount(), (o == null? null:o.getCount()))
-            .append(this.getObject(), (o == null? null:o.getObject()))
-            .toComparison();
+        return new CompareToBuilder().append(this.getCount(), (o == null ? null : o.getCount())).append(this.getObject(),
+                                                                                                        (o == null ? null
+                                                                                                            : o.getObject())).toComparison();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append(this.getObject())
-            .append(this.getCount())
-            .toString();
+        return new ToStringBuilder(this).append(this.getObject()).append(this.getCount()).toString();
     }
 }

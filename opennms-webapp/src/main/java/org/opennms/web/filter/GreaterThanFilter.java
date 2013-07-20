@@ -32,7 +32,9 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * <p>Abstract GreaterThanFilter class.</p>
+ * <p>
+ * Abstract GreaterThanFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,14 +43,22 @@ import org.hibernate.criterion.Restrictions;
 public abstract class GreaterThanFilter<T> extends OneArgFilter<T> {
 
     /**
-     * <p>Constructor for GreaterThanFilter.</p>
+     * <p>
+     * Constructor for GreaterThanFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param type a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param value a T object.
-     * @param <T> a T object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param type
+     *            a {@link org.opennms.web.filter.SQLType} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a T object.
+     * @param <T>
+     *            a T object.
      */
     public GreaterThanFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T value) {
         super(filterType, type, fieldName, propertyName, value);
@@ -65,6 +75,5 @@ public abstract class GreaterThanFilter<T> extends OneArgFilter<T> {
     public String getSQLTemplate() {
         return " " + getSQLFieldName() + " > %s ";
     }
-
 
 }

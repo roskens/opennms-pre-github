@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -42,11 +41,12 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -68,8 +68,6 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
@@ -78,14 +76,19 @@ public class AlarmData {
 
     @XmlAttribute(name = "reduction-key", required = true)
     protected String reductionKey;
+
     @XmlAttribute(name = "alarm-type", required = true)
     protected int alarmType;
+
     @XmlAttribute(name = "clear-key")
     protected String clearKey;
+
     @XmlAttribute(name = "auto-clean")
     protected Boolean autoClean;
+
     @XmlAttribute(name = "x733-alarm-type")
     protected String x733AlarmType;
+
     @XmlAttribute(name = "x733-probable-cause")
     protected Integer x733ProbableCause;
 
@@ -93,9 +96,7 @@ public class AlarmData {
      * Gets the value of the reductionKey property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getReductionKey() {
         return reductionKey;
@@ -105,9 +106,7 @@ public class AlarmData {
      * Sets the value of the reductionKey property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setReductionKey(String value) {
         this.reductionKey = value;
@@ -115,7 +114,6 @@ public class AlarmData {
 
     /**
      * Gets the value of the alarmType property.
-     *
      */
     public int getAlarmType() {
         return alarmType;
@@ -123,7 +121,6 @@ public class AlarmData {
 
     /**
      * Sets the value of the alarmType property.
-     *
      */
     public void setAlarmType(int value) {
         this.alarmType = value;
@@ -133,9 +130,7 @@ public class AlarmData {
      * Gets the value of the clearKey property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getClearKey() {
         return clearKey;
@@ -145,9 +140,7 @@ public class AlarmData {
      * Sets the value of the clearKey property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setClearKey(String value) {
         this.clearKey = value;
@@ -157,9 +150,7 @@ public class AlarmData {
      * Gets the value of the autoClean property.
      *
      * @return
-     *     possible object is
-     *     {@link Boolean }
-     *
+     *         possible object is {@link Boolean }
      */
     public boolean isAutoClean() {
         if (autoClean == null) {
@@ -173,9 +164,7 @@ public class AlarmData {
      * Sets the value of the autoClean property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *
+     *            allowed object is {@link Boolean }
      */
     public void setAutoClean(Boolean value) {
         this.autoClean = value;
@@ -185,9 +174,7 @@ public class AlarmData {
      * Gets the value of the x733AlarmType property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getX733AlarmType() {
         return x733AlarmType;
@@ -197,9 +184,7 @@ public class AlarmData {
      * Sets the value of the x733AlarmType property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setX733AlarmType(String value) {
         this.x733AlarmType = value;
@@ -209,9 +194,7 @@ public class AlarmData {
      * Gets the value of the x733ProbableCause property.
      *
      * @return
-     *     possible object is
-     *     {@link Integer }
-     *
+     *         possible object is {@link Integer }
      */
     public Integer getX733ProbableCause() {
         return x733ProbableCause;
@@ -221,9 +204,7 @@ public class AlarmData {
      * Sets the value of the x733ProbableCause property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *
+     *            allowed object is {@link Integer }
      */
     public void setX733ProbableCause(Integer value) {
         this.x733ProbableCause = value;

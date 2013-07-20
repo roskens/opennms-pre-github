@@ -51,7 +51,9 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * <p>UserValidator class.</p>
+ * <p>
+ * UserValidator class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -83,9 +85,12 @@ public class UserValidator implements Validator {
     }
 
     /**
-     * <p>Setter for the field <code>userService</code>.</p>
+     * <p>
+     * Setter for the field <code>userService</code>.
+     * </p>
      *
-     * @param userService a {@link org.opennms.acl.service.UserService} object.
+     * @param userService
+     *            a {@link org.opennms.acl.service.UserService} object.
      */
     @Autowired
     public void setUserService(UserService userService) {

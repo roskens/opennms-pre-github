@@ -39,7 +39,6 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EventExpanderTest extends TestCase {
@@ -99,9 +98,11 @@ public class EventExpanderTest extends TestCase {
         expander.expandEvent(event);
 
         assertEquals("event UEI", uei, event.getUei());
-        //assertNotNull("event description should not be null after expandEvent is called", event.getDescr());
+        // assertNotNull("event description should not be null after expandEvent is called",
+        // event.getDescr());
         //
-        //String matchText = "During a rescan";
-        //assertTrue("event description should contain '" + matchText + "'", event.getDescr().contains(matchText));
+        // String matchText = "During a rescan";
+        // assertTrue("event description should contain '" + matchText + "'",
+        // event.getDescr().contains(matchText));
     }
 }

@@ -36,9 +36,6 @@ import org.opennms.netmgt.xml.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
-
 /**
  * Represents a PollableNetwork
  *
@@ -50,9 +47,13 @@ public class PollableNetwork extends PollableContainer {
     private final PollContext m_context;
 
     /**
-     * <p>Constructor for PollableNetwork.</p>
+     * <p>
+     * Constructor for PollableNetwork.
+     * </p>
      *
-     * @param context a {@link org.opennms.netmgt.poller.pollables.PollContext} object.
+     * @param context
+     *            a {@link org.opennms.netmgt.poller.pollables.PollContext}
+     *            object.
      */
     public PollableNetwork(PollContext context) {
         super(null, Scope.NETWORK);
@@ -60,7 +61,9 @@ public class PollableNetwork extends PollableContainer {
     }
 
     /**
-     * <p>getContext</p>
+     * <p>
+     * getContext
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollContext} object.
      */
@@ -70,11 +73,16 @@ public class PollableNetwork extends PollableContainer {
     }
 
     /**
-     * <p>createNode</p>
+     * <p>
+     * createNode
+     * </p>
      *
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNode} object.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNode}
+     *         object.
      */
     public PollableNode createNode(int nodeId, String nodeLabel) {
         PollableNode node = new PollableNode(this, nodeId, nodeLabel);
@@ -83,11 +91,16 @@ public class PollableNetwork extends PollableContainer {
     }
 
     /**
-     * <p>createNodeIfNecessary</p>
+     * <p>
+     * createNodeIfNecessary
+     * </p>
      *
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNode} object.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNode}
+     *         object.
      */
     public PollableNode createNodeIfNecessary(int nodeId, String nodeLabel) {
         synchronized (this) {
@@ -98,17 +111,23 @@ public class PollableNetwork extends PollableContainer {
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
-     * @param nodeId a int.
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNode} object.
+     * @param nodeId
+     *            a int.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableNode}
+     *         object.
      */
     public PollableNode getNode(int nodeId) {
-        return (PollableNode)getMember(Integer.valueOf(nodeId));
+        return (PollableNode) getMember(Integer.valueOf(nodeId));
     }
 
     /**
-     * <p>getNodeCount</p>
+     * <p>
+     * getNodeCount
+     * </p>
      *
      * @return a int.
      */
@@ -117,23 +136,34 @@ public class PollableNetwork extends PollableContainer {
     }
 
     /**
-     * <p>createInterface</p>
+     * <p>
+     * createInterface
+     * </p>
      *
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param addr a {@link java.net.InetAddress} object.
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableInterface} object.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param addr
+     *            a {@link java.net.InetAddress} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableInterface}
+     *         object.
      */
     public PollableInterface createInterface(int nodeId, String nodeLabel, InetAddress addr) {
         return createNodeIfNecessary(nodeId, nodeLabel).createInterface(addr);
     }
 
     /**
-     * <p>getInterface</p>
+     * <p>
+     * getInterface
+     * </p>
      *
-     * @param nodeId a int.
-     * @param addr a {@link java.net.InetAddress} object.
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableInterface} object.
+     * @param nodeId
+     *            a int.
+     * @param addr
+     *            a {@link java.net.InetAddress} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableInterface}
+     *         object.
      */
     public PollableInterface getInterface(int nodeId, InetAddress addr) {
         PollableNode node = getNode(nodeId);
@@ -141,25 +171,38 @@ public class PollableNetwork extends PollableContainer {
     }
 
     /**
-     * <p>createService</p>
+     * <p>
+     * createService
+     * </p>
      *
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param addr a {@link java.net.InetAddress} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableService} object.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param addr
+     *            a {@link java.net.InetAddress} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableService}
+     *         object.
      */
     public PollableService createService(int nodeId, String nodeLabel, InetAddress addr, String svcName) {
         return createNodeIfNecessary(nodeId, nodeLabel).createService(addr, svcName);
     }
 
     /**
-     * <p>getService</p>
+     * <p>
+     * getService
+     * </p>
      *
-     * @param nodeId a int.
-     * @param addr a {@link java.net.InetAddress} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableService} object.
+     * @param nodeId
+     *            a int.
+     * @param addr
+     *            a {@link java.net.InetAddress} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableService}
+     *         object.
      */
     public PollableService getService(int nodeId, InetAddress addr, String svcName) {
         PollableNode node = getNode(nodeId);
@@ -169,7 +212,7 @@ public class PollableNetwork extends PollableContainer {
     /** {@inheritDoc} */
     @Override
     protected Object createMemberKey(PollableElement member) {
-        PollableNode node = (PollableNode)member;
+        PollableNode node = (PollableNode) member;
         return Integer.valueOf(node.getNodeId());
     }
 
@@ -179,7 +222,6 @@ public class PollableNetwork extends PollableContainer {
         super.visitThis(v);
         v.visitNetwork(this);
     }
-
 
     /** {@inheritDoc} */
     @Override
@@ -192,7 +234,6 @@ public class PollableNetwork extends PollableContainer {
     public Event createDownEvent(Date date) {
         throw new UnsupportedOperationException("No down event for the network");
     }
-
 
     /** {@inheritDoc} */
     @Override
@@ -210,7 +251,8 @@ public class PollableNetwork extends PollableContainer {
         }
 
         @Override
-        public void visitInterface(PollableInterface pIf) {;
+        public void visitInterface(PollableInterface pIf) {
+            ;
             LOG.debug("     interface={} status={}", pIf.getIpAddr(), getStatusString(pIf));
         }
 
@@ -225,14 +267,14 @@ public class PollableNetwork extends PollableContainer {
             String statusDesc = status.toString();
             PollEvent cause = e.getCause();
             int eventId = cause == null ? 0 : cause.getEventId();
-            return (up ? statusDesc : statusDesc+"("+eventId+")");
+            return (up ? statusDesc : statusDesc + "(" + eventId + ")");
         }
     }
 
-
-
     /**
-     * <p>dump</p>
+     * <p>
+     * dump
+     * </p>
      */
     public void dump() {
 
@@ -242,12 +284,15 @@ public class PollableNetwork extends PollableContainer {
     }
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      */
     @Override
     public void delete() {
         throw new UnsupportedOperationException("Can't delete the entire network");
     }
+
     /** {@inheritDoc} */
     @Override
     public PollStatus poll(PollableElement elem) {
@@ -261,8 +306,11 @@ public class PollableNetwork extends PollableContainer {
         // no need to process status changes for the network itself
         processMemberStatusChanges(date);
     }
+
     /**
-     * <p>recalculateStatus</p>
+     * <p>
+     * recalculateStatus
+     * </p>
      */
     @Override
     public void recalculateStatus() {
@@ -274,8 +322,11 @@ public class PollableNetwork extends PollableContainer {
         };
         forEachMember(iter);
     }
+
     /**
-     * <p>resetStatusChanged</p>
+     * <p>
+     * resetStatusChanged
+     * </p>
      */
     @Override
     public void resetStatusChanged() {
@@ -288,10 +339,14 @@ public class PollableNetwork extends PollableContainer {
         };
         forEachMember(iter);
     }
+
     /**
-     * <p>getLockRoot</p>
+     * <p>
+     * getLockRoot
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.poller.pollables.PollableElement} object.
+     * @return a {@link org.opennms.netmgt.poller.pollables.PollableElement}
+     *         object.
      */
     @Override
     public PollableElement getLockRoot() {
@@ -302,8 +357,11 @@ public class PollableNetwork extends PollableContainer {
     @Override
     public void obtainTreeLock(long timeout) {
     }
+
     /**
-     * <p>releaseTreeLock</p>
+     * <p>
+     * releaseTreeLock
+     * </p>
      */
     @Override
     public void releaseTreeLock() {
@@ -325,12 +383,13 @@ public class PollableNetwork extends PollableContainer {
     }
 
     /**
-     * <p>propagateInitialCause</p>
+     * <p>
+     * propagateInitialCause
+     * </p>
      */
     public void propagateInitialCause() {
         extrapolateCause();
         inheritParentalCause();
     }
-
 
 }

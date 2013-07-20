@@ -13,7 +13,7 @@ public class Address {
 	private String m_region;
 
 	public Address(String[] fields) {
-		
+
 		setForeignSource(fields[0].trim());
 		setAddress(fields[1].trim());
 		setCity(fields[2].trim());
@@ -38,38 +38,38 @@ public class Address {
 		sb.append("foreignSource:");
 		sb.append(getForeignSource());
 		sb.append(", ");
-		
+
 		sb.append("Address:");
 		sb.append(getAddress());
 		sb.append(", ");
-		
+
 		sb.append("City:");
 		sb.append(getCity());
 		sb.append(", ");
-		
+
 		sb.append("State:");
 		sb.append(getState());
 		sb.append(", ");
-		
+
 		sb.append("Zip");
 		sb.append(getZip());
 		sb.append(", ");
-		
+
 		sb.append("Country");
 		sb.append(getCountry());
 		sb.append(", ");
-		
+
 		sb.append("Department");
 		sb.append(getDepartment());
 		sb.append(", ");
-		
+
 		sb.append("District:");
 		sb.append(getDivision());
 		sb.append(", ");
-		
+
 		sb.append("Region:");
 		sb.append(getRegion());
-		
+
 		return sb.toString();
 	}
 

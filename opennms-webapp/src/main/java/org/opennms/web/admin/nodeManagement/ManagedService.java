@@ -29,7 +29,9 @@
 package org.opennms.web.admin.nodeManagement;
 
 /**
- * <p>ManagedService class.</p>
+ * <p>
+ * ManagedService class.
+ * </p>
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -55,22 +57,29 @@ public class ManagedService {
     protected int serviceId;
 
     /**
-     * <p>Constructor for ManagedService.</p>
+     * <p>
+     * Constructor for ManagedService.
+     * </p>
      */
     public ManagedService() {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      */
     public void setId(int id) {
         serviceId = id;
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a int.
      */
@@ -79,16 +88,21 @@ public class ManagedService {
     }
 
     /**
-     * <p>Setter for the field <code>name</code>.</p>
+     * <p>
+     * Setter for the field <code>name</code>.
+     * </p>
      *
-     * @param newName a {@link java.lang.String} object.
+     * @param newName
+     *            a {@link java.lang.String} object.
      */
     public void setName(String newName) {
         name = newName;
     }
 
     /**
-     * <p>Getter for the field <code>name</code>.</p>
+     * <p>
+     * Getter for the field <code>name</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -97,9 +111,12 @@ public class ManagedService {
     }
 
     /**
-     * <p>Setter for the field <code>status</code>.</p>
+     * <p>
+     * Setter for the field <code>status</code>.
+     * </p>
      *
-     * @param newStatus a {@link java.lang.String} object.
+     * @param newStatus
+     *            a {@link java.lang.String} object.
      */
     public void setStatus(String newStatus) {
         if (newStatus.equals("A")) {
@@ -112,7 +129,9 @@ public class ManagedService {
     }
 
     /**
-     * <p>Getter for the field <code>status</code>.</p>
+     * <p>
+     * Getter for the field <code>status</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

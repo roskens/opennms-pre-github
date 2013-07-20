@@ -48,7 +48,6 @@ import org.opennms.netmgt.snmp.SnmpValue;
  * an IP Address, its netmask, interface binding, broadcast address, and maximum
  * packet reassembly size.
  * </P>
- *
  * <P>
  * This object is used by the IpAddrTable to hold information single entries in
  * the table. See the IpAddrTable documentation form more information.
@@ -62,11 +61,14 @@ import org.opennms.netmgt.snmp.SnmpValue;
  */
 public final class IpAddressTableEntry extends SnmpTableEntry {
     private static final Logger LOG = LoggerFactory.getLogger(IpAddressTableEntry.class);
+
     // Lookup strings for specific table entries
 
     public final static String IP_ADDRESS_IF_INDEX = "ipAddressIfIndex";
+
     public final static String IP_ADDR_ENT_NETMASK = "ipAddressPrefix";
-    public final static String IP_ADDR_TYPE        = "ipAddressType";
+
+    public final static String IP_ADDR_TYPE = "ipAddressType";
 
     /**
      * <P>
@@ -78,10 +80,9 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
 
     /** Constant <code>ms_elemList</code> */
     public static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
-    	new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IP_ADDRESS_IF_INDEX, TABLE_OID + ".3", 1),
-    	new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IP_ADDR_ENT_NETMASK, TABLE_OID + ".5", 2),
-    	new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IP_ADDR_TYPE,        TABLE_OID + ".4", 3)
-    };
+            new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IP_ADDRESS_IF_INDEX, TABLE_OID + ".3", 1),
+            new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IP_ADDR_ENT_NETMASK, TABLE_OID + ".5", 2),
+            new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IP_ADDR_TYPE, TABLE_OID + ".4", 3) };
 
     private InetAddress m_inetAddress = null;
 
@@ -92,7 +93,6 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
      * created, this constructor will initialize all the variables as per their
      * named variable from the passed array of SNMP varbinds.
      * </P>
-     *
      * <P>
      * If the information in the object should not be modified then a <EM>final
      * </EM> modifier can be applied to the created object.
@@ -103,16 +103,20 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getIpAdEntAddr</p>
+     * <p>
+     * getIpAdEntAddr
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
     public InetAddress getIpAddress() {
-    	return m_inetAddress;
+        return m_inetAddress;
     }
 
     /**
-     * <p>getIpAdEntIfIndex</p>
+     * <p>
+     * getIpAdEntIfIndex
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -121,51 +125,56 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
     }
 
     /**
-     * <p>getIpAdEntNetMask</p>
+     * <p>
+     * getIpAdEntNetMask
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
     public InetAddress getIpAddressNetMask() {
-    	final SnmpValue value = getValue(IP_ADDR_ENT_NETMASK);
-    	// LOG.debug("getIpAddressNetMask: value = {}", value.toDisplayString());
-    	final SnmpObjId netmaskRef = value.toSnmpObjId().getInstance(IPAddressTableTracker.IP_ADDRESS_PREFIX_ORIGIN_INDEX);
+        final SnmpValue value = getValue(IP_ADDR_ENT_NETMASK);
+        // LOG.debug("getIpAddressNetMask: value = {}",
+        // value.toDisplayString());
+        final SnmpObjId netmaskRef = value.toSnmpObjId().getInstance(IPAddressTableTracker.IP_ADDRESS_PREFIX_ORIGIN_INDEX);
 
-    	if (netmaskRef == null) {
-    	    LOG.warn("Unable to get netmask reference from instance.");
-    	    return null;
-    	}
+        if (netmaskRef == null) {
+            LOG.warn("Unable to get netmask reference from instance.");
+            return null;
+        }
 
-    	final int[] rawIds = netmaskRef.getIds();
-    	final int addressType = rawIds[1];
-    	final int addressLength = rawIds[2];
-    	final InetAddress address = getInetAddress(rawIds, 3, addressLength);
-    	final int mask = rawIds[rawIds.length - 1];
+        final int[] rawIds = netmaskRef.getIds();
+        final int addressType = rawIds[1];
+        final int addressLength = rawIds[2];
+        final InetAddress address = getInetAddress(rawIds, 3, addressLength);
+        final int mask = rawIds[rawIds.length - 1];
 
-    	if (addressType == IPAddressTableTracker.TYPE_IPV4) {
-    	    return InetAddressUtils.convertCidrToInetAddressV4(mask);
-    	} else if (addressType == IPAddressTableTracker.TYPE_IPV6) {
-    	    return InetAddressUtils.convertCidrToInetAddressV6(mask);
-    	} else if (addressType == IPAddressTableTracker.TYPE_IPV6Z) {
-    	    LOG.debug("Got an IPv6z address, returning {}", address);
-    	} else {
-    	    LOG.warn("Unsure how to handle IP address type ({})", addressType);
-    	}
+        if (addressType == IPAddressTableTracker.TYPE_IPV4) {
+            return InetAddressUtils.convertCidrToInetAddressV4(mask);
+        } else if (addressType == IPAddressTableTracker.TYPE_IPV6) {
+            return InetAddressUtils.convertCidrToInetAddressV6(mask);
+        } else if (addressType == IPAddressTableTracker.TYPE_IPV6Z) {
+            LOG.debug("Got an IPv6z address, returning {}", address);
+        } else {
+            LOG.warn("Unsure how to handle IP address type ({})", addressType);
+        }
         return address;
     }
 
     /**
-     * This is a hack, we get the IP address from the instance information when storing one of the columns.  :P
+     * This is a hack, we get the IP address from the instance information when
+     * storing one of the columns. :P
      */
     @Override
     public void storeResult(final SnmpResult result) {
-    	final int[] instanceIds = result.getInstance().getIds();
-    	final int addressType = instanceIds[1];
-		if (addressType == IPAddressTableTracker.TYPE_IPV4 || addressType == IPAddressTableTracker.TYPE_IPV6 || addressType == IPAddressTableTracker.TYPE_IPV6Z) {
-			m_inetAddress = InetAddressUtils.getInetAddress(instanceIds, 2, addressType);
-		} else {
-			LOG.warn("Unable to determine IP address type ({})", addressType);
-		}
+        final int[] instanceIds = result.getInstance().getIds();
+        final int addressType = instanceIds[1];
+        if (addressType == IPAddressTableTracker.TYPE_IPV4 || addressType == IPAddressTableTracker.TYPE_IPV6
+                || addressType == IPAddressTableTracker.TYPE_IPV6Z) {
+            m_inetAddress = InetAddressUtils.getInetAddress(instanceIds, 2, addressType);
+        } else {
+            LOG.warn("Unable to determine IP address type ({})", addressType);
+        }
 
-    	super.storeResult(result);
+        super.storeResult(result);
     }
 }

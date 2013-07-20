@@ -50,49 +50,49 @@ import org.xml.sax.ContentHandler;
 /**
  * The SNMP information from the trap
  */
-@XmlRootElement(name="snmp")
+@XmlRootElement(name = "snmp")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
-@XmlType(propOrder={"m_id", "m_idText", "m_version", "m_specific", "m_generic", "m_community"})
+@XmlType(propOrder = { "m_id", "m_idText", "m_version", "m_specific", "m_generic", "m_community" })
 public class Snmp implements Serializable {
-	private static final long serialVersionUID = 7180451834403181827L;
+    private static final long serialVersionUID = 7180451834403181827L;
 
-	/**
+    /**
      * The SNMP enterprise ID
      */
-	// @NotNull
-	@XmlElement(name="id", required=true)
+    // @NotNull
+    @XmlElement(name = "id", required = true)
     private String m_id;
 
     /**
      * The SNMP enterprise ID text
      */
-	@XmlElement(name="idtext", required=false)
+    @XmlElement(name = "idtext", required = false)
     private String m_idText;
 
     /**
      * The SNMP version
      */
-	// @NotNull
-	@XmlElement(name="version", required=true)
+    // @NotNull
+    @XmlElement(name = "version", required = true)
     private String m_version;
 
     /**
      * The specific trap number
      */
-	@XmlElement(name="specific", required=false)
+    @XmlElement(name = "specific", required = false)
     private Integer m_specific;
 
     /**
      * The generic trap number
      */
-	@XmlElement(name="generic", required=false)
+    @XmlElement(name = "generic", required = false)
     private Integer m_generic;
 
     /**
      * The community name
      */
-	@XmlElement(name="community", required=false)
+    @XmlElement(name = "community", required = false)
     private String m_community;
 
     public void deleteGeneric() {
@@ -108,8 +108,7 @@ public class Snmp implements Serializable {
     }
 
     /** The generic trap number. */
-    public Integer getGeneric(
-    ) {
+    public Integer getGeneric() {
         return m_generic;
     }
 
@@ -199,56 +198,65 @@ public class Snmp implements Serializable {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_community == null) ? 0 : m_community.hashCode());
-		result = prime * result + ((m_generic == null) ? 0 : m_generic.hashCode());
-		result = prime * result + ((m_id == null) ? 0 : m_id.hashCode());
-		result = prime * result + ((m_idText == null) ? 0 : m_idText.hashCode());
-		result = prime * result + ((m_specific == null) ? 0 : m_specific.hashCode());
-		result = prime * result + ((m_version == null) ? 0 : m_version.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_community == null) ? 0 : m_community.hashCode());
+        result = prime * result + ((m_generic == null) ? 0 : m_generic.hashCode());
+        result = prime * result + ((m_id == null) ? 0 : m_id.hashCode());
+        result = prime * result + ((m_idText == null) ? 0 : m_idText.hashCode());
+        result = prime * result + ((m_specific == null) ? 0 : m_specific.hashCode());
+        result = prime * result + ((m_version == null) ? 0 : m_version.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Snmp)) return false;
-		final Snmp other = (Snmp) obj;
-		if (m_community == null) {
-			if (other.m_community != null) return false;
-		} else if (!m_community.equals(other.m_community)) {
-			return false;
-		}
-		if (m_generic == null) {
-			if (other.m_generic != null) return false;
-		} else if (!m_generic.equals(other.m_generic)) {
-			return false;
-		}
-		if (m_id == null) {
-			if (other.m_id != null) return false;
-		} else if (!m_id.equals(other.m_id)) {
-			return false;
-		}
-		if (m_idText == null) {
-			if (other.m_idText != null) return false;
-		} else if (!m_idText.equals(other.m_idText)) {
-			return false;
-		}
-		if (m_specific == null) {
-			if (other.m_specific != null) return false;
-		} else if (!m_specific.equals(other.m_specific)) {
-			return false;
-		}
-		if (m_version == null) {
-			if (other.m_version != null) return false;
-		} else if (!m_version.equals(other.m_version)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Snmp))
+            return false;
+        final Snmp other = (Snmp) obj;
+        if (m_community == null) {
+            if (other.m_community != null)
+                return false;
+        } else if (!m_community.equals(other.m_community)) {
+            return false;
+        }
+        if (m_generic == null) {
+            if (other.m_generic != null)
+                return false;
+        } else if (!m_generic.equals(other.m_generic)) {
+            return false;
+        }
+        if (m_id == null) {
+            if (other.m_id != null)
+                return false;
+        } else if (!m_id.equals(other.m_id)) {
+            return false;
+        }
+        if (m_idText == null) {
+            if (other.m_idText != null)
+                return false;
+        } else if (!m_idText.equals(other.m_idText)) {
+            return false;
+        }
+        if (m_specific == null) {
+            if (other.m_specific != null)
+                return false;
+        } else if (!m_specific.equals(other.m_specific)) {
+            return false;
+        }
+        if (m_version == null) {
+            if (other.m_version != null)
+                return false;
+        } else if (!m_version.equals(other.m_version)) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -42,39 +42,38 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class KSCResourceCombobox implements EntryPoint {
 
-  /**
-   * This is the entry point method.
-   */
-  @Override
-  public void onModuleLoad() {
+    /**
+     * This is the entry point method.
+     */
+    @Override
+    public void onModuleLoad() {
 
+        if (Window.Navigator.getUserAgent().contains("MSIE")) {
+            NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
+            for (int j = 0; j < divs.getLength(); j++) {
+                Element element = divs.getItem(j);
+                if (element.hasAttribute("name") && element.getAttribute("name").contains("opennms-kscReportCombobox")) {
+                    createView(element);
+                }
+            }
 
-      if(Window.Navigator.getUserAgent().contains("MSIE")) {
-          NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
-          for(int j = 0; j < divs.getLength(); j++) {
-              Element element = divs.getItem(j);
-              if(element.hasAttribute("name") && element.getAttribute("name").contains("opennms-kscReportCombobox")) {
-                  createView(element);
-              }
-          }
+        } else {
+            NodeList<Element> nodes = RootPanel.getBodyElement().getElementsByTagName("opennms:kscReportCombobox");
+            if (nodes.getLength() > 0) {
+                for (int i = 0; i < nodes.getLength(); i++) {
+                    createView(nodes.getItem(i));
+                }
+            }
+        }
+    }
 
-      }else {
-          NodeList<Element> nodes = RootPanel.getBodyElement().getElementsByTagName("opennms:kscReportCombobox");
-          if(nodes.getLength() > 0) {
-              for(int i = 0; i < nodes.getLength(); i++) {
-                  createView(nodes.getItem(i));
-              }
-          }
-      }
-  }
+    private void createView(Element elem) {
+        AppController appView = new AppController(getKscComboboxData());
+        appView.go(RootPanel.get(elem.getId()));
+    }
 
-  private void createView(Element elem) {
-      AppController appView = new AppController(getKscComboboxData());
-      appView.go(RootPanel.get(elem.getId()));
-  }
-
-  public static native JsArray<KscReportDetail> getKscComboboxData() /*-{
-      return $wnd.kscComboData;
-  }-*/;
+    public static native JsArray<KscReportDetail> getKscComboboxData() /*-{
+                                                                       return $wnd.kscComboData;
+                                                                       }-*/;
 
 }

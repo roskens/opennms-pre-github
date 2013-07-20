@@ -31,7 +31,6 @@ package org.opennms.protocols.snmp;
 /**
  * Defines a SNMPv1 32-bit counter object. The object is a 32-bit unsigned value
  * that is incremented periodically by an agent normally.
- *
  * The object inherits and uses most of the methods defined by the SnmpUInt32
  * class. This class does not define any specific data, but is instead used to
  * override the ASN.1 type of the base class.
@@ -41,13 +40,11 @@ package org.opennms.protocols.snmp;
 public class SnmpCounter32 extends SnmpUInt32 {
     /**
      * required for version control of serialization.
-     *
      */
     static final long serialVersionUID = -5722134291677293080L;
 
     /**
      * Defines the ASN.1 type for this object.
-     *
      */
     public static final byte ASNTYPE = SnmpSMI.SMI_COUNTER32;
 
@@ -74,7 +71,6 @@ public class SnmpCounter32 extends SnmpUInt32 {
      *
      * @param value
      *            The default value for the object.
-     *
      */
     public SnmpCounter32(Long value) {
         super(value);
@@ -85,7 +81,6 @@ public class SnmpCounter32 extends SnmpUInt32 {
      *
      * @param second
      *            The object to recover values from.
-     *
      */
     public SnmpCounter32(SnmpCounter32 second) {
         super(second);
@@ -97,7 +92,6 @@ public class SnmpCounter32 extends SnmpUInt32 {
      *
      * @param uint32
      *            The SnmpUInt32 object to copy.
-     *
      */
     public SnmpCounter32(SnmpUInt32 uint32) {
         super(uint32);
@@ -113,7 +107,6 @@ public class SnmpCounter32 extends SnmpUInt32 {
      *
      * @param value
      *            The string encoded value.
-     *
      * @throws java.lang.NumberFormatException
      *             Thrown if the passed value is malformed and cannot be parsed.
      * @throws java.lang.IllegalArgumentException
@@ -139,7 +132,6 @@ public class SnmpCounter32 extends SnmpUInt32 {
      * Creates a new object that is a duplicate of the current object.
      *
      * @return The newly created duplicate object.
-     *
      */
     @Override
     public SnmpSyntax duplicate() {
@@ -150,7 +142,6 @@ public class SnmpCounter32 extends SnmpUInt32 {
      * Creates a new object that is a duplicate of the current object.
      *
      * @return The newly created duplicate object.
-     *
      */
     @Override
     public Object clone() {

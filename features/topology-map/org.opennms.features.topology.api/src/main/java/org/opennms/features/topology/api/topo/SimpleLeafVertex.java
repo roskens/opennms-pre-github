@@ -30,9 +30,11 @@ package org.opennms.features.topology.api.topo;
 
 public class SimpleLeafVertex extends AbstractVertex {
 
-	public SimpleLeafVertex(String namespace, String id, Integer x, Integer y) {
-		super(namespace, id);
-		if (x != null) setX(x);
-		if (y != null) setY(y);
-	}
+    public SimpleLeafVertex(String namespace, String id, Integer x, Integer y) {
+        super(namespace, id);
+        if (x != null)
+            setX(x);
+        if (y != null)
+            setY(y);
+    }
 }

@@ -34,11 +34,9 @@ import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
-public class MockPlatformTransactionManager implements
-        PlatformTransactionManager {
+public class MockPlatformTransactionManager implements PlatformTransactionManager {
 
     @Override
     public void commit(TransactionStatus status) throws TransactionException {

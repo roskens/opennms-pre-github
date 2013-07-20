@@ -37,43 +37,43 @@ public class SnmpCellListItem extends JavaScriptObject {
     }
 
     public final native String getIfIndex()/*-{
-        return this["@ifIndex"];
-    }-*/;
+                                           return this["@ifIndex"];
+                                           }-*/;
 
     public final native String getSnmpType() /*-{
-        return this.ifType;
-    }-*/;
+                                             return this.ifType;
+                                             }-*/;
 
     public final native String getIfDescr() /*-{
-        return this.ifDescr;
-    }-*/;
+                                            return this.ifDescr;
+                                            }-*/;
 
     public final native String getIfName() /*-{
-        return this.ifName;
-    }-*/;
+                                           return this.ifName;
+                                           }-*/;
 
     public final native String getIfAlias() /*-{
-        return this.ifAlias;
-    }-*/;
+                                            return this.ifAlias;
+                                            }-*/;
 
     public final native String getCollectFlag() /*-{
-        return this["@collectFlag"];
-    }-*/;
+                                                return this["@collectFlag"];
+                                                }-*/;
 
     public final native void setCollectFlag(String flag) /*-{
-        this["@collectFlag"] = flag;
-    }-*/;
+                                                         this["@collectFlag"] = flag;
+                                                         }-*/;
 
     public final native int getIfAdminStatus() /*-{
-        return parseInt(this.ifAdminStatus);
-    }-*/;
+                                               return parseInt(this.ifAdminStatus);
+                                               }-*/;
 
     public final native int getIfOperStatus() /*-{
-        return parseInt(this.ifOperStatus);
-    }-*/;
+                                              return parseInt(this.ifOperStatus);
+                                              }-*/;
 
     public final native int getId() /*-{
-        return parseInt(this["@id"]);
-    }-*/;
+                                    return parseInt(this["@id"]);
+                                    }-*/;
 
 }

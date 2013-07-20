@@ -34,24 +34,25 @@ import liquibase.statement.SqlStatement;
 
 public class DropForeignKeyConstraintCascadeChange extends DropForeignKeyConstraintChange {
 
-	private String m_cascade = "false";
+    private String m_cascade = "false";
 
-	public DropForeignKeyConstraintCascadeChange() {
-		super();
-		setPriority(getChangeMetaData().getPriority() + 1);
-	}
+    public DropForeignKeyConstraintCascadeChange() {
+        super();
+        setPriority(getChangeMetaData().getPriority() + 1);
+    }
 
-	public String getCascade() {
-		return m_cascade;
-	}
+    public String getCascade() {
+        return m_cascade;
+    }
 
-	public void setCascade(final String cascade) {
-		m_cascade = cascade;
-	}
+    public void setCascade(final String cascade) {
+        m_cascade = cascade;
+    }
 
-        @Override
+    @Override
     public SqlStatement[] generateStatements(final Database database) {
-    	return DropForeignKeyConstraintCascadeStatement.createFromSqlStatements(super.generateStatements(database), Boolean.valueOf(m_cascade));
+        return DropForeignKeyConstraintCascadeStatement.createFromSqlStatements(super.generateStatements(database),
+                                                                                Boolean.valueOf(m_cascade));
     }
 
 }

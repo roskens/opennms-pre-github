@@ -32,66 +32,67 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 public class SVGMatrix extends JavaScriptObject {
 
-    protected SVGMatrix() {};
+    protected SVGMatrix() {
+    };
 
     public final native SVGMatrix translate(double x, double y)/*-{
-        return this.translate(x, y);
-    }-*/;
+                                                               return this.translate(x, y);
+                                                               }-*/;
 
     public final native SVGMatrix scale(double newScale) /*-{
-        return this.scale(newScale);
-    }-*/;
+                                                         return this.scale(newScale);
+                                                         }-*/;
 
     public final native SVGMatrix multiply(SVGMatrix m) /*-{
-        return this.multiply(m);
-    }-*/;
+                                                        return this.multiply(m);
+                                                        }-*/;
 
     public final native double getA() /*-{
-        return this.a;
-    }-*/;
+                                      return this.a;
+                                      }-*/;
 
     public final native double getB() /*-{
-        return this.b;
-    }-*/;
+                                      return this.b;
+                                      }-*/;
 
     public final native double getC() /*-{
-        return this.c;
-    }-*/;
+                                      return this.c;
+                                      }-*/;
 
     public final native double getD() /*-{
-        return this.d;
-    }-*/;
+                                      return this.d;
+                                      }-*/;
 
     public final native double getE() /*-{
-        return this.e;
-    }-*/;
+                                      return this.e;
+                                      }-*/;
 
     public final native double getF() /*-{
-        return this.f;
-    }-*/;
+                                      return this.f;
+                                      }-*/;
 
     public final native SVGMatrix inverse() /*-{
-        return this.inverse();
-    }-*/;
+                                            return this.inverse();
+                                            }-*/;
 
     public final native void setX(int clientX) /*-{
-        this.x = clientX;
-    }-*/;
+                                               this.x = clientX;
+                                               }-*/;
 
     public final native void setY(int clientY) /*-{
-        this.y = clientY;
-    }-*/;
+                                               this.y = clientY;
+                                               }-*/;
 
     public final native SVGMatrix matrixTransform(SVGMatrix matrix) /*-{
-        return this.matrixTransform(matrix);
-    }-*/;
+                                                                    return this.matrixTransform(matrix);
+                                                                    }-*/;
 
     public final native int getX() /*-{
-        return this.e;
-    }-*/;
+                                   return this.e;
+                                   }-*/;
 
     public final native int getY() /*-{
-        return this.f;
-    }-*/;
+                                   return this.f;
+                                   }-*/;
 
 }

@@ -32,9 +32,10 @@ import org.opennms.netmgt.config.collector.CollectionAttribute;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.model.RrdRepository;
 
-
 /**
- * <p>OneToOnePersister class.</p>
+ * <p>
+ * OneToOnePersister class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,12 +43,18 @@ import org.opennms.netmgt.model.RrdRepository;
 public class OneToOnePersister extends BasePersister {
 
     /**
-     * <p>Constructor for OneToOnePersister.</p>
+     * <p>
+     * Constructor for OneToOnePersister.
+     * </p>
      *
-     * @param params a {@link org.opennms.netmgt.config.collector.ServiceParameters} object.
-     * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param params
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
+     *            object.
+     * @param repository
+     *            a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
-    public OneToOnePersister(ServiceParameters params,  RrdRepository repository) {
+    public OneToOnePersister(ServiceParameters params, RrdRepository repository) {
         super(params, repository);
     }
 
@@ -65,11 +72,9 @@ public class OneToOnePersister extends BasePersister {
     @Override
     public void completeAttribute(CollectionAttribute attribute) {
         if (shouldPersist()) {
-        	commitBuilder();
+            commitBuilder();
         }
         popShouldPersist();
     }
-
-
 
 }

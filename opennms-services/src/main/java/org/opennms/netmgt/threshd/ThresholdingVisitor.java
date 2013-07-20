@@ -47,14 +47,15 @@ import org.slf4j.LoggerFactory;
 /**
  * Implements CollectionSetVisitor to implement thresholding.
  * Works by simply recording all the attributes that come in via visitAttribute
- * into an internal data structure, per resource, and then on "completeResource", does
+ * into an internal data structure, per resource, and then on
+ * "completeResource", does
  * threshold checking against that in memory structure.
- *
- * Suggested usage is one per CollectableService; this object holds the current state of thresholds
+ * Suggested usage is one per CollectableService; this object holds the current
+ * state of thresholds
  * for this interface/service combination
  * (so perhaps needs a better name than ThresholdingVisitor)
- *
- * Assumes and requires that the any visitation start at CollectionSet level, so that the collection timestamp can
+ * Assumes and requires that the any visitation start at CollectionSet level, so
+ * that the collection timestamp can
  * be recorded.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
@@ -65,7 +66,7 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
 
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdingVisitor.class);
 
-	/**
+    /**
      * Holds thresholds configuration for a node/interface/service
      */
     final CollectorThresholdingSet m_thresholdingSet;
@@ -75,20 +76,28 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
      */
     final Map<String, CollectionAttribute> m_attributesMap = new HashMap<String, CollectionAttribute>();
 
-	private Date m_collectionTimestamp;
+    private Date m_collectionTimestamp;
 
     /**
-     * Static method create must be used to create new ThresholdingVisitor instance.
-     * Is static because successful creation depends on thresholding-enabled parameter.
+     * Static method create must be used to create new ThresholdingVisitor
+     * instance.
+     * Is static because successful creation depends on thresholding-enabled
+     * parameter.
      *
-     * @param nodeId a int.
-     * @param hostAddress a {@link java.lang.String} object.
-     * @param serviceName a {@link java.lang.String} object.
-     * @param repo a {@link org.opennms.netmgt.model.RrdRepository} object.
-     * @param roProps a {@link java.util.Map} object.
+     * @param nodeId
+     *            a int.
+     * @param hostAddress
+     *            a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param repo
+     *            a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param roProps
+     *            a {@link java.util.Map} object.
      * @return a {@link org.opennms.netmgt.threshd.ThresholdingVisitor} object.
      */
-    public static ThresholdingVisitor create(int nodeId, String hostAddress, String serviceName, RrdRepository repo, Map<String, Object> roProps) {
+    public static ThresholdingVisitor create(int nodeId, String hostAddress, String serviceName, RrdRepository repo,
+            Map<String, Object> roProps) {
 
         String enabled = ParameterMap.getKeyedString(roProps, "thresholding-enabled", null);
         if (enabled != null && !"true".equals(enabled)) {
@@ -96,18 +105,24 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
             return null;
         }
 
-        CollectorThresholdingSet thresholdingSet = new CollectorThresholdingSet(nodeId, hostAddress, serviceName, repo, roProps);
+        CollectorThresholdingSet thresholdingSet = new CollectorThresholdingSet(nodeId, hostAddress, serviceName, repo,
+                                                                                roProps);
         if (!thresholdingSet.hasThresholds()) {
-            LOG.warn("create: the ipaddress/service {}/{} on node {} has no configured thresholds.", hostAddress, serviceName, nodeId);
+            LOG.warn("create: the ipaddress/service {}/{} on node {} has no configured thresholds.", hostAddress,
+                     serviceName, nodeId);
         }
 
         return new ThresholdingVisitor(thresholdingSet);
     }
 
     /**
-     * <p>Constructor for ThresholdingVisitor.</p>
+     * <p>
+     * Constructor for ThresholdingVisitor.
+     * </p>
      *
-     * @param thresholdingSet a {@link org.opennms.netmgt.threshd.CollectorThresholdingSet} object.
+     * @param thresholdingSet
+     *            a {@link org.opennms.netmgt.threshd.CollectorThresholdingSet}
+     *            object.
      */
     protected ThresholdingVisitor(CollectorThresholdingSet thresholdingSet) {
         m_thresholdingSet = thresholdingSet;
@@ -128,9 +143,10 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
     }
 
     @Override
-	public void visitCollectionSet(CollectionSet set) {
-    	m_collectionTimestamp = set.getCollectionTimestamp();
-	}
+    public void visitCollectionSet(CollectionSet set) {
+        m_collectionTimestamp = set.getCollectionTimestamp();
+    }
+
     /**
      * Force reload thresholds configuration, and merge threshold states
      */
@@ -147,7 +163,7 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
     }
 
     /**
-     *  Clear required attributes map
+     * Clear required attributes map
      */
     @Override
     public void visitResource(CollectionResource resource) {
@@ -156,9 +172,10 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
 
     /**
      * Add/Update required attributes for thresholds on m_attributeMap.
-     * This is used because {@link CollectionResource} does not have direct reference to their attributes.
-     * (The way to get attribute is against {@link AttributeGroup} object contained on {@link CollectionResource}
-     * implementations).
+     * This is used because {@link CollectionResource} does not have direct
+     * reference to their attributes.
+     * (The way to get attribute is against {@link AttributeGroup} object
+     * contained on {@link CollectionResource} implementations).
      */
     @Override
     public void visitAttribute(CollectionAttribute attribute) {
@@ -189,10 +206,11 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
     }
 
     /*
-     * Return the collection timestamp passed in at construct time.  Typically used by tests, but might be  useful elsewhere
+     * Return the collection timestamp passed in at construct time. Typically
+     * used by tests, but might be useful elsewhere
      */
     public Date getCollectionTimestamp() {
-    	return this.m_collectionTimestamp;
+        return this.m_collectionTimestamp;
     }
 
     /** {@inheritDoc} */

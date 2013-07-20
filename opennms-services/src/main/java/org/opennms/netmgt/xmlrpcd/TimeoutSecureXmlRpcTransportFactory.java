@@ -29,16 +29,19 @@ import org.apache.xmlrpc.XmlRpcTransport;
  * @author ranger
  * @version $Id: $
  */
-public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportFactory
-{
+public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportFactory {
     // Default properties for new http transports
     protected int timeout = 0;
 
     /**
-     * <p>Constructor for TimeoutSecureXmlRpcTransportFactory.</p>
+     * <p>
+     * Constructor for TimeoutSecureXmlRpcTransportFactory.
+     * </p>
      *
-     * @param url a {@link java.net.URL} object.
-     * @param timeout a int.
+     * @param url
+     *            a {@link java.net.URL} object.
+     * @param timeout
+     *            a int.
      */
     public TimeoutSecureXmlRpcTransportFactory(final URL url, final int timeout) {
         super(url);
@@ -49,9 +52,12 @@ public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportF
      * Contructor taking a Base64 encoded Basic Authentication string.
      *
      * @deprecated use setBasicAuthentication method instead
-     * @param url a {@link java.net.URL} object.
-     * @param auth a {@link java.lang.String} object.
-     * @param timeout a int.
+     * @param url
+     *            a {@link java.net.URL} object.
+     * @param auth
+     *            a {@link java.lang.String} object.
+     * @param timeout
+     *            a int.
      */
     public TimeoutSecureXmlRpcTransportFactory(final URL url, final String auth, final int timeout) {
         this(url, timeout);
@@ -59,17 +65,19 @@ public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportF
     }
 
     /**
-     * <p>createTransport</p>
+     * <p>
+     * createTransport
+     * </p>
      *
      * @return a {@link org.apache.xmlrpc.XmlRpcTransport} object.
-     * @throws org.apache.xmlrpc.XmlRpcClientException if any.
+     * @throws org.apache.xmlrpc.XmlRpcClientException
+     *             if any.
      */
     @SuppressWarnings("deprecation")
     @Override
-	public XmlRpcTransport createTransport() throws XmlRpcClientException {
+    public XmlRpcTransport createTransport() throws XmlRpcClientException {
         if ("https".equals(url.getProtocol())) {
-            if (timeout > 0)
-            {
+            if (timeout > 0) {
                 throw new XmlRpcClientException("Timeouts not supported under https.", null);
             }
             return new DefaultXmlRpcTransport(url, auth);

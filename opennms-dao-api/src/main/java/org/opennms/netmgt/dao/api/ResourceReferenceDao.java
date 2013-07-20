@@ -39,9 +39,12 @@ import org.opennms.netmgt.model.ResourceReference;
  */
 public interface ResourceReferenceDao extends OnmsDao<ResourceReference, Integer> {
     /**
-     * <p>getByResourceId</p>
+     * <p>
+     * getByResourceId
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} object.
+     * @param resourceId
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.ResourceReference} object.
      */
     public ResourceReference getByResourceId(String resourceId);

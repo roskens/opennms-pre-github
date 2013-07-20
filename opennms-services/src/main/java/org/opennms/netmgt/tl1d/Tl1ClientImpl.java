@@ -46,39 +46,58 @@ import org.slf4j.LoggerFactory;
  */
 public class Tl1ClientImpl implements Tl1Client {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Tl1ClientImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Tl1ClientImpl.class);
 
     String m_host;
+
     int m_port;
+
     private volatile boolean m_started = false;
 
     private Socket m_tl1Socket;
+
     private Thread m_socketReader;
+
     private BlockingQueue<Tl1AutonomousMessage> m_tl1Queue;
+
     private BufferedReader m_reader;
+
     private TimeoutSleeper m_sleeper;
+
     private Tl1AutonomousMessageProcessor m_messageProcessor;
-    //private long m_reconnectionDelay = 30000;
-    private long m_reconnectionDelay;  //see configuration xsd for default and set by Tl1d after instantiation
+
+    // private long m_reconnectionDelay = 30000;
+    private long m_reconnectionDelay; // see configuration xsd for default and
+                                      // set by Tl1d after instantiation
+
     private int m_reconnectAttempts = 0;
 
     /**
-     * <p>Constructor for Tl1ClientImpl.</p>
+     * <p>
+     * Constructor for Tl1ClientImpl.
+     * </p>
      */
     public Tl1ClientImpl() {
     }
 
     /**
-     * <p>Constructor for Tl1ClientImpl.</p>
+     * <p>
+     * Constructor for Tl1ClientImpl.
+     * </p>
      *
-     * @param queue a {@link java.util.concurrent.BlockingQueue} object.
-     * @param element a {@link org.opennms.netmgt.config.tl1d.Tl1Element} object.
-     * @throws java.lang.InstantiationException if any.
-     * @throws java.lang.IllegalAccessException if any.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @param queue
+     *            a {@link java.util.concurrent.BlockingQueue} object.
+     * @param element
+     *            a {@link org.opennms.netmgt.config.tl1d.Tl1Element} object.
+     * @throws java.lang.InstantiationException
+     *             if any.
+     * @throws java.lang.IllegalAccessException
+     *             if any.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
-    public Tl1ClientImpl(BlockingQueue<Tl1AutonomousMessage> queue, Tl1Element element)
-        throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public Tl1ClientImpl(BlockingQueue<Tl1AutonomousMessage> queue, Tl1Element element) throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
 
         m_host = element.getHost();
         m_port = element.getPort();
@@ -88,11 +107,14 @@ public class Tl1ClientImpl implements Tl1Client {
         m_reconnectionDelay = element.getReconnectDelay();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.tl1d.Tl1Client#start()
      */
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public void start() {
@@ -113,19 +135,23 @@ public class Tl1ClientImpl implements Tl1Client {
         LOG.info("Started TL1 client: {}:{}", m_host, String.valueOf(m_port));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.tl1d.Tl1Client#stop()
      */
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
         LOG.info("Stopping TL1 client: {}:{}", m_host, String.valueOf(m_port));
         setStarted(false);
 
-        //waiting a second or so for the reader thread to clean up the socket and shut
-        //itself down.
+        // waiting a second or so for the reader thread to clean up the socket
+        // and shut
+        // itself down.
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -178,7 +204,10 @@ public class Tl1ClientImpl implements Tl1Client {
             }
 
             m_reconnectAttempts++;
-            /* If the system is not responding, we want to wait longer and longer for the retry */
+            /*
+             * If the system is not responding, we want to wait longer and
+             * longer for the retry
+             */
             long waitTime = computeWait();
             LOG.info("waitUntilNextConnectTime: Waiting {} ms......", waitTime);
 
@@ -219,10 +248,10 @@ public class Tl1ClientImpl implements Tl1Client {
                 if (reader != null) {
                     int ch;
 
-                    while((ch = reader.read()) != -1 && isStarted()) {
-                        rawMessageBuilder.append((char)ch);
+                    while ((ch = reader.read()) != -1 && isStarted()) {
+                        rawMessageBuilder.append((char) ch);
 
-                        if((char)ch == ';') {
+                        if ((char) ch == ';') {
                             createAndQueueTl1Message(rawMessageBuilder);
                             rawMessageBuilder.setLength(0);
                         }
@@ -252,20 +281,22 @@ public class Tl1ClientImpl implements Tl1Client {
         }
     }
 
-    //TODO: Lots of work to do here
+    // TODO: Lots of work to do here
     private Tl1AutonomousMessage detectMessageType(StringBuilder rawMessage) {
 
-        //check token 5 to see if this is a reply message.  This implies that the Tl1Client must
-        //track message TAGs (Correlation TAGs (CTAG) vs. Autonomous TAGs (ATAG))
+        // check token 5 to see if this is a reply message. This implies that
+        // the Tl1Client must
+        // track message TAGs (Correlation TAGs (CTAG) vs. Autonomous TAGs
+        // (ATAG))
 
-        if(isAutonomousMessage(rawMessage)) {
+        if (isAutonomousMessage(rawMessage)) {
             return m_messageProcessor.process(rawMessage.toString(), Tl1Message.AUTONOMOUS);
         }
 
         return null;
     }
 
-    //TODO: Lots of work to do here
+    // TODO: Lots of work to do here
     private boolean isAutonomousMessage(StringBuilder rawMessage) {
         return true;
     }
@@ -296,11 +327,14 @@ public class Tl1ClientImpl implements Tl1Client {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.tl1d.Tl1Client#getHost()
      */
     /**
-     * <p>getHost</p>
+     * <p>
+     * getHost
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -309,7 +343,8 @@ public class Tl1ClientImpl implements Tl1Client {
         return m_host;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.tl1d.Tl1Client#setHost(java.lang.String)
      */
     /** {@inheritDoc} */
@@ -318,11 +353,14 @@ public class Tl1ClientImpl implements Tl1Client {
         m_host = host;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.tl1d.Tl1Client#getPort()
      */
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a int.
      */
@@ -331,7 +369,8 @@ public class Tl1ClientImpl implements Tl1Client {
         return m_port;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.tl1d.Tl1Client#setPort(int)
      */
     /** {@inheritDoc} */
@@ -340,20 +379,24 @@ public class Tl1ClientImpl implements Tl1Client {
         m_port = port;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.tl1d.Tl1Client#getReconnectionDelay()
      */
-     /**
-      * <p>getReconnectionDelay</p>
-      *
-      * @return a long.
-      */
+    /**
+     * <p>
+     * getReconnectionDelay
+     * </p>
+     *
+     * @return a long.
+     */
     @Override
-     public long getReconnectionDelay() {
+    public long getReconnectionDelay() {
         return m_reconnectionDelay;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.tl1d.Tl1Client#setReconnectionDelay(long)
      */
     /** {@inheritDoc} */
@@ -363,7 +406,9 @@ public class Tl1ClientImpl implements Tl1Client {
     }
 
     /**
-     * <p>getTl1Queue</p>
+     * <p>
+     * getTl1Queue
+     * </p>
      *
      * @return a {@link java.util.concurrent.BlockingQueue} object.
      */
@@ -379,9 +424,12 @@ public class Tl1ClientImpl implements Tl1Client {
     }
 
     /**
-     * <p>getMessageProcessor</p>
+     * <p>
+     * getMessageProcessor
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.tl1d.Tl1AutonomousMessageProcessor} object.
+     * @return a {@link org.opennms.netmgt.tl1d.Tl1AutonomousMessageProcessor}
+     *         object.
      */
     @Override
     public Tl1AutonomousMessageProcessor getMessageProcessor() {
@@ -395,16 +443,21 @@ public class Tl1ClientImpl implements Tl1Client {
     }
 
     /**
-     * <p>setStarted</p>
+     * <p>
+     * setStarted
+     * </p>
      *
-     * @param started a boolean.
+     * @param started
+     *            a boolean.
      */
     public void setStarted(boolean started) {
         m_started = started;
     }
 
     /**
-     * <p>isStarted</p>
+     * <p>
+     * isStarted
+     * </p>
      *
      * @return a boolean.
      */
@@ -422,7 +475,7 @@ public class Tl1ClientImpl implements Tl1Client {
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return "Tl1Client: class: "+getClass()+"; host: "+m_host+"; port: "+m_port;
+        return "Tl1Client: class: " + getClass() + "; host: " + m_host + "; port: " + m_port;
     }
 
 }

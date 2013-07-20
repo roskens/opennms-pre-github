@@ -47,11 +47,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
-		"classpath:/META-INF/opennms/detectors.xml"
-})
-@JUnitSnmpAgent(host=Win32ServiceDetectorTest.TEST_IP_ADDRESS, resource="classpath:org/opennms/netmgt/provision/detector/windows2003.properties")
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
+        "classpath:/META-INF/opennms/detectors.xml" })
+@JUnitSnmpAgent(host = Win32ServiceDetectorTest.TEST_IP_ADDRESS, resource = "classpath:org/opennms/netmgt/provision/detector/windows2003.properties")
 public class Win32ServiceDetectorTest implements InitializingBean {
     static final String TEST_IP_ADDRESS = "172.20.1.205";
 
@@ -72,13 +70,13 @@ public class Win32ServiceDetectorTest implements InitializingBean {
         m_detector.setWin32ServiceName("VMware Tools Service");
     }
 
-    @Test(timeout=90000)
-    public void testDetectorSuccessful() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testDetectorSuccessful() throws UnknownHostException {
         assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr(TEST_IP_ADDRESS)));
     }
 
-    @Test(timeout=90000)
-    public void testDetectorFail() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testDetectorFail() throws UnknownHostException {
         m_detector.setWin32ServiceName("This service does not exist");
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr(TEST_IP_ADDRESS)));
     }

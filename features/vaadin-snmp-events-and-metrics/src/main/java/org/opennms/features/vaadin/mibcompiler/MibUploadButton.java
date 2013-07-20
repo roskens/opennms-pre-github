@@ -47,9 +47,12 @@ public abstract class MibUploadButton extends Upload {
     /**
      * Instantiates a new MIB upload button.
      *
-     * @param pendingDir the pending directory
-     * @param compiledDir the compiled directory
-     * @param logger the logger
+     * @param pendingDir
+     *            the pending directory
+     * @param compiledDir
+     *            the compiled directory
+     * @param logger
+     *            the logger
      */
     public MibUploadButton(final File pendingDir, final File compiledDir, final Logger logger) {
 
@@ -77,7 +80,7 @@ public abstract class MibUploadButton extends Upload {
                 File compiled = new File(compiledDir, event.getFilename());
                 if (pending.exists()) {
                     logger.warn("The file " + pending.getName() + " already exist on Pending directory.");
-                } else if (compiled.exists()){
+                } else if (compiled.exists()) {
                     logger.warn("The file " + compiled.getName() + " already exist on Compiled directory.");
                 } else {
                     logger.info("Uploading " + event.getFilename());
@@ -88,7 +91,8 @@ public abstract class MibUploadButton extends Upload {
         addFailedListener(new Upload.FailedListener() {
             @Override
             public void uploadFailed(FailedEvent event) {
-                logger.warn("An error has been found: " + event.getReason() == null? "unknown error" : event.getReason().getLocalizedMessage());
+                logger.warn("An error has been found: " + event.getReason() == null ? "unknown error"
+                    : event.getReason().getLocalizedMessage());
             }
         });
 
@@ -105,7 +109,8 @@ public abstract class MibUploadButton extends Upload {
     /**
      * Upload handler.
      *
-     * @param filename the filename
+     * @param filename
+     *            the filename
      */
     public abstract void uploadHandler(String filename);
 

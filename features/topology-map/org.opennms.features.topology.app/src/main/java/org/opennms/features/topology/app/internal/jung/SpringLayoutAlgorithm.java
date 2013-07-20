@@ -43,48 +43,42 @@ import edu.uci.ics.jung.graph.SparseGraph;
 
 public class SpringLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
-	@Override
-	public void updateLayout(final GraphContainer graphContainer) {
+    @Override
+    public void updateLayout(final GraphContainer graphContainer) {
 
-		Graph g = graphContainer.getGraph();
+        Graph g = graphContainer.getGraph();
 
-		final Layout graphLayout = g.getLayout();
+        final Layout graphLayout = g.getLayout();
 
-		SparseGraph<VertexRef, EdgeRef> jungGraph = new SparseGraph<VertexRef, EdgeRef>();
+        SparseGraph<VertexRef, EdgeRef> jungGraph = new SparseGraph<VertexRef, EdgeRef>();
 
-		Collection<? extends Vertex> vertices = g.getDisplayVertices();
+        Collection<? extends Vertex> vertices = g.getDisplayVertices();
 
-		for(VertexRef v : vertices) {
-			jungGraph.addVertex(v);
-		}
+        for (VertexRef v : vertices) {
+            jungGraph.addVertex(v);
+        }
 
-		Collection<? extends Edge> edges = g.getDisplayEdges();
+        Collection<? extends Edge> edges = g.getDisplayEdges();
 
-		for(Edge e : edges) {
-			jungGraph.addEdge(e, e.getSource().getVertex(), e.getTarget().getVertex());
-		}
+        for (Edge e : edges) {
+            jungGraph.addEdge(e, e.getSource().getVertex(), e.getTarget().getVertex());
+        }
 
+        SpringLayout<VertexRef, EdgeRef> layout = new SpringLayout<VertexRef, EdgeRef>(jungGraph);
+        layout.setInitializer(initializer(graphLayout));
+        layout.setSize(selectLayoutSize(graphContainer));
+        layout.setRepulsionRange(LAYOUT_REPULSION);
 
+        int count = 0;
+        while (!layout.done() && count < 700) {
+            layout.step();
+            count++;
+        }
 
-		SpringLayout<VertexRef, EdgeRef> layout = new SpringLayout<VertexRef, EdgeRef>(jungGraph);
-		layout.setInitializer(initializer(graphLayout));
-		layout.setSize(selectLayoutSize(graphContainer));
-		layout.setRepulsionRange(LAYOUT_REPULSION);
+        for (VertexRef v : vertices) {
+            graphLayout.setLocation(v, (int) layout.getX(v), (int) layout.getY(v));
+        }
 
-		int count = 0;
-		while(!layout.done() && count < 700) {
-			layout.step();
-			count++;
-		}
-
-
-		for(VertexRef v : vertices) {
-			graphLayout.setLocation(v, (int)layout.getX(v), (int)layout.getY(v));
-		}
-
-
-
-
-	}
+    }
 
 }

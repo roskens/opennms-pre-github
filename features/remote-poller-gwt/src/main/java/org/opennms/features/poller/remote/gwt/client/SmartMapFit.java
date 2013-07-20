@@ -29,7 +29,9 @@
 package org.opennms.features.poller.remote.gwt.client;
 
 /**
- * <p>SmartMapFit interface.</p>
+ * <p>
+ * SmartMapFit interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -38,7 +40,9 @@ package org.opennms.features.poller.remote.gwt.client;
 public interface SmartMapFit {
 
     /**
-     * <p>fitToBounds</p>
+     * <p>
+     * fitToBounds
+     * </p>
      */
     void fitToBounds();
 

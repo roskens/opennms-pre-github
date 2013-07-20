@@ -26,46 +26,38 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.context.ExtServletContext;
 
-public final class ServletHandler
-    extends AbstractHandler implements Comparable<ServletHandler>
-{
+public final class ServletHandler extends AbstractHandler implements Comparable<ServletHandler> {
     private final String alias;
+
     private final Servlet servlet;
 
-    public ServletHandler(ExtServletContext context, Servlet servlet, String alias)
-    {
+    public ServletHandler(ExtServletContext context, Servlet servlet, String alias) {
         super(context);
         this.alias = alias;
         this.servlet = servlet;
     }
 
-    public String getAlias()
-    {
+    public String getAlias() {
         return this.alias;
     }
 
-    public Servlet getServlet()
-    {
+    public Servlet getServlet() {
         return this.servlet;
     }
 
     @Override
-    public void init()
-        throws ServletException
-    {
+    public void init() throws ServletException {
         String name = "servlet_" + getId();
         ServletConfig config = new ServletConfigImpl(name, getContext(), getInitParams());
         this.servlet.init(config);
     }
 
     @Override
-    public void destroy()
-    {
+    public void destroy() {
         this.servlet.destroy();
     }
 
-    public boolean matches(String uri)
-    {
+    public boolean matches(String uri) {
         if (uri == null) {
             return this.alias.equals("/");
         } else if (this.alias.equals("/")) {
@@ -75,11 +67,10 @@ public final class ServletHandler
         }
     }
 
-    public boolean handle(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException
-    {
-        // pathInfo is null if using *.htm style uri-mapping, or if we're in a filter rather than a specific servlet
-        final boolean matches = matches(req.getPathInfo() == null? req.getServletPath() : req.getPathInfo());
+    public boolean handle(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        // pathInfo is null if using *.htm style uri-mapping, or if we're in a
+        // filter rather than a specific servlet
+        final boolean matches = matches(req.getPathInfo() == null ? req.getServletPath() : req.getPathInfo());
         if (matches) {
             doHandle(req, res);
         }
@@ -87,14 +78,11 @@ public final class ServletHandler
         return matches;
     }
 
-    private void doHandle(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException
-    {
+    private void doHandle(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // set a sensible status code in case handleSecurity returns false
         // but fails to send a response
         res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        if (getContext().handleSecurity(req, res))
-        {
+        if (getContext().handleSecurity(req, res)) {
             // reset status to OK for further processing
             res.setStatus(HttpServletResponse.SC_OK);
 
@@ -103,8 +91,7 @@ public final class ServletHandler
     }
 
     @Override
-    public int compareTo(ServletHandler other)
-    {
+    public int compareTo(ServletHandler other) {
         return other.alias.length() - this.alias.length();
     }
 }

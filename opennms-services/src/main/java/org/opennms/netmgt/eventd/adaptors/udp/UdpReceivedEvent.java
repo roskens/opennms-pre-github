@@ -44,10 +44,8 @@ import org.opennms.netmgt.xml.event.Log;
 import org.xml.sax.InputSource;
 
 /**
- *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
- *
  */
 final class UdpReceivedEvent {
     /**
@@ -91,7 +89,6 @@ final class UdpReceivedEvent {
      *
      * @param packet
      *            The datagram received from the remote agent.
-     *
      * @throws java.io.UnsupportedEncodingException
      *             Thrown if the data buffer cannot be decoded using the
      *             US-ASCII encoding.
@@ -113,7 +110,6 @@ final class UdpReceivedEvent {
      *            The XML data in US-ASCII encoding.
      * @param len
      *            The length of the XML data in the buffer.
-     *
      * @throws java.io.UnsupportedEncodingException
      *             Thrown if the data buffer cannot be decoded using the
      *             US-ASCII encoding.
@@ -133,7 +129,6 @@ final class UdpReceivedEvent {
      * datagram had malformed XML then an exception is generated.
      *
      * @return The toplevel <code>Log</code> element of the XML document.
-     *
      * @throws org.exolab.castor.xml.ValidationException
      *             Throws if the documents data does not match the defined XML
      *             Schema Definition.
@@ -142,7 +137,7 @@ final class UdpReceivedEvent {
      */
     Log unmarshal() throws ValidationException, MarshalException {
         if (m_log == null) {
-        	final InputStream is = new ByteArrayInputStream(m_eventXML.getBytes());
+            final InputStream is = new ByteArrayInputStream(m_eventXML.getBytes());
             m_log = JaxbUtils.unmarshal(Log.class, new InputSource(is));
         }
         return m_log;
@@ -192,9 +187,8 @@ final class UdpReceivedEvent {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the instance matches the object based upon the remote
+     * {@inheritDoc} Returns true if the instance matches the object based upon
+     * the remote
      * agent's address &amp; port. If the passed instance is from the same agent
      * then it is considered equal.
      */

@@ -49,16 +49,14 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class CriteriaTest implements InitializingBean {
 
     @Autowired
@@ -105,9 +103,8 @@ public class CriteriaTest implements InitializingBean {
     @Test
     @Transactional
     public void testComplicated() {
-        OnmsCriteria crit = new OnmsCriteria(OnmsNode.class)
-            .createAlias("ipInterfaces", "iface")
-            .add(Restrictions.eq("iface.ipAddress", "192.168.2.1"));
+        OnmsCriteria crit = new OnmsCriteria(OnmsNode.class).createAlias("ipInterfaces", "iface").add(Restrictions.eq("iface.ipAddress",
+                                                                                                                      "192.168.2.1"));
 
         Collection<OnmsNode> matching = m_nodeDao.findMatching(crit);
 

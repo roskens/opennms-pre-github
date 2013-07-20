@@ -33,7 +33,9 @@ import java.util.Date;
 import org.opennms.web.notification.filter.NotificationCriteria;
 
 /**
- * <p>WebNotificationRepository interface.</p>
+ * <p>
+ * WebNotificationRepository interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,35 +44,56 @@ import org.opennms.web.notification.filter.NotificationCriteria;
 public interface WebNotificationRepository {
 
     /**
-     * <p>countMatchingNotifications</p>
+     * <p>
+     * countMatchingNotifications
+     * </p>
      *
-     * @param criteria a {@link org.opennms.web.notification.filter.NotificationCriteria} object.
+     * @param criteria
+     *            a
+     *            {@link org.opennms.web.notification.filter.NotificationCriteria}
+     *            object.
      * @return a int.
      */
     public abstract int countMatchingNotifications(NotificationCriteria criteria);
 
     /**
-     * <p>getNotification</p>
+     * <p>
+     * getNotification
+     * </p>
      *
-     * @param noticeId a int.
+     * @param noticeId
+     *            a int.
      * @return a {@link org.opennms.web.notification.Notification} object.
      */
     public abstract Notification getNotification(int noticeId);
 
     /**
-     * <p>getMatchingNotifications</p>
+     * <p>
+     * getMatchingNotifications
+     * </p>
      *
-     * @param criteria a {@link org.opennms.web.notification.filter.NotificationCriteria} object.
-     * @return an array of {@link org.opennms.web.notification.Notification} objects.
+     * @param criteria
+     *            a
+     *            {@link org.opennms.web.notification.filter.NotificationCriteria}
+     *            object.
+     * @return an array of {@link org.opennms.web.notification.Notification}
+     *         objects.
      */
     public abstract Notification[] getMatchingNotifications(NotificationCriteria criteria);
 
     /**
-     * <p>acknowledgeMatchingNotification</p>
+     * <p>
+     * acknowledgeMatchingNotification
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
-     * @param timestamp a java$util$Date object.
-     * @param criteria a {@link org.opennms.web.notification.filter.NotificationCriteria} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param timestamp
+     *            a java$util$Date object.
+     * @param criteria
+     *            a
+     *            {@link org.opennms.web.notification.filter.NotificationCriteria}
+     *            object.
      */
     public abstract void acknowledgeMatchingNotification(String user, Date timestamp, NotificationCriteria criteria);
 }

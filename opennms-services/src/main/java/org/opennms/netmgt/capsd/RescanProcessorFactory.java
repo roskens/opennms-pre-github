@@ -29,7 +29,9 @@
 package org.opennms.netmgt.capsd;
 
 /**
- * <p>RescanProcessorFactory interface.</p>
+ * <p>
+ * RescanProcessorFactory interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -37,17 +39,23 @@ package org.opennms.netmgt.capsd;
 public interface RescanProcessorFactory {
 
     /**
-     * <p>createRescanProcessor</p>
+     * <p>
+     * createRescanProcessor
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link org.opennms.netmgt.capsd.RescanProcessor} object.
      */
     public abstract RescanProcessor createRescanProcessor(int nodeId);
 
     /**
-     * <p>createForcedRescanProcessor</p>
+     * <p>
+     * createForcedRescanProcessor
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link org.opennms.netmgt.capsd.RescanProcessor} object.
      */
     public abstract RescanProcessor createForcedRescanProcessor(int nodeId);

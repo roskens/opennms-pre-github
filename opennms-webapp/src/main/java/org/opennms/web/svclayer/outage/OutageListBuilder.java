@@ -41,7 +41,9 @@ import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.OnmsServiceType;
 
 /**
- * <p>OutageListBuilder class.</p>
+ * <p>
+ * OutageListBuilder class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -51,9 +53,12 @@ import org.opennms.netmgt.model.OnmsServiceType;
 public class OutageListBuilder {
 
     /**
-     * <p>theTable</p>
+     * <p>
+     * theTable
+     * </p>
      *
-     * @param foundOutages a {@link java.util.Collection} object.
+     * @param foundOutages
+     *            a {@link java.util.Collection} object.
      * @return a {@link java.util.List} object.
      */
     public final List<Map<String, Object>> theTable(final Collection<OnmsOutage> foundOutages) {

@@ -31,15 +31,21 @@ package org.opennms.netmgt.dao.api;
 import org.opennms.netmgt.model.OnmsEvent;
 
 /**
- * <p>EventDao interface.</p>
+ * <p>
+ * EventDao interface.
+ * </p>
  */
 public interface EventDao extends OnmsDao<OnmsEvent, Integer> {
 
     /**
-     * <p>deletePreviousEventsForAlarm</p>
+     * <p>
+     * deletePreviousEventsForAlarm
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
-     * @param e a {@link org.opennms.netmgt.model.OnmsEvent} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
      * @return a int.
      */
     int deletePreviousEventsForAlarm(final Integer id, final OnmsEvent e);

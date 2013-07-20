@@ -38,7 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>ForceRescanState class.</p>
+ * <p>
+ * ForceRescanState class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,15 +50,20 @@ public class ForceRescanState {
     private static final Logger LOG = LoggerFactory.getLogger(ForceRescanState.class);
 
     private CollectionAgent m_agent;
+
     private EventProxy m_eventProxy;
 
     private boolean m_forceRescanSent = false;
 
     /**
-     * <p>Constructor for ForceRescanState.</p>
+     * <p>
+     * Constructor for ForceRescanState.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
-     * @param eventProxy a {@link org.opennms.netmgt.model.events.EventProxy} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param eventProxy
+     *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
     public ForceRescanState(CollectionAgent agent, EventProxy eventProxy) {
         m_agent = agent;
@@ -64,7 +71,9 @@ public class ForceRescanState {
     }
 
     /**
-     * <p>getEventProxy</p>
+     * <p>
+     * getEventProxy
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
@@ -73,7 +82,9 @@ public class ForceRescanState {
     }
 
     /**
-     * <p>createForceResanEvent</p>
+     * <p>
+     * createForceResanEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -93,7 +104,9 @@ public class ForceRescanState {
     }
 
     /**
-     * <p>getAgent</p>
+     * <p>
+     * getAgent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
@@ -104,22 +117,24 @@ public class ForceRescanState {
     /**
      * This method is responsible for building a Capsd forceRescan event object
      * and sending it out over the EventProxy.
+     *
      * @param eventProxy
      *            proxy over which an event may be sent to eventd
      * @param ifAddress
      *            interface address to which this event pertains
-     * @param nodeId TODO
+     * @param nodeId
+     *            TODO
      */
     void sendForceRescanEvent() {
         // Log4j category
-	LOG.debug("generateForceRescanEvent: interface = {}", getAgent().getHostAddress());
+        LOG.debug("generateForceRescanEvent: interface = {}", getAgent().getHostAddress());
 
-    	// Send event via EventProxy
-    	try {
+        // Send event via EventProxy
+        try {
             getEventProxy().send(createForceResanEvent());
-    	} catch (EventProxyException e) {
-		LOG.error("generateForceRescanEvent: Unable to send forceRescan event.", e);
-    	}
+        } catch (EventProxyException e) {
+            LOG.error("generateForceRescanEvent: Unable to send forceRescan event.", e);
+        }
     }
 
     void rescanIndicated() {

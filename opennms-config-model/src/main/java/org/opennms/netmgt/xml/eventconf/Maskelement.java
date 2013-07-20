@@ -57,13 +57,14 @@ import org.xml.sax.ContentHandler;
 /**
  * The mask element
  */
-@XmlRootElement(name="maskelement")
+@XmlRootElement(name = "maskelement")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
-@XmlType(propOrder={"m_name", "m_values"})
+@XmlType(propOrder = { "m_name", "m_values" })
 public class Maskelement implements Serializable {
-	private static final long serialVersionUID = -3932312038903008806L;
-	private static final String[] EMPTY_STRING_ARRAY = new String[0];
+    private static final long serialVersionUID = -3932312038903008806L;
+
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     /**
      * The UEI xml tag
@@ -121,12 +122,12 @@ public class Maskelement implements Serializable {
     public static final String TAG_SNMP_COMMUNITY = "community";
 
     // @NotNull
-	@XmlElement(name="mename", required=true)
+    @XmlElement(name = "mename", required = true)
     private String m_name;
 
-	// @NotNull
-	// @Size(min=1)
-	@XmlElement(name="mevalue", required=true)
+    // @NotNull
+    // @Size(min=1)
+    @XmlElement(name = "mevalue", required = true)
     private List<String> m_values = new ArrayList<String>();
 
     public void addMevalue(final String value) throws IndexOutOfBoundsException {
@@ -146,23 +147,33 @@ public class Maskelement implements Serializable {
      * The mask element name. Must be from the following subset:
      * </p>
      * <dl>
-     * <dt>uei</dt><dd>the OpenNMS Universal Event Identifier</dd>
-     * <dt>source</dt><dd>source of the event; "trapd" for received SNMP traps;
-     * warning: these aren't standardized</dd>
-     * <dt>host</dt><dd>host related to the event; for SNMP traps this is the
-     * IP source address of the host that sent the trap to OpenNMS</dd>
-     * <dt>snmphost</dt><dd>SNMP host related to  the event; for SNMPv1 traps
-     * this is IP address reported in the trap; for SNMPv2 traps and later this
-     * is the same as "host"</dd>
-     * <dt>nodeid</dt><dd>the OpenNMS node identifier for the node related
-     * to this event</dd>
-     * <dt>interface</dt><dd>interface related to the event; for SNMP
-     * traps this is the same as "snmphost"</dd>
-     * <dt>service</dt><dd>Service name</dd>
-     * <dt>id</dt><dd>enterprise ID in an SNMP trap</dd>
-     * <dt>specific</dt><dd>specific value in an SNMP trap</dd>
-     * <dt>generic</dt><dd>generic value in an SNMP trap</dd>
-     * <dt>community</dt><dd>community string in an SNMP trap</dd>
+     * <dt>uei</dt>
+     * <dd>the OpenNMS Universal Event Identifier</dd>
+     * <dt>source</dt>
+     * <dd>source of the event; "trapd" for received SNMP traps; warning: these
+     * aren't standardized</dd>
+     * <dt>host</dt>
+     * <dd>host related to the event; for SNMP traps this is the IP source
+     * address of the host that sent the trap to OpenNMS</dd>
+     * <dt>snmphost</dt>
+     * <dd>SNMP host related to the event; for SNMPv1 traps this is IP address
+     * reported in the trap; for SNMPv2 traps and later this is the same as
+     * "host"</dd>
+     * <dt>nodeid</dt>
+     * <dd>the OpenNMS node identifier for the node related to this event</dd>
+     * <dt>interface</dt>
+     * <dd>interface related to the event; for SNMP traps this is the same as
+     * "snmphost"</dd>
+     * <dt>service</dt>
+     * <dd>Service name</dd>
+     * <dt>id</dt>
+     * <dd>enterprise ID in an SNMP trap</dd>
+     * <dt>specific</dt>
+     * <dd>specific value in an SNMP trap</dd>
+     * <dt>generic</dt>
+     * <dd>generic value in an SNMP trap</dd>
+     * <dt>community</dt>
+     * <dd>community string in an SNMP trap</dd>
      * </dl>
      */
     public String getMename() {
@@ -176,7 +187,8 @@ public class Maskelement implements Serializable {
      */
     public String getMevalue(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_values.size()) {
-            throw new IndexOutOfBoundsException("getMevalue: Index value '" + index + "' not in range [0.." + (m_values.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getMevalue: Index value '" + index + "' not in range [0.."
+                    + (m_values.size() - 1) + "]");
         }
         return m_values.get(index);
     }
@@ -235,7 +247,8 @@ public class Maskelement implements Serializable {
 
     public void setMevalue(final int index, final String value) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_values.size()) {
-            throw new IndexOutOfBoundsException("setMevalue: Index value '" + index + "' not in range [0.." + (m_values.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setMevalue: Index value '" + index + "' not in range [0.."
+                    + (m_values.size() - 1) + "]");
         }
         m_values.set(index, value.intern());
     }
@@ -243,7 +256,7 @@ public class Maskelement implements Serializable {
     public void setMevalue(final String[] values) {
         m_values.clear();
         for (final String value : values) {
-        	m_values.add(value.intern());
+            m_values.add(value.intern());
         }
     }
 
@@ -269,56 +282,60 @@ public class Maskelement implements Serializable {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_name == null) ? 0 : m_name.hashCode());
-		result = prime * result + ((m_values == null) ? 0 : m_values.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_name == null) ? 0 : m_name.hashCode());
+        result = prime * result + ((m_values == null) ? 0 : m_values.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Maskelement)) return false;
-		final Maskelement other = (Maskelement) obj;
-		if (m_name == null) {
-			if (other.m_name != null) return false;
-		} else if (!m_name.equals(other.m_name)) {
-			return false;
-		}
-		if (m_values == null) {
-			if (other.m_values != null) return false;
-		} else if (!m_values.equals(other.m_values)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Maskelement))
+            return false;
+        final Maskelement other = (Maskelement) obj;
+        if (m_name == null) {
+            if (other.m_name != null)
+                return false;
+        } else if (!m_name.equals(other.m_name)) {
+            return false;
+        }
+        if (m_values == null) {
+            if (other.m_values != null)
+                return false;
+        } else if (!m_values.equals(other.m_values)) {
+            return false;
+        }
+        return true;
+    }
 
+    public EventMatcher constructMatcher() {
+        List<EventMatcher> valueMatchers = new ArrayList<EventMatcher>(m_values.size());
+        for (String value : m_values) {
+            if (value == null)
+                continue;
+            if (value.startsWith("~")) {
+                valueMatchers.add(valueMatchesRegexMatcher(field(m_name), value));
+            } else if (value.endsWith("%")) {
+                valueMatchers.add(valueStartsWithMatcher(field(m_name), value));
+            } else {
+                valueMatchers.add(valueEqualsMatcher(field(m_name), value));
+            }
+        }
 
+        if (valueMatchers.size() == 1) {
+            return valueMatchers.get(0);
+        } else {
+            EventMatcher[] matchers = valueMatchers.toArray(new EventMatcher[valueMatchers.size()]);
+            return EventMatchers.or(matchers);
+        }
 
-	public EventMatcher constructMatcher() {
-		List<EventMatcher> valueMatchers = new ArrayList<EventMatcher>(m_values.size());
-		for(String value : m_values) {
-			if (value == null) continue;
-			if (value.startsWith("~")) {
-				valueMatchers.add(valueMatchesRegexMatcher(field(m_name), value));
-			} else if (value.endsWith("%")) {
-				valueMatchers.add(valueStartsWithMatcher(field(m_name), value));
-			} else {
-				valueMatchers.add(valueEqualsMatcher(field(m_name), value));
-			}
-		}
-
-		if (valueMatchers.size() == 1) {
-			return valueMatchers.get(0);
-		} else {
-			EventMatcher[] matchers = valueMatchers.toArray(new EventMatcher[valueMatchers.size()]);
-			return EventMatchers.or(matchers);
-		}
-
-	}
+    }
 
 }

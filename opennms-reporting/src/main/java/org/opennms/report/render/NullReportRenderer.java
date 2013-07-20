@@ -59,9 +59,12 @@ public class NullReportRenderer implements ReportRenderer {
     private Resource m_xsltResource;
 
     /**
-     * <p>render</p>
+     * <p>
+     * render
+     * </p>
      *
-     * @throws org.opennms.reporting.availability.render.ReportRenderException if any.
+     * @throws org.opennms.reporting.availability.render.ReportRenderException
+     *             if any.
      */
     @Override
     public void render() throws ReportRenderException {
@@ -83,7 +86,9 @@ public class NullReportRenderer implements ReportRenderer {
     }
 
     /**
-     * <p>getOutputFileName</p>
+     * <p>
+     * getOutputFileName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,38 +105,37 @@ public class NullReportRenderer implements ReportRenderer {
 
     /** {@inheritDoc} */
     @Override
-    public void setBaseDir(String baseDir){
+    public void setBaseDir(String baseDir) {
         this.m_baseDir = baseDir;
     }
 
     /**
-     * <p>getBaseDir</p>
+     * <p>
+     * getBaseDir
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String getBaseDir(){
-       return m_baseDir;
+    public String getBaseDir() {
+        return m_baseDir;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void render(String inputFileName, String outputFileName,
-            Resource xlstResource)
+    public void render(String inputFileName, String outputFileName, Resource xlstResource)
             throws org.opennms.reporting.availability.render.ReportRenderException {
     }
 
     /** {@inheritDoc} */
     @Override
-    public void render(String inputFileName, OutputStream outputStream,
-            Resource xsltResource)
+    public void render(String inputFileName, OutputStream outputStream, Resource xsltResource)
             throws org.opennms.reporting.availability.render.ReportRenderException {
     }
 
     /** {@inheritDoc} */
     @Override
-    public void render(InputStream inputStream, OutputStream outputStream,
-            Resource xsltResource)
+    public void render(InputStream inputStream, OutputStream outputStream, Resource xsltResource)
             throws org.opennms.reporting.availability.render.ReportRenderException {
     }
 

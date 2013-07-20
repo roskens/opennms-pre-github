@@ -33,20 +33,21 @@ import org.opennms.features.topology.app.internal.jung.CircleLayoutAlgorithm;
 
 public class CircleLayoutOperation extends LayoutOperation {
 
-	public CircleLayoutOperation() {
-		super(new LayoutFactory() {
+    public CircleLayoutOperation() {
+        super(new LayoutFactory() {
 
-		    private final CircleLayoutAlgorithm m_layoutAlgorithm = new CircleLayoutAlgorithm();
-			@Override
-			public LayoutAlgorithm getLayoutAlgorithm() {
-				return m_layoutAlgorithm;
-			}
-		});
-	}
+            private final CircleLayoutAlgorithm m_layoutAlgorithm = new CircleLayoutAlgorithm();
 
-	@Override
-	public String getId() {
-		return getClass().getSimpleName();
-	}
+            @Override
+            public LayoutAlgorithm getLayoutAlgorithm() {
+                return m_layoutAlgorithm;
+            }
+        });
+    }
+
+    @Override
+    public String getId() {
+        return getClass().getSimpleName();
+    }
 
 }

@@ -45,18 +45,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:META-INF/opennms/applicationContext-daemon.xml",
-        "classpath:META-INF/opennms/applicationContext-soa.xml",
-        "classpath:META-INF/opennms/mockEventIpcManager.xml",
-        "classpath:META-INF/opennms/correlation-engine.xml",
-        "classpath:test-context.xml"
-})
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-daemon.xml",
+        "classpath:META-INF/opennms/applicationContext-soa.xml", "classpath:META-INF/opennms/mockEventIpcManager.xml",
+        "classpath:META-INF/opennms/correlation-engine.xml", "classpath:test-context.xml" })
 @JUnitConfigurationEnvironment
 public abstract class CorrelationRulesTestCase {
 
     @Autowired
     private MockEventIpcManager m_eventIpcMgr;
+
     protected Integer m_anticipatedMemorySize = 0;
 
     @Autowired
@@ -71,14 +68,15 @@ public abstract class CorrelationRulesTestCase {
     }
 
     protected void resetAnticipated() {
-    	getAnticipator().reset();
-    	m_anticipatedMemorySize = null;
+        getAnticipator().reset();
+        m_anticipatedMemorySize = null;
     }
 
     protected void verify(DroolsCorrelationEngine engine) {
-    	getAnticipator().verifyAnticipated(0, 0, 0, 0, 0);
+        getAnticipator().verifyAnticipated(0, 0, 0, 0, 0);
         if (m_anticipatedMemorySize != null) {
-            assertEquals("Unexpected number of objects in working memory: "+engine.getMemoryObjects(), m_anticipatedMemorySize.intValue(), engine.getMemorySize());
+            assertEquals("Unexpected number of objects in working memory: " + engine.getMemoryObjects(),
+                         m_anticipatedMemorySize.intValue(), engine.getMemorySize());
         }
     }
 
@@ -91,26 +89,20 @@ public abstract class CorrelationRulesTestCase {
     }
 
     protected Event createRemoteNodeLostServiceEvent(int nodeId, String ipAddr, String svcName, int locationMonitor) {
-    	return createEvent(EventConstants.REMOTE_NODE_LOST_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
+        return createEvent(EventConstants.REMOTE_NODE_LOST_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
     }
 
     protected Event createRemoteNodeRegainedServiceEvent(int nodeId, String ipAddr, String svcName, int locationMonitor) {
-    	return createEvent(EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
+        return createEvent(EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
     }
 
     protected Event createEvent(String uei, int nodeId, String ipAddr, String svcName, int locationMonitor) {
-    	return new EventBuilder(uei, "test")
-        .setNodeid(nodeId).setInterface(addr(ipAddr))
-        	.setService(svcName)
-        	.addParam(EventConstants.PARM_LOCATION_MONITOR_ID, locationMonitor)
-            .getEvent();
+        return new EventBuilder(uei, "test").setNodeid(nodeId).setInterface(addr(ipAddr)).setService(svcName).addParam(EventConstants.PARM_LOCATION_MONITOR_ID,
+                                                                                                                       locationMonitor).getEvent();
     }
 
     protected Event createServiceEvent(String uei, int nodeId, String ipAddr, String svcName) {
-        return new EventBuilder(uei, "test")
-        .setNodeid(nodeId).setInterface(addr("192.168.1.1"))
-            .setService("HTTP")
-            .getEvent();
+        return new EventBuilder(uei, "test").setNodeid(nodeId).setInterface(addr("192.168.1.1")).setService("HTTP").getEvent();
     }
 
     /**

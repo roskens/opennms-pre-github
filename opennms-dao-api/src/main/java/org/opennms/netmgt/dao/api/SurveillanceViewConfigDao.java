@@ -32,29 +32,41 @@ import org.opennms.netmgt.config.surveillanceViews.View;
 import org.opennms.netmgt.config.surveillanceViews.Views;
 
 /**
- * <p>SurveillanceViewConfigDao interface.</p>
+ * <p>
+ * SurveillanceViewConfigDao interface.
+ * </p>
  */
 public interface SurveillanceViewConfigDao {
 
     /**
-     * <p>getViews</p>
+     * <p>
+     * getViews
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.surveillanceViews.Views} object.
+     * @return a {@link org.opennms.netmgt.config.surveillanceViews.Views}
+     *         object.
      */
     Views getViews();
 
     /**
-     * <p>getView</p>
+     * <p>
+     * getView
+     * </p>
      *
-     * @param viewName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.surveillanceViews.View} object.
+     * @param viewName
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.config.surveillanceViews.View}
+     *         object.
      */
     View getView(String viewName);
 
     /**
-     * <p>getDefaultView</p>
+     * <p>
+     * getDefaultView
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.surveillanceViews.View} object.
+     * @return a {@link org.opennms.netmgt.config.surveillanceViews.View}
+     *         object.
      */
     View getDefaultView();
 

@@ -32,7 +32,9 @@ import org.opennms.web.filter.EqualsFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>AcknowledgedByFilter class.</p>
+ * <p>
+ * AcknowledgedByFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,13 +47,16 @@ public class AcknowledgedByFilter extends EqualsFilter<String> {
     protected String m_user;
 
     /**
-     * <p>Constructor for AcknowledgedByFilter.</p>
+     * <p>
+     * Constructor for AcknowledgedByFilter.
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
-    public AcknowledgedByFilter(String user){
+    public AcknowledgedByFilter(String user) {
         super(TYPE, SQLType.STRING, "ANSWEREDBY", "answeredBy", user);
-        if(user == null){
+        if (user == null) {
             throw new IllegalArgumentException("Cannot take null parameters");
         }
         m_user = user;

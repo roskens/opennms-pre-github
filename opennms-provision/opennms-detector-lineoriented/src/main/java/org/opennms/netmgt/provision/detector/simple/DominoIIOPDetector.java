@@ -33,7 +33,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>DominoIIOPDetector class.</p>
+ * <p>
+ * DominoIIOPDetector class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -67,8 +69,10 @@ public class DominoIIOPDetector extends LineOrientedDetector {
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public DominoIIOPDetector(final String serviceName, final int port) {
         super(serviceName, port);
@@ -77,9 +81,12 @@ public class DominoIIOPDetector extends LineOrientedDetector {
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
-        // Empty on init method, everything for this detector is done in the Client
-        // It does a preconnect to check for the diiop_ior.txt if that file is found it will
-        // attempt to connect to the port that you set it to connect or the default port 63148
+        // Empty on init method, everything for this detector is done in the
+        // Client
+        // It does a preconnect to check for the diiop_ior.txt if that file is
+        // found it will
+        // attempt to connect to the port that you set it to connect or the
+        // default port 63148
 
     }
 
@@ -92,23 +99,26 @@ public class DominoIIOPDetector extends LineOrientedDetector {
     }
 
     /**
-     * <p>setIorPort</p>
+     * <p>
+     * setIorPort
+     * </p>
      *
-     * @param iorPort a int.
+     * @param iorPort
+     *            a int.
      */
     public void setIorPort(final int iorPort) {
         m_iorPort = iorPort;
     }
 
     /**
-     * <p>getIorPort</p>
+     * <p>
+     * getIorPort
+     * </p>
      *
      * @return a int.
      */
     public int getIorPort() {
         return m_iorPort;
     }
-
-
 
 }

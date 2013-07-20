@@ -54,7 +54,7 @@ public class LsofReportPlugin extends AbstractSystemReportPlugin {
 
     @Override
     public TreeMap<String, Resource> getEntries() {
-        final TreeMap<String,Resource> map = new TreeMap<String,Resource>();
+        final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
         String lsofOutput = null;
 
         final String lsof = findBinary("lsof");
@@ -65,7 +65,7 @@ public class LsofReportPlugin extends AbstractSystemReportPlugin {
 
         if (lsofOutput != null) {
             File tempFile = createTemporaryFileFromString(lsofOutput);
-            if(tempFile != null) {
+            if (tempFile != null) {
                 map.put("Output", new FileSystemResource(tempFile));
             }
         }

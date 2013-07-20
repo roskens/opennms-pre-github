@@ -43,15 +43,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>SSLClient class.</p>
+ * <p>
+ * SSLClient class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
  */
-public class SSLClient extends MultilineOrientedClient implements Client<LineOrientedRequest, MultilineOrientedResponse> {
+public class SSLClient extends MultilineOrientedClient implements
+        Client<LineOrientedRequest, MultilineOrientedResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(SSLClient.class);
-
 
     /** {@inheritDoc} */
     @Override
@@ -62,13 +64,19 @@ public class SSLClient extends MultilineOrientedClient implements Client<LineOri
     }
 
     /**
-     * <p>getWrappedSocket</p>
+     * <p>
+     * getWrappedSocket
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param port a int.
-     * @param timeout a int.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
      * @return a {@link java.net.Socket} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected Socket getWrappedSocket(final InetAddress address, final int port, final int timeout) throws IOException {
         Socket socket = new Socket();

@@ -43,32 +43,43 @@ import org.opennms.netmgt.model.OnmsAcknowledgment;
 public interface AcknowledgmentDao extends OnmsDao<OnmsAcknowledgment, Integer> {
 
     /**
-     * <p>findAcknowledgables</p>
+     * <p>
+     * findAcknowledgables
+     * </p>
      *
-     * @param ack a {@link org.opennms.netmgt.model.OnmsAcknowledgment} object.
+     * @param ack
+     *            a {@link org.opennms.netmgt.model.OnmsAcknowledgment} object.
      * @return a {@link java.util.List} object.
      */
     List<Acknowledgeable> findAcknowledgables(OnmsAcknowledgment ack);
 
     /**
-     * <p>updateAckable</p>
+     * <p>
+     * updateAckable
+     * </p>
      *
-     * @param ackable a {@link org.opennms.netmgt.model.Acknowledgeable} object.
+     * @param ackable
+     *            a {@link org.opennms.netmgt.model.Acknowledgeable} object.
      */
     void updateAckable(Acknowledgeable ackable);
 
-
     /**
-     * <p>processAck</p>
+     * <p>
+     * processAck
+     * </p>
      *
-     * @param ack a {@link org.opennms.netmgt.model.OnmsAcknowledgment} object.
+     * @param ack
+     *            a {@link org.opennms.netmgt.model.OnmsAcknowledgment} object.
      */
     void processAck(OnmsAcknowledgment ack);
 
     /**
-     * <p>processAcks</p>
+     * <p>
+     * processAcks
+     * </p>
      *
-     * @param acks a {@link java.util.Collection} object.
+     * @param acks
+     *            a {@link java.util.Collection} object.
      */
     void processAcks(Collection<OnmsAcknowledgment> acks);
 }

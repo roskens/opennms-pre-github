@@ -47,308 +47,345 @@ import org.opennms.netmgt.config.collectd.IncludeRange;
 import org.opennms.netmgt.config.collectd.Package;
 import org.opennms.netmgt.config.collectd.Service;
 import org.opennms.netmgt.filter.FilterDaoFactory;
+
 public class CollectdPackage {
     private static final Logger LOG = LoggerFactory.getLogger(CollectdPackage.class);
-	private Package m_pkg;
-	private List<InetAddress> m_ipList;
-	private List<IncludeURL> m_includeURLs;
 
+    private Package m_pkg;
 
-	/**
-	 * <p>Constructor for CollectdPackage.</p>
-	 *
-	 * @param pkg a {@link org.opennms.netmgt.config.collectd.Package} object.
-	 * @param localServer a {@link java.lang.String} object.
-	 * @param verifyServer a boolean.
-	 */
-	public CollectdPackage(Package pkg, String localServer, boolean verifyServer) {
-		m_pkg = pkg;
+    private List<InetAddress> m_ipList;
 
-		m_includeURLs = new LinkedList<IncludeURL>();
+    private List<IncludeURL> m_includeURLs;
 
-		createIpList(localServer, verifyServer);
+    /**
+     * <p>
+     * Constructor for CollectdPackage.
+     * </p>
+     *
+     * @param pkg
+     *            a {@link org.opennms.netmgt.config.collectd.Package} object.
+     * @param localServer
+     *            a {@link java.lang.String} object.
+     * @param verifyServer
+     *            a boolean.
+     */
+    public CollectdPackage(Package pkg, String localServer, boolean verifyServer) {
+        m_pkg = pkg;
 
-		createIncludeURLs(pkg);
+        m_includeURLs = new LinkedList<IncludeURL>();
 
-	}
+        createIpList(localServer, verifyServer);
 
-	private void createIncludeURLs(Package pkg) {
-		Enumeration<String> urlEnum = pkg.enumerateIncludeUrl();
-		while (urlEnum.hasMoreElements()) {
-			m_includeURLs.add(new IncludeURL(urlEnum.nextElement()));
-		}
-	}
+        createIncludeURLs(pkg);
 
-	/**
-	 * <p>getPackage</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.config.collectd.Package} object.
-	 */
-	public Package getPackage() {
-		return m_pkg;
-	}
+    }
 
-	/**
-	 * Returns true if the service is part of the package and the status of the
-	 * service is set to "on". Returns false if the service is not in the
-	 * package or it is but the status of the service is set to "off".
-	 *
-	 * @param svcName
-	 *            The service name to lookup.
-	 * @return a boolean.
-	 */
-	public boolean serviceInPackageAndEnabled(String svcName) {
-		Package pkg = getPackage();
-		boolean result = false;
+    private void createIncludeURLs(Package pkg) {
+        Enumeration<String> urlEnum = pkg.enumerateIncludeUrl();
+        while (urlEnum.hasMoreElements()) {
+            m_includeURLs.add(new IncludeURL(urlEnum.nextElement()));
+        }
+    }
 
-		Enumeration<Service> esvcs = pkg.enumerateService();
-		while (result == false && esvcs.hasMoreElements()) {
-			Service tsvc = esvcs.nextElement();
-			if (tsvc.getName().equalsIgnoreCase(svcName)) {
-				// Ok its in the package. Now check the
-				// status of the service
-				String status = tsvc.getStatus();
-				if (status.equals("on"))
-					result = true;
-			}
-		}
-		return result;
-	}
+    /**
+     * <p>
+     * getPackage
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.config.collectd.Package} object.
+     */
+    public Package getPackage() {
+        return m_pkg;
+    }
 
-	protected boolean hasSpecific(byte[] addr) {
-	    for (String espec : getPackage().getSpecific()) {
-	        if (new ByteArrayComparator().compare(toIpAddrBytes(espec), addr) == 0) {
-	            return true;
-	        }
-	    }
-	    return false;
-	}
+    /**
+     * Returns true if the service is part of the package and the status of the
+     * service is set to "on". Returns false if the service is not in the
+     * package or it is but the status of the service is set to "off".
+     *
+     * @param svcName
+     *            The service name to lookup.
+     * @return a boolean.
+     */
+    public boolean serviceInPackageAndEnabled(String svcName) {
+        Package pkg = getPackage();
+        boolean result = false;
 
-	/**
-	 * <p>hasIncludeRange</p>
-	 *
-	 * @param addr a long.
-	 * @return a boolean.
-	 */
-	protected boolean hasIncludeRange(String addr) {
-		Package pkg = getPackage();
-		if (pkg.getIncludeRangeCount() == 0 && pkg.getSpecificCount() == 0) {
-		    return true;
-		}
+        Enumeration<Service> esvcs = pkg.enumerateService();
+        while (result == false && esvcs.hasMoreElements()) {
+            Service tsvc = esvcs.nextElement();
+            if (tsvc.getName().equalsIgnoreCase(svcName)) {
+                // Ok its in the package. Now check the
+                // status of the service
+                String status = tsvc.getStatus();
+                if (status.equals("on"))
+                    result = true;
+            }
+        }
+        return result;
+    }
 
-		for (IncludeRange rng : pkg.getIncludeRange()) {
-		    if (isInetAddressInRange(addr, rng.getBegin(), rng.getEnd())) {
-		        return true;
-		    }
-		}
-		return false;
-	}
+    protected boolean hasSpecific(byte[] addr) {
+        for (String espec : getPackage().getSpecific()) {
+            if (new ByteArrayComparator().compare(toIpAddrBytes(espec), addr) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * <p>getName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getName() {
-		return m_pkg.getName();
-	}
+    /**
+     * <p>
+     * hasIncludeRange
+     * </p>
+     *
+     * @param addr
+     *            a long.
+     * @return a boolean.
+     */
+    protected boolean hasIncludeRange(String addr) {
+        Package pkg = getPackage();
+        if (pkg.getIncludeRangeCount() == 0 && pkg.getSpecificCount() == 0) {
+            return true;
+        }
 
-	protected boolean hasExcludeRange(String addr, boolean has_specific) {
-	    for (ExcludeRange rng : getPackage().getExcludeRange()) {
-	        if (isInetAddressInRange(addr, rng.getBegin(), rng.getEnd())) {
-	            return true;
-	        }
-	    }
-	    return false;
-	}
+        for (IncludeRange rng : pkg.getIncludeRange()) {
+            if (isInetAddressInRange(addr, rng.getBegin(), rng.getEnd())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * <p>putIpList</p>
-	 *
-	 * @param ipList a {@link java.util.List} object.
-	 */
-	public void putIpList(List<InetAddress> ipList) {
-		m_ipList = ipList;
-	}
+    /**
+     * <p>
+     * getName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getName() {
+        return m_pkg.getName();
+    }
 
-	/**
-	 * <p>getIpList</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	protected List<InetAddress> getIpList() {
-		return m_ipList;
-	}
+    protected boolean hasExcludeRange(String addr, boolean has_specific) {
+        for (ExcludeRange rng : getPackage().getExcludeRange()) {
+            if (isInetAddressInRange(addr, rng.getBegin(), rng.getEnd())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	protected boolean interfaceInFilter(String iface) {
-		if (iface == null) return false;
-		final InetAddress ifaceAddress = addr(iface);
+    /**
+     * <p>
+     * putIpList
+     * </p>
+     *
+     * @param ipList
+     *            a {@link java.util.List} object.
+     */
+    public void putIpList(List<InetAddress> ipList) {
+        m_ipList = ipList;
+    }
 
-		boolean filterPassed = false;
+    /**
+     * <p>
+     * getIpList
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    protected List<InetAddress> getIpList() {
+        return m_ipList;
+    }
 
-		// get list of IPs in this package
-		List<InetAddress> ipList = getIpList();
-		if (ipList != null && ipList.size() > 0) {
-			filterPassed = ipList.contains(ifaceAddress);
-		} else {
-			LOG.debug("interfaceInFilter: ipList contains no data");
-		}
+    protected boolean interfaceInFilter(String iface) {
+        if (iface == null)
+            return false;
+        final InetAddress ifaceAddress = addr(iface);
 
-		if (!filterPassed)
-			LOG.debug("interfaceInFilter: Interface {} passed filter for package {}?: false", iface, getName());
-		return filterPassed;
-	}
+        boolean filterPassed = false;
 
-	/**
-	 * <p>getIncludeURLs</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	public List<IncludeURL> getIncludeURLs() {
-		return m_includeURLs;
-	}
+        // get list of IPs in this package
+        List<InetAddress> ipList = getIpList();
+        if (ipList != null && ipList.size() > 0) {
+            filterPassed = ipList.contains(ifaceAddress);
+        } else {
+            LOG.debug("interfaceInFilter: ipList contains no data");
+        }
 
-	protected boolean hasSpecificUrl(String iface, boolean has_specific) {
-		for (Iterator<IncludeURL> it = getIncludeURLs().iterator(); it.hasNext() && !has_specific;) {
-			IncludeURL includeURL = it.next();
-			has_specific = includeURL.interfaceInUrl(iface);
-		}
-		return has_specific;
-	}
+        if (!filterPassed)
+            LOG.debug("interfaceInFilter: Interface {} passed filter for package {}?: false", iface, getName());
+        return filterPassed;
+    }
 
-	/**
-	 * This method is used to determine if the named interface is included in
-	 * the passed package definition. If the interface belongs to the package
-	 * then a value of true is returned. If the interface does not belong to the
-	 * package a false value is returned.
-	 *
-	 * <strong>Note: </strong>Evaluation of the interface against a package
-	 * filter will only work if the IP is already in the database.
-	 *
-	 * @param iface
-	 *            The interface to test against the package.
-	 * @return True if the interface is included in the package, false
-	 *         otherwise.
-	 */
-	public boolean interfaceInPackage(final String iface) {
-		boolean filterPassed = interfaceInFilter(iface);
+    /**
+     * <p>
+     * getIncludeURLs
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    public List<IncludeURL> getIncludeURLs() {
+        return m_includeURLs;
+    }
 
-		if (!filterPassed)
-			return false;
+    protected boolean hasSpecificUrl(String iface, boolean has_specific) {
+        for (Iterator<IncludeURL> it = getIncludeURLs().iterator(); it.hasNext() && !has_specific;) {
+            IncludeURL includeURL = it.next();
+            has_specific = includeURL.interfaceInUrl(iface);
+        }
+        return has_specific;
+    }
 
-		//
-		// Ensure that the interface is in the specific list or
-		// that it is in the include range and is not excluded
-		//
+    /**
+     * This method is used to determine if the named interface is included in
+     * the passed package definition. If the interface belongs to the package
+     * then a value of true is returned. If the interface does not belong to the
+     * package a false value is returned.
+     * <strong>Note: </strong>Evaluation of the interface against a package
+     * filter will only work if the IP is already in the database.
+     *
+     * @param iface
+     *            The interface to test against the package.
+     * @return True if the interface is included in the package, false
+     *         otherwise.
+     */
+    public boolean interfaceInPackage(final String iface) {
+        boolean filterPassed = interfaceInFilter(iface);
 
-		byte[] addr = toIpAddrBytes(iface);
+        if (!filterPassed)
+            return false;
 
-		boolean has_range_include = hasIncludeRange(iface);
-		boolean has_specific = hasSpecific(addr);
+        //
+        // Ensure that the interface is in the specific list or
+        // that it is in the include range and is not excluded
+        //
 
-		has_specific = hasSpecificUrl(iface, has_specific);
-		boolean has_range_exclude = hasExcludeRange(iface, has_specific);
+        byte[] addr = toIpAddrBytes(iface);
 
-		boolean packagePassed = has_specific
-				|| (has_range_include && !has_range_exclude);
-                if(packagePassed) {
-		    LOG.info("interfaceInPackage: Interface {} passed filter and specific/range for package {}?: {}", iface, getName(), packagePassed);
-                } else {
-		    LOG.debug("interfaceInPackage: Interface {} passed filter and specific/range for package {}?: {}", iface, getName(), packagePassed);
-                }
-		return packagePassed;
-	}
+        boolean has_range_include = hasIncludeRange(iface);
+        boolean has_specific = hasSpecific(addr);
 
-	String getFilterRule(String localServer, boolean verifyServer) {
-		Package pkg = getPackage();
-		String filter = pkg.getFilter().getContent();
-		StringBuffer filterRules = new StringBuffer(filter);
+        has_specific = hasSpecificUrl(iface, has_specific);
+        boolean has_range_exclude = hasExcludeRange(iface, has_specific);
 
-		if (verifyServer) {
-			filterRules.append(" & (serverName == ");
-			filterRules.append('\"');
-			filterRules.append(localServer);
-			filterRules.append('\"');
-			filterRules.append(")");
-		}
-		return filterRules.toString();
-	}
+        boolean packagePassed = has_specific || (has_range_include && !has_range_exclude);
+        if (packagePassed) {
+            LOG.info("interfaceInPackage: Interface {} passed filter and specific/range for package {}?: {}", iface,
+                     getName(), packagePassed);
+        } else {
+            LOG.debug("interfaceInPackage: Interface {} passed filter and specific/range for package {}?: {}", iface,
+                      getName(), packagePassed);
+        }
+        return packagePassed;
+    }
 
-	void createIpList(final String localServer, final boolean verifyServer) {
-		Package pkg = getPackage();
-		//
-		// Get a list of ipaddress per package agaist the filter rules from
-		// database and populate the package, IP list map.
-		//
-		String filterRules = getFilterRule(localServer, verifyServer);
+    String getFilterRule(String localServer, boolean verifyServer) {
+        Package pkg = getPackage();
+        String filter = pkg.getFilter().getContent();
+        StringBuffer filterRules = new StringBuffer(filter);
 
-		LOG.debug("createPackageIpMap: package is {}. filer rules are {}", pkg.getName(), filterRules);
-		try {
+        if (verifyServer) {
+            filterRules.append(" & (serverName == ");
+            filterRules.append('\"');
+            filterRules.append(localServer);
+            filterRules.append('\"');
+            filterRules.append(")");
+        }
+        return filterRules.toString();
+    }
+
+    void createIpList(final String localServer, final boolean verifyServer) {
+        Package pkg = getPackage();
+        //
+        // Get a list of ipaddress per package agaist the filter rules from
+        // database and populate the package, IP list map.
+        //
+        String filterRules = getFilterRule(localServer, verifyServer);
+
+        LOG.debug("createPackageIpMap: package is {}. filer rules are {}", pkg.getName(), filterRules);
+        try {
             putIpList(FilterDaoFactory.getInstance().getActiveIPAddressList(filterRules));
-		} catch (Throwable t) {
-		    LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"", pkg.getName(), pkg.getFilter().getContent(), t);
-		}
-	}
+        } catch (Throwable t) {
+            LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"", pkg.getName(),
+                      pkg.getFilter().getContent(), t);
+        }
+    }
 
-	/**
-	 * <p>getService</p>
-	 *
-	 * @param svcName a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.netmgt.config.collectd.Service} object.
-	 */
-	public Service getService(final String svcName) {
+    /**
+     * <p>
+     * getService
+     * </p>
+     *
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.config.collectd.Service} object.
+     */
+    public Service getService(final String svcName) {
         final List<Service> pkgSvcs = m_pkg.getServiceCollection();
 
         for (Service svc : pkgSvcs) {
             if (svc.getName().equalsIgnoreCase(svcName))
                 return svc;
         }
-		throw new RuntimeException("Service name not part of package!");
-	}
+        throw new RuntimeException("Service name not part of package!");
+    }
 
-	/**
-	 * <p>storeByIfAlias</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String storeByIfAlias() {
-		return getPackage().getStoreByIfAlias();
-	}
+    /**
+     * <p>
+     * storeByIfAlias
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String storeByIfAlias() {
+        return getPackage().getStoreByIfAlias();
+    }
 
-	/**
-	 * <p>ifAliasComment</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String ifAliasComment() {
-		return getPackage().getIfAliasComment();
-	}
+    /**
+     * <p>
+     * ifAliasComment
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String ifAliasComment() {
+        return getPackage().getIfAliasComment();
+    }
 
-	/**
-	 * <p>getStorFlagOverride</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getStorFlagOverride() {
-		return getPackage().getStorFlagOverride();
-	}
+    /**
+     * <p>
+     * getStorFlagOverride
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getStorFlagOverride() {
+        return getPackage().getStorFlagOverride();
+    }
 
-	/**
-	 * <p>ifAliasDomain</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String ifAliasDomain() {
-		return getPackage().getIfAliasDomain();
-	}
+    /**
+     * <p>
+     * ifAliasDomain
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String ifAliasDomain() {
+        return getPackage().getIfAliasDomain();
+    }
 
-	/**
-	 * <p>storeByNodeId</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String storeByNodeId() {
-		return getPackage().getStoreByNodeID();
-	}
+    /**
+     * <p>
+     * storeByNodeId
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String storeByNodeId() {
+        return getPackage().getStoreByNodeID();
+    }
 
 }

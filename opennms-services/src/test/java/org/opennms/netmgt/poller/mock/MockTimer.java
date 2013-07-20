@@ -46,15 +46,14 @@ public class MockTimer implements Timer {
         m_currentTime = 0L;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.poller.schedule.Timer#getCurrentTime()
      */
     @Override
     public long getCurrentTime() {
         return m_currentTime;
     }
-
-
 
     public void setCurrentTime(long currentTime) {
         m_currentTime = currentTime;

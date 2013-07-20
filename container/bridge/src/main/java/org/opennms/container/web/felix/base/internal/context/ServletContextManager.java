@@ -25,17 +25,19 @@ import javax.servlet.ServletContextAttributeListener;
 import org.osgi.framework.Bundle;
 import org.osgi.service.http.HttpContext;
 
-public final class ServletContextManager
-{
+public final class ServletContextManager {
     private final Bundle bundle;
+
     private final ServletContext context;
+
     private final ServletContextAttributeListener attributeListener;
+
     private final Map<HttpContext, ExtServletContext> contextMap;
+
     private final boolean sharedAttributes;
 
     public ServletContextManager(Bundle bundle, ServletContext context,
-        ServletContextAttributeListener attributeListener, boolean sharedAttributes)
-    {
+            ServletContextAttributeListener attributeListener, boolean sharedAttributes) {
         this.bundle = bundle;
         this.context = context;
         this.attributeListener = attributeListener;
@@ -43,8 +45,7 @@ public final class ServletContextManager
         this.sharedAttributes = sharedAttributes;
     }
 
-    public ExtServletContext getServletContext(HttpContext httpContext)
-    {
+    public ExtServletContext getServletContext(HttpContext httpContext) {
         synchronized (this.contextMap) {
             ExtServletContext context = this.contextMap.get(httpContext);
             if (context == null) {
@@ -55,10 +56,9 @@ public final class ServletContextManager
         }
     }
 
-    private ExtServletContext addServletContext(HttpContext httpContext)
-    {
+    private ExtServletContext addServletContext(HttpContext httpContext) {
         ExtServletContext context = new ServletContextImpl(this.bundle, this.context, httpContext, attributeListener,
-            sharedAttributes);
+                                                           sharedAttributes);
         this.contextMap.put(httpContext, context);
         return context;
     }

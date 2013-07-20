@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 
 public class SyslogMessage {
     private static final Logger LOG = LoggerFactory.getLogger(SyslogMessage.class);
+
     private static final ThreadLocal<DateFormat> m_dateFormat = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
@@ -60,21 +61,32 @@ public class SyslogMessage {
     };
 
     private SyslogFacility m_facility = SyslogFacility.UNKNOWN;
+
     private SyslogSeverity m_severity = SyslogSeverity.UNKNOWN;
+
     private Integer m_version;
+
     private Date m_date;
+
     private String m_hostname;
+
     private String m_processName;
+
     private Integer m_processId;
+
     private String m_messageId;
+
     private String m_message;
+
     private String m_matchedMessage;
+
     private String m_fullText;
 
     public SyslogMessage() {
     }
 
-    public SyslogMessage(final int facility, final int severity, final Date date, String hostname, final String processName, final Integer processId, final String message) {
+    public SyslogMessage(final int facility, final int severity, final Date date, String hostname,
+            final String processName, final Integer processId, final String message) {
         this();
 
         m_facility = SyslogFacility.getFacility(facility);
@@ -180,7 +192,7 @@ public class SyslogMessage {
     }
 
     public String getMatchedMessage() {
-        return m_matchedMessage == null? m_message : m_matchedMessage;
+        return m_matchedMessage == null ? m_message : m_matchedMessage;
     }
 
     public void setMatchedMessage(final String matchedMessage) {
@@ -196,23 +208,28 @@ public class SyslogMessage {
     }
 
     public String getSyslogFormattedDate() {
-        if (m_date == null) return null;
+        if (m_date == null)
+            return null;
         return m_dateFormat.get().format(m_date);
     }
 
     public String getRfc3339FormattedDate() {
-        if (m_date == null) return null;
+        if (m_date == null)
+            return null;
         return m_rfc3339Format.get().format(m_date);
     }
 
     public String getFullText() {
         if (m_fullText == null) {
             if (m_processId != null && m_processName != null) {
-                m_fullText = String.format("<%d>%s %s %s[%d]: %s", getPriorityField(), getSyslogFormattedDate(), getHostName(), getProcessName(), getProcessId(), getMessage());
+                m_fullText = String.format("<%d>%s %s %s[%d]: %s", getPriorityField(), getSyslogFormattedDate(),
+                                           getHostName(), getProcessName(), getProcessId(), getMessage());
             } else if (m_processName != null) {
-                m_fullText = String.format("<%d>%s %s %s: %s", getPriorityField(), getSyslogFormattedDate(), getHostName(), getProcessName(), getMessage());
+                m_fullText = String.format("<%d>%s %s %s: %s", getPriorityField(), getSyslogFormattedDate(),
+                                           getHostName(), getProcessName(), getMessage());
             } else {
-                m_fullText = String.format("<%d>%s %s %s", getPriorityField(), getSyslogFormattedDate(), getHostName(), getMessage());
+                m_fullText = String.format("<%d>%s %s %s", getPriorityField(), getSyslogFormattedDate(), getHostName(),
+                                           getMessage());
             }
         }
         return m_fullText;
@@ -220,17 +237,14 @@ public class SyslogMessage {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("facility", m_facility)
-            .append("severity", m_severity)
-            .append("version", m_version)
-            .append("date", m_date)
-            .append("hostname", m_hostname)
-            .append("message ID", m_messageId)
-            .append("process name", m_processName)
-            .append("process ID", m_processId)
-            .append("message", m_message)
-            .toString();
+        return new ToStringBuilder(this).append("facility", m_facility).append("severity", m_severity).append("version",
+                                                                                                              m_version).append("date",
+                                                                                                                                m_date).append("hostname",
+                                                                                                                                               m_hostname).append("message ID",
+                                                                                                                                                                  m_messageId).append("process name",
+                                                                                                                                                                                      m_processName).append("process ID",
+                                                                                                                                                                                                            m_processId).append("message",
+                                                                                                                                                                                                                                m_message).toString();
     }
 
 }

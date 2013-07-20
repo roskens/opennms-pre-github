@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.scheduler;
 
-
 import junit.framework.TestCase;
 
 import org.opennms.core.test.MockLogAppender;
@@ -43,8 +42,11 @@ import org.opennms.netmgt.poller.mock.MockScheduler;
 public class ScheduleTest extends TestCase {
 
     private MockSchedulable m_schedulable;
+
     private MockInterval m_interval;
+
     private MockScheduler m_scheduler;
+
     private Schedule m_sched;
 
     public static void main(String[] args) {
@@ -53,6 +55,7 @@ public class ScheduleTest extends TestCase {
 
     class MockSchedulable implements ReadyRunnable {
         private volatile int runCount = 0;
+
         private volatile boolean m_callingAdjustSchedule;
 
         @Override
@@ -107,7 +110,6 @@ public class ScheduleTest extends TestCase {
         m_sched.schedule();
 
         assertRunAndScheduled(0, 0, 0, 1);
-
 
         m_scheduler.next();
 
@@ -231,9 +233,8 @@ public class ScheduleTest extends TestCase {
         assertEquals(currentTime, m_scheduler.getCurrentTime());
         assertEquals(entryCount, m_scheduler.getEntryCount());
         if (entryCount > 0)
-            assertNotNull(m_scheduler.getEntries().get(Long.valueOf(currentTime+interval)));
+            assertNotNull(m_scheduler.getEntries().get(Long.valueOf(currentTime + interval)));
 
     }
-
 
 }

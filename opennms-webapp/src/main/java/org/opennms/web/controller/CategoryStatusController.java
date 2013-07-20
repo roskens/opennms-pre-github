@@ -38,7 +38,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * <p>CategoryStatusController class.</p>
+ * <p>
+ * CategoryStatusController class.
+ * </p>
  *
  * @author fastjay
  */

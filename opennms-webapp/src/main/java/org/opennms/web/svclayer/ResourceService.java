@@ -36,7 +36,9 @@ import org.opennms.netmgt.model.PrefabGraph;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>ResourceService interface.</p>
+ * <p>
+ * ResourceService interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -45,109 +47,169 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface ResourceService {
     /**
-     * <p>getRrdDirectory</p>
+     * <p>
+     * getRrdDirectory
+     * </p>
      *
      * @return a {@link java.io.File} object.
      */
     public File getRrdDirectory();
+
     /**
-     * <p>findTopLevelResources</p>
+     * <p>
+     * findTopLevelResources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findTopLevelResources();
+
     /**
-     * <p>findNodeResources</p>
+     * <p>
+     * findNodeResources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findNodeResources();
+
     /**
-     * <p>findDomainResources</p>
+     * <p>
+     * findDomainResources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findDomainResources();
+
     /**
-     * <p>findNodeSourceResources</p>
+     * <p>
+     * findNodeSourceResources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findNodeSourceResources();
+
     /**
-     * <p>findNodeChildResources</p>
+     * <p>
+     * findNodeChildResources
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findNodeChildResources(int nodeId);
+
     /**
-     * <p>findDomainChildResources</p>
+     * <p>
+     * findDomainChildResources
+     * </p>
      *
-     * @param domain a {@link java.lang.String} object.
+     * @param domain
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findDomainChildResources(String domain);
+
     /**
-     * <p>findNodeSourceChildResources</p>
+     * <p>
+     * findNodeSourceChildResources
+     * </p>
      *
-     * @param nodeSource a {@link java.lang.String} object.
+     * @param nodeSource
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findNodeSourceChildResources(String nodeSource);
+
     /**
-     * <p>findChildResources</p>
+     * <p>
+     * findChildResources
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
-     * @param resourceTypeMatches a {@link java.lang.String} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param resourceTypeMatches
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findChildResources(OnmsResource resource, String... resourceTypeMatches);
+
     /**
-     * <p>getResourceById</p>
+     * <p>
+     * getResourceById
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceById(String id);
+
     /**
-     * <p>findPrefabGraphsForResource</p>
+     * <p>
+     * findPrefabGraphsForResource
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
      * @return an array of {@link org.opennms.netmgt.model.PrefabGraph} objects.
      */
     public PrefabGraph[] findPrefabGraphsForResource(OnmsResource resource);
+
     /**
-     * <p>getPrefabGraph</p>
+     * <p>
+     * getPrefabGraph
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */
     public PrefabGraph getPrefabGraph(String name);
+
     /**
-     * <p>findPrefabGraphsForChildResources</p>
+     * <p>
+     * findPrefabGraphsForChildResources
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
-     * @param resourceTypeMatches a {@link java.lang.String} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param resourceTypeMatches
+     *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.netmgt.model.PrefabGraph} objects.
      */
     public PrefabGraph[] findPrefabGraphsForChildResources(OnmsResource resource, String... resourceTypeMatches);
+
     /**
-     * <p>promoteGraphAttributesForResource</p>
+     * <p>
+     * promoteGraphAttributesForResource
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public void promoteGraphAttributesForResource(OnmsResource resource);
+
     /**
-     * <p>promoteGraphAttributesForResource</p>
+     * <p>
+     * promoteGraphAttributesForResource
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} object.
+     * @param resourceId
+     *            a {@link java.lang.String} object.
      */
     public void promoteGraphAttributesForResource(String resourceId);
+
     /**
-     * <p>getResourceListById</p>
+     * <p>
+     * getResourceListById
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} object.
+     * @param resourceId
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> getResourceListById(String resourceId);

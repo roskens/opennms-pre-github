@@ -42,7 +42,9 @@ public class ColumnChange {
     private int m_columnType = 0;
 
     /**
-     * <p>getColumn</p>
+     * <p>
+     * getColumn
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.db.Column} object.
      */
@@ -51,25 +53,33 @@ public class ColumnChange {
     }
 
     /**
-     * <p>setColumn</p>
+     * <p>
+     * setColumn
+     * </p>
      *
-     * @param column a {@link org.opennms.netmgt.dao.db.Column} object.
+     * @param column
+     *            a {@link org.opennms.netmgt.dao.db.Column} object.
      */
     public void setColumn(Column column) {
         m_column = column;
     }
 
     /**
-     * <p>getColumnReplacement</p>
+     * <p>
+     * getColumnReplacement
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.dao.db.ColumnChangeReplacement} object.
+     * @return a {@link org.opennms.netmgt.dao.db.ColumnChangeReplacement}
+     *         object.
      */
     public ColumnChangeReplacement getColumnReplacement() {
         return m_columnReplacement;
     }
 
     /**
-     * <p>hasColumnReplacement</p>
+     * <p>
+     * hasColumnReplacement
+     * </p>
      *
      * @return a boolean.
      */
@@ -78,16 +88,22 @@ public class ColumnChange {
     }
 
     /**
-     * <p>setColumnReplacement</p>
+     * <p>
+     * setColumnReplacement
+     * </p>
      *
-     * @param columnReplacement a {@link org.opennms.netmgt.dao.db.ColumnChangeReplacement} object.
+     * @param columnReplacement
+     *            a {@link org.opennms.netmgt.dao.db.ColumnChangeReplacement}
+     *            object.
      */
     public void setColumnReplacement(ColumnChangeReplacement columnReplacement) {
         m_columnReplacement = columnReplacement;
     }
 
     /**
-     * <p>isUpgradeTimestamp</p>
+     * <p>
+     * isUpgradeTimestamp
+     * </p>
      *
      * @return a boolean.
      */
@@ -96,16 +112,21 @@ public class ColumnChange {
     }
 
     /**
-     * <p>setUpgradeTimestamp</p>
+     * <p>
+     * setUpgradeTimestamp
+     * </p>
      *
-     * @param upgradeTimestamp a boolean.
+     * @param upgradeTimestamp
+     *            a boolean.
      */
     public void setUpgradeTimestamp(boolean upgradeTimestamp) {
         m_upgradeTimestamp = upgradeTimestamp;
     }
 
     /**
-     * <p>getSelectIndex</p>
+     * <p>
+     * getSelectIndex
+     * </p>
      *
      * @return a int.
      */
@@ -114,16 +135,21 @@ public class ColumnChange {
     }
 
     /**
-     * <p>setSelectIndex</p>
+     * <p>
+     * setSelectIndex
+     * </p>
      *
-     * @param selectIndex a int.
+     * @param selectIndex
+     *            a int.
      */
     public void setSelectIndex(int selectIndex) {
         m_selectIndex = selectIndex;
     }
 
     /**
-     * <p>getPrepareIndex</p>
+     * <p>
+     * getPrepareIndex
+     * </p>
      *
      * @return a int.
      */
@@ -132,16 +158,21 @@ public class ColumnChange {
     }
 
     /**
-     * <p>setPrepareIndex</p>
+     * <p>
+     * setPrepareIndex
+     * </p>
      *
-     * @param prepareIndex a int.
+     * @param prepareIndex
+     *            a int.
      */
     public void setPrepareIndex(int prepareIndex) {
         m_prepareIndex = prepareIndex;
     }
 
     /**
-     * <p>getColumnType</p>
+     * <p>
+     * getColumnType
+     * </p>
      *
      * @return a int.
      */
@@ -150,9 +181,12 @@ public class ColumnChange {
     }
 
     /**
-     * <p>setColumnType</p>
+     * <p>
+     * setColumnType
+     * </p>
      *
-     * @param columnType a int.
+     * @param columnType
+     *            a int.
      */
     public void setColumnType(int columnType) {
         m_columnType = columnType;

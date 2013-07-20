@@ -46,7 +46,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>FormProcViewController class.</p>
+ * <p>
+ * FormProcViewController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -54,29 +56,24 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class FormProcViewController extends AbstractController implements InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(FormProcViewController.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(FormProcViewController.class);
 
     public enum Parameters {
-        action,
-        timespan,
-        type,
-        report,
-        graphtype
+        action, timespan, type, report, graphtype
     }
 
     public enum Actions {
-        Customize,
-        Update,
-        Exit
+        Customize, Update, Exit
     }
 
     private KSC_PerformanceReportFactory m_kscReportFactory;
+
     private KscReportService m_kscReportService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         // Get Form Variables
         int reportId = -1;
         String overrideTimespan = null;
@@ -85,13 +82,13 @@ public class FormProcViewController extends AbstractController implements Initia
         String reportIdString = WebSecurityUtils.sanitizeString(request.getParameter(Parameters.report.toString()));
         String reportType = WebSecurityUtils.sanitizeString(request.getParameter(Parameters.type.toString()));
         if (reportAction == null) {
-            throw new MissingParameterException ("action", new String[] {"action", "report", "type"});
+            throw new MissingParameterException("action", new String[] { "action", "report", "type" });
         }
         if (reportType == null) {
-            throw new MissingParameterException ("type", new String[] {"action", "report", "type"});
+            throw new MissingParameterException("type", new String[] { "action", "report", "type" });
         }
         if (reportIdString == null) {
-            throw new MissingParameterException ("report", new String[] {"action", "report", "type"});
+            throw new MissingParameterException("report", new String[] { "action", "report", "type" });
 
         }
 
@@ -108,7 +105,8 @@ public class FormProcViewController extends AbstractController implements Initia
                 overrideGraphType = "none";
             }
             if (Actions.Customize.toString().equals(reportAction)) {
-             // Fetch the KscReportEditor or create one if there isn't one already
+                // Fetch the KscReportEditor or create one if there isn't one
+                // already
                 KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), false);
 
                 LOG.debug("handleRequestInternal: build report for reportType {}", reportType);
@@ -123,9 +121,10 @@ public class FormProcViewController extends AbstractController implements Initia
                     editor.loadWorkingReport(getKscReportFactory(), reportId);
                 }
 
-                // Now inject any override characteristics into the working report model
+                // Now inject any override characteristics into the working
+                // report model
                 Report working_report = editor.getWorkingReport();
-                for (int i=0; i<working_report.getGraphCount(); i++) {
+                for (int i = 0; i < working_report.getGraphCount(); i++) {
                     Graph working_graph = working_report.getGraph(i);
                     if (!overrideTimespan.equals("none")) {
                         working_graph.setTimespan(overrideTimespan);
@@ -137,7 +136,7 @@ public class FormProcViewController extends AbstractController implements Initia
             }
         } else {
             if (!Actions.Exit.toString().equals(reportAction)) {
-                throw new ServletException ("Invalid Parameter contents for report_action");
+                throw new ServletException("Invalid Parameter contents for report_action");
             }
         }
 
@@ -161,32 +160,44 @@ public class FormProcViewController extends AbstractController implements Initia
         } else if (Actions.Exit.toString().equals(reportAction)) {
             return new ModelAndView("redirect:/KSC/index.htm");
         } else {
-            throw new IllegalArgumentException("Parameter action of '" + reportAction + "' is not supported.  Must be one of: Update, Customize, or Exit");
+            throw new IllegalArgumentException("Parameter action of '" + reportAction
+                    + "' is not supported.  Must be one of: Update, Customize, or Exit");
         }
     }
 
     /**
-     * <p>getKscReportFactory</p>
+     * <p>
+     * getKscReportFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *         object.
      */
     public KSC_PerformanceReportFactory getKscReportFactory() {
         return m_kscReportFactory;
     }
 
     /**
-     * <p>setKscReportFactory</p>
+     * <p>
+     * setKscReportFactory
+     * </p>
      *
-     * @param kscReportFactory a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @param kscReportFactory
+     *            a
+     *            {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *            object.
      */
     public void setKscReportFactory(KSC_PerformanceReportFactory kscReportFactory) {
         m_kscReportFactory = kscReportFactory;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -195,7 +206,9 @@ public class FormProcViewController extends AbstractController implements Initia
     }
 
     /**
-     * <p>getKscReportService</p>
+     * <p>
+     * getKscReportService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -204,14 +217,15 @@ public class FormProcViewController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setKscReportService</p>
+     * <p>
+     * setKscReportService
+     * </p>
      *
-     * @param kscReportService a {@link org.opennms.web.svclayer.KscReportService} object.
+     * @param kscReportService
+     *            a {@link org.opennms.web.svclayer.KscReportService} object.
      */
     public void setKscReportService(KscReportService kscReportService) {
         m_kscReportService = kscReportService;
     }
-
-
 
 }

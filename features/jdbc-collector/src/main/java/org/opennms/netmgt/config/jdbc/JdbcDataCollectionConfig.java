@@ -43,16 +43,16 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.opennms.netmgt.model.RrdRepository;
 
-@XmlRootElement(name="jdbc-datacollection-config")
+@XmlRootElement(name = "jdbc-datacollection-config")
 public class JdbcDataCollectionConfig implements Serializable, Comparable<JdbcDataCollectionConfig> {
     private static final long serialVersionUID = -7884808717236892997L;
 
     private static final JdbcDataCollection[] OF_DATA_COLLECTIONS = new JdbcDataCollection[0];
 
-    @XmlElement(name="jdbc-collection")
+    @XmlElement(name = "jdbc-collection")
     private List<JdbcDataCollection> m_jdbcDataCollections = new ArrayList<JdbcDataCollection>();
 
-    @XmlAttribute(name="rrdRepository")
+    @XmlAttribute(name = "rrdRepository")
     private String m_rrdRepository;
 
     public JdbcDataCollectionConfig() {
@@ -86,9 +86,9 @@ public class JdbcDataCollectionConfig implements Serializable, Comparable<JdbcDa
     }
 
     public void removeDataCollectionByName(String name) {
-        for (Iterator<JdbcDataCollection> itr = m_jdbcDataCollections.iterator(); itr.hasNext(); ) {
+        for (Iterator<JdbcDataCollection> itr = m_jdbcDataCollections.iterator(); itr.hasNext();) {
             JdbcDataCollection dataCollection = itr.next();
-            if(dataCollection.getName().equals(name)) {
+            if (dataCollection.getName().equals(name)) {
                 m_jdbcDataCollections.remove(dataCollection);
                 return;
             }
@@ -96,8 +96,8 @@ public class JdbcDataCollectionConfig implements Serializable, Comparable<JdbcDa
     }
 
     public JdbcDataCollection getDataCollectionByName(String name) {
-        for (JdbcDataCollection dataCol :  m_jdbcDataCollections) {
-            if(dataCol.getName().equals(name)) {
+        for (JdbcDataCollection dataCol : m_jdbcDataCollections) {
+            if (dataCol.getName().equals(name)) {
                 return dataCol;
             }
         }
@@ -117,20 +117,16 @@ public class JdbcDataCollectionConfig implements Serializable, Comparable<JdbcDa
 
     @Override
     public int compareTo(JdbcDataCollectionConfig obj) {
-        return new CompareToBuilder()
-            .append(getRrdRepository(), obj.getRrdRepository())
-            .append(getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS), obj.getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS))
-            .toComparison();
+        return new CompareToBuilder().append(getRrdRepository(), obj.getRrdRepository()).append(getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS),
+                                                                                                obj.getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS)).toComparison();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcDataCollectionConfig) {
             JdbcDataCollectionConfig other = (JdbcDataCollectionConfig) obj;
-            return new EqualsBuilder()
-                .append(getRrdRepository(), other.getRrdRepository())
-                .append(getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS), other.getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS))
-                .isEquals();
+            return new EqualsBuilder().append(getRrdRepository(), other.getRrdRepository()).append(getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS),
+                                                                                                   other.getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS)).isEquals();
         }
         return false;
     }

@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.client.remoteevents;
 import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
 
 /**
- * <p>ApplicationUpdatedRemoteEvent class.</p>
+ * <p>
+ * ApplicationUpdatedRemoteEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,37 +41,47 @@ import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
  */
 public class ApplicationUpdatedRemoteEvent implements MapRemoteEvent {
 
-	private static final long serialVersionUID = -3561142597099593769L;
+    private static final long serialVersionUID = -3561142597099593769L;
 
-	private ApplicationInfo m_applicationInfo;
+    private ApplicationInfo m_applicationInfo;
 
-	/**
-	 * <p>Constructor for ApplicationUpdatedRemoteEvent.</p>
-	 */
-	public ApplicationUpdatedRemoteEvent() {}
+    /**
+     * <p>
+     * Constructor for ApplicationUpdatedRemoteEvent.
+     * </p>
+     */
+    public ApplicationUpdatedRemoteEvent() {
+    }
 
-	/**
-	 * <p>Constructor for ApplicationUpdatedRemoteEvent.</p>
-	 *
-	 * @param item a {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo} object.
-	 */
-	public ApplicationUpdatedRemoteEvent(final ApplicationInfo item) {
-		m_applicationInfo = item;
-	}
+    /**
+     * <p>
+     * Constructor for ApplicationUpdatedRemoteEvent.
+     * </p>
+     *
+     * @param item
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo}
+     *            object.
+     */
+    public ApplicationUpdatedRemoteEvent(final ApplicationInfo item) {
+        m_applicationInfo = item;
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void dispatch(final MapRemoteEventHandler presenter) {
-		presenter.updateApplication(m_applicationInfo);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void dispatch(final MapRemoteEventHandler presenter) {
+        presenter.updateApplication(m_applicationInfo);
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String toString() {
-	    return "ApplicationUpdatedRemoteEvent[applicationInfo=" + m_applicationInfo + "]";
-	}
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return "ApplicationUpdatedRemoteEvent[applicationInfo=" + m_applicationInfo + "]";
+    }
 }

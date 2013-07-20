@@ -54,62 +54,63 @@ import org.springframework.test.context.ContextConfiguration;
  * @author Alejandro Galue <agalue@opennms.org>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-@JUnitSnmpAgent(port=TcaDataTest.TEST_SNMP_PORT, host=TcaDataTest.TEST_IP_ADDRESS, resource="classpath:juniperTcaSample.properties")
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitSnmpAgent(port = TcaDataTest.TEST_SNMP_PORT, host = TcaDataTest.TEST_IP_ADDRESS, resource = "classpath:juniperTcaSample.properties")
 public class TcaDataTest implements InitializingBean {
 
-	static final int TEST_SNMP_PORT = 9161;
-	static final String TEST_IP_ADDRESS = "127.0.0.1";
+    static final int TEST_SNMP_PORT = 9161;
 
+    static final String TEST_IP_ADDRESS = "127.0.0.1";
 
-	/** The SNMP peer factory. */
-	@Autowired
-	private SnmpPeerFactory m_snmpPeerFactory;
+    /** The SNMP peer factory. */
+    @Autowired
+    private SnmpPeerFactory m_snmpPeerFactory;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	/**
-	 * Sets the up.
-	 *
-	 * @throws Exception the exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		MockLogAppender.setupLogging();
-		SnmpPeerFactory.setInstance(m_snmpPeerFactory);
-	}
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Before
+    public void setUp() throws Exception {
+        MockLogAppender.setupLogging();
+        SnmpPeerFactory.setInstance(m_snmpPeerFactory);
+    }
 
-	/**
-	 * Tear down.
-	 *
-	 * @throws Exception the exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		MockLogAppender.assertNoWarningsOrGreater();
-	}
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @After
+    public void tearDown() throws Exception {
+        MockLogAppender.assertNoWarningsOrGreater();
+    }
 
-	/**
-	 * Test tracker.
-	 *
-	 * @throws Exception the exception
-	 */
-	@Test
-	public void testTracker() throws Exception {
-		InetAddress localhost = InetAddressUtils.getInetAddress(TEST_IP_ADDRESS);
-		SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(localhost);
-		TcaData data = new TcaData(localhost);
-		SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "TcaCollector for " + localhost, data);
-		walker.start();
-		walker.waitFor();
-		Assert.assertFalse(walker.failed());
-		Assert.assertFalse(data.isEmpty());
-		Assert.assertEquals(2, data.getEntries().size());
-	}
+    /**
+     * Test tracker.
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Test
+    public void testTracker() throws Exception {
+        InetAddress localhost = InetAddressUtils.getInetAddress(TEST_IP_ADDRESS);
+        SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(localhost);
+        TcaData data = new TcaData(localhost);
+        SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "TcaCollector for " + localhost, data);
+        walker.start();
+        walker.waitFor();
+        Assert.assertFalse(walker.failed());
+        Assert.assertFalse(data.isEmpty());
+        Assert.assertEquals(2, data.getEntries().size());
+    }
 
 }

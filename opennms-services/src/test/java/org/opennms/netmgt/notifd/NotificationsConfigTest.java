@@ -46,9 +46,15 @@ public class NotificationsConfigTest {
         MockUtil.println("################# Running Test ################");
         MockLogAppender.setupLogging();
 
-        MockNotifdConfigManager notifdConfig = new MockNotifdConfigManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifd-configuration.xml"));
+        MockNotifdConfigManager notifdConfig = new MockNotifdConfigManager(
+                                                                           ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                                                       "notifd-configuration.xml"));
 
-        NotificationManager manager = new MockNotificationManager(notifdConfig, null, ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifications-config-test.xml"));
+        NotificationManager manager = new MockNotificationManager(
+                                                                  notifdConfig,
+                                                                  null,
+                                                                  ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                                              "notifications-config-test.xml"));
         Notification n = manager.getNotification("crazyTestNotification");
         assertTrue(n.getTextMessage().contains("\n"));
     }

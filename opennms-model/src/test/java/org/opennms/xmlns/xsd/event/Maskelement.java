@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import java.util.ArrayList;
@@ -45,11 +44,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -63,19 +63,15 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "mename",
-    "mevalue"
-})
+@XmlType(name = "", propOrder = { "mename", "mevalue" })
 @XmlRootElement(name = "maskelement")
 public class Maskelement {
 
     @XmlElement(required = true)
     protected String mename;
+
     @XmlElement(required = true)
     protected List<String> mevalue;
 
@@ -83,9 +79,7 @@ public class Maskelement {
      * Gets the value of the mename property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getMename() {
         return mename;
@@ -95,9 +89,7 @@ public class Maskelement {
      * Sets the value of the mename property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setMename(String value) {
         this.mename = value;
@@ -105,25 +97,19 @@ public class Maskelement {
 
     /**
      * Gets the value of the mevalue property.
-     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the mevalue property.
-     *
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the mevalue property.
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getMevalue().add(newItem);
+     * getMevalue().add(newItem);
      * </pre>
-     *
-     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     *
-     *
+     * Objects of the following type(s) are allowed in the list {@link String }
      */
     public List<String> getMevalue() {
         if (mevalue == null) {

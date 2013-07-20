@@ -83,7 +83,9 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * <p>clone</p>
+     * <p>
+     * clone
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -205,7 +207,8 @@ public class UserInfo extends Object implements Cloneable {
      *
      * @param aPassword
      *            the password
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     public void setUnencryptedPassword(String aPassword) throws IllegalStateException {
         m_password = encryptPassword(aPassword);
@@ -217,7 +220,8 @@ public class UserInfo extends Object implements Cloneable {
      * @param aPassword
      *            the password to encrypt
      * @return the MD5 hash of the password, or null if the encryption fails
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     public static String encryptPassword(String aPassword) throws IllegalStateException {
         String encryptedPassword = null;

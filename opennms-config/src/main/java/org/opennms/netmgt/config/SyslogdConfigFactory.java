@@ -59,6 +59,7 @@ import org.springframework.core.io.FileSystemResource;
  */
 public final class SyslogdConfigFactory implements SyslogdConfig {
     private static final Logger LOG = LoggerFactory.getLogger(SyslogdConfigFactory.class);
+
     /**
      * The singleton instance of this factory
      */
@@ -77,11 +78,12 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     /**
      * Private constructor
      *
-     * @throws java.io.IOException Thrown if the specified config file cannot be read
+     * @throws java.io.IOException
+     *             Thrown if the specified config file cannot be read
      * @throws org.exolab.castor.xml.MarshalException
-     *                             Thrown if the file does not conform to the schema.
+     *             Thrown if the file does not conform to the schema.
      * @throws org.exolab.castor.xml.ValidationException
-     *                             Thrown if the contents do not match the required schema.
+     *             Thrown if the contents do not match the required schema.
      */
     private SyslogdConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(SyslogdConfiguration.class, new FileSystemResource(configFile));
@@ -89,11 +91,16 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     }
 
     /**
-     * <p>Constructor for SyslogdConfigFactory.</p>
+     * <p>
+     * Constructor for SyslogdConfigFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public SyslogdConfigFactory(InputStream stream) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(SyslogdConfiguration.class, stream);
@@ -104,14 +111,14 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @throws java.io.IOException Thrown if the specified config file cannot be read
+     * @throws java.io.IOException
+     *             Thrown if the specified config file cannot be read
      * @throws org.exolab.castor.xml.MarshalException
-     *                             Thrown if the file does not conform to the schema.
+     *             Thrown if the file does not conform to the schema.
      * @throws org.exolab.castor.xml.ValidationException
-     *                             Thrown if the contents do not match the required schema.
+     *             Thrown if the contents do not match the required schema.
      */
-    public static synchronized void init() throws IOException,
-            MarshalException, ValidationException {
+    public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
             // init already called - return
             // to reload, reload() will need to be called
@@ -127,15 +134,15 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     /**
      * Reload the config from the default config file
      *
-     * @throws java.io.IOException Thrown if the specified config file cannot be
-     *                             read/loaded
+     * @throws java.io.IOException
+     *             Thrown if the specified config file cannot be
+     *             read/loaded
      * @throws org.exolab.castor.xml.MarshalException
-     *                             Thrown if the file does not conform to the schema.
+     *             Thrown if the file does not conform to the schema.
      * @throws org.exolab.castor.xml.ValidationException
-     *                             Thrown if the contents do not match the required schema.
+     *             Thrown if the contents do not match the required schema.
      */
-    public static synchronized void reload() throws IOException,
-            MarshalException, ValidationException {
+    public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
         m_loaded = false;
 
@@ -147,20 +154,22 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
      *
      * @return The current factory instance.
      * @throws java.lang.IllegalStateException
-     *          Thrown if the factory has not yet been initialized.
+     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized SyslogdConfig getInstance() {
         if (!m_loaded)
-            throw new IllegalStateException(
-                    "The factory has not been initialized");
+            throw new IllegalStateException("The factory has not been initialized");
 
         return m_singleton;
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param config a {@link org.opennms.netmgt.config.SyslogdConfig} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.config.SyslogdConfig} object.
      */
     public static synchronized void setInstance(SyslogdConfig config) {
         m_singleton = config;
@@ -178,7 +187,9 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     }
 
     /**
-     * <p>getListenAddress</p>
+     * <p>
+     * getListenAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      * @since 1.8.1
@@ -200,7 +211,9 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     }
 
     /**
-     * <p>getForwardingRegexp</p>
+     * <p>
+     * getForwardingRegexp
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -210,7 +223,9 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     }
 
     /**
-     * <p>getMatchingGroupHost</p>
+     * <p>
+     * getMatchingGroupHost
+     * </p>
      *
      * @return a int.
      */
@@ -221,7 +236,9 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     }
 
     /**
-     * <p>getMatchingGroupMessage</p>
+     * <p>
+     * getMatchingGroupMessage
+     * </p>
      *
      * @return a int.
      */
@@ -232,9 +249,12 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     }
 
     /**
-     * <p>getParser</p>
+     * <p>
+     * getParser
+     * </p>
      *
-     * @return the parser class to use when parsing syslog messages, as a string.
+     * @return the parser class to use when parsing syslog messages, as a
+     *         string.
      */
     @Override
     public synchronized String getParser() {
@@ -242,7 +262,9 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     }
 
     /**
-     * <p>getUeiList</p>
+     * <p>
+     * getUeiList
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.syslogd.UeiList} object.
      */
@@ -252,7 +274,9 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     }
 
     /**
-     * <p>getHideMessages</p>
+     * <p>
+     * getHideMessages
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.syslogd.HideMessage} object.
      */
@@ -262,7 +286,9 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     }
 
     /**
-     * <p>getDiscardUei</p>
+     * <p>
+     * getDiscardUei
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -288,9 +314,10 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
         }
         for (final String fileName : m_config.getImportFileCollection()) {
             final File configFile = new File(configDir, fileName);
-            final SyslogdConfigurationGroup includeCfg = CastorUtils.unmarshal(SyslogdConfigurationGroup.class, new FileSystemResource(configFile));
+            final SyslogdConfigurationGroup includeCfg = CastorUtils.unmarshal(SyslogdConfigurationGroup.class,
+                                                                               new FileSystemResource(configFile));
             if (includeCfg.getUeiList() != null) {
-                for (final UeiMatch ueiMatch : includeCfg.getUeiList().getUeiMatchCollection())  {
+                for (final UeiMatch ueiMatch : includeCfg.getUeiList().getUeiMatchCollection()) {
                     if (m_config.getUeiList() == null)
                         m_config.setUeiList(new UeiList());
                     m_config.getUeiList().addUeiMatch(ueiMatch);

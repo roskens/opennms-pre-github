@@ -79,11 +79,15 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
     /**
      * Instantiates a new data collection group panel.
      *
-     * @param dataCollectionConfigDao the OpenNMS Data Collection Configuration DAO
-     * @param group the data collection group object
-     * @param logger the logger object
+     * @param dataCollectionConfigDao
+     *            the OpenNMS Data Collection Configuration DAO
+     * @param group
+     *            the data collection group object
+     * @param logger
+     *            the logger object
      */
-    public DataCollectionGroupPanel(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup group, final Logger logger) {
+    public DataCollectionGroupPanel(final DataCollectionConfigDao dataCollectionConfigDao,
+            final DatacollectionGroup group, final Logger logger) {
         setCaption("Data Collection");
         addStyleName(Runo.PANEL_LIGHT);
 
@@ -136,8 +140,11 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
         setContent(mainLayout);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.TabSheet.SelectedTabChangeListener#selectedTabChange(com.vaadin.ui.TabSheet.SelectedTabChangeEvent)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.vaadin.ui.TabSheet.SelectedTabChangeListener#selectedTabChange(com
+     * .vaadin.ui.TabSheet.SelectedTabChangeEvent)
      */
     @Override
     public void selectedTabChange(SelectedTabChangeEvent event) {
@@ -180,15 +187,18 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
     /**
      * Process data collection.
      *
-     * @param dataCollectionConfigDao the OpenNMS data collection configuration DAO
-     * @param logger the logger
+     * @param dataCollectionConfigDao
+     *            the OpenNMS data collection configuration DAO
+     * @param logger
+     *            the logger
      */
     private void processDataCollection(final DataCollectionConfigDao dataCollectionConfigDao, final Logger logger) {
         final DatacollectionGroup dcGroup = getOnmsDataCollection();
         final File configDir = new File(ConfigFileConstants.getHome(), "etc/datacollection/");
         final File file = new File(configDir, dcGroup.getName().replaceAll(" ", "_") + ".xml");
         if (file.exists()) {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
                                            "Do you really want to override the existig file?<br/>All current information will be lost.",
@@ -215,17 +225,22 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
     /**
      * Saves file.
      *
-     * @param file the file
-     * @param dcGroup the datacollection-group
-     * @param logger the logger
+     * @param file
+     *            the file
+     * @param dcGroup
+     *            the datacollection-group
+     * @param logger
+     *            the logger
      */
     private void saveFile(final File file, final DatacollectionGroup dcGroup, final Logger logger) {
         try {
             FileWriter writer = new FileWriter(file);
             JaxbUtils.marshal(dcGroup, writer);
             logger.info("Saving XML data into " + file.getAbsolutePath());
-            logger.warn("Remember to update datacollection-config.xml to include the group " + dcGroup.getName() + " into an SNMP collection.");
-            // Force reload datacollection-config.xml to be able to configure SNMP collections.
+            logger.warn("Remember to update datacollection-config.xml to include the group " + dcGroup.getName()
+                    + " into an SNMP collection.");
+            // Force reload datacollection-config.xml to be able to configure
+            // SNMP collections.
             try {
                 final File configFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
                 configFile.setLastModified(System.currentTimeMillis());

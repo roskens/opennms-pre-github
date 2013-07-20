@@ -32,7 +32,9 @@ import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.ui.Image;
 
 /**
- * <p>ResourceGraph class.</p>
+ * <p>
+ * ResourceGraph class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -43,44 +45,61 @@ import com.google.gwt.user.client.ui.Image;
  */
 public class ResourceGraph extends Image {
     /**
-     * <p>Constructor for ResourceGraph.</p>
+     * <p>
+     * Constructor for ResourceGraph.
+     * </p>
      */
     public ResourceGraph() {
         super();
     }
 
     /**
-     * <p>displayNoGraph</p>
+     * <p>
+     * displayNoGraph
+     * </p>
      */
     public void displayNoGraph() {
         setUrl("images/rrd/error.png");
     }
 
     /**
-     * <p>setGraph</p>
+     * <p>
+     * setGraph
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} object.
-     * @param reportName a {@link java.lang.String} object.
-     * @param start a {@link java.lang.String} object.
-     * @param end a {@link java.lang.String} object.
+     * @param resourceId
+     *            a {@link java.lang.String} object.
+     * @param reportName
+     *            a {@link java.lang.String} object.
+     * @param start
+     *            a {@link java.lang.String} object.
+     * @param end
+     *            a {@link java.lang.String} object.
      */
     public void setGraph(String resourceId, String reportName, String start, String end) {
         setUrl(buildGraphUrl(resourceId, reportName, start, end));
     }
 
     /**
-     * <p>prefetchGraph</p>
+     * <p>
+     * prefetchGraph
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} object.
-     * @param reportName a {@link java.lang.String} object.
-     * @param start a {@link java.lang.String} object.
-     * @param end a {@link java.lang.String} object.
+     * @param resourceId
+     *            a {@link java.lang.String} object.
+     * @param reportName
+     *            a {@link java.lang.String} object.
+     * @param start
+     *            a {@link java.lang.String} object.
+     * @param end
+     *            a {@link java.lang.String} object.
      */
     public void prefetchGraph(String resourceId, String reportName, String start, String end) {
         Image.prefetch(buildGraphUrl(resourceId, reportName, start, end));
     }
 
     private String buildGraphUrl(String resourceId, String report, String start, String end) {
-        return "graph/graph.png?resourceId=" + URL.encodeQueryString(resourceId) + "&report=" + URL.encodeQueryString(report) + "&start=" + start + "&end=" + end;
+        return "graph/graph.png?resourceId=" + URL.encodeQueryString(resourceId) + "&report="
+                + URL.encodeQueryString(report) + "&start=" + start + "&end=" + end;
     }
 }

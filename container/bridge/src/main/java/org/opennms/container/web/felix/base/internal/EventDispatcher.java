@@ -29,43 +29,36 @@ import javax.servlet.http.HttpSessionListener;
  * in bridged mode) to any {@link HttpSessionAttributeListener} or
  * {@link HttpSessionListener} services.
  */
-public class EventDispatcher implements HttpSessionAttributeListener, HttpSessionListener
-{
+public class EventDispatcher implements HttpSessionAttributeListener, HttpSessionListener {
 
     private final HttpServiceController controller;
 
-    public EventDispatcher(final HttpServiceController controller)
-    {
+    public EventDispatcher(final HttpServiceController controller) {
         this.controller = controller;
     }
 
     @Override
-    public void sessionCreated(HttpSessionEvent se)
-    {
+    public void sessionCreated(HttpSessionEvent se) {
         controller.getSessionListener().sessionCreated(se);
     }
 
     @Override
-    public void sessionDestroyed(HttpSessionEvent se)
-    {
+    public void sessionDestroyed(HttpSessionEvent se) {
         controller.getSessionListener().sessionDestroyed(se);
     }
 
     @Override
-    public void attributeAdded(HttpSessionBindingEvent se)
-    {
+    public void attributeAdded(HttpSessionBindingEvent se) {
         controller.getSessionAttributeListener().attributeAdded(se);
     }
 
     @Override
-    public void attributeRemoved(HttpSessionBindingEvent se)
-    {
+    public void attributeRemoved(HttpSessionBindingEvent se) {
         controller.getSessionAttributeListener().attributeRemoved(se);
     }
 
     @Override
-    public void attributeReplaced(HttpSessionBindingEvent se)
-    {
+    public void attributeReplaced(HttpSessionBindingEvent se) {
         controller.getSessionAttributeListener().attributeReplaced(se);
     }
 }

@@ -7,17 +7,29 @@ import java.util.List;
  */
 public class MapNode {
     private double latitude;
+
     private double longitude;
+
     private String nodeId;
+
     private String nodeLabel;
+
     private String foreignSource;
+
     private String foreignId;
+
     private String description;
+
     private String maintcontract;
+
     private String ipAddress;
+
     private String severity;
+
     private String severityLabel;
+
     private int unackedCount;
+
     private List<String> categories;
 
     public double getLatitude() {

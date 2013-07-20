@@ -72,22 +72,27 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 public class OpenNMSTestCase extends TestCase {
     protected static MockDatabase m_db;
+
     protected static MockNetwork m_network;
+
     protected static Eventd m_eventd;
+
     protected static EventIpcManagerDefaultImpl m_eventdIpcMgr;
 
     protected static boolean m_runSupers = true;
-    public static int PROXY_PORT = Integer.getInteger("proxy.port", 5837);
 
+    public static int PROXY_PORT = Integer.getInteger("proxy.port", 5837);
 
     /**
      * String representing snmp-config.xml
      */
     public String getSnmpConfig() throws IOException {
-        return ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "/org/opennms/netmgt/mock/snmp-config.xml",
-                new String[] { "\\$\\{myVersion\\}", myVersion() },
-                new String[] { "\\$\\{myLocalHost\\}", InetAddressUtils.str(myLocalHost()) }
-                );
+        return ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                           "/org/opennms/netmgt/mock/snmp-config.xml",
+                                                                           new String[] { "\\$\\{myVersion\\}",
+                                                                                   myVersion() },
+                                                                           new String[] { "\\$\\{myLocalHost\\}",
+                                                                                   InetAddressUtils.str(myLocalHost()) });
     }
 
     private boolean m_startEventd = true;
@@ -95,31 +100,32 @@ public class OpenNMSTestCase extends TestCase {
     /**
      * Helper method for getting the ip address of the localhost as a
      * String to be used in the snmp-config.
+     *
      * @return
      */
     protected InetAddress myLocalHost() {
 
-//        try {
-//            return InetAddressUtils.str(InetAddress.getLocalHost());
-//        } catch (UnknownHostException e) {
-//            e.printStackTrace();
-//            fail("Exception getting localhost");
-//        }
-//
-//        return null;
+        // try {
+        // return InetAddressUtils.str(InetAddress.getLocalHost());
+        // } catch (UnknownHostException e) {
+        // e.printStackTrace();
+        // fail("Exception getting localhost");
+        // }
+        //
+        // return null;
 
         return InetAddressUtils.getInetAddress("127.0.0.1");
     }
 
     protected String myVersion() {
         switch (m_version) {
-        case SnmpAgentConfig.VERSION1 :
+        case SnmpAgentConfig.VERSION1:
             return "v1";
-        case SnmpAgentConfig.VERSION2C :
+        case SnmpAgentConfig.VERSION2C:
             return "v2c";
-        case SnmpAgentConfig.VERSION3 :
+        case SnmpAgentConfig.VERSION3:
             return "v3";
-        default :
+        default:
             return "v1";
         }
     }
@@ -137,7 +143,7 @@ public class OpenNMSTestCase extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        MockUtil.println("------------ Begin Test "+this+" --------------------------");
+        MockUtil.println("------------ Begin Test " + this + " --------------------------");
         MockLogAppender.setupLogging();
 
         if (m_runSupers) {
@@ -161,7 +167,8 @@ public class OpenNMSTestCase extends TestCase {
                  * Make sure we specify a full resource path since "this" is
                  * the unit test class, which is most likely in another package.
                  */
-                File configFile = ConfigurationTestUtils.getFileForResource(this, "/org/opennms/netmgt/mock/eventconf.xml");
+                File configFile = ConfigurationTestUtils.getFileForResource(this,
+                                                                            "/org/opennms/netmgt/mock/eventconf.xml");
                 DefaultEventConfDao eventConfDao = new DefaultEventConfDao();
                 eventConfDao.setConfigResource(new FileSystemResource(configFile));
                 eventConfDao.afterPropertiesSet();
@@ -173,7 +180,9 @@ public class OpenNMSTestCase extends TestCase {
                 JdbcEventWriter jdbcEventWriter = new JdbcEventWriter();
                 jdbcEventWriter.setEventdServiceManager(eventdServiceManager);
                 jdbcEventWriter.setDataSource(m_db);
-                jdbcEventWriter.setGetNextIdString("select nextVal('eventsNxtId')"); // for HSQL: "SELECT max(eventId)+1 from events"
+                jdbcEventWriter.setGetNextIdString("select nextVal('eventsNxtId')"); // for
+                                                                                     // HSQL:
+                                                                                     // "SELECT max(eventId)+1 from events"
                 jdbcEventWriter.afterPropertiesSet();
 
                 EventIpcBroadcastProcessor eventIpcBroadcastProcessor = new EventIpcBroadcastProcessor();
@@ -246,14 +255,15 @@ public class OpenNMSTestCase extends TestCase {
             super.runTest();
             MockLogAppender.assertNoWarningsOrGreater();
         } finally {
-            MockUtil.println("------------ End Test "+this+" --------------------------");
+            MockUtil.println("------------ End Test " + this + " --------------------------");
         }
     }
 
     @Override
     protected void tearDown() throws Exception {
-        if(m_runSupers) {
-            if (isStartEventd()) m_eventd.stop();
+        if (m_runSupers) {
+            if (isStartEventd())
+                m_eventd.stop();
         }
 
         super.tearDown();
@@ -268,7 +278,9 @@ public class OpenNMSTestCase extends TestCase {
     }
 
     @Test
-    public void testDoNothing() { sleep(200); }
+    public void testDoNothing() {
+        sleep(200);
+    }
 
     protected void sleep(long millis) {
         try {

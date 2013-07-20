@@ -44,7 +44,9 @@ import org.springframework.remoting.RemoteLookupFailureException;
 import org.springframework.remoting.support.UrlBasedRemoteAccessor;
 
 /**
- * <p>XmlRpcClientInterceptor class.</p>
+ * <p>
+ * XmlRpcClientInterceptor class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -52,20 +54,27 @@ import org.springframework.remoting.support.UrlBasedRemoteAccessor;
 public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements MethodInterceptor {
 
     SecureXmlRpcClient client;
+
     String serviceName;
+
     boolean secure = false;
 
     /**
-     * <p>Setter for the field <code>serviceName</code>.</p>
+     * <p>
+     * Setter for the field <code>serviceName</code>.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
 
     /**
-     * <p>Getter for the field <code>serviceName</code>.</p>
+     * <p>
+     * Getter for the field <code>serviceName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -79,7 +88,7 @@ public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements M
         String methodName = methodInvocation.getMethod().getName();
         Object[] args = methodInvocation.getArguments();
         Vector<Object> parms = new Vector<Object>(args == null ? Collections.emptyList() : Arrays.asList(args));
-        String serviceMethod = (serviceName == null ? methodName : serviceName+"."+methodName);
+        String serviceMethod = (serviceName == null ? methodName : serviceName + "." + methodName);
         try {
             return getClient().execute(serviceMethod, parms);
         } catch (XmlRpcException e) {
@@ -107,6 +116,5 @@ public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements M
 
         return client;
     }
-
 
 }

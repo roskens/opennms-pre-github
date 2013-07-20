@@ -57,137 +57,140 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class RemoveVertexFromGroupOperation implements Constants, Operation {
 
-	@Override
-	public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
-		if (targets == null || targets.isEmpty() || targets.size() != 1) {
-			return null;
-		}
+    @Override
+    public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
+        if (targets == null || targets.isEmpty() || targets.size() != 1) {
+            return null;
+        }
 
-		final Logger log = LoggerFactory.getLogger(this.getClass());
+        final Logger log = LoggerFactory.getLogger(this.getClass());
 
-		final GraphContainer graphContainer = operationContext.getGraphContainer();
+        final GraphContainer graphContainer = operationContext.getGraphContainer();
 
-		final VertexRef currentGroup = targets.get(0);
-		final Collection<? extends Vertex> children = graphContainer.getBaseTopology().getChildren(currentGroup);
-		for (Vertex child : children) {
-			log.debug("Child ID: {}", child.getId());
-		}
+        final VertexRef currentGroup = targets.get(0);
+        final Collection<? extends Vertex> children = graphContainer.getBaseTopology().getChildren(currentGroup);
+        for (Vertex child : children) {
+            log.debug("Child ID: {}", child.getId());
+        }
 
-		final UI window = operationContext.getMainWindow();
+        final UI window = operationContext.getMainWindow();
 
-		final Window groupNamePrompt = new Window("Remove item from this Group");
-		groupNamePrompt.setModal(true);
-		groupNamePrompt.setResizable(false);
-		groupNamePrompt.setHeight("180px");
-		groupNamePrompt.setWidth("300px");
+        final Window groupNamePrompt = new Window("Remove item from this Group");
+        groupNamePrompt.setModal(true);
+        groupNamePrompt.setResizable(false);
+        groupNamePrompt.setHeight("180px");
+        groupNamePrompt.setWidth("300px");
 
-		// Define the fields for the form
-		final PropertysetItem item = new PropertysetItem();
-		item.addItemProperty("Item", new ObjectProperty<String>(null, String.class));
+        // Define the fields for the form
+        final PropertysetItem item = new PropertysetItem();
+        item.addItemProperty("Item", new ObjectProperty<String>(null, String.class));
 
-		FormFieldFactory fieldFactory = new FormFieldFactory() {
-			private static final long serialVersionUID = 243277720538924081L;
+        FormFieldFactory fieldFactory = new FormFieldFactory() {
+            private static final long serialVersionUID = 243277720538924081L;
 
-			@Override
-			public Field<?> createField(Item item, Object propertyId, Component uiContext) {
-				// Identify the fields by their Property ID.
-				String pid = (String) propertyId;
-				if ("Item".equals(pid)) {
-					ComboBox select = new ComboBox("Item");
-					for (Vertex child : children) {
-						log.debug("Adding child: {}, {}", child.getId(), child.getLabel());
-						select.addItem(child.getId());
-						select.setItemCaption(child.getId(), child.getLabel());
-					}
-					select.setNewItemsAllowed(false);
-					select.setNullSelectionAllowed(false);
-					return select;
-				}
+            @Override
+            public Field<?> createField(Item item, Object propertyId, Component uiContext) {
+                // Identify the fields by their Property ID.
+                String pid = (String) propertyId;
+                if ("Item".equals(pid)) {
+                    ComboBox select = new ComboBox("Item");
+                    for (Vertex child : children) {
+                        log.debug("Adding child: {}, {}", child.getId(), child.getLabel());
+                        select.addItem(child.getId());
+                        select.setItemCaption(child.getId(), child.getLabel());
+                    }
+                    select.setNewItemsAllowed(false);
+                    select.setNullSelectionAllowed(false);
+                    return select;
+                }
 
-				return null; // Invalid field (property) name.
-			}
-		};
+                return null; // Invalid field (property) name.
+            }
+        };
 
-		// TODO Add validator for name value
+        // TODO Add validator for name value
 
-		final Form promptForm = new Form() {
+        final Form promptForm = new Form() {
 
-			private static final long serialVersionUID = 2067414790743946906L;
+            private static final long serialVersionUID = 2067414790743946906L;
 
-			@Override
-			public void commit() {
-				super.commit();
+            @Override
+            public void commit() {
+                super.commit();
 
-				String childId = (String)getField("Item").getValue();
-				log.debug("Field value: {}", childId);
+                String childId = (String) getField("Item").getValue();
+                log.debug("Field value: {}", childId);
 
-				LoggerFactory.getLogger(this.getClass()).debug("Removing item from group: {}", childId);
+                LoggerFactory.getLogger(this.getClass()).debug("Removing item from group: {}", childId);
 
-				Vertex grandParent = graphContainer.getBaseTopology().getParent(currentGroup);
+                Vertex grandParent = graphContainer.getBaseTopology().getParent(currentGroup);
 
-				GraphProvider topologyProvider = graphContainer.getBaseTopology();
+                GraphProvider topologyProvider = graphContainer.getBaseTopology();
 
-				// Relink the child to the grandparent group (or null if it is null)
-				topologyProvider.setParent(graphContainer.getBaseTopology().getVertex(graphContainer.getBaseTopology().getVertexNamespace(), childId), grandParent);
+                // Relink the child to the grandparent group (or null if it is
+                // null)
+                topologyProvider.setParent(graphContainer.getBaseTopology().getVertex(graphContainer.getBaseTopology().getVertexNamespace(),
+                                                                                      childId), grandParent);
 
-				// Save the topology
-				topologyProvider.save();
+                // Save the topology
+                topologyProvider.save();
 
-				graphContainer.redoLayout();
-			}
-		};
-		// Buffer changes to the datasource
-		promptForm.setBuffered(true);
-		// You must set the FormFieldFactory before you set the data source
-		promptForm.setFormFieldFactory(fieldFactory);
-		promptForm.setItemDataSource(item);
+                graphContainer.redoLayout();
+            }
+        };
+        // Buffer changes to the datasource
+        promptForm.setBuffered(true);
+        // You must set the FormFieldFactory before you set the data source
+        promptForm.setFormFieldFactory(fieldFactory);
+        promptForm.setItemDataSource(item);
 
-		Button ok = new Button("OK");
-		ok.addClickListener(new ClickListener() {
+        Button ok = new Button("OK");
+        ok.addClickListener(new ClickListener() {
 
-			private static final long serialVersionUID = 7388841001913090428L;
+            private static final long serialVersionUID = 7388841001913090428L;
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				promptForm.commit();
-				// Close the prompt window
-				window.removeWindow(groupNamePrompt);
-			}
-		});
-		promptForm.getFooter().addComponent(ok);
+            @Override
+            public void buttonClick(ClickEvent event) {
+                promptForm.commit();
+                // Close the prompt window
+                window.removeWindow(groupNamePrompt);
+            }
+        });
+        promptForm.getFooter().addComponent(ok);
 
-		Button cancel = new Button("Cancel");
-		cancel.addClickListener(new ClickListener() {
+        Button cancel = new Button("Cancel");
+        cancel.addClickListener(new ClickListener() {
 
-			private static final long serialVersionUID = 8780989646038333243L;
+            private static final long serialVersionUID = 8780989646038333243L;
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				// Close the prompt window
-				window.removeWindow(groupNamePrompt);
-			}
-		});
-		promptForm.getFooter().addComponent(cancel);
+            @Override
+            public void buttonClick(ClickEvent event) {
+                // Close the prompt window
+                window.removeWindow(groupNamePrompt);
+            }
+        });
+        promptForm.getFooter().addComponent(cancel);
 
-		groupNamePrompt.setContent(promptForm);
+        groupNamePrompt.setContent(promptForm);
 
-		window.addWindow(groupNamePrompt);
+        window.addWindow(groupNamePrompt);
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public boolean display(List<VertexRef> targets, OperationContext operationContext) {
-		return true;
-	}
+    @Override
+    public boolean display(List<VertexRef> targets, OperationContext operationContext) {
+        return true;
+    }
 
-	@Override
-	public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
-		return (targets.size() == 1) && (operationContext.getGraphContainer().getBaseTopology().hasChildren(targets.get(0)));
-	}
+    @Override
+    public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
+        return (targets.size() == 1)
+                && (operationContext.getGraphContainer().getBaseTopology().hasChildren(targets.get(0)));
+    }
 
-	@Override
-	public String getId() {
-		return "RemoveVertexFromGroup";
-	}
+    @Override
+    public String getId() {
+        return "RemoveVertexFromGroup";
+    }
 }

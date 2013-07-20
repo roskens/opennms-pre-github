@@ -36,8 +36,11 @@ import org.opennms.netmgt.poller.Distributable;
 import org.opennms.netmgt.poller.DistributionContext;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.opennms.netmgt.poller.ServiceMonitor;
+
 /**
- * <p>PassiveServiceMonitor class.</p>
+ * <p>
+ * PassiveServiceMonitor class.
+ * </p>
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -47,8 +50,11 @@ import org.opennms.netmgt.poller.ServiceMonitor;
 @Distributable(DistributionContext.DAEMON)
 public class PassiveServiceMonitor implements ServiceMonitor {
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.ServiceMonitor#initialize(org.opennms.netmgt.config.PollerConfig, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.ServiceMonitor#initialize(org.opennms.netmgt
+     * .config.PollerConfig, java.util.Map)
      */
     /** {@inheritDoc} */
     @Override
@@ -56,32 +62,44 @@ public class PassiveServiceMonitor implements ServiceMonitor {
         return;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.poller.ServiceMonitor#release()
      */
     /**
-     * <p>release</p>
+     * <p>
+     * release
+     * </p>
      */
     @Override
     public void release() {
         return;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.ServiceMonitor#initialize(org.opennms.netmgt.poller.MonitoredService)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.ServiceMonitor#initialize(org.opennms.netmgt
+     * .poller.MonitoredService)
      */
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
     public void initialize(MonitoredService svc) {
         return;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.ServiceMonitor#release(org.opennms.netmgt.poller.MonitoredService)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.ServiceMonitor#release(org.opennms.netmgt.poller
+     * .MonitoredService)
      */
     /** {@inheritDoc} */
     @Override
@@ -89,13 +107,18 @@ public class PassiveServiceMonitor implements ServiceMonitor {
         return;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.ServiceMonitor#poll(org.opennms.netmgt.poller.MonitoredService, java.util.Map, org.opennms.netmgt.config.poller.Package)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.ServiceMonitor#poll(org.opennms.netmgt.poller
+     * .MonitoredService, java.util.Map,
+     * org.opennms.netmgt.config.poller.Package)
      */
     /** {@inheritDoc} */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-    	PollStatus status = PassiveStatusKeeper.getInstance().getStatus(svc.getNodeLabel(), svc.getIpAddr(), svc.getSvcName());
+        PollStatus status = PassiveStatusKeeper.getInstance().getStatus(svc.getNodeLabel(), svc.getIpAddr(),
+                                                                        svc.getSvcName());
         return status;
     }
 

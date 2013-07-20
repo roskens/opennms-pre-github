@@ -44,16 +44,21 @@ public class AutoIntegerReplacement implements ColumnChangeReplacement {
     private int m_value;
 
     /**
-     * <p>Constructor for AutoIntegerReplacement.</p>
+     * <p>
+     * Constructor for AutoIntegerReplacement.
+     * </p>
      *
-     * @param initialValue a int.
+     * @param initialValue
+     *            a int.
      */
     public AutoIntegerReplacement(int initialValue) {
         m_value = initialValue;
     }
 
     /**
-     * <p>getInt</p>
+     * <p>
+     * getInt
+     * </p>
      *
      * @return a int.
      */
@@ -68,7 +73,9 @@ public class AutoIntegerReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -78,7 +85,9 @@ public class AutoIntegerReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {

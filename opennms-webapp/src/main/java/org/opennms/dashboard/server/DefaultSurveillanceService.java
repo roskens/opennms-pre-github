@@ -76,7 +76,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>DefaultSurveillanceService class.</p>
+ * <p>
+ * DefaultSurveillanceService class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -85,23 +87,34 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class DefaultSurveillanceService implements SurveillanceService, InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultSurveillanceService.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultSurveillanceService.class);
 
     private NodeDao m_nodeDao;
+
     private ResourceDao m_resourceDao;
+
     private GraphDao m_graphDao;
+
     private NotificationDao m_notificationDao;
+
     private org.opennms.web.svclayer.SurveillanceService m_webSurveillanceService;
+
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;
+
     private CategoryDao m_categoryDao;
+
     private AlarmDao m_alarmDao;
+
     private RtcService m_rtcService;
+
     private GroupDao m_groupDao;
+
     private OutageDao m_outageDao;
 
     /**
-     * <p>getSurveillanceData</p>
+     * <p>
+     * getSurveillanceData
+     * </p>
      *
      * @return a {@link org.opennms.dashboard.client.SurveillanceData} object.
      */
@@ -109,7 +122,8 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     public SurveillanceData getSurveillanceData() {
         SurveillanceData data = new SurveillanceData();
 
-        SimpleWebTable table = m_webSurveillanceService.createSurveillanceTable(getView().getName(), new ProgressMonitor());
+        SimpleWebTable table = m_webSurveillanceService.createSurveillanceTable(getView().getName(),
+                                                                                new ProgressMonitor());
 
         data.setName(getView().getName());
 
@@ -150,66 +164,51 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         return data;
     }
 
-
     /*
-    private int m_count = 0;
-    private Timer m_timer = new Timer();
-    private Random m_random = new Random();
-    private SurveillanceData m_data;
-
-    public SurveillanceData getSurveillanceData() {
-        if (m_data == null) {
-            final SurveillanceData data = new SurveillanceData();
-            m_data = data;
-
-            SurveillanceGroup[] columnGroups = new SurveillanceGroup[] {
-                    new SurveillanceGroup("prod", "Production"),
-                    new SurveillanceGroup("test", "Test"),
-                    new SurveillanceGroup("dev", "Developement")
-            };
-
-            SurveillanceGroup[] rowGroups = new SurveillanceGroup[] {
-                    new SurveillanceGroup("ibm", "IBM"),
-                    new SurveillanceGroup("hp", "HP"),
-                    new SurveillanceGroup("duke", "Duke Hospital"),
-                    new SurveillanceGroup("unc", "UNC Hospitals")
-            };
-
-            data.setColumnGroups(columnGroups);
-            data.setRowGroups(rowGroups);
-
-            m_timer.schedule(new TimerTask() {
-
-                @Override
-                public void run() {
-
-                    data.setCell(m_count / data.getColumnCount(), m_count % data.getColumnCount(), ""+m_count);
-
-                    m_count++;
-
-                    if (m_count < data.getColumnCount()*data.getRowCount()) {
-                        data.setComplete(false);
-                    } else {
-                        this.cancel();
-                        data.setComplete(true);
-                        m_count = 0;
-                    }
-
-                }
-
-            }, 3000, 2000);
-        } else if (m_data.isComplete()) {
-            SurveillanceData data = m_data;
-            m_data = null;
-            return data;
-        }
-
-        return m_data;
-
-
-    }
-
-*/
+     * private int m_count = 0;
+     * private Timer m_timer = new Timer();
+     * private Random m_random = new Random();
+     * private SurveillanceData m_data;
+     * public SurveillanceData getSurveillanceData() {
+     * if (m_data == null) {
+     * final SurveillanceData data = new SurveillanceData();
+     * m_data = data;
+     * SurveillanceGroup[] columnGroups = new SurveillanceGroup[] {
+     * new SurveillanceGroup("prod", "Production"),
+     * new SurveillanceGroup("test", "Test"),
+     * new SurveillanceGroup("dev", "Developement")
+     * };
+     * SurveillanceGroup[] rowGroups = new SurveillanceGroup[] {
+     * new SurveillanceGroup("ibm", "IBM"),
+     * new SurveillanceGroup("hp", "HP"),
+     * new SurveillanceGroup("duke", "Duke Hospital"),
+     * new SurveillanceGroup("unc", "UNC Hospitals")
+     * };
+     * data.setColumnGroups(columnGroups);
+     * data.setRowGroups(rowGroups);
+     * m_timer.schedule(new TimerTask() {
+     * @Override
+     * public void run() {
+     * data.setCell(m_count / data.getColumnCount(), m_count %
+     * data.getColumnCount(), ""+m_count);
+     * m_count++;
+     * if (m_count < data.getColumnCount()*data.getRowCount()) {
+     * data.setComplete(false);
+     * } else {
+     * this.cancel();
+     * data.setComplete(true);
+     * m_count = 0;
+     * }
+     * }
+     * }, 3000, 2000);
+     * } else if (m_data.isComplete()) {
+     * SurveillanceData data = m_data;
+     * m_data = null;
+     * return data;
+     * }
+     * return m_data;
+     * }
+     */
 
     /** {@inheritDoc} */
     @Override
@@ -228,7 +227,11 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         int index = 0;
         boolean isDashboardRole = isDashboardRole();
         for (OnmsAlarm alarm : alarms) {
-            alarmArray[index] = new Alarm(alarm.getSeverity().getLabel(), alarm.getNode().getLabel(), alarm.getNode().getId(), isDashboardRole, alarm.getLogMsg(), alarm.getDescription(), alarm.getCounter(), new Date(alarm.getFirstEventTime().getTime()), new Date(alarm.getLastEventTime().getTime()));
+            alarmArray[index] = new Alarm(alarm.getSeverity().getLabel(), alarm.getNode().getLabel(),
+                                          alarm.getNode().getId(), isDashboardRole, alarm.getLogMsg(),
+                                          alarm.getDescription(), alarm.getCounter(),
+                                          new Date(alarm.getFirstEventTime().getTime()),
+                                          new Date(alarm.getLastEventTime().getTime()));
             index++;
         }
 
@@ -270,12 +273,12 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
 
         List<String[]> labels = new ArrayList<String[]>(resources.size());
         for (OnmsResource resource : resources) {
-            labels.add(new String[] { resource.getId(), resource.getResourceType().getLabel() + ": " + resource.getLabel() });
+            labels.add(new String[] { resource.getId(),
+                    resource.getResourceType().getLabel() + ": " + resource.getLabel() });
         }
 
         return labels.toArray(new String[labels.size()][]);
     }
-
 
     private void addCriteriaForSurveillanceSet(OnmsCriteria criteria, SurveillanceSet set) {
         CriteriaAddingVisitor visitor = new CriteriaAddingVisitor(criteria);
@@ -300,25 +303,29 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         for (Group group : groups) {
             View groupView = m_surveillanceViewConfigDao.getView(group.getName());
             if (groupView != null) {
-                LOG.debug("Found surveillance view '{}' matching group '{}' name for user '{}'", groupView.getName(), group.getName(), user);
+                LOG.debug("Found surveillance view '{}' matching group '{}' name for user '{}'", groupView.getName(),
+                          group.getName(), user);
                 return groupView;
             }
         }
 
         View defaultView = m_surveillanceViewConfigDao.getDefaultView();
         if (defaultView == null) {
-            String message = "There is no default surveillance view and we could not find a surviellance view for the user's username ('" + user + "') or any of their groups";
+            String message = "There is no default surveillance view and we could not find a surviellance view for the user's username ('"
+                    + user + "') or any of their groups";
             LOG.warn(message);
             throw new ObjectRetrievalFailureException(View.class, message);
         }
 
-        LOG.debug("Did not find a surveillance view matching the user's user name or one of their group names.  Using the default view for user '{}'", user);
+        LOG.debug("Did not find a surveillance view matching the user's user name or one of their group names.  Using the default view for user '{}'",
+                  user);
         return defaultView;
     }
 
-
     /**
-     * <p>getUsername</p>
+     * <p>
+     * getUsername
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -331,28 +338,31 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         Assert.state(context != null, "No security context found when calling SecurityContextHolder.getContext()");
 
         org.springframework.security.core.Authentication auth = context.getAuthentication();
-        Assert.state(auth != null, "No Authentication object found when calling getAuthentication on our SecurityContext object");
+        Assert.state(auth != null,
+                     "No Authentication object found when calling getAuthentication on our SecurityContext object");
 
         Object obj = auth.getPrincipal();
         Assert.state(obj != null, "No principal object found when calling getPrincipal on our Authentication object");
 
-
         if (obj instanceof UserDetails) {
-            return ((UserDetails)obj).getUsername();
+            return ((UserDetails) obj).getUsername();
         } else {
             throw new IllegalStateException("principal should always be instanceof UserDetails");
         }
     }
 
     /**
-     * <p>isDashboardRole</p>
+     * <p>
+     * isDashboardRole
+     * </p>
      *
      * @return a boolean.
      */
     protected boolean isDashboardRole() {
         boolean isDashboardRole = true;
         SecurityContext context = SecurityContextHolder.getContext();
-        if((context != null) && !(context.toString().contains(org.opennms.web.springframework.security.Authentication.ROLE_DASHBOARD))) {
+        if ((context != null)
+                && !(context.toString().contains(org.opennms.web.springframework.security.Authentication.ROLE_DASHBOARD))) {
             isDashboardRole = false;
         }
         LOG.debug("User {} is in dashboard role? {}", getUsername(), isDashboardRole);
@@ -371,7 +381,8 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
 
         List<String[]> labels = new ArrayList<String[]>(resources.size());
         for (OnmsResource resource : resources) {
-            labels.add(new String[] { resource.getId(), resource.getResourceType().getLabel() + ": " + resource.getLabel() });
+            labels.add(new String[] { resource.getId(),
+                    resource.getResourceType().getLabel() + ": " + resource.getLabel() });
         }
 
         return labels.toArray(new String[labels.size()][]);
@@ -403,15 +414,21 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         Date fifteenMinutesAgo = new Date(System.currentTimeMillis() - (15 * 60 * 1000));
         Date oneWeekAgo = new Date(System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000));
 
-        notifications.addAll(getNotificationsWithCriterion(set, "Critical", Restrictions.isNull("notification.respondTime"), Restrictions.le("notification.pageTime", fifteenMinutesAgo)));
-        notifications.addAll(getNotificationsWithCriterion(set, "Minor", Restrictions.isNull("notification.respondTime"), Restrictions.gt("notification.pageTime", fifteenMinutesAgo)));
-        notifications.addAll(getNotificationsWithCriterion(set, "Normal", Restrictions.isNotNull("notification.respondTime"), Restrictions.gt("notification.pageTime", oneWeekAgo)));
-
+        notifications.addAll(getNotificationsWithCriterion(set, "Critical",
+                                                           Restrictions.isNull("notification.respondTime"),
+                                                           Restrictions.le("notification.pageTime", fifteenMinutesAgo)));
+        notifications.addAll(getNotificationsWithCriterion(set, "Minor",
+                                                           Restrictions.isNull("notification.respondTime"),
+                                                           Restrictions.gt("notification.pageTime", fifteenMinutesAgo)));
+        notifications.addAll(getNotificationsWithCriterion(set, "Normal",
+                                                           Restrictions.isNotNull("notification.respondTime"),
+                                                           Restrictions.gt("notification.pageTime", oneWeekAgo)));
 
         return notifications.toArray(new Notification[notifications.size()]);
     }
 
-    private List<Notification> getNotificationsWithCriterion(SurveillanceSet set, String severity, Criterion... criterions) {
+    private List<Notification> getNotificationsWithCriterion(SurveillanceSet set, String severity,
+            Criterion... criterions) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsNotification.class, "notification");
 
         OnmsCriteria nodeCriteria = criteria.createCriteria("node");
@@ -429,7 +446,8 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         return convertOnmsNotificationsToNotifications(notifications, severity);
     }
 
-    private List<Notification> convertOnmsNotificationsToNotifications(List<OnmsNotification> notifications, String severity) {
+    private List<Notification> convertOnmsNotificationsToNotifications(List<OnmsNotification> notifications,
+            String severity) {
         List<Notification> notifs = new ArrayList<Notification>(notifications.size());
         boolean isDashboardRole = isDashboardRole();
         for (OnmsNotification notification : notifications) {
@@ -495,9 +513,12 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -505,7 +526,8 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         Assert.state(m_resourceDao != null, "resourceDao property must be set and cannot be null");
         Assert.state(m_graphDao != null, "graphDao property must be set and cannot be null");
         Assert.state(m_webSurveillanceService != null, "webSurveillanceService property must be set and cannot be null");
-        Assert.state(m_surveillanceViewConfigDao != null, "surveillanceViewConfigDao property must be set and cannot be null");
+        Assert.state(m_surveillanceViewConfigDao != null,
+                     "surveillanceViewConfigDao property must be set and cannot be null");
         Assert.state(m_categoryDao != null, "categoryDao property must be set and cannot be null");
         Assert.state(m_alarmDao != null, "alarmDao property must be set and cannot be null");
         Assert.state(m_notificationDao != null, "notificationDao property must be set and cannot be null");
@@ -515,43 +537,57 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     }
 
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
     /**
-     * <p>setNotificationDao</p>
+     * <p>
+     * setNotificationDao
+     * </p>
      *
-     * @param notifDao a {@link org.opennms.netmgt.dao.api.NotificationDao} object.
+     * @param notifDao
+     *            a {@link org.opennms.netmgt.dao.api.NotificationDao} object.
      */
     public void setNotificationDao(NotificationDao notifDao) {
         m_notificationDao = notifDao;
     }
 
     /**
-     * <p>setResourceDao</p>
+     * <p>
+     * setResourceDao
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
     public void setResourceDao(ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
     /**
-     * <p>setGraphDao</p>
+     * <p>
+     * setGraphDao
+     * </p>
      *
-     * @param graphDao a {@link org.opennms.netmgt.dao.api.GraphDao} object.
+     * @param graphDao
+     *            a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
     public void setGraphDao(GraphDao graphDao) {
         m_graphDao = graphDao;
     }
 
     /**
-     * <p>getWebSurveillanceService</p>
+     * <p>
+     * getWebSurveillanceService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.SurveillanceService} object.
      */
@@ -560,34 +596,46 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     }
 
     /**
-     * <p>setWebSurveillanceService</p>
+     * <p>
+     * setWebSurveillanceService
+     * </p>
      *
-     * @param webSurveillanceService a {@link org.opennms.web.svclayer.SurveillanceService} object.
+     * @param webSurveillanceService
+     *            a {@link org.opennms.web.svclayer.SurveillanceService} object.
      */
     public void setWebSurveillanceService(org.opennms.web.svclayer.SurveillanceService webSurveillanceService) {
         m_webSurveillanceService = webSurveillanceService;
     }
 
     /**
-     * <p>getSurveillanceViewConfigDao</p>
+     * <p>
+     * getSurveillanceViewConfigDao
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao} object.
+     * @return a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}
+     *         object.
      */
     public SurveillanceViewConfigDao getSurveillanceViewConfigDao() {
         return m_surveillanceViewConfigDao;
     }
 
     /**
-     * <p>setSurveillanceViewConfigDao</p>
+     * <p>
+     * setSurveillanceViewConfigDao
+     * </p>
      *
-     * @param surveillanceViewConfigDao a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao} object.
+     * @param surveillanceViewConfigDao
+     *            a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}
+     *            object.
      */
     public void setSurveillanceViewConfigDao(SurveillanceViewConfigDao surveillanceViewConfigDao) {
         m_surveillanceViewConfigDao = surveillanceViewConfigDao;
     }
 
     /**
-     * <p>getCategoryDao</p>
+     * <p>
+     * getCategoryDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -596,16 +644,21 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     }
 
     /**
-     * <p>setCategoryDao</p>
+     * <p>
+     * setCategoryDao
+     * </p>
      *
-     * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
+     * @param categoryDao
+     *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
     public void setCategoryDao(CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
 
     /**
-     * <p>getAlarmDao</p>
+     * <p>
+     * getAlarmDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
      */
@@ -614,16 +667,21 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     }
 
     /**
-     * <p>setAlarmDao</p>
+     * <p>
+     * setAlarmDao
+     * </p>
      *
-     * @param alarmDao a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
+     * @param alarmDao
+     *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
      */
     public void setAlarmDao(AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
     }
 
     /**
-     * <p>getRtcService</p>
+     * <p>
+     * getRtcService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.RtcService} object.
      */
@@ -632,16 +690,21 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     }
 
     /**
-     * <p>setRtcService</p>
+     * <p>
+     * setRtcService
+     * </p>
      *
-     * @param rtcService a {@link org.opennms.web.svclayer.RtcService} object.
+     * @param rtcService
+     *            a {@link org.opennms.web.svclayer.RtcService} object.
      */
     public void setRtcService(RtcService rtcService) {
         m_rtcService = rtcService;
     }
 
     /**
-     * <p>getGroupDao</p>
+     * <p>
+     * getGroupDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.GroupDao} object.
      */
@@ -650,16 +713,21 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     }
 
     /**
-     * <p>setGroupDao</p>
+     * <p>
+     * setGroupDao
+     * </p>
      *
-     * @param groupDao a {@link org.opennms.netmgt.config.GroupDao} object.
+     * @param groupDao
+     *            a {@link org.opennms.netmgt.config.GroupDao} object.
      */
     public void setGroupDao(GroupDao groupDao) {
         m_groupDao = groupDao;
     }
 
     /**
-     * <p>getOutageDao</p>
+     * <p>
+     * getOutageDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
@@ -668,9 +736,12 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     }
 
     /**
-     * <p>setOutageDao</p>
+     * <p>
+     * setOutageDao
+     * </p>
      *
-     * @param outageDao a {@link org.opennms.netmgt.dao.api.OutageDao} object.
+     * @param outageDao
+     *            a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
     public void setOutageDao(OutageDao outageDao) {
         m_outageDao = outageDao;

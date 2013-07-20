@@ -28,14 +28,12 @@
 
 package org.opennms.core.soa.filter;
 
-
 /**
  * PresenceFilter
  *
  * @author brozow
  */
 public class PresenceFilter extends AttributeComparisonFilter {
-
 
     public PresenceFilter(String attribute) {
         super(attribute);
@@ -50,6 +48,5 @@ public class PresenceFilter extends AttributeComparisonFilter {
     public String toString() {
         return new StringBuilder().append("(").append(getAttribute()).append("=*)").toString();
     }
-
 
 }

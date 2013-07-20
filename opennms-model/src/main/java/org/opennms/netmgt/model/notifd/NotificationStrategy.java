@@ -38,17 +38,20 @@ import org.opennms.core.utils.Argument;
  * xml file set binary=false, and specify the class in the execute tag.
  *
  * @author <A HREF="mailto:david@opennms.org">David Hustace </A>
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public interface NotificationStrategy {
 
     /**
-     * <p>send</p>
+     * <p>
+     * send
+     * </p>
      *
-     * @param arguments a {@link java.util.List} object.
+     * @param arguments
+     *            a {@link java.util.List} object.
      * @return a int.
      */
     public int send(List<Argument> arguments);

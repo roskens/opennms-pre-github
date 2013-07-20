@@ -40,61 +40,75 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.opennms.core.xml.ValidateUsing;
 
-
 /**
- * <p>ForeignSourceCollection class.</p>
+ * <p>
+ * ForeignSourceCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="foreign-sources")
+@XmlRootElement(name = "foreign-sources")
 @ValidateUsing("foreign-sources.xsd")
 public class ForeignSourceCollection implements List<ForeignSource> {
     private LinkedList<ForeignSource> m_list = null;
 
-	/**
-	 * <p>Constructor for ForeignSourceCollection.</p>
-	 */
-	public ForeignSourceCollection() {
-	    m_list = new LinkedList<ForeignSource>();
+    /**
+     * <p>
+     * Constructor for ForeignSourceCollection.
+     * </p>
+     */
+    public ForeignSourceCollection() {
+        m_list = new LinkedList<ForeignSource>();
     }
 
     /**
-     * <p>Constructor for ForeignSourceCollection.</p>
+     * <p>
+     * Constructor for ForeignSourceCollection.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public ForeignSourceCollection(Collection<? extends ForeignSource> c) {
         m_list = new LinkedList<ForeignSource>(c);
     }
 
     /**
-     * <p>getForeignSources</p>
+     * <p>
+     * getForeignSources
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    @XmlElement(name="foreign-source")
+    @XmlElement(name = "foreign-source")
     public List<ForeignSource> getForeignSources() {
         return this;
     }
 
     /**
-     * <p>setForeignSources</p>
+     * <p>
+     * setForeignSources
+     * </p>
      *
-     * @param foreignSources a {@link java.util.List} object.
+     * @param foreignSources
+     *            a {@link java.util.List} object.
      */
     public void setForeignSources(List<ForeignSource> foreignSources) {
-        if (foreignSources == this) return;
+        if (foreignSources == this)
+            return;
         clear();
         addAll(foreignSources);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
         return this.size();
     }

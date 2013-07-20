@@ -43,42 +43,39 @@ import edu.uci.ics.jung.graph.SparseGraph;
 
 public class FRLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
-	@Override
-	public void updateLayout(final GraphContainer graphContainer) {
+    @Override
+    public void updateLayout(final GraphContainer graphContainer) {
 
-		Graph g = graphContainer.getGraph();
+        Graph g = graphContainer.getGraph();
 
-		final Layout graphLayout = g.getLayout();
+        final Layout graphLayout = g.getLayout();
 
-		SparseGraph<VertexRef, EdgeRef> jungGraph = new SparseGraph<VertexRef, EdgeRef>();
+        SparseGraph<VertexRef, EdgeRef> jungGraph = new SparseGraph<VertexRef, EdgeRef>();
 
-		Collection<Vertex> vertices = g.getDisplayVertices();
+        Collection<Vertex> vertices = g.getDisplayVertices();
 
-		for(Vertex v : vertices) {
-			jungGraph.addVertex(v);
-		}
+        for (Vertex v : vertices) {
+            jungGraph.addVertex(v);
+        }
 
-		Collection<Edge> edges = g.getDisplayEdges();
+        Collection<Edge> edges = g.getDisplayEdges();
 
-		for(Edge e : edges) {
-			jungGraph.addEdge(e, e.getSource().getVertex(), e.getTarget().getVertex());
-		}
+        for (Edge e : edges) {
+            jungGraph.addEdge(e, e.getSource().getVertex(), e.getTarget().getVertex());
+        }
 
+        FRLayout<VertexRef, EdgeRef> layout = new FRLayout<VertexRef, EdgeRef>(jungGraph);
+        layout.setInitializer(initializer(graphLayout));
+        layout.setSize(selectLayoutSize(graphContainer));
 
-		FRLayout<VertexRef, EdgeRef> layout = new FRLayout<VertexRef, EdgeRef>(jungGraph);
-		layout.setInitializer(initializer(graphLayout));
-		layout.setSize(selectLayoutSize(graphContainer));
+        while (!layout.done()) {
+            layout.step();
+        }
 
-		while(!layout.done()) {
-			layout.step();
-		}
+        for (Vertex v : vertices) {
+            graphLayout.setLocation(v, (int) layout.getX(v), (int) layout.getY(v));
+        }
 
-
-		for(Vertex v : vertices) {
-			graphLayout.setLocation(v, (int)layout.getX(v), (int)layout.getY(v));
-		}
-
-
-	}
+    }
 
 }

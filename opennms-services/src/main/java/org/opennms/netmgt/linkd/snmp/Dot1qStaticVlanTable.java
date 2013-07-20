@@ -35,10 +35,10 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * <P>
- * Dot1qStaticVlanTable uses a SnmpSession to collect the vtpVlanTable Port table
- * entries. It implements the SnmpHandler to receive notifications when a reply
- * is received/error occurs in the SnmpSession used to send requests/receive
- * replies.
+ * Dot1qStaticVlanTable uses a SnmpSession to collect the vtpVlanTable Port
+ * table entries. It implements the SnmpHandler to receive notifications when a
+ * reply is received/error occurs in the SnmpSession used to send
+ * requests/receive replies.
  * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo </A>
@@ -47,20 +47,22 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public class Dot1qStaticVlanTable extends VlanTableBasic implements VlanTable {
 
-	/**
-	 * <p>Constructor for Dot1qStaticVlanTable.</p>
-	 *
-	 * @param address a {@link java.net.InetAddress} object.
-	 */
-	public Dot1qStaticVlanTable(InetAddress address) {
+    /**
+     * <p>
+     * Constructor for Dot1qStaticVlanTable.
+     * </p>
+     *
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     */
+    public Dot1qStaticVlanTable(InetAddress address) {
         super(address, "Dot1dStaticVlanTable", Dot1qStaticVlanTableEntry.hpVlan_elemList);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     protected Dot1qStaticVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new Dot1qStaticVlanTableEntry();
     }
 
 }
-

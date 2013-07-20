@@ -53,18 +53,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/daoWebRepositoryTestContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/daoWebRepositoryTestContext.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class NetworkElementFactoryTest implements InitializingBean {
@@ -169,8 +164,8 @@ public class NetworkElementFactoryTest implements InitializingBean {
     @Transactional
     @JUnitTemporaryDatabase
     public void testGetActiveInterfacesOnNode() {
-    	Interface[] intfs = NetworkElementFactory.getInstance(m_appContext).getActiveInterfacesOnNode(m_dbPopulator.getNode1().getId());
-    	assertEquals("active interfaces", 4, intfs.length);
+        Interface[] intfs = NetworkElementFactory.getInstance(m_appContext).getActiveInterfacesOnNode(m_dbPopulator.getNode1().getId());
+        assertEquals("active interfaces", 4, intfs.length);
 
     }
 
@@ -178,10 +173,12 @@ public class NetworkElementFactoryTest implements InitializingBean {
     @Transactional
     @JUnitTemporaryDatabase
     public void testGetDataLinksOnInterface() {
-        List<LinkInterface> dlis = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnInterface(m_dbPopulator.getNode1().getId(), 1);
+        List<LinkInterface> dlis = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnInterface(m_dbPopulator.getNode1().getId(),
+                                                                                                           1);
         assertEquals(4, dlis.size());
 
-        List<LinkInterface> dlis2 = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnInterface(m_dbPopulator.getNode1().getId(), 9);
+        List<LinkInterface> dlis2 = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnInterface(m_dbPopulator.getNode1().getId(),
+                                                                                                            9);
         assertEquals(0, dlis2.size());
     }
 
@@ -189,7 +186,8 @@ public class NetworkElementFactoryTest implements InitializingBean {
     @Transactional
     @JUnitTemporaryDatabase
     public void testGetAtInterfaces() throws Exception {
-        AtInterface atif = NetworkElementFactory.getInstance(m_appContext).getAtInterface(m_dbPopulator.getNode2().getId(), "192.168.2.1");
+        AtInterface atif = NetworkElementFactory.getInstance(m_appContext).getAtInterface(m_dbPopulator.getNode2().getId(),
+                                                                                          "192.168.2.1");
         assertEquals("AA:BB:CC:DD:EE:FF", atif.get_physaddr());
 
         List<OnmsNode> nodes = NetworkElementFactory.getInstance(m_appContext).getNodesFromPhysaddr("AA:BB:CC:DD:EE:FF");
@@ -200,7 +198,7 @@ public class NetworkElementFactoryTest implements InitializingBean {
     @Transactional
     @JUnitTemporaryDatabase
     public void testGetDataLinksOnNode() throws SQLException {
-    	List<LinkInterface> dlis = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnNode(m_dbPopulator.getNode1().getId());
+        List<LinkInterface> dlis = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnNode(m_dbPopulator.getNode1().getId());
         assertEquals(5, dlis.size());
 
         List<LinkInterface> dlis2 = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnNode(100);

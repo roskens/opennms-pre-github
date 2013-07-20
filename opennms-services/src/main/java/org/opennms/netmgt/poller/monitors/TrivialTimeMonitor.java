@@ -56,7 +56,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class is designed to be used by the service poller framework to test the
- * availability of the trivial UNIX "time" service on remote interfaces. The class
+ * availability of the trivial UNIX "time" service on remote interfaces. The
+ * class
  * implements the ServiceMonitor interface that allows it to be used along with
  * other plug-ins by the service poller framework.
  *
@@ -107,13 +108,10 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
     private static final boolean DEFAULT_PERSIST_SKEW = false;
 
     /**
-     * {@inheritDoc}
-     *
-     * Poll the specified address for service availability.
-     *
+     * {@inheritDoc} Poll the specified address for service availability.
      * During the poll an attempt is made to retrieve the time value from the
-     * remote system.  This can be done via either TCP or UDP depending on the
-     * provided parameters (default TCP).  If the time value returned is within
+     * remote system. This can be done via either TCP or UDP depending on the
+     * provided parameters (default TCP). If the time value returned is within
      * the specified number of seconds of the local system's clock time, then
      * the service is considered available.
      */
@@ -129,7 +127,8 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
@@ -147,7 +146,8 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
         //
         int allowedSkew = ParameterMap.getKeyedInteger(parameters, "allowed-skew", DEFAULT_ALLOWED_SKEW);
 
-        // Determine whether to persist the skew value in addition to the latency
+        // Determine whether to persist the skew value in addition to the
+        // latency
         boolean persistSkew = ParameterMap.getKeyedBoolean(parameters, "persist-skew", DEFAULT_PERSIST_SKEW);
 
         // Give it a whirl
@@ -155,17 +155,19 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
         PollStatus serviceStatus = PollStatus.unavailable();
 
         String protocol = ParameterMap.getKeyedString(parameters, "protocol", DEFAULT_PROTOCOL).toLowerCase();
-        if (! protocol.equalsIgnoreCase("tcp") && ! protocol.equalsIgnoreCase("udp")) {
-            throw new  IllegalArgumentException("Unsupported protocol, only TCP and UDP currently supported");
+        if (!protocol.equalsIgnoreCase("tcp") && !protocol.equalsIgnoreCase("udp")) {
+            throw new IllegalArgumentException("Unsupported protocol, only TCP and UDP currently supported");
         } else if (protocol.equalsIgnoreCase("udp")) {
             // TODO test UDP support
             LOG.warn("UDP support is largely untested");
         }
 
         if (protocol.equalsIgnoreCase("tcp")) {
-            serviceStatus = pollTimeTcp(svc, parameters, serviceStatus, tracker, ipv4Addr, port, allowedSkew, persistSkew);
+            serviceStatus = pollTimeTcp(svc, parameters, serviceStatus, tracker, ipv4Addr, port, allowedSkew,
+                                        persistSkew);
         } else if (protocol.equalsIgnoreCase("udp")) {
-            serviceStatus = pollTimeUdp(svc, parameters, serviceStatus, tracker, ipv4Addr, port, allowedSkew, persistSkew);
+            serviceStatus = pollTimeUdp(svc, parameters, serviceStatus, tracker, ipv4Addr, port, allowedSkew,
+                                        persistSkew);
         }
 
         //
@@ -175,37 +177,54 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     * <p>storeResult</p>
+     * <p>
+     * storeResult
+     * </p>
      *
-     * @param serviceStatus a {@link org.opennms.netmgt.model.PollStatus} object.
-     * @param skew a {@link java.lang.Number} object.
-     * @param responseTime a {@link java.lang.Double} object.
-     * @param persistSkew a boolean.
+     * @param serviceStatus
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param skew
+     *            a {@link java.lang.Number} object.
+     * @param responseTime
+     *            a {@link java.lang.Double} object.
+     * @param persistSkew
+     *            a boolean.
      */
     public void storeResult(PollStatus serviceStatus, Number skew, Double responseTime, boolean persistSkew) {
-        Map<String,Number> skewProps = new LinkedHashMap<String,Number>();
+        Map<String, Number> skewProps = new LinkedHashMap<String, Number>();
         if (persistSkew) {
             skewProps.put("skew", skew);
-	    LOG.debug("persistSkew: Persisting time skew (value = {}) for this node", skew);
+            LOG.debug("persistSkew: Persisting time skew (value = {}) for this node", skew);
         }
         skewProps.put("response-time", responseTime);
         serviceStatus.setProperties(skewProps);
     }
 
     /**
-     * <p>pollTimeTcp</p>
+     * <p>
+     * pollTimeTcp
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
-     * @param parameters a {@link java.util.Map} object.
-     * @param serviceStatus a {@link org.opennms.netmgt.model.PollStatus} object.
-     * @param tracker a {@link org.opennms.core.utils.TimeoutTracker} object.
-     * @param ipv4Addr a {@link java.net.InetAddress} object.
-     * @param port a int.
-     * @param allowedSkew a int.
-     * @param persistSkew a boolean.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param parameters
+     *            a {@link java.util.Map} object.
+     * @param serviceStatus
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param tracker
+     *            a {@link org.opennms.core.utils.TimeoutTracker} object.
+     * @param ipv4Addr
+     *            a {@link java.net.InetAddress} object.
+     * @param port
+     *            a int.
+     * @param allowedSkew
+     *            a int.
+     * @param persistSkew
+     *            a boolean.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
-    public PollStatus pollTimeTcp(MonitoredService svc, Map<String, Object> parameters, PollStatus serviceStatus, TimeoutTracker tracker, InetAddress ipv4Addr, int port, int allowedSkew, boolean persistSkew) {
+    public PollStatus pollTimeTcp(MonitoredService svc, Map<String, Object> parameters, PollStatus serviceStatus,
+            TimeoutTracker tracker, InetAddress ipv4Addr, int port, int allowedSkew, boolean persistSkew) {
         int localTime = 0;
         int remoteTime = 0;
         boolean gotTime = false;
@@ -241,9 +260,10 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
                     continue; // to next iteration of for() loop
                 }
 
-                localTime  = (int)(System.currentTimeMillis() / 1000) - EPOCH_ADJ_FACTOR;
+                localTime = (int) (System.currentTimeMillis() / 1000) - EPOCH_ADJ_FACTOR;
                 gotTime = true;
-                serviceStatus = qualifyTime(remoteTime, localTime, allowedSkew, serviceStatus, tracker.elapsedTimeInMillis(), persistSkew);
+                serviceStatus = qualifyTime(remoteTime, localTime, allowedSkew, serviceStatus,
+                                            tracker.elapsedTimeInMillis(), persistSkew);
             } catch (NoRouteToHostException e) {
                 String reason = "No route to host exception for address " + InetAddressUtils.str(ipv4Addr);
                 LOG.debug(reason, e);
@@ -274,28 +294,38 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
         return serviceStatus;
     }
 
-
     /**
-     * <p>pollTimeUdp</p>
+     * <p>
+     * pollTimeUdp
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
-     * @param parameters a {@link java.util.Map} object.
-     * @param serviceStatus a {@link org.opennms.netmgt.model.PollStatus} object.
-     * @param tracker a {@link org.opennms.core.utils.TimeoutTracker} object.
-     * @param ipv4Addr a {@link java.net.InetAddress} object.
-     * @param port a int.
-     * @param allowedSkew a int.
-     * @param persistSkew a boolean.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param parameters
+     *            a {@link java.util.Map} object.
+     * @param serviceStatus
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param tracker
+     *            a {@link org.opennms.core.utils.TimeoutTracker} object.
+     * @param ipv4Addr
+     *            a {@link java.net.InetAddress} object.
+     * @param port
+     *            a int.
+     * @param allowedSkew
+     *            a int.
+     * @param persistSkew
+     *            a boolean.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
-    public PollStatus pollTimeUdp(MonitoredService svc, Map<String, Object> parameters, PollStatus serviceStatus, TimeoutTracker tracker, InetAddress ipv4Addr, int port, int allowedSkew, boolean persistSkew) {
+    public PollStatus pollTimeUdp(MonitoredService svc, Map<String, Object> parameters, PollStatus serviceStatus,
+            TimeoutTracker tracker, InetAddress ipv4Addr, int port, int allowedSkew, boolean persistSkew) {
         int localTime = 0;
         int remoteTime = 0;
         boolean gotTime = false;
         for (tracker.reset(); tracker.shouldRetry() && !gotTime; tracker.nextAttempt()) {
             DatagramSocket socket = null;
             final String hostAddress = InetAddressUtils.str(ipv4Addr);
-			try {
+            try {
 
                 tracker.startAttempt();
 
@@ -306,7 +336,7 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
                 //
                 // Send an empty datagram per RFC868
                 //
-                socket.send(new DatagramPacket(new byte[]{}, 0, ipv4Addr, port));
+                socket.send(new DatagramPacket(new byte[] {}, 0, ipv4Addr, port));
 
                 //
                 // Try to receive a response from the remote socket
@@ -330,9 +360,10 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
                     continue; // to next iteration of for() loop
                 }
 
-                localTime  = (int)(System.currentTimeMillis() / 1000) - EPOCH_ADJ_FACTOR;
+                localTime = (int) (System.currentTimeMillis() / 1000) - EPOCH_ADJ_FACTOR;
                 gotTime = true;
-                serviceStatus = qualifyTime(remoteTime, localTime, allowedSkew, serviceStatus, tracker.elapsedTimeInMillis(), persistSkew);
+                serviceStatus = qualifyTime(remoteTime, localTime, allowedSkew, serviceStatus,
+                                            tracker.elapsedTimeInMillis(), persistSkew);
             } catch (PortUnreachableException e) {
                 String reason = "Port unreachable exception for address " + hostAddress;
                 LOG.debug(reason, e);
@@ -357,19 +388,25 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
         return serviceStatus;
     }
 
-    private PollStatus qualifyTime(int remoteTime, int localTime, int allowedSkew, PollStatus serviceStatus, double responseTime, boolean persistSkew) {
-        LOG.debug("qualifyTime: checking remote time {} against local time {} with max skew of {}", remoteTime, localTime, allowedSkew);
+    private PollStatus qualifyTime(int remoteTime, int localTime, int allowedSkew, PollStatus serviceStatus,
+            double responseTime, boolean persistSkew) {
+        LOG.debug("qualifyTime: checking remote time {} against local time {} with max skew of {}", remoteTime,
+                  localTime, allowedSkew);
         if ((localTime - remoteTime > allowedSkew) || (remoteTime - localTime > allowedSkew)) {
-            String reason = "Remote time is " + (localTime > remoteTime ? ""+(localTime-remoteTime)+" seconds slow" : ""+(remoteTime-localTime)+" seconds fast");
+            String reason = "Remote time is "
+                    + (localTime > remoteTime ? "" + (localTime - remoteTime) + " seconds slow" : ""
+                            + (remoteTime - localTime) + " seconds fast");
             LOG.debug(reason);
             serviceStatus = PollStatus.unavailable(reason);
         }
         if ((localTime > remoteTime) && (localTime - remoteTime > allowedSkew)) {
-            String reason = "Remote time is " + (localTime - remoteTime) + " seconds behind local, more than the allowable " + allowedSkew;
+            String reason = "Remote time is " + (localTime - remoteTime)
+                    + " seconds behind local, more than the allowable " + allowedSkew;
             LOG.debug(reason);
             serviceStatus = PollStatus.unavailable(reason);
         } else if ((remoteTime > localTime) && (remoteTime - localTime > allowedSkew)) {
-            String reason = "Remote time is " + (remoteTime - localTime) + " seconds ahead of local, more than the allowable " + allowedSkew;
+            String reason = "Remote time is " + (remoteTime - localTime)
+                    + " seconds ahead of local, more than the allowable " + allowedSkew;
             LOG.debug(reason);
             serviceStatus = PollStatus.unavailable(reason);
         } else {

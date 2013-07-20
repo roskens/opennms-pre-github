@@ -59,14 +59,21 @@ import com.google.gwt.user.client.ui.PopupPanel;
 public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presenter<KscReport> {
 
     private static final List<KscReport> EMPTY_KSCREPORT_LIST = Collections.unmodifiableList(new ArrayList<KscReport>());
+
     private KscAddGraphView<KscReport> m_view;
+
     private List<KscReport> m_KscReports;
+
     private PopupPanel m_mainPopup;
+
     private final Image m_addImage;
+
     private GraphInfo m_graphInfo;
+
     private final KscReportService m_reportService = new DefaultKscReportService();
 
-    public KscAddGraphPresenter(final PopupPanel mainPopup, final KscAddGraphView<KscReport> addGraphView, final List<KscReport> kscReports, final GraphInfo graphInfo) {
+    public KscAddGraphPresenter(final PopupPanel mainPopup, final KscAddGraphView<KscReport> addGraphView,
+            final List<KscReport> kscReports, final GraphInfo graphInfo) {
         m_mainPopup = mainPopup;
         m_view = addGraphView;
         m_view.setPresenter(this);
@@ -102,7 +109,8 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
             m_view.hidePopup();
             m_view.setDataList(EMPTY_KSCREPORT_LIST);
             m_view.clearSelection();
-        } else if (isKeyDown && keyCode == KeyCodes.KEY_ENTER && m_view.getSelectedReport() != null && m_view.getTitle() != null && !m_view.isPopupShowing()) {
+        } else if (isKeyDown && keyCode == KeyCodes.KEY_ENTER && m_view.getSelectedReport() != null
+                && m_view.getTitle() != null && !m_view.isPopupShowing()) {
             onAddButtonClicked();
         } else if (isKeyUp) {
             if (searchText.length() == 0) {
@@ -131,26 +139,29 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
 
     @Override
     public void onAddButtonClicked() {
-        final String graphTitle    = m_view.getTitle();
-        final int kscReportId      = m_view.getSelectedReport().getId();
+        final String graphTitle = m_view.getTitle();
+        final int kscReportId = m_view.getSelectedReport().getId();
         final String kscReportName = m_view.getSelectedReport().getLabel();
 
         final String resourceId = m_graphInfo.getResourceId();
-        final String graphName  = m_graphInfo.getReportName();
-        final String timeSpan   = m_graphInfo.getTimespan();
+        final String graphName = m_graphInfo.getReportName();
+        final String timeSpan = m_graphInfo.getTimespan();
 
         final RequestCallback callback = new RequestCallback() {
             @Override
             public void onResponseReceived(final Request request, final Response response) {
                 GWT.log("got response: " + response.getText() + " (" + response.getStatusCode() + ")");
             }
+
             @Override
             public void onError(final Request request, final Throwable t) {
                 GWT.log("got error: " + t.getLocalizedMessage());
             }
         };
 
-        GWT.log("adding resource '" + resourceId + "' from graph report '" + graphName + "' to KSC report '" + kscReportName + "' (" + kscReportId + ") with title '" + graphTitle + "' and timespan '" + timeSpan + "'");
+        GWT.log("adding resource '" + resourceId + "' from graph report '" + graphName + "' to KSC report '"
+                + kscReportName + "' (" + kscReportId + ") with title '" + graphTitle + "' and timespan '" + timeSpan
+                + "'");
         m_reportService.addGraphToReport(callback, kscReportId, graphTitle, graphName, resourceId, timeSpan);
         m_mainPopup.hide();
     }
@@ -160,7 +171,8 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
         m_addImage.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
-                GWT.log("clicked (showing = " + m_mainPopup.isShowing() + ", visible = " + m_mainPopup.isVisible() + ")");
+                GWT.log("clicked (showing = " + m_mainPopup.isShowing() + ", visible = " + m_mainPopup.isVisible()
+                        + ")");
                 if (m_mainPopup.isShowing()) {
                     m_mainPopup.hide();
                     m_mainPopup.getElement().getStyle().setDisplay(Display.NONE);
@@ -188,15 +200,15 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
     }
 
     public native final String getBaseHref() /*-{
-        try{
-            return $wnd.getBaseHref();
-        }catch(err){
-            return "";
-        }
-    }-*/;
+                                             try{
+                                             return $wnd.getBaseHref();
+                                             }catch(err){
+                                             return "";
+                                             }
+                                             }-*/;
 
     private int[] calculateMainPopupPosition() {
-        final int[] positions = {0, 0};
+        final int[] positions = { 0, 0 };
 
         final int windowWidth = Window.getClientWidth();
         final int imageRightEdge = m_addImage.getAbsoluteLeft() + m_addImage.getWidth();
@@ -206,7 +218,8 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
         } else {
             positions[0] = imageRightEdge - 3;
         }
-        if (positions[0] < 0) positions[0] = 0;
+        if (positions[0] < 0)
+            positions[0] = 0;
 
         positions[1] = m_addImage.getAbsoluteTop() + m_addImage.getHeight() - 1;
 

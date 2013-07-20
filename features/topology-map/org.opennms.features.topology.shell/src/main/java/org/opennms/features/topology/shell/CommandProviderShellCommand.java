@@ -40,62 +40,63 @@ import org.osgi.service.blueprint.reflect.MapEntry;
 import org.osgi.service.blueprint.reflect.ServiceMetadata;
 import org.osgi.service.blueprint.reflect.ValueMetadata;
 
-@Command(scope = "onms", name = "listcommands", description="Lists the available shell commands and their providers.")
+@Command(scope = "onms", name = "listcommands", description = "Lists the available shell commands and their providers.")
 public class CommandProviderShellCommand extends OsgiCommandSupport {
 
     @Override
     protected Object doExecute() throws Exception {
-    	final Collection<ServiceReference<BlueprintContainer>> services = this.bundleContext.getServiceReferences(BlueprintContainer.class, null);
-    	for (final ServiceReference<BlueprintContainer> sr : services) {
+        final Collection<ServiceReference<BlueprintContainer>> services = this.bundleContext.getServiceReferences(BlueprintContainer.class,
+                                                                                                                  null);
+        for (final ServiceReference<BlueprintContainer> sr : services) {
 
-    		final List<String> commands = new ArrayList<String>();
+            final List<String> commands = new ArrayList<String>();
 
-    		final BlueprintContainer container = this.bundleContext.getService(sr);
-			final Collection<ServiceMetadata> metadata = container.getMetadata(ServiceMetadata.class);
-    		for (final ServiceMetadata data : metadata) {
-    			String scope = null;
-    			String function = null;
+            final BlueprintContainer container = this.bundleContext.getService(sr);
+            final Collection<ServiceMetadata> metadata = container.getMetadata(ServiceMetadata.class);
+            for (final ServiceMetadata data : metadata) {
+                String scope = null;
+                String function = null;
 
-    			// Implements OSGi API
-    			@SuppressWarnings("unchecked")
-				final List properties = data.getServiceProperties();
-    			for (final Object o : properties) {
-    				final MapEntry entry = (MapEntry)o;
-    				String key, value;
-    				if (entry.getKey() instanceof ValueMetadata) {
-    					final ValueMetadata vmKey = (ValueMetadata)entry.getKey();
-    					key = vmKey.getStringValue();
-    				} else {
-    					key = entry.getKey().toString();
-    				}
-    				if (entry.getValue() instanceof ValueMetadata) {
-    					final ValueMetadata vmValue = (ValueMetadata)entry.getValue();
-    					value = vmValue.getStringValue();
-    				} else {
-    					value = entry.getValue().toString();
-    				}
-    				if (key.equals("osgi.command.scope")) {
-    					scope = value;
-    				} else if (key.equals("osgi.command.function")) {
-    					function = value;
-    				}
-    			}
-    			if (scope != null && function != null) {
-    				commands.add(scope + ":" + function);
-    			}
-    		}
+                // Implements OSGi API
+                @SuppressWarnings("unchecked")
+                final List properties = data.getServiceProperties();
+                for (final Object o : properties) {
+                    final MapEntry entry = (MapEntry) o;
+                    String key, value;
+                    if (entry.getKey() instanceof ValueMetadata) {
+                        final ValueMetadata vmKey = (ValueMetadata) entry.getKey();
+                        key = vmKey.getStringValue();
+                    } else {
+                        key = entry.getKey().toString();
+                    }
+                    if (entry.getValue() instanceof ValueMetadata) {
+                        final ValueMetadata vmValue = (ValueMetadata) entry.getValue();
+                        value = vmValue.getStringValue();
+                    } else {
+                        value = entry.getValue().toString();
+                    }
+                    if (key.equals("osgi.command.scope")) {
+                        scope = value;
+                    } else if (key.equals("osgi.command.function")) {
+                        function = value;
+                    }
+                }
+                if (scope != null && function != null) {
+                    commands.add(scope + ":" + function);
+                }
+            }
 
-    		if (commands.size() > 0) {
-	    		System.out.println(sr.getBundle());
+            if (commands.size() > 0) {
+                System.out.println(sr.getBundle());
 
-    			for (final String command : commands) {
-    				System.out.println("    " + command);
-    			}
+                for (final String command : commands) {
+                    System.out.println("    " + command);
+                }
 
-	    		System.out.println();
-    		}
-    	}
+                System.out.println();
+            }
+        }
 
-    	return null;
+        return null;
     }
 }

@@ -45,6 +45,7 @@ public class FilterParseException extends RuntimeException {
      *
      */
     private static final long serialVersionUID = -1504582717903933407L;
+
     /**
      * The encapsulated throwable if any
      */
@@ -96,9 +97,8 @@ public class FilterParseException extends RuntimeException {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Prints the stack trace of the exception, and the encapsulated exception
+     * {@inheritDoc} Prints the stack trace of the exception, and the
+     * encapsulated exception
      * if any.
      */
     @Override

@@ -62,17 +62,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-linkd.xml",
         "classpath:/META-INF/opennms/applicationContext-linkdTest.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @JUnitTemporaryDatabase
 public class Nms17216Test extends Nms17216NetworkBuilder implements InitializingBean {
 
@@ -100,7 +98,7 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         Properties p = new Properties();
         p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
         p.setProperty("log4j.logger.org.hibernate.cfg", "WARN");
-        p.setProperty("log4j.logger.org.springframework","WARN");
+        p.setProperty("log4j.logger.org.springframework", "WARN");
         p.setProperty("log4j.logger.com.mchange.v2.resourcepool", "WARN");
         MockLogAppender.setupLogging(p);
 
@@ -129,24 +127,20 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
      * These are the links among the following nodes discovered using
      * only the lldp protocol
      * switch1 Gi0/9 Gi0/10 Gi0/11 Gi0/12 ----> switch2 Gi0/1 Gi0/2 Gi0/3 Gi0/4
-     * switch2 Gi0/19 Gi0/20              ----> switch3 Fa0/19 Fa0/20
-     *
+     * switch2 Gi0/19 Gi0/20 ----> switch3 Fa0/19 Fa0/20
      * here are the corresponding ifindex:
      * switch1 Gi0/9 --> 10109
      * switch1 Gi0/10 --> 10110
      * switch1 Gi0/11 --> 10111
      * switch1 Gi0/12 --> 10112
-     *
      * switch2 Gi0/1 --> 10101
      * switch2 Gi0/2 --> 10102
      * switch2 Gi0/3 --> 10103
      * switch2 Gi0/4 --> 10104
      * switch2 Gi0/19 --> 10119
      * switch2 Gi0/20 --> 10120
-     *
-     * switch3 Fa0/19 -->  10019
-     * switch3 Fa0/20 -->  10020
-     *
+     * switch3 Fa0/19 --> 10019
+     * switch3 Fa0/20 --> 10020
      * Here we add cdp discovery and all test lab devices
      * To the previuos links discovered by lldp
      * should be added the followings discovered with cdp:
@@ -154,46 +148,36 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
      * router1 Fa0/0 ----> switch1 Gi0/1
      * router2 Serial0/0/0 ----> router1 Serial0/0/0
      * router3 Serial0/0/1 ----> router2 Serial0/0/1
-     * router4 GigabitEthernet0/1 ----> router3   GigabitEthernet0/0
-     * switch4 FastEthernet0/1    ----> router3   GigabitEthernet0/1
-     *
+     * router4 GigabitEthernet0/1 ----> router3 GigabitEthernet0/0
+     * switch4 FastEthernet0/1 ----> router3 GigabitEthernet0/1
      * here are the corresponding ifindex:
-     * switch1 Gi0/1 -->  10101
-     *
-     * switch3 Fa0/23 -->  10023
-     * switch3 Fa0/24 -->  10024
-     *
-     * switch5 Fa0/1 -->  10001
-     * switch5 Fa0/13 -->  10013
-     *
-     * router1 Fa0/0 -->  7
+     * switch1 Gi0/1 --> 10101
+     * switch3 Fa0/23 --> 10023
+     * switch3 Fa0/24 --> 10024
+     * switch5 Fa0/1 --> 10001
+     * switch5 Fa0/13 --> 10013
+     * router1 Fa0/0 --> 7
      * router1 Serial0/0/0 --> 13
      * router1 Serial0/0/1 --> 14
-     *
      * router2 Serial0/0/0 --> 12
      * router2 Serial0/0/1 --> 13
-     *
      * router3 Serial0/0/1 --> 13
      * router3 GigabitEthernet0/0 --> 8
      * router3 GigabitEthernet0/1 --> 9
-     *
-     * router4 GigabitEthernet0/1  --> 3
-     *
+     * router4 GigabitEthernet0/1 --> 3
      * switch4 FastEthernet0/1 --> 10001
-     *
      */
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH2_IP, port=161, resource="classpath:linkd/nms17216/switch2-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH3_IP, port=161, resource="classpath:linkd/nms17216/switch3-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH4_IP, port=161, resource="classpath:linkd/nms17216/switch4-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH5_IP, port=161, resource="classpath:linkd/nms17216/switch5-walk.txt"),
-            @JUnitSnmpAgent(host=ROUTER1_IP, port=161, resource="classpath:linkd/nms17216/router1-walk.txt"),
-            @JUnitSnmpAgent(host=ROUTER2_IP, port=161, resource="classpath:linkd/nms17216/router2-walk.txt"),
-            @JUnitSnmpAgent(host=ROUTER3_IP, port=161, resource="classpath:linkd/nms17216/router3-walk.txt"),
-            @JUnitSnmpAgent(host=ROUTER4_IP, port=161, resource="classpath:linkd/nms17216/router4-walk.txt")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = SWITCH1_IP, port = 161, resource = "classpath:linkd/nms17216/switch1-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH2_IP, port = 161, resource = "classpath:linkd/nms17216/switch2-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH3_IP, port = 161, resource = "classpath:linkd/nms17216/switch3-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH4_IP, port = 161, resource = "classpath:linkd/nms17216/switch4-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH5_IP, port = 161, resource = "classpath:linkd/nms17216/switch5-walk.txt"),
+            @JUnitSnmpAgent(host = ROUTER1_IP, port = 161, resource = "classpath:linkd/nms17216/router1-walk.txt"),
+            @JUnitSnmpAgent(host = ROUTER2_IP, port = 161, resource = "classpath:linkd/nms17216/router2-walk.txt"),
+            @JUnitSnmpAgent(host = ROUTER3_IP, port = 161, resource = "classpath:linkd/nms17216/router3-walk.txt"),
+            @JUnitSnmpAgent(host = ROUTER4_IP, port = 161, resource = "classpath:linkd/nms17216/router4-walk.txt") })
     public void testNetwork17216Links() throws Exception {
 
         m_nodeDao.save(getSwitch1());
@@ -245,94 +229,104 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.runSingleSnmpCollection(router3.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(router4.getId()));
 
-        assertEquals(0,m_dataLinkInterfaceDao.countAll());
+        assertEquals(0, m_dataLinkInterfaceDao.countAll());
 
         final Collection<LinkableNode> nodes = m_linkd.getLinkableNodesOnPackage("example1");
 
         assertEquals(9, nodes.size());
 
-        for (LinkableNode node: nodes) {
-            switch(node.getNodeId()) {
-                case 1: assertEquals(5, node.getCdpInterfaces().size());
+        for (LinkableNode node : nodes) {
+            switch (node.getNodeId()) {
+            case 1:
+                assertEquals(5, node.getCdpInterfaces().size());
                 assertEquals(SWITCH1_NAME, node.getCdpDeviceId());
                 break;
-                case 2: assertEquals(6, node.getCdpInterfaces().size());
+            case 2:
+                assertEquals(6, node.getCdpInterfaces().size());
                 assertEquals(SWITCH2_NAME, node.getCdpDeviceId());
                 break;
-                case 3: assertEquals(4, node.getCdpInterfaces().size());
+            case 3:
+                assertEquals(4, node.getCdpInterfaces().size());
                 assertEquals(SWITCH3_NAME, node.getCdpDeviceId());
                 break;
-                case 4: assertEquals(1, node.getCdpInterfaces().size());
+            case 4:
+                assertEquals(1, node.getCdpInterfaces().size());
                 assertEquals(SWITCH4_NAME, node.getCdpDeviceId());
                 break;
-                case 5: assertEquals(2, node.getCdpInterfaces().size());
+            case 5:
+                assertEquals(2, node.getCdpInterfaces().size());
                 assertEquals(SWITCH5_NAME, node.getCdpDeviceId());
                 break;
-                case 6: assertEquals(2, node.getCdpInterfaces().size());
+            case 6:
+                assertEquals(2, node.getCdpInterfaces().size());
                 assertEquals(ROUTER1_NAME, node.getCdpDeviceId());
                 break;
-                case 7: assertEquals(2, node.getCdpInterfaces().size());
+            case 7:
+                assertEquals(2, node.getCdpInterfaces().size());
                 assertEquals(ROUTER2_NAME, node.getCdpDeviceId());
                 break;
-                case 8: assertEquals(3, node.getCdpInterfaces().size());
+            case 8:
+                assertEquals(3, node.getCdpInterfaces().size());
                 assertEquals(ROUTER3_NAME, node.getCdpDeviceId());
                 break;
-                case 9: assertEquals(1, node.getCdpInterfaces().size());
+            case 9:
+                assertEquals(1, node.getCdpInterfaces().size());
                 assertEquals(ROUTER4_NAME, node.getCdpDeviceId());
                 break;
-                default: assertEquals(-1, node.getNodeId());
+            default:
+                assertEquals(-1, node.getNodeId());
                 break;
             }
         }
 
         assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
 
-        assertEquals(13,m_dataLinkInterfaceDao.countAll());
+        assertEquals(13, m_dataLinkInterfaceDao.countAll());
         final List<DataLinkInterface> datalinkinterfaces = m_dataLinkInterfaceDao.findAll();
 
-        int start=getStartPoint(datalinkinterfaces);
+        int start = getStartPoint(datalinkinterfaces);
 
-        for (final DataLinkInterface datalinkinterface: datalinkinterfaces) {
+        for (final DataLinkInterface datalinkinterface : datalinkinterfaces) {
             Integer linkid = datalinkinterface.getId();
-            if ( linkid == start) {
+            if (linkid == start) {
                 // switch1 gi0/9 -> switch2 gi0/1 --lldp --cdp
                 checkLink(switch2, switch1, 10101, 10109, datalinkinterface);
-            } else if (linkid == start+1 ) {
+            } else if (linkid == start + 1) {
                 // switch1 gi0/10 -> switch2 gi0/2 --lldp --cdp
                 checkLink(switch2, switch1, 10102, 10110, datalinkinterface);
-            } else if (linkid == start+2) {
+            } else if (linkid == start + 2) {
                 // switch1 gi0/11 -> switch2 gi0/3 --lldp --cdp
                 checkLink(switch2, switch1, 10103, 10111, datalinkinterface);
-            } else if (linkid == start+3) {
+            } else if (linkid == start + 3) {
                 // switch1 gi0/12 -> switch2 gi0/4 --lldp --cdp
                 checkLink(switch2, switch1, 10104, 10112, datalinkinterface);
-            } else if (linkid == start+4) {
+            } else if (linkid == start + 4) {
                 // switch2 gi0/19 -> switch3 Fa0/19 --lldp --cdp
                 checkLink(switch3, switch2, 10019, 10119, datalinkinterface);
-            } else if (linkid == start+5) {
+            } else if (linkid == start + 5) {
                 // switch2 gi0/20 -> switch3 Fa0/20 --lldp --cdp
                 checkLink(switch3, switch2, 10020, 10120, datalinkinterface);
-            } else if (linkid == start+6) {
+            } else if (linkid == start + 6) {
                 // switch1 gi0/1 -> router1 Fa0/20 --cdp
                 checkLink(router1, switch1, 7, 10101, datalinkinterface);
-            } else if (linkid == start+7) {
+            } else if (linkid == start + 7) {
                 // switch3 Fa0/1 -> switch5 Fa0/23 --cdp
                 checkLink(switch5, switch3, 10001, 10023, datalinkinterface);
-            } else if (linkid == start+8) {
+            } else if (linkid == start + 8) {
                 // switch3 gi0/1 -> switch5 Fa0/20 --cdp
                 checkLink(switch5, switch3, 10013, 10024, datalinkinterface);
-            } else if (linkid == start+9) {
-                //switch4 FastEthernet0/1    ----> router3   GigabitEthernet0/1
+            } else if (linkid == start + 9) {
+                // switch4 FastEthernet0/1 ----> router3 GigabitEthernet0/1
                 checkLink(router3, switch4, 9, 10001, datalinkinterface);
-            } else if (linkid == start+10) {
+            } else if (linkid == start + 10) {
                 checkLink(router2, router1, 12, 13, datalinkinterface);
-            } else if (linkid == start+11) {
+            } else if (linkid == start + 11) {
                 checkLink(router3, router2, 13, 13, datalinkinterface);
-            } else if (linkid == start+12) {
+            } else if (linkid == start + 12) {
                 checkLink(router4, router3, 3, 8, datalinkinterface);
             } else {
                 // error
-                checkLink(switch1,switch1,-1,-1,datalinkinterface);
+                checkLink(switch1, switch1, -1, -1, datalinkinterface);
             }
         }
     }
@@ -341,31 +335,26 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
      * These are the links among the following nodes discovered using
      * only the lldp protocol
      * switch1 Gi0/9 Gi0/10 Gi0/11 Gi0/12 ----> switch2 Gi0/1 Gi0/2 Gi0/3 Gi0/4
-     * switch2 Gi0/19 Gi0/20              ----> switch3 Fa0/19 Fa0/20
-     *
+     * switch2 Gi0/19 Gi0/20 ----> switch3 Fa0/19 Fa0/20
      * here are the corresponding ifindex:
      * switch1 Gi0/9 --> 10109
      * switch1 Gi0/10 --> 10110
      * switch1 Gi0/11 --> 10111
      * switch1 Gi0/12 --> 10112
-     *
      * switch2 Gi0/1 --> 10101
      * switch2 Gi0/2 --> 10102
      * switch2 Gi0/3 --> 10103
      * switch2 Gi0/4 --> 10104
      * switch2 Gi0/19 --> 10119
      * switch2 Gi0/20 --> 10120
-     *
-     * switch3 Fa0/19 -->  10019
-     * switch3 Fa0/20 -->  10020
-     *
+     * switch3 Fa0/19 --> 10019
+     * switch3 Fa0/20 --> 10020
      */
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH2_IP, port=161, resource="classpath:linkd/nms17216/switch2-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH3_IP, port=161, resource="classpath:linkd/nms17216/switch3-walk.txt")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = SWITCH1_IP, port = 161, resource = "classpath:linkd/nms17216/switch1-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH2_IP, port = 161, resource = "classpath:linkd/nms17216/switch2-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH3_IP, port = 161, resource = "classpath:linkd/nms17216/switch3-walk.txt") })
     public void testNetwork17216LldpLinks() throws Exception {
         m_nodeDao.save(getSwitch1());
         m_nodeDao.save(getSwitch2());
@@ -392,48 +381,46 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.runSingleSnmpCollection(switch2.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(switch3.getId()));
 
-        assertEquals(0,m_dataLinkInterfaceDao.countAll());
-
+        assertEquals(0, m_dataLinkInterfaceDao.countAll());
 
         assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
 
-        assertEquals(6,m_dataLinkInterfaceDao.countAll());
+        assertEquals(6, m_dataLinkInterfaceDao.countAll());
         final List<DataLinkInterface> links = m_dataLinkInterfaceDao.findAll();
 
         int startid = getStartPoint(links);
-        for (final DataLinkInterface link: links) {
-//            printLink(datalinkinterface);
+        for (final DataLinkInterface link : links) {
+            // printLink(datalinkinterface);
             Integer linkid = link.getId();
-            if ( linkid == startid) {
+            if (linkid == startid) {
                 // switch1 gi0/9 -> switch2 gi0/1 --lldp
                 checkLink(switch2, switch1, 10101, 10109, link);
-            } else if (linkid == startid +1 ) {
+            } else if (linkid == startid + 1) {
                 // switch1 gi0/10 -> switch2 gi0/2 --lldp
                 checkLink(switch2, switch1, 10102, 10110, link);
-            } else if (linkid == startid+2) {
+            } else if (linkid == startid + 2) {
                 // switch1 gi0/11 -> switch2 gi0/3 --lldp
                 checkLink(switch2, switch1, 10103, 10111, link);
-            } else if (linkid == startid+3) {
+            } else if (linkid == startid + 3) {
                 // switch1 gi0/12 -> switch2 gi0/4 --lldp
                 checkLink(switch2, switch1, 10104, 10112, link);
-            } else if (linkid == startid+4) {
+            } else if (linkid == startid + 4) {
                 // switch2 gi0/19 -> switch3 Fa0/19 --lldp
                 checkLink(switch3, switch2, 10019, 10119, link);
-            } else if (linkid == startid+5) {
+            } else if (linkid == startid + 5) {
                 // switch2 gi0/20 -> switch3 Fa0/20 --lldp
                 checkLink(switch3, switch2, 10020, 10120, link);
             } else {
                 // error
-                checkLink(switch1,switch1,-1,-1,link);
+                checkLink(switch1, switch1, -1, -1, link);
             }
         }
     }
 
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=SWITCH4_IP, port=161, resource="classpath:linkd/nms17216/switch4-walk.txt"),
-            @JUnitSnmpAgent(host=ROUTER3_IP, port=161, resource="classpath:linkd/nms17216/router3-walk.txt")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = SWITCH4_IP, port = 161, resource = "classpath:linkd/nms17216/switch4-walk.txt"),
+            @JUnitSnmpAgent(host = ROUTER3_IP, port = 161, resource = "classpath:linkd/nms17216/router3-walk.txt") })
     public void testNetwork17216Switch4Router4CdpLinks() throws Exception {
 
         m_nodeDao.save(getSwitch4());
@@ -453,7 +440,6 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         example1.setSaveStpInterfaceTable(false);
         example1.setSaveStpNodeTable(false);
 
-
         final OnmsNode switch4 = m_nodeDao.findByForeignId("linkd", SWITCH4_NAME);
         final OnmsNode router3 = m_nodeDao.findByForeignId("linkd", ROUTER3_NAME);
 
@@ -463,26 +449,24 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         assertTrue(m_linkd.runSingleSnmpCollection(switch4.getId()));
         assertTrue(m_linkd.runSingleSnmpCollection(router3.getId()));
 
-        assertEquals(0,m_dataLinkInterfaceDao.countAll());
-
-
+        assertEquals(0, m_dataLinkInterfaceDao.countAll());
 
         final Collection<LinkableNode> nodes = m_linkd.getLinkableNodesOnPackage("example1");
 
         assertEquals(2, nodes.size());
 
-        for (LinkableNode node: nodes) {
+        for (LinkableNode node : nodes) {
             assertEquals(1, node.getCdpInterfaces().size());
         }
 
         assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
 
-        assertEquals(1,m_dataLinkInterfaceDao.countAll());
+        assertEquals(1, m_dataLinkInterfaceDao.countAll());
         final List<DataLinkInterface> datalinkinterfaces = m_dataLinkInterfaceDao.findAll();
 
-        for (final DataLinkInterface datalinkinterface: datalinkinterfaces) {
+        for (final DataLinkInterface datalinkinterface : datalinkinterfaces) {
 
-                checkLink(router3, switch4, 9, 10001, datalinkinterface);
+            checkLink(router3, switch4, 9, 10001, datalinkinterface);
 
         }
     }

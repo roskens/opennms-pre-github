@@ -34,11 +34,12 @@ import java.util.List;
 import org.opennms.netmgt.scheduler.ScheduleInterval;
 import org.opennms.netmgt.scheduler.Timer;
 
-
 public class MockInterval implements ScheduleInterval {
 
     private Timer m_timer;
+
     private long m_interval;
+
     private List<Suspension> m_suspensions = new LinkedList<Suspension>();
 
     /**
@@ -60,6 +61,7 @@ public class MockInterval implements ScheduleInterval {
 
     class Suspension {
         private long m_start;
+
         private long m_end;
 
         Suspension(long start, long end) {

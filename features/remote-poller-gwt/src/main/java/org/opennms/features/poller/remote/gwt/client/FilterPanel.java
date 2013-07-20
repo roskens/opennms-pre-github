@@ -56,7 +56,9 @@ import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <p>FilterPanel class.</p>
+ * <p>
+ * FilterPanel class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -64,24 +66,33 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class FilterPanel extends Composite {
 
-    interface Binder extends UiBinder<Widget, FilterPanel> { }
+    interface Binder extends UiBinder<Widget, FilterPanel> {
+    }
+
     private static final Binder BINDER = GWT.create(Binder.class);
 
     private transient HandlerManager m_eventBus;
+
     interface FilterStyles extends CssResource {
         String panelCaption();
+
         String panelEntry();
+
         String panelIcon();
     }
 
     @UiField
     FilterStyles filterStyles;
+
     @UiField(provided = true)
     SuggestBox applicationNameSuggestBox;
+
     @UiField
     Panel applicationTray;
+
     @UiField
     Label noApplicationsCaption;
+
     @UiField
     Panel applicationFilters;
 
@@ -89,7 +100,8 @@ public class FilterPanel extends Composite {
 
     private class ApplicationFilter extends HorizontalPanel {
         public ApplicationFilter(final ApplicationInfo app) {
-            Image appIcon = new Image(new GWTMarkerState("filter", null, app.getStatusDetails().getStatus()).getImageURL());
+            Image appIcon = new Image(
+                                      new GWTMarkerState("filter", null, app.getStatusDetails().getStatus()).getImageURL());
             appIcon.addStyleName(filterStyles.panelIcon());
             super.add(appIcon);
             Label appName = new Label(app.getName());
@@ -111,10 +123,10 @@ public class FilterPanel extends Composite {
         public void onFiltersChanged(Filters filters);
     }
 
-    public static class Filters {}
+    public static class Filters {
+    }
 
-    public static class FiltersChangedEvent extends GwtEvent<FiltersChangedEventHandler>
-    {
+    public static class FiltersChangedEvent extends GwtEvent<FiltersChangedEventHandler> {
         public static Type<FiltersChangedEventHandler> TYPE = new Type<FiltersChangedEventHandler>();
 
         private final Filters m_filters;
@@ -138,11 +150,11 @@ public class FilterPanel extends Composite {
         public void onStatusSelectionChanged(Status status, boolean selected);
     }
 
-    public static class StatusSelectionChangedEvent extends GwtEvent<StatusSelectionChangedEventHandler>
-    {
+    public static class StatusSelectionChangedEvent extends GwtEvent<StatusSelectionChangedEventHandler> {
         public static Type<StatusSelectionChangedEventHandler> TYPE = new Type<StatusSelectionChangedEventHandler>();
 
         private final Status m_status;
+
         private final boolean m_selected;
 
         public StatusSelectionChangedEvent(Status status, boolean selected) {
@@ -162,7 +174,9 @@ public class FilterPanel extends Composite {
     }
 
     /**
-     * <p>Constructor for FilterPanel.</p>
+     * <p>
+     * Constructor for FilterPanel.
+     * </p>
      */
     public FilterPanel() {
         super();
@@ -171,9 +185,13 @@ public class FilterPanel extends Composite {
     }
 
     /**
-     * <p>onApplicationSelect</p>
+     * <p>
+     * onApplicationSelect
+     * </p>
      *
-     * @param event a {@link com.google.gwt.event.logical.shared.SelectionEvent} object.
+     * @param event
+     *            a {@link com.google.gwt.event.logical.shared.SelectionEvent}
+     *            object.
      */
     @UiHandler("applicationNameSuggestBox")
     public void onApplicationSelect(final SelectionEvent<Suggestion> event) {
@@ -182,21 +200,28 @@ public class FilterPanel extends Composite {
     }
 
     /**
-     * <p>updateApplicationNames</p>
+     * <p>
+     * updateApplicationNames
+     * </p>
      *
-     * @param names a {@link java.util.Collection} object.
+     * @param names
+     *            a {@link java.util.Collection} object.
      */
     public void updateApplicationNames(Collection<String> names) {
         // Update the SuggestBox's Oracle
-        if (names == applicationNames) return;
+        if (names == applicationNames)
+            return;
         applicationNames.clear();
         applicationNames.addAll(names);
     }
 
     /**
-     * <p>updateSelectedApplications</p>
+     * <p>
+     * updateSelectedApplications
+     * </p>
      *
-     * @param apps a {@link java.util.Collection} object.
+     * @param apps
+     *            a {@link java.util.Collection} object.
      */
     public void updateSelectedApplications(Collection<ApplicationInfo> apps) {
         // Update the contents of the application filter list
@@ -212,18 +237,24 @@ public class FilterPanel extends Composite {
     }
 
     /**
-     * <p>showApplicationFilters</p>
+     * <p>
+     * showApplicationFilters
+     * </p>
      *
-     * @param showMe a boolean.
+     * @param showMe
+     *            a boolean.
      */
     public void showApplicationFilters(boolean showMe) {
         applicationTray.setVisible(showMe);
     }
 
     /**
-     * <p>setEventBus</p>
+     * <p>
+     * setEventBus
+     * </p>
      *
-     * @param eventBus a {@link com.google.gwt.event.shared.HandlerManager} object.
+     * @param eventBus
+     *            a {@link com.google.gwt.event.shared.HandlerManager} object.
      */
     public void setEventBus(final HandlerManager eventBus) {
         m_eventBus = eventBus;

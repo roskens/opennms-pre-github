@@ -79,20 +79,18 @@ import org.springframework.transaction.support.TransactionOperations;
 
 /**
  * Populates a test database with some entities (nodes, interfaces, services).
- *
  * Example usage:
+ *
  * <pre>
  * private DatabasePopulator m_populator;
  *
- * @Override
+ * &#064;Override
  * protected String[] getConfigLocations() {
- *     return new String[] {
- *         "classpath:/META-INF/opennms/applicationContext-dao.xml",
- *         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml"
- *     };
+ *     return new String[] { &quot;classpath:/META-INF/opennms/applicationContext-dao.xml&quot;,
+ *             &quot;classpath:/META-INF/opennms/applicationContext-databasePopulator.xml&quot; };
  * }
  *
- * @Override
+ * &#064;Override
  * protected void onSetUpInTransactionIfEnabled() {
  *     m_populator.populateDatabase();
  * }
@@ -108,30 +106,53 @@ public class DatabasePopulator {
     private static final Logger LOG = LoggerFactory.getLogger(DatabasePopulator.class);
 
     private DistPollerDao m_distPollerDao;
+
     private NodeDao m_nodeDao;
+
     private IpInterfaceDao m_ipInterfaceDao;
+
     private SnmpInterfaceDao m_snmpInterfaceDao;
+
     private MonitoredServiceDao m_monitoredServiceDao;
+
     private ServiceTypeDao m_serviceTypeDao;
+
     private AssetRecordDao m_assetRecordDao;
+
     private CategoryDao m_categoryDao;
+
     private OutageDao m_outageDao;
+
     private EventDao m_eventDao;
+
     private AlarmDao m_alarmDao;
+
     private NotificationDao m_notificationDao;
+
     private UserNotificationDao m_userNotificationDao;
+
     private LocationMonitorDao m_locationMonitorDao;
+
     private OnmsMapDao m_onmsMapDao;
+
     private OnmsMapElementDao m_onmsMapElementDao;
+
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
+
     private AcknowledgmentDao m_acknowledgmentDao;
+
     private TransactionOperations m_transOperation;
 
     private OnmsNode m_node1;
+
     private OnmsNode m_node2;
+
     private OnmsNode m_node3;
+
     private OnmsNode m_node4;
+
     private OnmsNode m_node5;
+
     private OnmsNode m_node6;
 
     private boolean m_populateInSeparateTransaction = true;
@@ -253,7 +274,8 @@ public class DatabasePopulator {
         getUserNotificationDao().save(userNotif2);
         getUserNotificationDao().flush();
 
-        final OnmsMonitoredService svc = getMonitoredServiceDao().get(node1.getId(), InetAddressUtils.addr("192.168.1.1"), "SNMP");
+        final OnmsMonitoredService svc = getMonitoredServiceDao().get(node1.getId(),
+                                                                      InetAddressUtils.addr("192.168.1.1"), "SNMP");
         final OnmsOutage resolved = new OnmsOutage(new Date(), new Date(), event, event, svc, null, null);
         getOutageDao().save(resolved);
         getOutageDao().flush();
@@ -274,12 +296,8 @@ public class DatabasePopulator {
         getOnmsMapDao().save(map);
         getOnmsMapDao().flush();
 
-        final OnmsMapElement mapElement = new OnmsMapElement(map, 1,
-                OnmsMapElement.NODE_TYPE,
-                "Test Node",
-                OnmsMapElement.defaultNodeIcon,
-                0,
-                10);
+        final OnmsMapElement mapElement = new OnmsMapElement(map, 1, OnmsMapElement.NODE_TYPE, "Test Node",
+                                                             OnmsMapElement.defaultNodeIcon, 0, 10);
         getOnmsMapElementDao().save(mapElement);
         getOnmsMapElementDao().flush();
 
@@ -342,38 +360,17 @@ public class DatabasePopulator {
         builder.addCategory(getCategory("OPS_Online"));
         builder.addCategory(getCategory("Routers"));
         builder.setBuilding("HQ");
-        builder.addSnmpInterface(1)
-            .setCollectionEnabled(true)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .setIfDescr("ATM0")
-            .setIfAlias("Initial ifAlias value")
-            .setIfType(37)
-            .addIpInterface("192.168.1.1").setIsManaged("M").setIsSnmpPrimary("P");
-        //getNodeDao().save(builder.getCurrentNode());
-        //getNodeDao().flush();
+        builder.addSnmpInterface(1).setCollectionEnabled(true).setIfOperStatus(1).setIfSpeed(10000000).setIfDescr("ATM0").setIfAlias("Initial ifAlias value").setIfType(37).addIpInterface("192.168.1.1").setIsManaged("M").setIsSnmpPrimary("P");
+        // getNodeDao().save(builder.getCurrentNode());
+        // getNodeDao().flush();
         builder.addService(getService("ICMP"));
         builder.addService(getService("SNMP"));
-        builder.addSnmpInterface(2)
-            .setCollectionEnabled(true)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .setIfName("eth0")
-            .setIfType(6)
-            .addIpInterface("192.168.1.2").setIsManaged("M").setIsSnmpPrimary("S");
+        builder.addSnmpInterface(2).setCollectionEnabled(true).setIfOperStatus(1).setIfSpeed(10000000).setIfName("eth0").setIfType(6).addIpInterface("192.168.1.2").setIsManaged("M").setIsSnmpPrimary("S");
         builder.addService(getService("ICMP"));
         builder.addService(getService("HTTP"));
-        builder.addSnmpInterface(3)
-            .setCollectionEnabled(false)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .addIpInterface("192.168.1.3").setIsManaged("M").setIsSnmpPrimary("N");
+        builder.addSnmpInterface(3).setCollectionEnabled(false).setIfOperStatus(1).setIfSpeed(10000000).addIpInterface("192.168.1.3").setIsManaged("M").setIsSnmpPrimary("N");
         builder.addService(getService("ICMP"));
-        builder.addSnmpInterface(4)
-            .setCollectionEnabled(false)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .addIpInterface("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5").setIsManaged("M").setIsSnmpPrimary("N");
+        builder.addSnmpInterface(4).setCollectionEnabled(false).setIfOperStatus(1).setIfSpeed(10000000).addIpInterface("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5").setIsManaged("M").setIsSnmpPrimary("N");
         builder.addService(getService("ICMP"));
         final OnmsNode node1 = builder.getCurrentNode();
         return node1;
@@ -428,7 +425,7 @@ public class DatabasePopulator {
     }
 
     private OnmsNode buildNode5(final NetworkBuilder builder) {
-        //This node purposely doesn't have a foreignId style assetNumber
+        // This node purposely doesn't have a foreignId style assetNumber
         builder.addNode("alternate-node1").setType("A").getAssetRecord().setAssetNumber("5");
         builder.addCategory(getCategory("DEV_AC"));
         builder.addCategory(getCategory("Switches"));
@@ -445,7 +442,8 @@ public class DatabasePopulator {
     }
 
     private OnmsNode buildNode6(final NetworkBuilder builder) {
-        //This node purposely doesn't have a assetNumber and is used by a test to check the category
+        // This node purposely doesn't have a assetNumber and is used by a test
+        // to check the category
         builder.addNode("alternate-node2").setType("A").getAssetRecord().setDisplayCategory("category1");
         builder.addCategory(getCategory("DEV_AC"));
         builder.addInterface("10.1.2.1").setIsManaged("M").setIsSnmpPrimary("P");
@@ -514,7 +512,7 @@ public class DatabasePopulator {
     }
 
     private OnmsDistPoller getDistPoller(final String localhost, final String localhostIp) {
-    	final OnmsDistPoller distPoller = getDistPollerDao().get(localhost);
+        final OnmsDistPoller distPoller = getDistPollerDao().get(localhost);
         if (distPoller == null) {
             final OnmsDistPoller newDp = new OnmsDistPoller(localhost, localhostIp);
             getDistPollerDao().save(newDp);
@@ -528,126 +526,101 @@ public class DatabasePopulator {
         return m_alarmDao;
     }
 
-
     public void setAlarmDao(final AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
     }
-
 
     public AssetRecordDao getAssetRecordDao() {
         return m_assetRecordDao;
     }
 
-
     public void setAssetRecordDao(final AssetRecordDao assetRecordDao) {
         m_assetRecordDao = assetRecordDao;
     }
-
 
     public CategoryDao getCategoryDao() {
         return m_categoryDao;
     }
 
-
     public void setCategoryDao(final CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
-
 
     public DistPollerDao getDistPollerDao() {
         return m_distPollerDao;
     }
 
-
     public void setDistPollerDao(final DistPollerDao distPollerDao) {
         m_distPollerDao = distPollerDao;
     }
-
 
     public EventDao getEventDao() {
         return m_eventDao;
     }
 
-
     public void setEventDao(final EventDao eventDao) {
         m_eventDao = eventDao;
     }
-
 
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
-
     public void setIpInterfaceDao(final IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
-
 
     public MonitoredServiceDao getMonitoredServiceDao() {
         return m_monitoredServiceDao;
     }
 
-
     public void setMonitoredServiceDao(final MonitoredServiceDao monitoredServiceDao) {
         m_monitoredServiceDao = monitoredServiceDao;
     }
-
 
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
-
     public void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-
 
     public NotificationDao getNotificationDao() {
         return m_notificationDao;
     }
 
-
     public void setNotificationDao(final NotificationDao notificationDao) {
         m_notificationDao = notificationDao;
     }
-
 
     public OutageDao getOutageDao() {
         return m_outageDao;
     }
 
-
     public void setOutageDao(final OutageDao outageDao) {
         m_outageDao = outageDao;
     }
-
 
     public ServiceTypeDao getServiceTypeDao() {
         return m_serviceTypeDao;
     }
 
-
     public void setServiceTypeDao(final ServiceTypeDao serviceTypeDao) {
         m_serviceTypeDao = serviceTypeDao;
     }
-
 
     public SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }
 
-
     public void setSnmpInterfaceDao(final SnmpInterfaceDao snmpInterfaceDao) {
         m_snmpInterfaceDao = snmpInterfaceDao;
     }
 
-
     public UserNotificationDao getUserNotificationDao() {
         return m_userNotificationDao;
     }
-
 
     public void setUserNotificationDao(final UserNotificationDao userNotificationDao) {
         m_userNotificationDao = userNotificationDao;

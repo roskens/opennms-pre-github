@@ -43,7 +43,8 @@
 package org.opennms.acl.model;
 
 /**
- * Bean class to manage the basic information like username, id and enabled of managed user in web layer and in resource layer
+ * Bean class to manage the basic information like username, id and enabled of
+ * managed user in web layer and in resource layer
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -52,7 +53,9 @@ package org.opennms.acl.model;
 public class UserDTOLight implements UserView {
 
     /**
-     * <p>Constructor for UserDTOLight.</p>
+     * <p>
+     * Constructor for UserDTOLight.
+     * </p>
      */
     public UserDTOLight() {
         this.id = new Long(0);
@@ -61,7 +64,9 @@ public class UserDTOLight implements UserView {
     }
 
     /**
-     * <p>isNew</p>
+     * <p>
+     * isNew
+     * </p>
      *
      * @return if a user is new and if it's never store in the system
      */
@@ -70,7 +75,9 @@ public class UserDTOLight implements UserView {
     }
 
     /**
-     * <p>Getter for the field <code>username</code>.</p>
+     * <p>
+     * Getter for the field <code>username</code>.
+     * </p>
      *
      * @return unique username
      */
@@ -80,16 +87,21 @@ public class UserDTOLight implements UserView {
     }
 
     /**
-     * <p>Setter for the field <code>username</code>.</p>
+     * <p>
+     * Setter for the field <code>username</code>.
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      */
     public void setUsername(String username) {
         this.username = username;
     }
 
     /**
-     * <p>Getter for the field <code>id</code>.</p>
+     * <p>
+     * Getter for the field <code>id</code>.
+     * </p>
      *
      * @return unique identifier
      */
@@ -99,16 +111,21 @@ public class UserDTOLight implements UserView {
     }
 
     /**
-     * <p>Setter for the field <code>id</code>.</p>
+     * <p>
+     * Setter for the field <code>id</code>.
+     * </p>
      *
-     * @param id a {@link java.lang.Long} object.
+     * @param id
+     *            a {@link java.lang.Long} object.
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * <p>isEnabled</p>
+     * <p>
+     * isEnabled
+     * </p>
      *
      * @return if the user is enabled or not
      */
@@ -118,15 +135,20 @@ public class UserDTOLight implements UserView {
     }
 
     /**
-     * <p>Setter for the field <code>enabled</code>.</p>
+     * <p>
+     * Setter for the field <code>enabled</code>.
+     * </p>
      *
-     * @param enabled a boolean.
+     * @param enabled
+     *            a boolean.
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
     private String username;
+
     private Long id;
+
     private Boolean enabled;
 }

@@ -50,14 +50,17 @@ public class XmlFileContainer extends FilesystemContainer {
     /**
      * Instantiates a new XML file container.
      *
-     * @param root the root
-     * @param recursive the recursive flag
+     * @param root
+     *            the root
+     * @param recursive
+     *            the recursive flag
      */
     public XmlFileContainer(File root, boolean recursive) {
         super(root, "xml", recursive);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.util.FilesystemContainer#getItemIds()
      */
     @Override
@@ -76,7 +79,8 @@ public class XmlFileContainer extends FilesystemContainer {
     /**
      * Adds the exclude file.
      *
-     * @param excludeFile the exclude file
+     * @param excludeFile
+     *            the exclude file
      */
     public void addExcludeFile(String excludeFile) {
         excludeList.add(excludeFile);
@@ -85,7 +89,8 @@ public class XmlFileContainer extends FilesystemContainer {
     /**
      * Removes the exclude file.
      *
-     * @param excludeFile the exclude file
+     * @param excludeFile
+     *            the exclude file
      */
     public void removeExcludeFile(String excludeFile) {
         excludeList.remove(excludeFile);

@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.client.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * <p>LocationPanelSelectEvent class.</p>
+ * <p>
+ * LocationPanelSelectEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,12 +43,16 @@ public class LocationPanelSelectEvent extends GwtEvent<LocationPanelSelectEventH
 
     /** Constant <code>TYPE</code> */
     public static Type<LocationPanelSelectEventHandler> TYPE = new Type<LocationPanelSelectEventHandler>();
+
     private String m_locationName;
 
     /**
-     * <p>Constructor for LocationPanelSelectEvent.</p>
+     * <p>
+     * Constructor for LocationPanelSelectEvent.
+     * </p>
      *
-     * @param locationName a {@link java.lang.String} object.
+     * @param locationName
+     *            a {@link java.lang.String} object.
      */
     public LocationPanelSelectEvent(String locationName) {
         m_locationName = locationName;
@@ -65,9 +71,10 @@ public class LocationPanelSelectEvent extends GwtEvent<LocationPanelSelectEventH
         return TYPE;
     }
 
-
     /**
-     * <p>getLocationName</p>
+     * <p>
+     * getLocationName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

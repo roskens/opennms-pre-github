@@ -61,7 +61,9 @@ import org.opennms.netmgt.config.snmpinterfacepoller.SnmpInterfacePollerConfigur
 import org.opennms.netmgt.filter.FilterDaoFactory;
 
 /**
- * <p>Abstract SnmpInterfacePollerConfigManager class.</p>
+ * <p>
+ * Abstract SnmpInterfacePollerConfigManager class.
+ * </p>
  *
  * @author <a href="mailto:brozow@openms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -73,36 +75,54 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     private static final Logger LOG = LoggerFactory.getLogger(SnmpInterfacePollerConfigManager.class);
 
     /**
-     * <p>Constructor for SnmpInterfacePollerConfigManager.</p>
+     * <p>
+     * Constructor for SnmpInterfacePollerConfigManager.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @param localServer a {@link java.lang.String} object.
-     * @param verifyServer a boolean.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @param localServer
+     *            a {@link java.lang.String} object.
+     * @param verifyServer
+     *            a boolean.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public SnmpInterfacePollerConfigManager(InputStream stream, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
+    public SnmpInterfacePollerConfigManager(InputStream stream, String localServer, boolean verifyServer)
+            throws MarshalException, ValidationException, IOException {
         m_localServer = localServer;
         m_verifyServer = verifyServer;
         reloadXML(stream);
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Override
     public abstract void update() throws IOException, MarshalException, ValidationException;
 
     /**
-     * <p>saveXml</p>
+     * <p>
+     * saveXml
+     * </p>
      *
-     * @param xml a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param xml
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected abstract void saveXml(String xml) throws IOException;
 
@@ -116,14 +136,14 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * in each - so as to avoid file reads
      */
     private Map<String, List<String>> m_urlIPMap;
+
     /**
      * A mapping of the configured package to a list of IPs selected via filter
      * rules, so as to avoid repetitive database access.
      */
     private Map<Package, List<InetAddress>> m_pkgIpMap;
 
-
-    private Map<String,Map<String,Interface>> m_pkgIntMap;
+    private Map<String, Map<String, Interface>> m_pkgIntMap;
 
     /**
      * A boolean flag to indicate If a filter rule against the local OpenNMS
@@ -144,9 +164,9 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     private void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
 
-        for(Package pkg : packages()) {
+        for (Package pkg : packages()) {
 
-            for(String url : includeURLs(pkg)) {
+            for (String url : includeURLs(pkg)) {
 
                 List<String> iplist = IpListFromUrl.parse(url);
                 if (iplist.size() > 0) {
@@ -158,12 +178,18 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     }
 
     /**
-     * <p>reloadXML</p>
+     * <p>
+     * reloadXML
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected synchronized void reloadXML(InputStream stream) throws MarshalException, ValidationException, IOException {
         m_config = CastorUtils.unmarshal(SnmpInterfacePollerConfiguration.class, stream);
@@ -174,9 +200,12 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     /**
      * Saves the current in-memory configuration to disk and reloads
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public synchronized void save() throws MarshalException, IOException, ValidationException {
 
@@ -193,21 +222,27 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     /**
      * Return the poller configuration object.
      *
-     * @return a {@link org.opennms.netmgt.config.snmpinterfacepoller.SnmpInterfacePollerConfiguration} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.snmpinterfacepoller.SnmpInterfacePollerConfiguration}
+     *         object.
      */
     public synchronized SnmpInterfacePollerConfiguration getConfiguration() {
         return m_config;
     }
 
     /**
-     * <p>getPackage</p>
+     * <p>
+     * getPackage
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.snmpinterfacepoller.Package} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.config.snmpinterfacepoller.Package}
+     *         object.
      */
     public synchronized Package getPackage(final String name) {
 
-        for(Package pkg : packages()) {
+        for (Package pkg : packages()) {
 
             if (pkg.getName().equals(name)) {
                 return pkg;
@@ -217,9 +252,14 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     }
 
     /**
-     * <p>addPackage</p>
+     * <p>
+     * addPackage
+     * </p>
      *
-     * @param pkg a {@link org.opennms.netmgt.config.snmpinterfacepoller.Package} object.
+     * @param pkg
+     *            a
+     *            {@link org.opennms.netmgt.config.snmpinterfacepoller.Package}
+     *            object.
      */
     public synchronized void addPackage(Package pkg) {
         m_config.addPackage(pkg);
@@ -250,7 +290,6 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      *            The interface to test against the package's URL
      * @param url
      *            The URL file to read
-     *
      * @return True if the interface is included in the URL, false otherwise.
      */
     private boolean interfaceInUrl(String addr, String url) {
@@ -275,29 +314,31 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     public synchronized String[] getCriticalServiceIds() {
         CriticalService[] cs = m_config.getNodeOutage().getCriticalService();
         String[] criticalServiceNames = new String[cs.length];
-        for (int i =0 ; i< cs.length; i++) {
+        for (int i = 0; i < cs.length; i++) {
             criticalServiceNames[i] = cs[i].getName();
         }
         return criticalServiceNames;
-   }
+    }
 
-     /**
+    /**
      * This method is used to establish package against IP list mapping, with
-     * which, the IP list is selected per package via the configured filter rules
+     * which, the IP list is selected per package via the configured filter
+     * rules
      * from the database.
      */
     private void createPackageIpListMap() {
         m_pkgIpMap = new HashMap<Package, List<InetAddress>>();
         m_pkgIntMap = new HashMap<String, Map<String, Interface>>();
 
-        for(Package pkg : packages()) {
+        for (Package pkg : packages()) {
 
             Map<String, Interface> interfaceMap = new HashMap<String, Interface>();
-            for (Interface interf: pkg.getInterfaceCollection()) {
-                interfaceMap.put(interf.getName(),interf);
+            for (Interface interf : pkg.getInterfaceCollection()) {
+                interfaceMap.put(interf.getName(), interf);
             }
             m_pkgIntMap.put(pkg.getName(), interfaceMap);
-            // Get a list of IP addresses per package against the filter rules from
+            // Get a list of IP addresses per package against the filter rules
+            // from
             // database and populate the package, IP list map.
             //
             try {
@@ -316,9 +357,14 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     }
 
     /**
-     * <p>getIpList</p>
+     * <p>
+     * getIpList
+     * </p>
      *
-     * @param pkg a {@link org.opennms.netmgt.config.snmpinterfacepoller.Package} object.
+     * @param pkg
+     *            a
+     *            {@link org.opennms.netmgt.config.snmpinterfacepoller.Package}
+     *            object.
      * @return a {@link java.util.List} object.
      */
     public List<InetAddress> getIpList(Package pkg) {
@@ -352,7 +398,6 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * the passed package definition. If the interface belongs to the package
      * then a value of true is returned. If the interface does not belong to the
      * package a false value is returned.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -371,11 +416,11 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
         // get list of IPs in this package
         List<InetAddress> ipList = m_pkgIpMap.get(pkg);
         if (ipList != null && ipList.size() > 0) {
-			filterPassed = ipList.contains(ifaceAddr);
+            filterPassed = ipList.contains(ifaceAddr);
         }
 
-
-        LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", filterPassed, iface, pkg.getName());
+        LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", filterPassed, iface,
+                  pkg.getName());
 
         if (!filterPassed)
             return false;
@@ -426,7 +471,6 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
 
     /**
      * Returns the first package that the ip belongs to, null if none.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is alrady in the database.
      *
@@ -436,7 +480,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      */
     public synchronized Package getPackageForAddress(String ipaddr) {
 
-        for(Package pkg : packages()) {
+        for (Package pkg : packages()) {
 
             if (interfaceInPackage(ipaddr, pkg)) {
                 return pkg;
@@ -447,10 +491,8 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns a list of package names that the IP belongs to, null if none.
-     *
+     * {@inheritDoc} Returns a list of package names that the IP belongs to,
+     * null if none.
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      */
@@ -459,7 +501,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
 
         List<String> matchingPkgs = new ArrayList<String>();
 
-        for(Package pkg : packages()) {
+        for (Package pkg : packages()) {
 
             boolean inPkg = interfaceInPackage(ipaddr, pkg);
             if (inPkg) {
@@ -474,7 +516,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     /** {@inheritDoc} */
     @Override
     public synchronized String getPackageName(String ipaddr) {
-        for(Package pkg : packages()) {
+        for (Package pkg : packages()) {
 
             if (interfaceInPackage(ipaddr, pkg)) {
                 return pkg.getName();
@@ -494,64 +536,75 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
 
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean getStatus(String pkgName,String pkgInterfaceName) {
+    public synchronized boolean getStatus(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getStatus().equals("on");
     }
 
     /** {@inheritDoc} */
     @Override
-    public synchronized long getInterval(String pkgName,String pkgInterfaceName) {
+    public synchronized long getInterval(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getInterval();
 
     }
+
     /** {@inheritDoc} */
     @Override
-    public synchronized String getCriteria(String pkgName,String pkgInterfaceName) {
+    public synchronized String getCriteria(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getCriteria();
     }
+
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean hasPort(String pkgName,String pkgInterfaceName) {
+    public synchronized boolean hasPort(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).hasPort();
     }
+
     /** {@inheritDoc} */
     @Override
-    public synchronized int getPort(String pkgName,String pkgInterfaceName) {
+    public synchronized int getPort(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getPort();
     }
+
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean hasTimeout(String pkgName,String pkgInterfaceName) {
+    public synchronized boolean hasTimeout(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).hasTimeout();
     }
+
     /** {@inheritDoc} */
     @Override
-    public synchronized int getTimeout(String pkgName,String pkgInterfaceName) {
+    public synchronized int getTimeout(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getTimeout();
     }
+
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean hasRetries(String pkgName,String pkgInterfaceName) {
+    public synchronized boolean hasRetries(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).hasRetry();
     }
+
     /** {@inheritDoc} */
     @Override
-    public synchronized int getRetries(String pkgName,String pkgInterfaceName) {
+    public synchronized int getRetries(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getRetry();
     }
+
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean hasMaxVarsPerPdu(String pkgName,String pkgInterfaceName) {
+    public synchronized boolean hasMaxVarsPerPdu(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).hasMaxVarsPerPdu();
     }
+
     /** {@inheritDoc} */
     @Override
-    public synchronized int getMaxVarsPerPdu(String pkgName,String pkgInterfaceName) {
+    public synchronized int getMaxVarsPerPdu(String pkgName, String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getMaxVarsPerPdu();
     }
 
     /**
-     * <p>enumeratePackage</p>
+     * <p>
+     * enumeratePackage
+     * </p>
      *
      * @return a {@link java.util.Enumeration} object.
      */
@@ -559,20 +612,26 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
         return getConfiguration().enumeratePackage();
     }
 
-
-     /**
-      * <p>packages</p>
-      *
-      * @return a {@link java.lang.Iterable} object.
-      */
-     public Iterable<Package> packages() {
+    /**
+     * <p>
+     * packages
+     * </p>
+     *
+     * @return a {@link java.lang.Iterable} object.
+     */
+    public Iterable<Package> packages() {
         return getConfiguration().getPackageCollection();
     }
 
     /**
-     * <p>includeURLs</p>
+     * <p>
+     * includeURLs
+     * </p>
      *
-     * @param pkg a {@link org.opennms.netmgt.config.snmpinterfacepoller.Package} object.
+     * @param pkg
+     *            a
+     *            {@link org.opennms.netmgt.config.snmpinterfacepoller.Package}
+     *            object.
      * @return a {@link java.lang.Iterable} object.
      */
     public Iterable<String> includeURLs(Package pkg) {
@@ -580,7 +639,9 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     }
 
     /**
-     * <p>getThreads</p>
+     * <p>
+     * getThreads
+     * </p>
      *
      * @return a int.
      */
@@ -590,7 +651,9 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     }
 
     /**
-     * <p>getThreads</p>
+     * <p>
+     * getThreads
+     * </p>
      *
      * @return a long.
      */
@@ -600,7 +663,9 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     }
 
     /**
-     * <p>getService</p>
+     * <p>
+     * getService
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -610,7 +675,9 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     }
 
     /**
-     * <p>useCriteriaFilters</p>
+     * <p>
+     * useCriteriaFilters
+     * </p>
      *
      * @return a boolean.
      */

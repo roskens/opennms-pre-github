@@ -65,11 +65,15 @@ public class GroupPanel extends VerticalLayout {
     /**
      * Instantiates a new group panel.
      *
-     * @param dataCollectionConfigDao the OpenNMS Data Collection Configuration DAO
-     * @param source the OpenNMS Data Collection Group object
-     * @param logger the logger object
+     * @param dataCollectionConfigDao
+     *            the OpenNMS Data Collection Configuration DAO
+     * @param source
+     *            the OpenNMS Data Collection Group object
+     * @param logger
+     *            the logger object
      */
-    public GroupPanel(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup source, final Logger logger) {
+    public GroupPanel(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup source,
+            final Logger logger) {
         addStyleName(Runo.PANEL_LIGHT);
 
         form = new GroupForm(dataCollectionConfigDao, source) {
@@ -83,6 +87,7 @@ public class GroupPanel extends VerticalLayout {
                 }
                 table.refreshRowCache();
             }
+
             @Override
             public void deleteGroup(Group group) {
                 logger.info("MIB Group " + group.getName() + " has been updated.");
@@ -131,7 +136,7 @@ public class GroupPanel extends VerticalLayout {
     public Collection<Group> getGroups() {
         final Collection<Group> groups = new ArrayList<Group>();
         for (Object itemId : table.getContainerDataSource().getItemIds()) {
-            groups.add(((BeanItem<Group>)table.getContainerDataSource().getItem(itemId)).getBean());
+            groups.add(((BeanItem<Group>) table.getContainerDataSource().getItem(itemId)).getBean());
         }
         return groups;
     }
@@ -139,7 +144,8 @@ public class GroupPanel extends VerticalLayout {
     /**
      * Sets the value of the ifNew flag.
      *
-     * @param isNew true, if the group is new.
+     * @param isNew
+     *            true, if the group is new.
      */
     public void setIsNew(boolean isNew) {
         this.isNew = isNew;

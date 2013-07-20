@@ -26,7 +26,9 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
     private final String m_alias;
 
     private String m_contextPath;
+
     private String m_servletPath;
+
     private String m_pathInfo;
 
     private boolean m_pathInfoCalculated = false;
@@ -60,7 +62,8 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
     @Override
     public String getPathTranslated() {
         final String info = getPathInfo();
-        if (info == null) return null;
+        if (info == null)
+            return null;
 
         return getRealPath(info);
     }
@@ -94,13 +97,14 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
     }
 
     private void updatePathInfo() {
-        if (m_pathInfoCalculated) return;
+        if (m_pathInfoCalculated)
+            return;
 
-        final HttpServletRequest req = (HttpServletRequest)this.getRequest();
+        final HttpServletRequest req = (HttpServletRequest) this.getRequest();
 
         final String requestContextPath = req.getContextPath();
         final String requestServletPath = req.getServletPath();
-        final String requestPathInfo    = req.getPathInfo();
+        final String requestPathInfo = req.getPathInfo();
 
         m_servletPath = m_alias;
         if ("/".equals(m_servletPath)) {

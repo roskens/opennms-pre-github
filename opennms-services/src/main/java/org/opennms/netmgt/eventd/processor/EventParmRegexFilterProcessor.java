@@ -53,6 +53,7 @@ public final class EventParmRegexFilterProcessor implements EventProcessor, Init
     private static final Logger LOG = LoggerFactory.getLogger(EventParmRegexFilterProcessor.class);
 
     private EventConfDao m_eventConfDao;
+
     private Map<String, org.opennms.netmgt.xml.eventconf.Filter> m_filterMap = new HashMap<String, org.opennms.netmgt.xml.eventconf.Filter>();
 
     @Override
@@ -69,15 +70,14 @@ public final class EventParmRegexFilterProcessor implements EventProcessor, Init
             }
 
             for (Parm parm : event.getParmCollection()) {
-                if ((parm.getParmName() != null)
-                        && (parm.getValue().getContent() != null)
-                        && (m_filterMap.containsKey(parm.getParmName() + "|" + event.getUei()))
-                ) {
-                    org.opennms.netmgt.xml.eventconf.Filter f = m_filterMap.get(parm.getParmName() + "|" + event.getUei());
+                if ((parm.getParmName() != null) && (parm.getValue().getContent() != null)
+                        && (m_filterMap.containsKey(parm.getParmName() + "|" + event.getUei()))) {
+                    org.opennms.netmgt.xml.eventconf.Filter f = m_filterMap.get(parm.getParmName() + "|"
+                            + event.getUei());
                     LOG.debug("filtering {} with {}", f.getPattern(), parm.getParmName());
-                    final Pattern pattern = Pattern.compile( f.getPattern() );
-                    Matcher matcher = pattern.matcher( parm.getValue().getContent().trim() );
-                    parm.getValue().setContent( matcher.replaceAll(f.getReplacement()) );
+                    final Pattern pattern = Pattern.compile(f.getPattern());
+                    Matcher matcher = pattern.matcher(parm.getValue().getContent().trim());
+                    parm.getValue().setContent(matcher.replaceAll(f.getReplacement()));
                 }
             }
         }
@@ -89,7 +89,9 @@ public final class EventParmRegexFilterProcessor implements EventProcessor, Init
     }
 
     /**
-     * <p>getEventConfDao</p>
+     * <p>
+     * getEventConfDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
@@ -98,9 +100,12 @@ public final class EventParmRegexFilterProcessor implements EventProcessor, Init
     }
 
     /**
-     * <p>setEventConfDao</p>
+     * <p>
+     * setEventConfDao
+     * </p>
      *
-     * @param eventConfDao a {@link org.opennms.netmgt.config.EventConfDao} object.
+     * @param eventConfDao
+     *            a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
     public void setEventConfDao(EventConfDao eventConfDao) {
         m_eventConfDao = eventConfDao;

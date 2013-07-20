@@ -31,7 +31,6 @@ package org.opennms.core.soa;
 import java.util.Collection;
 import java.util.Map;
 
-
 /**
  * ServiceRegistry
  *
@@ -41,103 +40,152 @@ import java.util.Map;
 public interface ServiceRegistry {
 
     /**
-     * <p>register</p>
+     * <p>
+     * register
+     * </p>
      *
-     * @param serviceProvider a {@link java.lang.Object} object.
-     * @param services a {@link java.lang.Class} object.
+     * @param serviceProvider
+     *            a {@link java.lang.Object} object.
+     * @param services
+     *            a {@link java.lang.Class} object.
      * @return a {@link org.opennms.core.soa.Registration} object.
      */
     public Registration register(Object serviceProvider, Class<?>... services);
 
     /**
-     * <p>register</p>
+     * <p>
+     * register
+     * </p>
      *
-     * @param serviceProvider a {@link java.lang.Object} object.
-     * @param properties a {@link java.util.Map} object.
-     * @param services a {@link java.lang.Class} object.
+     * @param serviceProvider
+     *            a {@link java.lang.Object} object.
+     * @param properties
+     *            a {@link java.util.Map} object.
+     * @param services
+     *            a {@link java.lang.Class} object.
      * @return a {@link org.opennms.core.soa.Registration} object.
      */
     public Registration register(Object serviceProvider, Map<String, String> properties, Class<?>... services);
 
     /**
-     * <p>findProvider</p>
+     * <p>
+     * findProvider
+     * </p>
      *
-     * @param seviceInterface a {@link java.lang.Class} object.
-     * @param <T> a T object.
+     * @param seviceInterface
+     *            a {@link java.lang.Class} object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
     public <T> T findProvider(Class<T> seviceInterface);
 
     /**
-     * <p>findProvider</p>
+     * <p>
+     * findProvider
+     * </p>
      *
-     * @param serviceInterface a {@link java.lang.Class} object.
-     * @param filter a {@link java.lang.String} object.
-     * @param <T> a T object.
+     * @param serviceInterface
+     *            a {@link java.lang.Class} object.
+     * @param filter
+     *            a {@link java.lang.String} object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
     public <T> T findProvider(Class<T> serviceInterface, String filter);
 
     /**
-     * <p>findProviders</p>
+     * <p>
+     * findProviders
+     * </p>
      *
-     * @param service a {@link java.lang.Class} object.
-     * @param <T> a T object.
+     * @param service
+     *            a {@link java.lang.Class} object.
+     * @param <T>
+     *            a T object.
      * @return a {@link java.util.Collection} object.
      */
     public <T> Collection<T> findProviders(Class<T> service);
 
     /**
-     * <p>findProviders</p>
+     * <p>
+     * findProviders
+     * </p>
      *
-     * @param service a {@link java.lang.Class} object.
-     * @param filter a {@link java.lang.String} object.
-     * @param <T> a T object.
+     * @param service
+     *            a {@link java.lang.Class} object.
+     * @param filter
+     *            a {@link java.lang.String} object.
+     * @param <T>
+     *            a T object.
      * @return a {@link java.util.Collection} object.
      */
     public <T> Collection<T> findProviders(Class<T> service, String filter);
 
     /**
-     * <p>addListener</p>
+     * <p>
+     * addListener
+     * </p>
      *
-     * @param service a {@link java.lang.Class} object.
-     * @param listener a {@link org.opennms.core.soa.RegistrationListener} object.
-     * @param <T> a T object.
+     * @param service
+     *            a {@link java.lang.Class} object.
+     * @param listener
+     *            a {@link org.opennms.core.soa.RegistrationListener} object.
+     * @param <T>
+     *            a T object.
      */
     public <T> void addListener(Class<T> service, RegistrationListener<T> listener);
 
     /**
-     * <p>addListener</p>
+     * <p>
+     * addListener
+     * </p>
      *
-     * @param service a {@link java.lang.Class} object.
-     * @param listener a {@link org.opennms.core.soa.RegistrationListener} object.
-     * @param notifyForExistingProviders a boolean.
-     * @param <T> a T object.
+     * @param service
+     *            a {@link java.lang.Class} object.
+     * @param listener
+     *            a {@link org.opennms.core.soa.RegistrationListener} object.
+     * @param notifyForExistingProviders
+     *            a boolean.
+     * @param <T>
+     *            a T object.
      */
     public <T> void addListener(Class<T> service, RegistrationListener<T> listener, boolean notifyForExistingProviders);
 
     /**
-     * <p>removeListener</p>
+     * <p>
+     * removeListener
+     * </p>
      *
-     * @param service a {@link java.lang.Class} object.
-     * @param listener a {@link org.opennms.core.soa.RegistrationListener} object.
-     * @param <T> a T object.
+     * @param service
+     *            a {@link java.lang.Class} object.
+     * @param listener
+     *            a {@link org.opennms.core.soa.RegistrationListener} object.
+     * @param <T>
+     *            a T object.
      */
     public <T> void removeListener(Class<T> service, RegistrationListener<T> listener);
 
-
     /**
-     * <p>addRegistrationHook</p>
+     * <p>
+     * addRegistrationHook
+     * </p>
      *
-     * @param hook a {@link org.opennms.core.soa.RegistrationHook} object.
-     * @param notifyForExistingProviders a boolean.
+     * @param hook
+     *            a {@link org.opennms.core.soa.RegistrationHook} object.
+     * @param notifyForExistingProviders
+     *            a boolean.
      */
     public void addRegistrationHook(RegistrationHook hook, boolean notifyForExistingProviders);
 
     /**
-     * <p>removeRegistrationHook</p>
+     * <p>
+     * removeRegistrationHook
+     * </p>
      *
-     * @param hook a {@link org.opennms.core.soa.RegistrationHook} object.
+     * @param hook
+     *            a {@link org.opennms.core.soa.RegistrationHook} object.
      */
     public void removeRegistrationHook(RegistrationHook hook);
 

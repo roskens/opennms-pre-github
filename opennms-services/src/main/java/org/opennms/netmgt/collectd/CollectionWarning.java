@@ -29,22 +29,28 @@
 package org.opennms.netmgt.collectd;
 
 /**
- * <p>CollectionWarning class.</p>
+ * <p>
+ * CollectionWarning class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class CollectionWarning extends CollectionException {
-	/**
+    /**
 	 *
 	 */
-	private static final long serialVersionUID = -3828799913299413271L;
+    private static final long serialVersionUID = -3828799913299413271L;
 
     /**
-     * <p>Constructor for CollectionWarning.</p>
+     * <p>
+     * Constructor for CollectionWarning.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public CollectionWarning(String message, Throwable cause) {
         super(message, cause);

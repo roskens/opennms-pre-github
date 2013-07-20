@@ -55,25 +55,23 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class OnmsMapElementDaoHibernateTest implements InitializingBean {
-	@Autowired
-	private OnmsMapElementDao m_onmsMapElementDao;
+    @Autowired
+    private OnmsMapElementDao m_onmsMapElementDao;
 
-	@Autowired
-	private OnmsMapDao m_onmsMapDao;
+    @Autowired
+    private OnmsMapDao m_onmsMapDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     private static boolean m_populated = false;
 
@@ -95,8 +93,8 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         }
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSaveOnmsMapElement() {
         // Create a new map and save it.
         OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap", "admin");
@@ -105,43 +103,8 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         m_onmsMapDao.clear();
 
         // then a map element
-        OnmsMapElement mapElement = new OnmsMapElement(map, 2,
-                OnmsMapElement.NODE_TYPE,
-                "Test Node Two",
-                OnmsMapElement.defaultNodeIcon,
-                0,
-                10);
-        m_onmsMapElementDao.save(mapElement);
-        m_onmsMapElementDao.flush();
-    	m_onmsMapElementDao.clear();
-
-        OnmsMapElement mapElement2 = m_onmsMapElementDao.findElementById(mapElement.getId());
-    	assertNotSame(mapElement, mapElement2);
-        assertEquals(mapElement.getMap().getId(), mapElement2.getMap().getId());
-        assertEquals(mapElement.getElementId(), mapElement2.getElementId());
-        assertEquals(mapElement.getType(), mapElement2.getType());
-        assertEquals(mapElement.getLabel(), mapElement2.getLabel());
-        assertEquals(mapElement.getIconName(), mapElement2.getIconName());
-        assertEquals(mapElement.getX(), mapElement2.getX());
-        assertEquals(mapElement.getY(), mapElement2.getY());
-    }
-
-	@Test
-	@Transactional
-    public void testSaveOnmsMapElement1() {
-        // Create a new map and save it.
-        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap1", "admin");
-        m_onmsMapDao.save(map);
-        m_onmsMapDao.flush();
-        m_onmsMapDao.clear();
-
-        // then a map element
-        OnmsMapElement mapElement = new OnmsMapElement(map, 2,
-                OnmsMapElement.NODE_HIDE_TYPE,
-                "Test Node Two",
-                OnmsMapElement.defaultNodeIcon,
-                0,
-                10);
+        OnmsMapElement mapElement = new OnmsMapElement(map, 2, OnmsMapElement.NODE_TYPE, "Test Node Two",
+                                                       OnmsMapElement.defaultNodeIcon, 0, 10);
         m_onmsMapElementDao.save(mapElement);
         m_onmsMapElementDao.flush();
         m_onmsMapElementDao.clear();
@@ -157,12 +120,42 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(mapElement.getY(), mapElement2.getY());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
+    public void testSaveOnmsMapElement1() {
+        // Create a new map and save it.
+        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap1", "admin");
+        m_onmsMapDao.save(map);
+        m_onmsMapDao.flush();
+        m_onmsMapDao.clear();
+
+        // then a map element
+        OnmsMapElement mapElement = new OnmsMapElement(map, 2, OnmsMapElement.NODE_HIDE_TYPE, "Test Node Two",
+                                                       OnmsMapElement.defaultNodeIcon, 0, 10);
+        m_onmsMapElementDao.save(mapElement);
+        m_onmsMapElementDao.flush();
+        m_onmsMapElementDao.clear();
+
+        OnmsMapElement mapElement2 = m_onmsMapElementDao.findElementById(mapElement.getId());
+        assertNotSame(mapElement, mapElement2);
+        assertEquals(mapElement.getMap().getId(), mapElement2.getMap().getId());
+        assertEquals(mapElement.getElementId(), mapElement2.getElementId());
+        assertEquals(mapElement.getType(), mapElement2.getType());
+        assertEquals(mapElement.getLabel(), mapElement2.getLabel());
+        assertEquals(mapElement.getIconName(), mapElement2.getIconName());
+        assertEquals(mapElement.getX(), mapElement2.getX());
+        assertEquals(mapElement.getY(), mapElement2.getY());
+    }
+
+    @Test
+    @Transactional
     public void testFindById() {
-        // Note: This ID is based upon the creation order in DatabasePopulator - if you change
-        // the DatabasePopulator by adding additional new objects that use the onmsNxtId sequence
-        // before the creation of the map element object then this ID may change and this test
+        // Note: This ID is based upon the creation order in DatabasePopulator -
+        // if you change
+        // the DatabasePopulator by adding additional new objects that use the
+        // onmsNxtId sequence
+        // before the creation of the map element object then this ID may change
+        // and this test
         // will fail.
         int id = 63;
         OnmsMapElement mapElement = m_onmsMapElementDao.findElementById(id);
@@ -186,8 +179,8 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFind() {
         int id = 62;
         OnmsMap map = m_onmsMapDao.findMapById(id);
@@ -213,8 +206,8 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMapElementsByMapId() {
         int id = 62;
         OnmsMap map = m_onmsMapDao.findMapById(id);
@@ -231,7 +224,7 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         }
         assertNotNull(map);
         Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByMapId(map);
-        assertEquals(1,elems.size());
+        assertEquals(1, elems.size());
         OnmsMapElement mapElement = elems.iterator().next();
         assertEquals(62, mapElement.getMap().getId());
         assertEquals(1, mapElement.getElementId());
@@ -242,11 +235,12 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindElementsByElementIdAndType1() {
-        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(1, OnmsMapElement.NODE_TYPE);
-        assertEquals(1,elems.size());
+        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(1,
+                                                                                              OnmsMapElement.NODE_TYPE);
+        assertEquals(1, elems.size());
         OnmsMapElement mapElement = elems.iterator().next();
         assertEquals(62, mapElement.getMap().getId());
         assertEquals(1, mapElement.getElementId());
@@ -257,46 +251,51 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindElementsByElementIdAndType2() {
-        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(2, OnmsMapElement.NODE_TYPE);
-        assertEquals(0,elems.size());
+        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(2,
+                                                                                              OnmsMapElement.NODE_TYPE);
+        assertEquals(0, elems.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindElementsByElementIdAndType3() {
-        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(1, OnmsMapElement.MAP_TYPE);
-        assertEquals(0,elems.size());
+        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(1,
+                                                                                              OnmsMapElement.MAP_TYPE);
+        assertEquals(0, elems.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindElementsByElementIdAndType4() {
-        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(2, OnmsMapElement.MAP_TYPE);
-        assertEquals(0,elems.size());
+        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(2,
+                                                                                              OnmsMapElement.MAP_TYPE);
+        assertEquals(0, elems.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindElementsByElementIdAndType5() {
-        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(1, OnmsMapElement.NODE_HIDE_TYPE);
-        assertEquals(0,elems.size());
+        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(1,
+                                                                                              OnmsMapElement.NODE_HIDE_TYPE);
+        assertEquals(0, elems.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindElementsByElementIdAndType6() {
-        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(2, OnmsMapElement.NODE_HIDE_TYPE);
-        assertEquals(0,elems.size());
+        Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByElementIdAndType(2,
+                                                                                              OnmsMapElement.NODE_HIDE_TYPE);
+        assertEquals(0, elems.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindElementsByType1() {
         Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByType(OnmsMapElement.NODE_TYPE);
-        assertEquals(1,elems.size());
+        assertEquals(1, elems.size());
         OnmsMapElement mapElement = elems.iterator().next();
         assertEquals(62, mapElement.getMap().getId());
         assertEquals(1, mapElement.getElementId());
@@ -307,35 +306,35 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindElementsByType2() {
         Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByType(OnmsMapElement.MAP_TYPE);
-        assertEquals(0,elems.size());
+        assertEquals(0, elems.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testDeleteElement() {
         Collection<OnmsMapElement> elems = m_onmsMapElementDao.findElementsByType(OnmsMapElement.NODE_TYPE);
-        assertEquals(1,elems.size());
+        assertEquals(1, elems.size());
         OnmsMapElement element = elems.iterator().next();
         m_onmsMapElementDao.delete(element);
         assertNull(m_onmsMapElementDao.findElementById(59));
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testDeleteElementsByElementIdAndType() {
         m_onmsMapElementDao.deleteElementsByElementIdAndType(1, OnmsMapElement.NODE_TYPE);
         assertNull(m_onmsMapElementDao.findElementById(59));
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testDeleteElementsByMapType() {
         m_onmsMapElementDao.deleteElementsByMapType(OnmsMap.USER_GENERATED_MAP);
         m_onmsMapElementDao.deleteElementsByMapType(OnmsMap.AUTOMATICALLY_GENERATED_MAP);
-        assertEquals(0,m_onmsMapElementDao.findAll().size());
+        assertEquals(0, m_onmsMapElementDao.findAll().size());
     }
 }

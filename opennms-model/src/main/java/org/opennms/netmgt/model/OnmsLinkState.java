@@ -65,7 +65,9 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
 
     public interface LinkStateTransition {
         public void onLinkUp();
+
         public void onLinkDown();
+
         public void onLinkUnknown();
     }
 
@@ -95,10 +97,10 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return LINK_PARENT_NODE_UNMANAGED;
             }
 
-			@Override
-			public String getDataLinkInterfaceStateType() {
-				return "G";
-			}
+            @Override
+            public String getDataLinkInterfaceStateType() {
+                return "G";
+            }
         },
         LINK_NODE_DOWN {
             @Override
@@ -124,10 +126,10 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return LINK_PARENT_NODE_UNMANAGED;
             }
 
-			@Override
-			public String getDataLinkInterfaceStateType() {
-				return "B";
-			}
+            @Override
+            public String getDataLinkInterfaceStateType() {
+                return "B";
+            }
         },
         LINK_PARENT_NODE_DOWN {
 
@@ -154,10 +156,10 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return LINK_PARENT_NODE_UNMANAGED;
             }
 
-			@Override
-			public String getDataLinkInterfaceStateType() {
-				return "B";
-			}
+            @Override
+            public String getDataLinkInterfaceStateType() {
+                return "B";
+            }
 
         },
         LINK_BOTH_DOWN {
@@ -184,12 +186,12 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return LINK_PARENT_NODE_UNMANAGED;
             }
 
-			@Override
-			public String getDataLinkInterfaceStateType() {
-				return "B";
-			}
+            @Override
+            public String getDataLinkInterfaceStateType() {
+                return "B";
+            }
         },
-        LINK_BOTH_UNMANAGED{
+        LINK_BOTH_UNMANAGED {
             @Override
             public LinkState nodeEndPointFound(LinkStateTransition transition) {
                 return LINK_PARENT_NODE_UNMANAGED;
@@ -200,12 +202,12 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return LINK_NODE_UNMANAGED;
             }
 
-			@Override
-			public String getDataLinkInterfaceStateType() {
-				return "U";
-			}
+            @Override
+            public String getDataLinkInterfaceStateType() {
+                return "U";
+            }
         },
-        LINK_PARENT_NODE_UNMANAGED{
+        LINK_PARENT_NODE_UNMANAGED {
 
             @Override
             public LinkState parentNodeEndPointFound(LinkStateTransition transition) {
@@ -218,14 +220,13 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return LINK_BOTH_UNMANAGED;
             }
 
-			@Override
-			public String getDataLinkInterfaceStateType() {
-				return "U";
-			}
-
+            @Override
+            public String getDataLinkInterfaceStateType() {
+                return "U";
+            }
 
         },
-        LINK_NODE_UNMANAGED{
+        LINK_NODE_UNMANAGED {
 
             @Override
             public LinkState parentNodeEndPointDeleted(LinkStateTransition transition) {
@@ -238,10 +239,10 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return LINK_UP;
             }
 
-			@Override
-			public String getDataLinkInterfaceStateType() {
-				return "U";
-			}
+            @Override
+            public String getDataLinkInterfaceStateType() {
+                return "U";
+            }
 
         };
 
@@ -250,51 +251,69 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
         public LinkState nodeDown(LinkStateTransition transition) {
             return this;
         }
+
         public LinkState parentNodeDown(LinkStateTransition transition) {
             return this;
         }
+
         public LinkState nodeUp(LinkStateTransition transition) {
             return this;
         }
+
         public LinkState parentNodeUp(LinkStateTransition transition) {
             return this;
         }
+
         public LinkState down(boolean isParent, LinkStateTransition transition) {
-            return isParent? parentNodeDown(transition) : nodeDown(transition);
+            return isParent ? parentNodeDown(transition) : nodeDown(transition);
         }
+
         public LinkState up(boolean isParent, LinkStateTransition transition) {
-            return isParent? parentNodeUp(transition) : nodeUp(transition);
+            return isParent ? parentNodeUp(transition) : nodeUp(transition);
         }
+
         public LinkState nodeEndPointFound(LinkStateTransition transition) {
             return this;
         }
+
         public LinkState parentNodeEndPointFound(LinkStateTransition transition) {
             return this;
         }
+
         public LinkState parentNodeEndPointDeleted(LinkStateTransition transition) {
             return this;
 
         }
+
         public LinkState nodeEndPointDeleted(LinkStateTransition transition) {
             return this;
         }
     }
 
     private Integer m_id;
+
     private DataLinkInterface m_dataLinkInterface;
+
     private LinkState m_linkState = LinkState.LINK_UP;
 
     /**
-     * <p>Constructor for OnmsLinkState.</p>
+     * <p>
+     * Constructor for OnmsLinkState.
+     * </p>
      */
     public OnmsLinkState() {
     }
 
     /**
-     * <p>Constructor for OnmsLinkState.</p>
+     * <p>
+     * Constructor for OnmsLinkState.
+     * </p>
      *
-     * @param dataLinkInterface a {@link org.opennms.netmgt.model.DataLinkInterface} object.
-     * @param linkState a {@link org.opennms.netmgt.model.OnmsLinkState.LinkState} object.
+     * @param dataLinkInterface
+     *            a {@link org.opennms.netmgt.model.DataLinkInterface} object.
+     * @param linkState
+     *            a {@link org.opennms.netmgt.model.OnmsLinkState.LinkState}
+     *            object.
      */
     public OnmsLinkState(DataLinkInterface dataLinkInterface, LinkState linkState) {
         m_dataLinkInterface = dataLinkInterface;
@@ -302,80 +321,96 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(nullable=false)
-    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")
+    @Column(nullable = false)
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getDataLinkInterface</p>
+     * <p>
+     * getDataLinkInterface
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.DataLinkInterface} object.
      */
     @XmlIDREF
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="datalinkinterfaceid")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "datalinkinterfaceid")
     public DataLinkInterface getDataLinkInterface() {
         return m_dataLinkInterface;
     }
 
     /**
-     * <p>setDataLinkInterface</p>
+     * <p>
+     * setDataLinkInterface
+     * </p>
      *
-     * @param dataLinkInterface a {@link org.opennms.netmgt.model.DataLinkInterface} object.
+     * @param dataLinkInterface
+     *            a {@link org.opennms.netmgt.model.DataLinkInterface} object.
      */
     public void setDataLinkInterface(DataLinkInterface dataLinkInterface) {
         m_dataLinkInterface = dataLinkInterface;
     }
 
     /**
-     * <p>getLinkState</p>
+     * <p>
+     * getLinkState
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.model.OnmsLinkState.LinkState} object.
+     * @return a {@link org.opennms.netmgt.model.OnmsLinkState.LinkState}
+     *         object.
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "linkstate", length=24, nullable=false)
+    @Column(name = "linkstate", length = 24, nullable = false)
     public LinkState getLinkState() {
         return m_linkState;
     }
 
     /**
-     * <p>setLinkState</p>
+     * <p>
+     * setLinkState
+     * </p>
      *
-     * @param linkState a {@link org.opennms.netmgt.model.OnmsLinkState.LinkState} object.
+     * @param linkState
+     *            a {@link org.opennms.netmgt.model.OnmsLinkState.LinkState}
+     *            object.
      */
     public void setLinkState(LinkState linkState) {
         m_linkState = linkState;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", getId())
-            .append("datalink interface", getDataLinkInterface())
-            .append("link state", getLinkState())
-            .toString();
+        return new ToStringBuilder(this).append("id", getId()).append("datalink interface", getDataLinkInterface()).append("link state",
+                                                                                                                           getLinkState()).toString();
     }
 
     /** {@inheritDoc} */
@@ -384,41 +419,38 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
         if (o instanceof OnmsLinkState) {
             OnmsLinkState lso = (OnmsLinkState) o;
 
-            return new EqualsBuilder()
-                .append(getId(), lso.getId())
-                .append(getDataLinkInterface(), lso.getDataLinkInterface())
-                .append(getLinkState(), lso.getLinkState())
-                .isEquals();
+            return new EqualsBuilder().append(getId(), lso.getId()).append(getDataLinkInterface(),
+                                                                           lso.getDataLinkInterface()).append(getLinkState(),
+                                                                                                              lso.getLinkState()).isEquals();
         }
         return false;
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param o a {@link org.opennms.netmgt.model.OnmsLinkState} object.
+     * @param o
+     *            a {@link org.opennms.netmgt.model.OnmsLinkState} object.
      * @return a int.
      */
     @Override
     public int compareTo(OnmsLinkState o) {
-        return new CompareToBuilder()
-            .append(getId(), o.getId())
-            .append(getDataLinkInterface(), o.getDataLinkInterface())
-            .append(getLinkState(), o.getLinkState())
-            .toComparison();
+        return new CompareToBuilder().append(getId(), o.getId()).append(getDataLinkInterface(),
+                                                                        o.getDataLinkInterface()).append(getLinkState(),
+                                                                                                         o.getLinkState()).toComparison();
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .append(getDataLinkInterface())
-            .append(getLinkState())
-            .toHashCode();
+        return new HashCodeBuilder().append(getId()).append(getDataLinkInterface()).append(getLinkState()).toHashCode();
     }
 }

@@ -90,14 +90,15 @@ import org.w3c.dom.NodeList;
 
 /**
  * The Abstract Class XML Collection Handler.
- * <p>All XmlCollectionHandler should extend this class.</p>
+ * <p>
+ * All XmlCollectionHandler should extend this class.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractXmlCollectionHandler.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractXmlCollectionHandler.class);
 
     /** The Service Name associated with this Collection Handler. */
     private String m_serviceName;
@@ -111,16 +112,22 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /** The XML resource type Map. */
     private HashMap<String, XmlResourceType> m_resourceTypeList = new HashMap<String, XmlResourceType>();
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.XmlCollectionHandler#setServiceName(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.XmlCollectionHandler#setServiceName
+     * (java.lang.String)
      */
     @Override
     public void setServiceName(String serviceName) {
         this.m_serviceName = serviceName;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.XmlCollectionHandler#setRrdRepository(org.opennms.netmgt.model.RrdRepository)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.XmlCollectionHandler#setRrdRepository
+     * (org.opennms.netmgt.model.RrdRepository)
      */
     @Override
     public void setRrdRepository(RrdRepository rrdRepository) {
@@ -160,7 +167,8 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Sets the Node DAO.
      *
-     * @param nodeDao the new Node DAO
+     * @param nodeDao
+     *            the new Node DAO
      */
     public void setNodeDao(NodeDao nodeDao) {
         this.m_nodeDao = nodeDao;
@@ -169,24 +177,33 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Fill collection set.
      *
-     * @param agent the agent
-     * @param collectionSet the collection set
-     * @param source the source
-     * @param doc the doc
-     * @throws XPathExpressionException the x path expression exception
-     * @throws ParseException the parse exception
+     * @param agent
+     *            the agent
+     * @param collectionSet
+     *            the collection set
+     * @param source
+     *            the source
+     * @param doc
+     *            the doc
+     * @throws XPathExpressionException
+     *             the x path expression exception
+     * @throws ParseException
+     *             the parse exception
      */
-    protected void fillCollectionSet(CollectionAgent agent, XmlCollectionSet collectionSet, XmlSource source, Document doc) throws XPathExpressionException, ParseException {
+    protected void fillCollectionSet(CollectionAgent agent, XmlCollectionSet collectionSet, XmlSource source,
+            Document doc) throws XPathExpressionException, ParseException {
         XPath xpath = XPathFactory.newInstance().newXPath();
         for (XmlGroup group : source.getXmlGroups()) {
-            LOG.debug("fillCollectionSet: getting resources for XML group {} using XPATH {}", group.getName(), group.getResourceXpath());
+            LOG.debug("fillCollectionSet: getting resources for XML group {} using XPATH {}", group.getName(),
+                      group.getResourceXpath());
             Date timestamp = getTimeStamp(doc, xpath, group);
             NodeList resourceList = (NodeList) xpath.evaluate(group.getResourceXpath(), doc, XPathConstants.NODESET);
             for (int j = 0; j < resourceList.getLength(); j++) {
                 Node resource = resourceList.item(j);
                 String resourceName = getResourceName(xpath, group, resource);
                 LOG.debug("fillCollectionSet: processing XML resource {}", resourceName);
-                XmlCollectionResource collectionResource = getCollectionResource(agent, resourceName, group.getResourceType(), timestamp);
+                XmlCollectionResource collectionResource = getCollectionResource(agent, resourceName,
+                                                                                 group.getResourceType(), timestamp);
                 AttributeGroupType attribGroupType = new AttributeGroupType(group.getName(), group.getIfType());
                 for (XmlObject object : group.getXmlObjects()) {
                     String value = (String) xpath.evaluate(object.getXpath(), resource, XPathConstants.STRING);
@@ -202,11 +219,15 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Gets the resource name.
      *
-     * @param xpath the Xpath
-     * @param group the group
-     * @param resource the resource
+     * @param xpath
+     *            the Xpath
+     * @param group
+     *            the group
+     * @param resource
+     *            the resource
      * @return the resource name
-     * @throws XPathExpressionException the x path expression exception
+     * @throws XPathExpressionException
+     *             the x path expression exception
      */
     private String getResourceName(XPath xpath, XmlGroup group, Node resource) throws XPathExpressionException {
         // Processing multiple-key resource name.
@@ -219,7 +240,8 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
             }
             return StringUtils.join(keys, "_");
         }
-        // If key-xpath doesn't exist or not found, a node resource will be assumed.
+        // If key-xpath doesn't exist or not found, a node resource will be
+        // assumed.
         if (group.getKeyXpath() == null) {
             return "node";
         }
@@ -232,21 +254,29 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Process XML resource.
      *
-     * @param collectionResource the collection resource
-     * @param attribGroupType the attribute group type
+     * @param collectionResource
+     *            the collection resource
+     * @param attribGroupType
+     *            the attribute group type
      */
-    protected abstract void processXmlResource(XmlCollectionResource collectionResource, AttributeGroupType attribGroupType);
+    protected abstract void processXmlResource(XmlCollectionResource collectionResource,
+            AttributeGroupType attribGroupType);
 
     /**
      * Gets the collection resource.
      *
-     * @param agent the collection agent
-     * @param instance the resource instance
-     * @param resourceType the resource type
-     * @param timestamp the timestamp
+     * @param agent
+     *            the collection agent
+     * @param instance
+     *            the resource instance
+     * @param resourceType
+     *            the resource type
+     * @param timestamp
+     *            the timestamp
      * @return the collection resource
      */
-    protected XmlCollectionResource getCollectionResource(CollectionAgent agent, String instance, String resourceType, Date timestamp) {
+    protected XmlCollectionResource getCollectionResource(CollectionAgent agent, String instance, String resourceType,
+            Date timestamp) {
         XmlCollectionResource resource = null;
         if (resourceType.toLowerCase().equals("node")) {
             resource = new XmlSingleInstanceCollectionResource(agent);
@@ -264,21 +294,26 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Gets the time stamp.
      *
-     * @param doc the doc
-     * @param xpath the xpath
-     * @param group the group
+     * @param doc
+     *            the doc
+     * @param xpath
+     *            the xpath
+     * @param group
+     *            the group
      * @return the time stamp
-     * @throws XPathExpressionException the x path expression exception
+     * @throws XPathExpressionException
+     *             the x path expression exception
      */
     protected Date getTimeStamp(Document doc, XPath xpath, XmlGroup group) throws XPathExpressionException {
         if (group.getTimestampXpath() == null) {
             return null;
         }
         String pattern = group.getTimestampFormat() == null ? "yyyy-MM-dd HH:mm:ss" : group.getTimestampFormat();
-        LOG.debug("getTimeStamp: retrieving custom timestamp to be used when updating RRDs using XPATH {} and pattern {}", group.getTimestampXpath(), pattern);
+        LOG.debug("getTimeStamp: retrieving custom timestamp to be used when updating RRDs using XPATH {} and pattern {}",
+                  group.getTimestampXpath(), pattern);
         Node tsNode = (Node) xpath.evaluate(group.getTimestampXpath(), doc, XPathConstants.NODE);
         if (tsNode == null) {
-            LOG.warn("getTimeStamp: can't find the custom timestamp using XPATH {}",  group.getTimestampXpath());
+            LOG.warn("getTimeStamp: can't find the custom timestamp using XPATH {}", group.getTimestampXpath());
             return null;
         }
         Date date = null;
@@ -288,27 +323,32 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
             DateTime dateTime = dtf.parseDateTime(value);
             date = dateTime.toDate();
         } catch (Exception e) {
-            LOG.warn("getTimeStamp: can't convert custom timetime {} using pattern {}", value,  pattern);
+            LOG.warn("getTimeStamp: can't convert custom timetime {} using pattern {}", value, pattern);
         }
         return date;
     }
 
     /**
      * Parses the URL.
-     *
-     * <p>Additional placeholders:</p>
+     * <p>
+     * Additional placeholders:
+     * </p>
      * <ul>
      * <li><b>step</b>, The Collection Step in seconds</li>
      * </ul>
      *
-     * @param unformattedUrl the unformatted URL
-     * @param agent the collection agent
-     * @param collectionStep the collection step (in seconds)
+     * @param unformattedUrl
+     *            the unformatted URL
+     * @param agent
+     *            the collection agent
+     * @param collectionStep
+     *            the collection step (in seconds)
      * @return the string
-     *
-     * @throws IllegalArgumentException the illegal argument exception
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
-    protected String parseUrl(final String unformattedUrl, final CollectionAgent agent, final Integer collectionStep) throws IllegalArgumentException {
+    protected String parseUrl(final String unformattedUrl, final CollectionAgent agent, final Integer collectionStep)
+            throws IllegalArgumentException {
         final OnmsNode node = getNodeDao().get(agent.getNodeId());
         String url = parseString("URL", unformattedUrl, node, agent.getHostAddress());
         return url.replaceAll("[{]step[}]", collectionStep.toString());
@@ -317,32 +357,40 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Parses the request.
      *
-     * @param unformattedRequest the unformatted request
-     * @param agent the agent
+     * @param unformattedRequest
+     *            the unformatted request
+     * @param agent
+     *            the agent
      * @return the request
-     * @throws IllegalArgumentException the illegal argument exception
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
-    protected Request parseRequest(final Request unformattedRequest, final CollectionAgent agent) throws IllegalArgumentException {
+    protected Request parseRequest(final Request unformattedRequest, final CollectionAgent agent)
+            throws IllegalArgumentException {
         if (unformattedRequest == null)
             return null;
         final OnmsNode node = getNodeDao().get(agent.getNodeId());
         final Request request = new Request();
         for (Header header : unformattedRequest.getHeaders()) {
-            request.addHeader(header.getName(), parseString(header.getName(), header.getValue(), node, agent.getHostAddress()));
+            request.addHeader(header.getName(),
+                              parseString(header.getName(), header.getValue(), node, agent.getHostAddress()));
         }
         for (Parameter param : unformattedRequest.getParameters()) {
-            request.addParameter(param.getName(), parseString(param.getName(), param.getValue(), node, agent.getHostAddress()));
+            request.addParameter(param.getName(),
+                                 parseString(param.getName(), param.getValue(), node, agent.getHostAddress()));
         }
         final Content cnt = unformattedRequest.getContent();
         if (cnt != null)
-            request.setContent(new Content(cnt.getType(), parseString("Content", cnt.getData(), node, agent.getHostAddress())));
+            request.setContent(new Content(cnt.getType(), parseString("Content", cnt.getData(), node,
+                                                                      agent.getHostAddress())));
         return request;
     }
 
     /**
      * Parses the string.
-     *
-     * <p>Valid placeholders are:</p>
+     * <p>
+     * Valid placeholders are:
+     * </p>
      * <ul>
      * <li><b>ipaddr</b>, The Node IP Address</li>
      * <li><b>step</b>, The Collection Step in seconds</li>
@@ -353,14 +401,20 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
      * <li>Any asset property defined on the node.</li>
      * </ul>
      *
-     * @param reference the reference
-     * @param unformattedString the unformatted string
-     * @param node the node
-     * @param ipAddress the IP address
+     * @param reference
+     *            the reference
+     * @param unformattedString
+     *            the unformatted string
+     * @param node
+     *            the node
+     * @param ipAddress
+     *            the IP address
      * @return the string
-     * @throws IllegalArgumentException the illegal argument exception
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
-    protected String parseString(final String reference, final String unformattedString, final OnmsNode node, final String ipAddress) throws IllegalArgumentException {
+    protected String parseString(final String reference, final String unformattedString, final OnmsNode node,
+            final String ipAddress) throws IllegalArgumentException {
         if (unformattedString == null)
             return null;
         String formattedString = unformattedString.replaceAll("[{](?i)(ipAddr|ipAddress)[}]", ipAddress);
@@ -380,15 +434,18 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
             }
         }
         if (formattedString.matches(".*[{].+[}].*"))
-            throw new IllegalArgumentException("The " + reference + " " + formattedString + " contains unknown placeholders.");
+            throw new IllegalArgumentException("The " + reference + " " + formattedString
+                    + " contains unknown placeholders.");
         return formattedString;
     }
 
     /**
      * Gets the XML document.
      *
-     * @param urlString the URL string
-     * @param request the request
+     * @param urlString
+     *            the URL string
+     * @param request
+     *            the request
      * @return the XML document
      */
     protected Document getXmlDocument(String urlString, Request request) {
@@ -415,10 +472,13 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Apply XSLT transformation.
      *
-     * @param request the request
-     * @param is the is
+     * @param request
+     *            the request
+     * @param is
+     *            the is
      * @return the input stream
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     private InputStream applyXsltTransformation(Request request, InputStream is) throws Exception {
         if (request == null)
@@ -441,10 +501,13 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Pre-process HTML.
      *
-     * @param request the request
-     * @param is the input stream
+     * @param request
+     *            the request
+     * @param is
+     *            the input stream
      * @return the updated input stream
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private InputStream preProcessHtml(Request request, InputStream is) throws IOException {
         if (request == null)
@@ -460,8 +523,10 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     /**
      * Gets the XML resource type.
      *
-     * @param agent the collection agent
-     * @param resourceType the resource type
+     * @param agent
+     *            the collection agent
+     * @param resourceType
+     *            the resource type
      * @return the XML resource type
      */
     protected XmlResourceType getXmlResourceType(CollectionAgent agent, String resourceType) {

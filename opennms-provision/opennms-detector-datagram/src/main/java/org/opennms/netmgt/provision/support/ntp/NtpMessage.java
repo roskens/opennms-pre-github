@@ -87,12 +87,14 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+
 public class NtpMessage {
 
     private static final DecimalFormat NTP_FRACTION_FORMAT = new DecimalFormat(".000000");
 
     /**
-     *  Use ThreadLocal SimpleDateFormat instances because SimpleDateFormat is not thread-safe.
+     * Use ThreadLocal SimpleDateFormat instances because SimpleDateFormat is
+     * not thread-safe.
      */
     private static final ThreadLocal<SimpleDateFormat> NTP_DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
         @Override
@@ -105,7 +107,6 @@ public class NtpMessage {
      * This is a two-bit code warning of an impending leap second to be
      * inserted/deleted in the last minute of the current day. It's values may
      * be as follows:
-     *
      * Value Meaning ----- ------- 0 no warning 1 last minute has 61 seconds 2
      * last minute has 59 seconds) 3 alarm condition (clock not synchronized)
      */
@@ -121,11 +122,9 @@ public class NtpMessage {
 
     /**
      * This value indicates the mode, with values defined as follows:
-     *
      * Mode Meaning ---- ------- 0 reserved 1 symmetric active 2 symmetric
      * passive 3 client 4 server 5 broadcast 6 reserved for NTP control message
      * 7 reserved for private use
-     *
      * In unicast and anycast modes, the client sets this field to 3 (client) in
      * the request and the server sets it to 4 (server) in the reply. In
      * multicast mode, the server sets this field to 5 (broadcast).
@@ -135,7 +134,6 @@ public class NtpMessage {
     /**
      * This value indicates the stratum level of the local clock, with values
      * defined as follows:
-     *
      * Stratum Meaning ---------------------------------------------- 0
      * unspecified or unavailable 1 primary reference (e.g., radio clock) 2-15
      * secondary reference (via NTP or SNTP) 16-255 reserved
@@ -186,7 +184,6 @@ public class NtpMessage {
      * according to the following list. If the external reference is one of
      * those listed, the associated code should be used. Codes for sources not
      * listed can be contrived as appropriate.
-     *
      * Code External Reference Source ---- ------------------------- LOCL
      * uncalibrated local clock used as a primary reference for a subnet without
      * external means of synchronization PPS atomic clock or other
@@ -229,7 +226,8 @@ public class NtpMessage {
     /**
      * Constructs a new NtpMessage from an array of bytes.
      *
-     * @param array an array of byte.
+     * @param array
+     *            an array of byte.
      */
     public NtpMessage(final byte[] array) {
         // See the packet format diagram in RFC 2030 for details
@@ -240,9 +238,11 @@ public class NtpMessage {
         pollInterval = array[2];
         precision = array[3];
 
-        rootDelay = (array[4] * 256.0) + unsignedByteToShort(array[5]) + (unsignedByteToShort(array[6]) / 256.0) + (unsignedByteToShort(array[7]) / 65536.0);
+        rootDelay = (array[4] * 256.0) + unsignedByteToShort(array[5]) + (unsignedByteToShort(array[6]) / 256.0)
+                + (unsignedByteToShort(array[7]) / 65536.0);
 
-        rootDispersion = (unsignedByteToShort(array[8]) * 256.0) + unsignedByteToShort(array[9]) + (unsignedByteToShort(array[10]) / 256.0) + (unsignedByteToShort(array[11]) / 65536.0);
+        rootDispersion = (unsignedByteToShort(array[8]) * 256.0) + unsignedByteToShort(array[9])
+                + (unsignedByteToShort(array[10]) / 256.0) + (unsignedByteToShort(array[11]) / 65536.0);
 
         referenceIdentifier[0] = array[12];
         referenceIdentifier[1] = array[13];
@@ -258,21 +258,37 @@ public class NtpMessage {
     /**
      * Constructs a new NtpMessage
      *
-     * @param leapIndicator a byte.
-     * @param version a byte.
-     * @param mode a byte.
-     * @param stratum a short.
-     * @param pollInterval a byte.
-     * @param precision a byte.
-     * @param rootDelay a double.
-     * @param rootDispersion a double.
-     * @param referenceIdentifier an array of byte.
-     * @param referenceTimestamp a double.
-     * @param originateTimestamp a double.
-     * @param receiveTimestamp a double.
-     * @param transmitTimestamp a double.
+     * @param leapIndicator
+     *            a byte.
+     * @param version
+     *            a byte.
+     * @param mode
+     *            a byte.
+     * @param stratum
+     *            a short.
+     * @param pollInterval
+     *            a byte.
+     * @param precision
+     *            a byte.
+     * @param rootDelay
+     *            a double.
+     * @param rootDispersion
+     *            a double.
+     * @param referenceIdentifier
+     *            an array of byte.
+     * @param referenceTimestamp
+     *            a double.
+     * @param originateTimestamp
+     *            a double.
+     * @param receiveTimestamp
+     *            a double.
+     * @param transmitTimestamp
+     *            a double.
      */
-    public NtpMessage(final byte leapIndicator, final byte version, final byte mode, final short stratum, final byte pollInterval, final byte precision, final double rootDelay, final double rootDispersion, final byte[] referenceIdentifier, final double referenceTimestamp, final double originateTimestamp, final double receiveTimestamp, final double transmitTimestamp) {
+    public NtpMessage(final byte leapIndicator, final byte version, final byte mode, final short stratum,
+            final byte pollInterval, final byte precision, final double rootDelay, final double rootDispersion,
+            final byte[] referenceIdentifier, final double referenceTimestamp, final double originateTimestamp,
+            final double receiveTimestamp, final double transmitTimestamp) {
         // ToDo: Validity checking
         this.leapIndicator = leapIndicator;
         this.version = version;
@@ -350,14 +366,23 @@ public class NtpMessage {
     @Override
     public String toString() {
         final String precisionStr = new DecimalFormat("0.#E0").format(Math.pow(2, precision));
-        return "Leap indicator: " + leapIndicator + "\n" + "Version: " + version + "\n" + "Mode: " + mode + "\n" + "Stratum: " + stratum + "\n" + "Poll: " + pollInterval + "\n" + "Precision: " + precision + " (" + precisionStr + " seconds)\n" + "Root delay: " + new DecimalFormat("0.00").format(rootDelay * 1000) + " ms\n" + "Root dispersion: " + new DecimalFormat("0.00").format(rootDispersion * 1000) + " ms\n" + "Reference identifier: " + referenceIdentifierToString(referenceIdentifier, stratum, version) + "\n" + "Reference timestamp: " + timestampToString(referenceTimestamp) + "\n" + "Originate timestamp: " + timestampToString(originateTimestamp) + "\n" + "Receive timestamp:   " + timestampToString(receiveTimestamp) + "\n" + "Transmit timestamp:  " + timestampToString(transmitTimestamp);
+        return "Leap indicator: " + leapIndicator + "\n" + "Version: " + version + "\n" + "Mode: " + mode + "\n"
+                + "Stratum: " + stratum + "\n" + "Poll: " + pollInterval + "\n" + "Precision: " + precision + " ("
+                + precisionStr + " seconds)\n" + "Root delay: " + new DecimalFormat("0.00").format(rootDelay * 1000)
+                + " ms\n" + "Root dispersion: " + new DecimalFormat("0.00").format(rootDispersion * 1000) + " ms\n"
+                + "Reference identifier: " + referenceIdentifierToString(referenceIdentifier, stratum, version) + "\n"
+                + "Reference timestamp: " + timestampToString(referenceTimestamp) + "\n" + "Originate timestamp: "
+                + timestampToString(originateTimestamp) + "\n" + "Receive timestamp:   "
+                + timestampToString(receiveTimestamp) + "\n" + "Transmit timestamp:  "
+                + timestampToString(transmitTimestamp);
     }
 
     /**
      * Converts an unsigned byte to a short. By default, Java assumes that a
      * byte is signed.
      *
-     * @param b a byte.
+     * @param b
+     *            a byte.
      * @return a short.
      */
     public static short unsignedByteToShort(final byte b) {
@@ -372,8 +397,10 @@ public class NtpMessage {
      * Will read 8 bytes of a message beginning at <code>pointer</code> and
      * return it as a double, according to the NTP 64-bit timestamp format.
      *
-     * @param array an array of byte.
-     * @param pointer a int.
+     * @param array
+     *            an array of byte.
+     * @param pointer
+     *            a int.
      * @return a double.
      */
     public static double decodeTimestamp(final byte[] array, final int pointer) {
@@ -389,9 +416,12 @@ public class NtpMessage {
     /**
      * Encodes a timestamp in the specified position in the message
      *
-     * @param array an array of byte.
-     * @param pointer a int.
-     * @param timestamp a double.
+     * @param array
+     *            an array of byte.
+     * @param pointer
+     *            a int.
+     * @param timestamp
+     *            a double.
      */
     public static void encodeTimestamp(final byte[] array, final int pointer, double timestamp) {
         // Converts a double into a 64-bit fixed point
@@ -417,11 +447,13 @@ public class NtpMessage {
      * Returns a timestamp (number of seconds since 00:00 1-Jan-1900) as a
      * formatted date/time string.
      *
-     * @param timestamp a double.
+     * @param timestamp
+     *            a double.
      * @return a {@link java.lang.String} object.
      */
     public static String timestampToString(final double timestamp) {
-        if (timestamp == 0) return "0";
+        if (timestamp == 0)
+            return "0";
 
         // timestamp is relative to 1900, utc is used by Java and is relative
         // to 1970
@@ -444,9 +476,12 @@ public class NtpMessage {
      * Returns a string representation of a reference identifier according to
      * the rules set out in RFC 2030.
      *
-     * @param ref an array of byte.
-     * @param stratum a short.
-     * @param version a byte.
+     * @param ref
+     *            an array of byte.
+     * @param stratum
+     *            a short.
+     * @param version
+     *            a byte.
      * @return a {@link java.lang.String} object.
      */
     public static String referenceIdentifierToString(final byte[] ref, final short stratum, final byte version) {
@@ -461,13 +496,16 @@ public class NtpMessage {
         // In NTP Version 3 secondary servers, this is the 32-bit IPv4
         // address of the reference source.
         else if (version == 3) {
-            return unsignedByteToShort(ref[0]) + "." + unsignedByteToShort(ref[1]) + "." + unsignedByteToShort(ref[2]) + "." + unsignedByteToShort(ref[3]);
+            return unsignedByteToShort(ref[0]) + "." + unsignedByteToShort(ref[1]) + "." + unsignedByteToShort(ref[2])
+                    + "." + unsignedByteToShort(ref[3]);
         }
 
         // In NTP Version 4 secondary servers, this is the low order 32 bits
         // of the latest transmit timestamp of the reference source.
         else if (version == 4) {
-            return "" + ((unsignedByteToShort(ref[0]) / 256.0) + (unsignedByteToShort(ref[1]) / 65536.0) + (unsignedByteToShort(ref[2]) / 16777216.0) + (unsignedByteToShort(ref[3]) / 4294967296.0));
+            return ""
+                    + ((unsignedByteToShort(ref[0]) / 256.0) + (unsignedByteToShort(ref[1]) / 65536.0)
+                            + (unsignedByteToShort(ref[2]) / 16777216.0) + (unsignedByteToShort(ref[3]) / 4294967296.0));
         }
 
         return "";

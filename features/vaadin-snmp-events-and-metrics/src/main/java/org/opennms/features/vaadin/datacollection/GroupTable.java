@@ -53,10 +53,11 @@ public abstract class GroupTable extends Table {
     /**
      * Instantiates a new group table.
      *
-     * @param source the OpenNMS Data Collection Group
+     * @param source
+     *            the OpenNMS Data Collection Group
      */
     public GroupTable(final DatacollectionGroup source) {
-        BeanContainer<String,Group> container = new BeanContainer<String,Group>(Group.class);
+        BeanContainer<String, Group> container = new BeanContainer<String, Group>(Group.class);
         container.setBeanIdProperty("name");
         container.addAll(source.getGroupCollection());
         setContainerDataSource(container);
@@ -90,18 +91,20 @@ public abstract class GroupTable extends Table {
     /**
      * Update external source.
      *
-     * @param item the item
+     * @param item
+     *            the item
      */
     public abstract void updateExternalSource(BeanItem<Group> item);
 
     /**
      * Adds a group.
      *
-     * @param group the group
+     * @param group
+     *            the group
      */
     @SuppressWarnings("unchecked")
     public void addGroup(Group group) {
-        ((BeanContainer<String,Group>) getContainerDataSource()).addBean(group);
+        ((BeanContainer<String, Group>) getContainerDataSource()).addBean(group);
     }
 
 }

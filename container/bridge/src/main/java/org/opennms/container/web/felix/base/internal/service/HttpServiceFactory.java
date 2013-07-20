@@ -24,17 +24,17 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
 
-public final class HttpServiceFactory
-    implements ServiceFactory<HttpServiceImpl>
-{
+public final class HttpServiceFactory implements ServiceFactory<HttpServiceImpl> {
     private final ServletContext context;
+
     private final ServletContextAttributeListener attributeListener;
+
     private final HandlerRegistry handlerRegistry;
+
     private final boolean sharedContextAttributes;
 
     public HttpServiceFactory(ServletContext context, HandlerRegistry handlerRegistry,
-        ServletContextAttributeListener attributeListener, boolean sharedContextAttributes)
-    {
+            ServletContextAttributeListener attributeListener, boolean sharedContextAttributes) {
         this.context = context;
         this.attributeListener = attributeListener;
         this.handlerRegistry = handlerRegistry;
@@ -42,15 +42,13 @@ public final class HttpServiceFactory
     }
 
     @Override
-    public HttpServiceImpl getService(Bundle bundle, ServiceRegistration<HttpServiceImpl> reg)
-    {
+    public HttpServiceImpl getService(Bundle bundle, ServiceRegistration<HttpServiceImpl> reg) {
         return new HttpServiceImpl(bundle, this.context, this.handlerRegistry, this.attributeListener,
-            this.sharedContextAttributes);
+                                   this.sharedContextAttributes);
     }
 
     @Override
-    public void ungetService(Bundle bundle, ServiceRegistration<HttpServiceImpl> reg, HttpServiceImpl service)
-    {
+    public void ungetService(Bundle bundle, ServiceRegistration<HttpServiceImpl> reg, HttpServiceImpl service) {
         service.unregisterAll();
     }
 }

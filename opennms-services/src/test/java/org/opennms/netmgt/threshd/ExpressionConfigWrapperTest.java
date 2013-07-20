@@ -37,7 +37,6 @@ import org.junit.Test;
 import org.opennms.netmgt.config.threshd.Expression;
 
 /**
- *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class ExpressionConfigWrapperTest {
@@ -49,7 +48,7 @@ public class ExpressionConfigWrapperTest {
         exp.setExpression("jnxOperatingState == 2.0 || jnxOperatingState == 3.0 || jnxOperatingState == 7.0 ? 1.0 : 0.0");
         ExpressionConfigWrapper wrapper = new ExpressionConfigWrapper(exp);
         Assert.assertEquals(1, wrapper.getRequiredDatasources().size());
-        Map<String, Double> values = new HashMap<String,Double>();
+        Map<String, Double> values = new HashMap<String, Double>();
         values.put("jnxOperatingState", 1.0);
         Assert.assertEquals(0.0, wrapper.evaluate(values));
         values.put("jnxOperatingState", 2.0);
@@ -73,7 +72,7 @@ public class ExpressionConfigWrapperTest {
         exp.setExpression("datasources['ns-dskTotal'] - datasources['ns-dskUsed']");
         ExpressionConfigWrapper wrapper = new ExpressionConfigWrapper(exp);
         Assert.assertEquals(1, wrapper.getRequiredDatasources().size());
-        Map<String, Double> values = new HashMap<String,Double>();
+        Map<String, Double> values = new HashMap<String, Double>();
         values.put("ns-dskTotal", 100.0);
         values.put("ns-dskUsed", 40.0);
         Assert.assertEquals(60.0, wrapper.evaluate(values));

@@ -45,18 +45,24 @@ import org.opennms.protocols.xml.config.XmlDataCollection;
 import org.opennms.protocols.xml.config.XmlSource;
 
 /**
- * The default implementation of the interface XmlCollectionHandler based on AbstractJsonCollectionHandler.
+ * The default implementation of the interface XmlCollectionHandler based on
+ * AbstractJsonCollectionHandler.
  *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class DefaultJsonCollectionHandler extends AbstractJsonCollectionHandler {
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.XmlCollectionHandler#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.protocols.xml.config.XmlDataCollection, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.XmlCollectionHandler#collect(org.
+     * opennms.netmgt.collectd.CollectionAgent,
+     * org.opennms.protocols.xml.config.XmlDataCollection, java.util.Map)
      */
     @Override
-    public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters) throws CollectionException {
+    public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters)
+            throws CollectionException {
         XmlCollectionSet collectionSet = new XmlCollectionSet(agent);
         collectionSet.setCollectionTimestamp(new Date());
         collectionSet.setStatus(ServiceCollector.COLLECTION_UNKNOWN);
@@ -75,9 +81,14 @@ public class DefaultJsonCollectionHandler extends AbstractJsonCollectionHandler 
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#processXmlResource(org.opennms.protocols.xml.collector.XmlCollectionResource, org.opennms.netmgt.config.collector.AttributeGroupType)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#
+     * processXmlResource
+     * (org.opennms.protocols.xml.collector.XmlCollectionResource,
+     * org.opennms.netmgt.config.collector.AttributeGroupType)
      */
-    protected void processXmlResource(XmlCollectionResource collectionResource, AttributeGroupType attribGroupType) {}
+    protected void processXmlResource(XmlCollectionResource collectionResource, AttributeGroupType attribGroupType) {
+    }
 
 }

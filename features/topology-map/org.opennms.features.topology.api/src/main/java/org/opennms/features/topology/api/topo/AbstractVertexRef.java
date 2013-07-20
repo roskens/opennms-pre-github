@@ -30,31 +30,32 @@ package org.opennms.features.topology.api.topo;
 
 public class AbstractVertexRef extends AbstractRef implements VertexRef {
 
-	public AbstractVertexRef(VertexRef ref) {
-		super(ref);
-	}
+    public AbstractVertexRef(VertexRef ref) {
+        super(ref);
+    }
 
-	public AbstractVertexRef(String namespace, String id, String label) {
-		super(namespace, id, label);
-	}
+    public AbstractVertexRef(String namespace, String id, String label) {
+        super(namespace, id, label);
+    }
 
-	/**
-	 * @deprecated Specify a useful label for the object
-	 */
-	public AbstractVertexRef(String namespace, String id) {
-		super(namespace, id, namespace + ":" + id);
-	}
+    /**
+     * @deprecated Specify a useful label for the object
+     */
+    public AbstractVertexRef(String namespace, String id) {
+        super(namespace, id, namespace + ":" + id);
+    }
 
-	@Override
-	public final boolean equals(Object obj) {
-		if (obj instanceof VertexRef) {
-			return super.equals(obj);
-		}
-		return false;
-	}
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj instanceof VertexRef) {
+            return super.equals(obj);
+        }
+        return false;
+    }
 
-
-	@Override
-	public String toString() { return "VertexRef:"+getNamespace()+":"+getId(); }
+    @Override
+    public String toString() {
+        return "VertexRef:" + getNamespace() + ":" + getId();
+    }
 
 }

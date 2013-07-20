@@ -41,10 +41,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
- *
  */
 class UdpReceiver implements Runnable {
 
@@ -130,7 +128,8 @@ class UdpReceiver implements Runnable {
         final byte[] buffer = new byte[length];
         DatagramPacket pkt = new DatagramPacket(buffer, length);
 
-        // Set an SO timout to make sure we don't block forever if a socket is closed.
+        // Set an SO timout to make sure we don't block forever if a socket is
+        // closed.
         try {
             LOG.debug("Setting socket timeout to 500ms");
 

@@ -46,13 +46,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * <p>JUnit Test class for BSFDetector.</p>
+ * <p>
+ * JUnit Test class for BSFDetector.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class BSFDetectorTest implements InitializingBean {
 
     @Autowired
@@ -73,28 +75,28 @@ public class BSFDetectorTest implements InitializingBean {
         m_detector.setBsfEngine("org.codehaus.groovy.bsf.GroovyEngine");
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
         m_detector.setFileName("src/test/resources/testa.groovy");
         m_detector.onInit();
         assertTrue(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorWrongBanner() throws UnknownHostException {
         m_detector.setFileName("src/test/resources/testb.groovy");
         m_detector.onInit();
         assertFalse(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFileNotFound() throws UnknownHostException {
         m_detector.setFileName("src/test/resources/unknown.groovy");
         m_detector.onInit();
         assertFalse(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testBadType() throws UnknownHostException {
         m_detector.setRunType("eval");
         m_detector.setFileName("src/test/resources/testa.groovy");
@@ -102,7 +104,7 @@ public class BSFDetectorTest implements InitializingBean {
         assertFalse(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testInvalidEngine() throws UnknownHostException {
         m_detector.setLangClass("jython");
         m_detector.setRunType("exec");

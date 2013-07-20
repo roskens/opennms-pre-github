@@ -51,36 +51,25 @@ import org.opennms.netmgt.capsd.ConnectionConfig;
  * This class is designed to be used by the capabilities daemon to test for the
  * existance of an HTTP server on remote interfaces. The class implements the
  * Plugin interface that allows it to be used along with other plugins by the
- * daemon.
- *
+ * daemon. This plugin generates a HTTP GET request and checks the return code
+ * returned by the remote host to determine if it supports the protocol. The
+ * remote host's response will be deemed valid if the return code falls in the
+ * 100 to 599 range (inclusive). This is based on the following information from
+ * RFC 1945 (HTTP 1.0) HTTP 1.0 GET return codes: 1xx: Informational - Not used,
+ * future use 2xx: Success 3xx: Redirection 4xx: Client error 5xx: Server error
+ * </P>
  * This plugin generates a HTTP GET request and checks the return code returned
  * by the remote host to determine if it supports the protocol.
- *
  * The remote host's response will be deemed valid if the return code falls in
  * the 100 to 599 range (inclusive).
- *
  * This is based on the following information from RFC 1945 (HTTP 1.0) HTTP 1.0
  * GET return codes: 1xx: Informational - Not used, future use 2xx: Success 3xx:
  * Redirection 4xx: Client error 5xx: Server error
  * </P>
- *
  * This plugin generates a HTTP GET request and checks the return code returned
  * by the remote host to determine if it supports the protocol.
- *
  * The remote host's response will be deemed valid if the return code falls in
  * the 100 to 599 range (inclusive).
- *
- * This is based on the following information from RFC 1945 (HTTP 1.0) HTTP 1.0
- * GET return codes: 1xx: Informational - Not used, future use 2xx: Success 3xx:
- * Redirection 4xx: Client error 5xx: Server error
- * </P>
- *
- * This plugin generates a HTTP GET request and checks the return code returned
- * by the remote host to determine if it supports the protocol.
- *
- * The remote host's response will be deemed valid if the return code falls in
- * the 100 to 599 range (inclusive).
- *
  * This is based on the following information from RFC 1945 (HTTP 1.0) HTTP 1.0
  * GET return codes: 1xx: Informational - Not used, future use 2xx: Success 3xx:
  * Redirection 4xx: Client error 5xx: Server error
@@ -97,12 +86,16 @@ public class HttpPlugin extends AbstractTcpPlugin {
     // Names of properties configured for the protocol-plugin
     /** Constant <code>PROPERTY_NAME_PORT="port"</code> */
     protected static final String PROPERTY_NAME_PORT = "port";
+
     /** Constant <code>PROPERTY_NAME_MAX_RET_CODE="max-ret-code"</code> */
     protected static final String PROPERTY_NAME_MAX_RET_CODE = "max-ret-code";
+
     /** Constant <code>PROPERTY_NAME_RETURN_CODE="check-return-code"</code> */
     protected static final String PROPERTY_NAME_RETURN_CODE = "check-return-code";
+
     /** Constant <code>PROPERTY_NAME_URL="url"</code> */
     protected static final String PROPERTY_NAME_URL = "url";
+
     /** Constant <code>PROPERTY_NAME_RESPONSE_TEXT="response-text"</code> */
     protected static final String PROPERTY_NAME_RESPONSE_TEXT = "response-text";
 
@@ -168,34 +161,50 @@ public class HttpPlugin extends AbstractTcpPlugin {
     private String m_responseString = "HTTP/";
 
     /**
-     * <p>Constructor for HttpPlugin.</p>
+     * <p>
+     * Constructor for HttpPlugin.
+     * </p>
      */
     public HttpPlugin() {
         this(PROTOCOL_NAME, CHECK_RETURN_CODE, QUERY_STRING, RESPONSE_STRING, DEFAULT_PORTS);
     }
 
     /**
-     * <p>Constructor for HttpPlugin.</p>
+     * <p>
+     * Constructor for HttpPlugin.
+     * </p>
      *
-     * @param protocolName a {@link java.lang.String} object.
-     * @param checkReturnCode a boolean.
-     * @param queryString a {@link java.lang.String} object.
-     * @param responseString a {@link java.lang.String} object.
+     * @param protocolName
+     *            a {@link java.lang.String} object.
+     * @param checkReturnCode
+     *            a boolean.
+     * @param queryString
+     *            a {@link java.lang.String} object.
+     * @param responseString
+     *            a {@link java.lang.String} object.
      */
     protected HttpPlugin(String protocolName, boolean checkReturnCode, String queryString, String responseString) {
         this(protocolName, checkReturnCode, queryString, responseString, DEFAULT_PORTS);
     }
 
     /**
-     * <p>Constructor for HttpPlugin.</p>
+     * <p>
+     * Constructor for HttpPlugin.
+     * </p>
      *
-     * @param protocolName a {@link java.lang.String} object.
-     * @param checkReturnCode a boolean.
-     * @param queryString a {@link java.lang.String} object.
-     * @param responseString a {@link java.lang.String} object.
-     * @param defaultPorts an array of int.
+     * @param protocolName
+     *            a {@link java.lang.String} object.
+     * @param checkReturnCode
+     *            a boolean.
+     * @param queryString
+     *            a {@link java.lang.String} object.
+     * @param responseString
+     *            a {@link java.lang.String} object.
+     * @param defaultPorts
+     *            an array of int.
      */
-    protected HttpPlugin(String protocolName, boolean checkReturnCode, String queryString, String responseString, int[] defaultPorts) {
+    protected HttpPlugin(String protocolName, boolean checkReturnCode, String queryString, String responseString,
+            int[] defaultPorts) {
         super(protocolName, DEFAULT_TIMEOUT, DEFAULT_RETRY);
         m_checkReturnCode = checkReturnCode;
         m_queryString = queryString;
@@ -216,19 +225,17 @@ public class HttpPlugin extends AbstractTcpPlugin {
             BufferedReader lineRdr = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             socket.getOutputStream().write(m_queryString.getBytes());
-            char [] cbuf = new char[ 1024 ];
+            char[] cbuf = new char[1024];
             int chars = 0;
             StringBuffer response = new StringBuffer();
             try {
-                while ((chars = lineRdr.read( cbuf, 0, 1024)) != -1)
-                {
+                while ((chars = lineRdr.read(cbuf, 0, 1024)) != -1) {
                     String line = new String(cbuf, 0, chars);
                     LOG.debug("Read: {} bytes: [{}] from socket.", line.length(), line);
                     response.append(line);
                 }
-            } catch ( java.net.SocketTimeoutException timeoutEx ) {
-                if ( timeoutEx.bytesTransferred > 0 )
-                {
+            } catch (java.net.SocketTimeoutException timeoutEx) {
+                if (timeoutEx.bytesTransferred > 0) {
                     String line = new String(cbuf, 0, timeoutEx.bytesTransferred);
                     LOG.debug("Read: {} bytes: [{}] from socket @ timeout!", line.length(), line);
                     response.append(line);
@@ -237,15 +244,15 @@ public class HttpPlugin extends AbstractTcpPlugin {
             if (response.toString() != null && response.toString().indexOf(m_responseString) > -1) {
                 if (m_checkReturnCode) {
                     int maxRetCode = config.getKeyedInteger(PROPERTY_NAME_MAX_RET_CODE, 399);
-                    if ( (DEFAULT_URL.equals(config.getKeyedString(PROPERTY_NAME_URL, DEFAULT_URL))) || (config.getKeyedBoolean(PROPERTY_NAME_RETURN_CODE, true) == false) )
-                    {
+                    if ((DEFAULT_URL.equals(config.getKeyedString(PROPERTY_NAME_URL, DEFAULT_URL)))
+                            || (config.getKeyedBoolean(PROPERTY_NAME_RETURN_CODE, true) == false)) {
                         maxRetCode = 600;
                     }
                     StringTokenizer t = new StringTokenizer(response.toString());
                     t.nextToken();
                     int rVal = Integer.parseInt(t.nextToken());
                     LOG.debug("{} : Request returned code: {}", getPluginName(), rVal);
-                    if (rVal >= 99 && rVal <= maxRetCode )
+                    if (rVal >= 99 && rVal <= maxRetCode)
                         isAServer = true;
                 } else {
                     isAServer = true;
@@ -255,10 +262,12 @@ public class HttpPlugin extends AbstractTcpPlugin {
                 }
             }
         } catch (SocketException e) {
-            LOG.debug("{}: a protocol error occurred talking to host {}", getPluginName(), InetAddressUtils.str(config.getInetAddress()), e);
+            LOG.debug("{}: a protocol error occurred talking to host {}", getPluginName(),
+                      InetAddressUtils.str(config.getInetAddress()), e);
             isAServer = false;
         } catch (NumberFormatException e) {
-            LOG.debug("{}: failed to parse response code from host {}", getPluginName(), InetAddressUtils.str(config.getInetAddress()), e);
+            LOG.debug("{}: failed to parse response code from host {}", getPluginName(),
+                      InetAddressUtils.str(config.getInetAddress()), e);
             isAServer = false;
         }
         return isAServer;
@@ -266,9 +275,10 @@ public class HttpPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     *
-     * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#getConnectionConfigList(java.util.Map,
-     *      java.net.InetAddress)
+     * @see
+     * org.opennms.netmgt.capsd.AbstractTcpPlugin#getConnectionConfigList(java
+     * .util.Map,
+     * java.net.InetAddress)
      */
     /** {@inheritDoc} */
     @Override
@@ -286,8 +296,11 @@ public class HttpPlugin extends AbstractTcpPlugin {
      * Checks the response body as a substring or regular expression match
      * according to the leading-tilde convention
      *
-     * @param config ConnectionConfig object from which response-text property is extracted
-     * @param response Body of HTTP response to check
+     * @param config
+     *            ConnectionConfig object from which response-text property is
+     *            extracted
+     * @param response
+     *            Body of HTTP response to check
      * @return Whether the response matches the response-text property
      */
     protected boolean checkResponseBody(ConnectionConfig config, String response) {

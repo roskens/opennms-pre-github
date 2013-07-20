@@ -46,26 +46,32 @@ import org.slf4j.LoggerFactory;
  */
 public class EventAnticipator implements EventListener {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EventAnticipator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EventAnticipator.class);
 
     boolean m_discardUnanticipated = false;
 
     /**
-     * This collection contains events that are expected to be received during the
+     * This collection contains events that are expected to be received during
+     * the
      * given unit test.
      */
     final List<EventWrapper> m_anticipatedEvents = new ArrayList<EventWrapper>();
 
     /**
-     * This collection contains events that have been received during the unit test.
-     * These events are removed from {@link #m_anticipatedEvents} as they are received.
+     * This collection contains events that have been received during the unit
+     * test.
+     * These events are removed from {@link #m_anticipatedEvents} as they are
+     * received.
      */
     final List<Event> m_anticipatedEventsReceived = new ArrayList<Event>();
 
     /**
-     * This list contains events that were received during the test duration but were not
-     * in the {@link #m_anticipatedEvents} list. The {@link #m_unanticipatedEvents} list is
-     * only populated if {@link #m_discardUnanticipated} is set to <code>false</code>.
+     * This list contains events that were received during the test duration but
+     * were not
+     * in the {@link #m_anticipatedEvents} list. The
+     * {@link #m_unanticipatedEvents} list is
+     * only populated if {@link #m_discardUnanticipated} is set to
+     * <code>false</code>.
      */
     final List<Event> m_unanticipatedEvents = new ArrayList<Event>();
 
@@ -74,7 +80,6 @@ public class EventAnticipator implements EventListener {
     public EventAnticipator() {
     }
 
-
     /**
      * @return the discardUnanticipated
      */
@@ -82,18 +87,16 @@ public class EventAnticipator implements EventListener {
         return m_discardUnanticipated;
     }
 
-
     /**
-     * @param discardUnanticipated the discardUnanticipated to set
+     * @param discardUnanticipated
+     *            the discardUnanticipated to set
      */
     public void setDiscardUnanticipated(boolean discardUnanticipated) {
         m_discardUnanticipated = discardUnanticipated;
     }
 
-
     /**
      * @param event
-     *
      */
     public void anticipateEvent(Event event) {
         anticipateEvent(event, false);
@@ -102,7 +105,7 @@ public class EventAnticipator implements EventListener {
     public synchronized void anticipateEvent(Event event, boolean checkUnanticipatedList) {
         EventWrapper w = new EventWrapper(event);
         if (checkUnanticipatedList) {
-            for(Iterator<Event> it = m_unanticipatedEvents.iterator(); it.hasNext(); ) {
+            for (Iterator<Event> it = m_unanticipatedEvents.iterator(); it.hasNext();) {
                 Event unE = it.next();
                 EventWrapper unW = new EventWrapper(unE);
                 if (unW.equals(w)) {
@@ -183,7 +186,7 @@ public class EventAnticipator implements EventListener {
             try {
                 wait(waitTime);
             } catch (InterruptedException e) {
-            	LOG.error("interrupted while waiting for anticipated events", e);
+                LOG.error("interrupted while waiting for anticipated events", e);
             }
             now = System.currentTimeMillis();
             waitTime -= (now - last);
@@ -198,10 +201,7 @@ public class EventAnticipator implements EventListener {
     public void eventProcessed(Event event) {
     }
 
-    public void verifyAnticipated(long wait,
-            long sleepMiddle,
-            long sleepAfter,
-            int anticipatedSize,
+    public void verifyAnticipated(long wait, long sleepMiddle, long sleepAfter, int anticipatedSize,
             int unanticipatedSize) {
 
         StringBuffer problems = new StringBuffer();
@@ -216,9 +216,8 @@ public class EventAnticipator implements EventListener {
         }
 
         if (anticipatedSize >= 0 && missingEvents.size() != anticipatedSize) {
-            problems.append(missingEvents.size() +
-                    " expected events still outstanding (expected " +
-                    anticipatedSize + "):\n");
+            problems.append(missingEvents.size() + " expected events still outstanding (expected " + anticipatedSize
+                    + "):\n");
             problems.append(listEvents("\t", missingEvents));
         }
 
@@ -230,9 +229,8 @@ public class EventAnticipator implements EventListener {
         }
 
         if (unanticipatedSize >= 0 && unanticipatedEvents().size() != unanticipatedSize) {
-            problems.append(unanticipatedEvents().size() +
-                    " unanticipated events received (expected " +
-                    unanticipatedSize + "):\n");
+            problems.append(unanticipatedEvents().size() + " unanticipated events received (expected "
+                    + unanticipatedSize + "):\n");
             problems.append(listEvents("\t", unanticipatedEvents()));
         }
 
@@ -251,7 +249,8 @@ public class EventAnticipator implements EventListener {
 
         for (final Event event : events) {
             b.append(prefix);
-            b.append(event.getUei() + " / " + event.getNodeid() + " / " + event.getInterface() + " / " + event.getService());
+            b.append(event.getUei() + " / " + event.getNodeid() + " / " + event.getInterface() + " / "
+                    + event.getService());
             b.append("\n");
         }
 

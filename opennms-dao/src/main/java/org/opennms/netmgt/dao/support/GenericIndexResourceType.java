@@ -51,30 +51,47 @@ import org.opennms.netmgt.model.StringPropertyAttribute;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
- * <p>GenericIndexResourceType class.</p>
+ * <p>
+ * GenericIndexResourceType class.
+ * </p>
  */
 public class GenericIndexResourceType implements OnmsResourceType {
     private static final Pattern SUB_INDEX_PATTERN = Pattern.compile("^subIndex\\((.*)\\)$");
+
     private static final Pattern SUB_INDEX_ARGUMENTS_PATTERN = Pattern.compile("^(-?\\d+|n)(?:,\\s*(\\d+|n))?$");
+
     private static final Pattern HEX_PATTERN = Pattern.compile("^hex\\((.*)\\)$");
+
     private static final Pattern STRING_PATTERN = Pattern.compile("^string\\((.*)\\)$");
 
     private final String m_name;
+
     private final String m_label;
+
     private final String m_resourceLabelExpression;
+
     private final ResourceDao m_resourceDao;
+
     private final StorageStrategy m_storageStrategy;
 
     /**
-     * <p>Constructor for GenericIndexResourceType.</p>
+     * <p>
+     * Constructor for GenericIndexResourceType.
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
-     * @param name a {@link java.lang.String} object.
-     * @param label a {@link java.lang.String} object.
-     * @param resourceLabelExpression a {@link java.lang.String} object.
-     * @param storageStrategy a {@link org.opennms.netmgt.config.StorageStrategy} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @param resourceLabelExpression
+     *            a {@link java.lang.String} object.
+     * @param storageStrategy
+     *            a {@link org.opennms.netmgt.config.StorageStrategy} object.
      */
-    public GenericIndexResourceType(ResourceDao resourceDao, String name, String label, String resourceLabelExpression, StorageStrategy storageStrategy) {
+    public GenericIndexResourceType(ResourceDao resourceDao, String name, String label, String resourceLabelExpression,
+            StorageStrategy storageStrategy) {
         m_resourceDao = resourceDao;
         m_name = name;
         m_label = label;
@@ -83,7 +100,9 @@ public class GenericIndexResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,7 +112,9 @@ public class GenericIndexResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,7 +124,9 @@ public class GenericIndexResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getStorageStrategy</p>
+     * <p>
+     * getStorageStrategy
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.StorageStrategy} object.
      */
@@ -114,7 +137,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNode(int nodeId) {
-      return getResourceTypeDirectory(nodeId, false).isDirectory();
+        return getResourceTypeDirectory(nodeId, false).isDirectory();
     }
 
     private File getResourceTypeDirectory(int nodeId, boolean verify) {
@@ -122,12 +145,14 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         File node = new File(snmp, Integer.toString(nodeId));
         if (verify && !node.isDirectory()) {
-            throw new ObjectRetrievalFailureException(File.class, "No node directory exists for node " + nodeId + ": " + node);
+            throw new ObjectRetrievalFailureException(File.class, "No node directory exists for node " + nodeId + ": "
+                    + node);
         }
 
         File generic = new File(node, getName());
         if (verify && !generic.isDirectory()) {
-            throw new ObjectRetrievalFailureException(File.class, "No node directory exists for generic index " + getName() + ": " + generic);
+            throw new ObjectRetrievalFailureException(File.class, "No node directory exists for generic index "
+                    + getName() + ": " + generic);
         }
 
         return generic;
@@ -143,7 +168,8 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         File generic = new File(dir, getName());
         if (verify && !generic.isDirectory()) {
-            throw new ObjectRetrievalFailureException(File.class, "No node directory exists for generic index " + getName() + ": " + generic);
+            throw new ObjectRetrievalFailureException(File.class, "No node directory exists for generic index "
+                    + getName() + ": " + generic);
         }
 
         return generic;
@@ -162,9 +188,12 @@ public class GenericIndexResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getQueryableIndexesForNode</p>
+     * <p>
+     * getQueryableIndexesForNode
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link java.util.List} object.
      */
     public List<String> getQueryableIndexesForNode(int nodeId) {
@@ -172,8 +201,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         List<String> indexes = new LinkedList<String>();
 
-        File[] indexDirs =
-            nodeDir.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER);
+        File[] indexDirs = nodeDir.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER);
 
         if (indexDirs == null) {
             return indexes;
@@ -187,9 +215,12 @@ public class GenericIndexResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getQueryableIndexesForNodeSource</p>
+     * <p>
+     * getQueryableIndexesForNodeSource
+     * </p>
      *
-     * @param nodeSource a String.
+     * @param nodeSource
+     *            a String.
      * @return a {@link java.util.List} object.
      */
     public List<String> getQueryableIndexesForNodeSource(String nodeSource) {
@@ -197,8 +228,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         List<String> indexes = new LinkedList<String>();
 
-        File[] indexDirs =
-            dir.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER);
+        File[] indexDirs = dir.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER);
 
         if (indexDirs == null) {
             return indexes;
@@ -212,10 +242,14 @@ public class GenericIndexResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getResourceByNodeAndIndex</p>
+     * <p>
+     * getResourceByNodeAndIndex
+     * </p>
      *
-     * @param nodeId a int.
-     * @param index a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param index
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceByNodeAndIndex(int nodeId, final String index) {
@@ -224,10 +258,14 @@ public class GenericIndexResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getResourceByNodeSourceAndIndex</p>
+     * <p>
+     * getResourceByNodeSourceAndIndex
+     * </p>
      *
-     * @param nodeSource a {@link java.lang.String} object.
-     * @param index a {@link java.lang.String} object.
+     * @param nodeSource
+     *            a {@link java.lang.String} object.
+     * @param index
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceByNodeSourceAndIndex(String nodeSource, final String index) {
@@ -236,10 +274,14 @@ public class GenericIndexResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getResourceByIndex</p>
+     * <p>
+     * getResourceByIndex
+     * </p>
      *
-     * @param set a Set<OnmsAttribute> object.
-     * @param index a {@link java.lang.String} object.
+     * @param set
+     *            a Set<OnmsAttribute> object.
+     * @param index
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceByIndex(final Set<OnmsAttribute> set, final String index) {
@@ -250,6 +292,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
         } else {
             SymbolTable symbolTable = new SymbolTable() {
                 private int lastN;
+
                 private boolean lastNSet = false;
 
                 @Override
@@ -389,6 +432,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
     public class AttributeLoader implements LazySet.Loader<OnmsAttribute> {
 
         private int m_nodeId;
+
         private String m_index;
 
         public AttributeLoader(int nodeId, String index) {
@@ -398,13 +442,15 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         @Override
         public Set<OnmsAttribute> load() {
-            return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(), getRelativePathForResource(m_nodeId, m_index));
+            return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(),
+                                                                 getRelativePathForResource(m_nodeId, m_index));
         }
     }
 
     public class NodeSourceAttributeLoader implements LazySet.Loader<OnmsAttribute> {
 
         private String m_nodeSource;
+
         private String m_index;
 
         public NodeSourceAttributeLoader(String nodeSource, String index) {
@@ -414,52 +460,54 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         @Override
         public Set<OnmsAttribute> load() {
-            return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(), getRelativePathForNodeSourceResource(m_nodeSource, m_index));
+            return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(),
+                                                                 getRelativePathForNodeSourceResource(m_nodeSource,
+                                                                                                      m_index));
         }
     }
 
     /**
-     * <p>getRelativePathForResource</p>
+     * <p>
+     * getRelativePathForResource
+     * </p>
      *
-     * @param nodeId a int.
-     * @param index a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param index
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getRelativePathForResource(int nodeId, String index) {
-        return DefaultResourceDao.SNMP_DIRECTORY
-            + File.separator + Integer.toString(nodeId)
-            + File.separator + getName()
-            + File.separator + index;
+        return DefaultResourceDao.SNMP_DIRECTORY + File.separator + Integer.toString(nodeId) + File.separator
+                + getName() + File.separator + index;
     }
 
     /**
-     * <p>getRelativePathForNodeSourceResource</p>
+     * <p>
+     * getRelativePathForNodeSourceResource
+     * </p>
      *
-     * @param nodeSource a {@link java.lang.String} object.
-     * @param index a {@link java.lang.String} object.
+     * @param nodeSource
+     *            a {@link java.lang.String} object.
+     * @param index
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getRelativePathForNodeSourceResource(String nodeSource, String index) {
-       String[] ident = nodeSource.split(":");
-       return DefaultResourceDao.SNMP_DIRECTORY
-            + File.separator + DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY
-            + File.separator + ident[0]
-            + File.separator + ident[1]
-            + File.separator + getName()
-            + File.separator + index;
+        String[] ident = nodeSource.split(":");
+        return DefaultResourceDao.SNMP_DIRECTORY + File.separator + DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY
+                + File.separator + ident[0] + File.separator + ident[1] + File.separator + getName() + File.separator
+                + index;
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This resource type is never available for domains.
+     * {@inheritDoc} This resource type is never available for domains.
      * Only the interface resource type is available for domains.
      */
     @Override
     public boolean isResourceTypeOnDomain(String domain) {
         return false;
     }
-
 
     /** {@inheritDoc} */
     @Override
@@ -490,7 +538,6 @@ public class GenericIndexResourceType implements OnmsResourceType {
         ArrayList<OnmsResource> resources = new ArrayList<OnmsResource>();
 
         List<String> indexes = getQueryableIndexesForNodeSource(nodeSource);
-
 
         for (String index : indexes) {
             resources.add(getResourceByNodeSourceAndIndex(nodeSource, index));

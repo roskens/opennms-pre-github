@@ -41,6 +41,7 @@ public class EventIpcManagerProxyTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
     private EventIpcManagerProxy m_proxy = new EventIpcManagerProxy();
+
     private EventListener m_eventListener = m_mocks.createMock(EventListener.class);
 
     public void testAddEventListenerNoProxySet() {

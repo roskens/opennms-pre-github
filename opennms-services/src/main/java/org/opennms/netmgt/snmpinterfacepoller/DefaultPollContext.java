@@ -57,19 +57,24 @@ import org.slf4j.LoggerFactory;
  */
 public class DefaultPollContext implements PollContext {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPollContext.class);
 
     private volatile EventIpcManager m_eventManager;
+
     private volatile String m_name;
+
     private volatile String m_localHostName;
+
     private SnmpInterfaceDao m_snmpInterfaceDao;
+
     private IpInterfaceDao m_ipInterfaceDao;
 
-    private String m_serviceName="SNMP";
+    private String m_serviceName = "SNMP";
 
     /**
-     * <p>getIpInterfaceDao</p>
+     * <p>
+     * getIpInterfaceDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
@@ -78,16 +83,21 @@ public class DefaultPollContext implements PollContext {
     }
 
     /**
-     * <p>setIpInterfaceDao</p>
+     * <p>
+     * setIpInterfaceDao
+     * </p>
      *
-     * @param ipInterfaceDao a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
+     * @param ipInterfaceDao
+     *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
     public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
     /**
-     * <p>getSnmpInterfaceDao</p>
+     * <p>
+     * getSnmpInterfaceDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.SnmpInterfaceDao} object.
      */
@@ -96,16 +106,21 @@ public class DefaultPollContext implements PollContext {
     }
 
     /**
-     * <p>setSnmpInterfaceDao</p>
+     * <p>
+     * setSnmpInterfaceDao
+     * </p>
      *
-     * @param snmpInterfaceDao a {@link org.opennms.netmgt.dao.api.SnmpInterfaceDao} object.
+     * @param snmpInterfaceDao
+     *            a {@link org.opennms.netmgt.dao.api.SnmpInterfaceDao} object.
      */
     public void setSnmpInterfaceDao(SnmpInterfaceDao snmpInterfaceDao) {
         m_snmpInterfaceDao = snmpInterfaceDao;
     }
 
     /**
-     * <p>getEventManager</p>
+     * <p>
+     * getEventManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -114,25 +129,34 @@ public class DefaultPollContext implements PollContext {
     }
 
     /**
-     * <p>setEventManager</p>
+     * <p>
+     * setEventManager
+     * </p>
      *
-     * @param eventManager a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventManager
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public void setEventManager(EventIpcManager eventManager) {
         m_eventManager = eventManager;
     }
 
     /**
-     * <p>setLocalHostName</p>
+     * <p>
+     * setLocalHostName
+     * </p>
      *
-     * @param localHostName a {@link java.lang.String} object.
+     * @param localHostName
+     *            a {@link java.lang.String} object.
      */
     public void setLocalHostName(String localHostName) {
         m_localHostName = localHostName;
     }
 
     /**
-     * <p>getLocalHostName</p>
+     * <p>
+     * getLocalHostName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -141,7 +165,9 @@ public class DefaultPollContext implements PollContext {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -150,19 +176,26 @@ public class DefaultPollContext implements PollContext {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.pollables.PollContext#getCriticalServiceName()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.pollables.PollContext#getCriticalServiceName()
      */
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -174,11 +207,14 @@ public class DefaultPollContext implements PollContext {
     /** {@inheritDoc} */
     @Override
     public void setServiceName(String serviceName) {
-        m_serviceName=serviceName;
+        m_serviceName = serviceName;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.pollables.PollContext#sendEvent(org.opennms.netmgt.xml.event.Event)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.pollables.PollContext#sendEvent(org.opennms
+     * .netmgt.xml.event.Event)
      */
     /** {@inheritDoc} */
     @Override
@@ -190,14 +226,17 @@ public class DefaultPollContext implements PollContext {
         return LOG;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.pollables.PollContext#createEvent(java.lang.String, int, java.net.InetAddress, java.lang.String, java.util.Date)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.pollables.PollContext#createEvent(java.lang
+     * .String, int, java.net.InetAddress, java.lang.String, java.util.Date)
      */
     /** {@inheritDoc} */
     @Override
     public Event createEvent(String uei, int nodeId, String address, Date date, OnmsSnmpInterface snmpinterface) {
 
-            log().debug("createEvent: uei = " + uei + " nodeid = " + nodeId + " date = " + date);
+        log().debug("createEvent: uei = " + uei + " nodeid = " + nodeId + " date = " + date);
 
         EventBuilder bldr = new EventBuilder(uei, this.getName(), date);
         bldr.setNodeid(nodeId);
@@ -211,10 +250,14 @@ public class DefaultPollContext implements PollContext {
 
         bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_IFINDEX, snmpinterface.getIfIndex().toString());
 
-        if (snmpinterface.getIfName() != null) bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_NAME, snmpinterface.getIfName());
-        if (snmpinterface.getIfDescr() != null) bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_DESC, snmpinterface.getIfDescr());
-        if (snmpinterface.getIfAlias() != null) bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_ALIAS, snmpinterface.getIfAlias());
-        if (snmpinterface.getNetMask() != null) bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_MASK, str(snmpinterface.getNetMask()));
+        if (snmpinterface.getIfName() != null)
+            bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_NAME, snmpinterface.getIfName());
+        if (snmpinterface.getIfDescr() != null)
+            bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_DESC, snmpinterface.getIfDescr());
+        if (snmpinterface.getIfAlias() != null)
+            bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_ALIAS, snmpinterface.getIfAlias());
+        if (snmpinterface.getNetMask() != null)
+            bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_MASK, str(snmpinterface.getNetMask()));
 
         return bldr.getEvent();
     }
@@ -232,30 +275,32 @@ public class DefaultPollContext implements PollContext {
     /** {@inheritDoc} */
     @Override
     public void update(OnmsSnmpInterface snmpinterface) {
-    	OnmsSnmpInterface dbSnmpInterface = getSnmpInterfaceDao().findByNodeIdAndIfIndex(snmpinterface.getNode().getId(), snmpinterface.getIfIndex());
-    	if (dbSnmpInterface == null)  {
-        	log().debug("updating SnmpInterface: no interface found on db for: " + snmpinterface.toString());
-    	} else {
-    		dbSnmpInterface.setIfOperStatus(snmpinterface.getIfOperStatus());
-    		dbSnmpInterface.setIfAdminStatus(snmpinterface.getIfAdminStatus());
-    		dbSnmpInterface.setLastSnmpPoll(snmpinterface.getLastSnmpPoll());
-    		log().debug("updating SnmpInterface: " + dbSnmpInterface.toString());
-    		getSnmpInterfaceDao().update(dbSnmpInterface);
-    	}
+        OnmsSnmpInterface dbSnmpInterface = getSnmpInterfaceDao().findByNodeIdAndIfIndex(snmpinterface.getNode().getId(),
+                                                                                         snmpinterface.getIfIndex());
+        if (dbSnmpInterface == null) {
+            log().debug("updating SnmpInterface: no interface found on db for: " + snmpinterface.toString());
+        } else {
+            dbSnmpInterface.setIfOperStatus(snmpinterface.getIfOperStatus());
+            dbSnmpInterface.setIfAdminStatus(snmpinterface.getIfAdminStatus());
+            dbSnmpInterface.setLastSnmpPoll(snmpinterface.getLastSnmpPoll());
+            log().debug("updating SnmpInterface: " + dbSnmpInterface.toString());
+            getSnmpInterfaceDao().update(dbSnmpInterface);
+        }
     }
 
-	@Override
-	public List<OnmsIpInterface> getPollableNodesByIp(String ipaddr) {
-                CriteriaBuilder builder = new CriteriaBuilder(OnmsIpInterface.class);
-                builder.eq("ipAddress", InetAddressUtils.addr(ipaddr)).eq("isSnmpPrimary", PrimaryType.PRIMARY).eq("isManaged", "M");
-		return getIpInterfaceDao().findMatching(builder.toCriteria());
-	}
+    @Override
+    public List<OnmsIpInterface> getPollableNodesByIp(String ipaddr) {
+        CriteriaBuilder builder = new CriteriaBuilder(OnmsIpInterface.class);
+        builder.eq("ipAddress", InetAddressUtils.addr(ipaddr)).eq("isSnmpPrimary", PrimaryType.PRIMARY).eq("isManaged",
+                                                                                                           "M");
+        return getIpInterfaceDao().findMatching(builder.toCriteria());
+    }
 
-	@Override
-	public List<OnmsIpInterface> getPollableNodes() {
-                CriteriaBuilder builder = new CriteriaBuilder(OnmsIpInterface.class);
-                builder.eq("isSnmpPrimary", PrimaryType.PRIMARY).eq("isManaged", "M");
-		return getIpInterfaceDao().findMatching(builder.toCriteria());
-	}
+    @Override
+    public List<OnmsIpInterface> getPollableNodes() {
+        CriteriaBuilder builder = new CriteriaBuilder(OnmsIpInterface.class);
+        builder.eq("isSnmpPrimary", PrimaryType.PRIMARY).eq("isManaged", "M");
+        return getIpInterfaceDao().findMatching(builder.toCriteria());
+    }
 
 }

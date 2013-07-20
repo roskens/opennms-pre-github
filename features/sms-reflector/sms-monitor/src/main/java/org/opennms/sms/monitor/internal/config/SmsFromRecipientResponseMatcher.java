@@ -39,21 +39,23 @@ import org.opennms.sms.reflector.smsservice.SmsRequest;
 import org.opennms.sms.reflector.smsservice.SmsResponse;
 
 /**
- * <p>SmsFromRecipientResponseMatcher class.</p>
+ * <p>
+ * SmsFromRecipientResponseMatcher class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="from-recipient")
+@XmlRootElement(name = "from-recipient")
 public class SmsFromRecipientResponseMatcher extends SequenceResponseMatcher {
     private static final Logger LOG = LoggerFactory.getLogger(SmsFromRecipientResponseMatcher.class);
 
-	/** {@inheritDoc} */
-	@Override
+    /** {@inheritDoc} */
+    @Override
     public boolean matches(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
         LOG.trace("smsFromRecipient.matches({}, {})", request, response);
         if (request instanceof SmsRequest && response instanceof SmsResponse) {
-        	return equals(((SmsResponse)response).getOriginator(), ((SmsRequest)request).getRecipient());
+            return equals(((SmsResponse) response).getOriginator(), ((SmsRequest) request).getRecipient());
         }
 
         return false;
@@ -68,6 +70,5 @@ public class SmsFromRecipientResponseMatcher extends SequenceResponseMatcher {
     public String toString() {
         return "smsFromRecipient()";
     }
-
 
 }

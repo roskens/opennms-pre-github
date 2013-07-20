@@ -41,19 +41,18 @@ public class Report {
 
     /**
      * the name of this report as defined in engine
-     *  configuration
+     * configuration
      */
     private String id;
 
     /**
      * the name of this report as displayed in the webui
-     *
      */
     private String displayName;
 
     /**
      * the name of the engine to use to process and
-     *  render this report
+     * render this report
      */
     private String reportService;
 
@@ -64,9 +63,9 @@ public class Report {
 
     /**
      * determines if the report may be executed and immediately
-     *  displayed in the browser. If not set OpenNMS assumes that
+     * displayed in the browser. If not set OpenNMS assumes that
      * the report
-     *  must be executed in batch mode.
+     * must be executed in batch mode.
      */
     private boolean online;
 
@@ -87,7 +86,6 @@ public class Report {
      * 'displayName' has the following description: the name of
      * this report as displayed in the webui
      *
-     *
      * @return the value of field 'DisplayName'.
      */
     @XmlAttribute(name = "display-name")
@@ -99,7 +97,7 @@ public class Report {
      * Returns the value of field 'id'. The field 'id' has the
      * following description: the name of this report as defined in
      * engine
-     *  configuration
+     * configuration
      *
      * @return the value of field 'Id'.
      */
@@ -112,9 +110,9 @@ public class Report {
      * Returns the value of field 'online'. The field 'online' has
      * the following description: determines if the report may be
      * executed and immediately
-     *  displayed in the browser. If not set OpenNMS assumes that
+     * displayed in the browser. If not set OpenNMS assumes that
      * the report
-     *  must be executed in batch mode.
+     * must be executed in batch mode.
      *
      * @return the value of field 'Online'.
      */
@@ -127,7 +125,7 @@ public class Report {
      * Returns the value of field 'reportService'. The field
      * 'reportService' has the following description: the name of
      * the engine to use to process and
-     *  render this report
+     * render this report
      *
      * @return the value of field 'ReportService'.
      */
@@ -140,9 +138,9 @@ public class Report {
      * Returns the value of field 'online'. The field 'online' has
      * the following description: determines if the report may be
      * executed and immediately
-     *  displayed in the browser. If not set OpenNMS assumes that
+     * displayed in the browser. If not set OpenNMS assumes that
      * the report
-     *  must be executed in batch mode.
+     * must be executed in batch mode.
      *
      * @return the value of field 'Online'.
      */
@@ -152,13 +150,8 @@ public class Report {
 
     @Override
     public String toString() {
-        return "Report{" +
-                "id='" + id + '\'' +
-                ", displayName='" + displayName + '\'' +
-                ", reportService='" + reportService + '\'' +
-                ", description='" + description + '\'' +
-                ", online=" + online +
-                '}';
+        return "Report{" + "id='" + id + '\'' + ", displayName='" + displayName + '\'' + ", reportService='"
+                + reportService + '\'' + ", description='" + description + '\'' + ", online=" + online + '}';
     }
 
     public void setId(String id) {

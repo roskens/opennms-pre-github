@@ -57,9 +57,13 @@ public class NCSAlarmController {
     public static final int DEFAULT_MULTIPLE = 0;
 
     private String m_successView = "alarm/ncs-alarms";
+
     private Integer m_defaultShortLimit = 1000;
+
     private Integer m_defaultLongLimit = 2000;
+
     private AcknowledgeType m_defaultAcknowledgeType = AcknowledgeType.UNACKNOWLEDGED;
+
     private SortStyle m_defaultSortStyle = SortStyle.ID;
 
     @Autowired
@@ -69,7 +73,8 @@ public class NCSAlarmController {
     ServletContext m_servletContext;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         String display = request.getParameter("display");
 
         // handle the style sort parameter
@@ -102,7 +107,7 @@ public class NCSAlarmController {
                     filterList.add(filter);
                 }
             }
-        }else {
+        } else {
             filterList.add(AlarmUtil.getFilter("parmmatchany=componentType=Service", getServletContext()));
         }
 
@@ -140,7 +145,7 @@ public class NCSAlarmController {
         parms.display = display;
         parms.filters = filterList;
         parms.limit = limit;
-        parms.multiple =  multiple;
+        parms.multiple = multiple;
         parms.sortStyle = sortStyle;
 
         AlarmCriteria queryCriteria = new AlarmCriteria(filters, sortStyle, ackType, limit, limit * multiple);

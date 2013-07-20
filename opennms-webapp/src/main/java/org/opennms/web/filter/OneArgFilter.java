@@ -43,14 +43,22 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
     private T m_value;
 
     /**
-     * <p>Constructor for OneArgFilter.</p>
+     * <p>
+     * Constructor for OneArgFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param sqlType a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param value a T object.
-     * @param <T> a T object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param sqlType
+     *            a {@link org.opennms.web.filter.SQLType} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a T object.
+     * @param <T>
+     *            a T object.
      */
     public OneArgFilter(String filterType, SQLType<T> sqlType, String fieldName, String propertyName, T value) {
         super(filterType, sqlType, fieldName, propertyName);
@@ -58,23 +66,32 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a T object.
      */
-    final public T getValue() { return m_value; };
+    final public T getValue() {
+        return m_value;
+    };
 
     /**
-     * <p>getSQLTemplate</p>
+     * <p>
+     * getSQLTemplate
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     abstract public String getSQLTemplate();
 
     /**
-     * <p>getBoundValue</p>
+     * <p>
+     * getBoundValue
+     * </p>
      *
-     * @param value a T object.
+     * @param value
+     *            a T object.
      * @return a T object.
      */
     public T getBoundValue(T value) {
@@ -93,7 +110,6 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
     final public String getValueString() {
         return getValueAsString(m_value);
     }
-
 
     /** {@inheritDoc} */
     @Override

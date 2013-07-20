@@ -72,7 +72,6 @@ import org.springframework.core.io.FileSystemResource;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * Discovery service from the discovery-configuration xml file.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -81,11 +80,15 @@ import org.springframework.core.io.FileSystemResource;
  */
 public class DiscoveryConfigFactory {
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryConfigFactory.class);
+
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     public static final String COMMENT_STR = "#";
+
     public static final char COMMENT_CHAR = '#';
 
     /**
@@ -121,7 +124,8 @@ public class DiscoveryConfigFactory {
     protected DiscoveryConfigFactory() {
     }
 
-    protected void setConfig(final FileSystemResource resource) throws MarshalException, ValidationException, IOException {
+    protected void setConfig(final FileSystemResource resource) throws MarshalException, ValidationException,
+            IOException {
         m_config = CastorUtils.unmarshal(DiscoveryConfiguration.class, resource);
     }
 
@@ -143,9 +147,12 @@ public class DiscoveryConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -181,9 +188,12 @@ public class DiscoveryConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -217,23 +227,32 @@ public class DiscoveryConfigFactory {
     /**
      * Return the discovery configuration object.
      *
-     * @return a {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration}
+     *         object.
      */
     public synchronized DiscoveryConfiguration getConfiguration() {
         return m_config;
     }
 
     /**
-     * <p>saveXml</p>
+     * <p>
+     * saveXml
+     * </p>
      *
-     * @param xml a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
+     * @param xml
+     *            a {@link java.lang.String} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
             getWriteLock().lock();
             try {
-                final Writer fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.DISCOVERY_CONFIG_FILE_NAME)), "UTF-8");
+                final Writer fileWriter = new OutputStreamWriter(
+                                                                 new FileOutputStream(
+                                                                                      ConfigFileConstants.getFile(ConfigFileConstants.DISCOVERY_CONFIG_FILE_NAME)),
+                                                                 "UTF-8");
                 fileWriter.write(xml);
                 fileWriter.flush();
                 fileWriter.close();
@@ -242,18 +261,29 @@ public class DiscoveryConfigFactory {
             }
         }
     }
+
     /**
-     * <p>saveConfiguration</p>
+     * <p>
+     * saveConfiguration
+     * </p>
      *
-     * @param configuration a {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param configuration
+     *            a
+     *            {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration}
+     *            object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public void saveConfiguration(final DiscoveryConfiguration configuration) throws MarshalException, ValidationException, IOException {
+    public void saveConfiguration(final DiscoveryConfiguration configuration) throws MarshalException,
+            ValidationException, IOException {
         getWriteLock().lock();
         try {
-            // marshal to a string first, then write the string to the file. This
+            // marshal to a string first, then write the string to the file.
+            // This
             // way the original config
             // isn't lost if the XML from the marshal is hosed.
             final StringWriter stringWriter = new StringWriter();
@@ -290,7 +320,8 @@ public class DiscoveryConfigFactory {
      *            the retries for all entries in this URL
      * @return a boolean.
      */
-    public static boolean addToSpecificsFromURL(final List<IPPollAddress> specifics, final String url, final long timeout, final int retries) {
+    public static boolean addToSpecificsFromURL(final List<IPPollAddress> specifics, final String url,
+            final long timeout, final int retries) {
         // open the file indicated by the URL
         InputStream is = null;
         try {
@@ -313,16 +344,24 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>addToSpecificsFromURL</p>
+     * <p>
+     * addToSpecificsFromURL
+     * </p>
      *
-     * @param specifics a {@link java.util.List} object.
-     * @param is a {@link java.io.InputStream} object.
-     * @param timeout a long.
-     * @param retries a int.
+     * @param specifics
+     *            a {@link java.util.List} object.
+     * @param is
+     *            a {@link java.io.InputStream} object.
+     * @param timeout
+     *            a long.
+     * @param retries
+     *            a int.
      * @return a boolean.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public static boolean addToSpecificsFromURL(final List<IPPollAddress> specifics, final InputStream is, final long timeout, final int retries) throws IOException {
+    public static boolean addToSpecificsFromURL(final List<IPPollAddress> specifics, final InputStream is,
+            final long timeout, final int retries) throws IOException {
         boolean bRet = true;
 
         try {
@@ -364,7 +403,9 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>getURLSpecifics</p>
+     * <p>
+     * getURLSpecifics
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -376,8 +417,10 @@ public class DiscoveryConfigFactory {
         try {
             Long defaultTimeout = null;
             Integer defaultRetries = null;
-            if (getConfiguration().hasTimeout()) defaultTimeout = getConfiguration().getTimeout();
-            if (getConfiguration().hasRetries()) defaultRetries = getConfiguration().getRetries();
+            if (getConfiguration().hasTimeout())
+                defaultTimeout = getConfiguration().getTimeout();
+            if (getConfiguration().hasRetries())
+                defaultRetries = getConfiguration().getRetries();
 
             for (final IncludeUrl url : getConfiguration().getIncludeUrlCollection()) {
 
@@ -405,7 +448,9 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>getRanges</p>
+     * <p>
+     * getRanges
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -417,12 +462,15 @@ public class DiscoveryConfigFactory {
         try {
             Long defaultTimeout = null;
             Integer defaultRetries = null;
-            if (getConfiguration().hasTimeout()) defaultTimeout = getConfiguration().getTimeout();
-            if (getConfiguration().hasRetries()) defaultRetries = getConfiguration().getRetries();
+            if (getConfiguration().hasTimeout())
+                defaultTimeout = getConfiguration().getTimeout();
+            if (getConfiguration().hasRetries())
+                defaultRetries = getConfiguration().getRetries();
 
             for (final IncludeRange ir : getConfiguration().getIncludeRangeCollection()) {
 
-                // Validate IP range; if invalid, then log and discard this range
+                // Validate IP range; if invalid, then log and discard this
+                // range
                 try {
                     InetAddressUtils.toIpAddrBytes(ir.getBegin());
                 } catch (Throwable e) {
@@ -465,7 +513,9 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>getSpecifics</p>
+     * <p>
+     * getSpecifics
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -477,8 +527,10 @@ public class DiscoveryConfigFactory {
         try {
             Long defaultTimeout = null;
             Integer defaultRetries = null;
-            if (getConfiguration().hasTimeout()) defaultTimeout = getConfiguration().getTimeout();
-            if (getConfiguration().hasRetries()) defaultRetries = getConfiguration().getRetries();
+            if (getConfiguration().hasTimeout())
+                defaultTimeout = getConfiguration().getTimeout();
+            if (getConfiguration().hasRetries())
+                defaultRetries = getConfiguration().getRetries();
 
             for (final Specific s : getConfiguration().getSpecificCollection()) {
 
@@ -510,9 +562,12 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>isExcluded</p>
+     * <p>
+     * isExcluded
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      * @return a boolean.
      */
     public boolean isExcluded(final InetAddress address) {
@@ -536,7 +591,9 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>getIntraPacketDelay</p>
+     * <p>
+     * getIntraPacketDelay
+     * </p>
      *
      * @return a int.
      */
@@ -550,9 +607,12 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>getExcludingInterator</p>
+     * <p>
+     * getExcludingInterator
+     * </p>
      *
-     * @param it a {@link java.util.Iterator} object.
+     * @param it
+     *            a {@link java.util.Iterator} object.
      * @return a {@link java.util.Iterator} object.
      */
     public Iterator<IPPollAddress> getExcludingInterator(final Iterator<IPPollAddress> it) {
@@ -566,7 +626,9 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>getConfiguredAddresses</p>
+     * <p>
+     * getConfiguredAddresses
+     * </p>
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -581,7 +643,7 @@ public class DiscoveryConfigFactory {
             final List<Iterator<IPPollAddress>> iters = new ArrayList<Iterator<IPPollAddress>>();
             iters.add(specifics.iterator());
 
-            for(final IPPollRange range : ranges) {
+            for (final IPPollRange range : ranges) {
                 iters.add(getExcludingInterator(range.iterator()));
             }
 
@@ -592,7 +654,9 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>getRestartSleepTime</p>
+     * <p>
+     * getRestartSleepTime
+     * </p>
      *
      * @return a long.
      */
@@ -606,7 +670,9 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * <p>getInitialSleepTime</p>
+     * <p>
+     * getInitialSleepTime
+     * </p>
      *
      * @return a long.
      */

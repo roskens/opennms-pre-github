@@ -42,9 +42,11 @@ import junit.framework.TestCase;
 public class IPAddrRangeTest extends TestCase {
 
     private final IPAddress addr2 = new IPAddress("192.168.1.3");
+
     private final IPAddress addr3 = new IPAddress("192.168.1.5");
 
     private final IPAddrRange singleton;
+
     private final IPAddrRange small;
 
     public IPAddrRangeTest() throws UnknownHostException {

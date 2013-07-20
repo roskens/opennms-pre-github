@@ -27,6 +27,7 @@
  *******************************************************************************/
 
 package org.opennms.core.utils;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -77,7 +78,7 @@ public class InetAddressUtilsTest {
     @Test
     @Ignore
     public void testOrderingOfLookups() throws Exception {
-        //String lookup = "www.opennms.org";
+        // String lookup = "www.opennms.org";
         String lookup = "www.facebook.com";
         Record[] fb = new Lookup(lookup, Type.AAAA).run();
         fb = new Lookup(lookup, Type.A).run();
@@ -86,17 +87,11 @@ public class InetAddressUtilsTest {
 
     @Test
     public void testMacAddressFunctions() throws Exception {
-        byte[] expected = new byte[] {
-            (byte)0xff,
-            (byte)0x80,
-            (byte)0x0f,
-            (byte)0xf0,
-            (byte)0x01,
-            (byte)0x00
-        };
+        byte[] expected = new byte[] { (byte) 0xff, (byte) 0x80, (byte) 0x0f, (byte) 0xf0, (byte) 0x01, (byte) 0x00 };
         byte[] actual = InetAddressUtils.macAddressStringToBytes("ff:80:f:f0:01:00");
         Assert.assertArrayEquals(expected, actual);
-        //assertEquals("FF:80:0F:F0:01:00", InetAddressUtils.macAddressBytesToString(actual));
+        // assertEquals("FF:80:0F:F0:01:00",
+        // InetAddressUtils.macAddressBytesToString(actual));
         assertEquals("ff800ff00100", InetAddressUtils.macAddressBytesToString(actual));
 
         actual = InetAddressUtils.macAddressStringToBytes("ff:80:f:f0:01:0");

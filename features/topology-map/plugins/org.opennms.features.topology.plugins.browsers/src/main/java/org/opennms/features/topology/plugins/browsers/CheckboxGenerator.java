@@ -45,109 +45,119 @@ import com.vaadin.ui.Table.ColumnGenerator;
 
 public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener {
 
-	private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 2L;
 
-	private final String m_valueProperty;
-	protected final Set<CheckBox> m_checkboxes = new HashSet<CheckBox>();
-	protected Set<Integer> m_selectedCheckboxes = new TreeSet<Integer>();
-	protected Set<Integer> m_notSelectedCheckboxes = new TreeSet<Integer>(); //Explizit not set
-	private boolean m_selectAll = false;
+    private final String m_valueProperty;
 
-	public CheckboxGenerator(String valueProperty) {
-		m_valueProperty = valueProperty;
-	}
+    protected final Set<CheckBox> m_checkboxes = new HashSet<CheckBox>();
 
-	@Override
-	public Object generateCell(Table source, Object itemId, Object columnId) {
-		final Property<Integer> property = source.getContainerProperty(itemId, m_valueProperty);
-		if (property.getValue() == null) {
-			return null;
-		} else {
-			final CheckBox button = new CheckBox();
-			button.setData(property.getValue());
-			button.setValue(isSelected((Integer) property.getValue()));
-			button.addValueChangeListener(new ValueChangeListener() {
+    protected Set<Integer> m_selectedCheckboxes = new TreeSet<Integer>();
 
-				private static final long serialVersionUID = 2991986878904005830L;
+    protected Set<Integer> m_notSelectedCheckboxes = new TreeSet<Integer>(); // Explizit
+                                                                             // not
+                                                                             // set
 
-				@Override
-				public void valueChange(ValueChangeEvent event) {
-					if (Boolean.TRUE.equals(event.getProperty().getValue())) {
-						m_selectedCheckboxes.add(property.getValue());
-						m_notSelectedCheckboxes.remove(property.getValue());
-					} else {
-						m_selectedCheckboxes.remove(property.getValue());
-						m_notSelectedCheckboxes.add(property.getValue());
-					}
-				}
-			});
-			m_checkboxes.add(button);
-			return button;
-		}
-	}
+    private boolean m_selectAll = false;
 
-	private boolean isSelected(Integer id) {
-	    return (m_selectAll || m_selectedCheckboxes.contains(id)) && !m_notSelectedCheckboxes.contains(id);
-	}
+    public CheckboxGenerator(String valueProperty) {
+        m_valueProperty = valueProperty;
+    }
 
-	public Set<Integer> getSelectedIds(Table source) {
-	    if (m_selectAll) {
-	        Set<Integer> selected = new TreeSet<Integer>();
-	        for (Object eachItemId : source.getItemIds()) {
-	           Property<Integer> property = source.getContainerProperty(eachItemId,  m_valueProperty);
-	           if (property == null) continue;
-	           selected.add(property.getValue());
-	        }
+    @Override
+    public Object generateCell(Table source, Object itemId, Object columnId) {
+        final Property<Integer> property = source.getContainerProperty(itemId, m_valueProperty);
+        if (property.getValue() == null) {
+            return null;
+        } else {
+            final CheckBox button = new CheckBox();
+            button.setData(property.getValue());
+            button.setValue(isSelected((Integer) property.getValue()));
+            button.addValueChangeListener(new ValueChangeListener() {
 
-	        //remove unselected
-	        selected.removeAll(m_notSelectedCheckboxes);
-	        return selected;
-	    }
-		return Collections.unmodifiableSet(m_selectedCheckboxes);
-	}
+                private static final long serialVersionUID = 2991986878904005830L;
 
-	public void clearSelectedIds(Table source) {
-	    m_selectAll = false;
+                @Override
+                public void valueChange(ValueChangeEvent event) {
+                    if (Boolean.TRUE.equals(event.getProperty().getValue())) {
+                        m_selectedCheckboxes.add(property.getValue());
+                        m_notSelectedCheckboxes.remove(property.getValue());
+                    } else {
+                        m_selectedCheckboxes.remove(property.getValue());
+                        m_notSelectedCheckboxes.add(property.getValue());
+                    }
+                }
+            });
+            m_checkboxes.add(button);
+            return button;
+        }
+    }
 
-		// Uncheck all of the checkboxes
-		for (CheckBox button : m_checkboxes) {
-			button.setValue(false);
-		}
-		m_selectedCheckboxes.clear();
-		m_notSelectedCheckboxes.clear();
-	}
+    private boolean isSelected(Integer id) {
+        return (m_selectAll || m_selectedCheckboxes.contains(id)) && !m_notSelectedCheckboxes.contains(id);
+    }
 
-	public void selectAll(Table source) {
-	    m_selectAll = true;
+    public Set<Integer> getSelectedIds(Table source) {
+        if (m_selectAll) {
+            Set<Integer> selected = new TreeSet<Integer>();
+            for (Object eachItemId : source.getItemIds()) {
+                Property<Integer> property = source.getContainerProperty(eachItemId, m_valueProperty);
+                if (property == null)
+                    continue;
+                selected.add(property.getValue());
+            }
 
-		m_selectedCheckboxes.clear();
-		m_notSelectedCheckboxes.clear();
-		// Check all of the checkboxes
-		for (CheckBox button : m_checkboxes) {
-			button.setValue(true);
-			m_selectedCheckboxes.add((Integer)button.getData());
-		}
-	}
+            // remove unselected
+            selected.removeAll(m_notSelectedCheckboxes);
+            return selected;
+        }
+        return Collections.unmodifiableSet(m_selectedCheckboxes);
+    }
 
-	@Override
-	public void containerItemSetChange(ItemSetChangeEvent event) {
-		// Delete all of the checkboxes, they will be regenerated during Table.containerItemSetChange()
-		m_checkboxes.clear();
+    public void clearSelectedIds(Table source) {
+        m_selectAll = false;
 
-		// Remove any selected item IDs that are no longer present in the container
-		Iterator<Integer> itr = m_selectedCheckboxes.iterator();
-		while(itr.hasNext()) {
-			if (!event.getContainer().getItemIds().contains(itr.next())) {
-				itr.remove();
-			}
-		}
+        // Uncheck all of the checkboxes
+        for (CheckBox button : m_checkboxes) {
+            button.setValue(false);
+        }
+        m_selectedCheckboxes.clear();
+        m_notSelectedCheckboxes.clear();
+    }
 
-		// Remove any not selected item IDs that are no longer present in the container
-        itr = m_notSelectedCheckboxes.iterator();
-        while(itr.hasNext()) {
+    public void selectAll(Table source) {
+        m_selectAll = true;
+
+        m_selectedCheckboxes.clear();
+        m_notSelectedCheckboxes.clear();
+        // Check all of the checkboxes
+        for (CheckBox button : m_checkboxes) {
+            button.setValue(true);
+            m_selectedCheckboxes.add((Integer) button.getData());
+        }
+    }
+
+    @Override
+    public void containerItemSetChange(ItemSetChangeEvent event) {
+        // Delete all of the checkboxes, they will be regenerated during
+        // Table.containerItemSetChange()
+        m_checkboxes.clear();
+
+        // Remove any selected item IDs that are no longer present in the
+        // container
+        Iterator<Integer> itr = m_selectedCheckboxes.iterator();
+        while (itr.hasNext()) {
             if (!event.getContainer().getItemIds().contains(itr.next())) {
                 itr.remove();
             }
         }
-	}
+
+        // Remove any not selected item IDs that are no longer present in the
+        // container
+        itr = m_notSelectedCheckboxes.iterator();
+        while (itr.hasNext()) {
+            if (!event.getContainer().getItemIds().contains(itr.next())) {
+                itr.remove();
+            }
+        }
+    }
 }

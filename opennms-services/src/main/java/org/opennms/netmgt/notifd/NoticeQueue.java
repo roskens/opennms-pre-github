@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.notifd;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NoticeQueue extends DuplicateTreeMap<Long, NotificationTask> {
     private static final Logger LOG = LoggerFactory.getLogger(NoticeQueue.class);
+
     /**
      *
      */
@@ -53,7 +53,6 @@ public class NoticeQueue extends DuplicateTreeMap<Long, NotificationTask> {
     @Override
     public NotificationTask putItem(Long key, NotificationTask value) {
         NotificationTask ret = super.putItem(key, value);
-
 
         if (LOG.isDebugEnabled()) {
             if (value.getNotifyId() == -1) {

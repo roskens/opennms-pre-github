@@ -38,9 +38,10 @@ import org.opennms.web.svclayer.inventory.InventoryService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-
 /**
- * <p>AdminStorageController class.</p>
+ * <p>
+ * AdminStorageController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,18 +52,25 @@ public class AdminStorageController implements Controller {
     InventoryService m_inventoryService;
 
     /**
-     * <p>getInventoryService</p>
+     * <p>
+     * getInventoryService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *         object.
      */
     public InventoryService getInventoryService() {
         return m_inventoryService;
     }
 
     /**
-     * <p>setInventoryService</p>
+     * <p>
+     * setInventoryService
+     * </p>
      *
-     * @param inventoryService a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @param inventoryService
+     *            a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *            object.
      */
     public void setInventoryService(InventoryService inventoryService) {
         m_inventoryService = inventoryService;
@@ -70,13 +78,12 @@ public class AdminStorageController implements Controller {
 
     /** {@inheritDoc} */
     @Override
-    public ModelAndView handleRequest(HttpServletRequest request,
-            HttpServletResponse arg1) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse arg1) throws Exception {
 
         String node = request.getParameter("node");
         int nodeid = WebSecurityUtils.safeParseInt(node);
-        Map<String, Object> model  = m_inventoryService.getBuckets(nodeid);
-        ModelAndView modelAndView = new ModelAndView("admin/storage/storageAdmin","model",model);
+        Map<String, Object> model = m_inventoryService.getBuckets(nodeid);
+        ModelAndView modelAndView = new ModelAndView("admin/storage/storageAdmin", "model", model);
         return modelAndView;
     }
 

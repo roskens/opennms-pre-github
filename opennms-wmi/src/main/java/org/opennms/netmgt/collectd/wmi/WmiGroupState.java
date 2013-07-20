@@ -31,29 +31,39 @@ package org.opennms.netmgt.collectd.wmi;
 import java.util.Date;
 
 /**
- * <p>WmiGroupState class.</p>
+ * <p>
+ * WmiGroupState class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class WmiGroupState {
     private boolean available = false;
+
     private Date lastChecked;
 
     /**
-     * <p>Constructor for WmiGroupState.</p>
+     * <p>
+     * Constructor for WmiGroupState.
+     * </p>
      *
-     * @param isAvailable a boolean.
+     * @param isAvailable
+     *            a boolean.
      */
     public WmiGroupState(final boolean isAvailable) {
         this(isAvailable, new Date());
     }
 
     /**
-     * <p>Constructor for WmiGroupState.</p>
+     * <p>
+     * Constructor for WmiGroupState.
+     * </p>
      *
-     * @param isAvailable a boolean.
-     * @param lastChecked a {@link java.util.Date} object.
+     * @param isAvailable
+     *            a boolean.
+     * @param lastChecked
+     *            a {@link java.util.Date} object.
      */
     public WmiGroupState(final boolean isAvailable, final Date lastChecked) {
         this.available = isAvailable;
@@ -61,7 +71,9 @@ public class WmiGroupState {
     }
 
     /**
-     * <p>isAvailable</p>
+     * <p>
+     * isAvailable
+     * </p>
      *
      * @return a boolean.
      */
@@ -70,16 +82,21 @@ public class WmiGroupState {
     }
 
     /**
-     * <p>Setter for the field <code>available</code>.</p>
+     * <p>
+     * Setter for the field <code>available</code>.
+     * </p>
      *
-     * @param available a boolean.
+     * @param available
+     *            a boolean.
      */
     public void setAvailable(final boolean available) {
         this.available = available;
     }
 
     /**
-     * <p>Getter for the field <code>lastChecked</code>.</p>
+     * <p>
+     * Getter for the field <code>lastChecked</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -88,9 +105,12 @@ public class WmiGroupState {
     }
 
     /**
-     * <p>Setter for the field <code>lastChecked</code>.</p>
+     * <p>
+     * Setter for the field <code>lastChecked</code>.
+     * </p>
      *
-     * @param lastChecked a {@link java.util.Date} object.
+     * @param lastChecked
+     *            a {@link java.util.Date} object.
      */
     public void setLastChecked(final Date lastChecked) {
         this.lastChecked = lastChecked;

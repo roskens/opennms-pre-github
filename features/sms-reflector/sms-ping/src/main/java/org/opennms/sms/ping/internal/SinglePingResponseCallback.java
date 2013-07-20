@@ -37,7 +37,9 @@ import org.slf4j.LoggerFactory;
 import org.smslib.Message;
 
 /**
- * <p>SinglePingResponseCallback class.</p>
+ * <p>
+ * SinglePingResponseCallback class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Ben Reed</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -50,15 +52,21 @@ public class SinglePingResponseCallback implements PingResponseCallback {
     private static final Logger LOG = LoggerFactory.getLogger(SinglePingResponseCallback.class);
 
     private CountDownLatch bs = new CountDownLatch(1);
+
     @SuppressWarnings("unused")
     private Throwable error = null;
+
     private Long responseTime = null;
+
     private String m_phoneNumber;
 
     /**
-     * <p>Constructor for SinglePingResponseCallback.</p>
+     * <p>
+     * Constructor for SinglePingResponseCallback.
+     * </p>
      *
-     * @param phoneNumber a {@link java.lang.String} object.
+     * @param phoneNumber
+     *            a {@link java.lang.String} object.
      */
     public SinglePingResponseCallback(String phoneNumber) {
         m_phoneNumber = phoneNumber;
@@ -71,7 +79,6 @@ public class SinglePingResponseCallback implements PingResponseCallback {
         responseTime = request.getRoundTripTime();
         bs.countDown();
     }
-
 
     /** {@inheritDoc} */
     @Override
@@ -89,19 +96,26 @@ public class SinglePingResponseCallback implements PingResponseCallback {
     }
 
     /**
-     * <p>waitFor</p>
+     * <p>
+     * waitFor
+     * </p>
      *
-     * @param timeout a long.
-     * @throws java.lang.InterruptedException if any.
+     * @param timeout
+     *            a long.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public void waitFor(long timeout) throws InterruptedException {
         bs.await(timeout, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * <p>waitFor</p>
+     * <p>
+     * waitFor
+     * </p>
      *
-     * @throws java.lang.InterruptedException if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public void waitFor() throws InterruptedException {
         LOG.info("waiting for ping to {} to finish", m_phoneNumber);
@@ -110,13 +124,14 @@ public class SinglePingResponseCallback implements PingResponseCallback {
     }
 
     /**
-     * <p>Getter for the field <code>responseTime</code>.</p>
+     * <p>
+     * Getter for the field <code>responseTime</code>.
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */
     public Long getResponseTime() {
         return responseTime;
     }
-
 
 }

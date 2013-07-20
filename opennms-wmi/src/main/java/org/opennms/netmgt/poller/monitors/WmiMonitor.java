@@ -63,64 +63,68 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public class WmiMonitor extends AbstractServiceMonitor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(WmiMonitor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WmiMonitor.class);
 
+    private final static String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
 
-	private final static String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
-	private final static String DEFAULT_WMI_OBJECT = "Status";
-	private final static String DEFAULT_WMI_COMP_VAL = "OK";
-	private final static String DEFAULT_WMI_MATCH_TYPE = "all";
-	private final static String DEFAULT_WMI_COMP_OP = "EQ";
+    private final static String DEFAULT_WMI_OBJECT = "Status";
+
+    private final static String DEFAULT_WMI_COMP_VAL = "OK";
+
+    private final static String DEFAULT_WMI_MATCH_TYPE = "all";
+
+    private final static String DEFAULT_WMI_COMP_OP = "EQ";
+
     private final static String DEFAULT_WMI_WQL = "NOTSET";
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * Poll the specified address for service availability. During the poll an
-	 * attempt is made to connect the WMI agent on the specified host. If the
-	 * connection request is successful, the parameters are parsed and turned
-	 * into <code>WmiParams</code> and a check is performed against the
-	 * remote WMI service. If the <code>WmiManager</code> responds
-	 * with a <code>WmiResult</code> containing a result code of
-	 * <code>WmiResult.RES_STATE_OK</code> then we have determined that
-	 * we are talking to a valid service and we set the service status to
-	 * SERVICE_AVAILABLE and return.
-	 */
+    /**
+     * {@inheritDoc} Poll the specified address for service availability. During
+     * the poll an
+     * attempt is made to connect the WMI agent on the specified host. If the
+     * connection request is successful, the parameters are parsed and turned
+     * into <code>WmiParams</code> and a check is performed against the
+     * remote WMI service. If the <code>WmiManager</code> responds
+     * with a <code>WmiResult</code> containing a result code of
+     * <code>WmiResult.RES_STATE_OK</code> then we have determined that
+     * we are talking to a valid service and we set the service status to
+     * SERVICE_AVAILABLE and return.
+     */
     @Override
-	public PollStatus poll(final MonitoredService svc, final Map<String,Object> parameters) {
-		// Holds the response reason.
-		String reason = null;
-		// Used to exit the retry loop early, if possible.
-		int serviceStatus = PollStatus.SERVICE_UNAVAILABLE;
-		// This will hold the data the server sends back.
-		WmiResult response = null;
-		// Used to track how long the request took.
-		Double responseTime = null;
-		final NetworkInterface<InetAddress> iface = svc.getNetInterface();
-		// Get the address we're going to poll.
-		final InetAddress ipv4Addr = iface.getAddress();
+    public PollStatus poll(final MonitoredService svc, final Map<String, Object> parameters) {
+        // Holds the response reason.
+        String reason = null;
+        // Used to exit the retry loop early, if possible.
+        int serviceStatus = PollStatus.SERVICE_UNAVAILABLE;
+        // This will hold the data the server sends back.
+        WmiResult response = null;
+        // Used to track how long the request took.
+        Double responseTime = null;
+        final NetworkInterface<InetAddress> iface = svc.getNetInterface();
+        // Get the address we're going to poll.
+        final InetAddress ipv4Addr = iface.getAddress();
 
-		// Validate the interface type.
-		if (iface.getType() != NetworkInterface.TYPE_INET) {
-			throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
-		}
+        // Validate the interface type.
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
-		final WmiAgentConfig agentConfig = WmiPeerFactory.getInstance().getAgentConfig(ipv4Addr);
-		String matchType = DEFAULT_WMI_MATCH_TYPE;
-		String compVal = DEFAULT_WMI_COMP_VAL;
-		String compOp = DEFAULT_WMI_COMP_OP;
-		String wmiClass = DEFAULT_WMI_CLASS;
-		String wmiObject = DEFAULT_WMI_OBJECT;
+        final WmiAgentConfig agentConfig = WmiPeerFactory.getInstance().getAgentConfig(ipv4Addr);
+        String matchType = DEFAULT_WMI_MATCH_TYPE;
+        String compVal = DEFAULT_WMI_COMP_VAL;
+        String compOp = DEFAULT_WMI_COMP_OP;
+        String wmiClass = DEFAULT_WMI_CLASS;
+        String wmiObject = DEFAULT_WMI_OBJECT;
         String wmiWqlStr = DEFAULT_WMI_WQL;
 
         if (parameters != null) {
             if (parameters.get("timeout") != null) {
-            	int timeout = ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout());
+                int timeout = ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout());
                 agentConfig.setTimeout(timeout);
             }
 
             if (parameters.get("retry") != null) {
-            	int retries = ParameterMap.getKeyedInteger(parameters, "retry", agentConfig.getRetries());
+                int retries = ParameterMap.getKeyedInteger(parameters, "retry", agentConfig.getRetries());
                 agentConfig.setRetries(retries);
             }
 
@@ -140,44 +144,49 @@ public class WmiMonitor extends AbstractServiceMonitor {
             }
 
             matchType = ParameterMap.getKeyedString(parameters, "matchType", DEFAULT_WMI_MATCH_TYPE);
-			compVal = ParameterMap.getKeyedString(parameters, "compareValue", DEFAULT_WMI_COMP_VAL);
-			compOp = ParameterMap.getKeyedString(parameters, "compareOp", DEFAULT_WMI_COMP_OP);
+            compVal = ParameterMap.getKeyedString(parameters, "compareValue", DEFAULT_WMI_COMP_VAL);
+            compOp = ParameterMap.getKeyedString(parameters, "compareOp", DEFAULT_WMI_COMP_OP);
             wmiWqlStr = ParameterMap.getKeyedString(parameters, "wql", DEFAULT_WMI_WQL);
             wmiClass = ParameterMap.getKeyedString(parameters, "wmiClass", DEFAULT_WMI_CLASS);
-			wmiObject = ParameterMap.getKeyedString(parameters, "wmiObject", DEFAULT_WMI_OBJECT);
-		}
+            wmiObject = ParameterMap.getKeyedString(parameters, "wmiObject", DEFAULT_WMI_OBJECT);
+        }
 
-        final TimeoutTracker tracker = new TimeoutTracker(parameters, agentConfig.getRetries(), agentConfig.getTimeout());
+        final TimeoutTracker tracker = new TimeoutTracker(parameters, agentConfig.getRetries(),
+                                                          agentConfig.getTimeout());
 
         final String hostAddress = InetAddressUtils.str(ipv4Addr);
-		LOG.debug("poll: address = {}, user = {}, {}", hostAddress, agentConfig.getUsername(), tracker);
+        LOG.debug("poll: address = {}, user = {}, {}", hostAddress, agentConfig.getUsername(), tracker);
 
         WmiManager mgr = null;
 
         for (tracker.reset(); tracker.shouldRetry() && serviceStatus != PollStatus.SERVICE_AVAILABLE; tracker.nextAttempt()) {
-			try {
+            try {
 
-				tracker.startAttempt();
+                tracker.startAttempt();
 
-				LOG.debug("poll: creating WmiManager object.");
+                LOG.debug("poll: creating WmiManager object.");
 
                 // Create a client, set up details and connect.
-				mgr = new WmiManager(hostAddress, agentConfig.getUsername(), agentConfig.getPassword(), agentConfig.getDomain(), matchType);
+                mgr = new WmiManager(hostAddress, agentConfig.getUsername(), agentConfig.getPassword(),
+                                     agentConfig.getDomain(), matchType);
 
-				mgr.setTimeout(tracker.getSoTimeout());
-				mgr.init();
+                mgr.setTimeout(tracker.getSoTimeout());
+                mgr.init();
 
-				LOG.debug("Completed initializing WmiManager object.");
+                LOG.debug("Completed initializing WmiManager object.");
 
                 // We are connected, so upgrade status to unresponsive
                 serviceStatus = PollStatus.SERVICE_UNRESPONSIVE;
 
-                // Set up the parameters the client will use to validate the response.
-                // Note: We will check and see if we were provided with a WQL string.
+                // Set up the parameters the client will use to validate the
+                // response.
+                // Note: We will check and see if we were provided with a WQL
+                // string.
                 WmiParams clientParams = null;
-                if(DEFAULT_WMI_WQL.equals(wmiWqlStr)) {
-				    clientParams = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF, compVal, compOp, wmiClass, wmiObject);
-				    LOG.debug("Attempting to perform operation: \\\\{}\\{}", wmiClass, wmiObject);
+                if (DEFAULT_WMI_WQL.equals(wmiWqlStr)) {
+                    clientParams = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF, compVal, compOp, wmiClass,
+                                                 wmiObject);
+                    LOG.debug("Attempting to perform operation: \\\\{}\\{}", wmiClass, wmiObject);
                 } else {
                     // Create parameters to run a WQL query.
                     clientParams = new WmiParams(WmiParams.WMI_OPERATION_WQL, compVal, compOp, wmiWqlStr, wmiObject);
@@ -185,41 +194,43 @@ public class WmiMonitor extends AbstractServiceMonitor {
                 }
 
                 // Send the request to the server and receive the response..
-				response = mgr.performOp(clientParams);
+                response = mgr.performOp(clientParams);
 
-				LOG.debug("Received result: {}", response);
+                LOG.debug("Received result: {}", response);
 
                 // Now save the time it took to process the check command.
-				responseTime = tracker.elapsedTimeInMillis();
+                responseTime = tracker.elapsedTimeInMillis();
 
-				if (response == null) {
-					continue;
-				}
+                if (response == null) {
+                    continue;
+                }
 
-				final ArrayList<Object> wmiObjects = response.getResponse();
+                final ArrayList<Object> wmiObjects = response.getResponse();
 
-				final StringBuffer reasonBuffer = new StringBuffer();
-				// If there's no WQL string then use the class\object name as the result message
-				if (DEFAULT_WMI_WQL.equals(wmiWqlStr)) {
-				    reasonBuffer.append("Result for ").append(wmiClass).append("\\").append(wmiObject);
-				} else {
-				    // Otherwise, print the WQL statement in the result message
-				    reasonBuffer.append("Result for \"").append(wmiWqlStr).append("\"");
-				}
+                final StringBuffer reasonBuffer = new StringBuffer();
+                // If there's no WQL string then use the class\object name as
+                // the result message
+                if (DEFAULT_WMI_WQL.equals(wmiWqlStr)) {
+                    reasonBuffer.append("Result for ").append(wmiClass).append("\\").append(wmiObject);
+                } else {
+                    // Otherwise, print the WQL statement in the result message
+                    reasonBuffer.append("Result for \"").append(wmiWqlStr).append("\"");
+                }
 
-				if (response.getResultCode() == WmiResult.RES_STATE_OK) {
-					serviceStatus = PollStatus.SERVICE_AVAILABLE;
-					reasonBuffer.append(": ").append(wmiObjects.get(0));
-				} else if (response.getResultCode() == WmiResult.RES_STATE_CRIT) {
-					serviceStatus = PollStatus.SERVICE_UNAVAILABLE;
-					// set this to null so we don't try to save data when the node is down
-					responseTime = null;
-				}
-				reason = reasonBuffer.toString();
-			} catch (final WmiException e) {
-				LOG.debug("WMI Poller received exception from client.", e);
-				reason = "WmiException: " + e.getMessage();
-			} finally {
+                if (response.getResultCode() == WmiResult.RES_STATE_OK) {
+                    serviceStatus = PollStatus.SERVICE_AVAILABLE;
+                    reasonBuffer.append(": ").append(wmiObjects.get(0));
+                } else if (response.getResultCode() == WmiResult.RES_STATE_CRIT) {
+                    serviceStatus = PollStatus.SERVICE_UNAVAILABLE;
+                    // set this to null so we don't try to save data when the
+                    // node is down
+                    responseTime = null;
+                }
+                reason = reasonBuffer.toString();
+            } catch (final WmiException e) {
+                LOG.debug("WMI Poller received exception from client.", e);
+                reason = "WmiException: " + e.getMessage();
+            } finally {
                 if (mgr != null) {
                     try {
                         mgr.close();
@@ -228,8 +239,8 @@ public class WmiMonitor extends AbstractServiceMonitor {
                     }
                 }
             }
-		} // end for(;;)
-		return PollStatus.get(serviceStatus, reason, responseTime);
-	}
+        } // end for(;;)
+        return PollStatus.get(serviceStatus, reason, responseTime);
+    }
 
 }

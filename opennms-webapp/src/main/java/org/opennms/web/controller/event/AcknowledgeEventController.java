@@ -62,34 +62,43 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class AcknowledgeEventController extends AbstractController implements InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AcknowledgeEventController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AcknowledgeEventController.class);
 
     private WebEventRepository m_webEventRepository;
 
     private String m_redirectView;
 
     /**
-     * <p>setRedirectView</p>
+     * <p>
+     * setRedirectView
+     * </p>
      *
-     * @param redirectView a {@link java.lang.String} object.
+     * @param redirectView
+     *            a {@link java.lang.String} object.
      */
     public void setRedirectView(String redirectView) {
         m_redirectView = redirectView;
     }
 
     /**
-     * <p>setWebEventRepository</p>
+     * <p>
+     * setWebEventRepository
+     * </p>
      *
-     * @param webEventRepository a {@link org.opennms.web.event.WebEventRepository} object.
+     * @param webEventRepository
+     *            a {@link org.opennms.web.event.WebEventRepository} object.
      */
     public void setWebEventRepository(WebEventRepository webEventRepository) {
         m_webEventRepository = webEventRepository;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -98,13 +107,13 @@ public class AcknowledgeEventController extends AbstractController implements In
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Acknowledge the events specified in the POST and then redirect the client
+     * {@inheritDoc} Acknowledge the events specified in the POST and then
+     * redirect the client
      * to an appropriate URL for display.
      */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
 
         // required parameter
         String[] eventIdStrings = request.getParameterValues("event");
@@ -137,12 +146,12 @@ public class AcknowledgeEventController extends AbstractController implements In
         if (redirect != null) {
             viewName = redirect;
         } else {
-            viewName = (redirectParms == null || redirectParms=="" || redirectParms=="null" ? m_redirectView : m_redirectView + "?" + redirectParms);
+            viewName = (redirectParms == null || redirectParms == "" || redirectParms == "null" ? m_redirectView
+                : m_redirectView + "?" + redirectParms);
         }
         RedirectView view = new RedirectView(viewName, true);
         return new ModelAndView(view);
 
     }
-
 
 }

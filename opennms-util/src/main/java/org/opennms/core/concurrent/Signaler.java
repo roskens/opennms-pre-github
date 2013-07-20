@@ -35,7 +35,6 @@ package org.opennms.core.concurrent;
  * methods. In some instances is would be nice to alter the default behavior
  * slightly, the signaler interface allows this to occur.
  * </P>
- *
  * <P>
  * An object that implements the Signaler interface is used just like a typical
  * object. But instead of using notify and notifyAll, the methods signal and

@@ -42,7 +42,9 @@ import net.jradius.packet.attribute.AttributeList;
 import org.opennms.netmgt.provision.support.Client;
 
 /**
- * <p>RadiusDetectorClient class.</p>
+ * <p>
+ * RadiusDetectorClient class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -61,28 +63,32 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
     /**
      * Default secret
      */
-    public static final String DEFAULT_SECRET = "secret123"; //"secret";
+    public static final String DEFAULT_SECRET = "secret123"; // "secret";
 
     private RadiusClient m_radiusClient;
+
     private int m_authport = DEFAULT_AUTH_PORT;
+
     private int m_acctport = DEFAULT_ACCT_PORT;
+
     private String m_secret = DEFAULT_SECRET;
+
     private RadiusAuthenticator m_authenticator = new MSCHAPv2Authenticator();
 
     @Override
     public void connect(final InetAddress address, final int port, final int timeout) throws IOException, Exception {
         AttributeFactory.loadAttributeDictionary("net.jradius.dictionary.AttributeDictionaryImpl");
-    	m_radiusClient = new RadiusClient(address, getSecret(), getAuthPort(), getAcctPort(), convertTimeout(timeout));
+        m_radiusClient = new RadiusClient(address, getSecret(), getAuthPort(), getAcctPort(), convertTimeout(timeout));
     }
 
     private int convertTimeout(int timeout) {
 
-		return timeout/1000 > 0 ? timeout/1000 : 1;
-	}
+        return timeout / 1000 > 0 ? timeout / 1000 : 1;
+    }
 
     @Override
-	public void close() {
-    	m_radiusClient.close();
+    public void close() {
+        m_radiusClient.close();
     }
 
     @Override
@@ -93,21 +99,26 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
 
     @Override
     public RadiusPacket sendRequest(final AttributeList attributes) throws Exception {
-    	final AccessRequest request = new AccessRequest(m_radiusClient, attributes);
-    	return m_radiusClient.authenticate(request, getAuthenticator(), 0);
+        final AccessRequest request = new AccessRequest(m_radiusClient, attributes);
+        return m_radiusClient.authenticate(request, getAuthenticator(), 0);
     }
 
     /**
-     * <p>setAuthport</p>
+     * <p>
+     * setAuthport
+     * </p>
      *
-     * @param authport a int.
+     * @param authport
+     *            a int.
      */
     public void setAuthport(final int authport) {
         m_authport = authport;
     }
 
     /**
-     * <p>getAuthPort</p>
+     * <p>
+     * getAuthPort
+     * </p>
      *
      * @return a int.
      */
@@ -116,16 +127,21 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
     }
 
     /**
-     * <p>setAcctPort</p>
+     * <p>
+     * setAcctPort
+     * </p>
      *
-     * @param acctport a int.
+     * @param acctport
+     *            a int.
      */
     public void setAcctPort(final int acctport) {
         m_acctport = acctport;
     }
 
     /**
-     * <p>getAcctPort</p>
+     * <p>
+     * getAcctPort
+     * </p>
      *
      * @return a int.
      */
@@ -134,16 +150,21 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
     }
 
     /**
-     * <p>setSecret</p>
+     * <p>
+     * setSecret
+     * </p>
      *
-     * @param secret a {@link java.lang.String} object.
+     * @param secret
+     *            a {@link java.lang.String} object.
      */
     public void setSecret(final String secret) {
         m_secret = secret;
     }
 
     /**
-     * <p>getSecret</p>
+     * <p>
+     * getSecret
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -152,10 +173,10 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
     }
 
     public void setAuthenticator(final RadiusAuthenticator authenticator) {
-    	m_authenticator = authenticator;
+        m_authenticator = authenticator;
     }
 
     public RadiusAuthenticator getAuthenticator() {
-    	return m_authenticator;
+        return m_authenticator;
     }
 }

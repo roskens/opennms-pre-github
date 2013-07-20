@@ -47,22 +47,28 @@ public abstract class XmlCollectionResource extends AbstractCollectionResource {
     /**
      * Instantiates a new XML collection resource.
      *
-     * @param agent the agent
+     * @param agent
+     *            the agent
      */
     public XmlCollectionResource(CollectionAgent agent) {
         super(agent);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionResource#shouldPersist(
+     * org.opennms.netmgt.config.collector.ServiceParameters)
      */
     @Override
     public boolean shouldPersist(ServiceParameters params) {
         return true;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#rescanNeeded()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionResource#rescanNeeded()
      */
     @Override
     public boolean rescanNeeded() {
@@ -73,15 +79,18 @@ public abstract class XmlCollectionResource extends AbstractCollectionResource {
     /**
      * Sets the attribute value.
      *
-     * @param type the type
-     * @param value the value
+     * @param type
+     *            the type
+     * @param value
+     *            the value
      */
     public void setAttributeValue(XmlCollectionAttributeType type, String value) {
         XmlCollectionAttribute attr = new XmlCollectionAttribute(this, type, value);
         addAttribute(attr);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getType()
      */
     @Override
@@ -89,19 +98,24 @@ public abstract class XmlCollectionResource extends AbstractCollectionResource {
         return -1; // Is this right?
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.config.collector.CollectionResource#getResourceTypeName()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.config.collector.CollectionResource#getResourceTypeName
+     * ()
      */
     @Override
     public abstract String getResourceTypeName();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.collector.CollectionResource#getInstance()
      */
     @Override
     public abstract String getInstance();
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
      */
     @Override
@@ -109,8 +123,10 @@ public abstract class XmlCollectionResource extends AbstractCollectionResource {
         return m_agent.getStorageDir().toString();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getTimeKeeper()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionResource#getTimeKeeper()
      */
     @Override
     public TimeKeeper getTimeKeeper() {
@@ -120,7 +136,8 @@ public abstract class XmlCollectionResource extends AbstractCollectionResource {
     /**
      * Sets the time keeper.
      *
-     * @param timeKeeper the new time keeper
+     * @param timeKeeper
+     *            the new time keeper
      */
     public void setTimeKeeper(TimeKeeper timeKeeper) {
         m_timeKeeper = timeKeeper;

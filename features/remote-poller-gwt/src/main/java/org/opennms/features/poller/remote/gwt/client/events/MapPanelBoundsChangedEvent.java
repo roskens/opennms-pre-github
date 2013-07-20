@@ -33,7 +33,9 @@ import org.opennms.features.poller.remote.gwt.client.GWTBounds;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * <p>MapPanelBoundsChangedEvent class.</p>
+ * <p>
+ * MapPanelBoundsChangedEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,12 +45,18 @@ public class MapPanelBoundsChangedEvent extends GwtEvent<MapPanelBoundsChangedEv
 
     /** Constant <code>TYPE</code> */
     public static Type<MapPanelBoundsChangedEventHandler> TYPE = new Type<MapPanelBoundsChangedEventHandler>();
+
     private GWTBounds m_newBounds;
 
     /**
-     * <p>Constructor for MapPanelBoundsChangedEvent.</p>
+     * <p>
+     * Constructor for MapPanelBoundsChangedEvent.
+     * </p>
      *
-     * @param bounds a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds} object.
+     * @param bounds
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
+     *            object.
      */
     public MapPanelBoundsChangedEvent(GWTBounds bounds) {
         setBounds(bounds);
@@ -72,9 +80,12 @@ public class MapPanelBoundsChangedEvent extends GwtEvent<MapPanelBoundsChangedEv
     }
 
     /**
-     * <p>getBounds</p>
+     * <p>
+     * getBounds
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds} object.
+     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
+     *         object.
      */
     public GWTBounds getBounds() {
         return m_newBounds;

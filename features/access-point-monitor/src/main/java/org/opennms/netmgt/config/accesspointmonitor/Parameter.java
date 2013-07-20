@@ -90,10 +90,7 @@ public class Parameter implements Serializable, Comparable<Parameter>, Cloneable
 
     @Override
     public int compareTo(Parameter obj) {
-        return new CompareToBuilder()
-            .append(getKey(), obj.getKey())
-            .append(getValue(), obj.getValue())
-            .toComparison();
+        return new CompareToBuilder().append(getKey(), obj.getKey()).append(getValue(), obj.getValue()).toComparison();
     }
 
     @Override
@@ -109,10 +106,7 @@ public class Parameter implements Serializable, Comparable<Parameter>, Cloneable
     public boolean equals(Object obj) {
         if (obj instanceof Parameter) {
             Parameter other = (Parameter) obj;
-            return new EqualsBuilder()
-                .append(getKey(), other.getKey())
-                .append(getValue(), other.getValue())
-                .isEquals();
+            return new EqualsBuilder().append(getKey(), other.getKey()).append(getValue(), other.getValue()).isEquals();
         }
         return false;
     }

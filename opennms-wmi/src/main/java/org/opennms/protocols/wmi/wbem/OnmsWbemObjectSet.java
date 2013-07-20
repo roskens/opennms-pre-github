@@ -31,7 +31,9 @@ package org.opennms.protocols.wmi.wbem;
 import org.opennms.protocols.wmi.WmiException;
 
 /**
- * <p>OnmsWbemObjectSet interface.</p>
+ * <p>
+ * OnmsWbemObjectSet interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,19 +41,26 @@ import org.opennms.protocols.wmi.WmiException;
 public interface OnmsWbemObjectSet {
 
     /**
-     * <p>count</p>
+     * <p>
+     * count
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public Integer count() throws WmiException;
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param idx a {@link java.lang.Integer} object.
+     * @param idx
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObject} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public OnmsWbemObject get(Integer idx) throws WmiException;
 }

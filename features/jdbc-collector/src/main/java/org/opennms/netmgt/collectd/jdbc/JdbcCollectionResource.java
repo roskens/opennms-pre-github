@@ -58,7 +58,7 @@ public abstract class JdbcCollectionResource extends AbstractCollectionResource 
 
     @Override
     public int getType() {
-        return -1; //Is this right?
+        return -1; // Is this right?
     }
 
     @Override

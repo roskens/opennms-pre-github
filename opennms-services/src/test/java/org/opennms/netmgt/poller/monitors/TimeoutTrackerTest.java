@@ -36,7 +36,6 @@ import org.opennms.core.utils.TimeoutTracker;
 import junit.framework.TestCase;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class TimeoutTrackerTest extends TestCase {
@@ -45,11 +44,11 @@ public class TimeoutTrackerTest extends TestCase {
 
         int retries = 2;
 
-        Map<String,?> emptyMap = Collections.emptyMap();
+        Map<String, ?> emptyMap = Collections.emptyMap();
         TimeoutTracker tracker = new TimeoutTracker(emptyMap, retries, 3000);
 
         int count = 0;
-        for(tracker.reset(); tracker.shouldRetry(); tracker.nextAttempt()) {
+        for (tracker.reset(); tracker.shouldRetry(); tracker.nextAttempt()) {
             tracker.startAttempt();
             count++;
             assertTrue(tracker.elapsedTimeInMillis() < 100);
@@ -58,16 +57,15 @@ public class TimeoutTrackerTest extends TestCase {
         assertEquals("expected one try and 2 retries", 3, count);
     }
 
-
     public void testElapsedTimeButNoStartAttempt() {
 
-        Map<String,?> emptyMap = Collections.emptyMap();
+        Map<String, ?> emptyMap = Collections.emptyMap();
         TimeoutTracker tracker = new TimeoutTracker(emptyMap, 0, 3000);
 
         try {
             tracker.elapsedTimeInMillis();
             fail("expected an exception since no startAttempt is called");
-        } catch(IllegalStateException e) {
+        } catch (IllegalStateException e) {
             // w00t..
         }
 
@@ -77,7 +75,7 @@ public class TimeoutTrackerTest extends TestCase {
 
         long sleepTime = 200L;
 
-        Map<String,?> emptyMap = Collections.emptyMap();
+        Map<String, ?> emptyMap = Collections.emptyMap();
         TimeoutTracker tracker = new TimeoutTracker(emptyMap, 0, 3000);
 
         tracker.startAttempt();
@@ -88,8 +86,10 @@ public class TimeoutTrackerTest extends TestCase {
 
         long minTime = sleepTime;
         long maxTime = 2 * sleepTime;
-        assertTrue("Expected value for elapsedTimeInMillis should be greater than " + minTime, elapsedTimeInMillis > (minTime - 1));
-        assertTrue("Expected value for elapsedTimeInMillis should be less than " + maxTime, elapsedTimeInMillis < (maxTime + 1));
+        assertTrue("Expected value for elapsedTimeInMillis should be greater than " + minTime,
+                   elapsedTimeInMillis > (minTime - 1));
+        assertTrue("Expected value for elapsedTimeInMillis should be less than " + maxTime,
+                   elapsedTimeInMillis < (maxTime + 1));
     }
 
 }

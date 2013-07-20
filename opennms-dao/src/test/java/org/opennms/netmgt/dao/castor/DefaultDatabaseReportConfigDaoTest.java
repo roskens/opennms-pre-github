@@ -38,7 +38,9 @@ import org.springframework.core.io.Resource;
 public class DefaultDatabaseReportConfigDaoTest {
 
     private static final String NAME = "defaultCalendarReport";
+
     private static final String REPORT_SERVICE = "availabilityReportService";
+
     private static DefaultDatabaseReportConfigDao m_dao;
 
     @BeforeClass
@@ -54,21 +56,21 @@ public class DefaultDatabaseReportConfigDaoTest {
     @Test
     public void testGetReports() throws Exception {
 
-        assertEquals(2,m_dao.getReports().size());
+        assertEquals(2, m_dao.getReports().size());
 
     }
 
     @Test
     public void testGetOnlineReports() throws Exception {
 
-        assertEquals(1,m_dao.getOnlineReports().size());
+        assertEquals(1, m_dao.getOnlineReports().size());
 
     }
 
     @Test
     public void testGetReportService() throws Exception {
 
-        assertEquals(REPORT_SERVICE,m_dao.getReportService(NAME));
+        assertEquals(REPORT_SERVICE, m_dao.getReportService(NAME));
 
     }
 

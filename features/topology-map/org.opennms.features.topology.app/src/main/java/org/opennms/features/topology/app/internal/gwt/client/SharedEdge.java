@@ -3,10 +3,15 @@ package org.opennms.features.topology.app.internal.gwt.client;
 public class SharedEdge {
 
     private String m_key;
+
     private String m_sourceKey;
+
     private String m_targetKey;
+
     private boolean m_selected;
+
     private String m_styleName;
+
     private String m_tooltipText;
 
     public void setKey(String key) {

@@ -37,7 +37,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 @XmlRootElement
 /**
  * <p>ParameterList class.</p>
@@ -46,39 +45,50 @@ import javax.xml.bind.annotation.XmlType;
  * @version $Id: $
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="pluginConfigParameter")
+@XmlType(name = "pluginConfigParameter")
 public class ParameterList {
     public List<PluginParameter> parameter;
+
     /**
-     * <p>Constructor for ParameterList.</p>
+     * <p>
+     * Constructor for ParameterList.
+     * </p>
      */
     public ParameterList() {
         parameter = new LinkedList<PluginParameter>();
     }
 
     /**
-     * <p>Constructor for ParameterList.</p>
+     * <p>
+     * Constructor for ParameterList.
+     * </p>
      *
-     * @param m a {@link java.util.Map} object.
+     * @param m
+     *            a {@link java.util.Map} object.
      */
-    public ParameterList(Map<String,String> m) {
+    public ParameterList(Map<String, String> m) {
         parameter = new LinkedList<PluginParameter>();
-        for (Map.Entry<String,String> e : m.entrySet()) {
+        for (Map.Entry<String, String> e : m.entrySet()) {
             parameter.add(new PluginParameter(e));
         }
     }
 
     /**
-     * <p>Setter for the field <code>parameter</code>.</p>
+     * <p>
+     * Setter for the field <code>parameter</code>.
+     * </p>
      *
-     * @param list a {@link java.util.List} object.
+     * @param list
+     *            a {@link java.util.List} object.
      */
     public void setParameter(List<PluginParameter> list) {
         parameter = list;
     }
 
     /**
-     * <p>Getter for the field <code>parameter</code>.</p>
+     * <p>
+     * Getter for the field <code>parameter</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */

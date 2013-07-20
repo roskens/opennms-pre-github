@@ -42,15 +42,15 @@ import org.springframework.util.Assert;
 /**
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
- *
  */
 public class MockForeignSourceRepository extends AbstractForeignSourceRepository {
-    private final Map<String,Requisition> m_requisitions = new HashMap<String,Requisition>();
-    private final Map<String,ForeignSource> m_foreignSources = new HashMap<String,ForeignSource>();
+    private final Map<String, Requisition> m_requisitions = new HashMap<String, Requisition>();
+
+    private final Map<String, ForeignSource> m_foreignSources = new HashMap<String, ForeignSource>();
 
     @Override
     public Set<String> getActiveForeignSourceNames() {
-    	final Set<String> fsNames = new TreeSet<String>();
+        final Set<String> fsNames = new TreeSet<String>();
         fsNames.addAll(m_requisitions.keySet());
         fsNames.addAll(m_foreignSources.keySet());
         return fsNames;
@@ -71,11 +71,11 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
         Assert.notNull(foreignSourceName);
         final ForeignSource foreignSource = m_foreignSources.get(foreignSourceName);
         if (foreignSource == null) {
-        	if (foreignSourceName == "default") {
-        		return super.getDefaultForeignSource();
-        	} else {
-        		return getDefaultForeignSource();
-        	}
+            if (foreignSourceName == "default") {
+                return super.getDefaultForeignSource();
+            } else {
+                return getDefaultForeignSource();
+            }
         }
         return foreignSource;
     }
@@ -133,7 +133,7 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
     @Override
     public Date getRequisitionDate(final String foreignSource) {
         final Requisition requisition = m_requisitions.get(foreignSource);
-        return requisition == null? null : requisition.getDate();
+        return requisition == null ? null : requisition.getDate();
     }
 
     @Override
@@ -143,11 +143,11 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
 
     @Override
     public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException {
-    	final ForeignSource fs = getForeignSource("default");
-    	if (fs == null) {
-    		return super.getDefaultForeignSource();
-    	}
-    	return fs;
+        final ForeignSource fs = getForeignSource("default");
+        if (fs == null) {
+            return super.getDefaultForeignSource();
+        }
+        return fs;
     }
 
     @Override
@@ -164,6 +164,7 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
 
     @Override
     public void flush() throws ForeignSourceRepositoryException {
-        // Unnecessary, there is no caching/delayed writes in MockForeignSourceRepository
+        // Unnecessary, there is no caching/delayed writes in
+        // MockForeignSourceRepository
     }
 }

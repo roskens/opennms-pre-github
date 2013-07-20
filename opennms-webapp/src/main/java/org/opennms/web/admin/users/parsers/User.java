@@ -93,7 +93,9 @@ public class User implements Cloneable {
     }
 
     /**
-     * <p>clone</p>
+     * <p>
+     * clone
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -118,18 +120,24 @@ public class User implements Cloneable {
     }
 
     /**
-     * <p>addPropertyChangeListener</p>
+     * <p>
+     * addPropertyChangeListener
+     * </p>
      *
-     * @param listener a {@link java.beans.PropertyChangeListener} object.
+     * @param listener
+     *            a {@link java.beans.PropertyChangeListener} object.
      */
     public synchronized void addPropertyChangeListener(PropertyChangeListener listener) {
         m_propChange.addPropertyChangeListener(listener);
     }
 
     /**
-     * <p>removePropertyChangeListener</p>
+     * <p>
+     * removePropertyChangeListener
+     * </p>
      *
-     * @param listener a {@link java.beans.PropertyChangeListener} object.
+     * @param listener
+     *            a {@link java.beans.PropertyChangeListener} object.
      */
     public synchronized void removePropertyChangeListener(PropertyChangeListener listener) {
         m_propChange.removePropertyChangeListener(listener);
@@ -229,7 +237,8 @@ public class User implements Cloneable {
      *
      * @param aPassword
      *            the password
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     public void setUnencryptedPassword(String aPassword) throws IllegalStateException {
         m_password = encryptPassword(aPassword);
@@ -241,7 +250,8 @@ public class User implements Cloneable {
      * @param aPassword
      *            the password to encrypt
      * @return the MD5 hash of the password, or null if the encryption fails
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     public static String encryptPassword(String aPassword) throws IllegalStateException {
         String encryptedPassword = null;

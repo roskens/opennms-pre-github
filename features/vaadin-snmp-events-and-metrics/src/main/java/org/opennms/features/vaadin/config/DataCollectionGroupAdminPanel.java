@@ -61,7 +61,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 /**
  * The Class Data Collection Group Administration Panel.
  */
-// TODO When deleting a group, all the SNMP collections UI components must be updated.
+// TODO When deleting a group, all the SNMP collections UI components must be
+// updated.
 @SuppressWarnings("serial")
 public class DataCollectionGroupAdminPanel extends VerticalLayout {
     private static final Logger LOG = LoggerFactory.getLogger(DataCollectionGroupAdminPanel.class);
@@ -71,7 +72,8 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
     /**
      * Instantiates a new data collection group administration panel.
      *
-     * @param dataCollectionDao the OpenNMS data collection configuration DAO
+     * @param dataCollectionDao
+     *            the OpenNMS data collection configuration DAO
      */
     public DataCollectionGroupAdminPanel(final DataCollectionConfigDao dataCollectionDao) {
         setCaption("Data Collection Groups");
@@ -102,7 +104,8 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
                     m_selectedGroup = dcGroup.getName();
                     addDataCollectionGroupPanel(dataCollectionDao, file, dcGroup);
                 } catch (Exception e) {
-                    LOG.error("an error ocurred while parsing the data collection configuration {}: {}", file, e.getMessage(), e);
+                    LOG.error("an error ocurred while parsing the data collection configuration {}: {}", file,
+                              e.getMessage(), e);
                     Notification.show("Can't parse file " + file + " because " + e.getMessage());
                 }
             }
@@ -137,10 +140,13 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
                     return;
                 }
                 final File file = (File) dcGroupSource.getValue();
-                MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+                MessageBox mb = new MessageBox(
+                                               getUI().getWindows().iterator().next(),
                                                "Are you sure?",
                                                MessageBox.Icon.QUESTION,
-                                               "Do you really want to remove the file " + file.getName() + "?<br/>This cannot be undone and OpenNMS won't be able to collect the metrics defined on this file.",
+                                               "Do you really want to remove the file "
+                                                       + file.getName()
+                                                       + "?<br/>This cannot be undone and OpenNMS won't be able to collect the metrics defined on this file.",
                                                new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
                                                new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
                 mb.addStyleName(Runo.WINDOW_DIALOG);
@@ -153,12 +159,14 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
                                 try {
                                     // Updating datacollection-config.xml
                                     File configFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
-                                    DatacollectionConfig config = JaxbUtils.unmarshal(DatacollectionConfig.class, configFile);
+                                    DatacollectionConfig config = JaxbUtils.unmarshal(DatacollectionConfig.class,
+                                                                                      configFile);
                                     boolean modified = false;
                                     for (SnmpCollection collection : config.getSnmpCollectionCollection()) {
                                         for (Iterator<IncludeCollection> it = collection.getIncludeCollectionCollection().iterator(); it.hasNext();) {
                                             IncludeCollection ic = it.next();
-                                            if (m_selectedGroup != null && m_selectedGroup.equals(ic.getDataCollectionGroup())) {
+                                            if (m_selectedGroup != null
+                                                    && m_selectedGroup.equals(ic.getDataCollectionGroup())) {
                                                 it.remove();
                                                 modified = true;
                                             }
@@ -172,8 +180,10 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
                                     dcGroupSource.select(null);
                                     removeDataCollectionGroupPanel();
                                 } catch (Exception e) {
-                                    LOG.error("an error ocurred while saving the data collection configuration: {}", e.getMessage(), e);
-                                    Notification.show("Can't save data collection configuration. " + e.getMessage(), Notification.Type.ERROR_MESSAGE);
+                                    LOG.error("an error ocurred while saving the data collection configuration: {}",
+                                              e.getMessage(), e);
+                                    Notification.show("Can't save data collection configuration. " + e.getMessage(),
+                                                      Notification.Type.ERROR_MESSAGE);
                                 }
                             } else {
                                 Notification.show("Cannot delete file " + file, Notification.Type.WARNING_MESSAGE);
@@ -192,24 +202,31 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
     /**
      * Adds a data collection group panel.
      *
-     * @param dataCollectionDao the OpenNMS data collection configuration DAO
-     * @param file data collection group file name
-     * @param dcGroup the data collection group object
+     * @param dataCollectionDao
+     *            the OpenNMS data collection configuration DAO
+     * @param file
+     *            data collection group file name
+     * @param dcGroup
+     *            the data collection group object
      */
-    private void addDataCollectionGroupPanel(final DataCollectionConfigDao dataCollectionDao, final File file, final DatacollectionGroup dcGroup) {
+    private void addDataCollectionGroupPanel(final DataCollectionConfigDao dataCollectionDao, final File file,
+            final DatacollectionGroup dcGroup) {
         DataCollectionGroupPanel panel = new DataCollectionGroupPanel(dataCollectionDao, dcGroup, new SimpleLogger()) {
             @Override
             public void cancel() {
                 this.setVisible(false);
             }
+
             @Override
             public void success() {
                 Notification.show("Data collection group file " + file.getName() + " has been successfuly saved.");
                 this.setVisible(false);
             }
+
             @Override
             public void failure() {
-                Notification.show("Data collection group file " + file.getName() + " cannot be saved.", Notification.Type.ERROR_MESSAGE);
+                Notification.show("Data collection group file " + file.getName() + " cannot be saved.",
+                                  Notification.Type.ERROR_MESSAGE);
             }
         };
         panel.setCaption("Data Collection from " + file.getName());

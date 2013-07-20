@@ -9,8 +9,6 @@ public class EqFilter extends AttributeComparisonFilter {
         m_value = value;
     }
 
-
-
     @Override
     protected boolean valueMatches(String value) {
         return m_value.equals(value);
@@ -29,12 +27,7 @@ public class EqFilter extends AttributeComparisonFilter {
     }
 
     private String escaped(String value) {
-        return value
-            .replace("\\", "\\\\")
-            .replace("*", "\\*")
-            .replace(")", "\\)")
-            .replace("(", "\\(")
-            ;
+        return value.replace("\\", "\\\\").replace("*", "\\*").replace(")", "\\)").replace("(", "\\(");
     }
 
 }

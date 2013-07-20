@@ -51,6 +51,7 @@ public class AbstractNorthbounderTest {
     public static class TestNorthbounder extends AbstractNorthbounder {
 
         private List<NorthboundAlarm> m_alarms;
+
         private boolean m_accepting;
 
         private CountDownLatch m_forwardAlarmsCalled = new CountDownLatch(1);
@@ -68,8 +69,7 @@ public class AbstractNorthbounderTest {
         }
 
         @Override
-        public void forwardAlarms(List<NorthboundAlarm> alarms)
-                throws NorthbounderException {
+        public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
 
             m_alarms = alarms;
             m_forwardAlarmsCalled.countDown();
@@ -83,7 +83,6 @@ public class AbstractNorthbounderTest {
         public void waitForAcceptsToBeCalled(long waitTime) throws InterruptedException {
             m_acceptsCalled.await(waitTime, TimeUnit.MILLISECONDS);
         }
-
 
         public List<NorthboundAlarm> getAlarms() {
             return m_alarms;
@@ -176,7 +175,5 @@ public class AbstractNorthbounderTest {
 
         return new NorthboundAlarm(alarm);
     }
-
-
 
 }

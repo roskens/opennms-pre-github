@@ -38,7 +38,6 @@ import org.opennms.sms.ping.SmsPingTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * SmsPingTrackerImpl
  *
@@ -50,10 +49,15 @@ public class SmsPingTrackerImpl extends RequestTracker<PingRequest, PingReply> i
     private static final Logger LOG = LoggerFactory.getLogger(SmsPingTrackerImpl.class);
 
     /**
-     * <p>Constructor for SmsPingTrackerImpl.</p>
+     * <p>
+     * Constructor for SmsPingTrackerImpl.
+     * </p>
      *
-     * @param smsMessenger a {@link org.opennms.sms.ping.internal.SmsPingMessenger} object.
-     * @throws java.io.IOException if any.
+     * @param smsMessenger
+     *            a {@link org.opennms.sms.ping.internal.SmsPingMessenger}
+     *            object.
+     * @throws java.io.IOException
+     *             if any.
      */
     public SmsPingTrackerImpl(SmsPingMessenger smsMessenger) throws IOException {
         super("SMS", smsMessenger, new IDBasedRequestLocator<PingRequestId, PingRequest, PingReply>());
@@ -66,7 +70,8 @@ public class SmsPingTrackerImpl extends RequestTracker<PingRequest, PingReply> i
         sendRequest(new PingRequest(new PingRequestId(phoneNumber), timeout, retries, cb));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.protocols.rt.RequestTracker#start()
      */
     /** {@inheritDoc} */
@@ -77,16 +82,15 @@ public class SmsPingTrackerImpl extends RequestTracker<PingRequest, PingReply> i
         LOG.debug("Called start()");
     }
 
-
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     public void stop() {
         LOG.debug("Calling stop()");
 
         LOG.debug("Called stop()");
     }
-
-
 
 }

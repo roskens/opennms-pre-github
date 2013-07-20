@@ -30,9 +30,10 @@ package org.opennms.netmgt.config.collector;
 
 import java.util.Date;
 
-
 /**
- * <p>CollectionSet interface.</p>
+ * <p>
+ * CollectionSet interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,22 +41,31 @@ import java.util.Date;
 public interface CollectionSet {
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return an int (one of the ServiceCollector.COLLECTION_<FOO> values)
      */
     public int getStatus();
 
     /**
-     * Provide a way to visit all the values in the CollectionSet, for any appropriate purposes (persisting, thresholding, or others)
-     * The expectation is that calling this method will ultimately call visitResource, visitGroup and visitAttribute (as appropriate)
+     * Provide a way to visit all the values in the CollectionSet, for any
+     * appropriate purposes (persisting, thresholding, or others)
+     * The expectation is that calling this method will ultimately call
+     * visitResource, visitGroup and visitAttribute (as appropriate)
      *
-     * @param visitor a {@link org.opennms.netmgt.config.collector.CollectionSetVisitor} object.
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionSetVisitor}
+     *            object.
      */
     public void visit(CollectionSetVisitor visitor);
 
     /**
-     * <p>ignorePersist</p>
+     * <p>
+     * ignorePersist
+     * </p>
      *
      * @return a boolean.
      */
@@ -64,7 +74,8 @@ public interface CollectionSet {
     /**
      * Returns the timestamp of when this data collection was taken.
      * Used by thresholding
+     *
      * @return
-    */
-	public Date getCollectionTimestamp();
+     */
+    public Date getCollectionTimestamp();
 }

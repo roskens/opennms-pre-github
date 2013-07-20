@@ -36,7 +36,9 @@ import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 /**
- * <p>ReferenceBeanDefinitionParser class.</p>
+ * <p>
+ * ReferenceBeanDefinitionParser class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,6 +47,7 @@ public class ReferenceBeanDefinitionParser extends AbstractSingleBeanDefinitionP
 
     /** Constant <code>INTERFACE_ATTR="interface"</code> */
     public static final String INTERFACE_ATTR = "interface";
+
     public static final String FILTER_ATTR = "filter";
 
     /** {@inheritDoc} */
@@ -55,7 +58,7 @@ public class ReferenceBeanDefinitionParser extends AbstractSingleBeanDefinitionP
 
     /** {@inheritDoc} */
     @Override
-    public void doParse(Element element, ParserContext context, BeanDefinitionBuilder bean){
+    public void doParse(Element element, ParserContext context, BeanDefinitionBuilder bean) {
 
         bean.addPropertyReference("serviceRegistry", Constants.SERVICE_REGISTRY_BEAN_NAME);
 
@@ -70,4 +73,3 @@ public class ReferenceBeanDefinitionParser extends AbstractSingleBeanDefinitionP
         }
     }
 }
-

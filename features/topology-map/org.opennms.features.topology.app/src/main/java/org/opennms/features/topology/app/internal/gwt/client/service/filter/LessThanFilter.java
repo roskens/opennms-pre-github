@@ -25,5 +25,4 @@ public class LessThanFilter extends AttributeComparisonFilter {
         return buf.toString();
     }
 
-
 }

@@ -37,7 +37,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>OnmsCategoryCollection class.</p>
+ * <p>
+ * OnmsCategoryCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,23 +50,30 @@ public class OnmsCategoryCollection extends LinkedList<OnmsCategory> {
     private static final long serialVersionUID = 4731486422555152257L;
 
     /**
-     * <p>Constructor for OnmsCategoryCollection.</p>
+     * <p>
+     * Constructor for OnmsCategoryCollection.
+     * </p>
      */
     public OnmsCategoryCollection() {
         super();
     }
 
     /**
-     * <p>Constructor for OnmsCategoryCollection.</p>
+     * <p>
+     * Constructor for OnmsCategoryCollection.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public OnmsCategoryCollection(Collection<? extends OnmsCategory> c) {
         super(c);
     }
 
     /**
-     * <p>getCategories</p>
+     * <p>
+     * getCategories
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -74,22 +83,28 @@ public class OnmsCategoryCollection extends LinkedList<OnmsCategory> {
     }
 
     /**
-     * <p>setCategories</p>
+     * <p>
+     * setCategories
+     * </p>
      *
-     * @param categories a {@link java.util.List} object.
+     * @param categories
+     *            a {@link java.util.List} object.
      */
     public void setCategories(List<OnmsCategory> categories) {
-        if (categories == this) return;
+        if (categories == this)
+            return;
         clear();
         addAll(categories);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
         return this.size();
     }

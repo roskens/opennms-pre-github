@@ -51,93 +51,134 @@ import org.opennms.features.poller.remote.gwt.client.remoteevents.UpdateComplete
 import de.novanic.eventservice.service.EventExecutorService;
 
 /**
- * <p>LocationDataManager class.</p>
+ * <p>
+ * LocationDataManager class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class LocationDataManager { //implements LocationStatusService {
+public class LocationDataManager { // implements LocationStatusService {
     private static final Logger LOG = LoggerFactory.getLogger(LocationDataManager.class);
+
     private LocationDataService m_locationDataService;
+
     private Set<String> m_activeApplications = new HashSet<String>();
+
     private Timer m_timer = new Timer();
+
     /** Constant <code>PADDING_TIME=2000</code> */
     public static final int PADDING_TIME = 2000;
 
     /**
-     * <p>setLocationDataService</p>
+     * <p>
+     * setLocationDataService
+     * </p>
      *
-     * @param locationDataService a {@link org.opennms.features.poller.remote.gwt.server.LocationDataService} object.
+     * @param locationDataService
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
+     *            object.
      */
     public void setLocationDataService(final LocationDataService locationDataService) {
         m_locationDataService = locationDataService;
     }
 
     /**
-     * <p>getLocationDataService</p>
+     * <p>
+     * getLocationDataService
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.server.LocationDataService} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
+     *         object.
      */
     public LocationDataService getLocationDataService() {
         return m_locationDataService;
     }
 
     /**
-     * <p>getLocationInfo</p>
+     * <p>
+     * getLocationInfo
+     * </p>
      *
-     * @param locationName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo} object.
+     * @param locationName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo}
+     *         object.
      */
     public LocationInfo getLocationInfo(final String locationName) {
         return getLocationDataService().getLocationInfo(locationName);
     }
 
     /**
-     * <p>getLocationDetails</p>
+     * <p>
+     * getLocationDetails
+     * </p>
      *
-     * @param locationName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.location.LocationDetails} object.
+     * @param locationName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.location.LocationDetails}
+     *         object.
      */
     public LocationDetails getLocationDetails(final String locationName) {
         return getLocationDataService().getLocationDetails(locationName);
     }
 
     /**
-     * <p>getApplicationInfo</p>
+     * <p>
+     * getApplicationInfo
+     * </p>
      *
-     * @param applicationName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo} object.
+     * @param applicationName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo}
+     *         object.
      */
     public ApplicationInfo getApplicationInfo(final String applicationName) {
         return getLocationDataService().getApplicationInfo(applicationName);
     }
 
     /**
-     * <p>getApplicationDetails</p>
+     * <p>
+     * getApplicationDetails
+     * </p>
      *
-     * @param applicationName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.ApplicationDetails} object.
+     * @param applicationName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.ApplicationDetails}
+     *         object.
      */
     public ApplicationDetails getApplicationDetails(final String applicationName) {
         return getLocationDataService().getApplicationDetails(applicationName);
     }
 
     /**
-     * <p>setActiveApplications</p>
+     * <p>
+     * setActiveApplications
+     * </p>
      *
-     * @param activeApplications a {@link java.util.Set} object.
+     * @param activeApplications
+     *            a {@link java.util.Set} object.
      */
     public void setActiveApplications(final Set<String> activeApplications) {
-        synchronized(m_activeApplications) {
-            if (m_activeApplications == activeApplications) return;
+        synchronized (m_activeApplications) {
+            if (m_activeApplications == activeApplications)
+                return;
             m_activeApplications.clear();
             m_activeApplications.addAll(activeApplications);
         }
     }
 
     /**
-     * <p>getTimer</p>
+     * <p>
+     * getTimer
+     * </p>
      *
      * @return a {@link java.util.Timer} object.
      */
@@ -146,16 +187,21 @@ public class LocationDataManager { //implements LocationStatusService {
     }
 
     /**
-     * <p>setTimer</p>
+     * <p>
+     * setTimer
+     * </p>
      *
-     * @param timer a {@link java.util.Timer} object.
+     * @param timer
+     *            a {@link java.util.Timer} object.
      */
     public void setTimer(Timer timer) {
         m_timer = timer;
     }
 
     /**
-     * <p>getActiveApplications</p>
+     * <p>
+     * getActiveApplications
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -196,13 +242,17 @@ public class LocationDataManager { //implements LocationStatusService {
 
     void doUpdate(final Date startDate, final Date endDate, final EventExecutorService service) {
         LOG.debug("pushing monitor status updates");
-        service.addEvent(MapRemoteEventHandler.LOCATION_EVENT_DOMAIN, new LocationsUpdatedRemoteEvent(getLocationDataService().getUpdatedLocationsBetween(startDate, endDate)));
+        service.addEvent(MapRemoteEventHandler.LOCATION_EVENT_DOMAIN,
+                         new LocationsUpdatedRemoteEvent(getLocationDataService().getUpdatedLocationsBetween(startDate,
+                                                                                                             endDate)));
         LOG.debug("finished pushing monitor status updates");
 
         // Every 5 minutes, update the application list too
         LOG.debug("pushing application updates");
         final Collection<ApplicationHandler> appHandlers = new ArrayList<ApplicationHandler>();
-        final DefaultApplicationHandler applicationHandler = new DefaultApplicationHandler(getLocationDataService(), service, getActiveApplications());
+        final DefaultApplicationHandler applicationHandler = new DefaultApplicationHandler(getLocationDataService(),
+                                                                                           service,
+                                                                                           getActiveApplications());
         appHandlers.add(applicationHandler);
         getLocationDataService().handleAllApplications(appHandlers);
         setActiveApplications(applicationHandler.getApplicationNames());

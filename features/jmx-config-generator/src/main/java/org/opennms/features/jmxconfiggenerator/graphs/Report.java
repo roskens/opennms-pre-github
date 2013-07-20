@@ -38,9 +38,13 @@ import java.util.List;
 public class Report {
 
     private String id;
+
     private String name;
+
     private String title;
+
     private String verticalLabel;
+
     private List<Graph> graphs = new ArrayList<Graph>();
 
     public Report(String id, String name, String title, String verticalLabel) {
@@ -107,6 +111,7 @@ public class Report {
 
     @Override
     public String toString() {
-        return "Report{" + "id=" + id + ", name=" + name + ", title=" + title + ", verticalLabel=" + verticalLabel + ", graphs=" + graphs + '}';
+        return "Report{" + "id=" + id + ", name=" + name + ", title=" + title + ", verticalLabel=" + verticalLabel
+                + ", graphs=" + graphs + '}';
     }
 }

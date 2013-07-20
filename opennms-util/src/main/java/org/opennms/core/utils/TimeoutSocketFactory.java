@@ -32,10 +32,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-
 public class TimeoutSocketFactory {
 
     private final int m_timeout;
+
     private final SocketWrapper m_socketWrapper;
 
     public TimeoutSocketFactory(final int timeout) {

@@ -73,7 +73,7 @@ public class OnmsAssetRecord implements Serializable {
      */
     public static final String SSH_CONNECTION = "ssh";
 
-    //public enum Autoenable {AUTOENABLED};
+    // public enum Autoenable {AUTOENABLED};
 
     /**
      * Constant <code>TELNET_CONNECTION="telnet"</code>
@@ -87,7 +87,8 @@ public class OnmsAssetRecord implements Serializable {
 
     private static final long serialVersionUID = -2532676045548726818L;
 
-    //public enum AssetConnections {TELNET_CONNECTION,SSH_CONNECTION,RSH_CONNECTION};
+    // public enum AssetConnections
+    // {TELNET_CONNECTION,SSH_CONNECTION,RSH_CONNECTION};
 
     private Integer m_id;
 
@@ -404,7 +405,9 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -417,9 +420,12 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
@@ -440,15 +446,16 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * Set the node associated with the asset record
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void setNode(OnmsNode node) {
         m_node = node;
     }
 
     /**
-     * --# category         : A broad idea of what this asset does (examples are
-     * --#                    desktop, printer, server, infrastructure, etc.).
+     * --# category : A broad idea of what this asset does (examples are
+     * --# desktop, printer, server, infrastructure, etc.).
      *
      * @return a {@link java.lang.String} object.
      */
@@ -458,16 +465,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setCategory</p>
+     * <p>
+     * setCategory
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
      */
     public void setCategory(String category) {
         m_category = category;
     }
 
     /**
-     * --# manufacturer     : Name of the manufacturer of this asset.
+     * --# manufacturer : Name of the manufacturer of this asset.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -477,16 +487,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setManufacturer</p>
+     * <p>
+     * setManufacturer
+     * </p>
      *
-     * @param manufacturer a {@link java.lang.String} object.
+     * @param manufacturer
+     *            a {@link java.lang.String} object.
      */
     public void setManufacturer(String manufacturer) {
         m_manufacturer = manufacturer;
     }
 
     /**
-     * --# vendor           : Vendor from whom this asset was purchased.
+     * --# vendor : Vendor from whom this asset was purchased.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -496,16 +509,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVendor</p>
+     * <p>
+     * setVendor
+     * </p>
      *
-     * @param vendor a {@link java.lang.String} object.
+     * @param vendor
+     *            a {@link java.lang.String} object.
      */
     public void setVendor(String vendor) {
         m_vendor = vendor;
     }
 
     /**
-     * --# modelNumber      : The model number of this asset.
+     * --# modelNumber : The model number of this asset.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -515,16 +531,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setModelNumber</p>
+     * <p>
+     * setModelNumber
+     * </p>
      *
-     * @param modelnumber a {@link java.lang.String} object.
+     * @param modelnumber
+     *            a {@link java.lang.String} object.
      */
     public void setModelNumber(String modelnumber) {
         m_modelNumber = modelnumber;
     }
 
     /**
-     * --# serialNumber     : The serial number of this asset.
+     * --# serialNumber : The serial number of this asset.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -534,16 +553,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setSerialNumber</p>
+     * <p>
+     * setSerialNumber
+     * </p>
      *
-     * @param serialnumber a {@link java.lang.String} object.
+     * @param serialnumber
+     *            a {@link java.lang.String} object.
      */
     public void setSerialNumber(String serialnumber) {
         m_serialNumber = serialnumber;
     }
 
     /**
-     * --# description      : A free-form description.
+     * --# description : A free-form description.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -553,16 +575,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setDescription</p>
+     * <p>
+     * setDescription
+     * </p>
      *
-     * @param description a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
      */
     public void setDescription(String description) {
         m_description = description;
     }
 
     /**
-     * --# circuitId        : The electrical/network circuit this asset connects to.
+     * --# circuitId : The electrical/network circuit this asset connects to.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -572,16 +597,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setCircuitId</p>
+     * <p>
+     * setCircuitId
+     * </p>
      *
-     * @param circuitid a {@link java.lang.String} object.
+     * @param circuitid
+     *            a {@link java.lang.String} object.
      */
     public void setCircuitId(String circuitid) {
         m_circuitId = circuitid;
     }
 
     /**
-     * --# assetNumber      : A business-specified asset number.
+     * --# assetNumber : A business-specified asset number.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -591,16 +619,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setAssetNumber</p>
+     * <p>
+     * setAssetNumber
+     * </p>
      *
-     * @param assetnumber a {@link java.lang.String} object.
+     * @param assetnumber
+     *            a {@link java.lang.String} object.
      */
     public void setAssetNumber(String assetnumber) {
         m_assetNumber = assetnumber;
     }
 
     /**
-     * --# operatingSystem  : The operating system, if any.
+     * --# operatingSystem : The operating system, if any.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -610,16 +641,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setOperatingSystem</p>
+     * <p>
+     * setOperatingSystem
+     * </p>
      *
-     * @param operatingsystem a {@link java.lang.String} object.
+     * @param operatingsystem
+     *            a {@link java.lang.String} object.
      */
     public void setOperatingSystem(String operatingsystem) {
         m_operatingSystem = operatingsystem;
     }
 
     /**
-     * --# rack             : For servers, the rack it is installed in.
+     * --# rack : For servers, the rack it is installed in.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -629,16 +663,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setRack</p>
+     * <p>
+     * setRack
+     * </p>
      *
-     * @param rack a {@link java.lang.String} object.
+     * @param rack
+     *            a {@link java.lang.String} object.
      */
     public void setRack(String rack) {
         m_rack = rack;
     }
 
     /**
-     * --# slot             : For servers, the slot in the rack it is installed in.
+     * --# slot : For servers, the slot in the rack it is installed in.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -648,16 +685,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setSlot</p>
+     * <p>
+     * setSlot
+     * </p>
      *
-     * @param slot a {@link java.lang.String} object.
+     * @param slot
+     *            a {@link java.lang.String} object.
      */
     public void setSlot(String slot) {
         m_slot = slot;
     }
 
     /**
-     * --# port             : For servers, the port in the slot it is installed in.
+     * --# port : For servers, the port in the slot it is installed in.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -667,16 +707,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setPort</p>
+     * <p>
+     * setPort
+     * </p>
      *
-     * @param port a {@link java.lang.String} object.
+     * @param port
+     *            a {@link java.lang.String} object.
      */
     public void setPort(String port) {
         m_port = port;
     }
 
     /**
-     * --# region           : A broad geographical or organizational area.
+     * --# region : A broad geographical or organizational area.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -686,16 +729,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setRegion</p>
+     * <p>
+     * setRegion
+     * </p>
      *
-     * @param region a {@link java.lang.String} object.
+     * @param region
+     *            a {@link java.lang.String} object.
      */
     public void setRegion(String region) {
         m_region = region;
     }
 
     /**
-     * --# division         : A broad geographical or organizational area.
+     * --# division : A broad geographical or organizational area.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -705,16 +751,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setDivision</p>
+     * <p>
+     * setDivision
+     * </p>
      *
-     * @param division a {@link java.lang.String} object.
+     * @param division
+     *            a {@link java.lang.String} object.
      */
     public void setDivision(String division) {
         m_division = division;
     }
 
     /**
-     * --# department       : The department this asset belongs to.
+     * --# department : The department this asset belongs to.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -724,9 +773,12 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setDepartment</p>
+     * <p>
+     * setDepartment
+     * </p>
      *
-     * @param department a {@link java.lang.String} object.
+     * @param department
+     *            a {@link java.lang.String} object.
      */
     public void setDepartment(String department) {
         m_department = department;
@@ -743,7 +795,7 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * --# building         : The building where this asset resides.
+     * --# building : The building where this asset resides.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -753,16 +805,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setBuilding</p>
+     * <p>
+     * setBuilding
+     * </p>
      *
-     * @param building a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
      */
     public void setBuilding(String building) {
         m_building = building;
     }
 
     /**
-     * --# floor            : The floor of the building where this asset resides.
+     * --# floor : The floor of the building where this asset resides.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -772,16 +827,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setFloor</p>
+     * <p>
+     * setFloor
+     * </p>
      *
-     * @param floor a {@link java.lang.String} object.
+     * @param floor
+     *            a {@link java.lang.String} object.
      */
     public void setFloor(String floor) {
         m_floor = floor;
     }
 
     /**
-     * --# room             : The room where this asset resides.
+     * --# room : The room where this asset resides.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -791,16 +849,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setRoom</p>
+     * <p>
+     * setRoom
+     * </p>
      *
-     * @param room a {@link java.lang.String} object.
+     * @param room
+     *            a {@link java.lang.String} object.
      */
     public void setRoom(String room) {
         m_room = room;
     }
 
     /**
-     * --# vendorPhone      : A contact number for the vendor.
+     * --# vendorPhone : A contact number for the vendor.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -810,16 +871,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVendorPhone</p>
+     * <p>
+     * setVendorPhone
+     * </p>
      *
-     * @param vendorphone a {@link java.lang.String} object.
+     * @param vendorphone
+     *            a {@link java.lang.String} object.
      */
     public void setVendorPhone(String vendorphone) {
         m_vendorPhone = vendorphone;
     }
 
     /**
-     * --# vendorFax        : A fax number for the vendor.
+     * --# vendorFax : A fax number for the vendor.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -829,16 +893,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVendorFax</p>
+     * <p>
+     * setVendorFax
+     * </p>
      *
-     * @param vendorfax a {@link java.lang.String} object.
+     * @param vendorfax
+     *            a {@link java.lang.String} object.
      */
     public void setVendorFax(String vendorfax) {
         m_vendorFax = vendorfax;
     }
 
     /**
-     * <p>getVendorAssetNumber</p>
+     * <p>
+     * getVendorAssetNumber
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -848,9 +917,12 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVendorAssetNumber</p>
+     * <p>
+     * setVendorAssetNumber
+     * </p>
      *
-     * @param vendorassetnumber a {@link java.lang.String} object.
+     * @param vendorassetnumber
+     *            a {@link java.lang.String} object.
      */
     public void setVendorAssetNumber(String vendorassetnumber) {
         m_vendorAssetNumber = vendorassetnumber;
@@ -867,9 +939,12 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setLastModifiedBy</p>
+     * <p>
+     * setLastModifiedBy
+     * </p>
      *
-     * @param userlastmodified a {@link java.lang.String} object.
+     * @param userlastmodified
+     *            a {@link java.lang.String} object.
      */
     public void setLastModifiedBy(String userlastmodified) {
         m_lastModifiedBy = userlastmodified;
@@ -887,16 +962,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setLastModifiedDate</p>
+     * <p>
+     * setLastModifiedDate
+     * </p>
      *
-     * @param lastmodifieddate a {@link java.util.Date} object.
+     * @param lastmodifieddate
+     *            a {@link java.util.Date} object.
      */
     public void setLastModifiedDate(Date lastmodifieddate) {
         m_lastModifiedDate = lastmodifieddate;
     }
 
     /**
-     * --# dateInstalled    : The date the asset was installed.
+     * --# dateInstalled : The date the asset was installed.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -906,16 +984,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setDateInstalled</p>
+     * <p>
+     * setDateInstalled
+     * </p>
      *
-     * @param dateinstalled a {@link java.lang.String} object.
+     * @param dateinstalled
+     *            a {@link java.lang.String} object.
      */
     public void setDateInstalled(String dateinstalled) {
         m_dateInstalled = dateinstalled;
     }
 
     /**
-     * --# lease            : The lease number of this asset.
+     * --# lease : The lease number of this asset.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -925,16 +1006,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setLease</p>
+     * <p>
+     * setLease
+     * </p>
      *
-     * @param lease a {@link java.lang.String} object.
+     * @param lease
+     *            a {@link java.lang.String} object.
      */
     public void setLease(String lease) {
         m_lease = lease;
     }
 
     /**
-     * --# leaseExpires     : The date the lease expires for this asset.
+     * --# leaseExpires : The date the lease expires for this asset.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -944,16 +1028,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setLeaseExpires</p>
+     * <p>
+     * setLeaseExpires
+     * </p>
      *
-     * @param leaseexpires a {@link java.lang.String} object.
+     * @param leaseexpires
+     *            a {@link java.lang.String} object.
      */
     public void setLeaseExpires(String leaseexpires) {
         m_leaseExpires = leaseexpires;
     }
 
     /**
-     * --# supportPhone     : A support phone number for this asset.
+     * --# supportPhone : A support phone number for this asset.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -963,16 +1050,19 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setSupportPhone</p>
+     * <p>
+     * setSupportPhone
+     * </p>
      *
-     * @param supportphone a {@link java.lang.String} object.
+     * @param supportphone
+     *            a {@link java.lang.String} object.
      */
     public void setSupportPhone(String supportphone) {
         m_supportPhone = supportphone;
     }
 
     /**
-     * --# maintcontract    : The maintenance contract number for this asset.
+     * --# maintcontract : The maintenance contract number for this asset.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -982,9 +1072,12 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setMaintContract</p>
+     * <p>
+     * setMaintContract
+     * </p>
      *
-     * @param maintcontract a {@link java.lang.String} object.
+     * @param maintcontract
+     *            a {@link java.lang.String} object.
      */
     public void setMaintcontract(String maintcontract) {
         m_maintcontract = maintcontract;
@@ -994,7 +1087,8 @@ public class OnmsAssetRecord implements Serializable {
      * --# maintContractNumber: The maintenance contract number for this asset.
      *
      * @return a {@link java.lang.String} object.
-     * @deprecated This field is provided for backwards compatibility with OpenNMS < 1.10
+     * @deprecated This field is provided for backwards compatibility with
+     *             OpenNMS < 1.10
      */
     @Transient
     public String getMaintContractNumber() {
@@ -1002,17 +1096,23 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setMaintContractNumber</p>
+     * <p>
+     * setMaintContractNumber
+     * </p>
      *
-     * @param maintcontract a {@link java.lang.String} object.
-     * @deprecated This field is provided for backwards compatibility with OpenNMS < 1.10
+     * @param maintcontract
+     *            a {@link java.lang.String} object.
+     * @deprecated This field is provided for backwards compatibility with
+     *             OpenNMS < 1.10
      */
     public void setMaintContractNumber(String maintcontract) {
         setMaintcontract(maintcontract);
     }
 
     /**
-     * <p>getMaintContractExpiration</p>
+     * <p>
+     * getMaintContractExpiration
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1022,16 +1122,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setMaintContractExpiration</p>
+     * <p>
+     * setMaintContractExpiration
+     * </p>
      *
-     * @param maintcontractexpires a {@link java.lang.String} object.
+     * @param maintcontractexpires
+     *            a {@link java.lang.String} object.
      */
     public void setMaintContractExpiration(String maintcontractexpires) {
         m_maintContractExpiration = maintcontractexpires;
     }
 
     /**
-     * <p>getDisplayCategory</p>
+     * <p>
+     * getDisplayCategory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1041,16 +1146,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setDisplayCategory</p>
+     * <p>
+     * setDisplayCategory
+     * </p>
      *
-     * @param displaycategory a {@link java.lang.String} object.
+     * @param displaycategory
+     *            a {@link java.lang.String} object.
      */
     public void setDisplayCategory(String displaycategory) {
         m_displayCategory = displaycategory;
     }
 
     /**
-     * <p>getNotifyCategory</p>
+     * <p>
+     * getNotifyCategory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1060,16 +1170,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setNotifyCategory</p>
+     * <p>
+     * setNotifyCategory
+     * </p>
      *
-     * @param notifycategory a {@link java.lang.String} object.
+     * @param notifycategory
+     *            a {@link java.lang.String} object.
      */
     public void setNotifyCategory(String notifycategory) {
         m_notifyCategory = notifycategory;
     }
 
     /**
-     * <p>getPollerCategory</p>
+     * <p>
+     * getPollerCategory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1079,16 +1194,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setPollerCategory</p>
+     * <p>
+     * setPollerCategory
+     * </p>
      *
-     * @param pollercategory a {@link java.lang.String} object.
+     * @param pollercategory
+     *            a {@link java.lang.String} object.
      */
     public void setPollerCategory(String pollercategory) {
         m_pollerCategory = pollercategory;
     }
 
     /**
-     * <p>getThresholdCategory</p>
+     * <p>
+     * getThresholdCategory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1098,16 +1218,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setThresholdCategory</p>
+     * <p>
+     * setThresholdCategory
+     * </p>
      *
-     * @param thresholdcategory a {@link java.lang.String} object.
+     * @param thresholdcategory
+     *            a {@link java.lang.String} object.
      */
     public void setThresholdCategory(String thresholdcategory) {
         m_thresholdCategory = thresholdcategory;
     }
 
     /**
-     * <p>getComment</p>
+     * <p>
+     * getComment
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1117,16 +1242,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setComment</p>
+     * <p>
+     * setComment
+     * </p>
      *
-     * @param comment a {@link java.lang.String} object.
+     * @param comment
+     *            a {@link java.lang.String} object.
      */
     public void setComment(String comment) {
         m_comment = comment;
     }
 
     /**
-     * <p>getManagedObjectType</p>
+     * <p>
+     * getManagedObjectType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1136,16 +1266,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setManagedObjectType</p>
+     * <p>
+     * setManagedObjectType
+     * </p>
      *
-     * @param mot a {@link java.lang.String} object.
+     * @param mot
+     *            a {@link java.lang.String} object.
      */
     public void setManagedObjectType(String mot) {
         m_managedObjectType = mot;
     }
 
     /**
-     * <p>getManagedObjectInstance</p>
+     * <p>
+     * getManagedObjectInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1155,16 +1290,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setManagedObjectInstance</p>
+     * <p>
+     * setManagedObjectInstance
+     * </p>
      *
-     * @param moi a {@link java.lang.String} object.
+     * @param moi
+     *            a {@link java.lang.String} object.
      */
     public void setManagedObjectInstance(String moi) {
         m_managedObjectInstance = moi;
     }
 
     /**
-     * <p>getUsername</p>
+     * <p>
+     * getUsername
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1174,16 +1314,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setUsername</p>
+     * <p>
+     * setUsername
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      */
     public void setUsername(String username) {
         m_username = username;
     }
 
     /**
-     * <p>getPassword</p>
+     * <p>
+     * getPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1193,16 +1338,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setPassword</p>
+     * <p>
+     * setPassword
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         m_password = password;
     }
 
     /**
-     * <p>getEnable</p>
+     * <p>
+     * getEnable
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1212,16 +1362,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setEnable</p>
+     * <p>
+     * setEnable
+     * </p>
      *
-     * @param enable a {@link java.lang.String} object.
+     * @param enable
+     *            a {@link java.lang.String} object.
      */
     public void setEnable(String enable) {
         m_enable = enable;
     }
 
     /**
-     * <p>getConnection</p>
+     * <p>
+     * getConnection
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1231,9 +1386,12 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setConnection</p>
+     * <p>
+     * setConnection
+     * </p>
      *
-     * @param connection a {@link java.lang.String} object.
+     * @param connection
+     *            a {@link java.lang.String} object.
      */
     public void setConnection(String connection) {
         if (connection == null) {
@@ -1251,7 +1409,9 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>getAutoenable</p>
+     * <p>
+     * getAutoenable
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1261,16 +1421,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setAutoenable</p>
+     * <p>
+     * setAutoenable
+     * </p>
      *
-     * @param autoenable a {@link java.lang.String} object.
+     * @param autoenable
+     *            a {@link java.lang.String} object.
      */
     public void setAutoenable(String autoenable) {
         m_autoenable = autoenable;
     }
 
     /**
-     * <p>getCpu</p>
+     * <p>
+     * getCpu
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1280,16 +1445,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setCpu</p>
+     * <p>
+     * setCpu
+     * </p>
      *
-     * @param cpu a {@link java.lang.String} object.
+     * @param cpu
+     *            a {@link java.lang.String} object.
      */
     public void setCpu(String cpu) {
         m_cpu = cpu;
     }
 
     /**
-     * <p>getRam</p>
+     * <p>
+     * getRam
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1299,16 +1469,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setRam</p>
+     * <p>
+     * setRam
+     * </p>
      *
-     * @param ram a {@link java.lang.String} object.
+     * @param ram
+     *            a {@link java.lang.String} object.
      */
     public void setRam(String ram) {
         m_ram = ram;
     }
 
     /**
-     * <p>getSnmpcommunity</p>
+     * <p>
+     * getSnmpcommunity
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1318,16 +1493,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setSnmpcommunity</p>
+     * <p>
+     * setSnmpcommunity
+     * </p>
      *
-     * @param snmpcommunity a {@link java.lang.String} object.
+     * @param snmpcommunity
+     *            a {@link java.lang.String} object.
      */
     public void setSnmpcommunity(String snmpcommunity) {
         m_snmpcommunity = snmpcommunity;
     }
 
     /**
-     * <p>getRackunitheight</p>
+     * <p>
+     * getRackunitheight
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1337,16 +1517,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setRackunitheight</p>
+     * <p>
+     * setRackunitheight
+     * </p>
      *
-     * @param snmpcommunity a {@link java.lang.String} object.
+     * @param snmpcommunity
+     *            a {@link java.lang.String} object.
      */
     public void setRackunitheight(String rackunitheight) {
         m_rackunitheight = rackunitheight;
     }
 
     /**
-     * <p>getAdmin</p>
+     * <p>
+     * getAdmin
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1356,16 +1541,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setAdmin</p>
+     * <p>
+     * setAdmin
+     * </p>
      *
-     * @param admin a {@link java.lang.String} object.
+     * @param admin
+     *            a {@link java.lang.String} object.
      */
     public void setAdmin(String admin) {
         m_admin = admin;
     }
 
     /**
-     * <p>getAdditionalhardware</p>
+     * <p>
+     * getAdditionalhardware
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1375,16 +1565,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setAdditionalhardware</p>
+     * <p>
+     * setAdditionalhardware
+     * </p>
      *
-     * @param additionalhardware a {@link java.lang.String} object.
+     * @param additionalhardware
+     *            a {@link java.lang.String} object.
      */
     public void setAdditionalhardware(String additionalhardware) {
         m_additionalhardware = additionalhardware;
     }
 
     /**
-     * <p>getInputpower</p>
+     * <p>
+     * getInputpower
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1394,16 +1589,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setInputpower</p>
+     * <p>
+     * setInputpower
+     * </p>
      *
-     * @param inputpower a {@link java.lang.String} object.
+     * @param inputpower
+     *            a {@link java.lang.String} object.
      */
     public void setInputpower(String inputpower) {
         m_inputpower = inputpower;
     }
 
     /**
-     * <p>getNumpowersupplies</p>
+     * <p>
+     * getNumpowersupplies
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1413,16 +1613,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setNumpowersupplies</p>
+     * <p>
+     * setNumpowersupplies
+     * </p>
      *
-     * @param numpowersupplies a {@link java.lang.String} object.
+     * @param numpowersupplies
+     *            a {@link java.lang.String} object.
      */
     public void setNumpowersupplies(String numpowersupplies) {
         m_numpowersupplies = numpowersupplies;
     }
 
     /**
-     * <p>getHdd6</p>
+     * <p>
+     * getHdd6
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1432,16 +1637,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setHdd6</p>
+     * <p>
+     * setHdd6
+     * </p>
      *
-     * @param hdd6 a {@link java.lang.String} object.
+     * @param hdd6
+     *            a {@link java.lang.String} object.
      */
     public void setHdd6(String hdd6) {
         m_hdd6 = hdd6;
     }
 
     /**
-     * <p>getHdd5</p>
+     * <p>
+     * getHdd5
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1451,16 +1661,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setHdd5</p>
+     * <p>
+     * setHdd5
+     * </p>
      *
-     * @param hdd5 a {@link java.lang.String} object.
+     * @param hdd5
+     *            a {@link java.lang.String} object.
      */
     public void setHdd5(String hdd5) {
         m_hdd5 = hdd5;
     }
 
     /**
-     * <p>getHdd4</p>
+     * <p>
+     * getHdd4
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1470,16 +1685,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setHdd4</p>
+     * <p>
+     * setHdd4
+     * </p>
      *
-     * @param hdd4 a {@link java.lang.String} object.
+     * @param hdd4
+     *            a {@link java.lang.String} object.
      */
     public void setHdd4(String hdd4) {
         m_hdd4 = hdd4;
     }
 
     /**
-     * <p>getHdd3</p>
+     * <p>
+     * getHdd3
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1489,16 +1709,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setHdd3</p>
+     * <p>
+     * setHdd3
+     * </p>
      *
-     * @param hdd3 a {@link java.lang.String} object.
+     * @param hdd3
+     *            a {@link java.lang.String} object.
      */
     public void setHdd3(String hdd3) {
         m_hdd3 = hdd3;
     }
 
     /**
-     * <p>getHdd2</p>
+     * <p>
+     * getHdd2
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1508,16 +1733,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setHdd2</p>
+     * <p>
+     * setHdd2
+     * </p>
      *
-     * @param hdd2 a {@link java.lang.String} object.
+     * @param hdd2
+     *            a {@link java.lang.String} object.
      */
     public void setHdd2(String hdd2) {
         m_hdd2 = hdd2;
     }
 
     /**
-     * <p>getHdd1</p>
+     * <p>
+     * getHdd1
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1527,16 +1757,21 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setHdd1</p>
+     * <p>
+     * setHdd1
+     * </p>
      *
-     * @param hdd1 a {@link java.lang.String} object.
+     * @param hdd1
+     *            a {@link java.lang.String} object.
      */
     public void setHdd1(String hdd1) {
         m_hdd1 = hdd1;
     }
 
     /**
-     * <p>getStoragectrl</p>
+     * <p>
+     * getStoragectrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1546,16 +1781,20 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setStoragectrl</p>
+     * <p>
+     * setStoragectrl
+     * </p>
      *
-     * @param storagectrl a {@link java.lang.String} object.
+     * @param storagectrl
+     *            a {@link java.lang.String} object.
      */
     public void setStoragectrl(String storagectrl) {
         m_storagectrl = storagectrl;
     }
 
     /**
-     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
+     * separate table, or projection mapping will fail.
      */
     @Transient
     @Deprecated
@@ -1571,7 +1810,8 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
+     * separate table, or projection mapping will fail.
      */
     @Transient
     @Deprecated
@@ -1587,7 +1827,8 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
+     * separate table, or projection mapping will fail.
      */
     @Transient
     @Deprecated
@@ -1603,7 +1844,8 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
+     * separate table, or projection mapping will fail.
      */
     @Transient
     @Deprecated
@@ -1619,7 +1861,8 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
+     * separate table, or projection mapping will fail.
      */
     @Transient
     @Deprecated
@@ -1635,7 +1878,8 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
+     * separate table, or projection mapping will fail.
      */
     @Transient
     @Deprecated
@@ -1651,7 +1895,8 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
+     * separate table, or projection mapping will fail.
      */
     @Transient
     @Deprecated
@@ -1667,7 +1912,8 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a separate table, or projection mapping will fail.
+     * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
+     * separate table, or projection mapping will fail.
      */
     @Transient
     @Deprecated
@@ -1683,9 +1929,12 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>getVmwareManagedEntityType</p>
+     * <p>
+     * getVmwareManagedEntityType
+     * </p>
      * <p/>
-     * Set the VMware management entity type defines if the machine is a virtual machine or a host system
+     * Set the VMware management entity type defines if the machine is a virtual
+     * machine or a host system
      *
      * @return a {@link java.lang.String} object
      */
@@ -1695,18 +1944,24 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareManagedEntityType</p>
+     * <p>
+     * setVmwareManagedEntityType
+     * </p>
      * <p/>
-     * Set the VMware management entity type defines if the machine is a virtual machine or a host system
+     * Set the VMware management entity type defines if the machine is a virtual
+     * machine or a host system
      *
-     * @param vmwareManagedEntityType a {@link java.lang.String} object
+     * @param vmwareManagedEntityType
+     *            a {@link java.lang.String} object
      */
     public void setVmwareManagedEntityType(String vmwareManagedEntityType) {
         m_vmwareManagedEntityType = vmwareManagedEntityType;
     }
 
     /**
-     * <p>getVmwareManagedObjectId</p>
+     * <p>
+     * getVmwareManagedObjectId
+     * </p>
      * <p/>
      * Get the VMware managed object ID as a unique identifier for VMware API
      *
@@ -1718,7 +1973,9 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareManagedObjectId</p>
+     * <p>
+     * setVmwareManagedObjectId
+     * </p>
      * <p/>
      * Set the VMware managed object ID as a unique identifier for VMware API
      *
@@ -1729,7 +1986,9 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>getVmwareManagementServer</p>
+     * <p>
+     * getVmwareManagementServer
+     * </p>
      * <p/>
      * Get the vCenter host or ip address
      *
@@ -1741,18 +2000,23 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareManagementServer</p>
+     * <p>
+     * setVmwareManagementServer
+     * </p>
      * <p/>
      * Set the vCenter host or ip address
      *
-     * @param vmwareManagementServer a {@link java.lang.String} object
+     * @param vmwareManagementServer
+     *            a {@link java.lang.String} object
      */
     public void setVmwareManagementServer(String vmwareManagementServer) {
         m_vmwareManagementServer = vmwareManagementServer;
     }
 
     /**
-     * <p>getVmwareState</p>
+     * <p>
+     * getVmwareState
+     * </p>
      * <p/>
      * Get the VMware managed entity state
      *
@@ -1764,18 +2028,23 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareState</p>
+     * <p>
+     * setVmwareState
+     * </p>
      * <p/>
      * Set the VMware managed entity state
      *
-     * @param vmwareState a {@link java.lang.String} object
+     * @param vmwareState
+     *            a {@link java.lang.String} object
      */
     public void setVmwareState(String vmwareState) {
         m_vmwareState = vmwareState;
     }
 
     /**
-     * <p>getVmwareTopologyInfo</p>
+     * <p>
+     * getVmwareTopologyInfo
+     * </p>
      * <p/>
      * Get the VMware topology information
      *
@@ -1787,11 +2056,14 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * <p>setVmwareTopologyInfo</p>
+     * <p>
+     * setVmwareTopologyInfo
+     * </p>
      * <p/>
      * Set the VMware topology information
      *
-     * @param vmwareTopologyInfo a {@link java.lang.String} object
+     * @param vmwareTopologyInfo
+     *            a {@link java.lang.String} object
      */
     public void setVmwareTopologyInfo(String vmwareTopologyInfo) {
         m_vmwareTopologyInfo = vmwareTopologyInfo;
@@ -1802,74 +2074,80 @@ public class OnmsAssetRecord implements Serializable {
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-        .append("category", getCategory())
-        .append("manufacturer", getManufacturer())
-        .append("vendor", getVendor())
-        .append("modelnumber", getModelNumber())
-        .append("serialnumber", getSerialNumber())
-        .append("description", getDescription())
-        .append("circuitid", getCircuitId())
-        .append("assetnumber", getAssetNumber())
-        .append("operatingsystem", getOperatingSystem())
-        .append("rack", getRack())
-        .append("slot", getSlot())
-        .append("port", getPort())
-        .append("region", getRegion())
-        .append("division", getDivision())
-        .append("department", getDepartment())
-        .append("address1", m_geolocation == null ? null : m_geolocation.getAddress1())
-        .append("address2", m_geolocation == null ? null : m_geolocation.getAddress2())
-        .append("city", m_geolocation == null ? null : m_geolocation.getCity())
-        .append("state", m_geolocation == null ? null : m_geolocation.getState())
-        .append("zip", m_geolocation == null ? null : m_geolocation.getZip())
-        .append("country", m_geolocation == null ? null : m_geolocation.getCountry())
-        .append("longitude", m_geolocation == null ? null : m_geolocation.getLongitude())
-        .append("latitude", m_geolocation == null ? null : m_geolocation.getLatitude())
-        .append("building", getBuilding())
-        .append("floor", getFloor())
-        .append("room", getRoom())
-        .append("username", getUsername())
-        .append("password", getPassword())
-        .append("enable", getEnable())
-        .append("autoenable", getAutoenable())
-        .append("connection", getConnection())
-        .append("vendorphone", getVendorPhone())
-        .append("vendorfax", getVendorFax())
-        .append("vendorassetnumber", getVendorAssetNumber())
-        .append("userlastmodified", getLastModifiedBy())
-        .append("lastmodifieddate", getLastModifiedDate())
-        .append("dateinstalled", getDateInstalled())
-        .append("lease", getLease())
-        .append("leaseexpires", getLeaseExpires())
-        .append("supportphone", getSupportPhone())
-        .append("maintcontract", getMaintcontract())
-        .append("maintcontractexpires", getMaintContractExpiration())
-        .append("displaycategory", getDisplayCategory())
-        .append("notifycategory", getNotifyCategory())
-        .append("pollercategory", getPollerCategory())
-        .append("thresholdcategory", getThresholdCategory())
-        .append("comment", getComment())
-        .append("cpu", getCpu())
-        .append("ram", getRam())
-        .append("storagectrl", getStoragectrl())
-        .append("hdd1", getHdd1())
-        .append("hdd2", getHdd2())
-        .append("hdd3", getHdd3())
-        .append("hdd4", getHdd4())
-        .append("hdd5", getHdd5())
-        .append("hdd6", getHdd6())
-        .append("numpowersupplies", getNumpowersupplies())
-        .append("inputpower", getInputpower())
-        .append("additionalhardware", getAdditionalhardware())
-        .append("admin", getAdmin())
-        .append("snmpcommunity", getSnmpcommunity())
-        .append("rackunitheight", getRackunitheight())
-        .append("vmwareManagedObjectId", getVmwareManagedObjectId())
-        .append("vmwareManagedEntityType", getVmwareManagedEntityType())
-        .append("vmwareManagementServer", getVmwareManagementServer())
-        .append("vmwareTopologyInfo", getVmwareTopologyInfo())
-        .append("vmwareState", getVmwareState()).toString();
+        return new ToStringCreator(this).append("category", getCategory()).append("manufacturer", getManufacturer()).append("vendor",
+                                                                                                                            getVendor()).append("modelnumber",
+                                                                                                                                                getModelNumber()).append("serialnumber",
+                                                                                                                                                                         getSerialNumber()).append("description",
+                                                                                                                                                                                                   getDescription()).append("circuitid",
+                                                                                                                                                                                                                            getCircuitId()).append("assetnumber",
+                                                                                                                                                                                                                                                   getAssetNumber()).append("operatingsystem",
+                                                                                                                                                                                                                                                                            getOperatingSystem()).append("rack",
+                                                                                                                                                                                                                                                                                                         getRack()).append("slot",
+                                                                                                                                                                                                                                                                                                                           getSlot()).append("port",
+                                                                                                                                                                                                                                                                                                                                             getPort()).append("region",
+                                                                                                                                                                                                                                                                                                                                                               getRegion()).append("division",
+                                                                                                                                                                                                                                                                                                                                                                                   getDivision()).append("department",
+                                                                                                                                                                                                                                                                                                                                                                                                         getDepartment()).append("address1",
+                                                                                                                                                                                                                                                                                                                                                                                                                                 m_geolocation == null ? null
+                                                                                                                                                                                                                                                                                                                                                                                                                                     : m_geolocation.getAddress1()).append("address2",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                           m_geolocation == null ? null
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                               : m_geolocation.getAddress2()).append("city",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     m_geolocation == null ? null
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         : m_geolocation.getCity()).append("state",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           m_geolocation == null ? null
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               : m_geolocation.getState()).append("zip",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  m_geolocation == null ? null
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      : m_geolocation.getZip()).append("country",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       m_geolocation == null ? null
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           : m_geolocation.getCountry()).append("longitude",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                m_geolocation == null ? null
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    : m_geolocation.getLongitude()).append("latitude",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           m_geolocation == null ? null
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               : m_geolocation.getLatitude()).append("building",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     getBuilding()).append("floor",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           getFloor()).append("room",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              getRoom()).append("username",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                getUsername()).append("password",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      getPassword()).append("enable",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            getEnable()).append("autoenable",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                getAutoenable()).append("connection",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        getConnection()).append("vendorphone",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                getVendorPhone()).append("vendorfax",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         getVendorFax()).append("vendorassetnumber",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                getVendorAssetNumber()).append("userlastmodified",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               getLastModifiedBy()).append("lastmodifieddate",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           getLastModifiedDate()).append("dateinstalled",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         getDateInstalled()).append("lease",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    getLease()).append("leaseexpires",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       getLeaseExpires()).append("supportphone",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 getSupportPhone()).append("maintcontract",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           getMaintcontract()).append("maintcontractexpires",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      getMaintContractExpiration()).append("displaycategory",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           getDisplayCategory()).append("notifycategory",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        getNotifyCategory()).append("pollercategory",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    getPollerCategory()).append("thresholdcategory",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                getThresholdCategory()).append("comment",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               getComment()).append("cpu",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    getCpu()).append("ram",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     getRam()).append("storagectrl",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      getStoragectrl()).append("hdd1",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               getHdd1()).append("hdd2",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 getHdd2()).append("hdd3",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   getHdd3()).append("hdd4",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     getHdd4()).append("hdd5",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       getHdd5()).append("hdd6",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         getHdd6()).append("numpowersupplies",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           getNumpowersupplies()).append("inputpower",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         getInputpower()).append("additionalhardware",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 getAdditionalhardware()).append("admin",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 getAdmin()).append("snmpcommunity",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    getSnmpcommunity()).append("rackunitheight",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               getRackunitheight()).append("vmwareManagedObjectId",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           getVmwareManagedObjectId()).append("vmwareManagedEntityType",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              getVmwareManagedEntityType()).append("vmwareManagementServer",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   getVmwareManagementServer()).append("vmwareTopologyInfo",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       getVmwareTopologyInfo()).append("vmwareState",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       getVmwareState()).toString();
     }
 
     /**
@@ -1904,10 +2182,12 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * Used to merge the contents of one asset record to another.  If equals implementation
+     * Used to merge the contents of one asset record to another. If equals
+     * implementation
      * returns false, the merge is aborted.
      *
-     * @param newRecord a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
+     * @param newRecord
+     *            a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
      */
     public void mergeRecord(OnmsAssetRecord newRecord) {
 
@@ -1915,8 +2195,9 @@ public class OnmsAssetRecord implements Serializable {
             return;
         }
 
-        //this works because all asset properties are strings
-        //if the model dependencies ever change to not include spring, this will break
+        // this works because all asset properties are strings
+        // if the model dependencies ever change to not include spring, this
+        // will break
         BeanWrapper currentBean = PropertyAccessorFactory.forBeanPropertyAccess(this);
         BeanWrapper newBean = PropertyAccessorFactory.forBeanPropertyAccess(newRecord);
         PropertyDescriptor[] pds = newBean.getPropertyDescriptors();
@@ -1928,7 +2209,8 @@ public class OnmsAssetRecord implements Serializable {
                 continue;
             }
 
-            // This should never fail since both of these objects are of the same type
+            // This should never fail since both of these objects are of the
+            // same type
             if (newBean.getPropertyValue(propertyName) != null) {
                 currentBean.setPropertyValue(propertyName, newBean.getPropertyValue(propertyName));
             }

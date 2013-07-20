@@ -46,7 +46,8 @@ import org.opennms.test.FileAnticipator;
 
 public abstract class CollectorTestUtils {
 
-    static CollectionSpecification createCollectionSpec(String svcName, ServiceCollector svcCollector, String collectionName) {
+    static CollectionSpecification createCollectionSpec(String svcName, ServiceCollector svcCollector,
+            String collectionName) {
         Package pkg = new Package();
         Filter filter = new Filter();
         filter.setContent("IPADDR IPLIKE *.*.*.*");
@@ -65,23 +66,23 @@ public abstract class CollectorTestUtils {
     }
 
     public static void persistCollectionSet(CollectionSpecification spec, CollectionSet collectionSet) {
-        RrdRepository repository=spec.getRrdRepository("default");
+        RrdRepository repository = spec.getRrdRepository("default");
         System.err.println("repository = " + repository);
-        ServiceParameters params=new ServiceParameters(spec.getReadOnlyPropertyMap());
+        ServiceParameters params = new ServiceParameters(spec.getReadOnlyPropertyMap());
         System.err.println("service parameters = " + params);
         BasePersister persister;
         if (Boolean.getBoolean("org.opennms.rrd.storeByGroup")) {
-            persister=new GroupPersister(params, repository);
+            persister = new GroupPersister(params, repository);
         } else {
-            persister=new OneToOnePersister(params, repository);
+            persister = new OneToOnePersister(params, repository);
         }
         System.err.println("persister = " + persister);
         collectionSet.visit(persister);
     }
 
     public static void collectNTimes(CollectionSpecification spec, CollectionAgent agent, int numUpdates)
-    throws InterruptedException, CollectionException {
-        for(int i = 0; i < numUpdates; i++) {
+            throws InterruptedException, CollectionException {
+        for (int i = 0; i < numUpdates; i++) {
 
             // now do the actual collection
             CollectionSet collectionSet = spec.collect(agent);
@@ -89,16 +90,16 @@ public abstract class CollectorTestUtils {
 
             persistCollectionSet(spec, collectionSet);
 
-            System.err.println("COLLECTION "+i+" FINISHED");
+            System.err.println("COLLECTION " + i + " FINISHED");
 
-            //need a one second time elapse to update the RRD
+            // need a one second time elapse to update the RRD
             Thread.sleep(1010);
         }
     }
 
     public static void failToCollectNTimes(CollectionSpecification spec, CollectionAgent agent, int numUpdates)
-    throws InterruptedException, CollectionException {
-        for(int i = 0; i < numUpdates; i++) {
+            throws InterruptedException, CollectionException {
+        for (int i = 0; i < numUpdates; i++) {
 
             // now do the actual collection
             CollectionSet collectionSet = spec.collect(agent);
@@ -106,9 +107,9 @@ public abstract class CollectorTestUtils {
 
             persistCollectionSet(spec, collectionSet);
 
-            System.err.println("COLLECTION "+i+" FINISHED");
+            System.err.println("COLLECTION " + i + " FINISHED");
 
-            //need a one second time elapse to update the RRD
+            // need a one second time elapse to update the RRD
             Thread.sleep(1010);
         }
     }

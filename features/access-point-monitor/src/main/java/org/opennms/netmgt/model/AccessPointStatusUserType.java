@@ -64,7 +64,8 @@ public class AccessPointStatusUserType implements UserType {
             // immutable, we can just return the value
             return value;
         } else {
-            throw new IllegalArgumentException("Unexpected type that is mapped with " + this.getClass().getSimpleName() + ": " + value.getClass().getName());
+            throw new IllegalArgumentException("Unexpected type that is mapped with " + this.getClass().getSimpleName()
+                    + ": " + value.getClass().getName());
         }
     }
 
@@ -107,7 +108,7 @@ public class AccessPointStatusUserType implements UserType {
             st.setInt(index, ((AccessPointStatus) value).getId());
         } else if (value instanceof String) {
             try {
-                st.setInt(index, AccessPointStatus.get((String)value).getId());
+                st.setInt(index, AccessPointStatus.get((String) value).getId());
             } catch (final IllegalArgumentException e) {
                 throw new HibernateException("unable to set status " + value, e);
             }

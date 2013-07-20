@@ -31,7 +31,9 @@ package org.opennms.netmgt.correlation.drools;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>RootCause class.</p>
+ * <p>
+ * RootCause class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,10 +41,14 @@ import org.opennms.netmgt.xml.event.Event;
 public class RootCause extends Cause {
 
     /**
-     * <p>Constructor for RootCause.</p>
+     * <p>
+     * Constructor for RootCause.
+     * </p>
      *
-     * @param cause a {@link java.lang.Long} object.
-     * @param symptom a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param cause
+     *            a {@link java.lang.Long} object.
+     * @param symptom
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public RootCause(final Long cause, final Event symptom) {
         super(Type.ROOT, cause, symptom);

@@ -53,10 +53,11 @@ public abstract class SystemDefTable extends Table {
     /**
      * Instantiates a new system definition table.
      *
-     * @param group the OpenNMS Data Collection Group
+     * @param group
+     *            the OpenNMS Data Collection Group
      */
     public SystemDefTable(final DatacollectionGroup group) {
-        BeanContainer<String,SystemDef> container = new BeanContainer<String,SystemDef>(SystemDef.class);
+        BeanContainer<String, SystemDef> container = new BeanContainer<String, SystemDef>(SystemDef.class);
         container.setBeanIdProperty("name");
         container.addAll(group.getSystemDefCollection());
         setContainerDataSource(container);
@@ -100,18 +101,20 @@ public abstract class SystemDefTable extends Table {
     /**
      * Update external source.
      *
-     * @param item the item
+     * @param item
+     *            the item
      */
     public abstract void updateExternalSource(BeanItem<SystemDef> item);
 
     /**
      * Adds a system definition.
      *
-     * @param systemDef the system definition
+     * @param systemDef
+     *            the system definition
      */
     @SuppressWarnings("unchecked")
     public void addSystemDef(SystemDef systemDef) {
-        ((BeanContainer<String,SystemDef>) getContainerDataSource()).addBean(systemDef);
+        ((BeanContainer<String, SystemDef>) getContainerDataSource()).addBean(systemDef);
     }
 
 }

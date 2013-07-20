@@ -65,7 +65,9 @@ import org.opennms.netmgt.config.rancid.adapter.Schedule;
 import org.opennms.netmgt.filter.FilterDaoFactory;
 
 /**
- * <p>Abstract RancidAdapterConfigManager class.</p>
+ * <p>
+ * Abstract RancidAdapterConfigManager class.
+ * </p>
  *
  * @author <a href="mailto:antonio@openms.it">Antonio Russo</a>
  * @author <a href="mailto:brozow@openms.org">Mathew Brozowski</a>
@@ -73,14 +75,17 @@ import org.opennms.netmgt.filter.FilterDaoFactory;
  */
 abstract public class RancidAdapterConfigManager implements RancidAdapterConfig {
     private static final Logger LOG = LoggerFactory.getLogger(RancidAdapterConfigManager.class);
+
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
      * The config class loaded from the config file
      */
-     private RancidConfiguration m_config;
+    private RancidConfiguration m_config;
 
     /**
      * A boolean flag to indicate If a filter rule against the local OpenNMS
@@ -111,43 +116,60 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     private Map<Package, PolicyManage> m_pkgPolicyMap;
 
     /**
-     * <p>Constructor for RancidAdapterConfigManager.</p>
+     * <p>
+     * Constructor for RancidAdapterConfigManager.
+     * </p>
      *
      * @author <a href="mailto:antonio@opennms.org">Antonio Russo</a>
-     * @param reader a {@link java.io.InputStream} object.
-     * @param verifyServer a boolean.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @param serverName a {@link java.lang.String} object.
+     * @param reader
+     *            a {@link java.io.InputStream} object.
+     * @param verifyServer
+     *            a boolean.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @param serverName
+     *            a {@link java.lang.String} object.
      */
-    public RancidAdapterConfigManager(final InputStream reader,final String serverName, final boolean verifyServer) throws MarshalException, ValidationException, IOException {
-         m_localServer = serverName;
-         m_verifyServer = verifyServer;
-         reloadXML(reader);
-     }
-
-     /**
-      * <p>Constructor for RancidAdapterConfigManager.</p>
-      */
-     public RancidAdapterConfigManager() {
-     }
-
-     public Lock getReadLock() {
-         return m_readLock;
-     }
-
-     public Lock getWriteLock() {
-         return m_writeLock;
-     }
+    public RancidAdapterConfigManager(final InputStream reader, final String serverName, final boolean verifyServer)
+            throws MarshalException, ValidationException, IOException {
+        m_localServer = serverName;
+        m_verifyServer = verifyServer;
+        reloadXML(reader);
+    }
 
     /**
-     * <p>reloadXML</p>
+     * <p>
+     * Constructor for RancidAdapterConfigManager.
+     * </p>
+     */
+    public RancidAdapterConfigManager() {
+    }
+
+    public Lock getReadLock() {
+        return m_readLock;
+    }
+
+    public Lock getWriteLock() {
+        return m_writeLock;
+    }
+
+    /**
+     * <p>
+     * reloadXML
+     * </p>
      *
-     * @param reader a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param reader
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected void reloadXML(final InputStream reader) throws MarshalException, ValidationException, IOException {
         getWriteLock().lock();
@@ -164,13 +186,12 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     /**
      * Go throw the rancid configuration and find a map from
      * policy name and packages
-     *
      */
     private void createPolicyNamePkgMap() {
         m_pkgPolicyMap = new HashMap<Package, PolicyManage>();
         if (hasPolicies()) {
-            for (final PolicyManage pm : policies() ) {
-                m_pkgPolicyMap.put(pm.getPackage(),pm);
+            for (final PolicyManage pm : policies()) {
+                m_pkgPolicyMap.put(pm.getPackage(), pm);
             }
         }
     }
@@ -184,8 +205,8 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         m_urlIPMap = new HashMap<String, List<String>>();
 
         if (hasPolicies()) {
-            for (final Package pkg: packages() ) {
-                for(final String url : includeURLs(pkg)) {
+            for (final Package pkg : packages()) {
+                for (final String url : includeURLs(pkg)) {
                     final List<String> iplist = IpListFromUrl.parse(url);
                     if (iplist.size() > 0) {
                         m_urlIPMap.put(url, iplist);
@@ -208,8 +229,9 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             m_pkgIpMap = new HashMap<Package, List<InetAddress>>();
 
             if (hasPolicies()) {
-                for (final Package pkg: packages() ) {
-                    // Get a list of ipaddress per package agaist the filter rules from
+                for (final Package pkg : packages()) {
+                    // Get a list of ipaddress per package agaist the filter
+                    // rules from
                     // database and populate the package, IP list map.
                     //
                     try {
@@ -220,7 +242,8 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
                             m_pkgIpMap.put(pkg, ipList);
                         }
                     } catch (final Throwable t) {
-                        LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"", pkg.getName(), pkg.getFilter().getContent(), t);
+                        LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"",
+                                  pkg.getName(), pkg.getFilter().getContent(), t);
                     }
 
                 }
@@ -248,10 +271,8 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
      * the passed package definition. If the interface belongs to the package
      * then a value of true is returned. If the interface does not belong to the
      * package a false value is returned.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
-     *
      * TODO: Factor this method out so that it can be reused? Or use an existing
      * utility method if one exists?
      *
@@ -259,7 +280,6 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
      *            The interface to test against the package.
      * @param pkg
      *            The package to check for the inclusion of the interface.
-     *
      * @return True if the interface is included in the package, false
      *         otherwise.
      */
@@ -270,12 +290,14 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         // get list of IPs in this package
         final List<InetAddress> ipList = m_pkgIpMap.get(pkg);
         if (ipList != null && ipList.size() > 0) {
-			filterPassed = ipList.contains(ifaceAddr);
+            filterPassed = ipList.contains(ifaceAddr);
         }
 
-        LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", iface, pkg.getName(), Boolean.valueOf(filterPassed));
+        LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", iface, pkg.getName(),
+                  Boolean.valueOf(filterPassed));
 
-        if (!filterPassed) return false;
+        if (!filterPassed)
+            return false;
 
         //
         // Ensure that the interface is in the specific list or
@@ -346,7 +368,6 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
      *            The interface to test against the package's URL
      * @param url
      *            The url file to read
-     *
      * @return True if the interface is included in the url, false otherwise.
      */
     private boolean interfaceInUrl(final String addr, final String url) {
@@ -363,19 +384,17 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
 
     /**
      * Returns a list of package names that the ip belongs to, null if none.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is alrady in the database.
      *
      * @param ipaddr
      *            the interface to check
-     *
      * @return a list of package names that the ip belongs to, null if none
      */
     private List<String> getAllPackageMatches(final String ipaddr) {
         final List<String> matchingPkgs = new ArrayList<String>();
 
-        for(final Package pkg : packages()) {
+        for (final Package pkg : packages()) {
             if (interfaceInPackage(ipaddr, pkg)) {
                 matchingPkgs.add(pkg.getName());
             }
@@ -383,8 +402,6 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
 
         return matchingPkgs;
     }
-
-
 
     /** {@inheritDoc} */
     @Override
@@ -434,9 +451,9 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         getReadLock().lock();
         try {
             if (sysoid != null) {
-                for (final Mapping map: mappings()) {
+                for (final Mapping map : mappings()) {
                     if (sysoid.startsWith(map.getSysoidMask()))
-                    return map.getType();
+                        return map.getType();
                 }
             }
             return getConfiguration().getDefaultType();
@@ -445,7 +462,6 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         }
     }
 
-
     /** {@inheritDoc} */
     @Override
     public boolean isCurTimeInSchedule(final String ipaddr) {
@@ -453,8 +469,9 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         try {
             if (hasSchedule(ipaddr)) {
                 final Calendar cal = new GregorianCalendar();
-                for(final Schedule schedule : getSchedules(ipaddr)) {
-                    if (isTimeInSchedule(cal, schedule)) return true;
+                for (final Schedule schedule : getSchedules(ipaddr)) {
+                    if (isTimeInSchedule(cal, schedule))
+                        return true;
                 }
                 return false;
             }
@@ -471,13 +488,11 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
      *            the calendar to lookup
      * @param outage
      *            the outage
-     *
      * @return true if time is in outage
      */
     private boolean isTimeInSchedule(final Calendar cal, final Schedule schedule) {
         return BasicScheduleUtils.isTimeInSchedule(cal, BasicScheduleUtils.getRancidSchedule(schedule));
     }
-
 
     private boolean hasPolicies() {
         return (getConfiguration().getPolicies() != null);
@@ -488,17 +503,17 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     }
 
     private PolicyManage getPolicyManage(final String ipaddr) {
-       if (hasPolicyManage(ipaddr)) {
-           return getPolicyManageWithoutTesting(ipaddr);
-       }
-       return null;
+        if (hasPolicyManage(ipaddr)) {
+            return getPolicyManageWithoutTesting(ipaddr);
+        }
+        return null;
     }
 
     private PolicyManage getPolicyManageWithoutTesting(final String ipaddr) {
         final String pkgname = getAllPackageMatches(ipaddr).get(0);
-        final Iterator<Entry<Package,PolicyManage>> ite = m_pkgPolicyMap.entrySet().iterator();
+        final Iterator<Entry<Package, PolicyManage>> ite = m_pkgPolicyMap.entrySet().iterator();
         while (ite.hasNext()) {
-            final Entry<Package,PolicyManage> entry = ite.next();
+            final Entry<Package, PolicyManage> entry = ite.next();
             if (entry.getKey().getName().equals(pkgname)) {
                 return entry.getValue();
             }
@@ -506,11 +521,13 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         return null;
     }
 
-
     /**
-     * <p>hasSchedule</p>
+     * <p>
+     * hasSchedule
+     * </p>
      *
-     * @param ipaddress a {@link java.lang.String} object.
+     * @param ipaddress
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean hasSchedule(final String ipaddress) {
@@ -525,11 +542,13 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         }
     }
 
-
     /**
-     * <p>getSchedules</p>
+     * <p>
+     * getSchedules
+     * </p>
      *
-     * @param ipaddress a {@link java.lang.String} object.
+     * @param ipaddress
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<Schedule> getSchedules(final String ipaddress) {
@@ -544,9 +563,10 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         }
     }
 
-
     /**
-     * <p>packages</p>
+     * <p>
+     * packages
+     * </p>
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -555,7 +575,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         try {
             final List<Package> pkgs = new ArrayList<Package>();
             if (hasPolicies()) {
-                for (final PolicyManage pm : policies() ) {
+                for (final PolicyManage pm : policies()) {
                     pkgs.add(pm.getPackage());
                 }
             }
@@ -566,7 +586,9 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     }
 
     /**
-     * <p>mappings</p>
+     * <p>
+     * mappings
+     * </p>
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -580,7 +602,9 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     }
 
     /**
-     * <p>policies</p>
+     * <p>
+     * policies
+     * </p>
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -594,9 +618,13 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     }
 
     /**
-     * <p>includeURLs</p>
+     * <p>
+     * includeURLs
+     * </p>
      *
-     * @param pkg a {@link org.opennms.netmgt.config.rancid.adapter.Package} object.
+     * @param pkg
+     *            a {@link org.opennms.netmgt.config.rancid.adapter.Package}
+     *            object.
      * @return a {@link java.lang.Iterable} object.
      */
     public Iterable<String> includeURLs(final Package pkg) {
@@ -611,7 +639,9 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     /**
      * Return the Rancid Adapter configuration object.
      *
-     * @return a {@link org.opennms.netmgt.config.rancid.adapter.RancidConfiguration} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.rancid.adapter.RancidConfiguration}
+     *         object.
      */
     public RancidConfiguration getConfiguration() {
         getReadLock().lock();

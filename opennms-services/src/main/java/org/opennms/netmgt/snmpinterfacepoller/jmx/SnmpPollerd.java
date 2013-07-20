@@ -31,12 +31,16 @@ package org.opennms.netmgt.snmpinterfacepoller.jmx;
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
 
 /**
- * <p>SnmpPollerd class.</p>
+ * <p>
+ * SnmpPollerd class.
+ * </p>
  *
  * @author <a href=mailto:antonio@opennms.org>Antonio Russo</a>
  * @version $Id: $
  */
-public class SnmpPollerd extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.snmpinterfacepoller.SnmpPoller> implements SnmpPollerdMBean {
+public class SnmpPollerd extends
+        AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.snmpinterfacepoller.SnmpPoller> implements
+        SnmpPollerdMBean {
 
     /** {@inheritDoc} */
     @Override
@@ -51,4 +55,3 @@ public class SnmpPollerd extends AbstractSpringContextJmxServiceDaemon<org.openn
     }
 
 }
-

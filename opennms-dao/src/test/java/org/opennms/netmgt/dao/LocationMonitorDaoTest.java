@@ -41,34 +41,32 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class LocationMonitorDaoTest implements InitializingBean {
-	@Autowired
-	private LocationMonitorDao m_locationMonitorDao;
+    @Autowired
+    private LocationMonitorDao m_locationMonitorDao;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testPauseAll() {
         m_locationMonitorDao.pauseAll();
 
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testResumeAll() {
         m_locationMonitorDao.resumeAll();
     }

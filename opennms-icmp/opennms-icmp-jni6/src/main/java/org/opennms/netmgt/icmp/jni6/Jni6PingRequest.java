@@ -101,11 +101,10 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
      * The thread logger associated with this request.
      */
 
-
     private final AtomicBoolean m_processed = new AtomicBoolean(false);
 
-
-    public Jni6PingRequest(final Jni6PingRequestId id, final long timeout, final int retries, final int packetsize, final PingResponseCallback callback) {
+    public Jni6PingRequest(final Jni6PingRequestId id, final long timeout, final int retries, final int packetsize,
+            final PingResponseCallback callback) {
         m_id = id;
         m_timeout = timeout;
         m_retries = retries;
@@ -113,20 +112,26 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
         m_callback = callback;
     }
 
-    public Jni6PingRequest(final Inet6Address addr, final int identifier, final int sequenceNumber, final long threadId, final long timeout, final int retries, final int packetsize, final PingResponseCallback cb) {
+    public Jni6PingRequest(final Inet6Address addr, final int identifier, final int sequenceNumber,
+            final long threadId, final long timeout, final int retries, final int packetsize,
+            final PingResponseCallback cb) {
         this(new Jni6PingRequestId(addr, identifier, sequenceNumber, threadId), timeout, retries, packetsize, cb);
     }
 
-
-    public Jni6PingRequest(final Inet6Address addr, final int identifier, final int sequenceNumber, final long timeout, final int retries, final int packetsize, final PingResponseCallback cb) {
+    public Jni6PingRequest(final Inet6Address addr, final int identifier, final int sequenceNumber, final long timeout,
+            final int retries, final int packetsize, final PingResponseCallback cb) {
         this(addr, identifier, sequenceNumber, getNextTID(), timeout, retries, packetsize, cb);
     }
 
-
     /**
-     * <p>processResponse</p>
+     * <p>
+     * processResponse
+     * </p>
      *
-     * @param reply a {@link org.opennms.netmgt.icmp.Jni6PingResponse.JniPingResponse.PingReply} object.
+     * @param reply
+     *            a
+     *            {@link org.opennms.netmgt.icmp.Jni6PingResponse.JniPingResponse.PingReply}
+     *            object.
      * @return a boolean.
      */
     @Override
@@ -139,8 +144,11 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
         }
         return true;
     }
+
     /**
-     * <p>processTimeout</p>
+     * <p>
+     * processTimeout
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.icmp.jni6.Jni6PingRequest} object.
      */
@@ -164,7 +172,9 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
     }
 
     /**
-     * <p>isExpired</p>
+     * <p>
+     * isExpired
+     * </p>
      *
      * @return a boolean.
      */
@@ -173,7 +183,9 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -198,24 +210,33 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param request a {@link java.util.concurrent.Delayed} object.
+     * @param request
+     *            a {@link java.util.concurrent.Delayed} object.
      * @return a int.
      */
     @Override
     public int compareTo(final Delayed request) {
         final long myDelay = getDelay(TimeUnit.MILLISECONDS);
         final long otherDelay = request.getDelay(TimeUnit.MILLISECONDS);
-        if (myDelay < otherDelay) return -1;
-        if (myDelay == otherDelay) return 0;
+        if (myDelay < otherDelay)
+            return -1;
+        if (myDelay == otherDelay)
+            return 0;
         return 1;
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.icmp.Jni6PingRequestId.JniPingRequestId.PingRequestId} object.
+     * @return a
+     *         {@link org.opennms.netmgt.icmp.Jni6PingRequestId.JniPingRequestId.PingRequestId}
+     *         object.
      */
     @Override
     public Jni6PingRequestId getId() {
@@ -236,7 +257,9 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
     }
 
     /**
-     * <p>isProcessed</p>
+     * <p>
+     * isProcessed
+     * </p>
      *
      * @return a boolean.
      */
@@ -248,7 +271,8 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
     /**
      * Send this JniPingRequest through the given icmpSocket
      *
-     * @param socket a {@link org.opennms.protocols.icmp.IcmpSocket} object.
+     * @param socket
+     *            a {@link org.opennms.protocols.icmp.IcmpSocket} object.
      */
     public void send(final ICMPv6Socket socket) {
         try {
@@ -267,7 +291,7 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
     private void send(final ICMPv6Socket socket, final DatagramPacket packet) throws IOException {
         try {
             socket.send(packet);
-        } catch(final IOException e) {
+        } catch (final IOException e) {
             if (e.getMessage().matches("sendto error \\(65, .*\\)")) {
                 throw new NoRouteToHostException("No Route to Host " + m_id.getAddress() + ": " + e.getMessage());
             } else if (e.getMessage().matches("sendto error \\(64, .*\\)")) {
@@ -305,6 +329,7 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
     public long getThreadId() {
         return getRequestPacket().getThreadId();
     }
+
     @Override
     public long getReceivedTimeNanos() {
         return getRequestPacket().getReceiveTime() * 1000000;
@@ -317,7 +342,8 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
 
     @Override
     public double elapsedTime(final TimeUnit timeUnit) {
-        // {@link org.opennms.protocols.icmp.ICMPEchoPacket.getPingRTT()} returns microseconds.
+        // {@link org.opennms.protocols.icmp.ICMPEchoPacket.getPingRTT()}
+        // returns microseconds.
         final double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, timeUnit);
         return (getRequestPacket().getRoundTripTime() * 1000) / nanosPerUnit;
     }

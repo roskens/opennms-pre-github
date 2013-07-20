@@ -55,13 +55,16 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase {
     private static final Logger LOG = LoggerFactory.getLogger(AlarmStatsRestServiceTest.class);
+
     private DatabasePopulator m_databasePopulator;
+
     private WebApplicationContext m_context;
+
     private int count = 0;
 
-	@Override
-	protected void afterServletStart() throws Exception {
-	    count = 0;
+    @Override
+    protected void afterServletStart() throws Exception {
+        count = 0;
         MockLogAppender.setupLogging(true, "DEBUG");
         m_context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
         m_databasePopulator = m_context.getBean("databasePopulator", DatabasePopulator.class);
@@ -76,7 +79,7 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
             alarmDao.delete(alarm);
         }
         alarmDao.flush();
-	}
+    }
 
     @Test
     public void testGetAlarmStats() throws Exception {
@@ -112,33 +115,38 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
 
     @Test
     public void testNewestAndOldestBySeverity() throws Exception {
-    	final OnmsAlarm oldestAckedAlarm   = createAlarm(OnmsSeverity.WARNING, "admin");
-    	final OnmsAlarm newestAckedAlarm   = createAlarm(OnmsSeverity.WARNING, "admin");
-    	final OnmsAlarm oldestUnackedAlarm = createAlarm(OnmsSeverity.WARNING, null);
-    	final OnmsAlarm newestUnackedAlarm = createAlarm(OnmsSeverity.WARNING, null);
+        final OnmsAlarm oldestAckedAlarm = createAlarm(OnmsSeverity.WARNING, "admin");
+        final OnmsAlarm newestAckedAlarm = createAlarm(OnmsSeverity.WARNING, "admin");
+        final OnmsAlarm oldestUnackedAlarm = createAlarm(OnmsSeverity.WARNING, null);
+        final OnmsAlarm newestUnackedAlarm = createAlarm(OnmsSeverity.WARNING, null);
 
         final String xml = sendRequest(GET, "/stats/alarms/by-severity", 200);
 
-        final String oldestAckedXml   = getXml("oldestAcked", xml);
-        final String newestAckedXml   = getXml("newestAcked", xml);
+        final String oldestAckedXml = getXml("oldestAcked", xml);
+        final String newestAckedXml = getXml("newestAcked", xml);
         final String oldestUnackedXml = getXml("oldestUnacked", xml);
         final String newestUnackedXml = getXml("newestUnacked", xml);
 
-        assertXpathMatches("should contain WARNING with ID#" + oldestAckedAlarm.getId(), oldestAckedXml, "//alarm[@severity='WARNING' and @id='" + oldestAckedAlarm.getId() + "']");
+        assertXpathMatches("should contain WARNING with ID#" + oldestAckedAlarm.getId(), oldestAckedXml,
+                           "//alarm[@severity='WARNING' and @id='" + oldestAckedAlarm.getId() + "']");
         assertTrue(oldestAckedXml.contains("<firstEventTime>2010-01-01T00:00:00"));
 
-        assertXpathMatches("should contain WARNING with ID#" + newestAckedAlarm.getId(), newestAckedXml, "//alarm[@severity='WARNING' and @id='" + newestAckedAlarm.getId() + "']");
+        assertXpathMatches("should contain WARNING with ID#" + newestAckedAlarm.getId(), newestAckedXml,
+                           "//alarm[@severity='WARNING' and @id='" + newestAckedAlarm.getId() + "']");
         assertTrue(newestAckedXml.contains("<firstEventTime>2010-01-01T01:00:00"));
 
-        assertXpathMatches("should contain WARNING with ID#" + oldestUnackedAlarm.getId(), oldestUnackedXml, "//alarm[@severity='WARNING' and @id='" + oldestUnackedAlarm.getId() + "']");
+        assertXpathMatches("should contain WARNING with ID#" + oldestUnackedAlarm.getId(), oldestUnackedXml,
+                           "//alarm[@severity='WARNING' and @id='" + oldestUnackedAlarm.getId() + "']");
         assertTrue(oldestUnackedXml.contains("<firstEventTime>2010-01-01T02:00:00"));
 
-        assertXpathMatches("should contain WARNING with ID#" + newestUnackedAlarm.getId(), newestUnackedXml, "//alarm[@severity='WARNING' and @id='" + newestUnackedAlarm.getId() + "']");
+        assertXpathMatches("should contain WARNING with ID#" + newestUnackedAlarm.getId(), newestUnackedXml,
+                           "//alarm[@severity='WARNING' and @id='" + newestUnackedAlarm.getId() + "']");
         assertTrue(newestUnackedXml.contains("<firstEventTime>2010-01-01T03:00:00"));
     }
 
     private String getXml(final String tag, final String xml) {
-        final Pattern p = Pattern.compile("(<" + tag + ">.*?</" + tag + ">)", Pattern.DOTALL | Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+        final Pattern p = Pattern.compile("(<" + tag + ">.*?</" + tag + ">)", Pattern.DOTALL | Pattern.CASE_INSENSITIVE
+                | Pattern.MULTILINE);
         final Matcher m = p.matcher(xml);
         if (m.find()) {
             return m.group(1);

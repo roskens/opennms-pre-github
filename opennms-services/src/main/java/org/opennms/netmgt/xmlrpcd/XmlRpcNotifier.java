@@ -120,7 +120,7 @@ public final class XmlRpcNotifier {
 
     /**
      * The external xmlrpc server procedure to process a generic event
-     *  RPC (instead of making an RPC that's specific to the message)
+     * RPC (instead of making an RPC that's specific to the message)
      */
     private static final String XMLRPC_GENERIC_COMMAND = "sendEvent";
 
@@ -161,18 +161,26 @@ public final class XmlRpcNotifier {
      */
     private String m_localServer;
 
-    //private ExternalEventRecipient m_recipient;
+    // private ExternalEventRecipient m_recipient;
 
     /**
      * The constructor
      *
-     * @param rpcServers an array of {@link org.opennms.netmgt.config.xmlrpcd.XmlrpcServer} objects.
-     * @param retries a int.
-     * @param elapseTime a int.
-     * @param verifyServer a boolean.
-     * @param localServer a {@link java.lang.String} object.
+     * @param rpcServers
+     *            an array of
+     *            {@link org.opennms.netmgt.config.xmlrpcd.XmlrpcServer}
+     *            objects.
+     * @param retries
+     *            a int.
+     * @param elapseTime
+     *            a int.
+     * @param verifyServer
+     *            a boolean.
+     * @param localServer
+     *            a {@link java.lang.String} object.
      */
-    public XmlRpcNotifier(final XmlrpcServer[] rpcServers, final int retries, final int elapseTime, final boolean verifyServer, final String localServer) {
+    public XmlRpcNotifier(final XmlrpcServer[] rpcServers, final int retries, final int elapseTime,
+            final boolean verifyServer, final String localServer) {
         m_rpcServers = rpcServers;
         m_retries = retries;
         m_elapseTime = elapseTime;
@@ -183,19 +191,21 @@ public final class XmlRpcNotifier {
             m_localServer = localServer;
         }
 
-//
-//        // These are here temporarily until I can put in the spring xmlrpc event recipient stuff
-//        InvocationHandler handler = new InvocationHandler() {
-//
-//            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-//                return Boolean.TRUE;
-//            }
-//        };
-//        m_recipient = (ExternalEventRecipient)Proxy.newProxyInstance(ExternalEventRecipient.class.getClassLoader(),
-//                                                                     new Class[] { ExternalEventRecipient.class },
-//                                                                     handler);
+        //
+        // // These are here temporarily until I can put in the spring xmlrpc
+        // event recipient stuff
+        // InvocationHandler handler = new InvocationHandler() {
+        //
+        // public Object invoke(Object proxy, Method method, Object[] args)
+        // throws Throwable {
+        // return Boolean.TRUE;
+        // }
+        // };
+        // m_recipient =
+        // (ExternalEventRecipient)Proxy.newProxyInstance(ExternalEventRecipient.class.getClassLoader(),
+        // new Class[] { ExternalEventRecipient.class },
+        // handler);
     }
-
 
     /**
      * <p>
@@ -214,7 +224,7 @@ public final class XmlRpcNotifier {
         Assert.notNull(message, "message must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.notifySuccess(txNo, uei, message);
+        // Object o = m_recipient.notifySuccess(txNo, uei, message);
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -244,7 +254,7 @@ public final class XmlRpcNotifier {
         Assert.notNull(reason, "reason must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.notifyFailure(txNo, uei, reason);
+        // Object o = m_recipient.notifyFailure(txNo, uei, reason);
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -272,7 +282,7 @@ public final class XmlRpcNotifier {
         Assert.notNull(message, "message must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.notifyReceivedEvent(txNo, uei, message);
+        // Object o = m_recipient.notifyReceivedEvent(txNo, uei, message);
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -288,14 +298,18 @@ public final class XmlRpcNotifier {
      * Notify the external xmlrpc server the occurance of the 'nodeLostService'
      * event.
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public boolean sendServiceDownEvent(final Event event) {
         Assert.notNull(event, "event object must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.sendServiceDownEvent(getLabelForEventNode(event), event.getInterface(), event.getService(), "Not Available", getEventHost(event), event.getTime());
+        // Object o =
+        // m_recipient.sendServiceDownEvent(getLabelForEventNode(event),
+        // event.getInterface(), event.getService(), "Not Available",
+        // getEventHost(event), event.getTime());
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -310,7 +324,7 @@ public final class XmlRpcNotifier {
     }
 
     private String getEventHost(final Event event) {
-        return (m_verifyServer ?  m_localServer : event.getHost());
+        return (m_verifyServer ? m_localServer : event.getHost());
     }
 
     /**
@@ -318,14 +332,18 @@ public final class XmlRpcNotifier {
      * Notify the external xmlrpc server the occurance of the
      * 'nodeRegainedService' event.
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public boolean sendServiceUpEvent(final Event event) {
         Assert.notNull(event, "event object must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.sendServiceUpEvent(getLabelForEventNode(event), event.getInterface(), event.getService(), "Not Available", getEventHost(event), event.getTime());
+        // Object o =
+        // m_recipient.sendServiceUpEvent(getLabelForEventNode(event),
+        // event.getInterface(), event.getService(), "Not Available",
+        // getEventHost(event), event.getTime());
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -344,14 +362,17 @@ public final class XmlRpcNotifier {
      * Notify the external xmlrpc server the occurance of the 'interfaceDown'
      * event.
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public boolean sendInterfaceDownEvent(final Event event) {
         Assert.notNull(event, "event object must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.sendInterfaceDownEvent(getLabelForEventNode(event), event.getInterface(), getEventHost(event), event.getTime());
+        // Object o =
+        // m_recipient.sendInterfaceDownEvent(getLabelForEventNode(event),
+        // event.getInterface(), getEventHost(event), event.getTime());
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -368,14 +389,17 @@ public final class XmlRpcNotifier {
      * Notify the external xmlrpc server the occurance of the 'interfaceUp'
      * event.
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public boolean sendInterfaceUpEvent(final Event event) {
         Assert.notNull(event, "event object must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.sendInterfaceUpEvent(getLabelForEventNode(event), event.getInterface(), getEventHost(event), event.getTime());
+        // Object o =
+        // m_recipient.sendInterfaceUpEvent(getLabelForEventNode(event),
+        // event.getInterface(), getEventHost(event), event.getTime());
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -392,14 +416,16 @@ public final class XmlRpcNotifier {
      * <p>
      * Notify the external xmlrpc server the occurance of the 'nodeDown' event.
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public boolean sendNodeDownEvent(final Event event) {
         Assert.notNull(event, "event object must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.sendNodeDownEvent(getLabelForEventNode(event), getEventHost(event), event.getTime());
+        // Object o = m_recipient.sendNodeDownEvent(getLabelForEventNode(event),
+        // getEventHost(event), event.getTime());
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -414,14 +440,16 @@ public final class XmlRpcNotifier {
      * <p>
      * Notify the external xmlrpc server the occurance of the 'nodeUp' event.
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public boolean sendNodeUpEvent(final Event event) {
         Assert.notNull(event, "event object must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.sendNodeUpEvent(getLabelForEventNode(event), getEventHost(event), event.getTime());
+        // Object o = m_recipient.sendNodeUpEvent(getLabelForEventNode(event),
+        // getEventHost(event), event.getTime());
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -439,14 +467,16 @@ public final class XmlRpcNotifier {
      * which does not correspond to one of the specific event methods of this
      * class
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public boolean sendEvent(final Event event) {
         Assert.notNull(event, "event object must not be null");
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
-        //Object o = m_recipient.sendNodeUpEvent(getLabelForEventNode3event), getEventHost(event), event.getTime());
+        // Object o = m_recipient.sendNodeUpEvent(getLabelForEventNode3event),
+        // getEventHost(event), event.getTime());
 
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
@@ -454,7 +484,7 @@ public final class XmlRpcNotifier {
         params.addElement(table);
 
         final String source = event.getSource();
-		if (source != null) {
+        if (source != null) {
             table.put("source", source);
         }
 
@@ -494,12 +524,11 @@ public final class XmlRpcNotifier {
 
         // process event parameters (if any)
         final List<Parm> eventParams = event.getParmCollection();
-        if (eventParams != null)
-        {
-        	final int numParams = eventParams.size();
+        if (eventParams != null) {
+            final int numParams = eventParams.size();
             for (int i = 0; i < numParams; i++) {
-            	final Parm p = eventParams.get(i);
-            	final Value v = p.getValue();
+                final Parm p = eventParams.get(i);
+                final Value v = p.getValue();
 
                 table.put("param" + i + " name", p.getParmName());
                 table.put("param" + i + " type", v.getType());
@@ -511,7 +540,7 @@ public final class XmlRpcNotifier {
             return sendXmlrpcRequest(XMLRPC_GENERIC_COMMAND, params);
         } else {
             // get trap-specific fields
-        	final Snmp trapInfo = event.getSnmp();
+            final Snmp trapInfo = event.getSnmp();
 
             table.put("communityString", String.valueOf(trapInfo.getCommunity()));
             table.put("genericTrapNumber", Integer.toString(trapInfo.getGeneric()));
@@ -528,7 +557,6 @@ public final class XmlRpcNotifier {
             return sendXmlrpcRequest(XMLRPC_SNMP_TRAP_COMMAND, params);
         }
     }
-
 
     private String getLabelForEventNode(final Event event) {
         return getNodeLabel(event.getNodeid());
@@ -595,17 +623,18 @@ public final class XmlRpcNotifier {
 
         for (int i = 0; i < m_retries; i++) {
             try {
-            	final Object reply = m_xmlrpcClient.execute(command, params);
-		LOG.debug("Response from XMLRPC server: {}\n\t{}", m_xmlrpcClient.getURL(), reply);
+                final Object reply = m_xmlrpcClient.execute(command, params);
+                LOG.debug("Response from XMLRPC server: {}\n\t{}", m_xmlrpcClient.getURL(), reply);
                 success = true;
             } catch (final XmlRpcException e) {
                 LOG.warn("Failed to send message to XMLRPC server {}", m_xmlrpcClient.getURL(), e);
             } catch (final ConnectException e) {
-                LOG.warn("Failed to send message to XMLRPC server {} due to connect exception", m_xmlrpcClient.getURL(), e);
+                LOG.warn("Failed to send message to XMLRPC server {} due to connect exception",
+                         m_xmlrpcClient.getURL(), e);
             } catch (final IOException e) {
                 LOG.warn("Failed to send message to XMLRPC server {}", m_xmlrpcClient.getURL(), e);
             } catch (final Throwable t) {
-		LOG.error("Received unknown error.", t);
+                LOG.error("Received unknown error.", t);
             }
 
             if (success) {
@@ -614,7 +643,8 @@ public final class XmlRpcNotifier {
         }
 
         if (!success) {
-            LOG.error("Could not successfully communicate with XMLRPC server '{}' after {} tries", m_xmlrpcClient.getURL(), m_retries);
+            LOG.error("Could not successfully communicate with XMLRPC server '{}' after {} tries",
+                      m_xmlrpcClient.getURL(), m_retries);
         }
 
         return success;
@@ -625,7 +655,6 @@ public final class XmlRpcNotifier {
      * This method try to find an external xmlrpc server which is alive and and
      * can communicate with.
      * </p>
-     *
      * <p>
      * <b>Note: </b> If an xmlrpc server is found alive and could communicate
      * with, an xmlrpc client is created to communicate with this server. The
@@ -635,7 +664,7 @@ public final class XmlRpcNotifier {
      */
     public void createConnection() {
         // Create the request parameters list for the test command
-    	final Vector<Object> params = new Vector<Object>();
+        final Vector<Object> params = new Vector<Object>();
         params.addElement(Long.toString(0));
         params.addElement(EventConstants.XMLRPC_NOTIFICATION_EVENT_UEI);
         params.addElement("test connection");
@@ -643,13 +672,13 @@ public final class XmlRpcNotifier {
         boolean success = false;
 
         for (int i = 0; i < m_rpcServers.length; i++) {
-        	final XmlrpcServer xServer = m_rpcServers[i];
+            final XmlrpcServer xServer = m_rpcServers[i];
 
-        	final String url = xServer.getUrl();
-        	final int timeout = xServer.getTimeout();
+            final String url = xServer.getUrl();
+            final int timeout = xServer.getTimeout();
 
-		LOG.debug("Start to set up communication to XMLRPC server: {}", url);
-		LOG.debug("Setting timeout value to: {}", timeout);
+            LOG.debug("Start to set up communication to XMLRPC server: {}", url);
+            LOG.debug("Setting timeout value to: {}", timeout);
 
             try {
                 m_xmlrpcClient = new TimeoutSecureXmlRpcClient(url, timeout);
@@ -660,9 +689,9 @@ public final class XmlRpcNotifier {
 
             for (int k = 0; k < m_retries; k++) {
                 try {
-                	final Object reply = m_xmlrpcClient.execute(XMLRPC_SERVER_RECEIVE_EVENT_COMMAND, params);
+                    final Object reply = m_xmlrpcClient.execute(XMLRPC_SERVER_RECEIVE_EVENT_COMMAND, params);
 
-			LOG.debug("Response from XMLRPC server: {}\n\t{}", url, reply);
+                    LOG.debug("Response from XMLRPC server: {}\n\t{}", url, reply);
                     success = true;
                 } catch (final XmlRpcException e) {
                     LOG.warn("Failed to send message to XMLRPC server: {}", url, e);
@@ -680,7 +709,7 @@ public final class XmlRpcNotifier {
                 try {
                     Thread.sleep(m_elapseTime);
                 } catch (final InterruptedException ie) {
-			LOG.info("Interrupted while waiting to retry.", ie);
+                    LOG.info("Interrupted while waiting to retry.", ie);
                 }
             }
 

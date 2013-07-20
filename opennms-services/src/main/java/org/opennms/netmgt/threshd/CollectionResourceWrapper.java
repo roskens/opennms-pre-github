@@ -45,12 +45,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>CollectionResourceWrapper class.</p>
- *
- * Wraps a CollectionResource with some methods and caching for the efficient application of thresholds (without
+ * <p>
+ * CollectionResourceWrapper class.
+ * </p>
+ * Wraps a CollectionResource with some methods and caching for the efficient
+ * application of thresholds (without
  * pulling thresholding code into CollectionResource itself)
- *
- * A fresh instance should be created for each collection cycle (assumptions are made based on that premise)
+ * A fresh instance should be created for each collection cycle (assumptions are
+ * made based on that premise)
  *
  * @author ranger
  * @version $Id: $
@@ -60,26 +62,37 @@ public class CollectionResourceWrapper {
     private static final Logger LOG = LoggerFactory.getLogger(CollectionResourceWrapper.class);
 
     private final int m_nodeId;
+
     private final String m_hostAddress;
+
     private final String m_serviceName;
+
     private String m_label;
+
     private String m_iflabel;
+
     private String m_ifindex;
+
     private final RrdRepository m_repository;
+
     private final CollectionResource m_resource;
+
     private final Map<String, CollectionAttribute> m_attributes;
 
     /**
-     * Keeps track of both the Double value, and when it was collected, for the static cache of attributes
-     *
-     * This is necessary for the *correct* calculation of Counter rates, across variable collection times and possible
+     * Keeps track of both the Double value, and when it was collected, for the
+     * static cache of attributes
+     * This is necessary for the *correct* calculation of Counter rates, across
+     * variable collection times and possible
      * collection failures (see NMS-4244)
-     *
-     * Just a holder class for two associated values; no need for the formality of accessors
+     * Just a holder class for two associated values; no need for the formality
+     * of accessors
      */
     static class CacheEntry {
         final Date timestamp;
+
         final Double value;
+
         public CacheEntry(final Date timestamp, final Double value) {
             if (timestamp == null) {
                 throw new IllegalArgumentException("Illegal null timestamp in cache value");
@@ -94,39 +107,57 @@ public class CollectionResourceWrapper {
     /*
      * Holds last values for counter attributes (in order to calculate delta)
      */
-    static final ConcurrentHashMap<String, CacheEntry> s_cache = new ConcurrentHashMap<String,CacheEntry>();
+    static final ConcurrentHashMap<String, CacheEntry> s_cache = new ConcurrentHashMap<String, CacheEntry>();
 
     /*
      * To avoid update static cache on every call of getAttributeValue.
-     * In some cases, the same DS could be needed in many thresholds definitions for same resource.
+     * In some cases, the same DS could be needed in many thresholds definitions
+     * for same resource.
      * See Bug 3193
      */
-    private final Map<String, Double> m_localCache = new HashMap<String,Double>();
+    private final Map<String, Double> m_localCache = new HashMap<String, Double>();
 
     /*
-     * Holds interface ifInfo data for interface resource only. This avoid multiple calls to database for same resource.
+     * Holds interface ifInfo data for interface resource only. This avoid
+     * multiple calls to database for same resource.
      */
     private Map<String, String> m_ifInfo;
 
     /*
-	 * Holds the timestamp of the collection being thresholded, for the calculation of counter rates
+     * Holds the timestamp of the collection being thresholded, for the
+     * calculation of counter rates
      */
     private final Date m_collectionTimestamp;
 
     /**
-     * <p>Constructor for CollectionResourceWrapper.</p>
+     * <p>
+     * Constructor for CollectionResourceWrapper.
+     * </p>
      *
-     * @param interval a long.
-     * @param nodeId a int.
-     * @param hostAddress a {@link java.lang.String} object.
-     * @param serviceName a {@link java.lang.String} object.
-     * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
-     * @param resource a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
-     * @param attributes a {@link java.util.Map} object.
+     * @param interval
+     *            a long.
+     * @param nodeId
+     *            a int.
+     * @param hostAddress
+     *            a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param repository
+     *            a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
+     * @param attributes
+     *            a {@link java.util.Map} object.
      */
-    public CollectionResourceWrapper(Date collectionTimestamp, int nodeId, String hostAddress, String serviceName, RrdRepository repository, CollectionResource resource, Map<String, CollectionAttribute> attributes) {
+    public CollectionResourceWrapper(Date collectionTimestamp, int nodeId, String hostAddress, String serviceName,
+            RrdRepository repository, CollectionResource resource, Map<String, CollectionAttribute> attributes) {
         if (collectionTimestamp == null) {
-            throw new IllegalArgumentException(String.format("%s: Null collection timestamp when thresholding service %s on node %d (%s)", this.getClass().getSimpleName(), serviceName, nodeId, hostAddress));
+            throw new IllegalArgumentException(
+                                               String.format("%s: Null collection timestamp when thresholding service %s on node %d (%s)",
+                                                             this.getClass().getSimpleName(), serviceName, nodeId,
+                                                             hostAddress));
         }
 
         m_collectionTimestamp = collectionTimestamp;
@@ -137,7 +168,9 @@ public class CollectionResourceWrapper {
         m_resource = resource;
         m_attributes = attributes;
         if (isAnInterfaceResource()) {
-            if (resource instanceof AliasedResource) { // TODO What about AliasedResource's custom attributes?
+            if (resource instanceof AliasedResource) { // TODO What about
+                                                       // AliasedResource's
+                                                       // custom attributes?
                 m_iflabel = ((AliasedResource) resource).getLabel();
                 m_ifInfo = ((AliasedResource) resource).getIfInfo().getAttributesMap();
                 m_ifInfo.put("domain", ((AliasedResource) resource).getDomain());
@@ -153,7 +186,8 @@ public class CollectionResourceWrapper {
                 if (m_iflabel != null) { // See Bug 3488
                     m_ifInfo = ifInfoGetter.getIfInfoForNodeAndLabel(getNodeId(), m_iflabel);
                 } else {
-                    LOG.info("Can't find ifLabel for latency resource {} on node {}", resource.getInstance(), getNodeId());
+                    LOG.info("Can't find ifLabel for latency resource {} on node {}", resource.getInstance(),
+                             getNodeId());
                 }
             }
             if (m_ifInfo != null) {
@@ -165,7 +199,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -174,7 +210,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>getHostAddress</p>
+     * <p>
+     * getHostAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -183,7 +221,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -192,7 +232,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>getRepository</p>
+     * <p>
+     * getRepository
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
@@ -201,7 +243,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -210,16 +254,21 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>setLabel</p>
+     * <p>
+     * setLabel
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public void setLabel(String label) {
         m_label = label;
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -228,7 +277,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -237,7 +288,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>getIfLabel</p>
+     * <p>
+     * getIfLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -246,7 +299,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -255,9 +310,12 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>getIfInfoValue</p>
+     * <p>
+     * getIfInfoValue
+     * </p>
      *
-     * @param attribute a {@link java.lang.String} object.
+     * @param attribute
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected String getIfInfoValue(String attribute) {
@@ -267,7 +325,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>isAnInterfaceResource</p>
+     * <p>
+     * isAnInterfaceResource
+     * </p>
      *
      * @return a boolean.
      */
@@ -276,7 +336,9 @@ public class CollectionResourceWrapper {
     }
 
     /**
-     * <p>isValidInterfaceResource</p>
+     * <p>
+     * isValidInterfaceResource
+     * </p>
      *
      * @return a boolean.
      */
@@ -285,11 +347,11 @@ public class CollectionResourceWrapper {
             return false;
         }
         try {
-            if(null == m_ifindex)
+            if (null == m_ifindex)
                 return false;
-            if(Integer.parseInt(m_ifindex) < 0)
+            if (Integer.parseInt(m_ifindex) < 0)
                 return false;
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             return false;
         }
         return true;
@@ -299,9 +361,12 @@ public class CollectionResourceWrapper {
      * FIXME What happen with numeric fields from strings.properties ?
      */
     /**
-     * <p>getAttributeValue</p>
+     * <p>
+     * getAttributeValue
+     * </p>
      *
-     * @param ds a {@link java.lang.String} object.
+     * @param ds
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Double} object.
      */
     public Double getAttributeValue(String ds) {
@@ -314,8 +379,10 @@ public class CollectionResourceWrapper {
             LOG.warn("getAttributeValue: can't find numeric value for {} on {}", ds, m_resource);
             return null;
         }
-        // Generating a unique ID for the node/resourceType/resource/metric combination.
-        String id =  "node[" + m_nodeId + "].resourceType[" + m_resource.getResourceTypeName() + "].instance[" + m_resource.getLabel() + "].metric[" + ds + "]";
+        // Generating a unique ID for the node/resourceType/resource/metric
+        // combination.
+        String id = "node[" + m_nodeId + "].resourceType[" + m_resource.getResourceTypeName() + "].instance["
+                + m_resource.getLabel() + "].metric[" + ds + "]";
         Double current = null;
         try {
             current = Double.parseDouble(numValue);
@@ -337,60 +404,70 @@ public class CollectionResourceWrapper {
     private Double getCounterValue(String id, Double current) {
         synchronized (m_localCache) {
 
-        if (m_localCache.containsKey(id) == false) {
-            // Atomically replace the CacheEntry with the new value
-            CacheEntry last = s_cache.put(id, new CacheEntry(m_collectionTimestamp, current));
-            LOG.debug("getCounterValue: id={}, last={}, current={}", id, (last==null ? last : last.value +"@"+ last.timestamp), current);
-            if (last == null) {
-                LOG.info("getCounterValue: unknown last value, ignoring current");
-                m_localCache.put(id, Double.NaN);
-            } else {
-                Double delta = current.doubleValue() - last.value.doubleValue();
-                // wrapped counter handling(negative delta), rrd style
-                if (delta < 0) {
-                    double newDelta = delta.doubleValue();
-                    // 2-phase adjustment method
-                    // try 32-bit adjustment
-                    newDelta += Math.pow(2, 32);
-                    if (newDelta < 0) {
-                        // try 64-bit adjustment
-                        newDelta += Math.pow(2, 64) - Math.pow(2, 32);
-                    }
-                    LOG.info("getCounterValue: {}(counter) wrapped counter adjusted last={}@{}, current={}, olddelta={}, newdelta={}", id, last.value, last.timestamp, current, delta, newDelta);
-                    delta = newDelta;
-                }
-                // Get the interval between when this current collection was taken, and the last time this
-                // value was collected (and had a counter rate calculated for it).
-                // If the interval is zero, than the current rate must returned as 0.0 since there can be
-                // no delta across a time interval of zero.
-                long interval = ( m_collectionTimestamp.getTime() - last.timestamp.getTime() ) / 1000;
-                if (interval > 0) {
-                    m_localCache.put(id, delta / interval);
+            if (m_localCache.containsKey(id) == false) {
+                // Atomically replace the CacheEntry with the new value
+                CacheEntry last = s_cache.put(id, new CacheEntry(m_collectionTimestamp, current));
+                LOG.debug("getCounterValue: id={}, last={}, current={}", id, (last == null ? last : last.value + "@"
+                        + last.timestamp), current);
+                if (last == null) {
+                    LOG.info("getCounterValue: unknown last value, ignoring current");
+                    m_localCache.put(id, Double.NaN);
                 } else {
-                    LOG.info("getCounterValue: invalid zero-length rate interval for {}, returning rate of zero", id);
-                    m_localCache.put(id, 0.0);
-                    // Restore the original value inside the static cache
-                    s_cache.put(id, last);
+                    Double delta = current.doubleValue() - last.value.doubleValue();
+                    // wrapped counter handling(negative delta), rrd style
+                    if (delta < 0) {
+                        double newDelta = delta.doubleValue();
+                        // 2-phase adjustment method
+                        // try 32-bit adjustment
+                        newDelta += Math.pow(2, 32);
+                        if (newDelta < 0) {
+                            // try 64-bit adjustment
+                            newDelta += Math.pow(2, 64) - Math.pow(2, 32);
+                        }
+                        LOG.info("getCounterValue: {}(counter) wrapped counter adjusted last={}@{}, current={}, olddelta={}, newdelta={}",
+                                 id, last.value, last.timestamp, current, delta, newDelta);
+                        delta = newDelta;
+                    }
+                    // Get the interval between when this current collection was
+                    // taken, and the last time this
+                    // value was collected (and had a counter rate calculated
+                    // for it).
+                    // If the interval is zero, than the current rate must
+                    // returned as 0.0 since there can be
+                    // no delta across a time interval of zero.
+                    long interval = (m_collectionTimestamp.getTime() - last.timestamp.getTime()) / 1000;
+                    if (interval > 0) {
+                        m_localCache.put(id, delta / interval);
+                    } else {
+                        LOG.info("getCounterValue: invalid zero-length rate interval for {}, returning rate of zero",
+                                 id);
+                        m_localCache.put(id, 0.0);
+                        // Restore the original value inside the static cache
+                        s_cache.put(id, last);
+                    }
                 }
             }
-        }
-        Double value = m_localCache.get(id);
-        // This is just a sanity check, we should never have a value of null for the value at this point
-        if (value == null) {
-            LOG.error("getCounterValue: value was not calculated correctly for {}, using NaN", id);
-            m_localCache.put(id, Double.NaN);
-            return Double.NaN;
-        } else {
-            return value;
-        }
+            Double value = m_localCache.get(id);
+            // This is just a sanity check, we should never have a value of null
+            // for the value at this point
+            if (value == null) {
+                LOG.error("getCounterValue: value was not calculated correctly for {}, using NaN", id);
+                m_localCache.put(id, Double.NaN);
+                return Double.NaN;
+            } else {
+                return value;
+            }
 
         }
     }
 
     /**
-     * <p>getLabelValue</p>
+     * <p>
+     * getLabelValue
+     * </p>
      *
-     * @param ds a {@link java.lang.String} object.
+     * @param ds
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getLabelValue(String ds) {
@@ -409,7 +486,8 @@ public class CollectionResourceWrapper {
             return resourceDirectory.getName();
         }
         try {
-            if (isAnInterfaceResource()) { // Get Value from ifInfo only for Interface Resource
+            if (isAnInterfaceResource()) { // Get Value from ifInfo only for
+                                           // Interface Resource
                 value = getIfInfoValue(ds);
             }
             if (value == null) { // Find value on saved string attributes

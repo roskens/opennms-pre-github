@@ -44,6 +44,7 @@ import org.opennms.test.mock.EasyMockUtils;
  */
 public class ResourceTypeFilteringResourceVisitorTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private ResourceVisitor m_delegatedVisitor = m_mocks.createMock(ResourceVisitor.class);
 
     public void testAfterPropertiesSet() throws Exception {

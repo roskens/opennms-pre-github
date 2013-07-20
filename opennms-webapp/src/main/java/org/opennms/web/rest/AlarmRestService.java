@@ -85,7 +85,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{alarmId}")
     @Transactional
     public OnmsAlarm getAlarm(@PathParam("alarmId")
@@ -126,7 +126,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * @return a {@link org.opennms.netmgt.model.OnmsAlarmCollection} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Transactional
     public OnmsAlarmCollection getAlarms() {
         readLock();
@@ -159,7 +159,8 @@ public class AlarmRestService extends AlarmRestServiceBase {
     @Path("{alarmId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public Response updateAlarm(@PathParam("alarmId") final Integer alarmId, final MultivaluedMapImpl formProperties) {
+    public Response updateAlarm(@PathParam("alarmId")
+    final Integer alarmId, final MultivaluedMapImpl formProperties) {
         writeLock();
 
         try {
@@ -201,7 +202,8 @@ public class AlarmRestService extends AlarmRestServiceBase {
                     acknowledgement.setAckAction(AckAction.CLEAR);
                 }
             } else {
-                throw new IllegalArgumentException("Must supply one of the 'ack', 'escalate', or 'clear' parameters, set to either 'true' or 'false'.");
+                throw new IllegalArgumentException(
+                                                   "Must supply one of the 'ack', 'escalate', or 'clear' parameters, set to either 'true' or 'false'.");
             }
             m_ackDao.processAck(acknowledgement);
             return Response.seeOther(getRedirectUri(m_uriInfo)).build();
@@ -237,7 +239,8 @@ public class AlarmRestService extends AlarmRestServiceBase {
             builder.limit(0);
             builder.offset(0);
 
-            final String ackUser = formProperties.containsKey("ackUser") ? formProperties.getFirst("ackUser") : m_securityContext.getUserPrincipal().getName();
+            final String ackUser = formProperties.containsKey("ackUser") ? formProperties.getFirst("ackUser")
+                : m_securityContext.getUserPrincipal().getName();
             formProperties.remove("ackUser");
             assertUserCredentials(ackUser);
 
@@ -260,7 +263,8 @@ public class AlarmRestService extends AlarmRestServiceBase {
                         acknowledgement.setAckAction(AckAction.CLEAR);
                     }
                 } else {
-                    throw new IllegalArgumentException("Must supply one of the 'ack', 'escalate', or 'clear' parameters, set to either 'true' or 'false'.");
+                    throw new IllegalArgumentException(
+                                                       "Must supply one of the 'ack', 'escalate', or 'clear' parameters, set to either 'true' or 'false'.");
                 }
                 m_ackDao.processAck(acknowledgement);
             }
@@ -278,7 +282,8 @@ public class AlarmRestService extends AlarmRestServiceBase {
     private void assertUserCredentials(final String ackUser) {
         final String currentUser = m_securityContext.getUserPrincipal().getName();
         if (!(m_securityContext.isUserInRole(Authentication.ROLE_ADMIN)) && !(ackUser.equals(currentUser))) {
-            throw new IllegalArgumentException("You are logged in as non-admin user '" + currentUser + "', but you are trying to update an alarm as another user ('" + ackUser + "')!");
+            throw new IllegalArgumentException("You are logged in as non-admin user '" + currentUser
+                    + "', but you are trying to update an alarm as another user ('" + ackUser + "')!");
         }
     }
 

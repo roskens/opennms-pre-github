@@ -29,25 +29,33 @@
 package org.opennms.netmgt.collectd;
 
 /**
- * <p>CollectionFailed class.</p>
+ * <p>
+ * CollectionFailed class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class CollectionFailed extends CollectionException {
 
-	/**
+    /**
 	 *
 	 */
-	private static final long serialVersionUID = 3306639630332715369L;
+    private static final long serialVersionUID = 3306639630332715369L;
 
     /**
-     * <p>Constructor for CollectionFailed.</p>
+     * <p>
+     * Constructor for CollectionFailed.
+     * </p>
      *
-     * @param code a int.
+     * @param code
+     *            a int.
      */
     public CollectionFailed(int code) {
-        super("Collection failed for an unknown reason (code " + code + ".  Please review previous logs for this thread for details.  You can also open up an enhancement bug report (include your logs) to request that failure messages are logged for this type of error.");
+        super(
+              "Collection failed for an unknown reason (code "
+                      + code
+                      + ".  Please review previous logs for this thread for details.  You can also open up an enhancement bug report (include your logs) to request that failure messages are logged for this type of error.");
     }
 
 }

@@ -32,14 +32,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>PingerFactory class.</p>
+ * <p>
+ * PingerFactory class.
+ * </p>
  *
  * @author <A HREF="mailto:seth@opennms.org">Seth Leger</A>
  * @author <A HREF="mailto:brozow@opennms.org">Matt Brozowski</A>
  */
 public abstract class PingerFactory {
     private static final Logger LOG = LoggerFactory.getLogger(PingerFactory.class);
-	/**
+
+    /**
      * The {@link Pinger} instance.
      */
     private static Pinger m_pinger;
@@ -51,25 +54,31 @@ public abstract class PingerFactory {
      */
     public static Pinger getInstance() {
         if (m_pinger == null) {
-            final String pingerClassName = System.getProperty("org.opennms.netmgt.icmp.pingerClass", "org.opennms.netmgt.icmp.jni6.Jni6Pinger");
+            final String pingerClassName = System.getProperty("org.opennms.netmgt.icmp.pingerClass",
+                                                              "org.opennms.netmgt.icmp.jni6.Jni6Pinger");
             Class<? extends Pinger> clazz = null;
             try {
                 clazz = Class.forName(pingerClassName).asSubclass(Pinger.class);
                 m_pinger = clazz.newInstance();
             } catch (final ClassNotFoundException e) {
-                IllegalArgumentException ex = new IllegalArgumentException("Unable to find class named " + pingerClassName, e);
+                IllegalArgumentException ex = new IllegalArgumentException("Unable to find class named "
+                        + pingerClassName, e);
                 LOG.error(ex.getLocalizedMessage(), ex);
                 throw ex;
             } catch (final InstantiationException e) {
-                IllegalArgumentException ex = new IllegalArgumentException("Error trying to create pinger of type " + clazz, e);
+                IllegalArgumentException ex = new IllegalArgumentException("Error trying to create pinger of type "
+                        + clazz, e);
                 LOG.error(ex.getLocalizedMessage(), ex);
                 throw ex;
             } catch (final IllegalAccessException e) {
-                IllegalArgumentException ex = new IllegalArgumentException("Unable to create pinger of type " + clazz + ".  It does not appear to have a public constructor", e);
+                IllegalArgumentException ex = new IllegalArgumentException("Unable to create pinger of type " + clazz
+                        + ".  It does not appear to have a public constructor", e);
                 LOG.error(ex.getLocalizedMessage(), ex);
                 throw ex;
             } catch (final Throwable e) {
-                IllegalArgumentException ex = new IllegalArgumentException("Unexpected exception thrown while trying to create pinger of type " + clazz, e);
+                IllegalArgumentException ex = new IllegalArgumentException(
+                                                                           "Unexpected exception thrown while trying to create pinger of type "
+                                                                                   + clazz, e);
                 LOG.error(ex.getLocalizedMessage(), ex);
                 throw ex;
             }
@@ -78,9 +87,12 @@ public abstract class PingerFactory {
     }
 
     /**
-     * <p>setIpcManager</p>
+     * <p>
+     * setIpcManager
+     * </p>
      *
-     * @param pinger a {@link Pinger} object.
+     * @param pinger
+     *            a {@link Pinger} object.
      */
     public static void setInstance(final Pinger pinger) {
         m_pinger = pinger;

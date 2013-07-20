@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
- package org.opennms.netmgt.provision.support;
+package org.opennms.netmgt.provision.support;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
@@ -42,32 +42,43 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 /**
- * <p>PluginWrapper class.</p>
+ * <p>
+ * PluginWrapper class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class PluginWrapper {
-    private Map<String,Set<String>> m_required = new TreeMap<String,Set<String>>();
-    private Map<String,Set<String>> m_optional = new TreeMap<String,Set<String>>();
+    private Map<String, Set<String>> m_required = new TreeMap<String, Set<String>>();
+
+    private Map<String, Set<String>> m_optional = new TreeMap<String, Set<String>>();
 
     private final String m_className;
 
     /**
-     * <p>Constructor for PluginWrapper.</p>
+     * <p>
+     * Constructor for PluginWrapper.
+     * </p>
      *
-     * @param className a {@link java.lang.String} object.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @param className
+     *            a {@link java.lang.String} object.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
     public PluginWrapper(String className) throws ClassNotFoundException {
         this(Class.forName(className));
     }
 
     /**
-     * <p>Constructor for PluginWrapper.</p>
+     * <p>
+     * Constructor for PluginWrapper.
+     * </p>
      *
-     * @param clazz a {@link java.lang.Class} object.
-     * @throws java.lang.ClassNotFoundException if any.
+     * @param clazz
+     *            a {@link java.lang.Class} object.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
      */
     public PluginWrapper(Class<?> clazz) throws ClassNotFoundException {
         m_className = clazz.getName();
@@ -81,7 +92,7 @@ public class PluginWrapper {
             if (m.isAnnotationPresent(Require.class)) {
                 Set<String> values = new TreeSet<String>();
                 Require a = m.getAnnotation(Require.class);
-                for (String key: a.value()) {
+                for (String key : a.value()) {
                     values.add(key);
                 }
                 m_required.put(pd.getName(), values);
@@ -92,7 +103,9 @@ public class PluginWrapper {
     }
 
     /**
-     * <p>getClassName</p>
+     * <p>
+     * getClassName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,12 +114,14 @@ public class PluginWrapper {
     }
 
     /**
-     * <p>getRequired</p>
+     * <p>
+     * getRequired
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String,Boolean> getRequired() {
-        Map<String,Boolean> ret = new HashMap<String,Boolean>();
+    public Map<String, Boolean> getRequired() {
+        Map<String, Boolean> ret = new HashMap<String, Boolean>();
         for (String key : m_required.keySet()) {
             ret.put(key, true);
         }
@@ -117,15 +132,20 @@ public class PluginWrapper {
     }
 
     /**
-     * <p>getRequiredKeys</p>
+     * <p>
+     * getRequiredKeys
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
     public Set<String> getRequiredKeys() {
         return m_required.keySet();
     }
+
     /**
-     * <p>getOptionalKeys</p>
+     * <p>
+     * getOptionalKeys
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -134,19 +154,24 @@ public class PluginWrapper {
     }
 
     /**
-     * <p>getRequiredItems</p>
+     * <p>
+     * getRequiredItems
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String,Set<String>> getRequiredItems() {
+    public Map<String, Set<String>> getRequiredItems() {
         return m_required;
     }
+
     /**
-     * <p>getOptionalItems</p>
+     * <p>
+     * getOptionalItems
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String,Set<String>> getOptionalItems() {
+    public Map<String, Set<String>> getOptionalItems() {
         return m_optional;
     }
 }

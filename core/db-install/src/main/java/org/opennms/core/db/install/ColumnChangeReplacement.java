@@ -34,24 +34,36 @@ import java.util.Map;
 
 public interface ColumnChangeReplacement {
     /**
-     * <p>getColumnReplacement</p>
+     * <p>
+     * getColumnReplacement
+     * </p>
      *
-     * @param rs a {@link java.sql.ResultSet} object.
-     * @param columnChanges a {@link java.util.Map} object.
+     * @param rs
+     *            a {@link java.sql.ResultSet} object.
+     * @param columnChanges
+     *            a {@link java.util.Map} object.
      * @return a {@link java.lang.Object} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException;
+
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
     public boolean addColumnIfColumnIsNew();
+
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void close() throws SQLException;
 }

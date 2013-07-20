@@ -86,11 +86,9 @@ final public class Pop3Monitor extends AbstractServiceMonitor {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Poll the specified address for POP3 service availability.
      * </P>
-     *
      * <P>
      * During the poll an attempt is made to connect on the specified port (by
      * default TCP port 110). If the connection request is successful, the
@@ -108,7 +106,8 @@ final public class Pop3Monitor extends AbstractServiceMonitor {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
 
         // Process parameters
         //
@@ -125,7 +124,7 @@ final public class Pop3Monitor extends AbstractServiceMonitor {
         for (tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt()) {
             Socket socket = null;
             final String hostAddress = InetAddressUtils.str(ipv4Addr);
-			try {
+            try {
                 //
                 // create a connected socket
                 //
@@ -179,24 +178,24 @@ final public class Pop3Monitor extends AbstractServiceMonitor {
                 }
             } catch (NoRouteToHostException e) {
 
-            	String reason = "No route to host exception for address " + hostAddress;
+                String reason = "No route to host exception for address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
 
             } catch (InterruptedIOException e) {
 
-            	String reason = "did not connect to host with " + tracker;
+                String reason = "did not connect to host with " + tracker;
                 LOG.debug(reason);
                 serviceStatus = PollStatus.unavailable(reason);
 
             } catch (ConnectException e) {
 
-            	String reason = "Connection exception for address " + hostAddress;
+                String reason = "Connection exception for address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } catch (IOException e) {
 
-            	String reason = "IOException while polling address " + hostAddress;
+                String reason = "IOException while polling address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } finally {

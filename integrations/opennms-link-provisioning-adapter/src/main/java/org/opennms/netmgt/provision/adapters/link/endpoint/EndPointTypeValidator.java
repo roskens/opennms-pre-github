@@ -45,22 +45,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.opennms.netmgt.provision.adapters.link.EndPoint;
 import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 
-@XmlRootElement(name="endpoint-types")
+@XmlRootElement(name = "endpoint-types")
 public class EndPointTypeValidator {
-    @XmlAttribute(name="endpoint-service-name")
+    @XmlAttribute(name = "endpoint-service-name")
     String m_endPointServiceName = "EndPoint";
 
-    @XmlElement(name="endpoint-type")
+    @XmlElement(name = "endpoint-type")
     List<EndPointType> m_endPointConfigs = Collections.synchronizedList(new ArrayList<EndPointType>());
 
     /**
-     * <p>Constructor for EndPointTypeValidator.</p>
+     * <p>
+     * Constructor for EndPointTypeValidator.
+     * </p>
      */
     public EndPointTypeValidator() {
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -69,16 +73,21 @@ public class EndPointTypeValidator {
     }
 
     /**
-     * <p>setServiceName</p>
+     * <p>
+     * setServiceName
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public void setServiceName(String serviceName) {
         m_endPointServiceName = serviceName;
     }
 
     /**
-     * <p>getConfigs</p>
+     * <p>
+     * getConfigs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -87,22 +96,30 @@ public class EndPointTypeValidator {
     }
 
     /**
-     * <p>setConfigs</p>
+     * <p>
+     * setConfigs
+     * </p>
      *
-     * @param configs a {@link java.util.List} object.
+     * @param configs
+     *            a {@link java.util.List} object.
      */
     public void setConfigs(List<EndPointType> configs) {
-        synchronized(m_endPointConfigs) {
-            if (m_endPointConfigs == configs) return;
+        synchronized (m_endPointConfigs) {
+            if (m_endPointConfigs == configs)
+                return;
             m_endPointConfigs.clear();
             m_endPointConfigs.addAll(configs);
         }
     }
 
     /**
-     * <p>hasMatch</p>
+     * <p>
+     * hasMatch
+     * </p>
      *
-     * @param ep a {@link org.opennms.netmgt.provision.adapters.link.EndPoint} object.
+     * @param ep
+     *            a {@link org.opennms.netmgt.provision.adapters.link.EndPoint}
+     *            object.
      * @return a boolean.
      */
     public boolean hasMatch(EndPoint ep) {
@@ -115,10 +132,15 @@ public class EndPointTypeValidator {
     }
 
     /**
-     * <p>validate</p>
+     * <p>
+     * validate
+     * </p>
      *
-     * @param ep a {@link org.opennms.netmgt.provision.adapters.link.EndPoint} object.
-     * @throws org.opennms.netmgt.provision.adapters.link.EndPointStatusException if any.
+     * @param ep
+     *            a {@link org.opennms.netmgt.provision.adapters.link.EndPoint}
+     *            object.
+     * @throws org.opennms.netmgt.provision.adapters.link.EndPointStatusException
+     *             if any.
      */
     public void validate(EndPoint ep) throws EndPointStatusException {
         for (EndPointType config : m_endPointConfigs) {
@@ -127,6 +149,7 @@ public class EndPointTypeValidator {
                 return;
             }
         }
-        throw new EndPointStatusException(String.format("unable to find matching endpoint type config for endpoint %s", ep));
+        throw new EndPointStatusException(String.format("unable to find matching endpoint type config for endpoint %s",
+                                                        ep));
     }
 }

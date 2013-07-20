@@ -43,12 +43,12 @@ import org.springframework.core.io.Resource;
 
 public class PropertyOidContainer {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PropertyOidContainer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PropertyOidContainer.class);
 
-    private final NavigableMap<SnmpObjId,SnmpValue> m_tree = new TreeMap<SnmpObjId,SnmpValue>();
+    private final NavigableMap<SnmpObjId, SnmpValue> m_tree = new TreeMap<SnmpObjId, SnmpValue>();
 
     public PropertyOidContainer(final Resource resource) throws IOException {
-    	MockSnmpValueFactory factory = new MockSnmpValueFactory();
+        MockSnmpValueFactory factory = new MockSnmpValueFactory();
         final Properties moProps = new Properties();
         InputStream inStream = null;
         try {
@@ -60,15 +60,20 @@ public class PropertyOidContainer {
 
         for (final Object obj : moProps.keySet()) {
             final String key = obj.toString();
-            if (!key.startsWith(".")) continue;
+            if (!key.startsWith("."))
+                continue;
             final String value = moProps.getProperty(key);
-            if (value.contains("No Such Object available on this agent at this OID")) { continue; }
-            if (value.contains("No more variables left in this MIB View")) { continue; }
-//          LogUtils.debugf(this, "%s = %s", key, value);
+            if (value.contains("No Such Object available on this agent at this OID")) {
+                continue;
+            }
+            if (value.contains("No more variables left in this MIB View")) {
+                continue;
+            }
+            // LogUtils.debugf(this, "%s = %s", key, value);
             try {
                 m_tree.put(SnmpObjId.get(key), factory.parseMibValue(value));
             } catch (final NumberFormatException nfe) {
-            	LOG.debug("Unable to store '{} = {}', skipping. ({})", key, value, nfe.getLocalizedMessage());
+                LOG.debug("Unable to store '{} = {}', skipping. ({})", key, value, nfe.getLocalizedMessage());
             }
         }
     }
@@ -86,7 +91,7 @@ public class PropertyOidContainer {
     }
 
     public SnmpObjId findNextOidForOid(final SnmpObjId oid) {
-        final NavigableMap<SnmpObjId,SnmpValue> next = m_tree.tailMap(oid, false);
+        final NavigableMap<SnmpObjId, SnmpValue> next = m_tree.tailMap(oid, false);
         if (next.size() == 0) {
             return null;
         } else {

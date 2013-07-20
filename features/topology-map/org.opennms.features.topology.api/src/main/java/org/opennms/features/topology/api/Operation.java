@@ -35,7 +35,9 @@ import org.opennms.features.topology.api.topo.VertexRef;
 public interface Operation {
 
     public final static String OPERATION_MENU_LOCATION = "operation.menuLocation";
+
     public final static String OPERATION_CONTEXT_LOCATION = "operation.contextMenuLocation";
+
     public final static String OPERATION_LABEL = "operation.label";
 
     public interface Undoer {
@@ -43,7 +45,10 @@ public interface Operation {
     }
 
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext);
+
     public boolean display(List<VertexRef> targets, OperationContext operationContext);
+
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext);
+
     public String getId();
 }

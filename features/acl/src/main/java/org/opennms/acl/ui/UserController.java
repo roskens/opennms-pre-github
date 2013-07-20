@@ -71,11 +71,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController implements InitializingBean {
 
     /**
-     * <p>authorities</p>
+     * <p>
+     * authorities
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @RequestMapping("/user.authorities.page")
     public ModelAndView authorities(HttpServletRequest req) throws Exception {
@@ -84,11 +88,15 @@ public class UserController implements InitializingBean {
     }
 
     /**
-     * <p>list</p>
+     * <p>
+     * list
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @RequestMapping("/user.list.page")
     public ModelAndView list(HttpServletRequest req) throws Exception {
@@ -97,11 +105,15 @@ public class UserController implements InitializingBean {
     }
 
     /**
-     * <p>detail</p>
+     * <p>
+     * detail
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @RequestMapping("/user.detail.page")
     public ModelAndView detail(HttpServletRequest req) throws Exception {
@@ -118,25 +130,32 @@ public class UserController implements InitializingBean {
     }
 
     /**
-     * <p>selection</p>
+     * <p>
+     * selection
+     * </p>
      *
-     * @param ids a {@link java.lang.String} object.
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param ids
+     *            a {@link java.lang.String} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @RequestMapping("/user.selection.page")
-    public ModelAndView selection(@RequestParam("includedHidden") String ids, HttpServletRequest req) throws Exception {
+    public ModelAndView selection(@RequestParam("includedHidden")
+    String ids, HttpServletRequest req) throws Exception {
         GenericUser user = WebUtils.getUser(req);
         if (user != null) {
             if (ids != null && ids.length() > 0) {
                 user.setNewGroups(WebUtils.extractIdGrantedAuthorityFromString(ids, Constants.COMMA));
             } else {
-                user.setNewGroups(Collections.<Integer>emptyList());
+                user.setNewGroups(Collections.<Integer> emptyList());
             }
             user.save();
         }
-        return new ModelAndView(new StringBuilder(Constants.REDIRECT_USER_AUTHORITIES).append("?").append(Constants.USER_SID).append("=").append(user.getId()).toString());
+        return new ModelAndView(
+                                new StringBuilder(Constants.REDIRECT_USER_AUTHORITIES).append("?").append(Constants.USER_SID).append("=").append(user.getId()).toString());
     }
 
     @Autowired

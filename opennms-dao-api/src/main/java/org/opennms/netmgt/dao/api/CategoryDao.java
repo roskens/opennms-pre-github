@@ -34,46 +34,63 @@ import org.hibernate.criterion.Criterion;
 import org.opennms.netmgt.model.OnmsCategory;
 
 /**
- * <p>CategoryDao interface.</p>
+ * <p>
+ * CategoryDao interface.
+ * </p>
  */
 public interface CategoryDao extends OnmsDao<OnmsCategory, Integer> {
 
     /**
-     * <p>findByName</p>
+     * <p>
+     * findByName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
     OnmsCategory findByName(String name);
 
     /**
-     * <p>findByName</p>
+     * <p>
+     * findByName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param useCached a boolean.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param useCached
+     *            a boolean.
      * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
     OnmsCategory findByName(String name, boolean useCached);
 
     /**
-     * <p>getAllCategoryNames</p>
+     * <p>
+     * getAllCategoryNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<String> getAllCategoryNames();
 
     /**
-     * <p>getCriterionForCategorySetsUnion</p>
+     * <p>
+     * getCriterionForCategorySetsUnion
+     * </p>
      *
-     * @param categories an array of {@link java.lang.String} objects.
+     * @param categories
+     *            an array of {@link java.lang.String} objects.
      * @return a {@link java.util.List} object.
      */
     List<Criterion> getCriterionForCategorySetsUnion(String[]... categories);
 
     /**
-     * <p>getCategoriesWithAuthorizedGroup</p>
+     * <p>
+     * getCategoriesWithAuthorizedGroup
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     List<OnmsCategory> getCategoriesWithAuthorizedGroup(String groupName);

@@ -37,34 +37,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Win32ServiceMonitor class.</p>
+ * <p>
+ * Win32ServiceMonitor class.
+ * </p>
  *
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @version $Id: $
  */
 public class Win32ServiceMonitor extends SnmpMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(Win32ServiceMonitor.class);
-	private static final String SV_SVC_OPERATING_STATE_OID = ".1.3.6.1.4.1.77.1.2.3.1.3";
-	private static final String DEFAULT_SERVICE_NAME = "Server";
 
-	/** {@inheritDoc} */
-        @Override
-	public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-		String serviceName = ParameterMap.getKeyedString(parameters, "service-name", DEFAULT_SERVICE_NAME);
-		int snLength = serviceName.length();
+    private static final String SV_SVC_OPERATING_STATE_OID = ".1.3.6.1.4.1.77.1.2.3.1.3";
 
-		StringBuffer serviceOidBuf = new StringBuffer(SV_SVC_OPERATING_STATE_OID);
-		serviceOidBuf.append(".").append(Integer.toString(snLength));
-		for (byte thisByte : serviceName.getBytes()) {
-			serviceOidBuf.append(".").append(Byte.toString(thisByte));
-		}
+    private static final String DEFAULT_SERVICE_NAME = "Server";
 
-		LOG.debug("For Win32 service '{}', OID to check is {}", serviceName, serviceOidBuf);
+    /** {@inheritDoc} */
+    @Override
+    public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
+        String serviceName = ParameterMap.getKeyedString(parameters, "service-name", DEFAULT_SERVICE_NAME);
+        int snLength = serviceName.length();
 
-		parameters.put("oid", serviceOidBuf.toString());
-		parameters.put("operator", "=");
-		parameters.put("operand", "1");
+        StringBuffer serviceOidBuf = new StringBuffer(SV_SVC_OPERATING_STATE_OID);
+        serviceOidBuf.append(".").append(Integer.toString(snLength));
+        for (byte thisByte : serviceName.getBytes()) {
+            serviceOidBuf.append(".").append(Byte.toString(thisByte));
+        }
 
-		return super.poll(svc, parameters);
-	}
+        LOG.debug("For Win32 service '{}', OID to check is {}", serviceName, serviceOidBuf);
+
+        parameters.put("oid", serviceOidBuf.toString());
+        parameters.put("operator", "=");
+        parameters.put("operand", "1");
+
+        return super.poll(svc, parameters);
+    }
 }

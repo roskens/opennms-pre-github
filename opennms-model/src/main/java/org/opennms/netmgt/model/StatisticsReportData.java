@@ -49,16 +49,20 @@ import javax.persistence.Transient;
  * @version $Id: $
  */
 @Entity
-@Table(name="statisticsReportData")
+@Table(name = "statisticsReportData")
 public class StatisticsReportData implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = -6112853375515080125L;
+
     private Integer m_id;
+
     private StatisticsReport m_report;
+
     private ResourceReference m_resource;
+
     private Double m_value;
 
     /**
@@ -67,61 +71,80 @@ public class StatisticsReportData implements Serializable {
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(name="id")
-    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")
+    @Column(name = "id")
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
         return m_id;
     }
+
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getReport</p>
+     * <p>
+     * getReport
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.StatisticsReport} object.
      */
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="reportId") //, nullable=false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "reportId")
+    // , nullable=false)
     public StatisticsReport getReport() {
         return m_report;
     }
+
     /**
-     * <p>setReport</p>
+     * <p>
+     * setReport
+     * </p>
      *
-     * @param report a {@link org.opennms.netmgt.model.StatisticsReport} object.
+     * @param report
+     *            a {@link org.opennms.netmgt.model.StatisticsReport} object.
      */
     public void setReport(StatisticsReport report) {
         m_report = report;
     }
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.ResourceReference} object.
      */
-    @ManyToOne(optional=false)
-    @JoinColumn(name="resourceId")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "resourceId")
     public ResourceReference getResource() {
         return m_resource;
     }
+
     /**
-     * <p>setResource</p>
+     * <p>
+     * setResource
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.model.ResourceReference} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.ResourceReference} object.
      */
     public void setResource(ResourceReference resource) {
         m_resource = resource;
     }
 
     /**
-     * <p>getResourceId</p>
+     * <p>
+     * getResourceId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,18 +154,24 @@ public class StatisticsReportData implements Serializable {
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a {@link java.lang.Double} object.
      */
-    @Column(name="value", nullable=false)
+    @Column(name = "value", nullable = false)
     public Double getValue() {
         return m_value;
     }
+
     /**
-     * <p>setValue</p>
+     * <p>
+     * setValue
+     * </p>
      *
-     * @param value a {@link java.lang.Double} object.
+     * @param value
+     *            a {@link java.lang.Double} object.
      */
     public void setValue(Double value) {
         m_value = value;

@@ -42,41 +42,41 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 
-
 public class Pop3ServerTest {
     private Pop3Server m_pop3Server;
+
     private Socket m_socket;
+
     private BufferedReader m_in;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         MockLogAppender.setupLogging();
         m_pop3Server = new Pop3Server();
-        try{
+        try {
             m_pop3Server.init();
             m_pop3Server.startServer();
             m_socket = createSocketConnection(m_pop3Server.getInetAddress(), m_pop3Server.getLocalPort(), 1000);
             m_in = new BufferedReader(new InputStreamReader(m_socket.getInputStream()));
-        }catch(Throwable e){
-           throw new Exception(e);
+        } catch (Throwable e) {
+            throw new Exception(e);
         }
     }
 
     @After
-    public void tearDown() throws IOException{
+    public void tearDown() throws IOException {
         m_socket.close();
         m_pop3Server.stopServer();
     }
 
     @Test
-    public void testServerBanner() throws Exception{
-       String line = m_in.readLine();
-       assertEquals("+OK", line);
+    public void testServerBanner() throws Exception {
+        String line = m_in.readLine();
+        assertEquals("+OK", line);
     }
 
     @Test
-    public void testServerBannerAndResponse() throws Exception{
-
+    public void testServerBannerAndResponse() throws Exception {
 
         String line = m_in.readLine();
         System.out.println("banner: " + line);

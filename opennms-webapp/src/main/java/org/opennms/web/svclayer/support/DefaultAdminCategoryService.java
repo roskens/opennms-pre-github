@@ -48,7 +48,9 @@ import org.opennms.web.svclayer.AdminCategoryService;
 import org.springframework.jdbc.datasource.lookup.DataSourceLookupFailureException;
 
 /**
- * <p>DefaultAdminCategoryService class.</p>
+ * <p>
+ * DefaultAdminCategoryService class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
@@ -57,15 +59,18 @@ import org.springframework.jdbc.datasource.lookup.DataSourceLookupFailureExcepti
  * @version $Id: $
  * @since 1.8.1
  */
-public class DefaultAdminCategoryService implements
-        AdminCategoryService {
+public class DefaultAdminCategoryService implements AdminCategoryService {
 
     private CategoryDao m_categoryDao;
+
     private NodeDao m_nodeDao;
+
     private EventProxy m_eventProxy;
 
     /**
-     * <p>getCategoryDao</p>
+     * <p>
+     * getCategoryDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -74,16 +79,21 @@ public class DefaultAdminCategoryService implements
     }
 
     /**
-     * <p>setCategoryDao</p>
+     * <p>
+     * setCategoryDao
+     * </p>
      *
-     * @param dao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
+     * @param dao
+     *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
     public final void setCategoryDao(final CategoryDao dao) {
         m_categoryDao = dao;
     }
 
     /**
-     * <p>getNodeDao</p>
+     * <p>
+     * getNodeDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -92,18 +102,24 @@ public class DefaultAdminCategoryService implements
     }
 
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public final void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
     /**
-     * <p>setEventProxy</p>
+     * <p>
+     * setEventProxy
+     * </p>
      *
-     * @param eventProxy a {@link org.opennms.netmgt.model.events.EventProxy} object.
+     * @param eventProxy
+     *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
     public final void setEventProxy(final EventProxy eventProxy) {
         m_eventProxy = eventProxy;
@@ -120,9 +136,9 @@ public class DefaultAdminCategoryService implements
 
         final Collection<OnmsNode> memberNodes = new ArrayList<OnmsNode>();
         for (final OnmsNode node : getNodeDao().findByCategory(category)) {
-        	if (!"D".equals(node.getType())) {
-        		memberNodes.add(node);
-        	}
+            if (!"D".equals(node.getType())) {
+                memberNodes.add(node);
+            }
         }
         // XXX does anything need to be initialized in each member node?
 
@@ -134,36 +150,33 @@ public class DefaultAdminCategoryService implements
         try {
             categoryId = WebSecurityUtils.safeParseInt(name);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("parameter 'categoryid' "
-                                               + "with value '"
-                                               + name
-                                               + "' could not be parsed "
-                                               + "as an integer");
+            throw new IllegalArgumentException("parameter 'categoryid' " + "with value '" + name
+                    + "' could not be parsed " + "as an integer");
         }
 
         OnmsCategory category = m_categoryDao.get(categoryId);
         if (category == null) {
-            throw new IllegalArgumentException("Could not find category "
-                                               + "with category ID "
-                                               + categoryId);
+            throw new IllegalArgumentException("Could not find category " + "with category ID " + categoryId);
         }
 
         return category;
     }
 
     /**
-     * <p>findAllNodes</p>
+     * <p>
+     * findAllNodes
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     @Override
     public final List<OnmsNode> findAllNodes() {
-    	final List<OnmsNode> list = new ArrayList<OnmsNode>();
-    	for (final OnmsNode node : getNodeDao().findAll()) {
-    		if (!"D".equals(node.getType())) {
-    			list.add(node);
-    		}
-    	}
+        final List<OnmsNode> list = new ArrayList<OnmsNode>();
+        for (final OnmsNode node : getNodeDao().findAll()) {
+            if (!"D".equals(node.getType())) {
+                list.add(node);
+            }
+        }
         Collections.sort(list);
 
         return list;
@@ -178,16 +191,22 @@ public class DefaultAdminCategoryService implements
     }
 
     /**
-     * <p>performEdit</p>
+     * <p>
+     * performEdit
+     * </p>
      *
-     * @param categoryIdString a {@link java.lang.String} object.
-     * @param editAction a {@link java.lang.String} object.
-     * @param toAdd an array of {@link java.lang.String} objects.
-     * @param toDelete an array of {@link java.lang.String} objects.
+     * @param categoryIdString
+     *            a {@link java.lang.String} object.
+     * @param editAction
+     *            a {@link java.lang.String} object.
+     * @param toAdd
+     *            an array of {@link java.lang.String} objects.
+     * @param toDelete
+     *            an array of {@link java.lang.String} objects.
      */
     @Override
-    public final void performEdit(final String categoryIdString, final String editAction,
-            final String[] toAdd, final String[] toDelete) {
+    public final void performEdit(final String categoryIdString, final String editAction, final String[] toAdd,
+            final String[] toDelete) {
         if (categoryIdString == null) {
             throw new IllegalArgumentException("categoryIdString cannot be null");
         }
@@ -200,7 +219,8 @@ public class DefaultAdminCategoryService implements
         if (editAction.contains("Add")) { // @i18n
             if (toAdd == null) {
                 return;
-                //throw new IllegalArgumentException("toAdd cannot be null if editAction is 'Add'");
+                // throw new
+                // IllegalArgumentException("toAdd cannot be null if editAction is 'Add'");
             }
 
             for (String idString : toAdd) {
@@ -208,30 +228,24 @@ public class DefaultAdminCategoryService implements
                 try {
                     id = WebSecurityUtils.safeParseInt(idString);
                 } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("toAdd element '"
-                                                       + idString
-                                                       + "' is not an integer");
+                    throw new IllegalArgumentException("toAdd element '" + idString + "' is not an integer");
                 }
                 OnmsNode node = getNodeDao().get(id);
                 if (node == null) {
-                    throw new IllegalArgumentException("node with "
-                                                       + "id of " + id
-                                                       + "could not be found");
+                    throw new IllegalArgumentException("node with " + "id of " + id + "could not be found");
                 }
                 if (node.getCategories().contains(category)) {
-                    throw new IllegalArgumentException("node with "
-                                                       + "id of " + id
-                                                       + "is already a member of "
-                                                       + "category "
-                                                       + category.getName());
+                    throw new IllegalArgumentException("node with " + "id of " + id + "is already a member of "
+                            + "category " + category.getName());
                 }
                 node.addCategory(category);
                 getNodeDao().save(node);
             }
-       } else if (editAction.contains("Remove")) { // @i18n
+        } else if (editAction.contains("Remove")) { // @i18n
             if (toDelete == null) {
                 return;
-                //throw new IllegalArgumentException("toDelete cannot be null if editAction is 'Remove'");
+                // throw new
+                // IllegalArgumentException("toDelete cannot be null if editAction is 'Remove'");
             }
 
             for (String idString : toDelete) {
@@ -239,31 +253,22 @@ public class DefaultAdminCategoryService implements
                 try {
                     id = WebSecurityUtils.safeParseInt(idString);
                 } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("toDelete element '"
-                                                       + idString
-                                                       + "' is not an integer");
+                    throw new IllegalArgumentException("toDelete element '" + idString + "' is not an integer");
                 }
                 OnmsNode node = getNodeDao().get(id);
                 if (node == null) {
-                    throw new IllegalArgumentException("node with "
-                                                       + "id of " + id
-                                                       + "could not be found");
+                    throw new IllegalArgumentException("node with " + "id of " + id + "could not be found");
                 }
                 if (!node.getCategories().contains(category)) {
-                    throw new IllegalArgumentException("Node with "
-                                                       + "id of " + id
-                                                       + "is not a member of "
-                                                       + "category "
-                                                       + category.getName());
+                    throw new IllegalArgumentException("Node with " + "id of " + id + "is not a member of "
+                            + "category " + category.getName());
                 }
                 node.removeCategory(category);
                 getNodeDao().save(node);
             }
-       } else {
-           throw new IllegalArgumentException("editAction of '"
-                                              + editAction
-                                              + "' is not allowed");
-       }
+        } else {
+            throw new IllegalArgumentException("editAction of '" + editAction + "' is not allowed");
+        }
     }
 
     /** {@inheritDoc} */
@@ -282,15 +287,16 @@ public class DefaultAdminCategoryService implements
     }
 
     /**
-     * <p>findAllCategories</p>
+     * <p>
+     * findAllCategories
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     @Override
     public final List<OnmsCategory> findAllCategories() {
         Collection<OnmsCategory> categories = m_categoryDao.findAll();
-        List<OnmsCategory> sortedCategories =
-            new ArrayList<OnmsCategory>(categories);
+        List<OnmsCategory> sortedCategories = new ArrayList<OnmsCategory>(categories);
         Collections.sort(sortedCategories, new Comparator<OnmsCategory>() {
             @Override
             public int compare(final OnmsCategory o1, final OnmsCategory o2) {
@@ -307,7 +313,7 @@ public class DefaultAdminCategoryService implements
         OnmsCategory category = findCategory(categoryIdString);
         CategoryAndMemberNodes cat = getCategory(categoryIdString);
         for (OnmsNode adriftNode : cat.getMemberNodes()) {
-        	notifyCategoryChange(adriftNode);
+            notifyCategoryChange(adriftNode);
         }
         m_categoryDao.delete(category);
     }
@@ -339,16 +345,22 @@ public class DefaultAdminCategoryService implements
     }
 
     /**
-     * <p>performNodeEdit</p>
+     * <p>
+     * performNodeEdit
+     * </p>
      *
-     * @param nodeIdString a {@link java.lang.String} object.
-     * @param editAction a {@link java.lang.String} object.
-     * @param toAdd an array of {@link java.lang.String} objects.
-     * @param toDelete an array of {@link java.lang.String} objects.
+     * @param nodeIdString
+     *            a {@link java.lang.String} object.
+     * @param editAction
+     *            a {@link java.lang.String} object.
+     * @param toAdd
+     *            an array of {@link java.lang.String} objects.
+     * @param toDelete
+     *            an array of {@link java.lang.String} objects.
      */
     @Override
-    public final void performNodeEdit(final String nodeIdString, final String editAction,
-            final String[] toAdd, final String[] toDelete) {
+    public final void performNodeEdit(final String nodeIdString, final String editAction, final String[] toAdd,
+            final String[] toDelete) {
         if (nodeIdString == null) {
             throw new IllegalArgumentException("nodeIdString cannot be null");
         }
@@ -358,15 +370,14 @@ public class DefaultAdminCategoryService implements
 
         OnmsNode node = findNode(nodeIdString);
         if (node == null) {
-            throw new IllegalArgumentException("No 'node' with id '"
-                                               + nodeIdString
-                                               + "' could be found");
+            throw new IllegalArgumentException("No 'node' with id '" + nodeIdString + "' could be found");
         }
 
         if (editAction.contains("Add")) { // @i18n
             if (toAdd == null) {
                 return;
-                //throw new IllegalArgumentException("toAdd cannot be null if editAction is 'Add'");
+                // throw new
+                // IllegalArgumentException("toAdd cannot be null if editAction is 'Add'");
             }
 
             for (String idString : toAdd) {
@@ -374,31 +385,26 @@ public class DefaultAdminCategoryService implements
                 try {
                     id = WebSecurityUtils.safeParseInt(idString);
                 } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("toAdd element '"
-                                                       + idString
-                                                       + "' is not an integer");
+                    throw new IllegalArgumentException("toAdd element '" + idString + "' is not an integer");
                 }
                 OnmsCategory category = m_categoryDao.get(id);
                 if (category == null) {
-                    throw new IllegalArgumentException("Category with "
-                                                       + "id of " + id
-                                                       + " could not be found");
+                    throw new IllegalArgumentException("Category with " + "id of " + id + " could not be found");
                 }
                 if (node.getCategories().contains(category)) {
-                    throw new IllegalArgumentException("Category with "
-                                                       + "id of " + id
-                                                       + "is already on node "
-                                                       + node.getLabel());
+                    throw new IllegalArgumentException("Category with " + "id of " + id + "is already on node "
+                            + node.getLabel());
                 }
                 node.getCategories().add(category);
             }
 
             getNodeDao().save(node);
             notifyCategoryChange(node);
-       } else if (editAction.contains("Remove")) { // @i18n
+        } else if (editAction.contains("Remove")) { // @i18n
             if (toDelete == null) {
                 return;
-                //throw new IllegalArgumentException("toDelete cannot be null if editAction is 'Remove'");
+                // throw new
+                // IllegalArgumentException("toDelete cannot be null if editAction is 'Remove'");
             }
 
             for (String idString : toDelete) {
@@ -406,42 +412,34 @@ public class DefaultAdminCategoryService implements
                 try {
                     id = WebSecurityUtils.safeParseInt(idString);
                 } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("toDelete element '"
-                                                       + idString
-                                                       + "' is not an integer");
+                    throw new IllegalArgumentException("toDelete element '" + idString + "' is not an integer");
                 }
                 OnmsCategory category = m_categoryDao.get(id);
                 if (category == null) {
-                    throw new IllegalArgumentException("Category with "
-                                                       + "id of " + id
-                                                       + " could not be found");
+                    throw new IllegalArgumentException("Category with " + "id of " + id + " could not be found");
                 }
                 if (!node.getCategories().contains(category)) {
-                    throw new IllegalArgumentException("Category with "
-                                                       + "id of " + id
-                                                       + "is not on node "
-                                                       + node.getLabel());
+                    throw new IllegalArgumentException("Category with " + "id of " + id + "is not on node "
+                            + node.getLabel());
                 }
                 node.getCategories().remove(category);
             }
 
             getNodeDao().save(node);
             notifyCategoryChange(node);
-       } else {
-           throw new IllegalArgumentException("editAction of '"
-                                              + editAction
-                                              + "' is not allowed");
-       }
+        } else {
+            throw new IllegalArgumentException("editAction of '" + editAction + "' is not allowed");
+        }
     }
 
-
     private OnmsNode findNode(final String nodeIdString) {
-    	final int nodeId;
+        final int nodeId;
 
         try {
             nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
         } catch (final NumberFormatException e) {
-            throw new IllegalArgumentException("parameter 'node' with value '" + nodeIdString + "' could not be parsed as an integer");
+            throw new IllegalArgumentException("parameter 'node' with value '" + nodeIdString
+                    + "' could not be parsed as an integer");
         }
         return getNodeDao().get(nodeId);
     }
@@ -463,10 +461,10 @@ public class DefaultAdminCategoryService implements
 
     public class CategoryAndMemberNodes {
         private OnmsCategory m_category;
+
         private Collection<OnmsNode> m_memberNodes;
 
-        public CategoryAndMemberNodes(final OnmsCategory category,
-                final Collection<OnmsNode> memberNodes) {
+        public CategoryAndMemberNodes(final OnmsCategory category, final Collection<OnmsNode> memberNodes) {
             m_category = category;
             m_memberNodes = memberNodes;
         }
@@ -482,11 +480,12 @@ public class DefaultAdminCategoryService implements
 
     public class EditModel {
         private OnmsCategory m_category;
+
         private List<OnmsNode> m_nodes;
+
         private List<OnmsNode> m_sortedMemberNodes;
 
-        public EditModel(final OnmsCategory category, final List<OnmsNode> nodes,
-                final Collection<OnmsNode> memberNodes) {
+        public EditModel(final OnmsCategory category, final List<OnmsNode> nodes, final Collection<OnmsNode> memberNodes) {
             m_category = category;
             m_nodes = nodes;
 
@@ -494,8 +493,7 @@ public class DefaultAdminCategoryService implements
                 m_nodes.remove(node);
             }
 
-            m_sortedMemberNodes =
-                new ArrayList<OnmsNode>(memberNodes);
+            m_sortedMemberNodes = new ArrayList<OnmsNode>(memberNodes);
             Collections.sort(m_sortedMemberNodes);
         }
 
@@ -515,7 +513,9 @@ public class DefaultAdminCategoryService implements
 
     public class NodeEditModel {
         private OnmsNode m_node;
+
         private List<OnmsCategory> m_categories;
+
         private List<OnmsCategory> m_sortedCategories;
 
         public NodeEditModel(final OnmsNode node, final List<OnmsCategory> categories) {
@@ -526,8 +526,7 @@ public class DefaultAdminCategoryService implements
                 m_categories.remove(category);
             }
 
-            m_sortedCategories =
-                new ArrayList<OnmsCategory>(m_node.getCategories());
+            m_sortedCategories = new ArrayList<OnmsCategory>(m_node.getCategories());
             Collections.sort(m_sortedCategories);
         }
 

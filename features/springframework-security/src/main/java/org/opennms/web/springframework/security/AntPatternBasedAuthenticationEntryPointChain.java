@@ -48,40 +48,54 @@ import org.springframework.util.Assert;
 public class AntPatternBasedAuthenticationEntryPointChain implements AuthenticationEntryPoint, InitializingBean {
 
     private List<String> m_patterns;
+
     private AuthenticationEntryPoint m_matchingEntryPoint;
+
     private AuthenticationEntryPoint m_nonMatchingEntryPoint;
 
     /**
-     * <p>setPatterns</p>
+     * <p>
+     * setPatterns
+     * </p>
      *
-     * @param patterns the patterns to set
+     * @param patterns
+     *            the patterns to set
      */
     public void setPatterns(List<String> patterns) {
         m_patterns = patterns;
     }
 
     /**
-     * <p>setMatchingEntryPoint</p>
+     * <p>
+     * setMatchingEntryPoint
+     * </p>
      *
-     * @param matchedEntryPoint the matchedEntryPoint to set
+     * @param matchedEntryPoint
+     *            the matchedEntryPoint to set
      */
     public void setMatchingEntryPoint(AuthenticationEntryPoint matchedEntryPoint) {
         m_matchingEntryPoint = matchedEntryPoint;
     }
 
     /**
-     * <p>setNonMatchingEntryPoint</p>
+     * <p>
+     * setNonMatchingEntryPoint
+     * </p>
      *
-     * @param unmatchedEntryPoint the unmatchedEntryPoint to set
+     * @param unmatchedEntryPoint
+     *            the unmatchedEntryPoint to set
      */
     public void setNonMatchingEntryPoint(AuthenticationEntryPoint unmatchedEntryPoint) {
         m_nonMatchingEntryPoint = unmatchedEntryPoint;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -92,7 +106,8 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
 
     /** {@inheritDoc} */
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+            throws IOException, ServletException {
 
         AuthenticationEntryPoint entryPoint = getAppropriateEntryPoint(request);
 

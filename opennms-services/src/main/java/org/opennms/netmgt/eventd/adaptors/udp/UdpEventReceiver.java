@@ -122,17 +122,23 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     private String m_logPrefix;
 
     /**
-     * <p>Constructor for UdpEventReceiver.</p>
+     * <p>
+     * Constructor for UdpEventReceiver.
+     * </p>
      */
     public UdpEventReceiver() {
         this(UDP_PORT, null);
     }
 
     /**
-     * <p>Constructor for UdpEventReceiver.</p>
+     * <p>
+     * Constructor for UdpEventReceiver.
+     * </p>
      *
-     * @param port a int.
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public UdpEventReceiver(int port, String ipAddress) {
         m_dgSock = null;
@@ -153,7 +159,9 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public synchronized void start() {
@@ -199,7 +207,9 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public synchronized void stop() {
@@ -227,7 +237,9 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -237,7 +249,9 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -247,7 +261,9 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -257,7 +273,9 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -267,21 +285,27 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      */
     @Override
     public void destroy() {
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -290,9 +314,12 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>setIpAddress</p>
+     * <p>
+     * setIpAddress
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddress(String ipAddress) {
         assertNotRunning();
@@ -309,7 +336,9 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -319,9 +348,8 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Adds a new event handler to receiver. When new events are received the
+     * {@inheritDoc} Adds a new event handler to receiver. When new events are
+     * received the
      * decoded event is passed to the handler.
      */
     @Override
@@ -334,9 +362,8 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Removes an event handler from the list of handler called when an event is
+     * {@inheritDoc} Removes an event handler from the list of handler called
+     * when an event is
      * received. The handler is removed based upon the method
      * <code>equals()</code> inherieted from the <code>Object</code> class.
      */
@@ -348,7 +375,9 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>getEventHandlers</p>
+     * <p>
+     * getEventHandlers
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -357,9 +386,12 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     /**
-     * <p>setEventHandlers</p>
+     * <p>
+     * setEventHandlers
+     * </p>
      *
-     * @param eventHandlers a {@link java.util.List} object.
+     * @param eventHandlers
+     *            a {@link java.util.List} object.
      */
     public void setEventHandlers(List<EventHandler> eventHandlers) {
         m_eventHandlers = eventHandlers;
@@ -384,6 +416,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     }
 
     private void assertNotRunning() {
-        Assert.state(m_status == START_PENDING || m_status == STOPPED, "The fiber is already running and cannot be modified or started");
+        Assert.state(m_status == START_PENDING || m_status == STOPPED,
+                     "The fiber is already running and cannot be modified or started");
     }
 }

@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.client.events;
 import com.google.gwt.event.shared.EventHandler;
 
 /**
- * <p>GWTMarkerClickedEventHandler interface.</p>
+ * <p>
+ * GWTMarkerClickedEventHandler interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,9 +42,14 @@ import com.google.gwt.event.shared.EventHandler;
 public interface GWTMarkerClickedEventHandler extends EventHandler {
 
     /**
-     * <p>onGWTMarkerClicked</p>
+     * <p>
+     * onGWTMarkerClicked
+     * </p>
      *
-     * @param event a {@link org.opennms.features.poller.remote.gwt.client.events.GWTMarkerClickedEvent} object.
+     * @param event
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.events.GWTMarkerClickedEvent}
+     *            object.
      */
     public void onGWTMarkerClicked(GWTMarkerClickedEvent event);
 }

@@ -32,24 +32,32 @@ import java.util.List;
 
 public interface ManagerMBean {
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<String> status();
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     public void stop();
 
     /**
-     * <p>doSystemExit</p>
+     * <p>
+     * doSystemExit
+     * </p>
      */
     public void doSystemExit();
 
     /**
-     * <p>doTestLoadLibraries</p>
+     * <p>
+     * doTestLoadLibraries
+     * </p>
      */
     public void doTestLoadLibraries();
 }

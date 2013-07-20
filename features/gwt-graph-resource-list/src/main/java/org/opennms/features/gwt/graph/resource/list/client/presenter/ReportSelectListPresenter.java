@@ -46,16 +46,18 @@ import com.google.gwt.user.client.ui.HasWidgets;
 public class ReportSelectListPresenter implements Presenter, ReportSelectListView.Presenter<ResourceListItem> {
 
     private ReportSelectListView<ResourceListItem> m_view;
+
     private SearchPopupDisplay m_searchPopup;
+
     private String m_baseUrl;
 
-    public ReportSelectListPresenter(ReportSelectListView<ResourceListItem> view, SearchPopupDisplay searchView, String baseUrl) {
+    public ReportSelectListPresenter(ReportSelectListView<ResourceListItem> view, SearchPopupDisplay searchView,
+            String baseUrl) {
         setView(view);
         getView().setPresenter(this);
         initializeSearchPopup(searchView);
         m_baseUrl = baseUrl;
     }
-
 
     private void initializeSearchPopup(SearchPopupDisplay searchPopupView) {
         m_searchPopup = searchPopupView;
@@ -82,7 +84,7 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
 
             @Override
             public void onKeyPress(KeyPressEvent event) {
-                if(event.getCharCode() == KeyCodes.KEY_ENTER) {
+                if (event.getCharCode() == KeyCodes.KEY_ENTER) {
                     m_searchPopup.hideSearchPopup();
                     getView().setDataList(filterList(m_searchPopup.getSearchText(), getView().getDataList()));
                 }
@@ -96,28 +98,24 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
         container.add(getView().asWidget());
     }
 
-
     @Override
     public void onGraphButtonClick() {
         List<ResourceListItem> reports = getView().getSelectedReports();
-        if(reports != null) {
+        if (reports != null) {
             buildUrlAndGoToGraphPage(reports);
         } else {
             getView().showWarning();
         }
 
-
     }
-
 
     private void buildUrlAndGoToGraphPage(List<ResourceListItem> reports) {
         StringBuilder sb = new StringBuilder();
         sb.append(m_baseUrl + "graph/results.htm?reports=all&resourceId=");
 
-
         boolean first = true;
-        for(ResourceListItem item : reports) {
-            if(!first) {
+        for (ResourceListItem item : reports) {
+            if (!first) {
 
                 sb.append("&resourceId=");
             }
@@ -128,13 +126,11 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
         Location.assign(sb.toString());
     }
 
-
     @Override
     public void onClearSelectionButtonClick() {
         getView().clearAllSelections();
 
     }
-
 
     @Override
     public void onSearchButtonClick() {
@@ -143,24 +139,21 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
 
     private List<ResourceListItem> filterList(String searchText, List<ResourceListItem> dataList) {
         List<ResourceListItem> list = new ArrayList<ResourceListItem>();
-        for(ResourceListItem item : dataList) {
-            if(item.getValue().toLowerCase().contains(searchText.toLowerCase())) {
+        for (ResourceListItem item : dataList) {
+            if (item.getValue().toLowerCase().contains(searchText.toLowerCase())) {
                 list.add(item);
             }
         }
         return list;
     }
 
-
     public void setView(ReportSelectListView<ResourceListItem> view) {
         m_view = view;
     }
 
-
     public ReportSelectListView<ResourceListItem> getView() {
         return m_view;
     }
-
 
     @Override
     public void onGraphAllButtonClick() {

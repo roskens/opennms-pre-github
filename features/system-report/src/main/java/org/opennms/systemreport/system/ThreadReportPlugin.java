@@ -46,6 +46,7 @@ import org.springframework.core.io.Resource;
 
 public class ThreadReportPlugin extends AbstractSystemReportPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(ThreadReportPlugin.class);
+
     @Override
     public String getName() {
         return "Threads";
@@ -63,13 +64,14 @@ public class ThreadReportPlugin extends AbstractSystemReportPlugin {
 
     @Override
     public TreeMap<String, Resource> getEntries() {
-        final TreeMap<String,Resource> map = new TreeMap<String,Resource>();
+        final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
 
         LOG.trace("starting thread dump");
         triggerThreadDump();
         LOG.trace("thread dump finished");
 
-        final String outputLog = System.getProperty("opennms.home") + File.separator + "logs" + File.separator + "daemon" + File.separator + "output.log";
+        final String outputLog = System.getProperty("opennms.home") + File.separator + "logs" + File.separator
+                + "daemon" + File.separator + "output.log";
         LOG.debug("reading file {}", outputLog);
         final File outputLogFile = new File(outputLog);
         FileReader fr = null;

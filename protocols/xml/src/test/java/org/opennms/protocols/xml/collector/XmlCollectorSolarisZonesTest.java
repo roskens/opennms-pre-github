@@ -50,16 +50,20 @@ import org.w3c.dom.NodeList;
  */
 public class XmlCollectorSolarisZonesTest extends AbstractXmlCollectorTest {
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlConfigFileName()
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#
+     * getXmlConfigFileName()
      */
     @Override
     public String getXmlConfigFileName() {
         return "src/test/resources/solaris-zones-datacollection-config.xml";
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#
+     * getXmlSampleFileName()
      */
     @Override
     public String getXmlSampleFileName() {
@@ -69,7 +73,8 @@ public class XmlCollectorSolarisZonesTest extends AbstractXmlCollectorTest {
     /**
      * Test to verify XPath content.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testXpath() throws Exception {
@@ -88,14 +93,16 @@ public class XmlCollectorSolarisZonesTest extends AbstractXmlCollectorTest {
     /**
      * Test XML collector with Standard handler.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testDefaultXmlCollector() throws Exception {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("collection", "Solaris");
         parameters.put("handler-class", "org.opennms.protocols.xml.collector.MockDefaultXmlCollectionHandler");
-        // Files expected: one JRB for each zone: global, zone1 and zone2 (3 in total)
+        // Files expected: one JRB for each zone: global, zone1 and zone2 (3 in
+        // total)
         executeCollectorTest(parameters, 3);
         Assert.assertTrue(new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb").exists());
         Assert.assertTrue(new File("target/snmp/1/solarisZoneStats/zone1/solaris-zone-stats.jrb").exists());

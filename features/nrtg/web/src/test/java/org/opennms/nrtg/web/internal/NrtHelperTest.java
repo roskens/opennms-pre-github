@@ -36,16 +36,18 @@ import org.opennms.netmgt.model.PrefabGraph;
  * @author Markus@OpenNMS.org
  */
 public class NrtHelperTest {
-    private final Map<String,String> m_emptyMap = Collections.emptyMap();
+    private final Map<String, String> m_emptyMap = Collections.emptyMap();
+
     private NrtHelper nrtHelper = new NrtHelper();
 
     @Test
-    public void testStringProperties () {
+    public void testStringProperties() {
         String rawString = "--title='Current TCP Connections' --vertical-label='Current Connections ({ifSpeed})' DEF:currEstab={rrd1}:tcpCurrEstab:AVERAGE DEF:minCurrEstab={rrd1}:tcpCurrEstab:MIN DEF:maxCurrEstab={rrd1}:tcpCurrEstab:MAX LINE2:currEstab#00ff00:'Current ' GPRINT:currEstab:AVERAGE:'Avg  \n: %8.2lf %s' GPRINT:currEstab:MIN:'Min  \n: %8.2lf %s' GPRINT:currEstab:MAX:'Max  \n: %8.2lf %s\n'";
-        final Map<String,String> properties = new HashMap<String,String>();
+        final Map<String, String> properties = new HashMap<String, String>();
         properties.put("ifSpeed", "monkey");
 
-        final PrefabGraph prefabGraph = new PrefabGraph("foo", "bar", new String[]{}, rawString, new String[]{}, new String[]{}, 0, null, null, null, null, new String[]{});
+        final PrefabGraph prefabGraph = new PrefabGraph("foo", "bar", new String[] {}, rawString, new String[] {},
+                                                        new String[] {}, 0, null, null, null, null, new String[] {});
         final String graphString = nrtHelper.cleanUpRrdGraphStringForWebUi(prefabGraph, m_emptyMap, properties);
         assertTrue(graphString.contains("(monkey)"));
     }

@@ -30,58 +30,61 @@ package org.opennms.netmgt.model;
 
 public class MockServiceDaemon implements MockServiceDaemonMBean {
 
-	private boolean startCalled = false;
-	private String statusStr = "UNDEFINED";
-	private String name;
+    private boolean startCalled = false;
 
-	public MockServiceDaemon(String name) {
-		this.name = name;
-	}
-        @Override
-	public String getStatusText() {
-		// TODO Auto-generated method stub
-		return statusStr;
-	}
+    private String statusStr = "UNDEFINED";
 
-        @Override
-	public void pause() {
-		// TODO Auto-generated method stub
+    private String name;
 
-	}
+    public MockServiceDaemon(String name) {
+        this.name = name;
+    }
 
-        @Override
-	public void resume() {
-		// TODO Auto-generated method stub
+    @Override
+    public String getStatusText() {
+        // TODO Auto-generated method stub
+        return statusStr;
+    }
 
-	}
+    @Override
+    public void pause() {
+        // TODO Auto-generated method stub
 
-        @Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return name;
-	}
+    }
 
-        @Override
-	public int getStatus() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public void resume() {
+        // TODO Auto-generated method stub
 
-        @Override
-	public void start() {
-		// TODO Auto-generated method stub
-		startCalled = true;
-		statusStr = "Started";
-	}
+    }
 
-	public boolean getStartCalled() {
-		return startCalled;
-	}
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return name;
+    }
 
-        @Override
-	public void stop() {
-		// TODO Auto-generated method stub
+    @Override
+    public int getStatus() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	}
+    @Override
+    public void start() {
+        // TODO Auto-generated method stub
+        startCalled = true;
+        statusStr = "Started";
+    }
+
+    public boolean getStartCalled() {
+        return startCalled;
+    }
+
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
+
+    }
 
 }

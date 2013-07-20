@@ -74,8 +74,7 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
      * Implement the rttMonCtrlOperState
      */
     private enum RTT_MON_OPER_STATE {
-        RESET(1), ORDERLY_STOP(2), IMMEDIATE_STOP(3), PENDING(4), INACTIVE(5), ACTIVE(
-                6), RESTART(7);
+        RESET(1), ORDERLY_STOP(2), IMMEDIATE_STOP(3), PENDING(4), INACTIVE(5), ACTIVE(6), RESTART(7);
 
         private final int state; // state code
 
@@ -100,17 +99,15 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If
      * the protocol is not supported then a false value is returned to the
      * caller. The qualifier map passed to the method is used by the plugin to
      * return additional information by key-name. These key-value pairs can be
      * added to service events if needed.
      */
     @Override
-    public boolean isProtocolSupported(InetAddress ipaddr,
-            Map<String, Object> parameters) {
+    public boolean isProtocolSupported(InetAddress ipaddr, Map<String, Object> parameters) {
 
         boolean status = false;
 
@@ -126,41 +123,29 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
                 return status;
             }
 
-            SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(
-                                                                                       ipaddr);
+            SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
             if (agentConfig == null)
-                throw new RuntimeException(
-                                           "SnmpAgentConfig object not available for interface "
-                                                   + ipaddr);
+                throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
 
             if (parameters != null) {
                 // "port" parm
                 //
                 if (parameters.get("port") != null) {
-                    int port = ParameterMap.getKeyedInteger(
-                                                            parameters,
-                                                            "port",
-                                                            agentConfig.getPort());
+                    int port = ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort());
                     agentConfig.setPort(port);
                 }
 
                 // "timeout" parm
                 //
                 if (parameters.get("timeout") != null) {
-                    int timeout = ParameterMap.getKeyedInteger(
-                                                               parameters,
-                                                               "timeout",
-                                                               agentConfig.getTimeout());
+                    int timeout = ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout());
                     agentConfig.setTimeout(timeout);
                 }
 
                 // "retry" parm
                 //
                 if (parameters.get("retry") != null) {
-                    int retry = ParameterMap.getKeyedInteger(
-                                                             parameters,
-                                                             "retry",
-                                                             agentConfig.getRetries());
+                    int retry = ParameterMap.getKeyedInteger(parameters, "retry", agentConfig.getRetries());
                     agentConfig.setRetries(retry);
                 }
 
@@ -170,8 +155,7 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
                     String version = (String) parameters.get("force version");
                     if (version.equalsIgnoreCase("snmpv1"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION1);
-                    else if (version.equalsIgnoreCase("snmpv2")
-                            || version.equalsIgnoreCase("snmpv2c"))
+                    else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION2C);
 
                     // TODO: make sure JoeSnmpStrategy correctly handles this.
@@ -186,18 +170,14 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
                  * Get two maps one with all configured admin tags and one of
                  * oper state
                  */
-                Map<SnmpInstId, SnmpValue> tagResults = SnmpUtils.getOidValues(
-                                                                               agentConfig,
-                                                                               "CiscoIpSlaMonitor",
+                Map<SnmpInstId, SnmpValue> tagResults = SnmpUtils.getOidValues(agentConfig, "CiscoIpSlaMonitor",
                                                                                SnmpObjId.get(RTT_ADMIN_TAG_OID));
                 if (tagResults == null) {
                     LOG.warn("poll: No admin tags received! ");
                     return status;
                 }
 
-                Map<SnmpInstId, SnmpValue> operStateResults = SnmpUtils.getOidValues(
-                                                                                     agentConfig,
-                                                                                     "CiscoIpSlaMonitor",
+                Map<SnmpInstId, SnmpValue> operStateResults = SnmpUtils.getOidValues(agentConfig, "CiscoIpSlaMonitor",
                                                                                      SnmpObjId.get(RTT_OPER_STATE_OID));
                 if (operStateResults == null) {
                     LOG.warn("poll: No oper state received! ");
@@ -207,13 +187,13 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
                 // Iterate over the list of configured IP SLAs
                 for (SnmpInstId ipslaInstance : tagResults.keySet()) {
 
-                    LOG.debug("poll: admin tag={} value={} oper state={}", adminTag, tagResults.get(ipslaInstance), operStateResults.get(ipslaInstance));
+                    LOG.debug("poll: admin tag={} value={} oper state={}", adminTag, tagResults.get(ipslaInstance),
+                              operStateResults.get(ipslaInstance));
                     /*
-                     *  Check if a configured ip sla with specific tag exist
-                     *  and is the operational state active
+                     * Check if a configured ip sla with specific tag exist
+                     * and is the operational state active
                      */
-                    if (tagResults.get(ipslaInstance).toString().equals(
-                                                                        adminTag)
+                    if (tagResults.get(ipslaInstance).toString().equals(adminTag)
                             && operStateResults.get(ipslaInstance).toInt() == RTT_MON_OPER_STATE.ACTIVE.value()) {
                         LOG.debug("poll: admin tag found");
                         status = true;

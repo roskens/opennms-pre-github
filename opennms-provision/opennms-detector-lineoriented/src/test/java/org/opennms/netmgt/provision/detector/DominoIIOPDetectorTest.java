@@ -47,16 +47,15 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * @author Donald Desloge
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class DominoIIOPDetectorTest implements ApplicationContextAware {
 
     private ApplicationContext m_applicationContext;
+
     private DominoIIOPDetector m_detector;
 
     @Before
@@ -72,36 +71,39 @@ public class DominoIIOPDetectorTest implements ApplicationContextAware {
      * used a pre-existing http server on a local machine that would
      * allow the connection.
      */
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSuccessTokenPort() throws UnknownHostException {
-        //m_detector.setPort(8080);
-        //m_detector.init();
-        //assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
+        // m_detector.setPort(8080);
+        // m_detector.init();
+        // assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws UnknownHostException {
         m_detector.setPort(10000);
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailNoHost() throws UnknownHostException {
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("1.1.1.1")));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailWrongIORPort() throws UnknownHostException {
-//        m_detector.setIorPort(1000);
-//        m_detector.setPort(80);
-//        m_detector.init();
-//        assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
+        // m_detector.setIorPort(1000);
+        // m_detector.setPort(80);
+        // m_detector.init();
+        // assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.context.ApplicationContextAware#setApplicationContext
+     * (org.springframework.context.ApplicationContext)
      */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -113,6 +115,6 @@ public class DominoIIOPDetectorTest implements ApplicationContextAware {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
-        return (DominoIIOPDetector)bean;
+        return (DominoIIOPDetector) bean;
     }
 }

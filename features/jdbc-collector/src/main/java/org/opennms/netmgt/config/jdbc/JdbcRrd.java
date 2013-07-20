@@ -40,15 +40,15 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
-@XmlRootElement(name="rrd")
+@XmlRootElement(name = "rrd")
 public class JdbcRrd implements Serializable, Comparable<JdbcRrd> {
 
     private static final long serialVersionUID = 143526958273169546L;
 
-    @XmlAttribute(name="step")
+    @XmlAttribute(name = "step")
     private Integer m_step;
 
-    @XmlElement(name="rra")
+    @XmlElement(name = "rra")
     private List<String> m_jdbcRras = new ArrayList<String>();
 
     public JdbcRrd() {
@@ -83,20 +83,16 @@ public class JdbcRrd implements Serializable, Comparable<JdbcRrd> {
 
     @Override
     public int compareTo(JdbcRrd obj) {
-        return new CompareToBuilder()
-            .append(getStep(), obj.getStep())
-            .append(getJdbcRras().toArray(), obj.getJdbcRras().toArray())
-            .toComparison();
+        return new CompareToBuilder().append(getStep(), obj.getStep()).append(getJdbcRras().toArray(),
+                                                                              obj.getJdbcRras().toArray()).toComparison();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcRrd) {
             JdbcRrd other = (JdbcRrd) obj;
-            return new EqualsBuilder()
-                .append(getStep(), other.getStep())
-                .append(getJdbcRras().toArray(), other.getJdbcRras().toArray())
-                .isEquals();
+            return new EqualsBuilder().append(getStep(), other.getStep()).append(getJdbcRras().toArray(),
+                                                                                 other.getJdbcRras().toArray()).isEquals();
         }
         return false;
     }

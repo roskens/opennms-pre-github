@@ -10,7 +10,8 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsIpRouteInterface;
 import org.opennms.netmgt.model.OnmsNode;
 
-public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterface,Integer> implements IpRouteInterfaceDao {
+public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterface, Integer> implements
+        IpRouteInterfaceDao {
     private AtomicInteger m_id = new AtomicInteger(0);
 
     @Override
@@ -36,7 +37,8 @@ public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterfac
     @Override
     public void deactivateForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
         for (final OnmsIpRouteInterface iface : getInterfacesForNodeIdIfOlderThan(nodeId, scanTime)) {
-            if (!iface.getStatus().equals(StatusType.ACTIVE)) continue;
+            if (!iface.getStatus().equals(StatusType.ACTIVE))
+                continue;
             iface.setStatus(StatusType.INACTIVE);
         }
     }
@@ -73,7 +75,8 @@ public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterfac
     @Override
     public OnmsIpRouteInterface findByNodeAndDest(final Integer nodeId, final String routeDest) {
         for (final OnmsIpRouteInterface iface : findAll()) {
-            if (iface.getNode() != null && iface.getNode().getId().equals(nodeId) && routeDest.equals(iface.getRouteDest())) {
+            if (iface.getNode() != null && iface.getNode().getId().equals(nodeId)
+                    && routeDest.equals(iface.getRouteDest())) {
                 return iface;
             }
         }
@@ -84,7 +87,8 @@ public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterfac
         final List<OnmsIpRouteInterface> ifaces = new ArrayList<OnmsIpRouteInterface>();
         for (final OnmsIpRouteInterface iface : findAll()) {
             final OnmsNode node = iface.getNode();
-            if (node == null || nodeId != node.getId()) continue;
+            if (node == null || nodeId != node.getId())
+                continue;
             if (iface.getLastPollTime() == null || iface.getLastPollTime().before(scanTime)) {
                 ifaces.add(iface);
             }

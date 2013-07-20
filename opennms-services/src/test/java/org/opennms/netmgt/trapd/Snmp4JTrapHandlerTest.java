@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.trapd;
 
-
 import org.junit.BeforeClass;
 
 /**

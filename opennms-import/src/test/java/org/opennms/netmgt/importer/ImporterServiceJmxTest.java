@@ -41,7 +41,6 @@ import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
 public class ImporterServiceJmxTest {
 
     @Before
@@ -54,12 +53,11 @@ public class ImporterServiceJmxTest {
         DaoTestConfigBean bean = new DaoTestConfigBean();
         bean.afterPropertiesSet();
 
-
         BeanFactoryReference ref = BeanUtils.getBeanFactory("daemonContext");
         ApplicationContext daemonContext = (ApplicationContext) ref.getFactory();
 
-        new ClassPathXmlApplicationContext(new String[] { "classpath:META-INF/opennms/mockEventIpcManager.xml" }, daemonContext);
-
+        new ClassPathXmlApplicationContext(new String[] { "classpath:META-INF/opennms/mockEventIpcManager.xml" },
+                                           daemonContext);
 
     }
 

@@ -61,17 +61,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-linkd.xml",
         "classpath:/META-INF/opennms/applicationContext-linkdTest.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @JUnitTemporaryDatabase
 public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBean {
 
@@ -94,13 +92,13 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
         BeanUtils.assertAutowiring(this);
     }
 
-	@Before
+    @Before
     public void setUp() throws Exception {
         // MockLogAppender.setupLogging(true);
         Properties p = new Properties();
         p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
         p.setProperty("log4j.logger.org.hibernate.cfg", "WARN");
-        p.setProperty("log4j.logger.org.springframework","WARN");
+        p.setProperty("log4j.logger.org.springframework", "WARN");
         p.setProperty("log4j.logger.com.mchange.v2.resourcepool", "WARN");
         MockLogAppender.setupLogging(p);
 
@@ -111,14 +109,14 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
 
     }
 
-	@Before
-	public void setUpLinkdConfiguration() throws Exception {
-	    LinkdConfigFactory.init();
-	    final Resource config = new ClassPathResource("etc/linkd-configuration.xml");
-	    final LinkdConfigFactory factory = new LinkdConfigFactory(-1L, config.getInputStream());
-	    LinkdConfigFactory.setInstance(factory);
-	    m_linkdConfig = LinkdConfigFactory.getInstance();
-	}
+    @Before
+    public void setUpLinkdConfiguration() throws Exception {
+        LinkdConfigFactory.init();
+        final Resource config = new ClassPathResource("etc/linkd-configuration.xml");
+        final LinkdConfigFactory factory = new LinkdConfigFactory(-1L, config.getInputStream());
+        LinkdConfigFactory.setInstance(factory);
+        m_linkdConfig = LinkdConfigFactory.getInstance();
+    }
 
     @After
     public void tearDown() throws Exception {
@@ -134,15 +132,13 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
      * dlink_DGS has STP enabled but root is itself
      * no way to find links....
      * Also there is no At interface information
-     * c2007db90010 --> 10.1.1.2  ---nothing in the bridge forwarding table...
+     * c2007db90010 --> 10.1.1.2 ---nothing in the bridge forwarding table...
      * no way to get links...
-     *
      */
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host="10.1.1.2", port=161, resource="classpath:linkd/nms4930/dlink_DES-3026.properties"),
-            @JUnitSnmpAgent(host="10.1.2.2", port=161, resource="classpath:linkd/nms4930/dlink_DGS-3612G.properties")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = "10.1.1.2", port = 161, resource = "classpath:linkd/nms4930/dlink_DES-3026.properties"),
+            @JUnitSnmpAgent(host = "10.1.2.2", port = 161, resource = "classpath:linkd/nms4930/dlink_DGS-3612G.properties") })
     public void testNms4930Network() throws Exception {
 
         Package example1 = m_linkdConfig.getPackage("example1");
@@ -155,7 +151,7 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
         example1.setSaveRouteTable(false);
         example1.setEnableVlanDiscovery(false);
 
-    	final OnmsNode cisco1 = m_nodeDao.findByForeignId("linkd", "cisco1");
+        final OnmsNode cisco1 = m_nodeDao.findByForeignId("linkd", "cisco1");
         final OnmsNode cisco2 = m_nodeDao.findByForeignId("linkd", "cisco2");
 
         assertTrue(m_linkd.scheduleNodeCollection(cisco1.getId()));
@@ -167,12 +163,13 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
         assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
 
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
-        for (final DataLinkInterface link: ifaces) {
+        for (final DataLinkInterface link : ifaces) {
             printLink(link);
         }
 
-        // Note By AR: I've inspected the snmp file, only the bridge mib are there
-        //             and no link is found
+        // Note By AR: I've inspected the snmp file, only the bridge mib are
+        // there
+        // and no link is found
         assertEquals("we should have found no links", 0, ifaces.size());
     }
 }

@@ -66,13 +66,17 @@ public final class RTCConstants {
     /**
      * The sql statement that is used to get node information for an IP address.
      */
-    public final static String DB_GET_INFO_FOR_IP = "SELECT  node.nodeid FROM " + "node, ipInterface WHERE ((ipInterface.ipaddr = ?) AND " + "(ipInterface.nodeid = node.nodeid) AND (node.nodeType = 'A') AND (ipinterface.ismanaged = 'M') )";
+    public final static String DB_GET_INFO_FOR_IP = "SELECT  node.nodeid FROM "
+            + "node, ipInterface WHERE ((ipInterface.ipaddr = ?) AND "
+            + "(ipInterface.nodeid = node.nodeid) AND (node.nodeType = 'A') AND (ipinterface.ismanaged = 'M') )";
 
     /**
      * The sql statement that is used to get services information for a
      * nodeid/IP address.
      */
-    public final static String DB_GET_SVC_ENTRIES = "SELECT service.servicename FROM ifServices, " + "service WHERE ((ifServices.nodeid = ? ) AND (ifServices.ipaddr = ?) AND " + "(ifServices.serviceid = service.serviceid) AND (ifservices.status = 'A'))";
+    public final static String DB_GET_SVC_ENTRIES = "SELECT service.servicename FROM ifServices, "
+            + "service WHERE ((ifServices.nodeid = ? ) AND (ifServices.ipaddr = ?) AND "
+            + "(ifServices.serviceid = service.serviceid) AND (ifservices.status = 'A'))";
 
     /**
      * The sql statement that is used to get 'status' for a nodeid/ip/svc.
@@ -82,7 +86,9 @@ public final class RTCConstants {
     /**
      * The sql statement for getting outage entries for a nodeid/ip/serviceid.
      */
-    public final static String DB_GET_OUTAGE_ENTRIES = "SELECT ifLostService, ifRegainedService from outages,service " + "where ( (outages.nodeid = ?) AND (outages.ipaddr = ?) AND (outages.serviceid = service.serviceid) AND (service.servicename = ?) AND " + "((ifLostService >= ?) OR (ifRegainedService >= ?) OR (ifRegainedService IS NULL)) ) ORDER BY outageid";
+    public final static String DB_GET_OUTAGE_ENTRIES = "SELECT ifLostService, ifRegainedService from outages,service "
+            + "where ( (outages.nodeid = ?) AND (outages.ipaddr = ?) AND (outages.serviceid = service.serviceid) AND (service.servicename = ?) AND "
+            + "((ifLostService >= ?) OR (ifRegainedService >= ?) OR (ifRegainedService IS NULL)) ) ORDER BY outageid";
 
     /**
      * The SQL statement necessary to get the IP addresses associated with a

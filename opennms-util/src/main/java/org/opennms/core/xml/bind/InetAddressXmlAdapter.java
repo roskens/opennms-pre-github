@@ -51,7 +51,7 @@ public class InetAddressXmlAdapter extends XmlAdapter<String, InetAddress> {
     /** {@inheritDoc} */
     @Override
     public InetAddress unmarshal(final String ipAddr) throws Exception {
-        return (ipAddr == null || ipAddr.isEmpty())? null : InetAddressUtils.addr(ipAddr);
+        return (ipAddr == null || ipAddr.isEmpty()) ? null : InetAddressUtils.addr(ipAddr);
     }
 
 }

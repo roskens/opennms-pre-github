@@ -28,10 +28,10 @@
 
 package org.opennms.netmgt.importer.operations;
 
-
-
 /**
- * <p>ImportOperationFactory interface.</p>
+ * <p>
+ * ImportOperationFactory interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,37 +39,62 @@ package org.opennms.netmgt.importer.operations;
 public interface ImportOperationFactory {
 
     /**
-     * <p>createInsertOperation</p>
+     * <p>
+     * createInsertOperation
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
-     * @param city a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.importer.operations.InsertOperation} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.importer.operations.InsertOperation}
+     *         object.
      */
-    public abstract InsertOperation createInsertOperation(String foreignSource, String foreignId, String nodeLabel, String building, String city);
+    public abstract InsertOperation createInsertOperation(String foreignSource, String foreignId, String nodeLabel,
+            String building, String city);
 
     /**
-     * <p>createUpdateOperation</p>
+     * <p>
+     * createUpdateOperation
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
-     * @param city a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.importer.operations.UpdateOperation} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.importer.operations.UpdateOperation}
+     *         object.
      */
-    public abstract UpdateOperation createUpdateOperation(Integer nodeId, String foreignSource, String foreignId, String nodeLabel, String building, String city);
+    public abstract UpdateOperation createUpdateOperation(Integer nodeId, String foreignSource, String foreignId,
+            String nodeLabel, String building, String city);
 
     /**
-     * <p>createDeleteOperation</p>
+     * <p>
+     * createDeleteOperation
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.importer.operations.DeleteOperation} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.importer.operations.DeleteOperation}
+     *         object.
      */
     public abstract DeleteOperation createDeleteOperation(Integer nodeId, String foreignSource, String foreignId);
 

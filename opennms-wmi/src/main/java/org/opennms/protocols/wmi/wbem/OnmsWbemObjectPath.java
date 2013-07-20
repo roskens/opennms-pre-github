@@ -31,7 +31,9 @@ package org.opennms.protocols.wmi.wbem;
 import org.opennms.protocols.wmi.WmiException;
 
 /**
- * <p>OnmsWbemObjectPath interface.</p>
+ * <p>
+ * OnmsWbemObjectPath interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,90 +41,123 @@ import org.opennms.protocols.wmi.WmiException;
 public interface OnmsWbemObjectPath {
 
     /**
-     * <p>getWmiAuthority</p>
+     * <p>
+     * getWmiAuthority
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public String getWmiAuthority() throws WmiException;
 
     /**
-     * <p>getWmiClass</p>
+     * <p>
+     * getWmiClass
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public String getWmiClass() throws WmiException;
 
     /**
-     * <p>getWmiDisplayName</p>
+     * <p>
+     * getWmiDisplayName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public String getWmiDisplayName() throws WmiException;
 
     /**
-     * <p>getWmiLocale</p>
+     * <p>
+     * getWmiLocale
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public String getWmiLocale() throws WmiException;
 
     /**
-     * <p>getWmiNamespace</p>
+     * <p>
+     * getWmiNamespace
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public String getWmiNamespace() throws WmiException;
 
     /**
-     * <p>getWmiParentNamespace</p>
+     * <p>
+     * getWmiParentNamespace
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public String getWmiParentNamespace() throws WmiException;
 
     /**
-     * <p>getWmiPath</p>
+     * <p>
+     * getWmiPath
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public String getWmiPath() throws WmiException;
 
     /**
-     * <p>getWmiRelPath</p>
+     * <p>
+     * getWmiRelPath
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public String getWmiRelPath() throws WmiException;
 
     /**
-     * <p>getWmiServer</p>
+     * <p>
+     * getWmiServer
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public String getWmiServer() throws WmiException;
 
     /**
-     * <p>getWmiIsClass</p>
+     * <p>
+     * getWmiIsClass
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public Boolean getWmiIsClass() throws WmiException;
 
     /**
-     * <p>getWmiIsSingleton</p>
+     * <p>
+     * getWmiIsSingleton
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public Boolean getWmiIsSingleton() throws WmiException;
 }

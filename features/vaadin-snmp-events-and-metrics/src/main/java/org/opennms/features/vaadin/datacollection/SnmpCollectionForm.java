@@ -51,12 +51,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 public abstract class SnmpCollectionForm extends Form implements ClickListener {
 
     /** The Constant FORM_ITEMS. */
-    public static final String[] FORM_ITEMS = new String[] {
-        "name",
-        "snmpStorageFlag",
-        "rrd",
-        "includeCollectionCollection"
-    };
+    public static final String[] FORM_ITEMS = new String[] { "name", "snmpStorageFlag", "rrd",
+            "includeCollectionCollection" };
 
     /** The Edit button. */
     private final Button edit = new Button("Edit");
@@ -73,7 +69,8 @@ public abstract class SnmpCollectionForm extends Form implements ClickListener {
     /**
      * Instantiates a new SNMP collection form.
      *
-     * @param dataCollectionConfigDao the data collection configuration DAO
+     * @param dataCollectionConfigDao
+     *            the data collection configuration DAO
      */
     public SnmpCollectionForm(final DataCollectionConfigDao dataCollectionConfigDao) {
         setCaption("SNMP Collection Detail");
@@ -116,7 +113,8 @@ public abstract class SnmpCollectionForm extends Form implements ClickListener {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Form#setReadOnly(boolean)
      */
     @Override
@@ -128,8 +126,10 @@ public abstract class SnmpCollectionForm extends Form implements ClickListener {
         delete.setVisible(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(ClickEvent event) {
@@ -147,7 +147,8 @@ public abstract class SnmpCollectionForm extends Form implements ClickListener {
             setReadOnly(false);
         }
         if (source == delete) {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
                                            "Do you really want to remove the selected SNMP Collection?<br/>This action cannot be undone.",
@@ -169,14 +170,16 @@ public abstract class SnmpCollectionForm extends Form implements ClickListener {
     /**
      * Save SNMP collection.
      *
-     * @param snmpCollection the SNMP collection
+     * @param snmpCollection
+     *            the SNMP collection
      */
     public abstract void saveSnmpCollection(SnmpCollection snmpCollection);
 
     /**
      * Delete SNMP collection.
      *
-     * @param snmpCollection the SNMP collection
+     * @param snmpCollection
+     *            the SNMP collection
      */
     public abstract void deleteSnmpCollection(SnmpCollection snmpCollection);
 

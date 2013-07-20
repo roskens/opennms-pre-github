@@ -36,7 +36,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>SimpleConversationEndPoint class.</p>
+ * <p>
+ * SimpleConversationEndPoint class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,8 +47,9 @@ public class SimpleConversationEndPoint {
 
     private static final Logger LOG = LoggerFactory.getLogger(SimpleConversationEndPoint.class);
 
-    public static class SimpleExchange implements Exchange{
+    public static class SimpleExchange implements Exchange {
         private ResponseHandler m_responseHandler;
+
         private RequestHandler m_requestHandler;
 
         public SimpleExchange(ResponseHandler responseHandler, RequestHandler requestHandler) {
@@ -64,14 +67,16 @@ public class SimpleConversationEndPoint {
             String input = in.readLine();
 
             LOG.info("SimpleExchange response: {}", input);
-            if(input == null) { return false;}
+            if (input == null) {
+                return false;
+            }
 
             return matchResponseByString(input);
         }
 
         @Override
         public boolean sendRequest(OutputStream out) throws IOException {
-            if(getRequestHandler() != null) {
+            if (getRequestHandler() != null) {
                 getRequestHandler().doRequest(out);
             }
             return true;
@@ -94,29 +99,39 @@ public class SimpleConversationEndPoint {
         }
 
     }
+
     protected Conversation m_conversation;
+
     private int m_timeout;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void init() throws Exception {
         m_conversation = new Conversation();
     };
 
     /**
-     * <p>setTimeout</p>
+     * <p>
+     * setTimeout
+     * </p>
      *
-     * @param timeout a int.
+     * @param timeout
+     *            a int.
      */
     public void setTimeout(int timeout) {
         m_timeout = timeout;
     }
 
     /**
-     * <p>getTimeout</p>
+     * <p>
+     * getTimeout
+     * </p>
      *
      * @return a int.
      */
@@ -125,9 +140,12 @@ public class SimpleConversationEndPoint {
     }
 
     /**
-     * <p>startsWith</p>
+     * <p>
+     * startsWith
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      * @return ResponseHandler
      */
     protected static ResponseHandler startsWith(final String prefix) {
@@ -142,9 +160,12 @@ public class SimpleConversationEndPoint {
     }
 
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param phrase a {@link java.lang.String} object.
+     * @param phrase
+     *            a {@link java.lang.String} object.
      * @return ResponseHandler
      */
     protected static ResponseHandler contains(final String phrase) {
@@ -159,9 +180,12 @@ public class SimpleConversationEndPoint {
     }
 
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param regex a {@link java.lang.String} object.
+     * @param regex
+     *            a {@link java.lang.String} object.
      * @return ResponseHandler
      */
     protected static ResponseHandler matches(final String regex) {
@@ -177,53 +201,66 @@ public class SimpleConversationEndPoint {
 
     /**
      * Add a ResponseHandler by calling one of the three utility methods:
-     *
      * startsWith(String prefix);
      * contains(String phrase);
      * regexMatches(String regex);
-     *
      * Within the extending class's overriding onInit method
      *
-     * @param responseHandler a {@link org.opennms.netmgt.provision.server.exchange.ResponseHandler} object.
-     * @param requestHandler a {@link org.opennms.netmgt.provision.server.exchange.RequestHandler} object.
+     * @param responseHandler
+     *            a
+     *            {@link org.opennms.netmgt.provision.server.exchange.ResponseHandler}
+     *            object.
+     * @param requestHandler
+     *            a
+     *            {@link org.opennms.netmgt.provision.server.exchange.RequestHandler}
+     *            object.
      */
     protected void addResponseHandler(ResponseHandler responseHandler, RequestHandler requestHandler) {
         m_conversation.addExchange(new SimpleExchange(responseHandler, requestHandler));
     }
 
     /**
-     * <p>singleLineRequest</p>
+     * <p>
+     * singleLineRequest
+     * </p>
      *
-     * @param request a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.server.exchange.RequestHandler} object.
+     * @param request
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.server.exchange.RequestHandler}
+     *         object.
      */
     protected static RequestHandler singleLineRequest(final String request) {
-      return new RequestHandler() {
+        return new RequestHandler() {
 
-          @Override
-          public void doRequest(OutputStream out) throws IOException {
-              out.write(String.format("%s\r\n", request).getBytes());
-          }
+            @Override
+            public void doRequest(OutputStream out) throws IOException {
+                out.write(String.format("%s\r\n", request).getBytes());
+            }
 
-      };
+        };
     }
 
     /**
-     * <p>multilineLineRequest</p>
+     * <p>
+     * multilineLineRequest
+     * </p>
      *
-     * @param request an array of {@link java.lang.String} objects.
-     * @return a {@link org.opennms.netmgt.provision.server.exchange.RequestHandler} object.
+     * @param request
+     *            an array of {@link java.lang.String} objects.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.server.exchange.RequestHandler}
+     *         object.
      */
     protected static RequestHandler multilineLineRequest(final String[] request) {
         return new RequestHandler() {
 
             @Override
             public void doRequest(OutputStream out) throws IOException {
-                for(int i = 0; i < request.length; i++) {
+                for (int i = 0; i < request.length; i++) {
                     out.write(String.format("%s\r\n", request[i]).getBytes());
                 }
             }
-
 
         };
     }

@@ -29,7 +29,9 @@
 package org.opennms.netmgt.collectd;
 
 /**
- * <p>CollectdInstrumentation interface.</p>
+ * <p>
+ * CollectdInstrumentation interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,143 +39,244 @@ package org.opennms.netmgt.collectd;
 public interface CollectdInstrumentation {
 
     /**
-     * <p>beginScheduleExistingInterfaces</p>
+     * <p>
+     * beginScheduleExistingInterfaces
+     * </p>
      */
     public void beginScheduleExistingInterfaces();
+
     /**
-     * <p>endScheduleExistingInterfaces</p>
+     * <p>
+     * endScheduleExistingInterfaces
+     * </p>
      */
     public void endScheduleExistingInterfaces();
+
     /**
-     * <p>beginScheduleInterfacesWithService</p>
+     * <p>
+     * beginScheduleInterfacesWithService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void beginScheduleInterfacesWithService(String svcName);
+
     /**
-     * <p>endScheduleInterfacesWithService</p>
+     * <p>
+     * endScheduleInterfacesWithService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void endScheduleInterfacesWithService(String svcName);
+
     /**
-     * <p>beginFindInterfacesWithService</p>
+     * <p>
+     * beginFindInterfacesWithService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void beginFindInterfacesWithService(String svcName);
+
     /**
-     * <p>endFindInterfacesWithService</p>
+     * <p>
+     * endFindInterfacesWithService
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
-     * @param count a int.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param count
+     *            a int.
      */
     public void endFindInterfacesWithService(String svcName, int count);
+
     /**
-     * <p>beginScheduleInterface</p>
+     * <p>
+     * beginScheduleInterface
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void beginScheduleInterface(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>endScheduleInterface</p>
+     * <p>
+     * endScheduleInterface
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void endScheduleInterface(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>beginCollectorInitialize</p>
+     * <p>
+     * beginCollectorInitialize
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void beginCollectorInitialize(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>endCollectorInitialize</p>
+     * <p>
+     * endCollectorInitialize
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void endCollectorInitialize(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>beginCollectorRelease</p>
+     * <p>
+     * beginCollectorRelease
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void beginCollectorRelease(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>endCollectorRelease</p>
+     * <p>
+     * endCollectorRelease
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void endCollectorRelease(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>beginCollectorCollect</p>
+     * <p>
+     * beginCollectorCollect
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void beginCollectorCollect(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>endCollectorCollect</p>
+     * <p>
+     * endCollectorCollect
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void endCollectorCollect(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>beginCollectingServiceData</p>
+     * <p>
+     * beginCollectingServiceData
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void beginCollectingServiceData(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>endCollectingServiceData</p>
+     * <p>
+     * endCollectingServiceData
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void endCollectingServiceData(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>beginPersistingServiceData</p>
+     * <p>
+     * beginPersistingServiceData
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void beginPersistingServiceData(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>endPersistingServiceData</p>
+     * <p>
+     * endPersistingServiceData
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void endPersistingServiceData(int nodeId, String ipAddress, String svcName);
+
     /**
-     * <p>reportCollectionException</p>
+     * <p>
+     * reportCollectionException
+     * </p>
      *
-     * @param nodeid a int.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @param e a {@link org.opennms.netmgt.collectd.CollectionException} object.
+     * @param nodeid
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.collectd.CollectionException}
+     *            object.
      */
     public void reportCollectionException(int nodeid, String ipAddress, String svcName, CollectionException e);
-
 
 }

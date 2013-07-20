@@ -53,37 +53,46 @@ import org.opennms.test.mock.EasyMockUtils;
 public class AnnotationBasedEventListenerAdapterTest {
 
     private static final String ANNOTATED_NAME = "AnotatedListenerName";
+
     private static final String OVERRIDEN_NAME = "OverriddenName";
 
     private AnnotatedListener m_annotatedListener;
+
     private AnnotationBasedEventListenerAdapter m_adapter;
+
     private EasyMockUtils m_mockUtils;
+
     private EventSubscriptionService m_eventIpcMgr;
+
     private Set<String> m_subscriptions;
 
-    @EventListener(name=ANNOTATED_NAME)
+    @EventListener(name = ANNOTATED_NAME)
     private static class AnnotatedListener {
 
         public int preProcessedEvents = 0;
+
         public int receivedEventCount = 0;
+
         public int postProcessedEvents = 0;
+
         public int illegalArgsHandled = 0;
+
         public int genExceptionsHandled = 0;
 
         @SuppressWarnings("unused")
-        @EventHandler(uei=EventConstants.NODE_DOWN_EVENT_UEI)
+        @EventHandler(uei = EventConstants.NODE_DOWN_EVENT_UEI)
         public void handleAnEvent(Event e) {
             receivedEventCount++;
         }
 
         @SuppressWarnings("unused")
-        @EventHandler(uei=EventConstants.ADD_INTERFACE_EVENT_UEI)
+        @EventHandler(uei = EventConstants.ADD_INTERFACE_EVENT_UEI)
         public void handleAnotherEvent(Event e) {
             throw new IllegalArgumentException("test generated exception");
         }
 
         @SuppressWarnings("unused")
-        @EventHandler(uei=EventConstants.ADD_NODE_EVENT_UEI)
+        @EventHandler(uei = EventConstants.ADD_NODE_EVENT_UEI)
         public void handleYetAnotherEvent(Event e) {
             throw new IllegalStateException("test generated state exception");
         }
@@ -114,11 +123,12 @@ public class AnnotationBasedEventListenerAdapterTest {
 
     }
 
-
     private static class DerivedListener extends AnnotatedListener {
 
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
     @Before
@@ -135,11 +145,8 @@ public class AnnotationBasedEventListenerAdapterTest {
 
         m_subscriptions = new HashSet<String>();
 
-        Collections.addAll(m_subscriptions,
-                EventConstants.NODE_DOWN_EVENT_UEI,
-                EventConstants.ADD_NODE_EVENT_UEI,
-                EventConstants.ADD_INTERFACE_EVENT_UEI
-                );
+        Collections.addAll(m_subscriptions, EventConstants.NODE_DOWN_EVENT_UEI, EventConstants.ADD_NODE_EVENT_UEI,
+                           EventConstants.ADD_INTERFACE_EVENT_UEI);
 
         m_eventIpcMgr.addEventListener(m_adapter, m_subscriptions);
     }
@@ -157,14 +164,12 @@ public class AnnotationBasedEventListenerAdapterTest {
         // finish expectations for the old adapter
         m_adapter.afterPropertiesSet();
 
-
         // setup the derivied listener
         DerivedListener derivedListener = new DerivedListener();
 
         adapter.setAnnotatedListener(derivedListener);
         adapter.setEventSubscriptionService(m_eventIpcMgr);
         adapter.afterPropertiesSet();
-
 
         assertEquals(0, derivedListener.preProcessedEvents);
         assertEquals(0, derivedListener.receivedEventCount);

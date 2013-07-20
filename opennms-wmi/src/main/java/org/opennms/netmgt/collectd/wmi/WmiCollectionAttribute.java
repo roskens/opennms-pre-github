@@ -35,110 +35,143 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
 /**
- * <p>WmiCollectionAttribute class.</p>
+ * <p>
+ * WmiCollectionAttribute class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class WmiCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
     String m_alias;
-        String m_value;
-        WmiCollectionResource m_resource;
-        CollectionAttributeType m_attribType;
 
-        /**
-         * <p>Constructor for WmiCollectionAttribute.</p>
-         *
-         * @param resource a {@link org.opennms.netmgt.collectd.wmi.WmiCollectionResource} object.
-         * @param attribType a {@link org.opennms.netmgt.config.collector.CollectionAttributeType} object.
-         * @param alias a {@link java.lang.String} object.
-         * @param value a {@link java.lang.String} object.
-         */
-        public WmiCollectionAttribute(final WmiCollectionResource resource, final CollectionAttributeType attribType, final String alias, final String value) {
-            m_resource=resource;
-            m_attribType=attribType;
-            m_alias = alias;
-            m_value = value;
-        }
+    String m_value;
 
-        /**
-         * <p>getAttributeType</p>
-         *
-         * @return a {@link org.opennms.netmgt.config.collector.CollectionAttributeType} object.
-         */
+    WmiCollectionResource m_resource;
+
+    CollectionAttributeType m_attribType;
+
+    /**
+     * <p>
+     * Constructor for WmiCollectionAttribute.
+     * </p>
+     *
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.collectd.wmi.WmiCollectionResource}
+     *            object.
+     * @param attribType
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
+     *            object.
+     * @param alias
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
+     */
+    public WmiCollectionAttribute(final WmiCollectionResource resource, final CollectionAttributeType attribType,
+            final String alias, final String value) {
+        m_resource = resource;
+        m_attribType = attribType;
+        m_alias = alias;
+        m_value = value;
+    }
+
+    /**
+     * <p>
+     * getAttributeType
+     * </p>
+     *
+     * @return a
+     *         {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
+     *         object.
+     */
     @Override
-        public CollectionAttributeType getAttributeType() {
-            return m_attribType;
-        }
+    public CollectionAttributeType getAttributeType() {
+        return m_attribType;
+    }
 
-        /**
-         * <p>getName</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
+    /**
+     * <p>
+     * getName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-        public String getName() {
-            return m_alias;
-        }
+    public String getName() {
+        return m_alias;
+    }
 
-        /**
-         * <p>getNumericValue</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
+    /**
+     * <p>
+     * getNumericValue
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-        public String getNumericValue() {
-            return m_value;
-        }
+    public String getNumericValue() {
+        return m_value;
+    }
 
-        /**
-         * <p>getResource</p>
-         *
-         * @return a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
-         */
+    /**
+     * <p>
+     * getResource
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *         object.
+     */
     @Override
-        public CollectionResource getResource() {
-            return m_resource;
-        }
+    public CollectionResource getResource() {
+        return m_resource;
+    }
 
-        /**
-         * <p>getStringValue</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
+    /**
+     * <p>
+     * getStringValue
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-        public String getStringValue() {
-            return m_value; //Should this be null instead?
-        }
+    public String getStringValue() {
+        return m_value; // Should this be null instead?
+    }
 
-        /** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-        public boolean shouldPersist(final ServiceParameters params) {
-            return true;
-        }
+    public boolean shouldPersist(final ServiceParameters params) {
+        return true;
+    }
 
-        /**
-         * <p>getType</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
+    /**
+     * <p>
+     * getType
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-        public String getType() {
-            return m_attribType.getType();
-        }
+    public String getType() {
+        return m_attribType.getType();
+    }
 
-        /**
-         * <p>toString</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-        public String toString() {
-            return "WmiCollectionAttribute " + m_alias+"=" + m_value;
-        }
+    public String toString() {
+        return "WmiCollectionAttribute " + m_alias + "=" + m_value;
+    }
 
-        @Override
-        public String getMetricIdentifier() {
-            return "Not supported yet._" + "WMI_" + getName();
-        }
+    @Override
+    public String getMetricIdentifier() {
+        return "Not supported yet._" + "WMI_" + getName();
+    }
 }

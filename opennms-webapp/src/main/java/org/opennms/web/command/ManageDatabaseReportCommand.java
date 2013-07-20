@@ -29,7 +29,9 @@
 package org.opennms.web.command;
 
 /**
- * <p>ManageDatabaseReportCommand class.</p>
+ * <p>
+ * ManageDatabaseReportCommand class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,22 +42,26 @@ public class ManageDatabaseReportCommand {
     private Integer[] m_ids;
 
     /**
-     * <p>setIds</p>
+     * <p>
+     * setIds
+     * </p>
      *
-     * @param ids an array of {@link java.lang.Integer} objects.
+     * @param ids
+     *            an array of {@link java.lang.Integer} objects.
      */
     public void setIds(Integer[] ids) {
-    m_ids = ids;
+        m_ids = ids;
     }
 
     /**
-     * <p>getIds</p>
+     * <p>
+     * getIds
+     * </p>
      *
      * @return an array of {@link java.lang.Integer} objects.
      */
     public Integer[] getIds() {
-    return m_ids;
+        return m_ids;
     }
-
 
 }

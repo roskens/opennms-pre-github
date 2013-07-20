@@ -74,7 +74,9 @@ import org.springframework.core.io.Resource;
 
 public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSystemReportPlugin.class);
+
     protected static final long MAX_PROCESS_WAIT = 10000; // milliseconds
+
     private MBeanServerConnection m_connection = null;
 
     @Override
@@ -94,10 +96,9 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
 
     @Override
     public int compareTo(final SystemReportPlugin o) {
-        return new CompareToBuilder()
-            .append(this.getPriority(), (o == null? Integer.MIN_VALUE:o.getPriority()))
-            .append(this.getName(), (o == null? null:o.getName()))
-            .toComparison();
+        return new CompareToBuilder().append(this.getPriority(), (o == null ? Integer.MIN_VALUE : o.getPriority())).append(this.getName(),
+                                                                                                                           (o == null ? null
+                                                                                                                               : o.getName())).toComparison();
     }
 
     protected String slurp(final File lsb) {
@@ -131,9 +132,11 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
             br = new BufferedReader(isr);
             while (br.ready()) {
                 final String line = br.readLine();
-                if (line == null) break;
+                if (line == null)
+                    break;
                 sb.append(line);
-                if (br.ready()) sb.append("\n");
+                if (br.ready())
+                    sb.append("\n");
             }
         } catch (final Throwable e) {
             LOG.debug("Failure attempting to run command '{}'", Arrays.asList(command), e);
@@ -146,8 +149,8 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return sb.toString();
     }
 
-    protected Map<String,String> splitMultilineString(final String regex, final String text) {
-        final Map<String,String> map = new HashMap<String,String>();
+    protected Map<String, String> splitMultilineString(final String regex, final String text) {
+        final Map<String, String> map = new HashMap<String, String>();
 
         if (text != null) {
             final StringReader sr = new StringReader(text);
@@ -155,7 +158,8 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
             try {
                 while (br.ready()) {
                     final String line = br.readLine();
-                    if (line == null) break;
+                    if (line == null)
+                        break;
                     final String[] entry = line.split(regex, 2);
                     if (entry.length == 2) {
                         map.put(entry[0], entry[1]);
@@ -177,7 +181,8 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
     }
 
     protected Resource getResource(final String text) {
-        if (text == null) return new ByteArrayResource(new byte[0]);
+        if (text == null)
+            return new ByteArrayResource(new byte[0]);
         return new ByteArrayResource(text.getBytes());
     }
 
@@ -211,7 +216,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
     protected String slurpOutput(CommandLine command, boolean ignoreExitCode) {
         LOG.debug("running: {}", command);
 
-        final Map<String,String> environment = new HashMap<String,String>(System.getenv());
+        final Map<String, String> environment = new HashMap<String, String>(System.getenv());
         environment.put("COLUMNS", "2000");
         DataInputStream input = null;
         PipedInputStream pis = null;
@@ -287,7 +292,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
             PumpStreamHandler streamHandler = new PumpStreamHandler(output, System.err);
 
             try {
-            LOG.trace("executing '{}'", command);
+                LOG.trace("executing '{}'", command);
                 pis = new PipedInputStream(output);
                 input = new DataInputStream(pis);
                 parser = new PsParser(input, "opennms_bootstrap.jar", "status", 0);
@@ -386,13 +391,16 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
     private MBeanServerConnection getConnection() {
         final List<Integer> ports = new ArrayList<Integer>();
         Integer p = Integer.getInteger("com.sun.management.jmxremote.port");
-        if (p != null) ports.add(p);
+        if (p != null)
+            ports.add(p);
         ports.add(18980);
         ports.add(1099);
         for (final Integer port : ports) {
             LOG.trace("Trying JMX at localhost:{}/jmxrmi", port);
             try {
-                JMXServiceURL url = new JMXServiceURL(String.format("service:jmx:rmi:///jndi/rmi://localhost:%d/jmxrmi", port));
+                JMXServiceURL url = new JMXServiceURL(
+                                                      String.format("service:jmx:rmi:///jndi/rmi://localhost:%d/jmxrmi",
+                                                                    port));
                 JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
                 return jmxc.getMBeanServerConnection();
             } catch (final Exception e) {
@@ -402,7 +410,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return null;
     }
 
-    protected void addGetters(final Object o, final Map<String,Resource> map) {
+    protected void addGetters(final Object o, final Map<String, Resource> map) {
         if (o != null) {
             for (Method method : o.getClass().getDeclaredMethods()) {
                 method.setAccessible(true);
@@ -413,7 +421,9 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
                     } catch (Throwable e) {
                         value = e;
                     }
-                    final String key = method.getName().replaceFirst("^get", "").replaceAll("([A-Z])", " $1").replaceFirst("^ ", "").replaceAll("\\bVm\\b", "VM");
+                    final String key = method.getName().replaceFirst("^get", "").replaceAll("([A-Z])", " $1").replaceFirst("^ ",
+                                                                                                                           "").replaceAll("\\bVm\\b",
+                                                                                                                                          "VM");
                     map.put(key, getResource(value.toString()));
                 }
             }
@@ -423,10 +433,11 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
     protected <T> List<T> getBeans(final String mxBeanName, final Class<T> clazz) {
         initializeConnection();
         List<T> beans = new ArrayList<T>();
-        if (m_connection == null)  return beans;
+        if (m_connection == null)
+            return beans;
         try {
             ObjectName o = new ObjectName(mxBeanName + ",*");
-            for (final ObjectName name : (Set<ObjectName>)m_connection.queryNames(o, null)) {
+            for (final ObjectName name : (Set<ObjectName>) m_connection.queryNames(o, null)) {
                 beans.add(getBean(name.getCanonicalName(), clazz));
             }
         } catch (final Exception e) {

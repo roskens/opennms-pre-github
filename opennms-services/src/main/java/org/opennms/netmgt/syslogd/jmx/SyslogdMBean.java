@@ -31,7 +31,9 @@ package org.opennms.netmgt.syslogd.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>SyslogdMBean interface.</p>
+ * <p>
+ * SyslogdMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

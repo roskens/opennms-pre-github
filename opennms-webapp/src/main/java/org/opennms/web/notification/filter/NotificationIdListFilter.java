@@ -32,7 +32,9 @@ import org.opennms.web.filter.InFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>NotificationIdListFilter class.</p>
+ * <p>
+ * NotificationIdListFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,7 +43,8 @@ import org.opennms.web.filter.SQLType;
 public class NotificationIdListFilter extends InFilter<Integer> {
     /** Constant <code>TYPE="notificationIdList"</code> */
     public static final String TYPE = "notificationIdList";
-    //private int[] m_notificationIds;
+
+    // private int[] m_notificationIds;
 
     private static Integer[] box(int[] values) {
         if (values == null) {
@@ -49,7 +52,7 @@ public class NotificationIdListFilter extends InFilter<Integer> {
         }
 
         Integer[] boxed = new Integer[values.length];
-        for(int i = 0; i < values.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             boxed[i] = values[i];
         }
 
@@ -57,20 +60,26 @@ public class NotificationIdListFilter extends InFilter<Integer> {
     }
 
     /**
-     * <p>Constructor for NotificationIdListFilter.</p>
+     * <p>
+     * Constructor for NotificationIdListFilter.
+     * </p>
      *
-     * @param notificationIds an array of {@link java.lang.Integer} objects.
+     * @param notificationIds
+     *            an array of {@link java.lang.Integer} objects.
      */
     public NotificationIdListFilter(Integer[] notificationIds) {
         super(TYPE, SQLType.INT, "NOTIFICATIONS.NOTIFYID", "notifyId", notificationIds);
     }
 
     /**
-     * <p>Constructor for NotificationIdListFilter.</p>
+     * <p>
+     * Constructor for NotificationIdListFilter.
+     * </p>
      *
-     * @param notificationIds an array of int.
+     * @param notificationIds
+     *            an array of int.
      */
-    public NotificationIdListFilter(int[] notificationIds){
+    public NotificationIdListFilter(int[] notificationIds) {
         super(TYPE, SQLType.INT, "NOTIFICATIONS.NOTIFYID", "notifyId", box(notificationIds));
     }
 

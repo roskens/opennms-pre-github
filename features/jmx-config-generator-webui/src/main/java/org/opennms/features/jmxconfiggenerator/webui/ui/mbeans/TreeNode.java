@@ -31,62 +31,61 @@ package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
 import java.util.List;
 
 /**
- * This interface defines a tree node to provide a simple tree implementation. A node can have none or multiple child. A
- * node can be a root or a leaf node. A node can also have user data to save (getData()).
+ * This interface defines a tree node to provide a simple tree implementation. A
+ * node can have none or multiple child. A
+ * node can be a root or a leaf node. A node can also have user data to save
+ * (getData()).
  *
  * @author Markus von Rüden
  */
 public interface TreeNode {
 
-	/**
-	 * Defines if the
-	 * <code>TreeNode</code> is a root node
-	 */
-	boolean isRoot();
+    /**
+     * Defines if the <code>TreeNode</code> is a root node
+     */
+    boolean isRoot();
 
-	/**
-	 * Indicates weather this
-	 * <code>TreeNode</code> has children or not. *
-	 */
-	boolean hasChildren();
+    /**
+     * Indicates weather this <code>TreeNode</code> has children or not. *
+     */
+    boolean hasChildren();
 
-	/**
-	 * Adds a child (
-	 * <code>TreeNode</codE>) to the current
-	 * <code>TreeNode</code>
-	 */
-	void addChild(TreeNode child);
+    /**
+     * Adds a child ( <code>TreeNode</codE>) to the current
+     * <code>TreeNode</code>
+     */
+    void addChild(TreeNode child);
 
-	/**
-	 * Sets the new parent of the current
-	 * <code>TreeNode</code>
-	 */
-	void setParent(TreeNode parent);
+    /**
+     * Sets the new parent of the current <code>TreeNode</code>
+     */
+    void setParent(TreeNode parent);
 
-	/**
-	 * Gets the parent of this
-	 * <code>TreeNode</code>. Returns <b>null</b> if it is a root node
-	 *
-	 * @return the parent node or null if root
-	 */
-	TreeNode getParent();
+    /**
+     * Gets the parent of this <code>TreeNode</code>. Returns <b>null</b> if it
+     * is a root node
+     *
+     * @return the parent node or null if root
+     */
+    TreeNode getParent();
 
-	/**
-	 * Assigns user data to the
-	 * <code>TreeNode</code>
-	 *
-	 *
-	 * @param data any user object which represents the node (e.g. a String, or any other JAVA object)
-	 */
-	void setData(Object data);
+    /**
+     * Assigns user data to the <code>TreeNode</code>
+     *
+     * @param data
+     *            any user object which represents the node (e.g. a String, or
+     *            any other JAVA object)
+     */
+    void setData(Object data);
 
-	/**
-	 * @return the stored user data or null if no user data is saved
-	 */
-	Object getData();
+    /**
+     * @return the stored user data or null if no user data is saved
+     */
+    Object getData();
 
-	/**
-	 * @return all children of this node, or an empty list if there are no children. Should NEVER return null.
-	 */
-	List<TreeNode> getChildren();
+    /**
+     * @return all children of this node, or an empty list if there are no
+     *         children. Should NEVER return null.
+     */
+    List<TreeNode> getChildren();
 }

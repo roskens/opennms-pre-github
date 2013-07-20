@@ -35,7 +35,9 @@ package org.opennms.protocols.jmx;
 import java.net.InetAddress;
 
 /**
- * <p>JMXPeer class.</p>
+ * <p>
+ * JMXPeer class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -238,9 +240,7 @@ public class JMXPeer extends Object implements Cloneable {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Used to get a newly created copy of the current object.
+     * {@inheritDoc} Used to get a newly created copy of the current object.
      */
     @Override
     public Object clone() {

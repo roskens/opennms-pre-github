@@ -49,6 +49,7 @@ import org.opennms.netmgt.xml.event.Event;
  */
 final class BroadcastEventProcessor implements EventListener {
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
+
     /**
      * The location where incoming events of interest are enqueued
      */
@@ -124,9 +125,8 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is invoked by the EventIpcManager when a new event is
+     * {@inheritDoc} This method is invoked by the EventIpcManager when a new
+     * event is
      * available for processing. Each message is examined for its Universal
      * Event Identifier and the appropriate action is taking based on each UEI.
      */
@@ -134,8 +134,6 @@ final class BroadcastEventProcessor implements EventListener {
     public void onEvent(Event event) {
         if (event == null)
             return;
-
-
 
         LOG.debug("About to start processing recd. event");
 
@@ -148,7 +146,6 @@ final class BroadcastEventProcessor implements EventListener {
                 return;
 
             m_updater.execute(new DataUpdater(event));
-
 
             LOG.debug("Event {} added to updater queue", uei);
 

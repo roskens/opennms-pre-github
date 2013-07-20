@@ -32,15 +32,20 @@ import java.util.Date;
 
 /**
  * {@inheritDoc}
+ *
  * @author Christian Pape
  * @author Markus Neumann
  */
 public class DefaultMeasurement implements Measurement {
 
     private static final long serialVersionUID = -7788974682113621268L;
+
     private String m_interface, m_service, m_metricId, m_value, m_metricType;
+
     private int m_nodeId;
+
     private Date m_timestamp;
+
     private String m_onmsLogicMetricId;
 
     @Override
@@ -123,9 +128,10 @@ public class DefaultMeasurement implements Measurement {
         return m_onmsLogicMetricId;
     }
 
-
     @Override
     public String toString() {
-        return "DefaultMeasurement{" + "m_interface=" + m_interface + ", m_service=" + m_service + ", m_metricId=" + m_metricId + ", m_metricType=" + m_metricType + ", m_value=" + m_value + ", m_nodeId=" + m_nodeId + ", m_timestamp=" + m_timestamp + '}';
+        return "DefaultMeasurement{" + "m_interface=" + m_interface + ", m_service=" + m_service + ", m_metricId="
+                + m_metricId + ", m_metricType=" + m_metricType + ", m_value=" + m_value + ", m_nodeId=" + m_nodeId
+                + ", m_timestamp=" + m_timestamp + '}';
     }
 }

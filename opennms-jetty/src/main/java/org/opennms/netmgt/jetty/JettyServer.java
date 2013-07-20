@@ -60,7 +60,9 @@ public class JettyServer extends AbstractServiceDaemon {
     private Server m_server;
 
     /**
-     * <p>Constructor for JettyServer.</p>
+     * <p>
+     * Constructor for JettyServer.
+     * </p>
      */
     protected JettyServer() {
         super(LOG4J_CATEGORY);
@@ -85,7 +87,7 @@ public class JettyServer extends AbstractServiceDaemon {
         }
 
         Integer requestHeaderSize = Integer.getInteger("org.opennms.netmgt.jetty.requestHeaderSize");
-        if(requestHeaderSize != null) {
+        if (requestHeaderSize != null) {
             connector.setRequestHeaderSize(requestHeaderSize);
         }
 
@@ -103,7 +105,8 @@ public class JettyServer extends AbstractServiceDaemon {
         Integer https_port = Integer.getInteger("org.opennms.netmgt.jetty.https-port");
         if (https_port != null) {
 
-            String keyStorePath = System.getProperty("org.opennms.netmgt.jetty.https-keystore", homeDir+File.separator+"etc"+File.separator+"examples"+File.separator+"jetty.keystore");
+            String keyStorePath = System.getProperty("org.opennms.netmgt.jetty.https-keystore", homeDir
+                    + File.separator + "etc" + File.separator + "examples" + File.separator + "jetty.keystore");
             String keyStorePassword = System.getProperty("org.opennms.netmgt.jetty.https-keystorepassword", "changeit");
             String keyManagerPassword = System.getProperty("org.opennms.netmgt.jetty.https-keypassword", "changeit");
             String certificateAlias = System.getProperty("org.opennms.netmgt.jetty.https-cert-alias", null);
@@ -115,27 +118,28 @@ public class JettyServer extends AbstractServiceDaemon {
                 contextFactory.setCertAlias(certificateAlias);
             }
 
-        	excludeCipherSuites(contextFactory, https_port);
+            excludeCipherSuites(contextFactory, https_port);
 
             SslSocketConnector sslConnector = new SslSocketConnector(contextFactory);
             sslConnector.setPort(https_port);
 
-        	String httpsHost = System.getProperty("org.opennms.netmgt.jetty.https-host");
-    		if (httpsHost != null) {
-    			sslConnector.setHost(httpsHost);
-    		}
-    		m_server.addConnector(sslConnector);
+            String httpsHost = System.getProperty("org.opennms.netmgt.jetty.https-host");
+            if (httpsHost != null) {
+                sslConnector.setHost(httpsHost);
+            }
+            m_server.addConnector(sslConnector);
         }
 
         HandlerCollection handlers = new HandlerCollection();
 
         if (webappsDir.exists()) {
             File rootDir = null;
-            for (File file: webappsDir.listFiles()) {
+            for (File file : webappsDir.listFiles()) {
                 if (file.isDirectory()) {
                     String contextPath;
                     if ("ROOT".equals(file.getName())) {
-                        // Defer this to last to avoid nested context order problems
+                        // Defer this to last to avoid nested context order
+                        // problems
                         rootDir = file;
                         continue;
                     } else {
@@ -155,46 +159,51 @@ public class JettyServer extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>addContext</p>
+     * <p>
+     * addContext
+     * </p>
      *
-     * @param handlers a {@link org.eclipse.jetty.server.handler.HandlerCollection} object.
-     * @param name a {@link java.io.File} object.
-     * @param contextPath a {@link java.lang.String} object.
+     * @param handlers
+     *            a {@link org.eclipse.jetty.server.handler.HandlerCollection}
+     *            object.
+     * @param name
+     *            a {@link java.io.File} object.
+     * @param contextPath
+     *            a {@link java.lang.String} object.
      */
     protected void addContext(HandlerCollection handlers, File name, String contextPath) {
         LOG.warn("adding context: {} -> {}", contextPath, name.getAbsolutePath());
         WebAppContext wac = new WebAppContext();
-	/*
-	 * Tell jetty to scan all of the jar files in the classpath for taglibs and other resources since
-         * most of our jars are installed in ${opennms.home}/lib.  This is only required for jetty7
+        /*
+         * Tell jetty to scan all of the jar files in the classpath for taglibs
+         * and other resources since
+         * most of our jars are installed in ${opennms.home}/lib. This is only
+         * required for jetty7
          * See: http://wiki.eclipse.org/Jetty/Howto/Configure_JSP
          */
-	wac.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*\\.jar$");
+        wac.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*/[^/]*\\.jar$");
         wac.setWar(name.getAbsolutePath());
         wac.setContextPath(contextPath);
         handlers.addHandler(wac);
     }
 
     /**
-     * <p>excludeCipherSuites</p>
+     * <p>
+     * excludeCipherSuites
+     * </p>
+     *
      * @param contextFactory
      * @param https_port
-     * @param sslConnector a {@link org.eclipse.jetty.server.security.SslSocketConnector} object.
+     * @param sslConnector
+     *            a {@link org.eclipse.jetty.server.security.SslSocketConnector}
+     *            object.
      */
     protected void excludeCipherSuites(SslContextFactory contextFactory, Integer port) {
-        String[] defaultExclSuites = {
-                "SSL_DHE_DSS_WITH_DES_CBC_SHA",
-                "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
-                "SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
-                "SSL_DHE_RSA_WITH_DES_CBC_SHA",
-                "SSL_RSA_EXPORT_WITH_DES40_CBC_SHA",
-                "SSL_RSA_EXPORT_WITH_RC4_40_MD5",
-                "SSL_RSA_WITH_3DES_EDE_CBC_SHA",
-                "SSL_RSA_WITH_DES_CBC_SHA",
-                "TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
-                "TLS_RSA_EXPORT_WITH_DES40_CBC_SHA",
-                "TLS_RSA_WITH_DES_CBC_SHA"
-        };
+        String[] defaultExclSuites = { "SSL_DHE_DSS_WITH_DES_CBC_SHA", "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+                "SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA", "SSL_DHE_RSA_WITH_DES_CBC_SHA",
+                "SSL_RSA_EXPORT_WITH_DES40_CBC_SHA", "SSL_RSA_EXPORT_WITH_RC4_40_MD5", "SSL_RSA_WITH_3DES_EDE_CBC_SHA",
+                "SSL_RSA_WITH_DES_CBC_SHA", "TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+                "TLS_RSA_EXPORT_WITH_DES40_CBC_SHA", "TLS_RSA_WITH_DES_CBC_SHA" };
 
         String[] exclSuites;
         String exclSuitesString = System.getProperty("org.opennms.netmgt.jetty.https-exclude-cipher-suites");

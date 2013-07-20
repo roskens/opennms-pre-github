@@ -43,7 +43,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * <p>Queued class.</p>
+ * <p>
+ * Queued class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -59,52 +61,63 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
     /*
      * There are currently 2 possible strategies to be used here:
      * - QueuingRrdStrategy (the standard behavior)
-     * - QueuingTcpRrdStrategy (the modified behavior when org.opennms.rrd.usetcp=true)
-     * This is the reason why we should use an indirect reference, otherwise we will experiment NMS-4989
+     * - QueuingTcpRrdStrategy (the modified behavior when
+     * org.opennms.rrd.usetcp=true)
+     * This is the reason why we should use an indirect reference, otherwise we
+     * will experiment NMS-4989
      */
-    private volatile RrdStrategy<?,?> m_rrdStrategy;
+    private volatile RrdStrategy<?, ?> m_rrdStrategy;
 
     /**
-     * <p>Constructor for Queued.</p>
+     * <p>
+     * Constructor for Queued.
+     * </p>
      */
     public Queued() {
         super(LOG4J_CATEGORY);
     }
 
     /**
-     * <p>setEventIpcManager</p>
+     * <p>
+     * setEventIpcManager
+     * </p>
      *
-     * @param eventMgr a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventMgr
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public void setEventIpcManager(EventIpcManager eventMgr) {
         m_eventMgr = eventMgr;
     }
 
     /**
-     * <p>getRrdStrategy</p>
+     * <p>
+     * getRrdStrategy
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
      */
-    public RrdStrategy<?,?> getRrdStrategy() {
+    public RrdStrategy<?, ?> getRrdStrategy() {
         return m_rrdStrategy;
     }
 
     /**
-     * <p>setRrdStrategy</p>
+     * <p>
+     * setRrdStrategy
+     * </p>
      *
-     * @param rrdStrategy a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
+     * @param rrdStrategy
+     *            a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
      */
-    public void setRrdStrategy(RrdStrategy<?,?> rrdStrategy) {
+    public void setRrdStrategy(RrdStrategy<?, ?> rrdStrategy) {
         m_rrdStrategy = rrdStrategy;
     }
-
 
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
         Assert.state(m_eventMgr != null, "setEventIpcManager must be set");
         Assert.state(m_rrdStrategy != null, "rrdStrategy must be set");
-
 
         m_eventMgr.addEventListener(this, EventConstants.PROMOTE_QUEUE_DATA_UEI);
     }
@@ -129,7 +142,7 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
             return;
         }
 
-        for(String file : files) {
+        for (String file : files) {
             LOG.debug("Promoting file: {}", file);
         }
     }

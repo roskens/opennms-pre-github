@@ -39,21 +39,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>ProcessExec class.</p>
+ * <p>
+ * ProcessExec class.
+ * </p>
  */
 public class ProcessExec {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ProcessExec.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProcessExec.class);
 
     PrintStream m_out = null;
 
     PrintStream m_err = null;
 
     /**
-     * <p>Constructor for ProcessExec.</p>
+     * <p>
+     * Constructor for ProcessExec.
+     * </p>
      *
-     * @param out a {@link java.io.PrintStream} object.
-     * @param err a {@link java.io.PrintStream} object.
+     * @param out
+     *            a {@link java.io.PrintStream} object.
+     * @param err
+     *            a {@link java.io.PrintStream} object.
      */
     public ProcessExec(PrintStream out, PrintStream err) {
         m_out = out;
@@ -61,12 +67,17 @@ public class ProcessExec {
     }
 
     /**
-     * <p>exec</p>
+     * <p>
+     * exec
+     * </p>
      *
-     * @param cmd an array of {@link java.lang.String} objects.
+     * @param cmd
+     *            an array of {@link java.lang.String} objects.
      * @return a int.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.InterruptedException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public int exec(String[] cmd) throws IOException, InterruptedException {
         Process p = Runtime.getRuntime().exec(cmd);
@@ -112,7 +123,7 @@ public class ProcessExec {
                     m_printStream.println(line);
                 }
             } catch (final Exception e) {
-            	LOG.warn("an error occurred while reading the input stream", e);
+                LOG.warn("an error occurred while reading the input stream", e);
             } finally {
                 IOUtils.closeQuietly(in);
                 IOUtils.closeQuietly(isr);

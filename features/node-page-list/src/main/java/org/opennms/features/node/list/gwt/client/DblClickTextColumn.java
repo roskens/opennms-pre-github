@@ -36,5 +36,4 @@ public abstract class DblClickTextColumn<T> extends Column<T, String> {
         super(new DblClickTextCell());
     }
 
-
 }

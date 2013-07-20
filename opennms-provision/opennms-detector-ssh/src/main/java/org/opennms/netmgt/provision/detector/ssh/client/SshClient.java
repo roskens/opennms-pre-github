@@ -45,7 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>SshClient class.</p>
+ * <p>
+ * SshClient class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -53,16 +55,21 @@ import org.slf4j.LoggerFactory;
 public class SshClient implements Client<NullRequest, SshResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(SshClient.class);
+
     private boolean m_isAvailable = false;
 
     private String m_banner = null;
+
     private String m_match = null;
+
     private String m_clientBanner = Ssh.DEFAULT_CLIENT_BANNER;
 
     public static final int DEFAULT_RETRY = 0;
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
@@ -72,7 +79,7 @@ public class SshClient implements Client<NullRequest, SshResponse> {
     /** {@inheritDoc} */
     @Override
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
-        Map<String,?> emptyMap = Collections.emptyMap();
+        Map<String, ?> emptyMap = Collections.emptyMap();
         TimeoutTracker tracker = new TimeoutTracker(emptyMap, SshClient.DEFAULT_RETRY, timeout);
 
         String banner = m_banner;
@@ -127,11 +134,17 @@ public class SshClient implements Client<NullRequest, SshResponse> {
     }
 
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.detector.ssh.response.SshResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.ssh.response.SshResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public SshResponse receiveBanner() throws IOException, Exception {
@@ -141,12 +154,21 @@ public class SshClient implements Client<NullRequest, SshResponse> {
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.provision.detector.ssh.request.NullRequest} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.ssh.response.SshResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.netmgt.provision.detector.ssh.request.NullRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.ssh.response.SshResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public SshResponse sendRequest(NullRequest request) throws IOException, Exception {
@@ -154,27 +176,36 @@ public class SshClient implements Client<NullRequest, SshResponse> {
     }
 
     /**
-     * <p>setBanner</p>
+     * <p>
+     * setBanner
+     * </p>
      *
-     * @param banner a {@link java.lang.String} object.
+     * @param banner
+     *            a {@link java.lang.String} object.
      */
     public void setBanner(String banner) {
         m_banner = banner;
     }
 
     /**
-     * <p>setMatch</p>
+     * <p>
+     * setMatch
+     * </p>
      *
-     * @param match a {@link java.lang.String} object.
+     * @param match
+     *            a {@link java.lang.String} object.
      */
     public void setMatch(String match) {
         m_match = match;
     }
 
     /**
-     * <p>setClientBanner</p>
+     * <p>
+     * setClientBanner
+     * </p>
      *
-     * @param clientBanner a {@link java.lang.String} object.
+     * @param clientBanner
+     *            a {@link java.lang.String} object.
      */
     public void setClientBanner(String clientBanner) {
         m_clientBanner = clientBanner;

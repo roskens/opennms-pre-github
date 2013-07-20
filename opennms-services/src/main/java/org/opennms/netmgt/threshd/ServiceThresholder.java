@@ -55,42 +55,64 @@ public interface ServiceThresholder {
     /** Constant <code>THRESHOLDING_FAILED=2</code> */
     public static final int THRESHOLDING_FAILED = 2;
 
-    /** Constant <code>statusType="{ Unknown, THRESHOLDING_SUCCEEDED, THRE"{trunked}</code> */
+    /**
+     * Constant
+     * <code>statusType="{ Unknown, THRESHOLDING_SUCCEEDED, THRE"{trunked}</code>
+     */
     public static final String[] statusType = { "Unknown", "THRESHOLDING_SUCCEEDED", "THRESHOLDING_FAILED" };
 
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param parameters a {@link java.util.Map} object.
+     * @param parameters
+     *            a {@link java.util.Map} object.
      */
-    public void initialize(Map<?,?> parameters);
+    public void initialize(Map<?, ?> parameters);
 
     /**
-     * Called when configurations have changed and need to be refreshed at the ServiceThresolder level.
-     * Should not do a "full" initialization, but just reload any config objects that might have
-     * incorrect cached data.  It is up to the caller to call "release/initialize" for any interfaces
-     * that need reinitialization, and it is recommended to do so *after* calling reinitialize(), so that
-     * any objects that might be used in initializing the interfaces have been reloaded.
+     * Called when configurations have changed and need to be refreshed at the
+     * ServiceThresolder level.
+     * Should not do a "full" initialization, but just reload any config objects
+     * that might have
+     * incorrect cached data. It is up to the caller to call
+     * "release/initialize" for any interfaces
+     * that need reinitialization, and it is recommended to do so *after*
+     * calling reinitialize(), so that
+     * any objects that might be used in initializing the interfaces have been
+     * reloaded.
      */
     public void reinitialize();
 
     /**
-     * <p>release</p>
+     * <p>
+     * release
+     * </p>
      */
     public void release();
 
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface} object.
-     * @param parameters a {@link java.util.Map} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface}
+     *            object.
+     * @param parameters
+     *            a {@link java.util.Map} object.
      */
-    public void initialize(ThresholdNetworkInterface iface, Map<?,?> parameters);
+    public void initialize(ThresholdNetworkInterface iface, Map<?, ?> parameters);
 
     /**
-     * <p>release</p>
+     * <p>
+     * release
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface}
+     *            object.
      */
     public void release(ThresholdNetworkInterface iface);
 
@@ -99,10 +121,14 @@ public interface ServiceThresholder {
      * Invokes threshold checking on the object.
      * </P>
      *
-     * @param iface a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface} object.
-     * @param eproxy a {@link org.opennms.netmgt.model.events.EventProxy} object.
-     * @param parameters a {@link java.util.Map} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface}
+     *            object.
+     * @param eproxy
+     *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
+     * @param parameters
+     *            a {@link java.util.Map} object.
      * @return a int.
      */
-    public int check(ThresholdNetworkInterface iface, EventProxy eproxy, Map<?,?> parameters);
+    public int check(ThresholdNetworkInterface iface, EventProxy eproxy, Map<?, ?> parameters);
 }

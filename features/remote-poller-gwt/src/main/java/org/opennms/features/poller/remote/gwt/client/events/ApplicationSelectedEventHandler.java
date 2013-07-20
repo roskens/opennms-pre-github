@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.client.events;
 import com.google.gwt.event.shared.EventHandler;
 
 /**
- * <p>ApplicationSelectedEventHandler interface.</p>
+ * <p>
+ * ApplicationSelectedEventHandler interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,9 +41,14 @@ import com.google.gwt.event.shared.EventHandler;
  */
 public interface ApplicationSelectedEventHandler extends EventHandler {
     /**
-     * <p>onApplicationSelected</p>
+     * <p>
+     * onApplicationSelected
+     * </p>
      *
-     * @param event a {@link org.opennms.features.poller.remote.gwt.client.events.ApplicationSelectedEvent} object.
+     * @param event
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.events.ApplicationSelectedEvent}
+     *            object.
      */
     public void onApplicationSelected(ApplicationSelectedEvent event);
 }

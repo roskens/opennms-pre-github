@@ -31,7 +31,9 @@ package org.opennms.netmgt.protocols;
 import org.opennms.netmgt.model.PollStatus;
 
 /**
- * <p>Poll interface.</p>
+ * <p>
+ * Poll interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:ranger@opennms.org">Ben Reed</a>
@@ -45,7 +47,8 @@ public interface Poll {
      * Poll based on the configuration provided by the implementation
      *
      * @return a {@link PollStatus} status object
-     * @throws org.opennms.netmgt.protocols.InsufficientParametersException if any.
+     * @throws org.opennms.netmgt.protocols.InsufficientParametersException
+     *             if any.
      */
     public PollStatus poll() throws InsufficientParametersException;
 

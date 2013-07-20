@@ -38,12 +38,17 @@ import org.opennms.netmgt.poller.NetworkInterface;
 
 public class MockMonitoredService implements MonitoredService {
     private final int m_nodeId;
+
     private String m_nodeLabel;
+
     private final String m_ipAddr;
+
     private final String m_svcName;
+
     private InetAddress m_inetAddr;
 
-    public MockMonitoredService(int nodeId, String nodeLabel, InetAddress inetAddress, String svcName) throws UnknownHostException {
+    public MockMonitoredService(int nodeId, String nodeLabel, InetAddress inetAddress, String svcName)
+            throws UnknownHostException {
         m_nodeId = nodeId;
         m_nodeLabel = nodeLabel;
         m_inetAddr = inetAddress;

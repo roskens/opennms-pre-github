@@ -28,9 +28,10 @@
 
 package org.opennms.netmgt.model.events;
 
-
 /**
- * <p>EventIpcManager interface.</p>
+ * <p>
+ * EventIpcManager interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

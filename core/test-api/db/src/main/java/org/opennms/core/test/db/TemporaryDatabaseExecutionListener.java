@@ -60,7 +60,6 @@ import com.mchange.v2.c3p0.PooledDataSource;
  * This {@link TestExecutionListener} creates a temporary database and then
  * registers it as the default datasource inside {@link DataSourceFactory} by
  * using {@link DataSourceFactory#setInstance(DataSource)}.
- *
  * To change the settings for the temporary database, use the
  * {@link JUnitTemporaryDatabase} annotation on the test class or method.
  *
@@ -70,7 +69,9 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
     private static final Logger LOG = LoggerFactory.getLogger(TemporaryDatabaseExecutionListener.class);
 
     private boolean m_createNewDatabases = false;
+
     private TemporaryDatabase m_database;
+
     private final Queue<TemporaryDatabase> m_databases = new ConcurrentLinkedQueue<TemporaryDatabase>();
 
     @Override
@@ -78,14 +79,18 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         System.err.println(String.format("TemporaryDatabaseExecutionListener.afterTestMethod(%s)", testContext));
 
         final JUnitTemporaryDatabase jtd = findAnnotation(testContext);
-        if (jtd == null) return;
+        if (jtd == null)
+            return;
 
-        final PooledDataSource pds = (PooledDataSource)testContext.getAttribute("org.opennms.netmgt.dao.db.TemporaryDatabaseExecutionListener.pooledDataSource");
-        if (pds != null) pds.hardReset();
+        final PooledDataSource pds = (PooledDataSource) testContext.getAttribute("org.opennms.netmgt.dao.db.TemporaryDatabaseExecutionListener.pooledDataSource");
+        if (pds != null)
+            pds.hardReset();
 
         try {
-            // DON'T REMOVE THE DATABASE, just rely on the ShutdownHook to remove them instead
-            // otherwise you might remove the class-level database that is reused between tests.
+            // DON'T REMOVE THE DATABASE, just rely on the ShutdownHook to
+            // remove them instead
+            // otherwise you might remove the class-level database that is
+            // reused between tests.
             // {@link TemporaryDatabase#createTestDatabase()}
             if (m_createNewDatabases) {
                 final DataSource dataSource = DataSourceFactory.getInstance();
@@ -95,23 +100,30 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
                 }
             }
         } finally {
-            // We must mark the application context as dirty so that the DataSourceFactoryBean is
+            // We must mark the application context as dirty so that the
+            // DataSourceFactoryBean is
             // correctly pointed at the next temporary database.
             //
-            // If the next database is the same as the current database, then do not rewire.
-            // NOTE: This does not work because the Hibernate objects need to be reinjected or they
-            // will reject database operations because they think that the database rows already
-            // exist even if they were rolled back after a previous test execution.
+            // If the next database is the same as the current database, then do
+            // not rewire.
+            // NOTE: This does not work because the Hibernate objects need to be
+            // reinjected or they
+            // will reject database operations because they think that the
+            // database rows already
+            // exist even if they were rolled back after a previous test
+            // execution.
             //
             if (jtd.dirtiesContext()) {
                 testContext.markApplicationContextDirty();
-                testContext.setAttribute(DependencyInjectionTestExecutionListener.REINJECT_DEPENDENCIES_ATTRIBUTE, Boolean.TRUE);
+                testContext.setAttribute(DependencyInjectionTestExecutionListener.REINJECT_DEPENDENCIES_ATTRIBUTE,
+                                         Boolean.TRUE);
             } else {
                 final DataSource dataSource = DataSourceFactory.getInstance();
                 final TemporaryDatabase tempDb = findTemporaryDatabase(dataSource);
                 if (tempDb != m_databases.peek()) {
                     testContext.markApplicationContextDirty();
-                    testContext.setAttribute(DependencyInjectionTestExecutionListener.REINJECT_DEPENDENCIES_ATTRIBUTE, Boolean.TRUE);
+                    testContext.setAttribute(DependencyInjectionTestExecutionListener.REINJECT_DEPENDENCIES_ATTRIBUTE,
+                                             Boolean.TRUE);
                 }
             }
         }
@@ -144,7 +156,8 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
     public void beforeTestMethod(final TestContext testContext) throws Exception {
         System.err.println(String.format("TemporaryDatabaseExecutionListener.beforeTestMethod(%s)", testContext));
 
-        // FIXME: Is there a better way to inject the instance into the test class?
+        // FIXME: Is there a better way to inject the instance into the test
+        // class?
         if (testContext.getTestInstance() instanceof TemporaryDatabaseAware<?>) {
             System.err.println("injecting TemporaryDatabase into TemporaryDatabaseAware test: "
                     + testContext.getTestInstance().getClass().getSimpleName() + "."
@@ -181,20 +194,26 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
                 final JUnitTemporaryDatabase methodJtd = method.getAnnotation(JUnitTemporaryDatabase.class);
                 boolean methodHasTest = method.getAnnotation(Test.class) != null;
                 if (methodHasTest) {
-                    // If there is a method-specific annotation, use it to create the temporary database
+                    // If there is a method-specific annotation, use it to
+                    // create the temporary database
                     if (methodJtd != null) {
-                        // Create a new database based on the method-specific annotation
+                        // Create a new database based on the method-specific
+                        // annotation
                         Future<TemporaryDatabase> submit = pool.submit(new CreateNewDatabaseCallable(methodJtd));
-                        Assert.notNull(submit, "pool.submit(new CreateNewDatabaseCallable(methodJtd = " + methodJtd + ")");
+                        Assert.notNull(submit, "pool.submit(new CreateNewDatabaseCallable(methodJtd = " + methodJtd
+                                + ")");
                         futures.add(submit);
                     } else if (classJtd != null) {
                         if (m_createNewDatabases) {
-                            // Create a new database based on the test class' annotation
+                            // Create a new database based on the test class'
+                            // annotation
                             Future<TemporaryDatabase> submit = pool.submit(new CreateNewDatabaseCallable(classJtd));
-                            Assert.notNull(submit, "pool.submit(new CreateNewDatabaseCallable(classJtd = " + classJtd + ")");
+                            Assert.notNull(submit, "pool.submit(new CreateNewDatabaseCallable(classJtd = " + classJtd
+                                    + ")");
                             futures.add(submit);
                         } else {
-                            // Reuse the database based on the test class' annotation
+                            // Reuse the database based on the test class'
+                            // annotation
                             Assert.notNull(classDs, "classDs");
                             futures.add(classDs);
                         }
@@ -218,21 +237,26 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         }
 
         m_database = m_databases.remove();
-        final PooledDataSource pooledDataSource = (PooledDataSource)DataSources.pooledDataSource(m_database);
+        final PooledDataSource pooledDataSource = (PooledDataSource) DataSources.pooledDataSource(m_database);
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
-                try { pooledDataSource.close(); }
-                catch (final Throwable t) { LOG.debug("failed to close pooled data source", t); }
+                try {
+                    pooledDataSource.close();
+                } catch (final Throwable t) {
+                    LOG.debug("failed to close pooled data source", t);
+                }
             }
         });
 
         final LazyConnectionDataSourceProxy proxy = new LazyConnectionDataSourceProxy(pooledDataSource);
         DataSourceFactory.setInstance(proxy);
 
-        testContext.setAttribute("org.opennms.netmgt.dao.db.TemporaryDatabaseExecutionListener.pooledDataSource", pooledDataSource);
-        System.err.println(String.format("TemporaryDatabaseExecutionListener.prepareTestInstance(%s) prepared db %s", testContext, m_database.toString()));
+        testContext.setAttribute("org.opennms.netmgt.dao.db.TemporaryDatabaseExecutionListener.pooledDataSource",
+                                 pooledDataSource);
+        System.err.println(String.format("TemporaryDatabaseExecutionListener.prepareTestInstance(%s) prepared db %s",
+                                         testContext, m_database.toString()));
         System.err.println("Temporary Database Name: " + m_database.getTestDatabase());
     }
 
@@ -259,7 +283,8 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
 
         final String dbName = useExisting ? jtd.useExistingDatabase() : getDatabaseName(jtd);
 
-        final TemporaryDatabase retval = ((jtd.tempDbClass()).getConstructor(String.class, Boolean.TYPE).newInstance(dbName, useExisting));
+        final TemporaryDatabase retval = ((jtd.tempDbClass()).getConstructor(String.class, Boolean.TYPE).newInstance(dbName,
+                                                                                                                     useExisting));
         retval.setPopulateSchema(jtd.createSchema() && !useExisting);
         retval.create();
         return retval;

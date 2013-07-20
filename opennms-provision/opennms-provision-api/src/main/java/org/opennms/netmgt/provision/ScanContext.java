@@ -31,7 +31,9 @@ package org.opennms.netmgt.provision;
 import java.net.InetAddress;
 
 /**
- * <p>ScanContext interface.</p>
+ * <p>
+ * ScanContext interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,43 +41,64 @@ import java.net.InetAddress;
 public interface ScanContext {
 
     /**
-     * Return the preferred address used to talk to the agent of type type provided
+     * Return the preferred address used to talk to the agent of type type
+     * provided
+     * e.g. use getAgentAddress("SNMP") to find the InetAddress for the SNMP
+     * Agent for the node being scanned.
      *
-     * e.g.  use getAgentAddress("SNMP") to find the InetAddress for the SNMP Agent for the node being scanned.
-     *
-     * @param agentType the type of agent to search for
+     * @param agentType
+     *            the type of agent to search for
      * @return the InetAddress for the agent or null if no such agent exists
      */
     public InetAddress getAgentAddress(String agentType);
 
     /**
-     * <p>updateSysObjectId</p>
+     * <p>
+     * updateSysObjectId
+     * </p>
      *
-     * @param sysObjectId a {@link java.lang.String} object.
+     * @param sysObjectId
+     *            a {@link java.lang.String} object.
      */
     public void updateSysObjectId(String sysObjectId);
+
     /**
-     * <p>updateSysName</p>
+     * <p>
+     * updateSysName
+     * </p>
      *
-     * @param sysName a {@link java.lang.String} object.
+     * @param sysName
+     *            a {@link java.lang.String} object.
      */
     public void updateSysName(String sysName);
+
     /**
-     * <p>updateSysDescription</p>
+     * <p>
+     * updateSysDescription
+     * </p>
      *
-     * @param sysDescription a {@link java.lang.String} object.
+     * @param sysDescription
+     *            a {@link java.lang.String} object.
      */
     public void updateSysDescription(String sysDescription);
+
     /**
-     * <p>updateSysLocation</p>
+     * <p>
+     * updateSysLocation
+     * </p>
      *
-     * @param sysLocation a {@link java.lang.String} object.
+     * @param sysLocation
+     *            a {@link java.lang.String} object.
      */
     public void updateSysLocation(String sysLocation);
+
     /**
-     * <p>updateSysContact</p>
+     * <p>
+     * updateSysContact
+     * </p>
      *
-     * @param sysContact a {@link java.lang.String} object.
+     * @param sysContact
+     *            a {@link java.lang.String} object.
      */
     public void updateSysContact(String sysContact);
 

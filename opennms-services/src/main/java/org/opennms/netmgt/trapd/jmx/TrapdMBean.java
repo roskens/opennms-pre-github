@@ -31,7 +31,9 @@ package org.opennms.netmgt.trapd.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>TrapdMBean interface.</p>
+ * <p>
+ * TrapdMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

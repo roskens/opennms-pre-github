@@ -68,9 +68,11 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         AssetNodePage java part. Corresponding ui-binder xml {@link AssetNodePage.ui.xml}.
- *         Most parts are mapping code to fill the ui {@link FieldSets}
- *         from the command objects {@link AssetCommand}  {@link AssetSuggCommand} and back.
+ *         AssetNodePage java part. Corresponding ui-binder xml
+ *         {@link AssetNodePage.ui.xml}.
+ *         Most parts are mapping code to fill the ui {@link FieldSets} from the
+ *         command objects {@link AssetCommand} {@link AssetSuggCommand} and
+ *         back.
  *         Adding some validators to {@link FieldSets}.
  *         Mapping code may be replaced by implementing GWT Editor framework.
  */
@@ -91,6 +93,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 
     @UiField
     Label nodeInfoLabel;
+
     @UiField
     Anchor nodeInfoLink;
 
@@ -99,6 +102,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 
     @UiField
     Label lInfoTop;
+
     @UiField
     Label lInfoBottom;
 
@@ -107,144 +111,202 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 
     @UiField
     FieldSetTextDisplay sSystemId;
+
     @UiField
     FieldSetTextDisplay sSystemName;
+
     @UiField
     FieldSetTextDisplay sSystemLocation;
+
     @UiField
     FieldSetTextDisplay sSystemContact;
+
     @UiField
     FieldSetTextDisplay sSystemDescription;
 
     @UiField
     FieldSetSuggestBox sDisplayCat;
+
     @UiField
     FieldSetSuggestBox sNotificationCat;
+
     @UiField
     FieldSetSuggestBox sPollerCat;
+
     @UiField
     FieldSetSuggestBox sThresholdCat;
 
     @UiField
     FieldSetSuggestBox sDescription;
+
     @UiField
     FieldSetSuggestBox sAssetCategory;
+
     @UiField
     FieldSetSuggestBox sManufacturer;
+
     @UiField
     FieldSetSuggestBox sModelNumber;
+
     @UiField
     FieldSetTextBox sSerialNumber;
+
     @UiField
     FieldSetTextBox sAssetNumber;
+
     @UiField
     FieldSetSuggestBox sOperatingSystem;
+
     @UiField
     FieldSetDateBox sDateInstalled;
 
     @UiField
     FieldSetSuggestBox sRegion;
+
     @UiField
     FieldSetSuggestBox sDivision;
+
     @UiField
     FieldSetSuggestBox sDepartment;
+
     @UiField
     FieldSetSuggestBox sAddress1;
+
     @UiField
     FieldSetSuggestBox sAddress2;
+
     @UiField
     FieldSetSuggestBox sCity;
+
     @UiField
     FieldSetSuggestBox sState;
+
     @UiField
     FieldSetSuggestBox sZip;
+
     @UiField
     FieldSetSuggestBox sCountry;
+
     @UiField
     FieldSetTextBox sLongitude;
+
     @UiField
     FieldSetTextBox sLatitude;
+
     @UiField
     FieldSetSuggestBox sBuilding;
+
     @UiField
     FieldSetSuggestBox sFloor;
+
     @UiField
     FieldSetSuggestBox sRoom;
+
     @UiField
     FieldSetSuggestBox sRack;
+
     @UiField
     FieldSetTextBox sSlot;
+
     @UiField
     FieldSetTextBox sRackUnitHight;
+
     @UiField
     FieldSetTextBox sPort;
+
     @UiField
     FieldSetSuggestBox sCircuitId;
+
     @UiField
     FieldSetSuggestBox sAdmin;
 
     @UiField
     FieldSetSuggestBox sVendorName;
+
     @UiField
     FieldSetSuggestBox sPhone;
+
     @UiField
     FieldSetSuggestBox sFax;
+
     @UiField
     FieldSetSuggestBox sLease;
+
     @UiField
     FieldSetDateBox sLeaseExpires;
+
     @UiField
     FieldSetTextBox sVendorAsset;
+
     @UiField
     FieldSetSuggestBox sMaintContract;
+
     @UiField
     FieldSetDateBox sContractExpires;
+
     @UiField
     FieldSetSuggestBox sMaintPhone;
 
     @UiField
     FieldSetTextBox sUserName;
+
     @UiField
     FieldSetPasswordBox sPassword;
+
     @UiField
     FieldSetPasswordBox sEnablePassword;
+
     @UiField
     FieldSetListBox sConnection;
+
     @UiField
     FieldSetListBox sAutoEnable;
+
     @UiField
     FieldSetSuggestBox sSnmpcommunity;
 
     @UiField
     FieldSetSuggestBox sCpu;
+
     @UiField
     FieldSetSuggestBox sRam;
+
     @UiField
     FieldSetSuggestBox sStoragectrl;
+
     @UiField
     FieldSetSuggestBox sAdditionalhardware;
+
     @UiField
     FieldSetSuggestBox sNumpowersupplies;
+
     @UiField
     FieldSetSuggestBox sInputpower;
 
     @UiField
     FieldSetSuggestBox sHdd1;
+
     @UiField
     FieldSetSuggestBox sHdd2;
+
     @UiField
     FieldSetSuggestBox sHdd3;
+
     @UiField
     FieldSetSuggestBox sHdd4;
+
     @UiField
     FieldSetSuggestBox sHdd5;
+
     @UiField
     FieldSetSuggestBox sHdd6;
 
     @UiField
     FieldSetSuggestBox sVmwareManagedObjectId;
+
     @UiField
     FieldSetSuggestBox sVmwareManagedEntityType;
+
     @UiField
     FieldSetSuggestBox sVmwareManagementServer;
 
@@ -259,6 +321,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
 
     @UiField
     Button saveButton;
+
     @UiField
     Button resetButton;
 
@@ -270,7 +333,8 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
     public AssetNodePageImpl() {
         initWidget(uiBinder.createAndBindUi(this));
 
-        //avoid whitespaces and umlauts at category fields to prevent config-file problems
+        // avoid whitespaces and umlauts at category fields to prevent
+        // config-file problems
         sDisplayCat.addWarningValidator(new StringBasicValidator());
         sNotificationCat.addWarningValidator(new StringBasicValidator());
         sThresholdCat.addWarningValidator(new StringBasicValidator());
@@ -599,7 +663,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
     }
 
     private String f2s(final Float value) {
-        return value == null? null : value.toString();
+        return value == null ? null : value.toString();
     }
 
     private Float s2f(final String value) {
@@ -612,6 +676,7 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         }
         return null;
     }
+
     private void setDataSNMP(AssetCommand asset) {
 
         if ((asset.getSnmpSysObjectId().equals("")) || (asset.getSnmpSysObjectId() == null)) {

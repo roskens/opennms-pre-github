@@ -54,7 +54,9 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.core.io.Resource;
 
 /**
- * <p>DroolsCorrelationEngine class.</p>
+ * <p>
+ * DroolsCorrelationEngine class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -63,29 +65,34 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     private static final Logger LOG = LoggerFactory.getLogger(DroolsCorrelationEngine.class);
 
     private WorkingMemory m_workingMemory;
+
     private List<String> m_interestingEvents;
+
     private List<Resource> m_rules;
+
     private Map<String, Object> m_globals = new HashMap<String, Object>();
+
     private String m_name;
+
     private String m_assertBehaviour;
 
     /** {@inheritDoc} */
     @Override
     public synchronized void correlate(final Event e) {
-	LOG.debug("Begin correlation for Event {} uei: {}", e.getDbid(), e.getUei());
+        LOG.debug("Begin correlation for Event {} uei: {}", e.getDbid(), e.getUei());
         m_workingMemory.insert(e);
         m_workingMemory.fireAllRules();
-	LOG.debug("End correlation for Event {} uei: {}", e.getDbid(), e.getUei());
+        LOG.debug("End correlation for Event {} uei: {}", e.getDbid(), e.getUei());
     }
 
     /** {@inheritDoc} */
     @Override
     protected synchronized void timerExpired(final Integer timerId) {
-	LOG.info("Begin correlation for Timer {}", timerId);
-        TimerExpired expiration  = new TimerExpired(timerId);
+        LOG.info("Begin correlation for Timer {}", timerId);
+        TimerExpired expiration = new TimerExpired(timerId);
         m_workingMemory.insert(expiration);
         m_workingMemory.fireAllRules();
-	LOG.debug("Begin correlation for Timer {}", timerId);
+        LOG.debug("Begin correlation for Timer {}", timerId);
     }
 
     /** {@inheritDoc} */
@@ -95,39 +102,51 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     }
 
     /**
-     * <p>setInterestingEvents</p>
+     * <p>
+     * setInterestingEvents
+     * </p>
      *
-     * @param ueis a {@link java.util.List} object.
+     * @param ueis
+     *            a {@link java.util.List} object.
      */
     public void setInterestingEvents(final List<String> ueis) {
         m_interestingEvents = ueis;
     }
 
     /**
-     * <p>setRulesResources</p>
+     * <p>
+     * setRulesResources
+     * </p>
      *
-     * @param rules a {@link java.util.List} object.
+     * @param rules
+     *            a {@link java.util.List} object.
      */
     public void setRulesResources(final List<Resource> rules) {
         m_rules = rules;
     }
 
     /**
-     * <p>setGlobals</p>
+     * <p>
+     * setGlobals
+     * </p>
      *
-     * @param globals a {@link java.util.Map} object.
+     * @param globals
+     *            a {@link java.util.Map} object.
      */
     public void setGlobals(final Map<String, Object> globals) {
         m_globals = globals;
     }
 
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void initialize() throws Exception {
-    	final Properties props = new Properties();
+        final Properties props = new Properties();
         props.setProperty("drools.dialect.java.compiler.lnglevel", "1.6");
 
         final PackageBuilderConfiguration conf = new PackageBuilderConfiguration(props);
@@ -172,46 +191,55 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     }
 
     /**
-     * <p>getMemorySize</p>
+     * <p>
+     * getMemorySize
+     * </p>
      *
      * @return a int.
      */
     public int getMemorySize() {
         int count = 0;
-        for(final Iterator<?> it = m_workingMemory.iterateObjects(); it.hasNext(); it.next()) {
+        for (final Iterator<?> it = m_workingMemory.iterateObjects(); it.hasNext(); it.next()) {
             count++;
         }
-    	return count;
+        return count;
     }
 
     /**
-     * <p>getMemoryObjects</p>
+     * <p>
+     * getMemoryObjects
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<Object> getMemoryObjects() {
-    	final List<Object> objects = new LinkedList<Object>();
-        for(Iterator<?> it = m_workingMemory.iterateObjects(); it.hasNext(); ) {
-        	objects.add(it.next());
+        final List<Object> objects = new LinkedList<Object>();
+        for (Iterator<?> it = m_workingMemory.iterateObjects(); it.hasNext();) {
+            objects.add(it.next());
         }
         return objects;
     }
 
     public WorkingMemory getWorkingMemory() {
-    	return m_workingMemory;
+        return m_workingMemory;
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(final String name) {
         m_name = name;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -221,16 +249,20 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     }
 
     /**
-     * <p>setGlobal</p>
+     * <p>
+     * setGlobal
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.Object} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.Object} object.
      */
     public void setGlobal(final String name, final Object value) {
         m_workingMemory.setGlobal(name, value);
     }
 
-	public void setAssertBehaviour(String assertBehaviour) {
-		m_assertBehaviour = assertBehaviour;
-	}
+    public void setAssertBehaviour(String assertBehaviour) {
+        m_assertBehaviour = assertBehaviour;
+    }
 }

@@ -42,9 +42,10 @@ import org.slf4j.LoggerFactory;
 
 public abstract class SnmpUtils {
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(SnmpUtils.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(SnmpUtils.class);
 
     private static Properties sm_config;
+
     private static StrategyResolver s_strategyResolver;
 
     private static final class TooBigReportingAggregator extends AggregateTracker {
@@ -65,7 +66,8 @@ public abstract class SnmpUtils {
         return getStrategy().createWalker(agentConfig, name, createTooBigTracker(agentConfig, trackers));
     }
 
-    private static TooBigReportingAggregator createTooBigTracker(SnmpAgentConfig agentConfig, CollectionTracker... trackers) {
+    private static TooBigReportingAggregator createTooBigTracker(SnmpAgentConfig agentConfig,
+            CollectionTracker... trackers) {
         return new TooBigReportingAggregator(trackers, agentConfig.getAddress());
     }
 
@@ -98,22 +100,23 @@ public abstract class SnmpUtils {
     }
 
     public static SnmpValue set(final SnmpAgentConfig agentConfig, final SnmpObjId oid, final SnmpValue value) {
-    	return getStrategy().set(agentConfig, oid, value);
+        return getStrategy().set(agentConfig, oid, value);
     }
 
     public static SnmpValue[] set(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids, final SnmpValue[] values) {
-    	return getStrategy().set(agentConfig, oids, values);
+        return getStrategy().set(agentConfig, oids, values);
     }
 
     public static Properties getConfig() {
         return (sm_config == null ? System.getProperties() : sm_config);
     }
 
-    public static List<SnmpValue> getColumns(final SnmpAgentConfig agentConfig, final String name, final SnmpObjId oid)  throws InterruptedException {
+    public static List<SnmpValue> getColumns(final SnmpAgentConfig agentConfig, final String name, final SnmpObjId oid)
+            throws InterruptedException {
 
         final List<SnmpValue> results = new ArrayList<SnmpValue>();
 
-        SnmpWalker walker=SnmpUtils.createWalker(agentConfig, name, new ColumnTracker(oid) {
+        SnmpWalker walker = SnmpUtils.createWalker(agentConfig, name, new ColumnTracker(oid) {
 
             @Override
             protected void storeResult(SnmpResult res) {
@@ -127,11 +130,11 @@ public abstract class SnmpUtils {
     }
 
     public static Map<SnmpInstId, SnmpValue> getOidValues(SnmpAgentConfig agentConfig, String name, SnmpObjId oid)
-	throws InterruptedException {
+            throws InterruptedException {
 
         final Map<SnmpInstId, SnmpValue> results = new LinkedHashMap<SnmpInstId, SnmpValue>();
 
-        SnmpWalker walker=SnmpUtils.createWalker(agentConfig, name, new ColumnTracker(oid) {
+        SnmpWalker walker = SnmpUtils.createWalker(agentConfig, name, new ColumnTracker(oid) {
 
             @Override
             protected void storeResult(SnmpResult res) {
@@ -139,8 +142,8 @@ public abstract class SnmpUtils {
             }
 
         });
-	walker.start();
-	walker.waitFor();
+        walker.start();
+        walker.waitFor();
         return results;
     }
 
@@ -149,46 +152,53 @@ public abstract class SnmpUtils {
     }
 
     public static SnmpStrategy getStrategy() {
-    	return getStrategyResolver().getStrategy();
+        return getStrategyResolver().getStrategy();
     }
 
     public static StrategyResolver getStrategyResolver() {
-    	return s_strategyResolver != null ? s_strategyResolver : new DefaultStrategyResolver();
+        return s_strategyResolver != null ? s_strategyResolver : new DefaultStrategyResolver();
     }
 
     public static void setStrategyResolver(StrategyResolver strategyResolver) {
-    	s_strategyResolver = strategyResolver;
+        s_strategyResolver = strategyResolver;
     }
 
     private static class DefaultStrategyResolver implements StrategyResolver {
 
-		@Override
-		public SnmpStrategy getStrategy() {
-	    	String strategyClass = getStrategyClassName();
-	        try {
-	            return (SnmpStrategy)Class.forName(strategyClass).newInstance();
-	        } catch (Exception e) {
-	            throw new RuntimeException("Unable to instantiate class "+strategyClass, e);
-	        }
-		}
+        @Override
+        public SnmpStrategy getStrategy() {
+            String strategyClass = getStrategyClassName();
+            try {
+                return (SnmpStrategy) Class.forName(strategyClass).newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException("Unable to instantiate class " + strategyClass, e);
+            }
+        }
 
     }
 
     public static String getStrategyClassName() {
         // Use SNMP4J as the default SNMP strategy
-        return getConfig().getProperty("org.opennms.snmp.strategyClass", "org.opennms.netmgt.snmp.snmp4j.Snmp4JStrategy");
-//        return getConfig().getProperty("org.opennms.snmp.strategyClass", "org.opennms.netmgt.snmp.joesnmp.JoeSnmpStrategy");
+        return getConfig().getProperty("org.opennms.snmp.strategyClass",
+                                       "org.opennms.netmgt.snmp.snmp4j.Snmp4JStrategy");
+        // return getConfig().getProperty("org.opennms.snmp.strategyClass",
+        // "org.opennms.netmgt.snmp.joesnmp.JoeSnmpStrategy");
     }
 
-    public static void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort, final List<SnmpV3User> snmpUsers) throws IOException {
+    public static void registerForTraps(final TrapNotificationListener listener,
+            final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort,
+            final List<SnmpV3User> snmpUsers) throws IOException {
         getStrategy().registerForTraps(listener, processorFactory, address, snmpTrapPort, snmpUsers);
     }
 
-    public static void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort) throws IOException {
+    public static void registerForTraps(final TrapNotificationListener listener,
+            final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort)
+            throws IOException {
         getStrategy().registerForTraps(listener, processorFactory, address, snmpTrapPort);
     }
 
-    public static void unregisterForTraps(final TrapNotificationListener listener, final InetAddress address, final int snmpTrapPort) throws IOException {
+    public static void unregisterForTraps(final TrapNotificationListener listener, final InetAddress address,
+            final int snmpTrapPort) throws IOException {
         getStrategy().unregisterForTraps(listener, snmpTrapPort);
     }
 
@@ -217,51 +227,52 @@ public abstract class SnmpUtils {
     }
 
     public static String getLocalEngineID() {
-    	return getHexString(getStrategy().getLocalEngineID());
+        return getHexString(getStrategy().getLocalEngineID());
     }
 
-    static final byte[] HEX_CHAR_TABLE = {
-	    (byte)'0', (byte)'1', (byte)'2', (byte)'3',
-	    (byte)'4', (byte)'5', (byte)'6', (byte)'7',
-	    (byte)'8', (byte)'9', (byte)'a', (byte)'b',
-	    (byte)'c', (byte)'d', (byte)'e', (byte)'f'
-	};
+    static final byte[] HEX_CHAR_TABLE = { (byte) '0', (byte) '1', (byte) '2', (byte) '3', (byte) '4', (byte) '5',
+            (byte) '6', (byte) '7', (byte) '8', (byte) '9', (byte) 'a', (byte) 'b', (byte) 'c', (byte) 'd', (byte) 'e',
+            (byte) 'f' };
 
-	public static String getHexString(byte[] raw)
-	  {
-	    byte[] hex = new byte[2 * raw.length];
-	    int index = 0;
+    public static String getHexString(byte[] raw) {
+        byte[] hex = new byte[2 * raw.length];
+        int index = 0;
 
-	    for (byte b : raw) {
-	      int v = b & 0xFF;
-	      hex[index++] = HEX_CHAR_TABLE[v >>> 4];
-	      hex[index++] = HEX_CHAR_TABLE[v & 0xF];
-	    }
-	    try {
-			return new String(hex, "ASCII");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
+        for (byte b : raw) {
+            int v = b & 0xFF;
+            hex[index++] = HEX_CHAR_TABLE[v >>> 4];
+            hex[index++] = HEX_CHAR_TABLE[v & 0xF];
+        }
+        try {
+            return new String(hex, "ASCII");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-	public static Long getProtoCounter64Value(SnmpValue value) {
-	    byte[] valBytes = value.getBytes();
-	    if (valBytes.length != 8) {
-	    	LOG.trace("Value should be 8 bytes long for a proto-Counter64 but this one is {} bytes.", valBytes);
-	        return null;
-	    }
-	    if (value.isDisplayable()) {
-	        LOG.info("Value '{}' is entirely displayable. Still treating it as a proto-Counter64. This may not be what you want.", new String(valBytes));
-	    }
-	    if (valBytes == new byte[]{ (byte)0x80, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }) {
-	        LOG.trace("Value has high-order bit set and all others zero, which indicates not supported in FCMGMT-MIB convention");
-	        return null;
-	    }
+    public static Long getProtoCounter64Value(SnmpValue value) {
+        byte[] valBytes = value.getBytes();
+        if (valBytes.length != 8) {
+            LOG.trace("Value should be 8 bytes long for a proto-Counter64 but this one is {} bytes.", valBytes);
+            return null;
+        }
+        if (value.isDisplayable()) {
+            LOG.info("Value '{}' is entirely displayable. Still treating it as a proto-Counter64. This may not be what you want.",
+                     new String(valBytes));
+        }
+        if (valBytes == new byte[] { (byte) 0x80, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }) {
+            LOG.trace("Value has high-order bit set and all others zero, which indicates not supported in FCMGMT-MIB convention");
+            return null;
+        }
 
-	    Long retVal = Long.decode(String.format("0x%02x%02x%02x%02x%02x%02x%02x%02x", valBytes[0], valBytes[1], valBytes[2], valBytes[3], valBytes[4], valBytes[5], valBytes[6], valBytes[7]));
-	    LOG.trace("Converted octet-string {} as a proto-Counter64 of value {}", String.format("0x%02x%02x%02x%02x%02x%02x%02x%02x", valBytes[0], valBytes[1], valBytes[2], valBytes[3], valBytes[4], valBytes[5], valBytes[6], valBytes[7]), retVal);
-	    return retVal;
-	}
+        Long retVal = Long.decode(String.format("0x%02x%02x%02x%02x%02x%02x%02x%02x", valBytes[0], valBytes[1],
+                                                valBytes[2], valBytes[3], valBytes[4], valBytes[5], valBytes[6],
+                                                valBytes[7]));
+        LOG.trace("Converted octet-string {} as a proto-Counter64 of value {}",
+                  String.format("0x%02x%02x%02x%02x%02x%02x%02x%02x", valBytes[0], valBytes[1], valBytes[2],
+                                valBytes[3], valBytes[4], valBytes[5], valBytes[6], valBytes[7]), retVal);
+        return retVal;
+    }
 }

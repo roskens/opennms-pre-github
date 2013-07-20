@@ -51,27 +51,30 @@ public class SpringResourceAccessor implements ResourceAccessor {
     /** {@inheritDoc} */
     @Override
     public InputStream getResourceAsStream(final String file) throws IOException {
-    	final Resource resource = getResource(file);
+        final Resource resource = getResource(file);
         return resource.getInputStream();
     }
 
     /** {@inheritDoc} */
     @Override
     public Enumeration<URL> getResources(final String packageName) throws IOException {
-    	final Vector<URL> tmp = new Vector<URL>();
+        final Vector<URL> tmp = new Vector<URL>();
         tmp.add(getResource(packageName).getURL());
         System.err.println("getResources(" + packageName + ") returning: " + tmp);
         return tmp.elements();
     }
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
-     * @param file a {@link java.lang.String} object.
+     * @param file
+     *            a {@link java.lang.String} object.
      * @return a {@link org.springframework.core.io.Resource} object.
      */
     public Resource getResource(final String file) {
-    	final File f = new File(file);
+        final File f = new File(file);
         if (f.exists()) {
             return getResourceLoader().getResource(file);
         } else {
@@ -84,9 +87,12 @@ public class SpringResourceAccessor implements ResourceAccessor {
     }
 
     /**
-     * <p>isClasspathPrefixPresent</p>
+     * <p>
+     * isClasspathPrefixPresent
+     * </p>
      *
-     * @param file a {@link java.lang.String} object.
+     * @param file
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean isClasspathPrefixPresent(final String file) {
@@ -94,7 +100,9 @@ public class SpringResourceAccessor implements ResourceAccessor {
     }
 
     /**
-     * <p>toClassLoader</p>
+     * <p>
+     * toClassLoader
+     * </p>
      *
      * @return a {@link java.lang.ClassLoader} object.
      */
@@ -104,16 +112,21 @@ public class SpringResourceAccessor implements ResourceAccessor {
     }
 
     /**
-     * <p>setResourceLoader</p>
+     * <p>
+     * setResourceLoader
+     * </p>
      *
-     * @param resourceLoader a {@link org.springframework.core.io.ResourceLoader} object.
+     * @param resourceLoader
+     *            a {@link org.springframework.core.io.ResourceLoader} object.
      */
     public void setResourceLoader(final ResourceLoader resourceLoader) {
         m_resourceLoader = resourceLoader;
     }
 
     /**
-     * <p>getResourceLoader</p>
+     * <p>
+     * getResourceLoader
+     * </p>
      *
      * @return a {@link org.springframework.core.io.ResourceLoader} object.
      */

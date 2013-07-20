@@ -36,7 +36,9 @@ import java.net.URLClassLoader;
 import org.opennms.core.fiber.Fiber;
 
 /**
- * <p>VMTaskFiber class.</p>
+ * <p>
+ * VMTaskFiber class.
+ * </p>
  *
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver </A>
  */
@@ -106,10 +108,8 @@ public class VMTaskFiber implements Fiber, Runnable {
      *
      * @param c
      *            The class to search for the main method.
-     *
      * @return The matching method if one is found. If one is not found then a
      *         null is returned.
-     *
      */
     private static Method findMain(Class<?> c) {
 
@@ -120,7 +120,8 @@ public class VMTaskFiber implements Fiber, Runnable {
             int modifiers = methods[i].getModifiers();
             boolean validModifiers = Modifier.isStatic(modifiers) && Modifier.isPublic(modifiers);
 
-            if (validModifiers && methods[i].getName().equals(MAIN_METHOD_NAME) && args.length == MAIN_PARAMETER_TYPES.length && retType.getName().equals(MAIN_RETURN_TYPE)) {
+            if (validModifiers && methods[i].getName().equals(MAIN_METHOD_NAME)
+                    && args.length == MAIN_PARAMETER_TYPES.length && retType.getName().equals(MAIN_RETURN_TYPE)) {
                 // do a looping check to figure out if it
                 // is the correct ordering of parameters.
                 //
@@ -162,7 +163,8 @@ public class VMTaskFiber implements Fiber, Runnable {
      *             class.
      * @see java.net.URLClassLoader
      */
-    public VMTaskFiber(String taskName, String entryClassName, String[] entryArguments, URL[] searchPaths) throws ClassNotFoundException, NoSuchMethodException
+    public VMTaskFiber(String taskName, String entryClassName, String[] entryArguments, URL[] searchPaths)
+            throws ClassNotFoundException, NoSuchMethodException
 
     {
         m_taskName = taskName;

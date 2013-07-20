@@ -43,27 +43,31 @@ import org.opennms.netmgt.config.WebCalendar;
 import org.opennms.netmgt.config.WebRole;
 import org.opennms.netmgt.config.WebRoleManager;
 
- /**
-  * Servlet implementation class for Servlet: RoleServlet
-  *
-  * @author ranger
-  * @version $Id: $
-  * @since 1.8.1
-  */
- public class UserRoleServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
+/**
+ * Servlet implementation class for Servlet: RoleServlet
+ *
+ * @author ranger
+ * @version $Id: $
+ * @since 1.8.1
+ */
+public class UserRoleServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
     /**
      *
      */
     private static final long serialVersionUID = 1078908981395901414L;
+
     private static final String LIST = "/roles/list.jsp";
+
     private static final String VIEW = "/roles/view.jsp";
 
     /**
-     * <p>Constructor for UserRoleServlet.</p>
+     * <p>
+     * Constructor for UserRoleServlet.
+     * </p>
      */
     public UserRoleServlet() {
-		super();
-	}
+        super();
+    }
 
     private interface Action {
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
@@ -82,7 +86,7 @@ import org.opennms.netmgt.config.WebRoleManager;
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
-                WebRole role = (WebRole)request.getAttribute("role");
+                WebRole role = (WebRole) request.getAttribute("role");
                 if (role == null) {
                     role = getRoleManager().getRole(request.getParameter("role"));
                     request.setAttribute("role", role);
@@ -93,19 +97,25 @@ import org.opennms.netmgt.config.WebRoleManager;
                 request.setAttribute("calendar", calendar);
                 return VIEW;
             } catch (ParseException e) {
-                throw new ServletException("Unable to parse date: "+e.getMessage(), e);
+                throw new ServletException("Unable to parse date: " + e.getMessage(), e);
             }
         }
 
     }
 
     /**
-     * <p>doIt</p>
+     * <p>
+     * doIt
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param response a {@link javax.servlet.http.HttpServletResponse} object.
-     * @throws javax.servlet.ServletException if any.
-     * @throws java.io.IOException if any.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param response
+     *            a {@link javax.servlet.http.HttpServletResponse} object.
+     * @throws javax.servlet.ServletException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected void doIt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String reqUrl = request.getServletPath();
@@ -124,28 +134,36 @@ import org.opennms.netmgt.config.WebRoleManager;
             return new ListAction();
     }
 
-	/* (non-Java-doc)
-	 * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	/** {@inheritDoc} */
+    /*
+     * (non-Java-doc)
+     * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest request,
+     * HttpServletResponse response)
+     */
+    /** {@inheritDoc} */
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doIt(request, response);
-	}
+    }
 
-	/* (non-Java-doc)
-	 * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	/** {@inheritDoc} */
+    /*
+     * (non-Java-doc)
+     * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest request,
+     * HttpServletResponse response)
+     */
+    /** {@inheritDoc} */
     @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
         doIt(request, response);
-	}
+    }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {

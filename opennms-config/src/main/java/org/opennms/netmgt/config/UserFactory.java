@@ -42,7 +42,9 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
 
 /**
- * <p>UserFactory class.</p>
+ * <p>
+ * UserFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -81,10 +83,14 @@ public class UserFactory extends UserManager {
     /**
      * Initializes the factory
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
      */
     public UserFactory() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         super(GroupFactory.getInstance());
@@ -92,14 +98,21 @@ public class UserFactory extends UserManager {
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+    public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
+            ValidationException {
 
         if (instance == null || !initialized) {
             GroupFactory.init();
@@ -120,9 +133,12 @@ public class UserFactory extends UserManager {
     }
 
     /**
-     * <p>Setter for the field <code>instance</code>.</p>
+     * <p>
+     * Setter for the field <code>instance</code>.
+     * </p>
      *
-     * @param mgr a {@link org.opennms.netmgt.config.UserManager} object.
+     * @param mgr
+     *            a {@link org.opennms.netmgt.config.UserManager} object.
      */
     static synchronized public void setInstance(UserManager mgr) {
         initialized = true;
@@ -130,12 +146,18 @@ public class UserFactory extends UserManager {
     }
 
     /**
-     * <p>reload</p>
+     * <p>
+     * reload
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         // Form the complete filename for the config file
@@ -164,7 +186,9 @@ public class UserFactory extends UserManager {
     }
 
     /**
-     * <p>isUpdateNeeded</p>
+     * <p>
+     * isUpdateNeeded
+     * </p>
      *
      * @return a boolean.
      */
@@ -176,7 +200,7 @@ public class UserFactory extends UserManager {
             // Check to see if the file size has changed
             if (m_fileSize != m_usersConfFile.length()) {
                 return true;
-            // Check to see if the timestamp has changed
+                // Check to see if the timestamp has changed
             } else if (m_lastModified != m_usersConfFile.lastModified()) {
                 return true;
             } else {
@@ -186,12 +210,18 @@ public class UserFactory extends UserManager {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Override
     public void doUpdate() throws IOException, FileNotFoundException, MarshalException, ValidationException {

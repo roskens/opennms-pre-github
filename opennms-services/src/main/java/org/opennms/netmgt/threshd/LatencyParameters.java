@@ -34,64 +34,73 @@ import java.util.Map;
 import org.opennms.core.utils.ParameterMap;
 
 /**
- * <p>LatencyParameters class.</p>
+ * <p>
+ * LatencyParameters class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class LatencyParameters {
 
-	private Map<?,?> m_parameters;
-	private String m_svcName;
+    private Map<?, ?> m_parameters;
 
-	/**
-	 * <p>Constructor for LatencyParameters.</p>
-	 *
-	 * @param parameters a {@link java.util.Map} object.
-	 * @param svcName a {@link java.lang.String} object.
-	 */
-	public LatencyParameters(Map<?,?> parameters, String svcName) {
+    private String m_svcName;
 
-		m_parameters = parameters;
-		m_svcName = svcName;
-	}
+    /**
+     * <p>
+     * Constructor for LatencyParameters.
+     * </p>
+     *
+     * @param parameters
+     *            a {@link java.util.Map} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     */
+    public LatencyParameters(Map<?, ?> parameters, String svcName) {
 
-	/**
-	 * <p>getParameters</p>
-	 *
-	 * @return a {@link java.util.Map} object.
-	 */
-	public Map<?,?> getParameters() {
-		return Collections.unmodifiableMap(m_parameters);
-	}
+        m_parameters = parameters;
+        m_svcName = svcName;
+    }
 
+    /**
+     * <p>
+     * getParameters
+     * </p>
+     *
+     * @return a {@link java.util.Map} object.
+     */
+    public Map<?, ?> getParameters() {
+        return Collections.unmodifiableMap(m_parameters);
+    }
 
-	/**
-	 * <p>getServiceName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getServiceName() {
-		return m_svcName;
-	}
+    /**
+     * <p>
+     * getServiceName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getServiceName() {
+        return m_svcName;
+    }
 
-	int getInterval() {
-		Map<?,?> parameters = getParameters();
-	    int interval = ParameterMap.getKeyedInteger(parameters, "interval", LatencyThresholder.DEFAULT_INTERVAL);
-	    return interval;
-	}
+    int getInterval() {
+        Map<?, ?> parameters = getParameters();
+        int interval = ParameterMap.getKeyedInteger(parameters, "interval", LatencyThresholder.DEFAULT_INTERVAL);
+        return interval;
+    }
 
-	String getGroupName() {
-		Map<?,?> parameters = getParameters();
-	    String groupName = ParameterMap.getKeyedString(parameters, "thresholding-group", "default");
-	    return groupName;
-	}
+    String getGroupName() {
+        Map<?, ?> parameters = getParameters();
+        String groupName = ParameterMap.getKeyedString(parameters, "thresholding-group", "default");
+        return groupName;
+    }
 
-	int getRange() {
-		Map<?,?> parameters = getParameters();
-	    int range = ParameterMap.getKeyedInteger(parameters, "range", LatencyThresholder.DEFAULT_RANGE);
-	    return range;
-	}
-
+    int getRange() {
+        Map<?, ?> parameters = getParameters();
+        int range = ParameterMap.getKeyedInteger(parameters, "range", LatencyThresholder.DEFAULT_RANGE);
+        return range;
+    }
 
 }

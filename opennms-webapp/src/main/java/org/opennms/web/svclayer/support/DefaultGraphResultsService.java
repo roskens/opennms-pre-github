@@ -59,15 +59,16 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>DefaultGraphResultsService class.</p>
+ * <p>
+ * DefaultGraphResultsService class.
+ * </p>
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class DefaultGraphResultsService implements GraphResultsService, InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultGraphResultsService.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultGraphResultsService.class);
 
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + DefaultGraphResultsService.class);
 
@@ -84,7 +85,9 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     private RelativeTimePeriod[] m_periods;
 
     /**
-     * <p>Constructor for DefaultGraphResultsService.</p>
+     * <p>
+     * Constructor for DefaultGraphResultsService.
+     * </p>
      */
     public DefaultGraphResultsService() {
         // Should this be injected, as well?
@@ -92,7 +95,8 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     }
 
     @Override
-    public final GraphResults findResults(final String[] resourceIds, final String[] reports, final long start, final long end, final String relativeTime) {
+    public final GraphResults findResults(final String[] resourceIds, final String[] reports, final long start,
+            final long end, final String relativeTime) {
         if (resourceIds == null) {
             throw new IllegalArgumentException("resourceIds argument cannot be null");
         }
@@ -132,8 +136,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
                 }
             }
             for (OnmsResource r : resourcesMap.get(parent)) {
-                if (childType.equals(r.getResourceType().getName())
-                        && childName.equals(r.getName())) {
+                if (childType.equals(r.getResourceType().getName()) && childName.equals(r.getName())) {
                     resource = r;
                     LOG.debug("findResults: found resource in map{}", r.toString());
                     break;
@@ -155,11 +158,14 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     }
 
     /**
-     * <p>parseResourceId</p>
+     * <p>
+     * parseResourceId
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} resource ID
+     * @param resourceId
+     *            a {@link java.lang.String} resource ID
      * @return an array of {@link java.lang.String} objects or null if the
-     * string is unparsable.
+     *         string is unparsable.
      */
     public static String[] parseResourceId(final String resourceId) {
         try {
@@ -167,7 +173,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
             String child = resourceId.substring(resourceId.indexOf(']') + 2);
             String childType = child.substring(0, child.indexOf('['));
             String childName = child.substring(child.indexOf('[') + 1, child.indexOf(']'));
-            return new String[]{parent, childType, childName};
+            return new String[] { parent, childType, childName };
         } catch (Throwable e) {
             LOG.warn("Illegally formatted resourceId found in DefaultGraphResultsService: {}", resourceId, e);
             return null;
@@ -175,16 +181,23 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     }
 
     /**
-     * <p>createGraphResultSet</p>
+     * <p>
+     * createGraphResultSet
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} object.
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
-     * @param reports an array of {@link java.lang.String} objects.
-     * @param graphResults a {@link org.opennms.web.graph.GraphResults} object.
+     * @param resourceId
+     *            a {@link java.lang.String} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param reports
+     *            an array of {@link java.lang.String} objects.
+     * @param graphResults
+     *            a {@link org.opennms.web.graph.GraphResults} object.
      * @return a {@link org.opennms.web.graph.GraphResults.GraphResultSet}
-     * object.
+     *         object.
      */
-    private GraphResultSet createGraphResultSet(final String resourceId, OnmsResource resource, String[] reports, GraphResults graphResults) throws IllegalArgumentException {
+    private GraphResultSet createGraphResultSet(final String resourceId, OnmsResource resource, String[] reports,
+            GraphResults graphResults) throws IllegalArgumentException {
         if (resource == null) {
             resource = m_resourceDao.getResourceById(resourceId);
             if (resource == null) {
@@ -216,7 +229,6 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
 
         sendEvent(filesToPromote);
 
-
         /*
          * Sort the graphs by their order in the properties file. PrefabGraph
          * implements the Comparable interface.
@@ -241,25 +253,28 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
 
     }
 
-
-
     private void getAttributeFiles(final Graph graph, final List<String> filesToPromote) {
 
         Collection<RrdGraphAttribute> attrs = graph.getRequiredRrGraphdAttributes();
 
-        for(RrdGraphAttribute rrdAttr : attrs) {
-            LOG.debug("getAttributeFiles: ResourceType, ParentResourceType = {}, {}", rrdAttr.getResource().getResourceType().getLabel(), rrdAttr.getResource().getParent().getResourceType().getLabel());
+        for (RrdGraphAttribute rrdAttr : attrs) {
+            LOG.debug("getAttributeFiles: ResourceType, ParentResourceType = {}, {}",
+                      rrdAttr.getResource().getResourceType().getLabel(),
+                      rrdAttr.getResource().getParent().getResourceType().getLabel());
             if (rrdAttr.getResource().getParent().getResourceType().getLabel().equals("nodeSource")) {
-                filesToPromote.add(m_resourceDao.getRrdDirectory()+File.separator+"foreignSource"+File.separator+rrdAttr.getRrdRelativePath());
+                filesToPromote.add(m_resourceDao.getRrdDirectory() + File.separator + "foreignSource" + File.separator
+                        + rrdAttr.getRrdRelativePath());
             } else {
-                filesToPromote.add(m_resourceDao.getRrdDirectory()+File.separator+rrdAttr.getRrdRelativePath());
+                filesToPromote.add(m_resourceDao.getRrdDirectory() + File.separator + rrdAttr.getRrdRelativePath());
             }
         }
 
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {
@@ -270,7 +285,9 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     }
 
     /**
-     * <p>getResourceDao</p>
+     * <p>
+     * getResourceDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -279,16 +296,21 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     }
 
     /**
-     * <p>setResourceDao</p>
+     * <p>
+     * setResourceDao
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
     public final void setResourceDao(final ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
     /**
-     * <p>getNodeDao</p>
+     * <p>
+     * getNodeDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -297,16 +319,21 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     }
 
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public final void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
     /**
-     * <p>getGraphDao</p>
+     * <p>
+     * getGraphDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
@@ -315,16 +342,21 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     }
 
     /**
-     * <p>setGraphDao</p>
+     * <p>
+     * setGraphDao
+     * </p>
      *
-     * @param graphDao a {@link org.opennms.netmgt.dao.api.GraphDao} object.
+     * @param graphDao
+     *            a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
     public final void setGraphDao(final GraphDao graphDao) {
         m_graphDao = graphDao;
     }
 
     /**
-     * <p>getRrdDao</p>
+     * <p>
+     * getRrdDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
@@ -333,19 +365,24 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     }
 
     /**
-     * <p>setRrdDao</p>
+     * <p>
+     * setRrdDao
+     * </p>
      *
-     * @param rrdDao a {@link org.opennms.netmgt.dao.api.RrdDao} object.
+     * @param rrdDao
+     *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
     public final void setRrdDao(final RrdDao rrdDao) {
         m_rrdDao = rrdDao;
     }
 
     /**
-     * <p>setEventProxy</p>
+     * <p>
+     * setEventProxy
+     * </p>
      *
-     * @param eventProxy a {@link org.opennms.netmgt.model.events.EventProxy}
-     * object.
+     * @param eventProxy
+     *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
     public final void setEventProxy(final EventProxy eventProxy) {
         m_eventProxy = eventProxy;

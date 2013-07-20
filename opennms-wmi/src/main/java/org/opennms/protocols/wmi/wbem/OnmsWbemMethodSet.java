@@ -31,26 +31,35 @@ package org.opennms.protocols.wmi.wbem;
 import org.opennms.protocols.wmi.WmiException;
 
 /**
- * <p>OnmsWbemMethodSet interface.</p>
+ * <p>
+ * OnmsWbemMethodSet interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public interface OnmsWbemMethodSet {
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public Integer getCount() throws WmiException;
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param idx a {@link java.lang.Integer} object.
+     * @param idx
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemMethod} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public OnmsWbemMethod get(Integer idx) throws WmiException;
 }

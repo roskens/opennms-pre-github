@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.snmp.mock;
 
-
 import org.opennms.netmgt.snmp.SnmpObjId;
 
 public abstract class TestPdu {
@@ -46,7 +45,6 @@ public abstract class TestPdu {
     public static GetPdu getGet() {
         return new GetPdu();
     }
-
 
     public static NextPdu getNext() {
         return new NextPdu();
@@ -69,7 +67,7 @@ public abstract class TestPdu {
     }
 
     public void addVarBind(String oid, int inst) {
-        addVarBind(SnmpObjId.get(oid, ""+inst));
+        addVarBind(SnmpObjId.get(oid, "" + inst));
     }
 
     public int size() {
@@ -87,7 +85,5 @@ public abstract class TestPdu {
     public void addVarBind(TestVarBind newVarBind) {
         m_varBindList.add(newVarBind);
     }
-
-
 
 }

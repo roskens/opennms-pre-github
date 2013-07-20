@@ -57,7 +57,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class ExecCommandAjaxController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ExecCommandAjaxController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ExecCommandAjaxController.class);
 
     private Manager manager;
 
@@ -71,8 +71,8 @@ public class ExecCommandAjaxController extends MapsLoggingController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
-            HttpServletResponse response) throws IOException {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
         String id = request.getParameter("id");
 
@@ -80,16 +80,13 @@ public class ExecCommandAjaxController extends MapsLoggingController {
 
         String address = request.getParameter("address");
 
-
         response.setBufferSize(0);
         response.setContentType("text/html");
         response.setHeader("pragma", "no-Cache");
         response.setHeader("Expires", "0");
         response.setHeader("Cache-Control", "no-Cache");
 
-        final OutputStreamWriter os = new OutputStreamWriter(
-                                                             response.getOutputStream(),
-                                                             "UTF-8");
+        final OutputStreamWriter os = new OutputStreamWriter(response.getOutputStream(), "UTF-8");
         try {
             final Command p;
             if (id == null) {
@@ -110,7 +107,7 @@ public class ExecCommandAjaxController extends MapsLoggingController {
                 }
             } else {
                 LOG.info("Getting output for id: {}", id);
-                p=manager.getCommand(id);
+                p = manager.getCommand(id);
                 String s = p.getNextLine();
                 if (p.runned() && s == null) {
                     LOG.info("Process ended and no more output for id: {}", id);
@@ -163,19 +160,17 @@ public class ExecCommandAjaxController extends MapsLoggingController {
             // these are optionals
             String solaris = request.getParameter("solaris");
             if (solaris != null && solaris.equals("true")) {
-                commandToExec = commandToExec + " -I " + timeOut + " "
-                        + address + " " + packetSize + " " + numberOfRequest;
+                commandToExec = commandToExec + " -I " + timeOut + " " + address + " " + packetSize + " "
+                        + numberOfRequest;
             } else {
-                commandToExec = commandToExec + " -c " + numberOfRequest
-                        + " -i " + timeOut + " -s " + packetSize + " "
+                commandToExec = commandToExec + " -c " + numberOfRequest + " -i " + timeOut + " -s " + packetSize + " "
                         + address;
             }
 
         } else if (command.equals("traceroute")) {
             hopAddress = request.getParameter("hopAddress");
             if (hopAddress != null) {
-                commandToExec = commandToExec + " -g " + hopAddress + " "
-                        + address;
+                commandToExec = commandToExec + " -g " + hopAddress + " " + address;
             } else {
                 commandToExec = commandToExec + " " + address;
             }
@@ -185,18 +180,14 @@ public class ExecCommandAjaxController extends MapsLoggingController {
             String ipmiPassword = request.getParameter("ipmiPassword");
             String ipmiProtocol = request.getParameter("ipmiProtocol");
 
-            if (ipmiCommand != null && ipmiUserName != null
-                    && ipmiPassword != null) {
-                commandToExec = commandToExec + " -I " + ipmiProtocol
-                        + " -U " + ipmiUserName + " -P " + ipmiPassword
+            if (ipmiCommand != null && ipmiUserName != null && ipmiPassword != null) {
+                commandToExec = commandToExec + " -I " + ipmiProtocol + " -U " + ipmiUserName + " -P " + ipmiPassword
                         + " -H " + address + " " + ipmiCommand;
             } else
-                throw new IllegalStateException(
-                                                "IPMITool requires Protocol, Command, Usernane and Password");
+                throw new IllegalStateException("IPMITool requires Protocol, Command, Usernane and Password");
 
         } else {
-            throw new IllegalStateException("Command " + command
-                    + " not supported.");
+            throw new IllegalStateException("Command " + command + " not supported.");
         }
         return commandToExec;
     }

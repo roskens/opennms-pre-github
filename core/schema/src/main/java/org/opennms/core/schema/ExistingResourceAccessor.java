@@ -50,7 +50,8 @@ public class ExistingResourceAccessor implements ResourceAccessor {
 
     @Override
     public InputStream getResourceAsStream(final String file) throws IOException {
-        if (m_resource == null) return null;
+        if (m_resource == null)
+            return null;
         return m_resource.createRelative(file).getInputStream();
     }
 
@@ -58,12 +59,12 @@ public class ExistingResourceAccessor implements ResourceAccessor {
     public Enumeration<URL> getResources(final String packageName) throws IOException {
         throw new UnsupportedOperationException("Not yet implemented!");
         /*
-        final Vector<URL> resources = new Vector<URL>();
-        if (m_resource != null) {
-            resources.add(m_resource.getURI().toURL());
-        }
-        return resources.elements();
-        */
+         * final Vector<URL> resources = new Vector<URL>();
+         * if (m_resource != null) {
+         * resources.add(m_resource.getURI().toURL());
+         * }
+         * return resources.elements();
+         */
     }
 
     @Override

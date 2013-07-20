@@ -46,10 +46,12 @@ public class DecodeListConverter implements Converter<String, DecodeListConverte
     /**
      * The Class DecodeList.
      */
-    public static class DecodeList extends ArrayList<Decode> {}
+    public static class DecodeList extends ArrayList<Decode> {
+    }
 
     @Override
-    public DecodeList convertToModel(String fieldValue, Class<? extends DecodeList> targetType, Locale locale) throws ConversionException {
+    public DecodeList convertToModel(String fieldValue, Class<? extends DecodeList> targetType, Locale locale)
+            throws ConversionException {
         DecodeList list = new DecodeList();
         for (String s : fieldValue.split(",")) {
             String[] parts = s.split("=");
@@ -63,7 +65,8 @@ public class DecodeListConverter implements Converter<String, DecodeListConverte
     }
 
     @Override
-    public String convertToPresentation(DecodeList propertyValue, Class<? extends String> targetType, Locale locale) throws ConversionException {
+    public String convertToPresentation(DecodeList propertyValue, Class<? extends String> targetType, Locale locale)
+            throws ConversionException {
         final List<String> values = new ArrayList<String>();
         for (Decode d : propertyValue) {
             values.add(d.getVarbindvalue() + '=' + d.getVarbinddecodedstring());
@@ -72,13 +75,13 @@ public class DecodeListConverter implements Converter<String, DecodeListConverte
     }
 
     @Override
-	public Class<DecodeList> getModelType() {
-		return DecodeList.class;
-	}
+    public Class<DecodeList> getModelType() {
+        return DecodeList.class;
+    }
 
-	@Override
-	public Class<String> getPresentationType() {
-		return String.class;
-	}
+    @Override
+    public Class<String> getPresentationType() {
+        return String.class;
+    }
 
 }

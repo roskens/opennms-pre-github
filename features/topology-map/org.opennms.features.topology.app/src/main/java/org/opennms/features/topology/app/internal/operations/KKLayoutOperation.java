@@ -33,20 +33,21 @@ import org.opennms.features.topology.app.internal.jung.KKLayoutAlgorithm;
 
 public class KKLayoutOperation extends LayoutOperation {
 
-	public KKLayoutOperation() {
-		super(new LayoutFactory() {
+    public KKLayoutOperation() {
+        super(new LayoutFactory() {
 
-		    private final KKLayoutAlgorithm m_layoutAlgorithm = new KKLayoutAlgorithm();
-			@Override
-			public LayoutAlgorithm getLayoutAlgorithm() {
-				return m_layoutAlgorithm;
-			}
-		});
-	}
+            private final KKLayoutAlgorithm m_layoutAlgorithm = new KKLayoutAlgorithm();
 
-	@Override
-	public String getId() {
-		return getClass().getSimpleName();
-	}
+            @Override
+            public LayoutAlgorithm getLayoutAlgorithm() {
+                return m_layoutAlgorithm;
+            }
+        });
+    }
+
+    @Override
+    public String getId() {
+        return getClass().getSimpleName();
+    }
 
 }

@@ -40,6 +40,7 @@ import org.opennms.netmgt.config.GroupManager;
 public class MockGroupManager extends GroupManager {
 
     String m_xmlString;
+
     boolean updateNeeded = false;
 
     public MockGroupManager(String xmlString) throws MarshalException, ValidationException {

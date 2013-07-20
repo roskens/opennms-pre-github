@@ -49,7 +49,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>DefaultRemoteRepository class.</p>
+ * <p>
+ * DefaultRemoteRepository class.
+ * </p>
  * <p/>
  * Implementation of OpenNMS CONNECT CIO Report repository
  *
@@ -57,9 +59,8 @@ import java.util.List;
  * @version $Id: $
  * @since 1.10.1
  */
-@ContextConfiguration(locations = {
-        "classpath:META-INF/opennms/applicationContext-reportingRepository.xml",
-        "classpath:META-INF/opennms/applicationContext-reportingDao.xml"})
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingRepository.xml",
+        "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
 public class DefaultRemoteRepository implements ReportRepository {
 
     /**
@@ -92,24 +93,24 @@ public class DefaultRemoteRepository implements ReportRepository {
      */
     private WebResource m_webResource;
 
-
     /**
      * Default constructor to initialize the ReST HTTP client
      *
-     * @param remoteRepositoryDefinition a {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryDefinition} object
-     * @param jasperReportsVersion       a {@link java.lang.String} object
+     * @param remoteRepositoryDefinition
+     *            a
+     *            {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryDefinition}
+     *            object
+     * @param jasperReportsVersion
+     *            a {@link java.lang.String} object
      */
-    public DefaultRemoteRepository(
-            RemoteRepositoryDefinition remoteRepositoryDefinition,
-            String jasperReportsVersion) {
+    public DefaultRemoteRepository(RemoteRepositoryDefinition remoteRepositoryDefinition, String jasperReportsVersion) {
         this.m_remoteRepositoryDefintion = remoteRepositoryDefinition;
         this.m_jasperReportsVersion = jasperReportsVersion;
         m_clientConfig = new DefaultApacheHttpClientConfig();
-        m_clientConfig.getState().setCredentials(null,
-                m_remoteRepositoryDefintion.getURI().getHost(),
-                m_remoteRepositoryDefintion.getURI().getPort(),
-                m_remoteRepositoryDefintion.getLoginUser(),
-                m_remoteRepositoryDefintion.getLoginRepoPassword());
+        m_clientConfig.getState().setCredentials(null, m_remoteRepositoryDefintion.getURI().getHost(),
+                                                 m_remoteRepositoryDefintion.getURI().getPort(),
+                                                 m_remoteRepositoryDefintion.getLoginUser(),
+                                                 m_remoteRepositoryDefintion.getLoginRepoPassword());
         m_client = ApacheHttpClient.create(m_clientConfig);
     }
 
@@ -120,17 +121,20 @@ public class DefaultRemoteRepository implements ReportRepository {
     public List<BasicReportDefinition> getReports() {
         List<BasicReportDefinition> resultReports = new ArrayList<BasicReportDefinition>();
         if (isConfigOk()) {
-            m_webResource = m_client.resource(m_remoteRepositoryDefintion.getURI() + "reports" + "/" + m_jasperReportsVersion);
+            m_webResource = m_client.resource(m_remoteRepositoryDefintion.getURI() + "reports" + "/"
+                    + m_jasperReportsVersion);
             List<RemoteReportSDO> webCallResult = new ArrayList<RemoteReportSDO>();
             try {
                 webCallResult = m_webResource.get(new GenericType<List<RemoteReportSDO>>() {
                 });
             } catch (Exception e) {
-                logger.error("Error requesting report template from repository. Error message: '{}' Uri was: '{}'", e.getMessage(), m_webResource.getURI());
+                logger.error("Error requesting report template from repository. Error message: '{}' Uri was: '{}'",
+                             e.getMessage(), m_webResource.getURI());
                 e.printStackTrace();
             }
 
-            logger.debug("getReports got '{}' RemoteReportSDOs from uri '{}'", webCallResult.size(), m_webResource.getURI());
+            logger.debug("getReports got '{}' RemoteReportSDOs from uri '{}'", webCallResult.size(),
+                         m_webResource.getURI());
 
             resultReports = this.mapSDOListToBasicReportList(webCallResult);
 
@@ -146,16 +150,19 @@ public class DefaultRemoteRepository implements ReportRepository {
         List<BasicReportDefinition> resultReports = new ArrayList<BasicReportDefinition>();
         List<RemoteReportSDO> webCallResult = new ArrayList<RemoteReportSDO>();
         if (isConfigOk()) {
-            m_webResource = m_client.resource(m_remoteRepositoryDefintion.getURI() + "onlineReports" + "/" + m_jasperReportsVersion);
+            m_webResource = m_client.resource(m_remoteRepositoryDefintion.getURI() + "onlineReports" + "/"
+                    + m_jasperReportsVersion);
             try {
                 webCallResult = m_webResource.get(new GenericType<List<RemoteReportSDO>>() {
                 });
             } catch (Exception e) {
-                logger.error("Error requesting online reports. Error message: '{}' URI was: '{}'", e.getMessage(), m_webResource.getURI());
+                logger.error("Error requesting online reports. Error message: '{}' URI was: '{}'", e.getMessage(),
+                             m_webResource.getURI());
                 e.printStackTrace();
             }
 
-            logger.debug("getOnlineReports got '{}' RemoteReportSDOs from uri '{}'", webCallResult.size(), m_webResource.getURI());
+            logger.debug("getOnlineReports got '{}' RemoteReportSDOs from uri '{}'", webCallResult.size(),
+                         m_webResource.getURI());
 
             resultReports = this.mapSDOListToBasicReportList(webCallResult);
         }
@@ -174,10 +181,12 @@ public class DefaultRemoteRepository implements ReportRepository {
             try {
                 result = m_webResource.get(String.class);
             } catch (Exception e) {
-                logger.error("Error requesting report service by report id. Error message: '{}' URI was: '{}'", e.getMessage(), m_webResource.getURI());
+                logger.error("Error requesting report service by report id. Error message: '{}' URI was: '{}'",
+                             e.getMessage(), m_webResource.getURI());
                 e.printStackTrace();
             }
-            logger.debug("getReportService for id / result: '{}' URI was: '{}' ", reportId + " / " + result, m_webResource.getURI());
+            logger.debug("getReportService for id / result: '{}' URI was: '{}' ", reportId + " / " + result,
+                         m_webResource.getURI());
         }
         return result;
     }
@@ -194,11 +203,13 @@ public class DefaultRemoteRepository implements ReportRepository {
             try {
                 result = m_webResource.get(String.class);
             } catch (Exception e) {
-                logger.error("Error requesting display name by report id. Error message: '{}' URI was: '{}'", e.getMessage(), m_webResource.getURI());
+                logger.error("Error requesting display name by report id. Error message: '{}' URI was: '{}'",
+                             e.getMessage(), m_webResource.getURI());
                 e.printStackTrace();
             }
 
-            logger.debug("getDisplayName for id / result: '{}' URI was: '{}' ", reportId + " / " + result, m_webResource.getURI());
+            logger.debug("getDisplayName for id / result: '{}' URI was: '{}' ", reportId + " / " + result,
+                         m_webResource.getURI());
 
         }
         return result;
@@ -216,11 +227,13 @@ public class DefaultRemoteRepository implements ReportRepository {
             try {
                 result = m_webResource.get(String.class);
             } catch (Exception e) {
-                logger.error("Error requesting engine by id. Error message: '{}' URI was: '{}'", e.getMessage(), m_webResource.getURI());
+                logger.error("Error requesting engine by id. Error message: '{}' URI was: '{}'", e.getMessage(),
+                             m_webResource.getURI());
                 e.printStackTrace();
             }
 
-            logger.debug("getEngine for id / result: '{}' URI was: '{}' ", reportId + " / " + result, m_webResource.getURI());
+            logger.debug("getEngine for id / result: '{}' URI was: '{}' ", reportId + " / " + result,
+                         m_webResource.getURI());
 
         }
         return result;
@@ -238,11 +251,13 @@ public class DefaultRemoteRepository implements ReportRepository {
             try {
                 templateStreamResult = m_webResource.get(InputStream.class);
             } catch (Exception e) {
-                logger.error("Error requesting template stream by id. Error message: '{}' URI was: '{}'", e.getMessage(), m_webResource.getURI());
+                logger.error("Error requesting template stream by id. Error message: '{}' URI was: '{}'",
+                             e.getMessage(), m_webResource.getURI());
                 e.printStackTrace();
             }
 
-            logger.debug("getTemplateStream for id / inputstream: '{}' URI was: '{}' ", reportId + " / " + templateStreamResult, m_webResource.getURI());
+            logger.debug("getTemplateStream for id / inputstream: '{}' URI was: '{}' ", reportId + " / "
+                    + templateStreamResult, m_webResource.getURI());
 
         }
         return templateStreamResult;
@@ -271,7 +286,8 @@ public class DefaultRemoteRepository implements ReportRepository {
      */
     @Override
     public String getRepositoryDescription() {
-        logger.debug("getRepositoryDescription was called: '{}'", m_remoteRepositoryDefintion.getRepositoryDescription());
+        logger.debug("getRepositoryDescription was called: '{}'",
+                     m_remoteRepositoryDefintion.getRepositoryDescription());
         return this.m_remoteRepositoryDefintion.getRepositoryDescription();
     }
 
@@ -280,7 +296,8 @@ public class DefaultRemoteRepository implements ReportRepository {
      */
     @Override
     public String getManagementUrl() {
-        logger.debug("getRepositoryDescription was called: '{}'", m_remoteRepositoryDefintion.getRepositoryDescription());
+        logger.debug("getRepositoryDescription was called: '{}'",
+                     m_remoteRepositoryDefintion.getRepositoryDescription());
         return this.m_remoteRepositoryDefintion.getRepositoryManagementURL();
     }
 
@@ -304,15 +321,18 @@ public class DefaultRemoteRepository implements ReportRepository {
             SimpleJasperReportDefinition result = new SimpleJasperReportDefinition();
             try {
                 BeanUtils.copyProperties(result, report);
-                result.setId(m_remoteRepositoryDefintion.getRepositoryId()
-                        + "_" + result.getId());
+                result.setId(m_remoteRepositoryDefintion.getRepositoryId() + "_" + result.getId());
             } catch (IllegalAccessException e) {
-                logger.debug("SDO to BasicReport mapping IllegalAssessException while copyProperties from '{}' to '{}' with exception.", report, result);
-                logger.error("SDO to BasicReport mapping IllegalAssessException while copyProperties '{}' RepositoryURI: '{}'", e, m_remoteRepositoryDefintion.getURI());
+                logger.debug("SDO to BasicReport mapping IllegalAssessException while copyProperties from '{}' to '{}' with exception.",
+                             report, result);
+                logger.error("SDO to BasicReport mapping IllegalAssessException while copyProperties '{}' RepositoryURI: '{}'",
+                             e, m_remoteRepositoryDefintion.getURI());
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                logger.debug("SDO to BasicReport mapping InvocationTargetException while copyProperties from '{}' to '{}' with exception.", report, result);
-                logger.error("SDO to BasicReport mapping InvocationTargetException while copyProperties '{}' RepositoryURI: '{}'", e, m_remoteRepositoryDefintion.getURI());
+                logger.debug("SDO to BasicReport mapping InvocationTargetException while copyProperties from '{}' to '{}' with exception.",
+                             report, result);
+                logger.error("SDO to BasicReport mapping InvocationTargetException while copyProperties '{}' RepositoryURI: '{}'",
+                             e, m_remoteRepositoryDefintion.getURI());
                 e.printStackTrace();
             }
 

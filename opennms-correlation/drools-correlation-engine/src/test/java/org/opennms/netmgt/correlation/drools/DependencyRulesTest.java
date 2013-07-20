@@ -36,7 +36,6 @@ import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.EasyMockUtils;
 
-
 public class DependencyRulesTest extends CorrelationRulesTestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
@@ -45,19 +44,19 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         anticipate(createInitializedEvent(1, 1));
 
-	EventBuilder bldr = new EventBuilder("impactedService", "Drools");
-	bldr.setNodeid(1);
-	bldr.setInterface(addr("10.1.1.1"));
-	bldr.setService("HTTP");
-	bldr.addParam("CAUSE", 17);
+        EventBuilder bldr = new EventBuilder("impactedService", "Drools");
+        bldr.setNodeid(1);
+        bldr.setInterface(addr("10.1.1.1"));
+        bldr.setService("HTTP");
+        bldr.addParam("CAUSE", 17);
 
-	anticipate(bldr.getEvent());
+        anticipate(bldr.getEvent());
 
-	bldr = new EventBuilder("impactedApplication", "Drools");
-	bldr.addParam("APP", "e-commerce");
-	bldr.addParam("CAUSE", 17);
+        bldr = new EventBuilder("impactedApplication", "Drools");
+        bldr.addParam("APP", "e-commerce");
+        bldr.addParam("CAUSE", 17);
 
-	anticipate(bldr.getEvent());
+        anticipate(bldr.getEvent());
 
         DroolsCorrelationEngine engine = findEngineByName("dependencyRules");
 
@@ -79,10 +78,10 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     }
 
     // Currently unused
-//    private Event createRootCauseEvent(int symptom, int cause) {
-//        return new EventBuilder(createNodeEvent("rootCauseEvent", cause)).getEvent();
-//    }
-
+    // private Event createRootCauseEvent(int symptom, int cause) {
+    // return new EventBuilder(createNodeEvent("rootCauseEvent",
+    // cause)).getEvent();
+    // }
 
     public Event createNodeDownEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_DOWN_EVENT_UEI, nodeid);
@@ -92,33 +91,21 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return createNodeEvent(EventConstants.NODE_UP_EVENT_UEI, nodeid);
     }
 
-    public Event createNodeLostServiceEvent(int nodeid, String ipAddr, String svcName)
-    {
-    	return createSvcEvent("uei.opennms.org/nodes/nodeLostService", nodeid, ipAddr, svcName);
+    public Event createNodeLostServiceEvent(int nodeid, String ipAddr, String svcName) {
+        return createSvcEvent("uei.opennms.org/nodes/nodeLostService", nodeid, ipAddr, svcName);
     }
 
-    public Event createNodeRegainedServiceEvent(int nodeid, String ipAddr, String svcName)
-    {
-    	return createSvcEvent("uei.opennms.org/nodes/nodeRegainedService", nodeid, ipAddr, svcName);
+    public Event createNodeRegainedServiceEvent(int nodeid, String ipAddr, String svcName) {
+        return createSvcEvent("uei.opennms.org/nodes/nodeRegainedService", nodeid, ipAddr, svcName);
     }
 
-    private Event createSvcEvent(String uei, int nodeid, String ipaddr, String svcName)
-    {
-    	return new EventBuilder(uei, "Drools")
-    		.setNodeid(nodeid)
-    		.setInterface( addr( ipaddr ) )
-    		.setService( svcName )
-    		.getEvent();
+    private Event createSvcEvent(String uei, int nodeid, String ipaddr, String svcName) {
+        return new EventBuilder(uei, "Drools").setNodeid(nodeid).setInterface(addr(ipaddr)).setService(svcName).getEvent();
 
     }
 
     private Event createNodeEvent(String uei, int nodeid) {
-        return new EventBuilder(uei, "test")
-            .setNodeid(nodeid)
-            .getEvent();
+        return new EventBuilder(uei, "test").setNodeid(nodeid).getEvent();
     }
-
-
-
 
 }

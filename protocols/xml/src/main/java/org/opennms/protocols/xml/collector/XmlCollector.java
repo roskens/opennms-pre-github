@@ -52,8 +52,7 @@ import org.slf4j.LoggerFactory;
  */
 public class XmlCollector implements ServiceCollector {
 
-	private static final Logger LOG = LoggerFactory.getLogger(XmlCollector.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(XmlCollector.class);
 
     /** The XML Data Collection DAO. */
     private XmlDataCollectionConfigDao m_xmlCollectionDao;
@@ -73,7 +72,8 @@ public class XmlCollector implements ServiceCollector {
     /**
      * Sets the XML Data Collection DAO.
      *
-     * @param xmlCollectionDao the new XML Data Collection DAO
+     * @param xmlCollectionDao
+     *            the new XML Data Collection DAO
      */
     public void setXmlCollectionDao(XmlDataCollectionConfigDao xmlCollectionDao) {
         m_xmlCollectionDao = xmlCollectionDao;
@@ -85,8 +85,10 @@ public class XmlCollector implements ServiceCollector {
      * @return the thread category
      */
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#initialize(java.util.Map)
      */
     @Override
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
@@ -94,37 +96,49 @@ public class XmlCollector implements ServiceCollector {
 
         // Retrieve the DAO for our configuration file.
         if (m_xmlCollectionDao == null)
-            m_xmlCollectionDao = BeanUtils.getBean("daoContext", "xmlDataCollectionConfigDao", XmlDataCollectionConfigDao.class);
+            m_xmlCollectionDao = BeanUtils.getBean("daoContext", "xmlDataCollectionConfigDao",
+                                                   XmlDataCollectionConfigDao.class);
 
-        // If the RRD file repository directory does NOT already exist, create it.
+        // If the RRD file repository directory does NOT already exist, create
+        // it.
         LOG.debug("initialize: Initializing RRD repo from XmlCollector...");
         File f = new File(m_xmlCollectionDao.getConfig().getRrdRepository());
         if (!f.isDirectory()) {
             if (!f.mkdirs()) {
-                throw new CollectionInitializationException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_xmlCollectionDao.getConfig().getRrdRepository());
+                throw new CollectionInitializationException(
+                                                            "Unable to create RRD file repository.  Path doesn't already exist and could not make directory: "
+                                                                    + m_xmlCollectionDao.getConfig().getRrdRepository());
             }
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(org.opennms.netmgt.collectd.CollectionAgent, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#initialize(org.opennms.netmgt
+     * .collectd.CollectionAgent, java.util.Map)
      */
     @Override
-    public void initialize(CollectionAgent agent, Map<String, Object> parameters) throws CollectionInitializationException {
-        LOG.debug("initialize: initializing XML collection handling using {} for collection agent {}", parameters, agent);
+    public void initialize(CollectionAgent agent, Map<String, Object> parameters)
+            throws CollectionInitializationException {
+        LOG.debug("initialize: initializing XML collection handling using {} for collection agent {}", parameters,
+                  agent);
         String serviceName = ParameterMap.getKeyedString(parameters, "SERVICE", "XML");
-        String handlerClass = ParameterMap.getKeyedString(parameters, "handler-class", "org.opennms.protocols.xml.collector.DefaultXmlCollectionHandler");
+        String handlerClass = ParameterMap.getKeyedString(parameters, "handler-class",
+                                                          "org.opennms.protocols.xml.collector.DefaultXmlCollectionHandler");
         try {
             LOG.debug("initialize: instantiating XML collection handler {}", handlerClass);
             Class<?> clazz = Class.forName(handlerClass);
             m_collectionHandler = (XmlCollectionHandler) clazz.newInstance();
             m_collectionHandler.setServiceName(serviceName);
         } catch (Exception e) {
-            throw new CollectionInitializationException("Unable to instantiate XML Collection Handler " + handlerClass + " because: " + e.getMessage());
+            throw new CollectionInitializationException("Unable to instantiate XML Collection Handler " + handlerClass
+                    + " because: " + e.getMessage());
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.ServiceCollector#release()
      */
     @Override
@@ -132,19 +146,27 @@ public class XmlCollector implements ServiceCollector {
         LOG.debug("release: realeasing XML collection");
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.ServiceCollector#release(org.opennms.netmgt.collectd.CollectionAgent)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#release(org.opennms.netmgt
+     * .collectd.CollectionAgent)
      */
     @Override
     public void release(CollectionAgent agent) {
         LOG.debug("release: realeasing XML collection for agent {}", agent);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.ServiceCollector#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#collect(org.opennms.netmgt
+     * .collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy,
+     * java.util.Map)
      */
     @Override
-    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
+    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters)
+            throws CollectionException {
         if (parameters == null) {
             throw new CollectionException("Null parameters is now allowed in XML Collector!");
         }
@@ -160,7 +182,7 @@ public class XmlCollector implements ServiceCollector {
             LOG.debug("collect: collecting XML data using collection {}", collectionName);
             XmlDataCollection collection = m_xmlCollectionDao.getDataCollectionByName(collectionName);
             if (collection == null) {
-                throw new CollectionException("XML Collection " + collectionName +" does not exist.");
+                throw new CollectionException("XML Collection " + collectionName + " does not exist.");
             }
 
             // Filling XML CollectionSet
@@ -171,8 +193,11 @@ public class XmlCollector implements ServiceCollector {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.ServiceCollector#getRrdRepository(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.ServiceCollector#getRrdRepository(java.lang
+     * .String)
      */
     @Override
     public RrdRepository getRrdRepository(String collectionName) {

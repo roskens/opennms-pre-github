@@ -59,203 +59,206 @@ import org.opennms.web.svclayer.support.DefaultDemandPollService;
 
 public class DemandPollServiceTest extends TestCase {
 
-	private DefaultDemandPollService m_demandPollService;
-	private DemandPollDao m_demandPollDao;
-	private MonitoredServiceDao m_monitoredServiceDao;
-	private PollerService m_pollerService;
-	private SingleDemandPollStore m_pollStore;
+    private DefaultDemandPollService m_demandPollService;
 
-        @Override
+    private DemandPollDao m_demandPollDao;
+
+    private MonitoredServiceDao m_monitoredServiceDao;
+
+    private PollerService m_pollerService;
+
+    private SingleDemandPollStore m_pollStore;
+
+    @Override
     protected final void setUp() throws Exception {
-		m_demandPollDao = createMock(DemandPollDao.class);
-		m_monitoredServiceDao = createMock(MonitoredServiceDao.class);
-		m_pollerService = createMock(PollerService.class);
-		m_pollStore = new SingleDemandPollStore();
+        m_demandPollDao = createMock(DemandPollDao.class);
+        m_monitoredServiceDao = createMock(MonitoredServiceDao.class);
+        m_pollerService = createMock(PollerService.class);
+        m_pollStore = new SingleDemandPollStore();
 
-		m_demandPollService = new DefaultDemandPollService();
-		m_demandPollService.setDemandPollDao(m_demandPollDao);
-		m_demandPollService.setPollerAPI(m_pollerService);
-		m_demandPollService.setMonitoredServiceDao(m_monitoredServiceDao);
-	}
+        m_demandPollService = new DefaultDemandPollService();
+        m_demandPollService.setDemandPollDao(m_demandPollDao);
+        m_demandPollService.setPollerAPI(m_pollerService);
+        m_demandPollService.setMonitoredServiceDao(m_monitoredServiceDao);
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+    }
+
+    class SingleDemandPollStore implements DemandPollDao {
+
+        int m_id = 13;
+
+        DemandPoll m_demandPoll = null;
+
+        public int getExpectedId() {
+            return m_id;
+        }
 
         @Override
-	protected void tearDown() throws Exception {
-	}
+        public void clear() {
+        }
 
-	class SingleDemandPollStore implements DemandPollDao {
+        @Override
+        public int countAll() {
+            return (m_demandPoll == null ? 0 : 1);
+        }
 
-		int m_id = 13;
-		DemandPoll m_demandPoll = null;
-
-		public int getExpectedId() {
-			return m_id;
-		}
-
-                @Override
-		public void clear() {
-		}
-
-                @Override
-		public int countAll() {
-			return (m_demandPoll == null ? 0 : 1);
-		}
-
-                @Override
-		public void delete(final Integer id) {
-			if (id == m_demandPoll.getId()) {
+        @Override
+        public void delete(final Integer id) {
+            if (id == m_demandPoll.getId()) {
                 m_demandPoll = null;
             }
-		}
+        }
 
-                @Override
-		public void delete(final DemandPoll entity) {
-			if (entity.getId() == m_demandPoll.getId()) {
+        @Override
+        public void delete(final DemandPoll entity) {
+            if (entity.getId() == m_demandPoll.getId()) {
                 m_demandPoll = null;
             }
-		}
+        }
 
-                @Override
-		public List<DemandPoll> findAll() {
-			return Collections.singletonList(m_demandPoll);
-		}
+        @Override
+        public List<DemandPoll> findAll() {
+            return Collections.singletonList(m_demandPoll);
+        }
 
-                @Override
-		public void flush() {
-		}
+        @Override
+        public void flush() {
+        }
 
-                @Override
-		public DemandPoll get(final Integer id) {
-			if (id.intValue() == m_id) {
+        @Override
+        public DemandPoll get(final Integer id) {
+            if (id.intValue() == m_id) {
                 return m_demandPoll;
             }
-			return null;
-		}
+            return null;
+        }
 
-                @Override
-		public DemandPoll load(final Integer id) {
-			return get(id);
-		}
+        @Override
+        public DemandPoll load(final Integer id) {
+            return get(id);
+        }
 
-                @Override
-		public void saveOrUpdate(final DemandPoll entity) {
-			if (entity.getId() == null) {
+        @Override
+        public void saveOrUpdate(final DemandPoll entity) {
+            if (entity.getId() == null) {
                 save(entity);
             } else {
                 update(entity);
             }
-		}
+        }
 
-                @Override
-		public void update(final DemandPoll entity) {
-			if (entity.getId().intValue() == m_id) {
+        @Override
+        public void update(final DemandPoll entity) {
+            if (entity.getId().intValue() == m_id) {
                 m_demandPoll = entity;
             }
-		}
+        }
 
-                @Override
-		public void save(final DemandPoll entity) {
-			if (entity.getId() == null) {
-				entity.setId(m_id);
-				m_demandPoll = entity;
-			} else {
-				throw new RuntimeException("Can't save an entity that already has an id");
-			}
-		}
+        @Override
+        public void save(final DemandPoll entity) {
+            if (entity.getId() == null) {
+                entity.setId(m_id);
+                m_demandPoll = entity;
+            } else {
+                throw new RuntimeException("Can't save an entity that already has an id");
+            }
+        }
 
-                @Override
-		public void initialize(final Object obj) {
-			// TODO Auto-generated method stub
+        @Override
+        public void initialize(final Object obj) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-                @Override
-                public void lock() {
-		}
+        @Override
+        public void lock() {
+        }
 
-                @Override
+        @Override
         public List<DemandPoll> findMatching(final Criteria criteria) {
             throw new UnsupportedOperationException("not yet implemeneted");
         }
 
-                @Override
+        @Override
         public int countMatching(final Criteria criteria) {
             throw new UnsupportedOperationException("not yet implemented");
         }
 
-                @Override
+        @Override
         public List<DemandPoll> findMatching(final OnmsCriteria criteria) {
             throw new UnsupportedOperationException("not yet implemeneted");
         }
 
-                @Override
+        @Override
         public int countMatching(final OnmsCriteria criteria) {
             throw new UnsupportedOperationException("not yet implemented");
         }
 
+    }
 
-	}
+    public final void testPollMonitoredService() throws EventProxyException {
 
-	public final void testPollMonitoredService() throws EventProxyException {
+        final int expectedResultId = m_pollStore.getExpectedId();
 
-		final int expectedResultId = m_pollStore.getExpectedId();
+        // anticipate a call to the dao save with a pollResult
+        m_demandPollDao.save(isA(DemandPoll.class));
+        expectLastCall().andAnswer(new IAnswer<Object>() {
 
-		// anticipate a call to the dao save with a pollResult
-		m_demandPollDao.save(isA(DemandPoll.class));
-		expectLastCall().andAnswer(new IAnswer<Object>() {
+            @Override
+            public Object answer() throws Throwable {
+                DemandPoll poll = (DemandPoll) getCurrentArguments()[0];
+                m_pollStore.save(poll);
+                return null;
+            }
 
-                        @Override
-			public Object answer() throws Throwable {
-				DemandPoll poll = (DemandPoll)getCurrentArguments()[0];
-				m_pollStore.save(poll);
-				return null;
-			}
+        });
 
-		});
+        OnmsServiceType svcType = new OnmsServiceType();
+        svcType.setId(3);
+        svcType.setName("HTTP");
+        OnmsNode node = new OnmsNode();
+        node.setId(1);
+        OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(node, 1);
+        OnmsIpInterface iface = new OnmsIpInterface("192.168.1.1", node);
+        iface.setSnmpInterface(snmpIface);
+        OnmsMonitoredService monSvc = new OnmsMonitoredService(iface, svcType);
 
-		OnmsServiceType svcType = new OnmsServiceType();
-		svcType.setId(3);
-		svcType.setName("HTTP");
-		OnmsNode node = new OnmsNode();
-		node.setId(1);
-		OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(node, 1);
-		OnmsIpInterface iface = new OnmsIpInterface("192.168.1.1", node);
-		iface.setSnmpInterface(snmpIface);
-		OnmsMonitoredService monSvc = new OnmsMonitoredService(iface, svcType);
+        expect(m_monitoredServiceDao.get(1, addr("192.168.1.1"), 1, 3)).andReturn(monSvc);
 
-		expect(m_monitoredServiceDao.get(1, addr("192.168.1.1"), 1, 3)).andReturn(monSvc);
+        m_pollerService.poll(monSvc, expectedResultId);
 
-		m_pollerService.poll(monSvc, expectedResultId);
+        replay(m_demandPollDao);
+        replay(m_monitoredServiceDao);
+        replay(m_pollerService);
 
-		replay(m_demandPollDao);
-		replay(m_monitoredServiceDao);
-		replay(m_pollerService);
+        DemandPoll result = m_demandPollService.pollMonitoredService(1, addr("192.168.1.1"), 1, 3);
 
-		DemandPoll result = m_demandPollService.pollMonitoredService(1, addr("192.168.1.1"), 1, 3);
+        verify(m_demandPollDao);
+        verify(m_monitoredServiceDao);
+        verify(m_pollerService);
 
-		verify(m_demandPollDao);
-		verify(m_monitoredServiceDao);
-		verify(m_pollerService);
+        assertNotNull("Null is an invalid response from pollMonitoredService", result);
+        assertEquals("Expected Id to be set by dao", expectedResultId, result.getId().intValue());
 
-		assertNotNull("Null is an invalid response from pollMonitoredService", result);
-		assertEquals("Expected Id to be set by dao", expectedResultId, result.getId().intValue());
+    }
 
-	}
+    public final void testGetUpdatedResults() {
 
-	public final void testGetUpdatedResults() {
+        final int resultId = 3;
 
-		final int resultId = 3;
+        DemandPoll expectedResult = new DemandPoll();
 
-		DemandPoll expectedResult = new DemandPoll();
+        expect(m_demandPollDao.get(resultId)).andReturn(expectedResult);
+        replay(m_demandPollDao);
 
+        DemandPoll result = m_demandPollService.getUpdatedResults(resultId);
 
-		expect(m_demandPollDao.get(resultId)).andReturn(expectedResult);
-		replay(m_demandPollDao);
+        verify(m_demandPollDao);
 
-		DemandPoll result = m_demandPollService.getUpdatedResults(resultId);
-
-		verify(m_demandPollDao);
-
-		assertEquals(expectedResult, result);
-	}
+        assertEquals(expectedResult, result);
+    }
 
 }

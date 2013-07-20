@@ -56,7 +56,6 @@ import org.springframework.dao.DataAccessException;
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
- *
  */
 final class UdpUuidSender implements Runnable {
 
@@ -127,7 +126,9 @@ final class UdpUuidSender implements Runnable {
     }
 
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      */
     @Override
     public void run() {
@@ -154,7 +155,7 @@ final class UdpUuidSender implements Runnable {
             LOG.debug("Waiting on event receipts to be generated");
 
             synchronized (m_eventUuidsOut) {
-                // wait for an event to show up.  wait in 1 second intervals
+                // wait for an event to show up. wait in 1 second intervals
                 while (m_eventUuidsOut.isEmpty()) {
                     try {
                         // use wait instead of sleep to release the lock!
@@ -198,7 +199,8 @@ final class UdpUuidSender implements Runnable {
                 try {
                     JaxbUtils.marshal(receipt, writer);
                 } catch (DataAccessException e) {
-                    LOG.warn("Failed to build event receipt for agent {}:{}", InetAddressUtils.str(re.getSender()), re.getPort(), e);
+                    LOG.warn("Failed to build event receipt for agent {}:{}", InetAddressUtils.str(re.getSender()),
+                             re.getPort(), e);
                 }
 
                 String xml = writer.getBuffer().toString();
@@ -206,7 +208,8 @@ final class UdpUuidSender implements Runnable {
                     byte[] xml_bytes = xml.getBytes("US-ASCII");
                     DatagramPacket pkt = new DatagramPacket(xml_bytes, xml_bytes.length, re.getSender(), re.getPort());
 
-                    LOG.debug("Transmitting receipt to destination {}:{}", InetAddressUtils.str(re.getSender()), re.getPort());
+                    LOG.debug("Transmitting receipt to destination {}:{}", InetAddressUtils.str(re.getSender()),
+                              re.getPort());
 
                     m_dgSock.send(pkt);
 
@@ -228,7 +231,8 @@ final class UdpUuidSender implements Runnable {
                 } catch (UnsupportedEncodingException e) {
                     LOG.warn("Failed to convert XML to byte array", e);
                 } catch (IOException e) {
-                    LOG.warn("Failed to send packet to host {}:{}", InetAddressUtils.str(re.getSender()), re.getPort(), e);
+                    LOG.warn("Failed to send packet to host {}:{}", InetAddressUtils.str(re.getSender()), re.getPort(),
+                             e);
                 }
             }
 
@@ -242,4 +246,3 @@ final class UdpUuidSender implements Runnable {
         m_logPrefix = prefix;
     }
 }
-

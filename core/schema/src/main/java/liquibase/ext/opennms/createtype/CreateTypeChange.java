@@ -41,48 +41,47 @@ import liquibase.statement.SqlStatement;
 
 public class CreateTypeChange extends AbstractChange implements ChangeWithColumns {
 
-	private String m_typeName;
-	private List<ColumnConfig> m_columns = new ArrayList<ColumnConfig>();
+    private String m_typeName;
 
-	public CreateTypeChange() {
-		super("createType", "Create a new column type.", ChangeMetaData.PRIORITY_DEFAULT);
-	}
+    private List<ColumnConfig> m_columns = new ArrayList<ColumnConfig>();
 
-        @Override
-    public boolean supports(final Database database) {
-    	return database instanceof PostgresDatabase;
+    public CreateTypeChange() {
+        super("createType", "Create a new column type.", ChangeMetaData.PRIORITY_DEFAULT);
     }
 
-	public String getName() {
-		return m_typeName;
-	}
+    @Override
+    public boolean supports(final Database database) {
+        return database instanceof PostgresDatabase;
+    }
 
-	public void setName(final String name) {
-		m_typeName = name;
-	}
+    public String getName() {
+        return m_typeName;
+    }
 
-        @Override
-	public void addColumn(final ColumnConfig column) {
-		m_columns.add(column);
-	}
+    public void setName(final String name) {
+        m_typeName = name;
+    }
 
-        @Override
-	public List<ColumnConfig> getColumns() {
-		return m_columns;
-	}
+    @Override
+    public void addColumn(final ColumnConfig column) {
+        m_columns.add(column);
+    }
 
-        @Override
-	public SqlStatement[] generateStatements(final Database database) {
-		final CreateTypeStatement statement = new CreateTypeStatement(m_typeName);
-		for (final ColumnConfig column : m_columns) {
-			statement.addColumn(column.getName(), column.getType());
-		}
-		return new SqlStatement[] {
-				statement
-		};
-	}
+    @Override
+    public List<ColumnConfig> getColumns() {
+        return m_columns;
+    }
 
-        @Override
+    @Override
+    public SqlStatement[] generateStatements(final Database database) {
+        final CreateTypeStatement statement = new CreateTypeStatement(m_typeName);
+        for (final ColumnConfig column : m_columns) {
+            statement.addColumn(column.getName(), column.getType());
+        }
+        return new SqlStatement[] { statement };
+    }
+
+    @Override
     public String getConfirmationMessage() {
         return "Type " + getName() + " created";
     }

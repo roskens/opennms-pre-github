@@ -50,9 +50,10 @@ import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndFeedImpl;
 
-
 /**
- * <p>EventFeed class.</p>
+ * <p>
+ * EventFeed class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @version $Id: $
@@ -60,11 +61,12 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  */
 public class EventFeed extends AbstractFeed {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EventFeed.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(EventFeed.class);
 
     /**
-     * <p>getFeed</p>
+     * <p>
+     * getFeed
+     * </p>
      *
      * @return a {@link com.sun.syndication.feed.synd.SyndFeed} object.
      */
@@ -100,7 +102,8 @@ public class EventFeed extends AbstractFeed {
                 }
             }
 
-            events = EventFactory.getEvents(SortStyle.TIME, AcknowledgeType.BOTH, filters.toArray(new Filter[] {}), this.getMaxEntries(), -1);
+            events = EventFactory.getEvents(SortStyle.TIME, AcknowledgeType.BOTH, filters.toArray(new Filter[] {}),
+                                            this.getMaxEntries(), -1);
 
             SyndEntry entry;
 
@@ -108,7 +111,8 @@ public class EventFeed extends AbstractFeed {
                 entry = new SyndEntryImpl();
                 entry.setPublishedDate(event.getTime());
                 if (event.getAcknowledgeTime() != null) {
-                    entry.setTitle(sanitizeTitle(event.getLogMessage()) + " (acknowledged by " + event.getAcknowledgeUser() + ")");
+                    entry.setTitle(sanitizeTitle(event.getLogMessage()) + " (acknowledged by "
+                            + event.getAcknowledgeUser() + ")");
                     entry.setUpdatedDate(event.getAcknowledgeTime());
                 } else {
                     entry.setTitle(sanitizeTitle(event.getLogMessage()));

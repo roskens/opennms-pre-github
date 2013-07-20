@@ -46,7 +46,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
  * Unit tests for StatisticsReportDao
  *
@@ -54,21 +53,19 @@ import org.springframework.transaction.annotation.Transactional;
  * @see StatisticsReportDao
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class StatisticsReportDaoTest implements InitializingBean {
-	@Autowired
+    @Autowired
     private StatisticsReportDao m_statisticsReportDao;
 
-	@Autowired
+    @Autowired
     private ResourceReferenceDao m_resourceReferenceDao;
 
     @Override
@@ -76,8 +73,8 @@ public class StatisticsReportDaoTest implements InitializingBean {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSave() throws Exception {
         StatisticsReport report = new StatisticsReport();
         report.setName("A Mighty Fine Report");
@@ -88,7 +85,7 @@ public class StatisticsReportDaoTest implements InitializingBean {
         report.setJobCompletedDate(new Date());
         report.setPurgeDate(new Date());
 
-		{
+        {
             ResourceReference resource = new ResourceReference();
             resource.setResourceId("foo");
             m_resourceReferenceDao.save(resource);
@@ -100,12 +97,10 @@ public class StatisticsReportDaoTest implements InitializingBean {
             report.addData(data);
         }
 
-
         {
             ResourceReference resource = new ResourceReference();
             resource.setResourceId("bar");
             m_resourceReferenceDao.save(resource);
-
 
             StatisticsReportData data = new StatisticsReportData();
             data.setReport(report);

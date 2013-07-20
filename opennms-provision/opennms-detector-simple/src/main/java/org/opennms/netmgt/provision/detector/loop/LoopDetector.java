@@ -47,13 +47,17 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopResponse> {
     private static final String DEFAULT_SERVICE_NAME = "LOOP";
+
     private static final int DEFAULT_PORT = 0;
 
     private String m_ipMatch;
+
     private boolean m_isSupported = true;
 
     /**
-     * <p>Constructor for LoopDetector.</p>
+     * <p>
+     * Constructor for LoopDetector.
+     * </p>
      */
     public LoopDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
@@ -75,7 +79,7 @@ public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopRespons
 
     private static ResponseValidator<LoopResponse> ipMatches(final String ipAddr) {
 
-        return new ResponseValidator<LoopResponse>(){
+        return new ResponseValidator<LoopResponse>() {
 
             @Override
             public boolean validate(LoopResponse response) {
@@ -86,16 +90,21 @@ public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopRespons
     }
 
     /**
-     * <p>setIpMatch</p>
+     * <p>
+     * setIpMatch
+     * </p>
      *
-     * @param ipMatch a {@link java.lang.String} object.
+     * @param ipMatch
+     *            a {@link java.lang.String} object.
      */
     public void setIpMatch(String ipMatch) {
         m_ipMatch = ipMatch;
     }
 
     /**
-     * <p>getIpMatch</p>
+     * <p>
+     * getIpMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,16 +113,21 @@ public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopRespons
     }
 
     /**
-     * <p>setSupported</p>
+     * <p>
+     * setSupported
+     * </p>
      *
-     * @param isSupported a boolean.
+     * @param isSupported
+     *            a boolean.
      */
     public void setSupported(boolean isSupported) {
         m_isSupported = isSupported;
     }
 
     /**
-     * <p>isSupported</p>
+     * <p>
+     * isSupported
+     * </p>
      *
      * @return a boolean.
      */

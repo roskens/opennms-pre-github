@@ -89,7 +89,10 @@ public class DiscoveryConfigFactoryTest {
     public void testMultipleExcludes() throws Exception {
         final DiscoveryConfigFactory factory = new DiscoveryConfigFactory() {
             @Override
-            public void saveConfiguration(final DiscoveryConfiguration configuration) throws MarshalException, ValidationException, IOException {}
+            public void saveConfiguration(final DiscoveryConfiguration configuration) throws MarshalException,
+                    ValidationException, IOException {
+            }
+
             @Override
             public synchronized DiscoveryConfiguration getConfiguration() {
                 final DiscoveryConfiguration conf = new DiscoveryConfiguration();
@@ -142,11 +145,15 @@ public class DiscoveryConfigFactoryTest {
         assertTrue(factory.isExcluded(InetAddressUtils.addr("192.168.4.1")));
 
     }
+
     @Test
     public void testSingleIPExclude() throws Exception {
         final DiscoveryConfigFactory factory = new DiscoveryConfigFactory() {
             @Override
-            public void saveConfiguration(final DiscoveryConfiguration configuration) throws MarshalException, ValidationException, IOException {}
+            public void saveConfiguration(final DiscoveryConfiguration configuration) throws MarshalException,
+                    ValidationException, IOException {
+            }
+
             @Override
             public synchronized DiscoveryConfiguration getConfiguration() {
                 final DiscoveryConfiguration conf = new DiscoveryConfiguration();

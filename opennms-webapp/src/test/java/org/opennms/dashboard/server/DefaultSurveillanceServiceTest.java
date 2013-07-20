@@ -61,7 +61,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultSurveillanceServiceTest {
@@ -89,9 +88,12 @@ public class DefaultSurveillanceServiceTest {
     }
 
     // String Principal is not longer used in opennms
-    @Test(expected=IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void testGetUsernameWithStringPrincipal() {
-        org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken("user", null, new ArrayList<GrantedAuthority>());
+        org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(
+                                                                                                        "user",
+                                                                                                        null,
+                                                                                                        new ArrayList<GrantedAuthority>());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         String user = m_service.getUsername();
@@ -100,7 +102,8 @@ public class DefaultSurveillanceServiceTest {
     @Test
     public void testGetUsernameNoAuthenticationObject() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new IllegalStateException("No Authentication object found when calling getAuthentication on our SecurityContext object"));
+        ta.anticipate(new IllegalStateException(
+                                                "No Authentication object found when calling getAuthentication on our SecurityContext object"));
 
         try {
             m_service.getUsername();
@@ -113,11 +116,15 @@ public class DefaultSurveillanceServiceTest {
 
     @Test
     public void testGetUsernameNoPrincipalObject() {
-        org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(null, null, new ArrayList<GrantedAuthority>());
+        org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(
+                                                                                                        null,
+                                                                                                        null,
+                                                                                                        new ArrayList<GrantedAuthority>());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new IllegalStateException("No principal object found when calling getPrincipal on our Authentication object"));
+        ta.anticipate(new IllegalStateException(
+                                                "No principal object found when calling getPrincipal on our Authentication object"));
 
         try {
             m_service.getUsername();
@@ -173,7 +180,10 @@ public class DefaultSurveillanceServiceTest {
 
     private UserDetails populateSecurityContext() {
         UserDetails details = new User("user", "password", true, true, true, true, new ArrayList<GrantedAuthority>());
-        org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(details, null, details.getAuthorities());
+        org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(
+                                                                                                        details,
+                                                                                                        null,
+                                                                                                        details.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
         return details;
     }

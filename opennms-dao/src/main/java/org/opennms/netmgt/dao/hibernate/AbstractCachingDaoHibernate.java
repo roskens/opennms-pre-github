@@ -43,19 +43,28 @@ import org.springframework.dao.DataAccessException;
  * @author brozow
  * @version $Id: $
  */
-public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable, CacheKey> extends AbstractDaoHibernate<T, DbKey> {
+public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable, CacheKey> extends
+        AbstractDaoHibernate<T, DbKey> {
 
     private final ThreadLocal<HashMap<CacheKey, T>> m_cache = new ThreadLocal<HashMap<CacheKey, T>>();
+
     private final boolean m_dbKeyMatchesCacheKey;
 
     /**
-     * <p>Constructor for AbstractCachingDaoHibernate.</p>
+     * <p>
+     * Constructor for AbstractCachingDaoHibernate.
+     * </p>
      *
-     * @param entityClass a {@link java.lang.Class} object.
-     * @param dbKeyMatchesCacheKey a boolean.
-     * @param <T> a T object.
-     * @param <DbKey> a DbKey object.
-     * @param <CacheKey> a CacheKey object.
+     * @param entityClass
+     *            a {@link java.lang.Class} object.
+     * @param dbKeyMatchesCacheKey
+     *            a boolean.
+     * @param <T>
+     *            a T object.
+     * @param <DbKey>
+     *            a DbKey object.
+     * @param <CacheKey>
+     *            a CacheKey object.
      */
     public AbstractCachingDaoHibernate(Class<T> entityClass, boolean dbKeyMatchesCacheKey) {
         super(entityClass);
@@ -63,9 +72,12 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
     }
 
     /**
-     * <p>getKey</p>
+     * <p>
+     * getKey
+     * </p>
      *
-     * @param t a T object.
+     * @param t
+     *            a T object.
      * @return a CacheKey object.
      */
     abstract protected CacheKey getKey(T t);
@@ -83,7 +95,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
         List<CacheKey> ids = Collections.emptyList();
         if (m_cache.get() != null) {
             ids = new ArrayList<CacheKey>(entities.size());
-            for(T t : entities) {
+            for (T t : entities) {
                 ids.add(getKey(t));
             }
         }
@@ -91,7 +103,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
         super.deleteAll(entities);
 
         if (m_cache.get() != null) {
-            for(CacheKey id : ids) {
+            for (CacheKey id : ids) {
                 m_cache.get().remove(id);
             }
         }
@@ -113,7 +125,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
         List<T> entities = super.findAll();
 
         HashMap<CacheKey, T> map = new HashMap<CacheKey, T>();
-        for(T t : entities) {
+        for (T t : entities) {
             map.put(getKey(t), t);
         }
         m_cache.set(map);
@@ -207,10 +219,14 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
     }
 
     /**
-     * <p>findByCacheKey</p>
+     * <p>
+     * findByCacheKey
+     * </p>
      *
-     * @param queryString a {@link java.lang.String} object.
-     * @param key a CacheKey object.
+     * @param queryString
+     *            a {@link java.lang.String} object.
+     * @param key
+     *            a CacheKey object.
      * @return a T object.
      */
     protected T findByCacheKey(String queryString, CacheKey key) {

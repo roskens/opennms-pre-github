@@ -55,9 +55,12 @@ public class FactoryBasedSnmpConfigDao implements SnmpConfigDao, InitializingBea
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -71,15 +74,17 @@ public class FactoryBasedSnmpConfigDao implements SnmpConfigDao, InitializingBea
     }
 
     /**
-     * <p>getDefaults</p>
+     * <p>
+     * getDefaults
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpConfiguration} object.
      */
     @Override
     public SnmpConfiguration getDefaults() {
-    	final SnmpConfig config = getSnmpConfig();
+        final SnmpConfig config = getSnmpConfig();
 
-    	final SnmpConfiguration defaults = new SnmpConfiguration();
+        final SnmpConfiguration defaults = new SnmpConfiguration();
 
         if (config.getAuthPassphrase() != null) {
             defaults.setAuthPassPhrase(config.getAuthPassphrase());
@@ -143,13 +148,12 @@ public class FactoryBasedSnmpConfigDao implements SnmpConfigDao, InitializingBea
         return false;
     }
 
-
     /** {@inheritDoc} */
     @Override
     public void saveAsDefaults(final SnmpConfiguration newDefaults) {
-    	final SnmpConfig config = getSnmpConfig();
+        final SnmpConfig config = getSnmpConfig();
 
-    	final SnmpConfiguration oldDefaults = getDefaults();
+        final SnmpConfiguration oldDefaults = getDefaults();
 
         if (!nullSafeEquals(oldDefaults.getAuthPassPhrase(), newDefaults.getAuthPassPhrase())) {
             config.setAuthPassphrase(newDefaults.getAuthPassPhrase());
@@ -204,9 +208,9 @@ public class FactoryBasedSnmpConfigDao implements SnmpConfigDao, InitializingBea
     @Override
     public void saveOrUpdate(final SnmpAgentConfig newConfig) {
 
-    	final SnmpAgentConfig oldConfig = getAgentConfig(newConfig.getAddress());
+        final SnmpAgentConfig oldConfig = getAgentConfig(newConfig.getAddress());
 
-    	final SnmpEventInfo eventInfo = new SnmpEventInfo();
+        final SnmpEventInfo eventInfo = new SnmpEventInfo();
         eventInfo.setFirstIPAddress(newConfig.getAddress());
         eventInfo.setLastIPAddress(newConfig.getAddress());
 
@@ -251,8 +255,8 @@ public class FactoryBasedSnmpConfigDao implements SnmpConfigDao, InitializingBea
         }
     }
 
-	public void define(final SnmpEventInfo info) {
-		getSnmpPeerFactory().define(info);
-	}
+    public void define(final SnmpEventInfo info) {
+        getSnmpPeerFactory().define(info);
+    }
 
 }

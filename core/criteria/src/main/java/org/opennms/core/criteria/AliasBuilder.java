@@ -39,13 +39,13 @@ import org.slf4j.LoggerFactory;
 
 public class AliasBuilder {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AliasBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AliasBuilder.class);
 
     final Map<String, Alias> m_aliases = new HashMap<String, Alias>();
 
     public AliasBuilder alias(final String associationPath, final String alias, final JoinType type) {
         if (m_aliases.containsKey(alias)) {
-        	LOG.debug("alias '{}' already associated with associationPath '{}', skipping.", alias, associationPath);
+            LOG.debug("alias '{}' already associated with associationPath '{}', skipping.", alias, associationPath);
         } else {
             m_aliases.put(alias, new Alias(associationPath, alias, type));
         }

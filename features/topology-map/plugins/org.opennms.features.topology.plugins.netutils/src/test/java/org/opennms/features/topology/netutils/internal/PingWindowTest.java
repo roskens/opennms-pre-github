@@ -49,138 +49,143 @@ import com.vaadin.ui.UI;
 
 public class PingWindowTest {
 
-	PingWindow pingWindow;
-	PingWindow pingWindow2;
-	UI app;
+    PingWindow pingWindow;
 
-	boolean didNotify = false;
+    PingWindow pingWindow2;
 
-	@Before
-	public void setUp() throws Exception {
-		didNotify = false;
+    UI app;
 
-		Node testNode1 = new Node(9,"172.20.1.10","Cartman");
+    boolean didNotify = false;
 
-		pingWindow = new PingWindow(testNode1, "/opennms/ExecCommand.map?command=ping");
-		pingWindow2 = new PingWindow(null, "/opennms/ExecCommand.map?command=ping");
+    @Before
+    public void setUp() throws Exception {
+        didNotify = false;
 
-		app = new UI() { //Empty Application
+        Node testNode1 = new Node(9, "172.20.1.10", "Cartman");
 
-			private static final long serialVersionUID = -6761162156810032609L;
+        pingWindow = new PingWindow(testNode1, "/opennms/ExecCommand.map?command=ping");
+        pingWindow2 = new PingWindow(null, "/opennms/ExecCommand.map?command=ping");
 
-			@Override
-			public void init(VaadinRequest request) {}
+        app = new UI() { // Empty Application
 
-			@Override
-			public Page getPage() {
-				Page page = EasyMock.createMock(Page.class);
-				try {
-					EasyMock.expect(page.getLocation()).andReturn(new URI("http://localhost:8080/servlet/")).anyTimes();
-					page.showNotification(EasyMock.anyObject(Notification.class));
-					// If Notification.show() is called, then set didNotify to true
-					EasyMock.expectLastCall().andAnswer(new IAnswer<Object>() {
-						@Override
-						public Object answer() throws Throwable {
-							System.out.println("Notification was called: " + ((Notification)EasyMock.getCurrentArguments()[0]).getCaption());
-							didNotify = true;
-							return null;
-						}
-					}).anyTimes();
-				} catch (URISyntaxException e) {
-					// Should never be thrown
-				}
-				EasyMock.replay(page);
-				return page;
-			}
-		};
-		app.addWindow(pingWindow);
-		app.addWindow(pingWindow2);
-		UI.setCurrent(app);
-	}
+            private static final long serialVersionUID = -6761162156810032609L;
 
-	@Test
-	public void testBuildURL_correctInput() {
-		pingWindow.numericalDataCheckBox.setValue(true);
-		pingWindow.packetSizeDropdown.setValue("32");
-		pingWindow.requestsField.setValue("100");
-		pingWindow.timeoutField.setValue("100");
-		URL url = pingWindow.buildURL();
-		assertNotNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
-		assertFalse(didNotify);
-	}
+            @Override
+            public void init(VaadinRequest request) {
+            }
 
-	@Test
-	public void testBuildURL_upperBounds() {
-		pingWindow.numericalDataCheckBox.setValue(true);
-		pingWindow.packetSizeDropdown.setValue("1024");
-		pingWindow.requestsField.setValue("10000");
-		pingWindow.timeoutField.setValue("10000");
-		URL url = pingWindow.buildURL();
-		assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
-		assertTrue(didNotify);
-	}
+            @Override
+            public Page getPage() {
+                Page page = EasyMock.createMock(Page.class);
+                try {
+                    EasyMock.expect(page.getLocation()).andReturn(new URI("http://localhost:8080/servlet/")).anyTimes();
+                    page.showNotification(EasyMock.anyObject(Notification.class));
+                    // If Notification.show() is called, then set didNotify to
+                    // true
+                    EasyMock.expectLastCall().andAnswer(new IAnswer<Object>() {
+                        @Override
+                        public Object answer() throws Throwable {
+                            System.out.println("Notification was called: "
+                                    + ((Notification) EasyMock.getCurrentArguments()[0]).getCaption());
+                            didNotify = true;
+                            return null;
+                        }
+                    }).anyTimes();
+                } catch (URISyntaxException e) {
+                    // Should never be thrown
+                }
+                EasyMock.replay(page);
+                return page;
+            }
+        };
+        app.addWindow(pingWindow);
+        app.addWindow(pingWindow2);
+        UI.setCurrent(app);
+    }
 
-	@Test
-	public void testBuildURL_lowerBounds() {
-		pingWindow.packetSizeDropdown.setValue("16");
-		pingWindow.requestsField.setValue("0");
-		pingWindow.timeoutField.setValue("0");
-		URL url = pingWindow.buildURL();
-		assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
-		assertTrue(didNotify);
-	}
+    @Test
+    public void testBuildURL_correctInput() {
+        pingWindow.numericalDataCheckBox.setValue(true);
+        pingWindow.packetSizeDropdown.setValue("32");
+        pingWindow.requestsField.setValue("100");
+        pingWindow.timeoutField.setValue("100");
+        URL url = pingWindow.buildURL();
+        assertNotNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
+        assertFalse(didNotify);
+    }
 
-	@Test
-	public void testBuildURL_nonIntegerInput() {
-		pingWindow.numericalDataCheckBox.setValue(true);
-		pingWindow.packetSizeDropdown.setValue("1024");
-		pingWindow.requestsField.setValue("abcd");
-		pingWindow.timeoutField.setValue("abcd");
-		URL url = pingWindow.buildURL();
-		assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
-		assertTrue(didNotify);
-	}
+    @Test
+    public void testBuildURL_upperBounds() {
+        pingWindow.numericalDataCheckBox.setValue(true);
+        pingWindow.packetSizeDropdown.setValue("1024");
+        pingWindow.requestsField.setValue("10000");
+        pingWindow.timeoutField.setValue("10000");
+        URL url = pingWindow.buildURL();
+        assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
+        assertTrue(didNotify);
+    }
 
-	@Test
-	public void testBuildURL_negativeIntegers() {
-		pingWindow.numericalDataCheckBox.setValue(true);
-		pingWindow.packetSizeDropdown.setValue("1024");
-		pingWindow.requestsField.setValue("-99");
-		pingWindow.timeoutField.setValue("-1024");
-		URL url = pingWindow.buildURL();
-		assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
-		assertTrue(didNotify);
-	}
+    @Test
+    public void testBuildURL_lowerBounds() {
+        pingWindow.packetSizeDropdown.setValue("16");
+        pingWindow.requestsField.setValue("0");
+        pingWindow.timeoutField.setValue("0");
+        URL url = pingWindow.buildURL();
+        assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
+        assertTrue(didNotify);
+    }
 
-	@Test
-	public void testBuildURL_invalidRequests() {
-		pingWindow.numericalDataCheckBox.setValue(true);
-		pingWindow.packetSizeDropdown.setValue("1024");
-		pingWindow.requestsField.setValue("10000");
-		pingWindow.timeoutField.setValue("100");
-		URL url = pingWindow.buildURL();
-		assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
-		assertTrue(didNotify);
-	}
+    @Test
+    public void testBuildURL_nonIntegerInput() {
+        pingWindow.numericalDataCheckBox.setValue(true);
+        pingWindow.packetSizeDropdown.setValue("1024");
+        pingWindow.requestsField.setValue("abcd");
+        pingWindow.timeoutField.setValue("abcd");
+        URL url = pingWindow.buildURL();
+        assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
+        assertTrue(didNotify);
+    }
 
-	@Test
-	public void testButtonClick() {
-		pingWindow.pingButton.click();
+    @Test
+    public void testBuildURL_negativeIntegers() {
+        pingWindow.numericalDataCheckBox.setValue(true);
+        pingWindow.packetSizeDropdown.setValue("1024");
+        pingWindow.requestsField.setValue("-99");
+        pingWindow.timeoutField.setValue("-1024");
+        URL url = pingWindow.buildURL();
+        assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
+        assertTrue(didNotify);
+    }
 
-		pingWindow2.numericalDataCheckBox.setValue(true);
-		pingWindow2.packetSizeDropdown.setValue("32");
-		pingWindow2.requestsField.setValue("100");
-		pingWindow2.timeoutField.setValue("100");
-		pingWindow2.pingButton.click();
-		assertFalse(didNotify);
-	}
+    @Test
+    public void testBuildURL_invalidRequests() {
+        pingWindow.numericalDataCheckBox.setValue(true);
+        pingWindow.packetSizeDropdown.setValue("1024");
+        pingWindow.requestsField.setValue("10000");
+        pingWindow.timeoutField.setValue("100");
+        URL url = pingWindow.buildURL();
+        assertNull(url == null ? "null" : url.toString(), pingWindow.buildURL());
+        assertTrue(didNotify);
+    }
 
-	@Test
-	public void testAttach() {
-		assertTrue(app.getWindows().contains(pingWindow));
-		app.removeWindow(pingWindow);
-		assertFalse(app.getWindows().contains(pingWindow));
-		assertFalse(didNotify);
-	}
+    @Test
+    public void testButtonClick() {
+        pingWindow.pingButton.click();
+
+        pingWindow2.numericalDataCheckBox.setValue(true);
+        pingWindow2.packetSizeDropdown.setValue("32");
+        pingWindow2.requestsField.setValue("100");
+        pingWindow2.timeoutField.setValue("100");
+        pingWindow2.pingButton.click();
+        assertFalse(didNotify);
+    }
+
+    @Test
+    public void testAttach() {
+        assertTrue(app.getWindows().contains(pingWindow));
+        app.removeWindow(pingWindow);
+        assertFalse(app.getWindows().contains(pingWindow));
+        assertFalse(didNotify);
+    }
 
 }

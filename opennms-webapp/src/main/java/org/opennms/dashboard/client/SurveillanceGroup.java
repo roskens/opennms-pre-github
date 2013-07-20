@@ -31,7 +31,9 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * <p>SurveillanceGroup class.</p>
+ * <p>
+ * SurveillanceGroup class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -43,22 +45,31 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class SurveillanceGroup extends SurveillanceSet implements IsSerializable {
 
     private String m_label;
+
     private String m_id;
+
     private boolean m_column;
 
     /**
-     * <p>Constructor for SurveillanceGroup.</p>
+     * <p>
+     * Constructor for SurveillanceGroup.
+     * </p>
      */
     public SurveillanceGroup() {
         this(null, null, false);
     }
 
     /**
-     * <p>Constructor for SurveillanceGroup.</p>
+     * <p>
+     * Constructor for SurveillanceGroup.
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
-     * @param label a {@link java.lang.String} object.
-     * @param isColumn a boolean.
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @param isColumn
+     *            a boolean.
      */
     public SurveillanceGroup(String id, String label, boolean isColumn) {
         m_id = id;
@@ -67,7 +78,9 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -76,7 +89,9 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,25 +100,33 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      */
     public void setId(String id) {
         m_id = id;
     }
 
     /**
-     * <p>setLabel</p>
+     * <p>
+     * setLabel
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public void setLabel(String label) {
         m_label = label;
     }
 
     /**
-     * <p>isColumn</p>
+     * <p>
+     * isColumn
+     * </p>
      *
      * @return a boolean.
      */
@@ -112,16 +135,21 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
     }
 
     /**
-     * <p>setColumn</p>
+     * <p>
+     * setColumn
+     * </p>
      *
-     * @param isColumn a boolean.
+     * @param isColumn
+     *            a boolean.
      */
     public void setColumn(boolean isColumn) {
         m_column = isColumn;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

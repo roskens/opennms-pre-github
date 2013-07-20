@@ -35,7 +35,9 @@ import org.opennms.netmgt.model.ServiceInfo;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>DaemonStatusService interface.</p>
+ * <p>
+ * DaemonStatusService interface.
+ * </p>
  *
  * @author <a href="mailto:skareti@users.sourceforge.net">skareti</a>
  * @version $Id: $
@@ -44,51 +46,68 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = false)
 public interface DaemonStatusService {
 
-	/**
-	 * <p>getCurrentDaemonStatus</p>
-	 *
-	 * @return a {@link java.util.Map} object.
-	 */
-	@Transactional(readOnly = true)
-	Map<String, ServiceInfo> getCurrentDaemonStatus();
-	/**
-	 * <p>getCurrentDaemonStatusColl</p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
-	Collection<ServiceInfo> getCurrentDaemonStatusColl();
+    /**
+     * <p>
+     * getCurrentDaemonStatus
+     * </p>
+     *
+     * @return a {@link java.util.Map} object.
+     */
+    @Transactional(readOnly = true)
+    Map<String, ServiceInfo> getCurrentDaemonStatus();
 
-	/**
-	 * <p>startDaemon</p>
-	 *
-	 * @param service a {@link java.lang.String} object.
-	 * @return a {@link java.util.Map} object.
-	 */
-	Map<String, ServiceInfo> startDaemon(String service);
+    /**
+     * <p>
+     * getCurrentDaemonStatusColl
+     * </p>
+     *
+     * @return a {@link java.util.Collection} object.
+     */
+    Collection<ServiceInfo> getCurrentDaemonStatusColl();
 
-	/**
-	 * <p>stopDaemon</p>
-	 *
-	 * @param service a {@link java.lang.String} object.
-	 * @return a {@link java.util.Map} object.
-	 */
-	Map<String, ServiceInfo> stopDaemon(String service);
+    /**
+     * <p>
+     * startDaemon
+     * </p>
+     *
+     * @param service
+     *            a {@link java.lang.String} object.
+     * @return a {@link java.util.Map} object.
+     */
+    Map<String, ServiceInfo> startDaemon(String service);
 
-	/**
-	 * <p>restartDaemon</p>
-	 *
-	 * @param service a {@link java.lang.String} object.
-	 * @return a {@link java.util.Map} object.
-	 */
-	Map<String, ServiceInfo> restartDaemon(String service);
+    /**
+     * <p>
+     * stopDaemon
+     * </p>
+     *
+     * @param service
+     *            a {@link java.lang.String} object.
+     * @return a {@link java.util.Map} object.
+     */
+    Map<String, ServiceInfo> stopDaemon(String service);
 
-	/**
-	 * <p>performOperationOnDaemons</p>
-	 *
-	 * @param operation a {@link java.lang.String} object.
-	 * @param deamons an array of {@link java.lang.String} objects.
-	 * @return a {@link java.util.Map} object.
-	 */
-	Map<String, ServiceInfo> performOperationOnDaemons(String operation,
-			String[] deamons);
+    /**
+     * <p>
+     * restartDaemon
+     * </p>
+     *
+     * @param service
+     *            a {@link java.lang.String} object.
+     * @return a {@link java.util.Map} object.
+     */
+    Map<String, ServiceInfo> restartDaemon(String service);
+
+    /**
+     * <p>
+     * performOperationOnDaemons
+     * </p>
+     *
+     * @param operation
+     *            a {@link java.lang.String} object.
+     * @param deamons
+     *            an array of {@link java.lang.String} objects.
+     * @return a {@link java.util.Map} object.
+     */
+    Map<String, ServiceInfo> performOperationOnDaemons(String operation, String[] deamons);
 }

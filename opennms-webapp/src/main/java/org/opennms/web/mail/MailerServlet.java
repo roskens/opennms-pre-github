@@ -47,7 +47,9 @@ import org.opennms.core.utils.StreamUtils;
 import org.opennms.web.servlet.MissingParameterException;
 
 /**
- * <p>MailerServlet class.</p>
+ * <p>
+ * MailerServlet class.
+ * </p>
  *
  * @author <A HREF="mailto:jacinta@opennms.org">Jacinta Remedios </A>
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
@@ -58,9 +60,13 @@ public class MailerServlet extends HttpServlet {
      *
      */
     private static final Logger LOG = LoggerFactory.getLogger(MailerServlet.class);
+
     private static final long serialVersionUID = -6241742874510146572L;
 
-    /** Constant <code>REQUIRED_FIELDS="new String[] { sendto, subject, usernam"{trunked}</code> */
+    /**
+     * Constant
+     * <code>REQUIRED_FIELDS="new String[] { sendto, subject, usernam"{trunked}</code>
+     */
     protected static final String[] REQUIRED_FIELDS = new String[] { "sendto", "subject", "username", "msg" };
 
     protected String redirectSuccess;
@@ -68,9 +74,12 @@ public class MailerServlet extends HttpServlet {
     protected String mailProgram;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {

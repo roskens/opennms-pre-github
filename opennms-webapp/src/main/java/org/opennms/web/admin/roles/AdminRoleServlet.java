@@ -64,20 +64,29 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
      *
      */
     private static final long serialVersionUID = 7805283401513004127L;
+
     private static final String LIST = "/admin/userGroupView/roles/list.jsp";
+
     private static final String VIEW = "/admin/userGroupView/roles/view.jsp";
+
     private static final String EDIT_DETAILS = "/admin/userGroupView/roles/editDetails.jsp";
+
     private static final String ADD_ENTRY = "/admin/userGroupView/roles/editSpecific.jsp";
+
     private static final String EDIT_WEEKLY = "/admin/userGroupView/roles/editWeekly.jsp";
+
     private static final String EDIT_MONTHLY = "/admin/userGroupView/roles/editMonthly.jsp";
+
     private static final String EDIT_SPECIFIC = "/admin/userGroupView/roles/editSpecific.jsp";
 
     /**
-     * <p>Constructor for AdminRoleServlet.</p>
+     * <p>
+     * Constructor for AdminRoleServlet.
+     * </p>
      */
     public AdminRoleServlet() {
-		super();
-	}
+        super();
+    }
 
     private interface Action {
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
@@ -104,7 +113,7 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
-                WebRole role = (WebRole)request.getAttribute("role");
+                WebRole role = (WebRole) request.getAttribute("role");
                 if (role == null) {
                     role = getRoleManager().getRole(request.getParameter("role"));
                     request.setAttribute("role", role);
@@ -115,7 +124,7 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                 request.setAttribute("calendar", calendar);
                 return VIEW;
             } catch (ParseException e) {
-                throw new ServletException("Unable to parse date: "+e.getMessage(), e);
+                throw new ServletException("Unable to parse date: " + e.getMessage(), e);
             }
         }
 
@@ -136,7 +145,7 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                 request.setAttribute("timeIndex", "-1");
                 return ADD_ENTRY;
             } catch (ParseException e) {
-                throw new ServletException("Unable to parse date: "+e.getMessage(), e);
+                throw new ServletException("Unable to parse date: " + e.getMessage(), e);
             }
         }
 
@@ -162,8 +171,11 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
 
             request.setAttribute("scheduledUser", schedule.getName());
 
-            final org.opennms.netmgt.config.Time basicTime = new org.opennms.netmgt.config.Time(time.getId(), time.getDay(), time.getBegins(), time.getEnds());
-			if (BasicScheduleUtils.isWeekly(basicTime))
+            final org.opennms.netmgt.config.Time basicTime = new org.opennms.netmgt.config.Time(time.getId(),
+                                                                                                time.getDay(),
+                                                                                                time.getBegins(),
+                                                                                                time.getEnds());
+            if (BasicScheduleUtils.isWeekly(basicTime))
                 return EDIT_WEEKLY;
             else if (BasicScheduleUtils.isMonthly(basicTime))
                 return EDIT_MONTHLY;
@@ -200,7 +212,7 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                         return EDIT_SPECIFIC;
                     }
                     if (startDate.after(endDate)) {
-                    	request.setAttribute("error", "The start time must not be later than the end time!");
+                        request.setAttribute("error", "The start time must not be later than the end time!");
                         request.setAttribute("scheduledUser", request.getParameter("roleUser"));
                         request.setAttribute("start", startDate);
                         request.setAttribute("end", endDate);
@@ -220,23 +232,23 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                 return new ViewAction().execute(request, response);
 
             } catch (ParseException e) {
-                throw new ServletException("Unable to parse date: "+e.getMessage(), e);
+                throw new ServletException("Unable to parse date: " + e.getMessage(), e);
             }
         }
 
         private Date getDateParameters(String prefix, HttpServletRequest request) throws ParseException {
             StringBuffer buf = new StringBuffer();
-            buf.append(request.getParameter(prefix+"Month"));
+            buf.append(request.getParameter(prefix + "Month"));
             buf.append('-');
-            buf.append(request.getParameter(prefix+"Date"));
+            buf.append(request.getParameter(prefix + "Date"));
             buf.append('-');
-            buf.append(request.getParameter(prefix+"Year"));
+            buf.append(request.getParameter(prefix + "Year"));
             buf.append(' ');
-            buf.append(request.getParameter(prefix+"Hour"));
+            buf.append(request.getParameter(prefix + "Hour"));
             buf.append(':');
-            buf.append(request.getParameter(prefix+"Minute"));
+            buf.append(request.getParameter(prefix + "Minute"));
             buf.append(' ');
-            buf.append(request.getParameter(prefix+"AmOrPm"));
+            buf.append(request.getParameter(prefix + "AmOrPm"));
             return new SimpleDateFormat("M-d-yyyy h:m a").parse(buf.toString());
         }
 
@@ -277,7 +289,8 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                 String roleName = request.getParameter("role");
                 WebRole role = getRoleManager().getRole(roleName);
                 if (role == null) {
-                    // this is a new role so create a new on and add it to the roleManager
+                    // this is a new role so create a new on and add it to the
+                    // roleManager
                     role = getRoleManager().createRole();
                 }
                 role.setName(request.getParameter("roleName"));
@@ -295,12 +308,18 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
     }
 
     /**
-     * <p>doIt</p>
+     * <p>
+     * doIt
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param response a {@link javax.servlet.http.HttpServletResponse} object.
-     * @throws javax.servlet.ServletException if any.
-     * @throws java.io.IOException if any.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param response
+     *            a {@link javax.servlet.http.HttpServletResponse} object.
+     * @throws javax.servlet.ServletException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected void doIt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String reqUrl = request.getServletPath();
@@ -333,28 +352,36 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
             return new ListAction();
     }
 
-	/* (non-Java-doc)
-	 * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	/** {@inheritDoc} */
+    /*
+     * (non-Java-doc)
+     * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest request,
+     * HttpServletResponse response)
+     */
+    /** {@inheritDoc} */
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doIt(request, response);
-	}
+    }
 
-	/* (non-Java-doc)
-	 * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	/** {@inheritDoc} */
+    /*
+     * (non-Java-doc)
+     * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest request,
+     * HttpServletResponse response)
+     */
+    /** {@inheritDoc} */
     @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
         doIt(request, response);
-	}
+    }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -369,7 +396,6 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
         } catch (Throwable e) {
             throw new ServletException("Error initializing RolesServlet", e);
         }
-
 
     }
 

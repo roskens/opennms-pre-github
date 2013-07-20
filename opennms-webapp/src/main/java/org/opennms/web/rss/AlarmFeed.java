@@ -52,7 +52,9 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndFeedImpl;
 
 /**
- * <p>AlarmFeed class.</p>
+ * <p>
+ * AlarmFeed class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Ben Reed</a>
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
@@ -62,7 +64,9 @@ public class AlarmFeed extends AbstractFeed {
     private final AlarmRepository m_webAlarmRepository = new AlarmRepositoryHibernate();
 
     /**
-     * <p>getFeed</p>
+     * <p>
+     * getFeed
+     * </p>
      *
      * @return a {@link com.sun.syndication.feed.synd.SyndFeed} object.
      */
@@ -90,7 +94,11 @@ public class AlarmFeed extends AbstractFeed {
 
         }
 
-        OnmsCriteria queryCriteria = AlarmUtil.getOnmsCriteria(new AlarmCriteria(filters.toArray(new Filter[] {}), SortStyle.FIRSTEVENTTIME, AcknowledgeType.BOTH, this.getMaxEntries(), AlarmCriteria.NO_OFFSET));
+        OnmsCriteria queryCriteria = AlarmUtil.getOnmsCriteria(new AlarmCriteria(filters.toArray(new Filter[] {}),
+                                                                                 SortStyle.FIRSTEVENTTIME,
+                                                                                 AcknowledgeType.BOTH,
+                                                                                 this.getMaxEntries(),
+                                                                                 AlarmCriteria.NO_OFFSET));
 
         OnmsAlarm[] alarms = m_webAlarmRepository.getMatchingAlarms(queryCriteria);
 

@@ -116,7 +116,6 @@ public class LdapPlugin extends AbstractPlugin {
      *            The remote host to connect to.
      * @param port
      *            The remote port to connect to.
-     *
      * @return True if server supports HTTP on the specified port, false
      *         otherwise
      */
@@ -172,7 +171,8 @@ public class LdapPlugin extends AbstractPlugin {
             // Connection failed, retry until attempts exceeded
             LOG.debug("LDAPPlugin: failed to connect within specified timeout");
         } catch (Throwable t) {
-            LOG.warn("{}: An undeclared throwable exception caught contacting host {}", getClass().getName(), InetAddressUtils.str(host), t);
+            LOG.warn("{}: An undeclared throwable exception caught contacting host {}", getClass().getName(),
+                     InetAddressUtils.str(host), t);
         } finally {
             try {
                 // close the socket channel
@@ -197,9 +197,8 @@ public class LdapPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -212,9 +211,8 @@ public class LdapPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to

@@ -110,11 +110,13 @@ public final class Notifd extends AbstractServiceDaemon {
      * Constructs a new Notifd service daemon.
      */
     protected Notifd() {
-    	super("notifd");
+        super("notifd");
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -163,7 +165,9 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>getConfigManager</p>
+     * <p>
+     * getConfigManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.NotifdConfigManager} object.
      */
@@ -172,16 +176,22 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setConfigManager</p>
+     * <p>
+     * setConfigManager
+     * </p>
      *
-     * @param manager a {@link org.opennms.netmgt.config.NotifdConfigManager} object.
+     * @param manager
+     *            a {@link org.opennms.netmgt.config.NotifdConfigManager}
+     *            object.
      */
-    public void setConfigManager(NotifdConfigManager manager ) {
+    public void setConfigManager(NotifdConfigManager manager) {
         m_configManager = manager;
     }
 
     /**
-     * <p>getGroupManager</p>
+     * <p>
+     * getGroupManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.GroupManager} object.
      */
@@ -190,16 +200,21 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setGroupManager</p>
+     * <p>
+     * setGroupManager
+     * </p>
      *
-     * @param manager a {@link org.opennms.netmgt.config.GroupManager} object.
+     * @param manager
+     *            a {@link org.opennms.netmgt.config.GroupManager} object.
      */
     public void setGroupManager(GroupManager manager) {
         m_groupManager = manager;
     }
 
     /**
-     * <p>getUserManager</p>
+     * <p>
+     * getUserManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.UserManager} object.
      */
@@ -208,52 +223,71 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setUserManager</p>
+     * <p>
+     * setUserManager
+     * </p>
      *
-     * @param manager a {@link org.opennms.netmgt.config.UserManager} object.
+     * @param manager
+     *            a {@link org.opennms.netmgt.config.UserManager} object.
      */
     public void setUserManager(UserManager manager) {
         m_userManager = manager;
     }
 
     /**
-     * <p>getDestinationPathManager</p>
+     * <p>
+     * getDestinationPathManager
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.DestinationPathManager} object.
+     * @return a {@link org.opennms.netmgt.config.DestinationPathManager}
+     *         object.
      */
     public DestinationPathManager getDestinationPathManager() {
         return m_destinationPathManager;
     }
 
     /**
-     * <p>setDestinationPathManager</p>
+     * <p>
+     * setDestinationPathManager
+     * </p>
      *
-     * @param manager a {@link org.opennms.netmgt.config.DestinationPathManager} object.
+     * @param manager
+     *            a {@link org.opennms.netmgt.config.DestinationPathManager}
+     *            object.
      */
     public void setDestinationPathManager(DestinationPathManager manager) {
         m_destinationPathManager = manager;
     }
 
     /**
-     * <p>getNotificationCommandManager</p>
+     * <p>
+     * getNotificationCommandManager
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.NotificationCommandManager} object.
+     * @return a {@link org.opennms.netmgt.config.NotificationCommandManager}
+     *         object.
      */
     public NotificationCommandManager getNotificationCommandManager() {
         return m_notificationCommandManager;
     }
 
     /**
-     * <p>setNotificationCommandManager</p>
+     * <p>
+     * setNotificationCommandManager
+     * </p>
      *
-     * @param manager a {@link org.opennms.netmgt.config.NotificationCommandManager} object.
+     * @param manager
+     *            a {@link org.opennms.netmgt.config.NotificationCommandManager}
+     *            object.
      */
     public void setNotificationCommandManager(NotificationCommandManager manager) {
         m_notificationCommandManager = manager;
     }
 
     /**
-     * <p>getNotificationManager</p>
+     * <p>
+     * getNotificationManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.NotificationManager} object.
      */
@@ -262,25 +296,34 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setNotificationManager</p>
+     * <p>
+     * setNotificationManager
+     * </p>
      *
-     * @param notificationManager a {@link org.opennms.netmgt.config.NotificationManager} object.
+     * @param notificationManager
+     *            a {@link org.opennms.netmgt.config.NotificationManager}
+     *            object.
      */
     public void setNotificationManager(NotificationManager notificationManager) {
         m_notificationManager = notificationManager;
     }
 
     /**
-     * <p>getBroadcastEventProcessor</p>
+     * <p>
+     * getBroadcastEventProcessor
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.notifd.BroadcastEventProcessor} object.
+     * @return a {@link org.opennms.netmgt.notifd.BroadcastEventProcessor}
+     *         object.
      */
     public BroadcastEventProcessor getBroadcastEventProcessor() {
         return m_eventReader;
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -290,7 +333,9 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -309,7 +354,9 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onPause</p>
+     * <p>
+     * onPause
+     * </p>
      */
     @Override
     protected void onPause() {
@@ -319,7 +366,9 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onResume</p>
+     * <p>
+     * onResume
+     * </p>
      */
     @Override
     protected void onResume() {
@@ -339,7 +388,9 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>getEventManager</p>
+     * <p>
+     * getEventManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -348,43 +399,58 @@ public final class Notifd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setEventManager</p>
+     * <p>
+     * setEventManager
+     * </p>
      *
-     * @param eventManager The eventManager to set.
+     * @param eventManager
+     *            The eventManager to set.
      */
     public void setEventManager(EventIpcManager eventManager) {
         m_eventManager = eventManager;
     }
 
     /**
-     * <p>setPollOutagesConfigManager</p>
+     * <p>
+     * setPollOutagesConfigManager
+     * </p>
      *
-     * @param configManager a {@link org.opennms.netmgt.config.PollOutagesConfigManager} object.
+     * @param configManager
+     *            a {@link org.opennms.netmgt.config.PollOutagesConfigManager}
+     *            object.
      */
     public void setPollOutagesConfigManager(PollOutagesConfigManager configManager) {
         m_pollOutagesConfigManager = configManager;
     }
 
     /**
-     * <p>getPollOutagesConfigManager</p>
+     * <p>
+     * getPollOutagesConfigManager
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.PollOutagesConfigManager} object.
+     * @return a {@link org.opennms.netmgt.config.PollOutagesConfigManager}
+     *         object.
      */
     public PollOutagesConfigManager getPollOutagesConfigManager() {
         return m_pollOutagesConfigManager;
     }
 
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
     /**
-     * <p>getNodeDao</p>
+     * <p>
+     * getNodeDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */

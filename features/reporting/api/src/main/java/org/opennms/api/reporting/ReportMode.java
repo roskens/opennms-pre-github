@@ -29,9 +29,13 @@
 package org.opennms.api.reporting;
 
 /**
- * <p>ReportMode class.</p>
+ * <p>
+ * ReportMode class.
+ * </p>
  *
  * @author jonathan@opennms.org
  * @version $Id: $
  */
-public enum ReportMode { IMMEDIATE, SCHEDULED }
+public enum ReportMode {
+    IMMEDIATE, SCHEDULED
+}

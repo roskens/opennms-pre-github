@@ -37,7 +37,9 @@ import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.springframework.core.io.Resource;
 
 /**
- * <p>ForeignSourceRepository interface.</p>
+ * <p>
+ * ForeignSourceRepository interface.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
@@ -45,147 +47,249 @@ import org.springframework.core.io.Resource;
 public interface ForeignSourceRepository {
 
     /**
-     * <p>getActiveForeignSourceNames</p>
+     * <p>
+     * getActiveForeignSourceNames
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
     public Set<String> getActiveForeignSourceNames();
 
     /**
-     * <p>getForeignSourceCount</p>
+     * <p>
+     * getForeignSourceCount
+     * </p>
      *
      * @return a int.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public int getForeignSourceCount() throws ForeignSourceRepositoryException;
+
     /**
-     * <p>getForeignSources</p>
+     * <p>
+     * getForeignSources
+     * </p>
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException;
+
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
-     * @param foreignSourceName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param foreignSourceName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public ForeignSource getForeignSource(String foreignSourceName) throws ForeignSourceRepositoryException;
+
     /**
-     * <p>save</p>
+     * <p>
+     * save
+     * </p>
      *
-     * @param foreignSource a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param foreignSource
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *            object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public void save(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
+
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param foreignSource a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param foreignSource
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *            object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public void delete(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
 
     /**
-     * <p>getDefaultForeignSource</p>
+     * <p>
+     * getDefaultForeignSource
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException;
+
     /**
-     * <p>putDefaultForeignSource</p>
+     * <p>
+     * putDefaultForeignSource
+     * </p>
      *
-     * @param foreignSource a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param foreignSource
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *            object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public void putDefaultForeignSource(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
+
     /**
-     * <p>resetDefaultForeignSource</p>
+     * <p>
+     * resetDefaultForeignSource
+     * </p>
      *
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public void resetDefaultForeignSource() throws ForeignSourceRepositoryException;
 
     /**
-     * <p>importResourceRequisition</p>
+     * <p>
+     * importResourceRequisition
+     * </p>
      *
-     * @param resource a {@link org.springframework.core.io.Resource} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param resource
+     *            a {@link org.springframework.core.io.Resource} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *         object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public Requisition importResourceRequisition(Resource resource) throws ForeignSourceRepositoryException;
+
     /**
-     * <p>getRequisitions</p>
+     * <p>
+     * getRequisitions
+     * </p>
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException;
+
     /**
-     * <p>getRequisition</p>
+     * <p>
+     * getRequisition
+     * </p>
      *
-     * @param foreignSourceName a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param foreignSourceName
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *         object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public Requisition getRequisition(String foreignSourceName) throws ForeignSourceRepositoryException;
+
     /**
-     * <p>getRequisition</p>
+     * <p>
+     * getRequisition
+     * </p>
      *
-     * @param foreignSource a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param foreignSource
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *         object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public Requisition getRequisition(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
 
     /**
-     * <p>getRequisitionDate</p>
-     * @param foreignSource the Foreign Source name of the requisition.
+     * <p>
+     * getRequisitionDate
+     * </p>
+     *
+     * @param foreignSource
+     *            the Foreign Source name of the requisition.
      * @return The date-stamp of the requisition, as a {@link java.util.Date}
      */
     public Date getRequisitionDate(String foreignSource);
 
     /**
-     * <p>getRequisitionURL</p>
+     * <p>
+     * getRequisitionURL
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
      * @return a {@link java.net.URL} object.
      */
     public URL getRequisitionURL(String foreignSource);
+
     /**
-     * <p>save</p>
+     * <p>
+     * save
+     * </p>
      *
-     * @param requisition a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param requisition
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *            object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public void save(Requisition requisition) throws ForeignSourceRepositoryException;
+
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param requisition a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param requisition
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *            object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public void delete(Requisition requisition) throws ForeignSourceRepositoryException;
 
     /**
-     * <p>getNodeRequisition</p>
+     * <p>
+     * getNodeRequisition
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.OnmsNodeRequisition} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.OnmsNodeRequisition}
+     *         object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
-    public OnmsNodeRequisition getNodeRequisition(String foreignSource, String foreignId) throws ForeignSourceRepositoryException;
+    public OnmsNodeRequisition getNodeRequisition(String foreignSource, String foreignId)
+            throws ForeignSourceRepositoryException;
 
     public void validate(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
 
     public void validate(Requisition requisition) throws ForeignSourceRepositoryException;
 
     /**
-     * For performance reasons, a get after a save on a ForeignSourceRepository is not guaranteed to
+     * For performance reasons, a get after a save on a ForeignSourceRepository
+     * is not guaranteed to
      * return the latest saved data unless you flush first.
      *
      * @throws ForeignSourceRepositoryException

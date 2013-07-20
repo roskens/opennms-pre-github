@@ -42,15 +42,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * Factory that controls creation of MINA {@link NioSocketConnector} connections.
- * This will allow us to reuse {@link NioSocketConnector} instances to improve
- * performance and avoid file handle leaks caused by using too many {@link NioSocketConnector}
- * instances simultaneously.
+ * Factory that controls creation of MINA {@link NioSocketConnector}
+ * connections. This will allow us to reuse {@link NioSocketConnector} instances
+ * to improve performance and avoid file handle leaks caused by using too many
+ * {@link NioSocketConnector} instances simultaneously.
  * </p>
- *
  * <p>
- * Because of the way that the MINA API works, there will be one {@link ConnectionFactory}
- * for each discrete connection timeout value.
+ * Because of the way that the MINA API works, there will be one
+ * {@link ConnectionFactory} for each discrete connection timeout value.
  * </p>
  *
  * @author Seth
@@ -60,7 +59,8 @@ import org.slf4j.LoggerFactory;
 public abstract class ConnectionFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionFactory.class);
-	/** Map of timeoutInMillis to a ConnectionFactory with that timeout */
+
+    /** Map of timeoutInMillis to a ConnectionFactory with that timeout */
     private static final ConcurrentHashMap<Integer, ConnectionFactory> s_connectorPool = new ConcurrentHashMap<Integer, ConnectionFactory>();
 
     /**
@@ -79,29 +79,34 @@ public abstract class ConnectionFactory {
     }
 
     /**
-     * Create a new factory. Private because one should use {@link #getFactory(int)}
+     * Create a new factory. Private because one should use
+     * {@link #getFactory(int)}
      */
     protected ConnectionFactory(int timeoutInMillis) {
         m_timeout = timeoutInMillis;
     }
 
     /**
-     * <p>Get a new ConnectionFactory. If there is already a Factory with the
-     * desired timeout, you will get that one; otherwise a new one is created.</p>
-     *
-     * <p>If org.opennms.netmgt.provision.maxConcurrentConnectors is set, this may
-     * block until a connector is available.</p>
+     * <p>
+     * Get a new ConnectionFactory. If there is already a Factory with the
+     * desired timeout, you will get that one; otherwise a new one is created.
+     * </p>
+     * <p>
+     * If org.opennms.netmgt.provision.maxConcurrentConnectors is set, this may
+     * block until a connector is available.
+     * </p>
      *
      * @param timeoutInMillis
-     * 		Connection timeout
+     *            Connection timeout
      * @return
-     * 		An appropriate Factory
+     *         An appropriate Factory
      */
     public static final ConnectionFactory getFactory(int timeoutInMillis) {
         synchronized (s_connectorPool) {
             ConnectionFactory factory = s_connectorPool.get(timeoutInMillis);
             if (factory == null) {
-                LOG.debug("Creating a ConnectionFactory for timeout {}, there are {} factories total", timeoutInMillis, s_connectorPool.size());
+                LOG.debug("Creating a ConnectionFactory for timeout {}, there are {} factories total", timeoutInMillis,
+                          s_connectorPool.size());
                 ConnectionFactory newFactory = createConnectionFactory(timeoutInMillis);
                 factory = s_connectorPool.putIfAbsent(timeoutInMillis, newFactory);
                 // If there was no previous value for the factory in the map...
@@ -109,7 +114,8 @@ public abstract class ConnectionFactory {
                     // ...then use the new value.
                     factory = newFactory;
                 } else {
-                    LOG.debug("ConnectionFactory for timeout {} was already created in another thread!", timeoutInMillis);
+                    LOG.debug("ConnectionFactory for timeout {} was already created in another thread!",
+                              timeoutInMillis);
                     // Dispose of the new unused factory
                     dispose(newFactory);
                 }
@@ -120,36 +126,43 @@ public abstract class ConnectionFactory {
     }
 
     private static final ConnectionFactory createConnectionFactory(int timeout) {
-        //return new ConnectionFactoryConnectorPoolImpl(timeout);
+        // return new ConnectionFactoryConnectorPoolImpl(timeout);
         return new ConnectionFactoryNewConnectorImpl(timeout);
     }
 
     /**
-     * <p>Connect to a remote socket. If org.opennms.netmgt.provision.maxConcurrentConnections
-     * is set, this may block until a connection slot is available.</p>
-     *
-     * <p>You must dispose the {@link ConnectionFactory} when done
-     * by calling {@link #dispose(ConnectionFactory)}.</p>
+     * <p>
+     * Connect to a remote socket. If
+     * org.opennms.netmgt.provision.maxConcurrentConnections is set, this may
+     * block until a connection slot is available.
+     * </p>
+     * <p>
+     * You must dispose the {@link ConnectionFactory} when done by calling
+     * {@link #dispose(ConnectionFactory)}.
+     * </p>
      *
      * @param remoteAddress
-     * 		Destination address
+     *            Destination address
      * @param init
-     * 		Initialiser for the IoSession
+     *            Initialiser for the IoSession
      * @return
-     * 		ConnectFuture from a Mina connect call
+     *         ConnectFuture from a Mina connect call
      */
-    public abstract ConnectFuture connect(SocketAddress remoteAddress, IoSessionInitializer<? extends ConnectFuture> init, IoHandler handler);
+    public abstract ConnectFuture connect(SocketAddress remoteAddress,
+            IoSessionInitializer<? extends ConnectFuture> init, IoHandler handler);
 
     /**
      * Retry a connection. This does not consume a connection slot, so will not
      * block or throw {@link InterruptedException}. Use only if you have already
-     * acquired a connection slot using {@link #connect(SocketAddress, IoSessionInitializer)}.
+     * acquired a connection slot using
+     * {@link #connect(SocketAddress, IoSessionInitializer)}.
      *
      * @param remoteAddress
      * @param init
      * @return
      */
-    public abstract ConnectFuture reConnect(SocketAddress remoteAddress, IoSessionInitializer<? extends ConnectFuture> init, IoHandler handler);
+    public abstract ConnectFuture reConnect(SocketAddress remoteAddress,
+            IoSessionInitializer<? extends ConnectFuture> init, IoHandler handler);
 
     /**
      * Dispose of any resources that are held by the connection.
@@ -158,6 +171,7 @@ public abstract class ConnectionFactory {
 
     /**
      * Free up the resources used by a connection and connection factory.
+     *
      * @param factory
      * @param connection
      */
@@ -168,14 +182,15 @@ public abstract class ConnectionFactory {
             synchronized (s_connectorPool) {
                 LOG.debug("Disposing of factory {} for interval {}", factory, factory.m_timeout);
                 Iterator<Entry<Integer, ConnectionFactory>> i = s_connectorPool.entrySet().iterator();
-                while(i.hasNext()) {
-                    if(i.next().getValue() == factory) {
+                while (i.hasNext()) {
+                    if (i.next().getValue() == factory) {
                         i.remove();
                     }
                 }
             }
 
-            // Call dispose on the factory itself now that there are no references to it
+            // Call dispose on the factory itself now that there are no
+            // references to it
             factory.dispose();
         }
     }

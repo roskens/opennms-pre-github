@@ -37,13 +37,13 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.util.Assert;
 
 /**
- * Implements a relative change threshold check.  A 'value' setting of
+ * Implements a relative change threshold check. A 'value' setting of
  * less than 1.0 means that a threshold will fire if the current value
  * is less than or equal to the previous value multiplied by the 'value'
- * setting.  A 'value' setting greater than 1.0 causes the threshold to
+ * setting. A 'value' setting greater than 1.0 causes the threshold to
  * fire if the current value is greater than or equal to the previous
- * value multiplied by the 'value' setting.  A 'value' setting of 1.0
- * (unity) is not allowed, as it represents no change.  Zero valued
+ * value multiplied by the 'value' setting. A 'value' setting of 1.0
+ * (unity) is not allowed, as it represents no change. Zero valued
  * samples (0.0) are ignored, as 0.0 multiplied by anything is 0.0 (if
  * they were not ignored, an interface that gets no traffic would always
  * trigger a threshold, for example).
@@ -69,9 +69,11 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
 
     public static class ThresholdEvaluatorStateRelativeChange extends AbstractThresholdEvaluatorState {
         private BaseThresholdDefConfigWrapper m_thresholdConfig;
+
         private double m_multiplier;
 
         private double m_lastSample = 0.0;
+
         private double m_previousTriggeringSample;
 
         public ThresholdEvaluatorStateRelativeChange(BaseThresholdDefConfigWrapper threshold) {
@@ -88,10 +90,17 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
             Assert.isTrue(thresholdConfig.hasRearm(), "threshold must have a 'rearm' value set");
             Assert.isTrue(thresholdConfig.hasTrigger(), "threshold must have a 'trigger' value set");
 
-            Assert.isTrue(TYPE.equals(thresholdConfig.getType()), "threshold for ds-name '" + thresholdConfig.getDatasourceExpression() + "' has type of '" + thresholdConfig.getType() + "', but this evaluator only supports thresholds with a 'type' value of '" + TYPE + "'");
+            Assert.isTrue(TYPE.equals(thresholdConfig.getType()),
+                          "threshold for ds-name '" + thresholdConfig.getDatasourceExpression() + "' has type of '"
+                                  + thresholdConfig.getType()
+                                  + "', but this evaluator only supports thresholds with a 'type' value of '" + TYPE
+                                  + "'");
 
-            Assert.isTrue(!Double.isNaN(thresholdConfig.getValue()), "threshold must have a 'value' value that is a number");
-            Assert.isTrue(thresholdConfig.getValue() != Double.POSITIVE_INFINITY && thresholdConfig.getValue() != Double.NEGATIVE_INFINITY, "threshold must have a 'value' value that is not positive or negative infinity");
+            Assert.isTrue(!Double.isNaN(thresholdConfig.getValue()),
+                          "threshold must have a 'value' value that is a number");
+            Assert.isTrue(thresholdConfig.getValue() != Double.POSITIVE_INFINITY
+                                  && thresholdConfig.getValue() != Double.NEGATIVE_INFINITY,
+                          "threshold must have a 'value' value that is not positive or negative infinity");
             Assert.isTrue(thresholdConfig.getValue() != 1.0, "threshold must not be unity (1.0)");
 
             m_thresholdConfig = thresholdConfig;
@@ -105,11 +114,13 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
 
         @Override
         public Status evaluate(double dsValue) {
-        	//Fix for Bug 2275 so we handle negative numbers
-        	//It will not handle values which cross the 0 boundary (from - to +, or v.v.) properly, but
-        	// after some discussion, we can't come up with a sensible scenario when that would actually happen.
-        	// If such a scenario eventuates, reconsider
-        	dsValue=Math.abs(dsValue);
+            // Fix for Bug 2275 so we handle negative numbers
+            // It will not handle values which cross the 0 boundary (from - to
+            // +, or v.v.) properly, but
+            // after some discussion, we can't come up with a sensible scenario
+            // when that would actually happen.
+            // If such a scenario eventuates, reconsider
+            dsValue = Math.abs(dsValue);
             if (getLastSample() != 0.0) {
                 double threshold = getMultiplier() * getLastSample();
 
@@ -145,9 +156,9 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
         @Override
         public Event getEventForState(Status status, Date date, double dsValue, CollectionResourceWrapper resource) {
             if (status == Status.TRIGGERED) {
-                String uei=getThresholdConfig().getTriggeredUEI();
-                if(uei==null || "".equals(uei)) {
-                    uei=EventConstants.RELATIVE_CHANGE_THRESHOLD_EVENT_UEI;
+                String uei = getThresholdConfig().getTriggeredUEI();
+                if (uei == null || "".equals(uei)) {
+                    uei = EventConstants.RELATIVE_CHANGE_THRESHOLD_EVENT_UEI;
                 }
                 return createBasicEvent(uei, date, dsValue, resource);
             } else {
@@ -156,11 +167,13 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
         }
 
         private Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource) {
-            Map<String,String> params = new HashMap<String,String>();
+            Map<String, String> params = new HashMap<String, String>();
             params.put("previousValue", formatValue(getPreviousTriggeringSample()));
             params.put("multiplier", Double.toString(getThresholdConfig().getValue()));
-            // params.put("trigger", Integer.toString(getThresholdConfig().getTrigger()));
-            // params.put("rearm", Double.toString(getThresholdConfig().getRearm()));
+            // params.put("trigger",
+            // Integer.toString(getThresholdConfig().getTrigger()));
+            // params.put("rearm",
+            // Double.toString(getThresholdConfig().getRearm()));
             return createBasicEvent(uei, date, dsValue, resource, params);
         }
 

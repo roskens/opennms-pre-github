@@ -37,7 +37,7 @@ public class InetAddressTypeEditor extends PropertyEditorSupport {
 
     @Override
     public String getAsText() {
-        return InetAddressUtils.str((InetAddress)getValue());
+        return InetAddressUtils.str((InetAddress) getValue());
     }
 
     @Override

@@ -72,22 +72,21 @@ import org.snmp4j.smi.Variable;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
-
 @RunWith(Parameterized.class)
-public class MockSnmpAgentTest  {
+public class MockSnmpAgentTest {
 
     @Parameters
     public static Collection<Object[]> versions() {
-        return Arrays.asList(new Object[][] {
-                { SnmpConstants.version1 },
-                { SnmpConstants.version2c },
-                { SnmpConstants.version3 },
-        });
+        return Arrays.asList(new Object[][] { { SnmpConstants.version1 }, { SnmpConstants.version2c },
+                { SnmpConstants.version3 }, });
     }
 
     private MockSnmpAgent m_agent;
+
     private USM m_usm;
+
     private ArrayList<AnticipatedRequest> m_requestedVarbinds;
+
     private int m_version;
 
     private static long DEFAULT_TIMEOUT = 5000;
@@ -98,16 +97,19 @@ public class MockSnmpAgentTest  {
 
     private class AnticipatedRequest {
         private String m_requestedOid;
+
         private Variable m_requestedValue;
+
         private String m_expectedOid;
+
         private int m_expectedSyntax;
+
         private Variable m_expectedValue;
 
         public AnticipatedRequest(String requestedOid, Variable requestedValue) {
             m_requestedOid = requestedOid;
             m_requestedValue = requestedValue;
         }
-
 
         public void andExpect(String expectedOid, int expectedSyntax, Variable expectedValue) {
             m_expectedOid = expectedOid;
@@ -135,7 +137,6 @@ public class MockSnmpAgentTest  {
 
     }
 
-
     @Before
     public void setUp() throws Exception {
         // Create a global USM that all client calls will use
@@ -143,7 +144,9 @@ public class MockSnmpAgentTest  {
         m_usm = new USM(SecurityProtocols.getInstance(), new OctetString(MPv3.createLocalEngineID()), 0);
         SecurityModels.getInstance().addSecurityModel(m_usm);
 
-        m_agent = MockSnmpAgent.createAgentAndRun(classPathResource("loadSnmpDataTest.properties"), "127.0.0.1/1691");	// Homage to Empire
+        m_agent = MockSnmpAgent.createAgentAndRun(classPathResource("loadSnmpDataTest.properties"), "127.0.0.1/1691"); // Homage
+                                                                                                                       // to
+                                                                                                                       // Empire
 
         m_requestedVarbinds = new ArrayList<AnticipatedRequest>();
     }
@@ -170,9 +173,9 @@ public class MockSnmpAgentTest  {
         m_requestedVarbinds.clear();
     }
 
-
     /**
      * Make sure that we can setUp() and tearDown() the agent.
+     *
      * @throws InterruptedException
      */
     @Test
@@ -248,7 +251,8 @@ public class MockSnmpAgentTest  {
         doGetNext();
 
         // This statement breaks the internal state of the SNMP4J agent
-        // m_agent.getUsm().setLocalEngine(m_agent.getUsm().getLocalEngineID(), 15, 200);
+        // m_agent.getUsm().setLocalEngine(m_agent.getUsm().getLocalEngineID(),
+        // 15, 200);
         m_agent.getUsm().removeEngineTime(m_usm.getLocalEngineID());
         m_usm.removeEngineTime(m_agent.getUsm().getLocalEngineID());
 
@@ -261,7 +265,6 @@ public class MockSnmpAgentTest  {
     public void testSet() throws Exception {
 
         final String oid = "1.3.5.1.1.3.0";
-
 
         // current value is 42
         request(oid).andExpect(oid, SMIConstants.SYNTAX_INTEGER, new Integer32(42));
@@ -290,7 +293,8 @@ public class MockSnmpAgentTest  {
         doGet();
 
         // This statement breaks the internal state of the SNMP4J agent
-        // m_agent.getUsm().setLocalEngine(m_agent.getUsm().getLocalEngineID(), 15, 200);
+        // m_agent.getUsm().setLocalEngine(m_agent.getUsm().getLocalEngineID(),
+        // 15, 200);
         m_agent.getUsm().removeEngineTime(m_usm.getLocalEngineID());
         m_usm.removeEngineTime(m_agent.getUsm().getLocalEngineID());
 
@@ -344,7 +348,7 @@ public class MockSnmpAgentTest  {
         pdu.add(new VariableBinding(oid));
         pdu.setType(PDU.GET);
 
-        PDU response = sendRequest(pdu,m_version);
+        PDU response = sendRequest(pdu, m_version);
         // Verify that the request does in fact timeout
         assertNull("request timed out", response);
 
@@ -385,7 +389,7 @@ public class MockSnmpAgentTest  {
     private void requestAndVerifyResponse(int pduType, int version) throws Exception {
         PDU pdu = createPDU(version);
 
-        for(AnticipatedRequest a : m_requestedVarbinds) {
+        for (AnticipatedRequest a : m_requestedVarbinds) {
             pdu.add(a.getRequestVarbind());
         }
         pdu.setType(pduType);
@@ -393,12 +397,14 @@ public class MockSnmpAgentTest  {
         PDU response = sendRequest(pdu, version);
 
         assertNotNull("request timed out", response);
-        System.err.println("Response is: "+response);
-        assertTrue("unexpected report pdu: " + ((VariableBinding)response.getVariableBindings().get(0)).getOid(), response.getType() != PDU.REPORT);
+        System.err.println("Response is: " + response);
+        assertTrue("unexpected report pdu: " + ((VariableBinding) response.getVariableBindings().get(0)).getOid(),
+                   response.getType() != PDU.REPORT);
 
-        assertEquals("Unexpected number of varbinds returned.", m_requestedVarbinds.size(), response.getVariableBindings().size());
+        assertEquals("Unexpected number of varbinds returned.", m_requestedVarbinds.size(),
+                     response.getVariableBindings().size());
 
-        for(int i = 0; i < m_requestedVarbinds.size(); i++) {
+        for (int i = 0; i < m_requestedVarbinds.size(); i++) {
             AnticipatedRequest a = m_requestedVarbinds.get(i);
             VariableBinding vb = response.get(i);
             a.verify(vb);
@@ -513,6 +519,5 @@ public class MockSnmpAgentTest  {
     private URL classPathResource(String path) {
         return getClass().getClassLoader().getResource(path);
     }
-
 
 }

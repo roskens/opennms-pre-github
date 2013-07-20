@@ -3,15 +3,25 @@ package org.opennms.features.topology.app.internal.gwt.client;
 public class SharedVertex {
 
     private String m_key;
+
     private int m_initialX;
+
     private int m_initialY;
+
     private int m_x;
+
     private int m_y;
+
     private boolean m_selected;
+
     private String m_status;
+
     private String m_iconUrl;
+
     private String m_label;
+
     private String m_tooltipText;
+
     private String m_statusCount = "0";
 
     /**
@@ -22,7 +32,8 @@ public class SharedVertex {
     }
 
     /**
-     * @param statusCount the statusCount to set
+     * @param statusCount
+     *            the statusCount to set
      */
     public void setStatusCount(String statusCount) {
         this.m_statusCount = statusCount;

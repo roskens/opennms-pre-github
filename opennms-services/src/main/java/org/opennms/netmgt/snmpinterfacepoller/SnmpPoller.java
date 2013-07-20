@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.snmpinterfacepoller;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.SnmpEventInfo;
@@ -57,7 +56,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 
-@EventListener(name="snmpPoller", logPrefix="snmp-poller")
+@EventListener(name = "snmpPoller", logPrefix = "snmp-poller")
 public class SnmpPoller extends AbstractServiceDaemon {
 
     private final static Logger LOG = LoggerFactory.getLogger(SnmpPoller.class);
@@ -73,26 +72,36 @@ public class SnmpPoller extends AbstractServiceDaemon {
     private PollableNetwork m_network;
 
     /**
-     * <p>getNetwork</p>
+     * <p>
+     * getNetwork
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork} object.
+     * @return a
+     *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork}
+     *         object.
      */
     public PollableNetwork getNetwork() {
         return m_network;
     }
 
     /**
-     * <p>setNetwork</p>
+     * <p>
+     * setNetwork
+     * </p>
      *
-     * @param pollableNetwork a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork} object.
+     * @param pollableNetwork
+     *            a
+     *            {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork}
+     *            object.
      */
-    public void setNetwork(
-            PollableNetwork pollableNetwork) {
+    public void setNetwork(PollableNetwork pollableNetwork) {
         m_network = pollableNetwork;
     }
 
     /**
-     * <p>isInitialized</p>
+     * <p>
+     * isInitialized
+     * </p>
      *
      * @return a boolean.
      */
@@ -101,7 +110,9 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>getScheduler</p>
+     * <p>
+     * getScheduler
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.scheduler.Scheduler} object.
      */
@@ -110,35 +121,46 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setScheduler</p>
+     * <p>
+     * setScheduler
+     * </p>
      *
-     * @param scheduler a {@link org.opennms.netmgt.scheduler.LegacyScheduler} object.
+     * @param scheduler
+     *            a {@link org.opennms.netmgt.scheduler.LegacyScheduler} object.
      */
     public void setScheduler(LegacyScheduler scheduler) {
         m_scheduler = scheduler;
     }
 
     /**
-     * <p>getPollerConfig</p>
+     * <p>
+     * getPollerConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.SnmpInterfacePollerConfig} object.
+     * @return a {@link org.opennms.netmgt.config.SnmpInterfacePollerConfig}
+     *         object.
      */
     public SnmpInterfacePollerConfig getPollerConfig() {
         return m_pollerConfig;
     }
 
     /**
-     * <p>setPollerConfig</p>
+     * <p>
+     * setPollerConfig
+     * </p>
      *
-     * @param snmpinterfacepollerConfig a {@link org.opennms.netmgt.config.SnmpInterfacePollerConfig} object.
+     * @param snmpinterfacepollerConfig
+     *            a {@link org.opennms.netmgt.config.SnmpInterfacePollerConfig}
+     *            object.
      */
-    public void setPollerConfig(
-            SnmpInterfacePollerConfig snmpinterfacepollerConfig) {
+    public void setPollerConfig(SnmpInterfacePollerConfig snmpinterfacepollerConfig) {
         m_pollerConfig = snmpinterfacepollerConfig;
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -157,12 +179,14 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
 
-        if(getScheduler()!=null) {
+        if (getScheduler() != null) {
             LOG.debug("onStop: stopping scheduler");
             getScheduler().stop();
         }
@@ -171,7 +195,9 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onPause</p>
+     * <p>
+     * onPause
+     * </p>
      */
     @Override
     protected void onPause() {
@@ -179,7 +205,9 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onResume</p>
+     * <p>
+     * onResume
+     * </p>
      */
     @Override
     protected void onResume() {
@@ -187,16 +215,21 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.snmpinterfacepoller.SnmpPoller} object.
+     * @return a {@link org.opennms.netmgt.snmpinterfacepoller.SnmpPoller}
+     *         object.
      */
     public static SnmpPoller getInstance() {
         return m_singleton;
     }
 
     /**
-     * <p>Constructor for SnmpPoller.</p>
+     * <p>
+     * Constructor for SnmpPoller.
+     * </p>
      */
     public SnmpPoller() {
         super("snmp-poller");
@@ -222,33 +255,42 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>scheduleNewSnmpInterface</p>
+     * <p>
+     * scheduleNewSnmpInterface
+     * </p>
      *
-     * @param ipaddr a {@link java.lang.String} object.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
      */
     protected void scheduleNewSnmpInterface(String ipaddr) {
 
-    	for (OnmsIpInterface iface : getNetwork().getContext().getPollableNodesByIp(ipaddr)) {
+        for (OnmsIpInterface iface : getNetwork().getContext().getPollableNodesByIp(ipaddr)) {
             schedulePollableInterface(iface);
-    	}
+        }
 
     }
 
     /**
-     * <p>scheduleExistingSnmpInterface</p>
+     * <p>
+     * scheduleExistingSnmpInterface
+     * </p>
      */
     protected void scheduleExistingSnmpInterface() {
 
-    	for (OnmsIpInterface iface : getNetwork().getContext().getPollableNodes()) {
+        for (OnmsIpInterface iface : getNetwork().getContext().getPollableNodes()) {
             schedulePollableInterface(iface);
-    	}
+        }
     }
 
     /**
-     * <p>schedulePollableInterface</p>
+     * <p>
+     * schedulePollableInterface
+     * </p>
      *
-     * @param nodeid a int.
-     * @param ipaddress a {@link java.lang.String} object.
+     * @param nodeid
+     *            a int.
+     * @param ipaddress
+     *            a {@link java.lang.String} object.
      */
     protected void schedulePollableInterface(OnmsIpInterface iface) {
         String ipaddress = iface.getIpAddress().getHostAddress();
@@ -256,21 +298,23 @@ public class SnmpPoller extends AbstractServiceDaemon {
         if (ipaddress != null && !ipaddress.equals("0.0.0.0")) {
             String pkgName = getPollerConfig().getPackageName(ipaddress);
             if (pkgName != null) {
-                LOG.debug("Scheduling snmppolling for node: {} ip address: {} - Found package interface with name: {}", nodeid, ipaddress, pkgName);
-                scheduleSnmpCollection(getNetwork().create(nodeid,ipaddress,pkgName), pkgName);
+                LOG.debug("Scheduling snmppolling for node: {} ip address: {} - Found package interface with name: {}",
+                          nodeid, ipaddress, pkgName);
+                scheduleSnmpCollection(getNetwork().create(nodeid, ipaddress, pkgName), pkgName);
             } else if (!getPollerConfig().useCriteriaFilters()) {
-                LOG.debug("No SNMP Poll Package found for node: {} ip address: {}. - Scheduling according with default interval", nodeid, ipaddress);
+                LOG.debug("No SNMP Poll Package found for node: {} ip address: {}. - Scheduling according with default interval",
+                          nodeid, ipaddress);
                 scheduleSnmpCollection(getNetwork().create(nodeid, ipaddress, "null"), "null");
             }
         }
     }
 
-    private void scheduleSnmpCollection(PollableInterface nodeGroup,String pkgName) {
+    private void scheduleSnmpCollection(PollableInterface nodeGroup, String pkgName) {
 
-    	String excludingCriteria = new String(" snmpifindex > 0 ");
-        for (String pkgInterfaceName: getPollerConfig().getInterfaceOnPackage(pkgName)) {
+        String excludingCriteria = new String(" snmpifindex > 0 ");
+        for (String pkgInterfaceName : getPollerConfig().getInterfaceOnPackage(pkgName)) {
             LOG.debug("found package interface with name: {}", pkgInterfaceName);
-            if (getPollerConfig().getStatus(pkgName, pkgInterfaceName)){
+            if (getPollerConfig().getStatus(pkgName, pkgInterfaceName)) {
 
                 String criteria = getPollerConfig().getCriteria(pkgName, pkgInterfaceName);
                 LOG.debug("package interface: criteria: {}", criteria);
@@ -281,38 +325,44 @@ public class SnmpPoller extends AbstractServiceDaemon {
 
                 boolean hasPort = getPollerConfig().hasPort(pkgName, pkgInterfaceName);
                 int port = -1;
-                if (hasPort) port = getPollerConfig().getPort(pkgName, pkgInterfaceName);
+                if (hasPort)
+                    port = getPollerConfig().getPort(pkgName, pkgInterfaceName);
 
                 boolean hasTimeout = getPollerConfig().hasTimeout(pkgName, pkgInterfaceName);
                 int timeout = -1;
-                if (hasTimeout) timeout = getPollerConfig().getTimeout(pkgName, pkgInterfaceName);
+                if (hasTimeout)
+                    timeout = getPollerConfig().getTimeout(pkgName, pkgInterfaceName);
 
                 boolean hasRetries = getPollerConfig().hasRetries(pkgName, pkgInterfaceName);
                 int retries = -1;
-                if (hasRetries) retries = getPollerConfig().getRetries(pkgName, pkgInterfaceName);
+                if (hasRetries)
+                    retries = getPollerConfig().getRetries(pkgName, pkgInterfaceName);
 
                 boolean hasMaxVarsPerPdu = getPollerConfig().hasMaxVarsPerPdu(pkgName, pkgInterfaceName);
                 int maxVarsPerPdu = -1;
-                if (hasMaxVarsPerPdu) maxVarsPerPdu = getPollerConfig().getMaxVarsPerPdu(pkgName, pkgInterfaceName);
+                if (hasMaxVarsPerPdu)
+                    maxVarsPerPdu = getPollerConfig().getMaxVarsPerPdu(pkgName, pkgInterfaceName);
 
-                PollableSnmpInterface node = nodeGroup.createPollableSnmpInterface(pkgInterfaceName, criteria,
-                   hasPort, port, hasTimeout, timeout, hasRetries, retries, hasMaxVarsPerPdu, maxVarsPerPdu);
+                PollableSnmpInterface node = nodeGroup.createPollableSnmpInterface(pkgInterfaceName, criteria, hasPort,
+                                                                                   port, hasTimeout, timeout,
+                                                                                   hasRetries, retries,
+                                                                                   hasMaxVarsPerPdu, maxVarsPerPdu);
 
                 node.setSnmpinterfaces(getNetwork().getContext().get(node.getParent().getNodeid(), criteria));
 
-                getNetwork().schedule(node,interval,getScheduler());
+                getNetwork().schedule(node, interval, getScheduler());
             } else {
                 LOG.debug("package interface status: Off");
             }
         }
         if (!getPollerConfig().useCriteriaFilters()) {
             LOG.debug("excluding criteria used for default polling: {}", excludingCriteria);
-            PollableSnmpInterface node = nodeGroup.createPollableSnmpInterface("null", excludingCriteria,
-                false, -1, false, -1, false, -1, false, -1);
+            PollableSnmpInterface node = nodeGroup.createPollableSnmpInterface("null", excludingCriteria, false, -1,
+                                                                               false, -1, false, -1, false, -1);
 
             node.setSnmpinterfaces(getNetwork().getContext().get(node.getParent().getNodeid(), excludingCriteria));
 
-            getNetwork().schedule(node,getPollerConfig().getInterval(),getScheduler());
+            getNetwork().schedule(node, getPollerConfig().getInterval(), getScheduler());
         }
     }
 
@@ -331,9 +381,12 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>reloadSnmpConfig</p>
+     * <p>
+     * reloadSnmpConfig
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.CONFIGURE_SNMP_EVENT_UEI)
     public void reloadSnmpConfig(Event event) {
@@ -372,9 +425,12 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>reloadConfig</p>
+     * <p>
+     * reloadConfig
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.SNMPPOLLERCONFIG_CHANGED_EVENT_UEI)
     public void reloadConfig(Event event) {
@@ -384,14 +440,17 @@ public class SnmpPoller extends AbstractServiceDaemon {
             getNetwork().deleteAll();
             scheduleExistingSnmpInterface();
         } catch (Throwable e) {
-            LOG.error("Update SnmpPoller configuration file failed",e);
+            LOG.error("Update SnmpPoller configuration file failed", e);
         }
     }
 
     /**
-     * <p>primarychangeHandler</p>
+     * <p>
+     * primarychangeHandler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.PRIMARY_SNMP_INTERFACE_CHANGED_EVENT_UEI)
     public void primarychangeHandler(Event event) {
@@ -399,7 +458,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
 
         getNetwork().delete(Long.valueOf(event.getNodeid()).intValue());
 
-        for (Parm parm : event.getParmCollection()){
+        for (Parm parm : event.getParmCollection()) {
             if (parm.isValid() && parm.getParmName().equals("newPrimarySnmpAddress")) {
                 scheduleNewSnmpInterface(parm.getValue().getContent());
                 return;
@@ -408,39 +467,51 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>deleteInterfaceHaldler</p>
+     * <p>
+     * deleteInterfaceHaldler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.DELETE_INTERFACE_EVENT_UEI)
-    public void deleteInterfaceHaldler(Event event){
+    public void deleteInterfaceHaldler(Event event) {
         getNetwork().delete(event.getInterface());
     }
 
     /**
-     * <p>scanCompletedHaldler</p>
+     * <p>
+     * scanCompletedHaldler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.PROVISION_SCAN_COMPLETE_UEI)
-    public void scanCompletedHaldler(Event event){
+    public void scanCompletedHaldler(Event event) {
         getNetwork().refresh(Long.valueOf(event.getNodeid()).intValue());
     }
 
     /**
-     * <p>rescanCompletedHaldler</p>
+     * <p>
+     * rescanCompletedHaldler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.RESCAN_COMPLETED_EVENT_UEI)
-    public void rescanCompletedHaldler(Event event){
+    public void rescanCompletedHaldler(Event event) {
         getNetwork().refresh(Long.valueOf(event.getNodeid()).intValue());
     }
 
     /**
-     * <p>nodeDeletedHandler</p>
+     * <p>
+     * nodeDeletedHandler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_DELETED_EVENT_UEI)
     public void nodeDeletedHandler(Event event) {
@@ -448,9 +519,12 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>serviceGainedHandler</p>
+     * <p>
+     * serviceGainedHandler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_GAINED_SERVICE_EVENT_UEI)
     public void serviceGainedHandler(Event event) {
@@ -461,34 +535,42 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>serviceDownHandler</p>
+     * <p>
+     * serviceDownHandler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_LOST_SERVICE_EVENT_UEI)
     public void serviceDownHandler(Event event) {
         String service = event.getService();
         String[] criticalServices = getPollerConfig().getCriticalServiceIds();
-        for (int i = 0; i< criticalServices.length ; i++) {
+        for (int i = 0; i < criticalServices.length; i++) {
             if (criticalServices[i].equals(service)) {
-		LOG.info("Critical Service Lost: suspending SNMP polling for primary interface: {}", event.getInterface());
+                LOG.info("Critical Service Lost: suspending SNMP polling for primary interface: {}",
+                         event.getInterface());
                 getNetwork().suspend(event.getInterface());
             }
         }
     }
 
     /**
-     * <p>serviceUpHandler</p>
+     * <p>
+     * serviceUpHandler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI)
     public void serviceUpHandler(Event event) {
         String service = event.getService();
         String[] criticalServices = getPollerConfig().getCriticalServiceIds();
-        for (int i = 0; i< criticalServices.length ; i++) {
+        for (int i = 0; i < criticalServices.length; i++) {
             if (criticalServices[i].equals(service)) {
-		LOG.info("Critical Service Regained: activate SNMP polling for primary interface: {}", event.getInterface());
+                LOG.info("Critical Service Regained: activate SNMP polling for primary interface: {}",
+                         event.getInterface());
                 getNetwork().activate(event.getInterface());
             }
         }
@@ -496,9 +578,12 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>interfaceUpHandler</p>
+     * <p>
+     * interfaceUpHandler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.INTERFACE_UP_EVENT_UEI)
     public void interfaceUpHandler(Event event) {
@@ -506,9 +591,12 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>interfaceDownHandler</p>
+     * <p>
+     * interfaceDownHandler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.INTERFACE_DOWN_EVENT_UEI)
     public void interfaceDownHandler(Event event) {
@@ -516,9 +604,12 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>nodeUpHandler</p>
+     * <p>
+     * nodeUpHandler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_UP_EVENT_UEI)
     public void nodeUpHandler(Event event) {
@@ -527,9 +618,12 @@ public class SnmpPoller extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>nodeDownHandler</p>
+     * <p>
+     * nodeDownHandler
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.NODE_DOWN_EVENT_UEI)
     public void nodeDownHandler(Event event) {

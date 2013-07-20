@@ -69,7 +69,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NodeLabel {
 
-	private final static Logger LOG = LoggerFactory.getLogger(NodeLabel.class);
+    private final static Logger LOG = LoggerFactory.getLogger(NodeLabel.class);
 
     /**
      * The SQL statement to update the 'nodelabel' and 'nodelabelsource' fields
@@ -190,16 +190,16 @@ public class NodeLabel {
      *            Flag indicating source of node label
      */
     public NodeLabel(String nodeLabel, char nodeLabelSource) {
-        switch(nodeLabelSource) {
-            case SOURCE_ADDRESS:
-            case SOURCE_HOSTNAME:
-            case SOURCE_NETBIOS:
-            case SOURCE_SYSNAME:
-            case SOURCE_UNKNOWN:
-            case SOURCE_USERDEFINED:
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid value for node label source: " + nodeLabelSource);
+        switch (nodeLabelSource) {
+        case SOURCE_ADDRESS:
+        case SOURCE_HOSTNAME:
+        case SOURCE_NETBIOS:
+        case SOURCE_SYSNAME:
+        case SOURCE_UNKNOWN:
+        case SOURCE_USERDEFINED:
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid value for node label source: " + nodeLabelSource);
         }
         m_nodeLabel = nodeLabel;
         m_nodeLabelSource = nodeLabelSource;
@@ -227,7 +227,6 @@ public class NodeLabel {
      * This method queries the 'node' table for the value of the 'nodelabel' and
      * 'nodelabelsource' fields for the node with the provided nodeID. A
      * NodeLabel object is returned initialized with the retrieved values.
-     *
      * WARNING: A properly instantiated and initialized Vault class object is
      * required prior to calling this method. This method will initially only be
      * called from the WEB UI.
@@ -235,8 +234,8 @@ public class NodeLabel {
      * @param nodeID
      *            Unique identifier of the node to be updated.
      * @return Object containing label and source values.
-     * @throws java.sql.SQLException if any.
-     *
+     * @throws java.sql.SQLException
+     *             if any.
      * @deprecated Use a {@link NodeDao#load(Integer)} method call instead
      */
     public static NodeLabel retrieveLabel(int nodeID) throws SQLException {
@@ -262,8 +261,8 @@ public class NodeLabel {
      * @param dbConnection
      *            SQL database connection
      * @return object initialized with node label & source flag
-     * @throws java.sql.SQLException if any.
-     *
+     * @throws java.sql.SQLException
+     *             if any.
      * @deprecated Use a {@link NodeDao#load(Integer)} method call instead
      */
     public static NodeLabel retrieveLabel(int nodeID, Connection dbConnection) throws SQLException {
@@ -304,7 +303,6 @@ public class NodeLabel {
      * This method updates the 'nodelabel' and 'nodelabelsource' fields of the
      * 'node' table for the specified nodeID. A database connection is retrieved
      * from the Vault.
-     *
      * WARNING: A properly instantiated and initialized Vault class object is
      * required prior to calling this method. This method will initially only be
      * called from the WEB UI.
@@ -313,9 +311,11 @@ public class NodeLabel {
      *            Unique identifier of the node to be updated.
      * @param nodeLabel
      *            Object containing label and source values.
-     * @throws java.sql.SQLException if any.
-     *
-     * @deprecated Use a {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)} method call instead
+     * @throws java.sql.SQLException
+     *             if any.
+     * @deprecated Use a
+     *             {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)}
+     *             method call instead
      */
     public static void assignLabel(int nodeID, NodeLabel nodeLabel) throws SQLException {
         Connection dbConnection = Vault.getDbConnection();
@@ -330,7 +330,6 @@ public class NodeLabel {
     /**
      * This method updates the 'nodelabel' and 'nodelabelsource' fields of the
      * 'node' table for the specified nodeID.
-     *
      * If nodeLabel parameter is NULL the method will first call computeLabel()
      * and use the resulting NodeLabel object to update the database.
      *
@@ -340,9 +339,11 @@ public class NodeLabel {
      *            Object containing label and source values.
      * @param dbConnection
      *            SQL database connection
-     * @throws java.sql.SQLException if any.
-     *
-     * @deprecated Use a {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)} method call instead
+     * @throws java.sql.SQLException
+     *             if any.
+     * @deprecated Use a
+     *             {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)}
+     *             method call instead
      */
     public static void assignLabel(int nodeID, NodeLabel nodeLabel, Connection dbConnection) throws SQLException {
         if (nodeLabel == null) {
@@ -353,7 +354,8 @@ public class NodeLabel {
         final DBUtils d = new DBUtils(NodeLabel.class);
 
         try {
-            // Issue SQL update to assign the 'nodelabel' && 'nodelabelsource' fields of the 'node' table
+            // Issue SQL update to assign the 'nodelabel' && 'nodelabelsource'
+            // fields of the 'node' table
             stmt = dbConnection.prepareStatement(SQL_DB_UPDATE_NODE_LABEL);
             d.watch(stmt);
             int column = 1;
@@ -362,7 +364,8 @@ public class NodeLabel {
             LOG.debug("NodeLabel.assignLabel: Node label: {} source: {}", nodeLabel.getLabel(), nodeLabel.getSource());
 
             if (nodeLabel.getLabel() != null) {
-                // nodeLabel may not exceed MAX_NODELABEL_LEN.if it does truncate it
+                // nodeLabel may not exceed MAX_NODELABEL_LEN.if it does
+                // truncate it
                 String label = nodeLabel.getLabel();
                 if (label.length() > MAX_NODE_LABEL_LENGTH) {
                     label = label.substring(0, MAX_NODE_LABEL_LENGTH);
@@ -387,7 +390,6 @@ public class NodeLabel {
     /**
      * This method determines what label should be associated with a particular
      * node. A database connection is retrieved from the Vault.
-     *
      * WARNING: A properly instantiated and initialized Vault class object is
      * required prior to calling this method. This method will initially only be
      * called from the WEB UI.
@@ -395,8 +397,8 @@ public class NodeLabel {
      * @param nodeID
      *            Unique identifier of the node to be updated.
      * @return NodeLabel Object containing label and source values
-     * @throws java.sql.SQLException if any.
-     *
+     * @throws java.sql.SQLException
+     *             if any.
      * @deprecated Update this to use modern DAO methods instead of raw SQL
      */
     public static NodeLabel computeLabel(int nodeID) throws SQLException {
@@ -413,7 +415,6 @@ public class NodeLabel {
     /**
      * This method determines what label should be associated with a particular
      * node.
-     *
      * Algorithm for determining a node's label is as follows: 1) If node has a
      * NetBIOS name associated with it, the NetBIOS name is used as the node's
      * label. 2) If no NetBIOS name available, retrieve all the 'ipinterface'
@@ -425,7 +426,6 @@ public class NodeLabel {
      * becomes the node's label. ELSE IF the node's MIB-II sysName value is
      * known it becomes the node's label ELSE the primary interface's IP address
      * becomes the node's label.
-     *
      * NOTE: If for some reason a node has no "managed" interfaces null is
      * returned for the NodeLabel.
      *
@@ -435,8 +435,8 @@ public class NodeLabel {
      *            SQL database connection
      * @return NodeLabel Object containing label and source values or null if
      *         node does not have a primary interface.
-     * @throws java.sql.SQLException if any.
-     *
+     * @throws java.sql.SQLException
+     *             if any.
      * @deprecated Update this to use modern DAO methods instead of raw SQL
      */
     public static NodeLabel computeLabel(int nodeID, Connection dbConnection) throws SQLException {
@@ -474,9 +474,11 @@ public class NodeLabel {
             d.cleanUp();
         }
 
-        // OK, if we get this far the node has no NetBIOS name associated with it so,
+        // OK, if we get this far the node has no NetBIOS name associated with
+        // it so,
         // retrieve the primary interface select method property which indicates
-        // the method to use for determining which interface on a multi-interface
+        // the method to use for determining which interface on a
+        // multi-interface
         // system is to be deemed the primary interface. The primary interface
         // will then determine what the node's label is.
         String method = System.getProperty(NodeLabel.PROP_PRIMARY_INTERFACE_SELECT_METHOD);
@@ -485,14 +487,16 @@ public class NodeLabel {
         }
 
         if (!method.equals(SELECT_METHOD_MIN) && !method.equals(SELECT_METHOD_MAX)) {
-		LOG.warn("Interface selection method is '{}'.  Valid values are 'min' & 'max'.  Will use default value: {}", method, DEFAULT_SELECT_METHOD);
+            LOG.warn("Interface selection method is '{}'.  Valid values are 'min' & 'max'.  Will use default value: {}",
+                     method, DEFAULT_SELECT_METHOD);
             method = DEFAULT_SELECT_METHOD;
         }
 
         List<InetAddress> ipv4AddrList = new ArrayList<InetAddress>();
         List<String> ipHostNameList = new ArrayList<String>();
 
-        // Issue SQL query to retrieve all managed interface IP addresses from 'ipinterface' table
+        // Issue SQL query to retrieve all managed interface IP addresses from
+        // 'ipinterface' table
         try {
             stmt = dbConnection.prepareStatement(SQL_DB_RETRIEVE_MANAGED_INTERFACES);
             d.watch(stmt);
@@ -515,13 +519,14 @@ public class NodeLabel {
         // managed interfaces. So lets go after all the non-managed interfaces
         // and select the primary interface from them.
         if (primaryAddr == null) {
-        	LOG.debug("NodeLabel.computeLabel: unable to find a primary address for node {}, returning null", nodeID);
+            LOG.debug("NodeLabel.computeLabel: unable to find a primary address for node {}, returning null", nodeID);
 
             ipv4AddrList.clear();
             ipHostNameList.clear();
 
             try {
-                // retrieve all non-managed interface IP addresses from 'ipinterface' table
+                // retrieve all non-managed interface IP addresses from
+                // 'ipinterface' table
                 stmt = dbConnection.prepareStatement(SQL_DB_RETRIEVE_NON_MANAGED_INTERFACES);
                 d.watch(stmt);
                 stmt.setInt(1, nodeID);
@@ -602,12 +607,12 @@ public class NodeLabel {
      *            List of InetAddress objects representing the node's interfaces
      * @param ipHostNameList
      *            List of IP host names associated with the node's interfaces.
-     *
      * @throws SQLException
      *             if there is any problem processing the information in the
      *             result set.
      */
-    private static void loadAddressList(ResultSet rs, List<InetAddress> ipv4AddrList, List<String> ipHostNameList) throws SQLException {
+    private static void loadAddressList(ResultSet rs, List<InetAddress> ipv4AddrList, List<String> ipHostNameList)
+            throws SQLException {
 
         // Process result set, store retrieved addresses/host names in lists
         while (rs.next()) {
@@ -639,7 +644,6 @@ public class NodeLabel {
      * @param method
      *            String (either "min" or "max") which indicates how the primary
      *            interface is to be selected.
-     *
      * @return The InetAddress object from the address list which has been
      *         selected as the primary interface.
      */

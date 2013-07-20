@@ -32,7 +32,8 @@ import com.vaadin.ui.Component;
 import java.util.Map;
 
 /**
- * This interface defines the required methods for implementing a factory providing {@link Dashlet} instances.
+ * This interface defines the required methods for implementing a factory
+ * providing {@link Dashlet} instances.
  *
  * @author Christian Pape
  */
@@ -40,7 +41,8 @@ public interface DashletFactory {
     /**
      * Returns a new {@link Dashlet} instance for a given {@link DashletSpec}.
      *
-     * @param dashletSpec the {@link DashletSpec} to use
+     * @param dashletSpec
+     *            the {@link DashletSpec} to use
      * @return the new {@link Dashlet} instance
      */
     public abstract Dashlet newDashletInstance(DashletSpec dashletSpec);
@@ -60,7 +62,8 @@ public interface DashletFactory {
     public Map<String, String> getRequiredParameters();
 
     /**
-     * Returns true, if the factory provides a help component for the {@link Dashlet}.
+     * Returns true, if the factory provides a help component for the
+     * {@link Dashlet}.
      *
      * @return true, if help component is provided, false otherwise
      */

@@ -68,9 +68,9 @@ public class XmlrpcAnticipatorTest extends TestCase {
         // do nothing, let setUp and tearDown do th work
     }
 
-
     /**
-     * See if we have any bugs with starting and stopping two anticipators back to back.
+     * See if we have any bugs with starting and stopping two anticipators back
+     * to back.
      *
      * @throws IOException
      */
@@ -88,7 +88,6 @@ public class XmlrpcAnticipatorTest extends TestCase {
         v.add(t);
         t.put("foo", "bar");
 
-
         Hashtable<String, String> t2 = new Hashtable<String, String>();
         t2.put("foo", "bar");
 
@@ -100,10 +99,10 @@ public class XmlrpcAnticipatorTest extends TestCase {
         client.execute("howCheesyIsIt", v2);
 
         try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         m_anticipator.verifyAnticipated();
     }
@@ -113,7 +112,6 @@ public class XmlrpcAnticipatorTest extends TestCase {
         Hashtable<String, String> t = new Hashtable<String, String>();
         v.add(t);
         t.put("foo", "bar");
-
 
         Vector<Object> v2 = new Vector<Object>();
         Hashtable<String, String> t2 = new Hashtable<String, String>();
@@ -126,10 +124,10 @@ public class XmlrpcAnticipatorTest extends TestCase {
         client.execute("howCheesyIsIt", v2);
 
         try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         boolean sawException = false;
         try {
@@ -151,7 +149,6 @@ public class XmlrpcAnticipatorTest extends TestCase {
         t.put("description", "cheesy");
         t.put("something other than description", "hello");
 
-
         Vector<Object> v2 = new Vector<Object>();
         Hashtable<String, String> t2 = new Hashtable<String, String>();
         v2.add(t2);
@@ -164,10 +161,10 @@ public class XmlrpcAnticipatorTest extends TestCase {
         client.execute("howCheesyIsIt", v2);
 
         try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         m_anticipator.verifyAnticipated();
     }

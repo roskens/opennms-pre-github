@@ -35,7 +35,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>EventIpcManagerEventHandlerProxy class.</p>
+ * <p>
+ * EventIpcManagerEventHandlerProxy class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,7 +46,9 @@ public class EventIpcManagerEventHandlerProxy implements EventHandler, Initializ
     private EventIpcManager m_eventIpcManager;
 
     /**
-     * <p>Constructor for EventIpcManagerEventHandlerProxy.</p>
+     * <p>
+     * Constructor for EventIpcManagerEventHandlerProxy.
+     * </p>
      */
     public EventIpcManagerEventHandlerProxy() {
     }
@@ -63,7 +67,9 @@ public class EventIpcManagerEventHandlerProxy implements EventHandler, Initializ
     }
 
     /**
-     * <p>getEventIpcManager</p>
+     * <p>
+     * getEventIpcManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -72,18 +78,25 @@ public class EventIpcManagerEventHandlerProxy implements EventHandler, Initializ
     }
 
     /**
-     * <p>setEventIpcManager</p>
+     * <p>
+     * setEventIpcManager
+     * </p>
      *
-     * @param eventIpcManager a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventIpcManager
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public void setEventIpcManager(EventIpcManager eventIpcManager) {
         m_eventIpcManager = eventIpcManager;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws IllegalStateException {

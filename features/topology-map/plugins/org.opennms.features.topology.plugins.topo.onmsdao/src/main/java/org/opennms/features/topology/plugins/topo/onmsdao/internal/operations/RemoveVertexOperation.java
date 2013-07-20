@@ -37,7 +37,6 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.features.topology.plugins.topo.onmsdao.internal.OnmsTopologyProvider;
 import org.slf4j.LoggerFactory;
 
-
 public class RemoveVertexOperation implements Operation {
 
     OnmsTopologyProvider m_topologyProvider;
@@ -53,12 +52,11 @@ public class RemoveVertexOperation implements Operation {
         if (targets == null) {
             LoggerFactory.getLogger(getClass()).debug("need to handle selection!!!");
         } else {
-            for(VertexRef target : targets) {
+            for (VertexRef target : targets) {
                 m_topologyProvider.removeVertex(target);
             }
 
-
-        	graphContainer.redoLayout();
+            graphContainer.redoLayout();
         }
         return null;
     }
@@ -70,9 +68,10 @@ public class RemoveVertexOperation implements Operation {
 
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
-        if(targets != null) {
-            for(VertexRef target : targets) {
-                if(!m_topologyProvider.containsVertexId(target)) return false;
+        if (targets != null) {
+            for (VertexRef target : targets) {
+                if (!m_topologyProvider.containsVertexId(target))
+                    return false;
             }
             return true;
         }

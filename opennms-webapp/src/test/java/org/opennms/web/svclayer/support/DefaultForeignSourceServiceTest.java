@@ -44,10 +44,11 @@ import org.opennms.netmgt.provision.persist.ForeignSourceService;
 import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
 import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 
-
 public class DefaultForeignSourceServiceTest {
     private FilesystemForeignSourceRepository m_deployed;
+
     private FilesystemForeignSourceRepository m_pending;
+
     private ForeignSourceService m_service;
 
     @Before
@@ -55,7 +56,7 @@ public class DefaultForeignSourceServiceTest {
         FileUtils.deleteQuietly(new File("target/foreign-sources"));
         FileUtils.deleteQuietly(new File("target/imports"));
 
-        m_deployed  = new FilesystemForeignSourceRepository();
+        m_deployed = new FilesystemForeignSourceRepository();
         m_deployed.setForeignSourcePath("target/foreign-sources/deployed");
         m_deployed.setRequisitionPath("target/imports/deployed");
 
@@ -78,14 +79,16 @@ public class DefaultForeignSourceServiceTest {
         // create a new foreign source
         ForeignSource fs = m_service.getForeignSource("test");
 
-        // test doesn't exist, so it should tell us that it's based on the default foreign source
+        // test doesn't exist, so it should tell us that it's based on the
+        // default foreign source
         assertTrue(fs.isDefault());
 
         // modify it and save
         fs.setDetectors(new ArrayList<PluginConfig>());
         m_service.saveForeignSource("test", fs);
 
-        // now it shouln't be marked as default, since we've saved a modified version
+        // now it shouln't be marked as default, since we've saved a modified
+        // version
         fs = m_service.getForeignSource("test");
         assertFalse(fs.isDefault());
 

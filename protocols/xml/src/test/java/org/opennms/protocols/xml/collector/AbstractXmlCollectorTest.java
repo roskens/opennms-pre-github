@@ -78,7 +78,8 @@ public abstract class AbstractXmlCollectorTest {
     /**
      * Sets the up.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Before
     public void setUp() throws Exception {
@@ -130,7 +131,8 @@ public abstract class AbstractXmlCollectorTest {
     /**
      * Tear down.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception {
@@ -141,9 +143,12 @@ public abstract class AbstractXmlCollectorTest {
     /**
      * Executes collector test.
      *
-     * @param parameters the parameters
-     * @param expectedFiles the expected amount of JRB files
-     * @throws Exception the exception
+     * @param parameters
+     *            the parameters
+     * @param expectedFiles
+     *            the expected amount of JRB files
+     * @throws Exception
+     *             the exception
      */
     public void executeCollectorTest(Map<String, Object> parameters, int expectedFiles) throws Exception {
         XmlCollector collector = new XmlCollector();
@@ -153,21 +158,29 @@ public abstract class AbstractXmlCollectorTest {
         collector.release(m_collectionAgent);
         Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
 
-        ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
-        BasePersister persister =  new GroupPersister(serviceParams, createRrdRepository((String)parameters.get("collection"))); // storeByGroup=true;
+        ServiceParameters serviceParams = new ServiceParameters(new HashMap<String, Object>());
+        BasePersister persister = new GroupPersister(serviceParams,
+                                                     createRrdRepository((String) parameters.get("collection"))); // storeByGroup=true;
         collectionSet.visit(persister);
 
-        Assert.assertEquals(expectedFiles, FileUtils.listFiles(new File(TEST_SNMP_DIRECTORY), new String[] { "jrb" }, true).size());
+        Assert.assertEquals(expectedFiles,
+                            FileUtils.listFiles(new File(TEST_SNMP_DIRECTORY), new String[] { "jrb" }, true).size());
     }
 
     /**
      * Validates a JRB.
-     * <p>It assumes storeByGroup=true</p>
+     * <p>
+     * It assumes storeByGroup=true
+     * </p>
      *
-     * @param file the JRB file instance
-     * @param dsnames the array of data source names
-     * @param dsvalues the array of data source values
-     * @throws Exception the exception
+     * @param file
+     *            the JRB file instance
+     * @param dsnames
+     *            the array of data source names
+     * @param dsvalues
+     *            the array of data source values
+     * @throws Exception
+     *             the exception
      */
     public void validateJrb(File file, String[] dsnames, Double[] dsvalues) throws Exception {
         Assert.assertTrue(file.exists());
@@ -185,7 +198,8 @@ public abstract class AbstractXmlCollectorTest {
      * Creates the RRD repository.
      *
      * @return the RRD repository
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private RrdRepository createRrdRepository(String collection) throws IOException {
         XmlRrd rrd = m_xmlCollectionDao.getDataCollectionByName(collection).getXmlRrd();

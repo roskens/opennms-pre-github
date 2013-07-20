@@ -49,7 +49,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>BSFClient class.</p>
+ * <p>
+ * BSFClient class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
@@ -59,16 +61,23 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
     private static final Logger LOG = LoggerFactory.getLogger(BSFClient.class);
 
     private String m_serviceName;
+
     private String m_fileName;
+
     private String m_langClass;
+
     private String m_bsfEngine;
+
     private String[] m_fileExtensions = {};
+
     private String m_runType = "eval";
 
-    private HashMap<String,String> m_results;
+    private HashMap<String, String> m_results;
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
@@ -77,16 +86,16 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
     /** {@inheritDoc} */
     @Override
     public void connect(final InetAddress address, final int port, final int timeout) throws IOException, Exception {
-        m_results = new HashMap<String,String>();
+        m_results = new HashMap<String, String>();
         BSFManager bsfManager = new BSFManager();
         File file = new File(m_fileName);
-        Map<String,Object> map = getParametersMap();
+        Map<String, Object> map = getParametersMap();
         try {
 
             if (m_langClass == null) {
                 m_langClass = BSFManager.getLangFromFilename(m_fileName);
             }
-            if (m_bsfEngine != null && m_langClass != null && m_fileExtensions.length > 0 ) {
+            if (m_bsfEngine != null && m_langClass != null && m_fileExtensions.length > 0) {
                 BSFManager.registerScriptingEngine(m_langClass, m_bsfEngine, m_fileExtensions);
             }
 
@@ -96,9 +105,12 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
                 // Declare some beans that can be used inside the script
                 bsfManager.declareBean("map", map, Map.class);
                 bsfManager.declareBean("ip_addr", address.getHostAddress(), String.class);
-                // TODO: I'm not sure how to deal with it on detectors. Is the node exists before running detectors? If so, I need NodeDao here.
+                // TODO: I'm not sure how to deal with it on detectors. Is the
+                // node exists before running detectors? If so, I need NodeDao
+                // here.
                 // bsfManager.declareBean("node_id",svc.getNodeId(),int.class);
-                // bsfManager.declareBean("node_label", svc.getNodeLabel(), String.class);
+                // bsfManager.declareBean("node_label", svc.getNodeLabel(),
+                // String.class);
                 bsfManager.declareBean("svc_name", m_serviceName, String.class);
                 bsfManager.declareBean("results", m_results, HashMap.class);
 
@@ -112,15 +124,18 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
                 } else if ("exec".equals(m_runType)) {
                     bsfManager.exec(m_langClass, "BSFDetector", 0, 0, code);
                 } else {
-                    LOG.warn("Invalid run-type parameter value '{}' for service '{}'. Only 'eval' and 'exec' are supported.", m_runType, m_serviceName);
+                    LOG.warn("Invalid run-type parameter value '{}' for service '{}'. Only 'eval' and 'exec' are supported.",
+                             m_runType, m_serviceName);
                     throw new RuntimeException("Invalid run-type '" + m_runType + "'");
                 }
 
                 if ("exec".equals(m_runType) && !m_results.containsKey("status")) {
-                    LOG.warn("The exec script '{}' for service '{}' never put a 'status' entry in the 'results' bean. Exec scripts should put this entry with a value of 'OK' for up.", m_fileName, m_serviceName);
+                    LOG.warn("The exec script '{}' for service '{}' never put a 'status' entry in the 'results' bean. Exec scripts should put this entry with a value of 'OK' for up.",
+                             m_fileName, m_serviceName);
                 }
             } else {
-                LOG.warn("Cannot locate or read BSF script file '{}'. Marking service '{}' down.", m_fileName, m_serviceName);
+                LOG.warn("Cannot locate or read BSF script file '{}'. Marking service '{}' down.", m_fileName,
+                         m_serviceName);
             }
 
         } catch (BSFException e) {
@@ -134,18 +149,25 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
             LOG.warn("BSFDetector poll for service '{}' failed with IOException: {}", m_serviceName, e.getMessage(), e);
         } catch (Throwable e) {
             m_results.clear();
-            LOG.warn("BSFDetector poll for service '{}' failed with unexpected throwable: {}", m_serviceName, e.getMessage(), e);
+            LOG.warn("BSFDetector poll for service '{}' failed with unexpected throwable: {}", m_serviceName,
+                     e.getMessage(), e);
         } finally {
             bsfManager.terminate();
         }
     }
 
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.detector.bsf.response.BSFResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.bsf.response.BSFResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public BSFResponse receiveBanner() throws IOException, Exception {
@@ -155,12 +177,21 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.provision.detector.bsf.request.BSFRequest} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.bsf.response.BSFResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.netmgt.provision.detector.bsf.request.BSFRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.bsf.response.BSFResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public BSFResponse sendRequest(final BSFRequest request) throws IOException, Exception {
@@ -215,8 +246,8 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
         this.m_runType = runType;
     }
 
-    private Map<String,Object> getParametersMap() {
-        final Map<String,Object> map = new HashMap<String,Object>();
+    private Map<String, Object> getParametersMap() {
+        final Map<String, Object> map = new HashMap<String, Object>();
         map.put("file-name", getFileName());
         map.put("lang-class", getLangClass());
         map.put("bsf-engine", getBsfEngine());

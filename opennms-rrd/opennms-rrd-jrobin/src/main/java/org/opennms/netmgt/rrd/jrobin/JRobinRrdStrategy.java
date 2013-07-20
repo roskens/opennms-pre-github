@@ -57,7 +57,6 @@ import org.opennms.netmgt.rrd.RrdUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Provides a JRobin based implementation of RrdStrategy. It uses JRobin 1.4 in
  * FILE mode (NIO is too memory consuming for the large number of files that we
@@ -66,9 +65,11 @@ import org.slf4j.LoggerFactory;
  * @author ranger
  * @version $Id: $
  */
-public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
+public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
     private static final Logger LOG = LoggerFactory.getLogger(JRobinRrdStrategy.class);
+
     private static final String BACKEND_FACTORY_PROPERTY = "org.jrobin.core.RrdBackendFactory";
+
     private static final String DEFAULT_BACKEND_FACTORY = "FILE";
 
     /*
@@ -85,11 +86,12 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * pseudo-VDEFs
      *
      * @author jeffg
-     *
      */
     class ConstantStaticDef extends Plottable {
         private double m_startTime = Double.NEGATIVE_INFINITY;
+
         private double m_endTime = Double.POSITIVE_INFINITY;
+
         private double m_value = Double.NaN;
 
         ConstantStaticDef(long startTime, long endTime, double value) {
@@ -109,7 +111,9 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /**
-     * <p>getConfigurationProperties</p>
+     * <p>
+     * getConfigurationProperties
+     * </p>
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -121,16 +125,16 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     @Override
     public void setConfigurationProperties(final Properties configurationParameters) {
         m_configurationProperties = configurationParameters;
-        if(!s_initialized) {
+        if (!s_initialized) {
             String factory = null;
             if (m_configurationProperties == null) {
                 factory = DEFAULT_BACKEND_FACTORY;
             } else {
-                factory = (String)m_configurationProperties.get(BACKEND_FACTORY_PROPERTY);
+                factory = (String) m_configurationProperties.get(BACKEND_FACTORY_PROPERTY);
             }
             try {
                 RrdDb.setDefaultFactory(factory);
-                s_initialized=true;
+                s_initialized = true;
             } catch (RrdException e) {
                 LOG.error("Could not set default JRobin RRD factory", e);
             }
@@ -140,8 +144,10 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     /**
      * Closes the JRobin RrdDb.
      *
-     * @param rrdFile a {@link org.jrobin.core.RrdDb} object.
-     * @throws java.lang.Exception if any.
+     * @param rrdFile
+     *            a {@link org.jrobin.core.RrdDb} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void closeFile(final RrdDb rrdFile) throws Exception {
@@ -150,9 +156,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
 
     /** {@inheritDoc} */
     @Override
-	public RrdDef createDefinition(final String creator,
-			final String directory, final String rrdName, int step,
-			final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
+    public RrdDef createDefinition(final String creator, final String directory, final String rrdName, int step,
+            final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
         File f = new File(directory);
         f.mkdirs();
 
@@ -184,16 +189,17 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         return def;
     }
 
-
     /**
      * Creates the JRobin RrdDb from the def by opening the file and then
      * closing.
      *
-     * @param rrdDef a {@link org.jrobin.core.RrdDef} object.
-     * @throws java.lang.Exception if any.
+     * @param rrdDef
+     *            a {@link org.jrobin.core.RrdDef} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
-    public void createFile(final RrdDef rrdDef,  Map<String, String> attributeMappings) throws Exception {
+    public void createFile(final RrdDef rrdDef, Map<String, String> attributeMappings) throws Exception {
         if (rrdDef == null) {
             LOG.debug("createRRD: skipping RRD file");
             return;
@@ -206,16 +212,12 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         String filenameWithoutExtension = rrdDef.getPath().replace(RrdUtils.getExtension(), "");
         int lastIndexOfSeparator = filenameWithoutExtension.lastIndexOf(File.separator);
 
-		RrdUtils.createMetaDataFile(
-				filenameWithoutExtension.substring(0, lastIndexOfSeparator),
-				filenameWithoutExtension.substring(lastIndexOfSeparator),
-				attributeMappings);
+        RrdUtils.createMetaDataFile(filenameWithoutExtension.substring(0, lastIndexOfSeparator),
+                                    filenameWithoutExtension.substring(lastIndexOfSeparator), attributeMappings);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Opens the JRobin RrdDb by name and returns it.
+     * {@inheritDoc} Opens the JRobin RrdDb by name and returns it.
      */
     @Override
     public RrdDb openFile(final String fileName) throws Exception {
@@ -224,9 +226,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Creates a sample from the JRobin RrdDb and passes in the data provided.
+     * {@inheritDoc} Creates a sample from the JRobin RrdDb and passes in the
+     * data provided.
      */
     @Override
     public void updateFile(final RrdDb rrdFile, final String owner, final String data) throws Exception {
@@ -238,7 +239,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * Initialized the RrdDb to use the FILE factory because the NIO factory
      * uses too much memory for our implementation.
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public JRobinRrdStrategy() throws Exception {
         String home = System.getProperty("opennms.home");
@@ -246,19 +248,18 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Fetch the last value from the JRobin RrdDb file.
+     * {@inheritDoc} Fetch the last value from the JRobin RrdDb file.
      */
     @Override
-    public Double fetchLastValue(final String fileName, final String ds, final int interval) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValue(final String fileName, final String ds, final int interval)
+            throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
         return fetchLastValue(fileName, ds, "AVERAGE", interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(final String fileName, final String ds, final String consolidationFunction, final int interval)
-            throws org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValue(final String fileName, final String ds, final String consolidationFunction,
+            final int interval) throws org.opennms.netmgt.rrd.RrdException {
         RrdDb rrd = null;
         try {
             long now = System.currentTimeMillis();
@@ -288,29 +289,31 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range)
+            throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
         RrdDb rrd = null;
         try {
-        	rrd = new RrdDb(fileName, true);
-         	long now = System.currentTimeMillis();
+            rrd = new RrdDb(fileName, true);
+            long now = System.currentTimeMillis();
             long latestUpdateTime = (now - (now % interval)) / 1000L;
             long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
             LOG.debug("fetchInRange: fetching data from {} to {}", earliestUpdateTime, latestUpdateTime);
 
             FetchData data = rrd.createFetchRequest("AVERAGE", earliestUpdateTime, latestUpdateTime).fetchData();
 
-		    double[] vals = data.getValues(ds);
-		    long[] times = data.getTimestamps();
+            double[] vals = data.getValues(ds);
+            long[] times = data.getTimestamps();
 
-		    // step backwards through the array of values until we get something that's a number
+            // step backwards through the array of values until we get something
+            // that's a number
 
-		    for(int i = vals.length - 1; i >= 0; i--) {
-            	if ( Double.isNaN(vals[i]) ) {
-            	    LOG.debug("fetchInRange: Got a NaN value at interval: {} continuing back in time", times[i]);
-            	} else {
-            	    LOG.debug("Got a non NaN value at interval: {} : {}", times[i], vals[i] );
-            	    return new Double(vals[i]);
-               	}
+            for (int i = vals.length - 1; i >= 0; i--) {
+                if (Double.isNaN(vals[i])) {
+                    LOG.debug("fetchInRange: Got a NaN value at interval: {} continuing back in time", times[i]);
+                } else {
+                    LOG.debug("Got a non NaN value at interval: {} : {}", times[i], vals[i]);
+                    return new Double(vals[i]);
+                }
             }
             return null;
         } catch (IOException e) {
@@ -352,14 +355,14 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
 
     /** {@inheritDoc} */
     @Override
-    public InputStream createGraph(final String command, final File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
+    public InputStream createGraph(final String command, final File workDir) throws IOException,
+            org.opennms.netmgt.rrd.RrdException {
         return createGraphReturnDetails(command, workDir).getInputStream();
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This constructs a graphDef by parsing the rrdtool style command and using
+     * {@inheritDoc} This constructs a graphDef by parsing the rrdtool style
+     * command and using
      * the values to create the JRobin graphDef. It does not understand the 'AT
      * style' time arguments however. Also there may be some rrdtool parameters
      * that it does not understand. These will be ignored. The graphDef will be
@@ -367,7 +370,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * stream returning the bytes of the PNG image is returned.
      */
     @Override
-    public RrdGraphDetails createGraphReturnDetails(final String command, final File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
+    public RrdGraphDetails createGraphReturnDetails(final String command, final File workDir) throws IOException,
+            org.opennms.netmgt.rrd.RrdException {
 
         try {
             String[] commandArray = tokenize(command, " \t", false);
@@ -382,16 +386,17 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
              * DefaultRrdGraphDetails because we won't have an InputStream
              * available if no graphing commands were used, e.g.: if we only
              * use PRINT or if the user goofs up a graph definition.
-             *
              * We want to throw an RrdException if the caller calls
              * RrdGraphDetails.getInputStream and no graphing commands were
-             * used.  If they just call RrdGraphDetails.getPrintLines, though,
+             * used. If they just call RrdGraphDetails.getPrintLines, though,
              * we don't want to throw an exception.
              */
             return new JRobinRrdGraphDetails(graph, command);
         } catch (Throwable e) {
             LOG.error("JRobin: exception occurred creating graph", e);
-            throw new org.opennms.netmgt.rrd.RrdException("An exception occurred creating the graph: " + e.getMessage(), e);
+            throw new org.opennms.netmgt.rrd.RrdException(
+                                                          "An exception occurred creating the graph: " + e.getMessage(),
+                                                          e);
         }
     }
 
@@ -401,14 +406,18 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         // no need to do anything since this strategy doesn't queue
     }
 
-
     /**
-     * <p>createGraphDef</p>
+     * <p>
+     * createGraphDef
+     * </p>
      *
-     * @param workDir a {@link java.io.File} object.
-     * @param commandArray an array of {@link java.lang.String} objects.
+     * @param workDir
+     *            a {@link java.io.File} object.
+     * @param commandArray
+     *            an array of {@link java.lang.String} objects.
      * @return a {@link org.jrobin.graph.RrdGraphDef} object.
-     * @throws org.jrobin.core.RrdException if any.
+     * @throws org.jrobin.core.RrdException
+     *             if any.
      */
     protected RrdGraphDef createGraphDef(final File workDir, final String[] inputArray) throws RrdException {
         RrdGraphDef graphDef = new RrdGraphDef();
@@ -420,14 +429,14 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         double lowerLimit = Double.NaN;
         double upperLimit = Double.NaN;
         boolean rigid = false;
-        Map<String,List<String>> defs = new LinkedHashMap<String,List<String>>();
+        Map<String, List<String>> defs = new LinkedHashMap<String, List<String>>();
         // Map<String,List<String>> cdefs = new HashMap<String,List<String>>();
 
         final String[] commandArray;
         if (inputArray[0].contains("rrdtool") && inputArray[1].equals("graph") && inputArray[2].equals("-")) {
-        	commandArray = Arrays.copyOfRange(inputArray, 3, inputArray.length);
+            commandArray = Arrays.copyOfRange(inputArray, 3, inputArray.length);
         } else {
-        	commandArray = inputArray;
+            commandArray = inputArray;
         }
 
         LOG.debug("command array = {}", Arrays.toString(commandArray));
@@ -559,20 +568,20 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
                 }
 
             } else if (arg.startsWith("--font=")) {
-            	String[] argParm = tokenize(arg, "=", true);
-            	processRrdFontArgument(graphDef, argParm[1]);
+                String[] argParm = tokenize(arg, "=", true);
+                processRrdFontArgument(graphDef, argParm[1]);
             } else if (arg.equals("--font")) {
                 if (i + 1 < commandArray.length) {
-                	processRrdFontArgument(graphDef, commandArray[++i]);
+                    processRrdFontArgument(graphDef, commandArray[++i]);
                 } else {
                     throw new IllegalArgumentException("--font must be followed by an argument");
                 }
             } else if (arg.startsWith("--imgformat=")) {
-            	String[] argParm = tokenize(arg, "=", true);
-            	graphDef.setImageFormat(argParm[1]);
+                String[] argParm = tokenize(arg, "=", true);
+                graphDef.setImageFormat(argParm[1]);
             } else if (arg.equals("--imgformat")) {
                 if (i + 1 < commandArray.length) {
-                	graphDef.setImageFormat(commandArray[++i]);
+                    graphDef.setImageFormat(commandArray[++i]);
                 } else {
                     throw new IllegalArgumentException("--imgformat must be followed by an argument");
                 }
@@ -591,13 +600,15 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
                 final File dsFile;
                 File rawPathFile = new File(replaced);
                 if (rawPathFile.isAbsolute()) {
-                	dsFile = rawPathFile;
+                    dsFile = rawPathFile;
                 } else {
-                	dsFile = new File(workDir, replaced);
+                    dsFile = new File(workDir, replaced);
                 }
                 // LOG.debug("dsFile = {}, ds[1] = {}", dsFile, ds[1]);
 
-                final String absolutePath = (File.separatorChar == '\\')? dsFile.getAbsolutePath().replace("\\", "\\\\") : dsFile.getAbsolutePath();
+                final String absolutePath = (File.separatorChar == '\\') ? dsFile.getAbsolutePath().replace("\\",
+                                                                                                            "\\\\")
+                    : dsFile.getAbsolutePath();
                 // LOG.debug("absolutePath = {}", absolutePath);
                 graphDef.datasource(ds[0], absolutePath, def[1], def[2]);
 
@@ -641,10 +652,11 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
                 String definition = arg.substring("GPRINT:".length());
                 String gprint[] = tokenize(definition, ":", true);
                 String format = gprint[2];
-                //format = format.replaceAll("%(\\d*\\.\\d*)lf", "@$1");
-                //format = format.replaceAll("%s", "@s");
-                //format = format.replaceAll("%%", "%");
-                //LOG.debug("gprint: oldformat = {} newformat = {}", gprint[2], format);
+                // format = format.replaceAll("%(\\d*\\.\\d*)lf", "@$1");
+                // format = format.replaceAll("%s", "@s");
+                // format = format.replaceAll("%%", "%");
+                // LOG.debug("gprint: oldformat = {} newformat = {}", gprint[2],
+                // format);
                 format = format.replaceAll("\\n", "\\\\l");
                 graphDef.gprint(gprint[0], gprint[1], format);
 
@@ -652,10 +664,11 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
                 String definition = arg.substring("PRINT:".length());
                 String print[] = tokenize(definition, ":", true);
                 String format = print[2];
-                //format = format.replaceAll("%(\\d*\\.\\d*)lf", "@$1");
-                //format = format.replaceAll("%s", "@s");
-                //format = format.replaceAll("%%", "%");
-                //LOG.debug("gprint: oldformat = {} newformat = {}", print[2], format);
+                // format = format.replaceAll("%(\\d*\\.\\d*)lf", "@$1");
+                // format = format.replaceAll("%s", "@s");
+                // format = format.replaceAll("%%", "%");
+                // LOG.debug("gprint: oldformat = {} newformat = {}", print[2],
+                // format);
                 format = format.replaceAll("\\n", "\\\\l");
                 graphDef.print(print[0], print[1], format);
 
@@ -686,7 +699,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
                 Double value = Double.valueOf(color[0]);
                 graphDef.hrule(value, getColor(color[1]), hrule[1]);
             } else if (arg.endsWith("/rrdtool") || arg.equals("graph") || arg.equals("-")) {
-            	// ignore, this is just a leftover from the rrdtool-specific options
+                // ignore, this is just a leftover from the rrdtool-specific
+                // options
 
             } else {
                 LOG.warn("JRobin: Unrecognized graph argument: {}", arg);
@@ -707,59 +721,67 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         return graphDef;
     }
 
-	private String[] splitDef(final String definition) {
-		// LOG.debug("splitDef({})", definition);
-		final String[] def;
-		if (File.separatorChar == '\\') {
-			// LOG.debug("windows");
-			// Windows, make sure the beginning isn't eg: C:\\foo\\bar
-			if (definition.matches("[^=]*=[a-zA-Z]:.*")) {
-				final String[] tempDef = definition.split("(?<!\\\\):");
-				def = new String[tempDef.length - 1];
-				def[0] = tempDef[0] + ':' + tempDef[1];
-				if (tempDef.length > 2) {
-					for (int i = 2; i < tempDef.length; i++) {
-						def[i-1] = tempDef[i];
-					}
-				}
-			} else {
-				// LOG.debug("no match");
-				def = definition.split("(?<!\\\\):");
-			}
-		} else {
-			def = definition.split("(?<!\\\\):");
-		}
-		// LOG.debug("returning: {}", Arrays.toString(def));
-		return def;
-	}
+    private String[] splitDef(final String definition) {
+        // LOG.debug("splitDef({})", definition);
+        final String[] def;
+        if (File.separatorChar == '\\') {
+            // LOG.debug("windows");
+            // Windows, make sure the beginning isn't eg: C:\\foo\\bar
+            if (definition.matches("[^=]*=[a-zA-Z]:.*")) {
+                final String[] tempDef = definition.split("(?<!\\\\):");
+                def = new String[tempDef.length - 1];
+                def[0] = tempDef[0] + ':' + tempDef[1];
+                if (tempDef.length > 2) {
+                    for (int i = 2; i < tempDef.length; i++) {
+                        def[i - 1] = tempDef[i];
+                    }
+                }
+            } else {
+                // LOG.debug("no match");
+                def = definition.split("(?<!\\\\):");
+            }
+        } else {
+            def = definition.split("(?<!\\\\):");
+        }
+        // LOG.debug("returning: {}", Arrays.toString(def));
+        return def;
+    }
 
-	private void processRrdFontArgument(RrdGraphDef graphDef, String argParm) {
-		/*
-		String[] argValue = tokenize(argParm, ":", true);
-		if (argValue[0].equals("DEFAULT")) {
-			int newPointSize = Integer.parseInt(argValue[1]);
-			graphDef.setSmallFont(graphDef.getSmallFont().deriveFont(newPointSize));
-		} else if (argValue[0].equals("TITLE")) {
-			int newPointSize = Integer.parseInt(argValue[1]);
-			graphDef.setLargeFont(graphDef.getLargeFont().deriveFont(newPointSize));
-		} else {
-			try {
-				Font font = Font.createFont(Font.TRUETYPE_FONT, new File(argValue[0]));
-			} catch (Throwable e) {
-				// oh well, fall back to existing font stuff
-				LOG.warn("unable to create font from font argument {}", argParm, e);
-			}
-		}
-		*/
-	}
+    private void processRrdFontArgument(RrdGraphDef graphDef, String argParm) {
+        /*
+         * String[] argValue = tokenize(argParm, ":", true);
+         * if (argValue[0].equals("DEFAULT")) {
+         * int newPointSize = Integer.parseInt(argValue[1]);
+         * graphDef.setSmallFont(graphDef.getSmallFont().deriveFont(newPointSize)
+         * );
+         * } else if (argValue[0].equals("TITLE")) {
+         * int newPointSize = Integer.parseInt(argValue[1]);
+         * graphDef.setLargeFont(graphDef.getLargeFont().deriveFont(newPointSize)
+         * );
+         * } else {
+         * try {
+         * Font font = Font.createFont(Font.TRUETYPE_FONT, new
+         * File(argValue[0]));
+         * } catch (Throwable e) {
+         * // oh well, fall back to existing font stuff
+         * LOG.warn("unable to create font from font argument {}", argParm, e);
+         * }
+         * }
+         */
+    }
 
     private String[] tokenize(final String line, final String delimiters, final boolean processQuotes) {
-        String passthroughTokens = "lcrjgsJ"; /* see org.jrobin.graph.RrdGraphConstants.MARKERS */
+        String passthroughTokens = "lcrjgsJ"; /*
+                                               * see
+                                               * org.jrobin.graph.RrdGraphConstants
+                                               * .MARKERS
+                                               */
         return tokenizeWithQuotingAndEscapes(line, delimiters, processQuotes, passthroughTokens);
     }
 
     /**
-     * @param colorArg Should have the form COLORTAG#RRGGBB[AA]
+     * @param colorArg
+     *            Should have the form COLORTAG#RRGGBB[AA]
      * @see http://www.jrobin.org/support/man/rrdgraph.html
      */
     private void parseGraphColor(final RrdGraphDef graphDef, final String colorArg) throws IllegalArgumentException {
@@ -786,32 +808,23 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         try {
             if (colorTag.equals("BACK")) {
                 graphDef.setColor("BACK", color);
-            }
-            else if (colorTag.equals("CANVAS")) {
+            } else if (colorTag.equals("CANVAS")) {
                 graphDef.setColor("CANVAS", color);
-            }
-            else if (colorTag.equals("SHADEA")) {
+            } else if (colorTag.equals("SHADEA")) {
                 graphDef.setColor("SHADEA", color);
-            }
-            else if (colorTag.equals("SHADEB")) {
+            } else if (colorTag.equals("SHADEB")) {
                 graphDef.setColor("SHADEB", color);
-            }
-            else if (colorTag.equals("GRID")) {
+            } else if (colorTag.equals("GRID")) {
                 graphDef.setColor("GRID", color);
-            }
-            else if (colorTag.equals("MGRID")) {
+            } else if (colorTag.equals("MGRID")) {
                 graphDef.setColor("MGRID", color);
-            }
-            else if (colorTag.equals("FONT")) {
+            } else if (colorTag.equals("FONT")) {
                 graphDef.setColor("FONT", color);
-            }
-            else if (colorTag.equals("FRAME")) {
+            } else if (colorTag.equals("FRAME")) {
                 graphDef.setColor("FRAME", color);
-            }
-            else if (colorTag.equals("ARROW")) {
+            } else if (colorTag.equals("ARROW")) {
                 graphDef.setColor("ARROW", color);
-            }
-            else {
+            } else {
                 throw new org.jrobin.core.RrdException("Unknown color tag " + colorTag);
             }
         } catch (Throwable e) {
@@ -833,7 +846,9 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * These offsets work for ranger@ with Safari and JRobin 1.5.8.
      */
     /**
-     * <p>getGraphLeftOffset</p>
+     * <p>
+     * getGraphLeftOffset
+     * </p>
      *
      * @return a int.
      */
@@ -843,7 +858,9 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /**
-     * <p>getGraphRightOffset</p>
+     * <p>
+     * getGraphRightOffset
+     * </p>
      *
      * @return a int.
      */
@@ -853,7 +870,9 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /**
-     * <p>getGraphTopOffsetWithText</p>
+     * <p>
+     * getGraphTopOffsetWithText
+     * </p>
      *
      * @return a int.
      */
@@ -863,7 +882,9 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /**
-     * <p>getDefaultFileExtension</p>
+     * <p>
+     * getDefaultFileExtension
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -873,11 +894,16 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /**
-     * <p>tokenizeWithQuotingAndEscapes</p>
+     * <p>
+     * tokenizeWithQuotingAndEscapes
+     * </p>
      *
-     * @param line a {@link java.lang.String} object.
-     * @param delims a {@link java.lang.String} object.
-     * @param processQuoted a boolean.
+     * @param line
+     *            a {@link java.lang.String} object.
+     * @param delims
+     *            a {@link java.lang.String} object.
+     * @param processQuoted
+     *            a boolean.
      * @return an array of {@link java.lang.String} objects.
      */
     public static String[] tokenizeWithQuotingAndEscapes(String line, String delims, boolean processQuoted) {
@@ -888,17 +914,20 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * Tokenize a {@link String} into an array of {@link String}s.
      *
      * @param line
-     *          the string to tokenize
+     *            the string to tokenize
      * @param delims
-     *          a string containing zero or more characters to treat as a delimiter
+     *            a string containing zero or more characters to treat as a
+     *            delimiter
      * @param processQuoted
-     *          whether or not to process escaped values inside quotes
+     *            whether or not to process escaped values inside quotes
      * @param tokens
-     *          custom escaped tokens to pass through, escaped.  For example, if tokens contains "lsg", then \l, \s, and \g
-     *          will be passed through unescaped.
+     *            custom escaped tokens to pass through, escaped. For example,
+     *            if tokens contains "lsg", then \l, \s, and \g
+     *            will be passed through unescaped.
      * @return an array of {@link java.lang.String} objects.
      */
-    public static String[] tokenizeWithQuotingAndEscapes(final String line, final String delims, final boolean processQuoted, final String tokens) {
+    public static String[] tokenizeWithQuotingAndEscapes(final String line, final String delims,
+            final boolean processQuoted, final String tokens) {
         List<String> tokenList = new LinkedList<String>();
 
         StringBuffer currToken = new StringBuffer();
@@ -927,7 +956,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
                     } else if (currToken.toString().startsWith("DEF:")) {
                         currToken.append('\\').append(ch);
                     } else {
-                        // silently pass through the character *without* the \ in front of it
+                        // silently pass through the character *without* the \
+                        // in front of it
                         currToken.append(ch);
                     }
                 }
@@ -980,28 +1010,36 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     }
 
     /**
-     * <p>escapeIfNotPathSepInDEF</p>
+     * <p>
+     * escapeIfNotPathSepInDEF
+     * </p>
      *
-     * @param encountered a char.
-     * @param escaped a char.
-     * @param currToken a {@link java.lang.StringBuffer} object.
+     * @param encountered
+     *            a char.
+     * @param escaped
+     *            a char.
+     * @param currToken
+     *            a {@link java.lang.StringBuffer} object.
      * @return an array of char.
      */
-    public static char[] escapeIfNotPathSepInDEF(final char encountered, final char escaped, final StringBuffer currToken) {
-    	if ( ('\\' != File.separatorChar) || (! currToken.toString().startsWith("DEF:")) ) {
-    		return new char[] { escaped };
-    	} else {
-    		return new char[] { '\\', encountered };
-    	}
+    public static char[] escapeIfNotPathSepInDEF(final char encountered, final char escaped,
+            final StringBuffer currToken) {
+        if (('\\' != File.separatorChar) || (!currToken.toString().startsWith("DEF:"))) {
+            return new char[] { escaped };
+        } else {
+            return new char[] { '\\', encountered };
+        }
     }
 
-    protected void addVdefDs(RrdGraphDef graphDef, String sourceName, String[] rhs, double start, double end, Map<String,List<String>> defs) throws RrdException {
+    protected void addVdefDs(RrdGraphDef graphDef, String sourceName, String[] rhs, double start, double end,
+            Map<String, List<String>> defs) throws RrdException {
         if (rhs.length == 2) {
             graphDef.datasource(sourceName, rhs[0], rhs[1]);
         } else if (rhs.length == 3 && "PERCENT".equals(rhs[2])) {
-            // Is there a better way to do this than with a separate DataProcessor?
+            // Is there a better way to do this than with a separate
+            // DataProcessor?
             double pctRank = Double.valueOf(rhs[1]);
-            DataProcessor dataProcessor = new DataProcessor((int)start, (int)end);
+            DataProcessor dataProcessor = new DataProcessor((int) start, (int) end);
             for (String dsName : defs.keySet()) {
                 List<String> thisDef = defs.get(dsName);
                 if (thisDef.size() == 3) {
@@ -1017,7 +1055,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
             }
 
             double result = dataProcessor.getPercentile(rhs[0], pctRank);
-            ConstantStaticDef csDef = new ConstantStaticDef((long)start, (long)end, result);
+            ConstantStaticDef csDef = new ConstantStaticDef((long) start, (long) end, result);
             graphDef.datasource(sourceName, csDef);
         }
     }

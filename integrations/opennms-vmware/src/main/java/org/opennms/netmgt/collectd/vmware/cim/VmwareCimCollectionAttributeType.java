@@ -36,6 +36,7 @@ import org.opennms.netmgt.config.vmware.cim.Attrib;
 
 public class VmwareCimCollectionAttributeType implements CollectionAttributeType {
     private Attrib m_attribute;
+
     private AttributeGroupType m_groupType;
 
     public VmwareCimCollectionAttributeType(final Attrib attribute, final AttributeGroupType groupType) {

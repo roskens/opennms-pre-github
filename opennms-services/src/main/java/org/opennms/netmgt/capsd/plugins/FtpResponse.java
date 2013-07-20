@@ -44,18 +44,22 @@ import org.springframework.util.StringUtils;
  */
 public class FtpResponse {
     private int m_code;
+
     private String m_response[];
 
     /**
      * Creates an empty FTP response.
      */
-    public FtpResponse() {}
+    public FtpResponse() {
+    }
 
     /**
      * Creates an FTP response with given status code and response string.
      *
-     * @param code numeric status code
-     * @param response response detail message (one line per array element)
+     * @param code
+     *            numeric status code
+     * @param response
+     *            response detail message (one line per array element)
      */
     public FtpResponse(int code, String[] response) {
         m_code = code;
@@ -74,7 +78,8 @@ public class FtpResponse {
     /**
      * Sets the numeric response code.
      *
-     * @param code numeric status code
+     * @param code
+     *            numeric status code
      */
     public void setCode(int code) {
         m_code = code;
@@ -92,7 +97,8 @@ public class FtpResponse {
     /**
      * Sets the response string array.
      *
-     * @param response response detail message (one line per array element)
+     * @param response
+     *            response detail message (one line per array element)
      */
     public void setResponse(String[] response) {
         m_response = response;
@@ -102,7 +108,8 @@ public class FtpResponse {
      * Search for a text string in each line of the response result.
      * Note that each line is tested individually.
      *
-     * @param contain text to search for (using String.contains(contain))
+     * @param contain
+     *            text to search for (using String.contains(contain))
      * @return true if the search string is found, false otherwise
      */
     public boolean responseContains(String contain) {
@@ -114,7 +121,6 @@ public class FtpResponse {
 
         return false;
     }
-
 
     /**
      * Converts FTP response to string.
@@ -185,9 +191,12 @@ public class FtpResponse {
     /**
      * Helper method to send commands to the remote server.
      *
-     * @param socket connection to the server
-     * @param command command to send, without trailing EOL (CRLF, \r\n).
-     * @throws java.io.IOException if we can't write() to the OutputStream for the Socket
+     * @param socket
+     *            connection to the server
+     * @param command
+     *            command to send, without trailing EOL (CRLF, \r\n).
+     * @throws java.io.IOException
+     *             if we can't write() to the OutputStream for the Socket
      */
     public static void sendCommand(Socket socket, String command) throws IOException {
         socket.getOutputStream().write((command + "\r\n").getBytes());
@@ -196,9 +205,11 @@ public class FtpResponse {
     /**
      * Reads a server response.
      *
-     * @param in input reader
+     * @param in
+     *            input reader
      * @return response from server
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static FtpResponse readResponse(BufferedReader in) throws IOException {
         int code;
@@ -217,7 +228,8 @@ public class FtpResponse {
         try {
             code = Integer.parseInt(codeString);
         } catch (NumberFormatException e) {
-            IOException newE = new IOException("First response line returned a non-numeric result code \"" + codeString + "\": " + firstResponseLine);
+            IOException newE = new IOException("First response line returned a non-numeric result code \"" + codeString
+                    + "\": " + firstResponseLine);
             newE.initCause(e);
             throw newE;
         }
@@ -230,7 +242,9 @@ public class FtpResponse {
             while (true) {
                 String subsequentResponse = in.readLine();
                 if (subsequentResponse == null) {
-                    throw new IOException("End of stream was reached before the complete multi-line response could be read.  What was read: " + StringUtils.collectionToDelimitedString(response, "\n"));
+                    throw new IOException(
+                                          "End of stream was reached before the complete multi-line response could be read.  What was read: "
+                                                  + StringUtils.collectionToDelimitedString(response, "\n"));
                 }
 
                 if (subsequentResponse.startsWith(endMultiLine)) {

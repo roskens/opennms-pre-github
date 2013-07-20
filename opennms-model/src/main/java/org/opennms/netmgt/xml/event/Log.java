@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.Serializable;
@@ -54,49 +54,46 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="log")
+@XmlRootElement(name = "log")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@ValidateUsing("event.xsd")
+// @ValidateUsing("event.xsd")
 public class Log implements Serializable {
-	private static final long serialVersionUID = 8526177705077223094L;
+    private static final long serialVersionUID = 8526177705077223094L;
 
-	//--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _header.
      */
-	@XmlElement(name="header", required=false)
+    @XmlElement(name = "header", required = false)
     private org.opennms.netmgt.xml.event.Header _header;
 
     /**
      * Field _events.
      */
-	@XmlElement(name="events", required=true)
+    @XmlElement(name = "events", required = true)
     private org.opennms.netmgt.xml.event.Events _events;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Log() {
         super();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Returns the value of field 'events'.
      *
      * @return the value of field 'Events'.
      */
-    public org.opennms.netmgt.xml.event.Events getEvents(
-    ) {
+    public org.opennms.netmgt.xml.event.Events getEvents() {
         return this._events;
     }
 
@@ -105,36 +102,32 @@ public class Log implements Serializable {
      *
      * @return the value of field 'Header'.
      */
-    public org.opennms.netmgt.xml.event.Header getHeader(
-    ) {
+    public org.opennms.netmgt.xml.event.Header getHeader() {
         return this._header;
     }
 
     /**
      * Sets the value of field 'events'.
      *
-     * @param events the value of field 'events'.
+     * @param events
+     *            the value of field 'events'.
      */
-    public void setEvents(
-            final org.opennms.netmgt.xml.event.Events events) {
+    public void setEvents(final org.opennms.netmgt.xml.event.Events events) {
         this._events = events;
     }
 
     /**
      * Sets the value of field 'header'.
      *
-     * @param header the value of field 'header'.
+     * @param header
+     *            the value of field 'header'.
      */
-    public void setHeader(
-            final org.opennms.netmgt.xml.event.Header header) {
+    public void setHeader(final org.opennms.netmgt.xml.event.Header header) {
         this._header = header;
     }
 
-        @Override
+    @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("header", _header)
-    		.append("events", _events)
-    		.toString();
+        return new ToStringBuilder(this).append("header", _header).append("events", _events).toString();
     }
 }

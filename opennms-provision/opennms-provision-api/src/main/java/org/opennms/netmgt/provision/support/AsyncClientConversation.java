@@ -33,13 +33,11 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-
-
 /**
  * <p>
- * A Conversation is a sequence of {@link ConversationExchange} instances that are used to
- * describe the sequence of messages that are passed back and forth during a network
- * transaction.
+ * A Conversation is a sequence of {@link ConversationExchange} instances that
+ * are used to describe the sequence of messages that are passed back and forth
+ * during a network transaction.
  * </p>
  *
  * @author Donald Desloge
@@ -47,39 +45,52 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class AsyncClientConversation<Request, Response> {
 
     private final List<ConversationExchange<Request, Response>> m_conversation = new ArrayList<ConversationExchange<Request, Response>>();
+
     private boolean m_isComplete = false;
+
     private boolean m_hasBanner = false;
 
     /**
-     * <p>addExchange</p>
+     * <p>
+     * addExchange
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.provision.support.ConversationExchange} object.
+     * @param request
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.ConversationExchange}
+     *            object.
      */
     public void addExchange(final ConversationExchange<Request, Response> request) {
         m_conversation.add(request);
     }
 
     /**
-     * <p>setHasBanner</p>
+     * <p>
+     * setHasBanner
+     * </p>
      *
-     * @param hasBanner a boolean.
+     * @param hasBanner
+     *            a boolean.
      */
-    public void setHasBanner(final boolean hasBanner){
+    public void setHasBanner(final boolean hasBanner) {
         m_hasBanner = hasBanner;
     }
 
     /**
-     * <p>hasBanner</p>
+     * <p>
+     * hasBanner
+     * </p>
      *
      * @return a boolean.
      */
-    public boolean hasBanner(){
+    public boolean hasBanner() {
         return m_hasBanner;
     }
 
-
     /**
-     * <p>hasExchanges</p>
+     * <p>
+     * hasExchanges
+     * </p>
      *
      * @return a boolean.
      */
@@ -88,7 +99,9 @@ public class AsyncClientConversation<Request, Response> {
     }
 
     /**
-     * <p>isComplete</p>
+     * <p>
+     * isComplete
+     * </p>
      *
      * @return a boolean.
      */
@@ -97,15 +110,18 @@ public class AsyncClientConversation<Request, Response> {
     }
 
     /**
-     * <p>validate</p>
+     * <p>
+     * validate
+     * </p>
      *
-     * @param message a Response object.
+     * @param message
+     *            a Response object.
      * @return a boolean.
      */
     public boolean validate(final Response message) {
         final ConversationExchange<Request, Response> ex = m_conversation.remove(0);
 
-        if(m_conversation.isEmpty()) {
+        if (m_conversation.isEmpty()) {
             m_isComplete = true;
         }
 
@@ -113,7 +129,9 @@ public class AsyncClientConversation<Request, Response> {
     }
 
     /**
-     * <p>getRequest</p>
+     * <p>
+     * getRequest
+     * </p>
      *
      * @return a Request object.
      */

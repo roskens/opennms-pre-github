@@ -41,7 +41,9 @@ import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.ValidationException;
 
 /**
- * <p>RTCDebugServlet class.</p>
+ * <p>
+ * RTCDebugServlet class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -52,12 +54,16 @@ public class RTCDebugServlet extends HttpServlet {
      *
      */
     private static final long serialVersionUID = 2861682556760650660L;
+
     protected CategoryModel model;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {

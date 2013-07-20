@@ -35,7 +35,9 @@ import org.opennms.netmgt.model.OnmsResourceType;
 
 public class MockResourceType implements OnmsResourceType {
     private String m_name = "nothing but foo";
+
     private String m_label = "even more foo";
+
     private String m_link = "http://www.google.com/search?q=opennms";
 
     @Override
@@ -90,7 +92,7 @@ public class MockResourceType implements OnmsResourceType {
         m_name = name;
     }
 
-    //@Override
+    // @Override
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
         return false;

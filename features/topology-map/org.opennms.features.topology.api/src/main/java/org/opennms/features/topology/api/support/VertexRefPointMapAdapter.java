@@ -42,69 +42,74 @@ import org.opennms.features.topology.api.topo.VertexRef;
 
 /**
  */
-public class VertexRefPointMapAdapter extends XmlAdapter<VertexRefPointMapAdapter.VertexRefPointMap, Map<VertexRef,Point>> {
+public class VertexRefPointMapAdapter extends
+        XmlAdapter<VertexRefPointMapAdapter.VertexRefPointMap, Map<VertexRef, Point>> {
 
-	public static final class VertexRefPointMap {
-		public List<VertexRefPointEntry> entry = new ArrayList<VertexRefPointEntry>(0);
-	}
+    public static final class VertexRefPointMap {
+        public List<VertexRefPointEntry> entry = new ArrayList<VertexRefPointEntry>(0);
+    }
 
-	public static final class VertexRefPointEntry {
-		public VertexRefKey key;
-		public PointValue value;
-	}
+    public static final class VertexRefPointEntry {
+        public VertexRefKey key;
 
-	public static final class VertexRefKey {
-		@XmlAttribute
-		public String namespace;
-		@XmlAttribute
-		public String id;
-		@XmlAttribute
-		public String label;
-	}
+        public PointValue value;
+    }
 
-	public static final class PointValue {
-		@XmlAttribute
-		public int x;
-		@XmlAttribute
-		public int y;
-	}
+    public static final class VertexRefKey {
+        @XmlAttribute
+        public String namespace;
 
-	@Override
-	public VertexRefPointMapAdapter.VertexRefPointMap marshal(Map<VertexRef,Point> v) throws Exception {
-		if (v == null) {
-			return null;
-		} else {
-			VertexRefPointMap retval = new VertexRefPointMap();
-			for (VertexRef key : v.keySet()) {
-				VertexRefPointEntry entry = new VertexRefPointEntry();
-				VertexRefKey newKey = new VertexRefKey();
-				newKey.namespace = key.getNamespace();
-				newKey.id = key.getId();
-				newKey.label = key.getLabel();
-				Point value = v.get(key);
-				PointValue newValue = new PointValue();
-				newValue.x = value.getX();
-				newValue.y = value.getY();
-				entry.key = newKey;
-				entry.value = newValue;
-				retval.entry.add(entry);
-			}
-			return retval;
-		}
-	}
+        @XmlAttribute
+        public String id;
 
-	@Override
-	public Map<VertexRef,Point> unmarshal(VertexRefPointMapAdapter.VertexRefPointMap v) throws Exception {
-		if (v == null) {
-			return null;
-		} else {
-			Map<VertexRef, Point> retval = new HashMap<VertexRef, Point>();
-			for (VertexRefPointEntry entry : v.entry) {
-				VertexRef ref = new AbstractVertexRef(entry.key.namespace, entry.key.id, entry.key.label);
-				Point point = new Point(entry.value.x, entry.value.y);
-				retval.put(ref, point);
-			}
-			return retval;
-		}
-	}
+        @XmlAttribute
+        public String label;
+    }
+
+    public static final class PointValue {
+        @XmlAttribute
+        public int x;
+
+        @XmlAttribute
+        public int y;
+    }
+
+    @Override
+    public VertexRefPointMapAdapter.VertexRefPointMap marshal(Map<VertexRef, Point> v) throws Exception {
+        if (v == null) {
+            return null;
+        } else {
+            VertexRefPointMap retval = new VertexRefPointMap();
+            for (VertexRef key : v.keySet()) {
+                VertexRefPointEntry entry = new VertexRefPointEntry();
+                VertexRefKey newKey = new VertexRefKey();
+                newKey.namespace = key.getNamespace();
+                newKey.id = key.getId();
+                newKey.label = key.getLabel();
+                Point value = v.get(key);
+                PointValue newValue = new PointValue();
+                newValue.x = value.getX();
+                newValue.y = value.getY();
+                entry.key = newKey;
+                entry.value = newValue;
+                retval.entry.add(entry);
+            }
+            return retval;
+        }
+    }
+
+    @Override
+    public Map<VertexRef, Point> unmarshal(VertexRefPointMapAdapter.VertexRefPointMap v) throws Exception {
+        if (v == null) {
+            return null;
+        } else {
+            Map<VertexRef, Point> retval = new HashMap<VertexRef, Point>();
+            for (VertexRefPointEntry entry : v.entry) {
+                VertexRef ref = new AbstractVertexRef(entry.key.namespace, entry.key.id, entry.key.label);
+                Point point = new Point(entry.value.x, entry.value.y);
+                retval.put(ref, point);
+            }
+            return retval;
+        }
+    }
 }

@@ -58,25 +58,25 @@ import org.exolab.castor.xml.Validator;
 import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
-@XmlRootElement(name="varbind")
+@XmlRootElement(name = "varbind")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
-@XmlType(propOrder={"m_vbnumber", "m_values"})
+@XmlType(propOrder = { "m_vbnumber", "m_values" })
 public class Varbind implements Serializable {
-	private static final long serialVersionUID = 2387062723322720364L;
+    private static final long serialVersionUID = 2387062723322720364L;
 
-	private static final String[] EMPTY_STRING_ARRAY = new String[0];
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    @XmlAttribute(name="textual-convention", required=false)
+    @XmlAttribute(name = "textual-convention", required = false)
     private String m_textualConvention;
 
     // @NotNull
-	@XmlElement(name="vbnumber", required=true)
+    @XmlElement(name = "vbnumber", required = true)
     private Integer m_vbnumber;
 
-	// @Size(min=1)
-	// @NotNull
-	@XmlElement(name="vbvalue", required=true)
+    // @Size(min=1)
+    // @NotNull
+    @XmlElement(name = "vbvalue", required = true)
     private List<String> m_values = new ArrayList<String>();
 
     public String getTextualConvention() {
@@ -84,7 +84,7 @@ public class Varbind implements Serializable {
     }
 
     public void setTextualConvention(final String textualConvention) {
-        m_textualConvention = textualConvention == null? null : textualConvention.intern();
+        m_textualConvention = textualConvention == null ? null : textualConvention.intern();
     }
 
     public Integer getVbnumber() {
@@ -108,7 +108,7 @@ public class Varbind implements Serializable {
     }
 
     public String[] getVbvalue() {
-		return m_values.toArray(EMPTY_STRING_ARRAY);
+        return m_values.toArray(EMPTY_STRING_ARRAY);
     }
 
     public List<String> getVbvalueCollection() {
@@ -120,33 +120,33 @@ public class Varbind implements Serializable {
     }
 
     public void setVbvalue(final int index, final String value) throws IndexOutOfBoundsException {
-        m_values.set(index, value == null? null : value.intern());
+        m_values.set(index, value == null ? null : value.intern());
     }
 
     public void setVbvalue(final String[] values) {
         m_values.clear();
         for (final String value : values) {
-        	m_values.add(value == null? null : value.intern());
+            m_values.add(value == null ? null : value.intern());
         }
     }
 
     public void setVbvalue(final List<String> values) {
         m_values.clear();
         for (final String value : values) {
-        	m_values.add(value == null? null : value.intern());
+            m_values.add(value == null ? null : value.intern());
         }
     }
 
     public void setVbvalueCollection(final List<String> values) {
-    	setVbvalue(values);
+        setVbvalue(values);
     }
 
     public void addVbvalue(final String value) throws IndexOutOfBoundsException {
-        m_values.add(value == null? null : value.intern());
+        m_values.add(value == null ? null : value.intern());
     }
 
     public void addVbvalue(final int index, final String value) throws IndexOutOfBoundsException {
-        m_values.add(index, value == null? null : value.intern());
+        m_values.add(index, value == null ? null : value.intern());
     }
 
     public void removeAllVbvalue() {
@@ -194,63 +194,71 @@ public class Varbind implements Serializable {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_textualConvention == null) ? 0 : m_textualConvention.hashCode());
-		result = prime * result + ((m_values == null) ? 0 : m_values.hashCode());
-		result = prime * result + ((m_vbnumber == null) ? 0 : m_vbnumber.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_textualConvention == null) ? 0 : m_textualConvention.hashCode());
+        result = prime * result + ((m_values == null) ? 0 : m_values.hashCode());
+        result = prime * result + ((m_vbnumber == null) ? 0 : m_vbnumber.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Varbind)) return false;
-		final Varbind other = (Varbind) obj;
-		if (m_textualConvention == null) {
-			if (other.m_textualConvention != null) return false;
-		} else if (!m_textualConvention.equals(other.m_textualConvention)) {
-			return false;
-		}
-		if (m_values == null) {
-			if (other.m_values != null) return false;
-		} else if (!m_values.equals(other.m_values)) {
-			return false;
-		}
-		if (m_vbnumber == null) {
-			if (other.m_vbnumber != null) return false;
-		} else if (!m_vbnumber.equals(other.m_vbnumber)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Varbind))
+            return false;
+        final Varbind other = (Varbind) obj;
+        if (m_textualConvention == null) {
+            if (other.m_textualConvention != null)
+                return false;
+        } else if (!m_textualConvention.equals(other.m_textualConvention)) {
+            return false;
+        }
+        if (m_values == null) {
+            if (other.m_values != null)
+                return false;
+        } else if (!m_values.equals(other.m_values)) {
+            return false;
+        }
+        if (m_vbnumber == null) {
+            if (other.m_vbnumber != null)
+                return false;
+        } else if (!m_vbnumber.equals(other.m_vbnumber)) {
+            return false;
+        }
+        return true;
+    }
 
-	public EventMatcher constructMatcher() {
-		// ignore this is vbnumber is null
-		if (m_vbnumber == null) return EventMatchers.trueMatcher();
+    public EventMatcher constructMatcher() {
+        // ignore this is vbnumber is null
+        if (m_vbnumber == null)
+            return EventMatchers.trueMatcher();
 
-		List<EventMatcher> valueMatchers = new ArrayList<EventMatcher>(m_values.size());
-		for(String value : m_values) {
-			if (value == null) continue;
-			if (value.startsWith("~")) {
-				valueMatchers.add(valueMatchesRegexMatcher(varbind(m_vbnumber), value));
-			} else if (value.endsWith("%")) {
-				valueMatchers.add(valueStartsWithMatcher(varbind(m_vbnumber), value));
-			} else {
-				valueMatchers.add(valueEqualsMatcher(varbind(m_vbnumber), value));
-			}
-		}
+        List<EventMatcher> valueMatchers = new ArrayList<EventMatcher>(m_values.size());
+        for (String value : m_values) {
+            if (value == null)
+                continue;
+            if (value.startsWith("~")) {
+                valueMatchers.add(valueMatchesRegexMatcher(varbind(m_vbnumber), value));
+            } else if (value.endsWith("%")) {
+                valueMatchers.add(valueStartsWithMatcher(varbind(m_vbnumber), value));
+            } else {
+                valueMatchers.add(valueEqualsMatcher(varbind(m_vbnumber), value));
+            }
+        }
 
-		if (valueMatchers.size() == 1) {
-			return valueMatchers.get(0);
-		} else {
-			EventMatcher[] matchers = valueMatchers.toArray(new EventMatcher[valueMatchers.size()]);
-			return EventMatchers.or(matchers);
-		}
+        if (valueMatchers.size() == 1) {
+            return valueMatchers.get(0);
+        } else {
+            EventMatcher[] matchers = valueMatchers.toArray(new EventMatcher[valueMatchers.size()]);
+            return EventMatchers.or(matchers);
+        }
 
-	}
+    }
 
 }

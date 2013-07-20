@@ -40,7 +40,9 @@ public class CustomField implements Serializable {
      *
      */
     private static final long serialVersionUID = 4640559401699963154L;
+
     private String m_name;
+
     private List<CustomFieldValue> m_values;
 
     public CustomField() {
@@ -89,10 +91,8 @@ public class CustomField implements Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-        .append("Name", m_name)
-        .append("Value count", m_values.size())
-        .append("Values", StringUtils.join(m_values, ", "))
-        .toString();
+        return new ToStringBuilder(this).append("Name", m_name).append("Value count", m_values.size()).append("Values",
+                                                                                                              StringUtils.join(m_values,
+                                                                                                                               ", ")).toString();
     }
 }

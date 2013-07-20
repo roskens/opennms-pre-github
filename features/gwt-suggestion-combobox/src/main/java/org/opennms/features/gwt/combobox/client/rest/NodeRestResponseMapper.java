@@ -41,21 +41,20 @@ import com.google.gwt.json.client.JSONParser;
 
 public class NodeRestResponseMapper {
 
-
-    public static List<NodeDetail> mapNodeJSONtoNodeDetail(String jsonString){
+    public static List<NodeDetail> mapNodeJSONtoNodeDetail(String jsonString) {
         List<NodeDetail> nodeDetails = new ArrayList<NodeDetail>();
         JSONObject jsonObject = JSONParser.parseStrict(jsonString).isObject();
 
-        if(jsonObject != null && jsonObject.containsKey("node")) {
-            if(jsonObject.get("node").isObject() != null) {
+        if (jsonObject != null && jsonObject.containsKey("node")) {
+            if (jsonObject.get("node").isObject() != null) {
                 JSONObject jso = jsonObject.get("node").isObject();
                 nodeDetails.add(createNodeDetailsOverlay(jso.getJavaScriptObject()));
 
-            }else if(jsonObject.get("node").isArray() != null) {
+            } else if (jsonObject.get("node").isArray() != null) {
                 JSONArray jArray = jsonObject.get("node").isArray();
                 JsArray<NodeDetail> nodedetails = createNodeDetailsArray(jArray.getJavaScriptObject());
-                for(int i = 0; i < nodedetails.length(); i++) {
-                    if(!nodedetails.get(i).getNodeType().equals("D")) {
+                for (int i = 0; i < nodedetails.length(); i++) {
+                    if (!nodedetails.get(i).getNodeType().equals("D")) {
                         nodeDetails.add(nodedetails.get(i));
                     }
                 }
@@ -66,10 +65,10 @@ public class NodeRestResponseMapper {
     }
 
     private static native NodeDetail createNodeDetailsOverlay(JavaScriptObject jso) /*-{
-        return jso;
-    }-*/;
+                                                                                    return jso;
+                                                                                    }-*/;
 
     private static native JsArray<NodeDetail> createNodeDetailsArray(JavaScriptObject jso) /*-{
-        return jso;
-    }-*/;
+                                                                                           return jso;
+                                                                                           }-*/;
 }

@@ -29,7 +29,9 @@
 package org.opennms.web.svclayer;
 
 /**
- * <p>PaletteBuilder class.</p>
+ * <p>
+ * PaletteBuilder class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -37,62 +39,75 @@ package org.opennms.web.svclayer;
  */
 public class PaletteBuilder {
 
-	private Palette m_palette;
-	private PaletteCategory m_currentCategory;
+    private Palette m_palette;
 
-	/**
-	 * <p>Constructor for PaletteBuilder.</p>
-	 *
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public PaletteBuilder(String label) {
-		m_palette = new Palette(label);
-	}
+    private PaletteCategory m_currentCategory;
 
-	/**
-	 * <p>addCategory</p>
-	 *
-	 * @param label a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.web.svclayer.PaletteBuilder} object.
-	 */
-	public PaletteBuilder addCategory(String label) {
-		m_currentCategory = new PaletteCategory(label);
-		m_palette.addCategory(m_currentCategory);
-		return this;
-	}
+    /**
+     * <p>
+     * Constructor for PaletteBuilder.
+     * </p>
+     *
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public PaletteBuilder(String label) {
+        m_palette = new Palette(label);
+    }
 
-	/**
-	 * <p>addItem</p>
-	 *
-	 * @param id a {@link java.lang.String} object.
-	 * @param label a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.web.svclayer.PaletteBuilder} object.
-	 */
-	public PaletteBuilder addItem(String id, String label) {
-		PaletteItem item = new PaletteItem(id, label);
-		m_currentCategory.addItem(item);
-		return this;
-	}
+    /**
+     * <p>
+     * addCategory
+     * </p>
+     *
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.web.svclayer.PaletteBuilder} object.
+     */
+    public PaletteBuilder addCategory(String label) {
+        m_currentCategory = new PaletteCategory(label);
+        m_palette.addCategory(m_currentCategory);
+        return this;
+    }
 
-	/**
-	 * <p>addSpacer</p>
-	 *
-	 * @return a {@link org.opennms.web.svclayer.PaletteBuilder} object.
-	 */
-	public PaletteBuilder addSpacer() {
-		m_currentCategory.addItem(PaletteItem.SPACER);
-		return this;
-	}
+    /**
+     * <p>
+     * addItem
+     * </p>
+     *
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.web.svclayer.PaletteBuilder} object.
+     */
+    public PaletteBuilder addItem(String id, String label) {
+        PaletteItem item = new PaletteItem(id, label);
+        m_currentCategory.addItem(item);
+        return this;
+    }
 
-	/**
-	 * <p>getPalette</p>
-	 *
-	 * @return a {@link org.opennms.web.svclayer.Palette} object.
-	 */
-	public Palette getPalette() {
-		return m_palette;
-	}
+    /**
+     * <p>
+     * addSpacer
+     * </p>
+     *
+     * @return a {@link org.opennms.web.svclayer.PaletteBuilder} object.
+     */
+    public PaletteBuilder addSpacer() {
+        m_currentCategory.addItem(PaletteItem.SPACER);
+        return this;
+    }
 
-
+    /**
+     * <p>
+     * getPalette
+     * </p>
+     *
+     * @return a {@link org.opennms.web.svclayer.Palette} object.
+     */
+    public Palette getPalette() {
+        return m_palette;
+    }
 
 }

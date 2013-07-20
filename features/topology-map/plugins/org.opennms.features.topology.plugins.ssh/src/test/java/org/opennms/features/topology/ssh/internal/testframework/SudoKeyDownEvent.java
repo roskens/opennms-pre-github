@@ -32,34 +32,37 @@ import com.google.gwt.event.dom.client.KeyDownEvent;
 
 public class SudoKeyDownEvent extends KeyDownEvent {
     private int keyCode;
+
     private boolean isCtrlDown;
+
     private boolean isAltDown;
+
     private boolean isShiftDown;
 
     public SudoKeyDownEvent(int k, boolean isCtrlDown, boolean isAltDown, boolean isShiftDown) {
-            keyCode = k;
-            this.isCtrlDown = isCtrlDown;
-            this.isAltDown = isAltDown;
-            this.isShiftDown = isShiftDown;
+        keyCode = k;
+        this.isCtrlDown = isCtrlDown;
+        this.isAltDown = isAltDown;
+        this.isShiftDown = isShiftDown;
     }
 
     @Override
     public int getNativeKeyCode() {
-            return keyCode;
+        return keyCode;
     }
 
     @Override
-    public boolean isControlKeyDown(){
-            return isCtrlDown;
+    public boolean isControlKeyDown() {
+        return isCtrlDown;
     }
 
     @Override
-    public boolean isAltKeyDown(){
-            return isAltDown;
+    public boolean isAltKeyDown() {
+        return isAltDown;
     }
 
     @Override
-    public boolean isShiftKeyDown(){
-            return isShiftDown;
+    public boolean isShiftKeyDown() {
+        return isShiftDown;
     }
 }

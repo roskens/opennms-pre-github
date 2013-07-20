@@ -53,6 +53,7 @@ import org.opennms.netmgt.xml.event.EventReceipt;
  */
 public final class SyslogHandler implements Fiber {
     private static final Logger LOG = LoggerFactory.getLogger(SyslogHandler.class);
+
     /**
      * The UDP receiver thread.
      */
@@ -107,7 +108,9 @@ public final class SyslogHandler implements Fiber {
     private static SyslogdConfig m_syslogdConfig;
 
     /**
-     * <p>Constructor for SyslogHandler.</p>
+     * <p>
+     * Constructor for SyslogHandler.
+     * </p>
      */
     public SyslogHandler() {
         m_dgSock = null;
@@ -136,16 +139,21 @@ public final class SyslogHandler implements Fiber {
     }
 
     /**
-     * <p>setSyslogConfig</p>
+     * <p>
+     * setSyslogConfig
+     * </p>
      *
-     * @param syslogdConfig a {@link org.opennms.netmgt.config.SyslogdConfig} object.
+     * @param syslogdConfig
+     *            a {@link org.opennms.netmgt.config.SyslogdConfig} object.
      */
     public static void setSyslogConfig(SyslogdConfig syslogdConfig) {
         m_syslogdConfig = syslogdConfig;
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public synchronized void start() {
@@ -161,12 +169,8 @@ public final class SyslogHandler implements Fiber {
                 m_dgSock = new DatagramSocket(m_dgPort);
             }
 
-            m_receiver = new SyslogReceiver(m_dgSock, m_ForwardingRegexp,
-                    m_MatchingGroupHost,
-                    m_MatchingGroupMessage,
-                    m_UeiList,
-                    m_HideMessages,
-                    m_DiscardUei);
+            m_receiver = new SyslogReceiver(m_dgSock, m_ForwardingRegexp, m_MatchingGroupHost, m_MatchingGroupMessage,
+                                            m_UeiList, m_HideMessages, m_DiscardUei);
 
             if (m_logPrefix != null) {
                 m_receiver.setLogPrefix(m_logPrefix);
@@ -175,8 +179,7 @@ public final class SyslogHandler implements Fiber {
             throw new java.lang.reflect.UndeclaredThrowableException(e);
         }
 
-        Thread rThread = new Thread(m_receiver, "Syslog Event Receiver["
-                + getIpAddress() + ":" + m_dgPort + "]");
+        Thread rThread = new Thread(m_receiver, "Syslog Event Receiver[" + getIpAddress() + ":" + m_dgPort + "]");
 
         try {
             rThread.start();
@@ -192,7 +195,9 @@ public final class SyslogHandler implements Fiber {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public synchronized void stop() {
@@ -217,7 +222,9 @@ public final class SyslogHandler implements Fiber {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -227,7 +234,9 @@ public final class SyslogHandler implements Fiber {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -237,32 +246,40 @@ public final class SyslogHandler implements Fiber {
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     public void init() {
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      */
     public void destroy() {
     }
 
     /**
-     * <p>setPort</p>
+     * <p>
+     * setPort
+     * </p>
      *
-     * @param port a {@link java.lang.Integer} object.
+     * @param port
+     *            a {@link java.lang.Integer} object.
      */
     public void setPort(final Integer port) {
-        if (m_status == STARTING || m_status == RUNNING
-                || m_status == STOP_PENDING)
+        if (m_status == STARTING || m_status == RUNNING || m_status == STOP_PENDING)
             throw new IllegalStateException("The process is already running");
 
         m_dgPort = port;
     }
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -271,9 +288,12 @@ public final class SyslogHandler implements Fiber {
     }
 
     /**
-     * <p>setIpAddress</p>
+     * <p>
+     * setIpAddress
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      * @since 1.8.1
      */
     public void setIpAddress(final String ipAddress) {
@@ -281,7 +301,9 @@ public final class SyslogHandler implements Fiber {
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      * @since 1.8.1

@@ -31,7 +31,9 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * <p>NodeRtc class.</p>
+ * <p>
+ * NodeRtc class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -40,52 +42,73 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class NodeRtc implements IsSerializable {
 
     private String m_nodeLabel;
+
     private String m_nodeId;
+
     private String m_availability;
+
     private int m_downServiceCount;
+
     private int m_serviceCount;
+
     private String m_serviceStyle;
+
     private String m_availabilityStyle;
+
     private boolean m_isDashboardRole;
 
     /**
-     * <p>setNodeLabel</p>
+     * <p>
+     * setNodeLabel
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public void setNodeLabel(String label) {
         m_nodeLabel = label;
     }
 
     /**
-     * <p>setAvailability</p>
+     * <p>
+     * setAvailability
+     * </p>
      *
-     * @param availability a {@link java.lang.String} object.
+     * @param availability
+     *            a {@link java.lang.String} object.
      */
     public void setAvailability(String availability) {
         m_availability = availability;
     }
 
     /**
-     * <p>setDownServiceCount</p>
+     * <p>
+     * setDownServiceCount
+     * </p>
      *
-     * @param downServiceCount a int.
+     * @param downServiceCount
+     *            a int.
      */
     public void setDownServiceCount(int downServiceCount) {
         m_downServiceCount = downServiceCount;
     }
 
     /**
-     * <p>setServiceCount</p>
+     * <p>
+     * setServiceCount
+     * </p>
      *
-     * @param serviceCount a int.
+     * @param serviceCount
+     *            a int.
      */
     public void setServiceCount(int serviceCount) {
         m_serviceCount = serviceCount;
     }
 
     /**
-     * <p>getAvailability</p>
+     * <p>
+     * getAvailability
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,7 +117,9 @@ public class NodeRtc implements IsSerializable {
     }
 
     /**
-     * <p>getDownServiceCount</p>
+     * <p>
+     * getDownServiceCount
+     * </p>
      *
      * @return a int.
      */
@@ -103,7 +128,9 @@ public class NodeRtc implements IsSerializable {
     }
 
     /**
-     * <p>getNodeLabel</p>
+     * <p>
+     * getNodeLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,7 +139,9 @@ public class NodeRtc implements IsSerializable {
     }
 
     /**
-     * <p>getServiceCount</p>
+     * <p>
+     * getServiceCount
+     * </p>
      *
      * @return a int.
      */
@@ -121,7 +150,9 @@ public class NodeRtc implements IsSerializable {
     }
 
     /**
-     * <p>getServiceStyle</p>
+     * <p>
+     * getServiceStyle
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,7 +161,9 @@ public class NodeRtc implements IsSerializable {
     }
 
     /**
-     * <p>getAvailabilityStyle</p>
+     * <p>
+     * getAvailabilityStyle
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -139,34 +172,45 @@ public class NodeRtc implements IsSerializable {
     }
 
     /**
-     * <p>setServiceStyle</p>
+     * <p>
+     * setServiceStyle
+     * </p>
      *
-     * @param serviceStyle a {@link java.lang.String} object.
+     * @param serviceStyle
+     *            a {@link java.lang.String} object.
      */
     public void setServiceStyle(String serviceStyle) {
         m_serviceStyle = serviceStyle;
     }
 
     /**
-     * <p>setAvailabilityStyle</p>
+     * <p>
+     * setAvailabilityStyle
+     * </p>
      *
-     * @param availabilityStyle a {@link java.lang.String} object.
+     * @param availabilityStyle
+     *            a {@link java.lang.String} object.
      */
     public void setAvailabilityStyle(String availabilityStyle) {
         m_availabilityStyle = availabilityStyle;
     }
 
     /**
-     * <p>setIsDashboardRole</p>
+     * <p>
+     * setIsDashboardRole
+     * </p>
      *
-     * @param isDashboardRole a boolean.
+     * @param isDashboardRole
+     *            a boolean.
      */
     public void setIsDashboardRole(boolean isDashboardRole) {
         m_isDashboardRole = isDashboardRole;
     }
 
     /**
-     * <p>getIsDashboardRole</p>
+     * <p>
+     * getIsDashboardRole
+     * </p>
      *
      * @return a boolean.
      */
@@ -175,16 +219,21 @@ public class NodeRtc implements IsSerializable {
     }
 
     /**
-     * <p>setNodeId</p>
+     * <p>
+     * setNodeId
+     * </p>
      *
-     * @param nodeId a {@link java.lang.String} object.
+     * @param nodeId
+     *            a {@link java.lang.String} object.
      */
     public void setNodeId(String nodeId) {
         m_nodeId = nodeId;
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

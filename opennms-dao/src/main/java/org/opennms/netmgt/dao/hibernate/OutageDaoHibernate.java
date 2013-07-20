@@ -49,14 +49,18 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer> implements OutageDao {
 
     /**
-     * <p>Constructor for OutageDaoHibernate.</p>
+     * <p>
+     * Constructor for OutageDaoHibernate.
+     * </p>
      */
     public OutageDaoHibernate() {
         super(OnmsOutage.class);
     }
 
     /**
-     * <p>currentOutageCount</p>
+     * <p>
+     * currentOutageCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -66,7 +70,9 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
     }
 
     /**
-     * <p>currentOutages</p>
+     * <p>
+     * currentOutages
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -78,15 +84,12 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
     /** {@inheritDoc} */
     @Override
     public Collection<OnmsOutage> findAll(final Integer offset, final Integer limit) {
-        return (Collection<OnmsOutage>)getHibernateTemplate().execute(new HibernateCallback<Collection<OnmsOutage>>() {
+        return (Collection<OnmsOutage>) getHibernateTemplate().execute(new HibernateCallback<Collection<OnmsOutage>>() {
 
             @SuppressWarnings("unchecked")
             @Override
             public Collection<OnmsOutage> doInHibernate(final Session session) throws HibernateException, SQLException {
-                return session.createCriteria(OnmsOutage.class)
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .list();
+                return session.createCriteria(OnmsOutage.class).setFirstResult(offset).setMaxResults(limit).list();
             }
 
         });
@@ -95,14 +98,16 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
     /** {@inheritDoc} */
     @Override
     public Collection<OnmsOutage> matchingCurrentOutages(final ServiceSelector selector) {
-        final Set<InetAddress> matchingAddrs = new HashSet<InetAddress>(FilterDaoFactory.getInstance().getIPAddressList(selector.getFilterRule()));
+        final Set<InetAddress> matchingAddrs = new HashSet<InetAddress>(
+                                                                        FilterDaoFactory.getInstance().getIPAddressList(selector.getFilterRule()));
         final Set<String> matchingSvcs = new HashSet<String>(selector.getServiceNames());
 
         final List<OnmsOutage> matchingOutages = new LinkedList<OnmsOutage>();
         final Collection<OnmsOutage> outages = currentOutages();
         for (final OnmsOutage outage : outages) {
             final OnmsMonitoredService svc = outage.getMonitoredService();
-            if ((matchingSvcs.contains(svc.getServiceName()) || matchingSvcs.isEmpty()) && matchingAddrs.contains(svc.getIpAddress())) {
+            if ((matchingSvcs.contains(svc.getServiceName()) || matchingSvcs.isEmpty())
+                    && matchingAddrs.contains(svc.getIpAddress())) {
                 matchingOutages.add(outage);
             }
 
@@ -117,21 +122,20 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
         return getNodeOutageSummaries(0).size();
     }
 
-    // final int nodeId, final String nodeLabel, final Date timeDown, final Date timeUp, final Date timeNow
+    // final int nodeId, final String nodeLabel, final Date timeDown, final Date
+    // timeUp, final Date timeNow
     /** {@inheritDoc} */
     @Override
     public List<OutageSummary> getNodeOutageSummaries(final int rows) {
-        final List<OutageSummary> outages = findObjects(
-            OutageSummary.class,
-            "SELECT DISTINCT new org.opennms.netmgt.model.outage.OutageSummary(node.id, node.label, max(outage.ifLostService)) " +
-            "FROM OnmsOutage AS outage " +
-            "LEFT JOIN outage.monitoredService AS monitoredService " +
-            "LEFT JOIN monitoredService.ipInterface AS ipInterface " +
-            "LEFT JOIN ipInterface.node AS node " +
-            "WHERE outage.ifRegainedService IS NULL " +
-            "GROUP BY node.id, node.label " +
-            "ORDER BY max(outage.ifLostService) DESC, node.label ASC, node.id ASC"
-        );
+        final List<OutageSummary> outages = findObjects(OutageSummary.class,
+                                                        "SELECT DISTINCT new org.opennms.netmgt.model.outage.OutageSummary(node.id, node.label, max(outage.ifLostService)) "
+                                                                + "FROM OnmsOutage AS outage "
+                                                                + "LEFT JOIN outage.monitoredService AS monitoredService "
+                                                                + "LEFT JOIN monitoredService.ipInterface AS ipInterface "
+                                                                + "LEFT JOIN ipInterface.node AS node "
+                                                                + "WHERE outage.ifRegainedService IS NULL "
+                                                                + "GROUP BY node.id, node.label "
+                                                                + "ORDER BY max(outage.ifLostService) DESC, node.label ASC, node.id ASC");
         if (rows == 0 || outages.size() < rows) {
             return outages;
         } else {

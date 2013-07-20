@@ -41,47 +41,50 @@ import com.vaadin.data.Property;
 
 public class SSHOperation implements Operation {
 
-        @Override
-	public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
-	    String ipAddr = "";
-	    int port = 22;
+    @Override
+    public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
+        String ipAddr = "";
+        int port = 22;
 
-	    if (targets != null) {
-	        for(final VertexRef target : targets) {
-	            final Item vertexItem = operationContext.getGraphContainer().getBaseTopology().getVertex(target).getItem();
-	            if (vertexItem != null) {
-	                final Property<String> ipAddrProperty = vertexItem.getItemProperty("ipAddr");
-	                ipAddr = ipAddrProperty == null ? "" : (String) ipAddrProperty.getValue();
-	                //Property portProperty = operationContext.getGraphContainer().getVertexItem(target).getItemProperty("port");
-	                port = 22; //portProperty == null ? -1 : (Integer) portProperty.getValue();
-	            }
-	        }
-	    }
-	    operationContext.getMainWindow().addWindow(new AuthWindow(ipAddr, port));
-	    return null;
-	}
+        if (targets != null) {
+            for (final VertexRef target : targets) {
+                final Item vertexItem = operationContext.getGraphContainer().getBaseTopology().getVertex(target).getItem();
+                if (vertexItem != null) {
+                    final Property<String> ipAddrProperty = vertexItem.getItemProperty("ipAddr");
+                    ipAddr = ipAddrProperty == null ? "" : (String) ipAddrProperty.getValue();
+                    // Property portProperty =
+                    // operationContext.getGraphContainer().getVertexItem(target).getItemProperty("port");
+                    port = 22; // portProperty == null ? -1 : (Integer)
+                               // portProperty.getValue();
+                }
+            }
+        }
+        operationContext.getMainWindow().addWindow(new AuthWindow(ipAddr, port));
+        return null;
+    }
 
-        @Override
-	public boolean display(List<VertexRef> targets, OperationContext operationContext) {
-	    if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
-	    	return true;
-	    } else if(targets != null && targets.size() > 0 && targets.get(0) != null) {
-	        return true;
-	    } else {
-	        return false;
-	    }
+    @Override
+    public boolean display(List<VertexRef> targets, OperationContext operationContext) {
+        if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
+            return true;
+        } else if (targets != null && targets.size() > 0 && targets.get(0) != null) {
+            return true;
+        } else {
+            return false;
+        }
 
-	}
+    }
 
-        @Override
-	public boolean enabled(final List<VertexRef> targets, final OperationContext operationContext) {
-	    if (targets == null || targets.size() < 2) return true;
-	    return false;
-	}
+    @Override
+    public boolean enabled(final List<VertexRef> targets, final OperationContext operationContext) {
+        if (targets == null || targets.size() < 2)
+            return true;
+        return false;
+    }
 
-        @Override
-	public String getId() {
-	    return "SSH";
-	}
+    @Override
+    public String getId() {
+        return "SSH";
+    }
 
 }

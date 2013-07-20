@@ -37,37 +37,35 @@ import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
 import org.opennms.protocols.jmx.connectors.JMXSecureConnectionFactory;
 
 /**
- * <p>JMXSecurePlugin class.</p>
+ * <p>
+ * JMXSecurePlugin class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class JMXSecurePlugin extends JMXPlugin
-{
+public class JMXSecurePlugin extends JMXPlugin {
 
-	/** {@inheritDoc} */
-        @Override
-	public ConnectionWrapper getMBeanServerConnection(Map<String,Object> parameterMap, InetAddress address)
-	{
-		return JMXSecureConnectionFactory.getMBeanServerConnection(parameterMap, address);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address) {
+        return JMXSecureConnectionFactory.getMBeanServerConnection(parameterMap, address);
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public String getProtocolName(Map<String,Object> map)
-	{
-		return ParameterMap.getKeyedString(map, "friendly-name", "ssl-jmxmp");
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String getProtocolName(Map<String, Object> map) {
+        return ParameterMap.getKeyedString(map, "friendly-name", "ssl-jmxmp");
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public boolean isProtocolSupported(InetAddress address)
-	{
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("username", "jmxmp");
-		map.put("password", "jmxmp");
-		map.put("friendly-name", "ssl-jmxmp");
+    /** {@inheritDoc} */
+    @Override
+    public boolean isProtocolSupported(InetAddress address) {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("username", "jmxmp");
+        map.put("password", "jmxmp");
+        map.put("friendly-name", "ssl-jmxmp");
 
-		return isProtocolSupported(address, map);
-	}
+        return isProtocolSupported(address, map);
+    }
 }

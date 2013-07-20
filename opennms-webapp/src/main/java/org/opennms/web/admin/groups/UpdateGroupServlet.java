@@ -64,7 +64,7 @@ public class UpdateGroupServlet extends HttpServlet {
         HttpSession userSession = request.getSession(false);
 
         if (userSession != null) {
-            //group.modifyGroup.jsp
+            // group.modifyGroup.jsp
             Group newGroup = (Group) userSession.getAttribute("group");
 
             // get the rest of the group information from the form

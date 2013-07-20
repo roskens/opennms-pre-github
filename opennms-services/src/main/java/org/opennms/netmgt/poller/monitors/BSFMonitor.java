@@ -49,11 +49,8 @@ import org.opennms.netmgt.poller.Distributable;
 import org.opennms.netmgt.poller.DistributionContext;
 import org.opennms.netmgt.poller.MonitoredService;
 
-
-
 // This might actually be usable in the remote poller with some work
 @Distributable(DistributionContext.DAEMON)
-
 /**
  * <P>
  * This <code>ServiceMonitor</code> is designed to enable the evaluation
@@ -128,21 +125,23 @@ import org.opennms.netmgt.poller.MonitoredService;
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
  * @author <A HREF="http://www.opennms.org">OpenNMS</A>
  */
-
 public class BSFMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(BSFMonitor.class);
 
     private static final String STATUS_UNKNOWN = "UNK";
+
     private static final String STATUS_UNRESPONSIVE = "UNR";
+
     private static final String STATUS_AVAILABLE = "OK";
+
     private static final String STATUS_UNAVAILABLE = "NOK";
 
     /** {@inheritDoc} */
     @Override
-    public PollStatus poll(MonitoredService svc, Map<String,Object> map) {
+    public PollStatus poll(MonitoredService svc, Map<String, Object> map) {
         BSFManager bsfManager = new BSFManager();
         PollStatus pollStatus = PollStatus.unavailable();
-        String fileName = ParameterMap.getKeyedString(map,"file-name", null);
+        String fileName = ParameterMap.getKeyedString(map, "file-name", null);
         String lang = ParameterMap.getKeyedString(map, "lang-class", null);
         String langEngine = ParameterMap.getKeyedString(map, "bsf-engine", null);
         String langExtensions[] = ParameterMap.getKeyedString(map, "file-extensions", "").split(",");
@@ -151,86 +150,94 @@ public class BSFMonitor extends AbstractServiceMonitor {
 
         try {
 
-            if(lang==null)
+            if (lang == null)
                 lang = BSFManager.getLangFromFilename(fileName);
 
-            if(langEngine!=null && lang!=null && langExtensions.length > 0 ){
-                BSFManager.registerScriptingEngine(lang,langEngine,langExtensions);
+            if (langEngine != null && lang != null && langExtensions.length > 0) {
+                BSFManager.registerScriptingEngine(lang, langEngine, langExtensions);
             }
 
-            if(file.exists() && file.canRead()){
-                    String code = IOUtils.getStringFromReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-                    HashMap<String,String> results = new HashMap<String,String>();
-                    LinkedHashMap<String,Number> times = new LinkedHashMap<String,Number>();
+            if (file.exists() && file.canRead()) {
+                String code = IOUtils.getStringFromReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                HashMap<String, String> results = new HashMap<String, String>();
+                LinkedHashMap<String, Number> times = new LinkedHashMap<String, Number>();
 
-                    // Declare some beans that can be used inside the script
-                    bsfManager.declareBean("map", map, Map.class);
-                    bsfManager.declareBean("ip_addr",svc.getIpAddr(),String.class);
-                    bsfManager.declareBean("node_id",svc.getNodeId(),int.class);
-                    bsfManager.declareBean("node_label", svc.getNodeLabel(), String.class);
-                    bsfManager.declareBean("svc_name", svc.getSvcName(), String.class);
-                    bsfManager.declareBean("bsf_monitor", this, BSFMonitor.class);
-                    bsfManager.declareBean("results", results, HashMap.class);
-                    bsfManager.declareBean("times", times, LinkedHashMap.class);
+                // Declare some beans that can be used inside the script
+                bsfManager.declareBean("map", map, Map.class);
+                bsfManager.declareBean("ip_addr", svc.getIpAddr(), String.class);
+                bsfManager.declareBean("node_id", svc.getNodeId(), int.class);
+                bsfManager.declareBean("node_label", svc.getNodeLabel(), String.class);
+                bsfManager.declareBean("svc_name", svc.getSvcName(), String.class);
+                bsfManager.declareBean("bsf_monitor", this, BSFMonitor.class);
+                bsfManager.declareBean("results", results, HashMap.class);
+                bsfManager.declareBean("times", times, LinkedHashMap.class);
 
-                    for (final Entry<String, Object> entry : map.entrySet()) {
-                        bsfManager.declareBean(entry.getKey(),entry.getValue(),String.class);
-                    }
+                for (final Entry<String, Object> entry : map.entrySet()) {
+                    bsfManager.declareBean(entry.getKey(), entry.getValue(), String.class);
+                }
 
-                    pollStatus = PollStatus.unknown("The script did not update the service status");
+                pollStatus = PollStatus.unknown("The script did not update the service status");
 
-                    long startTime = System.currentTimeMillis();
-                    if ("eval".equals(runType)) {
-                        results.put("status", bsfManager.eval(lang, "BSFMonitor", 0, 0, code).toString());
-                    } else if ("exec".equals(runType)) {
-                        bsfManager.exec(lang, "BSFMonitor", 0, 0, code);
-                    } else {
-                        LOG.warn("Invalid run-type parameter value '{}' for service '{}'. Only 'eval' and 'exec' are supported.", runType, svc.getSvcName());
-                        throw new RuntimeException("Invalid run-type '" + runType + "'");
-                    }
-                    long endTime = System.currentTimeMillis();
-                    if (!times.containsKey("response-time")) {
-                        times.put("response-time", endTime - startTime);
-                    }
+                long startTime = System.currentTimeMillis();
+                if ("eval".equals(runType)) {
+                    results.put("status", bsfManager.eval(lang, "BSFMonitor", 0, 0, code).toString());
+                } else if ("exec".equals(runType)) {
+                    bsfManager.exec(lang, "BSFMonitor", 0, 0, code);
+                } else {
+                    LOG.warn("Invalid run-type parameter value '{}' for service '{}'. Only 'eval' and 'exec' are supported.",
+                             runType, svc.getSvcName());
+                    throw new RuntimeException("Invalid run-type '" + runType + "'");
+                }
+                long endTime = System.currentTimeMillis();
+                if (!times.containsKey("response-time")) {
+                    times.put("response-time", endTime - startTime);
+                }
 
-                    if (STATUS_UNKNOWN.equals(results.get("status"))) {
-                        pollStatus = PollStatus.unknown(results.get("reason"));
-                    } else if (STATUS_UNRESPONSIVE.equals(results.get("status"))) {
-                        pollStatus = PollStatus.unresponsive(results.get("reason"));
-                    } else if (STATUS_AVAILABLE.equals(results.get("status"))){
-                        pollStatus = PollStatus.available();
-                    } else if (STATUS_UNAVAILABLE.equals(results.get("status"))) {
-                        pollStatus = PollStatus.unavailable(results.get("reason"));
-                    } else {
-                        // Fall through to the old default of treating any other non-OK
-                        // code as meaning unavailable and also carrying the reason code
-                        pollStatus = PollStatus.unavailable(results.get("status"));
-                    }
+                if (STATUS_UNKNOWN.equals(results.get("status"))) {
+                    pollStatus = PollStatus.unknown(results.get("reason"));
+                } else if (STATUS_UNRESPONSIVE.equals(results.get("status"))) {
+                    pollStatus = PollStatus.unresponsive(results.get("reason"));
+                } else if (STATUS_AVAILABLE.equals(results.get("status"))) {
+                    pollStatus = PollStatus.available();
+                } else if (STATUS_UNAVAILABLE.equals(results.get("status"))) {
+                    pollStatus = PollStatus.unavailable(results.get("reason"));
+                } else {
+                    // Fall through to the old default of treating any other
+                    // non-OK
+                    // code as meaning unavailable and also carrying the reason
+                    // code
+                    pollStatus = PollStatus.unavailable(results.get("status"));
+                }
 
-                    LOG.debug("Setting {} times for service '{}'", times.size(), svc.getSvcName());
-                    pollStatus.setProperties(times);
+                LOG.debug("Setting {} times for service '{}'", times.size(), svc.getSvcName());
+                pollStatus.setProperties(times);
 
-                    if ("exec".equals(runType) && !results.containsKey("status")) {
-                        LOG.warn("The exec script '{}' for service '{}' never put a 'status' entry in the 'results' bean. Exec scripts should put this entry with a value of 'OK' for up.", fileName, svc.getSvcName());
-                    }
+                if ("exec".equals(runType) && !results.containsKey("status")) {
+                    LOG.warn("The exec script '{}' for service '{}' never put a 'status' entry in the 'results' bean. Exec scripts should put this entry with a value of 'OK' for up.",
+                             fileName, svc.getSvcName());
+                }
             } else {
-                LOG.warn("Cannot locate or read BSF script file '{}'. Marking service '{}' down.", fileName, svc.getSvcName());
+                LOG.warn("Cannot locate or read BSF script file '{}'. Marking service '{}' down.", fileName,
+                         svc.getSvcName());
                 pollStatus = PollStatus.unavailable("Cannot locate or read BSF script file: " + fileName);
             }
 
         } catch (BSFException e) {
-            LOG.warn("BSFMonitor poll for service '{}' failed with BSFException: {}", svc.getSvcName(), e.getMessage(), e);
+            LOG.warn("BSFMonitor poll for service '{}' failed with BSFException: {}", svc.getSvcName(), e.getMessage(),
+                     e);
             pollStatus = PollStatus.unavailable(e.getMessage());
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             LOG.warn("Could not find BSF script file '{}'. Marking service '{}' down.", fileName, svc.getSvcName());
             pollStatus = PollStatus.unavailable("Could not find BSF script file: " + fileName);
         } catch (IOException e) {
             pollStatus = PollStatus.unavailable(e.getMessage());
-            LOG.warn("BSFMonitor poll for service '{}' failed with IOException: {}", svc.getSvcName(), e.getMessage(), e);
+            LOG.warn("BSFMonitor poll for service '{}' failed with IOException: {}", svc.getSvcName(), e.getMessage(),
+                     e);
         } catch (Throwable e) {
             // Catch any RuntimeException throws
             pollStatus = PollStatus.unavailable(e.getMessage());
-            LOG.warn("BSFMonitor poll for service '{}' failed with unexpected throwable: {}", svc.getSvcName(), e.getMessage(), e);
+            LOG.warn("BSFMonitor poll for service '{}' failed with unexpected throwable: {}", svc.getSvcName(),
+                     e.getMessage(), e);
         } finally {
             bsfManager.terminate();
         }
@@ -239,11 +246,17 @@ public class BSFMonitor extends AbstractServiceMonitor {
     }
 
     public void log(String level, String format, Object... args) {
-        if ("TRACE".equals(level)) LOG.trace(format, args);
-        if ("DEBUG".equals(level)) LOG.debug(format, args);
-        if ("INFO".equals(level)) LOG.info(format, args);
-        if ("WARN".equals(level)) LOG.warn(format, args);
-        if ("ERROR".equals(level)) LOG.error(format, args);
-        if ("FATAL".equals(level)) LOG.error(format, args);
+        if ("TRACE".equals(level))
+            LOG.trace(format, args);
+        if ("DEBUG".equals(level))
+            LOG.debug(format, args);
+        if ("INFO".equals(level))
+            LOG.info(format, args);
+        if ("WARN".equals(level))
+            LOG.warn(format, args);
+        if ("ERROR".equals(level))
+            LOG.error(format, args);
+        if ("FATAL".equals(level))
+            LOG.error(format, args);
     }
 }

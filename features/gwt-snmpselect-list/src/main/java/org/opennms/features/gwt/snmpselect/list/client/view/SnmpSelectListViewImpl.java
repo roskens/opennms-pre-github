@@ -48,13 +48,11 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
-public class SnmpSelectListViewImpl extends Composite implements SnmpSelectListView<SnmpCellListItem>{
+public class SnmpSelectListViewImpl extends Composite implements SnmpSelectListView<SnmpCellListItem> {
 
-    private static SnmpSelectListViewImplUiBinder uiBinder = GWT
-            .create(SnmpSelectListViewImplUiBinder.class);
+    private static SnmpSelectListViewImplUiBinder uiBinder = GWT.create(SnmpSelectListViewImplUiBinder.class);
 
-    interface SnmpSelectListViewImplUiBinder extends
-            UiBinder<Widget, SnmpSelectListViewImpl> {
+    interface SnmpSelectListViewImplUiBinder extends UiBinder<Widget, SnmpSelectListViewImpl> {
     }
 
     @UiField
@@ -67,7 +65,9 @@ public class SnmpSelectListViewImpl extends Composite implements SnmpSelectListV
     FlowPanel m_pagerContainer;
 
     private Presenter<SnmpCellListItem> m_presenter;
+
     private SimplePager m_simplePager;
+
     private ListDataProvider<SnmpCellListItem> m_dataList;
 
     protected SnmpCellListItem m_updatedCell;
@@ -88,7 +88,8 @@ public class SnmpSelectListViewImpl extends Composite implements SnmpSelectListV
             }
         });
 
-        m_simplePager = new SimplePager(TextLocation.CENTER, (Resources) GWT.create(OnmsSimplePagerResources.class), true, 1000, false);
+        m_simplePager = new SimplePager(TextLocation.CENTER, (Resources) GWT.create(OnmsSimplePagerResources.class),
+                                        true, 1000, false);
         m_simplePager.setWidth("100%");
         m_simplePager.setDisplay(m_snmpSelectTable);
         m_pagerContainer.add(m_simplePager);
@@ -117,7 +118,5 @@ public class SnmpSelectListViewImpl extends Composite implements SnmpSelectListV
     public void showError(String message) {
         Window.alert("Error: " + message);
     }
-
-
 
 }

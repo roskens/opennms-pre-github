@@ -53,15 +53,14 @@ import org.springframework.core.io.ClassPathResource;
 @RunWith(Parameterized.class)
 public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcessorFactory {
 
-	@Parameters
-	public static List<Object[]> data() {
-		return Arrays.asList(new Object[][] {
-				/* Strategy class,        SnmpVersion,              trapsSupported */
-				{ JoeSnmpStrategy.class.getName(),  SnmpAgentConfig.VERSION1,  true },
-				{ Snmp4JStrategy.class.getName(),   SnmpAgentConfig.VERSION1,  true },
-				{ MockSnmpStrategy.class.getName(), SnmpAgentConfig.VERSION1,  false },
-		});
-	}
+    @Parameters
+    public static List<Object[]> data() {
+        return Arrays.asList(new Object[][] {
+        /* Strategy class, SnmpVersion, trapsSupported */
+        { JoeSnmpStrategy.class.getName(), SnmpAgentConfig.VERSION1, true },
+                { Snmp4JStrategy.class.getName(), SnmpAgentConfig.VERSION1, true },
+                { MockSnmpStrategy.class.getName(), SnmpAgentConfig.VERSION1, false }, });
+    }
 
     private TestTrapListener m_trapListener;
 
@@ -111,6 +110,7 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
 
     private static final class TestTrapListener implements TrapNotificationListener {
         private boolean m_error = false;
+
         private int m_receivedTrapCount = 0;
 
         @Override
@@ -124,42 +124,45 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
         }
 
         @SuppressWarnings("unused")
-		public boolean hasError() {
+        public boolean hasError() {
             return m_error;
         }
+
         public int getReceivedTrapCount() {
             return m_receivedTrapCount;
         }
     }
 
     String m_strategyClass;
+
     int m_snmpVersion;
+
     boolean m_trapsSupported;
+
     String m_oldProperty;
 
     public SnmpUtilsTest(String strategyClass, int snmpVersion, boolean trapsSupported) {
-    	m_strategyClass = strategyClass;
-    	m_snmpVersion = snmpVersion;
-    	m_trapsSupported = trapsSupported;
+        m_strategyClass = strategyClass;
+        m_snmpVersion = snmpVersion;
+        m_trapsSupported = trapsSupported;
 
-    	m_oldProperty = System.getProperty("org.opennms.snmp.strategyClass");
-    	System.setProperty("org.opennms.snmp.strategyClass", m_strategyClass);
+        m_oldProperty = System.getProperty("org.opennms.snmp.strategyClass");
+        System.setProperty("org.opennms.snmp.strategyClass", m_strategyClass);
 
         setPropertiesResource(new ClassPathResource("snmpTestData1.properties"));
     }
 
-
-	@After
+    @After
     public void cleanupTrapListener() throws Exception {
-    	if (m_trapListener != null) {
-    		SnmpUtils.unregisterForTraps(m_trapListener, null, 9162);
-    	}
+        if (m_trapListener != null) {
+            SnmpUtils.unregisterForTraps(m_trapListener, null, 9162);
+        }
 
-    	if (m_oldProperty == null) {
-    		System.getProperties().remove("org.opennms.snmp.strategyClass");
-    	} else {
-    		System.setProperty("org.opennms.snmp.strategyClass", m_oldProperty);
-    	}
+        if (m_oldProperty == null) {
+            System.getProperties().remove("org.opennms.snmp.strategyClass");
+        } else {
+            System.setProperty("org.opennms.snmp.strategyClass", m_oldProperty);
+        }
     }
 
     @Test
@@ -220,11 +223,13 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
         assertEquals(SnmpAgentConfig.DEFAULT_VERSION, agentConfig.getVersion());
     }
 
-/*    public void testCreateWalker() throws UnknownHostException {
-        SnmpWalker walker = SnmpUtils.createWalker(InetAddress.getLocalHost(), "Test", 5, new ColumnTracker(SnmpObjId.get(".1.2.3.4")));
-        assertNotNull(walker);
-    }
-*/
+    /*
+     * public void testCreateWalker() throws UnknownHostException {
+     * SnmpWalker walker = SnmpUtils.createWalker(InetAddress.getLocalHost(),
+     * "Test", 5, new ColumnTracker(SnmpObjId.get(".1.2.3.4")));
+     * assertNotNull(walker);
+     * }
+     */
     @Test
     public void testCreateWalkerWithAgentConfig() throws UnknownHostException {
         SnmpAgentConfig agentConfig = getAgentConfig();
@@ -241,7 +246,7 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
 
     @Test
     public void testSendV1Trap() throws Exception {
-    	assumeTrue(m_trapsSupported);
+        assumeTrue(m_trapsSupported);
         m_trapListener = new TestTrapListener();
         SnmpUtils.registerForTraps(m_trapListener, this, null, 9162);
 
@@ -258,7 +263,7 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
 
     @Test
     public void testSendV2Trap() throws Exception {
-    	assumeTrue(m_trapsSupported);
+        assumeTrue(m_trapsSupported);
         m_trapListener = new TestTrapListener();
         SnmpUtils.registerForTraps(m_trapListener, this, null, 9162);
 
@@ -275,14 +280,14 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
         assertEquals("Unexpected number of traps Received", 1, m_trapListener.getReceivedTrapCount());
     }
 
-        @Override
+    @Override
     public TrapProcessor createTrapProcessor() {
         return new TestTrapProcessor();
     }
 
     @Test
     public void testSendV1TestTrap() throws Exception {
-    	assumeTrue(m_trapsSupported);
+        assumeTrue(m_trapsSupported);
         m_trapListener = new TestTrapListener();
         SnmpUtils.registerForTraps(m_trapListener, this, null, 9162);
 
@@ -298,7 +303,7 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
 
     @Test
     public void testSendV2TestTrap() throws Exception {
-    	assumeTrue(m_trapsSupported);
+        assumeTrue(m_trapsSupported);
         m_trapListener = new TestTrapListener();
         SnmpUtils.registerForTraps(m_trapListener, this, null, 9162);
 
@@ -334,7 +339,8 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
         SnmpValue counter32 = valueFactory.getCounter32(0xF7654321L);
         assertEquals("Expected a counter32", SnmpValue.SNMP_COUNTER32, counter32.getType());
         assertEquals(0xF7654321L, counter32.toLong());
-        assertEquals(0xF7654321L, valueFactory.getValue(SnmpValue.SNMP_COUNTER32, BigInteger.valueOf(0xF7654321L).toByteArray()).toLong());
+        assertEquals(0xF7654321L,
+                     valueFactory.getValue(SnmpValue.SNMP_COUNTER32, BigInteger.valueOf(0xF7654321L).toByteArray()).toLong());
         assertEquals(counter32.toBigInteger(), new BigInteger(counter32.getBytes()));
 
         // SnmpValue.SNMP_COUNTER64;
@@ -342,21 +348,24 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
         SnmpValue counter64 = valueFactory.getCounter64(maxLongPlusSome);
         assertEquals("Expected a counter64", SnmpValue.SNMP_COUNTER64, counter64.getType());
         assertEquals(maxLongPlusSome, counter64.toBigInteger());
-        assertEquals(maxLongPlusSome, valueFactory.getValue(SnmpValue.SNMP_COUNTER64, maxLongPlusSome.toByteArray()).toBigInteger());
+        assertEquals(maxLongPlusSome,
+                     valueFactory.getValue(SnmpValue.SNMP_COUNTER64, maxLongPlusSome.toByteArray()).toBigInteger());
         assertEquals(counter64.toBigInteger(), new BigInteger(counter64.getBytes()));
 
         // SnmpValue.SNMP_GAUGE32;
         SnmpValue gauge32 = valueFactory.getGauge32(0xF7654321L);
         assertEquals("Expected a gauge32", SnmpValue.SNMP_GAUGE32, gauge32.getType());
         assertEquals(0xF7654321L, gauge32.toLong());
-        assertEquals(0xF7654321L, valueFactory.getValue(SnmpValue.SNMP_GAUGE32, BigInteger.valueOf(0xF7654321L).toByteArray()).toLong());
+        assertEquals(0xF7654321L,
+                     valueFactory.getValue(SnmpValue.SNMP_GAUGE32, BigInteger.valueOf(0xF7654321L).toByteArray()).toLong());
         assertEquals(gauge32.toBigInteger(), new BigInteger(gauge32.getBytes()));
 
         // SnmpValue.SNMP_INT32;
         SnmpValue int32 = valueFactory.getInt32(0x77654321);
         assertEquals("Expected a int32", SnmpValue.SNMP_INT32, int32.getType());
         assertEquals(0x77654321, int32.toInt());
-        assertEquals(0x77654321L, valueFactory.getValue(SnmpValue.SNMP_INT32, BigInteger.valueOf(0x77654321L).toByteArray()).toLong());
+        assertEquals(0x77654321L,
+                     valueFactory.getValue(SnmpValue.SNMP_INT32, BigInteger.valueOf(0x77654321L).toByteArray()).toLong());
         assertEquals(int32.toBigInteger(), new BigInteger(int32.getBytes()));
 
         // SnmpValue.SNMP_IPADDRESS;
@@ -372,7 +381,8 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
         SnmpValue objVal = valueFactory.getObjectId(objId);
         assertEquals("Expected an object identifier", SnmpValue.SNMP_OBJECT_IDENTIFIER, objVal.getType());
         assertEquals(objId, objVal.toSnmpObjId());
-        assertEquals(objId, valueFactory.getValue(SnmpValue.SNMP_OBJECT_IDENTIFIER, objId.toString().getBytes()).toSnmpObjId());
+        assertEquals(objId,
+                     valueFactory.getValue(SnmpValue.SNMP_OBJECT_IDENTIFIER, objId.toString().getBytes()).toSnmpObjId());
         assertEquals(objId, SnmpObjId.get(new String(objVal.getBytes())));
 
         // SnmpValue.SNMP_TIMETICKS;
@@ -380,9 +390,9 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
         SnmpValue timeTicks = valueFactory.getTimeTicks(ticks);
         assertEquals("Expected an timeticks object", SnmpValue.SNMP_TIMETICKS, timeTicks.getType());
         assertEquals(ticks, timeTicks.toLong());
-        assertEquals(ticks, valueFactory.getValue(SnmpValue.SNMP_TIMETICKS, BigInteger.valueOf(ticks).toByteArray()).toLong());
+        assertEquals(ticks,
+                     valueFactory.getValue(SnmpValue.SNMP_TIMETICKS, BigInteger.valueOf(ticks).toByteArray()).toLong());
         assertEquals(timeTicks.toBigInteger(), new BigInteger(timeTicks.getBytes()));
-
 
     }
 
@@ -391,9 +401,11 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
         SnmpValueFactory valueFactory = SnmpUtils.getValueFactory();
         assertNotNull(valueFactory);
 
-        byte[] ourBytes = new byte[]{ 0x00, 0x00, (byte)0xde, (byte)0xad, (byte)0xbe, (byte)0xef, (byte)0xca, (byte)0xfe };
+        byte[] ourBytes = new byte[] { 0x00, 0x00, (byte) 0xde, (byte) 0xad, (byte) 0xbe, (byte) 0xef, (byte) 0xca,
+                (byte) 0xfe };
         SnmpValue octStr = valueFactory.getOctetString(ourBytes);
-        assertEquals("Expecting 0x0000deadbeefcafe", new Long(0x0000deadbeefcafeL), SnmpUtils.getProtoCounter64Value(octStr));
+        assertEquals("Expecting 0x0000deadbeefcafe", new Long(0x0000deadbeefcafeL),
+                     SnmpUtils.getProtoCounter64Value(octStr));
     }
 
 }

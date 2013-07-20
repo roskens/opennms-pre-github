@@ -39,56 +39,56 @@ import org.opennms.features.topology.netutils.internal.PingWindow;
 
 public class PingOperation extends AbstractOperation {
 
-	private String pingURL;
+    private String pingURL;
 
-        @Override
-	public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
-	    String ipAddr = "";
-	    String label = "";
-	    int nodeID = -1;
+    @Override
+    public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
+        String ipAddr = "";
+        String label = "";
+        int nodeID = -1;
 
-            if (targets != null) {
-                for (final VertexRef target : targets) {
-                    final String addrValue = getIpAddrValue(operationContext, target);
-                    final String labelValue = getLabelValue(operationContext, target);
-                    final Integer nodeValue = getNodeIdValue(operationContext, target);
+        if (targets != null) {
+            for (final VertexRef target : targets) {
+                final String addrValue = getIpAddrValue(operationContext, target);
+                final String labelValue = getLabelValue(operationContext, target);
+                final Integer nodeValue = getNodeIdValue(operationContext, target);
 
-                    if (addrValue != null && nodeValue != null && nodeValue > 0) {
-                        ipAddr = addrValue;
-                        label  = labelValue == null? "" : labelValue;
-                        nodeID = nodeValue.intValue();
-                    }
+                if (addrValue != null && nodeValue != null && nodeValue > 0) {
+                    ipAddr = addrValue;
+                    label = labelValue == null ? "" : labelValue;
+                    nodeID = nodeValue.intValue();
                 }
             }
+        }
 
-            final Node node = new Node(nodeID, ipAddr, label);
-            operationContext.getMainWindow().addWindow(new PingWindow(node, getPingURL()));
-            return null;
-	}
+        final Node node = new Node(nodeID, ipAddr, label);
+        operationContext.getMainWindow().addWindow(new PingWindow(node, getPingURL()));
+        return null;
+    }
 
-	@Override
+    @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
         if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
-        	return true;
-        } else if(targets != null && targets.size() > 0 && targets.get(0) != null) {
             return true;
-        }else {
+        } else if (targets != null && targets.size() > 0 && targets.get(0) != null) {
+            return true;
+        } else {
             return false;
         }
 
     }
 
-        @Override
-	public String getId() {
-	    return "ping";
-	}
+    @Override
+    public String getId() {
+        return "ping";
+    }
 
-	public void setPingURL(final String url) {
-	    pingURL = url;
-	}
+    public void setPingURL(final String url) {
+        pingURL = url;
+    }
 
-	public String getPingURL() {
-	    return pingURL;
-	}
+    public String getPingURL() {
+        return pingURL;
+    }
 
 }

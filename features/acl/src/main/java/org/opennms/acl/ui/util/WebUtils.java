@@ -56,7 +56,9 @@ import org.opennms.acl.util.Constants;
 import org.springframework.web.bind.ServletRequestUtils;
 
 /**
- * <p>WebUtils class.</p>
+ * <p>
+ * WebUtils class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -65,9 +67,12 @@ import org.springframework.web.bind.ServletRequestUtils;
 public abstract class WebUtils {
 
     /**
-     * <p>getIntId</p>
+     * <p>
+     * getIntId
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a int.
      */
     public static int getIntId(HttpServletRequest req) {
@@ -75,10 +80,14 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>getIntParam</p>
+     * <p>
+     * getIntParam
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param name a {@link java.lang.String} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a int.
      */
     public static int getIntParam(HttpServletRequest req, String name) {
@@ -86,11 +95,16 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>addSessionAttribute</p>
+     * <p>
+     * addSessionAttribute
+     * </p>
      *
-     * @param session a {@link javax.servlet.http.HttpSession} object.
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.Object} object.
+     * @param session
+     *            a {@link javax.servlet.http.HttpSession} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.Object} object.
      * @return a boolean.
      */
     public static boolean addSessionAttribute(HttpSession session, String name, Object value) {
@@ -103,9 +117,12 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>getNumPage</p>
+     * <p>
+     * getNumPage
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a int.
      */
     public static int getNumPage(HttpServletRequest req) {
@@ -113,9 +130,12 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>getPager</p>
+     * <p>
+     * getPager
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.acl.model.Pager} object.
      */
     public static Pager getPager(HttpServletRequest req) {
@@ -123,9 +143,12 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>getUser</p>
+     * <p>
+     * getUser
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.acl.domain.GenericUser} object.
      */
     public static GenericUser getUser(HttpServletRequest req) {
@@ -133,9 +156,12 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>getAuthority</p>
+     * <p>
+     * getAuthority
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.acl.domain.Authority} object.
      */
     public static Authority getAuthority(HttpServletRequest req) {
@@ -143,9 +169,12 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>getGroup</p>
+     * <p>
+     * getGroup
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.acl.domain.Group} object.
      */
     public static Group getGroup(HttpServletRequest req) {
@@ -153,10 +182,14 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>extractIdGrantedAuthorityFromString</p>
+     * <p>
+     * extractIdGrantedAuthorityFromString
+     * </p>
      *
-     * @param line a {@link java.lang.String} object.
-     * @param separator a {@link java.lang.String} object.
+     * @param line
+     *            a {@link java.lang.String} object.
+     * @param separator
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public static List<Integer> extractIdGrantedAuthorityFromString(String line, String separator) {
@@ -169,11 +202,16 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>getPager</p>
+     * <p>
+     * getPager
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param totalItemsNumber a {@link java.lang.Integer} object.
-     * @param numberItemsOnPage a {@link java.lang.Integer} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param totalItemsNumber
+     *            a {@link java.lang.Integer} object.
+     * @param numberItemsOnPage
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.acl.model.Pager} object.
      */
     public static Pager getPager(HttpServletRequest req, Integer totalItemsNumber, Integer numberItemsOnPage) {
@@ -186,11 +224,16 @@ public abstract class WebUtils {
     }
 
     /**
-     * <p>getPager</p>
+     * <p>
+     * getPager
+     * </p>
      *
-     * @param page a int.
-     * @param totalItemsNumber a {@link java.lang.Integer} object.
-     * @param numberItemsOnPage a {@link java.lang.Integer} object.
+     * @param page
+     *            a int.
+     * @param totalItemsNumber
+     *            a {@link java.lang.Integer} object.
+     * @param numberItemsOnPage
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.acl.model.Pager} object.
      */
     public static Pager getPager(int page, Integer totalItemsNumber, Integer numberItemsOnPage) {

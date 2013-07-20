@@ -44,60 +44,64 @@ import junit.framework.TestCase;
 
 /**
  * @author jsartin
- *
  */
 public class DefaultCategoryConfigDaoTest extends TestCase {
 
-	DefaultCategoryConfigDao m_dao;
-	protected MockCategoryFactory m_catFactory;
+    DefaultCategoryConfigDao m_dao;
 
-	/**
-	 * @param arg0
-	 */
-	public DefaultCategoryConfigDaoTest(final String arg0) {
-		super(arg0);
-	}
+    protected MockCategoryFactory m_catFactory;
 
-	/* (non-Javadoc)
-	 * @see junit.framework.TestCase#setUp()
-	 */
-        @Override
+    /**
+     * @param arg0
+     */
+    public DefaultCategoryConfigDaoTest(final String arg0) {
+        super(arg0);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
+    @Override
     protected final void setUp() throws Exception {
-		super.setUp();
-		MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
+        super.setUp();
+        MockUtil.println("------------ Begin Test " + getName() + " --------------------------");
         MockLogAppender.setupLogging();
-		m_catFactory = new MockCategoryFactory();
-		CategoryFactory.setInstance(m_catFactory);
-		m_dao = new DefaultCategoryConfigDao();
-	}
+        m_catFactory = new MockCategoryFactory();
+        CategoryFactory.setInstance(m_catFactory);
+        m_dao = new DefaultCategoryConfigDao();
+    }
 
-	   @Override
-        public final void runTest() throws Throwable {
-	        super.runTest();
-	        MockLogAppender.assertNoWarningsOrGreater();
-	        MockUtil.println("------------ End Test "+getName()+" --------------------------");
-	    }
+    @Override
+    public final void runTest() throws Throwable {
+        super.runTest();
+        MockLogAppender.assertNoWarningsOrGreater();
+        MockUtil.println("------------ End Test " + getName() + " --------------------------");
+    }
 
-	    public void testNothing() {
-	        // test that setUp() / tearDown() works
-	    }
+    public void testNothing() {
+        // test that setUp() / tearDown() works
+    }
 
-	/**
-	 * Test method for {@link org.opennms.web.svclayer.dao.support.DefaultCategoryConfigDao#findAll()}.
-	 */
-	public final void testFindAll() {
-		Collection<Category> catColl = m_dao.findAll();
-		assertFalse(catColl.isEmpty());
-		assertEquals(catColl.size(),2);
-		Iterator<Category> i = catColl.iterator();
-		assertEquals(i.next().getLabel(),"Network Interfaces");
-		assertEquals(i.next().getLabel(),"Web Servers");
-		/*Iterator i = list.iterator();
-		while(i.hasNext()) {
-			Category cat = (Category)i.next();
-			MockUtil.println("found a category --" + cat.getLabel());
-
-		}*/
-	}
+    /**
+     * Test method for
+     * {@link org.opennms.web.svclayer.dao.support.DefaultCategoryConfigDao#findAll()}
+     * .
+     */
+    public final void testFindAll() {
+        Collection<Category> catColl = m_dao.findAll();
+        assertFalse(catColl.isEmpty());
+        assertEquals(catColl.size(), 2);
+        Iterator<Category> i = catColl.iterator();
+        assertEquals(i.next().getLabel(), "Network Interfaces");
+        assertEquals(i.next().getLabel(), "Web Servers");
+        /*
+         * Iterator i = list.iterator();
+         * while(i.hasNext()) {
+         * Category cat = (Category)i.next();
+         * MockUtil.println("found a category --" + cat.getLabel());
+         * }
+         */
+    }
 
 }

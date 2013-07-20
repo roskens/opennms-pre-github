@@ -31,7 +31,9 @@ package org.opennms.netmgt.jetty.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>JettyServerMBean interface.</p>
+ * <p>
+ * JettyServerMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

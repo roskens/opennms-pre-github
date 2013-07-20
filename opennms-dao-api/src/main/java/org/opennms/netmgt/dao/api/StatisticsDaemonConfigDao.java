@@ -44,23 +44,30 @@ import org.springframework.dao.DataAccessResourceFailureException;
  */
 public interface StatisticsDaemonConfigDao {
     /**
-     * <p>getReports</p>
+     * <p>
+     * getReports
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<Report> getReports();
 
     /**
-     * <p>getPackages</p>
+     * <p>
+     * getPackages
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<StatsdPackage> getPackages();
 
     /**
-     * <p>reloadConfiguration</p>
+     * <p>
+     * reloadConfiguration
+     * </p>
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException if any.
+     * @throws org.springframework.dao.DataAccessResourceFailureException
+     *             if any.
      */
     void reloadConfiguration() throws DataAccessResourceFailureException;
 }

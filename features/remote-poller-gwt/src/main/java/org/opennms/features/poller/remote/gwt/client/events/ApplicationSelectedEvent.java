@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.client.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * <p>ApplicationSelectedEvent class.</p>
+ * <p>
+ * ApplicationSelectedEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,12 +43,16 @@ public class ApplicationSelectedEvent extends GwtEvent<ApplicationSelectedEventH
 
     /** Constant <code>TYPE</code> */
     public static Type<ApplicationSelectedEventHandler> TYPE = new Type<ApplicationSelectedEventHandler>();
+
     private String m_applicationName;
 
     /**
-     * <p>Constructor for ApplicationSelectedEvent.</p>
+     * <p>
+     * Constructor for ApplicationSelectedEvent.
+     * </p>
      *
-     * @param applicationName a {@link java.lang.String} object.
+     * @param applicationName
+     *            a {@link java.lang.String} object.
      */
     public ApplicationSelectedEvent(final String applicationName) {
         m_applicationName = applicationName;
@@ -65,7 +71,9 @@ public class ApplicationSelectedEvent extends GwtEvent<ApplicationSelectedEventH
     }
 
     /**
-     * <p>getApplicationname</p>
+     * <p>
+     * getApplicationname
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

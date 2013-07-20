@@ -35,9 +35,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.criterion.Criterion;
 import org.opennms.netmgt.model.OnmsCriteria;
 
-
 /**
- * <p>Abstract ConditionalFilter class.</p>
+ * <p>
+ * Abstract ConditionalFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,15 +49,20 @@ public abstract class ConditionalFilter implements Filter {
     public static final String TYPE = "conditionalFilter";
 
     private String m_conditionType;
+
     private Filter[] m_filters;
 
     /**
-     * <p>Constructor for ConditionalFilter.</p>
+     * <p>
+     * Constructor for ConditionalFilter.
+     * </p>
      *
-     * @param conditionType a {@link java.lang.String} object.
-     * @param filters a {@link org.opennms.web.filter.Filter} object.
+     * @param conditionType
+     *            a {@link java.lang.String} object.
+     * @param filters
+     *            a {@link org.opennms.web.filter.Filter} object.
      */
-    public ConditionalFilter(String conditionType, Filter... filters){
+    public ConditionalFilter(String conditionType, Filter... filters) {
         if (filters.length == 0) {
             throw new IllegalArgumentException("You must pass at least one filter");
         }
@@ -65,7 +71,9 @@ public abstract class ConditionalFilter implements Filter {
     }
 
     /**
-     * <p>getFilters</p>
+     * <p>
+     * getFilters
+     * </p>
      *
      * @return an array of {@link org.opennms.web.filter.Filter} objects.
      */
@@ -84,7 +92,9 @@ public abstract class ConditionalFilter implements Filter {
     }
 
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -97,7 +107,7 @@ public abstract class ConditionalFilter implements Filter {
         StringBuilder buf = new StringBuilder(TYPE);
         buf.append("=");
         buf.append(m_conditionType);
-        for(Filter filter : m_filters) {
+        for (Filter filter : m_filters) {
             buf.append('(');
             buf.append(filter.getDescription());
             buf.append(')');
@@ -106,7 +116,9 @@ public abstract class ConditionalFilter implements Filter {
     }
 
     /**
-     * <p>getParamSql</p>
+     * <p>
+     * getParamSql
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -117,7 +129,7 @@ public abstract class ConditionalFilter implements Filter {
         }
 
         StringBuilder buf = new StringBuilder("( ");
-        for(int i = 0; i < m_filters.length; i++){
+        for (int i = 0; i < m_filters.length; i++) {
             if (i != 0) {
                 buf.append(m_conditionType);
                 buf.append(" ");
@@ -129,7 +141,9 @@ public abstract class ConditionalFilter implements Filter {
     }
 
     /**
-     * <p>getSql</p>
+     * <p>
+     * getSql
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,7 +154,7 @@ public abstract class ConditionalFilter implements Filter {
         }
 
         StringBuilder buf = new StringBuilder("( ");
-        for(int i = 0; i < m_filters.length; i++){
+        for (int i = 0; i < m_filters.length; i++) {
             if (i != 0) {
                 buf.append(m_conditionType);
                 buf.append(" ");
@@ -152,7 +166,9 @@ public abstract class ConditionalFilter implements Filter {
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -163,7 +179,7 @@ public abstract class ConditionalFilter implements Filter {
         }
 
         StringBuilder buf = new StringBuilder("( ");
-        for(int i = 0; i < m_filters.length; i++){
+        for (int i = 0; i < m_filters.length; i++) {
             if (i != 0) {
                 buf.append(m_conditionType);
                 buf.append(" ");
@@ -174,36 +190,39 @@ public abstract class ConditionalFilter implements Filter {
         return buf.toString();
     }
 
-
     /**
-     * <p>applyCriteria</p>
+     * <p>
+     * applyCriteria
+     * </p>
      *
-     * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
+     * @param criteria
+     *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
     public void applyCriteria(OnmsCriteria criteria) {
         criteria.add(getCriterion());
     }
 
     /**
-     * <p>getCriterion</p>
+     * <p>
+     * getCriterion
+     * </p>
      *
      * @return a {@link org.hibernate.criterion.Criterion} object.
      */
     @Override
     abstract public Criterion getCriterion();
 
-
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("description", getDescription())
-            .append("text description", getTextDescription())
-            .toString();
+        return new ToStringBuilder(this).append("description", getDescription()).append("text description",
+                                                                                        getTextDescription()).toString();
     }
 
 }

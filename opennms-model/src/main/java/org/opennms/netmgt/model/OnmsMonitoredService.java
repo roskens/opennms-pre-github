@@ -66,9 +66,8 @@ import org.springframework.core.style.ToStringCreator;
 
 @XmlRootElement(name = "service")
 @Entity
-@Table(name="ifServices")
-public class OnmsMonitoredService extends OnmsEntity implements Serializable,
-Comparable<OnmsMonitoredService> {
+@Table(name = "ifServices")
+public class OnmsMonitoredService extends OnmsEntity implements Serializable, Comparable<OnmsMonitoredService> {
 
     /**
      *
@@ -96,10 +95,9 @@ Comparable<OnmsMonitoredService> {
     /*
      * This is a set only because we want it to be lazy
      * and we need a better query language (i.e. HQL)
-     * to make this work.  In this case, the Set size
+     * to make this work. In this case, the Set size
      * will always be 1 or empty because there can only
      * be one outage at a time on a service.
-     *
      * With distributed monitoring, there will probably
      * be a model change were one service can be represented
      * by more than one outage.
@@ -108,9 +106,9 @@ Comparable<OnmsMonitoredService> {
 
     private Set<OnmsApplication> m_applications = new LinkedHashSet<OnmsApplication>();
 
-	private static final Map<String, String> STATUS_MAP;
+    private static final Map<String, String> STATUS_MAP;
 
-	static {
+    static {
         STATUS_MAP = new HashMap<String, String>();
         STATUS_MAP.put("A", "Managed");
         STATUS_MAP.put("U", "Unmanaged");
@@ -120,19 +118,25 @@ Comparable<OnmsMonitoredService> {
         STATUS_MAP.put("R", "Rescan to Resume");
         STATUS_MAP.put("S", "Rescan to Suspend");
         STATUS_MAP.put("X", "Remotely Monitored");
-	}
+    }
 
     /**
-     * <p>Constructor for OnmsMonitoredService.</p>
+     * <p>
+     * Constructor for OnmsMonitoredService.
+     * </p>
      */
     public OnmsMonitoredService() {
     }
 
     /**
-     * <p>Constructor for OnmsMonitoredService.</p>
+     * <p>
+     * Constructor for OnmsMonitoredService.
+     * </p>
      *
-     * @param ipIf a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
-     * @param serviceType a {@link org.opennms.netmgt.model.OnmsServiceType} object.
+     * @param ipIf
+     *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     * @param serviceType
+     *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      */
     public OnmsMonitoredService(OnmsIpInterface ipIf, OnmsServiceType serviceType) {
         m_ipInterface = ipIf;
@@ -147,25 +151,30 @@ Comparable<OnmsMonitoredService> {
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(nullable=false)
-    @XmlAttribute(name="id")
-    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")
+    @Column(nullable = false)
+    @XmlAttribute(name = "id")
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -176,10 +185,11 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     *
      * @deprecated
      */
     @XmlTransient
@@ -189,7 +199,9 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -200,79 +212,99 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>getLastGood</p>
+     * <p>
+     * getLastGood
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="lastGood")
+    @Column(name = "lastGood")
     public Date getLastGood() {
         return m_lastGood;
     }
 
     /**
-     * <p>setLastGood</p>
+     * <p>
+     * setLastGood
+     * </p>
      *
-     * @param lastgood a {@link java.util.Date} object.
+     * @param lastgood
+     *            a {@link java.util.Date} object.
      */
     public void setLastGood(Date lastgood) {
         m_lastGood = lastgood;
     }
 
     /**
-     * <p>getLastFail</p>
+     * <p>
+     * getLastFail
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="lastFail")
+    @Column(name = "lastFail")
     public Date getLastFail() {
         return m_lastFail;
     }
 
     /**
-     * <p>setLastFail</p>
+     * <p>
+     * setLastFail
+     * </p>
      *
-     * @param lastfail a {@link java.util.Date} object.
+     * @param lastfail
+     *            a {@link java.util.Date} object.
      */
     public void setLastFail(Date lastfail) {
         m_lastFail = lastfail;
     }
 
     /**
-     * <p>getQualifier</p>
+     * <p>
+     * getQualifier
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="qualifier", length=16)
+    @Column(name = "qualifier", length = 16)
     public String getQualifier() {
         return m_qualifier;
     }
 
     /**
-     * <p>setQualifier</p>
+     * <p>
+     * setQualifier
+     * </p>
      *
-     * @param qualifier a {@link java.lang.String} object.
+     * @param qualifier
+     *            a {@link java.lang.String} object.
      */
     public void setQualifier(String qualifier) {
         m_qualifier = qualifier;
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @XmlAttribute
-    @Column(name="status", length=1)
+    @Column(name = "status", length = 1)
     public String getStatus() {
         return m_status;
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param status a {@link java.lang.String} object.
+     * @param status
+     *            a {@link java.lang.String} object.
      */
     public void setStatus(String status) {
         m_status = status;
@@ -280,72 +312,89 @@ Comparable<OnmsMonitoredService> {
 
     @Transient
     public String getStatusLong() {
-    	return STATUS_MAP.get(getStatus());
+        return STATUS_MAP.get(getStatus());
     }
 
     /**
-     * <p>getSource</p>
+     * <p>
+     * getSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @XmlAttribute
-    @Column(name="source", length=1)
+    @Column(name = "source", length = 1)
     public String getSource() {
         return m_source;
     }
 
     /**
-     * <p>setSource</p>
+     * <p>
+     * setSource
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
      */
     public void setSource(String source) {
         m_source = source;
     }
 
     /**
-     * <p>getNotify</p>
+     * <p>
+     * getNotify
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="notify", length=1)
+    @Column(name = "notify", length = 1)
     public String getNotify() {
         return m_notify;
     }
 
     /**
-     * <p>setNotify</p>
+     * <p>
+     * setNotify
+     * </p>
      *
-     * @param notify a {@link java.lang.String} object.
+     * @param notify
+     *            a {@link java.lang.String} object.
      */
     public void setNotify(String notify) {
         m_notify = notify;
     }
 
     /**
-     * <p>getIpInterface</p>
+     * <p>
+     * getIpInterface
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     @XmlIDREF
-    @XmlElement(name="ipInterfaceId")
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="ipInterfaceId")
+    @XmlElement(name = "ipInterfaceId")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ipInterfaceId")
     public OnmsIpInterface getIpInterface() {
         return m_ipInterface;
     }
 
     /**
-     * <p>setIpInterface</p>
+     * <p>
+     * setIpInterface
+     * </p>
      *
-     * @param ipInterface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     * @param ipInterface
+     *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     public void setIpInterface(OnmsIpInterface ipInterface) {
         m_ipInterface = ipInterface;
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -356,50 +405,57 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>getServiceType</p>
+     * <p>
+     * getServiceType
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      */
-    @ManyToOne(optional=false)
-    @JoinColumn(name="serviceId")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "serviceId")
     public OnmsServiceType getServiceType() {
         return m_serviceType;
     }
 
     /**
-     * <p>setServiceType</p>
+     * <p>
+     * setServiceType
+     * </p>
      *
-     * @param service a {@link org.opennms.netmgt.model.OnmsServiceType} object.
+     * @param service
+     *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      */
     public void setServiceType(OnmsServiceType service) {
         m_serviceType = service;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-        .append("id", m_id)
-        .append("lastGood", m_lastGood)
-        .append("lastFail", m_lastFail)
-        .append("qualifier", m_qualifier)
-        .append("status", m_status)
-        .append("source", m_source)
-        .append("notify", m_notify)
-        .append("serviceType", m_serviceType)
+        return new ToStringCreator(this).append("id", m_id).append("lastGood", m_lastGood).append("lastFail",
+                                                                                                  m_lastFail).append("qualifier",
+                                                                                                                     m_qualifier).append("status",
+                                                                                                                                         m_status).append("source",
+                                                                                                                                                          m_source).append("notify",
+                                                                                                                                                                           m_notify).append("serviceType",
+                                                                                                                                                                                            m_serviceType)
         // cannot include these since the require db queries
-//        .append("ipInterface", m_ipInterface)
-//        .append("currentOutages", m_currentOutages)
-//        .append("applications", m_applications)
+        // .append("ipInterface", m_ipInterface)
+        // .append("currentOutages", m_currentOutages)
+        // .append("applications", m_applications)
         .toString();
     }
 
     /**
-     * <p>getServiceId</p>
+     * <p>
+     * getServiceId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -407,8 +463,6 @@ Comparable<OnmsMonitoredService> {
     public Integer getServiceId() {
         return getServiceType().getId();
     }
-
-
 
     /** {@inheritDoc} */
     @Override
@@ -418,7 +472,9 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -428,7 +484,9 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>isDown</p>
+     * <p>
+     * isDown
+     * </p>
      *
      * @return a boolean.
      */
@@ -443,56 +501,63 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>getCurrentOutages</p>
+     * <p>
+     * getCurrentOutages
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
     @XmlTransient
-    @OneToMany(mappedBy="monitoredService", fetch=FetchType.LAZY)
-    @Where(clause="ifRegainedService is null")
+    @OneToMany(mappedBy = "monitoredService", fetch = FetchType.LAZY)
+    @Where(clause = "ifRegainedService is null")
     public Set<OnmsOutage> getCurrentOutages() {
         return m_currentOutages;
     }
 
     /**
-     * <p>setCurrentOutages</p>
+     * <p>
+     * setCurrentOutages
+     * </p>
      *
-     * @param currentOutages a {@link java.util.Set} object.
+     * @param currentOutages
+     *            a {@link java.util.Set} object.
      */
     public void setCurrentOutages(Set<OnmsOutage> currentOutages) {
         m_currentOutages = currentOutages;
     }
 
     /**
-     * <p>getApplications</p>
+     * <p>
+     * getApplications
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
-    @ManyToMany(
-                cascade={CascadeType.PERSIST, CascadeType.MERGE}
-    )
-    @JoinTable(
-               name="application_service_map",
-               joinColumns={@JoinColumn(name="ifserviceid")},
-               inverseJoinColumns={@JoinColumn(name="appid")}
-    )
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "application_service_map", joinColumns = { @JoinColumn(name = "ifserviceid") }, inverseJoinColumns = { @JoinColumn(name = "appid") })
     public Set<OnmsApplication> getApplications() {
         return m_applications;
     }
 
     /**
-     * <p>setApplications</p>
+     * <p>
+     * setApplications
+     * </p>
      *
-     * @param applications a {@link java.util.Set} object.
+     * @param applications
+     *            a {@link java.util.Set} object.
      */
     public void setApplications(Set<OnmsApplication> applications) {
         m_applications = applications;
     }
 
     /**
-     * <p>addApplication</p>
+     * <p>
+     * addApplication
+     * </p>
      *
-     * @param application a {@link org.opennms.netmgt.model.OnmsApplication} object.
+     * @param application
+     *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
      * @return a boolean.
      */
     public boolean addApplication(OnmsApplication application) {
@@ -500,9 +565,12 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>removeApplication</p>
+     * <p>
+     * removeApplication
+     * </p>
      *
-     * @param application a {@link org.opennms.netmgt.model.OnmsApplication} object.
+     * @param application
+     *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
      * @return a boolean.
      */
     public boolean removeApplication(OnmsApplication application) {
@@ -510,9 +578,13 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param o a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
+     * @param o
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
      * @return a int.
      */
     @Override
@@ -535,9 +607,13 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
-     * <p>mergeServiceAttributes</p>
+     * <p>
+     * mergeServiceAttributes
+     * </p>
      *
-     * @param scanned a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
+     * @param scanned
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
      */
     public void mergeServiceAttributes(OnmsMonitoredService scanned) {
 
@@ -559,12 +635,12 @@ Comparable<OnmsMonitoredService> {
 
     }
 
-	private boolean hasNewStatusValue(String newStatus, String oldStatus)
-	{
-		/*
-		 * Don't overwrite the 'Not Monitored' in the database when provisioning the
-		 * node.  The Poller will update it when scheduling it packages.
-		 */
-		return !"N".equals(oldStatus) && newStatus != null && !newStatus.equals(oldStatus);
-	}
+    private boolean hasNewStatusValue(String newStatus, String oldStatus) {
+        /*
+         * Don't overwrite the 'Not Monitored' in the database when provisioning
+         * the
+         * node. The Poller will update it when scheduling it packages.
+         */
+        return !"N".equals(oldStatus) && newStatus != null && !newStatus.equals(oldStatus);
+    }
 }

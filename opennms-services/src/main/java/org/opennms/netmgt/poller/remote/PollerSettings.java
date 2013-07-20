@@ -29,7 +29,9 @@
 package org.opennms.netmgt.poller.remote;
 
 /**
- * <p>PollerSettings interface.</p>
+ * <p>
+ * PollerSettings interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -37,16 +39,21 @@ package org.opennms.netmgt.poller.remote;
 public interface PollerSettings {
 
     /**
-     * <p>getMonitorId</p>
+     * <p>
+     * getMonitorId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     public Integer getMonitorId();
 
     /**
-     * <p>setMonitorId</p>
+     * <p>
+     * setMonitorId
+     * </p>
      *
-     * @param monitorId a {@link java.lang.Integer} object.
+     * @param monitorId
+     *            a {@link java.lang.Integer} object.
      */
     public void setMonitorId(Integer monitorId);
 

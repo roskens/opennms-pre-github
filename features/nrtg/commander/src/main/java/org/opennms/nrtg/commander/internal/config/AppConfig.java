@@ -44,7 +44,8 @@ import javax.jms.DeliveryMode;
 @Configuration
 public class AppConfig {
 
-//    private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
+    // private static final Logger logger =
+    // LoggerFactory.getLogger(AppConfig.class);
 
     @Bean(name = "connectionFactory")
     public CachingConnectionFactory connectionFactory() {
@@ -58,7 +59,8 @@ public class AppConfig {
 
     @Bean(name = "amqConnectionFactory")
     public ConnectionFactory amqConnectionFactory() {
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnectionFactory.DEFAULT_BROKER_URL);
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+                                                                            ActiveMQConnectionFactory.DEFAULT_BROKER_URL);
         return connectionFactory;
     }
 

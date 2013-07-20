@@ -44,7 +44,9 @@ import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
 import org.springframework.validation.Errors;
 
 /**
- * <p>LocationMonitorListModel class.</p>
+ * <p>
+ * LocationMonitorListModel class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -52,19 +54,25 @@ import org.springframework.validation.Errors;
  */
 public class LocationMonitorListModel {
     private static final String HOST_ADDRESS_KEY = "org.opennms.netmgt.poller.remote.hostAddress";
+
     private static final String HOST_NAME_KEY = "org.opennms.netmgt.poller.remote.hostName";
 
     private Errors m_errors;
+
     private List<LocationMonitorModel> m_locationMonitors;
 
     /**
-     * <p>Constructor for LocationMonitorListModel.</p>
+     * <p>
+     * Constructor for LocationMonitorListModel.
+     * </p>
      */
     public LocationMonitorListModel() {
     }
 
     /**
-     * <p>getLocationMonitors</p>
+     * <p>
+     * getLocationMonitors
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -73,18 +81,26 @@ public class LocationMonitorListModel {
     }
 
     /**
-     * <p>setLocationMonitors</p>
+     * <p>
+     * setLocationMonitors
+     * </p>
      *
-     * @param locationMonitors a {@link java.util.List} object.
+     * @param locationMonitors
+     *            a {@link java.util.List} object.
      */
     public void setLocationMonitors(List<LocationMonitorModel> locationMonitors) {
         m_locationMonitors = locationMonitors;
     }
 
     /**
-     * <p>addLocationMonitor</p>
+     * <p>
+     * addLocationMonitor
+     * </p>
      *
-     * @param locationMonitor a {@link org.opennms.web.svclayer.LocationMonitorListModel.LocationMonitorModel} object.
+     * @param locationMonitor
+     *            a
+     *            {@link org.opennms.web.svclayer.LocationMonitorListModel.LocationMonitorModel}
+     *            object.
      */
     public void addLocationMonitor(LocationMonitorModel locationMonitor) {
         if (m_locationMonitors == null) {
@@ -94,7 +110,9 @@ public class LocationMonitorListModel {
     }
 
     /**
-     * <p>getErrors</p>
+     * <p>
+     * getErrors
+     * </p>
      *
      * @return a {@link org.springframework.validation.Errors} object.
      */
@@ -103,9 +121,12 @@ public class LocationMonitorListModel {
     }
 
     /**
-     * <p>setErrors</p>
+     * <p>
+     * setErrors
+     * </p>
      *
-     * @param errors a {@link org.springframework.validation.Errors} object.
+     * @param errors
+     *            a {@link org.springframework.validation.Errors} object.
      */
     public void setErrors(Errors errors) {
         m_errors = errors;
@@ -113,13 +134,21 @@ public class LocationMonitorListModel {
 
     public static class LocationMonitorModel {
         private String m_area;
+
         private String m_definitionName;
+
         private int m_id;
+
         private String m_name;
+
         private String m_hostName;
+
         private String m_ipAddress;
+
         private MonitorStatus m_status;
+
         private Date m_lastCheckInTime;
+
         private Map<String, String> m_additionalDetails;
 
         public LocationMonitorModel() {
@@ -129,8 +158,11 @@ public class LocationMonitorListModel {
          * Create a LocationMonitorModel and populate it with data from a
          * OnmsLocationMonitor and OnmsMonitoringLocationDefinition (if any).
          *
-         * @param monitor the location monitor
-         * @param def the monitoring location definition for the location monitor (if any; can be null)
+         * @param monitor
+         *            the location monitor
+         * @param def
+         *            the monitoring location definition for the location
+         *            monitor (if any; can be null)
          */
         public LocationMonitorModel(OnmsLocationMonitor monitor, OnmsMonitoringLocationDefinition def) {
             if (monitor == null) {

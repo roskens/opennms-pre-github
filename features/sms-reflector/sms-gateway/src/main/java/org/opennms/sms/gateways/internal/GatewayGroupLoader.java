@@ -42,7 +42,9 @@ import org.smslib.modem.SerialModemGateway;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * <p>GatewayGroupLoader class.</p>
+ * <p>
+ * GatewayGroupLoader class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,25 +55,38 @@ public class GatewayGroupLoader implements InitializingBean {
     private static Logger log = LoggerFactory.getLogger(GatewayGroupLoader.class);
 
     private Properties m_configProperties;
+
     private GatewayGroup[] m_gatewayGroups;
+
     private GatewayGroupRegistrar m_gatewayGroupRegistrar;
 
-
     /**
-     * <p>Constructor for GatewayGroupLoader.</p>
+     * <p>
+     * Constructor for GatewayGroupLoader.
+     * </p>
      *
-     * @param gatewayGroupRegistrar a {@link org.opennms.sms.gateways.internal.GatewayGroupRegistrar} object.
-     * @param configURL a {@link java.net.URL} object.
+     * @param gatewayGroupRegistrar
+     *            a
+     *            {@link org.opennms.sms.gateways.internal.GatewayGroupRegistrar}
+     *            object.
+     * @param configURL
+     *            a {@link java.net.URL} object.
      */
     public GatewayGroupLoader(GatewayGroupRegistrar gatewayGroupRegistrar, URL configURL) {
         this(gatewayGroupRegistrar, loadProperties(configURL));
     }
 
     /**
-     * <p>Constructor for GatewayGroupLoader.</p>
+     * <p>
+     * Constructor for GatewayGroupLoader.
+     * </p>
      *
-     * @param gatewayGroupRegistrar a {@link org.opennms.sms.gateways.internal.GatewayGroupRegistrar} object.
-     * @param configProperties a {@link java.util.Properties} object.
+     * @param gatewayGroupRegistrar
+     *            a
+     *            {@link org.opennms.sms.gateways.internal.GatewayGroupRegistrar}
+     *            object.
+     * @param configProperties
+     *            a {@link java.util.Properties} object.
      */
     public GatewayGroupLoader(GatewayGroupRegistrar gatewayGroupRegistrar, Properties configProperties) {
         m_gatewayGroupRegistrar = gatewayGroupRegistrar;
@@ -79,16 +94,22 @@ public class GatewayGroupLoader implements InitializingBean {
     }
 
     /**
-     * <p>getGatewayGroups</p>
+     * <p>
+     * getGatewayGroups
+     * </p>
      *
-     * @return an array of {@link org.opennms.sms.reflector.smsservice.GatewayGroup} objects.
+     * @return an array of
+     *         {@link org.opennms.sms.reflector.smsservice.GatewayGroup}
+     *         objects.
      */
     public GatewayGroup[] getGatewayGroups() {
         return m_gatewayGroups;
     }
 
     /**
-     * <p>load</p>
+     * <p>
+     * load
+     * </p>
      */
     public void load() {
 
@@ -107,7 +128,7 @@ public class GatewayGroupLoader implements InitializingBean {
         if (tokens.length == 0) {
             m_gatewayGroups = new GatewayGroup[0];
         } else {
-            for(int i = 0; i < tokens.length; i++){
+            for (int i = 0; i < tokens.length; i++) {
                 String modemId = tokens[i];
                 String port = modemProperties.getProperty(modemId + ".port");
 
@@ -117,7 +138,7 @@ public class GatewayGroupLoader implements InitializingBean {
                 int baudRate = Integer.parseInt(modemProperties.getProperty(modemId + ".baudrate", "9600"));
                 String manufacturer = modemProperties.getProperty(modemId + ".manufacturer");
                 String model = modemProperties.getProperty(modemId + ".model");
-                String pin = modemProperties.getProperty(modemId+".pin", "0000");
+                String pin = modemProperties.getProperty(modemId + ".pin", "0000");
 
                 infof("Create SerialModemGateway(%s, %s, %d, %s, %s)", modemId, port, baudRate, manufacturer, model);
 
@@ -130,7 +151,6 @@ public class GatewayGroupLoader implements InitializingBean {
                 gateways[i] = gateway;
             }
 
-
             GatewayGroup gatewayGroup = new GatewayGroup() {
 
                 @Override
@@ -140,7 +160,7 @@ public class GatewayGroupLoader implements InitializingBean {
 
             };
 
-            m_gatewayGroups  = new GatewayGroup[] { gatewayGroup };
+            m_gatewayGroups = new GatewayGroup[] { gatewayGroup };
 
         }
 
@@ -150,13 +170,13 @@ public class GatewayGroupLoader implements InitializingBean {
         Properties modemProperties = new Properties();
         InputStream in = null;
 
-        try{
+        try {
             in = configURL.openStream();
             modemProperties.load(in);
         } catch (final IOException e) {
             LOG.error("Unable to load properties.", e);
-        }finally{
-            if(in != null){
+        } finally {
+            if (in != null) {
                 try {
                     in.close();
                 } catch (final IOException e) {
@@ -167,22 +187,25 @@ public class GatewayGroupLoader implements InitializingBean {
         return modemProperties;
     }
 
-	private void infof(String fmt, Object... args) {
-	    if (log.isInfoEnabled()) {
-	        log.info(String.format(fmt, args));
-	    }
-	}
+    private void infof(String fmt, Object... args) {
+        if (log.isInfoEnabled()) {
+            log.info(String.format(fmt, args));
+        }
+    }
 
-	/**
-	 * <p>afterPropertiesSet</p>
-	 *
-	 * @throws java.lang.Exception if any.
-	 */
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		load();
-		for(GatewayGroup group : getGatewayGroups()){
-			m_gatewayGroupRegistrar.registerGatewayGroup(group);
-		}
-	}
+    /**
+     * <p>
+     * afterPropertiesSet
+     * </p>
+     *
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        load();
+        for (GatewayGroup group : getGatewayGroups()) {
+            m_gatewayGroupRegistrar.registerGatewayGroup(group);
+        }
+    }
 }

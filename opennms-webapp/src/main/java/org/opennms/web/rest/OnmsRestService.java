@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -64,7 +63,9 @@ import org.springframework.beans.BeanWrapperImpl;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 /**
- * <p>OnmsRestService class.</p>
+ * <p>
+ * OnmsRestService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -72,115 +73,127 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
  */
 public class OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OnmsRestService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OnmsRestService.class);
 
     private final ReentrantReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-	protected static final int DEFAULT_LIMIT = 10;
+    protected static final int DEFAULT_LIMIT = 10;
 
-	protected enum ComparisonOperation { EQ, NE, ILIKE, LIKE, IPLIKE, GT, LT, GE, LE, CONTAINS }
+    protected enum ComparisonOperation {
+        EQ, NE, ILIKE, LIKE, IPLIKE, GT, LT, GE, LE, CONTAINS
+    }
 
-	/**
-	 * <p>Constructor for OnmsRestService.</p>
-	 */
-	public OnmsRestService() {
-		super();
-	}
+    /**
+     * <p>
+     * Constructor for OnmsRestService.
+     * </p>
+     */
+    public OnmsRestService() {
+        super();
+    }
 
-	protected void readLock() {
-	    m_readLock.lock();
-	}
+    protected void readLock() {
+        m_readLock.lock();
+    }
 
-	protected void readUnlock() {
-	    if (m_globalLock.getReadHoldCount() > 0) {
-	        m_readLock.unlock();
-	    }
-	}
+    protected void readUnlock() {
+        if (m_globalLock.getReadHoldCount() > 0) {
+            m_readLock.unlock();
+        }
+    }
 
-	protected void writeLock() {
-	    if (m_globalLock.getWriteHoldCount() == 0) {
-	        while (m_globalLock.getReadHoldCount() > 0) {
-	            m_readLock.unlock();
-	        }
-	        m_writeLock.lock();
-	    }
-	}
+    protected void writeLock() {
+        if (m_globalLock.getWriteHoldCount() == 0) {
+            while (m_globalLock.getReadHoldCount() > 0) {
+                m_readLock.unlock();
+            }
+            m_writeLock.lock();
+        }
+    }
 
-	protected void writeUnlock() {
-	    if (m_globalLock.getWriteHoldCount() > 0) {
-	        m_writeLock.unlock();
-	    }
-	}
+    protected void writeUnlock() {
+        if (m_globalLock.getWriteHoldCount() > 0) {
+            m_writeLock.unlock();
+        }
+    }
 
-	protected void applyQueryFilters(final MultivaluedMap<String,String> p, final CriteriaBuilder builder) {
-		final MultivaluedMap<String, String> params = new MultivaluedMapImpl();
-	    params.putAll(p);
+    protected void applyQueryFilters(final MultivaluedMap<String, String> p, final CriteriaBuilder builder) {
+        final MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.putAll(p);
 
-	    builder.distinct();
-	    builder.limit(DEFAULT_LIMIT);
+        builder.distinct();
+        builder.limit(DEFAULT_LIMIT);
 
-	    // not sure why we remove this, but that's what the old query filter code did, I presume there's a reason  :)
-	    params.remove("_dc");
+        // not sure why we remove this, but that's what the old query filter
+        // code did, I presume there's a reason :)
+        params.remove("_dc");
 
-    	if (params.containsKey("limit")) {
-    		builder.limit(Integer.valueOf(params.getFirst("limit")));
-    		params.remove("limit");
-    	}
-    	if (params.containsKey("offset")) {
-    		builder.offset(Integer.valueOf(params.getFirst("offset")));
-    		params.remove("offset");
-    	}
-    	// Is this necessary anymore? setLimitOffset() comments implies it's for Ext-JS.
-    	if (params.containsKey("start")) {
-    		builder.offset(Integer.valueOf(params.getFirst("start")));
-    		params.remove("start");
-    	}
+        if (params.containsKey("limit")) {
+            builder.limit(Integer.valueOf(params.getFirst("limit")));
+            params.remove("limit");
+        }
+        if (params.containsKey("offset")) {
+            builder.offset(Integer.valueOf(params.getFirst("offset")));
+            params.remove("offset");
+        }
+        // Is this necessary anymore? setLimitOffset() comments implies it's for
+        // Ext-JS.
+        if (params.containsKey("start")) {
+            builder.offset(Integer.valueOf(params.getFirst("start")));
+            params.remove("start");
+        }
 
-	    if(params.containsKey("orderBy")) {
-	    	builder.orderBy(params.getFirst("orderBy"));
-			params.remove("orderBy");
+        if (params.containsKey("orderBy")) {
+            builder.orderBy(params.getFirst("orderBy"));
+            params.remove("orderBy");
 
-			if(params.containsKey("order")) {
-				if("desc".equalsIgnoreCase(params.getFirst("order"))) {
-					builder.desc();
-				} else {
-					builder.asc();
-				}
-				params.remove("order");
-			}
-		}
+            if (params.containsKey("order")) {
+                if ("desc".equalsIgnoreCase(params.getFirst("order"))) {
+                    builder.desc();
+                } else {
+                    builder.asc();
+                }
+                params.remove("order");
+            }
+        }
 
-	    final String query = removeParameter(params, "query");
-	    if (query != null) builder.sql(query);
+        final String query = removeParameter(params, "query");
+        if (query != null)
+            builder.sql(query);
 
-		final String matchType;
-		final String match = removeParameter(params, "match");
-		if (match == null) {
-			matchType = "all";
-		} else {
-			matchType = match;
-		}
-		builder.match(matchType);
+        final String matchType;
+        final String match = removeParameter(params, "match");
+        if (match == null) {
+            matchType = "all";
+        } else {
+            matchType = match;
+        }
+        builder.match(matchType);
 
-		final Class<?> criteriaClass = builder.toCriteria().getCriteriaClass();
-		final BeanWrapper wrapper = getBeanWrapperForClass(criteriaClass);
+        final Class<?> criteriaClass = builder.toCriteria().getCriteriaClass();
+        final BeanWrapper wrapper = getBeanWrapperForClass(criteriaClass);
 
-		final String comparatorParam = removeParameter(params, "comparator", "eq").toLowerCase();
-		final Criteria currentCriteria = builder.toCriteria();
+        final String comparatorParam = removeParameter(params, "comparator", "eq").toLowerCase();
+        final Criteria currentCriteria = builder.toCriteria();
 
-		for (final String key : params.keySet()) {
-			for (final String paramValue : params.get(key)) { // NOSONAR
-                        // NOSONAR the interface of MultivaluedMap.class declares List<String> as return value,
-                        // the actual implementation com.sun.jersey.core.util.MultivaluedMapImpl returns a String, so this is fine in some way ...
-				if ("null".equalsIgnoreCase(paramValue)) {
-					builder.isNull(key);
-				} else if ("notnull".equalsIgnoreCase(paramValue)) {
-					builder.isNotNull(key);
-				} else {
-					Object value;
-					Class<?> type = Object.class;
+        for (final String key : params.keySet()) {
+            for (final String paramValue : params.get(key)) { // NOSONAR
+                // NOSONAR the interface of MultivaluedMap.class declares
+                // List<String> as return value,
+                // the actual implementation
+                // com.sun.jersey.core.util.MultivaluedMapImpl returns a String,
+                // so this is fine in some way ...
+                if ("null".equalsIgnoreCase(paramValue)) {
+                    builder.isNull(key);
+                } else if ("notnull".equalsIgnoreCase(paramValue)) {
+                    builder.isNotNull(key);
+                } else {
+                    Object value;
+                    Class<?> type = Object.class;
                     try {
                         type = currentCriteria.getType(key);
                     } catch (final IntrospectionException e) {
@@ -191,86 +204,94 @@ public class OnmsRestService {
                     }
                     LOG.warn("comparator = {}, key = {}, propertyType = {}", comparatorParam, key, type);
 
-                    if (comparatorParam.equals("contains") || comparatorParam.equals("iplike") || comparatorParam.equals("ilike") || comparatorParam.equals("like")) {
-						value = paramValue;
-					} else {
-				        LOG.debug("convertIfNecessary({}, {})", key, paramValue);
-				        try {
+                    if (comparatorParam.equals("contains") || comparatorParam.equals("iplike")
+                            || comparatorParam.equals("ilike") || comparatorParam.equals("like")) {
+                        value = paramValue;
+                    } else {
+                        LOG.debug("convertIfNecessary({}, {})", key, paramValue);
+                        try {
                             value = wrapper.convertIfNecessary(paramValue, type);
                         } catch (final Throwable t) {
                             LOG.debug("failed to introspect (key = {}, value = {})", key, paramValue, t);
                             value = paramValue;
                         }
-					}
+                    }
 
-					try {
-	    				final Method m = builder.getClass().getMethod(comparatorParam, String.class, Object.class);
-						m.invoke(builder, new Object[] { key, value });
-					} catch (final Throwable t) {
-    					LOG.warn("Unable to find method for comparator: {}, key: {}, value: {}", comparatorParam, key, value, t);
-					}
-				}
-			}
-		}
+                    try {
+                        final Method m = builder.getClass().getMethod(comparatorParam, String.class, Object.class);
+                        m.invoke(builder, new Object[] { key, value });
+                    } catch (final Throwable t) {
+                        LOG.warn("Unable to find method for comparator: {}, key: {}, value: {}", comparatorParam, key,
+                                 value, t);
+                    }
+                }
+            }
+        }
     }
 
-	protected BeanWrapper getBeanWrapperForClass(final Class<?> criteriaClass) {
-		final BeanWrapper wrapper = new BeanWrapperImpl(criteriaClass);
-		wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
-		wrapper.registerCustomEditor(java.util.Date.class, new ISO8601DateEditor());
-		wrapper.registerCustomEditor(java.net.InetAddress.class, new InetAddressTypeEditor());
-		wrapper.registerCustomEditor(OnmsSeverity.class, new OnmsSeverityEditor());
-		wrapper.registerCustomEditor(PrimaryType.class, new PrimaryTypeEditor());
-		wrapper.registerCustomEditor(StatusType.class, new StatusTypeEditor());
-		return wrapper;
-	}
-
+    protected BeanWrapper getBeanWrapperForClass(final Class<?> criteriaClass) {
+        final BeanWrapper wrapper = new BeanWrapperImpl(criteriaClass);
+        wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
+        wrapper.registerCustomEditor(java.util.Date.class, new ISO8601DateEditor());
+        wrapper.registerCustomEditor(java.net.InetAddress.class, new InetAddressTypeEditor());
+        wrapper.registerCustomEditor(OnmsSeverity.class, new OnmsSeverityEditor());
+        wrapper.registerCustomEditor(PrimaryType.class, new PrimaryTypeEditor());
+        wrapper.registerCustomEditor(StatusType.class, new StatusTypeEditor());
+        return wrapper;
+    }
 
     protected String removeParameter(final MultivaluedMap<java.lang.String, java.lang.String> params, final String key) {
-    	if (params.containsKey(key)) {
-    		final String value = params.getFirst(key);
-    		params.remove(key);
-    		return value;
-    	} else {
-    		return null;
-    	}
+        if (params.containsKey(key)) {
+            final String value = params.getFirst(key);
+            params.remove(key);
+            return value;
+        } else {
+            return null;
+        }
     }
 
-    protected String removeParameter(final MultivaluedMap<java.lang.String, java.lang.String> params, final String key, final String defaultValue) {
-    	final String value = removeParameter(params, key);
-    	if (value == null) {
-    		return defaultValue;
-    	} else {
-    		return value;
-    	}
+    protected String removeParameter(final MultivaluedMap<java.lang.String, java.lang.String> params, final String key,
+            final String defaultValue) {
+        final String value = removeParameter(params, key);
+        if (value == null) {
+            return defaultValue;
+        } else {
+            return value;
+        }
     }
 
     /**
-     * <p>throwException</p>
+     * <p>
+     * throwException
+     * </p>
      *
-     * @param status a {@link javax.ws.rs.core.Response.Status} object.
-     * @param msg a {@link java.lang.String} object.
-     * @param <T> a T object.
+     * @param status
+     *            a {@link javax.ws.rs.core.Response.Status} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
-    protected <T> WebApplicationException getException(final Status status, final String msg) throws WebApplicationException {
+    protected <T> WebApplicationException getException(final Status status, final String msg)
+            throws WebApplicationException {
         LOG.error(msg);
         return new WebApplicationException(Response.status(status).type(MediaType.TEXT_PLAIN).entity(msg).build());
     }
 
     protected <T> WebApplicationException getException(Status status, Throwable t) throws WebApplicationException {
         LOG.error(t.getMessage(), t);
-        return new WebApplicationException(Response.status(status).type(MediaType.TEXT_PLAIN).entity(t.getMessage()).build());
+        return new WebApplicationException(
+                                           Response.status(status).type(MediaType.TEXT_PLAIN).entity(t.getMessage()).build());
     }
 
-
-
-
     /**
-     * Convert a column name with underscores to the corresponding property name using "camel case".  A name
+     * Convert a column name with underscores to the corresponding property name
+     * using "camel case". A name
      * like "customer_number" would match a "customerNumber" property name.
      *
-     * @param name the column name to be converted
+     * @param name
+     *            the column name to be converted
      * @return the name using "camel case"
      */
     public static String convertNameToPropertyName(String name) {
@@ -303,7 +324,8 @@ public class OnmsRestService {
         if (pathComponents != null && pathComponents.length == 0) {
             final URI requestUri = m_uriInfo.getRequestUri();
             try {
-                return new URI(requestUri.getScheme(), requestUri.getUserInfo(), requestUri.getHost(), requestUri.getPort(), requestUri.getPath().replaceAll("/$", ""), null, null);
+                return new URI(requestUri.getScheme(), requestUri.getUserInfo(), requestUri.getHost(),
+                               requestUri.getPort(), requestUri.getPath().replaceAll("/$", ""), null, null);
             } catch (final URISyntaxException e) {
                 return requestUri;
             }
@@ -319,12 +341,16 @@ public class OnmsRestService {
     }
 
     /**
-     * <p>setProperties</p>
+     * <p>
+     * setProperties
+     * </p>
      *
-     * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
-     * @param req a {@link java.lang.Object} object.
+     * @param params
+     *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @param req
+     *            a {@link java.lang.Object} object.
      */
-	protected void setProperties(final org.opennms.web.rest.MultivaluedMapImpl params, final Object req) {
+    protected void setProperties(final org.opennms.web.rest.MultivaluedMapImpl params, final Object req) {
         RestUtils.setBeanProperties(req, params);
     }
 

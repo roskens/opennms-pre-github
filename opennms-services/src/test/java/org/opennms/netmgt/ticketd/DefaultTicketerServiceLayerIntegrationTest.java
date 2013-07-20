@@ -53,27 +53,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * NOTE: This class relies on the system property "opennms.ticketer.plugin" being set to
- * {@link TestTicketerPlugin}. Currently, this is done inside {@link DaoTestConfigBean}
- * which is invoked by the OpenNMSConfigurationExecutionListener.
+ * NOTE: This class relies on the system property "opennms.ticketer.plugin"
+ * being set to {@link TestTicketerPlugin}. Currently, this is done inside
+ * {@link DaoTestConfigBean} which is invoked by the
+ * OpenNMSConfigurationExecutionListener.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-troubleTicketer.xml",
         "classpath:/org/opennms/netmgt/ticketd/applicationContext-configOverride.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties={
-        // Set opennms.ticketer.plugin to a value for unit testing
-        "opennms.ticketer.plugin=org.opennms.netmgt.ticketd.DefaultTicketerServiceLayerIntegrationTest.TestTicketerPlugin"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
+@JUnitConfigurationEnvironment(systemProperties = {
+// Set opennms.ticketer.plugin to a value for unit testing
+"opennms.ticketer.plugin=org.opennms.netmgt.ticketd.DefaultTicketerServiceLayerIntegrationTest.TestTicketerPlugin" })
 public class DefaultTicketerServiceLayerIntegrationTest implements InitializingBean {
     @Autowired
     private TicketerServiceLayer m_ticketerServiceLayer;
@@ -113,7 +111,7 @@ public class DefaultTicketerServiceLayerIntegrationTest implements InitializingB
 
         final int alarmId = alarm.getId();
 
-        m_ticketerServiceLayer.createTicketForAlarm(alarmId, new HashMap<String,String>());
+        m_ticketerServiceLayer.createTicketForAlarm(alarmId, new HashMap<String, String>());
 
         m_alarmDao.flush();
 
@@ -129,8 +127,7 @@ public class DefaultTicketerServiceLayerIntegrationTest implements InitializingB
         alarm = m_alarmDao.get(alarmId);
         assertEquals(TroubleTicketState.OPEN, alarm.getTTicketState());
 
-        m_ticketerServiceLayer.closeTicketForAlarm(alarmId,
-                                                   alarm.getTTicketId());
+        m_ticketerServiceLayer.closeTicketForAlarm(alarmId, alarm.getTTicketId());
 
         m_alarmDao.flush();
 

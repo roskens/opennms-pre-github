@@ -56,8 +56,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
@@ -102,7 +101,7 @@ public class MultipleImportTest extends ProvisioningTestCase {
 
     @Test
     @Ignore
-    @JUnitSnmpAgent(host="0.0.0.0", resource="classpath:snmpwalk-empty.properties")
+    @JUnitSnmpAgent(host = "0.0.0.0", resource = "classpath:snmpwalk-empty.properties")
     public void testScanTwice() throws Exception {
         final String[] ueis = { EventConstants.PROVISION_SCAN_COMPLETE_UEI, EventConstants.PROVISION_SCAN_ABORTED_UEI };
         final CountDownLatch eventReceived = anticipateEvents(1, ueis);

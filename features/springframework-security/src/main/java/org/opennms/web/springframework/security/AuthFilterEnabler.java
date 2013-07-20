@@ -44,7 +44,9 @@ import org.opennms.netmgt.model.FilterManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * <p>AuthFilterEnabler class.</p>
+ * <p>
+ * AuthFilterEnabler class.
+ * </p>
  */
 public class AuthFilterEnabler implements Filter {
 
@@ -53,29 +55,40 @@ public class AuthFilterEnabler implements Filter {
     private GroupDao m_groupDao;
 
     /**
-     * <p>setFilterManager</p>
+     * <p>
+     * setFilterManager
+     * </p>
      *
-     * @param filterManager a {@link org.opennms.netmgt.model.FilterManager} object.
+     * @param filterManager
+     *            a {@link org.opennms.netmgt.model.FilterManager} object.
      */
     public void setFilterManager(FilterManager filterManager) {
         m_filterManager = filterManager;
     }
 
     /**
-     * <p>setGroupDao</p>
+     * <p>
+     * setGroupDao
+     * </p>
      *
-     * @param groupDao a {@link org.opennms.netmgt.config.GroupDao} object.
+     * @param groupDao
+     *            a {@link org.opennms.netmgt.config.GroupDao} object.
      */
     public void setGroupDao(GroupDao groupDao) {
         m_groupDao = groupDao;
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.security.ui.SpringSecurityFilter#doFilterHttp(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.security.ui.SpringSecurityFilter#doFilterHttp(javax
+     * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+     * javax.servlet.FilterChain)
      */
     /** {@inheritDoc} */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
+            ServletException {
 
         boolean shouldFilter = AclUtils.shouldFilter(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 
@@ -83,14 +96,12 @@ public class AuthFilterEnabler implements Filter {
             if (shouldFilter) {
                 String user = SecurityContextHolder.getContext().getAuthentication().getName();
 
-
                 List<Group> groups = m_groupDao.findGroupsForUser(user);
 
                 String[] groupNames = new String[groups.size()];
-                for(int i = 0; i < groups.size(); i++) {
+                for (int i = 0; i < groups.size(); i++) {
                     groupNames[i] = groups.get(i).getName();
                 }
-
 
                 m_filterManager.enableAuthorizationFilter(groupNames);
             }
@@ -102,7 +113,6 @@ public class AuthFilterEnabler implements Filter {
                 m_filterManager.disableAuthorizationFilter();
             }
         }
-
 
     }
 

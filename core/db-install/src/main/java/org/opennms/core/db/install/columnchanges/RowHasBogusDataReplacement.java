@@ -43,13 +43,18 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 
 public class RowHasBogusDataReplacement implements ColumnChangeReplacement {
     private final String m_table;
+
     private final String m_column;
 
     /**
-     * <p>Constructor for RowHasBogusDataReplacement.</p>
+     * <p>
+     * Constructor for RowHasBogusDataReplacement.
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
-     * @param column a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @param column
+     *            a {@link java.lang.String} object.
      */
     public RowHasBogusDataReplacement(String table, String column) {
         m_table = table;
@@ -59,21 +64,16 @@ public class RowHasBogusDataReplacement implements ColumnChangeReplacement {
     /** {@inheritDoc} */
     @Override
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
-        throw new IllegalArgumentException("The '" + m_column
-                                           + "' column in the '"
-                                           + m_table
-                                           + "' table should never be "
-                                           + "null, but the entry for this "
-                                           + "row does have a null '"
-                                           + m_column + "' column.  "
-                                           + "It needs to be "
-                                           + "removed or udpated to "
-                                           + "reflect a valid '"
-                                           + m_column + "' value.");
+        throw new IllegalArgumentException("The '" + m_column + "' column in the '" + m_table
+                + "' table should never be " + "null, but the entry for this " + "row does have a null '" + m_column
+                + "' column.  " + "It needs to be " + "removed or udpated to " + "reflect a valid '" + m_column
+                + "' value.");
     }
 
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -83,7 +83,9 @@ public class RowHasBogusDataReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {

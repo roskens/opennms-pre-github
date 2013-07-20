@@ -55,7 +55,9 @@ import java.util.List;
 public class UserAuthoritiesDTO extends UserDTO {
 
     /**
-     * <p>Constructor for UserAuthoritiesDTO.</p>
+     * <p>
+     * Constructor for UserAuthoritiesDTO.
+     * </p>
      */
     public UserAuthoritiesDTO() {
         super();
@@ -64,7 +66,9 @@ public class UserAuthoritiesDTO extends UserDTO {
     }
 
     /**
-     * <p>Getter for the field <code>groups</code>.</p>
+     * <p>
+     * Getter for the field <code>groups</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -73,27 +77,35 @@ public class UserAuthoritiesDTO extends UserDTO {
     }
 
     /**
-     * <p>Setter for the field <code>groups</code>.</p>
+     * <p>
+     * Setter for the field <code>groups</code>.
+     * </p>
      *
-     * @param groups a {@link java.util.List} object.
+     * @param groups
+     *            a {@link java.util.List} object.
      */
     public void setGroups(List<GroupDTO> groups) {
         this.groups = groups;
     }
 
     /**
-     * <p>Getter for the field <code>authorities</code>.</p>
+     * <p>
+     * Getter for the field <code>authorities</code>.
+     * </p>
      *
-     *@return List of {@link org.opennms.acl.model.AuthorityDTO} of a user
+     * @return List of {@link org.opennms.acl.model.AuthorityDTO} of a user
      */
     public List<AuthorityDTO> getAuthorities() {
         return authorities;
     }
 
     /**
-     * <p>Setter for the field <code>authorities</code>.</p>
+     * <p>
+     * Setter for the field <code>authorities</code>.
+     * </p>
      *
-     * @param authorities a {@link java.util.List} object.
+     * @param authorities
+     *            a {@link java.util.List} object.
      */
     public void setAuthorities(List<AuthorityDTO> authorities) {
         if (this.authorities != null) {
@@ -102,7 +114,9 @@ public class UserAuthoritiesDTO extends UserDTO {
     }
 
     /**
-     * <p>Getter for the field <code>items</code>.</p>
+     * <p>
+     * Getter for the field <code>items</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -111,15 +125,20 @@ public class UserAuthoritiesDTO extends UserDTO {
     }
 
     /**
-     * <p>Setter for the field <code>items</code>.</p>
+     * <p>
+     * Setter for the field <code>items</code>.
+     * </p>
      *
-     * @param items a {@link java.util.List} object.
+     * @param items
+     *            a {@link java.util.List} object.
      */
     public void setItems(List<?> items) {
         this.items = items;
     }
 
     private List<AuthorityDTO> authorities;
+
     private List<GroupDTO> groups;
+
     private List<?> items;
 }

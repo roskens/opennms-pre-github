@@ -32,33 +32,32 @@ import com.google.gwt.event.shared.GwtEvent;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *
  */
 public class SavedAssetEvent extends GwtEvent<SavedAssetEventHandler> {
-	public static final Type<SavedAssetEventHandler> TYPE = new Type<SavedAssetEventHandler>();
+    public static final Type<SavedAssetEventHandler> TYPE = new Type<SavedAssetEventHandler>();
 
-	private int nodeId;
+    private int nodeId;
 
-	public SavedAssetEvent(int nodeId) {
-		this.nodeId = nodeId;
-	}
+    public SavedAssetEvent(int nodeId) {
+        this.nodeId = nodeId;
+    }
 
-	@Override
-	public Type<SavedAssetEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public Type<SavedAssetEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
-	@Override
-	protected void dispatch(SavedAssetEventHandler handler) {
-		handler.onSavedAsset(this);
-	}
+    @Override
+    protected void dispatch(SavedAssetEventHandler handler) {
+        handler.onSavedAsset(this);
+    }
 
-	public int getNodeId() {
-		return nodeId;
-	}
+    public int getNodeId() {
+        return nodeId;
+    }
 
-	public void setNodeId(int nodeId) {
-		this.nodeId = nodeId;
-	}
+    public void setNodeId(int nodeId) {
+        this.nodeId = nodeId;
+    }
 
 }

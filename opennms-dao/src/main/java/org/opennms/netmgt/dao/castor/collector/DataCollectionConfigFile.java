@@ -47,23 +47,31 @@ import org.springframework.core.io.FileSystemResource;
 
 public class DataCollectionConfigFile {
 
-	File m_file;
+    File m_file;
 
-	/**
-	 * <p>Constructor for DataCollectionConfigFile.</p>
-	 *
-	 * @param file a {@link java.io.File} object.
-	 */
-	public DataCollectionConfigFile(File file) {
-		m_file = file;
-	}
+    /**
+     * <p>
+     * Constructor for DataCollectionConfigFile.
+     * </p>
+     *
+     * @param file
+     *            a {@link java.io.File} object.
+     */
+    public DataCollectionConfigFile(File file) {
+        m_file = file;
+    }
 
-	/**
-	 * <p>visit</p>
-	 *
-	 * @param visitor a {@link org.opennms.netmgt.dao.castor.collector.DataCollectionVisitor} object.
-	 */
-	public void visit(DataCollectionVisitor visitor) {
+    /**
+     * <p>
+     * visit
+     * </p>
+     *
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.dao.castor.collector.DataCollectionVisitor}
+     *            object.
+     */
+    public void visit(DataCollectionVisitor visitor) {
         DatacollectionConfig dataCollectionConfig = getDataCollectionConfig();
         visitor.visitDataCollectionConfig(dataCollectionConfig);
 
@@ -74,7 +82,7 @@ public class DataCollectionConfigFile {
         visitor.completeDataCollectionConfig(dataCollectionConfig);
     }
 
-	private void doVisit(SnmpCollection snmpCollection, DataCollectionVisitor visitor) {
+    private void doVisit(SnmpCollection snmpCollection, DataCollectionVisitor visitor) {
         visitor.visitSnmpCollection(snmpCollection);
 
         // rrd block
@@ -167,7 +175,8 @@ public class DataCollectionConfigFile {
     }
 
     private void doVisit(IpList ipList, DataCollectionVisitor visitor) {
-        if (ipList == null) return;
+        if (ipList == null)
+            return;
 
         visitor.visitIpList(ipList);
         visitor.completeIpList(ipList);
@@ -208,5 +217,5 @@ public class DataCollectionConfigFile {
 
     private DatacollectionConfig getDataCollectionConfig() {
         return JaxbUtils.unmarshal(DatacollectionConfig.class, new FileSystemResource(m_file));
-	}
+    }
 }

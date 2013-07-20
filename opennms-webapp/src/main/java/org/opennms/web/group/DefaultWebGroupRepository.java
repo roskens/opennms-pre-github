@@ -98,11 +98,9 @@ public class DefaultWebGroupRepository implements WebGroupRepository, Initializi
         if (!webGroup.getDefaultMap().equals(""))
             group.setDefaultMap(webGroup.getDefaultMap());
 
-
         setAuthorizedCategories(webGroup.getName(), webGroup.getAuthorizedCategories());
 
         m_groupDao.saveGroup(group.getName(), group);
-
 
     }
 
@@ -113,7 +111,7 @@ public class DefaultWebGroupRepository implements WebGroupRepository, Initializi
 
         m_groupDao.deleteGroup(groupName);
 
-        setAuthorizedCategories(groupName, Collections.<String>emptyList());
+        setAuthorizedCategories(groupName, Collections.<String> emptyList());
 
     }
 
@@ -126,7 +124,7 @@ public class DefaultWebGroupRepository implements WebGroupRepository, Initializi
 
         List<String> categories = getAuthorizedCategories(oldName);
 
-        setAuthorizedCategories(oldName, Collections.<String>emptyList());
+        setAuthorizedCategories(oldName, Collections.<String> emptyList());
 
         setAuthorizedCategories(newName, categories);
     }
@@ -136,7 +134,7 @@ public class DefaultWebGroupRepository implements WebGroupRepository, Initializi
 
         List<String> categoryNames = new ArrayList<String>(categories.size());
 
-        for(OnmsCategory category : categories) {
+        for (OnmsCategory category : categories) {
             categoryNames.add(category.getName());
         }
 
@@ -147,12 +145,11 @@ public class DefaultWebGroupRepository implements WebGroupRepository, Initializi
 
         List<OnmsCategory> categories = m_categoryDao.getCategoriesWithAuthorizedGroup(groupName);
 
-        for(OnmsCategory category : categories) {
+        for (OnmsCategory category : categories) {
             category.getAuthorizedGroups().remove(groupName);
         }
 
-
-        for(String categoryName : categoryNames) {
+        for (String categoryName : categoryNames) {
             OnmsCategory category = m_categoryDao.findByName(categoryName, false);
             if (category != null) {
                 category.getAuthorizedGroups().add(groupName);
@@ -160,6 +157,5 @@ public class DefaultWebGroupRepository implements WebGroupRepository, Initializi
         }
 
     }
-
 
 }

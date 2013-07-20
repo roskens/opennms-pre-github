@@ -59,11 +59,11 @@ import org.slf4j.LoggerFactory;
 
 public class SimpleGraphProvider extends AbstractTopologyProvider implements GraphProvider {
 
-	protected static final String TOPOLOGY_NAMESPACE_SIMPLE = "simple";
+    protected static final String TOPOLOGY_NAMESPACE_SIMPLE = "simple";
 
-	private static final Logger s_log = LoggerFactory.getLogger(SimpleGraphProvider.class);
+    private static final Logger s_log = LoggerFactory.getLogger(SimpleGraphProvider.class);
 
-	private URI m_topologyLocation = null;
+    private URI m_topologyLocation = null;
 
     public SimpleGraphProvider() {
         this(TOPOLOGY_NAMESPACE_SIMPLE);
@@ -73,32 +73,32 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
         super(namespace);
         s_log.debug("Creating a new SimpleTopologyProvider with namespace {}", namespace);
 
-        //URL defaultGraph = getClass().getResource("/saved-vmware-graph.xml");
+        // URL defaultGraph = getClass().getResource("/saved-vmware-graph.xml");
 
-        //setTopologyLocation(defaultGraph);
+        // setTopologyLocation(defaultGraph);
     }
 
-	public URI getTopologyLocation() {
-		return m_topologyLocation;
-	}
+    public URI getTopologyLocation() {
+        return m_topologyLocation;
+    }
 
-	public void setTopologyLocation(URI topologyLocation) throws MalformedURLException, JAXBException {
-		m_topologyLocation = topologyLocation;
+    public void setTopologyLocation(URI topologyLocation) throws MalformedURLException, JAXBException {
+        m_topologyLocation = topologyLocation;
 
-		if (m_topologyLocation != null && new File(m_topologyLocation).exists()) {
-			s_log.debug("Loading topology from " + m_topologyLocation);
-			load(m_topologyLocation);
-		} else {
-			s_log.debug("Setting topology location to null");
-			clearVertices();
-			clearEdges();
-		}
-	}
+        if (m_topologyLocation != null && new File(m_topologyLocation).exists()) {
+            s_log.debug("Loading topology from " + m_topologyLocation);
+            load(m_topologyLocation);
+        } else {
+            s_log.debug("Setting topology location to null");
+            clearVertices();
+            clearEdges();
+        }
+    }
 
-	public void save(String filename) throws MalformedURLException, JAXBException {
-		m_topologyLocation = new File(filename).toURI();
-		save();
-	}
+    public void save(String filename) throws MalformedURLException, JAXBException {
+        m_topologyLocation = new File(filename).toURI();
+        save();
+    }
 
     @Override
     public void save() {
@@ -112,18 +112,24 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
         }
         List<WrappedEdge> edges = new ArrayList<WrappedEdge>();
         for (Edge edge : getEdges()) {
-            WrappedEdge newEdge = new WrappedEdge(edge, new WrappedLeafVertex(m_vertexProvider.getVertex(edge.getSource().getVertex())), new WrappedLeafVertex(m_vertexProvider.getVertex(edge.getTarget().getVertex())));
+            WrappedEdge newEdge = new WrappedEdge(
+                                                  edge,
+                                                  new WrappedLeafVertex(
+                                                                        m_vertexProvider.getVertex(edge.getSource().getVertex())),
+                                                  new WrappedLeafVertex(
+                                                                        m_vertexProvider.getVertex(edge.getTarget().getVertex())));
             edges.add(newEdge);
         }
 
         WrappedGraph graph = new WrappedGraph(getVertexNamespace(), vertices, edges);
 
         try {
-        	JAXBContext jc = JAXBContext.newInstance(WrappedGraph.class, WrappedLeafVertex.class, WrappedGroup.class, WrappedEdge.class);
-        	Marshaller u = jc.createMarshaller();
-        	u.marshal(graph, new File(getTopologyLocation()));
+            JAXBContext jc = JAXBContext.newInstance(WrappedGraph.class, WrappedLeafVertex.class, WrappedGroup.class,
+                                                     WrappedEdge.class);
+            Marshaller u = jc.createMarshaller();
+            u.marshal(graph, new File(getTopologyLocation()));
         } catch (JAXBException e) {
-        	s_log.error(e.getMessage(), e);
+            s_log.error(e.getMessage(), e);
         }
     }
 
@@ -145,13 +151,16 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
             }
 
             if (vertex.id == null) {
-                LoggerFactory.getLogger(this.getClass()).warn("Invalid vertex unmarshalled from {}: {}", source.toString(), vertex);
+                LoggerFactory.getLogger(this.getClass()).warn("Invalid vertex unmarshalled from {}: {}",
+                                                              source.toString(), vertex);
             }
             AbstractVertex newVertex;
             if (vertex.group) {
                 newVertex = new SimpleGroup(vertex.namespace, vertex.id);
-                if (vertex.x != null) newVertex.setX(vertex.x);
-                if (vertex.y != null) newVertex.setY(vertex.y);
+                if (vertex.x != null)
+                    newVertex.setX(vertex.x);
+                if (vertex.y != null)
+                    newVertex.setY(vertex.y);
             } else {
                 newVertex = new SimpleLeafVertex(vertex.namespace, vertex.id, vertex.x, vertex.y);
             }
@@ -159,7 +168,8 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
             newVertex.setIpAddress(vertex.ipAddr);
             newVertex.setLabel(vertex.label);
             newVertex.setLocked(vertex.locked);
-            if (vertex.nodeID != null) newVertex.setNodeID(vertex.nodeID);
+            if (vertex.nodeID != null)
+                newVertex.setNodeID(vertex.nodeID);
             newVertex.setParent(vertex.parent);
             newVertex.setSelected(vertex.selected);
             newVertex.setStyleName(vertex.styleName);
@@ -174,30 +184,34 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
             }
 
             if (edge.id == null) {
-                LoggerFactory.getLogger(this.getClass()).warn("Invalid edge unmarshalled from {}: {}", source.toString(), edge);
+                LoggerFactory.getLogger(this.getClass()).warn("Invalid edge unmarshalled from {}: {}",
+                                                              source.toString(), edge);
             } else if (edge.id.startsWith(SIMPLE_EDGE_ID_PREFIX)) {
                 try {
                     /*
-                     * This code will be necessary if we allow edges to be created
-
-                    // Find the highest index group number and start the index for new groups above it
-                    int edgeNumber = Integer.parseInt(edge.getId().substring(SIMPLE_EDGE_ID_PREFIX.length()));
-
-                    if (m_edgeCounter <= edgeNumber) {
-                        m_edgeCounter = edgeNumber + 1;
-                    }
-                    */
+                     * This code will be necessary if we allow edges to be
+                     * created
+                     * // Find the highest index group number and start the
+                     * index for new groups above it
+                     * int edgeNumber =
+                     * Integer.parseInt(edge.getId().substring(SIMPLE_EDGE_ID_PREFIX
+                     * .length()));
+                     * if (m_edgeCounter <= edgeNumber) {
+                     * m_edgeCounter = edgeNumber + 1;
+                     * }
+                     */
                 } catch (NumberFormatException e) {
-                    // Ignore this edge ID since it doesn't conform to our pattern for auto-generated IDs
+                    // Ignore this edge ID since it doesn't conform to our
+                    // pattern for auto-generated IDs
                 }
             }
             AbstractEdge newEdge = connectVertices(edge.id, edge.source, edge.target);
             newEdge.setLabel(edge.label);
             newEdge.setTooltipText(edge.tooltipText);
-            //addEdges(newEdge);
+            // addEdges(newEdge);
         }
 
-        for (WrappedVertex vertex: graph.m_vertices) {
+        for (WrappedVertex vertex : graph.m_vertices) {
             if (vertex.parent != null) {
                 LoggerFactory.getLogger(this.getClass()).debug("Setting parent of " + vertex + " to " + vertex.parent);
                 setParent(vertex, vertex.parent);
@@ -217,10 +231,10 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
     }
 
     void load(URI url) throws JAXBException, MalformedURLException {
-    	JAXBContext jc = JAXBContext.newInstance(WrappedGraph.class);
-    	Unmarshaller u = jc.createUnmarshaller();
-    	WrappedGraph graph = (WrappedGraph) u.unmarshal(url.toURL());
-    	load(url, graph);
+        JAXBContext jc = JAXBContext.newInstance(WrappedGraph.class);
+        Unmarshaller u = jc.createUnmarshaller();
+        WrappedGraph graph = (WrappedGraph) u.unmarshal(url.toURL());
+        load(url, graph);
     }
 
     @Override

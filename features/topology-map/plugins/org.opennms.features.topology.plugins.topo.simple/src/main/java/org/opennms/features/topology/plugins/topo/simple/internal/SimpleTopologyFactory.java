@@ -48,78 +48,84 @@ import org.osgi.service.cm.ManagedServiceFactory;
 
 public class SimpleTopologyFactory implements ManagedServiceFactory {
 
-	private static final String TOPOLOGY_LOCATION = "topologyLocation";
-	private static final String LABEL = "label";
+    private static final String TOPOLOGY_LOCATION = "topologyLocation";
 
-	private BundleContext m_bundleContext;
-	private Map<String, SimpleGraphProvider> m_providers = new HashMap<String, SimpleGraphProvider>();
-	private Map<String, ServiceRegistration<GraphProvider>> m_registrations = new HashMap<String, ServiceRegistration<GraphProvider>>();
+    private static final String LABEL = "label";
 
-	public void setBundleContext(BundleContext bundleContext) {
-		m_bundleContext = bundleContext;
-	}
+    private BundleContext m_bundleContext;
 
-	@Override
-	public String getName() {
-		return "This Factory creates Simple Topology Providers";
-	}
+    private Map<String, SimpleGraphProvider> m_providers = new HashMap<String, SimpleGraphProvider>();
 
-	@Override
-	public void updated(String pid, @SuppressWarnings("unchecked") Dictionary properties) throws ConfigurationException {
+    private Map<String, ServiceRegistration<GraphProvider>> m_registrations = new HashMap<String, ServiceRegistration<GraphProvider>>();
 
-		try {
-			String location = (String)properties.get(TOPOLOGY_LOCATION);
-			URI url = new URI(location);
-			if (!m_providers.containsKey(pid)) {
-				SimpleGraphProvider topoProvider = new SimpleGraphProvider();
-				topoProvider.setTopologyLocation(url);
+    public void setBundleContext(BundleContext bundleContext) {
+        m_bundleContext = bundleContext;
+    }
 
-				m_providers.put(pid, topoProvider);
+    @Override
+    public String getName() {
+        return "This Factory creates Simple Topology Providers";
+    }
 
-				Dictionary<String,Object> metaData = new Hashtable<String,Object>();
-				metaData.put(Constants.SERVICE_PID, pid);
+    @Override
+    public void updated(String pid, @SuppressWarnings("unchecked")
+    Dictionary properties) throws ConfigurationException {
 
-				if (properties.get(LABEL) != null) {
-					metaData.put(LABEL, properties.get(LABEL));
-				}
+        try {
+            String location = (String) properties.get(TOPOLOGY_LOCATION);
+            URI url = new URI(location);
+            if (!m_providers.containsKey(pid)) {
+                SimpleGraphProvider topoProvider = new SimpleGraphProvider();
+                topoProvider.setTopologyLocation(url);
 
-				ServiceRegistration<GraphProvider> registration = m_bundleContext.registerService(GraphProvider.class, topoProvider, metaData);
+                m_providers.put(pid, topoProvider);
 
-				m_registrations.put(pid, registration);
+                Dictionary<String, Object> metaData = new Hashtable<String, Object>();
+                metaData.put(Constants.SERVICE_PID, pid);
 
-			} else {
-				m_providers.get(pid).setTopologyLocation(url);
+                if (properties.get(LABEL) != null) {
+                    metaData.put(LABEL, properties.get(LABEL));
+                }
 
-				ServiceRegistration<GraphProvider> registration = m_registrations.get(pid);
+                ServiceRegistration<GraphProvider> registration = m_bundleContext.registerService(GraphProvider.class,
+                                                                                                  topoProvider,
+                                                                                                  metaData);
 
-				Dictionary<String,Object> metaData = new Hashtable<String,Object>();
-				metaData.put(Constants.SERVICE_PID, pid);
+                m_registrations.put(pid, registration);
 
-				if (properties.get(LABEL) != null) {
-					metaData.put(LABEL, properties.get(LABEL));
-				}
+            } else {
+                m_providers.get(pid).setTopologyLocation(url);
 
-				registration.setProperties(metaData);
-			}
+                ServiceRegistration<GraphProvider> registration = m_registrations.get(pid);
 
-		} catch (URISyntaxException e) {
-			throw new ConfigurationException(TOPOLOGY_LOCATION, "Topology location must be a valid URI", e);
-		} catch (MalformedURLException e) {
-			throw new ConfigurationException(TOPOLOGY_LOCATION, "Topology location must be a valid URL", e);
-		} catch (JAXBException e) {
-			throw new ConfigurationException(TOPOLOGY_LOCATION, "Topology location could not be deserialized", e);
-		}
-	}
+                Dictionary<String, Object> metaData = new Hashtable<String, Object>();
+                metaData.put(Constants.SERVICE_PID, pid);
 
-	@Override
-	public void deleted(String pid) {
-		ServiceRegistration<GraphProvider> registration = m_registrations.remove(pid);
-		if (registration != null) {
-			registration.unregister();
-		}
+                if (properties.get(LABEL) != null) {
+                    metaData.put(LABEL, properties.get(LABEL));
+                }
 
-		m_providers.remove(pid);
+                registration.setProperties(metaData);
+            }
 
-	}
+        } catch (URISyntaxException e) {
+            throw new ConfigurationException(TOPOLOGY_LOCATION, "Topology location must be a valid URI", e);
+        } catch (MalformedURLException e) {
+            throw new ConfigurationException(TOPOLOGY_LOCATION, "Topology location must be a valid URL", e);
+        } catch (JAXBException e) {
+            throw new ConfigurationException(TOPOLOGY_LOCATION, "Topology location could not be deserialized", e);
+        }
+    }
+
+    @Override
+    public void deleted(String pid) {
+        ServiceRegistration<GraphProvider> registration = m_registrations.remove(pid);
+        if (registration != null) {
+            registration.unregister();
+        }
+
+        m_providers.remove(pid);
+
+    }
 
 }

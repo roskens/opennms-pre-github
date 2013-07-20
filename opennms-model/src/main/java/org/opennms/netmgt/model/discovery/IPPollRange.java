@@ -173,7 +173,8 @@ public class IPPollRange implements Iterable<IPPollAddress> {
      *            The number of retries for generated addresses.
      * @see IPPollAddress
      * @see IPAddrRange
-     * @throws java.net.UnknownHostException if any.
+     * @throws java.net.UnknownHostException
+     *             if any.
      */
     public IPPollRange(String fromIP, String toIP, long timeout, int retries) throws java.net.UnknownHostException {
         m_range = new IPAddrRange(fromIP, toIP);
@@ -197,10 +198,8 @@ public class IPPollRange implements Iterable<IPPollAddress> {
      *            The timeout for each generated IPPollAddress.
      * @param retries
      *            The number of retries for generated addresses.
-     *
      * @see IPPollAddress
      * @see IPAddrRange
-     *
      */
     IPPollRange(InetAddress start, InetAddress end, long timeout, int retries) {
         m_range = new IPAddrRange(start, end);
@@ -222,9 +221,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
      *            The timeout for each generated IPPollAddress.
      * @param retries
      *            The number of retries for generated addresses.
-     *
      * @see IPPollAddress
-     *
      */
     IPPollRange(IPAddrRange range, long timeout, int retries) {
         m_range = range;

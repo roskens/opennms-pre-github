@@ -47,7 +47,8 @@ import org.springframework.core.io.FileSystemResource;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-public class XmlDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<XmlDataCollectionConfig, XmlDataCollectionConfig> implements XmlDataCollectionConfigDao {
+public class XmlDataCollectionConfigDaoJaxb extends
+        AbstractJaxbConfigDao<XmlDataCollectionConfig, XmlDataCollectionConfig> implements XmlDataCollectionConfigDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(XmlDataCollectionConfigDaoJaxb.class);
 
@@ -58,22 +59,26 @@ public class XmlDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<XmlDat
         super(XmlDataCollectionConfig.class, "XML Data Collection Configuration");
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.dao.XmlDataCollectionConfigDao#getDataCollectionByName(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.dao.XmlDataCollectionConfigDao#
+     * getDataCollectionByName(java.lang.String)
      */
     @Override
     public XmlDataCollection getDataCollectionByName(String name) {
         XmlDataCollectionConfig config = getContainer().getObject();
         for (XmlDataCollection dataCol : config.getXmlDataCollections()) {
-            if(dataCol.getName().equals(name)) {
+            if (dataCol.getName().equals(name)) {
                 return dataCol;
             }
         }
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.dao.XmlDataCollectionConfigDao#getDataCollectionByIndex(int)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.dao.XmlDataCollectionConfigDao#
+     * getDataCollectionByIndex(int)
      */
     @Override
     public XmlDataCollection getDataCollectionByIndex(int idx) {
@@ -81,7 +86,8 @@ public class XmlDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<XmlDat
         return config.getXmlDataCollections().get(idx);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.protocols.xml.dao.XmlDataCollectionConfigDao#getConfig()
      */
     @Override
@@ -89,8 +95,11 @@ public class XmlDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<XmlDat
         return getContainer().getObject();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.dao.jaxb.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.dao.jaxb.AbstractJaxbConfigDao#translateConfig
+     * (java.lang.Object)
      */
     @Override
     protected XmlDataCollectionConfig translateConfig(XmlDataCollectionConfig config) {
@@ -105,7 +114,8 @@ public class XmlDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<XmlDat
     /**
      * Parses the XML groups.
      *
-     * @param source the XML source
+     * @param source
+     *            the XML source
      */
     private void parseXmlGroups(XmlSource source) {
         if (!source.hasImportGroups()) {

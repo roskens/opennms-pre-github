@@ -43,7 +43,9 @@
 package org.opennms.acl.exception;
 
 /**
- * <p>AuthorityNotFoundException class.</p>
+ * <p>
+ * AuthorityNotFoundException class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -53,19 +55,26 @@ package org.opennms.acl.exception;
 public class AuthorityNotFoundException extends RuntimeException {
 
     /**
-     * <p>Constructor for AuthorityNotFoundException.</p>
+     * <p>
+     * Constructor for AuthorityNotFoundException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public AuthorityNotFoundException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for AuthorityNotFoundException.</p>
+     * <p>
+     * Constructor for AuthorityNotFoundException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public AuthorityNotFoundException(String message, Throwable cause) {
         super(message, cause);

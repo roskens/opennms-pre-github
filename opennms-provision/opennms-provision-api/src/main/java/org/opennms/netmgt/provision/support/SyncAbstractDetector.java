@@ -33,29 +33,41 @@ import java.net.InetAddress;
 import org.opennms.netmgt.provision.SyncServiceDetector;
 
 /**
- * <p>SyncAbstractDetector class.</p>
+ * <p>
+ * SyncAbstractDetector class.
+ * </p>
  *
  * @author ranger
  */
 public abstract class SyncAbstractDetector extends AbstractDetector implements SyncServiceDetector {
 
     /**
-     * <p>Constructor for SyncAbstractDetector.</p>
+     * <p>
+     * Constructor for SyncAbstractDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
-     * @param timeout a int.
-     * @param retries a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
+     * @param retries
+     *            a int.
      */
     protected SyncAbstractDetector(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
     }
 
     /**
-     * <p>Constructor for SyncAbstractDetector.</p>
+     * <p>
+     * Constructor for SyncAbstractDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     protected SyncAbstractDetector(final String serviceName, final int port) {
         super(serviceName, port);

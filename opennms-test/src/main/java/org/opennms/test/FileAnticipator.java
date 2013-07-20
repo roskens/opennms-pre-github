@@ -52,8 +52,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * File anticipator.
- *
  * Example usage with late initialization:
+ *
  * <pre>
  * private FileAnticipator m_fileAnticipator;
  *
@@ -62,29 +62,39 @@ import org.slf4j.LoggerFactory;
  */
 public class FileAnticipator extends Assert {
 
-	private static final Logger LOG = LoggerFactory.getLogger(FileAnticipator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FileAnticipator.class);
 
     private static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
 
     private LinkedList<File> m_expecting = new LinkedList<File>();
+
     private LinkedList<File> m_deleteMe = new LinkedList<File>();
+
     private File m_tempDir = null;
+
     private boolean m_initialized = false;
 
     /**
-     * <p>Constructor for FileAnticipator.</p>
+     * <p>
+     * Constructor for FileAnticipator.
+     * </p>
      *
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public FileAnticipator() throws IOException {
         this(true);
     }
 
     /**
-     * <p>Constructor for FileAnticipator.</p>
+     * <p>
+     * Constructor for FileAnticipator.
+     * </p>
      *
-     * @param initialize a boolean.
-     * @throws java.io.IOException if any.
+     * @param initialize
+     *            a boolean.
+     * @throws java.io.IOException
+     *             if any.
      */
     public FileAnticipator(boolean initialize) throws IOException {
         if (initialize) {
@@ -99,7 +109,9 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>tearDown</p>
+     * <p>
+     * tearDown
+     * </p>
      */
     public void tearDown() {
         if (!isInitialized()) {
@@ -107,22 +119,24 @@ public class FileAnticipator extends Assert {
         }
 
         try {
-        	// Windows is really picky about filehandle reaping, triggering a GC
-        	// keeps it from holding on to files when we're trying to delete them
+            // Windows is really picky about filehandle reaping, triggering a GC
+            // keeps it from holding on to files when we're trying to delete
+            // them
             deleteExpected(true);
 
-            for (ListIterator<File> i = m_deleteMe.listIterator(m_deleteMe.size()); i.hasPrevious(); ) {
+            for (ListIterator<File> i = m_deleteMe.listIterator(m_deleteMe.size()); i.hasPrevious();) {
                 File f = i.previous();
-                if (!f.exists()) continue;
+                if (!f.exists())
+                    continue;
                 if (!FileUtils.deleteQuietly(f)) {
                     final StringBuffer b = new StringBuffer();
                     b.append("Could not delete " + f.getAbsolutePath() + ": is it a non-empty directory?");
                     b.append("\nDirectory listing:");
                     if (f.listFiles() != null) {
-	                    for (File file : f.listFiles()) {
-	                        b.append("\n\t");
-	                        b.append(file.getName());
-	                    }
+                        for (File file : f.listFiles()) {
+                            b.append("\n\t");
+                            b.append(file.getName());
+                        }
                     }
                     fail(b.toString());
                 }
@@ -132,14 +146,15 @@ public class FileAnticipator extends Assert {
             }
         } catch (Throwable t) {
             if (m_tempDir != null && m_tempDir.exists()) {
-            	try {
-            		FileUtils.forceDelete(m_tempDir);
-            		return;
-            	} catch (final IOException innerThrowable) {
-                    LOG.warn("an error occurred while forcibly removing temporary directory {}", m_tempDir, innerThrowable);
+                try {
+                    FileUtils.forceDelete(m_tempDir);
+                    return;
+                } catch (final IOException innerThrowable) {
+                    LOG.warn("an error occurred while forcibly removing temporary directory {}", m_tempDir,
+                             innerThrowable);
                 }
             } else {
-            	LOG.warn("does not exist? {}", m_tempDir, t);
+                LOG.warn("does not exist? {}", m_tempDir, t);
             }
             if (t instanceof RuntimeException) {
                 throw (RuntimeException) t;
@@ -150,9 +165,12 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void initialize() throws IOException {
         if (m_initialized) {
@@ -163,8 +181,8 @@ public class FileAnticipator extends Assert {
         assertNotNull(JAVA_IO_TMPDIR + " system property is not set, but must be", systemTempDir);
 
         File f = new File(systemTempDir);
-        assertTrue("path specified in system property " + JAVA_IO_TMPDIR + ", \"" +
-                 systemTempDir + "\" is not a directory", f.isDirectory());
+        assertTrue("path specified in system property " + JAVA_IO_TMPDIR + ", \"" + systemTempDir
+                + "\" is not a directory", f.isDirectory());
 
         String tempFileName = "FileAnticipator_temp_" + System.currentTimeMillis() + "_" + generateRandomHexString(8);
         m_tempDir = internalTempDir(f, tempFileName);
@@ -173,9 +191,12 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>generateRandomHexString</p>
+     * <p>
+     * generateRandomHexString
+     * </p>
      *
-     * @param length a int.
+     * @param length
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     protected static String generateRandomHexString(int length) {
@@ -183,18 +204,21 @@ public class FileAnticipator extends Assert {
             throw new IllegalArgumentException("length argument is " + length + " and cannot be below zero");
         }
 
-        Random random=new Random();
+        Random random = new Random();
         /*
-        SecureRandom sometimes gets tied up in knots in testing (the test process goes off into lala land and never returns from .nextBytes)
-        Slow debugging (with pauses) seems to work most of the time, but manual Thread.sleeps doesn't
-        Using Random instead of SecureRandom (which should be fine in this context) works much better.  Go figure
-
-        SecureRandom random = null;
-        try {
-            random = SecureRandom.getInstance("SHA1PRNG");
-        } catch (NoSuchAlgorithmException e) {
-            fail("Could not initialize SecureRandom: " + e);
-        }*/
+         * SecureRandom sometimes gets tied up in knots in testing (the test
+         * process goes off into lala land and never returns from .nextBytes)
+         * Slow debugging (with pauses) seems to work most of the time, but
+         * manual Thread.sleeps doesn't
+         * Using Random instead of SecureRandom (which should be fine in this
+         * context) works much better. Go figure
+         * SecureRandom random = null;
+         * try {
+         * random = SecureRandom.getInstance("SHA1PRNG");
+         * } catch (NoSuchAlgorithmException e) {
+         * fail("Could not initialize SecureRandom: " + e);
+         * }
+         */
 
         byte bytes[] = new byte[length];
         random.nextBytes(bytes);
@@ -207,7 +231,9 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>getTempDir</p>
+     * <p>
+     * getTempDir
+     * </p>
      *
      * @return a {@link java.io.File} object.
      */
@@ -224,11 +250,15 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>tempFile</p>
+     * <p>
+     * tempFile
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public File tempFile(String name) throws IOException {
         if (name == null) {
@@ -241,12 +271,17 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>tempFile</p>
+     * <p>
+     * tempFile
+     * </p>
      *
-     * @param parent a {@link java.io.File} object.
-     * @param name a {@link java.lang.String} object.
+     * @param parent
+     *            a {@link java.io.File} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public File tempFile(File parent, String name) throws IOException {
         if (parent == null) {
@@ -262,12 +297,17 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>tempFile</p>
+     * <p>
+     * tempFile
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param contents a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param contents
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public File tempFile(String name, String contents) throws IOException {
         if (name == null) {
@@ -283,13 +323,19 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>tempFile</p>
+     * <p>
+     * tempFile
+     * </p>
      *
-     * @param parent a {@link java.io.File} object.
-     * @param name a {@link java.lang.String} object.
-     * @param contents a {@link java.lang.String} object.
+     * @param parent
+     *            a {@link java.io.File} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param contents
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public File tempFile(File parent, String name, String contents) throws IOException {
         if (parent == null) {
@@ -337,24 +383,28 @@ public class FileAnticipator extends Assert {
         Writer writer = null;
         PrintWriter printWriter = null;
         try {
-        	out = new FileOutputStream(f);
-        	writer = new OutputStreamWriter(out, "UTF-8");
-        	printWriter = new PrintWriter(writer);
-        	printWriter.print(contents);
+            out = new FileOutputStream(f);
+            writer = new OutputStreamWriter(out, "UTF-8");
+            printWriter = new PrintWriter(writer);
+            printWriter.print(contents);
         } finally {
-        	IOUtils.closeQuietly(printWriter);
-        	IOUtils.closeQuietly(writer);
-        	IOUtils.closeQuietly(out);
+            IOUtils.closeQuietly(printWriter);
+            IOUtils.closeQuietly(writer);
+            IOUtils.closeQuietly(out);
         }
         return f;
     }
 
     /**
-     * <p>tempDir</p>
+     * <p>
+     * tempDir
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public File tempDir(String name) throws IOException {
         if (name == null) {
@@ -365,12 +415,17 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>tempDir</p>
+     * <p>
+     * tempDir
+     * </p>
      *
-     * @param parent a {@link java.io.File} object.
-     * @param name a {@link java.lang.String} object.
+     * @param parent
+     *            a {@link java.io.File} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public File tempDir(File parent, String name) throws IOException {
         if (parent == null) {
@@ -386,9 +441,12 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>expecting</p>
+     * <p>
+     * expecting
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
      */
     public File expecting(String name) {
@@ -401,10 +459,14 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>expecting</p>
+     * <p>
+     * expecting
+     * </p>
      *
-     * @param parent a {@link java.io.File} object.
-     * @param name a {@link java.lang.String} object.
+     * @param parent
+     *            a {@link java.io.File} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
      */
     public File expecting(File parent, String name) {
@@ -438,10 +500,13 @@ public class FileAnticipator extends Assert {
      * Delete expected files, throwing an AssertionFailedError if any of
      * the expected files don't exist.
      *
-     * @param ignoreNonExistantFiles if true, non-existant files will be
-     *      ignored and will not throw an AssertionFailedError
-     * @throws AssertionFailedError if ignoreNonExistantFiles is false
-     *      and an expected file does not exist, or if a file cannot be deleted
+     * @param ignoreNonExistantFiles
+     *            if true, non-existant files will be
+     *            ignored and will not throw an AssertionFailedError
+     * @throws AssertionFailedError
+     *             if ignoreNonExistantFiles is false
+     *             and an expected file does not exist, or if a file cannot be
+     *             deleted
      */
     public void deleteExpected(boolean ignoreNonExistantFiles) {
         assertInitialized();
@@ -455,7 +520,7 @@ public class FileAnticipator extends Assert {
 
         List<String> errors = new ArrayList<String>();
 
-        for (ListIterator<File> i = m_expecting.listIterator(m_expecting.size()); i.hasPrevious(); ) {
+        for (ListIterator<File> i = m_expecting.listIterator(m_expecting.size()); i.hasPrevious();) {
             File f = i.previous();
             if (!f.exists()) {
                 if (!ignoreNonExistantFiles) {
@@ -473,10 +538,12 @@ public class FileAnticipator extends Assert {
                         fileList.append(" }");
                         errors.add("Directory was not empty: " + f.getAbsolutePath() + ": " + fileList.toString());
                     } else {
-                        if (!f.delete()) errors.add("Could not delete directory: " + f.getAbsolutePath());
+                        if (!f.delete())
+                            errors.add("Could not delete directory: " + f.getAbsolutePath());
                     }
                 } else {
-                    if (!f.delete()) errors.add("Could not delete expected file: " + f.getAbsolutePath());
+                    if (!f.delete())
+                        errors.add("Could not delete expected file: " + f.getAbsolutePath());
                 }
             }
             i.remove();
@@ -492,7 +559,9 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * <p>isInitialized</p>
+     * <p>
+     * isInitialized
+     * </p>
      *
      * @return a boolean.
      */

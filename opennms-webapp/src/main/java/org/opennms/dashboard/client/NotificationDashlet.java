@@ -31,7 +31,9 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * <p>NotificationDashlet class.</p>
+ * <p>
+ * NotificationDashlet class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -43,23 +45,24 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class NotificationDashlet extends Dashlet {
 
     /*
-    - Transient
-    - Don't need to be able to acknowledge them
-    - Items to show:
-        - Show if they have been acknowledged
-        - Description
-        - Severity (color-coded)
-        - Count
-        - May need to show the node label when filtering on the node label
-        - Show node/interface/service (maybe as a label)
-    - Sort by severity (highest first)
-    - Be able to page through results (first page, previous page, next page, last page)
-    - Show "Outages x - y of z"
-    - Ideally be able to sort by any column
-
+     * - Transient
+     * - Don't need to be able to acknowledge them
+     * - Items to show:
+     * - Show if they have been acknowledged
+     * - Description
+     * - Severity (color-coded)
+     * - Count
+     * - May need to show the node label when filtering on the node label
+     * - Show node/interface/service (maybe as a label)
+     * - Sort by severity (highest first)
+     * - Be able to page through results (first page, previous page, next page,
+     * last page)
+     * - Show "Outages x - y of z"
+     * - Ideally be able to sort by any column
      */
 
     private NotificationView m_view = new NotificationView(this);
+
     private NotificationLoader m_loader = new NotificationLoader();
 
     class NotificationLoader extends DashletLoader implements AsyncCallback<Notification[]> {
@@ -112,11 +115,15 @@ public class NotificationDashlet extends Dashlet {
         m_loader.load(set);
     }
 
-
     /**
-     * <p>setSurveillanceService</p>
+     * <p>
+     * setSurveillanceService
+     * </p>
      *
-     * @param svc a {@link org.opennms.dashboard.client.SurveillanceServiceAsync} object.
+     * @param svc
+     *            a
+     *            {@link org.opennms.dashboard.client.SurveillanceServiceAsync}
+     *            object.
      */
     public void setSurveillanceService(SurveillanceServiceAsync svc) {
         m_loader.setSurveillanceService(svc);

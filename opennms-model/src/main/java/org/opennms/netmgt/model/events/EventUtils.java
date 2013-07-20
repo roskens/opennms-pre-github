@@ -59,23 +59,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Abstract EventUtils class.</p>
+ * <p>
+ * Abstract EventUtils class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public abstract class EventUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EventUtils.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(EventUtils.class);
 
     /**
-     * <p>createNodeAddedEvent</p>
+     * <p>
+     * createNodeAddedEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param labelSource a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param labelSource
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeAddedEvent(String source, int nodeId, String nodeLabel, String labelSource) {
@@ -91,13 +98,17 @@ public abstract class EventUtils {
 
     }
 
-
     /**
-     * <p>createNodeGainedInterfaceEvent</p>
+     * <p>
+     * createNodeGainedInterfaceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param nodeId a int.
-     * @param ifaddr a {@link java.net.InetAddress} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ifaddr
+     *            a {@link java.net.InetAddress} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeGainedInterfaceEvent(String source, int nodeId, InetAddress ifaddr) {
@@ -113,19 +124,30 @@ public abstract class EventUtils {
     }
 
     /**
-     * <p>createNodeGainedServiceEvent</p>
+     * <p>
+     * createNodeGainedServiceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param nodeId a int.
-     * @param ifaddr a {@link java.net.InetAddress} object.
-     * @param service a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param labelSource a {@link java.lang.String} object.
-     * @param sysName a {@link java.lang.String} object.
-     * @param sysDescr a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ifaddr
+     *            a {@link java.net.InetAddress} object.
+     * @param service
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param labelSource
+     *            a {@link java.lang.String} object.
+     * @param sysName
+     *            a {@link java.lang.String} object.
+     * @param sysDescr
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    public static Event createNodeGainedServiceEvent(String source, int nodeId, InetAddress ifaddr, String service, String nodeLabel, String labelSource, String sysName, String sysDescr) {
+    public static Event createNodeGainedServiceEvent(String source, int nodeId, InetAddress ifaddr, String service,
+            String nodeLabel, String labelSource, String sysName, String sysDescr) {
 
         debug("createAndSendNodeGainedServiceEvent:  nodeId/interface/service  %d/%s/%s", nodeId, str(ifaddr), service);
 
@@ -227,7 +249,6 @@ public abstract class EventUtils {
         return bldr.getEvent();
     }
 
-
     /**
      * Retrieve the value associated with an event parameter and parse it to a
      * long. If the value can not be found, return a default value.
@@ -325,17 +346,22 @@ public abstract class EventUtils {
     }
 
     private static void debug(String format, Object... args) {
-            LOG.debug(String.format(format, args));
+        LOG.debug(String.format(format, args));
     }
 
-
     /**
-     * <p>createNodeUpdatedEvent</p>
+     * <p>
+     * createNodeUpdatedEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param labelSource a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param labelSource
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeUpdatedEvent(String source, Integer nodeId, String nodeLabel, String labelSource) {
@@ -348,9 +374,12 @@ public abstract class EventUtils {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a {@link java.lang.String} object.
      */
     public static String toString(Event event) {
@@ -360,7 +389,7 @@ public abstract class EventUtils {
         }
         if (event.getAutoactionCount() > 0) {
             b.append(" Autoactions:");
-            for (Iterator<Autoaction> i = event.getAutoactionCollection().iterator(); i.hasNext(); ) {
+            for (Iterator<Autoaction> i = event.getAutoactionCollection().iterator(); i.hasNext();) {
                 b.append(" " + i.next().toString());
             }
             b.append("\n");
@@ -377,7 +406,7 @@ public abstract class EventUtils {
         }
         if (event.getForwardCount() > 0) {
             b.append(" Forwards:");
-            for (Iterator<Forward> i = event.getForwardCollection().iterator(); i.hasNext(); ) {
+            for (Iterator<Forward> i = event.getForwardCollection().iterator(); i.hasNext();) {
                 b.append(" " + i.next().toString());
             }
             b.append("\n");
@@ -390,7 +419,7 @@ public abstract class EventUtils {
         }
         if (event.getLoggroupCount() > 0) {
             b.append(" Loggroup:");
-            for (Iterator<String> i = event.getLoggroupCollection().iterator(); i.hasNext(); ) {
+            for (Iterator<String> i = event.getLoggroupCollection().iterator(); i.hasNext();) {
                 b.append(" " + i.next());
             }
             b.append("\n");
@@ -410,7 +439,7 @@ public abstract class EventUtils {
         b.append(" Nodeid: " + event.getNodeid() + "\n");
         if (event.getOperactionCount() > 0) {
             b.append(" Operaction:");
-            for (Iterator<Operaction> i = event.getOperactionCollection().iterator(); i.hasNext(); ) {
+            for (Iterator<Operaction> i = event.getOperactionCollection().iterator(); i.hasNext();) {
                 b.append(" " + i.next().toString());
             }
             b.append("\n");
@@ -423,7 +452,7 @@ public abstract class EventUtils {
         }
         if (event.getScriptCount() > 0) {
             b.append(" Script:");
-            for (Iterator<Script> i = event.getScriptCollection().iterator(); i.hasNext(); ) {
+            for (Iterator<Script> i = event.getScriptCollection().iterator(); i.hasNext();) {
                 b.append(" " + i.next().toString());
             }
             b.append("\n");
@@ -479,9 +508,12 @@ public abstract class EventUtils {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
-     * @param value a {@link org.opennms.netmgt.xml.event.Value} object.
+     * @param value
+     *            a {@link org.opennms.netmgt.xml.event.Value} object.
      * @return a {@link java.lang.String} object.
      */
     public static String toString(Value value) {
@@ -489,9 +521,12 @@ public abstract class EventUtils {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
-     * @param snmp a {@link org.opennms.netmgt.xml.event.Snmp} object.
+     * @param snmp
+     *            a {@link org.opennms.netmgt.xml.event.Snmp} object.
      * @return a {@link java.lang.String} object.
      */
     public static String toString(Snmp snmp) {
@@ -521,32 +556,38 @@ public abstract class EventUtils {
         return b.toString();
     }
 
-
     /**
-     * <p>eventsMatch</p>
+     * <p>
+     * eventsMatch
+     * </p>
      *
-     * @param e1 a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param e2 a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e1
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e2
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public static boolean eventsMatch(final Event e1, final Event e2) {
-    	if (e1 == e2) {
+        if (e1 == e2) {
             return true;
         }
         if (e1 == null || e2 == null) {
             return false;
         }
-        if (e1.getUei() != e2.getUei() && (e1.getUei() == null || e2.getUei() == null || !e1.getUei().equals(e2.getUei()))) {
-        		return false;
+        if (e1.getUei() != e2.getUei()
+                && (e1.getUei() == null || e2.getUei() == null || !e1.getUei().equals(e2.getUei()))) {
+            return false;
         }
 
         if (e1.getNodeid() != e2.getNodeid()) {
             return false;
         }
-        if (e1.getInterface() != e2.getInterface() && (e1.getInterface() == null || e2.getInterface() == null || !e1.getInterface().equals(e2.getInterface()))) {
+        if (e1.getInterface() != e2.getInterface()
+                && (e1.getInterface() == null || e2.getInterface() == null || !e1.getInterface().equals(e2.getInterface()))) {
             return false;
         }
-        if (e1.getService() != e2.getService() && (e1.getService() == null || e2.getService() == null || !e1.getService().equals(e2.getService()))) {
+        if (e1.getService() != e2.getService()
+                && (e1.getService() == null || e2.getService() == null || !e1.getService().equals(e2.getService()))) {
             return false;
         }
 

@@ -42,8 +42,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>DefaultGlobalReportRepository class.</p>
- * Class realize the global report repository. It provides access to a local-repository and all configured remote-repositories.
+ * <p>
+ * DefaultGlobalReportRepository class.
+ * </p>
+ * Class realize the global report repository. It provides access to a
+ * local-repository and all configured remote-repositories.
  *
  * @author Markus Neumann <markus@opennms.com>
  * @author Ronny Trommer <ronny@opennms.com>
@@ -56,7 +59,8 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
     /**
      * Logging
      */
-    private final Logger logger = LoggerFactory.getLogger("OpenNMS.Report." + DefaultGlobalReportRepository.class.getName());
+    private final Logger logger = LoggerFactory.getLogger("OpenNMS.Report."
+            + DefaultGlobalReportRepository.class.getName());
 
     /**
      * Configuration DAO to get configured remote-repositories.
@@ -83,11 +87,12 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
      */
     private String m_jasperReportVersion;
 
-
     /**
-     * Default constructor creates one local-repository and all configured remote-repositories.
+     * Default constructor creates one local-repository and all configured
+     * remote-repositories.
      */
-    public DefaultGlobalReportRepository(RemoteRepositoryConfigDao remoteRepositoryConfigDao, ReportRepository localReportRepository) {
+    public DefaultGlobalReportRepository(RemoteRepositoryConfigDao remoteRepositoryConfigDao,
+            ReportRepository localReportRepository) {
         m_remoteRepositoryConfigDao = remoteRepositoryConfigDao;
         m_localReportRepository = localReportRepository;
 
@@ -98,7 +103,8 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
 
         try {
             logger.debug("Config resource is set to '{}'", m_remoteRepositoryConfigDao.toString());
-            Assert.notNull(m_remoteRepositoryConfigDao, "remote repository config dao property configResource must be set to a non-null value");
+            Assert.notNull(m_remoteRepositoryConfigDao,
+                           "remote repository config dao property configResource must be set to a non-null value");
 
             logger.debug("Local report repository is set to '{}'", m_localReportRepository.toString());
             Assert.notNull(m_localReportRepository, "local report repository property must be set to a non-null value");
@@ -237,7 +243,8 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
     /**
      * Add a report repository.
      *
-     * @param repository a ReportRepository
+     * @param repository
+     *            a ReportRepository
      */
     @Override
     public void addReportRepository(ReportRepository repository) {
@@ -248,14 +255,17 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
     /**
      * Get a specific repository identified by repository id.
      *
-     * @param repositoryId a String as repository identifier
-     * @return report repository as {@link org.opennms.features.reporting.repository.ReportRepository} object
+     * @param repositoryId
+     *            a String as repository identifier
+     * @return report repository as
+     *         {@link org.opennms.features.reporting.repository.ReportRepository}
+     *         object
      */
     @Override
     public ReportRepository getRepositoryById(String repositoryId) {
         for (ReportRepository repository : m_repositoryList) {
             if (repositoryId.equals(repository.getRepositoryId())) {
-                //leave if we have a repository
+                // leave if we have a repository
                 logger.debug("getRepositoryById was called for: '{}' result: '{}'", repositoryId, repository);
                 return repository;
             }
@@ -268,8 +278,11 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
     /**
      * Get a specific repository identified by a report id.
      *
-     * @param reportId a String as report identifier
-     * @return report repository as {@link org.opennms.features.reporting.repository.ReportRepository} object
+     * @param reportId
+     *            a String as report identifier
+     * @return report repository as
+     *         {@link org.opennms.features.reporting.repository.ReportRepository}
+     *         object
      */
     protected ReportRepository getRepositoryForReport(String reportId) {
         String repositoryId = reportId.substring(0, reportId.indexOf(REPOSITORY_REPORT_SEP));
@@ -278,35 +291,52 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
     }
 
     /**
-     * <p>setLocalReportRepository</p>
+     * <p>
+     * setLocalReportRepository
+     * </p>
      * <p/>
-     * Set the legacy local repository which provides all OpenNMS community reports
+     * Set the legacy local repository which provides all OpenNMS community
+     * reports
      *
-     * @param reportRepository a {@link org.opennms.features.reporting.repository.local.LegacyLocalReportRepository} object
+     * @param reportRepository
+     *            a
+     *            {@link org.opennms.features.reporting.repository.local.LegacyLocalReportRepository}
+     *            object
      */
     public void setLocalReportRepository(ReportRepository reportRepository) {
         m_localReportRepository = reportRepository;
     }
 
     /**
-     * <p>getReportRepository</p>
+     * <p>
+     * getReportRepository
+     * </p>
      * <p/>
-     * Get the legacy local repository which provides all OpenNMS community reports
+     * Get the legacy local repository which provides all OpenNMS community
+     * reports
      *
-     * @return a {@link org.opennms.features.reporting.repository.local.LegacyLocalReportRepository} object
+     * @return a
+     *         {@link org.opennms.features.reporting.repository.local.LegacyLocalReportRepository}
+     *         object
      */
     public ReportRepository getReportRepository() {
         return m_localReportRepository;
     }
 
     /**
-     * <p>setRemoteRepositoryConfigDao</p>
+     * <p>
+     * setRemoteRepositoryConfigDao
+     * </p>
      * <p/>
-     * Set the default remote report repository which provides access to OpenNMS CONNECT reports
+     * Set the default remote report repository which provides access to OpenNMS
+     * CONNECT reports
      *
-     * @param remoteRepositoryConfigDao a {@link org.opennms.features.reporting.repository.remote.DefaultRemoteRepository} object
+     * @param remoteRepositoryConfigDao
+     *            a
+     *            {@link org.opennms.features.reporting.repository.remote.DefaultRemoteRepository}
+     *            object
      */
-    //TODO Ronny: it's more then a simple setter refactor it.
+    // TODO Ronny: it's more then a simple setter refactor it.
     public void setRemoteRepositoryConfigDao(RemoteRepositoryConfigDao remoteRepositoryConfigDao) {
         m_remoteRepositoryConfigDao = remoteRepositoryConfigDao;
 
@@ -318,23 +348,31 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
         this.m_repositoryList.add(m_localReportRepository);
 
         /**
-         * Add all active remote-repositories configured at remoteRepositoryConfigDao, to repositorylist.
+         * Add all active remote-repositories configured at
+         * remoteRepositoryConfigDao, to repositorylist.
          */
-        //TODO tak: This is tricky to test and to mock, we have to refactor this
+        // TODO tak: This is tricky to test and to mock, we have to refactor
+        // this
         try {
             for (RemoteRepositoryDefinition repositoryDefinition : m_remoteRepositoryConfigDao.getActiveRepositories()) {
                 this.m_repositoryList.add(new DefaultRemoteRepository(repositoryDefinition, m_jasperReportVersion));
             }
         } catch (Exception e) {
-            logger.error("Could not add configured remote repositories in default global report repository. Error message: '{}'", e.getMessage());
+            logger.error("Could not add configured remote repositories in default global report repository. Error message: '{}'",
+                         e.getMessage());
         }
     }
 
     /**
-     * <p>getRemoteRepositoryConfigDao</p>
+     * <p>
+     * getRemoteRepositoryConfigDao
+     * </p>
      * <p/>
      * Get config Dao for remote-repositories
-     * @return a {@link org.opennms.features.reporting.repository.remote.DefaultRemoteRepository} object
+     *
+     * @return a
+     *         {@link org.opennms.features.reporting.repository.remote.DefaultRemoteRepository}
+     *         object
      */
     public RemoteRepositoryConfigDao getRemoteRepositoryConfigDao() {
         return m_remoteRepositoryConfigDao;

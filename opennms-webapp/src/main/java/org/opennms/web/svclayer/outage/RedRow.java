@@ -33,7 +33,9 @@ import org.extremecomponents.table.core.TableModel;
 import org.extremecomponents.table.interceptor.RowInterceptor;
 
 /**
- * <p>RedRow class.</p>
+ * <p>
+ * RedRow class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @version $Id: $
@@ -48,14 +50,12 @@ public class RedRow implements RowInterceptor {
     /** {@inheritDoc} */
     @Override
     public final void modifyRowAttributes(final TableModel model, final Row row) {
-        //Map outage = (Map) model.getCurrentRowBean();
-        //String outagetime = (String) outage.get("up");
-        //if (outagetime.equals("&#160;")  ) {
+        // Map outage = (Map) model.getCurrentRowBean();
+        // String outagetime = (String) outage.get("up");
+        // if (outagetime.equals("&#160;") ) {
         row.setStyle("background-color:#ff0000;");
-        //} else {
-          //  row.setStyle("");
-        //}
+        // } else {
+        // row.setStyle("");
+        // }
     }
 }
-
-

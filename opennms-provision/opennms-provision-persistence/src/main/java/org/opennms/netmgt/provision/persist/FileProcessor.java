@@ -4,6 +4,6 @@ import java.io.File;
 
 public interface FileProcessor {
 
-	public void processFile(File file, String basename, String extension);
+    public void processFile(File file, String basename, String extension);
 
 }

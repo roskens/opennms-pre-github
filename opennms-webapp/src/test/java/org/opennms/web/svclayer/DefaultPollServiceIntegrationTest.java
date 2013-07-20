@@ -48,17 +48,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
         "classpath:META-INF/opennms/applicationContext-dao.xml",
         "classpath:META-INF/opennms/applicationContext-commonConfigs.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
+        "classpath*:/META-INF/opennms/component-dao.xml", "classpath*:/META-INF/opennms/component-service.xml",
         "classpath:org/opennms/web/svclayer/applicationContext-svclayer.xml",
         "classpath*:/META-INF/opennms/applicationContext-reportingCore.xml",
         "classpath:/META-INF/opennms/applicationContext-insertData-enabled.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DefaultPollServiceIntegrationTest implements InitializingBean {
@@ -78,7 +75,7 @@ public class DefaultPollServiceIntegrationTest implements InitializingBean {
     @Ignore
     public void testPollMonitoredService() {
         final PollerService api = createMock(PollerService.class);
-        ((DefaultDemandPollService)m_demandPollService).setPollerAPI(api);
+        ((DefaultDemandPollService) m_demandPollService).setPollerAPI(api);
 
         final DemandPoll poll = m_demandPollService.pollMonitoredService(1, addr("192.168.2.100"), 1, 1);
         assertNotNull("DemandPoll should not be null", poll);

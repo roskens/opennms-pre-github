@@ -36,17 +36,21 @@ import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 import org.opennms.netmgt.provision.adapters.link.EndPointValidationExpression;
 
 /**
- * <p>Abstract EndPointValidationExpressionImpl class.</p>
+ * <p>
+ * Abstract EndPointValidationExpressionImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="validator")
+@XmlRootElement(name = "validator")
 public abstract class EndPointValidationExpressionImpl implements EndPointValidationExpression {
     protected String m_value;
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -56,9 +60,12 @@ public abstract class EndPointValidationExpressionImpl implements EndPointValida
     }
 
     /**
-     * <p>setValue</p>
+     * <p>
+     * setValue
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setValue(String value) {
         m_value = value;

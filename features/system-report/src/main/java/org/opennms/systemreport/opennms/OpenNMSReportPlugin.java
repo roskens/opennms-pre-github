@@ -48,6 +48,7 @@ import org.springframework.core.io.Resource;
 
 public class OpenNMSReportPlugin extends AbstractSystemReportPlugin implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(OpenNMSReportPlugin.class);
+
     @Autowired
     public NodeDao m_nodeDao;
 
@@ -85,7 +86,7 @@ public class OpenNMSReportPlugin extends AbstractSystemReportPlugin implements I
 
     @Override
     public TreeMap<String, Resource> getEntries() {
-        final TreeMap<String,Resource> map = new TreeMap<String,Resource>();
+        final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
         final InputStream is = this.getClass().getResourceAsStream("/version.properties");
         if (is != null) {
             Properties p = new Properties();

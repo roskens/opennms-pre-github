@@ -33,24 +33,26 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * <p>UEIHandler class.</p>
+ * <p>
+ * UEIHandler class.
+ * </p>
  *
  * @author opennms
  * @version $Id: $
  */
 public class UEIHandler extends DefaultHandler {
     public String raiseid = null;
+
     public String clearid = null;
 
     /** {@inheritDoc} */
     @Override
-    public void startElement(String namespaceURI, String localName,
-     String qualifiedName, Attributes atts) throws SAXException {
-      if (localName.equals("raiseuei")) {
-          raiseid=atts.getValue("id");
-      }
-      else if (localName.equals("raiseuei")) {
-          clearid=atts.getValue("id");
-      }
+    public void startElement(String namespaceURI, String localName, String qualifiedName, Attributes atts)
+            throws SAXException {
+        if (localName.equals("raiseuei")) {
+            raiseid = atts.getValue("id");
+        } else if (localName.equals("raiseuei")) {
+            clearid = atts.getValue("id");
+        }
     }
 }

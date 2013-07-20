@@ -37,31 +37,31 @@ import com.google.gwt.user.client.ui.Label;
  */
 public class FieldSetTextDisplay extends AbstractFieldSet implements FieldSet {
 
-	protected Label textLabel = new Label();
+    protected Label textLabel = new Label();
 
-	@UiConstructor
-	public FieldSetTextDisplay(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value);
-	}
+    @UiConstructor
+    public FieldSetTextDisplay(String name, String value, String helpText) {
+        super(name, helpText);
+        init(value);
+    }
 
-	@Override
-	public String getValue() {
-		return textLabel.getText();
-	}
+    @Override
+    public String getValue() {
+        return textLabel.getText();
+    }
 
-	private void init(String value) {
-		textLabel.setText(value);
-		textLabel.setStyleName("textLabel");
-		panel.add(textLabel);
-	}
+    private void init(String value) {
+        textLabel.setText(value);
+        textLabel.setStyleName("textLabel");
+        panel.add(textLabel);
+    }
 
-	@Override
-	public void setEnabled(Boolean enabled) {
-	}
+    @Override
+    public void setEnabled(Boolean enabled) {
+    }
 
-	@Override
-	public void setValue(String value) {
-		textLabel.setText(value);
-	}
+    @Override
+    public void setValue(String value) {
+        textLabel.setText(value);
+    }
 }

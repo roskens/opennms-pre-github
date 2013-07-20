@@ -33,19 +33,24 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-
 /**
- * <p>SingleResultQuerier class.</p>
+ * <p>
+ * SingleResultQuerier class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class SingleResultQuerier extends Querier {
     /**
-     * <p>Constructor for SingleResultQuerier.</p>
+     * <p>
+     * Constructor for SingleResultQuerier.
+     * </p>
      *
-     * @param db a {@link javax.sql.DataSource} object.
-     * @param sql a {@link java.lang.String} object.
+     * @param db
+     *            a {@link javax.sql.DataSource} object.
+     * @param sql
+     *            a {@link java.lang.String} object.
      */
     public SingleResultQuerier(DataSource db, String sql) {
         super(db, sql);
@@ -54,11 +59,15 @@ public class SingleResultQuerier extends Querier {
     private Object m_result;
 
     /**
-     * <p>getResult</p>
+     * <p>
+     * getResult
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
      */
-    public Object getResult() { return m_result; }
+    public Object getResult() {
+        return m_result;
+    }
 
     /** {@inheritDoc} */
     @Override

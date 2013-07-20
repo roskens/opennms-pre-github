@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.Serializable;
@@ -54,57 +54,53 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="parm")
+@XmlRootElement(name = "parm")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@ValidateUsing("event.xsd")
+// @ValidateUsing("event.xsd")
 public class Parm implements Serializable {
-	private static final long serialVersionUID = 2841420030575276257L;
+    private static final long serialVersionUID = 2841420030575276257L;
 
-	//--------------------------/
-	//- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * parm name
      */
-	@XmlElement(name="parmName", required=true)
+    @XmlElement(name = "parmName", required = true)
     private java.lang.String _parmName;
 
     /**
      * parm value
      */
-	@XmlElement(name="value", required=true)
-	private org.opennms.netmgt.xml.event.Value _value;
+    @XmlElement(name = "value", required = true)
+    private org.opennms.netmgt.xml.event.Value _value;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Parm() {
         super();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     public Parm(final String name, final String value) {
-    	this();
-    	setParmName(name);
-    	this._value = new Value(value);
-	}
+        this();
+        setParmName(name);
+        this._value = new Value(value);
+    }
 
-
-	/**
+    /**
      * Returns the value of field 'parmName'. The field 'parmName'
      * has the following description: parm name
      *
      * @return the value of field 'ParmName'.
      */
-    public java.lang.String getParmName(
-    ) {
+    public java.lang.String getParmName() {
         return this._parmName;
     }
 
@@ -114,8 +110,7 @@ public class Parm implements Serializable {
      *
      * @return the value of field 'Value'.
      */
-    public org.opennms.netmgt.xml.event.Value getValue(
-    ) {
+    public org.opennms.netmgt.xml.event.Value getValue() {
         return this._value;
     }
 
@@ -123,10 +118,10 @@ public class Parm implements Serializable {
      * Sets the value of field 'parmName'. The field 'parmName' has
      * the following description: parm name
      *
-     * @param parmName the value of field 'parmName'.
+     * @param parmName
+     *            the value of field 'parmName'.
      */
-    public void setParmName(
-            final java.lang.String parmName) {
+    public void setParmName(final java.lang.String parmName) {
         this._parmName = parmName;
     }
 
@@ -134,23 +129,19 @@ public class Parm implements Serializable {
      * Sets the value of field 'value'. The field 'value' has the
      * following description: parm value
      *
-     * @param value the value of field 'value'.
+     * @param value
+     *            the value of field 'value'.
      */
-    public void setValue(
-            final org.opennms.netmgt.xml.event.Value value) {
+    public void setValue(final org.opennms.netmgt.xml.event.Value value) {
         this._value = value;
     }
 
-        @Override
+    @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("parmName", _parmName)
-    		.append("value", _value)
-    		.toString();
+        return new ToStringBuilder(this).append("parmName", _parmName).append("value", _value).toString();
     }
 
-
-	public boolean isValid() {
-		return getParmName() != null && getValue() != null;
-	}
+    public boolean isValid() {
+        return getParmName() != null && getValue() != null;
+    }
 }

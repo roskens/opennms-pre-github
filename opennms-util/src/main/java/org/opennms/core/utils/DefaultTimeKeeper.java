@@ -32,12 +32,16 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * <p>DefaultTimeKeeper class.</p>
+ * <p>
+ * DefaultTimeKeeper class.
+ * </p>
  */
 public class DefaultTimeKeeper implements TimeKeeper {
 
     /**
-     * <p>getCurrentDate</p>
+     * <p>
+     * getCurrentDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -47,7 +51,9 @@ public class DefaultTimeKeeper implements TimeKeeper {
     }
 
     /**
-     * <p>getCurrentTime</p>
+     * <p>
+     * getCurrentTime
+     * </p>
      *
      * @return a long.
      */

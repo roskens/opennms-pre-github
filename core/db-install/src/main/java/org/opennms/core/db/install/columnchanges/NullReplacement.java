@@ -43,7 +43,9 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 
 public class NullReplacement implements ColumnChangeReplacement {
     /**
-     * <p>Constructor for NullReplacement.</p>
+     * <p>
+     * Constructor for NullReplacement.
+     * </p>
      */
     public NullReplacement() {
         // do nothing
@@ -56,7 +58,9 @@ public class NullReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -66,7 +70,9 @@ public class NullReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {

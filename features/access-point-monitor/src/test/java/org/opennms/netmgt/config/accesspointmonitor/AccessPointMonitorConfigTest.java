@@ -57,6 +57,7 @@ import org.xml.sax.SAXException;
 
 public class AccessPointMonitorConfigTest {
     private FileAnticipator fa;
+
     private AccessPointMonitorConfig apmc;
 
     static private class TestOutputResolver extends SchemaOutputResolver {
@@ -160,7 +161,8 @@ public class AccessPointMonitorConfigTest {
         System.err.println("========================================================================");
         System.err.print(exampleXML.toString());
         DetailedDiff myDiff = getDiff(objectXML, exampleXML);
-        assertEquals("Number of XMLUnit differences between the example XML and the mock object XML is 0", 0, myDiff.getAllDifferences().size());
+        assertEquals("Number of XMLUnit differences between the example XML and the mock object XML is 0", 0,
+                     myDiff.getAllDifferences().size());
     }
 
     @Test
@@ -180,14 +182,17 @@ public class AccessPointMonitorConfigTest {
         Service svc = apmc.getPackages().get(0).getService();
         svc = apmc.getPackages().get(0).getEffectiveService();
 
-        assertEquals("Service should inherit service template parameters", 1, ParameterMap.getKeyedInteger(svc.getParameterMap(), "operand", 0));
+        assertEquals("Service should inherit service template parameters", 1,
+                     ParameterMap.getKeyedInteger(svc.getParameterMap(), "operand", 0));
 
-        assertEquals("Service parameters should override template parameters", 3, ParameterMap.getKeyedInteger(svc.getParameterMap(), "retry", 0));
+        assertEquals("Service parameters should override template parameters", 3,
+                     ParameterMap.getKeyedInteger(svc.getParameterMap(), "retry", 0));
 
         apmc.setServiceTemplates(null);
         svc = apmc.getPackages().get(0).getEffectiveService();
 
-        assertEquals("Services should reflect template changes", 0, ParameterMap.getKeyedInteger(svc.getParameterMap(), "operand", 0));
+        assertEquals("Services should reflect template changes", 0,
+                     ParameterMap.getKeyedInteger(svc.getParameterMap(), "operand", 0));
     }
 
     @Test
@@ -195,12 +200,14 @@ public class AccessPointMonitorConfigTest {
         // Get the service on the first package
         Service svc = apmc.getPackages().get(0).getEffectiveService();
 
-        assertEquals("Passive service name should default to the service name if not set", svc.getName(), svc.getPassiveServiceName());
+        assertEquals("Passive service name should default to the service name if not set", svc.getName(),
+                     svc.getPassiveServiceName());
 
         String passiveServiceName = "Not" + svc.getName();
         svc.setPassiveServiceName(passiveServiceName);
 
-        assertEquals("Passive service name should not return the service name if set", passiveServiceName, svc.getPassiveServiceName());
+        assertEquals("Passive service name should not return the service name if set", passiveServiceName,
+                     svc.getPassiveServiceName());
     }
 
     @Test
@@ -208,7 +215,8 @@ public class AccessPointMonitorConfigTest {
         Package pkg = new Package();
         pkg.setName("default");
         pkg.setFilter("pollerCategory == '%packageName%'");
-        assertEquals("The package name should be replaced in the filter.", "pollerCategory == 'default'", pkg.getEffectiveFilter());
+        assertEquals("The package name should be replaced in the filter.", "pollerCategory == 'default'",
+                     pkg.getEffectiveFilter());
 
         pkg.setFilter("packageName");
         assertEquals("The package name should not be replaced in the filter.", "packageName", pkg.getEffectiveFilter());

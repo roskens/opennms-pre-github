@@ -29,7 +29,9 @@
 package org.opennms.netmgt.poller.nrpe;
 
 /**
- * <p>NrpeException class.</p>
+ * <p>
+ * NrpeException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,18 +41,23 @@ public class NrpeException extends Exception {
     private static final long serialVersionUID = -5110369631753106937L;
 
     /**
-     * <p>Constructor for NrpeException.</p>
+     * <p>
+     * Constructor for NrpeException.
+     * </p>
      */
     public NrpeException() {
-		super();
-	}
+        super();
+    }
 
-	/**
-	 * <p>Constructor for NrpeException.</p>
-	 *
-	 * @param message a {@link java.lang.String} object.
-	 */
-	public NrpeException(String message) {
-		super(message);
-	}
+    /**
+     * <p>
+     * Constructor for NrpeException.
+     * </p>
+     *
+     * @param message
+     *            a {@link java.lang.String} object.
+     */
+    public NrpeException(String message) {
+        super(message);
+    }
 }

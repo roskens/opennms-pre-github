@@ -63,12 +63,15 @@ public class DispatcherFilter implements Filter {
     }
 
     @Override
-    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
+    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
         final ServletRequestEvent sre = new ServletRequestEvent(m_filterConfig.getServletContext(), request);
         m_controller.getRequestListener().requestInitialized(sre);
         try {
             if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
-                final HttpServletRequest req = new AttributeEventRequest(m_filterConfig.getServletContext(), m_controller.getRequestAttributeListener(), (HttpServletRequest) request);
+                final HttpServletRequest req = new AttributeEventRequest(m_filterConfig.getServletContext(),
+                                                                         m_controller.getRequestAttributeListener(),
+                                                                         (HttpServletRequest) request);
                 m_controller.getDispatcher().dispatch(req, (HttpServletResponse) response, chain);
             } else {
                 chain.doFilter(request, response);
@@ -91,7 +94,8 @@ public class DispatcherFilter implements Filter {
 
         private final ServletRequestAttributeListenerManager requestAttributeListener;
 
-        public AttributeEventRequest(ServletContext servletContext, ServletRequestAttributeListenerManager requestAttributeListener, HttpServletRequest request) {
+        public AttributeEventRequest(ServletContext servletContext,
+                ServletRequestAttributeListenerManager requestAttributeListener, HttpServletRequest request) {
             super(request);
             this.servletContext = servletContext;
             this.requestAttributeListener = requestAttributeListener;
@@ -106,9 +110,11 @@ public class DispatcherFilter implements Filter {
                 super.setAttribute(name, value);
 
                 if (oldValue == null) {
-                    requestAttributeListener.attributeAdded(new ServletRequestAttributeEvent(servletContext, this, name, value));
+                    requestAttributeListener.attributeAdded(new ServletRequestAttributeEvent(servletContext, this,
+                                                                                             name, value));
                 } else {
-                    requestAttributeListener.attributeReplaced(new ServletRequestAttributeEvent(servletContext, this, name, oldValue));
+                    requestAttributeListener.attributeReplaced(new ServletRequestAttributeEvent(servletContext, this,
+                                                                                                name, oldValue));
                 }
             }
         }
@@ -119,7 +125,8 @@ public class DispatcherFilter implements Filter {
             super.removeAttribute(name);
 
             if (oldValue != null) {
-                requestAttributeListener.attributeRemoved(new ServletRequestAttributeEvent(servletContext, this, name, oldValue));
+                requestAttributeListener.attributeRemoved(new ServletRequestAttributeEvent(servletContext, this, name,
+                                                                                           oldValue));
             }
         }
     }

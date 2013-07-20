@@ -40,9 +40,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>DetectorHandlerNettyImpl class.</p>
- *
- * CAUTION: This class is unused. This implementation has never been in production.
+ * <p>
+ * DetectorHandlerNettyImpl class.
+ * </p>
+ * CAUTION: This class is unused. This implementation has never been in
+ * production.
  *
  * @author Seth
  */
@@ -50,36 +52,39 @@ public class DetectorHandlerNettyImpl<Request, Response> extends SimpleChannelHa
 
     private static final Logger LOG = LoggerFactory.getLogger(DetectorHandlerNettyImpl.class);
 
-    //private DetectFuture m_future;
+    // private DetectFuture m_future;
     private AsyncClientConversation<Request, Response> m_conversation;
 
     /**
-     * <p>setFuture</p>
+     * <p>
+     * setFuture
+     * </p>
      *
-     * @param future a {@link org.opennms.netmgt.provision.DetectFuture} object.
-     * @param <Request> a Request object.
-     * @param <Response> a Response object.
+     * @param future
+     *            a {@link org.opennms.netmgt.provision.DetectFuture} object.
+     * @param <Request>
+     *            a Request object.
+     * @param <Response>
+     *            a Response object.
      */
     /*
-    public void setFuture(DetectFuture future) {
-        m_future = future;
-    }
-
-    /**
+     * public void setFuture(DetectFuture future) {
+     * m_future = future;
+     * }
+     * /**
      * <p>getFuture</p>
-     *
      * @return a {@link org.opennms.netmgt.provision.DetectFuture} object.
      * /
-    public DetectFuture getFuture() {
-        return m_future;
-    }
-    */
+     * public DetectFuture getFuture() {
+     * return m_future;
+     * }
+     */
 
     /** {@inheritDoc} */
     @Override
     public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent event) throws Exception {
         LOG.debug("channelOpen()");
-        if(!getConversation().hasBanner() && getConversation().getRequest() != null) {
+        if (!getConversation().hasBanner() && getConversation().getRequest() != null) {
             Object request = getConversation().getRequest();
             ctx.getChannel().write(request);
         }
@@ -90,29 +95,29 @@ public class DetectorHandlerNettyImpl<Request, Response> extends SimpleChannelHa
     public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent event) throws Exception {
         LOG.debug("channelClosed()");
         /*
-        if(!getFuture().isDone()) {
-            getFuture().setServiceDetected(false);
-        }
-        */
+         * if(!getFuture().isDone()) {
+         * getFuture().setServiceDetected(false);
+         * }
+         */
     }
 
     /*
-    I'm not sure how to create a Netty equivalent to this...
-
-    @Override
-    public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
-        if(getConversation().hasBanner() && status == IdleStatus.READER_IDLE) {
-            getFuture().setServiceDetected(false);
-            session.close(true);
-        }
-    }
+     * I'm not sure how to create a Netty equivalent to this...
+     * @Override
+     * public void sessionIdle(IoSession session, IdleStatus status) throws
+     * Exception {
+     * if(getConversation().hasBanner() && status == IdleStatus.READER_IDLE) {
+     * getFuture().setServiceDetected(false);
+     * session.close(true);
+     * }
+     * }
      */
 
     /** {@inheritDoc} */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent event) throws Exception {
         LOG.debug("Caught a Throwable in {}", this.getClass().getName(), event.getCause());
-        //getFuture().setException(event.getCause());
+        // getFuture().setException(event.getCause());
         // Make sure that the channel is closed
         ctx.getChannel().close();
         // P
@@ -128,7 +133,7 @@ public class DetectorHandlerNettyImpl<Request, Response> extends SimpleChannelHa
             LOG.debug("Client Receiving: {}", message.getMessage().toString().trim());
             LOG.debug("Conversation: {}", conversation);
 
-            if(conversation.hasExchanges() && conversation.validate((Response)message.getMessage())) {
+            if (conversation.hasExchanges() && conversation.validate((Response) message.getMessage())) {
 
                 Object request = conversation.getRequest();
 
@@ -137,21 +142,21 @@ public class DetectorHandlerNettyImpl<Request, Response> extends SimpleChannelHa
                     ctx.getChannel().write(request);
                 } else if (request == null && conversation.isComplete()) {
                     LOG.debug("Closing channel: {}", conversation);
-                    //getFuture().setServiceDetected(true);
+                    // getFuture().setServiceDetected(true);
                     ctx.getChannel().close();
                 } else {
-                    //getFuture().setServiceDetected(false);
+                    // getFuture().setServiceDetected(false);
                     LOG.debug("Closing channel, detection failed: {}", conversation);
                     ctx.getChannel().close();
                     Channels.fireExceptionCaught(ctx, new ServiceDetectionFailedException());
                 }
             } else {
                 LOG.debug("Invalid response: {}", message.getMessage().toString().trim());
-                //getFuture().setServiceDetected(false);
+                // getFuture().setServiceDetected(false);
                 ctx.getChannel().close();
                 Channels.fireExceptionCaught(ctx, new ServiceDetectionFailedException());
             }
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             LOG.debug("Exception caught!", e);
             ctx.getChannel().close();
             Channels.fireExceptionCaught(ctx, e);
@@ -159,18 +164,27 @@ public class DetectorHandlerNettyImpl<Request, Response> extends SimpleChannelHa
     }
 
     /**
-     * <p>setConversation</p>
+     * <p>
+     * setConversation
+     * </p>
      *
-     * @param conversation a {@link org.opennms.netmgt.provision.support.AsyncClientConversation} object.
+     * @param conversation
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.AsyncClientConversation}
+     *            object.
      */
     public void setConversation(AsyncClientConversation<Request, Response> conversation) {
         m_conversation = conversation;
     }
 
     /**
-     * <p>getConversation</p>
+     * <p>
+     * getConversation
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.support.AsyncClientConversation} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.support.AsyncClientConversation}
+     *         object.
      */
     public AsyncClientConversation<Request, Response> getConversation() {
         return m_conversation;

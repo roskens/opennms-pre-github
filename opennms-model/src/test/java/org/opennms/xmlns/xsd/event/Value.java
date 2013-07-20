@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -43,11 +42,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -71,20 +71,18 @@ import javax.xml.bind.annotation.XmlValue;
  *   &lt;/simpleContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "value"
-})
+@XmlType(name = "", propOrder = { "value" })
 @XmlRootElement(name = "value")
 public class Value {
 
     @XmlValue
     protected String value;
+
     @XmlAttribute(name = "type")
     protected String type;
+
     @XmlAttribute(name = "encoding")
     protected String encoding;
 
@@ -92,9 +90,7 @@ public class Value {
      * Gets the value of the value property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getValue() {
         return value;
@@ -104,9 +100,7 @@ public class Value {
      * Sets the value of the value property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setValue(String value) {
         this.value = value;
@@ -116,9 +110,7 @@ public class Value {
      * Gets the value of the type property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getType() {
         if (type == null) {
@@ -132,9 +124,7 @@ public class Value {
      * Sets the value of the type property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setType(String value) {
         this.type = value;
@@ -144,9 +134,7 @@ public class Value {
      * Gets the value of the encoding property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getEncoding() {
         if (encoding == null) {
@@ -160,9 +148,7 @@ public class Value {
      * Sets the value of the encoding property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setEncoding(String value) {
         this.encoding = value;

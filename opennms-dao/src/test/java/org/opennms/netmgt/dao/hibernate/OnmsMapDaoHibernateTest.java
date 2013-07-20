@@ -53,22 +53,20 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class OnmsMapDaoHibernateTest implements InitializingBean {
-	@Autowired
-	private OnmsMapDao m_onmsMapDao;
+    @Autowired
+    private OnmsMapDao m_onmsMapDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     private static boolean m_populated = false;
 
@@ -90,17 +88,17 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         }
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSaveOnmsMap() {
         // Create a new map and save it.
         OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap", "admin");
         m_onmsMapDao.save(map);
         m_onmsMapDao.flush();
-    	m_onmsMapDao.clear();
+        m_onmsMapDao.clear();
 
         OnmsMap map2 = m_onmsMapDao.findMapById(map.getId());
-    	assertNotSame(map, map2);
+        assertNotSame(map, map2);
         assertEquals(map.getName(), map2.getName());
         assertEquals(map.getOwner(), map2.getOwner());
         assertEquals(map.getType(), OnmsMap.USER_GENERATED_MAP);
@@ -109,11 +107,11 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map.getCreateTime(), map2.getCreateTime());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSaveOnmsMap2() {
         // Create a new map and save it.
-        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap2", "admin",969,726);
+        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap2", "admin", 969, 726);
         m_onmsMapDao.save(map);
         m_onmsMapDao.flush();
         m_onmsMapDao.clear();
@@ -132,11 +130,11 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
 
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSaveOnmsMap3() {
         // Create a new map and save it.
-        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap3", "admin",OnmsMap.ACCESS_MODE_GROUP, 969,726);
+        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap3", "admin", OnmsMap.ACCESS_MODE_GROUP, 969, 726);
         m_onmsMapDao.save(map);
         m_onmsMapDao.flush();
         m_onmsMapDao.clear();
@@ -154,11 +152,12 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map.getHeight(), map2.getHeight());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSaveOnmsMap4() {
         // Create a new map and save it.
-        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap4", "users","11aabb","admin",OnmsMap.ACCESS_MODE_GROUP, OnmsMap.USER_GENERATED_MAP,800,600);
+        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap4", "users", "11aabb", "admin", OnmsMap.ACCESS_MODE_GROUP,
+                                  OnmsMap.USER_GENERATED_MAP, 800, 600);
         m_onmsMapDao.save(map);
         m_onmsMapDao.flush();
         m_onmsMapDao.clear();
@@ -176,11 +175,12 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map.getHeight(), map2.getHeight());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSaveOnmsMap5() {
         // Create a new map and save it.
-        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap5", "users","11aabb","admin",OnmsMap.ACCESS_MODE_GROUP, OnmsMap.AUTOMATICALLY_GENERATED_MAP,800,600);
+        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap5", "users", "11aabb", "admin", OnmsMap.ACCESS_MODE_GROUP,
+                                  OnmsMap.AUTOMATICALLY_GENERATED_MAP, 800, 600);
         m_onmsMapDao.save(map);
         m_onmsMapDao.flush();
         m_onmsMapDao.clear();
@@ -198,11 +198,12 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map.getHeight(), map2.getHeight());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSaveOnmsMap6() {
         // Create a new map and save it.
-        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap6", "users","11aabb","admin",OnmsMap.ACCESS_MODE_GROUP, OnmsMap.AUTOMATICALLY_GENERATED_MAP,800,600);
+        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestMap6", "users", "11aabb", "admin", OnmsMap.ACCESS_MODE_GROUP,
+                                  OnmsMap.AUTOMATICALLY_GENERATED_MAP, 800, 600);
         m_onmsMapDao.save(map);
         m_onmsMapDao.flush();
         m_onmsMapDao.clear();
@@ -227,12 +228,15 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map2.getHeight(), map3.getHeight());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindById() {
-        // Note: This ID is based upon the creation order in DatabasePopulator - if you change
-        // the DatabasePopulator by adding additional new objects that use the onmsNxtId sequence
-        // before the creation of this object then this ID may change and this test will fail.
+        // Note: This ID is based upon the creation order in DatabasePopulator -
+        // if you change
+        // the DatabasePopulator by adding additional new objects that use the
+        // onmsNxtId sequence
+        // before the creation of this object then this ID may change and this
+        // test will fail.
         //
         int id = 62;
         OnmsMap map = m_onmsMapDao.findMapById(id);
@@ -254,8 +258,8 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMapsByName() {
         Collection<OnmsMap> maps = m_onmsMapDao.findMapsByName("DB_Pop_Test_Map");
 
@@ -267,10 +271,10 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMapsByNameAndTypeOk() {
-        Collection<OnmsMap> maps = m_onmsMapDao.findMapsByNameAndType("DB_Pop_Test_Map",OnmsMap.USER_GENERATED_MAP);
+        Collection<OnmsMap> maps = m_onmsMapDao.findMapsByNameAndType("DB_Pop_Test_Map", OnmsMap.USER_GENERATED_MAP);
 
         assertEquals(1, maps.size());
         OnmsMap map = maps.iterator().next();
@@ -280,17 +284,17 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMapsByNameAndTypeKo() {
-        Collection<OnmsMap> maps = m_onmsMapDao.findMapsByNameAndType("DB_Pop_Test_Map",OnmsMap.AUTOMATICALLY_GENERATED_MAP);
+        Collection<OnmsMap> maps = m_onmsMapDao.findMapsByNameAndType("DB_Pop_Test_Map",
+                                                                      OnmsMap.AUTOMATICALLY_GENERATED_MAP);
 
         assertEquals(0, maps.size());
     }
 
-
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMapsLike() {
         Collection<OnmsMap> maps = m_onmsMapDao.findMapsLike("Pop_Test");
 
@@ -302,40 +306,43 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMapsByType() {
         Collection<OnmsMap> maps = m_onmsMapDao.findMapsByType("X");
         assertEquals(0, maps.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindAutoMaps() {
         Collection<OnmsMap> maps = m_onmsMapDao.findAutoMaps();
         assertEquals(0, maps.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindSaveMaps() {
         Collection<OnmsMap> maps = m_onmsMapDao.findSaveMaps();
         assertEquals(0, maps.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindUserMaps() {
         Collection<OnmsMap> maps = m_onmsMapDao.findUserMaps();
         assertEquals(1, maps.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testDeleteOnmsMap() {
-        // Note: This ID is based upon the creation order in DatabasePopulator - if you change
-        // the DatabasePopulator by adding additional new objects that use the onmsNxtId sequence
-        // before the creation of this object then this ID may change and this test will fail.
+        // Note: This ID is based upon the creation order in DatabasePopulator -
+        // if you change
+        // the DatabasePopulator by adding additional new objects that use the
+        // onmsNxtId sequence
+        // before the creation of this object then this ID may change and this
+        // test will fail.
         //
         int id = 62;
         OnmsMap map = m_onmsMapDao.findMapById(id);
@@ -357,8 +364,8 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertNull(m_onmsMapDao.findMapById(61));
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMapByOwner() {
         Collection<OnmsMap> maps = m_onmsMapDao.findMapsByOwner("admin");
         assertEquals(1, maps.size());
@@ -369,8 +376,8 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMapbyGroup() {
         Collection<OnmsMap> maps = m_onmsMapDao.findMapsByGroup("admin");
         assertEquals(1, maps.size());
@@ -381,19 +388,18 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMapbyGroup1() {
         Collection<OnmsMap> maps = m_onmsMapDao.findMapsByGroup("");
         assertEquals(0, maps.size());
     }
 
-
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindVisibleMapByGroup() {
         // create a new map
-        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestVisibleMap", "admin",OnmsMap.ACCESS_MODE_GROUP, 969,726);
+        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestVisibleMap", "admin", OnmsMap.ACCESS_MODE_GROUP, 969, 726);
         map.setMapGroup("testGroup");
         m_onmsMapDao.save(map);
         m_onmsMapDao.flush();
@@ -402,11 +408,11 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(2, maps.size());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindVisibleMapByGroup2() {
         // create a new map
-        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestVisibleMap", "admin",OnmsMap.ACCESS_MODE_GROUP, 969,726);
+        OnmsMap map = new OnmsMap("onmsMapDaoHibernateTestVisibleMap", "admin", OnmsMap.ACCESS_MODE_GROUP, 969, 726);
         map.setMapGroup("testGroup");
         m_onmsMapDao.save(map);
         m_onmsMapDao.flush();

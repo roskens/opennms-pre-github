@@ -18,6 +18,4 @@ public class MockMemoDao extends AbstractMockDao<OnmsMemo, Integer> implements M
         entity.setId(m_id.incrementAndGet());
     }
 
-
-
 }

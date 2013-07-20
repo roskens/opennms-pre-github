@@ -52,7 +52,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>GroupFactoryImpl class.</p>
+ * <p>
+ * GroupFactoryImpl class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -70,6 +72,7 @@ public class GroupFactoryImpl implements GroupFactory, InitializingBean {
 
     @Autowired
     private GroupService groupService;
+
     @Autowired
     private AuthorityService authorityService;
 

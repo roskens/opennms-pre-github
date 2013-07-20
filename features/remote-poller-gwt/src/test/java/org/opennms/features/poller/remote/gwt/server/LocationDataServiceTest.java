@@ -78,16 +78,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/opennms/mockEventIpcManager.xml",
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "file:src/main/webapp/WEB-INF/applicationContext-remote-poller.xml",
-        "classpath:/locationDataServiceTest.xml",
-        "classpath:META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "file:src/main/webapp/WEB-INF/applicationContext-remote-poller.xml", "classpath:/locationDataServiceTest.xml",
+        "classpath:META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 @Transactional
@@ -120,16 +116,21 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
     private PollerBackEnd m_pollerBackEnd;
 
     private OnmsLocationMonitor m_rduMonitor1;
+
     private OnmsLocationMonitor m_rduMonitor2;
+
     private OnmsMonitoredService m_localhostHttpService;
+
     private OnmsMonitoredService m_googleHttpService;
+
     // private Date m_pollingEnd = getMidnight();
     private Date m_pollingEnd = new Date();
+
     private Date m_pollingStart = new Date(m_pollingEnd.getTime() - (1000 * 60 * 60 * 24));
 
     @Override
     public void afterPropertiesSet() throws Exception {
-    	BeanUtils.assertAutowiring(this);
+        BeanUtils.assertAutowiring(this);
     }
 
     @Before
@@ -187,8 +188,10 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         OnmsApplication onmsApp = m_applicationDao.findByName("TestApp1");
         assertTrue(onmsApp.equals(app));
 
-        assertEquals("Count of applications associated with services is wrong", 1, m_localhostHttpService.getApplications().size());
-        assertEquals("Count of applications associated with services is wrong", 1, m_googleHttpService.getApplications().size());
+        assertEquals("Count of applications associated with services is wrong", 1,
+                     m_localhostHttpService.getApplications().size());
+        assertEquals("Count of applications associated with services is wrong", 1,
+                     m_googleHttpService.getApplications().size());
         assertEquals("Count of services associated with application is wrong", 2, app.getMonitoredServices().size());
         m_pollingEnd = new Date();
         m_pollingStart = new Date(m_pollingEnd.getTime() - (1000 * 60 * 60 * 24));
@@ -211,7 +214,8 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         return System.currentTimeMillis();
     }
 
-    private OnmsMonitoredService createService(OnmsApplication app, OnmsIpInterface localhostIpInterface, OnmsServiceType httpServiceType) {
+    private OnmsMonitoredService createService(OnmsApplication app, OnmsIpInterface localhostIpInterface,
+            OnmsServiceType httpServiceType) {
         OnmsMonitoredService service = new OnmsMonitoredService();
         service.addApplication(app);
         app.addMonitoredService(service);
@@ -229,13 +233,17 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
 
     @Test
     public void testLocationInfo() throws Exception {
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(3))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
+                - days(20) - hours(3))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now() - days(20) - hours(2))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now()
+                - days(20) - hours(2))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(1))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
+                - days(20) - hours(1))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now() - days(20) - hours(4))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now()
+                - days(20) - hours(4))));
 
         LocationInfo li = m_locationDataService.getLocationInfo("RDU");
         assertEquals("RDU", li.getName());
@@ -245,13 +253,17 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
 
     @Test
     public void testLocationDetails() throws Exception {
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(3))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
+                - days(20) - hours(3))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now() - days(20) - hours(2))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now()
+                - days(20) - hours(2))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(1))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
+                - days(20) - hours(1))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now() - days(20) - hours(4))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now()
+                - days(20) - hours(4))));
 
         LocationDetails ld = m_locationDataService.getLocationDetails("RDU");
         assertEquals(Status.UNKNOWN, ld.getApplicationState().getStatusDetails().getStatus());
@@ -260,13 +272,17 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
 
     @Test
     public void testLocationMonitorState() throws Exception {
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(3))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
+                - days(20) - hours(3))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now() - days(20) - hours(2))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now()
+                - days(20) - hours(2))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(1))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
+                - days(20) - hours(1))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now() - days(20) - hours(4))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now()
+                - days(20) - hours(4))));
 
         LocationDetails ld = m_locationDataService.getLocationDetails("RDU");
         LocationMonitorState lms = ld.getLocationMonitorState();
@@ -278,18 +294,21 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals(0, lms.getMonitorsStopped());
         assertEquals(0, lms.getMonitorsDisconnected());
 
-
     }
 
     @Test
     public void testApplicationInfo() throws Exception {
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - hours(3))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
+                - hours(3))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now() - hours(2))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now()
+                - hours(2))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - hours(1))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
+                - hours(1))));
 
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now() - hours(4))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now()
+                - hours(4))));
 
         ApplicationInfo ai = m_locationDataService.getApplicationInfo("TestApp1");
         assertEquals("TestApp1", ai.getName());
@@ -298,7 +317,8 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
 
     @Test
     public void testApplicationDetailsFullyAvailableOneMonitor() throws Exception {
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(m_pollingStart));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(),
+                                     getAvailable(m_pollingStart));
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(m_pollingStart));
         ApplicationDetails ad = m_locationDataService.getApplicationDetails("TestApp1");
         assertEquals("TestApp1", ad.getApplicationName());
@@ -309,14 +329,17 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
     @Test
     public void testApplicationDetailsHalfAvailableOneMonitor() throws Exception {
         // first, everything's up
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(m_pollingStart));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(),
+                                     getAvailable(m_pollingStart));
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(m_pollingStart));
 
         // bring it down for 12 hours
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(),
+                                     getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
 
         // bring it back up
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 18))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(),
+                                     getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 18))));
 
         ApplicationDetails ad = m_locationDataService.getApplicationDetails("TestApp1");
         assertEquals("TestApp1", ad.getApplicationName());
@@ -337,15 +360,19 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
     @Test
     public void testApplicationDetailsTwoMonitorsMarginal() throws Exception {
         // first, everything's up
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(m_pollingStart));
-        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_localhostHttpService.getId(), getAvailable(m_pollingStart));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(),
+                                     getAvailable(m_pollingStart));
+        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_localhostHttpService.getId(),
+                                     getAvailable(m_pollingStart));
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(m_pollingStart));
         m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(), getAvailable(m_pollingStart));
 
         // bring one down for 12 hours
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(),
+                                     getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
         // and back up
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 18))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(),
+                                     getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 18))));
 
         ApplicationDetails ad = m_locationDataService.getApplicationDetails("TestApp1");
         assertEquals("TestApp1", ad.getApplicationName());
@@ -356,48 +383,60 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
     @Test
     public void testApplicationDetailsTwoMonitorsOutageContainedInOther() throws Exception {
         // first, everything's up
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(m_pollingStart));
-        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_localhostHttpService.getId(), getAvailable(m_pollingStart));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(),
+                                     getAvailable(m_pollingStart));
+        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_localhostHttpService.getId(),
+                                     getAvailable(m_pollingStart));
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(m_pollingStart));
         m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(), getAvailable(m_pollingStart));
 
         // bring one down for 12 hours
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(),
+                                     getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
         // and back up
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 18))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(),
+                                     getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 18))));
 
         // bring the other down for 4 hours, overlapping
-        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(), getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
+        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(),
+                                     getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
         // and back up
-        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(), getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 10))));
+        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(),
+                                     getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 10))));
 
         ApplicationDetails ad = m_locationDataService.getApplicationDetails("TestApp1");
         assertEquals("TestApp1", ad.getApplicationName());
-        assertEquals(Double.valueOf(20D/24D*100), ad.getAvailability());
+        assertEquals(Double.valueOf(20D / 24D * 100), ad.getAvailability());
         assertEquals("currently available", StatusDetails.up(), ad.getStatusDetails());
     }
 
     @Test
     public void testApplicationDetailsTwoMonitorsOutagesOverlap() throws Exception {
         // first, everything's up
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(m_pollingStart));
-        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_localhostHttpService.getId(), getAvailable(m_pollingStart));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(),
+                                     getAvailable(m_pollingStart));
+        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_localhostHttpService.getId(),
+                                     getAvailable(m_pollingStart));
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(m_pollingStart));
         m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(), getAvailable(m_pollingStart));
 
         // bring one down for 12 hours
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(),
+                                     getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
         // and back up
-        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 18))));
+        m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(),
+                                     getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 18))));
 
         // bring the other down for 12 hours, overlapping by 8
-        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(), getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 10))));
+        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(),
+                                     getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 10))));
         // and back up
-        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(), getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 22))));
+        m_pollerBackEnd.reportResult(m_rduMonitor2.getId(), m_googleHttpService.getId(),
+                                     getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 22))));
 
         ApplicationDetails ad = m_locationDataService.getApplicationDetails("TestApp1");
         assertEquals("TestApp1", ad.getApplicationName());
-        assertEquals(Double.valueOf(16D/24D*100), ad.getAvailability());
+        assertEquals(Double.valueOf(16D / 24D * 100), ad.getAvailability());
         assertEquals("currently available", StatusDetails.up(), ad.getStatusDetails());
         final String detailString = ad.getDetailsAsString();
         System.err.println(detailString);

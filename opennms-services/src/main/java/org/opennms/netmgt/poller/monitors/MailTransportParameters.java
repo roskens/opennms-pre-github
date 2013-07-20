@@ -53,15 +53,22 @@ public class MailTransportParameters {
 
     /** Constant <code>KEY="MailTransportParameters.class.getName()"</code> */
     public static final String KEY = MailTransportParameters.class.getName();
-	private static final int DEFAULT_RETRY = 1;
-	private static final int DEFAULT_TIMEOUT = 3000;
-    private Map<String,Object> m_parameterMap;
+
+    private static final int DEFAULT_RETRY = 1;
+
+    private static final int DEFAULT_TIMEOUT = 3000;
+
+    private Map<String, Object> m_parameterMap;
+
     private MailTransportTest m_transportTest;
-	private String m_testSubjectSuffix;
+
+    private String m_testSubjectSuffix;
+
     private boolean m_end2EndTestInProgress = false;
+
     private Properties m_javamailProperties = new Properties();
 
-    MailTransportParameters(Map<String,Object> parameterMap) {
+    MailTransportParameters(Map<String, Object> parameterMap) {
         m_parameterMap = parameterMap;
         String test = getStringParm("mail-transport-test", null);
         if (test == null) {
@@ -70,8 +77,8 @@ public class MailTransportParameters {
         m_transportTest = parseMailTransportTest(test);
     }
 
-    static synchronized MailTransportParameters get(Map<String,Object> parameterMap) {
-        MailTransportParameters parms = (MailTransportParameters)parameterMap.get(KEY);
+    static synchronized MailTransportParameters get(Map<String, Object> parameterMap) {
+        MailTransportParameters parms = (MailTransportParameters) parameterMap.get(KEY);
         if (parms == null) {
             parms = new MailTransportParameters(parameterMap);
             parameterMap.put(KEY, parms);
@@ -79,7 +86,7 @@ public class MailTransportParameters {
         return parms;
     }
 
-    Map<String,Object> getParameterMap() {
+    Map<String, Object> getParameterMap() {
         return Collections.unmodifiableMap(m_parameterMap);
     }
 
@@ -91,11 +98,14 @@ public class MailTransportParameters {
         try {
             return CastorUtils.unmarshal(MailTransportTest.class, new ByteArrayInputStream(test.getBytes("UTF-8")));
         } catch (MarshalException e) {
-            throw new IllegalArgumentException("Unable to parse mail-test-sequence for MailTransportMonitor: "+test, e);
+            throw new IllegalArgumentException("Unable to parse mail-test-sequence for MailTransportMonitor: " + test,
+                                               e);
         } catch (ValidationException e) {
-            throw new IllegalArgumentException("Unable to parse mail-test-sequence for MailTransportMonitor: "+test, e);
+            throw new IllegalArgumentException("Unable to parse mail-test-sequence for MailTransportMonitor: " + test,
+                                               e);
         } catch (UnsupportedEncodingException e) {
-            throw new IllegalArgumentException("Unable to parse mail-test-sequence for MailTransportMonitor: "+test, e);
+            throw new IllegalArgumentException("Unable to parse mail-test-sequence for MailTransportMonitor: " + test,
+                                               e);
         }
 
     }
@@ -105,29 +115,35 @@ public class MailTransportParameters {
     }
 
     private int getIntParm(String key, int defValue) {
-        return ParameterMap.getKeyedInteger(getParameterMap()  , key, defValue);
+        return ParameterMap.getKeyedInteger(getParameterMap(), key, defValue);
     }
 
-	/**
-	 * <p>getRetries</p>
-	 *
-	 * @return a int.
-	 */
-	public int getRetries() {
-		return getIntParm("retry", MailTransportParameters.DEFAULT_RETRY);
-	}
-
-	/**
-	 * <p>getTimeout</p>
-	 *
-	 * @return a int.
-	 */
-	public int getTimeout() {
-		return getIntParm("timeout", MailTransportParameters.DEFAULT_TIMEOUT);
-	}
+    /**
+     * <p>
+     * getRetries
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getRetries() {
+        return getIntParm("retry", MailTransportParameters.DEFAULT_RETRY);
+    }
 
     /**
-     * <p>getReadTestPassword</p>
+     * <p>
+     * getTimeout
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getTimeout() {
+        return getIntParm("timeout", MailTransportParameters.DEFAULT_TIMEOUT);
+    }
+
+    /**
+     * <p>
+     * getReadTestPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -139,260 +155,324 @@ public class MailTransportParameters {
         return getTransportTest().getMailTest().getReadmailTest();
     }
 
-	/**
-	 * <p>getTestSubjectSuffix</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getTestSubjectSuffix() {
-		return m_testSubjectSuffix;
-	}
+    /**
+     * <p>
+     * getTestSubjectSuffix
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getTestSubjectSuffix() {
+        return m_testSubjectSuffix;
+    }
 
-	/**
-	 * <p>setTestSubjectSuffix</p>
-	 *
-	 * @param suffix a {@link java.lang.String} object.
-	 */
-	public void setTestSubjectSuffix(final String suffix) {
-		m_testSubjectSuffix = suffix;
-	}
+    /**
+     * <p>
+     * setTestSubjectSuffix
+     * </p>
+     *
+     * @param suffix
+     *            a {@link java.lang.String} object.
+     */
+    public void setTestSubjectSuffix(final String suffix) {
+        m_testSubjectSuffix = suffix;
+    }
 
-	/**
-	 * <p>getComputedTestSubject</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getComputedTestSubject() {
-	    try {
-	        final String subject = getSendTestSubject();
-	        final String suffix = getTestSubjectSuffix();
-			if (subject != null) {
-	            return new StringBuilder(subject).append(':').append(suffix == null? "" : suffix).toString();
-	        } else {
-	            return null;
-	        }
-	    } catch (final IllegalStateException e) {
-	        return null;
-	    }
-	}
+    /**
+     * <p>
+     * getComputedTestSubject
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getComputedTestSubject() {
+        try {
+            final String subject = getSendTestSubject();
+            final String suffix = getTestSubjectSuffix();
+            if (subject != null) {
+                return new StringBuilder(subject).append(':').append(suffix == null ? "" : suffix).toString();
+            } else {
+                return null;
+            }
+        } catch (final IllegalStateException e) {
+            return null;
+        }
+    }
 
     String getSendTestFrom() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailMessage().getFrom();
     }
 
     /**
-     * <p>isSendTestUseAuth</p>
+     * <p>
+     * isSendTestUseAuth
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isSendTestUseAuth() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().isUseAuthentication();
     }
 
     /**
-     * <p>getSendTestCharSet</p>
+     * <p>
+     * getSendTestCharSet
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestCharSet() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
-        return getSendTest().getSendmailProtocol().getCharSet();        }
+        return getSendTest().getSendmailProtocol().getCharSet();
+    }
 
     /**
-     * <p>getSendTestMessageContentType</p>
+     * <p>
+     * getSendTestMessageContentType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestMessageContentType() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailProtocol().getMessageContentType();
     }
 
     /**
-     * <p>isSendTestDebug</p>
+     * <p>
+     * isSendTestDebug
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isSendTestDebug() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().isDebug();
     }
 
     /**
-     * <p>getSendTestMessageEncoding</p>
+     * <p>
+     * getSendTestMessageEncoding
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestMessageEncoding() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailProtocol().getMessageEncoding();
     }
 
     /**
-     * <p>getSendTestMailer</p>
+     * <p>
+     * getSendTestMailer
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestMailer() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailProtocol().getMailer();
     }
 
     /**
-     * <p>getSendTestHost</p>
+     * <p>
+     * getSendTestHost
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestHost() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
-        return getSendTest().getSendmailHost().getHost();        }
+        return getSendTest().getSendmailHost().getHost();
+    }
 
     /**
-     * <p>getSendTestMessageBody</p>
+     * <p>
+     * getSendTestMessageBody
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestMessageBody() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailMessage().getBody();
     }
 
     /**
-     * <p>getSendTestPassword</p>
+     * <p>
+     * getSendTestPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestPassword() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getUserAuth().getPassword();
     }
 
     /**
-     * <p>isSendTestIsQuitWait</p>
+     * <p>
+     * isSendTestIsQuitWait
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isSendTestIsQuitWait() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailProtocol().isQuitWait();
     }
 
     /**
-     * <p>getSendTestPort</p>
+     * <p>
+     * getSendTestPort
+     * </p>
      *
      * @return a int.
      */
     public int getSendTestPort() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
-        return (int)getSendTest().getSendmailHost().getPort();
+        return (int) getSendTest().getSendmailHost().getPort();
     }
 
     /**
-     * <p>isSendTestIsSslEnable</p>
+     * <p>
+     * isSendTestIsSslEnable
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isSendTestIsSslEnable() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailProtocol().isSslEnable();
     }
 
     /**
-     * <p>isSendTestStartTls</p>
+     * <p>
+     * isSendTestStartTls
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isSendTestStartTls() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailProtocol().isStartTls();
     }
 
     /**
-     * <p>getSendTestSubject</p>
+     * <p>
+     * getSendTestSubject
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestSubject() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailMessage().getSubject();
     }
 
     /**
-     * <p>getSendTestRecipeint</p>
+     * <p>
+     * getSendTestRecipeint
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestRecipeint() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailMessage().getTo();
     }
 
     /**
-     * <p>getSendTestTransport</p>
+     * <p>
+     * getSendTestTransport
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestTransport() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getSendmailProtocol().getTransport();
     }
 
     /**
-     * <p>isSendTestUseJmta</p>
+     * <p>
+     * isSendTestUseJmta
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isSendTestUseJmta() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().isUseJmta();
     }
 
     /**
-     * <p>getSendTestUserName</p>
+     * <p>
+     * getSendTestUserName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSendTestUserName() {
         if (getSendTest() == null) {
-            throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
+            throw new IllegalStateException(
+                                            "Request for send mailparmaters invalid due to no sendmail specification in config");
         }
         return getSendTest().getUserAuth().getUserName();
     }
@@ -402,30 +482,37 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>getReadTestHost</p>
+     * <p>
+     * getReadTestHost
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getReadTestHost() {
         final ReadmailTest readTest = getReadTest();
         if (readTest != null) {
-        	final ReadmailHost readmailHost = readTest.getReadmailHost();
-        	if (readmailHost != null) return readmailHost.getHost();
+            final ReadmailHost readmailHost = readTest.getReadmailHost();
+            if (readmailHost != null)
+                return readmailHost.getHost();
         }
         return null;
     }
 
     /**
-     * <p>getReadTestPort</p>
+     * <p>
+     * getReadTestPort
+     * </p>
      *
      * @return a int.
      */
     public int getReadTestPort() {
-        return (int)getReadTest().getReadmailHost().getPort();
+        return (int) getReadTest().getReadmailHost().getPort();
     }
 
     /**
-     * <p>getReadTestUserName</p>
+     * <p>
+     * getReadTestUserName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -434,7 +521,9 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>getReadTestFolder</p>
+     * <p>
+     * getReadTestFolder
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -443,7 +532,9 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>getReadTestProtocol</p>
+     * <p>
+     * getReadTestProtocol
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -452,7 +543,9 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>isReadTestStartTlsEnabled</p>
+     * <p>
+     * isReadTestStartTlsEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -461,7 +554,9 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>isReadTestSslEnabled</p>
+     * <p>
+     * isReadTestSslEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -470,16 +565,21 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>setEnd2EndTestInProgress</p>
+     * <p>
+     * setEnd2EndTestInProgress
+     * </p>
      *
-     * @param b a boolean.
+     * @param b
+     *            a boolean.
      */
     public void setEnd2EndTestInProgress(boolean b) {
-        m_end2EndTestInProgress  = b;
+        m_end2EndTestInProgress = b;
     }
 
     /**
-     * <p>isEnd2EndTestInProgress</p>
+     * <p>
+     * isEnd2EndTestInProgress
+     * </p>
      *
      * @return a boolean.
      */
@@ -488,7 +588,9 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>getReadTestAttemptInterval</p>
+     * <p>
+     * getReadTestAttemptInterval
+     * </p>
      *
      * @return a long.
      */
@@ -497,7 +599,9 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>getSendTestAttemptInterval</p>
+     * <p>
+     * getSendTestAttemptInterval
+     * </p>
      *
      * @return a long.
      */
@@ -506,7 +610,9 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>getJavamailProperties</p>
+     * <p>
+     * getJavamailProperties
+     * </p>
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -515,27 +621,36 @@ public class MailTransportParameters {
     }
 
     /**
-     * <p>setJavamailProperties</p>
+     * <p>
+     * setJavamailProperties
+     * </p>
      *
-     * @param props a {@link java.util.Properties} object.
+     * @param props
+     *            a {@link java.util.Properties} object.
      */
     public void setJavamailProperties(Properties props) {
         m_javamailProperties = props;
     }
 
     /**
-     * <p>setReadTestHost</p>
+     * <p>
+     * setReadTestHost
+     * </p>
      *
-     * @param host a {@link java.lang.String} object.
+     * @param host
+     *            a {@link java.lang.String} object.
      */
     public void setReadTestHost(String host) {
         getReadTest().getReadmailHost().setHost(host);
     }
 
     /**
-     * <p>setSendTestHost</p>
+     * <p>
+     * setSendTestHost
+     * </p>
      *
-     * @param host a {@link java.lang.String} object.
+     * @param host
+     *            a {@link java.lang.String} object.
      */
     public void setSendTestHost(String host) {
         getSendTest().getSendmailHost().setHost(host);

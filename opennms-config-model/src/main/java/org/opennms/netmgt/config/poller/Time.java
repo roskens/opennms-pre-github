@@ -48,10 +48,9 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Defines start/end time for the outage
- *
  */
 
-@XmlRootElement(name="time", namespace="http://xmlns.opennms.org/xsd/config/poller/outages")
+@XmlRootElement(name = "time", namespace = "http://xmlns.opennms.org/xsd/config/poller/outages")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("poll-outages.xsd")
 public class Time implements Serializable {
@@ -60,27 +59,26 @@ public class Time implements Serializable {
     /**
      * An identifier for this event used for reference in the web-ui. If this
      * identifier is not assigned it will be assigned an identifier by web-ui.
-     *
      */
-    @XmlAttribute(name="id")
+    @XmlAttribute(name = "id")
     private String _id;
 
     /**
      * Field _day.
      */
-    @XmlAttribute(name="day")
+    @XmlAttribute(name = "day")
     private String _day;
 
     /**
      * when the outage starts
      */
-    @XmlAttribute(name="begins")
+    @XmlAttribute(name = "begins")
     private String _begins;
 
     /**
      * when the outage ends
      */
-    @XmlAttribute(name="ends")
+    @XmlAttribute(name = "ends")
     private String _ends;
 
     public Time() {
@@ -95,39 +93,39 @@ public class Time implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof Time) {
 
-            Time temp = (Time)obj;
+            Time temp = (Time) obj;
             if (this._id != null) {
-                if (temp._id == null) return false;
+                if (temp._id == null)
+                    return false;
                 else if (!(this._id.equals(temp._id)))
                     return false;
-            }
-            else if (temp._id != null)
+            } else if (temp._id != null)
                 return false;
             if (this._day != null) {
-                if (temp._day == null) return false;
+                if (temp._day == null)
+                    return false;
                 else if (!(this._day.equals(temp._day)))
                     return false;
-            }
-            else if (temp._day != null)
+            } else if (temp._day != null)
                 return false;
             if (this._begins != null) {
-                if (temp._begins == null) return false;
+                if (temp._begins == null)
+                    return false;
                 else if (!(this._begins.equals(temp._begins)))
                     return false;
-            }
-            else if (temp._begins != null)
+            } else if (temp._begins != null)
                 return false;
             if (this._ends != null) {
-                if (temp._ends == null) return false;
+                if (temp._ends == null)
+                    return false;
                 else if (!(this._ends.equals(temp._ends)))
                     return false;
-            }
-            else if (temp._ends != null)
+            } else if (temp._ends != null)
                 return false;
             return true;
         }
@@ -167,9 +165,8 @@ public class Time implements Serializable {
      * Returns the value of field 'id'. The field 'id' has the
      * following description: an identifier for this event used for
      * reference in the web-ui. If this
-     *  identifier is not assigned it will be assigned an identifier
+     * identifier is not assigned it will be assigned an identifier
      * by web-ui.
-     *
      *
      * @return the value of field 'Id'.
      */
@@ -180,8 +177,8 @@ public class Time implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -221,13 +218,13 @@ public class Time implements Serializable {
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -235,15 +232,16 @@ public class Time implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -251,11 +249,16 @@ public class Time implements Serializable {
     }
 
     /**
-     * <p>Sets the value of field 'begins'. The field 'begins' has the
-     * following description: when the outage starts.</p>
-     * <p>Requires format of 'dd-MMM-yyyy HH:mm:ss' or 'HH:mm:ss'.</p>
+     * <p>
+     * Sets the value of field 'begins'. The field 'begins' has the following
+     * description: when the outage starts.
+     * </p>
+     * <p>
+     * Requires format of 'dd-MMM-yyyy HH:mm:ss' or 'HH:mm:ss'.
+     * </p>
      *
-     * @param begins the value of field 'begins'.
+     * @param begins
+     *            the value of field 'begins'.
      */
     public void setBegins(final String begins) {
         this._begins = begins;
@@ -264,7 +267,8 @@ public class Time implements Serializable {
     /**
      * Sets the value of field 'day'.
      *
-     * @param day the value of field 'day'.
+     * @param day
+     *            the value of field 'day'.
      */
     public void setDay(final String day) {
         this._day = day;
@@ -273,9 +277,12 @@ public class Time implements Serializable {
     /**
      * Sets the value of field 'ends'. The field 'ends' has the
      * following description: when the outage ends.</p>
-     * <p>Requires format of 'dd-MMM-yyyy HH:mm:ss' or 'HH:mm:ss'.</p>
+     * <p>
+     * Requires format of 'dd-MMM-yyyy HH:mm:ss' or 'HH:mm:ss'.
+     * </p>
      *
-     * @param ends the value of field 'ends'.
+     * @param ends
+     *            the value of field 'ends'.
      */
     public void setEnds(final String ends) {
         this._ends = ends;
@@ -288,8 +295,8 @@ public class Time implements Serializable {
      * If this identifer is not assigned it will be assigned an identifier
      * by web-ui.
      *
-     *
-     * @param id the value of field 'id'.
+     * @param id
+     *            the value of field 'id'.
      */
     public void setId(final String id) {
         this._id = id;
@@ -299,10 +306,12 @@ public class Time implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled org.opennms.netmgt.config.poller.Time
      */
     @Deprecated
@@ -311,10 +320,9 @@ public class Time implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

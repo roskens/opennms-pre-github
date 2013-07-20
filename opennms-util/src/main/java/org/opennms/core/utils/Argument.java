@@ -60,10 +60,14 @@ public class Argument {
     /**
      * Default constructor, initializes the members
      *
-     * @param aSwitch a {@link java.lang.String} object.
-     * @param sub a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
-     * @param streamed a boolean.
+     * @param aSwitch
+     *            a {@link java.lang.String} object.
+     * @param sub
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
+     * @param streamed
+     *            a boolean.
      */
     public Argument(String aSwitch, String sub, String value, boolean streamed) {
         m_switch = aSwitch;

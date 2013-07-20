@@ -61,8 +61,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
@@ -108,12 +107,11 @@ public class Nms5414Test extends ProvisioningTestCase {
     }
 
     @Test
-    @JUnitSnmpAgents(value={
-        @JUnitSnmpAgent(host="10.7.15.240", port=161, resource="classpath:snmpwalk-NMS-5414.properties"),
-        @JUnitSnmpAgent(host="10.7.15.241", port=161, resource="classpath:snmpwalk-NMS-5414.properties"),
-        @JUnitSnmpAgent(host="10.102.251.200", port=161, resource="classpath:snmpwalk-NMS-5414.properties"),
-        @JUnitSnmpAgent(host="10.211.140.149", port=161, resource="classpath:snmpwalk-NMS-5414.properties")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = "10.7.15.240", port = 161, resource = "classpath:snmpwalk-NMS-5414.properties"),
+            @JUnitSnmpAgent(host = "10.7.15.241", port = 161, resource = "classpath:snmpwalk-NMS-5414.properties"),
+            @JUnitSnmpAgent(host = "10.102.251.200", port = 161, resource = "classpath:snmpwalk-NMS-5414.properties"),
+            @JUnitSnmpAgent(host = "10.211.140.149", port = 161, resource = "classpath:snmpwalk-NMS-5414.properties") })
     public void testScanIPV6z() throws Exception {
         final int nextNodeId = m_nodeDao.getNextNodeId();
 
@@ -133,21 +131,21 @@ public class Nms5414Test extends ProvisioningTestCase {
             LOG.debug("Interface: {}", iface);
         }
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(4, getInterfaceDao().countAll());
-        //Verify snmpinterface count
-        assertEquals(79,getSnmpInterfaceDao().countAll());
+        // Verify snmpinterface count
+        assertEquals(79, getSnmpInterfaceDao().countAll());
 
         final OnmsSnmpInterface onmsinterface = getSnmpInterfaceDao().findByNodeIdAndIfIndex(nextNodeId, 160);
 
         assertEquals("Avaya Virtual Services Platform 7024XLS Module - Unit 2 Port 32  ", onmsinterface.getIfDescr());
         assertEquals("ifc160 (Slot: 2 Port: 32)", onmsinterface.getIfName());
-        assertEquals("8dd69b5cafba",onmsinterface.getPhysAddr());
+        assertEquals("8dd69b5cafba", onmsinterface.getPhysAddr());
 
     }
 
     public void runScan(final NodeScan scan) throws InterruptedException, ExecutionException {
-    	final Task t = scan.createTask();
+        final Task t = scan.createTask();
         t.schedule();
         t.waitFor();
         waitForEverything();

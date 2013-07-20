@@ -58,15 +58,21 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
 /**
- * <p>DefaultEndPointConfigurationDao class.</p>
+ * <p>
+ * DefaultEndPointConfigurationDao class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<EndPointTypeValidator, EndPointTypeValidator> implements EndPointConfigurationDao {
+public class DefaultEndPointConfigurationDao extends
+        AbstractCastorConfigDao<EndPointTypeValidator, EndPointTypeValidator> implements EndPointConfigurationDao {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultEndPointConfigurationDao.class);
+
     private JAXBContext m_context;
+
     private Marshaller m_marshaller;
+
     private Unmarshaller m_unmarshaller;
 
     private static final class StringResolver extends SchemaOutputResolver {
@@ -85,17 +91,23 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
     }
 
     /**
-     * <p>Constructor for DefaultEndPointConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultEndPointConfigurationDao.
+     * </p>
      */
     public DefaultEndPointConfigurationDao() {
         super(EndPointTypeValidator.class, "End Point Type Configuration");
     }
 
     /**
-     * <p>Constructor for DefaultEndPointConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultEndPointConfigurationDao.
+     * </p>
      *
-     * @param entityClass a {@link java.lang.Class} object.
-     * @param description a {@link java.lang.String} object.
+     * @param entityClass
+     *            a {@link java.lang.Class} object.
+     * @param description
+     *            a {@link java.lang.String} object.
      */
     public DefaultEndPointConfigurationDao(Class<EndPointTypeValidator> entityClass, String description) {
         super(entityClass, description);
@@ -108,7 +120,9 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
     }
 
     /**
-     * <p>getXsd</p>
+     * <p>
+     * getXsd
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -125,9 +139,13 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
     }
 
     /**
-     * <p>getValidator</p>
+     * <p>
+     * getValidator
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointTypeValidator} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointTypeValidator}
+     *         object.
      */
     @Override
     public EndPointTypeValidator getValidator() {
@@ -146,7 +164,8 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
         try {
             file = getConfigResource().getFile();
         } catch (IOException e) {
-            throw new DataAccessResourceFailureException("Unable to determine file for " + getConfigResource() + ": " + e, e);
+            throw new DataAccessResourceFailureException("Unable to determine file for " + getConfigResource() + ": "
+                    + e, e);
         }
         if (file == null) {
             throw new DataAccessResourceFailureException("Unable to determine file for " + getConfigResource());
@@ -154,7 +173,8 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
         try {
             m_marshaller.marshal(getContainer().getObject(), file);
         } catch (Throwable e) {
-            throw new DataAccessResourceFailureException("Could not marshal configuration file for " + getConfigResource() + ": " + e, e);
+            throw new DataAccessResourceFailureException("Could not marshal configuration file for "
+                    + getConfigResource() + ": " + e, e);
         }
     }
 
@@ -167,7 +187,7 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
 
         try {
             InputStream is = resource.getInputStream();
-            EndPointTypeValidator config = (EndPointTypeValidator)m_unmarshaller.unmarshal(is);
+            EndPointTypeValidator config = (EndPointTypeValidator) m_unmarshaller.unmarshal(is);
             is.close();
 
             long endTime = System.currentTimeMillis();
@@ -184,18 +204,17 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
     public void afterPropertiesSet() {
 
         try {
-            m_context = JAXBContext.newInstance(
-                EndPointTypeValidator.class,
-                EndPointType.class,
-                AndEndPointValidationExpression.class,
-                OrEndPointValidationExpression.class,
-                MatchingSnmpEndPointValidationExpression.class,
-                PingEndPointValidationExpression.class
-            );
+            m_context = JAXBContext.newInstance(EndPointTypeValidator.class, EndPointType.class,
+                                                AndEndPointValidationExpression.class,
+                                                OrEndPointValidationExpression.class,
+                                                MatchingSnmpEndPointValidationExpression.class,
+                                                PingEndPointValidationExpression.class);
 
             m_marshaller = m_context.createMarshaller();
             m_marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            m_marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new DefaultNamespacePrefixMapper("http://xmlns.opennms.org/xsd/config/endpoint-types"));
+            m_marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+                                     new DefaultNamespacePrefixMapper(
+                                                                      "http://xmlns.opennms.org/xsd/config/endpoint-types"));
 
             m_unmarshaller = m_context.createUnmarshaller();
             m_unmarshaller.setSchema(null);

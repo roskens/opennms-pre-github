@@ -64,30 +64,46 @@ import static org.easymock.EasyMock.expect;
 import static org.powermock.api.easymock.PowerMock.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ServiceInstance.class, PerformanceManager.class, VmwareViJavaAccess.class, MorUtil.class, PerfProviderSummary.class, HostSystem.class, HostNetworkSystem.class, CIMClient.class})
+@PrepareForTest({ ServiceInstance.class, PerformanceManager.class, VmwareViJavaAccess.class, MorUtil.class,
+        PerfProviderSummary.class, HostSystem.class, HostNetworkSystem.class, CIMClient.class })
 public class VmwareViJavaAccessTest {
 
     private VmwareViJavaAccess vmwareViJavaAccess;
+
     private PerformanceManager mockPerformanceManager;
+
     private ServiceInstance mockServiceInstance;
+
     private ServerConnection mockServerConnection;
+
     private AboutInfo mockAboutInfo;
+
     private PerfProviderSummary mockPerfProviderSummary;
+
     private HostNetworkSystem mockHostNetworkSystem;
+
     private HostSystem mockHostSystem;
+
     private CIMClient mockCIMClient;
 
     private ManagedObjectReference managedObjectReferenceVirtualMachine;
+
     private ManagedObjectReference managedObjectReferenceHostSystem;
+
     private ManagedObjectReference managedObjectReferenceManagedEntity;
 
     private VirtualMachine virtualMachine;
+
     private HostSystem hostSystem;
+
     private ManagedEntity managedEntity;
 
     private PerfEntityMetricBase[] perfEntityMetricBases;
+
     private PerfCounterInfo[] perfCounterInfos;
+
     private PerfQuerySpec perfQuerySpec;
+
     private List<CIMObject> cimObjects;
 
     @Before
@@ -120,12 +136,15 @@ public class VmwareViJavaAccessTest {
         mockServiceInstance = createMock(ServiceInstance.class);
 
         // setup ServerConnection
-        mockServerConnection = new ServerConnection(new URL("https://hostname/sdk"), new VimPortType(new WSClient("https://hostname/sdk")), mockServiceInstance);
+        mockServerConnection = new ServerConnection(new URL("https://hostname/sdk"),
+                                                    new VimPortType(new WSClient("https://hostname/sdk")),
+                                                    mockServiceInstance);
 
         // setup AboutInfo
         mockAboutInfo = createMock(AboutInfo.class);
 
-        expectNew(ServiceInstance.class, new Class<?>[]{URL.class, String.class, String.class}, new URL("https://hostname/sdk"), "username", "password").andReturn(mockServiceInstance).anyTimes();
+        expectNew(ServiceInstance.class, new Class<?>[] { URL.class, String.class, String.class },
+                  new URL("https://hostname/sdk"), "username", "password").andReturn(mockServiceInstance).anyTimes();
         expect(mockServiceInstance.getServerConnection()).andReturn(mockServerConnection).anyTimes();
         expect(mockServiceInstance.getPerformanceManager()).andReturn(mockPerformanceManager).anyTimes();
         expect(mockServiceInstance.getAboutInfo()).andReturn(mockAboutInfo).anyTimes();
@@ -158,9 +177,7 @@ public class VmwareViJavaAccessTest {
 
         perfQuerySpec = new PerfQuerySpec();
         perfQuerySpec.setEntity(managedEntity.getMOR());
-        perfQuerySpec.setMaxSample(new
-                Integer(1)
-        );
+        perfQuerySpec.setMaxSample(new Integer(1));
         perfQuerySpec.setIntervalId(refreshRate);
 
         perfEntityMetricBases = new PerfEntityMetricBase[metricCount];
@@ -198,7 +215,7 @@ public class VmwareViJavaAccessTest {
                 }
 
                 perfMetricIntSeries[b] = new PerfMetricIntSeries();
-                perfMetricIntSeries[b].setValue(new long[]{(long) 42});
+                perfMetricIntSeries[b].setValue(new long[] { (long) 42 });
                 perfMetricIntSeries[b].setId(perfMetricId);
             }
 
@@ -272,7 +289,8 @@ public class VmwareViJavaAccessTest {
         expect(mockHostSystem.getHostNetworkSystem()).andReturn(mockHostNetworkSystem).anyTimes();
         expect(mockHostSystem.acquireCimServicesTicket()).andReturn(hostServiceTicket).anyTimes();
         expect(mockHostNetworkSystem.getNetworkInfo()).andReturn(hostNetworkInfo).anyTimes();
-        expectNew(CIMClient.class, new Class<?>[]{CIMNameSpace.class, Principal.class, Object.class}, anyObject(), anyObject(), anyObject()).andReturn(mockCIMClient).anyTimes();
+        expectNew(CIMClient.class, new Class<?>[] { CIMNameSpace.class, Principal.class, Object.class }, anyObject(),
+                  anyObject(), anyObject()).andReturn(mockCIMClient).anyTimes();
 
         suppress(method(CIMClient.class, "useMPost"));
 
@@ -384,7 +402,8 @@ public class VmwareViJavaAccessTest {
         for (int i = 0; i < perfCounterInfos.length; i++) {
             PerfCounterInfo perfCounterInfo = perfCounterInfos[i];
 
-            String expectedName = perfCounterInfo.getGroupInfo().getKey() + "." + perfCounterInfo.getNameInfo().getKey() + "." + perfCounterInfo.getRollupType().toString();
+            String expectedName = perfCounterInfo.getGroupInfo().getKey() + "."
+                    + perfCounterInfo.getNameInfo().getKey() + "." + perfCounterInfo.getRollupType().toString();
 
             if (vmwarePerformanceValues.hasInstances(expectedName)) {
                 Set<String> instances = vmwarePerformanceValues.getInstances(expectedName);
@@ -406,7 +425,8 @@ public class VmwareViJavaAccessTest {
 
     @Test
     public void testQueryCimObjects() {
-        replay(mockPerformanceManager, mockHostSystem, mockHostNetworkSystem, mockCIMClient, CIMClient.class, mockServiceInstance, ServiceInstance.class);
+        replay(mockPerformanceManager, mockHostSystem, mockHostNetworkSystem, mockCIMClient, CIMClient.class,
+               mockServiceInstance, ServiceInstance.class);
 
         try {
             vmwareViJavaAccess.connect();
@@ -432,7 +452,8 @@ public class VmwareViJavaAccessTest {
 
         }
 
-        verify(mockPerformanceManager, mockHostSystem, mockHostNetworkSystem, mockCIMClient, CIMClient.class, mockServiceInstance, ServiceInstance.class);
+        verify(mockPerformanceManager, mockHostSystem, mockHostNetworkSystem, mockCIMClient, CIMClient.class,
+               mockServiceInstance, ServiceInstance.class);
     }
 
     @Test

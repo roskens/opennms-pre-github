@@ -35,7 +35,9 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
     private static final Logger LOG = LoggerFactory.getLogger(BeanWrapperRestrictionVisitor.class);
 
     private final Object m_entity;
+
     private final List<Alias> m_aliases;
+
     private final BeanWrapper m_beanWrapper;
 
     private boolean m_matched = true;
@@ -81,7 +83,8 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
                 final String subAttributes = attributes[1];
                 if (pd.getName().equalsIgnoreCase(attributeName)) {
                     final Object propertyValue = m_beanWrapper.getPropertyValue(pd.getName());
-                    final BeanWrapperRestrictionVisitor subVisitor = new BeanWrapperRestrictionVisitor(propertyValue, m_aliases);
+                    final BeanWrapperRestrictionVisitor subVisitor = new BeanWrapperRestrictionVisitor(propertyValue,
+                                                                                                       m_aliases);
                     final Object property = subVisitor.getProperty(subAttributes);
                     LOG.debug("Found a sub-attribute: {} = {}", attribute, property);
                     return property;
@@ -90,12 +93,15 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
                     final String aliasName = alias.getAlias();
                     final String aliasPath = alias.getAssociationPath();
 
-                    //LOG.debug("alias = {}, path = {}", aliasName, aliasPath);
+                    // LOG.debug("alias = {}, path = {}", aliasName, aliasPath);
                     if (aliasName.equalsIgnoreCase(attributeName)) {
-                        // LOG.debug("property name = {}, aliasName = {}, aliasPath = {}, attributeName = {}", pd.getName(), aliasName, aliasPath, attributeName);
+                        // LOG.debug("property name = {}, aliasName = {}, aliasPath = {}, attributeName = {}",
+                        // pd.getName(), aliasName, aliasPath, attributeName);
                         if (pd.getName().equalsIgnoreCase(aliasPath)) {
                             final Object propertyValue = m_beanWrapper.getPropertyValue(pd.getName());
-                            final BeanWrapperRestrictionVisitor subVisitor = new BeanWrapperRestrictionVisitor(propertyValue, m_aliases);
+                            final BeanWrapperRestrictionVisitor subVisitor = new BeanWrapperRestrictionVisitor(
+                                                                                                               propertyValue,
+                                                                                                               m_aliases);
                             final Object property = subVisitor.getProperty(subAttributes);
                             LOG.debug("Found a sub-attribute: {} = {}", attribute, property);
                             return property;
@@ -113,21 +119,34 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
         return getProperty(restriction.getAttribute());
     }
 
-    @Override public void visitNull(final NullRestriction restriction) {
-        if (getProperty(restriction) != null) fail(restriction);
+    @Override
+    public void visitNull(final NullRestriction restriction) {
+        if (getProperty(restriction) != null)
+            fail(restriction);
     }
-    @Override public void visitNullComplete(final NullRestriction restriction) {}
-    @Override public void visitNotNull(final NotNullRestriction restriction) {
-        if (getProperty(restriction) == null) fail(restriction);
+
+    @Override
+    public void visitNullComplete(final NullRestriction restriction) {
     }
-    @Override public void visitNotNullComplete(final NotNullRestriction restriction) {}
+
+    @Override
+    public void visitNotNull(final NotNullRestriction restriction) {
+        if (getProperty(restriction) == null)
+            fail(restriction);
+    }
+
+    @Override
+    public void visitNotNullComplete(final NotNullRestriction restriction) {
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override public void visitEq(final EqRestriction restriction) {
+    @Override
+    public void visitEq(final EqRestriction restriction) {
         final Object o = getProperty(restriction);
         if (o instanceof Comparable) {
             try {
-                final Comparable oC = (Comparable)o;
-                final Comparable oV = (Comparable)restriction.getValue();
+                final Comparable oC = (Comparable) o;
+                final Comparable oV = (Comparable) restriction.getValue();
                 final int comparison = oC.compareTo(oV);
                 LOG.debug("comparision = {}", comparison);
                 if (comparison == 0) {
@@ -136,113 +155,158 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
             } catch (final ClassCastException e) {
             }
         } else {
-            if (restriction.getValue().equals(o)) return;
+            if (restriction.getValue().equals(o))
+                return;
         }
         fail(restriction);
     }
-    @Override public void visitEqComplete(final EqRestriction restriction) {
+
+    @Override
+    public void visitEqComplete(final EqRestriction restriction) {
     }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override public void visitNe(final NeRestriction restriction) {
+    @Override
+    public void visitNe(final NeRestriction restriction) {
         final Object o = getProperty(restriction);
         if (o instanceof Comparable) {
             try {
-                final Comparable oC = (Comparable)o;
-                final Comparable oV = (Comparable)restriction.getValue();
+                final Comparable oC = (Comparable) o;
+                final Comparable oV = (Comparable) restriction.getValue();
                 final int comparison = oC.compareTo(oV);
                 if (comparison != 0) {
                     return;
                 }
-            } catch (final ClassCastException e) {}
+            } catch (final ClassCastException e) {
+            }
         } else {
-            if (!restriction.getValue().equals(o)) return;
+            if (!restriction.getValue().equals(o))
+                return;
         }
         fail(restriction);
     }
-    @Override public void visitNeComplete(final NeRestriction restriction) {}
+
+    @Override
+    public void visitNeComplete(final NeRestriction restriction) {
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override public void visitGt(final GtRestriction restriction) {
+    @Override
+    public void visitGt(final GtRestriction restriction) {
         final Object o = getProperty(restriction);
         if (o instanceof java.lang.Number && restriction.getValue() instanceof java.lang.Number) {
-            final BigDecimal left = new BigDecimal(((Number)o).doubleValue());
-            final BigDecimal right = new BigDecimal(((Number)restriction.getValue()).doubleValue());
-            if (left.compareTo(right) == 1) return;
+            final BigDecimal left = new BigDecimal(((Number) o).doubleValue());
+            final BigDecimal right = new BigDecimal(((Number) restriction.getValue()).doubleValue());
+            if (left.compareTo(right) == 1)
+                return;
         } else if (o instanceof Comparable) {
             try {
-                final Comparable oC = (Comparable)o;
-                final Comparable oV = (Comparable)restriction.getValue();
+                final Comparable oC = (Comparable) o;
+                final Comparable oV = (Comparable) restriction.getValue();
                 if (oC.compareTo(oV) > 0) {
                     return;
                 }
-            } catch (final ClassCastException e) {}
+            } catch (final ClassCastException e) {
+            }
         }
         fail(restriction);
     }
-    @Override public void visitGtComplete(final GtRestriction restriction) {}
+
+    @Override
+    public void visitGtComplete(final GtRestriction restriction) {
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override public void visitGe(final GeRestriction restriction) {
+    @Override
+    public void visitGe(final GeRestriction restriction) {
         final Object o = getProperty(restriction);
         if (o instanceof java.lang.Number && restriction.getValue() instanceof java.lang.Number) {
-            final BigDecimal left = new BigDecimal(((Number)o).doubleValue());
-            final BigDecimal right = new BigDecimal(((Number)restriction.getValue()).doubleValue());
-            if (left.compareTo(right) >= 0) return;
+            final BigDecimal left = new BigDecimal(((Number) o).doubleValue());
+            final BigDecimal right = new BigDecimal(((Number) restriction.getValue()).doubleValue());
+            if (left.compareTo(right) >= 0)
+                return;
         } else if (o instanceof Comparable) {
             try {
-                final Comparable oC = (Comparable)o;
-                final Comparable oV = (Comparable)restriction.getValue();
+                final Comparable oC = (Comparable) o;
+                final Comparable oV = (Comparable) restriction.getValue();
                 if (oC.compareTo(oV) >= 0) {
                     return;
                 }
-            } catch (final ClassCastException e) {}
+            } catch (final ClassCastException e) {
+            }
         }
         fail(restriction);
     }
-    @Override public void visitGeComplete(final GeRestriction restriction) {}
+
+    @Override
+    public void visitGeComplete(final GeRestriction restriction) {
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override public void visitLt(final LtRestriction restriction) {
+    @Override
+    public void visitLt(final LtRestriction restriction) {
         final Object o = getProperty(restriction);
         if (o instanceof java.lang.Number && restriction.getValue() instanceof java.lang.Number) {
-            final BigDecimal left = new BigDecimal(((Number)o).doubleValue());
-            final BigDecimal right = new BigDecimal(((Number)restriction.getValue()).doubleValue());
-            if (left.compareTo(right) == -1) return;
+            final BigDecimal left = new BigDecimal(((Number) o).doubleValue());
+            final BigDecimal right = new BigDecimal(((Number) restriction.getValue()).doubleValue());
+            if (left.compareTo(right) == -1)
+                return;
         } else if (o instanceof Comparable) {
             try {
-                final Comparable oC = (Comparable)o;
-                final Comparable oV = (Comparable)restriction.getValue();
+                final Comparable oC = (Comparable) o;
+                final Comparable oV = (Comparable) restriction.getValue();
                 if (oC.compareTo(oV) < 0) {
                     return;
                 }
-            } catch (final ClassCastException e) {}
+            } catch (final ClassCastException e) {
+            }
         }
         fail(restriction);
     }
-    @Override public void visitLtComplete(final LtRestriction restriction) {}
+
+    @Override
+    public void visitLtComplete(final LtRestriction restriction) {
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override public void visitLe(final LeRestriction restriction) {
+    @Override
+    public void visitLe(final LeRestriction restriction) {
         final Object o = getProperty(restriction);
         if (o instanceof java.lang.Number && restriction.getValue() instanceof java.lang.Number) {
-            final BigDecimal left = new BigDecimal(((Number)o).doubleValue());
-            final BigDecimal right = new BigDecimal(((Number)restriction.getValue()).doubleValue());
-            if (left.compareTo(right) <= 0) return;
+            final BigDecimal left = new BigDecimal(((Number) o).doubleValue());
+            final BigDecimal right = new BigDecimal(((Number) restriction.getValue()).doubleValue());
+            if (left.compareTo(right) <= 0)
+                return;
         } else if (o instanceof Comparable) {
             try {
-                final Comparable oC = (Comparable)o;
-                final Comparable oV = (Comparable)restriction.getValue();
+                final Comparable oC = (Comparable) o;
+                final Comparable oV = (Comparable) restriction.getValue();
                 if (oC.compareTo(oV) <= 0) {
                     return;
                 }
-            } catch (final ClassCastException e) {}
+            } catch (final ClassCastException e) {
+            }
         }
         fail(restriction);
     }
-    @Override public void visitLeComplete(final LeRestriction restriction) {}
-    @Override public void visitAll(final AllRestriction restriction) {
+
+    @Override
+    public void visitLeComplete(final LeRestriction restriction) {
+    }
+
+    @Override
+    public void visitAll(final AllRestriction restriction) {
         for (final Restriction r : restriction.getRestrictions()) {
             r.visit(this);
         }
     }
-    @Override public void visitAllComplete(final AllRestriction restriction) {}
-    @Override public void visitAny(final AnyRestriction restriction) {
+
+    @Override
+    public void visitAllComplete(final AllRestriction restriction) {
+    }
+
+    @Override
+    public void visitAny(final AnyRestriction restriction) {
         boolean matched = false;
         for (final Restriction r : restriction.getRestrictions()) {
             try {
@@ -256,41 +320,78 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
             fail(restriction);
         }
     }
-    @Override public void visitAnyComplete(final AnyRestriction restriction) {}
-    @Override public void visitLike(final LikeRestriction restriction) {
+
+    @Override
+    public void visitAnyComplete(final AnyRestriction restriction) {
+    }
+
+    @Override
+    public void visitLike(final LikeRestriction restriction) {
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
-    @Override public void visitLikeComplete(final LikeRestriction restriction) {}
-    @Override public void visitIlike(final IlikeRestriction restriction) {
+
+    @Override
+    public void visitLikeComplete(final LikeRestriction restriction) {
+    }
+
+    @Override
+    public void visitIlike(final IlikeRestriction restriction) {
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
-    @Override public void visitIlikeComplete(final IlikeRestriction restriction) {}
-    @Override public void visitIn(final InRestriction restriction) {
+
+    @Override
+    public void visitIlikeComplete(final IlikeRestriction restriction) {
+    }
+
+    @Override
+    public void visitIn(final InRestriction restriction) {
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
-    @Override public void visitInComplete(final InRestriction restriction) {}
-    @Override public void visitNot(final NotRestriction restriction) {
+
+    @Override
+    public void visitInComplete(final InRestriction restriction) {
+    }
+
+    @Override
+    public void visitNot(final NotRestriction restriction) {
         m_stillMatched = m_matched;
     }
-    @Override public void visitNotComplete(final NotRestriction restriction) {
+
+    @Override
+    public void visitNotComplete(final NotRestriction restriction) {
         if (m_stillMatched) {
             m_matched = !m_matched;
         }
     }
-    @Override public void visitBetween(final BetweenRestriction restriction) {
+
+    @Override
+    public void visitBetween(final BetweenRestriction restriction) {
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
-    @Override public void visitBetweenComplete(final BetweenRestriction restriction) {}
-    @Override public void visitSql(final SqlRestriction restriction) {
+
+    @Override
+    public void visitBetweenComplete(final BetweenRestriction restriction) {
+    }
+
+    @Override
+    public void visitSql(final SqlRestriction restriction) {
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
-    @Override public void visitSqlComplete(final SqlRestriction restriction) {}
-    @Override public void visitIplike(final IplikeRestriction restriction) {
+
+    @Override
+    public void visitSqlComplete(final SqlRestriction restriction) {
+    }
+
+    @Override
+    public void visitIplike(final IplikeRestriction restriction) {
         throw new UnsupportedOperationException("Not Yet Implemented!");
     }
-    @Override public void visitIplikeComplete(final IplikeRestriction restriction) {}
+
+    @Override
+    public void visitIplikeComplete(final IplikeRestriction restriction) {
+    }
 
     public boolean matches() {
-        return m_matched ;
+        return m_matched;
     }
 }

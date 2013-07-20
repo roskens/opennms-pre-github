@@ -63,23 +63,22 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * Crank up a real eventd instance, send it some events, and verify that the records
+ * Crank up a real eventd instance, send it some events, and verify that the
+ * records
  * are created in the database correctly.
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/applicationContext-eventDaemon.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
-        "classpath:/META-INF/opennms/applicationContext-mockEventd.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-mockEventd.xml" })
 @JUnitConfigurationEnvironment
 public class EventdTest implements InitializingBean {
     private static final long SLEEP_TIME = 50;
 
     @Autowired
-    @Qualifier(value="eventIpcManagerImpl")
+    @Qualifier(value = "eventIpcManagerImpl")
     private EventIpcManager m_eventdIpcMgr;
 
     @Autowired
@@ -137,7 +136,8 @@ public class EventdTest implements InitializingBean {
 
         assertNull(generatedEvent.getInterfaceAddress());
         cb.isNull("ipaddr");
-        assertEquals("failed, found: " + m_eventDao.findMatching(cb.toCriteria()), 2, m_eventDao.countMatching(cb.toCriteria()));
+        assertEquals("failed, found: " + m_eventDao.findMatching(cb.toCriteria()), 2,
+                     m_eventDao.countMatching(cb.toCriteria()));
     }
 
     /**
@@ -163,9 +163,9 @@ public class EventdTest implements InitializingBean {
 
         Thread.sleep(SLEEP_TIME);
         assertEquals(1, m_eventDao.countMatching(cb.toCriteria()));
-        assertEquals("service ID for event", serviceId, m_eventDao.findMatching(cb.toCriteria()).get(0).getServiceType().getId());
+        assertEquals("service ID for event", serviceId,
+                     m_eventDao.findMatching(cb.toCriteria()).get(0).getServiceType().getId());
     }
-
 
     /**
      * @param reductionKey
@@ -196,7 +196,9 @@ public class EventdTest implements InitializingBean {
      * @param reductionKey
      */
     private void sendServiceDownEvent(String reductionKey, OnmsMonitoredService svc) {
-        final EventBuilder e = MockEventUtil.createEventBuilder("Test", EventConstants.SERVICE_UNRESPONSIVE_EVENT_UEI, svc.getNodeId(), str(svc.getIpAddress()), svc.getServiceName(), "Not responding");
+        final EventBuilder e = MockEventUtil.createEventBuilder("Test", EventConstants.SERVICE_UNRESPONSIVE_EVENT_UEI,
+                                                                svc.getNodeId(), str(svc.getIpAddress()),
+                                                                svc.getServiceName(), "Not responding");
 
         if (reductionKey != null) {
             AlarmData data = new AlarmData();

@@ -46,8 +46,11 @@ import org.opennms.systemreport.SystemReportPlugin;
 
 public class FtpSystemReportFormatter extends AbstractSystemReportFormatter implements SystemReportFormatter {
     private static final Logger LOG = LoggerFactory.getLogger(FtpSystemReportFormatter.class);
+
     private URL m_url;
+
     private ZipSystemReportFormatter m_zipFormatter;
+
     private File m_zipFile;
 
     @Override
@@ -109,7 +112,8 @@ public class FtpSystemReportFormatter extends AbstractSystemReportFormatter impl
 
     @Override
     public void write(final SystemReportPlugin plugin) {
-        if (m_url == null) return;
+        if (m_url == null)
+            return;
 
         m_zipFormatter.write(plugin);
     }
@@ -134,7 +138,7 @@ public class FtpSystemReportFormatter extends AbstractSystemReportFormatter impl
                 ftp.login("anonymous", "opennmsftp@");
             }
             int reply = ftp.getReplyCode();
-            if(!FTPReply.isPositiveCompletion(reply)) {
+            if (!FTPReply.isPositiveCompletion(reply)) {
                 ftp.disconnect();
                 LOG.error("FTP server refused connection.");
                 return;
@@ -167,9 +171,9 @@ public class FtpSystemReportFormatter extends AbstractSystemReportFormatter impl
             if (ftp.isConnected()) {
                 try {
                     ftp.disconnect();
-                  } catch(IOException ioe) {
+                } catch (IOException ioe) {
                     // do nothing
-                  }
+                }
             }
         }
     }

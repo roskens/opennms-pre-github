@@ -50,15 +50,20 @@ public class EmailAddress {
     private String tld;
 
     /**
-     * <p>Constructor for EmailAddress.</p>
+     * <p>
+     * Constructor for EmailAddress.
+     * </p>
      */
     public EmailAddress() {
     }
 
     /**
-     * <p>Constructor for EmailAddress.</p>
+     * <p>
+     * Constructor for EmailAddress.
+     * </p>
      *
-     * @param newAddress a {@link java.lang.String} object.
+     * @param newAddress
+     *            a {@link java.lang.String} object.
      */
     public EmailAddress(String newAddress) {
         address = newAddress;
@@ -88,7 +93,9 @@ public class EmailAddress {
     }
 
     /**
-     * <p>Getter for the field <code>address</code>.</p>
+     * <p>
+     * Getter for the field <code>address</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -97,7 +104,9 @@ public class EmailAddress {
     }
 
     /**
-     * <p>Getter for the field <code>username</code>.</p>
+     * <p>
+     * Getter for the field <code>username</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,7 +115,9 @@ public class EmailAddress {
     }
 
     /**
-     * <p>Getter for the field <code>server</code>.</p>
+     * <p>
+     * Getter for the field <code>server</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -115,7 +126,9 @@ public class EmailAddress {
     }
 
     /**
-     * <p>Getter for the field <code>domain</code>.</p>
+     * <p>
+     * Getter for the field <code>domain</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,7 +137,9 @@ public class EmailAddress {
     }
 
     /**
-     * <p>Getter for the field <code>tld</code>.</p>
+     * <p>
+     * Getter for the field <code>tld</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -133,36 +148,48 @@ public class EmailAddress {
     }
 
     /**
-     * <p>Setter for the field <code>username</code>.</p>
+     * <p>
+     * Setter for the field <code>username</code>.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setUsername(String name) {
         username = name;
     }
 
     /**
-     * <p>Setter for the field <code>server</code>.</p>
+     * <p>
+     * Setter for the field <code>server</code>.
+     * </p>
      *
-     * @param newServer a {@link java.lang.String} object.
+     * @param newServer
+     *            a {@link java.lang.String} object.
      */
     public void setServer(String newServer) {
         server = newServer;
     }
 
     /**
-     * <p>Setter for the field <code>domain</code>.</p>
+     * <p>
+     * Setter for the field <code>domain</code>.
+     * </p>
      *
-     * @param newDomain a {@link java.lang.String} object.
+     * @param newDomain
+     *            a {@link java.lang.String} object.
      */
     public void setDomain(String newDomain) {
         domain = newDomain;
     }
 
     /**
-     * <p>Setter for the field <code>tld</code>.</p>
+     * <p>
+     * Setter for the field <code>tld</code>.
+     * </p>
      *
-     * @param newTld a {@link java.lang.String} object.
+     * @param newTld
+     *            a {@link java.lang.String} object.
      */
     public void setTld(String newTld) {
         tld = newTld;

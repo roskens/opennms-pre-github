@@ -50,14 +50,17 @@ public final class SnmpCollectionFieldFactory implements FormFieldFactory {
     /**
      * Instantiates a new SNMP collection field factory.
      *
-     * @param dataCollectionConfigDao the data collection configuration DAO
+     * @param dataCollectionConfigDao
+     *            the data collection configuration DAO
      */
     public SnmpCollectionFieldFactory(final DataCollectionConfigDao dataCollectionConfigDao) {
         this.dataCollectionConfigDao = dataCollectionConfigDao;
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item, java.lang.Object, com.vaadin.ui.Component)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item,
+     * java.lang.Object, com.vaadin.ui.Component)
      */
     @Override
     public Field<?> createField(Item item, Object propertyId, Component uiContext) {

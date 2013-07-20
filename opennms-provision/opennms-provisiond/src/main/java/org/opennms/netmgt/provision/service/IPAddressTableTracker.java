@@ -57,34 +57,47 @@ import org.opennms.netmgt.snmp.TableTracker;
 public class IPAddressTableTracker extends TableTracker {
     private static final Logger LOG = LoggerFactory.getLogger(IPAddressTableTracker.class);
 
-	public static final SnmpObjId IP_ADDRESS_PREFIX_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.4.32.1");
+    public static final SnmpObjId IP_ADDRESS_PREFIX_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.4.32.1");
+
     public static final SnmpObjId IP_ADDRESS_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.4.34.1");
 
     public static final SnmpObjId IP_ADDRESS_IF_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "3");
+
     public static final SnmpObjId IP_ADDRESS_TYPE_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "4");
+
     public static final SnmpObjId IP_ADDRESS_PREFIX_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "5");
+
     public static final SnmpObjId IP_ADDRESS_PREFIX_ORIGIN_INDEX = SnmpObjId.get(IP_ADDRESS_PREFIX_TABLE_ENTRY, "5");
+
     public static final SnmpObjId IP_ADDRESS_ORIGIN_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "6");
+
     public static final SnmpObjId IP_ADDRESS_STATUS_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "7");
+
     public static final SnmpObjId IP_ADDRESS_CREATED_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "8");
+
     public static final SnmpObjId IP_ADDRESS_LAST_CHANGED_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "9");
+
     public static final SnmpObjId IP_ADDRESS_ROW_STATUS_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "10");
+
     public static final SnmpObjId IP_ADDRESS_STORAGE_TYPE_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "11");
-    public static final int TYPE_IPV4  = 1;
-    public static final int TYPE_IPV6  = 2;
+
+    public static final int TYPE_IPV4 = 1;
+
+    public static final int TYPE_IPV6 = 2;
+
     public static final int TYPE_IPV4Z = 3;
+
     public static final int TYPE_IPV6Z = 4;
-    public static final int TYPE_DNS   = 16;
+
+    public static final int TYPE_DNS = 16;
 
     private static final int IP_ADDRESS_TYPE_UNICAST = 1;
+
     // private static final int IP_ADDRESS_TYPE_ANYCAST = 2;
     // private static final int IP_ADDRESS_TYPE_BROADCAST = 3;
 
-    private static SnmpObjId[] s_tableColumns = new SnmpObjId[] {
-        IP_ADDRESS_IF_INDEX,
-        IP_ADDRESS_PREFIX_INDEX,
-        IP_ADDRESS_TYPE_INDEX
-    };
+    private static SnmpObjId[] s_tableColumns = new SnmpObjId[] { IP_ADDRESS_IF_INDEX, IP_ADDRESS_PREFIX_INDEX,
+            IP_ADDRESS_TYPE_INDEX };
 
     class IPAddressRow extends SnmpRowResult {
 
@@ -94,8 +107,8 @@ public class IPAddressTableTracker extends TableTracker {
         }
 
         public Integer getIfIndex() {
-        	final SnmpValue value = getValue(IP_ADDRESS_IF_INDEX);
-        	return value.toInt();
+            final SnmpValue value = getValue(IP_ADDRESS_IF_INDEX);
+            return value.toInt();
         }
 
         public String getIpAddress() {
@@ -119,7 +132,9 @@ public class IPAddressTableTracker extends TableTracker {
             }
             // End NMS-4906 Lame Force 10 agent!
 
-            // we ignore zones anyways, make sure we truncate to just the address part, since InetAddress doesn't know how to parse zone bytes
+            // we ignore zones anyways, make sure we truncate to just the
+            // address part, since InetAddress doesn't know how to parse zone
+            // bytes
             if (addressType == TYPE_IPV4Z) {
                 addressLength = 4;
             } else if (addressType == TYPE_IPV6Z) {
@@ -127,7 +142,8 @@ public class IPAddressTableTracker extends TableTracker {
             }
 
             if (addressIndex < 0 || addressIndex + addressLength > instanceIds.length) {
-                LOG.warn("BAD AGENT: Returned instanceId {} does not enough bytes to contain address!. Skipping.", instance);
+                LOG.warn("BAD AGENT: Returned instanceId {} does not enough bytes to contain address!. Skipping.",
+                         instance);
                 return null;
             }
 
@@ -136,7 +152,8 @@ public class IPAddressTableTracker extends TableTracker {
                     final InetAddress address = getInetAddress(instanceIds, addressIndex, addressLength);
                     return str(address);
                 } catch (final IllegalArgumentException e) {
-                    LOG.warn("Failed to parse address: {}, index {}, length {}", Arrays.toString(instanceIds), addressIndex, addressLength, e);
+                    LOG.warn("Failed to parse address: {}, index {}, length {}", Arrays.toString(instanceIds),
+                             addressIndex, addressLength, e);
                 }
             }
             return null;
@@ -166,12 +183,12 @@ public class IPAddressTableTracker extends TableTracker {
             int addressIndex = 3;
 
             // Begin NMS-4906 Lame Force 10 agent!
-            if (addressType == TYPE_IPV4 && rawIds.length != 1+6+1) {
+            if (addressType == TYPE_IPV4 && rawIds.length != 1 + 6 + 1) {
                 LOG.warn("BAD AGENT: Does not conform to RFC 4001 Section 4.1 Table Indexing!!! Report them immediately.  Making a best guess!");
-                addressIndex = rawIds.length - (4+1);
+                addressIndex = rawIds.length - (4 + 1);
                 addressLength = 4;
             }
-            if (addressType == TYPE_IPV6 && rawIds.length != 1+18+1) {
+            if (addressType == TYPE_IPV6 && rawIds.length != 1 + 18 + 1) {
                 LOG.warn("BAD AGENT: Does not conform to RFC 4001 Section 4.1 Table Indexing!!! Report them immediately.  Making a best guess!");
                 addressIndex = rawIds.length - (16 + 1);
                 addressLength = 16;
@@ -179,11 +196,13 @@ public class IPAddressTableTracker extends TableTracker {
             // End NMS-4906 Lame Force 10 agent!
 
             if (addressIndex < 0 || addressIndex + addressLength > rawIds.length) {
-                LOG.warn("BAD AGENT: Returned instanceId {} does not enough bytes to contain address!. Skipping.", netmaskRef);
+                LOG.warn("BAD AGENT: Returned instanceId {} does not enough bytes to contain address!. Skipping.",
+                         netmaskRef);
                 return null;
             }
 
-            //final InetAddress address = getInetAddress(rawIds, addressIndex, addressLength);
+            // final InetAddress address = getInetAddress(rawIds, addressIndex,
+            // addressLength);
 
             if (addressType == TYPE_IPV4) {
                 return InetAddressUtils.convertCidrToInetAddressV4(mask);
@@ -202,7 +221,8 @@ public class IPAddressTableTracker extends TableTracker {
             final Integer type = getType();
             final InetAddress netMask = getNetMask();
 
-            LOG.debug("createInterfaceFromRow: ifIndex = {}, ipAddress = {}, type = {}, netmask = {}", ifIndex, ipAddr, type, netMask);
+            LOG.debug("createInterfaceFromRow: ifIndex = {}, ipAddress = {}, type = {}, netmask = {}", ifIndex, ipAddr,
+                      type, netMask);
 
             if (type != IP_ADDRESS_TYPE_UNICAST || ipAddr == null) {
                 return null;
@@ -218,13 +238,13 @@ public class IPAddressTableTracker extends TableTracker {
             iface.setIfIndex(ifIndex);
             final String hostName = normalize(ipAddr);
             LOG.debug("setIpHostName: {}", hostName);
-            iface.setIpHostName(hostName == null? ipAddr : hostName);
+            iface.setIpHostName(hostName == null ? ipAddr : hostName);
 
             return iface;
         }
 
         private SnmpResult getResult(final SnmpObjId base) {
-            for(final SnmpResult result : getResults()) {
+            for (final SnmpResult result : getResults()) {
                 if (base.equals(result.getBase())) {
                     return result;
                 }
@@ -236,16 +256,21 @@ public class IPAddressTableTracker extends TableTracker {
     }
 
     /**
-     * <p>Constructor for IPInterfaceTableTracker.</p>
+     * <p>
+     * Constructor for IPInterfaceTableTracker.
+     * </p>
      */
     public IPAddressTableTracker() {
         super(s_tableColumns);
     }
 
     /**
-     * <p>Constructor for IPInterfaceTableTracker.</p>
+     * <p>
+     * Constructor for IPInterfaceTableTracker.
+     * </p>
      *
-     * @param rowProcessor a {@link org.opennms.netmgt.snmp.RowCallback} object.
+     * @param rowProcessor
+     *            a {@link org.opennms.netmgt.snmp.RowCallback} object.
      */
     public IPAddressTableTracker(final RowCallback rowProcessor) {
         super(rowProcessor, s_tableColumns);
@@ -260,13 +285,18 @@ public class IPAddressTableTracker extends TableTracker {
     /** {@inheritDoc} */
     @Override
     public void rowCompleted(final SnmpRowResult row) {
-        processIPAddressRow((IPAddressRow)row);
+        processIPAddressRow((IPAddressRow) row);
     }
 
     /**
-     * <p>processIPInterfaceRow</p>
+     * <p>
+     * processIPInterfaceRow
+     * </p>
      *
-     * @param row a {@link org.opennms.netmgt.provision.service.IPAddressTableTracker.IPAddressRow} object.
+     * @param row
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.IPAddressTableTracker.IPAddressRow}
+     *            object.
      */
     public void processIPAddressRow(final IPAddressRow row) {
 

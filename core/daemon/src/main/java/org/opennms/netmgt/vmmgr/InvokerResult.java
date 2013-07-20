@@ -33,22 +33,30 @@ import javax.management.ObjectInstance;
 import org.opennms.netmgt.config.service.Service;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class InvokerResult {
     private Service m_service;
+
     private ObjectInstance m_mbean;
+
     private Object m_result;
+
     private Throwable m_throwable;
 
     /**
-     * <p>Constructor for InvokerResult.</p>
+     * <p>
+     * Constructor for InvokerResult.
+     * </p>
      *
-     * @param service a {@link org.opennms.netmgt.config.service.Service} object.
-     * @param mbean a {@link javax.management.ObjectInstance} object.
-     * @param result a {@link java.lang.Object} object.
-     * @param throwable a {@link java.lang.Throwable} object.
+     * @param service
+     *            a {@link org.opennms.netmgt.config.service.Service} object.
+     * @param mbean
+     *            a {@link javax.management.ObjectInstance} object.
+     * @param result
+     *            a {@link java.lang.Object} object.
+     * @param throwable
+     *            a {@link java.lang.Throwable} object.
      */
     public InvokerResult(Service service, ObjectInstance mbean, Object result, Throwable throwable) {
         m_service = service;
@@ -58,7 +66,9 @@ class InvokerResult {
     }
 
     /**
-     * <p>getMbean</p>
+     * <p>
+     * getMbean
+     * </p>
      *
      * @return a {@link javax.management.ObjectInstance} object.
      */
@@ -67,7 +77,9 @@ class InvokerResult {
     }
 
     /**
-     * <p>getResult</p>
+     * <p>
+     * getResult
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -76,7 +88,9 @@ class InvokerResult {
     }
 
     /**
-     * <p>getThrowable</p>
+     * <p>
+     * getThrowable
+     * </p>
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -85,7 +99,9 @@ class InvokerResult {
     }
 
     /**
-     * <p>getService</p>
+     * <p>
+     * getService
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.service.Service} object.
      */

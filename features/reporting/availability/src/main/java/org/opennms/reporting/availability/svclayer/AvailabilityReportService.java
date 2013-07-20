@@ -61,7 +61,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
 /**
- * <p>AvailabilityReportService class.</p>
+ * <p>
+ * AvailabilityReportService class.
+ * </p>
  */
 public class AvailabilityReportService implements ReportService {
     private static final Logger LOG = LoggerFactory.getLogger(AvailabilityReportService.class);
@@ -78,9 +80,10 @@ public class AvailabilityReportService implements ReportService {
 
     private static final String CAL_TYPE = "calendar";
 
-
     /**
-     * <p>Constructor for AvailabilityReportService.</p>
+     * <p>
+     * Constructor for AvailabilityReportService.
+     * </p>
      */
     public AvailabilityReportService() {
         Logging.putPrefix(LOG4J_CATEGORY);
@@ -88,8 +91,7 @@ public class AvailabilityReportService implements ReportService {
 
     /** {@inheritDoc} */
     @Override
-    public boolean validate(HashMap<String, Object> reportParms,
-            String reportID) {
+    public boolean validate(HashMap<String, Object> reportParms, String reportID) {
 
         if (!reportParms.containsKey("endDate")) {
             LOG.error("report parameters should contain parameter endDate");
@@ -115,24 +117,21 @@ public class AvailabilityReportService implements ReportService {
 
     }
 
-
     /** {@inheritDoc} */
     @Override
-    public void render(String id, String location, ReportFormat format,
-            OutputStream outputStream) {
+    public void render(String id, String location, ReportFormat format, OutputStream outputStream) {
 
         FileInputStream inputStream = null;
 
-            try {
-                inputStream = new FileInputStream(location);
-                render(id, inputStream, format, outputStream);
-            } catch (FileNotFoundException e) {
-                LOG.error("could not open input file", e);
-            }
+        try {
+            inputStream = new FileInputStream(location);
+            render(id, inputStream, format, outputStream);
+        } catch (FileNotFoundException e) {
+            LOG.error("could not open input file", e);
+        }
     }
 
-    private void render(String id, InputStream inputStream, ReportFormat format,
-            OutputStream outputStream) {
+    private void render(String id, InputStream inputStream, ReportFormat format, OutputStream outputStream) {
 
         Resource xsltResource;
         ReportRenderer renderer;
@@ -144,26 +143,22 @@ public class AvailabilityReportService implements ReportService {
             case HTML:
                 LOG.debug("rendering as HTML");
                 renderer = new HTMLReportRenderer();
-                xsltResource = new UrlResource(
-                                               m_configDao.getHtmlStylesheetLocation(id));
+                xsltResource = new UrlResource(m_configDao.getHtmlStylesheetLocation(id));
                 break;
             case PDF:
                 LOG.debug("rendering as PDF");
                 renderer = new PDFReportRenderer();
-                xsltResource = new UrlResource(
-                                               m_configDao.getPdfStylesheetLocation(id));
+                xsltResource = new UrlResource(m_configDao.getPdfStylesheetLocation(id));
                 break;
             case SVG:
                 LOG.debug("rendering as PDF with embedded SVG");
                 renderer = new PDFReportRenderer();
-                xsltResource = new UrlResource(
-                                               m_configDao.getSvgStylesheetLocation(id));
+                xsltResource = new UrlResource(m_configDao.getSvgStylesheetLocation(id));
                 break;
             default:
                 LOG.debug("rendering as HTML as no valid format found");
                 renderer = new HTMLReportRenderer();
-                xsltResource = new UrlResource(
-                                               m_configDao.getHtmlStylesheetLocation(id));
+                xsltResource = new UrlResource(m_configDao.getHtmlStylesheetLocation(id));
             }
 
             String baseDir = System.getProperty("opennms.report.dir");
@@ -201,8 +196,7 @@ public class AvailabilityReportService implements ReportService {
 
     /** {@inheritDoc} */
     @Override
-    public String run(HashMap<String, Object> reportParms,
-            String reportId) {
+    public String run(HashMap<String, Object> reportParms, String reportId) {
 
         AvailabilityCalculator calculator;
         String reportFileName = null;
@@ -249,8 +243,8 @@ public class AvailabilityReportService implements ReportService {
 
     /** {@inheritDoc} */
     @Override
-    public void runAndRender(HashMap<String, Object> reportParms,
-            String reportId, ReportFormat format, OutputStream outputStream) {
+    public void runAndRender(HashMap<String, Object> reportParms, String reportId, ReportFormat format,
+            OutputStream outputStream) {
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         BufferedOutputStream bout = new BufferedOutputStream(out);
@@ -271,7 +265,6 @@ public class AvailabilityReportService implements ReportService {
 
         LOG.debug("set availability calculator report category to: {}", calculator.getCategoryName());
 
-
         calculator.setCalendar(new GregorianCalendar());
         calculator.setPeriodEndDate((Date) reportParms.get("endDate"));
 
@@ -290,10 +283,7 @@ public class AvailabilityReportService implements ReportService {
         try {
             calculator.calculate();
             calculator.writeXML(bout);
-            render(reportId,
-                   new ByteArrayInputStream(out.toByteArray()),
-                   format,
-                   outputStream);
+            render(reportId, new ByteArrayInputStream(out.toByteArray()), format, outputStream);
             outputStream.flush();
         } catch (AvailabilityCalculationException ce) {
             LOG.error("Unable to calculate report data ", ce);
@@ -303,7 +293,6 @@ public class AvailabilityReportService implements ReportService {
 
     }
 
-
     /** {@inheritDoc} */
     @Override
     public ReportParameters getParameters(String ReportId) {
@@ -311,41 +300,58 @@ public class AvailabilityReportService implements ReportService {
     }
 
     /**
-     * <p>setCalendarCalculator</p>
+     * <p>
+     * setCalendarCalculator
+     * </p>
      *
-     * @param calculator a {@link org.opennms.reporting.availability.AvailabilityCalculator} object.
+     * @param calculator
+     *            a
+     *            {@link org.opennms.reporting.availability.AvailabilityCalculator}
+     *            object.
      */
     public void setCalendarCalculator(AvailabilityCalculator calculator) {
         m_calendarCalculator = calculator;
     }
 
     /**
-     * <p>setClassicCalculator</p>
+     * <p>
+     * setClassicCalculator
+     * </p>
      *
-     * @param calulator a {@link org.opennms.reporting.availability.AvailabilityCalculator} object.
+     * @param calulator
+     *            a
+     *            {@link org.opennms.reporting.availability.AvailabilityCalculator}
+     *            object.
      */
     public void setClassicCalculator(AvailabilityCalculator calulator) {
         m_classicCalculator = calulator;
     }
 
     /**
-     * <p>setConfigDao</p>
+     * <p>
+     * setConfigDao
+     * </p>
      *
-     * @param configDao a {@link org.opennms.netmgt.dao.api.OnmsReportConfigDao} object.
+     * @param configDao
+     *            a {@link org.opennms.netmgt.dao.api.OnmsReportConfigDao}
+     *            object.
      */
     public void setConfigDao(OnmsReportConfigDao configDao) {
         m_configDao = configDao;
     }
 
     /**
-     * <p>setParameterConversionService</p>
+     * <p>
+     * setParameterConversionService
+     * </p>
      *
-     * @param parameterConversionService a {@link org.opennms.reporting.core.svclayer.ParameterConversionService} object.
+     * @param parameterConversionService
+     *            a
+     *            {@link org.opennms.reporting.core.svclayer.ParameterConversionService}
+     *            object.
      */
     public void setParameterConversionService(ParameterConversionService parameterConversionService) {
         m_parameterConversionService = parameterConversionService;
     }
-
-
 
 }

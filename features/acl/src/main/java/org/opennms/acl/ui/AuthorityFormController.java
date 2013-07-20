@@ -74,15 +74,22 @@ import org.springframework.web.bind.support.SessionStatus;
 public class AuthorityFormController implements InitializingBean {
 
     /**
-     * <p>processSubmit</p>
+     * <p>
+     * processSubmit
+     * </p>
      *
-     * @param authority a {@link org.opennms.acl.model.AuthorityDTO} object.
-     * @param result a {@link org.springframework.validation.BindingResult} object.
-     * @param status a {@link org.springframework.web.bind.support.SessionStatus} object.
+     * @param authority
+     *            a {@link org.opennms.acl.model.AuthorityDTO} object.
+     * @param result
+     *            a {@link org.springframework.validation.BindingResult} object.
+     * @param status
+     *            a {@link org.springframework.web.bind.support.SessionStatus}
+     *            object.
      * @return a {@link java.lang.String} object.
      */
     @RequestMapping(method = RequestMethod.POST)
-    protected String processSubmit(@ModelAttribute("authority") AuthorityDTO authority, BindingResult result, SessionStatus status) {
+    protected String processSubmit(@ModelAttribute("authority")
+    AuthorityDTO authority, BindingResult result, SessionStatus status) {
         String mav = authorityForm;
         authorityValidator.validate(authority, result);
         if (!result.hasErrors()) {
@@ -94,10 +101,14 @@ public class AuthorityFormController implements InitializingBean {
     }
 
     /**
-     * <p>initBinder</p>
+     * <p>
+     * initBinder
+     * </p>
      *
-     * @param binder a {@link org.springframework.web.bind.WebDataBinder} object.
-     * @throws java.lang.Exception if any.
+     * @param binder
+     *            a {@link org.springframework.web.bind.WebDataBinder} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @InitBinder()
     public void initBinder(WebDataBinder binder) throws Exception {
@@ -105,23 +116,30 @@ public class AuthorityFormController implements InitializingBean {
     }
 
     /**
-     * <p>setupForm</p>
+     * <p>
+     * setupForm
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
-     * @param model a {@link org.springframework.ui.ModelMap} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
+     * @param model
+     *            a {@link org.springframework.ui.ModelMap} object.
      * @return a {@link java.lang.String} object.
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String setupForm(@RequestParam(required = false, value = "aid") Integer id, ModelMap model) {
+    public String setupForm(@RequestParam(required = false, value = "aid")
+    Integer id, ModelMap model) {
         model.addAttribute(Constants.AUTHORITY, id == null ? new AuthorityDTO() : authorityService.getAuthority(id));
         return authorityForm;
     }
 
     @Autowired
     private AuthorityService authorityService;
+
     @Autowired
     @Qualifier("authorityValidator")
     private AuthorityValidator authorityValidator;
+
     private final String authorityForm = "authority/form";
 
     @Override

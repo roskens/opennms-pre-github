@@ -33,7 +33,6 @@
 // Generated on: 2009.01.29 at 01:15:48 PM EST
 //
 
-
 package org.opennms.netmgt.provision.persist.requisition;
 
 import java.util.ArrayList;
@@ -50,41 +49,49 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 
-
 /**
- * <p>RequisitionMonitoredService class.</p>
+ * <p>
+ * RequisitionMonitoredService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="", propOrder = { "m_categories" })
-@XmlRootElement(name="monitored-service")
+@XmlType(name = "", propOrder = { "m_categories" })
+@XmlRootElement(name = "monitored-service")
 public class RequisitionMonitoredService implements Comparable<RequisitionMonitoredService> {
 
-    @XmlElement(name="category")
+    @XmlElement(name = "category")
     protected List<RequisitionCategory> m_categories = new ArrayList<RequisitionCategory>();;
 
-    @XmlAttribute(name="service-name", required=true)
+    @XmlAttribute(name = "service-name", required = true)
     protected String m_serviceName;
 
     /**
-     * <p>Constructor for RequisitionMonitoredService.</p>
+     * <p>
+     * Constructor for RequisitionMonitoredService.
+     * </p>
      */
     public RequisitionMonitoredService() {
     }
 
     /**
-     * <p>Constructor for RequisitionMonitoredService.</p>
+     * <p>
+     * Constructor for RequisitionMonitoredService.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public RequisitionMonitoredService(String serviceName) {
         m_serviceName = serviceName;
     }
 
     /**
-     * <p>getCategoryCount</p>
+     * <p>
+     * getCategoryCount
+     * </p>
      *
      * @return a int.
      */
@@ -95,9 +102,13 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
 
     /* backwards compatibility with ModelImport */
     /**
-     * <p>getCategory</p>
+     * <p>
+     * getCategory
+     * </p>
      *
-     * @return an array of {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} objects.
+     * @return an array of
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *         objects.
      */
     @XmlTransient
     public RequisitionCategory[] getCategory() {
@@ -105,7 +116,9 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
     }
 
     /**
-     * <p>getCategories</p>
+     * <p>
+     * getCategories
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -117,18 +130,26 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
     }
 
     /**
-     * <p>setCategories</p>
+     * <p>
+     * setCategories
+     * </p>
      *
-     * @param categories a {@link java.util.List} object.
+     * @param categories
+     *            a {@link java.util.List} object.
      */
     public void setCategories(List<RequisitionCategory> categories) {
         m_categories = categories;
     }
 
     /**
-     * <p>deleteCategory</p>
+     * <p>
+     * deleteCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} object.
+     * @param category
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *            object.
      */
     public void deleteCategory(RequisitionCategory category) {
         if (m_categories != null) {
@@ -144,9 +165,12 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
     }
 
     /**
-     * <p>deleteCategory</p>
+     * <p>
+     * deleteCategory
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
      */
     public void deleteCategory(String category) {
         if (m_categories != null) {
@@ -162,9 +186,14 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
     }
 
     /**
-     * <p>insertCategory</p>
+     * <p>
+     * insertCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} object.
+     * @param category
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *            object.
      */
     public void insertCategory(RequisitionCategory category) {
         Iterator<RequisitionCategory> iterator = m_categories.iterator();
@@ -178,7 +207,9 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -187,9 +218,12 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
     }
 
     /**
-     * <p>setServiceName</p>
+     * <p>
+     * setServiceName
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setServiceName(String value) {
         m_serviceName = value;
@@ -206,17 +240,22 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof RequisitionMonitoredService)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof RequisitionMonitoredService))
+            return false;
         final RequisitionMonitoredService other = (RequisitionMonitoredService) obj;
         if (m_categories == null) {
-            if (other.m_categories != null) return false;
+            if (other.m_categories != null)
+                return false;
         } else if (!m_categories.equals(other.m_categories)) {
             return false;
         }
         if (m_serviceName == null) {
-            if (other.m_serviceName != null) return false;
+            if (other.m_serviceName != null)
+                return false;
         } else if (!m_serviceName.equals(other.m_serviceName)) {
             return false;
         }
@@ -225,15 +264,12 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
 
     @Override
     public String toString() {
-        return "RequisitionMonitoredService [categories=" + m_categories
-                + ", serviceName=" + m_serviceName + "]";
+        return "RequisitionMonitoredService [categories=" + m_categories + ", serviceName=" + m_serviceName + "]";
     }
 
     @Override
     public int compareTo(final RequisitionMonitoredService other) {
-        return new CompareToBuilder()
-            .append(m_serviceName, other.m_serviceName)
-            .append(m_categories, other.m_categories)
-            .toComparison();
+        return new CompareToBuilder().append(m_serviceName, other.m_serviceName).append(m_categories,
+                                                                                        other.m_categories).toComparison();
     }
 }

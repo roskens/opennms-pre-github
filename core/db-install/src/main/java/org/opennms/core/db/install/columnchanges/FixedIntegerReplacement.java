@@ -45,9 +45,12 @@ public class FixedIntegerReplacement implements ColumnChangeReplacement {
     private final Integer m_replacement;
 
     /**
-     * <p>Constructor for FixedIntegerReplacement.</p>
+     * <p>
+     * Constructor for FixedIntegerReplacement.
+     * </p>
      *
-     * @param value a int.
+     * @param value
+     *            a int.
      */
     public FixedIntegerReplacement(int value) {
         m_replacement = value;
@@ -60,7 +63,9 @@ public class FixedIntegerReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -70,7 +75,9 @@ public class FixedIntegerReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {

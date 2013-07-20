@@ -35,9 +35,10 @@ import org.opennms.netmgt.config.javamail.ReadmailConfig;
 import org.opennms.netmgt.config.javamail.SendmailConfig;
 import org.springframework.dao.DataAccessResourceFailureException;
 
-
 /**
- * <p>JavaMailConfigurationDao interface.</p>
+ * <p>
+ * JavaMailConfigurationDao interface.
+ * </p>
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -45,75 +46,105 @@ import org.springframework.dao.DataAccessResourceFailureException;
 public interface JavaMailConfigurationDao {
 
     /**
-     * <p>getDefaultSendmailConfig</p>
+     * <p>
+     * getDefaultSendmailConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.javamail.SendmailConfig} object.
+     * @return a {@link org.opennms.netmgt.config.javamail.SendmailConfig}
+     *         object.
      */
     SendmailConfig getDefaultSendmailConfig();
 
     /**
-     * <p>getSendMailConfig</p>
+     * <p>
+     * getSendMailConfig
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.javamail.SendmailConfig} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.config.javamail.SendmailConfig}
+     *         object.
      */
     SendmailConfig getSendMailConfig(String name);
 
     /**
-     * <p>getSendmailConfigs</p>
+     * <p>
+     * getSendmailConfigs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<SendmailConfig> getSendmailConfigs();
 
     /**
-     * <p>getDefaultReadmailConfig</p>
+     * <p>
+     * getDefaultReadmailConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig} object.
+     * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig}
+     *         object.
      */
     ReadmailConfig getDefaultReadmailConfig();
 
     /**
-     * <p>getReadMailConfig</p>
+     * <p>
+     * getReadMailConfig
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig}
+     *         object.
      */
     ReadmailConfig getReadMailConfig(String name);
 
     /**
-     * <p>getReadmailConfigs</p>
+     * <p>
+     * getReadmailConfigs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<ReadmailConfig> getReadmailConfigs();
 
     /**
-     * <p>getEnd2EndConfig</p>
+     * <p>
+     * getEnd2EndConfig
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.javamail.End2endMailConfig} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.config.javamail.End2endMailConfig}
+     *         object.
      */
     End2endMailConfig getEnd2EndConfig(String name);
 
     /**
-     * <p>getEnd2EndConfigs</p>
+     * <p>
+     * getEnd2EndConfigs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<End2endMailConfig> getEnd2EndConfigs();
 
     /**
-     * <p>verifyMarshaledConfiguration</p>
+     * <p>
+     * verifyMarshaledConfiguration
+     * </p>
      *
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     void verifyMarshaledConfiguration() throws IllegalStateException;
 
     /**
-     * <p>reloadConfiguration</p>
+     * <p>
+     * reloadConfiguration
+     * </p>
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException if any.
+     * @throws org.springframework.dao.DataAccessResourceFailureException
+     *             if any.
      */
     void reloadConfiguration() throws DataAccessResourceFailureException;
 

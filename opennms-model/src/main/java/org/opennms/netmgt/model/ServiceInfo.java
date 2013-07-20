@@ -29,36 +29,49 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>ServiceInfo class.</p>
+ * <p>
+ * ServiceInfo class.
+ * </p>
  */
 public class ServiceInfo {
     private String serviceStatus;
+
     private String serviceName;
 
     /**
-     * <p>Constructor for ServiceInfo.</p>
+     * <p>
+     * Constructor for ServiceInfo.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param status a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param status
+     *            a {@link java.lang.String} object.
      */
-    public ServiceInfo(String name, String status){
-    	this.serviceStatus = status;
-    	this.serviceName = name;
+    public ServiceInfo(String name, String status) {
+        this.serviceStatus = status;
+        this.serviceName = name;
     }
-	/**
-	 * <p>Getter for the field <code>serviceName</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getServiceName(){
-		return serviceName;
-	}
-	/**
-	 * <p>Getter for the field <code>serviceStatus</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getServiceStatus(){
-		return serviceStatus;
-	}
+
+    /**
+     * <p>
+     * Getter for the field <code>serviceName</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    /**
+     * <p>
+     * Getter for the field <code>serviceStatus</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getServiceStatus() {
+        return serviceStatus;
+    }
 }

@@ -45,14 +45,12 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * @author Donald Desloge
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:/META-INF/opennms/detectors.xml",
-        "classpath:/META-INF/opennms/test/snmpConfigFactoryContext.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml",
+        "classpath:/META-INF/opennms/test/snmpConfigFactoryContext.xml" })
 public class SimpleDetectorWiringTest implements ApplicationContextAware {
 
     private ApplicationContext m_applicationContext;
@@ -69,7 +67,7 @@ public class SimpleDetectorWiringTest implements ApplicationContextAware {
     }
 
     @Test
-    public void testIcmpDetectorWiring(){
+    public void testIcmpDetectorWiring() {
         testWiredDetector(IcmpDetector.class);
     }
 

@@ -36,24 +36,24 @@ import org.junit.Test;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.xml.event.Event;
 
-
 /**
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class EventBuilderTest {
 
-	/**
-	 * Test method for {@link org.opennms.netmgt.model.events.EventBuilder#getEvent()}.
-	 */
+    /**
+     * Test method for
+     * {@link org.opennms.netmgt.model.events.EventBuilder#getEvent()}.
+     */
     @Test
-	public final void testGetEvent() {
-		EventBuilder builder = new EventBuilder("uei.opennms.org/test", "test");
-		builder.setSeverity("Warning");
-		assertEquals("Warning", builder.getEvent().getSeverity());
+    public final void testGetEvent() {
+        EventBuilder builder = new EventBuilder("uei.opennms.org/test", "test");
+        builder.setSeverity("Warning");
+        assertEquals("Warning", builder.getEvent().getSeverity());
 
-		builder.setSeverity("Waning");
-		assertEquals("Indeterminate", builder.getEvent().getSeverity());
-	}
+        builder.setSeverity("Waning");
+        assertEquals("Indeterminate", builder.getEvent().getSeverity());
+    }
 
     @Test
     public final void testUsingPassedInDate() throws Exception {
@@ -62,7 +62,6 @@ public class EventBuilderTest {
         EventBuilder builder = new EventBuilder("uei.opennms.org/test", "test", date);
         Event ifEvent = builder.getEvent();
         assertEquals(date.toString(), EventConstants.parseToDate(ifEvent.getTime()).toString());
-
 
     }
 

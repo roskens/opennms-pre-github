@@ -50,9 +50,12 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     private ServletContext m_servletContext;
 
     /**
-     * <p>Constructor for NegativeNodeFilter.</p>
+     * <p>
+     * Constructor for NegativeNodeFilter.
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "OUTAGES.NODEID", "node.id", nodeId);
@@ -60,7 +63,9 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,7 +73,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     public String getTextDescription() {
 
         String nodeName = NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getNode());
-        if(nodeName == null) {
+        if (nodeName == null) {
             nodeName = Integer.toString(getNode());
         }
 
@@ -76,7 +81,9 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,7 +93,9 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a int.
      */

@@ -30,6 +30,7 @@ import org.osgi.framework.BundleContext;
 
 public final class ProxyFilter implements Filter {
     private DispatcherTracker m_dispatcherTracker;
+
     private FilterConfig m_filterConfig;
 
     @Override
@@ -42,7 +43,8 @@ public final class ProxyFilter implements Filter {
         m_filterConfig = filterConfig;
         filterConfig.getServletContext().log("initializing filter config " + filterConfig);
         try {
-            this.m_dispatcherTracker = new DispatcherTracker(getBundleContext(filterConfig.getServletContext()), null, filterConfig);
+            this.m_dispatcherTracker = new DispatcherTracker(getBundleContext(filterConfig.getServletContext()), null,
+                                                             filterConfig);
         } catch (final ServletException e) {
             throw e;
         } catch (final Throwable e) {
@@ -52,7 +54,8 @@ public final class ProxyFilter implements Filter {
     }
 
     @Override
-    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
+    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
         final Filter dispatcher = this.m_dispatcherTracker.getDispatcher();
         if (dispatcher != null) {
             dispatcher.doFilter(request, response, chain);
@@ -64,9 +67,10 @@ public final class ProxyFilter implements Filter {
     private BundleContext getBundleContext(final ServletContext servletContext) throws ServletException {
         final Object context = servletContext.getAttribute(BundleContext.class.getName());
         if (context instanceof BundleContext) {
-            return (BundleContext)context;
+            return (BundleContext) context;
         }
 
-        throw new ServletException("Bundle context attribute [" + BundleContext.class.getName() + "] not set in servlet context");
+        throw new ServletException("Bundle context attribute [" + BundleContext.class.getName()
+                + "] not set in servlet context");
     }
 }

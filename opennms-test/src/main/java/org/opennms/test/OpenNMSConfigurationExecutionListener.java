@@ -60,7 +60,8 @@ public class OpenNMSConfigurationExecutionListener extends AbstractTestExecution
         if (anno != null) {
             DaoTestConfigBean bean = new DaoTestConfigBean();
             bean.afterPropertiesSet();
-            // Set any additional system properties that are specified in the unit test annotation
+            // Set any additional system properties that are specified in the
+            // unit test annotation
             for (String prop : anno.systemProperties()) {
                 int equals = prop.indexOf("=");
                 if (equals > 0) {

@@ -57,7 +57,7 @@ import org.xml.sax.ContentHandler;
  * RRD parms
  */
 
-@XmlRootElement(name="rrd", namespace="http://xmlns.opennms.org/xsd/config/datacollection")
+@XmlRootElement(name = "rrd", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 @ValidateUsing("datacollection-config.xsd")
 public class Rrd implements Serializable {
@@ -75,28 +75,26 @@ public class Rrd implements Serializable {
      */
     private List<String> m_rras = new ArrayList<String>();
 
-
     public Rrd() {
         super();
     }
 
-
     /**
      * @param rra
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addRra(final String rra) throws IndexOutOfBoundsException {
         m_rras.add(rra.intern());
     }
 
     /**
-     *
-     *
      * @param index
      * @param rra
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addRra(final int index, final String rra) throws IndexOutOfBoundsException {
         m_rras.add(index, rra.intern());
@@ -112,7 +110,7 @@ public class Rrd implements Serializable {
      * Method enumerateRra.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<String> enumerateRra() {
         return Collections.enumeration(m_rras);
@@ -126,15 +124,13 @@ public class Rrd implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if ( this == obj ) return true;
+        if (this == obj)
+            return true;
 
         if (obj instanceof Rrd) {
-            final Rrd temp = (Rrd)obj;
+            final Rrd temp = (Rrd) obj;
 
-            return new EqualsBuilder()
-                .append(m_rras, temp.m_rras)
-                .append(m_step, temp.m_step)
-                .isEquals();
+            return new EqualsBuilder().append(m_rras, temp.m_rras).append(m_step, temp.m_step).isEquals();
         }
         return false;
     }
@@ -143,27 +139,31 @@ public class Rrd implements Serializable {
      * Method getRra.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the String at the given index
      */
     public String getRra(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_rras.size()) {
-            throw new IndexOutOfBoundsException("getRra: Index value '" + index + "' not in range [0.." + (m_rras.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getRra: Index value '" + index + "' not in range [0.."
+                    + (m_rras.size() - 1) + "]");
         }
         return m_rras.get(index);
     }
 
     /**
      * Method getRra.Returns the contents of the collection in an
-     * Array.  <p>Note:  Just in case the collection contents are
-     * changing in another thread, we pass a 0-length Array of the
-     * correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="rra", required=true)
+    @XmlElement(name = "rra", required = true)
     public String[] getRra() {
         return m_rras.toArray(EMPTY_STRING_ARRAY);
     }
@@ -194,9 +194,9 @@ public class Rrd implements Serializable {
      *
      * @return the value of field 'Step'.
      */
-    @XmlAttribute(name="step", required=true)
+    @XmlAttribute(name = "step", required = true)
     public Integer getStep() {
-        return m_step == null? 0 : m_step;
+        return m_step == null ? 0 : m_step;
     }
 
     /**
@@ -211,8 +211,8 @@ public class Rrd implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -222,7 +222,7 @@ public class Rrd implements Serializable {
 
         result = 37 * result + m_step;
         if (m_rras != null) {
-           result = 37 * result + m_rras.hashCode();
+            result = 37 * result + m_rras.hashCode();
         }
 
         return result;
@@ -247,20 +247,20 @@ public class Rrd implements Serializable {
      * Method iterateRra.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<String> iterateRra() {
         return m_rras.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -268,15 +268,16 @@ public class Rrd implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -308,29 +309,27 @@ public class Rrd implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param rra
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setRra(final int index, final String rra) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_rras.size()) {
-            throw new IndexOutOfBoundsException("setRra: Index value '" + index + "' not in range [0.." + (m_rras.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setRra: Index value '" + index + "' not in range [0.."
+                    + (m_rras.size() - 1) + "]");
         }
         m_rras.set(index, rra.intern());
     }
 
     /**
-     *
-     *
      * @param rras
      */
     public void setRra(final String[] rras) {
         m_rras.clear();
         for (int i = 0; i < rras.length; i++) {
-                m_rras.add(rras[i].intern());
+            m_rras.add(rras[i].intern());
         }
     }
 
@@ -338,7 +337,8 @@ public class Rrd implements Serializable {
      * Sets the value of '_rraList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param rras the Vector to copy.
+     * @param rras
+     *            the Vector to copy.
      */
     public void setRra(final List<String> rras) {
         m_rras.clear();
@@ -350,9 +350,10 @@ public class Rrd implements Serializable {
     /**
      * Sets the value of '_rraList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param rras the Vector to set.
+     * @deprecated
+     * @param rras
+     *            the Vector to set.
      */
     public void setRraCollection(final List<String> rras) {
         m_rras = new ArrayList<String>();
@@ -365,7 +366,8 @@ public class Rrd implements Serializable {
      * Sets the value of field 'step'. The field 'step' has the
      * following description: step size for the RRD
      *
-     * @param step the value of field 'step'.
+     * @param step
+     *            the value of field 'step'.
      */
     public void setStep(final Integer step) {
         m_step = step;
@@ -375,12 +377,14 @@ public class Rrd implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * Rrd
+     *         Rrd
      */
     @Deprecated
     public static Rrd unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -388,10 +392,9 @@ public class Rrd implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

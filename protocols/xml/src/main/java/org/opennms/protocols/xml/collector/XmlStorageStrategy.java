@@ -38,13 +38,21 @@ import org.opennms.netmgt.dao.support.IndexStorageStrategy;
  */
 public class XmlStorageStrategy extends IndexStorageStrategy {
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.dao.support.IndexStorageStrategy#getResourceNameFromIndex(org.opennms.netmgt.config.collector.CollectionResource)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.dao.support.IndexStorageStrategy#getResourceNameFromIndex
+     * (org.opennms.netmgt.config.collector.CollectionResource)
      */
     @Override
     public String getResourceNameFromIndex(CollectionResource resource) {
         // Normalize the resource's instance and use it as resource's label
-        return resource.getInstance().replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]", "_").replaceAll("[|/]", "_").replaceAll("=", "").replaceAll("[_]+$", "").replaceAll("___", "_");
+        return resource.getInstance().replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]",
+                                                                                                                      "_").replaceAll("[|/]",
+                                                                                                                                      "_").replaceAll("=",
+                                                                                                                                                      "").replaceAll("[_]+$",
+                                                                                                                                                                     "").replaceAll("___",
+                                                                                                                                                                                    "_");
     }
 
 }

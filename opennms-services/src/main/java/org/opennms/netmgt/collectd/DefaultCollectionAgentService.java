@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -60,14 +59,23 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultCollectionAgentService.class);
 
     /**
-     * <p>create</p>
+     * <p>
+     * create
+     * </p>
      *
-     * @param ifaceId a {@link java.lang.Integer} object.
-     * @param ifaceDao a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
-     * @param transMgr a {@link org.springframework.transaction.PlatformTransactionManager} object.
-     * @return a {@link org.opennms.netmgt.collectd.CollectionAgentService} object.
+     * @param ifaceId
+     *            a {@link java.lang.Integer} object.
+     * @param ifaceDao
+     *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
+     * @param transMgr
+     *            a
+     *            {@link org.springframework.transaction.PlatformTransactionManager}
+     *            object.
+     * @return a {@link org.opennms.netmgt.collectd.CollectionAgentService}
+     *         object.
      */
-    public static CollectionAgentService create(Integer ifaceId, final IpInterfaceDao ifaceDao, final PlatformTransactionManager transMgr) {
+    public static CollectionAgentService create(Integer ifaceId, final IpInterfaceDao ifaceDao,
+            final PlatformTransactionManager transMgr) {
         CollectionAgentService agent = new DefaultCollectionAgentService(ifaceId, ifaceDao);
 
         TransactionProxyFactoryBean bean = new TransactionProxyFactoryBean();
@@ -86,18 +94,19 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
 
     // the interface of the Agent
     private Integer m_ifaceId;
+
     private IpInterfaceDao m_ifaceDao;
 
-    //Unused; delete
-    //private int m_maxVarsPerPdu;
-    //private int m_ifCount;
+    // Unused; delete
+    // private int m_maxVarsPerPdu;
+    // private int m_ifCount;
 
     private DefaultCollectionAgentService(Integer ifaceId, IpInterfaceDao ifaceDao) {
-        // we pass in null since we override calls to getAddress and getInetAddress
+        // we pass in null since we override calls to getAddress and
+        // getInetAddress
         m_ifaceId = ifaceId;
         m_ifaceDao = ifaceDao;
     }
-
 
     OnmsIpInterface getIpInterface() {
         return m_ifaceDao.load(m_ifaceId);
@@ -107,11 +116,14 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         return getIpInterface().getNode();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getHostAddress()
      */
     /**
-     * <p>getHostAddress</p>
+     * <p>
+     * getHostAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,11 +132,14 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         return InetAddressUtils.str(getInetAddress());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#isStoreByForeignSource()
      */
     /**
-     * <p>isStoreByForeignSource</p>
+     * <p>
+     * isStoreByForeignSource
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -133,11 +148,14 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         return Boolean.getBoolean("org.opennms.rrd.storeByForeignSource");
     }
 
-     /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getNodeId()
      */
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -146,52 +164,66 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         return getIpInterface().getNode().getId() == null ? -1 : getIpInterface().getNode().getId().intValue();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getForeignSource()
      */
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getForeignSource() {
-       return getIpInterface().getNode().getForeignSource() == null ? null : getIpInterface().getNode().getForeignSource();
+        return getIpInterface().getNode().getForeignSource() == null ? null
+            : getIpInterface().getNode().getForeignSource();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getForeignId()
      */
     /**
-     * <p>getForeignId</p>
+     * <p>
+     * getForeignId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getForeignId() {
-       return getIpInterface().getNode().getForeignId() == null ? null : getIpInterface().getNode().getForeignId();
+        return getIpInterface().getNode().getForeignId() == null ? null : getIpInterface().getNode().getForeignId();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getStorageDir()
      */
     /**
-     * <p>getStorageDir</p>
+     * <p>
+     * getStorageDir
+     * </p>
      *
      * @return a {@link java.io.File} object.
      */
     @Override
     public File getStorageDir() {
         File dir = new File(String.valueOf(getIpInterface().getNode().getId()));
-        if(isStoreByForeignSource() && !(getIpInterface().getNode().getForeignSource() == null) && !(getIpInterface().getNode().getForeignId() == null)) {
-               File fsDir = new File(DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY, getIpInterface().getNode().getForeignSource());
+        if (isStoreByForeignSource() && !(getIpInterface().getNode().getForeignSource() == null)
+                && !(getIpInterface().getNode().getForeignId() == null)) {
+            File fsDir = new File(DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY,
+                                  getIpInterface().getNode().getForeignSource());
             dir = new File(fsDir, getIpInterface().getNode().getForeignId());
         }
         return dir;
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a int.
      */
@@ -200,11 +232,14 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         return (getIpInterface().getIfIndex() == null ? -1 : getIpInterface().getIfIndex().intValue());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getSysObjectId()
      */
     /**
-     * <p>getSysObjectId</p>
+     * <p>
+     * getSysObjectId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -214,7 +249,9 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
     }
 
     /**
-     * <p>getIsSnmpPrimary</p>
+     * <p>
+     * getIsSnmpPrimary
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PrimaryType} object.
      */
@@ -223,24 +260,30 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         return getIpInterface().getIsSnmpPrimary();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#toString()
      */
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return "Agent[nodeid = "+getNodeId()+" ipaddr= "+getHostAddress()+']';
+        return "Agent[nodeid = " + getNodeId() + " ipaddr= " + getHostAddress() + ']';
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getAgentConfig()
      */
     /**
-     * <p>getAgentConfig</p>
+     * <p>
+     * getAgentConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
@@ -249,11 +292,16 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         return SnmpPeerFactory.getInstance().getAgentConfig(getInetAddress());
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.CollectionAgent#getSnmpInterfaceInfo(org.opennms.netmgt.collectd.IfResourceType)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.CollectionAgent#getSnmpInterfaceInfo(org.
+     * opennms.netmgt.collectd.IfResourceType)
      */
     /**
-     * <p>getSnmpInterfaceData</p>
+     * <p>
+     * getSnmpInterfaceData
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -264,34 +312,37 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
 
         Set<SnmpIfData> ifData = new LinkedHashSet<SnmpIfData>(snmpIfs.size());
 
-        for(OnmsSnmpInterface snmpIface : snmpIfs) {
-    		logInitializeSnmpIf(snmpIface);
-    		SnmpIfData snmpIfData = new SnmpIfData(snmpIface);
-    		ifData.add(snmpIfData);
-            //ifInfos.add(new IfInfo(type, agent, snmpIfData));
-    	}
+        for (OnmsSnmpInterface snmpIface : snmpIfs) {
+            logInitializeSnmpIf(snmpIface);
+            SnmpIfData snmpIfData = new SnmpIfData(snmpIface);
+            ifData.add(snmpIfData);
+            // ifInfos.add(new IfInfo(type, agent, snmpIfData));
+        }
         return ifData;
     }
-
 
     private Set<OnmsSnmpInterface> getSnmpInterfaces() {
         OnmsNode node = getNode();
 
-    	Set<OnmsSnmpInterface> snmpIfs = node.getSnmpInterfaces();
+        Set<OnmsSnmpInterface> snmpIfs = node.getSnmpInterfaces();
 
-    	if (snmpIfs.size() == 0) {
+        if (snmpIfs.size() == 0) {
             LOG.debug("no known SNMP interfaces for node {}", node);
-    	}
+        }
         return snmpIfs;
     }
 
     private void logInitializeSnmpIf(OnmsSnmpInterface snmpIface) {
-        LOG.debug("initialize: snmpifindex = {}, snmpifname = {}, snmpifdescr = {}, snmpphysaddr = -{}-", snmpIface.getIfIndex().intValue(), snmpIface.getIfName(), snmpIface.getIfDescr(), snmpIface.getPhysAddr());
+        LOG.debug("initialize: snmpifindex = {}, snmpifname = {}, snmpifdescr = {}, snmpphysaddr = -{}-",
+                  snmpIface.getIfIndex().intValue(), snmpIface.getIfName(), snmpIface.getIfDescr(),
+                  snmpIface.getPhysAddr());
         LOG.debug("initialize: ifLabel = '{}'", snmpIface.computeLabelForRRD());
     }
 
     /**
-     * <p>getInetAddress</p>
+     * <p>
+     * getInetAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */

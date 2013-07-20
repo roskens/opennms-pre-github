@@ -44,9 +44,8 @@ import org.springframework.util.Assert;
 /**
  * The EventHandler builds Runnables that essentially do all the work on an
  * incoming event.
- *
  * Operations done on an incoming event are handled by the List of injected
- * EventProcessors, in the order in which they are given in the list.  If any
+ * EventProcessors, in the order in which they are given in the list. If any
  * of them throw an exception, futher processing of that event Log is stopped.
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj </A>
@@ -59,13 +58,18 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
     private List<EventProcessor> m_eventProcessors;
 
     /**
-     * <p>Constructor for DefaultEventHandlerImpl.</p>
+     * <p>
+     * Constructor for DefaultEventHandlerImpl.
+     * </p>
      */
     public DefaultEventHandlerImpl() {
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.eventd.EventHandler#createRunnable(org.opennms.netmgt.xml.event.Log)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.eventd.EventHandler#createRunnable(org.opennms.netmgt
+     * .xml.event.Log)
      */
     /** {@inheritDoc} */
     @Override
@@ -87,7 +91,8 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
 
         /**
          * Process the received events. For each event, use the EventExpander to
-         * look up matching eventconf entry and load info from that match, expand
+         * look up matching eventconf entry and load info from that match,
+         * expand
          * event parms, add event to database and send event to appropriate
          * listeners.
          */
@@ -113,7 +118,8 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
                         LOG.debug("  parms {");
                         for (final Parm parm : event.getParmCollection()) {
                             if ((parm.getParmName() != null) && (parm.getValue().getContent() != null)) {
-                                LOG.debug("    ({}, {})", parm.getParmName().trim(), parm.getValue().getContent().trim());
+                                LOG.debug("    ({}, {})", parm.getParmName().trim(),
+                                          parm.getValue().getContent().trim());
                             }
                         }
                         LOG.debug("  }");
@@ -125,10 +131,12 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
                     try {
                         eventProcessor.process(m_eventLog.getHeader(), event);
                     } catch (EventProcessorException e) {
-                        LOG.warn("Unable to process event using processor {}; not processing with any later processors.", eventProcessor, e);
+                        LOG.warn("Unable to process event using processor {}; not processing with any later processors.",
+                                 eventProcessor, e);
                         break;
                     } catch (Throwable t) {
-                        LOG.warn("Unknown exception processing event with processor {}; not processing with any later processors.", eventProcessor, t);
+                        LOG.warn("Unknown exception processing event with processor {}; not processing with any later processors.",
+                                 eventProcessor, t);
                         break;
                     }
                 }
@@ -137,11 +145,13 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
 
     }
 
-
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws IllegalStateException {
@@ -149,7 +159,9 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
     }
 
     /**
-     * <p>getEventProcessors</p>
+     * <p>
+     * getEventProcessors
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -158,9 +170,12 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
     }
 
     /**
-     * <p>setEventProcessors</p>
+     * <p>
+     * setEventProcessors
+     * </p>
      *
-     * @param eventProcessors a {@link java.util.List} object.
+     * @param eventProcessors
+     *            a {@link java.util.List} object.
      */
     public void setEventProcessors(List<EventProcessor> eventProcessors) {
         m_eventProcessors = eventProcessors;

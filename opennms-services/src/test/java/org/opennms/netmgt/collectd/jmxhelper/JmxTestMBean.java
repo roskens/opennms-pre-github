@@ -31,7 +31,6 @@ package org.opennms.netmgt.collectd.jmxhelper;
 import javax.management.openmbean.CompositeData;
 
 /**
- *
  * @author Markus Neumann <Markus@OpenNMS.org>
  */
 public interface JmxTestMBean {

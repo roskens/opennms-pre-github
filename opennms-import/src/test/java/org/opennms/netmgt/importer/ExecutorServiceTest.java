@@ -41,42 +41,46 @@ import org.opennms.core.concurrent.LogPreservingThreadFactory;
 
 public class ExecutorServiceTest {
 
-	public void sleep(long millis) {
-		try { Thread.sleep(millis); } catch(InterruptedException e) {}
-	}
+    public void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+        }
+    }
 
-	private int runs = 0;
+    private int runs = 0;
 
-	public synchronized void incr() {
-	    runs++;
-	}
+    public synchronized void incr() {
+        runs++;
+    }
 
-	public synchronized int getRuns() {
-	    return runs;
-	}
+    public synchronized int getRuns() {
+        return runs;
+    }
 
-	@Test
-	public void testThreadPool() throws Exception {
-		ExecutorService pool = Executors.newFixedThreadPool(11, new LogPreservingThreadFactory(getClass().getSimpleName() + ".testThreadPool", 11, false));
+    @Test
+    public void testThreadPool() throws Exception {
+        ExecutorService pool = Executors.newFixedThreadPool(11,
+                                                            new LogPreservingThreadFactory(getClass().getSimpleName()
+                                                                    + ".testThreadPool", 11, false));
 
-		for(int i = 1; i <= 100; i++) {
-			final int index = i;
-			Runnable r = new Runnable() {
-                                @Override
-				public void run() {
-					System.err.println(Thread.currentThread()+": "+new Date()+": "+index);
-					sleep(500);
-					incr();
-				}
-			};
-			pool.execute(r);
-		}
+        for (int i = 1; i <= 100; i++) {
+            final int index = i;
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    System.err.println(Thread.currentThread() + ": " + new Date() + ": " + index);
+                    sleep(500);
+                    incr();
+                }
+            };
+            pool.execute(r);
+        }
 
+        shutdownAndWaitForCompletion(pool);
 
-		shutdownAndWaitForCompletion(pool);
-
-		assertEquals(100, getRuns());
-	}
+        assertEquals(100, getRuns());
+    }
 
     public void shutdownAndWaitForCompletion(ExecutorService executorService) {
         executorService.shutdown();
@@ -88,6 +92,5 @@ public class ExecutorServiceTest {
             fail("Thread Interrupted unexpectedly!!!");
         }
     }
-
 
 }

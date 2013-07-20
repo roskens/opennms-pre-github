@@ -32,7 +32,9 @@ import org.springframework.binding.convert.converters.StringToDate;
 import org.springframework.binding.convert.service.DefaultConversionService;
 
 /**
- * <p>ApplicationConversionService class.</p>
+ * <p>
+ * ApplicationConversionService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,10 +45,10 @@ public class ApplicationConversionService extends DefaultConversionService {
     /** {@inheritDoc} */
     @Override
     protected void addDefaultConverters() {
-    super.addDefaultConverters();
-    StringToDate dateConverter = new StringToDate();
-    dateConverter.setPattern("MM-dd-yyyy");
-    addConverter("shortDate", dateConverter);
+        super.addDefaultConverters();
+        StringToDate dateConverter = new StringToDate();
+        dateConverter.setPattern("MM-dd-yyyy");
+        addConverter("shortDate", dateConverter);
     }
 
 }

@@ -48,8 +48,10 @@ public class SystemReportListController extends AbstractController implements In
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        return new ModelAndView("admin/support/systemReportList", "report", new SystemReportInfo(m_systemReport.getFormatters(), m_systemReport.getPlugins()));
+    protected ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response)
+            throws Exception {
+        return new ModelAndView("admin/support/systemReportList", "report",
+                                new SystemReportInfo(m_systemReport.getFormatters(), m_systemReport.getPlugins()));
     }
 
     public void setSystemReport(final SystemReport report) {

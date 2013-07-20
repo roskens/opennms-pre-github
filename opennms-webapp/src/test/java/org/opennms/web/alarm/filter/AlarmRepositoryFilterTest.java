@@ -59,14 +59,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/daoWebRepositoryTestContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/daoWebRepositoryTestContext.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AlarmRepositoryFilterTest implements InitializingBean {
@@ -86,19 +82,21 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
     }
 
     @Before
-    public final void setUp(){
+    public final void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
 
     }
 
     @Test
     @Transactional
-    public final void testAlarmTypeFilter(){
-        OnmsAlarm[] alarm = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmTypeFilter(3))));
+    public final void testAlarmTypeFilter() {
+        OnmsAlarm[] alarm = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                         new AlarmTypeFilter(
+                                                                                                                             3))));
         assertEquals(0, alarm.length);
 
         alarm = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmTypeFilter(1))));
@@ -107,41 +105,53 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testBeforeFirstEventTimeFilter(){
-        OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new BeforeFirstEventTimeFilter(new Date()))));
+    public final void testBeforeFirstEventTimeFilter() {
+        OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                          new BeforeFirstEventTimeFilter(
+                                                                                                                                         new Date()))));
         assertEquals(1, alarms.length);
 
-        alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new BeforeLastEventTimeFilter(new Date()))));
-        assertEquals(1, alarms.length);
-    }
-
-    @Test
-    @Transactional
-    public final void testBeforeLastEventTime(){
-        OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new BeforeLastEventTimeFilter(new Date()))));
+        alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                              new BeforeLastEventTimeFilter(
+                                                                                                                            new Date()))));
         assertEquals(1, alarms.length);
     }
 
     @Test
     @Transactional
-    public final void testExactUeiFilter(){
-        OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new ExactUEIFilter("test uei"))));
+    public final void testBeforeLastEventTime() {
+        OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                          new BeforeLastEventTimeFilter(
+                                                                                                                                        new Date()))));
+        assertEquals(1, alarms.length);
+    }
+
+    @Test
+    @Transactional
+    public final void testExactUeiFilter() {
+        OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                          new ExactUEIFilter(
+                                                                                                                             "test uei"))));
         assertEquals(0, alarms.length);
 
-        alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new ExactUEIFilter("uei.opennms.org/test"))));
+        alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                              new ExactUEIFilter(
+                                                                                                                 "uei.opennms.org/test"))));
         assertEquals(1, alarms.length);
     }
 
     @Test
     @Transactional
-    public final void testInterfaceFilter(){
-        OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new InterfaceFilter(addr("192.168.1.1")))));
+    public final void testInterfaceFilter() {
+        OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                          new InterfaceFilter(
+                                                                                                                              addr("192.168.1.1")))));
         assertEquals(1, alarms.length);
     }
 
     @Test
     @Transactional
-    public final void testNegativeAcknowledgeByFilter(){
+    public final void testNegativeAcknowledgeByFilter() {
         AlarmCriteria criteria = new AlarmCriteria(new NegativeAcknowledgedByFilter("non user"));
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
         assertEquals(1, alarms.length);
@@ -149,7 +159,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testIPLikeFilter(){
+    public final void testIPLikeFilter() {
         AlarmCriteria criteria = new AlarmCriteria(new IPAddrLikeFilter("192.168.1.1"));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -159,7 +169,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeInterfaceFilter(){
+    public final void testNegativeInterfaceFilter() {
         AlarmCriteria criteria = new AlarmCriteria(new NegativeInterfaceFilter(addr("192.168.1.101")));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -168,7 +178,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeNodeFilter(){
+    public final void testNegativeNodeFilter() {
         AlarmCriteria criteria = getCriteria(new NegativeNodeFilter(11, m_appContext));
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
         assertEquals(1, alarms.length);
@@ -179,7 +189,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeExactUeiFilter(){
+    public final void testNegativeExactUeiFilter() {
         AlarmCriteria criteria = getCriteria(new NegativeExactUEIFilter("uei.opennms.org/bogus"));
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
         assertEquals(1, alarms.length);
@@ -187,7 +197,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativePartialUEIFilter(){
+    public final void testNegativePartialUEIFilter() {
         AlarmCriteria criteria = getCriteria(new NegativePartialUEIFilter("uei.opennms.org"));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -196,7 +206,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeServiceFilter(){
+    public final void testNegativeServiceFilter() {
         AlarmCriteria criteria = getCriteria(new NegativeServiceFilter(12));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -205,7 +215,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testNegativeSeverityFilter(){
+    public final void testNegativeSeverityFilter() {
         AlarmCriteria criteria = getCriteria(new NegativeSeverityFilter(OnmsSeverity.CRITICAL));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -213,25 +223,24 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
     }
 
     /*
-    @Ignore
+     * @Ignore
+     * @Test
+     * @Transactional
+     * public void testNodeFilter(){
+     * AlarmCriteria criteria = getCriteria(new NodeFilter(1));
+     * OnmsAlarm[] alarms =
+     * m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
+     * assertEquals(1, alarms.length);
+     * criteria = getCriteria(new NodeFilter(100));
+     * alarms =
+     * m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
+     * assertEquals(0, alarms.length);
+     * }
+     */
+
     @Test
     @Transactional
-    public void testNodeFilter(){
-        AlarmCriteria criteria = getCriteria(new NodeFilter(1));
-
-        OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
-        assertEquals(1, alarms.length);
-
-        criteria = getCriteria(new NodeFilter(100));
-
-        alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
-        assertEquals(0, alarms.length);
-    }
-    */
-
-    @Test
-    @Transactional
-    public final void testNodeNameLikeFilter(){
+    public final void testNodeNameLikeFilter() {
         AlarmCriteria criteria = getCriteria(new NodeNameLikeFilter("mr"));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -240,7 +249,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testSeverityBetweenFilter(){
+    public final void testSeverityBetweenFilter() {
         AlarmCriteria criteria = getCriteria(new SeverityBetweenFilter(OnmsSeverity.CLEARED, OnmsSeverity.MAJOR));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -249,7 +258,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testServiceFilter(){
+    public final void testServiceFilter() {
         AlarmCriteria criteria = getCriteria(new ServiceFilter(1));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -258,7 +267,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testAfterFirstEventTime(){
+    public final void testAfterFirstEventTime() {
         AlarmCriteria criteria = getCriteria(new AfterFirstEventTimeFilter(new Date()));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -267,31 +276,33 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public final void testDescriptionSubstringFilter(){
+    public final void testDescriptionSubstringFilter() {
         AlarmCriteria criteria = getCriteria(new DescriptionSubstringFilter("alarm"));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
         assertEquals(1, alarms.length);
 
-        //alarms = m_jdbcWebAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
-        //assertEquals(1, alarms);
+        // alarms =
+        // m_jdbcWebAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
+        // assertEquals(1, alarms);
     }
 
     @Test
     @Transactional
-    public final void testLogMessageSubstringFilter(){
+    public final void testLogMessageSubstringFilter() {
         AlarmCriteria criteria = getCriteria(new LogMessageSubstringFilter("this is a test"));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
         assertEquals(1, alarms.length);
 
-        //alarms = m_jdbcWebAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
-        //assertEquals(1, alarms.length);
+        // alarms =
+        // m_jdbcWebAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
+        // assertEquals(1, alarms.length);
     }
 
     @Test
     @Transactional
-    public final void testLogMessageMatchAnyFilter(){
+    public final void testLogMessageMatchAnyFilter() {
         AlarmCriteria criteria = getCriteria(new LogMessageMatchesAnyFilter("log"));
 
         OnmsAlarm[] alarms = m_daoAlarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(criteria));
@@ -382,7 +393,7 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     }
 
-    private AlarmCriteria getCriteria(final Filter...filters){
+    private AlarmCriteria getCriteria(final Filter... filters) {
         return new AlarmCriteria(filters);
     }
 

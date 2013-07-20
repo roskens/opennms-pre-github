@@ -29,7 +29,9 @@
 package org.opennms.netmgt.provision.support.ssh;
 
 /**
- * <p>InsufficientParametersException class.</p>
+ * <p>
+ * InsufficientParametersException class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:ranger@opennms.org">Ben Reed</a>
@@ -45,9 +47,12 @@ public class InsufficientParametersException extends Exception {
     private static final long serialVersionUID = -8211286874534073471L;
 
     /**
-     * <p>Constructor for InsufficientParametersException.</p>
+     * <p>
+     * Constructor for InsufficientParametersException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public InsufficientParametersException(String message) {
         super(message);

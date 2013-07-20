@@ -47,10 +47,8 @@ import org.slf4j.LoggerFactory;
 /**
  * This class is designed to be used by the service poller framework to test the
  * availability of the DHCP service on remote interfaces as defined by RFC 2131.
- *
  * This class relies on the DHCP API provided by JDHCP v1.1.1 (please refer to
  * <A HREF="http://www.dhcp.org/javadhcp">http://www.dhcp.org/javadhcp </A>).
- *
  * The class implements the ServiceMonitor interface that allows it to be used
  * along with other plug-ins by the service poller framework.
  *
@@ -60,7 +58,7 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 final public class DhcpMonitor extends AbstractServiceMonitor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DhcpMonitor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DhcpMonitor.class);
 
     /**
      * Default retries.
@@ -72,12 +70,10 @@ final public class DhcpMonitor extends AbstractServiceMonitor {
      * for data from the monitored interface.
      */
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on
-                                                        // read()
+                                                     // read()
 
     /**
-     * {@inheritDoc}
-     *
-     * Poll the specified address for DHCP service availability.
+     * {@inheritDoc} Poll the specified address for DHCP service availability.
      */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
@@ -86,7 +82,8 @@ final public class DhcpMonitor extends AbstractServiceMonitor {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
 
         // Process parameters
         //
@@ -100,7 +97,7 @@ final public class DhcpMonitor extends AbstractServiceMonitor {
         //
         InetAddress ipv4Addr = (InetAddress) iface.getAddress();
 
-            LOG.debug("DhcpMonitor.poll: address: {} timeout: {} retry: {}", ipv4Addr, timeout,  retry);
+        LOG.debug("DhcpMonitor.poll: address: {} timeout: {} retry: {}", ipv4Addr, timeout, retry);
 
         PollStatus serviceStatus = PollStatus.unavailable();
         long responseTime = -1;
@@ -111,7 +108,7 @@ final public class DhcpMonitor extends AbstractServiceMonitor {
             //
             responseTime = Dhcpd.isServer(ipv4Addr, (long) timeout, retry);
             if (responseTime >= 0) {
-                serviceStatus = PollStatus.available((double)responseTime);
+                serviceStatus = PollStatus.available((double) responseTime);
             }
         } catch (IOException e) {
             e.fillInStackTrace();

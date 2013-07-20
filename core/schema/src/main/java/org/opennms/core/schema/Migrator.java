@@ -57,28 +57,39 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 
 /**
- * <p>Migrator class.</p>
+ * <p>
+ * Migrator class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Migrator {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Migrator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Migrator.class);
 
     private static final Pattern POSTGRESQL_VERSION_PATTERN = Pattern.compile("^(?:PostgreSQL|EnterpriseDB) (\\d+\\.\\d+)");
+
     public static final float POSTGRES_MIN_VERSION = 7.4f;
+
     public static final float POSTGRES_MAX_VERSION_PLUS_ONE = 9.9f;
 
     private DataSource m_dataSource;
+
     private DataSource m_adminDataSource;
+
     private Float m_databaseVersion;
+
     private boolean m_validateDatabaseVersion = true;
+
     private boolean m_createUser = true;
+
     private boolean m_createDatabase = true;
 
     /**
-     * <p>Constructor for Migrator.</p>
+     * <p>
+     * Constructor for Migrator.
+     * </p>
      */
     public Migrator() {
         initLogging();
@@ -93,7 +104,9 @@ public class Migrator {
     }
 
     /**
-     * <p>getDataSource</p>
+     * <p>
+     * getDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -102,16 +115,21 @@ public class Migrator {
     }
 
     /**
-     * <p>setDataSource</p>
+     * <p>
+     * setDataSource
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public void setDataSource(final DataSource dataSource) {
         m_dataSource = dataSource;
     }
 
     /**
-     * <p>getAdminDataSource</p>
+     * <p>
+     * getAdminDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -120,46 +138,61 @@ public class Migrator {
     }
 
     /**
-     * <p>setAdminDataSource</p>
+     * <p>
+     * setAdminDataSource
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public void setAdminDataSource(final DataSource dataSource) {
         m_adminDataSource = dataSource;
     }
 
     /**
-     * <p>setValidateDatabaseVersion</p>
+     * <p>
+     * setValidateDatabaseVersion
+     * </p>
      *
-     * @param validate a boolean.
+     * @param validate
+     *            a boolean.
      */
     public void setValidateDatabaseVersion(final boolean validate) {
         m_validateDatabaseVersion = validate;
     }
 
     /**
-     * <p>setCreateUser</p>
+     * <p>
+     * setCreateUser
+     * </p>
      *
-     * @param create a boolean.
+     * @param create
+     *            a boolean.
      */
     public void setCreateUser(final boolean create) {
         m_createUser = create;
     }
 
     /**
-     * <p>setCreateDatabase</p>
+     * <p>
+     * setCreateDatabase
+     * </p>
      *
-     * @param create a boolean.
+     * @param create
+     *            a boolean.
      */
     public void setCreateDatabase(final boolean create) {
         m_createDatabase = create;
     }
 
     /**
-     * <p>getDatabaseVersion</p>
+     * <p>
+     * getDatabaseVersion
+     * </p>
      *
      * @return a {@link java.lang.Float} object.
-     * @throws org.opennms.core.schema.MigrationException if any.
+     * @throws org.opennms.core.schema.MigrationException
+     *             if any.
      */
     public Float getDatabaseVersion() throws MigrationException {
         if (m_databaseVersion == null) {
@@ -197,13 +230,16 @@ public class Migrator {
     }
 
     /**
-     * <p>validateDatabaseVersion</p>
+     * <p>
+     * validateDatabaseVersion
+     * </p>
      *
-     * @throws org.opennms.core.schema.MigrationException if any.
+     * @throws org.opennms.core.schema.MigrationException
+     *             if any.
      */
     public void validateDatabaseVersion() throws MigrationException {
         if (!m_validateDatabaseVersion) {
-        	LOG.info("skipping database version validation");
+            LOG.info("skipping database version validation");
             return;
         }
         LOG.info("validating database version");
@@ -213,12 +249,10 @@ public class Migrator {
             throw new MigrationException("unable to determine database version");
         }
 
-        final String message = String.format(
-                                             "Unsupported database version \"%f\" -- you need at least %f and less than %f.  "
+        final String message = String.format("Unsupported database version \"%f\" -- you need at least %f and less than %f.  "
                                                      + "Use the \"-Q\" option to disable this check if you feel brave and are willing "
-                                                     + "to find and fix bugs found yourself.",
-                                                     dbv.floatValue(), POSTGRES_MIN_VERSION, POSTGRES_MAX_VERSION_PLUS_ONE
-                );
+                                                     + "to find and fix bugs found yourself.", dbv.floatValue(),
+                                             POSTGRES_MIN_VERSION, POSTGRES_MAX_VERSION_PLUS_ONE);
 
         if (dbv < POSTGRES_MIN_VERSION || dbv >= POSTGRES_MAX_VERSION_PLUS_ONE) {
             throw new MigrationException(message);
@@ -227,6 +261,7 @@ public class Migrator {
 
     /**
      * Get the expected extension for this platform.
+     *
      * @return
      */
     private String getExtension(final boolean jni) {
@@ -244,37 +279,39 @@ public class Migrator {
     }
 
     /**
-     * <p>createLangPlPgsql</p>
+     * <p>
+     * createLangPlPgsql
+     * </p>
      *
-     * @throws org.opennms.core.schema.MigrationException if any.
+     * @throws org.opennms.core.schema.MigrationException
+     *             if any.
      */
     public void createLangPlPgsql() throws MigrationException {
-    	LOG.info("adding PL/PgSQL support to the database, if necessary");
+        LOG.info("adding PL/PgSQL support to the database, if necessary");
         Statement st = null;
         ResultSet rs = null;
         Connection c = null;
         try {
             c = m_dataSource.getConnection();
             st = c.createStatement();
-            rs = st.executeQuery("SELECT oid FROM pg_proc WHERE " + "proname='plpgsql_call_handler' AND " + "proargtypes = ''");
+            rs = st.executeQuery("SELECT oid FROM pg_proc WHERE " + "proname='plpgsql_call_handler' AND "
+                    + "proargtypes = ''");
             if (rs.next()) {
-            	LOG.info("PL/PgSQL call handler exists");
+                LOG.info("PL/PgSQL call handler exists");
             } else {
-            	LOG.info("adding PL/PgSQL call handler");
-                st.execute("CREATE FUNCTION plpgsql_call_handler () " + "RETURNS OPAQUE AS '$libdir/plpgsql." + getExtension(false) + "' LANGUAGE 'c'");
+                LOG.info("adding PL/PgSQL call handler");
+                st.execute("CREATE FUNCTION plpgsql_call_handler () " + "RETURNS OPAQUE AS '$libdir/plpgsql."
+                        + getExtension(false) + "' LANGUAGE 'c'");
             }
             rs.close();
 
-            rs = st.executeQuery("SELECT pg_language.oid "
-                    + "FROM pg_language, pg_proc WHERE "
-                    + "pg_proc.proname='plpgsql_call_handler' AND "
-                    + "pg_proc.proargtypes = '' AND "
-                    + "pg_proc.oid = pg_language.lanplcallfoid AND "
-                    + "pg_language.lanname = 'plpgsql'");
+            rs = st.executeQuery("SELECT pg_language.oid " + "FROM pg_language, pg_proc WHERE "
+                    + "pg_proc.proname='plpgsql_call_handler' AND " + "pg_proc.proargtypes = '' AND "
+                    + "pg_proc.oid = pg_language.lanplcallfoid AND " + "pg_language.lanname = 'plpgsql'");
             if (rs.next()) {
-            	LOG.info("PL/PgSQL language exists");
+                LOG.info("PL/PgSQL language exists");
             } else {
-            	LOG.info("adding PL/PgSQL language");
+                LOG.info("adding PL/PgSQL language");
                 st.execute("CREATE TRUSTED PROCEDURAL LANGUAGE 'plpgsql' "
                         + "HANDLER plpgsql_call_handler LANCOMPILER 'PL/pgSQL'");
             }
@@ -286,11 +323,15 @@ public class Migrator {
     }
 
     /**
-     * <p>databaseUserExists</p>
+     * <p>
+     * databaseUserExists
+     * </p>
      *
-     * @param migration a {@link org.opennms.core.schema.Migration} object.
+     * @param migration
+     *            a {@link org.opennms.core.schema.Migration} object.
      * @return a boolean.
-     * @throws org.opennms.core.schema.MigrationException if any.
+     * @throws org.opennms.core.schema.MigrationException
+     *             if any.
      */
     public boolean databaseUserExists(final Migration migration) throws MigrationException {
         Statement st = null;
@@ -317,10 +358,14 @@ public class Migrator {
     }
 
     /**
-     * <p>createUser</p>
+     * <p>
+     * createUser
+     * </p>
      *
-     * @param migration a {@link org.opennms.core.schema.Migration} object.
-     * @throws org.opennms.core.schema.MigrationException if any.
+     * @param migration
+     *            a {@link org.opennms.core.schema.Migration} object.
+     * @throws org.opennms.core.schema.MigrationException
+     *             if any.
      */
     public void createUser(final Migration migration) throws MigrationException {
         if (!m_createUser || databaseUserExists(migration)) {
@@ -334,7 +379,8 @@ public class Migrator {
         try {
             c = m_adminDataSource.getConnection();
             st = c.createStatement();
-            st.execute("CREATE USER " + migration.getDatabaseUser() + " WITH PASSWORD '" + migration.getDatabasePassword() + "' CREATEDB CREATEUSER");
+            st.execute("CREATE USER " + migration.getDatabaseUser() + " WITH PASSWORD '"
+                    + migration.getDatabasePassword() + "' CREATEDB CREATEUSER");
         } catch (final SQLException e) {
             throw new MigrationException("an error occurred creating the OpenNMS user", e);
         } finally {
@@ -343,11 +389,15 @@ public class Migrator {
     }
 
     /**
-     * <p>databaseExists</p>
+     * <p>
+     * databaseExists
+     * </p>
      *
-     * @param migration a {@link org.opennms.core.schema.Migration} object.
+     * @param migration
+     *            a {@link org.opennms.core.schema.Migration} object.
      * @return a boolean.
-     * @throws org.opennms.core.schema.MigrationException if any.
+     * @throws org.opennms.core.schema.MigrationException
+     *             if any.
      */
     public boolean databaseExists(final Migration migration) throws MigrationException {
         Statement st = null;
@@ -356,7 +406,8 @@ public class Migrator {
         try {
             c = m_adminDataSource.getConnection();
             st = c.createStatement();
-            rs = st.executeQuery("SELECT datname from pg_database WHERE datname = '" + migration.getDatabaseName() + "'");
+            rs = st.executeQuery("SELECT datname from pg_database WHERE datname = '" + migration.getDatabaseName()
+                    + "'");
             if (rs.next()) {
                 final String datname = rs.getString("datname");
                 if (datname != null && datname.equalsIgnoreCase(migration.getDatabaseName())) {
@@ -380,37 +431,46 @@ public class Migrator {
     }
 
     public boolean schemaExists(final Migration migration) throws MigrationException {
-        /* FIXME: not sure how to ask postgresql for a schema
-        Statement st = null;
-        ResultSet rs = null;
-        Connection c = null;
-        try {
-            c = m_adminDataSource.getConnection();
-            st = c.createStatement();
-            rs = st.executeQuery("SELECT datname from pg_database WHERE datname = '" + migration.getDatabaseName() + "'");
-            if (rs.next()) {
-                final String datname = rs.getString("datname");
-                if (datname != null && datname.equalsIgnoreCase(migration.getDatabaseName())) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            return rs.next();
-        } catch (final SQLException e) {
-            throw new MigrationException("an error occurred determining whether the OpenNMS user exists", e);
-        } finally {
-            cleanUpDatabase(c, st, rs);
-        }
+        /*
+         * FIXME: not sure how to ask postgresql for a schema
+         * Statement st = null;
+         * ResultSet rs = null;
+         * Connection c = null;
+         * try {
+         * c = m_adminDataSource.getConnection();
+         * st = c.createStatement();
+         * rs =
+         * st.executeQuery("SELECT datname from pg_database WHERE datname = '" +
+         * migration.getDatabaseName() + "'");
+         * if (rs.next()) {
+         * final String datname = rs.getString("datname");
+         * if (datname != null &&
+         * datname.equalsIgnoreCase(migration.getDatabaseName())) {
+         * return true;
+         * } else {
+         * return false;
+         * }
+         * }
+         * return rs.next();
+         * } catch (final SQLException e) {
+         * throw new MigrationException(
+         * "an error occurred determining whether the OpenNMS user exists", e);
+         * } finally {
+         * cleanUpDatabase(c, st, rs);
+         * }
          */
         return true;
     }
 
     /**
-     * <p>createDatabase</p>
+     * <p>
+     * createDatabase
+     * </p>
      *
-     * @param migration a {@link org.opennms.core.schema.Migration} object.
-     * @throws org.opennms.core.schema.MigrationException if any.
+     * @param migration
+     *            a {@link org.opennms.core.schema.Migration} object.
+     * @throws org.opennms.core.schema.MigrationException
+     *             if any.
      */
     public void createDatabase(final Migration migration) throws MigrationException {
         if (!m_createDatabase || databaseExists(migration)) {
@@ -418,7 +478,9 @@ public class Migrator {
         }
         LOG.info("creating OpenNMS database, if necessary");
         if (!databaseUserExists(migration)) {
-            throw new MigrationException(String.format("database will not be created: unable to grant access (user %s does not exist)", migration.getDatabaseUser()));
+            throw new MigrationException(
+                                         String.format("database will not be created: unable to grant access (user %s does not exist)",
+                                                       migration.getDatabaseUser()));
         }
 
         Statement st = null;
@@ -428,7 +490,8 @@ public class Migrator {
             c = m_adminDataSource.getConnection();
             st = c.createStatement();
             st.execute("CREATE DATABASE \"" + migration.getDatabaseName() + "\" WITH ENCODING='UNICODE'");
-            st.execute("GRANT ALL ON DATABASE \"" + migration.getDatabaseName() + "\" TO \"" + migration.getDatabaseUser() + "\"");
+            st.execute("GRANT ALL ON DATABASE \"" + migration.getDatabaseName() + "\" TO \""
+                    + migration.getDatabaseUser() + "\"");
         } catch (final SQLException e) {
             throw new MigrationException("an error occurred creating the OpenNMS database", e);
         } finally {
@@ -437,10 +500,14 @@ public class Migrator {
     }
 
     /**
-     * <p>prepareDatabase</p>
+     * <p>
+     * prepareDatabase
+     * </p>
      *
-     * @param migration a {@link org.opennms.core.schema.Migration} object.
-     * @throws org.opennms.core.schema.MigrationException if any.
+     * @param migration
+     *            a {@link org.opennms.core.schema.Migration} object.
+     * @throws org.opennms.core.schema.MigrationException
+     *             if any.
      */
     public void prepareDatabase(final Migration migration) throws MigrationException {
         validateDatabaseVersion();
@@ -451,10 +518,14 @@ public class Migrator {
     }
 
     /**
-     * <p>migrate</p>
+     * <p>
+     * migrate
+     * </p>
      *
-     * @param migration a {@link org.opennms.core.schema.Migration} object.
-     * @throws org.opennms.core.schema.MigrationException if any.
+     * @param migration
+     *            a {@link org.opennms.core.schema.Migration} object.
+     * @throws org.opennms.core.schema.MigrationException
+     *             if any.
      */
     public void migrate(final Migration migration) throws MigrationException {
         Connection connection = null;
@@ -465,7 +536,8 @@ public class Migrator {
             dbConnection = new JdbcConnection(connection);
 
             ResourceAccessor accessor = migration.getAccessor();
-            if (accessor == null) accessor = new SpringResourceAccessor();
+            if (accessor == null)
+                accessor = new SpringResourceAccessor();
 
             final Liquibase liquibase = new Liquibase(migration.getChangeLog(), accessor, dbConnection);
             liquibase.setChangeLogParameter("install.database.admin.user", migration.getAdminUser());
@@ -487,9 +559,12 @@ public class Migrator {
     }
 
     /**
-     * <p>getMigrationResourceLoader</p>
+     * <p>
+     * getMigrationResourceLoader
+     * </p>
      *
-     * @param migration a {@link org.opennms.core.schema.Migration} object.
+     * @param migration
+     *            a {@link org.opennms.core.schema.Migration} object.
      * @return a {@link org.springframework.core.io.ResourceLoader} object.
      */
     protected ResourceLoader getMigrationResourceLoader(final Migration migration) {
@@ -500,7 +575,7 @@ public class Migrator {
                 urls.add(changeLog.getParentFile().toURI().toURL());
             }
         } catch (final MalformedURLException e) {
-		LOG.info("unable to figure out URL for {}", migration.getChangeLog(), e);
+            LOG.info("unable to figure out URL for {}", migration.getChangeLog(), e);
         }
         final ClassLoader cl = new URLClassLoader(urls.toArray(new URL[0]), this.getClass().getClassLoader());
         return new DefaultResourceLoader(cl);
@@ -511,28 +586,28 @@ public class Migrator {
             try {
                 rs.close();
             } catch (final SQLException e) {
-            	LOG.warn("Failed to close result set.", e);
+                LOG.warn("Failed to close result set.", e);
             }
         }
         if (st != null) {
             try {
                 st.close();
             } catch (final SQLException e) {
-            	LOG.warn("Failed to close statement.", e);
+                LOG.warn("Failed to close statement.", e);
             }
         }
         if (dbc != null) {
             try {
                 dbc.close();
             } catch (final DatabaseException e) {
-            	LOG.warn("Failed to close database connection.", e);
+                LOG.warn("Failed to close database connection.", e);
             }
         }
         if (c != null) {
             try {
                 c.close();
             } catch (final SQLException e) {
-            	LOG.warn("Failed to close connection.", e);
+                LOG.warn("Failed to close connection.", e);
             }
         }
     }

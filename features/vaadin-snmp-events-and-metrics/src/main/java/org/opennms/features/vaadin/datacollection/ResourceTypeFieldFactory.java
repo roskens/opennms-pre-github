@@ -41,8 +41,10 @@ import com.vaadin.ui.TextField;
 @SuppressWarnings("serial")
 public final class ResourceTypeFieldFactory implements FormFieldFactory {
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item, java.lang.Object, com.vaadin.ui.Component)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item,
+     * java.lang.Object, com.vaadin.ui.Component)
      */
     @Override
     public Field<?> createField(Item item, Object propertyId, Component uiContext) {

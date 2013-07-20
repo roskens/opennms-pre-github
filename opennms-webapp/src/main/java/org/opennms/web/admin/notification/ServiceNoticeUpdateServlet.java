@@ -61,6 +61,7 @@ public class ServiceNoticeUpdateServlet extends HttpServlet {
      *
      */
     private static final long serialVersionUID = -5205846787997118203L;
+
     private static final String UPDATE_SERVICE = "UPDATE ifservices SET notify = ? WHERE nodeID = ? AND ipaddr = ? AND serviceid = ?";
 
     /** {@inheritDoc} */
@@ -100,7 +101,8 @@ public class ServiceNoticeUpdateServlet extends HttpServlet {
 
     /**
      */
-    private void updateService(int nodeID, String interfaceIP, int serviceID, String notifyFlag) throws ServletException {
+    private void updateService(int nodeID, String interfaceIP, int serviceID, String notifyFlag)
+            throws ServletException {
         Connection connection = null;
 
         final DBUtils d = new DBUtils(getClass());
@@ -122,10 +124,12 @@ public class ServiceNoticeUpdateServlet extends HttpServlet {
             try {
                 connection.rollback();
             } catch (SQLException sqlEx) {
-                throw new ServletException("Couldn't roll back update to service " + serviceID + " on interface " + interfaceIP + " notify as " + notifyFlag + " in the database.", sqlEx);
+                throw new ServletException("Couldn't roll back update to service " + serviceID + " on interface "
+                        + interfaceIP + " notify as " + notifyFlag + " in the database.", sqlEx);
             }
 
-            throw new ServletException("Error when updating to service " + serviceID + " on interface " + interfaceIP + " notify as " + notifyFlag + " in the database.", e);
+            throw new ServletException("Error when updating to service " + serviceID + " on interface " + interfaceIP
+                    + " notify as " + notifyFlag + " in the database.", e);
         } finally {
             d.cleanUp();
         }

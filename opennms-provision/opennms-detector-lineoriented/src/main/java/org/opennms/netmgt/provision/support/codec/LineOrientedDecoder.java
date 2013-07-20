@@ -38,7 +38,9 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 import org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse;
 
 /**
- * <p>LineOrientedDecoder class.</p>
+ * <p>
+ * LineOrientedDecoder class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -48,9 +50,12 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
     private Charset m_charset;
 
     /**
-     * <p>Constructor for LineOrientedDecoder.</p>
+     * <p>
+     * Constructor for LineOrientedDecoder.
+     * </p>
      *
-     * @param charset a {@link java.nio.charset.Charset} object.
+     * @param charset
+     *            a {@link java.nio.charset.Charset} object.
      */
     public LineOrientedDecoder(final Charset charset) {
         setCharset(charset);
@@ -58,7 +63,8 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
 
     /** {@inheritDoc} */
     @Override
-    protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out) throws Exception {
+    protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out)
+            throws Exception {
         // Remember the initial position.
         final int start = in.position();
 
@@ -92,7 +98,7 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
                 // buffer.
                 return true;
 
-                }
+            }
 
             previous = current;
         }
@@ -105,33 +111,41 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
     }
 
     /**
-     * <p>parseCommand</p>
+     * <p>
+     * parseCommand
+     * </p>
      *
-     * @param in a {@link org.apache.mina.core.buffer.IoBuffer} object.
+     * @param in
+     *            a {@link org.apache.mina.core.buffer.IoBuffer} object.
      * @return a {@link java.lang.Object} object.
-     * @throws java.nio.charset.CharacterCodingException if any.
+     * @throws java.nio.charset.CharacterCodingException
+     *             if any.
      */
     protected Object parseCommand(final IoBuffer in) throws CharacterCodingException {
         return new LineOrientedResponse(in.getString(getCharset().newDecoder()));
     }
 
     /**
-     * <p>setCharset</p>
+     * <p>
+     * setCharset
+     * </p>
      *
-     * @param charset a {@link java.nio.charset.Charset} object.
+     * @param charset
+     *            a {@link java.nio.charset.Charset} object.
      */
     public void setCharset(final Charset charset) {
         m_charset = charset;
     }
 
     /**
-     * <p>getCharset</p>
+     * <p>
+     * getCharset
+     * </p>
      *
      * @return a {@link java.nio.charset.Charset} object.
      */
     public Charset getCharset() {
         return m_charset;
     }
-
 
 }

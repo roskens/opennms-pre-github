@@ -32,50 +32,54 @@ import java.net.SocketTimeoutException;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.core.tasks.Callback;
+
 public class MobileMsgCallbackAdapter implements MobileMsgResponseCallback {
-	private final Callback<MobileMsgResponse> cb;
+    private final Callback<MobileMsgResponse> cb;
 
-	/**
-	 * <p>Constructor for MobileMsgCallbackAdapter.</p>
-	 *
-	 * @param cb a {@link org.opennms.core.tasks.Callback} object.
-	 */
-	public MobileMsgCallbackAdapter(Callback<MobileMsgResponse> cb) {
-		this.cb = cb;
-	}
+    /**
+     * <p>
+     * Constructor for MobileMsgCallbackAdapter.
+     * </p>
+     *
+     * @param cb
+     *            a {@link org.opennms.core.tasks.Callback} object.
+     */
+    public MobileMsgCallbackAdapter(Callback<MobileMsgResponse> cb) {
+        this.cb = cb;
+    }
 
-	/**
-	 * <p>Getter for the field <code>cb</code>.</p>
-	 *
-	 * @return a {@link org.opennms.core.tasks.Callback} object.
-	 */
-	public Callback<MobileMsgResponse> getCb() {
-	    return cb;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>cb</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.core.tasks.Callback} object.
+     */
+    public Callback<MobileMsgResponse> getCb() {
+        return cb;
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void handleError(final MobileMsgRequest request, final Throwable t) {
-		getCb().handleException(t);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void handleError(final MobileMsgRequest request, final Throwable t) {
+        getCb().handleException(t);
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public boolean handleResponse(final MobileMsgRequest request, final MobileMsgResponse packet) {
-		getCb().complete(packet);
-		return true;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean handleResponse(final MobileMsgRequest request, final MobileMsgResponse packet) {
+        getCb().complete(packet);
+        return true;
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void handleTimeout(final MobileMsgRequest request) {
-		getCb().handleException(new SocketTimeoutException("timed out processing request " + request));
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void handleTimeout(final MobileMsgRequest request) {
+        getCb().handleException(new SocketTimeoutException("timed out processing request " + request));
+    }
 
-        @Override
-	public String toString() {
-	    return new ToStringBuilder(this)
-	        .append("callback", cb)
-	        .toString();
-	}
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("callback", cb).toString();
+    }
 }

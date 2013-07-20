@@ -51,52 +51,33 @@ import org.opennms.netmgt.config.categories.Catinfo;
 
 public class MockCategoryFactory implements CatFactory {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-	private Catinfo m_config;
+    private Catinfo m_config;
 
-	private static final String CATEGORY_CONFIG =
-		"<catinfo>" +
-	    " <header>" +
-	    "  <rev>1.3</rev>" +
-	    "  <created>Wednesday, February 6, 2002 10:10:00 AM EST</created>" +
-	    "  <mstation>checkers</mstation>" +
-	    " </header>" +
-	    " <categorygroup>" +
-	    "  <name>WebConsole</name>" +
-	    "  <comment>Service Level Availability by Functional Group</comment>" +
-	    "  <common>" +
-	    "   <rule><![CDATA[ipaddr IPLIKE *.*.*.*]]></rule>" +
-	    "  </common>" +
-	    "  <categories>" +
-	    "   <category>" +
-	    "    <label><![CDATA[Network Interfaces]]></label>" +
-	    "    <comment>This is a very simple category</comment>" +
-	    "    <normal>99</normal>" +
-	    "    <warning>97</warning>" +
-	    "    <service>ICMP</service>" +
-	    "    <service>SNMP</service>" +
-	    "    <rule><![CDATA[(isICMP | isSNMP) & (ipaddr != \"0.0.0.0\")]]></rule>" +
-		"   </category>" +
-		" <category>" +
-	    "    <label><![CDATA[Web Servers]]></label>" +
-	    "    <comment>This is a more complex category</comment>" +
-	    "    <normal>99</normal>" +
-	    "    <warning>97</warning>" +
-	    "    <service>HTTP</service>" +
-	    "    <service>HTTPS</service>" +
-	    "    <rule><![CDATA[isHTTP | isHTTPS]]></rule>" +
-		"   </category>" +
-		"  </categories>" +
-		" </categorygroup>" +
-		"</catinfo>";
+    private static final String CATEGORY_CONFIG = "<catinfo>" + " <header>" + "  <rev>1.3</rev>"
+            + "  <created>Wednesday, February 6, 2002 10:10:00 AM EST</created>" + "  <mstation>checkers</mstation>"
+            + " </header>" + " <categorygroup>" + "  <name>WebConsole</name>"
+            + "  <comment>Service Level Availability by Functional Group</comment>" + "  <common>"
+            + "   <rule><![CDATA[ipaddr IPLIKE *.*.*.*]]></rule>" + "  </common>" + "  <categories>" + "   <category>"
+            + "    <label><![CDATA[Network Interfaces]]></label>"
+            + "    <comment>This is a very simple category</comment>" + "    <normal>99</normal>"
+            + "    <warning>97</warning>" + "    <service>ICMP</service>" + "    <service>SNMP</service>"
+            + "    <rule><![CDATA[(isICMP | isSNMP) & (ipaddr != \"0.0.0.0\")]]></rule>" + "   </category>"
+            + " <category>" + "    <label><![CDATA[Web Servers]]></label>"
+            + "    <comment>This is a more complex category</comment>" + "    <normal>99</normal>"
+            + "    <warning>97</warning>" + "    <service>HTTP</service>" + "    <service>HTTPS</service>"
+            + "    <rule><![CDATA[isHTTP | isHTTPS]]></rule>" + "   </category>" + "  </categories>"
+            + " </categorygroup>" + "</catinfo>";
 
-	public MockCategoryFactory() throws MarshalException, ValidationException, IOException {
+    public MockCategoryFactory() throws MarshalException, ValidationException, IOException {
         this(CATEGORY_CONFIG);
     }
 
-	public MockCategoryFactory(String config) throws MarshalException, ValidationException, IOException {
+    public MockCategoryFactory(String config) throws MarshalException, ValidationException, IOException {
         m_config = CastorUtils.unmarshal(Catinfo.class, new ByteArrayInputStream(config.getBytes()));
     }
 
@@ -110,7 +91,7 @@ public class MockCategoryFactory implements CatFactory {
         return m_writeLock;
     }
 
-	 /**
+    /**
      * Return the categories configuration.
      *
      * @return the categories configuration
@@ -121,40 +102,40 @@ public class MockCategoryFactory implements CatFactory {
     }
 
     @Override
-	   public synchronized Category getCategory(final String name) {
-	       for (final Categorygroup cg : m_config.getCategorygroupCollection()) {
-	           for (final Category cat : cg.getCategories().getCategoryCollection()) {
-	                if (cat.getLabel().equals(name)) {
-	                    return cat;
-	                }
-	            }
-	        }
+    public synchronized Category getCategory(final String name) {
+        for (final Categorygroup cg : m_config.getCategorygroupCollection()) {
+            for (final Category cat : cg.getCategories().getCategoryCollection()) {
+                if (cat.getLabel().equals(name)) {
+                    return cat;
+                }
+            }
+        }
 
-	        return null;
-	    }
-
-    @Override
-	   public synchronized String getEffectiveRule(final String catlabel) {
-	       for (final Categorygroup cg : m_config.getCategorygroupCollection()) {
-	           for (final Category cat : cg.getCategories().getCategoryCollection()) {
-	                if (cat.getLabel().equals(catlabel)) {
-	                    return "(" + cg.getCommon().getRule() + ") & (" + cat.getRule() + ")";
-	                }
-	            }
-	        }
-
-	        return null;
-	    }
+        return null;
+    }
 
     @Override
-	public double getNormal(String catlabel) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public synchronized String getEffectiveRule(final String catlabel) {
+        for (final Categorygroup cg : m_config.getCategorygroupCollection()) {
+            for (final Category cat : cg.getCategories().getCategoryCollection()) {
+                if (cat.getLabel().equals(catlabel)) {
+                    return "(" + cg.getCommon().getRule() + ") & (" + cat.getRule() + ")";
+                }
+            }
+        }
+
+        return null;
+    }
 
     @Override
-	public double getWarning(String catlabel) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public double getNormal(String catlabel) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public double getWarning(String catlabel) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

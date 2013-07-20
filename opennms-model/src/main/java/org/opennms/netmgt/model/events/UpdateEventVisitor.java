@@ -38,23 +38,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>UpdateEventVisitor class.</p>
+ * <p>
+ * UpdateEventVisitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class UpdateEventVisitor extends AbstractEntityVisitor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UpdateEventVisitor.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(UpdateEventVisitor.class);
 
     private static final String m_eventSource = "Provisiond";
+
     private EventForwarder m_eventForwarder;
 
     /**
-     * <p>Constructor for UpdateEventVisitor.</p>
+     * <p>
+     * Constructor for UpdateEventVisitor.
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public UpdateEventVisitor(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
@@ -70,19 +76,19 @@ public class UpdateEventVisitor extends AbstractEntityVisitor {
     /** {@inheritDoc} */
     @Override
     public void visitIpInterface(OnmsIpInterface iface) {
-        //TODO decide what to do here and when to do it
+        // TODO decide what to do here and when to do it
     }
 
     /** {@inheritDoc} */
     @Override
     public void visitMonitoredService(OnmsMonitoredService monSvc) {
-        //TODO decide what to do here and when to do it
+        // TODO decide what to do here and when to do it
     }
 
     /** {@inheritDoc} */
     @Override
     public void visitSnmpInterface(org.opennms.netmgt.model.OnmsEntity snmpIface) {
-        //TODO decide what to do here and when to do it
+        // TODO decide what to do here and when to do it
     }
 
     private Event createNodeUpdatedEvent(OnmsNode node) {

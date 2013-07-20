@@ -52,31 +52,40 @@ public class SummaryDashlet extends HorizontalLayout implements Dashlet {
      * The {@link AlarmDao} used
      */
     private AlarmDao m_alarmDao;
+
     /**
      * The {@link DashletSpec} for this instance
      */
     private DashletSpec m_dashletSpec;
+
     /**
      * Timeslot to use
      */
     private long timeslot = 3600;
+
     /**
      * boosted value
      */
     private boolean boosted = false;
+
     /**
      * Trend identifiers
      */
     private static int TREND_NORTH = 4;
+
     private static int TREND_NORTHEAST = 3;
+
     private static int TREND_EAST = 2;
+
     private static int TREND_SOUTHEAST = 1;
+
     private static int TREND_SOUTH = 0;
 
     /**
      * Constructor for instantiating new objects.
      *
-     * @param dashletSpec the {@link DashletSpec} to be used
+     * @param dashletSpec
+     *            the {@link DashletSpec} to be used
      */
     public SummaryDashlet(String name, DashletSpec dashletSpec, AlarmDao alarmDao) {
         /**
@@ -96,9 +105,11 @@ public class SummaryDashlet extends HorizontalLayout implements Dashlet {
     }
 
     /**
-     * Returns a human-readable {@link String} representation of a timestamp in the past.
+     * Returns a human-readable {@link String} representation of a timestamp in
+     * the past.
      *
-     * @param secondsAll the timestamp to be used
+     * @param secondsAll
+     *            the timestamp to be used
      * @return a human-readable representation
      */
     public String getHumanReadableFormat(long secondsAll) {
@@ -146,8 +157,10 @@ public class SummaryDashlet extends HorizontalLayout implements Dashlet {
     /**
      * Computes the trend for acknowledged and not acknowledged alarms
      *
-     * @param ack    number of acknowledged alarms
-     * @param notAck number of unacknowledged alarms
+     * @param ack
+     *            number of acknowledged alarms
+     * @param notAck
+     *            number of unacknowledged alarms
      * @return the trend value
      */
     private int computeTrend(int ack, int notAck) {
@@ -321,7 +334,8 @@ public class SummaryDashlet extends HorizontalLayout implements Dashlet {
 
         verticalLayout.addComponent(getLegend("UEI"));
 
-        String[] ueis = {"uei.opennms.org/nodes/nodeLostService", "uei.opennms.org/nodes/interfaceDown", "uei.opennms.org/nodes/nodeDown"};
+        String[] ueis = { "uei.opennms.org/nodes/nodeLostService", "uei.opennms.org/nodes/interfaceDown",
+                "uei.opennms.org/nodes/nodeDown" };
 
         for (int i = 0; i < ueis.length; i++) {
             String uei = ueis[i];
@@ -459,11 +473,15 @@ public class SummaryDashlet extends HorizontalLayout implements Dashlet {
     }
 
     /**
-     * Searches for alarms with the given criterias and returns the number found.
+     * Searches for alarms with the given criterias and returns the number
+     * found.
      *
-     * @param acknowledged search for acknowledged or unacknowledged alarms
-     * @param age          the age of the alarms
-     * @param onmsSeverity the {@link OnmsSeverity} to search for
+     * @param acknowledged
+     *            search for acknowledged or unacknowledged alarms
+     * @param age
+     *            the age of the alarms
+     * @param onmsSeverity
+     *            the {@link OnmsSeverity} to search for
      * @return number of alarms found
      */
     public int countBySeverity(boolean acknowledged, long age, OnmsSeverity onmsSeverity) {
@@ -483,11 +501,15 @@ public class SummaryDashlet extends HorizontalLayout implements Dashlet {
     }
 
     /**
-     * Searches for alarms with the given criterias and returns the number found.
+     * Searches for alarms with the given criterias and returns the number
+     * found.
      *
-     * @param acknowledged search for acknowledged or unacknowledged alarms
-     * @param age          the age of the alarms
-     * @param uei          search for alarms with the specified uei
+     * @param acknowledged
+     *            search for acknowledged or unacknowledged alarms
+     * @param age
+     *            the age of the alarms
+     * @param uei
+     *            search for alarms with the specified uei
      * @return number of alarms found
      */
     public int countByUei(boolean acknowledged, long age, String uei) {

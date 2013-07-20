@@ -64,32 +64,24 @@ public class SystemDefTest extends XmlTest<SystemDef> {
         lexmark.setCollect(lexmarkCollect);
 
         return Arrays.asList(new Object[][] {
-            {
-                riverbed,
-                "      <systemDef name=\"Riverbed Steelhead WAN Accelerators\">\n" +
-                "        <sysoid>.1.3.6.1.4.1.17163.1.1</sysoid>\n" +
-                "        <collect>\n" +
-                "          <includeGroup>mib2-X-interfaces</includeGroup>\n" +
-                "          <includeGroup>riverbed-steelhead-scalars</includeGroup>\n" +
-                "          <includeGroup>riverbed-steelhead-cpu-stats</includeGroup>\n" +
-                "          <includeGroup>riverbed-steelhead-port-bandwidth</includeGroup>\n" +
-                "        </collect>\n" +
-                "      </systemDef>\n",
-                "target/classes/xsds/datacollection-config.xsd"
-            },
-            {
-                lexmark,
-                "      <systemDef name=\"Lexmark / Dell Printers\">\n" +
-                "        <sysoidMask>.1.3.6.1.4.1.641.</sysoidMask>\n" +
-                "        <collect>\n" +
-                "          <includeGroup>printer-usage</includeGroup>\n" +
-                "          <includeGroup>printer-mib-supplies</includeGroup>\n" +
-                "        </collect>\n" +
-                "      </systemDef>\n",
-                "target/classes/xsds/datacollection-config.xsd"
-            }
-        });
+                {
+                        riverbed,
+                        "      <systemDef name=\"Riverbed Steelhead WAN Accelerators\">\n"
+                                + "        <sysoid>.1.3.6.1.4.1.17163.1.1</sysoid>\n" + "        <collect>\n"
+                                + "          <includeGroup>mib2-X-interfaces</includeGroup>\n"
+                                + "          <includeGroup>riverbed-steelhead-scalars</includeGroup>\n"
+                                + "          <includeGroup>riverbed-steelhead-cpu-stats</includeGroup>\n"
+                                + "          <includeGroup>riverbed-steelhead-port-bandwidth</includeGroup>\n"
+                                + "        </collect>\n" + "      </systemDef>\n",
+                        "target/classes/xsds/datacollection-config.xsd" },
+                {
+                        lexmark,
+                        "      <systemDef name=\"Lexmark / Dell Printers\">\n"
+                                + "        <sysoidMask>.1.3.6.1.4.1.641.</sysoidMask>\n" + "        <collect>\n"
+                                + "          <includeGroup>printer-usage</includeGroup>\n"
+                                + "          <includeGroup>printer-mib-supplies</includeGroup>\n"
+                                + "        </collect>\n" + "      </systemDef>\n",
+                        "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

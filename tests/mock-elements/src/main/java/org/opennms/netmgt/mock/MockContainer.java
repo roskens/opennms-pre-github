@@ -42,19 +42,22 @@ import org.opennms.netmgt.model.PollStatus;
  * </ul>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
-abstract public class MockContainer<P extends MockContainer<?,?>, C extends MockElement> extends MockElement {
+abstract public class MockContainer<P extends MockContainer<?, ?>, C extends MockElement> extends MockElement {
 
     private volatile Map<Object, C> m_members = new HashMap<Object, C>();
 
     /**
-     * <p>Constructor for MockContainer.</p>
+     * <p>
+     * Constructor for MockContainer.
+     * </p>
      *
-     * @param parent a P object.
+     * @param parent
+     *            a P object.
      */
     protected MockContainer(P parent) {
         super(parent);
@@ -75,9 +78,12 @@ abstract public class MockContainer<P extends MockContainer<?,?>, C extends Mock
 
     // model
     /**
-     * <p>addMember</p>
+     * <p>
+     * addMember
+     * </p>
      *
-     * @param element a C object.
+     * @param element
+     *            a C object.
      * @return a C object.
      */
     protected C addMember(C element) {
@@ -88,9 +94,12 @@ abstract public class MockContainer<P extends MockContainer<?,?>, C extends Mock
 
     // model
     /**
-     * <p>getMember</p>
+     * <p>
+     * getMember
+     * </p>
      *
-     * @param key a {@link java.lang.Object} object.
+     * @param key
+     *            a {@link java.lang.Object} object.
      * @return a {@link org.opennms.netmgt.mock.MockElement} object.
      */
     protected MockElement getMember(Object key) {
@@ -99,7 +108,9 @@ abstract public class MockContainer<P extends MockContainer<?,?>, C extends Mock
 
     // model
     /**
-     * <p>getMembers</p>
+     * <p>
+     * getMembers
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -109,7 +120,9 @@ abstract public class MockContainer<P extends MockContainer<?,?>, C extends Mock
 
     // stats
     /**
-     * <p>getPollCount</p>
+     * <p>
+     * getPollCount
+     * </p>
      *
      * @return a int.
      */
@@ -135,7 +148,9 @@ abstract public class MockContainer<P extends MockContainer<?,?>, C extends Mock
 
     // FIXME: where should this live?
     /**
-     * <p>getPollStatus</p>
+     * <p>
+     * getPollStatus
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -164,9 +179,12 @@ abstract public class MockContainer<P extends MockContainer<?,?>, C extends Mock
 
     // model
     /**
-     * <p>removeMember</p>
+     * <p>
+     * removeMember
+     * </p>
      *
-     * @param element a {@link org.opennms.netmgt.mock.MockElement} object.
+     * @param element
+     *            a {@link org.opennms.netmgt.mock.MockElement} object.
      */
     protected void removeMember(MockElement element) {
         m_members.remove(element.getKey());
@@ -175,7 +193,9 @@ abstract public class MockContainer<P extends MockContainer<?,?>, C extends Mock
 
     // stats
     /**
-     * <p>resetPollCount</p>
+     * <p>
+     * resetPollCount
+     * </p>
      */
     @Override
     public void resetPollCount() {
@@ -200,9 +220,12 @@ abstract public class MockContainer<P extends MockContainer<?,?>, C extends Mock
 
     // impl
     /**
-     * <p>visitMembers</p>
+     * <p>
+     * visitMembers
+     * </p>
      *
-     * @param v a {@link org.opennms.netmgt.mock.MockVisitor} object.
+     * @param v
+     *            a {@link org.opennms.netmgt.mock.MockVisitor} object.
      */
     protected void visitMembers(MockVisitor v) {
         for (MockElement element : m_members.values()) {

@@ -22,41 +22,36 @@ import java.util.Enumeration;
 import java.util.Collections;
 import java.util.Map;
 
-public final class ServletConfigImpl
-    implements ServletConfig
-{
+public final class ServletConfigImpl implements ServletConfig {
     private final String name;
+
     private final ServletContext context;
+
     private final Map<String, String> initParams;
 
-    public ServletConfigImpl(String name, ServletContext context, Map<String, String> initParams)
-    {
+    public ServletConfigImpl(String name, ServletContext context, Map<String, String> initParams) {
         this.name = name;
         this.context = context;
         this.initParams = initParams;
     }
 
     @Override
-    public String getServletName()
-    {
+    public String getServletName() {
         return this.name;
     }
 
     @Override
-    public ServletContext getServletContext()
-    {
+    public ServletContext getServletContext() {
         return this.context;
     }
 
     @Override
-    public String getInitParameter(String name)
-    {
+    public String getInitParameter(String name) {
         return this.initParams.get(name);
     }
 
     @Override
-    public Enumeration<String> getInitParameterNames()
-    {
+    public Enumeration<String> getInitParameterNames() {
         return Collections.enumeration(this.initParams.keySet());
     }
 }

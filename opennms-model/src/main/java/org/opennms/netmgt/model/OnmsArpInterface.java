@@ -52,25 +52,28 @@ import org.springframework.core.style.ToStringCreator;
 
 @XmlRootElement(name = "arpInterface")
 @Entity
-@Table(name="atInterface")
+@Table(name = "atInterface")
 public class OnmsArpInterface extends OnmsEntity implements Serializable {
 
     @Embeddable
     public static class StatusType implements Comparable<StatusType>, Serializable {
         private static final long serialVersionUID = -4784344871599250528L;
-        private static final char[] s_order = {'A', 'N', 'D', 'U', 'B', 'G' };
+
+        private static final char[] s_order = { 'A', 'N', 'D', 'U', 'B', 'G' };
+
         private char m_statusType;
 
         private static final Map<Character, String> statusMap = new HashMap<Character, String>();
 
         static {
-            statusMap.put( 'A', "Active" );
-            statusMap.put( 'U', "Unknown" );
-            statusMap.put( 'D', "Deleted" );
-            statusMap.put( 'N', "Not Active" );
-            statusMap.put( 'B', "Bad" );
-            statusMap.put( 'G', "Good" );
+            statusMap.put('A', "Active");
+            statusMap.put('U', "Unknown");
+            statusMap.put('D', "Deleted");
+            statusMap.put('N', "Not Active");
+            statusMap.put('B', "Bad");
+            statusMap.put('G', "Good");
         }
+
         @SuppressWarnings("unused")
         private StatusType() {
         }
@@ -79,7 +82,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
             m_statusType = statusType;
         }
 
-        @Column(name="status")
+        @Column(name = "status")
         public char getCharCode() {
             return m_statusType;
         }
@@ -99,13 +102,13 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
                     return i;
                 }
             }
-            throw new IllegalArgumentException("illegal statusType code '"+code+"'");
+            throw new IllegalArgumentException("illegal statusType code '" + code + "'");
         }
 
         @Override
         public boolean equals(Object o) {
             if (o instanceof StatusType) {
-                return m_statusType == ((StatusType)o).m_statusType;
+                return m_statusType == ((StatusType) o).m_statusType;
             }
             return false;
         }
@@ -122,19 +125,27 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
 
         public static StatusType get(char code) {
             switch (code) {
-            case 'A': return ACTIVE;
-            case 'N': return INACTIVE;
-            case 'D': return DELETED;
-            case 'U': return UNKNOWN;
-            case 'B': return BAD;
-            case 'G': return GOOD;
+            case 'A':
+                return ACTIVE;
+            case 'N':
+                return INACTIVE;
+            case 'D':
+                return DELETED;
+            case 'U':
+                return UNKNOWN;
+            case 'B':
+                return BAD;
+            case 'G':
+                return GOOD;
             default:
-                throw new IllegalArgumentException("Cannot create statusType from code "+code);
+                throw new IllegalArgumentException("Cannot create statusType from code " + code);
             }
         }
 
         /**
-         * <p>getStatusString</p>
+         * <p>
+         * getStatusString
+         * </p>
          *
          * @return a {@link java.lang.String} object.
          */
@@ -142,7 +153,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
          */
         public static String getStatusString(char code) {
             if (statusMap.containsKey(code))
-                    return statusMap.get( code);
+                return statusMap.get(code);
             return null;
         }
 
@@ -153,18 +164,22 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
             if (code.length() < 1)
                 return UNKNOWN;
             else if (code.length() > 1)
-                throw new IllegalArgumentException("Cannot convert string "+code+" to a StatusType");
+                throw new IllegalArgumentException("Cannot convert string " + code + " to a StatusType");
             else
                 return get(code.charAt(0));
         }
 
         public static StatusType ACTIVE = new StatusType('A');
-        public static StatusType INACTIVE = new StatusType('N');
-        public static StatusType DELETED = new StatusType('D');
-        public static StatusType UNKNOWN = new StatusType('U');
-        public static StatusType BAD = new StatusType('B');
-        public static StatusType GOOD = new StatusType('G');
 
+        public static StatusType INACTIVE = new StatusType('N');
+
+        public static StatusType DELETED = new StatusType('D');
+
+        public static StatusType UNKNOWN = new StatusType('U');
+
+        public static StatusType BAD = new StatusType('B');
+
+        public static StatusType GOOD = new StatusType('G');
 
     }
 
@@ -187,16 +202,22 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
     private Date m_lastPoll;
 
     /**
-     * <p>Constructor for OnmsArpInterface.</p>
+     * <p>
+     * Constructor for OnmsArpInterface.
+     * </p>
      */
     public OnmsArpInterface() {
     }
 
     /**
      * minimal constructor
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param physAddr a {@link java.lang.String} object.
+     *
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param physAddr
+     *            a {@link java.lang.String} object.
      */
     public OnmsArpInterface(OnmsNode sourceNode, OnmsNode node, String ipAddr, String physAddr) {
         m_ipAddress = ipAddr;
@@ -217,186 +238,224 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(nullable=false)
+    @Column(nullable = false)
     @XmlTransient
-    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     @XmlTransient
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="nodeId", nullable=false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "nodeId", nullable = false)
     public OnmsNode getNode() {
         return m_node;
     }
 
     /**
-     * <p>setNode</p>
+     * <p>
+     * setNode
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void setNode(OnmsNode node) {
         m_node = node;
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="ipAddr", nullable=false)
+    @Column(name = "ipAddr", nullable = false)
     public String getIpAddress() {
         return m_ipAddress;
     }
 
     /**
-     * <p>setIpAddress</p>
+     * <p>
+     * setIpAddress
+     * </p>
      *
-     * @param ipaddr a {@link java.lang.String} object.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddress(String ipaddr) {
         m_ipAddress = ipaddr;
     }
 
     /**
-     * <p>getPhysAddr</p>
+     * <p>
+     * getPhysAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="atPhysAddr", length=32, nullable=false)
+    @Column(name = "atPhysAddr", length = 32, nullable = false)
     public String getPhysAddr() {
         return m_physAddr;
     }
 
     /**
-     * <p>setPhysAddr</p>
+     * <p>
+     * setPhysAddr
+     * </p>
      *
-     * @param physAddr a {@link java.lang.String} object.
+     * @param physAddr
+     *            a {@link java.lang.String} object.
      */
     public void setPhysAddr(String physAddr) {
         m_physAddr = physAddr;
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.model.OnmsArpInterface.StatusType} object.
+     * @return a {@link org.opennms.netmgt.model.OnmsArpInterface.StatusType}
+     *         object.
      */
-    @Column(name="status", length=1, nullable=false)
+    @Column(name = "status", length = 1, nullable = false)
     public StatusType getStatus() {
         return m_status;
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param status a {@link org.opennms.netmgt.model.OnmsArpInterface.StatusType} object.
+     * @param status
+     *            a {@link org.opennms.netmgt.model.OnmsArpInterface.StatusType}
+     *            object.
      */
     public void setStatus(StatusType status) {
         m_status = status;
     }
 
     /**
-     * <p>getSourceNode</p>
+     * <p>
+     * getSourceNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     @XmlTransient
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="sourceNodeId", nullable=false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "sourceNodeId", nullable = false)
     public OnmsNode getSourceNode() {
         return m_sourceNode;
     }
 
     /**
-     * <p>setSourceNode</p>
+     * <p>
+     * setSourceNode
+     * </p>
      *
-     * @param sourceNode a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param sourceNode
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void setSourceNode(OnmsNode sourceNode) {
         m_sourceNode = sourceNode;
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @Column(name="ifIndex", nullable=false)
+    @Column(name = "ifIndex", nullable = false)
     public Integer getIfIndex() {
         return m_ifIndex;
     }
 
     /**
-     * <p>setIfIndex</p>
+     * <p>
+     * setIfIndex
+     * </p>
      *
-     * @param ifIndex a {@link java.lang.Integer} object.
+     * @param ifIndex
+     *            a {@link java.lang.Integer} object.
      */
     public void setIfIndex(Integer ifIndex) {
         m_ifIndex = ifIndex;
     }
 
-
     /**
-     * <p>getLastPoll</p>
+     * <p>
+     * getLastPoll
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="lastPollTime", nullable=false)
+    @Column(name = "lastPollTime", nullable = false)
     public Date getLastPoll() {
         return m_lastPoll;
     }
 
     /**
-     * <p>setLastPoll</p>
+     * <p>
+     * setLastPoll
+     * </p>
      *
-     * @param lastPoll a {@link java.util.Date} object.
+     * @param lastPoll
+     *            a {@link java.util.Date} object.
      */
     public void setLastPoll(Date lastPoll) {
         m_lastPoll = lastPoll;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-        .append("ipaddr", getIpAddress())
-        .append("physaddr", getPhysAddr())
-        .append("status", getStatus())
-        .append("sourcenode", getSourceNode())
-        .append("ifindex", getIfIndex())
-        .append("lastpoll", getLastPoll())
-        .toString();
+        return new ToStringCreator(this).append("ipaddr", getIpAddress()).append("physaddr", getPhysAddr()).append("status",
+                                                                                                                   getStatus()).append("sourcenode",
+                                                                                                                                       getSourceNode()).append("ifindex",
+                                                                                                                                                               getIfIndex()).append("lastpoll",
+                                                                                                                                                                                    getLastPoll()).toString();
     }
 
     @Override
     public void visit(EntityVisitor visitor) {
         // Do nothing??
         /*
-        visitor.visitArpInterface(this);
-        visitor.visitArpInterfaceComplete(this);
-        */
+         * visitor.visitArpInterface(this);
+         * visitor.visitArpInterfaceComplete(this);
+         */
     }
 
 }

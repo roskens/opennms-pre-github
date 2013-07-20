@@ -11,20 +11,20 @@ public class SVGLength extends JavaScriptObject {
     }
 
     public final native int getUnitType() /*-{
-        return this.unitType;
-    }-*/;
+                                          return this.unitType;
+                                          }-*/;
 
     public final native int getValueInSpecifiedUnits() /*-{
-        return this.valueInSpecifiedUnits;
-    }-*/;
+                                                       return this.valueInSpecifiedUnits;
+                                                       }-*/;
 
     public final native void setNewValueSpecifiedUnits(int unitType, int valueInSpecifiedUnits) /*-{
-        this.newValueSpecifiedUnits(unitType, valueInSpecifiedUnits);
-    }-*/;
+                                                                                                this.newValueSpecifiedUnits(unitType, valueInSpecifiedUnits);
+                                                                                                }-*/;
 
     public final native void convertToSpecifiedUnits(int unitType) /*-{
-        $wnd.console.log("calling: " + convertToSpecifiedUnits + " with type: " + unitType);
-        this.convertToSpecifiedUnits(unitType);
-    }-*/;
+                                                                   $wnd.console.log("calling: " + convertToSpecifiedUnits + " with type: " + unitType);
+                                                                   this.convertToSpecifiedUnits(unitType);
+                                                                   }-*/;
 
 }

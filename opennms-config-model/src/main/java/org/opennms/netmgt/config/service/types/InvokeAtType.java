@@ -58,8 +58,7 @@ public class InvokeAtType implements java.io.Serializable {
     /**
      * The instance of the start type
      */
-    public static final InvokeAtType START = new InvokeAtType(START_TYPE,
-                                                              "start");
+    public static final InvokeAtType START = new InvokeAtType(START_TYPE, "start");
 
     /**
      * The stop type
@@ -69,8 +68,7 @@ public class InvokeAtType implements java.io.Serializable {
     /**
      * The instance of the stop type
      */
-    public static final InvokeAtType STOP = new InvokeAtType(STOP_TYPE,
-                                                             "stop");
+    public static final InvokeAtType STOP = new InvokeAtType(STOP_TYPE, "stop");
 
     /**
      * The status type
@@ -80,8 +78,7 @@ public class InvokeAtType implements java.io.Serializable {
     /**
      * The instance of the status type
      */
-    public static final InvokeAtType STATUS = new InvokeAtType(STATUS_TYPE,
-                                                               "status");
+    public static final InvokeAtType STATUS = new InvokeAtType(STATUS_TYPE, "status");
 
     /**
      * Field _memberTable.

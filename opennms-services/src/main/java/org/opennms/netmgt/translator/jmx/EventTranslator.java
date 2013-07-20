@@ -44,7 +44,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>EventTranslator class.</p>
+ * <p>
+ * EventTranslator class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -53,10 +55,12 @@ import org.slf4j.LoggerFactory;
  */
 public class EventTranslator extends AbstractServiceDaemon implements EventTranslatorMBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EventTranslator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EventTranslator.class);
 
     /**
-     * <p>Constructor for EventTranslator.</p>
+     * <p>
+     * Constructor for EventTranslator.
+     * </p>
      */
     public EventTranslator() {
         super(NAME);
@@ -65,7 +69,9 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
     public final static String NAME = "event-translator";
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -77,19 +83,19 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
             LOG.error("Could not unmarshall configuration", e);
             throw new UndeclaredThrowableException(e);
         } catch (ValidationException e) {
-        	LOG.error("validation error ", e);
+            LOG.error("validation error ", e);
             throw new UndeclaredThrowableException(e);
         } catch (IOException e) {
-        	LOG.error("IOException: ", e);
+            LOG.error("IOException: ", e);
             throw new UndeclaredThrowableException(e);
         } catch (ClassNotFoundException e) {
-		LOG.error("Unable to initialize database", e);
+            LOG.error("Unable to initialize database", e);
             throw new UndeclaredThrowableException(e);
         } catch (SQLException e) {
-        	LOG.error("SQLException: ", e);
+            LOG.error("SQLException: ", e);
             throw new UndeclaredThrowableException(e);
         } catch (PropertyVetoException e) {
-        	LOG.error("PropertyVetoException: ", e);
+            LOG.error("PropertyVetoException: ", e);
             throw new UndeclaredThrowableException(e);
         }
 
@@ -104,7 +110,9 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -112,7 +120,9 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -120,7 +130,9 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */

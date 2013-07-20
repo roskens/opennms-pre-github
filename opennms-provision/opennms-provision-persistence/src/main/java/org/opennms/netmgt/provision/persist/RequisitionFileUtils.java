@@ -57,7 +57,7 @@ public class RequisitionFileUtils {
 
     static File encodeFileName(final String path, final String foreignSourceName) {
         return new File(path, foreignSourceName + ".xml");
-  }
+    }
 
     static ForeignSource getForeignSourceFromFile(final File inputFile) throws ForeignSourceRepositoryException {
         return JaxbUtils.unmarshal(ForeignSource.class, inputFile);
@@ -83,7 +83,8 @@ public class RequisitionFileUtils {
         return encodeFileName(path, requisition.getForeignSource());
     }
 
-    public static File createSnapshot(final ForeignSourceRepository repository, final String foreignSource, final Date date) {
+    public static File createSnapshot(final ForeignSourceRepository repository, final String foreignSource,
+            final Date date) {
         final URL url = repository.getRequisitionURL(foreignSource);
         if (url == null) {
             LOG.warn("Unable to get requisition URL for foreign source {}", foreignSource);
@@ -121,7 +122,8 @@ public class RequisitionFileUtils {
         try {
             url = repository.getRequisitionURL(foreignSource);
         } catch (final ForeignSourceRepositoryException e) {
-            LOG.debug("Can't find snapshots for {}, an exception occurred getting the requisition URL!", foreignSource, e);
+            LOG.debug("Can't find snapshots for {}, an exception occurred getting the requisition URL!", foreignSource,
+                      e);
         }
 
         if (url != null) {
@@ -146,7 +148,8 @@ public class RequisitionFileUtils {
 
     public static void deleteResourceIfSnapshot(final Requisition requisition) {
         final Resource resource = requisition.getResource();
-        if (resource == null) return;
+        if (resource == null)
+            return;
 
         try {
             final File resourceFile = resource.getFile();
@@ -162,7 +165,7 @@ public class RequisitionFileUtils {
 
     }
 
-    public static void deleteAllSnapshots(final  ForeignSourceRepository repository) {
+    public static void deleteAllSnapshots(final ForeignSourceRepository repository) {
         for (final String foreignSource : repository.getActiveForeignSourceNames()) {
             final List<File> snapshots = findSnapshots(repository, foreignSource);
             for (final File snapshot : snapshots) {

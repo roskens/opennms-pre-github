@@ -70,7 +70,7 @@ public class ControllerTest {
 
         final StringBuffer exceptionBuffer = new StringBuffer();
 
-        UncaughtExceptionHandler handler  = new UncaughtExceptionHandler() {
+        UncaughtExceptionHandler handler = new UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread thread, Throwable t) {
                 exceptionBuffer.append(t.toString());
@@ -97,15 +97,19 @@ public class ControllerTest {
         acceptThread.start();
 
         acceptThread.join(1000);
-        assertFalse("the accept thread should have stopped because it should have received a connection", acceptThread.isAlive());
+        assertFalse("the accept thread should have stopped because it should have received a connection",
+                    acceptThread.isAlive());
 
         clientThread.join(c.getHttpRequestReadTimeout() * 2);
-        assertFalse("the client thread should have stopped within " + c.getHttpRequestReadTimeout() + " because it should have timed out its connection", clientThread.isAlive());
+        assertFalse("the client thread should have stopped within " + c.getHttpRequestReadTimeout()
+                + " because it should have timed out its connection", clientThread.isAlive());
 
         assertEquals("exception buffer is non-empty: " + exceptionBuffer.toString(), 0, exceptionBuffer.length());
 
-//        assertEquals("there should be exactly one logged message", 1, MockLogAppender.getEvents().length);
-//        assertEquals("the first log message should be an error", Level.ERROR, MockLogAppender.getEvents()[0].getLevel());
+        // assertEquals("there should be exactly one logged message", 1,
+        // MockLogAppender.getEvents().length);
+        // assertEquals("the first log message should be an error", Level.ERROR,
+        // MockLogAppender.getEvents()[0].getLevel());
 
         MockLogAppender.resetEvents();
     }

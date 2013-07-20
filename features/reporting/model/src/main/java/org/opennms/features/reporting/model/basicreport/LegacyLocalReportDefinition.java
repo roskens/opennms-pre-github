@@ -81,8 +81,11 @@ public class LegacyLocalReportDefinition implements BasicReportDefinition {
      */
     private boolean m_allowAccess;
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.BasicReportDefinition#getDescription()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.BasicReportDefinition#getDescription
+     * ()
      */
     @Override
     @XmlAttribute(name = "description")
@@ -90,8 +93,11 @@ public class LegacyLocalReportDefinition implements BasicReportDefinition {
         return this.m_description;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.BasicReportDefinition#getDisplayName()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.BasicReportDefinition#getDisplayName
+     * ()
      */
     @Override
     @XmlAttribute(name = "display-name")
@@ -99,7 +105,8 @@ public class LegacyLocalReportDefinition implements BasicReportDefinition {
         return this.m_displayName;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.features.reporting.model.BasicReportDefinition#getId()
      */
     @Override
@@ -108,8 +115,10 @@ public class LegacyLocalReportDefinition implements BasicReportDefinition {
         return this.m_id;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.BasicReportDefinition#getOnline()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.BasicReportDefinition#getOnline()
      */
     @Override
     @XmlAttribute(name = "online")
@@ -117,8 +126,11 @@ public class LegacyLocalReportDefinition implements BasicReportDefinition {
         return this.m_online;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.BasicReportDefinition#getReportService()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.BasicReportDefinition#getReportService
+     * ()
      */
     @Override
     @XmlAttribute(name = "report-service")
@@ -126,32 +138,44 @@ public class LegacyLocalReportDefinition implements BasicReportDefinition {
         return this.m_reportService;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.BasicReportDefinition#setId(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.BasicReportDefinition#setId(java
+     * .lang.String)
      */
     @Override
     public void setId(String id) {
         this.m_id = id;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.BasicReportDefinition#setDisplayName(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.BasicReportDefinition#setDisplayName
+     * (java.lang.String)
      */
     @Override
     public void setDisplayName(String displayName) {
         this.m_displayName = displayName;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.BasicReportDefinition#setReportService(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.BasicReportDefinition#setReportService
+     * (java.lang.String)
      */
     @Override
     public void setReportService(String reportService) {
         this.m_reportService = reportService;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.BasicReportDefinition#setDescription(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.BasicReportDefinition#setDescription
+     * (java.lang.String)
      */
     @Override
     public void setDescription(String description) {

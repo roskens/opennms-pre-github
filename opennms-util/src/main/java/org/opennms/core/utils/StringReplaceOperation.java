@@ -31,33 +31,42 @@ package org.opennms.core.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
- * <p>Abstract StringReplaceOperation class.</p>
+ * <p>
+ * Abstract StringReplaceOperation class.
+ * </p>
  */
 public abstract class StringReplaceOperation {
     protected String m_pattern;
+
     protected String m_replacement;
 
     /**
-     * <p>Constructor for StringReplaceOperation.</p>
+     * <p>
+     * Constructor for StringReplaceOperation.
+     * </p>
      *
-     * @param spec a {@link java.lang.String} object.
+     * @param spec
+     *            a {@link java.lang.String} object.
      */
     public StringReplaceOperation(String spec) {
-        if (spec == null) spec = "";
+        if (spec == null)
+            spec = "";
         Matcher specMatcher = Pattern.compile("^s/([^/]+)/([^/]*)/$").matcher(spec);
         if (specMatcher.matches()) {
             // Intern these strings to save RAM
             m_pattern = specMatcher.group(1).intern();
             m_replacement = specMatcher.group(2).intern();
         } else {
-            throw new IllegalArgumentException("Specification '" + spec + "' is invalid; must be of the form s/pattern/replacement/ with no trailing modifiers");
+            throw new IllegalArgumentException("Specification '" + spec
+                    + "' is invalid; must be of the form s/pattern/replacement/ with no trailing modifiers");
         }
     }
 
     /**
-     * <p>getPattern</p>
+     * <p>
+     * getPattern
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -66,7 +75,9 @@ public abstract class StringReplaceOperation {
     }
 
     /**
-     * <p>getReplacement</p>
+     * <p>
+     * getReplacement
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,7 +86,9 @@ public abstract class StringReplaceOperation {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,9 +98,12 @@ public abstract class StringReplaceOperation {
     }
 
     /**
-     * <p>replace</p>
+     * <p>
+     * replace
+     * </p>
      *
-     * @param input a {@link java.lang.String} object.
+     * @param input
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public abstract String replace(String input);

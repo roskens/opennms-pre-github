@@ -73,7 +73,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <p>OpenLayersMapPanel class.</p>
+ * <p>
+ * OpenLayersMapPanel class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -104,17 +106,22 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
 
     }
 
-    interface OpenLayersMapPanelUiBinder extends UiBinder<Widget, OpenLayersMapPanel> {}
+    interface OpenLayersMapPanelUiBinder extends UiBinder<Widget, OpenLayersMapPanel> {
+    }
+
     private static OpenLayersMapPanelUiBinder uiBinder = GWT.create(OpenLayersMapPanelUiBinder.class);
 
     @UiField
     SimplePanel m_mapHolder;
 
     private MapWidget m_mapWidget;
+
     private org.gwtopenmaps.openlayers.client.Map m_map;
+
     private Markers m_markersLayer;
 
     private Map<String, Marker> m_markers = new HashMap<String, Marker>();
+
     private HandlerManager m_eventBus;
 
     private static final Projection PROJECTION_SPHERICAL_MERCATOR = new Projection("EPSG:900913");
@@ -122,9 +129,12 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
     private static final Projection PROJECTION_LAT_LON = new Projection("EPSG:4326");
 
     /**
-     * <p>Constructor for OpenLayersMapPanel.</p>
+     * <p>
+     * Constructor for OpenLayersMapPanel.
+     * </p>
      *
-     * @param eventBus a {@link com.google.gwt.event.shared.HandlerManager} object.
+     * @param eventBus
+     *            a {@link com.google.gwt.event.shared.HandlerManager} object.
      */
     public OpenLayersMapPanel(final HandlerManager eventBus) {
         m_eventBus = eventBus;
@@ -147,8 +157,6 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
         });
     }
 
-
-
     /** {@inheritDoc} */
     @Override
     protected void onLoad() {
@@ -157,13 +165,15 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
     }
 
     /**
-     * <p>initializeMap</p>
+     * <p>
+     * initializeMap
+     * </p>
      */
     private void initializeMap() {
         final MapOptions mo = new MapOptions();
         mo.setProjection(PROJECTION_SPHERICAL_MERCATOR.getProjectionCode());
         mo.setDisplayProjection(PROJECTION_LAT_LON);
-        mo.setMaxExtent(new Bounds(-180, -90, 180, 90).transform(PROJECTION_LAT_LON,PROJECTION_SPHERICAL_MERCATOR));
+        mo.setMaxExtent(new Bounds(-180, -90, 180, 90).transform(PROJECTION_LAT_LON, PROJECTION_SPHERICAL_MERCATOR));
         m_mapWidget = new MapWidget("100%", "100%", mo);
         m_mapHolder.add(m_mapWidget);
 
@@ -188,9 +198,9 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
         m_map.addLayer(m_markersLayer);
 
         /*
-        final LayerSwitcher switcher = new LayerSwitcher();
-        m_map.addControl(switcher);
-        */
+         * final LayerSwitcher switcher = new LayerSwitcher();
+         * m_map.addControl(switcher);
+         */
 
         m_map.zoomToMaxExtent();
 
@@ -203,11 +213,11 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
     }
 
     private static native void initializeImageError() /*-{
-        $wnd.OpenLayers.Util.onImageLoadError = function() {
-            this.style.display = "";
-            this.src = "images/nodata.png";
-        };
-    }-*/;
+                                                      $wnd.OpenLayers.Util.onImageLoadError = function() {
+                                                      this.style.display = "";
+                                                      this.src = "images/nodata.png";
+                                                      };
+                                                      }-*/;
 
     /** {@inheritDoc} */
     @Override
@@ -226,8 +236,6 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
         }
     }
 
-
-
     private Marker createMarker(final GWTMarkerState marker) {
         final LonLat lonLat = toLonLat(marker.getLatLng());
         final Icon icon = createIcon(marker);
@@ -241,9 +249,12 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
     }
 
     /**
-     * <p>getBounds</p>
+     * <p>
+     * getBounds
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds} object.
+     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
+     *         object.
      */
     @Override
     public GWTBounds getBounds() {
@@ -298,9 +309,9 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
     public void placeMarker(final GWTMarkerState marker) {
         Marker m = getMarker(marker.getName());
 
-        if(m == null) {
-        	m = createMarker(marker);
-        	m_markers.put(marker.getName(), m);
+        if (m == null) {
+            m = createMarker(marker);
+            m_markers.put(marker.getName(), m);
         }
         updateMarker(m, marker);
     }
@@ -319,11 +330,13 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
     }
 
     private native String getLayerUrl() /*-{
-        return $wnd.openlayersUrl;
-    }-*/;
+                                        return $wnd.openlayersUrl;
+                                        }-*/;
 
     /**
-     * <p>getWidget</p>
+     * <p>
+     * getWidget
+     * </p>
      *
      * @return a {@link com.google.gwt.user.client.ui.Widget} object.
      */

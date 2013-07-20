@@ -36,34 +36,44 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSecretAttribute;
 
 /**
- * This is part of the 'secret' project from the 2005 Dev-Jam.  It will mostly
+ * This is part of the 'secret' project from the 2005 Dev-Jam. It will mostly
  * likely be replaced by or refactored into the new ResourceDao.
  */
 public interface AttributeSecretDao {
 
-	/**
-	 * <p>getAttributesForNode</p>
-	 *
-	 * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
-	 * @return a {@link java.util.Collection} object.
-	 */
-	Collection<OnmsSecretAttribute> getAttributesForNode(OnmsNode node);
+    /**
+     * <p>
+     * getAttributesForNode
+     * </p>
+     *
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @return a {@link java.util.Collection} object.
+     */
+    Collection<OnmsSecretAttribute> getAttributesForNode(OnmsNode node);
 
-	/**
-	 * <p>getAttributesForInterface</p>
-	 *
-	 * @param iface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
-	 * @return a {@link java.util.Collection} object.
-	 */
-	Collection<OnmsSecretAttribute> getAttributesForInterface(OnmsIpInterface iface);
+    /**
+     * <p>
+     * getAttributesForInterface
+     * </p>
+     *
+     * @param iface
+     *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     * @return a {@link java.util.Collection} object.
+     */
+    Collection<OnmsSecretAttribute> getAttributesForInterface(OnmsIpInterface iface);
 
-	/**
-	 * <p>getResponseTimeAttributeForService</p>
-	 *
-	 * @param svc a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
-	 * @return a {@link org.opennms.netmgt.model.OnmsSecretAttribute} object.
-	 */
-	OnmsSecretAttribute getResponseTimeAttributeForService(OnmsMonitoredService svc);
+    /**
+     * <p>
+     * getResponseTimeAttributeForService
+     * </p>
+     *
+     * @param svc
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
+     * @return a {@link org.opennms.netmgt.model.OnmsSecretAttribute} object.
+     */
+    OnmsSecretAttribute getResponseTimeAttributeForService(OnmsMonitoredService svc);
 
-	//OnmsSecretAttribute getAttribute(String id);
+    // OnmsSecretAttribute getAttribute(String id);
 }

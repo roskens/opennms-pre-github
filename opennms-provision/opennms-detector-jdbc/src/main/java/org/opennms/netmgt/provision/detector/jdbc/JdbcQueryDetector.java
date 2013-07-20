@@ -48,21 +48,23 @@ public class JdbcQueryDetector extends AbstractJdbcDetector {
     private String m_sqlQuery;
 
     /**
-     * <p>Constructor for JdbcQueryDetector.</p>
+     * <p>
+     * Constructor for JdbcQueryDetector.
+     * </p>
      */
-    protected JdbcQueryDetector(){
+    protected JdbcQueryDetector() {
         super("JdbcQueryDetector", 3306);
     }
 
     /** {@inheritDoc} */
     @Override
-    protected void onInit(){
+    protected void onInit() {
         expectBanner(resultSetNotNull());
         send(sqlQuery(getSqlQuery()), isValidQuery());
     }
 
     private static ResponseValidator<JDBCResponse> isValidQuery() {
-        return new ResponseValidator<JDBCResponse>(){
+        return new ResponseValidator<JDBCResponse>() {
             @Override
             public boolean validate(JDBCResponse response) {
                 return response.isValidQuery();
@@ -71,7 +73,7 @@ public class JdbcQueryDetector extends AbstractJdbcDetector {
     }
 
     private static RequestBuilder<JDBCRequest> sqlQuery(final String sqlQuery) {
-        return new RequestBuilder<JDBCRequest>(){
+        return new RequestBuilder<JDBCRequest>() {
             @Override
             public JDBCRequest getRequest() {
                 JDBCRequest request = new JDBCRequest();
@@ -82,16 +84,21 @@ public class JdbcQueryDetector extends AbstractJdbcDetector {
     }
 
     /**
-     * <p>setSqlQuery</p>
+     * <p>
+     * setSqlQuery
+     * </p>
      *
-     * @param sqlQuery a {@link java.lang.String} object.
+     * @param sqlQuery
+     *            a {@link java.lang.String} object.
      */
     public void setSqlQuery(String sqlQuery) {
         m_sqlQuery = sqlQuery;
     }
 
     /**
-     * <p>getSqlQuery</p>
+     * <p>
+     * getSqlQuery
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

@@ -95,9 +95,12 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
     }
 
     /**
-     * <p>parameters</p>
+     * <p>
+     * parameters
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.config.poller.Service} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.config.poller.Service} object.
      * @return a {@link java.lang.Iterable} object.
      */
     @Override
@@ -122,18 +125,24 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
 
     /**
      * Adds a scehduled outage to pkg from begin to end, for the nodeid
-     * @param pkg - the package to which
-     * @param outageName - a name, arbitrary
-     * @param begin - time, in seconds since epoch, when the outage starts
-     * @param end - time, in seconds since the epoch, when the outage ends
-     * @param nodeid - the node the outage applies to
+     *
+     * @param pkg
+     *            - the package to which
+     * @param outageName
+     *            - a name, arbitrary
+     * @param begin
+     *            - time, in seconds since epoch, when the outage starts
+     * @param end
+     *            - time, in seconds since the epoch, when the outage ends
+     * @param nodeid
+     *            - the node the outage applies to
      */
     public void addScheduledOutage(Package pkg, String outageName, long begin, long end, int nodeid) {
 
         Outage outage = new Outage();
         outage.setName(outageName);
 
-        Node node=new Node();
+        Node node = new Node();
         node.setId(nodeid);
         outage.addNode(node);
 
@@ -152,15 +161,19 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
 
     /**
      * Adds a scehduled outage from begin to end, for the nodeid
-     * @param outageName - a name, arbitrary
-     * @param begin - time, in seconds since epoch, when the outage starts
-     * @param end - time, in seconds since the epoch, when the outage ends
-     * @param nodeid - the node the outage applies to
+     *
+     * @param outageName
+     *            - a name, arbitrary
+     * @param begin
+     *            - time, in seconds since epoch, when the outage starts
+     * @param end
+     *            - time, in seconds since the epoch, when the outage ends
+     * @param nodeid
+     *            - the node the outage applies to
      */
     public void addScheduledOutage(String outageName, long begin, long end, int nodeid) {
         addScheduledOutage(m_currentPkg, outageName, begin, end, nodeid);
     }
-
 
     public void addScheduledOutage(Package pkg, String outageName, long begin, long end, String ipAddr) {
         Outage outage = new Outage();
@@ -189,7 +202,8 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
         addScheduledOutage(m_currentPkg, outageName, begin, end, ipAddr);
     }
 
-    public void addScheduledOutage(Package pkg, String outageName, String dayOfWeek, String beginTime, String endTime, String ipAddr) {
+    public void addScheduledOutage(Package pkg, String outageName, String dayOfWeek, String beginTime, String endTime,
+            String ipAddr) {
         Outage outage = new Outage();
         outage.setName(outageName);
         outage.setType("weekly");
@@ -214,7 +228,6 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
     public void addScheduledOutage(String outageName, String dayOfWeek, String beginTime, String endTime, String ipAddr) {
         addScheduledOutage(m_currentPkg, outageName, dayOfWeek, beginTime, endTime, ipAddr);
     }
-
 
     public void addService(String name, ServiceMonitor monitor) {
         addService(name, m_defaultPollInterval, monitor);
@@ -371,7 +384,7 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
     @Override
     public boolean shouldPollAllIfNoCriticalServiceDefined() {
         // TODO Auto-generated method stub
-        return m_pollAll ;
+        return m_pollAll;
     }
 
     public void setPollAllIfNoCriticalServiceDefined(final boolean pollAll) {
@@ -420,7 +433,6 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
         m_currentPkg.addIncludeUrl(matchRegexp);
     }
 
-
     public void setNodeOutageProcessingEnabled(final boolean outageProcessingEnabled) {
         m_outageProcessingEnabled = outageProcessingEnabled;
     }
@@ -432,7 +444,7 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
     public void setPollInterval(final Package pkg, final String svcName, final long interval) {
         final Service svc = findService(pkg, svcName);
         if (svc == null)
-            throw new IllegalArgumentException("No service named: "+svcName+" in package "+pkg);
+            throw new IllegalArgumentException("No service named: " + svcName + " in package " + pkg);
 
         svc.setInterval(interval);
     }
@@ -517,7 +529,8 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
         return null;
     }
 
-    public void saveResponseTimeData(final String locationMonitor, final OnmsMonitoredService monSvc, final double responseTime, final Package pkg) {
+    public void saveResponseTimeData(final String locationMonitor, final OnmsMonitoredService monSvc,
+            final double responseTime, final Package pkg) {
         throw new UnsupportedOperationException("not yet implemented");
 
     }
@@ -541,8 +554,5 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
     public boolean isPolledLocally(final String ipaddr, final String svcName) {
         throw new UnsupportedOperationException("MockPollerConfig.isPolledLocally is not yet implemented");
     }
-
-
-
 
 }

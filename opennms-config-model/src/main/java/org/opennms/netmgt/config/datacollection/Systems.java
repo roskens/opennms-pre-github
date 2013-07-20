@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.datacollection;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.IOException;
@@ -66,7 +66,7 @@ import org.xml.sax.ContentHandler;
  * systems
  */
 
-@XmlRootElement(name="systems", namespace="http://xmlns.opennms.org/xsd/config/datacollection")
+@XmlRootElement(name = "systems", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 @ValidateUsing("datacollection-config.xsd")
 public class Systems implements Serializable {
@@ -79,30 +79,26 @@ public class Systems implements Serializable {
      */
     private List<SystemDef> m_systemDefs = new ArrayList<SystemDef>();
 
-
     public Systems() {
         super();
     }
 
-
     /**
-     *
-     *
      * @param systemDef
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addSystemDef(final SystemDef systemDef) throws IndexOutOfBoundsException {
         m_systemDefs.add(systemDef);
     }
 
     /**
-     *
-     *
      * @param index
      * @param systemDef
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addSystemDef(final int index, final SystemDef systemDef) throws IndexOutOfBoundsException {
         m_systemDefs.add(index, systemDef);
@@ -112,7 +108,7 @@ public class Systems implements Serializable {
      * Method enumerateSystemDef.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<SystemDef> enumerateSystemDef() {
         return Collections.enumeration(m_systemDefs);
@@ -126,18 +122,18 @@ public class Systems implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof Systems) {
 
-            final Systems temp = (Systems)obj;
+            final Systems temp = (Systems) obj;
             if (m_systemDefs != null) {
-                if (temp.m_systemDefs == null) return false;
+                if (temp.m_systemDefs == null)
+                    return false;
                 else if (!(m_systemDefs.equals(temp.m_systemDefs)))
                     return false;
-            }
-            else if (temp.m_systemDefs != null)
+            } else if (temp.m_systemDefs != null)
                 return false;
             return true;
         }
@@ -148,29 +144,33 @@ public class Systems implements Serializable {
      * Method getSystemDef.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * types.SystemDef at
-     * the given index
+     *         types.SystemDef at
+     *         the given index
      */
     public SystemDef getSystemDef(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_systemDefs.size()) {
-            throw new IndexOutOfBoundsException("getSystemDef: Index value '" + index + "' not in range [0.." + (m_systemDefs.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getSystemDef: Index value '" + index + "' not in range [0.."
+                    + (m_systemDefs.size() - 1) + "]");
         }
         return m_systemDefs.get(index);
     }
 
     /**
      * Method getSystemDef.Returns the contents of the collection
-     * in an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="systemDef")
+    @XmlElement(name = "systemDef")
     public SystemDef[] getSystemDef() {
         return m_systemDefs.toArray(EMPTY_SYSTEMDEF_ARRAY);
     }
@@ -198,8 +198,8 @@ public class Systems implements Serializable {
     /**
      * Overrides the Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -208,7 +208,7 @@ public class Systems implements Serializable {
         int result = 17;
 
         if (m_systemDefs != null) {
-           result = 37 * result + m_systemDefs.hashCode();
+            result = 37 * result + m_systemDefs.hashCode();
         }
 
         return result;
@@ -233,20 +233,20 @@ public class Systems implements Serializable {
      * Method iterateSystemDef.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<SystemDef> iterateSystemDef() {
         return m_systemDefs.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -254,15 +254,16 @@ public class Systems implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -296,29 +297,27 @@ public class Systems implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param systemDef
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setSystemDef(final int index, final SystemDef systemDef) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_systemDefs.size()) {
-            throw new IndexOutOfBoundsException("setSystemDef: Index value '" + index + "' not in range [0.." + (m_systemDefs.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setSystemDef: Index value '" + index + "' not in range [0.."
+                    + (m_systemDefs.size() - 1) + "]");
         }
         m_systemDefs.set(index, systemDef);
     }
 
     /**
-     *
-     *
      * @param systemDefs
      */
     public void setSystemDef(final SystemDef[] systemDefs) {
         m_systemDefs.clear();
         for (int i = 0; i < systemDefs.length; i++) {
-                m_systemDefs.add(systemDefs[i]);
+            m_systemDefs.add(systemDefs[i]);
         }
     }
 
@@ -326,10 +325,12 @@ public class Systems implements Serializable {
      * Sets the value of '_systemDefList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param systemDefs the Vector to copy.
+     * @param systemDefs
+     *            the Vector to copy.
      */
     public void setSystemDef(final List<SystemDef> systemDefs) {
-        if (m_systemDefs == systemDefs) return;
+        if (m_systemDefs == systemDefs)
+            return;
         m_systemDefs.clear();
         m_systemDefs.addAll(systemDefs);
     }
@@ -337,9 +338,10 @@ public class Systems implements Serializable {
     /**
      * Sets the value of '_systemDefList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param systemDefs the Vector to set.
+     * @deprecated
+     * @param systemDefs
+     *            the Vector to set.
      */
     public void setSystemDefCollection(final List<SystemDef> systemDefs) {
         m_systemDefs = systemDefs;
@@ -349,12 +351,14 @@ public class Systems implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * Systems
+     *         Systems
      */
     @Deprecated
     public static Systems unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -362,10 +366,9 @@ public class Systems implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

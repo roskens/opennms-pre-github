@@ -49,20 +49,16 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:META-INF/opennms/applicationContext-soa.xml",
-        "classpath:META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
+        "classpath:META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:META-INF/opennms/applicationContext-daemon.xml",
         "classpath:org/opennms/netmgt/utils/applicationContext-testTAEventForwarderTest.xml",
         "classpath:META-INF/opennms/mockEventIpcManager.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class TransactionAwareEventForwarderTest implements InitializingBean {
@@ -116,7 +112,6 @@ public class TransactionAwareEventForwarderTest implements InitializingBean {
         });
     }
 
-
     @Test
     public void testTwoTransactions() {
         m_transTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -169,9 +164,7 @@ public class TransactionAwareEventForwarderTest implements InitializingBean {
     }
 
     private Event sendEvent() {
-        Event event = new EventBuilder(EventConstants.ADD_INTERFACE_EVENT_UEI, "Test")
-        .setNodeid(m_eventNumber++)
-        .getEvent();
+        Event event = new EventBuilder(EventConstants.ADD_INTERFACE_EVENT_UEI, "Test").setNodeid(m_eventNumber++).getEvent();
 
         m_proxy.sendNow(event);
 

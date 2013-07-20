@@ -40,7 +40,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>DiscoveryPingResponseCallback class.</p>
+ * <p>
+ * DiscoveryPingResponseCallback class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Ben Reed</a>
  * @version $Id: $

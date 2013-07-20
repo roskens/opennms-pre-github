@@ -51,9 +51,8 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.test.context.ContextConfiguration;
 
-
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/emptyContext.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class TcpMonitorTest {
     @Before
@@ -62,7 +61,9 @@ public class TcpMonitorTest {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.poller.monitors.TcpMonitor.poll(NetworkInterface, Map, Package)'
+     * Test method for
+     * 'org.opennms.netmgt.poller.monitors.TcpMonitor.poll(NetworkInterface,
+     * Map, Package)'
      */
     @Test
     public void testExternalServerConnection() throws UnknownHostException {
@@ -85,14 +86,14 @@ public class TcpMonitorTest {
         m.put(p.getKey(), p.getValue());
 
         PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
         assertNotNull(status.getReason());
 
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testLocalhostConnection() throws UnknownHostException {
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         Parameter p = new Parameter();
@@ -113,15 +114,16 @@ public class TcpMonitorTest {
         m.put(p.getKey(), p.getValue());
 
         PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
     }
 
     @Test
-    @JUnitHttpServer(port=10342)
+    @JUnitHttpServer(port = 10342)
     public void testLocalhostIPv6Connection() throws UnknownHostException {
-        if (Boolean.getBoolean("skipIpv6Tests")) return;
+        if (Boolean.getBoolean("skipIpv6Tests"))
+            return;
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         Parameter p = new Parameter();
@@ -142,7 +144,7 @@ public class TcpMonitorTest {
         m.put(p.getKey(), p.getValue());
 
         PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         assertNull(status.getReason());
     }

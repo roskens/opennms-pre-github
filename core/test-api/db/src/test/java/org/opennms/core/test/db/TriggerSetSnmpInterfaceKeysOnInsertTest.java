@@ -36,8 +36,7 @@ import junit.framework.AssertionFailedError;
 
 import org.opennms.test.ThrowableAnticipator;
 
-public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
-        PopulatedTemporaryDatabaseTestCase {
+public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryDatabaseTestCase {
 
     public void testSetSnmpInterfaceIdInIpInterface() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -48,15 +47,12 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT id, snmpInterfaceID from ipInterface");
-            assertTrue("could not advance to read first row in ResultSet",
-                       rs.next());
+            assertTrue("could not advance to read first row in ResultSet", rs.next());
             assertEquals("expected ipInterface id", 2, rs.getInt(1));
 
             int id = rs.getInt(2);
-            assertFalse("expected ipInterface snmpInterfaceId to be non-null",
-                        rs.wasNull());
-            assertEquals("expected ipInterface snmpInterfaceId to be the same",
-                         1, id);
+            assertFalse("expected ipInterface snmpInterfaceId to be non-null", rs.wasNull());
+            assertEquals("expected ipInterface snmpInterfaceId to be the same", 1, id);
             assertFalse("ResultSet contains more than one row", rs.next());
         } finally {
             connection.close();
@@ -65,14 +61,14 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
 
     /**
      * Test adding an entry to ipInterface with an ifIndex >= 1 that *does not*
-     * point to an entry in snmpInterface.  This should be an error.
+     * point to an entry in snmpInterface. This should be an error.
      */
-    public void testSetSnmpInterfaceIdInIpInterfaceNoSnmpInterfaceEntry()
-            throws Exception {
+    public void testSetSnmpInterfaceIdInIpInterfaceNoSnmpInterfaceEntry() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new AssertionFailedError("Could not execute statement: 'INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 1 )': ERROR: IpInterface Trigger Notice, Condition 1: No SnmpInterface found for... nodeid: 1 ifindex: 1"));
+        ta.anticipate(new AssertionFailedError(
+                                               "Could not execute statement: 'INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 1 )': ERROR: IpInterface Trigger Notice, Condition 1: No SnmpInterface found for... nodeid: 1 ifindex: 1"));
         try {
             executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 1 )");
         } catch (Throwable t) {
@@ -81,23 +77,20 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
         ta.verifyAnticipated();
     }
 
-    public void testSetSnmpInterfaceIdInIpInterfaceNullIfIndex()
-            throws Exception {
+    public void testSetSnmpInterfaceIdInIpInterfaceNullIfIndex() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
 
         Connection connection = getConnection();
         try {
-                Statement st = connection.createStatement();
+            Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT id, snmpInterfaceID from ipInterface");
-            assertTrue("could not advance to read first row in ResultSet",
-                       rs.next());
+            assertTrue("could not advance to read first row in ResultSet", rs.next());
             assertEquals("ipInterface id", 2, rs.getInt(1));
 
             int id = rs.getInt(2);
-            assertTrue("ipInterface snmpInterfaceId to be null (was " + id + ")",
-                       rs.wasNull());
+            assertTrue("ipInterface snmpInterfaceId to be null (was " + id + ")", rs.wasNull());
             assertFalse("ResultSet contains more than one row", rs.next());
             rs.close();
             st.close();
@@ -106,10 +99,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
         }
     }
 
-
-
-    public void testSetSnmpInterfaceIdInIpInterfaceNullIfIndexNoSnmpInterface()
-            throws Exception {
+    public void testSetSnmpInterfaceIdInIpInterfaceNullIfIndexNoSnmpInterface() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
 
@@ -117,24 +107,22 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT id, snmpInterfaceID from ipInterface");
-            assertTrue("could not advance to read first row in ResultSet",
-                       rs.next());
+            assertTrue("could not advance to read first row in ResultSet", rs.next());
             assertEquals("ipInterface id", 1, rs.getInt(1));
 
             int id = rs.getInt(2);
-            assertTrue("ipInterface snmpInterfaceId to be null (was " + id + ")",
-                       rs.wasNull());
+            assertTrue("ipInterface snmpInterfaceId to be null (was " + id + ")", rs.wasNull());
             assertFalse("ResultSet contains more than one row", rs.next());
         } finally {
             connection.close();
         }
     }
 
-    public void testSetSnmpInterfaceIdInIpInterfaceLessThanOneIfIndex()
-            throws Exception {
+    public void testSetSnmpInterfaceIdInIpInterfaceLessThanOneIfIndex() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new AssertionFailedError("Could not execute statement: 'INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 0 )': ERROR: IpInterface Trigger Notice, Condition 1: No SnmpInterface found for... nodeid: 1 ifindex: 0"));
+        ta.anticipate(new AssertionFailedError(
+                                               "Could not execute statement: 'INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 0 )': ERROR: IpInterface Trigger Notice, Condition 1: No SnmpInterface found for... nodeid: 1 ifindex: 0"));
         try {
             executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 0 )");
         } catch (Throwable t) {
@@ -145,12 +133,11 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
 
     /**
      * Test adding an entry to ipInterface with an ifIndex < 1 where an
-     * entry exists in snmpInterface for the same ifIndex.  The relationship
+     * entry exists in snmpInterface for the same ifIndex. The relationship
      * *should* be setup (previously, it would not have been set up for this
      * case).
      */
-    public void testSetSnmpInterfaceIdInIpInterfaceLessThanOneIfIndexWithSnmpInterface()
-            throws Exception {
+    public void testSetSnmpInterfaceIdInIpInterfaceLessThanOneIfIndexWithSnmpInterface() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 0)");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 0 )");
@@ -159,12 +146,10 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT snmpInterfaceID from ipInterface");
-            assertTrue("could not advance to read first row in results",
-                       rs.next());
+            assertTrue("could not advance to read first row in results", rs.next());
 
             rs.getInt(1);
-            assertFalse("ipInterface.snmpInterfaceId should not be null",
-                        rs.wasNull());
+            assertFalse("ipInterface.snmpInterfaceId should not be null", rs.wasNull());
             assertFalse("results contains more than one row", rs.next());
         } finally {
             connection.close();
@@ -184,6 +169,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with nodeId
      * set but null ifIndex
+     *
      * @throws Exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceIdNullIfIndex() throws Exception {
@@ -195,12 +181,10 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT ifIndex from ipInterface");
-            assertTrue("could not advance to read first row in results",
-                       rs.next());
+            assertTrue("could not advance to read first row in results", rs.next());
 
             assertEquals("ipInterface.ifIndex", 1, rs.getInt(1));
-            assertFalse("ipInterface.ifIndex should not be null",
-                        rs.wasNull());
+            assertFalse("ipInterface.ifIndex should not be null", rs.wasNull());
             assertFalse("results contains more than one row", rs.next());
         } finally {
             connection.close();
@@ -210,6 +194,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with ifIndex
      * set but null nodeId
+     *
      * @throws Exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceIdNullNodeId() throws Exception {
@@ -221,12 +206,10 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT nodeId from ipInterface");
-            assertTrue("could not advance to read first row in results",
-                       rs.next());
+            assertTrue("could not advance to read first row in results", rs.next());
 
             assertEquals("ipInterface.nodeId", 1, rs.getInt(1));
-            assertFalse("ipInterface.nodeId should not be null",
-                        rs.wasNull());
+            assertFalse("ipInterface.nodeId should not be null", rs.wasNull());
             assertFalse("results contains more than one row", rs.next());
         } finally {
             connection.close();
@@ -236,6 +219,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with null nodeId
      * and ifIndex
+     *
      * @throws Exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceIdNullNodeIdAndIpAddr() throws Exception {
@@ -247,16 +231,13 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT nodeId, ifIndex from ipInterface");
-            assertTrue("could not advance to read first row in results",
-                       rs.next());
+            assertTrue("could not advance to read first row in results", rs.next());
 
             assertEquals("ipInterface.nodeId", 1, rs.getInt(1));
-            assertFalse("ipInterface.nodeId should not be null",
-                        rs.wasNull());
+            assertFalse("ipInterface.nodeId should not be null", rs.wasNull());
 
             assertEquals("ipInterface.ifIndex", 1, rs.getInt(2));
-            assertFalse("ipInterface.ifIndex should not be null",
-                        rs.wasNull());
+            assertFalse("ipInterface.ifIndex should not be null", rs.wasNull());
             assertFalse("results contains more than one row", rs.next());
         } finally {
             connection.close();

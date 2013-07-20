@@ -58,36 +58,42 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 
 /**
- * <p>AtInterface class.</p>
+ * <p>
+ * AtInterface class.
+ * </p>
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
 @XmlRootElement(name = "stpNode")
 @Entity
-@Table(name="stpNode", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "baseVlan"})})
+@Table(name = "stpNode", uniqueConstraints = { @UniqueConstraint(columnNames = { "nodeId", "baseVlan" }) })
 public class OnmsStpNode {
 
     @Embeddable
     public static class BridgeBaseType implements Comparable<BridgeBaseType>, Serializable {
 
-		private static final long serialVersionUID = 4211573691385106051L;
-		public static final int BASE_TYPE_UNKNOWN = 1;
-		public static final int BASE_TYPE_TRANSPARENT_ONLY = 2;
-		public static final int BASE_TYPE_SOURCEROUTE_ONLY = 3;
-		public static final int BASE_TYPE_SRT = 4;
+        private static final long serialVersionUID = 4211573691385106051L;
 
-        private static final Integer[] s_order = {1,2,3,4};
+        public static final int BASE_TYPE_UNKNOWN = 1;
+
+        public static final int BASE_TYPE_TRANSPARENT_ONLY = 2;
+
+        public static final int BASE_TYPE_SOURCEROUTE_ONLY = 3;
+
+        public static final int BASE_TYPE_SRT = 4;
+
+        private static final Integer[] s_order = { 1, 2, 3, 4 };
 
         private Integer m_basebridgetype;
 
         private static final Map<Integer, String> baseBridgeTypeMap = new HashMap<Integer, String>();
 
         static {
-            baseBridgeTypeMap.put(1, "unknown" );
-            baseBridgeTypeMap.put(2, "transparent-only" );
-            baseBridgeTypeMap.put(3, "sourceroute-only" );
-            baseBridgeTypeMap.put(4, "srt" );
+            baseBridgeTypeMap.put(1, "unknown");
+            baseBridgeTypeMap.put(2, "transparent-only");
+            baseBridgeTypeMap.put(3, "sourceroute-only");
+            baseBridgeTypeMap.put(4, "srt");
         }
 
         @SuppressWarnings("unused")
@@ -98,7 +104,7 @@ public class OnmsStpNode {
             m_basebridgetype = bridgeBaseType;
         }
 
-        @Column(name="baseType")
+        @Column(name = "baseType")
         public Integer getIntCode() {
             return m_basebridgetype;
         }
@@ -107,7 +113,7 @@ public class OnmsStpNode {
             m_basebridgetype = baseBridgeType;
         }
 
-                @Override
+        @Override
         public int compareTo(BridgeBaseType o) {
             return getIndex(m_basebridgetype) - getIndex(o.m_basebridgetype);
         }
@@ -118,23 +124,23 @@ public class OnmsStpNode {
                     return i;
                 }
             }
-            throw new IllegalArgumentException("illegal baseBridgeType code '"+code+"'");
+            throw new IllegalArgumentException("illegal baseBridgeType code '" + code + "'");
         }
 
-                @Override
+        @Override
         public boolean equals(Object o) {
             if (o instanceof BridgeBaseType) {
-                return m_basebridgetype.intValue() == ((BridgeBaseType)o).m_basebridgetype.intValue();
+                return m_basebridgetype.intValue() == ((BridgeBaseType) o).m_basebridgetype.intValue();
             }
             return false;
         }
 
-                @Override
+        @Override
         public int hashCode() {
             return toString().hashCode();
         }
 
-                @Override
+        @Override
         public String toString() {
             return String.valueOf(m_basebridgetype);
         }
@@ -143,17 +149,23 @@ public class OnmsStpNode {
             if (code == null)
                 return BridgeBaseType.UNKNOWN;
             switch (code) {
-            case BASE_TYPE_UNKNOWN: return UNKNOWN;
-            case BASE_TYPE_TRANSPARENT_ONLY: return TRANSPARENT_ONLY;
-            case BASE_TYPE_SOURCEROUTE_ONLY: return SOURCEROUTE_ONLY;
-            case BASE_TYPE_SRT: return SRT;
+            case BASE_TYPE_UNKNOWN:
+                return UNKNOWN;
+            case BASE_TYPE_TRANSPARENT_ONLY:
+                return TRANSPARENT_ONLY;
+            case BASE_TYPE_SOURCEROUTE_ONLY:
+                return SOURCEROUTE_ONLY;
+            case BASE_TYPE_SRT:
+                return SRT;
             default:
-                throw new IllegalArgumentException("Cannot create BridgeBaseType from code "+code);
+                throw new IllegalArgumentException("Cannot create BridgeBaseType from code " + code);
             }
         }
 
         /**
-         * <p>getBridgeBaseTypeString</p>
+         * <p>
+         * getBridgeBaseTypeString
+         * </p>
          *
          * @return a {@link java.lang.String} object.
          */
@@ -161,39 +173,44 @@ public class OnmsStpNode {
          */
         public static String getBridgeBaseTypeString(Integer code) {
             if (baseBridgeTypeMap.containsKey(code))
-                    return baseBridgeTypeMap.get( code);
+                return baseBridgeTypeMap.get(code);
             return null;
         }
 
         public static BridgeBaseType UNKNOWN = new BridgeBaseType(BASE_TYPE_UNKNOWN);
-        public static BridgeBaseType TRANSPARENT_ONLY = new BridgeBaseType(BASE_TYPE_TRANSPARENT_ONLY);
-        public static BridgeBaseType SOURCEROUTE_ONLY = new BridgeBaseType(BASE_TYPE_SOURCEROUTE_ONLY);
-        public static BridgeBaseType SRT = new BridgeBaseType(BASE_TYPE_SRT);
 
+        public static BridgeBaseType TRANSPARENT_ONLY = new BridgeBaseType(BASE_TYPE_TRANSPARENT_ONLY);
+
+        public static BridgeBaseType SOURCEROUTE_ONLY = new BridgeBaseType(BASE_TYPE_SOURCEROUTE_ONLY);
+
+        public static BridgeBaseType SRT = new BridgeBaseType(BASE_TYPE_SRT);
 
     }
 
     @Embeddable
     public static class StpProtocolSpecification implements Comparable<StpProtocolSpecification>, Serializable {
 
-		/**
+        /**
 		 *
 		 */
-		private static final long serialVersionUID = -1815947324977781143L;
-		public static final int STP_PROTOCOL_SPECIFICATION_UNKNOWN = 1;
-		public static final int STP_PROTOCOL_SPECIFICATION_DECLB100 = 2;
-		public static final int STP_PROTOCOL_SPECIFICATION_IEEE8021D = 3;
+        private static final long serialVersionUID = -1815947324977781143L;
 
-        private static final Integer[] s_order = {1,2,3};
+        public static final int STP_PROTOCOL_SPECIFICATION_UNKNOWN = 1;
+
+        public static final int STP_PROTOCOL_SPECIFICATION_DECLB100 = 2;
+
+        public static final int STP_PROTOCOL_SPECIFICATION_IEEE8021D = 3;
+
+        private static final Integer[] s_order = { 1, 2, 3 };
 
         private Integer m_stpprotocolspecification;
 
         private static final Map<Integer, String> stpProtocolSpecificationMap = new HashMap<Integer, String>();
 
         static {
-            stpProtocolSpecificationMap.put(1, "unknown" );
-            stpProtocolSpecificationMap.put(2, "decLb100" );
-            stpProtocolSpecificationMap.put(3, "ieee8021d" );
+            stpProtocolSpecificationMap.put(1, "unknown");
+            stpProtocolSpecificationMap.put(2, "decLb100");
+            stpProtocolSpecificationMap.put(3, "ieee8021d");
         }
 
         @SuppressWarnings("unused")
@@ -204,7 +221,7 @@ public class OnmsStpNode {
             m_stpprotocolspecification = stpprotocolspecification;
         }
 
-        @Column(name="stpProtocolSpecification")
+        @Column(name = "stpProtocolSpecification")
         public Integer getIntCode() {
             return m_stpprotocolspecification;
         }
@@ -213,7 +230,7 @@ public class OnmsStpNode {
             m_stpprotocolspecification = stpProtocolSpecification;
         }
 
-                @Override
+        @Override
         public int compareTo(StpProtocolSpecification o) {
             return getIndex(m_stpprotocolspecification) - getIndex(o.m_stpprotocolspecification);
         }
@@ -224,23 +241,23 @@ public class OnmsStpNode {
                     return i;
                 }
             }
-            throw new IllegalArgumentException("illegal StpProtocolSpecification code '"+code+"'");
+            throw new IllegalArgumentException("illegal StpProtocolSpecification code '" + code + "'");
         }
 
-                @Override
+        @Override
         public boolean equals(Object o) {
             if (o instanceof StpProtocolSpecification) {
-                return m_stpprotocolspecification.intValue() == ((StpProtocolSpecification)o).m_stpprotocolspecification.intValue();
+                return m_stpprotocolspecification.intValue() == ((StpProtocolSpecification) o).m_stpprotocolspecification.intValue();
             }
             return false;
         }
 
-                @Override
+        @Override
         public int hashCode() {
             return toString().hashCode();
         }
 
-                @Override
+        @Override
         public String toString() {
             return String.valueOf(m_stpprotocolspecification);
         }
@@ -249,16 +266,21 @@ public class OnmsStpNode {
             if (code == null)
                 return StpProtocolSpecification.UNKNOWN;
             switch (code) {
-            case STP_PROTOCOL_SPECIFICATION_UNKNOWN: return UNKNOWN;
-            case STP_PROTOCOL_SPECIFICATION_DECLB100: return DECLB100;
-            case STP_PROTOCOL_SPECIFICATION_IEEE8021D: return IEEE8021D;
+            case STP_PROTOCOL_SPECIFICATION_UNKNOWN:
+                return UNKNOWN;
+            case STP_PROTOCOL_SPECIFICATION_DECLB100:
+                return DECLB100;
+            case STP_PROTOCOL_SPECIFICATION_IEEE8021D:
+                return IEEE8021D;
             default:
-                throw new IllegalArgumentException("Cannot create StpProtocolSpecification from code "+code);
+                throw new IllegalArgumentException("Cannot create StpProtocolSpecification from code " + code);
             }
         }
 
         /**
-         * <p>getStpProtocolSpecificationString</p>
+         * <p>
+         * getStpProtocolSpecificationString
+         * </p>
          *
          * @return a {@link java.lang.String} object.
          */
@@ -266,50 +288,68 @@ public class OnmsStpNode {
          */
         public static String getStpProtocolSpecificationString(Integer code) {
             if (stpProtocolSpecificationMap.containsKey(code))
-                    return stpProtocolSpecificationMap.get( code);
+                return stpProtocolSpecificationMap.get(code);
             return null;
         }
 
-        public static StpProtocolSpecification UNKNOWN = new StpProtocolSpecification(STP_PROTOCOL_SPECIFICATION_UNKNOWN);
-        public static StpProtocolSpecification DECLB100 = new StpProtocolSpecification(STP_PROTOCOL_SPECIFICATION_DECLB100);
-        public static StpProtocolSpecification IEEE8021D = new StpProtocolSpecification(STP_PROTOCOL_SPECIFICATION_IEEE8021D);
+        public static StpProtocolSpecification UNKNOWN = new StpProtocolSpecification(
+                                                                                      STP_PROTOCOL_SPECIFICATION_UNKNOWN);
 
+        public static StpProtocolSpecification DECLB100 = new StpProtocolSpecification(
+                                                                                       STP_PROTOCOL_SPECIFICATION_DECLB100);
+
+        public static StpProtocolSpecification IEEE8021D = new StpProtocolSpecification(
+                                                                                        STP_PROTOCOL_SPECIFICATION_IEEE8021D);
 
     }
 
     private Integer m_id;
-	private OnmsNode m_node;
-	private String m_baseBridgeAddress;
-	private Integer m_baseNumPorts;
-	private BridgeBaseType m_baseType;
-	private StpProtocolSpecification m_stpProtocolSpecification;
-	private Integer m_stpPriority;
-	private String m_stpDesignatedRoot;
-	private Integer m_stpRootCost;
-	private Integer m_stpRootPort;
-	private StatusType m_status = StatusType.UNKNOWN;
-	private Date m_lastPollTime;
-	private Integer m_baseVlan;
-	private String m_baseVlanName;
 
-	public OnmsStpNode() {}
+    private OnmsNode m_node;
+
+    private String m_baseBridgeAddress;
+
+    private Integer m_baseNumPorts;
+
+    private BridgeBaseType m_baseType;
+
+    private StpProtocolSpecification m_stpProtocolSpecification;
+
+    private Integer m_stpPriority;
+
+    private String m_stpDesignatedRoot;
+
+    private Integer m_stpRootCost;
+
+    private Integer m_stpRootPort;
+
+    private StatusType m_status = StatusType.UNKNOWN;
+
+    private Date m_lastPollTime;
+
+    private Integer m_baseVlan;
+
+    private String m_baseVlanName;
+
+    public OnmsStpNode() {
+    }
 
     public OnmsStpNode(final OnmsNode node, final Integer vlanIndex) {
-    	m_node = node;
-    	m_baseVlan = vlanIndex;
-	}
+        m_node = node;
+        m_baseVlan = vlanIndex;
+    }
 
     @Id
-    @Column(nullable=false)
+    @Column(nullable = false)
     @XmlTransient
-    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
         return m_id;
     }
 
     @XmlID
-    @XmlAttribute(name="id")
+    @XmlAttribute(name = "id")
     @Transient
     public String getInterfaceId() {
         return getId().toString();
@@ -319,9 +359,9 @@ public class OnmsStpNode {
         m_id = id;
     }
 
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="nodeId")
-    @XmlElement(name="nodeId")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "nodeId")
+    @XmlElement(name = "nodeId")
     @XmlIDREF
     public OnmsNode getNode() {
         return m_node;
@@ -332,143 +372,140 @@ public class OnmsStpNode {
     }
 
     @XmlElement
-    @Column(length=12, nullable=false)
-	public String getBaseBridgeAddress() {
-		return m_baseBridgeAddress;
-	}
+    @Column(length = 12, nullable = false)
+    public String getBaseBridgeAddress() {
+        return m_baseBridgeAddress;
+    }
 
-	public void setBaseBridgeAddress(final String baseBridgeAddress) {
-		m_baseBridgeAddress = baseBridgeAddress;
-	}
-
-    @XmlElement
-    @Column
-	public Integer getBaseNumPorts() {
-		return m_baseNumPorts;
-	}
-
-	public void setBaseNumPorts(final Integer baseNumPorts) {
-		m_baseNumPorts = baseNumPorts;
-	}
+    public void setBaseBridgeAddress(final String baseBridgeAddress) {
+        m_baseBridgeAddress = baseBridgeAddress;
+    }
 
     @XmlElement
     @Column
-	public BridgeBaseType getBaseType() {
-		return m_baseType;
-	}
+    public Integer getBaseNumPorts() {
+        return m_baseNumPorts;
+    }
 
-	public void setBaseType(final BridgeBaseType baseType) {
-		m_baseType = baseType;
-	}
-
-    @XmlElement
-    @Column
-	public StpProtocolSpecification getStpProtocolSpecification() {
-		return m_stpProtocolSpecification;
-	}
-
-	public void setStpProtocolSpecification(final StpProtocolSpecification stpProtocolSpecification) {
-		m_stpProtocolSpecification = stpProtocolSpecification;
-	}
+    public void setBaseNumPorts(final Integer baseNumPorts) {
+        m_baseNumPorts = baseNumPorts;
+    }
 
     @XmlElement
     @Column
-	public Integer getStpPriority() {
-		return m_stpPriority;
-	}
+    public BridgeBaseType getBaseType() {
+        return m_baseType;
+    }
 
-	public void setStpPriority(final Integer stpPriority) {
-		m_stpPriority = stpPriority;
-	}
-
-    @XmlElement
-    @Column(length=16)
-	public String getStpDesignatedRoot() {
-		return m_stpDesignatedRoot;
-	}
-
-	public void setStpDesignatedRoot(final String stpDesignatedRoot) {
-		m_stpDesignatedRoot = stpDesignatedRoot;
-	}
+    public void setBaseType(final BridgeBaseType baseType) {
+        m_baseType = baseType;
+    }
 
     @XmlElement
     @Column
-	public Integer getStpRootCost() {
-		return m_stpRootCost;
-	}
+    public StpProtocolSpecification getStpProtocolSpecification() {
+        return m_stpProtocolSpecification;
+    }
 
-	public void setStpRootCost(final Integer stpRootCost) {
-		m_stpRootCost = stpRootCost;
-	}
+    public void setStpProtocolSpecification(final StpProtocolSpecification stpProtocolSpecification) {
+        m_stpProtocolSpecification = stpProtocolSpecification;
+    }
 
     @XmlElement
     @Column
-	public Integer getStpRootPort() {
-		return m_stpRootPort;
-	}
+    public Integer getStpPriority() {
+        return m_stpPriority;
+    }
 
-	public void setStpRootPort(final Integer stpRootPort) {
-		m_stpRootPort = stpRootPort;
-	}
+    public void setStpPriority(final Integer stpPriority) {
+        m_stpPriority = stpPriority;
+    }
+
+    @XmlElement
+    @Column(length = 16)
+    public String getStpDesignatedRoot() {
+        return m_stpDesignatedRoot;
+    }
+
+    public void setStpDesignatedRoot(final String stpDesignatedRoot) {
+        m_stpDesignatedRoot = stpDesignatedRoot;
+    }
+
+    @XmlElement
+    @Column
+    public Integer getStpRootCost() {
+        return m_stpRootCost;
+    }
+
+    public void setStpRootCost(final Integer stpRootCost) {
+        m_stpRootCost = stpRootCost;
+    }
+
+    @XmlElement
+    @Column
+    public Integer getStpRootPort() {
+        return m_stpRootPort;
+    }
+
+    public void setStpRootPort(final Integer stpRootPort) {
+        m_stpRootPort = stpRootPort;
+    }
 
     @XmlAttribute
-    @Column(nullable=false)
-	public StatusType getStatus() {
-		return m_status;
-	}
+    @Column(nullable = false)
+    public StatusType getStatus() {
+        return m_status;
+    }
 
-	public void setStatus(final StatusType status) {
-		m_status = status;
-	}
+    public void setStatus(final StatusType status) {
+        m_status = status;
+    }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable=false)
+    @Column(nullable = false)
     @XmlElement
-	public Date getLastPollTime() {
-		return m_lastPollTime;
-	}
+    public Date getLastPollTime() {
+        return m_lastPollTime;
+    }
 
-	public void setLastPollTime(final Date lastPollTime) {
-		m_lastPollTime = lastPollTime;
-	}
-
-    @XmlElement
-    @Column(nullable=false)
-	public Integer getBaseVlan() {
-		return m_baseVlan;
-	}
-
-	public void setBaseVlan(final Integer baseVlan) {
-		m_baseVlan = baseVlan;
-	}
+    public void setLastPollTime(final Date lastPollTime) {
+        m_lastPollTime = lastPollTime;
+    }
 
     @XmlElement
-    @Column(length=32)
-	public String getBaseVlanName() {
-		return m_baseVlanName;
-	}
+    @Column(nullable = false)
+    public Integer getBaseVlan() {
+        return m_baseVlan;
+    }
 
-	public void setBaseVlanName(final String baseVlanName) {
-		m_baseVlanName = baseVlanName;
-	}
+    public void setBaseVlan(final Integer baseVlan) {
+        m_baseVlan = baseVlan;
+    }
+
+    @XmlElement
+    @Column(length = 32)
+    public String getBaseVlanName() {
+        return m_baseVlanName;
+    }
+
+    public void setBaseVlanName(final String baseVlanName) {
+        m_baseVlanName = baseVlanName;
+    }
 
     @Override
-	public String toString() {
-	    return new ToStringBuilder(this)
-	        .append("id", m_id)
-	        .append("node", m_node)
-	        .append("baseBridgeAddress", m_baseBridgeAddress)
-	        .append("baseNumPorts", m_baseNumPorts)
-	        .append("baseType", m_baseType)
-	        .append("stpProtocolSpecification", m_stpProtocolSpecification)
-	        .append("stpPriority", m_stpPriority)
-	        .append("stpDesignatedRoot", m_stpDesignatedRoot)
-	        .append("stpRootCost", m_stpRootCost)
-	        .append("stpRootPort", m_stpRootPort)
-	        .append("status", m_status)
-	        .append("lastPollTime", m_lastPollTime)
-	        .append("baseVlan", m_baseVlan)
-	        .append("baseVlanName", m_baseVlanName)
-	        .toString();
-	}
+    public String toString() {
+        return new ToStringBuilder(this).append("id", m_id).append("node", m_node).append("baseBridgeAddress",
+                                                                                          m_baseBridgeAddress).append("baseNumPorts",
+                                                                                                                      m_baseNumPorts).append("baseType",
+                                                                                                                                             m_baseType).append("stpProtocolSpecification",
+                                                                                                                                                                m_stpProtocolSpecification).append("stpPriority",
+                                                                                                                                                                                                   m_stpPriority).append("stpDesignatedRoot",
+                                                                                                                                                                                                                         m_stpDesignatedRoot).append("stpRootCost",
+                                                                                                                                                                                                                                                     m_stpRootCost).append("stpRootPort",
+                                                                                                                                                                                                                                                                           m_stpRootPort).append("status",
+                                                                                                                                                                                                                                                                                                 m_status).append("lastPollTime",
+                                                                                                                                                                                                                                                                                                                  m_lastPollTime).append("baseVlan",
+                                                                                                                                                                                                                                                                                                                                         m_baseVlan).append("baseVlanName",
+                                                                                                                                                                                                                                                                                                                                                            m_baseVlanName).toString();
+    }
 }

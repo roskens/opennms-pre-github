@@ -49,6 +49,7 @@ import org.springframework.validation.BindException;
 public class StatisticsReportModel {
     public static class Datum implements Comparable<Datum> {
         private Double m_value;
+
         private OnmsResource m_resource;
 
         @Override
@@ -61,7 +62,7 @@ public class StatisticsReportModel {
         }
 
         public final OnmsResource getPrettyResource() {
-        	return new PrettyOnmsResource(m_resource);
+            return new PrettyOnmsResource(m_resource);
         }
 
         public final void setResource(final OnmsResource resource) {
@@ -130,61 +131,89 @@ public class StatisticsReportModel {
     }
 
     private BindException m_errors;
+
     private StatisticsReport m_report;
+
     private SortedSet<Datum> m_data = new TreeSet<Datum>();
 
     /**
-     * <p>getData</p>
+     * <p>
+     * getData
+     * </p>
      *
      * @return a {@link java.util.SortedSet} object.
      */
     public final SortedSet<Datum> getData() {
         return m_data;
     }
+
     /**
-     * <p>setData</p>
+     * <p>
+     * setData
+     * </p>
      *
-     * @param data a {@link java.util.SortedSet} object.
+     * @param data
+     *            a {@link java.util.SortedSet} object.
      */
     public final void setData(final SortedSet<StatisticsReportModel.Datum> data) {
         m_data = data;
     }
+
     /**
-     * <p>addData</p>
+     * <p>
+     * addData
+     * </p>
      *
-     * @param datum a {@link org.opennms.web.svclayer.support.StatisticsReportModel.Datum} object.
+     * @param datum
+     *            a
+     *            {@link org.opennms.web.svclayer.support.StatisticsReportModel.Datum}
+     *            object.
      */
     public final void addData(final Datum datum) {
         m_data.add(datum);
     }
+
     /**
-     * <p>getErrors</p>
+     * <p>
+     * getErrors
+     * </p>
      *
      * @return a {@link org.springframework.validation.BindException} object.
      */
     public final BindException getErrors() {
         return m_errors;
     }
+
     /**
-     * <p>setErrors</p>
+     * <p>
+     * setErrors
+     * </p>
      *
-     * @param errors a {@link org.springframework.validation.BindException} object.
+     * @param errors
+     *            a {@link org.springframework.validation.BindException} object.
      */
     public final void setErrors(final BindException errors) {
         m_errors = errors;
     }
+
     /**
-     * <p>getReport</p>
+     * <p>
+     * getReport
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.StatisticsReport} object.
      */
     public final StatisticsReport getReport() {
         return m_report;
     }
+
     /**
-     * <p>setReport</p>
+     * <p>
+     * setReport
+     * </p>
      *
-     * @param report a {@link org.opennms.netmgt.model.StatisticsReport} object.
+     * @param report
+     *            a {@link org.opennms.netmgt.model.StatisticsReport} object.
      */
     public final void setReport(final StatisticsReport report) {
         m_report = report;

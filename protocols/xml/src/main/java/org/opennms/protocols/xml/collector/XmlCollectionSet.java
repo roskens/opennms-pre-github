@@ -57,14 +57,16 @@ public class XmlCollectionSet implements CollectionSet {
     /**
      * Instantiates a new XML collection set.
      *
-     * @param agent the agent
+     * @param agent
+     *            the agent
      */
     public XmlCollectionSet(CollectionAgent agent) {
         m_status = ServiceCollector.COLLECTION_FAILED;
         m_collectionResources = new ArrayList<XmlCollectionResource>();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.collector.CollectionSet#getStatus()
      */
     @Override
@@ -75,7 +77,8 @@ public class XmlCollectionSet implements CollectionSet {
     /**
      * Sets the status.
      *
-     * @param status the new status
+     * @param status
+     *            the new status
      */
     public void setStatus(int status) {
         m_status = status;
@@ -93,26 +96,31 @@ public class XmlCollectionSet implements CollectionSet {
     /**
      * Sets the collection resources.
      *
-     * @param collectionResources the new collection resources
+     * @param collectionResources
+     *            the new collection resources
      */
     public void setCollectionResources(List<XmlCollectionResource> collectionResources) {
         m_collectionResources = collectionResources;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.config.collector.CollectionSet#visit(org.opennms.netmgt.config.collector.CollectionSetVisitor)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.config.collector.CollectionSet#visit(org.opennms.netmgt
+     * .config.collector.CollectionSetVisitor)
      */
     @Override
     public void visit(CollectionSetVisitor visitor) {
         visitor.visitCollectionSet(this);
 
-        for(CollectionResource resource : getCollectionResources())
+        for (CollectionResource resource : getCollectionResources())
             resource.visit(visitor);
 
         visitor.completeCollectionSet(this);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.collector.CollectionSet#ignorePersist()
      */
     @Override
@@ -120,8 +128,11 @@ public class XmlCollectionSet implements CollectionSet {
         return false;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.config.collector.CollectionSet#getCollectionTimestamp()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.config.collector.CollectionSet#getCollectionTimestamp
+     * ()
      */
     @Override
     public Date getCollectionTimestamp() {
@@ -131,7 +142,8 @@ public class XmlCollectionSet implements CollectionSet {
     /**
      * Sets the collection timestamp.
      *
-     * @param timestamp the new collection timestamp
+     * @param timestamp
+     *            the new collection timestamp
      */
     public void setCollectionTimestamp(Date timestamp) {
         this.m_timestamp = timestamp;

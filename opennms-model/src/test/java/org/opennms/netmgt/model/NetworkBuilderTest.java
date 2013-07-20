@@ -60,12 +60,7 @@ public class NetworkBuilderTest {
         final NetworkBuilder builder = new NetworkBuilder();
         builder.addNode("foo");
 
-        final SnmpInterfaceBuilder sib = builder.addSnmpInterface(2)
-            .setCollectionEnabled(true)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .setIfName("eth0")
-            .setIfType(6);
+        final SnmpInterfaceBuilder sib = builder.addSnmpInterface(2).setCollectionEnabled(true).setIfOperStatus(1).setIfSpeed(10000000).setIfName("eth0").setIfType(6);
         sib.addIpInterface("192.168.1.2").setIsManaged("M").setIsSnmpPrimary("S");
         sib.addIpInterface("192.168.1.3").setIsManaged("M").setIsSnmpPrimary("N");
 
@@ -79,8 +74,7 @@ public class NetworkBuilderTest {
     public void testIpInterface() {
         final NetworkBuilder builder = new NetworkBuilder("localhost", "127.0.0.1");
         builder.addNode("node1");
-        final InterfaceBuilder ib = builder.addSnmpInterface(1)
-            .addIpInterface("192.168.1.1");
+        final InterfaceBuilder ib = builder.addSnmpInterface(1).addIpInterface("192.168.1.1");
         final OnmsIpInterface iface = ib.getInterface();
         assertEquals(1, iface.getIfIndex().intValue());
     }
@@ -94,36 +88,15 @@ public class NetworkBuilderTest {
         builder.addCategory("OPS_Online");
         builder.addCategory("Routers");
         builder.setBuilding("HQ");
-        builder.addSnmpInterface(1)
-            .setCollectionEnabled(true)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .setIfDescr("ATM0")
-            .setIfAlias("Initial ifAlias value")
-            .setIfType(37)
-            .addIpInterface("192.168.1.1").setIsManaged("M").setIsSnmpPrimary("P");
+        builder.addSnmpInterface(1).setCollectionEnabled(true).setIfOperStatus(1).setIfSpeed(10000000).setIfDescr("ATM0").setIfAlias("Initial ifAlias value").setIfType(37).addIpInterface("192.168.1.1").setIsManaged("M").setIsSnmpPrimary("P");
         builder.addService("ICMP");
         builder.addService("SNMP");
-        builder.addSnmpInterface(2)
-            .setCollectionEnabled(true)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .setIfName("eth0")
-            .setIfType(6)
-            .addIpInterface("192.168.1.2").setIsManaged("M").setIsSnmpPrimary("S");
+        builder.addSnmpInterface(2).setCollectionEnabled(true).setIfOperStatus(1).setIfSpeed(10000000).setIfName("eth0").setIfType(6).addIpInterface("192.168.1.2").setIsManaged("M").setIsSnmpPrimary("S");
         builder.addService("ICMP");
         builder.addService("HTTP");
-        builder.addSnmpInterface(3)
-            .setCollectionEnabled(false)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .addIpInterface("192.168.1.3").setIsManaged("M").setIsSnmpPrimary("N");
+        builder.addSnmpInterface(3).setCollectionEnabled(false).setIfOperStatus(1).setIfSpeed(10000000).addIpInterface("192.168.1.3").setIsManaged("M").setIsSnmpPrimary("N");
         builder.addService("ICMP");
-        builder.addSnmpInterface(4)
-            .setCollectionEnabled(false)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .addIpInterface("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5").setIsManaged("M").setIsSnmpPrimary("N");
+        builder.addSnmpInterface(4).setCollectionEnabled(false).setIfOperStatus(1).setIfSpeed(10000000).addIpInterface("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5").setIsManaged("M").setIsSnmpPrimary("N");
         builder.addService("ICMP");
         final OnmsNode node1 = builder.getCurrentNode();
 
@@ -146,9 +119,9 @@ public class NetworkBuilderTest {
         final OnmsServiceType threeIcmp = three.getMonitoredServiceByServiceType("ICMP").getServiceType();
         assertNotNull(threeIcmp);
 
-        //assertEquals(twoIcmp, threeIcmp);
-        //assertEquals(twoIcmp.getId(), threeIcmp.getId());
-        //assertEquals(twoIcmp.hashCode(), threeIcmp.hashCode());
+        // assertEquals(twoIcmp, threeIcmp);
+        // assertEquals(twoIcmp.getId(), threeIcmp.getId());
+        // assertEquals(twoIcmp.hashCode(), threeIcmp.hashCode());
 
         final OnmsMonitoredService svc = two.getMonitoredServiceByServiceType("ICMP");
         assertEquals(addr("192.168.1.2"), svc.getIpAddress());

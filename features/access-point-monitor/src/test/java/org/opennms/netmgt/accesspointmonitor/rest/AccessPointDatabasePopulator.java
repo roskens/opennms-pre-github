@@ -36,9 +36,13 @@ import org.opennms.netmgt.model.OnmsNode;
 
 public class AccessPointDatabasePopulator {
     private NodeDao m_nodeDao;
+
     private AccessPointDao m_accessPointDao;
+
     private IpInterfaceDao m_ipInterfaceDao;
+
     private OnmsNode m_node1;
+
     private OnmsAccessPoint m_ap1;
 
     public void populateDatabase() {

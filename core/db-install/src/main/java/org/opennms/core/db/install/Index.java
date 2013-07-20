@@ -42,34 +42,40 @@ import org.springframework.util.StringUtils;
 public class Index {
 
     private String m_name;
+
     private String m_table;
+
     private String m_using;
+
     private List<String> m_columns;
+
     private boolean m_unique;
+
     private String m_where;
 
-    private static Pattern m_pattern =
-            Pattern.compile("(?i)create"
-                            + "(\\s+unique)?"
-                            + "\\s+index\\s+(\\S+)"
-                            + "\\s+on\\s+(\\S+)"
-                            + "(?:\\s+USING\\s+(\\S+))?"
-                            + "\\s*\\(([^)]+)\\)"
-                            + "(?:\\s+WHERE\\s+(.*?))?"
-                            + "\\s*(?:;|$)");
+    private static Pattern m_pattern = Pattern.compile("(?i)create" + "(\\s+unique)?" + "\\s+index\\s+(\\S+)"
+            + "\\s+on\\s+(\\S+)" + "(?:\\s+USING\\s+(\\S+))?" + "\\s*\\(([^)]+)\\)" + "(?:\\s+WHERE\\s+(.*?))?"
+            + "\\s*(?:;|$)");
 
     /**
-     * <p>Constructor for Index.</p>
+     * <p>
+     * Constructor for Index.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param table a {@link java.lang.String} object.
-     * @param using a {@link java.lang.String} object.
-     * @param columns a {@link java.util.List} object.
-     * @param unique a boolean.
-     * @param where a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @param using
+     *            a {@link java.lang.String} object.
+     * @param columns
+     *            a {@link java.util.List} object.
+     * @param unique
+     *            a boolean.
+     * @param where
+     *            a {@link java.lang.String} object.
      */
-    public Index(String name, String table, String using, List<String> columns,
-            boolean unique, String where) {
+    public Index(String name, String table, String using, List<String> columns, boolean unique, String where) {
         m_name = name;
         m_table = table;
         m_using = using;
@@ -79,9 +85,12 @@ public class Index {
     }
 
     /**
-     * <p>findIndexInString</p>
+     * <p>
+     * findIndexInString
+     * </p>
      *
-     * @param create a {@link java.lang.String} object.
+     * @param create
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.dao.db.Index} object.
      */
     public static Index findIndexInString(String create) {
@@ -99,16 +108,19 @@ public class Index {
 
         String[] columns = columnList.split("\\s*,\\s*");
 
-        return new Index(name, table, using, Arrays.asList(columns), unique,
-                         where);
+        return new Index(name, table, using, Arrays.asList(columns), unique, where);
     }
 
     /**
-     * <p>isOnDatabase</p>
+     * <p>
+     * isOnDatabase
+     * </p>
      *
-     * @param connection a {@link java.sql.Connection} object.
+     * @param connection
+     *            a {@link java.sql.Connection} object.
      * @return a boolean.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public boolean isOnDatabase(Connection connection) throws SQLException {
         boolean exists;
@@ -116,9 +128,7 @@ public class Index {
         Statement st = connection.createStatement();
         ResultSet rs = null;
         try {
-            rs = st.executeQuery("SELECT relname FROM pg_class "
-                                 + "WHERE relname = '" + m_name.toLowerCase()
-                                 + "'");
+            rs = st.executeQuery("SELECT relname FROM pg_class " + "WHERE relname = '" + m_name.toLowerCase() + "'");
             exists = rs.next();
         } finally {
             if (rs != null) {
@@ -131,37 +141,47 @@ public class Index {
     }
 
     /**
-     * <p>removeFromDatabase</p>
+     * <p>
+     * removeFromDatabase
+     * </p>
      *
-     * @param connection a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException if any.
+     * @param connection
+     *            a {@link java.sql.Connection} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void removeFromDatabase(Connection connection) throws SQLException {
         Statement st = connection.createStatement();
         try {
             st.execute("DROP INDEX " + getName());
-        } finally{
+        } finally {
             st.close();
         }
     }
 
     /**
-     * <p>addToDatabase</p>
+     * <p>
+     * addToDatabase
+     * </p>
      *
-     * @param connection a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException if any.
+     * @param connection
+     *            a {@link java.sql.Connection} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void addToDatabase(Connection connection) throws SQLException {
         Statement st = connection.createStatement();
         try {
             st.execute(getSql());
-        } finally{
+        } finally {
             st.close();
         }
     }
 
     /**
-     * <p>getSql</p>
+     * <p>
+     * getSql
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -191,9 +211,10 @@ public class Index {
         return sql.toString();
     }
 
-
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -202,7 +223,9 @@ public class Index {
     }
 
     /**
-     * <p>getTable</p>
+     * <p>
+     * getTable
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -211,7 +234,9 @@ public class Index {
     }
 
     /**
-     * <p>isUnique</p>
+     * <p>
+     * isUnique
+     * </p>
      *
      * @return a boolean.
      */
@@ -220,7 +245,9 @@ public class Index {
     }
 
     /**
-     * <p>getColumns</p>
+     * <p>
+     * getColumns
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -229,10 +256,13 @@ public class Index {
     }
 
     /**
-     * <p>getIndexUniquenessQuery</p>
+     * <p>
+     * getIndexUniquenessQuery
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public String getIndexUniquenessQuery() throws Exception {
         String firstColumn = getColumns().get(0);
@@ -240,44 +270,39 @@ public class Index {
 
         /*
          * E.g. select * from foo where (a, b) in (select a, b from foo
-         *      group by a, b having count(a) > 1 order by a, b);
+         * group by a, b having count(a) > 1 order by a, b);
          */
         StringBuffer sql = new StringBuffer();
-        sql.append("SELECT * FROM " + getTable() + " WHERE ( "
-                   + columnList + " ) IN ( SELECT "  + columnList + " FROM "
-                   + getTable() + " GROUP BY " + columnList + " HAVING count("
-                   + firstColumn + ") > 1");
+        sql.append("SELECT * FROM " + getTable() + " WHERE ( " + columnList + " ) IN ( SELECT " + columnList + " FROM "
+                + getTable() + " GROUP BY " + columnList + " HAVING count(" + firstColumn + ") > 1");
         if (m_where != null) {
             sql.append(" AND ( " + m_where + " )");
         }
-        sql.append(" ORDER BY " + columnList + " ) "
-                   + "ORDER BY " + columnList);
+        sql.append(" ORDER BY " + columnList + " ) " + "ORDER BY " + columnList);
 
         return sql.toString();
 
         /*
-        List<String> whereComponents =
-            new ArrayList<String>(getColumns().size() + 2);
-        for (String column : getColumns()) {
-            whereComponents.add("a." + column + " = b." + column);
-        }
-
-        String lowerTable = getTable().toLowerCase();
-        if ("snmpinterface".equals(lowerTable)) {
-            whereComponents.add("a.ipAddr != b.ipAddr");
-        } else if ("ifservices".equals(lowerTable)) {
-            whereComponents.add("a.lastGood != b.lastGood");
-        } else {
-            return null;
-        }
-
-        if (m_where != null) {
-            whereComponents.add("( " + m_where + " )");
-        }
-        return "SELECT DISTINCT a.* FROM "
-            + getTable() + " a, " + getTable() + " b WHERE "
-            + Installer.join(" AND ", whereComponents);
-            */
+         * List<String> whereComponents =
+         * new ArrayList<String>(getColumns().size() + 2);
+         * for (String column : getColumns()) {
+         * whereComponents.add("a." + column + " = b." + column);
+         * }
+         * String lowerTable = getTable().toLowerCase();
+         * if ("snmpinterface".equals(lowerTable)) {
+         * whereComponents.add("a.ipAddr != b.ipAddr");
+         * } else if ("ifservices".equals(lowerTable)) {
+         * whereComponents.add("a.lastGood != b.lastGood");
+         * } else {
+         * return null;
+         * }
+         * if (m_where != null) {
+         * whereComponents.add("( " + m_where + " )");
+         * }
+         * return "SELECT DISTINCT a.* FROM "
+         * + getTable() + " a, " + getTable() + " b WHERE "
+         * + Installer.join(" AND ", whereComponents);
+         */
     }
 
 }

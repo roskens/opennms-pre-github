@@ -40,7 +40,9 @@ import java.util.concurrent.TimeUnit;
 public class PingReplyMetric extends Metric implements PingReplyListener {
 
     CountDownLatch m_latch;
+
     int m_count;
+
     long m_interval;
 
     public PingReplyMetric(int count, long interval) {
@@ -59,7 +61,7 @@ public class PingReplyMetric extends Metric implements PingReplyListener {
     }
 
     public void await() throws InterruptedException {
-        m_latch.await(m_interval*m_count + 1000, TimeUnit.MILLISECONDS);
+        m_latch.await(m_interval * m_count + 1000, TimeUnit.MILLISECONDS);
     }
 
 }

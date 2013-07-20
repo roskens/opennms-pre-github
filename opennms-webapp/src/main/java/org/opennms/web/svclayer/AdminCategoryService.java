@@ -38,7 +38,9 @@ import org.opennms.web.svclayer.support.DefaultAdminCategoryService.NodeEditMode
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>AdminCategoryService interface.</p>
+ * <p>
+ * AdminCategoryService interface.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -47,94 +49,137 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface AdminCategoryService {
     /**
-     * <p>getCategory</p>
+     * <p>
+     * getCategory
+     * </p>
      *
-     * @param categoryIdString a {@link java.lang.String} object.
-     * @return a {@link org.opennms.web.svclayer.support.DefaultAdminCategoryService.CategoryAndMemberNodes} object.
+     * @param categoryIdString
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.web.svclayer.support.DefaultAdminCategoryService.CategoryAndMemberNodes}
+     *         object.
      */
     public CategoryAndMemberNodes getCategory(String categoryIdString);
 
     /**
-     * <p>findAllNodes</p>
+     * <p>
+     * findAllNodes
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsNode> findAllNodes();
 
     /**
-     * <p>findCategoryAndAllNodes</p>
+     * <p>
+     * findCategoryAndAllNodes
+     * </p>
      *
-     * @param categoryIdString a {@link java.lang.String} object.
-     * @return a {@link org.opennms.web.svclayer.support.DefaultAdminCategoryService.EditModel} object.
+     * @param categoryIdString
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.web.svclayer.support.DefaultAdminCategoryService.EditModel}
+     *         object.
      */
     public EditModel findCategoryAndAllNodes(String categoryIdString);
 
     /**
-     * <p>performEdit</p>
+     * <p>
+     * performEdit
+     * </p>
      *
-     * @param editAction a {@link java.lang.String} object.
-     * @param editAction2 a {@link java.lang.String} object.
-     * @param toAdd an array of {@link java.lang.String} objects.
-     * @param toDelete an array of {@link java.lang.String} objects.
+     * @param editAction
+     *            a {@link java.lang.String} object.
+     * @param editAction2
+     *            a {@link java.lang.String} object.
+     * @param toAdd
+     *            an array of {@link java.lang.String} objects.
+     * @param toDelete
+     *            an array of {@link java.lang.String} objects.
      */
     @Transactional(readOnly = false)
     public void performEdit(String editAction, String editAction2, String[] toAdd, String[] toDelete);
 
     /**
-     * <p>addNewCategory</p>
+     * <p>
+     * addNewCategory
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
     @Transactional(readOnly = false)
     public OnmsCategory addNewCategory(String name);
 
     /**
-     * <p>getCategoryWithName</p>
+     * <p>
+     * getCategoryWithName
+     * </p>
      *
-     * @param newCategoryName a {@link java.lang.String} object.
+     * @param newCategoryName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
     public OnmsCategory getCategoryWithName(String newCategoryName);
 
     /**
-     * <p>findAllCategories</p>
+     * <p>
+     * findAllCategories
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsCategory> findAllCategories();
 
     /**
-     * <p>removeCategory</p>
+     * <p>
+     * removeCategory
+     * </p>
      *
-     * @param categoryIdString a {@link java.lang.String} object.
+     * @param categoryIdString
+     *            a {@link java.lang.String} object.
      */
     @Transactional(readOnly = false)
     public void removeCategory(String categoryIdString);
 
     /**
-     * <p>findByNode</p>
+     * <p>
+     * findByNode
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link java.util.List} object.
      */
     public List<OnmsCategory> findByNode(int nodeId);
 
     /**
-     * <p>findNodeCategories</p>
+     * <p>
+     * findNodeCategories
+     * </p>
      *
-     * @param nodeIdString a {@link java.lang.String} object.
-     * @return a {@link org.opennms.web.svclayer.support.DefaultAdminCategoryService.NodeEditModel} object.
+     * @param nodeIdString
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.web.svclayer.support.DefaultAdminCategoryService.NodeEditModel}
+     *         object.
      */
     public NodeEditModel findNodeCategories(String nodeIdString);
 
     /**
-     * <p>performNodeEdit</p>
+     * <p>
+     * performNodeEdit
+     * </p>
      *
-     * @param nodeIdString a {@link java.lang.String} object.
-     * @param editAction a {@link java.lang.String} object.
-     * @param toAdd an array of {@link java.lang.String} objects.
-     * @param toDelete an array of {@link java.lang.String} objects.
+     * @param nodeIdString
+     *            a {@link java.lang.String} object.
+     * @param editAction
+     *            a {@link java.lang.String} object.
+     * @param toAdd
+     *            an array of {@link java.lang.String} objects.
+     * @param toDelete
+     *            an array of {@link java.lang.String} objects.
      */
     @Transactional(readOnly = false)
     public void performNodeEdit(String nodeIdString, String editAction, String[] toAdd, String[] toDelete);

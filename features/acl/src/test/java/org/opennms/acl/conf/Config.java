@@ -82,7 +82,10 @@ public class Config {
     }
 
     private String dbDriver;
+
     private String dbUser;
+
     private String dbPass;
+
     private String dbUrl;
 }

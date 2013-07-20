@@ -38,7 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>WebResponse class.</p>
+ * <p>
+ * WebResponse class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
@@ -46,8 +48,11 @@ import org.slf4j.LoggerFactory;
 public class WebResponse {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebResponse.class);
+
     private String expectedRange;
+
     private String expectedText;
+
     private HttpResponse httpResponse;
 
     public WebResponse(WebRequest request, HttpResponse response) {
@@ -89,7 +94,7 @@ public class WebResponse {
         return retval;
     }
 
-    private boolean inRange(String range,Integer val) {
+    private boolean inRange(String range, Integer val) {
         String boundries[] = range.split("-");
         if (val < new Integer(boundries[0]) || val > new Integer(boundries[1])) {
             return false;

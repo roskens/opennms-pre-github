@@ -29,7 +29,9 @@
 package org.opennms.netmgt.poller;
 
 /**
- * <p>ServiceMonitorLocator interface.</p>
+ * <p>
+ * ServiceMonitorLocator interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,25 +39,30 @@ package org.opennms.netmgt.poller;
 public interface ServiceMonitorLocator {
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getServiceName();
 
     /**
-     * <p>getServiceLocatorKey</p>
+     * <p>
+     * getServiceLocatorKey
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getServiceLocatorKey();
 
     /**
-     * <p>getServiceMonitor</p>
+     * <p>
+     * getServiceMonitor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
      */
     ServiceMonitor getServiceMonitor();
-
 
 }

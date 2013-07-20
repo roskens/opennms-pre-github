@@ -45,7 +45,7 @@ import org.springframework.core.io.FileSystemResource;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-public class JMXDataCollectionConfigDao extends AbstractJaxbConfigDao<JmxDatacollectionConfig,JmxDatacollectionConfig> {
+public class JMXDataCollectionConfigDao extends AbstractJaxbConfigDao<JmxDatacollectionConfig, JmxDatacollectionConfig> {
 
     public static final Logger LOG = LoggerFactory.getLogger(JMXDataCollectionConfigDao.class);
 

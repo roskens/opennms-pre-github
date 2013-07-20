@@ -63,7 +63,8 @@ public class JoeSnmpValueFactory implements SnmpValueFactory {
     }
 
     @Override
-    public SnmpValue getGauge32(long val) {;
+    public SnmpValue getGauge32(long val) {
+        ;
         return new JoeSnmpValue(new SnmpGauge32(val));
     }
 
@@ -101,6 +102,5 @@ public class JoeSnmpValueFactory implements SnmpValueFactory {
     public SnmpValue getOpaque(byte[] bs) {
         return new JoeSnmpValue(new SnmpOpaque(bs));
     }
-
 
 }

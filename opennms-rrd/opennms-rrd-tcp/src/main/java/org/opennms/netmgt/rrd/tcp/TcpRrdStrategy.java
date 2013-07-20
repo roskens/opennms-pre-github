@@ -51,14 +51,13 @@ import org.opennms.netmgt.rrd.RrdStrategy;
  * @author ranger
  * @version $Id: $
  */
-public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,TcpRrdStrategy.RrdOutputSocketWithFilename> {
+public class TcpRrdStrategy implements
+        RrdStrategy<TcpRrdStrategy.RrdDefinition, TcpRrdStrategy.RrdOutputSocketWithFilename> {
 
     public static class RrdDefinition {
         private final String m_directory, m_rrdName;
-        public RrdDefinition(
-                String directory,
-                String rrdName
-        ) {
+
+        public RrdDefinition(String directory, String rrdName) {
             m_directory = directory;
             m_rrdName = rrdName;
         }
@@ -70,6 +69,7 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
 
     public static class RrdOutputSocketWithFilename {
         private final RrdOutputSocket m_socket;
+
         private final String m_filename;
 
         public RrdOutputSocketWithFilename(RrdOutputSocket socket, String filename) {
@@ -89,7 +89,9 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     private String m_host = null;
 
     /**
-     * <p>getHost</p>
+     * <p>
+     * getHost
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,9 +106,12 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     }
 
     /**
-     * <p>setHost</p>
+     * <p>
+     * setHost
+     * </p>
      *
-     * @param host a {@link java.lang.String} object.
+     * @param host
+     *            a {@link java.lang.String} object.
      */
     public void setHost(String host) {
         this.m_host = host;
@@ -115,7 +120,9 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     private int m_port = 0;
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a int.
      */
@@ -124,16 +131,21 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     }
 
     /**
-     * <p>setPort</p>
+     * <p>
+     * setPort
+     * </p>
      *
-     * @param port a int.
+     * @param port
+     *            a int.
      */
     public void setPort(int port) {
         this.m_port = port;
     }
 
     /**
-     * <p>getDefaultFileExtension</p>
+     * <p>
+     * getDefaultFileExtension
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -144,19 +156,25 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
 
     /** {@inheritDoc} */
     @Override
-    public RrdDefinition createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
+    public RrdDefinition createDefinition(String creator, String directory, String rrdName, int step,
+            List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         return new RrdDefinition(directory, rrdName);
     }
 
     /**
-     * <p>createFile</p>
+     * <p>
+     * createFile
+     * </p>
      *
-     * @param rrdDef a {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition} object.
-     * @throws java.lang.Exception if any.
+     * @param rrdDef
+     *            a
+     *            {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition}
+     *            object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
-	public void createFile(RrdDefinition rrdDef,
-			Map<String, String> attributeMappings) throws Exception {
+    public void createFile(RrdDefinition rrdDef, Map<String, String> attributeMappings) throws Exception {
         // Do nothing
     }
 
@@ -173,10 +191,16 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     }
 
     /**
-     * <p>closeFile</p>
+     * <p>
+     * closeFile
+     * </p>
      *
-     * @param rrd a {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdOutputSocketWithFilename} object.
-     * @throws java.lang.Exception if any.
+     * @param rrd
+     *            a
+     *            {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdOutputSocketWithFilename}
+     *            object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void closeFile(RrdOutputSocketWithFilename rrd) throws Exception {
@@ -191,13 +215,15 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException {
+    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval)
+            throws NumberFormatException {
         return Double.NaN;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException {
+    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
+            throws NumberFormatException {
         return Double.NaN;
     }
 
@@ -214,7 +240,9 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     }
 
     /**
-     * <p>getGraphLeftOffset</p>
+     * <p>
+     * getGraphLeftOffset
+     * </p>
      *
      * @return a int.
      */
@@ -224,7 +252,9 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     }
 
     /**
-     * <p>getGraphRightOffset</p>
+     * <p>
+     * getGraphRightOffset
+     * </p>
      *
      * @return a int.
      */
@@ -234,7 +264,9 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     }
 
     /**
-     * <p>getGraphTopOffsetWithText</p>
+     * <p>
+     * getGraphTopOffsetWithText
+     * </p>
      *
      * @return a int.
      */
@@ -244,7 +276,9 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     }
 
     /**
-     * <p>getStats</p>
+     * <p>
+     * getStats
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -256,7 +290,8 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
     /** {@inheritDoc} */
     @Override
     public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
-        // Do nothing; this implementation simply sends data to an external source and has not control
+        // Do nothing; this implementation simply sends data to an external
+        // source and has not control
         // over when data is persisted to disk.
     }
 }

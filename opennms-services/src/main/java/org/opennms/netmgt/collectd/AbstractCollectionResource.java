@@ -44,10 +44,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A base (partial) implementation of CollectionResource, implementing common features (to reduce repeated code)
- * Typically used by the non-SNMP collectors (SNMP has it's own set of classes for this).  Provides a basic group of ag
- * Provides support, via addAttribute, getGroup, and getGroups, for basic "groups" of attributes.
- * Also provides a sample "visit" implementation based on those groups, although this may well be overridden by subclasses
+ * A base (partial) implementation of CollectionResource, implementing common
+ * features (to reduce repeated code)
+ * Typically used by the non-SNMP collectors (SNMP has it's own set of classes
+ * for this). Provides a basic group of ag
+ * Provides support, via addAttribute, getGroup, and getGroups, for basic
+ * "groups" of attributes.
+ * Also provides a sample "visit" implementation based on those groups, although
+ * this may well be overridden by subclasses
  *
  * @author opennms
  * @version $Id: $
@@ -57,26 +61,33 @@ public abstract class AbstractCollectionResource implements CollectionResource {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCollectionResource.class);
 
     protected CollectionAgent m_agent;
+
     private Map<AttributeGroupType, AttributeGroup> m_attributeGroups;
 
     /**
-     * <p>Constructor for AbstractCollectionResource.</p>
+     * <p>
+     * Constructor for AbstractCollectionResource.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
     protected AbstractCollectionResource(CollectionAgent agent) {
-        m_agent=agent;
-        m_attributeGroups=new HashMap<AttributeGroupType, AttributeGroup>();
+        m_agent = agent;
+        m_attributeGroups = new HashMap<AttributeGroupType, AttributeGroup>();
     }
 
     /**
-     * <p>getOwnerName</p>
+     * <p>
+     * getOwnerName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getOwnerName() {
-        return m_agent.getHostAddress();    }
+        return m_agent.getHostAddress();
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -87,7 +98,8 @@ public abstract class AbstractCollectionResource implements CollectionResource {
     /**
      * Adds the given attribute into the collection for this resource
      *
-     * @param attr The Attribute to add
+     * @param attr
+     *            The Attribute to add
      */
     protected void addAttribute(CollectionAttribute attr) {
         AttributeGroup group = getGroup(attr.getAttributeType().getGroupType());
@@ -96,10 +108,15 @@ public abstract class AbstractCollectionResource implements CollectionResource {
     }
 
     /**
-     * Finds, or creates, and returns the AttributeGroup for the given group Type
+     * Finds, or creates, and returns the AttributeGroup for the given group
+     * Type
      *
-     * @param groupType a {@link org.opennms.netmgt.config.collector.AttributeGroupType} object.
-     * @return a {@link org.opennms.netmgt.config.collector.AttributeGroup} object.
+     * @param groupType
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.AttributeGroupType}
+     *            object.
+     * @return a {@link org.opennms.netmgt.config.collector.AttributeGroup}
+     *         object.
      */
     protected AttributeGroup getGroup(AttributeGroupType groupType) {
         AttributeGroup group = m_attributeGroups.get(groupType);
@@ -114,14 +131,16 @@ public abstract class AbstractCollectionResource implements CollectionResource {
     @Override
     public void visit(CollectionSetVisitor visitor) {
         visitor.visitResource(this);
-        for (AttributeGroup group: m_attributeGroups.values()) {
+        for (AttributeGroup group : m_attributeGroups.values()) {
             group.visit(visitor);
         }
         visitor.completeResource(this);
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a int.
      */
@@ -129,7 +148,9 @@ public abstract class AbstractCollectionResource implements CollectionResource {
     public abstract int getType();
 
     /**
-     * <p>rescanNeeded</p>
+     * <p>
+     * rescanNeeded
+     * </p>
      *
      * @return a boolean.
      */
@@ -141,7 +162,9 @@ public abstract class AbstractCollectionResource implements CollectionResource {
     public abstract boolean shouldPersist(ServiceParameters params);
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

@@ -66,7 +66,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class DeleteNodesServlet extends HttpServlet {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DeleteNodesServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeleteNodesServlet.class);
 
     private static final long serialVersionUID = 573510937493956121L;
 
@@ -124,9 +124,11 @@ public class DeleteNodesServlet extends HttpServlet {
                 if (intfDir.exists() && intfDir.isDirectory()) {
                     LOG.debug("Attempting to delete node response time data directory: {}", intfDir.getAbsolutePath());
                     if (deleteDir(intfDir)) {
-                        LOG.info("Node response time data directory deleted successfully: {}", intfDir.getAbsolutePath());
+                        LOG.info("Node response time data directory deleted successfully: {}",
+                                 intfDir.getAbsolutePath());
                     } else {
-                        LOG.warn("Node response time data directory *not* deleted successfully: {}", intfDir.getAbsolutePath());
+                        LOG.warn("Node response time data directory *not* deleted successfully: {}",
+                                 intfDir.getAbsolutePath());
                     }
                 }
             }

@@ -36,51 +36,62 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-@XmlRootElement(name="link-adapter-configuration")
+@XmlRootElement(name = "link-adapter-configuration")
 public class LinkAdapterConfiguration {
     Set<LinkPattern> m_patterns = new HashSet<LinkPattern>();
 
     /**
-     * <p>addPattern</p>
+     * <p>
+     * addPattern
+     * </p>
      *
-     * @param linkPattern a {@link org.opennms.netmgt.provision.adapters.link.config.linkadapter.LinkPattern} object.
+     * @param linkPattern
+     *            a
+     *            {@link org.opennms.netmgt.provision.adapters.link.config.linkadapter.LinkPattern}
+     *            object.
      */
     public void addPattern(final LinkPattern linkPattern) {
         m_patterns.add(linkPattern);
     }
 
     /**
-     * <p>getPatterns</p>
+     * <p>
+     * getPatterns
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
-    @XmlElement(name="for")
+    @XmlElement(name = "for")
     public Set<LinkPattern> getPatterns() {
         return m_patterns;
     }
 
     /**
-     * <p>setPatterns</p>
+     * <p>
+     * setPatterns
+     * </p>
      *
-     * @param patterns a {@link java.util.Set} object.
+     * @param patterns
+     *            a {@link java.util.Set} object.
      */
     public void setPatterns(final Set<LinkPattern> patterns) {
-        synchronized(m_patterns) {
-            if (patterns == m_patterns) return;
+        synchronized (m_patterns) {
+            if (patterns == m_patterns)
+                return;
             m_patterns.clear();
             m_patterns.addAll(patterns);
         }
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("patterns", m_patterns)
-            .toString();
+        return new ToStringBuilder(this).append("patterns", m_patterns).toString();
     }
 }

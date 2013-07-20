@@ -49,22 +49,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.support.TransactionTemplate;
 
-
 /**
  * UpsertTest
  *
  * @author brozow
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-        "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
-        "classpath:upsertTest-context.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml", "classpath:upsertTest-context.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class UpsertTest implements InitializingBean {
@@ -115,7 +110,8 @@ public class UpsertTest implements InitializingBean {
     }
 
     private int countIfs(int nodeId, int ifIndex, String ifName) {
-        return m_jdbcTemplate.queryForInt("select count(*) from snmpInterface where nodeid=? and snmpifindex=? and snmpifname=?", nodeId, ifIndex, ifName);
+        return m_jdbcTemplate.queryForInt("select count(*) from snmpInterface where nodeid=? and snmpifindex=? and snmpifname=?",
+                                          nodeId, ifIndex, ifName);
     }
 
     @Test
@@ -149,15 +145,19 @@ public class UpsertTest implements InitializingBean {
         one.join();
         two.join();
 
-        assertNull("Exception on upsert two "+two.getThrowable(), two.getThrowable());
-        assertNull("Exception on upsert one "+one.getThrowable(), one.getThrowable());
+        assertNull("Exception on upsert two " + two.getThrowable(), two.getThrowable());
+        assertNull("Exception on upsert one " + one.getThrowable(), one.getThrowable());
     }
 
     private static class Inserter extends Thread {
         private final UpsertService m_upsertService;
+
         private final int m_nodeId;
+
         private final int m_ifIndex;
+
         private final String m_ifName;
+
         private AtomicReference<Throwable> m_throwable = new AtomicReference<Throwable>();
 
         public Inserter(UpsertService upsertService, int nodeId, int ifIndex, String ifName) {
@@ -174,7 +174,7 @@ public class UpsertTest implements InitializingBean {
                 snmpIface.setIfIndex(m_ifIndex);
                 snmpIface.setIfName(m_ifName);
                 m_upsertService.upsert(m_nodeId, snmpIface, 1000);
-            } catch(Throwable t) {
+            } catch (Throwable t) {
                 t.printStackTrace();
                 m_throwable.set(t);
             }

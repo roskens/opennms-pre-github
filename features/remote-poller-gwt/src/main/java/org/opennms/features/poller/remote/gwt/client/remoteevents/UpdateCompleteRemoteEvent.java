@@ -28,9 +28,10 @@
 
 package org.opennms.features.poller.remote.gwt.client.remoteevents;
 
-
 /**
- * <p>UpdateCompleteRemoteEvent class.</p>
+ * <p>
+ * UpdateCompleteRemoteEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -38,27 +39,31 @@ package org.opennms.features.poller.remote.gwt.client.remoteevents;
  */
 public class UpdateCompleteRemoteEvent implements MapRemoteEvent {
 
-	private static final long serialVersionUID = -5806025139074592617L;
+    private static final long serialVersionUID = -5806025139074592617L;
 
-	/**
-	 * <p>Constructor for UpdateCompleteRemoteEvent.</p>
-	 */
-	public UpdateCompleteRemoteEvent() {
-	}
+    /**
+     * <p>
+     * Constructor for UpdateCompleteRemoteEvent.
+     * </p>
+     */
+    public UpdateCompleteRemoteEvent() {
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void dispatch(final MapRemoteEventHandler locationManager) {
-		locationManager.updateComplete();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void dispatch(final MapRemoteEventHandler locationManager) {
+        locationManager.updateComplete();
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String toString() {
-		return "UpdateCompleteRemoteEvent[]";
-	}
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return "UpdateCompleteRemoteEvent[]";
+    }
 }

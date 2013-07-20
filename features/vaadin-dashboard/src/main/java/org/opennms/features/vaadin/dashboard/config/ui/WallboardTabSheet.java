@@ -33,7 +33,8 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.TabSheet;
 
 /**
- * A helper class for constructing the plus-button in a {@link TabSheet} component.
+ * A helper class for constructing the plus-button in a {@link TabSheet}
+ * component.
  *
  * @author
  */
@@ -42,6 +43,7 @@ public abstract class WallboardTabSheet extends TabSheet {
      * The layout this component uses
      */
     private CssLayout m_plusTab;
+
     /**
      * The last tab
      */
@@ -76,9 +78,12 @@ public abstract class WallboardTabSheet extends TabSheet {
     /**
      * This method add a new {@link Component} with the given caption and icon.
      *
-     * @param c       the {@link Component} instance
-     * @param caption the caption to use
-     * @param icon    the icon to be used
+     * @param c
+     *            the {@link Component} instance
+     * @param caption
+     *            the caption to use
+     * @param icon
+     *            the icon to be used
      * @return
      */
     @Override

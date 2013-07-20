@@ -60,7 +60,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class DefaultApplicationView implements ApplicationView, ResizeHandler {
 
-    interface Binder extends UiBinder<DockLayoutPanel, DefaultApplicationView> {}
+    interface Binder extends UiBinder<DockLayoutPanel, DefaultApplicationView> {
+    }
 
     private static final Binder BINDER = GWT.create(Binder.class);
 
@@ -71,31 +72,42 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
     @UiField
     protected LocationPanel locationPanel;
 
-
     @UiField
     protected DockLayoutPanel mainPanel;
+
     @UiField
     protected SplitLayoutPanel splitPanel;
+
     @UiField
     protected Hyperlink locationLink;
+
     @UiField
     protected Hyperlink applicationLink;
+
     @UiField
     protected Label updateTimestamp;
+
     @UiField
     protected LinkStyles linkStyles;
+
     @UiField
     protected HorizontalPanel statusesPanel;
+
     @UiField
     protected CheckBox statusDown;
+
     @UiField
     protected CheckBox statusDisconnected;
+
     @UiField
     protected CheckBox statusMarginal;
+
     @UiField
     protected CheckBox statusUp;
+
     @UiField
     protected CheckBox statusStopped;
+
     @UiField
     protected CheckBox statusUnknown;
 
@@ -103,12 +115,9 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
 
     private final HandlerManager m_eventBus;
 
-
     private Application m_presenter;
 
-
     static final DateTimeFormat UPDATE_TIMESTAMP_FORMAT = DateTimeFormat.getMediumDateTimeFormat();
-
 
     public DefaultApplicationView(Application presenter, HandlerManager eventBus, MapPanel mapPanel) {
         m_presenter = presenter;
@@ -216,9 +225,12 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
     }
 
     /**
-     * <p>onApplicationClick</p>
+     * <p>
+     * onApplicationClick
+     * </p>
      *
-     * @param event a {@link com.google.gwt.event.dom.client.ClickEvent} object.
+     * @param event
+     *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.
      */
     @UiHandler("applicationLink")
     public void onApplicationClick(ClickEvent event) {
@@ -235,9 +247,12 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
     }
 
     /**
-     * <p>onLocationClick</p>
+     * <p>
+     * onLocationClick
+     * </p>
      *
-     * @param event a {@link com.google.gwt.event.dom.client.ClickEvent} object.
+     * @param event
+     *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.
      */
     @UiHandler("locationLink")
     public void onLocationClick(ClickEvent event) {
@@ -253,8 +268,11 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#updateTimestamp()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.poller.remote.gwt.client.ApplicationView#updateTimestamp
+     * ()
      */
     @Override
     public void updateTimestamp() {
@@ -262,13 +280,15 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
     }
 
     private Integer getAppHeight() {
-    	final com.google.gwt.user.client.Element e = getMainPanel().getElement();
-    	int extraHeight = e.getAbsoluteTop();
-    	return Window.getClientHeight() - extraHeight;
+        final com.google.gwt.user.client.Element e = getMainPanel().getElement();
+        int extraHeight = e.getAbsoluteTop();
+        return Window.getClientHeight() - extraHeight;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#getSelectedStatuses()
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#
+     * getSelectedStatuses()
      */
     @Override
     public Set<Status> getSelectedStatuses() {
@@ -276,8 +296,8 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         Set<Status> statuses = new HashSet<Status>();
         for (final Widget w : getStatusesPanel()) {
             if (w instanceof CheckBox) {
-                final CheckBox cb = (CheckBox)w;
-                if(cb.getValue()) {
+                final CheckBox cb = (CheckBox) w;
+                if (cb.getValue()) {
                     statuses.add(Status.valueOf(cb.getFormValue()));
                 }
             }
@@ -292,8 +312,11 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         Window.addResizeHandler(this);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#initialize()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.poller.remote.gwt.client.ApplicationView#initialize
+     * ()
      */
     @Override
     public void initialize() {
@@ -308,24 +331,31 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         onResize(null);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#updateSelectedApplications(java.util.Set)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#
+     * updateSelectedApplications(java.util.Set)
      */
     @Override
     public void updateSelectedApplications(Set<ApplicationInfo> applications) {
         getLocationPanel().updateSelectedApplications(applications);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#updateLocationList(java.util.ArrayList)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#
+     * updateLocationList(java.util.ArrayList)
      */
     @Override
-    public void updateLocationList( ArrayList<LocationInfo> locationsForLocationPanel) {
+    public void updateLocationList(ArrayList<LocationInfo> locationsForLocationPanel) {
         getLocationPanel().updateLocationList(locationsForLocationPanel);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#setSelectedTag(java.lang.String, java.util.List)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.poller.remote.gwt.client.ApplicationView#setSelectedTag
+     * (java.lang.String, java.util.List)
      */
     @Override
     public void setSelectedTag(String selectedTag, List<String> allTags) {
@@ -334,16 +364,20 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         getLocationPanel().selectTag(selectedTag);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#updateApplicationList(java.util.ArrayList)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#
+     * updateApplicationList(java.util.ArrayList)
      */
     @Override
     public void updateApplicationList(ArrayList<ApplicationInfo> applications) {
         getLocationPanel().updateApplicationList(applications);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#updateApplicationNames(java.util.TreeSet)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#
+     * updateApplicationNames(java.util.TreeSet)
      */
     @Override
     public void updateApplicationNames(TreeSet<String> allApplicationNames) {
@@ -354,38 +388,49 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         return m_mapPanel;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#fitMapToLocations(org.opennms.features.poller.remote.gwt.client.GWTBounds)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#
+     * fitMapToLocations
+     * (org.opennms.features.poller.remote.gwt.client.GWTBounds)
      */
     @Override
     public void fitMapToLocations(GWTBounds locationBounds) {
         if (getMapPanel() instanceof SmartMapFit) {
-            ((SmartMapFit)getMapPanel()).fitToBounds();
+            ((SmartMapFit) getMapPanel()).fitToBounds();
         } else {
-            //TODO: Zoom in to visible locations on startup
+            // TODO: Zoom in to visible locations on startup
 
             getMapPanel().setBounds(locationBounds);
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#getMapBounds()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.poller.remote.gwt.client.ApplicationView#getMapBounds
+     * ()
      */
     @Override
     public GWTBounds getMapBounds() {
         return getMapPanel().getBounds();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#showLocationDetails(java.lang.String, java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#
+     * showLocationDetails(java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
     public void showLocationDetails(final String locationName, String htmlTitle, String htmlContent) {
         getMapPanel().showLocationDetails(locationName, htmlTitle, htmlContent);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#placeMarker(org.opennms.features.poller.remote.gwt.client.GWTMarkerState)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.poller.remote.gwt.client.ApplicationView#placeMarker
+     * (org.opennms.features.poller.remote.gwt.client.GWTMarkerState)
      */
     @Override
     public void placeMarker(final GWTMarkerState markerState) {
@@ -394,7 +439,7 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
 
     @Override
     public void setStatusMessage(String statusMessage) {
-        //getUpdateTimestamp().setText(statusMessage);
+        // getUpdateTimestamp().setText(statusMessage);
     }
 
     @Override

@@ -55,80 +55,77 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath*:/META-INF/spring/bundle-context.xml",
-        "classpath*:/META-INF/opennms/bundle-context-opennms.xml",
-        "classpath:/testContext.xml"
-})
+@ContextConfiguration(locations = { "classpath*:/META-INF/spring/bundle-context.xml",
+        "classpath*:/META-INF/opennms/bundle-context-opennms.xml", "classpath:/testContext.xml" })
 public class SMSPingMonitorTest implements InitializingBean {
-	@Autowired
-	ApplicationContext m_context;
+    @Autowired
+    ApplicationContext m_context;
 
-	@Resource(name="smsService")
-	SmsService m_smsService;
+    @Resource(name = "smsService")
+    SmsService m_smsService;
 
-	MonitoredService m_service;
+    MonitoredService m_service;
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-	    BeanUtils.assertAutowiring(this);
-	}
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        BeanUtils.assertAutowiring(this);
+    }
 
-	@Before
-	public void setUp() {
+    @Before
+    public void setUp() {
 
-		m_service = new MonitoredService() {
-                        @Override
-			public InetAddress getAddress() {
-				return InetAddressUtils.getLocalHostAddress();
-			}
+        m_service = new MonitoredService() {
+            @Override
+            public InetAddress getAddress() {
+                return InetAddressUtils.getLocalHostAddress();
+            }
 
-                        @Override
-			public String getIpAddr() {
-				return "127.0.0.1";
-			}
+            @Override
+            public String getIpAddr() {
+                return "127.0.0.1";
+            }
 
-                        @Override
-			public NetworkInterface<InetAddress> getNetInterface() {
-				return new InetNetworkInterface(getAddress());
-			}
+            @Override
+            public NetworkInterface<InetAddress> getNetInterface() {
+                return new InetNetworkInterface(getAddress());
+            }
 
-                        @Override
-			public int getNodeId() {
-				return 1;
-			}
+            @Override
+            public int getNodeId() {
+                return 1;
+            }
 
-                        @Override
-			public String getNodeLabel() {
-				return "localhost";
-			}
+            @Override
+            public String getNodeLabel() {
+                return "localhost";
+            }
 
-                        @Override
-			public String getSvcName() {
-				return "SMS";
-			}
+            @Override
+            public String getSvcName() {
+                return "SMS";
+            }
 
-                        @Override
-			public String getSvcUrl() {
-			    return null;
-			}
-		};
-	}
+            @Override
+            public String getSvcUrl() {
+                return null;
+            }
+        };
+    }
 
-	@Test
-	@DirtiesContext
-	public void testPing() {
-		assertNotNull(m_smsService);
+    @Test
+    @DirtiesContext
+    public void testPing() {
+        assertNotNull(m_smsService);
 
-		assertEquals("ACM0", m_smsService.getGateways().iterator().next().getGatewayId());
+        assertEquals("ACM0", m_smsService.getGateways().iterator().next().getGatewayId());
 
-		SMSPingMonitor p = new SMSPingMonitor();
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("retry", "0");
-		parameters.put("timeout", "30000");
-		PollStatus s = p.poll(m_service, parameters);
-		System.err.println("reason = " + s.getReason());
-		System.err.println("status name = " + s.getStatusName());
-		assertEquals("ping should pass", PollStatus.SERVICE_AVAILABLE, s.getStatusCode());
-	}
+        SMSPingMonitor p = new SMSPingMonitor();
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("retry", "0");
+        parameters.put("timeout", "30000");
+        PollStatus s = p.poll(m_service, parameters);
+        System.err.println("reason = " + s.getReason());
+        System.err.println("status name = " + s.getStatusName());
+        assertEquals("ping should pass", PollStatus.SERVICE_AVAILABLE, s.getStatusCode());
+    }
 }

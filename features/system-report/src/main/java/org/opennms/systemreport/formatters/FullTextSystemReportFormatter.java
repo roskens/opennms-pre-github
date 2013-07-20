@@ -40,6 +40,7 @@ import org.springframework.core.io.Resource;
 
 public class FullTextSystemReportFormatter extends AbstractSystemReportFormatter implements SystemReportFormatter {
     private static final Logger LOG = LoggerFactory.getLogger(FullTextSystemReportFormatter.class);
+
     @Override
     public String getName() {
         return "full";
@@ -72,7 +73,7 @@ public class FullTextSystemReportFormatter extends AbstractSystemReportFormatter
         try {
             out.write(String.format("= %s: %s =\n\n", plugin.getName(), plugin.getDescription()).getBytes());
 
-            for (final Map.Entry<String,Resource> entry : plugin.getEntries().entrySet()) {
+            for (final Map.Entry<String, Resource> entry : plugin.getEntries().entrySet()) {
                 final Resource value = entry.getValue();
 
                 out.write(String.format("== %s ==\n\n", entry.getKey()).getBytes());

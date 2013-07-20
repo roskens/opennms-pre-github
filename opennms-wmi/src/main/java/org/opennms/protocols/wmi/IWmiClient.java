@@ -31,7 +31,9 @@ package org.opennms.protocols.wmi;
 import org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet;
 
 /**
- * <p>IWmiClient interface.</p>
+ * <p>
+ * IWmiClient interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,50 +41,76 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet;
 public interface IWmiClient {
 
     /**
-     * <p>performExecQuery</p>
+     * <p>
+     * performExecQuery
+     * </p>
      *
-     * @param strQuery a {@link java.lang.String} object.
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @param strQuery
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
+     *         object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public OnmsWbemObjectSet performExecQuery(String strQuery) throws WmiException;
 
     /**
-     * <p>performExecQuery</p>
+     * <p>
+     * performExecQuery
+     * </p>
      *
-     * @param strQuery a {@link java.lang.String} object.
-     * @param strQueryLanguage a {@link java.lang.String} object.
-     * @param flags a {@link java.lang.Integer} object.
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @param strQuery
+     *            a {@link java.lang.String} object.
+     * @param strQueryLanguage
+     *            a {@link java.lang.String} object.
+     * @param flags
+     *            a {@link java.lang.Integer} object.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
+     *         object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
-    public OnmsWbemObjectSet performExecQuery(String strQuery,String strQueryLanguage,Integer flags) throws WmiException;
+    public OnmsWbemObjectSet performExecQuery(String strQuery, String strQueryLanguage, Integer flags)
+            throws WmiException;
 
     /**
-     * <p>performInstanceOf</p>
+     * <p>
+     * performInstanceOf
+     * </p>
      *
-     * @param wmiClass a {@link java.lang.String} object.
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @param wmiClass
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
+     *         object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public OnmsWbemObjectSet performInstanceOf(String wmiClass) throws WmiException;
 
     /**
-     * <p>connect</p>
+     * <p>
+     * connect
+     * </p>
      *
-     * @param domain a {@link java.lang.String} object.
-     * @param username a {@link java.lang.String} object.
-     * @param password a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @param domain
+     *            a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public void connect(String domain, String username, String password) throws WmiException;
 
-	/**
-	 * <p>disconnect</p>
-	 *
-	 * @throws org.opennms.protocols.wmi.WmiException if any.
-	 */
-	public void disconnect() throws WmiException;
+    /**
+     * <p>
+     * disconnect
+     * </p>
+     *
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
+     */
+    public void disconnect() throws WmiException;
 
 }
-

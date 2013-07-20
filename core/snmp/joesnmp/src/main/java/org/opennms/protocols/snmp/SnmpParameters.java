@@ -89,7 +89,6 @@ public class SnmpParameters extends Object implements Cloneable {
      * @see #defaultCommunity
      * @see #defaultEncoder
      * @see #defaultVersion
-     *
      */
     public SnmpParameters() {
         m_readCommunity = defaultCommunity;
@@ -103,7 +102,6 @@ public class SnmpParameters extends Object implements Cloneable {
      *
      * @param second
      *            The object to copy into self.
-     *
      */
     public SnmpParameters(SnmpParameters second) {
         m_readCommunity = second.m_readCommunity;
@@ -117,7 +115,6 @@ public class SnmpParameters extends Object implements Cloneable {
      *
      * @param version
      *            The SNMP protocol version.
-     *
      */
     public SnmpParameters(int version) {
         this();
@@ -130,7 +127,6 @@ public class SnmpParameters extends Object implements Cloneable {
      *
      * @param read
      *            The read-only community string.
-     *
      */
     public SnmpParameters(String read) {
         this();
@@ -145,7 +141,6 @@ public class SnmpParameters extends Object implements Cloneable {
      *            The read-only community string.
      * @param write
      *            The write-only community string.
-     *
      */
     public SnmpParameters(String read, String write) {
         this();
@@ -157,7 +152,6 @@ public class SnmpParameters extends Object implements Cloneable {
      * Retreives the current read community string from the parameters.
      *
      * @return The read community string.
-     *
      */
     public String getReadCommunity() {
         return m_readCommunity;
@@ -165,13 +159,11 @@ public class SnmpParameters extends Object implements Cloneable {
 
     /**
      * Used to set the parameters read community string.
-     *
      * NOTE: The community string is covnerted to a set of 8-bit characters by
      * the String.getBytes() method.
      *
      * @param rd
      *            The new read community string.
-     *
      * @see java.lang.String#getBytes()
      */
     public void setReadCommunity(String rd) {
@@ -182,7 +174,6 @@ public class SnmpParameters extends Object implements Cloneable {
      * Retreives the current write community string set in the parameters.
      *
      * @return The write community string.
-     *
      */
     public String getWriteCommunity() {
         return m_writeCommunity;
@@ -191,13 +182,11 @@ public class SnmpParameters extends Object implements Cloneable {
     /**
      * Used to set the parameters write community string. The write community
      * string is only used by SNMP SET packet.
-     *
      * NOTE: The community string is covnerted to a set of 8-bit characters by
      * the String.getBytes() method.
      *
      * @param wr
      *            The new write community string.
-     *
      * @see java.lang.String#getBytes()
      */
     public void setWriteCommunity(String wr) {
@@ -219,10 +208,8 @@ public class SnmpParameters extends Object implements Cloneable {
      *
      * @param ver
      *            The SNMP version protocol to use.
-     *
      * @see SnmpSMI#SNMPV1
      * @see SnmpSMI#SNMPV2
-     *
      */
     public void setVersion(int ver) {
         m_version = ver;
@@ -232,7 +219,6 @@ public class SnmpParameters extends Object implements Cloneable {
      * Retreives the current ASN.1 encoder object.
      *
      * @return The current AsnEncoder
-     *
      */
     public AsnEncoder getEncoder() {
         return m_encoder;
@@ -243,7 +229,6 @@ public class SnmpParameters extends Object implements Cloneable {
      *
      * @param encoder
      *            The new encoder to use.
-     *
      */
     public void setEncoder(AsnEncoder encoder) {
         m_encoder = encoder;
@@ -253,7 +238,6 @@ public class SnmpParameters extends Object implements Cloneable {
      * Used to get a newly created duplicate of the current object.
      *
      * @return A newly created duplicate
-     *
      */
     @Override
     public Object clone() {

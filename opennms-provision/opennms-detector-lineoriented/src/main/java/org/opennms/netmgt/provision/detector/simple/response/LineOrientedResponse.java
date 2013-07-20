@@ -33,7 +33,9 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 /**
- * <p>LineOrientedResponse class.</p>
+ * <p>
+ * LineOrientedResponse class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -43,28 +45,38 @@ public class LineOrientedResponse {
     private String m_response;
 
     /**
-     * <p>Constructor for LineOrientedResponse.</p>
+     * <p>
+     * Constructor for LineOrientedResponse.
+     * </p>
      *
-     * @param response a {@link java.lang.String} object.
+     * @param response
+     *            a {@link java.lang.String} object.
      */
     public LineOrientedResponse(final String response) {
         setResponse(response);
     }
 
     /**
-     * <p>receive</p>
+     * <p>
+     * receive
+     * </p>
      *
-     * @param in a {@link java.io.BufferedReader} object.
-     * @throws java.io.IOException if any.
+     * @param in
+     *            a {@link java.io.BufferedReader} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void receive(final BufferedReader in) throws IOException {
         setResponse(in.readLine());
     }
 
     /**
-     * <p>startsWith</p>
+     * <p>
+     * startsWith
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean startsWith(final String prefix) {
@@ -72,9 +84,12 @@ public class LineOrientedResponse {
     }
 
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean contains(final String pattern) {
@@ -82,9 +97,12 @@ public class LineOrientedResponse {
     }
 
     /**
-     * <p>endsWith</p>
+     * <p>
+     * endsWith
+     * </p>
      *
-     * @param suffix a {@link java.lang.String} object.
+     * @param suffix
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean endsWith(final String suffix) {
@@ -92,9 +110,12 @@ public class LineOrientedResponse {
     }
 
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param regex a {@link java.lang.String} object.
+     * @param regex
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean matches(final String regex) {
@@ -102,9 +123,12 @@ public class LineOrientedResponse {
     }
 
     /**
-     * <p>find</p>
+     * <p>
+     * find
+     * </p>
      *
-     * @param regex a {@link java.lang.String} object.
+     * @param regex
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean find(final String regex) {
@@ -112,9 +136,12 @@ public class LineOrientedResponse {
     }
 
     /**
-     * <p>equals</p>
+     * <p>
+     * equals
+     * </p>
      *
-     * @param response a {@link java.lang.String} object.
+     * @param response
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean equals(final String response) {
@@ -122,7 +149,9 @@ public class LineOrientedResponse {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -132,16 +161,21 @@ public class LineOrientedResponse {
     }
 
     /**
-     * <p>setResponse</p>
+     * <p>
+     * setResponse
+     * </p>
      *
-     * @param response a {@link java.lang.String} object.
+     * @param response
+     *            a {@link java.lang.String} object.
      */
     public void setResponse(final String response) {
         m_response = response;
     }
 
     /**
-     * <p>getResponse</p>
+     * <p>
+     * getResponse
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

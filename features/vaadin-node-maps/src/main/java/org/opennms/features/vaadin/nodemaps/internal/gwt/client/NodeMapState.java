@@ -11,5 +11,6 @@ import java.util.List;
 public class NodeMapState extends AbstractComponentState {
 
     public String initialSearch;
+
     public List<MapNode> nodes = new LinkedList<MapNode>();
 }

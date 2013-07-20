@@ -36,38 +36,40 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <P>InetCidrRouteTable uses a SnmpSession to collect the ipRouteTable entries
- * It implements the SnmpHandler to receive notifications when a reply is
+ * <P>
+ * InetCidrRouteTable uses a SnmpSession to collect the ipRouteTable entries It
+ * implements the SnmpHandler to receive notifications when a reply is
  * received/error occurs in the SnmpSession used to send requests/receive
- * replies.</P>
+ * replies.
+ * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo</A>
- *
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213</A>
  */
-public class InetCidrRouteTable extends SnmpTable<InetCidrRouteTableEntry>
-{
+public class InetCidrRouteTable extends SnmpTable<InetCidrRouteTableEntry> {
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(InetCidrRouteTable.class);
-   /**
-    * <P>Constructs an InetCidrRouteTable object that is used to collect
-    * the address elements from the remote agent. Once all
-    * the elements are collected, or there is an error in
-    * the collection the signaler object is <EM>notified</EM>
-    * to inform other threads.</P>
-    *
-    * @param session   The session with the remote agent.
-    * @param signaler  The object to notify waiters.
-    *
-    * @see InetCidrRouteTableEntry
-    */
-   public InetCidrRouteTable(InetAddress address)
-   {
-        super(address, "ipRouteTable", InetCidrRouteTableEntry.ms_elemList);
-   }
 
-   @Override
+    /**
+     * <P>
+     * Constructs an InetCidrRouteTable object that is used to collect the
+     * address elements from the remote agent. Once all the elements are
+     * collected, or there is an error in the collection the signaler object is
+     * <EM>notified</EM> to inform other threads.
+     * </P>
+     *
+     * @param session
+     *            The session with the remote agent.
+     * @param signaler
+     *            The object to notify waiters.
+     * @see InetCidrRouteTableEntry
+     */
+    public InetCidrRouteTable(InetAddress address) {
+        super(address, "ipRouteTable", InetCidrRouteTableEntry.ms_elemList);
+    }
+
+    @Override
     protected InetCidrRouteTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new InetCidrRouteTableEntry();
     }

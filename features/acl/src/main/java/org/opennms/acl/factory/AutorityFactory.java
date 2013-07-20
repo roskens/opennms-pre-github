@@ -54,9 +54,12 @@ import org.opennms.acl.domain.Authority;
 public interface AutorityFactory {
 
     /**
-     * <p>getAuthority</p>
+     * <p>
+     * getAuthority
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.acl.domain.Authority} object.
      */
     public Authority getAuthority(Integer id);

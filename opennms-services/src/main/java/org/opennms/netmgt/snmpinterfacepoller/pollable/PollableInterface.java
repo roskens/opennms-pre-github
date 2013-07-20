@@ -82,7 +82,9 @@ public class PollableInterface {
     }
 
     /**
-     * <p>getNodeid</p>
+     * <p>
+     * getNodeid
+     * </p>
      *
      * @return a int.
      */
@@ -91,16 +93,21 @@ public class PollableInterface {
     }
 
     /**
-     * <p>setNodeid</p>
+     * <p>
+     * setNodeid
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      */
     public void setNodeid(int nodeid) {
         m_nodeid = nodeid;
     }
 
     /**
-     * <p>getIpaddress</p>
+     * <p>
+     * getIpaddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -109,42 +116,64 @@ public class PollableInterface {
     }
 
     /**
-     * <p>setIpaddress</p>
+     * <p>
+     * setIpaddress
+     * </p>
      *
-     * @param ipaddress a {@link java.lang.String} object.
+     * @param ipaddress
+     *            a {@link java.lang.String} object.
      */
     public void setIpaddress(String ipaddress) {
         m_ipaddress = ipaddress;
     }
 
     /**
-     * <p>Constructor for PollableInterface.</p>
+     * <p>
+     * Constructor for PollableInterface.
+     * </p>
      *
-     * @param parent a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork} object.
+     * @param parent
+     *            a
+     *            {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork}
+     *            object.
      */
     public PollableInterface(PollableNetwork parent) {
         m_parent = parent;
-        m_pollablesnmpinterface = new HashMap<String,PollableSnmpInterface>();
+        m_pollablesnmpinterface = new HashMap<String, PollableSnmpInterface>();
     }
 
-  /**
-   * <p>createPollableSnmpInterface</p>
-   *
-   * @param name a {@link java.lang.String} object.
-   * @param criteria a {@link java.lang.String} object.
-   * @param hasPort a boolean.
-   * @param port a int.
-   * @param hasTimeout a boolean.
-   * @param timeout a int.
-   * @param hasRetries a boolean.
-   * @param retries a int.
-   * @param hasMaxVarsPerPdu a boolean.
-   * @param maxVarsPerPdu a int.
-   * @return a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableSnmpInterface} object.
-   */
-  public PollableSnmpInterface createPollableSnmpInterface(String name, String criteria, boolean hasPort,
-          int port, boolean hasTimeout, int timeout, boolean hasRetries, int retries,
-          boolean hasMaxVarsPerPdu,int maxVarsPerPdu) {
+    /**
+     * <p>
+     * createPollableSnmpInterface
+     * </p>
+     *
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param criteria
+     *            a {@link java.lang.String} object.
+     * @param hasPort
+     *            a boolean.
+     * @param port
+     *            a int.
+     * @param hasTimeout
+     *            a boolean.
+     * @param timeout
+     *            a int.
+     * @param hasRetries
+     *            a boolean.
+     * @param retries
+     *            a int.
+     * @param hasMaxVarsPerPdu
+     *            a boolean.
+     * @param maxVarsPerPdu
+     *            a int.
+     * @return a
+     *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableSnmpInterface}
+     *         object.
+     */
+    public PollableSnmpInterface createPollableSnmpInterface(String name, String criteria, boolean hasPort, int port,
+            boolean hasTimeout, int timeout, boolean hasRetries, int retries, boolean hasMaxVarsPerPdu,
+            int maxVarsPerPdu) {
 
         PollableSnmpInterface iface = new PollableSnmpInterface(this);
         iface.setName(name);
@@ -152,52 +181,65 @@ public class PollableInterface {
         InetAddress ipAddr = null;
         ipAddr = InetAddressUtils.addr(getIpaddress());
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipAddr);
-        if (hasPort) agentConfig.setPort(port);
-        if (hasTimeout) agentConfig.setTimeout(timeout);
-        if (hasRetries) agentConfig.setRetries(retries);
-        if (hasMaxVarsPerPdu) agentConfig.setMaxVarsPerPdu(maxVarsPerPdu);
+        if (hasPort)
+            agentConfig.setPort(port);
+        if (hasTimeout)
+            agentConfig.setTimeout(timeout);
+        if (hasRetries)
+            agentConfig.setRetries(retries);
+        if (hasMaxVarsPerPdu)
+            agentConfig.setMaxVarsPerPdu(maxVarsPerPdu);
 
         iface.setAgentConfig(agentConfig);
 
-        m_pollablesnmpinterface.put(name,iface);
+        m_pollablesnmpinterface.put(name, iface);
         return iface;
     }
 
     /**
-     * <p>refresh</p>
+     * <p>
+     * refresh
+     * </p>
      */
     protected void refresh() {
-        for ( PollableSnmpInterface pi: getSnmpinterfacepollableNodes().values()){
+        for (PollableSnmpInterface pi : getSnmpinterfacepollableNodes().values()) {
             pi.setSnmpinterfaces(getContext().get(getNodeid(), pi.getCriteria()));
         }
     }
 
     /**
-     * <p>suspend</p>
+     * <p>
+     * suspend
+     * </p>
      */
     protected void suspend() {
-          polling = false;
+        polling = false;
     }
 
     /**
-     * <p>activate</p>
+     * <p>
+     * activate
+     * </p>
      */
     protected void activate() {
         polling = true;
     }
 
     /**
-     * <p>getSnmpinterfacepollableNodes</p>
+     * <p>
+     * getSnmpinterfacepollableNodes
+     * </p>
      *
      * @return a {@link java.util.HashMap} object.
      */
-    public Map<String,PollableSnmpInterface> getSnmpinterfacepollableNodes() {
+    public Map<String, PollableSnmpInterface> getSnmpinterfacepollableNodes() {
         return Collections.unmodifiableMap(m_pollablesnmpinterface);
     }
 
-
     /**
-     * <p>polling</p>
+     * <p>
+     * polling
+     * </p>
      *
      * @return a boolean.
      */
@@ -205,45 +247,61 @@ public class PollableInterface {
         return polling;
     }
 
-
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      */
     protected void delete() {
-        for ( PollableSnmpInterface node: getSnmpinterfacepollableNodes().values()){
+        for (PollableSnmpInterface node : getSnmpinterfacepollableNodes().values()) {
             node.delete();
         }
     }
 
     /**
-     * <p>getParent</p>
+     * <p>
+     * getParent
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork} object.
+     * @return a
+     *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork}
+     *         object.
      */
     public PollableNetwork getParent() {
         return m_parent;
     }
 
     /**
-     * <p>setParent</p>
+     * <p>
+     * setParent
+     * </p>
      *
-     * @param parent a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork} object.
+     * @param parent
+     *            a
+     *            {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork}
+     *            object.
      */
     public void setParent(PollableNetwork parent) {
         m_parent = parent;
     }
 
     /**
-     * <p>getContext</p>
+     * <p>
+     * getContext
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext} object.
+     * @return a
+     *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext}
+     *         object.
      */
     public PollContext getContext() {
         return getParent().getContext();
     }
 
     /**
-     * <p>getPackageName</p>
+     * <p>
+     * getPackageName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -252,9 +310,12 @@ public class PollableInterface {
     }
 
     /**
-     * <p>setPackageName</p>
+     * <p>
+     * setPackageName
+     * </p>
      *
-     * @param packageName a {@link java.lang.String} object.
+     * @param packageName
+     *            a {@link java.lang.String} object.
      */
     public void setPackageName(String packageName) {
         m_packageName = packageName;

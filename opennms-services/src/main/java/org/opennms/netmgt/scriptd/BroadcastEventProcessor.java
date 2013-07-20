@@ -46,6 +46,7 @@ import org.opennms.netmgt.xml.event.Event;
  */
 final class BroadcastEventProcessor implements EventListener {
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
+
     /**
      * The location where executable events are enqueued to be executed.
      */
@@ -56,7 +57,6 @@ final class BroadcastEventProcessor implements EventListener {
      *
      * @param execQ
      *            The queue where executable events are stored.
-     *
      */
     BroadcastEventProcessor(FifoQueue<Event> execQ) {
         // set up the executable queue first
@@ -79,9 +79,8 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is invoked by the EventIpcManager when a new event is
+     * {@inheritDoc} This method is invoked by the EventIpcManager when a new
+     * event is
      * available for processing. Each event is queued for handling by the
      * Executor.
      */
@@ -90,7 +89,6 @@ final class BroadcastEventProcessor implements EventListener {
         if (event == null) {
             return;
         }
-
 
         try {
             m_execQ.add(event);

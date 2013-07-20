@@ -41,26 +41,28 @@ import org.opennms.netmgt.dao.api.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PrimaryType;
 
-public class NodeDaoContainer extends OnmsDaoContainer<OnmsNode,Integer> {
+public class NodeDaoContainer extends OnmsDaoContainer<OnmsNode, Integer> {
 
-	private static final long serialVersionUID = -5697472655705494537L;
+    private static final long serialVersionUID = -5697472655705494537L;
 
-	public NodeDaoContainer(NodeDao dao) {
-		super(OnmsNode.class, dao);
+    public NodeDaoContainer(NodeDao dao) {
+        super(OnmsNode.class, dao);
         addBeanToHibernatePropertyMapping("primaryInterface", "ipInterfaces.ipAddress");
-	}
+    }
 
-	@Override
-	protected Integer getId(OnmsNode bean){
-		return bean == null ? null : bean.getId();
-	}
+    @Override
+    protected Integer getId(OnmsNode bean) {
+        return bean == null ? null : bean.getId();
+    }
 
     @Override
     protected void addAdditionalCriteriaOptions(Criteria criteria, Page page, boolean doOrder) {
-        if (!doOrder) return;
-        criteria.setAliases(Arrays.asList(new Alias[] {
-                new Alias("ipInterfaces", "ipInterfaces", Alias.JoinType.LEFT_JOIN, new EqRestriction("ipInterfaces.isSnmpPrimary", PrimaryType.PRIMARY))
-        }));
+        if (!doOrder)
+            return;
+        criteria.setAliases(Arrays.asList(new Alias[] { new Alias("ipInterfaces", "ipInterfaces",
+                                                                  Alias.JoinType.LEFT_JOIN,
+                                                                  new EqRestriction("ipInterfaces.isSnmpPrimary",
+                                                                                    PrimaryType.PRIMARY)) }));
     }
 
     @Override
@@ -69,7 +71,7 @@ public class NodeDaoContainer extends OnmsDaoContainer<OnmsNode,Integer> {
     }
 
     @Override
-	public void selectionChanged(SelectionContext selectionContext) {
+    public void selectionChanged(SelectionContext selectionContext) {
         List<Restriction> newRestrictions = new SelectionContextToRestrictionConverter() {
 
             @Override
@@ -77,12 +79,11 @@ public class NodeDaoContainer extends OnmsDaoContainer<OnmsNode,Integer> {
                 return new EqRestriction("id", Integer.valueOf(ref.getId()));
             }
         }.getRestrictions(selectionContext);
-        if (!getRestrictions().equals(newRestrictions)) { // selection really changed
+        if (!getRestrictions().equals(newRestrictions)) { // selection really
+                                                          // changed
             setRestrictions(newRestrictions);
             getCache().reload(getPage());
             fireItemSetChangedEvent();
         }
-	}
+    }
 }
-
-

@@ -50,22 +50,19 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-mockDao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-systemReport.xml",
-        "classpath:/applicationContext-test-systemReport.xml"
-})
+        "classpath:/applicationContext-test-systemReport.xml" })
 @JUnitConfigurationEnvironment
 public class JavaReportPluginTest {
-    @Resource(name="serviceRegistry")
+    @Resource(name = "serviceRegistry")
     private ServiceRegistry m_defaultServiceRegistry;
 
-    @Resource(name="javaReportPlugin")
+    @Resource(name = "javaReportPlugin")
     private SystemReportPlugin m_javaReportPlugin;
 
-    @Resource(name="osReportPlugin")
+    @Resource(name = "osReportPlugin")
     private SystemReportPlugin m_osReportPlugin;
 
     private List<SystemReportPlugin> m_plugins;

@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
 
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitSnmpAgents {
     JUnitSnmpAgent[] value() default {};
 }

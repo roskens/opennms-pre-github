@@ -61,40 +61,41 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Provides a mechanism for associating one or more specific
- *  IP addresses and/or IP address ranges with a set of SNMP parms
+ * IP addresses and/or IP address ranges with a set of SNMP parms
  * which
- *  will be used in place of the default values during SNMP data
- *  collection.
+ * will be used in place of the default values during SNMP data
+ * collection.
  *
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="definition")
+@XmlRootElement(name = "definition")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Definition extends Configuration implements Serializable {
-	private static final long serialVersionUID = 6077248084936410239L;
+    private static final long serialVersionUID = 6077248084936410239L;
 
-	private static final Range[] EMPTY_RANGE = new Range[0];
-	private static final String[] EMPTY_IP_MATCH = new String[0];
+    private static final Range[] EMPTY_RANGE = new Range[0];
 
-	/**
+    private static final String[] EMPTY_IP_MATCH = new String[0];
+
+    /**
      * IP address range to which this definition
-     *  applies.
+     * applies.
      */
-	@XmlElement(name="range")
+    @XmlElement(name = "range")
     private List<Range> _rangeList;
 
     /**
      * Specific IP address to which this definition
-     *  applies.
+     * applies.
      */
-	@XmlElement(name="specific")
+    @XmlElement(name = "specific")
     private List<String> _specificList;
 
     /**
      * Match Octets (as in IPLIKE)
      */
-	@XmlElement(name="ip-match")
+    @XmlElement(name = "ip-match")
     private List<String> _ipMatchList;
 
     public Definition() {
@@ -105,69 +106,63 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     *
-     *
      * @param vIpMatch
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addIpMatch(final String vIpMatch) throws IndexOutOfBoundsException {
         this._ipMatchList.add(vIpMatch);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vIpMatch
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addIpMatch(final int index, final String vIpMatch) throws IndexOutOfBoundsException {
         this._ipMatchList.add(index, vIpMatch);
     }
 
     /**
-     *
-     *
      * @param vRange
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addRange(final Range vRange) throws IndexOutOfBoundsException {
         this._rangeList.add(vRange);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vRange
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addRange(final int index, final Range vRange) throws IndexOutOfBoundsException {
         this._rangeList.add(index, vRange);
     }
 
     /**
-     *
-     *
      * @param vSpecific
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addSpecific(final String vSpecific) throws IndexOutOfBoundsException {
         this._specificList.add(vSpecific);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vSpecific
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addSpecific(final int index, final String vSpecific) throws IndexOutOfBoundsException {
         this._specificList.add(index, vSpecific);
@@ -177,7 +172,7 @@ public class Definition extends Configuration implements Serializable {
      * Method enumerateIpMatch.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<String> enumerateIpMatch() {
         return Collections.enumeration(this._ipMatchList);
@@ -187,7 +182,7 @@ public class Definition extends Configuration implements Serializable {
      * Method enumerateRange.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<Range> enumerateRange() {
         return Collections.enumeration(this._rangeList);
@@ -197,7 +192,7 @@ public class Definition extends Configuration implements Serializable {
      * Method enumerateSpecific.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<String> enumerateSpecific() {
         return Collections.enumeration(this._specificList);
@@ -211,31 +206,33 @@ public class Definition extends Configuration implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-		if (obj instanceof Configuration == false) return false;
-		if (this == obj) return true;
+        if (obj instanceof Configuration == false)
+            return false;
+        if (this == obj)
+            return true;
 
-		final Definition temp = (Definition)obj;
+        final Definition temp = (Definition) obj;
 
-		return new EqualsBuilder()
-			.appendSuper(super.equals(obj))
-			.append(getRangeCollection(), temp.getRangeCollection())
-			.append(getSpecificCollection(), temp.getSpecificCollection())
-			.append(getIpMatchCollection(), temp.getIpMatchCollection())
-			.isEquals();
+        return new EqualsBuilder().appendSuper(super.equals(obj)).append(getRangeCollection(),
+                                                                         temp.getRangeCollection()).append(getSpecificCollection(),
+                                                                                                           temp.getSpecificCollection()).append(getIpMatchCollection(),
+                                                                                                                                                temp.getIpMatchCollection()).isEquals();
     }
 
     /**
      * Method getIpMatch.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the String at the given index
      */
     public String getIpMatch(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._ipMatchList.size()) {
-            throw new IndexOutOfBoundsException("getIpMatch: Index value '" + index + "' not in range [0.." + (this._ipMatchList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getIpMatch: Index value '" + index + "' not in range [0.."
+                    + (this._ipMatchList.size() - 1) + "]");
         }
 
         return _ipMatchList.get(index);
@@ -243,10 +240,12 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method getIpMatch.Returns the contents of the collection in
-     * an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -278,15 +277,17 @@ public class Definition extends Configuration implements Serializable {
      * Method getRange.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * Range at the given index
+     *         Range at the given index
      */
     public Range getRange(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._rangeList.size()) {
-            throw new IndexOutOfBoundsException("getRange: Index value '" + index + "' not in range [0.." + (this._rangeList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getRange: Index value '" + index + "' not in range [0.."
+                    + (this._rangeList.size() - 1) + "]");
         }
 
         return _rangeList.get(index);
@@ -294,10 +295,12 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method getRange.Returns the contents of the collection in an
-     * Array.  <p>Note:  Just in case the collection contents are
-     * changing in another thread, we pass a 0-length Array of the
-     * correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -329,14 +332,16 @@ public class Definition extends Configuration implements Serializable {
      * Method getSpecific.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the String at the given index
      */
     public String getSpecific(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._specificList.size()) {
-            throw new IndexOutOfBoundsException("getSpecific: Index value '" + index + "' not in range [0.." + (this._specificList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getSpecific: Index value '" + index + "' not in range [0.."
+                    + (this._specificList.size() - 1) + "]");
         }
 
         return _specificList.get(index);
@@ -344,10 +349,12 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method getSpecific.Returns the contents of the collection in
-     * an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -378,24 +385,23 @@ public class Definition extends Configuration implements Serializable {
     /**
      * Overrides the Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
-        @Override
-    public int hashCode(
-    ) {
+    @Override
+    public int hashCode() {
         int result = 17;
 
         if (_rangeList != null) {
-           result = 37 * result + _rangeList.hashCode();
+            result = 37 * result + _rangeList.hashCode();
         }
         if (_specificList != null) {
-           result = 37 * result + _specificList.hashCode();
+            result = 37 * result + _specificList.hashCode();
         }
         if (_ipMatchList != null) {
-           result = 37 * result + _ipMatchList.hashCode();
+            result = 37 * result + _ipMatchList.hashCode();
         }
 
         return result;
@@ -406,7 +412,7 @@ public class Definition extends Configuration implements Serializable {
      *
      * @return true if this object is valid according to the schema
      */
-        @Override
+    @Override
     public boolean isValid() {
         try {
             validate();
@@ -420,7 +426,7 @@ public class Definition extends Configuration implements Serializable {
      * Method iterateIpMatch.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<String> iterateIpMatch() {
         return this._ipMatchList.iterator();
@@ -430,7 +436,7 @@ public class Definition extends Configuration implements Serializable {
      * Method iterateRange.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<Range> iterateRange() {
         return this._rangeList.iterator();
@@ -440,38 +446,39 @@ public class Definition extends Configuration implements Serializable {
      * Method iterateSpecific.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<String> iterateSpecific() {
         return this._specificList.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-        @Override
+    @Override
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
-        @Override
+    @Override
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
@@ -549,33 +556,31 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param vIpMatch
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setIpMatch(final int index, final String vIpMatch) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._ipMatchList.size()) {
-            throw new IndexOutOfBoundsException("setIpMatch: Index value '" + index + "' not in range [0.." + (this._ipMatchList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setIpMatch: Index value '" + index + "' not in range [0.."
+                    + (this._ipMatchList.size() - 1) + "]");
         }
 
         this._ipMatchList.set(index, vIpMatch);
     }
 
     /**
-     *
-     *
      * @param vIpMatchArray
      */
     public void setIpMatch(final String[] vIpMatchArray) {
-        //-- copy array
+        // -- copy array
         _ipMatchList.clear();
 
         for (int i = 0; i < vIpMatchArray.length; i++) {
-                this._ipMatchList.add(vIpMatchArray[i]);
+            this._ipMatchList.add(vIpMatchArray[i]);
         }
     }
 
@@ -583,7 +588,8 @@ public class Definition extends Configuration implements Serializable {
      * Sets the value of '_ipMatchList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param vIpMatchList the Vector to copy.
+     * @param vIpMatchList
+     *            the Vector to copy.
      */
     public void setIpMatch(final List<String> vIpMatchList) {
         // copy vector
@@ -595,42 +601,41 @@ public class Definition extends Configuration implements Serializable {
     /**
      * Sets the value of '_ipMatchList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param ipMatchList the Vector to set.
+     * @deprecated
+     * @param ipMatchList
+     *            the Vector to set.
      */
     public void setIpMatchCollection(final List<String> ipMatchList) {
         this._ipMatchList = ipMatchList;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vRange
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setRange(final int index, final Range vRange) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._rangeList.size()) {
-            throw new IndexOutOfBoundsException("setRange: Index value '" + index + "' not in range [0.." + (this._rangeList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setRange: Index value '" + index + "' not in range [0.."
+                    + (this._rangeList.size() - 1) + "]");
         }
 
         this._rangeList.set(index, vRange);
     }
 
     /**
-     *
-     *
      * @param vRangeArray
      */
     public void setRange(final Range[] vRangeArray) {
-        //-- copy array
+        // -- copy array
         _rangeList.clear();
 
         for (int i = 0; i < vRangeArray.length; i++) {
-                this._rangeList.add(vRangeArray[i]);
+            this._rangeList.add(vRangeArray[i]);
         }
     }
 
@@ -638,7 +643,8 @@ public class Definition extends Configuration implements Serializable {
      * Sets the value of '_rangeList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vRangeList the Vector to copy.
+     * @param vRangeList
+     *            the Vector to copy.
      */
     public void setRange(final List<Range> vRangeList) {
         // copy vector
@@ -650,42 +656,41 @@ public class Definition extends Configuration implements Serializable {
     /**
      * Sets the value of '_rangeList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param rangeList the Vector to set.
+     * @deprecated
+     * @param rangeList
+     *            the Vector to set.
      */
     public void setRangeCollection(final List<Range> rangeList) {
         this._rangeList = rangeList;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vSpecific
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setSpecific(final int index, final String vSpecific) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._specificList.size()) {
-            throw new IndexOutOfBoundsException("setSpecific: Index value '" + index + "' not in range [0.." + (this._specificList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setSpecific: Index value '" + index + "' not in range [0.."
+                    + (this._specificList.size() - 1) + "]");
         }
 
         this._specificList.set(index, vSpecific);
     }
 
     /**
-     *
-     *
      * @param vSpecificArray
      */
     public void setSpecific(final String[] vSpecificArray) {
-        //-- copy array
+        // -- copy array
         _specificList.clear();
 
         for (int i = 0; i < vSpecificArray.length; i++) {
-                this._specificList.add(vSpecificArray[i]);
+            this._specificList.add(vSpecificArray[i]);
         }
     }
 
@@ -693,7 +698,8 @@ public class Definition extends Configuration implements Serializable {
      * Sets the value of '_specificList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param vSpecificList the Vector to copy.
+     * @param vSpecificList
+     *            the Vector to copy.
      */
     public void setSpecific(final List<String> vSpecificList) {
         // copy vector
@@ -705,9 +711,10 @@ public class Definition extends Configuration implements Serializable {
     /**
      * Sets the value of '_specificList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param specificList the Vector to set.
+     * @deprecated
+     * @param specificList
+     *            the Vector to set.
      */
     public void setSpecificCollection(final List<String> specificList) {
         this._specificList = specificList;
@@ -717,35 +724,33 @@ public class Definition extends Configuration implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * Configuration
+     *         Configuration
      */
     public static Configuration unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Configuration) Unmarshaller.unmarshal(Definition.class, reader);
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-        @Override
+    @Override
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
     @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.appendSuper(super.toString())
-    		.append("ranges", getRangeCollection())
-    		.append("specifics", getSpecificCollection())
-    		.append("ip-matches", getIpMatchCollection())
-    		.toString();
+        return new ToStringBuilder(this).appendSuper(super.toString()).append("ranges", getRangeCollection()).append("specifics",
+                                                                                                                     getSpecificCollection()).append("ip-matches",
+                                                                                                                                                     getIpMatchCollection()).toString();
     }
 }

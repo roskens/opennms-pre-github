@@ -58,11 +58,9 @@ import org.springframework.util.Assert;
  * SnmpTrapSession and implements the SnmpTrapHandler to get callbacks when
  * traps are received.
  * </p>
- *
  * <p>
  * The received traps are converted into XML and sent to eventd.
  * </p>
- *
  * <p>
  * <strong>Note: </strong>Trapd is a PausableFiber so as to receive control
  * events. However, a 'pause' on Trapd has no impact on the receiving and
@@ -105,18 +103,18 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     private BroadcastEventProcessor m_eventReader;
 
     /**
-     * Trapd IP manager.  Contains IP address -> node ID mapping.
+     * Trapd IP manager. Contains IP address -> node ID mapping.
      */
     @Autowired
     private TrapdIpMgr m_trapdIpMgr;
 
-    @Resource(name="snmpTrapAddress")
+    @Resource(name = "snmpTrapAddress")
     private String m_snmpTrapAddress;
 
-    @Resource(name="snmpTrapPort")
+    @Resource(name = "snmpTrapPort")
     private Integer m_snmpTrapPort;
 
-    @Resource(name="snmpV3Users")
+    @Resource(name = "snmpV3Users")
     private List<SnmpV3User> m_snmpV3Users;
 
     private boolean m_registeredForTraps;
@@ -136,7 +134,9 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     }
 
     /**
-     * <p>createTrapProcessor</p>
+     * <p>
+     * createTrapProcessor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.TrapProcessor} object.
      */
@@ -152,7 +152,9 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     public synchronized void onInit() {
@@ -168,8 +170,9 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
         }
 
         try {
-        	InetAddress address = getInetAddress();
-        	LOG.info("Listening on {}:{}", address == null ? "[all interfaces]" : InetAddressUtils.str(address), m_snmpTrapPort);
+            InetAddress address = getInetAddress();
+            LOG.info("Listening on {}:{}", address == null ? "[all interfaces]" : InetAddressUtils.str(address),
+                     m_snmpTrapPort);
             SnmpUtils.registerForTraps(this, this, address, m_snmpTrapPort, m_snmpV3Users);
             m_registeredForTraps = true;
 
@@ -179,7 +182,8 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
                 Logging.withPrefix("OpenNMS.Manager", new Runnable() {
                     @Override
                     public void run() {
-                        LOG.error("init: Failed to listen on SNMP trap port, perhaps something else is already listening?", e);
+                        LOG.error("init: Failed to listen on SNMP trap port, perhaps something else is already listening?",
+                                  e);
                     }
                 });
                 LOG.error("init: Failed to listen on SNMP trap port, perhaps something else is already listening?", e);
@@ -198,10 +202,10 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     }
 
     private InetAddress getInetAddress() {
-    	if (m_snmpTrapAddress.equals("*")) {
-    		return null;
-    	}
-		return InetAddressUtils.addr(m_snmpTrapAddress);
+        if (m_snmpTrapAddress.equals("*")) {
+            return null;
+        }
+        return InetAddressUtils.addr(m_snmpTrapAddress);
     }
 
     /**
@@ -314,25 +318,34 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     }
 
     /**
-     * <p>getEventReader</p>
+     * <p>
+     * getEventReader
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.trapd.BroadcastEventProcessor} object.
+     * @return a {@link org.opennms.netmgt.trapd.BroadcastEventProcessor}
+     *         object.
      */
     public BroadcastEventProcessor getEventReader() {
         return m_eventReader;
     }
 
     /**
-     * <p>setEventReader</p>
+     * <p>
+     * setEventReader
+     * </p>
      *
-     * @param eventReader a {@link org.opennms.netmgt.trapd.BroadcastEventProcessor} object.
+     * @param eventReader
+     *            a {@link org.opennms.netmgt.trapd.BroadcastEventProcessor}
+     *            object.
      */
     public void setEventReader(BroadcastEventProcessor eventReader) {
         m_eventReader = eventReader;
     }
 
     /**
-     * <p>getBacklogQ</p>
+     * <p>
+     * getBacklogQ
+     * </p>
      *
      * @return a {@link java.util.concurrent.ExecutorService} object.
      */
@@ -341,9 +354,12 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     }
 
     /**
-     * <p>setBacklogQ</p>
+     * <p>
+     * setBacklogQ
+     * </p>
      *
-     * @param backlogQ a {@link java.util.concurrent.ExecutorService} object.
+     * @param backlogQ
+     *            a {@link java.util.concurrent.ExecutorService} object.
      */
     public void setBacklogQ(ExecutorService backlogQ) {
         m_backlogQ = backlogQ;

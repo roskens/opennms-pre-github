@@ -47,7 +47,7 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/emptyContext.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class SSLCertPluginTest {
     @Before
@@ -59,7 +59,7 @@ public class SSLCertPluginTest {
     }
 
     @Test
-    @JUnitHttpServer(port=10342, https=true)
+    @JUnitHttpServer(port = 10342, https = true)
     public void testSSLCertExists() throws UnknownHostException {
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         Parameter p = new Parameter();
@@ -82,7 +82,7 @@ public class SSLCertPluginTest {
     }
 
     @Test
-    @JUnitHttpServer(port=10342, https=false)
+    @JUnitHttpServer(port = 10342, https = false)
     public void testSSLCertNotExists() throws UnknownHostException {
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         Parameter p = new Parameter();

@@ -49,17 +49,17 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * @author Donald Desloge
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class SmtpDetectorTest implements ApplicationContextAware {
 
     private SmtpDetector m_detector;
+
     private SimpleServer m_server;
+
     private ApplicationContext m_applicationContext;
 
     @Before
@@ -83,13 +83,13 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         }
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailWrongCodeExpectedMultilineRequest() throws Exception {
         SimpleServer tempServer = new SimpleServer() {
 
             @Override
             public void onInit() {
-                String[] multiLine = {"600 First line"};
+                String[] multiLine = { "600 First line" };
 
                 setBanner("220 ewhserver279.edgewebhosting.net");
                 addResponseHandler(matches("HELO LOCALHOST"), multilineLineRequest(multiLine));
@@ -104,13 +104,13 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(tempServer.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailIncompleteMultilineResponseFromServer() throws Exception {
         SimpleServer tempServer = new SimpleServer() {
 
             @Override
             public void onInit() {
-                String[] multiLine = {"250-First line", "400-Bogus second line"};
+                String[] multiLine = { "250-First line", "400-Bogus second line" };
 
                 setBanner("220 ewhserver279.edgewebhosting.net");
                 addResponseHandler(matches("HELO LOCALHOST"), multilineLineRequest(multiLine));
@@ -125,13 +125,13 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(tempServer.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailBogusSecondLine() throws Exception {
         SimpleServer tempServer = new SimpleServer() {
 
             @Override
             public void onInit() {
-                String[] multiLine = {"250-First line", "400-Bogus second line", "250 Requested mail action completed"};
+                String[] multiLine = { "250-First line", "400-Bogus second line", "250 Requested mail action completed" };
 
                 setBanner("220 ewhserver279.edgewebhosting.net");
                 addResponseHandler(matches("HELO LOCALHOST"), multilineLineRequest(multiLine));
@@ -147,7 +147,7 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(tempServer.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailWrongTypeOfBanner() throws Exception {
 
         m_server.setBanner("bogus");
@@ -156,19 +156,19 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailServerStopped() throws Exception {
         m_server.stopServer();
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws Exception {
         m_detector.setPort(1);
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSucess() throws Exception {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
@@ -183,7 +183,7 @@ public class SmtpDetectorTest implements ApplicationContextAware {
 
             @Override
             public void onInit() {
-                String[] multiLine = {"250-First line", "250-Second line", "250 Requested mail action completed"};
+                String[] multiLine = { "250-First line", "250-Second line", "250 Requested mail action completed" };
 
                 setBanner("220 ewhserver279.edgewebhosting.net");
                 addResponseHandler(matches("HELO LOCALHOST"), multilineLineRequest(multiLine));
@@ -192,8 +192,11 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         };
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.context.ApplicationContextAware#setApplicationContext
+     * (org.springframework.context.ApplicationContext)
      */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -204,6 +207,6 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
-        return (SmtpDetector)bean;
+        return (SmtpDetector) bean;
     }
 }

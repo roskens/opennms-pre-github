@@ -45,7 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Ssh class.</p>
+ * <p>
+ * Ssh class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @version $Id: $
@@ -55,10 +57,15 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     private static final Logger LOG = LoggerFactory.getLogger(Ssh.class);
 
     private static final Pattern SSH_IOEXCEPTION_PATTERN = Pattern.compile("^.*java.io.IOException.*$");
+
     private static final Pattern SSH_AUTHENTICATION_PATTERN = Pattern.compile("^.*Authentication:.*$");
+
     private static final Pattern SSH_NOROUTETOHOST_PATTERN = Pattern.compile("^.*java.net.NoRouteToHostException.*$");
+
     private static final Pattern SSH_SOCKETERROR_PATTERN = Pattern.compile("^.*(timeout: socket is not established|java.io.InterruptedIOException|java.net.SocketTimeoutException).*$");
+
     private static final Pattern SSH_CONNECTIONERROR_PATTERN = Pattern.compile("^.*(connection is closed by foreign host|java.net.ConnectException).*$");
+
     private static final Pattern SSH_NUMBERFORMAT_PATTERN = Pattern.compile("^.*NumberFormatException.*$");
 
     // SSH port is 22
@@ -70,36 +77,54 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     public static final String DEFAULT_CLIENT_BANNER = "SSH-1.99-OpenNMS_1.5";
 
     protected int m_port = DEFAULT_PORT;
+
     protected String m_username;
+
     protected String m_password;
+
     protected String m_banner = DEFAULT_CLIENT_BANNER;
+
     protected String m_serverBanner = "";
+
     protected InetAddress m_address;
+
     protected Throwable m_error;
 
     private Socket m_socket = null;
+
     private BufferedReader m_reader = null;
+
     private OutputStream m_writer = null;
 
     /**
-     * <p>Constructor for Ssh.</p>
+     * <p>
+     * Constructor for Ssh.
+     * </p>
      */
-    public Ssh() { }
+    public Ssh() {
+    }
 
     /**
-     * <p>Constructor for Ssh.</p>
+     * <p>
+     * Constructor for Ssh.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      */
     public Ssh(final InetAddress address) {
         setAddress(address);
     }
 
     /**
-     * <p>Constructor for Ssh.</p>
+     * <p>
+     * Constructor for Ssh.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param port a int.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param port
+     *            a int.
      */
     public Ssh(final InetAddress address, final int port) {
         setAddress(address);
@@ -107,11 +132,16 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     }
 
     /**
-     * <p>Constructor for Ssh.</p>
+     * <p>
+     * Constructor for Ssh.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param port a int.
-     * @param timeout a int.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
      */
     public Ssh(final InetAddress address, final int port, final int timeout) {
         setAddress(address);
@@ -122,7 +152,8 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     /**
      * Set the address to connect to.
      *
-     * @param address the address
+     * @param address
+     *            the address
      */
     public void setAddress(final InetAddress address) {
         m_address = address;
@@ -140,7 +171,8 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     /**
      * Set the port to connect to.
      *
-     * @param port the port
+     * @param port
+     *            the port
      */
     public void setPort(final int port) {
         m_port = port;
@@ -161,7 +193,8 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     /**
      * Set the username to connect as.
      *
-     * @param username the username
+     * @param username
+     *            the username
      */
     public void setUsername(final String username) {
         m_username = username;
@@ -179,7 +212,8 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     /**
      * Set the password to connect with.
      *
-     * @param password the password
+     * @param password
+     *            the password
      */
     public void setPassword(final String password) {
         m_password = password;
@@ -197,7 +231,8 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     /**
      * Set the banner string to use when connecting
      *
-     * @param banner the banner
+     * @param banner
+     *            the banner
      */
     public void setClientBanner(final String banner) {
         m_banner = banner;
@@ -222,16 +257,21 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     }
 
     /**
-     * <p>setError</p>
+     * <p>
+     * setError
+     * </p>
      *
-     * @param t a {@link java.lang.Throwable} object.
+     * @param t
+     *            a {@link java.lang.Throwable} object.
      */
     protected void setError(final Throwable t) {
         m_error = t;
     }
 
     /**
-     * <p>getError</p>
+     * <p>
+     * getError
+     * </p>
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -244,7 +284,8 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
      * the object.
      *
      * @return true if it is able to connect
-     * @throws org.opennms.netmgt.protocols.InsufficientParametersException if any.
+     * @throws org.opennms.netmgt.protocols.InsufficientParametersException
+     *             if any.
      */
     protected boolean tryConnect() throws InsufficientParametersException {
         if (getAddress() == null) {
@@ -287,7 +328,9 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     }
 
     /**
-     * <p>disconnect</p>
+     * <p>
+     * disconnect
+     * </p>
      */
     protected void disconnect() {
         if (m_writer != null) {

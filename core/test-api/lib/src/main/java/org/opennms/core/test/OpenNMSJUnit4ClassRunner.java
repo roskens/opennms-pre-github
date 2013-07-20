@@ -47,19 +47,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 public class OpenNMSJUnit4ClassRunner extends SpringJUnit4ClassRunner {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OpenNMSJUnit4ClassRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OpenNMSJUnit4ClassRunner.class);
 
     private static final String[] STANDARD_LISTENER_CLASS_NAMES = new String[] {
-        "org.opennms.test.OpenNMSConfigurationExecutionListener",
-        "org.opennms.core.test.db.TemporaryDatabaseExecutionListener",
-        "org.opennms.core.test.snmp.JUnitSnmpAgentExecutionListener",
-        "org.opennms.core.test.http.JUnitHttpServerExecutionListener",
-        "org.opennms.core.test.dns.JUnitDNSServerExecutionListener",
-        "org.opennms.netmgt.collectd.JUnitCollectorExecutionListener",
-        "org.springframework.test.context.support.DependencyInjectionTestExecutionListener",
-        "org.springframework.test.context.support.DirtiesContextTestExecutionListener",
-        "org.springframework.test.context.transaction.TransactionalTestExecutionListener"
-    };
+            "org.opennms.test.OpenNMSConfigurationExecutionListener",
+            "org.opennms.core.test.db.TemporaryDatabaseExecutionListener",
+            "org.opennms.core.test.snmp.JUnitSnmpAgentExecutionListener",
+            "org.opennms.core.test.http.JUnitHttpServerExecutionListener",
+            "org.opennms.core.test.dns.JUnitDNSServerExecutionListener",
+            "org.opennms.netmgt.collectd.JUnitCollectorExecutionListener",
+            "org.springframework.test.context.support.DependencyInjectionTestExecutionListener",
+            "org.springframework.test.context.support.DirtiesContextTestExecutionListener",
+            "org.springframework.test.context.transaction.TransactionalTestExecutionListener" };
 
     private static class ClassNameComparator implements Comparator<TestExecutionListener> {
 
@@ -84,14 +83,16 @@ public class OpenNMSJUnit4ClassRunner extends SpringJUnit4ClassRunner {
         // Register the standard set of execution listeners
         for (final String className : STANDARD_LISTENER_CLASS_NAMES) {
             try {
-                final TestExecutionListener listener = (TestExecutionListener)Class.forName(className).newInstance();
+                final TestExecutionListener listener = (TestExecutionListener) Class.forName(className).newInstance();
                 getTestContextManager().registerTestExecutionListeners(listener);
             } catch (final Throwable t) {
-            	LOG.info("Failed while attempting to load default unit test listener class {}: {}", className, t.getLocalizedMessage());
+                LOG.info("Failed while attempting to load default unit test listener class {}: {}", className,
+                         t.getLocalizedMessage());
             }
         }
 
-        // Add any additional listeners that may have been specified manually in the test
+        // Add any additional listeners that may have been specified manually in
+        // the test
         final Comparator<TestExecutionListener> comparator = new ClassNameComparator();
         final TreeSet<TestExecutionListener> standardListeners = new TreeSet<TestExecutionListener>(comparator);
         standardListeners.addAll(getTestContextManager().getTestExecutionListeners());

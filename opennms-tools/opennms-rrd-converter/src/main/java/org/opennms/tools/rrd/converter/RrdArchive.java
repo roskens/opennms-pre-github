@@ -43,12 +43,18 @@ import org.jrobin.core.Robin;
 public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchive> {
 
     private Archive m_archive;
+
     private final long m_step;
+
     private final long m_startTime;
+
     private final long m_endTime;
+
     private final int m_rows;
+
     private final String m_consolFun;
-    private final Map<Integer,RrdEntry> m_data;
+
+    private final Map<Integer, RrdEntry> m_data;
 
     public RrdArchive(final Archive archive, final List<String> dsNames) throws IOException {
         super(dsNames);
@@ -59,7 +65,7 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
         m_rows = m_archive.getRows();
         m_consolFun = getArchive().getConsolFun();
 
-        m_data = new TreeMap<Integer,RrdEntry>();
+        m_data = new TreeMap<Integer, RrdEntry>();
         for (int row = 0; row < m_rows; row++) {
             m_data.put(row, getRawDataForRowWithTimestamp(row, getStartTime() + (row * m_step)));
         }
@@ -72,7 +78,7 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
 
     public RrdEntry getDataAt(final long timestamp) throws IOException {
         if (isValidTimestamp(timestamp)) {
-        final int row = getRowNumberForTimestamp(timestamp);
+            final int row = getRowNumberForTimestamp(timestamp);
             if (row >= 0) {
                 return getDataForRowWithTimestamp(row, timestamp);
             }
@@ -94,7 +100,7 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
             return rawEntry;
         } else {
             try {
-                final RrdEntry newEntry = (RrdEntry)rawEntry.clone();
+                final RrdEntry newEntry = (RrdEntry) rawEntry.clone();
                 newEntry.setTimestamp(timestamp);
                 return newEntry;
             } catch (final CloneNotSupportedException e) {
@@ -160,12 +166,12 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
 
     public String toString() {
         try {
-            return new ToStringBuilder(this)
-                .append("dsNames", getDsNames())
-                .append("startTime", new Date(m_archive.getStartTime() * 1000L))
-                .append("endTime", new Date(m_archive.getEndTime() * 1000L))
-                .append("step", getNativeStep())
-                .toString();
+            return new ToStringBuilder(this).append("dsNames", getDsNames()).append("startTime",
+                                                                                    new Date(
+                                                                                             m_archive.getStartTime() * 1000L)).append("endTime",
+                                                                                                                                       new Date(
+                                                                                                                                                m_archive.getEndTime() * 1000L)).append("step",
+                                                                                                                                                                                        getNativeStep()).toString();
         } catch (final IOException e) {
             LogUtils.warnf(this, e, "Unable to generate toString()");
             return super.toString();
@@ -174,13 +180,13 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
 
     public int compareTo(final RrdArchive archive) {
         try {
-            /* Go from highest to lowest resolution (step).
-             * If two archives have the same resolution, then pick the one with the earliest start time first.
+            /*
+             * Go from highest to lowest resolution (step).
+             * If two archives have the same resolution, then pick the one with
+             * the earliest start time first.
              */
-            return new CompareToBuilder()
-                .append(this.getNativeStep(), archive.getNativeStep())
-                .append(this.getStartTime(), archive.getStartTime())
-                .toComparison();
+            return new CompareToBuilder().append(this.getNativeStep(), archive.getNativeStep()).append(this.getStartTime(),
+                                                                                                       archive.getStartTime()).toComparison();
         } catch (final IOException e) {
             LogUtils.warnf(this, e, "Unable to generate compareTo(%s)", archive);
             return -1;

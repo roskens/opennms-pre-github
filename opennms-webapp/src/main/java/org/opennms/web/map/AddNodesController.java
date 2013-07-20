@@ -57,156 +57,157 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>AddNodesController class.</p>
+ * <p>
+ * AddNodesController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class AddNodesController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AddNodesController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AddNodesController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+        String action = request.getParameter("action");
+        String elems = request.getParameter("elems");
+        LOG.debug("Adding Nodes action:{}, elems={}", action, elems);
 
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+        try {
+            Integer[] nodeids = null;
 
-		String action = request.getParameter("action");
-		String elems = request.getParameter("elems");
-		LOG.debug("Adding Nodes action:{}, elems={}", action, elems);
+            boolean actionfound = false;
 
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
-		try {
-			Integer[] nodeids = null;
-
-			boolean actionfound = false;
-
-			if (action.equals(MapsConstants.ADDNODES_ACTION)) {
-				LOG.debug("Adding nodes by id: {}", elems);
-				actionfound = true;
-				String[] snodeids = elems.split(",");
-				nodeids = new Integer[snodeids.length];
-				for (int i = 0; i<snodeids.length; i++) {
-					nodeids[i] = new Integer(snodeids[i]);
-				}
-			}
-
-			if (action.equals(MapsConstants.ADDNODES_BY_CATEGORY_ACTION)) {
-				LOG.debug("Adding nodes by category: {}", elems);
-				actionfound = true;
-				String categoryName = elems;
-				CategoryFactory.init();
-				CatFactory cf = CategoryFactory.getInstance();
-				cf.getReadLock().lock();
-				try {
-    				final String rule = cf.getEffectiveRule(categoryName);
-    				final List<InetAddress> nodeIPs = FilterDaoFactory.getInstance().getIPAddressList(rule);
-    				LOG.debug("ips found: {}", nodeIPs.toString());
-    				nodeids = new Integer[nodeIPs.size()];
-				for (int i = 0; i<nodeIPs.size(); i++) {
-    					final InetAddress nodeIp = nodeIPs.get(i);
-    					final List<Integer> ids = NetworkElementFactory.getInstance(getServletContext()).getNodeIdsWithIpLike(InetAddressUtils.str(nodeIp));
-    					LOG.debug("Ids by ipaddress {}: {}", nodeIp, ids.toString());
-    					nodeids[i] = ids.get(0);
-               }
-            } finally {
-                cf.getReadLock().unlock();
+            if (action.equals(MapsConstants.ADDNODES_ACTION)) {
+                LOG.debug("Adding nodes by id: {}", elems);
+                actionfound = true;
+                String[] snodeids = elems.split(",");
+                nodeids = new Integer[snodeids.length];
+                for (int i = 0; i < snodeids.length; i++) {
+                    nodeids[i] = new Integer(snodeids[i]);
+                }
             }
-			}
 
+            if (action.equals(MapsConstants.ADDNODES_BY_CATEGORY_ACTION)) {
+                LOG.debug("Adding nodes by category: {}", elems);
+                actionfound = true;
+                String categoryName = elems;
+                CategoryFactory.init();
+                CatFactory cf = CategoryFactory.getInstance();
+                cf.getReadLock().lock();
+                try {
+                    final String rule = cf.getEffectiveRule(categoryName);
+                    final List<InetAddress> nodeIPs = FilterDaoFactory.getInstance().getIPAddressList(rule);
+                    LOG.debug("ips found: {}", nodeIPs.toString());
+                    nodeids = new Integer[nodeIPs.size()];
+                    for (int i = 0; i < nodeIPs.size(); i++) {
+                        final InetAddress nodeIp = nodeIPs.get(i);
+                        final List<Integer> ids = NetworkElementFactory.getInstance(getServletContext()).getNodeIdsWithIpLike(InetAddressUtils.str(nodeIp));
+                        LOG.debug("Ids by ipaddress {}: {}", nodeIp, ids.toString());
+                        nodeids[i] = ids.get(0);
+                    }
+                } finally {
+                    cf.getReadLock().unlock();
+                }
+            }
 
-			if (action.equals(MapsConstants.ADDNODES_BY_LABEL_ACTION)) {
-				LOG.debug("Adding nodes by label: {}", elems);
-				actionfound = true;
-				List<OnmsNode> nodes = NetworkElementFactory.getInstance(getServletContext()).getAllNodes();
-				nodeids = new Integer[nodes.size()];
-				for (int i = 0; i<nodes.size(); i++) {
-					nodeids[i] = nodes.get(i).getId();
-				}
-			}
+            if (action.equals(MapsConstants.ADDNODES_BY_LABEL_ACTION)) {
+                LOG.debug("Adding nodes by label: {}", elems);
+                actionfound = true;
+                List<OnmsNode> nodes = NetworkElementFactory.getInstance(getServletContext()).getAllNodes();
+                nodeids = new Integer[nodes.size()];
+                for (int i = 0; i < nodes.size(); i++) {
+                    nodeids[i] = nodes.get(i).getId();
+                }
+            }
 
-			if (action.equals(MapsConstants.ADDRANGE_ACTION)) {
-				LOG.debug("Adding nodes by range: {}", elems);
-				actionfound = true;
-				nodeids = (Integer[]) NetworkElementFactory.getInstance(getServletContext()).getNodeIdsWithIpLike(elems).toArray(new Integer[0]);
-			}
+            if (action.equals(MapsConstants.ADDRANGE_ACTION)) {
+                LOG.debug("Adding nodes by range: {}", elems);
+                actionfound = true;
+                nodeids = (Integer[]) NetworkElementFactory.getInstance(getServletContext()).getNodeIdsWithIpLike(elems).toArray(new Integer[0]);
+            }
 
-			if (action.equals(MapsConstants.ADDNODES_NEIG_ACTION)) {
-				LOG.debug("Adding nodes neighbor of:{}", elems);
-				actionfound = true;
-				nodeids = (Integer[]) NetworkElementFactory.getInstance(getServletContext()).getLinkedNodeIdOnNode(WebSecurityUtils.safeParseInt(elems)).toArray(new Integer[0]);
-			}
+            if (action.equals(MapsConstants.ADDNODES_NEIG_ACTION)) {
+                LOG.debug("Adding nodes neighbor of:{}", elems);
+                actionfound = true;
+                nodeids = (Integer[]) NetworkElementFactory.getInstance(getServletContext()).getLinkedNodeIdOnNode(WebSecurityUtils.safeParseInt(elems)).toArray(new Integer[0]);
+            }
 
-			if (action.equals(MapsConstants.ADDNODES_WITH_NEIG_ACTION)) {
-				LOG.debug("Adding nodes with neighbor of:{}", elems);
-				actionfound = true;
-				Set<Integer> linkednodeids = NetworkElementFactory.getInstance(getServletContext()).getLinkedNodeIdOnNode(WebSecurityUtils.safeParseInt(elems));
-				linkednodeids.add(new Integer(elems));
-				nodeids = linkednodeids.toArray(new Integer[linkednodeids.size()]);
-			}
+            if (action.equals(MapsConstants.ADDNODES_WITH_NEIG_ACTION)) {
+                LOG.debug("Adding nodes with neighbor of:{}", elems);
+                actionfound = true;
+                Set<Integer> linkednodeids = NetworkElementFactory.getInstance(getServletContext()).getLinkedNodeIdOnNode(WebSecurityUtils.safeParseInt(elems));
+                linkednodeids.add(new Integer(elems));
+                nodeids = linkednodeids.toArray(new Integer[linkednodeids.size()]);
+            }
 
-	         VMap map = manager.openMap();
-	                LOG.debug("Got map from manager {}", map);
+            VMap map = manager.openMap();
+            LOG.debug("Got map from manager {}", map);
 
+            List<VElement> velems = new ArrayList<VElement>();
+            // response for addElement
+            if (actionfound) {
+                LOG.debug("Before Checking map contains elems");
 
-			List<VElement> velems = new ArrayList<VElement>();
-			// response for addElement
-			if (actionfound) {
-				LOG.debug("Before Checking map contains elems");
+                for (int i = 0; i < nodeids.length; i++) {
+                    int elemId = nodeids[i].intValue();
+                    if (map.containsElement(elemId, MapsConstants.NODE_TYPE)) {
+                        LOG.debug("Action: {} . Map Contains Element: {}", action, elemId + MapsConstants.NODE_TYPE);
+                        continue;
 
-				for (int i = 0; i < nodeids.length; i++) {
-					int elemId = nodeids[i].intValue();
-					if (map.containsElement(elemId, MapsConstants.NODE_TYPE)) {
-						LOG.debug("Action: {} . Map Contains Element: {}", action, elemId+MapsConstants.NODE_TYPE);
-						continue;
+                    }
 
-					}
+                    velems.add(manager.newElement(map.getId(), elemId, MapsConstants.NODE_TYPE));
+                } // end for
 
-					velems.add(manager.newElement(map.getId(), elemId, MapsConstants.NODE_TYPE));
-				} // end for
+                // get links and add elements to map
+                map = manager.addElements(map, velems);
+                LOG.debug("After getting/adding links");
 
-				//get links and add elements to map
-				map = manager.addElements(map, velems);
-				LOG.debug("After getting/adding links");
+                bw.write(ResponseAssembler.getAddElementResponse(null, velems, map.getLinks()));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error while adding nodes for action: {}", action, e);
+            bw.write(ResponseAssembler.getMapErrorResponse(action));
+        } finally {
+            bw.close();
+        }
 
-				bw.write(ResponseAssembler.getAddElementResponse(null, velems, map.getLinks()));
-			}
-		} catch (Throwable e) {
-			LOG.error("Error while adding nodes for action: {}", action, e);
-			bw.write(ResponseAssembler.getMapErrorResponse(action));
-		} finally {
-			bw.close();
-		}
-
-		return null;
-	}
-
+        return null;
+    }
 
 }

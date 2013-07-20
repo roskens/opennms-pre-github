@@ -51,9 +51,8 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.test.context.ContextConfiguration;
 
-
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/emptyContext.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class SSLCertMonitorTest {
 
@@ -63,7 +62,7 @@ public class SSLCertMonitorTest {
     }
 
     @Test
-    @JUnitHttpServer(port=10342, https=true)
+    @JUnitHttpServer(port = 10342, https = true)
     public void testNMS4142() throws UnknownHostException {
         SSLCertMonitor monitor = new SSLCertMonitor();
         Map<String, Object> parameters = new ConcurrentSkipListMap<String, Object>();
@@ -75,12 +74,12 @@ public class SSLCertMonitorTest {
 
         MonitoredService svc = MonitorTestUtils.getMonitoredService(3, "localhost", "SSLCert", false);
         PollStatus status = monitor.poll(svc, parameters);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertFalse(status.isAvailable());
     }
 
     @Test
-    @JUnitHttpServer(port=10342, https=true)
+    @JUnitHttpServer(port = 10342, https = true)
     public void testValidDateForCertificate() throws UnknownHostException {
         SSLCertMonitor monitor = new SSLCertMonitor();
         Map<String, Object> parameters = new ConcurrentSkipListMap<String, Object>();
@@ -90,7 +89,9 @@ public class SSLCertMonitorTest {
         parameters.put("verbose", "true");
         parameters.put("days", "5");
 
-        /* The certificate JUnitHttpServer uses is valid from Fri Jan 15 17:25:10 CST 2010 to
+        /*
+         * The certificate JUnitHttpServer uses is valid from Fri Jan 15
+         * 17:25:10 CST 2010 to
          * Thu Apr 15 18:25:10 CDT 2010.
          */
         Calendar cal = GregorianCalendar.getInstance();

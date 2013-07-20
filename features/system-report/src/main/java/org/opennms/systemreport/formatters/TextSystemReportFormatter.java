@@ -66,12 +66,13 @@ public class TextSystemReportFormatter extends AbstractSystemReportFormatter imp
 
     @Override
     public void write(final SystemReportPlugin plugin) {
-        if (!hasDisplayable(plugin)) return;
+        if (!hasDisplayable(plugin))
+            return;
         LOG.debug("write({})", plugin.getName());
         try {
             final String title = plugin.getName() + " (" + plugin.getDescription() + "):" + "\n";
             getOutputStream().write(title.getBytes());
-            for (final Map.Entry<String,Resource> entry : plugin.getEntries().entrySet()) {
+            for (final Map.Entry<String, Resource> entry : plugin.getEntries().entrySet()) {
                 final Resource value = entry.getValue();
                 final boolean displayable = isDisplayable(value);
 
@@ -79,7 +80,11 @@ public class TextSystemReportFormatter extends AbstractSystemReportFormatter imp
                 if (displayable) {
                     text = "\t" + entry.getKey() + ": " + getResourceText(value) + "\n";
                 } else {
-                    text = "\t" + entry.getKey() + ": " + (value == null? "NULL" : value.getClass().getSimpleName() + " resource is not displayable.  Try using the 'zip' format.") + "\n";
+                    text = "\t"
+                            + entry.getKey()
+                            + ": "
+                            + (value == null ? "NULL" : value.getClass().getSimpleName()
+                                    + " resource is not displayable.  Try using the 'zip' format.") + "\n";
                 }
                 getOutputStream().write(text.getBytes());
             }

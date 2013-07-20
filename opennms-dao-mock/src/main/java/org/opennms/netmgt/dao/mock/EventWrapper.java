@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.dao.mock;
 
-
 import org.opennms.netmgt.model.events.EventUtils;
 import org.opennms.netmgt.xml.event.Event;
 
@@ -42,9 +41,12 @@ public class EventWrapper {
     private Event m_event;
 
     /**
-     * <p>Constructor for EventWrapper.</p>
+     * <p>
+     * Constructor for EventWrapper.
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public EventWrapper(final Event event) {
         m_event = event;
@@ -58,7 +60,9 @@ public class EventWrapper {
     }
 
     /**
-     * <p>getEvent</p>
+     * <p>
+     * getEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -67,7 +71,9 @@ public class EventWrapper {
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
@@ -77,12 +83,14 @@ public class EventWrapper {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-    	return EventUtils.toString(m_event);
+        return EventUtils.toString(m_event);
     }
 }

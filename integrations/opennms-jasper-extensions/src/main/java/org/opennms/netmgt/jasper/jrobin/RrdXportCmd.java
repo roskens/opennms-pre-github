@@ -41,6 +41,7 @@ import org.jrobin.graph.RrdGraphConstants;
 
 class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
     private DataProcessor dproc;
+
     private List<XPort> xports;
 
     @Override
@@ -68,14 +69,11 @@ class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
         for (int i = 0; i < words.length; i++) {
             if (words[i].startsWith("DEF:")) {
                 parseDef(words[i]);
-            }
-            else if (words[i].startsWith("CDEF:")) {
+            } else if (words[i].startsWith("CDEF:")) {
                 parseCDef(words[i]);
-            }
-            else if (words[i].startsWith("XPORT:")) {
+            } else if (words[i].startsWith("XPORT:")) {
                 parseXport(words[i]);
-            }
-            else {
+            } else {
                 throw new RrdException("Invalid XPORT syntax: " + words[i]);
             }
         }
@@ -88,7 +86,7 @@ class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
         dproc.processData();
         long[] timestamps = dproc.getTimestamps();
 
-        for(int i = 0; i < timestamps.length; i++) {
+        for (int i = 0; i < timestamps.length; i++) {
             timestamps[i] = timestamps[i] - dproc.getStep();
         }
 
@@ -130,14 +128,14 @@ class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
         if (tokens.length == 2 || tokens.length == 3) {
             XPort xport = new XPort(tokens[1], tokens.length == 3 ? tokens[2] : null);
             xports.add(xport);
-        }
-        else {
+        } else {
             throw new RrdException("Invalid XPORT syntax: " + word);
         }
     }
 
     static class XPort {
         String name, legend;
+
         double[] values;
 
         XPort(String name, String legend) {

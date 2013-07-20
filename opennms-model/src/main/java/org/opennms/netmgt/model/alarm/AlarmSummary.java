@@ -42,12 +42,17 @@ import org.opennms.netmgt.model.OnmsSeverity;
 public class AlarmSummary implements Comparable<AlarmSummary> {
 
     private final int nodeId;
+
     private final String nodeLabel;
+
     private final Date minLastEventDate;
+
     private final OnmsSeverity maxSeverity;
+
     private final long alarmCount;
 
-    public AlarmSummary(final Integer nodeId, final String nodeLabel, final Date minLastEventDate, final OnmsSeverity maxSeverity, final Long alarmCount) {
+    public AlarmSummary(final Integer nodeId, final String nodeLabel, final Date minLastEventDate,
+            final OnmsSeverity maxSeverity, final Long alarmCount) {
         super();
         this.nodeId = nodeId;
         if (nodeLabel == null) {
@@ -81,7 +86,8 @@ public class AlarmSummary implements Comparable<AlarmSummary> {
     }
 
     public String getFuzzyTimeDown() {
-        return minLastEventDate == null ? "N/A" : FuzzyDateFormatter.calculateDifference(this.minLastEventDate, new Date());
+        return minLastEventDate == null ? "N/A" : FuzzyDateFormatter.calculateDifference(this.minLastEventDate,
+                                                                                         new Date());
     }
 
     @Override
@@ -105,10 +111,8 @@ public class AlarmSummary implements Comparable<AlarmSummary> {
      */
     @Override
     public int compareTo(final AlarmSummary that) {
-        return new CompareToBuilder()
-        .append(this.getMinLastEventDate(), that.getMinLastEventDate())
-        .append(this.getNodeLabel(), that.getNodeLabel())
-        .toComparison();
+        return new CompareToBuilder().append(this.getMinLastEventDate(), that.getMinLastEventDate()).append(this.getNodeLabel(),
+                                                                                                            that.getNodeLabel()).toComparison();
     }
 
 };

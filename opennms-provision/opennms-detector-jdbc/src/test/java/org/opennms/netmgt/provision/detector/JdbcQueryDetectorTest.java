@@ -54,12 +54,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/detectors.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class JdbcQueryDetectorTest implements InitializingBean {
@@ -76,7 +73,7 @@ public class JdbcQueryDetectorTest implements InitializingBean {
     }
 
     @Before
-    public void setUp() throws SQLException{
+    public void setUp() throws SQLException {
         MockLogAppender.setupLogging();
 
         String url = null;
@@ -102,27 +99,27 @@ public class JdbcQueryDetectorTest implements InitializingBean {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         MockLogAppender.assertNoFatalOrGreater();
     }
 
-    @Test(timeout=90000)
-    public void testDetectorSuccess() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testDetectorSuccess() throws UnknownHostException {
         m_detector.init();
         assertTrue("JDBCQueryDetector should work", m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
 
-    @Test(timeout=90000)
-    public void testStoredProcedureFail() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testStoredProcedureFail() throws UnknownHostException {
         m_detector.setSqlQuery("bogus");
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
 
-    @Test(timeout=90000)
-    public void testWrongUserName() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testWrongUserName() throws UnknownHostException {
         m_detector.setUser("wrongUserName");
         m_detector.init();
-        assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")) );
+        assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
 }

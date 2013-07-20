@@ -52,6 +52,7 @@ import org.opennms.netmgt.capsd.AbstractPlugin;
  */
 public final class SmbPlugin extends AbstractPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(SmbPlugin.class);
+
     /**
      * The protocol that this plugin checks for.
      */
@@ -62,7 +63,6 @@ public final class SmbPlugin extends AbstractPlugin {
      *
      * @param host
      *            The remote host to check.
-     *
      * @return True if the remote interface responds talks SMB and has a NETBIOS
      *         name. False otherwise.
      */
@@ -87,7 +87,8 @@ public final class SmbPlugin extends AbstractPlugin {
 
             LOG.debug("SmbPlugin: UnknownHostException: {}", e.getMessage());
         } catch (Throwable t) {
-            LOG.error("SmbPlugin: An undeclared throwable exception was caught checking host {}", InetAddressUtils.str(host), t);
+            LOG.error("SmbPlugin: An undeclared throwable exception was caught checking host {}",
+                      InetAddressUtils.str(host), t);
         }
 
         return isAServer;
@@ -105,9 +106,8 @@ public final class SmbPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -116,9 +116,8 @@ public final class SmbPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to

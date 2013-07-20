@@ -44,23 +44,33 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
+
 public class EndPointImpl implements EndPoint {
     private static final Logger LOG = LoggerFactory.getLogger(EndPointImpl.class);
+
     private SnmpAgentConfig m_agentConfig;
+
     private InetAddress m_address;
+
     private String m_sysOid;
 
     /**
-     * <p>Constructor for EndPointImpl.</p>
+     * <p>
+     * Constructor for EndPointImpl.
+     * </p>
      */
     public EndPointImpl() {
     }
 
     /**
-     * <p>Constructor for EndPointImpl.</p>
+     * <p>
+     * Constructor for EndPointImpl.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param agentConfig a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param agentConfig
+     *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     public EndPointImpl(InetAddress address, SnmpAgentConfig agentConfig) {
         m_address = address;
@@ -75,7 +85,9 @@ public class EndPointImpl implements EndPoint {
     }
 
     /**
-     * <p>getAddress</p>
+     * <p>
+     * getAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -85,16 +97,21 @@ public class EndPointImpl implements EndPoint {
     }
 
     /**
-     * <p>setAddress</p>
+     * <p>
+     * setAddress
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      */
     public void setAddress(InetAddress address) {
         m_address = address;
     }
 
     /**
-     * <p>getSysOid</p>
+     * <p>
+     * getSysOid
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,16 +121,21 @@ public class EndPointImpl implements EndPoint {
     }
 
     /**
-     * <p>setSysOid</p>
+     * <p>
+     * setSysOid
+     * </p>
      *
-     * @param sysOid a {@link java.lang.String} object.
+     * @param sysOid
+     *            a {@link java.lang.String} object.
      */
     public void setSysOid(String sysOid) {
         m_sysOid = sysOid;
     }
 
     /**
-     * <p>ping</p>
+     * <p>
+     * ping
+     * </p>
      *
      * @return a boolean.
      */

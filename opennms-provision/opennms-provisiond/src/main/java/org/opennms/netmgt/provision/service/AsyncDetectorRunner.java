@@ -42,13 +42,20 @@ class AsyncDetectorRunner implements Async<Boolean> {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncDetectorRunner.class);
 
     private final IpInterfaceScan m_ifaceScan;
+
     private final AsyncServiceDetector m_detector;
 
     /**
-     * <p>Constructor for AsyncDetectorRunner.</p>
+     * <p>
+     * Constructor for AsyncDetectorRunner.
+     * </p>
      *
-     * @param ifaceScan a {@link org.opennms.netmgt.provision.service.IpInterfaceScan} object.
-     * @param detector a {@link org.opennms.netmgt.provision.AsyncServiceDetector} object.
+     * @param ifaceScan
+     *            a {@link org.opennms.netmgt.provision.service.IpInterfaceScan}
+     *            object.
+     * @param detector
+     *            a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
+     *            object.
      */
     public AsyncDetectorRunner(IpInterfaceScan ifaceScan, AsyncServiceDetector detector) {
         m_ifaceScan = ifaceScan;
@@ -67,9 +74,9 @@ class AsyncDetectorRunner implements Async<Boolean> {
         }
     }
 
-	private String getHostAddress() {
-		return InetAddressUtils.str(m_ifaceScan.getAddress());
-	}
+    private String getHostAddress() {
+        return InetAddressUtils.str(m_ifaceScan.getAddress());
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -87,8 +94,8 @@ class AsyncDetectorRunner implements Async<Boolean> {
                     } else {
                         cb.complete(future.isServiceDetected());
                     }
-                } finally{
-                   m_detector.dispose();
+                } finally {
+                    m_detector.dispose();
                 }
             }
         };

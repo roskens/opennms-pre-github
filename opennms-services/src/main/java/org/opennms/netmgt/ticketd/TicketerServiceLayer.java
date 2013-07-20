@@ -44,40 +44,46 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface TicketerServiceLayer {
 
-	/**
-	 * Implement to manage creation of tickets through registered plugin.
-	 *
-	 * @param alarmId a int.
-	 */
-	public void createTicketForAlarm(int alarmId, Map<String,String> attributes);
+    /**
+     * Implement to manage creation of tickets through registered plugin.
+     *
+     * @param alarmId
+     *            a int.
+     */
+    public void createTicketForAlarm(int alarmId, Map<String, String> attributes);
 
-	/**
-	 * Implement to manage updating of tickets through registered plugin.
-	 *
-	 * @param alarmId a int.
-	 * @param ticketId a {@link java.lang.String} object.
-	 */
-	public void updateTicketForAlarm(int alarmId, String ticketId);
+    /**
+     * Implement to manage updating of tickets through registered plugin.
+     *
+     * @param alarmId
+     *            a int.
+     * @param ticketId
+     *            a {@link java.lang.String} object.
+     */
+    public void updateTicketForAlarm(int alarmId, String ticketId);
 
-	/**
-	 * Implement to manage closing of tickets through registered plugin.
-	 *
-	 * @param alarmId a int.
-	 * @param ticketId a {@link java.lang.String} object.
-	 */
-	public void closeTicketForAlarm(int alarmId, String ticketId);
+    /**
+     * Implement to manage closing of tickets through registered plugin.
+     *
+     * @param alarmId
+     *            a int.
+     * @param ticketId
+     *            a {@link java.lang.String} object.
+     */
+    public void closeTicketForAlarm(int alarmId, String ticketId);
 
-	/**
-	 * Implement to manage canceling of tickets through registered plugin.
-	 *
-	 * @param alarmId a int.
-	 * @param ticketId a {@link java.lang.String} object.
-	 */
-	public void cancelTicketForAlarm(int alarmId, String ticketId);
+    /**
+     * Implement to manage canceling of tickets through registered plugin.
+     *
+     * @param alarmId
+     *            a int.
+     * @param ticketId
+     *            a {@link java.lang.String} object.
+     */
+    public void cancelTicketForAlarm(int alarmId, String ticketId);
 
-	/**
-	 * Implement to reload ticketer when requested.
-	 *
-	 */
-	public void reloadTicketer();
+    /**
+     * Implement to reload ticketer when requested.
+     */
+    public void reloadTicketer();
 }

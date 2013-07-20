@@ -42,7 +42,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 /**
- * <p>DaoEventdServiceManager class.</p>
+ * <p>
+ * DaoEventdServiceManager class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -60,13 +62,18 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
     private Map<String, Integer> m_serviceMap = new HashMap<String, Integer>();
 
     /**
-     * <p>Constructor for DaoEventdServiceManager.</p>
+     * <p>
+     * Constructor for DaoEventdServiceManager.
+     * </p>
      */
     public DaoEventdServiceManager() {
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.eventd.EventdServiceManager#getServiceId(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.eventd.EventdServiceManager#getServiceId(java.lang
+     * .String)
      */
     /** {@inheritDoc} */
     @Override
@@ -84,7 +91,8 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
                 return -1;
             }
 
-            LOG.debug("Found entry for '{}' (ID {}) in database.  Adding to service name cache.", serviceName, serviceType.getId());
+            LOG.debug("Found entry for '{}' (ID {}) in database.  Adding to service name cache.", serviceName,
+                      serviceType.getId());
 
             m_serviceMap.put(serviceType.getName(), serviceType.getId());
 
@@ -92,11 +100,14 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.eventd.EventdServiceManager#dataSourceSync()
      */
     /**
-     * <p>dataSourceSync</p>
+     * <p>
+     * dataSourceSync
+     * </p>
      */
     @Override
     public synchronized void dataSourceSync() {
@@ -108,9 +119,12 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -118,7 +132,9 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
     }
 
     /**
-     * <p>getServiceTypeDao</p>
+     * <p>
+     * getServiceTypeDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
      */
@@ -127,9 +143,12 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
     }
 
     /**
-     * <p>setServiceTypeDao</p>
+     * <p>
+     * setServiceTypeDao
+     * </p>
      *
-     * @param serviceTypeDao a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
+     * @param serviceTypeDao
+     *            a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
      */
     public void setServiceTypeDao(ServiceTypeDao serviceTypeDao) {
         m_serviceTypeDao = serviceTypeDao;

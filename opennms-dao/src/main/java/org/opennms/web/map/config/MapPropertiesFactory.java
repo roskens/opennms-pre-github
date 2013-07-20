@@ -52,7 +52,10 @@ import org.opennms.web.map.MapsConstants;
 import org.opennms.web.map.MapsException;
 
 /**
- * <p>MapPropertiesFactory class.</p>
+ * <p>
+ * MapPropertiesFactory class.
+ * </p>
+ *
  * @since 1.8.1
  */
 public class MapPropertiesFactory {
@@ -79,37 +82,37 @@ public class MapPropertiesFactory {
 
     protected String mapPropertiesFileString;
 
-    //	protected Map[] propertiesMaps = null;
+    // protected Map[] propertiesMaps = null;
 
-    protected  Map<String,Status> statusesMap = null;
+    protected Map<String, Status> statusesMap = null;
 
-    protected  Status[] orderedStatuses = null;
+    protected Status[] orderedStatuses = null;
 
-    protected  Map<String,Severity> severitiesMap = null;
+    protected Map<String, Severity> severitiesMap = null;
 
-    protected  Severity[] orderedSeverities = null;
+    protected Severity[] orderedSeverities = null;
 
-    protected  Map<String,Avail> availsMap = null;
+    protected Map<String, Avail> availsMap = null;
 
-    protected  Avail[] orderedAvails = null;
+    protected Avail[] orderedAvails = null;
 
-    protected  Map<String,String> iconsMap = null;
+    protected Map<String, String> iconsMap = null;
 
-    protected Map<String,String> iconsBySysoidMap = null;
+    protected Map<String, String> iconsBySysoidMap = null;
 
-    protected  Map<String,String> bgImagesMap = null;
+    protected Map<String, String> bgImagesMap = null;
 
-    protected  Map<Integer,Link> linksMap = null;
+    protected Map<Integer, Link> linksMap = null;
 
-    protected  Map<Integer,Set<Link>> linksBySnmpTypeMap = null;
+    protected Map<Integer, Set<Link>> linksBySnmpTypeMap = null;
 
-    protected  Map<String,LinkStatus> linkStatusesMap = null;
+    protected Map<String, LinkStatus> linkStatusesMap = null;
 
-    protected  String defaultNodeIcon = null;
+    protected String defaultNodeIcon = null;
 
-    protected  String defaultMapIcon = null;
+    protected String defaultMapIcon = null;
 
-    protected  int defaultMapElementDimension = 25;
+    protected int defaultMapElementDimension = 25;
 
     protected int maxLinks = 3;
 
@@ -118,48 +121,50 @@ public class MapPropertiesFactory {
     protected String summaryLinkColor = "yellow";
 
     /** Constant <code>MULTILINK_BEST_STATUS="best"</code> */
-    public static final  String MULTILINK_BEST_STATUS ="best";
+    public static final String MULTILINK_BEST_STATUS = "best";
 
     /** Constant <code>MULTILINK_WORST_STATUS="worst"</code> */
-    public static final  String MULTILINK_WORST_STATUS ="worst";
+    public static final String MULTILINK_WORST_STATUS = "worst";
 
     /** Constant <code>MULTILINK_IGNORE_STATUS="ignore"</code> */
-    public static final  String MULTILINK_IGNORE_STATUS ="ignore";
+    public static final String MULTILINK_IGNORE_STATUS = "ignore";
 
-    protected  String multilinkStatus = MULTILINK_BEST_STATUS;
+    protected String multilinkStatus = MULTILINK_BEST_STATUS;
 
     protected String multilinkIgnoreColor = "yellow";
 
-    protected  int defaultLink = -1;
+    protected int defaultLink = -1;
 
-    protected  Severity defaultSeverity;
+    protected Severity defaultSeverity;
 
-    protected  Severity indeterminateSeverity;
+    protected Severity indeterminateSeverity;
 
-    protected  Status unknownStatus;
+    protected Status unknownStatus;
 
-    protected  Status defaultStatus;
+    protected Status defaultStatus;
 
-    protected  Avail undefinedAvail;
+    protected Avail undefinedAvail;
 
-    protected  Avail disabledAvail;
+    protected Avail disabledAvail;
 
-    protected  boolean availEnabled=true;
+    protected boolean availEnabled = true;
 
-    protected  boolean doubleClickEnabled=true;
+    protected boolean doubleClickEnabled = true;
 
-    protected  boolean contextMenuEnabled=true;
+    protected boolean contextMenuEnabled = true;
 
-    protected boolean useSemaphore=true;
+    protected boolean useSemaphore = true;
 
-    protected  boolean reload=false;
+    protected boolean reload = false;
 
-    protected  String severityMapAs = "avg";
+    protected String severityMapAs = "avg";
 
-    protected  ContextMenu cmenu;
+    protected ContextMenu cmenu;
 
     /**
-     * <p>Getter for the field <code>mapPropertiesFileString</code>.</p>
+     * <p>
+     * Getter for the field <code>mapPropertiesFileString</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -168,16 +173,21 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>Setter for the field <code>mapPropertiesFileString</code>.</p>
+     * <p>
+     * Setter for the field <code>mapPropertiesFileString</code>.
+     * </p>
      *
-     * @param mapPropertiesFileString a {@link java.lang.String} object.
+     * @param mapPropertiesFileString
+     *            a {@link java.lang.String} object.
      */
     public void setMapPropertiesFileString(String mapPropertiesFileString) {
         this.mapPropertiesFileString = mapPropertiesFileString;
     }
 
     /**
-     * <p>Getter for the field <code>severityMapAs</code>.</p>
+     * <p>
+     * Getter for the field <code>severityMapAs</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -186,7 +196,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getContextMenu</p>
+     * <p>
+     * getContextMenu
+     * </p>
      *
      * @return a {@link org.opennms.web.map.config.ContextMenu} object.
      */
@@ -195,16 +207,21 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>setContextMenu</p>
+     * <p>
+     * setContextMenu
+     * </p>
      *
-     * @param cmenu a {@link org.opennms.web.map.config.ContextMenu} object.
+     * @param cmenu
+     *            a {@link org.opennms.web.map.config.ContextMenu} object.
      */
     public void setContextMenu(ContextMenu cmenu) {
         this.cmenu = cmenu;
     }
 
     /**
-     * <p>isContextMenuEnabled</p>
+     * <p>
+     * isContextMenuEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -213,7 +230,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>isDoubleClickEnabled</p>
+     * <p>
+     * isDoubleClickEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -222,7 +241,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>isReload</p>
+     * <p>
+     * isReload
+     * </p>
      *
      * @return a boolean.
      */
@@ -230,11 +251,13 @@ public class MapPropertiesFactory {
         return reload;
     }
 
-
     /**
-     * <p>Constructor for MapPropertiesFactory.</p>
+     * <p>
+     * Constructor for MapPropertiesFactory.
+     * </p>
      *
-     * @param mapPropertiesFileString a {@link java.lang.String} object.
+     * @param mapPropertiesFileString
+     *            a {@link java.lang.String} object.
      */
     public MapPropertiesFactory(final String mapPropertiesFileString) {
         Logging.withPrefix(MapsConstants.LOG4J_CATEGORY, new Runnable() {
@@ -264,31 +287,32 @@ public class MapPropertiesFactory {
                 try {
                     init();
                 } catch (FileNotFoundException e) {
-                    LOG.error("Cannot found configuration file",e);
+                    LOG.error("Cannot found configuration file", e);
                 } catch (IOException e) {
-                    LOG.error("Cannot load configuration file",e);
+                    LOG.error("Cannot load configuration file", e);
                 }
                 LOG.debug("Instantiating MapPropertiesFactory");
             }
         });
     }
 
-
-
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.io.FileNotFoundException if any.
-     * @throws java.io.IOException if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public synchronized void init() throws FileNotFoundException,
-    IOException {
+    public synchronized void init() throws FileNotFoundException, IOException {
 
         LOG.info("Init");
         if (mapPropertiesFileString == null) {
             mapPropertiesFile = ConfigFileConstants.getFile(ConfigFileConstants.MAP_PROPERTIES_FILE_NAME);
             LOG.info("Using default map properties file: {}", mapPropertiesFile.getPath());
-        }else{
+        } else {
             mapPropertiesFile = new File(mapPropertiesFileString);
             LOG.info("Using map properties file: {}", mapPropertiesFile.getPath());
         }
@@ -304,15 +328,18 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * Every time called, reload the properties file and the nodes per data source defined in the properties file.
+     * Every time called, reload the properties file and the nodes per data
+     * source defined in the properties file.
      *
-     * @throws java.io.FileNotFoundException if any.
-     * @throws java.io.IOException if any.
-     * @param reloadPropertiesFile a boolean.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @param reloadPropertiesFile
+     *            a boolean.
      */
-    public synchronized void reload(boolean reloadPropertiesFile) throws FileNotFoundException,
-    IOException {
-        if(reloadPropertiesFile){
+    public synchronized void reload(boolean reloadPropertiesFile) throws FileNotFoundException, IOException {
+        if (reloadPropertiesFile) {
             m_loaded = false;
         }
         init();
@@ -322,11 +349,13 @@ public class MapPropertiesFactory {
      * Gets the java.util.Map with key = severity label and value the Severity
      * corresponding to the label
      *
-     * @throws IOException if any.
-     * @throws FileNotFoundException if any.
+     * @throws IOException
+     *             if any.
+     * @throws FileNotFoundException
+     *             if any.
      * @return a {@link java.util.Map} object.
      */
-    public Map<String,Severity> getSeveritiesMap() {
+    public Map<String, Severity> getSeveritiesMap() {
         return Collections.unmodifiableMap(severitiesMap);
     }
 
@@ -334,8 +363,10 @@ public class MapPropertiesFactory {
      * Gets the java.util.Map with key = availability label and value the Avail
      * corresponding to the label
      *
-     * @throws IOException if any.
-     * @throws FileNotFoundException if any.
+     * @throws IOException
+     *             if any.
+     * @throws FileNotFoundException
+     *             if any.
      * @return a {@link java.util.Map} object.
      */
     public Map<String, Avail> getAvailabilitiesMap() {
@@ -343,9 +374,12 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getAvail</p>
+     * <p>
+     * getAvail
+     * </p>
      *
-     * @param avail a double.
+     * @param avail
+     *            a double.
      * @return a {@link org.opennms.web.map.config.Avail} object.
      */
     public Avail getAvail(double avail) {
@@ -365,7 +399,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>Getter for the field <code>disabledAvail</code>.</p>
+     * <p>
+     * Getter for the field <code>disabledAvail</code>.
+     * </p>
      *
      * @return a {@link org.opennms.web.map.config.Avail} object.
      */
@@ -374,11 +410,13 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>isAvailEnabled</p>
+     * <p>
+     * isAvailEnabled
+     * </p>
      *
      * @return a boolean.
      */
-    public boolean isAvailEnabled(){
+    public boolean isAvailEnabled() {
         return availEnabled;
     }
 
@@ -398,7 +436,7 @@ public class MapPropertiesFactory {
      *
      * @return unknown status
      */
-    public Status getUnknownStatus()  {
+    public Status getUnknownStatus() {
         return unknownStatus;
     }
 
@@ -438,15 +476,19 @@ public class MapPropertiesFactory {
      *
      * @return java.util.Map with key = uei and value the status corresponding
      *         to the uei
-     * @throws IOException if any.
-     * @throws FileNotFoundException if any.
+     * @throws IOException
+     *             if any.
+     * @throws FileNotFoundException
+     *             if any.
      */
     public Map<String, Status> getStatusesMap() {
         return Collections.unmodifiableMap(statusesMap);
     }
 
     /**
-     * <p>Getter for the field <code>info</code>.</p>
+     * <p>
+     * Getter for the field <code>info</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -455,14 +497,19 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getProperty</p>
+     * <p>
+     * getProperty
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws java.io.IOException if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public String getProperty(String key)throws FileNotFoundException,IOException{
+    public String getProperty(String key) throws FileNotFoundException, IOException {
         // read the file
         Properties props = new Properties();
         props.load(new FileInputStream(mapPropertiesFile));
@@ -471,101 +518,100 @@ public class MapPropertiesFactory {
 
     /**
      * Parses the map.properties file into some mappings:
-     *  -severitiesMap: severity label (String) to Severity
-     *	-statusesMap: status (String) uei to Status
-     * 	-availsMap: min (String) of avail to Avail
-     *	-iconsMap: icon (String) label to String (icon filename)
-     *	-iconsBySysoidMap: sysoid (String) to icon label (String)
-     *	-bgImagesMap: background (String) image label to String (background image filename)
-     *	-sourcesMap: source label (String) to DataSource
-     *	-factoriesMap: factory label (String) to MapsFactory
+     * -severitiesMap: severity label (String) to Severity
+     * -statusesMap: status (String) uei to Status
+     * -availsMap: min (String) of avail to Avail
+     * -iconsMap: icon (String) label to String (icon filename)
+     * -iconsBySysoidMap: sysoid (String) to icon label (String)
+     * -bgImagesMap: background (String) image label to String (background image
+     * filename)
+     * -sourcesMap: source label (String) to DataSource
+     * -factoriesMap: factory label (String) to MapsFactory
      *
-     * @throws java.io.FileNotFoundException if any.
-     * @throws java.io.IOException if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    protected void parseMapProperties() throws FileNotFoundException,
-    IOException {
+    protected void parseMapProperties() throws FileNotFoundException, IOException {
         LOG.debug("Parsing map.properties...");
-        severitiesMap = new HashMap<String,Severity>();
-        statusesMap = new HashMap<String,Status>();
-        availsMap = new HashMap<String,Avail>();
-        iconsMap = new HashMap<String,String>();
-        iconsBySysoidMap = new HashMap<String,String>();
-        bgImagesMap = new HashMap<String,String>();
-        linksMap = new HashMap<Integer,Link>();
-        linksBySnmpTypeMap = new HashMap<Integer,Set<Link>>();
-        linkStatusesMap = new HashMap<String,LinkStatus>();
+        severitiesMap = new HashMap<String, Severity>();
+        statusesMap = new HashMap<String, Status>();
+        availsMap = new HashMap<String, Avail>();
+        iconsMap = new HashMap<String, String>();
+        iconsBySysoidMap = new HashMap<String, String>();
+        bgImagesMap = new HashMap<String, String>();
+        linksMap = new HashMap<Integer, Link>();
+        linksBySnmpTypeMap = new HashMap<Integer, Set<Link>>();
+        linkStatusesMap = new HashMap<String, LinkStatus>();
 
         // read the file
         Properties props = new Properties();
         props.load(new FileInputStream(mapPropertiesFile));
 
-        //load context menu flag
+        // load context menu flag
         String cntxtmenu = props.getProperty("enable.contextmenu");
-        if(cntxtmenu!=null && cntxtmenu.equalsIgnoreCase("false"))
-            contextMenuEnabled=false;
+        if (cntxtmenu != null && cntxtmenu.equalsIgnoreCase("false"))
+            contextMenuEnabled = false;
         LOG.debug("enable.contextmenu={}", cntxtmenu);
         // load context menu object only if context menu is enabled
 
         cmenu = new ContextMenu();
         if (contextMenuEnabled) {
             String commandList = props.getProperty("cmenu.commands");
-            if(commandList!=null){
+            if (commandList != null) {
                 String[] commands = BundleLists.parseBundleList(commandList);
-                if(commands!=null){
-                    for (int j = 0; j < commands.length;j++) {
+                if (commands != null) {
+                    for (int j = 0; j < commands.length; j++) {
                         String link = "-";
                         String params = "-";
-                        if(!commands[j].equals("-")){
-                            //load the link to open for the command
-                            link = props.getProperty("cmenu."+commands[j]+".link");
+                        if (!commands[j].equals("-")) {
+                            // load the link to open for the command
+                            link = props.getProperty("cmenu." + commands[j] + ".link");
                             LOG.debug("cmenu.{}.link={}", commands[j], link);
-                            if(link==null){
+                            if (link == null) {
                                 LOG.warn("link is null! skipping..");
                                 continue;
                             }
-                            params = props.getProperty("cmenu."+commands[j]+".params");
+                            params = props.getProperty("cmenu." + commands[j] + ".params");
                             LOG.debug("cmenu.{}.params={}", commands[j], params);
-                            if(params==null) params="";
+                            if (params == null)
+                                params = "";
                         }
                         cmenu.addEntry(commands[j], link, params);
                     }
                 }
-            }else{
+            } else {
                 LOG.warn("Context Menu enabled but No command found!");
             }
 
         }
 
-        //load double click flag
+        // load double click flag
         String doubleclick = props.getProperty("enable.doubleclick");
-        if(doubleclick!=null && doubleclick.equalsIgnoreCase("false"))
-            doubleClickEnabled=false;
+        if (doubleclick != null && doubleclick.equalsIgnoreCase("false"))
+            doubleClickEnabled = false;
         LOG.debug("enable.doubleclick={}", doubleclick);
 
         // load reload flag
         String reloadStr = props.getProperty("enable.reload");
-        if(reloadStr!=null && reloadStr.equalsIgnoreCase("true"))
-            reload=true;
+        if (reloadStr != null && reloadStr.equalsIgnoreCase("true"))
+            reload = true;
 
         LOG.debug("enable.reload={}", reloadStr);
 
         // look up severities and their properties
-        severityMapAs=props.getProperty("severity.map", "avg");
+        severityMapAs = props.getProperty("severity.map", "avg");
 
         // look up severities and their properties
 
-        String[] severities = BundleLists.parseBundleList(props
-                                                          .getProperty("severities"));
+        String[] severities = BundleLists.parseBundleList(props.getProperty("severities"));
 
         for (int i = 0; i < severities.length; i++) {
             String id = props.getProperty("severity." + severities[i] + ".id");
-            String label = props.getProperty("severity." + severities[i]
-                    + ".label");
-            String color = props.getProperty("severity." + severities[i]
-                    + ".color");
-            String flash = props.getProperty("severity." + severities[i]
-                    + ".flash");
+            String label = props.getProperty("severity." + severities[i] + ".label");
+            String color = props.getProperty("severity." + severities[i] + ".color");
+            String flash = props.getProperty("severity." + severities[i] + ".flash");
             Severity sev = new Severity(Integer.parseInt(id), label, color);
             if (flash != null && flash.equalsIgnoreCase("true"))
                 sev.setFlash(true);
@@ -582,8 +628,7 @@ public class MapPropertiesFactory {
 
         String defaultid = props.getProperty("severity.default");
         if (defaultid == null) {
-            throw new IllegalStateException(
-                    "Required Default Severity not found.");
+            throw new IllegalStateException("Required Default Severity not found.");
         }
 
         String sevid = props.getProperty("severity." + defaultid + ".id");
@@ -591,26 +636,21 @@ public class MapPropertiesFactory {
         String sevcolor = props.getProperty("severity." + defaultid + ".color");
         defaultSeverity = new Severity(Integer.parseInt(sevid), sevlabel, sevcolor);
 
-
         String indeterminateId = props.getProperty("severity.indeterminate");
         if (indeterminateId == null) {
-            throw new IllegalStateException(
-                    "Required Indeterminate Severity not found.");
+            throw new IllegalStateException("Required Indeterminate Severity not found.");
         }
 
         String indsevid = props.getProperty("severity." + indeterminateId + ".id");
-        String indsevlabel = props.getProperty("severity." + indeterminateId
-                                               + ".label");
-        String indsevcolor = props.getProperty("severity." + indeterminateId
-                                               + ".color");
+        String indsevlabel = props.getProperty("severity." + indeterminateId + ".label");
+        String indsevcolor = props.getProperty("severity." + indeterminateId + ".color");
         indeterminateSeverity = new Severity(Integer.parseInt(indsevid), indsevlabel, indsevcolor);
 
-        //Links
-        String[] links = BundleLists.parseBundleList(props
-                                                     .getProperty("links"));
+        // Links
+        String[] links = BundleLists.parseBundleList(props.getProperty("links"));
 
         String defaultLinkStr = props.getProperty("link.default");
-        if(defaultLinkStr==null){
+        if (defaultLinkStr == null) {
             LOG.error("Mandatory property 'link.default' not found!");
             throw new IllegalStateException("The property 'link.default' is mandatory");
         }
@@ -618,119 +658,117 @@ public class MapPropertiesFactory {
 
         for (int i = 0; i < links.length; i++) {
             String id = props.getProperty("link." + links[i] + ".id");
-            String text = props.getProperty("link." + links[i]+ ".text");
-            String speed = props.getProperty("link." + links[i]+ ".speed");
-            String width = props.getProperty("link." + links[i]+ ".width");
-            String dasharray = props.getProperty("link." + links[i]+ ".dash-array");
-            String snmptype = props.getProperty("link." + links[i]+ ".snmptype");
-            String multilinkwidth = props.getProperty("link." + links[i]+ ".multilink.width");
-            String multilinkdasharray = props.getProperty("link." + links[i]+ ".multilink.dash-array");
-            if(id==null){
+            String text = props.getProperty("link." + links[i] + ".text");
+            String speed = props.getProperty("link." + links[i] + ".speed");
+            String width = props.getProperty("link." + links[i] + ".width");
+            String dasharray = props.getProperty("link." + links[i] + ".dash-array");
+            String snmptype = props.getProperty("link." + links[i] + ".snmptype");
+            String multilinkwidth = props.getProperty("link." + links[i] + ".multilink.width");
+            String multilinkdasharray = props.getProperty("link." + links[i] + ".multilink.dash-array");
+            if (id == null) {
                 LOG.error("param id for link cannot be null in map.properties: skipping link...");
                 continue;
             }
-            if(text==null){
+            if (text == null) {
                 LOG.error("param text for link cannot be null in map.properties: skipping link...");
                 continue;
             }
-            if(width==null){
+            if (width == null) {
                 LOG.error("param width for link cannot be null in map.properties: skipping link...");
                 continue;
             }
-            if(speed==null){
+            if (speed == null) {
                 LOG.info("param speed for link cannot be null in map.properties: skipping link...");
-                speed="Unknown";
+                speed = "Unknown";
             }
 
-            int dash_arr=-1;
-            if(dasharray!=null)
-                dash_arr=Integer.parseInt(dasharray);
+            int dash_arr = -1;
+            if (dasharray != null)
+                dash_arr = Integer.parseInt(dasharray);
 
-            int snmp_type=-1;
-            if(snmptype!=null)
-                snmp_type=Integer.parseInt(snmptype);
+            int snmp_type = -1;
+            if (snmptype != null)
+                snmp_type = Integer.parseInt(snmptype);
 
-            if (multilinkwidth==null) {
-                multilinkwidth= width;
+            if (multilinkwidth == null) {
+                multilinkwidth = width;
             }
 
-            int multilink_dasharray=dash_arr;
-            if (multilinkdasharray!=null) {
-                multilink_dasharray=Integer.parseInt(multilinkdasharray);
+            int multilink_dasharray = dash_arr;
+            if (multilinkdasharray != null) {
+                multilink_dasharray = Integer.parseInt(multilinkdasharray);
             }
 
-            Link lnk = new Link(Integer.parseInt(id), speed,text,width,dash_arr,snmp_type,multilinkwidth,multilink_dasharray);
+            Link lnk = new Link(Integer.parseInt(id), speed, text, width, dash_arr, snmp_type, multilinkwidth,
+                                multilink_dasharray);
 
-            LOG.debug("found link {} with id={}, text={}, speed={}, width={}, dash-array={}, snmp-type={}. Adding it.", links[i], id, text, speed, width, dasharray, snmp_type);
+            LOG.debug("found link {} with id={}, text={}, speed={}, width={}, dash-array={}, snmp-type={}. Adding it.",
+                      links[i], id, text, speed, width, dasharray, snmp_type);
             linksMap.put(new Integer(id), lnk);
             Set<Link> linkbysnmptypeSet = linksBySnmpTypeMap.get(new Integer(snmp_type));
-            if(linkbysnmptypeSet==null)
-                linkbysnmptypeSet=new HashSet<Link>();
+            if (linkbysnmptypeSet == null)
+                linkbysnmptypeSet = new HashSet<Link>();
             linkbysnmptypeSet.add(lnk);
             linksBySnmpTypeMap.put(new Integer(snmp_type), linkbysnmptypeSet);
         }
 
-
-
-        //Links Statuses
-        String[] linkStatuses = BundleLists.parseBundleList(props
-                                                            .getProperty("linkstatuses"));
+        // Links Statuses
+        String[] linkStatuses = BundleLists.parseBundleList(props.getProperty("linkstatuses"));
         for (int i = 0; i < linkStatuses.length; i++) {
             String color = props.getProperty("linkstatus." + linkStatuses[i] + ".color");
-            String flash = props.getProperty("linkstatus." + linkStatuses[i]+ ".flash");
-            if(color==null){
+            String flash = props.getProperty("linkstatus." + linkStatuses[i] + ".flash");
+            if (color == null) {
                 LOG.error("param color for linkstatus cannot be null in map.properties: skipping linkstatus...");
                 continue;
             }
             boolean flashBool = false;
-            if(flash!=null && flash.equalsIgnoreCase("false"))
-                flashBool=false;
+            if (flash != null && flash.equalsIgnoreCase("false"))
+                flashBool = false;
             LOG.debug("found linkstatus {} with color={}, flash={}. Adding it.", linkStatuses[i], color, flashBool);
-            LinkStatus ls = new LinkStatus(linkStatuses[i],color,flashBool);
+            LinkStatus ls = new LinkStatus(linkStatuses[i], color, flashBool);
             linkStatusesMap.put(linkStatuses[i], ls);
         }
 
-        if(props.getProperty("summarylink.id")!=null){
+        if (props.getProperty("summarylink.id") != null) {
             summaryLink = Integer.parseInt(props.getProperty("summarylink.id"));
         }
         LOG.debug("found summarylink.id: {}", summaryLink);
 
-        if(props.getProperty("summarylink.color")!=null){
+        if (props.getProperty("summarylink.color") != null) {
             summaryLinkColor = props.getProperty("summarylink.color");
         }
         LOG.debug("found summarylink.color: {}", summaryLinkColor);
 
-        if(props.getProperty("max.links")!=null){
+        if (props.getProperty("max.links") != null) {
             maxLinks = Integer.parseInt(props.getProperty("max.links"));
         }
         LOG.debug("found max.links: {}", maxLinks);
 
-
-        if(props.getProperty("multilink.status")!=null){
+        if (props.getProperty("multilink.status") != null) {
             multilinkStatus = props.getProperty("multilink.status");
         }
-        if(!multilinkStatus.equals(MULTILINK_BEST_STATUS) && !multilinkStatus.equals(MULTILINK_IGNORE_STATUS) && !multilinkStatus.equals(MULTILINK_WORST_STATUS)){
+        if (!multilinkStatus.equals(MULTILINK_BEST_STATUS) && !multilinkStatus.equals(MULTILINK_IGNORE_STATUS)
+                && !multilinkStatus.equals(MULTILINK_WORST_STATUS)) {
             LOG.error("multilink.status property must be 'best' or 'worst' or 'ignore' ... using default ('best')");
-            multilinkStatus=MULTILINK_BEST_STATUS;
+            multilinkStatus = MULTILINK_BEST_STATUS;
         }
         LOG.debug("found multilink.status:{}", multilinkStatus);
 
-        if(props.getProperty("multilink.ignore.color")!=null){
+        if (props.getProperty("multilink.ignore.color") != null) {
             multilinkIgnoreColor = props.getProperty("multilink.ignore.color");
         }
         LOG.debug("found multilink.ignore.color:{}", multilinkIgnoreColor);
 
         // look up statuses and their properties
-        String[] statuses = BundleLists.parseBundleList(props
-                                                        .getProperty("statuses"));
+        String[] statuses = BundleLists.parseBundleList(props.getProperty("statuses"));
 
         for (int i = 0; i < statuses.length; i++) {
             String id = props.getProperty("status." + statuses[i] + ".id");
             String uei = props.getProperty("status." + statuses[i] + ".uei");
-            String color = props
-                    .getProperty("status." + statuses[i] + ".color");
+            String color = props.getProperty("status." + statuses[i] + ".color");
             String text = props.getProperty("status." + statuses[i] + ".text");
-            LOG.debug("found status {} with id={}, uei={}, color={}, text={}. Adding it.", statuses[i], id, uei, color, text);
+            LOG.debug("found status {} with id={}, uei={}, color={}, text={}. Adding it.", statuses[i], id, uei, color,
+                      text);
             Status status = new Status(Integer.parseInt(id), uei, color, text);
             statusesMap.put(uei, status);
         }
@@ -745,8 +783,7 @@ public class MapPropertiesFactory {
 
         String unknownid = props.getProperty("status.unknown.uei");
         if (unknownid == null) {
-            throw new IllegalStateException(
-                    "Required Unknown Uei Status not found.");
+            throw new IllegalStateException("Required Unknown Uei Status not found.");
         }
         String stid = props.getProperty("status." + unknownid + ".id");
         String stuei = props.getProperty("status." + unknownid + ".uei");
@@ -756,8 +793,7 @@ public class MapPropertiesFactory {
 
         String defaultstid = props.getProperty("status.default");
         if (defaultstid == null) {
-            throw new IllegalStateException(
-                    "Required Default Status not found.");
+            throw new IllegalStateException("Required Default Status not found.");
         }
         String staid = props.getProperty("status." + defaultstid + ".id");
         String stauei = props.getProperty("status." + defaultstid + ".uei");
@@ -766,8 +802,7 @@ public class MapPropertiesFactory {
         defaultStatus = new Status(Integer.parseInt(staid), stauei, stacolor, statext);
 
         // look up statuses and their properties
-        String[] availes = BundleLists.parseBundleList(props
-                                                       .getProperty("availabilities"));
+        String[] availes = BundleLists.parseBundleList(props.getProperty("availabilities"));
 
         for (int i = 0; i < availes.length; i++) {
             String id = props.getProperty("avail." + availes[i] + ".id");
@@ -775,8 +810,7 @@ public class MapPropertiesFactory {
             String color = props.getProperty("avail." + availes[i] + ".color");
             String flash = props.getProperty("avail." + availes[i] + ".flash");
             LOG.debug("found avail {} with id={}, min={}, color={}. Adding it.", availes[i], id, min, color);
-            Avail avail = new Avail(Integer.parseInt(id),
-                                    Integer.parseInt(min), color);
+            Avail avail = new Avail(Integer.parseInt(id), Integer.parseInt(min), color);
             if (flash != null && flash.equalsIgnoreCase("true"))
                 avail.setFlash(true);
             availsMap.put(min, avail);
@@ -794,41 +828,38 @@ public class MapPropertiesFactory {
         String avmin = props.getProperty("avail.undefined.min");
         String avcolor = props.getProperty("avail.undefined.color");
         if (avid == null || avmin == null || avcolor == null) {
-            throw new IllegalStateException(
-                    "Required avail.undefined properties not found.");
+            throw new IllegalStateException("Required avail.undefined properties not found.");
         }
         undefinedAvail = new Avail(Integer.parseInt(avid), Integer.parseInt(avmin), avcolor);
 
-
         String enableAvail = props.getProperty("avail.enable");
         if (enableAvail != null && enableAvail.equalsIgnoreCase("false"))
-            availEnabled=false;
-        else availEnabled = true;
+            availEnabled = false;
+        else
+            availEnabled = true;
 
         String disableAvailId = props.getProperty("avail.enable.false.id");
         if (disableAvailId == null) {
-            throw new IllegalStateException(
-                    "Required Default Status not found.");
+            throw new IllegalStateException("Required Default Status not found.");
         }
         Iterator<Avail> ite = availsMap.values().iterator();
         while (ite.hasNext()) {
             Avail av = ite.next();
-            if (av.getId() == Integer.parseInt(disableAvailId)){
-                disabledAvail=av;
+            if (av.getId() == Integer.parseInt(disableAvailId)) {
+                disabledAvail = av;
                 break;
             }
         }
 
         // look up icons filenames
 
-        String[] icons = BundleLists
-                .parseBundleList(props.getProperty("icons"));
+        String[] icons = BundleLists.parseBundleList(props.getProperty("icons"));
 
         for (int i = 0; i < icons.length; i++) {
 
             String baseProperty = "icon." + icons[i] + ".";
 
-            String filename =  props.getProperty(baseProperty + "filename");
+            String filename = props.getProperty(baseProperty + "filename");
             LOG.debug("found icon {} with filename={}. Adding it.", icons[i], filename);
             iconsMap.put(icons[i], filename);
         }
@@ -847,13 +878,11 @@ public class MapPropertiesFactory {
         defaultMapIcon = props.getProperty("icon.default.map");
         LOG.debug("default map icon: {}", defaultMapIcon);
         if (defaultMapIcon == null) {
-            throw new IllegalStateException(
-                    "Required Default Map Icon not found.");
+            throw new IllegalStateException("Required Default Map Icon not found.");
         }
         defaultNodeIcon = props.getProperty("icon.default.node");
         if (defaultNodeIcon == null) {
-            throw new IllegalStateException(
-                    "Required Default Icon Node not found.");
+            throw new IllegalStateException("Required Default Icon Node not found.");
         }
         LOG.debug("default node icon: {}", defaultNodeIcon);
 
@@ -865,24 +894,25 @@ public class MapPropertiesFactory {
 
         String useSemaphoreString = props.getProperty("use.semaphore");
         if (useSemaphoreString != null && useSemaphoreString.equalsIgnoreCase("false"))
-            useSemaphore=false;
-        else useSemaphore = true;
+            useSemaphore = false;
+        else
+            useSemaphore = true;
         LOG.debug("use semaphore: {}", useSemaphoreString);
 
         // look up background filenames
-        String[] bg = BundleLists
-                .parseBundleList(props.getProperty("bgimages"));
+        String[] bg = BundleLists.parseBundleList(props.getProperty("bgimages"));
 
         for (int i = 0; i < bg.length; i++) {
-            String filename = props.getProperty("bgimage." + bg[i]
-                    + ".filename");
+            String filename = props.getProperty("bgimage." + bg[i] + ".filename");
             LOG.debug("found bgimage {} with filename={}. Adding it.", bg[i], filename);
             bgImagesMap.put(bg[i], filename);
         }
     }
 
     /**
-     * <p>Getter for the field <code>summaryLinkColor</code>.</p>
+     * <p>
+     * Getter for the field <code>summaryLinkColor</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -891,34 +921,42 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>Getter for the field <code>iconsBySysoidMap</code>.</p>
+     * <p>
+     * Getter for the field <code>iconsBySysoidMap</code>.
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String,String> getIconsBySysoidMap() {
+    public Map<String, String> getIconsBySysoidMap() {
         return Collections.unmodifiableMap(iconsBySysoidMap);
     }
 
     /**
-     * <p>getBackgroundImagesMap</p>
+     * <p>
+     * getBackgroundImagesMap
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String,String> getBackgroundImagesMap() {
+    public Map<String, String> getBackgroundImagesMap() {
         return Collections.unmodifiableMap(bgImagesMap);
     }
 
     /**
-     * <p>Getter for the field <code>defaultMapIcon</code>.</p>
+     * <p>
+     * Getter for the field <code>defaultMapIcon</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDefaultMapIcon(){
+    public String getDefaultMapIcon() {
         return defaultMapIcon;
     }
 
     /**
-     * <p>Getter for the field <code>defaultNodeIcon</code>.</p>
+     * <p>
+     * Getter for the field <code>defaultNodeIcon</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -954,55 +992,68 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getSeverity</p>
+     * <p>
+     * getSeverity
+     * </p>
      *
-     * @param severityLabel a {@link java.lang.String} object.
+     * @param severityLabel
+     *            a {@link java.lang.String} object.
      * @return a int.
      */
     public int getSeverity(String severityLabel) {
-        Severity sev = ((Severity)severitiesMap.get(severityLabel));
-        if(sev==null){
-            throw new IllegalStateException("Severity with label "+severityLabel+" not found.");
+        Severity sev = ((Severity) severitiesMap.get(severityLabel));
+        if (sev == null) {
+            throw new IllegalStateException("Severity with label " + severityLabel + " not found.");
         }
         return sev.getId();
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      * @return a int.
      */
     public int getStatus(String uei) {
 
-        Status status = (Status)statusesMap.get(uei);
-        if(status==null){
+        Status status = (Status) statusesMap.get(uei);
+        if (status == null) {
             try {
                 return getUnknownStatus().getId();
             } catch (Throwable e) {
-                throw new RuntimeException("Exception while getting unknown status "+e);
+                throw new RuntimeException("Exception while getting unknown status " + e);
             }
         }
         return status.getId();
     }
 
     /**
-     * gets the config Link by snmpType defined in the map properties config file
+     * gets the config Link by snmpType defined in the map properties config
+     * file
      *
-     * @param linkTypologyId a int.
+     * @param linkTypologyId
+     *            a int.
      * @return a {@link java.util.Set} object.
      */
-    public Set<Link> getLinkBySnmpType(int linkTypologyId){
+    public Set<Link> getLinkBySnmpType(int linkTypologyId) {
         return linksBySnmpTypeMap.get(new Integer(linkTypologyId));
     }
 
     /**
-     * gets the id corresponding to the link defined in configuration file. The match is performed first by snmptype,
-     * then by speed (if more are defined). If there is no match, the default link id is returned.
+     * gets the id corresponding to the link defined in configuration file. The
+     * match is performed first by snmptype,
+     * then by speed (if more are defined). If there is no match, the default
+     * link id is returned.
      *
-     * @param snmpiftype a int.
-     * @param snmpifspeed a long.
-     * @return the id corresponding to the link defined in configuration file. If there is no match, the default link id is returned.
+     * @param snmpiftype
+     *            a int.
+     * @param snmpifspeed
+     *            a long.
+     * @return the id corresponding to the link defined in configuration file.
+     *         If there is no match, the default link id is returned.
      */
     public int getLinkTypeId(int snmpiftype, long snmpifspeed) {
         Link link = null;
@@ -1038,45 +1089,56 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getLink</p>
+     * <p>
+     * getLink
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      * @return a {@link org.opennms.web.map.config.Link} object.
      */
-    public Link getLink(int id){
-        return (Link)linksMap.get(new Integer(id));
+    public Link getLink(int id) {
+        return (Link) linksMap.get(new Integer(id));
     }
 
     /**
-     * gets the config LinkStatus by label defined in the map properties config file
+     * gets the config LinkStatus by label defined in the map properties config
+     * file
      *
-     * @param linkStatusLabel a {@link java.lang.String} object.
+     * @param linkStatusLabel
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.map.config.LinkStatus} object.
      */
-    public LinkStatus getLinkStatus(String linkStatusLabel){
-        return (LinkStatus)linkStatusesMap.get(linkStatusLabel);
+    public LinkStatus getLinkStatus(String linkStatusLabel) {
+        return (LinkStatus) linkStatusesMap.get(linkStatusLabel);
     }
 
     /**
-     * <p>Getter for the field <code>defaultLink</code>.</p>
+     * <p>
+     * Getter for the field <code>defaultLink</code>.
+     * </p>
      *
      * @return a {@link org.opennms.web.map.config.Link} object.
      */
-    public Link getDefaultLink(){
+    public Link getDefaultLink() {
         return (Link) linksMap.get(defaultLink);
     }
 
     /**
-     * <p>Getter for the field <code>linksMap</code>.</p>
+     * <p>
+     * Getter for the field <code>linksMap</code>.
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<Integer,Link> getLinksMap() {
+    public Map<Integer, Link> getLinksMap() {
         return linksMap;
     }
 
     /**
-     * <p>Getter for the field <code>linkStatusesMap</code>.</p>
+     * <p>
+     * Getter for the field <code>linkStatusesMap</code>.
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -1085,19 +1147,24 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>Getter for the field <code>multilinkStatus</code>.</p>
+     * <p>
+     * Getter for the field <code>multilinkStatus</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public  String getMultilinkStatus() {
+    public String getMultilinkStatus() {
         return multilinkStatus;
     }
 
     /**
-     * <p>getAvails</p>
+     * <p>
+     * getAvails
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException if any.
+     * @throws org.opennms.web.map.MapsException
+     *             if any.
      */
     public List<Avail> getAvails() throws MapsException {
         List<Avail> avails = new ArrayList<Avail>();
@@ -1106,10 +1173,13 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getLinks</p>
+     * <p>
+     * getLinks
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException if any.
+     * @throws org.opennms.web.map.MapsException
+     *             if any.
      */
     public List<Link> getLinks() throws MapsException {
         List<Link> links = new ArrayList<Link>();
@@ -1118,10 +1188,13 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getLinkStatuses</p>
+     * <p>
+     * getLinkStatuses
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException if any.
+     * @throws org.opennms.web.map.MapsException
+     *             if any.
      */
     public List<LinkStatus> getLinkStatuses() throws MapsException {
         List<LinkStatus> linkstatutes = new ArrayList<LinkStatus>();
@@ -1130,10 +1203,13 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getStatuses</p>
+     * <p>
+     * getStatuses
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException if any.
+     * @throws org.opennms.web.map.MapsException
+     *             if any.
      */
     public List<Status> getStatuses() throws MapsException {
         List<Status> statutes = new ArrayList<Status>();
@@ -1142,10 +1218,13 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getSeverities</p>
+     * <p>
+     * getSeverities
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException if any.
+     * @throws org.opennms.web.map.MapsException
+     *             if any.
      */
     public List<Severity> getSeverities() throws MapsException {
         List<Severity> sevs = new ArrayList<Severity>();
@@ -1154,37 +1233,48 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getIcons</p>
+     * <p>
+     * getIcons
+     * </p>
      *
      * @return a java$util$Map object.
-     * @throws org.opennms.web.map.MapsException if any.
+     * @throws org.opennms.web.map.MapsException
+     *             if any.
      */
-    public java.util.Map<String,String> getIcons() throws MapsException{
+    public java.util.Map<String, String> getIcons() throws MapsException {
         return Collections.unmodifiableMap(iconsMap);
     }
 
     /**
-     * <p>getIconsBySysoid</p>
+     * <p>
+     * getIconsBySysoid
+     * </p>
      *
      * @return a java$util$Map object.
-     * @throws org.opennms.web.map.MapsException if any.
+     * @throws org.opennms.web.map.MapsException
+     *             if any.
      */
-    public java.util.Map<String,String> getIconsBySysoid() throws MapsException{
+    public java.util.Map<String, String> getIconsBySysoid() throws MapsException {
         return Collections.unmodifiableMap(getIconsBySysoidMap());
     }
 
     /**
-     * <p>getBackgroundImages</p>
+     * <p>
+     * getBackgroundImages
+     * </p>
      *
      * @return a java$util$Map object.
-     * @throws org.opennms.web.map.MapsException if any.
+     * @throws org.opennms.web.map.MapsException
+     *             if any.
      */
     public java.util.Map<String, String> getBackgroundImages() throws MapsException {
         return Collections.unmodifiableMap(getBackgroundImagesMap());
     }
 
     /**
-     * <p>getDefaultBackgroundColor</p>
+     * <p>
+     * getDefaultBackgroundColor
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1193,7 +1283,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getDefaultStatusId</p>
+     * <p>
+     * getDefaultStatusId
+     * </p>
      *
      * @return a int.
      */
@@ -1202,7 +1294,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getUnknownStatusId</p>
+     * <p>
+     * getUnknownStatusId
+     * </p>
      *
      * @return a int.
      */
@@ -1211,7 +1305,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>getMapElementDimensions</p>
+     * <p>
+     * getMapElementDimensions
+     * </p>
      *
      * @return a java$util$Map object.
      */
@@ -1219,19 +1315,21 @@ public class MapPropertiesFactory {
         // TODO To be implemented (via map.properties-MapPropertiesFactory)
         java.util.Map<String, String> dims = new TreeMap<String, String>();
 
-        dims.put("06","smallest");
-        dims.put("10","very small");
-        dims.put("15","small");
-        dims.put("20","normal");
-        dims.put("25","firefox");
-        dims.put("30","bigger");
-        dims.put("35","biggest");
+        dims.put("06", "smallest");
+        dims.put("10", "very small");
+        dims.put("15", "small");
+        dims.put("20", "normal");
+        dims.put("25", "firefox");
+        dims.put("30", "bigger");
+        dims.put("35", "biggest");
 
         return dims;
     }
 
     /**
-     * <p>Getter for the field <code>defaultMapElementDimension</code>.</p>
+     * <p>
+     * Getter for the field <code>defaultMapElementDimension</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -1240,7 +1338,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>Getter for the field <code>maxLinks</code>.</p>
+     * <p>
+     * Getter for the field <code>maxLinks</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -1249,7 +1349,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>Getter for the field <code>summaryLink</code>.</p>
+     * <p>
+     * Getter for the field <code>summaryLink</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -1258,7 +1360,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>Getter for the field <code>multilinkIgnoreColor</code>.</p>
+     * <p>
+     * Getter for the field <code>multilinkIgnoreColor</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1267,7 +1371,9 @@ public class MapPropertiesFactory {
     }
 
     /**
-     * <p>isUseSemaphore</p>
+     * <p>
+     * isUseSemaphore
+     * </p>
      *
      * @return a boolean.
      */

@@ -65,17 +65,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-    "classpath:/META-INF/opennms/applicationContext-soa.xml",
-    "classpath:/META-INF/opennms/applicationContext-dao.xml",
-    "classpath*:/META-INF/opennms/component-dao.xml",
-    "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-    "classpath:/META-INF/opennms/mockEventIpcManager.xml",
-    "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
-    "classpath:META-INF/opennms/applicationContext-commonConfigs.xml",
-    "classpath:META-INF/opennms/applicationContext-accesspointmonitord.xml",
-    "classpath:META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-daemon.xml",
+        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
+        "classpath:META-INF/opennms/applicationContext-commonConfigs.xml",
+        "classpath:META-INF/opennms/applicationContext-accesspointmonitord.xml",
+        "classpath:META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AccessPointMonitordTest implements InitializingBean {
@@ -100,14 +97,19 @@ public class AccessPointMonitordTest implements InitializingBean {
     AccessPointMonitord m_apm;
 
     AnnotationBasedEventListenerAdapter m_adapter;
+
     AccessPointMonitorConfigFactory m_apmdConfigFactory;
 
     private MockEventIpcManager m_eventMgr;
+
     private EventAnticipator m_anticipator;
 
     private final static String AP1_MAC = "00:01:02:03:04:05";
+
     private final static String AP2_MAC = "07:08:09:0A:0B:0C";
+
     private final static String AP3_MAC = "F0:05:BA:11:00:FF";
+
     private final static int PACKAGE_SCAN_INTERVAL = 1000;
 
     @Override
@@ -252,21 +254,24 @@ public class AccessPointMonitordTest implements InitializingBean {
     }
 
     private String getDynamicPackageConfig() {
-    	return "<?xml version=\"1.0\"?>\n" +
-    	"<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"" + PACKAGE_SCAN_INTERVAL + "\">\n" +
-		"   	<service-template name=\"Aruba-AP-IsAdoptedOnController\" interval=\"" + PACKAGE_SCAN_INTERVAL + "\" status=\"off\">\n" +
-    	"                        <parameter key=\"retry\" value=\"3\"/>\n" +
-    	"                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n" +
-    	"                        <parameter key=\"operator\" value=\"=\"/>\n" +
-    	"                        <parameter key=\"operand\" value=\"1\"/>\n" +
-    	"                        <parameter key=\"match\" value=\"true\"/>\n" +
-		"		</service-template>" +
-    	"       <package name=\"dynamic-pkg-%\">\n" +
-    	"               <filter>IPADDR != '0.0.0.0'</filter>\n" +
-    	"               <service name=\"Aruba-AP-IsAdoptedOnController\" status=\"on\"/>" +
-    	"       </package>\n" +
-    	"       <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n" +
-    	"</access-point-monitor-configuration>\n" +
-    	"";
+        return "<?xml version=\"1.0\"?>\n"
+                + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\""
+                + PACKAGE_SCAN_INTERVAL
+                + "\">\n"
+                + "   	<service-template name=\"Aruba-AP-IsAdoptedOnController\" interval=\""
+                + PACKAGE_SCAN_INTERVAL
+                + "\" status=\"off\">\n"
+                + "                        <parameter key=\"retry\" value=\"3\"/>\n"
+                + "                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n"
+                + "                        <parameter key=\"operator\" value=\"=\"/>\n"
+                + "                        <parameter key=\"operand\" value=\"1\"/>\n"
+                + "                        <parameter key=\"match\" value=\"true\"/>\n"
+                + "		</service-template>"
+                + "       <package name=\"dynamic-pkg-%\">\n"
+                + "               <filter>IPADDR != '0.0.0.0'</filter>\n"
+                + "               <service name=\"Aruba-AP-IsAdoptedOnController\" status=\"on\"/>"
+                + "       </package>\n"
+                + "       <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n"
+                + "</access-point-monitor-configuration>\n" + "";
     }
 }

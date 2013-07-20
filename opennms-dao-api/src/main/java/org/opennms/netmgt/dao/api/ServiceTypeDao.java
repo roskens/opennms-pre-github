@@ -31,14 +31,19 @@ package org.opennms.netmgt.dao.api;
 import org.opennms.netmgt.model.OnmsServiceType;
 
 /**
- * <p>ServiceTypeDao interface.</p>
+ * <p>
+ * ServiceTypeDao interface.
+ * </p>
  */
 public interface ServiceTypeDao extends OnmsDao<OnmsServiceType, Integer> {
 
     /**
-     * <p>findByName</p>
+     * <p>
+     * findByName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      */
     OnmsServiceType findByName(String name);

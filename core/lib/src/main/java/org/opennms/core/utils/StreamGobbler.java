@@ -47,18 +47,16 @@ import org.slf4j.LoggerFactory;
  * <P>
  * Captures the output of an InputStream.
  * </P>
- *
  * With acknowledgements to Michael C. Daconta, author of "Java Pitfalls, Time
  * Saving Solutions, and Workarounds to Improve Programs." and his article in
  * JavaWorld "When Runtime.exec() Won't".
- *
  * See the ExecRunner class for a reference implementation.
  *
  * @author <a href="mailto:smccrory@users.sourceforge.net">Scott McCrory </a>.
  */
 public class StreamGobbler extends Thread {
 
-	private static final Logger LOG = LoggerFactory.getLogger(StreamGobbler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StreamGobbler.class);
 
     /** The {@link InputStream} we're gobbling */
     private InputStream in = null;
@@ -184,7 +182,7 @@ public class StreamGobbler extends Thread {
             }
 
         } catch (final Throwable e) {
-        	LOG.debug("Unable to read lines.", e);
+            LOG.debug("Unable to read lines.", e);
         } finally {
             IOUtils.closeQuietly(br);
             IOUtils.closeQuietly(isr);

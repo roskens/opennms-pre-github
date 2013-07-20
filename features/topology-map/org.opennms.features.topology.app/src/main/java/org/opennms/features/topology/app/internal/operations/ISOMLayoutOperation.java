@@ -33,21 +33,21 @@ import org.opennms.features.topology.app.internal.jung.ISOMLayoutAlgorithm;
 
 public class ISOMLayoutOperation extends LayoutOperation {
 
-	public ISOMLayoutOperation() {
-		super(new LayoutFactory() {
+    public ISOMLayoutOperation() {
+        super(new LayoutFactory() {
 
-		    private final ISOMLayoutAlgorithm m_layoutAlgorithm = new ISOMLayoutAlgorithm();
+            private final ISOMLayoutAlgorithm m_layoutAlgorithm = new ISOMLayoutAlgorithm();
 
-			@Override
-			public LayoutAlgorithm getLayoutAlgorithm() {
-				return m_layoutAlgorithm;
-			}
-		});
-	}
+            @Override
+            public LayoutAlgorithm getLayoutAlgorithm() {
+                return m_layoutAlgorithm;
+            }
+        });
+    }
 
-	@Override
-	public String getId() {
-		return getClass().getSimpleName();
-	}
+    @Override
+    public String getId() {
+        return getClass().getSimpleName();
+    }
 
 }

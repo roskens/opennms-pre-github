@@ -36,7 +36,9 @@ import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.alarm.filter.OnmsSeveritySqlType;
 
 /**
- * <p>SQLType interface.</p>
+ * <p>
+ * SQLType interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,42 +47,62 @@ import org.opennms.web.alarm.filter.OnmsSeveritySqlType;
 public interface SQLType<T> {
 
     public static final SQLType<Integer> INT = new IntegerSqlType();
+
     public static final SQLType<String> STRING = new StringSqlType();
+
     public static final SQLType<Date> DATE = new DateSqlType();
+
     public static final SQLType<OnmsSeverity> SEVERITY = new OnmsSeveritySqlType();
 
     /**
-     * <p>getValueAsString</p>
+     * <p>
+     * getValueAsString
+     * </p>
      *
-     * @param value a T object.
-     * @param <T> a T object.
+     * @param value
+     *            a T object.
+     * @param <T>
+     *            a T object.
      * @return a {@link java.lang.String} object.
      */
     public String getValueAsString(T value);
 
     /**
-     * <p>formatValue</p>
+     * <p>
+     * formatValue
+     * </p>
      *
-     * @param value a T object.
+     * @param value
+     *            a T object.
      * @return a {@link java.lang.String} object.
      */
     public String formatValue(T value);
 
     /**
-     * <p>bindParam</p>
+     * <p>
+     * bindParam
+     * </p>
      *
-     * @param ps a {@link java.sql.PreparedStatement} object.
-     * @param parameterIndex a int.
-     * @param value a T object.
-     * @throws java.sql.SQLException if any.
+     * @param ps
+     *            a {@link java.sql.PreparedStatement} object.
+     * @param parameterIndex
+     *            a int.
+     * @param value
+     *            a T object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void bindParam(PreparedStatement ps, int parameterIndex, T value) throws SQLException;
 
     /**
-     * <p>createArray</p>
+     * <p>
+     * createArray
+     * </p>
      *
-     * @param value1 a T object.
-     * @param value2 a T object.
+     * @param value1
+     *            a T object.
+     * @param value2
+     *            a T object.
      * @return an array of T objects.
      */
     public T[] createArray(T value1, T value2);

@@ -28,7 +28,6 @@
 
 package org.opennms.web.services;
 
-
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.events.EventBuilder;
@@ -37,7 +36,9 @@ import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>DefaultPollerService class.</p>
+ * <p>
+ * DefaultPollerService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,39 +46,42 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public class DefaultPollerService implements PollerService {
 
-	private EventProxy m_eventProxy;
+    private EventProxy m_eventProxy;
 
-	/**
-	 * <p>setEventProxy</p>
-	 *
-	 * @param eventProxy a {@link org.opennms.netmgt.model.events.EventProxy} object.
-	 */
-	public void setEventProxy(EventProxy eventProxy) {
-		m_eventProxy = eventProxy;
-	}
+    /**
+     * <p>
+     * setEventProxy
+     * </p>
+     *
+     * @param eventProxy
+     *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
+     */
+    public void setEventProxy(EventProxy eventProxy) {
+        m_eventProxy = eventProxy;
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void poll(OnmsMonitoredService monSvc, int pollResultId) {
+    /** {@inheritDoc} */
+    @Override
+    public void poll(OnmsMonitoredService monSvc, int pollResultId) {
 
-		EventBuilder bldr = new EventBuilder(EventConstants.DEMAND_POLL_SERVICE_EVENT_UEI, "PollerService");
+        EventBuilder bldr = new EventBuilder(EventConstants.DEMAND_POLL_SERVICE_EVENT_UEI, "PollerService");
 
-		bldr.setNodeid(monSvc.getNodeId());
-		bldr.setInterface(monSvc.getIpAddress());
-		bldr.setIfIndex(monSvc.getIfIndex());
-		bldr.setService(monSvc.getServiceType().getName());
+        bldr.setNodeid(monSvc.getNodeId());
+        bldr.setInterface(monSvc.getIpAddress());
+        bldr.setIfIndex(monSvc.getIfIndex());
+        bldr.setService(monSvc.getServiceType().getName());
 
-		bldr.addParam(EventConstants.PARM_DEMAND_POLL_ID, pollResultId);
+        bldr.addParam(EventConstants.PARM_DEMAND_POLL_ID, pollResultId);
 
-		sendEvent(bldr.getEvent());
-	}
+        sendEvent(bldr.getEvent());
+    }
 
-	private void sendEvent(Event demandPollEvent) {
-		try {
-			m_eventProxy.send(demandPollEvent);
-		} catch (EventProxyException e) {
-			throw new ServiceException("Exception occurred sending demandPollEvent", e);
-		}
-	}
+    private void sendEvent(Event demandPollEvent) {
+        try {
+            m_eventProxy.send(demandPollEvent);
+        } catch (EventProxyException e) {
+            throw new ServiceException("Exception occurred sending demandPollEvent", e);
+        }
+    }
 
 }

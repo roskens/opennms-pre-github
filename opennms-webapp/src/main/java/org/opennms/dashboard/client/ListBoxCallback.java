@@ -32,7 +32,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.ListBox;
 
 /**
- * <p>ListBoxCallback class.</p>
+ * <p>
+ * ListBoxCallback class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -43,18 +45,28 @@ import com.google.gwt.user.client.ui.ListBox;
  */
 public class ListBoxCallback implements AsyncCallback<String[][]> {
     private DashletLoader m_dashletLoader;
+
     private int m_direction = 1;
+
     private ListBox m_listBox;
+
     private String m_emptyListItemName = null;
+
     private String m_emptyListItemValue;
+
     private String m_nullListItemName;
+
     private String m_nullListItemValue;
 
     /**
-     * <p>Constructor for ListBoxCallback.</p>
+     * <p>
+     * Constructor for ListBoxCallback.
+     * </p>
      *
-     * @param dashlet a {@link org.opennms.dashboard.client.DashletLoader} object.
-     * @param listBox a {@link com.google.gwt.user.client.ui.ListBox} object.
+     * @param dashlet
+     *            a {@link org.opennms.dashboard.client.DashletLoader} object.
+     * @param listBox
+     *            a {@link com.google.gwt.user.client.ui.ListBox} object.
      */
     public ListBoxCallback(DashletLoader dashlet, ListBox listBox) {
         m_dashletLoader = dashlet;
@@ -62,7 +74,9 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
     }
 
     /**
-     * <p>getListBox</p>
+     * <p>
+     * getListBox
+     * </p>
      *
      * @return a {@link com.google.gwt.user.client.ui.ListBox} object.
      */
@@ -71,16 +85,21 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
     }
 
     /**
-     * <p>setDirection</p>
+     * <p>
+     * setDirection
+     * </p>
      *
-     * @param direction a int.
+     * @param direction
+     *            a int.
      */
     public void setDirection(int direction) {
         m_direction = direction;
     }
 
     /**
-     * <p>getDirection</p>
+     * <p>
+     * getDirection
+     * </p>
      *
      * @return a int.
      */
@@ -89,10 +108,14 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
     }
 
     /**
-     * <p>setNullListItem</p>
+     * <p>
+     * setNullListItem
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setNullListItem(String name, String value) {
         m_nullListItemName = name;
@@ -100,10 +123,14 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
     }
 
     /**
-     * <p>setEmptyListItem</p>
+     * <p>
+     * setEmptyListItem
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setEmptyListItem(String name, String value) {
         m_emptyListItemName = name;
@@ -111,9 +138,12 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
     }
 
     /**
-     * <p>onDataLoaded</p>
+     * <p>
+     * onDataLoaded
+     * </p>
      *
-     * @param resources an array of {@link java.lang.String} objects.
+     * @param resources
+     *            an array of {@link java.lang.String} objects.
      */
     public void onDataLoaded(String[][] resources) {
         m_listBox.clear();
@@ -122,7 +152,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
             if (m_nullListItemName != null) {
                 m_listBox.addItem(m_nullListItemName, m_nullListItemValue);
             }
-        } else  if (resources.length == 0) {
+        } else if (resources.length == 0) {
             if (m_emptyListItemName != null) {
                 m_listBox.addItem(m_emptyListItemName, m_emptyListItemValue);
             }

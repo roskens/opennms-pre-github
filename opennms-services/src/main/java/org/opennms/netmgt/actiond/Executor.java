@@ -52,10 +52,10 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.opennms.org/>OpenNMS </a>
- *
  */
 final class Executor implements Runnable, PausableFiber {
     private static final Logger LOG = LoggerFactory.getLogger(Executor.class);
+
     /**
      * The input queue of runnable commands.
      */
@@ -109,7 +109,6 @@ final class Executor implements Runnable, PausableFiber {
      * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
      * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
      * @author <a href="http://www.opennms.org/>OpenNMS </a>
-     *
      */
     private static final class DatedProc {
         /**
@@ -144,7 +143,6 @@ final class Executor implements Runnable, PausableFiber {
 
         /**
          * Returns the encapsulated process.
-         *
          */
         Process getProcess() {
             return m_proc;
@@ -174,7 +172,6 @@ final class Executor implements Runnable, PausableFiber {
      * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
      * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
      * @author <a href="http://www.opennms.org/>OpenNMS </a>
-     *
      */
     private final class Reaper implements Runnable {
         /**
@@ -182,7 +179,6 @@ final class Executor implements Runnable, PausableFiber {
          * and removes expired and completed commands from the array on a
          * periodic basis. In that respect it is a garbage collection thread for
          * processes.
-         *
          */
         @Override
         public void run() {
@@ -192,7 +188,6 @@ final class Executor implements Runnable, PausableFiber {
             if (waitPeriod > 15000) {
                 waitPeriod = 15000;
             }
-
 
             // Begin the checking process.
             //
@@ -261,7 +256,6 @@ final class Executor implements Runnable, PausableFiber {
      * element at index zero of the array is the name of the executable to run.
      * Indexs [1..length) are the arguments passed to the executable command.
      * </p>
-     *
      * <p>
      * The input command has is white space trimmed before processing. The basic
      * processing is to split on spaces, except when a double quote or single
@@ -272,9 +266,7 @@ final class Executor implements Runnable, PausableFiber {
      *
      * @param cmd
      *            The command to split into an array.
-     *
      * @return The execution array.
-     *
      */
     private static String[] getExecArguments(String cmd) {
 
@@ -344,7 +336,6 @@ final class Executor implements Runnable, PausableFiber {
      *            The execution queue
      * @param maxRunTime
      *            The maximum runtime of a process.
-     *
      */
     Executor(FifoQueue<String> execQ, long maxRunTime, int maxProcesses) {
         m_processes = Collections.synchronizedList(new LinkedList<DatedProc>());
@@ -404,7 +395,8 @@ final class Executor implements Runnable, PausableFiber {
             //
             if (m_maxProcCount == m_processes.size()) {
 
-                LOG.debug("Number of processes at {} - being wait for a process to finish or be reaped!", m_maxProcCount);
+                LOG.debug("Number of processes at {} - being wait for a process to finish or be reaped!",
+                          m_maxProcCount);
 
                 synchronized (m_reaperRun) {
                     m_reaperRun.notifyAll();
@@ -474,8 +466,8 @@ final class Executor implements Runnable, PausableFiber {
      * Starts the fiber. If the fiber has already been run or is currently
      * running then an exception is generated. The status of the fiber is
      * updated to <code>STARTING</code> and will transisition to <code>
-     * RUNNING</code>
-     * when the fiber finishes initializing and begins processing the
+     * RUNNING</code> when the fiber finishes initializing and begins processing
+     * the
      * encapsulaed queue.
      *
      * @throws java.lang.IllegalStateException

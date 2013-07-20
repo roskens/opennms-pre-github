@@ -51,6 +51,7 @@ public class DBAuthority extends DbUnit {
 
     @Override
     public IDataSet getDataSet() throws Exception {
-        return new FlatXmlDataSetBuilder().build(new FileInputStream("src/test/resources/org/opennms/acl/conf/dbunit/authority-test.xml"));
+        return new FlatXmlDataSetBuilder().build(new FileInputStream(
+                                                                     "src/test/resources/org/opennms/acl/conf/dbunit/authority-test.xml"));
     }
 }

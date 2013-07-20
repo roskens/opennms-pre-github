@@ -35,113 +35,142 @@ import org.opennms.netmgt.model.OnmsCriteria;
 public interface NCSComponentRepository {
 
     /**
-     * This is used to lock the table in order to implement upsert type operations
+     * This is used to lock the table in order to implement upsert type
+     * operations
      */
     void lock();
 
-
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param obj a {@link java.lang.Object} object.
+     * @param obj
+     *            a {@link java.lang.Object} object.
      */
     void initialize(Object obj);
 
     /**
-     * <p>flush</p>
+     * <p>
+     * flush
+     * </p>
      */
     void flush();
 
     /**
-     * <p>clear</p>
+     * <p>
+     * clear
+     * </p>
      */
     void clear();
 
     /**
-     * <p>countAll</p>
+     * <p>
+     * countAll
+     * </p>
      *
      * @return a int.
      */
     int countAll();
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      */
     void delete(NCSComponent component);
 
     /**
-     * <p>findAll</p>
+     * <p>
+     * findAll
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<NCSComponent> findAll();
 
     /**
-     * <p>findMatching</p>
+     * <p>
+     * findMatching
+     * </p>
      *
-     * @param criteria a {@link org.opennms.netmgt.model.OnmsCriteria} object.
+     * @param criteria
+     *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      * @return a {@link java.util.List} object.
      */
     List<NCSComponent> findMatching(OnmsCriteria criteria);
 
     /**
-     * <p>countMatching</p>
+     * <p>
+     * countMatching
+     * </p>
      *
-     * @param onmsCrit a {@link org.opennms.netmgt.model.OnmsCriteria} object.
+     * @param onmsCrit
+     *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      * @return a int.
      */
     int countMatching(final OnmsCriteria onmsCrit);
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      */
     NCSComponent get(Long id);
 
     /**
-     * <p>load</p>
+     * <p>
+     * load
+     * </p>
      */
     NCSComponent load(Long id);
 
     /**
-     * <p>save</p>
+     * <p>
+     * save
+     * </p>
      */
     void save(NCSComponent component);
 
     /**
-     * <p>saveOrUpdate</p>
+     * <p>
+     * saveOrUpdate
+     * </p>
      */
     void saveOrUpdate(NCSComponent component);
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      */
     void update(NCSComponent component);
 
-	/**
-	 * @param type
-	 */
-	List<NCSComponent> findByType(String type);
+    /**
+     * @param type
+     */
+    List<NCSComponent> findByType(String type);
 
-	/**
-	 * @param type
-	 * @param foreignSource
-	 * @param foreignId
-	 */
-	NCSComponent findByTypeAndForeignIdentity(String type, String foreignSource, String foreignId);
+    /**
+     * @param type
+     * @param foreignSource
+     * @param foreignId
+     */
+    NCSComponent findByTypeAndForeignIdentity(String type, String foreignSource, String foreignId);
 
-	/**
-	 * @param component
-	 */
-	List<NCSComponent> findComponentsThatDependOn(NCSComponent component);
+    /**
+     * @param component
+     */
+    List<NCSComponent> findComponentsThatDependOn(NCSComponent component);
 
-	/**
-	 * @param attrKey
-	 * @param attrValue
-	 */
-	List<NCSComponent> findComponentsWithAttribute(String attrKey, String attrValue);
+    /**
+     * @param attrKey
+     * @param attrValue
+     */
+    List<NCSComponent> findComponentsWithAttribute(String attrKey, String attrValue);
 
-	/**
-	 * @param nodeid
-	 */
-	List<NCSComponent> findComponentsByNodeId(int nodeid);
+    /**
+     * @param nodeid
+     */
+    List<NCSComponent> findComponentsByNodeId(int nodeid);
 }

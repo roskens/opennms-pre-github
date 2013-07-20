@@ -43,88 +43,86 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="tca-collection")
+@XmlRootElement(name = "tca-collection")
 public class TcaDataCollection implements Serializable, Comparable<TcaDataCollection> {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 4105044141350925553L;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 4105044141350925553L;
 
-	/** The Collection name. */
-	@XmlAttribute(name="name", required=true)
-	private String m_name;
+    /** The Collection name. */
+    @XmlAttribute(name = "name", required = true)
+    private String m_name;
 
-	/** The RRD configuration object. */
-	@XmlElement(name="rrd", required=true)
-	private TcaRrd m_rrd;
+    /** The RRD configuration object. */
+    @XmlElement(name = "rrd", required = true)
+    private TcaRrd m_rrd;
 
-	/**
-	 * Instantiates a new TCA data collection.
-	 */
-	public TcaDataCollection() {
+    /**
+     * Instantiates a new TCA data collection.
+     */
+    public TcaDataCollection() {
 
-	}
+    }
 
-	/**
-	 * Gets the collection name.
-	 *
-	 * @return the collection name
-	 */
-	@XmlTransient
-	public String getName() {
-		return m_name;
-	}
+    /**
+     * Gets the collection name.
+     *
+     * @return the collection name
+     */
+    @XmlTransient
+    public String getName() {
+        return m_name;
+    }
 
-	/**
-	 * Sets the collection name.
-	 *
-	 * @param name the collection name
-	 */
-	public void setName(String name) {
-		m_name = name;
-	}
+    /**
+     * Sets the collection name.
+     *
+     * @param name
+     *            the collection name
+     */
+    public void setName(String name) {
+        m_name = name;
+    }
 
-	/**
-	 * Gets the RRD.
-	 *
-	 * @return the RRD
-	 */
-	@XmlTransient
-	public TcaRrd getRrd() {
-		return m_rrd;
-	}
+    /**
+     * Gets the RRD.
+     *
+     * @return the RRD
+     */
+    @XmlTransient
+    public TcaRrd getRrd() {
+        return m_rrd;
+    }
 
-	/**
-	 * Sets the RRD.
-	 *
-	 * @param rrd the new RRD
-	 */
-	public void setRrd(TcaRrd rrd) {
-		m_rrd = rrd;
-	}
+    /**
+     * Sets the RRD.
+     *
+     * @param rrd
+     *            the new RRD
+     */
+    public void setRrd(TcaRrd rrd) {
+        m_rrd = rrd;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-        @Override
-	public int compareTo(TcaDataCollection obj) {
-		return new CompareToBuilder()
-		.append(getName(), obj.getName())
-		.append(getRrd(), obj.getRrd())
-		.toComparison();
-	}
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(TcaDataCollection obj) {
+        return new CompareToBuilder().append(getName(), obj.getName()).append(getRrd(), obj.getRrd()).toComparison();
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof TcaDataCollection) {
-			TcaDataCollection other = (TcaDataCollection) obj;
-			return new EqualsBuilder()
-			.append(getName(), other.getName())
-			.append(getRrd(), other.getRrd())
-			.isEquals();
-		}
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TcaDataCollection) {
+            TcaDataCollection other = (TcaDataCollection) obj;
+            return new EqualsBuilder().append(getName(), other.getName()).append(getRrd(), other.getRrd()).isEquals();
+        }
+        return false;
+    }
 }

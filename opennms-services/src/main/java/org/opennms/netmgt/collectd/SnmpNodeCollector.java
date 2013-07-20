@@ -42,12 +42,10 @@ import org.slf4j.LoggerFactory;
  * data collection for a node over a specified network interface. The
  * SnmpNodeCollector implements the SnmpHandler class in order to receive
  * notifications when an SNMP reply is received or error occurs.
- *
  * The SnmpNodeCollector is provided a list of MIB objects to collect and an
  * interface over which to collect the data. Data collection can be via SNMPv1
  * GetNext requests or SNMPv2 GetBulk requests depending upon the parms used to
  * construct the collector.
- *
  */
 public class SnmpNodeCollector extends AggregateTracker {
 
@@ -71,10 +69,12 @@ public class SnmpNodeCollector extends AggregateTracker {
      * store by the object. When all the data has been collected the passed
      * signaler object is <EM>notified</EM> using the notifyAll() method.
      *
-     * @param address TODO
+     * @param address
+     *            TODO
      * @param objList
      *            The list of object id's to be collected.
-     * @param collectionSet TODO
+     * @param collectionSet
+     *            TODO
      */
     public SnmpNodeCollector(InetAddress address, Collection<SnmpAttributeType> objList, SnmpCollectionSet collectionSet) {
         super(SnmpAttributeType.getCollectionTrackers(objList));
@@ -83,9 +83,7 @@ public class SnmpNodeCollector extends AggregateTracker {
         m_collectionSet = collectionSet;
         m_collectorEntry = new SNMPCollectorEntry(objList, m_collectionSet);
 
-
     }
-
 
     /**
      * Returns the list of all entry maps that can be used to access all the
@@ -115,9 +113,10 @@ public class SnmpNodeCollector extends AggregateTracker {
         m_collectorEntry.storeResult(res);
     }
 
-
     /**
-     * <p>getCollectionSet</p>
+     * <p>
+     * getCollectionSet
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.SnmpCollectionSet} object.
      */

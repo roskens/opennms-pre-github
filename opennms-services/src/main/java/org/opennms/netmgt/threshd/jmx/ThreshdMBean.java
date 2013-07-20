@@ -31,7 +31,9 @@ package org.opennms.netmgt.threshd.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>ThreshdMBean interface.</p>
+ * <p>
+ * ThreshdMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

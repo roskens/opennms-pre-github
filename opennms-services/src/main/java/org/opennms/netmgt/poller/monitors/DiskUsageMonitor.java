@@ -52,11 +52,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * Check for disks via HOST-RESOURCES-MIB.  This should be extended to
- * support BOTH UCD-SNMP-MIB and HOST-RESOURCES-MIB
+ * Check for disks via HOST-RESOURCES-MIB. This should be extended to support
+ * BOTH UCD-SNMP-MIB and HOST-RESOURCES-MIB
  * </p>
  * <p>
- * This does SNMP and therefore relies on the SNMP configuration so it is not distributable.
+ * This does SNMP and therefore relies on the SNMP configuration so it is not
+ * distributable.
  * </p>
  *
  * @author <A HREF="mailto:jason.aras@gmail.com">Jason Aras</A>
@@ -71,15 +72,20 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
     private static final String m_serviceName = "DISK-USAGE";
 
     private static final String hrStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3";
-    private static final String hrStorageSize  = ".1.3.6.1.2.1.25.2.3.1.5";
-    private static final String hrStorageUsed  = ".1.3.6.1.2.1.25.2.3.1.6";
+
+    private static final String hrStorageSize = ".1.3.6.1.2.1.25.2.3.1.5";
+
+    private static final String hrStorageUsed = ".1.3.6.1.2.1.25.2.3.1.6";
 
     /**
      * The available match-types for this monitor
      */
     private static final int MATCH_TYPE_EXACT = 0;
+
     private static final int MATCH_TYPE_STARTSWITH = 1;
+
     private static final int MATCH_TYPE_ENDSWITH = 2;
+
     private static final int MATCH_TYPE_REGEX = 3;
 
     /**
@@ -95,10 +101,10 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Initialize the service monitor.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                plug-in from functioning.
@@ -110,7 +116,7 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
         try {
             SnmpPeerFactory.init();
         } catch (IOException ex) {
-        	LOG.error("initialize: Failed to load SNMP configuration", ex);
+            LOG.error("initialize: Failed to load SNMP configuration", ex);
             throw new UndeclaredThrowableException(ex);
         }
 
@@ -127,7 +133,8 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                interface from being monitored.
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
     public void initialize(MonitoredService svc) {
@@ -137,11 +144,11 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * The poll() method is responsible for polling the specified address for
      * SNMP service availability.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown for any uncrecoverable errors.
      */
@@ -157,12 +164,15 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        if (agentConfig == null)
+            throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
         final String hostAddress = InetAddressUtils.str(ipaddr);
-		LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
+        LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
 
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry", ParameterMap.getKeyedInteger(parameters, "retries", agentConfig.getRetries())));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(parameters, "retries",
+                                                                                         agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
 
         String diskName = ParameterMap.getKeyedString(parameters, "disk", null);
@@ -187,53 +197,51 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
 
         LOG.debug("poll: service= SNMP address= {}", agentConfig);
 
-
         try {
             LOG.debug("DiskUsageMonitor.poll: SnmpAgentConfig address: {}", agentConfig);
             SnmpObjId hrStorageDescrSnmpObject = SnmpObjId.get(hrStorageDescr);
 
+            Map<SnmpInstId, SnmpValue> flagResults = SnmpUtils.getOidValues(agentConfig, "DiskUsagePoller",
+                                                                            hrStorageDescrSnmpObject);
 
-
-            Map<SnmpInstId, SnmpValue> flagResults = SnmpUtils.getOidValues(agentConfig, "DiskUsagePoller", hrStorageDescrSnmpObject);
-
-            if(flagResults.size() == 0) {
+            if (flagResults.size() == 0) {
                 LOG.debug("SNMP poll failed: no results, addr={} oid={}", hostAddress, hrStorageDescrSnmpObject);
                 return PollStatus.unavailable();
             }
 
             for (Map.Entry<SnmpInstId, SnmpValue> e : flagResults.entrySet()) {
-                LOG.debug("poll: SNMPwalk poll succeeded, addr={} oid={} instance={} value={}", hostAddress, hrStorageDescrSnmpObject, e.getKey(), e.getValue());
+                LOG.debug("poll: SNMPwalk poll succeeded, addr={} oid={} instance={} value={}", hostAddress,
+                          hrStorageDescrSnmpObject, e.getKey(), e.getValue());
 
                 if (isMatch(e.getValue().toString(), diskName, matchType)) {
-			LOG.debug("DiskUsageMonitor.poll: found disk=", diskName);
+                    LOG.debug("DiskUsageMonitor.poll: found disk=", diskName);
 
-                	SnmpObjId hrStorageSizeSnmpObject = SnmpObjId.get(hrStorageSize + "." + e.getKey().toString());
-                	SnmpObjId hrStorageUsedSnmpObject = SnmpObjId.get(hrStorageUsed + "." + e.getKey().toString());
+                    SnmpObjId hrStorageSizeSnmpObject = SnmpObjId.get(hrStorageSize + "." + e.getKey().toString());
+                    SnmpObjId hrStorageUsedSnmpObject = SnmpObjId.get(hrStorageUsed + "." + e.getKey().toString());
 
+                    SnmpValue snmpSize = SnmpUtils.get(agentConfig, hrStorageSizeSnmpObject);
+                    SnmpValue snmpUsed = SnmpUtils.get(agentConfig, hrStorageUsedSnmpObject);
+                    float calculatedPercentage = ((((float) snmpSize.toLong() - (float) snmpUsed.toLong()) / (float) snmpSize.toLong())) * 100;
 
-                	SnmpValue snmpSize = SnmpUtils.get(agentConfig, hrStorageSizeSnmpObject);
-                	SnmpValue snmpUsed = SnmpUtils.get(agentConfig, hrStorageUsedSnmpObject);
-                	float calculatedPercentage = ( (( (float)snmpSize.toLong() - (float)snmpUsed.toLong() ) / (float)snmpSize.toLong() ) ) * 100;
+                    LOG.debug("DiskUsageMonitor: calculatedPercentage={} percentFree={}", calculatedPercentage,
+                              percentFree);
 
-			LOG.debug("DiskUsageMonitor: calculatedPercentage={} percentFree={}", calculatedPercentage, percentFree);
+                    if (calculatedPercentage < percentFree) {
 
-                	if (calculatedPercentage < percentFree) {
+                        return PollStatus.unavailable(diskName + " usage high (" + (100 - (int) calculatedPercentage)
+                                + "%)");
 
-                		return PollStatus.unavailable(diskName + " usage high (" + (100 - (int)calculatedPercentage)  + "%)");
-
-                	}
-                	else {
-                		return status;
-                	}
+                    } else {
+                        return status;
+                    }
                 }
-
 
             }
 
-            // if we get here.. it means we did not find the disk...  which means we should not be monitoring it.
+            // if we get here.. it means we did not find the disk... which means
+            // we should not be monitoring it.
             LOG.debug("DiskUsageMonitor: no disks found");
             return PollStatus.unavailable("could not find " + diskName + "in table");
-
 
         } catch (NumberFormatException e) {
             String reason = "Number operator used on a non-number " + e.getMessage();

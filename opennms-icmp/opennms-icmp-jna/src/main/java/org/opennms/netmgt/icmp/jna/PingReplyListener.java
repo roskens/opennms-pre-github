@@ -33,5 +33,5 @@ import java.net.InetAddress;
 import org.opennms.netmgt.icmp.EchoPacket;
 
 public interface PingReplyListener {
-	public void onPingReply(InetAddress inetAddress, EchoPacket packet);
+    public void onPingReply(InetAddress inetAddress, EchoPacket packet);
 }

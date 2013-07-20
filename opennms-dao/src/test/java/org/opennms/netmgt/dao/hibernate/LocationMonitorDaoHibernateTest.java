@@ -67,95 +67,95 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class LocationMonitorDaoHibernateTest implements InitializingBean {
-	@Autowired
-	private LocationMonitorDao m_locationMonitorDao;
+    @Autowired
+    private LocationMonitorDao m_locationMonitorDao;
 
-	@Autowired
-	private NodeDao m_nodeDao;
+    @Autowired
+    private NodeDao m_nodeDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Test
-	@Transactional
-	public void testSaveLocationMonitor() {
-    	Map <String, String> pollerDetails = new HashMap<String, String>();
-    	pollerDetails.put("os.name", "BogOS");
-    	pollerDetails.put("os.version", "sqrt(-1)");
+    @Test
+    @Transactional
+    public void testSaveLocationMonitor() {
+        Map<String, String> pollerDetails = new HashMap<String, String>();
+        pollerDetails.put("os.name", "BogOS");
+        pollerDetails.put("os.version", "sqrt(-1)");
 
-    	OnmsLocationMonitor mon = new OnmsLocationMonitor();
-    	mon.setStatus(MonitorStatus.STARTED);
-    	mon.setLastCheckInTime(new Date());
-    	mon.setDetails(pollerDetails);
-    	mon.setDefinitionName("RDU");
+        OnmsLocationMonitor mon = new OnmsLocationMonitor();
+        mon.setStatus(MonitorStatus.STARTED);
+        mon.setLastCheckInTime(new Date());
+        mon.setDetails(pollerDetails);
+        mon.setDefinitionName("RDU");
 
-    	m_locationMonitorDao.save(mon);
+        m_locationMonitorDao.save(mon);
 
-    	m_locationMonitorDao.flush();
-    	m_locationMonitorDao.clear();
+        m_locationMonitorDao.flush();
+        m_locationMonitorDao.clear();
 
-    	OnmsLocationMonitor mon2 = m_locationMonitorDao.get(mon.getId());
-    	assertNotSame(mon, mon2);
-    	assertEquals(mon.getStatus(), mon2.getStatus());
-    	assertEquals(mon.getLastCheckInTime(), mon2.getLastCheckInTime());
-    	assertEquals(mon.getDefinitionName(), mon2.getDefinitionName());
-    	assertEquals(mon.getDetails(), mon2.getDetails());
+        OnmsLocationMonitor mon2 = m_locationMonitorDao.get(mon.getId());
+        assertNotSame(mon, mon2);
+        assertEquals(mon.getStatus(), mon2.getStatus());
+        assertEquals(mon.getLastCheckInTime(), mon2.getLastCheckInTime());
+        assertEquals(mon.getDefinitionName(), mon2.getDefinitionName());
+        assertEquals(mon.getDetails(), mon2.getDetails());
     }
-
-
 
     @Test
-	@Transactional
-	public void testSetConfigResourceProduction() throws FileNotFoundException {
-        ((LocationMonitorDaoHibernate)m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("monitoring-locations.xml")));
+    @Transactional
+    public void testSetConfigResourceProduction() throws FileNotFoundException {
+        ((LocationMonitorDaoHibernate) m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(
+                                                                                                                         ConfigurationTestUtils.getInputStreamForConfigFile("monitoring-locations.xml")));
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSetConfigResourceExample() throws FileNotFoundException {
-    	((LocationMonitorDaoHibernate)m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("examples/monitoring-locations.xml")));
+        ((LocationMonitorDaoHibernate) m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(
+                                                                                                                         ConfigurationTestUtils.getInputStreamForConfigFile("examples/monitoring-locations.xml")));
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSetConfigResourceNoLocations() throws FileNotFoundException {
-    	((LocationMonitorDaoHibernate)m_locationMonitorDao).setMonitoringLocationConfigResource(new FileSystemResource("src/test/resources/monitoring-locations-no-locations.xml"));
+        ((LocationMonitorDaoHibernate) m_locationMonitorDao).setMonitoringLocationConfigResource(new FileSystemResource(
+                                                                                                                        "src/test/resources/monitoring-locations-no-locations.xml"));
     }
 
-
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testBogusConfig() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new MarshallingResourceFailureException(ThrowableAnticipator.IGNORE_MESSAGE));
         try {
-        	((LocationMonitorDaoHibernate)m_locationMonitorDao).setMonitoringLocationConfigResource(new FileSystemResource("some bogus filename"));
+            ((LocationMonitorDaoHibernate) m_locationMonitorDao).setMonitoringLocationConfigResource(new FileSystemResource(
+                                                                                                                            "some bogus filename"));
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
         ta.verifyAnticipated();
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMonitoringLocationDefinitionNull() throws FileNotFoundException {
-    	((LocationMonitorDaoHibernate)m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("monitoring-locations.xml")));
+        ((LocationMonitorDaoHibernate) m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(
+                                                                                                                         ConfigurationTestUtils.getInputStreamForConfigFile("monitoring-locations.xml")));
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException(ThrowableAnticipator.IGNORE_MESSAGE));
         try {
@@ -166,19 +166,19 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
         ta.verifyAnticipated();
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindMonitoringLocationDefinitionBogus() throws FileNotFoundException {
-    	((LocationMonitorDaoHibernate)m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("monitoring-locations.xml")));
-        assertNull("should not have found monitoring location definition--"
-                   + "should have returned null",
+        ((LocationMonitorDaoHibernate) m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(
+                                                                                                                         ConfigurationTestUtils.getInputStreamForConfigFile("monitoring-locations.xml")));
+        assertNull("should not have found monitoring location definition--" + "should have returned null",
                    m_locationMonitorDao.findMonitoringLocationDefinition("bogus"));
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testFindStatusChangesForNodeForUniqueMonitorAndInterface() {
-		m_databasePopulator.populateDatabase();
+        m_databasePopulator.populateDatabase();
 
         OnmsLocationMonitor monitor1 = new OnmsLocationMonitor();
         monitor1.setDefinitionName("Outer Space");
@@ -195,34 +195,41 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
         assertNotNull("node 2 should not be null", node2);
 
         // Add node1/192.168.1.1 on monitor1
-        addStatusChangesForMonitorAndService(monitor1, node1.getIpInterfaceByIpAddress("192.168.1.1").getMonitoredServices());
+        addStatusChangesForMonitorAndService(monitor1,
+                                             node1.getIpInterfaceByIpAddress("192.168.1.1").getMonitoredServices());
 
         // Add node1/192.168.1.2 on monitor1
-        addStatusChangesForMonitorAndService(monitor1, node1.getIpInterfaceByIpAddress("192.168.1.2").getMonitoredServices());
+        addStatusChangesForMonitorAndService(monitor1,
+                                             node1.getIpInterfaceByIpAddress("192.168.1.2").getMonitoredServices());
 
         // Add node1/192.168.1.1 on monitor2
-        addStatusChangesForMonitorAndService(monitor2, node1.getIpInterfaceByIpAddress("192.168.1.1").getMonitoredServices());
+        addStatusChangesForMonitorAndService(monitor2,
+                                             node1.getIpInterfaceByIpAddress("192.168.1.1").getMonitoredServices());
 
         // Add node1/fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5 on monitor1
-        addStatusChangesForMonitorAndService(monitor1, node1.getIpInterfaceByIpAddress("fe80::aaaa:bbbb:cccc:dddd%5").getMonitoredServices());
+        addStatusChangesForMonitorAndService(monitor1,
+                                             node1.getIpInterfaceByIpAddress("fe80::aaaa:bbbb:cccc:dddd%5").getMonitoredServices());
 
-        // Add node2/192.168.2.1 on monitor1 to test filtering on a specific node (this shouldn't show up in the results)
-        addStatusChangesForMonitorAndService(monitor1, node2.getIpInterfaceByIpAddress("192.168.2.1").getMonitoredServices());
+        // Add node2/192.168.2.1 on monitor1 to test filtering on a specific
+        // node (this shouldn't show up in the results)
+        addStatusChangesForMonitorAndService(monitor1,
+                                             node2.getIpInterfaceByIpAddress("192.168.2.1").getMonitoredServices());
 
         // Add another copy for node1/192.168.1.1 on monitor1 to test distinct
-        addStatusChangesForMonitorAndService(monitor1, node1.getIpInterfaceByIpAddress("192.168.1.1").getMonitoredServices());
+        addStatusChangesForMonitorAndService(monitor1,
+                                             node1.getIpInterfaceByIpAddress("192.168.1.1").getMonitoredServices());
 
         Collection<LocationMonitorIpInterface> statuses = m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(1);
         assertEquals("number of statuses found", 4, statuses.size());
 
         /*
-        for (LocationMonitorIpInterface status : statuses) {
-            OnmsLocationMonitor m = status.getLocationMonitor();
-            OnmsIpInterface i = status.getIpInterface();
-
-            System.err.println("monitor " + m.getId() + " " + m.getDefinitionName() + ", IP " + i.getIpAddress());
-        }
-        */
+         * for (LocationMonitorIpInterface status : statuses) {
+         * OnmsLocationMonitor m = status.getLocationMonitor();
+         * OnmsIpInterface i = status.getIpInterface();
+         * System.err.println("monitor " + m.getId() + " " +
+         * m.getDefinitionName() + ", IP " + i.getIpAddress());
+         * }
+         */
 
     }
 
@@ -233,7 +240,9 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
             status.setMonitoredService(service);
             status.setPollResult(PollStatus.available());
             m_locationMonitorDao.saveStatusChange(status);
-            //System.err.println("Adding status for " + status.getMonitoredService() + " from " + status.getLocationMonitor().getId());
+            // System.err.println("Adding status for " +
+            // status.getMonitoredService() + " from " +
+            // status.getLocationMonitor().getId());
         }
     }
 }

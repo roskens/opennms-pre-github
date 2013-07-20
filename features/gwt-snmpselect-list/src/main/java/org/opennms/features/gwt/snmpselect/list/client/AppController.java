@@ -35,7 +35,7 @@ import org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListViewIm
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
-public class AppController implements Presenter{
+public class AppController implements Presenter {
 
     private SnmpSelectListPresenter m_presenter;
 

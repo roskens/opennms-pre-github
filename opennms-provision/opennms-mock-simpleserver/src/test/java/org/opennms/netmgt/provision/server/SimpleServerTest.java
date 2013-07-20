@@ -44,12 +44,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 
-
 public class SimpleServerTest {
     private Socket m_socket;
-    private BufferedReader m_in;
-    private OutputStream m_out;
 
+    private BufferedReader m_in;
+
+    private OutputStream m_out;
 
     @Before
     public void setUp() {
@@ -58,7 +58,7 @@ public class SimpleServerTest {
 
     @After
     public void tearDown() throws IOException {
-      m_socket.close();
+        m_socket.close();
     }
 
     @Test
@@ -103,17 +103,17 @@ public class SimpleServerTest {
         m_out.write("BING\r\n".getBytes());
         line = m_in.readLine();
         System.out.println("Line returned from Server: " + line);
-        assertEquals("+GOT_BING",line);
+        assertEquals("+GOT_BING", line);
 
         m_out.write("ORANGES\r\n".getBytes());
         line = m_in.readLine();
         System.out.println("Line returned from Server: " + line);
-        assertEquals("GOT ERROR",line);
+        assertEquals("GOT ERROR", line);
 
         m_out.write("APPLES\r\n".getBytes());
         line = m_in.readLine();
         System.out.println("Line returned from Server: " + line);
-        assertEquals("+ORANGES",line);
+        assertEquals("+ORANGES", line);
 
         m_out.write("QUIT\r\n".getBytes());
         line = m_in.readLine();
@@ -145,11 +145,11 @@ public class SimpleServerTest {
 
         m_out.write("BING\r\n".getBytes());
         line = m_in.readLine();
-        assertEquals("+GOT_BING",line);
+        assertEquals("+GOT_BING", line);
 
         m_out.write("APPLES\r\n".getBytes());
         line = m_in.readLine();
-        assertEquals("+ORANGES",line);
+        assertEquals("+ORANGES", line);
 
         m_out.write("QUIT\r\n".getBytes());
         line = m_in.readLine();
@@ -161,8 +161,8 @@ public class SimpleServerTest {
     }
 
     @Test
-    public void testServerQuitAndClose() throws Exception{
-        //TODO
+    public void testServerQuitAndClose() throws Exception {
+        // TODO
         SimpleServer server = new SimpleServer() {
             @Override
             public void onInit() {
@@ -188,7 +188,7 @@ public class SimpleServerTest {
     }
 
     @Test
-    public void testServerNoBannerTimeout() throws Exception{
+    public void testServerNoBannerTimeout() throws Exception {
         SimpleServer server = new SimpleServer() {
             @Override
             public void onInit() {

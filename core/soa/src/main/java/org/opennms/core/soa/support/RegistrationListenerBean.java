@@ -47,14 +47,17 @@ import org.springframework.util.StringUtils;
 public class RegistrationListenerBean<T> implements RegistrationListener<T>, InitializingBean {
 
     private Class<T> m_serviceInterface;
+
     private Object m_target;
+
     private String m_bindMethod;
+
     private String m_unbindMethod;
 
-
-
     /**
-     * <p>getServiceInterface</p>
+     * <p>
+     * getServiceInterface
+     * </p>
      *
      * @return the serviceInterface
      */
@@ -63,16 +66,21 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
     }
 
     /**
-     * <p>setServiceInterface</p>
+     * <p>
+     * setServiceInterface
+     * </p>
      *
-     * @param serviceInterface the serviceInterface to set
+     * @param serviceInterface
+     *            the serviceInterface to set
      */
     public void setServiceInterface(Class<T> serviceInterface) {
         m_serviceInterface = serviceInterface;
     }
 
     /**
-     * <p>getTarget</p>
+     * <p>
+     * getTarget
+     * </p>
      *
      * @return the target
      */
@@ -81,16 +89,21 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
     }
 
     /**
-     * <p>setTarget</p>
+     * <p>
+     * setTarget
+     * </p>
      *
-     * @param target the target to set
+     * @param target
+     *            the target to set
      */
     public void setTarget(Object target) {
         m_target = target;
     }
 
     /**
-     * <p>getBindMethod</p>
+     * <p>
+     * getBindMethod
+     * </p>
      *
      * @return the bindMethod
      */
@@ -99,16 +112,21 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
     }
 
     /**
-     * <p>setBindMethod</p>
+     * <p>
+     * setBindMethod
+     * </p>
      *
-     * @param bindMethod the bindMethod to set
+     * @param bindMethod
+     *            the bindMethod to set
      */
     public void setBindMethod(String bindMethod) {
         m_bindMethod = bindMethod;
     }
 
     /**
-     * <p>getUnbindMethod</p>
+     * <p>
+     * getUnbindMethod
+     * </p>
      *
      * @return the unbindMethod
      */
@@ -117,25 +135,31 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
     }
 
     /**
-     * <p>setUnbindMethod</p>
+     * <p>
+     * setUnbindMethod
+     * </p>
      *
-     * @param unbindMethod the unbindMethod to set
+     * @param unbindMethod
+     *            the unbindMethod to set
      */
     public void setUnbindMethod(String unbindMethod) {
         m_unbindMethod = unbindMethod;
     }
 
-
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_serviceInterface, "serviceInterface must not be null");
         Assert.notNull(m_target, "target may not be null");
-        Assert.isTrue(StringUtils.hasText(m_bindMethod) || StringUtils.hasText(m_unbindMethod), "at least one of the bind or unbind methods must be set");
+        Assert.isTrue(StringUtils.hasText(m_bindMethod) || StringUtils.hasText(m_unbindMethod),
+                      "at least one of the bind or unbind methods must be set");
 
         if (StringUtils.hasText(m_bindMethod)) {
             // verify this method exists
@@ -157,8 +181,8 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
 
     private void invokeMethod(String methodName, Registration registration) {
         try {
-          Method method = getMethod(methodName);
-          method.invoke(m_target, registration.getProvider(m_serviceInterface), registration.getProperties());
+            Method method = getMethod(methodName);
+            method.invoke(m_target, registration.getProvider(m_serviceInterface), registration.getProperties());
         } catch (Throwable e) {
             throw new UndeclaredThrowableException(e, "Unexexpected exception invoking method " + methodName);
         } finally {

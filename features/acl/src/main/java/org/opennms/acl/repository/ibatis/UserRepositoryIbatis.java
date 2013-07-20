@@ -67,7 +67,9 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapExecutor;
 
 /**
- * <p>UserRepositoryIbatis class.</p>
+ * <p>
+ * UserRepositoryIbatis class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -85,7 +87,8 @@ public class UserRepositoryIbatis extends SqlMapClientTemplate implements UserRe
     /** {@inheritDoc} */
     @Autowired
     @Override
-    public void setSqlMapClient(@Qualifier("sqlMapClient") SqlMapClient sqlMapClient) {
+    public void setSqlMapClient(@Qualifier("sqlMapClient")
+    SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);
     }
 
@@ -121,7 +124,9 @@ public class UserRepositoryIbatis extends SqlMapClientTemplate implements UserRe
     }
 
     /**
-     * <p>getUsersNumber</p>
+     * <p>
+     * getUsersNumber
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -205,8 +210,7 @@ public class UserRepositoryIbatis extends SqlMapClientTemplate implements UserRe
                     ris = executor.executeBatch();
                 } catch (SQLException e) {
                     Logger log = LoggerFactory.getLogger(this.getClass());
-                    StringBuffer sb = new StringBuffer("saveItems failed \n").append("num groups batch:").append(items.size()).append("\n").append(" username:").append(username).append("\n").append(
-                            e.getNextException());
+                    StringBuffer sb = new StringBuffer("saveItems failed \n").append("num groups batch:").append(items.size()).append("\n").append(" username:").append(username).append("\n").append(e.getNextException());
                     log.error(sb.toString());
                 }
                 return ris > 0;

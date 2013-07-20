@@ -36,7 +36,6 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-
 /**
  * ParameterMapTest
  *
@@ -44,7 +43,8 @@ import org.junit.Test;
  */
 public class ParameterMapTest {
 
-    private static final int[] INT_ARRAY_VAL = new int[] { 1, 2, 3};
+    private static final int[] INT_ARRAY_VAL = new int[] { 1, 2, 3 };
+
     private static final int[] DEFAULT_INT_ARRAY = new int[] { 4, 5, 6 };
 
     private Map<String, Object> m_map;
@@ -57,7 +57,7 @@ public class ParameterMapTest {
         m_map.put("keyedBooleanString", "true");
         m_map.put("keyedInteger", 7);
         m_map.put("keyedIntegerString", "7");
-        m_map.put("keyedIntegerArray", new int[] { 1, 2, 3});
+        m_map.put("keyedIntegerArray", new int[] { 1, 2, 3 });
         m_map.put("keyedIntegerArrayStringWithColons", "1:2:3");
         m_map.put("keyedIntegerArrayStringWithSpaces", "1 2 3");
         m_map.put("keyedIntegerArrayStringWithSemis", "1;2;3");
@@ -92,13 +92,19 @@ public class ParameterMapTest {
 
     @Test
     public void testGetKeyedIntegerArray() {
-        assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArray", DEFAULT_INT_ARRAY));
-        assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArrayStringWithColons", DEFAULT_INT_ARRAY));
-        assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArrayStringWithSpaces", DEFAULT_INT_ARRAY));
-        assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArrayStringWithSemis", DEFAULT_INT_ARRAY));
-        assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArrayStringWithCommas", DEFAULT_INT_ARRAY));
+        assertArrayEquals(INT_ARRAY_VAL,
+                          ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArray", DEFAULT_INT_ARRAY));
+        assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArrayStringWithColons",
+                                                                           DEFAULT_INT_ARRAY));
+        assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArrayStringWithSpaces",
+                                                                           DEFAULT_INT_ARRAY));
+        assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArrayStringWithSemis",
+                                                                           DEFAULT_INT_ARRAY));
+        assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArrayStringWithCommas",
+                                                                           DEFAULT_INT_ARRAY));
         assertArrayEquals(DEFAULT_INT_ARRAY, ParameterMap.getKeyedIntegerArray(m_map, "noSuchKey", DEFAULT_INT_ARRAY));
-        assertArrayEquals(DEFAULT_INT_ARRAY, ParameterMap.getKeyedIntegerArray(null, "keyedIntegerArray", DEFAULT_INT_ARRAY));
+        assertArrayEquals(DEFAULT_INT_ARRAY,
+                          ParameterMap.getKeyedIntegerArray(null, "keyedIntegerArray", DEFAULT_INT_ARRAY));
 
     }
 

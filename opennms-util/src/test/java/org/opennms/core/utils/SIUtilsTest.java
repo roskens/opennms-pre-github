@@ -67,18 +67,19 @@ public class SIUtilsTest extends TestCase {
 
     /**
      * DS-1 line speed.
+     *
      * @link http://en.wikipedia.org/wiki/Digital_Signal_1
      */
     public void testOnePointFiveFourFourMeg() {
-    	DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
-        assertEquals("1"+symbols.getDecimalSeparator()+"544 Mbps", SIUtils.getHumanReadableIfSpeed(1544000L));
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        assertEquals("1" + symbols.getDecimalSeparator() + "544 Mbps", SIUtils.getHumanReadableIfSpeed(1544000L));
     }
 
     /**
      * 1200bps modem line.
      */
     public void testTwelveHundred() {
-    	DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
-        assertEquals("1"+symbols.getDecimalSeparator()+"2 kbps", SIUtils.getHumanReadableIfSpeed(1200L));
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        assertEquals("1" + symbols.getDecimalSeparator() + "2 kbps", SIUtils.getHumanReadableIfSpeed(1200L));
     }
 }

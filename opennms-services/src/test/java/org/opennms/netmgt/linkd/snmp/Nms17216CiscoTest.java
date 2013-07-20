@@ -48,9 +48,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
 @JUnitConfigurationEnvironment
 public class Nms17216CiscoTest extends Nms17216NetworkBuilder implements InitializingBean {
 
@@ -60,36 +58,33 @@ public class Nms17216CiscoTest extends Nms17216NetworkBuilder implements Initial
     }
 
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH1_IP, port = 161, resource = "classpath:linkd/nms17216/switch1-walk.txt") })
     public void testNetwork17216CiscoVlanTable() throws Exception {
 
         String name = "vlanTable";
         CiscoVlanTable m_vlan = new CiscoVlanTable(InetAddressUtils.addr(SWITCH1_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[] {m_vlan};
+        tracker = new CollectionTracker[] { m_vlan };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SWITCH1_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
 
         try {
-                walker.waitFor();
+            walker.waitFor();
         } catch (final InterruptedException e) {
 
         }
 
-        for (SnmpStore store: m_vlan) {
-        	CiscoVlanTableEntry ent = (CiscoVlanTableEntry) store;
+        for (SnmpStore store : m_vlan) {
+            CiscoVlanTableEntry ent = (CiscoVlanTableEntry) store;
             System.out.println("VLAN-----Start");
-        	System.out.println("vlan index: " + ent.getVlanIndex());
+            System.out.println("vlan index: " + ent.getVlanIndex());
             System.out.println("vlan name: " + ent.getVlanName());
             System.out.println("vlan type: " + ent.getVlanType());
             System.out.println("vlan status: " + ent.getVlanStatus());
             System.out.println("VLAN-----End");
 
         }
-
 
         assertEquals(10, m_vlan.size());
         assertEquals(6, m_vlan.getVlansForSnmpCollection().size());

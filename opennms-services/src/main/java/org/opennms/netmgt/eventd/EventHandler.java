@@ -31,7 +31,9 @@ package org.opennms.netmgt.eventd;
 import org.opennms.netmgt.xml.event.Log;
 
 /**
- * <p>EventHandler interface.</p>
+ * <p>
+ * EventHandler interface.
+ * </p>
  *
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -43,7 +45,8 @@ public interface EventHandler {
     /**
      * Create a Runnable to handle the passed-in event Log.
      *
-     * @param eventLog events to be processed
+     * @param eventLog
+     *            events to be processed
      * @return a ready-to-run Runnable that will process the events
      */
     Runnable createRunnable(Log eventLog);

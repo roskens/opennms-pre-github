@@ -27,27 +27,35 @@
  *******************************************************************************/
 
 package org.opennms.netmgt.dao.api;
+
 import java.util.Map;
 
 import org.opennms.netmgt.model.ServiceDaemon;
 import org.opennms.netmgt.model.ServiceInfo;
 
 /**
- * <p>DaemonStatusDao interface.</p>
+ * <p>
+ * DaemonStatusDao interface.
+ * </p>
  */
 public interface DaemonStatusDao {
-	/**
-	 * <p>getCurrentDaemonStatus</p>
-	 *
-	 * @return a {@link java.util.Map} object.
-	 */
-	Map<String, ServiceInfo> getCurrentDaemonStatus();
+    /**
+     * <p>
+     * getCurrentDaemonStatus
+     * </p>
+     *
+     * @return a {@link java.util.Map} object.
+     */
+    Map<String, ServiceInfo> getCurrentDaemonStatus();
 
-	/**
-	 * <p>getServiceHandle</p>
-	 *
-	 * @param service a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.netmgt.model.ServiceDaemon} object.
-	 */
-	ServiceDaemon getServiceHandle(String service);
+    /**
+     * <p>
+     * getServiceHandle
+     * </p>
+     *
+     * @param service
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.model.ServiceDaemon} object.
+     */
+    ServiceDaemon getServiceHandle(String service);
 }

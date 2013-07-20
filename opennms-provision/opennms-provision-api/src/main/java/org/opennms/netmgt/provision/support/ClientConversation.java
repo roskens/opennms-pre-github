@@ -36,7 +36,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>ClientConversation class.</p>
+ * <p>
+ * ClientConversation class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -46,22 +48,34 @@ public class ClientConversation<Request, Response> {
     private static final Logger LOG = LoggerFactory.getLogger(ClientConversation.class);
 
     private ResponseValidator<Response> m_bannerValidator;
+
     private final List<ConversationExchange<Request, Response>> m_conversation = new ArrayList<ConversationExchange<Request, Response>>();
 
     /**
-     * <p>expectBanner</p>
+     * <p>
+     * expectBanner
+     * </p>
      *
-     * @param bannerValidator a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param bannerValidator
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *            object.
      */
     public void expectBanner(ResponseValidator<Response> bannerValidator) {
         m_bannerValidator = bannerValidator;
     }
 
     /**
-     * <p>addExchange</p>
+     * <p>
+     * addExchange
+     * </p>
      *
-     * @param request a Request object.
-     * @param validator a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param request
+     *            a Request object.
+     * @param validator
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *            object.
      */
     public void addExchange(final Request request, ResponseValidator<Response> validator) {
         RequestBuilder<Request> builder = new RequestBuilder<Request>() {
@@ -74,31 +88,48 @@ public class ClientConversation<Request, Response> {
     }
 
     /**
-     * <p>addExchange</p>
+     * <p>
+     * addExchange
+     * </p>
      *
-     * @param requestBuilder a {@link org.opennms.netmgt.provision.support.RequestBuilder} object.
-     * @param validator a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param requestBuilder
+     *            a {@link org.opennms.netmgt.provision.support.RequestBuilder}
+     *            object.
+     * @param validator
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *            object.
      */
     public void addExchange(RequestBuilder<Request> requestBuilder, ResponseValidator<Response> validator) {
         addExchange(new ConversationExchangeDefaultImpl<Request, Response>(requestBuilder, validator));
     }
 
     /**
-     * <p>addExchange</p>
+     * <p>
+     * addExchange
+     * </p>
      *
-     * @param exchange a {@link org.opennms.netmgt.provision.support.ClientConversation.ConversationExchange} object.
+     * @param exchange
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.ClientConversation.ConversationExchange}
+     *            object.
      */
     public void addExchange(ConversationExchange<Request, Response> exchange) {
         m_conversation.add(exchange);
     }
 
     /**
-     * <p>attemptConversation</p>
+     * <p>
+     * attemptConversation
+     * </p>
      *
-     * @param client a {@link org.opennms.netmgt.provision.support.Client} object.
+     * @param client
+     *            a {@link org.opennms.netmgt.provision.support.Client} object.
      * @return a boolean.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public boolean attemptConversation(Client<Request, Response> client) throws IOException, Exception {
 
@@ -110,7 +141,7 @@ public class ClientConversation<Request, Response> {
             }
         }
 
-        for(ConversationExchange<Request, Response> ex : m_conversation) {
+        for (ConversationExchange<Request, Response> ex : m_conversation) {
 
             Request request = ex.getRequest();
 

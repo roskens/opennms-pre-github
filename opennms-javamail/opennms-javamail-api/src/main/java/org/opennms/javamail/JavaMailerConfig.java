@@ -43,15 +43,14 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class JavaMailerConfig {
 
-	private static final Logger LOG = LoggerFactory.getLogger(JavaMailerConfig.class);
-
-
+    private static final Logger LOG = LoggerFactory.getLogger(JavaMailerConfig.class);
 
     /**
      * This loads the configuration file.
      *
      * @return a Properties object representing the configuration properties
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static synchronized Properties getProperties() throws IOException {
         LOG.debug("Loading javamail properties.");

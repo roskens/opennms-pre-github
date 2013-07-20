@@ -30,7 +30,7 @@ package org.opennms.netmgt.capsd;
 
 import org.opennms.netmgt.capsd.IfSnmpCollectorTestCase.JoeSnmpIfSnmpCollectorTestCase;
 
-public class  JoeSnmpV2IfSnmpCollectorTest extends JoeSnmpIfSnmpCollectorTestCase {
+public class JoeSnmpV2IfSnmpCollectorTest extends JoeSnmpIfSnmpCollectorTestCase {
     @Override
     public void setUp() throws Exception {
         setVersion(2);

@@ -39,12 +39,15 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.springframework.util.StringUtils;
 
 /**
- * @deprecated Use an annotation-based temporary database with {@link JUnitTemporaryDatabase} and autowire a
- * DatabasePopulator to insert a standard set of content into the database. The context that contains the
- * DatabasePopulator is <code>classpath:/META-INF/opennms/applicationContext-databasePopulator.xml</code>.
+ * @deprecated Use an annotation-based temporary database with
+ *             {@link JUnitTemporaryDatabase} and autowire a
+ *             DatabasePopulator to insert a standard set of content into the
+ *             database. The context that contains the
+ *             DatabasePopulator is
+ *             <code>classpath:/META-INF/opennms/applicationContext-databasePopulator.xml</code>
+ *             .
  */
-public class PopulatedTemporaryDatabaseTestCase extends
-        TemporaryDatabaseTestCase {
+public class PopulatedTemporaryDatabaseTestCase extends TemporaryDatabaseTestCase {
 
     private InstallerDb m_installerDb = new InstallerDb();
 
@@ -81,7 +84,7 @@ public class PopulatedTemporaryDatabaseTestCase extends
         m_installerDb.setCreateSqlLocation(ConfigurationTestUtils.getFileForConfigFile("create.sql").getAbsolutePath());
         m_installerDb.setStoredProcedureDirectory(ConfigurationTestUtils.getFileForConfigFile("getPercentAvailabilityInWindow.sql").getParentFile().getAbsolutePath());
 
-        //m_installerDb.setDebug(true);
+        // m_installerDb.setDebug(true);
 
         m_installerDb.readTables();
 
@@ -91,8 +94,8 @@ public class PopulatedTemporaryDatabaseTestCase extends
 
         /*
          * Here's an example of an iplike function that always returns true.
-         * CREATE OR REPLACE FUNCTION iplike(text, text) RETURNS bool AS ' BEGIN RETURN true; END; ' LANGUAGE 'plpgsql';
-         *
+         * CREATE OR REPLACE FUNCTION iplike(text, text) RETURNS bool AS ' BEGIN
+         * RETURN true; END; ' LANGUAGE 'plpgsql';
          * Found this in BaseIntegrationTestCase.
          */
 
@@ -103,7 +106,7 @@ public class PopulatedTemporaryDatabaseTestCase extends
 
         m_installerDb.createTables();
 
-        if(m_insertData) {
+        if (m_insertData) {
             m_installerDb.insertData();
         }
 
@@ -125,11 +128,14 @@ public class PopulatedTemporaryDatabaseTestCase extends
                 }
             }
         });
-        assertTrue("expecting at least one opennms iplike platform directory in " + ipLikeDir.getAbsolutePath() + "; got: " + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "), ipLikePlatformDirs.length > 0);
+        assertTrue("expecting at least one opennms iplike platform directory in " + ipLikeDir.getAbsolutePath()
+                           + "; got: " + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "),
+                   ipLikePlatformDirs.length > 0);
 
         File ipLikeFile = null;
         for (File ipLikePlatformDir : ipLikePlatformDirs) {
-            assertTrue("iplike platform directory does not exist but was listed in directory listing: " + ipLikePlatformDir.getAbsolutePath(), ipLikePlatformDir.exists());
+            assertTrue("iplike platform directory does not exist but was listed in directory listing: "
+                    + ipLikePlatformDir.getAbsolutePath(), ipLikePlatformDir.exists());
 
             File ipLikeTargetDir = new File(ipLikePlatformDir, "target");
             if (!ipLikeTargetDir.exists() || !ipLikeTargetDir.isDirectory()) {
@@ -147,7 +153,8 @@ public class PopulatedTemporaryDatabaseTestCase extends
                     }
                 }
             });
-            assertFalse("expecting zero or one iplike file in " + ipLikeTargetDir.getAbsolutePath() + "; got: " + StringUtils.arrayToDelimitedString(ipLikeFiles, ", "), ipLikeFiles.length > 1);
+            assertFalse("expecting zero or one iplike file in " + ipLikeTargetDir.getAbsolutePath() + "; got: "
+                    + StringUtils.arrayToDelimitedString(ipLikeFiles, ", "), ipLikeFiles.length > 1);
 
             if (ipLikeFiles.length == 1) {
                 ipLikeFile = ipLikeFiles[0];
@@ -155,7 +162,8 @@ public class PopulatedTemporaryDatabaseTestCase extends
 
         }
 
-        assertNotNull("Could not find iplike shared object in a target directory in any of these directories: " + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "), ipLikeFile);
+        assertNotNull("Could not find iplike shared object in a target directory in any of these directories: "
+                + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "), ipLikeFile);
 
         return ipLikeFile;
     }

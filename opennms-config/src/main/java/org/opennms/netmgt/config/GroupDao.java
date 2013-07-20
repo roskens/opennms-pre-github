@@ -39,9 +39,10 @@ import org.opennms.netmgt.config.groups.Group;
 import org.opennms.netmgt.config.groups.Role;
 import org.opennms.netmgt.config.groups.Schedule;
 
-
 /**
- * <p>GroupDao interface.</p>
+ * <p>
+ * GroupDao interface.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -50,7 +51,8 @@ public interface GroupDao {
     /**
      * Set the groups data
      *
-     * @param groups a {@link java.util.Map} object.
+     * @param groups
+     *            a {@link java.util.Map} object.
      */
     void setGroups(Map<String, Group> groups);
 
@@ -65,12 +67,15 @@ public interface GroupDao {
      * Returns a boolean indicating if the group name appears in the xml file
      *
      * @return true if the group exists in the xml file, false otherwise
-     * @param groupName a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
      */
     boolean hasGroup(String groupName);
 
     /**
-     * <p>getGroupNames</p>
+     * <p>
+     * getGroupNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,16 +91,21 @@ public interface GroupDao {
     Group getGroup(String name);
 
     /**
-     * <p>saveGroups</p>
+     * <p>
+     * saveGroups
+     * </p>
      */
     void saveGroups();
 
     /**
-     * Determines if a group is on duty at a given time. If a group has no duty schedules
+     * Determines if a group is on duty at a given time. If a group has no duty
+     * schedules
      * listed in the config file, that group is assumed to always be on duty.
      *
-     * @param group the group whose duty schedule we want
-     * @param time the time to check for a duty schedule
+     * @param group
+     *            the group whose duty schedule we want
+     * @param time
+     *            the time to check for a duty schedule
      * @return boolean, true if the group is on duty, false otherwise.
      */
     boolean isGroupOnDuty(String group, Calendar time);
@@ -104,8 +114,10 @@ public interface GroupDao {
      * Determines when a group is next on duty. If a group has no duty schedules
      * listed in the config file, that group is assumed to always be on duty.
      *
-     * @param group the group whose duty schedule we want
-     * @param time the time to check for a duty schedule
+     * @param group
+     *            the group whose duty schedule we want
+     * @param time
+     *            the time to check for a duty schedule
      * @return long, the time in millisec until the group is next on duty
      */
     long groupNextOnDuty(String group, Calendar time);
@@ -113,15 +125,20 @@ public interface GroupDao {
     /**
      * Adds a new user and overwrites the "groups.xml"
      *
-     * @param name a {@link java.lang.String} object.
-     * @param details a {@link org.opennms.netmgt.config.groups.Group} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param details
+     *            a {@link org.opennms.netmgt.config.groups.Group} object.
      */
     void saveGroup(String name, Group details);
 
     /**
-     * <p>saveRole</p>
+     * <p>
+     * saveRole
+     * </p>
      *
-     * @param role a {@link org.opennms.netmgt.config.groups.Role} object.
+     * @param role
+     *            a {@link org.opennms.netmgt.config.groups.Role} object.
      */
     void saveRole(Role role);
 
@@ -129,7 +146,8 @@ public interface GroupDao {
      * Removes the user from the list of groups. Then overwrites to the
      * "groups.xml"
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     void deleteUser(String name);
 
@@ -137,14 +155,18 @@ public interface GroupDao {
      * Removes the group from the list of groups. Then overwrites to the
      * "groups.xml"
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     void deleteGroup(String name);
 
     /**
-     * <p>deleteRole</p>
+     * <p>
+     * deleteRole
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     void deleteRole(String name);
 
@@ -152,8 +174,10 @@ public interface GroupDao {
      * Renames the group from the list of groups. Then overwrites to the
      * "groups.xml"
      *
-     * @param oldName a {@link java.lang.String} object.
-     * @param newName a {@link java.lang.String} object.
+     * @param oldName
+     *            a {@link java.lang.String} object.
+     * @param newName
+     *            a {@link java.lang.String} object.
      */
     void renameGroup(String oldName, String newName);
 
@@ -161,92 +185,129 @@ public interface GroupDao {
      * When this method is called group name is changed, so also is the
      * groupname belonging to the view. Also overwrites the "groups.xml" file
      *
-     * @param oldName a {@link java.lang.String} object.
-     * @param newName a {@link java.lang.String} object.
+     * @param oldName
+     *            a {@link java.lang.String} object.
+     * @param newName
+     *            a {@link java.lang.String} object.
      */
     void renameUser(String oldName, String newName);
 
     /**
-     * <p>getRoleNames</p>
+     * <p>
+     * getRoleNames
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
     String[] getRoleNames();
 
     /**
-     * <p>getRoles</p>
+     * <p>
+     * getRoles
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     Collection<Role> getRoles();
 
     /**
-     * <p>getRole</p>
+     * <p>
+     * getRole
+     * </p>
      *
-     * @param roleName a {@link java.lang.String} object.
+     * @param roleName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.groups.Role} object.
      */
     Role getRole(String roleName);
 
     /**
-     * <p>userHasRole</p>
+     * <p>
+     * userHasRole
+     * </p>
      *
-     * @param userId a {@link java.lang.String} object.
-     * @param roleid a {@link java.lang.String} object.
+     * @param userId
+     *            a {@link java.lang.String} object.
+     * @param roleid
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     boolean userHasRole(String userId, String roleid);
 
     /**
-     * <p>getSchedulesForRoleAt</p>
+     * <p>
+     * getSchedulesForRoleAt
+     * </p>
      *
-     * @param roleId a {@link java.lang.String} object.
-     * @param time a {@link java.util.Date} object.
+     * @param roleId
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.util.Date} object.
      * @return a {@link java.util.List} object.
      */
     List<Schedule> getSchedulesForRoleAt(String roleId, Date time);
 
     /**
-     * <p>getUserSchedulesForRole</p>
+     * <p>
+     * getUserSchedulesForRole
+     * </p>
      *
-     * @param userId a {@link java.lang.String} object.
-     * @param roleid a {@link java.lang.String} object.
+     * @param userId
+     *            a {@link java.lang.String} object.
+     * @param roleid
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     List<Schedule> getUserSchedulesForRole(String userId, String roleid);
 
     /**
-     * <p>isUserScheduledForRole</p>
+     * <p>
+     * isUserScheduledForRole
+     * </p>
      *
-     * @param userId a {@link java.lang.String} object.
-     * @param roleid a {@link java.lang.String} object.
-     * @param time a {@link java.util.Date} object.
+     * @param userId
+     *            a {@link java.lang.String} object.
+     * @param roleid
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.util.Date} object.
      * @return a boolean.
      */
     boolean isUserScheduledForRole(String userId, String roleid, Date time);
 
     /**
-     * <p>getRoleScheduleEntries</p>
+     * <p>
+     * getRoleScheduleEntries
+     * </p>
      *
-     * @param roleid a {@link java.lang.String} object.
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param roleid
+     *            a {@link java.lang.String} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      * @return a {@link org.opennms.core.utils.OwnedIntervalSequence} object.
      */
     OwnedIntervalSequence getRoleScheduleEntries(String roleid, Date start, Date end);
 
     /**
-     * <p>findGroupsForUser</p>
+     * <p>
+     * findGroupsForUser
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     List<Group> findGroupsForUser(String user);
 
     /**
-     * <p>getDefaultMapForUser</p>
+     * <p>
+     * getDefaultMapForUser
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     String getDefaultMapForUser(String user);

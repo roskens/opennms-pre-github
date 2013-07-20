@@ -76,7 +76,9 @@ import org.extremecomponents.table.limit.TableLimitFactory;
 import org.opennms.netmgt.model.OnmsOutage;
 
 /**
- * <p>OutageTable class.</p>
+ * <p>
+ * OutageTable class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @version $Id: $
@@ -93,19 +95,24 @@ public class OutageTable {
     private static final int ROW_LIMIT = 25;
 
     /**
-     * <p>getResolvedOutageTable</p>
+     * <p>
+     * getResolvedOutageTable
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param reply a {@link javax.servlet.http.HttpServletResponse} object.
-     * @param m_outageService a {@link org.opennms.web.svclayer.outage.OutageService} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param reply
+     *            a {@link javax.servlet.http.HttpServletResponse} object.
+     * @param m_outageService
+     *            a {@link org.opennms.web.svclayer.outage.OutageService}
+     *            object.
      * @return a {@link java.util.Map} object.
      */
     public final Map<String, ?> getResolvedOutageTable(final HttpServletRequest request,
             final HttpServletResponse reply, final OutageService m_outageService) {
 
         Context context = new HttpServletRequestContext(request);
-        LimitFactory limitFactory = new TableLimitFactory(context,
-                                                          "tabledata");
+        LimitFactory limitFactory = new TableLimitFactory(context, "tabledata");
         Limit limit = new TableLimit(limitFactory);
 
         OutagesFilteringView m_filterService = new OutagesFilteringView();
@@ -129,21 +136,12 @@ public class OutageTable {
             myModel.put("rowEnd", ROW_LIMIT);
 
             if (limit.getSort().getProperty() == null) {
-                foundOutages = m_outageService.getResolvedOutagesByRange(
-                                                                         0,
-                                                                         ROW_LIMIT,
-                                                                         "iflostservice",
-                                                                         "asc",
+                foundOutages = m_outageService.getResolvedOutagesByRange(0, ROW_LIMIT, "iflostservice", "asc",
                                                                          searchFilter);
 
             } else {
-                foundOutages = m_outageService.getResolvedOutagesByRange(
-                                                                         0,
-                                                                         ROW_LIMIT,
-                                                                         "outages."
-                                                                                 + limit.getSort().getProperty(),
-                                                                         limit.getSort().getSortOrder(),
-                                                                         searchFilter);
+                foundOutages = m_outageService.getResolvedOutagesByRange(0, ROW_LIMIT, "outages."
+                        + limit.getSort().getProperty(), limit.getSort().getSortOrder(), searchFilter);
 
             }
             myModel.put("begin", 0);
@@ -161,28 +159,18 @@ public class OutageTable {
             myModel.put("end", rowend);
 
             if (limit.getSort().getProperty() == null) {
-                foundOutages = m_outageService.getResolvedOutagesByRange(
-                                                                         rowstart,
-                                                                         rowend,
-                                                                         "iflostservice",
-                                                                         "asc",
+                foundOutages = m_outageService.getResolvedOutagesByRange(rowstart, rowend, "iflostservice", "asc",
                                                                          searchFilter);
 
             } else {
 
-                foundOutages = m_outageService.getResolvedOutagesByRange(
-                                                                         rowstart,
-                                                                         rowend,
-                                                                         "outages."
-                                                                                 + limit.getSort().getProperty()
-                                                                                 + ",outageid",
-                                                                         limit.getSort().getSortOrder(),
-                                                                         searchFilter);
+                foundOutages = m_outageService.getResolvedOutagesByRange(rowstart, rowend, "outages."
+                        + limit.getSort().getProperty() + ",outageid", limit.getSort().getSortOrder(), searchFilter);
 
             }
         }
 
-        Collection<Map<String,Object>> theTable = m_cview.theTable(foundOutages);
+        Collection<Map<String, Object>> theTable = m_cview.theTable(foundOutages);
 
         myModel.put("searchfilter", searchFilter);
         myModel.put("tabledata", theTable);

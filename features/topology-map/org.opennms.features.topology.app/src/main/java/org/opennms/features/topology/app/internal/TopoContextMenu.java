@@ -36,77 +36,79 @@ import org.vaadin.peter.contextmenu.ContextMenu;
 
 public class TopoContextMenu extends ContextMenu {
 
-	private static final long serialVersionUID = -4506151279227147283L;
+    private static final long serialVersionUID = -4506151279227147283L;
 
-	public class TopoContextMenuItem {
+    public class TopoContextMenuItem {
 
-		ContextMenuItem m_item = null;
-		Operation m_operation = null;
-		List<TopoContextMenuItem> m_children = new ArrayList<TopoContextMenuItem>();
+        ContextMenuItem m_item = null;
 
-		public TopoContextMenuItem(ContextMenuItem item, Operation operation) {
-			m_item = item;
-			m_operation = operation;
-		}
+        Operation m_operation = null;
 
-		public ContextMenuItem getItem() {
-			return m_item;
-		}
+        List<TopoContextMenuItem> m_children = new ArrayList<TopoContextMenuItem>();
 
-		public boolean hasChildren() {
-			return m_children == null || m_children.size() == 0 ? false : true;
-		}
+        public TopoContextMenuItem(ContextMenuItem item, Operation operation) {
+            m_item = item;
+            m_operation = operation;
+        }
 
-		public boolean hasOperation() {
-		    return m_operation == null ? false : true;
-		}
+        public ContextMenuItem getItem() {
+            return m_item;
+        }
 
-		public Operation getOperation() {
-		    return m_operation;
-		}
+        public boolean hasChildren() {
+            return m_children == null || m_children.size() == 0 ? false : true;
+        }
 
-		public List<TopoContextMenuItem> getChildren() {
-			return m_children;
-		}
+        public boolean hasOperation() {
+            return m_operation == null ? false : true;
+        }
 
-		public TopoContextMenuItem addItem(String label, Operation operation) {
-			TopoContextMenuItem topoContextMenuItem = new TopoContextMenuItem(m_item.addItem(label), operation);
-			m_children.add(topoContextMenuItem);
-			return topoContextMenuItem;
-		}
+        public Operation getOperation() {
+            return m_operation;
+        }
 
-		public String getName() {
-			// TODO: Figure out how to support this with the new ContextMenu API
-			//return m_item.getName();
-			return "Menu Item";
-		}
+        public List<TopoContextMenuItem> getChildren() {
+            return m_children;
+        }
 
-		public void setSeparatorVisible(boolean b) {
-			// TODO: Figure out how to support this with the new ContextMenu API
+        public TopoContextMenuItem addItem(String label, Operation operation) {
+            TopoContextMenuItem topoContextMenuItem = new TopoContextMenuItem(m_item.addItem(label), operation);
+            m_children.add(topoContextMenuItem);
+            return topoContextMenuItem;
+        }
+
+        public String getName() {
+            // TODO: Figure out how to support this with the new ContextMenu API
+            // return m_item.getName();
+            return "Menu Item";
+        }
+
+        public void setSeparatorVisible(boolean b) {
+            // TODO: Figure out how to support this with the new ContextMenu API
             m_item.setSeparatorVisible(b);
-		}
+        }
 
-	}
+    }
 
-	private List<TopoContextMenuItem> m_items = new ArrayList<TopoContextMenuItem>();
+    private List<TopoContextMenuItem> m_items = new ArrayList<TopoContextMenuItem>();
 
-	private Object m_target = null;
+    private Object m_target = null;
 
-	public Object getTarget() {
-		return m_target;
-	}
+    public Object getTarget() {
+        return m_target;
+    }
 
-	public void setTarget(Object target) {
-		this.m_target = target;
-	}
+    public void setTarget(Object target) {
+        this.m_target = target;
+    }
 
-	public TopoContextMenuItem addItem(String label, Operation operation) {
-	    TopoContextMenuItem item = new TopoContextMenuItem(addItem(label), operation);
-	    m_items.add(item);
-	    return item;
-	}
+    public TopoContextMenuItem addItem(String label, Operation operation) {
+        TopoContextMenuItem item = new TopoContextMenuItem(addItem(label), operation);
+        m_items.add(item);
+        return item;
+    }
 
-	public List<TopoContextMenuItem> getItems() {
-		return m_items;
-	}
+    public List<TopoContextMenuItem> getItems() {
+        return m_items;
+    }
 }

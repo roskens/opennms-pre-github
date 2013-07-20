@@ -38,10 +38,10 @@ import javax.persistence.SequenceGenerator;
 import org.springframework.core.style.ToStringCreator;
 
 /*
-This is not properly annotated so comment out the annotations so it not discovered during scanning
-@Entity
-@Table(name="servermap")
-*/
+ This is not properly annotated so comment out the annotations so it not discovered during scanning
+ @Entity
+ @Table(name="servermap")
+ */
 public class OnmsServerMap extends OnmsEntity implements Serializable {
 
     /**
@@ -60,8 +60,10 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
     /**
      * full constructor
      *
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param serverName a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param serverName
+     *            a {@link java.lang.String} object.
      */
     public OnmsServerMap(String ipAddr, String serverName) {
         m_ipAddr = ipAddr;
@@ -74,87 +76,98 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
     public OnmsServerMap() {
     }
 
-
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(name="id")
-    @SequenceGenerator(name="serverMapSequence", sequenceName="svrMapNxtId")
-    @GeneratedValue(generator="serverMapSequence")
+    @Column(name = "id")
+    @SequenceGenerator(name = "serverMapSequence", sequenceName = "svrMapNxtId")
+    @GeneratedValue(generator = "serverMapSequence")
     public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
-
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="ipAddr", length=16)
+    @Column(name = "ipAddr", length = 16)
     public String getIpAddress() {
         return m_ipAddr;
     }
 
     /**
-     * <p>setIpAddress</p>
+     * <p>
+     * setIpAddress
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddress(String ipAddr) {
         m_ipAddr = ipAddr;
     }
 
-
     /**
-     * <p>getServerName</p>
+     * <p>
+     * getServerName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="serverName", length=64)
+    @Column(name = "serverName", length = 64)
     public String getServerName() {
         return m_serverName;
     }
 
     /**
-     * <p>setServerName</p>
+     * <p>
+     * setServerName
+     * </p>
      *
-     * @param serverName a {@link java.lang.String} object.
+     * @param serverName
+     *            a {@link java.lang.String} object.
      */
     public void setServerName(String serverName) {
         m_serverName = serverName;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-            .append("ipAddr", getIpAddress())
-            .append("serverName", getServerName())
-            .toString();
+        return new ToStringCreator(this).append("ipAddr", getIpAddress()).append("serverName", getServerName()).toString();
     }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void visit(EntityVisitor visitor) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("visitor method not implemented");
-	}
+    public void visit(EntityVisitor visitor) {
+        // TODO Auto-generated method stub
+        throw new RuntimeException("visitor method not implemented");
+    }
 
 }

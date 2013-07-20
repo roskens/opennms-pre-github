@@ -41,7 +41,9 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
 /**
- * <p>DefaultPollerSettings class.</p>
+ * <p>
+ * DefaultPollerSettings class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -55,7 +57,9 @@ public class DefaultPollerSettings implements InitializingBean, PollerSettings {
     private Properties m_settings;
 
     /**
-     * <p>getMonitorId</p>
+     * <p>
+     * getMonitorId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -86,27 +90,37 @@ public class DefaultPollerSettings implements InitializingBean, PollerSettings {
             out = new FileOutputStream(configFile);
             m_settings.store(out, "Properties File for OpenNMS Remote Poller");
         } catch (IOException e) {
-            throw new DataAccessResourceFailureException("Unable to save properties to "+m_configResource, e);
+            throw new DataAccessResourceFailureException("Unable to save properties to " + m_configResource, e);
         } finally {
             if (out != null) {
-                try { out.close(); } catch (IOException e) {};
+                try {
+                    out.close();
+                } catch (IOException e) {
+                }
+                ;
             }
         }
     }
 
     /**
-     * <p>setConfigurationResource</p>
+     * <p>
+     * setConfigurationResource
+     * </p>
      *
-     * @param configResource a {@link org.springframework.core.io.Resource} object.
+     * @param configResource
+     *            a {@link org.springframework.core.io.Resource} object.
      */
     public void setConfigurationResource(Resource configResource) {
         m_configResource = configResource;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -119,7 +133,5 @@ public class DefaultPollerSettings implements InitializingBean, PollerSettings {
         }
 
     }
-
-
 
 }

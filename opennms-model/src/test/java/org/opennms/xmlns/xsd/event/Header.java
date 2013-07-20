@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -42,11 +41,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -62,25 +62,21 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "ver",
-    "dpName",
-    "created",
-    "mstation"
-})
+@XmlType(name = "", propOrder = { "ver", "dpName", "created", "mstation" })
 @XmlRootElement(name = "header")
 public class Header {
 
     @XmlElement(required = true)
     protected String ver;
+
     @XmlElement(required = true)
     protected String dpName;
+
     @XmlElement(required = true)
     protected String created;
+
     @XmlElement(required = true)
     protected String mstation;
 
@@ -88,9 +84,7 @@ public class Header {
      * Gets the value of the ver property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getVer() {
         return ver;
@@ -100,9 +94,7 @@ public class Header {
      * Sets the value of the ver property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setVer(String value) {
         this.ver = value;
@@ -112,9 +104,7 @@ public class Header {
      * Gets the value of the dpName property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getDpName() {
         return dpName;
@@ -124,9 +114,7 @@ public class Header {
      * Sets the value of the dpName property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setDpName(String value) {
         this.dpName = value;
@@ -136,9 +124,7 @@ public class Header {
      * Gets the value of the created property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getCreated() {
         return created;
@@ -148,9 +134,7 @@ public class Header {
      * Sets the value of the created property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setCreated(String value) {
         this.created = value;
@@ -160,9 +144,7 @@ public class Header {
      * Gets the value of the mstation property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getMstation() {
         return mstation;
@@ -172,9 +154,7 @@ public class Header {
      * Sets the value of the mstation property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setMstation(String value) {
         this.mstation = value;

@@ -32,27 +32,28 @@ import java.security.Principal;
 
 public final class MockUserPrincipal implements Principal {
 
-	private static MockUserPrincipal m_instance = null;
-	private static String m_name = "admin";
+    private static MockUserPrincipal m_instance = null;
 
-	private MockUserPrincipal() {
-	}
+    private static String m_name = "admin";
 
-	@Override
-	public String getName() {
-		return m_name;
-	}
+    private MockUserPrincipal() {
+    }
 
-	public static void setName(final String name) {
-		m_name = name;
-	}
+    @Override
+    public String getName() {
+        return m_name;
+    }
 
-	public static Principal getInstance() {
-		if (m_instance == null) {
-			m_instance  = new MockUserPrincipal();
-		}
+    public static void setName(final String name) {
+        m_name = name;
+    }
 
-		return m_instance;
-	}
+    public static Principal getInstance() {
+        if (m_instance == null) {
+            m_instance = new MockUserPrincipal();
+        }
+
+        return m_instance;
+    }
 
 }

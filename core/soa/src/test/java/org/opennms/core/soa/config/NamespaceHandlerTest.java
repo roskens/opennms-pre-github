@@ -53,7 +53,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * NamespaceHandlerTest
  *
@@ -63,47 +62,47 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration
 public class NamespaceHandlerTest {
 
-    @Resource(name="myProvider")
+    @Resource(name = "myProvider")
     MyProvider m_provider;
 
-    @Resource(name="bigProvider")
+    @Resource(name = "bigProvider")
     MyProvider m_bigProvider;
 
-    @Resource(name="smallProvider")
+    @Resource(name = "smallProvider")
     MyProvider m_smallProvider;
 
-    @Resource(name="simple")
+    @Resource(name = "simple")
     Registration m_simpleRegistration;
 
-    @Resource(name="nested")
+    @Resource(name = "nested")
     Registration m_nestedRegistration;
 
-    @Resource(name="big")
+    @Resource(name = "big")
     Registration m_bigRegistration;
 
-    @Resource(name="small")
+    @Resource(name = "small")
     Registration m_smallRegistration;
 
-    @Resource(name="hello")
+    @Resource(name = "hello")
     Hello m_hello;
 
-    @Resource(name="bigGoodbye")
+    @Resource(name = "bigGoodbye")
     Goodbye m_bigGoodbye;
 
-    @Resource(name="smallGoodbye")
+    @Resource(name = "smallGoodbye")
     Goodbye m_smallGoodbye;
 
-    @Resource(name="helloList")
+    @Resource(name = "helloList")
     List<Hello> m_helloList;
 
-    @Resource(name="bigGoodbyeList")
+    @Resource(name = "bigGoodbyeList")
     List<Goodbye> m_bigGoodbyeList;
 
-	@Resource(name="serviceRegistry")
-	ServiceRegistry m_defaultServiceRegistry;
+    @Resource(name = "serviceRegistry")
+    ServiceRegistry m_defaultServiceRegistry;
 
-	@Resource(name="helloListListener")
-	HelloListListener m_helloListListener;
+    @Resource(name = "helloListListener")
+    HelloListListener m_helloListListener;
 
     @Test
     @DirtiesContext
@@ -130,11 +129,11 @@ public class NamespaceHandlerTest {
         assertNotNull(m_smallRegistration);
         assertNotNull(m_smallRegistration.getProperties());
         assertEquals("small", m_smallRegistration.getProperties().get("size"));
-}
+    }
 
     @Test
     @DirtiesContext
-    public void testReferenceBeanDefinition() throws IOException{
+    public void testReferenceBeanDefinition() throws IOException {
 
         assertNotNull(m_hello);
         assertEquals("provider", m_hello.toString());
@@ -148,7 +147,7 @@ public class NamespaceHandlerTest {
 
     @Test
     @DirtiesContext
-    public void testFilteredReferenceBeanDefinition() throws IOException{
+    public void testFilteredReferenceBeanDefinition() throws IOException {
 
         assertNotNull(m_bigGoodbye);
         assertEquals("big", m_bigGoodbye.toString());
@@ -199,11 +198,13 @@ public class NamespaceHandlerTest {
 
         Map<String, String> bigProps = new HashMap<String, String>();
         bigProps.put("size", "big");
-        Registration bigRegistration = m_defaultServiceRegistry.register(new MyProvider("alsoBig"), bigProps, Goodbye.class);
+        Registration bigRegistration = m_defaultServiceRegistry.register(new MyProvider("alsoBig"), bigProps,
+                                                                         Goodbye.class);
 
         Map<String, String> props = new HashMap<String, String>();
         props.put("size", "small");
-        Registration smallRegistration = m_defaultServiceRegistry.register(new MyProvider("alsoSmall"), props, Goodbye.class);
+        Registration smallRegistration = m_defaultServiceRegistry.register(new MyProvider("alsoSmall"), props,
+                                                                           Goodbye.class);
 
         assertEquals(expected, m_bigGoodbyeList.size());
 
@@ -222,19 +223,19 @@ public class NamespaceHandlerTest {
 
         assertNotNull(m_helloListListener);
 
-    	MyProvider myProvider = new MyProvider();
+        MyProvider myProvider = new MyProvider();
 
-    	int expected = m_helloListListener.getTotalProviders() + 1;
+        int expected = m_helloListListener.getTotalProviders() + 1;
 
-    	Registration registration = m_defaultServiceRegistry.register(myProvider, Hello.class);
+        Registration registration = m_defaultServiceRegistry.register(myProvider, Hello.class);
 
-    	assertEquals(expected, m_helloListListener.getTotalProviders());
+        assertEquals(expected, m_helloListListener.getTotalProviders());
 
-    	expected = m_helloListListener.getTotalProviders() - 1;
+        expected = m_helloListListener.getTotalProviders() - 1;
 
-    	registration.unregister();
+        registration.unregister();
 
-    	assertEquals(expected, m_helloListListener.getTotalProviders());
+        assertEquals(expected, m_helloListListener.getTotalProviders());
 
     }
 

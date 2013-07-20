@@ -39,11 +39,13 @@ import org.opennms.netmgt.config.reporting.opennms.OpennmsReports;
 import org.opennms.netmgt.config.reporting.opennms.Report;
 import org.opennms.netmgt.dao.api.OnmsReportConfigDao;
 
-public class DefaultOnmsReportConfigDao extends AbstractCastorConfigDao<OpennmsReports, List<Report>>
-implements OnmsReportConfigDao {
+public class DefaultOnmsReportConfigDao extends AbstractCastorConfigDao<OpennmsReports, List<Report>> implements
+        OnmsReportConfigDao {
 
     /**
-     * <p>Constructor for DefaultOnmsReportConfigDao.</p>
+     * <p>
+     * Constructor for DefaultOnmsReportConfigDao.
+     * </p>
      */
     public DefaultOnmsReportConfigDao() {
         super(OpennmsReports.class, "OpenNMS Report Configuration");

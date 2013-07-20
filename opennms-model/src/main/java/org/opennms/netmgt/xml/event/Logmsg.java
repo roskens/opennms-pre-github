@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.Serializable;
@@ -51,52 +51,51 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The event logmsg with the destination attribute defining
- *  if event is for display only, logonly, log and display or
+ * if event is for display only, logonly, log and display or
  * neither. A
- *  destination attribute of 'donotpersist' indicates that Eventd
+ * destination attribute of 'donotpersist' indicates that Eventd
  * is not to
- *  persist the event to the database. The optional notify
+ * persist the event to the database. The optional notify
  * attributed can be
- *  used to suppress notices on a particular event (by default it
+ * used to suppress notices on a particular event (by default it
  * is true -
- *  i.e. a notice will be sent.
+ * i.e. a notice will be sent.
  *
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="logmsg")
+@XmlRootElement(name = "logmsg")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@ValidateUsing("event.xsd")
+// @ValidateUsing("event.xsd")
 public class Logmsg implements Serializable {
 
     private static final long serialVersionUID = -7173862847984790914L;
 
-    //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
-	/**
+    /**
      * internal content storage
      */
-	@XmlValue
+    @XmlValue
     private java.lang.String _content = "";
 
     /**
      * Field _notify.
      */
-	@XmlAttribute(name="notify")
+    @XmlAttribute(name = "notify")
     private Boolean _notify = true;
 
     /**
      * Field _dest.
      */
-    @XmlAttribute(name="dest")
+    @XmlAttribute(name = "dest")
     private java.lang.String _dest = "logndisplay".intern();
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Logmsg() {
         super();
@@ -104,15 +103,13 @@ public class Logmsg implements Serializable {
         setDest("logndisplay".intern());
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      */
-    public void deleteNotify(
-    ) {
+    public void deleteNotify() {
         this._notify = null;
     }
 
@@ -122,8 +119,7 @@ public class Logmsg implements Serializable {
      *
      * @return the value of field 'Content'.
      */
-    public java.lang.String getContent(
-    ) {
+    public java.lang.String getContent() {
         return this._content;
     }
 
@@ -132,8 +128,7 @@ public class Logmsg implements Serializable {
      *
      * @return the value of field 'Dest'.
      */
-    public java.lang.String getDest(
-    ) {
+    public java.lang.String getDest() {
         return this._dest;
     }
 
@@ -142,9 +137,8 @@ public class Logmsg implements Serializable {
      *
      * @return the value of field 'Notify'.
      */
-    public Boolean getNotify(
-    ) {
-        return this._notify == null? false : this._notify;
+    public Boolean getNotify() {
+        return this._notify == null ? false : this._notify;
     }
 
     /**
@@ -152,8 +146,7 @@ public class Logmsg implements Serializable {
      *
      * @return true if at least one Notify has been added
      */
-    public boolean hasNotify(
-    ) {
+    public boolean hasNotify() {
         return this._notify != null;
     }
 
@@ -170,39 +163,35 @@ public class Logmsg implements Serializable {
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
      *
-     * @param content the value of field 'content'.
+     * @param content
+     *            the value of field 'content'.
      */
-    public void setContent(
-            final java.lang.String content) {
+    public void setContent(final java.lang.String content) {
         this._content = content;
     }
 
     /**
      * Sets the value of field 'dest'.
      *
-     * @param dest the value of field 'dest'.
+     * @param dest
+     *            the value of field 'dest'.
      */
-    public void setDest(
-            final java.lang.String dest) {
+    public void setDest(final java.lang.String dest) {
         this._dest = dest.intern();
     }
 
     /**
      * Sets the value of field 'notify'.
      *
-     * @param notify the value of field 'notify'.
+     * @param notify
+     *            the value of field 'notify'.
      */
-    public void setNotify(
-            final Boolean notify) {
+    public void setNotify(final Boolean notify) {
         this._notify = notify;
     }
 
     @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("content", _content)
-    		.append("notify", _notify)
-    		.append("dest", _dest)
-    		.toString();
+        return new ToStringBuilder(this).append("content", _content).append("notify", _notify).append("dest", _dest).toString();
     }
 }

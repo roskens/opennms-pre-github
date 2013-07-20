@@ -58,14 +58,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/daoWebRepositoryTestContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/daoWebRepositoryTestContext.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DaoWebOutageRepositoryTest implements InitializingBean {
@@ -82,7 +78,7 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
     }
 
     @BeforeClass
-    public static void setupLogging(){
+    public static void setupLogging() {
 
         Properties props = new Properties();
         props.setProperty("log4j.logger.org.hibernate", "INFO");
@@ -93,10 +89,11 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         m_dbPopulator.populateDatabase();
 
-        OnmsMonitoredService svc2 = m_dbPopulator.getMonitoredServiceDao().get(2, InetAddressUtils.addr("192.168.2.1"), "ICMP");
+        OnmsMonitoredService svc2 = m_dbPopulator.getMonitoredServiceDao().get(2, InetAddressUtils.addr("192.168.2.1"),
+                                                                               "ICMP");
         OnmsEvent event = m_dbPopulator.getEventDao().get(1);
 
         OnmsOutage unresolved2 = new OnmsOutage(new Date(), event, svc2);
@@ -107,7 +104,7 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testCountMatchingOutages(){
+    public void testCountMatchingOutages() {
         int count = m_daoOutageRepo.countMatchingOutages(new OutageCriteria());
         assertEquals(3, count);
 
@@ -116,8 +113,9 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testGetMatchingOutages(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public void testGetMatchingOutages() {
         Outage[] outage = m_daoOutageRepo.getMatchingOutages(new OutageCriteria());
         assertEquals(3, outage.length);
 
@@ -134,22 +132,26 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testGetOutage(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public void testGetOutage() {
         Outage outage = m_daoOutageRepo.getOutage(1);
         assertNotNull(outage);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on records created in @Before so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on records created in @Before so we need a fresh database
     public void testGetOutageSummaries() {
         OutageSummary[] summaries = m_daoOutageRepo.getMatchingOutageSummaries(new OutageCriteria());
-        assertEquals("there should be 2 outage summary in the default (current) outage criteria match", 2, summaries.length);
+        assertEquals("there should be 2 outage summary in the default (current) outage criteria match", 2,
+                     summaries.length);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on records created in @Before so we need a fresh database
-    public void testCountMatchingSummaries(){
+    @JUnitTemporaryDatabase
+    // Relies on records created in @Before so we need a fresh database
+    public void testCountMatchingSummaries() {
 
         int count = m_daoOutageRepo.countMatchingOutageSummaries(new OutageCriteria());
         assertEquals(2, count);

@@ -41,7 +41,6 @@ public class TemplateTest {
         String value = "island";
         String template = "XXX ${monkey} XXX";
 
-
         String val = template.replaceAll("\\$\\{" + key + "\\}", value);
 
         assertEquals("XXX island XXX", val);

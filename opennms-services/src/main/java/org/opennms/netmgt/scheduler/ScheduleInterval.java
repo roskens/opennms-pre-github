@@ -37,14 +37,18 @@ package org.opennms.netmgt.scheduler;
 public interface ScheduleInterval {
 
     /**
-     * <p>getInterval</p>
+     * <p>
+     * getInterval
+     * </p>
      *
      * @return a long.
      */
     long getInterval();
 
     /**
-     * <p>scheduledSuspension</p>
+     * <p>
+     * scheduledSuspension
+     * </p>
      *
      * @return a boolean.
      */

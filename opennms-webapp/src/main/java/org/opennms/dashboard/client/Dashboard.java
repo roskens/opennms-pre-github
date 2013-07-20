@@ -28,7 +28,6 @@
 
 package org.opennms.dashboard.client;
 
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -44,7 +43,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <p>Dashboard class.</p>
+ * <p>
+ * Dashboard class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -56,27 +57,33 @@ import com.google.gwt.user.client.ui.Widget;
 public class Dashboard implements EntryPoint, ErrorHandler {
 
     Dashlet m_surveillance;
+
     AlarmDashlet m_alarms;
+
     OutageDashlet m_outages;
+
     NodeStatusDashlet m_nodeStatus;
+
     NotificationDashlet m_notifications;
+
     GraphDashlet m_graphs;
+
     private SurveillanceServiceAsync m_surveillanceService;
 
     /**
-     * <p>onModuleLoad</p>
+     * <p>
+     * onModuleLoad
+     * </p>
      */
     @Override
     public void onModuleLoad() {
 
-
         add(createSurveillanceDashlet(), "surveillanceView");
-        add(createAlarmDashlet(),        "alarms");
-        add(createGraphDashlet(),        "graphs");
+        add(createAlarmDashlet(), "alarms");
+        add(createGraphDashlet(), "graphs");
         add(createNotificationDashlet(), "notifications");
-        //add(createOutageDashlet(),       "outages");
-        add(createNodeStatusDashlet(),   "nodeStatus");
-
+        // add(createOutageDashlet(), "outages");
+        add(createNodeStatusDashlet(), "nodeStatus");
 
         setSurveillanceSet(SurveillanceSet.DEFAULT);
 
@@ -94,10 +101,10 @@ public class Dashboard implements EntryPoint, ErrorHandler {
         return m_notifications;
     }
 
-//    private OutageDashlet createOutageDashlet() {
-//        m_outages = new OutageDashlet(this);
-//        return m_outages;
-//    }
+    // private OutageDashlet createOutageDashlet() {
+    // m_outages = new OutageDashlet(this);
+    // return m_outages;
+    // }
 
     private AlarmDashlet createAlarmDashlet() {
         m_alarms = new AlarmDashlet(this);
@@ -132,7 +139,6 @@ public class Dashboard implements EntryPoint, ErrorHandler {
 
         final SurveillanceServiceAsync svc = getSurveillanceService();
 
-
         surveillance.setSurveillanceService(svc);
 
         m_surveillance = surveillance;
@@ -141,7 +147,7 @@ public class Dashboard implements EntryPoint, ErrorHandler {
 
     private SurveillanceServiceAsync getSurveillanceService() {
         if (m_surveillanceService == null) {
-            String serviceEntryPoint = GWT.getHostPageBaseURL()+"surveillanceService.gwt";
+            String serviceEntryPoint = GWT.getHostPageBaseURL() + "surveillanceService.gwt";
 
             // define the service you want to call
             final SurveillanceServiceAsync svc = (SurveillanceServiceAsync) GWT.create(SurveillanceService.class);
@@ -160,10 +166,14 @@ public class Dashboard implements EntryPoint, ErrorHandler {
     }
 
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param widget a {@link com.google.gwt.user.client.ui.Widget} object.
-     * @param elementId a {@link java.lang.String} object.
+     * @param widget
+     *            a {@link com.google.gwt.user.client.ui.Widget} object.
+     * @param elementId
+     *            a {@link java.lang.String} object.
      */
     public void add(Widget widget, String elementId) {
         RootPanel panel = RootPanel.get(elementId);
@@ -179,9 +189,12 @@ public class Dashboard implements EntryPoint, ErrorHandler {
     }
 
     /**
-     * <p>error</p>
+     * <p>
+     * error
+     * </p>
      *
-     * @param err a {@link java.lang.String} object.
+     * @param err
+     *            a {@link java.lang.String} object.
      */
     public void error(String err) {
         final DialogBox dialog = new DialogBox();
@@ -215,7 +228,7 @@ public class Dashboard implements EntryPoint, ErrorHandler {
     }
 
     private void setSurveillanceSet(SurveillanceSet set) {
-    	m_surveillance.setSurveillanceSet(set);
+        m_surveillance.setSurveillanceSet(set);
         m_alarms.setSurveillanceSet(set);
         m_graphs.setSurveillanceSet(set);
         m_notifications.setSurveillanceSet(set);

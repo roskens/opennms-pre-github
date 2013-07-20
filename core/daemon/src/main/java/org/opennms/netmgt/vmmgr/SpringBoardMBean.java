@@ -33,33 +33,44 @@ import java.util.List;
 public interface SpringBoardMBean {
 
     /**
-     * <p>getContextDir</p>
+     * <p>
+     * getContextDir
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getContextDir();
 
     /**
-     * <p>setContextDir</p>
+     * <p>
+     * setContextDir
+     * </p>
      *
-     * @param contextDir a {@link java.lang.String} object.
+     * @param contextDir
+     *            a {@link java.lang.String} object.
      */
     public void setContextDir(String contextDir);
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     public void start();
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<String> status();
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     public void stop();
 

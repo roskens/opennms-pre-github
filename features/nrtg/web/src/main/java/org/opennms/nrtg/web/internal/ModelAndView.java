@@ -5,24 +5,25 @@ import java.util.Map;
 
 public class ModelAndView {
 
-	private final String m_viewName;
-	private final Map<String, Object> m_model;
+    private final String m_viewName;
 
-	public ModelAndView(String viewName) {
-		m_viewName = viewName;
-		m_model = new LinkedHashMap<String, Object>();
-	}
+    private final Map<String, Object> m_model;
 
-	public void addObject(String name, Object modelObject) {
-		m_model.put(name, modelObject);
-	}
+    public ModelAndView(String viewName) {
+        m_viewName = viewName;
+        m_model = new LinkedHashMap<String, Object>();
+    }
 
-	public String getViewName() {
-		return m_viewName;
-	}
+    public void addObject(String name, Object modelObject) {
+        m_model.put(name, modelObject);
+    }
 
-	public Map<String, Object> getModel() {
-		return m_model;
-	}
+    public String getViewName() {
+        return m_viewName;
+    }
+
+    public Map<String, Object> getModel() {
+        return m_model;
+    }
 
 }

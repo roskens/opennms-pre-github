@@ -62,24 +62,32 @@ import org.springframework.osgi.context.BundleContextAware;
  */
 public class SmsCommands implements CommandProvider, BundleContextAware {
     private static final Logger LOG = LoggerFactory.getLogger(SmsCommands.class);
+
     private Service m_service;
+
     private ConfigurationAdmin m_configAdmin;
+
     private BundleContext m_context;
 
     /**
-     * <p>Constructor for SmsCommands.</p>
+     * <p>
+     * Constructor for SmsCommands.
+     * </p>
      *
-     * @param configAdmin a {@link org.osgi.service.cm.ConfigurationAdmin} object.
+     * @param configAdmin
+     *            a {@link org.osgi.service.cm.ConfigurationAdmin} object.
      */
     public SmsCommands(ConfigurationAdmin configAdmin) {
         m_configAdmin = configAdmin;
     }
 
     /**
-     * <p>stopService</p>
+     * <p>
+     * stopService
+     * </p>
      */
-    public void stopService(){
-        if (m_service != null){
+    public void stopService() {
+        if (m_service != null) {
             try {
                 m_service.stopService();
             } catch (final Exception e) {
@@ -89,29 +97,34 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>smsSend</p>
+     * <p>
+     * smsSend
+     * </p>
      *
-     * @param msg a {@link org.smslib.OutboundMessage} object.
+     * @param msg
+     *            a {@link org.smslib.OutboundMessage} object.
      */
-    public void smsSend(final OutboundMessage msg){
-        try{
+    public void smsSend(final OutboundMessage msg) {
+        try {
             m_service.sendMessage(msg);
-        }catch(final Exception e){
+        } catch (final Exception e) {
             LOG.debug("error sending message ({})", msg, e);
         }
     }
 
     /**
-     * <p>checkMessages</p>
+     * <p>
+     * checkMessages
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    public List<InboundMessage> checkMessages(){
+    public List<InboundMessage> checkMessages() {
         List<InboundMessage> msgList = new ArrayList<InboundMessage>();
-        try{
+        try {
             m_service.readMessages(msgList, MessageClasses.UNREAD);
 
-        }catch(final Exception e){
+        } catch (final Exception e) {
             LOG.warn("unable to check messages", e);
         }
 
@@ -119,18 +132,23 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>_smsPing</p>
+     * <p>
+     * _smsPing
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      * @return a {@link java.lang.Object} object.
      */
     public Object _smsPing(CommandInterpreter intp) {
         try {
             Long latency = SmsPinger.ping(intp.nextArgument());
 
-            if(latency == null){
+            if (latency == null) {
                 intp.println("Ping Timedout");
-            }else{
+            } else {
                 intp.println("Ping roundtrip time: " + latency);
             }
 
@@ -141,13 +159,18 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>_smsSend</p>
+     * <p>
+     * _smsSend
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      * @return a {@link java.lang.Object} object.
      */
     public Object _smsSend(CommandInterpreter intp) {
-        //String port = intp.nextArgument();
+        // String port = intp.nextArgument();
 
         String phoneno = intp.nextArgument();
         if (phoneno == null) {
@@ -168,7 +191,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
 
             LOG.debug("Example: Send message from a serial gsm modem.");
             LOG.debug(Library.getLibraryDescription());
-            LOG.debug("Version: {}",Library.getLibraryVersion());
+            LOG.debug("Version: {}", Library.getLibraryVersion());
 
             // Send a message synchronously.
             msg = new OutboundMessage(phoneno, msgText);
@@ -188,9 +211,14 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>unused_ussdSend</p>
+     * <p>
+     * unused_ussdSend
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      */
     public void unused_ussdSend(CommandInterpreter intp) {
         String data = intp.nextArgument();
@@ -218,27 +246,32 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>_checkMessages</p>
+     * <p>
+     * _checkMessages
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      * @return a {@link java.lang.Object} object.
      */
-    public Object _checkMessages(CommandInterpreter intp){
+    public Object _checkMessages(CommandInterpreter intp) {
 
         List<InboundMessage> msgList;
 
-        try{
-            //    		System.out.println("Example: Read messages from a serial gsm modem");
-            //    		System.out.println(Library.getLibraryDescription());
-            //    		System.out.println("Version: " + Library.getLibraryVersion());
+        try {
+            // System.out.println("Example: Read messages from a serial gsm modem");
+            // System.out.println(Library.getLibraryDescription());
+            // System.out.println("Version: " + Library.getLibraryVersion());
 
             msgList = new ArrayList<InboundMessage>();
             m_service.readMessages(msgList, MessageClasses.UNREAD);
 
-            for(InboundMessage msg : msgList)
+            for (InboundMessage msg : msgList)
                 intp.println(msg);
 
-        }catch(Throwable e){
+        } catch (Throwable e) {
             intp.printStackTrace(e);
         }
 
@@ -246,15 +279,20 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>_listPorts</p>
+     * <p>
+     * _listPorts
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      * @return a {@link java.lang.Object} object.
      */
     public Object _listPorts(CommandInterpreter intp) {
         Enumeration<CommPortIdentifier> commPorts = CommPortIdentifier.getPortIdentifiers();
 
-        while(commPorts.hasMoreElements()) {
+        while (commPorts.hasMoreElements()) {
             CommPortIdentifier commPort = commPorts.nextElement();
             LOG.debug(commPort.getName());
         }
@@ -263,36 +301,43 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>listPorts</p>
+     * <p>
+     * listPorts
+     * </p>
      *
      * @return a {@link java.util.Enumeration} object.
      */
-    public Enumeration<CommPortIdentifier> listPorts(){
+    public Enumeration<CommPortIdentifier> listPorts() {
         return CommPortIdentifier.getPortIdentifiers();
     }
 
     /**
-     * <p>_initializePort</p>
+     * <p>
+     * _initializePort
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      * @return a {@link java.lang.Object} object.
      */
-    public Object _initializePort(CommandInterpreter intp){
+    public Object _initializePort(CommandInterpreter intp) {
         String port = intp.nextArgument();
 
-        if(port == null){
+        if (port == null) {
             intp.print("please initialize port usage: initializePort <port>");
             return null;
         }
 
-        try{
+        try {
             OutboundNotification m_outboundNotification = new OutboundNotification();
             InboundNotification m_inboundNotification = new InboundNotification();
             CallNotification m_callNotification = new CallNotification();
             GatewayStatusNotification m_gatewayStatusNotification = new GatewayStatusNotification();
 
             m_service = Service.getInstance();
-            SerialModemGateway gateway = new SerialModemGateway("modem."+ port, port, 57600, "SonyEricsson", "W760");
+            SerialModemGateway gateway = new SerialModemGateway("modem." + port, port, 57600, "SonyEricsson", "W760");
             gateway.setProtocol(Protocols.PDU);
             gateway.setInbound(true);
             gateway.setOutbound(true);
@@ -307,30 +352,38 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
 
             printGatewayInfo(gateway, intp);
 
-        }catch(Throwable e){
+        } catch (Throwable e) {
             intp.printStackTrace(e);
         }
         return null;
     }
 
     /**
-     * <p>_debug</p>
+     * <p>
+     * _debug
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      * @return a {@link java.lang.Object} object.
      */
     public Object _debug(CommandInterpreter intp) {
         intp.println("m_configAdmin is " + m_configAdmin);
 
-
-
         return null;
     }
 
     /**
-     * <p>_showConfigs</p>
+     * <p>
+     * _showConfigs
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      * @return a {@link java.lang.Object} object.
      */
     public Object _showConfigs(CommandInterpreter intp) {
@@ -338,14 +391,12 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
             Configuration[] configs = m_configAdmin.listConfigurations(null);
             if (configs == null) {
                 intp.println("No configurations found.");
-            }
-            else {
-                for(Configuration config : configs) {
-                    intp.printDictionary(config.getProperties(), "PID: "+config.getPid());
+            } else {
+                for (Configuration config : configs) {
+                    intp.printDictionary(config.getProperties(), "PID: " + config.getPid());
                 }
             }
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             intp.printStackTrace(e);
         }
 
@@ -353,9 +404,14 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>_configureSmsService</p>
+     * <p>
+     * _configureSmsService
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      * @return a {@link java.lang.Object} object.
      */
     public Object _configureSmsService(CommandInterpreter intp) {
@@ -372,7 +428,8 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
             GatewayGroupImpl gatewayGroup = new GatewayGroupImpl();
             List<AGateway> gateways = new ArrayList<AGateway>();
 
-            SerialModemGateway gateway = new SerialModemGateway("modem." + id, port, new Integer(baudRate), manufacturer, model);
+            SerialModemGateway gateway = new SerialModemGateway("modem." + id, port, new Integer(baudRate),
+                                                                manufacturer, model);
             gateway.setProtocol(Protocols.PDU);
             gateway.setInbound(true);
             gateway.setOutbound(true);
@@ -382,12 +439,11 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
 
             gatewayGroup.setGateways(gateways.toArray(new AGateway[0]));
 
-            Dictionary<String,String> properties = new Hashtable<String,String>();
+            Dictionary<String, String> properties = new Hashtable<String, String>();
             properties.put("gatewayUsageType", usage);
 
             getBundleContext().registerService(GatewayGroup.class, gatewayGroup, properties);
-        }
-        catch(Throwable e) {
+        } catch (Throwable e) {
             intp.printStackTrace(e);
         }
 
@@ -395,9 +451,14 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>_paxLog</p>
+     * <p>
+     * _paxLog
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      * @return a {@link java.lang.Object} object.
      */
     public Object _paxLog(CommandInterpreter intp) {
@@ -410,7 +471,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
 
             Configuration config = m_configAdmin.getConfiguration("org.ops4j.pax.logging", null);
 
-            Dictionary<String,Object> properties = config.getProperties();
+            Dictionary<String, Object> properties = config.getProperties();
             if (level == null) {
                 if (properties == null) {
                     intp.println("Not current configuration");
@@ -422,7 +483,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
 
             if (properties == null) {
                 intp.println("Creating a new configuraiton");
-                properties = new Hashtable<String,Object>();
+                properties = new Hashtable<String, Object>();
                 properties.put("log4j.rootLogger", "DEBUG, A1");
                 properties.put("log4j.appender.A1", "org.apache.log4j.ConsoleAppender");
                 properties.put("log4j.appender.A1.layout", "org.apache.log4j.PatternLayout");
@@ -433,20 +494,18 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
             }
 
             if (prefix == null) {
-                intp.println("Setting default config to "+level);
-                properties.put("log4j.rootLogger", level+", A1");
+                intp.println("Setting default config to " + level);
+                properties.put("log4j.rootLogger", level + ", A1");
             } else {
-                intp.println("Setting log level for "+prefix+" to "+level);
-                properties.put("log4j.logger."+prefix, level);
+                intp.println("Setting log level for " + prefix + " to " + level);
+                properties.put("log4j.logger." + prefix, level);
             }
-
 
             intp.println("Setting new log configuration");
             intp.printDictionary(properties, "New");
             config.update(properties);
 
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             intp.printStackTrace(e);
         }
 
@@ -454,7 +513,9 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>getHelp</p>
+     * <p>
+     * getHelp
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -481,13 +542,13 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
         }
     }
 
-    public class InboundNotification implements IInboundMessageNotification{
+    public class InboundNotification implements IInboundMessageNotification {
 
         @Override
         public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
-            if(msgType == MessageTypes.INBOUND){
+            if (msgType == MessageTypes.INBOUND) {
                 LOG.debug(">>> New Inbound message detected from Gateway: {}", gateway.getGatewayId());
-            }else if(msgType == MessageTypes.STATUSREPORT){
+            } else if (msgType == MessageTypes.STATUSREPORT) {
                 LOG.debug(">>> New Inbound Status Report message detected from Gateway: {}", gateway.getGatewayId());
             }
 
@@ -495,7 +556,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
         }
     }
 
-    public class CallNotification implements ICallNotification{
+    public class CallNotification implements ICallNotification {
 
         @Override
         public void process(AGateway gateway, String callerId) {
@@ -504,15 +565,15 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
 
     }
 
-    public class GatewayStatusNotification implements IGatewayStatusNotification{
+    public class GatewayStatusNotification implements IGatewayStatusNotification {
 
         @Override
         public void process(AGateway gateway, GatewayStatuses oldStatus, GatewayStatuses newStatus) {
-            LOG.debug(">>> Gateway Status change from: {}, OLD:  {} -> NEW: {}", gateway.getGatewayId(), oldStatus, newStatus);
+            LOG.debug(">>> Gateway Status change from: {}, OLD:  {} -> NEW: {}", gateway.getGatewayId(), oldStatus,
+                      newStatus);
         }
 
     }
-
 
     private void printGatewayInfo(AGateway gw, CommandInterpreter intp) throws Exception {
         intp.println();
@@ -538,7 +599,9 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     }
 
     /**
-     * <p>getBundleContext</p>
+     * <p>
+     * getBundleContext
+     * </p>
      *
      * @return a {@link org.osgi.framework.BundleContext} object.
      */

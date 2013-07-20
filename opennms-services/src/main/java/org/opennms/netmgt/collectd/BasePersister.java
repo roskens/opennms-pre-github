@@ -48,7 +48,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>BasePersister class.</p>
+ * <p>
+ * BasePersister class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -58,23 +60,35 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     private static final Logger LOG = LoggerFactory.getLogger(BasePersister.class);
 
     private boolean m_ignorePersist = false;
+
     private ServiceParameters m_params;
+
     private RrdRepository m_repository;
+
     private LinkedList<Boolean> m_stack = new LinkedList<Boolean>();
+
     private PersistOperationBuilder m_builder;
 
     /**
-     * <p>Constructor for BasePersister.</p>
+     * <p>
+     * Constructor for BasePersister.
+     * </p>
      */
     public BasePersister() {
         super();
     }
 
     /**
-     * <p>Constructor for BasePersister.</p>
+     * <p>
+     * Constructor for BasePersister.
+     * </p>
      *
-     * @param params a {@link org.opennms.netmgt.config.collector.ServiceParameters} object.
-     * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param params
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
+     *            object.
+     * @param repository
+     *            a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
     public BasePersister(ServiceParameters params, RrdRepository repository) {
         super();
@@ -83,7 +97,9 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     }
 
     /**
-     * <p>commitBuilder</p>
+     * <p>
+     * commitBuilder
+     * </p>
      */
     protected void commitBuilder() {
         if (isPersistDisabled())
@@ -99,9 +115,8 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     }
 
     private boolean isPersistDisabled() {
-        return m_params != null &&
-               m_params.getParameters().containsKey("storing-enabled") &&
-               m_params.getParameters().get("storing-enabled").equals("false");
+        return m_params != null && m_params.getParameters().containsKey("storing-enabled")
+                && m_params.getParameters().get("storing-enabled").equals("false");
     }
 
     /** {@inheritDoc} */
@@ -123,22 +138,38 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     }
 
     /**
-     * <p>createBuilder</p>
+     * <p>
+     * createBuilder
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
-     * @param name a {@link java.lang.String} object.
-     * @param attributeType a {@link org.opennms.netmgt.config.collector.AttributeDefinition} object.
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param attributeType
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.AttributeDefinition}
+     *            object.
      */
     protected void createBuilder(CollectionResource resource, String name, AttributeDefinition attributeType) {
         createBuilder(resource, name, Collections.singleton(attributeType));
     }
 
     /**
-     * <p>createBuilder</p>
+     * <p>
+     * createBuilder
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
-     * @param name a {@link java.lang.String} object.
-     * @param attributeTypes a {@link java.util.Set} object.
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param attributeTypes
+     *            a {@link java.util.Set} object.
      */
     protected void createBuilder(CollectionResource resource, String name, Set<AttributeDefinition> attributeTypes) {
         m_builder = new PersistOperationBuilder(getRepository(), resource, name);
@@ -153,7 +184,9 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     }
 
     /**
-     * <p>getRepository</p>
+     * <p>
+     * getRepository
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
@@ -162,9 +195,12 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     }
 
     /**
-     * <p>setRepository</p>
+     * <p>
+     * setRepository
+     * </p>
      *
-     * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param repository
+     *            a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
     public void setRepository(RrdRepository repository) {
         m_repository = repository;
@@ -173,8 +209,9 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     /** {@inheritDoc} */
     @Override
     public void persistNumericAttribute(CollectionAttribute attribute) {
-	LOG.debug("Persisting {} {}", attribute, (isIgnorePersist() ? ". Ignoring value because of sysUpTime changed" : ""));
-    	String value = isIgnorePersist() ? "U" : attribute.getNumericValue();
+        LOG.debug("Persisting {} {}", attribute, (isIgnorePersist() ? ". Ignoring value because of sysUpTime changed"
+            : ""));
+        String value = isIgnorePersist() ? "U" : attribute.getNumericValue();
         m_builder.setAttributeValue(attribute.getAttributeType(), value);
         m_builder.setAttributeMetadata(attribute.getMetricIdentifier(), attribute.getName());
     }
@@ -182,24 +219,24 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     /** {@inheritDoc} */
     @Override
     public void persistStringAttribute(CollectionAttribute attribute) {
-            LOG.debug("Persisting {}", attribute);
-            CollectionResource resource = attribute.getResource();
-            String value = attribute.getStringValue();
+        LOG.debug("Persisting {}", attribute);
+        CollectionResource resource = attribute.getResource();
+        String value = attribute.getStringValue();
 
-            File resourceDir = resource.getResourceDir(getRepository());
+        File resourceDir = resource.getResourceDir(getRepository());
 
-            //String attrVal = (value == null ? null : value.toString());
-            //if (attrVal == null) {
-            if (value == null) {
-                LOG.info("No data collected for attribute {}.  Skipping.", attribute);
-                return;
-            }
-            String attrName = attribute.getName();
-            try {
-                ResourceTypeUtils.updateStringProperty(resourceDir, value, attrName);
-            } catch(IOException e) {
-                LOG.error("Unable to save string attribute {}", attribute, e);
-            }
+        // String attrVal = (value == null ? null : value.toString());
+        // if (attrVal == null) {
+        if (value == null) {
+            LOG.info("No data collected for attribute {}.  Skipping.", attribute);
+            return;
+        }
+        String attrName = attribute.getName();
+        try {
+            ResourceTypeUtils.updateStringProperty(resourceDir, value, attrName);
+        } catch (IOException e) {
+            LOG.error("Unable to save string attribute {}", attribute, e);
+        }
     }
 
     private boolean pop() {
@@ -209,7 +246,9 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     }
 
     /**
-     * <p>popShouldPersist</p>
+     * <p>
+     * popShouldPersist
+     * </p>
      *
      * @return a boolean.
      */
@@ -222,18 +261,27 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     }
 
     /**
-     * <p>pushShouldPersist</p>
+     * <p>
+     * pushShouldPersist
+     * </p>
      *
-     * @param attribute a {@link org.opennms.netmgt.config.collector.CollectionAttribute} object.
+     * @param attribute
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionAttribute}
+     *            object.
      */
     protected void pushShouldPersist(CollectionAttribute attribute) {
         pushShouldPersist(attribute.shouldPersist(m_params));
     }
 
     /**
-     * <p>pushShouldPersist</p>
+     * <p>
+     * pushShouldPersist
+     * </p>
      *
-     * @param group a {@link org.opennms.netmgt.config.collector.AttributeGroup} object.
+     * @param group
+     *            a {@link org.opennms.netmgt.config.collector.AttributeGroup}
+     *            object.
      */
     protected void pushShouldPersist(AttributeGroup group) {
         pushShouldPersist(group.shouldPersist(m_params));
@@ -244,25 +292,39 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     }
 
     /**
-     * <p>pushShouldPersist</p>
+     * <p>
+     * pushShouldPersist
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
      */
     protected void pushShouldPersist(CollectionResource resource) {
         push(resource.shouldPersist(m_params));
     }
 
     /**
-     * <p>shouldPersist</p>
+     * <p>
+     * shouldPersist
+     * </p>
      *
      * @return a boolean.
      */
-    protected boolean shouldPersist() { return top(); }
+    protected boolean shouldPersist() {
+        return top();
+    }
 
     /**
-     * <p>storeAttribute</p>
+     * <p>
+     * storeAttribute
+     * </p>
      *
-     * @param attribute a {@link org.opennms.netmgt.config.collector.CollectionAttribute} object.
+     * @param attribute
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionAttribute}
+     *            object.
      */
     protected void storeAttribute(CollectionAttribute attribute) {
         if (shouldPersist()) {
@@ -297,28 +359,36 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         pushShouldPersist(resource);
     }
 
-	/**
-	 * <p>isIgnorePersist</p>
-	 *
-	 * @return a boolean.
-	 */
-	public boolean isIgnorePersist() {
-		return m_ignorePersist;
-	}
-
-	/**
-	 * <p>setIgnorePersist</p>
-	 *
-	 * @param ignore a boolean.
-	 */
-	public void setIgnorePersist(boolean ignore) {
-		m_ignorePersist = ignore;
-	}
+    /**
+     * <p>
+     * isIgnorePersist
+     * </p>
+     *
+     * @return a boolean.
+     */
+    public boolean isIgnorePersist() {
+        return m_ignorePersist;
+    }
 
     /**
-     * <p>getBuilder</p>
+     * <p>
+     * setIgnorePersist
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.collectd.PersistOperationBuilder} object.
+     * @param ignore
+     *            a boolean.
+     */
+    public void setIgnorePersist(boolean ignore) {
+        m_ignorePersist = ignore;
+    }
+
+    /**
+     * <p>
+     * getBuilder
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.collectd.PersistOperationBuilder}
+     *         object.
      */
     public PersistOperationBuilder getBuilder() {
         return m_builder;

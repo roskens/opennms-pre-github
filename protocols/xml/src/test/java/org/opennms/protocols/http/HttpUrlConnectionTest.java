@@ -58,20 +58,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({
-    JUnitHttpServerExecutionListener.class
-})
+@TestExecutionListeners({ JUnitHttpServerExecutionListener.class })
 public class HttpUrlConnectionTest {
 
     /**
      * Test the Servlet with a simple POST Request based on XML Data.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    @JUnitHttpServer(port=10342, https=false, webapps={
-            @Webapp(context="/junit", path="src/test/resources/test-webapp")
-    })
+    @JUnitHttpServer(port = 10342, https = false, webapps = { @Webapp(context = "/junit", path = "src/test/resources/test-webapp") })
     public void testServlet() throws Exception {
         String xml = "<person><firstName>Alejandro</firstName></person>";
         DefaultHttpClient client = new DefaultHttpClient();
@@ -86,12 +83,11 @@ public class HttpUrlConnectionTest {
     /**
      * Test POST Request based on XML Data.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    @JUnitHttpServer(port=10342, https=false, webapps={
-            @Webapp(context="/junit", path="src/test/resources/test-webapp")
-    })
+    @JUnitHttpServer(port = 10342, https = false, webapps = { @Webapp(context = "/junit", path = "src/test/resources/test-webapp") })
     public void testXml() throws Exception {
         String xml = "<person><firstName>Alejandro</firstName><lastName>Galue</lastName></person>";
         Request req = buildRequest("application/xml", xml);
@@ -101,12 +97,11 @@ public class HttpUrlConnectionTest {
     /**
      * Test POST Request based on JSON Data.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    @JUnitHttpServer(port=10342, https=false, webapps={
-            @Webapp(context="/junit", path="src/test/resources/test-webapp")
-    })
+    @JUnitHttpServer(port = 10342, https = false, webapps = { @Webapp(context = "/junit", path = "src/test/resources/test-webapp") })
     public void testJson() throws Exception {
         String json = "{ person: { firstName: 'Alejandro', lastName: 'Galue' } }";
         Request req = buildRequest("application/json", json);
@@ -116,12 +111,11 @@ public class HttpUrlConnectionTest {
     /**
      * Test POST Request based on Form Data.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    @JUnitHttpServer(port=10342, https=false, webapps={
-            @Webapp(context="/junit", path="src/test/resources/test-webapp")
-    })
+    @JUnitHttpServer(port = 10342, https = false, webapps = { @Webapp(context = "/junit", path = "src/test/resources/test-webapp") })
     public void testForm() throws Exception {
         String json = "<form-fields><form-field name='firstName'>Alejandro</form-field><form-field name='lastName'>Galue</form-field></form-fields>";
         Request req = buildRequest("application/x-www-form-urlencoded", json);
@@ -131,8 +125,10 @@ public class HttpUrlConnectionTest {
     /**
      * Builds the request.
      *
-     * @param contentType the content type
-     * @param contentData the content data
+     * @param contentType
+     *            the content type
+     * @param contentData
+     *            the content data
      * @return the request
      */
     private Request buildRequest(String contentType, String contentData) {
@@ -148,8 +144,10 @@ public class HttpUrlConnectionTest {
     /**
      * Execute request.
      *
-     * @param request the request
-     * @throws Exception the exception
+     * @param request
+     *            the request
+     * @throws Exception
+     *             the exception
      */
     private void executeRequest(Request request) throws Exception {
         URL url = new URL("http://localhost:10342/junit/test/post");

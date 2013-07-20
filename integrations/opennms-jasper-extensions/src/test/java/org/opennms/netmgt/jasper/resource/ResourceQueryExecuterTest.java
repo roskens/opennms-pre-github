@@ -47,6 +47,7 @@ import org.junit.Test;
 public class ResourceQueryExecuterTest {
 
     private JasperReport m_jasperReport;
+
     private JasperPrint m_jasperPrint;
 
     @Before
@@ -55,7 +56,6 @@ public class ResourceQueryExecuterTest {
         reportDir.mkdirs();
     }
 
-
     @Test
     public void test() throws JRException {
         compile();
@@ -63,7 +63,6 @@ public class ResourceQueryExecuterTest {
         pdf();
         xhtml();
     }
-
 
     private void xhtml() throws JRException {
         File destFile = new File("target/reports/ResourceTypeTest.x.html");
@@ -76,11 +75,9 @@ public class ResourceQueryExecuterTest {
         exporter.exportReport();
     }
 
-
     private void pdf() throws JRException {
         JasperExportManager.exportReportToPdfFile(m_jasperPrint, "target/reports/ResourceTypeTest.pdf");
     }
-
 
     private void fill() throws JRException {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -89,7 +86,6 @@ public class ResourceQueryExecuterTest {
 
         m_jasperPrint = JasperFillManager.fillReport(m_jasperReport, params);
     }
-
 
     private void compile() throws JRException {
         m_jasperReport = JasperCompileManager.compileReport("src/test/resources/ResourceTest.jrxml");

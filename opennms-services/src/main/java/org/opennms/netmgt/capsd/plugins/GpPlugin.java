@@ -58,6 +58,7 @@ import org.opennms.netmgt.capsd.AbstractPlugin;
  */
 public final class GpPlugin extends AbstractPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(GpPlugin.class);
+
     /**
      * The protocol supported by the plugin
      */
@@ -97,19 +98,21 @@ public final class GpPlugin extends AbstractPlugin {
      *            The regular expression used to determine banner match
      * @param bannerResult
      * @param hoption
-     *            The option string passed to the exec for the IP address (hostname)
+     *            The option string passed to the exec for the IP address
+     *            (hostname)
      * @param toption
      *            The option string passed to the exec for the timeout
-     *
      * @return True if a connection is established with the script and the
      *         banner line returned by the script matches the regular expression
      *         regex.
      */
-    private boolean isServer(InetAddress host, int retry, int timeout, String script, String args, RE regex, StringBuffer bannerResult, String hoption, String toption) {
+    private boolean isServer(InetAddress host, int retry, int timeout, String script, String args, RE regex,
+            StringBuffer bannerResult, String hoption, String toption) {
 
         boolean isAServer = false;
 
-        LOG.debug("poll: address = {}, script = {}, arguments = {}, timeout(seconds) = {}, retry = {}", retry, InetAddressUtils.str(host), script, args, timeout);
+        LOG.debug("poll: address = {}, script = {}, arguments = {}, timeout(seconds) = {}, retry = {}", retry,
+                  InetAddressUtils.str(host), script, args, timeout);
 
         for (int attempts = 0; attempts <= retry && !isAServer; attempts++) {
             try {
@@ -117,9 +120,11 @@ public final class GpPlugin extends AbstractPlugin {
                 ExecRunner er = new ExecRunner();
                 er.setMaxRunTimeSecs(timeout);
                 if (args == null)
-                    exitStatus = er.exec(script + " " + hoption + " " + InetAddressUtils.str(host) + " " + toption + " " + timeout);
+                    exitStatus = er.exec(script + " " + hoption + " " + InetAddressUtils.str(host) + " " + toption
+                            + " " + timeout);
                 else
-                    exitStatus = er.exec(script + " " + hoption + " " + InetAddressUtils.str(host) + " " + toption + " " + timeout + " " + args);
+                    exitStatus = er.exec(script + " " + hoption + " " + InetAddressUtils.str(host) + " " + toption
+                            + " " + timeout + " " + args);
                 if (exitStatus != 0) {
                     LOG.debug("{} failed with exit code {}", script, exitStatus);
                     isAServer = false;
@@ -188,9 +193,8 @@ public final class GpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -199,9 +203,8 @@ public final class GpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -224,8 +227,8 @@ public final class GpPlugin extends AbstractPlugin {
             args = ParameterMap.getKeyedString(qualifiers, "args", null);
             banner = ParameterMap.getKeyedString(qualifiers, "banner", null);
             match = ParameterMap.getKeyedString(qualifiers, "match", null);
-	    hoption = ParameterMap.getKeyedString(qualifiers, "hoption", "--hostname");
-	    toption = ParameterMap.getKeyedString(qualifiers, "toption", "--timeout");
+            hoption = ParameterMap.getKeyedString(qualifiers, "hoption", "--hostname");
+            toption = ParameterMap.getKeyedString(qualifiers, "toption", "--timeout");
         }
         if (script == null) {
             throw new RuntimeException("GpPlugin: required parameter 'script' is not present in supplied properties.");

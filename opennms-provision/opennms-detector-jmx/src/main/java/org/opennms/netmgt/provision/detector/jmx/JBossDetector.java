@@ -44,10 +44,13 @@ import org.springframework.stereotype.Component;
 public class JBossDetector extends JMXDetector {
 
     private static String DEFAULT_SERVICE_NAME = "JBoss";
+
     private static int DEFAULT_JBOSS_PORT = 1099;
 
     /**
-     * <p>Constructor for JBossDetector.</p>
+     * <p>
+     * Constructor for JBossDetector.
+     * </p>
      */
     public JBossDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_JBOSS_PORT);

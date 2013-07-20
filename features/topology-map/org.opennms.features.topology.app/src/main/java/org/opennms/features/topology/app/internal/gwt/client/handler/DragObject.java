@@ -45,28 +45,36 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.touch.client.Point;
 
-public class DragObject{
+public class DragObject {
 
-	/**
+    /**
      *
      */
     private final TopologyView<TopologyViewRenderer> m_svgTopologyMap;
+
     private Element m_containerElement;
-	private Element m_draggableElement;
-	private int m_startX;
-	private int m_startY;
-	private D3Transform m_transform;
-	private D3 m_selection;
-	private Map<String, Point> m_startPosition = new HashMap<String, Point>();
 
-	public DragObject(TopologyView<TopologyViewRenderer> svgTopologyMap, Element draggableElement, Element containerElement, D3 selection) {
+    private Element m_draggableElement;
 
-		m_svgTopologyMap = svgTopologyMap;
+    private int m_startX;
+
+    private int m_startY;
+
+    private D3Transform m_transform;
+
+    private D3 m_selection;
+
+    private Map<String, Point> m_startPosition = new HashMap<String, Point>();
+
+    public DragObject(TopologyView<TopologyViewRenderer> svgTopologyMap, Element draggableElement,
+            Element containerElement, D3 selection) {
+
+        m_svgTopologyMap = svgTopologyMap;
         m_draggableElement = draggableElement;
-		m_containerElement = containerElement;
-		m_selection = selection;
+        m_containerElement = containerElement;
+        m_selection = selection;
 
-		m_selection.each(new Handler<GWTVertex>() {
+        m_selection.each(new Handler<GWTVertex>() {
 
             @Override
             public void call(GWTVertex vertex, int index) {
@@ -75,71 +83,72 @@ public class DragObject{
             }
         });
 
-		//User m_vertexgroup because this is what we scale instead of every vertex element
-		m_transform = D3.getTransform(D3.d3().select(getTopologyView().getVertexGroup()).attr("transform"));
+        // User m_vertexgroup because this is what we scale instead of every
+        // vertex element
+        m_transform = D3.getTransform(D3.d3().select(getTopologyView().getVertexGroup()).attr("transform"));
 
-		JsArrayInteger position = D3.getMouse(containerElement);
-		m_startX = (int) (position.get(0) / m_transform.getScale().get(0));
-		m_startY = (int) (position.get(1) / m_transform.getScale().get(1));
-	}
+        JsArrayInteger position = D3.getMouse(containerElement);
+        m_startX = (int) (position.get(0) / m_transform.getScale().get(0));
+        m_startY = (int) (position.get(1) / m_transform.getScale().get(1));
+    }
 
-	public Element getContainerElement() {
-		return m_containerElement;
-	}
+    public Element getContainerElement() {
+        return m_containerElement;
+    }
 
-	public Element getDraggableElement() {
-		return m_draggableElement;
-	}
+    public Element getDraggableElement() {
+        return m_draggableElement;
+    }
 
-	public int getCurrentX() {
-		JsArrayInteger position = D3.getMouse(m_containerElement);
-		return (int) (position.get(0) / m_transform.getScale().get(0));
-	}
+    public int getCurrentX() {
+        JsArrayInteger position = D3.getMouse(m_containerElement);
+        return (int) (position.get(0) / m_transform.getScale().get(0));
+    }
 
-	public int getCurrentY() {
-		JsArrayInteger position = D3.getMouse(m_containerElement);
-		return (int) (position.get(1) / m_transform.getScale().get(1));
-	}
+    public int getCurrentY() {
+        JsArrayInteger position = D3.getMouse(m_containerElement);
+        return (int) (position.get(1) / m_transform.getScale().get(1));
+    }
 
-	public int getStartX() {
-		return m_startX;
-	}
+    public int getStartX() {
+        return m_startX;
+    }
 
-	public int getStartY() {
-		return m_startY;
-	}
+    public int getStartY() {
+        return m_startY;
+    }
 
-	public void move() {
+    public void move() {
 
-	    final int deltaX = getCurrentX() - getStartX();
-	    final int deltaY = getCurrentY() - getStartY();
+        final int deltaX = getCurrentX() - getStartX();
+        final int deltaY = getCurrentY() - getStartY();
 
-	    m_selection.each(new Handler<GWTVertex>() {
+        m_selection.each(new Handler<GWTVertex>() {
 
             @Override
             public void call(GWTVertex vertex, int index) {
-                if(m_startPosition.containsKey(vertex.getId())) {
+                if (m_startPosition.containsKey(vertex.getId())) {
                     Point p = m_startPosition.get(vertex.getId());
 
-                    vertex.setX( (int) (p.getX() + deltaX) );
-                    vertex.setY( (int) (p.getY() + deltaY));
+                    vertex.setX((int) (p.getX() + deltaX));
+                    vertex.setY((int) (p.getY() + deltaY));
                 }
             }
         });
 
-	}
+    }
 
-	public final native void consoleLog(Object object) /*-{
-	    $wnd.console.log(object);
-	}-*/;
+    public final native void consoleLog(Object object) /*-{
+                                                       $wnd.console.log(object);
+                                                       }-*/;
 
-	protected SVGPoint getEventPoint(NativeEvent event) {
-		SVGElement svg = getTopologyView().getSVGElement().cast();
-		SVGPoint p = svg.createSVGPoint();
-		p.setX(event.getClientX());
-		p.setY(event.getClientY());
-		return p;
-	}
+    protected SVGPoint getEventPoint(NativeEvent event) {
+        SVGElement svg = getTopologyView().getSVGElement().cast();
+        SVGPoint p = svg.createSVGPoint();
+        p.setX(event.getClientX());
+        p.setY(event.getClientY());
+        return p;
+    }
 
     public TopologyView<TopologyViewRenderer> getTopologyView() {
         return m_svgTopologyMap;

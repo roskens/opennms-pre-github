@@ -32,14 +32,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>WebRequest class.</p>
+ * <p>
+ * WebRequest class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
  */
 public class WebRequest {
 
-    private Map<String,String> m_headers = new HashMap<String,String>();
+    private Map<String, String> m_headers = new HashMap<String, String>();
 
     private String m_responseText;
 

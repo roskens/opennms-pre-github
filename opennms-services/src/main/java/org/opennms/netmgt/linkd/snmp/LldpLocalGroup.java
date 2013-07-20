@@ -39,12 +39,15 @@ public final class LldpLocalGroup extends AggregateTracker {
     private static final Logger LOG = LoggerFactory.getLogger(LldpLocalGroup.class);
 
     public final static String LLDP_LOC_CHASSISID_SUBTYPE_ALIAS = "lldpLocChassisIdSubtype";
+
     public final static String LLDP_LOC_CHASSISID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.3.1";
 
-    public final static String LLDP_LOC_CHASSISID_ALIAS    = "lldpLocChassisId";
-    public final static String LLDP_LOC_CHASSISID_OID    = ".1.0.8802.1.1.2.1.3.2";
+    public final static String LLDP_LOC_CHASSISID_ALIAS = "lldpLocChassisId";
+
+    public final static String LLDP_LOC_CHASSISID_OID = ".1.0.8802.1.1.2.1.3.2";
 
     public final static String LLDP_LOC_SYSNAME_ALIAS = "lldpLocSysName";
+
     public final static String LLDP_LOC_SYSNAME_OID = ".1.0.8802.1.1.2.1.3.3";
 
     public static NamedSnmpVar[] ms_elemList = null;
@@ -55,34 +58,37 @@ public final class LldpLocalGroup extends AggregateTracker {
 
         /**
          * <P>
-         * "The type of encoding used to identify the chassis
-         * associated with the local system."
+         * "The type of encoding used to identify the chassis associated with
+         * the local system."
          * </P>
          */
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPINT32,LLDP_LOC_CHASSISID_SUBTYPE_ALIAS,LLDP_LOC_CHASSISID_SUBTYPE_OID);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPINT32, LLDP_LOC_CHASSISID_SUBTYPE_ALIAS,
+                                              LLDP_LOC_CHASSISID_SUBTYPE_OID);
 
         /**
          * <P>
-         *  "The string value used to identify the chassis component
-         *   associated with the local system."
-         *   </P>
+         * "The string value used to identify the chassis component associated
+         * with the local system."
+         * </P>
          */
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING,LLDP_LOC_CHASSISID_ALIAS,LLDP_LOC_CHASSISID_OID);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, LLDP_LOC_CHASSISID_ALIAS,
+                                              LLDP_LOC_CHASSISID_OID);
 
         /**
          * <P>
-         * "The string value used to identify the system name of the
-         * local system.  If the local agent supports IETF RFC 3418,
-         * lldpLocSysName object should have the same value of sysName
-         * object."
-         *   </P>
+         * "The string value used to identify the system name of the local
+         * system. If the local agent supports IETF RFC 3418, lldpLocSysName
+         * object should have the same value of sysName object."
+         * </P>
          */
-        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING,LLDP_LOC_SYSNAME_ALIAS,LLDP_LOC_SYSNAME_OID);
+        ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, LLDP_LOC_SYSNAME_ALIAS,
+                                              LLDP_LOC_SYSNAME_OID);
     }
 
     public static final String LLDP_LOC_OID = ".1.0.8802.1.1.2.1.3";
 
     private SnmpStore m_store;
+
     private InetAddress m_address;
 
     public LldpLocalGroup(InetAddress address) {
@@ -125,6 +131,5 @@ public final class LldpLocalGroup extends AggregateTracker {
     protected void reportNoSuchNameErr(String msg) {
         LOG.info("Error retrieving lldpLocalGroup from {}. {}", m_address, msg);
     }
-
 
 }

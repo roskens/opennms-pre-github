@@ -55,7 +55,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
-public class PersistSelectorStrategyField extends CustomField<PersistenceSelectorStrategy> implements Button.ClickListener {
+public class PersistSelectorStrategyField extends CustomField<PersistenceSelectorStrategy> implements
+        Button.ClickListener {
 
     /** The Combo Box. */
     private final ComboBox combo = new ComboBox();
@@ -64,7 +65,7 @@ public class PersistSelectorStrategyField extends CustomField<PersistenceSelecto
     private final Table table = new Table();
 
     /** The Container. */
-    private final BeanContainer<String,Parameter> container = new BeanContainer<String,Parameter>(Parameter.class);
+    private final BeanContainer<String, Parameter> container = new BeanContainer<String, Parameter>(Parameter.class);
 
     /** The Toolbar. */
     private final HorizontalLayout toolbar = new HorizontalLayout();
@@ -80,8 +81,14 @@ public class PersistSelectorStrategyField extends CustomField<PersistenceSelecto
      */
     public PersistSelectorStrategyField() {
         combo.setCaption("Class Name");
-        combo.addItem("org.opennms.netmgt.collectd.PersistAllSelectorStrategy"); // To avoid requires opennms-services
-        combo.addItem("org.opennms.netmgt.collectd.PersistRegexSelectorStrategy"); // To avoid requires opennms-services
+        combo.addItem("org.opennms.netmgt.collectd.PersistAllSelectorStrategy"); // To
+                                                                                 // avoid
+                                                                                 // requires
+                                                                                 // opennms-services
+        combo.addItem("org.opennms.netmgt.collectd.PersistRegexSelectorStrategy"); // To
+                                                                                   // avoid
+                                                                                   // requires
+                                                                                   // opennms-services
         combo.setNullSelectionAllowed(false);
         combo.setRequired(true);
         combo.setImmediate(true);
@@ -100,7 +107,7 @@ public class PersistSelectorStrategyField extends CustomField<PersistenceSelecto
         table.setCaption("Parameters");
         table.setContainerDataSource(container);
         table.setStyleName(Runo.TABLE_SMALL);
-        table.setVisibleColumns(new Object[]{"key", "value"});
+        table.setVisibleColumns(new Object[] { "key", "value" });
         table.setColumnHeader("key", "Parameter Name");
         table.setColumnHeader("value", "Parameter Value");
         table.setColumnExpandRatio("value", 1);
@@ -150,13 +157,14 @@ public class PersistSelectorStrategyField extends CustomField<PersistenceSelecto
     public PersistenceSelectorStrategy getValue() {
         PersistenceSelectorStrategy dto = new PersistenceSelectorStrategy();
         dto.setClazz((String) combo.getValue());
-        for (Object itemId: container.getItemIds()) {
+        for (Object itemId : container.getItemIds()) {
             dto.getParameterCollection().add(container.getItem(itemId).getBean());
         }
         return dto;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
      */
     @Override
@@ -167,8 +175,10 @@ public class PersistSelectorStrategyField extends CustomField<PersistenceSelecto
         super.setReadOnly(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
@@ -198,12 +208,13 @@ public class PersistSelectorStrategyField extends CustomField<PersistenceSelecto
         if (itemId == null) {
             Notification.show("Please select a Parameter from the table.");
         } else {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
-                    "Are you sure?",
-                    MessageBox.Icon.QUESTION,
-                    "Do you really want to remove the selected parameter ?<br/>This action cannot be undone.",
-                    new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
-                    new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
+                                           "Are you sure?",
+                                           MessageBox.Icon.QUESTION,
+                                           "Do you really want to remove the selected parameter ?<br/>This action cannot be undone.",
+                                           new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
+                                           new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
             mb.addStyleName(Runo.WINDOW_DIALOG);
             mb.show(new EventListener() {
                 @Override

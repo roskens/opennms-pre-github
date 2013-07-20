@@ -61,18 +61,18 @@ public class JavaMailerTest {
         Resource resource = new ClassPathResource("/etc/javamail-configuration.properties");
 
         File homeDir = resource.getFile().getParentFile().getParentFile();
-        System.out.println("homeDir: "+homeDir.getAbsolutePath());
+        System.out.println("homeDir: " + homeDir.getAbsolutePath());
 
         System.setProperty("opennms.home", homeDir.getAbsolutePath());
     }
 
     @After
     public void tearDown() throws Throwable {
-       // MockLogAppender.assertNoWarningsOrGreater();
+        // MockLogAppender.assertNoWarningsOrGreater();
     }
 
     @Test
-    @IfProfileValue(name="runMailTests", value="true")
+    @IfProfileValue(name = "runMailTests", value = "true")
     @Ignore
     public final void testJavaMailerWithDefaults() throws Exception {
         JavaMailer jm = createMailer("Test message from testJavaMailer using details");
@@ -245,7 +245,7 @@ public class JavaMailerTest {
     }
 
     @Ignore
-    @IfProfileValue(name="runMailTests", value="true")
+    @IfProfileValue(name = "runMailTests", value = "true")
     public final void testJavaMailerWithFileAttachment() throws Exception {
         JavaMailer jm = createMailer("Test message with file attachment from testJavaMailer");
 

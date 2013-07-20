@@ -33,7 +33,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.opennms.netmgt.dao.api.LocationMonitorDao;
 
 /**
- * <p>DistributedStatusNavBarEntry class.</p>
+ * <p>
+ * DistributedStatusNavBarEntry class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,7 +55,9 @@ public class DistributedStatusNavBarEntry extends LocationBasedNavBarEntry {
     }
 
     /**
-     * <p>getLocationMonitorDao</p>
+     * <p>
+     * getLocationMonitorDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -62,9 +66,13 @@ public class DistributedStatusNavBarEntry extends LocationBasedNavBarEntry {
     }
 
     /**
-     * <p>setLocationMonitorDao</p>
+     * <p>
+     * setLocationMonitorDao
+     * </p>
      *
-     * @param locationMonitorDao a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
+     * @param locationMonitorDao
+     *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}
+     *            object.
      */
     public void setLocationMonitorDao(LocationMonitorDao locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;

@@ -58,21 +58,21 @@ import org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException;
 @Distributable
 final public class IcmpMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(IcmpMonitor.class);
+
     /**
      * Constructs a new monitor.
      *
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public IcmpMonitor() throws IOException {
     }
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Poll the specified address for ICMP service availability.
      * </P>
-     *
      * <P>
      * The ICMP service monitor relies on Discovery for the actual generation of
      * IMCP 'ping' requests. A JSDT session with two channels (send/recv) is
@@ -87,7 +87,8 @@ final public class IcmpMonitor extends AbstractServiceMonitor {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
 
         Number rtt = null;
         InetAddress host = (InetAddress) iface.getAddress();
@@ -100,7 +101,7 @@ final public class IcmpMonitor extends AbstractServiceMonitor {
             long timeout = ParameterMap.getKeyedLong(parameters, "timeout", PingConstants.DEFAULT_TIMEOUT);
             int packetSize = ParameterMap.getKeyedInteger(parameters, "packet-size", PingConstants.DEFAULT_PACKET_SIZE);
 
-            rtt = PingerFactory.getInstance().ping(host, timeout, retries,packetSize);
+            rtt = PingerFactory.getInstance().ping(host, timeout, retries, packetSize);
         } catch (Throwable e) {
             LOG.debug("failed to ping {}", host, e);
         }

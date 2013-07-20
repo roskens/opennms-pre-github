@@ -45,64 +45,64 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * <p>CloseMapController class.</p>
+ * <p>
+ * CloseMapController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class CloseMapController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CloseMapController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CloseMapController.class);
 
+    private Manager manager;
 
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	private Manager manager;
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+        try {
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+            manager.closeMap();
+            bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.CLOSEMAP_ACTION));
+        } catch (Throwable e) {
+            LOG.error("{} Failure: {}", this.getClass().getName(), e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.CLOSEMAP_ACTION));
+        } finally {
+            bw.close();
+        }
 
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-
-		BufferedWriter  bw = new BufferedWriter(new OutputStreamWriter(response
-				.getOutputStream(), "UTF-8"));
-
-		try {
-
-			manager.closeMap();
-			bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.CLOSEMAP_ACTION));
-		} catch (Throwable e) {
-			LOG.error("{} Failure: {}", this.getClass().getName(), e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.CLOSEMAP_ACTION));
-		} finally {
-			bw.close();
-		}
-
-
-		return null;
-	}
+        return null;
+    }
 
 }

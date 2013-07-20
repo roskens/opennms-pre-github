@@ -36,7 +36,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <p>Pager class.</p>
+ * <p>
+ * Pager class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -50,6 +52,7 @@ public class Pager extends Composite {
     private class PageControl extends Composite {
 
         Label m_label;
+
         int m_direction;
 
         PageControl(String text, int direction) {
@@ -69,18 +72,21 @@ public class Pager extends Composite {
             initWidget(m_label);
         }
 
-
     }
 
-
     private DockPanel m_panel = new DockPanel();
+
     private Label m_label = new Label();
+
     private Pageable m_pageable;
 
     /**
-     * <p>Constructor for Pager.</p>
+     * <p>
+     * Constructor for Pager.
+     * </p>
      *
-     * @param pageable a {@link org.opennms.dashboard.client.Pageable} object.
+     * @param pageable
+     *            a {@link org.opennms.dashboard.client.Pageable} object.
      */
     public Pager(Pageable pageable) {
 
@@ -101,10 +107,10 @@ public class Pager extends Composite {
         int pageSize = m_pageable.getPageSize();
         int total = m_pageable.getElementCount();
 
-        int first = current+1;
-        int last = Math.min(current+pageSize, total);
+        int first = current + 1;
+        int last = Math.min(current + pageSize, total);
 
-        m_label.setText(first+" to "+last+" of "+total);
+        m_label.setText(first + " to " + last + " of " + total);
 
     }
 
@@ -122,11 +128,11 @@ public class Pager extends Composite {
 
     /**
      * This index is the maximum index that can be set paged on page size.
-     *
      * So for a 5 item page with 7 total elements then the max index is 5
-     * with will show the last two items on the last page (maxIndex must be a multiple of page size)
-     *
+     * with will show the last two items on the last page (maxIndex must be a
+     * multiple of page size)
      * if max elements is a multiple of page size it ends up as max - pageSize
+     *
      * @return
      */
     private int getMaxIndex() {
@@ -147,14 +153,16 @@ public class Pager extends Composite {
         int adjustment = direction * getPageSize();
         int maxIndex = getMaxIndex();
 
-        int newIndex = Math.max(Math.min(m_pageable.getCurrentElement()+adjustment, maxIndex), 0);
+        int newIndex = Math.max(Math.min(m_pageable.getCurrentElement() + adjustment, maxIndex), 0);
 
         m_pageable.setCurrentElement(newIndex);
 
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      */
     public void update() {
         updateLabel();

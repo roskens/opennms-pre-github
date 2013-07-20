@@ -50,7 +50,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * A controller that handles querying the event table by using filters to create an
+ * A controller that handles querying the event table by using filters to create
+ * an
  * event list and and then forwards that event list to a JSP for display.
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski</A>
@@ -79,7 +80,9 @@ public class EventFilterController extends AbstractController implements Initial
     private boolean m_showEventCount = false;
 
     /**
-     * <p>Constructor for EventFilterController.</p>
+     * <p>
+     * Constructor for EventFilterController.
+     * </p>
      */
     public EventFilterController() {
         super();
@@ -87,19 +90,18 @@ public class EventFilterController extends AbstractController implements Initial
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Parses the query string to determine what types of event filters to use
+     * {@inheritDoc} Parses the query string to determine what types of event
+     * filters to use
      * (for example, what to filter on or sort by), then does the database query
      * and then forwards the results to a JSP for display.
-     *
      * <p>
-     * Sets the <em>events</em> and <em>parms</em> request attributes for
-     * the forwardee JSP (or whatever gets called).
+     * Sets the <em>events</em> and <em>parms</em> request attributes for the
+     * forwardee JSP (or whatever gets called).
      * </p>
      */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         List<Filter> filterList = new ArrayList<Filter>();
         AcknowledgeType ackType = m_defaultEventType;
 
@@ -172,7 +174,7 @@ public class EventFilterController extends AbstractController implements Initial
         parms.display = display;
         parms.filters = filterList;
         parms.limit = limit;
-        parms.multiple =  multiple;
+        parms.multiple = multiple;
         parms.sortStyle = sortStyle;
 
         EventCriteria queryCriteria = new EventCriteria(filters, sortStyle, ackType, limit, limit * multiple);
@@ -199,9 +201,12 @@ public class EventFilterController extends AbstractController implements Initial
     }
 
     /**
-     * <p>setDefaultShortLimit</p>
+     * <p>
+     * setDefaultShortLimit
+     * </p>
      *
-     * @param limit a {@link java.lang.Integer} object.
+     * @param limit
+     *            a {@link java.lang.Integer} object.
      */
     public void setDefaultShortLimit(Integer limit) {
         m_defaultShortLimit = limit;
@@ -212,9 +217,12 @@ public class EventFilterController extends AbstractController implements Initial
     }
 
     /**
-     * <p>setDefaultLongLimit</p>
+     * <p>
+     * setDefaultLongLimit
+     * </p>
      *
-     * @param limit a {@link java.lang.Integer} object.
+     * @param limit
+     *            a {@link java.lang.Integer} object.
      */
     public void setDefaultLongLimit(Integer limit) {
         m_defaultLongLimit = limit;
@@ -225,25 +233,33 @@ public class EventFilterController extends AbstractController implements Initial
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>setWebEventRepository</p>
+     * <p>
+     * setWebEventRepository
+     * </p>
      *
-     * @param webEventRepository a {@link org.opennms.web.event.WebEventRepository} object.
+     * @param webEventRepository
+     *            a {@link org.opennms.web.event.WebEventRepository} object.
      */
     public void setWebEventRepository(WebEventRepository webEventRepository) {
         m_webEventRepository = webEventRepository;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -256,7 +272,9 @@ public class EventFilterController extends AbstractController implements Initial
     }
 
     /**
-     * <p>getDefaultAcknowledgeType</p>
+     * <p>
+     * getDefaultAcknowledgeType
+     * </p>
      *
      * @return a {@link org.opennms.web.event.AcknowledgeType} object.
      */
@@ -265,16 +283,21 @@ public class EventFilterController extends AbstractController implements Initial
     }
 
     /**
-     * <p>setDefaultAcknowledgeType</p>
+     * <p>
+     * setDefaultAcknowledgeType
+     * </p>
      *
-     * @param defaultAcknowledgeType a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param defaultAcknowledgeType
+     *            a {@link org.opennms.web.event.AcknowledgeType} object.
      */
     public void setDefaultAcknowledgeType(AcknowledgeType defaultAcknowledgeType) {
         m_defaultEventType = defaultAcknowledgeType;
     }
 
     /**
-     * <p>getDefaultSortStyle</p>
+     * <p>
+     * getDefaultSortStyle
+     * </p>
      *
      * @return a {@link org.opennms.web.event.SortStyle} object.
      */
@@ -283,9 +306,12 @@ public class EventFilterController extends AbstractController implements Initial
     }
 
     /**
-     * <p>setDefaultSortStyle</p>
+     * <p>
+     * setDefaultSortStyle
+     * </p>
      *
-     * @param defaultSortStyle a {@link org.opennms.web.event.SortStyle} object.
+     * @param defaultSortStyle
+     *            a {@link org.opennms.web.event.SortStyle} object.
      */
     public void setDefaultSortStyle(SortStyle defaultSortStyle) {
         m_defaultSortStyle = defaultSortStyle;

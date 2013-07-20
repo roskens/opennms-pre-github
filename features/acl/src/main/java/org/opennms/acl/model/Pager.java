@@ -54,9 +54,12 @@ public class Pager {
     /**
      * Constructor
      *
-     * @param page requested
-     * @param max number of pages
-     * @param itemsNumberOnPage a {@link java.lang.Integer} object.
+     * @param page
+     *            requested
+     * @param max
+     *            number of pages
+     * @param itemsNumberOnPage
+     *            a {@link java.lang.Integer} object.
      */
     public Pager(Integer page, Integer max, Integer itemsNumberOnPage) {
         this.page = page;
@@ -65,7 +68,9 @@ public class Pager {
     }
 
     /**
-     * <p>Getter for the field <code>max</code>.</p>
+     * <p>
+     * Getter for the field <code>max</code>.
+     * </p>
      *
      * @return The max count of pages
      */
@@ -74,7 +79,9 @@ public class Pager {
     }
 
     /**
-     * <p>Getter for the field <code>page</code>.</p>
+     * <p>
+     * Getter for the field <code>page</code>.
+     * </p>
      *
      * @return Current number page displayed
      */
@@ -83,7 +90,9 @@ public class Pager {
     }
 
     /**
-     * <p>Getter for the field <code>itemsNumberOnPage</code>.</p>
+     * <p>
+     * Getter for the field <code>itemsNumberOnPage</code>.
+     * </p>
      *
      * @return The number of items to show on the page
      */
@@ -92,7 +101,9 @@ public class Pager {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

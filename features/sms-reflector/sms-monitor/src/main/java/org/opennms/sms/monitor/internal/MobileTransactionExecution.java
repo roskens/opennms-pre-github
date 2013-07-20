@@ -58,13 +58,16 @@ public class MobileTransactionExecution {
      */
     private final class TransactionResponseHandler implements MobileMsgResponseHandler {
         private final Callback<MobileMsgResponse> m_cb;
+
         private final MobileSequenceSession m_session;
+
         private final Set<MobileSequenceResponse> m_pendingResponses;
 
         private TransactionResponseHandler(MobileSequenceSession session, Callback<MobileMsgResponse> cb) {
             m_cb = cb;
             m_session = session;
-            m_pendingResponses = Collections.synchronizedSet(new LinkedHashSet<MobileSequenceResponse>(getTransaction().getResponses()));
+            m_pendingResponses = Collections.synchronizedSet(new LinkedHashSet<MobileSequenceResponse>(
+                                                                                                       getTransaction().getResponses()));
         }
 
         @Override
@@ -72,7 +75,7 @@ public class MobileTransactionExecution {
 
             synchronized (m_pendingResponses) {
 
-                for(MobileSequenceResponse r : m_pendingResponses) {
+                for (MobileSequenceResponse r : m_pendingResponses) {
                     if (r.matches(m_session, request, response)) {
                         return true;
                     }
@@ -91,12 +94,14 @@ public class MobileTransactionExecution {
 
         @Override
         public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse response) {
-            if (request != null) setSendTime(request.getSentTime());
-            if (response != null) setReceiveTime(response.getReceiveTime());
+            if (request != null)
+                setSendTime(request.getSentTime());
+            if (response != null)
+                setReceiveTime(response.getReceiveTime());
 
             synchronized (m_pendingResponses) {
                 // remove processing response
-                for(Iterator<MobileSequenceResponse> it = m_pendingResponses.iterator(); it.hasNext(); ) {
+                for (Iterator<MobileSequenceResponse> it = m_pendingResponses.iterator(); it.hasNext();) {
                     MobileSequenceResponse r = it.next();
                     if (r.matches(m_session, request, response)) {
 
@@ -109,7 +114,8 @@ public class MobileTransactionExecution {
             }
             m_cb.complete(response);
 
-            // return true only if all of the expected responses have been processed
+            // return true only if all of the expected responses have been
+            // processed
             return !m_pendingResponses.isEmpty();
         }
 
@@ -121,24 +127,27 @@ public class MobileTransactionExecution {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this)
-                .append("callback", m_cb)
-                .append("session", m_session)
-                .toString();
+            return new ToStringBuilder(this).append("callback", m_cb).append("session", m_session).toString();
         }
     }
 
     private MobileSequenceTransaction m_transaction;
+
     private Long m_sendTime;
+
     private Long m_receiveTime;
 
     private Throwable m_error;
 
-
     /**
-     * <p>Constructor for MobileTransactionExecution.</p>
+     * <p>
+     * Constructor for MobileTransactionExecution.
+     * </p>
      *
-     * @param transaction a {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction} object.
+     * @param transaction
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
+     *            object.
      */
     public MobileTransactionExecution(MobileSequenceTransaction transaction) {
         m_transaction = transaction;
@@ -153,7 +162,9 @@ public class MobileTransactionExecution {
     }
 
     /**
-     * <p>getLatency</p>
+     * <p>
+     * getLatency
+     * </p>
      *
      * @return the latency
      */
@@ -161,9 +172,10 @@ public class MobileTransactionExecution {
         return m_sendTime == null || m_receiveTime == null ? null : m_receiveTime - m_sendTime;
     }
 
-
     /**
-     * <p>getError</p>
+     * <p>
+     * getError
+     * </p>
      *
      * @return the error
      */
@@ -172,18 +184,25 @@ public class MobileTransactionExecution {
     }
 
     /**
-     * <p>setError</p>
+     * <p>
+     * setError
+     * </p>
      *
-     * @param error the error to set
+     * @param error
+     *            the error to set
      */
     public void setError(Throwable error) {
         m_error = error;
     }
 
     /**
-     * <p>getTransaction</p>
+     * <p>
+     * getTransaction
+     * </p>
      *
-     * @return a {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction} object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
+     *         object.
      */
     public MobileSequenceTransaction getTransaction() {
         return m_transaction;

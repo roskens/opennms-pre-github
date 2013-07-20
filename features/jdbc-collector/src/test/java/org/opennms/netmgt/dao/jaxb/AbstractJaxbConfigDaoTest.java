@@ -83,8 +83,8 @@ public class AbstractJaxbConfigDaoTest extends TestCase {
         assertNotNull("jdbc data collection should not be null", dao.getDataCollectionConfig());
     }
 
-
-    public static class TestJaxbConfigDao extends AbstractJaxbConfigDao<JdbcDataCollectionConfig, JdbcDataCollectionConfig> {
+    public static class TestJaxbConfigDao extends
+            AbstractJaxbConfigDao<JdbcDataCollectionConfig, JdbcDataCollectionConfig> {
         public TestJaxbConfigDao() {
             super(JdbcDataCollectionConfig.class, "jdbc data collection configuration");
         }

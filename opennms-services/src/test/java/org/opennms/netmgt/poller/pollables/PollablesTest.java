@@ -89,48 +89,83 @@ import org.opennms.test.mock.MockUtil;
 public class PollablesTest {
 
     private PollableNetwork m_network;
+
     private MockPollContext m_pollContext;
+
     private MockNetwork m_mockNetwork;
+
     private MockDatabase m_db;
+
     private EventAnticipator m_anticipator;
+
     private MockEventIpcManager m_eventMgr;
+
     private MockNode mNode1;
+
     private MockInterface mDot1;
+
     private MockInterface mDot2;
+
     private MockNode mNode2;
+
     private MockService mDot1Smtp;
+
     private MockService mDot1Icmp;
+
     private MockService mDot2Icmp;
+
     private MockInterface mDot3;
+
     private MockService mDot3Http;
+
     private MockNode mNode3;
+
     private MockInterface mDot4;
+
     private MockService mDot4Smtp;
+
     @SuppressWarnings("unused")
     private MockService mDot4Http;
+
     private PollableNode pNode1;
+
     private PollableInterface pDot1;
+
     private PollableService pDot1Smtp;
+
     private PollableService pDot1Icmp;
+
     private PollableInterface pDot2;
+
     private PollableService pDot2Smtp;
+
     private PollableService pDot2Icmp;
+
     private PollableNode pNode2;
+
     private PollableInterface pDot3;
+
     private PollableService pDot3Http;
+
     private PollableService pDot3Icmp;
+
     private PollableNode pNode3;
+
     private PollableInterface pDot4;
+
     private PollableService pDot4Smtp;
+
     private PollableService pDot4Http;
+
     private OutageAnticipator m_outageAnticipator;
+
     private MockPollerConfig m_pollerConfig;
 
     private MockScheduler m_scheduler;
+
     private MockTimer m_timer;
 
     private int m_lockCount = 0;
-
 
     @Before
     public void setUp() throws Exception {
@@ -166,10 +201,8 @@ public class PollablesTest {
         m_db = new MockDatabase();
         m_db.populate(m_mockNetwork);
 
-
         m_anticipator = new EventAnticipator();
         m_outageAnticipator = new OutageAnticipator(m_db);
-
 
         m_eventMgr = new MockEventIpcManager();
         m_eventMgr.setEventWriter(m_db);
@@ -260,22 +293,23 @@ public class PollablesTest {
         }
     }
 
-    private PollableNetwork createPollableNetwork(final DataSource db, final ScheduleTimer scheduler, final PollerConfig pollerConfig, final PollOutagesConfig pollOutageConfig, PollContext pollContext) throws UnknownHostException {
+    private PollableNetwork createPollableNetwork(final DataSource db, final ScheduleTimer scheduler,
+            final PollerConfig pollerConfig, final PollOutagesConfig pollOutageConfig, PollContext pollContext)
+            throws UnknownHostException {
 
         final PollableNetwork pNetwork = new PollableNetwork(pollContext);
 
-        String sql = "select ifServices.nodeId as nodeId, node.nodeLabel as nodeLabel, ifServices.ipAddr as ipAddr, ifServices.serviceId as serviceId, service.serviceName as serviceName, outages.svcLostEventId as svcLostEventId, events.eventUei as svcLostEventUei, outages.ifLostService as ifLostService, outages.ifRegainedService as ifRegainedService " +
-                "from ifServices " +
-                "join node on ifServices.nodeId = node.nodeId " +
-                "join service on ifServices.serviceId = service.serviceId " +
-                "left outer join outages on " +
-                "ifServices.nodeId = outages.nodeId and " +
-                "ifServices.ipAddr = outages.ipAddr and " +
-                "ifServices.serviceId = outages.serviceId and " +
-                "ifRegainedService is null " +
-                "left outer join events on outages.svcLostEventId = events.eventid " +
-                "where ifServices.status = 'A'";
-
+        String sql = "select ifServices.nodeId as nodeId, node.nodeLabel as nodeLabel, ifServices.ipAddr as ipAddr, ifServices.serviceId as serviceId, service.serviceName as serviceName, outages.svcLostEventId as svcLostEventId, events.eventUei as svcLostEventUei, outages.ifLostService as ifLostService, outages.ifRegainedService as ifRegainedService "
+                + "from ifServices "
+                + "join node on ifServices.nodeId = node.nodeId "
+                + "join service on ifServices.serviceId = service.serviceId "
+                + "left outer join outages on "
+                + "ifServices.nodeId = outages.nodeId and "
+                + "ifServices.ipAddr = outages.ipAddr and "
+                + "ifServices.serviceId = outages.serviceId and "
+                + "ifRegainedService is null "
+                + "left outer join events on outages.svcLostEventId = events.eventid "
+                + "where ifServices.status = 'A'";
 
         Querier querier = new Querier(db, sql) {
             @Override
@@ -285,22 +319,19 @@ public class PollablesTest {
                 String ipAddr = rs.getString("ipAddr");
                 String serviceName = rs.getString("serviceName");
                 Date date = rs.getTimestamp("ifLostService");
-                Number svcLostEventId = (Number)rs.getObject("svcLostEventId");
+                Number svcLostEventId = (Number) rs.getObject("svcLostEventId");
                 String svcLostUei = rs.getString("svcLostEventUei");
 
-                addServiceToNetwork(pNetwork, nodeId, nodeLabel, ipAddr,
-                                    serviceName, svcLostEventId, svcLostUei,
-                                    date, scheduler, pollerConfig,
-                                    pollOutageConfig);
+                addServiceToNetwork(pNetwork, nodeId, nodeLabel, ipAddr, serviceName, svcLostEventId, svcLostUei, date,
+                                    scheduler, pollerConfig, pollOutageConfig);
 
                 // schedule.schedule();
-                //MockUtil.println("Created Pollable Service "+svc+" with package "+pkg.getName());
+                // MockUtil.println("Created Pollable Service "+svc+" with package "+pkg.getName());
 
             }
 
         };
         querier.execute();
-
 
         pNetwork.recalculateStatus();
         pNetwork.propagateInitialCause();
@@ -382,10 +413,15 @@ public class PollablesTest {
     public void testVisit() {
         class Counter extends PollableVisitorAdaptor {
             public int svcCount;
+
             public int ifCount;
+
             public int nodeCount;
+
             public int elementCount;
+
             public int containerCount;
+
             public int networkCount;
 
             @Override
@@ -417,7 +453,8 @@ public class PollablesTest {
             public void visitNetwork(PollableNetwork n) {
                 networkCount++;
             }
-        };
+        }
+        ;
         Counter counter = new Counter();
         m_network.visit(counter);
         assertEquals(10, counter.svcCount);
@@ -502,7 +539,8 @@ public class PollablesTest {
 
         assertDeleted(pDot2Icmp);
         assertDeleted(pDot2Smtp);
-        assertDeleted(pDot2);;
+        assertDeleted(pDot2);
+        ;
         assertDeleted(pNode1);
 
     }
@@ -542,8 +580,6 @@ public class PollablesTest {
 
         verifyAnticipated();
 
-
-
     }
 
     @Test
@@ -576,7 +612,8 @@ public class PollablesTest {
         assertTime(4500);
         assertNotDeleted(pDot3Http);
 
-        m_anticipator.anticipateEvent(MockEventUtil.createServiceEvent("Test", EventConstants.DELETE_SERVICE_EVENT_UEI, mDot3Http, null));
+        m_anticipator.anticipateEvent(MockEventUtil.createServiceEvent("Test", EventConstants.DELETE_SERVICE_EVENT_UEI,
+                                                                       mDot3Http, null));
 
         m_scheduler.next();
 
@@ -584,11 +621,10 @@ public class PollablesTest {
 
         verifyAnticipated();
 
-
     }
 
     @Test
-    public void testReparentInterface()  {
+    public void testReparentInterface() {
         InetAddress address = pDot1.getAddress();
         pDot1.reparentTo(pNode2);
 
@@ -627,9 +663,8 @@ public class PollablesTest {
 
     }
 
-    @Test(timeout=30000)
+    @Test(timeout = 30000)
     public void testReparentStatusChanges() {
-
 
         //
         // Plan to bring down both nodes except the reparented interface
@@ -705,6 +740,7 @@ public class PollablesTest {
                 else
                     assertDown(node);
             }
+
             @Override
             public void visitInterface(PollableInterface iface) {
                 if (iface == pDot1Icmp.getInterface())
@@ -712,6 +748,7 @@ public class PollablesTest {
                 else
                     assertDown(iface);
             }
+
             @Override
             public void visitService(PollableService s) {
                 if (s == pDot1Icmp)
@@ -725,7 +762,6 @@ public class PollablesTest {
 
     @Test
     public void testInterfaceStatus() throws Exception {
-
 
         pDot2Smtp.updateStatus(PollStatus.down());
         m_network.recalculateStatus();
@@ -757,9 +793,7 @@ public class PollablesTest {
         // pDot1Icmp is not a descendent of pNode2
         assertNull(pNode2.findMemberWithDescendent(pDot1Icmp));
 
-
     }
-
 
     @Test
     public void testPropagateUnresponsive() throws Exception {
@@ -862,7 +896,6 @@ public class PollablesTest {
         assertUp(pDot1);
         verifyAnticipated();
 
-
     }
 
     @Test
@@ -875,7 +908,6 @@ public class PollablesTest {
         verifyAnticipated();
 
     }
-
 
     @Test
     public void testPollService() throws Exception {
@@ -931,7 +963,6 @@ public class PollablesTest {
         assertPoll(mDot1Icmp);
         assertNoPoll(m_mockNetwork);
 
-
     }
 
     @Test
@@ -952,7 +983,6 @@ public class PollablesTest {
 
     }
 
-
     @Test
     public void testPollIfDownNonCritSvcUp() throws Exception {
 
@@ -966,7 +996,6 @@ public class PollablesTest {
 
         assertDown(pDot1Icmp);
         assertDown(pDot1);
-
 
         mDot1Smtp.bringUp();
 
@@ -1439,7 +1468,6 @@ public class PollablesTest {
 
         verifyAnticipated();
 
-
     }
 
     @Test
@@ -1490,12 +1518,13 @@ public class PollablesTest {
     @Test
     public void testDowntimeInterval() {
         // HERE ARE the calls to setup the downtime model
-//        m_pollerConfig.addDowntime(100L, 0L, 500L, false);
-//        m_pollerConfig.addDowntime(200L, 500L, 1500L, false);
-//        m_pollerConfig.addDowntime(500L, 1500L, -1L, true);
+        // m_pollerConfig.addDowntime(100L, 0L, 500L, false);
+        // m_pollerConfig.addDowntime(200L, 500L, 1500L, false);
+        // m_pollerConfig.addDowntime(500L, 1500L, -1L, true);
 
         Package pkg = m_pollerConfig.getPackage("TestPackage");
-        PollableServiceConfig pollConfig = new PollableServiceConfig(pDot1Smtp, m_pollerConfig, m_pollerConfig, pkg, m_timer);
+        PollableServiceConfig pollConfig = new PollableServiceConfig(pDot1Smtp, m_pollerConfig, m_pollerConfig, pkg,
+                                                                     m_timer);
 
         m_timer.setCurrentTime(1000L);
         pDot1Smtp.updateStatus(PollStatus.down());
@@ -1520,9 +1549,7 @@ public class PollablesTest {
         m_timer.setCurrentTime(2500L);
 
         assertEquals(-1L, pollConfig.getInterval());
-        //assertTrue(pDot1Smtp.isDeleted());
-
-
+        // assertTrue(pDot1Smtp.isDeleted());
 
     }
 
@@ -1549,18 +1576,17 @@ public class PollablesTest {
 
         // test scheduling for downTime model
 
-        for(int downFor = 100; downFor < 500; downFor += 100) {
+        for (int downFor = 100; downFor < 500; downFor += 100) {
             m_scheduler.next();
             assertPoll(mDot1Smtp);
-            assertTime(1000+downFor);
+            assertTime(1000 + downFor);
         }
 
-        for(int downFor = 500; downFor < 1500; downFor += 200) {
+        for (int downFor = 500; downFor < 1500; downFor += 200) {
             m_scheduler.next();
             assertPoll(mDot1Smtp);
-            assertTime(1000+downFor);
+            assertTime(1000 + downFor);
         }
-
 
         mDot1Smtp.bringUp();
 
@@ -1570,7 +1596,6 @@ public class PollablesTest {
         assertUp(pDot1Smtp);
         assertChanged(pDot1Smtp);
         pDot1Smtp.recalculateStatus();
-
 
     }
 
@@ -1616,18 +1641,22 @@ public class PollablesTest {
         assertTime(2000);
         assertPoll(mDot1Icmp);
         assertNoPoll(mDot1Smtp);
-        assertUp(pDot1Smtp);  // TODO:  i wonder if this matters... its really down (the outage does get created)
+        assertUp(pDot1Smtp); // TODO: i wonder if this matters... its really
+                             // down (the outage does get created)
         assertDown(pDot1Icmp);
         assertUnchanged(pDot1Smtp);
         assertChanged(pDot1Icmp);
 
-        // now we bring icmp back up but not smtp.  it is still not time for a scheduled smtp poll
+        // now we bring icmp back up but not smtp. it is still not time for a
+        // scheduled smtp poll
         mDot1Icmp.bringUp();
 
-        // we come to the next icmp poll in only 100ms according to the downtime model
+        // we come to the next icmp poll in only 100ms according to the downtime
+        // model
         m_scheduler.next();
 
-        // since icmp came up we do an unscheduled poll of smtp and find its down
+        // since icmp came up we do an unscheduled poll of smtp and find its
+        // down
         assertTime(2100);
         assertPoll(mDot1Icmp);
         assertPoll(mDot1Smtp);
@@ -1636,7 +1665,8 @@ public class PollablesTest {
         assertChanged(pDot1Smtp);
         assertChanged(pDot1Icmp);
 
-        // since smtp is now down, the schedule for smtp should be adjusted according
+        // since smtp is now down, the schedule for smtp should be adjusted
+        // according
         // to the downtime model so we expect the next poll for it in only 100ms
         m_scheduler.next();
 
@@ -1673,14 +1703,14 @@ public class PollablesTest {
         assertUnchanged(pDot1Smtp);
         assertUnchanged(pDot1Icmp);
 
-
     }
 
     @Test
     public void testComputeScheduledOutageTime() {
         Package pkg = m_pollerConfig.getPackage("TestPackage");
         m_pollerConfig.addScheduledOutage(pkg, "first", 3000, 5000, "192.168.1.1");
-               PollableServiceConfig pollConfig = new PollableServiceConfig(pDot1Smtp, m_pollerConfig, m_pollerConfig, pkg, m_timer);
+        PollableServiceConfig pollConfig = new PollableServiceConfig(pDot1Smtp, m_pollerConfig, m_pollerConfig, pkg,
+                                                                     m_timer);
 
         m_timer.setCurrentTime(2000L);
 
@@ -1689,7 +1719,6 @@ public class PollablesTest {
         m_timer.setCurrentTime(4000L);
 
         assertTrue(pollConfig.scheduledSuspension());
-
 
     }
 
@@ -1751,11 +1780,13 @@ public class PollablesTest {
 
     @Test
     public void testMidnightOutageBug1122() throws ParseException {
-        m_pollerConfig.addScheduledOutage(m_pollerConfig.getPackage("TestPackage"), "first", "monday", "23:59:57", "23:59:59", "192.168.1.1");
-        m_pollerConfig.addScheduledOutage(m_pollerConfig.getPackage("TestPackage"), "second", "tuesday", "00:00:00", "00:00:02", "192.168.1.1");
+        m_pollerConfig.addScheduledOutage(m_pollerConfig.getPackage("TestPackage"), "first", "monday", "23:59:57",
+                                          "23:59:59", "192.168.1.1");
+        m_pollerConfig.addScheduledOutage(m_pollerConfig.getPackage("TestPackage"), "second", "tuesday", "00:00:00",
+                                          "00:00:02", "192.168.1.1");
 
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-		Date start = dateFormat.parse("21-FEB-2005 23:59:56");
+        Date start = dateFormat.parse("21-FEB-2005 23:59:56");
         long startTime = start.getTime();
         m_timer.setCurrentTime(startTime);
 
@@ -1764,56 +1795,56 @@ public class PollablesTest {
         m_scheduler.next();
 
         assertPoll(mDot1Smtp);
-        assertTime(startTime+0); // 23:59:56 should poll
+        assertTime(startTime + 0); // 23:59:56 should poll
         assertUp(pDot1Smtp);
         assertUnchanged(pDot1Smtp);
 
         m_scheduler.next();
 
         assertNoPoll(mDot1Smtp);
-        assertTime(startTime+1000); // 23:59:57 should not poll
+        assertTime(startTime + 1000); // 23:59:57 should not poll
         assertUp(pDot1Smtp);
         assertUnchanged(pDot1Smtp);
 
         m_scheduler.next();
 
         assertNoPoll(mDot1Smtp);
-        assertTime(startTime+2000); // 23:59:58 should not poll
+        assertTime(startTime + 2000); // 23:59:58 should not poll
         assertUp(pDot1Smtp);
         assertUnchanged(pDot1Smtp);
 
         m_scheduler.next();
 
         assertNoPoll(mDot1Smtp);
-        assertTime(startTime+3000); // 23:59:59 should not poll
+        assertTime(startTime + 3000); // 23:59:59 should not poll
         assertUp(pDot1Smtp);
         assertUnchanged(pDot1Smtp);
 
         m_scheduler.next();
 
         assertNoPoll(mDot1Smtp);
-        assertTime(startTime+4000); // 00:00:00 should not poll
+        assertTime(startTime + 4000); // 00:00:00 should not poll
         assertUp(pDot1Smtp);
         assertUnchanged(pDot1Smtp);
 
         m_scheduler.next();
 
         assertNoPoll(mDot1Smtp);
-        assertTime(startTime+5000);  // 00:00:01 should not poll
+        assertTime(startTime + 5000); // 00:00:01 should not poll
         assertUp(pDot1Smtp);
         assertUnchanged(pDot1Smtp);
 
         m_scheduler.next();
 
         assertNoPoll(mDot1Smtp);
-        assertTime(startTime+6000);  // 00:00:02 should not poll
+        assertTime(startTime + 6000); // 00:00:02 should not poll
         assertUp(pDot1Smtp);
         assertUnchanged(pDot1Smtp);
 
         m_scheduler.next();
 
         assertPoll(mDot1Smtp);
-        assertTime(startTime+7000);  // 00:00:03 should poll
+        assertTime(startTime + 7000); // 00:00:03 should poll
         assertUp(pDot1Smtp);
         assertUnchanged(pDot1Smtp);
     }
@@ -1847,7 +1878,6 @@ public class PollablesTest {
 
         verifyAnticipated();
 
-
     }
 
     @Test
@@ -1860,8 +1890,8 @@ public class PollablesTest {
         testAddUpSvcToUpNode(3, "Firewall", "192.168.1.4", "SMTP", "SNMP");
     }
 
-    private void testAddUpSvcToUpNode(int nodeId, String nodeLabel,
-            String ipAddr, String existingSvcName, String newSvcName) {
+    private void testAddUpSvcToUpNode(int nodeId, String nodeLabel, String ipAddr, String existingSvcName,
+            String newSvcName) {
 
         PollableService pExistingSvc = m_network.getService(nodeId, getInetAddress(ipAddr), existingSvcName);
         assertNotNull(pExistingSvc);
@@ -1912,14 +1942,13 @@ public class PollablesTest {
         addDownServiceToDownNode(3, "Firewall", "192.168.1.4", "SMTP", "SNMP");
     }
 
-    private void addDownServiceToDownNode(int nodeId, String nodeLabel,
-            String ipAddr, String existingSvcName, String newSvcName) {
+    private void addDownServiceToDownNode(int nodeId, String nodeLabel, String ipAddr, String existingSvcName,
+            String newSvcName) {
         MockNode mNode = m_mockNetwork.getNode(nodeId);
 
         PollableService pExistingSvc = m_network.getService(nodeId, getInetAddress(ipAddr), existingSvcName);
         PollableInterface pIface = pExistingSvc.getInterface();
         PollableNode pNode = pExistingSvc.getNode();
-
 
         // before we start make sure the node is down
         anticipateDown(mNode);
@@ -1991,13 +2020,14 @@ public class PollablesTest {
         testAddDownServiceToUpNode(3, "Firewal", "192.168.1.4", "SMTP", "SNMP");
     }
 
-    private void testAddDownServiceToUpNode(int nodeId, String nodeLabel,
-            String ipAddr, String existingSvcName, String newSvcName) {
+    private void testAddDownServiceToUpNode(int nodeId, String nodeLabel, String ipAddr, String existingSvcName,
+            String newSvcName) {
         PollableService pExistingSvc = m_network.getService(nodeId, getInetAddress(ipAddr), existingSvcName);
         PollableInterface pIface = pExistingSvc.getInterface();
         PollableNode pNode = pExistingSvc.getNode();
 
-        // first we cause a poll for the up node just be make sure everythings working
+        // first we cause a poll for the up node just be make sure everythings
+        // working
         pExistingSvc.doPoll();
 
         m_network.processStatusChange(new Date());
@@ -2014,7 +2044,8 @@ public class PollablesTest {
         // expect a nodeLostService event
         anticipateDown(mSvc);
 
-        // add the service to the PollableNetowrk (simulates nodeGainedService event)
+        // add the service to the PollableNetowrk (simulates nodeGainedService
+        // event)
         PollableService pSvc = addServiceToNetwork(nodeId, nodeLabel, ipAddr, newSvcName);
         assertNotNull(pSvc);
 
@@ -2087,7 +2118,6 @@ public class PollablesTest {
 
         verifyAnticipated();
 
-
     }
 
     @Test
@@ -2100,7 +2130,6 @@ public class PollablesTest {
 
         m_db.writeEvent(ifDownEvent);
         m_db.createOutage(mDot4Smtp, ifDownEvent);
-
 
         // recreate the pollable network from the database
         m_network = createPollableNetwork(m_db, m_scheduler, m_pollerConfig, m_pollerConfig, m_pollContext);
@@ -2126,7 +2155,6 @@ public class PollablesTest {
 
         verifyAnticipated();
 
-
     }
 
     private void assertElementHasCause(PollableElement element, Event causeEvent) {
@@ -2140,7 +2168,7 @@ public class PollablesTest {
     }
 
     private void assertElementHasNullCause(PollableElement element) {
-        assertNull("Unexpected cause for element "+element+": Expected cause to be null", element.getCause());
+        assertNull("Unexpected cause for element " + element + ": Expected cause to be null", element.getCause());
     }
 
     private void assertElementHasCause(PollableElement element, PollEvent causeEvent) {
@@ -2153,9 +2181,9 @@ public class PollablesTest {
         }
     }
 
-
     private void failCause(PollableElement element, Object expectedCause) {
-        throw new AssertionError("Unexpected cause for element "+element+" expected cause matching "+expectedCause+" but cause was "+element.getCause());
+        throw new AssertionError("Unexpected cause for element " + element + " expected cause matching "
+                + expectedCause + " but cause was " + element.getCause());
     }
 
     @Test
@@ -2168,7 +2196,7 @@ public class PollablesTest {
 
         m_network.processStatusChange(new Date());
 
-        System.out.println("Cause is "+pNode1.getCause());
+        System.out.println("Cause is " + pNode1.getCause());
 
         verifyAnticipated();
 
@@ -2190,7 +2218,6 @@ public class PollablesTest {
         m_network.processStatusChange(new Date());
 
         verifyAnticipated();
-
 
     }
 
@@ -2251,7 +2278,6 @@ public class PollablesTest {
 
         verifyAnticipated();
 
-
     }
 
     @Test
@@ -2311,7 +2337,6 @@ public class PollablesTest {
         verifyAnticipated();
     }
 
-
     @Test
     public void testLock() throws Exception {
         final Runnable r = new Runnable() {
@@ -2319,7 +2344,10 @@ public class PollablesTest {
             public void run() {
                 m_lockCount++;
                 assertEquals(1, m_lockCount);
-                try { Thread.sleep(3000); } catch (InterruptedException e) {}
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                }
                 m_lockCount--;
                 assertEquals(0, m_lockCount);
             }
@@ -2333,12 +2361,12 @@ public class PollablesTest {
         };
 
         Thread[] threads = new Thread[5];
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             threads[i] = new Thread(locker);
             threads[i].start();
         }
 
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             threads[i].join();
         }
 
@@ -2351,7 +2379,10 @@ public class PollablesTest {
             public void run() {
                 m_lockCount++;
                 assertEquals(1, m_lockCount);
-                try { Thread.sleep(5000); } catch (InterruptedException e) {}
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                }
                 m_lockCount--;
                 assertEquals(0, m_lockCount);
             }
@@ -2371,7 +2402,7 @@ public class PollablesTest {
                     pNode1.withTreeLock(r, 500);
                     fail("Expected LockUnavailable");
                 } catch (LockUnavailable e) {
-                    MockUtil.println("Received expected exception "+e);
+                    MockUtil.println("Received expected exception " + e);
                 }
             }
         };
@@ -2379,12 +2410,12 @@ public class PollablesTest {
         Thread[] threads = new Thread[5];
         threads[0] = new Thread(locker);
         threads[0].start();
-        for(int i = 1; i < 5; i++) {
+        for (int i = 1; i < 5; i++) {
             threads[i] = new Thread(lockerWithTimeout);
             threads[i].start();
         }
 
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             threads[i].join();
         }
 
@@ -2407,8 +2438,10 @@ public class PollablesTest {
         MockEventUtil.printEvents("Unanticipated: ", m_anticipator.unanticipatedEvents());
         assertEquals("Received unexpected events", 0, m_anticipator.unanticipatedEvents().size());
 
-        assertEquals("Wrong number of outages opened", m_outageAnticipator.getExpectedOpens(), m_outageAnticipator.getActualOpens());
-        assertEquals("Wrong number of outages in outage table", m_outageAnticipator.getExpectedOutages(), m_outageAnticipator.getActualOutages());
+        assertEquals("Wrong number of outages opened", m_outageAnticipator.getExpectedOpens(),
+                     m_outageAnticipator.getActualOpens());
+        assertEquals("Wrong number of outages in outage table", m_outageAnticipator.getExpectedOutages(),
+                     m_outageAnticipator.getActualOutages());
         assertTrue("Created outages don't match the expected outages", m_outageAnticipator.checkAnticipated());
 
         resetAnticipated();
@@ -2460,12 +2493,10 @@ public class PollablesTest {
         element.visit(visitor);
     }
 
-
     private void assertPoll(MockService svc) {
         assertEquals(1, svc.getPollCount());
         svc.resetPollCount();
     }
-
 
     /**
      * @param network
@@ -2474,7 +2505,7 @@ public class PollablesTest {
         MockVisitor zeroAsserter = new MockVisitorAdapter() {
             @Override
             public void visitService(MockService svc) {
-                assertEquals("Unexpected poll count for "+svc, 0, svc.getPollCount());
+                assertEquals("Unexpected poll count for " + svc, 0, svc.getPollCount());
             }
         };
         elem.visit(zeroAsserter);
@@ -2491,6 +2522,7 @@ public class PollablesTest {
     private void assertUp(PollableElement elem) {
         assertEquals(PollStatus.up(), elem.getStatus());
     }
+
     private void assertDown(PollableElement elem) {
         assertEquals(PollStatus.down(), elem.getStatus());
     }
@@ -2499,7 +2531,7 @@ public class PollablesTest {
         Enumeration<Package> en = pollerConfig.enumeratePackage();
         Package lastPkg = null;
         while (en.hasMoreElements()) {
-            Package pkg = (Package)en.nextElement();
+            Package pkg = (Package) en.nextElement();
             if (pollableServiceInPackage(pollerConfig, ipAddr, serviceName, pkg))
                 lastPkg = pkg;
         }
@@ -2507,8 +2539,8 @@ public class PollablesTest {
     }
 
     private boolean pollableServiceInPackage(PollerConfig pollerConfig, String ipAddr, String serviceName, Package pkg) {
-        return (pollerConfig.isServiceInPackageAndEnabled(serviceName, pkg)
-                && pollerConfig.isInterfaceInPackage(ipAddr, pkg));
+        return (pollerConfig.isServiceInPackageAndEnabled(serviceName, pkg) && pollerConfig.isInterfaceInPackage(ipAddr,
+                                                                                                                 pkg));
     }
 
     private InetAddress getInetAddress(String ipAddr) {
@@ -2516,12 +2548,13 @@ public class PollablesTest {
         addr = InetAddressUtils.addr(ipAddr);
         if (addr == null) {
             // in 'real life' I would just log this and contine with the others
-            throw new RuntimeException("Error converting "+ipAddr+" to an InetAddress");
+            throw new RuntimeException("Error converting " + ipAddr + " to an InetAddress");
         }
         return addr;
     }
 
-    private PollableService addServiceToNetwork(final int nodeId, final String nodeLabel, final String ipAddr, final String serviceName) {
+    private PollableService addServiceToNetwork(final int nodeId, final String nodeLabel, final String ipAddr,
+            final String serviceName) {
 
         final PollableNode svcNode = m_network.createNodeIfNecessary(nodeId, nodeLabel);
 
@@ -2529,33 +2562,30 @@ public class PollablesTest {
 
             @Override
             public PollableService call() throws Exception {
-                PollableService svc = addServiceToNetwork(m_network, nodeId, nodeLabel, ipAddr, serviceName, null, null, null, m_scheduler, m_pollerConfig, m_pollerConfig);
-                //svcNode.recalculateStatus();
-                //svcNode.processStatusChange(new Date());
+                PollableService svc = addServiceToNetwork(m_network, nodeId, nodeLabel, ipAddr, serviceName, null,
+                                                          null, null, m_scheduler, m_pollerConfig, m_pollerConfig);
+                // svcNode.recalculateStatus();
+                // svcNode.processStatusChange(new Date());
                 return svc;
             }
 
         });
     }
 
-    private PollableService addServiceToNetwork(final PollableNetwork pNetwork,
-            int nodeId, String nodeLabel, String ipAddr, String serviceName,
-            Number svcLostEventId, String svcLostUei,
-            Date svcLostTime, final ScheduleTimer scheduler,
-            final PollerConfig pollerConfig,
-            final PollOutagesConfig pollOutageConfig) {
+    private PollableService addServiceToNetwork(final PollableNetwork pNetwork, int nodeId, String nodeLabel,
+            String ipAddr, String serviceName, Number svcLostEventId, String svcLostUei, Date svcLostTime,
+            final ScheduleTimer scheduler, final PollerConfig pollerConfig, final PollOutagesConfig pollOutageConfig) {
         InetAddress addr = getInetAddress(ipAddr);
 
         Package pkg = findPackageForService(pollerConfig, ipAddr, serviceName);
         if (pkg == null) {
-            MockUtil.println("No package for service "+serviceName+" with ipAddr "+ipAddr);
+            MockUtil.println("No package for service " + serviceName + " with ipAddr " + ipAddr);
             return null;
         }
 
-
-
         PollableService svc = pNetwork.createService(nodeId, nodeLabel, addr, serviceName);
-        PollableServiceConfig pollConfig = new PollableServiceConfig(svc, pollerConfig, pollOutageConfig, pkg, scheduler);
+        PollableServiceConfig pollConfig = new PollableServiceConfig(svc, pollerConfig, pollOutageConfig, pkg,
+                                                                     scheduler);
         svc.setPollConfig(pollConfig);
         synchronized (svc) {
             if (svc.getSchedule() == null) {
@@ -2564,7 +2594,7 @@ public class PollablesTest {
             }
         }
 
-        //MockUtil.println("svcLostEventId for "+svc+" is "+svcLostEventId);
+        // MockUtil.println("svcLostEventId for "+svc+" is "+svcLostEventId);
         if (svcLostEventId == null) {
             if (svc.getParent().getStatus().isUnknown()) {
                 svc.updateStatus(PollStatus.up());
@@ -2572,8 +2602,7 @@ public class PollablesTest {
                 svc.updateStatus(svc.getParent().getStatus());
                 svc.setCause(svc.getParent().getCause());
             }
-        }
-        else {
+        } else {
             svc.updateStatus(PollStatus.down());
 
             PollEvent cause = new DbPollEvent(svcLostEventId.intValue(), svcLostUei, svcLostTime);
@@ -2581,6 +2610,5 @@ public class PollablesTest {
         }
         return svc;
     }
-
 
 }

@@ -34,25 +34,25 @@ import java.util.List;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="group")
+@XmlRootElement(name = "group")
 public class WrappedGroup extends WrappedVertex {
 
-	public List<WrappedVertex> members = new ArrayList<WrappedVertex>();
+    public List<WrappedVertex> members = new ArrayList<WrappedVertex>();
 
-	/**
-	 * No-arg constructor for JAXB.
-	 */
-	public WrappedGroup() {
-		super();
-		group = true;
-	}
+    /**
+     * No-arg constructor for JAXB.
+     */
+    public WrappedGroup() {
+        super();
+        group = true;
+    }
 
-	public WrappedGroup(Vertex vertex) {
-		super(vertex);
-	}
+    public WrappedGroup(Vertex vertex) {
+        super(vertex);
+    }
 
-        @Override
-	public void afterUnmarshal(Unmarshaller u, Object parent) {
-		super.afterUnmarshal(u, parent);
-	}
+    @Override
+    public void afterUnmarshal(Unmarshaller u, Object parent) {
+        super.afterUnmarshal(u, parent);
+    }
 }

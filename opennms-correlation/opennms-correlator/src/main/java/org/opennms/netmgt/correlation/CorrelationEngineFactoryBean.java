@@ -45,52 +45,66 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 
 /**
- * <p>CorrelationEngineFactoryBean class.</p>
+ * <p>
+ * CorrelationEngineFactoryBean class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
-public class CorrelationEngineFactoryBean implements FactoryBean<List<CorrelationEngine>>, InitializingBean, ApplicationContextAware {
+public class CorrelationEngineFactoryBean implements FactoryBean<List<CorrelationEngine>>, InitializingBean,
+        ApplicationContextAware {
     private static final Logger LOG = LoggerFactory.getLogger(CorrelationEngineFactoryBean.class);
 
-	private List<CorrelationEngine> m_correlationEngines = Collections.emptyList();
+    private List<CorrelationEngine> m_correlationEngines = Collections.emptyList();
+
     private ApplicationContext m_applicationContext;
 
     /**
-     * <p>getObject</p>
+     * <p>
+     * getObject
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-        @Override
+    @Override
     public List<CorrelationEngine> getObject() throws Exception {
         return m_correlationEngines;
     }
 
     /**
-     * <p>getObjectType</p>
+     * <p>
+     * getObjectType
+     * </p>
      *
      * @return a {@link java.lang.Class} object.
      */
-        @Override
+    @Override
     public Class<?> getObjectType() {
         return m_correlationEngines.getClass();
     }
 
     /**
-     * <p>isSingleton</p>
+     * <p>
+     * isSingleton
+     * </p>
      *
      * @return a boolean.
      */
-        @Override
+    @Override
     public boolean isSingleton() {
         return true;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -111,7 +125,7 @@ public class CorrelationEngineFactoryBean implements FactoryBean<List<Correlatio
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;
     }

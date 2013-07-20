@@ -31,73 +31,101 @@ package org.opennms.web.svclayer.support;
 public class ReportRepositoryDescription {
 
     private String m_id;
+
     private String m_displayName;
+
     private String m_description;
+
     private String m_managementUrl;
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link String} object.
      */
     public final String getId() {
         return m_id;
     }
+
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link String} object.
+     * @param id
+     *            a {@link String} object.
      */
     public final void setId(final String id) {
         m_id = id;
     }
 
     /**
-     * <p>getDisplayName</p>
+     * <p>
+     * getDisplayName
+     * </p>
      *
      * @return a {@link String} object.
      */
     public final String getDisplayName() {
         return m_displayName;
     }
+
     /**
-     * <p>setDisplayName</p>
+     * <p>
+     * setDisplayName
+     * </p>
      *
-     * @param displayName a {@link String} object.
+     * @param displayName
+     *            a {@link String} object.
      */
 
     public final void setDisplayName(final String displayName) {
         m_displayName = displayName;
     }
+
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link String} object.
      */
     public final String getDescription() {
         return m_description;
     }
+
     /**
-     * <p>setDescription</p>
+     * <p>
+     * setDescription
+     * </p>
      *
-     * @param description a {@link String} object.
+     * @param description
+     *            a {@link String} object.
      */
     public final void setDescription(final String description) {
         m_description = description;
     }
 
     /**
-     * <p>getManagementUrl</p>
+     * <p>
+     * getManagementUrl
+     * </p>
      *
      * @return a {@link String} object.
      */
     public final String getManagementUrl() {
         return m_managementUrl;
     }
+
     /**
-     * <p>setManagementUrl</p>
+     * <p>
+     * setManagementUrl
+     * </p>
      *
-     * @param managementUrl a {@link String} object.
+     * @param managementUrl
+     *            a {@link String} object.
      */
     public final void setManagementUrl(final String managementUrl) {
         m_managementUrl = managementUrl;

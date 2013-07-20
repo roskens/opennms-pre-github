@@ -36,7 +36,9 @@ import org.opennms.netmgt.model.OnmsDistPoller;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>InsertOperation class.</p>
+ * <p>
+ * InsertOperation class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,46 +46,57 @@ import org.opennms.netmgt.xml.event.Event;
 public class InsertOperation extends AbstractSaveOrUpdateOperation {
 
     /**
-     * <p>Constructor for InsertOperation.</p>
+     * <p>
+     * Constructor for InsertOperation.
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
-     * @param city a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
      */
     public InsertOperation(String foreignSource, String foreignId, String nodeLabel, String building, String city) {
-		super(foreignSource, foreignId, nodeLabel, building, city);
-	}
+        super(foreignSource, foreignId, nodeLabel, building, city);
+    }
 
-	/**
-	 * <p>doPersist</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
+    /**
+     * <p>
+     * doPersist
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     @Override
-	public List<Event> doPersist() {
+    public List<Event> doPersist() {
         OnmsDistPoller distPoller = getDistPollerDao().get("localhost");
         getNode().setDistPoller(distPoller);
         getNodeDao().save(getNode());
 
-    	final List<Event> events = new LinkedList<Event>();
+        final List<Event> events = new LinkedList<Event>();
 
-    	EntityVisitor eventAccumlator = new AddEventVisitor(events);
+        EntityVisitor eventAccumlator = new AddEventVisitor(events);
 
-    	getNode().visit(eventAccumlator);
+        getNode().visit(eventAccumlator);
 
-    	return events;
+        return events;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-	return "INSERT: Node: "+getNode().getLabel();
+        return "INSERT: Node: " + getNode().getLabel();
     }
 
 }

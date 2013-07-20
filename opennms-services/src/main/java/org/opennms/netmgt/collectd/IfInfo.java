@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -29,7 +28,6 @@
 
 package org.opennms.netmgt.collectd;
 
-
 import java.io.File;
 import java.util.Map;
 
@@ -38,7 +36,6 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.model.RrdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * This class encapsulates all the information required by the SNMP collector in
@@ -54,15 +51,22 @@ public final class IfInfo extends SnmpCollectionResource {
     private static final Logger LOG = LoggerFactory.getLogger(IfInfo.class);
 
     private SNMPCollectorEntry m_entry;
+
     private String m_ifAlias;
+
     private SnmpIfData m_snmpIfData;
 
     /**
-     * <p>Constructor for IfInfo.</p>
+     * <p>
+     * Constructor for IfInfo.
+     * </p>
      *
-     * @param def a {@link org.opennms.netmgt.collectd.ResourceType} object.
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
-     * @param snmpIfData a {@link org.opennms.netmgt.collectd.SnmpIfData} object.
+     * @param def
+     *            a {@link org.opennms.netmgt.collectd.ResourceType} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param snmpIfData
+     *            a {@link org.opennms.netmgt.collectd.SnmpIfData} object.
      */
     public IfInfo(ResourceType def, CollectionAgent agent, SnmpIfData snmpIfData) {
         super(def);
@@ -75,7 +79,9 @@ public final class IfInfo extends SnmpCollectionResource {
     }
 
     /**
-     * <p>getIndex</p>
+     * <p>
+     * getIndex
+     * </p>
      *
      * @return a int.
      */
@@ -84,7 +90,9 @@ public final class IfInfo extends SnmpCollectionResource {
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a int.
      */
@@ -94,7 +102,9 @@ public final class IfInfo extends SnmpCollectionResource {
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,9 +114,12 @@ public final class IfInfo extends SnmpCollectionResource {
     }
 
     /**
-     * <p>setIfAlias</p>
+     * <p>
+     * setIfAlias
+     * </p>
      *
-     * @param ifAlias a {@link java.lang.String} object.
+     * @param ifAlias
+     *            a {@link java.lang.String} object.
      */
     public void setIfAlias(String ifAlias) {
         m_ifAlias = ifAlias;
@@ -117,7 +130,9 @@ public final class IfInfo extends SnmpCollectionResource {
     }
 
     /**
-     * <p>isCollectionEnabled</p>
+     * <p>
+     * isCollectionEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -126,16 +141,22 @@ public final class IfInfo extends SnmpCollectionResource {
     }
 
     /**
-     * <p>setEntry</p>
+     * <p>
+     * setEntry
+     * </p>
      *
-     * @param ifEntry a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry} object.
+     * @param ifEntry
+     *            a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry}
+     *            object.
      */
     public void setEntry(SNMPCollectorEntry ifEntry) {
         m_entry = ifEntry;
     }
 
     /**
-     * <p>getEntry</p>
+     * <p>
+     * getEntry
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry} object.
      */
@@ -144,11 +165,13 @@ public final class IfInfo extends SnmpCollectionResource {
     }
 
     /**
-     * <p>getAttributesMap</p>
+     * <p>
+     * getAttributesMap
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String,String> getAttributesMap() {
+    public Map<String, String> getAttributesMap() {
         return m_snmpIfData.getAttributesMap();
     }
 
@@ -165,7 +188,8 @@ public final class IfInfo extends SnmpCollectionResource {
     }
 
     boolean currentAliasIsOutOfDate(String ifAlias) {
-        LOG.debug("currentAliasIsOutOfDate: ifAlias from collection = {}, current ifAlias = {}", ifAlias, getCurrentIfAlias());
+        LOG.debug("currentAliasIsOutOfDate: ifAlias from collection = {}, current ifAlias = {}", ifAlias,
+                  getCurrentIfAlias());
         return ifAlias != null && !ifAlias.equals(getCurrentIfAlias());
     }
 
@@ -182,8 +206,7 @@ public final class IfInfo extends SnmpCollectionResource {
                 }
             }
             if (ifAlias != null) {
-                ifAlias = AlphaNumeric.parseAndReplaceExcept(ifAlias,
-                                                             SnmpCollector.nonAnRepl, SnmpCollector.AnReplEx);
+                ifAlias = AlphaNumeric.parseAndReplaceExcept(ifAlias, SnmpCollector.nonAnRepl, SnmpCollector.AnReplEx);
             }
         }
 
@@ -194,7 +217,8 @@ public final class IfInfo extends SnmpCollectionResource {
 
     void logForceRescan(String ifAlias) {
 
-        LOG.debug("Forcing rescan.  IfAlias {} for index {} does not match DB value: {}", ifAlias, getIndex(), getCurrentIfAlias());
+        LOG.debug("Forcing rescan.  IfAlias {} for index {} does not match DB value: {}", ifAlias, getIndex(),
+                  getCurrentIfAlias());
     }
 
     public boolean isScheduledForCollection() {
@@ -217,18 +241,20 @@ public final class IfInfo extends SnmpCollectionResource {
     @Override
     public File getResourceDir(RrdRepository repository) {
         File rrdBaseDir = repository.getRrdBaseDir();
-        File dir = new File (rrdBaseDir, getCollectionAgent().getStorageDir().toString());
+        File dir = new File(rrdBaseDir, getCollectionAgent().getStorageDir().toString());
         return new File(dir, getLabel());
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return "node["+ getNodeId() + "].interfaceSnmp[" + getLabel() + ']';
+        return "node[" + getNodeId() + "].interfaceSnmp[" + getLabel() + ']';
     }
 
     boolean shouldStore(ServiceParameters serviceParameters) {
@@ -243,29 +269,36 @@ public final class IfInfo extends SnmpCollectionResource {
     @Override
     public boolean shouldPersist(ServiceParameters serviceParameters) {
 
-        boolean shdprsist = shouldStore(serviceParameters) && (isScheduledForCollection() || serviceParameters.forceStoreByAlias(getCurrentIfAlias()));
+        boolean shdprsist = shouldStore(serviceParameters)
+                && (isScheduledForCollection() || serviceParameters.forceStoreByAlias(getCurrentIfAlias()));
         LOG.debug("shouldPersist = {}", shdprsist);
         return shdprsist;
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getResourceTypeName() {
-        return "if"; //This is IfInfo, must be an interface
+        return "if"; // This is IfInfo, must be an interface
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getInstance() {
-        return Integer.toString(getIndex()); //For interfaces, use ifIndex as it's unique within a node (by definition)
+        return Integer.toString(getIndex()); // For interfaces, use ifIndex as
+                                             // it's unique within a node (by
+                                             // definition)
     }
 
     @Override

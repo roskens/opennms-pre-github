@@ -54,15 +54,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>CategoryList class.</p>
+ * <p>
+ * CategoryList class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class CategoryList {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CategoryList.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(CategoryList.class);
 
     protected CategoryModel m_model;
 
@@ -75,9 +76,12 @@ public class CategoryList {
     private int m_disconnectTimeout;
 
     /**
-     * <p>Constructor for CategoryList.</p>
+     * <p>
+     * Constructor for CategoryList.
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     public CategoryList() throws ServletException {
         try {
@@ -95,7 +99,7 @@ public class CategoryList {
 
             if (view != null) {
                 m_sections = view.getSection();
-                m_disconnectTimeout  = viewsDisplayFactory.getDisconnectTimeout();
+                m_disconnectTimeout = viewsDisplayFactory.getDisconnectTimeout();
                 LOG.debug("found display rules from viewsdisplay.xml");
             } else {
                 LOG.debug("did not find display rules from viewsdisplay.xml");
@@ -105,20 +109,20 @@ public class CategoryList {
         }
     }
 
-
     /**
      * For the given map of category names to Category objects, organize the
      * categories into the currently active display rules.
-     *
      * <p>
      * If there are no display rules, a single section named <em>Category</em>
      * will be returned. It will include all the categories in the category map,
      * in alphabetical order by category name.
      * </p>
      *
-     * @param categoryMap a {@link java.util.Map} object.
+     * @param categoryMap
+     *            a {@link java.util.Map} object.
      * @return a {@link java.util.List} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public List<Section> getSections(Map<String, Category> categoryMap) throws IOException {
         if (m_sections != null) {
@@ -135,8 +139,8 @@ public class CategoryList {
         TreeMap<String, Category> orderedMap = new TreeMap<String, Category>(categoryMap);
 
         // Iterate over the categories, adding each to the name list.
-        for (Iterator<Map.Entry<String,Category>> i = orderedMap.entrySet().iterator(); i.hasNext();) {
-            Map.Entry<String,Category> entry = i.next();
+        for (Iterator<Map.Entry<String, Category>> i = orderedMap.entrySet().iterator(); i.hasNext();) {
+            Map.Entry<String, Category> entry = i.next();
             Category category = (Category) entry.getValue();
 
             section.addCategory(category.getName());
@@ -150,12 +154,17 @@ public class CategoryList {
     }
 
     /**
-     * <p>getCategoryData</p>
+     * <p>
+     * getCategoryData
+     * </p>
      *
      * @return a {@link java.util.Map} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public Map<String, List<Category>> getCategoryData() throws IOException, MarshalException, ValidationException {
 
@@ -196,7 +205,7 @@ public class CategoryList {
      *          is returned.
      * @return a long.
      */
-    public long getEarliestUpdate(Map<String,List<Category>> categoryData) {
+    public long getEarliestUpdate(Map<String, List<Category>> categoryData) {
         long earliestUpdate = 0;
 
         for (Iterator<String> i = categoryData.keySet().iterator(); i.hasNext();) {
@@ -218,21 +227,29 @@ public class CategoryList {
     }
 
     /**
-     * <p>isDisconnected</p>
+     * <p>
+     * isDisconnected
+     * </p>
      *
      * @return a boolean.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public boolean isDisconnected() throws IOException, MarshalException, ValidationException {
         return isDisconnected(getEarliestUpdate(getCategoryData()));
     }
 
     /**
-     * <p>isDisconnected</p>
+     * <p>
+     * isDisconnected
+     * </p>
      *
-     * @param earliestUpdate a long.
+     * @param earliestUpdate
+     *            a long.
      * @return a boolean.
      */
     public boolean isDisconnected(long earliestUpdate) {
@@ -245,15 +262,17 @@ public class CategoryList {
 
     /*
      * FIXME: This isn't used. This functionality is in category-box.jsp.
-     *        It is marked private so that no one can use it unless they fix
-     *        its accessability and this comment. :-P
+     * It is marked private so that no one can use it unless they fix
+     * its accessability and this comment. :-P
      */
     @SuppressWarnings("unused")
-    private void printBox(Writer out, HttpServletResponse response) throws IOException, MarshalException, ValidationException {
+    private void printBox(Writer out, HttpServletResponse response) throws IOException, MarshalException,
+            ValidationException {
 
-        Map<String,List<Category>> categoryData = getCategoryData();
+        Map<String, List<Category>> categoryData = getCategoryData();
 
-        out.write("<table width=\"100%\" border=\"1\" cellspacing=\"0\" " + "cellpadding=\"2\" bordercolor=\"black\" " + "bgcolor=\"#cccccc\">\n");
+        out.write("<table width=\"100%\" border=\"1\" cellspacing=\"0\" " + "cellpadding=\"2\" bordercolor=\"black\" "
+                + "bgcolor=\"#cccccc\">\n");
 
         long earliestUpdate = getEarliestUpdate(categoryData);
         boolean opennmsDisconnect = isDisconnected(earliestUpdate);
@@ -295,9 +314,13 @@ public class CategoryList {
 
                 out.write("<tr>\n");
 
-                out.write("<td><a href=\"rtc/category.jsp?category=" + URLEncoder.encode(response.encodeURL(categoryName), "UTF-8") + "\" title=\"" + title + "\">" + categoryName + "</a></td>\n");
-                out.write("<td bgcolor=\"" + outageColor + "\" align=\"right\" title=\"Updated: " + lastUpdated + "\">" + outageText + "</td>\n");
-                out.write("<td bgcolor=\"" + availColor + "\" align=\"right\" title=\"Updated: " + lastUpdated + "\">" + availText + "</td>\n");
+                out.write("<td><a href=\"rtc/category.jsp?category="
+                        + URLEncoder.encode(response.encodeURL(categoryName), "UTF-8") + "\" title=\"" + title + "\">"
+                        + categoryName + "</a></td>\n");
+                out.write("<td bgcolor=\"" + outageColor + "\" align=\"right\" title=\"Updated: " + lastUpdated + "\">"
+                        + outageText + "</td>\n");
+                out.write("<td bgcolor=\"" + availColor + "\" align=\"right\" title=\"Updated: " + lastUpdated + "\">"
+                        + availText + "</td>\n");
                 out.write("<!-- Last updated " + lastUpdated + " -->\n");
                 out.write("<!-- Epoch time:  " + lastUpdatedTime + " -->\n");
 
@@ -307,7 +330,11 @@ public class CategoryList {
 
         out.write("<tr bgcolor=\"#999999\">\n");
         if (opennmsDisconnect) {
-            out.write("<td colspan=\"3\"><font color=\"#bb1111\">" + "OpenNMS Disconnect -- is the OpenNMS daemon " + "running?<br/>Last update: " + (earliestUpdate > 0 ? new Date(earliestUpdate).toString() : "one or more categories have never been updated.") + "</font></td>\n");
+            out.write("<td colspan=\"3\"><font color=\"#bb1111\">"
+                    + "OpenNMS Disconnect -- is the OpenNMS daemon "
+                    + "running?<br/>Last update: "
+                    + (earliestUpdate > 0 ? new Date(earliestUpdate).toString()
+                        : "one or more categories have never been updated.") + "</font></td>\n");
         } else {
             out.write("<td colspan=\"3\">Percentage over last " + "24 hours</td>\n");
         }

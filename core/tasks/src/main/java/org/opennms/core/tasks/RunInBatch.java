@@ -29,16 +29,21 @@
 package org.opennms.core.tasks;
 
 /**
- * <p>RunInBatch interface.</p>
+ * <p>
+ * RunInBatch interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public interface RunInBatch {
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      *
-     * @param batch a {@link org.opennms.core.tasks.BatchTask} object.
+     * @param batch
+     *            a {@link org.opennms.core.tasks.BatchTask} object.
      */
     public void run(BatchTask batch);
 }

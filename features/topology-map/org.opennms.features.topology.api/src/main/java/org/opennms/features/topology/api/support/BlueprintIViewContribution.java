@@ -37,36 +37,39 @@ import com.vaadin.ui.Component;
 
 public class BlueprintIViewContribution implements IViewContribution {
 
-	private final BlueprintContainer m_container;
-	private final String m_beanName;
-	private String m_title;
+    private final BlueprintContainer m_container;
 
-	public BlueprintIViewContribution(BlueprintContainer container, String beanName) {
-		m_container = container;
-		m_beanName = beanName;
-	}
+    private final String m_beanName;
 
-	@Override
-	public Component getView(WidgetContext widgetContext) {
-		// Get the component by asking the blueprint container to instantiate a prototype bean
-		Component component = (Component)m_container.getComponentInstance(m_beanName);
-		return component;
-	}
+    private String m_title;
 
-	/**
-	 * Returns null.
-	 */
-	@Override
-	public Resource getIcon() {
-		return null;
-	}
+    public BlueprintIViewContribution(BlueprintContainer container, String beanName) {
+        m_container = container;
+        m_beanName = beanName;
+    }
 
-	@Override
-	public String getTitle() {
-		return m_title;
-	}
+    @Override
+    public Component getView(WidgetContext widgetContext) {
+        // Get the component by asking the blueprint container to instantiate a
+        // prototype bean
+        Component component = (Component) m_container.getComponentInstance(m_beanName);
+        return component;
+    }
 
-	public void setTitle(String title) {
-		m_title = title;
-	}
+    /**
+     * Returns null.
+     */
+    @Override
+    public Resource getIcon() {
+        return null;
+    }
+
+    @Override
+    public String getTitle() {
+        return m_title;
+    }
+
+    public void setTitle(String title) {
+        m_title = title;
+    }
 }

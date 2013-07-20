@@ -40,12 +40,11 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
-
 /**
  * Acknowledgment Reader implementation using Java Mail
- *
  * DONE: Identify acknowledgments for sent notifications
- * DONE: Identify acknowledgments for alarm IDs (how the send knows the ID, good question)
+ * DONE: Identify acknowledgments for alarm IDs (how the send knows the ID, good
+ * question)
  * DONE: Persist acknowledgments
  * DONE: Identify escalation reply
  * DONE: Identify clear reply
@@ -57,10 +56,13 @@ import org.springframework.util.Assert;
  * DONE: Finish scheduling component of JavaAckReader
  * DONE: Configurable Schedule
  * DONE: Identify Java Mail configuration element to use for reading replies
- * TODO: Migrate JavaMailNotificationStrategy to new JavaMail Configuration and JavaSendMailer
- * TODO: Migrate Availability Reports send via JavaMail to new JavaMail Configuration and JavaSendMailer
+ * TODO: Migrate JavaMailNotificationStrategy to new JavaMail Configuration and
+ * JavaSendMailer
+ * TODO: Migrate Availability Reports send via JavaMail to new JavaMail
+ * Configuration and JavaSendMailer
  * TODO: Move reading email messages from MTM to JavaReadMailer class
- * DONE: Need an event to cause re-loading of schedules based on changes to ackd-configuration
+ * DONE: Need an event to cause re-loading of schedules based on changes to
+ * ackd-configuration
  * DONE: Do some proper logging
  * DONE: Handle "enabled" flag of the readers in ackd-configuration
  * DONE: Move executor to Ackd daemon
@@ -70,10 +72,13 @@ import org.springframework.util.Assert;
  */
 public class DefaultAckReader implements AckReader, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultAckReader.class);
+
     private volatile String m_name;
 
     private volatile Future<?> m_future;
+
     private AckProcessor m_ackProcessor;
+
     private ReaderSchedule m_schedule;
 
     private volatile AckReaderState m_state = AckReaderState.STOPPED;
@@ -82,9 +87,12 @@ public class DefaultAckReader implements AckReader, InitializingBean {
     private volatile AckdConfigurationDao m_ackdConfigDao;
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -102,9 +110,11 @@ public class DefaultAckReader implements AckReader, InitializingBean {
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void start(final ScheduledThreadPoolExecutor executor, final ReaderSchedule schedule, boolean reloadConfig) throws IllegalStateException {
+    public synchronized void start(final ScheduledThreadPoolExecutor executor, final ReaderSchedule schedule,
+            boolean reloadConfig) throws IllegalStateException {
         if (reloadConfig) {
-            //FIXME:The reload of JavaMailConfiguration is made here because the DAO is there. Perhaps that should be changed.
+            // FIXME:The reload of JavaMailConfiguration is made here because
+            // the DAO is there. Perhaps that should be changed.
             LOG.info("start: reloading ack processor configuration...");
             m_ackProcessor.reloadConfigs();
             LOG.info("start: ack processor configuration reloaded.");
@@ -120,16 +130,20 @@ public class DefaultAckReader implements AckReader, InitializingBean {
             this.setState(AckReaderState.STARTED);
             LOG.info("start: Reader started.");
         } else {
-            IllegalStateException e = new IllegalStateException("Reader is not in a stopped state.  Reader state is: "+getState());
+            IllegalStateException e = new IllegalStateException("Reader is not in a stopped state.  Reader state is: "
+                    + getState());
             LOG.error("start error", e);
             throw e;
         }
     }
 
     /**
-     * <p>pause</p>
+     * <p>
+     * pause
+     * </p>
      *
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     @Override
     public synchronized void pause() throws IllegalStateException {
@@ -145,7 +159,9 @@ public class DefaultAckReader implements AckReader, InitializingBean {
             setState(AckReaderState.PAUSED);
             LOG.info("pause: Reader paused.");
         } else {
-            IllegalStateException e = new IllegalStateException("Reader is not in a running state (STARTED or RESUMED).  Reader state is: "+getState());
+            IllegalStateException e = new IllegalStateException(
+                                                                "Reader is not in a running state (STARTED or RESUMED).  Reader state is: "
+                                                                        + getState());
             LOG.error("pause error", e);
             throw e;
         }
@@ -163,16 +179,21 @@ public class DefaultAckReader implements AckReader, InitializingBean {
             setState(AckReaderState.RESUMED);
             LOG.info("resume: reader resumed.");
         } else {
-            IllegalStateException e = new IllegalStateException("Reader is not in a paused state, cannot resume.  Reader state is: "+getState());
+            IllegalStateException e = new IllegalStateException(
+                                                                "Reader is not in a paused state, cannot resume.  Reader state is: "
+                                                                        + getState());
             LOG.error("resume error", e);
             throw e;
         }
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      *
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     @Override
     public synchronized void stop() throws IllegalStateException {
@@ -200,15 +221,15 @@ public class DefaultAckReader implements AckReader, InitializingBean {
         executor.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
         executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
         m_future = executor.scheduleWithFixedDelay(this.getAckProcessor(), getSchedule().getInitialDelay(),
-                getSchedule().getInterval(), getSchedule().getUnit());
+                                                   getSchedule().getInterval(), getSchedule().getUnit());
         LOG.debug("scheduleReads: exited lock, schedule updated.");
         LOG.debug("scheduleReads: schedule is: attempts remaining: {}; initial delay: {}; interval: {}; unit: {}",
-                  getSchedule().getAttemptsRemaining(),
-                  getSchedule().getInitialDelay(),
-                  getSchedule().getInterval(),
+                  getSchedule().getAttemptsRemaining(), getSchedule().getInitialDelay(), getSchedule().getInterval(),
                   getSchedule().getUnit());
 
-        LOG.debug("scheduleReads: executor details: active count: {}; completed task count: {}; task count: {}; queue size: {}", executor.getActiveCount(), executor.getCompletedTaskCount(), executor.getTaskCount(), executor.getQueue().size());
+        LOG.debug("scheduleReads: executor details: active count: {}; completed task count: {}; task count: {}; queue size: {}",
+                  executor.getActiveCount(), executor.getCompletedTaskCount(), executor.getTaskCount(),
+                  executor.getQueue().size());
     }
 
     /** {@inheritDoc} */
@@ -224,7 +245,9 @@ public class DefaultAckReader implements AckReader, InitializingBean {
     }
 
     /**
-     * <p>getAckProcessor</p>
+     * <p>
+     * getAckProcessor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.ackd.readers.AckProcessor} object.
      */
@@ -234,16 +257,22 @@ public class DefaultAckReader implements AckReader, InitializingBean {
     }
 
     /**
-     * <p>setAckdConfigDao</p>
+     * <p>
+     * setAckdConfigDao
+     * </p>
      *
-     * @param ackdConfigDao a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao} object.
+     * @param ackdConfigDao
+     *            a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao}
+     *            object.
      */
     public void setAckdConfigDao(AckdConfigurationDao ackdConfigDao) {
         m_ackdConfigDao = ackdConfigDao;
     }
 
     /**
-     * <p>getAckdConfigDao</p>
+     * <p>
+     * getAckdConfigDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao} object.
      */
@@ -252,11 +281,14 @@ public class DefaultAckReader implements AckReader, InitializingBean {
     }
 
     /**
-     * Gets a new schedule and optionally reschedules <code>MailAckProcessor</code>
+     * Gets a new schedule and optionally reschedules
+     * <code>MailAckProcessor</code>
+     *
      * @param schedule
      * @param reschedule
      */
-    private synchronized void setSchedule(final ScheduledThreadPoolExecutor executor, ReaderSchedule schedule, boolean reschedule) {
+    private synchronized void setSchedule(final ScheduledThreadPoolExecutor executor, ReaderSchedule schedule,
+            boolean reschedule) {
         m_schedule = schedule;
 
         if (reschedule) {
@@ -282,7 +314,9 @@ public class DefaultAckReader implements AckReader, InitializingBean {
     }
 
     /**
-     * <p>getState</p>
+     * <p>
+     * getState
+     * </p>
      *
      * @return a AckReaderState object.
      */
@@ -292,7 +326,9 @@ public class DefaultAckReader implements AckReader, InitializingBean {
     }
 
     /**
-     * <p>getFuture</p>
+     * <p>
+     * getFuture
+     * </p>
      *
      * @return a {@link java.util.concurrent.Future} object.
      */
@@ -301,7 +337,9 @@ public class DefaultAckReader implements AckReader, InitializingBean {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

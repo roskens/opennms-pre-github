@@ -34,9 +34,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AliasController {
 
-	@RequestMapping("/element/service.jsp")
-	public String elementServiceJsp() {
-		return "forward:/element/service.htm";
-	}
+    @RequestMapping("/element/service.jsp")
+    public String elementServiceJsp() {
+        return "forward:/element/service.htm";
+    }
 
 }

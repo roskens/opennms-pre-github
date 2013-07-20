@@ -34,18 +34,21 @@ import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
 import org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse;
 
 /**
- * <p>LineOrientedResponseDecoder class.</p>
+ * <p>
+ * LineOrientedResponseDecoder class.
+ * </p>
  *
  * @author Seth
  */
 public class LineOrientedResponseDecoder extends OneToOneDecoder {
 
     /**
-     * This method decodes {@link String} objects into {@link LineOrientedResponse} instances
+     * This method decodes {@link String} objects into
+     * {@link LineOrientedResponse} instances
      * that contain the byte representation of the response.
      */
     @Override
     public Object decode(final ChannelHandlerContext ctx, final Channel channel, final Object msg) throws Exception {
-        return new LineOrientedResponse((String)msg);
+        return new LineOrientedResponse((String) msg);
     }
 }

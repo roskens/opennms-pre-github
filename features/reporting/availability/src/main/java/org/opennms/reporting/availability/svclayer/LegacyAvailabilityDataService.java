@@ -59,7 +59,9 @@ import org.opennms.reporting.datablock.Outage;
 import org.opennms.reporting.datablock.OutageSvcTimesList;
 
 /**
- * <p>LegacyAvailabilityDataService class.</p>
+ * <p>
+ * LegacyAvailabilityDataService class.
+ * </p>
  */
 public class LegacyAvailabilityDataService implements AvailabilityDataService {
     private static final Logger LOG = LoggerFactory.getLogger(LegacyAvailabilityDataService.class);
@@ -79,7 +81,9 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
     private static final String LOG4J_CATEGORY = "reports";
 
     /**
-     * <p>Constructor for LegacyAvailabilityDataService.</p>
+     * <p>
+     * Constructor for LegacyAvailabilityDataService.
+     * </p>
      */
     public LegacyAvailabilityDataService() {
         Logging.putPrefix(LOG4J_CATEGORY);
@@ -88,7 +92,8 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
 
     /** {@inheritDoc} */
     @Override
-    public List<Node> getNodes(org.opennms.netmgt.config.categories.Category category, long startTime, long endTime) throws AvailabilityDataServiceException {
+    public List<Node> getNodes(org.opennms.netmgt.config.categories.Category category, long startTime, long endTime)
+            throws AvailabilityDataServiceException {
 
         m_nodes = new ArrayList<Node>();
 
@@ -119,7 +124,6 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
             List<InetAddress> nodeIPs = FilterDaoFactory.getInstance().getActiveIPAddressList(m_commonRule);
 
             LOG.debug("Number of IPs satisfying rule: {}", nodeIPs.size());
-
 
             List<String> monitoredServices = new ArrayList<String>(category.getServiceCollection());
 
@@ -184,11 +188,8 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                             if (monitoredServices.isEmpty() || monitoredServices.contains(svcname)) {
 
                                 OutageSvcTimesList outageSvcTimesList = new OutageSvcTimesList();
-                                getOutagesNodeIpSvc(nodeid, nodeName, ip, svcid,
-                                                    svcname, outageSvcTimesList,
-                                                    outagesGetStmt,
-                                                    startTime, endTime);
-
+                                getOutagesNodeIpSvc(nodeid, nodeName, ip, svcid, svcname, outageSvcTimesList,
+                                                    outagesGetStmt, startTime, endTime);
 
                             }
                         }
@@ -235,12 +236,9 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
      * Get all outages for this nodeid/ipaddr/service combination and add it
      * to m_nodes.
      */
-    private void getOutagesNodeIpSvc(int nodeid, String nodeName,
-            String ipaddr, int serviceid, String serviceName,
-            OutageSvcTimesList outageSvcTimesList,
-            PreparedStatement outagesGetStmt,
-            long startTime,long endTime) throws SQLException {
-
+    private void getOutagesNodeIpSvc(int nodeid, String nodeName, String ipaddr, int serviceid, String serviceName,
+            OutageSvcTimesList outageSvcTimesList, PreparedStatement outagesGetStmt, long startTime, long endTime)
+            throws SQLException {
 
         // Get outages for this node/ip/svc pair
         try {
@@ -250,7 +248,6 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
             outagesGetStmt.setInt(3, serviceid);
 
             ResultSet rs = outagesGetStmt.executeQuery();
-
 
             if (m_nodes != null && m_nodes.size() > 0) {
                 ListIterator<Node> lstIter = m_nodes.listIterator();
@@ -290,8 +287,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                 }
 
                 if (regainedtime > 0) {
-                    if (regainedtime <= startTime
-                            || losttime >= endTime) {
+                    if (regainedtime <= startTime || losttime >= endTime) {
                         continue;
                     }
                 } else {
@@ -301,8 +297,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                 }
                 Outage outage = new Outage(losttime, regainedtime);
                 outageSvcTimesList.add(outage);
-                addNode(nodeName, nodeid, ipaddr, serviceName, losttime,
-                        regainedtime);
+                addNode(nodeName, nodeid, ipaddr, serviceName, losttime, regainedtime);
             }
             if (rs != null) {
                 rs.close();
@@ -317,15 +312,20 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
     /**
      * This method adds a unique tuple to the list of nodes m_nodes.
      *
-     * @param nodeName a {@link java.lang.String} object.
-     * @param nodeid a int.
-     * @param ipaddr a {@link java.lang.String} object.
-     * @param serviceid a {@link java.lang.String} object.
-     * @param losttime a long.
-     * @param regainedtime a long.
+     * @param nodeName
+     *            a {@link java.lang.String} object.
+     * @param nodeid
+     *            a int.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
+     * @param serviceid
+     *            a {@link java.lang.String} object.
+     * @param losttime
+     *            a long.
+     * @param regainedtime
+     *            a long.
      */
-    public void addNode(String nodeName, int nodeid, String ipaddr,
-            String serviceid, long losttime, long regainedtime) {
+    public void addNode(String nodeName, int nodeid, String ipaddr, String serviceid, long losttime, long regainedtime) {
         if (m_nodes == null) {
             LOG.debug("adding new arraylis");
             m_nodes = new ArrayList<Node>();
@@ -336,8 +336,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                 // LOG.debug("Created the new node.");
                 if (losttime > 0) {
                     if (regainedtime > 0) {
-                        newNode.addInterface(ipaddr, serviceid, losttime,
-                                             regainedtime);
+                        newNode.addInterface(ipaddr, serviceid, losttime, regainedtime);
                     } else {
                         newNode.addInterface(ipaddr, serviceid, losttime);
                     }
@@ -362,8 +361,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                     newNode = new Node(nodeName, nodeid);
                     if (losttime > 0) {
                         if (regainedtime > 0) {
-                            newNode.addInterface(ipaddr, serviceid, losttime,
-                                                 regainedtime);
+                            newNode.addInterface(ipaddr, serviceid, losttime, regainedtime);
                         } else {
                             newNode.addInterface(ipaddr, serviceid, losttime);
                         }
@@ -375,8 +373,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                 } else {
                     if (losttime > 0) {
                         if (regainedtime > 0) {
-                            newNode.addInterface(ipaddr, serviceid, losttime,
-                                                 regainedtime);
+                            newNode.addInterface(ipaddr, serviceid, losttime, regainedtime);
                         } else {
                             newNode.addInterface(ipaddr, serviceid, losttime);
                         }
@@ -388,6 +385,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
             }
         }
     }
+
     /**
      * Initializes the database connection.
      */
@@ -433,7 +431,5 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
             }
         }
     }
-
-
 
 }

@@ -44,10 +44,12 @@ import com.google.gwt.user.client.ui.Image;
 
 public class LoadTracker {
 
-    public class ImageTracker{
+    public class ImageTracker {
 
         private List<LoadTrackerHandler> m_handlerList = new ArrayList<LoadTrackerHandler>();
+
         private Image m_image;
+
         private boolean m_loadComplete = false;
 
         public ImageTracker(String imageUrl) {
@@ -56,7 +58,7 @@ public class LoadTracker {
 
                 @Override
                 public void onBrowserEvent(Event event) {
-                    if(Event.ONLOAD == event.getTypeInt()) {
+                    if (Event.ONLOAD == event.getTypeInt()) {
                         callHandlers();
                         m_loadComplete = true;
                     }
@@ -67,36 +69,37 @@ public class LoadTracker {
 
             Element div = Document.get().getElementById(m_trackerDivId);
             div.appendChild(m_image.getElement());
-            //Document.get().getBody().appendChild(m_image.getElement());
+            // Document.get().getBody().appendChild(m_image.getElement());
         }
 
         protected void callHandlers() {
-            for(LoadTrackerHandler handler : m_handlerList) {
+            for (LoadTrackerHandler handler : m_handlerList) {
                 handler.onImageLoad(m_image);
             }
         }
 
         public void addLoadHandler(LoadTrackerHandler handler) {
-            if(!m_loadComplete) {
+            if (!m_loadComplete) {
                 m_handlerList.add(handler);
-            }else {
+            } else {
                 handler.onImageLoad(m_image);
             }
         }
 
     }
 
-    public interface LoadTrackerHandler{
+    public interface LoadTrackerHandler {
 
         public void onImageLoad(Image img);
 
     }
 
     private static LoadTracker m_instance = null;
+
     private static String m_trackerDivId = "loadTracker";
 
     protected LoadTracker() {
-        if(Document.get().getElementById(m_trackerDivId) == null) {
+        if (Document.get().getElementById(m_trackerDivId) == null) {
             Element div = DOM.createDiv();
             div.getStyle().setPosition(Position.ABSOLUTE);
             div.getStyle().setTop(0.0, Unit.PX);
@@ -108,7 +111,7 @@ public class LoadTracker {
     }
 
     public static LoadTracker get() {
-        if(m_instance == null) {
+        if (m_instance == null) {
             m_instance = new LoadTracker();
         }
 
@@ -118,7 +121,7 @@ public class LoadTracker {
     Map<String, ImageTracker> m_trackerList = new HashMap<String, ImageTracker>();
 
     public void trackImageLoad(String imageUrl, LoadTrackerHandler handler) {
-        if(!m_trackerList.containsKey(imageUrl)) {
+        if (!m_trackerList.containsKey(imageUrl)) {
             ImageTracker imgTracker = new ImageTracker(imageUrl);
             imgTracker.addLoadHandler(handler);
             m_trackerList.put(imageUrl, imgTracker);

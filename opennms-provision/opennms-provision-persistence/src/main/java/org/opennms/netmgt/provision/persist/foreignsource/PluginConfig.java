@@ -48,7 +48,8 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.opennms.netmgt.provision.support.PluginWrapper;
 
 /**
- * A PluginConfig represents a portion of a configuration that defines a reference
+ * A PluginConfig represents a portion of a configuration that defines a
+ * reference
  * to a Java class "plugin" along with a set of parameters used to configure the
  * behavior of that plugin.
  *
@@ -56,18 +57,18 @@ import org.opennms.netmgt.provision.support.PluginWrapper;
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name="plugin")
+@XmlRootElement(name = "plugin")
 public class PluginConfig implements Serializable, Comparable<PluginConfig> {
 
     private static final long serialVersionUID = 4307231598310473690L;
 
-    @XmlAttribute(name="name")
+    @XmlAttribute(name = "name")
     private String m_name;
 
-    @XmlAttribute(name="class")
+    @XmlAttribute(name = "class")
     private String m_pluginClass;
 
-    @XmlElement(name="parameter")
+    @XmlElement(name = "parameter")
     private Set<PluginParameter> m_parameters = new LinkedHashSet<PluginParameter>();
 
     /**
@@ -79,8 +80,10 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
     /**
      * Creates a plugin configuration with the given name and class.
      *
-     * @param name the human-readable name of the plugin
-     * @param clazz the name of the plugin's java class
+     * @param name
+     *            the human-readable name of the plugin
+     * @param clazz
+     *            the name of the plugin's java class
      */
     public PluginConfig(String name, String clazz) {
         setName(name);
@@ -88,9 +91,14 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
     }
 
     /**
-     * <p>Constructor for PluginConfig.</p>
+     * <p>
+     * Constructor for PluginConfig.
+     * </p>
      *
-     * @param pluginConfig a {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig} object.
+     * @param pluginConfig
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
+     *            object.
      */
     public PluginConfig(PluginConfig pluginConfig) {
         setName(pluginConfig.getName());
@@ -106,14 +114,17 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
     public String getName() {
         return m_name;
     }
+
     /**
      * Sets the name of the plugin.
      *
-     * @param name the human-readable name to set
+     * @param name
+     *            the human-readable name to set
      */
     public void setName(String name) {
         m_name = name;
     }
+
     /**
      * Get the name of the plugin's java class.
      *
@@ -122,14 +133,17 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
     public String getPluginClass() {
         return m_pluginClass;
     }
+
     /**
      * Set the name of the plugin's java class.
      *
-     * @param clazz a {@link java.lang.String} object.
+     * @param clazz
+     *            a {@link java.lang.String} object.
      */
     public void setPluginClass(String clazz) {
         m_pluginClass = clazz;
     }
+
     /**
      * Get a {@link List} of the plugin parameters.
      *
@@ -143,9 +157,12 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
     }
 
     /**
-     * <p>setParameters</p>
+     * <p>
+     * setParameters
+     * </p>
      *
-     * @param list a {@link java.util.Set} object.
+     * @param list
+     *            a {@link java.util.Set} object.
      */
     public void setParameters(Set<PluginParameter> list) {
         for (PluginParameter p : list) {
@@ -155,12 +172,14 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
     }
 
     /**
-     * <p>getParameterMap</p>
+     * <p>
+     * getParameterMap
+     * </p>
      *
      * @return the parameters
      */
-    public Map<String,String> getParameterMap() {
-        Map<String,String> parms = new LinkedHashMap<String,String>();
+    public Map<String, String> getParameterMap() {
+        Map<String, String> parms = new LinkedHashMap<String, String>();
         for (PluginParameter p : getParameters()) {
             parms.put(p.getKey(), p.getValue());
         }
@@ -168,21 +187,27 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
     }
 
     /**
-     * <p>setParameterMap</p>
+     * <p>
+     * setParameterMap
+     * </p>
      *
-     * @param parameters the parameters to set
+     * @param parameters
+     *            the parameters to set
      */
     public void setParameterMap(Map<String, String> parameters) {
         m_parameters.clear();
-        for (Entry<String,String> set : parameters.entrySet()) {
+        for (Entry<String, String> set : parameters.entrySet()) {
             m_parameters.add(new PluginParameter(this, set));
         }
     }
 
     /**
-     * <p>getParameter</p>
+     * <p>
+     * getParameter
+     * </p>
      *
-     * @param key the parameter name
+     * @param key
+     *            the parameter name
      * @return the parameter value
      */
     public String getParameter(String key) {
@@ -195,26 +220,37 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
     }
 
     /**
-     * <p>addParameter</p>
+     * <p>
+     * addParameter
+     * </p>
      *
-     * @param key the parameter name
-     * @param value the parameter value
+     * @param key
+     *            the parameter name
+     * @param value
+     *            the parameter value
      */
     public void addParameter(String key, String value) {
         m_parameters.add(new PluginParameter(this, key, value));
     }
 
     /**
-     * <p>removeParameters</p>
+     * <p>
+     * removeParameters
+     * </p>
      *
-     * @param p a {@link org.opennms.netmgt.provision.persist.foreignsource.PluginParameter} object.
+     * @param p
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginParameter}
+     *            object.
      */
     public void deleteParameters(PluginParameter p) {
         m_parameters.remove(p);
     }
 
     /**
-     * <p>getAvailableParameterKeys</p>
+     * <p>
+     * getAvailableParameterKeys
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -255,22 +291,28 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof PluginConfig)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof PluginConfig))
+            return false;
         final PluginConfig other = (PluginConfig) obj;
         if (m_name == null) {
-            if (other.m_name != null) return false;
+            if (other.m_name != null)
+                return false;
         } else if (!m_name.equals(other.m_name)) {
             return false;
         }
         if (m_pluginClass == null) {
-            if (other.m_pluginClass != null) return false;
+            if (other.m_pluginClass != null)
+                return false;
         } else if (!m_pluginClass.equals(other.m_pluginClass)) {
             return false;
         }
         if (m_parameters == null) {
-            if (other.m_parameters != null) return false;
+            if (other.m_parameters != null)
+                return false;
         } else if (!m_parameters.equals(other.m_parameters)) {
             return false;
         }
@@ -279,16 +321,12 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
 
     @Override
     public String toString() {
-        return "PluginConfig [name=" + m_name + ", pluginClass="
-                + m_pluginClass + ", parameters=" + getParametersAsString() + "]";
+        return "PluginConfig [name=" + m_name + ", pluginClass=" + m_pluginClass + ", parameters="
+                + getParametersAsString() + "]";
     }
-
 
     @Override
     public int compareTo(final PluginConfig other) {
-        return new CompareToBuilder()
-            .append(m_name, other.m_name)
-            .append(m_pluginClass, other.m_pluginClass)
-            .toComparison();
+        return new CompareToBuilder().append(m_name, other.m_name).append(m_pluginClass, other.m_pluginClass).toComparison();
     }
 }

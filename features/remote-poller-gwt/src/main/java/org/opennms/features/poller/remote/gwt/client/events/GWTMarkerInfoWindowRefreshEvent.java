@@ -33,7 +33,8 @@ import org.opennms.features.poller.remote.gwt.client.GWTMarkerState;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * This event is used to trigger a refresh of the marker details window (if it is visible)
+ * This event is used to trigger a refresh of the marker details window (if it
+ * is visible)
  * when any data related to the marker is updated by back-end RPC calls.
  */
 public class GWTMarkerInfoWindowRefreshEvent extends GwtEvent<GWTMarkerInfoWindowRefreshHandler> {

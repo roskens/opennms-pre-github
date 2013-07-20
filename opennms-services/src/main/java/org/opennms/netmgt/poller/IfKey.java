@@ -29,12 +29,14 @@
 package org.opennms.netmgt.poller;
 
 /**
- * <p>IfKey class.</p>
+ * <p>
+ * IfKey class.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public class IfKey {
@@ -43,10 +45,14 @@ public class IfKey {
     private String m_ipAddr;
 
     /**
-     * <p>Constructor for IfKey.</p>
+     * <p>
+     * Constructor for IfKey.
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      */
     public IfKey(int nodeId, String ipAddr) {
         m_nodeId = nodeId;
@@ -54,7 +60,9 @@ public class IfKey {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -63,7 +71,9 @@ public class IfKey {
     }
 
     /**
-     * <p>getIpAddr</p>
+     * <p>
+     * getIpAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

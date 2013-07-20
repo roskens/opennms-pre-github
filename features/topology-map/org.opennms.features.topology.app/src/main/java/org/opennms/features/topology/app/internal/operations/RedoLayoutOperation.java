@@ -36,10 +36,9 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.OperationContext.DisplayLocation;
 import org.opennms.features.topology.api.topo.VertexRef;
 
-
 public class RedoLayoutOperation implements Operation {
 
-	@Override
+    @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         DisplayState graphContainer = operationContext.getGraphContainer();
 
@@ -50,7 +49,7 @@ public class RedoLayoutOperation implements Operation {
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR)
-        		|| (targets != null && targets.size() == 0);
+                || (targets != null && targets.size() == 0);
     }
 
     @Override

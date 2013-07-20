@@ -40,7 +40,9 @@ import java.lang.reflect.Proxy;
  */
 
 /**
- * <p>MBeanServerProxy class.</p>
+ * <p>
+ * MBeanServerProxy class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,54 +53,58 @@ public class MBeanServerProxy implements InvocationHandler {
 
     private static final Class<?>[] INTERFACES = { MBeanServer.class };
 
-
     /**
      * Creates a new instance of Proxy
      *
-     * @param remoteServer a {@link java.lang.Object} object.
+     * @param remoteServer
+     *            a {@link java.lang.Object} object.
      */
     public MBeanServerProxy(Object remoteServer) {
         this.remoteServer = remoteServer;
     }
 
-
     /**
-     * <p>invoke</p>
+     * <p>
+     * invoke
+     * </p>
      *
-     * @param proxy a {@link java.lang.Object} object.
-     * @param m a {@link java.lang.reflect.Method} object.
-     * @param args an array of {@link java.lang.Object} objects.
+     * @param proxy
+     *            a {@link java.lang.Object} object.
+     * @param m
+     *            a {@link java.lang.reflect.Method} object.
+     * @param args
+     *            an array of {@link java.lang.Object} objects.
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Throwable if any.
+     * @throws java.lang.Throwable
+     *             if any.
      */
     @Override
     public Object invoke(Object proxy, Method m, Object[] args) throws Throwable {
 
         Class<?> serverClass = this.remoteServer.getClass();
-        Method method = serverClass.getMethod(m.getName(),m.getParameterTypes());
-       try {
-           return method.invoke(this.remoteServer, args);
-       } catch (Throwable e) {
-           throw e;
-       }
+        Method method = serverClass.getMethod(m.getName(), m.getParameterTypes());
+        try {
+            return method.invoke(this.remoteServer, args);
+        } catch (Throwable e) {
+            throw e;
+        }
     }
 
     /**
-     * <p>buildServerProxy</p>
+     * <p>
+     * buildServerProxy
+     * </p>
      *
-     * @param server a {@link java.lang.Object} object.
+     * @param server
+     *            a {@link java.lang.Object} object.
      * @return a {@link javax.management.MBeanServer} object.
      */
     public static MBeanServer buildServerProxy(Object server) {
 
-        Object proxy =
-            Proxy.newProxyInstance(
-                MBeanServerProxy.class.getClassLoader(),
-                MBeanServerProxy.INTERFACES,
-                new MBeanServerProxy(server));
+        Object proxy = Proxy.newProxyInstance(MBeanServerProxy.class.getClassLoader(), MBeanServerProxy.INTERFACES,
+                                              new MBeanServerProxy(server));
 
         return (MBeanServer) proxy;
     }
-
 
 }

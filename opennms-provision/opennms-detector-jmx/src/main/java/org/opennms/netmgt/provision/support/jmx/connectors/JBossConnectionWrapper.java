@@ -32,9 +32,11 @@ import javax.management.MBeanServer;
 import javax.management.MBeanServerConnection;
 
 /**
- * The JBossConnectionWrapper class manages the connection to the JBoss server.  The
+ * The JBossConnectionWrapper class manages the connection to the JBoss server.
+ * The
  * JBossConnectionFactory creates the connection to the server and closes the
- * connection to the naming server, so the close() method doesn't need to do anything.
+ * connection to the naming server, so the close() method doesn't need to do
+ * anything.
  *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  */
@@ -42,30 +44,41 @@ public class JBossConnectionWrapper implements ConnectionWrapper {
     private MBeanServer mbeanServer;
 
     /**
-     * <p>Constructor for JBossConnectionWrapper.</p>
+     * <p>
+     * Constructor for JBossConnectionWrapper.
+     * </p>
      *
-     * @param mbeanServer a {@link javax.management.MBeanServer} object.
+     * @param mbeanServer
+     *            a {@link javax.management.MBeanServer} object.
      */
     public JBossConnectionWrapper(MBeanServer mbeanServer) {
         this.mbeanServer = mbeanServer;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.jmx.connectors.ConnectionWrapper#closeConnection()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.jmx.connectors.ConnectionWrapper#closeConnection()
      */
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
         mbeanServer = null;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.jmx.connectors.ConnectionWrapper#getMBeanServer()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.jmx.connectors.ConnectionWrapper#getMBeanServer()
      */
     /**
-     * <p>getMBeanServer</p>
+     * <p>
+     * getMBeanServer
+     * </p>
      *
      * @return a {@link javax.management.MBeanServerConnection} object.
      */

@@ -38,7 +38,6 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * This class defines the 32-bit unsigned SNMP object used to transmit 32-bit
  * unsigned number. The unsigned value is represented by a 64-bit quantity, but
  * the upper 32-bits are always truncated from the value.
- *
  * If a caller passes in a value with any the upper 32-bits set the value will
  * be silently truncated to a 32-bit value. If negative quantities or values
  * with more than 32-bits are passed then data corruption will occur.
@@ -55,14 +54,12 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
     /**
      * The internal 32-bit unsigned quantity implemented as a 64-bit signed
      * quantity
-     *
      */
     private long m_value;
 
     /**
      * The 32-bit mask to be BITWISE AND with all values to ensure that only the
      * lower 32-bits are set.
-     *
      */
     private static final long MASK = 0xffffffffL;
 
@@ -70,13 +67,11 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      * The ASN.1 value for an unsigned integer value. BEWARE this value will
      * conflict with the SnmpSMI.SMI_COUNTER32 value. This object should not be
      * dynamically registered with the SNMP library
-     *
      */
     public static final byte ASNTYPE = SnmpSMI.SMI_UNSIGNED32;
 
     /**
      * Default class constructor. Constructs the object with a value of zero(0).
-     *
      */
     public SnmpUInt32() {
         m_value = 0;
@@ -87,7 +82,6 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      *
      * @param value
      *            The new 32-bit value.
-     *
      */
     public SnmpUInt32(long value) {
         //
@@ -101,7 +95,6 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      *
      * @param value
      *            The new 32-bit value.
-     *
      */
     public SnmpUInt32(Long value) {
         this(value.longValue());
@@ -113,7 +106,6 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      *
      * @param second
      *            The object to copy the value from.
-     *
      */
     public SnmpUInt32(SnmpUInt32 second) {
         m_value = second.m_value;
@@ -128,7 +120,6 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      *
      * @param value
      *            The unsigned value encoded as a string.
-     *
      * @throws java.lang.NullPointerException
      *             Thrown if the passed value is a null pointer.
      * @throws java.lang.IllegalArgumentException
@@ -152,7 +143,6 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      * Used to retreive the 32-bit unsigned value.
      *
      * @return The internal 32-bit value.
-     *
      */
     public long getValue() {
         //
@@ -193,7 +183,6 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      * Used to retreive the ASN.1 type for this object.
      *
      * @return The ASN.1 value for the SnmpUInt32
-     *
      */
     @Override
     public byte typeId() {
@@ -210,9 +199,7 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      *            The start of the encoded buffer.
      * @param encoder
      *            The ASN.1 encoder object
-     *
      * @return The byte immediantly after the last encoded byte.
-     *
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -230,9 +217,7 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      *            The offset of the first byte of data
      * @param encoder
      *            The ASN.1 decoder object.
-     *
      * @return The byte immediantly after the last decoded byte of information.
-     *
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -268,19 +253,16 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
 
     /**
      * Returns the string representation of the object.
-     *
      */
     @Override
     public String toString() {
         return Long.toString(getValue());
     }
 
-
-
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof SnmpUInt32 ) {
-            SnmpUInt32 uint = (SnmpUInt32)obj;
+        if (obj instanceof SnmpUInt32) {
+            SnmpUInt32 uint = (SnmpUInt32) obj;
 
             return (typeId() == uint.typeId() && getValue() == uint.getValue());
         }

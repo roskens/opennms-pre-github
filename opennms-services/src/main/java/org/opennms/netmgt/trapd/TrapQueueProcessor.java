@@ -56,11 +56,10 @@ import org.springframework.util.Assert;
  * @author <A HREF="mailto:mike@opennms.org">Mike Davidson </A>
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
- *
  */
 class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(TrapQueueProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TrapQueueProcessor.class);
 
     /**
      * The name of the local host.
@@ -87,12 +86,10 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
 
     /**
      * Process a V2 trap and convert it to an event for transmission.
-     *
      * <p>
      * From RFC2089 ('Mapping SNMPv2 onto SNMPv1'), section 3.3 ('Processing an
      * outgoing SNMPv2 TRAP')
      * </p>
-     *
      * <p>
      * <strong>2b </strong>
      * <p>
@@ -123,13 +120,11 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      *
      *
      * </pre>
-     *
      * <p>
      * The enterprise field is set to the value of snmpTrapEnterprise.0 if this
      * varBind is present, otherwise it is set to the value snmpTraps as defined
      * in RFC1907 [4].
      * </p>
-     *
      * <p>
      * <strong>2c. </strong>
      * </p>
@@ -138,7 +133,6 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * generic-trap field is set to 6 and the specific-trap field is set to the
      * last subid of the snmpTrapOID.0 value.
      * </p>
-     *
      * <p>
      * If the next to last subid of snmpTrapOID.0 is zero, then the enterprise
      * field is set to snmpTrapOID.0 value and the last 2 subids are truncated
@@ -146,7 +140,6 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * then the enterprise field is set to snmpTrapOID.0 value and the last 1
      * subid is truncated from that value.
      * </p>
-     *
      * <p>
      * In any event, the snmpTrapEnterprise.0 varBind (if present) is ignored in
      * this case.
@@ -155,7 +148,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
     @Override
     public Callable<Void> call() {
         try {
-            processTrapEvent(((EventCreator)m_trapNotification.getTrapProcessor()).getEvent());
+            processTrapEvent(((EventCreator) m_trapNotification.getTrapProcessor()).getEvent());
         } catch (IllegalArgumentException e) {
             LOG.info(e.getMessage());
         } catch (Throwable e) {
@@ -165,14 +158,17 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
     }
 
     /**
-     * <p>processTrapEvent</p>
+     * <p>
+     * processTrapEvent
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     private void processTrapEvent(final Event event) {
-    	final InetAddress trapInterface = event.getInterfaceAddress();
+        final InetAddress trapInterface = event.getInterfaceAddress();
 
-    	final org.opennms.netmgt.xml.eventconf.Event econf = m_eventConfDao.findByEvent(event);
+        final org.opennms.netmgt.xml.eventconf.Event econf = m_eventConfDao.findByEvent(event);
         if (econf == null || econf.getUei() == null) {
             event.setUei("uei.opennms.org/default/trap");
         } else {
@@ -180,7 +176,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
         }
 
         if (econf != null) {
-        	final Logmsg logmsg = econf.getLogmsg();
+            final Logmsg logmsg = econf.getLogmsg();
             if (logmsg != null) {
                 final String dest = logmsg.getDest();
                 if ("discardtraps".equals(dest)) {
@@ -227,7 +223,9 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
     }
 
     /**
-     * <p>getEventConfDao</p>
+     * <p>
+     * getEventConfDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
@@ -236,16 +234,21 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
     }
 
     /**
-     * <p>setEventConfDao</p>
+     * <p>
+     * setEventConfDao
+     * </p>
      *
-     * @param eventConfDao a {@link org.opennms.netmgt.config.EventConfDao} object.
+     * @param eventConfDao
+     *            a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
     public void setEventConfDao(EventConfDao eventConfDao) {
         m_eventConfDao = eventConfDao;
     }
 
     /**
-     * <p>getEventMgr</p>
+     * <p>
+     * getEventMgr
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -254,16 +257,22 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
     }
 
     /**
-     * <p>setEventMgr</p>
+     * <p>
+     * setEventMgr
+     * </p>
      *
-     * @param eventMgr a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventMgr
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public void setEventManager(EventIpcManager eventMgr) {
         m_eventMgr = eventMgr;
     }
 
     /**
-     * <p>isNewSuspect</p>
+     * <p>
+     * isNewSuspect
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -272,9 +281,12 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
     }
 
     /**
-     * <p>setNewSuspect</p>
+     * <p>
+     * setNewSuspect
+     * </p>
      *
-     * @param newSuspect a {@link java.lang.Boolean} object.
+     * @param newSuspect
+     *            a {@link java.lang.Boolean} object.
      */
     public void setNewSuspect(Boolean newSuspect) {
         m_newSuspect = newSuspect;

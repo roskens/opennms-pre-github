@@ -37,7 +37,9 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.model.RrdRepository;
 
 /**
- * <p>LatencyCollectionResource class.</p>
+ * <p>
+ * LatencyCollectionResource class.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @version $Id: $
@@ -45,13 +47,18 @@ import org.opennms.netmgt.model.RrdRepository;
 public class LatencyCollectionResource implements CollectionResource {
 
     private String m_serviceName;
+
     private String m_ipAddress;
 
     /**
-     * <p>Constructor for LatencyCollectionResource.</p>
+     * <p>
+     * Constructor for LatencyCollectionResource.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public LatencyCollectionResource(String serviceName, String ipAddress) {
         super();
@@ -60,7 +67,9 @@ public class LatencyCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,7 +79,9 @@ public class LatencyCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -79,7 +90,9 @@ public class LatencyCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,7 +101,9 @@ public class LatencyCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,7 +113,9 @@ public class LatencyCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -108,7 +125,9 @@ public class LatencyCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a int.
      */
@@ -118,7 +137,9 @@ public class LatencyCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>rescanNeeded</p>
+     * <p>
+     * rescanNeeded
+     * </p>
      *
      * @return a boolean.
      */
@@ -139,7 +160,9 @@ public class LatencyCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>getOwnerName</p>
+     * <p>
+     * getOwnerName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

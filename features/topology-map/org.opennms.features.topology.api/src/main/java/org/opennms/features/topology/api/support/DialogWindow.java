@@ -13,10 +13,12 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class DialogWindow extends Window implements ClickListener {
     private static final long serialVersionUID = -2235453349601991807L;
+
     final Button okayButton = new Button("OK", this);
+
     final UI parentWindow;
 
-     public DialogWindow(final UI parentWindow, final String title, final String description) {
+    public DialogWindow(final UI parentWindow, final String title, final String description) {
         this.parentWindow = parentWindow;
         setCaption(title);
         setImmediate(true);
@@ -27,43 +29,44 @@ public class DialogWindow extends Window implements ClickListener {
         parentWindow.addWindow(this);
     }
 
-     private Layout createMainArea(final String description) {
-         HorizontalLayout layout = new HorizontalLayout();
-         layout.setSpacing(true);
-         layout.setMargin(true);
-         layout.setWidth(100, Unit.PERCENTAGE);
-         Label label = new Label(description, ContentMode.PREFORMATTED);
-         label.setWidth(100, Unit.PERCENTAGE);
-         layout.addComponent(label);
-         return layout;
-     }
+    private Layout createMainArea(final String description) {
+        HorizontalLayout layout = new HorizontalLayout();
+        layout.setSpacing(true);
+        layout.setMargin(true);
+        layout.setWidth(100, Unit.PERCENTAGE);
+        Label label = new Label(description, ContentMode.PREFORMATTED);
+        label.setWidth(100, Unit.PERCENTAGE);
+        layout.addComponent(label);
+        return layout;
+    }
 
-     private Layout createContent(final String description) {
-         VerticalLayout content = new VerticalLayout();
-         content.setWidth(100, Unit.PERCENTAGE);
+    private Layout createContent(final String description) {
+        VerticalLayout content = new VerticalLayout();
+        content.setWidth(100, Unit.PERCENTAGE);
 
-         Layout footer = createFooter();
-         Layout mainArea = createMainArea(description);
+        Layout footer = createFooter();
+        Layout mainArea = createMainArea(description);
 
-         content.addComponent(mainArea);
-         content.addComponent(footer);
-         content.setExpandRatio(mainArea, 1);
-         return content;
-     }
+        content.addComponent(mainArea);
+        content.addComponent(footer);
+        content.setExpandRatio(mainArea, 1);
+        return content;
+    }
 
-     private Layout createFooter() {
-         HorizontalLayout footer = new HorizontalLayout();
-         footer.setSpacing(true);
-         footer.setMargin(true);
-         footer.setWidth(100, Unit.PERCENTAGE);
-         footer.addComponent(okayButton);
-         footer.setComponentAlignment(okayButton, Alignment.BOTTOM_RIGHT);
-         return footer;
-     }
+    private Layout createFooter() {
+        HorizontalLayout footer = new HorizontalLayout();
+        footer.setSpacing(true);
+        footer.setMargin(true);
+        footer.setWidth(100, Unit.PERCENTAGE);
+        footer.addComponent(okayButton);
+        footer.setComponentAlignment(okayButton, Alignment.BOTTOM_RIGHT);
+        return footer;
+    }
 
     @Override
     public void buttonClick(Button.ClickEvent event) {
-        if (event.getButton() == okayButton) parentWindow.removeWindow(DialogWindow.this);
+        if (event.getButton() == okayButton)
+            parentWindow.removeWindow(DialogWindow.this);
     }
 
 }

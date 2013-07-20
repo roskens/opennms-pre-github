@@ -36,42 +36,53 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 import org.opennms.sms.reflector.smsservice.SmsResponse;
 
 /**
- * <p>SmsSequenceResponse class.</p>
+ * <p>
+ * SmsSequenceResponse class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="sms-response")
+@XmlRootElement(name = "sms-response")
 public class SmsSequenceResponse extends MobileSequenceResponse {
 
     /**
-     * <p>Constructor for SmsSequenceResponse.</p>
+     * <p>
+     * Constructor for SmsSequenceResponse.
+     * </p>
      */
     public SmsSequenceResponse() {
-		super();
-	}
+        super();
+    }
 
-	/**
-	 * <p>Constructor for SmsSequenceResponse.</p>
-	 *
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public SmsSequenceResponse(String label) {
-		super(label);
-	}
+    /**
+     * <p>
+     * Constructor for SmsSequenceResponse.
+     * </p>
+     *
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public SmsSequenceResponse(String label) {
+        super(label);
+    }
 
-	/**
-	 * <p>Constructor for SmsSequenceResponse.</p>
-	 *
-	 * @param gatewayId a {@link java.lang.String} object.
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public SmsSequenceResponse(String gatewayId, String label) {
-		super(gatewayId, label);
-	}
+    /**
+     * <p>
+     * Constructor for SmsSequenceResponse.
+     * </p>
+     *
+     * @param gatewayId
+     *            a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public SmsSequenceResponse(String gatewayId, String label) {
+        super(gatewayId, label);
+    }
 
-	/** {@inheritDoc} */
-	@Override
+    /** {@inheritDoc} */
+    @Override
     protected boolean matchesResponseType(MobileMsgRequest request, MobileMsgResponse response) {
         return response instanceof SmsResponse;
     }
@@ -80,12 +91,10 @@ public class SmsSequenceResponse extends MobileSequenceResponse {
     @Override
     public void processResponse(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
         if (response instanceof SmsResponse) {
-            SmsResponse smsResponse = (SmsResponse)response;
+            SmsResponse smsResponse = (SmsResponse) response;
 
-            session.setVariable(getEffectiveLabel(session)+".smsOriginator", smsResponse.getOriginator());
+            session.setVariable(getEffectiveLabel(session) + ".smsOriginator", smsResponse.getOriginator());
         }
     }
-
-
 
 }

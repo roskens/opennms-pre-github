@@ -32,9 +32,6 @@ import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.filter.EqualsFilter;
 import org.opennms.web.filter.SQLType;
 
-
-
-
 /**
  * Encapsulates severity filtering functionality.
  *
@@ -47,25 +44,33 @@ public class SeverityFilter extends EqualsFilter<Integer> {
     public static final String TYPE = "severity";
 
     /**
-     * <p>Constructor for SeverityFilter.</p>
+     * <p>
+     * Constructor for SeverityFilter.
+     * </p>
      *
-     * @param severity a int.
+     * @param severity
+     *            a int.
      */
     public SeverityFilter(int severity) {
         super(TYPE, SQLType.INT, "EVENTSEVERITY", "eventSeverity", severity);
     }
 
     /**
-     * <p>Constructor for SeverityFilter.</p>
+     * <p>
+     * Constructor for SeverityFilter.
+     * </p>
      *
-     * @param severity a {@link org.opennms.netmgt.model.OnmsSeverity} object.
+     * @param severity
+     *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
     public SeverityFilter(OnmsSeverity severity) {
         this(severity.getId());
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,7 +80,9 @@ public class SeverityFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,7 +92,9 @@ public class SeverityFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getSeverity</p>
+     * <p>
+     * getSeverity
+     * </p>
      *
      * @return a int.
      */

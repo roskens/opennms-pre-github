@@ -53,14 +53,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class LinkStateDaoHibernateTest implements InitializingBean {
@@ -68,24 +66,24 @@ public class LinkStateDaoHibernateTest implements InitializingBean {
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
     @Autowired
-	private LinkStateDao m_linkStateDao;
+    private LinkStateDao m_linkStateDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Before
-	public void setUp() {
-		m_databasePopulator.populateDatabase();
-	}
+    @Before
+    public void setUp() {
+        m_databasePopulator.populateDatabase();
+    }
 
     @Test
     @Transactional
-	public void testSaveLinkState() {
+    public void testSaveLinkState() {
         Collection<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findAll();
         assertNotNull(dlis);
         assertFalse(dlis.isEmpty());
@@ -118,7 +116,7 @@ public class LinkStateDaoHibernateTest implements InitializingBean {
 
     @Test
     @Transactional
-	public void testSaveThenRead() {
+    public void testSaveThenRead() {
         Collection<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findAll();
         assertNotNull(dlis);
         assertFalse(dlis.isEmpty());

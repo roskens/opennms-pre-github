@@ -31,7 +31,9 @@ package org.opennms.netmgt.trapd;
 import java.sql.SQLException;
 
 /**
- * <p>TrapdIpMgr interface.</p>
+ * <p>
+ * TrapdIpMgr interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -80,7 +82,9 @@ public interface TrapdIpMgr {
     public abstract long removeNodeId(String addr);
 
     /**
-     * <p>clearKnownIpsMap</p>
+     * <p>
+     * clearKnownIpsMap
+     * </p>
      */
     public abstract void clearKnownIpsMap();
 

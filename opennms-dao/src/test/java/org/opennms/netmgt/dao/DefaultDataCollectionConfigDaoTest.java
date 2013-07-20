@@ -92,7 +92,8 @@ public class DefaultDataCollectionConfigDaoTest {
     }
 
     /**
-     * Use this test to test speed improvements for the data collection config parsing code.
+     * Use this test to test speed improvements for the data collection config
+     * parsing code.
      */
     @Test
     @Ignore
@@ -104,7 +105,7 @@ public class DefaultDataCollectionConfigDaoTest {
 
     private void executeTests(DefaultDataCollectionConfigDao dao) {
         // Expected Values
-        int netsnmpObjectsCount = 197; //  bluecat.xml, netsnmp.xml, zeus.xml
+        int netsnmpObjectsCount = 197; // bluecat.xml, netsnmp.xml, zeus.xml
         int ciscoObjectsCount = 44;
         int resourceTypesCount = 88;
         int systemDefCount = 141;
@@ -156,12 +157,18 @@ public class DefaultDataCollectionConfigDaoTest {
     }
 
     private void executeResourceTypesTest(DefaultDataCollectionConfigDao dao, int expectedCount) {
-        Map<String,ResourceType> resourceTypesMap = dao.getConfiguredResourceTypes();
+        Map<String, ResourceType> resourceTypesMap = dao.getConfiguredResourceTypes();
         Assert.assertNotNull(resourceTypesMap);
         Assert.assertEquals(expectedCount, resourceTypesMap.size());
-        Assert.assertTrue(resourceTypesMap.containsKey("frCircuitIfIndex")); // Used resource type
-        Assert.assertTrue(resourceTypesMap.containsKey("wmiTcpipNetworkInterface")); // Unused resource type
-        Assert.assertTrue(resourceTypesMap.containsKey("xmpFilesys")); // Unused resource type
+        Assert.assertTrue(resourceTypesMap.containsKey("frCircuitIfIndex")); // Used
+                                                                             // resource
+                                                                             // type
+        Assert.assertTrue(resourceTypesMap.containsKey("wmiTcpipNetworkInterface")); // Unused
+                                                                                     // resource
+                                                                                     // type
+        Assert.assertTrue(resourceTypesMap.containsKey("xmpFilesys")); // Unused
+                                                                       // resource
+                                                                       // type
     }
 
     private void executeMibObjectsTest(DefaultDataCollectionConfigDao dao, String systemOid, int expectedCount) {

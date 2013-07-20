@@ -38,25 +38,34 @@ import org.opennms.netmgt.dao.api.JavaMailConfigurationDao;
 import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
- * <p>DefaultJavamailConfigurationDao class.</p>
+ * <p>
+ * DefaultJavamailConfigurationDao class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<JavamailConfiguration, JavamailConfiguration> implements JavaMailConfigurationDao {
+public class DefaultJavamailConfigurationDao extends
+        AbstractCastorConfigDao<JavamailConfiguration, JavamailConfiguration> implements JavaMailConfigurationDao {
 
     /**
-     * <p>Constructor for DefaultJavamailConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultJavamailConfigurationDao.
+     * </p>
      */
     public DefaultJavamailConfigurationDao() {
         super(JavamailConfiguration.class, "Javamail configuration");
     }
 
     /**
-     * <p>Constructor for DefaultJavamailConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultJavamailConfigurationDao.
+     * </p>
      *
-     * @param entityClass a {@link java.lang.Class} object.
-     * @param description a {@link java.lang.String} object.
+     * @param entityClass
+     *            a {@link java.lang.Class} object.
+     * @param description
+     *            a {@link java.lang.String} object.
      */
     public DefaultJavamailConfigurationDao(Class<JavamailConfiguration> entityClass, String description) {
         super(entityClass, description);
@@ -69,9 +78,12 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     }
 
     /**
-     * <p>getDefaultReadmailConfig</p>
+     * <p>
+     * getDefaultReadmailConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig} object.
+     * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig}
+     *         object.
      */
     @Override
     public ReadmailConfig getDefaultReadmailConfig() {
@@ -94,7 +106,9 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     }
 
     /**
-     * <p>getReadmailConfigs</p>
+     * <p>
+     * getReadmailConfigs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -104,9 +118,12 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     }
 
     /**
-     * <p>getDefaultSendmailConfig</p>
+     * <p>
+     * getDefaultSendmailConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.javamail.SendmailConfig} object.
+     * @return a {@link org.opennms.netmgt.config.javamail.SendmailConfig}
+     *         object.
      */
     @Override
     public SendmailConfig getDefaultSendmailConfig() {
@@ -129,7 +146,9 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     }
 
     /**
-     * <p>getSendmailConfigs</p>
+     * <p>
+     * getSendmailConfigs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -153,7 +172,9 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     }
 
     /**
-     * <p>getEnd2EndConfigs</p>
+     * <p>
+     * getEnd2EndConfigs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -163,21 +184,29 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     }
 
     /**
-     * <p>verifyMarshaledConfiguration</p>
+     * <p>
+     * verifyMarshaledConfiguration
+     * </p>
      *
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     @Override
     public void verifyMarshaledConfiguration() throws IllegalStateException {
-        // TODO verify that the default config names match as specified in javamail configuration element
-        // TODO verify that the config names match as specified in all the end2end configuration elements
+        // TODO verify that the default config names match as specified in
+        // javamail configuration element
+        // TODO verify that the config names match as specified in all the
+        // end2end configuration elements
 
     }
 
     /**
-     * <p>reloadConfiguration</p>
+     * <p>
+     * reloadConfiguration
+     * </p>
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException if any.
+     * @throws org.springframework.dao.DataAccessResourceFailureException
+     *             if any.
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {

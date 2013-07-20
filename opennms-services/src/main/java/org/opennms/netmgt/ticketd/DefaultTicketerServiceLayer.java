@@ -61,13 +61,17 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
     private static final Logger LOG = LoggerFactory.getLogger(DefaultTicketerServiceLayer.class);
 
     private AlarmDao m_alarmDao;
+
     private Plugin m_ticketerPlugin;
+
     private EventIpcManager m_eventIpcManager;
 
     static final String COMMS_ERROR_UEI = "uei.opennms.org/troubleTicket/communicationError";
 
     /**
-     * <p>Constructor for DefaultTicketerServiceLayer.</p>
+     * <p>
+     * Constructor for DefaultTicketerServiceLayer.
+     * </p>
      */
     public DefaultTicketerServiceLayer() {
         m_eventIpcManager = EventIpcManagerFactory.getIpcManager();
@@ -76,7 +80,8 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
     /**
      * Needs access to the AlarmDao.
      *
-     * @param alarmDao a {@link org.opennms.netmgt.dao.AlarmDao} object.
+     * @param alarmDao
+     *            a {@link org.opennms.netmgt.dao.AlarmDao} object.
      */
     public void setAlarmDao(AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
@@ -86,17 +91,20 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
      * Needs access to the ticketer Plugin API implementation for
      * communication with the HelpDesk.
      *
-     * @param ticketerPlugin a {@link org.opennms.api.integration.ticketing.Plugin} object.
+     * @param ticketerPlugin
+     *            a {@link org.opennms.api.integration.ticketing.Plugin} object.
      */
     public void setTicketerPlugin(Plugin ticketerPlugin) {
         m_ticketerPlugin = ticketerPlugin;
     }
 
     /**
-     * Spring functionality implemented to validate the state of the trouble ticket
+     * Spring functionality implemented to validate the state of the trouble
+     * ticket
      * plugin API.
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -106,16 +114,17 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
 
     /*
      * (non-Javadoc)
-     * @see org.opennms.netmgt.ticketd.TicketerServiceLayer#cancelTicketForAlarm(int, java.lang.String)
+     * @see
+     * org.opennms.netmgt.ticketd.TicketerServiceLayer#cancelTicketForAlarm(int,
+     * java.lang.String)
      */
     /** {@inheritDoc} */
     @Override
     public void cancelTicketForAlarm(int alarmId, String ticketId) {
         OnmsAlarm alarm = m_alarmDao.get(alarmId);
         if (alarm == null) {
-            throw new ObjectRetrievalFailureException("Unable to locate Alarm with ID: "+alarmId, null);
+            throw new ObjectRetrievalFailureException("Unable to locate Alarm with ID: " + alarmId, null);
         }
-
 
         try {
             setTicketState(ticketId, Ticket.State.CANCELLED);
@@ -141,10 +150,11 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
         }
     }
 
-
     /*
      * (non-Javadoc)
-     * @see org.opennms.netmgt.ticketd.TicketerServiceLayer#closeTicketForAlarm(int, java.lang.String)
+     * @see
+     * org.opennms.netmgt.ticketd.TicketerServiceLayer#closeTicketForAlarm(int,
+     * java.lang.String)
      */
     /** {@inheritDoc} */
     @Override
@@ -165,11 +175,12 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
 
     /*
      * (non-Javadoc)
-     * @see org.opennms.netmgt.ticketd.TicketerServiceLayer#createTicketForAlarm(int)
+     * @see
+     * org.opennms.netmgt.ticketd.TicketerServiceLayer#createTicketForAlarm(int)
      */
     /** {@inheritDoc} */
     @Override
-    public void createTicketForAlarm(int alarmId, Map<String,String> attributes) {
+    public void createTicketForAlarm(int alarmId, Map<String, String> attributes) {
 
         OnmsAlarm alarm = m_alarmDao.get(alarmId);
 
@@ -195,11 +206,13 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
     /**
      * Called from API implemented method after successful retrieval of Alarm.
      *
-     * @param alarm OpenNMS Model class alarm
+     * @param alarm
+     *            OpenNMS Model class alarm
      * @return OpenNMS Ticket with contents of alarm.
-     * TODO: Add alarm attributes to Ticket.
-     * TODO: Add alarmid to Ticket class for ability to reference back to Alarm (waffling on this
-     * since ticket isn't a persisted object and other reasons)
+     *         TODO: Add alarm attributes to Ticket.
+     *         TODO: Add alarmid to Ticket class for ability to reference back
+     *         to Alarm (waffling on this
+     *         since ticket isn't a persisted object and other reasons)
      */
     protected Ticket createTicketFromAlarm(OnmsAlarm alarm) {
         Ticket ticket = new Ticket();
@@ -212,18 +225,19 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
         return ticket;
     }
 
-
     /*
      * (non-Javadoc)
-     * @see org.opennms.netmgt.ticketd.TicketerServiceLayer#updateTicketForAlarm(int, java.lang.String)
+     * @see
+     * org.opennms.netmgt.ticketd.TicketerServiceLayer#updateTicketForAlarm(int,
+     * java.lang.String)
      */
     /** {@inheritDoc} */
     @Override
     public void updateTicketForAlarm(int alarmId, String ticketId) {
 
-        //      ticket.setState(State.OPEN);
-        //      ticket.setDetails(alarm.getDescription());
-        //      m_ticketerPlugin.saveOrUpdate(ticket);
+        // ticket.setState(State.OPEN);
+        // ticket.setDetails(alarm.getDescription());
+        // m_ticketerPlugin.saveOrUpdate(ticket);
 
         OnmsAlarm alarm = m_alarmDao.get(alarmId);
 
@@ -268,7 +282,9 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
     }
 
     /**
-     * <p>getEventIpcManager</p>
+     * <p>
+     * getEventIpcManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -277,9 +293,13 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
     }
 
     /**
-     * <p>setEventIpcManager</p>
+     * <p>
+     * setEventIpcManager
+     * </p>
      *
-     * @param ipcManager a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param ipcManager
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public void setEventIpcManager(EventIpcManager ipcManager) {
         m_eventIpcManager = ipcManager;

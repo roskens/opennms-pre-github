@@ -99,7 +99,9 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * <p>clone</p>
+     * <p>
+     * clone
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -242,7 +244,7 @@ public class NotificationInfo implements Cloneable {
      * @return the XMPP address
      */
     public String getXMPPAddress() {
-    	return m_xmppAddress;
+        return m_xmppAddress;
     }
 
     /**

@@ -41,30 +41,39 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * tag inside the {@link LinkAdapterConfiguration}, normally.
  */
 /**
- * <p>LinkPattern class.</p>
+ * <p>
+ * LinkPattern class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="link-pattern")
+@XmlRootElement(name = "link-pattern")
 public class LinkPattern {
-    // premature optimization!  ;)
+    // premature optimization! ;)
     private Pattern m_compiledPattern;
 
     private String m_pattern;
+
     private String m_template;
 
     /**
-     * <p>Constructor for LinkPattern.</p>
+     * <p>
+     * Constructor for LinkPattern.
+     * </p>
      */
     public LinkPattern() {
     }
 
     /**
-     * <p>Constructor for LinkPattern.</p>
+     * <p>
+     * Constructor for LinkPattern.
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
-     * @param template a {@link java.lang.String} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
+     * @param template
+     *            a {@link java.lang.String} object.
      */
     public LinkPattern(final String pattern, final String template) {
         setPattern(pattern);
@@ -72,56 +81,70 @@ public class LinkPattern {
     }
 
     /**
-     * <p>getPattern</p>
+     * <p>
+     * getPattern
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlAttribute(name="match", required=true)
+    @XmlAttribute(name = "match", required = true)
     public String getPattern() {
         return m_pattern;
     }
 
     /**
-     * <p>setPattern</p>
+     * <p>
+     * setPattern
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
      */
     public void setPattern(final String pattern) {
-    	if (pattern != null) {
-    		m_compiledPattern = Pattern.compile(pattern, Pattern.CANON_EQ | Pattern.DOTALL);
-    		m_pattern = pattern;
-    	}
+        if (pattern != null) {
+            m_compiledPattern = Pattern.compile(pattern, Pattern.CANON_EQ | Pattern.DOTALL);
+            m_pattern = pattern;
+        }
     }
 
     /**
-     * <p>getTemplate</p>
+     * <p>
+     * getTemplate
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlElement(name="link", required=true, nillable=false)
+    @XmlElement(name = "link", required = true, nillable = false)
     public String getTemplate() {
         return m_template;
     }
 
     /**
-     * <p>setTemplate</p>
+     * <p>
+     * setTemplate
+     * </p>
      *
-     * @param template a {@link java.lang.String} object.
+     * @param template
+     *            a {@link java.lang.String} object.
      */
     public void setTemplate(final String template) {
         m_template = template;
     }
 
     /**
-     * <p>resolveTemplate</p>
+     * <p>
+     * resolveTemplate
+     * </p>
      *
-     * @param endPoint a {@link java.lang.String} object.
+     * @param endPoint
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String resolveTemplate(final String endPoint) {
-    	if (endPoint == null || m_compiledPattern == null) return null;
+        if (endPoint == null || m_compiledPattern == null)
+            return null;
 
-    	final Matcher m = m_compiledPattern.matcher(endPoint);
+        final Matcher m = m_compiledPattern.matcher(endPoint);
         if (m.matches()) {
             return m.replaceAll(m_template);
         }
@@ -130,15 +153,14 @@ public class LinkPattern {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("pattern", m_pattern)
-            .append("template", m_template)
-            .toString();
+        return new ToStringBuilder(this).append("pattern", m_pattern).append("template", m_template).toString();
     }
 }

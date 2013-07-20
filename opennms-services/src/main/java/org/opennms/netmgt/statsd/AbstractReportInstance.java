@@ -33,9 +33,10 @@ import java.util.Date;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
-
 /**
- * <p>Abstract AbstractReportInstance class.</p>
+ * <p>
+ * Abstract AbstractReportInstance class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -43,18 +44,24 @@ import org.springframework.util.Assert;
 public abstract class AbstractReportInstance implements ReportInstance, InitializingBean {
 
     private ReportDefinition m_reportDefinition;
+
     private Date m_jobCompletedDate;
+
     private Date m_jobStartedDate;
 
     /**
-     * <p>Constructor for AbstractReportInstance.</p>
+     * <p>
+     * Constructor for AbstractReportInstance.
+     * </p>
      */
     public AbstractReportInstance() {
         super();
     }
 
     /**
-     * <p>getJobCompletedDate</p>
+     * <p>
+     * getJobCompletedDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -64,7 +71,9 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
     }
 
     /**
-     * <p>getJobStartedDate</p>
+     * <p>
+     * getJobStartedDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -74,7 +83,9 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,7 +95,9 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
     }
 
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,7 +107,9 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
     }
 
     /**
-     * <p>getRetainInterval</p>
+     * <p>
+     * getRetainInterval
+     * </p>
      *
      * @return a long.
      */
@@ -104,7 +119,9 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
     }
 
     /**
-     * <p>getReportDefinition</p>
+     * <p>
+     * getReportDefinition
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
      */
@@ -114,9 +131,12 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
     }
 
     /**
-     * <p>setReportDefinition</p>
+     * <p>
+     * setReportDefinition
+     * </p>
      *
-     * @param reportDefinition a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
+     * @param reportDefinition
+     *            a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
      */
     @Override
     public void setReportDefinition(ReportDefinition reportDefinition) {
@@ -124,28 +144,37 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
     }
 
     /**
-     * <p>setJobCompletedDate</p>
+     * <p>
+     * setJobCompletedDate
+     * </p>
      *
-     * @param jobCompletedDate a {@link java.util.Date} object.
+     * @param jobCompletedDate
+     *            a {@link java.util.Date} object.
      */
     public void setJobCompletedDate(Date jobCompletedDate) {
         m_jobCompletedDate = jobCompletedDate;
     }
 
     /**
-     * <p>setJobStartedDate</p>
+     * <p>
+     * setJobStartedDate
+     * </p>
      *
-     * @param jobStartedDate a {@link java.util.Date} object.
+     * @param jobStartedDate
+     *            a {@link java.util.Date} object.
      */
     public void setJobStartedDate(Date jobStartedDate) {
         m_jobStartedDate = jobStartedDate;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#afterPropertiesSet()
      */
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {

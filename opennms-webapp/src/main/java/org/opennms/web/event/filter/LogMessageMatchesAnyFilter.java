@@ -31,7 +31,9 @@ package org.opennms.web.event.filter;
 import org.opennms.web.filter.SubstringFilter;
 
 /**
- * <p>LogMessageMatchesAnyFilter class.</p>
+ * <p>
+ * LogMessageMatchesAnyFilter class.
+ * </p>
  *
  * @author <A HREF="mailto:jamesz@opennms.com">James Zuo </A>
  * @version $Id: $
@@ -42,7 +44,9 @@ public class LogMessageMatchesAnyFilter extends SubstringFilter {
     public static final String TYPE = "msgmatchany";
 
     /**
-     * <p>Constructor for LogMessageMatchesAnyFilter.</p>
+     * <p>
+     * Constructor for LogMessageMatchesAnyFilter.
+     * </p>
      *
      * @param substring
      *            a space-delimited list of search substrings
@@ -52,7 +56,9 @@ public class LogMessageMatchesAnyFilter extends SubstringFilter {
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -66,7 +72,9 @@ public class LogMessageMatchesAnyFilter extends SubstringFilter {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

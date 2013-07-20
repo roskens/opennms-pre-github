@@ -35,20 +35,27 @@ import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.beans.PropertyAccessorUtils;
 
 /**
- * <p>PropertyPath class.</p>
+ * <p>
+ * PropertyPath class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class PropertyPath {
     private PropertyPath parent = null;
+
     private String propertyName;
+
     private String key;
 
     /**
-     * <p>Constructor for PropertyPath.</p>
+     * <p>
+     * Constructor for PropertyPath.
+     * </p>
      *
-     * @param nestedPath a {@link java.lang.String} object.
+     * @param nestedPath
+     *            a {@link java.lang.String} object.
      */
     public PropertyPath(String nestedPath) {
         String canonicalPath = PropertyAccessorUtils.canonicalPropertyName(nestedPath);
@@ -56,10 +63,9 @@ public class PropertyPath {
         if (lastIndex < 0) {
             propertyName = PropertyAccessorUtils.getPropertyName(canonicalPath);
             key = computeKey(canonicalPath);
-        }
-        else {
+        } else {
             parent = new PropertyPath(canonicalPath.substring(0, lastIndex));
-            String lastProperty = canonicalPath.substring(lastIndex+1);
+            String lastProperty = canonicalPath.substring(lastIndex + 1);
             propertyName = PropertyAccessorUtils.getPropertyName(lastProperty);
             key = computeKey(lastProperty);
         }
@@ -72,13 +78,13 @@ public class PropertyPath {
         }
 
         int keySuffix = property.indexOf(PropertyAccessor.PROPERTY_KEY_SUFFIX_CHAR);
-        return property.substring(keyPrefix+1, keySuffix);
+        return property.substring(keyPrefix + 1, keySuffix);
     }
 
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        StringBuilder buf = new StringBuilder(parent == null ? "" : parent.toString()+'.');
+        StringBuilder buf = new StringBuilder(parent == null ? "" : parent.toString() + '.');
         buf.append(propertyName);
         if (key.length() > 0) {
             buf.append(PropertyAccessor.PROPERTY_KEY_PREFIX);
@@ -89,7 +95,9 @@ public class PropertyPath {
     }
 
     /**
-     * <p>Getter for the field <code>key</code>.</p>
+     * <p>
+     * Getter for the field <code>key</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,7 +106,9 @@ public class PropertyPath {
     }
 
     /**
-     * <p>Getter for the field <code>parent</code>.</p>
+     * <p>
+     * Getter for the field <code>parent</code>.
+     * </p>
      *
      * @return a {@link org.opennms.core.utils.PropertyPath} object.
      */
@@ -107,7 +117,9 @@ public class PropertyPath {
     }
 
     /**
-     * <p>Getter for the field <code>propertyName</code>.</p>
+     * <p>
+     * Getter for the field <code>propertyName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,9 +128,12 @@ public class PropertyPath {
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
-     * @param root a {@link java.lang.Object} object.
+     * @param root
+     *            a {@link java.lang.Object} object.
      * @return a {@link java.lang.Object} object.
      */
     public Object getValue(Object root) throws InvalidPropertyException {
@@ -126,9 +141,12 @@ public class PropertyPath {
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
-     * @param beanWrapper a {@link org.springframework.beans.BeanWrapper} object.
+     * @param beanWrapper
+     *            a {@link org.springframework.beans.BeanWrapper} object.
      * @return a {@link java.lang.Object} object.
      */
     public Object getValue(BeanWrapper beanWrapper) throws InvalidPropertyException {
@@ -136,4 +154,3 @@ public class PropertyPath {
     }
 
 }
-

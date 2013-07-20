@@ -67,16 +67,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
-        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
-        "classpath:/testConfigContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml", "classpath:/testConfigContext.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class LinkAdapterConfigurationTest implements InitializingBean {
@@ -118,7 +114,9 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
 
         m_marshaller = m_context.createMarshaller();
         m_marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        m_marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new DefaultNamespacePrefixMapper("http://xmlns.opennms.org/xsd/config/map-link-adapter"));
+        m_marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+                                 new DefaultNamespacePrefixMapper(
+                                                                  "http://xmlns.opennms.org/xsd/config/map-link-adapter"));
 
         m_unmarshaller = m_context.createUnmarshaller();
         m_unmarshaller.setSchema(null);
@@ -143,7 +141,7 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
         String line = null;
 
         while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
+            sb.append(line).append("\n");
         }
         System.err.println(sb.toString());
     }
@@ -167,23 +165,19 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
         System.err.println(objectXML.toString());
     }
 
-    @Test(expected=Exception.class)
+    @Test(expected = Exception.class)
     @Ignore("I can't find a way to get JAXB to set minOccurs=1 with annotations...")
     public void testRequireLinkTag() throws Exception {
         ValidationEventHandler handler = new DefaultValidationEventHandler();
         m_unmarshaller.setEventHandler(handler);
 
-        String testXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-			"<link-adapter-configuration xmlns=\"http://xmlns.opennms.org/xsd/config/map-link-adapter\">\n" +
-			"    <for match=\"foo-(.*?)-baz\">\n" +
-			"    </for>\n" +
-			"    <for match=\"before-(.*?)-after\">\n" +
-			"        <link>middle-was-$1</link>\n" +
-			"    </for>\n" +
-        		"</link-adapter-configuration>";
+        String testXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                + "<link-adapter-configuration xmlns=\"http://xmlns.opennms.org/xsd/config/map-link-adapter\">\n"
+                + "    <for match=\"foo-(.*?)-baz\">\n" + "    </for>\n" + "    <for match=\"before-(.*?)-after\">\n"
+                + "        <link>middle-was-$1</link>\n" + "    </for>\n" + "</link-adapter-configuration>";
 
         StringReader xmlReader = new StringReader(testXml);
-        LinkAdapterConfiguration lac = (LinkAdapterConfiguration)m_unmarshaller.unmarshal(xmlReader);
+        LinkAdapterConfiguration lac = (LinkAdapterConfiguration) m_unmarshaller.unmarshal(xmlReader);
         System.err.println("sequence = " + lac);
 
     }

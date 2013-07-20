@@ -59,7 +59,6 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
      * connection
      *
      * @author Matt Brozowski
-     *
      */
     public static class DominoConnectionConfig extends ConnectionConfig {
 
@@ -113,7 +112,9 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
     private static final String PROTOCOL_NAME = "DominoIIOP";
 
     /**
-     * <p>Constructor for DominoIIOPPlugin.</p>
+     * <p>
+     * Constructor for DominoIIOPPlugin.
+     * </p>
      */
     public DominoIIOPPlugin() {
         super(PROTOCOL_NAME, DEFAULT_PORT, DEFAULT_TIMEOUT, DEFAULT_RETRY);
@@ -121,9 +122,10 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     *
-     * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#createProtocol(java.net.Socket,
-     *      org.opennms.netmgt.capsd.ConnectonConfig)
+     * @see
+     * org.opennms.netmgt.capsd.AbstractTcpPlugin#createProtocol(java.net.Socket
+     * ,
+     * org.opennms.netmgt.capsd.ConnectonConfig)
      */
     /** {@inheritDoc} */
     @Override
@@ -133,9 +135,10 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     *
-     * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#createConfig(java.net.InetAddress,
-     *      java.util.Map)
+     * @see
+     * org.opennms.netmgt.capsd.AbstractTcpPlugin#createConfig(java.net.InetAddress
+     * ,
+     * java.util.Map)
      */
     /** {@inheritDoc} */
     @Override
@@ -145,9 +148,10 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     *
-     * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#populateConnectionConfig(org.opennms.netmgt.capsd.ConnectionConfig,
-     *      java.util.Map)
+     * @see
+     * org.opennms.netmgt.capsd.AbstractTcpPlugin#populateConnectionConfig(org
+     * .opennms.netmgt.capsd.ConnectionConfig,
+     * java.util.Map)
      */
     /** {@inheritDoc} */
     @Override
@@ -177,7 +181,8 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
             return true;
         } catch (Throwable e) {
 
-            LOG.debug("DominoIIOPMonitor: failed to get the corba IOR from {}", InetAddressUtils.str(config.getInetAddress()));
+            LOG.debug("DominoIIOPMonitor: failed to get the corba IOR from {}",
+                      InetAddressUtils.str(config.getInetAddress()));
             return false;
         }
     }
@@ -219,13 +224,17 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     *
-     * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#saveConfig(org.opennms.netmgt.capsd.ConnectionConfig)
+     * @see
+     * org.opennms.netmgt.capsd.AbstractTcpPlugin#saveConfig(org.opennms.netmgt
+     * .capsd.ConnectionConfig)
      */
     /**
-     * <p>saveConfig</p>
+     * <p>
+     * saveConfig
+     * </p>
      *
-     * @param config a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
      */
     protected void saveConfig(ConnectionConfig config) {
         // override this as this plugin does not save any params

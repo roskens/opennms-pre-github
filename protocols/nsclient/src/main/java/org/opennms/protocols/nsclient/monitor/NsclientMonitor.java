@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public class NsclientMonitor extends AbstractServiceMonitor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NsclientMonitor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NsclientMonitor.class);
 
     /**
      * Default retries.
@@ -74,9 +74,8 @@ public class NsclientMonitor extends AbstractServiceMonitor {
     private static final int DEFAULT_TIMEOUT = 3000;
 
     /**
-     * {@inheritDoc}
-     *
-     * Poll the specified address for service availability. During the poll an
+     * {@inheritDoc} Poll the specified address for service availability. During
+     * the poll an
      * attempt is made to connect on the specified port. If the connection
      * request is successful, the parameters are parsed and turned into
      * <code>NsclientCheckParams</code> and a check is performed against the
@@ -106,23 +105,17 @@ public class NsclientMonitor extends AbstractServiceMonitor {
         }
 
         // NSClient related parameters.
-        String command = ParameterMap.getKeyedString(
-                                                     parameters,
+        String command = ParameterMap.getKeyedString(parameters,
                                                      "command",
                                                      NsclientManager.convertTypeToString(NsclientManager.CHECK_CLIENTVERSION));
-        int port = ParameterMap.getKeyedInteger(parameters, "port",
-                                                NsclientManager.DEFAULT_PORT);
+        int port = ParameterMap.getKeyedInteger(parameters, "port", NsclientManager.DEFAULT_PORT);
 
         String password = ParameterMap.getKeyedString(parameters, "password", NSClientAgentConfig.DEFAULT_PASSWORD);
-        String params = ParameterMap.getKeyedString(parameters, "parameter",
-                                                    null);
-        int critPerc = ParameterMap.getKeyedInteger(parameters,
-                                                    "criticalPercent", 0);
-        int warnPerc = ParameterMap.getKeyedInteger(parameters,
-                                                    "warningPercent", 0);
+        String params = ParameterMap.getKeyedString(parameters, "parameter", null);
+        int critPerc = ParameterMap.getKeyedInteger(parameters, "criticalPercent", 0);
+        int warnPerc = ParameterMap.getKeyedInteger(parameters, "warningPercent", 0);
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
-
 
         // Get the address we're going to poll.
         InetAddress ipv4Addr = (InetAddress) iface.getAddress();
@@ -133,23 +126,17 @@ public class NsclientMonitor extends AbstractServiceMonitor {
                 tracker.startAttempt();
 
                 // Create a client, set up details and connect.
-                NsclientManager client = new NsclientManager(InetAddressUtils.str(ipv4Addr),
-                                                             port, password);
+                NsclientManager client = new NsclientManager(InetAddressUtils.str(ipv4Addr), port, password);
                 client.setTimeout(tracker.getSoTimeout());
                 client.setPassword(password);
                 client.init();
 
                 // Set up the parameters the client will use to validate the
                 // response.
-                NsclientCheckParams clientParams = new NsclientCheckParams(
-                                                                           critPerc,
-                                                                           warnPerc,
-                                                                           params);
+                NsclientCheckParams clientParams = new NsclientCheckParams(critPerc, warnPerc, params);
 
                 // Send the request to the server and receive the response.
-                response = client.processCheckCommand(
-                                                      NsclientManager.convertStringToType(command),
-                                                      clientParams);
+                response = client.processCheckCommand(NsclientManager.convertStringToType(command), clientParams);
                 // Now save the time it took to process the check command.
                 responseTime = tracker.elapsedTimeInMillis();
 
@@ -163,7 +150,8 @@ public class NsclientMonitor extends AbstractServiceMonitor {
                 } else if (response.getResultCode() == NsclientPacket.RES_STATE_CRIT) {
                     serviceStatus = PollStatus.SERVICE_UNAVAILABLE;
                     reason = response.getResponse();
-                    // set this to null so we don't try to save data when the node is down
+                    // set this to null so we don't try to save data when the
+                    // node is down
                     responseTime = null;
                 }
 

@@ -46,6 +46,7 @@ import org.opennms.netmgt.config.xmlrpcd.XmlrpcServer;
 import org.opennms.netmgt.config.xmlrpcd.ExternalServers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  * <p>
  * The Xmlrpcd receives events selectively and sends notification to an external
@@ -78,7 +79,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
 
     /**
      * The class instance used to receive new events from for the system.
-     *  -- ArrayList of BroadcastEventProcessors
+     * -- ArrayList of BroadcastEventProcessors
      */
     private ArrayList<BroadcastEventProcessor> m_eventReceivers = new ArrayList<BroadcastEventProcessor>();
 
@@ -93,15 +94,16 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * XMLRPC server via XMLRPC protocol.
      */
     public Xmlrpcd() {
-    	super("xmlrpcd");
+        super("xmlrpcd");
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
-
 
         LOG.debug("start: Creating the xmlrpc event queue processor");
 
@@ -120,14 +122,16 @@ public class Xmlrpcd extends AbstractServiceDaemon {
             final Enumeration<ExternalServers> servers = getConfig().getExternalServerEnumeration();
             int i = 0;
             while (servers.hasMoreElements()) {
-            	final ExternalServers server = servers.nextElement();
+                final ExternalServers server = servers.nextElement();
                 final XmlrpcServer[] xServers = server.getXmlrpcServer();
                 final FifoQueue<Event> q = new FifoQueueImpl<Event>();
                 m_eventlogQs.add(q);
-                m_eventReceivers.add(new BroadcastEventProcessor(Integer.toString(i), q, getConfig().getMaxQueueSize(), getConfig().getEventList(server)));
+                m_eventReceivers.add(new BroadcastEventProcessor(Integer.toString(i), q, getConfig().getMaxQueueSize(),
+                                                                 getConfig().getEventList(server)));
 
                 // create an EventQueueProcessor per server
-                m_processors.add( new EventQueueProcessor(q, xServers, server.getRetries(), server.getElapseTime(), verifyServer, localServer, getConfig().getMaxQueueSize()) );
+                m_processors.add(new EventQueueProcessor(q, xServers, server.getRetries(), server.getElapseTime(),
+                                                         verifyServer, localServer, getConfig().getMaxQueueSize()));
                 i++;
             }
 
@@ -138,12 +142,17 @@ public class Xmlrpcd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>getConfig</p>
+     * <p>
+     * getConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.XmlrpcdConfigFactory} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public XmlrpcdConfigFactory getConfig() throws MarshalException, ValidationException, IOException {
         if (m_config == null) {
@@ -153,11 +162,16 @@ public class Xmlrpcd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>createConfig</p>
+     * <p>
+     * createConfig
+     * </p>
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void createConfig() throws MarshalException, ValidationException, IOException {
         XmlrpcdConfigFactory.init();
@@ -165,21 +179,31 @@ public class Xmlrpcd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setConfig</p>
+     * <p>
+     * setConfig
+     * </p>
      *
-     * @param config a {@link org.opennms.netmgt.config.XmlrpcdConfigFactory} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.config.XmlrpcdConfigFactory}
+     *            object.
      */
     public void setConfig(final XmlrpcdConfigFactory config) {
         m_config = config;
     }
 
     /**
-     * <p>getServerConfig</p>
+     * <p>
+     * getServerConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @return a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory}
+     *         object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public OpennmsServerConfigFactory getServerConfig() throws MarshalException, ValidationException, IOException {
         if (m_serverConfig == null) {
@@ -189,11 +213,16 @@ public class Xmlrpcd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>createServerConfig</p>
+     * <p>
+     * createServerConfig
+     * </p>
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void createServerConfig() throws MarshalException, ValidationException, IOException {
         OpennmsServerConfigFactory.init();
@@ -201,30 +230,38 @@ public class Xmlrpcd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setServerConfig</p>
+     * <p>
+     * setServerConfig
+     * </p>
      *
-     * @param serverConfig a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory} object.
+     * @param serverConfig
+     *            a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory}
+     *            object.
      */
     public void setServerConfig(final OpennmsServerConfigFactory serverConfig) {
         m_serverConfig = serverConfig;
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
         LOG.debug("start: Initializing the xmlrpcd config factory");
 
         for (final EventQueueProcessor proc : m_processors) {
-        	proc.start();
+            proc.start();
         }
 
         LOG.debug("start: xmlrpcd ready to process events");
     }
 
     /**
-     * <p>onPause</p>
+     * <p>
+     * onPause
+     * </p>
      */
     @Override
     protected void onPause() {
@@ -238,7 +275,9 @@ public class Xmlrpcd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onResume</p>
+     * <p>
+     * onResume
+     * </p>
      */
     @Override
     protected void onResume() {
@@ -252,12 +291,14 @@ public class Xmlrpcd extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
         // shutdown and wait on the background processing thread to exit.
-    	// LogUtils.debugf(this, "exit: closing communication paths.");
+        // LogUtils.debugf(this, "exit: closing communication paths.");
 
         LOG.debug("stop: Calling stop on processor");
 

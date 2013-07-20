@@ -46,7 +46,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>CustomGraphChooseResourceController class.</p>
+ * <p>
+ * CustomGraphChooseResourceController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -54,19 +56,18 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class CustomGraphChooseResourceController extends AbstractController implements InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CustomGraphChooseResourceController.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(CustomGraphChooseResourceController.class);
 
     public enum Parameters {
-        resourceId,
-        selectedResourceId
+        resourceId, selectedResourceId
     }
 
     private ResourceService m_resourceService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         ModelAndView modelAndView = new ModelAndView("KSC/customGraphChooseResource");
 
         String resourceId = request.getParameter(Parameters.resourceId.toString());
@@ -102,7 +103,9 @@ public class CustomGraphChooseResourceController extends AbstractController impl
     }
 
     /**
-     * <p>getResourceService</p>
+     * <p>
+     * getResourceService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -111,18 +114,24 @@ public class CustomGraphChooseResourceController extends AbstractController impl
     }
 
     /**
-     * <p>setResourceService</p>
+     * <p>
+     * setResourceService
+     * </p>
      *
-     * @param resourceService a {@link org.opennms.web.svclayer.ResourceService} object.
+     * @param resourceService
+     *            a {@link org.opennms.web.svclayer.ResourceService} object.
      */
     public void setResourceService(ResourceService resourceService) {
         m_resourceService = resourceService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

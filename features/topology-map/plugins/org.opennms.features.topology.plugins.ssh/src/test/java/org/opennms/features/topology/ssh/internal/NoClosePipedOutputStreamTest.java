@@ -38,11 +38,17 @@ import org.junit.Test;
 public class NoClosePipedOutputStreamTest {
 
     NoClosePipedOutputStream definedSource;
+
     NoClosePipedOutputStream nullSource;
+
     NoClosePipedOutputStream out;
+
     NoClosePipedInputStream in;
+
     int testValue = 25;
-    byte[] testByte = {1,2,3,4};
+
+    byte[] testByte = { 1, 2, 3, 4 };
+
     byte[] emptyByte = new byte[0];
 
     @Before
@@ -54,8 +60,8 @@ public class NoClosePipedOutputStreamTest {
 
     @Test
     public void testCreateWithDefinedSource() throws IOException {
-            definedSource = new NoClosePipedOutputStream(in);
-            assertEquals(true, in.connected);
+        definedSource = new NoClosePipedOutputStream(in);
+        assertEquals(true, in.connected);
     }
 
     @Test
@@ -71,11 +77,19 @@ public class NoClosePipedOutputStreamTest {
         } catch (IOException e) {
             fail("The pipe is already connected"); // This should not happen
         }
-        fail("This test should have caught a NullPointerException"); // If the exception was not caught, the code is not error checking properly
+        fail("This test should have caught a NullPointerException"); // If the
+                                                                     // exception
+                                                                     // was not
+                                                                     // caught,
+                                                                     // the code
+                                                                     // is not
+                                                                     // error
+                                                                     // checking
+                                                                     // properly
     }
 
     @Test
-    public void testConnectWhenAlreadyConnected () {
+    public void testConnectWhenAlreadyConnected() {
         try {
             out.connect(in);
             out.connect(in);
@@ -86,9 +100,14 @@ public class NoClosePipedOutputStreamTest {
             // thrown, and it is doing the right thing.
             return;
         } catch (NullPointerException e) {
-            fail ("The source being connected to is null"); // This should not happen
+            fail("The source being connected to is null"); // This should not
+                                                           // happen
         }
-        fail("This test should have caught an IOException"); // If the exception was not caught, the code is not error checking properly
+        fail("This test should have caught an IOException"); // If the exception
+                                                             // was not caught,
+                                                             // the code is not
+                                                             // error checking
+                                                             // properly
     }
 
     @Test
@@ -96,24 +115,36 @@ public class NoClosePipedOutputStreamTest {
         try {
             out.connect(in);
         } catch (IOException e) {
-            fail("The pipe is already connected"); // This will only happen if the source is already connected
-        } catch(NullPointerException e) {
-            fail("The source being connected to is null"); // This will only happen if the source is null
+            fail("The pipe is already connected"); // This will only happen if
+                                                   // the source is already
+                                                   // connected
+        } catch (NullPointerException e) {
+            fail("The source being connected to is null"); // This will only
+                                                           // happen if the
+                                                           // source is null
         }
         // If no exception is caught, the test passes
 
     }
+
     @Test
-    public void testNotConnectedIntWrite () {
+    public void testNotConnectedIntWrite() {
         try {
             out.write(testValue);
-            fail("This test should have thrown an IOException already"); // error checking is not working properly
+            fail("This test should have thrown an IOException already"); // error
+                                                                         // checking
+                                                                         // is
+                                                                         // not
+                                                                         // working
+                                                                         // properly
         } catch (IOException e) {
             // Should be thrown if the pipes are not connected
             assertEquals("Pipe not connected", e.getMessage());
             return;
         }
-        fail("This test should have caught an IOException"); // Error checking is not working properly
+        fail("This test should have caught an IOException"); // Error checking
+                                                             // is not working
+                                                             // properly
     }
 
     @Test
@@ -123,56 +154,88 @@ public class NoClosePipedOutputStreamTest {
         assertEquals("25", java.lang.Byte.valueOf(in.buffer[0]).toString());
 
     }
+
     @Test
-    public void testNotConnectedByteWrite () {
+    public void testNotConnectedByteWrite() {
         try {
             out.write(testByte, 0, 1);
             fail("This test should have thrown an IOException already");
         } catch (IOException e) {
             assertEquals("Pipe not connected", e.getMessage());
-            return; //Should be thrown if the pipe is not connected
+            return; // Should be thrown if the pipe is not connected
         } catch (NullPointerException e) {
-            fail("The byte is most likely null");  // Should not be thrown in this test case
+            fail("The byte is most likely null"); // Should not be thrown in
+                                                  // this test case
         } catch (IndexOutOfBoundsException e) {
-            fail ("The offset or write length is invalid"); // Should not be thrown in this test case
+            fail("The offset or write length is invalid"); // Should not be
+                                                           // thrown in this
+                                                           // test case
         }
-        fail("This test should have caught an IOException"); // It should not be possible for this test to reach the end
+        fail("This test should have caught an IOException"); // It should not be
+                                                             // possible for
+                                                             // this test to
+                                                             // reach the end
     }
 
     @Test
-    public void testNullByteWrite () {
+    public void testNullByteWrite() {
         try {
             out.connect(in);
             out.write(null, 0, 1);
             fail("This test should hae thrown a NullPointerException already");
         } catch (IOException e) {
-            fail ("The popes are not connected"); // Should not be thrown in this test case
+            fail("The popes are not connected"); // Should not be thrown in this
+                                                 // test case
         } catch (NullPointerException e) {
-            return;  // This should be thrown due to the fact that the byte is null
+            return; // This should be thrown due to the fact that the byte is
+                    // null
         } catch (IndexOutOfBoundsException e) {
-            fail ("The offset or write length is invalid"); // Should not be thrown in this test case
+            fail("The offset or write length is invalid"); // Should not be
+                                                           // thrown in this
+                                                           // test case
         }
-        fail("This test should have caught a NullPointerException"); // It should not be possible for this test to reach the end
+        fail("This test should have caught a NullPointerException"); // It
+                                                                     // should
+                                                                     // not be
+                                                                     // possible
+                                                                     // for this
+                                                                     // test to
+                                                                     // reach
+                                                                     // the end
     }
 
     @Test
-    public void testNegativeOffsetByteWrite () {
+    public void testNegativeOffsetByteWrite() {
         try {
             out.connect(in);
             out.write(testByte, -1, 1);
             fail("This test should have thrown an IndexOutOfBoundsException already");
         } catch (IOException e) {
-            fail ("The pipes are not connected"); // Should not be thrown in this test case
+            fail("The pipes are not connected"); // Should not be thrown in this
+                                                 // test case
         } catch (NullPointerException e) {
-            fail("The bye array is most likely null");  // Should not be thrown in this test case
+            fail("The bye array is most likely null"); // Should not be thrown
+                                                       // in this test case
         } catch (IndexOutOfBoundsException e) {
-            return; // This should be thrown due to the fact that the Index referenced is larger than the array
+            return; // This should be thrown due to the fact that the Index
+                    // referenced is larger than the array
         }
-        fail("This test should have caught an IndexOutOfBoundsException"); // It should not be possible for this test to reach the end
+        fail("This test should have caught an IndexOutOfBoundsException"); // It
+                                                                           // should
+                                                                           // not
+                                                                           // be
+                                                                           // possible
+                                                                           // for
+                                                                           // this
+                                                                           // test
+                                                                           // to
+                                                                           // reach
+                                                                           // the
+                                                                           // end
     }
 
     @Test
-    public void testNormalByteWrite () throws IOException {
+    public void testNormalByteWrite() throws IOException {
         out.connect(in);
 
         out.write(testByte, 1, 1);
@@ -186,13 +249,27 @@ public class NoClosePipedOutputStreamTest {
             out.write(testByte, 1, -1);
             fail("This test should have thrown an IndexOutOfBoundsException already");
         } catch (IOException e) {
-            fail ("The pipes are not connected"); // Should not be thrown in this test case
+            fail("The pipes are not connected"); // Should not be thrown in this
+                                                 // test case
         } catch (NullPointerException e) {
-            fail("The bye array is most likely null");  // Should not be thrown in this test case
+            fail("The bye array is most likely null"); // Should not be thrown
+                                                       // in this test case
         } catch (IndexOutOfBoundsException e) {
-            return; // This should be thrown due to the fact that the Index referenced is larger than the array
+            return; // This should be thrown due to the fact that the Index
+                    // referenced is larger than the array
         }
-        fail("This test should have caught an IndexOutOfBoundsException"); // It should not be possible for this test to reach the end
+        fail("This test should have caught an IndexOutOfBoundsException"); // It
+                                                                           // should
+                                                                           // not
+                                                                           // be
+                                                                           // possible
+                                                                           // for
+                                                                           // this
+                                                                           // test
+                                                                           // to
+                                                                           // reach
+                                                                           // the
+                                                                           // end
     }
 
     @Test
@@ -202,13 +279,27 @@ public class NoClosePipedOutputStreamTest {
             out.write(testByte, 3, 3);
             fail("This test should have thrown an IndexOutOfBoundsException already");
         } catch (IOException e) {
-            fail ("The pipes are not connected"); // Should not be thrown in this test case
+            fail("The pipes are not connected"); // Should not be thrown in this
+                                                 // test case
         } catch (NullPointerException e) {
-            fail("The bye array is most likely null");  // Should not be thrown in this test case
+            fail("The bye array is most likely null"); // Should not be thrown
+                                                       // in this test case
         } catch (IndexOutOfBoundsException e) {
-            return; // This should be thrown due to the fact that the Index referenced is larger than the array
+            return; // This should be thrown due to the fact that the Index
+                    // referenced is larger than the array
         }
-        fail("This test should have caught an IndexOutOfBoundsException"); // It should not be possible for this test to reach the end
+        fail("This test should have caught an IndexOutOfBoundsException"); // It
+                                                                           // should
+                                                                           // not
+                                                                           // be
+                                                                           // possible
+                                                                           // for
+                                                                           // this
+                                                                           // test
+                                                                           // to
+                                                                           // reach
+                                                                           // the
+                                                                           // end
     }
 
     @Test
@@ -218,26 +309,41 @@ public class NoClosePipedOutputStreamTest {
             out.write(testByte, 10, 1);
             assertEquals("2", java.lang.Byte.valueOf(in.buffer[0]).toString());
         } catch (IOException e) {
-            fail("The pipes are not connected"); // This should not be thrown in this test
+            fail("The pipes are not connected"); // This should not be thrown in
+                                                 // this test
         } catch (NullPointerException e) {
-            fail("The byte array is most likely null"); // This should not be thrown in this test
+            fail("The byte array is most likely null"); // This should not be
+                                                        // thrown in this test
         } catch (IndexOutOfBoundsException e) {
-            return; // The offset is larger than the size of the byte array, and therefore this is expected
+            return; // The offset is larger than the size of the byte array, and
+                    // therefore this is expected
         }
-        fail("This test should have thrown an IndexOutOfBoundsException"); // This should not be thrown in this test
+        fail("This test should have thrown an IndexOutOfBoundsException"); // This
+                                                                           // should
+                                                                           // not
+                                                                           // be
+                                                                           // thrown
+                                                                           // in
+                                                                           // this
+                                                                           // test
     }
 
     @Test
     public void testZeroLengthByteWrite() {
         try {
             out.connect(in);
-            out.write(testByte, 1, 0); // write from offset, and continue writing for zero length
+            out.write(testByte, 1, 0); // write from offset, and continue
+                                       // writing for zero length
         } catch (IOException e) {
-            fail("The pipes are not connected"); // This should not be thrown in this test
+            fail("The pipes are not connected"); // This should not be thrown in
+                                                 // this test
         } catch (NullPointerException e) {
-            fail("The byte array is most likely null"); // This should not be thrown in this test
+            fail("The byte array is most likely null"); // This should not be
+                                                        // thrown in this test
         } catch (IndexOutOfBoundsException e) {
-            fail("The offset or write length is invalid"); // This should not be thrown in this test
+            fail("The offset or write length is invalid"); // This should not be
+                                                           // thrown in this
+                                                           // test
         }
         assertEquals("0", java.lang.Byte.valueOf(in.buffer[0]).toString());
     }

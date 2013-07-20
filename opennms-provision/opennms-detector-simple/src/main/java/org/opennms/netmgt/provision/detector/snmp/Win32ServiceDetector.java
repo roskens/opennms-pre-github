@@ -46,14 +46,17 @@ public class Win32ServiceDetector extends SnmpDetector {
     private static final Logger LOG = LoggerFactory.getLogger(Win32ServiceDetector.class);
 
     private static final String SV_SVC_OPERATING_STATE_OID = ".1.3.6.1.4.1.77.1.2.3.1.3";
+
     private static final String DEFAULT_SERVICE_NAME = "Win32Service";
 
     private String m_win32SvcName;
 
     /**
-     * <p>Constructor for Win32ServiceDetector.</p>
+     * <p>
+     * Constructor for Win32ServiceDetector.
+     * </p>
      */
-    public Win32ServiceDetector(){
+    public Win32ServiceDetector() {
         setServiceName(DEFAULT_SERVICE_NAME);
         setVbvalue("1");
     }

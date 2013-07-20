@@ -27,18 +27,14 @@ import java.io.IOException;
 
 import org.opennms.container.web.felix.base.internal.handler.ServletHandler;
 
-public final class ServletPipeline
-{
+public final class ServletPipeline {
     private final ServletHandler[] handlers;
 
-    public ServletPipeline(ServletHandler[] handlers)
-    {
+    public ServletPipeline(ServletHandler[] handlers) {
         this.handlers = handlers;
     }
 
-    public boolean handle(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException
-    {
+    public boolean handle(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         for (ServletHandler handler : this.handlers) {
             if (handler.handle(req, res)) {
                 return true;
@@ -48,13 +44,11 @@ public final class ServletPipeline
         return false;
     }
 
-    public boolean hasServletsMapped()
-    {
+    public boolean hasServletsMapped() {
         return this.handlers.length > 0;
     }
 
-    public RequestDispatcher getRequestDispatcher(String path)
-    {
+    public RequestDispatcher getRequestDispatcher(String path) {
         for (ServletHandler handler : this.handlers) {
             if (handler.matches(path)) {
                 return new Dispatcher(path, handler);
@@ -64,51 +58,41 @@ public final class ServletPipeline
         return null;
     }
 
-    private final class Dispatcher
-        implements RequestDispatcher
-    {
+    private final class Dispatcher implements RequestDispatcher {
         private final String path;
+
         private final ServletHandler handler;
 
-        public Dispatcher(String path, ServletHandler handler)
-        {
+        public Dispatcher(String path, ServletHandler handler) {
             this.path = path;
             this.handler = handler;
         }
 
         @Override
-        public void forward(ServletRequest req, ServletResponse res)
-            throws ServletException, IOException
-        {
+        public void forward(ServletRequest req, ServletResponse res) throws ServletException, IOException {
             if (res.isCommitted()) {
                 throw new ServletException("Response has been committed");
             }
 
-            this.handler.handle(new RequestWrapper((HttpServletRequest)req, this.path), (HttpServletResponse)res);
+            this.handler.handle(new RequestWrapper((HttpServletRequest) req, this.path), (HttpServletResponse) res);
         }
 
         @Override
-        public void include(ServletRequest req, ServletResponse res)
-            throws ServletException, IOException
-        {
-            this.handler.handle((HttpServletRequest)req, (HttpServletResponse)res);
+        public void include(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+            this.handler.handle((HttpServletRequest) req, (HttpServletResponse) res);
         }
     }
 
-    private final class RequestWrapper
-        extends HttpServletRequestWrapper
-    {
+    private final class RequestWrapper extends HttpServletRequestWrapper {
         private final String requestUri;
 
-        public RequestWrapper(HttpServletRequest req, String requestUri)
-        {
+        public RequestWrapper(HttpServletRequest req, String requestUri) {
             super(req);
             this.requestUri = requestUri;
         }
 
         @Override
-        public String getRequestURI()
-        {
+        public String getRequestURI() {
             return this.requestUri;
         }
     }

@@ -53,43 +53,42 @@ import org.xml.sax.ContentHandler;
 /**
  * This element is used for converting events into alarms.
  */
-@XmlRootElement(name="alarm-data")
+@XmlRootElement(name = "alarm-data")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class AlarmData implements Serializable {
-	private static final long serialVersionUID = -4111377873947389525L;
+    private static final long serialVersionUID = -4111377873947389525L;
 
-	// @NotNull
-	@XmlAttribute(name="reduction-key", required=true)
+    // @NotNull
+    @XmlAttribute(name = "reduction-key", required = true)
     private String m_reductionKey;
 
-	// @Min(1)
-	@XmlAttribute(name="alarm-type")
+    // @Min(1)
+    @XmlAttribute(name = "alarm-type")
     private Integer m_alarmType;
 
-    @XmlAttribute(name="clear-key")
+    @XmlAttribute(name = "clear-key")
     private String m_clearKey;
 
-    @XmlAttribute(name="auto-clean")
+    @XmlAttribute(name = "auto-clean")
     private Boolean m_autoClean;
 
     // @Pattern(regexp="(CommunicationsAlarm|ProcessingErrorAlarm|EnvironmentalAlarm|QualityOfServiceAlarm|EquipmentAlarm|IntegrityViolation|SecurityViolation|TimeDomainViolation|OperationalViolation|PhysicalViolation)")
-    @XmlAttribute(name="x733-alarm-type")
+    @XmlAttribute(name = "x733-alarm-type")
     private String m_x733AlarmType;
 
-    @XmlAttribute(name="x733-probable-cause")
+    @XmlAttribute(name = "x733-probable-cause")
     private Integer m_x733ProbableCause;
 
-    @XmlElement(name="update-field", required=false)
+    @XmlElement(name = "update-field", required = false)
     private List<UpdateField> m_updateFields = new ArrayList<UpdateField>();
-
 
     public void deleteAlarmType() {
         m_alarmType = null;
     }
 
     public void deleteX733ProbableCause() {
-        m_x733ProbableCause= null;
+        m_x733ProbableCause = null;
     }
 
     public Integer getAlarmType() {
@@ -97,7 +96,8 @@ public class AlarmData implements Serializable {
     }
 
     public Boolean getAutoClean() {
-        return m_autoClean == null? Boolean.FALSE : m_autoClean; // XSD default is false
+        return m_autoClean == null ? Boolean.FALSE : m_autoClean; // XSD default
+                                                                  // is false
     }
 
     public String getClearKey() {
@@ -161,15 +161,15 @@ public class AlarmData implements Serializable {
     }
 
     public void setClearKey(final String clearKey) {
-        m_clearKey = clearKey == null? null : clearKey.intern();
+        m_clearKey = clearKey == null ? null : clearKey.intern();
     }
 
     public void setReductionKey(final String reductionKey) {
-        m_reductionKey = reductionKey == null? null : reductionKey.intern();
+        m_reductionKey = reductionKey == null ? null : reductionKey.intern();
     }
 
     public void setX733AlarmType(final String x733AlarmType) {
-        m_x733AlarmType = x733AlarmType == null? null : x733AlarmType.intern();
+        m_x733AlarmType = x733AlarmType == null ? null : x733AlarmType.intern();
     }
 
     public void setX733ProbableCause(final Integer x733ProbableCause) {
@@ -184,85 +184,95 @@ public class AlarmData implements Serializable {
         new Validator().validate(this);
     }
 
-	public void deleteAutoClean() {
-		m_autoClean = null;
-	}
+    public void deleteAutoClean() {
+        m_autoClean = null;
+    }
 
-	public boolean hasUpdateFields() {
-	    return m_updateFields.isEmpty() ? false : true;
-	}
+    public boolean hasUpdateFields() {
+        return m_updateFields.isEmpty() ? false : true;
+    }
 
     public List<UpdateField> getUpdateFieldList() {
         return Collections.unmodifiableList(m_updateFields);
     }
 
     public void setUpdateFieldList(final List<UpdateField> updateFields) {
-    	if (m_updateFields == updateFields) return;
-    	m_updateFields.clear();
-    	m_updateFields.addAll(updateFields);
+        if (m_updateFields == updateFields)
+            return;
+        m_updateFields.clear();
+        m_updateFields.addAll(updateFields);
     }
 
     public void deleteUpdateFieldList() {
         m_updateFields.clear();
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_alarmType == null) ? 0 : m_alarmType.hashCode());
-		result = prime * result + ((m_autoClean == null) ? 0 : m_autoClean.hashCode());
-		result = prime * result + ((m_clearKey == null) ? 0 : m_clearKey.hashCode());
-		result = prime * result + ((m_reductionKey == null) ? 0 : m_reductionKey.hashCode());
-		result = prime * result + ((m_updateFields == null) ? 0 : m_updateFields.hashCode());
-		result = prime * result + ((m_x733AlarmType == null) ? 0 : m_x733AlarmType.hashCode());
-		result = prime * result + ((m_x733ProbableCause == null) ? 0 : m_x733ProbableCause.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_alarmType == null) ? 0 : m_alarmType.hashCode());
+        result = prime * result + ((m_autoClean == null) ? 0 : m_autoClean.hashCode());
+        result = prime * result + ((m_clearKey == null) ? 0 : m_clearKey.hashCode());
+        result = prime * result + ((m_reductionKey == null) ? 0 : m_reductionKey.hashCode());
+        result = prime * result + ((m_updateFields == null) ? 0 : m_updateFields.hashCode());
+        result = prime * result + ((m_x733AlarmType == null) ? 0 : m_x733AlarmType.hashCode());
+        result = prime * result + ((m_x733ProbableCause == null) ? 0 : m_x733ProbableCause.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof AlarmData)) return false;
-		final AlarmData other = (AlarmData) obj;
-		if (m_alarmType == null) {
-			if (other.m_alarmType != null) return false;
-		} else if (!m_alarmType.equals(other.m_alarmType)) {
-			return false;
-		}
-		if (m_autoClean == null) {
-			if (other.m_autoClean != null) return false;
-		} else if (!m_autoClean.equals(other.m_autoClean)) {
-			return false;
-		}
-		if (m_clearKey == null) {
-			if (other.m_clearKey != null) return false;
-		} else if (!m_clearKey.equals(other.m_clearKey)) {
-			return false;
-		}
-		if (m_reductionKey == null) {
-			if (other.m_reductionKey != null) return false;
-		} else if (!m_reductionKey.equals(other.m_reductionKey)) {
-			return false;
-		}
-		if (m_updateFields == null) {
-			if (other.m_updateFields != null) return false;
-		} else if (!m_updateFields.equals(other.m_updateFields)) {
-			return false;
-		}
-		if (m_x733AlarmType == null) {
-			if (other.m_x733AlarmType != null) return false;
-		} else if (!m_x733AlarmType.equals(other.m_x733AlarmType)) {
-			return false;
-		}
-		if (m_x733ProbableCause == null) {
-			if (other.m_x733ProbableCause != null) return false;
-		} else if (!m_x733ProbableCause.equals(other.m_x733ProbableCause)) {
-			return false;
-		}
-		return true;
-	}
-
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof AlarmData))
+            return false;
+        final AlarmData other = (AlarmData) obj;
+        if (m_alarmType == null) {
+            if (other.m_alarmType != null)
+                return false;
+        } else if (!m_alarmType.equals(other.m_alarmType)) {
+            return false;
+        }
+        if (m_autoClean == null) {
+            if (other.m_autoClean != null)
+                return false;
+        } else if (!m_autoClean.equals(other.m_autoClean)) {
+            return false;
+        }
+        if (m_clearKey == null) {
+            if (other.m_clearKey != null)
+                return false;
+        } else if (!m_clearKey.equals(other.m_clearKey)) {
+            return false;
+        }
+        if (m_reductionKey == null) {
+            if (other.m_reductionKey != null)
+                return false;
+        } else if (!m_reductionKey.equals(other.m_reductionKey)) {
+            return false;
+        }
+        if (m_updateFields == null) {
+            if (other.m_updateFields != null)
+                return false;
+        } else if (!m_updateFields.equals(other.m_updateFields)) {
+            return false;
+        }
+        if (m_x733AlarmType == null) {
+            if (other.m_x733AlarmType != null)
+                return false;
+        } else if (!m_x733AlarmType.equals(other.m_x733AlarmType)) {
+            return false;
+        }
+        if (m_x733ProbableCause == null) {
+            if (other.m_x733ProbableCause != null)
+                return false;
+        } else if (!m_x733ProbableCause.equals(other.m_x733ProbableCause)) {
+            return false;
+        }
+        return true;
+    }
 
 }

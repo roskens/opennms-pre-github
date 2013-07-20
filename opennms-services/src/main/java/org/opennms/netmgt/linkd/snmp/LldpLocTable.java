@@ -33,10 +33,10 @@ import java.net.InetAddress;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
-public class LldpLocTable extends SnmpTable<LldpLocTableEntry>{
+public class LldpLocTable extends SnmpTable<LldpLocTableEntry> {
 
     public LldpLocTable(InetAddress address) {
-        super(address, "lldplocTable",LldpLocTableEntry.lldploctable_elemList);
+        super(address, "lldplocTable", LldpLocTableEntry.lldploctable_elemList);
     }
 
     /** {@inheritDoc} */
@@ -44,6 +44,5 @@ public class LldpLocTable extends SnmpTable<LldpLocTableEntry>{
     protected LldpLocTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new LldpLocTableEntry();
     }
-
 
 }

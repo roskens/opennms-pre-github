@@ -35,7 +35,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>JUnitSnmpAgent class.</p>
+ * <p>
+ * JUnitSnmpAgent class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -43,14 +45,16 @@ import java.lang.annotation.Target;
 
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitSnmpAgent {
 
     String resource() default "classpath:snmpwalk.properties";
+
     String host() default "";
+
     /**
-     * This value should match the port value configured in the unit test spring context object
-     * {@link ProxySnmpAgentConfigFactory}
+     * This value should match the port value configured in the unit test spring
+     * context object {@link ProxySnmpAgentConfigFactory}
      */
     int port() default 9161;
 }

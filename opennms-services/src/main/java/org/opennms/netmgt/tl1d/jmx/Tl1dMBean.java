@@ -31,7 +31,9 @@ package org.opennms.netmgt.tl1d.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>Tl1dMBean interface.</p>
+ * <p>
+ * Tl1dMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

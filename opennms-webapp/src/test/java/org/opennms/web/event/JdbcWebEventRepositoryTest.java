@@ -55,14 +55,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/jdbcWebRepositoryTestContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/jdbcWebRepositoryTestContext.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class JdbcWebEventRepositoryTest implements InitializingBean {
@@ -79,13 +75,13 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
     @Test
     @Transactional
-    public void testCountMatchingEvents(){
+    public void testCountMatchingEvents() {
         EventCriteria criteria = new EventCriteria();
         int event = m_eventRepo.countMatchingEvents(criteria);
 
@@ -94,7 +90,7 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testCountMatchingEventsBySeverity(){
+    public void testCountMatchingEventsBySeverity() {
         EventCriteria criteria = new EventCriteria();
         int[] matchingEvents = m_eventRepo.countMatchingEventsBySeverity(criteria);
 
@@ -110,15 +106,17 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testGetEvent(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public void testGetEvent() {
         Event event = m_eventRepo.getEvent(1);
         assertNotNull(event);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testAcknowledgeUnacknowledgeMatchingAlarms(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public void testAcknowledgeUnacknowledgeMatchingAlarms() {
         m_eventRepo.acknowledgeMatchingEvents("TestUser", new Date(), new EventCriteria(new EventIdFilter(1)));
 
         int matchingEventCount = m_eventRepo.countMatchingEvents(new EventCriteria(new AcknowledgedByFilter("TestUser")));
@@ -132,7 +130,7 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testAcknowledgeUnacknowledgeAllAlarms(){
+    public void testAcknowledgeUnacknowledgeAllAlarms() {
         m_eventRepo.acknowledgeAll("TestUser", new Date());
 
         int matchingEventCount = m_eventRepo.countMatchingEvents(new EventCriteria(new AcknowledgedByFilter("TestUser")));
@@ -146,7 +144,7 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testCountMatchingBySeverity(){
+    public void testCountMatchingBySeverity() {
 
         int[] matchingEventCount = m_eventRepo.countMatchingEventsBySeverity(new EventCriteria(new SeverityFilter(3)));
         assertEquals(8, matchingEventCount.length);
@@ -161,15 +159,17 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
         Event[] events = m_eventRepo.getMatchingEvents(criteria);
         assertTrue(events.length > 0);
 
-        EventCriteria sortedCriteria = new EventCriteria(new Filter[] { filter }, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, 100, 0);
+        EventCriteria sortedCriteria = new EventCriteria(new Filter[] { filter }, SortStyle.ID,
+                                                         AcknowledgeType.UNACKNOWLEDGED, 100, 0);
         Event[] sortedEvents = m_eventRepo.getMatchingEvents(sortedCriteria);
         assertTrue(sortedEvents.length > 0);
 
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testDoubleFilterTest(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public void testDoubleFilterTest() {
         m_eventRepo.acknowledgeAll("TestUser", new Date());
 
         EventIdFilter filter1 = new EventIdFilter(1);

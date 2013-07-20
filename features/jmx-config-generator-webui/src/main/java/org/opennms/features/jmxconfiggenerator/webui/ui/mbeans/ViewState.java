@@ -35,24 +35,25 @@ package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
  */
 public enum ViewState {
 
-	/**
-	 * The view has not been initialized, for example if there isn't a model available.
-	 */
-	Init,
-	/**
-	 * A Mbean is selected
-	 */
-	LeafSelected,
-	/**
-	 * No MBean is selected
-	 */
-	NonLeafSelected,
-	/**
-	 * View is in edit mode.
-	 */
-	Edit;
+    /**
+     * The view has not been initialized, for example if there isn't a model
+     * available.
+     */
+    Init,
+    /**
+     * A Mbean is selected
+     */
+    LeafSelected,
+    /**
+     * No MBean is selected
+     */
+    NonLeafSelected,
+    /**
+     * View is in edit mode.
+     */
+    Edit;
 
-	public boolean isEdit() {
-		return this == Edit;
-	}
+    public boolean isEdit() {
+        return this == Edit;
+    }
 }

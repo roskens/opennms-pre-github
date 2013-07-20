@@ -41,10 +41,10 @@ import org.opennms.netmgt.dao.api.SnmpConfigDao;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpConfiguration;
 
-
 public class SnmpConfigDaoTest extends TestCase {
 
     private SnmpConfigDao m_snmpConfigDao;
+
     private File m_configFile;
 
     @Override
@@ -53,16 +53,13 @@ public class SnmpConfigDaoTest extends TestCase {
         File dir = new File("target/test-work-dir");
         dir.mkdirs();
 
-        m_configFile = File.createTempFile("snmp-config-"+getName()+"-", "xml", dir);
-//        m_configFile.deleteOnExit();
+        m_configFile = File.createTempFile("snmp-config-" + getName() + "-", "xml", dir);
+        // m_configFile.deleteOnExit();
 
-        FileUtils.writeStringToFile(m_configFile,
-                "<?xml version=\"1.0\"?>" +
-                "<snmp-config port=\"9161\" retry=\"1\" timeout=\"2000\"\n" +
-                "             read-community=\"myPublic\" \n" +
-                "             version=\"v1\" \n" +
-                "             max-vars-per-pdu=\"27\"  />");
-
+        FileUtils.writeStringToFile(m_configFile, "<?xml version=\"1.0\"?>"
+                + "<snmp-config port=\"9161\" retry=\"1\" timeout=\"2000\"\n"
+                + "             read-community=\"myPublic\" \n" + "             version=\"v1\" \n"
+                + "             max-vars-per-pdu=\"27\"  />");
 
         SnmpPeerFactory.setFile(m_configFile);
 
@@ -73,7 +70,8 @@ public class SnmpConfigDaoTest extends TestCase {
 
     }
 
-    private void assertConfig(String addr, int maxVarsPerPdu, int version, String community) throws UnknownHostException {
+    private void assertConfig(String addr, int maxVarsPerPdu, int version, String community)
+            throws UnknownHostException {
         assertNotNull(m_snmpConfigDao);
 
         SnmpAgentConfig config = m_snmpConfigDao.getAgentConfig(InetAddressUtils.addr(addr));

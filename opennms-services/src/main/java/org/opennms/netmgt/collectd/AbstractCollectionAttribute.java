@@ -38,25 +38,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Abstract AbstractCollectionAttribute class.</p>
+ * <p>
+ * Abstract AbstractCollectionAttribute class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public abstract class AbstractCollectionAttribute implements  CollectionAttribute {
+public abstract class AbstractCollectionAttribute implements CollectionAttribute {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCollectionAttribute.class);
 
     /**
-     * <p>getAttributeType</p>
+     * <p>
+     * getAttributeType
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionAttributeType} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
+     *         object.
      */
     @Override
     public abstract CollectionAttributeType getAttributeType();
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -64,7 +72,9 @@ public abstract class AbstractCollectionAttribute implements  CollectionAttribut
     public abstract String getName();
 
     /**
-     * <p>getNumericValue</p>
+     * <p>
+     * getNumericValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,15 +82,20 @@ public abstract class AbstractCollectionAttribute implements  CollectionAttribut
     public abstract String getNumericValue();
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
+     * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *         object.
      */
     @Override
     public abstract CollectionResource getResource();
 
     /**
-     * <p>getStringValue</p>
+     * <p>
+     * getStringValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

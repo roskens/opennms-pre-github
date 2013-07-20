@@ -37,7 +37,6 @@ import java.util.Map;
 import org.junit.Test;
 import org.opennms.core.soa.Filter;
 
-
 /**
  * FilterParserTest
  *
@@ -69,42 +68,52 @@ public class FilterParserTest {
     public void parseNotFilter() {
         parseFilterThenValidateString("(!(a<=1))");
     }
+
     @Test
     public void parseAndFilter() {
         parseFilterThenValidateString("(&(a>=1)(a<=2))");
     }
+
     @Test
     public void parseOrFilter() {
         parseFilterThenValidateString("(|(a>=1)(a<=2))");
     }
+
     @Test
     public void parseNestedFilter() {
         parseFilterThenValidateString("(| (&(a>=1)(a<=2)) (&(b>=1)(b<=2)) )", "(|(&(a>=1)(a<=2))(&(b>=1)(b<=2)))");
     }
+
     @Test
     public void parsePresenceFilter() {
         parseFilterThenValidateString("(a=*)");
     }
+
     @Test
     public void parseSimpleFilter() {
         parseFilterThenValidateString("(a=1)");
     }
+
     @Test
     public void parseSimpleFilterWithEscapedParen() {
         parseFilterThenValidateString("(a=\\))");
     }
+
     @Test
     public void parseSimpleFilterWithEscapedStar() {
         parseFilterThenValidateString("(a=\\*)");
     }
+
     @Test
     public void parseSimpleFilterWithEscapedBackslash() {
         parseFilterThenValidateString("(a=\\\\)");
     }
+
     @Test
     public void parsePatternMatchingFilter() {
         parseFilterThenValidateString("(a=a*c)");
     }
+
     @Test
     public void parsePatternMatchingFilterWithEscapedStar() {
         parseFilterThenValidateString("(a=a\\)*\\**c)");
@@ -125,8 +134,6 @@ public class FilterParserTest {
         assertThat("Expected " + a1 + " to match", a1.match(dict), is(true));
         assertThat("Expected " + a2 + " to match", a2.match(dict), is(false));
 
-
     }
-
 
 }

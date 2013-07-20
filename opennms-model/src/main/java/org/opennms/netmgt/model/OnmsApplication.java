@@ -56,12 +56,14 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
     private Set<OnmsMonitoredService> m_monitoredServices = new LinkedHashSet<OnmsMonitoredService>();
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(nullable=false)
+    @Column(nullable = false)
     @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
     @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
@@ -69,51 +71,61 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name = "name", length=32, nullable=false, unique=true)
+    @Column(name = "name", length = 32, nullable = false, unique = true)
     public String getName() {
         return m_name;
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
     /**
-     * <p>getMonitoredServices</p>
+     * <p>
+     * getMonitoredServices
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      * @since 1.8.1
      */
-    @ManyToMany(
-                mappedBy="applications",
-                cascade={CascadeType.PERSIST, CascadeType.MERGE}
-    )
+    @ManyToMany(mappedBy = "applications", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     public Set<OnmsMonitoredService> getMonitoredServices() {
         return m_monitoredServices;
     }
 
     /**
-     * <p>setMonitoredServices</p>
+     * <p>
+     * setMonitoredServices
+     * </p>
      *
-     * @param services a {@link java.util.Set} object.
+     * @param services
+     *            a {@link java.util.Set} object.
      * @since 1.8.1
      */
     public void setMonitoredServices(Set<OnmsMonitoredService> services) {
@@ -121,9 +133,13 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
     }
 
     /**
-     * <p>addMonitoredService</p>
+     * <p>
+     * addMonitoredService
+     * </p>
      *
-     * @param service a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
+     * @param service
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
      * @since 1.8.1
      */
     public void addMonitoredService(OnmsMonitoredService service) {
@@ -131,9 +147,12 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param o a {@link org.opennms.netmgt.model.OnmsApplication} object.
+     * @param o
+     *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
      * @return a int.
      */
     @Override
@@ -154,7 +173,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof OnmsApplication) {
-            OnmsApplication app = (OnmsApplication)obj;
+            OnmsApplication app = (OnmsApplication) obj;
             return getName().equals(app.getName());
         }
         return false;
@@ -165,7 +184,5 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
     public int hashCode() {
         return getName().hashCode();
     }
-
-
 
 }

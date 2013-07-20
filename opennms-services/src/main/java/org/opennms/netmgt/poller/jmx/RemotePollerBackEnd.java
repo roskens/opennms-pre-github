@@ -32,7 +32,9 @@ import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
 import org.opennms.netmgt.poller.Poller;
 
 /**
- * <p>RemotePollerBackEnd class.</p>
+ * <p>
+ * RemotePollerBackEnd class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -40,7 +42,9 @@ import org.opennms.netmgt.poller.Poller;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
-public class RemotePollerBackEnd extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.poller.remote.support.DefaultPollerBackEnd> implements RemotePollerBackEndMBean {
+public class RemotePollerBackEnd extends
+        AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.poller.remote.support.DefaultPollerBackEnd> implements
+        RemotePollerBackEndMBean {
 
     /** {@inheritDoc} */
     @Override

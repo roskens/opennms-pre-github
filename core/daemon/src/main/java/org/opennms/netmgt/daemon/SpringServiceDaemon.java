@@ -32,16 +32,21 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * <p>SpringServiceDaemon interface.</p>
+ * <p>
+ * SpringServiceDaemon interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public interface SpringServiceDaemon extends InitializingBean, DisposableBean {
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     void start() throws Exception;
 }

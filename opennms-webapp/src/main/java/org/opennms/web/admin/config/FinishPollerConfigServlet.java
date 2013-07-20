@@ -55,9 +55,12 @@ public class FinishPollerConfigServlet extends HttpServlet {
     private static final long serialVersionUID = 6189971565495296081L;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -73,7 +76,8 @@ public class FinishPollerConfigServlet extends HttpServlet {
             if (eventProxy != null) {
                 eventProxy.send(bldr.getEvent());
             } else {
-                throw new ServletException("Event proxy object is null, unable to send event " + bldr.getEvent().getUei());
+                throw new ServletException("Event proxy object is null, unable to send event "
+                        + bldr.getEvent().getUei());
             }
         } catch (Throwable e) {
             throw new ServletException("Could not send event " + bldr.getEvent().getUei(), e);

@@ -53,7 +53,8 @@ public class StandardNamedObject extends Object {
     /**
      * Constructor.
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public StandardNamedObject(String name) {
         m_name = new String(name);

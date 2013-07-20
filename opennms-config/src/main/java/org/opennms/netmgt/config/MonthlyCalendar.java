@@ -38,7 +38,9 @@ import java.util.List;
 import org.opennms.netmgt.config.groups.Role;
 
 /**
- * <p>MonthlyCalendar class.</p>
+ * <p>
+ * MonthlyCalendar class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,15 +49,22 @@ import org.opennms.netmgt.config.groups.Role;
 public class MonthlyCalendar extends AbstractWebCalendar {
 
     private GregorianCalendar m_calendar;
+
     private Role m_role;
+
     private GroupManager m_groupManager;
 
     /**
-     * <p>Constructor for MonthlyCalendar.</p>
+     * <p>
+     * Constructor for MonthlyCalendar.
+     * </p>
      *
-     * @param date a java$util$Date object.
-     * @param role a {@link org.opennms.netmgt.config.groups.Role} object.
-     * @param groupManager a {@link org.opennms.netmgt.config.GroupManager} object.
+     * @param date
+     *            a java$util$Date object.
+     * @param role
+     *            a {@link org.opennms.netmgt.config.groups.Role} object.
+     * @param groupManager
+     *            a {@link org.opennms.netmgt.config.GroupManager} object.
      */
     public MonthlyCalendar(Date date, Role role, GroupManager groupManager) {
         m_role = role;
@@ -65,7 +74,9 @@ public class MonthlyCalendar extends AbstractWebCalendar {
     }
 
     /**
-     * <p>getMonth</p>
+     * <p>
+     * getMonth
+     * </p>
      *
      * @return a int.
      */
@@ -78,7 +89,9 @@ public class MonthlyCalendar extends AbstractWebCalendar {
     }
 
     /**
-     * <p>getMonthAndYear</p>
+     * <p>
+     * getMonthAndYear
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,7 +119,9 @@ public class MonthlyCalendar extends AbstractWebCalendar {
     }
 
     /**
-     * <p>getWeeks</p>
+     * <p>
+     * getWeeks
+     * </p>
      *
      * @return an array of {@link org.opennms.web.admin.roles.Week} objects.
      */
@@ -127,23 +142,27 @@ public class MonthlyCalendar extends AbstractWebCalendar {
     }
 
     /**
-     * <p>getNextMonth</p>
+     * <p>
+     * getNextMonth
+     * </p>
      *
      * @return a java$util$Date object.
      */
     @Override
     public Date getNextMonth() {
-        return new GregorianCalendar(getYear(), getMonth()+1, 1).getTime();
+        return new GregorianCalendar(getYear(), getMonth() + 1, 1).getTime();
     }
 
     /**
-     * <p>getPreviousMonth</p>
+     * <p>
+     * getPreviousMonth
+     * </p>
      *
      * @return a java$util$Date object.
      */
     @Override
     public Date getPreviousMonth() {
-        return new GregorianCalendar(getYear(), getMonth()-1, 1).getTime();
+        return new GregorianCalendar(getYear(), getMonth() - 1, 1).getTime();
     }
 
 }

@@ -51,10 +51,10 @@ import org.springframework.util.Assert;
  * This class is the access point for the agents to hook into the event queue.
  * This fiber sets up an server socket that accepts incoming connections on the
  * configured port (port 5817 by default).
- *
  * When a connection is established a new thread is started to process the
  * socket connection. The event document is decoded and each of the events are
- * passed to the handlers. Based upon the action of the handlers an event receipt
+ * passed to the handlers. Based upon the action of the handlers an event
+ * receipt
  * is generated and sent to the remote client.
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
@@ -82,8 +82,8 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
 
     /**
      * The registered list of event handlers. Each incoming event will be
-     * passed to all event handlers. The event handlers <em>MUST NOT</em>
-     * modify the passed event.
+     * passed to all event handlers. The event handlers <em>MUST NOT</em> modify
+     * the passed event.
      */
     private List<EventHandler> m_eventHandlers;
 
@@ -108,7 +108,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     private int m_recsPerConn;
 
     /**
-     * The IP address that the TcpServer will listen on.  If null, bind to all
+     * The IP address that the TcpServer will listen on. If null, bind to all
      * interfaces.
      */
     private String m_ipAddress;
@@ -117,7 +117,8 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * Constructs a new TCP/IP event receiver on the default TCP/IP port. The
      * server socket allocation is delayed until the fiber is actually started.
      *
-     * @throws java.net.UnknownHostException if any.
+     * @throws java.net.UnknownHostException
+     *             if any.
      */
     public TcpEventReceiver() throws UnknownHostException {
         this(TcpServer.TCP_PORT, TcpServer.DEFAULT_IP_ADDRESS);
@@ -129,8 +130,10 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      *
      * @param port
      *            The binding port for the TCP/IP server socket.
-     * @param ipAddress TODO
-     * @throws java.net.UnknownHostException if any.
+     * @param ipAddress
+     *            TODO
+     * @throws java.net.UnknownHostException
+     *             if any.
      */
     public TcpEventReceiver(int port, String ipAddress) throws UnknownHostException {
         m_eventHandlers = new ArrayList<EventHandler>(3);
@@ -146,8 +149,8 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     /**
      * Allocates the server socket and starts up the server socket processor
      * thread. If an error occurs allocating the server socket or the Fiber is
-     * in an erronous state then a
-     * {@link java.lang.RuntimeException runtime exception}is thrown.
+     * in an erronous state then a {@link java.lang.RuntimeException runtime
+     * exception}is thrown.
      *
      * @throws java.lang.reflect.UndeclaredThrowableException
      *             Thrown if an error occurs allocating the server socket.
@@ -235,7 +238,9 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -245,7 +250,9 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -271,9 +278,8 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Adds a new event handler to receiver. When new events are received the
+     * {@inheritDoc} Adds a new event handler to receiver. When new events are
+     * received the
      * decoded event is passed to the handler.
      */
     @Override
@@ -286,9 +292,8 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Removes an event handler from the list of handler called when an event is
+     * {@inheritDoc} Removes an event handler from the list of handler called
+     * when an event is
      * received. The handler is removed based upon the method
      * <code>equals()</code> inherieted from the <code>Object</code> class.
      */
@@ -300,7 +305,9 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * <p>getEventHandlers</p>
+     * <p>
+     * getEventHandlers
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -309,16 +316,21 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * <p>setEventHandlers</p>
+     * <p>
+     * setEventHandlers
+     * </p>
      *
-     * @param eventHandlers a {@link java.util.List} object.
+     * @param eventHandlers
+     *            a {@link java.util.List} object.
      */
     public void setEventHandlers(List<EventHandler> eventHandlers) {
         m_eventHandlers = eventHandlers;
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -327,9 +339,12 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * <p>setIpAddress</p>
+     * <p>
+     * setIpAddress
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddress(String ipAddress) {
         assertNotRunning();
@@ -338,7 +353,9 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -374,9 +391,8 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * The number of event records a new connection is allowed to send before
+     * {@inheritDoc} The number of event records a new connection is allowed to
+     * send before
      * the connection is terminated by the server. The connection is always
      * terminated after an event receipt is generated, if one is required.
      */
@@ -388,6 +404,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     private void assertNotRunning() {
-        Assert.state(m_status == START_PENDING || m_status == STOPPED, "The fiber is already running and cannot be modified or started");
+        Assert.state(m_status == START_PENDING || m_status == STOPPED,
+                     "The fiber is already running and cannot be modified or started");
     }
 }

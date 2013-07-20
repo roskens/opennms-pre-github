@@ -44,63 +44,78 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.slf4j.LoggerFactory;
 
-@XmlRootElement(name="edge")
+@XmlRootElement(name = "edge")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WrappedEdge {
 
-	public String key;
-	public String label;
-	public String tooltipText;
-	@XmlIDREF
-	public WrappedVertex source;
-	@XmlIDREF
-	public WrappedVertex target;
-	@XmlID
-	public String id;
-	@XmlTransient
-	public String namespace;
+    public String key;
 
-	/**
-	 * No-arg constructor for JAXB.
-	 */
-	public WrappedEdge() {}
+    public String label;
 
-	public WrappedEdge(Edge edge, WrappedVertex source, WrappedVertex target) {
-		key = edge.getKey();
-		label = edge.getLabel();
-		tooltipText = edge.getTooltipText();
-		id = edge.getId();
-		namespace = edge.getNamespace();
+    public String tooltipText;
 
-		this.source = source;
-		this.target = target;
-	}
+    @XmlIDREF
+    public WrappedVertex source;
 
-	/**
-	 * This JAXB function is used to set the namespace since we expect it to be set in the parent object.
-	 */
-	public void afterUnmarshal(Unmarshaller u, Object parent) {
-		if (namespace == null) {
-			try {
-				BeanInfo info = Introspector.getBeanInfo(parent.getClass());
-				for (PropertyDescriptor descriptor : info.getPropertyDescriptors()) {
-					if ("namespace".equals(descriptor.getName())) {
-						namespace = (String)descriptor.getReadMethod().invoke(parent);
-						LoggerFactory.getLogger(this.getClass()).debug("Setting namespace on {} to {} from parent", this, namespace);
-					}
-				}
-			} catch (IntrospectionException e) {
-				LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class " + parent.getClass(), e);
-			} catch (IllegalArgumentException e) {
-				LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class " + parent.getClass(), e);
-			} catch (IllegalAccessException e) {
-				LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class " + parent.getClass(), e);
-			} catch (InvocationTargetException e) {
-				LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class " + parent.getClass(), e);
-			}
-		}
-	}
+    @XmlIDREF
+    public WrappedVertex target;
 
-	@Override
-	public String toString() { return "WrappedEdge:"+namespace+":"+id+ "[label="+label+"]"; }
+    @XmlID
+    public String id;
+
+    @XmlTransient
+    public String namespace;
+
+    /**
+     * No-arg constructor for JAXB.
+     */
+    public WrappedEdge() {
+    }
+
+    public WrappedEdge(Edge edge, WrappedVertex source, WrappedVertex target) {
+        key = edge.getKey();
+        label = edge.getLabel();
+        tooltipText = edge.getTooltipText();
+        id = edge.getId();
+        namespace = edge.getNamespace();
+
+        this.source = source;
+        this.target = target;
+    }
+
+    /**
+     * This JAXB function is used to set the namespace since we expect it to be
+     * set in the parent object.
+     */
+    public void afterUnmarshal(Unmarshaller u, Object parent) {
+        if (namespace == null) {
+            try {
+                BeanInfo info = Introspector.getBeanInfo(parent.getClass());
+                for (PropertyDescriptor descriptor : info.getPropertyDescriptors()) {
+                    if ("namespace".equals(descriptor.getName())) {
+                        namespace = (String) descriptor.getReadMethod().invoke(parent);
+                        LoggerFactory.getLogger(this.getClass()).debug("Setting namespace on {} to {} from parent",
+                                                                       this, namespace);
+                    }
+                }
+            } catch (IntrospectionException e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class "
+                                                                      + parent.getClass(), e);
+            } catch (IllegalArgumentException e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class "
+                                                                      + parent.getClass(), e);
+            } catch (IllegalAccessException e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class "
+                                                                      + parent.getClass(), e);
+            } catch (InvocationTargetException e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Exception thrown when trying to fetch namespace from parent class "
+                                                                      + parent.getClass(), e);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "WrappedEdge:" + namespace + ":" + id + "[label=" + label + "]";
+    }
 }

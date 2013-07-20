@@ -50,9 +50,7 @@ public class ClassExecutor implements ExecutorStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(ClassExecutor.class);
 
     /**
-     * {@inheritDoc}
-     *
-     * This method calls the send method of the specified class in
+     * {@inheritDoc} This method calls the send method of the specified class in
      */
     @Override
     public int execute(String className, List<Argument> arguments) {

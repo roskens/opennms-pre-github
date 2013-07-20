@@ -76,19 +76,23 @@ public class NotificationRestService extends OnmsRestService {
     SecurityContext m_securityContext;
 
     /**
-     * <p>getNotification</p>
+     * <p>
+     * getNotification
+     * </p>
      *
-     * @param notifId a {@link java.lang.String} object.
+     * @param notifId
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsNotification} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("{notifId}")
     @Transactional
-    public OnmsNotification getNotification(@PathParam("notifId") String notifId) {
+    public OnmsNotification getNotification(@PathParam("notifId")
+    String notifId) {
         readLock();
         try {
-            OnmsNotification result= m_notifDao.get(new Integer(notifId));
+            OnmsNotification result = m_notifDao.get(new Integer(notifId));
             return result;
         } finally {
             readUnlock();
@@ -96,7 +100,9 @@ public class NotificationRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -114,12 +120,15 @@ public class NotificationRestService extends OnmsRestService {
     }
 
     /**
-     * <p>getNotifications</p>
+     * <p>
+     * getNotifications
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.model.OnmsNotificationCollection} object.
+     * @return a {@link org.opennms.netmgt.model.OnmsNotificationCollection}
+     *         object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Transactional
     public OnmsNotificationCollection getNotifications() {
         readLock();
@@ -129,7 +138,8 @@ public class NotificationRestService extends OnmsRestService {
             applyQueryFilters(m_uriInfo.getQueryParameters(), builder);
             builder.orderBy("notifyId").desc();
 
-            OnmsNotificationCollection coll = new OnmsNotificationCollection(m_notifDao.findMatching(builder.toCriteria()));
+            OnmsNotificationCollection coll = new OnmsNotificationCollection(
+                                                                             m_notifDao.findMatching(builder.toCriteria()));
 
             coll.setTotalCount(m_notifDao.countMatching(builder.count().toCriteria()));
 
@@ -140,34 +150,44 @@ public class NotificationRestService extends OnmsRestService {
     }
 
     /**
-     * <p>updateNotification</p>
+     * <p>
+     * updateNotification
+     * </p>
      *
-     * @param notifId a {@link java.lang.String} object.
-     * @param ack a {@link java.lang.Boolean} object.
+     * @param notifId
+     *            a {@link java.lang.String} object.
+     * @param ack
+     *            a {@link java.lang.Boolean} object.
      */
     @PUT
     @Path("{notifId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public Response updateNotification(@PathParam("notifId") String notifId, @FormParam("ack") Boolean ack) {
+    public Response updateNotification(@PathParam("notifId")
+    String notifId, @FormParam("ack")
+    Boolean ack) {
         writeLock();
 
         try {
-            OnmsNotification notif=m_notifDao.get(new Integer(notifId));
-            if(ack==null) {
-                throw new  IllegalArgumentException("Must supply the 'ack' parameter, set to either 'true' or 'false'");
+            OnmsNotification notif = m_notifDao.get(new Integer(notifId));
+            if (ack == null) {
+                throw new IllegalArgumentException("Must supply the 'ack' parameter, set to either 'true' or 'false'");
             }
-            processNotifAck(notif,ack);
-            return Response.seeOther(m_uriInfo.getBaseUriBuilder().path(this.getClass()).path(this.getClass(), "getNotification").build(notifId)).build();
+            processNotifAck(notif, ack);
+            return Response.seeOther(m_uriInfo.getBaseUriBuilder().path(this.getClass()).path(this.getClass(),
+                                                                                              "getNotification").build(notifId)).build();
         } finally {
             writeUnlock();
         }
     }
 
     /**
-     * <p>updateNotifications</p>
+     * <p>
+     * updateNotifications
+     * </p>
      *
-     * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @param params
+     *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -176,9 +196,9 @@ public class NotificationRestService extends OnmsRestService {
         writeLock();
 
         try {
-            Boolean ack=false;
-            if(params.containsKey("ack")) {
-                ack="true".equals(params.getFirst("ack"));
+            Boolean ack = false;
+            if (params.containsKey("ack")) {
+                ack = "true".equals(params.getFirst("ack"));
                 params.remove("ack");
             }
 
@@ -188,15 +208,15 @@ public class NotificationRestService extends OnmsRestService {
             for (final OnmsNotification notif : m_notifDao.findMatching(builder.toCriteria())) {
                 processNotifAck(notif, ack);
             }
-            return Response.seeOther(m_uriInfo.getBaseUriBuilder().path(this.getClass()).path(this.getClass(), "getNotifications").build()).build();
+            return Response.seeOther(m_uriInfo.getBaseUriBuilder().path(this.getClass()).path(this.getClass(),
+                                                                                              "getNotifications").build()).build();
         } finally {
             writeUnlock();
         }
     }
 
-
     private void processNotifAck(final OnmsNotification notif, final Boolean ack) {
-        if(ack) {
+        if (ack) {
             notif.setRespondTime(new Date());
             notif.setAnsweredBy(m_securityContext.getUserPrincipal().getName());
         } else {

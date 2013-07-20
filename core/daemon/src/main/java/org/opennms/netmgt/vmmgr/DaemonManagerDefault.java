@@ -39,81 +39,93 @@ import org.slf4j.LoggerFactory;
 
 public class DaemonManagerDefault implements DaemonManager {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DaemonManagerDefault.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DaemonManagerDefault.class);
 
-	private List<ServiceDaemon> m_serviceDaemons;
+    private List<ServiceDaemon> m_serviceDaemons;
 
-	/**
-	 * <p>setServiceDaemons</p>
-	 *
-	 * @param serviceDaemons a {@link java.util.List} object.
-	 */
-	public void setServiceDaemons(List<ServiceDaemon> serviceDaemons) {
-		m_serviceDaemons = serviceDaemons;
-	}
+    /**
+     * <p>
+     * setServiceDaemons
+     * </p>
+     *
+     * @param serviceDaemons
+     *            a {@link java.util.List} object.
+     */
+    public void setServiceDaemons(List<ServiceDaemon> serviceDaemons) {
+        m_serviceDaemons = serviceDaemons;
+    }
 
-	/**
-	 * <p>pause</p>
-	 */
-        @Override
-	public void pause() {
-        for(ServiceDaemon serviceDaemon : m_serviceDaemons) {
-			serviceDaemon.pause();
-		}
-	}
+    /**
+     * <p>
+     * pause
+     * </p>
+     */
+    @Override
+    public void pause() {
+        for (ServiceDaemon serviceDaemon : m_serviceDaemons) {
+            serviceDaemon.pause();
+        }
+    }
 
-	/**
-	 * <p>resume</p>
-	 */
-        @Override
-	public void resume() {
-        for(ServiceDaemon serviceDaemon : m_serviceDaemons) {
-			serviceDaemon.resume();
-		}
-	}
+    /**
+     * <p>
+     * resume
+     * </p>
+     */
+    @Override
+    public void resume() {
+        for (ServiceDaemon serviceDaemon : m_serviceDaemons) {
+            serviceDaemon.resume();
+        }
+    }
 
-	/**
-	 * <p>start</p>
-	 */
-        @Override
-	public void start() {
-        for(ServiceDaemon serviceDaemon : m_serviceDaemons) {
-			serviceDaemon.start();
-		}
-	}
+    /**
+     * <p>
+     * start
+     * </p>
+     */
+    @Override
+    public void start() {
+        for (ServiceDaemon serviceDaemon : m_serviceDaemons) {
+            serviceDaemon.start();
+        }
+    }
 
-	/**
-	 * <p>status</p>
-	 *
-	 * @return a {@link java.util.Map} object.
-	 */
-        @Override
-	public Map<String, String> status() {
+    /**
+     * <p>
+     * status
+     * </p>
+     *
+     * @return a {@link java.util.Map} object.
+     */
+    @Override
+    public Map<String, String> status() {
         Map<String, String> stati = new HashMap<String, String>();
-        for(ServiceDaemon serviceDaemon : m_serviceDaemons) {
-			stati.put(serviceDaemon.getName(), serviceDaemon.getStatusText());
-		}
-		return Collections.unmodifiableMap(stati);
-	}
+        for (ServiceDaemon serviceDaemon : m_serviceDaemons) {
+            stati.put(serviceDaemon.getName(), serviceDaemon.getStatusText());
+        }
+        return Collections.unmodifiableMap(stati);
+    }
 
-	/**
-	 * <p>stop</p>
-	 */
-        @Override
-	public void stop() {
-        for(ServiceDaemon serviceDaemon : m_serviceDaemons) {
-			stopService(serviceDaemon);
-		}
-		System.exit(0);
-	}
+    /**
+     * <p>
+     * stop
+     * </p>
+     */
+    @Override
+    public void stop() {
+        for (ServiceDaemon serviceDaemon : m_serviceDaemons) {
+            stopService(serviceDaemon);
+        }
+        System.exit(0);
+    }
 
-
-	private void stopService(ServiceDaemon serviceDaemon) {
-		try {
-			serviceDaemon.stop();
-		} catch (final Exception e) {
-			LOG.warn("an error occurred while stopping service: {}", serviceDaemon.getName(), e);
-		}
-	}
+    private void stopService(ServiceDaemon serviceDaemon) {
+        try {
+            serviceDaemon.stop();
+        } catch (final Exception e) {
+            LOG.warn("an error occurred while stopping service: {}", serviceDaemon.getName(), e);
+        }
+    }
 
 }

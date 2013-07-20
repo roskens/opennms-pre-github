@@ -37,9 +37,12 @@ package org.opennms.netmgt.provision.adapters.link;
 public interface LinkMatchResolver {
 
     /**
-     * <p>getAssociatedEndPoint</p>
+     * <p>
+     * getAssociatedEndPoint
+     * </p>
      *
-     * @param endPoint a {@link java.lang.String} object.
+     * @param endPoint
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getAssociatedEndPoint(String endPoint);

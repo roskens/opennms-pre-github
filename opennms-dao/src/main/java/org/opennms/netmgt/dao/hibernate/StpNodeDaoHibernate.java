@@ -37,23 +37,23 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsStpNode;
 
-public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integer>  implements StpNodeDao {
+public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integer> implements StpNodeDao {
 
     public StpNodeDaoHibernate() {
         super(OnmsStpNode.class);
     }
 
-	@Override
-	public void markDeletedIfNodeDeleted() {
-		final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
+    @Override
+    public void markDeletedIfNodeDeleted() {
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.type", "D"));
 
         for (final OnmsStpNode stpNode : findMatching(criteria)) {
-        	stpNode.setStatus(StatusType.DELETED);
-        	saveOrUpdate(stpNode);
+            stpNode.setStatus(StatusType.DELETED);
+            saveOrUpdate(stpNode);
         }
-	}
+    }
 
     @Override
     public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
@@ -82,10 +82,9 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         }
     }
 
-
     @Override
     public void setStatusForNode(final Integer nodeid, final StatusType action) {
-        // UPDATE stpnode set status = ?  WHERE nodeid = ?
+        // UPDATE stpnode set status = ? WHERE nodeid = ?
 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);

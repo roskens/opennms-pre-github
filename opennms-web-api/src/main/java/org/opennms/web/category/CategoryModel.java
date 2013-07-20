@@ -54,15 +54,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>CategoryModel class.</p>
+ * <p>
+ * CategoryModel class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class CategoryModel extends Object {
 
-
-	private static final Logger LOG = LoggerFactory.getLogger(CategoryModel.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CategoryModel.class);
 
     /** The name of the category that includes all services and nodes. */
     public static final String OVERALL_AVAILABILITY_CATEGORY = "Overall Service Availability";
@@ -74,9 +75,12 @@ public class CategoryModel extends Object {
      * Return the <code>CategoryModel</code>.
      *
      * @return a {@link org.opennms.web.category.CategoryModel} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public synchronized static CategoryModel getInstance() throws IOException, MarshalException, ValidationException {
         if (CategoryModel.m_instance == null) {
@@ -108,7 +112,8 @@ public class CategoryModel extends Object {
      * Return the <code>Category</code> instance for the given category name.
      * Return null if there is no match for the given name.
      *
-     * @param categoryName a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.category.Category} object.
      */
     public Category getCategory(String categoryName) {
@@ -132,7 +137,8 @@ public class CategoryModel extends Object {
      * Look up the category definition and return the category's normal
      * threshold.
      *
-     * @param categoryName a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      * @return a double.
      */
     public double getCategoryNormalThreshold(String categoryName) {
@@ -147,7 +153,8 @@ public class CategoryModel extends Object {
      * Look up the category definition and return the category's warning
      * threshold.
      *
-     * @param categoryName a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      * @return a double.
      */
     public double getCategoryWarningThreshold(String categoryName) {
@@ -161,7 +168,8 @@ public class CategoryModel extends Object {
     /**
      * Look up the category definition and return the category's description.
      *
-     * @param categoryName a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getCategoryComment(final String categoryName) {
@@ -187,7 +195,8 @@ public class CategoryModel extends Object {
     /**
      * Update a category with new values.
      *
-     * @param rtcCategory a {@link org.opennms.netmgt.xml.rtc.Category} object.
+     * @param rtcCategory
+     *            a {@link org.opennms.netmgt.xml.rtc.Category} object.
      */
     public void updateCategory(final org.opennms.netmgt.xml.rtc.Category rtcCategory) {
         if (rtcCategory == null) {
@@ -199,7 +208,8 @@ public class CategoryModel extends Object {
         m_factory.getWriteLock().lock();
         try {
             org.opennms.netmgt.config.categories.Category categoryDef = m_factory.getCategory(categoryName);
-            org.opennms.web.category.Category category = new org.opennms.web.category.Category(categoryDef, rtcCategory, new Date());
+            org.opennms.web.category.Category category = new org.opennms.web.category.Category(categoryDef,
+                                                                                               rtcCategory, new Date());
 
             synchronized (m_categoryMap) {
                 m_categoryMap.put(categoryName, category);
@@ -216,9 +226,11 @@ public class CategoryModel extends Object {
      * node for the last 24 hours. If there are no managed services on this
      * node, then a value of -1 is returned.
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a double.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public double getNodeAvailability(int nodeId) throws SQLException {
         Calendar cal = new GregorianCalendar();
@@ -234,11 +246,15 @@ public class CategoryModel extends Object {
      * node from the given start time until the given end time. If there are no
      * managed services on this node, then a value of -1 is returned.
      *
-     * @param nodeId a int.
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param nodeId
+     *            a int.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      * @return a double.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public double getNodeAvailability(int nodeId, Date start, Date end) throws SQLException {
         if (start == null || end == null) {
@@ -288,9 +304,11 @@ public class CategoryModel extends Object {
      * nodes for the last 24 hours. If there are no managed services on these
      * nodes, then a value of -1 is returned.
      *
-     * @param nodeIds a {@link java.util.Set} object.
+     * @param nodeIds
+     *            a {@link java.util.Set} object.
      * @return a {@link java.util.Map} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Map<Integer, Double> getNodeAvailability(Set<Integer> nodeIds) throws SQLException {
         Calendar cal = new GregorianCalendar();
@@ -300,21 +318,26 @@ public class CategoryModel extends Object {
 
         return getNodeAvailability(nodeIds, yesterday, now);
     }
+
     /**
      * Return the availability percentage for all managed services on the given
      * nodes from the given start time until the given end time. If there are no
      * managed services on these nodes, then a value of -1 is returned.
      *
-     * @param nodeIds a {@link java.util.Set} object.
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param nodeIds
+     *            a {@link java.util.Set} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      * @return a {@link java.util.Map} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Map<Integer, Double> getNodeAvailability(Set<Integer> nodeIds, Date start, Date end) throws SQLException {
-    	if(nodeIds==null || nodeIds.size()==0){
-    		throw new IllegalArgumentException("Cannot take nodeIds null or with length 0.");
-    	}
+        if (nodeIds == null || nodeIds.size() == 0) {
+            throw new IllegalArgumentException("Cannot take nodeIds null or with length 0.");
+        }
         if (start == null || end == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -335,15 +358,16 @@ public class CategoryModel extends Object {
         try {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
-        	StringBuffer sb = new StringBuffer("select nodeid, getManagePercentAvailNodeWindow(nodeid, ?, ?)  from node where nodeid in (");
-        	Iterator<Integer> it = nodeIds.iterator();
-        	while (it.hasNext()){
-        		sb.append(it.next());
-        		if (it.hasNext()) {
-        			sb.append(", ");
-        		}
-        	}
-        	sb.append(")");
+            StringBuffer sb = new StringBuffer(
+                                               "select nodeid, getManagePercentAvailNodeWindow(nodeid, ?, ?)  from node where nodeid in (");
+            Iterator<Integer> it = nodeIds.iterator();
+            while (it.hasNext()) {
+                sb.append(it.next());
+                if (it.hasNext()) {
+                    sb.append(", ");
+                }
+            }
+            sb.append(")");
             PreparedStatement stmt = conn.prepareStatement(sb.toString());
             d.watch(stmt);
 
@@ -355,7 +379,7 @@ public class CategoryModel extends Object {
             d.watch(rs);
 
             while (rs.next()) {
-            	nodeid = rs.getInt(1);
+                nodeid = rs.getInt(1);
                 avail = rs.getDouble(2);
                 retMap.put(Integer.valueOf(nodeid), Double.valueOf(avail));
             }
@@ -373,10 +397,13 @@ public class CategoryModel extends Object {
      * interface for the last 24 hours. If there are no managed services on this
      * interface, then a value of -1 is returned.
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      * @return a double.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public double getInterfaceAvailability(int nodeId, String ipAddr) throws SQLException {
         if (ipAddr == null) {
@@ -397,12 +424,17 @@ public class CategoryModel extends Object {
      * are no managed services on this interface, then a value of -1 is
      * returned.
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      * @return a double.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public double getInterfaceAvailability(int nodeId, String ipAddr, Date start, Date end) throws SQLException {
         if (ipAddr == null || start == null || end == null) {
@@ -452,11 +484,15 @@ public class CategoryModel extends Object {
      * Return the availability percentage for a managed service for the last 24
      * hours. If the service is not managed, then a value of -1 is returned.
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param serviceId a int.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a int.
      * @return a double.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public double getServiceAvailability(int nodeId, String ipAddr, int serviceId) throws SQLException {
         if (ipAddr == null) {
@@ -476,15 +512,22 @@ public class CategoryModel extends Object {
      * start time until the given end time. If the service is not managed, then
      * a value of -1 is returned.
      *
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param serviceId a int.
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a int.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      * @return a double.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public double getServiceAvailability(int nodeId, String ipAddr, int serviceId, Date start, Date end) throws SQLException {
+    public double getServiceAvailability(int nodeId, String ipAddr, int serviceId, Date start, Date end)
+            throws SQLException {
         if (ipAddr == null || start == null || end == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -524,7 +567,8 @@ public class CategoryModel extends Object {
                 avail = rs.getDouble("avail");
             }
         } catch (final SQLException e) {
-            LOG.warn("Failed to get service availability for nodeId {}, interface {}, serviceId {}", nodeId, ipAddr, serviceId, e);
+            LOG.warn("Failed to get service availability for nodeId {}, interface {}, serviceId {}", nodeId, ipAddr,
+                     serviceId, e);
         } finally {
             d.cleanUp();
         }

@@ -37,7 +37,9 @@ import org.opennms.netmgt.model.ServiceInfo;
 import org.opennms.web.svclayer.daemonstatus.DaemonStatusService;
 
 /**
- * <p>DefaultDaemonStatusService class.</p>
+ * <p>
+ * DefaultDaemonStatusService class.
+ * </p>
  *
  * @author <a href="mailto:skareti@users.sourceforge.net">skareti</a>
  * @version $Id: $
@@ -45,89 +47,100 @@ import org.opennms.web.svclayer.daemonstatus.DaemonStatusService;
  */
 public class DefaultDaemonStatusService implements DaemonStatusService {
 
-	private DaemonStatusDao daemonStatusDao;
+    private DaemonStatusDao daemonStatusDao;
 
-	/**
-	 * <p>Setter for the field <code>daemonStatusDao</code>.</p>
-	 *
-	 * @param daemonStatusDao a {@link org.opennms.netmgt.dao.api.DaemonStatusDao} object.
-	 */
-	public void setDaemonStatusDao(DaemonStatusDao daemonStatusDao) {
-		this.daemonStatusDao = daemonStatusDao;
-	}
+    /**
+     * <p>
+     * Setter for the field <code>daemonStatusDao</code>.
+     * </p>
+     *
+     * @param daemonStatusDao
+     *            a {@link org.opennms.netmgt.dao.api.DaemonStatusDao} object.
+     */
+    public void setDaemonStatusDao(DaemonStatusDao daemonStatusDao) {
+        this.daemonStatusDao = daemonStatusDao;
+    }
 
-	/**
-	 * <p>getCurrentDaemonStatus</p>
-	 *
-	 * @return a {@link java.util.Map} object.
-	 */
-        @Override
-	public Map<String, ServiceInfo> getCurrentDaemonStatus() {
-		// TODO Auto-generated method stub
-		Map<String, ServiceInfo> info = daemonStatusDao.getCurrentDaemonStatus();
+    /**
+     * <p>
+     * getCurrentDaemonStatus
+     * </p>
+     *
+     * @return a {@link java.util.Map} object.
+     */
+    @Override
+    public Map<String, ServiceInfo> getCurrentDaemonStatus() {
+        // TODO Auto-generated method stub
+        Map<String, ServiceInfo> info = daemonStatusDao.getCurrentDaemonStatus();
         return info;
-	}
+    }
 
-	/**
-	 * <p>getCurrentDaemonStatusColl</p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
-        @Override
-	public Collection<ServiceInfo> getCurrentDaemonStatusColl() {
-		// TODO Auto-generated method stub
-		return daemonStatusDao.getCurrentDaemonStatus().values();
+    /**
+     * <p>
+     * getCurrentDaemonStatusColl
+     * </p>
+     *
+     * @return a {@link java.util.Collection} object.
+     */
+    @Override
+    public Collection<ServiceInfo> getCurrentDaemonStatusColl() {
+        // TODO Auto-generated method stub
+        return daemonStatusDao.getCurrentDaemonStatus().values();
 
-	}
+    }
 
-	/**
-	 * <p>performOperationOnDaemons</p>
-	 *
-	 * @param operation a {@link java.lang.String} object.
-	 * @param daemons an array of {@link java.lang.String} objects.
-	 * @return a {@link java.util.Map} object.
-	 */
-        @Override
-	public Map<String, ServiceInfo> performOperationOnDaemons(String operation, String[] daemons) {
-		// TODO Auto-generated method stub
-		for(int i = 0; i < daemons.length; i++){
-			if(operation.equalsIgnoreCase("start")) {
-				startDaemon(daemons[i]);
-			} else if(operation.equalsIgnoreCase("stop")) {
-				stopDaemon(daemons[i]);
-			} else if(operation.equalsIgnoreCase("restart")) {
-				restartDaemon(daemons[i]);
-			} else if(operation.equalsIgnoreCase("refresh")) {
-				// do nothing
-			} else {
-				// TBD raise an exception...or ignore...
-			}
-		}
-		return getCurrentDaemonStatus();
-	}
+    /**
+     * <p>
+     * performOperationOnDaemons
+     * </p>
+     *
+     * @param operation
+     *            a {@link java.lang.String} object.
+     * @param daemons
+     *            an array of {@link java.lang.String} objects.
+     * @return a {@link java.util.Map} object.
+     */
+    @Override
+    public Map<String, ServiceInfo> performOperationOnDaemons(String operation, String[] daemons) {
+        // TODO Auto-generated method stub
+        for (int i = 0; i < daemons.length; i++) {
+            if (operation.equalsIgnoreCase("start")) {
+                startDaemon(daemons[i]);
+            } else if (operation.equalsIgnoreCase("stop")) {
+                stopDaemon(daemons[i]);
+            } else if (operation.equalsIgnoreCase("restart")) {
+                restartDaemon(daemons[i]);
+            } else if (operation.equalsIgnoreCase("refresh")) {
+                // do nothing
+            } else {
+                // TBD raise an exception...or ignore...
+            }
+        }
+        return getCurrentDaemonStatus();
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public Map<String, ServiceInfo> restartDaemon(String service) {
-		ServiceDaemon serviceDaemon = daemonStatusDao.getServiceHandle(service);
-		serviceDaemon.stop();
-		serviceDaemon.start();
-		return getCurrentDaemonStatus();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Map<String, ServiceInfo> restartDaemon(String service) {
+        ServiceDaemon serviceDaemon = daemonStatusDao.getServiceHandle(service);
+        serviceDaemon.stop();
+        serviceDaemon.start();
+        return getCurrentDaemonStatus();
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public Map<String, ServiceInfo> startDaemon(String service) {
-		ServiceDaemon serviceDaemon = daemonStatusDao.getServiceHandle(service);
-		serviceDaemon.start();
-		return getCurrentDaemonStatus();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Map<String, ServiceInfo> startDaemon(String service) {
+        ServiceDaemon serviceDaemon = daemonStatusDao.getServiceHandle(service);
+        serviceDaemon.start();
+        return getCurrentDaemonStatus();
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public Map<String, ServiceInfo> stopDaemon(String service) {
-		// TODO Auto-generated method stub
-		return getCurrentDaemonStatus();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Map<String, ServiceInfo> stopDaemon(String service) {
+        // TODO Auto-generated method stub
+        return getCurrentDaemonStatus();
+    }
 
 }

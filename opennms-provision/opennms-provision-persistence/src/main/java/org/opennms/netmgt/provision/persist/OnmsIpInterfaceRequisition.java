@@ -44,12 +44,18 @@ import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredServ
 public class OnmsIpInterfaceRequisition {
 
     private RequisitionInterface m_iface;
+
     private final List<OnmsMonitoredServiceRequisition> m_svcReqs;
 
     /**
-     * <p>Constructor for OnmsIpInterfaceRequisition.</p>
+     * <p>
+     * Constructor for OnmsIpInterfaceRequisition.
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface} object.
+     * @param iface
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface}
+     *            object.
      */
     public OnmsIpInterfaceRequisition(RequisitionInterface iface) {
         m_iface = iface;
@@ -61,7 +67,8 @@ public class OnmsIpInterfaceRequisition {
     }
 
     private List<OnmsMonitoredServiceRequisition> constructSvcReqs() {
-        List<OnmsMonitoredServiceRequisition> reqs = new ArrayList<OnmsMonitoredServiceRequisition>(m_iface.getMonitoredServices().size());
+        List<OnmsMonitoredServiceRequisition> reqs = new ArrayList<OnmsMonitoredServiceRequisition>(
+                                                                                                    m_iface.getMonitoredServices().size());
         for (RequisitionMonitoredService svc : m_iface.getMonitoredServices()) {
             reqs.add(new OnmsMonitoredServiceRequisition(svc));
         }
@@ -69,20 +76,27 @@ public class OnmsIpInterfaceRequisition {
     }
 
     /**
-     * <p>visit</p>
+     * <p>
+     * visit
+     * </p>
      *
-     * @param visitor a {@link org.opennms.netmgt.provision.persist.RequisitionVisitor} object.
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.RequisitionVisitor}
+     *            object.
      */
     public void visit(RequisitionVisitor visitor) {
         visitor.visitInterface(this);
-        for(OnmsMonitoredServiceRequisition svcReq : m_svcReqs) {
+        for (OnmsMonitoredServiceRequisition svcReq : m_svcReqs) {
             svcReq.visit(visitor);
         }
         visitor.completeInterface(this);
     }
 
     /**
-     * <p>getDescr</p>
+     * <p>
+     * getDescr
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -91,7 +105,9 @@ public class OnmsIpInterfaceRequisition {
     }
 
     /**
-     * <p>getIpAddr</p>
+     * <p>
+     * getIpAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,7 +116,9 @@ public class OnmsIpInterfaceRequisition {
     }
 
     /**
-     * <p>getManaged</p>
+     * <p>
+     * getManaged
+     * </p>
      *
      * @return a boolean.
      */
@@ -109,7 +127,9 @@ public class OnmsIpInterfaceRequisition {
     }
 
     /**
-     * <p>getSnmpPrimary</p>
+     * <p>
+     * getSnmpPrimary
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,15 +138,14 @@ public class OnmsIpInterfaceRequisition {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
     public int getStatus() {
         return m_iface.getStatus();
     }
-
-
-
 
 }

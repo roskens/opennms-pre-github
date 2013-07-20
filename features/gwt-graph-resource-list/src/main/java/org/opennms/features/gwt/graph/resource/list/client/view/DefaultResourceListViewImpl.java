@@ -52,7 +52,8 @@ public class DefaultResourceListViewImpl extends Composite implements DefaultRes
 
     private static DefaultResourceListViewImplUiBinder uiBinder = GWT.create(DefaultResourceListViewImplUiBinder.class);
 
-    interface DefaultResourceListViewImplUiBinder extends UiBinder<Widget, DefaultResourceListViewImpl> { }
+    interface DefaultResourceListViewImplUiBinder extends UiBinder<Widget, DefaultResourceListViewImpl> {
+    }
 
     @UiField
     LayoutPanel m_layoutPanel;
@@ -67,6 +68,7 @@ public class DefaultResourceListViewImpl extends Composite implements DefaultRes
     FlowPanel m_simplePagerContainer;
 
     private ListDataProvider<ResourceListItem> m_dataProvider;
+
     private Presenter<ResourceListItem> m_presenter;
 
     public DefaultResourceListViewImpl() {

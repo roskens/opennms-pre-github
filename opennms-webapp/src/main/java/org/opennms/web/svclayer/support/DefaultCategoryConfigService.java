@@ -37,7 +37,9 @@ import org.opennms.web.svclayer.CategoryConfigService;
 import org.opennms.web.svclayer.dao.CategoryConfigDao;
 
 /**
- * <p>DefaultCategoryConfigService class.</p>
+ * <p>
+ * DefaultCategoryConfigService class.
+ * </p>
  *
  * @author <a href="mailto:johnathan@opennms.org">Jonathan Sartin</a>
  * @version $Id: $
@@ -48,7 +50,9 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
     private CategoryConfigDao m_categoryConfigDao;
 
     /**
-     * <p>getCategories</p>
+     * <p>
+     * getCategories
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -58,14 +62,16 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
     }
 
     /**
-     * <p>getCategoriesList</p>
+     * <p>
+     * getCategoriesList
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     @Override
     public final List<String> getCategoriesList() {
         List<String> categories = new ArrayList<String>();
-        for(Category cat : m_categoryConfigDao.findAll()) {
+        for (Category cat : m_categoryConfigDao.findAll()) {
             categories.add(cat.getLabel());
         }
         return categories;
@@ -73,7 +79,9 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
     }
 
     /**
-     * <p>getCategoryConfigDao</p>
+     * <p>
+     * getCategoryConfigDao
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.dao.CategoryConfigDao} object.
      */
@@ -82,9 +90,13 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
     }
 
     /**
-     * <p>setCategoryConfigDao</p>
+     * <p>
+     * setCategoryConfigDao
+     * </p>
      *
-     * @param categoryConfigDao a {@link org.opennms.web.svclayer.dao.CategoryConfigDao} object.
+     * @param categoryConfigDao
+     *            a {@link org.opennms.web.svclayer.dao.CategoryConfigDao}
+     *            object.
      */
     public final void setCategoryConfigDao(final CategoryConfigDao categoryConfigDao) {
         m_categoryConfigDao = categoryConfigDao;

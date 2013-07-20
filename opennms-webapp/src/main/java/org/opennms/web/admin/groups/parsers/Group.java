@@ -61,7 +61,7 @@ public class Group implements Cloneable {
     /**
      * The group info for the group
      */
-     private GroupInfo m_groupInfo;
+    private GroupInfo m_groupInfo;
 
     /**
      * The list of users in the group
@@ -85,7 +85,9 @@ public class Group implements Cloneable {
     }
 
     /**
-     * <p>clone</p>
+     * <p>
+     * clone
+     * </p>
      *
      * @return a {@link org.opennms.web.admin.groups.parsers.Group} object.
      */
@@ -110,18 +112,24 @@ public class Group implements Cloneable {
     }
 
     /**
-     * <p>addPropertyChangeListener</p>
+     * <p>
+     * addPropertyChangeListener
+     * </p>
      *
-     * @param listener a {@link java.beans.PropertyChangeListener} object.
+     * @param listener
+     *            a {@link java.beans.PropertyChangeListener} object.
      */
     public synchronized void addPropertyChangeListener(PropertyChangeListener listener) {
         m_propChange.addPropertyChangeListener(listener);
     }
 
     /**
-     * <p>removePropertyChangeListener</p>
+     * <p>
+     * removePropertyChangeListener
+     * </p>
      *
-     * @param listener a {@link java.beans.PropertyChangeListener} object.
+     * @param listener
+     *            a {@link java.beans.PropertyChangeListener} object.
      */
     public synchronized void removePropertyChangeListener(PropertyChangeListener listener) {
         m_propChange.removePropertyChangeListener(listener);
@@ -139,7 +147,8 @@ public class Group implements Cloneable {
     /**
      * Sets the group information for this group
      *
-     * @param someInfo the group info
+     * @param someInfo
+     *            the group info
      */
     public void setGroupInfo(GroupInfo someInfo) {
         m_groupInfo = someInfo;
@@ -189,7 +198,8 @@ public class Group implements Cloneable {
      * Returns whether the group has this user in its users list
      *
      * @return true if user is in list, false if not
-     * @param aUser a {@link java.lang.String} object.
+     * @param aUser
+     *            a {@link java.lang.String} object.
      */
     public boolean hasUser(String aUser) {
         return m_users.contains(aUser);

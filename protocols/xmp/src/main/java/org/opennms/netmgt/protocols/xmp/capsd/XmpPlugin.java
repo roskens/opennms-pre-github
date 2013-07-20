@@ -69,8 +69,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class XmpPlugin extends AbstractPlugin {
-	private static final Logger LOG = LoggerFactory.getLogger(XmpPlugin.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(XmpPlugin.class);
 
     /**
      * The protocol supported by the plugin
@@ -81,7 +80,6 @@ public final class XmpPlugin extends AbstractPlugin {
      * The default port to use for XMP
      */
     private final static int DEFAULT_PORT = Xmp.XMP_PORT;
-
 
     /**
      * Default number of retries for TCP requests
@@ -155,7 +153,6 @@ public final class XmpPlugin extends AbstractPlugin {
 
     private static final String DEFAULT_VALUE_OPERAND = XmpUtil.EQUALS;
 
-
     /**
      * Returns the name of the protocol that this plugin checks on the target
      * system for support.
@@ -168,9 +165,8 @@ public final class XmpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -179,9 +175,8 @@ public final class XmpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -212,8 +207,11 @@ public final class XmpPlugin extends AbstractPlugin {
         boolean valueCaseSensitive = DEFAULT_VALUE_CASE_SENSITIVE;
 
         if (qualifiers != null) {
-            retry = ParameterMap.getKeyedInteger(qualifiers, "retry", protoConfig.hasRetry() ? protoConfig.getRetry() : DEFAULT_RETRY);
-            timeout = ParameterMap.getKeyedInteger(qualifiers, "timeout", protoConfig.hasTimeout() ? protoConfig.getTimeout() : DEFAULT_TIMEOUT);
+            retry = ParameterMap.getKeyedInteger(qualifiers, "retry", protoConfig.hasRetry() ? protoConfig.getRetry()
+                : DEFAULT_RETRY);
+            timeout = ParameterMap.getKeyedInteger(qualifiers, "timeout",
+                                                   protoConfig.hasTimeout() ? protoConfig.getTimeout()
+                                                       : DEFAULT_TIMEOUT);
             port = ParameterMap.getKeyedInteger(qualifiers, "port", DEFAULT_PORT);
             authenUser = ParameterMap.getKeyedString(qualifiers, "authenUser", DEFAULT_AUTHEN_USER);
             requestType = ParameterMap.getKeyedString(qualifiers, "request-type", DEFAULT_REQUEST_TYPE);
@@ -224,14 +222,16 @@ public final class XmpPlugin extends AbstractPlugin {
             instanceMatch = ParameterMap.getKeyedString(qualifiers, "instance-match", DEFAULT_INSTANCE_MATCH);
             valueOperator = ParameterMap.getKeyedString(qualifiers, "value-operator", "==");
             valueOperand = ParameterMap.getKeyedString(qualifiers, "value-match", DEFAULT_VALUE_MATCH);
-            valueCaseSensitive = ParameterMap.getKeyedBoolean(qualifiers, "value-case-sensitive", DEFAULT_VALUE_CASE_SENSITIVE);
+            valueCaseSensitive = ParameterMap.getKeyedBoolean(qualifiers, "value-case-sensitive",
+                                                              DEFAULT_VALUE_CASE_SENSITIVE);
             minMatches = ParameterMap.getKeyedInteger(qualifiers, "min-matches", DEFAULT_MIN_MATCHES);
             maxMatches = ParameterMap.getKeyedInteger(qualifiers, "max-matches", DEFAULT_MAX_MATCHES);
             String maxMatchesUnboundedStr = ParameterMap.getKeyedString(qualifiers, "max-matches", "unbounded");
             maxMatchesUnbounded = (maxMatchesUnboundedStr.equalsIgnoreCase("unbounded"));
         }
 
-        // Set the SO_TIMEOUT so that this thing has a prayer of working over a WAN
+        // Set the SO_TIMEOUT so that this thing has a prayer of working over a
+        // WAN
         sockopts.setConnectTimeout(timeout);
 
         // If this is a SelectTableRequest, then you can't use the defaults
@@ -241,21 +241,23 @@ public final class XmpPlugin extends AbstractPlugin {
                 throw new IllegalArgumentException("When performing a SelectTableRequest, table must be specified");
             }
             if (object.equals(DEFAULT_REQUEST_OBJECT)) {
-                throw new IllegalArgumentException("When performing a SelectTableRequest, object must be specified and must be tabular");
+                throw new IllegalArgumentException(
+                                                   "When performing a SelectTableRequest, object must be specified and must be tabular");
             }
         }
 
         // If this is a GetRequest, then you can't specify a table or
         // an instance
         else if (requestType.equalsIgnoreCase("GetRequest")) {
-            if (! table.equals(DEFAULT_REQUEST_TABLE)) {
+            if (!table.equals(DEFAULT_REQUEST_TABLE)) {
                 throw new IllegalArgumentException("When performing a GetRequest, table must not be specified");
             }
-            if (! instance.equals(DEFAULT_REQUEST_INSTANCE)) {
+            if (!instance.equals(DEFAULT_REQUEST_INSTANCE)) {
                 throw new IllegalArgumentException("When performing a GetRequest, instance must not be specified");
             }
         } else {
-            throw new IllegalArgumentException("Unknown request type " + requestType + ", only GetRequest and SelectTableRequest are supported");
+            throw new IllegalArgumentException("Unknown request type " + requestType
+                    + ", only GetRequest and SelectTableRequest are supported");
         }
 
         RE instanceRegex = null;
@@ -272,20 +274,24 @@ public final class XmpPlugin extends AbstractPlugin {
         boolean result = false;
         session = new XmpSession(sockopts, address, port, authenUser);
         /*
-        if (session == null) {
-            LOG.info("XMP connection failed to {}:{} with user {} and {}", address, port, authenUser, sockopts);
-            return false;
-        }
-        */
+         * if (session == null) {
+         * LOG.info("XMP connection failed to {}:{} with user {} and {}",
+         * address, port, authenUser, sockopts);
+         * return false;
+         * }
+         */
         if (requestType.equalsIgnoreCase("SelectTableRequest")) {
             try {
-                result = XmpUtil.handleTableQuery(session, mib, table, object, instance, instanceRegex, valueOperator, valueOperand, minMatches, maxMatches, maxMatchesUnbounded, valueCaseSensitive);
+                result = XmpUtil.handleTableQuery(session, mib, table, object, instance, instanceRegex, valueOperator,
+                                                  valueOperand, minMatches, maxMatches, maxMatchesUnbounded,
+                                                  valueCaseSensitive);
             } catch (XmpUtilException e) {
                 result = false;
             }
         } else if (requestType.equalsIgnoreCase("GetRequest")) {
             try {
-                result = XmpUtil.handleScalarQuery(session, mib, object, valueOperator, valueOperand, valueCaseSensitive);
+                result = XmpUtil.handleScalarQuery(session, mib, object, valueOperator, valueOperand,
+                                                   valueCaseSensitive);
             } catch (XmpUtilException e) {
                 result = false;
             }

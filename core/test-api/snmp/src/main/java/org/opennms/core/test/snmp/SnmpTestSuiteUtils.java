@@ -52,9 +52,12 @@ public abstract class SnmpTestSuiteUtils {
 
     public static TestSuite createSnmpStrategyTestSuite(Class<? extends TestCase> testClass) {
         TestSuite suite = new TestSuite(testClass.getName());
-        suite.addTest(new PropertySettingTestSuite(testClass, "JoeSnmp Tests", STRATEGY_CLASS_PROPERTY_NAME, JoeSnmpStrategy.class.getName()));
-        suite.addTest(new PropertySettingTestSuite(testClass, "Snmp4J Tests", STRATEGY_CLASS_PROPERTY_NAME, Snmp4JStrategy.class.getName()));
-        suite.addTest(new PropertySettingTestSuite(testClass, "MockStrategy Tests", STRATEGY_CLASS_PROPERTY_NAME, MockSnmpStrategy.class.getName()));
+        suite.addTest(new PropertySettingTestSuite(testClass, "JoeSnmp Tests", STRATEGY_CLASS_PROPERTY_NAME,
+                                                   JoeSnmpStrategy.class.getName()));
+        suite.addTest(new PropertySettingTestSuite(testClass, "Snmp4J Tests", STRATEGY_CLASS_PROPERTY_NAME,
+                                                   Snmp4JStrategy.class.getName()));
+        suite.addTest(new PropertySettingTestSuite(testClass, "MockStrategy Tests", STRATEGY_CLASS_PROPERTY_NAME,
+                                                   MockSnmpStrategy.class.getName()));
         return suite;
     }
 

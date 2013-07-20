@@ -31,7 +31,9 @@ package org.opennms.netmgt.threshd;
 import java.util.Map;
 
 /**
- * <p>IfInfoGetter interface.</p>
+ * <p>
+ * IfInfoGetter interface.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
@@ -42,19 +44,27 @@ import java.util.Map;
 public interface IfInfoGetter {
 
     /**
-     * <p>getIfInfoForNodeAndLabel</p>
+     * <p>
+     * getIfInfoForNodeAndLabel
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ifLabel a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ifLabel
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Map} object.
      */
     public abstract Map<String, String> getIfInfoForNodeAndLabel(int nodeId, String ifLabel);
 
     /**
-     * <p>getIfLabel</p>
+     * <p>
+     * getIfLabel
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public abstract String getIfLabel(int nodeId, String ipAddress);

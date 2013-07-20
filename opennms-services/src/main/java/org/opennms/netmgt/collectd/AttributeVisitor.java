@@ -31,7 +31,9 @@ package org.opennms.netmgt.collectd;
 import org.opennms.netmgt.config.collector.CollectionAttribute;
 
 /**
- * <p>Abstract AttributeVisitor class.</p>
+ * <p>
+ * Abstract AttributeVisitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,6 +43,5 @@ public abstract class AttributeVisitor extends AbstractCollectionSetVisitor {
     /** {@inheritDoc} */
     @Override
     abstract public void visitAttribute(CollectionAttribute attribute);
-
 
 }

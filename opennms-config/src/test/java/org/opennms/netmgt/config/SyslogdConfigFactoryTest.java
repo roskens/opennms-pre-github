@@ -59,7 +59,9 @@ public class SyslogdConfigFactoryTest {
 
         DataSourceFactory.setInstance(db);
 
-        m_factory = new SyslogdConfigFactory(ConfigurationTestUtils.getInputStreamForResource(this, "/etc/syslogd-configuration.xml"));
+        m_factory = new SyslogdConfigFactory(
+                                             ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                                              "/etc/syslogd-configuration.xml"));
     }
 
     @Test
@@ -68,25 +70,20 @@ public class SyslogdConfigFactoryTest {
 
     @Test
     public void testMyHostNameGrouping() {
-        Assert.assertEquals(
-                6,
-                m_factory.getMatchingGroupHost());
+        Assert.assertEquals(6, m_factory.getMatchingGroupHost());
 
     }
 
     @Test
     public void testMyMessageGroup() {
-        Assert.assertEquals(
-                8,
-                m_factory.getMatchingGroupMessage());
+        Assert.assertEquals(8, m_factory.getMatchingGroupMessage());
 
     }
 
     @Test
     public void testPattern() {
-        Assert.assertEquals(
-                "^.*\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)",
-                m_factory.getForwardingRegexp());
+        Assert.assertEquals("^.*\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)",
+                            m_factory.getForwardingRegexp());
     }
 
     @Test
@@ -106,7 +103,7 @@ public class SyslogdConfigFactoryTest {
     @Test
     public void testHideTheseMessages() {
         for (HideMatch hide : m_factory.getHideMessages().getHideMatchCollection()) {
-            boolean typeOk = ( hide.getMatch().getType().equals("substr") || hide.getMatch().getType().equals("regex") );
+            boolean typeOk = (hide.getMatch().getType().equals("substr") || hide.getMatch().getType().equals("regex"));
             Assert.assertTrue(typeOk);
             if (hide.getMatch().getType().equals("substr")) {
                 Assert.assertEquals("TESTHIDING", hide.getMatch().getExpression());
@@ -118,7 +115,8 @@ public class SyslogdConfigFactoryTest {
 
     @Test
     public void testImportFiles() throws Exception {
-        SyslogdConfigFactory factory = new SyslogdConfigFactory(this.getClass().getResourceAsStream("syslogd-configuration-with-imports.xml"));
+        SyslogdConfigFactory factory = new SyslogdConfigFactory(
+                                                                this.getClass().getResourceAsStream("syslogd-configuration-with-imports.xml"));
         Assert.assertEquals(22, factory.getUeiList().getUeiMatchCount());
         Assert.assertEquals(4, factory.getHideMessages().getHideMatchCount());
         int countMatch = 0;

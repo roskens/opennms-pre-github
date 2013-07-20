@@ -50,13 +50,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 public abstract class ResourceTypeForm extends Form implements ClickListener {
 
     /** The Constant FORM_ITEMS. */
-    public static final String[] FORM_ITEMS = new String[] {
-        "name",
-        "label",
-        "resourceLabel",
-        "storageStrategy",
-        "persistenceSelectorStrategy"
-    };
+    public static final String[] FORM_ITEMS = new String[] { "name", "label", "resourceLabel", "storageStrategy",
+            "persistenceSelectorStrategy" };
 
     /** The Edit button. */
     private final Button edit = new Button("Edit");
@@ -114,7 +109,8 @@ public abstract class ResourceTypeForm extends Form implements ClickListener {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Form#setReadOnly(boolean)
      */
     @Override
@@ -126,8 +122,10 @@ public abstract class ResourceTypeForm extends Form implements ClickListener {
         delete.setVisible(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(ClickEvent event) {
@@ -145,11 +143,12 @@ public abstract class ResourceTypeForm extends Form implements ClickListener {
             setReadOnly(false);
         }
         if (source == delete) {
-            // FIXME You cannot delete a resource type if it is being used on any group
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
-                                           "Are you sure?",
-                                           MessageBox.Icon.QUESTION,
-                                           "Do you really want to remove the Resource Type " + getResourceType().getName() + "?<br/>This action cannot be undone.",
+            // FIXME You cannot delete a resource type if it is being used on
+            // any group
+            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(), "Are you sure?",
+                                           MessageBox.Icon.QUESTION, "Do you really want to remove the Resource Type "
+                                                   + getResourceType().getName()
+                                                   + "?<br/>This action cannot be undone.",
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
             mb.addStyleName(Runo.WINDOW_DIALOG);
@@ -168,14 +167,16 @@ public abstract class ResourceTypeForm extends Form implements ClickListener {
     /**
      * Save resource type.
      *
-     * @param resourceType the resource type
+     * @param resourceType
+     *            the resource type
      */
     public abstract void saveResourceType(ResourceType resourceType);
 
     /**
      * Delete resource type.
      *
-     * @param resourceType the resource type
+     * @param resourceType
+     *            the resource type
      */
     public abstract void deleteResourceType(ResourceType resourceType);
 

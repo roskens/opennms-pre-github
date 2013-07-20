@@ -52,18 +52,15 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-pollerBackEnd.xml",
         "classpath:/META-INF/opennms/applicationContext-pollerFrontEnd.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath*:/META-INF/opennms/applicationContext-minimal-conf.xml",
-        "classpath:/org/opennms/netmgt/poller/remote/applicationContext-configOverride.xml"
-})
+        "classpath:/org/opennms/netmgt/poller/remote/applicationContext-configOverride.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class PollerFrontEndIntegrationTest implements InitializingBean, TemporaryDatabaseAware<TemporaryDatabase> {
@@ -79,6 +76,7 @@ public class PollerFrontEndIntegrationTest implements InitializingBean, Temporar
     private PollerSettings m_settings;
 
     private static FileAnticipator m_fileAnticipator;
+
     private TemporaryDatabase m_database;
 
     @Override
@@ -92,23 +90,23 @@ public class PollerFrontEndIntegrationTest implements InitializingBean, Temporar
     }
 
     /*
-    @BeforeClass
-    public static void setUpAnticipator() throws IOException {
-        m_fileAnticipator = new FileAnticipator();
-
-        final String filename = m_fileAnticipator.expecting("remote-poller.configuration").getCanonicalPath().replace("+", "%2B");
-        System.setProperty("opennms.poller.configuration.resource", "file://" + filename);
-    }
-
-    @AfterClass
-    public static void tearDownAnticipator() throws Throwable {
-        if (m_fileAnticipator.isInitialized()) {
-            m_fileAnticipator.deleteExpected();
-        }
-
-        m_fileAnticipator.tearDown();
-    }
-    */
+     * @BeforeClass
+     * public static void setUpAnticipator() throws IOException {
+     * m_fileAnticipator = new FileAnticipator();
+     * final String filename =
+     * m_fileAnticipator.expecting("remote-poller.configuration"
+     * ).getCanonicalPath().replace("+", "%2B");
+     * System.setProperty("opennms.poller.configuration.resource", "file://" +
+     * filename);
+     * }
+     * @AfterClass
+     * public static void tearDownAnticipator() throws Throwable {
+     * if (m_fileAnticipator.isInitialized()) {
+     * m_fileAnticipator.deleteExpected();
+     * }
+     * m_fileAnticipator.tearDown();
+     * }
+     */
 
     @BeforeTransaction
     public void setUp() throws Exception {
@@ -123,7 +121,8 @@ public class PollerFrontEndIntegrationTest implements InitializingBean, Temporar
         assertFalse(m_frontEnd.isRegistered());
         assertEquals(0, m_database.getJdbcTemplate().queryForInt("select count(*) from location_monitors"));
         assertEquals(0, m_database.getJdbcTemplate().queryForInt("select count(*) from location_monitor_details"));
-        assertTrue("There were unexpected poll results", 0 == m_database.getJdbcTemplate().queryForInt("select count(*) from location_specific_status_changes"));
+        assertTrue("There were unexpected poll results",
+                   0 == m_database.getJdbcTemplate().queryForInt("select count(*) from location_specific_status_changes"));
 
         // Start up the remote poller
         m_frontEnd.register("RDU");
@@ -132,9 +131,13 @@ public class PollerFrontEndIntegrationTest implements InitializingBean, Temporar
 
         assertTrue(m_frontEnd.isRegistered());
         assertEquals(1, getMonitorCount(monitorId));
-        assertEquals(5, m_database.getJdbcTemplate().queryForInt("select count(*) from location_monitor_details where locationMonitorId = ?", monitorId));
+        assertEquals(5,
+                     m_database.getJdbcTemplate().queryForInt("select count(*) from location_monitor_details where locationMonitorId = ?",
+                                                              monitorId));
 
-        assertEquals(System.getProperty("os.name"), m_database.getJdbcTemplate().queryForObject("select propertyValue from location_monitor_details where locationMonitorId = ? and property = ?", String.class, monitorId, "os.name"));
+        assertEquals(System.getProperty("os.name"),
+                     m_database.getJdbcTemplate().queryForObject("select propertyValue from location_monitor_details where locationMonitorId = ? and property = ?",
+                                                                 String.class, monitorId, "os.name"));
 
         long wait = 60000L;
         while (wait > 0) {
@@ -142,9 +145,9 @@ public class PollerFrontEndIntegrationTest implements InitializingBean, Temporar
             wait -= 1000L;
             LOG.debug("wait = {}", wait);
 
-            if (getMonitorCount(monitorId) == 1
-                && getDisconnectedCount(monitorId) == 0
-                && getSpecificChangesCount(monitorId) > 0) break;
+            if (getMonitorCount(monitorId) == 1 && getDisconnectedCount(monitorId) == 0
+                    && getSpecificChangesCount(monitorId) > 0)
+                break;
         }
 
         assertEquals(1, getMonitorCount(monitorId));
@@ -157,11 +160,13 @@ public class PollerFrontEndIntegrationTest implements InitializingBean, Temporar
     }
 
     protected int getSpecificChangesCount(Integer monitorId) {
-        return m_database.getJdbcTemplate().queryForInt("select count(*) from location_specific_status_changes where locationMonitorId = ?", monitorId);
+        return m_database.getJdbcTemplate().queryForInt("select count(*) from location_specific_status_changes where locationMonitorId = ?",
+                                                        monitorId);
     }
 
     protected int getDisconnectedCount(Integer monitorId) {
-        return m_database.getJdbcTemplate().queryForInt("select count(*) from location_monitors where status='DISCONNECTED' and id=?", monitorId);
+        return m_database.getJdbcTemplate().queryForInt("select count(*) from location_monitors where status='DISCONNECTED' and id=?",
+                                                        monitorId);
     }
 
     protected int getMonitorCount(Integer monitorId) {

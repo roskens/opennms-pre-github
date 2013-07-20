@@ -35,7 +35,9 @@ import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 
 /**
- * <p>SurveillanceDashlet class.</p>
+ * <p>
+ * SurveillanceDashlet class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -47,9 +49,11 @@ import com.google.gwt.user.client.ui.TableListener;
 public class SurveillanceDashlet extends Dashlet {
 
     private SurveillanceListenerCollection m_listeners = new SurveillanceListenerCollection();
+
     private SurveillanceData m_data;
 
     private SurveillanceView m_view;
+
     private SurveillanceLoader m_loader;
 
     class SurveillanceLoader extends DashletLoader implements AsyncCallback<SurveillanceData> {
@@ -76,7 +80,6 @@ public class SurveillanceDashlet extends Dashlet {
         public void onSuccess(SurveillanceData data) {
             setData(data);
 
-
             if (!data.isComplete()) {
                 final AsyncCallback<SurveillanceData> cb = this;
                 Timer timer = new Timer() {
@@ -97,7 +100,6 @@ public class SurveillanceDashlet extends Dashlet {
 
     }
 
-
     class SurveillanceView extends DashletView {
 
         private Grid m_grid = new Grid();
@@ -112,11 +114,11 @@ public class SurveillanceDashlet extends Dashlet {
                     if (row == 0 && col == 0) {
                         onAllClicked();
                     } else if (row == 0) {
-                        onColumnGroupClicked(col-1);
+                        onColumnGroupClicked(col - 1);
                     } else if (col == 0) {
-                        onRowGroupClicked(row-1);
+                        onRowGroupClicked(row - 1);
                     } else {
-                        onIntersectionClicked(row-1, col-1);
+                        onIntersectionClicked(row - 1, col - 1);
                     }
 
                 }
@@ -136,11 +138,11 @@ public class SurveillanceDashlet extends Dashlet {
             if (row == 0 && col == 0) {
                 // nothing to do just be cleared
             } else if (row == 0) {
-                for(int r = 0; r < m_grid.getRowCount(); r++) {
+                for (int r = 0; r < m_grid.getRowCount(); r++) {
                     m_grid.getCellFormatter().addStyleName(r, col, "selected");
                 }
             } else if (col == 0) {
-                for(int c = 0; c < m_grid.getColumnCount(); c++) {
+                for (int c = 0; c < m_grid.getColumnCount(); c++) {
                     m_grid.getCellFormatter().addStyleName(row, c, "selected");
                 }
             } else {
@@ -149,53 +151,51 @@ public class SurveillanceDashlet extends Dashlet {
         }
 
         private void clearSelection() {
-            for(int r = 0; r < m_grid.getRowCount(); r++) {
-                for(int c = 0; c < m_grid.getColumnCount(); c++) {
+            for (int r = 0; r < m_grid.getRowCount(); r++) {
+                for (int c = 0; c < m_grid.getColumnCount(); c++) {
                     m_grid.getCellFormatter().removeStyleName(r, c, "selected");
                 }
             }
         }
 
         void populate(SurveillanceData data) {
-            setTitle(getTitle()+": "+data.getName());
-            m_grid.resize(data.getRowCount()+1, data.getColumnCount()+1);
+            setTitle(getTitle() + ": " + data.getName());
+            m_grid.resize(data.getRowCount() + 1, data.getColumnCount() + 1);
 
             // set row 0 to be column headings
             m_grid.getRowFormatter().setStyleName(0, "header");
             m_grid.setText(0, 0, "Show all nodes");
-            for(int col = 0; col < data.getColumnCount(); col++) {
-                m_grid.setText(0, col+1, data.getColumnHeading(col));
+            for (int col = 0; col < data.getColumnCount(); col++) {
+                m_grid.setText(0, col + 1, data.getColumnHeading(col));
             }
-
 
             // now do row 1 to rowCount
-            for(int row = 0; row < data.getRowCount(); row++) {
+            for (int row = 0; row < data.getRowCount(); row++) {
                 // set the row heading
-                m_grid.setText(row+1, 0, data.getRowHeading(row));
+                m_grid.setText(row + 1, 0, data.getRowHeading(row));
 
                 // now set the data
-                for(int col = 0; col < data.getColumnCount(); col++) {
+                for (int col = 0; col < data.getColumnCount(); col++) {
                     SurveillanceIntersection cell = data.getCell(row, col);
-                    m_grid.setText(row+1, col+1, cell.getData());
-                    m_grid.getCellFormatter().setStyleName(row+1, col+1, cell.getStatus());
-                    m_grid.getCellFormatter().addStyleName(row+1, col+1, "divider");
+                    m_grid.setText(row + 1, col + 1, cell.getData());
+                    m_grid.getCellFormatter().setStyleName(row + 1, col + 1, cell.getStatus());
+                    m_grid.getCellFormatter().addStyleName(row + 1, col + 1, "divider");
                 }
 
-                m_grid.getRowFormatter().setStyleName(row+1, "CellStatus");
+                m_grid.getRowFormatter().setStyleName(row + 1, "CellStatus");
             }
-
-
 
         }
 
-
     }
 
-
     /**
-     * <p>Constructor for SurveillanceDashlet.</p>
+     * <p>
+     * Constructor for SurveillanceDashlet.
+     * </p>
      *
-     * @param dashboard a {@link org.opennms.dashboard.client.Dashboard} object.
+     * @param dashboard
+     *            a {@link org.opennms.dashboard.client.Dashboard} object.
      */
     public SurveillanceDashlet(Dashboard dashboard) {
         super(dashboard, "Surveillance View");
@@ -208,15 +208,18 @@ public class SurveillanceDashlet extends Dashlet {
     }
 
     /**
-     * <p>setData</p>
+     * <p>
+     * setData
+     * </p>
      *
-     * @param data a {@link org.opennms.dashboard.client.SurveillanceData} object.
+     * @param data
+     *            a {@link org.opennms.dashboard.client.SurveillanceData}
+     *            object.
      */
     public void setData(SurveillanceData data) {
         m_data = data;
         m_view.populate(data);
     }
-
 
     private void onIntersectionClicked(int row, int col) {
         m_listeners.fireIntersectionClicked(this, m_data.getIntersection(row, col));
@@ -235,32 +238,44 @@ public class SurveillanceDashlet extends Dashlet {
     }
 
     /**
-     * <p>addSurveillanceViewListener</p>
+     * <p>
+     * addSurveillanceViewListener
+     * </p>
      *
-     * @param listener a {@link org.opennms.dashboard.client.SurveillanceListener} object.
+     * @param listener
+     *            a {@link org.opennms.dashboard.client.SurveillanceListener}
+     *            object.
      */
     public void addSurveillanceViewListener(SurveillanceListener listener) {
         m_listeners.add(listener);
     }
 
     /**
-     * <p>removeSurveillanceViewListener</p>
+     * <p>
+     * removeSurveillanceViewListener
+     * </p>
      *
-     * @param listener a {@link org.opennms.dashboard.client.SurveillanceListener} object.
+     * @param listener
+     *            a {@link org.opennms.dashboard.client.SurveillanceListener}
+     *            object.
      */
     public void removeSurveillanceViewListener(SurveillanceListener listener) {
         m_listeners.remove(listener);
     }
-
 
     void initialLoader(String serviceEntryPoint) {
         m_loader.load();
     }
 
     /**
-     * <p>setSurveillanceService</p>
+     * <p>
+     * setSurveillanceService
+     * </p>
      *
-     * @param svc a {@link org.opennms.dashboard.client.SurveillanceServiceAsync} object.
+     * @param svc
+     *            a
+     *            {@link org.opennms.dashboard.client.SurveillanceServiceAsync}
+     *            object.
      */
     public void setSurveillanceService(SurveillanceServiceAsync svc) {
         m_loader.setSurveillanceService(svc);

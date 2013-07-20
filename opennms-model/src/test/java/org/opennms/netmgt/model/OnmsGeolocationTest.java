@@ -13,9 +13,11 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class OnmsGeolocationTest {
     private OnmsGeolocation m_geolocation;
+
     private String m_expectedAddress;
 
-    public OnmsGeolocationTest(final String address1, final String address2, final String city, final String state, final String zip, final String country, final String expectedAddress) {
+    public OnmsGeolocationTest(final String address1, final String address2, final String city, final String state,
+            final String zip, final String country, final String expectedAddress) {
         m_geolocation = new OnmsGeolocation();
         m_geolocation.setAddress1(address1);
         m_geolocation.setAddress2(address2);
@@ -29,52 +31,15 @@ public class OnmsGeolocationTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-            {
-                "220 Chatham Business Dr",
-                null,
-                "Pittsboro",
-                "NC",
-                "27312",
-                "USA",
-                "220 Chatham Business Dr, Pittsboro, NC 27312, USA"
-            },
-            {
-                "220 Chatham Business Dr",
-                null,
-                "Pittsboro",
-                "NC",
-                "27312",
-                null,
-                "220 Chatham Business Dr, Pittsboro, NC 27312"
-            },
-            {
-                "220 Chatham Business Dr",
-                null,
-                "Pittsboro",
-                "NC",
-                null,
-                null,
-                "220 Chatham Business Dr, Pittsboro, NC"
-            },
-            {
-                "220 Chatham Business Dr",
-                null,
-                "Pittsboro",
-                null,
-                "27312",
-                null,
-                "220 Chatham Business Dr, Pittsboro, 27312"
-            },
-            {
-                null,
-                null,
-                null,
-                null,
-                "PR7 3JE",
-                "UK",
-                "PR7 3JE, UK"
-            },
-        });
+                { "220 Chatham Business Dr", null, "Pittsboro", "NC", "27312", "USA",
+                        "220 Chatham Business Dr, Pittsboro, NC 27312, USA" },
+                { "220 Chatham Business Dr", null, "Pittsboro", "NC", "27312", null,
+                        "220 Chatham Business Dr, Pittsboro, NC 27312" },
+                { "220 Chatham Business Dr", null, "Pittsboro", "NC", null, null,
+                        "220 Chatham Business Dr, Pittsboro, NC" },
+                { "220 Chatham Business Dr", null, "Pittsboro", null, "27312", null,
+                        "220 Chatham Business Dr, Pittsboro, 27312" },
+                { null, null, null, null, "PR7 3JE", "UK", "PR7 3JE, UK" }, });
     }
 
     @Test

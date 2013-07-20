@@ -31,8 +31,11 @@ package org.opennms.features.topology.app.internal.gwt.client.d3;
 public class SimpleTransition extends D3Behavior {
 
     private int m_duration;
+
     private int m_delay;
+
     private String m_property;
+
     private double m_value;
 
     public SimpleTransition(String property, int value, int duration, int delay) {

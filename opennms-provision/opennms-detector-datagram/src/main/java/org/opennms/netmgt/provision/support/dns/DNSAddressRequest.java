@@ -186,7 +186,8 @@ public class DNSAddressRequest {
      */
     private static int globalID = 1;
 
-    private static final String[] CODENAMES = { "Format error", "Server failure", "Name not known", "Not implemented", "Refused" };
+    private static final String[] CODENAMES = { "Format error", "Server failure", "Name not known", "Not implemented",
+            "Refused" };
 
     /**
      * <P>
@@ -199,7 +200,8 @@ public class DNSAddressRequest {
         // check the response flag
         //
         final boolean isResponse = ((flags >> SHIFT_QUERY) & 1) != 0;
-        if (!isResponse) throw new IOException("Response flag not set");
+        if (!isResponse)
+            throw new IOException("Response flag not set");
 
         //
         // check if error free
@@ -243,7 +245,8 @@ public class DNSAddressRequest {
             // if any section is longer than
             // 63 characters then it's illegal
 
-            if (labels.nextToken().length() > 63) throw new IllegalArgumentException("Invalid hostname: " + host);
+            if (labels.nextToken().length() > 63)
+                throw new IllegalArgumentException("Invalid hostname: " + host);
         }
 
         //
@@ -269,7 +272,8 @@ public class DNSAddressRequest {
      * </P>
      *
      * @return A byte array containing the request.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public byte[] buildRequest() throws IOException {
         final ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
@@ -309,7 +313,8 @@ public class DNSAddressRequest {
      * @exception IOException
      *                Thrown if there is an error while reading the recieved
      *                packet
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void receiveResponse(final byte[] data, final int length) throws IOException {
         /*
@@ -317,7 +322,8 @@ public class DNSAddressRequest {
          */
         final DNSInputStream dnsIn = new DNSInputStream(data, 0, length);
         final int id = dnsIn.readShort();
-        if (id != m_reqID) throw new IOException("ID does not match request");
+        if (id != m_reqID)
+            throw new IOException("ID does not match request");
 
         // read in the flags
 
@@ -364,7 +370,6 @@ public class DNSAddressRequest {
      * This method only goes so far as to decode the flags in the response byte
      * array to verify that a DNS server sent the response.
      * </P>
-     *
      * <P>
      * NOTE: This is really a hack to get around the fact that the
      * receiveResponse() method is not robust enough to handle all possible DNS
@@ -377,7 +382,8 @@ public class DNSAddressRequest {
      * @exception IOException
      *                Thrown if there is an error while reading the recieved
      *                packet
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void verifyResponse(final byte[] data, final int length) throws IOException {
         /*
@@ -385,7 +391,8 @@ public class DNSAddressRequest {
          */
         final DNSInputStream dnsIn = new DNSInputStream(data, 0, length);
         final int id = dnsIn.readShort();
-        if (id != m_reqID) throw new IOException("ID in received packet (" + id + ") does not match ID from request (" + m_reqID + ")");
+        if (id != m_reqID)
+            throw new IOException("ID in received packet (" + id + ") does not match ID from request (" + m_reqID + ")");
 
         //
         // read in the flags

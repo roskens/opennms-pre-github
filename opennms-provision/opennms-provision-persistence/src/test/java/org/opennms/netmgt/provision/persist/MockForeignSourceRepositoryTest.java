@@ -63,7 +63,8 @@ public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTest
     private ForeignSource createForeignSource(String foreignSource) throws Exception {
         ForeignSource fs = new ForeignSource(foreignSource);
         fs.addDetector(new PluginConfig("HTTP", "org.opennms.netmgt.provision.detector.simple.HttpDetector"));
-        fs.addPolicy(new PluginConfig("all-ipinterfaces", "org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy"));
+        fs.addPolicy(new PluginConfig("all-ipinterfaces",
+                                      "org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy"));
         m_repository.save(fs);
         m_repository.flush();
         return fs;
@@ -85,8 +86,10 @@ public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTest
         ForeignSource foreignSource = createForeignSource(m_defaultForeignSourceName);
         List<ForeignSource> foreignSources = new ArrayList<ForeignSource>(m_repository.getForeignSources());
         assertEquals("number of foreign sources", 1, foreignSources.size());
-        assertEquals("getAll() foreign source name matches", m_defaultForeignSourceName, foreignSources.get(0).getName());
-        assertEquals("get() returns the foreign source", foreignSource, m_repository.getForeignSource(m_defaultForeignSourceName));
+        assertEquals("getAll() foreign source name matches", m_defaultForeignSourceName,
+                     foreignSources.get(0).getName());
+        assertEquals("get() returns the foreign source", foreignSource,
+                     m_repository.getForeignSource(m_defaultForeignSourceName));
     }
 
     /**
@@ -109,20 +112,22 @@ public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTest
             // Expected failure
         }
 
-        assertEquals(0, ((RequisitionCategory[])wrapper.getPropertyValue("node[1].category")).length);
+        assertEquals(0, ((RequisitionCategory[]) wrapper.getPropertyValue("node[1].category")).length);
 
         wrapper.setPropertyValue("node[1].categories[0]", new RequisitionCategory("Hello world"));
         wrapper.setPropertyValue("node[1].categories[1]", new RequisitionCategory("Hello again"));
 
-        assertEquals(2, ((RequisitionCategory[])wrapper.getPropertyValue("node[1].category")).length);
+        assertEquals(2, ((RequisitionCategory[]) wrapper.getPropertyValue("node[1].category")).length);
     }
 
     @Test
     public void testGetRequisition() throws Exception {
         Requisition requisition = createRequisition();
         ForeignSource foreignSource = createForeignSource(m_defaultForeignSourceName);
-        assertRequisitionsMatch("foreign sources must match", m_repository.getRequisition(m_defaultForeignSourceName), m_repository.getRequisition(foreignSource));
-        assertRequisitionsMatch("foreign source is expected one", requisition, m_repository.getRequisition(foreignSource));
+        assertRequisitionsMatch("foreign sources must match", m_repository.getRequisition(m_defaultForeignSourceName),
+                                m_repository.getRequisition(foreignSource));
+        assertRequisitionsMatch("foreign source is expected one", requisition,
+                                m_repository.getRequisition(foreignSource));
     }
 
 }

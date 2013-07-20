@@ -59,7 +59,9 @@ public class DefaultStatisticsReportServiceTest {
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
     private DefaultStatisticsReportService m_service = new DefaultStatisticsReportService();
+
     private ResourceDao m_resourceDao = m_mocks.createMock(ResourceDao.class);
+
     private StatisticsReportDao m_statisticsReportDao = m_mocks.createMock(StatisticsReportDao.class);
 
     @Before
@@ -84,7 +86,7 @@ public class DefaultStatisticsReportServiceTest {
 
         m_mocks.replayAll();
         try {
-            m_service.getReport(command , errors);
+            m_service.getReport(command, errors);
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }

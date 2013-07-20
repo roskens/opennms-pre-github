@@ -88,16 +88,12 @@ import org.springframework.test.context.ContextConfiguration;
  * Integration test of for the Javamail Acknowledgement Reader Implementation.
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-ackd.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class JavaMailAckReaderTest implements InitializingBean {
@@ -127,7 +123,8 @@ public class JavaMailAckReaderTest implements InitializingBean {
     }
 
     /**
-     * tests the ability to create acknowledgments from an email for plain text.  This test
+     * tests the ability to create acknowledgments from an email for plain text.
+     * This test
      * creates a message from scratch rather than reading from an inbox.
      */
     @Test
@@ -158,8 +155,10 @@ public class JavaMailAckReaderTest implements InitializingBean {
     }
 
     /**
-     * tests the ability to create acknowledgments from an email for a multi-part text.  This test
-     * creates a message from scratch rather than reading from an inbox.  This message creation
+     * tests the ability to create acknowledgments from an email for a
+     * multi-part text. This test
+     * creates a message from scratch rather than reading from an inbox. This
+     * message creation
      * may not actually represent what comes from a mail server.
      */
     @Test
@@ -176,18 +175,8 @@ public class JavaMailAckReaderTest implements InitializingBean {
         BodyPart textBp = new MimeBodyPart();
         BodyPart htmlBp = new MimeBodyPart();
         textBp.setText("ack");
-        htmlBp.setContent("<html>\n" +
-			" <head>\n" +
-			"  <title>\n" +
-			"   Acknowledge\n" +
-			"  </title>\n" +
-			" </head>\n" +
-			" <body>\n" +
-			"  <h1>\n" +
-			"   ack\n" +
-			"  </h1>\n" +
-			" </body>\n" +
-        		"</html>", "text/html");
+        htmlBp.setContent("<html>\n" + " <head>\n" + "  <title>\n" + "   Acknowledge\n" + "  </title>\n" + " </head>\n"
+                + " <body>\n" + "  <h1>\n" + "   ack\n" + "  </h1>\n" + " </body>\n" + "</html>", "text/html");
 
         mpContent.addBodyPart(textBp);
         mpContent.addBodyPart(htmlBp);
@@ -213,14 +202,13 @@ public class JavaMailAckReaderTest implements InitializingBean {
 
         m_processor.setJmConfigDao(m_jmDao);
         m_processor.setAckdConfigDao(createAckdConfigDao());
-        //m_processor.setAcknowledgmentDao(ackDao);
-        //Thread.sleep(20000);
+        // m_processor.setAcknowledgmentDao(ackDao);
+        // Thread.sleep(20000);
         while (!f.isDone()) {
             Thread.sleep(10);
         }
         Assert.assertTrue(f.isDone());
     }
-
 
     private AckdConfigurationDao createAckdConfigDao() {
 
@@ -245,13 +233,13 @@ public class JavaMailAckReaderTest implements InitializingBean {
 
     }
 
-
     protected class JmCnfDao implements JavaMailConfigurationDao {
 
         ReadmailConfig m_readConfig = createReadMailConfig();
-        SendmailConfig m_sendConfig = createSendMailConfig();
-        End2endMailConfig m_e2eConfig = createE2Ec();
 
+        SendmailConfig m_sendConfig = createSendMailConfig();
+
+        End2endMailConfig m_e2eConfig = createE2Ec();
 
         @Override
         public ReadmailConfig getDefaultReadmailConfig() {
@@ -319,8 +307,7 @@ public class JavaMailAckReaderTest implements InitializingBean {
         }
 
         @Override
-        public void reloadConfiguration()
-                throws DataAccessResourceFailureException {
+        public void reloadConfiguration() throws DataAccessResourceFailureException {
 
         }
 
@@ -356,20 +343,19 @@ public class JavaMailAckReaderTest implements InitializingBean {
         fail("Not yet implemented");
     }
 
-
     /**
-     * This test requires that 4 emails can be read from a Google account.  The mails should be
+     * This test requires that 4 emails can be read from a Google account. The
+     * mails should be
      * in this order:
      * Subject matching ackd-configuration expression of action type ack
      * Subject matching ackd-configuration expression of action type ack
      * Subject matching ackd-configuration expression of action type ack
      * Subject matching ackd-configuration expression of action type clear
-     *
-     * The test has been updated to now include sending an email message to a gmail account.  Just correct
+     * The test has been updated to now include sending an email message to a
+     * gmail account. Just correct
      * the account details for your own local testing.
      *
      * @throws JavaMailerException
-     *
      */
     @Ignore
     @Test
@@ -408,22 +394,22 @@ public class JavaMailAckReaderTest implements InitializingBean {
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(0).getAckType());
         Assert.assertEquals(AckAction.ACKNOWLEDGE, acks.get(0).getAckAction());
         Assert.assertEquals(Integer.valueOf(1), acks.get(0).getRefId());
-        Assert.assertEquals(getUser()+"@gmail.com", acks.get(0).getAckUser());
+        Assert.assertEquals(getUser() + "@gmail.com", acks.get(0).getAckUser());
 
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(1).getAckType());
         Assert.assertEquals(AckAction.ACKNOWLEDGE, acks.get(1).getAckAction());
         Assert.assertEquals(Integer.valueOf(2), acks.get(1).getRefId());
-        Assert.assertEquals(getUser()+"@gmail.com", acks.get(1).getAckUser());
+        Assert.assertEquals(getUser() + "@gmail.com", acks.get(1).getAckUser());
 
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(2).getAckType());
         Assert.assertEquals(AckAction.ACKNOWLEDGE, acks.get(2).getAckAction());
         Assert.assertEquals(Integer.valueOf(3), acks.get(2).getRefId());
-        Assert.assertEquals(getUser()+"@gmail.com", acks.get(2).getAckUser());
+        Assert.assertEquals(getUser() + "@gmail.com", acks.get(2).getAckUser());
 
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(3).getAckType());
         Assert.assertEquals(AckAction.CLEAR, acks.get(3).getAckAction());
         Assert.assertEquals(Integer.valueOf(4), acks.get(3).getRefId());
-        Assert.assertEquals(getUser()+"@gmail.com", acks.get(3).getAckUser());
+        Assert.assertEquals(getUser() + "@gmail.com", acks.get(3).getAckUser());
     }
 
     private String getPassword() {
@@ -436,9 +422,9 @@ public class JavaMailAckReaderTest implements InitializingBean {
 
     private SendmailMessage createAckMessage(String gmailAccount, String noticeId, String body) {
         SendmailMessage sendMsg = new SendmailMessage();
-        sendMsg.setTo(gmailAccount+"@gmail.com");
-        sendMsg.setFrom(gmailAccount+"@gmail.com");
-        sendMsg.setSubject("Re: Notice #"+noticeId+":");
+        sendMsg.setTo(gmailAccount + "@gmail.com");
+        sendMsg.setFrom(gmailAccount + "@gmail.com");
+        sendMsg.setSubject("Re: Notice #" + noticeId + ":");
         sendMsg.setBody(body);
         return sendMsg;
     }
@@ -478,7 +464,8 @@ public class JavaMailAckReaderTest implements InitializingBean {
         return new JavaSendMailer(config);
     }
 
-    private void updateConfigWithGoogleReadConfiguration(ReadmailConfig config, String gmailAccount, String gmailPassword) {
+    private void updateConfigWithGoogleReadConfiguration(ReadmailConfig config, String gmailAccount,
+            String gmailPassword) {
         config.setDebug(true);
         config.setDeleteAllMail(false);
         config.setMailFolder("INBOX");

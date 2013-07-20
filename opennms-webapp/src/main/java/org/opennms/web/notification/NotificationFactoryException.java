@@ -43,29 +43,39 @@ public class NotificationFactoryException extends Exception {
      *
      */
     private static final long serialVersionUID = 2374905955140803820L;
+
     private Throwable rootCause;
 
     /**
-     * <p>Constructor for NotificationFactoryException.</p>
+     * <p>
+     * Constructor for NotificationFactoryException.
+     * </p>
      */
     public NotificationFactoryException() {
         super();
     }
 
     /**
-     * <p>Constructor for NotificationFactoryException.</p>
+     * <p>
+     * Constructor for NotificationFactoryException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public NotificationFactoryException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for NotificationFactoryException.</p>
+     * <p>
+     * Constructor for NotificationFactoryException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param rootCause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param rootCause
+     *            a {@link java.lang.Throwable} object.
      */
     public NotificationFactoryException(String message, Throwable rootCause) {
         super(message);
@@ -73,9 +83,12 @@ public class NotificationFactoryException extends Exception {
     }
 
     /**
-     * <p>Constructor for NotificationFactoryException.</p>
+     * <p>
+     * Constructor for NotificationFactoryException.
+     * </p>
      *
-     * @param rootCause a {@link java.lang.Throwable} object.
+     * @param rootCause
+     *            a {@link java.lang.Throwable} object.
      */
     public NotificationFactoryException(Throwable rootCause) {
         super(rootCause.getLocalizedMessage());
@@ -83,7 +96,9 @@ public class NotificationFactoryException extends Exception {
     }
 
     /**
-     * <p>Getter for the field <code>rootCause</code>.</p>
+     * <p>
+     * Getter for the field <code>rootCause</code>.
+     * </p>
      *
      * @return a {@link java.lang.Throwable} object.
      */

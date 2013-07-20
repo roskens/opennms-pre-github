@@ -33,7 +33,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-
 /**
  * DefaultTimeAdjustmentTest
  *
@@ -74,13 +73,13 @@ public class DefaultTimeAdjustmentTest {
 
         TimeAdjustment timeAdjustment = new DefaultTimeAdjustment();
 
-        timeAdjustment.setMasterTime(System.currentTimeMillis()-60000);
+        timeAdjustment.setMasterTime(System.currentTimeMillis() - 60000);
 
         long time = System.currentTimeMillis();
 
         long adjusted = timeAdjustment.adjustTimeToMasterTime(time);
 
-        assertEqualsWithin(time-60000, adjusted, m_jitter);
+        assertEqualsWithin(time - 60000, adjusted, m_jitter);
 
     }
 
@@ -89,13 +88,13 @@ public class DefaultTimeAdjustmentTest {
 
         TimeAdjustment timeAdjustment = new DefaultTimeAdjustment();
 
-        timeAdjustment.setMasterTime(System.currentTimeMillis()+60000);
+        timeAdjustment.setMasterTime(System.currentTimeMillis() + 60000);
 
         long time = System.currentTimeMillis();
 
         long adjusted = timeAdjustment.adjustTimeToMasterTime(time);
 
-        assertEqualsWithin(time+60000, adjusted, m_jitter);
+        assertEqualsWithin(time + 60000, adjusted, m_jitter);
 
     }
 

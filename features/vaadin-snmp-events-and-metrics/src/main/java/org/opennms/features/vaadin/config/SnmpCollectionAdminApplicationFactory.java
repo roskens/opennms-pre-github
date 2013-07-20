@@ -43,7 +43,8 @@ public class SnmpCollectionAdminApplicationFactory extends AbstractApplicationFa
     /**
      * Sets the OpenNMS Data Collection Configuration DAO.
      *
-     * @param dataCollectionDao the new data collection DAO
+     * @param dataCollectionDao
+     *            the new data collection DAO
      */
     public void setDataCollectionDao(DataCollectionConfigDao dataCollectionDao) {
         this.dataCollectionDao = dataCollectionDao;

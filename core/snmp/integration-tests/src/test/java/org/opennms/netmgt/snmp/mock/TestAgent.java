@@ -44,9 +44,11 @@ public class TestAgent {
 
     private static class Redirect {
         SnmpObjId m_targetObjId;
+
         public Redirect(SnmpObjId targetObjId) {
             m_targetObjId = targetObjId;
         }
+
         public SnmpObjId getTargetObjId() {
             return m_targetObjId;
         }
@@ -54,6 +56,7 @@ public class TestAgent {
     }
 
     private SortedMap<SnmpObjId, Object> m_agentData = new TreeMap<SnmpObjId, Object>();
+
     private boolean isV1 = true;
 
     private int m_maxResponseSize = 100; // this is kind of close to reality
@@ -82,7 +85,7 @@ public class TestAgent {
     }
 
     public void setAgentData(Properties mibData) {
-    	MockSnmpValueFactory factory = new MockSnmpValueFactory();
+        MockSnmpValueFactory factory = new MockSnmpValueFactory();
         m_agentData = new TreeMap<SnmpObjId, Object>();
         for (Entry<Object, Object> entry : mibData.entrySet()) {
             SnmpObjId objId = SnmpObjId.get(entry.getKey().toString());
@@ -120,6 +123,7 @@ public class TestAgent {
 
     /**
      * This simulates send a packet and waiting for a response
+     *
      * @param pdu
      * @return
      */
@@ -204,7 +208,7 @@ public class TestAgent {
     }
 
     public RuntimeException introduceGenErr(SnmpObjId objId) {
-        RuntimeException exception = new RuntimeException("Error occurred retrieving "+objId);
+        RuntimeException exception = new RuntimeException("Error occurred retrieving " + objId);
         m_agentData.put(objId, exception);
         return exception;
     }

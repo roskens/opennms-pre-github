@@ -50,20 +50,19 @@ import org.opennms.netmgt.config.javamail.ReadmailConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /*
  * TODO Handy API things I've found that should be implemented
  *
-            Message[] msgs = new Message[mailFolder.getMessageCount()];
-            int unReadCnt = mailFolder.getUnreadMessageCount();
-            int newCnt = mailFolder.getNewMessageCount();
-            int delCnt = mailFolder.getUnreadMessageCount();
-            FetchProfile fp = new FetchProfile();
-            fp.add(FetchProfile.Item.FLAGS);
-            fp.add(FetchProfileItem.FLAGS);
-            mailFolder.fetch(msgs, fp);
-            SearchTerm st = new SubjectTerm(subjectMatch);
-*/
+ Message[] msgs = new Message[mailFolder.getMessageCount()];
+ int unReadCnt = mailFolder.getUnreadMessageCount();
+ int newCnt = mailFolder.getNewMessageCount();
+ int delCnt = mailFolder.getUnreadMessageCount();
+ FetchProfile fp = new FetchProfile();
+ fp.add(FetchProfile.Item.FLAGS);
+ fp.add(FetchProfileItem.FLAGS);
+ mailFolder.fetch(msgs, fp);
+ SearchTerm st = new SubjectTerm(subjectMatch);
+ */
 /**
  * JavaMail implementation for reading electronic mail.
  *
@@ -72,26 +71,27 @@ import org.slf4j.LoggerFactory;
  */
 public class JavaReadMailer extends JavaMailer2 {
 
-	private static final Logger LOG = LoggerFactory.getLogger(JavaReadMailer.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(JavaReadMailer.class);
 
     private List<Message> m_messages;
+
     final private ReadmailConfig m_config;
+
     private Session m_session;
+
     private Boolean m_deleteOnClose = false;
+
     private Store m_store;
 
-
     /**
-     * {@inheritDoc}
-     *
-     * Finalizer to be sure and close with the appropriate mode
+     * {@inheritDoc} Finalizer to be sure and close with the appropriate mode
      * any open folders
      */
     @Override
     protected void finalize() throws Throwable {
         LOG.debug("finalize: cleaning up mail folder an store connections...");
-        if (m_messages != null && !m_messages.isEmpty() && m_messages.get(0).getFolder() != null && m_messages.get(0).getFolder().isOpen()) {
+        if (m_messages != null && !m_messages.isEmpty() && m_messages.get(0).getFolder() != null
+                && m_messages.get(0).getFolder().isOpen()) {
             m_messages.get(0).getFolder().close(m_deleteOnClose);
         }
 
@@ -103,27 +103,38 @@ public class JavaReadMailer extends JavaMailer2 {
         LOG.debug("finalize: Mail folder and store connections closed.");
     }
 
-    //TODO figure out why need this throws here
+    // TODO figure out why need this throws here
     /**
-     * <p>Constructor for JavaReadMailer.</p>
+     * <p>
+     * Constructor for JavaReadMailer.
+     * </p>
      *
-     * @param config a {@link org.opennms.netmgt.config.javamail.ReadmailConfig} object.
-     * @param closeOnDelete a {@link java.lang.Boolean} object.
-     * @throws org.opennms.javamail.JavaMailerException if any.
+     * @param config
+     *            a {@link org.opennms.netmgt.config.javamail.ReadmailConfig}
+     *            object.
+     * @param closeOnDelete
+     *            a {@link java.lang.Boolean} object.
+     * @throws org.opennms.javamail.JavaMailerException
+     *             if any.
      */
     public JavaReadMailer(final ReadmailConfig config, Boolean closeOnDelete) throws JavaMailerException {
         if (closeOnDelete != null) {
             m_deleteOnClose = closeOnDelete;
         }
         m_config = config;
-        m_session = Session.getInstance(configureProperties(), createAuthenticator(config.getUserAuth().getUserName(), config.getUserAuth().getPassword()));
+        m_session = Session.getInstance(configureProperties(),
+                                        createAuthenticator(config.getUserAuth().getUserName(),
+                                                            config.getUserAuth().getPassword()));
     }
 
     /**
-     * <p>retrieveMessages</p>
+     * <p>
+     * retrieveMessages
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.javamail.JavaMailerException if any.
+     * @throws org.opennms.javamail.JavaMailerException
+     *             if any.
      */
     public List<Message> retrieveMessages() throws JavaMailerException {
         Message[] msgs;
@@ -131,12 +142,15 @@ public class JavaReadMailer extends JavaMailer2 {
 
         try {
             m_store = m_session.getStore(m_config.getReadmailHost().getReadmailProtocol().getTransport());
-            m_store.connect(m_config.getReadmailHost().getHost(), (int)m_config.getReadmailHost().getPort(), m_config.getUserAuth().getUserName(), m_config.getUserAuth().getPassword());
+            m_store.connect(m_config.getReadmailHost().getHost(), (int) m_config.getReadmailHost().getPort(),
+                            m_config.getUserAuth().getUserName(), m_config.getUserAuth().getPassword());
             mailFolder = m_store.getFolder(m_config.getMailFolder());
             mailFolder.open(Folder.READ_WRITE);
             msgs = mailFolder.getMessages();
         } catch (NoSuchProviderException e) {
-            throw new JavaMailerException("No provider matching:"+m_config.getReadmailHost().getReadmailProtocol().getTransport()+" from config:"+m_config.getName(), e);
+            throw new JavaMailerException("No provider matching:"
+                    + m_config.getReadmailHost().getReadmailProtocol().getTransport() + " from config:"
+                    + m_config.getName(), e);
         } catch (MessagingException e) {
             throw new JavaMailerException("Problem reading messages from configured mail store", e);
         }
@@ -144,22 +158,27 @@ public class JavaReadMailer extends JavaMailer2 {
         return new ArrayList<Message>(Arrays.asList(msgs));
     }
 
-
     /*
      * TODO: Need readers that:
-     *   - use FetchProfiles
-     *   - make use of pre-fetch nature of getMessages()
-     *   - A reader for the entire system could be implemented using events/event listeners
-     * TODO: Need to make this more efficient... probably needs state so that message contents can be retrieved from the
-     *       store after they are read via this message.
+     * - use FetchProfiles
+     * - make use of pre-fetch nature of getMessages()
+     * - A reader for the entire system could be implemented using events/event
+     * listeners
+     * TODO: Need to make this more efficient... probably needs state so that
+     * message contents can be retrieved from the
+     * store after they are read via this message.
      */
 
     /**
-     * <p>retrieveMessages</p>
+     * <p>
+     * retrieveMessages
+     * </p>
      *
-     * @param term a {@link javax.mail.search.SearchTerm} object.
+     * @param term
+     *            a {@link javax.mail.search.SearchTerm} object.
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.javamail.JavaMailerException if any.
+     * @throws org.opennms.javamail.JavaMailerException
+     *             if any.
      */
     public List<Message> retrieveMessages(SearchTerm term) throws JavaMailerException {
         Message[] msgs;
@@ -167,12 +186,15 @@ public class JavaReadMailer extends JavaMailer2 {
 
         try {
             Store store = m_session.getStore(m_config.getReadmailHost().getReadmailProtocol().getTransport());
-            store.connect(m_config.getReadmailHost().getHost(), (int)m_config.getReadmailHost().getPort(), m_config.getUserAuth().getUserName(), m_config.getUserAuth().getPassword());
+            store.connect(m_config.getReadmailHost().getHost(), (int) m_config.getReadmailHost().getPort(),
+                          m_config.getUserAuth().getUserName(), m_config.getUserAuth().getPassword());
             mailFolder = store.getFolder(m_config.getMailFolder());
             mailFolder.open(Folder.READ_WRITE);
             msgs = mailFolder.search(term);
         } catch (NoSuchProviderException e) {
-            throw new JavaMailerException("No provider matching:"+m_config.getReadmailHost().getReadmailProtocol().getTransport()+" from config:"+m_config.getName(), e);
+            throw new JavaMailerException("No provider matching:"
+                    + m_config.getReadmailHost().getReadmailProtocol().getTransport() + " from config:"
+                    + m_config.getName(), e);
         } catch (MessagingException e) {
             throw new JavaMailerException("Problem reading messages from configured mail store", e);
         }
@@ -183,7 +205,9 @@ public class JavaReadMailer extends JavaMailer2 {
     }
 
     /**
-     * Configures the java mail api properties based on the settings ReadMailConfig
+     * Configures the java mail api properties based on the settings
+     * ReadMailConfig
+     *
      * @return A set of javamail properties based on the mail configuration
      */
     private Properties configureProperties() {
@@ -191,7 +215,7 @@ public class JavaReadMailer extends JavaMailer2 {
 
         props.setProperty("mail.debug", String.valueOf(m_config.isDebug()));
 
-        //first set the actual properties defined in the sendmail configuration
+        // first set the actual properties defined in the sendmail configuration
         List<JavamailProperty> jmps = m_config.getJavamailPropertyCollection();
         for (JavamailProperty jmp : jmps) {
             props.setProperty(jmp.getName(), jmp.getValue());
@@ -201,7 +225,8 @@ public class JavaReadMailer extends JavaMailer2 {
         props.put("mail." + protocol + ".host", m_config.getReadmailHost().getHost());
         props.put("mail." + protocol + ".user", m_config.getUserAuth().getUserName());
         props.put("mail." + protocol + ".port", m_config.getReadmailHost().getPort());
-        props.put("mail." + protocol + ".starttls.enable", m_config.getReadmailHost().getReadmailProtocol().isStartTls());
+        props.put("mail." + protocol + ".starttls.enable",
+                  m_config.getReadmailHost().getReadmailProtocol().isStartTls());
         props.put("mail.smtp.auth", "true");
 
         if (m_config.getReadmailHost().getReadmailProtocol().isSslEnable()) {
@@ -210,7 +235,7 @@ public class JavaReadMailer extends JavaMailer2 {
             props.put("mail." + protocol + ".socketFactory.fallback", "false");
         }
 
-        //FIXME: need config for these
+        // FIXME: need config for these
         props.put("mail." + protocol + ".connectiontimeout", 3000);
         props.put("mail." + protocol + ".timeout", 3000);
         props.put("mail.store.protocol", protocol);
@@ -219,7 +244,9 @@ public class JavaReadMailer extends JavaMailer2 {
     }
 
     /**
-     * <p>getMessages</p>
+     * <p>
+     * getMessages
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -229,14 +256,18 @@ public class JavaReadMailer extends JavaMailer2 {
 
     /**
      * Attempts to reteive the string portion of a message... tries to handle
-     * multipart messages as well.  This seems to be working so far with my tests
+     * multipart messages as well. This seems to be working so far with my tests
      * but could use some tweaking later as more types of mail servers are used
      * with this feature.
      *
-     * @param msg a {@link javax.mail.Message} object.
-     * @return The text portion of an email with each line being an element of the list.
-     * @throws javax.mail.MessagingException if any.
-     * @throws java.io.IOException if any.
+     * @param msg
+     *            a {@link javax.mail.Message} object.
+     * @return The text portion of an email with each line being an element of
+     *         the list.
+     * @throws javax.mail.MessagingException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static List<String> getText(Message msg) throws MessagingException, IOException {
 
@@ -246,7 +277,7 @@ public class JavaReadMailer extends JavaMailer2 {
         LOG.debug("getText: getting text of message from MimeType: text/*");
 
         try {
-            text = (String)msg.getContent();
+            text = (String) msg.getContent();
 
         } catch (ClassCastException cce) {
             content = msg.getContent();
@@ -255,10 +286,10 @@ public class JavaReadMailer extends JavaMailer2 {
 
                 LOG.debug("getText: content is MimeMultipart, checking for text from each part...");
 
-                for (int cnt = 0; cnt < ((MimeMultipart)content).getCount(); cnt++) {
-                    BodyPart bp = ((MimeMultipart)content).getBodyPart(cnt);
+                for (int cnt = 0; cnt < ((MimeMultipart) content).getCount(); cnt++) {
+                    BodyPart bp = ((MimeMultipart) content).getBodyPart(cnt);
                     if (bp.isMimeType("text/*")) {
-                        text = (String)bp.getContent();
+                        text = (String) bp.getContent();
                         LOG.debug("getText: found text MIME type: {}", text);
                         break;
                     }
@@ -270,7 +301,9 @@ public class JavaReadMailer extends JavaMailer2 {
     }
 
     /**
-     * <p>isDeleteOnClose</p>
+     * <p>
+     * isDeleteOnClose
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -279,18 +312,24 @@ public class JavaReadMailer extends JavaMailer2 {
     }
 
     /**
-     * <p>setDeleteOnClose</p>
+     * <p>
+     * setDeleteOnClose
+     * </p>
      *
-     * @param deleteOnClose a {@link java.lang.Boolean} object.
+     * @param deleteOnClose
+     *            a {@link java.lang.Boolean} object.
      */
     public void setDeleteOnClose(Boolean deleteOnClose) {
         m_deleteOnClose = deleteOnClose;
     }
 
     /**
-     * <p>string2Lines</p>
+     * <p>
+     * string2Lines
+     * </p>
      *
-     * @param text a {@link java.lang.String} object.
+     * @param text
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public static List<String> string2Lines(String text) {
@@ -303,6 +342,5 @@ public class JavaReadMailer extends JavaMailer2 {
         }
         return Arrays.asList(linea);
     }
-
 
 }

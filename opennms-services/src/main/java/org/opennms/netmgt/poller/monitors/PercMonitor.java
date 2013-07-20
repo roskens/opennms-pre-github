@@ -52,12 +52,13 @@ import org.slf4j.LoggerFactory;
 /**
  * <P>
  * This class is designed to be used by the service poller framework to test the
- * status of PERC raid controllers on Dell Servers. The class implements
- * the ServiceMonitor interface that allows it to be used along with other
- * plug-ins by the service poller framework.
+ * status of PERC raid controllers on Dell Servers. The class implements the
+ * ServiceMonitor interface that allows it to be used along with other plug-ins
+ * by the service poller framework.
  * </P>
  * <p>
- * This does SNMP and therefore relies on the SNMP configuration so it is not distributable.
+ * This does SNMP and therefore relies on the SNMP configuration so it is not
+ * distributable.
  * </p>
  *
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
@@ -65,7 +66,6 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable(DistributionContext.DAEMON)
 final public class PercMonitor extends SnmpMonitorStrategy {
-
 
     public static final Logger LOG = LoggerFactory.getLogger(PercMonitor.class);
 
@@ -99,10 +99,10 @@ final public class PercMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Initialize the service monitor.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                plug-in from functioning.
@@ -114,7 +114,7 @@ final public class PercMonitor extends SnmpMonitorStrategy {
         try {
             SnmpPeerFactory.init();
         } catch (IOException ex) {
-        	LOG.error("initialize: Failed to load SNMP configuration", ex);
+            LOG.error("initialize: Failed to load SNMP configuration", ex);
             throw new UndeclaredThrowableException(ex);
         }
 
@@ -131,7 +131,8 @@ final public class PercMonitor extends SnmpMonitorStrategy {
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                interface from being monitored.
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
     public void initialize(MonitoredService svc) {
@@ -141,11 +142,11 @@ final public class PercMonitor extends SnmpMonitorStrategy {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * The poll() method is responsible for polling the specified address for
      * SNMP service availability.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown for any uncrecoverable errors.
      */
@@ -161,19 +162,22 @@ final public class PercMonitor extends SnmpMonitorStrategy {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        if (agentConfig == null)
+            throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
         final String hostAddress = InetAddressUtils.str(ipaddr);
-		LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
+        LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
 
         // Get configuration parameters
         //
         // set timeout and retries on SNMP peer object
         //
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry", ParameterMap.getKeyedInteger(parameters, "retries", agentConfig.getRetries())));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(parameters, "retries",
+                                                                                         agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
 
-        String arrayNumber = ParameterMap.getKeyedString(parameters,"array","0.0");
+        String arrayNumber = ParameterMap.getKeyedString(parameters, "array", "0.0");
 
         LOG.debug("poll: service= SNMP address= {}", agentConfig);
 
@@ -187,43 +191,48 @@ final public class PercMonitor extends SnmpMonitorStrategy {
 
             String returnValue = "";
 
-            SnmpValue value = SnmpUtils.get(agentConfig,snmpObjectId);
+            SnmpValue value = SnmpUtils.get(agentConfig, snmpObjectId);
 
-            if (value.toInt()!=2){
-            	LOG.debug("PercMonitor.poll: Bad Disk Found");
-            	returnValue = "log vol(" + arrayNumber + ") degraded"; // XXX should degraded be the virtualDiskState ?
-            	// array is bad
-            	// lets find out which disks are bad in the array
+            if (value.toInt() != 2) {
+                LOG.debug("PercMonitor.poll: Bad Disk Found");
+                returnValue = "log vol(" + arrayNumber + ") degraded"; // XXX
+                                                                       // should
+                                                                       // degraded
+                                                                       // be the
+                                                                       // virtualDiskState
+                                                                       // ?
+                // array is bad
+                // lets find out which disks are bad in the array
 
-            	// first we need to fetch the arrayPosition table.
-            	SnmpObjId arrayPositionSnmpObject = SnmpObjId.get(ARRAY_POSITION_BASE_OID);
-		SnmpObjId diskStatesSnmpObject = SnmpObjId.get(PHYSICAL_BASE_OID);
+                // first we need to fetch the arrayPosition table.
+                SnmpObjId arrayPositionSnmpObject = SnmpObjId.get(ARRAY_POSITION_BASE_OID);
+                SnmpObjId diskStatesSnmpObject = SnmpObjId.get(PHYSICAL_BASE_OID);
 
-            	Map<SnmpInstId,SnmpValue> arrayDisks = SnmpUtils.getOidValues(agentConfig, "PercMonitor", arrayPositionSnmpObject);
-            	Map<SnmpInstId,SnmpValue> diskStates = SnmpUtils.getOidValues(agentConfig, "PercMonitor", diskStatesSnmpObject);
+                Map<SnmpInstId, SnmpValue> arrayDisks = SnmpUtils.getOidValues(agentConfig, "PercMonitor",
+                                                                               arrayPositionSnmpObject);
+                Map<SnmpInstId, SnmpValue> diskStates = SnmpUtils.getOidValues(agentConfig, "PercMonitor",
+                                                                               diskStatesSnmpObject);
 
-            	for (Map.Entry<SnmpInstId, SnmpValue> disk: arrayDisks.entrySet()) {
+                for (Map.Entry<SnmpInstId, SnmpValue> disk : arrayDisks.entrySet()) {
 
-            		if (disk.getValue().toString().contains("A" + arrayNumber.toString() + "-")) {
-            			// this is a member of the array
+                    if (disk.getValue().toString().contains("A" + arrayNumber.toString() + "-")) {
+                        // this is a member of the array
 
-            			if ( diskStates.get(disk.getKey()).toInt() !=3 ){
-            				// this is bad disk.
+                        if (diskStates.get(disk.getKey()).toInt() != 3) {
+                            // this is bad disk.
 
-            				returnValue  += "phy drv(" + disk.getKey().toString() + ")";
+                            returnValue += "phy drv(" + disk.getKey().toString() + ")";
 
-            			}
+                        }
 
-            		}
+                    }
 
-            		return PollStatus.unavailable(returnValue);
-            	}
-
+                    return PollStatus.unavailable(returnValue);
+                }
 
             }
 
             status = PollStatus.available();
-
 
         } catch (NumberFormatException e) {
             String reason = "Number operator used on a non-number " + e.getMessage();

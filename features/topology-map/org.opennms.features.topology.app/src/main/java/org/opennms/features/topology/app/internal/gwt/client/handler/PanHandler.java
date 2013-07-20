@@ -35,11 +35,15 @@ import org.opennms.features.topology.app.internal.gwt.client.view.TopologyView;
 
 import com.google.gwt.dom.client.Element;
 
-public class PanHandler implements DragBehaviorHandler{
+public class PanHandler implements DragBehaviorHandler {
     public static String DRAG_BEHAVIOR_KEY = "panHandler";
+
     protected PanObject m_panObject;
+
     TopologyView<TopologyViewRenderer> m_topologyView;
+
     ServiceRegistry m_serviceRegistry;
+
     VTopologyComponent m_topologyComponent;
 
     public PanHandler(VTopologyComponent vtopologyComp, ServiceRegistry serviceRegistry) {
@@ -63,6 +67,5 @@ public class PanHandler implements DragBehaviorHandler{
         m_panObject = null;
         m_topologyComponent.updateMapPosition();
     }
-
 
 }

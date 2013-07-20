@@ -39,7 +39,9 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 public class OnmSGINamespaceHandler extends NamespaceHandlerSupport {
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {

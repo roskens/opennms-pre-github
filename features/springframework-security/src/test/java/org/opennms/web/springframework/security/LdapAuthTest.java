@@ -52,23 +52,23 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.security.web.FilterChainProxy;
 
-
 /**
  * @author brozow
- *
  */
-/*@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/applicationContext-ldapTest.xml"
-})*/
+/*
+ * @RunWith(SpringJUnit4ClassRunner.class)
+ * @ContextConfiguration(locations={
+ * "classpath:/applicationContext-ldapTest.xml"
+ * })
+ */
 public class LdapAuthTest implements InitializingBean {
 
     /**
      * @author brozow
-     *
      */
     private static class AccesAnticipator implements FilterChain {
         private boolean m_called = false;
+
         @Override
         public void doFilter(ServletRequest arg0, ServletResponse arg1) throws IOException, ServletException {
             m_called = true;
@@ -112,7 +112,6 @@ public class LdapAuthTest implements InitializingBean {
         assertAccessDenied(request);
     }
 
-
     @Test
     @Ignore
     public void testBasicAuth() throws IOException, ServletException {
@@ -138,8 +137,7 @@ public class LdapAuthTest implements InitializingBean {
      * @throws IOException
      * @throws ServletException
      */
-    private void assertAccessAllowed(MockHttpServletRequest request)
-            throws IOException, ServletException {
+    private void assertAccessAllowed(MockHttpServletRequest request) throws IOException, ServletException {
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         m_authFilterChain.doFilter(request, response, m_chain);
@@ -153,8 +151,7 @@ public class LdapAuthTest implements InitializingBean {
      * @throws IOException
      * @throws ServletException
      */
-    private void assertAccessDenied(MockHttpServletRequest request)
-            throws IOException, ServletException {
+    private void assertAccessDenied(MockHttpServletRequest request) throws IOException, ServletException {
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         m_authFilterChain.doFilter(request, response, m_chain);
@@ -163,18 +160,19 @@ public class LdapAuthTest implements InitializingBean {
         m_chain.assertAccessDenied();
     }
 
-
     protected MockHttpServletRequest createRequest(String requestType, String urlPath) {
-        MockHttpServletRequest request = new MockHttpServletRequest(m_servletContext, requestType, m_contextPath + urlPath);
+        MockHttpServletRequest request = new MockHttpServletRequest(m_servletContext, requestType, m_contextPath
+                + urlPath);
         request.setServletPath(m_contextPath + urlPath);
         request.setContextPath(m_contextPath);
         return request;
     }
 
-    private MockHttpServletRequest createRequest(String requestType, String urlPath, String user, String passwd) throws UnsupportedEncodingException {
+    private MockHttpServletRequest createRequest(String requestType, String urlPath, String user, String passwd)
+            throws UnsupportedEncodingException {
         MockHttpServletRequest request = createRequest(requestType, urlPath);
 
-        String token = user + ":"  + passwd;
+        String token = user + ":" + passwd;
         byte[] encodedToken = Base64.encodeBase64(token.getBytes("UTF-8"));
         request.addHeader("Authorization", "Basic " + new String(encodedToken, "UTF-8"));
 

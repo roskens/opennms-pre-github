@@ -37,7 +37,9 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.xmpConfig.XmpConfig;
 
 /**
- * <p>XmpPeerFactory class.</p>
+ * <p>
+ * XmpPeerFactory class.
+ * </p>
  *
  * @author <A HREF="jeffg@opennms.org">Jeff Gehlbach</A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
@@ -55,7 +57,7 @@ public class XmpPeerFactory {
     /**
      * Currently we're not backed up by a complex config file, we'll just
      * go to the XmpConfigFactory and always return the same peer config
-     * regardless of the peer's IP address.  At some point this will
+     * regardless of the peer's IP address. At some point this will
      * probably change, which is why this seemingly pointless factory
      * exists at all.
      */
@@ -70,16 +72,20 @@ public class XmpPeerFactory {
         super();
     }
 
-
     /**
      * Initialize this factory
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
      */
-    public static synchronized void init() throws MarshalException, ValidationException, FileNotFoundException, IOException {
+    public static synchronized void init() throws MarshalException, ValidationException, FileNotFoundException,
+            IOException {
         if (m_loaded) {
             return;
         }
@@ -92,14 +98,21 @@ public class XmpPeerFactory {
     }
 
     /**
-     * <p>reload</p>
+     * <p>
+     * reload
+     * </p>
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public static synchronized void reload() throws MarshalException, ValidationException, FileNotFoundException, IOException {
+    public static synchronized void reload() throws MarshalException, ValidationException, FileNotFoundException,
+            IOException {
         m_singleton = null;
         m_loaded = false;
 
@@ -108,12 +121,15 @@ public class XmpPeerFactory {
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.protocols.xmp.config.XmpPeerFactory} object.
+     * @return a {@link org.opennms.netmgt.protocols.xmp.config.XmpPeerFactory}
+     *         object.
      */
     public static synchronized XmpPeerFactory getInstance() {
-        if (! m_loaded) {
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
         }
 
@@ -121,9 +137,14 @@ public class XmpPeerFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.protocols.xmp.config.XmpPeerFactory} object.
+     * @param instance
+     *            a
+     *            {@link org.opennms.netmgt.protocols.xmp.config.XmpPeerFactory}
+     *            object.
      */
     public static synchronized void setInstance(XmpPeerFactory instance) {
         m_singleton = instance;
@@ -131,10 +152,14 @@ public class XmpPeerFactory {
     }
 
     /**
-     * <p>getAgentConfig</p>
+     * <p>
+     * getAgentConfig
+     * </p>
      *
-     * @param agentInetAddress a {@link java.net.InetAddress} object.
-     * @return a {@link org.opennms.netmgt.protocols.xmp.config.XmpAgentConfig} object.
+     * @param agentInetAddress
+     *            a {@link java.net.InetAddress} object.
+     * @return a {@link org.opennms.netmgt.protocols.xmp.config.XmpAgentConfig}
+     *         object.
      */
     public synchronized XmpAgentConfig getAgentConfig(InetAddress agentInetAddress) {
 

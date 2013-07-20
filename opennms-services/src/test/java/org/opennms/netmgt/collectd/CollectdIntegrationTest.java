@@ -90,10 +90,15 @@ public class CollectdIntegrationTest extends TestCase {
     private static Map<String, CollectdIntegrationTest> m_tests = new HashMap<String, CollectdIntegrationTest>();
 
     private EventIpcManager m_eventIpcManager;
+
     private Collectd m_collectd;
+
     private EasyMockUtils m_mockUtils;
+
     private CollectorConfigDao m_collectorConfigDao;
+
     private String m_key;
+
     private MockServiceCollector m_serviceCollector;
 
     private IpInterfaceDao m_ifaceDao;
@@ -113,8 +118,8 @@ public class CollectdIntegrationTest extends TestCase {
         m_filterDao = m_mockUtils.createMock(FilterDao.class);
         FilterDaoFactory.setInstance(m_filterDao);
 
-
-        // This call will also ensure that the poll-outages.xml file can parse IPv4
+        // This call will also ensure that the poll-outages.xml file can parse
+        // IPv4
         // and IPv6 addresses.
         Resource resource = new ClassPathResource("etc/poll-outages.xml");
         PollOutagesConfigFactory factory = new PollOutagesConfigFactory(resource);
@@ -128,15 +133,16 @@ public class CollectdIntegrationTest extends TestCase {
         ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(resource.getInputStream()));
 
         // set up test using a string key
-        m_key = getName()+System.nanoTime();
+        m_key = getName() + System.nanoTime();
         m_tests.put(m_key, this);
 
-        //create a collector definition
+        // create a collector definition
         Collector collector = new Collector();
         collector.setService("SNMP");
         collector.setClassName(MockServiceCollector.class.getName());
 
-        // pass the key to the collector definition so it can look up the associated test
+        // pass the key to the collector definition so it can look up the
+        // associated test
         Parameter param = new Parameter();
         param.setKey(TEST_KEY_PARM_NAME);
         param.setValue(m_key);
@@ -153,7 +159,7 @@ public class CollectdIntegrationTest extends TestCase {
 
             @Override
             protected void handleInsufficientInfo(InsufficientInformationException e) {
-                fail("Invalid event received: "+e.getMessage());
+                fail("Invalid event received: " + e.getMessage());
             }
 
         };
@@ -161,10 +167,7 @@ public class CollectdIntegrationTest extends TestCase {
         OnmsServiceType snmp = new OnmsServiceType("SNMP");
         NetworkBuilder netBuilder = new NetworkBuilder("localhost", "127.0.0.1");
         NodeBuilder nodeBuilder = netBuilder.addNode("node1").setId(1);
-        InterfaceBuilder ifaceBlder =
-            netBuilder.addInterface("192.168.1.1")
-            .setId(2)
-            .setIsSnmpPrimary("P");
+        InterfaceBuilder ifaceBlder = netBuilder.addInterface("192.168.1.1").setId(2).setIsSnmpPrimary("P");
         ifaceBlder.addSnmpInterface(1);
         OnmsMonitoredService svc = netBuilder.addService(snmp);
 
@@ -192,7 +195,7 @@ public class CollectdIntegrationTest extends TestCase {
 
         // Inits the class
         m_collectd.afterPropertiesSet();
-        //assertNotNull(m_serviceCollector);
+        // assertNotNull(m_serviceCollector);
     }
 
     public static void setServiceCollectorInTest(String testKey, MockServiceCollector collector) {
@@ -230,7 +233,7 @@ public class CollectdIntegrationTest extends TestCase {
     }
 
     private void createGetPackagesExpectation(OnmsMonitoredService svc) {
-        String rule = "ipaddr = '"+ str(svc.getIpAddress())+"'";
+        String rule = "ipaddr = '" + str(svc.getIpAddress()) + "'";
 
         EasyMock.expect(m_filterDao.getActiveIPAddressList(rule)).andReturn(Collections.singletonList(svc.getIpAddress()));
 
@@ -276,29 +279,29 @@ public class CollectdIntegrationTest extends TestCase {
         @Override
         public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) {
             m_collectCount++;
-            CollectionSet collectionSetResult=new CollectionSet() {
-            	private Date m_timestamp = new Date();
+            CollectionSet collectionSetResult = new CollectionSet() {
+                private Date m_timestamp = new Date();
 
-                    @Override
+                @Override
                 public int getStatus() {
                     return ServiceCollector.COLLECTION_SUCCEEDED;
                 }
 
-                    @Override
+                @Override
                 public void visit(CollectionSetVisitor visitor) {
                     visitor.visitCollectionSet(this);
                     visitor.completeCollectionSet(this);
                 }
 
-                    @Override
-				public boolean ignorePersist() {
-					return false;
-				}
+                @Override
+                public boolean ignorePersist() {
+                    return false;
+                }
 
-                    @Override
-				public Date getCollectionTimestamp() {
-					return m_timestamp;
-				}
+                @Override
+                public Date getCollectionTimestamp() {
+                    return m_timestamp;
+                }
             };
             return collectionSetResult;
         }
@@ -309,16 +312,17 @@ public class CollectdIntegrationTest extends TestCase {
 
         @Override
         public void initialize(Map<String, String> parameters) {
-            // This fails because collectd does NOT actually passed in configured monitor parameters
+            // This fails because collectd does NOT actually passed in
+            // configured monitor parameters
             // since no collectors actually use them (except this one)
-//            String testKey = (String)parameters.get(TEST_KEY_PARM_NAME);
-//            assertNotNull(testKey);
-//            CollectdIntegrationTest.setServiceCollectorInTest(testKey, this);
+            // String testKey = (String)parameters.get(TEST_KEY_PARM_NAME);
+            // assertNotNull(testKey);
+            // CollectdIntegrationTest.setServiceCollectorInTest(testKey, this);
         }
 
         @Override
         public void initialize(CollectionAgent agent, Map<String, Object> parameters) {
-            String testKey = (String)parameters.get(TEST_KEY_PARM_NAME);
+            String testKey = (String) parameters.get(TEST_KEY_PARM_NAME);
             assertNotNull(testKey);
             CollectdIntegrationTest.setServiceCollectorInTest(testKey, this);
         }
@@ -336,7 +340,7 @@ public class CollectdIntegrationTest extends TestCase {
         @Override
         public RrdRepository getRrdRepository(String collectionName) {
             RrdRepository repo = new RrdRepository();
-            ArrayList<String> rras=new ArrayList<String>();
+            ArrayList<String> rras = new ArrayList<String>();
             rras.add("RRA:AVERAGE:0.5:1:8928");
             repo.setRrdBaseDir(new File("/usr/local/opennms/share/rrd/snmp/"));
             repo.setRraList(rras);
@@ -346,6 +350,5 @@ public class CollectdIntegrationTest extends TestCase {
         }
 
     }
-
 
 }

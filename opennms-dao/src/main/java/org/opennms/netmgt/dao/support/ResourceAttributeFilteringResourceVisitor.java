@@ -34,14 +34,18 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>ResourceAttributeFilteringResourceVisitor class.</p>
+ * <p>
+ * ResourceAttributeFilteringResourceVisitor class.
+ * </p>
  *
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class ResourceAttributeFilteringResourceVisitor implements ResourceVisitor, InitializingBean {
     private ResourceVisitor m_delegatedVisitor;
+
     private String m_resourceAttributeKey;
+
     private String m_resourceAttributeValueMatch;
 
     /** {@inheritDoc} */
@@ -54,7 +58,9 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -62,11 +68,14 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
     public void afterPropertiesSet() {
         Assert.state(m_delegatedVisitor != null, "property delegatedVisitor must be set to a non-null value");
         Assert.state(m_resourceAttributeKey != null, "property resourceAttributeKey must be set to a non-null value");
-        Assert.state(m_resourceAttributeValueMatch != null, "property resourceAttributeValueMatch must be set to a non-null value");
+        Assert.state(m_resourceAttributeValueMatch != null,
+                     "property resourceAttributeValueMatch must be set to a non-null value");
     }
 
     /**
-     * <p>getDelegatedVisitor</p>
+     * <p>
+     * getDelegatedVisitor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
@@ -75,16 +84,21 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
     }
 
     /**
-     * <p>setDelegatedVisitor</p>
+     * <p>
+     * setDelegatedVisitor
+     * </p>
      *
-     * @param delegatedVisitor a {@link org.opennms.netmgt.model.ResourceVisitor} object.
+     * @param delegatedVisitor
+     *            a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
     public void setDelegatedVisitor(ResourceVisitor delegatedVisitor) {
         m_delegatedVisitor = delegatedVisitor;
     }
 
     /**
-     * <p>getResourceAttributeKey</p>
+     * <p>
+     * getResourceAttributeKey
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,16 +107,21 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
     }
 
     /**
-     * <p>setResourceAttributeKey</p>
+     * <p>
+     * setResourceAttributeKey
+     * </p>
      *
-     * @param resourceAttributeKey a {@link java.lang.String} object.
+     * @param resourceAttributeKey
+     *            a {@link java.lang.String} object.
      */
     public void setResourceAttributeKey(String resourceAttributeKey) {
         m_resourceAttributeKey = resourceAttributeKey;
     }
 
     /**
-     * <p>getResourceAttributeValueMatch</p>
+     * <p>
+     * getResourceAttributeValueMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,9 +130,12 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
     }
 
     /**
-     * <p>setResourceAttributeValueMatch</p>
+     * <p>
+     * setResourceAttributeValueMatch
+     * </p>
      *
-     * @param resourceAttributeValueMatch a {@link java.lang.String} object.
+     * @param resourceAttributeValueMatch
+     *            a {@link java.lang.String} object.
      */
     public void setResourceAttributeValueMatch(String resourceAttributeValueMatch) {
         m_resourceAttributeValueMatch = resourceAttributeValueMatch;

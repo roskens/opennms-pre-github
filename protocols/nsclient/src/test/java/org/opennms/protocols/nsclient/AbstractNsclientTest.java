@@ -38,7 +38,9 @@ import org.opennms.netmgt.provision.server.SimpleServer;
 import org.opennms.netmgt.provision.server.exchange.RequestHandler;
 
 /**
- * <p>Abstract Class for NSClient Tests.</p>
+ * <p>
+ * Abstract Class for NSClient Tests.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
@@ -62,7 +64,7 @@ public abstract class AbstractNsclientTest {
     }
 
     public void startServer(final String command, final String response) throws Exception {
-        m_server  = new SimpleServer() {
+        m_server = new SimpleServer() {
             @Override
             public void onInit() {
                 addResponseHandler(startsWith(command), new RequestHandler() {

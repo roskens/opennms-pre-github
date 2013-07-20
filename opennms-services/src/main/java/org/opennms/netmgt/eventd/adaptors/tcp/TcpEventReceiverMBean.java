@@ -34,12 +34,14 @@ import javax.management.MalformedObjectNameException;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>TcpEventReceiverMBean interface.</p>
+ * <p>
+ * TcpEventReceiverMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public interface TcpEventReceiverMBean extends BaseOnmsMBean{
+public interface TcpEventReceiverMBean extends BaseOnmsMBean {
     /**
      * Invoked prior to garbage collection.
      */
@@ -90,7 +92,8 @@ public interface TcpEventReceiverMBean extends BaseOnmsMBean{
     /**
      * The logging prefix to use
      *
-     * @param prefix a {@link java.lang.String} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      */
     void setLogPrefix(String prefix);
 

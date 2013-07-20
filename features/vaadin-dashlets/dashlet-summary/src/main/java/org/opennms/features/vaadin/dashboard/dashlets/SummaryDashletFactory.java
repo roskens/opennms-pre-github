@@ -53,7 +53,8 @@ public class SummaryDashletFactory extends AbstractDashletFactory {
     /**
      * Method for instatiating a new {@link Dashlet} instance.
      *
-     * @param dashletSpec the {@link DashletSpec} to use
+     * @param dashletSpec
+     *            the {@link DashletSpec} to use
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {
@@ -67,12 +68,12 @@ public class SummaryDashletFactory extends AbstractDashletFactory {
      */
     @Override
     public String getHelpContentHTML() {
-        return "This Dashlet provides a overview of unacknowledged and acknowledged alarms in relation to\n" +
-                " a given timeslot. It also indicates a trend for these alarms. On the left you see a table \n" +
-                " by severity and on the right a table by the three important UEIs. The timeslot used is \n" +
-                " configurable via a parameter in seconds. The trend indicates the relation between unacknowledged\n" +
-                " to acknowledged alarms. For example the count of unacknowledged alarms is twice the number \n" +
-                " of acknowledged alarms the arrow is up and red and indicates that it seems to getting\n" +
-                " from bad to worse.";
+        return "This Dashlet provides a overview of unacknowledged and acknowledged alarms in relation to\n"
+                + " a given timeslot. It also indicates a trend for these alarms. On the left you see a table \n"
+                + " by severity and on the right a table by the three important UEIs. The timeslot used is \n"
+                + " configurable via a parameter in seconds. The trend indicates the relation between unacknowledged\n"
+                + " to acknowledged alarms. For example the count of unacknowledged alarms is twice the number \n"
+                + " of acknowledged alarms the arrow is up and red and indicates that it seems to getting\n"
+                + " from bad to worse.";
     }
 }

@@ -34,7 +34,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
 
-
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -43,7 +42,9 @@ import com.jcraft.jsch.SftpException;
 
 /**
  * The class for managing SFTP URL Connection.
- * <p>The default connection timeout is 30 seconds.</p>
+ * <p>
+ * The default connection timeout is 30 seconds.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
@@ -64,13 +65,15 @@ public class SftpUrlConnection extends URLConnection {
     /**
      * Instantiates a new SFTP URL connection.
      *
-     * @param url the URL
+     * @param url
+     *            the URL
      */
     protected SftpUrlConnection(URL url) {
         super(url);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLConnection#connect()
      */
     @Override
@@ -84,10 +87,13 @@ public class SftpUrlConnection extends URLConnection {
         }
         JSch jsch = new JSch();
         try {
-            // TODO: Experimental authentication handling using Private/Public keys
-            // FIXME: We can include this property on the request object, for example:
+            // TODO: Experimental authentication handling using Private/Public
+            // keys
+            // FIXME: We can include this property on the request object, for
+            // example:
             // <request>
-            //   <parameter name='sftp.private-key.location' value='/opt/opennms/etc/private.key'/>
+            // <parameter name='sftp.private-key.location'
+            // value='/opt/opennms/etc/private.key'/>
             // </request>
             // http://wiki.jsch.org/index.php?Manual%2FExamples%2FJschPubkeyAuthExample
             String prvkey = System.getProperty("sftp.private-key.location");
@@ -116,7 +122,8 @@ public class SftpUrlConnection extends URLConnection {
     /**
      * Disconnect.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void disconnect() throws IOException {
         if (m_channel != null)
@@ -137,7 +144,8 @@ public class SftpUrlConnection extends URLConnection {
         return m_channel;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLConnection#getInputStream()
      */
     @Override
@@ -146,7 +154,8 @@ public class SftpUrlConnection extends URLConnection {
         try {
             return getChannel().get(filePath);
         } catch (SftpException e) {
-            throw new IOException("Can't retrieve " + filePath + " from " + url.getHost() + " because " + e.getMessage());
+            throw new IOException("Can't retrieve " + filePath + " from " + url.getHost() + " because "
+                    + e.getMessage());
         }
     }
 
@@ -154,7 +163,8 @@ public class SftpUrlConnection extends URLConnection {
      * Gets the path.
      *
      * @return the path
-     * @throws SftpUrlException the SFTP URL exception
+     * @throws SftpUrlException
+     *             the SFTP URL exception
      */
     protected String getPath() throws SftpUrlException {
         return url.getPath();

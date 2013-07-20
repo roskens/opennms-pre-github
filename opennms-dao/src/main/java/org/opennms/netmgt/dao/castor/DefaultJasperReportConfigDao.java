@@ -35,12 +35,13 @@ import org.opennms.netmgt.config.reporting.jasperReports.JasperReports;
 import org.opennms.netmgt.config.reporting.jasperReports.Report;
 import org.opennms.netmgt.dao.api.JasperReportConfigDao;
 
-public class DefaultJasperReportConfigDao extends
-        AbstractCastorConfigDao<JasperReports, List<Report>> implements
+public class DefaultJasperReportConfigDao extends AbstractCastorConfigDao<JasperReports, List<Report>> implements
         JasperReportConfigDao {
 
     /**
-     * <p>Constructor for DefaultJasperReportConfigDao.</p>
+     * <p>
+     * Constructor for DefaultJasperReportConfigDao.
+     * </p>
      */
     public DefaultJasperReportConfigDao() {
         super(JasperReports.class, "JasperReports configuration");

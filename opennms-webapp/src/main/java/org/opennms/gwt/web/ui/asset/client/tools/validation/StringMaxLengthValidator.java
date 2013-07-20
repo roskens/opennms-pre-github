@@ -37,33 +37,34 @@ import com.google.gwt.core.client.GWT;
  *         Validates length of a String against a maximum.
  */
 public class StringMaxLengthValidator implements Validator {
-	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
-	private int maxLength;
+    private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
-	public StringMaxLengthValidator(int maxLength) {
-		this.maxLength = maxLength;
-	}
+    private int maxLength;
 
-	/**
-	 * The defined maximum for a valid string length.
-	 *
-	 * @return int maxLength
-	 */
-	public int getMaxLength() {
-		return maxLength;
-	}
+    public StringMaxLengthValidator(int maxLength) {
+        this.maxLength = maxLength;
+    }
 
-	/**
-	 * Validates length of a String against a maximum. Validation will run
-	 * against <code>(String) object</code> so make sure to use a proper object.
-	 *
-	 * @param object
-	 */
-	@Override
-	public String validate(Object object) {
-		if (((String) object).length() > maxLength) {
-			return con.stringToLongError() + " " + maxLength;
-		}
-		return "";
-	}
+    /**
+     * The defined maximum for a valid string length.
+     *
+     * @return int maxLength
+     */
+    public int getMaxLength() {
+        return maxLength;
+    }
+
+    /**
+     * Validates length of a String against a maximum. Validation will run
+     * against <code>(String) object</code> so make sure to use a proper object.
+     *
+     * @param object
+     */
+    @Override
+    public String validate(Object object) {
+        if (((String) object).length() > maxLength) {
+            return con.stringToLongError() + " " + maxLength;
+        }
+        return "";
+    }
 }

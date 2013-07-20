@@ -62,10 +62,7 @@ public class IpRange implements Serializable, Comparable<IpRange> {
 
     @Override
     public int compareTo(IpRange obj) {
-        return new CompareToBuilder()
-            .append(getBegin(), obj.getBegin())
-            .append(getEnd(), obj.getEnd())
-            .toComparison();
+        return new CompareToBuilder().append(getBegin(), obj.getBegin()).append(getEnd(), obj.getEnd()).toComparison();
     }
 
     @Override
@@ -81,10 +78,7 @@ public class IpRange implements Serializable, Comparable<IpRange> {
     public boolean equals(Object obj) {
         if (obj instanceof IpRange) {
             IpRange other = (IpRange) obj;
-            return new EqualsBuilder()
-                .append(getBegin(), other.getBegin())
-                .append(getEnd(), other.getEnd())
-                .isEquals();
+            return new EqualsBuilder().append(getBegin(), other.getBegin()).append(getEnd(), other.getEnd()).isEquals();
         }
         return false;
     }

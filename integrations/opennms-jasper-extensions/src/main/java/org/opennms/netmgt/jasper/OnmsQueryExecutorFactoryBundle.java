@@ -40,18 +40,18 @@ public class OnmsQueryExecutorFactoryBundle implements QueryExecuterFactoryBundl
 
     @Override
     public String[] getLanguages() {
-        return new String[] {"jrobin","rrdtool","resourceQuery"};
+        return new String[] { "jrobin", "rrdtool", "resourceQuery" };
     }
 
     @Override
     public JRQueryExecuterFactory getQueryExecuterFactory(String language) throws JRException {
         String reportLanguage = checkReportLanguage(language);
 
-        if("jrobin".equals(reportLanguage)) {
+        if ("jrobin".equals(reportLanguage)) {
             return new JRobinQueryExecutorFactory();
-        } else if("rrdtool".equals(reportLanguage)) {
+        } else if ("rrdtool".equals(reportLanguage)) {
             return new RrdtoolQueryExecutorFactory();
-        } else if("resourceQuery".equals(reportLanguage)) {
+        } else if ("resourceQuery".equals(reportLanguage)) {
             return new ResourceQueryExecuterFactory();
         } else {
             return null;
@@ -61,21 +61,25 @@ public class OnmsQueryExecutorFactoryBundle implements QueryExecuterFactoryBundl
     private String checkReportLanguage(String language) {
         boolean found = false;
         for (String lng : getLanguages()) {
-            if (lng.equals(language)) found = true;
+            if (lng.equals(language))
+                found = true;
         }
-        if (!found) return language;
+        if (!found)
+            return language;
 
-        if (language.equals("resourceQuery")) return language;
+        if (language.equals("resourceQuery"))
+            return language;
 
         String strategy = System.getProperty("org.opennms.rrd.strategyClass");
 
-        if (strategy == null) return language;
+        if (strategy == null)
+            return language;
 
         String[] strategySplit = strategy.split("\\.");
         String rrdStrategy = strategySplit[strategySplit.length - 1];
-        if(rrdStrategy.equals("JniRrdStrategy")) {
+        if (rrdStrategy.equals("JniRrdStrategy")) {
             return "rrdtool";
-        } else if(rrdStrategy.equals("JRobinRrdStrategy")) {
+        } else if (rrdStrategy.equals("JRobinRrdStrategy")) {
             return "jrobin";
         }
         return "";

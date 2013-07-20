@@ -38,7 +38,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>TrivialTimeDetector class.</p>
+ * <p>
+ * TrivialTimeDetector class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@sync.com.ve>
  * @version $Id: $
@@ -65,6 +67,7 @@ public class TrivialTimeDetector extends BasicDetector<TrivialTimeRequest, Trivi
     private static final int DEFAULT_ALLOWED_SKEW = 30; // 30 second skew
 
     private String protocol = DEFAULT_PROTOCOL;
+
     private int allowedSkew = DEFAULT_ALLOWED_SKEW;
 
     /**
@@ -77,8 +80,10 @@ public class TrivialTimeDetector extends BasicDetector<TrivialTimeRequest, Trivi
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public TrivialTimeDetector(final String serviceName, final int port) {
         super(serviceName, port);

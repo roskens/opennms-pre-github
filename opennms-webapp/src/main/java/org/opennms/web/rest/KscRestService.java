@@ -73,7 +73,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("ksc")
 public class KscRestService extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(KscRestService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(KscRestService.class);
 
     @Autowired
     private KscReportService m_kscReportService;
@@ -91,7 +91,7 @@ public class KscRestService extends OnmsRestService {
     SecurityContext m_securityContext;
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Transactional
     public KscReportCollection getReports() throws ParseException {
         readLock();
@@ -106,10 +106,11 @@ public class KscRestService extends OnmsRestService {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{reportId}")
     @Transactional
-    public KscReport getReport(@PathParam("reportId") final Integer reportId) {
+    public KscReport getReport(@PathParam("reportId")
+    final Integer reportId) {
         readLock();
 
         try {
@@ -140,7 +141,12 @@ public class KscRestService extends OnmsRestService {
     @PUT
     @Path("{kscReportId}")
     @Transactional
-    public Response addGraph(@PathParam("kscReportId") final Integer kscReportId, @QueryParam("title") final String title, @QueryParam("reportName") final String reportName, @QueryParam("resourceId") final String resourceId, @QueryParam("timespan") String timespan) {
+    public Response addGraph(@PathParam("kscReportId")
+    final Integer kscReportId, @QueryParam("title")
+    final String title, @QueryParam("reportName")
+    final String reportName, @QueryParam("resourceId")
+    final String resourceId, @QueryParam("timespan")
+    String timespan) {
         writeLock();
 
         try {
@@ -210,7 +216,8 @@ public class KscRestService extends OnmsRestService {
         }
 
         public void setKscReports(final List<KscReport> reports) {
-            if (reports == this) return;
+            if (reports == this)
+                return;
             clear();
             addAll(reports);
         }

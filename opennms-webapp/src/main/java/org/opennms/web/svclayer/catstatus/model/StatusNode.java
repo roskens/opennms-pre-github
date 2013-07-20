@@ -28,107 +28,134 @@
 
 package org.opennms.web.svclayer.catstatus.model;
 
-
 import java.util.Collection;
 import java.util.ArrayList;
 
 /**
- * <p>StatusNode class.</p>
+ * <p>
+ * StatusNode class.
+ * </p>
  *
  * @author <a href="mailto:jason.aras@opennms.org">Jason Aras</a>
  * @version $Id: $
  * @since 1.8.1
  */
 public class StatusNode {
-	private String m_label;
-	private Boolean m_outagestatus;
-	private Collection<StatusInterface> m_ipinterfaces;
-	private Integer m_nodeid;
+    private String m_label;
 
+    private Boolean m_outagestatus;
 
-	/**
-	 * <p>Constructor for StatusNode.</p>
-	 */
-	public StatusNode(){
+    private Collection<StatusInterface> m_ipinterfaces;
 
-		m_ipinterfaces = new ArrayList<StatusInterface>();
+    private Integer m_nodeid;
 
-	}
+    /**
+     * <p>
+     * Constructor for StatusNode.
+     * </p>
+     */
+    public StatusNode() {
 
-	/**
-	 * <p>addIpInterface</p>
-	 *
-	 * @param ipInterface a {@link org.opennms.web.svclayer.catstatus.model.StatusInterface} object.
-	 */
-	public void addIpInterface(StatusInterface ipInterface){
+        m_ipinterfaces = new ArrayList<StatusInterface>();
 
-		m_ipinterfaces.add(ipInterface);
+    }
 
-	}
+    /**
+     * <p>
+     * addIpInterface
+     * </p>
+     *
+     * @param ipInterface
+     *            a
+     *            {@link org.opennms.web.svclayer.catstatus.model.StatusInterface}
+     *            object.
+     */
+    public void addIpInterface(StatusInterface ipInterface) {
 
-	/**
-	 * <p>getIpInterfaces</p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
-	public Collection<StatusInterface> getIpInterfaces(){
+        m_ipinterfaces.add(ipInterface);
 
-		return m_ipinterfaces;
+    }
 
-	}
+    /**
+     * <p>
+     * getIpInterfaces
+     * </p>
+     *
+     * @return a {@link java.util.Collection} object.
+     */
+    public Collection<StatusInterface> getIpInterfaces() {
 
+        return m_ipinterfaces;
 
-	/**
-	 * <p>getLabel</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getLabel() {
-		return m_label;
-	}
-	/**
-	 * <p>setLabel</p>
-	 *
-	 * @param m_label a {@link java.lang.String} object.
-	 */
-	public void setLabel(String m_label) {
-		this.m_label = m_label;
-	}
-	/**
-	 * <p>getOutagestatus</p>
-	 *
-	 * @return a {@link java.lang.Boolean} object.
-	 */
-	public Boolean getOutagestatus() {
-		return m_outagestatus;
-	}
-	/**
-	 * <p>setOutagestatus</p>
-	 *
-	 * @param m_outagestatus a {@link java.lang.Boolean} object.
-	 */
-	public void setOutagestatus(Boolean m_outagestatus) {
-		this.m_outagestatus = m_outagestatus;
-	}
+    }
 
-	/**
-	 * <p>getNodeid</p>
-	 *
-	 * @return a {@link java.lang.Integer} object.
-	 */
-	public Integer getNodeid() {
-		return m_nodeid;
-	}
+    /**
+     * <p>
+     * getLabel
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getLabel() {
+        return m_label;
+    }
 
-	/**
-	 * <p>setNodeid</p>
-	 *
-	 * @param nodeid a {@link java.lang.Integer} object.
-	 */
-	public void setNodeid(Integer nodeid) {
-		m_nodeid = nodeid;
-	}
+    /**
+     * <p>
+     * setLabel
+     * </p>
+     *
+     * @param m_label
+     *            a {@link java.lang.String} object.
+     */
+    public void setLabel(String m_label) {
+        this.m_label = m_label;
+    }
 
+    /**
+     * <p>
+     * getOutagestatus
+     * </p>
+     *
+     * @return a {@link java.lang.Boolean} object.
+     */
+    public Boolean getOutagestatus() {
+        return m_outagestatus;
+    }
 
+    /**
+     * <p>
+     * setOutagestatus
+     * </p>
+     *
+     * @param m_outagestatus
+     *            a {@link java.lang.Boolean} object.
+     */
+    public void setOutagestatus(Boolean m_outagestatus) {
+        this.m_outagestatus = m_outagestatus;
+    }
+
+    /**
+     * <p>
+     * getNodeid
+     * </p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
+    public Integer getNodeid() {
+        return m_nodeid;
+    }
+
+    /**
+     * <p>
+     * setNodeid
+     * </p>
+     *
+     * @param nodeid
+     *            a {@link java.lang.Integer} object.
+     */
+    public void setNodeid(Integer nodeid) {
+        m_nodeid = nodeid;
+    }
 
 }

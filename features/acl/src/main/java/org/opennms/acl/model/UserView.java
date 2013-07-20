@@ -52,21 +52,27 @@ package org.opennms.acl.model;
 public interface UserView {
 
     /**
-     * <p>getUsername</p>
+     * <p>
+     * getUsername
+     * </p>
      *
      * @return the unique username
      */
     public String getUsername();
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return the unique identifier
      */
     public Long getId();
 
     /**
-     * <p>isEnabled</p>
+     * <p>
+     * isEnabled
+     * </p>
      *
      * @return the state of the user
      */

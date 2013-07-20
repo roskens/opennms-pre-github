@@ -44,21 +44,24 @@ import org.opennms.test.mock.MockUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 /**
  * Anticipates outages based on events
+ *
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  */
 public class OutageAnticipator implements EventListener {
     private static final Logger LOG = LoggerFactory.getLogger(OutageAnticipator.class);
 
     private final MockDatabase m_db;
+
     private int m_expectedOpenCount;
+
     private int m_expectedOutageCount;
 
     private final Map<EventWrapper, List<Outage>> m_pendingOpens = new HashMap<EventWrapper, List<Outage>>();
+
     private final Map<EventWrapper, List<Outage>> m_pendingCloses = new HashMap<EventWrapper, List<Outage>>();
+
     private final Set<Outage> m_expectedOutages = new HashSet<Outage>();
 
     public OutageAnticipator(MockDatabase db) {
@@ -89,7 +92,7 @@ public class OutageAnticipator implements EventListener {
                     m_expectedOpenCount++;
                     m_expectedOutageCount++;
                     Outage outage = new Outage(svc);
-                    MockUtil.println("Anticipating outage open: "+outage);
+                    MockUtil.println("Anticipating outage open: " + outage);
                     addToOutageList(m_pendingOpens, lostService, outage);
                 }
             }
@@ -121,7 +124,8 @@ public class OutageAnticipator implements EventListener {
      * @param outageEvent
      * @param svc
      */
-    protected synchronized void addToOutageList(Map<EventWrapper, List<Outage>> outageMap, Event outageEvent, Outage outage) {
+    protected synchronized void addToOutageList(Map<EventWrapper, List<Outage>> outageMap, Event outageEvent,
+            Outage outage) {
         EventWrapper w = new EventWrapper(outageEvent);
         List<Outage> list = outageMap.get(w);
         if (list == null) {
@@ -131,7 +135,8 @@ public class OutageAnticipator implements EventListener {
         list.add(outage);
     }
 
-    protected synchronized void removeFromOutageList(Map<EventWrapper, List<Outage>> outageMap, Event outageEvent, Outage outage) {
+    protected synchronized void removeFromOutageList(Map<EventWrapper, List<Outage>> outageMap, Event outageEvent,
+            Outage outage) {
         EventWrapper w = new EventWrapper(outageEvent);
         List<Outage> list = outageMap.get(w);
         if (list == null) {
@@ -140,8 +145,6 @@ public class OutageAnticipator implements EventListener {
         list.remove(outage);
 
     }
-
-
 
     public synchronized void deanticipateOutageClosed(MockElement element, final Event regainService) {
         MockVisitor outageCounter = new MockVisitorAdapter() {
@@ -152,7 +155,7 @@ public class OutageAnticipator implements EventListener {
                     m_expectedOpenCount++;
 
                     for (Outage outage : m_db.getOpenOutages(svc)) {
-                        MockUtil.println("Deanticipating outage closed: "+outage);
+                        MockUtil.println("Deanticipating outage closed: " + outage);
 
                         removeFromOutageList(m_pendingCloses, regainService, outage);
                     }
@@ -172,7 +175,7 @@ public class OutageAnticipator implements EventListener {
                     m_expectedOpenCount--;
 
                     for (Outage outage : m_db.getOpenOutages(svc)) {
-                        MockUtil.println("Anticipating outage closed: "+outage);
+                        MockUtil.println("Anticipating outage closed: " + outage);
 
                         addToOutageList(m_pendingCloses, regainService, outage);
                     }
@@ -235,7 +238,8 @@ public class OutageAnticipator implements EventListener {
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.eventd.EventListener#getName()
      */
     @Override
@@ -243,8 +247,11 @@ public class OutageAnticipator implements EventListener {
         return "OutageAnticipator";
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.eventd.EventListener#onEvent(org.opennms.netmgt.xml.event.Event)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.eventd.EventListener#onEvent(org.opennms.netmgt.xml
+     * .event.Event)
      */
     @Override
     public synchronized void onEvent(Event e) {

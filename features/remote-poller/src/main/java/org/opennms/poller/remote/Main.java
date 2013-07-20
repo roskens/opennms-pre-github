@@ -51,7 +51,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * <p>Main class.</p>
+ * <p>
+ * Main class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -61,33 +63,43 @@ public class Main {
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
     String[] m_args;
+
     ClassPathXmlApplicationContext m_context;
+
     PollerFrontEnd m_frontEnd;
+
     URI m_uri;
+
     String m_locationName;
+
     String m_username = null;
+
     String m_password = null;
+
     String m_pollerHome = null;
+
     boolean m_shuttingDown = false;
+
     boolean m_gui = false;
+
     CommandLine m_cl;
 
     private Main(String[] args) throws Exception {
         m_args = args;
         m_pollerHome = System.getProperty("poller.home");
         if (m_pollerHome == null) {
-        	if (System.getProperty("os.name").contains("Windows")) {
-        		m_pollerHome = System.getProperty("java.io.tmpdir");
-        	} else {
-        		m_pollerHome = System.getProperty("user.home") + File.separator + ".opennms";
-        	}
+            if (System.getProperty("os.name").contains("Windows")) {
+                m_pollerHome = System.getProperty("java.io.tmpdir");
+            } else {
+                m_pollerHome = System.getProperty("user.home") + File.separator + ".opennms";
+            }
         }
         initializeLogging();
 
         final String pingerClass = System.getProperty("org.opennms.netmgt.icmp.pingerClass");
         if (pingerClass == null) {
-        	LOG.info("org.opennms.netmgt.icmp.pingerClass not set; using JnaPinger by default");
-        	System.setProperty("org.opennms.netmgt.icmp.pingerClass", "org.opennms.netmgt.icmp.jna.JnaPinger");
+            LOG.info("org.opennms.netmgt.icmp.pingerClass not set; using JnaPinger by default");
+            System.setProperty("org.opennms.netmgt.icmp.pingerClass", "org.opennms.netmgt.icmp.jna.JnaPinger");
         }
     }
 
@@ -95,35 +107,36 @@ public class Main {
     }
 
     private void getAuthenticationInfo() {
-    	if (m_uri == null || m_uri.getScheme() == null) {
-    		throw new RuntimeException("no URI specified!");
-    	}
-    	if (m_uri.getScheme().equals("rmi")) {
-    		// RMI doesn't have authentication
-    		return;
-    	}
+        if (m_uri == null || m_uri.getScheme() == null) {
+            throw new RuntimeException("no URI specified!");
+        }
+        if (m_uri.getScheme().equals("rmi")) {
+            // RMI doesn't have authentication
+            return;
+        }
 
-    	if (m_username == null) {
-    		GroovyGui gui = createGui();
+        if (m_username == null) {
+            GroovyGui gui = createGui();
             gui.createAndShowGui();
             AuthenticationBean auth = gui.getAuthenticationBean();
             m_username = auth.getUsername();
             m_password = auth.getPassword();
-    	}
+        }
 
-    	if (m_username != null) {
-    		SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
-    		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(m_username, m_password));
-    	}
+        if (m_username != null) {
+            SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(m_username,
+                                                                                                         m_password));
+        }
     }
 
-	private GroovyGui createGui() {
-		try {
-			return (GroovyGui)Class.forName("org.opennms.groovy.poller.remote.ConfigurationGui").newInstance();
-		} catch (Throwable e) {
-			throw new RuntimeException("Unable to find Configuration GUI!", e);
-		}
-	}
+    private GroovyGui createGui() {
+        try {
+            return (GroovyGui) Class.forName("org.opennms.groovy.poller.remote.ConfigurationGui").newInstance();
+        } catch (Throwable e) {
+            throw new RuntimeException("Unable to find Configuration GUI!", e);
+        }
+    }
 
     private void run() {
 
@@ -143,7 +156,7 @@ public class Main {
                     }
                 }
             }
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             // a fatal exception occurred
             LOG.error("Exception occurred during registration!", e);
             System.exit(27);
@@ -179,13 +192,13 @@ public class Main {
         }
         if (m_cl.hasOption("u")) {
             String arg = m_cl.getOptionValue("u").toLowerCase();
-        	try {
-				m_uri = new URI(arg);
-			} catch (URISyntaxException e) {
+            try {
+                m_uri = new URI(arg);
+            } catch (URISyntaxException e) {
                 usage(options);
                 e.printStackTrace();
                 System.exit(2);
-			}
+            }
         } else {
             usage(options);
             System.exit(3);
@@ -196,11 +209,11 @@ public class Main {
         }
 
         if (m_cl.hasOption("n")) {
-        	m_username = m_cl.getOptionValue("n");
-        	m_password = m_cl.getOptionValue("p");
-        	if (m_password == null) {
-        		m_password = "";
-        	}
+            m_username = m_cl.getOptionValue("n");
+            m_password = m_cl.getOptionValue("p");
+            if (m_password == null) {
+                m_password = "";
+            }
         }
     }
 
@@ -224,7 +237,7 @@ public class Main {
         File homeDir = new File(System.getProperty("user.home"));
         String homeUrl = homeDir.toURI().toString();
         if (homeUrl.endsWith("/")) {
-            homeUrl = homeUrl.substring(0, homeUrl.length()-1);
+            homeUrl = homeUrl.substring(0, homeUrl.length() - 1);
         }
 
         LOG.info("user.home.url = {}", homeUrl);
@@ -250,23 +263,24 @@ public class Main {
         m_frontEnd.addPropertyChangeListener(new PropertyChangeListener() {
 
             private boolean shouldExit(PropertyChangeEvent e) {
-				LOG.info("shouldExit: received property change event: {};oldvalue:{};newvalue:{}", e.getPropertyName(), e.getOldValue(), e.getNewValue());
+                LOG.info("shouldExit: received property change event: {};oldvalue:{};newvalue:{}", e.getPropertyName(),
+                         e.getOldValue(), e.getNewValue());
                 String propName = e.getPropertyName();
                 Object newValue = e.getNewValue();
 
                 // if exitNecessary becomes true.. then return true
                 if ("exitNecessary".equals(propName) && Boolean.TRUE.equals(newValue)) {
-                	LOG.info("shouldExit: Exiting because exitNecessary is TRUE");
+                    LOG.info("shouldExit: Exiting because exitNecessary is TRUE");
                     return true;
                 }
 
                 // if started becomes false the we should exit
                 if ("started".equals(propName) && Boolean.FALSE.equals(newValue)) {
-                	LOG.info("shouldExit: Exiting because started is now false");
+                    LOG.info("shouldExit: Exiting because started is now false");
                     return true;
                 }
 
-            	LOG.info("shouldExit: not exiting");
+                LOG.info("shouldExit: not exiting");
                 return false;
 
             }
@@ -282,16 +296,20 @@ public class Main {
     }
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param args an array of {@link java.lang.String} objects.
-     * @throws java.lang.Exception if any.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public static void main(String[] args) throws Exception {
         String killSwitchFileName = System.getProperty("opennms.poller.killSwitch.resource");
         File killSwitch = null;
 
-        if (! "".equals(killSwitchFileName) && killSwitchFileName != null) {
+        if (!"".equals(killSwitchFileName) && killSwitchFileName != null) {
             killSwitch = new File(System.getProperty("opennms.poller.killSwitch.resource"));
             if (!killSwitch.exists()) {
                 try {
@@ -304,7 +322,5 @@ public class Main {
         new Main(args).run();
 
     }
-
-
 
 }

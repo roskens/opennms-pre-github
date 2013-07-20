@@ -37,9 +37,10 @@ import org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListView;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
-public class SnmpSelectListPresenter implements Presenter, SnmpSelectListView.Presenter<SnmpCellListItem>{
+public class SnmpSelectListPresenter implements Presenter, SnmpSelectListView.Presenter<SnmpCellListItem> {
 
     private SnmpSelectListView<SnmpCellListItem> m_view;
+
     private SnmpInterfaceRestService m_restService;
 
     public SnmpSelectListPresenter(SnmpSelectListView<SnmpCellListItem> view, SnmpInterfaceRestService service) {

@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
-@EventListener(name = "AccessPointMonitor", logPrefix="access-point-monitor")
+@EventListener(name = "AccessPointMonitor", logPrefix = "access-point-monitor")
 public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyRunnable {
     private static final Logger LOG = LoggerFactory.getLogger(AccessPointMonitord.class);
 
@@ -48,13 +48,21 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
     private static final String DAEMON_NAME = "AccessPointMonitor";
 
     private static AccessPointMonitord m_singleton = new AccessPointMonitord();
+
     private boolean m_initialized = false;
+
     private LegacyScheduler m_scheduler = null;
+
     private EventIpcManager m_eventMgr = null;
+
     private AccessPointMonitorConfig m_pollerConfig;
+
     private AccessPointDao m_accessPointDao;
+
     private NodeDao m_nodeDao;
+
     private IpInterfaceDao m_ipInterfaceDao;
+
     private volatile Map<String, PollingContext> m_activePollers = new HashMap<String, PollingContext>();
 
     /**
@@ -155,8 +163,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * </p>
      *
      * @param scheduler
-     *            a {@link org.opennms.netmgt.scheduler.LegacyScheduler}
-     *            object.
+     *            a {@link org.opennms.netmgt.scheduler.LegacyScheduler} object.
      */
     public void setScheduler(LegacyScheduler scheduler) {
         m_scheduler = scheduler;
@@ -383,7 +390,8 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
                     if (p.getPackage().getIsDynamic()) {
                         LOG.debug("Package '{}' is already active.", pkg.getName());
                     } else {
-                        LOG.error("Package '{}' is statically defined and matches a dynamic definitions.", pkg.getName());
+                        LOG.error("Package '{}' is statically defined and matches a dynamic definitions.",
+                                  pkg.getName());
                     }
                 } else {
                     schedulePackage(pkg);
@@ -526,7 +534,8 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
         final List<Parm> parmCollection = e.getParmCollection();
 
         for (final Parm parm : parmCollection) {
-            if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && DAEMON_NAME.equalsIgnoreCase(parm.getValue().getContent())) {
+            if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName())
+                    && DAEMON_NAME.equalsIgnoreCase(parm.getValue().getContent())) {
                 isTarget = true;
                 break;
             }

@@ -37,21 +37,21 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
-@XmlRootElement(name="column")
+@XmlRootElement(name = "column")
 public class JdbcColumn implements Serializable, Comparable<JdbcColumn> {
 
     private static final long serialVersionUID = 2519632811400677757L;
 
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     private String m_columnName;
 
-    @XmlAttribute(name="data-source-name", required=false)
+    @XmlAttribute(name = "data-source-name", required = false)
     private String m_dataSourceName;
 
-    @XmlAttribute(name="type", required=true)
+    @XmlAttribute(name = "type", required = true)
     private String m_dataType;
 
-    @XmlAttribute(name="alias", required=true)
+    @XmlAttribute(name = "alias", required = true)
     private String m_alias;
 
     @XmlTransient
@@ -81,7 +81,6 @@ public class JdbcColumn implements Serializable, Comparable<JdbcColumn> {
         m_dataType = dataType;
     }
 
-
     @XmlTransient
     public String getAlias() {
         return m_alias;
@@ -93,24 +92,20 @@ public class JdbcColumn implements Serializable, Comparable<JdbcColumn> {
 
     @Override
     public int compareTo(JdbcColumn obj) {
-        return new CompareToBuilder()
-            .append(getColumnName(), obj.getColumnName())
-            .append(getDataSourceName(), obj.getDataSourceName())
-            .append(getDataType(), obj.getDataType())
-            .append(getAlias(), obj.getAlias())
-            .toComparison();
+        return new CompareToBuilder().append(getColumnName(), obj.getColumnName()).append(getDataSourceName(),
+                                                                                          obj.getDataSourceName()).append(getDataType(),
+                                                                                                                          obj.getDataType()).append(getAlias(),
+                                                                                                                                                    obj.getAlias()).toComparison();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcColumn) {
             JdbcColumn other = (JdbcColumn) obj;
-            return new EqualsBuilder()
-                .append(getColumnName(), other.getColumnName())
-                .append(getDataSourceName(), other.getDataSourceName())
-                .append(getDataType(), other.getDataType())
-                .append(getAlias(), other.getAlias())
-                .isEquals();
+            return new EqualsBuilder().append(getColumnName(), other.getColumnName()).append(getDataSourceName(),
+                                                                                             other.getDataSourceName()).append(getDataType(),
+                                                                                                                               other.getDataType()).append(getAlias(),
+                                                                                                                                                           other.getAlias()).isEquals();
         }
         return false;
     }

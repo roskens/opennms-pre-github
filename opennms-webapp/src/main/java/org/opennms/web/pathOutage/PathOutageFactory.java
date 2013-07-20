@@ -77,11 +77,11 @@ public class PathOutageFactory extends Object {
 
     /**
      * <p>
-     * Retrieve all the critical paths
-     * from the database
+     * Retrieve all the critical paths from the database
      *
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public static List<String[]> getAllCriticalPaths() throws SQLException {
         Connection conn = Vault.getDbConnection();
@@ -107,12 +107,13 @@ public class PathOutageFactory extends Object {
 
     /**
      * <p>
-     * Retrieve critical path by nodeid
-     * from the database
+     * Retrieve critical path by nodeid from the database
      *
-     * @param nodeID a int.
+     * @param nodeID
+     *            a int.
      * @return a {@link java.lang.String} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public static String getCriticalPath(int nodeID) throws SQLException {
         final DBUtils d = new DBUtils(PathOutageFactory.class);
@@ -138,17 +139,18 @@ public class PathOutageFactory extends Object {
 
     /**
      * <p>
-     * Retrieve all the nodes in a critical path
-     * from the database
+     * Retrieve all the nodes in a critical path from the database
      *
      * @param criticalPathIp
      *            IP address of the critical path
      * @param criticalPathServiceName
      *            service name for the critical path
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public static List<String> getNodesInPath(String criticalPathIp, String criticalPathServiceName) throws SQLException {
+    public static List<String> getNodesInPath(String criticalPathIp, String criticalPathServiceName)
+            throws SQLException {
         Connection conn = Vault.getDbConnection();
         List<String> pathNodes = new ArrayList<String>();
 
@@ -174,10 +176,13 @@ public class PathOutageFactory extends Object {
      * node label of a node, and the up/down status
      * and status color
      *
-     * @param nodeIDStr a {@link java.lang.String} object.
-     * @param conn a {@link java.sql.Connection} object.
+     * @param nodeIDStr
+     *            a {@link java.lang.String} object.
+     * @param conn
+     *            a {@link java.sql.Connection} object.
      * @return an array of {@link java.lang.String} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public static String[] getLabelAndStatus(String nodeIDStr, Connection conn) throws SQLException {
 
@@ -207,7 +212,7 @@ public class PathOutageFactory extends Object {
         rs.close();
         stmt.close();
 
-        if(countManagedSvcs > 0) {
+        if (countManagedSvcs > 0) {
             stmt = conn.prepareStatement(COUNT_OUTAGES);
             stmt.setInt(1, nodeID);
             rs = stmt.executeQuery();
@@ -216,10 +221,10 @@ public class PathOutageFactory extends Object {
             }
             rs.close();
             stmt.close();
-            if(countManagedSvcs == countOutages) {
+            if (countManagedSvcs == countOutages) {
                 result[1] = "Critical";
                 result[2] = "All Services Down";
-            } else if(countOutages == 0) {
+            } else if (countOutages == 0) {
                 result[1] = "Normal";
                 result[2] = "All Services Up";
             } else {
@@ -237,15 +242,19 @@ public class PathOutageFactory extends Object {
      * dependent on this path, and the managed state
      * of the path
      *
-     * @param criticalPathIp a {@link java.lang.String} object.
-     * @param criticalPathServiceName a {@link java.lang.String} object.
+     * @param criticalPathIp
+     *            a {@link java.lang.String} object.
+     * @param criticalPathServiceName
+     *            a {@link java.lang.String} object.
      * @return an array of {@link java.lang.String} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public static String[] getCriticalPathData(String criticalPathIp, String criticalPathServiceName) throws SQLException {
+    public static String[] getCriticalPathData(String criticalPathIp, String criticalPathServiceName)
+            throws SQLException {
         Connection conn = Vault.getDbConnection();
         String[] result = new String[4];
-        int nodeCount=0;
+        int nodeCount = 0;
         int count = 0;
 
         try {
@@ -297,7 +306,7 @@ public class PathOutageFactory extends Object {
             }
             rs.close();
             stmt.close();
-            if(count > 0) {
+            if (count > 0) {
                 PreparedStatement stmt3 = conn.prepareStatement(GET_CRITICAL_PATH_STATUS);
                 stmt3.setString(1, criticalPathIp);
                 stmt3.setString(2, criticalPathServiceName);
@@ -306,7 +315,7 @@ public class PathOutageFactory extends Object {
                 while (rs3.next()) {
                     count = rs3.getInt(1);
                 }
-                if(count > 0) {
+                if (count > 0) {
                     result[3] = "Critical";
                 } else {
                     result[3] = "Normal";

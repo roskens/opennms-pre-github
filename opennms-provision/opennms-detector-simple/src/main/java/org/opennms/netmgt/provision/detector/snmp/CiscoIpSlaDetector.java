@@ -53,9 +53,9 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class CiscoIpSlaDetector extends SnmpDetector {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CiscoIpSlaDetector.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CiscoIpSlaDetector.class);
 
-	/**
+    /**
      * Name of monitored service.
      */
     private static final String PROTOCOL_NAME = "Cisco_IP_SLA";
@@ -79,16 +79,17 @@ public class CiscoIpSlaDetector extends SnmpDetector {
     private String m_adminTag;
 
     /**
-     * <p>Constructor for CiscoIpSlaDetector.</p>
+     * <p>
+     * Constructor for CiscoIpSlaDetector.
+     * </p>
      */
-    public CiscoIpSlaDetector(){
+    public CiscoIpSlaDetector() {
         setServiceName(PROTOCOL_NAME);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If
      * the protocol is not supported then a false value is returned to the
      * caller. The qualifier map passed to the method is used by the plugin to
      * return additional information by key-name. These key-value pairs can be
@@ -101,24 +102,29 @@ public class CiscoIpSlaDetector extends SnmpDetector {
             configureAgentPTR(agentConfig);
             configureAgentVersion(agentConfig);
 
-            Map<SnmpInstId, SnmpValue> tagResults = SnmpUtils.getOidValues(agentConfig, "CiscoIpSlaDetector", SnmpObjId.get(RTT_ADMIN_TAG_OID));
+            Map<SnmpInstId, SnmpValue> tagResults = SnmpUtils.getOidValues(agentConfig, "CiscoIpSlaDetector",
+                                                                           SnmpObjId.get(RTT_ADMIN_TAG_OID));
             if (tagResults == null) {
                 LOG.warn("isServiceDetected: No admin tags received!");
                 return false;
             }
 
-            Map<SnmpInstId, SnmpValue> operStateResults = SnmpUtils.getOidValues(agentConfig, "CiscoIpSlaDetector", SnmpObjId.get(RTT_OPER_STATE_OID));
+            Map<SnmpInstId, SnmpValue> operStateResults = SnmpUtils.getOidValues(agentConfig, "CiscoIpSlaDetector",
+                                                                                 SnmpObjId.get(RTT_OPER_STATE_OID));
             if (operStateResults == null) {
                 LOG.warn("isServiceDetected: No operational states received!");
                 return false;
             }
 
             // Iterate over the list of configured IP SLAs
-            for (Entry<SnmpInstId,SnmpValue> ipslaEntry : tagResults.entrySet()) {
+            for (Entry<SnmpInstId, SnmpValue> ipslaEntry : tagResults.entrySet()) {
                 SnmpValue status = operStateResults.get(ipslaEntry.getKey());
-                LOG.debug("isServiceDetected: admin-tag={} value={} oper-state={}", m_adminTag, formatValue(ipslaEntry.getValue()), status.toInt());
-                //  Check if a configured IP SLA with specific tag exist and is the operational state active
-                if (m_adminTag.equals(formatValue(ipslaEntry.getValue())) && status.toInt() == RTT_MON_OPER_STATE_ACTIVE) {
+                LOG.debug("isServiceDetected: admin-tag={} value={} oper-state={}", m_adminTag,
+                          formatValue(ipslaEntry.getValue()), status.toInt());
+                // Check if a configured IP SLA with specific tag exist and is
+                // the operational state active
+                if (m_adminTag.equals(formatValue(ipslaEntry.getValue()))
+                        && status.toInt() == RTT_MON_OPER_STATE_ACTIVE) {
                     LOG.debug("isServiceDetected: admin tag found");
                     return true;
                 }
@@ -130,7 +136,7 @@ public class CiscoIpSlaDetector extends SnmpDetector {
     }
 
     private String formatValue(SnmpValue value) {
-        return value.isNull()  ? null : value.toString().replaceAll("\"", "");
+        return value.isNull() ? null : value.toString().replaceAll("\"", "");
     }
 
     public String getAdminTag() {

@@ -54,41 +54,39 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class EventDaoTest implements InitializingBean {
     @Autowired
-	private DistPollerDao m_distPollerDao;
+    private DistPollerDao m_distPollerDao;
 
     @Autowired
-	private EventDao m_eventDao;
+    private EventDao m_eventDao;
 
     @Autowired
-	private NodeDao m_nodeDao;
+    private NodeDao m_nodeDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
-	@Before
-	public void setUp() {
-		m_databasePopulator.populateDatabase();
-	}
+    @Before
+    public void setUp() {
+        m_databasePopulator.populateDatabase();
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSave() {
         OnmsEvent event = new OnmsEvent();
         event.setDistPoller(m_distPollerDao.load("localhost"));
@@ -104,12 +102,12 @@ public class EventDaoTest implements InitializingBean {
         event.setEventTime(new Date());
         event.setEventUei("uei://org/opennms/test/EventDaoTest");
         OnmsNode node = (OnmsNode) m_nodeDao.findAll().iterator().next();
-        OnmsIpInterface iface = (OnmsIpInterface)node.getIpInterfaces().iterator().next();
-        OnmsMonitoredService service = (OnmsMonitoredService)iface.getMonitoredServices().iterator().next();
+        OnmsIpInterface iface = (OnmsIpInterface) node.getIpInterfaces().iterator().next();
+        OnmsMonitoredService service = (OnmsMonitoredService) iface.getMonitoredServices().iterator().next();
         event.setNode(node);
-	    event.setServiceType(service.getServiceType());
+        event.setServiceType(service.getServiceType());
         OnmsAlarm alarm = new OnmsAlarm();
-	    event.setAlarm(alarm);
+        event.setAlarm(alarm);
         event.setIpAddr(iface.getIpAddress());
         m_eventDao.save(event);
 

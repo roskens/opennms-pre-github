@@ -74,7 +74,7 @@ public class NsclientPacket {
     /**
      * This member is used to convert result codes to strings and vice versa.
      */
-    public static final HashMap<String,Short> STATE_STRINGS = new HashMap<String,Short>();
+    public static final HashMap<String, Short> STATE_STRINGS = new HashMap<String, Short>();
 
     /**
      * Populates the member used for converting result codes to strings and
@@ -97,7 +97,7 @@ public class NsclientPacket {
      *         no correspond code found.
      */
     public static String convertStateToString(short type) {
-        for (Map.Entry<String,Short> e : STATE_STRINGS.entrySet()) {
+        for (Map.Entry<String, Short> e : STATE_STRINGS.entrySet()) {
             short val = e.getValue();
             if (val == type)
                 return e.getKey();
@@ -147,7 +147,8 @@ public class NsclientPacket {
     /**
      * This method sets the result code for the check validation.
      *
-     * @param res the result code.
+     * @param res
+     *            the result code.
      */
     public void setResultCode(short res) {
         m_ResultCode = res;

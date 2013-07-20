@@ -87,15 +87,12 @@ public class Service extends ServiceTemplate implements Cloneable {
     }
 
     public int compareTo(Service obj) {
-        return new CompareToBuilder()
-            .append(getName(), obj.getName())
-            .append(getThreads(), obj.getThreads())
-            .append(getPassiveServiceName(), obj.getPassiveServiceName())
-            .append(getInterval(), obj.getInterval())
-            .append(getStatus(), obj.getStatus())
-            .append(getTemplateName(), obj.getTemplateName())
-            .append(getParameters().toArray(OF_PARAMETERS), obj.getParameters().toArray(OF_PARAMETERS))
-            .toComparison();
+        return new CompareToBuilder().append(getName(), obj.getName()).append(getThreads(), obj.getThreads()).append(getPassiveServiceName(),
+                                                                                                                     obj.getPassiveServiceName()).append(getInterval(),
+                                                                                                                                                         obj.getInterval()).append(getStatus(),
+                                                                                                                                                                                   obj.getStatus()).append(getTemplateName(),
+                                                                                                                                                                                                           obj.getTemplateName()).append(getParameters().toArray(OF_PARAMETERS),
+                                                                                                                                                                                                                                         obj.getParameters().toArray(OF_PARAMETERS)).toComparison();
     }
 
     @Override
@@ -111,15 +108,12 @@ public class Service extends ServiceTemplate implements Cloneable {
     public boolean equals(Object obj) {
         if (obj instanceof Service) {
             Service other = (Service) obj;
-            return new EqualsBuilder()
-                .append(getName(), other.getName())
-                .append(getThreads(), other.getThreads())
-                .append(getPassiveServiceName(), other.getPassiveServiceName())
-                .append(getInterval(), other.getInterval())
-                .append(getStatus(), other.getStatus())
-                .append(getTemplateName(), other.getTemplateName())
-                .append(getParameters().toArray(OF_PARAMETERS), other.getParameters().toArray(OF_PARAMETERS))
-                .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getThreads(), other.getThreads()).append(getPassiveServiceName(),
+                                                                                                                          other.getPassiveServiceName()).append(getInterval(),
+                                                                                                                                                                other.getInterval()).append(getStatus(),
+                                                                                                                                                                                            other.getStatus()).append(getTemplateName(),
+                                                                                                                                                                                                                      other.getTemplateName()).append(getParameters().toArray(OF_PARAMETERS),
+                                                                                                                                                                                                                                                      other.getParameters().toArray(OF_PARAMETERS)).isEquals();
         }
         return false;
     }

@@ -42,10 +42,12 @@ public class ImageDashlet extends VerticalLayout implements Dashlet {
      * the dashlet's name
      */
     private String m_name;
+
     /**
      * the image URL
      */
     private String m_imageUrl = null;
+
     /**
      * The {@link DashletSpec} for this instance
      */
@@ -54,7 +56,8 @@ public class ImageDashlet extends VerticalLayout implements Dashlet {
     /**
      * Constructor for instantiating new objects.
      *
-     * @param dashletSpec the {@link DashletSpec} to be used
+     * @param dashletSpec
+     *            the {@link DashletSpec} to be used
      */
     public ImageDashlet(String name, DashletSpec dashletSpec) {
         /**

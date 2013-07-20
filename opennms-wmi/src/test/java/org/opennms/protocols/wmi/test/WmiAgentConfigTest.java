@@ -37,36 +37,35 @@ import junit.framework.TestCase;
  * Time: 7:29:43 AM
  * To change this template use File | Settings | File Templates.
  */
-public class WmiAgentConfigTest  extends TestCase {
-    	/*
-	 * Create a placeholder mock object. We will reset() this in each test
-	 * so that we can reuse it.
-	 *
-	 * @see junit.framework.TestCase#setUp()
-	 */
-        @Override
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
+public class WmiAgentConfigTest extends TestCase {
+    /*
+     * Create a placeholder mock object. We will reset() this in each test
+     * so that we can reuse it.
+     * @see junit.framework.TestCase#setUp()
+     */
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
 
-	/*
-	 * Tear down simply resets the mock object.
-	 *
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-        @Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
+    /*
+     * Tear down simply resets the mock object.
+     * @see junit.framework.TestCase#tearDown()
+     */
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 
     /**
-	 * Test that the isValidMatchType object works for the expected values of
-	 * "all", "none", "some" and "one" but does not work for other arbitrary values.
-	 *
-	 * Test method for
-	 * {@link org.opennms.netmgt.config.wmi.WmiAgentConfig#isValidMatchType(java.lang.String)}.
-	 */
-	public final void testIsValidMatchType() {
+     * Test that the isValidMatchType object works for the expected values of
+     * "all", "none", "some" and "one" but does not work for other arbitrary
+     * values.
+     * Test method for
+     * {@link org.opennms.netmgt.config.wmi.WmiAgentConfig#isValidMatchType(java.lang.String)}
+     * .
+     */
+    public final void testIsValidMatchType() {
 
     }
 

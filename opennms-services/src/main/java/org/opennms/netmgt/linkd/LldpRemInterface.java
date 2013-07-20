@@ -28,19 +28,19 @@
 
 package org.opennms.netmgt.linkd;
 
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class LldpRemInterface {
 
     private final Integer m_lldpRemChassidSubtype;
+
     private final String m_lldpRemChassisid;
+
     private final Integer m_lldpRemIfIndex;
+
     private final Integer m_lldpLocIfIndex;
 
-
-    public LldpRemInterface(Integer lldpRemChassidSubtype,
-            String lldpRemChassisid, Integer lldpRemIfIndex,
+    public LldpRemInterface(Integer lldpRemChassidSubtype, String lldpRemChassisid, Integer lldpRemIfIndex,
             Integer lldpLocIfIndex) {
         super();
         m_lldpRemChassidSubtype = lldpRemChassidSubtype;
@@ -49,16 +49,13 @@ public class LldpRemInterface {
         m_lldpLocIfIndex = lldpLocIfIndex;
     }
 
-
-	public Integer getLldpRemChassidSubtype() {
+    public Integer getLldpRemChassidSubtype() {
         return m_lldpRemChassidSubtype;
     }
-
 
     public String getLldpRemChassisid() {
         return m_lldpRemChassisid;
     }
-
 
     public Integer getLldpRemIfIndex() {
         return m_lldpRemIfIndex;
@@ -68,20 +65,18 @@ public class LldpRemInterface {
         return m_lldpLocIfIndex;
     }
 
-
     /**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-	public String toString() {
-	    return new ToStringBuilder(this)
-	    .append("lldpRemChassidSubtype", m_lldpRemChassidSubtype)
-	    .append("lldpRemChassisid", m_lldpRemChassisid)
-	    .append("lldpRemIfIndex", m_lldpRemIfIndex)
-	    .append("lldpLocIfIndex", m_lldpLocIfIndex)
-	    .toString();
-	}
+    public String toString() {
+        return new ToStringBuilder(this).append("lldpRemChassidSubtype", m_lldpRemChassidSubtype).append("lldpRemChassisid",
+                                                                                                         m_lldpRemChassisid).append("lldpRemIfIndex",
+                                                                                                                                    m_lldpRemIfIndex).append("lldpLocIfIndex",
+                                                                                                                                                             m_lldpLocIfIndex).toString();
+    }
 }
-

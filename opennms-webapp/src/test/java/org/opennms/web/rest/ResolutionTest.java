@@ -35,7 +35,6 @@ import java.util.Date;
 import org.junit.Test;
 import org.opennms.web.rest.support.TimeChunker;
 
-
 public class ResolutionTest {
 
     @Test
@@ -48,7 +47,7 @@ public class ResolutionTest {
 
         assertEquals(1, resolution.getSegmentCount());
         Date startDate1 = resolution.getNextSegment().getStartDate();
-        while(resolution.hasNext()) {
+        while (resolution.hasNext()) {
             System.err.println("startDate segment1: " + startDate1);
             assertEquals(startDate, startDate1);
         }

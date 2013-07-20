@@ -43,7 +43,7 @@ public class SnmpPeerFactoryTest extends TestCase {
     private int m_version;
 
     @Override
-	protected void setUp() throws Exception {
+    protected void setUp() throws Exception {
         setVersion(SnmpAgentConfig.VERSION2C);
         SnmpPeerFactory.setInstance(new SnmpPeerFactory(new ByteArrayResource(getSnmpConfig().getBytes())));
         MockLogAppender.setupLogging(true);
@@ -53,122 +53,108 @@ public class SnmpPeerFactoryTest extends TestCase {
         m_version = version;
     }
 
-
     /**
      * String representing snmp-config.xml
      */
     public String getSnmpConfig() {
-        return "<?xml version=\"1.0\"?>\n" +
-                "<snmp-config "+
-                " retry=\"3\" timeout=\"3000\"\n" +
-                " read-community=\"public\"" +
-                " write-community=\"private\"\n" +
-                " port=\"161\"\n" +
-                " max-vars-per-pdu = \"23\" " +
-                " version=\"v1\">\n" +
-                "\n" +
-                "   <definition port=\"9161\" version=\""+myVersion()+"\" " +
-                "       security-name=\"opennmsUser\" \n" +
-                "       auth-passphrase=\"0p3nNMSv3\" \n" +
-                "       privacy-passphrase=\"0p3nNMSv3\" >\n" +
-                "       <specific>"+myLocalHost()+"</specific>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "   <definition version=\"v1\" read-community=\"specificv1\">\n" +
-                "       <specific>10.0.0.1</specific>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "   <definition version=\"v1\" read-community=\"specificv1\" max-request-size=\"484\">\n" +
-                "       <specific>10.0.0.2</specific>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "   <definition version=\"v1\" read-community=\"specificv1\" proxy-host=\""+myLocalHost()+"\">\n" +
-                "       <specific>10.0.0.3</specific>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "   <definition version=\"v3\" " +
-                "       security-name=\"opennmsUser\" \n" +
-                "       auth-passphrase=\"0p3nNMSv3\" >\n" +
-                "       <specific>20.20.20.20</specific>\n" +
-                "   </definition>\n" +
-                "   <definition version=\"v3\" " +
-                "       security-name=\"opennmsRangeUser\" \n" +
-                "       auth-passphrase=\"0p3nNMSv3\" >\n" +
-                "       <range begin=\"1.1.1.1\" end=\"1.1.1.100\"/>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "   <definition version=\"v1\" read-community=\"rangev1\" max-vars-per-pdu=\"55\"> \n" +
-                "       <range begin=\"10.0.0.101\" end=\"10.0.0.200\"/>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "   <definition version=\"v2c\" read-community=\"rangev2c\">\n" +
-                "       <range begin=\"10.0.1.100\" end=\"10.0.5.100\"/>\n" +
-                "       <range begin=\"10.7.20.100\" end=\"10.7.25.100\"/>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "   <definition version=\"v2c\" read-community=\"specificv2c\">\n" +
-                "       <specific>192.168.0.50</specific>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "   <definition version=\"v2c\" read-community=\"ipmatch\" max-vars-per-pdu=\"128\" max-repetitions=\"7\" >\n" +
-                "       <ip-match>77.5-12,15.1-255.255</ip-match>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "</snmp-config>";
+        return "<?xml version=\"1.0\"?>\n" + "<snmp-config " + " retry=\"3\" timeout=\"3000\"\n"
+                + " read-community=\"public\"" + " write-community=\"private\"\n" + " port=\"161\"\n"
+                + " max-vars-per-pdu = \"23\" " + " version=\"v1\">\n" + "\n"
+                + "   <definition port=\"9161\" version=\""
+                + myVersion()
+                + "\" "
+                + "       security-name=\"opennmsUser\" \n"
+                + "       auth-passphrase=\"0p3nNMSv3\" \n"
+                + "       privacy-passphrase=\"0p3nNMSv3\" >\n"
+                + "       <specific>"
+                + myLocalHost()
+                + "</specific>\n"
+                + "   </definition>\n"
+                + "\n"
+                + "   <definition version=\"v1\" read-community=\"specificv1\">\n"
+                + "       <specific>10.0.0.1</specific>\n"
+                + "   </definition>\n"
+                + "\n"
+                + "   <definition version=\"v1\" read-community=\"specificv1\" max-request-size=\"484\">\n"
+                + "       <specific>10.0.0.2</specific>\n"
+                + "   </definition>\n"
+                + "\n"
+                + "   <definition version=\"v1\" read-community=\"specificv1\" proxy-host=\""
+                + myLocalHost()
+                + "\">\n"
+                + "       <specific>10.0.0.3</specific>\n"
+                + "   </definition>\n"
+                + "\n"
+                + "   <definition version=\"v3\" "
+                + "       security-name=\"opennmsUser\" \n"
+                + "       auth-passphrase=\"0p3nNMSv3\" >\n"
+                + "       <specific>20.20.20.20</specific>\n"
+                + "   </definition>\n"
+                + "   <definition version=\"v3\" "
+                + "       security-name=\"opennmsRangeUser\" \n"
+                + "       auth-passphrase=\"0p3nNMSv3\" >\n"
+                + "       <range begin=\"1.1.1.1\" end=\"1.1.1.100\"/>\n"
+                + "   </definition>\n"
+                + "\n"
+                + "   <definition version=\"v1\" read-community=\"rangev1\" max-vars-per-pdu=\"55\"> \n"
+                + "       <range begin=\"10.0.0.101\" end=\"10.0.0.200\"/>\n"
+                + "   </definition>\n"
+                + "\n"
+                + "   <definition version=\"v2c\" read-community=\"rangev2c\">\n"
+                + "       <range begin=\"10.0.1.100\" end=\"10.0.5.100\"/>\n"
+                + "       <range begin=\"10.7.20.100\" end=\"10.7.25.100\"/>\n"
+                + "   </definition>\n"
+                + "\n"
+                + "   <definition version=\"v2c\" read-community=\"specificv2c\">\n"
+                + "       <specific>192.168.0.50</specific>\n"
+                + "   </definition>\n"
+                + "\n"
+                + "   <definition version=\"v2c\" read-community=\"ipmatch\" max-vars-per-pdu=\"128\" max-repetitions=\"7\" >\n"
+                + "       <ip-match>77.5-12,15.1-255.255</ip-match>\n" + "   </definition>\n" + "\n" + "</snmp-config>";
     }
 
     /**
      * String representing snmp-config.xml
      */
     public String getBadRangeSnmpConfig() {
-        return "<?xml version=\"1.0\"?>\n" +
-                "<snmp-config "+
-                " retry=\"3\" timeout=\"3000\"\n" +
-                " read-community=\"public\"" +
-                " write-community=\"private\"\n" +
-                " port=\"161\"\n" +
-                " max-vars-per-pdu = \"23\" " +
-                " version=\"v1\">\n" +
-                "\n" +
-                "   <definition version=\"v2c\" read-community=\"rangev2c\">\n" +
-                "       <range begin=\"10.0.5.100\" end=\"10.0.1.100\"/>\n" +
-                "       <range begin=\"10.7.25.100\" end=\"10.7.20.100\"/>\n" +
-                "   </definition>\n" +
-                "\n" +
-                "</snmp-config>";
+        return "<?xml version=\"1.0\"?>\n" + "<snmp-config " + " retry=\"3\" timeout=\"3000\"\n"
+                + " read-community=\"public\"" + " write-community=\"private\"\n" + " port=\"161\"\n"
+                + " max-vars-per-pdu = \"23\" " + " version=\"v1\">\n" + "\n"
+                + "   <definition version=\"v2c\" read-community=\"rangev2c\">\n"
+                + "       <range begin=\"10.0.5.100\" end=\"10.0.1.100\"/>\n"
+                + "       <range begin=\"10.7.25.100\" end=\"10.7.20.100\"/>\n" + "   </definition>\n" + "\n"
+                + "</snmp-config>";
     }
 
     protected String myLocalHost() {
 
-//      try {
-//          return InetAddressUtils.str(InetAddress.getLocalHost());
-//      } catch (UnknownHostException e) {
-//          e.printStackTrace();
-//          fail("Exception getting localhost");
-//      }
-//
-//      return null;
+        // try {
+        // return InetAddressUtils.str(InetAddress.getLocalHost());
+        // } catch (UnknownHostException e) {
+        // e.printStackTrace();
+        // fail("Exception getting localhost");
+        // }
+        //
+        // return null;
 
-      return "127.0.0.1";
+        return "127.0.0.1";
     }
 
-	private String myVersion() {
+    private String myVersion() {
         switch (m_version) {
-        case SnmpAgentConfig.VERSION1 :
+        case SnmpAgentConfig.VERSION1:
             return "v1";
-        case SnmpAgentConfig.VERSION2C :
+        case SnmpAgentConfig.VERSION2C:
             return "v2c";
-        case SnmpAgentConfig.VERSION3 :
+        case SnmpAgentConfig.VERSION3:
             return "v3";
-        default :
+        default:
             return "v1";
         }
     }
 
-
-
     @Override
-	protected void tearDown() {
+    protected void tearDown() {
 
     }
 
@@ -216,11 +202,11 @@ public class SnmpPeerFactoryTest extends TestCase {
         assertEquals("ipmatch", agentConfig.getReadCommunity());
         assertEquals(7, agentConfig.getMaxRepetitions());
 
-        //should be default community "public" because of 4
+        // should be default community "public" because of 4
         agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr("77.4.5.255"));
         assertEquals("public", agentConfig.getReadCommunity());
 
-        //should be default community because of 0
+        // should be default community because of 0
         agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr("77.6.0.255"));
         assertEquals("public", agentConfig.getReadCommunity());
     }
@@ -232,6 +218,7 @@ public class SnmpPeerFactoryTest extends TestCase {
 
     /**
      * This tests getting an SnmpAgentConfig
+     *
      * @throws UnknownHostException
      */
     public void testGetConfig() throws UnknownHostException {
@@ -240,6 +227,7 @@ public class SnmpPeerFactoryTest extends TestCase {
 
     /**
      * This tests for ranges configured for a v2 node and community string
+     *
      * @throws UnknownHostException
      */
     public void testGetv2cInRange() throws UnknownHostException {
@@ -251,6 +239,7 @@ public class SnmpPeerFactoryTest extends TestCase {
 
     /**
      * This tests for ranges configured for v3 node and security name
+     *
      * @throws UnknownHostException
      */
     public void testGetv3ConfigInRange() throws UnknownHostException {
@@ -262,6 +251,7 @@ public class SnmpPeerFactoryTest extends TestCase {
 
     /**
      * This tests getting a v1 config
+     *
      * @throws UnknownHostException
      */
     public void testGetV1Config() throws UnknownHostException {
@@ -273,6 +263,7 @@ public class SnmpPeerFactoryTest extends TestCase {
 
     /**
      * This tests for a specifically defined v2c agentConfig
+     *
      * @throws UnknownHostException
      */
     public void testGetV2cConfig() throws UnknownHostException {
@@ -284,6 +275,7 @@ public class SnmpPeerFactoryTest extends TestCase {
 
     /**
      * This tests for ranges configured for a v2 node and community string
+     *
      * @throws UnknownHostException
      */
     public void testReversedRange() throws UnknownHostException {

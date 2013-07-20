@@ -63,10 +63,15 @@ import org.xml.sax.SAXException;
 
 public class PersistenceSerializationTest {
     private ForeignSourceCollection fsw;
+
     private AbstractForeignSourceRepository fsr;
+
     private Marshaller m;
+
     private JAXBContext c;
+
     private ForeignSource fs;
+
     private FileAnticipator fa;
 
     static private class TestOutputResolver extends SchemaOutputResolver {
@@ -93,12 +98,13 @@ public class PersistenceSerializationTest {
         fsr.flush();
 
         fs = fsr.getForeignSource("cheese");
-//        fs.setScanInterval(scanInterval)
+        // fs.setScanInterval(scanInterval)
         XMLGregorianCalendar cal = DatatypeFactory.newInstance().newXMLGregorianCalendar("2009-02-25T12:45:38.800-05:00");
         fs.setDateStamp(cal);
 
         List<PluginConfig> detectors = new ArrayList<PluginConfig>();
-        final PluginConfig detector = new PluginConfig("food", "org.opennms.netmgt.provision.persist.detectors.FoodDetector");
+        final PluginConfig detector = new PluginConfig("food",
+                                                       "org.opennms.netmgt.provision.persist.detectors.FoodDetector");
         detector.addParameter("type", "cheese");
         detector.addParameter("density", "soft");
         detector.addParameter("sharpness", "mild");
@@ -106,16 +112,20 @@ public class PersistenceSerializationTest {
         fs.setDetectors(detectors);
 
         List<PluginConfig> policies = new ArrayList<PluginConfig>();
-        PluginConfig policy = new PluginConfig("lower-case-node", "org.opennms.netmgt.provision.persist.policies.NodeCategoryPolicy");
+        PluginConfig policy = new PluginConfig("lower-case-node",
+                                               "org.opennms.netmgt.provision.persist.policies.NodeCategoryPolicy");
         policy.addParameter("label", "~^[a-z]$");
         policy.addParameter("category", "Lower-Case-Nodes");
         policies.add(policy);
-        policy = new PluginConfig("all-ipinterfaces", "org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy");
+        policy = new PluginConfig("all-ipinterfaces",
+                                  "org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy");
         policies.add(policy);
-        policy = new PluginConfig("10-ipinterfaces", "org.opennms.netmgt.provision.persist.policies.MatchingInterfacePolicy");
+        policy = new PluginConfig("10-ipinterfaces",
+                                  "org.opennms.netmgt.provision.persist.policies.MatchingInterfacePolicy");
         policy.addParameter("ipaddress", "~^10\\..*$");
         policies.add(policy);
-        policy = new PluginConfig("cisco-snmp-interfaces", "org.opennms.netmgt.provision.persist.policies.MatchingSnmpInterfacePolicy");
+        policy = new PluginConfig("cisco-snmp-interfaces",
+                                  "org.opennms.netmgt.provision.persist.policies.MatchingSnmpInterfacePolicy");
         policy.addParameter("ifdescr", "~^(?i:LEC).*$");
         policies.add(policy);
         fs.setPolicies(policies);
@@ -172,12 +182,13 @@ public class PersistenceSerializationTest {
         System.err.println("========================================================================");
         System.err.print(exampleXML.toString());
         DetailedDiff myDiff = getDiff(objectXML, exampleXML);
-        assertEquals("number of XMLUnit differences between the example XML and the mock object XML is 0", 0, myDiff.getAllDifferences().size());
+        assertEquals("number of XMLUnit differences between the example XML and the mock object XML is 0", 0,
+                     myDiff.getAllDifferences().size());
     }
 
     @SuppressWarnings("unchecked")
-    private static DetailedDiff getDiff(StringWriter objectXML,
-            StringBuffer exampleXML) throws SAXException, IOException {
+    private static DetailedDiff getDiff(StringWriter objectXML, StringBuffer exampleXML) throws SAXException,
+            IOException {
         DetailedDiff myDiff = new DetailedDiff(XMLUnit.compareXML(exampleXML.toString(), objectXML.toString()));
         List<Difference> allDifferences = myDiff.getAllDifferences();
         if (allDifferences.size() > 0) {

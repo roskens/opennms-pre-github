@@ -52,6 +52,7 @@ import org.opennms.netmgt.xml.event.Value;
  */
 final class DataUpdater implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(DataUpdater.class);
+
     /**
      * The event from which data is to be read
      */
@@ -63,7 +64,8 @@ final class DataUpdater implements Runnable {
     private void handleNodeGainedService(long nodeid, InetAddress ip, String svcName) {
 
         if (nodeid == -1 || ip == null || svcName == null) {
-            LOG.warn("{} ignored - info incomplete - nodeid/ip/svc: {}/{}/{}", m_event.getUei(), nodeid, InetAddressUtils.str(ip), svcName);
+            LOG.warn("{} ignored - info incomplete - nodeid/ip/svc: {}/{}/{}", m_event.getUei(), nodeid,
+                     InetAddressUtils.str(ip), svcName);
             return;
         }
 
@@ -80,13 +82,13 @@ final class DataUpdater implements Runnable {
     private void handleNodeLostService(long nodeid, InetAddress ip, String svcName, long eventTime) {
 
         if (nodeid == -1 || ip == null || svcName == null || eventTime == -1) {
-            LOG.warn("{} ignored - info incomplete - nodeid/ip/svc/eventtime: {}/{}/{}/{}", m_event.getUei(), nodeid, InetAddressUtils.str(ip), svcName, eventTime);
+            LOG.warn("{} ignored - info incomplete - nodeid/ip/svc/eventtime: {}/{}/{}/{}", m_event.getUei(), nodeid,
+                     InetAddressUtils.str(ip), svcName, eventTime);
             return;
         }
 
         DataManager dataMgr = RTCManager.getDataManager();
         dataMgr.nodeLostService(nodeid, ip, svcName, eventTime);
-
 
         LOG.debug("Added nodeLostService to nodeid: {} ip: {} svcName: {}", svcName, nodeid, InetAddressUtils.str(ip));
     }
@@ -97,13 +99,13 @@ final class DataUpdater implements Runnable {
     private void handleInterfaceDown(long nodeid, InetAddress ip, long eventTime) {
 
         if (nodeid == -1 || ip == null || eventTime == -1) {
-            LOG.warn("{} ignored - info incomplete - nodeid/ip/eventtime: {}/{}/{}", m_event.getUei(), nodeid, InetAddressUtils.str(ip), eventTime);
+            LOG.warn("{} ignored - info incomplete - nodeid/ip/eventtime: {}/{}/{}", m_event.getUei(), nodeid,
+                     InetAddressUtils.str(ip), eventTime);
             return;
         }
 
         DataManager dataMgr = RTCManager.getDataManager();
         dataMgr.interfaceDown(nodeid, ip, eventTime);
-
 
         LOG.debug("Recorded interfaceDown for nodeid: {} ip: {}", InetAddressUtils.str(ip), nodeid);
     }
@@ -121,7 +123,6 @@ final class DataUpdater implements Runnable {
         DataManager dataMgr = RTCManager.getDataManager();
         dataMgr.nodeDown(nodeid, eventTime);
 
-
         LOG.debug("Recorded nodeDown for nodeid: {}", nodeid);
     }
 
@@ -138,7 +139,6 @@ final class DataUpdater implements Runnable {
         DataManager dataMgr = RTCManager.getDataManager();
         dataMgr.nodeUp(nodeid, eventTime);
 
-
         LOG.debug("Recorded nodeUp for nodeid: {}", nodeid);
     }
 
@@ -148,13 +148,13 @@ final class DataUpdater implements Runnable {
     private void handleInterfaceUp(long nodeid, InetAddress ip, long eventTime) {
 
         if (nodeid == -1 || ip == null || eventTime == -1) {
-            LOG.warn("{} ignored - info incomplete - nodeid/ip/eventtime: {}/{}/{}", m_event.getUei(), nodeid, InetAddressUtils.str(ip), eventTime);
+            LOG.warn("{} ignored - info incomplete - nodeid/ip/eventtime: {}/{}/{}", m_event.getUei(), nodeid,
+                     InetAddressUtils.str(ip), eventTime);
             return;
         }
 
         DataManager dataMgr = RTCManager.getDataManager();
         dataMgr.interfaceUp(nodeid, ip, eventTime);
-
 
         LOG.debug("Recorded interfaceUp for nodeid: {} ip: {}", InetAddressUtils.str(ip), nodeid);
     }
@@ -165,15 +165,16 @@ final class DataUpdater implements Runnable {
     private void handleNodeRegainedService(long nodeid, InetAddress ip, String svcName, long eventTime) {
 
         if (nodeid == -1 || ip == null || svcName == null || eventTime == -1) {
-            LOG.warn("{} ignored - info incomplete - nodeid/ip/svc/eventtime: {}/{}/{}/{}", m_event.getUei(), nodeid, InetAddressUtils.str(ip), svcName, eventTime);
+            LOG.warn("{} ignored - info incomplete - nodeid/ip/svc/eventtime: {}/{}/{}/{}", m_event.getUei(), nodeid,
+                     InetAddressUtils.str(ip), svcName, eventTime);
             return;
         }
 
         DataManager dataMgr = RTCManager.getDataManager();
         dataMgr.nodeRegainedService(nodeid, ip, svcName, eventTime);
 
-
-        LOG.debug("Added nodeRegainedService to nodeid: {} ip: {} svcName: {}", svcName, nodeid, InetAddressUtils.str(ip));
+        LOG.debug("Added nodeRegainedService to nodeid: {} ip: {} svcName: {}", svcName, nodeid,
+                  InetAddressUtils.str(ip));
     }
 
     /**
@@ -182,13 +183,13 @@ final class DataUpdater implements Runnable {
     private void handleServiceDeleted(long nodeid, InetAddress ip, String svcName) {
 
         if (nodeid == -1 || ip == null || svcName == null) {
-            LOG.warn("{} ignored - info incomplete - nodeid/ip/svc: {}/{}/{}", m_event.getUei(), nodeid, InetAddressUtils.str(ip), svcName);
+            LOG.warn("{} ignored - info incomplete - nodeid/ip/svc: {}/{}/{}", m_event.getUei(), nodeid,
+                     InetAddressUtils.str(ip), svcName);
             return;
         }
 
         DataManager dataMgr = RTCManager.getDataManager();
         dataMgr.serviceDeleted(nodeid, ip, svcName);
-
 
         LOG.debug("{} deleted {}: {}: {} from data store", m_event.getUei(), nodeid, InetAddressUtils.str(ip), svcName);
 
@@ -247,12 +248,14 @@ final class DataUpdater implements Runnable {
         }
 
         if (oldNodeId == -1 || newNodeId == -1) {
-            LOG.warn("{} did not have all required information for {} Values contained old nodeid: {} new nodeid: {}", m_event.getUei(), InetAddressUtils.str(ip), oldNodeId, newNodeId);
+            LOG.warn("{} did not have all required information for {} Values contained old nodeid: {} new nodeid: {}",
+                     m_event.getUei(), InetAddressUtils.str(ip), oldNodeId, newNodeId);
         } else {
             DataManager dataMgr = RTCManager.getDataManager();
             dataMgr.interfaceReparented(ip, oldNodeId, newNodeId);
 
-            LOG.debug("{} reparented ip: {} from {} to {}", m_event.getUei(), InetAddressUtils.str(ip), oldNodeId, newNodeId);
+            LOG.debug("{} reparented ip: {} from {} to {}", m_event.getUei(), InetAddressUtils.str(ip), oldNodeId,
+                      newNodeId);
 
         }
 
@@ -305,7 +308,8 @@ final class DataUpdater implements Runnable {
 
         // check that we got all required parms
         if (url == null || clabel == null || user == null || passwd == null) {
-            LOG.warn("{} did not have all required information. Values contained url: {} catlabel: {} user: {} passwd: {}", m_event.getUei(), url, clabel, user, passwd);
+            LOG.warn("{} did not have all required information. Values contained url: {} catlabel: {} user: {} passwd: {}",
+                     m_event.getUei(), url, clabel, user, passwd);
 
         } else {
             RTCManager.getInstance().getDataSender().subscribe(url, clabel, user, passwd);
@@ -363,7 +367,6 @@ final class DataUpdater implements Runnable {
 
         dataMgr.assetInfoChanged(nodeid);
 
-
         LOG.debug("{} asset info changed for node {}", m_event.getUei(), nodeid);
 
     }
@@ -379,12 +382,12 @@ final class DataUpdater implements Runnable {
 
         dataMgr.nodeCategoryMembershipChanged(nodeid);
 
-
         LOG.debug("{} surveillance category membership changed for node {}", m_event.getUei(), nodeid);
     }
 
     /**
-     * Read the event UEI, node ID, interface and service - depending on the UEI,
+     * Read the event UEI, node ID, interface and service - depending on the
+     * UEI,
      * read event parms, if necessary, and call appropriate methods on the data
      * manager to update data
      */
@@ -424,8 +427,8 @@ final class DataUpdater implements Runnable {
             eventTime = (new java.util.Date()).getTime();
         }
 
-
-        LOG.debug("Event UEI: {}\tnodeid: {}\tip: {}\tsvcName: {}\teventTime: {}", eventTimeStr, eventUEI, nodeid, InetAddressUtils.str(ip), svcName);
+        LOG.debug("Event UEI: {}\tnodeid: {}\tip: {}\tsvcName: {}\teventTime: {}", eventTimeStr, eventUEI, nodeid,
+                  InetAddressUtils.str(ip), svcName);
 
         //
         //
@@ -470,7 +473,7 @@ final class DataUpdater implements Runnable {
         } else if (eventUEI.equals(EventConstants.ASSET_INFO_CHANGED_EVENT_UEI)) {
             handleAssetInfoChangedEvent(nodeid);
         } else if (eventUEI.equals(EventConstants.NODE_CATEGORY_MEMBERSHIP_CHANGED_EVENT_UEI)) {
-        	handleNodeCategoryMembershipChanged(nodeid);
+            handleNodeCategoryMembershipChanged(nodeid);
         } else {
 
             LOG.debug("Event subscribed for not handled?!: {}", eventUEI);
@@ -482,7 +485,8 @@ final class DataUpdater implements Runnable {
     /**
      * Constructs the DataUpdater object
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public DataUpdater(Event event) {
         m_event = event;

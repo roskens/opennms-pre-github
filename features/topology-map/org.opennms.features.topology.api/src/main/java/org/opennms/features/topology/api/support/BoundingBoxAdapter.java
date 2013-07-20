@@ -37,29 +37,32 @@ import org.opennms.features.topology.api.BoundingBox;
  */
 public class BoundingBoxAdapter extends XmlAdapter<BoundingBoxAdapter.JaxbBoundingBox, BoundingBox> {
 
-	public static final class JaxbBoundingBox {
-		@XmlAttribute
-		public int x;
-		@XmlAttribute
-		public int y;
-		@XmlAttribute
-		public int height;
-		@XmlAttribute
-		public int width;
-	}
+    public static final class JaxbBoundingBox {
+        @XmlAttribute
+        public int x;
 
-	@Override
-	public BoundingBoxAdapter.JaxbBoundingBox marshal(BoundingBox v) throws Exception {
-		JaxbBoundingBox retval = new JaxbBoundingBox();
-		retval.x = v.getX();
-		retval.y = v.getY();
-		retval.height = v.getHeight();
-		retval.width = v.getWidth();
-		return retval;
-	}
+        @XmlAttribute
+        public int y;
 
-	@Override
-	public BoundingBox unmarshal(BoundingBoxAdapter.JaxbBoundingBox v) throws Exception {
-		return new BoundingBox(v.x, v.y, v.width, v.height);
-	}
+        @XmlAttribute
+        public int height;
+
+        @XmlAttribute
+        public int width;
+    }
+
+    @Override
+    public BoundingBoxAdapter.JaxbBoundingBox marshal(BoundingBox v) throws Exception {
+        JaxbBoundingBox retval = new JaxbBoundingBox();
+        retval.x = v.getX();
+        retval.y = v.getY();
+        retval.height = v.getHeight();
+        retval.width = v.getWidth();
+        return retval;
+    }
+
+    @Override
+    public BoundingBox unmarshal(BoundingBoxAdapter.JaxbBoundingBox v) throws Exception {
+        return new BoundingBox(v.x, v.y, v.width, v.height);
+    }
 }

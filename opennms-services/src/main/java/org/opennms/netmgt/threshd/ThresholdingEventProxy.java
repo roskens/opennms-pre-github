@@ -41,7 +41,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>ThresholdingEventProxy class.</p>
+ * <p>
+ * ThresholdingEventProxy class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,7 +55,9 @@ public class ThresholdingEventProxy implements EventProxy {
     private List<Event> m_events;
 
     /**
-     * <p>Constructor for ThresholdingEventProxy.</p>
+     * <p>
+     * Constructor for ThresholdingEventProxy.
+     * </p>
      */
     public ThresholdingEventProxy() {
         m_events = new LinkedList<Event>();
@@ -66,10 +70,14 @@ public class ThresholdingEventProxy implements EventProxy {
     }
 
     /**
-     * <p>send</p>
+     * <p>
+     * send
+     * </p>
      *
-     * @param eventLog a {@link org.opennms.netmgt.xml.event.Log} object.
-     * @throws org.opennms.netmgt.model.events.EventProxyException if any.
+     * @param eventLog
+     *            a {@link org.opennms.netmgt.xml.event.Log} object.
+     * @throws org.opennms.netmgt.model.events.EventProxyException
+     *             if any.
      */
     @Override
     public void send(Log eventLog) throws EventProxyException {
@@ -79,32 +87,42 @@ public class ThresholdingEventProxy implements EventProxy {
     }
 
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public void add(Event event) {
         m_events.add(event);
     }
 
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param events a {@link java.util.List} object.
+     * @param events
+     *            a {@link java.util.List} object.
      */
     public void add(List<Event> events) {
         m_events.addAll(events);
     }
 
     /**
-     * <p>removeAllEvents</p>
+     * <p>
+     * removeAllEvents
+     * </p>
      */
     public void removeAllEvents() {
         m_events.clear();
     }
 
     /**
-     * <p>sendAllEvents</p>
+     * <p>
+     * sendAllEvents
+     * </p>
      */
     public void sendAllEvents() {
         if (m_events.size() > 0) {

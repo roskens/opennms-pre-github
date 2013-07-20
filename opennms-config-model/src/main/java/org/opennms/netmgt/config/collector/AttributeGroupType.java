@@ -33,7 +33,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * <p>AttributeGroupType class.</p>
+ * <p>
+ * AttributeGroupType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,22 +43,27 @@ import java.util.TreeSet;
 public class AttributeGroupType {
 
     private String m_name;
+
     private String m_ifType;
 
     private SortedSet<AttributeDefinition> m_attributeTypes = new TreeSet<AttributeDefinition>(new ByNameComparator());
 
     /**
-     * <p>Constructor for AttributeGroupType.</p>
+     * <p>
+     * Constructor for AttributeGroupType.
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
-     * @param groupIfType a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
+     * @param groupIfType
+     *            a {@link java.lang.String} object.
      */
     public AttributeGroupType(String groupName, String groupIfType) {
         if (groupName == null) {
-        	throw new NullPointerException("groupName cannot be null");
+            throw new NullPointerException("groupName cannot be null");
         }
         if (groupIfType == null) {
-        	throw new NullPointerException("groupIfType cannot be null");
+            throw new NullPointerException("groupIfType cannot be null");
         }
 
         m_name = groupName;
@@ -67,14 +74,16 @@ public class AttributeGroupType {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof AttributeGroupType) {
-            AttributeGroupType groupType = (AttributeGroupType)obj;
+            AttributeGroupType groupType = (AttributeGroupType) obj;
             return m_name.equals(groupType.m_name);
         }
         return false;
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
@@ -84,7 +93,9 @@ public class AttributeGroupType {
     }
 
     /**
-     * <p>getIfType</p>
+     * <p>
+     * getIfType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,7 +104,9 @@ public class AttributeGroupType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -102,16 +115,22 @@ public class AttributeGroupType {
     }
 
     /**
-     * <p>addAttributeType</p>
+     * <p>
+     * addAttributeType
+     * </p>
      *
-     * @param attrType a {@link org.opennms.netmgt.collectd.AttributeDefinition} object.
+     * @param attrType
+     *            a {@link org.opennms.netmgt.collectd.AttributeDefinition}
+     *            object.
      */
     public void addAttributeType(AttributeDefinition attrType) {
         m_attributeTypes.add(attrType);
     }
 
     /**
-     * <p>getAttributeTypes</p>
+     * <p>
+     * getAttributeTypes
+     * </p>
      *
      * @return a {@link java.util.SortedSet} object.
      */
@@ -120,15 +139,15 @@ public class AttributeGroupType {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return "AttrGroupType[name="+m_name+", ifType="+m_ifType+']' ;
+        return "AttrGroupType[name=" + m_name + ", ifType=" + m_ifType + ']';
     }
-
-
 
 }

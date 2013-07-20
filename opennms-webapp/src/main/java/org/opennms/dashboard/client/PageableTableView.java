@@ -33,7 +33,9 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * <p>Abstract PageableTableView class.</p>
+ * <p>
+ * Abstract PageableTableView class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -45,13 +47,18 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public abstract class PageableTableView extends DashletView implements Pageable {
 
     private VerticalPanel m_panel = new VerticalPanel();
-	private FlexTable m_table = new FlexTable();
-	private Pager m_pager;
-	private String[] m_headings;
-	private int m_pageSize = 5;
-	private int m_currentIndex = 0;
 
-	PageableTableView(Dashlet dashlet, int pageSize, String[] headings) {
+    private FlexTable m_table = new FlexTable();
+
+    private Pager m_pager;
+
+    private String[] m_headings;
+
+    private int m_pageSize = 5;
+
+    private int m_currentIndex = 0;
+
+    PageableTableView(Dashlet dashlet, int pageSize, String[] headings) {
         super(dashlet);
         m_pageSize = pageSize;
 
@@ -59,149 +66,167 @@ public abstract class PageableTableView extends DashletView implements Pageable 
 
         m_pager = new Pager(this);
 
-        //m_panel.add(m_pager);
+        // m_panel.add(m_pager);
         m_panel.add(m_table);
         initWidget(m_panel);
 
     }
 
     /**
-     * <p>onDashLoad</p>
+     * <p>
+     * onDashLoad
+     * </p>
      */
     @Override
     public void onDashLoad() {
         addToTitleBar(m_pager, DockPanel.CENTER);
     }
 
-
-
-	/**
-	 * Override this to set the details of the individual rows
-	 *
-	 * @param table the table to set the data into
-	 * @param row that table row to set the element into
-	 * @param elementIndex the index of the element whose values should be set
-	 */
-	protected abstract void setRow(FlexTable table, int row, int elementIndex);
-
-
-	/**
-	 * The total number of elements being deplayed in this table
-	 *
-	 * @return a int.
-	 */
-    @Override
-	public abstract int getElementCount();
+    /**
+     * Override this to set the details of the individual rows
+     *
+     * @param table
+     *            the table to set the data into
+     * @param row
+     *            that table row to set the element into
+     * @param elementIndex
+     *            the index of the element whose values should be set
+     */
+    protected abstract void setRow(FlexTable table, int row, int elementIndex);
 
     /**
-     * <p>initializeTable</p>
+     * The total number of elements being deplayed in this table
      *
-     * @param headings an array of {@link java.lang.String} objects.
+     * @return a int.
+     */
+    @Override
+    public abstract int getElementCount();
+
+    /**
+     * <p>
+     * initializeTable
+     * </p>
+     *
+     * @param headings
+     *            an array of {@link java.lang.String} objects.
      */
     protected void initializeTable(String[] headings) {
 
-	    setHeadings(headings);
+        setHeadings(headings);
 
-	    for(int i = 1; i <= getPageSize(); i++) {
-	        clearRow(i);
-	    }
-	}
+        for (int i = 1; i <= getPageSize(); i++) {
+            clearRow(i);
+        }
+    }
 
-	private void setHeadings(String[] headings) {
-		m_headings = headings;
-	    for(int i = 0; i < headings.length; i++) {
-	        m_table.setText(0, i, headings[i]);
-	    }
+    private void setHeadings(String[] headings) {
+        m_headings = headings;
+        for (int i = 0; i < headings.length; i++) {
+            m_table.setText(0, i, headings[i]);
+        }
 
-	    m_table.getRowFormatter().setStyleName(0, "header");
-	}
+        m_table.getRowFormatter().setStyleName(0, "header");
+    }
 
-	private int getColumnCount() {
-		return m_headings == null ? 0 : m_headings.length;
-	}
+    private int getColumnCount() {
+        return m_headings == null ? 0 : m_headings.length;
+    }
 
-	private void clearRow(int row) {
-	    if (row >= m_table.getRowCount()) {
-	        return;
-	    }
+    private void clearRow(int row) {
+        if (row >= m_table.getRowCount()) {
+            return;
+        }
 
-	    for(int column = 0; column < getColumnCount(); column++) {
-	    	m_table.clearCell(row, column);
-	    }
+        for (int column = 0; column < getColumnCount(); column++) {
+            m_table.clearCell(row, column);
+        }
 
-	    String currStyle = m_table.getRowFormatter().getStyleName(row);
-	    if (currStyle != null) {
-	        m_table.getRowFormatter().removeStyleName(row, currStyle);
-	    }
-	    formatCells(m_table, row);
+        String currStyle = m_table.getRowFormatter().getStyleName(row);
+        if (currStyle != null) {
+            m_table.getRowFormatter().removeStyleName(row, currStyle);
+        }
+        formatCells(m_table, row);
 
-	}
+    }
 
-	/**
-	 * <p>refresh</p>
-	 */
-	protected void refresh() {
+    /**
+     * <p>
+     * refresh
+     * </p>
+     */
+    protected void refresh() {
 
-	    int rows = Math.min(m_currentIndex+getPageSize(), getElementCount());
+        int rows = Math.min(m_currentIndex + getPageSize(), getElementCount());
 
-	    for(int i = m_currentIndex+1; i <= rows; i++) {
-	        setRow(m_table, i - m_currentIndex, i-1);
-	        formatCells(m_table, i - m_currentIndex);
-	    }
+        for (int i = m_currentIndex + 1; i <= rows; i++) {
+            setRow(m_table, i - m_currentIndex, i - 1);
+            formatCells(m_table, i - m_currentIndex);
+        }
 
-	    for(int i = rows+1; i <= m_currentIndex+getPageSize(); i++) {
-	        clearRow(i - m_currentIndex);
-	    }
+        for (int i = rows + 1; i <= m_currentIndex + getPageSize(); i++) {
+            clearRow(i - m_currentIndex);
+        }
 
-	    m_pager.update();
-	}
+        m_pager.update();
+    }
 
-	/**
-	 * <p>formatCells</p>
-	 *
-	 * @param table a {@link com.google.gwt.user.client.ui.FlexTable} object.
-	 * @param row a int.
-	 */
-	protected void formatCells(FlexTable table, int row) {
-		for(int column = 0; column < getColumnCount(); column++) {
-		    m_table.getCellFormatter().setStyleName(row, column, "divider");
-		}
-	}
+    /**
+     * <p>
+     * formatCells
+     * </p>
+     *
+     * @param table
+     *            a {@link com.google.gwt.user.client.ui.FlexTable} object.
+     * @param row
+     *            a int.
+     */
+    protected void formatCells(FlexTable table, int row) {
+        for (int column = 0; column < getColumnCount(); column++) {
+            m_table.getCellFormatter().setStyleName(row, column, "divider");
+        }
+    }
 
-	/**
-	 * <p>getCurrentElement</p>
-	 *
-	 * @return a int.
-	 */
+    /**
+     * <p>
+     * getCurrentElement
+     * </p>
+     *
+     * @return a int.
+     */
     @Override
-	public int getCurrentElement() {
-	    return m_currentIndex;
-	}
+    public int getCurrentElement() {
+        return m_currentIndex;
+    }
 
-	/**
-	 * <p>getPageSize</p>
-	 *
-	 * @return a int.
-	 */
+    /**
+     * <p>
+     * getPageSize
+     * </p>
+     *
+     * @return a int.
+     */
     @Override
-	public int getPageSize() {
-	    return m_pageSize;
-	}
+    public int getPageSize() {
+        return m_pageSize;
+    }
 
-	/**
-	 * <p>setPageSize</p>
-	 *
-	 * @param pageSize a int.
-	 */
-	public void setPageSize(int pageSize) {
-		m_pageSize = pageSize;
-	}
+    /**
+     * <p>
+     * setPageSize
+     * </p>
+     *
+     * @param pageSize
+     *            a int.
+     */
+    public void setPageSize(int pageSize) {
+        m_pageSize = pageSize;
+    }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void setCurrentElement(int element) {
-	    m_currentIndex = element;
-	    refresh();
-	}
+    public void setCurrentElement(int element) {
+        m_currentIndex = element;
+        refresh();
+    }
 
 }

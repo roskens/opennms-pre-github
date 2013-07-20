@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.provision;
 
-
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
@@ -51,16 +50,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-		"classpath:/META-INF/opennms/applicationContext-soa.xml",
-		"classpath:/META-INF/opennms/applicationContext-dao.xml",
-		"classpath*:/META-INF/opennms/component-dao.xml",
-		"classpath:/META-INF/opennms/applicationContext-daemon.xml",
-		"classpath:/META-INF/opennms/mockEventIpcManager.xml",
-		"classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-		"classpath*:/META-INF/opennms/provisiond-extensions.xml",
-	        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-daemon.xml",
+        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+        "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class RancidProvisioningAdapterTest implements InitializingBean {
@@ -71,6 +67,7 @@ public class RancidProvisioningAdapterTest implements InitializingBean {
     private NodeDao m_nodeDao;
 
     private AdapterOperation m_addOperation;
+
     private AdapterOperation m_deleteOperation;
 
     @Override
@@ -87,24 +84,31 @@ public class RancidProvisioningAdapterTest implements InitializingBean {
         m_nodeDao.flush();
 
         m_addOperation = m_adapter.new AdapterOperation(
-            m_nodeDao.findByForeignId("rancid", "1").getId(),
-            AdapterOperationType.ADD,
-            new SimpleQueuedProvisioningAdapter.AdapterOperationSchedule(0, 1, 1, TimeUnit.SECONDS)
-        );
+                                                        m_nodeDao.findByForeignId("rancid", "1").getId(),
+                                                        AdapterOperationType.ADD,
+                                                        new SimpleQueuedProvisioningAdapter.AdapterOperationSchedule(
+                                                                                                                     0,
+                                                                                                                     1,
+                                                                                                                     1,
+                                                                                                                     TimeUnit.SECONDS));
         m_deleteOperation = m_adapter.new AdapterOperation(
-            m_nodeDao.findByForeignId("rancid", "1").getId(),
-            AdapterOperationType.DELETE,
-            new SimpleQueuedProvisioningAdapter.AdapterOperationSchedule(0, 1, 1, TimeUnit.SECONDS)
-        );
+                                                           m_nodeDao.findByForeignId("rancid", "1").getId(),
+                                                           AdapterOperationType.DELETE,
+                                                           new SimpleQueuedProvisioningAdapter.AdapterOperationSchedule(
+                                                                                                                        0,
+                                                                                                                        1,
+                                                                                                                        1,
+                                                                                                                        TimeUnit.SECONDS));
     }
 
     /**
-     * TODO: This test needs to be updated so that it properly connects to the JUnitHttpServer
+     * TODO: This test needs to be updated so that it properly connects to the
+     * JUnitHttpServer
      * for simulated RANCID REST operations.
      */
     @Test
     @Transactional
-    @JUnitHttpServer(port=7081,basicAuth=true)
+    @JUnitHttpServer(port = 7081, basicAuth = true)
     @Ignore
     public void testAdd() throws Exception {
         OnmsNode n = m_nodeDao.findByForeignId("rancid", "1");
@@ -114,13 +118,15 @@ public class RancidProvisioningAdapterTest implements InitializingBean {
     }
 
     /**
-     * TODO: This test needs to be updated so that it properly connects to the JUnitHttpServer
+     * TODO: This test needs to be updated so that it properly connects to the
+     * JUnitHttpServer
      * for simulated RANCID REST operations.
-     * TODO: This test seems to pass even though it fails to connect with a mock RANCID server
+     * TODO: This test seems to pass even though it fails to connect with a mock
+     * RANCID server
      */
     @Test
     @Transactional
-    @JUnitHttpServer(port=7081,basicAuth=true)
+    @JUnitHttpServer(port = 7081, basicAuth = true)
     public void testDelete() throws Exception {
         OnmsNode n = m_nodeDao.findByForeignId("rancid", "1");
         m_adapter.deleteNode(n.getId());

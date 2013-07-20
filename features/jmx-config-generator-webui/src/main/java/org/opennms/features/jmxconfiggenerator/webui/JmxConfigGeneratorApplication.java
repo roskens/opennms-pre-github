@@ -72,154 +72,162 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
 
     private static final Logger LOG = LoggerFactory.getLogger(JmxConfigGeneratorApplication.class);
 
-	/**
-	 * The Header panel which holds the steps which are necessary to complete
-	 * the configuration for a new service to get collected.
-	 *
-	 */
-	private HeaderPanel headerPanel;
+    /**
+     * The Header panel which holds the steps which are necessary to complete
+     * the configuration for a new service to get collected.
+     */
+    private HeaderPanel headerPanel;
 
-	/**
-	 * The "content" panel which shows the view for the currently selected step
-	 * of the configuration process.
-	 */
-	private Panel contentPanel;
+    /**
+     * The "content" panel which shows the view for the currently selected step
+     * of the configuration process.
+     */
+    private Panel contentPanel;
 
-	private ProgressWindow progressWindow;
+    private ProgressWindow progressWindow;
 
-	private UiModel model = new UiModel();
-	private ModelChangeRegistry modelChangeRegistry = new ModelChangeRegistry();
-	private Map<UiState, Component> viewCache = new HashMap<UiState, Component>();
+    private UiModel model = new UiModel();
 
-	@Override
-	protected void init(VaadinRequest request) {
-		initHeaderPanel();
-		initContentPanel();
-		initMainWindow();
+    private ModelChangeRegistry modelChangeRegistry = new ModelChangeRegistry();
 
-		registerListener(UiModel.class, this);
-		updateView(UiState.IntroductionView);
-	}
+    private Map<UiState, Component> viewCache = new HashMap<UiState, Component>();
 
-	private void initHeaderPanel() {
-		headerPanel = new HeaderPanel();
-		registerListener(UiState.class, headerPanel);
-	}
+    @Override
+    protected void init(VaadinRequest request) {
+        initHeaderPanel();
+        initContentPanel();
+        initMainWindow();
 
-	// the Main panel holds all views such as Config view, mbeans view, etc.
-	private void initContentPanel() {
-		contentPanel = new Panel();
-		contentPanel.setContent(new VerticalLayout());
-		contentPanel.getContent().setSizeFull();
-		contentPanel.setSizeFull();
-	}
+        registerListener(UiModel.class, this);
+        updateView(UiState.IntroductionView);
+    }
 
-	/**
-	 * Creates the main window and adds the header, main and button panels to
-	 * it.
-	 */
-	private void initMainWindow() {
-		Window window = new Window("JmxConfigGenerator GUI Tool");
-		VerticalLayout layout = new VerticalLayout();
-		layout.addComponent(headerPanel);
-		layout.addComponent(contentPanel);
-		// content Panel should use most of the space :)
-		layout.setExpandRatio(contentPanel, 1);
-		window.setContent(layout);
-		window.getContent().setSizeFull();
-		window.setSizeFull();
-		addWindow(window);
-	}
+    private void initHeaderPanel() {
+        headerPanel = new HeaderPanel();
+        registerListener(UiState.class, headerPanel);
+    }
 
-	private void setContentPanelComponent(Component c) {
-		contentPanel.setContent(c);
-	}
+    // the Main panel holds all views such as Config view, mbeans view, etc.
+    private void initContentPanel() {
+        contentPanel = new Panel();
+        contentPanel.setContent(new VerticalLayout());
+        contentPanel.getContent().setSizeFull();
+        contentPanel.setSizeFull();
+    }
 
-	public void updateView(UiState uiState) {
-		switch (uiState) {
-			case IntroductionView:
-			case ServiceConfigurationView:
-			case MbeansView:
-			case ResultView:
-				setContentPanelComponent(getView(uiState));
-				notifyObservers(UiModel.class, model);
-				break;
-			case MbeansDetection:
-				showProgressWindow(uiState.getDescription() + ".\n\n This may take a while ...");
-				new DetectMBeansWorkerThread().start();
-				break;
-			case ResultConfigGeneration:
-				showProgressWindow(uiState.getDescription() +  ".\n\n This may take a while ...");
-				new CreateOutputWorkerThread().start();
-				break;
-		}
-		notifyObservers(UiState.class,  uiState);
-	}
+    /**
+     * Creates the main window and adds the header, main and button panels to
+     * it.
+     */
+    private void initMainWindow() {
+        Window window = new Window("JmxConfigGenerator GUI Tool");
+        VerticalLayout layout = new VerticalLayout();
+        layout.addComponent(headerPanel);
+        layout.addComponent(contentPanel);
+        // content Panel should use most of the space :)
+        layout.setExpandRatio(contentPanel, 1);
+        window.setContent(layout);
+        window.getContent().setSizeFull();
+        window.setSizeFull();
+        addWindow(window);
+    }
 
-	private Component createView(UiState uiState, JmxConfigGeneratorApplication app) {
-		Component component = null;
-		switch (uiState) {
-			case IntroductionView:
-				component = new IntroductionView(app);
-				break;
-			case ServiceConfigurationView:
-				component = new ConfigForm(app);
-				registerListener(UiModel.class, (ModelChangeListener) component);
-				break;
-			case MbeansView:
-				component = new MBeansView(app);
-				registerListener(UiModel.class, (ModelChangeListener) component);
-				break;
-			case ResultView:
-				component = new ConfigResultView(app);
-				registerListener(UiModel.class, (ModelChangeListener) component);
-				break;
-		}
-		return component;
-	}
+    private void setContentPanelComponent(Component c) {
+        contentPanel.setContent(c);
+    }
 
+    public void updateView(UiState uiState) {
+        switch (uiState) {
+        case IntroductionView:
+        case ServiceConfigurationView:
+        case MbeansView:
+        case ResultView:
+            setContentPanelComponent(getView(uiState));
+            notifyObservers(UiModel.class, model);
+            break;
+        case MbeansDetection:
+            showProgressWindow(uiState.getDescription() + ".\n\n This may take a while ...");
+            new DetectMBeansWorkerThread().start();
+            break;
+        case ResultConfigGeneration:
+            showProgressWindow(uiState.getDescription() + ".\n\n This may take a while ...");
+            new CreateOutputWorkerThread().start();
+            break;
+        }
+        notifyObservers(UiState.class, uiState);
+    }
 
-	private Component getView(UiState uiState) {
-		if (viewCache.get(uiState) == null) {
-			Component component = createView(uiState, JmxConfigGeneratorApplication.this);
-			if (component == null) return null; // no "real" view
-			viewCache.put(uiState, component);
-		}
-		return viewCache.get(uiState);
-	}
+    private Component createView(UiState uiState, JmxConfigGeneratorApplication app) {
+        Component component = null;
+        switch (uiState) {
+        case IntroductionView:
+            component = new IntroductionView(app);
+            break;
+        case ServiceConfigurationView:
+            component = new ConfigForm(app);
+            registerListener(UiModel.class, (ModelChangeListener) component);
+            break;
+        case MbeansView:
+            component = new MBeansView(app);
+            registerListener(UiModel.class, (ModelChangeListener) component);
+            break;
+        case ResultView:
+            component = new ConfigResultView(app);
+            registerListener(UiModel.class, (ModelChangeListener) component);
+            break;
+        }
+        return component;
+    }
 
-	private ProgressWindow getProgressWindow() {
-		if (progressWindow == null) {
-			progressWindow = new ProgressWindow();
-		}
-		return progressWindow;
-	}
+    private Component getView(UiState uiState) {
+        if (viewCache.get(uiState) == null) {
+            Component component = createView(uiState, JmxConfigGeneratorApplication.this);
+            if (component == null)
+                return null; // no "real" view
+            viewCache.put(uiState, component);
+        }
+        return viewCache.get(uiState);
+    }
 
-	public void showProgressWindow(String label) {
-		getProgressWindow().setLabelText(label);
-		addWindow(getProgressWindow());
-	}
+    private ProgressWindow getProgressWindow() {
+        if (progressWindow == null) {
+            progressWindow = new ProgressWindow();
+        }
+        return progressWindow;
+    }
 
-	private void registerListener(Class<?> aClass, ModelChangeListener<?> listener) {
-		modelChangeRegistry.registerListener(aClass, listener);
-	}
+    public void showProgressWindow(String label) {
+        getProgressWindow().setLabelText(label);
+        addWindow(getProgressWindow());
+    }
 
-	private void notifyObservers(Class<?> aClass, Object object) {
-		modelChangeRegistry.notifyObservers(aClass, object);
-	}
+    private void registerListener(Class<?> aClass, ModelChangeListener<?> listener) {
+        modelChangeRegistry.registerListener(aClass, listener);
+    }
+
+    private void notifyObservers(Class<?> aClass, Object object) {
+        modelChangeRegistry.notifyObservers(aClass, object);
+    }
 
     private class DetectMBeansWorkerThread extends Thread {
 
         @Override
         public void run() {
             try {
-                ServiceConfig config = ((BeanItem<ServiceConfig>) ((ConfigForm)getView(UiState.ServiceConfigurationView)).getItemDataSource()).getBean();
+                ServiceConfig config = ((BeanItem<ServiceConfig>) ((ConfigForm) getView(UiState.ServiceConfigurationView)).getItemDataSource()).getBean();
 
-                // TODO loading of the dictionary should not be done via the Starter class and not in a static way!
+                // TODO loading of the dictionary should not be done via the
+                // Starter class and not in a static way!
                 JmxDatacollectionConfiggenerator jmxConfigGenerator = new JmxDatacollectionConfiggenerator();
-                JMXServiceURL jmxServiceURL = jmxConfigGenerator.getJmxServiceURL(config.isJmxmp(), config.getHost(), config.getPort());
-                JMXConnector connector = jmxConfigGenerator.getJmxConnector(config.getUser(), config.getPassword(), jmxServiceURL);
-                JmxDatacollectionConfig generateJmxConfigModel = jmxConfigGenerator.generateJmxConfigModel(connector.getMBeanServerConnection(), "anyservice", !config.isSkipDefaultVM(), config.isRunWritableMBeans(), Starter.loadInternalDictionary());
+                JMXServiceURL jmxServiceURL = jmxConfigGenerator.getJmxServiceURL(config.isJmxmp(), config.getHost(),
+                                                                                  config.getPort());
+                JMXConnector connector = jmxConfigGenerator.getJmxConnector(config.getUser(), config.getPassword(),
+                                                                            jmxServiceURL);
+                JmxDatacollectionConfig generateJmxConfigModel = jmxConfigGenerator.generateJmxConfigModel(connector.getMBeanServerConnection(),
+                                                                                                           "anyservice",
+                                                                                                           !config.isSkipDefaultVM(),
+                                                                                                           config.isRunWritableMBeans(),
+                                                                                                           Starter.loadInternalDictionary());
                 connector.close();
 
                 model.setRawModel(generateJmxConfigModel);
@@ -236,42 +244,44 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
         }
 
         private void handleError(Exception ex) {
-            //TODO logging?
-            Notification.show("Connection error", "An error occured during connection jmx service. Please verify connection settings.<br/><br/>" + ex.getMessage(), Type.ERROR_MESSAGE);
+            // TODO logging?
+            Notification.show("Connection error",
+                              "An error occured during connection jmx service. Please verify connection settings.<br/><br/>"
+                                      + ex.getMessage(), Type.ERROR_MESSAGE);
             removeWindow(getProgressWindow());
         }
     }
 
-	private class CreateOutputWorkerThread extends Thread {
+    private class CreateOutputWorkerThread extends Thread {
 
-		@Override
-		public void run() {
-			if (model == null) {
-				return;
-			}
+        @Override
+        public void run() {
+            if (model == null) {
+                return;
+            }
 
-			// create snmp-graph.properties
-			try {
-				GraphConfigGenerator graphConfigGenerator = new GraphConfigGenerator();
-				Collection<Report> reports = new JmxConfigReader()
-						.generateReportsByJmxDatacollectionConfig(model.getOutputConfig());
-				model.setSnmpGraphProperties(graphConfigGenerator.generateSnmpGraph(reports));
-			} catch (IOException ex) {
-				model.setSnmpGraphProperties(ex.getMessage()); // TODO handle Errors in UI
-				LOG.error("SNMP Graph-Properties couldn't be created.", ex);
-			}
+            // create snmp-graph.properties
+            try {
+                GraphConfigGenerator graphConfigGenerator = new GraphConfigGenerator();
+                Collection<Report> reports = new JmxConfigReader().generateReportsByJmxDatacollectionConfig(model.getOutputConfig());
+                model.setSnmpGraphProperties(graphConfigGenerator.generateSnmpGraph(reports));
+            } catch (IOException ex) {
+                model.setSnmpGraphProperties(ex.getMessage()); // TODO handle
+                                                               // Errors in UI
+                LOG.error("SNMP Graph-Properties couldn't be created.", ex);
+            }
 
-			model.updateOutput();
-			updateView(UiState.ResultView);
-			removeWindow(getProgressWindow());
-		}
-	}
+            model.updateOutput();
+            updateView(UiState.ResultView);
+            removeWindow(getProgressWindow());
+        }
+    }
 
-	@Override
-	public void modelChanged(UiModel newModel) {
-		if (model != newModel) {
-			model = newModel;
-		}
-	}
+    @Override
+    public void modelChanged(UiModel newModel) {
+        if (model != newModel) {
+            model = newModel;
+        }
+    }
 
 }

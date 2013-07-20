@@ -29,7 +29,9 @@
 package org.opennms.netmgt.provision.detector.simple.request;
 
 /**
- * <p>TrivialTimeRequest class.</p>
+ * <p>
+ * TrivialTimeRequest class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@sync.com.ve>
  * @version $Id: $

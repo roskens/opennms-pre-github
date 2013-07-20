@@ -84,27 +84,21 @@ public class ServiceConfiguration implements Serializable {
     // -----------/
 
     /**
-     *
-     *
      * @param vService
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addService(final Service vService)
-            throws IndexOutOfBoundsException {
+    public void addService(final Service vService) throws IndexOutOfBoundsException {
         this._serviceList.add(vService);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vService
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addService(final int index, final Service vService)
-            throws IndexOutOfBoundsException {
+    public void addService(final int index, final Service vService) throws IndexOutOfBoundsException {
         this._serviceList.add(index, vService);
     }
 
@@ -152,12 +146,10 @@ public class ServiceConfiguration implements Serializable {
      * @return the value of the org.opennms.netmgt.config.service.Service at
      *         the given index
      */
-    public Service getService(final int index)
-            throws IndexOutOfBoundsException {
+    public Service getService(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._serviceList.size()) {
-            throw new IndexOutOfBoundsException("getService: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("getService: Index value '" + index + "' not in range [0.."
                     + (this._serviceList.size() - 1) + "]");
         }
 
@@ -169,8 +161,8 @@ public class ServiceConfiguration implements Serializable {
      * <p>
      * Note: Just in case the collection contents are changing in another
      * thread, we pass a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of exactly the
-     * correct length.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -254,19 +246,15 @@ public class ServiceConfiguration implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param vService
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void setService(final int index, final Service vService)
-            throws IndexOutOfBoundsException {
+    public void setService(final int index, final Service vService) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._serviceList.size()) {
-            throw new IndexOutOfBoundsException("setService: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("setService: Index value '" + index + "' not in range [0.."
                     + (this._serviceList.size() - 1) + "]");
         }
 
@@ -274,8 +262,6 @@ public class ServiceConfiguration implements Serializable {
     }
 
     /**
-     *
-     *
      * @param vServiceArray
      */
     public void setService(final Service[] vServiceArray) {

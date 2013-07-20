@@ -35,6 +35,7 @@ package org.opennms.nrtg.api.model;
  */
 public class CollectionTask {
     private Integer count;
+
     private String metaJob;
 
     public CollectionTask(Integer count, String metaJob) {

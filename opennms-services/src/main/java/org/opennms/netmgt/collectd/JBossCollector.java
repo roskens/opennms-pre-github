@@ -43,29 +43,35 @@ import org.opennms.protocols.jmx.connectors.JBossConnectionFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 /**
- * <p>JBossCollector class.</p>
+ * <p>
+ * JBossCollector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class JBossCollector  extends JMXCollector {
+public class JBossCollector extends JMXCollector {
 
     /**
-     * <p>Constructor for JBossCollector.</p>
+     * <p>
+     * Constructor for JBossCollector.
+     * </p>
      */
     public JBossCollector() {
         super();
         setServiceName("jboss");
     }
 
-    /* Returns the CollectionWrapper object from the factory using the parameterMap and ip address.
-     *
-     * @see org.opennms.netmgt.collectd.JMXCollector#getMBeanServer(java.util.Map)
+    /*
+     * Returns the CollectionWrapper object from the factory using the
+     * parameterMap and ip address.
+     * @see
+     * org.opennms.netmgt.collectd.JMXCollector#getMBeanServer(java.util.Map)
      */
     /** {@inheritDoc} */
     @Override
     public ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address) {
-        return  JBossConnectionFactory.getMBeanServerConnection(parameterMap, address);
+        return JBossConnectionFactory.getMBeanServerConnection(parameterMap, address);
     }
 
 }

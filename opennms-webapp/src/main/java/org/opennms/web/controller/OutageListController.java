@@ -52,7 +52,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>OutageListController class.</p>
+ * <p>
+ * OutageListController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -72,18 +74,26 @@ public class OutageListController extends AbstractController implements Initiali
     private OutagesFilteringView m_filterView;
 
     /**
-     * <p>setOutageService</p>
+     * <p>
+     * setOutageService
+     * </p>
      *
-     * @param service a {@link org.opennms.web.svclayer.outage.OutageService} object.
+     * @param service
+     *            a {@link org.opennms.web.svclayer.outage.OutageService}
+     *            object.
      */
     public final void setOutageService(final OutageService service) {
         m_outageService = service;
     }
 
     /**
-     * <p>setFilterView</p>
+     * <p>
+     * setFilterView
+     * </p>
      *
-     * @param filterView a {@link org.opennms.web.svclayer.outage.OutagesFilteringView} object.
+     * @param filterView
+     *            a {@link org.opennms.web.svclayer.outage.OutagesFilteringView}
+     *            object.
      */
     public final void setFilterView(final OutagesFilteringView filterView) {
         m_filterView = filterView;
@@ -91,16 +101,17 @@ public class OutageListController extends AbstractController implements Initiali
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse reply) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse reply)
+            throws Exception {
         Context context = new HttpServletRequestContext(request);
         LimitFactory limitFactory = new TableLimitFactory(context, "tabledata");
         Limit limit = new TableLimit(limitFactory);
 
         Map<String, Object> myModel = new HashMap<String, Object>();
 
-//        myModel.put("request", limit.toString());
+        // myModel.put("request", limit.toString());
 
-//        myModel.put("all_params", request.getParameterNames().toString());
+        // myModel.put("all_params", request.getParameterNames().toString());
 
         Integer rowstart;
         Integer rowend;
@@ -108,19 +119,19 @@ public class OutageListController extends AbstractController implements Initiali
             // no offset set
             rowstart = 0;
             rowend = getDefaultRowsDisplayed();
-//
-//            context.setRequestAttribute("rowStart", rowstart);
-//            context.setRequestAttribute("rowEnd", rowend);
+            //
+            // context.setRequestAttribute("rowStart", rowstart);
+            // context.setRequestAttribute("rowEnd", rowend);
         } else {
-            //quirky situation... - as we started on 0 (zero)
+            // quirky situation... - as we started on 0 (zero)
             rowstart = ((limit.getPage() * getDefaultRowsDisplayed() + 1) - getDefaultRowsDisplayed());
             rowend = getDefaultRowsDisplayed();
         }
 
-//        myModel.put("rowStart", rowstart);
-//        myModel.put("rowEnd", rowend);
-//        myModel.put("begin", rowstart);
-//        myModel.put("end", rowend);
+        // myModel.put("rowStart", rowstart);
+        // myModel.put("rowEnd", rowend);
+        // myModel.put("begin", rowstart);
+        // myModel.put("end", rowend);
 
         OnmsCriteria criteria = m_filterView.buildCriteria(request);
         OnmsCriteria countCriteria = m_filterView.buildCriteria(request);
@@ -136,27 +147,36 @@ public class OutageListController extends AbstractController implements Initiali
             sortOrder = limit.getSort().getSortOrder();
         }
 
-        Collection<OnmsOutage> foundOutages = m_outageService.getOutagesByRange(rowstart, rowend, orderProperty, sortOrder, criteria);
+        Collection<OnmsOutage> foundOutages = m_outageService.getOutagesByRange(rowstart, rowend, orderProperty,
+                                                                                sortOrder, criteria);
 
         myModel.put("tabledata", m_outageListBuilder.theTable(foundOutages));
-        myModel.put("totalRows", m_outageService.getOutageCount(countCriteria)); // used by org.extremecomponents.table.callback.LimitCallback.retrieveRows
+        myModel.put("totalRows", m_outageService.getOutageCount(countCriteria)); // used
+                                                                                 // by
+                                                                                 // org.extremecomponents.table.callback.LimitCallback.retrieveRows
 
-        //myModel.put("selected_outages", CurrentOutageParseResponse.findSelectedOutagesIDs(request,m_outageService));
+        // myModel.put("selected_outages",
+        // CurrentOutageParseResponse.findSelectedOutagesIDs(request,m_outageService));
 
         return new ModelAndView(getSuccessView(), myModel);
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public final void setSuccessView(final String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>getSuccessView</p>
+     * <p>
+     * getSuccessView
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -165,16 +185,21 @@ public class OutageListController extends AbstractController implements Initiali
     }
 
     /**
-     * <p>setDefaultRowsDisplayed</p>
+     * <p>
+     * setDefaultRowsDisplayed
+     * </p>
      *
-     * @param defaultRowsDisplayed a int.
+     * @param defaultRowsDisplayed
+     *            a int.
      */
     public final void setDefaultRowsDisplayed(final int defaultRowsDisplayed) {
         m_defaultRowsDisplayed = defaultRowsDisplayed;
     }
 
     /**
-     * <p>getDefaultRowsDisplayed</p>
+     * <p>
+     * getDefaultRowsDisplayed
+     * </p>
      *
      * @return a int.
      */
@@ -183,9 +208,12 @@ public class OutageListController extends AbstractController implements Initiali
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -194,9 +222,13 @@ public class OutageListController extends AbstractController implements Initiali
     }
 
     /**
-     * <p>setOutageListBuilder</p>
+     * <p>
+     * setOutageListBuilder
+     * </p>
      *
-     * @param outageListBuilder a {@link org.opennms.web.svclayer.outage.OutageListBuilder} object.
+     * @param outageListBuilder
+     *            a {@link org.opennms.web.svclayer.outage.OutageListBuilder}
+     *            object.
      */
     public final void setOutageListBuilder(final OutageListBuilder outageListBuilder) {
         m_outageListBuilder = outageListBuilder;

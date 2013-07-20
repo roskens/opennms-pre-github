@@ -75,12 +75,14 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
                 public SafeHtml render(final KscReport reportDetail) {
                     return new SafeHtml() {
                         private static final long serialVersionUID = -8194796300806582660L;
+
                         @Override
                         public String asString() {
                             return reportDetail.getLabel();
                         }
                     };
                 }
+
                 @Override
                 public void render(final KscReport reportDetail, final SafeHtmlBuilder builder) {
                     builder.appendEscaped(reportDetail.getLabel());
@@ -98,7 +100,8 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
     private static KscAddGraphViewImplUiBinder uiBinder = GWT.create(KscAddGraphViewImplUiBinder.class);
 
     @UiTemplate("KscAddGraphViewImpl.ui.xml")
-    interface KscAddGraphViewImplUiBinder extends UiBinder<Widget, KscAddGraphViewImpl> {}
+    interface KscAddGraphViewImplUiBinder extends UiBinder<Widget, KscAddGraphViewImpl> {
+    }
 
     @UiField
     LayoutPanel m_layoutPanel;
@@ -119,14 +122,18 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
     Label m_reportLabel;
 
     CellList<KscReport> m_reportList;
+
     SimplePager m_pager;
+
     PopupPanel m_popupPanel;
 
     private Presenter<KscReport> m_presenter;
-    private ListDataProvider<KscReport> m_dataList;
-    private SingleSelectionModel<KscReport> m_selectionModel;
-    private PositionCallback m_repositionPopupPanel;
 
+    private ListDataProvider<KscReport> m_dataList;
+
+    private SingleSelectionModel<KscReport> m_selectionModel;
+
+    private PositionCallback m_repositionPopupPanel;
 
     public KscAddGraphViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -135,7 +142,7 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
         m_textBox.addKeyDownHandler(new KeyDownHandler() {
             @Override
             public void onKeyDown(final KeyDownEvent event) {
-                if(m_presenter != null) {
+                if (m_presenter != null) {
                     m_presenter.onKeyCodeEvent(event, getSearchText());
                 }
             }
@@ -143,7 +150,7 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
         m_textBox.addKeyUpHandler(new KeyUpHandler() {
             @Override
             public void onKeyUp(final KeyUpEvent event) {
-                if(m_presenter != null) {
+                if (m_presenter != null) {
                     m_presenter.onKeyCodeEvent(event, getSearchText());
                 }
             }
@@ -228,7 +235,7 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
 
     @Override
     public void setTitle(final String title) {
-        m_titleBox.setValue(title == null? "" : title);
+        m_titleBox.setValue(title == null ? "" : title);
     }
 
     @Override

@@ -39,12 +39,15 @@ import org.slf4j.LoggerFactory;
  */
 public class DefaultTaskMonitor implements TaskMonitor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultTaskMonitor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultTaskMonitor.class);
 
     /**
-     * <p>Constructor for DefaultTaskMonitor.</p>
+     * <p>
+     * Constructor for DefaultTaskMonitor.
+     * </p>
      *
-     * @param task a {@link org.opennms.core.tasks.Task} object.
+     * @param task
+     *            a {@link org.opennms.core.tasks.Task} object.
      */
     public DefaultTaskMonitor(final Task task) {
     }
@@ -52,7 +55,7 @@ public class DefaultTaskMonitor implements TaskMonitor {
     /** {@inheritDoc} */
     @Override
     public void completed(final Task task) {
-    	LOG.trace("completed({})", task);
+        LOG.trace("completed({})", task);
     }
 
     /** {@inheritDoc} */
@@ -64,7 +67,7 @@ public class DefaultTaskMonitor implements TaskMonitor {
     /** {@inheritDoc} */
     @Override
     public void prerequisiteCompleted(final Task monitored, final Task prerequisite) {
-    	LOG.trace("prerequisiteCompleted({}, {})", monitored, prerequisite);
+        LOG.trace("prerequisiteCompleted({}, {})", monitored, prerequisite);
     }
 
     /** {@inheritDoc} */
@@ -88,7 +91,7 @@ public class DefaultTaskMonitor implements TaskMonitor {
     /** {@inheritDoc} */
     @Override
     public void monitorException(final Throwable t) {
-    	LOG.trace("monitorException({})", t);
+        LOG.trace("monitorException({})", t);
     }
 
     /** {@inheritDoc} */

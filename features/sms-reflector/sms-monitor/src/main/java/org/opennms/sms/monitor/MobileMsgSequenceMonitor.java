@@ -28,7 +28,6 @@
 
 package org.opennms.sms.monitor;
 
-
 import java.util.Map;
 
 import org.opennms.core.tasks.DefaultTaskCoordinator;
@@ -50,7 +49,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 /**
- * <p>MobileMsgSequenceMonitor class.</p>
+ * <p>
+ * MobileMsgSequenceMonitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -60,75 +61,78 @@ public class MobileMsgSequenceMonitor extends AbstractServiceMonitor {
 
     /** Constant <code>DEFAULT_CONTEXT_NAME="mobileMessagePollerContext"</code> */
     public static final String DEFAULT_CONTEXT_NAME = "mobileMessagePollerContext";
+
     /** Constant <code>CONTEXT_KEY="mobileMessageContextName"</code> */
     public static final String CONTEXT_KEY = "mobileMessageContextName";
 
     private static Logger log = LoggerFactory.getLogger(MobileMsgSequenceMonitor.class);
 
     private Phonebook m_phonebook;
-	private MobileMsgTracker m_tracker;
-	private DefaultTaskCoordinator m_coordinator;
 
-	/** {@inheritDoc} */
-	@Override
-	public void initialize(Map<String,Object> params) {
-		super.initialize(params);
+    private MobileMsgTracker m_tracker;
 
-		String contextName = ParameterMap.getKeyedString(params, CONTEXT_KEY, DEFAULT_CONTEXT_NAME);
+    private DefaultTaskCoordinator m_coordinator;
 
-		m_phonebook = BeanUtils.getBean(contextName, "phonebook", Phonebook.class);
-		m_tracker = BeanUtils.getBean(contextName, "mobileMsgTracker", MobileMsgTracker.class);
-		m_coordinator = BeanUtils.getBean(contextName, "sequenceTaskCoordinator", DefaultTaskCoordinator.class);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void initialize(Map<String, Object> params) {
+        super.initialize(params);
 
-	/** {@inheritDoc} */
-	@Override
-	public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
+        String contextName = ParameterMap.getKeyedString(params, CONTEXT_KEY, DEFAULT_CONTEXT_NAME);
 
-	    try {
+        m_phonebook = BeanUtils.getBean(contextName, "phonebook", Phonebook.class);
+        m_tracker = BeanUtils.getBean(contextName, "mobileMsgTracker", MobileMsgTracker.class);
+        m_coordinator = BeanUtils.getBean(contextName, "sequenceTaskCoordinator", DefaultTaskCoordinator.class);
+    }
 
-	        String config = ParameterMap.getKeyedString(parameters, "sequence", "");
+    /** {@inheritDoc} */
+    @Override
+    public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
 
-	        if (!StringUtils.hasLength(config)) {
-	            return PollStatus.unavailable("Sequence configuration was empty.  You must specify a 'sequence' parameter in the SMSSequenceMonitor poller configuration!");
-	        }
+        try {
 
-	        SequenceConfigFactory factory = SequenceConfigFactory.getInstance();
-	        MobileSequenceConfig sequenceConfig = factory.getSequenceForXml(config);
+            String config = ParameterMap.getKeyedString(parameters, "sequence", "");
 
-	        if (!sequenceConfig.hasTransactions()) {
-	            log.warn("No transactions were configured for host {}", svc.getIpAddr());
-	            return PollStatus.unavailable("No transactions were configured for host " + svc.getIpAddr());
-	        }
+            if (!StringUtils.hasLength(config)) {
+                return PollStatus.unavailable("Sequence configuration was empty.  You must specify a 'sequence' parameter in the SMSSequenceMonitor poller configuration!");
+            }
 
-            MobileSequenceSession session = new MobileSequenceSession(parameters, sequenceConfig.getSessionVariables(), m_tracker);
+            SequenceConfigFactory factory = SequenceConfigFactory.getInstance();
+            MobileSequenceConfig sequenceConfig = factory.getSequenceForXml(config);
+
+            if (!sequenceConfig.hasTransactions()) {
+                log.warn("No transactions were configured for host {}", svc.getIpAddr());
+                return PollStatus.unavailable("No transactions were configured for host " + svc.getIpAddr());
+            }
+
+            MobileSequenceSession session = new MobileSequenceSession(parameters, sequenceConfig.getSessionVariables(),
+                                                                      m_tracker);
 
             session.setRecipient(m_phonebook.getTargetForAddress(svc.getIpAddr()));
 
-			session.checkoutVariables();
+            session.checkoutVariables();
 
-			Map<String, Number> results = null;
-			try {
-				results = sequenceConfig.executeSequence(session, m_coordinator);
-			} finally {
-				session.checkinVariables();
-			}
+            Map<String, Number> results = null;
+            try {
+                results = sequenceConfig.executeSequence(session, m_coordinator);
+            } finally {
+                session.checkinVariables();
+            }
 
-	        Map<String, Number> responseTimes = results;
-	        PollStatus response = PollStatus.available();
-	        response.setProperties(responseTimes);
-	        return response;
+            Map<String, Number> responseTimes = results;
+            PollStatus response = PollStatus.available();
+            response.setProperties(responseTimes);
+            return response;
 
-
-	    } catch (PhonebookException e) {
-	        log.warn("Unable to locate recpient phone number for IP address {}", svc.getIpAddr(), e);
-	        return PollStatus.unavailable("Unable to find phone number for IP address " + svc.getIpAddr());
-	    } catch (SequenceException e) {
-	        log.warn("Unable to parse sequence configuration for host {}", svc.getIpAddr(), e);
-	        return PollStatus.unavailable("unable to read sequence configuration");
-	    } catch (Throwable e) {
-	        log.debug("Sequence failed", e);
-	        return PollStatus.unavailable("Sequence failed: " + e.getLocalizedMessage());
-	    }
-	}
+        } catch (PhonebookException e) {
+            log.warn("Unable to locate recpient phone number for IP address {}", svc.getIpAddr(), e);
+            return PollStatus.unavailable("Unable to find phone number for IP address " + svc.getIpAddr());
+        } catch (SequenceException e) {
+            log.warn("Unable to parse sequence configuration for host {}", svc.getIpAddr(), e);
+            return PollStatus.unavailable("unable to read sequence configuration");
+        } catch (Throwable e) {
+            log.debug("Sequence failed", e);
+            return PollStatus.unavailable("Sequence failed: " + e.getLocalizedMessage());
+        }
+    }
 }

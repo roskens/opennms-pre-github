@@ -36,17 +36,22 @@ import java.util.Map;
 
 public class TriggerDao {
     private Map<String, Trigger> m_nameMap;
+
     private Map<String, List<Trigger>> m_tableMap;
 
     /**
-     * <p>Constructor for TriggerDao.</p>
+     * <p>
+     * Constructor for TriggerDao.
+     * </p>
      */
     public TriggerDao() {
         reset();
     }
 
     /**
-     * <p>reset</p>
+     * <p>
+     * reset
+     * </p>
      */
     public void reset() {
         m_nameMap = new LinkedHashMap<String, Trigger>();
@@ -54,16 +59,17 @@ public class TriggerDao {
     }
 
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param t a {@link org.opennms.netmgt.dao.db.Trigger} object.
+     * @param t
+     *            a {@link org.opennms.netmgt.dao.db.Trigger} object.
      */
     public void add(Trigger t) {
         String lowerName = t.getName().toLowerCase();
         if (m_nameMap.containsKey(lowerName)) {
-            throw new IllegalArgumentException("Trigger with name of '"
-                                               + lowerName
-                                               + "' already exists.");
+            throw new IllegalArgumentException("Trigger with name of '" + lowerName + "' already exists.");
         }
 
         m_nameMap.put(lowerName, t);
@@ -79,9 +85,12 @@ public class TriggerDao {
     }
 
     /**
-     * <p>getTriggersForTable</p>
+     * <p>
+     * getTriggersForTable
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<Trigger> getTriggersForTable(String table) {

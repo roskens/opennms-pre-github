@@ -41,20 +41,9 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public enum SortStyle {
-    SEVERITY("severity"),
-    TIME("time"),
-    NODE("node"),
-    INTERFACE("interface"),
-    SERVICE("service"),
-    POLLER("poller"),
-    ID("id"),
-    REVERSE_SEVERITY("rev_severity"),
-    REVERSE_TIME("rev_time"),
-    REVERSE_NODE("rev_node"),
-    REVERSE_INTERFACE("rev_interface"),
-    REVERSE_SERVICE("rev_service"),
-    REVERSE_POLLER("rev_poller"),
-    REVERSE_ID("rev_id");
+    SEVERITY("severity"), TIME("time"), NODE("node"), INTERFACE("interface"), SERVICE("service"), POLLER("poller"), ID(
+            "id"), REVERSE_SEVERITY("rev_severity"), REVERSE_TIME("rev_time"), REVERSE_NODE("rev_node"), REVERSE_INTERFACE(
+            "rev_interface"), REVERSE_SERVICE("rev_service"), REVERSE_POLLER("rev_poller"), REVERSE_ID("rev_id");
 
     /** Constant <code>m_sortStylesString</code> */
     private static final Map<String, SortStyle> m_sortStylesString;
@@ -74,7 +63,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,7 +75,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,7 +86,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getShortName</p>
+     * <p>
+     * getShortName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -102,9 +97,12 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getSortStyle</p>
+     * <p>
+     * getSortStyle
+     * </p>
      *
-     * @param sortStyleString a {@link java.lang.String} object.
+     * @param sortStyleString
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.event.SortStyle} object.
      */
     public static SortStyle getSortStyle(String sortStyleString) {

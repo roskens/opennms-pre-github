@@ -33,21 +33,21 @@ import org.opennms.features.topology.app.internal.jung.SpringLayoutAlgorithm;
 
 public class SpringLayoutOperation extends LayoutOperation {
 
-	public SpringLayoutOperation() {
-		super(new LayoutFactory() {
+    public SpringLayoutOperation() {
+        super(new LayoutFactory() {
 
-		    private final SpringLayoutAlgorithm m_layoutAlgorithm = new SpringLayoutAlgorithm();
+            private final SpringLayoutAlgorithm m_layoutAlgorithm = new SpringLayoutAlgorithm();
 
-			@Override
-			public LayoutAlgorithm getLayoutAlgorithm() {
-				return m_layoutAlgorithm;
-			}
-		});
-	}
+            @Override
+            public LayoutAlgorithm getLayoutAlgorithm() {
+                return m_layoutAlgorithm;
+            }
+        });
+    }
 
-	@Override
-	public String getId() {
-		return getClass().getSimpleName();
-	}
+    @Override
+    public String getId() {
+        return getClass().getSimpleName();
+    }
 
 }

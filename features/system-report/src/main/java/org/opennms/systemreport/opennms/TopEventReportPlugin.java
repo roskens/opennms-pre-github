@@ -66,7 +66,7 @@ public class TopEventReportPlugin extends AbstractSystemReportPlugin implements 
 
     @Override
     public TreeMap<String, Resource> getEntries() {
-        final TreeMap<String,Resource> map = new TreeMap<String,Resource>();
+        final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
 
         if (m_eventCountDao != null) {
             final Set<CountedObject<String>> objs = m_eventCountDao.getUeiCounts(20);

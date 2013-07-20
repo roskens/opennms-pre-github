@@ -69,261 +69,250 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@TestExecutionListeners({ OpenNMSConfigurationExecutionListener.class,
-		TemporaryDatabaseExecutionListener.class,
-		DependencyInjectionTestExecutionListener.class,
-		DirtiesContextTestExecutionListener.class,
-		TransactionalTestExecutionListener.class })
-@ContextConfiguration(locations = {
-		"classpath:/META-INF/opennms/applicationContext-soa.xml",
-	        "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
-		"classpath*:/META-INF/opennms/component-dao.xml" })
+@TestExecutionListeners({ OpenNMSConfigurationExecutionListener.class, TemporaryDatabaseExecutionListener.class,
+        DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-mockDao.xml", "classpath*:/META-INF/opennms/component-dao.xml" })
 @JUnitConfigurationEnvironment
 public class AssetServiceImplTest implements InitializingBean {
 
-	@Autowired
-	private DistPollerDao m_distPollerDao;
+    @Autowired
+    private DistPollerDao m_distPollerDao;
 
-	@Autowired
-	private NodeDao m_nodeDao;
+    @Autowired
+    private NodeDao m_nodeDao;
 
-	@Autowired
-	private AssetRecordDao m_assetRecordDao;
+    @Autowired
+    private AssetRecordDao m_assetRecordDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
-	// private SecurityContextService m_securityContextService;
+    // private SecurityContextService m_securityContextService;
 
-	private final GrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority(Authentication.ROLE_ADMIN);
+    private final GrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority(Authentication.ROLE_ADMIN);
 
-	/*
-	private final GrantedAuthority ROLE_PROVISION = new GrantedAuthorityImpl(Authentication.ROLE_PROVISION);
-	private final GrantedAuthority ROLE_USER = new GrantedAuthorityImpl(Authentication.ROLE_USER);
-	*/
+    /*
+     * private final GrantedAuthority ROLE_PROVISION = new
+     * GrantedAuthorityImpl(Authentication.ROLE_PROVISION);
+     * private final GrantedAuthority ROLE_USER = new
+     * GrantedAuthorityImpl(Authentication.ROLE_USER);
+     */
 
-	private final String USERNAME = "opennms";
+    private final String USERNAME = "opennms";
 
-	private final String PASS = "r0c|<Z";
+    private final String PASS = "r0c|<Z";
 
-	private User validAdmin;
+    private User validAdmin;
 
-	/*
-	private User invalidAdmin;
+    /*
+     * private User invalidAdmin;
+     * private User validProvision;
+     * private User invalidProvision;
+     * private User validUser;
+     * private User invalidUser;
+     * private User validPower;
+     * private User invalidPower;
+     */
 
-	private User validProvision;
+    private org.springframework.security.core.Authentication m_auth;
 
-	private User invalidProvision;
+    private SecurityContext m_context;
 
-	private User validUser;
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        org.opennms.core.utils.BeanUtils.assertAutowiring(this);
+    }
 
-	private User invalidUser;
+    @Before
+    public void setUp() {
+        m_databasePopulator.populateDatabase();
+        m_context = new SecurityContextImpl();
 
-	private User validPower;
+        validAdmin = new User(USERNAME, PASS, true, true, true, true,
+                              Arrays.asList(new GrantedAuthority[] { ROLE_ADMIN }));
 
-	private User invalidPower;
-	*/
+        /*
+         * invalidAdmin = new User(USERNAME, PASS, true, true, true, true,
+         * new GrantedAuthority[] { ROLE_ADMIN });
+         * validProvision = new User(USERNAME, PASS, true, true, true, true,
+         * new GrantedAuthority[] { ROLE_PROVISION });
+         * invalidProvision = new User(USERNAME, PASS, true, true, true, true,
+         * new GrantedAuthority[] { ROLE_PROVISION });
+         * validUser = new User(USERNAME, PASS, true, true, true, true,
+         * new GrantedAuthority[] { ROLE_USER });
+         * invalidUser = new User(USERNAME, PASS, true, true, true, true,
+         * new GrantedAuthority[] { ROLE_USER });
+         * validPower = new User(USERNAME, PASS, true, true, true, true,
+         * new GrantedAuthority[] { ROLE_ADMIN, ROLE_PROVISION });
+         * invalidPower = new User(USERNAME, PASS, true, true, true, true,
+         * new GrantedAuthority[] { ROLE_USER, ROLE_PROVISION });
+         */
 
-	private org.springframework.security.core.Authentication m_auth;
+        m_auth = new PreAuthenticatedAuthenticationToken(validAdmin, new Object());
+        m_context.setAuthentication(m_auth);
+        SecurityContextHolder.setContext(m_context);
+        // m_securityContextService = new SpringSecurityContextService();
+    }
 
-	private SecurityContext m_context;
+    @After
+    public void tearDown() {
+        for (final OnmsNode node : m_nodeDao.findAll()) {
+            m_nodeDao.delete(node);
+        }
+        m_nodeDao.flush();
+    }
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-	    org.opennms.core.utils.BeanUtils.assertAutowiring(this);
-	}
+    @Test
+    public void testCreateAndGets() {
+        OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
+        onmsNode.setLabel("myNode");
+        m_nodeDao.save(onmsNode);
+        OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
+        assetRecord.setAssetNumber("imported-id: 7");
+        m_assetRecordDao.update(assetRecord);
+        m_assetRecordDao.flush();
 
-	@Before
-	public void setUp() {
-		m_databasePopulator.populateDatabase();
-		m_context = new SecurityContextImpl();
+        // Test findAll method
+        Collection<OnmsAssetRecord> assetRecords = m_assetRecordDao.findAll();
+        assertEquals(7, assetRecords.size());
 
-		validAdmin = new User(USERNAME, PASS, true, true, true, true,
-				Arrays.asList(new GrantedAuthority[] { ROLE_ADMIN }));
+        // Test countAll method
+        assertEquals(7, m_assetRecordDao.countAll());
+    }
 
-		/*
-		invalidAdmin = new User(USERNAME, PASS, true, true, true, true,
-				new GrantedAuthority[] { ROLE_ADMIN });
+    @Test
+    public void testAssetServiceImpl() {
+        OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
+        onmsNode.setLabel("myNode");
+        m_nodeDao.save(onmsNode);
+        OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
+        assetRecord.setAssetNumber("imported-id: " + onmsNode.getId());
+        assetRecord.setAdmin("supermario");
+        assetRecord.getGeolocation().setAddress1("my address");
+        assetRecord.getGeolocation().setZip("myzip");
+        m_assetRecordDao.update(assetRecord);
+        m_assetRecordDao.flush();
 
-		validProvision = new User(USERNAME, PASS, true, true, true, true,
-				new GrantedAuthority[] { ROLE_PROVISION });
-		invalidProvision = new User(USERNAME, PASS, true, true, true, true,
-				new GrantedAuthority[] { ROLE_PROVISION });
+        onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
+        onmsNode.setLabel("myNode2");
+        m_nodeDao.save(onmsNode);
+        assetRecord = onmsNode.getAssetRecord();
+        assetRecord.setAssetNumber("imported-id: 23");
+        assetRecord.setAdmin("mediummario");
+        assetRecord.getGeolocation().setAddress1("youraddress");
+        assetRecord.getGeolocation().setZip("yourzip");
+        m_assetRecordDao.update(assetRecord);
+        m_assetRecordDao.flush();
 
-		validUser = new User(USERNAME, PASS, true, true, true, true,
-				new GrantedAuthority[] { ROLE_USER });
-		invalidUser = new User(USERNAME, PASS, true, true, true, true,
-				new GrantedAuthority[] { ROLE_USER });
+        AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
+        assetServiceImpl.setNodeDao(m_nodeDao);
+        assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
 
-		validPower = new User(USERNAME, PASS, true, true, true, true,
-				new GrantedAuthority[] { ROLE_ADMIN, ROLE_PROVISION });
-		invalidPower = new User(USERNAME, PASS, true, true, true, true,
-				new GrantedAuthority[] { ROLE_USER, ROLE_PROVISION });
-				*/
+        System.out.println("AssetCommand: " + assetServiceImpl.getAssetByNodeId(onmsNode.getId()).toString());
+        System.out.println("Suggestions: " + assetServiceImpl.getAssetSuggestions());
+        assertTrue("Test save or update by admin.",
+                   assetServiceImpl.getAssetByNodeId(onmsNode.getId()).getAllowModify());
+    }
 
-		m_auth = new PreAuthenticatedAuthenticationToken(validAdmin, new Object());
-		m_context.setAuthentication(m_auth);
-		SecurityContextHolder.setContext(m_context);
-		// m_securityContextService = new SpringSecurityContextService();
-	}
+    // @Test
+    // public void successAllowModifyAssetByAdmin() {
+    // AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
+    // assetServiceImpl.setNodeDao(m_nodeDao);
+    // assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
+    // m_auth = new PreAuthenticatedAuthenticationToken(
+    // validAdmin, new Object());
+    // m_context.setAuthentication(m_auth);
+    // SecurityContextHolder.setContext(m_context);
+    // m_securityContextService = new SpringSecurityContextService();
+    // assertTrue("Test save or update by admin.",
+    // assetServiceImpl.getAssetByNodeId(7).getAllowModify());
+    // }
+    //
+    // @Test
+    // public void failAllowModifyAssetByAdmin() {
+    // AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
+    // assetServiceImpl.setNodeDao(m_nodeDao);
+    // assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
+    // m_auth = new PreAuthenticatedAuthenticationToken(
+    // invalidAdmin, new Object());
+    // m_context.setAuthentication(m_auth);
+    // SecurityContextHolder.setContext(m_context);
+    // m_securityContextService = new SpringSecurityContextService();
+    // assertFalse("Test save or update by admin.",
+    // assetServiceImpl.getAssetByNodeId(7).getAllowModify());
+    // }
 
-	@After
-	public void tearDown() {
-		for (final OnmsNode node : m_nodeDao.findAll()) {
-			m_nodeDao.delete(node);
-		}
-		m_nodeDao.flush();
-	}
+    @Test
+    public void testSaveOrUpdate() {
+        OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
+        onmsNode.setLabel("myNode");
+        m_nodeDao.save(onmsNode);
+        OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
+        assetRecord.setAssetNumber("imported-id: " + onmsNode.getId());
+        assetRecord.setAdmin("supermario");
+        assetRecord.setLastModifiedDate(new Date());
+        assetRecord.getGeolocation().setAddress1("220 Chatham Business Drive");
+        assetRecord.getGeolocation().setCity("Pittsboro");
+        assetRecord.getGeolocation().setState("NC");
+        assetRecord.getGeolocation().setZip("27312");
+        assetRecord.getGeolocation().setCountry("US");
+        assetRecord.getGeolocation().setLatitude(35.717582f);
+        assetRecord.getGeolocation().setLongitude(-79.161800f);
+        m_assetRecordDao.update(assetRecord);
+        m_assetRecordDao.flush();
 
-	@Test
-	public void testCreateAndGets() {
-		OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
-		onmsNode.setLabel("myNode");
-		m_nodeDao.save(onmsNode);
-		OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
-		assetRecord.setAssetNumber("imported-id: 7");
-		m_assetRecordDao.update(assetRecord);
-		m_assetRecordDao.flush();
+        AssetCommand assetCommand = new AssetCommand();
+        BeanUtils.copyProperties(assetRecord, assetCommand);
 
-		// Test findAll method
-		Collection<OnmsAssetRecord> assetRecords = m_assetRecordDao.findAll();
-		assertEquals(7, assetRecords.size());
+        System.out.println("AssetCommand (Source): " + assetCommand);
+        System.out.println("Asset to Save (Target): " + assetRecord);
 
-		// Test countAll method
-		assertEquals(7, m_assetRecordDao.countAll());
-	}
+        AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
+        assetServiceImpl.setNodeDao(m_nodeDao);
+        assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
+        System.out.println();
+        assertTrue(assetServiceImpl.saveOrUpdateAssetByNodeId(onmsNode.getId(), assetCommand));
 
-	@Test
-	public void testAssetServiceImpl() {
-		OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
-		onmsNode.setLabel("myNode");
-		m_nodeDao.save(onmsNode);
-		OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
-		assetRecord.setAssetNumber("imported-id: " + onmsNode.getId());
-		assetRecord.setAdmin("supermario");
-		assetRecord.getGeolocation().setAddress1("my address");
-		assetRecord.getGeolocation().setZip("myzip");
-		m_assetRecordDao.update(assetRecord);
-		m_assetRecordDao.flush();
+        OnmsAssetRecord updated = m_assetRecordDao.get(assetRecord.getId());
+        assertEquals(assetRecord.getGeolocation().getAddress1(), updated.getGeolocation().getAddress1());
+        assertEquals(assetRecord.getGeolocation().getState(), updated.getGeolocation().getState());
+        assertEquals(assetRecord.getGeolocation().getCity(), updated.getGeolocation().getCity());
+        assertEquals(assetRecord.getGeolocation().getZip(), updated.getGeolocation().getZip());
+        assertEquals(assetRecord.getGeolocation().getCountry(), updated.getGeolocation().getCountry());
+        assertEquals(assetRecord.getGeolocation().getLongitude(), updated.getGeolocation().getLongitude());
+        assertEquals(assetRecord.getGeolocation().getLatitude(), updated.getGeolocation().getLatitude());
+    }
 
-		onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
-		onmsNode.setLabel("myNode2");
-		m_nodeDao.save(onmsNode);
-		assetRecord = onmsNode.getAssetRecord();
-		assetRecord.setAssetNumber("imported-id: 23");
-		assetRecord.setAdmin("mediummario");
-                assetRecord.getGeolocation().setAddress1("youraddress");
-		assetRecord.getGeolocation().setZip("yourzip");
-		m_assetRecordDao.update(assetRecord);
-		m_assetRecordDao.flush();
+    @Test
+    public void testAssetSuggestion() {
+        OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
+        onmsNode.setLabel("your Node");
+        onmsNode.setSysObjectId("mySysOid");
+        m_nodeDao.save(onmsNode);
+        OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
+        assetRecord.setAssetNumber("imported-id: 666");
+        assetRecord.setAdmin("medium mario");
+        assetRecord.setLastModifiedDate(new Date());
+        assetRecord.getGeolocation().setZip("his zip");
+        m_assetRecordDao.update(assetRecord);
+        m_assetRecordDao.flush();
 
-		AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
-		assetServiceImpl.setNodeDao(m_nodeDao);
-		assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
+        onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
+        onmsNode.setLabel("his Node");
+        m_nodeDao.save(onmsNode);
+        assetRecord = onmsNode.getAssetRecord();
+        assetRecord.setAssetNumber("imported-id: 999");
+        assetRecord.setAdmin("super mario");
+        assetRecord.setLastModifiedDate(new Date());
+        assetRecord.getGeolocation().setZip("your zip");
+        m_assetRecordDao.update(assetRecord);
+        m_assetRecordDao.flush();
 
-		System.out.println("AssetCommand: "
-				+ assetServiceImpl.getAssetByNodeId(onmsNode.getId()).toString());
-		System.out.println("Suggestions: "
-				+ assetServiceImpl.getAssetSuggestions());
-		assertTrue("Test save or update by admin.", assetServiceImpl.getAssetByNodeId(onmsNode.getId()).getAllowModify());
-	}
-
-//	@Test
-//	public void successAllowModifyAssetByAdmin() {
-//		AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
-//		assetServiceImpl.setNodeDao(m_nodeDao);
-//		assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
-//		m_auth = new PreAuthenticatedAuthenticationToken(
-//				validAdmin, new Object());
-//		m_context.setAuthentication(m_auth);
-//		SecurityContextHolder.setContext(m_context);
-//		m_securityContextService = new SpringSecurityContextService();
-//		assertTrue("Test save or update by admin.", assetServiceImpl.getAssetByNodeId(7).getAllowModify());
-//	}
-//
-//	@Test
-//	public void failAllowModifyAssetByAdmin() {
-//		AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
-//		assetServiceImpl.setNodeDao(m_nodeDao);
-//		assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
-//		m_auth = new PreAuthenticatedAuthenticationToken(
-//				invalidAdmin, new Object());
-//		m_context.setAuthentication(m_auth);
-//		SecurityContextHolder.setContext(m_context);
-//		m_securityContextService = new SpringSecurityContextService();
-//		assertFalse("Test save or update by admin.", assetServiceImpl.getAssetByNodeId(7).getAllowModify());
-//	}
-
-
-	@Test
-	public void testSaveOrUpdate() {
-		OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
-		onmsNode.setLabel("myNode");
-		m_nodeDao.save(onmsNode);
-		OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
-		assetRecord.setAssetNumber("imported-id: " + onmsNode.getId());
-		assetRecord.setAdmin("supermario");
-		assetRecord.setLastModifiedDate(new Date());
-		assetRecord.getGeolocation().setAddress1("220 Chatham Business Drive");
-                assetRecord.getGeolocation().setCity("Pittsboro");
-                assetRecord.getGeolocation().setState("NC");
-                assetRecord.getGeolocation().setZip("27312");
-                assetRecord.getGeolocation().setCountry("US");
-                assetRecord.getGeolocation().setLatitude(35.717582f);
-                assetRecord.getGeolocation().setLongitude(-79.161800f);
-		m_assetRecordDao.update(assetRecord);
-		m_assetRecordDao.flush();
-
-		AssetCommand assetCommand = new AssetCommand();
-		BeanUtils.copyProperties(assetRecord, assetCommand);
-
-		System.out.println("AssetCommand (Source): " + assetCommand);
-		System.out.println("Asset to Save (Target): " + assetRecord);
-
-		AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
-		assetServiceImpl.setNodeDao(m_nodeDao);
-		assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
-		System.out.println();
-		assertTrue(assetServiceImpl.saveOrUpdateAssetByNodeId(onmsNode.getId(), assetCommand));
-
-		OnmsAssetRecord updated = m_assetRecordDao.get(assetRecord.getId());
-		assertEquals(assetRecord.getGeolocation().getAddress1(), updated.getGeolocation().getAddress1());
-                assertEquals(assetRecord.getGeolocation().getState(), updated.getGeolocation().getState());
-                assertEquals(assetRecord.getGeolocation().getCity(), updated.getGeolocation().getCity());
-                assertEquals(assetRecord.getGeolocation().getZip(), updated.getGeolocation().getZip());
-                assertEquals(assetRecord.getGeolocation().getCountry(), updated.getGeolocation().getCountry());
-                assertEquals(assetRecord.getGeolocation().getLongitude(), updated.getGeolocation().getLongitude());
-                assertEquals(assetRecord.getGeolocation().getLatitude(), updated.getGeolocation().getLatitude());
-	}
-
-	@Test
-	public void testAssetSuggestion() {
-		OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
-		onmsNode.setLabel("your Node");
-		onmsNode.setSysObjectId("mySysOid");
-		m_nodeDao.save(onmsNode);
-		OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
-		assetRecord.setAssetNumber("imported-id: 666");
-		assetRecord.setAdmin("medium mario");
-		assetRecord.setLastModifiedDate(new Date());
-		assetRecord.getGeolocation().setZip("his zip");
-		m_assetRecordDao.update(assetRecord);
-		m_assetRecordDao.flush();
-
-		onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
-		onmsNode.setLabel("his Node");
-		m_nodeDao.save(onmsNode);
-		assetRecord = onmsNode.getAssetRecord();
-		assetRecord.setAssetNumber("imported-id: 999");
-		assetRecord.setAdmin("super mario");
-		assetRecord.setLastModifiedDate(new Date());
-		assetRecord.getGeolocation().setZip("your zip");
-		m_assetRecordDao.update(assetRecord);
-		m_assetRecordDao.flush();
-
-		AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
-		assetServiceImpl.setNodeDao(m_nodeDao);
-		assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
-		System.out.println("Asset: " + assetServiceImpl.getAssetByNodeId(onmsNode.getId()));
-	}
+        AssetServiceImpl assetServiceImpl = new AssetServiceImpl();
+        assetServiceImpl.setNodeDao(m_nodeDao);
+        assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
+        System.out.println("Asset: " + assetServiceImpl.getAssetByNodeId(onmsNode.getId()));
+    }
 }

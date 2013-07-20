@@ -50,14 +50,18 @@ import com.sun.jna.Platform;
  */
 public class V6Pinger extends AbstractPinger<Inet6Address> {
 
-
-	private static final Logger LOG = LoggerFactory.getLogger(V6Pinger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(V6Pinger.class);
 
     public V6Pinger(final int pingerId) throws Exception {
-        super(pingerId, NativeDatagramSocket.create(NativeDatagramSocket.PF_INET6, Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM : NativeDatagramSocket.SOCK_RAW, NativeDatagramSocket.IPPROTO_ICMPV6));
+        super(pingerId, NativeDatagramSocket.create(NativeDatagramSocket.PF_INET6,
+                                                    Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM
+                                                        : NativeDatagramSocket.SOCK_RAW,
+                                                    NativeDatagramSocket.IPPROTO_ICMPV6));
 
-        // Windows requires at least one packet sent before a receive call can be made without error
-        // so we send a packet here to make sure...  This one should not match the normal ping requests
+        // Windows requires at least one packet sent before a receive call can
+        // be made without error
+        // so we send a packet here to make sure... This one should not match
+        // the normal ping requests
         // since it does not contain the cookie so it won't interface.
         if (Platform.isWindows()) {
             final ICMPv6EchoPacket packet = new ICMPv6EchoPacket(64);
@@ -69,14 +73,11 @@ public class V6Pinger extends AbstractPinger<Inet6Address> {
         }
     }
 
-
-
-//    @Override
-//    public void start() {
-//        throw new UnsupportedOperationException("Put socket initialization here rather than the constructor");
-//    }
-
-
+    // @Override
+    // public void start() {
+    // throw new
+    // UnsupportedOperationException("Put socket initialization here rather than the constructor");
+    // }
 
     @Override
     public void run() {
@@ -89,13 +90,14 @@ public class V6Pinger extends AbstractPinger<Inet6Address> {
                 final long received = System.nanoTime();
 
                 final ICMPv6Packet icmpPacket = new ICMPv6Packet(getIPPayload(datagram));
-                final V6PingReply echoReply = icmpPacket.getType() == Type.EchoReply ? new V6PingReply(icmpPacket, received) : null;
+                final V6PingReply echoReply = icmpPacket.getType() == Type.EchoReply ? new V6PingReply(icmpPacket,
+                                                                                                       received) : null;
 
                 if (echoReply != null && echoReply.getIdentifier() == pingerId && echoReply.isValid()) {
                     notifyPingListeners(datagram.getAddress(), echoReply);
                 }
             }
-        } catch(final Throwable t) {
+        } catch (final Throwable t) {
             setThrowable(t);
             LOG.debug("Error caught while processing ping packets: {}", t.getMessage(), t);
         }
@@ -106,10 +108,11 @@ public class V6Pinger extends AbstractPinger<Inet6Address> {
     }
 
     @Override
-    public void ping(final Inet6Address addr, final int identifier, final int sequenceNumber, final long threadId, final long count, final long interval, final int packetSize) throws InterruptedException {
+    public void ping(final Inet6Address addr, final int identifier, final int sequenceNumber, final long threadId,
+            final long count, final long interval, final int packetSize) throws InterruptedException {
         final NativeDatagramSocket socket = getPingSocket();
-        for(int i = sequenceNumber; i < sequenceNumber + count; i++) {
-            final V6PingRequest request = new V6PingRequest(identifier, i, threadId,packetSize);
+        for (int i = sequenceNumber; i < sequenceNumber + count; i++) {
+            final V6PingRequest request = new V6PingRequest(identifier, i, threadId, packetSize);
             request.send(socket, addr);
             Thread.sleep(interval);
         }

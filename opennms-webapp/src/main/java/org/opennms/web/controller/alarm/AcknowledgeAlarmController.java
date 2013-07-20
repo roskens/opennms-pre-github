@@ -59,27 +59,36 @@ public class AcknowledgeAlarmController extends AbstractController implements In
     private String m_redirectView;
 
     /**
-     * <p>setRedirectView</p>
+     * <p>
+     * setRedirectView
+     * </p>
      *
-     * @param redirectView a {@link java.lang.String} object.
+     * @param redirectView
+     *            a {@link java.lang.String} object.
      */
     public final void setRedirectView(final String redirectView) {
         m_redirectView = redirectView;
     }
 
     /**
-     * <p>setWebAlarmRepository</p>
+     * <p>
+     * setWebAlarmRepository
+     * </p>
      *
-     * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
+     * @param webAlarmRepository
+     *            a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
      */
     public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -88,13 +97,13 @@ public class AcknowledgeAlarmController extends AbstractController implements In
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Acknowledge the alarms specified in the POST and then redirect the client
+     * {@inheritDoc} Acknowledge the alarms specified in the POST and then
+     * redirect the client
      * to an appropriate URL for display.
      */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
 
         // required parameter
         String[] alarmIdStrings = request.getParameterValues("alarm");
@@ -107,7 +116,6 @@ public class AcknowledgeAlarmController extends AbstractController implements In
         if (action == null) {
             throw new MissingParameterException("actionCode", new String[] { "alarm", "actionCode" });
         }
-
 
         // convert the alarm id strings to ints
         int[] alarmIds = new int[alarmIdStrings.length];
@@ -123,20 +131,18 @@ public class AcknowledgeAlarmController extends AbstractController implements In
             throw new ServletException("Unknown acknowledge action: " + action);
         }
 
-
-
         String redirectParms = request.getParameter("redirectParms");
         String redirect = request.getParameter("redirect");
         String viewName;
         if (redirect != null) {
             viewName = redirect;
         } else {
-            viewName = (redirectParms == null || redirectParms=="" || redirectParms=="null" ? m_redirectView : m_redirectView + "?" + redirectParms);
+            viewName = (redirectParms == null || redirectParms == "" || redirectParms == "null" ? m_redirectView
+                : m_redirectView + "?" + redirectParms);
         }
         RedirectView view = new RedirectView(viewName, true);
         return new ModelAndView(view);
 
     }
-
 
 }

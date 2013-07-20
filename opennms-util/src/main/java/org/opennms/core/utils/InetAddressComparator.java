@@ -34,12 +34,15 @@ import java.net.InetAddress;
 import java.util.Comparator;
 
 /**
- * <p>This comparator will sort {@link InetAddress} instances in the following order:</p>
- *
+ * <p>
+ * This comparator will sort {@link InetAddress} instances in the following
+ * order:
+ * </p>
  * <ul>
  * <li><code>Inet4Address</code> instances</li>
  * <li><code>Inet6Address</code> instances that are routable with scopeId == 0</li>
- * <li><code>Inet6Address</code> instances that are link-local ordered by scopeId</li>
+ * <li><code>Inet6Address</code> instances that are link-local ordered by
+ * scopeId</li>
  * </ul>
  */
 public class InetAddressComparator implements Comparator<InetAddress> {
@@ -68,12 +71,13 @@ public class InetAddressComparator implements Comparator<InetAddress> {
                         return 1;
                     } else {
                         // Two Inet6Address instances
-                        int scopeComparison = Integer.valueOf(((Inet6Address)addr1).getScopeId()).compareTo(((Inet6Address)addr2).getScopeId());
+                        int scopeComparison = Integer.valueOf(((Inet6Address) addr1).getScopeId()).compareTo(((Inet6Address) addr2).getScopeId());
                         if (scopeComparison == 0) {
-                            // If the scope IDs are identical, then compare the addresses
+                            // If the scope IDs are identical, then compare the
+                            // addresses
                             return new ByteArrayComparator().compare(addr1.getAddress(), addr2.getAddress());
                         } else {
-                           return scopeComparison;
+                            return scopeComparison;
                         }
                     }
                 }

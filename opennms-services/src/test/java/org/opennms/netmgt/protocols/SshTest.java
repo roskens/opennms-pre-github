@@ -40,23 +40,27 @@ import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.protocols.ssh.Ssh;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:ranger@opennms.org">Ben Reed</a>
  */
 public class SshTest extends TestCase {
     InetAddress good;
+
     private static final InetAddress bad = InetAddressUtils.UNPINGABLE_ADDRESS;
 
     private static final String GOOD_HOST = "localhost";
+
     private static final int PORT = 22;
+
     private static final int TIMEOUT = 2000;
+
     private TimeoutTracker tt;
+
     Ssh ssh;
 
     @Override
     public void setUp() throws Exception {
-        Map<String, String> parameters = new HashMap<String,String>();
+        Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("retries", "0");
         parameters.put("port", "22");
         parameters.put("timeout", Integer.toString(TIMEOUT));

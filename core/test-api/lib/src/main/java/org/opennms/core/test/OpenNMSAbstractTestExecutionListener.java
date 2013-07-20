@@ -37,14 +37,16 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.support.AbstractTestExecutionListener;
 
 /**
- * <p>OpenNMSAbstractTestExecutionListener class.</p>
+ * <p>
+ * OpenNMSAbstractTestExecutionListener class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class OpenNMSAbstractTestExecutionListener extends AbstractTestExecutionListener {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OpenNMSAbstractTestExecutionListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OpenNMSAbstractTestExecutionListener.class);
 
     /** {@inheritDoc} */
     @Override
@@ -61,11 +63,16 @@ public class OpenNMSAbstractTestExecutionListener extends AbstractTestExecutionL
     }
 
     /**
-     * <p>findTestAnnotation</p>
+     * <p>
+     * findTestAnnotation
+     * </p>
      *
-     * @param clazz a {@link java.lang.Class} object.
-     * @param testContext a {@link org.springframework.test.context.TestContext} object.
-     * @param <T> a T object.
+     * @param clazz
+     *            a {@link java.lang.Class} object.
+     * @param testContext
+     *            a {@link org.springframework.test.context.TestContext} object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
     protected <T extends Annotation> T findTestAnnotation(final Class<T> clazz, final TestContext testContext) {

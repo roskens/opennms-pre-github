@@ -76,15 +76,11 @@ public class Attrib implements java.io.Serializable {
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
+    public boolean equals(final java.lang.Object obj) {
         if (obj instanceof Attrib) {
             Attrib other = (Attrib) obj;
-            return new EqualsBuilder()
-                    .append(getName(), other.getName())
-                    .append(getAlias(), other.getAlias())
-                    .append(getType(), other.getType())
-                    .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getAlias(), other.getAlias()).append(getType(),
+                                                                                                                      other.getType()).isEquals();
         }
         return false;
     }
@@ -94,8 +90,7 @@ public class Attrib implements java.io.Serializable {
      *
      * @return the value of field 'Alias'.
      */
-    public java.lang.String getAlias(
-    ) {
+    public java.lang.String getAlias() {
         return this._alias == null ? "" : this._alias;
     }
 
@@ -104,8 +99,7 @@ public class Attrib implements java.io.Serializable {
      *
      * @return the value of field 'Name'.
      */
-    public java.lang.String getName(
-    ) {
+    public java.lang.String getName() {
         return this._name == null ? "" : this._name;
     }
 
@@ -114,38 +108,37 @@ public class Attrib implements java.io.Serializable {
      *
      * @return the value of field 'Type'.
      */
-    public java.lang.String getType(
-    ) {
+    public java.lang.String getType() {
         return this._type == null ? "" : this._type;
     }
 
     /**
      * Sets the value of field 'alias'.
      *
-     * @param alias the value of field 'alias'.
+     * @param alias
+     *            the value of field 'alias'.
      */
-    public void setAlias(
-            final java.lang.String alias) {
+    public void setAlias(final java.lang.String alias) {
         this._alias = alias;
     }
 
     /**
      * Sets the value of field 'name'.
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
-    public void setName(
-            final java.lang.String name) {
+    public void setName(final java.lang.String name) {
         this._name = name;
     }
 
     /**
      * Sets the value of field 'type'.
      *
-     * @param type the value of field 'type'.
+     * @param type
+     *            the value of field 'type'.
      */
-    public void setType(
-            final java.lang.String type) {
+    public void setType(final java.lang.String type) {
         this._type = type;
     }
 }

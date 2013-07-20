@@ -33,40 +33,33 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import javax.xml.bind.annotation.XmlRegistry;
-
 
 /**
  * This object contains factory methods for each
  * Java content interface and Java element interface
  * generated in the org.opennms.xmlns.xsd.event package.
- * <p>An ObjectFactory allows you to programmatically
- * construct new instances of the Java representation
- * for XML content. The Java representation of XML
- * content can consist of schema derived interfaces
- * and classes representing the binding of schema
- * type definitions, element declarations and model
- * groups.  Factory methods for each of these are
- * provided in this class.
- *
+ * <p>
+ * An ObjectFactory allows you to programmatically construct new instances of
+ * the Java representation for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces and classes representing the
+ * binding of schema type definitions, element declarations and model groups.
+ * Factory methods for each of these are provided in this class.
  */
 @XmlRegistry
 public class ObjectFactory {
 
-
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.opennms.xmlns.xsd.event
-     *
+     * Create a new ObjectFactory that can be used to create new instances of
+     * schema derived classes for package: org.opennms.xmlns.xsd.event
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link Maskelement }
-     *
      */
     public Maskelement createMaskelement() {
         return new Maskelement();
@@ -74,7 +67,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Autoaction }
-     *
      */
     public Autoaction createAutoaction() {
         return new Autoaction();
@@ -82,7 +74,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Header }
-     *
      */
     public Header createHeader() {
         return new Header();
@@ -90,7 +81,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Tticket }
-     *
      */
     public Tticket createTticket() {
         return new Tticket();
@@ -98,7 +88,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Logmsg }
-     *
      */
     public Logmsg createLogmsg() {
         return new Logmsg();
@@ -106,7 +95,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Parm }
-     *
      */
     public Parm createParm() {
         return new Parm();
@@ -114,7 +102,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Script }
-     *
      */
     public Script createScript() {
         return new Script();
@@ -122,7 +109,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Correlation }
-     *
      */
     public Correlation createCorrelation() {
         return new Correlation();
@@ -130,7 +116,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Parms }
-     *
      */
     public Parms createParms() {
         return new Parms();
@@ -138,7 +123,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Forward }
-     *
      */
     public Forward createForward() {
         return new Forward();
@@ -146,7 +130,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Autoacknowledge }
-     *
      */
     public Autoacknowledge createAutoacknowledge() {
         return new Autoacknowledge();
@@ -154,7 +137,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AlarmData }
-     *
      */
     public AlarmData createAlarmData() {
         return new AlarmData();
@@ -162,7 +144,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Log }
-     *
      */
     public Log createLog() {
         return new Log();
@@ -170,7 +151,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Events }
-     *
      */
     public Events createEvents() {
         return new Events();
@@ -178,7 +158,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Value }
-     *
      */
     public Value createValue() {
         return new Value();
@@ -186,7 +165,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Mask }
-     *
      */
     public Mask createMask() {
         return new Mask();
@@ -194,7 +172,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Snmp }
-     *
      */
     public Snmp createSnmp() {
         return new Snmp();
@@ -202,7 +179,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Operaction }
-     *
      */
     public Operaction createOperaction() {
         return new Operaction();
@@ -210,7 +186,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Event }
-     *
      */
     public Event createEvent() {
         return new Event();
@@ -218,7 +193,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EventReceipt }
-     *
      */
     public EventReceipt createEventReceipt() {
         return new EventReceipt();

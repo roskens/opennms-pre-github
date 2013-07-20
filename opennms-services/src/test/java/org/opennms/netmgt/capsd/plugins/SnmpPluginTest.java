@@ -48,8 +48,7 @@ public class SnmpPluginTest extends OpenNMSTestCase {
 
     /*
      * FIXME: Assertions are not checked
-     *
-     * Set this flag to false before checking in code.  Use this flag to
+     * Set this flag to false before checking in code. Use this flag to
      * test against a v3 compatible agent running on the localhost
      * until the MockAgent code is finished.
      */
@@ -66,7 +65,8 @@ public class SnmpPluginTest extends OpenNMSTestCase {
      */
     @Override
     protected void setUp() throws Exception {
-        assertNotNull("The org.opennms.snmp.strategyClass must be set to run this test", System.getProperty("org.opennms.snmp.strategyClass"));
+        assertNotNull("The org.opennms.snmp.strategyClass must be set to run this test",
+                      System.getProperty("org.opennms.snmp.strategyClass"));
         super.setUp();
         if (m_plugin == null) {
             m_plugin = new SnmpPlugin();
@@ -85,6 +85,7 @@ public class SnmpPluginTest extends OpenNMSTestCase {
     /**
      * This test works against a live v1/2c compatible agent until
      * the MockAgent code is completed.
+     *
      * @throws UnknownHostException
      */
     public void testIsForcedV1ProtocolSupported() throws UnknownHostException {
@@ -100,6 +101,7 @@ public class SnmpPluginTest extends OpenNMSTestCase {
     /**
      * This test works against a live v1/2c compatible agent until
      * the MockAgent code is completed.
+     *
      * @throws UnknownHostException
      */
     public void testIsExpectedValue() throws UnknownHostException {
@@ -121,7 +123,8 @@ public class SnmpPluginTest extends OpenNMSTestCase {
         }
     }
 
-    public final void testIsV3ProtocolSupported() throws ValidationException, IOException, IOException, MarshalException {
+    public final void testIsV3ProtocolSupported() throws ValidationException, IOException, IOException,
+            MarshalException {
         setVersion(SnmpAgentConfig.VERSION3);
         ByteArrayResource rsrc = new ByteArrayResource(getSnmpConfig().getBytes());
         SnmpPeerFactory.setInstance(new SnmpPeerFactory(rsrc));
@@ -131,7 +134,8 @@ public class SnmpPluginTest extends OpenNMSTestCase {
         }
     }
 
-    public final void testIsV3ForcedToV1Supported() throws ValidationException, IOException, IOException, MarshalException {
+    public final void testIsV3ForcedToV1Supported() throws ValidationException, IOException, IOException,
+            MarshalException {
         setVersion(SnmpAgentConfig.VERSION3);
         ByteArrayResource rsrc = new ByteArrayResource(getSnmpConfig().getBytes());
         SnmpPeerFactory.setInstance(new SnmpPeerFactory(rsrc));

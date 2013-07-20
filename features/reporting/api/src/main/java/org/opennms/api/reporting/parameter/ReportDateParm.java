@@ -35,7 +35,9 @@ import java.util.Date;
 import org.opennms.api.reporting.ReportMode;
 
 /**
- * <p>ReportDateParm class.</p>
+ * <p>
+ * ReportDateParm class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,21 +47,30 @@ public class ReportDateParm extends ReportParm implements Serializable {
     private static final long serialVersionUID = -8528562178984136887L;
 
     private Date m_date;
+
     private Boolean m_useAbsoluteDate;
+
     private String m_interval;
+
     private Integer m_count;
+
     private Integer m_hours;
+
     private Integer m_minutes;
 
     /**
-     * <p>Constructor for ReportDateParm.</p>
+     * <p>
+     * Constructor for ReportDateParm.
+     * </p>
      */
     public ReportDateParm() {
         super();
     }
 
     /**
-     * <p>getUseAbsoluteDate</p>
+     * <p>
+     * getUseAbsoluteDate
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -68,16 +79,21 @@ public class ReportDateParm extends ReportParm implements Serializable {
     }
 
     /**
-     * <p>setUseAbsoluteDate</p>
+     * <p>
+     * setUseAbsoluteDate
+     * </p>
      *
-     * @param useAbsoluteDate a {@link java.lang.Boolean} object.
+     * @param useAbsoluteDate
+     *            a {@link java.lang.Boolean} object.
      */
     public void setUseAbsoluteDate(Boolean useAbsoluteDate) {
         m_useAbsoluteDate = useAbsoluteDate;
     }
 
     /**
-     * <p>getInterval</p>
+     * <p>
+     * getInterval
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,16 +102,21 @@ public class ReportDateParm extends ReportParm implements Serializable {
     }
 
     /**
-     * <p>setInterval</p>
+     * <p>
+     * setInterval
+     * </p>
      *
-     * @param interval a {@link java.lang.String} object.
+     * @param interval
+     *            a {@link java.lang.String} object.
      */
     public void setInterval(String interval) {
         m_interval = interval;
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -104,26 +125,35 @@ public class ReportDateParm extends ReportParm implements Serializable {
     }
 
     /**
-     * <p>setCount</p>
+     * <p>
+     * setCount
+     * </p>
      *
-     * @param count a {@link java.lang.Integer} object.
+     * @param count
+     *            a {@link java.lang.Integer} object.
      */
     public void setCount(Integer count) {
         m_count = count;
     }
 
     /**
-     * <p>getDate</p>
+     * <p>
+     * getDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     public Date getDate() {
         return m_date;
     }
+
     /**
-     * <p>setDate</p>
+     * <p>
+     * setDate
+     * </p>
      *
-     * @param date a {@link java.util.Date} object.
+     * @param date
+     *            a {@link java.util.Date} object.
      */
     public void setDate(Date date) {
         m_date = date;
@@ -156,13 +186,15 @@ public class ReportDateParm extends ReportParm implements Serializable {
         } else {
             cal.set(Calendar.MINUTE, 0);
         }
-        cal.set(Calendar.SECOND,0);
-        cal.set(Calendar.MILLISECOND,0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
         return cal.getTime();
     }
 
     /**
-     * <p>getHours</p>
+     * <p>
+     * getHours
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -171,16 +203,21 @@ public class ReportDateParm extends ReportParm implements Serializable {
     }
 
     /**
-     * <p>setHours</p>
+     * <p>
+     * setHours
+     * </p>
      *
-     * @param hour a {@link java.lang.Integer} object.
+     * @param hour
+     *            a {@link java.lang.Integer} object.
      */
     public void setHours(Integer hour) {
         m_hours = hour;
     }
 
     /**
-     * <p>getMinutes</p>
+     * <p>
+     * getMinutes
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -189,9 +226,12 @@ public class ReportDateParm extends ReportParm implements Serializable {
     }
 
     /**
-     * <p>setMinutes</p>
+     * <p>
+     * setMinutes
+     * </p>
      *
-     * @param minute a {@link java.lang.Integer} object.
+     * @param minute
+     *            a {@link java.lang.Integer} object.
      */
     public void setMinutes(Integer minute) {
         m_minutes = minute;

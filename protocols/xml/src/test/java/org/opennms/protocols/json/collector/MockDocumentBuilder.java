@@ -48,7 +48,8 @@ public class MockDocumentBuilder {
     /**
      * Instantiates a new mock document builder.
      */
-    private MockDocumentBuilder() {}
+    private MockDocumentBuilder() {
+    }
 
     /**
      * Gets the JSON document.
@@ -68,7 +69,7 @@ public class MockDocumentBuilder {
         } catch (Exception e) {
         } finally {
             if (inputStream != null)
-            IOUtils.closeQuietly(inputStream);
+                IOUtils.closeQuietly(inputStream);
         }
 
         return json;
@@ -77,10 +78,10 @@ public class MockDocumentBuilder {
     /**
      * Sets the XML file name.
      *
-     * @param xmlFileName the new XML file name
+     * @param xmlFileName
+     *            the new XML file name
      */
     public static void setJSONFileName(String jsonFileName) {
         m_jsonFileName = jsonFileName;
     }
 }
-

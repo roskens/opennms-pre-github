@@ -41,8 +41,11 @@ import org.opennms.netmgt.config.UserManager;
 public class MockUserManager extends UserManager {
 
     String m_xmlString;
+
     boolean updateNeeded = true;
+
     private long m_lastModified;
+
     private long m_fileSize;
 
     public MockUserManager(GroupManager groupManager, String xmlString) throws MarshalException, ValidationException {

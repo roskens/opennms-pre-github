@@ -31,8 +31,10 @@ package org.opennms.netmgt.ackd.readers;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * This class uses the JavaMail API to connect to a mail store and retrieve messages, using
- * the configured host and user details, and detects replies to notifications that have
+ * This class uses the JavaMail API to connect to a mail store and retrieve
+ * messages, using
+ * the configured host and user details, and detects replies to notifications
+ * that have
  * an acknowledgment action: acknowledge, unacknowledge, clear, escalate.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -41,7 +43,9 @@ import org.springframework.beans.factory.InitializingBean;
 public interface AckProcessor extends Runnable, InitializingBean {
 
     /**
-     * <p>reloadConfigs</p>
+     * <p>
+     * reloadConfigs
+     * </p>
      */
     public void reloadConfigs();
 }

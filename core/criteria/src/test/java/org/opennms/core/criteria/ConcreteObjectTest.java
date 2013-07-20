@@ -45,27 +45,27 @@ import org.opennms.netmgt.model.OnmsOutage;
 
 public class ConcreteObjectTest {
 
-	@Test
-	public void testTypes() throws Exception {
-		final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
-		builder.distinct();
+    @Test
+    public void testTypes() throws Exception {
+        final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
+        builder.distinct();
         final Criteria crit = builder.toCriteria();
 
-		assertEquals(OnmsNode.class, crit.getType("node"));
-		assertEquals(Integer.class, crit.getType("node.id"));
-		assertEquals(String.class, crit.getType("node.label"));
-		assertNull(crit.getType("monkey"));
-		assertNull(crit.getType("node.label.foo"));
-		assertEquals(OnmsIpInterface.class, crit.getType("node.ipInterfaces"));
-		assertEquals(Map.class, crit.getType("details"));
-	}
+        assertEquals(OnmsNode.class, crit.getType("node"));
+        assertEquals(Integer.class, crit.getType("node.id"));
+        assertEquals(String.class, crit.getType("node.label"));
+        assertNull(crit.getType("monkey"));
+        assertNull(crit.getType("node.label.foo"));
+        assertEquals(OnmsIpInterface.class, crit.getType("node.ipInterfaces"));
+        assertEquals(Map.class, crit.getType("details"));
+    }
 
-	@Test
-	public void testAliases() throws Exception {
-		final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
-		builder.distinct();
+    @Test
+    public void testAliases() throws Exception {
+        final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
+        builder.distinct();
 
-		builder.fetch("firstEvent", FetchType.EAGER);
+        builder.fetch("firstEvent", FetchType.EAGER);
         builder.fetch("lastEvent", FetchType.EAGER);
 
         builder.alias("node", "node", JoinType.LEFT_JOIN);
@@ -77,22 +77,22 @@ public class ConcreteObjectTest {
 
         final Criteria crit = builder.toCriteria();
 
-		assertEquals(OnmsIpInterface.class, crit.getType("ipInterface"));
-		assertEquals(OnmsMonitoredService.class, crit.getType("monitoredService"));
-		assertEquals(OnmsOutage.class, crit.getType("currentOutage"));
-		assertEquals(OnmsMonitoredService.class, crit.getType("service"));
-	}
+        assertEquals(OnmsIpInterface.class, crit.getType("ipInterface"));
+        assertEquals(OnmsMonitoredService.class, crit.getType("monitoredService"));
+        assertEquals(OnmsOutage.class, crit.getType("currentOutage"));
+        assertEquals(OnmsMonitoredService.class, crit.getType("service"));
+    }
 
-	@Test
-	public void testNode() throws Exception {
-	    final CriteriaBuilder builder = new CriteriaBuilder(OnmsNode.class);
-	    builder.distinct();
+    @Test
+    public void testNode() throws Exception {
+        final CriteriaBuilder builder = new CriteriaBuilder(OnmsNode.class);
+        builder.distinct();
 
         builder.alias("snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);
-	    builder.alias("ipInterfaces", "ipInterface", JoinType.LEFT_JOIN);
+        builder.alias("ipInterfaces", "ipInterface", JoinType.LEFT_JOIN);
 
-	    final Criteria crit = builder.toCriteria();
+        final Criteria crit = builder.toCriteria();
 
-	    assertEquals(InetAddress.class, crit.getType("ipInterface.ipAddress"));
-	}
+        assertEquals(InetAddress.class, crit.getType("ipInterface.ipAddress"));
+    }
 }

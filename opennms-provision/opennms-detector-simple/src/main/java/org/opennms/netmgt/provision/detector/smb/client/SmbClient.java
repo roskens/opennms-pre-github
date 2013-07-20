@@ -39,18 +39,23 @@ import org.opennms.netmgt.provision.detector.smb.response.NbtAddressResponse;
 import org.opennms.netmgt.provision.support.Client;
 
 /**
- * <p>SmbClient class.</p>
+ * <p>
+ * SmbClient class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
  */
-public class SmbClient implements Client<LineOrientedRequest, NbtAddressResponse>{
+public class SmbClient implements Client<LineOrientedRequest, NbtAddressResponse> {
 
     private NbtAddress m_nbtAddress;
+
     private String m_address;
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {
@@ -61,15 +66,20 @@ public class SmbClient implements Client<LineOrientedRequest, NbtAddressResponse
     /** {@inheritDoc} */
     @Override
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
-       m_address = InetAddressUtils.str(address);
-       m_nbtAddress = NbtAddress.getByName(m_address);
+        m_address = InetAddressUtils.str(address);
+        m_nbtAddress = NbtAddress.getByName(m_address);
     }
 
     /**
-     * <p>receiveBanner</p>
+     * <p>
+     * receiveBanner
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.detector.smb.response.NbtAddressResponse} object.
-     * @throws java.io.IOException if any.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.smb.response.NbtAddressResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
      */
     @Override
     public NbtAddressResponse receiveBanner() throws IOException {
@@ -77,12 +87,21 @@ public class SmbClient implements Client<LineOrientedRequest, NbtAddressResponse
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.smb.response.NbtAddressResponse} object.
-     * @throws java.io.IOException if any.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.smb.response.NbtAddressResponse}
+     *         object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public NbtAddressResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {

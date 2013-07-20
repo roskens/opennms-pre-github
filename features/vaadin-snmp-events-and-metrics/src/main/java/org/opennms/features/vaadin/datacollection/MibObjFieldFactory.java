@@ -55,7 +55,8 @@ public class MibObjFieldFactory implements TableFieldFactory {
     /**
      * Instantiates a new MIB Object field factory.
      *
-     * @param resourceTypes the available resource types
+     * @param resourceTypes
+     *            the available resource types
      */
     public MibObjFieldFactory(List<String> resourceTypes) {
         this.resourceTypes = resourceTypes;
@@ -99,7 +100,9 @@ public class MibObjFieldFactory implements TableFieldFactory {
             field.setSizeFull();
             field.setRequired(true);
             field.setImmediate(true);
-            field.addValidator(new StringLengthValidator("Invalid alias. It should not contain more than 19 characters.", 1, 19, false));
+            field.addValidator(new StringLengthValidator(
+                                                         "Invalid alias. It should not contain more than 19 characters.",
+                                                         1, 19, false));
             return new ProxyField<String>(field);
         }
         if (propertyId.equals("type")) {
@@ -107,8 +110,12 @@ public class MibObjFieldFactory implements TableFieldFactory {
             field.setSizeFull();
             field.setRequired(true);
             field.setImmediate(true);
-            field.addValidator(new RegexpValidator("^(?i)(counter|gauge|timeticks|integer|octetstring|string)?\\d*$", // Based on NumericAttributeType and StringAttributeType
-                    "Invalid type {0}. Valid types are: counter, gauge, timeticks, integer, octetstring, string"));
+            field.addValidator(new RegexpValidator("^(?i)(counter|gauge|timeticks|integer|octetstring|string)?\\d*$", // Based
+                                                                                                                      // on
+                                                                                                                      // NumericAttributeType
+                                                                                                                      // and
+                                                                                                                      // StringAttributeType
+                                                   "Invalid type {0}. Valid types are: counter, gauge, timeticks, integer, octetstring, string"));
             return new ProxyField<String>(field);
         }
         return null;

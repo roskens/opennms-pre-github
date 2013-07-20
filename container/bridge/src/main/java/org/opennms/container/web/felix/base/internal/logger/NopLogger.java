@@ -20,13 +20,11 @@ package org.opennms.container.web.felix.base.internal.logger;
 
 import org.osgi.framework.ServiceReference;
 
-public final class NopLogger
-    extends AbstractLogger
-{
+public final class NopLogger extends AbstractLogger {
     @Override
-    @SuppressWarnings("unchecked") // Because of OSGi API
-    public void log(ServiceReference ref, int level, String message, Throwable cause)
-    {
+    @SuppressWarnings("unchecked")
+    // Because of OSGi API
+    public void log(ServiceReference ref, int level, String message, Throwable cause) {
         // Do nothing
     }
 }

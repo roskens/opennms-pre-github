@@ -33,7 +33,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * This class defines the required configuration for instantiating a {@link Dashlet}.
+ * This class defines the required configuration for instantiating a
+ * {@link Dashlet}.
  *
  * @author Christian Pape
  * @author Marcus Hellberg (marcus@vaadin.com)
@@ -45,22 +46,29 @@ public class DashletSpec {
      * The normal duration before moving to the next {@link Dashlet}
      */
     private int m_duration = 15;
+
     /**
      * The priority of the {@link Dashlet}
      */
     private int m_priority = 5;
+
     /**
-     * The boost duration is used to increment the normal duration when the {@link Dashlet} is boosted
+     * The boost duration is used to increment the normal duration when the
+     * {@link Dashlet} is boosted
      */
     private int m_boostDuration = 0;
+
     /**
-     * The boost priority is used to decrement the normal priority when the {@link Dashlet} is boosted
+     * The boost priority is used to decrement the normal priority when the
+     * {@link Dashlet} is boosted
      */
     private int m_boostPriority = 0;
+
     /**
      * The name of the associated {@link Dashlet}
      */
     private String m_dashlet = "Undefined";
+
     /**
      * A {@link Map} representing the parameters
      */
@@ -84,7 +92,8 @@ public class DashletSpec {
     /**
      * Sets the normal duration for transitions.
      *
-     * @param duration the duration to set
+     * @param duration
+     *            the duration to set
      */
     public void setDuration(int duration) {
         m_duration = duration;
@@ -102,7 +111,8 @@ public class DashletSpec {
     /**
      * Sets the boost duration value of this instance.
      *
-     * @param boostDuration the boost duration to be set
+     * @param boostDuration
+     *            the boost duration to be set
      */
     public void setBoostDuration(int boostDuration) {
         m_boostDuration = boostDuration;
@@ -120,7 +130,8 @@ public class DashletSpec {
     /**
      * Sets the priority for this instance.
      *
-     * @param priority the priority to be set
+     * @param priority
+     *            the priority to be set
      */
     public void setPriority(int priority) {
         m_priority = priority;
@@ -138,7 +149,8 @@ public class DashletSpec {
     /**
      * Sets the boost priority value.
      *
-     * @param boostPriority the boost priority value to be set
+     * @param boostPriority
+     *            the boost priority value to be set
      */
     public void setBoostPriority(int boostPriority) {
         m_boostPriority = boostPriority;
@@ -147,7 +159,8 @@ public class DashletSpec {
     /**
      * This method sets the {@link Dashlet} name.
      *
-     * @param dashletName the name to be set
+     * @param dashletName
+     *            the name to be set
      */
     public void setDashletName(String dashletName) {
         m_dashlet = dashletName;
@@ -175,7 +188,8 @@ public class DashletSpec {
     /**
      * Sets the parameter {@link Map}.
      *
-     * @param parameters the parameters to be set
+     * @param parameters
+     *            the parameters to be set
      */
     public void setParameters(Map<String, String> parameters) {
         m_parameters = parameters;

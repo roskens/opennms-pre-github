@@ -40,7 +40,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>TcpLineDecoder class.</p>
+ * <p>
+ * TcpLineDecoder class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,14 +50,18 @@ import org.slf4j.LoggerFactory;
 public class TcpLineDecoder extends CumulativeProtocolDecoder {
 
     private static final Logger LOG = LoggerFactory.getLogger(TcpLineDecoder.class);
+
     public final static String NO_MESSAGES_RECEIVED = "___OPENNMS_NO_TCP_BANNER_RECEIVED___";
 
     private Charset m_charset;
 
     /**
-     * <p>Constructor for TcpLineDecoder.</p>
+     * <p>
+     * Constructor for TcpLineDecoder.
+     * </p>
      *
-     * @param charset a {@link java.nio.charset.Charset} object.
+     * @param charset
+     *            a {@link java.nio.charset.Charset} object.
      */
     public TcpLineDecoder(final Charset charset) {
         setCharset(charset);
@@ -67,8 +73,9 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
 
     /** {@inheritDoc} */
     @Override
-    protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out) throws Exception {
-     // Remember the initial position.
+    protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out)
+            throws Exception {
+        // Remember the initial position.
         final int start = in.position();
 
         // Now find the first CRLF in the buffer.
@@ -102,7 +109,7 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
                 // buffer.
                 return true;
 
-                }
+            }
 
             previous = current;
         }
@@ -117,16 +124,19 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
     }
 
     /**
-     * <p>parseCommand</p>
+     * <p>
+     * parseCommand
+     * </p>
      *
-     * @param in a {@link org.apache.mina.core.buffer.IoBuffer} object.
+     * @param in
+     *            a {@link org.apache.mina.core.buffer.IoBuffer} object.
      * @return a {@link java.lang.Object} object.
      */
     protected Object parseCommand(final IoBuffer in) {
         String outputStr = null;
         try {
             outputStr = in.getString(getCharset().newDecoder());
-        } catch(final CharacterCodingException e) {
+        } catch (final CharacterCodingException e) {
             outputStr = convertToString(in);
         }
 
@@ -135,15 +145,17 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
 
     private String convertToString(final IoBuffer in) {
         final StringBuffer sb = new StringBuffer();
-        while(in.hasRemaining()){
+        while (in.hasRemaining()) {
             byte current = in.get();
-            sb.append((char)current);
+            sb.append((char) current);
         }
         return sb.toString();
     }
 
     /**
-     * <p>getCharset</p>
+     * <p>
+     * getCharset
+     * </p>
      *
      * @return a {@link java.nio.charset.Charset} object.
      */
@@ -153,7 +165,7 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
 
     @Override
     public void finishDecode(final IoSession session, final ProtocolDecoderOutput out) {
-        if(session.getReadMessages() == 0) {
+        if (session.getReadMessages() == 0) {
             out.write(new LineOrientedResponse(NO_MESSAGES_RECEIVED));
         }
 

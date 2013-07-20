@@ -63,6 +63,7 @@ import org.slf4j.LoggerFactory;
  */
 public class EventConfData extends Object {
     private static final Logger LOG = LoggerFactory.getLogger(EventConfData.class);
+
     /**
      * The map keyed with 'EventKey's
      */
@@ -106,12 +107,13 @@ public class EventConfData extends Object {
      * Check whether the eventvalue passes any of the mask values Mask values
      * ending with a '%' only need to be a substring of the eventvalue for the
      * eventvalue to pass the mask
-     *
      * Enhanced 2005/08/31 to allow regular expression in eventconf.
      *
      * @return true if the values passes the mask
-     * @param eventvalue a {@link java.lang.String} object.
-     * @param maskValues a {@link java.util.List} object.
+     * @param eventvalue
+     *            a {@link java.lang.String} object.
+     * @param maskValues
+     *            a {@link java.util.List} object.
      */
     protected static boolean eventValuePassesMaskValue(String eventvalue, List<String> maskValues) {
         boolean maskMatch = false;
@@ -123,7 +125,7 @@ public class EventConfData extends Object {
                 int len = keyvalue.length();
                 if (keyvalue.equals(eventvalue)) {
                     maskMatch = true;
-                } else if (keyvalue.charAt(0) == '~'){
+                } else if (keyvalue.charAt(0) == '~') {
                     if (eventvalue.matches(keyvalue.substring(1))) {
                         maskMatch = true;
                     }
@@ -239,15 +241,14 @@ public class EventConfData extends Object {
         //
         // use the eventkey and see if there is a match
         //
-	/*
-        EventKey key = new EventKey(event);
-        matchedEvent = m_eventMap.get(key);
-        if (matchedEvent != null) {
-            LOG.debug("Match found using key: {}", key);
-
-            return matchedEvent;
-        }
-        */
+        /*
+         * EventKey key = new EventKey(event);
+         * matchedEvent = m_eventMap.get(key);
+         * if (matchedEvent != null) {
+         * LOG.debug("Match found using key: {}", key);
+         * return matchedEvent;
+         * }
+         */
 
         //
         // get the UEI and see if the UEI keys get a match - this step is here
@@ -256,17 +257,17 @@ public class EventConfData extends Object {
         // through
         // the entire eventconf for each event
         //
-	/*
-        String uei = event.getUei();
-        if (uei != null) {
-            // Go through the uei to keylist map
-            List<EventKey> keylist = m_ueiToKeyListMap.get(uei);
-            if (keylist != null) {
-                // check the event keys known for this uei
-                matchedEvent = getMatchInKeyList(keylist, event);
-            }
-        }
-        */
+        /*
+         * String uei = event.getUei();
+         * if (uei != null) {
+         * // Go through the uei to keylist map
+         * List<EventKey> keylist = m_ueiToKeyListMap.get(uei);
+         * if (keylist != null) {
+         * // check the event keys known for this uei
+         * matchedEvent = getMatchInKeyList(keylist, event);
+         * }
+         * }
+         */
 
         //
         // if still no match, no option but to go through all known keys

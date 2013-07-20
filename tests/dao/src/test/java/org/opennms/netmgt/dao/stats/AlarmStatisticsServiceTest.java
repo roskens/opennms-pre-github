@@ -48,13 +48,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-mockDao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml",
-        "classpath:/applicationContext-alarmStatisticsServiceTest.xml"
-})
+        "classpath:/applicationContext-alarmStatisticsServiceTest.xml" })
 @JUnitConfigurationEnvironment
 public class AlarmStatisticsServiceTest implements InitializingBean {
     @Autowired
@@ -77,10 +74,10 @@ public class AlarmStatisticsServiceTest implements InitializingBean {
 
     @Test
     public void testCount() {
-    	final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
+        final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
 
-    	cb.fetch("firstEvent", FetchType.EAGER);
-    	cb.fetch("lastEvent", FetchType.EAGER);
+        cb.fetch("firstEvent", FetchType.EAGER);
+        cb.fetch("lastEvent", FetchType.EAGER);
 
         cb.alias("node", "node", JoinType.LEFT_JOIN);
         cb.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);
@@ -94,11 +91,11 @@ public class AlarmStatisticsServiceTest implements InitializingBean {
 
     @Test
     public void testCountBySeverity() {
-    	final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
-    	cb.ge("severity", OnmsSeverity.NORMAL);
+        final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
+        cb.ge("severity", OnmsSeverity.NORMAL);
 
-    	cb.fetch("firstEvent", FetchType.EAGER);
-    	cb.fetch("lastEvent", FetchType.EAGER);
+        cb.fetch("firstEvent", FetchType.EAGER);
+        cb.fetch("lastEvent", FetchType.EAGER);
 
         cb.alias("node", "node", JoinType.LEFT_JOIN);
         cb.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);

@@ -46,7 +46,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>NavBarController class.</p>
+ * <p>
+ * NavBarController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -56,7 +58,9 @@ public class NavBarController extends AbstractController implements Initializing
     private List<NavBarEntry> m_navBarItems;
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {
@@ -65,7 +69,8 @@ public class NavBarController extends AbstractController implements Initializing
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         return new ModelAndView("navBar", "model", createNavBarModel(request));
     }
 
@@ -80,7 +85,9 @@ public class NavBarController extends AbstractController implements Initializing
     }
 
     /**
-     * <p>getNavBarItems</p>
+     * <p>
+     * getNavBarItems
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -89,9 +96,12 @@ public class NavBarController extends AbstractController implements Initializing
     }
 
     /**
-     * <p>setNavBarItems</p>
+     * <p>
+     * setNavBarItems
+     * </p>
      *
-     * @param navBarItems a {@link java.util.List} object.
+     * @param navBarItems
+     *            a {@link java.util.List} object.
      */
     public final void setNavBarItems(final List<NavBarEntry> navBarItems) {
         m_navBarItems = navBarItems;
@@ -103,22 +113,14 @@ public class NavBarController extends AbstractController implements Initializing
     }
 
     private String createHeaderHtml(final HttpServletRequest request) {
-        return "<div id='header'>" +
-              "<h1 id='headerlogo'><a href='index.jsp'><img src=\"../images/logo.png\" alt='OpenNMS Web Console Home'></a></h1>" +
-          "<div id='headerinfo'>" +
-          "<h2>Topology Map</h2>" +
-          "<p align=\"right\" >" +
-          "User: <a href=\"/opennms/account/selfService/index.jsp\" title=\"Account self-service\"><strong>" + request.getRemoteUser() + "</strong></a>" +
-          "&nbsp;(Notices " + getNoticeStatus() + " )" +
-          " - <a href=\"opennms/j_spring_security_logout\">Log out</a><br></p>"+
-          "</div>" +
-          "<div id='headernavbarright'>" +
-          "<div class='navbar'>" +
-          createNavBarHtml(request) +
-          "</div>" +
-          "</div>" +
-          "<div class='spacer'><!-- --></div>" +
-          "</div>";
+        return "<div id='header'>"
+                + "<h1 id='headerlogo'><a href='index.jsp'><img src=\"../images/logo.png\" alt='OpenNMS Web Console Home'></a></h1>"
+                + "<div id='headerinfo'>" + "<h2>Topology Map</h2>" + "<p align=\"right\" >"
+                + "User: <a href=\"/opennms/account/selfService/index.jsp\" title=\"Account self-service\"><strong>"
+                + request.getRemoteUser() + "</strong></a>" + "&nbsp;(Notices " + getNoticeStatus() + " )"
+                + " - <a href=\"opennms/j_spring_security_logout\">Log out</a><br></p>" + "</div>"
+                + "<div id='headernavbarright'>" + "<div class='navbar'>" + createNavBarHtml(request) + "</div>"
+                + "</div>" + "<div class='spacer'><!-- --></div>" + "</div>";
     }
 
     private String getNoticeStatus() {
@@ -126,9 +128,9 @@ public class NavBarController extends AbstractController implements Initializing
         try {
             noticeStatus = NotifdConfigFactory.getPrettyStatus();
             if ("Off".equals(noticeStatus)) {
-              noticeStatus="<b id=\"notificationOff\">Off</b>";
+                noticeStatus = "<b id=\"notificationOff\">Off</b>";
             } else {
-              noticeStatus="<b id=\"notificationOn\">On</b>";
+                noticeStatus = "<b id=\"notificationOn\">On</b>";
             }
         } catch (Throwable t) {
             noticeStatus = "<b id=\"notificationOff\">Unknown</b>";
@@ -142,15 +144,15 @@ public class NavBarController extends AbstractController implements Initializing
 
         for (final NavBarEntry entry : getNavBarItems()) {
             final DisplayStatus displayStatus = entry.evaluate(request);
-            switch(displayStatus) {
-                case DISPLAY_LINK:
-                    strBuilder.append("<li><a href=\"" + entry.getUrl() +  "\" >" + entry.getName() + "</a></li>");
-                    break;
-                case DISPLAY_NO_LINK:
-                    strBuilder.append("<li>" + entry.getName() + "</li>");
-                    break;
-                default:
-                    break;
+            switch (displayStatus) {
+            case DISPLAY_LINK:
+                strBuilder.append("<li><a href=\"" + entry.getUrl() + "\" >" + entry.getName() + "</a></li>");
+                break;
+            case DISPLAY_NO_LINK:
+                strBuilder.append("<li>" + entry.getName() + "</li>");
+                break;
+            default:
+                break;
             }
         }
 

@@ -43,15 +43,20 @@ import org.opennms.protocols.jmx.connectors.Jsr160ConnectionFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 /**
- * <p>Jsr160Monitor class.</p>
+ * <p>
+ * Jsr160Monitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Jsr160Monitor extends JMXMonitor {
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.monitors.JMXMonitor#getMBeanServerConnection(java.util.Map, java.net.InetAddress)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.monitors.JMXMonitor#getMBeanServerConnection
+     * (java.util.Map, java.net.InetAddress)
      */
     /** {@inheritDoc} */
     @Override

@@ -46,7 +46,6 @@ public class ImportJob implements Job {
     /** Constant <code>KEY="url"</code> */
     protected static final String KEY = "url";
 
-
     /** {@inheritDoc} */
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -63,9 +62,13 @@ public class ImportJob implements Job {
     }
 
     /**
-     * <p>setProvisioner</p>
+     * <p>
+     * setProvisioner
+     * </p>
      *
-     * @param provisioner a {@link org.opennms.netmgt.provision.service.Provisioner} object.
+     * @param provisioner
+     *            a {@link org.opennms.netmgt.provision.service.Provisioner}
+     *            object.
      */
     public void setProvisioner(Provisioner provisioner) {
         m_provisioner = provisioner;

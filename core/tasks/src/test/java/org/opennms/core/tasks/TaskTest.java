@@ -51,7 +51,6 @@ import org.opennms.core.concurrent.LogPreservingThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * BaseTaskTest
  *
@@ -59,16 +58,16 @@ import org.slf4j.LoggerFactory;
  */
 public class TaskTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(TaskTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TaskTest.class);
 
     ExecutorService m_executor;
+
     DefaultTaskCoordinator m_coordinator;
 
     @Before
     public void setUp() {
-        m_executor = Executors.newFixedThreadPool(50,
-            new LogPreservingThreadFactory(getClass().getSimpleName(), 50, false)
-        );
+        m_executor = Executors.newFixedThreadPool(50, new LogPreservingThreadFactory(getClass().getSimpleName(), 50,
+                                                                                     false));
         m_coordinator = new DefaultTaskCoordinator("TaskTest", m_executor);
     }
 
@@ -127,7 +126,6 @@ public class TaskTest {
     @Test
     public void testTaskWithCompletedDependencies() throws Exception {
 
-
         final List<String> sequence = new Vector<String>();
 
         Task task1 = createTask(appender(sequence, "task1"));
@@ -148,14 +146,13 @@ public class TaskTest {
 
         task3.schedule();
 
-
         task3.waitFor(3500, TimeUnit.MILLISECONDS);
 
         assertArrayEquals(new String[] { "task1", "task2", "task3" }, sequence.toArray(new String[0]));
 
     }
 
-    @Test(timeout=1000)
+    @Test(timeout = 1000)
     public void testTaskThatThrowsException() throws Exception {
 
         AtomicInteger count = new AtomicInteger(0);
@@ -173,17 +170,15 @@ public class TaskTest {
 
         incrTask.addPrerequisite(throwerTask);
 
-
         incrTask.schedule();
         throwerTask.schedule();
-
 
         incrTask.waitFor(1500, TimeUnit.MILLISECONDS);
 
         assertEquals(1, count.get());
     }
 
-    @Test(timeout=1000)
+    @Test(timeout = 1000)
     public void testAsyncThatThrowsException() throws Exception {
 
         AtomicInteger count = new AtomicInteger(0);
@@ -197,23 +192,20 @@ public class TaskTest {
 
         };
 
-
         Task throwerTask = m_coordinator.createTask(null, thrower, setter(count));
         Task incrTask = m_coordinator.createTask(null, incr(count));
 
         incrTask.addPrerequisite(throwerTask);
 
-
         incrTask.schedule();
         throwerTask.schedule();
-
 
         incrTask.waitFor(1500, TimeUnit.MILLISECONDS);
 
         assertEquals(1, count.get());
     }
 
-    @Test(timeout=1000)
+    @Test(timeout = 1000)
     public void testAsync() throws Exception {
         final AtomicInteger count = new AtomicInteger(0);
 
@@ -267,7 +259,6 @@ public class TaskTest {
     @Test
     public void testSequenceWithDependencies() throws Exception {
 
-
         List<String> sequence = new Vector<String>();
 
         Task task1 = createTask(appender(sequence, "task1"));
@@ -290,7 +281,8 @@ public class TaskTest {
 
         task2.waitFor(3500, TimeUnit.MILLISECONDS);
 
-        assertArrayEquals(new String[] { "task1", "subtask1", "subtask2", "subtask3", "task2" }, sequence.toArray(new String[0]));
+        assertArrayEquals(new String[] { "task1", "subtask1", "subtask2", "subtask3", "task2" },
+                          sequence.toArray(new String[0]));
     }
 
     @Test
@@ -299,15 +291,16 @@ public class TaskTest {
         m_coordinator.setLoopDelay(1000);
 
         /**
-         * This is a test case that tests a very specific race condition.  The loopDelay is used to
+         * This is a test case that tests a very specific race condition. The
+         * loopDelay is used to
          * make the race condition work
          */
 
         // use latches so the finishing can be managed
         CountDownLatch aBlocker = new CountDownLatch(1);
         CountDownLatch bBlocker = new CountDownLatch(1);
-        CountDownLatch cBlocker = new CountDownLatch(0); // we don't care when c finishes
-
+        CountDownLatch cBlocker = new CountDownLatch(0); // we don't care when c
+                                                         // finishes
 
         // create the tasks and a simple prerequisite and schedule
         Task a = createTask(waiter("A", aBlocker));
@@ -323,18 +316,17 @@ public class TaskTest {
         // wait for the coordinator thread to process all of the above
         Thread.sleep(3500);
 
-        /* we are not trying to set up the following situation
+        /*
+         * we are not trying to set up the following situation
          * c has 1 'pendingPrereq'
-         * the coordinator threads Q has 'a.complete, b.complete, c.addPrereq(b)'
-         *
-         * In this situation then the completing tasks will not be able to submit
+         * the coordinator threads Q has 'a.complete, b.complete,
+         * c.addPrereq(b)'
+         * In this situation then the completing tasks will not be able to
+         * submit
          * 'c' because it has a pending prerequisite.
-         *
          * By the time the prerequisite is added they are all complete.
-         *
          * In this case we need to ensure the c is submitted
          */
-
 
         // Because of the loopDelay.. this following will all sit on the queue
 
@@ -348,15 +340,15 @@ public class TaskTest {
         // not we add the prerequisite
         c.addPrerequisite(b);
 
-
         c.waitFor(10000, TimeUnit.MILLISECONDS);
 
         assertTrue("Task C never completed", c.isFinished());
 
-
         /*
-         * If the queue call look this AFTER the call to c.addPrerequisite(b) increment pendingPrereqs
-         * Q: a.complete, (pendingPrereq non zero) b.complete (pendingPrereq non zero) c.prereq(b) (decrementPrereqs)  .....
+         * If the queue call look this AFTER the call to c.addPrerequisite(b)
+         * increment pendingPrereqs
+         * Q: a.complete, (pendingPrereq non zero) b.complete (pendingPrereq non
+         * zero) c.prereq(b) (decrementPrereqs) .....
          */
 
     }
@@ -370,7 +362,7 @@ public class TaskTest {
 
         SequenceTask task = createSequence();
 
-        for(long i = 1; i <= count; i++) {
+        for (long i = 1; i <= count; i++) {
             task.add(addr(result, i));
         }
 
@@ -378,7 +370,7 @@ public class TaskTest {
 
         task.waitFor();
 
-        assertEquals(count*(count+1)/2, result.get());
+        assertEquals(count * (count + 1) / 2, result.get());
 
     }
 
@@ -391,36 +383,38 @@ public class TaskTest {
 
         long count = 10;
         long loops = 1000;
-        long total=count*loops;
+        long total = count * loops;
 
         AtomicLong result = new AtomicLong(0);
 
         SequenceTask task = createSequence();
 
-        task.add(scheduler(task, result, 1, count, loops-1));
+        task.add(scheduler(task, result, 1, count, loops - 1));
 
         task.schedule();
 
         task.waitFor();
 
-        assertEquals(total*(total+1)/2, result.get());
+        assertEquals(total * (total + 1) / 2, result.get());
 
     }
 
-    public Runnable scheduler(final ContainerTask<?> container, final AtomicLong result, final long startIndex, final long count, final long remaining) {
+    public Runnable scheduler(final ContainerTask<?> container, final AtomicLong result, final long startIndex,
+            final long count, final long remaining) {
         return new Runnable() {
             @Override
             public void run() {
-                for(long i = startIndex; i < startIndex+count; i++) {
+                for (long i = startIndex; i < startIndex + count; i++) {
                     container.add(addr(result, i));
                 }
                 if (remaining != 0) {
-                    container.add(scheduler(container, result, startIndex+count, count, remaining-1));
+                    container.add(scheduler(container, result, startIndex + count, count, remaining - 1));
                 }
             }
+
             @Override
             public String toString() {
-                long batchNo = (startIndex - 1)/count + 1;
+                long batchNo = (startIndex - 1) / count + 1;
                 long totalBatches = batchNo + remaining;
                 return String.format("scheduleBatch %d of %d (batchSize = %d)", batchNo, totalBatches, count);
             }
@@ -436,7 +430,7 @@ public class TaskTest {
 
         BatchTask task = new BatchTask(m_coordinator, null);
 
-        for(long i = 1; i <= count; i++) {
+        for (long i = 1; i <= count; i++) {
             task.add(addr(result, i));
         }
 
@@ -444,7 +438,7 @@ public class TaskTest {
 
         task.waitFor();
 
-        assertEquals(count*(count+1)/2, result.get());
+        assertEquals(count * (count + 1) / 2, result.get());
 
     }
 
@@ -453,19 +447,19 @@ public class TaskTest {
 
         long count = 10;
         long loops = 1000;
-        long total=count*loops;
+        long total = count * loops;
 
         AtomicLong result = new AtomicLong(0);
 
         BatchTask task = new BatchTask(m_coordinator, null);
 
-        task.add(scheduler(task, result, 1, count, loops-1));
+        task.add(scheduler(task, result, 1, count, loops - 1));
 
         task.schedule();
 
         task.waitFor();
 
-        assertEquals(total*(total+1)/2, result.get());
+        assertEquals(total * (total + 1) / 2, result.get());
 
     }
 
@@ -475,6 +469,7 @@ public class TaskTest {
             public void run() {
                 list.add(value);
             }
+
             @Override
             public String toString() {
                 return String.format("append(%s)", value);
@@ -486,12 +481,13 @@ public class TaskTest {
         return new Runnable() {
             @Override
             public void run() {
-                //System.err.println("Incrementing!");
+                // System.err.println("Incrementing!");
                 counter.incrementAndGet();
             }
+
             @Override
             public String toString() {
-                return "increment the counter: "+counter;
+                return "increment the counter: " + counter;
             }
         };
 
@@ -499,30 +495,31 @@ public class TaskTest {
 
     private Runnable addr(final AtomicLong accum, final long n) {
         return new Runnable() {
-          @Override
-          public void run() {
-              int attempt = 0;
-              while (true) {
-                  attempt++;
-                  long origVal = accum.get();
-                  long newVal = origVal + n;
-                  if (accum.compareAndSet(origVal, newVal)) {
-                      //System.out.printf("%d: success %d: %d = %d + %d\n", n, attempt, newVal, n, origVal);
-                      return;
-                  } else {
-                      System.out.printf("%d: FAILED %d: %d = %d + %d\n", n, attempt, newVal, n, origVal);
-                  }
-              }
+            @Override
+            public void run() {
+                int attempt = 0;
+                while (true) {
+                    attempt++;
+                    long origVal = accum.get();
+                    long newVal = origVal + n;
+                    if (accum.compareAndSet(origVal, newVal)) {
+                        // System.out.printf("%d: success %d: %d = %d + %d\n",
+                        // n, attempt, newVal, n, origVal);
+                        return;
+                    } else {
+                        System.out.printf("%d: FAILED %d: %d = %d + %d\n", n, attempt, newVal, n, origVal);
+                    }
+                }
 
-          }
-          @Override
-          public String toString() {
-              return String.format("add(%d)", n);
-          }
+            }
+
+            @Override
+            public String toString() {
+                return String.format("add(%d)", n);
+            }
 
         };
     }
-
 
     private Runnable waiter(final String name, final CountDownLatch latch) {
         return new Runnable() {
@@ -531,9 +528,10 @@ public class TaskTest {
                 try {
                     latch.await();
                 } catch (InterruptedException e) {
-                	LOG.debug("interrupted waiting for task", e);
+                    LOG.debug("interrupted waiting for task", e);
                 }
             }
+
             @Override
             public String toString() {
                 return name;
@@ -550,14 +548,14 @@ public class TaskTest {
                     @Override
                     public void run() {
                         try {
-                            //System.err.println("Running");
+                            // System.err.println("Running");
                             cb.complete(value);
                         } catch (Throwable t) {
                             cb.handleException(t);
                         }
                     }
                 };
-                //System.err.println("Scheduling");
+                // System.err.println("Scheduling");
                 timer.schedule(timerTask, millis);
             }
         };

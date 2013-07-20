@@ -49,7 +49,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>PassiveStatusKeeper class.</p>
+ * <p>
+ * PassiveStatusKeeper class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -63,40 +65,53 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     private static final String PASSIVE_STATUS_UEI = "uei.opennms.org/services/passiveServiceStatus";
 
     private volatile Map<PassiveStatusKey, PollStatus> m_statusTable = null;
+
     private volatile EventIpcManager m_eventMgr;
+
     private volatile boolean m_initialized = false;
 
     private DataSource m_dataSource;
 
-
     /**
-     * <p>Constructor for PassiveStatusKeeper.</p>
+     * <p>
+     * Constructor for PassiveStatusKeeper.
+     * </p>
      */
     public PassiveStatusKeeper() {
-    	super("passive");
+        super("passive");
     }
 
     /**
-     * <p>Constructor for PassiveStatusKeeper.</p>
+     * <p>
+     * Constructor for PassiveStatusKeeper.
+     * </p>
      *
-     * @param eventMgr a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventMgr
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public PassiveStatusKeeper(EventIpcManager eventMgr) {
-    	this();
+        this();
         setEventManager(eventMgr);
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param psk a {@link org.opennms.netmgt.passive.PassiveStatusKeeper} object.
+     * @param psk
+     *            a {@link org.opennms.netmgt.passive.PassiveStatusKeeper}
+     *            object.
      */
     public synchronized static void setInstance(PassiveStatusKeeper psk) {
         s_instance = psk;
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.passive.PassiveStatusKeeper} object.
      */
@@ -104,41 +119,39 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
         return s_instance;
     }
 
-
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
-        if (m_initialized) return;
+        if (m_initialized)
+            return;
 
         checkPreRequisites();
         createMessageSelectorAndSubscribe();
 
         m_statusTable = new HashMap<PassiveStatusKey, PollStatus>();
 
-        String sql = "select node.nodeLabel AS nodeLabel, outages.ipAddr AS ipAddr, service.serviceName AS serviceName " +
-                "FROM outages " +
-                "JOIN node ON outages.nodeId = node.nodeId " +
-                "JOIN service ON outages.serviceId = service.serviceId " +
-                "WHERE outages.ifRegainedService is NULL";
+        String sql = "select node.nodeLabel AS nodeLabel, outages.ipAddr AS ipAddr, service.serviceName AS serviceName "
+                + "FROM outages "
+                + "JOIN node ON outages.nodeId = node.nodeId "
+                + "JOIN service ON outages.serviceId = service.serviceId " + "WHERE outages.ifRegainedService is NULL";
 
         Querier querier = new Querier(m_dataSource, sql) {
 
             @Override
             public void processRow(ResultSet rs) throws SQLException {
 
-                PassiveStatusKey key = new PassiveStatusKey(rs.getString("nodeLabel"), rs.getString("ipAddr"), rs.getString("serviceName"));
+                PassiveStatusKey key = new PassiveStatusKey(rs.getString("nodeLabel"), rs.getString("ipAddr"),
+                                                            rs.getString("serviceName"));
                 m_statusTable.put(key, PollStatus.down());
-
-
 
             }
 
         };
         querier.execute();
-
-
 
         m_initialized = true;
     }
@@ -151,7 +164,9 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -161,12 +176,18 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @param pollStatus a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param pollStatus
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public void setStatus(String nodeLabel, String ipAddr, String svcName, PollStatus pollStatus) {
         checkInit();
@@ -174,10 +195,14 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param key a {@link org.opennms.netmgt.config.PassiveStatusKey} object.
-     * @param pollStatus a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param key
+     *            a {@link org.opennms.netmgt.config.PassiveStatusKey} object.
+     * @param pollStatus
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public void setStatus(PassiveStatusKey key, PollStatus pollStatus) {
         checkInit();
@@ -190,16 +215,23 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public PollStatus getStatus(String nodeLabel, String ipAddr, String svcName) {
-        //FIXME: Throw a log or exception here if this method is called and the this class hasn't been initialized
-        PollStatus status = (m_statusTable == null ? PollStatus.unknown() : m_statusTable.get(new PassiveStatusKey(nodeLabel, ipAddr, svcName)));
+        // FIXME: Throw a log or exception here if this method is called and the
+        // this class hasn't been initialized
+        PollStatus status = (m_statusTable == null ? PollStatus.unknown()
+            : m_statusTable.get(new PassiveStatusKey(nodeLabel, ipAddr, svcName)));
         return (status == null ? PollStatus.up() : status);
     }
 
@@ -216,53 +248,61 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
             LOG.debug("onEvent: received valid registered passive status event: \n", EventUtils.toString(e));
             PassiveStatusValue statusValue = getPassiveStatusValue(e);
             setStatus(statusValue.getKey(), statusValue.getStatus());
-            LOG.debug("onEvent: passive status for: {} is: {}", statusValue.getKey(), m_statusTable.get(statusValue.getKey()));
+            LOG.debug("onEvent: passive status for: {} is: {}", statusValue.getKey(),
+                      m_statusTable.get(statusValue.getKey()));
         }
 
-        if (!isPassiveStatusEvent(e))
-        {
+        if (!isPassiveStatusEvent(e)) {
             LOG.debug("onEvent: received Invalid registered passive status event: \n", EventUtils.toString(e));
         }
     }
 
     private PassiveStatusValue getPassiveStatusValue(Event e) {
-    		return new PassiveStatusValue(
-    				EventUtils.getParm(e, EventConstants.PARM_PASSIVE_NODE_LABEL),
-    				EventUtils.getParm(e, EventConstants.PARM_PASSIVE_IPADDR),
-    				EventUtils.getParm(e, EventConstants.PARM_PASSIVE_SERVICE_NAME),
-    				PollStatus.decode(EventUtils.getParm(e, EventConstants.PARM_PASSIVE_SERVICE_STATUS),EventUtils.getParm(e,EventConstants.PARM_PASSIVE_REASON_CODE))
-    				);
+        return new PassiveStatusValue(EventUtils.getParm(e, EventConstants.PARM_PASSIVE_NODE_LABEL),
+                                      EventUtils.getParm(e, EventConstants.PARM_PASSIVE_IPADDR),
+                                      EventUtils.getParm(e, EventConstants.PARM_PASSIVE_SERVICE_NAME),
+                                      PollStatus.decode(EventUtils.getParm(e,
+                                                                           EventConstants.PARM_PASSIVE_SERVICE_STATUS),
+                                                        EventUtils.getParm(e, EventConstants.PARM_PASSIVE_REASON_CODE)));
 
-	}
+    }
 
-	boolean isPassiveStatusEvent(Event e) {
-		return PASSIVE_STATUS_UEI.equals(e.getUei()) &&
-			EventUtils.getParm(e, EventConstants.PARM_PASSIVE_NODE_LABEL) != null &&
-			EventUtils.getParm(e, EventConstants.PARM_PASSIVE_IPADDR) != null &&
-			EventUtils.getParm(e, EventConstants.PARM_PASSIVE_SERVICE_NAME) != null &&
-			EventUtils.getParm(e, EventConstants.PARM_PASSIVE_SERVICE_STATUS) != null;
-	}
+    boolean isPassiveStatusEvent(Event e) {
+        return PASSIVE_STATUS_UEI.equals(e.getUei())
+                && EventUtils.getParm(e, EventConstants.PARM_PASSIVE_NODE_LABEL) != null
+                && EventUtils.getParm(e, EventConstants.PARM_PASSIVE_IPADDR) != null
+                && EventUtils.getParm(e, EventConstants.PARM_PASSIVE_SERVICE_NAME) != null
+                && EventUtils.getParm(e, EventConstants.PARM_PASSIVE_SERVICE_STATUS) != null;
+    }
 
-	/**
-	 * <p>getEventManager</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
-	 */
-	public EventIpcManager getEventManager() {
+    /**
+     * <p>
+     * getEventManager
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     */
+    public EventIpcManager getEventManager() {
         return m_eventMgr;
     }
 
     /**
-     * <p>setEventManager</p>
+     * <p>
+     * setEventManager
+     * </p>
      *
-     * @param eventMgr a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventMgr
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public void setEventManager(EventIpcManager eventMgr) {
         m_eventMgr = eventMgr;
     }
 
     /**
-     * <p>getDbConnectoinFactory</p>
+     * <p>
+     * getDbConnectoinFactory
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -271,9 +311,12 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     }
 
     /**
-     * <p>setDataSource</p>
+     * <p>
+     * setDataSource
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public void setDataSource(DataSource dataSource) {
         m_dataSource = dataSource;

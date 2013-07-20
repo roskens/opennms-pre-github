@@ -71,16 +71,13 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class NodeDaoTest implements InitializingBean {
 
     @Autowired
@@ -97,6 +94,10 @@ public class NodeDaoTest implements InitializingBean {
 
     @Autowired
     TransactionTemplate m_transTemplate;
+
+    private static boolean m_populated = false;
+
+    private static DatabasePopulator m_lastPopulator;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -184,7 +185,6 @@ public class NodeDaoTest implements InitializingBean {
 
         getNodeDao().save(node);
 
-
         System.out.println("BEFORE GET");
         OnmsDistPoller dp = getDistPoller();
         assertSame(distPoller, dp);
@@ -193,7 +193,8 @@ public class NodeDaoTest implements InitializingBean {
         assertEquals(7, nodes.size());
         System.out.println("AFTER GETNODES");
         for (OnmsNode retrieved : nodes) {
-            System.out.println("category for "+retrieved.getId()+" = "+retrieved.getAssetRecord().getDisplayCategory());
+            System.out.println("category for " + retrieved.getId() + " = "
+                    + retrieved.getAssetRecord().getDisplayCategory());
             if (node.getId().intValue() == 5) {
                 assertEquals("MyFirstNode", retrieved.getLabel());
                 assertEquals("MyCategory", retrieved.getAssetRecord().getDisplayCategory());
@@ -218,7 +219,8 @@ public class NodeDaoTest implements InitializingBean {
     @Transactional
     public void testDeleteOnOrphanIpInterface() {
 
-        int preCount = getJdbcTemplate().queryForInt("select count(*) from ipinterface where ipinterface.nodeId = " + getNode1().getId());
+        int preCount = getJdbcTemplate().queryForInt("select count(*) from ipinterface where ipinterface.nodeId = "
+                                                             + getNode1().getId());
 
         OnmsNode n = getNodeDao().get(getNode1().getId());
         Iterator<OnmsIpInterface> it = n.getIpInterfaces().iterator();
@@ -227,10 +229,10 @@ public class NodeDaoTest implements InitializingBean {
         getNodeDao().saveOrUpdate(n);
         getNodeDao().flush();
 
-        int postCount = getJdbcTemplate().queryForInt("select count(*) from ipinterface where ipinterface.nodeId = " + getNode1().getId());
+        int postCount = getJdbcTemplate().queryForInt("select count(*) from ipinterface where ipinterface.nodeId = "
+                                                              + getNode1().getId());
 
-        assertEquals(preCount-1, postCount);
-
+        assertEquals(preCount - 1, postCount);
 
     }
 
@@ -245,7 +247,7 @@ public class NodeDaoTest implements InitializingBean {
 
         int postCount = getJdbcTemplate().queryForInt("select count(*) from node");
 
-        assertEquals(preCount-1, postCount);
+        assertEquals(preCount - 1, postCount);
     }
 
     @Test
@@ -314,7 +316,6 @@ public class NodeDaoTest implements InitializingBean {
 
         assertEquals(timestamp, n.getLastCapsdPoll());
 
-
     }
 
     @Test
@@ -336,9 +337,9 @@ public class NodeDaoTest implements InitializingBean {
         assertEquals(label, node.getLabel());
     }
 
-
     @Test
-    @JUnitTemporaryDatabase // This test manages its own transactions so use a fresh database
+    @JUnitTemporaryDatabase
+    // This test manages its own transactions so use a fresh database
     public void testDeleteObsoleteInterfaces() {
         m_populator.populateDatabase();
 
@@ -405,10 +406,10 @@ public class NodeDaoTest implements InitializingBean {
 
     private void validateNode(OnmsNode n) throws Exception {
         assertNotNull("Expected node to be non-null", n);
-        assertNotNull("Expected node "+n.getId()+" to have interfaces", n.getIpInterfaces());
-        assertEquals("Unexpected number of interfaces for node "+n.getId(), 4, n.getIpInterfaces().size());
+        assertNotNull("Expected node " + n.getId() + " to have interfaces", n.getIpInterfaces());
+        assertEquals("Unexpected number of interfaces for node " + n.getId(), 4, n.getIpInterfaces().size());
         for (Object o : n.getIpInterfaces()) {
-            OnmsIpInterface iface = (OnmsIpInterface)o;
+            OnmsIpInterface iface = (OnmsIpInterface) o;
             assertNotNull(iface);
             assertNotNull(InetAddressUtils.str(iface.getIpAddress()));
         }

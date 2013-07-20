@@ -37,7 +37,9 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.ServiceSelector;
 
 /**
- * <p>MonitoredServiceDao interface.</p>
+ * <p>
+ * MonitoredServiceDao interface.
+ * </p>
  *
  * @author Craig Gallen
  * @author David Hustace
@@ -45,80 +47,113 @@ import org.opennms.netmgt.model.ServiceSelector;
 public interface MonitoredServiceDao extends OnmsDao<OnmsMonitoredService, Integer> {
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @deprecated Use {@link #get(Integer, InetAddress, Integer, Integer)} instead
-     *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param ifIndex a {@link java.lang.Integer} object.
-     * @param serviceId a {@link java.lang.Integer} object.
+     * @deprecated Use {@link #get(Integer, InetAddress, Integer, Integer)}
+     *             instead
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param ifIndex
+     *            a {@link java.lang.Integer} object.
+     * @param serviceId
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
     OnmsMonitoredService get(Integer nodeId, String ipAddr, Integer ifIndex, Integer serviceId);
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param serviceId a {@link java.lang.Integer} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
     OnmsMonitoredService get(Integer nodeId, String ipAddr, Integer serviceId);
 
-
-
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param ipAddr a {@link java.net.InetAddress} object.
-     * @param ifIndex a {@link java.lang.Integer} object.
-     * @param serviceId a {@link java.lang.Integer} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param ipAddr
+     *            a {@link java.net.InetAddress} object.
+     * @param ifIndex
+     *            a {@link java.lang.Integer} object.
+     * @param serviceId
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
     OnmsMonitoredService get(Integer nodeId, InetAddress ipAddr, Integer ifIndex, Integer serviceId);
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
     OnmsMonitoredService get(Integer nodeId, InetAddress ipAddress, String svcName);
 
     /**
-     * <p>findByType</p>
+     * <p>
+     * findByType
+     * </p>
      *
-     * @param typeName a {@link java.lang.String} object.
+     * @param typeName
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsMonitoredService> findByType(String typeName);
 
     /**
-     * <p>findMatchingServices</p>
+     * <p>
+     * findMatchingServices
+     * </p>
      *
-     * @param serviceSelector a {@link org.opennms.netmgt.model.ServiceSelector} object.
+     * @param serviceSelector
+     *            a {@link org.opennms.netmgt.model.ServiceSelector} object.
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsMonitoredService> findMatchingServices(ServiceSelector serviceSelector);
 
     /**
-     * <p>findByApplication</p>
+     * <p>
+     * findByApplication
+     * </p>
      *
-     * @param application a {@link org.opennms.netmgt.model.OnmsApplication} object.
+     * @param application
+     *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
      * @return a {@link java.util.Collection} object.
      */
     Set<OnmsMonitoredService> findByApplication(OnmsApplication application);
 
     /**
-     * <p>getPrimaryService</p>
+     * <p>
+     * getPrimaryService
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param svcName a {@link java.lang.String} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
     OnmsMonitoredService getPrimaryService(Integer nodeId, String svcName);

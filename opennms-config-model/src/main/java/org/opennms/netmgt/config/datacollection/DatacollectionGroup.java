@@ -55,18 +55,20 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Top-level element for the datacollection group
- *  configuration file.
+ * configuration file.
  */
 
-@XmlRootElement(name="datacollection-group", namespace="http://xmlns.opennms.org/xsd/config/datacollection")
+@XmlRootElement(name = "datacollection-group", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder={"name", "resourceType", "group", "systemDef"})
+@XmlType(propOrder = { "name", "resourceType", "group", "systemDef" })
 @ValidateUsing("datacollection-groups.xsd")
 public class DatacollectionGroup implements Serializable {
     private static final long serialVersionUID = 659689462266282039L;
 
     private static final SystemDef[] EMPTY_SYSTEMDEF_ARRAY = new SystemDef[0];
+
     private static final ResourceType[] EMPTY_RESOURCETYPE_ARRAY = new ResourceType[0];
+
     private static final Group[] EMPTY_GROUP_ARRAY = new Group[0];
 
     /**
@@ -89,75 +91,68 @@ public class DatacollectionGroup implements Serializable {
      */
     private List<SystemDef> m_systemDefs = new ArrayList<SystemDef>();
 
-
     public DatacollectionGroup() {
         super();
     }
 
     /**
-     *
-     *
      * @param group
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addGroup(final Group group) throws IndexOutOfBoundsException {
         m_groups.add(group);
     }
 
     /**
-     *
-     *
      * @param index
      * @param group
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addGroup(final int index, final Group group) throws IndexOutOfBoundsException {
         m_groups.add(index, group);
     }
 
     /**
-     *
-     *
      * @param resourceType
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addResourceType(final ResourceType resourceType) throws IndexOutOfBoundsException {
         m_resourceTypes.add(resourceType);
     }
 
     /**
-     *
-     *
      * @param index
      * @param resourceType
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addResourceType(final int index, final ResourceType resourceType) throws IndexOutOfBoundsException {
         m_resourceTypes.add(index, resourceType);
     }
 
     /**
-     *
-     *
      * @param systemDef
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addSystemDef(final SystemDef systemDef) throws IndexOutOfBoundsException {
         m_systemDefs.add(systemDef);
     }
 
     /**
-     *
-     *
      * @param index
      * @param systemDef
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addSystemDef(final int index, final SystemDef systemDef) throws IndexOutOfBoundsException {
         m_systemDefs.add(index, systemDef);
@@ -167,7 +162,7 @@ public class DatacollectionGroup implements Serializable {
      * Method enumerateGroup.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<Group> enumerateGroup() {
         return Collections.enumeration(m_groups);
@@ -177,7 +172,7 @@ public class DatacollectionGroup implements Serializable {
      * Method enumerateResourceType.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<ResourceType> enumerateResourceType() {
         return Collections.enumeration(m_resourceTypes);
@@ -187,7 +182,7 @@ public class DatacollectionGroup implements Serializable {
      * Method enumerateSystemDef.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<SystemDef> enumerateSystemDef() {
         return Collections.enumeration(m_systemDefs);
@@ -201,39 +196,39 @@ public class DatacollectionGroup implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof DatacollectionGroup) {
 
-            final DatacollectionGroup temp = (DatacollectionGroup)obj;
+            final DatacollectionGroup temp = (DatacollectionGroup) obj;
             if (m_name != null) {
-                if (temp.m_name == null) return false;
+                if (temp.m_name == null)
+                    return false;
                 else if (!(m_name.equals(temp.m_name)))
                     return false;
-            }
-            else if (temp.m_name != null)
+            } else if (temp.m_name != null)
                 return false;
             if (m_resourceTypes != null) {
-                if (temp.m_resourceTypes == null) return false;
+                if (temp.m_resourceTypes == null)
+                    return false;
                 else if (!(m_resourceTypes.equals(temp.m_resourceTypes)))
                     return false;
-            }
-            else if (temp.m_resourceTypes != null)
+            } else if (temp.m_resourceTypes != null)
                 return false;
             if (m_groups != null) {
-                if (temp.m_groups == null) return false;
+                if (temp.m_groups == null)
+                    return false;
                 else if (!(m_groups.equals(temp.m_groups)))
                     return false;
-            }
-            else if (temp.m_groups != null)
+            } else if (temp.m_groups != null)
                 return false;
             if (m_systemDefs != null) {
-                if (temp.m_systemDefs == null) return false;
+                if (temp.m_systemDefs == null)
+                    return false;
                 else if (!(m_systemDefs.equals(temp.m_systemDefs)))
                     return false;
-            }
-            else if (temp.m_systemDefs != null)
+            } else if (temp.m_systemDefs != null)
                 return false;
             return true;
         }
@@ -244,29 +239,33 @@ public class DatacollectionGroup implements Serializable {
      * Method getGroup.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * Group at the
-     * given index
+     *         Group at the
+     *         given index
      */
     public Group getGroup(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_groups.size()) {
-            throw new IndexOutOfBoundsException("getGroup: Index value '" + index + "' not in range [0.." + (m_groups.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getGroup: Index value '" + index + "' not in range [0.."
+                    + (m_groups.size() - 1) + "]");
         }
         return m_groups.get(index);
     }
 
     /**
      * Method getGroup.Returns the contents of the collection in an
-     * Array.  <p>Note:  Just in case the collection contents are
-     * changing in another thread, we pass a 0-length Array of the
-     * correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="group")
+    @XmlElement(name = "group")
     public Group[] getGroup() {
         return m_groups.toArray(EMPTY_GROUP_ARRAY);
     }
@@ -297,7 +296,7 @@ public class DatacollectionGroup implements Serializable {
      *
      * @return the value of field 'Name'.
      */
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     public String getName() {
         return m_name;
     }
@@ -306,30 +305,33 @@ public class DatacollectionGroup implements Serializable {
      * Method getResourceType.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * ResourceType
-     * at the given index
+     *         ResourceType
+     *         at the given index
      */
     public ResourceType getResourceType(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_resourceTypes.size()) {
-            throw new IndexOutOfBoundsException("getResourceType: Index value '" + index + "' not in range [0.." + (m_resourceTypes.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getResourceType: Index value '" + index + "' not in range [0.."
+                    + (m_resourceTypes.size() - 1) + "]");
         }
         return m_resourceTypes.get(index);
     }
 
     /**
      * Method getResourceType.Returns the contents of the
-     * collection in an Array.  <p>Note:  Just in case the
-     * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of
-     * exactly the correct length.
+     * collection in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="resourceType")
+    @XmlElement(name = "resourceType")
     public ResourceType[] getResourceType() {
         return m_resourceTypes.toArray(EMPTY_RESOURCETYPE_ARRAY);
     }
@@ -358,29 +360,33 @@ public class DatacollectionGroup implements Serializable {
      * Method getSystemDef.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * SystemDef at
-     * the given index
+     *         SystemDef at
+     *         the given index
      */
     public SystemDef getSystemDef(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_systemDefs.size()) {
-            throw new IndexOutOfBoundsException("getSystemDef: Index value '" + index + "' not in range [0.." + (m_systemDefs.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getSystemDef: Index value '" + index + "' not in range [0.."
+                    + (m_systemDefs.size() - 1) + "]");
         }
         return m_systemDefs.get(index);
     }
 
     /**
      * Method getSystemDef.Returns the contents of the collection
-     * in an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="systemDef")
+    @XmlElement(name = "systemDef")
     public SystemDef[] getSystemDef() {
         return m_systemDefs.toArray(EMPTY_SYSTEMDEF_ARRAY);
     }
@@ -408,8 +414,8 @@ public class DatacollectionGroup implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -418,16 +424,16 @@ public class DatacollectionGroup implements Serializable {
         int result = 17;
 
         if (m_name != null) {
-           result = 37 * result + m_name.hashCode();
+            result = 37 * result + m_name.hashCode();
         }
         if (m_resourceTypes != null) {
-           result = 37 * result + m_resourceTypes.hashCode();
+            result = 37 * result + m_resourceTypes.hashCode();
         }
         if (m_groups != null) {
-           result = 37 * result + m_groups.hashCode();
+            result = 37 * result + m_groups.hashCode();
         }
         if (m_systemDefs != null) {
-           result = 37 * result + m_systemDefs.hashCode();
+            result = 37 * result + m_systemDefs.hashCode();
         }
 
         return result;
@@ -452,7 +458,7 @@ public class DatacollectionGroup implements Serializable {
      * Method iterateGroup.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<Group> iterateGroup() {
         return m_groups.iterator();
@@ -462,7 +468,7 @@ public class DatacollectionGroup implements Serializable {
      * Method iterateResourceType.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<ResourceType> iterateResourceType() {
         return m_resourceTypes.iterator();
@@ -472,20 +478,20 @@ public class DatacollectionGroup implements Serializable {
      * Method iterateSystemDef.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<SystemDef> iterateSystemDef() {
         return m_systemDefs.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -493,15 +499,16 @@ public class DatacollectionGroup implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -587,29 +594,27 @@ public class DatacollectionGroup implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param group
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setGroup(final int index, final Group group) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_groups.size()) {
-            throw new IndexOutOfBoundsException("setGroup: Index value '" + index + "' not in range [0.." + (m_groups.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setGroup: Index value '" + index + "' not in range [0.."
+                    + (m_groups.size() - 1) + "]");
         }
         m_groups.set(index, group);
     }
 
     /**
-     *
-     *
      * @param groups
      */
     public void setGroup(final Group[] groups) {
         m_groups.clear();
         for (int i = 0; i < groups.length; i++) {
-                m_groups.add(groups[i]);
+            m_groups.add(groups[i]);
         }
     }
 
@@ -617,10 +622,12 @@ public class DatacollectionGroup implements Serializable {
      * Sets the value of '_groupList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param groups the Vector to copy.
+     * @param groups
+     *            the Vector to copy.
      */
     public void setGroup(final List<Group> groups) {
-        if (m_groups == groups) return;
+        if (m_groups == groups)
+            return;
         m_groups.clear();
         m_groups.addAll(groups);
     }
@@ -628,9 +635,10 @@ public class DatacollectionGroup implements Serializable {
     /**
      * Sets the value of '_groupList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param groups the Vector to set.
+     * @deprecated
+     * @param groups
+     *            the Vector to set.
      */
     public void setGroupCollection(final List<Group> groups) {
         m_groups = groups;
@@ -640,36 +648,35 @@ public class DatacollectionGroup implements Serializable {
      * Sets the value of field 'name'. The field 'name' has the
      * following description: data collector group name
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
     public void setName(final String name) {
         m_name = name.intern();
     }
 
     /**
-     *
-     *
      * @param index
      * @param resourceType
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setResourceType(final int index, final ResourceType resourceType) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_resourceTypes.size()) {
-            throw new IndexOutOfBoundsException("setResourceType: Index value '" + index + "' not in range [0.." + (m_resourceTypes.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setResourceType: Index value '" + index + "' not in range [0.."
+                    + (m_resourceTypes.size() - 1) + "]");
         }
         m_resourceTypes.set(index, resourceType);
     }
 
     /**
-     *
-     *
      * @param resourceTypes
      */
     public void setResourceType(final ResourceType[] resourceTypes) {
         m_resourceTypes.clear();
         for (int i = 0; i < resourceTypes.length; i++) {
-                m_resourceTypes.add(resourceTypes[i]);
+            m_resourceTypes.add(resourceTypes[i]);
         }
     }
 
@@ -677,10 +684,12 @@ public class DatacollectionGroup implements Serializable {
      * Sets the value of '_resourceTypeList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param resourceTypes the Vector to copy.
+     * @param resourceTypes
+     *            the Vector to copy.
      */
     public void setResourceType(final List<ResourceType> resourceTypes) {
-        if (m_resourceTypes == resourceTypes);
+        if (m_resourceTypes == resourceTypes)
+            ;
         m_resourceTypes.clear();
         m_resourceTypes.addAll(resourceTypes);
     }
@@ -688,38 +697,37 @@ public class DatacollectionGroup implements Serializable {
     /**
      * Sets the value of '_resourceTypeList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param resourceTypes the Vector to set.
+     * @deprecated
+     * @param resourceTypes
+     *            the Vector to set.
      */
     public void setResourceTypeCollection(final List<ResourceType> resourceTypes) {
         m_resourceTypes = resourceTypes;
     }
 
     /**
-     *
-     *
      * @param index
      * @param systemDef
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setSystemDef(final int index, final SystemDef systemDef) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_systemDefs.size()) {
-            throw new IndexOutOfBoundsException("setSystemDef: Index value '" + index + "' not in range [0.." + (m_systemDefs.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setSystemDef: Index value '" + index + "' not in range [0.."
+                    + (m_systemDefs.size() - 1) + "]");
         }
         m_systemDefs.set(index, systemDef);
     }
 
     /**
-     *
-     *
      * @param systemDefs
      */
     public void setSystemDef(final SystemDef[] systemDefs) {
         m_systemDefs.clear();
         for (int i = 0; i < systemDefs.length; i++) {
-                m_systemDefs.add(systemDefs[i]);
+            m_systemDefs.add(systemDefs[i]);
         }
     }
 
@@ -727,10 +735,12 @@ public class DatacollectionGroup implements Serializable {
      * Sets the value of '_systemDefList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param systemDefs the Vector to copy.
+     * @param systemDefs
+     *            the Vector to copy.
      */
     public void setSystemDef(final List<SystemDef> systemDefs) {
-        if (m_systemDefs == systemDefs) return;
+        if (m_systemDefs == systemDefs)
+            return;
         m_systemDefs.clear();
         m_systemDefs.addAll(systemDefs);
     }
@@ -738,9 +748,10 @@ public class DatacollectionGroup implements Serializable {
     /**
      * Sets the value of '_systemDefList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param systemDefs the Vector to set.
+     * @deprecated
+     * @param systemDefs
+     *            the Vector to set.
      */
     public void setSystemDefCollection(final List<SystemDef> systemDefs) {
         m_systemDefs = systemDefs;
@@ -750,12 +761,14 @@ public class DatacollectionGroup implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * DatacollectionGroup
+     *         DatacollectionGroup
      */
     @Deprecated
     public static DatacollectionGroup unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -763,10 +776,9 @@ public class DatacollectionGroup implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

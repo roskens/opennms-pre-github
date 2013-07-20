@@ -57,7 +57,9 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 /**
- * <p>JdbcWebEventRepository class.</p>
+ * <p>
+ * JdbcWebEventRepository class.
+ * </p>
  *
  * @author ranger
  */
@@ -74,7 +76,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
     private String getSql(final String selectClause, final EventCriteria criteria) {
         final StringBuilder buf = new StringBuilder(selectClause);
 
-        criteria.visit(new EventCriteriaVisitor<RuntimeException>(){
+        criteria.visit(new EventCriteriaVisitor<RuntimeException>() {
 
             boolean first = true;
 
@@ -118,9 +120,10 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
     private PreparedStatementSetter paramSetter(final EventCriteria criteria, final Object... args) {
         return new PreparedStatementSetter() {
             int paramIndex = 1;
+
             @Override
             public void setValues(final PreparedStatement ps) throws SQLException {
-                for(Object arg : args) {
+                for (Object arg : args) {
                     ps.setObject(paramIndex, arg);
                     paramIndex++;
                 }
@@ -135,7 +138,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         };
     }
 
-    public static class EventMapper implements ParameterizedRowMapper<Event>{
+    public static class EventMapper implements ParameterizedRowMapper<Event> {
 
         @Override
         public Event mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -186,10 +189,10 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
             return event;
         }
 
-        private Date getTimestamp(String field, ResultSet rs) throws SQLException{
-            if(rs.getTimestamp(field) != null){
+        private Date getTimestamp(String field, ResultSet rs) throws SQLException {
+            if (rs.getTimestamp(field) != null) {
                 return new Date(rs.getTimestamp(field).getTime());
-            }else{
+            } else {
                 return null;
             }
         }
@@ -199,7 +202,8 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
     /** {@inheritDoc} */
     @Override
     public int countMatchingEvents(EventCriteria criteria) {
-        String sql = getSql("SELECT COUNT(EVENTID) as EVENTCOUNT FROM EVENTS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) ", criteria);
+        String sql = getSql("SELECT COUNT(EVENTID) as EVENTCOUNT FROM EVENTS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) ",
+                            criteria);
         return queryForInt(sql, paramSetter(criteria));
     }
 
@@ -208,11 +212,11 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
     public int[] countMatchingEventsBySeverity(EventCriteria criteria) {
         String selectClause = "SELECT EVENTSEVERITY, COUNT(*) AS EVENTCOUNT FROM EVENTS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) ";
         String sql = getSql(selectClause, criteria);
-        //sql = sql + " AND EVENTDISPLAY='Y'";
+        // sql = sql + " AND EVENTDISPLAY='Y'";
         sql = sql + " GROUP BY EVENTSEVERITY";
 
         final int[] alarmCounts = new int[8];
-        jdbc().query(sql, paramSetter(criteria), new RowCallbackHandler(){
+        jdbc().query(sql, paramSetter(criteria), new RowCallbackHandler() {
 
             @Override
             public void processRow(ResultSet rs) throws SQLException {
@@ -231,7 +235,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
     @Override
     public Event getEvent(int eventId) {
         Event[] events = getMatchingEvents(new EventCriteria(new EventIdFilter(eventId)));
-        if(events.length < 1){
+        if (events.length < 1) {
             return null;
         } else {
             return events[0];
@@ -241,23 +245,25 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
     /** {@inheritDoc} */
     @Override
     public Event[] getMatchingEvents(EventCriteria criteria) {
-        String sql = getSql("SELECT EVENTS.*, NODE.NODELABEL, SERVICE.SERVICENAME FROM EVENTS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) ", criteria);
+        String sql = getSql("SELECT EVENTS.*, NODE.NODELABEL, SERVICE.SERVICENAME FROM EVENTS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) ",
+                            criteria);
         return getEvents(sql, paramSetter(criteria));
     }
 
-    private Event[] getEvents(String sql, PreparedStatementSetter setter){
+    private Event[] getEvents(String sql, PreparedStatementSetter setter) {
         List<Event> events = queryForList(sql, setter, new EventMapper());
         return events.toArray(new Event[0]);
     }
 
-    void acknowledgeEvents(String user, Date timestamp, int[] eventIds){
+    void acknowledgeEvents(String user, Date timestamp, int[] eventIds) {
         acknowledgeMatchingEvents(user, timestamp, new EventCriteria(new EventIdListFilter(eventIds)));
     }
 
     /** {@inheritDoc} */
     @Override
     public void acknowledgeAll(String user, Date timestamp) {
-        m_simpleJdbcTemplate.update("UPDATE EVENTS SET EVENTACKUSER=?, EVENTACKTIME=? WHERE EVENTACKUSER IS NULL ", user, new Timestamp(timestamp.getTime()));
+        m_simpleJdbcTemplate.update("UPDATE EVENTS SET EVENTACKUSER=?, EVENTACKTIME=? WHERE EVENTACKUSER IS NULL ",
+                                    user, new Timestamp(timestamp.getTime()));
     }
 
     /** {@inheritDoc} */
@@ -268,7 +274,9 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
     }
 
     /**
-     * <p>unacknowledgeAll</p>
+     * <p>
+     * unacknowledgeAll
+     * </p>
      */
     @Override
     public void unacknowledgeAll() {
@@ -287,10 +295,11 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         return (number != null ? number.intValue() : 0);
     }
 
-    private <T> T queryForObject(String sql, PreparedStatementSetter setter, RowMapper<T> rowMapper) throws DataAccessException {
-        return DataAccessUtils.requiredSingleResult(jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rowMapper, 1)));
+    private <T> T queryForObject(String sql, PreparedStatementSetter setter, RowMapper<T> rowMapper)
+            throws DataAccessException {
+        return DataAccessUtils.requiredSingleResult(jdbc().query(sql, setter,
+                                                                 new RowMapperResultSetExtractor<T>(rowMapper, 1)));
     }
-
 
     private <T> List<T> queryForList(String sql, PreparedStatementSetter setter, ParameterizedRowMapper<T> rm) {
         return jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rm));

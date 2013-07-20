@@ -41,21 +41,26 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public final class TcaData extends SnmpTable<TcaDataEntry> {
 
-	/**
-	 * Instantiates a new TCA data.
-	 *
-	 * @param address the address
-	 */
-	protected TcaData(InetAddress address) {
-		super(address, "jnxTcaSlaTable", TcaDataEntry.tca_elemList);
-	}
+    /**
+     * Instantiates a new TCA data.
+     *
+     * @param address
+     *            the address
+     */
+    protected TcaData(InetAddress address) {
+        super(address, "jnxTcaSlaTable", TcaDataEntry.tca_elemList);
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.capsd.snmp.SnmpTable#createTableEntry(org.opennms.netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpInstId, java.lang.Object)
-	 */
-	@Override
-	protected TcaDataEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
-		return new TcaDataEntry(inst);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.capsd.snmp.SnmpTable#createTableEntry(org.opennms.
+     * netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpInstId,
+     * java.lang.Object)
+     */
+    @Override
+    protected TcaDataEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
+        return new TcaDataEntry(inst);
+    }
 
 }

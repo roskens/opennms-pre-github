@@ -49,7 +49,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * A controller that handles querying the outages table by using filters to create an
+ * A controller that handles querying the outages table by using filters to
+ * create an
  * outage list and and then forwards that outage list to a JSP for display.
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
@@ -75,22 +76,19 @@ public class OutageFilterController extends AbstractController implements Initia
 
     private WebOutageRepository m_webOutageRepository;
 
-
-
     /**
-     * {@inheritDoc}
-     *
-     * Parses the query string to determine what types of filters to use
+     * {@inheritDoc} Parses the query string to determine what types of filters
+     * to use
      * (for example, what to filter on or sort by), then does the database query
      * (through the OutageFactory) and then forwards the results to a JSP for
      * display.
-     *
      * <p>
      * Sets request attributes for the forwardee JSP (or whatever gets called).
      * </p>
      */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         String display = request.getParameter("display");
 
         // handle the style sort parameter
@@ -166,7 +164,7 @@ public class OutageFilterController extends AbstractController implements Initia
         parms.outageType = outageType;
         parms.filters = filterList;
         parms.limit = limit;
-        parms.multiple =  multiple;
+        parms.multiple = multiple;
         parms.sortStyle = sortStyle;
 
         OutageCriteria queryCriteria = new OutageCriteria(filters, sortStyle, outageType, limit, limit * multiple);
@@ -190,9 +188,12 @@ public class OutageFilterController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setDefaultShortLimit</p>
+     * <p>
+     * setDefaultShortLimit
+     * </p>
      *
-     * @param limit a {@link java.lang.Integer} object.
+     * @param limit
+     *            a {@link java.lang.Integer} object.
      */
     public void setDefaultShortLimit(Integer limit) {
         m_defaultShortLimit = limit;
@@ -203,9 +204,12 @@ public class OutageFilterController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setDefaultLongLimit</p>
+     * <p>
+     * setDefaultLongLimit
+     * </p>
      *
-     * @param limit a {@link java.lang.Integer} object.
+     * @param limit
+     *            a {@link java.lang.Integer} object.
      */
     public void setDefaultLongLimit(Integer limit) {
         m_defaultLongLimit = limit;
@@ -216,25 +220,33 @@ public class OutageFilterController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>setWebOutageRepository</p>
+     * <p>
+     * setWebOutageRepository
+     * </p>
      *
-     * @param webOutageRepository a {@link org.opennms.web.outage.WebOutageRepository} object.
+     * @param webOutageRepository
+     *            a {@link org.opennms.web.outage.WebOutageRepository} object.
      */
     public void setWebOutageRepository(WebOutageRepository webOutageRepository) {
         m_webOutageRepository = webOutageRepository;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -247,7 +259,9 @@ public class OutageFilterController extends AbstractController implements Initia
     }
 
     /**
-     * <p>getDefaultOutageType</p>
+     * <p>
+     * getDefaultOutageType
+     * </p>
      *
      * @return a {@link org.opennms.web.outage.OutageType} object.
      */
@@ -256,16 +270,21 @@ public class OutageFilterController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setDefaultOutageType</p>
+     * <p>
+     * setDefaultOutageType
+     * </p>
      *
-     * @param defaultOutageType a {@link org.opennms.web.outage.OutageType} object.
+     * @param defaultOutageType
+     *            a {@link org.opennms.web.outage.OutageType} object.
      */
     public void setDefaultOutageType(OutageType defaultOutageType) {
         m_defaultOutageType = defaultOutageType;
     }
 
     /**
-     * <p>getDefaultSortStyle</p>
+     * <p>
+     * getDefaultSortStyle
+     * </p>
      *
      * @return a {@link org.opennms.web.outage.SortStyle} object.
      */
@@ -274,9 +293,12 @@ public class OutageFilterController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setDefaultSortStyle</p>
+     * <p>
+     * setDefaultSortStyle
+     * </p>
      *
-     * @param defaultSortStyle a {@link org.opennms.web.outage.SortStyle} object.
+     * @param defaultSortStyle
+     *            a {@link org.opennms.web.outage.SortStyle} object.
      */
     public void setDefaultSortStyle(SortStyle defaultSortStyle) {
         m_defaultSortStyle = defaultSortStyle;

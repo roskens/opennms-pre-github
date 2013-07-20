@@ -31,17 +31,22 @@ package org.opennms.netmgt.dao.api;
 import org.opennms.netmgt.model.ReportCatalogEntry;
 
 /**
- * <p>ReportCatalogDao interface.</p>
+ * <p>
+ * ReportCatalogDao interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public interface ReportCatalogDao extends OnmsDao<ReportCatalogEntry, Integer>{
+public interface ReportCatalogDao extends OnmsDao<ReportCatalogEntry, Integer> {
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     @Override
     void delete(Integer id);

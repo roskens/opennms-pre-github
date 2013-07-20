@@ -40,32 +40,31 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class NodeSuggestionCombobox implements EntryPoint {
 
-
-  /**
-   * This is the entry point method.
-   */
+    /**
+     * This is the entry point method.
+     */
     @Override
     public void onModuleLoad() {
 
-        if(Window.Navigator.getUserAgent().contains("MSIE")) {
+        if (Window.Navigator.getUserAgent().contains("MSIE")) {
             NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
-            for(int j = 0; j < divs.getLength(); j++) {
+            for (int j = 0; j < divs.getLength(); j++) {
                 Element element = divs.getItem(j);
-                if(element.hasAttribute("name") && element.getAttribute("name").contains("opennms-nodeSuggestionCombobox")) {
+                if (element.hasAttribute("name")
+                        && element.getAttribute("name").contains("opennms-nodeSuggestionCombobox")) {
                     createView(element);
                 }
             }
 
-        }else {
+        } else {
             NodeList<Element> nodes = RootPanel.getBodyElement().getElementsByTagName("opennms:nodeSuggestionCombobox");
-            if(nodes.getLength() > 0) {
-                for(int i = 0; i < nodes.getLength(); i++) {
+            if (nodes.getLength() > 0) {
+                for (int i = 0; i < nodes.getLength(); i++) {
                     createView(nodes.getItem(i));
                 }
 
             }
         }
-
 
     }
 

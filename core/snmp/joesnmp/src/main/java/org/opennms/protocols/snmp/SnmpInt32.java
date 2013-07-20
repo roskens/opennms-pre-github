@@ -69,7 +69,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      *
      * @param value
      *            The 32-bit signed integer value for the object.
-     *
      */
     public SnmpInt32(int value) {
         m_value = value;
@@ -80,7 +79,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      *
      * @param value
      *            An Integer object containing the 32-bte value.
-     *
      */
     public SnmpInt32(Integer value) {
         m_value = value.intValue();
@@ -92,7 +90,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      *
      * @param second
      *            The object to get the value from.
-     *
      */
     public SnmpInt32(SnmpInt32 second) {
         m_value = second.m_value;
@@ -105,7 +102,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      *
      * @param value
      *            The integer value represented as a String
-     *
      * @throws java.lang.NumberFormatException
      *             Thrown if the passed value cannot be turned into a valid
      *             integer.
@@ -135,7 +131,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      *
      * @param value
      *            The new value for the object.
-     *
      */
     public void setValue(int value) {
         m_value = value;
@@ -155,7 +150,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      * Used to retreive the ASN.1 type for this object.
      *
      * @return The ASN.1 value for the SnmpInt32
-     *
      */
     @Override
     public byte typeId() {
@@ -172,9 +166,7 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      *            The start of the encoded buffer.
      * @param encoder
      *            The ASN.1 encoder object
-     *
      * @return The byte immediantly after the last encoded byte.
-     *
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -192,9 +184,7 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      *            The offset of the first byte of data
      * @param encoder
      *            The ASN.1 decoder object.
-     *
      * @return The byte immediantly after the last decoded byte of information.
-     *
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -212,7 +202,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      * Returns a duplicate of the current object.
      *
      * @return A newly allocated duplicate object.
-     *
      */
     @Override
     public SnmpSyntax duplicate() {
@@ -223,7 +212,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      * Returns a duplicate of the current object.
      *
      * @return A newly allocated duplicate object.
-     *
      */
     @Override
     public Object clone() {
@@ -232,7 +220,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
 
     /**
      * Returns the string representation of the object.
-     *
      */
     @Override
     public String toString() {
@@ -241,8 +228,8 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof SnmpInt32 ) {
-            SnmpInt32 int32 = (SnmpInt32)obj;
+        if (obj instanceof SnmpInt32) {
+            SnmpInt32 int32 = (SnmpInt32) obj;
 
             return (typeId() == int32.typeId() && getValue() == int32.getValue());
         }

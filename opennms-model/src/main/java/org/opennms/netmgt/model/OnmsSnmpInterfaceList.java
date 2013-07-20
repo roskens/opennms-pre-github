@@ -36,9 +36,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
- * <p>OnmsSnmpInterfaceList class.</p>
+ * <p>
+ * OnmsSnmpInterfaceList class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,26 +48,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
 
     private static final long serialVersionUID = 1123252152117491694L;
+
     private int m_totalCount;
 
     /**
-     * <p>Constructor for OnmsSnmpInterfaceList.</p>
+     * <p>
+     * Constructor for OnmsSnmpInterfaceList.
+     * </p>
      */
     public OnmsSnmpInterfaceList() {
         super();
     }
 
     /**
-     * <p>Constructor for OnmsSnmpInterfaceList.</p>
+     * <p>
+     * Constructor for OnmsSnmpInterfaceList.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public OnmsSnmpInterfaceList(Collection<? extends OnmsSnmpInterface> c) {
         super(c);
     }
 
     /**
-     * <p>getInterfaces</p>
+     * <p>
+     * getInterfaces
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -76,41 +85,52 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
         return this.size();
     }
 
     /**
-     * <p>getTotalCount</p>
+     * <p>
+     * getTotalCount
+     * </p>
      *
      * @return a int.
      */
-    @XmlAttribute(name="totalCount")
+    @XmlAttribute(name = "totalCount")
     public int getTotalCount() {
         return m_totalCount;
     }
 
     /**
-     * <p>setTotalCount</p>
+     * <p>
+     * setTotalCount
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      */
     public void setTotalCount(int count) {
         m_totalCount = count;
     }
 
     /**
-     * <p>setInterfaces</p>
+     * <p>
+     * setInterfaces
+     * </p>
      *
-     * @param interfaces a {@link java.util.List} object.
+     * @param interfaces
+     *            a {@link java.util.List} object.
      */
     public void setInterfaces(List<OnmsSnmpInterface> interfaces) {
-        if (interfaces == this) return;
+        if (interfaces == this)
+            return;
         clear();
         addAll(interfaces);
     }

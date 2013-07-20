@@ -60,18 +60,18 @@ import org.springframework.test.context.ContextConfiguration;
  */
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-@JUnitSnmpAgent(port=HostResourceSWRunMonitorTest.TEST_SNMP_PORT,host=HostResourceSWRunMonitorTest.TEST_IP_ADDRESS, resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties")
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitSnmpAgent(port = HostResourceSWRunMonitorTest.TEST_SNMP_PORT, host = HostResourceSWRunMonitorTest.TEST_IP_ADDRESS, resource = "classpath:org/opennms/netmgt/snmp/snmpTestData1.properties")
 public class HostResourceSWRunMonitorTest implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(HostResourceSWRunMonitorTest.class);
-    static final int TEST_SNMP_PORT = 9161;
-    static final String TEST_IP_ADDRESS = "127.0.0.1";
 
+    static final int TEST_SNMP_PORT = 9161;
+
+    static final String TEST_IP_ADDRESS = "127.0.0.1";
 
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
+
     private boolean m_ignoreWarnings = false;
 
     @Override
@@ -88,7 +88,7 @@ public class HostResourceSWRunMonitorTest implements InitializingBean {
 
     @After
     public void tearDown() throws Exception {
-        if (!m_ignoreWarnings ) {
+        if (!m_ignoreWarnings) {
             MockLogAppender.assertNoWarningsOrGreater();
         }
     }
@@ -170,7 +170,8 @@ public class HostResourceSWRunMonitorTest implements InitializingBean {
 
     @Test
     public void testInvalidRange() throws Exception {
-        m_ignoreWarnings = true; // warning is expected here, skip the assert in tearDown()
+        m_ignoreWarnings = true; // warning is expected here, skip the assert in
+                                 // tearDown()
         HostResourceSwRunMonitor monitor = new HostResourceSwRunMonitor();
         Map<String, Object> parameters = createBasicParams();
         parameters.put("min-services", "8");
@@ -203,15 +204,17 @@ public class HostResourceSWRunMonitorTest implements InitializingBean {
     }
 
     private Map<String, Object> createBasicParams() {
-        Map<String, Object> parameters = new HashMap<String,Object>();
-        parameters.put("port", m_snmpPeerFactory.getAgentConfig(InetAddressUtils.getInetAddress(TEST_IP_ADDRESS)).getPort());
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("port",
+                       m_snmpPeerFactory.getAgentConfig(InetAddressUtils.getInetAddress(TEST_IP_ADDRESS)).getPort());
         parameters.put("service-name", "~^(auto|sh).*");
         parameters.put("match-all", "true");
         return parameters;
     }
 
     private MonitoredService createMonitor() throws UnknownHostException {
-        MonitoredService svc = new MockMonitoredService(1, "test-server", InetAddressUtils.getInetAddress(TEST_IP_ADDRESS), "SWRUN-TEST");
+        MonitoredService svc = new MockMonitoredService(1, "test-server",
+                                                        InetAddressUtils.getInetAddress(TEST_IP_ADDRESS), "SWRUN-TEST");
         return svc;
     }
 

@@ -38,38 +38,39 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  */
-public class StringMapAdapter extends XmlAdapter<StringMapAdapter.JaxbMap, Map<String,String>> {
+public class StringMapAdapter extends XmlAdapter<StringMapAdapter.JaxbMap, Map<String, String>> {
 
-	public static final class JaxbMap {
-		public List<Entry> entry = new ArrayList<Entry>(0);
-	}
+    public static final class JaxbMap {
+        public List<Entry> entry = new ArrayList<Entry>(0);
+    }
 
-	public static final class Entry {
+    public static final class Entry {
 
-		@XmlAttribute
-		public String key;
-		@XmlAttribute
-		public String value;
-	}
+        @XmlAttribute
+        public String key;
 
-	@Override
-	public StringMapAdapter.JaxbMap marshal(Map<String,String> v) throws Exception {
-		JaxbMap retval = new JaxbMap();
-		for (String key : v.keySet()) {
-			Entry entry = new Entry();
-			entry.key = key;
-			entry.value = v.get(key);
-			retval.entry.add(entry);
-		}
-		return retval;
-	}
+        @XmlAttribute
+        public String value;
+    }
 
-	@Override
-	public Map<String,String> unmarshal(StringMapAdapter.JaxbMap v) throws Exception {
-		Map<String, String> retval = new HashMap<String, String>();
-		for (Entry entry : v.entry) {
-			retval.put(entry.key, entry.value);
-		}
-		return retval;
-	}
+    @Override
+    public StringMapAdapter.JaxbMap marshal(Map<String, String> v) throws Exception {
+        JaxbMap retval = new JaxbMap();
+        for (String key : v.keySet()) {
+            Entry entry = new Entry();
+            entry.key = key;
+            entry.value = v.get(key);
+            retval.entry.add(entry);
+        }
+        return retval;
+    }
+
+    @Override
+    public Map<String, String> unmarshal(StringMapAdapter.JaxbMap v) throws Exception {
+        Map<String, String> retval = new HashMap<String, String>();
+        for (Entry entry : v.entry) {
+            retval.put(entry.key, entry.value);
+        }
+        return retval;
+    }
 }

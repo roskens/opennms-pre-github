@@ -73,7 +73,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PollerConfigServlet extends HttpServlet {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PollerConfigServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PollerConfigServlet.class);
 
     /**
      *
@@ -103,9 +103,12 @@ public class PollerConfigServlet extends HttpServlet {
     private CapsdConfig m_capsdFactory = null;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -162,13 +165,17 @@ public class PollerConfigServlet extends HttpServlet {
             throw new ServletException(e);
         }
 
-        //String[] protocols = BundleLists.parseBundleList(m_props.getProperty("services"));
+        // String[] protocols =
+        // BundleLists.parseBundleList(m_props.getProperty("services"));
     }
 
     /**
-     * <p>reloadFiles</p>
+     * <p>
+     * reloadFiles
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     public void reloadFiles() throws ServletException {
         ServletConfig config = getServletConfig();
@@ -188,7 +195,9 @@ public class PollerConfigServlet extends HttpServlet {
     }
 
     /**
-     * <p>initCapsdProtocols</p>
+     * <p>
+     * initCapsdProtocols
+     * </p>
      */
     public void initCapsdProtocols() {
         m_pluginColl = getCapsdProtocolPlugins();
@@ -205,7 +214,9 @@ public class PollerConfigServlet extends HttpServlet {
     }
 
     /**
-     * <p>initPollerServices</p>
+     * <p>
+     * initPollerServices
+     * </p>
      */
     public void initPollerServices() {
         Collection<org.opennms.netmgt.config.poller.Package> packageColl = m_pollerConfig.getPackageCollection();
@@ -229,7 +240,8 @@ public class PollerConfigServlet extends HttpServlet {
         List<String> checkedList = new ArrayList<String>();
         List<String> deleteList = new ArrayList<String>();
 
-        m_props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
+        m_props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)),
+                      null);
 
         String[] requestActivate = request.getParameterValues("activate");
         String[] requestDelete = request.getParameterValues("delete");
@@ -249,8 +261,14 @@ public class PollerConfigServlet extends HttpServlet {
         adjustNonChecked(checkedList);
         deleteThese(deleteList);
 
-        Writer poller_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME)), "UTF-8");
-        Writer capsd_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)), "UTF-8");
+        Writer poller_fileWriter = new OutputStreamWriter(
+                                                          new FileOutputStream(
+                                                                               ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME)),
+                                                          "UTF-8");
+        Writer capsd_fileWriter = new OutputStreamWriter(
+                                                         new FileOutputStream(
+                                                                              ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)),
+                                                         "UTF-8");
         try {
             Marshaller.marshal(m_pollerConfig, poller_fileWriter);
             Marshaller.marshal(m_capsdConfig, capsd_fileWriter);
@@ -270,9 +288,12 @@ public class PollerConfigServlet extends HttpServlet {
     }
 
     /**
-     * <p>deleteCapsdInfo</p>
+     * <p>
+     * deleteCapsdInfo
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void deleteCapsdInfo(String name) {
         if (m_capsdProtocols.get(name) != null) {
@@ -285,9 +306,12 @@ public class PollerConfigServlet extends HttpServlet {
     }
 
     /**
-     * <p>adjustNonChecked</p>
+     * <p>
+     * adjustNonChecked
+     * </p>
      *
-     * @param checkedList a {@link java.util.List} object.
+     * @param checkedList
+     *            a {@link java.util.List} object.
      */
     public void adjustNonChecked(List<String> checkedList) {
         if (m_pkg != null) {
@@ -307,10 +331,14 @@ public class PollerConfigServlet extends HttpServlet {
     }
 
     /**
-     * <p>deleteThese</p>
+     * <p>
+     * deleteThese
+     * </p>
      *
-     * @param deleteServices a {@link java.util.List} object.
-     * @throws java.io.IOException if any.
+     * @param deleteServices
+     *            a {@link java.util.List} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void deleteThese(List<String> deleteServices) throws IOException {
         for (String svcname : deleteServices) {
@@ -325,7 +353,9 @@ public class PollerConfigServlet extends HttpServlet {
                                 removeMonitor(svc.getName());
                                 deleteCapsdInfo(svc.getName());
                                 m_props.remove("service." + svc.getName() + ".protocol");
-                                m_props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
+                                m_props.store(new FileOutputStream(
+                                                                   ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)),
+                                              null);
                                 break;
                             }
                         }
@@ -335,11 +365,13 @@ public class PollerConfigServlet extends HttpServlet {
         }
     }
 
-
     /**
-     * <p>removeMonitor</p>
+     * <p>
+     * removeMonitor
+     * </p>
      *
-     * @param service a {@link java.lang.String} object.
+     * @param service
+     *            a {@link java.lang.String} object.
      */
     public void removeMonitor(String service) {
         // Add the new monitor with the protocol.
@@ -361,10 +393,14 @@ public class PollerConfigServlet extends HttpServlet {
     }
 
     /**
-     * <p>modifyPollerInfo</p>
+     * <p>
+     * modifyPollerInfo
+     * </p>
      *
-     * @param bPolled a {@link java.lang.String} object.
-     * @param protocol a {@link java.lang.String} object.
+     * @param bPolled
+     *            a {@link java.lang.String} object.
+     * @param protocol
+     *            a {@link java.lang.String} object.
      */
     public void modifyPollerInfo(String bPolled, String protocol) {
         if (m_pkg != null) {

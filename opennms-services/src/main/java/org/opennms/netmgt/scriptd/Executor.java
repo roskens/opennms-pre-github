@@ -61,10 +61,10 @@ import org.opennms.netmgt.xml.event.Script;
  *
  * @author <a href="mailto:jim.doble@tavve.com">Jim Doble</a>
  * @author <a href="http://www.opennms.org"/>OpenNMS</a>
- *
  */
 final class Executor implements Runnable, PausableFiber {
     private static final Logger LOG = LoggerFactory.getLogger(Executor.class);
+
     /**
      * The input queue of events.
      */
@@ -98,7 +98,7 @@ final class Executor implements Runnable, PausableFiber {
     /**
      * The configured scripts (UEI specified).
      */
-    private Map<String,List<EventScript>> m_eventScriptMap;
+    private Map<String, List<EventScript>> m_eventScriptMap;
 
     /**
      * The BSF manager
@@ -112,7 +112,8 @@ final class Executor implements Runnable, PausableFiber {
 
     /**
      * Constructs a new action daemon execution environment. The constructor
-     * takes three arguments that define the source of commands to be executed and
+     * takes three arguments that define the source of commands to be executed
+     * and
      * the maximum time that a command may run.
      *
      * @param execQ
@@ -133,7 +134,7 @@ final class Executor implements Runnable, PausableFiber {
         m_mgr = null;
         m_status = START_PENDING;
 
-	m_nodeDao = nodeDao;
+        m_nodeDao = nodeDao;
     }
 
     /**
@@ -145,7 +146,7 @@ final class Executor implements Runnable, PausableFiber {
         EventScript[] scripts = m_config.getEventScripts();
 
         m_eventScripts = new ArrayList<EventScript>();
-        m_eventScriptMap = new ConcurrentHashMap<String,List<EventScript>>();
+        m_eventScriptMap = new ConcurrentHashMap<String, List<EventScript>>();
 
         for (int i = 0; i < scripts.length; i++) {
             Uei[] ueis = scripts[i].getUei();
@@ -328,8 +329,8 @@ final class Executor implements Runnable, PausableFiber {
                     }
                 }
 
-		if (node != null)
-		    m_mgr.unregisterBean("node");
+                if (node != null)
+                    m_mgr.unregisterBean("node");
 
                 m_mgr.unregisterBean("event");
 
@@ -351,13 +352,14 @@ final class Executor implements Runnable, PausableFiber {
             List<Parm> parmCollection = event.getParmCollection();
 
             for (Parm parm : parmCollection) {
-                if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && "Scriptd".equalsIgnoreCase(parm.getValue().getContent())) {
+                if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName())
+                        && "Scriptd".equalsIgnoreCase(parm.getValue().getContent())) {
                     isTarget = true;
                     break;
                 }
             }
 
-        //Depreciating this one...
+            // Depreciating this one...
         } else if ("uei.opennms.org/internal/reloadScriptConfig".equals(event.getUei())) {
             isTarget = true;
         }
@@ -369,8 +371,8 @@ final class Executor implements Runnable, PausableFiber {
      * Starts the fiber. If the fiber has already been run or is currently
      * running then an exception is generated. The status of the fiber is
      * updated to <code>STARTING</code> and will transition to <code>
-     * RUNNING</code>
-     * when the fiber finishes initializing and begins processing the
+     * RUNNING</code> when the fiber finishes initializing and begins processing
+     * the
      * encapsulaed queue.
      *
      * @throws java.lang.IllegalStateException

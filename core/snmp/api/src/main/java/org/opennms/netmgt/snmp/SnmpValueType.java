@@ -32,24 +32,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum SnmpValueType {
-    //  The integer values match the ASN.1 constants
-    INT32(0x02, "INTEGER"),
-    OCTET_STRING(0x04, "STRING"),
-    NULL(0x05, "Null"),
-    OBJECT_IDENTIFIER(0x06, "OID"),
-    IPADDRESS(0x40, "IpAddress"),
-    COUNTER32(0x41, "Counter32"),
-    GAUGE32(0x42, "Gauge32"),
-    TIMETICKS(0x43, "Timeticks"),
-    OPAQUE(0x44, "Opaque"),
-    COUNTER64(0x46, "Counter64"),
-    NO_SUCH_OBJECT(0x80, "NoSuchObject"),
-    NO_SUCH_INSTANCE(0x81, "NoSuchInstance"),
-    END_OF_MIB(0x82, "EndOfMib");
+    // The integer values match the ASN.1 constants
+    INT32(0x02, "INTEGER"), OCTET_STRING(0x04, "STRING"), NULL(0x05, "Null"), OBJECT_IDENTIFIER(0x06, "OID"), IPADDRESS(
+            0x40, "IpAddress"), COUNTER32(0x41, "Counter32"), GAUGE32(0x42, "Gauge32"), TIMETICKS(0x43, "Timeticks"), OPAQUE(
+            0x44, "Opaque"), COUNTER64(0x46, "Counter64"), NO_SUCH_OBJECT(0x80, "NoSuchObject"), NO_SUCH_INSTANCE(0x81,
+            "NoSuchInstance"), END_OF_MIB(0x82, "EndOfMib");
 
     private static final Map<Integer, SnmpValueType> s_intMap = new HashMap<Integer, SnmpValueType>();
 
     private int m_int;
+
     private String m_displayString;
 
     static {

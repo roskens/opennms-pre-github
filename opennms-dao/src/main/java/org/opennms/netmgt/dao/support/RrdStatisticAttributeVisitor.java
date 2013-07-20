@@ -37,16 +37,22 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>RrdStatisticAttributeVisitor class.</p>
+ * <p>
+ * RrdStatisticAttributeVisitor class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class RrdStatisticAttributeVisitor implements AttributeVisitor, InitializingBean {
     private RrdDao m_rrdDao;
+
     private String m_consolidationFunction;
+
     private Long m_startTime;
+
     private Long m_endTime;
+
     private AttributeStatisticVisitor m_statisticVisitor;
 
     /** {@inheritDoc} */
@@ -75,7 +81,9 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -89,7 +97,9 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
     }
 
     /**
-     * <p>getRrdDao</p>
+     * <p>
+     * getRrdDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
@@ -98,34 +108,46 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
     }
 
     /**
-     * <p>setRrdDao</p>
+     * <p>
+     * setRrdDao
+     * </p>
      *
-     * @param rrdDao a {@link org.opennms.netmgt.dao.api.RrdDao} object.
+     * @param rrdDao
+     *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
     public void setRrdDao(RrdDao rrdDao) {
         m_rrdDao = rrdDao;
     }
 
     /**
-     * <p>getStatisticVisitor</p>
+     * <p>
+     * getStatisticVisitor
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.model.AttributeStatisticVisitor} object.
+     * @return a {@link org.opennms.netmgt.model.AttributeStatisticVisitor}
+     *         object.
      */
     public AttributeStatisticVisitor getStatisticVisitor() {
         return m_statisticVisitor;
     }
 
     /**
-     * <p>setStatisticVisitor</p>
+     * <p>
+     * setStatisticVisitor
+     * </p>
      *
-     * @param statisticVisitor a {@link org.opennms.netmgt.model.AttributeStatisticVisitor} object.
+     * @param statisticVisitor
+     *            a {@link org.opennms.netmgt.model.AttributeStatisticVisitor}
+     *            object.
      */
     public void setStatisticVisitor(AttributeStatisticVisitor statisticVisitor) {
         m_statisticVisitor = statisticVisitor;
     }
 
     /**
-     * <p>getConsolidationFunction</p>
+     * <p>
+     * getConsolidationFunction
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -134,16 +156,21 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
     }
 
     /**
-     * <p>setConsolidationFunction</p>
+     * <p>
+     * setConsolidationFunction
+     * </p>
      *
-     * @param consolidationFunction a {@link java.lang.String} object.
+     * @param consolidationFunction
+     *            a {@link java.lang.String} object.
      */
     public void setConsolidationFunction(String consolidationFunction) {
         m_consolidationFunction = consolidationFunction;
     }
 
     /**
-     * <p>getEndTime</p>
+     * <p>
+     * getEndTime
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -152,16 +179,21 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
     }
 
     /**
-     * <p>setEndTime</p>
+     * <p>
+     * setEndTime
+     * </p>
      *
-     * @param endTime a {@link java.lang.Long} object.
+     * @param endTime
+     *            a {@link java.lang.Long} object.
      */
     public void setEndTime(Long endTime) {
         m_endTime = endTime;
     }
 
     /**
-     * <p>getStartTime</p>
+     * <p>
+     * getStartTime
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -170,13 +202,15 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
     }
 
     /**
-     * <p>setStartTime</p>
+     * <p>
+     * setStartTime
+     * </p>
      *
-     * @param startTime a {@link java.lang.Long} object.
+     * @param startTime
+     *            a {@link java.lang.Long} object.
      */
     public void setStartTime(Long startTime) {
         m_startTime = startTime;
     }
-
 
 }

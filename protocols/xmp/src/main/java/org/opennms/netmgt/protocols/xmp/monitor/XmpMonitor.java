@@ -54,14 +54,14 @@ import org.opennms.netmgt.protocols.xmp.XmpUtilException;
 import org.opennms.netmgt.protocols.xmp.config.XmpConfigFactory;
 
 /**
- * <p>XmpMonitor class.</p>
+ * <p>
+ * XmpMonitor class.
+ * </p>
  *
  * @author jeffg
  * @version $Id: $
  */
 public class XmpMonitor extends AbstractServiceMonitor {
-
-
 
     /**
      * The default port to use for XMP
@@ -138,15 +138,13 @@ public class XmpMonitor extends AbstractServiceMonitor {
 
     private static final boolean DEFAULT_VALUE_CASE_SENSITIVE = false;
 
-
     /** {@inheritDoc} */
     @Override
-    public PollStatus poll(MonitoredService svc, Map<String,Object> parameters) {
+    public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         PollStatus status = PollStatus.unavailable();
         InetAddress ipaddr = (InetAddress) iface.getAddress();
-
 
         XmpConfig protoConfig = XmpConfigFactory.getInstance().getXmpConfig();
         XmpSession session;
@@ -170,8 +168,11 @@ public class XmpMonitor extends AbstractServiceMonitor {
         boolean valueCaseSensitive = DEFAULT_VALUE_CASE_SENSITIVE;
 
         if (parameters != null) {
-            retry = ParameterMap.getKeyedInteger(parameters, "retry", protoConfig.hasRetry() ? protoConfig.getRetry() : DEFAULT_RETRY);
-            timeout = ParameterMap.getKeyedInteger(parameters, "timeout", protoConfig.hasTimeout() ? protoConfig.getTimeout() : DEFAULT_TIMEOUT);
+            retry = ParameterMap.getKeyedInteger(parameters, "retry", protoConfig.hasRetry() ? protoConfig.getRetry()
+                : DEFAULT_RETRY);
+            timeout = ParameterMap.getKeyedInteger(parameters, "timeout",
+                                                   protoConfig.hasTimeout() ? protoConfig.getTimeout()
+                                                       : DEFAULT_TIMEOUT);
             port = ParameterMap.getKeyedInteger(parameters, "port", DEFAULT_PORT);
             authenUser = ParameterMap.getKeyedString(parameters, "authenUser", DEFAULT_AUTHEN_USER);
             requestType = ParameterMap.getKeyedString(parameters, "request-type", DEFAULT_REQUEST_TYPE);
@@ -182,7 +183,8 @@ public class XmpMonitor extends AbstractServiceMonitor {
             instanceMatch = ParameterMap.getKeyedString(parameters, "instance-match", DEFAULT_INSTANCE_MATCH);
             valueOperator = ParameterMap.getKeyedString(parameters, "value-operator", "==");
             valueOperand = ParameterMap.getKeyedString(parameters, "value-match", DEFAULT_VALUE_MATCH);
-            valueCaseSensitive = ParameterMap.getKeyedBoolean(parameters, "value-case-sensitive", DEFAULT_VALUE_CASE_SENSITIVE);
+            valueCaseSensitive = ParameterMap.getKeyedBoolean(parameters, "value-case-sensitive",
+                                                              DEFAULT_VALUE_CASE_SENSITIVE);
             minMatches = ParameterMap.getKeyedInteger(parameters, "min-matches", DEFAULT_MIN_MATCHES);
             maxMatches = ParameterMap.getKeyedInteger(parameters, "max-matches", DEFAULT_MAX_MATCHES);
             String maxMatchesUnboundedStr = ParameterMap.getKeyedString(parameters, "max-matches", "unbounded");
@@ -196,21 +198,23 @@ public class XmpMonitor extends AbstractServiceMonitor {
                 throw new IllegalArgumentException("When performing a SelectTableRequest, table must be specified");
             }
             if (object.equals(DEFAULT_REQUEST_OBJECT)) {
-                throw new IllegalArgumentException("When performing a SelectTableRequest, object must be specified and must be tabular");
+                throw new IllegalArgumentException(
+                                                   "When performing a SelectTableRequest, object must be specified and must be tabular");
             }
         }
 
         // If this is a GetRequest, then you can't specify a table or
         // an instance
         else if (requestType.equalsIgnoreCase("GetRequest")) {
-            if (! table.equals(DEFAULT_REQUEST_TABLE)) {
+            if (!table.equals(DEFAULT_REQUEST_TABLE)) {
                 throw new IllegalArgumentException("When performing a GetRequest, table must not be specified");
             }
-            if (! instance.equals(DEFAULT_REQUEST_INSTANCE)) {
+            if (!instance.equals(DEFAULT_REQUEST_INSTANCE)) {
                 throw new IllegalArgumentException("When performing a GetRequest, instance must not be specified");
             }
         } else {
-            throw new IllegalArgumentException("Unknown request type " + requestType + ", only GetRequest and SelectTableRequest are supported");
+            throw new IllegalArgumentException("Unknown request type " + requestType
+                    + ", only GetRequest and SelectTableRequest are supported");
         }
 
         RE instanceRegex = null;
@@ -226,7 +230,7 @@ public class XmpMonitor extends AbstractServiceMonitor {
 
         long startTime = System.currentTimeMillis();
 
-        // Set the SO_TIMEOUT.  What a concept!
+        // Set the SO_TIMEOUT. What a concept!
         sockopts.setConnectTimeout(timeout);
 
         session = new XmpSession(sockopts, ipaddr, port, authenUser);
@@ -234,13 +238,16 @@ public class XmpMonitor extends AbstractServiceMonitor {
         boolean result = false;
         if (requestType.equalsIgnoreCase("SelectTableRequest")) {
             try {
-                result = XmpUtil.handleTableQuery(session, mib, table, object, instance, instanceRegex, valueOperator, valueOperand, minMatches, maxMatches, maxMatchesUnbounded, valueCaseSensitive);
+                result = XmpUtil.handleTableQuery(session, mib, table, object, instance, instanceRegex, valueOperator,
+                                                  valueOperand, minMatches, maxMatches, maxMatchesUnbounded,
+                                                  valueCaseSensitive);
             } catch (XmpUtilException e) {
                 status = PollStatus.unavailable(e.getMessage());
             }
         } else if (requestType.equalsIgnoreCase("GetRequest")) {
             try {
-                result = XmpUtil.handleScalarQuery(session, mib, object, valueOperator, valueOperand, valueCaseSensitive);
+                result = XmpUtil.handleScalarQuery(session, mib, object, valueOperator, valueOperand,
+                                                   valueCaseSensitive);
             } catch (XmpUtilException e) {
                 status = PollStatus.unavailable(e.getMessage());
             }

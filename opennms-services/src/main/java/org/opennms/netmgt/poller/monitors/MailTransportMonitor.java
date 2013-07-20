@@ -61,13 +61,14 @@ import org.opennms.netmgt.poller.MonitoredService;
 /**
  * This <code>ServiceMonitor</code> is designed to monitor the transport of
  * SMTP email.
- *
  * Use cases:
- *
  * a) Class will test that it can successfully send an email.
- * b) Class will test that it can successfully connect to a mail server and get mailbox contents.
- * c) Class will test that it can successfully read a new email message from a mail server.
- * d) Class will test that it can send an email and read that same email from a mail server.
+ * b) Class will test that it can successfully connect to a mail server and get
+ * mailbox contents.
+ * c) Class will test that it can successfully read a new email message from a
+ * mail server.
+ * d) Class will test that it can send an email and read that same email from a
+ * mail server.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -77,22 +78,24 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(MailTransportMonitor.class);
 
     private static final String MTM_HEADER_KEY = "X-OpenNMS-MTM-ID";
+
     private final String m_headerValue = Integer.toString(new Random().nextInt(Integer.MAX_VALUE));
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         PollStatus status = null;
 
         try {
-        	final MailTransportParameters mailParms = MailTransportParameters.get(parameters);
+            final MailTransportParameters mailParms = MailTransportParameters.get(parameters);
 
             try {
                 if ("${ipaddr}".equals(mailParms.getReadTestHost())) {
-                mailParms.setReadTestHost(svc.getIpAddr());
+                    mailParms.setReadTestHost(svc.getIpAddr());
                 }
             } catch (final IllegalStateException ise) {
-                //just ignore, don't have to have a both a read and send test configured
+                // just ignore, don't have to have a both a read and send test
+                // configured
             }
 
             try {
@@ -100,13 +103,14 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
                     mailParms.setSendTestHost(svc.getIpAddr());
                 }
             } catch (final IllegalStateException ise) {
-                //just ignore, don't have to have a both a read and send test configured
+                // just ignore, don't have to have a both a read and send test
+                // configured
             }
 
             parseJavaMailProperties(mailParms);
             status = doMailTest(mailParms);
         } catch (final IllegalStateException ise) {
-            //ignore this because we don't have to have both a send and read
+            // ignore this because we don't have to have both a send and read
 
         } catch (final Throwable e) {
             LOG.error("An error occurred while polling.", e);
@@ -117,16 +121,16 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
     }
 
     private void parseJavaMailProperties(final MailTransportParameters mailParms) {
-    	final ReadmailTest readTest = mailParms.getReadTest();
+        final ReadmailTest readTest = mailParms.getReadTest();
 
-    	List<JavamailProperty> propertyList = new ArrayList<JavamailProperty>();
+        List<JavamailProperty> propertyList = new ArrayList<JavamailProperty>();
         if (readTest != null) {
             propertyList = readTest.getJavamailPropertyCollection();
         }
 
         final SendmailTest sendTest = mailParms.getSendTest();
         if (sendTest != null) {
-        	final List<JavamailProperty> sendTestProperties = sendTest.getJavamailPropertyCollection();
+            final List<JavamailProperty> sendTestProperties = sendTest.getJavamailPropertyCollection();
             propertyList.addAll(sendTestProperties);
         }
 
@@ -144,7 +148,7 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * @param mailParms
      */
     private PollStatus doMailTest(final MailTransportParameters mailParms) {
-    	final long beginPoll = System.currentTimeMillis();
+        final long beginPoll = System.currentTimeMillis();
         PollStatus status = PollStatus.unknown("Beginning poll.");
         mailParms.setTestSubjectSuffix(Long.toString(beginPoll));
 
@@ -191,7 +195,8 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
         final long interval = mailParms.getReadTestAttemptInterval();
 
         if (mailParms.isEnd2EndTestInProgress()) {
-            LOG.debug("Initially delaying read test: {} because end to end test is in progress.", mailParms.getReadTestAttemptInterval());
+            LOG.debug("Initially delaying read test: {} because end to end test is in progress.",
+                      mailParms.getReadTestAttemptInterval());
 
             if (delayTest(status, interval) == PollStatus.SERVICE_UNKNOWN) {
                 return status;
@@ -201,10 +206,11 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
         Store mailStore = null;
         Folder mailFolder = null;
         try {
-        	final JavaMailer readMailer = new JavaMailer(mailParms.getJavamailProperties());
+            final JavaMailer readMailer = new JavaMailer(mailParms.getJavamailProperties());
             setReadMailProperties(mailParms, readMailer);
 
-            final TimeoutTracker tracker = new TimeoutTracker(mailParms.getParameterMap(), mailParms.getRetries(), mailParms.getTimeout());
+            final TimeoutTracker tracker = new TimeoutTracker(mailParms.getParameterMap(), mailParms.getRetries(),
+                                                              mailParms.getTimeout());
             for (tracker.reset(); tracker.shouldRetry(); tracker.nextAttempt()) {
                 tracker.startAttempt();
 
@@ -214,7 +220,8 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
                         break;
                     }
                 }
-                LOG.debug("readTestMessage: reading mail attempt: {}, elapsed time: {}ms.", (tracker.getAttempt()+1), String.format("%.2f", tracker.elapsedTimeInMillis()));
+                LOG.debug("readTestMessage: reading mail attempt: {}, elapsed time: {}ms.", (tracker.getAttempt() + 1),
+                          String.format("%.2f", tracker.elapsedTimeInMillis()));
                 try {
                     mailStore = readMailer.getSession().getStore();
                     mailFolder = retrieveMailFolder(mailParms, mailStore);
@@ -223,13 +230,14 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
                     if (tracker.shouldRetry()) {
                         LOG.warn("readTestMessage: error reading INBOX", e);
                         closeStore(mailStore, mailFolder);
-                        continue;  //try again to get mail Folder from Store
+                        continue; // try again to get mail Folder from Store
                     } else {
                         LOG.warn("readTestMessage: error reading INBOX", e);
                         return PollStatus.down(e.getLocalizedMessage());
                     }
                 }
-                if (mailFolder.isOpen() && (mailParms.getReadTest().getSubjectMatch() != null || mailParms.isEnd2EndTestInProgress())) {
+                if (mailFolder.isOpen()
+                        && (mailParms.getReadTest().getSubjectMatch() != null || mailParms.isEnd2EndTestInProgress())) {
                     status = processMailSubject(mailParms, mailFolder);
                     if (status.getStatusCode() == PollStatus.SERVICE_AVAILABLE) {
                         break;
@@ -247,23 +255,24 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
 
     /**
      * Handy method to do the try catch try of closing a mail store and folder.
+     *
      * @param mailStore
      * @param mailFolder
      */
-    private void closeStore(final Store mailStore, final Folder mailFolder)  {
+    private void closeStore(final Store mailStore, final Folder mailFolder) {
         try {
             if (mailFolder != null && mailFolder.isOpen()) {
                 mailFolder.close(true);
             }
         } catch (final MessagingException e) {
-		LOG.debug("Unable to close mail folder.", e);
+            LOG.debug("Unable to close mail folder.", e);
         } finally {
             try {
                 if (mailStore != null && mailStore.isConnected()) {
                     mailStore.close();
                 }
             } catch (final MessagingException e1) {
-		LOG.debug("Unable to close message store.", e1);
+                LOG.debug("Unable to close message store.", e1);
             }
         }
     }
@@ -274,15 +283,16 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      *
      * @param mailParms
      * @param mailFolder
-     * @return a PollStatus indicative of the success of matching a subject or just retieving
+     * @return a PollStatus indicative of the success of matching a subject or
+     *         just retieving
      *         mail folder contents... dependent on configuration.
      */
     private PollStatus processMailSubject(final MailTransportParameters mailParms, final Folder mailFolder) {
         PollStatus status = PollStatus.unknown();
         try {
-        	final String subject = computeMatchingSubject(mailParms);
+            final String subject = computeMatchingSubject(mailParms);
             if (mailFolder.isOpen() && subject != null) {
-            	final Message[] mailMessages = mailFolder.getMessages();
+                final Message[] mailMessages = mailFolder.getMessages();
                 final SearchTerm searchTerm = new SubjectTerm(subject);
                 final SearchTerm deleteTerm = new HeaderTerm(MTM_HEADER_KEY, m_headerValue);
 
@@ -291,43 +301,51 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
                 boolean delete = false;
                 boolean found = false;
                 for (int i = 1; i <= mailMessages.length; i++) {
-                	final Message mailMessage = mailFolder.getMessage(i);
+                    final Message mailMessage = mailFolder.getMessage(i);
 
-			LOG.debug("searchMailSubject: retrieved message subject '{}'", mailMessage.getSubject());
+                    LOG.debug("searchMailSubject: retrieved message subject '{}'", mailMessage.getSubject());
 
                     if (mailMessage.match(searchTerm)) {
                         found = true;
                         LOG.debug("searchMailSubject: message with subject '{}' found.", subject);
 
                         if (mailParms.isEnd2EndTestInProgress()) {
-                            if (!delete) LOG.debug("searchMailSubject: flagging message with subject '{}' for deletion for end2end test.", subject);
+                            if (!delete)
+                                LOG.debug("searchMailSubject: flagging message with subject '{}' for deletion for end2end test.",
+                                          subject);
                             delete = true;
                         }
                     }
 
-                	final boolean deleteAllMail = mailParms.getReadTest().isDeleteAllMail();
-					final boolean foundMTMHeader = mailMessage.match(deleteTerm);
-					LOG.debug("searchMailSubject: deleteAllMail = {}, MTM header found = {}", Boolean.toString(deleteAllMail), Boolean.toString(foundMTMHeader));
+                    final boolean deleteAllMail = mailParms.getReadTest().isDeleteAllMail();
+                    final boolean foundMTMHeader = mailMessage.match(deleteTerm);
+                    LOG.debug("searchMailSubject: deleteAllMail = {}, MTM header found = {}",
+                              Boolean.toString(deleteAllMail), Boolean.toString(foundMTMHeader));
 
-					if (deleteAllMail) {
-						if (!delete) LOG.debug("searchMailSubject: flagging message with subject '{}' for deletion because deleteAllMail is set.", subject);
-						delete = true;
-					} else if (foundMTMHeader) {
-						if (!delete) LOG.debug("searchMailSubject: flagging message with subject '{}' for deletion because we sent it (found header {}={})", subject, MTM_HEADER_KEY, m_headerValue);
-						delete = true;
-					}
+                    if (deleteAllMail) {
+                        if (!delete)
+                            LOG.debug("searchMailSubject: flagging message with subject '{}' for deletion because deleteAllMail is set.",
+                                      subject);
+                        delete = true;
+                    } else if (foundMTMHeader) {
+                        if (!delete)
+                            LOG.debug("searchMailSubject: flagging message with subject '{}' for deletion because we sent it (found header {}={})",
+                                      subject, MTM_HEADER_KEY, m_headerValue);
+                        delete = true;
+                    }
 
-					if (delete) {
-						mailMessage.setFlag(Flag.DELETED, true);
-					}
+                    if (delete) {
+                        mailMessage.setFlag(Flag.DELETED, true);
+                    }
 
-                	// since we want to delete old messages matchin MTM_HEADER_KEY, we can't break early
-                	// if (found) break;
+                    // since we want to delete old messages matchin
+                    // MTM_HEADER_KEY, we can't break early
+                    // if (found) break;
                 }
 
                 if (!found) {
-			LOG.debug("searchMailSubject: message with subject: '{}' NOT found.", subject);
-                    status = PollStatus.down("searchMailSubject: matching test message: '"+subject+"', not found.");
+                    LOG.debug("searchMailSubject: message with subject: '{}' NOT found.", subject);
+                    status = PollStatus.down("searchMailSubject: matching test message: '" + subject + "', not found.");
                 } else {
                     status = PollStatus.available();
                 }
@@ -340,10 +358,12 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     * An end2end test has the subject appended with a unique value for matching the read with the send.
+     * An end2end test has the subject appended with a unique value for matching
+     * the read with the send.
      *
      * @param mailParms
-     * @return a computed subject based on the requirements of the service configuration.
+     * @return a computed subject based on the requirements of the service
+     *         configuration.
      */
     private String computeMatchingSubject(final MailTransportParameters mailParms) {
         String subject = null;
@@ -356,17 +376,19 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     * This sets up the properties for the read mail portion of the service poll.  These properties
-     * are derived from configuration elements vs. being hardcoded javamail properties.  Elements
+     * This sets up the properties for the read mail portion of the service
+     * poll. These properties
+     * are derived from configuration elements vs. being hardcoded javamail
+     * properties. Elements
      * that conflict with javamail defined properties always win.
      *
      * @param mailParms
      * @param readMailer
      */
     private void setReadMailProperties(final MailTransportParameters mailParms, final JavaMailer readMailer) {
-    	final Properties sendMailProps = readMailer.getSession().getProperties();
+        final Properties sendMailProps = readMailer.getSession().getProperties();
 
-    	final String protocol = mailParms.getReadTestProtocol();
+        final String protocol = mailParms.getReadTestProtocol();
         sendMailProps.put("mail." + protocol + ".host", mailParms.getReadTestHost());
         sendMailProps.put("mail." + protocol + ".user", mailParms.getReadTestUserName());
         sendMailProps.put("mail." + protocol + ".port", mailParms.getReadTestPort());
@@ -386,15 +408,18 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     * Establish connection with mail store and return the configured mail folder.
+     * Establish connection with mail store and return the configured mail
+     * folder.
      *
      * @param mailParms
      * @param mailStore
      * @return the folder specified in configuration
      * @throws MessagingException
      */
-    private Folder retrieveMailFolder(final MailTransportParameters mailParms, final Store mailStore) throws MessagingException {
-        mailStore.connect(mailParms.getReadTestHost(), mailParms.getReadTestPort(), mailParms.getReadTestUserName(), mailParms.getReadTestPassword());
+    private Folder retrieveMailFolder(final MailTransportParameters mailParms, final Store mailStore)
+            throws MessagingException {
+        mailStore.connect(mailParms.getReadTestHost(), mailParms.getReadTestPort(), mailParms.getReadTestUserName(),
+                          mailParms.getReadTestPassword());
         Folder mailFolder = mailStore.getDefaultFolder();
         mailFolder = mailFolder.getFolder(mailParms.getReadTestFolder());
         return mailFolder;
@@ -411,10 +436,12 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
 
         final long interval = mailParms.getSendTestAttemptInterval();
 
-        final TimeoutTracker tracker = new TimeoutTracker(mailParms.getParameterMap(), mailParms.getRetries(), mailParms.getTimeout());
+        final TimeoutTracker tracker = new TimeoutTracker(mailParms.getParameterMap(), mailParms.getRetries(),
+                                                          mailParms.getTimeout());
         for (tracker.reset(); tracker.shouldRetry(); tracker.nextAttempt()) {
             tracker.startAttempt();
-            LOG.debug("sendTestMessage: sending mail attempt: {}, elapsed time: {}ms", (tracker.getAttempt() + 1), String.format("%.2f", tracker.elapsedTimeInMillis()));
+            LOG.debug("sendTestMessage: sending mail attempt: {}, elapsed time: {}ms", (tracker.getAttempt() + 1),
+                      String.format("%.2f", tracker.elapsedTimeInMillis()));
             try {
                 final JavaMailer sendMailer = createMailer(mailParms);
                 overRideDefaultProperties(mailParms, sendMailer);
@@ -433,10 +460,13 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     * Set poll status to unknown indicate an exception occurred while attempting to sleep the thread.
+     * Set poll status to unknown indicate an exception occurred while
+     * attempting to sleep the thread.
+     *
      * @param status
      * @param interval
-     * @return returns an unchanged PollStatus unless an exception happens in which case status is changed to unknown.
+     * @return returns an unchanged PollStatus unless an exception happens in
+     *         which case status is changed to unknown.
      */
     private int delayTest(PollStatus status, final long interval) {
         LOG.debug("delayTest: delaying test for: {}ms. per configuration.", interval);
@@ -452,7 +482,7 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
     /**
      * Override some fields in the JavaMailer class. TODO: This needs
      * re-factoring!
-
+     *
      * @param mailParms
      * @param sendMailer
      */
@@ -466,13 +496,12 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
         sendMailer.setMailer(mailParms.getSendTestMailer());
         sendMailer.setMailHost(mailParms.getSendTestHost());
 
-        //char_set, encoding, m_contentType
+        // char_set, encoding, m_contentType
         sendMailer.setMessageText(mailParms.getSendTestMessageBody());
         sendMailer.setCharSet(mailParms.getSendTestCharSet());
         sendMailer.setContentType(mailParms.getSendTestMessageContentType());
 
         sendMailer.setSmtpSsl(mailParms.isSendTestIsSslEnable());
-
 
         sendMailer.setSubject(mailParms.getComputedTestSubject());
         sendMailer.setTo(mailParms.getSendTestRecipeint());
@@ -485,58 +514,60 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
         final String mailPropsPrefix = new StringBuilder("mail.").append(mailParms.getSendTestTransport()).append('.').toString();
         final Properties props = sendMailer.getSession().getProperties();
 
-        //user
-        props.setProperty(mailPropsPrefix+"user", mailParms.getSendTestUserName());
+        // user
+        props.setProperty(mailPropsPrefix + "user", mailParms.getSendTestUserName());
         sendMailer.setUser(mailParms.getSendTestUserName());
         sendMailer.setPassword(mailParms.getSendTestPassword());
 
-        //host
-        props.setProperty(mailPropsPrefix+"host", mailParms.getSendTestHost());
+        // host
+        props.setProperty(mailPropsPrefix + "host", mailParms.getSendTestHost());
         sendMailer.setMailHost(mailParms.getSendTestHost());
 
-        //port
-        props.setProperty(mailPropsPrefix+"port", String.valueOf(mailParms.getSendTestPort()));
+        // port
+        props.setProperty(mailPropsPrefix + "port", String.valueOf(mailParms.getSendTestPort()));
         sendMailer.setSmtpPort(mailParms.getSendTestPort());
 
-        //connectiontimeout
-        //Override this with configured javamail property because this setting is a generic timeout value
-        if (!props.containsKey(mailPropsPrefix+"connectiontimeout")) {
-            props.setProperty(mailPropsPrefix+"connectiontimeout", String.valueOf(mailParms.getTimeout()));
+        // connectiontimeout
+        // Override this with configured javamail property because this setting
+        // is a generic timeout value
+        if (!props.containsKey(mailPropsPrefix + "connectiontimeout")) {
+            props.setProperty(mailPropsPrefix + "connectiontimeout", String.valueOf(mailParms.getTimeout()));
         }
 
-        //timeout
-        //Override this with configured javamail property because this setting is a generic timeout value
-        if (!props.containsKey(mailPropsPrefix+"timeout")) {
-            props.setProperty(mailPropsPrefix+"timeout", String.valueOf(mailParms.getTimeout()));
+        // timeout
+        // Override this with configured javamail property because this setting
+        // is a generic timeout value
+        if (!props.containsKey(mailPropsPrefix + "timeout")) {
+            props.setProperty(mailPropsPrefix + "timeout", String.valueOf(mailParms.getTimeout()));
         }
 
-        //from
-        props.setProperty(mailPropsPrefix+"from", mailParms.getSendTestFrom());
+        // from
+        props.setProperty(mailPropsPrefix + "from", mailParms.getSendTestFrom());
         sendMailer.setFrom(mailParms.getSendTestFrom());
 
-        //auth
-        props.setProperty(mailPropsPrefix+"auth", String.valueOf(mailParms.isSendTestUseAuth()));
+        // auth
+        props.setProperty(mailPropsPrefix + "auth", String.valueOf(mailParms.isSendTestUseAuth()));
         sendMailer.setAuthenticate(mailParms.isSendTestUseAuth());
 
-        //quitwait
-        props.setProperty(mailPropsPrefix+"quitwait", String.valueOf(mailParms.isSendTestIsQuitWait()));
+        // quitwait
+        props.setProperty(mailPropsPrefix + "quitwait", String.valueOf(mailParms.isSendTestIsQuitWait()));
         sendMailer.setQuitWait(mailParms.isSendTestIsQuitWait());
 
-        //socketFactory.class
-        //socketFactory.port
+        // socketFactory.class
+        // socketFactory.port
         if (mailParms.isSendTestIsSslEnable()) {
 
-            //override this hard coded default if this property is specified
-            if (!props.containsKey(mailPropsPrefix+"socketFactory.class")) {
-                props.setProperty(mailPropsPrefix+"socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            // override this hard coded default if this property is specified
+            if (!props.containsKey(mailPropsPrefix + "socketFactory.class")) {
+                props.setProperty(mailPropsPrefix + "socketFactory.class", "javax.net.ssl.SSLSocketFactory");
             }
-            props.setProperty(mailPropsPrefix+"socketFactory.port", String.valueOf(mailParms.getSendTestPort()));
+            props.setProperty(mailPropsPrefix + "socketFactory.port", String.valueOf(mailParms.getSendTestPort()));
             sendMailer.setSmtpPort(mailParms.getSendTestPort());
         }
         sendMailer.setSmtpSsl(mailParms.isSendTestIsSslEnable());
 
-        //starttls.enable
-        props.setProperty(mailPropsPrefix+"starttls.enable", String.valueOf(mailParms.isSendTestStartTls()));
+        // starttls.enable
+        props.setProperty(mailPropsPrefix + "starttls.enable", String.valueOf(mailParms.isSendTestStartTls()));
         sendMailer.setStartTlsEnabled(mailParms.isSendTestStartTls());
         sendMailer.addExtraHeader(MTM_HEADER_KEY, m_headerValue);
 

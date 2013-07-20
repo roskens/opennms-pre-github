@@ -99,8 +99,7 @@ public class Invoke implements Serializable {
         super();
     }
 
-    public Invoke(final InvokeAtType type, final Integer pass,
-            final String method, final List<Argument> arguments) {
+    public Invoke(final InvokeAtType type, final Integer pass, final String method, final List<Argument> arguments) {
         super();
         setAt(type);
         setPass(pass);
@@ -113,27 +112,21 @@ public class Invoke implements Serializable {
     // -----------/
 
     /**
-     *
-     *
      * @param vArgument
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addArgument(final Argument vArgument)
-            throws IndexOutOfBoundsException {
+    public void addArgument(final Argument vArgument) throws IndexOutOfBoundsException {
         this._argumentList.add(vArgument);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vArgument
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addArgument(final int index, final Argument vArgument)
-            throws IndexOutOfBoundsException {
+    public void addArgument(final int index, final Argument vArgument) throws IndexOutOfBoundsException {
         this._argumentList.add(index, vArgument);
     }
 
@@ -203,12 +196,10 @@ public class Invoke implements Serializable {
      * @return the value of the org.opennms.netmgt.config.service.Argument at
      *         the given index
      */
-    public Argument getArgument(final int index)
-            throws IndexOutOfBoundsException {
+    public Argument getArgument(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._argumentList.size()) {
-            throw new IndexOutOfBoundsException("getArgument: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("getArgument: Index value '" + index + "' not in range [0.."
                     + (this._argumentList.size() - 1) + "]");
         }
 
@@ -220,8 +211,8 @@ public class Invoke implements Serializable {
      * <p>
      * Note: Just in case the collection contents are changing in another
      * thread, we pass a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of exactly the
-     * correct length.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -348,19 +339,15 @@ public class Invoke implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param vArgument
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void setArgument(final int index, final Argument vArgument)
-            throws IndexOutOfBoundsException {
+    public void setArgument(final int index, final Argument vArgument) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._argumentList.size()) {
-            throw new IndexOutOfBoundsException("setArgument: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("setArgument: Index value '" + index + "' not in range [0.."
                     + (this._argumentList.size() - 1) + "]");
         }
 
@@ -368,8 +355,6 @@ public class Invoke implements Serializable {
     }
 
     /**
-     *
-     *
      * @param vArgumentArray
      */
     public void setArgument(final Argument[] vArgumentArray) {

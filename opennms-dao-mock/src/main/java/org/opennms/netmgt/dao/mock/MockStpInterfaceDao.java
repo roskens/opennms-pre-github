@@ -9,7 +9,7 @@ import org.opennms.netmgt.dao.api.StpInterfaceDao;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsStpInterface;
 
-public class MockStpInterfaceDao extends AbstractMockDao<OnmsStpInterface,Integer> implements StpInterfaceDao {
+public class MockStpInterfaceDao extends AbstractMockDao<OnmsStpInterface, Integer> implements StpInterfaceDao {
     private AtomicInteger m_id = new AtomicInteger(0);
 
     @Override
@@ -82,11 +82,11 @@ public class MockStpInterfaceDao extends AbstractMockDao<OnmsStpInterface,Intege
         return null;
     }
 
-
     private List<OnmsStpInterface> getStpInterfacesForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
         final List<OnmsStpInterface> ifaces = new ArrayList<OnmsStpInterface>();
         for (final OnmsStpInterface iface : findAll()) {
-            if (iface.getNode() != null && iface.getNode().getId().intValue() != nodeId) continue;
+            if (iface.getNode() != null && iface.getNode().getId().intValue() != nodeId)
+                continue;
             if (iface.getLastPollTime() != null || iface.getLastPollTime().before(scanTime)) {
                 ifaces.add(iface);
             }

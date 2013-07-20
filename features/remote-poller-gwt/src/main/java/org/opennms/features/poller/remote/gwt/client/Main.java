@@ -41,7 +41,7 @@ import de.novanic.eventservice.client.event.RemoteEventServiceFactory;
 
 public class Main implements EntryPoint {
 
-    private class DeferredCommandExecutor implements CommandExecutor{
+    private class DeferredCommandExecutor implements CommandExecutor {
 
         @Override
         public void schedule(Scheduler.RepeatingCommand command) {
@@ -65,7 +65,8 @@ public class Main implements EntryPoint {
 
         LocationStatusServiceAsync remoteService = GWT.create(LocationStatusService.class);
         RemoteEventService remoteEventService = RemoteEventServiceFactory.getInstance().getRemoteEventService();
-        application.initialize(new DefaultApplicationView(application, getEventBus(), mapPanel), remoteService, remoteEventService, new DeferredCommandExecutor());
+        application.initialize(new DefaultApplicationView(application, getEventBus(), mapPanel), remoteService,
+                               remoteEventService, new DeferredCommandExecutor());
 
     }
 
@@ -85,13 +86,15 @@ public class Main implements EntryPoint {
     }
 
     /**
-     * <p>getMapImplementationType</p>
+     * <p>
+     * getMapImplementationType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public native String getMapType() /*-{
-        return $wnd.mapImplementation;
-    }-*/;
+                                      return $wnd.mapImplementation;
+                                      }-*/;
 
     public HandlerManager getEventBus() {
         return m_eventBus;

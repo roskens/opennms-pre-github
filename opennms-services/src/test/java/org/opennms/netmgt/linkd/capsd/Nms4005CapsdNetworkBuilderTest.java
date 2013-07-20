@@ -60,8 +60,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
@@ -72,12 +71,10 @@ import org.springframework.transaction.annotation.Transactional;
         // Override the capsd config with a stripped-down version
         "classpath:/META-INF/opennms/capsdTest.xml",
         // override snmp-config configuration
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @JUnitTemporaryDatabase
 public class Nms4005CapsdNetworkBuilderTest extends Nms4005NetworkBuilder implements InitializingBean {
-
 
     @Autowired
     private IpInterfaceDao m_interfaceDao;
@@ -101,12 +98,11 @@ public class Nms4005CapsdNetworkBuilderTest extends Nms4005NetworkBuilder implem
     }
 
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host="10.1.1.2", port=161, resource="classpath:linkd/nms4005/10.1.1.2-walk.txt"),
-            @JUnitSnmpAgent(host="10.1.2.2", port=161, resource="classpath:linkd/nms4005/10.1.2.2-walk.txt"),
-            @JUnitSnmpAgent(host="10.1.3.2", port=161, resource="classpath:linkd/nms4005/10.1.3.2-walk.txt"),
-            @JUnitSnmpAgent(host="10.1.4.2", port=161, resource="classpath:linkd/nms4005/10.1.4.2-walk.txt")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = "10.1.1.2", port = 161, resource = "classpath:linkd/nms4005/10.1.1.2-walk.txt"),
+            @JUnitSnmpAgent(host = "10.1.2.2", port = 161, resource = "classpath:linkd/nms4005/10.1.2.2-walk.txt"),
+            @JUnitSnmpAgent(host = "10.1.3.2", port = 161, resource = "classpath:linkd/nms4005/10.1.3.2-walk.txt"),
+            @JUnitSnmpAgent(host = "10.1.4.2", port = 161, resource = "classpath:linkd/nms4005/10.1.4.2-walk.txt") })
     @Transactional
     public final void testCapsdNms4005() throws MarshalException, ValidationException, IOException {
         m_capsd.init();
@@ -117,10 +113,10 @@ public class Nms4005CapsdNetworkBuilderTest extends Nms4005NetworkBuilder implem
         m_capsd.scanSuspectInterface(R3_IP);
         m_capsd.scanSuspectInterface(R4_IP);
 
-        printNode(R1_IP,"R1");
-        printNode(R2_IP,"R2");
-        printNode(R3_IP,"R3");
-        printNode(R4_IP,"R4");
+        printNode(R1_IP, "R1");
+        printNode(R2_IP, "R2");
+        printNode(R3_IP, "R3");
+        printNode(R4_IP, "R4");
 
         m_capsd.stop();
 

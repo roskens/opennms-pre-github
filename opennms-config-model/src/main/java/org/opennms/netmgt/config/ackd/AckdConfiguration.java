@@ -45,8 +45,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Behavior configuration for the Acknowledgment Daemon
- * 
- * 
+ *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "ackd-configuration")
@@ -116,7 +115,6 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Location for user to define readers and they're schedules.
-     * 
      */
     @XmlElement(name = "readers")
     private Readers _readers;
@@ -129,10 +127,8 @@ public class AckdConfiguration implements Serializable {
         super();
     }
 
-    public AckdConfiguration(final boolean alarmSync,
-            final String ackExpression, final String unackExpression,
-            final String clearExpression, final String escalateExpression,
-            final String notifyidMatchExpression,
+    public AckdConfiguration(final boolean alarmSync, final String ackExpression, final String unackExpression,
+            final String clearExpression, final String escalateExpression, final String notifyidMatchExpression,
             final String alarmidMatchExpression, final Readers readers) {
         super();
         setAlarmSync(alarmSync);
@@ -151,7 +147,7 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Overrides the Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -209,17 +205,16 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Returns the value of field 'ackExpression'.
-     * 
+     *
      * @return the value of field 'AckExpression'.
      */
     public String getAckExpression() {
-        return _ackExpression == null ? DEFAULT_ACK_EXPRESSION
-                                     : _ackExpression;
+        return _ackExpression == null ? DEFAULT_ACK_EXPRESSION : _ackExpression;
     }
 
     /**
      * Returns the value of field 'alarmSync'.
-     * 
+     *
      * @return the value of field 'AlarmSync'.
      */
     public boolean getAlarmSync() {
@@ -228,50 +223,45 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Returns the value of field 'alarmidMatchExpression'.
-     * 
+     *
      * @return the value of field 'AlarmidMatchExpression'.
      */
     public String getAlarmidMatchExpression() {
-        return _alarmidMatchExpression == null ? DEFAULT_ALARMID_MATCH_EXPRESSION
-                                              : _alarmidMatchExpression;
+        return _alarmidMatchExpression == null ? DEFAULT_ALARMID_MATCH_EXPRESSION : _alarmidMatchExpression;
     }
 
     /**
      * Returns the value of field 'clearExpression'.
-     * 
+     *
      * @return the value of field 'ClearExpression'.
      */
     public String getClearExpression() {
-        return _clearExpression == null ? DEFAULT_CLEAR_EXPRESSION
-                                       : _clearExpression;
+        return _clearExpression == null ? DEFAULT_CLEAR_EXPRESSION : _clearExpression;
     }
 
     /**
      * Returns the value of field 'escalateExpression'.
-     * 
+     *
      * @return the value of field 'EscalateExpression'.
      */
     public String getEscalateExpression() {
-        return _escalateExpression == null ? DEFAULT_ESCALATE_EXPRESSION
-                                          : _escalateExpression;
+        return _escalateExpression == null ? DEFAULT_ESCALATE_EXPRESSION : _escalateExpression;
     }
 
     /**
      * Returns the value of field 'notifyidMatchExpression'.
-     * 
+     *
      * @return the value of field 'NotifyidMatchExpression'.
      */
     public String getNotifyidMatchExpression() {
-        return _notifyidMatchExpression == null ? DEFAULT_NOTIFYID_MATCH_EXPRESSION
-                                               : _notifyidMatchExpression;
+        return _notifyidMatchExpression == null ? DEFAULT_NOTIFYID_MATCH_EXPRESSION : _notifyidMatchExpression;
     }
 
     /**
      * Returns the value of field 'readers'. The field 'readers' has the
      * following description: Location for user to define readers and they're
      * schedules.
-     * 
-     * 
+     *
      * @return the value of field 'Readers'.
      */
     public Readers getReaders() {
@@ -280,12 +270,11 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Returns the value of field 'unackExpression'.
-     * 
+     *
      * @return the value of field 'UnackExpression'.
      */
     public String getUnackExpression() {
-        return _unackExpression == null ? DEFAULT_UNACK_EXPRESSION
-                                       : _unackExpression;
+        return _unackExpression == null ? DEFAULT_UNACK_EXPRESSION : _unackExpression;
     }
 
     /**
@@ -293,45 +282,27 @@ public class AckdConfiguration implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming Language
      * Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result
-                + ((_ackExpression == null) ? 0 : _ackExpression.hashCode());
-        result = prime * result
-                + ((_alarmSync == null) ? 0 : _alarmSync.hashCode());
-        result = prime
-                * result
-                + ((_alarmidMatchExpression == null) ? 0
-                                                    : _alarmidMatchExpression.hashCode());
-        result = prime
-                * result
-                + ((_clearExpression == null) ? 0
-                                             : _clearExpression.hashCode());
-        result = prime
-                * result
-                + ((_escalateExpression == null) ? 0
-                                                : _escalateExpression.hashCode());
-        result = prime
-                * result
-                + ((_notifyidMatchExpression == null) ? 0
-                                                     : _notifyidMatchExpression.hashCode());
-        result = prime * result
-                + ((_readers == null) ? 0 : _readers.hashCode());
-        result = prime
-                * result
-                + ((_unackExpression == null) ? 0
-                                             : _unackExpression.hashCode());
+        result = prime * result + ((_ackExpression == null) ? 0 : _ackExpression.hashCode());
+        result = prime * result + ((_alarmSync == null) ? 0 : _alarmSync.hashCode());
+        result = prime * result + ((_alarmidMatchExpression == null) ? 0 : _alarmidMatchExpression.hashCode());
+        result = prime * result + ((_clearExpression == null) ? 0 : _clearExpression.hashCode());
+        result = prime * result + ((_escalateExpression == null) ? 0 : _escalateExpression.hashCode());
+        result = prime * result + ((_notifyidMatchExpression == null) ? 0 : _notifyidMatchExpression.hashCode());
+        result = prime * result + ((_readers == null) ? 0 : _readers.hashCode());
+        result = prime * result + ((_unackExpression == null) ? 0 : _unackExpression.hashCode());
         return result;
     }
 
     /**
      * Returns the value of field 'alarmSync'.
-     * 
+     *
      * @return the value of field 'AlarmSync'.
      */
     public boolean isAlarmSync() {
@@ -340,7 +311,7 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Sets the value of field 'ackExpression'.
-     * 
+     *
      * @param ackExpression
      *            the value of field 'ackExpression'.
      */
@@ -350,7 +321,7 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Sets the value of field 'alarmSync'.
-     * 
+     *
      * @param alarmSync
      *            the value of field 'alarmSync'.
      */
@@ -360,7 +331,7 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Sets the value of field 'alarmidMatchExpression'.
-     * 
+     *
      * @param alarmidMatchExpression
      *            the value of field 'alarmidMatchExpression'.
      */
@@ -370,7 +341,7 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Sets the value of field 'clearExpression'.
-     * 
+     *
      * @param clearExpression
      *            the value of field 'clearExpression'.
      */
@@ -380,7 +351,7 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Sets the value of field 'escalateExpression'.
-     * 
+     *
      * @param escalateExpression
      *            the value of field 'escalateExpression'.
      */
@@ -390,12 +361,11 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Sets the value of field 'notifyidMatchExpression'.
-     * 
+     *
      * @param notifyidMatchExpression
      *            the value of field 'notifyidMatchExpression'.
      */
-    public void setNotifyidMatchExpression(
-            final String notifyidMatchExpression) {
+    public void setNotifyidMatchExpression(final String notifyidMatchExpression) {
         this._notifyidMatchExpression = notifyidMatchExpression;
     }
 
@@ -403,8 +373,7 @@ public class AckdConfiguration implements Serializable {
      * Sets the value of field 'readers'. The field 'readers' has the
      * following description: Location for user to define readers and they're
      * schedules.
-     * 
-     * 
+     *
      * @param readers
      *            the value of field 'readers'.
      */
@@ -414,7 +383,7 @@ public class AckdConfiguration implements Serializable {
 
     /**
      * Sets the value of field 'unackExpression'.
-     * 
+     *
      * @param unackExpression
      *            the value of field 'unackExpression'.
      */

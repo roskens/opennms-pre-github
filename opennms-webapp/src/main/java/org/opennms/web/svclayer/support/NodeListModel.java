@@ -36,7 +36,9 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 
 /**
- * <p>NodeListModel class.</p>
+ * <p>
+ * NodeListModel class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -44,13 +46,18 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
  */
 public class NodeListModel {
     private List<NodeModel> m_nodes;
+
     private int m_interfaceCount;
 
     /**
-     * <p>Constructor for NodeListModel.</p>
+     * <p>
+     * Constructor for NodeListModel.
+     * </p>
      *
-     * @param nodes a {@link java.util.List} object.
-     * @param interfaceCount a int.
+     * @param nodes
+     *            a {@link java.util.List} object.
+     * @param interfaceCount
+     *            a int.
      */
     public NodeListModel(final List<NodeModel> nodes, final int interfaceCount) {
         m_nodes = nodes;
@@ -58,7 +65,9 @@ public class NodeListModel {
     }
 
     /**
-     * <p>getNodes</p>
+     * <p>
+     * getNodes
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -67,7 +76,9 @@ public class NodeListModel {
     }
 
     /**
-     * <p>getNodesLeft</p>
+     * <p>
+     * getNodesLeft
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -76,7 +87,9 @@ public class NodeListModel {
     }
 
     /**
-     * <p>getNodesRight</p>
+     * <p>
+     * getNodesRight
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -85,16 +98,20 @@ public class NodeListModel {
     }
 
     /**
-     * <p>getLastInLeftColumn</p>
+     * <p>
+     * getLastInLeftColumn
+     * </p>
      *
      * @return a int.
      */
     public final int getLastInLeftColumn() {
-        return (int) Math.ceil(m_nodes.size()/2.0);
+        return (int) Math.ceil(m_nodes.size() / 2.0);
     }
 
     /**
-     * <p>getNodeCount</p>
+     * <p>
+     * getNodeCount
+     * </p>
      *
      * @return a int.
      */
@@ -103,7 +120,9 @@ public class NodeListModel {
     }
 
     /**
-     * <p>getInterfaceCount</p>
+     * <p>
+     * getInterfaceCount
+     * </p>
      *
      * @return a int.
      */
@@ -113,12 +132,15 @@ public class NodeListModel {
 
     public static class NodeModel {
         private OnmsNode m_node;
+
         private List<OnmsIpInterface> m_interfaces;
+
         private List<OnmsArpInterface> m_arpinterfaces;
+
         private List<OnmsSnmpInterface> m_snmpinterfaces;
 
-
-        public NodeModel(final OnmsNode node, final List<OnmsIpInterface> interfaces, final List<OnmsArpInterface> arpinterfaces, final List<OnmsSnmpInterface> snmpinterfaces) {
+        public NodeModel(final OnmsNode node, final List<OnmsIpInterface> interfaces,
+                final List<OnmsArpInterface> arpinterfaces, final List<OnmsSnmpInterface> snmpinterfaces) {
             m_node = node;
             m_interfaces = interfaces;
             m_arpinterfaces = arpinterfaces;

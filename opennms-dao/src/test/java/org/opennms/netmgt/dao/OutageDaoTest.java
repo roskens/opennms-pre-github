@@ -73,17 +73,14 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * @author mhuot
- *
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class OutageDaoTest implements InitializingBean {
@@ -149,10 +146,10 @@ public class OutageDaoTest implements InitializingBean {
         outage.setMonitoredService(monitoredService);
         m_outageDao.save(outage);
 
-        //it works we're so smart! hehe
+        // it works we're so smart! hehe
         outage = m_outageDao.load(outage.getId());
         assertEquals("ICMP", outage.getMonitoredService().getServiceType().getName());
-//        outage.setEventBySvcRegainedEvent();
+        // outage.setEventBySvcRegainedEvent();
 
     }
 
@@ -325,9 +322,9 @@ public class OutageDaoTest implements InitializingBean {
     }
 
     private OnmsMonitoredService getMonitoredService(OnmsIpInterface ipInterface, OnmsServiceType serviceType) {
-        final OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class)
-            .add(Restrictions.eq("ipInterface", ipInterface))
-            .add(Restrictions.eq("serviceType", serviceType));
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class).add(Restrictions.eq("ipInterface",
+                                                                                                       ipInterface)).add(Restrictions.eq("serviceType",
+                                                                                                                                         serviceType));
         final List<OnmsMonitoredService> services = m_monitoredServiceDao.findMatching(criteria);
         OnmsMonitoredService monitoredService;
         if (services.size() > 0) {

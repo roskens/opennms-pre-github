@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.client.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * <p>SortOrderUpdateEvent class.</p>
+ * <p>
+ * SortOrderUpdateEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,12 +43,16 @@ public class SortOrderUpdateEvent extends GwtEvent<SortOrderUpdateHandler> {
 
     /** Constant <code>TYPE</code> */
     public static Type<SortOrderUpdateHandler> TYPE = new Type<SortOrderUpdateHandler>();
+
     private String m_sortOrder;
 
     /**
-     * <p>Constructor for SortOrderUpdateEvent.</p>
+     * <p>
+     * Constructor for SortOrderUpdateEvent.
+     * </p>
      *
-     * @param sortOrder a {@link java.lang.String} object.
+     * @param sortOrder
+     *            a {@link java.lang.String} object.
      */
     public SortOrderUpdateEvent(String sortOrder) {
         setSortOrder(sortOrder);
@@ -66,16 +72,21 @@ public class SortOrderUpdateEvent extends GwtEvent<SortOrderUpdateHandler> {
     }
 
     /**
-     * <p>setSortOrder</p>
+     * <p>
+     * setSortOrder
+     * </p>
      *
-     * @param sortOrder a {@link java.lang.String} object.
+     * @param sortOrder
+     *            a {@link java.lang.String} object.
      */
     public void setSortOrder(String sortOrder) {
         m_sortOrder = sortOrder;
     }
 
     /**
-     * <p>getSortOrder</p>
+     * <p>
+     * getSortOrder
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

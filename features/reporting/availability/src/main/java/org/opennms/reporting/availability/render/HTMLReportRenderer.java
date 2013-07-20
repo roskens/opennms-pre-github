@@ -71,7 +71,9 @@ public class HTMLReportRenderer implements ReportRenderer {
     private String m_baseDir;
 
     /**
-     * <p>Constructor for HTMLReportRenderer.</p>
+     * <p>
+     * Constructor for HTMLReportRenderer.
+     * </p>
      */
     public HTMLReportRenderer() {
         // TODO This shoud wrap the methods I think
@@ -79,9 +81,12 @@ public class HTMLReportRenderer implements ReportRenderer {
     }
 
     /**
-     * <p>render</p>
+     * <p>
+     * render
+     * </p>
      *
-     * @throws org.opennms.reporting.availability.render.ReportRenderException if any.
+     * @throws org.opennms.reporting.availability.render.ReportRenderException
+     *             if any.
      */
     @Override
     public void render() throws ReportRenderException {
@@ -91,7 +96,6 @@ public class HTMLReportRenderer implements ReportRenderer {
     /** {@inheritDoc} */
     @Override
     public byte[] render(String inputFileName, Resource xsltResource) throws ReportRenderException {
-
 
         LOG.debug("Rendering {} with XSL File {} to byte array", inputFileName, xsltResource.getDescription());
 
@@ -103,7 +107,8 @@ public class HTMLReportRenderer implements ReportRenderer {
 
     /** {@inheritDoc} */
     @Override
-    public void render(String inputFileName, OutputStream outputStream, Resource xsltResource) throws ReportRenderException {
+    public void render(String inputFileName, OutputStream outputStream, Resource xsltResource)
+            throws ReportRenderException {
 
         LOG.debug("Rendering {} with XSL File {} to OutputStream", inputFileName, xsltResource.getDescription());
 
@@ -138,7 +143,8 @@ public class HTMLReportRenderer implements ReportRenderer {
 
     /** {@inheritDoc} */
     @Override
-    public void render(InputStream inputStream, OutputStream outputStream, Resource xsltResource) throws ReportRenderException {
+    public void render(InputStream inputStream, OutputStream outputStream, Resource xsltResource)
+            throws ReportRenderException {
 
         LOG.debug("Rendering InputStream with XSL File {} to OutputStream", xsltResource.getDescription());
 
@@ -167,7 +173,8 @@ public class HTMLReportRenderer implements ReportRenderer {
     @Override
     public void render(String inputFileName, String outputFileName, Resource xsltResource) throws ReportRenderException {
 
-        LOG.debug("Rendering {} with XSL File {} to {} with base directory of {}", m_baseDir, inputFileName, xsltResource.getDescription(), outputFileName);
+        LOG.debug("Rendering {} with XSL File {} to {} with base directory of {}", m_baseDir, inputFileName,
+                  xsltResource.getDescription(), outputFileName);
 
         FileInputStream in = null, xslt = null;
         FileOutputStream out = null;
@@ -211,12 +218,18 @@ public class HTMLReportRenderer implements ReportRenderer {
     }
 
     /**
-     * <p>render</p>
+     * <p>
+     * render
+     * </p>
      *
-     * @param in a {@link java.io.Reader} object.
-     * @param out a {@link java.io.OutputStream} object.
-     * @param xslt a {@link java.io.Reader} object.
-     * @throws org.opennms.reporting.availability.render.ReportRenderException if any.
+     * @param in
+     *            a {@link java.io.Reader} object.
+     * @param out
+     *            a {@link java.io.OutputStream} object.
+     * @param xslt
+     *            a {@link java.io.Reader} object.
+     * @throws org.opennms.reporting.availability.render.ReportRenderException
+     *             if any.
      */
     public void render(Reader in, OutputStream out, Reader xslt) throws ReportRenderException {
         try {
@@ -246,7 +259,9 @@ public class HTMLReportRenderer implements ReportRenderer {
     }
 
     /**
-     * <p>getOutputFileName</p>
+     * <p>
+     * getOutputFileName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -268,7 +283,9 @@ public class HTMLReportRenderer implements ReportRenderer {
     }
 
     /**
-     * <p>getBaseDir</p>
+     * <p>
+     * getBaseDir
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

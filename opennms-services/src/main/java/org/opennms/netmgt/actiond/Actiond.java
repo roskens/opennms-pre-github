@@ -72,17 +72,19 @@ public final class Actiond extends AbstractServiceDaemon {
      * Constructs a new Action execution daemon.
      */
     private Actiond() {
-    	super("actiond");
+        super("actiond");
         m_executor = null;
         m_eventReader = null;
     }
 
-	/**
-	 * <p>onInit</p>
-	 */
+    /**
+     * <p>
+     * onInit
+     * </p>
+     */
     @Override
-	protected void onInit() {
-		// A queue for execution
+    protected void onInit() {
+        // A queue for execution
         //
         FifoQueue<String> execQ = new FifoQueueImpl<String>();
 
@@ -95,27 +97,32 @@ public final class Actiond extends AbstractServiceDaemon {
             throw new UndeclaredThrowableException(ex);
         }
 
-        m_executor = new Executor(execQ, m_actiondConfig.getMaxProcessTime(), m_actiondConfig.getMaxOutstandingActions());
-	}
+        m_executor = new Executor(execQ, m_actiondConfig.getMaxProcessTime(),
+                                  m_actiondConfig.getMaxOutstandingActions());
+    }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
-		if (m_executor == null) {
-		    init();
-		}
+        if (m_executor == null) {
+            init();
+        }
 
-		m_executor.start();
-	}
+        m_executor.start();
+    }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
-		try {
+        try {
             if (m_executor != null) {
                 m_executor.stop();
             }
@@ -129,23 +136,27 @@ public final class Actiond extends AbstractServiceDaemon {
         m_eventReader = null;
         m_executor = null;
         m_actiondConfig = null;
-	}
+    }
 
     /**
-     * <p>onPause</p>
+     * <p>
+     * onPause
+     * </p>
      */
     @Override
     protected void onPause() {
-		m_executor.pause();
-	}
+        m_executor.pause();
+    }
 
     /**
-     * <p>onResume</p>
+     * <p>
+     * onResume
+     * </p>
      */
     @Override
     protected void onResume() {
-		m_executor.resume();
-	}
+        m_executor.resume();
+    }
 
     /**
      * Returns the singular instance of the actiond daemon. There can be only
@@ -158,25 +169,34 @@ public final class Actiond extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>getEventReader</p>
+     * <p>
+     * getEventReader
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.actiond.BroadcastEventProcessor} object.
+     * @return a {@link org.opennms.netmgt.actiond.BroadcastEventProcessor}
+     *         object.
      */
     public BroadcastEventProcessor getEventReader() {
         return m_eventReader;
     }
 
     /**
-     * <p>setEventReader</p>
+     * <p>
+     * setEventReader
+     * </p>
      *
-     * @param eventReader a {@link org.opennms.netmgt.actiond.BroadcastEventProcessor} object.
+     * @param eventReader
+     *            a {@link org.opennms.netmgt.actiond.BroadcastEventProcessor}
+     *            object.
      */
     public void setEventReader(BroadcastEventProcessor eventReader) {
         m_eventReader = eventReader;
     }
 
     /**
-     * <p>getExecutor</p>
+     * <p>
+     * getExecutor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.actiond.Executor} object.
      */
@@ -185,16 +205,21 @@ public final class Actiond extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setExecutor</p>
+     * <p>
+     * setExecutor
+     * </p>
      *
-     * @param executor a {@link org.opennms.netmgt.actiond.Executor} object.
+     * @param executor
+     *            a {@link org.opennms.netmgt.actiond.Executor} object.
      */
     public void setExecutor(Executor executor) {
         m_executor = executor;
     }
 
     /**
-     * <p>getActiondConfig</p>
+     * <p>
+     * getActiondConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.ActiondConfigFactory} object.
      */
@@ -203,13 +228,16 @@ public final class Actiond extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setActiondConfig</p>
+     * <p>
+     * setActiondConfig
+     * </p>
      *
-     * @param actiondConfig a {@link org.opennms.netmgt.config.ActiondConfigFactory} object.
+     * @param actiondConfig
+     *            a {@link org.opennms.netmgt.config.ActiondConfigFactory}
+     *            object.
      */
     public void setActiondConfig(ActiondConfigFactory actiondConfig) {
         m_actiondConfig = actiondConfig;
     }
-
 
 }

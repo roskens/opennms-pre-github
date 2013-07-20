@@ -46,14 +46,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * PluginRegistryTest
  *
  * @author brozow
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= { "classpath:/pluginRegistryTest-context.xml" } )
+@ContextConfiguration(locations = { "classpath:/pluginRegistryTest-context.xml" })
 public class PluginRegistryTest implements InitializingBean {
 
     @Autowired
@@ -82,7 +81,6 @@ public class PluginRegistryTest implements InitializingBean {
         Collection<NodePolicy> nodePolicies = m_pluginRegistry.getAllPlugins(NodePolicy.class);
 
         Collection<IpInterfacePolicy> ifPolicies = m_pluginRegistry.getAllPlugins(IpInterfacePolicy.class);
-
 
         assertEquals(3, nodePolicies.size());
         assertEquals(1, ifPolicies.size());

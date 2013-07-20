@@ -56,6 +56,7 @@ import org.opennms.netmgt.xml.rtc.Node;
  */
 public class EuiLevelMapper extends Object {
     private static final Logger LOG = LoggerFactory.getLogger(EuiLevelMapper.class);
+
     /**
      * The header to be sent out for the availability xml(rtceui.xsd)
      */

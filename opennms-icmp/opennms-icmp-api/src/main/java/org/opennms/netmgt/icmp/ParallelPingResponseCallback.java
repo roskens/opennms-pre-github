@@ -34,15 +34,17 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-
 /**
- * <p>ParallelPingResponseCallback class.</p>
+ * <p>
+ * ParallelPingResponseCallback class.
+ * </p>
  *
  * @author <a href="ranger@opennms.org">Ben Reed</a>
  * @version $Id: $
  */
 public class ParallelPingResponseCallback implements PingResponseCallback {
     CountDownLatch m_latch;
+
     /**
      * Value of round-trip-time for the ping packets in microseconds.
      */
@@ -51,9 +53,12 @@ public class ParallelPingResponseCallback implements PingResponseCallback {
     Throwable m_error;
 
     /**
-     * <p>Constructor for ParallelPingResponseCallback.</p>
+     * <p>
+     * Constructor for ParallelPingResponseCallback.
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      */
     public ParallelPingResponseCallback(int count) {
         m_latch = new CountDownLatch(count);
@@ -98,9 +103,12 @@ public class ParallelPingResponseCallback implements PingResponseCallback {
     }
 
     /**
-     * <p>waitFor</p>
+     * <p>
+     * waitFor
+     * </p>
      *
-     * @throws java.lang.InterruptedException if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public void waitFor() throws InterruptedException {
         m_latch.await();
@@ -108,15 +116,16 @@ public class ParallelPingResponseCallback implements PingResponseCallback {
 
     public void rethrowError() throws Exception {
         if (m_error instanceof Error) {
-            throw (Error)m_error;
+            throw (Error) m_error;
         } else if (m_error instanceof Exception) {
-            throw (Exception)m_error;
+            throw (Exception) m_error;
         }
     }
 
-
     /**
-     * <p>getResponseTimes</p>
+     * <p>
+     * getResponseTimes
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */

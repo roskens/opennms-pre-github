@@ -11,16 +11,18 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
 public class MarkerCluster extends JavaScriptObject {
-    protected MarkerCluster() {}
+    protected MarkerCluster() {
+    }
 
     public final native String getChildCount() /*-{
-        return this.getChildCount();
-    }-*/;
+                                               return this.getChildCount();
+                                               }-*/;
 
     public final List<NodeMarker> getAllChildMarkers() {
         final List<NodeMarker> markers = new ArrayList<NodeMarker>();
         final JsArray<JSObject> markerObjects = getMarkerObjects();
-        if (markerObjects == null) return markers;
+        if (markerObjects == null)
+            return markers;
 
         for (int i = 0; i < markerObjects.length(); i++) {
             final JSObject markerObject = markerObjects.get(i);
@@ -36,22 +38,22 @@ public class MarkerCluster extends JavaScriptObject {
     }
 
     private final native JSObject getNativeGroup() /*-{
-        return this._group;
-    }-*/;
+                                                   return this._group;
+                                                   }-*/;
 
     private final native JsArray<JSObject> getMarkerObjects() /*-{
-        return this.getAllChildMarkers();
-    }-*/;
+                                                              return this.getAllChildMarkers();
+                                                              }-*/;
 
     public final LatLng getLatLng() {
         return new LatLng(getNativeLatLng());
     }
 
     private final native JSObject getNativeLatLng() /*-{
-        return this.getLatLng();
-    }-*/;
+                                                    return this.getLatLng();
+                                                    }-*/;
 
     public final native void closePopup() /*-{
-        this.closePopup();
-    }-*/;
+                                          this.closePopup();
+                                          }-*/;
 }

@@ -30,7 +30,6 @@ package org.opennms.jicmp.ip;
 
 import java.nio.ByteBuffer;
 
-
 /**
  * ICMPEchoReply
  *

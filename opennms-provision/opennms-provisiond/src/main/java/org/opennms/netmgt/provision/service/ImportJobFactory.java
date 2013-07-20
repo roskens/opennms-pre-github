@@ -35,7 +35,9 @@ import org.quartz.spi.JobFactory;
 import org.quartz.spi.TriggerFiredBundle;
 
 /**
- * <p>ImportJobFactory class.</p>
+ * <p>
+ * ImportJobFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -58,21 +60,25 @@ public class ImportJobFactory implements JobFactory {
             job.setProvisioner(getProvisioner());
             return job;
         } catch (Throwable e) {
-            SchedulerException se = new SchedulerException("failed to create job class: "+jobDetail.getJobClass().getName()+"; "+
-                                                           e.getLocalizedMessage(), e);
+            SchedulerException se = new SchedulerException("failed to create job class: "
+                    + jobDetail.getJobClass().getName() + "; " + e.getLocalizedMessage(), e);
             throw se;
         }
     }
 
     @SuppressWarnings("unchecked")
     private Class<ImportJob> getJobClass(JobDetail jobDetail) {
-        return (Class<ImportJob>)jobDetail.getJobClass();
+        return (Class<ImportJob>) jobDetail.getJobClass();
     }
 
     /**
-     * <p>setProvisioner</p>
+     * <p>
+     * setProvisioner
+     * </p>
      *
-     * @param provisioner a {@link org.opennms.netmgt.provision.service.Provisioner} object.
+     * @param provisioner
+     *            a {@link org.opennms.netmgt.provision.service.Provisioner}
+     *            object.
      */
     public void setProvisioner(Provisioner provisioner) {
         m_provisioner = provisioner;
@@ -82,4 +88,3 @@ public class ImportJobFactory implements JobFactory {
         return m_provisioner;
     }
 }
-

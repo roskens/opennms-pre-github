@@ -60,17 +60,23 @@ import org.opennms.acl.model.UserView;
 public interface UserRepository {
 
     /**
-     * <p>getIdUser</p>
+     * <p>
+     * getIdUser
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the unique identifier user.
      */
     public Object getIdUser(String username);
 
     /**
-     * <p>getUserCredentials</p>
+     * <p>
+     * getUserCredentials
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return the user to update its credentials
      */
     public UserDTO getUserCredentials(String id);
@@ -78,62 +84,83 @@ public interface UserRepository {
     /**
      * disable user by id
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return the resutl of the operation
      */
     public Boolean disableUser(String id);
 
     /**
-     * <p>getUser</p>
+     * <p>
+     * getUser
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a read only user
      */
     public UserView getUser(String id);
 
     /**
-     * <p>getUserWithAuthorities</p>
+     * <p>
+     * getUserWithAuthorities
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return user with its authorities
      */
     public UserAuthoritiesDTO getUserWithAuthorities(String username);
 
     /**
-     * <p>getUserWithAuthoritiesByID</p>
+     * <p>
+     * getUserWithAuthoritiesByID
+     * </p>
      *
      * @return user with its authorities
-     * @param sid a {@link java.lang.Integer} object.
+     * @param sid
+     *            a {@link java.lang.Integer} object.
      */
     public UserAuthoritiesDTO getUserWithAuthoritiesByID(Integer sid);
 
     /**
-     * <p>getEnabledUsers</p>
+     * <p>
+     * getEnabledUsers
+     * </p>
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
+     * @param pager
+     *            a {@link org.opennms.acl.model.Pager} object.
      * @return paginated list of enabled users
      */
     public List<UserDTOLight> getEnabledUsers(Pager pager);
 
     /**
-     * <p>getDisabledUsers</p>
+     * <p>
+     * getDisabledUsers
+     * </p>
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
+     * @param pager
+     *            a {@link org.opennms.acl.model.Pager} object.
      * @return paginated list of disabled users
      */
     public List<UserDTOLight> getDisabledUsers(Pager pager);
 
     /**
-     * <p>getUsersNumber</p>
+     * <p>
+     * getUsersNumber
+     * </p>
      *
      * @return number of users in the system
      */
     public Integer getUsersNumber();
 
     /**
-     * <p>insertUser</p>
+     * <p>
+     * insertUser
+     * </p>
      *
-     * @param user a {@link org.opennms.acl.model.UserDTO} object.
+     * @param user
+     *            a {@link org.opennms.acl.model.UserDTO} object.
      * @return id of the inserted user
      */
     public Long insertUser(UserDTO user);
@@ -141,7 +168,8 @@ public interface UserRepository {
     /**
      * Update a user
      *
-     * @param user a {@link org.opennms.acl.model.UserDTO} object.
+     * @param user
+     *            a {@link org.opennms.acl.model.UserDTO} object.
      * @return the number of row updated
      */
     public Integer updatePassword(UserDTO user);
@@ -149,7 +177,8 @@ public interface UserRepository {
     /**
      * Save an UserDTO user
      *
-     * @param user a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
+     * @param user
+     *            a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
      * @return the result of the operation
      */
     public Boolean save(UserAuthoritiesDTO user);

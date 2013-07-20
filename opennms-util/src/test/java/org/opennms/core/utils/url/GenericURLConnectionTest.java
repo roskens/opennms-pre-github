@@ -35,7 +35,9 @@ import org.junit.Test;
 import java.net.URL;
 
 /**
- * <p>GenericURLConnectionTest class.</p>
+ * <p>
+ * GenericURLConnectionTest class.
+ * </p>
  *
  * @author Ronny Trommer <ronny@opennms.org>
  * @version $Id: $
@@ -59,7 +61,8 @@ public class GenericURLConnectionTest extends TestCase {
         m_baseUrl = new URL("http://host.subdomain.domain.tld");
         m_userOnlyUrl = new URL("http://user@host.subdomain.domain.tld");
         m_userPassUrl = new URL("http://user:pass@host.subdomain.domain.tld");
-        m_baseUrlPathQueryString = new URL("http://host.subdomain.domain.tld/path1/path2?arg1=value1&arg2=value2&arg3=value3");
+        m_baseUrlPathQueryString = new URL(
+                                           "http://host.subdomain.domain.tld/path1/path2?arg1=value1&arg2=value2&arg3=value3");
     }
 
     @Test

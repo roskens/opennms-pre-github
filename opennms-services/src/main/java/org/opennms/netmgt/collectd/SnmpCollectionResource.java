@@ -44,9 +44,10 @@ import org.opennms.netmgt.snmp.SnmpValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>Abstract SnmpCollectionResource class.</p>
+ * <p>
+ * Abstract SnmpCollectionResource class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -60,16 +61,21 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     private Map<AttributeGroupType, AttributeGroup> m_groups = new HashMap<AttributeGroupType, AttributeGroup>();
 
     /**
-     * <p>Constructor for SnmpCollectionResource.</p>
+     * <p>
+     * Constructor for SnmpCollectionResource.
+     * </p>
      *
-     * @param def a {@link org.opennms.netmgt.collectd.ResourceType} object.
+     * @param def
+     *            a {@link org.opennms.netmgt.collectd.ResourceType} object.
      */
     public SnmpCollectionResource(final ResourceType def) {
         m_resourceType = def;
     }
 
     /**
-     * <p>getResourceType</p>
+     * <p>
+     * getResourceType
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.ResourceType} object.
      */
@@ -78,7 +84,9 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>getCollectionAgent</p>
+     * <p>
+     * getCollectionAgent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
@@ -91,7 +99,9 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     public abstract boolean shouldPersist(ServiceParameters params);
 
     /**
-     * <p>getOwnerName</p>
+     * <p>
+     * getOwnerName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -105,7 +115,9 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     public abstract File getResourceDir(RrdRepository repository);
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a int.
      */
@@ -113,20 +125,27 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     public abstract int getType();
 
     /**
-     * <p>rescanNeeded</p>
+     * <p>
+     * rescanNeeded
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean rescanNeeded() {
-    	return false;
+        return false;
     }
 
     /**
-     * <p>setAttributeValue</p>
+     * <p>
+     * setAttributeValue
+     * </p>
      *
-     * @param type a {@link org.opennms.netmgt.collectd.SnmpAttributeType} object.
-     * @param val a {@link org.opennms.netmgt.snmp.SnmpValue} object.
+     * @param type
+     *            a {@link org.opennms.netmgt.collectd.SnmpAttributeType}
+     *            object.
+     * @param val
+     *            a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      */
     public void setAttributeValue(final SnmpAttributeType type, final SnmpValue val) {
         SnmpAttribute attr = new SnmpAttribute(this, type, val);
@@ -161,7 +180,9 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     }
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */

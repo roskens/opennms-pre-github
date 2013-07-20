@@ -34,34 +34,36 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
- * <P>IpRouteTable uses a SnmpSession to collect the ipRouteTable entries
- * It implements the SnmpHandler to receive notifications when a reply is
+ * <P>
+ * IpRouteTable uses a SnmpSession to collect the ipRouteTable entries It
+ * implements the SnmpHandler to receive notifications when a reply is
  * received/error occurs in the SnmpSession used to send requests/receive
- * replies.</P>
+ * replies.
+ * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo</A>
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213</A>
  * @version $Id: $
  */
-public class IpRouteTable extends SnmpTable<IpRouteTableEntry>
-{
-	/**
-	 * <P>Constructs an IpRouteTable object that is used to collect
-	 * the address elements from the remote agent. Once all
-	 * the elements are collected, or there is an error in
-	 * the collection the signaler object is <EM>notified</EM>
-	 * to inform other threads.</P>
-	 *
-	 * @see IpRouteTableEntry
-	 * @param address a {@link java.net.InetAddress} object.
-	 */
-	public IpRouteTable(InetAddress address)
-	{
+public class IpRouteTable extends SnmpTable<IpRouteTableEntry> {
+    /**
+     * <P>
+     * Constructs an IpRouteTable object that is used to collect the address
+     * elements from the remote agent. Once all the elements are collected, or
+     * there is an error in the collection the signaler object is
+     * <EM>notified</EM> to inform other threads.
+     * </P>
+     *
+     * @see IpRouteTableEntry
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     */
+    public IpRouteTable(InetAddress address) {
         super(address, "ipRouteTable", IpRouteTableEntry.ms_elemList);
-	}
+    }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     protected IpRouteTableEntry createTableEntry(final SnmpObjId base, final SnmpInstId inst, final Object val) {
         return new IpRouteTableEntry();
     }

@@ -50,21 +50,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 
-@TestExecutionListeners({
-    JUnitDNSServerExecutionListener.class
-})
+@TestExecutionListeners({ JUnitDNSServerExecutionListener.class })
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
-        "classpath:/META-INF/opennms/provisiond-extensions.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties={
+        "classpath:/META-INF/opennms/mockEventIpcManager.xml", "classpath:/META-INF/opennms/provisiond-extensions.xml" })
+@JUnitConfigurationEnvironment(systemProperties = {
         "importer.adapter.dns.server=127.0.0.1:9153",
-        "importer.adapter.dns.privatekey=hmac-md5/test.example.com./QBMBi+8THN8iyAuGIhniB+fiURwQjrrpwFuq1L6NmHcya7QdKqjwp6kLIczPjsAUDcqiLAdQJnQUhCPThA4XtQ=="
-})
+        "importer.adapter.dns.privatekey=hmac-md5/test.example.com./QBMBi+8THN8iyAuGIhniB+fiURwQjrrpwFuq1L6NmHcya7QdKqjwp6kLIczPjsAUDcqiLAdQJnQUhCPThA4XtQ==" })
 public class DnsProvisioningAdapterTest implements InitializingBean {
     @Autowired
     private DnsProvisioningAdapter m_adapter;
@@ -73,6 +67,7 @@ public class DnsProvisioningAdapterTest implements InitializingBean {
     private NodeDao m_nodeDao;
 
     private AdapterOperation m_addOperation;
+
     private AdapterOperation m_deleteOperation;
 
     @Override
@@ -93,24 +88,26 @@ public class DnsProvisioningAdapterTest implements InitializingBean {
         m_adapter.afterPropertiesSet();
 
         m_addOperation = m_adapter.new AdapterOperation(
-            m_nodeDao.findByForeignId("dns", "1").getId(),
-            AdapterOperationType.ADD,
-            new SimpleQueuedProvisioningAdapter.AdapterOperationSchedule(0, 1, 1, TimeUnit.SECONDS)
-        );
+                                                        m_nodeDao.findByForeignId("dns", "1").getId(),
+                                                        AdapterOperationType.ADD,
+                                                        new SimpleQueuedProvisioningAdapter.AdapterOperationSchedule(
+                                                                                                                     0,
+                                                                                                                     1,
+                                                                                                                     1,
+                                                                                                                     TimeUnit.SECONDS));
 
         m_deleteOperation = m_adapter.new AdapterOperation(
-            m_nodeDao.findByForeignId("dns", "1").getId(),
-            AdapterOperationType.DELETE,
-            new SimpleQueuedProvisioningAdapter.AdapterOperationSchedule(0, 1, 1, TimeUnit.SECONDS)
-        );
+                                                           m_nodeDao.findByForeignId("dns", "1").getId(),
+                                                           AdapterOperationType.DELETE,
+                                                           new SimpleQueuedProvisioningAdapter.AdapterOperationSchedule(
+                                                                                                                        0,
+                                                                                                                        1,
+                                                                                                                        1,
+                                                                                                                        TimeUnit.SECONDS));
     }
 
     @Test
-    @JUnitDNSServer(port=9153, zones={
-            @DNSZone(name="example.com", entries={
-                    @DNSEntry(hostname="test", address="192.168.0.1")
-            })
-    })
+    @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = { @DNSEntry(hostname = "test", address = "192.168.0.1") }) })
     public void testAdd() throws Exception {
         OnmsNode n = m_nodeDao.findByForeignId("dns", "1");
         m_adapter.addNode(n.getId());
@@ -118,11 +115,7 @@ public class DnsProvisioningAdapterTest implements InitializingBean {
     }
 
     @Test
-    @JUnitDNSServer(port=9153, zones={
-            @DNSZone(name="example.com", entries={
-                    @DNSEntry(hostname="test", address="192.168.0.1")
-            })
-    })
+    @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = { @DNSEntry(hostname = "test", address = "192.168.0.1") }) })
     public void testDelete() throws Exception {
         OnmsNode n = m_nodeDao.findByForeignId("dns", "1");
         m_adapter.deleteNode(n.getId());

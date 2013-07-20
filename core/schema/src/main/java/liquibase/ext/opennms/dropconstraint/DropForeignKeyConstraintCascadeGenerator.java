@@ -39,26 +39,28 @@ import liquibase.statement.core.DropForeignKeyConstraintStatement;
 
 public class DropForeignKeyConstraintCascadeGenerator extends DropForeignKeyConstraintGenerator {
 
-	@Override
-	public int getPriority() {
-		return super.getPriority() + 1;
-	}
+    @Override
+    public int getPriority() {
+        return super.getPriority() + 1;
+    }
 
-        @Override
-    public Sql[] generateSql(final DropForeignKeyConstraintStatement statement, final Database database, final SqlGeneratorChain sqlGeneratorChain) {
-		final Sql[] superSql = super.generateSql(statement, database, sqlGeneratorChain);
-		if (statement instanceof DropForeignKeyConstraintCascadeStatement) {
-			Boolean cascade = ((DropForeignKeyConstraintCascadeStatement)statement).getCascade();
-			if (cascade != null && cascade && database instanceof PostgresDatabase) {
-	    		return new Sql[] {
-	    				new UnparsedSql(superSql[0].toSql() + " CASCADE", superSql[0].getEndDelimiter(), superSql[0].getAffectedDatabaseObjects().toArray(new DatabaseObject[0]))
-	    		};
-	    	} else {
-	    		return superSql;
-	    	}
-		} else {
-			return superSql;
-		}
+    @Override
+    public Sql[] generateSql(final DropForeignKeyConstraintStatement statement, final Database database,
+            final SqlGeneratorChain sqlGeneratorChain) {
+        final Sql[] superSql = super.generateSql(statement, database, sqlGeneratorChain);
+        if (statement instanceof DropForeignKeyConstraintCascadeStatement) {
+            Boolean cascade = ((DropForeignKeyConstraintCascadeStatement) statement).getCascade();
+            if (cascade != null && cascade && database instanceof PostgresDatabase) {
+                return new Sql[] { new UnparsedSql(
+                                                   superSql[0].toSql() + " CASCADE",
+                                                   superSql[0].getEndDelimiter(),
+                                                   superSql[0].getAffectedDatabaseObjects().toArray(new DatabaseObject[0])) };
+            } else {
+                return superSql;
+            }
+        } else {
+            return superSql;
+        }
     }
 
 }

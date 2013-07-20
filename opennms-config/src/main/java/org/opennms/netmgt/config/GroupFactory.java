@@ -43,7 +43,9 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
 
 /**
- * <p>GroupFactory class.</p>
+ * <p>
+ * GroupFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -72,10 +74,14 @@ public class GroupFactory extends GroupManager {
     /**
      * Constructor which parses the file
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
      */
     public GroupFactory() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         super();
@@ -83,14 +89,21 @@ public class GroupFactory extends GroupManager {
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+    public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
+            ValidationException {
 
         if (s_instance == null || !s_initialized) {
             s_instance = new GroupFactory();
@@ -110,9 +123,12 @@ public class GroupFactory extends GroupManager {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param mgr a {@link org.opennms.netmgt.config.GroupManager} object.
+     * @param mgr
+     *            a {@link org.opennms.netmgt.config.GroupManager} object.
      */
     public static synchronized void setInstance(GroupManager mgr) {
         s_initialized = true;
@@ -122,10 +138,14 @@ public class GroupFactory extends GroupManager {
     /**
      * Parses the groups.xml via the Castor classes
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         File confFile = ConfigFileConstants.getFile(ConfigFileConstants.GROUPS_CONF_FILE_NAME);
@@ -165,11 +185,16 @@ public class GroupFactory extends GroupManager {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {

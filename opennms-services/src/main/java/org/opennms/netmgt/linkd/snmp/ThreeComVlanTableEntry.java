@@ -32,13 +32,14 @@ import org.opennms.netmgt.model.OnmsVlan.VlanStatus;
 import org.opennms.netmgt.model.OnmsVlan.VlanType;
 
 /**
- *<P>The ThreeComVlanTableEntry class is designed to hold all the MIB
- * information for one entry in the:
- * 1.3.6.1.4.1.43.10.1.14.1.2.1
- *
- * <P>This object is used by the ThreeComVlanTable  to hold information
- * single entries in the table. See the ThreeComVlanTable documentation
- * form more information.</P>
+ * <P>
+ * The ThreeComVlanTableEntry class is designed to hold all the MIB information
+ * for one entry in the: 1.3.6.1.4.1.43.10.1.14.1.2.1
+ * <P>
+ * This object is used by the ThreeComVlanTable to hold information single
+ * entries in the table. See the ThreeComVlanTable documentation form more
+ * information.
+ * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio</A>
  * @see ThreeComVlanTable
@@ -47,64 +48,71 @@ import org.opennms.netmgt.model.OnmsVlan.VlanType;
  */
 public final class ThreeComVlanTableEntry extends Vlan {
 
-	// Lookup strings for specific table entries
-	//
+    // Lookup strings for specific table entries
+    //
     /** Constant <code>VLAN_IN="a3ComVlanindex"</code> */
     public final static String VLAN_IN = "a3ComVlanIfIndex";
-	/** Constant <code>VLAN_IFINFO="a3ComVlanIfInfo"</code> */
-	public final static String VLAN_IFINFO = "a3ComVlanIfInfo";
 
-	/**
-	 * <P>The keys that will be supported by default from the
-	 * TreeMap base class. Each of the elements in the list
-	 * are an instance of the dot1dbasetable. Objects
-	 * in this list should be used by multiple instances of
-	 * this class.</P>
-	 */
-	public final static NamedSnmpVar[] threeComVlan_elemList = new NamedSnmpVar[] {
-//	    new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_IN, ".1.3.6.1.4.1.43.10.1.14.1.2.1.1", 1),
-	    new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, VLAN_NAME, ".1.3.6.1.4.1.43.10.1.14.1.2.1.2", 1),
-	    new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_TYPE, ".1.3.6.1.4.1.43.10.1.14.1.2.1.3", 2),
-	    new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_INDEX, ".1.3.6.1.4.1.43.10.1.14.1.2.1.4", 3),
-//	    new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, VLAN_IFINFO, ".1.3.6.1.4.1.43.10.1.14.1.2.1.5", 5),
-	    new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_STATUS, ".1.3.6.1.4.1.43.10.1.14.1.2.1.6", 4)
-	};
+    /** Constant <code>VLAN_IFINFO="a3ComVlanIfInfo"</code> */
+    public final static String VLAN_IFINFO = "a3ComVlanIfInfo";
 
-	/**
-	 * <P>The TABLE_OID is the object identifier that represents
-	 * the root of the table vtpVlanTable in the MIB forest.</P>
-	 */
-	public static final String TABLE_OID = " 1.3.6.1.4.1.43.10.1.14.1.2.1"; // start of table (GETNEXT)
+    /**
+     * <P>
+     * The keys that will be supported by default from the TreeMap base class.
+     * Each of the elements in the list are an instance of the dot1dbasetable.
+     * Objects in this list should be used by multiple instances of this class.
+     * </P>
+     */
+    public final static NamedSnmpVar[] threeComVlan_elemList = new NamedSnmpVar[] {
+            // new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_IN,
+            // ".1.3.6.1.4.1.43.10.1.14.1.2.1.1", 1),
+            new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, VLAN_NAME, ".1.3.6.1.4.1.43.10.1.14.1.2.1.2", 1),
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_TYPE, ".1.3.6.1.4.1.43.10.1.14.1.2.1.3", 2),
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_INDEX, ".1.3.6.1.4.1.43.10.1.14.1.2.1.4", 3),
+            // new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, VLAN_IFINFO,
+            // ".1.3.6.1.4.1.43.10.1.14.1.2.1.5", 5),
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_STATUS, ".1.3.6.1.4.1.43.10.1.14.1.2.1.6", 4) };
 
-	/**
-	 * <P>The class constructor used to initialize the
-	 * object to its initial state. Although the
-	 * object's member variables can change after an
-	 * instance is created, this constructor will
-	 * initialize all the variables as per their named
-	 * variable from the passed array of SNMP varbinds.</P>
-	 *
-	 * <P>If the information in the object should not be
-	 * modified then a <EM>final</EM> modifier can be
-	 * applied to the created object.</P>
-	 */
-	public ThreeComVlanTableEntry() {
-		super(threeComVlan_elemList);
-	}
+    /**
+     * <P>
+     * The TABLE_OID is the object identifier that represents the root of the
+     * table vtpVlanTable in the MIB forest.
+     * </P>
+     */
+    public static final String TABLE_OID = " 1.3.6.1.4.1.43.10.1.14.1.2.1"; // start
+                                                                            // of
+                                                                            // table
+                                                                            // (GETNEXT)
 
-	@Override
-	protected boolean hasVlanIndexOid() {
-		return true;
-	}
+    /**
+     * <P>
+     * The class constructor used to initialize the object to its initial state.
+     * Although the object's member variables can change after an instance is
+     * created, this constructor will initialize all the variables as per their
+     * named variable from the passed array of SNMP varbinds.
+     * </P>
+     * <P>
+     * If the information in the object should not be modified then a
+     * <EM>final</EM> modifier can be applied to the created object.
+     * </P>
+     */
+    public ThreeComVlanTableEntry() {
+        super(threeComVlan_elemList);
+    }
 
-	@Override
-	public VlanStatus getVlanStatus() {
-		return VlanStatus.get(VlanStatus.ROWSTATUS_STARTING_INDEX+getInt32(VLAN_STATUS));
-	}
+    @Override
+    protected boolean hasVlanIndexOid() {
+        return true;
+    }
 
-	@Override
-	public VlanType getVlanType() {
-		return VlanType.get(VlanType.THREECOM_STARTING_INDEX+getInt32(VLAN_TYPE));
-	}
+    @Override
+    public VlanStatus getVlanStatus() {
+        return VlanStatus.get(VlanStatus.ROWSTATUS_STARTING_INDEX + getInt32(VLAN_STATUS));
+    }
+
+    @Override
+    public VlanType getVlanType() {
+        return VlanType.get(VlanType.THREECOM_STARTING_INDEX + getInt32(VLAN_TYPE));
+    }
 
 }

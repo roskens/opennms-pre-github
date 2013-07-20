@@ -40,7 +40,9 @@ import org.opennms.netmgt.poller.NetworkInterface;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>MockService class.</p>
+ * <p>
+ * MockService class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -48,12 +50,7 @@ import org.opennms.netmgt.xml.event.Event;
 public class MockService extends MockElement implements MonitoredService {
 
     public static enum SvcMgmtStatus {
-        ACTIVE("A"),
-        DELETED("D"),
-        UNMANAGED("U"),
-        FORCE_UNMANAGED("F"),
-        NOT_POLLED("N"),
-        REMOTE_ONLY("X");
+        ACTIVE("A"), DELETED("D"), UNMANAGED("U"), FORCE_UNMANAGED("F"), NOT_POLLED("N"), REMOTE_ONLY("X");
 
         private final String m_dbString;
 
@@ -76,7 +73,7 @@ public class MockService extends MockElement implements MonitoredService {
             }
             throw new IllegalArgumentException(dbString + "is not an legal SvcMgmtStatus string");
         }
-     }
+    }
 
     private int m_pollCount;
 
@@ -92,14 +89,19 @@ public class MockService extends MockElement implements MonitoredService {
 
     private NetworkInterface<InetAddress> m_netAddr;
 
-   /**
-    * <p>Constructor for MockService.</p>
-    *
-    * @param iface a {@link org.opennms.netmgt.mock.MockInterface} object.
-    * @param svcName a {@link java.lang.String} object.
-    * @param serviceId a int.
-    */
-   public MockService(MockInterface iface, String svcName, int serviceId) {
+    /**
+     * <p>
+     * Constructor for MockService.
+     * </p>
+     *
+     * @param iface
+     *            a {@link org.opennms.netmgt.mock.MockInterface} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a int.
+     */
+    public MockService(MockInterface iface, String svcName, int serviceId) {
         super(iface);
         m_svcName = svcName;
         m_serviceId = serviceId;
@@ -108,18 +110,20 @@ public class MockService extends MockElement implements MonitoredService {
 
     }
 
-   // test
-   /**
-    * <p>bringDown</p>
-    *
-    * @param reason a {@link java.lang.String} object.
-    */
-   public void bringDown(String reason) {
-       setServicePollStatus(PollStatus.down(reason));
-   }
+    // test
+    /**
+     * <p>
+     * bringDown
+     * </p>
+     *
+     * @param reason
+     *            a {@link java.lang.String} object.
+     */
+    public void bringDown(String reason) {
+        setServicePollStatus(PollStatus.down(reason));
+    }
 
-
-   // FIXME: model? make generic poll listener
+    // FIXME: model? make generic poll listener
     /** {@inheritDoc} */
     @Override
     public void addAnticipator(PollAnticipator trigger) {
@@ -128,7 +132,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // model
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a int.
      */
@@ -136,14 +142,15 @@ public class MockService extends MockElement implements MonitoredService {
         return m_serviceId;
     }
 
-
     public void setId(Integer nextServiceId) {
         m_serviceId = nextServiceId;
     }
 
     // model
     /**
-     * <p>getInterface</p>
+     * <p>
+     * getInterface
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.mock.MockInterface} object.
      */
@@ -153,7 +160,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // model
     /**
-     * <p>getIpAddr</p>
+     * <p>
+     * getIpAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,7 +179,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // model
     /**
-     * <p>getSvcName</p>
+     * <p>
+     * getSvcName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -181,7 +192,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // model
     /**
-     * <p>getNetwork</p>
+     * <p>
+     * getNetwork
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.mock.MockNetwork} object.
      */
@@ -192,7 +205,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // model
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.mock.MockNode} object.
      */
@@ -202,7 +217,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // model
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -213,7 +230,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // model
     /**
-     * <p>getNodeLabel</p>
+     * <p>
+     * getNodeLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -224,7 +243,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // stats
     /**
-     * <p>getPollCount</p>
+     * <p>
+     * getPollCount
+     * </p>
      *
      * @return a int.
      */
@@ -235,7 +256,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // test
     /**
-     * <p>getPollStatus</p>
+     * <p>
+     * getPollStatus
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -245,18 +268,25 @@ public class MockService extends MockElement implements MonitoredService {
     }
 
     /**
-     * <p>getMgmtStatus</p>
+     * <p>
+     * getMgmtStatus
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.mock.MockService.SvcMgmtStatus} object.
+     * @return a {@link org.opennms.netmgt.mock.MockService.SvcMgmtStatus}
+     *         object.
      */
     public SvcMgmtStatus getMgmtStatus() {
         return m_mgmtStatus;
     }
 
     /**
-     * <p>setMgmtStatus</p>
+     * <p>
+     * setMgmtStatus
+     * </p>
      *
-     * @param mgmtStatus a {@link org.opennms.netmgt.mock.MockService.SvcMgmtStatus} object.
+     * @param mgmtStatus
+     *            a {@link org.opennms.netmgt.mock.MockService.SvcMgmtStatus}
+     *            object.
      */
     public void setMgmtStatus(SvcMgmtStatus mgmtStatus) {
         m_mgmtStatus = mgmtStatus;
@@ -264,7 +294,9 @@ public class MockService extends MockElement implements MonitoredService {
 
     // test
     /**
-     * <p>poll</p>
+     * <p>
+     * poll
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -288,18 +320,23 @@ public class MockService extends MockElement implements MonitoredService {
 
     // stats
     /**
-     * <p>resetPollCount</p>
+     * <p>
+     * resetPollCount
+     * </p>
      */
     @Override
     public void resetPollCount() {
         m_pollCount = 0;
     }
 
-    //  test
+    // test
     /**
-     * <p>setPollStatus</p>
+     * <p>
+     * setPollStatus
+     * </p>
      *
-     * @param status a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param status
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public void setPollStatus(PollStatus status) {
         m_pollStatus = status;
@@ -314,21 +351,22 @@ public class MockService extends MockElement implements MonitoredService {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("nodeLabel", getNodeLabel())
-    		.append("ipAddr", getIpAddr())
-    		.append("service", getSvcName())
-    		.toString();
+        return new ToStringBuilder(this).append("nodeLabel", getNodeLabel()).append("ipAddr", getIpAddr()).append("service",
+                                                                                                                  getSvcName()).toString();
     }
 
     /**
-     * <p>createDownEvent</p>
+     * <p>
+     * createDownEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -338,7 +376,9 @@ public class MockService extends MockElement implements MonitoredService {
     }
 
     /**
-     * <p>createUpEvent</p>
+     * <p>
+     * createUpEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -348,16 +388,21 @@ public class MockService extends MockElement implements MonitoredService {
     }
 
     /**
-     * <p>createUnresponsiveEvent</p>
+     * <p>
+     * createUnresponsiveEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public Event createUnresponsiveEvent() {
-        return MockEventUtil.createServiceUnresponsiveEvent("Test", this, String.valueOf(PollStatus.SERVICE_UNAVAILABLE));
+        return MockEventUtil.createServiceUnresponsiveEvent("Test", this,
+                                                            String.valueOf(PollStatus.SERVICE_UNAVAILABLE));
     }
 
     /**
-     * <p>createResponsiveEvent</p>
+     * <p>
+     * createResponsiveEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -366,7 +411,9 @@ public class MockService extends MockElement implements MonitoredService {
     }
 
     /**
-     * <p>createNewEvent</p>
+     * <p>
+     * createNewEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -376,7 +423,9 @@ public class MockService extends MockElement implements MonitoredService {
     }
 
     /**
-     * <p>createDeleteEvent</p>
+     * <p>
+     * createDeleteEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -386,7 +435,9 @@ public class MockService extends MockElement implements MonitoredService {
     }
 
     /**
-     * <p>getNetInterface</p>
+     * <p>
+     * getNetInterface
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.poller.NetworkInterface} object.
      */
@@ -399,7 +450,9 @@ public class MockService extends MockElement implements MonitoredService {
     }
 
     /**
-     * <p>getAddress</p>
+     * <p>
+     * getAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -408,19 +461,22 @@ public class MockService extends MockElement implements MonitoredService {
         return getInterface().getAddress();
     }
 
-	/**
-	 * <p>createDemandPollEvent</p>
-	 *
-	 * @param demandPollId a int.
-	 * @return a {@link org.opennms.netmgt.xml.event.Event} object.
-	 */
-	public Event createDemandPollEvent(int demandPollId) {
-		return MockEventUtil.createDemandPollServiceEvent("Test", this, demandPollId);
-	}
+    /**
+     * <p>
+     * createDemandPollEvent
+     * </p>
+     *
+     * @param demandPollId
+     *            a int.
+     * @return a {@link org.opennms.netmgt.xml.event.Event} object.
+     */
+    public Event createDemandPollEvent(int demandPollId) {
+        return MockEventUtil.createDemandPollServiceEvent("Test", this, demandPollId);
+    }
 
     @Override
-	public String getSvcUrl() {
-		return null;
-	}
+    public String getSvcUrl() {
+        return null;
+    }
 
 }

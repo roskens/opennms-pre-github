@@ -32,52 +32,51 @@ import java.net.UnknownHostException;
 
 import org.opennms.netmgt.xml.event.Event;
 
-public class SnmpV3InformAlarmForwarder extends SnmpTrapForwarderHelper implements
-		EventForwarder {
+public class SnmpV3InformAlarmForwarder extends SnmpTrapForwarderHelper implements EventForwarder {
 
+    public SnmpV3InformAlarmForwarder(String ip, int port, int timeout, int retries, int securityLevel,
+            String securityname, String authPassPhrase, String authProtocol, String privPassPhrase,
+            String privprotocol, SnmpTrapHelper snmpTrapHelper) {
+        super(ip, port, securityLevel, securityname, authPassPhrase, authProtocol, privPassPhrase, privprotocol,
+              timeout, retries, snmpTrapHelper);
+    }
 
-	public SnmpV3InformAlarmForwarder(String ip, int port,int timeout, int retries,int securityLevel,
-			String securityname, String authPassPhrase, String authProtocol,
-			String privPassPhrase, String privprotocol, SnmpTrapHelper snmpTrapHelper) {
-		super(ip,port,securityLevel,securityname,authPassPhrase,authProtocol,privPassPhrase,privprotocol,timeout, retries, snmpTrapHelper);
-	}
+    @Override
+    public void flushEvent(Event event) {
+        event = super.filter(event);
+        if (event != null) {
+            try {
+                sendV3AlarmInform(event, false);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (SnmpTrapHelperException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-        @Override
-	public void flushEvent(Event event) {
-		event =	super.filter(event);
-		if (event != null) {
-		try {
-			sendV3AlarmInform(event, false);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (SnmpTrapHelperException e) {
-			e.printStackTrace();
-		}
-		}
-	}
+    @Override
+    public void flushSyncEvent(Event event) {
+        event = super.filter(event);
+        if (event != null) {
+            try {
+                sendV3AlarmInform(event, true);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (SnmpTrapHelperException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-        @Override
-	public void flushSyncEvent(Event event) {
-		event =	super.filter(event);
-		if (event != null) {
-		try {
-			sendV3AlarmInform(event, true);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (SnmpTrapHelperException e) {
-			e.printStackTrace();
-		}
-		}
-	}
+    @Override
+    public void sendStartSync() {
+        super.sendV3StartSyncInform();
+    }
 
-        @Override
-	public void sendStartSync() {
-		super.sendV3StartSyncInform();
-	}
+    @Override
+    public void sendEndSync() {
+        super.sendV3EndSyncInform();
 
-        @Override
-	public void sendEndSync() {
-		super.sendV3EndSyncInform();
-
-	}
+    }
 }

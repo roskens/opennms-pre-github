@@ -41,7 +41,7 @@ public class TracerouteOperation extends AbstractOperation {
     private String tracerouteURL;
 
     @Override
-    public boolean display(final List<VertexRef> targets, final  OperationContext operationContext) {
+    public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
         String ipAddr = "";
 
         if (targets != null) {

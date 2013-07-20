@@ -43,66 +43,37 @@ import org.opennms.netmgt.model.RrdRepository;
 
 public class MockDataCollectionConfig implements DataCollectionConfigDao {
 
-    public static final String initalMibObjects[][] = {
-        {
-            "sysLocation", ".1.3.6.1.2.1.1.6", "0", "string"
-        },
+    public static final String initalMibObjects[][] = { { "sysLocation", ".1.3.6.1.2.1.1.6", "0", "string" },
 
-        {
-            "sysName",     ".1.3.6.1.2.1.1.5", "0", "string"
-        },
+    { "sysName", ".1.3.6.1.2.1.1.5", "0", "string" },
 
-        {
-            "sysContact",  ".1.3.6.1.2.1.1.4", "0", "string"
-        },
+    { "sysContact", ".1.3.6.1.2.1.1.4", "0", "string" },
 
-        {
-            "sysUptime",   ".1.3.6.1.2.1.1.3", "0", "timeTicks"
-        },
+    { "sysUptime", ".1.3.6.1.2.1.1.3", "0", "timeTicks" },
 
-        {
-            "sysOid",      ".1.3.6.1.2.1.1.2", "0", "string"
-        },
+    { "sysOid", ".1.3.6.1.2.1.1.2", "0", "string" },
 
-        {
-            "sysDescr", ".1.3.6.1.2.1.1.1", "0", "string"
-        },
+    { "sysDescr", ".1.3.6.1.2.1.1.1", "0", "string" },
 
-        {
-            "ifNumber",    ".1.3.6.1.2.1.2.1", "0", "integer"
-        },
+    { "ifNumber", ".1.3.6.1.2.1.2.1", "0", "integer" },
 
-        {
-            "ifInDiscards", ".1.3.6.1.2.1.2.2.1.13", "ifIndex", "counter"
-        },
+    { "ifInDiscards", ".1.3.6.1.2.1.2.2.1.13", "ifIndex", "counter" },
 
-        {
-            "ifOutErrors", ".1.3.6.1.2.1.2.2.1.20", "ifIndex", "counter"
-        },
+    { "ifOutErrors", ".1.3.6.1.2.1.2.2.1.20", "ifIndex", "counter" },
 
-        {
-            "ifInErrors", ".1.3.6.1.2.1.2.2.1.14", "ifIndex", "counter"
-        },
+    { "ifInErrors", ".1.3.6.1.2.1.2.2.1.14", "ifIndex", "counter" },
 
-        {
-            "ifOutOctets", ".1.3.6.1.2.1.2.2.1.16", "ifIndex", "counter"
-        },
+    { "ifOutOctets", ".1.3.6.1.2.1.2.2.1.16", "ifIndex", "counter" },
 
-        {
-            "ifInOctets", ".1.3.6.1.2.1.2.2.1.10", "ifIndex", "counter"
-        },
+    { "ifInOctets", ".1.3.6.1.2.1.2.2.1.10", "ifIndex", "counter" },
 
-        {
-            "ifSpeed", ".1.3.6.1.2.1.2.2.1.5", "ifIndex", "gauge"
-        },
-
+    { "ifSpeed", ".1.3.6.1.2.1.2.2.1.5", "ifIndex", "gauge" },
 
     };
 
     private List<MibObject> m_attrList;
+
     private Map<String, MibObject> m_attrMap;
-
-
 
     public MockDataCollectionConfig() {
         setAttrList(new ArrayList<MibObject>());
@@ -137,15 +108,18 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
         mibObj.setGroupIfType("ifIndex".equals(instance) ? "all" : "ignored");
         return mibObj;
     }
+
     public MibObject createAttributeType(String alias, String oid, String instance, String type) {
         return createMibObject(alias, oid, instance, type);
     }
+
     public MibObject defineAttributeType(String alias, String oid, String instance, String type) {
         MibObject mibObj = createAttributeType(alias, oid, instance, type);
         getAttrMap().put(mibObj.getAlias(), mibObj);
         getAttrMap().put(mibObj.getOid(), mibObj);
         return mibObj;
     }
+
     public void addInitialAttributeTypes() {
         for (int i = 0; i < MockDataCollectionConfig.initalMibObjects.length; i++) {
             String[] mibData = MockDataCollectionConfig.initalMibObjects[i];
@@ -156,7 +130,8 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
 
     public MibObject getAttributeType(String alias, String oid, String inst, String type) {
         MibObject attrType = getAttributeType(alias);
-        if (attrType != null) return attrType;
+        if (attrType != null)
+            return attrType;
         return defineAttributeType(alias, oid, inst, type);
 
     }
@@ -166,7 +141,7 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
     }
 
     public void addAttributeType(String alias, String oid, String inst, String type) {
-        MibObject attrType = getAttributeType(alias, oid,    inst, type);
+        MibObject attrType = getAttributeType(alias, oid, inst, type);
         getAttrList().add(attrType);
     }
 
@@ -196,7 +171,7 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
     }
 
     @Override
-    public Map<String,ResourceType> getConfiguredResourceTypes() {
+    public Map<String, ResourceType> getConfiguredResourceTypes() {
         return new TreeMap<String, ResourceType>();
     }
 

@@ -87,7 +87,8 @@ public class HttpUrlConnection extends URLConnection {
     /**
      * Instantiates a new SFTP URL connection.
      *
-     * @param url the URL
+     * @param url
+     *            the URL
      * @param request
      */
     protected HttpUrlConnection(URL url, Request request) {
@@ -96,7 +97,8 @@ public class HttpUrlConnection extends URLConnection {
         m_request = request;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLConnection#connect()
      */
     @Override
@@ -121,7 +123,8 @@ public class HttpUrlConnection extends URLConnection {
                 m_client.setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler() {
                     @Override
                     public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
-                        if (executionCount <= getRetryCount() && (exception instanceof SocketTimeoutException || exception instanceof ConnectTimeoutException)) {
+                        if (executionCount <= getRetryCount()
+                                && (exception instanceof SocketTimeoutException || exception instanceof ConnectTimeoutException)) {
                             return true;
                         }
                         return super.retryRequest(exception, executionCount, context);
@@ -133,7 +136,9 @@ public class HttpUrlConnection extends URLConnection {
                 final SchemeRegistry registry = m_client.getConnectionManager().getSchemeRegistry();
                 final Scheme https = registry.getScheme("https");
                 try {
-                    SSLSocketFactory factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM), SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+                    SSLSocketFactory factory = new SSLSocketFactory(
+                                                                    SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM),
+                                                                    SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
                     final Scheme lenient = new Scheme(https.getName(), https.getDefaultPort(), factory);
                     registry.register(lenient);
                 } catch (NoSuchAlgorithmException e) {
@@ -143,7 +148,8 @@ public class HttpUrlConnection extends URLConnection {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLConnection#getInputStream()
      */
     @Override
@@ -185,7 +191,7 @@ public class HttpUrlConnection extends URLConnection {
                 }
             }
             // Add User Authentication
-            String[] userInfo = m_url.getUserInfo() == null ? null :  m_url.getUserInfo().split(":");
+            String[] userInfo = m_url.getUserInfo() == null ? null : m_url.getUserInfo().split(":");
             if (userInfo != null) {
                 UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(userInfo[0], userInfo[1]);
                 request.addHeader(BasicScheme.authenticate(credentials, "UTF-8", false));
@@ -194,7 +200,8 @@ public class HttpUrlConnection extends URLConnection {
             HttpResponse response = m_client.execute(request);
             return response.getEntity().getContent();
         } catch (Exception e) {
-            throw new IOException("Can't retrieve " + m_url.getPath() + " from " + m_url.getHost() + " because " + e.getMessage(), e);
+            throw new IOException("Can't retrieve " + m_url.getPath() + " from " + m_url.getHost() + " because "
+                    + e.getMessage(), e);
         }
     }
 

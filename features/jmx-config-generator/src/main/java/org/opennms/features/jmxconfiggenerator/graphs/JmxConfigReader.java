@@ -42,16 +42,18 @@ import org.slf4j.LoggerFactory;
 public class JmxConfigReader {
 
     private Logger logger = LoggerFactory.getLogger(JmxConfigReader.class);
+
     private final String ATTRIBUTEREPORT = "AttributeReport";
+
     private final String MBEANREPORT = "MBeanReport";
+
     private final String COMPOSITEREPORT = "CompositeReport";
+
     private final String COMPOSITATTRIBEREPORT = "CompositeAttributeReport";
 
     public Collection<Report> generateReportsByJmxDatacollectionConfig(String inputConfigFileName) {
-        return generateReportsByJmxDatacollectionConfig(
-                JAXB.unmarshal(
-                    new File(inputConfigFileName),
-                    JmxDatacollectionConfig.class));
+        return generateReportsByJmxDatacollectionConfig(JAXB.unmarshal(new File(inputConfigFileName),
+                                                                       JmxDatacollectionConfig.class));
     }
 
     public Collection<Report> generateReportsByJmxDatacollectionConfig(JmxDatacollectionConfig inputConfig) {
@@ -73,9 +75,11 @@ public class JmxConfigReader {
         Collection<Report> reports = new ArrayList<Report>();
         for (Attrib attrib : mbean.getAttrib()) {
 
-            String reportId = StringUtils.deleteWhitespace(mbean.getName()) + "." + attrib.getAlias() + "." + ATTRIBUTEREPORT;
+            String reportId = StringUtils.deleteWhitespace(mbean.getName()) + "." + attrib.getAlias() + "."
+                    + ATTRIBUTEREPORT;
             Report report = new Report(reportId, attrib.getName(), attrib.getName(), "verticalLabel");
-            report.addGraph(new Graph(attrib.getAlias(), attrib.getName(), attrib.getAlias(), Colors.getNextColor(), Colors.getNextColor(), Colors.getNextColor()));
+            report.addGraph(new Graph(attrib.getAlias(), attrib.getName(), attrib.getAlias(), Colors.getNextColor(),
+                                      Colors.getNextColor(), Colors.getNextColor()));
             reports.add(report);
             Colors.restetColor();
         }
@@ -89,7 +93,8 @@ public class JmxConfigReader {
             String reportId = StringUtils.deleteWhitespace(mbean.getName()) + "." + MBEANREPORT;
             Report report = new Report(reportId, mbean.getName(), mbean.getName(), "verticalLabel");
             for (Attrib attrib : mbean.getAttrib()) {
-                report.addGraph(new Graph(attrib.getAlias(), attrib.getName(), attrib.getAlias(), Colors.getNextColor(), Colors.getNextColor(), Colors.getNextColor()));
+                report.addGraph(new Graph(attrib.getAlias(), attrib.getName(), attrib.getAlias(),
+                                          Colors.getNextColor(), Colors.getNextColor(), Colors.getNextColor()));
             }
             reports.add(report);
             Colors.restetColor();
@@ -102,11 +107,13 @@ public class JmxConfigReader {
 
         for (CompAttrib compAttrib : mbean.getCompAttrib()) {
 
-            String reportId = StringUtils.deleteWhitespace(mbean.getName()) + "." + compAttrib.getName() + "." + COMPOSITEREPORT;
+            String reportId = StringUtils.deleteWhitespace(mbean.getName()) + "." + compAttrib.getName() + "."
+                    + COMPOSITEREPORT;
 
             Report report = new Report(reportId, reportId, reportId, "verticalLabel");
             for (CompMember compMember : compAttrib.getCompMember()) {
-                report.addGraph(new Graph(compMember.getAlias(), compMember.getName(), compMember.getAlias(), Colors.getNextColor(), Colors.getNextColor(), Colors.getNextColor()));
+                report.addGraph(new Graph(compMember.getAlias(), compMember.getName(), compMember.getAlias(),
+                                          Colors.getNextColor(), Colors.getNextColor(), Colors.getNextColor()));
             }
             reports.add(report);
             Colors.restetColor();
@@ -120,10 +127,12 @@ public class JmxConfigReader {
         for (CompAttrib compAttrib : mbean.getCompAttrib()) {
             for (CompMember compMember : compAttrib.getCompMember()) {
 
-                String reportId = StringUtils.deleteWhitespace(mbean.getName()) + "." + compAttrib.getName() + "." + compMember.getName() + "." + COMPOSITATTRIBEREPORT;
+                String reportId = StringUtils.deleteWhitespace(mbean.getName()) + "." + compAttrib.getName() + "."
+                        + compMember.getName() + "." + COMPOSITATTRIBEREPORT;
 
                 Report report = new Report(reportId, reportId, reportId, "verticalLabel");
-                report.addGraph(new Graph(compMember.getAlias(), compMember.getName(), compMember.getAlias(), Colors.getNextColor(), Colors.getNextColor(), Colors.getNextColor()));
+                report.addGraph(new Graph(compMember.getAlias(), compMember.getName(), compMember.getAlias(),
+                                          Colors.getNextColor(), Colors.getNextColor(), Colors.getNextColor()));
                 reports.add(report);
                 Colors.restetColor();
             }

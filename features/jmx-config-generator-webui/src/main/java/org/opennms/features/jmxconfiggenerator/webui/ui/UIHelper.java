@@ -60,212 +60,226 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class UIHelper {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UIHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UIHelper.class);
 
-	/**
-	 * Helper to create a layout (Horizontal, Vertical, Form, ...) with none, one or
-	 * multiple components and allow basic configuration of the layout using
-	 * fluent API.
-	 *
-	 * @author Markus von Rüden
-	 *
-	 */
-	public static class LayoutCreator {
+    /**
+     * Helper to create a layout (Horizontal, Vertical, Form, ...) with none,
+     * one or
+     * multiple components and allow basic configuration of the layout using
+     * fluent API.
+     *
+     * @author Markus von Rüden
+     */
+    public static class LayoutCreator {
 
-		private Class<?> layoutType = null;
-		private List<Component> components = new ArrayList<Component>();
-		private boolean spacing = false;
+        private Class<?> layoutType = null;
 
-		public LayoutCreator withComponents(Component... components) {
-			this.components.addAll(Arrays.asList(components));
-			return this;
-		}
+        private List<Component> components = new ArrayList<Component>();
 
-		/**
-		 * Create a Horizontal Layout.
-		 * @return this.
-		 */
-		public LayoutCreator setHorizontal() {
-			this.layoutType = HorizontalLayout.class;
-			return this;
-		}
+        private boolean spacing = false;
 
-		/**
-		 * Create a Vertical Layout.
-		 * @return this.
-		 */
-		public LayoutCreator setVertical() {
-			this.layoutType = VerticalLayout.class;
-			return this;
-		}
+        public LayoutCreator withComponents(Component... components) {
+            this.components.addAll(Arrays.asList(components));
+            return this;
+        }
 
-		/**
-		 * Create a Form.
-		 * @return this.
-		 */
-		public LayoutCreator setForm() {
-			this.layoutType = FormLayout.class;
-			return this;
-		}
+        /**
+         * Create a Horizontal Layout.
+         *
+         * @return this.
+         */
+        public LayoutCreator setHorizontal() {
+            this.layoutType = HorizontalLayout.class;
+            return this;
+        }
 
-		/**
-		 * Add the component to the layout during creation.
-		 * @param component
-		 * @return
-		 */
-		public LayoutCreator withComponent(Component component) {
-			this.components.add(component);
-			return this;
-		}
+        /**
+         * Create a Vertical Layout.
+         *
+         * @return this.
+         */
+        public LayoutCreator setVertical() {
+            this.layoutType = VerticalLayout.class;
+            return this;
+        }
 
-		public AbstractOrderedLayout toLayout() {
-			AbstractOrderedLayout layout = createLayout(layoutType, components);
-			layout.setSpacing(spacing);
-			return layout;
-		}
+        /**
+         * Create a Form.
+         *
+         * @return this.
+         */
+        public LayoutCreator setForm() {
+            this.layoutType = FormLayout.class;
+            return this;
+        }
 
-		public LayoutCreator withSpacing() {
-			spacing = true;
-			return this;
-		}
+        /**
+         * Add the component to the layout during creation.
+         *
+         * @param component
+         * @return
+         */
+        public LayoutCreator withComponent(Component component) {
+            this.components.add(component);
+            return this;
+        }
 
-		public LayoutCreator withoutSpacing() {
-			spacing = false;
-			return this;
-		}
+        public AbstractOrderedLayout toLayout() {
+            AbstractOrderedLayout layout = createLayout(layoutType, components);
+            layout.setSpacing(spacing);
+            return layout;
+        }
 
-		private static AbstractOrderedLayout createLayout(Class<?> clazz, List<Component> components) {
-			try {
-				AbstractOrderedLayout layout = (AbstractOrderedLayout) clazz.newInstance();
-				for (Component c : components)
-					layout.addComponent(c);
-				return layout;
-			} catch (InstantiationException ex) {
-				;
-			} catch (IllegalAccessException ex) {
-				;
-			}
-			return null;
-		}
-	}
+        public LayoutCreator withSpacing() {
+            spacing = true;
+            return this;
+        }
 
-	public static Button createButton(final String buttonCaption, final String iconName,
-			final ClickListener clickListener) {
-		Button button = new Button();
-		button.setCaption(buttonCaption);
-		button.setIcon(IconProvider.getIcon(iconName));
-		if (clickListener != null) button.addListener(clickListener);
-		return button;
-	}
+        public LayoutCreator withoutSpacing() {
+            spacing = false;
+            return this;
+        }
 
-	public static Button createButton(final String buttonCaption, final String iconName) {
-		return createButton(buttonCaption, iconName, null);
-	}
+        private static AbstractOrderedLayout createLayout(Class<?> clazz, List<Component> components) {
+            try {
+                AbstractOrderedLayout layout = (AbstractOrderedLayout) clazz.newInstance();
+                for (Component c : components)
+                    layout.addComponent(c);
+                return layout;
+            } catch (InstantiationException ex) {
+                ;
+            } catch (IllegalAccessException ex) {
+                ;
+            }
+            return null;
+        }
+    }
 
-	/**
-	 * This method enables or disables all tabs in a tabSheet. Therefore the
-	 * <code>ViewStatechangedEvent</code> is used. If the new view state is Edit
-	 * the method returns the last selected tab position. If the new view state
-	 * is not Edit the " <code>oldSelectedTabPosition</code>" is selected in the
-	 * given <code>tabSheet</code>.
-	 *
-	 * @param tabSheet
-	 *            the tabsheet to enable or disable all tabs in
-	 * @param event
-	 * @param oldSelectedTabPosition
-	 *            which tab was selected before view state was Edit
-	 * @return
-	 */
-	public static int enableTabs(final TabSheet tabSheet, final ViewStateChangedEvent event,
-			final int oldSelectedTabPosition) {
-		boolean editMode = event.getNewState().isEdit();
-		boolean enabled = !editMode;
-		int newSelectedTabPosition = 0;
-		// remember which tab was selected (before editing)
-		if (editMode) newSelectedTabPosition = getSelectedTabPosition(tabSheet);
-		// disable or enable
-		for (int i = 0; i < tabSheet.getComponentCount(); i++)
-			tabSheet.getTab(i).setEnabled(enabled);
-		// select tab depending on selection (after editing)
-		if (!editMode) tabSheet.setSelectedTab(tabSheet.getTab(oldSelectedTabPosition));
-		// return currently selected tab
-		return editMode ? newSelectedTabPosition : getSelectedTabPosition(tabSheet);
-	}
+    public static Button createButton(final String buttonCaption, final String iconName,
+            final ClickListener clickListener) {
+        Button button = new Button();
+        button.setCaption(buttonCaption);
+        button.setIcon(IconProvider.getIcon(iconName));
+        if (clickListener != null)
+            button.addListener(clickListener);
+        return button;
+    }
 
-	private static int getSelectedTabPosition(final TabSheet tabSheet) {
-		if (tabSheet == null) return 0;
-		if (tabSheet.getSelectedTab() == null) return 0;
-		if (tabSheet.getTab(tabSheet.getSelectedTab()) == null) return 0;
-		return tabSheet.getTabPosition(tabSheet.getTab(tabSheet.getSelectedTab()));
-	}
+    public static Button createButton(final String buttonCaption, final String iconName) {
+        return createButton(buttonCaption, iconName, null);
+    }
 
-	/**
-	 * Closes the given Closeable silently. That means if an error during
-	 * {@link Closeable#close()} occurs, the IOException is catched and logged.
-	 * No further information is forwarded.
-	 */
-	public static void closeSilently(Closeable closeable) {
-		if (closeable == null) return; // prevent NPE
-		try {
-			closeable.close();
-		} catch (IOException e) {
-			LOG.warn("Error while closing resource '{}'.", closeable, e);
-		}
-	}
+    /**
+     * This method enables or disables all tabs in a tabSheet. Therefore the
+     * <code>ViewStatechangedEvent</code> is used. If the new view state is Edit
+     * the method returns the last selected tab position. If the new view state
+     * is not Edit the " <code>oldSelectedTabPosition</code>" is selected in the
+     * given <code>tabSheet</code>.
+     *
+     * @param tabSheet
+     *            the tabsheet to enable or disable all tabs in
+     * @param event
+     * @param oldSelectedTabPosition
+     *            which tab was selected before view state was Edit
+     * @return
+     */
+    public static int enableTabs(final TabSheet tabSheet, final ViewStateChangedEvent event,
+            final int oldSelectedTabPosition) {
+        boolean editMode = event.getNewState().isEdit();
+        boolean enabled = !editMode;
+        int newSelectedTabPosition = 0;
+        // remember which tab was selected (before editing)
+        if (editMode)
+            newSelectedTabPosition = getSelectedTabPosition(tabSheet);
+        // disable or enable
+        for (int i = 0; i < tabSheet.getComponentCount(); i++)
+            tabSheet.getTab(i).setEnabled(enabled);
+        // select tab depending on selection (after editing)
+        if (!editMode)
+            tabSheet.setSelectedTab(tabSheet.getTab(oldSelectedTabPosition));
+        // return currently selected tab
+        return editMode ? newSelectedTabPosition : getSelectedTabPosition(tabSheet);
+    }
 
-	/**
-	 * Loads the <code>resourceName</code> from the classpath using the given
-	 * <code>clazz</code>. If the resource couldn't be loaded an empty string is
-	 * returned.
-	 *
-	 * @param clazz
-	 *            The class to use for loading the resource.
-	 * @param resourceName
-	 *            The name of the resource to be loaded (e.g.
-	 *            /folder/filename.txt)
-	 * @return The content of the file, each line separated by line.separator or
-	 *         empty string if the resource does not exist.
-	 */
-	public static String loadContentFromFile(final Class<?> clazz, final String resourceName) {
-		// prevent NullPointerException
-		if (clazz == null || resourceName == null) {
-			LOG.warn("loadContentFromFile not invoked, due to null arguments");
-			return "";
-		}
+    private static int getSelectedTabPosition(final TabSheet tabSheet) {
+        if (tabSheet == null)
+            return 0;
+        if (tabSheet.getSelectedTab() == null)
+            return 0;
+        if (tabSheet.getTab(tabSheet.getSelectedTab()) == null)
+            return 0;
+        return tabSheet.getTabPosition(tabSheet.getTab(tabSheet.getSelectedTab()));
+    }
 
-		// check if resource is there
-		final InputStream is = clazz.getResourceAsStream(resourceName);
-		if (is == null) {
-			LOG.warn("Resource '{}' couldn't be loaded from class '{}'", resourceName, clazz.getName());
-			return "";
-		}
+    /**
+     * Closes the given Closeable silently. That means if an error during
+     * {@link Closeable#close()} occurs, the IOException is catched and logged.
+     * No further information is forwarded.
+     */
+    public static void closeSilently(Closeable closeable) {
+        if (closeable == null)
+            return; // prevent NPE
+        try {
+            closeable.close();
+        } catch (IOException e) {
+            LOG.warn("Error while closing resource '{}'.", closeable, e);
+        }
+    }
 
-		// resource is there, so we can try loading it
-		BufferedReader bufferedReader = null;
-		StringBuilder result = new StringBuilder(100);
-		try {
-			bufferedReader = new BufferedReader(new InputStreamReader(is));
-			String eachLine = null;
-			while ((eachLine = bufferedReader.readLine()) != null) {
-				result.append(eachLine);
-				result.append(System.getProperty("line.separator"));
-			}
-		} catch (IOException ioEx) {
-			LOG.error("Error while reading resource from '{}'.", resourceName, ioEx);
-		} finally {
-			closeSilently(bufferedReader);
-		}
-		return result.toString();
-	}
+    /**
+     * Loads the <code>resourceName</code> from the classpath using the given
+     * <code>clazz</code>. If the resource couldn't be loaded an empty string is
+     * returned.
+     *
+     * @param clazz
+     *            The class to use for loading the resource.
+     * @param resourceName
+     *            The name of the resource to be loaded (e.g.
+     *            /folder/filename.txt)
+     * @return The content of the file, each line separated by line.separator or
+     *         empty string if the resource does not exist.
+     */
+    public static String loadContentFromFile(final Class<?> clazz, final String resourceName) {
+        // prevent NullPointerException
+        if (clazz == null || resourceName == null) {
+            LOG.warn("loadContentFromFile not invoked, due to null arguments");
+            return "";
+        }
 
-	/**
-	 * Shows a validation error to the user.
-	 *
-	 * @param errorMessage
-	 *            the error message.
-	 */
-	public static void showValidationError(String errorMessage) {
-		Notification.show("Validation Error", errorMessage != null ? errorMessage : "An unknown error occured.", Type.WARNING_MESSAGE);
+        // check if resource is there
+        final InputStream is = clazz.getResourceAsStream(resourceName);
+        if (is == null) {
+            LOG.warn("Resource '{}' couldn't be loaded from class '{}'", resourceName, clazz.getName());
+            return "";
+        }
 
-	}
+        // resource is there, so we can try loading it
+        BufferedReader bufferedReader = null;
+        StringBuilder result = new StringBuilder(100);
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(is));
+            String eachLine = null;
+            while ((eachLine = bufferedReader.readLine()) != null) {
+                result.append(eachLine);
+                result.append(System.getProperty("line.separator"));
+            }
+        } catch (IOException ioEx) {
+            LOG.error("Error while reading resource from '{}'.", resourceName, ioEx);
+        } finally {
+            closeSilently(bufferedReader);
+        }
+        return result.toString();
+    }
+
+    /**
+     * Shows a validation error to the user.
+     *
+     * @param errorMessage
+     *            the error message.
+     */
+    public static void showValidationError(String errorMessage) {
+        Notification.show("Validation Error", errorMessage != null ? errorMessage : "An unknown error occured.",
+                          Type.WARNING_MESSAGE);
+
+    }
 }

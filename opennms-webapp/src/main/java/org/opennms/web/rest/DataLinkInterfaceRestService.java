@@ -69,7 +69,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class DataLinkInterfaceRestService extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DataLinkInterfaceRestService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataLinkInterfaceRestService.class);
 
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
@@ -84,8 +84,8 @@ public class DataLinkInterfaceRestService extends OnmsRestService {
     ResourceContext m_context;
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
-    @Transactional(readOnly=true)
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
+    @Transactional(readOnly = true)
     public DataLinkInterfaceList getLinks() {
         readLock();
 
@@ -100,10 +100,11 @@ public class DataLinkInterfaceRestService extends OnmsRestService {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{linkId}")
-    @Transactional(readOnly=true)
-    public DataLinkInterface getLink(@PathParam("linkId") final Integer linkId) {
+    @Transactional(readOnly = true)
+    public DataLinkInterface getLink(@PathParam("linkId")
+    final Integer linkId) {
         readLock();
         try {
             return m_dataLinkInterfaceDao.get(linkId);
@@ -116,7 +117,8 @@ public class DataLinkInterfaceRestService extends OnmsRestService {
     @Path("{linkId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public Response updateDataLinkInterface(@PathParam("linkId") final Integer linkId, final MultivaluedMapImpl params) {
+    public Response updateDataLinkInterface(@PathParam("linkId")
+    final Integer linkId, final MultivaluedMapImpl params) {
         writeLock();
         try {
             LOG.debug("updateDataLinkInterface: Updating DataLinkInterface with ID {}", linkId);
@@ -155,7 +157,8 @@ public class DataLinkInterfaceRestService extends OnmsRestService {
 
     @DELETE
     @Path("{linkId}")
-    public Response deleteDataLinkInterface(@PathParam("linkId") Integer linkId) {
+    public Response deleteDataLinkInterface(@PathParam("linkId")
+    Integer linkId) {
         writeLock();
         try {
             LOG.debug("deleteDataLinkInterface: deleting DataLinkInterface with ID {}", linkId);

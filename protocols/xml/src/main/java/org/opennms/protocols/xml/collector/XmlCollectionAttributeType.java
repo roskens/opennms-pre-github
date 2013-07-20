@@ -50,24 +50,33 @@ public class XmlCollectionAttributeType implements CollectionAttributeType {
     /**
      * Instantiates a new XML collection attribute type.
      *
-     * @param object the XML object
-     * @param groupType the group type
+     * @param object
+     *            the XML object
+     * @param groupType
+     *            the group type
      */
     public XmlCollectionAttributeType(XmlObject object, AttributeGroupType groupType) {
         m_groupType = groupType;
         m_object = object;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.config.collector.CollectionAttributeType#getGroupType()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.config.collector.CollectionAttributeType#getGroupType
+     * ()
      */
     @Override
     public AttributeGroupType getGroupType() {
         return m_groupType;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.config.collector.CollectionAttributeType#storeAttribute(org.opennms.netmgt.config.collector.CollectionAttribute, org.opennms.netmgt.config.collector.Persister)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.config.collector.CollectionAttributeType#storeAttribute
+     * (org.opennms.netmgt.config.collector.CollectionAttribute,
+     * org.opennms.netmgt.config.collector.Persister)
      */
     @Override
     public void storeAttribute(CollectionAttribute attribute, Persister persister) {
@@ -78,7 +87,8 @@ public class XmlCollectionAttributeType implements CollectionAttributeType {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.collector.AttributeDefinition#getName()
      */
     @Override
@@ -86,7 +96,8 @@ public class XmlCollectionAttributeType implements CollectionAttributeType {
         return m_object.getName();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.collector.AttributeDefinition#getType()
      */
     @Override

@@ -77,16 +77,17 @@ public class OpenManageChassisDetector extends SnmpDetector {
     };
 
     /**
-     * <p>Constructor for CiscoIpSlaDetector.</p>
+     * <p>
+     * Constructor for CiscoIpSlaDetector.
+     * </p>
      */
-    public OpenManageChassisDetector(){
+    public OpenManageChassisDetector() {
         setServiceName(PROTOCOL_NAME);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If
      * the protocol is not supported then a false value is returned to the
      * caller. The qualifier map passed to the method is used by the plugin to
      * return additional information by key-name. These key-value pairs can be
@@ -102,7 +103,8 @@ public class OpenManageChassisDetector extends SnmpDetector {
             // Get the OpenManage chassis status
             String chassisStatus = getValue(agentConfig, CHASSIS_STATUS_OID);
 
-            // If no chassis status received, do not detect the protocol and quit
+            // If no chassis status received, do not detect the protocol and
+            // quit
             if (chassisStatus == null) {
                 LOG.warn("isServiceDetected: Cannot receive chassis status");
                 return false;
@@ -110,9 +112,10 @@ public class OpenManageChassisDetector extends SnmpDetector {
                 LOG.debug("isServiceDetected: OpenManageChassis: {}", chassisStatus);
             }
 
-            // Validate chassis status, check status is somewhere between OTHER and NON_RECOVERABLE
-            if  (Integer.parseInt(chassisStatus.toString()) >= DELL_STATUS.OTHER.value() &&
-                    Integer.parseInt(chassisStatus.toString()) <= DELL_STATUS.NON_RECOVERABLE.value()) {
+            // Validate chassis status, check status is somewhere between OTHER
+            // and NON_RECOVERABLE
+            if (Integer.parseInt(chassisStatus.toString()) >= DELL_STATUS.OTHER.value()
+                    && Integer.parseInt(chassisStatus.toString()) <= DELL_STATUS.NON_RECOVERABLE.value()) {
                 // OpenManage chassis status detected
                 LOG.debug("isServiceDetected: OpenManageChassis: is valid, protocol supported.");
                 return true;

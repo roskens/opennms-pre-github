@@ -39,11 +39,17 @@ import org.opennms.netmgt.snmp.SnmpValue;
 public class TestAgentTest extends TestCase {
 
     private static final int columnLength = 10;
+
     private static final String col3Base = ".1.3.5.1.2.3";
+
     private static final String col2Base = ".1.3.5.1.2.2";
+
     private static final String col1Base = ".1.3.5.1.2.1";
+
     private static final String zeroInst2Base = ".1.3.5.1.1.2";
+
     private static final String zeroInst1Base = ".1.3.5.1.1.1";
+
     private static final String invalid = ".1.5.5.5";
 
     private TestAgent m_agent;
@@ -62,7 +68,7 @@ public class TestAgentTest extends TestCase {
     }
 
     private void addColumn(Properties agentData, String base, int start, int end) {
-        for(int inst = start; inst <= end; inst++) {
+        for (int inst = start; inst <= end; inst++) {
             addInstance(agentData, base, inst);
         }
     }
@@ -72,7 +78,7 @@ public class TestAgentTest extends TestCase {
     }
 
     private void addInstance(Properties agentData, String oid, int inst) {
-        agentData.put(oid+"."+inst, "STRING: "+getValueFor(oid+"."+inst).toString());
+        agentData.put(oid + "." + inst, "STRING: " + getValueFor(oid + "." + inst).toString());
     }
 
     private Object getValueFor(String oid) {
@@ -80,7 +86,7 @@ public class TestAgentTest extends TestCase {
     }
 
     private Object getValueFor(SnmpObjId oid) {
-        return new MockSnmpValue(SnmpValue.SNMP_OCTET_STRING, oid+"-value");
+        return new MockSnmpValue(SnmpValue.SNMP_OCTET_STRING, oid + "-value");
     }
 
     public void testConstantObjects() {
@@ -120,8 +126,8 @@ public class TestAgentTest extends TestCase {
         assertFalse(getValueFor(z2).equals(m_agent.getValueFor(z1)));
 
         // try a column
-        for(int i = 1; i <= columnLength; i++) {
-            SnmpObjId colOid = SnmpObjId.get(col2Base, ""+i);
+        for (int i = 1; i <= columnLength; i++) {
+            SnmpObjId colOid = SnmpObjId.get(col2Base, "" + i);
             assertEquals(getValueFor(colOid).toString(), m_agent.getValueFor(colOid).toString());
         }
 
@@ -214,7 +220,6 @@ public class TestAgentTest extends TestCase {
         assertEquals(0, resp.getErrorIndex());
     }
 
-
     public void testGetWithInvalidOidV1() {
         m_agent.setBehaviorToV1();
 
@@ -274,7 +279,8 @@ public class TestAgentTest extends TestCase {
     public void testGetWithGenErrV1() {
         m_agent.setBehaviorToV1();
 
-        //m_agent.setAgentValue(SnmpObjId.get(zeroInst1Base, "1"), new RuntimeException());
+        // m_agent.setAgentValue(SnmpObjId.get(zeroInst1Base, "1"), new
+        // RuntimeException());
         m_agent.introduceGenErr(SnmpObjId.get(zeroInst1Base, "1"));
 
         GetPdu get = TestPdu.getGet();
@@ -292,7 +298,8 @@ public class TestAgentTest extends TestCase {
     public void testGetNextWithGenErrV1() {
         m_agent.setBehaviorToV1();
 
-        //m_agent.setAgentValue(SnmpObjId.get(zeroInst1Base, "1"), new RuntimeException());
+        // m_agent.setAgentValue(SnmpObjId.get(zeroInst1Base, "1"), new
+        // RuntimeException());
         m_agent.introduceGenErr(SnmpObjId.get(zeroInst1Base, "1"));
 
         NextPdu get = TestPdu.getNext();
@@ -324,16 +331,13 @@ public class TestAgentTest extends TestCase {
         assertEquals(1, resp.getErrorIndex());
     }
 
-
-
     private void validateGetResponse(GetPdu get, ResponsePdu resp) {
         assertNotNull(resp);
         assertEquals(ResponsePdu.NO_ERR, resp.getErrorStatus());
         // determine if errors are expected
 
-
         assertEquals(get.size(), resp.size());
-        for(int i = 0; i < resp.size(); i++) {
+        for (int i = 0; i < resp.size(); i++) {
             assertEquals(get.getVarBindAt(i).getObjId(), resp.getVarBindAt(i).getObjId());
             verifyObjIdValue(resp.getVarBindAt(i));
         }
@@ -380,7 +384,6 @@ public class TestAgentTest extends TestCase {
 
         m_agent.introduceGenErr(SnmpObjId.get(zeroInst1Base, "1"));
 
-
         NextPdu get = TestPdu.getNext();
 
         get.addVarBind(zeroInst1Base);
@@ -398,7 +401,6 @@ public class TestAgentTest extends TestCase {
 
         m_agent.introduceGenErr(SnmpObjId.get(zeroInst1Base, "1"));
 
-
         NextPdu get = TestPdu.getNext();
 
         get.addVarBind(zeroInst1Base);
@@ -410,11 +412,12 @@ public class TestAgentTest extends TestCase {
         assertEquals(ResponsePdu.GEN_ERR, resp.getErrorStatus());
         assertEquals(2, resp.getErrorIndex());
     }
-   private void validateNextResponse(NextPdu pdu, ResponsePdu resp) {
+
+    private void validateNextResponse(NextPdu pdu, ResponsePdu resp) {
         assertNotNull(resp);
         assertEquals(ResponsePdu.NO_ERR, resp.getErrorStatus());
         assertEquals(pdu.size(), resp.size());
-        for(int i = 0; i < resp.size(); i++) {
+        for (int i = 0; i < resp.size(); i++) {
             verifyNextVarBind(pdu.getVarBindAt(i).getObjId(), resp.getVarBindAt(i));
         }
     }
@@ -460,7 +463,7 @@ public class TestAgentTest extends TestCase {
             pdu.setMaxRepititions(3);
             m_agent.send(pdu);
             fail("Cannot send Bulk Pdus to V1 agent");
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -534,7 +537,6 @@ public class TestAgentTest extends TestCase {
 
         m_agent.introduceGenErr(SnmpObjId.get(col2Base, "2"));
 
-
         BulkPdu pdu = TestPdu.getBulk();
         pdu.addVarBind(zeroInst1Base);
         pdu.addVarBind(zeroInst2Base);
@@ -550,7 +552,6 @@ public class TestAgentTest extends TestCase {
         assertEquals(4, resp.getErrorIndex());
     }
 
-
     private void validateBulkResponse(BulkPdu pdu, ResponsePdu resp) {
         assertNotNull(resp);
         assertEquals(ResponsePdu.NO_ERR, resp.getErrorStatus());
@@ -559,19 +560,19 @@ public class TestAgentTest extends TestCase {
         int repeaters = (pdu.size() - nonRepeaters);
 
         // validate the length
-        int expectedSize = Math.min(nonRepeaters+(repeaters*pdu.getMaxRepititions()), m_agent.getMaxResponseSize());
+        int expectedSize = Math.min(nonRepeaters + (repeaters * pdu.getMaxRepititions()), m_agent.getMaxResponseSize());
         assertEquals(expectedSize, resp.size());
 
         // validate the nonRepeaters
-        for(int i = 0; i < nonRepeaters; i++) {
+        for (int i = 0; i < nonRepeaters; i++) {
             verifyBulkVarBind(pdu.getVarBindAt(i).getObjId(), resp, i);
         }
 
         // validate the repeaters
-        for(int i = 0; i < repeaters; i++) {
-            SnmpObjId oid = pdu.getVarBindAt(i+nonRepeaters).getObjId();
-            for(int count = 0; count < pdu.getMaxRepititions(); count++) {
-                oid = verifyBulkVarBind(oid, resp, nonRepeaters+(count*repeaters)+i);
+        for (int i = 0; i < repeaters; i++) {
+            SnmpObjId oid = pdu.getVarBindAt(i + nonRepeaters).getObjId();
+            for (int count = 0; count < pdu.getMaxRepititions(); count++) {
+                oid = verifyBulkVarBind(oid, resp, nonRepeaters + (count * repeaters) + i);
             }
         }
     }

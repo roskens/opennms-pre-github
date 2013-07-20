@@ -41,7 +41,8 @@ public class ImageDashletFactory extends AbstractDashletFactory {
     /**
      * Method for instatiating a new {@link Dashlet} instance.
      *
-     * @param dashletSpec the {@link DashletSpec} to use
+     * @param dashletSpec
+     *            the {@link DashletSpec} to use
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {

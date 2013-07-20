@@ -49,25 +49,34 @@ import org.springframework.util.Assert;
 public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, InitializingBean, RegistrationListener<T> {
 
     private ServiceRegistry m_serviceRegistry;
+
     private Class<T> m_serviceInterface;
+
     private List<RegistrationListener<T>> m_listeners = new CopyOnWriteArrayList<RegistrationListener<T>>();
 
     private List<T> m_providerRegistrations = new CopyOnWriteArrayList<T>();
+
     private Filter m_filter;
 
     /**
-     * <p>setServiceRegistry</p>
+     * <p>
+     * setServiceRegistry
+     * </p>
      *
-     * @param serviceRegistry a {@link org.opennms.core.soa.ServiceRegistry} object.
+     * @param serviceRegistry
+     *            a {@link org.opennms.core.soa.ServiceRegistry} object.
      */
     public void setServiceRegistry(ServiceRegistry serviceRegistry) {
         m_serviceRegistry = serviceRegistry;
     }
 
     /**
-     * <p>setServiceInterface</p>
+     * <p>
+     * setServiceInterface
+     * </p>
      *
-     * @param serviceInterface a {@link java.lang.Class} object.
+     * @param serviceInterface
+     *            a {@link java.lang.Class} object.
      */
     public void setServiceInterface(Class<T> serviceInterface) {
         m_serviceInterface = serviceInterface;
@@ -78,10 +87,13 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     }
 
     /**
-     * <p>getObject</p>
+     * <p>
+     * getObject
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public List<T> getObject() throws Exception {
@@ -89,7 +101,9 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     }
 
     /**
-     * <p>getObjectType</p>
+     * <p>
+     * getObjectType
+     * </p>
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -99,7 +113,9 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     }
 
     /**
-     * <p>isSingleton</p>
+     * <p>
+     * isSingleton
+     * </p>
      *
      * @return a boolean.
      */
@@ -109,9 +125,12 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -132,7 +151,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
 
         m_providerRegistrations.add(provider);
 
-        for(RegistrationListener<T> listener : m_listeners) {
+        for (RegistrationListener<T> listener : m_listeners) {
             listener.providerRegistered(registration, provider);
         }
     }
@@ -143,38 +162,48 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
         boolean found = m_providerRegistrations.remove(provider);
 
         if (!found) {
-            // this object didn't belong to the match registrations so do nothing
+            // this object didn't belong to the match registrations so do
+            // nothing
             return;
         }
 
-        for(RegistrationListener<T> listener : m_listeners) {
+        for (RegistrationListener<T> listener : m_listeners) {
             listener.providerUnregistered(registration, provider);
         }
 
     }
 
     /**
-     * <p>setListener</p>
+     * <p>
+     * setListener
+     * </p>
      *
-     * @param listener a {@link org.opennms.core.soa.RegistrationListener} object.
+     * @param listener
+     *            a {@link org.opennms.core.soa.RegistrationListener} object.
      */
     public void setListener(RegistrationListener<T> listener) {
-    	addListener(listener);
+        addListener(listener);
     }
 
     /**
-     * <p>addListener</p>
+     * <p>
+     * addListener
+     * </p>
      *
-     * @param listener a {@link org.opennms.core.soa.RegistrationListener} object.
+     * @param listener
+     *            a {@link org.opennms.core.soa.RegistrationListener} object.
      */
     public void addListener(RegistrationListener<T> listener) {
         m_listeners.add((RegistrationListener<T>) listener);
     }
 
     /**
-     * <p>removeListener</p>
+     * <p>
+     * removeListener
+     * </p>
      *
-     * @param listener a {@link org.opennms.core.soa.RegistrationListener} object.
+     * @param listener
+     *            a {@link org.opennms.core.soa.RegistrationListener} object.
      */
     public void removeListener(RegistrationListener<?> listener) {
         m_listeners.remove(listener);

@@ -44,24 +44,27 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 
 /**
- * <p>DefaultDistributedPollerService class.</p>
+ * <p>
+ * DefaultDistributedPollerService class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  * @since 1.8.1
  */
-public class DefaultDistributedPollerService implements
-        DistributedPollerService {
+public class DefaultDistributedPollerService implements DistributedPollerService {
     private LocationMonitorDao m_locationMonitorDao;
 
-    private OnmsLocationMonitorAreaNameComparator m_comparator =
-        new OnmsLocationMonitorAreaNameComparator();
+    private OnmsLocationMonitorAreaNameComparator m_comparator = new OnmsLocationMonitorAreaNameComparator();
 
     /**
-     * <p>getLocationMonitorList</p>
+     * <p>
+     * getLocationMonitorList
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.LocationMonitorListModel} object.
+     * @return a {@link org.opennms.web.svclayer.LocationMonitorListModel}
+     *         object.
      */
     @Override
     public final LocationMonitorListModel getLocationMonitorList() {
@@ -79,7 +82,9 @@ public class DefaultDistributedPollerService implements
     }
 
     /**
-     * <p>getLocationMonitorDao</p>
+     * <p>
+     * getLocationMonitorDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -88,9 +93,13 @@ public class DefaultDistributedPollerService implements
     }
 
     /**
-     * <p>setLocationMonitorDao</p>
+     * <p>
+     * setLocationMonitorDao
+     * </p>
      *
-     * @param locationMonitorDao a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
+     * @param locationMonitorDao
+     *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}
+     *            object.
      */
     public final void setLocationMonitorDao(final LocationMonitorDao locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;
@@ -103,8 +112,7 @@ public class DefaultDistributedPollerService implements
      *
      * @author djgregor
      */
-    public class OnmsLocationMonitorAreaNameComparator
-                implements Comparator<OnmsLocationMonitor> {
+    public class OnmsLocationMonitorAreaNameComparator implements Comparator<OnmsLocationMonitor> {
         @Override
         public final int compare(final OnmsLocationMonitor o1, final OnmsLocationMonitor o2) {
             OnmsMonitoringLocationDefinition def1 = null;
@@ -140,7 +148,8 @@ public class DefaultDistributedPollerService implements
 
     /** {@inheritDoc} */
     @Override
-    public final LocationMonitorListModel getLocationMonitorDetails(final LocationMonitorIdCommand cmd, final BindException errors) {
+    public final LocationMonitorListModel getLocationMonitorDetails(final LocationMonitorIdCommand cmd,
+            final BindException errors) {
         LocationMonitorListModel model = new LocationMonitorListModel();
         model.setErrors(errors);
 
@@ -174,8 +183,8 @@ public class DefaultDistributedPollerService implements
         if (monitor.getStatus() == MonitorStatus.PAUSED) {
             errors.addError(new ObjectError(MonitorStatus.class.getName(),
                                             new String[] { "distributed.locationMonitor.alreadyPaused" },
-                                            new Object[] { command.getMonitorId() },
-                                            "Location monitor " + command.getMonitorId() + " is already paused."));
+                                            new Object[] { command.getMonitorId() }, "Location monitor "
+                                                    + command.getMonitorId() + " is already paused."));
             return;
         }
 
@@ -202,8 +211,8 @@ public class DefaultDistributedPollerService implements
         if (monitor.getStatus() != MonitorStatus.PAUSED) {
             errors.addError(new ObjectError(MonitorStatus.class.getName(),
                                             new String[] { "distributed.locationMonitor.notPaused" },
-                                            new Object[] { command.getMonitorId() },
-                                            "Location monitor " + command.getMonitorId() + " is not paused."));
+                                            new Object[] { command.getMonitorId() }, "Location monitor "
+                                                    + command.getMonitorId() + " is not paused."));
             return;
         }
 

@@ -35,7 +35,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>OwnedIntervalSequence class.</p>
+ * <p>
+ * OwnedIntervalSequence class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,16 +45,21 @@ import java.util.List;
 public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInterval> {
 
     /**
-     * <p>Constructor for OwnedIntervalSequence.</p>
+     * <p>
+     * Constructor for OwnedIntervalSequence.
+     * </p>
      */
     public OwnedIntervalSequence() {
         super();
     }
 
     /**
-     * <p>Constructor for OwnedIntervalSequence.</p>
+     * <p>
+     * Constructor for OwnedIntervalSequence.
+     * </p>
      *
-     * @param interval a {@link org.opennms.core.utils.OwnedInterval} object.
+     * @param interval
+     *            a {@link org.opennms.core.utils.OwnedInterval} object.
      */
     public OwnedIntervalSequence(OwnedInterval interval) {
         super(interval);
@@ -68,7 +75,8 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
         OwnedInterval midSeg = null;
         OwnedInterval thirdSeg = null;
 
-        // start and end of the middle segment is computed as we examine the first and last segments
+        // start and end of the middle segment is computed as we examine the
+        // first and last segments
         Date midSegStart;
         Date midSegEnd;
 
@@ -119,7 +127,6 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
             newIntervals.add(thirdSeg);
         }
 
-
         return newIntervals;
     }
 
@@ -142,12 +149,14 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
         List<Owner> reducedOwners = new ArrayList<Owner>(origInterval.getOwners());
         reducedOwners.removeAll(removedInterval.getOwners());
         if (origInterval.isOwned() && removedInterval.isOwned() && reducedOwners.equals(origInterval.getOwners())) {
-            // the removedInterval did not have any owners in common with the original interval
+            // the removedInterval did not have any owners in common with the
+            // original interval
             // so leave the interval intact
             return Collections.singletonList(origInterval);
         }
 
-        // if we got here then there is some ownership change in the original interval
+        // if we got here then there is some ownership change in the original
+        // interval
 
         // there are potentially three new intervals
         OwnedInterval firstSeg = null;
@@ -160,14 +169,15 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
         // first the first Segment
         if (origInterval.getStart().before(removedInterval.getStart())) {
             // then we have a firstSeg that has the original ownership
-            // this causes the midSeg to start at the start of the removed interval
+            // this causes the midSeg to start at the start of the removed
+            // interval
             midSegStart = removedInterval.getStart();
             firstSeg = new OwnedInterval(origInterval.getOwners(), origInterval.getStart(), midSegStart);
         } else {
-            // there is no first seg so set mid seg to start at top of original interval
+            // there is no first seg so set mid seg to start at top of original
+            // interval
             midSegStart = origInterval.getStart();
         }
-
 
         // now the last segment
         if (removedInterval.getEnd().before(origInterval.getEnd())) {

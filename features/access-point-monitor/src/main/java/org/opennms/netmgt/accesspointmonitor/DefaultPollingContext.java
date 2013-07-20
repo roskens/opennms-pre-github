@@ -52,16 +52,24 @@ public class DefaultPollingContext implements PollingContext {
     private static final String PASSIVE_STATUS_UEI = "uei.opennms.org/services/passiveServiceStatus";
 
     private EventIpcManager m_eventMgr;
-    private IpInterfaceDao m_ipInterfaceDao;
-    private NodeDao m_nodeDao;
-    private AccessPointDao m_accessPointDao;
-    private Map<String, String> m_parameters;
-    private Package m_package;
-    private Scheduler m_scheduler;
-    private long m_interval;
-    private AccessPointMonitorConfig m_pollerConfig;
-    private ExecutorService m_pool = null;
 
+    private IpInterfaceDao m_ipInterfaceDao;
+
+    private NodeDao m_nodeDao;
+
+    private AccessPointDao m_accessPointDao;
+
+    private Map<String, String> m_parameters;
+
+    private Package m_package;
+
+    private Scheduler m_scheduler;
+
+    private long m_interval;
+
+    private AccessPointMonitorConfig m_pollerConfig;
+
+    private ExecutorService m_pool = null;
 
     @Override
     public void setPackage(Package pkg) {
@@ -232,7 +240,8 @@ public class DefaultPollingContext implements PollingContext {
         // Remove the APs from the list that are ONLINE
         apsDown.removeAll(apsUp);
 
-        LOG.debug("({}) APs Online, ({}) APs offline in package '{}'", apsUp.size(), apsDown.size(), getPackage().getName());
+        LOG.debug("({}) APs Online, ({}) APs offline in package '{}'", apsUp.size(), apsDown.size(),
+                  getPackage().getName());
 
         if (!succesfullyPolledAController) {
             LOG.warn("Failed to poll at least one controller in the package '{}'", getPackage().getName());
@@ -316,7 +325,8 @@ public class DefaultPollingContext implements PollingContext {
         OnmsNode node = getNodeDao().get(nodeId);
         parms.add(buildParm(EventConstants.PARM_PASSIVE_IPADDR, getNodeIpAddress(node).getHostAddress()));
         parms.add(buildParm(EventConstants.PARM_PASSIVE_NODE_LABEL, node.getLabel()));
-        parms.add(buildParm(EventConstants.PARM_PASSIVE_SERVICE_NAME, getPackage().getEffectiveService().getPassiveServiceName()));
+        parms.add(buildParm(EventConstants.PARM_PASSIVE_SERVICE_NAME,
+                            getPackage().getEffectiveService().getPassiveServiceName()));
         parms.add(buildParm(EventConstants.PARM_PASSIVE_SERVICE_STATUS, status));
         parms.add(buildParm("physAddr", physAddr));
 

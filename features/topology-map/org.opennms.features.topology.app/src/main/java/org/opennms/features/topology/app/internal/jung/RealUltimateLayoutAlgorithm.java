@@ -46,87 +46,85 @@ import edu.uci.ics.jung.graph.SparseGraph;
 
 public class RealUltimateLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
-        @Override
-	public void updateLayout(GraphContainer graphContainer) {
+    @Override
+    public void updateLayout(GraphContainer graphContainer) {
 
-		Graph g = graphContainer.getGraph();
+        Graph g = graphContainer.getGraph();
 
-		final Layout graphLayout = g.getLayout();
+        final Layout graphLayout = g.getLayout();
 
-		SparseGraph<VertexRef, EdgeRef> jungGraph = new SparseGraph<VertexRef, EdgeRef>();
+        SparseGraph<VertexRef, EdgeRef> jungGraph = new SparseGraph<VertexRef, EdgeRef>();
 
-		Collection<? extends Vertex> vertices = g.getDisplayVertices();
+        Collection<? extends Vertex> vertices = g.getDisplayVertices();
 
-		for(Vertex v : vertices) {
-			jungGraph.addVertex(v);
-		}
+        for (Vertex v : vertices) {
+            jungGraph.addVertex(v);
+        }
 
-		Collection<? extends Edge> edges = g.getDisplayEdges();
+        Collection<? extends Edge> edges = g.getDisplayEdges();
 
-		for(Edge e : edges) {
-			jungGraph.addEdge(e, e.getSource().getVertex(), e.getTarget().getVertex());
-		}
+        for (Edge e : edges) {
+            jungGraph.addEdge(e, e.getSource().getVertex(), e.getTarget().getVertex());
+        }
 
-		Dimension size = selectLayoutSize(graphContainer);
-		Dimension paddedSize = new Dimension((int)(size.getWidth()*.75), (int)(size.getHeight()*.75));
+        Dimension size = selectLayoutSize(graphContainer);
+        Dimension paddedSize = new Dimension((int) (size.getWidth() * .75), (int) (size.getHeight() * .75));
 
-		doISOMLayout(graphLayout, jungGraph, size);
-		doSpringLayout(graphLayout, jungGraph, size, LAYOUT_REPULSION);
-		doFRLayout(graphLayout, jungGraph, paddedSize, (int)(size.getWidth()/8), (int)(size.getHeight()/8));
-		doSpringLayout(graphLayout, jungGraph, size, LAYOUT_REPULSION);
+        doISOMLayout(graphLayout, jungGraph, size);
+        doSpringLayout(graphLayout, jungGraph, size, LAYOUT_REPULSION);
+        doFRLayout(graphLayout, jungGraph, paddedSize, (int) (size.getWidth() / 8), (int) (size.getHeight() / 8));
+        doSpringLayout(graphLayout, jungGraph, size, LAYOUT_REPULSION);
 
+    }
 
-	}
+    private void doSpringLayout(final Layout graphLayout, SparseGraph<VertexRef, EdgeRef> jungGraph, Dimension size,
+            int repulsion) {
+        SpringLayout<VertexRef, EdgeRef> layout = new SpringLayout<VertexRef, EdgeRef>(jungGraph);
+        layout.setInitializer(initializer(graphLayout));
 
-	private void doSpringLayout(final Layout graphLayout, SparseGraph<VertexRef, EdgeRef> jungGraph, Dimension size, int repulsion) {
-		SpringLayout<VertexRef, EdgeRef> layout = new SpringLayout<VertexRef, EdgeRef>(jungGraph);
-		layout.setInitializer(initializer(graphLayout));
+        layout.setSize(size);
+        layout.setRepulsionRange(repulsion);
 
-		layout.setSize(size);
-		layout.setRepulsionRange(repulsion);
+        int count = 0;
+        while (!layout.done() && count < 700) {
+            layout.step();
+            count++;
+        }
 
-		int count = 0;
-		while(!layout.done() && count < 700) {
-			layout.step();
-			count++;
-		}
+        for (VertexRef v : jungGraph.getVertices()) {
+            graphLayout.setLocation(v, (int) layout.getX(v), (int) layout.getY(v));
+        }
+    }
 
-		for(VertexRef v : jungGraph.getVertices()) {
-			graphLayout.setLocation(v, (int)layout.getX(v), (int)layout.getY(v));
-		}
-	}
+    private void doFRLayout(final Layout graphLayout, SparseGraph<VertexRef, EdgeRef> jungGraph, Dimension size,
+            final int xOffset, final int yOffset) {
+        FRLayout<VertexRef, EdgeRef> layout = new FRLayout<VertexRef, EdgeRef>(jungGraph);
+        layout.setInitializer(initializer(graphLayout, xOffset, yOffset));
+        layout.setSize(size);
 
-	private void doFRLayout(final Layout graphLayout, SparseGraph<VertexRef, EdgeRef> jungGraph, Dimension size, final int xOffset, final int yOffset) {
-		FRLayout<VertexRef, EdgeRef> layout = new FRLayout<VertexRef, EdgeRef>(jungGraph);
-		layout.setInitializer(initializer(graphLayout, xOffset, yOffset));
-		layout.setSize(size);
+        while (!layout.done()) {
+            layout.step();
+        }
 
-		while(!layout.done()) {
-			layout.step();
-		}
+        for (VertexRef v : jungGraph.getVertices()) {
+            graphLayout.setLocation(v, (int) layout.getX(v) + xOffset, (int) layout.getY(v) + yOffset);
+        }
 
+    }
 
-		for(VertexRef v : jungGraph.getVertices()) {
-			graphLayout.setLocation(v, (int)layout.getX(v)+xOffset, (int)layout.getY(v)+yOffset);
-		}
+    private void doISOMLayout(final Layout graphLayout, SparseGraph<VertexRef, EdgeRef> jungGraph, Dimension size) {
+        ISOMLayout<VertexRef, EdgeRef> layout = new ISOMLayout<VertexRef, EdgeRef>(jungGraph);
+        layout.setInitializer(initializer(graphLayout));
+        layout.setSize(size);
 
-	}
+        while (!layout.done()) {
+            layout.step();
+        }
 
-	private void doISOMLayout(final Layout graphLayout, SparseGraph<VertexRef, EdgeRef> jungGraph, Dimension size) {
-		ISOMLayout<VertexRef, EdgeRef> layout = new ISOMLayout<VertexRef, EdgeRef>(jungGraph);
-		layout.setInitializer(initializer(graphLayout));
-		layout.setSize(size);
+        for (VertexRef v : jungGraph.getVertices()) {
+            graphLayout.setLocation(v, (int) layout.getX(v), (int) layout.getY(v));
+        }
 
-		while(!layout.done()) {
-			layout.step();
-		}
-
-
-		for(VertexRef v : jungGraph.getVertices()) {
-			graphLayout.setLocation(v, (int)layout.getX(v), (int)layout.getY(v));
-		}
-
-	}
-
+    }
 
 }

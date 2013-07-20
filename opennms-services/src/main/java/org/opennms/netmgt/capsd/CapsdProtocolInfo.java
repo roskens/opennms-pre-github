@@ -30,7 +30,6 @@ package org.opennms.netmgt.capsd;
 
 import java.util.Map;
 
-
 /**
  * This class is used to encapsulate the basic protocol information read
  * from the config file. The information includes the plugin, the protocol

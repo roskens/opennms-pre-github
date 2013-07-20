@@ -32,11 +32,12 @@ import junit.framework.TestCase;
 
 public class InstanceTrackerTest extends TestCase {
 
-	private SnmpObjId m_sysNameOid = SnmpObjId.get(".1.3.6.1.2.1.1.5");
+    private SnmpObjId m_sysNameOid = SnmpObjId.get(".1.3.6.1.2.1.1.5");
 
     static private class MyColumnTracker extends ColumnTracker {
 
         private boolean m_expectsStorageCall;
+
         private boolean m_storageCalled;
 
         @Override
@@ -80,11 +81,14 @@ public class InstanceTrackerTest extends TestCase {
         assertTrue(it.isFinished());
     }
 
-    private void testCollectionTrackerInnerLoop(CollectionTracker tracker, final SnmpObjId expectedOid, SnmpObjId receivedOid, final int nonRepeaters) {
-        testCollectionTrackerInnerLoop(tracker, new SnmpObjId[] { expectedOid }, new SnmpObjId[] { receivedOid }, nonRepeaters);
+    private void testCollectionTrackerInnerLoop(CollectionTracker tracker, final SnmpObjId expectedOid,
+            SnmpObjId receivedOid, final int nonRepeaters) {
+        testCollectionTrackerInnerLoop(tracker, new SnmpObjId[] { expectedOid }, new SnmpObjId[] { receivedOid },
+                                       nonRepeaters);
     }
 
-    private void testCollectionTrackerInnerLoop(CollectionTracker tracker, final SnmpObjId[] expectedOids, SnmpObjId[] receivedOids, final int nonRepeaters) {
+    private void testCollectionTrackerInnerLoop(CollectionTracker tracker, final SnmpObjId[] expectedOids,
+            SnmpObjId[] receivedOids, final int nonRepeaters) {
         class OidCheckedPduBuilder extends PduBuilder {
             int count = 0;
 
@@ -122,7 +126,6 @@ public class InstanceTrackerTest extends TestCase {
             rp.processResponse(receivedOid, SnmpUtils.getValueFactory().getOctetString("Value".getBytes()));
         }
 
-
     }
 
     public void testSingleInstanceTrackerNonZeroInstance() {
@@ -139,7 +142,7 @@ public class InstanceTrackerTest extends TestCase {
         CollectionTracker it = new InstanceListTracker(m_sysNameOid, toCommaSeparated(instances));
 
         SnmpObjId[] oids = new SnmpObjId[instances.length];
-        for(int i = 0; i < instances.length; i++) {
+        for (int i = 0; i < instances.length; i++) {
             oids[i] = SnmpObjId.get(m_sysNameOid, instances[i]);
         }
         testCollectionTrackerInnerLoop(it, oids, oids, oids.length);
@@ -153,7 +156,7 @@ public class InstanceTrackerTest extends TestCase {
 
         SnmpObjId[] expectedOids = new SnmpObjId[instances.length];
         SnmpObjId[] receivedOids = new SnmpObjId[instances.length];
-        for(int i = 0; i < instances.length; i++) {
+        for (int i = 0; i < instances.length; i++) {
             expectedOids[i] = SnmpObjId.get(m_sysNameOid, instances[i]);
             receivedOids[i] = expectedOids[i].append("0");
         }
@@ -162,7 +165,6 @@ public class InstanceTrackerTest extends TestCase {
         assertTrue(it.isFinished());
     }
 
-
     public void testColumnTracker() {
         SnmpObjId colOid = SnmpObjId.get(".1.3.6.1.2.1.1.5");
         SnmpObjId nextColOid = SnmpObjId.get(".1.3.6.1.2.1.1.6.2");
@@ -170,7 +172,7 @@ public class InstanceTrackerTest extends TestCase {
 
         int colLength = 5;
 
-        for(int i = 0; i < colLength; i++) {
+        for (int i = 0; i < colLength; i++) {
             String instance = Integer.toString(i);
             tracker.setExpectsStorageCall(true);
             testCollectionTrackerInnerLoop(tracker, SnmpObjId.get(colOid, instance), colOid.append(instance), 0);
@@ -178,7 +180,7 @@ public class InstanceTrackerTest extends TestCase {
         }
 
         tracker.setExpectsStorageCall(false);
-        testCollectionTrackerInnerLoop(tracker, SnmpObjId.get(colOid, ""+colLength), nextColOid, 0);
+        testCollectionTrackerInnerLoop(tracker, SnmpObjId.get(colOid, "" + colLength), nextColOid, 0);
         tracker.assertStoreResultsCalled();
 
         // now it should be done
@@ -188,7 +190,7 @@ public class InstanceTrackerTest extends TestCase {
 
     private String toCommaSeparated(String[] instances) {
         StringBuffer buf = new StringBuffer();
-        for(int i = 0; i < instances.length; i++) {
+        for (int i = 0; i < instances.length; i++) {
             if (i != 0) {
                 buf.append(',');
             }
@@ -196,6 +198,5 @@ public class InstanceTrackerTest extends TestCase {
         }
         return buf.toString();
     }
-
 
 }

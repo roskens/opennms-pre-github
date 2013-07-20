@@ -35,25 +35,31 @@ import org.opennms.netmgt.model.OnmsVlan.VlanType;
 import org.opennms.web.api.Util;
 
 /**
- * <p>Vlan class.</p>
+ * <p>
+ * Vlan class.
+ * </p>
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  * @since 1.8.1
  */
-public class Vlan
-{
+public class Vlan {
     private final int m_nodeId;
+
     private final int m_vlanId;
+
     private final String m_vlanname;
+
     private final String m_vlantype;
+
     private final String m_vlanstatus;
+
     private final String m_lastPollTime;
+
     private final String m_status;
 
     /* package-protected so only the NetworkElementFactory can instantiate */
-    Vlan(OnmsVlan vlan)
-    {
+    Vlan(OnmsVlan vlan) {
         m_nodeId = vlan.getNode().getId();
         m_vlanId = vlan.getVlanId();
         m_vlanname = vlan.getVlanName();
@@ -64,23 +70,25 @@ public class Vlan
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String toString()
-    {
-        StringBuffer str = new StringBuffer("Node Id = " + m_nodeId + "\n" );
-        str.append("Vlan id = " + m_vlanId + "\n" );
-        str.append("At Last Poll Time = " + m_lastPollTime + "\n" );
-        str.append("Node At Status= " + m_status + "\n" );
+    public String toString() {
+        StringBuffer str = new StringBuffer("Node Id = " + m_nodeId + "\n");
+        str.append("Vlan id = " + m_vlanId + "\n");
+        str.append("At Last Poll Time = " + m_lastPollTime + "\n");
+        str.append("Node At Status= " + m_status + "\n");
         return str.toString();
     }
 
-
     /**
-     * <p>getLastPollTime</p>
+     * <p>
+     * getLastPollTime
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,7 +97,9 @@ public class Vlan
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -98,7 +108,9 @@ public class Vlan
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a char.
      */
@@ -107,7 +119,9 @@ public class Vlan
     }
 
     /**
-     * <p>getStatusString</p>
+     * <p>
+     * getStatusString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,7 +130,9 @@ public class Vlan
     }
 
     /**
-     * <p>getVlanColorIdentifier</p>
+     * <p>
+     * getVlanColorIdentifier
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -127,19 +143,26 @@ public class Vlan
         int redoffset = 47;
         int greenoffset = 29;
         int blueoffset = 23;
-        if (m_vlanId == 0) return "";
-        if (m_vlanId == 1) return "#FFFFFF";
-        red = (red + m_vlanId * redoffset)%255;
-        green = (green + m_vlanId * greenoffset)%255;
-        blue = (blue + m_vlanId * blueoffset)%255;
-        if (red < 64) red = red+64;
-        if (green < 64) green = green+64;
-        if (blue < 64) blue = blue+64;
-        return "#"+Integer.toHexString(red)+Integer.toHexString(green)+Integer.toHexString(blue);
+        if (m_vlanId == 0)
+            return "";
+        if (m_vlanId == 1)
+            return "#FFFFFF";
+        red = (red + m_vlanId * redoffset) % 255;
+        green = (green + m_vlanId * greenoffset) % 255;
+        blue = (blue + m_vlanId * blueoffset) % 255;
+        if (red < 64)
+            red = red + 64;
+        if (green < 64)
+            green = green + 64;
+        if (blue < 64)
+            blue = blue + 64;
+        return "#" + Integer.toHexString(red) + Integer.toHexString(green) + Integer.toHexString(blue);
     }
 
     /**
-     * <p>getVlanId</p>
+     * <p>
+     * getVlanId
+     * </p>
      *
      * @return a int.
      */
@@ -148,7 +171,9 @@ public class Vlan
     }
 
     /**
-     * <p>getVlanName</p>
+     * <p>
+     * getVlanName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -157,7 +182,9 @@ public class Vlan
     }
 
     /**
-     * <p>getVlanStatus</p>
+     * <p>
+     * getVlanStatus
+     * </p>
      *
      * @return a int.
      */
@@ -166,16 +193,20 @@ public class Vlan
     }
 
     /**
-     * <p>getVlanStatusString</p>
+     * <p>
+     * getVlanStatusString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getVlanStatusString() {
-    	return m_vlanstatus;
+        return m_vlanstatus;
     }
 
     /**
-     * <p>getVlanType</p>
+     * <p>
+     * getVlanType
+     * </p>
      *
      * @return a int.
      */
@@ -184,7 +215,9 @@ public class Vlan
     }
 
     /**
-     * <p>getVlanTypeString</p>
+     * <p>
+     * getVlanTypeString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

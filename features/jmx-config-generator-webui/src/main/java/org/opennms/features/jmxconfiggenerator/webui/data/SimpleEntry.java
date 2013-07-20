@@ -39,62 +39,66 @@ import java.util.Map.Entry;
  */
 public class SimpleEntry<T> implements Entry<T, T> {
 
-	/**
-	 * read only key
-	 */
-	final private T key;
-	private T value;
+    /**
+     * read only key
+     */
+    final private T key;
 
-	public SimpleEntry(T key) {
-		this(key, null);
-	}
+    private T value;
 
-	public SimpleEntry(T key, T value) {
-		if (key == null) throw new IllegalArgumentException(getClass().getSimpleName() + " cannot handle null keys");
-		this.key = key;
-		this.value = value;
-	}
+    public SimpleEntry(T key) {
+        this(key, null);
+    }
 
-	@Override
-	public String toString() {
-		return key + "=" + value;
-	}
+    public SimpleEntry(T key, T value) {
+        if (key == null)
+            throw new IllegalArgumentException(getClass().getSimpleName() + " cannot handle null keys");
+        this.key = key;
+        this.value = value;
+    }
 
-	@Override
-	public T getKey() {
-		return key;
-	}
+    @Override
+    public String toString() {
+        return key + "=" + value;
+    }
 
-	@Override
-	public T getValue() {
-		return value;
-	}
+    @Override
+    public T getKey() {
+        return key;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(key, value);
-	}
+    @Override
+    public T getValue() {
+        return value;
+    }
 
-	/**
-	 * Returns the result of
-	 * <code>this.key.equals(that.key) && this.value.equals(that.value)</code>.
-	 *
-	 * @param obj
-	 * @return true if both keys and values are equal, false otherwise. False is
-	 *         also returned if <codE>obj</code> does not inherit/implement
-	 *         <code>Entry</code> does not match or <code>obj</code> is null.
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) return false;
-		if (!(obj instanceof Entry)) return false;
-		return Objects.equal(this.key, ((Entry) obj).getKey()) && Objects.equal(this.value, ((Entry) obj).getValue());
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(key, value);
+    }
 
-	@Override
-	public T setValue(T value) {
-		T old = this.value;
-		this.value = value;
-		return old;
-	}
+    /**
+     * Returns the result of
+     * <code>this.key.equals(that.key) && this.value.equals(that.value)</code>.
+     *
+     * @param obj
+     * @return true if both keys and values are equal, false otherwise. False is
+     *         also returned if <codE>obj</code> does not inherit/implement
+     *         <code>Entry</code> does not match or <code>obj</code> is null.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Entry))
+            return false;
+        return Objects.equal(this.key, ((Entry) obj).getKey()) && Objects.equal(this.value, ((Entry) obj).getValue());
+    }
+
+    @Override
+    public T setValue(T value) {
+        T old = this.value;
+        this.value = value;
+        return old;
+    }
 }

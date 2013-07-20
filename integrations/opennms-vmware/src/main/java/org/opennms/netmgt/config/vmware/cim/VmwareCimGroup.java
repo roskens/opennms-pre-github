@@ -98,11 +98,10 @@ public class VmwareCimGroup implements java.io.Serializable {
     /**
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addAttrib(
-            final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib)
+    public void addAttrib(final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
         this._attribList.add(vAttrib);
     }
@@ -111,12 +110,10 @@ public class VmwareCimGroup implements java.io.Serializable {
      * @param index
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addAttrib(
-            final int index,
-            final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib)
+    public void addAttrib(final int index, final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
         this._attribList.add(index, vAttrib);
     }
@@ -127,8 +124,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      * @return an Enumeration over all possible elements of this
      *         collection
      */
-    public java.util.Enumeration<org.opennms.netmgt.config.vmware.cim.Attrib> enumerateAttrib(
-    ) {
+    public java.util.Enumeration<org.opennms.netmgt.config.vmware.cim.Attrib> enumerateAttrib() {
         return java.util.Collections.enumeration(this._attribList);
     }
 
@@ -139,19 +135,15 @@ public class VmwareCimGroup implements java.io.Serializable {
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
+    public boolean equals(final java.lang.Object obj) {
         if (obj instanceof VmwareCimGroup) {
             VmwareCimGroup other = (VmwareCimGroup) obj;
-            return new EqualsBuilder()
-                    .append(getName(), other.getName())
-                    .append(getAttrib(), other.getAttrib())
-                    .append(getResourceType(), other.getResourceType())
-                    .append(getCimClass(), other.getCimClass())
-                    .append(getInstance(), other.getInstance())
-                    .append(getKey(), other.getKey())
-                    .append(getValue(), other.getValue())
-                    .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getAttrib(), other.getAttrib()).append(getResourceType(),
+                                                                                                                        other.getResourceType()).append(getCimClass(),
+                                                                                                                                                        other.getCimClass()).append(getInstance(),
+                                                                                                                                                                                    other.getInstance()).append(getKey(),
+                                                                                                                                                                                                                other.getKey()).append(getValue(),
+                                                                                                                                                                                                                                       other.getValue()).isEquals();
         }
         return false;
     }
@@ -163,15 +155,15 @@ public class VmwareCimGroup implements java.io.Serializable {
      * @return the value of the
      *         org.opennms.netmgt.config.vmware.cim.Attrib at the given inde
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public org.opennms.netmgt.config.vmware.cim.Attrib getAttrib(
-            final int index)
+    public org.opennms.netmgt.config.vmware.cim.Attrib getAttrib(final int index)
             throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._attribList.size()) {
-            throw new IndexOutOfBoundsException("getAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getAttrib: Index value '" + index + "' not in range [0.."
+                    + (this._attribList.size() - 1) + "]");
         }
 
         return (org.opennms.netmgt.config.vmware.cim.Attrib) _attribList.get(index);
@@ -179,15 +171,16 @@ public class VmwareCimGroup implements java.io.Serializable {
 
     /**
      * Method getAttrib.Returns the contents of the collection in
-     * an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public org.opennms.netmgt.config.vmware.cim.Attrib[] getAttrib(
-    ) {
+    public org.opennms.netmgt.config.vmware.cim.Attrib[] getAttrib() {
         org.opennms.netmgt.config.vmware.cim.Attrib[] array = new org.opennms.netmgt.config.vmware.cim.Attrib[0];
         return (org.opennms.netmgt.config.vmware.cim.Attrib[]) this._attribList.toArray(array);
     }
@@ -199,8 +192,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<org.opennms.netmgt.config.vmware.cim.Attrib> getAttribCollection(
-    ) {
+    public java.util.List<org.opennms.netmgt.config.vmware.cim.Attrib> getAttribCollection() {
         return this._attribList;
     }
 
@@ -209,8 +201,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      *
      * @return the size of this collection
      */
-    public int getAttribCount(
-    ) {
+    public int getAttribCount() {
         return this._attribList.size();
     }
 
@@ -221,8 +212,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      *
      * @return the value of field 'CimClass'.
      */
-    public java.lang.String getCimClass(
-    ) {
+    public java.lang.String getCimClass() {
         return this._cimClass == null ? "" : this._cimClass;
     }
 
@@ -233,8 +223,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      *
      * @return the value of field 'Instance'.
      */
-    public java.lang.String getInstance(
-    ) {
+    public java.lang.String getInstance() {
         return this._instance == null ? "" : this._instance;
     }
 
@@ -245,8 +234,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      *
      * @return the value of field 'Key'.
      */
-    public java.lang.String getKey(
-    ) {
+    public java.lang.String getKey() {
         return this._key == null ? "" : this._key;
     }
 
@@ -257,8 +245,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      *
      * @return the value of field 'Name'.
      */
-    public java.lang.String getName(
-    ) {
+    public java.lang.String getName() {
         return this._name == null ? "" : this._name;
     }
 
@@ -275,8 +262,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      *
      * @return the value of field 'ResourceType'.
      */
-    public java.lang.String getResourceType(
-    ) {
+    public java.lang.String getResourceType() {
         return this._resourceType == null ? "" : this._resourceType;
     }
 
@@ -287,8 +273,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      *
      * @return the value of field 'Value'.
      */
-    public java.lang.String getValue(
-    ) {
+    public java.lang.String getValue() {
         return this._value == null ? "" : this._value;
     }
 
@@ -298,15 +283,13 @@ public class VmwareCimGroup implements java.io.Serializable {
      * @return an Iterator over all possible elements in this
      *         collection
      */
-    public java.util.Iterator<org.opennms.netmgt.config.vmware.cim.Attrib> iterateAttrib(
-    ) {
+    public java.util.Iterator<org.opennms.netmgt.config.vmware.cim.Attrib> iterateAttrib() {
         return this._attribList.iterator();
     }
 
     /**
      */
-    public void removeAllAttrib(
-    ) {
+    public void removeAllAttrib() {
         this._attribList.clear();
     }
 
@@ -316,8 +299,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      * @param vAttrib
      * @return true if the object was removed from the collection.
      */
-    public boolean removeAttrib(
-            final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib) {
+    public boolean removeAttrib(final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib) {
         boolean removed = _attribList.remove(vAttrib);
         return removed;
     }
@@ -328,8 +310,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public org.opennms.netmgt.config.vmware.cim.Attrib removeAttribAt(
-            final int index) {
+    public org.opennms.netmgt.config.vmware.cim.Attrib removeAttribAt(final int index) {
         java.lang.Object obj = this._attribList.remove(index);
         return (org.opennms.netmgt.config.vmware.cim.Attrib) obj;
     }
@@ -338,16 +319,15 @@ public class VmwareCimGroup implements java.io.Serializable {
      * @param index
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setAttrib(
-            final int index,
-            final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib)
+    public void setAttrib(final int index, final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._attribList.size()) {
-            throw new IndexOutOfBoundsException("setAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setAttrib: Index value '" + index + "' not in range [0.."
+                    + (this._attribList.size() - 1) + "]");
         }
 
         this._attribList.set(index, vAttrib);
@@ -356,9 +336,8 @@ public class VmwareCimGroup implements java.io.Serializable {
     /**
      * @param vAttribArray
      */
-    public void setAttrib(
-            final org.opennms.netmgt.config.vmware.cim.Attrib[] vAttribArray) {
-        //-- copy array
+    public void setAttrib(final org.opennms.netmgt.config.vmware.cim.Attrib[] vAttribArray) {
+        // -- copy array
         _attribList.clear();
 
         for (int i = 0; i < vAttribArray.length; i++) {
@@ -370,10 +349,10 @@ public class VmwareCimGroup implements java.io.Serializable {
      * Sets the value of '_attribList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vAttribList the Vector to copy.
+     * @param vAttribList
+     *            the Vector to copy.
      */
-    public void setAttrib(
-            final java.util.List<org.opennms.netmgt.config.vmware.cim.Attrib> vAttribList) {
+    public void setAttrib(final java.util.List<org.opennms.netmgt.config.vmware.cim.Attrib> vAttribList) {
         // copy vector
         this._attribList.clear();
 
@@ -385,10 +364,10 @@ public class VmwareCimGroup implements java.io.Serializable {
      * the following description: The name of the Cmi class to
      * query
      *
-     * @param cimClass the value of field 'cimClass'.
+     * @param cimClass
+     *            the value of field 'cimClass'.
      */
-    public void setCimClass(
-            final java.lang.String cimClass) {
+    public void setCimClass(final java.lang.String cimClass) {
         this._cimClass = cimClass;
     }
 
@@ -397,10 +376,10 @@ public class VmwareCimGroup implements java.io.Serializable {
      * the following description: The instance attribute of this
      * group
      *
-     * @param instance the value of field 'instance'.
+     * @param instance
+     *            the value of field 'instance'.
      */
-    public void setInstance(
-            final java.lang.String instance) {
+    public void setInstance(final java.lang.String instance) {
         this._instance = instance;
     }
 
@@ -409,10 +388,10 @@ public class VmwareCimGroup implements java.io.Serializable {
      * following description: The attibute with name Key will be
      * checked against Value
      *
-     * @param key the value of field 'key'.
+     * @param key
+     *            the value of field 'key'.
      */
-    public void setKey(
-            final java.lang.String key) {
+    public void setKey(final java.lang.String key) {
         this._key = key;
     }
 
@@ -421,10 +400,10 @@ public class VmwareCimGroup implements java.io.Serializable {
      * following description: The name of this group, for user id
      * purposes
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
-    public void setName(
-            final java.lang.String name) {
+    public void setName(final java.lang.String name) {
         this._name = name;
     }
 
@@ -439,10 +418,10 @@ public class VmwareCimGroup implements java.io.Serializable {
      * custom
      * resource type declared in datacollection-config.xml.
      *
-     * @param resourceType the value of field 'resourceType'.
+     * @param resourceType
+     *            the value of field 'resourceType'.
      */
-    public void setResourceType(
-            final java.lang.String resourceType) {
+    public void setResourceType(final java.lang.String resourceType) {
         this._resourceType = resourceType;
     }
 
@@ -451,10 +430,10 @@ public class VmwareCimGroup implements java.io.Serializable {
      * following description: The attibute with name Key will be
      * checked against Value
      *
-     * @param value the value of field 'value'.
+     * @param value
+     *            the value of field 'value'.
      */
-    public void setValue(
-            final java.lang.String value) {
+    public void setValue(final java.lang.String value) {
         this._value = value;
     }
 }

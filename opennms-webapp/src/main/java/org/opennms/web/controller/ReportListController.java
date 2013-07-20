@@ -44,7 +44,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * <p>OnlineReportListController class.</p>
+ * <p>
+ * OnlineReportListController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -71,13 +73,14 @@ public class ReportListController extends AbstractController {
         logger.debug("start: reload reporting configuration files");
         // TODO indigo: We have to solve this problem on DAO level
         synchronized (m_reportListService) {
-          m_reportListService.reloadConfigurationFiles();
+            m_reportListService.reloadConfigurationFiles();
         }
         logger.debug("stop : reload reporting configuration files");
 
         Map<ReportRepositoryDescription, PagedListHolder<DatabaseReportDescription>> repositoryList = new LinkedHashMap<ReportRepositoryDescription, PagedListHolder<DatabaseReportDescription>>();
         for (ReportRepositoryDescription reportRepositoryDescription : m_reportListService.getActiveRepositories()) {
-            PagedListHolder<DatabaseReportDescription> pageListholder = new PagedListHolder<DatabaseReportDescription>(m_reportListService.getReportsByRepositoryId(reportRepositoryDescription.getId()));
+            PagedListHolder<DatabaseReportDescription> pageListholder = new PagedListHolder<DatabaseReportDescription>(
+                                                                                                                       m_reportListService.getReportsByRepositoryId(reportRepositoryDescription.getId()));
             pageListholder.setPageSize(m_pageSize);
             int page = ServletRequestUtils.getIntParameter(request, "p_" + reportRepositoryDescription.getId(), 0);
             pageListholder.setPage(page);
@@ -87,25 +90,34 @@ public class ReportListController extends AbstractController {
     }
 
     /**
-     * <p>getDatabaseReportListService</p>
+     * <p>
+     * getDatabaseReportListService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.DatabaseReportListService} object.
+     * @return a {@link org.opennms.web.svclayer.DatabaseReportListService}
+     *         object.
      */
     public final DatabaseReportListService getDatabaseReportListService() {
         return m_reportListService;
     }
 
     /**
-     * <p>setDatabaseReportListService</p>
+     * <p>
+     * setDatabaseReportListService
+     * </p>
      *
-     * @param listService a {@link org.opennms.web.svclayer.DatabaseReportListService} object.
+     * @param listService
+     *            a {@link org.opennms.web.svclayer.DatabaseReportListService}
+     *            object.
      */
     public final void setDatabaseReportListService(final DatabaseReportListService listService) {
         m_reportListService = listService;
     }
 
     /**
-     * <p>getPageSize</p>
+     * <p>
+     * getPageSize
+     * </p>
      *
      * @return a int.
      */
@@ -114,9 +126,12 @@ public class ReportListController extends AbstractController {
     }
 
     /**
-     * <p>setPageSize</p>
+     * <p>
+     * setPageSize
+     * </p>
      *
-     * @param pageSize a int.
+     * @param pageSize
+     *            a int.
      */
     public final void setPageSize(final int pageSize) {
         m_pageSize = pageSize;

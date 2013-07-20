@@ -39,7 +39,6 @@ public class Correlator implements CorrelatorMBean {
 
     /**
      * Initialization.
-     *
      * Retrieves the Spring context for the correlator.
      */
     @Override
@@ -58,7 +57,8 @@ public class Correlator implements CorrelatorMBean {
      */
     @Override
     public void start() {
-        if (getBean() != null) getBean().start();
+        if (getBean() != null)
+            getBean().start();
     }
 
     /**
@@ -66,17 +66,19 @@ public class Correlator implements CorrelatorMBean {
      */
     @Override
     public void stop() {
-        if (getBean() != null) getBean().stop();
+        if (getBean() != null)
+            getBean().stop();
     }
 
     /**
      * Get the current status of the correlator daemon.
      *
-     * @return The integer constant from {@link Fiber} that represents the daemon's status.
+     * @return The integer constant from {@link Fiber} that represents the
+     *         daemon's status.
      */
     @Override
     public int getStatus() {
-        return getBean() == null? Fiber.STOPPED : getBean().getStatus();
+        return getBean() == null ? Fiber.STOPPED : getBean().getStatus();
     }
 
     /**

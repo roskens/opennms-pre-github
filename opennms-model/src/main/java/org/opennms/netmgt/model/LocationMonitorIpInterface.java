@@ -31,19 +31,25 @@ package org.opennms.netmgt.model;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
 
-
 /**
- * <p>LocationMonitorIpInterface class.</p>
+ * <p>
+ * LocationMonitorIpInterface class.
+ * </p>
  */
 public class LocationMonitorIpInterface {
     private final OnmsLocationMonitor m_locationMonitor;
+
     private final OnmsIpInterface m_ipInterface;
 
     /**
-     * <p>Constructor for LocationMonitorIpInterface.</p>
+     * <p>
+     * Constructor for LocationMonitorIpInterface.
+     * </p>
      *
-     * @param locationMonitor a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
-     * @param ipInterface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     * @param locationMonitor
+     *            a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
+     * @param ipInterface
+     *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     public LocationMonitorIpInterface(final OnmsLocationMonitor locationMonitor, final OnmsIpInterface ipInterface) {
         Assert.notNull(locationMonitor);
@@ -53,7 +59,9 @@ public class LocationMonitorIpInterface {
     }
 
     /**
-     * <p>getIpInterface</p>
+     * <p>
+     * getIpInterface
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
@@ -62,7 +70,9 @@ public class LocationMonitorIpInterface {
     }
 
     /**
-     * <p>getLocationMonitor</p>
+     * <p>
+     * getLocationMonitor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
      */
@@ -72,10 +82,8 @@ public class LocationMonitorIpInterface {
 
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-            .append("locationMonitor", m_locationMonitor)
-            .append("ipInterface", m_ipInterface)
-            .toString();
+        return new ToStringCreator(this).append("locationMonitor", m_locationMonitor).append("ipInterface",
+                                                                                             m_ipInterface).toString();
     }
 
     @Override

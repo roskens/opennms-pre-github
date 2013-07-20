@@ -67,22 +67,27 @@ import org.springframework.test.context.ContextConfiguration;
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
-//@RunWith(OpenNMSJUnit4ClassRunner.class)
+// @RunWith(OpenNMSJUnit4ClassRunner.class)
 // context not used but we this annotation is mandatory
 @ContextConfiguration(locations = "classpath:/test-context.xml")
 // TODO:Would be great to do something like the following annotation...
 // @JUnitSyslogServer(port=8514)
 public class SyslogNorthBounderTest {
 
-
     private static final int TEST_NODE_ID = 777;
+
     private static final String SERVER_HOST = "127.0.0.1";
+
     public static final int MESSAGE_LENGTH = 1024;
+
     private static final int SERVER_PORT = 8514;
+
     private static final String SERVER_PROTOCOL = "UDP";
+
     private static final String FACILITY = "LOCAL0";
 
     public SyslogServerIF m_server;
+
     public TestPrintStream m_logStream;
 
     /**
@@ -90,7 +95,6 @@ public class SyslogNorthBounderTest {
      * interface.
      *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
-     *
      */
     class StringOutputStream extends OutputStream {
 
@@ -116,7 +120,6 @@ public class SyslogNorthBounderTest {
      * Syslog server and avoids having to go to disk for file based ouptut.
      *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
-     *
      */
     class TestPrintStream extends PrintStream {
 
@@ -134,12 +137,12 @@ public class SyslogNorthBounderTest {
 
     /**
      * Getting ready for tests.
+     *
      * @throws InterruptedException
      */
     @Before
     public void startServer() throws InterruptedException {
         MockLogAppender.setupLogging();
-
 
         SyslogServerConfigIF serverConfig = new UDPNetSyslogServerConfig(SERVER_HOST, SERVER_PORT);
         serverConfig.setShutdownWait(0);
@@ -148,16 +151,16 @@ public class SyslogNorthBounderTest {
         serverConfig.addEventHandler(eventHandler);
         m_server = SyslogServer.createThreadedInstance("test-udp", serverConfig);
 
-
         m_server.initialize("udp", serverConfig);
 
-        //Need this sleep, found a deadlock in the server.
+        // Need this sleep, found a deadlock in the server.
         Thread.sleep(100);
         m_server.run();
     }
 
     /**
      * Cleans up the Syslog server after each test runs.
+     *
      * @throws InterruptedException
      */
     @After
@@ -165,10 +168,10 @@ public class SyslogNorthBounderTest {
         m_server.shutdown();
     }
 
-
     /**
      * This tests forwarding of 7 alarms, one for each OpenNMS severity to
      * verify the LOG_LEVEL agrees with the Severity based on our algorithm.
+     *
      * @throws Exception
      */
     @Test
@@ -226,7 +229,7 @@ public class SyslogNorthBounderTest {
 
         for (SyslogNorthbounder nbi : nbis) {
 
-            for (int i = 1; i <=j; ++i) {
+            for (int i = 1; i <= j; ++i) {
                 OnmsAlarm onmsAlarm = new OnmsAlarm();
                 onmsAlarm.setId(i);
                 onmsAlarm.setUei("uei.opennms.org/test/syslogNorthBounder");
@@ -237,8 +240,8 @@ public class SyslogNorthBounderTest {
                 onmsAlarm.setLogMsg("Node Down");
                 onmsAlarm.setX733AlarmType(NorthboundAlarm.x733AlarmType.get(i).name());
                 onmsAlarm.setX733ProbableCause(NorthboundAlarm.x733ProbableCause.get(i).getId());
-                String eventparms = "foreignSource=fabric(string,text);foreignId=space-0256012012000038(string,text);reason=Aborting node scan : Agent timed out while scanning the system table(string,text);" +
-                        ".1.3.6.1.4.1.2636.3.18.1.7.1.2.732=207795895(TimeTicks,text)";
+                String eventparms = "foreignSource=fabric(string,text);foreignId=space-0256012012000038(string,text);reason=Aborting node scan : Agent timed out while scanning the system table(string,text);"
+                        + ".1.3.6.1.4.1.2636.3.18.1.7.1.2.732=207795895(TimeTicks,text)";
                 onmsAlarm.setEventParms(eventparms);
                 NorthboundAlarm a = new NorthboundAlarm(onmsAlarm);
 
@@ -278,27 +281,33 @@ public class SyslogNorthBounderTest {
             }
             switch (i) {
             case 1:
-                Assert.assertTrue("Alarm (OnmsSeverity: "+OnmsSeverity.get(i)+") = LEVEL_INFO.", message.contains("INFO"));
+                Assert.assertTrue("Alarm (OnmsSeverity: " + OnmsSeverity.get(i) + ") = LEVEL_INFO.",
+                                  message.contains("INFO"));
                 Assert.assertTrue(message.contains("NODE:p-brane"));
                 break;
             case 2:
-                Assert.assertTrue("Alarm (OnmsSeverity: "+OnmsSeverity.get(i)+") = LEVEL_NOTICE.", message.contains("NOTICE"));
+                Assert.assertTrue("Alarm (OnmsSeverity: " + OnmsSeverity.get(i) + ") = LEVEL_NOTICE.",
+                                  message.contains("NOTICE"));
                 Assert.assertTrue(message.contains("NODE:p-brane"));
                 break;
             case 3:
-                Assert.assertTrue("Alarm (OnmsSeverity: "+OnmsSeverity.get(i)+") = LEVEL_NOTICE.", message.contains("NOTICE"));
+                Assert.assertTrue("Alarm (OnmsSeverity: " + OnmsSeverity.get(i) + ") = LEVEL_NOTICE.",
+                                  message.contains("NOTICE"));
                 Assert.assertTrue(message.contains("NODE:p-brane"));
                 break;
             case 4:
-                Assert.assertTrue("Alarm (OnmsSeverity: "+OnmsSeverity.get(i)+") = LEVEL_ERROR.", message.contains("ERROR"));
+                Assert.assertTrue("Alarm (OnmsSeverity: " + OnmsSeverity.get(i) + ") = LEVEL_ERROR.",
+                                  message.contains("ERROR"));
                 Assert.assertTrue(message.contains("NODE:p-brane"));
                 break;
             case 5:
-                Assert.assertTrue("Alarm (OnmsSeverity: "+OnmsSeverity.get(i)+") = LEVEL_ERROR.", message.contains("ERROR"));
+                Assert.assertTrue("Alarm (OnmsSeverity: " + OnmsSeverity.get(i) + ") = LEVEL_ERROR.",
+                                  message.contains("ERROR"));
                 Assert.assertTrue(message.contains("NODE:p-brane"));
                 break;
             case 6:
-                Assert.assertTrue("Alarm (OnmsSeverity: "+OnmsSeverity.get(i)+") = LEVEL_CRITICAL.", message.contains("CRITICAL"));
+                Assert.assertTrue("Alarm (OnmsSeverity: " + OnmsSeverity.get(i) + ") = LEVEL_CRITICAL.",
+                                  message.contains("CRITICAL"));
                 Assert.assertTrue(message.contains("NODE:p-brane"));
                 break;
             }
@@ -308,29 +317,23 @@ public class SyslogNorthBounderTest {
     }
 
     private String generateConfigXml() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<syslog-northbounder-config>\n" +
-                "  <enabled>true</enabled>\n" +
-                "  <nagles-delay>1000</nagles-delay>\n" +
-                "  <batch-size>30</batch-size>\n" +
-                "  <queue-size>30000</queue-size>\n" +
-                "  <message-format>ALARM ID:${alarmId} NODE:${nodeLabel}; PARM-1-NAME: ${parm[name-#1]} PARM-1:${parm[#1]} PARM-2-NAME: ${parm[name-#2]} " +
-                "PARM-3-NAME: ${parm[name-#3]} PARM-foreignSource:${parm[foreignSource]} PARM-4-NAME: ${parm[name-#4]} PARM-4: ${parm[#4]} ${logMsg}</message-format>\n" +
-                "  <destination>\n" +
-                "    <destination-name>localTest</destination-name>\n" +
-                "    <host>"+SERVER_HOST+"</host>\n" +
-                "    <port>"+SERVER_PORT+"</port>\n" +
-                "    <ip-protocol>"+SERVER_PROTOCOL+"</ip-protocol>\n" +
-                "    <facility>"+FACILITY+"</facility>\n" +
-                "    <max-message-length>1024</max-message-length>\n" +
-                "    <send-local-name>true</send-local-name>\n" +
-                "    <send-local-time>true</send-local-time>\n" +
-                "    <truncate-message>false</truncate-message>\n" +
-                "    <first-occurrence-only>false</first-occurrence-only>" +
-                "  </destination>\n" +
-                "  <uei>uei.opennms.org/nodes/nodeDown</uei>\n" +
-                "  <uei>uei.opennms.org/nodes/nodeUp</uei>\n" +
-                "</syslog-northbounder-config>";
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                + "<syslog-northbounder-config>\n"
+                + "  <enabled>true</enabled>\n"
+                + "  <nagles-delay>1000</nagles-delay>\n"
+                + "  <batch-size>30</batch-size>\n"
+                + "  <queue-size>30000</queue-size>\n"
+                + "  <message-format>ALARM ID:${alarmId} NODE:${nodeLabel}; PARM-1-NAME: ${parm[name-#1]} PARM-1:${parm[#1]} PARM-2-NAME: ${parm[name-#2]} "
+                + "PARM-3-NAME: ${parm[name-#3]} PARM-foreignSource:${parm[foreignSource]} PARM-4-NAME: ${parm[name-#4]} PARM-4: ${parm[#4]} ${logMsg}</message-format>\n"
+                + "  <destination>\n" + "    <destination-name>localTest</destination-name>\n" + "    <host>"
+                + SERVER_HOST + "</host>\n" + "    <port>" + SERVER_PORT + "</port>\n" + "    <ip-protocol>"
+                + SERVER_PROTOCOL + "</ip-protocol>\n" + "    <facility>" + FACILITY + "</facility>\n"
+                + "    <max-message-length>1024</max-message-length>\n"
+                + "    <send-local-name>true</send-local-name>\n" + "    <send-local-time>true</send-local-time>\n"
+                + "    <truncate-message>false</truncate-message>\n"
+                + "    <first-occurrence-only>false</first-occurrence-only>" + "  </destination>\n"
+                + "  <uei>uei.opennms.org/nodes/nodeDown</uei>\n" + "  <uei>uei.opennms.org/nodes/nodeUp</uei>\n"
+                + "</syslog-northbounder-config>";
     }
 
 }

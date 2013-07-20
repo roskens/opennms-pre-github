@@ -37,7 +37,9 @@ import org.opennms.netmgt.model.OnmsMemo;
 public class MemoDaoHibernate extends AbstractDaoHibernate<OnmsMemo, Integer> implements MemoDao {
 
     /**
-     * <p>Constructor for MemoDaoHibernate.</p>
+     * <p>
+     * Constructor for MemoDaoHibernate.
+     * </p>
      */
     public MemoDaoHibernate() {
         super(OnmsMemo.class);

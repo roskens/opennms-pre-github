@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  */
 public abstract class HttpUtils extends Object {
-	private static final Logger LOG = LoggerFactory.getLogger(HttpUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HttpUtils.class);
 
     /** Default buffer size for reading data. (Default is one kilobyte.) */
     public final static int DEFAULT_POST_BUFFER_SIZE = 1024;
@@ -59,7 +59,8 @@ public abstract class HttpUtils extends Object {
      *            an input stream containing the data to send
      * @return An <code>InputStream</a> that the programmer can read from
      * to get the HTTP server's response.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static InputStream post(URL url, InputStream dataStream) throws IOException {
         return (post(url, dataStream, null, null, DEFAULT_POST_BUFFER_SIZE));
@@ -79,9 +80,11 @@ public abstract class HttpUtils extends Object {
      *            the password to use in the BASIC authentication
      * @return An <code>InputStream</a> that the programmer can read from
      * to get the HTTP server's response.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public static InputStream post(URL url, InputStream dataStream, String username, String password) throws IOException {
+    public static InputStream post(URL url, InputStream dataStream, String username, String password)
+            throws IOException {
         return (post(url, dataStream, username, password, DEFAULT_POST_BUFFER_SIZE));
     }
 
@@ -102,9 +105,11 @@ public abstract class HttpUtils extends Object {
      *            and write to the HTTP server
      * @return An <code>InputStream</a> that the programmer can read from
      * to get the HTTP server's response.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public static InputStream post(URL url, InputStream dataStream, String username, String password, int bufSize) throws IOException {
+    public static InputStream post(URL url, InputStream dataStream, String username, String password, int bufSize)
+            throws IOException {
         if (url == null || dataStream == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -177,9 +182,11 @@ public abstract class HttpUtils extends Object {
      *            and write to the HTTP server
      * @return An <code>InputStream</a> that the programmer can read from
      * to get the HTTP server's response.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public static InputStream post(URL url, Reader dataReader, String username, String password, int bufSize) throws IOException {
+    public static InputStream post(URL url, Reader dataReader, String username, String password, int bufSize)
+            throws IOException {
         if (url == null || dataReader == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -221,7 +228,8 @@ public abstract class HttpUtils extends Object {
         OutputStreamWriter ostream = new OutputStreamWriter(conn.getOutputStream(), "US-ASCII");
 
         // log data
-        LOG.debug("HTTP Post: Current time: {}", new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.GregorianCalendar().getTime()));
+        LOG.debug("HTTP Post: Current time: {}",
+                  new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.GregorianCalendar().getTime()));
         LOG.debug("Data posted:");
 
         // initialize a buffer to use to read and write

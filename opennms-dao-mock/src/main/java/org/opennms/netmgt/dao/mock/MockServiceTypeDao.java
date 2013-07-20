@@ -20,7 +20,8 @@ public class MockServiceTypeDao extends AbstractMockDao<OnmsServiceType, Integer
 
     @Override
     public OnmsServiceType findByName(final String name) {
-        if (name == null) return null;
+        if (name == null)
+            return null;
         for (final OnmsServiceType serviceType : findAll()) {
             if (name.equals(serviceType.getName())) {
                 return serviceType;

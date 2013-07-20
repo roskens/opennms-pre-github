@@ -29,7 +29,9 @@
 package org.opennms.netmgt.collectd;
 
 /**
- * <p>CollectionTimedOut class.</p>
+ * <p>
+ * CollectionTimedOut class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,9 +41,12 @@ public class CollectionTimedOut extends CollectionException {
     private static final long serialVersionUID = 7277882701768744179L;
 
     /**
-     * <p>Constructor for CollectionTimedOut.</p>
+     * <p>
+     * Constructor for CollectionTimedOut.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public CollectionTimedOut(String message) {
         super(message);

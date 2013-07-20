@@ -39,32 +39,36 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * A filter that adds an HTTP <em>Access-Control-Allow-Origin</em> header to a servlet or JSP's response.
+ * A filter that adds an HTTP <em>Access-Control-Allow-Origin</em> header to a
+ * servlet or JSP's response.
  *
  * @since 1.9.90
  */
 public class AddAccessControlHeaderFilter implements Filter {
-	private String m_origin = null;
+    private String m_origin = null;
 
-        @Override
-    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
-    	final HttpServletResponse httpResponse = (HttpServletResponse) response;
-    	if (m_origin != null && !httpResponse.containsHeader("Access-Control-Allow-Origin")) {
-    		httpResponse.setHeader("Access-Control-Allow-Origin", m_origin);
-    	}
+    @Override
+    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
+        final HttpServletResponse httpResponse = (HttpServletResponse) response;
+        if (m_origin != null && !httpResponse.containsHeader("Access-Control-Allow-Origin")) {
+            httpResponse.setHeader("Access-Control-Allow-Origin", m_origin);
+        }
         chain.doFilter(request, httpResponse);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void init(final FilterConfig config) {
-    	m_origin = config.getInitParameter("origin");
+        m_origin = config.getInitParameter("origin");
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      */
-        @Override
+    @Override
     public void destroy() {
     }
 

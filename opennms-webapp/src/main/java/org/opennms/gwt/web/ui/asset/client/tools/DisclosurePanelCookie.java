@@ -43,96 +43,93 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * {@link DisclosurePanel} that stores if its collaped or not in a cookie.
- * First added {@link Widget} is used as header.
+ *         {@link DisclosurePanel} that stores if its collaped or not in a
+ *         cookie.
+ *         First added {@link Widget} is used as header.
  */
 public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
-	private DisclosurePanel panel = new DisclosurePanel();
+    private DisclosurePanel panel = new DisclosurePanel();
 
-	@UiConstructor
-	public DisclosurePanelCookie(final String cookieName) {
+    @UiConstructor
+    public DisclosurePanelCookie(final String cookieName) {
 
-		panel.setStyleName("DisclosurePanelCookie");
-		panel.setAnimationEnabled(true);
+        panel.setStyleName("DisclosurePanelCookie");
+        panel.setAnimationEnabled(true);
 
-		if (Cookies.isCookieEnabled()) {
-			// prepare Cookie if not already set
-			if (Cookies.getCookie(cookieName + "Open") == null) {
-				Cookies.setCookie(cookieName + "Open", "true");
-			}
+        if (Cookies.isCookieEnabled()) {
+            // prepare Cookie if not already set
+            if (Cookies.getCookie(cookieName + "Open") == null) {
+                Cookies.setCookie(cookieName + "Open", "true");
+            }
 
-			// check cookie and set open/close by cookie-value
-			if (Cookies.getCookie(cookieName + "Open").equals("true")) {
-				panel.setOpen(true);
-			} else {
-				panel.setOpen(false);
-			}
+            // check cookie and set open/close by cookie-value
+            if (Cookies.getCookie(cookieName + "Open").equals("true")) {
+                panel.setOpen(true);
+            } else {
+                panel.setOpen(false);
+            }
 
-			// add openhandler that sets open/true to cookie
-			panel.addOpenHandler(new OpenHandler<DisclosurePanel>() {
-				@Override
-				public void onOpen(OpenEvent<DisclosurePanel> event) {
-					Cookies.setCookie(cookieName + "Open", "true");
-				}
-			});
+            // add openhandler that sets open/true to cookie
+            panel.addOpenHandler(new OpenHandler<DisclosurePanel>() {
+                @Override
+                public void onOpen(OpenEvent<DisclosurePanel> event) {
+                    Cookies.setCookie(cookieName + "Open", "true");
+                }
+            });
 
-			// add closehandler that sets close/flase to cookie
-			panel.addCloseHandler(new CloseHandler<DisclosurePanel>() {
-				@Override
-				public void onClose(CloseEvent<DisclosurePanel> event) {
-					Cookies.setCookie(cookieName + "Open", "false");
-				}
-			});
-		}
-		initWidget(panel);
-	}
+            // add closehandler that sets close/flase to cookie
+            panel.addCloseHandler(new CloseHandler<DisclosurePanel>() {
+                @Override
+                public void onClose(CloseEvent<DisclosurePanel> event) {
+                    Cookies.setCookie(cookieName + "Open", "false");
+                }
+            });
+        }
+        initWidget(panel);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * com.google.gwt.user.client.ui.HasWidgets#add(com.google.gwt.user.client
-	 * .ui.Widget)
-	 */
-	@Override
-	public void add(Widget widget) {
-		if (panel.getHeader() == null) {
-			panel.setHeader(widget);
-		} else {
-			panel.setContent(widget);
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.google.gwt.user.client.ui.HasWidgets#add(com.google.gwt.user.client
+     * .ui.Widget)
+     */
+    @Override
+    public void add(Widget widget) {
+        if (panel.getHeader() == null) {
+            panel.setHeader(widget);
+        } else {
+            panel.setContent(widget);
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.google.gwt.user.client.ui.HasWidgets#clear()
-	 */
-	@Override
-	public void clear() {
-		panel.clear();
-	}
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.HasWidgets#clear()
+     */
+    @Override
+    public void clear() {
+        panel.clear();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.google.gwt.user.client.ui.HasWidgets#iterator()
-	 */
-	@Override
-	public Iterator<Widget> iterator() {
-		return panel.iterator();
-	}
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.HasWidgets#iterator()
+     */
+    @Override
+    public Iterator<Widget> iterator() {
+        return panel.iterator();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * com.google.gwt.user.client.ui.HasWidgets#remove(com.google.gwt.user.client
-	 * .ui.Widget)
-	 */
-	@Override
-	public boolean remove(Widget widget) {
-		return panel.remove(widget);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.google.gwt.user.client.ui.HasWidgets#remove(com.google.gwt.user.client
+     * .ui.Widget)
+     */
+    @Override
+    public boolean remove(Widget widget) {
+        return panel.remove(widget);
+    }
 }

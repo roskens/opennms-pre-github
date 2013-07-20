@@ -31,7 +31,9 @@ package org.opennms.netmgt.collectd.jmx;
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
 
 /**
- * <p>Collectd class.</p>
+ * <p>
+ * Collectd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

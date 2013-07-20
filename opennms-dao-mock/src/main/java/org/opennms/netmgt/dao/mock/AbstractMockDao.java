@@ -33,19 +33,31 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
 
     @Autowired
     private ServiceRegistry m_serviceRegistry;
-    private Map<K,T> m_entries = Collections.synchronizedMap(new HashMap<K,T>());
+
+    private Map<K, T> m_entries = Collections.synchronizedMap(new HashMap<K, T>());
+
     private IpInterfaceDao m_ipInterfaceDao;
+
     private SnmpInterfaceDao m_snmpInterfaceDao;
+
     private AssetRecordDao m_assetRecordDao;
+
     private CategoryDao m_categoryDao;
+
     private DistPollerDao m_distPollerDao;
+
     private MonitoredServiceDao m_monitoredServiceDao;
+
     private ServiceTypeDao m_serviceTypeDao;
+
     private AlarmDao m_alarmDao;
+
     private EventDao m_eventDao;
+
     private NodeDao m_nodeDao;
 
     protected abstract K getId(final T entity);
+
     protected abstract void generateId(T entity);
 
     public void afterPropertiesSet() {
@@ -72,9 +84,9 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
     @Override
     public void clear() {
         /*
-        LogUtils.debugf(this, "clear()");
-        m_entries.clear();
-        */
+         * LogUtils.debugf(this, "clear()");
+         * m_entries.clear();
+         */
     }
 
     @Override
@@ -96,7 +108,7 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
 
     @Override
     public List<T> findAll() {
-        //LogUtils.debugf(this, "findAll()");
+        // LogUtils.debugf(this, "findAll()");
         return new ArrayList<T>(m_entries.values());
     }
 
@@ -105,7 +117,7 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
     public List<T> findMatching(final Criteria criteria) {
         final BeanWrapperCriteriaVisitor visitor = new BeanWrapperCriteriaVisitor(findAll());
         criteria.visit(visitor);
-        final Collection<? extends T> matches = (Collection<? extends T>)visitor.getMatches();
+        final Collection<? extends T> matches = (Collection<? extends T>) visitor.getMatches();
         return new ArrayList<T>(matches);
     }
 
@@ -119,14 +131,14 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
     public int countMatching(final Criteria onmsCrit) {
         LOG.debug("countMatching({})", onmsCrit);
         final List<T> matched = findMatching(onmsCrit);
-        return matched == null? 0 : matched.size();
+        return matched == null ? 0 : matched.size();
     }
 
     @Override
     public int countMatching(final OnmsCriteria onmsCrit) {
         LOG.debug("countMatching({})", onmsCrit);
         final List<T> matched = findMatching(onmsCrit);
-        return matched == null? 0 : matched.size();
+        return matched == null ? 0 : matched.size();
     }
 
     @Override
@@ -143,7 +155,8 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
 
     @Override
     public void save(final T entity) {
-        if (entity == null) return;
+        if (entity == null)
+            return;
         K id = getId(entity);
         if (id == null) {
             generateId(entity);
@@ -175,7 +188,6 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
         }
         m_entries.put(id, entity);
     }
-
 
     protected IpInterfaceDao getIpInterfaceDao() {
         if (m_ipInterfaceDao == null) {

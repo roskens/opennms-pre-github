@@ -43,28 +43,39 @@ import org.opennms.core.fiber.PausableFiber;
  */
 public interface NotifdQueueHandler extends Runnable, PausableFiber {
     /**
-     * <p>setQueueID</p>
+     * <p>
+     * setQueueID
+     * </p>
      *
-     * @param queueID a {@link java.lang.String} object.
+     * @param queueID
+     *            a {@link java.lang.String} object.
      */
     public void setQueueID(String queueID);
 
     /**
-     * <p>setNoticeQueue</p>
+     * <p>
+     * setNoticeQueue
+     * </p>
      *
-     * @param queue a {@link org.opennms.netmgt.notifd.NoticeQueue} object.
+     * @param queue
+     *            a {@link org.opennms.netmgt.notifd.NoticeQueue} object.
      */
     public void setNoticeQueue(NoticeQueue queue);
 
     /**
-     * <p>setInterval</p>
+     * <p>
+     * setInterval
+     * </p>
      *
-     * @param interval a {@link java.lang.String} object.
+     * @param interval
+     *            a {@link java.lang.String} object.
      */
     public void setInterval(String interval);
 
     /**
-     * <p>processQueue</p>
+     * <p>
+     * processQueue
+     * </p>
      */
     public void processQueue();
 }

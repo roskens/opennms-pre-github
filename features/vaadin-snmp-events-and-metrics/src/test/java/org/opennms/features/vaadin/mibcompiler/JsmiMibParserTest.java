@@ -76,7 +76,8 @@ public class JsmiMibParserTest {
     /**
      * Test good MIB.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testGoodMib() throws Exception {
@@ -91,7 +92,8 @@ public class JsmiMibParserTest {
     /**
      * Test a MIB with missing dependencies.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testMissingDependencies() throws Exception {
@@ -108,7 +110,8 @@ public class JsmiMibParserTest {
     /**
      * Test a MIB with internal errors.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testMibWithErrors() throws Exception {
@@ -125,7 +128,8 @@ public class JsmiMibParserTest {
     /**
      * Test generate events from notifications.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testNotifications() throws Exception {
@@ -134,15 +138,18 @@ public class JsmiMibParserTest {
             Assert.assertNotNull(events);
             System.out.println(JaxbUtils.marshal(events));
             Assert.assertEquals(2, events.getEventCount());
-            Event event  = null;
+            Event event = null;
             for (Event e : events.getEventCollection()) {
                 if (e.getUei().contains("linkDown"))
                     event = e;
             }
             Assert.assertNotNull(event);
-            Assert.assertNotNull(event.getDescr()); // TODO Must be more specific
+            Assert.assertNotNull(event.getDescr()); // TODO Must be more
+                                                    // specific
             Assert.assertNotNull(event.getLogmsg());
-            Assert.assertNotNull(event.getLogmsg().getContent()); // TODO Must be more specific
+            Assert.assertNotNull(event.getLogmsg().getContent()); // TODO Must
+                                                                  // be more
+                                                                  // specific
             Assert.assertEquals("Indeterminate", event.getSeverity());
             Assert.assertEquals("IF-MIB defined trap event: linkDown", event.getEventLabel());
             Assert.assertNotNull(event.getMask());
@@ -178,15 +185,18 @@ public class JsmiMibParserTest {
             Assert.assertEquals(2, events.getEventCount());
             System.out.println(JaxbUtils.marshal(events));
             Assert.assertEquals(2, events.getEventCount());
-            Event event  = null;
+            Event event = null;
             for (Event e : events.getEventCollection()) {
                 if (e.getUei().contains("bgpBackwardTransition"))
                     event = e;
             }
             Assert.assertNotNull(event);
-            Assert.assertNotNull(event.getDescr()); // TODO Must be more specific
+            Assert.assertNotNull(event.getDescr()); // TODO Must be more
+                                                    // specific
             Assert.assertNotNull(event.getLogmsg());
-            Assert.assertNotNull(event.getLogmsg().getContent()); // TODO Must be more specific
+            Assert.assertNotNull(event.getLogmsg().getContent()); // TODO Must
+                                                                  // be more
+                                                                  // specific
             Assert.assertEquals("Indeterminate", event.getSeverity());
             Assert.assertEquals("RFC1269-MIB defined trap event: bgpBackwardTransition", event.getEventLabel());
             Assert.assertNotNull(event.getMask());
@@ -211,7 +221,8 @@ public class JsmiMibParserTest {
     /**
      * Test generate data collection.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testGenerateDataCollection() throws Exception {
@@ -241,7 +252,8 @@ public class JsmiMibParserTest {
     /**
      * Test name cutter
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testNameCutter() throws Exception {
@@ -267,7 +279,8 @@ public class JsmiMibParserTest {
     /**
      * Test generate graph templates.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testGenerateGraphTemplates() throws Exception {
@@ -286,7 +299,8 @@ public class JsmiMibParserTest {
     /**
      * Test a MIB with internal syntax errors (or invalid content).
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testMibWithInvalidContent() throws Exception {
@@ -314,7 +328,8 @@ public class JsmiMibParserTest {
     /**
      * Test a MIB with internal syntax errors (or invalid content).
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testBadIfMib() throws Exception {

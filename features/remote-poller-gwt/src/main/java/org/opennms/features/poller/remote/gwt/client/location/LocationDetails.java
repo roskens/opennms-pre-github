@@ -36,7 +36,9 @@ import org.opennms.features.poller.remote.gwt.client.LocationMonitorState;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * <p>LocationDetails class.</p>
+ * <p>
+ * LocationDetails class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,59 +46,84 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class LocationDetails implements Serializable, IsSerializable {
 
-	private static final long serialVersionUID = -3516138717790564429L;
+    private static final long serialVersionUID = -3516138717790564429L;
 
-	private LocationMonitorState m_locationMonitorState;
-	private ApplicationState m_applicationState;
+    private LocationMonitorState m_locationMonitorState;
 
-	/**
-	 * <p>Constructor for LocationDetails.</p>
-	 */
-	public LocationDetails() { }
+    private ApplicationState m_applicationState;
 
     /**
-     * <p>getLocationMonitorState</p>
+     * <p>
+     * Constructor for LocationDetails.
+     * </p>
+     */
+    public LocationDetails() {
+    }
+
+    /**
+     * <p>
+     * getLocationMonitorState
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.LocationMonitorState} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.LocationMonitorState}
+     *         object.
      */
     public LocationMonitorState getLocationMonitorState() {
-		return m_locationMonitorState;
-	}
+        return m_locationMonitorState;
+    }
 
-	/**
-	 * <p>setLocationMonitorState</p>
-	 *
-	 * @param lms a {@link org.opennms.features.poller.remote.gwt.client.LocationMonitorState} object.
-	 */
-	public void setLocationMonitorState(final LocationMonitorState lms) {
-		m_locationMonitorState = lms;
-	}
+    /**
+     * <p>
+     * setLocationMonitorState
+     * </p>
+     *
+     * @param lms
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.LocationMonitorState}
+     *            object.
+     */
+    public void setLocationMonitorState(final LocationMonitorState lms) {
+        m_locationMonitorState = lms;
+    }
 
-	/**
-	 * <p>getApplicationState</p>
-	 *
-	 * @return a {@link org.opennms.features.poller.remote.gwt.client.ApplicationState} object.
-	 */
-	public ApplicationState getApplicationState() {
-		return m_applicationState;
-	}
+    /**
+     * <p>
+     * getApplicationState
+     * </p>
+     *
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.ApplicationState}
+     *         object.
+     */
+    public ApplicationState getApplicationState() {
+        return m_applicationState;
+    }
 
-	/**
-	 * <p>setApplicationState</p>
-	 *
-	 * @param applicationState a {@link org.opennms.features.poller.remote.gwt.client.ApplicationState} object.
-	 */
-	public void setApplicationState(final ApplicationState applicationState) {
-		m_applicationState = applicationState;
-	}
+    /**
+     * <p>
+     * setApplicationState
+     * </p>
+     *
+     * @param applicationState
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.ApplicationState}
+     *            object.
+     */
+    public void setApplicationState(final ApplicationState applicationState) {
+        m_applicationState = applicationState;
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String toString() {
-		return "LocationDetails[locationMonitorState=" + m_locationMonitorState + ",applicationState=" + m_applicationState + "]";
-	}
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return "LocationDetails[locationMonitorState=" + m_locationMonitorState + ",applicationState="
+                + m_applicationState + "]";
+    }
 }

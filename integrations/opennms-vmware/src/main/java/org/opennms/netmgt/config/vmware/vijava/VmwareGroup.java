@@ -73,11 +73,10 @@ public class VmwareGroup implements java.io.Serializable {
     /**
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addAttrib(
-            final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib)
+    public void addAttrib(final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
         this._attribList.add(vAttrib);
     }
@@ -86,12 +85,10 @@ public class VmwareGroup implements java.io.Serializable {
      * @param index
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addAttrib(
-            final int index,
-            final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib)
+    public void addAttrib(final int index, final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
         this._attribList.add(index, vAttrib);
     }
@@ -102,8 +99,7 @@ public class VmwareGroup implements java.io.Serializable {
      * @return an Enumeration over all possible elements of this
      *         collection
      */
-    public java.util.Enumeration<org.opennms.netmgt.config.vmware.vijava.Attrib> enumerateAttrib(
-    ) {
+    public java.util.Enumeration<org.opennms.netmgt.config.vmware.vijava.Attrib> enumerateAttrib() {
         return java.util.Collections.enumeration(this._attribList);
     }
 
@@ -114,15 +110,12 @@ public class VmwareGroup implements java.io.Serializable {
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
+    public boolean equals(final java.lang.Object obj) {
         if (obj instanceof VmwareGroup) {
             VmwareGroup other = (VmwareGroup) obj;
-            return new EqualsBuilder()
-                    .append(getName(), other.getName())
-                    .append(getResourceType(), other.getResourceType())
-                    .append(getAttrib(), other.getAttrib())
-                    .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getResourceType(),
+                                                                                 other.getResourceType()).append(getAttrib(),
+                                                                                                                 other.getAttrib()).isEquals();
         }
         return false;
     }
@@ -135,15 +128,15 @@ public class VmwareGroup implements java.io.Serializable {
      *         org.opennms.netmgt.config.vmware.vijava.Attrib at the given
      *         index
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public org.opennms.netmgt.config.vmware.vijava.Attrib getAttrib(
-            final int index)
+    public org.opennms.netmgt.config.vmware.vijava.Attrib getAttrib(final int index)
             throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._attribList.size()) {
-            throw new IndexOutOfBoundsException("getAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getAttrib: Index value '" + index + "' not in range [0.."
+                    + (this._attribList.size() - 1) + "]");
         }
 
         return (org.opennms.netmgt.config.vmware.vijava.Attrib) _attribList.get(index);
@@ -151,15 +144,16 @@ public class VmwareGroup implements java.io.Serializable {
 
     /**
      * Method getAttrib.Returns the contents of the collection in
-     * an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public org.opennms.netmgt.config.vmware.vijava.Attrib[] getAttrib(
-    ) {
+    public org.opennms.netmgt.config.vmware.vijava.Attrib[] getAttrib() {
         org.opennms.netmgt.config.vmware.vijava.Attrib[] array = new org.opennms.netmgt.config.vmware.vijava.Attrib[0];
         return (org.opennms.netmgt.config.vmware.vijava.Attrib[]) this._attribList.toArray(array);
     }
@@ -171,8 +165,7 @@ public class VmwareGroup implements java.io.Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<org.opennms.netmgt.config.vmware.vijava.Attrib> getAttribCollection(
-    ) {
+    public java.util.List<org.opennms.netmgt.config.vmware.vijava.Attrib> getAttribCollection() {
         return this._attribList;
     }
 
@@ -181,8 +174,7 @@ public class VmwareGroup implements java.io.Serializable {
      *
      * @return the size of this collection
      */
-    public int getAttribCount(
-    ) {
+    public int getAttribCount() {
         return this._attribList.size();
     }
 
@@ -193,8 +185,7 @@ public class VmwareGroup implements java.io.Serializable {
      *
      * @return the value of field 'Name'.
      */
-    public java.lang.String getName(
-    ) {
+    public java.lang.String getName() {
         return this._name == null ? "" : this._name;
     }
 
@@ -211,8 +202,7 @@ public class VmwareGroup implements java.io.Serializable {
      *
      * @return the value of field 'ResourceType'.
      */
-    public java.lang.String getResourceType(
-    ) {
+    public java.lang.String getResourceType() {
         return this._resourceType == null ? "" : this._resourceType;
     }
 
@@ -222,15 +212,13 @@ public class VmwareGroup implements java.io.Serializable {
      * @return an Iterator over all possible elements in this
      *         collection
      */
-    public java.util.Iterator<org.opennms.netmgt.config.vmware.vijava.Attrib> iterateAttrib(
-    ) {
+    public java.util.Iterator<org.opennms.netmgt.config.vmware.vijava.Attrib> iterateAttrib() {
         return this._attribList.iterator();
     }
 
     /**
      */
-    public void removeAllAttrib(
-    ) {
+    public void removeAllAttrib() {
         this._attribList.clear();
     }
 
@@ -240,8 +228,7 @@ public class VmwareGroup implements java.io.Serializable {
      * @param vAttrib
      * @return true if the object was removed from the collection.
      */
-    public boolean removeAttrib(
-            final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib) {
+    public boolean removeAttrib(final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib) {
         boolean removed = _attribList.remove(vAttrib);
         return removed;
     }
@@ -252,8 +239,7 @@ public class VmwareGroup implements java.io.Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public org.opennms.netmgt.config.vmware.vijava.Attrib removeAttribAt(
-            final int index) {
+    public org.opennms.netmgt.config.vmware.vijava.Attrib removeAttribAt(final int index) {
         java.lang.Object obj = this._attribList.remove(index);
         return (org.opennms.netmgt.config.vmware.vijava.Attrib) obj;
     }
@@ -262,16 +248,15 @@ public class VmwareGroup implements java.io.Serializable {
      * @param index
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setAttrib(
-            final int index,
-            final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib)
+    public void setAttrib(final int index, final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._attribList.size()) {
-            throw new IndexOutOfBoundsException("setAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setAttrib: Index value '" + index + "' not in range [0.."
+                    + (this._attribList.size() - 1) + "]");
         }
 
         this._attribList.set(index, vAttrib);
@@ -280,9 +265,8 @@ public class VmwareGroup implements java.io.Serializable {
     /**
      * @param vAttribArray
      */
-    public void setAttrib(
-            final org.opennms.netmgt.config.vmware.vijava.Attrib[] vAttribArray) {
-        //-- copy array
+    public void setAttrib(final org.opennms.netmgt.config.vmware.vijava.Attrib[] vAttribArray) {
+        // -- copy array
         _attribList.clear();
 
         for (int i = 0; i < vAttribArray.length; i++) {
@@ -294,10 +278,10 @@ public class VmwareGroup implements java.io.Serializable {
      * Sets the value of '_attribList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vAttribList the Vector to copy.
+     * @param vAttribList
+     *            the Vector to copy.
      */
-    public void setAttrib(
-            final java.util.List<org.opennms.netmgt.config.vmware.vijava.Attrib> vAttribList) {
+    public void setAttrib(final java.util.List<org.opennms.netmgt.config.vmware.vijava.Attrib> vAttribList) {
         // copy vector
         this._attribList.clear();
 
@@ -309,10 +293,10 @@ public class VmwareGroup implements java.io.Serializable {
      * following description: The name of this group, for user id
      * purposes
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
-    public void setName(
-            final java.lang.String name) {
+    public void setName(final java.lang.String name) {
         this._name = name;
     }
 
@@ -327,10 +311,10 @@ public class VmwareGroup implements java.io.Serializable {
      * custom
      * resource type declared in datacollection-config.xml.
      *
-     * @param resourceType the value of field 'resourceType'.
+     * @param resourceType
+     *            the value of field 'resourceType'.
      */
-    public void setResourceType(
-            final java.lang.String resourceType) {
+    public void setResourceType(final java.lang.String resourceType) {
         this._resourceType = resourceType;
     }
 }

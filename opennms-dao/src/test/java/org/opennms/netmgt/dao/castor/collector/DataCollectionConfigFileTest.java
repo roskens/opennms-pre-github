@@ -40,8 +40,8 @@ import org.springframework.core.io.ClassPathResource;
 public class DataCollectionConfigFileTest extends TestCase {
 
     private InvocationAnticipator m_invocationAnticipator;
-    private DataCollectionVisitor m_visitor;
 
+    private DataCollectionVisitor m_visitor;
 
     @Override
     protected void setUp() throws Exception {
@@ -61,7 +61,7 @@ public class DataCollectionConfigFileTest extends TestCase {
         m_invocationAnticipator = new InvocationAnticipator(DataCollectionVisitor.class);
         m_invocationAnticipator.setInvocationHandler(noNullsAllowed);
 
-        m_visitor = (DataCollectionVisitor)m_invocationAnticipator.getProxy();
+        m_visitor = (DataCollectionVisitor) m_invocationAnticipator.getProxy();
     }
 
     @Override
@@ -95,8 +95,8 @@ public class DataCollectionConfigFileTest extends TestCase {
     }
 
     private void anticipateVisits(int count, String visited) {
-        m_invocationAnticipator.anticipateCalls(count, "visit"+visited);
-        m_invocationAnticipator.anticipateCalls(count, "complete"+visited);
+        m_invocationAnticipator.anticipateCalls(count, "visit" + visited);
+        m_invocationAnticipator.anticipateCalls(count, "complete" + visited);
     }
 
 }

@@ -54,7 +54,8 @@ public class MapsController extends AbstractController implements InitializingBe
     }
 
     @Override
-    protected ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response)
+            throws Exception {
         return new ModelAndView("maps", "entries", m_mapMenuEntries);
     }
 

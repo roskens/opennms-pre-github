@@ -35,7 +35,9 @@ import java.util.Date;
 import org.opennms.netmgt.EventConstants;
 
 /**
- * <p>DateSqlType class.</p>
+ * <p>
+ * DateSqlType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,12 +46,18 @@ import org.opennms.netmgt.EventConstants;
 public class DateSqlType implements SQLType<Date> {
 
     /**
-     * <p>bindParam</p>
+     * <p>
+     * bindParam
+     * </p>
      *
-     * @param ps a {@link java.sql.PreparedStatement} object.
-     * @param parameterIndex a int.
-     * @param value a {@link java.util.Date} object.
-     * @throws java.sql.SQLException if any.
+     * @param ps
+     *            a {@link java.sql.PreparedStatement} object.
+     * @param parameterIndex
+     *            a int.
+     * @param value
+     *            a {@link java.util.Date} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public void bindParam(PreparedStatement ps, int parameterIndex, Date value) throws SQLException {
@@ -57,9 +65,12 @@ public class DateSqlType implements SQLType<Date> {
     }
 
     /**
-     * <p>getValueAsString</p>
+     * <p>
+     * getValueAsString
+     * </p>
      *
-     * @param value a {@link java.util.Date} object.
+     * @param value
+     *            a {@link java.util.Date} object.
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -68,21 +79,28 @@ public class DateSqlType implements SQLType<Date> {
     }
 
     /**
-     * <p>formatValue</p>
+     * <p>
+     * formatValue
+     * </p>
      *
-     * @param value a {@link java.util.Date} object.
+     * @param value
+     *            a {@link java.util.Date} object.
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String formatValue(Date value) {
-        return "to_timestamp(\'" + value.toString() + "\', " + EventConstants.POSTGRES_DATE_FORMAT +")";
+        return "to_timestamp(\'" + value.toString() + "\', " + EventConstants.POSTGRES_DATE_FORMAT + ")";
     }
 
     /**
-     * <p>createArray</p>
+     * <p>
+     * createArray
+     * </p>
      *
-     * @param value1 a {@link java.util.Date} object.
-     * @param value2 a {@link java.util.Date} object.
+     * @param value1
+     *            a {@link java.util.Date} object.
+     * @param value2
+     *            a {@link java.util.Date} object.
      * @return an array of {@link java.util.Date} objects.
      */
     @Override

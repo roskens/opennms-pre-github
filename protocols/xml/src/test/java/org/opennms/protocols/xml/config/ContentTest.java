@@ -45,19 +45,16 @@ public class ContentTest {
     /**
      * Test XML content.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testXmlContent() throws Exception {
-        String xml = "<request method='POST'>\n"
-                + "  <parameter name='retries' value='3'/>\n"
-                + "  <parameter name='timeout' value='5000'/>\n"
-                + "  <header name='User-Agent' value='Chrome'/>\n"
-                + "  <header name='Host' value='{nodeLabel}'/>\n"
-                + "  <content type='application/xml'><![CDATA[\n"
+        String xml = "<request method='POST'>\n" + "  <parameter name='retries' value='3'/>\n"
+                + "  <parameter name='timeout' value='5000'/>\n" + "  <header name='User-Agent' value='Chrome'/>\n"
+                + "  <header name='Host' value='{nodeLabel}'/>\n" + "  <content type='application/xml'><![CDATA[\n"
                 + "    <person><firstName>Alejandro</firstName><lastName>Galue</lastName></person>\n"
-                + "  ]]></content>\n"
-                + "</request>";
+                + "  ]]></content>\n" + "</request>";
         Request request = JaxbUtils.unmarshal(Request.class, xml);
         Assert.assertNotNull(request);
         Assert.assertEquals("Chrome", request.getHeaders().get(0).getValue());
@@ -72,19 +69,15 @@ public class ContentTest {
     /**
      * Test JSON content.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testJsonContent() throws Exception {
-        String xml = "<request method='POST'>\n"
-                + "  <parameter name='retries' value='3'/>\n"
-                + "  <parameter name='timeout' value='5000'/>\n"
-                + "  <header name='User-Agent' value='Chrome'/>\n"
-                + "  <header name='Host' value='{nodeLabel}'/>\n"
-                + "  <content type='application/json'><![CDATA[\n"
-                + "    { person: { firstName: 'Alejandro', lastName: 'Galue' } }"
-                + "  ]]></content>\n"
-                + "</request>";
+        String xml = "<request method='POST'>\n" + "  <parameter name='retries' value='3'/>\n"
+                + "  <parameter name='timeout' value='5000'/>\n" + "  <header name='User-Agent' value='Chrome'/>\n"
+                + "  <header name='Host' value='{nodeLabel}'/>\n" + "  <content type='application/json'><![CDATA[\n"
+                + "    { person: { firstName: 'Alejandro', lastName: 'Galue' } }" + "  ]]></content>\n" + "</request>";
         Request request = JaxbUtils.unmarshal(Request.class, xml);
         Assert.assertNotNull(request);
         Assert.assertEquals("Chrome", request.getHeaders().get(0).getValue());
@@ -100,22 +93,18 @@ public class ContentTest {
     /**
      * Test Form Urlencoded content.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testFormUrlencodedContent() throws Exception {
-        String xml = "<request method='POST'>\n"
-                + "  <parameter name='retries' value='3'/>\n"
-                + "  <parameter name='timeout' value='5000'/>\n"
-                + "  <header name='User-Agent' value='Chrome'/>\n"
+        String xml = "<request method='POST'>\n" + "  <parameter name='retries' value='3'/>\n"
+                + "  <parameter name='timeout' value='5000'/>\n" + "  <header name='User-Agent' value='Chrome'/>\n"
                 + "  <header name='Host' value='{nodeLabel}'/>\n"
-                + "  <content type='application/x-www-form-urlencoded'><![CDATA[\n"
-                + "    <form-fields>\n"
+                + "  <content type='application/x-www-form-urlencoded'><![CDATA[\n" + "    <form-fields>\n"
                 + "      <form-field name='firstName'>Alejandro</form-field>\n"
-                + "      <form-field name='lastName'>Galue</form-field>\n"
-                + "    </form-fields>\n"
-                + "  ]]></content>\n"
-                + "</request>";
+                + "      <form-field name='lastName'>Galue</form-field>\n" + "    </form-fields>\n"
+                + "  ]]></content>\n" + "</request>";
         Request request = JaxbUtils.unmarshal(Request.class, xml);
         Assert.assertNotNull(request);
         Assert.assertEquals("Chrome", request.getHeaders().get(0).getValue());

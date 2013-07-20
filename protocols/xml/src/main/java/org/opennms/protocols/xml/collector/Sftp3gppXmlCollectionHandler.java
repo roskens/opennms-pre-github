@@ -61,18 +61,22 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 /**
- * The custom implementation of the interface XmlCollectionHandler for 3GPP XML Data.
- * <p>This supports the processing of several files ordered by filename, and the
- * timestamp between files won't be taken in consideration.</p>
- * <p>The state will be persisted on disk by saving the name of the last successfully
- * processed file.</p>
+ * The custom implementation of the interface XmlCollectionHandler for 3GPP XML
+ * Data.
+ * <p>
+ * This supports the processing of several files ordered by filename, and the
+ * timestamp between files won't be taken in consideration.
+ * </p>
+ * <p>
+ * The state will be persisted on disk by saving the name of the last
+ * successfully processed file.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Sftp3gppXmlCollectionHandler.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(Sftp3gppXmlCollectionHandler.class);
 
     /** The Constant XML_LAST_FILENAME. */
     public static final String XML_LAST_FILENAME = "_xmlCollectorLastFilename";
@@ -80,22 +84,30 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
     /** The 3GPP Performance Metric Instance Formats. */
     private Properties m_pmGroups;
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.XmlCollectionHandler#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.protocols.xml.config.XmlDataCollection, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.XmlCollectionHandler#collect(org.
+     * opennms.netmgt.collectd.CollectionAgent,
+     * org.opennms.protocols.xml.config.XmlDataCollection, java.util.Map)
      */
     @Override
-    public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters) throws CollectionException {
+    public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters)
+            throws CollectionException {
         // Create a new collection set.
         XmlCollectionSet collectionSet = new XmlCollectionSet(agent);
         collectionSet.setCollectionTimestamp(new Date());
         collectionSet.setStatus(ServiceCollector.COLLECTION_UNKNOWN);
 
-        // TODO We could be careful when handling exceptions because parsing exceptions will be treated different from connection or retrieval exceptions
+        // TODO We could be careful when handling exceptions because parsing
+        // exceptions will be treated different from connection or retrieval
+        // exceptions
         try {
             File resourceDir = new File(getRrdRepository().getRrdBaseDir(), Integer.toString(agent.getNodeId()));
             for (XmlSource source : collection.getXmlSources()) {
                 if (!source.getUrl().startsWith(Sftp3gppUrlHandler.PROTOCOL)) {
-                    throw new CollectionException("The 3GPP SFTP Collection Handler can only use the protocol " + Sftp3gppUrlHandler.PROTOCOL);
+                    throw new CollectionException("The 3GPP SFTP Collection Handler can only use the protocol "
+                            + Sftp3gppUrlHandler.PROTOCOL);
                 }
                 String urlStr = parseUrl(source.getUrl(), agent, collection.getXmlRrd().getStep());
                 Request request = parseRequest(source.getRequest(), agent);
@@ -104,7 +116,8 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
                 Sftp3gppUrlConnection connection = (Sftp3gppUrlConnection) url.openConnection();
                 if (lastFile == null) {
                     lastFile = connection.get3gppFileName();
-                    LOG.debug("collect(single): retrieving file from {}{}{} from {}", url.getPath(), File.separatorChar, lastFile, agent.getHostAddress());
+                    LOG.debug("collect(single): retrieving file from {}{}{} from {}", url.getPath(),
+                              File.separatorChar, lastFile, agent.getHostAddress());
                     Document doc = getXmlDocument(urlStr, source.getRequest());
                     fillCollectionSet(agent, collectionSet, source, doc);
                     setLastFilename(resourceDir, url.getPath(), lastFile);
@@ -146,10 +159,13 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Gets the last filename.
      *
-     * @param resourceDir the resource directory
-     * @param targetPath the target path
+     * @param resourceDir
+     *            the resource directory
+     * @param targetPath
+     *            the target path
      * @return the last filename
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     private String getLastFilename(File resourceDir, String targetPath) throws Exception {
         String filename = null;
@@ -164,10 +180,14 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Sets the last filename.
      *
-     * @param resourceDir the resource directory
-     * @param targetPath the target path
-     * @param filename the filename
-     * @throws Exception the exception
+     * @param resourceDir
+     *            the resource directory
+     * @param targetPath
+     *            the target path
+     * @param filename
+     *            the filename
+     * @throws Exception
+     *             the exception
      */
     private void setLastFilename(File resourceDir, String targetPath, String filename) throws Exception {
         ResourceTypeUtils.updateStringProperty(resourceDir, filename, getCacheId(targetPath));
@@ -176,7 +196,8 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Gets the cache id.
      *
-     * @param targetPath the target path
+     * @param targetPath
+     *            the target path
      * @return the cache id
      */
     private String getCacheId(String targetPath) {
@@ -186,8 +207,10 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Safely delete file on remote node.
      *
-     * @param connection the SFTP URL Connection
-     * @param fileName the file name
+     * @param connection
+     *            the SFTP URL Connection
+     * @param fileName
+     *            the file name
      */
     private void deleteFile(Sftp3gppUrlConnection connection, String fileName) {
         try {
@@ -197,14 +220,21 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#processXmlResource(org.opennms.protocols.xml.collector.XmlCollectionResource, org.opennms.netmgt.config.collector.AttributeGroupType)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#
+     * processXmlResource
+     * (org.opennms.protocols.xml.collector.XmlCollectionResource,
+     * org.opennms.netmgt.config.collector.AttributeGroupType)
      */
     @Override
     protected void processXmlResource(XmlCollectionResource resource, AttributeGroupType attribGroupType) {
-        Map<String,String> properties = get3gppProperties(get3gppFormat(resource.getResourceTypeName()), resource.getInstance());
-        for (Entry<String,String> entry : properties.entrySet()) {
-            XmlCollectionAttributeType attribType = new XmlCollectionAttributeType(new XmlObject(entry.getKey(), "string"), attribGroupType);
+        Map<String, String> properties = get3gppProperties(get3gppFormat(resource.getResourceTypeName()),
+                                                           resource.getInstance());
+        for (Entry<String, String> entry : properties.entrySet()) {
+            XmlCollectionAttributeType attribType = new XmlCollectionAttributeType(new XmlObject(entry.getKey(),
+                                                                                                 "string"),
+                                                                                   attribGroupType);
             resource.setAttributeValue(attribType, entry.getValue());
         }
     }
@@ -212,15 +242,21 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Parses the URL.
      *
-     * @param unformattedUrl the unformatted URL
-     * @param agent the agent
-     * @param collectionStep the collection step (in seconds)
-     * @param currentTimestamp the current timestamp
+     * @param unformattedUrl
+     *            the unformatted URL
+     * @param agent
+     *            the agent
+     * @param collectionStep
+     *            the collection step (in seconds)
+     * @param currentTimestamp
+     *            the current timestamp
      * @return the string
      */
-    protected String parseUrl(String unformattedUrl, CollectionAgent agent, Integer collectionStep, long currentTimestamp) throws IllegalArgumentException {
+    protected String parseUrl(String unformattedUrl, CollectionAgent agent, Integer collectionStep,
+            long currentTimestamp) throws IllegalArgumentException {
         if (!unformattedUrl.startsWith(Sftp3gppUrlHandler.PROTOCOL)) {
-            throw new IllegalArgumentException("The 3GPP SFTP Collection Handler can only use the protocol " + Sftp3gppUrlHandler.PROTOCOL);
+            throw new IllegalArgumentException("The 3GPP SFTP Collection Handler can only use the protocol "
+                    + Sftp3gppUrlHandler.PROTOCOL);
         }
         String baseUrl = parseUrl(unformattedUrl, agent, collectionStep);
         return baseUrl + "&referenceTimestamp=" + currentTimestamp;
@@ -229,7 +265,8 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Gets the 3GPP resource format.
      *
-     * @param resourceType the resource type
+     * @param resourceType
+     *            the resource type
      * @return the 3gpp format
      */
     public String get3gppFormat(String resourceType) {
@@ -247,12 +284,14 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Gets the 3GPP properties based on measInfoId.
      *
-     * @param format the format
-     * @param measInfoId the measInfoId (the resource instance)
+     * @param format
+     *            the format
+     * @param measInfoId
+     *            the measInfoId (the resource instance)
      * @return the properties
      */
-    public Map<String,String> get3gppProperties(String format, String measInfoId) {
-        Map<String,String> properties = new LinkedHashMap<String,String>();
+    public Map<String, String> get3gppProperties(String format, String measInfoId) {
+        Map<String, String> properties = new LinkedHashMap<String, String>();
         if (format != null) {
             String[] groups = format.split("\\|");
             for (String group : groups) {
@@ -261,11 +300,13 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
                     String pair[] = subgroup.split("=");
                     if (pair.length > 1) {
                         if (pair[1].matches("^[<].+[>]$")) {
-                            // I'm not sure how to deal with separating by | or / and avoiding separating by \/
+                            // I'm not sure how to deal with separating by | or
+                            // / and avoiding separating by \/
                             String valueRegex = pair[1].equals("<directory path>") ? "=([^|]+)" : "=([^|/]+)";
                             Matcher m = Pattern.compile(pair[0] + valueRegex).matcher(measInfoId);
                             if (m.find()) {
-                                String v = pair[1].equals("<directory path>") ? m.group(1).replaceAll("\\\\/", "/") : m.group(1);
+                                String v = pair[1].equals("<directory path>") ? m.group(1).replaceAll("\\\\/", "/")
+                                    : m.group(1);
                                 properties.put(pair[0], v);
                             }
                         }

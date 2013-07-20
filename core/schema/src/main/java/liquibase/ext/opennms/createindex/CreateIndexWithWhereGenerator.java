@@ -39,28 +39,28 @@ import liquibase.statement.core.CreateIndexStatement;
 
 public class CreateIndexWithWhereGenerator extends CreateIndexGenerator {
 
-        @Override
-	public int getPriority() {
-		return super.getPriority() + 1;
-	}
+    @Override
+    public int getPriority() {
+        return super.getPriority() + 1;
+    }
 
-        @Override
-    public Sql[] generateSql(final CreateIndexStatement statement, final Database database, final SqlGeneratorChain sqlGeneratorChain) {
-    	final Sql[] superSql = super.generateSql(statement, database, sqlGeneratorChain);
+    @Override
+    public Sql[] generateSql(final CreateIndexStatement statement, final Database database,
+            final SqlGeneratorChain sqlGeneratorChain) {
+        final Sql[] superSql = super.generateSql(statement, database, sqlGeneratorChain);
 
-    	if (statement instanceof CreateIndexWithWhereStatement) {
-    		if (superSql.length != 1) {
-    			LogFactory.getLogger().warning("expected 1 create index statement, but got " + superSql.length);
-            	return superSql;
-    		}
+        if (statement instanceof CreateIndexWithWhereStatement) {
+            if (superSql.length != 1) {
+                LogFactory.getLogger().warning("expected 1 create index statement, but got " + superSql.length);
+                return superSql;
+            }
 
-    		return new Sql[] {
-    				new UnparsedSql(superSql[0].toSql() + " WHERE " + ((CreateIndexWithWhereStatement)statement).getWhere(),
-    						superSql[0].getEndDelimiter(), superSql[0].getAffectedDatabaseObjects().toArray(new DatabaseObject[0]))
-    		};
-    	} else {
-    		return superSql;
-    	}
+            return new Sql[] { new UnparsedSql(superSql[0].toSql() + " WHERE "
+                    + ((CreateIndexWithWhereStatement) statement).getWhere(), superSql[0].getEndDelimiter(),
+                                               superSql[0].getAffectedDatabaseObjects().toArray(new DatabaseObject[0])) };
+        } else {
+            return superSql;
+        }
     }
 
 }

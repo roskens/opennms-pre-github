@@ -51,9 +51,9 @@ import org.xml.sax.ContentHandler;
  * system definition
  */
 
-@XmlRootElement(name="systemDef", namespace="http://xmlns.opennms.org/xsd/config/datacollection")
+@XmlRootElement(name = "systemDef", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder={"name", "sysoid", "sysoidMask", "ipList", "collect"})
+@XmlType(propOrder = { "name", "sysoid", "sysoidMask", "ipList", "collect" })
 public class SystemDef implements Serializable {
     private static final long serialVersionUID = 656006979873221835L;
 
@@ -69,16 +69,15 @@ public class SystemDef implements Serializable {
 
     /**
      * list of IP address or IP address mask values to
-     *  which this system definition applies.
+     * which this system definition applies.
      */
     private IpList m_ipList;
 
     /**
      * container for list of MIB groups to be collected
-     *  for the system
+     * for the system
      */
     private Collect m_collect;
-
 
     public SystemDef() {
         super();
@@ -94,7 +93,7 @@ public class SystemDef implements Serializable {
      *
      * @return the value of field 'Name'.
      */
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     public String getName() {
         return m_name;
     }
@@ -102,7 +101,8 @@ public class SystemDef implements Serializable {
     /**
      * Sets the value of field 'name'.
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
     public void setName(final String name) {
         m_name = name.intern();
@@ -120,28 +120,34 @@ public class SystemDef implements Serializable {
     /**
      * Sets the value of field 'systemDefChoice'.
      *
-     * @param systemDefChoice the value of field 'systemDefChoice'.
+     * @param systemDefChoice
+     *            the value of field 'systemDefChoice'.
      */
     public void setSystemDefChoice(final SystemDefChoice systemDefChoice) {
         m_systemDefChoice = systemDefChoice;
     }
 
     /* Make compatible with JAXB by proxying SystemDefChoice */
-    @XmlElement(name="sysoid")
+    @XmlElement(name = "sysoid")
     public String getSysoid() {
-        return m_systemDefChoice == null? null : m_systemDefChoice.getSysoid();
+        return m_systemDefChoice == null ? null : m_systemDefChoice.getSysoid();
     }
+
     public void setSysoid(final String sysoid) {
-        if (m_systemDefChoice == null) m_systemDefChoice = new SystemDefChoice();
+        if (m_systemDefChoice == null)
+            m_systemDefChoice = new SystemDefChoice();
         m_systemDefChoice.setSysoid(sysoid);
         m_systemDefChoice.setSysoidMask(null);
     }
-    @XmlElement(name="sysoidMask")
+
+    @XmlElement(name = "sysoidMask")
     public String getSysoidMask() {
-        return m_systemDefChoice == null? null : m_systemDefChoice.getSysoidMask();
+        return m_systemDefChoice == null ? null : m_systemDefChoice.getSysoidMask();
     }
+
     public void setSysoidMask(final String sysoidMask) {
-        if (m_systemDefChoice == null) m_systemDefChoice = new SystemDefChoice();
+        if (m_systemDefChoice == null)
+            m_systemDefChoice = new SystemDefChoice();
         m_systemDefChoice.setSysoid(null);
         m_systemDefChoice.setSysoidMask(sysoidMask);
     }
@@ -150,11 +156,11 @@ public class SystemDef implements Serializable {
      * Returns the value of field 'ipList'. The field 'ipList' has
      * the following description: list of IP address or IP address
      * mask values to
-     *  which this system definition applies.
+     * which this system definition applies.
      *
      * @return the value of field 'IpList'.
      */
-    @XmlElement(name="ipList")
+    @XmlElement(name = "ipList")
     public IpList getIpList() {
         return m_ipList;
     }
@@ -163,9 +169,10 @@ public class SystemDef implements Serializable {
      * Sets the value of field 'ipList'. The field 'ipList' has the
      * following description: list of IP address or IP address mask
      * values to
-     *  which this system definition applies.
+     * which this system definition applies.
      *
-     * @param ipList the value of field 'ipList'.
+     * @param ipList
+     *            the value of field 'ipList'.
      */
     public void setIpList(final IpList ipList) {
         m_ipList = ipList;
@@ -175,11 +182,11 @@ public class SystemDef implements Serializable {
      * Returns the value of field 'collect'. The field 'collect'
      * has the following description: container for list of MIB
      * groups to be collected
-     *  for the system
+     * for the system
      *
      * @return the value of field 'Collect'.
      */
-    @XmlElement(name="collect")
+    @XmlElement(name = "collect")
     public Collect getCollect() {
         return m_collect;
     }
@@ -188,9 +195,10 @@ public class SystemDef implements Serializable {
      * Sets the value of field 'collect'. The field 'collect' has
      * the following description: container for list of MIB groups
      * to be collected
-     *  for the system
+     * for the system
      *
-     * @param collect the value of field 'collect'.
+     * @param collect
+     *            the value of field 'collect'.
      */
     public void setCollect(final Collect collect) {
         m_collect = collect;
@@ -204,39 +212,39 @@ public class SystemDef implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof SystemDef) {
 
-            final SystemDef temp = (SystemDef)obj;
+            final SystemDef temp = (SystemDef) obj;
             if (m_name != null) {
-                if (temp.m_name == null) return false;
+                if (temp.m_name == null)
+                    return false;
                 else if (!(m_name.equals(temp.m_name)))
                     return false;
-            }
-            else if (temp.m_name != null)
+            } else if (temp.m_name != null)
                 return false;
             if (m_systemDefChoice != null) {
-                if (temp.m_systemDefChoice == null) return false;
+                if (temp.m_systemDefChoice == null)
+                    return false;
                 else if (!(m_systemDefChoice.equals(temp.m_systemDefChoice)))
                     return false;
-            }
-            else if (temp.m_systemDefChoice != null)
+            } else if (temp.m_systemDefChoice != null)
                 return false;
             if (m_ipList != null) {
-                if (temp.m_ipList == null) return false;
+                if (temp.m_ipList == null)
+                    return false;
                 else if (!(m_ipList.equals(temp.m_ipList)))
                     return false;
-            }
-            else if (temp.m_ipList != null)
+            } else if (temp.m_ipList != null)
                 return false;
             if (m_collect != null) {
-                if (temp.m_collect == null) return false;
+                if (temp.m_collect == null)
+                    return false;
                 else if (!(m_collect.equals(temp.m_collect)))
                     return false;
-            }
-            else if (temp.m_collect != null)
+            } else if (temp.m_collect != null)
                 return false;
             return true;
         }
@@ -246,8 +254,8 @@ public class SystemDef implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -256,16 +264,16 @@ public class SystemDef implements Serializable {
         int result = 17;
 
         if (m_name != null) {
-           result = 37 * result + m_name.hashCode();
+            result = 37 * result + m_name.hashCode();
         }
         if (m_systemDefChoice != null) {
-           result = 37 * result + m_systemDefChoice.hashCode();
+            result = 37 * result + m_systemDefChoice.hashCode();
         }
         if (m_ipList != null) {
-           result = 37 * result + m_ipList.hashCode();
+            result = 37 * result + m_ipList.hashCode();
         }
         if (m_collect != null) {
-           result = 37 * result + m_collect.hashCode();
+            result = 37 * result + m_collect.hashCode();
         }
 
         return result;
@@ -287,13 +295,13 @@ public class SystemDef implements Serializable {
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -301,15 +309,16 @@ public class SystemDef implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -320,12 +329,14 @@ public class SystemDef implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * SystemDef
+     *         SystemDef
      */
     @Deprecated
     public static SystemDef unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -333,14 +344,12 @@ public class SystemDef implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
-    public void validate()
-    throws ValidationException {
+    public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 

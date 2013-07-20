@@ -37,7 +37,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>LocationMonitorResumeAllController class.</p>
+ * <p>
+ * LocationMonitorResumeAllController class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -45,36 +47,45 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class LocationMonitorResumeAllController extends AbstractController implements InitializingBean {
     private DistributedPollerService m_distributedPollerService;
+
     private String m_successView;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         m_distributedPollerService.resumeAllLocationMonitors();
         return new ModelAndView("redirect:/distributed/locationMonitorList.htm");
     }
 
     /**
-     * <p>getDistributedPollerService</p>
+     * <p>
+     * getDistributedPollerService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.DistributedPollerService} object.
+     * @return a {@link org.opennms.web.svclayer.DistributedPollerService}
+     *         object.
      */
     public DistributedPollerService getDistributedPollerService() {
         return m_distributedPollerService;
     }
 
     /**
-     * <p>setDistributedPollerService</p>
+     * <p>
+     * setDistributedPollerService
+     * </p>
      *
-     * @param distributedPollerService a {@link org.opennms.web.svclayer.DistributedPollerService} object.
+     * @param distributedPollerService
+     *            a {@link org.opennms.web.svclayer.DistributedPollerService}
+     *            object.
      */
-    public void setDistributedPollerService(
-            DistributedPollerService distributedPollerService) {
+    public void setDistributedPollerService(DistributedPollerService distributedPollerService) {
         m_distributedPollerService = distributedPollerService;
     }
 
     /**
-     * @param successView the successView to set
+     * @param successView
+     *            the successView to set
      */
     public void setSuccessView(String successView) {
         m_successView = successView;
@@ -88,9 +99,12 @@ public class LocationMonitorResumeAllController extends AbstractController imple
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

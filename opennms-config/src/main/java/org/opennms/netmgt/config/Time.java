@@ -31,50 +31,53 @@ package org.opennms.netmgt.config;
 /* wrapper object to deal with old castor resources */
 public class Time {
 
-	private String m_id;
-	private String m_day;
-	private String m_begins;
-	private String m_ends;
+    private String m_id;
 
-	public Time() {
-	}
+    private String m_day;
 
-	public Time(final String id, final String day, final String begins, final String ends) {
-		m_id = id;
-		m_day = day;
-		m_begins = begins;
-		m_ends = ends;
-	}
+    private String m_begins;
 
-	public String getId() {
-		return m_id;
-	}
+    private String m_ends;
 
-	public void setId(final String id) {
-		m_id = id;
-	}
+    public Time() {
+    }
 
-	public String getDay() {
-		return m_day;
-	}
+    public Time(final String id, final String day, final String begins, final String ends) {
+        m_id = id;
+        m_day = day;
+        m_begins = begins;
+        m_ends = ends;
+    }
 
-	public void setDay(final String day) {
-		m_day = day;
-	}
+    public String getId() {
+        return m_id;
+    }
 
-	public String getBegins() {
-		return m_begins;
-	}
+    public void setId(final String id) {
+        m_id = id;
+    }
 
-	public void setBegins(final String begins) {
-		m_begins = begins;
-	}
+    public String getDay() {
+        return m_day;
+    }
 
-	public String getEnds() {
-		return m_ends;
-	}
+    public void setDay(final String day) {
+        m_day = day;
+    }
 
-	public void setEnds(final String ends) {
-		m_ends = ends;
-	}
+    public String getBegins() {
+        return m_begins;
+    }
+
+    public void setBegins(final String begins) {
+        m_begins = begins;
+    }
+
+    public String getEnds() {
+        return m_ends;
+    }
+
+    public void setEnds(final String ends) {
+        m_ends = ends;
+    }
 }

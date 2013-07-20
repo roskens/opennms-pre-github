@@ -28,71 +28,86 @@
 
 package org.opennms.netmgt.provision.service;
 
-
 /**
- * <p>WorkEffort class.</p>
+ * <p>
+ * WorkEffort class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class WorkEffort {
 
-	private String m_name;
-	private long m_totalTime;
-	private long m_sectionCount;
-	private ThreadLocal<WorkDuration> m_pendingSection = new ThreadLocal<WorkDuration>();
+    private String m_name;
 
-	/**
-	 * <p>Constructor for WorkEffort.</p>
-	 *
-	 * @param name a {@link java.lang.String} object.
-	 */
-	public WorkEffort(String name) {
-		m_name = name;
-	}
+    private long m_totalTime;
 
-	/**
-	 * <p>begin</p>
-	 */
-	public void begin() {
-		WorkDuration pending = new WorkDuration();
-		pending.start();
-		m_pendingSection.set(pending);
-	}
+    private long m_sectionCount;
 
-	/**
-	 * <p>end</p>
-	 */
-	public void end() {
-		WorkDuration pending = m_pendingSection.get();
-		m_sectionCount++;
-		m_totalTime += pending.getLength();
-	}
+    private ThreadLocal<WorkDuration> m_pendingSection = new ThreadLocal<WorkDuration>();
 
-	/**
-	 * <p>getTotalTime</p>
-	 *
-	 * @return a long.
-	 */
-	public long getTotalTime() {
-		return m_totalTime;
-	}
+    /**
+     * <p>
+     * Constructor for WorkEffort.
+     * </p>
+     *
+     * @param name
+     *            a {@link java.lang.String} object.
+     */
+    public WorkEffort(String name) {
+        m_name = name;
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String toString() {
-		StringBuffer buf = new StringBuffer();
-		buf.append("Total ").append(m_name).append(": ");
-		buf.append((double)m_totalTime/(double)1000L).append(" thread-seconds");
-		if (m_sectionCount > 0) {
-			buf.append(" Avg ").append(m_name).append(": ");
-			buf.append((double)m_totalTime/(double)m_sectionCount).append(" ms per node");
-		}
-		return buf.toString();
-	}
+    /**
+     * <p>
+     * begin
+     * </p>
+     */
+    public void begin() {
+        WorkDuration pending = new WorkDuration();
+        pending.start();
+        m_pendingSection.set(pending);
+    }
+
+    /**
+     * <p>
+     * end
+     * </p>
+     */
+    public void end() {
+        WorkDuration pending = m_pendingSection.get();
+        m_sectionCount++;
+        m_totalTime += pending.getLength();
+    }
+
+    /**
+     * <p>
+     * getTotalTime
+     * </p>
+     *
+     * @return a long.
+     */
+    public long getTotalTime() {
+        return m_totalTime;
+    }
+
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+        buf.append("Total ").append(m_name).append(": ");
+        buf.append((double) m_totalTime / (double) 1000L).append(" thread-seconds");
+        if (m_sectionCount > 0) {
+            buf.append(" Avg ").append(m_name).append(": ");
+            buf.append((double) m_totalTime / (double) m_sectionCount).append(" ms per node");
+        }
+        return buf.toString();
+    }
 
 }

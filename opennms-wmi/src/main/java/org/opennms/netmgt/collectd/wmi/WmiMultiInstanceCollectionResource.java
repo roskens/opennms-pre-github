@@ -36,24 +36,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>WmiMultiInstanceCollectionResource class.</p>
+ * <p>
+ * WmiMultiInstanceCollectionResource class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class WmiMultiInstanceCollectionResource extends WmiCollectionResource {
 
-	private static final Logger LOG = LoggerFactory.getLogger(WmiMultiInstanceCollectionResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WmiMultiInstanceCollectionResource.class);
 
     private String m_inst;
+
     private String m_name;
 
     /**
-     * <p>Constructor for WmiMultiInstanceCollectionResource.</p>
+     * <p>
+     * Constructor for WmiMultiInstanceCollectionResource.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
-     * @param instance a {@link java.lang.String} object.
-     * @param name a {@link java.lang.String} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param instance
+     *            a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public WmiMultiInstanceCollectionResource(final CollectionAgent agent, final String instance, final String name) {
         super(agent);
@@ -67,13 +75,18 @@ public class WmiMultiInstanceCollectionResource extends WmiCollectionResource {
         final File rrdBaseDir = repository.getRrdBaseDir();
         final File nodeDir = new File(rrdBaseDir, getParent());
         final File typeDir = new File(nodeDir, m_name);
-        final File instDir = new File(typeDir, m_inst.replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]", "_"));
+        final File instDir = new File(
+                                      typeDir,
+                                      m_inst.replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]",
+                                                                                                                             "_"));
         LOG.debug("getResourceDir: {}", instDir);
         return instDir;
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,7 +96,9 @@ public class WmiMultiInstanceCollectionResource extends WmiCollectionResource {
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,7 +110,7 @@ public class WmiMultiInstanceCollectionResource extends WmiCollectionResource {
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return "Node[" + m_agent.getNodeId() + "]/type["+ m_name+"]/instance[" + m_inst +"]";
+        return "Node[" + m_agent.getNodeId() + "]/type[" + m_name + "]/instance[" + m_inst + "]";
     }
 
 }

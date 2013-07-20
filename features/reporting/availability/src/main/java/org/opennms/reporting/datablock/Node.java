@@ -131,8 +131,10 @@ public class Node extends StandardNamedObject {
     /**
      * Constructor that initialises the nodeid.
      *
-     * @param name a {@link java.lang.String} object.
-     * @param id a int.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param id
+     *            a int.
      */
     public Node(String name, int id) {
         m_nodeid = id;
@@ -222,10 +224,10 @@ public class Node extends StandardNamedObject {
     public int getServiceCount() {
         int count = 0;
         for (Interface intf : m_interfaces) {
-			if (intf != null) {
-				count += intf.getServiceCount();
-			}
-		}
+            if (intf != null) {
+                count += intf.getServiceCount();
+            }
+        }
         m_serviceCount = count;
         return count;
     }
@@ -285,10 +287,10 @@ public class Node extends StandardNamedObject {
     public int getServiceAffectCount() {
         int count = 0;
         for (Interface intf : m_interfaces) {
-			if (intf != null) {
-				count += intf.getServiceAffectCount();
-			}
-		}
+            if (intf != null) {
+                count += intf.getServiceAffectCount();
+            }
+        }
         return count;
     }
 
@@ -372,7 +374,8 @@ public class Node extends StandardNamedObject {
      * name intfname.
      *
      * @return Interface with name intfname
-     * @param intfname a {@link java.lang.String} object.
+     * @param intfname
+     *            a {@link java.lang.String} object.
      */
     public Interface getInterface(String intfname) {
         if (intfname == null)
@@ -428,7 +431,8 @@ public class Node extends StandardNamedObject {
      * @param endTime
      *            End Time of the rolling window in milliseconds.
      * @return percentage availability of node for the last week.
-     * @param rollingWindow a long.
+     * @param rollingWindow
+     *            a long.
      */
     public double getPercentAvail(long endTime, long rollingWindow) {
         double percent = 0;
@@ -436,14 +440,14 @@ public class Node extends StandardNamedObject {
         int serviceCount = 0;
 
         if (m_interfaces != null && m_interfaces.size() > 0) {
-        	for (Interface intf : m_interfaces) {
+            for (Interface intf : m_interfaces) {
                 if (intf != null) {
                     long down = intf.getDownTime(endTime, rollingWindow);
                     if (down > 0)
                         outage += down;
                     serviceCount += intf.getServiceCount();
                 }
-			}
+            }
         }
 
         if (serviceCount > 0) {
@@ -463,8 +467,10 @@ public class Node extends StandardNamedObject {
      * Get the outage for this node.
      *
      * @return The outage time.
-     * @param endTime a long.
-     * @param rollingWindow a long.
+     * @param endTime
+     *            a long.
+     * @param rollingWindow
+     *            a long.
      */
     public long getOutage(long endTime, long rollingWindow) {
         long outage = 0;
@@ -477,7 +483,7 @@ public class Node extends StandardNamedObject {
                     outage += down;
                 serviceCount += intf.getServiceCount();
             }
-		}
+        }
 
         if (serviceCount > 0) {
             m_serviceCount = serviceCount;
@@ -509,9 +515,9 @@ public class Node extends StandardNamedObject {
                     if (service != null) {
                         retVal.append(nl).append("\t\t\t\t\t").append(service.getOutages());
                     }
-				}
+                }
             }
-		}
+        }
 
         return retVal.toString();
     }

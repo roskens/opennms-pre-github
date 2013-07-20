@@ -38,7 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>IfAliasResourceType class.</p>
+ * <p>
+ * IfAliasResourceType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,18 +50,30 @@ public class IfAliasResourceType extends ResourceType {
     private static final Logger LOG = LoggerFactory.getLogger(IfAliasResourceType.class);
 
     private IfResourceType m_ifResourceType;
+
     private Map<Integer, AliasedResource> m_aliasedIfs = new HashMap<Integer, AliasedResource>();
+
     private ServiceParameters m_params;
 
     /**
-     * <p>Constructor for IfAliasResourceType.</p>
+     * <p>
+     * Constructor for IfAliasResourceType.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
-     * @param snmpCollection a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection} object.
-     * @param params a {@link org.opennms.netmgt.config.collector.ServiceParameters} object.
-     * @param ifResourceType a {@link org.opennms.netmgt.collectd.IfResourceType} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param snmpCollection
+     *            a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection}
+     *            object.
+     * @param params
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
+     *            object.
+     * @param ifResourceType
+     *            a {@link org.opennms.netmgt.collectd.IfResourceType} object.
      */
-    public IfAliasResourceType(CollectionAgent agent, OnmsSnmpCollection snmpCollection, ServiceParameters params, IfResourceType ifResourceType) {
+    public IfAliasResourceType(CollectionAgent agent, OnmsSnmpCollection snmpCollection, ServiceParameters params,
+            IfResourceType ifResourceType) {
         super(agent, snmpCollection);
         m_ifResourceType = ifResourceType;
         m_params = params;
@@ -73,20 +87,22 @@ public class IfAliasResourceType extends ResourceType {
         LOG.debug("findResource: Should not get called from IfAliasResourceType");
         return null;
     }
+
     /** {@inheritDoc} */
     @Override
     public SnmpCollectionResource findAliasedResource(SnmpInstId inst, String ifAlias) {
         Integer key = inst.toInt();
         AliasedResource resource = (AliasedResource) m_aliasedIfs.get(key);
         if (resource == null) {
-            IfInfo ifInfo = (IfInfo)m_ifResourceType.findResource(inst);
+            IfInfo ifInfo = (IfInfo) m_ifResourceType.findResource(inst);
 
-            if(ifInfo == null) {
-            	LOG.info("Not creating an aliased resource for ifInfo = null");
+            if (ifInfo == null) {
+                LOG.info("Not creating an aliased resource for ifInfo = null");
             } else {
                 LOG.info("Creating an aliased resource for {}", ifInfo);
 
-                resource = new AliasedResource(this, m_params.getDomain(), ifInfo, m_params.getIfAliasComment(), ifAlias);
+                resource = new AliasedResource(this, m_params.getDomain(), ifInfo, m_params.getIfAliasComment(),
+                                               ifAlias);
 
                 m_aliasedIfs.put(key, resource);
             }
@@ -101,17 +117,21 @@ public class IfAliasResourceType extends ResourceType {
     }
 
     /**
-     * <p>loadAttributeTypes</p>
+     * <p>
+     * loadAttributeTypes
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     @Override
     public Collection<SnmpAttributeType> loadAttributeTypes() {
         return getCollection().getAliasAttributeTypes(getAgent());
-   }
+    }
 
     /**
-     * <p>getResources</p>
+     * <p>
+     * getResources
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -120,9 +140,10 @@ public class IfAliasResourceType extends ResourceType {
         return m_aliasedIfs.values();
     }
 
-    //TODO Tak cleanup toString super hack
+    // TODO Tak cleanup toString super hack
     @Override
     public String toString() {
-        return super.toString() +  " IfAliasResourceType{" + "m_ifResourceType=" + m_ifResourceType + ", m_aliasedIfs=" + m_aliasedIfs + ", m_params=" + m_params + '}';
+        return super.toString() + " IfAliasResourceType{" + "m_ifResourceType=" + m_ifResourceType + ", m_aliasedIfs="
+                + m_aliasedIfs + ", m_params=" + m_params + '}';
     }
 }

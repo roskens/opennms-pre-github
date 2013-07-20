@@ -69,8 +69,10 @@ public class FifoQueueImpl<T> implements FifoQueue<T> {
      *                Thrown if a queue error occurs.
      * @exception java.lang.InterruptedException
      *                Thrown if the thread is interrupted.
-     * @throws org.opennms.core.queue.FifoQueueException if any.
-     * @throws java.lang.InterruptedException if any.
+     * @throws org.opennms.core.queue.FifoQueueException
+     *             if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     @Override
     public void add(T element) throws InterruptedException {
@@ -78,15 +80,14 @@ public class FifoQueueImpl<T> implements FifoQueue<T> {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Inserts a new element into the queue. If the queue has reached an
+     * {@inheritDoc} Inserts a new element into the queue. If the queue has
+     * reached an
      * implementation limit and the <code>
      * timeout</code> expires, then a false
      * value is returned to the caller.
      *
      * @throws java.lang.InterruptedException
-     *                Thrown if the thread is interrupted.
+     *             Thrown if the thread is interrupted.
      */
     @Override
     public boolean add(T element, long timeout) throws InterruptedException {
@@ -101,8 +102,10 @@ public class FifoQueueImpl<T> implements FifoQueue<T> {
      * @exception java.lang.InterruptedException
      *                Thrown if the thread is interrupted.
      * @return The oldest object in the queue.
-     * @throws org.opennms.core.queue.FifoQueueException if any.
-     * @throws java.lang.InterruptedException if any.
+     * @throws org.opennms.core.queue.FifoQueueException
+     *             if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     @Override
     public T remove() throws InterruptedException {
@@ -110,11 +113,11 @@ public class FifoQueueImpl<T> implements FifoQueue<T> {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Removes the next element from the queue if one becomes available before
+     * {@inheritDoc} Removes the next element from the queue if one becomes
+     * available before
      * the timeout expires. If the timeout expires before an element is
      * available then a <code>null</code> reference is returned to the caller.
+     *
      * @exception org.opennms.core.queue.FifoQueueException
      *                Thrown if a queue error occurs.
      * @exception java.lang.InterruptedException

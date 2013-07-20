@@ -65,10 +65,9 @@ public class VmwareServer implements java.io.Serializable {
         super();
     }
 
-
-    //-----------/
-    //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Overrides the java.lang.Object.equals method.
@@ -77,15 +76,12 @@ public class VmwareServer implements java.io.Serializable {
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
+    public boolean equals(final java.lang.Object obj) {
         if (obj instanceof VmwareServer) {
             VmwareServer other = (VmwareServer) obj;
-            return new EqualsBuilder()
-                    .append(getHostname(), other.getHostname())
-                    .append(getUsername(), other.getUsername())
-                    .append(getPassword(), other.getPassword())
-                    .isEquals();
+            return new EqualsBuilder().append(getHostname(), other.getHostname()).append(getUsername(),
+                                                                                         other.getUsername()).append(getPassword(),
+                                                                                                                     other.getPassword()).isEquals();
         }
         return false;
     }
@@ -97,8 +93,7 @@ public class VmwareServer implements java.io.Serializable {
      *
      * @return the value of field 'Hostname'.
      */
-    public java.lang.String getHostname(
-    ) {
+    public java.lang.String getHostname() {
         return this._hostname == null ? "" : this._hostname;
     }
 
@@ -109,8 +104,7 @@ public class VmwareServer implements java.io.Serializable {
      *
      * @return the value of field 'Password'.
      */
-    public java.lang.String getPassword(
-    ) {
+    public java.lang.String getPassword() {
         return this._password == null ? "" : this._password;
     }
 
@@ -121,8 +115,7 @@ public class VmwareServer implements java.io.Serializable {
      *
      * @return the value of field 'Username'.
      */
-    public java.lang.String getUsername(
-    ) {
+    public java.lang.String getUsername() {
         return this._username == null ? "" : this._username;
     }
 
@@ -131,10 +124,10 @@ public class VmwareServer implements java.io.Serializable {
      * the following description: The hostname of IP address of
      * this server
      *
-     * @param hostname the value of field 'hostname'.
+     * @param hostname
+     *            the value of field 'hostname'.
      */
-    public void setHostname(
-            final java.lang.String hostname) {
+    public void setHostname(final java.lang.String hostname) {
         this._hostname = hostname;
     }
 
@@ -143,10 +136,10 @@ public class VmwareServer implements java.io.Serializable {
      * the following description: The password of the read-only
      * user
      *
-     * @param password the value of field 'password'.
+     * @param password
+     *            the value of field 'password'.
      */
-    public void setPassword(
-            final java.lang.String password) {
+    public void setPassword(final java.lang.String password) {
         this._password = password;
     }
 
@@ -155,10 +148,10 @@ public class VmwareServer implements java.io.Serializable {
      * the following description: The username of the read-only
      * user
      *
-     * @param username the value of field 'username'.
+     * @param username
+     *            the value of field 'username'.
      */
-    public void setUsername(
-            final java.lang.String username) {
+    public void setUsername(final java.lang.String username) {
         this._username = username;
     }
 

@@ -29,16 +29,21 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>ResourceVisitor interface.</p>
+ * <p>
+ * ResourceVisitor interface.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public interface ResourceVisitor {
     /**
-     * <p>visit</p>
+     * <p>
+     * visit
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public void visit(OnmsResource resource);
 }

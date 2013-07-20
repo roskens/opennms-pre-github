@@ -54,17 +54,23 @@ import org.opennms.acl.domain.GenericUser;
 public interface AclUserFactory {
 
     /**
-     * <p>getAclUser</p>
+     * <p>
+     * getAclUser
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.acl.domain.GenericUser} object.
      */
     public GenericUser getAclUser(Integer id);
 
     /**
-     * <p>getAclUserByUsername</p>
+     * <p>
+     * getAclUserByUsername
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.acl.domain.GenericUser} object.
      */
     public GenericUser getAclUserByUsername(String username);

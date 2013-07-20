@@ -43,6 +43,7 @@ import org.snmp4j.smi.VariableBinding;
 public class MapSubAgent implements SubAgent {
 
     private SortedMap<OID, Variable> m_values = new TreeMap<OID, Variable>();
+
     private OID m_base;
 
     /**

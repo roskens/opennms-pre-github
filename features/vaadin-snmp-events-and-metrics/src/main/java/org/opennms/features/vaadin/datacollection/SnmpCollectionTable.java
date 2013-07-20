@@ -55,12 +55,14 @@ public abstract class SnmpCollectionTable extends Table {
     private final DataCollectionConfigDao dataCollectionConfigDao;
 
     /** The SNMP Collection Container. */
-    private BeanContainer<String,SnmpCollection> container = new BeanContainer<String,SnmpCollection>(SnmpCollection.class);
+    private BeanContainer<String, SnmpCollection> container = new BeanContainer<String, SnmpCollection>(
+                                                                                                        SnmpCollection.class);
 
     /**
      * Instantiates a new SNMP collection table.
      *
-     * @param dataCollectionConfigDao the OpenNMS data collection configuration DAO
+     * @param dataCollectionConfigDao
+     *            the OpenNMS data collection configuration DAO
      */
     public SnmpCollectionTable(final DataCollectionConfigDao dataCollectionConfigDao) {
         this.dataCollectionConfigDao = dataCollectionConfigDao;
@@ -89,18 +91,20 @@ public abstract class SnmpCollectionTable extends Table {
     /**
      * Update external source.
      *
-     * @param item the item
+     * @param item
+     *            the item
      */
     public abstract void updateExternalSource(BeanItem<SnmpCollection> item);
 
     /**
      * Adds the SNMP collection.
      *
-     * @param snmpCollection the SNMP collection
+     * @param snmpCollection
+     *            the SNMP collection
      */
     @SuppressWarnings("unchecked")
     public void addSnmpCollection(SnmpCollection snmpCollection) {
-        ((BeanContainer<String,SnmpCollection>) getContainerDataSource()).addBean(snmpCollection);
+        ((BeanContainer<String, SnmpCollection>) getContainerDataSource()).addBean(snmpCollection);
     }
 
     /**
@@ -110,7 +114,11 @@ public abstract class SnmpCollectionTable extends Table {
         final DatacollectionConfig dataCollectionConfig = dataCollectionConfigDao.getRootDataCollection();
         container.removeAllItems();
         container.addAll(dataCollectionConfig.getSnmpCollectionCollection());
-        container.removeItem("__resource_type_collection"); // This is a protected collection and should not be edited.
+        container.removeItem("__resource_type_collection"); // This is a
+                                                            // protected
+                                                            // collection and
+                                                            // should not be
+                                                            // edited.
     }
 
 }

@@ -46,15 +46,20 @@ import org.springframework.context.ApplicationContext;
 public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     /** Constant <code>TYPE="servicenot"</code> */
     public static final String TYPE = "servicenot";
+
     private ServletContext m_servletContext;
+
     private ApplicationContext m_appContext;
 
     protected int serviceId;
 
     /**
-     * <p>Constructor for NegativeServiceFilter.</p>
+     * <p>
+     * Constructor for NegativeServiceFilter.
+     * </p>
      *
-     * @param serviceId a int.
+     * @param serviceId
+     *            a int.
      * @param servletContext
      */
     public NegativeServiceFilter(int serviceId, ServletContext servletContext) {
@@ -63,9 +68,12 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>Constructor for NegativeServiceFilter.</p>
+     * <p>
+     * Constructor for NegativeServiceFilter.
+     * </p>
      *
-     * @param serviceId a int.
+     * @param serviceId
+     *            a int.
      * @param appContext
      */
     public NegativeServiceFilter(int serviceId, ApplicationContext appContext) {
@@ -74,20 +82,25 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getTextDescription() {
-        NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext) : NetworkElementFactory.getInstance(m_servletContext));
+        NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext)
+            : NetworkElementFactory.getInstance(m_servletContext));
         String serviceName = factory.getServiceNameFromId(getServiceId());
 
         return ("service is not " + serviceName);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -97,7 +110,9 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>Getter for the field <code>serviceId</code>.</p>
+     * <p>
+     * Getter for the field <code>serviceId</code>.
+     * </p>
      *
      * @return a int.
      */

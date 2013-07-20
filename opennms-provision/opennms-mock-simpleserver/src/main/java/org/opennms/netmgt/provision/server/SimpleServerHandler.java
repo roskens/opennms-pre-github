@@ -36,7 +36,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>SimpleServerHandler class.</p>
+ * <p>
+ * SimpleServerHandler class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -48,9 +50,14 @@ public class SimpleServerHandler extends IoHandlerAdapter {
     private LineConversation m_conversation;
 
     /**
-     * <p>Constructor for SimpleServerHandler.</p>
+     * <p>
+     * Constructor for SimpleServerHandler.
+     * </p>
      *
-     * @param conversation a {@link org.opennms.netmgt.provision.server.exchange.LineConversation} object.
+     * @param conversation
+     *            a
+     *            {@link org.opennms.netmgt.provision.server.exchange.LineConversation}
+     *            object.
      */
     public SimpleServerHandler(LineConversation conversation) {
         m_conversation = conversation;
@@ -66,7 +73,7 @@ public class SimpleServerHandler extends IoHandlerAdapter {
     @Override
     public void sessionOpened(IoSession session) throws Exception {
         LOG.info("Session opened");
-        if(m_conversation != null && m_conversation.hasBanner()) {
+        if (m_conversation != null && m_conversation.hasBanner()) {
             LOG.info("Sending Banner: {} \n", m_conversation.getBanner());
             session.write(m_conversation.getBanner());
         }
@@ -74,11 +81,11 @@ public class SimpleServerHandler extends IoHandlerAdapter {
 
     /** {@inheritDoc} */
     @Override
-    public void messageReceived (IoSession session, Object message) throws Exception {
+    public void messageReceived(IoSession session, Object message) throws Exception {
         LOG.info("Server received: {}\n", message.toString().trim());
         String str = message.toString();
-        if(str.trim().equalsIgnoreCase(m_conversation.getExpectedClose())) {
-            if(m_conversation.getExpectedCloseResponse() != null) {
+        if (str.trim().equalsIgnoreCase(m_conversation.getExpectedClose())) {
+            if (m_conversation.getExpectedCloseResponse() != null) {
                 session.write(m_conversation.getExpectedCloseResponse());
             }
             if (!session.close(false).await(500)) {

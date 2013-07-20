@@ -49,52 +49,67 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
  */
 public class ReportController extends AbstractCommandController implements InitializingBean {
     private StatisticsReportService m_statisticsReportService;
+
     private String m_successView;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object cmd, BindException errors) throws Exception {
+    protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object cmd,
+            BindException errors) throws Exception {
         StatisticsReportCommand command = (StatisticsReportCommand) cmd;
 
         try {
-        	StatisticsReportModel report = m_statisticsReportService.getReport(command, errors);
+            StatisticsReportModel report = m_statisticsReportService.getReport(command, errors);
             return new ModelAndView(getSuccessView(), "model", report);
         } catch (org.springframework.orm.hibernate3.HibernateObjectRetrievalFailureException horfe) {
-        	throw new StatisticsReportIdNotFoundException("No such report ID", command.getId().toString());
+            throw new StatisticsReportIdNotFoundException("No such report ID", command.getId().toString());
         }
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.state(m_statisticsReportService != null, "property statisticsReportService must be set to a non-null value");
+        Assert.state(m_statisticsReportService != null,
+                     "property statisticsReportService must be set to a non-null value");
         Assert.state(m_successView != null, "property successView must be set to a non-null value");
     }
 
     /**
-     * <p>getStatisticsReportService</p>
+     * <p>
+     * getStatisticsReportService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.StatisticsReportService} object.
+     * @return a {@link org.opennms.web.svclayer.StatisticsReportService}
+     *         object.
      */
     public StatisticsReportService getStatisticsReportService() {
         return m_statisticsReportService;
     }
 
     /**
-     * <p>setStatisticsReportService</p>
+     * <p>
+     * setStatisticsReportService
+     * </p>
      *
-     * @param statisticsReportService a {@link org.opennms.web.svclayer.StatisticsReportService} object.
+     * @param statisticsReportService
+     *            a {@link org.opennms.web.svclayer.StatisticsReportService}
+     *            object.
      */
     public void setStatisticsReportService(StatisticsReportService statisticsReportService) {
         m_statisticsReportService = statisticsReportService;
     }
 
     /**
-     * <p>getSuccessView</p>
+     * <p>
+     * getSuccessView
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,9 +118,12 @@ public class ReportController extends AbstractCommandController implements Initi
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public void setSuccessView(String successView) {
         m_successView = successView;

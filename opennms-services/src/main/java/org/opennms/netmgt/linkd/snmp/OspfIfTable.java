@@ -33,10 +33,10 @@ import java.net.InetAddress;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
-public class OspfIfTable extends SnmpTable<OspfIfTableEntry>{
+public class OspfIfTable extends SnmpTable<OspfIfTableEntry> {
 
     public OspfIfTable(InetAddress address) {
-        super(address, "ospfIfTable",OspfIfTableEntry.ospfiftable_elemList);
+        super(address, "ospfIfTable", OspfIfTableEntry.ospfiftable_elemList);
     }
 
     /** {@inheritDoc} */
@@ -44,6 +44,5 @@ public class OspfIfTable extends SnmpTable<OspfIfTableEntry>{
     protected OspfIfTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new OspfIfTableEntry();
     }
-
 
 }

@@ -31,6 +31,7 @@ package org.opennms.netmgt.dao.api;
 import org.opennms.core.criteria.Criteria;
 
 public interface CriteriaConverter<T> {
-	public T convert(Criteria criteria);
-	public T convertForCount(Criteria criteria);
+    public T convert(Criteria criteria);
+
+    public T convertForCount(Criteria criteria);
 }

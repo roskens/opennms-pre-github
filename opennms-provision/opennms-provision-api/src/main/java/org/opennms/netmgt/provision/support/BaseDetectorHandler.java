@@ -35,7 +35,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>BaseDetectorHandler class.</p>
+ * <p>
+ * BaseDetectorHandler class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -45,22 +47,29 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
     private static final Logger LOG = LoggerFactory.getLogger(BaseDetectorHandler.class);
 
     private DetectFutureMinaImpl m_future;
+
     private AsyncClientConversation<Request, Response> m_conversation;
 
-
     /**
-     * <p>setFuture</p>
+     * <p>
+     * setFuture
+     * </p>
      *
-     * @param future a {@link org.opennms.netmgt.provision.DetectFuture} object.
-     * @param <Request> a Request object.
-     * @param <Response> a Response object.
+     * @param future
+     *            a {@link org.opennms.netmgt.provision.DetectFuture} object.
+     * @param <Request>
+     *            a Request object.
+     * @param <Response>
+     *            a Response object.
      */
     public void setFuture(DetectFutureMinaImpl future) {
         m_future = future;
     }
 
     /**
-     * <p>getFuture</p>
+     * <p>
+     * getFuture
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.provision.DetectFuture} object.
      */
@@ -77,16 +86,16 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
     /** {@inheritDoc} */
     @Override
     public void sessionOpened(IoSession session) throws Exception {
-        if(!getConversation().hasBanner() && getConversation().getRequest() != null) {
+        if (!getConversation().hasBanner() && getConversation().getRequest() != null) {
             Object request = getConversation().getRequest();
             session.write(request);
-       }
+        }
     }
 
     /** {@inheritDoc} */
     @Override
     public void sessionClosed(IoSession session) throws Exception {
-        if(!getFuture().isDone()) {
+        if (!getFuture().isDone()) {
             LOG.info("Session closed and detection is not complete. Setting service detection to false.");
             getFuture().setServiceDetected(false);
         }
@@ -118,48 +127,57 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
         try {
             LOG.debug("Client Receiving: {}", message.toString().trim());
 
-            if(getConversation().hasExchanges() && getConversation().validate((Response)message)) {
+            if (getConversation().hasExchanges() && getConversation().validate((Response) message)) {
 
-               Object request = getConversation().getRequest();
+                Object request = getConversation().getRequest();
 
-                if(request != null) {
-                   session.write(request);
-               }else if(request == null && getConversation().isComplete()){
-                   LOG.info("Conversation is complete and there are no more pending requests. Setting service detection to true.");
-                   getFuture().setServiceDetected(true);
-                   session.close(false);
-               }else {
-                   LOG.info("Conversation is incomplete. Setting service detection to false.");
-                   getFuture().setServiceDetected(false);
-                   session.close(false);
-               }
-            }else {
+                if (request != null) {
+                    session.write(request);
+                } else if (request == null && getConversation().isComplete()) {
+                    LOG.info("Conversation is complete and there are no more pending requests. Setting service detection to true.");
+                    getFuture().setServiceDetected(true);
+                    session.close(false);
+                } else {
+                    LOG.info("Conversation is incomplete. Setting service detection to false.");
+                    getFuture().setServiceDetected(false);
+                    session.close(false);
+                }
+            } else {
                 LOG.info("Conversation response was invalid. Setting service detection to false.");
                 getFuture().setServiceDetected(false);
                 session.close(false);
             }
 
-        }catch(Throwable e){
-              if(!session.isClosing()){
-                  session.close(true);
-              }
+        } catch (Throwable e) {
+            if (!session.isClosing()) {
+                session.close(true);
+            }
         }
 
     }
 
     /**
-     * <p>setConversation</p>
+     * <p>
+     * setConversation
+     * </p>
      *
-     * @param conversation a {@link org.opennms.netmgt.provision.support.AsyncClientConversation} object.
+     * @param conversation
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.AsyncClientConversation}
+     *            object.
      */
     public void setConversation(AsyncClientConversation<Request, Response> conversation) {
         m_conversation = conversation;
     }
 
     /**
-     * <p>getConversation</p>
+     * <p>
+     * getConversation
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.support.AsyncClientConversation} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.support.AsyncClientConversation}
+     *         object.
      */
     public AsyncClientConversation<Request, Response> getConversation() {
         return m_conversation;

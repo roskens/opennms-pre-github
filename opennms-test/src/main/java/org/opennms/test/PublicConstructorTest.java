@@ -46,34 +46,40 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class PublicConstructorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PublicConstructorTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PublicConstructorTest.class);
 
-	/**
-	 * <p>testPublicConstructors</p>
-	 *
-	 * @throws java.lang.NoSuchMethodException if any.
-	 * @throws java.lang.Exception if any.
-	 */
-	@Test
-	public void testPublicConstructors() throws NoSuchMethodException, Exception {
-		for (Class<? extends Object> clazz : getClasses()) {
-			try {
-				Constructor<? extends Object> constructor = clazz.getConstructor();
-				assertNotNull(constructor);
-				System.out.println("Found public constructor on class: " + clazz.getName());
-			} catch (final Exception e) {
-			    LOG.warn("unable to locate constructor on class: {}", clazz.getName(), e);
-				throw e;
-			}
-		}
-	}
+    /**
+     * <p>
+     * testPublicConstructors
+     * </p>
+     *
+     * @throws java.lang.NoSuchMethodException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    @Test
+    public void testPublicConstructors() throws NoSuchMethodException, Exception {
+        for (Class<? extends Object> clazz : getClasses()) {
+            try {
+                Constructor<? extends Object> constructor = clazz.getConstructor();
+                assertNotNull(constructor);
+                System.out.println("Found public constructor on class: " + clazz.getName());
+            } catch (final Exception e) {
+                LOG.warn("unable to locate constructor on class: {}", clazz.getName(), e);
+                throw e;
+            }
+        }
+    }
 
-	/**
-	 * This method should return a list of classes that you wish to inspect for public
-	 * constructors.
-	 *
-	 * @return a {@link java.util.List} object.
-	 * @throws java.lang.Exception if any.
-	 */
-	protected abstract List<Class<? extends Object>> getClasses() throws Exception;
+    /**
+     * This method should return a list of classes that you wish to inspect for
+     * public
+     * constructors.
+     *
+     * @return a {@link java.util.List} object.
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    protected abstract List<Class<? extends Object>> getClasses() throws Exception;
 }

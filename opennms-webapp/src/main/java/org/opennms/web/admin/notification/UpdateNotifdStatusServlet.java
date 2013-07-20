@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  */
 public class UpdateNotifdStatusServlet extends HttpServlet {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UpdateNotifdStatusServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UpdateNotifdStatusServlet.class);
 
     /**
      *
@@ -86,6 +86,5 @@ public class UpdateNotifdStatusServlet extends HttpServlet {
         } catch (Throwable t) {
         }
     }
-
 
 }

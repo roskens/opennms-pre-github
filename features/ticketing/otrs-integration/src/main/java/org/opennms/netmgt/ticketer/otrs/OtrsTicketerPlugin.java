@@ -56,331 +56,331 @@ import org.opennms.api.integration.ticketing.*;
 public class OtrsTicketerPlugin implements Plugin {
     private static final Logger LOG = LoggerFactory.getLogger(OtrsTicketerPlugin.class);
 
-	private DefaultOtrsConfigDao m_configDao;
+    private DefaultOtrsConfigDao m_configDao;
 
-	private String m_endpoint;
+    private String m_endpoint;
 
-	/**
-	 * <p>Constructor for OtrsTicketerPlugin.</p>
-	 */
-	public OtrsTicketerPlugin() {
+    /**
+     * <p>
+     * Constructor for OtrsTicketerPlugin.
+     * </p>
+     */
+    public OtrsTicketerPlugin() {
 
-		m_configDao = new DefaultOtrsConfigDao();
-		m_endpoint = m_configDao.getEndpoint();
+        m_configDao = new DefaultOtrsConfigDao();
+        m_endpoint = m_configDao.getEndpoint();
 
-	}
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public Ticket get(String ticketId) throws PluginException {
+    /** {@inheritDoc} */
+    @Override
+    public Ticket get(String ticketId) throws PluginException {
 
-		TicketWithArticles ticketWithArticles = null;
+        TicketWithArticles ticketWithArticles = null;
 
-		// don't try to get ticket if it's marked as not available
+        // don't try to get ticket if it's marked as not available
 
-		Ticket opennmsTicket = new Ticket();
+        Ticket opennmsTicket = new Ticket();
 
-		if (ticketId == null)  {
+        if (ticketId == null) {
 
-		    LOG.error("No OTRS ticketID available in OpenNMS Ticket");
-		    throw new PluginException("No OTRS ticketID available in OpenNMS Ticket");
+            LOG.error("No OTRS ticketID available in OpenNMS Ticket");
+            throw new PluginException("No OTRS ticketID available in OpenNMS Ticket");
 
-		} else {
+        } else {
 
-		    TicketServicePort_PortType port = getTicketServicePort(m_endpoint);
+            TicketServicePort_PortType port = getTicketServicePort(m_endpoint);
 
-		    if (port != null) {
+            if (port != null) {
 
-    		    long otrsTicketNumber = Long.parseLong(ticketId.trim());
+                long otrsTicketNumber = Long.parseLong(ticketId.trim());
 
-    			Credentials creds = new Credentials();
+                Credentials creds = new Credentials();
 
-    			creds.setUser(m_configDao.getUserName());
-    			creds.setPass(m_configDao.getPassword());
+                creds.setUser(m_configDao.getUserName());
+                creds.setPass(m_configDao.getPassword());
 
-    			// get the ticket from OTRS system
+                // get the ticket from OTRS system
 
-    			try {
-    				ticketWithArticles = port.getByNumber(otrsTicketNumber, creds);
-    			} catch (RemoteException e) {
-				LOG.error("Failed to retrieve OTRS ticket", e);
-    				throw new PluginException("Failed to retrieve OTRS ticket");
-    			}
+                try {
+                    ticketWithArticles = port.getByNumber(otrsTicketNumber, creds);
+                } catch (RemoteException e) {
+                    LOG.error("Failed to retrieve OTRS ticket", e);
+                    throw new PluginException("Failed to retrieve OTRS ticket");
+                }
 
-		    }
+            }
 
-		}
+        }
 
-		// add ticket basics from the OTRS ticket
+        // add ticket basics from the OTRS ticket
 
-		LOG.debug("Adding Ticket details from OTRS ticket # {}", ticketWithArticles.getTicket().getTicketNumber());
-		opennmsTicket.setId(ticketWithArticles.getTicket().getTicketNumber().toString());
-		opennmsTicket.setSummary(ticketWithArticles.getTicket().getTitle());
+        LOG.debug("Adding Ticket details from OTRS ticket # {}", ticketWithArticles.getTicket().getTicketNumber());
+        opennmsTicket.setId(ticketWithArticles.getTicket().getTicketNumber().toString());
+        opennmsTicket.setSummary(ticketWithArticles.getTicket().getTitle());
 
-		// Note that we user "Owner" from the OTRS ticket here. There is nothing to ensure
-		// That this is a valid OpenNMS user
+        // Note that we user "Owner" from the OTRS ticket here. There is nothing
+        // to ensure
+        // That this is a valid OpenNMS user
 
-		opennmsTicket.setUser(ticketWithArticles.getTicket().getOwner());
-		opennmsTicket.setState(otrsToOpenNMSState(ticketWithArticles.getTicket().getStateID()));
+        opennmsTicket.setUser(ticketWithArticles.getTicket().getOwner());
+        opennmsTicket.setState(otrsToOpenNMSState(ticketWithArticles.getTicket().getStateID()));
 
-		LOG.debug("Retrieved ticket state : {}", otrsToOpenNMSState(ticketWithArticles.getTicket().getStateID()));
+        LOG.debug("Retrieved ticket state : {}", otrsToOpenNMSState(ticketWithArticles.getTicket().getStateID()));
 
-		// add all the article details from the OTRS ticket
-		// this is not strictly essential as we have no way of viewing this atm.
+        // add all the article details from the OTRS ticket
+        // this is not strictly essential as we have no way of viewing this atm.
 
-		String opennmsTicketDetails = "";
+        String opennmsTicketDetails = "";
 
-		for (Article article : ticketWithArticles.getArticles()) {
-			LOG.debug("Adding Article details from OTRS article ID {}", article.getArticleID());
-			opennmsTicketDetails = opennmsTicketDetails + "\n"
-					+ "From:    " + article.getFrom() + "\n" + "Subject: "
-					+ article.getSubject() + "\n" + "Body:\n"
-					+ article.getBody() + "\n";
-		}
+        for (Article article : ticketWithArticles.getArticles()) {
+            LOG.debug("Adding Article details from OTRS article ID {}", article.getArticleID());
+            opennmsTicketDetails = opennmsTicketDetails + "\n" + "From:    " + article.getFrom() + "\n" + "Subject: "
+                    + article.getSubject() + "\n" + "Body:\n" + article.getBody() + "\n";
+        }
 
-		opennmsTicket.setDetails(opennmsTicketDetails);
+        opennmsTicket.setDetails(opennmsTicketDetails);
 
-		return opennmsTicket;
+        return opennmsTicket;
 
-	}
+    }
 
+    /** {@inheritDoc} */
+    @Override
+    public void saveOrUpdate(Ticket newTicket) throws PluginException {
 
-	/** {@inheritDoc} */
-        @Override
-	public void saveOrUpdate(Ticket newTicket) throws PluginException {
+        TicketIDAndNumber idAndNumber = null;
 
-		TicketIDAndNumber idAndNumber = null;
+        TicketServicePort_PortType port = getTicketServicePort(m_endpoint);
 
-		TicketServicePort_PortType port = getTicketServicePort(m_endpoint);
+        Ticket currentTicket = null;
 
-		Ticket currentTicket = null;
+        Credentials creds = new Credentials();
 
-		Credentials creds = new Credentials();
+        creds.setUser(m_configDao.getUserName());
+        creds.setPass(m_configDao.getPassword());
 
-		creds.setUser(m_configDao.getUserName());
-		creds.setPass(m_configDao.getPassword());
+        try {
 
-		try {
+            // If there's no external ID in the OpenNMS ticket, we need to
+            // create one
 
-		    // If there's no external ID in the OpenNMS ticket, we need to create one
+            if ((newTicket.getId() == null)) {
 
-			if ((newTicket.getId() == null) ) {
+                idAndNumber = newOTRSTicket(newTicket, port, creds);
 
-				idAndNumber =  newOTRSTicket(newTicket, port, creds);
+                newTicket.setId(String.valueOf(idAndNumber.getTicketNumber()));
 
-				newTicket.setId(String.valueOf(idAndNumber.getTicketNumber()));
+                LOG.debug("created new ticket: {}", newTicket.getId());
 
-				LOG.debug("created new ticket: {}", newTicket.getId());
+                newOTRSArticle(idAndNumber.getTicketNumber(), newTicket, port, creds);
 
-				newOTRSArticle(idAndNumber.getTicketNumber(), newTicket, port, creds);
+            } else {
 
+                currentTicket = get(newTicket.getId());
 
-			} else {
+                LOG.debug("updating existing ticket : {}", currentTicket.getId());
 
-			    currentTicket = get(newTicket.getId());
+                if (currentTicket.getState() != newTicket.getState()) {
 
-				LOG.debug("updating existing ticket : {}", currentTicket.getId());
+                    updateOTRSState(newTicket, port, creds);
+                    updateOTRSArticle(Long.parseLong(currentTicket.getId()), newTicket, port, creds);
 
-				if (currentTicket.getState() != newTicket.getState()) {
+                } else {
 
-					updateOTRSState(newTicket, port, creds);
-					updateOTRSArticle(Long.parseLong(currentTicket.getId()), newTicket, port, creds);
+                    // There is no else at the moment
+                    // Tickets are _only_ updated with new state
 
-				} else {
+                }
 
-					// There is no else at the moment
-					// Tickets are _only_ updated with new state
+            }
 
-				}
+        } catch (RemoteException e) {
+            LOG.error("Failed to create or update OTRS ticket", e);
+            throw new PluginException("Failed to create or update OTRS ticket");
+        }
 
-			}
+    }
 
-		} catch (RemoteException e) {
-			LOG.error("Failed to create or update OTRS ticket", e);
-			throw new PluginException("Failed to create or update OTRS ticket");
-		}
+    private void updateOTRSState(Ticket ticket, TicketServicePort_PortType port, Credentials creds)
+            throws RemoteException {
 
-	}
+        Integer otrsStateId = openNMSToOTRSState(ticket.getState());
 
-	private void updateOTRSState(Ticket ticket, TicketServicePort_PortType port,
-			Credentials creds) throws RemoteException {
+        TicketStateUpdate stateUpdate = new TicketStateUpdate();
 
-		Integer otrsStateId = openNMSToOTRSState(ticket.getState());
+        stateUpdate.setStateID(otrsStateId);
+        stateUpdate.setTicketNumber(Long.parseLong(ticket.getId()));
+        if (ticket.getUser() != null) {
+            stateUpdate.setUser(ticket.getUser());
+        } else {
+            stateUpdate.setUser(m_configDao.getDefaultUser());
+        }
+        LOG.debug("Updating ticket with new state");
+        LOG.debug("Ticket ID:     {}", ticket.getId());
+        LOG.debug("OpenNMS State: {}", ticket.getState().toString());
+        LOG.debug("OTRS state:    {}", otrsStateId.toString());
 
-		TicketStateUpdate stateUpdate = new TicketStateUpdate();
+        port.ticketStateUpdate(stateUpdate, creds);
+    }
 
-		stateUpdate.setStateID(otrsStateId);
-		stateUpdate.setTicketNumber(Long.parseLong(ticket.getId()));
-		if (ticket.getUser() != null) {
-			stateUpdate.setUser(ticket.getUser());
-		} else {
-			stateUpdate.setUser(m_configDao.getDefaultUser());
-		}
-		LOG.debug("Updating ticket with new state");
-		LOG.debug("Ticket ID:     {}", ticket.getId());
-		LOG.debug("OpenNMS State: {}", ticket.getState().toString());
-		LOG.debug("OTRS state:    {}", otrsStateId.toString());
+    private TicketIDAndNumber newOTRSTicket(Ticket newTicket, TicketServicePort_PortType port, Credentials creds)
+            throws RemoteException {
 
-		port.ticketStateUpdate(stateUpdate, creds);
-	}
+        TicketIDAndNumber idAndNumber = null;
 
-	private TicketIDAndNumber newOTRSTicket(Ticket newTicket, TicketServicePort_PortType port,
-			Credentials creds) throws RemoteException {
+        TicketCore newOtrsTicket = new TicketCore();
 
-		TicketIDAndNumber idAndNumber = null;
+        newOtrsTicket.setTitle(newTicket.getSummary());
 
-		TicketCore newOtrsTicket = new TicketCore();
+        // TODO: Could remove this once we have the userid reliably in the the
+        // ticket
 
-		newOtrsTicket.setTitle(newTicket.getSummary());
+        if (newTicket.getUser() != null) {
+            newOtrsTicket.setUser(newTicket.getUser());
+        } else {
+            newOtrsTicket.setUser(m_configDao.getDefaultUser());
+        }
 
-		// TODO: Could remove this once we have the userid reliably in the the ticket
+        newOtrsTicket.setStateID(openNMSToOTRSState(newTicket.getState()));
 
-		if (newTicket.getUser() != null) {
-			newOtrsTicket.setUser(newTicket.getUser());
-		} else {
-			newOtrsTicket.setUser(m_configDao.getDefaultUser());
-		}
+        // All OTRS ticket fields from defaults
 
-		newOtrsTicket.setStateID(openNMSToOTRSState(newTicket.getState()));
+        newOtrsTicket.setQueue(m_configDao.getQueue());
+        newOtrsTicket.setPriority(m_configDao.getPriority());
+        newOtrsTicket.setLock(m_configDao.getLock());
+        newOtrsTicket.setOwnerID(m_configDao.getOwnerID());
 
-		// All OTRS ticket fields from defaults
+        idAndNumber = port.ticketCreate(newOtrsTicket, creds);
 
-		newOtrsTicket.setQueue(m_configDao.getQueue());
-		newOtrsTicket.setPriority(m_configDao.getPriority());
-		newOtrsTicket.setLock(m_configDao.getLock());
-		newOtrsTicket.setOwnerID(m_configDao.getOwnerID());
+        return idAndNumber;
 
-		idAndNumber = port.ticketCreate(newOtrsTicket, creds);
+    }
 
-		return idAndNumber;
+    private void newOTRSArticle(Long otrsTicketNumber, Ticket newTicket, TicketServicePort_PortType port,
+            Credentials creds) throws RemoteException {
 
-	}
+        ArticleCore newOtrsArticle = new ArticleCore();
 
+        // All OTRS article fields from ticket
 
+        LOG.debug("Adding a new article to ticket: {}", otrsTicketNumber);
 
-	private void newOTRSArticle(Long otrsTicketNumber, Ticket newTicket, TicketServicePort_PortType port,
-			Credentials creds) throws RemoteException {
+        newOtrsArticle.setBody(newTicket.getDetails());
+        newOtrsArticle.setTicketNumber(otrsTicketNumber);
 
-		ArticleCore newOtrsArticle = new ArticleCore();
+        // TODO: Could remove this once we have the userid reliably in the the
+        // ticket
 
-		// All OTRS article fields from ticket
+        newOtrsArticle.setFrom(m_configDao.getArticleFrom());
 
-		LOG.debug("Adding a new article to ticket: {}", otrsTicketNumber);
+        if (newTicket.getUser() != null) {
+            newOtrsArticle.setUser(newTicket.getUser());
+        } else {
+            newOtrsArticle.setUser(m_configDao.getDefaultUser());
+        }
 
-		newOtrsArticle.setBody(newTicket.getDetails());
-		newOtrsArticle.setTicketNumber(otrsTicketNumber);
+        newOtrsArticle.setSubject(newTicket.getSummary());
 
-		// TODO: Could remove this once we have the userid reliably in the the ticket
+        // All OTRS article fields from defaults
 
-		newOtrsArticle.setFrom(m_configDao.getArticleFrom());
+        newOtrsArticle.setArticleType(m_configDao.getArticleType());
+        newOtrsArticle.setSenderType(m_configDao.getArticleSenderType());
+        newOtrsArticle.setContentType(m_configDao.getArticleContentType());
+        newOtrsArticle.setHistoryType(m_configDao.getArticleHistoryType());
+        newOtrsArticle.setHistoryComment(m_configDao.getArticleHistoryComment());
 
-		if (newTicket.getUser() != null) {
-			newOtrsArticle.setUser(newTicket.getUser());
-		} else {
-			newOtrsArticle.setUser(m_configDao.getDefaultUser());
-		}
+        port.articleCreate(newOtrsArticle, creds);
 
-		newOtrsArticle.setSubject(newTicket.getSummary());
+    }
 
-		// All OTRS article fields from defaults
+    private void updateOTRSArticle(Long otrsTicketNumber, Ticket newTicket, TicketServicePort_PortType port,
+            Credentials creds) throws RemoteException {
 
-		newOtrsArticle.setArticleType(m_configDao.getArticleType());
-		newOtrsArticle.setSenderType(m_configDao.getArticleSenderType());
-		newOtrsArticle.setContentType(m_configDao.getArticleContentType());
-		newOtrsArticle.setHistoryType(m_configDao.getArticleHistoryType());
-		newOtrsArticle.setHistoryComment(m_configDao.getArticleHistoryComment());
+        ArticleCore newOtrsArticle = new ArticleCore();
 
-		port.articleCreate(newOtrsArticle, creds);
+        // All OTRS article fields from ticket
 
-	}
+        LOG.debug("Adding a new article to ticket: {}", otrsTicketNumber);
 
-	private void updateOTRSArticle(Long otrsTicketNumber, Ticket newTicket, TicketServicePort_PortType port,
-			Credentials creds) throws RemoteException {
+        switch (newTicket.getState()) {
 
-		ArticleCore newOtrsArticle = new ArticleCore();
+        case OPEN:
+            // ticket is new
+            newOtrsArticle.setBody(m_configDao.getTicketOpenedMessage());
+            break;
+        case CANCELLED:
+            // not sure how often we see this
+            newOtrsArticle.setBody(m_configDao.getTicketCancelledMessage());
+            break;
+        case CLOSED:
+            // closed successful
+            newOtrsArticle.setBody(m_configDao.getTicketClosedMessage());
+            break;
+        default:
+            LOG.debug("No valid OpenNMS state on ticket");
+            newOtrsArticle.setBody(m_configDao.getTicketUpdatedMessage());
+        }
 
-		// All OTRS article fields from ticket
+        newOtrsArticle.setTicketNumber(otrsTicketNumber);
 
-		LOG.debug("Adding a new article to ticket: {}", otrsTicketNumber);
+        // TODO: Could remove this once we have the userid reliably in the the
+        // ticket
 
-		switch (newTicket.getState()) {
+        newOtrsArticle.setFrom(m_configDao.getArticleFrom());
 
-            	    case OPEN:
-                        // ticket is new
-            	        newOtrsArticle.setBody(m_configDao.getTicketOpenedMessage());
-                        break;
-                    case CANCELLED:
-                        // not sure how often we see this
-                        newOtrsArticle.setBody(m_configDao.getTicketCancelledMessage());
-                        break;
-                    case CLOSED:
-                        // closed successful
-                        newOtrsArticle.setBody(m_configDao.getTicketClosedMessage());
-                        break;
-                    default:
-                        LOG.debug("No valid OpenNMS state on ticket");
-                        newOtrsArticle.setBody(m_configDao.getTicketUpdatedMessage());
-        	}
+        if (newTicket.getUser() != null) {
+            newOtrsArticle.setUser(newTicket.getUser());
+        } else {
+            newOtrsArticle.setUser(m_configDao.getDefaultUser());
+        }
 
-		newOtrsArticle.setTicketNumber(otrsTicketNumber);
+        newOtrsArticle.setSubject(m_configDao.getArticleUpdateSubject());
 
-		// TODO: Could remove this once we have the userid reliably in the the ticket
+        // All OTRS article fields from defaults
 
-		newOtrsArticle.setFrom(m_configDao.getArticleFrom());
+        newOtrsArticle.setArticleType(m_configDao.getArticleType());
+        newOtrsArticle.setSenderType(m_configDao.getArticleSenderType());
+        newOtrsArticle.setContentType(m_configDao.getArticleContentType());
+        newOtrsArticle.setHistoryType(m_configDao.getArticleHistoryType());
+        newOtrsArticle.setHistoryComment(m_configDao.getArticleHistoryComment());
 
-		if (newTicket.getUser() != null) {
-			newOtrsArticle.setUser(newTicket.getUser());
-		} else {
-			newOtrsArticle.setUser(m_configDao.getDefaultUser());
-		}
+        port.articleCreate(newOtrsArticle, creds);
 
-		newOtrsArticle.setSubject(m_configDao.getArticleUpdateSubject());
+    }
 
-		// All OTRS article fields from defaults
-
-		newOtrsArticle.setArticleType(m_configDao.getArticleType());
-		newOtrsArticle.setSenderType(m_configDao.getArticleSenderType());
-		newOtrsArticle.setContentType(m_configDao.getArticleContentType());
-		newOtrsArticle.setHistoryType(m_configDao.getArticleHistoryType());
-		newOtrsArticle.setHistoryComment(m_configDao.getArticleHistoryComment());
-
-		port.articleCreate(newOtrsArticle, creds);
-
-	}
-
-	/**
+    /**
      * Convenience method for converting OpenNMS enumerated ticket states to
      * OTRS ticket StateID.
-     *
      * TODO: Convert this to something parameterised
      *
      * @param state
      * @return an Integer representing the OTRS StateID.
      */
 
-	private Integer openNMSToOTRSState(Ticket.State state) {
+    private Integer openNMSToOTRSState(Ticket.State state) {
 
-		Integer otrsStateId;
+        Integer otrsStateId;
 
-		LOG.debug("getting otrs state from OpenNMS State {}", state.toString());
+        LOG.debug("getting otrs state from OpenNMS State {}", state.toString());
 
         switch (state) {
 
-            case OPEN:
-            	// ticket is new
-            	otrsStateId = m_configDao.getOpenStateId();
-            	break;
-            case CANCELLED:
-            	// not sure how often we see this
-            	otrsStateId = m_configDao.getCancelledStateId();
-            	break;
-            case CLOSED:
-                // closed successful
-                otrsStateId = m_configDao.getClosedStateId();
-                break;
-            default:
-		LOG.debug("No valid OpenNMS state on ticket");
-                otrsStateId =  m_configDao.getOpenStateId();
+        case OPEN:
+            // ticket is new
+            otrsStateId = m_configDao.getOpenStateId();
+            break;
+        case CANCELLED:
+            // not sure how often we see this
+            otrsStateId = m_configDao.getCancelledStateId();
+            break;
+        case CLOSED:
+            // closed successful
+            otrsStateId = m_configDao.getClosedStateId();
+            break;
+        default:
+            LOG.debug("No valid OpenNMS state on ticket");
+            otrsStateId = m_configDao.getOpenStateId();
         }
 
         LOG.debug("OpenNMS state was        {}", state.toString());
@@ -394,34 +394,36 @@ public class OtrsTicketerPlugin implements Plugin {
      * OpenNMS enumerated ticket states.
      *
      * @param otrsStateID
-     * @return the converted <code>org.opennms.netmgt.ticketd.Ticket.State</code>
+     * @return the converted
+     *         <code>org.opennms.netmgt.ticketd.Ticket.State</code>
      */
 
-    private Ticket.State otrsToOpenNMSState(Integer otrsStateId ) {
+    private Ticket.State otrsToOpenNMSState(Integer otrsStateId) {
 
-    	Ticket.State openNMSState;
+        Ticket.State openNMSState;
 
         if (m_configDao.getValidOpenStateId().contains(otrsStateId)) {
-		LOG.debug("OTRS state ID {} matched OpenNMS state Open", otrsStateId);
-        	openNMSState = Ticket.State.OPEN;
+            LOG.debug("OTRS state ID {} matched OpenNMS state Open", otrsStateId);
+            openNMSState = Ticket.State.OPEN;
         } else if (m_configDao.getValidClosedStateId().contains(otrsStateId)) {
-                LOG.debug("OTRS state ID {} matched OpenNMS state Closed", otrsStateId);
-        	openNMSState = Ticket.State.CLOSED;
-		} else if (m_configDao.getValidCancelledStateId().contains(otrsStateId)) {
-		        LOG.debug("OTRS state ID {} matched OpenNMS state Cancelled", otrsStateId);
-			openNMSState = Ticket.State.CANCELLED;
-		} else {
-		        LOG.debug("OTRS state ID {} has no matching OpenNMS state", otrsStateId);
-			// we dont know what it is, so default to keeping it open.
-			openNMSState = Ticket.State.OPEN;
-		}
+            LOG.debug("OTRS state ID {} matched OpenNMS state Closed", otrsStateId);
+            openNMSState = Ticket.State.CLOSED;
+        } else if (m_configDao.getValidCancelledStateId().contains(otrsStateId)) {
+            LOG.debug("OTRS state ID {} matched OpenNMS state Cancelled", otrsStateId);
+            openNMSState = Ticket.State.CANCELLED;
+        } else {
+            LOG.debug("OTRS state ID {} has no matching OpenNMS state", otrsStateId);
+            // we dont know what it is, so default to keeping it open.
+            openNMSState = Ticket.State.OPEN;
+        }
 
         return openNMSState;
 
     }
 
     /**
-     * Convenience method for initialising the ticketServicePort and correctly setting the endpoint.
+     * Convenience method for initialising the ticketServicePort and correctly
+     * setting the endpoint.
      *
      * @return TicketServicePort to connect to the remote service.
      */
@@ -445,7 +447,9 @@ public class OtrsTicketerPlugin implements Plugin {
     }
 
     /**
-     * <p>getEndpoint</p>
+     * <p>
+     * getEndpoint
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -454,14 +458,15 @@ public class OtrsTicketerPlugin implements Plugin {
     }
 
     /**
-     * <p>setEndpoint</p>
+     * <p>
+     * setEndpoint
+     * </p>
      *
-     * @param endpoint a {@link java.lang.String} object.
+     * @param endpoint
+     *            a {@link java.lang.String} object.
      */
     public void setEndpoint(String endpoint) {
         m_endpoint = endpoint;
     }
-
-
 
 }

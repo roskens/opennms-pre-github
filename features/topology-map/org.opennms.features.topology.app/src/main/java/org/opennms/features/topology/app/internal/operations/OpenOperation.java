@@ -38,10 +38,9 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
 
-
 public class OpenOperation implements Operation {
 
-	@Override
+    @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
 
         try {

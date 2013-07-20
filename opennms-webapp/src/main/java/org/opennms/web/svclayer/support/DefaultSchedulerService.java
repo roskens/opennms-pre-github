@@ -53,7 +53,9 @@ import org.springframework.binding.message.MessageBuilder;
 import org.springframework.webflow.execution.RequestContext;
 
 /**
- * <p>DefaultSchedulerService class.</p>
+ * <p>
+ * DefaultSchedulerService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -61,25 +63,35 @@ import org.springframework.webflow.execution.RequestContext;
  */
 public class DefaultSchedulerService implements InitializingBean, SchedulerService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultSchedulerService.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultSchedulerService.class);
 
     private static final String SUCCESS = "success";
+
     private static final String ERROR = "error";
+
     private static final String PARAMETER_ERROR = "Report parameters did not match the definition for the report please contact your OpenNMS administrator";
+
     private static final String SCHEDULER_ERROR = "An exception occurred when scheduling the report";
+
     private static final String TRIGGER_PARSE_ERROR = "An error occurred parsing the cron expression. It was not possible to schedule the report";
+
     private static final String REPORTID_ERROR = "An error occurred locating the report service bean";
 
     private Scheduler m_scheduler;
+
     private JobDetail m_jobDetail;
+
     private String m_triggerGroup;
+
     private ReportWrapperService m_reportWrapperService;
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -90,7 +102,9 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
     }
 
     /**
-     * <p>getTriggerDescriptions</p>
+     * <p>
+     * getTriggerDescriptions
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -103,9 +117,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
             String[] triggerNames = m_scheduler.getTriggerNames(m_triggerGroup);
             for (int j = 0; j < triggerNames.length; j++) {
                 TriggerDescription description = new TriggerDescription();
-                description.setNextFireTime(m_scheduler.getTrigger(
-                                                                   triggerNames[j],
-                                                                   m_triggerGroup).getNextFireTime());
+                description.setNextFireTime(m_scheduler.getTrigger(triggerNames[j], m_triggerGroup).getNextFireTime());
                 description.setTriggerName(triggerNames[j]);
                 triggerDescriptions.add(description);
 
@@ -125,8 +137,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
         Boolean found = false;
 
         try {
-            Trigger trigger = m_scheduler.getTrigger(triggerName,
-                                                     m_triggerGroup);
+            Trigger trigger = m_scheduler.getTrigger(triggerName, m_triggerGroup);
             if (trigger != null) {
                 found = true;
             }
@@ -156,9 +167,12 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
     }
 
     /**
-     * <p>removeTriggers</p>
+     * <p>
+     * removeTriggers
+     * </p>
      *
-     * @param triggerNames an array of {@link java.lang.String} objects.
+     * @param triggerNames
+     *            an array of {@link java.lang.String} objects.
      */
     @Override
     public final void removeTriggers(final String[] triggerNames) {
@@ -178,17 +192,14 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
     /** {@inheritDoc} */
     @Override
     public final String addCronTrigger(final String id, final ReportParameters criteria,
-            final DeliveryOptions deliveryOptions,
-            final String cronExpression, final RequestContext context) {
+            final DeliveryOptions deliveryOptions, final String cronExpression, final RequestContext context) {
 
         CronTrigger cronTrigger = null;
 
         try {
-            if (m_reportWrapperService.validate(criteria,id) == false ) {
+            if (m_reportWrapperService.validate(criteria, id) == false) {
                 LOG.error(PARAMETER_ERROR);
-                context.getMessageContext().addMessage(
-                                                       new MessageBuilder().error().defaultText(
-                                                                                                PARAMETER_ERROR).build());
+                context.getMessageContext().addMessage(new MessageBuilder().error().defaultText(PARAMETER_ERROR).build());
                 return ERROR;
             } else {
                 try {
@@ -197,13 +208,12 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
                     cronTrigger.setName(deliveryOptions.getInstanceId());
                     cronTrigger.setJobName(m_jobDetail.getName());
                     cronTrigger.setCronExpression(cronExpression);
-                    // cronTrigger = new CronTrigger(triggerName, m_triggerGroup,
+                    // cronTrigger = new CronTrigger(triggerName,
+                    // m_triggerGroup,
                     // cronExpression);
                 } catch (ParseException e) {
                     LOG.error(TRIGGER_PARSE_ERROR, e);
-                    context.getMessageContext().addMessage(
-                                                           new MessageBuilder().error().defaultText(
-                                                                                                    TRIGGER_PARSE_ERROR).build());
+                    context.getMessageContext().addMessage(new MessageBuilder().error().defaultText(TRIGGER_PARSE_ERROR).build());
                     return ERROR;
                 }
 
@@ -211,15 +221,12 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
                 cronTrigger.getJobDataMap().put("criteria", (ReportParameters) criteria);
                 cronTrigger.getJobDataMap().put("reportId", id);
                 cronTrigger.getJobDataMap().put("mode", ReportMode.SCHEDULED);
-                cronTrigger.getJobDataMap().put("deliveryOptions",
-                                                (DeliveryOptions) deliveryOptions);
+                cronTrigger.getJobDataMap().put("deliveryOptions", (DeliveryOptions) deliveryOptions);
                 try {
                     m_scheduler.scheduleJob(cronTrigger);
                 } catch (SchedulerException e) {
                     LOG.error(SCHEDULER_ERROR, e);
-                    context.getMessageContext().addMessage(
-                                                           new MessageBuilder().error().defaultText(
-                                                                                                    SCHEDULER_ERROR).build());
+                    context.getMessageContext().addMessage(new MessageBuilder().error().defaultText(SCHEDULER_ERROR).build());
                     return ERROR;
                 }
 
@@ -227,12 +234,9 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
             }
         } catch (ReportServiceLocatorException e) {
             LOG.error(REPORTID_ERROR);
-            context.getMessageContext().addMessage(
-                                                   new MessageBuilder().error().defaultText(
-                                                                                            REPORTID_ERROR).build());
+            context.getMessageContext().addMessage(new MessageBuilder().error().defaultText(REPORTID_ERROR).build());
             return ERROR;
         }
-
 
     }
 
@@ -249,11 +253,12 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
             final DeliveryOptions deliveryOptions, final RequestContext context) {
 
         try {
-            if (m_reportWrapperService.validate(criteria,id) == false ) {
+            if (m_reportWrapperService.validate(criteria, id) == false) {
                 context.getMessageContext().addMessage(new MessageBuilder().error().defaultText(PARAMETER_ERROR).build());
                 return ERROR;
             } else {
-                SimpleTrigger trigger = new SimpleTrigger(deliveryOptions.getInstanceId(), m_triggerGroup, new Date(), null, 0, 0L);
+                SimpleTrigger trigger = new SimpleTrigger(deliveryOptions.getInstanceId(), m_triggerGroup, new Date(),
+                                                          null, 0, 0L);
                 trigger.setJobName(m_jobDetail.getName());
                 trigger.getJobDataMap().put("criteria", (ReportParameters) criteria);
                 trigger.getJobDataMap().put("reportId", id);
@@ -275,46 +280,56 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
             return ERROR;
         }
 
-
     }
 
-
-
     /**
-     * <p>setScheduler</p>
+     * <p>
+     * setScheduler
+     * </p>
      *
-     * @param scheduler a {@link org.quartz.Scheduler} object.
+     * @param scheduler
+     *            a {@link org.quartz.Scheduler} object.
      */
     public final void setScheduler(final Scheduler scheduler) {
         m_scheduler = scheduler;
     }
 
     /**
-     * <p>setJobDetail</p>
+     * <p>
+     * setJobDetail
+     * </p>
      *
-     * @param reportJob a {@link org.quartz.JobDetail} object.
+     * @param reportJob
+     *            a {@link org.quartz.JobDetail} object.
      */
     public final void setJobDetail(final JobDetail reportJob) {
         m_jobDetail = reportJob;
     }
 
     /**
-     * <p>setTriggerGroup</p>
+     * <p>
+     * setTriggerGroup
+     * </p>
      *
-     * @param triggerGroup a {@link java.lang.String} object.
+     * @param triggerGroup
+     *            a {@link java.lang.String} object.
      */
     public final void setTriggerGroup(final String triggerGroup) {
         m_triggerGroup = triggerGroup;
     }
 
     /**
-     * <p>setReportWrapperService</p>
+     * <p>
+     * setReportWrapperService
+     * </p>
      *
-     * @param reportWrapperService a {@link org.opennms.reporting.core.svclayer.ReportWrapperService} object.
+     * @param reportWrapperService
+     *            a
+     *            {@link org.opennms.reporting.core.svclayer.ReportWrapperService}
+     *            object.
      */
     public final void setReportWrapperService(final ReportWrapperService reportWrapperService) {
         m_reportWrapperService = reportWrapperService;
     }
-
 
 }

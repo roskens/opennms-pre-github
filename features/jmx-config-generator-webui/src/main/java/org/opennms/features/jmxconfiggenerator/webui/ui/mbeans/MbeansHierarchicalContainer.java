@@ -45,131 +45,137 @@ import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.server.Resource;
 
 /**
- *
  * @author Markus von Rüden
  */
 public class MbeansHierarchicalContainer extends HierarchicalContainer {
 
+    private class TreeNodeComparator implements Comparator<TreeNode> {
 
-	private class TreeNodeComparator implements Comparator<TreeNode> {
+        @Override
+        public int compare(TreeNode o1, TreeNode o2) {
+            String s1 = o1 == null ? "" : getStringComparable(o1.getData());
+            String s2 = o2 == null ? "" : getStringComparable(o2.getData());
+            return s1.compareTo(s2);
+        }
 
-		@Override
-		public int compare(TreeNode o1, TreeNode o2) {
-			String s1 = o1 == null ? "" : getStringComparable(o1.getData());
-			String s2 = o2 == null ? "" : getStringComparable(o2.getData());
-			return s1.compareTo(s2);
-		}
+        private String getStringComparable(Object data) {
+            if (data == null)
+                return "";
+            StringRenderer renderer = controller.getStringRenderer(data.getClass());
+            return renderer == null ? data.toString() : renderer.render(data);
+        }
+    }
 
-		private String getStringComparable(Object data) {
-			if (data == null) return "";
-			StringRenderer renderer = controller.getStringRenderer(data.getClass());
-			return renderer == null ? data.toString() : renderer.render(data);
-		}
-	}
+    private final MBeansController controller;
 
-	private final MBeansController controller;
-	private TreeNode root = new TreeNodeImpl();
-	private Collection<Mbean> mbeans = new ArrayList<Mbean>();
+    private TreeNode root = new TreeNodeImpl();
 
-	public MbeansHierarchicalContainer(MBeansController controller) {
-		this.controller = controller;
-		addContainerProperty(MetaMBeanItem.ICON, Resource.class, null);
-		addContainerProperty(MetaMBeanItem.NAME, String.class, "");
-		addContainerProperty(MetaMBeanItem.TOOLTIP, String.class, "");
-		addContainerProperty(MetaMBeanItem.SELECTED, Boolean.class, true);
-		addContainerProperty(MetaMBeanItem.OBJECTNAME, String.class, "");
-		addContainerProperty(MetaMBeanItem.CAPTION, String.class, "");
-	}
+    private Collection<Mbean> mbeans = new ArrayList<Mbean>();
 
-	public void updateDataSource(UiModel model) {
-		mbeans.clear();
-		buildInternalTree(model);
-		updateContainer();
-	}
+    public MbeansHierarchicalContainer(MBeansController controller) {
+        this.controller = controller;
+        addContainerProperty(MetaMBeanItem.ICON, Resource.class, null);
+        addContainerProperty(MetaMBeanItem.NAME, String.class, "");
+        addContainerProperty(MetaMBeanItem.TOOLTIP, String.class, "");
+        addContainerProperty(MetaMBeanItem.SELECTED, Boolean.class, true);
+        addContainerProperty(MetaMBeanItem.OBJECTNAME, String.class, "");
+        addContainerProperty(MetaMBeanItem.CAPTION, String.class, "");
+    }
 
-	private void buildInternalTree(UiModel model) {
-		root = new TreeNodeImpl();
-		for (Mbean bean : getMBeans(model))
-			add(bean);
-	}
+    public void updateDataSource(UiModel model) {
+        mbeans.clear();
+        buildInternalTree(model);
+        updateContainer();
+    }
 
-	public Collection<Mbean> getMBeans() {
-		return this.mbeans;
-	}
+    private void buildInternalTree(UiModel model) {
+        root = new TreeNodeImpl();
+        for (Mbean bean : getMBeans(model))
+            add(bean);
+    }
 
-	private List<Mbean> getMBeans(UiModel model) {
-		return model.getRawModel().getJmxCollection().get(0).getMbeans().getMbean();
-	}
+    public Collection<Mbean> getMBeans() {
+        return this.mbeans;
+    }
 
-	private void add(Mbean bean) {
-		String objectName = bean.getObjectname();
-		if (Strings.isNullOrEmpty(objectName)) return;
-		if (!objectName.contains(":")) return;
-		addNodes(bean);
-		mbeans.add(bean);
-	}
+    private List<Mbean> getMBeans(UiModel model) {
+        return model.getRawModel().getJmxCollection().get(0).getMbeans().getMbean();
+    }
 
-	private void updateContainer() {
-		removeAllItems();
-		updateChildren(this, root);
-	}
+    private void add(Mbean bean) {
+        String objectName = bean.getObjectname();
+        if (Strings.isNullOrEmpty(objectName))
+            return;
+        if (!objectName.contains(":"))
+            return;
+        addNodes(bean);
+        mbeans.add(bean);
+    }
 
-	@Override
-	public String toString() {
-		return getClass().getName() + ":\n" + printInternalTree(root, 0);
-	}
+    private void updateContainer() {
+        removeAllItems();
+        updateChildren(this, root);
+    }
 
-	private void addNodes(Mbean bean) {
-		TreeNode root = this.root;
-		for (Object node : MBeansHelper.getMBeansTreeElements(bean))
-			root = addChild(root, node);
-		addChild(root, bean);
-	}
+    @Override
+    public String toString() {
+        return getClass().getName() + ":\n" + printInternalTree(root, 0);
+    }
 
-	private String printInternalTree(TreeNode node, int depth) {
-		String tabs = "";
-		String ret = "";
-		for (int i = 0; i < depth; i++)
-			tabs += "    ";
-		ret += tabs + node.getData() + "\n";
-		for (TreeNode n : node.getChildren())
-			ret += printInternalTree(n, depth + 1);
-		return ret;
-	}
+    private void addNodes(Mbean bean) {
+        TreeNode root = this.root;
+        for (Object node : MBeansHelper.getMBeansTreeElements(bean))
+            root = addChild(root, node);
+        addChild(root, bean);
+    }
 
-	private TreeNode addChild(TreeNode root, Object childData) {
-		TreeNode node = findNodeForData(root, childData);
-		if (node != null)
-			return node; //childData already there
-		//childData does not exist, so create it
-		node = new TreeNodeImpl(root, childData);
-		root.addChild(node);
-		return node;
-	}
+    private String printInternalTree(TreeNode node, int depth) {
+        String tabs = "";
+        String ret = "";
+        for (int i = 0; i < depth; i++)
+            tabs += "    ";
+        ret += tabs + node.getData() + "\n";
+        for (TreeNode n : node.getChildren())
+            ret += printInternalTree(n, depth + 1);
+        return ret;
+    }
 
-	private TreeNode findNodeForData(TreeNode root, Object data) {
-		if (root == null) return null;
-		if (root.getData() != null && root.getData().equals(data)) return root;
-		for (TreeNode node : root.getChildren()) {
-			if (node.getData() != null && node.getData().equals(data))
-				return node;
-		}
-		return null;
-	}
+    private TreeNode addChild(TreeNode root, Object childData) {
+        TreeNode node = findNodeForData(root, childData);
+        if (node != null)
+            return node; // childData already there
+        // childData does not exist, so create it
+        node = new TreeNodeImpl(root, childData);
+        root.addChild(node);
+        return node;
+    }
 
-	private void addItem(HierarchicalContainer container, TreeNode root, TreeNode child) {
-		Item item = container.addItem(child.getData());
-		controller.setItemProperties(item, child.getData());
-		container.setParent(child.getData(), root.getData());
-		//if we do not set childrenAllowed a "expand/collapse" icon is shown. We do not want that
-		container.setChildrenAllowed(child.getData(), child.hasChildren());
-	}
+    private TreeNode findNodeForData(TreeNode root, Object data) {
+        if (root == null)
+            return null;
+        if (root.getData() != null && root.getData().equals(data))
+            return root;
+        for (TreeNode node : root.getChildren()) {
+            if (node.getData() != null && node.getData().equals(data))
+                return node;
+        }
+        return null;
+    }
 
-	private void updateChildren(HierarchicalContainer container, TreeNode root) {
-		Collections.sort(root.getChildren(), new TreeNodeComparator());
-		for (TreeNode child : root.getChildren()) {
-			addItem(container, root, child);
-			updateChildren(container, child);
-		}
-	}
+    private void addItem(HierarchicalContainer container, TreeNode root, TreeNode child) {
+        Item item = container.addItem(child.getData());
+        controller.setItemProperties(item, child.getData());
+        container.setParent(child.getData(), root.getData());
+        // if we do not set childrenAllowed a "expand/collapse" icon is shown.
+        // We do not want that
+        container.setChildrenAllowed(child.getData(), child.hasChildren());
+    }
+
+    private void updateChildren(HierarchicalContainer container, TreeNode root) {
+        Collections.sort(root.getChildren(), new TreeNodeComparator());
+        for (TreeNode child : root.getChildren()) {
+            addItem(container, root, child);
+            updateChildren(container, child);
+        }
+    }
 }

@@ -50,13 +50,15 @@ class V4PingReply extends ICMPEchoPacket implements PingReply {
 
     public boolean isValid() {
         ByteBuffer content = getContentBuffer();
-        /* we ensure the length can contain 2 longs (cookie and sent time)
-           and that the cookie matches */
+        /*
+         * we ensure the length can contain 2 longs (cookie and sent time)
+         * and that the cookie matches
+         */
         return content.limit() >= 16 && COOKIE == content.getLong(0);
     }
 
     public boolean isEchoReply() {
-    	return Type.EchoReply.equals(getType());
+        return Type.EchoReply.equals(getType());
     }
 
     @Override
@@ -82,6 +84,6 @@ class V4PingReply extends ICMPEchoPacket implements PingReply {
 
     @Override
     public long getThreadId() {
-    	return getIdentifier();
+        return getIdentifier();
     }
 }

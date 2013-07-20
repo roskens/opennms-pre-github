@@ -56,7 +56,9 @@ import org.opennms.protocols.nsclient.config.NSClientPeerFactory;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
- * <p>JUnit Test Class for NsclientCollector.</p>
+ * <p>
+ * JUnit Test Class for NsclientCollector.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
@@ -107,9 +109,11 @@ public class NsclientCollectorTest extends AbstractNsclientTest {
         EasyMock.replay(m_ipInterfaceDao, m_eventProxy);
 
         // Initialize NSClient Configuration
-        String nsclient_config = "<nsclient-config port=\"" + getServer().getLocalPort() + "\" retry=\"1\" timeout=\"3000\" />";
+        String nsclient_config = "<nsclient-config port=\"" + getServer().getLocalPort()
+                + "\" retry=\"1\" timeout=\"3000\" />";
         NSClientPeerFactory.setInstance(new NSClientPeerFactory(new ByteArrayInputStream(nsclient_config.getBytes())));
-        NSClientDataCollectionConfigFactory.setInstance(new NSClientDataCollectionConfigFactory("src/test/resources/nsclient-datacollection-config.xml"));
+        NSClientDataCollectionConfigFactory.setInstance(new NSClientDataCollectionConfigFactory(
+                                                                                                "src/test/resources/nsclient-datacollection-config.xml"));
 
         // Initialize Collection Agent
         m_collectionAgent = DefaultCollectionAgent.create(1, m_ipInterfaceDao, m_transactionManager);

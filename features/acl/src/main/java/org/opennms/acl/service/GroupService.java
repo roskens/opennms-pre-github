@@ -48,7 +48,9 @@ import org.opennms.acl.model.GroupDTO;
 import org.opennms.acl.model.Pager;
 
 /**
- * <p>GroupService interface.</p>
+ * <p>
+ * GroupService interface.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -59,7 +61,8 @@ public interface GroupService extends PagerService {
     /**
      * Save a GroupDTO
      *
-     * @param group a {@link org.opennms.acl.model.GroupDTO} object.
+     * @param group
+     *            a {@link org.opennms.acl.model.GroupDTO} object.
      * @return the result of the operation
      */
     public Boolean save(GroupDTO group);
@@ -67,7 +70,8 @@ public interface GroupService extends PagerService {
     /**
      * Retrieve a group by id
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return group
      */
     public GroupDTO getGroup(Integer id);
@@ -75,7 +79,8 @@ public interface GroupService extends PagerService {
     /**
      * Remove a group by id
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return the result of the operation
      */
     public Boolean removeGroup(Integer id);
@@ -83,38 +88,50 @@ public interface GroupService extends PagerService {
     /**
      * Check if Group has a users
      *
-     * @param id of the group
+     * @param id
+     *            of the group
      * @return the result of the operation
      */
     public Boolean hasUsers(Integer id);
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
+     * @param pager
+     *            a {@link org.opennms.acl.model.Pager} object.
      * @return paginated list of groups
      */
     public List<GroupDTO> getGroups(Pager pager);
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return list of all authorities
      */
     public List<GroupDTO> getGroups();
 
     /**
-     * <p>getUserGroups</p>
+     * <p>
+     * getUserGroups
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the list of user's authorities by username
      */
     public List<GroupDTO> getUserGroups(String username);
 
     /**
-     * <p>getFreeGroups</p>
+     * <p>
+     * getFreeGroups
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the list of authorities that user doesn't have
      */
     public List<GroupDTO> getFreeGroups(String username);
@@ -122,8 +139,10 @@ public interface GroupService extends PagerService {
     /**
      * Save a list of authorities for a given user
      *
-     * @param username a {@link java.lang.String} object.
-     * @param groups a {@link java.util.List} object.
+     * @param username
+     *            a {@link java.lang.String} object.
+     * @param groups
+     *            a {@link java.util.List} object.
      * @return the result of operation
      */
     public Boolean saveGroups(String username, List<Integer> groups);
@@ -131,15 +150,19 @@ public interface GroupService extends PagerService {
     /**
      * Delete all user's authorities
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the result of the operation
      */
     public Boolean deleteUserGroups(String username);
 
     /**
-     * <p>getUserGroupsWithAutorities</p>
+     * <p>
+     * getUserGroupsWithAutorities
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<GroupDTO> getUserGroupsWithAutorities(String username);

@@ -47,12 +47,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 /**
- * <p>Reportd class.</p>
+ * <p>
+ * Reportd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@EventListener(name="Reportd:EventListener", logPrefix="reportd")
+@EventListener(name = "Reportd:EventListener", logPrefix = "reportd")
 public class Reportd implements SpringServiceDaemon {
     private static final Logger LOG = LoggerFactory.getLogger(Reportd.class);
 
@@ -60,91 +62,114 @@ public class Reportd implements SpringServiceDaemon {
     public static final String NAME = "reportd";
 
     private volatile EventForwarder m_eventForwarder;
+
     private ReportScheduler m_reportScheduler;
+
     private ReportService m_reportService;
+
     private ReportDeliveryService m_reportDeliveryService;
+
     private ReportdConfigurationDao m_reportConfigurationDao;
 
     private String reportDirectory;
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void start() throws Exception {
-          reportDirectory = m_reportConfigurationDao.getStorageDirectory();
+        reportDirectory = m_reportConfigurationDao.getStorageDirectory();
 
-          m_reportScheduler.start();
+        m_reportScheduler.start();
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      */
     @Override
     public void destroy() throws Exception {
-          m_reportScheduler.destroy();
+        m_reportScheduler.destroy();
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_eventForwarder, "No Event Forwarder Set");
         Assert.notNull(m_reportScheduler, "No Report Scheduler Set");
-        Assert.notNull(m_reportService,"No Report service set");
-        Assert.notNull(m_reportDeliveryService,"No Delivery service set");
-        Assert.notNull(m_reportConfigurationDao,"NoConfiguration DAO Defined");
+        Assert.notNull(m_reportService, "No Report service set");
+        Assert.notNull(m_reportDeliveryService, "No Delivery service set");
+        Assert.notNull(m_reportConfigurationDao, "NoConfiguration DAO Defined");
     }
 
-
     /**
-     * <p>runReport</p>
+     * <p>
+     * runReport
+     * </p>
      *
-     * @param reportName a {@link java.lang.String} object.
+     * @param reportName
+     *            a {@link java.lang.String} object.
      */
-    public void runReport(String reportName){
+    public void runReport(String reportName) {
         LOG.info("Running report by name: ({}).", reportName);
         runReport(m_reportConfigurationDao.getReport(reportName));
     }
 
     /**
-     * <p>runReport</p>
+     * <p>
+     * runReport
+     * </p>
      *
-     * @param report a {@link org.opennms.netmgt.config.reportd.Report} object.
+     * @param report
+     *            a {@link org.opennms.netmgt.config.reportd.Report} object.
      */
     public void runReport(Report report) {
-    	Map mdc = Logging.getCopyOfContextMap();
+        Map mdc = Logging.getCopyOfContextMap();
         try {
             Logging.putPrefix(NAME);
             LOG.debug("reportd -- running job {}", report.getReportName());
-            String fileName = m_reportService.runReport(report,reportDirectory);
+            String fileName = m_reportService.runReport(report, reportDirectory);
             if (report.getRecipientCount() > 0) {
-                LOG.debug("reportd -- delivering report {} to {} recipients", report.getReportName(), report.getRecipientCount());
+                LOG.debug("reportd -- delivering report {} to {} recipients", report.getReportName(),
+                          report.getRecipientCount());
                 m_reportDeliveryService.deliverReport(report, fileName);
             } else {
                 LOG.info("Skipped delivery of report {} because it has no recipients", report.getReportName());
             }
-            LOG.debug("reportd -- done running job {}",report.getReportName());
+            LOG.debug("reportd -- done running job {}", report.getReportName());
         } catch (ReportRunException e) {
             createAndSendReportingEvent(EventConstants.REPORT_RUN_FAILED_UEI, report.getReportName(), e.getMessage());
         } catch (ReportDeliveryException e) {
-            createAndSendReportingEvent(EventConstants.REPORT_DELIVERY_FAILED_UEI, report.getReportName(), e.getMessage());
+            createAndSendReportingEvent(EventConstants.REPORT_DELIVERY_FAILED_UEI, report.getReportName(),
+                                        e.getMessage());
         } finally {
-        	Logging.setContextMap(mdc);
+            Logging.setContextMap(mdc);
         }
     }
 
     /**
-     * <p>createAndSendReportingEvent
+     * <p>
+     * createAndSendReportingEvent
      *
-     * @param uei the UEI of the event to send
-     * @param reportName the name of the report in question
-     * @param reason an explanation of why this event was sent
+     * @param uei
+     *            the UEI of the event to send
+     * @param reportName
+     *            the name of the report in question
+     * @param reason
+     *            an explanation of why this event was sent
      */
     private void createAndSendReportingEvent(String uei, String reportName, String reason) {
         LOG.debug("Crafting reporting event with UEI '{}' for report '{}' with reason '{}'", uei, reportName, reason);
@@ -155,41 +180,44 @@ public class Reportd implements SpringServiceDaemon {
         m_eventForwarder.sendNow(bldr.getEvent());
     }
 
-
     /**
-     * <p>handleRunReportEvent</p>
+     * <p>
+     * handleRunReportEvent
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.REPORTD_RUN_REPORT)
-    public void handleRunReportEvent(Event e){
-       String reportName = new String();
+    public void handleRunReportEvent(Event e) {
+        String reportName = new String();
 
-       for(Parm parm : e.getParmCollection()){
+        for (Parm parm : e.getParmCollection()) {
 
-           if(EventConstants.PARM_REPORT_NAME.equals(parm.getParmName()))
-               reportName = parm.getValue().getContent();
+            if (EventConstants.PARM_REPORT_NAME.equals(parm.getParmName()))
+                reportName = parm.getValue().getContent();
 
-           else
-               LOG.info("Unknown Event Constant: {}",parm.getParmName());
+            else
+                LOG.info("Unknown Event Constant: {}", parm.getParmName());
 
-           }
+        }
 
-           if (reportName != ""){
-              LOG.debug("running report {}", reportName);
-              runReport(reportName);
+        if (reportName != "") {
+            LOG.debug("running report {}", reportName);
+            runReport(reportName);
 
-           }
-           else {
-               LOG.error("Can not run report -- reportName not specified");
-           }
-       }
-
+        } else {
+            LOG.error("Can not run report -- reportName not specified");
+        }
+    }
 
     /**
-     * <p>handleReloadConfigEvent</p>
+     * <p>
+     * handleReloadConfigEvent
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.RELOAD_DAEMON_CONFIG_UEI)
     public void handleReloadConfigEvent(Event e) {
@@ -234,7 +262,8 @@ public class Reportd implements SpringServiceDaemon {
         List<Parm> parmCollection = event.getParmCollection();
 
         for (Parm parm : parmCollection) {
-            if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && "Reportd".equalsIgnoreCase(parm.getValue().getContent())) {
+            if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName())
+                    && "Reportd".equalsIgnoreCase(parm.getValue().getContent())) {
                 isTarget = true;
                 break;
             }
@@ -245,94 +274,129 @@ public class Reportd implements SpringServiceDaemon {
     }
 
     /**
-     * <p>setEventForwarder</p>
+     * <p>
+     * setEventForwarder
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
 
     /**
-     * <p>getEventForwarder</p>
+     * <p>
+     * getEventForwarder
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
     public EventForwarder getEventForwarder() {
         return m_eventForwarder;
     }
+
     /**
-     * <p>setReportScheduler</p>
+     * <p>
+     * setReportScheduler
+     * </p>
      *
-     * @param reportScheduler a {@link org.opennms.netmgt.reporting.service.ReportScheduler} object.
+     * @param reportScheduler
+     *            a {@link org.opennms.netmgt.reporting.service.ReportScheduler}
+     *            object.
      */
     public void setReportScheduler(ReportScheduler reportScheduler) {
         m_reportScheduler = reportScheduler;
     }
+
     /**
-     * <p>getReportScheduler</p>
+     * <p>
+     * getReportScheduler
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.reporting.service.ReportScheduler} object.
+     * @return a {@link org.opennms.netmgt.reporting.service.ReportScheduler}
+     *         object.
      */
     public ReportScheduler getReportScheduler() {
         return m_reportScheduler;
     }
 
     /**
-     * <p>getReportService</p>
+     * <p>
+     * getReportService
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.reporting.service.ReportService} object.
+     * @return a {@link org.opennms.netmgt.reporting.service.ReportService}
+     *         object.
      */
     public ReportService getReportService() {
         return m_reportService;
     }
 
     /**
-     * <p>setReportService</p>
+     * <p>
+     * setReportService
+     * </p>
      *
-     * @param reportService a {@link org.opennms.netmgt.reporting.service.ReportService} object.
+     * @param reportService
+     *            a {@link org.opennms.netmgt.reporting.service.ReportService}
+     *            object.
      */
     public void setReportService(ReportService reportService) {
         m_reportService = reportService;
     }
 
     /**
-     * <p>getReportDeliveryService</p>
+     * <p>
+     * getReportDeliveryService
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.reporting.service.ReportDeliveryService} object.
+     * @return a
+     *         {@link org.opennms.netmgt.reporting.service.ReportDeliveryService}
+     *         object.
      */
     public ReportDeliveryService getReportDeliveryService() {
         return m_reportDeliveryService;
     }
 
     /**
-     * <p>setReportDeliveryService</p>
+     * <p>
+     * setReportDeliveryService
+     * </p>
      *
-     * @param reportDeliveryService a {@link org.opennms.netmgt.reporting.service.ReportDeliveryService} object.
+     * @param reportDeliveryService
+     *            a
+     *            {@link org.opennms.netmgt.reporting.service.ReportDeliveryService}
+     *            object.
      */
-    public void setReportDeliveryService(
-            ReportDeliveryService reportDeliveryService) {
+    public void setReportDeliveryService(ReportDeliveryService reportDeliveryService) {
         m_reportDeliveryService = reportDeliveryService;
     }
 
     /**
-     * <p>getReportdConfigurationDao</p>
+     * <p>
+     * getReportdConfigurationDao
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.dao.api.ReportdConfigurationDao} object.
+     * @return a {@link org.opennms.netmgt.dao.api.ReportdConfigurationDao}
+     *         object.
      */
     public ReportdConfigurationDao getReportdConfigurationDao() {
         return m_reportConfigurationDao;
     }
 
     /**
-     * <p>setReportdConfigurationDao</p>
+     * <p>
+     * setReportdConfigurationDao
+     * </p>
      *
-     * @param reportConfigurationDao a {@link org.opennms.netmgt.dao.api.ReportdConfigurationDao} object.
+     * @param reportConfigurationDao
+     *            a {@link org.opennms.netmgt.dao.api.ReportdConfigurationDao}
+     *            object.
      */
-    public void setReportdConfigurationDao(
-            ReportdConfigurationDao reportConfigurationDao) {
+    public void setReportdConfigurationDao(ReportdConfigurationDao reportConfigurationDao) {
         m_reportConfigurationDao = reportConfigurationDao;
     }
-
 
 }

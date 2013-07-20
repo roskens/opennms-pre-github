@@ -42,16 +42,21 @@ public class NegativePartialUEIFilter extends NoSubstringFilter {
     public static final String TYPE = "partialUeiNot";
 
     /**
-     * <p>Constructor for NegativePartialUEIFilter.</p>
+     * <p>
+     * Constructor for NegativePartialUEIFilter.
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      */
     public NegativePartialUEIFilter(String uei) {
         super(TYPE, "EVENTUEI", "uei", uei);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,7 +66,9 @@ public class NegativePartialUEIFilter extends NoSubstringFilter {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,7 +78,9 @@ public class NegativePartialUEIFilter extends NoSubstringFilter {
     }
 
     /**
-     * <p>getUEI</p>
+     * <p>
+     * getUEI
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

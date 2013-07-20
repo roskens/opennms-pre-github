@@ -47,18 +47,20 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public abstract class AclUtils {
 
     /**
-     * <p>shouldFilter</p>
+     * <p>
+     * shouldFilter
+     * </p>
      *
      * @return a boolean.
      */
     public static boolean shouldFilter(Collection<? extends GrantedAuthority> authorities) {
-    	for (GrantedAuthority authority : authorities) {
-    		if (Authentication.ROLE_ADMIN.equals(authority.getAuthority())) {
-    			// If the user is in an admin role, then do not filter
-    			return false;
-    		}
-    	}
-    	return System.getProperty("org.opennms.web.aclsEnabled", "false").equalsIgnoreCase("true");
+        for (GrantedAuthority authority : authorities) {
+            if (Authentication.ROLE_ADMIN.equals(authority.getAuthority())) {
+                // If the user is in an admin role, then do not filter
+                return false;
+            }
+        }
+        return System.getProperty("org.opennms.web.aclsEnabled", "false").equalsIgnoreCase("true");
     }
 
     public static interface NodeAccessChecker {
@@ -66,14 +68,20 @@ public abstract class AclUtils {
     }
 
     /**
-     * <p>getNodeAccessChecker</p>
+     * <p>
+     * getNodeAccessChecker
+     * </p>
      *
-     * @param sc a {@link javax.servlet.ServletContext} object.
-     * @return a {@link org.opennms.web.springframework.security.AclUtils.NodeAccessChecker} object.
+     * @param sc
+     *            a {@link javax.servlet.ServletContext} object.
+     * @return a
+     *         {@link org.opennms.web.springframework.security.AclUtils.NodeAccessChecker}
+     *         object.
      */
     public static NodeAccessChecker getNodeAccessChecker(ServletContext sc) {
 
-        if (!shouldFilter(SecurityContextHolder.getContext().getAuthentication().getAuthorities())) return new NonFilteringNodeAccessChecker();
+        if (!shouldFilter(SecurityContextHolder.getContext().getAuthentication().getAuthorities()))
+            return new NonFilteringNodeAccessChecker();
 
         ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
 
@@ -101,7 +109,7 @@ public abstract class AclUtils {
         private Set<Integer> m_nodeIds;
 
         public SetBasedNodeAccessChecker(Collection<Integer> nodeIds) {
-            m_nodeIds = nodeIds == null ? Collections.<Integer>emptySet() : new HashSet<Integer>(nodeIds);
+            m_nodeIds = nodeIds == null ? Collections.<Integer> emptySet() : new HashSet<Integer>(nodeIds);
         }
 
         @Override
@@ -110,7 +118,5 @@ public abstract class AclUtils {
         }
 
     }
-
-
 
 }

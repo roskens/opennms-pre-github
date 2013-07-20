@@ -31,7 +31,6 @@ package org.opennms.netmgt.provision.detector.simple;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-
 /**
  * Detects the presence of the Citrix service on an IP address using
  * a line oriented protocol.
@@ -44,8 +43,8 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class CitrixDetector extends AsyncLineOrientedDetectorMinaImpl {
 
-
     private static final String DEFAULT_SERVICE_NAME = "CITRIX";
+
     private static final int DEFAULT_PORT = 1494;
 
     /**
@@ -58,8 +57,10 @@ public class CitrixDetector extends AsyncLineOrientedDetectorMinaImpl {
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public CitrixDetector(final String serviceName, final int port) {
         super(serviceName, port);
@@ -70,6 +71,5 @@ public class CitrixDetector extends AsyncLineOrientedDetectorMinaImpl {
     protected void onInit() {
         expectBanner(startsWith("ICA"));
     }
-
 
 }

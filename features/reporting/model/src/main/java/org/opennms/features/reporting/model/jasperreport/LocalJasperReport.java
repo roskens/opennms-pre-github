@@ -40,8 +40,11 @@ public class LocalJasperReport implements JasperReportDefinition {
 
     private String m_engine;
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.jasperreport.JasperReportDefinition#getId()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.jasperreport.JasperReportDefinition
+     * #getId()
      */
     @Override
     @XmlAttribute(name = "id")
@@ -49,8 +52,11 @@ public class LocalJasperReport implements JasperReportDefinition {
         return m_id;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.jasperreport.JasperReportDefinition#getTemplate()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.jasperreport.JasperReportDefinition
+     * #getTemplate()
      */
     @Override
     @XmlAttribute(name = "template")
@@ -58,8 +64,11 @@ public class LocalJasperReport implements JasperReportDefinition {
         return m_template;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.jasperreport.JasperReportDefinition#getEngine()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.jasperreport.JasperReportDefinition
+     * #getEngine()
      */
     @Override
     @XmlAttribute(name = "engine")
@@ -67,24 +76,33 @@ public class LocalJasperReport implements JasperReportDefinition {
         return m_engine;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.jasperreport.JasperReportDefinition#setId(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.jasperreport.JasperReportDefinition
+     * #setId(java.lang.String)
      */
     @Override
     public void setId(String id) {
         m_id = id;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.jasperreport.JasperReportDefinition#setTemplate(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.jasperreport.JasperReportDefinition
+     * #setTemplate(java.lang.String)
      */
     @Override
     public void setTemplate(String template) {
         m_template = template;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.reporting.model.jasperreport.JasperReportDefinition#setEngine(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.reporting.model.jasperreport.JasperReportDefinition
+     * #setEngine(java.lang.String)
      */
     @Override
     public void setEngine(String engine) {

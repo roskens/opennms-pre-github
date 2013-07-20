@@ -40,11 +40,14 @@ import java.util.List;
 /**
  * The Class DefaultVmwareDatacollectionConfigDao
  * <p/>
- * This class is used for accessing the Vmware Data Collection configuration file
+ * This class is used for accessing the Vmware Data Collection configuration
+ * file
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
-public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<VmwareDatacollectionConfig, VmwareDatacollectionConfig> implements VmwareDatacollectionConfigDao {
+public class VmwareDatacollectionConfigDaoJaxb extends
+        AbstractJaxbConfigDao<VmwareDatacollectionConfig, VmwareDatacollectionConfig> implements
+        VmwareDatacollectionConfigDao {
 
     /**
      * Default constructor
@@ -64,10 +67,12 @@ public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<Vmw
     }
 
     /**
-     * Used to transform the config object to a custom representation. This method is not modified in this class, it just
+     * Used to transform the config object to a custom representation. This
+     * method is not modified in this class, it just
      * returns the config object itself.
      *
-     * @param jaxbConfig a config object.
+     * @param jaxbConfig
+     *            a config object.
      * @return a custom object
      */
     @Override
@@ -76,9 +81,11 @@ public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<Vmw
     }
 
     /**
-     * This method returns a subset of the configuration data for a given collection name.
+     * This method returns a subset of the configuration data for a given
+     * collection name.
      *
-     * @param collectionName the collection's name
+     * @param collectionName
+     *            the collection's name
      * @return the collection object
      */
     @Override
@@ -92,8 +99,8 @@ public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<Vmw
             }
         }
         if (collection == null) {
-            throw new IllegalArgumentException("getVmwareCollection: collection name: "
-                    + collectionName + " specified in collectd configuration not found in Vmware collection configuration.");
+            throw new IllegalArgumentException("getVmwareCollection: collection name: " + collectionName
+                    + " specified in collectd configuration not found in Vmware collection configuration.");
         }
         return collection;
     }
@@ -101,7 +108,8 @@ public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<Vmw
     /**
      * Returns the Rrd repository for a given collection name.
      *
-     * @param collectionName the collection's name
+     * @param collectionName
+     *            the collection's name
      * @return the repository
      */
     @Override
@@ -117,7 +125,8 @@ public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<Vmw
     /**
      * Used to retrieve the Rrd's step parameter for a given collection name.
      *
-     * @param cName the collection's name
+     * @param cName
+     *            the collection's name
      * @return the step value
      */
     private int getStep(String cName) {
@@ -132,7 +141,8 @@ public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<Vmw
     /**
      * Returns the RRAs for a given collection name.
      *
-     * @param cName the collection's name
+     * @param cName
+     *            the collection's name
      * @return the RRAs list
      */
     private List<String> getRRAList(String cName) {
@@ -154,8 +164,7 @@ public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<Vmw
     public String getRrdPath() {
         String rrdPath = getConfig().getRrdRepository();
         if (rrdPath == null) {
-            throw new RuntimeException("Configuration error, failed to "
-                    + "retrieve path to RRD repository.");
+            throw new RuntimeException("Configuration error, failed to " + "retrieve path to RRD repository.");
         }
 
         if (rrdPath.endsWith(File.separator)) {

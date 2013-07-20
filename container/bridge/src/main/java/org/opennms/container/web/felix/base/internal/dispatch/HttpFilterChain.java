@@ -25,16 +25,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public abstract class HttpFilterChain
-    implements FilterChain
-{
+public abstract class HttpFilterChain implements FilterChain {
     @Override
-    public final void doFilter(ServletRequest req, ServletResponse res)
-        throws IOException, ServletException
-    {
-        doFilter((HttpServletRequest)req, (HttpServletResponse)res);
+    public final void doFilter(ServletRequest req, ServletResponse res) throws IOException, ServletException {
+        doFilter((HttpServletRequest) req, (HttpServletResponse) res);
     }
 
-    protected abstract void doFilter(HttpServletRequest req, HttpServletResponse res)
-        throws IOException, ServletException;
+    protected abstract void doFilter(HttpServletRequest req, HttpServletResponse res) throws IOException,
+            ServletException;
 }

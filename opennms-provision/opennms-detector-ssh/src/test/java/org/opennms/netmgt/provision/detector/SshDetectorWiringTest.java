@@ -43,13 +43,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 
-
 /**
  * @author Donald Desloge
- *
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class SshDetectorWiringTest implements ApplicationContextAware {
 
     private ApplicationContext m_applicationContext;
@@ -58,6 +56,7 @@ public class SshDetectorWiringTest implements ApplicationContextAware {
     public void setUp() {
         MockLogAppender.setupLogging();
     }
+
     private void testWiredDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

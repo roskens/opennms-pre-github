@@ -27,8 +27,8 @@
  *******************************************************************************/
 
 package org.opennms.web.admin.discovery;
-import java.io.IOException;
 
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,8 +40,6 @@ import org.opennms.netmgt.config.DiscoveryConfigFactory;
 import org.opennms.netmgt.config.discovery.DiscoveryConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
 
 /**
  * A servlet that handles updating the status of the notifications
@@ -55,49 +53,53 @@ import org.slf4j.LoggerFactory;
  */
 public class ModifyDiscoveryConfigurationServlet extends HttpServlet {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ModifyDiscoveryConfigurationServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ModifyDiscoveryConfigurationServlet.class);
 
-
-	/**
+    /**
      *
      */
     private static final long serialVersionUID = -3782436743630940629L;
 
-	/** Constant <code>log</code> */
+    /** Constant <code>log</code> */
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	    LOG.info("Loading Discovery configuration.");
-	    DiscoveryConfiguration config=getDiscoveryConfig();
-	    HttpSession sess = request.getSession();
-        //sess.removeAttribute("discoveryConfiguration");
-        sess.setAttribute("discoveryConfiguration",config);
+        LOG.info("Loading Discovery configuration.");
+        DiscoveryConfiguration config = getDiscoveryConfig();
+        HttpSession sess = request.getSession();
+        // sess.removeAttribute("discoveryConfiguration");
+        sess.setAttribute("discoveryConfiguration", config);
         response.sendRedirect("edit-config.jsp");
-        //RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/discovery/index.jsp");
-        //dispatcher.forward(request, response);
+        // RequestDispatcher dispatcher =
+        // this.getServletContext().getRequestDispatcher("/admin/discovery/index.jsp");
+        // dispatcher.forward(request, response);
     }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
 
-	/**
-	 * <p>getDiscoveryConfig</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration} object.
-	 */
-	public static DiscoveryConfiguration getDiscoveryConfig() {
+    /**
+     * <p>
+     * getDiscoveryConfig
+     * </p>
+     *
+     * @return a
+     *         {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration}
+     *         object.
+     */
+    public static DiscoveryConfiguration getDiscoveryConfig() {
         DiscoveryConfiguration config = null;
         try {
-             DiscoveryConfigFactory.reload();
-             config = DiscoveryConfigFactory.getInstance().getConfiguration();
+            DiscoveryConfigFactory.reload();
+            config = DiscoveryConfigFactory.getInstance().getConfiguration();
         } catch (final Exception e) {
             new ServletException("Could not load configuration: " + e.getMessage(), e);
         }
         return config;
-	}
+    }
 }

@@ -31,7 +31,9 @@ package org.opennms.netmgt.collectd.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>CollectdMBean interface.</p>
+ * <p>
+ * CollectdMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

@@ -31,7 +31,9 @@ package org.opennms.netmgt.tl1d.jmx;
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
 
 /**
- * <p>Tl1d class.</p>
+ * <p>
+ * Tl1d class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

@@ -54,7 +54,7 @@ public class TopReportPlugin extends AbstractSystemReportPlugin {
 
     @Override
     public TreeMap<String, Resource> getEntries() {
-        final TreeMap<String,Resource> map = new TreeMap<String,Resource>();
+        final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
 
         final String top = findBinary("top");
 
@@ -74,7 +74,7 @@ public class TopReportPlugin extends AbstractSystemReportPlugin {
 
         if (topOutput != null) {
             File tempFile = createTemporaryFileFromString(topOutput);
-            if(tempFile != null) {
+            if (tempFile != null) {
                 map.put("Output", new FileSystemResource(tempFile));
             }
         }

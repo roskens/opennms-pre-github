@@ -49,20 +49,24 @@ import org.slf4j.LoggerFactory;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
- * <p>C3P0ConnectionFactory class.</p>
+ * <p>
+ * C3P0ConnectionFactory class.
+ * </p>
  */
 public class C3P0ConnectionFactory extends BaseConnectionFactory {
 
-	public static final Logger LOG = LoggerFactory.getLogger(C3P0ConnectionFactory.class);
+    public static final Logger LOG = LoggerFactory.getLogger(C3P0ConnectionFactory.class);
 
     private ComboPooledDataSource m_pool;
 
-    public C3P0ConnectionFactory(final InputStream stream, final String dsName) throws MarshalException, ValidationException, PropertyVetoException, SQLException {
-    	super(stream, dsName);
+    public C3P0ConnectionFactory(final InputStream stream, final String dsName) throws MarshalException,
+            ValidationException, PropertyVetoException, SQLException {
+        super(stream, dsName);
     }
 
-    public C3P0ConnectionFactory(final String configFile, final String dsName) throws IOException, MarshalException, ValidationException, PropertyVetoException, SQLException {
-    	super(configFile, dsName);
+    public C3P0ConnectionFactory(final String configFile, final String dsName) throws IOException, MarshalException,
+            ValidationException, PropertyVetoException, SQLException {
+        super(configFile, dsName);
     }
 
     @Override
@@ -72,12 +76,12 @@ public class C3P0ConnectionFactory extends BaseConnectionFactory {
         m_pool.setUser(dataSource.getUserName());
         m_pool.setJdbcUrl(dataSource.getUrl());
         try {
-			m_pool.setDriverClass(dataSource.getClassName());
-		} catch (final PropertyVetoException e) {
-			throw new SQLException("Unable to set driver class.", e);
-		}
+            m_pool.setDriverClass(dataSource.getClassName());
+        } catch (final PropertyVetoException e) {
+            throw new SQLException("Unable to set driver class.", e);
+        }
 
-		final Properties properties = new Properties();
+        final Properties properties = new Properties();
         for (final Param parameter : dataSource.getParamCollection()) {
             properties.put(parameter.getName(), parameter.getValue());
         }
@@ -149,29 +153,29 @@ public class C3P0ConnectionFactory extends BaseConnectionFactory {
 
     @Override
     public void close() throws SQLException {
-    	super.close();
-    	LOG.info("Closing C3P0 pool.");
+        super.close();
+        LOG.info("Closing C3P0 pool.");
         m_pool.close();
     }
 
     @Override
-	public void setIdleTimeout(final int idleTimeout) {
-		m_pool.setMaxIdleTime(idleTimeout);
-	}
+    public void setIdleTimeout(final int idleTimeout) {
+        m_pool.setMaxIdleTime(idleTimeout);
+    }
 
     @Override
-	public void setMinPool(final int minPool) {
-    	LOG.debug("Because of a bug in C3P0, minPool should equal maxPool.  Ignoring.");
-	}
+    public void setMinPool(final int minPool) {
+        LOG.debug("Because of a bug in C3P0, minPool should equal maxPool.  Ignoring.");
+    }
 
     @Override
-	public void setMaxPool(final int maxPool) {
-		m_pool.setMinPoolSize(maxPool);
-		m_pool.setMaxPoolSize(maxPool);
-	}
+    public void setMaxPool(final int maxPool) {
+        m_pool.setMinPoolSize(maxPool);
+        m_pool.setMaxPoolSize(maxPool);
+    }
 
     @Override
-	public void setMaxSize(final int maxSize) {
-    	LOG.debug("C3P0 has no equivalent to setMaxSize.  Ignoring.");
-	}
+    public void setMaxSize(final int maxSize) {
+        LOG.debug("C3P0 has no equivalent to setMaxSize.  Ignoring.");
+    }
 }

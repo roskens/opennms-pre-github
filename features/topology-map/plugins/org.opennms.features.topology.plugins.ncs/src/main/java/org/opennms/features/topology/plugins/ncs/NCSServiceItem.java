@@ -5,10 +5,15 @@ import org.opennms.netmgt.model.ncs.NCSComponent;
 public class NCSServiceItem {
 
     private Long m_id;
+
     private String m_name;
+
     private String m_foreignSource;
+
     private boolean m_isRoot = false;
+
     private boolean m_childrenAllowed = false;
+
     private String m_type;
 
     public NCSServiceItem(NCSComponent ncsComponent) {
@@ -27,7 +32,7 @@ public class NCSServiceItem {
     }
 
     public String getName() {
-        if(m_name == null || m_name.equals("")) {
+        if (m_name == null || m_name.equals("")) {
             return m_type + " Has No Name";
         }
         return m_name;
@@ -49,8 +54,7 @@ public class NCSServiceItem {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result
-                + ((m_foreignSource == null) ? 0 : m_foreignSource.hashCode());
+        result = prime * result + ((m_foreignSource == null) ? 0 : m_foreignSource.hashCode());
         result = prime * result + ((m_id == null) ? 0 : m_id.hashCode());
         result = prime * result + ((m_name == null) ? 0 : m_name.hashCode());
         return result;

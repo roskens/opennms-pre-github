@@ -55,9 +55,9 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class DiskUsageDetector extends SnmpDetector {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DiskUsageDetector.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DiskUsageDetector.class);
 
-	/**
+    /**
      * The protocol supported by this plugin
      */
     private static final String PROTOCOL_NAME = "DiskUsage";
@@ -67,25 +67,31 @@ public class DiskUsageDetector extends SnmpDetector {
      */
     private static final String DEFAULT_OID = ".1.3.6.1.2.1.1.2.0";
 
-
     private static final String hrStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3";
 
     /**
      * The available match-types for this detector
      */
     private static final int MATCH_TYPE_EXACT = 0;
+
     private static final int MATCH_TYPE_STARTSWITH = 1;
+
     private static final int MATCH_TYPE_ENDSWITH = 2;
+
     private static final int MATCH_TYPE_REGEX = 3;
 
     private String m_matchType = "";
+
     private String m_disk;
+
     private String m_hrStorageDescr;
 
     /**
-     * <p>Constructor for DiskUsageDetector.</p>
+     * <p>
+     * Constructor for DiskUsageDetector.
+     * </p>
      */
-    public DiskUsageDetector(){
+    public DiskUsageDetector() {
         setServiceName(PROTOCOL_NAME);
         setOid(DEFAULT_OID);
         setHrStorageDescr(hrStorageDescr);
@@ -121,9 +127,8 @@ public class DiskUsageDetector extends SnmpDetector {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -180,14 +185,16 @@ public class DiskUsageDetector extends SnmpDetector {
 
             SnmpObjId hrStorageDescrSnmpObject = SnmpObjId.get(getHrStorageDescr());
 
-            Map<SnmpInstId, SnmpValue> descrResults = SnmpUtils.getOidValues(agentConfig, "DiskUsagePoller", hrStorageDescrSnmpObject);
+            Map<SnmpInstId, SnmpValue> descrResults = SnmpUtils.getOidValues(agentConfig, "DiskUsagePoller",
+                                                                             hrStorageDescrSnmpObject);
 
-            if(descrResults.size() == 0) {
+            if (descrResults.size() == 0) {
                 return false;
             }
 
             for (Map.Entry<SnmpInstId, SnmpValue> e : descrResults.entrySet()) {
-                LOG.debug("capsd: SNMPwalk succeeded, addr={} oid={} instance={} value={}", InetAddressUtils.str(address), hrStorageDescrSnmpObject, e.getKey(), e.getValue());
+                LOG.debug("capsd: SNMPwalk succeeded, addr={} oid={} instance={} value={}",
+                          InetAddressUtils.str(address), hrStorageDescrSnmpObject, e.getKey(), e.getValue());
 
                 if (isMatch(e.getValue().toString(), getDisk(), matchType)) {
                     LOG.debug("Found disk '{}' (matching hrStorageDescr was '{}')", getDisk(), e.getValue());
@@ -226,16 +233,21 @@ public class DiskUsageDetector extends SnmpDetector {
     }
 
     /**
-     * <p>setMatchType</p>
+     * <p>
+     * setMatchType
+     * </p>
      *
-     * @param matchType a {@link java.lang.String} object.
+     * @param matchType
+     *            a {@link java.lang.String} object.
      */
     public void setMatchType(String matchType) {
         m_matchType = matchType;
     }
 
     /**
-     * <p>getMatchType</p>
+     * <p>
+     * getMatchType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -244,16 +256,21 @@ public class DiskUsageDetector extends SnmpDetector {
     }
 
     /**
-     * <p>setDisk</p>
+     * <p>
+     * setDisk
+     * </p>
      *
-     * @param disk a {@link java.lang.String} object.
+     * @param disk
+     *            a {@link java.lang.String} object.
      */
     public void setDisk(String disk) {
         m_disk = disk;
     }
 
     /**
-     * <p>getDisk</p>
+     * <p>
+     * getDisk
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -262,16 +279,21 @@ public class DiskUsageDetector extends SnmpDetector {
     }
 
     /**
-     * <p>Setter for the field <code>hrStorageDescr</code>.</p>
+     * <p>
+     * Setter for the field <code>hrStorageDescr</code>.
+     * </p>
      *
-     * @param hrStorageDescr a {@link java.lang.String} object.
+     * @param hrStorageDescr
+     *            a {@link java.lang.String} object.
      */
     public void setHrStorageDescr(String hrStorageDescr) {
         m_hrStorageDescr = hrStorageDescr;
     }
 
     /**
-     * <p>Getter for the field <code>hrStorageDescr</code>.</p>
+     * <p>
+     * Getter for the field <code>hrStorageDescr</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

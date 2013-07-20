@@ -41,7 +41,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>IndexController class.</p>
+ * <p>
+ * IndexController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,11 +52,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class IndexController extends AbstractController implements InitializingBean {
 
     private ResourceService m_resourceService;
+
     private KscReportService m_kscReportService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         String reloadConfig = request.getParameter("reloadConfig");
         if (reloadConfig != null && Boolean.parseBoolean(reloadConfig)) {
             KSC_PerformanceReportFactory.getInstance().reload();
@@ -62,7 +66,9 @@ public class IndexController extends AbstractController implements InitializingB
 
         ModelAndView modelAndView = new ModelAndView("KSC/index");
 
-        modelAndView.addObject("kscReadOnly", ( (!request.isUserInRole( Authentication.ROLE_ADMIN )) || request.isUserInRole(Authentication.ROLE_READONLY)) || (request.getRemoteUser() == null));
+        modelAndView.addObject("kscReadOnly",
+                               ((!request.isUserInRole(Authentication.ROLE_ADMIN)) || request.isUserInRole(Authentication.ROLE_READONLY))
+                                       || (request.getRemoteUser() == null));
         modelAndView.addObject("reports", getKscReportService().getReportList());
         modelAndView.addObject("nodeResources", getResourceService().findNodeResources());
         modelAndView.addObject("nodeSourceResources", getResourceService().findNodeSourceResources());
@@ -72,7 +78,9 @@ public class IndexController extends AbstractController implements InitializingB
     }
 
     /**
-     * <p>getResourceService</p>
+     * <p>
+     * getResourceService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -81,16 +89,21 @@ public class IndexController extends AbstractController implements InitializingB
     }
 
     /**
-     * <p>setResourceService</p>
+     * <p>
+     * setResourceService
+     * </p>
      *
-     * @param resourceService a {@link org.opennms.web.svclayer.ResourceService} object.
+     * @param resourceService
+     *            a {@link org.opennms.web.svclayer.ResourceService} object.
      */
     public void setResourceService(ResourceService resourceService) {
         m_resourceService = resourceService;
     }
 
     /**
-     * <p>getKscReportService</p>
+     * <p>
+     * getKscReportService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -99,18 +112,24 @@ public class IndexController extends AbstractController implements InitializingB
     }
 
     /**
-     * <p>setKscReportService</p>
+     * <p>
+     * setKscReportService
+     * </p>
      *
-     * @param kscReportService a {@link org.opennms.web.svclayer.KscReportService} object.
+     * @param kscReportService
+     *            a {@link org.opennms.web.svclayer.KscReportService} object.
      */
     public void setKscReportService(KscReportService kscReportService) {
         m_kscReportService = kscReportService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

@@ -30,23 +30,32 @@ package org.opennms.netmgt.model;
 
 import java.io.File;
 
-
 /**
- * <p>RrdGraphAttribute class.</p>
+ * <p>
+ * RrdGraphAttribute class.
+ * </p>
  */
 public class RrdGraphAttribute implements OnmsAttribute {
 
     private String m_name;
+
     private String m_relativePath;
+
     private String m_rrdFile;
+
     private OnmsResource m_resource;
 
     /**
-     * <p>Constructor for RrdGraphAttribute.</p>
+     * <p>
+     * Constructor for RrdGraphAttribute.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param relativePath a {@link java.lang.String} object.
-     * @param rrdFile a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param relativePath
+     *            a {@link java.lang.String} object.
+     * @param rrdFile
+     *            a {@link java.lang.String} object.
      */
     public RrdGraphAttribute(String name, String relativePath, String rrdFile) {
         m_name = name;
@@ -55,7 +64,9 @@ public class RrdGraphAttribute implements OnmsAttribute {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,9 +86,7 @@ public class RrdGraphAttribute implements OnmsAttribute {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Set the resource for this attribute.  This is called
+     * {@inheritDoc} Set the resource for this attribute. This is called
      * when the attribute is added to a resource.
      */
     @Override
@@ -86,7 +95,9 @@ public class RrdGraphAttribute implements OnmsAttribute {
     }
 
     /**
-     * <p>getRrdRelativePath</p>
+     * <p>
+     * getRrdRelativePath
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,9 +107,8 @@ public class RrdGraphAttribute implements OnmsAttribute {
 
     /** {@inheritDoc} */
     @Override
-	public String toString() {
-    	return ""+m_resource + '.' + m_name;
-	}
-
+    public String toString() {
+        return "" + m_resource + '.' + m_name;
+    }
 
 }

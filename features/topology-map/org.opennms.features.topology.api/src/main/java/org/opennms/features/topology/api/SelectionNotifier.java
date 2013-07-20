@@ -32,10 +32,10 @@ import java.util.Set;
 
 public interface SelectionNotifier {
 
-	public void addSelectionListener(SelectionListener listener);
+    public void addSelectionListener(SelectionListener listener);
 
-	public void removeSelectionListener(SelectionListener listener);
+    public void removeSelectionListener(SelectionListener listener);
 
-	void setSelectionListeners(Set<SelectionListener> listeners);
+    void setSelectionListeners(Set<SelectionListener> listeners);
 
 }

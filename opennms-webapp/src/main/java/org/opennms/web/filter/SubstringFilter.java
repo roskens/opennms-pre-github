@@ -33,7 +33,9 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * <p>Abstract SubstringFilter class.</p>
+ * <p>
+ * Abstract SubstringFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,12 +44,18 @@ import org.hibernate.criterion.Restrictions;
 public abstract class SubstringFilter extends OneArgFilter<String> {
 
     /**
-     * <p>Constructor for SubstringFilter.</p>
+     * <p>
+     * Constructor for SubstringFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public SubstringFilter(String filterType, String fieldName, String propertyName, String value) {
         super(filterType, SQLType.STRING, fieldName, propertyName, value);
@@ -74,9 +82,7 @@ public abstract class SubstringFilter extends OneArgFilter<String> {
     /** {@inheritDoc} */
     @Override
     public String formatValue(String value) {
-        return super.formatValue('%'+value+'%');
+        return super.formatValue('%' + value + '%');
     }
-
-
 
 }

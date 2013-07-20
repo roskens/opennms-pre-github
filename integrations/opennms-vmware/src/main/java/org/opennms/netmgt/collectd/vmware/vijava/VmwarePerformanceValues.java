@@ -34,6 +34,7 @@ import java.util.Set;
 
 public class VmwarePerformanceValues {
     private Map<String, Map<String, Long>> multiValues = new HashMap<String, Map<String, Long>>();
+
     private Map<String, Long> singleValues = new HashMap<String, Long>();
 
     public VmwarePerformanceValues() {

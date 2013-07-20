@@ -64,16 +64,27 @@ public class NodeMap extends AbstractComponent {
     protected static final class NodeEntry {
 
         private Float m_longitude;
+
         private Float m_latitude;
+
         private Integer m_nodeId;
+
         private String m_nodeLabel;
+
         private String m_foreignSource;
+
         private String m_foreignId;
+
         private String m_description;
+
         private String m_maintcontract;
+
         private String m_ipAddress;
+
         private OnmsSeverity m_severity = OnmsSeverity.NORMAL;
+
         private List<String> m_categories = new ArrayList<String>();
+
         private int m_unackedCount = 0;
 
         public NodeEntry(final OnmsNode node) {
@@ -81,17 +92,17 @@ public class NodeMap extends AbstractComponent {
             if (assetRecord != null && assetRecord.getGeolocation() != null) {
                 final OnmsGeolocation geolocation = assetRecord.getGeolocation();
                 m_longitude = geolocation.getLongitude();
-                m_latitude  = geolocation.getLatitude();
+                m_latitude = geolocation.getLatitude();
             }
 
-            m_nodeId        = node.getId();
-            m_nodeLabel     = node.getLabel();
+            m_nodeId = node.getId();
+            m_nodeLabel = node.getLabel();
             m_foreignSource = node.getForeignSource();
-            m_foreignId     = node.getForeignId();
+            m_foreignId = node.getForeignId();
 
             if (assetRecord != null) {
                 m_maintcontract = assetRecord.getMaintcontract();
-                m_description   = assetRecord.getDescription();
+                m_description = assetRecord.getDescription();
             }
 
             if (node.getPrimaryInterface() != null) {
@@ -109,7 +120,7 @@ public class NodeMap extends AbstractComponent {
             m_severity = severity;
         }
 
-        public MapNode createNode(){
+        public MapNode createNode() {
             MapNode node = new MapNode();
             node.setLatitude(m_latitude);
             node.setLongitude(m_longitude);

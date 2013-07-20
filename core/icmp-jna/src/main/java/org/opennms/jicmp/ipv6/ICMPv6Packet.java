@@ -43,16 +43,13 @@ public class ICMPv6Packet {
     public static final int CHECKSUM_INDEX = 2;
 
     public enum Type {
-        DestinationUnreachable(1),
-        TimeExceeded(3),
-        EchoRequest(128),
-        EchoReply(129),
+        DestinationUnreachable(1), TimeExceeded(3), EchoRequest(128), EchoReply(129),
 
         // this is used to represent a type code that we have not handled
         Other(-1);
 
-
         private int m_code;
+
         private Type(int code) {
             m_code = code;
         }
@@ -63,7 +60,7 @@ public class ICMPv6Packet {
 
         public static Type toType(byte typeCode) {
             int code = (typeCode & 0xff);
-            for(Type p : Type.values()) {
+            for (Type p : Type.values()) {
                 if (code == p.getCode()) {
                     return p;
                 }
@@ -85,7 +82,7 @@ public class ICMPv6Packet {
 
     public ICMPv6Packet(int size) {
         this(ByteBuffer.allocate(size));
-        //this(ByteBuffer.allocateDirect(size));
+        // this(ByteBuffer.allocateDirect(size));
     }
 
     public int getPacketLength() {
@@ -97,7 +94,7 @@ public class ICMPv6Packet {
     }
 
     public void setType(Type t) {
-        m_packetData.put(0, ((byte)(t.getCode())));
+        m_packetData.put(0, ((byte) (t.getCode())));
     }
 
     public int getCode() {
@@ -105,7 +102,7 @@ public class ICMPv6Packet {
     }
 
     public void setCode(int code) {
-        m_packetData.put(1, ((byte)code));
+        m_packetData.put(1, ((byte) code));
     }
 
     public int getChecksum() {
@@ -117,7 +114,7 @@ public class ICMPv6Packet {
         int sum = 0;
         int count = m_packetData.remaining();
         int index = 0;
-        while(count > 1) {
+        while (count > 1) {
             if (index != CHECKSUM_INDEX) {
                 sum += getUnsignedShort(index);
             }
@@ -127,7 +124,7 @@ public class ICMPv6Packet {
 
         if (count > 0) {
 
-            sum += makeUnsignedShort(m_packetData.get((m_packetData.remaining()-1)), (byte)0);
+            sum += makeUnsignedShort(m_packetData.get((m_packetData.remaining() - 1)), (byte) 0);
         }
 
         int sumLo = sum & 0xffff;
@@ -156,8 +153,7 @@ public class ICMPv6Packet {
     }
 
     public int makeUnsignedShort(byte b1, byte b0) {
-        return 0xffff & (((b1 & 0xff) << 8) |
-                         ((b0 & 0xff) << 0));
+        return 0xffff & (((b1 & 0xff) << 8) | ((b0 & 0xff) << 0));
     }
 
     public int getUnsignedShort(int index) {
@@ -165,7 +161,7 @@ public class ICMPv6Packet {
     }
 
     public void setUnsignedShort(int index, int us) {
-        m_packetData.putShort(index, ((short)(us & 0xffff)));
+        m_packetData.putShort(index, ((short) (us & 0xffff)));
     }
 
     public NativeDatagramPacket toDatagramPacket(InetAddress destinationAddress) {

@@ -47,13 +47,13 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
         replayMocks();
 
         String dirName = "target/threshd-test/192.168.1.1";
-        String fileName = "icmp"+RrdUtils.getExtension();
+        String fileName = "icmp" + RrdUtils.getExtension();
         int nodeId = 1;
         String ipAddress = "192.168.1.1";
         String serviceName = "ICMP";
         String groupName = "icmp-latency";
 
-		setupThresholdConfig(dirName, fileName, nodeId, ipAddress, serviceName, groupName);
+        setupThresholdConfig(dirName, fileName, nodeId, ipAddress, serviceName, groupName);
 
         m_thresholder = new LatencyThresholder();
         m_thresholder.initialize(m_serviceParameters);
@@ -64,7 +64,7 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
     }
 
     @Override
-	protected void tearDown() throws Exception {
+    protected void tearDown() throws Exception {
         RrdUtils.setStrategy(null);
         MockLogAppender.assertNoWarningsOrGreater();
         super.tearDown();
@@ -86,7 +86,7 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
     }
 
     public void testBigValue() throws Exception {
-        setupFetchSequence("icmp", new double[] {79000.0, 80000.0, 84999.0, 84998.0, 97000.0 });
+        setupFetchSequence("icmp", new double[] { 79000.0, 80000.0, 84999.0, 84998.0, 97000.0 });
 
         replayMocks();
         ensureExceededAfterFetches("icmp", 3);
@@ -95,15 +95,9 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
     }
 
     public void testRearm() throws Exception {
-        double values[] = {
-                79000.0,
-                80000.0,
-                84999.0, // expect exceeded
-                84998.0,
-                15000.0, // expect rearm
-                77000.0,
-                77000.0,
-                77000.0 // expect exceeded
+        double values[] = { 79000.0, 80000.0, 84999.0, // expect exceeded
+                84998.0, 15000.0, // expect rearm
+                77000.0, 77000.0, 77000.0 // expect exceeded
         };
 
         setupFetchSequence("icmp", values);

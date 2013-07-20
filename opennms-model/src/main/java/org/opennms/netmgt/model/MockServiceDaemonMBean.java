@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.model;
 
-
 public interface MockServiceDaemonMBean extends ServiceDaemonMBean {
 
 }

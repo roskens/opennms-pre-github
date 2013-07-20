@@ -46,22 +46,22 @@ import org.exolab.castor.xml.Validator;
 import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
-@XmlRootElement(name="filter")
+@XmlRootElement(name = "filter")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Filter implements Serializable {
-	private static final long serialVersionUID = -5048479164713766981L;
-
-	// @NotNull
-    @XmlAttribute(name="eventparm", required=true)
-	private String m_eventparm;
+    private static final long serialVersionUID = -5048479164713766981L;
 
     // @NotNull
-    @XmlAttribute(name="pattern", required=true)
+    @XmlAttribute(name = "eventparm", required = true)
+    private String m_eventparm;
+
+    // @NotNull
+    @XmlAttribute(name = "pattern", required = true)
     private String m_pattern;
 
     // @NotNull
-    @XmlAttribute(name="replacement", required=true)
+    @XmlAttribute(name = "replacement", required = true)
     private String m_replacement;
 
     public String getEventparm() {
@@ -116,38 +116,44 @@ public class Filter implements Serializable {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_eventparm == null) ? 0 : m_eventparm.hashCode());
-		result = prime * result + ((m_pattern == null) ? 0 : m_pattern.hashCode());
-		result = prime * result + ((m_replacement == null) ? 0 : m_replacement.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_eventparm == null) ? 0 : m_eventparm.hashCode());
+        result = prime * result + ((m_pattern == null) ? 0 : m_pattern.hashCode());
+        result = prime * result + ((m_replacement == null) ? 0 : m_replacement.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Filter)) return false;
-		final Filter other = (Filter) obj;
-		if (m_eventparm == null) {
-			if (other.m_eventparm != null) return false;
-		} else if (!m_eventparm.equals(other.m_eventparm)) {
-			return false;
-		}
-		if (m_pattern == null) {
-			if (other.m_pattern != null) return false;
-		} else if (!m_pattern.equals(other.m_pattern)) {
-			return false;
-		}
-		if (m_replacement == null) {
-			if (other.m_replacement != null) return false;
-		} else if (!m_replacement.equals(other.m_replacement)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Filter))
+            return false;
+        final Filter other = (Filter) obj;
+        if (m_eventparm == null) {
+            if (other.m_eventparm != null)
+                return false;
+        } else if (!m_eventparm.equals(other.m_eventparm)) {
+            return false;
+        }
+        if (m_pattern == null) {
+            if (other.m_pattern != null)
+                return false;
+        } else if (!m_pattern.equals(other.m_pattern)) {
+            return false;
+        }
+        if (m_replacement == null) {
+            if (other.m_replacement != null)
+                return false;
+        } else if (!m_replacement.equals(other.m_replacement)) {
+            return false;
+        }
+        return true;
+    }
 
 }

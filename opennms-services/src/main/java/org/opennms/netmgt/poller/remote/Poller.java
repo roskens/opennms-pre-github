@@ -42,7 +42,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>Poller class.</p>
+ * <p>
+ * Poller class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -51,47 +53,61 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
 
     private static final Logger LOG = LoggerFactory.getLogger(Poller.class);
 
-	private PollerFrontEnd m_pollerFrontEnd;
-	private Scheduler m_scheduler;
-	private long m_initialSpreadTime = 300000L;
+    private PollerFrontEnd m_pollerFrontEnd;
 
-	/**
-	 * <p>setPollerFrontEnd</p>
-	 *
-	 * @param pollerFrontEnd a {@link org.opennms.netmgt.poller.remote.PollerFrontEnd} object.
-	 */
-	public void setPollerFrontEnd(PollerFrontEnd pollerFrontEnd) {
-		m_pollerFrontEnd = pollerFrontEnd;
-	}
+    private Scheduler m_scheduler;
 
-	/**
-	 * <p>setScheduler</p>
-	 *
-	 * @param scheduler a {@link org.quartz.Scheduler} object.
-	 */
-	public void setScheduler(Scheduler scheduler) {
-		m_scheduler = scheduler;
-	}
+    private long m_initialSpreadTime = 300000L;
 
-	/**
-	 * <p>setInitialSpreadTime</p>
-	 *
-	 * @param initialSpreadTime a long.
-	 */
-	public void setInitialSpreadTime(long initialSpreadTime) {
-		m_initialSpreadTime = initialSpreadTime;
-	}
+    /**
+     * <p>
+     * setPollerFrontEnd
+     * </p>
+     *
+     * @param pollerFrontEnd
+     *            a {@link org.opennms.netmgt.poller.remote.PollerFrontEnd}
+     *            object.
+     */
+    public void setPollerFrontEnd(PollerFrontEnd pollerFrontEnd) {
+        m_pollerFrontEnd = pollerFrontEnd;
+    }
 
+    /**
+     * <p>
+     * setScheduler
+     * </p>
+     *
+     * @param scheduler
+     *            a {@link org.quartz.Scheduler} object.
+     */
+    public void setScheduler(Scheduler scheduler) {
+        m_scheduler = scheduler;
+    }
 
-	/**
-	 * <p>afterPropertiesSet</p>
-	 *
-	 * @throws java.lang.Exception if any.
-	 */
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		assertNotNull(m_scheduler, "scheduler");
-		assertNotNull(m_pollerFrontEnd, "pollerFrontEnd");
+    /**
+     * <p>
+     * setInitialSpreadTime
+     * </p>
+     *
+     * @param initialSpreadTime
+     *            a long.
+     */
+    public void setInitialSpreadTime(long initialSpreadTime) {
+        m_initialSpreadTime = initialSpreadTime;
+    }
+
+    /**
+     * <p>
+     * afterPropertiesSet
+     * </p>
+     *
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        assertNotNull(m_scheduler, "scheduler");
+        assertNotNull(m_pollerFrontEnd, "pollerFrontEnd");
 
         m_pollerFrontEnd.addConfigurationChangedListener(this);
         m_pollerFrontEnd.addPropertyChangeListener(this);
@@ -102,7 +118,7 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
             LOG.debug("Poller not yet registered");
         }
 
-	}
+    }
 
     private void unschedulePolls() throws Exception {
         if (m_scheduler.isShutdown()) {
@@ -114,20 +130,20 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
         }
     }
 
-	private void schedulePolls() throws Exception {
+    private void schedulePolls() throws Exception {
 
         LOG.debug("Enter schedulePolls");
 
-		Collection<PolledService> polledServices = m_pollerFrontEnd.getPolledServices();
+        Collection<PolledService> polledServices = m_pollerFrontEnd.getPolledServices();
 
-		if (polledServices == null || polledServices.size() == 0) {
-			LOG.warn("No polling scheduled.");
+        if (polledServices == null || polledServices.size() == 0) {
+            LOG.warn("No polling scheduled.");
             LOG.debug("Exit schedulePolls");
-			return;
-		}
+            return;
+        }
 
-		long startTime = System.currentTimeMillis();
-		long scheduleSpacing = m_initialSpreadTime / polledServices.size();
+        long startTime = System.currentTimeMillis();
+        long scheduleSpacing = m_initialSpreadTime / polledServices.size();
 
         for (PolledService polledService : polledServices) {
 
@@ -140,46 +156,45 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
                 LOG.debug("Scheduling job for {}", polledService);
             }
 
-			Date initialPollTime = new Date(startTime);
+            Date initialPollTime = new Date(startTime);
 
-			m_pollerFrontEnd.setInitialPollTime(polledService.getServiceId(), initialPollTime);
+            m_pollerFrontEnd.setInitialPollTime(polledService.getServiceId(), initialPollTime);
 
-			Trigger pollTrigger = new PolledServiceTrigger(polledService);
-			pollTrigger.setStartTime(initialPollTime);
+            Trigger pollTrigger = new PolledServiceTrigger(polledService);
+            pollTrigger.setStartTime(initialPollTime);
 
             PollJobDetail jobDetail = new PollJobDetail(jobName, PollJob.class);
-			jobDetail.setPolledService(polledService);
-			jobDetail.setPollerFrontEnd(m_pollerFrontEnd);
+            jobDetail.setPolledService(polledService);
+            jobDetail.setPollerFrontEnd(m_pollerFrontEnd);
 
+            m_scheduler.scheduleJob(jobDetail, pollTrigger);
 
-			m_scheduler.scheduleJob(jobDetail, pollTrigger);
-
-			startTime += scheduleSpacing;
-		}
+            startTime += scheduleSpacing;
+        }
 
         LOG.debug("Exit schedulePolls");
 
-	}
+    }
 
-	private void assertNotNull(Object propertyValue, String propertyName) {
-		Assert.state(propertyValue != null, propertyName+" must be set for instances of "+Poller.class);
-	}
-
-	/** {@inheritDoc} */
-        @Override
-	public void pollCompleted(String pollId, PollStatus pollStatus) {
-		LOG.info("Complete Poll for {} status = {}", pollId, pollStatus);
-	}
-
-	/** {@inheritDoc} */
-        @Override
-	public void pollStarted(String pollId) {
-		LOG.info("Begin Poll for {}", pollId);
-
-	}
+    private void assertNotNull(Object propertyValue, String propertyName) {
+        Assert.state(propertyValue != null, propertyName + " must be set for instances of " + Poller.class);
+    }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
+    public void pollCompleted(String pollId, PollStatus pollStatus) {
+        LOG.info("Complete Poll for {} status = {}", pollId, pollStatus);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void pollStarted(String pollId) {
+        LOG.info("Begin Poll for {}", pollId);
+
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public void configurationChanged(PropertyChangeEvent e) {
         try {
             unschedulePolls();
@@ -191,7 +206,7 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         try {
             if (Boolean.TRUE.equals(evt.getNewValue())) {
@@ -201,7 +216,7 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
                     unschedulePolls();
                 }
             } else {
-                if ("paused".equals(evt.getPropertyName()) ) {
+                if ("paused".equals(evt.getPropertyName())) {
                     schedulePolls();
                 } else if ("disconnected".equals(evt.getPropertyName())) {
                     schedulePolls();
@@ -214,6 +229,5 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
             throw new RuntimeException("Unable to schedule polls!");
         }
     }
-
 
 }

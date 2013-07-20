@@ -28,12 +28,13 @@
 
 package org.opennms.sms.reflector.smsservice;
 
-
 import org.smslib.OutboundMessage;
 import org.springframework.core.style.ToStringCreator;
 
 /**
- * <p>SmsRequest class.</p>
+ * <p>
+ * SmsRequest class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -43,22 +44,36 @@ public class SmsRequest extends MobileMsgRequest {
     private OutboundMessage m_msg;
 
     /**
-     * <p>Constructor for SmsRequest.</p>
+     * <p>
+     * Constructor for SmsRequest.
+     * </p>
      *
-     * @param msg a {@link org.smslib.OutboundMessage} object.
-     * @param timeout a long.
-     * @param retries a int.
-     * @param cb a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback} object.
-     * @param responseMatcher a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher} object.
+     * @param msg
+     *            a {@link org.smslib.OutboundMessage} object.
+     * @param timeout
+     *            a long.
+     * @param retries
+     *            a int.
+     * @param cb
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
+     *            object.
+     * @param responseMatcher
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
+     *            object.
      */
-    public SmsRequest(OutboundMessage msg, long timeout, int retries, MobileMsgResponseCallback cb, MobileMsgResponseMatcher responseMatcher) {
+    public SmsRequest(OutboundMessage msg, long timeout, int retries, MobileMsgResponseCallback cb,
+            MobileMsgResponseMatcher responseMatcher) {
         super(timeout, retries, cb, responseMatcher);
         m_msg = msg;
 
     }
 
     /**
-     * <p>getValidityPeriodInHours</p>
+     * <p>
+     * getValidityPeriodInHours
+     * </p>
      *
      * @return a int.
      */
@@ -67,16 +82,21 @@ public class SmsRequest extends MobileMsgRequest {
     }
 
     /**
-     * <p>setValidityPeriodInHours</p>
+     * <p>
+     * setValidityPeriodInHours
+     * </p>
      *
-     * @param validityPeriod a int.
+     * @param validityPeriod
+     *            a int.
      */
     public void setValidityPeriodInHours(int validityPeriod) {
         m_msg.setValidityPeriod(validityPeriod);
     }
 
     /**
-     * <p>getOriginator</p>
+     * <p>
+     * getOriginator
+     * </p>
      *
      * @return the originator
      */
@@ -85,16 +105,21 @@ public class SmsRequest extends MobileMsgRequest {
     }
 
     /**
-     * <p>setOriginator</p>
+     * <p>
+     * setOriginator
+     * </p>
      *
-     * @param originator the originator to set
+     * @param originator
+     *            the originator to set
      */
     public void setOriginator(String originator) {
         m_msg.setFrom(originator);
     }
 
     /**
-     * <p>getRecipient</p>
+     * <p>
+     * getRecipient
+     * </p>
      *
      * @return the recipient
      */
@@ -103,16 +128,21 @@ public class SmsRequest extends MobileMsgRequest {
     }
 
     /**
-     * <p>setRecipient</p>
+     * <p>
+     * setRecipient
+     * </p>
      *
-     * @param recipient the recipient to set
+     * @param recipient
+     *            the recipient to set
      */
     public void setRecipient(String recipient) {
         m_msg.setRecipient(recipient);
     }
 
     /**
-     * <p>getText</p>
+     * <p>
+     * getText
+     * </p>
      *
      * @return the text
      */
@@ -126,14 +156,16 @@ public class SmsRequest extends MobileMsgRequest {
         return m_msg.getRecipient();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.sms.reflector.smsservice.MobileMsgRequest#createNextRetry()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.sms.reflector.smsservice.MobileMsgRequest#createNextRetry()
      */
     /** {@inheritDoc} */
     @Override
     public MobileMsgRequest createNextRetry() {
         if (getRetries() > 0) {
-            return new SmsRequest(m_msg, getTimeout(), getRetries()-1, getCb(), getResponseMatcher());
+            return new SmsRequest(m_msg, getTimeout(), getRetries() - 1, getCb(), getResponseMatcher());
         } else {
             return null;
         }
@@ -141,7 +173,9 @@ public class SmsRequest extends MobileMsgRequest {
     }
 
     /**
-     * <p>getMessage</p>
+     * <p>
+     * getMessage
+     * </p>
      *
      * @return a {@link org.smslib.OutboundMessage} object.
      */
@@ -150,16 +184,15 @@ public class SmsRequest extends MobileMsgRequest {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-    	return new ToStringCreator(this)
-    		.append("recipient", getRecipient())
-    		.append("text", getText())
-    		.toString();
+        return new ToStringCreator(this).append("recipient", getRecipient()).append("text", getText()).toString();
     }
 
 }

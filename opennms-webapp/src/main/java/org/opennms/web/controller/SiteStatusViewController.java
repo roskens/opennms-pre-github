@@ -53,22 +53,28 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  */
 public class SiteStatusViewController extends AbstractController {
 
-    private static final int FIVE_MINUTES = 5*60;
+    private static final int FIVE_MINUTES = 5 * 60;
 
     private static SiteStatusViewService m_service;
 
     /**
-     * <p>Constructor for SiteStatusViewController.</p>
+     * <p>
+     * Constructor for SiteStatusViewController.
+     * </p>
      */
     public SiteStatusViewController() {
-        setSupportedMethods(new String[] {METHOD_GET});
+        setSupportedMethods(new String[] { METHOD_GET });
         setCacheSeconds(FIVE_MINUTES);
     }
 
     /**
-     * <p>setService</p>
+     * <p>
+     * setService
+     * </p>
      *
-     * @param svc a {@link org.opennms.web.svclayer.SiteStatusViewService} object.
+     * @param svc
+     *            a {@link org.opennms.web.svclayer.SiteStatusViewService}
+     *            object.
      */
     public final void setService(final SiteStatusViewService svc) {
         m_service = svc;
@@ -76,7 +82,8 @@ public class SiteStatusViewController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest req, final HttpServletResponse resp) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest req, final HttpServletResponse resp)
+            throws Exception {
         ModelAndView mav = new ModelAndView("siteStatus");
         String statusView = req.getParameter("statusView");
         String statusSite = req.getParameter("statusSite");
@@ -85,7 +92,7 @@ public class SiteStatusViewController extends AbstractController {
         try {
             view = m_service.createAggregateStatusView(statusView);
         } catch (ObjectRetrievalFailureException e) {
-            SiteStatusViewError viewError = createSiteStatusViewError((String)e.getIdentifier(), e.getMessage());
+            SiteStatusViewError viewError = createSiteStatusViewError((String) e.getIdentifier(), e.getMessage());
             return new ModelAndView("siteStatusError", "error", viewError);
         }
 
@@ -97,7 +104,7 @@ public class SiteStatusViewController extends AbstractController {
             aggrStati = m_service.createAggregateStatuses(view);
         } else {
             aggrStati = m_service.createAggregateStatuses(view, statusSite);
-            //Don't persist this, convenience for display only.
+            // Don't persist this, convenience for display only.
             view.setColumnValue(statusSite);
         }
 

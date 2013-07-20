@@ -93,10 +93,13 @@ public class OutageModel {
     }
 
     /**
-     * <p>getSuppressedOutages</p>
+     * <p>
+     * getSuppressedOutages
+     * </p>
      *
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Outage[] getSuppressedOutages() throws SQLException {
         Outage[] outages = new Outage[0];
@@ -119,10 +122,13 @@ public class OutageModel {
     }
 
     /**
-     * <p>getCurrentOutageCount</p>
+     * <p>
+     * getCurrentOutageCount
+     * </p>
      *
      * @return a int.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public int getCurrentOutageCount() throws SQLException {
         int count = 0;
@@ -147,10 +153,13 @@ public class OutageModel {
     }
 
     /**
-     * <p>getSuppressedOutageCount</p>
+     * <p>
+     * getSuppressedOutageCount
+     * </p>
      *
      * @return a int.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public int getSuppressedOutageCount() throws SQLException {
         int count = 0;
@@ -175,11 +184,15 @@ public class OutageModel {
     }
 
     /**
-     * <p>getCurrentOutagesForNode</p>
+     * <p>
+     * getCurrentOutagesForNode
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Outage[] getCurrentOutagesForNode(int nodeId) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -188,7 +201,13 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId " + "from outages, node, ipinterface, service " + "where outages.nodeid=? " + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr " + "and ifregainedservice is null " + " and suppresstime is null or suppresstime < now()" + "order by iflostservice desc");
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId "
+                    + "from outages, node, ipinterface, service "
+                    + "where outages.nodeid=? "
+                    + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr "
+                    + "and ifregainedservice is null "
+                    + " and suppresstime is null or suppresstime < now()"
+                    + "order by iflostservice desc");
             d.watch(stmt);
             stmt.setInt(1, nodeId);
             ResultSet rs = stmt.executeQuery();
@@ -203,11 +222,15 @@ public class OutageModel {
     }
 
     /**
-     * <p>getCurrentOutagesIdsForNode</p>
+     * <p>
+     * getCurrentOutagesIdsForNode
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link java.util.Collection} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Collection<Integer> getCurrentOutagesIdsForNode(int nodeId) throws SQLException {
         List<Integer> outageIds = new ArrayList<Integer>();
@@ -232,13 +255,16 @@ public class OutageModel {
         return outageIds;
     }
 
-
     /**
-     * <p>filterNodesWithCurrentOutages</p>
+     * <p>
+     * filterNodesWithCurrentOutages
+     * </p>
      *
-     * @param nodes an array of {@link org.opennms.web.element.Node} objects.
+     * @param nodes
+     *            an array of {@link org.opennms.web.element.Node} objects.
      * @return an array of {@link org.opennms.web.element.Node} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public OnmsNode[] filterNodesWithCurrentOutages(List<OnmsNode> nodes) throws SQLException {
         HashMap<Integer, OnmsNode> nodeMap = new HashMap<Integer, OnmsNode>(nodes.size());
@@ -254,7 +280,8 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT nodeid from outages where nodeid in ( " + nodeList + " ) and ifregainedservice is null and suppresstime is null or suppresstime < now();");
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT nodeid from outages where nodeid in ( "
+                    + nodeList + " ) and ifregainedservice is null and suppresstime is null or suppresstime < now();");
             d.watch(stmt);
             ResultSet rs = stmt.executeQuery();
             d.watch(rs);
@@ -270,11 +297,15 @@ public class OutageModel {
     }
 
     /**
-     * <p>getNonCurrentOutagesForNode</p>
+     * <p>
+     * getNonCurrentOutagesForNode
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Outage[] getNonCurrentOutagesForNode(int nodeId) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -283,7 +314,13 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId " + "from outages, node, ipinterface, service " + "where outages.nodeid=? " + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr " + "and ifregainedservice is not null " +  " and suppresstime is null or suppresstime < now() " + "order by iflostservice desc");
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId "
+                    + "from outages, node, ipinterface, service "
+                    + "where outages.nodeid=? "
+                    + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr "
+                    + "and ifregainedservice is not null "
+                    + " and suppresstime is null or suppresstime < now() "
+                    + "order by iflostservice desc");
             d.watch(stmt);
             stmt.setInt(1, nodeId);
             ResultSet rs = stmt.executeQuery();
@@ -300,9 +337,11 @@ public class OutageModel {
     /**
      * Get all outages for a given node.
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Outage[] getOutagesForNode(int nodeId) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -311,7 +350,10 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId " + "from outages, node, ipinterface, service " + "where outages.nodeid=? and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr o" + "rder by iflostservice desc");
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId "
+                    + "from outages, node, ipinterface, service "
+                    + "where outages.nodeid=? and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr o"
+                    + "rder by iflostservice desc");
             d.watch(stmt);
             stmt.setInt(1, nodeId);
             ResultSet rs = stmt.executeQuery();
@@ -335,7 +377,8 @@ public class OutageModel {
      *            no resolved outages older than this time will be returned
      * @return All current outages and resolved outages no older than
      *         <code>time</code>.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Outage[] getOutagesForNode(int nodeId, Date time) throws SQLException {
         if (time == null) {
@@ -349,7 +392,11 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId " + "from outages, node, ipinterface, service " + "where outages.nodeid=? and node.nodeid=outages.nodeid " + "and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr " + "and (ifregainedservice >= ? or ifregainedservice is null) order by iflostservice desc");
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId "
+                    + "from outages, node, ipinterface, service "
+                    + "where outages.nodeid=? and node.nodeid=outages.nodeid "
+                    + "and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr "
+                    + "and (ifregainedservice >= ? or ifregainedservice is null) order by iflostservice desc");
             d.watch(stmt);
             stmt.setInt(1, nodeId);
             stmt.setTimestamp(2, new Timestamp(timeLong));
@@ -365,12 +412,17 @@ public class OutageModel {
     }
 
     /**
-     * <p>getOutagesForInterface</p>
+     * <p>
+     * getOutagesForInterface
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipInterface a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipInterface
+     *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Outage[] getOutagesForInterface(int nodeId, String ipInterface) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -379,7 +431,11 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId " + "from outages, node, ipinterface, service " + "where outages.nodeid=? and outages.ipaddr=? " + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr " + "order by iflostservice desc");
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId "
+                    + "from outages, node, ipinterface, service "
+                    + "where outages.nodeid=? and outages.ipaddr=? "
+                    + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr "
+                    + "order by iflostservice desc");
             d.watch(stmt);
             stmt.setInt(1, nodeId);
             stmt.setString(2, ipInterface);
@@ -406,7 +462,8 @@ public class OutageModel {
      *            no resolved outages older than this time will be returned
      * @return All current outages and resolved outages no older than
      *         <code>time</code>.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Outage[] getOutagesForInterface(int nodeId, String ipAddr, Date time) throws SQLException {
         if (ipAddr == null || time == null) {
@@ -420,7 +477,11 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId " + "from outages, node, ipinterface, service " + "where outages.nodeid=? and outages.ipaddr=? " + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr " + "and (ifregainedservice >= ? or ifregainedservice is null) " + "order by iflostservice desc");
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId "
+                    + "from outages, node, ipinterface, service "
+                    + "where outages.nodeid=? and outages.ipaddr=? "
+                    + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr "
+                    + "and (ifregainedservice >= ? or ifregainedservice is null) " + "order by iflostservice desc");
             d.watch(stmt);
             stmt.setInt(1, nodeId);
             stmt.setString(2, ipAddr);
@@ -437,13 +498,19 @@ public class OutageModel {
     }
 
     /**
-     * <p>getOutagesForService</p>
+     * <p>
+     * getOutagesForService
+     * </p>
      *
-     * @param nodeId a int.
-     * @param ipInterface a {@link java.lang.String} object.
-     * @param serviceId a int.
+     * @param nodeId
+     *            a int.
+     * @param ipInterface
+     *            a {@link java.lang.String} object.
+     * @param serviceId
+     *            a int.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Outage[] getOutagesForService(int nodeId, String ipInterface, int serviceId) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -452,7 +519,11 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId " + "from outages, node, ipinterface, service " + "where outages.nodeid=? and outages.ipaddr=? and outages.serviceid=? " + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr " + "order by iflostservice desc");
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId "
+                    + "from outages, node, ipinterface, service "
+                    + "where outages.nodeid=? and outages.ipaddr=? and outages.serviceid=? "
+                    + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr "
+                    + "order by iflostservice desc");
             d.watch(stmt);
             stmt.setInt(1, nodeId);
             stmt.setString(2, ipInterface);
@@ -482,7 +553,8 @@ public class OutageModel {
      *            no resolved outages older than this time will be returned
      * @return All current outages and resolved outages no older than
      *         <code>time</code>.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Outage[] getOutagesForService(int nodeId, String ipAddr, int serviceId, Date time) throws SQLException {
         if (ipAddr == null || time == null) {
@@ -496,7 +568,12 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId " + "from outages, node, ipinterface, service " + "where outages.nodeid=? " + "and outages.ipaddr=? and outages.serviceid=? " + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr " + "and (ifregainedservice >= ? or ifregainedservice is null) " + "order by iflostservice desc");
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.outageid, outages.iflostservice, outages.ifregainedservice, outages.nodeID, node.nodeLabel, outages.ipaddr, ipinterface.iphostname, service.servicename, outages.serviceId "
+                    + "from outages, node, ipinterface, service "
+                    + "where outages.nodeid=? "
+                    + "and outages.ipaddr=? and outages.serviceid=? "
+                    + "and node.nodeid=outages.nodeid and outages.serviceid=service.serviceid and ipinterface.ipaddr=outages.ipaddr "
+                    + "and (ifregainedservice >= ? or ifregainedservice is null) " + "order by iflostservice desc");
             d.watch(stmt);
             stmt.setInt(1, nodeId);
             stmt.setString(2, ipAddr);
@@ -519,8 +596,10 @@ public class OutageModel {
      * address. The list will be sorted in ascending order from the service down
      * longest to the service down shortest.
      *
-     * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary} objects.
-     * @throws java.sql.SQLException if any.
+     * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary}
+     *         objects.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public OutageSummary[] getCurrentOutageSummaries() throws SQLException {
         OutageSummary[] summaries = new OutageSummary[0];
@@ -531,7 +610,14 @@ public class OutageModel {
 
             Statement stmt = conn.createStatement();
             d.watch(stmt);
-            ResultSet rs = stmt.executeQuery("select distinct outages.nodeid, max(outages.iflostservice) as timeDown, node.nodelabel, now() as timeNow " + "from outages, node, ipinterface, ifservices " + "where ifregainedservice is null " + "and node.nodeid=outages.nodeid and ipinterface.nodeid = outages.nodeid and ifservices.nodeid=outages.nodeid " + "and ipinterface.ipaddr = outages.ipaddr and ifservices.ipaddr = outages.ipaddr " + "and ifservices.serviceid = outages.serviceid " + "and node.nodeType != 'D' and ipinterface.ismanaged != 'D' and ifservices.status != 'D' " + "group by outages.nodeid, node.nodelabel " + "order by timeDown desc;");
+            ResultSet rs = stmt.executeQuery("select distinct outages.nodeid, max(outages.iflostservice) as timeDown, node.nodelabel, now() as timeNow "
+                    + "from outages, node, ipinterface, ifservices "
+                    + "where ifregainedservice is null "
+                    + "and node.nodeid=outages.nodeid and ipinterface.nodeid = outages.nodeid and ifservices.nodeid=outages.nodeid "
+                    + "and ipinterface.ipaddr = outages.ipaddr and ifservices.ipaddr = outages.ipaddr "
+                    + "and ifservices.serviceid = outages.serviceid "
+                    + "and node.nodeType != 'D' and ipinterface.ismanaged != 'D' and ifservices.status != 'D' "
+                    + "group by outages.nodeid, node.nodelabel " + "order by timeDown desc;");
             d.watch(rs);
 
             List<OutageSummary> list = new ArrayList<OutageSummary>();
@@ -560,9 +646,12 @@ public class OutageModel {
      * address, and the longest time a service has been down for each IP
      * address. The list will be sorted by the amount of time it has been down.
      *
-     * @param date the starting date for the query
-     * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary} objects.
-     * @throws java.sql.SQLException if any.
+     * @param date
+     *            the starting date for the query
+     * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary}
+     *         objects.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public OutageSummary[] getAllOutageSummaries(Date date) throws SQLException {
         OutageSummary[] summaries = new OutageSummary[0];
@@ -571,18 +660,15 @@ public class OutageModel {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
 
-            PreparedStatement stmt = conn.prepareStatement(
-                    "SELECT DISTINCT outages.nodeid, outages.iflostservice as timeDown, outages.ifregainedservice as timeUp, node.nodelabel "
-                        + "FROM outages, node, ipinterface, ifservices "
-                        + "WHERE node.nodeid=outages.nodeid AND ipinterface.nodeid=outages.nodeid AND ifservices.nodeid=outages.nodeid "
-                        + "AND ipinterface.ipaddr=outages.ipaddr AND ifservices.ipaddr=outages.ipaddr "
-                        + "AND ifservices.serviceid=outages.serviceid "
-                        + "AND node.nodeType != 'D' "
-                        + "AND ipinterface.ismanaged != 'D' "
-                        + "AND ifservices.status != 'D' "
-                        + "AND outages.iflostservice >= ? "
-                        + "ORDER BY timeDown DESC;"
-            );
+            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT outages.nodeid, outages.iflostservice as timeDown, outages.ifregainedservice as timeUp, node.nodelabel "
+                    + "FROM outages, node, ipinterface, ifservices "
+                    + "WHERE node.nodeid=outages.nodeid AND ipinterface.nodeid=outages.nodeid AND ifservices.nodeid=outages.nodeid "
+                    + "AND ipinterface.ipaddr=outages.ipaddr AND ifservices.ipaddr=outages.ipaddr "
+                    + "AND ifservices.serviceid=outages.serviceid "
+                    + "AND node.nodeType != 'D' "
+                    + "AND ipinterface.ismanaged != 'D' "
+                    + "AND ifservices.status != 'D' "
+                    + "AND outages.iflostservice >= ? " + "ORDER BY timeDown DESC;");
             d.watch(stmt);
             stmt.setTimestamp(1, new Timestamp(date.getTime()));
             ResultSet rs = stmt.executeQuery();
@@ -622,8 +708,10 @@ public class OutageModel {
      * longest to the service down shortest. This is a clone of
      * getCurrentOutageSummaries for Harrah's (special consideration).
      *
-     * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary} objects.
-     * @throws java.sql.SQLException if any.
+     * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary}
+     *         objects.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public OutageSummary[] getCurrentSDSOutageSummaries() throws SQLException {
         OutageSummary[] summaries = new OutageSummary[0];
@@ -634,7 +722,14 @@ public class OutageModel {
 
             Statement stmt = conn.createStatement();
             d.watch(stmt);
-            ResultSet rs = stmt.executeQuery("select distinct outages.nodeid, max(outages.iflostservice) as timeDown, node.nodelabel from outages, node, ipinterface, ifservices, assets " + "where ifregainedservice is null " + "and node.nodeid=outages.nodeid and ipinterface.nodeid = outages.nodeid and ifservices.nodeid=outages.nodeid " + "and ipinterface.ipaddr = outages.ipaddr and ifservices.ipaddr = outages.ipaddr " + "and ifservices.serviceid = outages.serviceid " + "and node.nodeType != 'D' and ipinterface.ismanaged != 'D' and ifservices.status != 'D' " + "and assets.nodeid=node.nodeid and assets.displaycategory != 'SDS-A-Side' and assets.displaycategory != 'SDS-B-Side' " + "group by outages.nodeid, node.nodelabel " + "order by timeDown desc;");
+            ResultSet rs = stmt.executeQuery("select distinct outages.nodeid, max(outages.iflostservice) as timeDown, node.nodelabel from outages, node, ipinterface, ifservices, assets "
+                    + "where ifregainedservice is null "
+                    + "and node.nodeid=outages.nodeid and ipinterface.nodeid = outages.nodeid and ifservices.nodeid=outages.nodeid "
+                    + "and ipinterface.ipaddr = outages.ipaddr and ifservices.ipaddr = outages.ipaddr "
+                    + "and ifservices.serviceid = outages.serviceid "
+                    + "and node.nodeType != 'D' and ipinterface.ismanaged != 'D' and ifservices.status != 'D' "
+                    + "and assets.nodeid=node.nodeid and assets.displaycategory != 'SDS-A-Side' and assets.displaycategory != 'SDS-B-Side' "
+                    + "group by outages.nodeid, node.nodelabel " + "order by timeDown desc;");
             d.watch(rs);
 
             List<OutageSummary> list = new ArrayList<OutageSummary>();
@@ -658,23 +753,32 @@ public class OutageModel {
     }
 
     /**
-     * <p>rs2Outages</p>
+     * <p>
+     * rs2Outages
+     * </p>
      *
-     * @param rs a {@link java.sql.ResultSet} object.
+     * @param rs
+     *            a {@link java.sql.ResultSet} object.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     protected static Outage[] rs2Outages(ResultSet rs) throws SQLException {
         return rs2Outages(rs, true);
     }
 
     /**
-     * <p>rs2Outages</p>
+     * <p>
+     * rs2Outages
+     * </p>
      *
-     * @param rs a {@link java.sql.ResultSet} object.
-     * @param includesRegainedTime a boolean.
+     * @param rs
+     *            a {@link java.sql.ResultSet} object.
+     * @param includesRegainedTime
+     *            a boolean.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     protected static Outage[] rs2Outages(ResultSet rs, boolean includesRegainedTime) throws SQLException {
         return rs2Outages(rs, includesRegainedTime, false);
@@ -685,15 +789,22 @@ public class OutageModel {
      * cleaned up
      */
     /**
-     * <p>rs2Outages</p>
+     * <p>
+     * rs2Outages
+     * </p>
      *
-     * @param rs a {@link java.sql.ResultSet} object.
-     * @param includesRegainedTime a boolean.
-     * @param includesNotifications a boolean.
+     * @param rs
+     *            a {@link java.sql.ResultSet} object.
+     * @param includesRegainedTime
+     *            a boolean.
+     * @param includesNotifications
+     *            a boolean.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    protected static Outage[] rs2Outages(ResultSet rs, boolean includesRegainedTime, boolean includesNotifications) throws SQLException {
+    protected static Outage[] rs2Outages(ResultSet rs, boolean includesRegainedTime, boolean includesNotifications)
+            throws SQLException {
         Outage[] outages = null;
         List<Outage> list = new ArrayList<Outage>();
 

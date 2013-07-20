@@ -74,7 +74,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class GroupRestService extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(GroupRestService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GroupRestService.class);
 
     @Autowired
     private GroupManager m_groupManager;
@@ -86,7 +86,7 @@ public class GroupRestService extends OnmsRestService {
     ResourceContext m_context;
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     public OnmsGroupList getGroups() {
         readLock();
 
@@ -108,17 +108,20 @@ public class GroupRestService extends OnmsRestService {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{groupName}")
-    public OnmsGroup getGroup(@PathParam("groupName") final String groupName) {
+    public OnmsGroup getGroup(@PathParam("groupName")
+    final String groupName) {
         readLock();
 
         try {
             final OnmsGroup group = m_groupManager.getOnmsGroup(groupName);
-            if (group != null) return group;
+            if (group != null)
+                return group;
             throw getException(Status.NOT_FOUND, groupName + " does not exist");
         } catch (final Throwable t) {
-            if (t instanceof WebApplicationException) throw (WebApplicationException)t;
+            if (t instanceof WebApplicationException)
+                throw (WebApplicationException) t;
             throw getException(Status.BAD_REQUEST, t);
         } finally {
             readUnlock();
@@ -144,7 +147,8 @@ public class GroupRestService extends OnmsRestService {
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{groupName}")
-    public Response updateGroup(@PathParam("groupName") final String groupName, final MultivaluedMapImpl params) {
+    public Response updateGroup(@PathParam("groupName")
+    final String groupName, final MultivaluedMapImpl params) {
         writeLock();
 
         try {
@@ -154,10 +158,11 @@ public class GroupRestService extends OnmsRestService {
             } catch (final Throwable t) {
                 throw getException(Status.BAD_REQUEST, t);
             }
-            if (group == null) throw getException(Status.BAD_REQUEST, "updateGroup: Group does not exist: " + groupName);
+            if (group == null)
+                throw getException(Status.BAD_REQUEST, "updateGroup: Group does not exist: " + groupName);
             LOG.debug("updateGroup: updating group {}", group);
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(group);
-            for(final String key : params.keySet()) {
+            for (final String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
                     final String stringValue = params.getFirst(key);
                     @SuppressWarnings("unchecked")
@@ -179,7 +184,8 @@ public class GroupRestService extends OnmsRestService {
 
     @DELETE
     @Path("{groupName}")
-    public Response deleteGroup(@PathParam("groupName") final String groupName) {
+    public Response deleteGroup(@PathParam("groupName")
+    final String groupName) {
         writeLock();
         try {
             final OnmsGroup group = getOnmsGroup(groupName);
@@ -195,7 +201,9 @@ public class GroupRestService extends OnmsRestService {
 
     @PUT
     @Path("{groupName}/users/{userName}")
-    public Response addUser(@PathParam("groupName") final String groupName, @PathParam("userName") final String userName) {
+    public Response addUser(@PathParam("groupName")
+    final String groupName, @PathParam("userName")
+    final String userName) {
         writeLock();
         try {
             final OnmsGroup group = getOnmsGroup(groupName);
@@ -211,7 +219,9 @@ public class GroupRestService extends OnmsRestService {
 
     @DELETE
     @Path("{groupName}/users/{userName}")
-    public Response removeUser(@PathParam("groupName") final String groupName, @PathParam("userName") final String userName) {
+    public Response removeUser(@PathParam("groupName")
+    final String groupName, @PathParam("userName")
+    final String userName) {
         writeLock();
         try {
             final OnmsGroup group = getOnmsGroup(groupName);
@@ -223,7 +233,8 @@ public class GroupRestService extends OnmsRestService {
                 throw getException(Status.BAD_REQUEST, "User is not in the group '" + groupName + "': " + userName);
             }
         } catch (final Throwable t) {
-            if (t instanceof WebApplicationException) throw (WebApplicationException)t;
+            if (t instanceof WebApplicationException)
+                throw (WebApplicationException) t;
             throw getException(Status.INTERNAL_SERVER_ERROR, t);
         } finally {
             writeUnlock();
@@ -237,7 +248,8 @@ public class GroupRestService extends OnmsRestService {
         } catch (final Throwable t) {
             throw getException(Status.BAD_REQUEST, t);
         }
-        if (group == null) throw getException(Status.BAD_REQUEST, "Group does not exist: " + groupName);
+        if (group == null)
+            throw getException(Status.BAD_REQUEST, "Group does not exist: " + groupName);
         return group;
     }
 

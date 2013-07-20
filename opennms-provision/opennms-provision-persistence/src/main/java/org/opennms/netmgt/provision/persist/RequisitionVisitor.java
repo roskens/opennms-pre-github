@@ -33,87 +33,170 @@ import org.opennms.netmgt.provision.persist.requisition.Requisition;
 public interface RequisitionVisitor {
 
     /**
-     * <p>visitModelImport</p>
+     * <p>
+     * visitModelImport
+     * </p>
      *
-     * @param req a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
+     * @param req
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *            object.
      */
     public void visitModelImport(Requisition req);
+
     /**
-     * <p>completeModelImport</p>
+     * <p>
+     * completeModelImport
+     * </p>
      *
-     * @param req a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
+     * @param req
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *            object.
      */
     public void completeModelImport(Requisition req);
+
     /**
-     * <p>visitNode</p>
+     * <p>
+     * visitNode
+     * </p>
      *
-     * @param nodeReq a {@link org.opennms.netmgt.provision.persist.OnmsNodeRequisition} object.
+     * @param nodeReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsNodeRequisition}
+     *            object.
      */
     public void visitNode(OnmsNodeRequisition nodeReq);
+
     /**
-     * <p>completeNode</p>
+     * <p>
+     * completeNode
+     * </p>
      *
-     * @param nodeReq a {@link org.opennms.netmgt.provision.persist.OnmsNodeRequisition} object.
+     * @param nodeReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsNodeRequisition}
+     *            object.
      */
     public void completeNode(OnmsNodeRequisition nodeReq);
+
     /**
-     * <p>visitInterface</p>
+     * <p>
+     * visitInterface
+     * </p>
      *
-     * @param ifaceReq a {@link org.opennms.netmgt.provision.persist.OnmsIpInterfaceRequisition} object.
+     * @param ifaceReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsIpInterfaceRequisition}
+     *            object.
      */
     public void visitInterface(OnmsIpInterfaceRequisition ifaceReq);
+
     /**
-     * <p>completeInterface</p>
+     * <p>
+     * completeInterface
+     * </p>
      *
-     * @param ifaceReq a {@link org.opennms.netmgt.provision.persist.OnmsIpInterfaceRequisition} object.
+     * @param ifaceReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsIpInterfaceRequisition}
+     *            object.
      */
     public void completeInterface(OnmsIpInterfaceRequisition ifaceReq);
+
     /**
-     * <p>visitMonitoredService</p>
+     * <p>
+     * visitMonitoredService
+     * </p>
      *
-     * @param monSvcReq a {@link org.opennms.netmgt.provision.persist.OnmsMonitoredServiceRequisition} object.
+     * @param monSvcReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsMonitoredServiceRequisition}
+     *            object.
      */
     public void visitMonitoredService(OnmsMonitoredServiceRequisition monSvcReq);
+
     /**
-     * <p>completeMonitoredService</p>
+     * <p>
+     * completeMonitoredService
+     * </p>
      *
-     * @param monSvcReq a {@link org.opennms.netmgt.provision.persist.OnmsMonitoredServiceRequisition} object.
+     * @param monSvcReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsMonitoredServiceRequisition}
+     *            object.
      */
     public void completeMonitoredService(OnmsMonitoredServiceRequisition monSvcReq);
+
     /**
-     * <p>visitNodeCategory</p>
+     * <p>
+     * visitNodeCategory
+     * </p>
      *
-     * @param catReq a {@link org.opennms.netmgt.provision.persist.OnmsNodeCategoryRequisition} object.
+     * @param catReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsNodeCategoryRequisition}
+     *            object.
      */
     public void visitNodeCategory(OnmsNodeCategoryRequisition catReq);
+
     /**
-     * <p>completeNodeCategory</p>
+     * <p>
+     * completeNodeCategory
+     * </p>
      *
-     * @param catReq a {@link org.opennms.netmgt.provision.persist.OnmsNodeCategoryRequisition} object.
+     * @param catReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsNodeCategoryRequisition}
+     *            object.
      */
     public void completeNodeCategory(OnmsNodeCategoryRequisition catReq);
+
     /**
-     * <p>visitServiceCategory</p>
+     * <p>
+     * visitServiceCategory
+     * </p>
      *
-     * @param catReq a {@link org.opennms.netmgt.provision.persist.OnmsServiceCategoryRequisition} object.
+     * @param catReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsServiceCategoryRequisition}
+     *            object.
      */
     public void visitServiceCategory(OnmsServiceCategoryRequisition catReq);
+
     /**
-     * <p>completeServiceCategory</p>
+     * <p>
+     * completeServiceCategory
+     * </p>
      *
-     * @param catReq a {@link org.opennms.netmgt.provision.persist.OnmsServiceCategoryRequisition} object.
+     * @param catReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsServiceCategoryRequisition}
+     *            object.
      */
     public void completeServiceCategory(OnmsServiceCategoryRequisition catReq);
+
     /**
-     * <p>visitAsset</p>
+     * <p>
+     * visitAsset
+     * </p>
      *
-     * @param assetReq a {@link org.opennms.netmgt.provision.persist.OnmsAssetRequisition} object.
+     * @param assetReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsAssetRequisition}
+     *            object.
      */
     public void visitAsset(OnmsAssetRequisition assetReq);
+
     /**
-     * <p>completeAsset</p>
+     * <p>
+     * completeAsset
+     * </p>
      *
-     * @param assetReq a {@link org.opennms.netmgt.provision.persist.OnmsAssetRequisition} object.
+     * @param assetReq
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.OnmsAssetRequisition}
+     *            object.
      */
     public void completeAsset(OnmsAssetRequisition assetReq);
 

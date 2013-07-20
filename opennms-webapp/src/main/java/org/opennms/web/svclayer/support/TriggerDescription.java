@@ -31,7 +31,9 @@ package org.opennms.web.svclayer.support;
 import java.util.Date;
 
 /**
- * <p>TriggerDescription class.</p>
+ * <p>
+ * TriggerDescription class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,11 +42,15 @@ import java.util.Date;
 public class TriggerDescription {
 
     private String m_triggerName;
+
     private String m_description;
+
     private Date m_nextFireTime;
 
     /**
-     * <p>getTriggerName</p>
+     * <p>
+     * getTriggerName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -53,33 +59,44 @@ public class TriggerDescription {
     }
 
     /**
-     * <p>setTriggerName</p>
+     * <p>
+     * setTriggerName
+     * </p>
      *
-     * @param triggerName a {@link java.lang.String} object.
+     * @param triggerName
+     *            a {@link java.lang.String} object.
      */
     public final void setTriggerName(final String triggerName) {
         m_triggerName = triggerName;
     }
 
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public final String getDescription() {
         return m_description;
     }
+
     /**
-     * <p>setDescription</p>
+     * <p>
+     * setDescription
+     * </p>
      *
-     * @param description a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
      */
     public final void setDescription(final String description) {
         m_description = description;
     }
 
     /**
-     * <p>getNextFireTime</p>
+     * <p>
+     * getNextFireTime
+     * </p>
      *
      * @return a java$util$Date object.
      */
@@ -88,14 +105,15 @@ public class TriggerDescription {
     }
 
     /**
-     * <p>setNextFireTime</p>
+     * <p>
+     * setNextFireTime
+     * </p>
      *
-     * @param nextFireTime a java$util$Date object.
+     * @param nextFireTime
+     *            a java$util$Date object.
      */
     public final void setNextFireTime(final Date nextFireTime) {
         m_nextFireTime = nextFireTime;
     }
-
-
 
 }

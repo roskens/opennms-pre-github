@@ -36,7 +36,9 @@ import java.util.List;
 import org.opennms.rancid.InventoryElement2;
 
 /**
- * <p>NodeBaseInventory class.</p>
+ * <p>
+ * NodeBaseInventory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,24 +46,34 @@ import org.opennms.rancid.InventoryElement2;
 public class NodeBaseInventory {
 
     String devicename;
+
     String groupname;
+
     String version;
+
     String status;
+
     Date creationdate;
+
     String swconfigurationurl;
+
     String configurationurl;
 
     List<InventoryElement2> ie;
 
     /**
-     * <p>Constructor for NodeBaseInventory.</p>
+     * <p>
+     * Constructor for NodeBaseInventory.
+     * </p>
      */
-    public NodeBaseInventory(){
+    public NodeBaseInventory() {
         ie = new ArrayList<InventoryElement2>();
     }
 
     /**
-     * <p>Getter for the field <code>devicename</code>.</p>
+     * <p>
+     * Getter for the field <code>devicename</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,16 +82,21 @@ public class NodeBaseInventory {
     }
 
     /**
-     * <p>Setter for the field <code>devicename</code>.</p>
+     * <p>
+     * Setter for the field <code>devicename</code>.
+     * </p>
      *
-     * @param devicename a {@link java.lang.String} object.
+     * @param devicename
+     *            a {@link java.lang.String} object.
      */
     public void setDevicename(String devicename) {
         this.devicename = devicename;
     }
 
     /**
-     * <p>Getter for the field <code>groupname</code>.</p>
+     * <p>
+     * Getter for the field <code>groupname</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,16 +105,21 @@ public class NodeBaseInventory {
     }
 
     /**
-     * <p>Setter for the field <code>groupname</code>.</p>
+     * <p>
+     * Setter for the field <code>groupname</code>.
+     * </p>
      *
-     * @param groupname a {@link java.lang.String} object.
+     * @param groupname
+     *            a {@link java.lang.String} object.
      */
     public void setGroupname(String groupname) {
         this.groupname = groupname;
     }
 
     /**
-     * <p>Getter for the field <code>version</code>.</p>
+     * <p>
+     * Getter for the field <code>version</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,16 +128,21 @@ public class NodeBaseInventory {
     }
 
     /**
-     * <p>Setter for the field <code>version</code>.</p>
+     * <p>
+     * Setter for the field <code>version</code>.
+     * </p>
      *
-     * @param version a {@link java.lang.String} object.
+     * @param version
+     *            a {@link java.lang.String} object.
      */
     public void setVersion(String version) {
         this.version = version;
     }
 
     /**
-     * <p>Getter for the field <code>status</code>.</p>
+     * <p>
+     * Getter for the field <code>status</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,16 +151,21 @@ public class NodeBaseInventory {
     }
 
     /**
-     * <p>Setter for the field <code>status</code>.</p>
+     * <p>
+     * Setter for the field <code>status</code>.
+     * </p>
      *
-     * @param status a {@link java.lang.String} object.
+     * @param status
+     *            a {@link java.lang.String} object.
      */
     public void setStatus(String status) {
         this.status = status;
     }
 
     /**
-     * <p>Getter for the field <code>creationdate</code>.</p>
+     * <p>
+     * Getter for the field <code>creationdate</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -142,16 +174,21 @@ public class NodeBaseInventory {
     }
 
     /**
-     * <p>Setter for the field <code>creationdate</code>.</p>
+     * <p>
+     * Setter for the field <code>creationdate</code>.
+     * </p>
      *
-     * @param creationdate a {@link java.util.Date} object.
+     * @param creationdate
+     *            a {@link java.util.Date} object.
      */
     public void setCreationdate(Date creationdate) {
         this.creationdate = creationdate;
     }
 
     /**
-     * <p>Getter for the field <code>swconfigurationurl</code>.</p>
+     * <p>
+     * Getter for the field <code>swconfigurationurl</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -160,16 +197,21 @@ public class NodeBaseInventory {
     }
 
     /**
-     * <p>Setter for the field <code>swconfigurationurl</code>.</p>
+     * <p>
+     * Setter for the field <code>swconfigurationurl</code>.
+     * </p>
      *
-     * @param swconfigurationurl a {@link java.lang.String} object.
+     * @param swconfigurationurl
+     *            a {@link java.lang.String} object.
      */
     public void setSwconfigurationurl(String swconfigurationurl) {
         this.swconfigurationurl = swconfigurationurl;
     }
 
     /**
-     * <p>Getter for the field <code>configurationurl</code>.</p>
+     * <p>
+     * Getter for the field <code>configurationurl</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -178,16 +220,21 @@ public class NodeBaseInventory {
     }
 
     /**
-     * <p>Setter for the field <code>configurationurl</code>.</p>
+     * <p>
+     * Setter for the field <code>configurationurl</code>.
+     * </p>
      *
-     * @param configurationurl a {@link java.lang.String} object.
+     * @param configurationurl
+     *            a {@link java.lang.String} object.
      */
     public void setConfigurationurl(String configurationurl) {
         this.configurationurl = configurationurl;
     }
 
     /**
-     * <p>Getter for the field <code>ie</code>.</p>
+     * <p>
+     * Getter for the field <code>ie</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -196,32 +243,35 @@ public class NodeBaseInventory {
     }
 
     /**
-     * <p>Setter for the field <code>ie</code>.</p>
+     * <p>
+     * Setter for the field <code>ie</code>.
+     * </p>
      *
-     * @param ie a {@link java.util.List} object.
+     * @param ie
+     *            a {@link java.util.List} object.
      */
     public void setIe(List<InventoryElement2> ie) {
         this.ie = ie;
     }
 
     /**
-     * <p>expand</p>
+     * <p>
+     * expand
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String expand () {
+    public String expand() {
 
         Iterator<InventoryElement2> iter1 = ie.iterator();
 
-        String tot="";
-        while (iter1.hasNext()){
+        String tot = "";
+        while (iter1.hasNext()) {
             InventoryElement2 tmp = iter1.next();
-            tot = tot + "<" + tmp.expand()+ ">\n";
+            tot = tot + "<" + tmp.expand() + ">\n";
         }
         return tot;
 
     }
 
-
 }
-

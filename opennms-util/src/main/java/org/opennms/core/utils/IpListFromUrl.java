@@ -41,14 +41,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 /**
  * Convenience class for generating a list of IP addresses from a file URL.
  */
 public class IpListFromUrl extends Object {
 
-	private final static Logger LOG = LoggerFactory.getLogger(IpListFromUrl.class);
+    private final static Logger LOG = LoggerFactory.getLogger(IpListFromUrl.class);
 
     /**
      * The string indicating the start of the comments in a line containing the
@@ -124,11 +122,11 @@ public class IpListFromUrl extends Object {
                 LOG.warn("URL does not exist: {}", url);
             }
         } catch (MalformedURLException e) {
-        	LOG.error("Error reading URL: {}: {}", url, e.getLocalizedMessage());
+            LOG.error("Error reading URL: {}: {}", url, e.getLocalizedMessage());
         } catch (FileNotFoundException e) {
-        	LOG.error("Error reading URL: {}: {}", url, e.getLocalizedMessage());
+            LOG.error("Error reading URL: {}: {}", url, e.getLocalizedMessage());
         } catch (IOException e) {
-        	LOG.error("Error reading URL: {}: {}", url, e.getLocalizedMessage());
+            LOG.error("Error reading URL: {}: {}", url, e.getLocalizedMessage());
         }
 
         return iplist;

@@ -36,13 +36,18 @@ import java.util.List;
 public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
 
     private Iterator<Iterator<T>> m_iterIter;
+
     private Iterator<T> m_currentIter;
 
     /**
-     * <p>Constructor for IteratorIterator.</p>
+     * <p>
+     * Constructor for IteratorIterator.
+     * </p>
      *
-     * @param iterators a {@link java.util.Iterator} object.
-     * @param <T> a T object.
+     * @param iterators
+     *            a {@link java.util.Iterator} object.
+     * @param <T>
+     *            a T object.
      */
     public IteratorIterator(Iterator<T>... iterators) {
         /*
@@ -56,9 +61,12 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
-     * <p>Constructor for IteratorIterator.</p>
+     * <p>
+     * Constructor for IteratorIterator.
+     * </p>
      *
-     * @param iterators a {@link java.util.List} object.
+     * @param iterators
+     *            a {@link java.util.List} object.
      */
     public IteratorIterator(List<Iterator<T>> iterators) {
         List<Iterator<T>> iters = new ArrayList<Iterator<T>>(iterators);
@@ -66,14 +74,15 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
-     * <p>hasNext</p>
+     * <p>
+     * hasNext
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean hasNext() {
-        while ((m_currentIter == null || !m_currentIter.hasNext())
-                && m_iterIter.hasNext()) {
+        while ((m_currentIter == null || !m_currentIter.hasNext()) && m_iterIter.hasNext()) {
             m_currentIter = m_iterIter.next();
             m_iterIter.remove();
         }
@@ -82,7 +91,9 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
-     * <p>next</p>
+     * <p>
+     * next
+     * </p>
      *
      * @return a T object.
      */
@@ -95,7 +106,9 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
-     * <p>remove</p>
+     * <p>
+     * remove
+     * </p>
      */
     @Override
     public void remove() {
@@ -103,7 +116,9 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
-     * <p>iterator</p>
+     * <p>
+     * iterator
+     * </p>
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -111,6 +126,5 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
     public Iterator<T> iterator() {
         return this;
     }
-
 
 }

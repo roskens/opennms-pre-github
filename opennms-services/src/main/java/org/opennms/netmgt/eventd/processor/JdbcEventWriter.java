@@ -58,23 +58,20 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 /**
  * EventWriter loads the information in each 'Event' into the database.
- *
- * While loading multiple values of the same element into a single DB column, the
+ * While loading multiple values of the same element into a single DB column,
+ * the
  * multiple values are delimited by MULTIPLE_VAL_DELIM.
- *
  * When an element and its attribute are loaded into a single DB column, the
  * value and the attribute are separated by a DB_ATTRIB_DELIM.
- *
  * When using delimiters to append values, if the values already have the
  * delimiter, the delimiter in the value is escaped as in URLs.
- *
  * Values for the ' <parms>' block are loaded with each parm name and parm value
  * delimited with the NAME_VAL_DELIM.
  *
- * @deprecated Replace with a Hibernate implementation. See bug NMS-3033. Actually
- * it doesn't have any details. :P
- * http://issues.opennms.org:8280/browse/NMS-3033
- *
+ * @deprecated Replace with a Hibernate implementation. See bug NMS-3033.
+ *             Actually
+ *             it doesn't have any details. :P
+ *             http://issues.opennms.org:8280/browse/NMS-3033
  * @see org.opennms.netmgt.model.events.Constants#MULTIPLE_VAL_DELIM
  * @see org.opennms.netmgt.model.events.Constants#DB_ATTRIB_DELIM
  * @see org.opennms.netmgt.model.events.Constants#NAME_VAL_DELIM
@@ -89,10 +86,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  */
 public final class JdbcEventWriter extends AbstractJdbcPersister implements EventProcessor, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(JdbcEventWriter.class);
+
     /**
-     * {@inheritDoc}
-     *
-     * The method that inserts the event into the database
+     * {@inheritDoc} The method that inserts the event into the database
      */
     @Override
     public void process(final Header eventHeader, final Event event) throws EventProcessorException {
@@ -100,7 +96,8 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
             return;
         }
 
-        LOG.debug("JdbcEventWriter: processing {} nodeid: {} ipaddr: {} serviceid: {} time: {}", event.getUei(), event.getNodeid(), event.getInterface(), event.getService(), event.getTime());
+        LOG.debug("JdbcEventWriter: processing {} nodeid: {} ipaddr: {} serviceid: {} time: {}", event.getUei(),
+                  event.getNodeid(), event.getInterface(), event.getService(), event.getTime());
 
         Connection connection;
         try {
@@ -160,7 +157,8 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
      *                Thrown if a required resource cannot be found in the
      *                properties file.
      */
-    private void insertEvent(final Header eventHeader, final Event event, final Connection connection) throws SQLException {
+    private void insertEvent(final Header eventHeader, final Event event, final Connection connection)
+            throws SQLException {
         // Execute the statement to get the next event id
         final int eventID = getNextId();
 
@@ -221,8 +219,9 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
 
             // eventParms
 
-            // Replace any null bytes with a space, otherwise postgres will complain about encoding in UNICODE
-            final String parametersString=Parameter.format(event);
+            // Replace any null bytes with a space, otherwise postgres will
+            // complain about encoding in UNICODE
+            final String parametersString = Parameter.format(event);
             set(insStmt, 11, Constants.format(parametersString, 0));
 
             // eventCreateTime
@@ -233,7 +232,8 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
             set(insStmt, 13, Constants.format(event.getDescr(), 0));
 
             // eventLoggroup
-            set(insStmt, 14, (event.getLoggroupCount() > 0) ? Constants.format(event.getLoggroup(), EVENT_LOGGRP_FIELD_SIZE) : null);
+            set(insStmt, 14,
+                (event.getLoggroupCount() > 0) ? Constants.format(event.getLoggroup(), EVENT_LOGGRP_FIELD_SIZE) : null);
 
             // eventLogMsg
             // eventLog
@@ -275,10 +275,16 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
             set(insStmt, 18, OnmsSeverity.get(event.getSeverity()).getId());
 
             // eventPathOutage
-            set(insStmt, 19, (event.getPathoutage() != null) ? Constants.format(event.getPathoutage(), EVENT_PATHOUTAGE_FIELD_SIZE) : null);
+            set(insStmt, 19,
+                (event.getPathoutage() != null) ? Constants.format(event.getPathoutage(), EVENT_PATHOUTAGE_FIELD_SIZE)
+                    : null);
 
             // eventCorrelation
-            set(insStmt, 20, (event.getCorrelation() != null) ? org.opennms.netmgt.dao.util.Correlation.format(event.getCorrelation(), EVENT_CORRELATION_FIELD_SIZE) : null);
+            set(insStmt,
+                20,
+                (event.getCorrelation() != null) ? org.opennms.netmgt.dao.util.Correlation.format(event.getCorrelation(),
+                                                                                                  EVENT_CORRELATION_FIELD_SIZE)
+                    : null);
 
             // eventSuppressedCount
             insStmt.setNull(21, Types.INTEGER);
@@ -287,7 +293,10 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
             set(insStmt, 22, Constants.format(event.getOperinstruct(), EVENT_OPERINSTRUCT_FIELD_SIZE));
 
             // eventAutoAction
-            set(insStmt, 23, (event.getAutoactionCount() > 0) ? AutoAction.format(event.getAutoaction(), EVENT_AUTOACTION_FIELD_SIZE) : null);
+            set(insStmt,
+                23,
+                (event.getAutoactionCount() > 0) ? AutoAction.format(event.getAutoaction(), EVENT_AUTOACTION_FIELD_SIZE)
+                    : null);
 
             // eventOperAction / eventOperActionMenuText
             if (event.getOperactionCount() > 0) {
@@ -319,7 +328,11 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
             }
 
             // eventForward
-            set(insStmt, 29, (event.getForwardCount() > 0) ? org.opennms.netmgt.dao.util.Forward.format(event.getForward(), EVENT_FORWARD_FIELD_SIZE) : null);
+            set(insStmt,
+                29,
+                (event.getForwardCount() > 0) ? org.opennms.netmgt.dao.util.Forward.format(event.getForward(),
+                                                                                           EVENT_FORWARD_FIELD_SIZE)
+                    : null);
 
             // event mouseOverText
             set(insStmt, 30, Constants.format(event.getMouseovertext(), EVENT_MOUSEOVERTEXT_FIELD_SIZE));
@@ -355,28 +368,27 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
         LOG.debug("SUCCESSFULLY added {} related  data into the EVENTS table.", event.getUei());
     }
 
-
     /**
      * This method is used to convert the event host into a hostname id by
      * performing a lookup in the database. If the conversion is successful then
      * the corresponding hosname will be returned to the caller.
-     * @param nodeId TODO
+     *
+     * @param nodeId
+     *            TODO
      * @param hostip
      *            The event host
-     *
      * @return The hostname
-     *
      * @exception java.sql.SQLException
      *                Thrown if there is an error accessing the stored data or
      *                the SQL text is malformed.
-     *
      * @see EventdConstants#SQL_DB_HOSTIP_TO_HOSTNAME
-     *
      */
 
     String getHostName(final int nodeId, final String hostip) throws SQLException {
         try {
-            final String hostname = new SimpleJdbcTemplate(getDataSource()).queryForObject(EventdConstants.SQL_DB_HOSTIP_TO_HOSTNAME, String.class, new Object[] { nodeId, hostip });
+            final String hostname = new SimpleJdbcTemplate(getDataSource()).queryForObject(EventdConstants.SQL_DB_HOSTIP_TO_HOSTNAME,
+                                                                                           String.class, new Object[] {
+                                                                                                   nodeId, hostip });
             return (hostname != null) ? hostname : hostip;
         } catch (final EmptyResultDataAccessException e) {
             return hostip;
@@ -396,16 +408,21 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
         try {
             return getServiceID(event.getService());
         } catch (final Throwable t) {
-            LOG.warn("Error converting service name \"{}\" to an integer identifier, storing -1.", event.getService(), t);
+            LOG.warn("Error converting service name \"{}\" to an integer identifier, storing -1.", event.getService(),
+                     t);
             return -1;
         }
     }
 
     /**
-     * <p>getEventHost</p>
+     * <p>
+     * getEventHost
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param connection a {@link java.sql.Connection} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param connection
+     *            a {@link java.sql.Connection} object.
      * @return a {@link java.lang.String} object.
      */
     protected String getEventHost(final Event event) {
@@ -413,7 +430,9 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
             return null;
         }
 
-        // If the event doesn't have a node ID, we can't lookup the IP address and be sure we have the right one since we don't know what node it is on
+        // If the event doesn't have a node ID, we can't lookup the IP address
+        // and be sure we have the right one since we don't know what node it is
+        // on
         if (!event.hasNodeid()) {
             return event.getHost();
         }

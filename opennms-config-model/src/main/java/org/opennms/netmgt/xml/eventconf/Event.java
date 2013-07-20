@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.xml.eventconf;
 
-  //---------------------------------/
+//---------------------------------/
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Serializable;
@@ -54,151 +54,156 @@ import org.exolab.castor.xml.Validator;
 import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
-@XmlRootElement(name="event")
+@XmlRootElement(name = "event")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
-@XmlType(propOrder={})
+@XmlType(propOrder = {})
 public class Event implements Serializable {
-	private static final long serialVersionUID = 565808183599950549L;
+    private static final long serialVersionUID = 565808183599950549L;
 
-	private static final Varbindsdecode[] EMPTY_VARBINDSDECODE_ARRAY = new Varbindsdecode[0];
-	private static final Script[]         EMPTY_SCRIPT_ARRAY = new Script[0];
-	private static final Operaction[]     EMPTY_OPERACTION_ARRAY = new Operaction[0];
-	private static final String[]         EMPTY_STRING_ARRAY = new String[0];
-	private static final Forward[]        EMPTY_FORWARD_ARRAY = new Forward[0];
-	private static final Autoaction[]     EMPTY_AUTOACTION_ARRAY = new Autoaction[0];
+    private static final Varbindsdecode[] EMPTY_VARBINDSDECODE_ARRAY = new Varbindsdecode[0];
 
-	/**
+    private static final Script[] EMPTY_SCRIPT_ARRAY = new Script[0];
+
+    private static final Operaction[] EMPTY_OPERACTION_ARRAY = new Operaction[0];
+
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+
+    private static final Forward[] EMPTY_FORWARD_ARRAY = new Forward[0];
+
+    private static final Autoaction[] EMPTY_AUTOACTION_ARRAY = new Autoaction[0];
+
+    /**
      * The event mask which helps to uniquely identify an event
      */
-	@XmlElement(name="mask",required=false)
+    @XmlElement(name = "mask", required = false)
     private Mask m_mask;
 
     /**
      * The Universal Event Identifier
      */
-	// @NotNull
-	@XmlElement(name="uei", required=true)
+    // @NotNull
+    @XmlElement(name = "uei", required = true)
     private String m_uei;
 
     /**
      * A human readable name used to identify an event in the web ui
      */
-	// @NotNull
-	@XmlElement(name="event-label", required=true)
+    // @NotNull
+    @XmlElement(name = "event-label", required = true)
     private String m_eventLabel;
 
     /**
      * The SNMP information from the trap
      */
-	@XmlElement(name="snmp", required=false)
+    @XmlElement(name = "snmp", required = false)
     private Snmp m_snmp;
 
     /**
      * The event description
      */
-	// @NotNull
-	@XmlElement(name="descr", required=true)
+    // @NotNull
+    @XmlElement(name = "descr", required = true)
     private String m_descr;
 
     /**
      * The event logmsg
      */
-	// @NotNull
-	@XmlElement(name="logmsg", required=true)
+    // @NotNull
+    @XmlElement(name = "logmsg", required = true)
     private Logmsg m_logmsg;
 
     /**
      * The event severity
      */
-	// @NotNull
-	@XmlElement(name="severity", required=true)
+    // @NotNull
+    @XmlElement(name = "severity", required = true)
     private String m_severity;
 
     /**
      * The event correlation information
      */
-	@XmlElement(name="correlation", required=false)
+    @XmlElement(name = "correlation", required = false)
     private Correlation m_correlation;
 
     /**
      * The operator instruction for this event
      */
-	@XmlElement(name="operinstruct", required=false)
+    @XmlElement(name = "operinstruct", required = false)
     private String m_operinstruct;
 
     /**
      * The automatic action to occur when this event occurs
      */
-	// @Size(min=0)
-	@XmlElement(name="autoaction", required=false)
+    // @Size(min=0)
+    @XmlElement(name = "autoaction", required = false)
     private List<Autoaction> m_autoactions = new ArrayList<Autoaction>();
 
     /**
      * The varbind decoding tag used to decode value into a string
      */
-	// @Size(min=0)
-	@XmlElement(name="varbindsdecode", required=false)
+    // @Size(min=0)
+    @XmlElement(name = "varbindsdecode", required = false)
     private List<Varbindsdecode> m_varbindsdecodes = new ArrayList<Varbindsdecode>();
 
     /**
      * The operator action to be taken when this event occurs
      */
-	// @Size(min=0)
-	@XmlElement(name="operaction", required=false)
+    // @Size(min=0)
+    @XmlElement(name = "operaction", required = false)
     private List<Operaction> m_operactions = new ArrayList<Operaction>();
 
     /**
      * The autoacknowledge information for the user
      */
-	@XmlElement(name="autoacknowledge", required=false)
+    @XmlElement(name = "autoacknowledge", required = false)
     private Autoacknowledge m_autoacknowledge;
 
     /**
      * A logical group with which to associate this event
      */
-	// @Size(min=0)
-	@XmlElement(name="loggroup", required=false)
+    // @Size(min=0)
+    @XmlElement(name = "loggroup", required = false)
     private List<String> m_loggroups = new ArrayList<String>();
 
     /**
      * The trouble ticket info
      */
-	@XmlElement(name="tticket", required=false)
+    @XmlElement(name = "tticket", required = false)
     private Tticket m_tticket;
 
     /**
      * The forwarding information for this event
      */
-	// @Size(min=0)
-	@XmlElement(name="forward", required=false)
+    // @Size(min=0)
+    @XmlElement(name = "forward", required = false)
     private List<Forward> m_forwards = new ArrayList<Forward>();
 
     /**
      * The script information for this event
      */
-	// @Size(min=0)
-	@XmlElement(name="script", required=false)
+    // @Size(min=0)
+    @XmlElement(name = "script", required = false)
     private List<Script> m_scripts = new ArrayList<Script>();
 
     /**
      * The text to be displayed on a 'mouseOver' event
-     *  when this event is displayed in the event browser.
+     * when this event is displayed in the event browser.
      */
-	@XmlElement(name="mouseovertext", required=false)
+    @XmlElement(name = "mouseovertext", required = false)
     private String m_mouseovertext;
 
     /**
      * Data used to create an event.
      */
-	@XmlElement(name="alarm-data", required=false)
+    @XmlElement(name = "alarm-data", required = false)
     private AlarmData m_alarmData;
 
-    @XmlElement(name="filters", required=false)
-	private Filters m_filters;
+    @XmlElement(name = "filters", required = false)
+    private Filters m_filters;
 
     @XmlTransient
-	private EventMatcher m_matcher;
+    private EventMatcher m_matcher;
 
     public void addAutoaction(final Autoaction autoaction) throws IndexOutOfBoundsException {
         m_autoactions.add(autoaction);
@@ -244,7 +249,8 @@ public class Event implements Serializable {
         m_varbindsdecodes.add(varbindsdecode);
     }
 
-    public void addVarbindsdecode(final int index, final Varbindsdecode varbindsdecode) throws IndexOutOfBoundsException {
+    public void addVarbindsdecode(final int index, final Varbindsdecode varbindsdecode)
+            throws IndexOutOfBoundsException {
         m_varbindsdecodes.add(index, varbindsdecode);
     }
 
@@ -282,7 +288,8 @@ public class Event implements Serializable {
 
     public Autoaction getAutoaction(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_autoactions.size()) {
-            throw new IndexOutOfBoundsException("getAutoaction: Index value '" + index + "' not in range [0.." + (m_autoactions.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getAutoaction: Index value '" + index + "' not in range [0.."
+                    + (m_autoactions.size() - 1) + "]");
         }
 
         return m_autoactions.get(index);
@@ -314,14 +321,15 @@ public class Event implements Serializable {
 
     public Forward getForward(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_forwards.size()) {
-            throw new IndexOutOfBoundsException("getForward: Index value '" + index + "' not in range [0.." + (m_forwards.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getForward: Index value '" + index + "' not in range [0.."
+                    + (m_forwards.size() - 1) + "]");
         }
         return m_forwards.get(index);
     }
 
-     public Filters getFilters() {
-         return m_filters;
-     }
+    public Filters getFilters() {
+        return m_filters;
+    }
 
     public Forward[] getForward() {
         return m_forwards.toArray(EMPTY_FORWARD_ARRAY);
@@ -337,7 +345,8 @@ public class Event implements Serializable {
 
     public String getLoggroup(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_loggroups.size()) {
-            throw new IndexOutOfBoundsException("getLoggroup: Index value '" + index + "' not in range [0.." + (m_loggroups.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getLoggroup: Index value '" + index + "' not in range [0.."
+                    + (m_loggroups.size() - 1) + "]");
         }
         return m_loggroups.get(index);
     }
@@ -470,7 +479,7 @@ public class Event implements Serializable {
         return m_varbindsdecodes.iterator();
     }
 
-    public void marshal(final Writer out)  throws MarshalException, ValidationException {
+    public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
@@ -565,12 +574,13 @@ public class Event implements Serializable {
     public void setAutoaction(final Autoaction[] autoactions) {
         m_autoactions.clear();
         for (final Autoaction act : autoactions) {
-        	m_autoactions.add(act);
+            m_autoactions.add(act);
         }
     }
 
     public void setAutoaction(final List<Autoaction> autoactions) {
-        if (m_autoactions == autoactions) return;
+        if (m_autoactions == autoactions)
+            return;
         m_autoactions.clear();
         m_autoactions.addAll(autoactions);
     }
@@ -602,12 +612,13 @@ public class Event implements Serializable {
     public void setForward(final Forward[] forwards) {
         m_forwards.clear();
         for (final Forward forward : forwards) {
-        	m_forwards.add(forward);
+            m_forwards.add(forward);
         }
     }
 
     public void setForward(final List<Forward> forwards) {
-        if (m_forwards == forwards) return;
+        if (m_forwards == forwards)
+            return;
         m_forwards.clear();
         m_forwards.addAll(forwards);
     }
@@ -623,12 +634,13 @@ public class Event implements Serializable {
     public void setLoggroup(final String[] loggroups) {
         m_loggroups.clear();
         for (final String group : loggroups) {
-        	m_loggroups.add(group.intern());
+            m_loggroups.add(group.intern());
         }
     }
 
     public void setLoggroup(final List<String> loggroups) {
-        if (m_loggroups == loggroups) return;
+        if (m_loggroups == loggroups)
+            return;
         m_loggroups.clear();
         m_loggroups.addAll(loggroups);
     }
@@ -656,12 +668,13 @@ public class Event implements Serializable {
     public void setOperaction(final Operaction[] operactions) {
         m_operactions.clear();
         for (final Operaction action : operactions) {
-        	m_operactions.add(action);
+            m_operactions.add(action);
         }
     }
 
     public void setOperaction(final List<Operaction> operactions) {
-        if (m_operactions == operactions) return;
+        if (m_operactions == operactions)
+            return;
         m_operactions.clear();
         m_operactions.addAll(operactions);
     }
@@ -681,12 +694,13 @@ public class Event implements Serializable {
     public void setScript(final Script[] scripts) {
         m_scripts.clear();
         for (final Script script : scripts) {
-        	m_scripts.add(script);
+            m_scripts.add(script);
         }
     }
 
     public void setScript(final List<Script> scripts) {
-        if (m_scripts == scripts) return;
+        if (m_scripts == scripts)
+            return;
         m_scripts.clear();
         m_scripts.addAll(scripts);
     }
@@ -718,12 +732,13 @@ public class Event implements Serializable {
     public void setVarbindsdecode(final Varbindsdecode[] decodes) {
         m_varbindsdecodes.clear();
         for (final Varbindsdecode decode : decodes) {
-        	m_varbindsdecodes.add(decode);
+            m_varbindsdecodes.add(decode);
         }
     }
 
     public void setVarbindsdecode(final List<Varbindsdecode> decodes) {
-        if (m_varbindsdecodes == decodes) return;
+        if (m_varbindsdecodes == decodes)
+            return;
         m_varbindsdecodes.clear();
         m_varbindsdecodes.addAll(decodes);
     }
@@ -736,166 +751,188 @@ public class Event implements Serializable {
         return (Event) Unmarshaller.unmarshal(Event.class, reader);
     }
 
-    public void validate()
-    throws ValidationException {
+    public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_alarmData == null) ? 0 : m_alarmData.hashCode());
-		result = prime * result + ((m_autoacknowledge == null) ? 0 : m_autoacknowledge.hashCode());
-		result = prime * result + ((m_autoactions == null) ? 0 : m_autoactions.hashCode());
-		result = prime * result + ((m_correlation == null) ? 0 : m_correlation.hashCode());
-		result = prime * result + ((m_descr == null) ? 0 : m_descr.hashCode());
-		result = prime * result + ((m_eventLabel == null) ? 0 : m_eventLabel.hashCode());
-		result = prime * result + ((m_filters == null) ? 0 : m_filters.hashCode());
-		result = prime * result + ((m_forwards == null) ? 0 : m_forwards.hashCode());
-		result = prime * result + ((m_loggroups == null) ? 0 : m_loggroups.hashCode());
-		result = prime * result + ((m_logmsg == null) ? 0 : m_logmsg.hashCode());
-		result = prime * result + ((m_mask == null) ? 0 : m_mask.hashCode());
-		result = prime * result + ((m_mouseovertext == null) ? 0 : m_mouseovertext.hashCode());
-		result = prime * result + ((m_operactions == null) ? 0 : m_operactions.hashCode());
-		result = prime * result + ((m_operinstruct == null) ? 0 : m_operinstruct.hashCode());
-		result = prime * result + ((m_scripts == null) ? 0 : m_scripts.hashCode());
-		result = prime * result + ((m_severity == null) ? 0 : m_severity.hashCode());
-		result = prime * result + ((m_snmp == null) ? 0 : m_snmp.hashCode());
-		result = prime * result + ((m_tticket == null) ? 0 : m_tticket.hashCode());
-		result = prime * result + ((m_uei == null) ? 0 : m_uei.hashCode());
-		result = prime * result + ((m_varbindsdecodes == null) ? 0 : m_varbindsdecodes.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_alarmData == null) ? 0 : m_alarmData.hashCode());
+        result = prime * result + ((m_autoacknowledge == null) ? 0 : m_autoacknowledge.hashCode());
+        result = prime * result + ((m_autoactions == null) ? 0 : m_autoactions.hashCode());
+        result = prime * result + ((m_correlation == null) ? 0 : m_correlation.hashCode());
+        result = prime * result + ((m_descr == null) ? 0 : m_descr.hashCode());
+        result = prime * result + ((m_eventLabel == null) ? 0 : m_eventLabel.hashCode());
+        result = prime * result + ((m_filters == null) ? 0 : m_filters.hashCode());
+        result = prime * result + ((m_forwards == null) ? 0 : m_forwards.hashCode());
+        result = prime * result + ((m_loggroups == null) ? 0 : m_loggroups.hashCode());
+        result = prime * result + ((m_logmsg == null) ? 0 : m_logmsg.hashCode());
+        result = prime * result + ((m_mask == null) ? 0 : m_mask.hashCode());
+        result = prime * result + ((m_mouseovertext == null) ? 0 : m_mouseovertext.hashCode());
+        result = prime * result + ((m_operactions == null) ? 0 : m_operactions.hashCode());
+        result = prime * result + ((m_operinstruct == null) ? 0 : m_operinstruct.hashCode());
+        result = prime * result + ((m_scripts == null) ? 0 : m_scripts.hashCode());
+        result = prime * result + ((m_severity == null) ? 0 : m_severity.hashCode());
+        result = prime * result + ((m_snmp == null) ? 0 : m_snmp.hashCode());
+        result = prime * result + ((m_tticket == null) ? 0 : m_tticket.hashCode());
+        result = prime * result + ((m_uei == null) ? 0 : m_uei.hashCode());
+        result = prime * result + ((m_varbindsdecodes == null) ? 0 : m_varbindsdecodes.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Event)) return false;
-		final Event other = (Event) obj;
-		if (m_alarmData == null) {
-			if (other.m_alarmData != null) return false;
-		} else if (!m_alarmData.equals(other.m_alarmData)) {
-			return false;
-		}
-		if (m_autoacknowledge == null) {
-			if (other.m_autoacknowledge != null) return false;
-		} else if (!m_autoacknowledge.equals(other.m_autoacknowledge)) {
-			return false;
-		}
-		if (m_autoactions == null) {
-			if (other.m_autoactions != null) return false;
-		} else if (!m_autoactions.equals(other.m_autoactions)) {
-			return false;
-		}
-		if (m_correlation == null) {
-			if (other.m_correlation != null) return false;
-		} else if (!m_correlation.equals(other.m_correlation)) {
-			return false;
-		}
-		if (m_descr == null) {
-			if (other.m_descr != null) return false;
-		} else if (!m_descr.equals(other.m_descr)) {
-			return false;
-		}
-		if (m_eventLabel == null) {
-			if (other.m_eventLabel != null) return false;
-		} else if (!m_eventLabel.equals(other.m_eventLabel)) {
-			return false;
-		}
-		if (m_filters == null) {
-			if (other.m_filters != null) return false;
-		} else if (!m_filters.equals(other.m_filters)) {
-			return false;
-		}
-		if (m_forwards == null) {
-			if (other.m_forwards != null) return false;
-		} else if (!m_forwards.equals(other.m_forwards)) {
-			return false;
-		}
-		if (m_loggroups == null) {
-			if (other.m_loggroups != null) return false;
-		} else if (!m_loggroups.equals(other.m_loggroups)) {
-			return false;
-		}
-		if (m_logmsg == null) {
-			if (other.m_logmsg != null) return false;
-		} else if (!m_logmsg.equals(other.m_logmsg)) {
-			return false;
-		}
-		if (m_mask == null) {
-			if (other.m_mask != null) return false;
-		} else if (!m_mask.equals(other.m_mask)) {
-			return false;
-		}
-		if (m_mouseovertext == null) {
-			if (other.m_mouseovertext != null) return false;
-		} else if (!m_mouseovertext.equals(other.m_mouseovertext)) {
-			return false;
-		}
-		if (m_operactions == null) {
-			if (other.m_operactions != null) return false;
-		} else if (!m_operactions.equals(other.m_operactions)) {
-			return false;
-		}
-		if (m_operinstruct == null) {
-			if (other.m_operinstruct != null) return false;
-		} else if (!m_operinstruct.equals(other.m_operinstruct)) {
-			return false;
-		}
-		if (m_scripts == null) {
-			if (other.m_scripts != null) return false;
-		} else if (!m_scripts.equals(other.m_scripts)) {
-			return false;
-		}
-		if (m_severity == null) {
-			if (other.m_severity != null) return false;
-		} else if (!m_severity.equals(other.m_severity)) {
-			return false;
-		}
-		if (m_snmp == null) {
-			if (other.m_snmp != null) return false;
-		} else if (!m_snmp.equals(other.m_snmp)) {
-			return false;
-		}
-		if (m_tticket == null) {
-			if (other.m_tticket != null) return false;
-		} else if (!m_tticket.equals(other.m_tticket)) {
-			return false;
-		}
-		if (m_uei == null) {
-			if (other.m_uei != null) return false;
-		} else if (!m_uei.equals(other.m_uei)) {
-			return false;
-		}
-		if (m_varbindsdecodes == null) {
-			if (other.m_varbindsdecodes != null) return false;
-		} else if (!m_varbindsdecodes.equals(other.m_varbindsdecodes)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Event))
+            return false;
+        final Event other = (Event) obj;
+        if (m_alarmData == null) {
+            if (other.m_alarmData != null)
+                return false;
+        } else if (!m_alarmData.equals(other.m_alarmData)) {
+            return false;
+        }
+        if (m_autoacknowledge == null) {
+            if (other.m_autoacknowledge != null)
+                return false;
+        } else if (!m_autoacknowledge.equals(other.m_autoacknowledge)) {
+            return false;
+        }
+        if (m_autoactions == null) {
+            if (other.m_autoactions != null)
+                return false;
+        } else if (!m_autoactions.equals(other.m_autoactions)) {
+            return false;
+        }
+        if (m_correlation == null) {
+            if (other.m_correlation != null)
+                return false;
+        } else if (!m_correlation.equals(other.m_correlation)) {
+            return false;
+        }
+        if (m_descr == null) {
+            if (other.m_descr != null)
+                return false;
+        } else if (!m_descr.equals(other.m_descr)) {
+            return false;
+        }
+        if (m_eventLabel == null) {
+            if (other.m_eventLabel != null)
+                return false;
+        } else if (!m_eventLabel.equals(other.m_eventLabel)) {
+            return false;
+        }
+        if (m_filters == null) {
+            if (other.m_filters != null)
+                return false;
+        } else if (!m_filters.equals(other.m_filters)) {
+            return false;
+        }
+        if (m_forwards == null) {
+            if (other.m_forwards != null)
+                return false;
+        } else if (!m_forwards.equals(other.m_forwards)) {
+            return false;
+        }
+        if (m_loggroups == null) {
+            if (other.m_loggroups != null)
+                return false;
+        } else if (!m_loggroups.equals(other.m_loggroups)) {
+            return false;
+        }
+        if (m_logmsg == null) {
+            if (other.m_logmsg != null)
+                return false;
+        } else if (!m_logmsg.equals(other.m_logmsg)) {
+            return false;
+        }
+        if (m_mask == null) {
+            if (other.m_mask != null)
+                return false;
+        } else if (!m_mask.equals(other.m_mask)) {
+            return false;
+        }
+        if (m_mouseovertext == null) {
+            if (other.m_mouseovertext != null)
+                return false;
+        } else if (!m_mouseovertext.equals(other.m_mouseovertext)) {
+            return false;
+        }
+        if (m_operactions == null) {
+            if (other.m_operactions != null)
+                return false;
+        } else if (!m_operactions.equals(other.m_operactions)) {
+            return false;
+        }
+        if (m_operinstruct == null) {
+            if (other.m_operinstruct != null)
+                return false;
+        } else if (!m_operinstruct.equals(other.m_operinstruct)) {
+            return false;
+        }
+        if (m_scripts == null) {
+            if (other.m_scripts != null)
+                return false;
+        } else if (!m_scripts.equals(other.m_scripts)) {
+            return false;
+        }
+        if (m_severity == null) {
+            if (other.m_severity != null)
+                return false;
+        } else if (!m_severity.equals(other.m_severity)) {
+            return false;
+        }
+        if (m_snmp == null) {
+            if (other.m_snmp != null)
+                return false;
+        } else if (!m_snmp.equals(other.m_snmp)) {
+            return false;
+        }
+        if (m_tticket == null) {
+            if (other.m_tticket != null)
+                return false;
+        } else if (!m_tticket.equals(other.m_tticket)) {
+            return false;
+        }
+        if (m_uei == null) {
+            if (other.m_uei != null)
+                return false;
+        } else if (!m_uei.equals(other.m_uei)) {
+            return false;
+        }
+        if (m_varbindsdecodes == null) {
+            if (other.m_varbindsdecodes != null)
+                return false;
+        } else if (!m_varbindsdecodes.equals(other.m_varbindsdecodes)) {
+            return false;
+        }
+        return true;
+    }
 
-	private EventMatcher constructMatcher() {
-		if (m_mask == null || m_mask.getMaskelementCount() <= 0) {
-			return m_uei == null ? EventMatchers.falseMatcher() : EventMatchers.ueiMatcher(m_uei);
-		} else {
-			return m_mask.constructMatcher();
-		}
-	}
+    private EventMatcher constructMatcher() {
+        if (m_mask == null || m_mask.getMaskelementCount() <= 0) {
+            return m_uei == null ? EventMatchers.falseMatcher() : EventMatchers.ueiMatcher(m_uei);
+        } else {
+            return m_mask.constructMatcher();
+        }
+    }
 
-	public boolean matches(org.opennms.netmgt.xml.event.Event matchingEvent) {
-		//System.err.println("Attempting to match " + m_matcher);
-		return m_matcher.matches(matchingEvent);
-	}
+    public boolean matches(org.opennms.netmgt.xml.event.Event matchingEvent) {
+        // System.err.println("Attempting to match " + m_matcher);
+        return m_matcher.matches(matchingEvent);
+    }
 
-	public void initialize() {
-		m_matcher = constructMatcher();
-	}
+    public void initialize() {
+        m_matcher = constructMatcher();
+    }
 
-	public List<String> getMaskElementValues(String mename) {
-		return m_mask == null ? null : m_mask.getMaskElementValues(mename);
-	}
+    public List<String> getMaskElementValues(String mename) {
+        return m_mask == null ? null : m_mask.getMaskElementValues(mename);
+    }
 
 }

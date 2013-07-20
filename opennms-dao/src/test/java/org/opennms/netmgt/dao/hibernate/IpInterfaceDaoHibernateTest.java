@@ -55,14 +55,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class IpInterfaceDaoHibernateTest implements InitializingBean {
@@ -103,12 +101,14 @@ public class IpInterfaceDaoHibernateTest implements InitializingBean {
     @Transactional
     public void testNMS4822() throws Exception {
         // Verify that test IP address exists on Node1 as non-primary
-        OnmsIpInterface ipIntf = m_ipInterfaceDao.findByNodeIdAndIpAddress(m_databasePopulator.getNode1().getId(), m_testAddress.getHostAddress());
+        OnmsIpInterface ipIntf = m_ipInterfaceDao.findByNodeIdAndIpAddress(m_databasePopulator.getNode1().getId(),
+                                                                           m_testAddress.getHostAddress());
         assertFalse(ipIntf.isPrimary());
         assertFalse(ipIntf.isManaged());
 
         // Verify that test IP address exists on Node2 as primary
-        ipIntf = m_ipInterfaceDao.findByNodeIdAndIpAddress(m_databasePopulator.getNode2().getId(), m_testAddress.getHostAddress());
+        ipIntf = m_ipInterfaceDao.findByNodeIdAndIpAddress(m_databasePopulator.getNode2().getId(),
+                                                           m_testAddress.getHostAddress());
         assertTrue(ipIntf.isPrimary());
         assertTrue(ipIntf.isManaged());
 
@@ -116,7 +116,8 @@ public class IpInterfaceDaoHibernateTest implements InitializingBean {
         Map<InetAddress, Integer> map = m_ipInterfaceDao.getInterfacesForNodes();
         assertNotNull(map);
 
-        // Verify that the test address is associated with Node2 because primary addresses has precedence over non-primary addresses.
+        // Verify that the test address is associated with Node2 because primary
+        // addresses has precedence over non-primary addresses.
         assertEquals(Integer.valueOf(m_databasePopulator.getNode2().getId()), map.get(m_testAddress));
     }
 

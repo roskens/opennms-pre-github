@@ -72,7 +72,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsCategoryResource extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OnmsCategoryResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OnmsCategoryResource.class);
 
     @Context
     UriInfo m_uriInfo;
@@ -84,14 +84,18 @@ public class OnmsCategoryResource extends OnmsRestService {
     private CategoryDao m_categoryDao;
 
     /**
-     * <p>getCategories</p>
+     * <p>
+     * getCategories
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCategoryCollection} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public OnmsCategoryCollection getCategories(@PathParam("nodeCriteria") String nodeCriteria) {
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public OnmsCategoryCollection getCategories(@PathParam("nodeCriteria")
+    String nodeCriteria) {
         readLock();
 
         try {
@@ -106,16 +110,22 @@ public class OnmsCategoryResource extends OnmsRestService {
     }
 
     /**
-     * <p>getCategory</p>
+     * <p>
+     * getCategory
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param categoryName a {@link java.lang.String} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("{categoryName}")
-    public OnmsCategory getCategory(@PathParam("nodeCriteria") String nodeCriteria, @PathParam("categoryName") String categoryName) {
+    public OnmsCategory getCategory(@PathParam("nodeCriteria")
+    String nodeCriteria, @PathParam("categoryName")
+    String categoryName) {
         readLock();
 
         try {
@@ -130,15 +140,20 @@ public class OnmsCategoryResource extends OnmsRestService {
     }
 
     /**
-     * <p>addCategory</p>
+     * <p>
+     * addCategory
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param category a {@link org.opennms.netmgt.model.OnmsCategory} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param category
+     *            a {@link org.opennms.netmgt.model.OnmsCategory} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public Response addCategory(@PathParam("nodeCriteria") String nodeCriteria, OnmsCategory category) {
+    public Response addCategory(@PathParam("nodeCriteria")
+    String nodeCriteria, OnmsCategory category) {
         writeLock();
 
         try {
@@ -163,17 +178,24 @@ public class OnmsCategoryResource extends OnmsRestService {
     }
 
     /**
-     * <p>updateCategory</p>
+     * <p>
+     * updateCategory
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param categoryName a {@link java.lang.String} object.
-     * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
+     * @param params
+     *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{categoryName}")
-    public Response updateCategory(@PathParam("nodeCriteria") String nodeCriteria, @PathParam("categoryName") String categoryName, MultivaluedMapImpl params) {
+    public Response updateCategory(@PathParam("nodeCriteria")
+    String nodeCriteria, @PathParam("categoryName")
+    String categoryName, MultivaluedMapImpl params) {
         writeLock();
 
         try {
@@ -183,14 +205,15 @@ public class OnmsCategoryResource extends OnmsRestService {
             }
             OnmsCategory category = getCategory(node, categoryName);
             if (category == null) {
-                throw getException(Status.BAD_REQUEST, "updateCategory: Category " + categoryName + " not found on node " + nodeCriteria);
+                throw getException(Status.BAD_REQUEST, "updateCategory: Category " + categoryName
+                        + " not found on node " + nodeCriteria);
             }
             LOG.debug("updateCategory: updating category {}", category);
             BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(category);
-            for(String key : params.keySet()) {
+            for (String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
                     String stringValue = params.getFirst(key);
-                    Object value = wrapper.convertIfNecessary(stringValue, (Class<?>)wrapper.getPropertyType(key));
+                    Object value = wrapper.convertIfNecessary(stringValue, (Class<?>) wrapper.getPropertyType(key));
                     wrapper.setPropertyValue(key, value);
                 }
             }
@@ -203,15 +226,21 @@ public class OnmsCategoryResource extends OnmsRestService {
     }
 
     /**
-     * <p>deleteCaegory</p>
+     * <p>
+     * deleteCaegory
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param categoryName a {@link java.lang.String} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @DELETE
     @Path("{categoryName}")
-    public Response deleteCaegory(@PathParam("nodeCriteria") String nodeCriteria, @PathParam("categoryName") String categoryName) {
+    public Response deleteCaegory(@PathParam("nodeCriteria")
+    String nodeCriteria, @PathParam("categoryName")
+    String categoryName) {
         writeLock();
 
         try {
@@ -221,7 +250,8 @@ public class OnmsCategoryResource extends OnmsRestService {
             }
             OnmsCategory category = getCategory(node, categoryName);
             if (category == null) {
-                throw getException(Status.BAD_REQUEST, "deleteCaegory: Category " + categoryName + " not found on node " + nodeCriteria);
+                throw getException(Status.BAD_REQUEST, "deleteCaegory: Category " + categoryName
+                        + " not found on node " + nodeCriteria);
             }
             LOG.debug("deleteCaegory: deleting category {} from node {}", categoryName, nodeCriteria);
             node.getCategories().remove(category);

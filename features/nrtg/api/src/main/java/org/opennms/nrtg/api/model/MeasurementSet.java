@@ -33,6 +33,7 @@ import java.util.List;
 
 /**
  * Set of {@link Measurement}, typically a result of a {@link CollectionJob}.
+ *
  * @author Christian Pape
  * @author Markus Neumann
  */

@@ -32,45 +32,45 @@ import com.vaadin.data.Item;
 
 public interface Vertex extends VertexRef {
 
-	/**
-	 * @deprecated Use namespace/id tuple
-	 */
-	String getKey();
+    /**
+     * @deprecated Use namespace/id tuple
+     */
+    String getKey();
 
-	Item getItem();
+    Item getItem();
 
-        @Override
-	String getLabel();
+    @Override
+    String getLabel();
 
-	String getTooltipText();
+    String getTooltipText();
 
-	String getIconKey();
+    String getIconKey();
 
-	String getStyleName();
+    String getStyleName();
 
-	boolean isGroup();
+    boolean isGroup();
 
-	/**
-	 * TODO: To support Many-to-Many grouping, this function will need to be
-	 * enhanced add to a list of parents.
-	 */
-	void setParent(VertexRef parent);
+    /**
+     * TODO: To support Many-to-Many grouping, this function will need to be
+     * enhanced add to a list of parents.
+     */
+    void setParent(VertexRef parent);
 
-	/**
-	 * TODO: To support Many-to-Many grouping, this function will need to be
-	 * enhanced to return an array of vertices.
-	 */
-	VertexRef getParent();
+    /**
+     * TODO: To support Many-to-Many grouping, this function will need to be
+     * enhanced to return an array of vertices.
+     */
+    VertexRef getParent();
 
-	Integer getX();
+    Integer getX();
 
-	Integer getY();
+    Integer getY();
 
-	boolean isLocked();
+    boolean isLocked();
 
-	boolean isSelected();
+    boolean isSelected();
 
-	String getIpAddress();
+    String getIpAddress();
 
-	Integer getNodeID();
+    Integer getNodeID();
 }

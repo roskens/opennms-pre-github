@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.server;
 import org.opennms.netmgt.model.OnmsApplication;
 
 /**
- * <p>ApplicationHandler interface.</p>
+ * <p>
+ * ApplicationHandler interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

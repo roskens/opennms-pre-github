@@ -57,10 +57,12 @@ import org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException;
  * @author <A HREF="mailto:ayres@net.orst.edu">Bill Ayres </A>
  */
 
-// this is marked not distributable because it relieds on the dhcpd deamon of opennms
+// this is marked not distributable because it relieds on the dhcpd deamon of
+// opennms
 @Distributable(DistributionContext.DAEMON)
 final public class GpMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(GpMonitor.class);
+
     /**
      * Default retries.
      */
@@ -71,20 +73,16 @@ final public class GpMonitor extends AbstractServiceMonitor {
      * for data from the monitored interface.
      */
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on
-                                                        // read()
+                                                     // read()
 
     /**
-     * {@inheritDoc}
-     *
-     * Poll the specified address for service availability.
-     *
+     * {@inheritDoc} Poll the specified address for service availability.
      * During the poll an attempt is made to call the specified external script
      * or program. If the connection request is successful, the banner line
      * returned as standard output by the script or program is parsed for a
      * partial match with the banner string specified in the poller
      * configuration. Provided that the script's response is valid we set the
      * service status to SERVICE_AVAILABLE and return.
-     *
      * The timeout is handled by ExecRunner and is also passed as a parameter to
      * the script or program being called.
      */
@@ -100,7 +98,8 @@ final public class GpMonitor extends AbstractServiceMonitor {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
@@ -136,7 +135,7 @@ final public class GpMonitor extends AbstractServiceMonitor {
 
         final String hostAddress = InetAddressUtils.str(ipv4Addr);
 
-		LOG.debug("poll: address = {}, script = {}, arguments = {}, {}", tracker, hostAddress, script, args);
+        LOG.debug("poll: address = {}, script = {}, arguments = {}, {}", tracker, hostAddress, script, args);
 
         // Give it a whirl
         //
@@ -148,31 +147,34 @@ final public class GpMonitor extends AbstractServiceMonitor {
 
                 int exitStatus = 100;
 
-		// Some scripts, such as Nagios check scripts, look for -H and -t versus --hostname and
-		// --timeout. If the optional parameter option-type is set to short, then the former
-		// will be used.
+                // Some scripts, such as Nagios check scripts, look for -H and
+                // -t versus --hostname and
+                // --timeout. If the optional parameter option-type is set to
+                // short, then the former
+                // will be used.
 
-
-                int timeoutInSeconds = (int)tracker.getTimeoutInSeconds();
+                int timeoutInSeconds = (int) tracker.getTimeoutInSeconds();
 
                 ExecRunner er = new ExecRunner();
                 er.setMaxRunTimeSecs(timeoutInSeconds);
                 if (args == null)
-                    exitStatus = er.exec(script + " " + hoption + " " + hostAddress + " " + toption + " " + timeoutInSeconds);
+                    exitStatus = er.exec(script + " " + hoption + " " + hostAddress + " " + toption + " "
+                            + timeoutInSeconds);
                 else
-                    exitStatus = er.exec(script + " " + hoption + " " + hostAddress + " " + toption + " " + timeoutInSeconds + " " + args);
+                    exitStatus = er.exec(script + " " + hoption + " " + hostAddress + " " + toption + " "
+                            + timeoutInSeconds + " " + args);
 
                 double responseTime = tracker.elapsedTimeInMillis();
 
                 if (exitStatus != 0) {
-                        scriptoutput = er.getOutString();
-                        String reason = script + " failed with exit code " + exitStatus + ". Standard out: " + scriptoutput;
-                        LOG.debug(reason);
-                        serviceStatus = PollStatus.unavailable(reason);
+                    scriptoutput = er.getOutString();
+                    String reason = script + " failed with exit code " + exitStatus + ". Standard out: " + scriptoutput;
+                    LOG.debug(reason);
+                    serviceStatus = PollStatus.unavailable(reason);
                 }
                 if (er.isMaxRunTimeExceeded()) {
 
-                	String reason = script + " failed. Timeout exceeded";
+                    String reason = script + " failed. Timeout exceeded";
                     LOG.debug(reason);
                     serviceStatus = PollStatus.unavailable(reason);
 
@@ -194,7 +196,9 @@ final public class GpMonitor extends AbstractServiceMonitor {
                             if (scriptoutput.indexOf(strBannerMatch) > -1) {
                                 serviceStatus = PollStatus.available(responseTime);
                             } else {
-                                serviceStatus = PollStatus.unavailable(script + "banner not contained in output banner='"+strBannerMatch+"' output='"+scriptoutput+"'");
+                                serviceStatus = PollStatus.unavailable(script
+                                        + "banner not contained in output banner='" + strBannerMatch + "' output='"
+                                        + scriptoutput + "'");
                             }
                         }
                     }
@@ -202,19 +206,19 @@ final public class GpMonitor extends AbstractServiceMonitor {
 
             } catch (ArrayIndexOutOfBoundsException e) {
 
-            	String reason = script + " ArrayIndexOutOfBoundsException";
+                String reason = script + " ArrayIndexOutOfBoundsException";
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
 
             } catch (IOException e) {
 
-            	String reason = "IOException occurred. Check for proper operation of " + script;
+                String reason = "IOException occurred. Check for proper operation of " + script;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
 
             } catch (Throwable e) {
 
-            	String reason = script + "Exception occurred";
+                String reason = script + "Exception occurred";
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
 

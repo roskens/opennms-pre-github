@@ -35,7 +35,9 @@ import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;
 
 /**
- * <p>ChooseResourceModel class.</p>
+ * <p>
+ * ChooseResourceModel class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -43,20 +45,27 @@ import org.opennms.netmgt.model.OnmsResourceType;
  */
 public class ChooseResourceModel {
     private OnmsResource m_resource;
+
     private Map<OnmsResourceType, List<OnmsResource>> m_resourceTypes;
+
     private String m_endUrl;
 
     /**
-     * <p>setResource</p>
+     * <p>
+     * setResource
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public final void setResource(final OnmsResource resource) {
         m_resource = resource;
     }
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
@@ -65,7 +74,9 @@ public class ChooseResourceModel {
     }
 
     /**
-     * <p>getResourceTypes</p>
+     * <p>
+     * getResourceTypes
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -74,16 +85,21 @@ public class ChooseResourceModel {
     }
 
     /**
-     * <p>setResourceTypes</p>
+     * <p>
+     * setResourceTypes
+     * </p>
      *
-     * @param resourceTypes a {@link java.util.Map} object.
+     * @param resourceTypes
+     *            a {@link java.util.Map} object.
      */
     public final void setResourceTypes(final Map<OnmsResourceType, List<OnmsResource>> resourceTypes) {
         m_resourceTypes = resourceTypes;
     }
 
     /**
-     * <p>getEndUrl</p>
+     * <p>
+     * getEndUrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,9 +108,12 @@ public class ChooseResourceModel {
     }
 
     /**
-     * <p>setEndUrl</p>
+     * <p>
+     * setEndUrl
+     * </p>
      *
-     * @param endUrl a {@link java.lang.String} object.
+     * @param endUrl
+     *            a {@link java.lang.String} object.
      */
     public final void setEndUrl(final String endUrl) {
         m_endUrl = endUrl;

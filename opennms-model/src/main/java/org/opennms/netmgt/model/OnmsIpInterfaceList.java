@@ -36,9 +36,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
- * <p>OnmsIpInterfaceList class.</p>
+ * <p>
+ * OnmsIpInterfaceList class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,26 +48,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
 
     private static final long serialVersionUID = 1123252152117491694L;
+
     private int m_totalCount;
 
     /**
-     * <p>Constructor for OnmsIpInterfaceList.</p>
+     * <p>
+     * Constructor for OnmsIpInterfaceList.
+     * </p>
      */
     public OnmsIpInterfaceList() {
         super();
     }
 
     /**
-     * <p>Constructor for OnmsIpInterfaceList.</p>
+     * <p>
+     * Constructor for OnmsIpInterfaceList.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public OnmsIpInterfaceList(Collection<? extends OnmsIpInterface> c) {
         super(c);
     }
 
     /**
-     * <p>getInterfaces</p>
+     * <p>
+     * getInterfaces
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -76,40 +85,51 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
     }
 
     /**
-     * <p>setInterfaces</p>
+     * <p>
+     * setInterfaces
+     * </p>
      *
-     * @param interfaces a {@link java.util.List} object.
+     * @param interfaces
+     *            a {@link java.util.List} object.
      */
     public void setInterfaces(List<OnmsIpInterface> interfaces) {
-        if (interfaces == this) return;
+        if (interfaces == this)
+            return;
         clear();
         addAll(interfaces);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
         return this.size();
     }
 
     /**
-     * <p>getTotalCount</p>
+     * <p>
+     * getTotalCount
+     * </p>
      *
      * @return a int.
      */
-    @XmlAttribute(name="totalCount")
+    @XmlAttribute(name = "totalCount")
     public int getTotalCount() {
         return m_totalCount;
     }
 
     /**
-     * <p>setTotalCount</p>
+     * <p>
+     * setTotalCount
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      */
     public void setTotalCount(int count) {
         m_totalCount = count;

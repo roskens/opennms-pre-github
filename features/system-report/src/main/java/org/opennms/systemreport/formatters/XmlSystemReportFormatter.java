@@ -45,6 +45,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 public class XmlSystemReportFormatter extends AbstractSystemReportFormatter implements SystemReportFormatter {
     private static final Logger LOG = LoggerFactory.getLogger(XmlSystemReportFormatter.class);
+
     private TransformerHandler m_handler = null;
 
     @Override
@@ -74,7 +75,8 @@ public class XmlSystemReportFormatter extends AbstractSystemReportFormatter impl
 
     @Override
     public void write(final SystemReportPlugin plugin) {
-        if (!hasDisplayable(plugin)) return;
+        if (!hasDisplayable(plugin))
+            return;
 
         if (m_handler == null) {
             try {
@@ -107,7 +109,7 @@ public class XmlSystemReportFormatter extends AbstractSystemReportFormatter impl
             atts.addAttribute("", "", "name", "CDATA", plugin.getName());
             atts.addAttribute("", "", "description", "CDATA", plugin.getDescription());
             m_handler.startElement("", "", "plugin", atts);
-            for (final Map.Entry<String,Resource> entry : plugin.getEntries().entrySet()) {
+            for (final Map.Entry<String, Resource> entry : plugin.getEntries().entrySet()) {
                 final boolean displayable = isDisplayable(entry.getValue());
 
                 atts = new AttributesImpl();

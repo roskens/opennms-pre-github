@@ -38,6 +38,7 @@
 package org.opennms.netmgt.linkd.jmx;
 
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
+
 public class Linkd extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.linkd.Linkd> implements LinkdMBean {
 
     /** {@inheritDoc} */

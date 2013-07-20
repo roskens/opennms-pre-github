@@ -29,7 +29,9 @@
 package org.opennms.netmgt.provision;
 
 /**
- * <p>OnmsPolicy interface.</p>
+ * <p>
+ * OnmsPolicy interface.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>

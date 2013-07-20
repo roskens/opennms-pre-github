@@ -9,7 +9,7 @@ import org.opennms.netmgt.dao.api.StpNodeDao;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsStpNode;
 
-public class MockStpNodeDao extends AbstractMockDao<OnmsStpNode,Integer> implements StpNodeDao {
+public class MockStpNodeDao extends AbstractMockDao<OnmsStpNode, Integer> implements StpNodeDao {
     private AtomicInteger m_id = new AtomicInteger(0);
 
     @Override
@@ -21,7 +21,6 @@ public class MockStpNodeDao extends AbstractMockDao<OnmsStpNode,Integer> impleme
     protected void generateId(final OnmsStpNode entity) {
         entity.setId(m_id.getAndIncrement());
     }
-
 
     @Override
     public void markDeletedIfNodeDeleted() {
@@ -64,7 +63,8 @@ public class MockStpNodeDao extends AbstractMockDao<OnmsStpNode,Integer> impleme
     public OnmsStpNode findByNodeAndVlan(final Integer nodeId, final Integer baseVlan) {
         for (final OnmsStpNode node : findAll()) {
             if (node.getNode() != null && node.getNode().getId().equals(nodeId)) {
-                if (node.getBaseVlan().equals(baseVlan)) return node;
+                if (node.getBaseVlan().equals(baseVlan))
+                    return node;
             }
         }
         return null;
@@ -73,7 +73,8 @@ public class MockStpNodeDao extends AbstractMockDao<OnmsStpNode,Integer> impleme
     private List<OnmsStpNode> getStpNodesForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
         final List<OnmsStpNode> nodes = new ArrayList<OnmsStpNode>();
         for (final OnmsStpNode node : findAll()) {
-            if (node.getNode() != null && node.getNode().getId() != nodeId) continue;
+            if (node.getNode() != null && node.getNode().getId() != nodeId)
+                continue;
             if (node.getLastPollTime() != null || node.getLastPollTime().before(scanTime)) {
                 nodes.add(node);
             }

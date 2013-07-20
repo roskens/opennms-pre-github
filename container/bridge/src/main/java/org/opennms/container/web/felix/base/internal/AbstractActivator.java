@@ -21,21 +21,17 @@ import org.opennms.container.web.felix.base.internal.logger.SystemLogger;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public abstract class AbstractActivator
-    implements BundleActivator
-{
+public abstract class AbstractActivator implements BundleActivator {
     private BundleContext context;
+
     private LogServiceLogger logger;
 
-    protected final BundleContext getBundleContext()
-    {
+    protected final BundleContext getBundleContext() {
         return this.context;
     }
 
     @Override
-    public final void start(BundleContext context)
-        throws Exception
-    {
+    public final void start(BundleContext context) throws Exception {
         this.context = context;
         this.logger = new LogServiceLogger(context);
         SystemLogger.setLogService(this.logger);
@@ -43,16 +39,12 @@ public abstract class AbstractActivator
     }
 
     @Override
-    public final void stop(BundleContext context)
-        throws Exception
-    {
+    public final void stop(BundleContext context) throws Exception {
         doStop();
         this.logger.close();
     }
 
-    protected abstract void doStart()
-        throws Exception;
+    protected abstract void doStart() throws Exception;
 
-    protected abstract void doStop()
-        throws Exception;
+    protected abstract void doStop() throws Exception;
 }

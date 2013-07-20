@@ -33,20 +33,21 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 
 /**
- * This {@link ColumnGenerator} emulates the default behavior of Vaadin when it populates
+ * This {@link ColumnGenerator} emulates the default behavior of Vaadin when it
+ * populates
  * a column just by calling value.toString().
  */
 public class ToStringColumnGenerator implements ColumnGenerator {
 
-	private static final long serialVersionUID = -4393828566619243806L;
+    private static final long serialVersionUID = -4393828566619243806L;
 
-	@Override
-	public Object generateCell(Table source, Object itemId, Object columnId) {
-		Property<String> property = source.getContainerProperty(itemId, columnId);
-		if (property == null || property.getValue() == null) {
-			return null;
-		} else {
-			return property.getValue();
-		}
-	}
+    @Override
+    public Object generateCell(Table source, Object itemId, Object columnId) {
+        Property<String> property = source.getContainerProperty(itemId, columnId);
+        if (property == null || property.getValue() == null) {
+            return null;
+        } else {
+            return property.getValue();
+        }
+    }
 }

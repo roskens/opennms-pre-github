@@ -29,7 +29,9 @@
 package org.opennms.web.notification;
 
 /**
- * <p>NoticeIdNotFoundException class.</p>
+ * <p>
+ * NoticeIdNotFoundException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -46,10 +48,14 @@ public class NoticeIdNotFoundException extends RuntimeException {
     protected String message;
 
     /**
-     * <p>Constructor for NoticeIdNotFoundException.</p>
+     * <p>
+     * Constructor for NoticeIdNotFoundException.
+     * </p>
      *
-     * @param msg a {@link java.lang.String} object.
-     * @param id a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      */
     public NoticeIdNotFoundException(String msg, String id) {
         this.message = msg;
@@ -57,7 +63,9 @@ public class NoticeIdNotFoundException extends RuntimeException {
     }
 
     /**
-     * <p>Getter for the field <code>message</code>.</p>
+     * <p>
+     * Getter for the field <code>message</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -67,7 +75,9 @@ public class NoticeIdNotFoundException extends RuntimeException {
     }
 
     /**
-     * <p>getBadID</p>
+     * <p>
+     * getBadID
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

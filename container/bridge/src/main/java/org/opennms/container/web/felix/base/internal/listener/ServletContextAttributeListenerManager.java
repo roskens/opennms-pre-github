@@ -30,40 +30,32 @@ import org.osgi.framework.BundleContext;
  * implementing the respective Servlet API 2.4 listener interface.
  */
 public class ServletContextAttributeListenerManager extends AbstractListenerManager<ServletContextAttributeListener>
-    implements ServletContextAttributeListener
-{
+        implements ServletContextAttributeListener {
 
-    public ServletContextAttributeListenerManager(BundleContext context)
-    {
+    public ServletContextAttributeListenerManager(BundleContext context) {
         super(context, ServletContextAttributeListener.class);
     }
 
     @Override
-    public void attributeAdded(final ServletContextAttributeEvent scab)
-    {
+    public void attributeAdded(final ServletContextAttributeEvent scab) {
         final Iterator<ServletContextAttributeListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().attributeAdded(scab);
         }
     }
 
     @Override
-    public void attributeRemoved(final ServletContextAttributeEvent scab)
-    {
+    public void attributeRemoved(final ServletContextAttributeEvent scab) {
         final Iterator<ServletContextAttributeListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().attributeRemoved(scab);
         }
     }
 
     @Override
-    public void attributeReplaced(final ServletContextAttributeEvent scab)
-    {
+    public void attributeReplaced(final ServletContextAttributeEvent scab) {
         final Iterator<ServletContextAttributeListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().attributeReplaced(scab);
         }
     }

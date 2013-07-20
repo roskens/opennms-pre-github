@@ -31,7 +31,9 @@ package org.opennms.api.reporting.parameter;
 import java.io.Serializable;
 
 /**
- * <p>ReportFloatParm class.</p>
+ * <p>
+ * ReportFloatParm class.
+ * </p>
  *
  * @author jonathan@opennms.org
  * @version $Id: $
@@ -39,18 +41,24 @@ import java.io.Serializable;
 public class ReportDoubleParm extends ReportParm implements Serializable {
 
     private static final long serialVersionUID = 5242917854258286117L;
+
     Double m_value;
+
     String m_type;
 
     /**
-     * <p>Constructor for ReportFloatParm.</p>
+     * <p>
+     * Constructor for ReportFloatParm.
+     * </p>
      */
     public ReportDoubleParm() {
-      super();
+        super();
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return {@link java.lang.Float} object.
      */
@@ -59,26 +67,35 @@ public class ReportDoubleParm extends ReportParm implements Serializable {
     }
 
     /**
-     * <p>setValue</p>
+     * <p>
+     * setValue
+     * </p>
      *
-     * @param value a {@link java.lang.Float} object.
+     * @param value
+     *            a {@link java.lang.Float} object.
      */
     public void setValue(Double value) {
         m_value = value;
     }
 
     /**
-     * <p>getInputType</p>
+     * <p>
+     * getInputType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getInputType() {
         return m_type;
     }
+
     /**
-     * <p>setInputType</p>
+     * <p>
+     * setInputType
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public void setInputType(String type) {
         m_type = type;

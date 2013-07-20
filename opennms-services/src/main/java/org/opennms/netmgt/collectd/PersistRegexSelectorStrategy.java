@@ -54,7 +54,9 @@ public class PersistRegexSelectorStrategy implements PersistenceSelectorStrategy
     private static final Logger LOG = LoggerFactory.getLogger(PersistRegexSelectorStrategy.class);
 
     public static final String MATCH_EXPRESSION = "match-expression";
+
     public static final String MATCH_STRATEGY = "match-strategy";
+
     public static final String MATCH_BEHAVIOR = "match-behavior";
 
     private List<Parameter> m_parameterCollection;
@@ -94,7 +96,8 @@ public class PersistRegexSelectorStrategy implements PersistenceSelectorStrategy
                 try {
                     shouldPersist = exp.getValue(visitor.getEvaluationContext(), Boolean.class);
                 } catch (Exception e) {
-                    LOG.warn("shouldPersist: can't evaluate expression {} for resource {} because: {}", param.getValue(), resource, e.getMessage());
+                    LOG.warn("shouldPersist: can't evaluate expression {} for resource {} because: {}",
+                             param.getValue(), resource, e.getMessage());
                 }
                 LOG.debug("shouldPersist: checking {} ? {}", param.getValue(), shouldPersist);
                 if (shouldPersist)

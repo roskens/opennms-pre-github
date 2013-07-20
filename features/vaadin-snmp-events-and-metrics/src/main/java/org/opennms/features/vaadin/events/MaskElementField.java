@@ -59,17 +59,20 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
-public class MaskElementField extends CustomField<MaskElementField.MaskElementArrayList> implements Button.ClickListener {
+public class MaskElementField extends CustomField<MaskElementField.MaskElementArrayList> implements
+        Button.ClickListener {
 
-	public static class MaskElementArrayList extends ArrayList<Maskelement> {}
+    public static class MaskElementArrayList extends ArrayList<Maskelement> {
+    }
 
-	private static final long serialVersionUID = -2755346278615977088L;
+    private static final long serialVersionUID = -2755346278615977088L;
 
-	/** The Table. */
+    /** The Table. */
     private final Table table = new Table();
 
     /** The Container. */
-    private final BeanContainer<String,Maskelement> container = new BeanContainer<String,Maskelement>(Maskelement.class);
+    private final BeanContainer<String, Maskelement> container = new BeanContainer<String, Maskelement>(
+                                                                                                        Maskelement.class);
 
     /** The Toolbar. */
     private final HorizontalLayout toolbar = new HorizontalLayout();
@@ -87,7 +90,7 @@ public class MaskElementField extends CustomField<MaskElementField.MaskElementAr
         container.setBeanIdProperty("mename");
         table.setContainerDataSource(container);
         table.setStyleName(Runo.TABLE_SMALL);
-        table.setVisibleColumns(new Object[]{"mename", "mevalueCollection"});
+        table.setVisibleColumns(new Object[] { "mename", "mevalueCollection" });
         table.setColumnHeader("mename", "Element Name");
         table.setColumnHeader("mevalueCollection", "Element Values");
         table.setColumnExpandRatio("mevalueCollection", 1);
@@ -145,13 +148,14 @@ public class MaskElementField extends CustomField<MaskElementField.MaskElementAr
     @Override
     public MaskElementArrayList getValue() {
         MaskElementArrayList beans = new MaskElementArrayList();
-        for (Object itemId: container.getItemIds()) {
+        for (Object itemId : container.getItemIds()) {
             beans.add(container.getItem(itemId).getBean());
         }
         return beans;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
      */
     @Override
@@ -161,8 +165,10 @@ public class MaskElementField extends CustomField<MaskElementField.MaskElementAr
         super.setReadOnly(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
@@ -192,7 +198,8 @@ public class MaskElementField extends CustomField<MaskElementField.MaskElementAr
         if (itemId == null) {
             Notification.show("Please select a Mask Element from the table.");
         } else {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
                                            "Do you really want to remove the selected Mask Element field ?<br/>This action cannot be undone.",

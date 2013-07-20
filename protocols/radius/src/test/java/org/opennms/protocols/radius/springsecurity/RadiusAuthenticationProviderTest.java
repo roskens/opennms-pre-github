@@ -46,110 +46,115 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
  */
 public class RadiusAuthenticationProviderTest {
 
-	private String m_radiusServer = "127.0.0.1";
-	private String m_sharedSecret = "testing123";
-	private Object m_principal = "test";
-	private final String m_username = "test";
-	private Object m_credentials = "opennms";
+    private String m_radiusServer = "127.0.0.1";
 
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserDefault() throws IOException {
-		RadiusAuthenticationProvider provider = new RadiusAuthenticationProvider(m_radiusServer, m_sharedSecret);
-		RadiusAuthenticator authTypeClass = null;
+    private String m_sharedSecret = "testing123";
 
-		provider.setAuthTypeClass(authTypeClass);
-		provider.setRolesAttribute("Unknown-VSAttribute(5813:1)");
+    private Object m_principal = "test";
 
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(m_principal, m_credentials);
-		provider.retrieveUser(m_username, token);
-	}
+    private final String m_username = "test";
 
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserPap() throws IOException {
-		RadiusAuthenticationProvider provider = new RadiusAuthenticationProvider(m_radiusServer, m_sharedSecret);
-		RadiusAuthenticator authTypeClass = new PAPAuthenticator();
+    private Object m_credentials = "opennms";
 
-		provider.setAuthTypeClass(authTypeClass);
-		provider.setRolesAttribute("Unknown-VSAttribute(5813:1)");
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserDefault() throws IOException {
+        RadiusAuthenticationProvider provider = new RadiusAuthenticationProvider(m_radiusServer, m_sharedSecret);
+        RadiusAuthenticator authTypeClass = null;
 
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(m_principal, m_credentials);
-		provider.retrieveUser(m_username, token);
-	}
+        provider.setAuthTypeClass(authTypeClass);
+        provider.setRolesAttribute("Unknown-VSAttribute(5813:1)");
 
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserChap() throws IOException {
-		RadiusAuthenticationProvider provider = new RadiusAuthenticationProvider(m_radiusServer, m_sharedSecret);
-		RadiusAuthenticator authTypeClass = new CHAPAuthenticator();
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(m_principal, m_credentials);
+        provider.retrieveUser(m_username, token);
+    }
 
-		provider.setAuthTypeClass(authTypeClass);
-		provider.setRolesAttribute("Unknown-VSAttribute(5813:1)");
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserPap() throws IOException {
+        RadiusAuthenticationProvider provider = new RadiusAuthenticationProvider(m_radiusServer, m_sharedSecret);
+        RadiusAuthenticator authTypeClass = new PAPAuthenticator();
 
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(m_principal, m_credentials);
-		provider.retrieveUser(m_username, token);
-	}
+        provider.setAuthTypeClass(authTypeClass);
+        provider.setRolesAttribute("Unknown-VSAttribute(5813:1)");
 
-	/**
-	 * This test will use null as the authenticator value, which will default to using
-	 * PAP authentication.
-	 */
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserMultipleTimesDefault() throws IOException {
-		doTestRetrieveUserMultipleTimes(null);
-	}
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(m_principal, m_credentials);
+        provider.retrieveUser(m_username, token);
+    }
 
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserMultipleTimesPAP() throws IOException {
-		doTestRetrieveUserMultipleTimes(new PAPAuthenticator());
-	}
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserChap() throws IOException {
+        RadiusAuthenticationProvider provider = new RadiusAuthenticationProvider(m_radiusServer, m_sharedSecret);
+        RadiusAuthenticator authTypeClass = new CHAPAuthenticator();
 
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserMultipleTimesCHAP() throws IOException {
-		doTestRetrieveUserMultipleTimes(new CHAPAuthenticator());
-	}
+        provider.setAuthTypeClass(authTypeClass);
+        provider.setRolesAttribute("Unknown-VSAttribute(5813:1)");
 
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserMultipleTimesEAPMD5() throws IOException {
-		doTestRetrieveUserMultipleTimes(new EAPMD5Authenticator());
-	}
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(m_principal, m_credentials);
+        provider.retrieveUser(m_username, token);
+    }
 
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserMultipleTimesEAPMSCHAPv2() throws IOException {
-		doTestRetrieveUserMultipleTimes(new EAPMSCHAPv2Authenticator());
-	}
+    /**
+     * This test will use null as the authenticator value, which will default to
+     * using
+     * PAP authentication.
+     */
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserMultipleTimesDefault() throws IOException {
+        doTestRetrieveUserMultipleTimes(null);
+    }
 
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserMultipleTimesMSCHAPv1() throws IOException {
-		doTestRetrieveUserMultipleTimes(new MSCHAPv1Authenticator());
-	}
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserMultipleTimesPAP() throws IOException {
+        doTestRetrieveUserMultipleTimes(new PAPAuthenticator());
+    }
 
-	@Test
-	@Ignore("Need to have a RADIUS server running on localhost")
-	public void testRetrieveUserMultipleTimesMSCHAPv2() throws IOException {
-		doTestRetrieveUserMultipleTimes(new MSCHAPv2Authenticator());
-	}
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserMultipleTimesCHAP() throws IOException {
+        doTestRetrieveUserMultipleTimes(new CHAPAuthenticator());
+    }
 
-	public void doTestRetrieveUserMultipleTimes(RadiusAuthenticator authenticator) {
-		RadiusAuthenticationProvider provider = new RadiusAuthenticationProvider(m_radiusServer, m_sharedSecret);
-		RadiusAuthenticator authTypeClass = authenticator;
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserMultipleTimesEAPMD5() throws IOException {
+        doTestRetrieveUserMultipleTimes(new EAPMD5Authenticator());
+    }
 
-		provider.setAuthTypeClass(authTypeClass);
-		provider.setRolesAttribute("Unknown-VSAttribute(5813:1)");
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserMultipleTimesEAPMSCHAPv2() throws IOException {
+        doTestRetrieveUserMultipleTimes(new EAPMSCHAPv2Authenticator());
+    }
 
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(m_principal, m_credentials);
-		provider.retrieveUser(m_username, token);
-		provider.retrieveUser(m_username, token);
-		provider.retrieveUser(m_username, token);
-		provider.retrieveUser(m_username, token);
-		provider.retrieveUser(m_username, token);
-		provider.retrieveUser(m_username, token);
-	}
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserMultipleTimesMSCHAPv1() throws IOException {
+        doTestRetrieveUserMultipleTimes(new MSCHAPv1Authenticator());
+    }
+
+    @Test
+    @Ignore("Need to have a RADIUS server running on localhost")
+    public void testRetrieveUserMultipleTimesMSCHAPv2() throws IOException {
+        doTestRetrieveUserMultipleTimes(new MSCHAPv2Authenticator());
+    }
+
+    public void doTestRetrieveUserMultipleTimes(RadiusAuthenticator authenticator) {
+        RadiusAuthenticationProvider provider = new RadiusAuthenticationProvider(m_radiusServer, m_sharedSecret);
+        RadiusAuthenticator authTypeClass = authenticator;
+
+        provider.setAuthTypeClass(authTypeClass);
+        provider.setRolesAttribute("Unknown-VSAttribute(5813:1)");
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(m_principal, m_credentials);
+        provider.retrieveUser(m_username, token);
+        provider.retrieveUser(m_username, token);
+        provider.retrieveUser(m_username, token);
+        provider.retrieveUser(m_username, token);
+        provider.retrieveUser(m_username, token);
+        provider.retrieveUser(m_username, token);
+    }
 }

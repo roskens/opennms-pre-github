@@ -30,45 +30,45 @@ package org.opennms.features.node.list.gwt.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-
 public class PhysicalInterface extends JavaScriptObject {
 
-    protected PhysicalInterface() {};
+    protected PhysicalInterface() {
+    };
 
     public final native String getId() /*-{
-        return this["@id"];
-    }-*/;
+                                       return this["@id"];
+                                       }-*/;
 
     public final native String getIfIndex() /*-{
-        return this["@ifIndex"];
-    }-*/;
+                                            return this["@ifIndex"];
+                                            }-*/;
 
     public final native String getSnmpIfDescr() /*-{
-        return this.ifDescr;
-    }-*/;
+                                                return this.ifDescr;
+                                                }-*/;
 
     public final native String getSnmpIfName() /*-{
-        return this.ifName;
-    }-*/;
+                                               return this.ifName;
+                                               }-*/;
 
     public final native String getSnmpIfAlias() /*-{
-        return this.ifAlias;
-    }-*/;
+                                                return this.ifAlias;
+                                                }-*/;
 
     public final native String getSnmpIfSpeed() /*-{
-        return this.ifSpeed;
-    }-*/;
+                                                return this.ifSpeed;
+                                                }-*/;
 
     public final native String getIpAddress() /*-{
-        return this.ipAddress;
-    }-*/;
+                                              return this.ipAddress;
+                                              }-*/;
 
     public final native int getIfAdminStatus()/*-{
-        return parseInt(this.ifAdminStatus);
-    }-*/;
+                                              return parseInt(this.ifAdminStatus);
+                                              }-*/;
 
     public final native int getIfOperStatus() /*-{
-        return parseInt(this.ifOperStatus);
-    }-*/;
+                                              return parseInt(this.ifOperStatus);
+                                              }-*/;
 
 }

@@ -37,7 +37,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
-
 /**
  * Represents the status of a node, interface or services
  *
@@ -90,12 +89,7 @@ public class PollStatus implements Serializable {
      */
     public static final int SERVICE_UNKNOWN = 0;
 
-    private static final String[] s_statusNames = {
-        "Unknown",
-        "Up",
-        "Down",
-        "Unresponsive"
-    };
+    private static final String[] s_statusNames = { "Unknown", "Up", "Down", "Unresponsive" };
 
     private static int decodeStatusName(final String statusName) {
         for (int statusCode = 0; statusCode < s_statusNames.length; statusCode++) {
@@ -107,9 +101,12 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>decode</p>
+     * <p>
+     * decode
+     * </p>
      *
-     * @param statusName a {@link java.lang.String} object.
+     * @param statusName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus decode(final String statusName) {
@@ -117,10 +114,14 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>decode</p>
+     * <p>
+     * decode
+     * </p>
      *
-     * @param statusName a {@link java.lang.String} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param statusName
+     *            a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus decode(final String statusName, final String reason) {
@@ -128,10 +129,14 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>decode</p>
+     * <p>
+     * decode
+     * </p>
      *
-     * @param statusName a {@link java.lang.String} object.
-     * @param responseTime a {@link java.lang.Double} object.
+     * @param statusName
+     *            a {@link java.lang.String} object.
+     * @param responseTime
+     *            a {@link java.lang.Double} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus decode(final String statusName, final Double responseTime) {
@@ -139,11 +144,16 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>decode</p>
+     * <p>
+     * decode
+     * </p>
      *
-     * @param statusName a {@link java.lang.String} object.
-     * @param reason a {@link java.lang.String} object.
-     * @param responseTime a {@link java.lang.Double} object.
+     * @param statusName
+     *            a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
+     * @param responseTime
+     *            a {@link java.lang.Double} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus decode(final String statusName, final String reason, final Double responseTime) {
@@ -151,10 +161,14 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param status a int.
-     * @param reason a {@link java.lang.String} object.
+     * @param status
+     *            a int.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus get(final int status, final String reason) {
@@ -162,10 +176,14 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param status a int.
-     * @param responseTime a {@link java.lang.Double} object.
+     * @param status
+     *            a int.
+     * @param responseTime
+     *            a {@link java.lang.Double} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus get(final int status, final Double responseTime) {
@@ -173,11 +191,16 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param status a int.
-     * @param reason a {@link java.lang.String} object.
-     * @param responseTime a {@link java.lang.Double} object.
+     * @param status
+     *            a int.
+     * @param reason
+     *            a {@link java.lang.String} object.
+     * @param responseTime
+     *            a {@link java.lang.Double} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus get(final int status, final String reason, final Double responseTime) {
@@ -195,7 +218,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>up</p>
+     * <p>
+     * up
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -204,9 +229,12 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>up</p>
+     * <p>
+     * up
+     * </p>
      *
-     * @param responseTime a {@link java.lang.Double} object.
+     * @param responseTime
+     *            a {@link java.lang.Double} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus up(final Double responseTime) {
@@ -214,7 +242,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>available</p>
+     * <p>
+     * available
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -223,9 +253,12 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>available</p>
+     * <p>
+     * available
+     * </p>
      *
-     * @param responseTime a {@link java.lang.Double} object.
+     * @param responseTime
+     *            a {@link java.lang.Double} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus available(final Double responseTime) {
@@ -233,7 +266,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>unknown</p>
+     * <p>
+     * unknown
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -242,9 +277,12 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>unknown</p>
+     * <p>
+     * unknown
+     * </p>
      *
-     * @param reason a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus unknown(final String reason) {
@@ -252,7 +290,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>unresponsive</p>
+     * <p>
+     * unresponsive
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -261,9 +301,12 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>unresponsive</p>
+     * <p>
+     * unresponsive
+     * </p>
      *
-     * @param reason a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus unresponsive(final String reason) {
@@ -271,7 +314,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>down</p>
+     * <p>
+     * down
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -280,7 +325,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>unavailable</p>
+     * <p>
+     * unavailable
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -289,9 +336,12 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>down</p>
+     * <p>
+     * down
+     * </p>
      *
-     * @param reason a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus down(final String reason) {
@@ -299,9 +349,12 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>unavailable</p>
+     * <p>
+     * unavailable
+     * </p>
      *
-     * @param reason a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     public static PollStatus unavailable(final String reason) {
@@ -312,13 +365,15 @@ public class PollStatus implements Serializable {
     @Override
     public boolean equals(final Object o) {
         if (o instanceof PollStatus) {
-            return m_statusCode == ((PollStatus)o).m_statusCode;
+            return m_statusCode == ((PollStatus) o).m_statusCode;
         }
         return false;
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
@@ -328,7 +383,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>isUp</p>
+     * <p>
+     * isUp
+     * </p>
      *
      * @return a boolean.
      */
@@ -338,7 +395,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>isAvailable</p>
+     * <p>
+     * isAvailable
+     * </p>
      *
      * @return a boolean.
      */
@@ -348,7 +407,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>isUnresponsive</p>
+     * <p>
+     * isUnresponsive
+     * </p>
      *
      * @return a boolean.
      */
@@ -358,7 +419,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>isUnavailable</p>
+     * <p>
+     * isUnavailable
+     * </p>
      *
      * @return a boolean.
      */
@@ -368,7 +431,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>isDown</p>
+     * <p>
+     * isDown
+     * </p>
      *
      * @return a boolean.
      */
@@ -378,7 +443,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>isUnknown</p>
+     * <p>
+     * isUnknown
+     * </p>
      *
      * @return a boolean.
      */
@@ -388,7 +455,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -398,38 +467,48 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>getTimestamp</p>
+     * <p>
+     * getTimestamp
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
-    @Column(name="statusTime", nullable=false)
+    @Column(name = "statusTime", nullable = false)
     public Date getTimestamp() {
         return m_timestamp;
     }
 
     /**
-     * <p>setTimestamp</p>
+     * <p>
+     * setTimestamp
+     * </p>
      *
-     * @param timestamp a {@link java.util.Date} object.
+     * @param timestamp
+     *            a {@link java.util.Date} object.
      */
     public void setTimestamp(final Date timestamp) {
         m_timestamp = timestamp;
     }
 
     /**
-     * <p>getReason</p>
+     * <p>
+     * getReason
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="statusReason", length=255, nullable=true)
+    @Column(name = "statusReason", length = 255, nullable = true)
     public String getReason() {
         return m_reason;
     }
 
     /**
-     * <p>setReason</p>
+     * <p>
+     * setReason
+     * </p>
      *
-     * @param reason a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      */
     public void setReason(final String reason) {
         if (reason == null) {
@@ -442,22 +521,30 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>getResponseTime</p>
+     * <p>
+     * getResponseTime
+     * </p>
      *
      * @return a {@link java.lang.Double} object.
      */
-    @Column(name="responseTime", nullable=true)
+    @Column(name = "responseTime", nullable = true)
     public Double getResponseTime() {
         Number val = getProperty("response-time");
         return (val == null ? null : val.doubleValue());
 
     }
 
-    /* stores the individual item for compatibility with database schema, as well as the new property map */
+    /*
+     * stores the individual item for compatibility with database schema, as
+     * well as the new property map
+     */
     /**
-     * <p>setResponseTime</p>
+     * <p>
+     * setResponseTime
+     * </p>
      *
-     * @param responseTime a {@link java.lang.Double} object.
+     * @param responseTime
+     *            a {@link java.lang.Double} object.
      */
     public void setResponseTime(final Double responseTime) {
         if (responseTime == null) {
@@ -468,60 +555,74 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>getProperties</p>
+     * <p>
+     * getProperties
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     @Transient
     public Map<String, Number> getProperties() {
-    	if (m_properties == null) {
-    		m_properties = new LinkedHashMap<String, Number>();
-    	}
-    	return m_properties;
+        if (m_properties == null) {
+            m_properties = new LinkedHashMap<String, Number>();
+        }
+        return m_properties;
     }
 
     /**
-     * <p>setProperties</p>
+     * <p>
+     * setProperties
+     * </p>
      *
-     * @param p a {@link java.util.Map} object.
+     * @param p
+     *            a {@link java.util.Map} object.
      */
     public void setProperties(Map<String, Number> p) {
-    	m_properties = p;
+        m_properties = p;
     }
 
     /**
-     * <p>getProperty</p>
+     * <p>
+     * getProperty
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Number} object.
      */
     @Transient
     public Number getProperty(final String key) {
-    	if (m_properties != null) {
-    		return m_properties.get(key);
-    	} else {
-    		return null;
-    	}
+        if (m_properties != null) {
+            return m_properties.get(key);
+        } else {
+            return null;
+        }
     }
 
     /**
-     * <p>setProperty</p>
+     * <p>
+     * setProperty
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
-     * @param value a {@link java.lang.Number} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.Number} object.
      */
     public void setProperty(final String key, final Number value) {
-    	Map<String, Number> m = getProperties();
-    	m.put(key, value);
-    	setProperties(m);
+        Map<String, Number> m = getProperties();
+        m.put(key, value);
+        setProperties(m);
     }
 
     /**
-     * <p>getStatusCode</p>
+     * <p>
+     * getStatusCode
+     * </p>
      *
      * @return a int.
      */
-    @Column(name="statusCode", nullable=false)
+    @Column(name = "statusCode", nullable = false)
     public int getStatusCode() {
         return m_statusCode;
     }
@@ -531,7 +632,9 @@ public class PollStatus implements Serializable {
     }
 
     /**
-     * <p>getStatusName</p>
+     * <p>
+     * getStatusName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -539,6 +642,5 @@ public class PollStatus implements Serializable {
     public String getStatusName() {
         return s_statusNames[m_statusCode];
     }
-
 
 }

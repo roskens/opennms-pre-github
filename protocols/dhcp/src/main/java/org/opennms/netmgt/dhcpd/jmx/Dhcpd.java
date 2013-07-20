@@ -31,19 +31,22 @@ package org.opennms.netmgt.dhcpd.jmx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>Dhcpd class.</p>
+ * <p>
+ * Dhcpd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Dhcpd implements DhcpdMBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Dhcpd.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Dhcpd.class);
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
@@ -51,7 +54,9 @@ public class Dhcpd implements DhcpdMBean {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public void start() {
@@ -60,7 +65,9 @@ public class Dhcpd implements DhcpdMBean {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
@@ -69,7 +76,9 @@ public class Dhcpd implements DhcpdMBean {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -80,7 +89,9 @@ public class Dhcpd implements DhcpdMBean {
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,7 +101,9 @@ public class Dhcpd implements DhcpdMBean {
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

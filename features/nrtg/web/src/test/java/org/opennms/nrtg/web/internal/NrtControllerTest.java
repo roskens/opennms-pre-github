@@ -29,7 +29,6 @@ import static org.junit.Assert.*;
 import org.opennms.nrtg.web.internal.NrtController.MetricTuple;
 
 /**
- *
  * @author Markus Neumann
  */
 public class NrtControllerTest {
@@ -45,16 +44,17 @@ public class NrtControllerTest {
     public void getMetricIdsByProtocolTest() {
         Map<String, String> rrdGraphAttributesMetaData = new HashMap<String, String>();
 
-        //Protocol_metricId=RrdGraphAttribute
-        //SNMP_.1.3.6.1.2.1.5.7.0=icmpInRedirects
-        //TCA_.1.3.6.1.4.1.27091.3.1.6.1.2.171.19.37.60_inboundJitter=inboundJitter
+        // Protocol_metricId=RrdGraphAttribute
+        // SNMP_.1.3.6.1.2.1.5.7.0=icmpInRedirects
+        // TCA_.1.3.6.1.4.1.27091.3.1.6.1.2.171.19.37.60_inboundJitter=inboundJitter
 
         rrdGraphAttributesMetaData.put("icmpInRedirects", "SNMP_.1.3.6.1.2.1.5.7.0=icmpInRedirects");
 
         rrdGraphAttributesMetaData.put("ifOutOctets", "SNMP_.1.3.6.1.2.1.2.2.1.16.3=ifOutOctets");
         rrdGraphAttributesMetaData.put("ifInOctets", "SNMP_.1.3.6.1.2.1.2.2.1.10.3=ifInOctets");
 
-        rrdGraphAttributesMetaData.put("inboundJitter", "TCA_.1.3.6.1.4.1.27091.3.1.6.1.2.171.19.37.60_inboundJitter=inboundJitter");
+        rrdGraphAttributesMetaData.put("inboundJitter",
+                                       "TCA_.1.3.6.1.4.1.27091.3.1.6.1.2.171.19.37.60_inboundJitter=inboundJitter");
         Map<String, List<MetricTuple>> metricIdsByProtocol = nrtController.getMetricIdsByProtocol(rrdGraphAttributesMetaData);
 
         assertNotNull(metricIdsByProtocol.get("SNMP"));

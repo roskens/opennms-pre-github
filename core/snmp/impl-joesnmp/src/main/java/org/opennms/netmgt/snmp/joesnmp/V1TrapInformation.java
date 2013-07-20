@@ -59,8 +59,8 @@ public class V1TrapInformation extends TrapInformation {
      *            The community string from the SNMP packet.
      * @param pdu
      *            The encapsulated Protocol Data Unit.
-     * @param trapProcessor The trap processor used to process the trap data
-     *
+     * @param trapProcessor
+     *            The trap processor used to process the trap data
      */
     public V1TrapInformation(InetAddress agent, String community, SnmpPduTrap pdu, TrapProcessor trapProcessor) {
         super(agent, community, trapProcessor);
@@ -79,7 +79,8 @@ public class V1TrapInformation extends TrapInformation {
 
     @Override
     protected TrapIdentity getTrapIdentity() {
-        return new TrapIdentity(SnmpObjId.get(m_pdu.getEnterprise().getIdentifiers()), m_pdu.getGeneric(), m_pdu.getSpecific());
+        return new TrapIdentity(SnmpObjId.get(m_pdu.getEnterprise().getIdentifiers()), m_pdu.getGeneric(),
+                                m_pdu.getSpecific());
     }
 
     @Override

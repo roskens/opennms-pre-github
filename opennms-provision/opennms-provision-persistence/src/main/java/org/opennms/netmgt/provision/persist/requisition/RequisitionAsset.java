@@ -33,7 +33,6 @@
 // Generated on: 2009.01.29 at 01:15:48 PM EST
 //
 
-
 package org.opennms.netmgt.provision.persist.requisition;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,33 +44,41 @@ import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang.builder.CompareToBuilder;
 
 /**
- * <p>RequisitionAsset class.</p>
+ * <p>
+ * RequisitionAsset class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="")
-@XmlRootElement(name="asset")
+@XmlType(name = "")
+@XmlRootElement(name = "asset")
 public class RequisitionAsset implements Comparable<RequisitionAsset> {
 
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     protected String m_name;
 
-    @XmlAttribute(name="value", required=true)
+    @XmlAttribute(name = "value", required = true)
     protected String m_value;
 
     /**
-     * <p>Constructor for RequisitionAsset.</p>
+     * <p>
+     * Constructor for RequisitionAsset.
+     * </p>
      */
     public RequisitionAsset() {
     }
 
     /**
-     * <p>Constructor for RequisitionAsset.</p>
+     * <p>
+     * Constructor for RequisitionAsset.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public RequisitionAsset(String name, String value) {
         m_name = name;
@@ -79,7 +86,9 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,16 +97,21 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setName(String value) {
         m_name = value;
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,9 +120,12 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
     }
 
     /**
-     * <p>setValue</p>
+     * <p>
+     * setValue
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setValue(String value) {
         m_value = value;
@@ -125,17 +142,22 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof RequisitionAsset)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof RequisitionAsset))
+            return false;
         final RequisitionAsset other = (RequisitionAsset) obj;
         if (m_name == null) {
-            if (other.m_name != null) return false;
+            if (other.m_name != null)
+                return false;
         } else if (!m_name.equals(other.m_name)) {
             return false;
         }
         if (m_value == null) {
-            if (other.m_value != null) return false;
+            if (other.m_value != null)
+                return false;
         } else if (!m_value.equals(other.m_value)) {
             return false;
         }
@@ -149,9 +171,6 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
 
     @Override
     public int compareTo(final RequisitionAsset other) {
-        return new CompareToBuilder()
-            .append(m_name, other.m_name)
-            .append(m_value, other.m_value)
-            .toComparison();
+        return new CompareToBuilder().append(m_name, other.m_name).append(m_value, other.m_value).toComparison();
     }
 }

@@ -60,15 +60,15 @@ import com.jcraft.jsch.SftpException;
  */
 public class Sftp3gppUrlConnection extends SftpUrlConnection {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Sftp3gppUrlConnection.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Sftp3gppUrlConnection.class);
 
-
-    private Map<String,String> m_urlProperties;
+    private Map<String, String> m_urlProperties;
 
     /**
      * Instantiates a new SFTP+3GPP URL connection.
      *
-     * @param url the URL
+     * @param url
+     *            the URL
      */
     protected Sftp3gppUrlConnection(URL url) {
         super(url);
@@ -78,7 +78,8 @@ public class Sftp3gppUrlConnection extends SftpUrlConnection {
      * Gets the path for 3GPP-A (NE Mode).
      *
      * @return the path for 3GPP-A (NE Mode)
-     * @throws SftpUrlException the SFTP URL exception
+     * @throws SftpUrlException
+     *             the SFTP URL exception
      */
     @Override
     protected String getPath() throws SftpUrlException {
@@ -92,14 +93,16 @@ public class Sftp3gppUrlConnection extends SftpUrlConnection {
      * Gets the file name for 3GPP-A (NE Mode).
      *
      * @return the path for 3GPP-A (NE Mode)
-     * @throws SftpUrlException the SFTP URL exception
+     * @throws SftpUrlException
+     *             the SFTP URL exception
      */
     public String get3gppFileName() throws SftpUrlException {
-        Map<String,String> properties = getQueryMap();
+        Map<String, String> properties = getQueryMap();
 
         // Checking required parameters
         if (!properties.containsKey("step")) {
-            throw new SftpUrlException("Missing parameter 'step'. 3GPP requires the Collection Step to generate the file name.");
+            throw new SftpUrlException(
+                                       "Missing parameter 'step'. 3GPP requires the Collection Step to generate the file name.");
         }
         if (!properties.containsKey("neid")) {
             throw new SftpUrlException("Missing parameter 'neId'. 3GPP requires NE ID to generate the file name.");
@@ -117,7 +120,7 @@ public class Sftp3gppUrlConnection extends SftpUrlConnection {
             }
         }
         long step = Long.parseLong(properties.get("step")) * 1000;
-        long timestamp = reference - reference  % step; // normalize timestamp
+        long timestamp = reference - reference % step; // normalize timestamp
         LOG.debug("getPath: the reference timestamp used will be {}", new Date(timestamp));
 
         // Creating common time format objects
@@ -139,7 +142,7 @@ public class Sftp3gppUrlConnection extends SftpUrlConnection {
         StringBuffer sb = new StringBuffer("A");
         sb.append(datef.format(new Date(timestamp)));
         sb.append(".");
-        sb.append(timef.format(new Date(timestamp-step)));
+        sb.append(timef.format(new Date(timestamp - step)));
         sb.append("-");
         sb.append(timef.format(new Date(timestamp)));
         sb.append("_");
@@ -150,14 +153,16 @@ public class Sftp3gppUrlConnection extends SftpUrlConnection {
     /**
      * Gets the time stamp from 3GPP XML file name.
      *
-     * @param fileName the 3GPP XML file name
+     * @param fileName
+     *            the 3GPP XML file name
      * @return the time stamp from file
      */
     public long getTimeStampFromFile(String fileName) {
         Pattern p = Pattern.compile("\\w(\\d+)\\.(\\d+)-(\\d+)-(\\d+)-(\\d+)_.+");
         Matcher m = p.matcher(fileName);
         if (m.find()) {
-            String value = m.group(1) + '-' + m.group(4); // Using end date as a reference
+            String value = m.group(1) + '-' + m.group(4); // Using end date as a
+                                                          // reference
             try {
                 DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMdd-HHmm");
                 DateTime dateTime = dtf.parseDateTime(value);
@@ -175,9 +180,9 @@ public class Sftp3gppUrlConnection extends SftpUrlConnection {
      *
      * @return the query map
      */
-    public Map<String,String> getQueryMap() {
+    public Map<String, String> getQueryMap() {
         if (m_urlProperties == null) {
-            m_urlProperties = new HashMap<String,String>();
+            m_urlProperties = new HashMap<String, String>();
             if (url.getQuery() != null) {
                 for (String pair : url.getQuery().split("&")) {
                     String data[] = pair.split("=");
@@ -192,8 +197,10 @@ public class Sftp3gppUrlConnection extends SftpUrlConnection {
      * Gets the file list (from the path defined on the URL).
      *
      * @return the file list
-     * @throws SftpException the SFTP exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws SftpException
+     *             the SFTP exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @SuppressWarnings("unchecked")
     public List<String> getFileList() throws SftpException, IOException {
@@ -211,9 +218,12 @@ public class Sftp3gppUrlConnection extends SftpUrlConnection {
     /**
      * Delete file (from the path defined on the URL).
      *
-     * @param fileName the file name
-     * @throws SftpException the SFTP exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @param fileName
+     *            the file name
+     * @throws SftpException
+     *             the SFTP exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void deleteFile(String fileName) throws SftpException, IOException {
         String deleteFlag = getQueryMap().get("deletefile");
@@ -227,10 +237,13 @@ public class Sftp3gppUrlConnection extends SftpUrlConnection {
     /**
      * Gets the file (from the path defined on the URL).
      *
-     * @param fileName the file name
+     * @param fileName
+     *            the file name
      * @return the file
-     * @throws SftpException the SFTP exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws SftpException
+     *             the SFTP exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public InputStream getFile(String fileName) throws SftpException, IOException {
         return getChannel().get(url.getPath() + File.separatorChar + fileName);

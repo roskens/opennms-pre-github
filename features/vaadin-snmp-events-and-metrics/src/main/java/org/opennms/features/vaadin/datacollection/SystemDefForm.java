@@ -52,16 +52,13 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-// TODO when a new group is added, the group list passed to SystemDefFieldFactory must be updated.
+// TODO when a new group is added, the group list passed to
+// SystemDefFieldFactory must be updated.
 @SuppressWarnings("serial")
 public abstract class SystemDefForm extends Form implements ClickListener {
 
     /** The Constant FORM_ITEMS. */
-    public static final String[] FORM_ITEMS = new String[] {
-        "name",
-        "systemDefChoice",
-        "collect"
-    };
+    public static final String[] FORM_ITEMS = new String[] { "name", "systemDefChoice", "collect" };
 
     /** The Edit button. */
     private final Button edit = new Button("Edit");
@@ -78,8 +75,10 @@ public abstract class SystemDefForm extends Form implements ClickListener {
     /**
      * Instantiates a new system definition form.
      *
-     * @param dataCollectionConfigDao the OpenNMS Data Collection Configuration DAO
-     * @param source the OpenNMS Data Collection Group object
+     * @param dataCollectionConfigDao
+     *            the OpenNMS Data Collection Configuration DAO
+     * @param source
+     *            the OpenNMS Data Collection Group object
      */
     public SystemDefForm(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup source) {
         setCaption("System Definition Detail");
@@ -131,7 +130,8 @@ public abstract class SystemDefForm extends Form implements ClickListener {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Form#setReadOnly(boolean)
      */
     @Override
@@ -143,8 +143,10 @@ public abstract class SystemDefForm extends Form implements ClickListener {
         delete.setVisible(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(ClickEvent event) {
@@ -162,10 +164,10 @@ public abstract class SystemDefForm extends Form implements ClickListener {
             setReadOnly(false);
         }
         if (source == delete) {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
-                                           "Are you sure?",
+            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(), "Are you sure?",
                                            MessageBox.Icon.QUESTION,
-                                           "Do you really want to remove the System Definition" + getSystemDef().getName() + "?<br/>This action cannot be undone.",
+                                           "Do you really want to remove the System Definition"
+                                                   + getSystemDef().getName() + "?<br/>This action cannot be undone.",
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
                                            new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
             mb.addStyleName(Runo.WINDOW_DIALOG);
@@ -184,14 +186,16 @@ public abstract class SystemDefForm extends Form implements ClickListener {
     /**
      * Save system definition.
      *
-     * @param group the group
+     * @param group
+     *            the group
      */
     public abstract void saveSystemDef(SystemDef group);
 
     /**
      * Delete system definition.
      *
-     * @param group the group
+     * @param group
+     *            the group
      */
     public abstract void deleteSystemDef(SystemDef group);
 

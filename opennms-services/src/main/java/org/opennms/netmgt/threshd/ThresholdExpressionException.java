@@ -29,7 +29,9 @@
 package org.opennms.netmgt.threshd;
 
 /**
- * <p>ThresholdExpressionException class.</p>
+ * <p>
+ * ThresholdExpressionException class.
+ * </p>
  *
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  * @version $Id: $
@@ -41,21 +43,28 @@ public class ThresholdExpressionException extends Exception {
     private static final long serialVersionUID = -6699551250959285584L;
 
     /**
-     * <p>Constructor for ThresholdExpressionException.</p>
+     * <p>
+     * Constructor for ThresholdExpressionException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public ThresholdExpressionException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for ThresholdExpressionException.</p>
+     * <p>
+     * Constructor for ThresholdExpressionException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public ThresholdExpressionException(String message, Throwable cause) {
-        super(message,cause);
+        super(message, cause);
     }
 }

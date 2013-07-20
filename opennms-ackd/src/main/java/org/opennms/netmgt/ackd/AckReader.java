@@ -33,7 +33,6 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import org.opennms.netmgt.ackd.readers.AckProcessor;
 import org.opennms.netmgt.ackd.readers.ReaderSchedule;
 
-
 /**
  * Acknowledgment reader API
  *
@@ -46,17 +45,17 @@ import org.opennms.netmgt.ackd.readers.ReaderSchedule;
 public interface AckReader {
 
     public enum AckReaderState {
-        STOP_PENDING(1, "Stop Pending"),
-        STOPPED(2, "Stopped"),
-        START_PENDING(3, "Start Pending"),
-        STARTED(4, "Started"),
-        PAUSE_PENDING(5, "Pause Pending"),
-        PAUSED(6, "Paused"),
-        RESUME_PENDING(7, "Resume Pending"),
-        RESUMED(8, "Resumed")  //might be the same as started
+        STOP_PENDING(1, "Stop Pending"), STOPPED(2, "Stopped"), START_PENDING(3, "Start Pending"), STARTED(4, "Started"), PAUSE_PENDING(
+                5, "Pause Pending"), PAUSED(6, "Paused"), RESUME_PENDING(7, "Resume Pending"), RESUMED(8, "Resumed") // might
+                                                                                                                     // be
+                                                                                                                     // the
+                                                                                                                     // same
+                                                                                                                     // as
+                                                                                                                     // started
         ;
 
         private int m_id;
+
         private String m_label;
 
         AckReaderState(int id, String label) {
@@ -73,63 +72,97 @@ public interface AckReader {
             return m_label;
         }
 
-
     };
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      *
-     * @param executor a {@link java.util.concurrent.ScheduledThreadPoolExecutor} object.
-     * @param schedule a {@link org.opennms.netmgt.ackd.readers.ReaderSchedule} object.
-     * @param reloadConfig a boolean.
+     * @param executor
+     *            a {@link java.util.concurrent.ScheduledThreadPoolExecutor}
+     *            object.
+     * @param schedule
+     *            a {@link org.opennms.netmgt.ackd.readers.ReaderSchedule}
+     *            object.
+     * @param reloadConfig
+     *            a boolean.
      */
     void start(final ScheduledThreadPoolExecutor executor, final ReaderSchedule schedule, boolean reloadConfig);
-    /**
-     * <p>pause</p>
-     */
-    void pause();
-    /**
-     * <p>resume</p>
-     *
-     * @param executor a {@link java.util.concurrent.ScheduledThreadPoolExecutor} object.
-     */
-    void resume(final ScheduledThreadPoolExecutor executor);
-    /**
-     * <p>stop</p>
-     */
-    void stop();
-    //void setSchedule(final ScheduledThreadPoolExecutor executor, ReaderSchedule schedule, boolean reschedule);
 
     /**
-     * <p>setAckProcessor</p>
+     * <p>
+     * pause
+     * </p>
+     */
+    void pause();
+
+    /**
+     * <p>
+     * resume
+     * </p>
      *
-     * @param ackProcessor a {@link org.opennms.netmgt.ackd.readers.AckProcessor} object.
+     * @param executor
+     *            a {@link java.util.concurrent.ScheduledThreadPoolExecutor}
+     *            object.
+     */
+    void resume(final ScheduledThreadPoolExecutor executor);
+
+    /**
+     * <p>
+     * stop
+     * </p>
+     */
+    void stop();
+
+    // void setSchedule(final ScheduledThreadPoolExecutor executor,
+    // ReaderSchedule schedule, boolean reschedule);
+
+    /**
+     * <p>
+     * setAckProcessor
+     * </p>
+     *
+     * @param ackProcessor
+     *            a {@link org.opennms.netmgt.ackd.readers.AckProcessor} object.
      */
     void setAckProcessor(AckProcessor ackProcessor);
+
     /**
-     * <p>getAckProcessor</p>
+     * <p>
+     * getAckProcessor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.ackd.readers.AckProcessor} object.
      */
     AckProcessor getAckProcessor();
 
     /**
-     * <p>getState</p>
+     * <p>
+     * getState
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.ackd.AckReader.AckReaderState} object.
+     * @return a {@link org.opennms.netmgt.ackd.AckReader.AckReaderState}
+     *         object.
      */
     AckReaderState getState();
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getName();
+
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     void setName(String name);
 }

@@ -51,16 +51,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Donald Desloge
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/empty-context.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/empty-context.xml" })
 @TestExecutionListeners(JUnitDNSServerExecutionListener.class)
-@JUnitDNSServer(port=9153, zones={
-        @DNSZone(name="google.com.", entries={
-                @DNSEntry(hostname="www", address="72.14.204.99")
-        })
-})
+@JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "google.com.", entries = { @DNSEntry(hostname = "www", address = "72.14.204.99") }) })
 public class DnsDetectorTest {
 
     private DnsDetector m_detector;
@@ -72,17 +67,17 @@ public class DnsDetectorTest {
         m_detector = new DnsDetector();
         m_detector.setTimeout(500);
 
-        //m_socket = new DatagramSocket(4445);
-        //m_serverThread = createThread();
-        //m_serverThread.start();
+        // m_socket = new DatagramSocket(4445);
+        // m_serverThread = createThread();
+        // m_serverThread.start();
     }
 
     @After
     public void tearDown() {
-        //m_serverThread.stop();
+        // m_serverThread.stop();
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
         m_detector.setPort(9153);
         m_detector.setLookup("www.google.com");
@@ -91,7 +86,7 @@ public class DnsDetectorTest {
         assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("localhost")));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws UnknownHostException {
         m_detector.setPort(5000);
         m_detector.setLookup("www.google.com");

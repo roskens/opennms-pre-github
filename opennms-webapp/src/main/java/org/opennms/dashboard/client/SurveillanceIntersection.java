@@ -31,7 +31,9 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * <p>SurveillanceIntersection class.</p>
+ * <p>
+ * SurveillanceIntersection class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -43,8 +45,11 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class SurveillanceIntersection extends SurveillanceSet implements IsSerializable {
 
     private SurveillanceGroup m_rowGroup;
+
     private SurveillanceGroup m_columnGroup;
+
     private String m_data;
+
     private String m_status;
 
     /**
@@ -55,10 +60,16 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
     }
 
     /**
-     * <p>Constructor for SurveillanceIntersection.</p>
+     * <p>
+     * Constructor for SurveillanceIntersection.
+     * </p>
      *
-     * @param rowGroup a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
-     * @param columnGroup a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
+     * @param rowGroup
+     *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
+     *            object.
+     * @param columnGroup
+     *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
+     *            object.
      */
     public SurveillanceIntersection(SurveillanceGroup rowGroup, SurveillanceGroup columnGroup) {
         m_rowGroup = rowGroup;
@@ -66,7 +77,9 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
     }
 
     /**
-     * <p>getColumnGroup</p>
+     * <p>
+     * getColumnGroup
+     * </p>
      *
      * @return a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
      */
@@ -75,16 +88,22 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
     }
 
     /**
-     * <p>setColumnGroup</p>
+     * <p>
+     * setColumnGroup
+     * </p>
      *
-     * @param columnGroup a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
+     * @param columnGroup
+     *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
+     *            object.
      */
     public void setColumnGroup(SurveillanceGroup columnGroup) {
         m_columnGroup = columnGroup;
     }
 
     /**
-     * <p>getRowGroup</p>
+     * <p>
+     * getRowGroup
+     * </p>
      *
      * @return a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
      */
@@ -93,16 +112,22 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
     }
 
     /**
-     * <p>setRowGroup</p>
+     * <p>
+     * setRowGroup
+     * </p>
      *
-     * @param rowGroup a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
+     * @param rowGroup
+     *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
+     *            object.
      */
     public void setRowGroup(SurveillanceGroup rowGroup) {
         m_rowGroup = rowGroup;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,7 +143,9 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
     }
 
     /**
-     * <p>getData</p>
+     * <p>
+     * getData
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -127,16 +154,21 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
     }
 
     /**
-     * <p>setData</p>
+     * <p>
+     * setData
+     * </p>
      *
-     * @param data a {@link java.lang.String} object.
+     * @param data
+     *            a {@link java.lang.String} object.
      */
     public void setData(String data) {
         m_data = data;
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -145,14 +177,15 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param status a {@link java.lang.String} object.
+     * @param status
+     *            a {@link java.lang.String} object.
      */
     public void setStatus(String status) {
         m_status = status;
     }
-
-
 
 }

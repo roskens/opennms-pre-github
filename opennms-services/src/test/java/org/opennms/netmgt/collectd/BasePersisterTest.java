@@ -56,6 +56,7 @@ import org.opennms.test.FileAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.transaction.PlatformTransactionManager;
+
 /**
  * JUnit TestCase for the BasePersister.
  *
@@ -63,17 +64,26 @@ import org.springframework.transaction.PlatformTransactionManager;
  */
 public class BasePersisterTest {
     private FileAnticipator m_fileAnticipator;
+
     private File m_snmpDirectory;
+
     private BasePersister m_persister;
+
     private OnmsIpInterface m_intf;
+
     private OnmsNode m_node;
+
     private PlatformTransactionManager m_transMgr = new MockPlatformTransactionManager();
+
     private EasyMockUtils m_easyMockUtils = new EasyMockUtils();
+
     private IpInterfaceDao m_ifDao;
+
     private ServiceParameters m_serviceParams;
 
     /* erg, Rule fields must be public */
-    @Rule public TestName m_testName = new TestName();
+    @Rule
+    public TestName m_testName = new TestName();
 
     @Before
     public void setUp() throws Exception {
@@ -90,7 +100,7 @@ public class BasePersisterTest {
         m_intf.setIpAddress(InetAddressUtils.addr("1.1.1.1"));
 
         m_ifDao = m_easyMockUtils.createMock(IpInterfaceDao.class);
-        m_serviceParams = new ServiceParameters(new HashMap<String,Object>());
+        m_serviceParams = new ServiceParameters(new HashMap<String, Object>());
 
     }
 
@@ -159,7 +169,8 @@ public class BasePersisterTest {
 
         m_persister.createBuilder(attribute.getResource(), attribute.getName(), attribute.getAttributeType());
 
-        // This will end up calling m_persister.persistStringAttribute(attribute);
+        // This will end up calling
+        // m_persister.persistStringAttribute(attribute);
         m_persister.storeAttribute(attribute);
 
         m_persister.commitBuilder();
@@ -183,7 +194,9 @@ public class BasePersisterTest {
 
         MockDataCollectionConfig dataCollectionConfig = new MockDataCollectionConfig();
 
-        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent, new ServiceParameters(new HashMap<String, Object>()), dataCollectionConfig);
+        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent,
+                                                               new ServiceParameters(new HashMap<String, Object>()),
+                                                               dataCollectionConfig);
 
         NodeResourceType resourceType = new NodeResourceType(agent, collection);
 
@@ -197,7 +210,8 @@ public class BasePersisterTest {
         mibObject.setMaxval(null);
         mibObject.setMinval(null);
 
-        SnmpAttributeType attributeType = new StringAttributeType(resourceType, "some-collection", mibObject, new AttributeGroupType("mibGroup", "ignore"));
+        SnmpAttributeType attributeType = new StringAttributeType(resourceType, "some-collection", mibObject,
+                                                                  new AttributeGroupType("mibGroup", "ignore"));
 
         return new SnmpAttribute(resource, attributeType, SnmpUtils.getValueFactory().getOctetString("foo".getBytes()));
     }

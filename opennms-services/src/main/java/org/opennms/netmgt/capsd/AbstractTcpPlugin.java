@@ -70,23 +70,34 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     String m_protocolName;
 
     /**
-     * <p>Constructor for AbstractTcpPlugin.</p>
+     * <p>
+     * Constructor for AbstractTcpPlugin.
+     * </p>
      *
-     * @param protocol a {@link java.lang.String} object.
-     * @param defaultTimeout a int.
-     * @param defaultRetry a int.
+     * @param protocol
+     *            a {@link java.lang.String} object.
+     * @param defaultTimeout
+     *            a int.
+     * @param defaultRetry
+     *            a int.
      */
     protected AbstractTcpPlugin(String protocol, int defaultTimeout, int defaultRetry) {
         this(protocol, -1, defaultTimeout, defaultRetry);
     }
 
     /**
-     * <p>Constructor for AbstractTcpPlugin.</p>
+     * <p>
+     * Constructor for AbstractTcpPlugin.
+     * </p>
      *
-     * @param protocol a {@link java.lang.String} object.
-     * @param defaultPort a int.
-     * @param defaultTimeout a int.
-     * @param defaultRetry a int.
+     * @param protocol
+     *            a {@link java.lang.String} object.
+     * @param defaultPort
+     *            a int.
+     * @param defaultTimeout
+     *            a int.
+     * @param defaultRetry
+     *            a int.
      */
     protected AbstractTcpPlugin(String protocol, int defaultPort, int defaultTimeout, int defaultRetry) {
         super();
@@ -107,7 +118,8 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * the caller.
      * </P>
      *
-     * @param config a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
      * @return True if server supports Citrix on the specified port, false
      *         otherwise
      */
@@ -134,7 +146,8 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
                 socket = new Socket();
                 socket.connect(config.getSocketAddress(), timeout);
                 socket.setSoTimeout(timeout);
-                LOG.debug("{}: connected to host: {} on port: {}", getPluginName(), config.getInetAddress(), config.getPort());
+                LOG.debug("{}: connected to host: {} on port: {}", getPluginName(), config.getInetAddress(),
+                          config.getPort());
 
                 socket = getSocketWrapper().wrapSocket(socket);
 
@@ -152,13 +165,15 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
                 isAServer = false;
                 throw new UndeclaredThrowableException(e);
             } catch (InterruptedIOException e) {
-                LOG.debug("{}: did not connect to host within timeout: {} attempt: {}", getPluginName(), timeout, attempts);
+                LOG.debug("{}: did not connect to host within timeout: {} attempt: {}", getPluginName(), timeout,
+                          attempts);
                 isAServer = false;
             } catch (IOException e) {
                 LOG.info("{}: Error communicating with host {}", getPluginName(), config.getInetAddress(), e);
                 isAServer = false;
             } catch (Throwable t) {
-                LOG.warn("{}: Undeclared throwable exception caught contacting host {}", getPluginName(), config.getInetAddress(), t);
+                LOG.warn("{}: Undeclared throwable exception caught contacting host {}", getPluginName(),
+                         config.getInetAddress(), t);
                 isAServer = false;
             } finally {
                 if (socket != null)
@@ -174,10 +189,14 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>closeSocket</p>
+     * <p>
+     * closeSocket
+     * </p>
      *
-     * @param socket a {@link java.net.Socket} object.
-     * @param config a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
+     * @param socket
+     *            a {@link java.net.Socket} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
      */
     protected void closeSocket(Socket socket, ConnectionConfig config) {
         try {
@@ -189,20 +208,29 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>checkProtocol</p>
+     * <p>
+     * checkProtocol
+     * </p>
      *
-     * @param socket a {@link java.net.Socket} object.
-     * @param config a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
+     * @param socket
+     *            a {@link java.net.Socket} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
      * @return a boolean.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     protected abstract boolean checkProtocol(Socket socket, ConnectionConfig config) throws Exception;
 
     /**
-     * <p>createConnectionConfig</p>
+     * <p>
+     * createConnectionConfig
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param port a int.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param port
+     *            a int.
      * @return a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
      */
     protected ConnectionConfig createConnectionConfig(InetAddress address, int port) {
@@ -210,10 +238,14 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>getConnectionConfigList</p>
+     * <p>
+     * getConnectionConfigList
+     * </p>
      *
-     * @param qualifiers a {@link java.util.Map} object.
-     * @param address a {@link java.net.InetAddress} object.
+     * @param qualifiers
+     *            a {@link java.util.Map} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      * @return a {@link java.util.List} object.
      */
     protected List<ConnectionConfig> getConnectionConfigList(Map<String, Object> qualifiers, InetAddress address) {
@@ -225,11 +257,16 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>getKeyedInteger</p>
+     * <p>
+     * getKeyedInteger
+     * </p>
      *
-     * @param qualifiers a {@link java.util.Map} object.
-     * @param key a {@link java.lang.String} object.
-     * @param defaultVal a int.
+     * @param qualifiers
+     *            a {@link java.util.Map} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param defaultVal
+     *            a int.
      * @return a int.
      */
     final protected int getKeyedInteger(Map<String, Object> qualifiers, String key, int defaultVal) {
@@ -240,11 +277,16 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>getKeyedIntegerArray</p>
+     * <p>
+     * getKeyedIntegerArray
+     * </p>
      *
-     * @param qualifiers a {@link java.util.Map} object.
-     * @param key a {@link java.lang.String} object.
-     * @param defaultVal an array of int.
+     * @param qualifiers
+     *            a {@link java.util.Map} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param defaultVal
+     *            an array of int.
      * @return an array of int.
      */
     final protected int[] getKeyedIntegerArray(Map<String, Object> qualifiers, String key, int[] defaultVal) {
@@ -255,7 +297,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>getPluginName</p>
+     * <p>
+     * getPluginName
+     * </p>
      *
      * @return Returns the pluginName.
      */
@@ -280,9 +324,8 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -291,9 +334,8 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -304,7 +346,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
 
         List<ConnectionConfig> connList = getConnectionConfigList(qualifiers, address);
 
-        for(ConnectionConfig config : connList) {
+        for (ConnectionConfig config : connList) {
             populateConnectionConfig(config, qualifiers);
             if (checkConnection(config)) {
                 if (qualifiers != null)
@@ -318,10 +360,14 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>populateConnectionConfig</p>
+     * <p>
+     * populateConnectionConfig
+     * </p>
      *
-     * @param config a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
-     * @param qualifiers a {@link java.util.Map} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
+     * @param qualifiers
+     *            a {@link java.util.Map} object.
      */
     protected void populateConnectionConfig(ConnectionConfig config, Map<String, Object> qualifiers) {
         config.setQualifiers(qualifiers);
@@ -330,9 +376,12 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>preconnectCheck</p>
+     * <p>
+     * preconnectCheck
+     * </p>
      *
-     * @param config a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
      * @return a boolean.
      */
     protected boolean preconnectCheck(ConnectionConfig config) {
@@ -340,21 +389,30 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>saveConfig</p>
+     * <p>
+     * saveConfig
+     * </p>
      *
-     * @param qualifiers a {@link java.util.Map} object.
-     * @param config a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
+     * @param qualifiers
+     *            a {@link java.util.Map} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
      */
     protected void saveConfig(Map<String, Object> qualifiers, ConnectionConfig config) {
         saveKeyedInteger(qualifiers, "port", config.getPort());
     }
 
     /**
-     * <p>saveKeyedInteger</p>
+     * <p>
+     * saveKeyedInteger
+     * </p>
      *
-     * @param qualifiers a {@link java.util.Map} object.
-     * @param key a {@link java.lang.String} object.
-     * @param value a int.
+     * @param qualifiers
+     *            a {@link java.util.Map} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a int.
      */
     final protected void saveKeyedInteger(Map<String, Object> qualifiers, String key, int value) {
         if (qualifiers != null && !qualifiers.containsKey(key))
@@ -362,7 +420,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>setPluginName</p>
+     * <p>
+     * setPluginName
+     * </p>
      *
      * @param pluginName
      *            The pluginName to set.
@@ -372,7 +432,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>getSocketWrapper</p>
+     * <p>
+     * getSocketWrapper
+     * </p>
      */
     protected SocketWrapper getSocketWrapper() {
         return new DefaultSocketWrapper();

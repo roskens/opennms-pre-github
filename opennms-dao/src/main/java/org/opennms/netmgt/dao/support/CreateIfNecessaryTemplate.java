@@ -32,8 +32,10 @@ import org.opennms.netmgt.dao.api.OnmsDao;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
- * Template for creating a row if and only if one doesn't already exists.  This suffers
- * from some of the same concurrency issues as described in the {@link UpsertTemplate}.  See the
+ * Template for creating a row if and only if one doesn't already exists. This
+ * suffers
+ * from some of the same concurrency issues as described in the
+ * {@link UpsertTemplate}. See the
  * detailed javadoc there for a description.
  *
  * @author brozow
@@ -41,7 +43,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 public abstract class CreateIfNecessaryTemplate<T, D extends OnmsDao<T, ?>> extends UpsertTemplate<T, D> {
 
     /**
-     * Create a CreateIfNecessaryTemplate using the given transactionManager to create transactions.
+     * Create a CreateIfNecessaryTemplate using the given transactionManager to
+     * create transactions.
      */
     public CreateIfNecessaryTemplate(PlatformTransactionManager transactionManager, D dao) {
         super(transactionManager, dao);
@@ -51,7 +54,8 @@ public abstract class CreateIfNecessaryTemplate<T, D extends OnmsDao<T, ?>> exte
     abstract protected T query();
 
     /**
-     * There is no need to update the object for this case as we just return the object found.
+     * There is no need to update the object for this case as we just return the
+     * object found.
      */
     @Override
     protected T doUpdate(T dbObj) {
@@ -60,6 +64,5 @@ public abstract class CreateIfNecessaryTemplate<T, D extends OnmsDao<T, ?>> exte
 
     @Override
     abstract protected T doInsert();
-
 
 }

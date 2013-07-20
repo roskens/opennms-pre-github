@@ -28,6 +28,7 @@
 
 @XmlSchema(namespace = "http://junosspace.juniper.net/monitoring", elementFormDefault = XmlNsForm.QUALIFIED)
 package org.opennms.netmgt.ncs.northbounder.transfer;
+
 import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.bind.annotation.XmlNsForm;
 

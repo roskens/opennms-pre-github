@@ -44,14 +44,16 @@ public interface MibParser {
     /**
      * Sets the MIB directory.
      *
-     * @param mibDirectory the MIB directory
+     * @param mibDirectory
+     *            the MIB directory
      */
     void setMibDirectory(File mibDirectory);
 
     /**
      * Parses the MIB.
      *
-     * @param mibFile the MIB file
+     * @param mibFile
+     *            the MIB file
      * @return true, if successful
      */
     boolean parseMib(File mibFile);
@@ -80,7 +82,8 @@ public interface MibParser {
     /**
      * Gets the event list.
      *
-     * @param ueibase the UEI base
+     * @param ueibase
+     *            the UEI base
      * @return the event list
      */
     Events getEvents(String ueibase);

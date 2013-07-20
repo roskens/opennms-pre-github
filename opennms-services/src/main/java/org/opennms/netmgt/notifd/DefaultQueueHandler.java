@@ -48,6 +48,7 @@ import org.opennms.core.utils.TimeConverter;
  */
 public class DefaultQueueHandler implements NotifdQueueHandler {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultQueueHandler.class);
+
     /**
      * The input queue of runnable commands.
      */
@@ -69,7 +70,9 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
     private int m_status;
 
     /**
-     * <p>Constructor for DefaultQueueHandler.</p>
+     * <p>
+     * Constructor for DefaultQueueHandler.
+     * </p>
      */
     public DefaultQueueHandler() {
         m_status = START_PENDING;
@@ -151,15 +154,17 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
     } // end run
 
     /**
-     * <p>processQueue</p>
+     * <p>
+     * processQueue
+     * </p>
      */
     @Override
     public void processQueue() {
         if (m_noticeQueue != null) {
-            synchronized(m_noticeQueue) {
+            synchronized (m_noticeQueue) {
                 try {
-                	final Long now = System.currentTimeMillis();
-                	final SortedMap<Long, List<NotificationTask>> readyNotices = m_noticeQueue.headMap(now);
+                    final Long now = System.currentTimeMillis();
+                    final SortedMap<Long, List<NotificationTask>> readyNotices = m_noticeQueue.headMap(now);
 
                     for (final List<NotificationTask> list : readyNotices.values()) {
                         for (final NotificationTask task : list) {
@@ -169,7 +174,7 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
                     readyNotices.clear();
 
                     if (m_noticeQueue != null && m_noticeQueue.size() > 0) {
-			LOG.debug("current state of tree: {}", m_noticeQueue);
+                        LOG.debug("current state of tree: {}", m_noticeQueue);
                     }
                 } catch (final Throwable e) {
                     LOG.error("failed to start notification task", e);
@@ -179,17 +184,17 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
         }
     }
 
-	private void startTask(final NotificationTask task) {
-		if (!task.isStarted())
-			task.start();
-	}
+    private void startTask(final NotificationTask task) {
+        if (!task.isStarted())
+            task.start();
+    }
 
     /**
      * Starts the fiber. If the fiber has already been run or is currently
      * running then an exception is generated. The status of the fiber is
      * updated to <code>STARTING</code> and will transition to <code>
-     * RUNNING</code>
-     * when the fiber finishes initializing and begins processing the
+     * RUNNING</code> when the fiber finishes initializing and begins processing
+     * the
      * encapsulated queue.
      *
      * @throws java.lang.IllegalStateException

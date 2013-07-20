@@ -36,127 +36,142 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.web.api.Util;
 
 /**
- * <p>DataLinkInterface class.</p>
+ * <p>
+ * DataLinkInterface class.
+ * </p>
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  */
-public class LinkInterface
-{
-        private final Interface m_iface;
-        private final Interface m_linkedInterface;
-        private final String  m_lastPollTime;
-        private final String  m_status;
-        private final Integer m_linktypeid;
+public class LinkInterface {
+    private final Interface m_iface;
 
-	private final Integer m_nodeId;
-        private final Integer m_ifindex;
-        private final Integer m_linkedNodeId;
-        private final Integer m_linkedIfindex;
+    private final Interface m_linkedInterface;
 
-        private static final Map<Integer, String> linktypeMap = new HashMap<Integer, String>();
+    private final String m_lastPollTime;
 
-        static {
-        	linktypeMap.put(9999, "Unknown");
-        	linktypeMap.put(777, "DWO connection");
-		linktypeMap.put(1777, "Summary Link");
+    private final String m_status;
+
+    private final Integer m_linktypeid;
+
+    private final Integer m_nodeId;
+
+    private final Integer m_ifindex;
+
+    private final Integer m_linkedNodeId;
+
+    private final Integer m_linkedIfindex;
+
+    private static final Map<Integer, String> linktypeMap = new HashMap<Integer, String>();
+
+    static {
+        linktypeMap.put(9999, "Unknown");
+        linktypeMap.put(777, "DWO connection");
+        linktypeMap.put(1777, "Summary Link");
+    }
+
+    LinkInterface(DataLinkInterface dl, boolean isParent, Interface iface, Interface linkedIface) {
+        if (isParent) {
+            m_nodeId = dl.getNodeParentId();
+            m_ifindex = dl.getParentIfIndex();
+            m_linkedNodeId = dl.getNodeId();
+            m_linkedIfindex = dl.getIfIndex();
+        } else {
+            m_nodeId = dl.getNodeId();
+            m_ifindex = dl.getIfIndex();
+            m_linkedNodeId = dl.getNodeParentId();
+            m_linkedIfindex = dl.getParentIfIndex();
         }
+        m_iface = iface;
+        m_linkedInterface = linkedIface;
+        m_lastPollTime = Util.formatDateToUIString(dl.getLastPollTime());
+        m_status = StatusType.getStatusString(dl.getStatus().getCharCode());
+        m_linktypeid = dl.getLinkTypeId();
+    }
 
-        LinkInterface( DataLinkInterface dl, boolean isParent, Interface iface, Interface linkedIface)
-        {
-        	if (isParent) {
-            	m_nodeId = dl.getNodeParentId();
-            	m_ifindex = dl.getParentIfIndex();
-            	m_linkedNodeId = dl.getNodeId();
-            	m_linkedIfindex = dl.getIfIndex();
-        	} else {
-            	m_nodeId = dl.getNodeId();
-            	m_ifindex = dl.getIfIndex();
-            	m_linkedNodeId = dl.getNodeParentId();
-            	m_linkedIfindex = dl.getParentIfIndex();
-        	}
-            m_iface = iface;
-            m_linkedInterface = linkedIface;
-            m_lastPollTime = Util.formatDateToUIString(dl.getLastPollTime());
-            m_status = StatusType.getStatusString(dl.getStatus().getCharCode());
-            m_linktypeid = dl.getLinkTypeId();
-        }
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        StringBuffer str = new StringBuffer("Node Id = " + m_iface.getNodeId() + "\n");
+        str.append("IfIndex = " + m_iface.getIfIndex() + "\n");
+        str.append("Last Poll Time = " + m_lastPollTime + "\n");
+        str.append("Link Type Id = " + m_linktypeid + "\n");
+        str.append("Status= " + m_status + "\n");
+        return str.toString();
+    }
 
-		/**
-         * <p>toString</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
-        @Override
-        public String toString()
-        {
-                StringBuffer str = new StringBuffer("Node Id = " + m_iface.getNodeId() + "\n" );
-				str.append("IfIndex = " + m_iface.getIfIndex() + "\n" );
-				str.append("Last Poll Time = " + m_lastPollTime + "\n" );
-				str.append("Link Type Id = " + m_linktypeid + "\n" );
-                str.append("Status= " + m_status + "\n" );
-                return str.toString();
-        }
+    public Integer getNodeId() {
+        return m_nodeId;
+    }
 
-        public Integer getNodeId() {
-			return m_nodeId;
-		}
+    public Integer getIfindex() {
+        return m_ifindex;
+    }
 
-        public Integer getIfindex() {
-        	return m_ifindex;
-        }
+    public Integer getLinkedNodeId() {
+        return m_linkedNodeId;
+    }
 
-		public Integer getLinkedNodeId() {
-			return m_linkedNodeId;
-		}
+    public Integer getLinkedIfindex() {
+        return m_linkedIfindex;
+    }
 
-		public Integer getLinkedIfindex() {
-			return m_linkedIfindex;
-		}
+    /**
+     * <p>
+     * get_lastPollTime
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getLastPollTime() {
+        return m_lastPollTime;
+    }
 
-		/**
-		 * <p>get_lastPollTime</p>
-		 *
-		 * @return a {@link java.lang.String} object.
-		 */
-		public String getLastPollTime() {
-			return m_lastPollTime;
-		}
+    /**
+     * <p>
+     * get_status
+     * </p>
+     * m
+     *
+     * @return a char.
+     */
+    public String getStatus() {
+        return m_status;
+    }
 
-		/**
-		 * <p>get_status</p>m
-		 *
-		 * @return a char.
-		 */
-		public String getStatus() {
-			return m_status;
-		}
+    public Integer getLinktypeId() {
+        return m_linktypeid;
+    }
 
-        public Integer getLinktypeId() {
-        	return m_linktypeid;
-        }
+    public String getLinkTypeIdString() {
+        if (linktypeMap.containsKey(m_linktypeid))
+            return linktypeMap.get(m_linktypeid);
+        return null;
+    }
 
-        public String getLinkTypeIdString() {
-        	if (linktypeMap.containsKey(m_linktypeid))
-        		return linktypeMap.get(m_linktypeid);
-		return null;
-        }
+    public Interface getLinkedInterface() {
+        return m_linkedInterface;
+    }
 
-        public Interface getLinkedInterface() {
-			return m_linkedInterface;
-		}
+    public Interface getInterface() {
+        return m_iface;
+    }
 
-		public Interface getInterface() {
-			return m_iface;
-		}
+    public boolean hasInterface() {
+        if (m_iface == null)
+            return false;
+        return true;
+    }
 
-		public boolean hasInterface() {
-			if ( m_iface == null) return false;
-			return true;
-		}
-
-		public boolean hasLinkedInterface() {
-			if ( m_linkedInterface == null) return false;
-			return true;
-		}
+    public boolean hasLinkedInterface() {
+        if (m_linkedInterface == null)
+            return false;
+        return true;
+    }
 
 }

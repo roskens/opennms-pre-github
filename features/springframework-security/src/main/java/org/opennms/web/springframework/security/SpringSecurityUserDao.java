@@ -33,16 +33,21 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 /**
- * <p>SpringSecurityUserDao interface.</p>
+ * <p>
+ * SpringSecurityUserDao interface.
+ * </p>
  */
 public interface SpringSecurityUserDao {
-	public static final GrantedAuthority ROLE_USER = new SimpleGrantedAuthority(Authentication.ROLE_USER);
+    public static final GrantedAuthority ROLE_USER = new SimpleGrantedAuthority(Authentication.ROLE_USER);
 
     /**
-	 * <p>getByUsername</p>
-	 *
-	 * @param username a {@link java.lang.String} object.
-	 * @return a {@link org.opennms.netmgt.model.OnmsUser} object.
-	 */
-	public OnmsUser getByUsername(String username);
+     * <p>
+     * getByUsername
+     * </p>
+     *
+     * @param username
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.model.OnmsUser} object.
+     */
+    public OnmsUser getByUsername(String username);
 }

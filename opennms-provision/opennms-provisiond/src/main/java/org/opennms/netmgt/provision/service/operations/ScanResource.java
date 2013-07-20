@@ -34,27 +34,36 @@ import java.util.Map;
 import org.opennms.netmgt.model.OnmsNode;
 
 /**
- * <p>ScanResource class.</p>
+ * <p>
+ * ScanResource class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class ScanResource {
     private String m_type;
+
     private OnmsNode m_node = null;
-    private final Map<String,String> m_attributes = new HashMap<String,String>();
+
+    private final Map<String, String> m_attributes = new HashMap<String, String>();
 
     /**
-     * <p>Constructor for ScanResource.</p>
+     * <p>
+     * Constructor for ScanResource.
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public ScanResource(String type) {
         m_type = type;
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -63,16 +72,21 @@ public class ScanResource {
     }
 
     /**
-     * <p>setNode</p>
+     * <p>
+     * setNode
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void setNode(OnmsNode node) {
         m_node = node;
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -82,10 +96,14 @@ public class ScanResource {
 
     // TODO: change node comparison to use spring
     /**
-     * <p>setAttribute</p>
+     * <p>
+     * setAttribute
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setAttribute(String key, String value) {
         m_attributes.put(key, value);
@@ -106,9 +124,12 @@ public class ScanResource {
     }
 
     /**
-     * <p>getAttribute</p>
+     * <p>
+     * getAttribute
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getAttribute(String key) {

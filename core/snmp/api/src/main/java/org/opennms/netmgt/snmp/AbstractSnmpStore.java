@@ -32,11 +32,12 @@ import java.net.InetAddress;
 import java.util.Map;
 import java.util.TreeMap;
 
-
 public abstract class AbstractSnmpStore {
 
     private final Map<String, SnmpValue> m_responseMap = new TreeMap<String, SnmpValue>();
+
     public static final String IFINDEX = "ifIndex";
+
     public abstract void storeResult(SnmpResult res);
 
     public AbstractSnmpStore() {
@@ -94,6 +95,5 @@ public abstract class AbstractSnmpStore {
     public boolean isEmpty() {
         return m_responseMap.isEmpty();
     }
-
 
 }

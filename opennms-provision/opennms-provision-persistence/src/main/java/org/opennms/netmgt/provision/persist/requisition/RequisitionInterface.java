@@ -33,7 +33,6 @@
 // Generated on: 2009.01.29 at 01:15:48 PM EST
 //
 
-
 package org.opennms.netmgt.provision.persist.requisition;
 
 import java.util.ArrayList;
@@ -54,39 +53,43 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.provision.persist.PrimaryTypeAdapter;
 
-
 /**
- * <p>RequisitionInterface class.</p>
+ * <p>
+ * RequisitionInterface class.
+ * </p>
  */
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(name="", propOrder = { "m_monitoredServices", "m_categories" })
+@XmlType(name = "", propOrder = { "m_monitoredServices", "m_categories" })
 @XmlRootElement(name = "interface")
 public class RequisitionInterface implements Comparable<RequisitionInterface> {
 
-    //TODO Change these to be sets so that we don't have to verify duplicates in the lists
-    @XmlElement(name="monitored-service")
+    // TODO Change these to be sets so that we don't have to verify duplicates
+    // in the lists
+    @XmlElement(name = "monitored-service")
     protected List<RequisitionMonitoredService> m_monitoredServices = new ArrayList<RequisitionMonitoredService>();
 
-    @XmlElement(name="category")
+    @XmlElement(name = "category")
     protected List<RequisitionCategory> m_categories = new ArrayList<RequisitionCategory>();
 
-    @XmlAttribute(name="descr")
+    @XmlAttribute(name = "descr")
     protected String m_description;
 
-    @XmlAttribute(name="ip-addr", required=true)
+    @XmlAttribute(name = "ip-addr", required = true)
     protected String m_ipAddress;
 
-    @XmlAttribute(name="managed")
+    @XmlAttribute(name = "managed")
     protected Boolean m_isManaged;
 
     // annotated on the class, for some compatibility/initialization
     protected PrimaryType m_snmpPrimary;
 
-    @XmlAttribute(name="status")
+    @XmlAttribute(name = "status")
     protected Integer m_status;
 
     /**
-     * <p>getMonitoredServiceCount</p>
+     * <p>
+     * getMonitoredServiceCount
+     * </p>
      *
      * @return a int.
      */
@@ -97,9 +100,13 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
 
     /* backwards-compat with ModelImport */
     /**
-     * <p>getMonitoredService</p>
+     * <p>
+     * getMonitoredService
+     * </p>
      *
-     * @return an array of {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService} objects.
+     * @return an array of
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService}
+     *         objects.
      */
     @XmlTransient
     public RequisitionMonitoredService[] getMonitoredService() {
@@ -107,7 +114,9 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>getMonitoredServices</p>
+     * <p>
+     * getMonitoredServices
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -119,19 +128,27 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>setMonitoredServices</p>
+     * <p>
+     * setMonitoredServices
+     * </p>
      *
-     * @param services a {@link java.util.List} object.
+     * @param services
+     *            a {@link java.util.List} object.
      */
     public void setMonitoredServices(List<RequisitionMonitoredService> services) {
         m_monitoredServices = services;
     }
 
     /**
-     * <p>getMonitoredService</p>
+     * <p>
+     * getMonitoredService
+     * </p>
      *
-     * @param service a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService} object.
+     * @param service
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService}
+     *         object.
      */
     public RequisitionMonitoredService getMonitoredService(String service) {
         if (m_monitoredServices != null) {
@@ -146,18 +163,26 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>deleteMonitoredService</p>
+     * <p>
+     * deleteMonitoredService
+     * </p>
      *
-     * @param service a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService} object.
+     * @param service
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService}
+     *            object.
      */
     public void deleteMonitoredService(RequisitionMonitoredService service) {
         m_monitoredServices.remove(service);
     }
 
     /**
-     * <p>deleteMonitoredService</p>
+     * <p>
+     * deleteMonitoredService
+     * </p>
      *
-     * @param service a {@link java.lang.String} object.
+     * @param service
+     *            a {@link java.lang.String} object.
      */
     public void deleteMonitoredService(String service) {
         if (m_monitoredServices != null) {
@@ -173,9 +198,14 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>insertMonitoredService</p>
+     * <p>
+     * insertMonitoredService
+     * </p>
      *
-     * @param service a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService} object.
+     * @param service
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService}
+     *            object.
      */
     public void insertMonitoredService(RequisitionMonitoredService service) {
         Iterator<RequisitionMonitoredService> iterator = m_monitoredServices.iterator();
@@ -189,9 +219,14 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>putMonitoredService</p>
+     * <p>
+     * putMonitoredService
+     * </p>
      *
-     * @param service a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService} object.
+     * @param service
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService}
+     *            object.
      */
     public void putMonitoredService(RequisitionMonitoredService service) {
         Iterator<RequisitionMonitoredService> iterator = m_monitoredServices.iterator();
@@ -205,7 +240,9 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>getCategories</p>
+     * <p>
+     * getCategories
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -217,19 +254,27 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>setCategories</p>
+     * <p>
+     * setCategories
+     * </p>
      *
-     * @param categories a {@link java.util.List} object.
+     * @param categories
+     *            a {@link java.util.List} object.
      */
     public void setCategories(List<RequisitionCategory> categories) {
         m_categories = categories;
     }
 
     /**
-     * <p>getCategory</p>
+     * <p>
+     * getCategory
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} object.
+     * @param category
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *         object.
      */
     public RequisitionCategory getCategory(String category) {
         if (m_categories != null) {
@@ -244,18 +289,26 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>deleteCategory</p>
+     * <p>
+     * deleteCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory} object.
+     * @param category
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *            object.
      */
     public void deleteCategory(RequisitionCategory category) {
         m_categories.remove(category);
     }
 
     /**
-     * <p>deleteCategory</p>
+     * <p>
+     * deleteCategory
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
      */
     public void deleteCategory(String category) {
         if (m_categories != null) {
@@ -271,7 +324,9 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>getDescr</p>
+     * <p>
+     * getDescr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -280,16 +335,21 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>setDescr</p>
+     * <p>
+     * setDescr
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setDescr(String value) {
         m_description = value;
     }
 
     /**
-     * <p>getIpAddr</p>
+     * <p>
+     * getIpAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -298,9 +358,12 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>setIpAddr</p>
+     * <p>
+     * setIpAddr
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddr(String value) {
         try {
@@ -311,7 +374,9 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>isManaged</p>
+     * <p>
+     * isManaged
+     * </p>
      *
      * @return a boolean.
      */
@@ -324,51 +389,64 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
     }
 
     /**
-     * <p>setManaged</p>
+     * <p>
+     * setManaged
+     * </p>
      *
-     * @param value a {@link java.lang.Boolean} object.
+     * @param value
+     *            a {@link java.lang.Boolean} object.
      */
     public void setManaged(Boolean value) {
         m_isManaged = value;
     }
 
     /**
-     * <p>getSnmpPrimary</p>
+     * <p>
+     * getSnmpPrimary
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @XmlAttribute(name="snmp-primary")
+    @XmlAttribute(name = "snmp-primary")
     @XmlJavaTypeAdapter(PrimaryTypeAdapter.class)
     public PrimaryType getSnmpPrimary() {
         return m_snmpPrimary;
     }
 
     /**
-     * <p>setSnmpPrimary</p>
+     * <p>
+     * setSnmpPrimary
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setSnmpPrimary(final PrimaryType value) {
         m_snmpPrimary = value;
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
     public int getStatus() {
         if (m_status == null) {
-            return  1;
+            return 1;
         } else {
             return m_status;
         }
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param value a {@link java.lang.Integer} object.
+     * @param value
+     *            a {@link java.lang.Integer} object.
      */
     public void setStatus(Integer value) {
         m_status = value;
@@ -390,42 +468,52 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof RequisitionInterface)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof RequisitionInterface))
+            return false;
         final RequisitionInterface other = (RequisitionInterface) obj;
         if (m_categories == null) {
-            if (other.m_categories != null) return false;
+            if (other.m_categories != null)
+                return false;
         } else if (!m_categories.equals(other.m_categories)) {
             return false;
         }
         if (m_description == null) {
-            if (other.m_description != null) return false;
+            if (other.m_description != null)
+                return false;
         } else if (!m_description.equals(other.m_description)) {
             return false;
         }
         if (m_ipAddress == null) {
-            if (other.m_ipAddress != null) return false;
+            if (other.m_ipAddress != null)
+                return false;
         } else if (!m_ipAddress.equals(other.m_ipAddress)) {
             return false;
         }
         if (m_isManaged == null) {
-            if (other.m_isManaged != null) return false;
+            if (other.m_isManaged != null)
+                return false;
         } else if (!m_isManaged.equals(other.m_isManaged)) {
             return false;
         }
         if (m_monitoredServices == null) {
-            if (other.m_monitoredServices != null) return false;
+            if (other.m_monitoredServices != null)
+                return false;
         } else if (!m_monitoredServices.equals(other.m_monitoredServices)) {
             return false;
         }
         if (m_snmpPrimary == null) {
-            if (other.m_snmpPrimary != null) return false;
+            if (other.m_snmpPrimary != null)
+                return false;
         } else if (!m_snmpPrimary.equals(other.m_snmpPrimary)) {
             return false;
         }
         if (m_status == null) {
-            if (other.m_status != null) return false;
+            if (other.m_status != null)
+                return false;
         } else if (!m_status.equals(other.m_status)) {
             return false;
         }
@@ -434,24 +522,18 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
 
     @Override
     public String toString() {
-        return "RequisitionInterface [monitoredServices="
-                + m_monitoredServices + ", categories=" + m_categories
-                + ", description=" + m_description + ", ipAddress="
-                + m_ipAddress + ", isManaged=" + m_isManaged
-                + ", snmpPrimary=" + m_snmpPrimary + ", status="
-                + m_status + "]";
+        return "RequisitionInterface [monitoredServices=" + m_monitoredServices + ", categories=" + m_categories
+                + ", description=" + m_description + ", ipAddress=" + m_ipAddress + ", isManaged=" + m_isManaged
+                + ", snmpPrimary=" + m_snmpPrimary + ", status=" + m_status + "]";
     }
 
     @Override
     public int compareTo(final RequisitionInterface other) {
-        return new CompareToBuilder()
-            .append(m_ipAddress, other.m_ipAddress)
-            .append(m_status, other.m_status)
-            .append(m_isManaged, other.m_isManaged)
-            .append(m_snmpPrimary, other.m_snmpPrimary)
-            .append(m_monitoredServices, other.m_monitoredServices)
-            .append(m_categories, other.m_categories)
-            .append(m_description, other.m_description)
-            .toComparison();
+        return new CompareToBuilder().append(m_ipAddress, other.m_ipAddress).append(m_status, other.m_status).append(m_isManaged,
+                                                                                                                     other.m_isManaged).append(m_snmpPrimary,
+                                                                                                                                               other.m_snmpPrimary).append(m_monitoredServices,
+                                                                                                                                                                           other.m_monitoredServices).append(m_categories,
+                                                                                                                                                                                                             other.m_categories).append(m_description,
+                                                                                                                                                                                                                                        other.m_description).toComparison();
     }
 }

@@ -39,7 +39,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>ListNodes class.</p>
+ * <p>
+ * ListNodes class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -50,13 +52,16 @@ public class ListNodes extends AbstractController implements InitializingBean {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         RtcNodeModel model = m_rtcService.getNodeList();
         return new ModelAndView("rtc/category", "model", model);
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -64,7 +69,9 @@ public class ListNodes extends AbstractController implements InitializingBean {
     }
 
     /**
-     * <p>getRtcService</p>
+     * <p>
+     * getRtcService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.RtcService} object.
      */
@@ -73,9 +80,12 @@ public class ListNodes extends AbstractController implements InitializingBean {
     }
 
     /**
-     * <p>setRtcService</p>
+     * <p>
+     * setRtcService
+     * </p>
      *
-     * @param rtcService a {@link org.opennms.web.svclayer.RtcService} object.
+     * @param rtcService
+     *            a {@link org.opennms.web.svclayer.RtcService} object.
      */
     public void setRtcService(RtcService rtcService) {
         m_rtcService = rtcService;

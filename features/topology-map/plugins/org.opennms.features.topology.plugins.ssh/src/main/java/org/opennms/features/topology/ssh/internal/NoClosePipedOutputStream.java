@@ -53,7 +53,6 @@ package org.opennms.features.topology.ssh.internal;
  * have any questions.
  */
 
-
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -69,16 +68,18 @@ import java.io.OutputStream;
  * thread that was reading data bytes from the connected piped input
  * stream is no longer alive.
  *
- * @author  James Gosling
- * @see     java.io.PipedInputStream
- * @since   JDK1.0
+ * @author James Gosling
+ * @see java.io.PipedInputStream
+ * @since JDK1.0
  */
-public class NoClosePipedOutputStream extends OutputStream{
+public class NoClosePipedOutputStream extends OutputStream {
 
-        /* REMIND: identification of the read and write sides needs to be
-           more sophisticated.  Either using thread groups (but what about
-           pipes within a thread?) or using finalization (but it may be a
-           long time until the next GC). */
+    /*
+     * REMIND: identification of the read and write sides needs to be
+     * more sophisticated. Either using thread groups (but what about
+     * pipes within a thread?) or using finalization (but it may be a
+     * long time until the next GC).
+     */
     private NoClosePipedInputStream sink;
 
     /**
@@ -86,10 +87,12 @@ public class NoClosePipedOutputStream extends OutputStream{
      * input stream. Data bytes written to this stream will then be
      * available as input from <code>snk</code>.
      *
-     * @param      snk   The piped input stream to connect to.
-     * @exception  IOException  if an I/O error occurs.
+     * @param snk
+     *            The piped input stream to connect to.
+     * @exception IOException
+     *                if an I/O error occurs.
      */
-    public NoClosePipedOutputStream(NoClosePipedInputStream snk)  throws IOException {
+    public NoClosePipedOutputStream(NoClosePipedInputStream snk) throws IOException {
         connect(snk);
     }
 
@@ -98,8 +101,8 @@ public class NoClosePipedOutputStream extends OutputStream{
      * piped input stream. It must be connected to a piped input stream,
      * either by the receiver or the sender, before being used.
      *
-     * @see     java.io.PipedInputStream#connect(java.io.PipedOutputStream)
-     * @see     java.io.PipedOutputStream#connect(java.io.PipedInputStream)
+     * @see java.io.PipedInputStream#connect(java.io.PipedOutputStream)
+     * @see java.io.PipedOutputStream#connect(java.io.PipedInputStream)
      */
     public NoClosePipedOutputStream() {
     }
@@ -110,17 +113,25 @@ public class NoClosePipedOutputStream extends OutputStream{
      * <code>IOException</code> is thrown.
      * <p>
      * If <code>snk</code> is an unconnected piped input stream and
-     * <code>src</code> is an unconnected piped output stream, they may
-     * be connected by either the call:
-     * <blockquote><pre>
-     * src.connect(snk)</pre></blockquote>
-     * or the call:
-     * <blockquote><pre>
-     * snk.connect(src)</pre></blockquote>
-     * The two calls have the same effect.
+     * <code>src</code> is an unconnected piped output stream, they may be
+     * connected by either the call: <blockquote>
      *
-     * @param      snk   the piped input stream to connect to.
-     * @exception  IOException  if an I/O error occurs.
+     * <pre>
+     * src.connect(snk)
+     * </pre>
+     *
+     * </blockquote> or the call: <blockquote>
+     *
+     * <pre>
+     * snk.connect(src)
+     * </pre>
+     *
+     * </blockquote> The two calls have the same effect.
+     *
+     * @param snk
+     *            the piped input stream to connect to.
+     * @exception IOException
+     *                if an I/O error occurs.
      */
     public synchronized void connect(NoClosePipedInputStream snk) throws IOException {
         if (snk == null) {
@@ -139,13 +150,15 @@ public class NoClosePipedOutputStream extends OutputStream{
      * <p>
      * Implements the <code>write</code> method of <code>OutputStream</code>.
      *
-     * @param      b   the <code>byte</code> to be written.
-     * @exception IOException if the pipe is <a href=#BROKEN> broken</a>,
-     *          {@link #connect(java.io.PipedInputStream) unconnected},
-     *          closed, or if an I/O error occurs.
+     * @param b
+     *            the <code>byte</code> to be written.
+     * @exception IOException
+     *                if the pipe is <a href=#BROKEN> broken</a>,
+     *                {@link #connect(java.io.PipedInputStream) unconnected},
+     *                closed, or if an I/O error occurs.
      */
     @Override
-    public void write(int b)  throws IOException {
+    public void write(int b) throws IOException {
         if (sink == null) {
             throw new IOException("Pipe not connected");
         }
@@ -158,12 +171,16 @@ public class NoClosePipedOutputStream extends OutputStream{
      * This method blocks until all the bytes are written to the output
      * stream.
      *
-     * @param      b     the data.
-     * @param      off   the start offset in the data.
-     * @param      len   the number of bytes to write.
-     * @exception IOException if the pipe is <a href=#BROKEN> broken</a>,
-     *          {@link #connect(java.io.PipedInputStream) unconnected},
-     *          closed, or if an I/O error occurs.
+     * @param b
+     *            the data.
+     * @param off
+     *            the start offset in the data.
+     * @param len
+     *            the number of bytes to write.
+     * @exception IOException
+     *                if the pipe is <a href=#BROKEN> broken</a>,
+     *                {@link #connect(java.io.PipedInputStream) unconnected},
+     *                closed, or if an I/O error occurs.
      */
     @Override
     public void write(byte b[], int off, int len) throws IOException {

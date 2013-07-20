@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Parameters to be used for collecting this service. Parameters are specfic
  * to the service monitor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "parameter")
@@ -89,7 +89,7 @@ public class Parameter implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -122,7 +122,7 @@ public class Parameter implements Serializable {
 
     /**
      * Returns the value of field 'key'.
-     * 
+     *
      * @return the value of field 'Key'.
      */
     public String getKey() {
@@ -131,7 +131,7 @@ public class Parameter implements Serializable {
 
     /**
      * Returns the value of field 'value'.
-     * 
+     *
      * @return the value of field 'Value'.
      */
     public String getValue() {
@@ -143,7 +143,7 @@ public class Parameter implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming Language
      * Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     public int hashCode() {
@@ -161,7 +161,7 @@ public class Parameter implements Serializable {
 
     /**
      * Sets the value of field 'key'.
-     * 
+     *
      * @param key
      *            the value of field 'key'.
      */
@@ -171,7 +171,7 @@ public class Parameter implements Serializable {
 
     /**
      * Sets the value of field 'value'.
-     * 
+     *
      * @param value
      *            the value of field 'value'.
      */

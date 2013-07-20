@@ -29,7 +29,9 @@
 package org.opennms.core.utils;
 
 /**
- * <p>Owner class.</p>
+ * <p>
+ * Owner class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,48 +39,70 @@ package org.opennms.core.utils;
 public class Owner implements Comparable<Owner> {
 
     private String m_roleid;
+
     private String m_user;
+
     private int m_schedIndex;
+
     private int m_timeIndex;
 
     /**
-     * <p>Constructor for Owner.</p>
+     * <p>
+     * Constructor for Owner.
+     * </p>
      *
-     * @param roleid a {@link java.lang.String} object.
-     * @param user a {@link java.lang.String} object.
-     * @param schedIndex a int.
+     * @param roleid
+     *            a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param schedIndex
+     *            a int.
      */
     public Owner(String roleid, String user, int schedIndex) {
         this(roleid, user, schedIndex, -1);
     }
 
     /**
-     * <p>Constructor for Owner.</p>
+     * <p>
+     * Constructor for Owner.
+     * </p>
      *
-     * @param roleid a {@link java.lang.String} object.
-     * @param supervisor a {@link java.lang.String} object.
+     * @param roleid
+     *            a {@link java.lang.String} object.
+     * @param supervisor
+     *            a {@link java.lang.String} object.
      */
     public Owner(String roleid, String supervisor) {
         this(roleid, supervisor, -1, -1);
     }
 
     /**
-     * <p>Constructor for Owner.</p>
+     * <p>
+     * Constructor for Owner.
+     * </p>
      *
-     * @param base a {@link org.opennms.core.utils.Owner} object.
-     * @param timeIndex a int.
+     * @param base
+     *            a {@link org.opennms.core.utils.Owner} object.
+     * @param timeIndex
+     *            a int.
      */
     public Owner(Owner base, int timeIndex) {
         this(base.getRoleid(), base.getUser(), base.getSchedIndex(), timeIndex);
     }
 
     /**
-     * <p>Constructor for Owner.</p>
+     * <p>
+     * Constructor for Owner.
+     * </p>
      *
-     * @param roleid a {@link java.lang.String} object.
-     * @param user a {@link java.lang.String} object.
-     * @param schedIndex a int.
-     * @param timeIndex a int.
+     * @param roleid
+     *            a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param schedIndex
+     *            a int.
+     * @param timeIndex
+     *            a int.
      */
     public Owner(String roleid, String user, int schedIndex, int timeIndex) {
         m_roleid = roleid;
@@ -88,7 +112,9 @@ public class Owner implements Comparable<Owner> {
     }
 
     /**
-     * <p>isSupervisor</p>
+     * <p>
+     * isSupervisor
+     * </p>
      *
      * @return a boolean.
      */
@@ -97,7 +123,9 @@ public class Owner implements Comparable<Owner> {
     }
 
     /**
-     * <p>getRoleid</p>
+     * <p>
+     * getRoleid
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,7 +134,9 @@ public class Owner implements Comparable<Owner> {
     }
 
     /**
-     * <p>getSchedIndex</p>
+     * <p>
+     * getSchedIndex
+     * </p>
      *
      * @return a int.
      */
@@ -115,7 +145,9 @@ public class Owner implements Comparable<Owner> {
     }
 
     /**
-     * <p>getTimeIndex</p>
+     * <p>
+     * getTimeIndex
+     * </p>
      *
      * @return a int.
      */
@@ -124,7 +156,9 @@ public class Owner implements Comparable<Owner> {
     }
 
     /**
-     * <p>getUser</p>
+     * <p>
+     * getUser
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -147,7 +181,9 @@ public class Owner implements Comparable<Owner> {
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
@@ -157,9 +193,12 @@ public class Owner implements Comparable<Owner> {
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param o a {@link org.opennms.core.utils.Owner} object.
+     * @param o
+     *            a {@link org.opennms.core.utils.Owner} object.
      * @return a int.
      */
     @Override
@@ -168,7 +207,9 @@ public class Owner implements Comparable<Owner> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

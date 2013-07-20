@@ -38,64 +38,77 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.opennms.core.xml.ValidateUsing;
 
-
 /**
- * <p>RequisitionCollection class.</p>
+ * <p>
+ * RequisitionCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="requisitions")
+@XmlRootElement(name = "requisitions")
 @ValidateUsing("model-import.xsd")
 public class RequisitionCollection extends LinkedList<Requisition> {
 
     private static final long serialVersionUID = 3613062331927556776L;
 
     /**
-	 * <p>Constructor for RequisitionCollection.</p>
-	 */
-	public RequisitionCollection() {
+     * <p>
+     * Constructor for RequisitionCollection.
+     * </p>
+     */
+    public RequisitionCollection() {
         super();
     }
 
     /**
-     * <p>Constructor for RequisitionCollection.</p>
+     * <p>
+     * Constructor for RequisitionCollection.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public RequisitionCollection(Collection<? extends Requisition> c) {
         super(c);
     }
 
     /**
-     * <p>getRequisitions</p>
+     * <p>
+     * getRequisitions
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    @XmlElement(name="model-import")
+    @XmlElement(name = "model-import")
     public List<Requisition> getRequisitions() {
         return this;
     }
 
     /**
-     * <p>setRequisitions</p>
+     * <p>
+     * setRequisitions
+     * </p>
      *
-     * @param requisitions a {@link java.util.List} object.
+     * @param requisitions
+     *            a {@link java.util.List} object.
      */
     public void setRequisitions(List<Requisition> requisitions) {
-        if (requisitions == this) return;
+        if (requisitions == this)
+            return;
         clear();
         addAll(requisitions);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
-    	return this.size();
+        return this.size();
     }
 }
-

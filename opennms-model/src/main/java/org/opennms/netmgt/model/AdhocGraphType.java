@@ -28,9 +28,10 @@
 
 package org.opennms.netmgt.model;
 
-
 /**
- * <p>AdhocGraphType class.</p>
+ * <p>
+ * AdhocGraphType class.
+ * </p>
  */
 public class AdhocGraphType {
     private String m_name;
@@ -46,23 +47,30 @@ public class AdhocGraphType {
     private String m_graphLineTemplate;
 
     /**
-     * <p>Constructor for AdhocGraphType.</p>
+     * <p>
+     * Constructor for AdhocGraphType.
+     * </p>
      */
     public AdhocGraphType() {
 
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,16 +79,21 @@ public class AdhocGraphType {
     }
 
     /**
-     * <p>setCommandPrefix</p>
+     * <p>
+     * setCommandPrefix
+     * </p>
      *
-     * @param commandPrefix a {@link java.lang.String} object.
+     * @param commandPrefix
+     *            a {@link java.lang.String} object.
      */
     public void setCommandPrefix(String commandPrefix) {
         m_commandPrefix = commandPrefix;
     }
 
     /**
-     * <p>getCommandPrefix</p>
+     * <p>
+     * getCommandPrefix
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,16 +102,21 @@ public class AdhocGraphType {
     }
 
     /**
-     * <p>setOutputMimeType</p>
+     * <p>
+     * setOutputMimeType
+     * </p>
      *
-     * @param outputMimeType a {@link java.lang.String} object.
+     * @param outputMimeType
+     *            a {@link java.lang.String} object.
      */
     public void setOutputMimeType(String outputMimeType) {
         m_outputMimeType = outputMimeType;
     }
 
     /**
-     * <p>getOutputMimeType</p>
+     * <p>
+     * getOutputMimeType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,34 +125,45 @@ public class AdhocGraphType {
     }
 
     /**
-     * <p>setTitleTemplate</p>
+     * <p>
+     * setTitleTemplate
+     * </p>
      *
-     * @param template a {@link java.lang.String} object.
+     * @param template
+     *            a {@link java.lang.String} object.
      */
     public void setTitleTemplate(String template) {
         m_titleTemplate = template;
     }
 
     /**
-     * <p>setDataSourceTemplate</p>
+     * <p>
+     * setDataSourceTemplate
+     * </p>
      *
-     * @param template a {@link java.lang.String} object.
+     * @param template
+     *            a {@link java.lang.String} object.
      */
     public void setDataSourceTemplate(String template) {
         m_dataSourceTemplate = template;
     }
 
     /**
-     * <p>setGraphLineTemplate</p>
+     * <p>
+     * setGraphLineTemplate
+     * </p>
      *
-     * @param template a {@link java.lang.String} object.
+     * @param template
+     *            a {@link java.lang.String} object.
      */
     public void setGraphLineTemplate(String template) {
         m_graphLineTemplate = template;
     }
 
     /**
-     * <p>getDataSourceTemplate</p>
+     * <p>
+     * getDataSourceTemplate
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -143,7 +172,9 @@ public class AdhocGraphType {
     }
 
     /**
-     * <p>getGraphLineTemplate</p>
+     * <p>
+     * getGraphLineTemplate
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -152,7 +183,9 @@ public class AdhocGraphType {
     }
 
     /**
-     * <p>getTitleTemplate</p>
+     * <p>
+     * getTitleTemplate
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

@@ -75,20 +75,16 @@ import org.springframework.transaction.annotation.Transactional;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/META-INF/opennms/applicationContext-ackd.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 @Transactional
 public class AckdTest implements InitializingBean {
 
@@ -143,7 +139,8 @@ public class AckdTest implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
-        Assert.assertSame("dao from populator should refer to same dao from local properties", m_populator.getAcknowledgmentDao(), m_ackDao);
+        Assert.assertSame("dao from populator should refer to same dao from local properties",
+                          m_populator.getAcknowledgmentDao(), m_ackDao);
     }
 
     @Test
@@ -151,37 +148,43 @@ public class AckdTest implements InitializingBean {
         AckReader reader = m_daemon.getAckReaders().get(0);
         Reader readerConfig = m_daemon.getConfigDao().getReader("JavaMailReader");
         readerConfig.setEnabled(true);
-        Assert.assertTrue("Unexpected reader state: "+reader.getState(), AckReaderState.STOPPED.equals(reader.getState()));
+        Assert.assertTrue("Unexpected reader state: " + reader.getState(),
+                          AckReaderState.STOPPED.equals(reader.getState()));
 
         m_daemon.restartReaders(false);
         Thread.sleep(30);
-        Assert.assertTrue("Unexpected reader state: "+reader.getState(), AckReaderState.STARTED.equals(reader.getState()));
+        Assert.assertTrue("Unexpected reader state: " + reader.getState(),
+                          AckReaderState.STARTED.equals(reader.getState()));
 
         m_daemon.pauseReaders();
         Thread.sleep(30);
-        Assert.assertTrue("Unexpected reader state: "+reader.getState(), AckReaderState.PAUSED.equals(reader.getState()));
+        Assert.assertTrue("Unexpected reader state: " + reader.getState(),
+                          AckReaderState.PAUSED.equals(reader.getState()));
 
         m_daemon.resumeReaders();
         Thread.sleep(30);
-        Assert.assertTrue("Unexpected reader state: "+reader.getState(), AckReaderState.RESUMED.equals(reader.getState()));
+        Assert.assertTrue("Unexpected reader state: " + reader.getState(),
+                          AckReaderState.RESUMED.equals(reader.getState()));
 
         readerConfig.setEnabled(false);
         m_daemon.restartReaders(true);
         Thread.sleep(300);
-        Assert.assertTrue("Unexpected reader state: "+reader.getState(), AckReaderState.STOPPED.equals(reader.getState()));
+        Assert.assertTrue("Unexpected reader state: " + reader.getState(),
+                          AckReaderState.STOPPED.equals(reader.getState()));
 
         m_daemon.resumeReaders();
         Thread.sleep(30);
-        Assert.assertTrue("Unexpected reader state: "+reader.getState(), AckReaderState.STOPPED.equals(reader.getState()));
+        Assert.assertTrue("Unexpected reader state: " + reader.getState(),
+                          AckReaderState.STOPPED.equals(reader.getState()));
 
         readerConfig.setEnabled(true);
         m_daemon.startReaders();
         Thread.sleep(300);
-        Assert.assertTrue("Unexpected reader state: "+reader.getState(), AckReaderState.STARTED.equals(reader.getState()));
+        Assert.assertTrue("Unexpected reader state: " + reader.getState(),
+                          AckReaderState.STARTED.equals(reader.getState()));
 
         m_daemon.destroy();
     }
-
 
     /**
      * Make sure the DB is not empty
@@ -190,7 +193,6 @@ public class AckdTest implements InitializingBean {
     public void testDbState() {
         Assert.assertFalse(m_nodeDao.findAll().isEmpty());
     }
-
 
     /**
      * This tests the acknowledgment of an alarm and any related notifications.
@@ -225,10 +227,11 @@ public class AckdTest implements InitializingBean {
 
     }
 
-
     /**
-     * This tests acknowledging a notification and a related alarm.  If events are being deduplicated
+     * This tests acknowledging a notification and a related alarm. If events
+     * are being deduplicated
      * they should all have the same alarm ID.
+     *
      * @throws InterruptedException
      */
     @Test
@@ -259,9 +262,12 @@ public class AckdTest implements InitializingBean {
         long ackTime = ack.getAckTime().getTime();
         long respondTime = notif.getRespondTime().getTime();
 
-        //the DAOs now set the acknowledgment time for each Acknowledgable and should
-        //be later (by a few millis in this test) than the time the acknowledgment was created
-        //this will give us an idea about the processing time of an acknowledgment
+        // the DAOs now set the acknowledgment time for each Acknowledgable and
+        // should
+        // be later (by a few millis in this test) than the time the
+        // acknowledgment was created
+        // this will give us an idea about the processing time of an
+        // acknowledgment
         Assert.assertTrue(ackTime < respondTime);
 
     }
@@ -280,19 +286,22 @@ public class AckdTest implements InitializingBean {
 
         OnmsNotification notif = m_notificationDao.get(vo.m_notifId);
         Assert.assertEquals(notif.getAckUser(), user);
-//        Assert.assertEquals(notif.getAckTime(), bldr.getEvent().getTime());
+        // Assert.assertEquals(notif.getAckTime(), bldr.getEvent().getTime());
 
         OnmsAlarm alarm = m_alarmDao.get(vo.m_alarmId);
         Assert.assertEquals(alarm.getAckUser(), user);
-//        Assert.assertEquals(alarm.getAckTime(), bldr.getEvent().getTime());
+        // Assert.assertEquals(alarm.getAckTime(), bldr.getEvent().getTime());
     }
-
 
     class VerificationObject {
         int m_eventID;
+
         int m_alarmId;
+
         int m_nodeId;
+
         int m_notifId;
+
         int m_userNotifId;
     }
 
@@ -380,6 +389,5 @@ public class AckdTest implements InitializingBean {
 
         return vo;
     }
-
 
 }

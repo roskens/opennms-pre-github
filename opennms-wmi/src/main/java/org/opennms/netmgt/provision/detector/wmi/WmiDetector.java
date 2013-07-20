@@ -47,16 +47,20 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class WmiDetector extends SyncAbstractDetector {
 
-
     public static final Logger LOG = LoggerFactory.getLogger(WmiDetector.class);
 
     private final static String PROTOCOL_NAME = "WMI";
 
     private final static String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
+
     private final static String DEFAULT_WMI_OBJECT = "Status";
+
     private final static String DEFAULT_WMI_COMP_VAL = "OK";
+
     private final static String DEFAULT_WMI_MATCH_TYPE = "all";
+
     private final static String DEFAULT_WMI_COMP_OP = "EQ";
+
     private final static String DEFAULT_WMI_WQL = "NOTSET";
 
     private String m_matchType;
@@ -81,7 +85,6 @@ public class WmiDetector extends SyncAbstractDetector {
         super(PROTOCOL_NAME, 0);
     }
 
-
     @Override
     protected void onInit() {
         setMatchType(getMatchType() != null ? getMatchType() : DEFAULT_WMI_MATCH_TYPE);
@@ -96,17 +99,18 @@ public class WmiDetector extends SyncAbstractDetector {
     public boolean isServiceDetected(final InetAddress address) {
         WmiParams clientParams = null;
 
-        if(getWmiWqlStr().equals(DEFAULT_WMI_WQL)) {
+        if (getWmiWqlStr().equals(DEFAULT_WMI_WQL)) {
             // Create the check parameters holder.
-            clientParams = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF,
-                                         getCompVal(), getCompOp(), getWmiClass(), getWmiObject());
+            clientParams = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF, getCompVal(), getCompOp(), getWmiClass(),
+                                         getWmiObject());
         } else {
             // Define the WQL Query.
-            clientParams = new WmiParams(WmiParams.WMI_OPERATION_WQL,
-                                         getCompVal(), getCompOp(), getWmiWqlStr(), getWmiObject());
+            clientParams = new WmiParams(WmiParams.WMI_OPERATION_WQL, getCompVal(), getCompOp(), getWmiWqlStr(),
+                                         getWmiObject());
         }
 
-        // Use WMI credentials from configuration files, and override values with the detector parameters if they exists.
+        // Use WMI credentials from configuration files, and override values
+        // with the detector parameters if they exists.
         final WmiAgentConfig agentConfig = WmiPeerFactory.getInstance().getAgentConfig(address);
         if (getUsername() != null)
             agentConfig.setUsername(getUsername());
@@ -120,35 +124,35 @@ public class WmiDetector extends SyncAbstractDetector {
             agentConfig.setTimeout(getTimeout());
 
         // Perform the operation specified in the parameters.
-        WmiResult result = isServer(address, agentConfig.getUsername(), agentConfig.getPassword(), agentConfig.getDomain(), getMatchType(),
-                agentConfig.getRetries(), agentConfig.getTimeout(), clientParams);
+        WmiResult result = isServer(address, agentConfig.getUsername(), agentConfig.getPassword(),
+                                    agentConfig.getDomain(), getMatchType(), agentConfig.getRetries(),
+                                    agentConfig.getTimeout(), clientParams);
 
         // Only fail on critical and unknown returns.
-        return (result != null && result.getResultCode() != WmiResult.RES_STATE_CRIT
-                && result.getResultCode() != WmiResult.RES_STATE_UNKNOWN);
+        return (result != null && result.getResultCode() != WmiResult.RES_STATE_CRIT && result.getResultCode() != WmiResult.RES_STATE_UNKNOWN);
     }
 
-    private WmiResult isServer(InetAddress host, String user, String pass,
-            String domain, String matchType, int retries, int timeout,
-            WmiParams params) {
+    private WmiResult isServer(InetAddress host, String user, String pass, String domain, String matchType,
+            int retries, int timeout, WmiParams params) {
         boolean isAServer = false;
 
         WmiResult result = null;
         for (int attempts = 0; attempts <= retries && !isAServer; attempts++) {
             WmiManager mgr = null;
             try {
-                mgr = new WmiManager(InetAddressUtils.str(host), user,
-                        pass, domain, matchType);
+                mgr = new WmiManager(InetAddressUtils.str(host), user, pass, domain, matchType);
 
                 // Connect to the WMI server.
                 mgr.init();
 
                 // Perform the operation specified in the parameters.
                 result = mgr.performOp(params);
-                if(params.getWmiOperation().equals(WmiParams.WMI_OPERATION_WQL)) {
-                    LOG.debug("WmiPlugin: {} : {}", params.getWql(), WmiResult.convertStateToString(result.getResultCode()));
+                if (params.getWmiOperation().equals(WmiParams.WMI_OPERATION_WQL)) {
+                    LOG.debug("WmiPlugin: {} : {}", params.getWql(),
+                              WmiResult.convertStateToString(result.getResultCode()));
                 } else {
-                    LOG.debug("WmiPlugin: \\\\{}\\{} : {}", params.getWmiClass(), params.getWmiObject(), WmiResult.convertStateToString(result.getResultCode()));
+                    LOG.debug("WmiPlugin: \\\\{}\\{} : {}", params.getWmiClass(), params.getWmiObject(),
+                              WmiResult.convertStateToString(result.getResultCode()));
                 }
 
                 isAServer = true;
@@ -179,91 +183,73 @@ public class WmiDetector extends SyncAbstractDetector {
 
     }
 
-
     public void setMatchType(String matchType) {
         m_matchType = matchType;
     }
-
 
     public String getMatchType() {
         return m_matchType;
     }
 
-
     public void setCompVal(String compVal) {
         m_compVal = compVal;
     }
-
 
     public String getCompVal() {
         return m_compVal;
     }
 
-
     public void setCompOp(String compOp) {
         m_compOp = compOp;
     }
-
 
     public String getCompOp() {
         return m_compOp;
     }
 
-
     public void setWmiClass(String wmiClass) {
         m_wmiClass = wmiClass;
     }
-
 
     public String getWmiClass() {
         return m_wmiClass;
     }
 
-
     public void setWmiObject(String wmiObject) {
         m_wmiObject = wmiObject;
     }
-
 
     public String getWmiObject() {
         return m_wmiObject;
     }
 
-
     public void setWmiWqlStr(String wmiWqlStr) {
         m_wmiWqlStr = wmiWqlStr;
     }
-
 
     public String getWmiWqlStr() {
         return m_wmiWqlStr;
     }
 
-
     public void setUsername(String username) {
         m_username = username;
     }
-
 
     public String getUsername() {
         return m_username;
     }
 
-
     public void setPassword(String password) {
         m_password = password;
     }
-
 
     public String getPassword() {
         return m_password;
     }
 
-
     public void setDomain(String domain) {
         m_domain = domain;
     }
-
 
     public String getDomain() {
         return m_domain;

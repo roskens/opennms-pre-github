@@ -32,7 +32,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * <p>StatusSection class.</p>
+ * <p>
+ * StatusSection class.
+ * </p>
  *
  * @author <a href="mailto:jason.aras@opennms.org">Jason Aras</a>
  * @version $Id: $
@@ -40,52 +42,67 @@ import java.util.Collection;
  */
 public class StatusSection {
 
-	private String m_name;
-	private Collection<StatusCategory> m_categorylist;
+    private String m_name;
 
-	/**
-	 * <p>Constructor for StatusSection.</p>
-	 */
-	public StatusSection(){
+    private Collection<StatusCategory> m_categorylist;
 
-		m_categorylist = new ArrayList<StatusCategory>();
+    /**
+     * <p>
+     * Constructor for StatusSection.
+     * </p>
+     */
+    public StatusSection() {
 
-	}
+        m_categorylist = new ArrayList<StatusCategory>();
 
-	/**
-	 * <p>setName</p>
-	 *
-	 * @param name a {@link java.lang.String} object.
-	 */
-	public void setName(String name){
-		m_name = name;
-	}
+    }
 
-	/**
-	 * <p>getName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getName() {
-		return m_name;
-	}
+    /**
+     * <p>
+     * setName
+     * </p>
+     *
+     * @param name
+     *            a {@link java.lang.String} object.
+     */
+    public void setName(String name) {
+        m_name = name;
+    }
 
-	/**
-	 * <p>getCategories</p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
-	public Collection<StatusCategory> getCategories() {
-		return m_categorylist;
-	}
+    /**
+     * <p>
+     * getName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getName() {
+        return m_name;
+    }
 
-	/**
-	 * <p>addCategory</p>
-	 *
-	 * @param newCategory a {@link org.opennms.web.svclayer.catstatus.model.StatusCategory} object.
-	 */
-	public void addCategory(StatusCategory newCategory) {
-		m_categorylist.add(newCategory);
-	}
+    /**
+     * <p>
+     * getCategories
+     * </p>
+     *
+     * @return a {@link java.util.Collection} object.
+     */
+    public Collection<StatusCategory> getCategories() {
+        return m_categorylist;
+    }
+
+    /**
+     * <p>
+     * addCategory
+     * </p>
+     *
+     * @param newCategory
+     *            a
+     *            {@link org.opennms.web.svclayer.catstatus.model.StatusCategory}
+     *            object.
+     */
+    public void addCategory(StatusCategory newCategory) {
+        m_categorylist.add(newCategory);
+    }
 
 }

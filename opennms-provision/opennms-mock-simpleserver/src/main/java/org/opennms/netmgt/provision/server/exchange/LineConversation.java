@@ -32,7 +32,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>LineConversation class.</p>
+ * <p>
+ * LineConversation class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -40,21 +42,29 @@ import java.util.Map;
 public class LineConversation {
 
     private String m_banner;
+
     private Map<String, String> m_responseMap = new HashMap<String, String>();
+
     private String m_closeRequest;
+
     private String m_closeResponse;
 
     /**
-     * <p>setBanner</p>
+     * <p>
+     * setBanner
+     * </p>
      *
-     * @param banner a {@link java.lang.String} object.
+     * @param banner
+     *            a {@link java.lang.String} object.
      */
     public void setBanner(String banner) {
         m_banner = banner;
     }
 
     /**
-     * <p>getBanner</p>
+     * <p>
+     * getBanner
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -63,19 +73,26 @@ public class LineConversation {
     }
 
     /**
-     * <p>setExpectedClose</p>
+     * <p>
+     * setExpectedClose
+     * </p>
      *
-     * @param closeRequest a {@link java.lang.String} object.
+     * @param closeRequest
+     *            a {@link java.lang.String} object.
      */
     public void setExpectedClose(String closeRequest) {
         m_closeRequest = closeRequest;
     }
 
     /**
-     * <p>setExpectedClose</p>
+     * <p>
+     * setExpectedClose
+     * </p>
      *
-     * @param closeRequest a {@link java.lang.String} object.
-     * @param closeResponse a {@link java.lang.String} object.
+     * @param closeRequest
+     *            a {@link java.lang.String} object.
+     * @param closeResponse
+     *            a {@link java.lang.String} object.
      */
     public void setExpectedClose(String closeRequest, String closeResponse) {
         m_closeRequest = closeRequest;
@@ -83,7 +100,9 @@ public class LineConversation {
     }
 
     /**
-     * <p>getExpectedClose</p>
+     * <p>
+     * getExpectedClose
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,7 +111,9 @@ public class LineConversation {
     }
 
     /**
-     * <p>getExpectedCloseResponse</p>
+     * <p>
+     * getExpectedCloseResponse
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,19 +122,26 @@ public class LineConversation {
     }
 
     /**
-     * <p>addRequestHandler</p>
+     * <p>
+     * addRequestHandler
+     * </p>
      *
-     * @param request a {@link java.lang.String} object.
-     * @param response a {@link java.lang.String} object.
+     * @param request
+     *            a {@link java.lang.String} object.
+     * @param response
+     *            a {@link java.lang.String} object.
      */
-    public void addRequestHandler(String request, String response){
+    public void addRequestHandler(String request, String response) {
         m_responseMap.put(request, response);
     }
 
     /**
-     * <p>getResponse</p>
+     * <p>
+     * getResponse
+     * </p>
      *
-     * @param request a {@link java.lang.String} object.
+     * @param request
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getResponse(String request) {
@@ -121,7 +149,9 @@ public class LineConversation {
     }
 
     /**
-     * <p>hasBanner</p>
+     * <p>
+     * hasBanner
+     * </p>
      *
      * @return a boolean.
      */

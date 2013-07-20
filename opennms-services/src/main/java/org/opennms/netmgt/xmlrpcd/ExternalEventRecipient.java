@@ -29,7 +29,9 @@
 package org.opennms.netmgt.xmlrpcd;
 
 /**
- * <p>ExternalEventRecipient interface.</p>
+ * <p>
+ * ExternalEventRecipient interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -37,102 +39,155 @@ package org.opennms.netmgt.xmlrpcd;
 public interface ExternalEventRecipient {
 
     /**
-     * <p>notifySuccess</p>
+     * <p>
+     * notifySuccess
+     * </p>
      *
-     * @param txNo a long.
-     * @param uei a {@link java.lang.String} object.
-     * @param message a {@link java.lang.String} object.
+     * @param txNo
+     *            a long.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
     Object notifySuccess(long txNo, String uei, String message);
 
     /**
-     * <p>notifyFailure</p>
+     * <p>
+     * notifyFailure
+     * </p>
      *
-     * @param txNo a long.
-     * @param uei a {@link java.lang.String} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param txNo
+     *            a long.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
     Object notifyFailure(long txNo, String uei, String reason);
 
     /**
-     * <p>notifyReceivedEvent</p>
+     * <p>
+     * notifyReceivedEvent
+     * </p>
      *
-     * @param txNo a long.
-     * @param uei a {@link java.lang.String} object.
-     * @param message a {@link java.lang.String} object.
+     * @param txNo
+     *            a long.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
     Object notifyReceivedEvent(long txNo, String uei, String message);
 
     /**
-     * <p>sendServiceDownEvent</p>
+     * <p>
+     * sendServiceDownEvent
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param iface a {@link java.lang.String} object.
-     * @param service a {@link java.lang.String} object.
-     * @param msg a {@link java.lang.String} object.
-     * @param host a {@link java.lang.String} object.
-     * @param time a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param iface
+     *            a {@link java.lang.String} object.
+     * @param service
+     *            a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param host
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
     Object sendServiceDownEvent(String nodeLabel, String iface, String service, String msg, String host, String time);
 
     /**
-     * <p>sendServiceUpEvent</p>
+     * <p>
+     * sendServiceUpEvent
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param interface1 a {@link java.lang.String} object.
-     * @param service a {@link java.lang.String} object.
-     * @param msg a {@link java.lang.String} object.
-     * @param eventHost a {@link java.lang.String} object.
-     * @param time a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param interface1
+     *            a {@link java.lang.String} object.
+     * @param service
+     *            a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param eventHost
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
-    Object sendServiceUpEvent(String nodeLabel, String interface1, String service, String msg, String eventHost, String time);
+    Object sendServiceUpEvent(String nodeLabel, String interface1, String service, String msg, String eventHost,
+            String time);
 
     /**
-     * <p>sendInterfaceDownEvent</p>
+     * <p>
+     * sendInterfaceDownEvent
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param interface1 a {@link java.lang.String} object.
-     * @param eventHost a {@link java.lang.String} object.
-     * @param time a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param interface1
+     *            a {@link java.lang.String} object.
+     * @param eventHost
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
     Object sendInterfaceDownEvent(String nodeLabel, String interface1, String eventHost, String time);
 
     /**
-     * <p>sendInterfaceUpEvent</p>
+     * <p>
+     * sendInterfaceUpEvent
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param interface1 a {@link java.lang.String} object.
-     * @param eventHost a {@link java.lang.String} object.
-     * @param time a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param interface1
+     *            a {@link java.lang.String} object.
+     * @param eventHost
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
     Object sendInterfaceUpEvent(String nodeLabel, String interface1, String eventHost, String time);
 
     /**
-     * <p>sendNodeDownEvent</p>
+     * <p>
+     * sendNodeDownEvent
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param eventHost a {@link java.lang.String} object.
-     * @param time a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param eventHost
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
     Object sendNodeDownEvent(String nodeLabel, String eventHost, String time);
 
     /**
-     * <p>sendNodeUpEvent</p>
+     * <p>
+     * sendNodeUpEvent
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param eventHost a {@link java.lang.String} object.
-     * @param time a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param eventHost
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Object} object.
      */
     Object sendNodeUpEvent(String nodeLabel, String eventHost, String time);
-
 
 }

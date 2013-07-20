@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.collectd;
 
-
 import org.opennms.netmgt.config.MibObject;
 import org.opennms.netmgt.config.collector.AttributeGroupType;
 import org.opennms.netmgt.config.collector.CollectionAttribute;
@@ -37,7 +36,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>NumericAttributeType class.</p>
+ * <p>
+ * NumericAttributeType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,9 +49,12 @@ public class NumericAttributeType extends SnmpAttributeType {
     private static String[] s_supportedTypes = new String[] { "counter", "gauge", "timeticks", "integer", "octetstring" };
 
     /**
-     * <p>supportsType</p>
+     * <p>
+     * supportsType
+     * </p>
      *
-     * @param rawType a {@link java.lang.String} object.
+     * @param rawType
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public static boolean supportsType(String rawType) {
@@ -63,28 +67,35 @@ public class NumericAttributeType extends SnmpAttributeType {
         return false;
     }
 
-
-
     static final String DST_COUNTER = "COUNTER";
+
     /**
-     * <p>Constructor for NumericAttributeType.</p>
+     * <p>
+     * Constructor for NumericAttributeType.
+     * </p>
      *
-     * @param resourceType a {@link org.opennms.netmgt.collectd.ResourceType} object.
-     * @param collectionName a {@link java.lang.String} object.
-     * @param mibObj a {@link org.opennms.netmgt.config.MibObject} object.
-     * @param groupType a {@link org.opennms.netmgt.config.collector.AttributeGroupType} object.
+     * @param resourceType
+     *            a {@link org.opennms.netmgt.collectd.ResourceType} object.
+     * @param collectionName
+     *            a {@link java.lang.String} object.
+     * @param mibObj
+     *            a {@link org.opennms.netmgt.config.MibObject} object.
+     * @param groupType
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.AttributeGroupType}
+     *            object.
      */
-    public NumericAttributeType(ResourceType resourceType, String collectionName, MibObject mibObj, AttributeGroupType groupType) {
+    public NumericAttributeType(ResourceType resourceType, String collectionName, MibObject mibObj,
+            AttributeGroupType groupType) {
         super(resourceType, collectionName, mibObj, groupType);
 
-            // Assign the data source object identifier and instance
-            LOG.debug("buildDataSourceList: ds_name: {} ds_oid: {}.{}", getName(), getOid(), getInstance());
+        // Assign the data source object identifier and instance
+        LOG.debug("buildDataSourceList: ds_name: {} ds_oid: {}.{}", getName(), getOid(), getInstance());
 
-            String alias = getAlias();
-            if (alias.length() > PersistOperationBuilder.MAX_DS_NAME_LENGTH) {
-                logNameTooLong();
-            }
-
+        String alias = getAlias();
+        if (alias.length() > PersistOperationBuilder.MAX_DS_NAME_LENGTH) {
+            logNameTooLong();
+        }
 
     }
 
@@ -95,6 +106,7 @@ public class NumericAttributeType extends SnmpAttributeType {
     }
 
     void logNameTooLong() {
-        LOG.warn("buildDataSourceList: Mib object name/alias '{}' exceeds 19 char maximum for RRD data source names, truncating.", getAlias());
-   }
+        LOG.warn("buildDataSourceList: Mib object name/alias '{}' exceeds 19 char maximum for RRD data source names, truncating.",
+                 getAlias());
+    }
 }

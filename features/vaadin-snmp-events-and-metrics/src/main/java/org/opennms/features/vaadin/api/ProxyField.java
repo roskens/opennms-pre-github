@@ -48,7 +48,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
     /**
      * Instantiates a new proxy field.
      *
-     * @param field the field
+     * @param field
+     *            the field
      */
     public ProxyField(Field<T> field) {
         super();
@@ -62,10 +63,11 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
      * @return the field
      */
     public Field<T> getField() {
-        return (Field<T>)getComponent(0);
+        return (Field<T>) getComponent(0);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.BufferedValidatable#isInvalidCommitted()
      */
     @Override
@@ -73,7 +75,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().isInvalidCommitted();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.BufferedValidatable#setInvalidCommitted(boolean)
      */
     @Override
@@ -81,7 +84,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().setInvalidCommitted(isCommitted);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Buffered#commit()
      */
     @Override
@@ -89,7 +93,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().commit();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Buffered#discard()
      */
     @Override
@@ -107,7 +112,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().setBuffered(writeThrough);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Buffered#isModified()
      */
     @Override
@@ -115,7 +121,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().isModified();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Validatable#addValidator(com.vaadin.data.Validator)
      */
     @Override
@@ -123,23 +130,28 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().addValidator(validator);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.data.Validatable#removeValidator(com.vaadin.data.Validator)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.vaadin.data.Validatable#removeValidator(com.vaadin.data.Validator)
      */
     @Override
     public void removeValidator(Validator validator) {
         getField().removeValidator(validator);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.data.Validatable#removeValidator(com.vaadin.data.Validator)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.vaadin.data.Validatable#removeValidator(com.vaadin.data.Validator)
      */
     @Override
     public void removeAllValidators() {
         getField().removeAllValidators();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Validatable#getValidators()
      */
     @Override
@@ -147,7 +159,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().getValidators();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Validatable#isValid()
      */
     @Override
@@ -155,7 +168,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().isValid();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Validatable#validate()
      */
     @Override
@@ -163,7 +177,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().validate();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Validatable#isInvalidAllowed()
      */
     @Override
@@ -171,7 +186,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().isInvalidAllowed();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Validatable#setInvalidAllowed(boolean)
      */
     @Override
@@ -179,15 +195,17 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().setInvalidAllowed(invalidValueAllowed);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Property#getValue()
      */
     @Override
     public T getValue() {
-        return (T)getField().getValue();
+        return (T) getField().getValue();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Property#setValue(java.lang.Object)
      */
     @Override
@@ -195,7 +213,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().setValue(newValue);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Property#getType()
      */
     @Override
@@ -203,57 +222,78 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().getType();
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.data.Property.ValueChangeNotifier#addListener(com.vaadin.data.Property.ValueChangeListener)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.vaadin.data.Property.ValueChangeNotifier#addListener(com.vaadin.data
+     * .Property.ValueChangeListener)
      */
     @Override
     public void addListener(ValueChangeListener listener) {
         getField().addValueChangeListener(listener);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.data.Property.ValueChangeNotifier#removeListener(com.vaadin.data.Property.ValueChangeListener)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.vaadin.data.Property.ValueChangeNotifier#removeListener(com.vaadin
+     * .data.Property.ValueChangeListener)
      */
     @Override
     public void removeListener(ValueChangeListener listener) {
         getField().removeValueChangeListener(listener);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.data.Property.ValueChangeNotifier#addListener(com.vaadin.data.Property.ValueChangeListener)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.vaadin.data.Property.ValueChangeNotifier#addListener(com.vaadin.data
+     * .Property.ValueChangeListener)
      */
     @Override
     public void addValueChangeListener(ValueChangeListener listener) {
         getField().addValueChangeListener(listener);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.data.Property.ValueChangeNotifier#removeListener(com.vaadin.data.Property.ValueChangeListener)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.vaadin.data.Property.ValueChangeNotifier#removeListener(com.vaadin
+     * .data.Property.ValueChangeListener)
      */
     @Override
     public void removeValueChangeListener(ValueChangeListener listener) {
         getField().removeValueChangeListener(listener);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.data.Property.ValueChangeListener#valueChange(com.vaadin.data.Property.ValueChangeEvent)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.vaadin.data.Property.ValueChangeListener#valueChange(com.vaadin.data
+     * .Property.ValueChangeEvent)
      */
     @Override
     public void valueChange(Property.ValueChangeEvent event) {
         getField().valueChange(event);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.data.Property.Viewer#setPropertyDataSource(com.vaadin.data.Property)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.vaadin.data.Property.Viewer#setPropertyDataSource(com.vaadin.data
+     * .Property)
      */
     @Override
-    // Because of {@link com.vaadin.data.Property.Viewer#setPropertyDataSource(com.vaadin.data.Property)} API
+    // Because of {@link
+    // com.vaadin.data.Property.Viewer#setPropertyDataSource(com.vaadin.data.Property)}
+    // API
     @SuppressWarnings("unchecked")
     public void setPropertyDataSource(Property newDataSource) {
         getField().setPropertyDataSource(newDataSource);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.data.Property.Viewer#getPropertyDataSource()
      */
     @Override
@@ -261,7 +301,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().getPropertyDataSource();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Component.Focusable#getTabIndex()
      */
     @Override
@@ -269,7 +310,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().getTabIndex();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Component.Focusable#setTabIndex(int)
      */
     @Override
@@ -277,7 +319,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().setTabIndex(tabIndex);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Field#isRequired()
      */
     @Override
@@ -285,7 +328,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().isRequired();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Field#setRequired(boolean)
      */
     @Override
@@ -293,7 +337,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().setRequired(required);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Field#setRequiredError(java.lang.String)
      */
     @Override
@@ -301,7 +346,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().setRequiredError(requiredMessage);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.Field#getRequiredError()
      */
     @Override
@@ -309,7 +355,8 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         return getField().getRequiredError();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#focus()
      */
     @Override

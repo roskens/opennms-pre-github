@@ -32,9 +32,9 @@ public class UnsupportedPlatformException extends RuntimeException {
     /**
 	 *
 	 */
-	private static final long serialVersionUID = 4010892038492000300L;
+    private static final long serialVersionUID = 4010892038492000300L;
 
-	public UnsupportedPlatformException() {
+    public UnsupportedPlatformException() {
         super();
     }
 

@@ -65,9 +65,11 @@ import org.opennms.test.mock.EasyMockUtils;
 
 public class SnmpAttributeTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private IpInterfaceDao m_ipInterfaceDao = m_mocks.createMock(IpInterfaceDao.class);
 
-    // Cannot avoid this warning since there is no way to fetch the class object for an interface
+    // Cannot avoid this warning since there is no way to fetch the class object
+    // for an interface
     // that uses generics
     @SuppressWarnings("unchecked")
     private RrdStrategy<Object, Object> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
@@ -97,24 +99,32 @@ public class SnmpAttributeTest extends TestCase {
     }
 
     public void testHexStringProtoCounter64ValueSmall() throws Exception {
-        testPersisting("769", new Snmp4JValueFactory().getOctetString(new byte[]{ 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x03, 0x01 }));
+        testPersisting("769",
+                       new Snmp4JValueFactory().getOctetString(new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x03, 0x01 }));
     }
 
     public void testHexStringProtoCounter64ValueLT2_31() throws Exception {
-        testPersisting("2000000000", new Snmp4JValueFactory().getOctetString(new byte[]{ 0x00, 0x00, 0x00, 0x00, 0x77, 0x35, (byte)0x94, 0x00 }));
+        testPersisting("2000000000",
+                       new Snmp4JValueFactory().getOctetString(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x77, 0x35,
+                               (byte) 0x94, 0x00 }));
     }
 
     public void testHexStringProtoCounter64ValueGT2_31() throws Exception {
-        testPersisting("5000000000", new Snmp4JValueFactory().getOctetString(new byte[]{ 0x00, 0x00, 0x00, 0x01, 0x2a, 0x05, (byte)0xf2, 0x00 }));
+        testPersisting("5000000000",
+                       new Snmp4JValueFactory().getOctetString(new byte[] { 0x00, 0x00, 0x00, 0x01, 0x2a, 0x05,
+                               (byte) 0xf2, 0x00 }));
     }
 
     public void testHexStringProtoCounter64ValueNear2_63() throws Exception {
-        testPersisting("9223372036854775000", new Snmp4JValueFactory().getOctetString(new byte[]{ 0x7f, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xfc, (byte)0xd8 }));
+        testPersisting("9223372036854775000",
+                       new Snmp4JValueFactory().getOctetString(new byte[] { 0x7f, (byte) 0xff, (byte) 0xff,
+                               (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xfc, (byte) 0xd8 }));
     }
 
     public void testNumericAttributeHexStringValueInString() throws Exception {
         String stringValue = "769";
-        byte[] bytes = new byte[] { (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x03, (byte)0x01 };
+        byte[] bytes = new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+                (byte) 0x03, (byte) 0x01 };
         testPersisting(stringValue, new Snmp4JValueFactory().getOctetString(bytes));
     }
 
@@ -131,7 +141,9 @@ public class SnmpAttributeTest extends TestCase {
         expect(m_ipInterfaceDao.load(1)).andReturn(ipInterface).times(3);
 
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".myLittleEasyMockedStrategyAndMe").anyTimes();
-        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
+        expect(
+               m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(),
+                                              isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
 
         m_rrdStrategy.createFile(isA(Object.class), (Map<String, String>) isNull());
 
@@ -141,11 +153,14 @@ public class SnmpAttributeTest extends TestCase {
 
         m_mocks.replayAll();
 
-        CollectionAgent agent = DefaultCollectionAgent.create(ipInterface.getId(), m_ipInterfaceDao, new MockPlatformTransactionManager());
-        OnmsSnmpCollection snmpCollection = new OnmsSnmpCollection(agent, new ServiceParameters(new HashMap<String, Object>()), new MockDataCollectionConfig());
+        CollectionAgent agent = DefaultCollectionAgent.create(ipInterface.getId(), m_ipInterfaceDao,
+                                                              new MockPlatformTransactionManager());
+        OnmsSnmpCollection snmpCollection = new OnmsSnmpCollection(
+                                                                   agent,
+                                                                   new ServiceParameters(new HashMap<String, Object>()),
+                                                                   new MockDataCollectionConfig());
         NodeResourceType resourceType = new NodeResourceType(agent, snmpCollection);
         NodeInfo nodeInfo = resourceType.getNodeInfo();
-
 
         MibObject mibObject = new MibObject();
         mibObject.setOid(".1.3.6.1.4.1.12238.55.9997.4.1.2.9.116.101.109.112.95.117.108.107.111");
@@ -153,28 +168,32 @@ public class SnmpAttributeTest extends TestCase {
         mibObject.setAlias("temp_ulko");
         mibObject.setType("gauge");
 
-        NumericAttributeType attributeType = new NumericAttributeType(resourceType, snmpCollection.getName(), mibObject, new AttributeGroupType("foo", "ignore"));
+        NumericAttributeType attributeType = new NumericAttributeType(resourceType, snmpCollection.getName(),
+                                                                      mibObject,
+                                                                      new AttributeGroupType("foo", "ignore"));
 
-        attributeType.storeResult(new SnmpCollectionSet(agent, snmpCollection), null, new SnmpResult(mibObject.getSnmpObjId(), new SnmpInstId(mibObject.getInstance()), snmpValue));
-
+        attributeType.storeResult(new SnmpCollectionSet(agent, snmpCollection), null,
+                                  new SnmpResult(mibObject.getSnmpObjId(), new SnmpInstId(mibObject.getInstance()),
+                                                 snmpValue));
 
         RrdRepository repository = new RrdRepository();
         repository.setRraList(new ArrayList<String>(Collections.singleton("RRA:AVERAGE:0.5:1:2016")));
 
-        final BasePersister persister = new BasePersister(new ServiceParameters(new HashMap<String, Object>()), repository);
+        final BasePersister persister = new BasePersister(new ServiceParameters(new HashMap<String, Object>()),
+                                                          repository);
         persister.createBuilder(nodeInfo, "baz", attributeType);
 
         final AtomicInteger count = new AtomicInteger(0);
 
         nodeInfo.visit(new AbstractCollectionSetVisitor() {
 
-			@Override
-			public void visitAttribute(CollectionAttribute attr) {
-		        attr.storeAttribute(persister);
-		        count.incrementAndGet();
-			}
+            @Override
+            public void visitAttribute(CollectionAttribute attr) {
+                attr.storeAttribute(persister);
+                count.incrementAndGet();
+            }
 
-		});
+        });
 
         assertEquals(1, count.get());
         persister.commitBuilder();

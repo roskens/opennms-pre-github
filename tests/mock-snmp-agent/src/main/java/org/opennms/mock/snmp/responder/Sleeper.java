@@ -7,6 +7,7 @@ public class Sleeper implements DynamicVariable {
     private static Sleeper m_instance = null;
 
     private long m_millisToSleep;
+
     private Variable m_variable;
 
     private Sleeper() {
@@ -48,7 +49,8 @@ public class Sleeper implements DynamicVariable {
     }
 
     private void sleep(long millis) {
-        if (millis == 0) return;
+        if (millis == 0)
+            return;
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {

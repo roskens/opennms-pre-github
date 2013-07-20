@@ -32,7 +32,9 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
- * <p>IfNumberTracker class.</p>
+ * <p>
+ * IfNumberTracker class.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @version $Id: $

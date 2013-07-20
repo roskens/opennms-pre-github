@@ -34,25 +34,25 @@
  ************************************************************************/
 
 /*
-* OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
-* DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
-*
-* This file was contributed to the OpenNMS(R) project under the
-* terms of the OpenNMS Contributor Agreement (OCA).  For details on
-* the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
-*
-* Contributed under the terms of the OCA by:
-*
-* Bobby Krupczak <rdk@krupczak.org>
-* THE KRUPCZAK ORGANIZATION, LLC
-* http://www.krupczak.org/
-*/
+ * OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
+ * DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
+ *
+ * This file was contributed to the OpenNMS(R) project under the
+ * terms of the OpenNMS Contributor Agreement (OCA).  For details on
+ * the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
+ *
+ * Contributed under the terms of the OCA by:
+ *
+ * Bobby Krupczak <rdk@krupczak.org>
+ * THE KRUPCZAK ORGANIZATION, LLC
+ * http://www.krupczak.org/
+ */
 
 /**
-   XmpCollectionAttributeType - Encapsulate a data type used in
-   collection via management protocol.  E.g. counter, gauge, string, etc.
-   @author <a href="mailto:rdk@krupczak.org">Bobby Krupczak</a>
-   @version $Id: XmpCollectionAttributeType.java 38 2008-07-24 13:39:32Z rdk $
+ XmpCollectionAttributeType - Encapsulate a data type used in
+ collection via management protocol.  E.g. counter, gauge, string, etc.
+ @author <a href="mailto:rdk@krupczak.org">Bobby Krupczak</a>
+ @version $Id: XmpCollectionAttributeType.java 38 2008-07-24 13:39:32Z rdk $
  **/
 
 package org.opennms.netmgt.protocols.xmp.collector;
@@ -67,40 +67,41 @@ import org.opennms.netmgt.config.collector.Persister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 class XmpCollectionAttributeType implements CollectionAttributeType {
     /* class variables and methods *********************** */
-	private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionAttributeType.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionAttributeType.class);
 
     /* instance variables ******************************** */
-    //MibObj mibObj; // this might need to be MibObj
+    // MibObj mibObj; // this might need to be MibObj
     XmpVar aVar;
+
     AttributeGroupType groupType;
 
-    /* constructors  ************************************* */
-    XmpCollectionAttributeType(XmpVar aVar, AttributeGroupType groupType)
-    {
+    /* constructors ************************************* */
+    XmpCollectionAttributeType(XmpVar aVar, AttributeGroupType groupType) {
         this.aVar = aVar;
         this.groupType = groupType;
     }
 
     /* private methods *********************************** */
 
-
     /* public methods ************************************ */
     /**
-     * <p>Getter for the field <code>groupType</code>.</p>
+     * <p>
+     * Getter for the field <code>groupType</code>.
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType} object.
+     * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType}
+     *         object.
      */
     @Override
-    public AttributeGroupType getGroupType() { return groupType; }
+    public AttributeGroupType getGroupType() {
+        return groupType;
+    }
 
     /** {@inheritDoc} */
     @Override
-    public void storeAttribute(CollectionAttribute attrib, Persister persister)
-    {
+    public void storeAttribute(CollectionAttribute attrib, Persister persister) {
         LOG.debug("XmpCollectionAttributeType: store {}", attrib);
 
         // persist as either string or numeric based on our
@@ -131,38 +132,51 @@ class XmpCollectionAttributeType implements CollectionAttributeType {
             persister.persistStringAttribute(attrib);
             break;
 
-            // should not ever see these
+        // should not ever see these
         case Xmp.SYNTAX_NULLSYNTAX:
         case Xmp.SYNTAX_TABLE:
         default:
             persister.persistStringAttribute(attrib);
-        break;
+            break;
 
         } /* Xmp syntax/type */
 
     } /* storeAttribute() */
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String getName() { return aVar.getObjName(); }
-    /**
-     * <p>getType</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    @Override
-    public String getType() { return Xmp.syntaxToString(aVar.getSyntax()); }
+    public String getName() {
+        return aVar.getObjName();
+    }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String toString() { return "XmpCollectionAttributeType "+Xmp.syntaxToString(aVar.getSyntax()); }
+    public String getType() {
+        return Xmp.syntaxToString(aVar.getSyntax());
+    }
+
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return "XmpCollectionAttributeType " + Xmp.syntaxToString(aVar.getSyntax());
+    }
 
 } /* class XmpCollectionAttributeType */

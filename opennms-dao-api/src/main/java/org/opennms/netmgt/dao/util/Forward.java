@@ -54,7 +54,8 @@ public class Forward {
 
         String how = fwd.getMechanism();
 
-        return Constants.escape(text, Constants.DB_ATTRIB_DELIM) + Constants.DB_ATTRIB_DELIM + state + Constants.DB_ATTRIB_DELIM + how;
+        return Constants.escape(text, Constants.DB_ATTRIB_DELIM) + Constants.DB_ATTRIB_DELIM + state
+                + Constants.DB_ATTRIB_DELIM + how;
 
     }
 

@@ -51,9 +51,11 @@ import org.slf4j.LoggerFactory;
 public class ImportAssetsServletTest {
 
     private Logger logger = LoggerFactory.getLogger(ImportAssetsServletTest.class);
+
     private ImportAssetsServlet m_importAssetServlet;
 
     private List<String> m_assetsAsCvs;
+
     private String m_testCvs = "";
 
     @Before

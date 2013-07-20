@@ -28,23 +28,30 @@
 
 package org.opennms.netmgt.model;
 
-
 /**
- * <p>StringPropertyAttribute class.</p>
+ * <p>
+ * StringPropertyAttribute class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class StringPropertyAttribute implements OnmsAttribute {
     private String m_name;
+
     private String m_value;
+
     private OnmsResource m_resource;
 
     /**
-     * <p>Constructor for StringPropertyAttribute.</p>
+     * <p>
+     * Constructor for StringPropertyAttribute.
+     * </p>
      *
-     * @param name the name
-     * @param value the value
+     * @param name
+     *            the name
+     * @param value
+     *            the value
      */
     public StringPropertyAttribute(String name, String value) {
         m_name = name;
@@ -52,7 +59,7 @@ public class StringPropertyAttribute implements OnmsAttribute {
     }
 
     /**
-     * Get the name for this attribute.  This is the property name
+     * Get the name for this attribute. This is the property name
      * from the properties file.
      *
      * @see org.opennms.netmgt.model.OnmsAttribute#getName()
@@ -64,7 +71,7 @@ public class StringPropertyAttribute implements OnmsAttribute {
     }
 
     /**
-     * Get the value for this attribute.  This is the property value
+     * Get the value for this attribute. This is the property value
      * from the properties file.
      *
      * @return a {@link java.lang.String} object.
@@ -74,7 +81,9 @@ public class StringPropertyAttribute implements OnmsAttribute {
     }
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
      * @see org.opennms.netmgt.model.OnmsAttribute#getResource()
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.

@@ -41,9 +41,12 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AlarmPersister {
 
     /**
-     * <p>persist</p>
+     * <p>
+     * persist
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return
      */
     @Transactional

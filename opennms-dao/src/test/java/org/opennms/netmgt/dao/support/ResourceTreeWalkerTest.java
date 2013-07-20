@@ -50,7 +50,9 @@ import org.opennms.test.mock.EasyMockUtils;
  */
 public class ResourceTreeWalkerTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private ResourceDao m_resourceDao = m_mocks.createMock(ResourceDao.class);
+
     private ResourceVisitor m_visitor = m_mocks.createMock(ResourceVisitor.class);
 
     @Override
@@ -73,7 +75,7 @@ public class ResourceTreeWalkerTest extends TestCase {
         walker.setResourceDao(null);
         walker.setVisitor(m_visitor);
 
-        ThrowableAnticipator ta = new  ThrowableAnticipator();
+        ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property resourceDao must be set to a non-null value"));
 
         m_mocks.replayAll();
@@ -91,7 +93,7 @@ public class ResourceTreeWalkerTest extends TestCase {
         walker.setResourceDao(m_resourceDao);
         walker.setVisitor(null);
 
-        ThrowableAnticipator ta = new  ThrowableAnticipator();
+        ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property visitor must be set to a non-null value"));
 
         m_mocks.replayAll();
@@ -153,8 +155,10 @@ public class ResourceTreeWalkerTest extends TestCase {
         m_mocks.verifyAll();
 
         MockResourceType resourceType = new MockResourceType();
-        OnmsResource childResource = new OnmsResource("eth0", "Interface eth0", resourceType, new HashSet<OnmsAttribute>(0));
-        OnmsResource topResource = new OnmsResource("1", "Node One", resourceType, new HashSet<OnmsAttribute>(0), Collections.singletonList(childResource));
+        OnmsResource childResource = new OnmsResource("eth0", "Interface eth0", resourceType,
+                                                      new HashSet<OnmsAttribute>(0));
+        OnmsResource topResource = new OnmsResource("1", "Node One", resourceType, new HashSet<OnmsAttribute>(0),
+                                                    Collections.singletonList(childResource));
         expect(m_resourceDao.findTopLevelResources()).andReturn(Collections.singletonList(topResource));
         m_visitor.visit(topResource);
         m_visitor.visit(childResource);

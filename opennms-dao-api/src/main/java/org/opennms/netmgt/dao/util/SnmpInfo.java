@@ -45,7 +45,6 @@ public final class SnmpInfo {
      * stored into the database. The information is formatted in by separating
      * the of the textual fields with a delimiter character (a comma ',').
      * </P>
-     *
      * <P>
      * If the enterprise id text information is not present then the string will
      * have only two commas. An extra comma is not added to signify the missing
@@ -57,8 +56,10 @@ public final class SnmpInfo {
      * @see Constants#DB_ATTRIB_DELIM
      * @see Constants#escape
      * @return The smnpblock as a string
-     * @param info a {@link org.opennms.netmgt.xml.event.Snmp} object.
-     * @param maxlen a int.
+     * @param info
+     *            a {@link org.opennms.netmgt.xml.event.Snmp} object.
+     * @param maxlen
+     *            a int.
      */
     public static String format(Snmp info, int maxlen) {
         if (info == null) {

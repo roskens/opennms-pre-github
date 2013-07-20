@@ -44,96 +44,97 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="rrd")
+@XmlRootElement(name = "rrd")
 public class TcaRrd implements Serializable, Comparable<TcaRrd> {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 439792690711379417L;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 439792690711379417L;
 
-	/** The collection step is a fixed constant for the TCA Collector. */
-	private Integer m_step = 1;
+    /** The collection step is a fixed constant for the TCA Collector. */
+    private Integer m_step = 1;
 
-	/** The XML RRAs list. */
-	@XmlElement(name="rra", required=true)
-	private List<String> m_rras = new ArrayList<String>();
+    /** The XML RRAs list. */
+    @XmlElement(name = "rra", required = true)
+    private List<String> m_rras = new ArrayList<String>();
 
-	/**
-	 * Instantiates a new TCA RRD.
-	 */
-	public TcaRrd() {
+    /**
+     * Instantiates a new TCA RRD.
+     */
+    public TcaRrd() {
 
-	}
+    }
 
-	/**
-	 * Gets the step.
-	 *
-	 * @return the step
-	 */
-	@XmlTransient
-	public Integer getStep() {
-		return m_step;
-	}
+    /**
+     * Gets the step.
+     *
+     * @return the step
+     */
+    @XmlTransient
+    public Integer getStep() {
+        return m_step;
+    }
 
-	/**
-	 * Gets the RRAs.
-	 *
-	 * @return the RRAs
-	 */
-	@XmlTransient
-	public List<String> getRras() {
-		return m_rras;
-	}
+    /**
+     * Gets the RRAs.
+     *
+     * @return the RRAs
+     */
+    @XmlTransient
+    public List<String> getRras() {
+        return m_rras;
+    }
 
-	/**
-	 * Sets the RRAs.
-	 *
-	 * @param rras the new RRAs
-	 */
-	public void setRras(List<String> rras) {
-		m_rras = rras;
-	}
+    /**
+     * Sets the RRAs.
+     *
+     * @param rras
+     *            the new RRAs
+     */
+    public void setRras(List<String> rras) {
+        m_rras = rras;
+    }
 
-	/**
-	 * Adds a new RRA.
-	 *
-	 * @param rra the RRA
-	 */
-	public void addRra(String rra) {
-		m_rras.add(rra);
-	}
+    /**
+     * Adds a new RRA.
+     *
+     * @param rra
+     *            the RRA
+     */
+    public void addRra(String rra) {
+        m_rras.add(rra);
+    }
 
-	/**
-	 * Removes a RRA.
-	 *
-	 * @param rra the RRA
-	 */
-	public void removeRra(String rra) {
-		m_rras.remove(rra);
-	}
+    /**
+     * Removes a RRA.
+     *
+     * @param rra
+     *            the RRA
+     */
+    public void removeRra(String rra) {
+        m_rras.remove(rra);
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-        @Override
-	public int compareTo(TcaRrd obj) {
-		return new CompareToBuilder()
-		.append(getStep(), obj.getStep())
-		.append(getRras().toArray(), obj.getRras().toArray())
-		.toComparison();
-	}
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(TcaRrd obj) {
+        return new CompareToBuilder().append(getStep(), obj.getStep()).append(getRras().toArray(),
+                                                                              obj.getRras().toArray()).toComparison();
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof TcaRrd) {
-			TcaRrd other = (TcaRrd) obj;
-			return new EqualsBuilder()
-			.append(getStep(), other.getStep())
-			.append(getRras().toArray(), other.getRras().toArray())
-			.isEquals();
-		}
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TcaRrd) {
+            TcaRrd other = (TcaRrd) obj;
+            return new EqualsBuilder().append(getStep(), other.getStep()).append(getRras().toArray(),
+                                                                                 other.getRras().toArray()).isEquals();
+        }
+        return false;
+    }
 }

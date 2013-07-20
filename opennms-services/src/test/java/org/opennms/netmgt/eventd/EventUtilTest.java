@@ -50,21 +50,22 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class EventUtilTest {
 
     private final MockNetwork m_network = new MockNetwork();
+
     private MockService m_svc;
+
     private Event m_svcLostEvent;
+
     private Event m_nodeDownEvent;
+
     private Event m_bgpBkTnEvent;
 
     @Before
@@ -81,7 +82,8 @@ public class EventUtilTest {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.eventd.EventUtil.getValueAsString(Value)'
+     * Test method for
+     * 'org.opennms.netmgt.eventd.EventUtil.getValueAsString(Value)'
      */
     @Test
     public void testGetValueAsString() {
@@ -93,7 +95,8 @@ public class EventUtilTest {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.eventd.EventUtil.escape(String, char)'
+     * Test method for 'org.opennms.netmgt.eventd.EventUtil.escape(String,
+     * char)'
      */
     @Test
     public void testEscape() {
@@ -101,7 +104,8 @@ public class EventUtilTest {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.eventd.EventUtil.getValueOfParm(String, Event)'
+     * Test method for
+     * 'org.opennms.netmgt.eventd.EventUtil.getValueOfParm(String, Event)'
      */
     @Test
     public void testGetValueOfParm() {
@@ -113,11 +117,13 @@ public class EventUtilTest {
         assertEquals("Minor", testString);
 
         Event event = MockEventUtil.createNodeLostServiceEvent("Test", m_svc, "noReasonAtAll");
-        assertEquals("noReasonAtAll", EventUtil.getNamedParmValue("parm["+EventConstants.PARM_LOSTSERVICE_REASON+"]", event));
+        assertEquals("noReasonAtAll",
+                     EventUtil.getNamedParmValue("parm[" + EventConstants.PARM_LOSTSERVICE_REASON + "]", event));
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.eventd.EventUtil.expandParms(String, Event)'
+     * Test method for 'org.opennms.netmgt.eventd.EventUtil.expandParms(String,
+     * Event)'
      */
     @Test
     public void testExpandParms() {
@@ -136,11 +142,13 @@ public class EventUtilTest {
         String testString = "%uei%:%dpname%:%nodeid%:%parm[name-#1]%";
 
         String newString = EventUtil.expandParms(testString, m_bgpBkTnEvent);
-        assertEquals("http://uei.opennms.org/standards/rfc1657/traps/bgpBackwardTransition::1:.1.3.6.1.2.1.15.3.1.7.128.64.32.16", newString);
+        assertEquals("http://uei.opennms.org/standards/rfc1657/traps/bgpBackwardTransition::1:.1.3.6.1.2.1.15.3.1.7.128.64.32.16",
+                     newString);
     }
 
     /**
-     * Test method for split-and-extract functionality indexed from beginning of name
+     * Test method for split-and-extract functionality indexed from beginning of
+     * name
      */
     @Test
     public void testSplitAndExtractParmNamePositive() {
@@ -151,7 +159,8 @@ public class EventUtilTest {
     }
 
     /**
-     * Additional test method for split-and-extract functionality indexed from end of name
+     * Additional test method for split-and-extract functionality indexed from
+     * end of name
      */
     @Test
     public void testSplitAndExtractParmNameNegative() {
@@ -162,7 +171,8 @@ public class EventUtilTest {
     }
 
     /**
-     * Test method for split-and-extract-range functionality indexed from beginning of name
+     * Test method for split-and-extract-range functionality indexed from
+     * beginning of name
      */
     @Test
     public void testSplitAndExtractParmNameRangePositive() {
@@ -173,18 +183,21 @@ public class EventUtilTest {
     }
 
     /**
-     * Test method for split-and-extract-range functionality indexed from beginning of name and extending to end
+     * Test method for split-and-extract-range functionality indexed from
+     * beginning of name and extending to end
      */
     @Test
     public void testSplitAndExtractParmNameRangePositiveToEnd() {
         String testString = "%uei%:%dpname%:%nodeid%:%parm[name-#1.5:]%";
 
         String newString = EventUtil.expandParms(testString, m_bgpBkTnEvent);
-        assertEquals("http://uei.opennms.org/standards/rfc1657/traps/bgpBackwardTransition::1:2.1.15.3.1.7.128.64.32.16", newString);
+        assertEquals("http://uei.opennms.org/standards/rfc1657/traps/bgpBackwardTransition::1:2.1.15.3.1.7.128.64.32.16",
+                     newString);
     }
 
     /**
-     * Test method for split-and-extract-range functionality indexed from end of name
+     * Test method for split-and-extract-range functionality indexed from end of
+     * name
      */
     @Test
     public void testSplitAndExtractParmNameRangeNegative() {
@@ -195,14 +208,16 @@ public class EventUtilTest {
     }
 
     /**
-     * Test method for split-and-extract-range functionality indexed from end of name and extending to end
+     * Test method for split-and-extract-range functionality indexed from end of
+     * name and extending to end
      */
     @Test
     public void testSplitAndExtractParmNameRangeNegativeToEnd() {
         String testString = "%uei%:%dpname%:%nodeid%:%parm[name-#1.-5:]%";
 
         String newString = EventUtil.expandParms(testString, m_bgpBkTnEvent);
-        assertEquals("http://uei.opennms.org/standards/rfc1657/traps/bgpBackwardTransition::1:7.128.64.32.16", newString);
+        assertEquals("http://uei.opennms.org/standards/rfc1657/traps/bgpBackwardTransition::1:7.128.64.32.16",
+                     newString);
     }
 
     @Test

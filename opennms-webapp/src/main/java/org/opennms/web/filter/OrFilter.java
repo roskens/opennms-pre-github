@@ -42,9 +42,12 @@ import org.hibernate.criterion.Restrictions;
 public class OrFilter extends ConditionalFilter {
 
     /**
-     * <p>Constructor for OrFilter.</p>
+     * <p>
+     * Constructor for OrFilter.
+     * </p>
      *
-     * @param filters a {@link org.opennms.web.filter.Filter} object.
+     * @param filters
+     *            a {@link org.opennms.web.filter.Filter} object.
      */
     public OrFilter(Filter... filters) {
         super("OR", filters);
@@ -55,7 +58,7 @@ public class OrFilter extends ConditionalFilter {
     public Criterion getCriterion() {
         Disjunction disjunction = Restrictions.disjunction();
 
-        for(Filter filter : getFilters()) {
+        for (Filter filter : getFilters()) {
             disjunction.add(filter.getCriterion());
         }
 

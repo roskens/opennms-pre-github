@@ -36,7 +36,9 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 /**
- * <p>Main class.</p>
+ * <p>
+ * Main class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,14 +46,17 @@ import org.springframework.core.io.Resource;
 public class Main {
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param args an array of {@link java.lang.String} objects.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
      */
     public static void main(String[] args) {
         try {
             ApplicationContext appContext = new ClassPathXmlApplicationContext("/META-INF/modelImport-appContext.xml");
-            ModelImporter importer = (ModelImporter)appContext.getBean("modelImporter");
+            ModelImporter importer = (ModelImporter) appContext.getBean("modelImporter");
             Resource resource = new FileSystemResource(args[0]);
             importer.importModelFromResource(resource);
         } catch (ModelImportException e) {

@@ -68,68 +68,70 @@ import org.snmp4j.smi.Variable;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
-
 @RunWith(Parameterized.class)
-public class LLDPMibTest  {
+public class LLDPMibTest {
 
     @Parameters
     public static Collection<Object[]> versions() {
-    	return Arrays.asList(new Object[][] {
-    			{ SnmpConstants.version1 },
-    			{ SnmpConstants.version2c },
-    			{ SnmpConstants.version3 },
-    	});
+        return Arrays.asList(new Object[][] { { SnmpConstants.version1 }, { SnmpConstants.version2c },
+                { SnmpConstants.version3 }, });
     }
 
     private MockSnmpAgent m_agent;
+
     private USM m_usm;
-	private ArrayList<AnticipatedRequest> m_requestedVarbinds;
-	private int m_version;
-	private long m_timeout = -1; // -1 means use the default
 
-	public LLDPMibTest(int version) {
-		m_version = version;
-	}
+    private ArrayList<AnticipatedRequest> m_requestedVarbinds;
 
-    private class AnticipatedRequest {
-    	private String m_requestedOid;
-    	private Variable m_requestedValue;
-    	private String m_expectedOid;
-    	private int m_expectedSyntax;
-    	private Variable m_expectedValue;
+    private int m_version;
 
-    	public AnticipatedRequest(String requestedOid, Variable requestedValue) {
-    		m_requestedOid = requestedOid;
-    		m_requestedValue = requestedValue;
-    	}
+    private long m_timeout = -1; // -1 means use the default
 
-
-    	public void andExpect(String expectedOid, int expectedSyntax, Variable expectedValue) {
-    		m_expectedOid = expectedOid;
-    		m_expectedSyntax = expectedSyntax;
-    		m_expectedValue = expectedValue;
-    	}
-
-		public VariableBinding getRequestVarbind() {
-			OID oid = new OID(m_requestedOid);
-			if (m_requestedValue != null) {
-				return new VariableBinding(oid, m_requestedValue);
-			} else {
-				return new VariableBinding(oid);
-			}
-		}
-
-		public void verify(VariableBinding vb) {
-	        assertNotNull("variable binding should not be null", vb);
-	        Variable val = vb.getVariable();
-	        assertNotNull("variable should not be null", val);
-	        assertEquals("OID (value: " + val + ")", new OID(m_expectedOid), vb.getOid());
-	        assertEquals("syntax", m_expectedSyntax, vb.getSyntax());
-	        assertEquals("value", m_expectedValue, val);
-		}
-
+    public LLDPMibTest(int version) {
+        m_version = version;
     }
 
+    private class AnticipatedRequest {
+        private String m_requestedOid;
+
+        private Variable m_requestedValue;
+
+        private String m_expectedOid;
+
+        private int m_expectedSyntax;
+
+        private Variable m_expectedValue;
+
+        public AnticipatedRequest(String requestedOid, Variable requestedValue) {
+            m_requestedOid = requestedOid;
+            m_requestedValue = requestedValue;
+        }
+
+        public void andExpect(String expectedOid, int expectedSyntax, Variable expectedValue) {
+            m_expectedOid = expectedOid;
+            m_expectedSyntax = expectedSyntax;
+            m_expectedValue = expectedValue;
+        }
+
+        public VariableBinding getRequestVarbind() {
+            OID oid = new OID(m_requestedOid);
+            if (m_requestedValue != null) {
+                return new VariableBinding(oid, m_requestedValue);
+            } else {
+                return new VariableBinding(oid);
+            }
+        }
+
+        public void verify(VariableBinding vb) {
+            assertNotNull("variable binding should not be null", vb);
+            Variable val = vb.getVariable();
+            assertNotNull("variable should not be null", val);
+            assertEquals("OID (value: " + val + ")", new OID(m_expectedOid), vb.getOid());
+            assertEquals("syntax", m_expectedSyntax, vb.getSyntax());
+            assertEquals("value", m_expectedValue, val);
+        }
+
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -145,28 +147,28 @@ public class LLDPMibTest  {
 
     @After
     public void tearDown() throws Exception {
-    	if (m_agent != null) {
-    		m_agent.shutDownAndWait();
-    	}
+        if (m_agent != null) {
+            m_agent.shutDownAndWait();
+        }
     }
 
     public AnticipatedRequest request(String requestedOid, Variable requestedValue) {
-    	AnticipatedRequest r = new AnticipatedRequest(requestedOid, requestedValue);
-    	m_requestedVarbinds.add(r);
-    	return r;
+        AnticipatedRequest r = new AnticipatedRequest(requestedOid, requestedValue);
+        m_requestedVarbinds.add(r);
+        return r;
     }
 
     public AnticipatedRequest request(String requestOid) {
-    	return request(requestOid, null);
+        return request(requestOid, null);
     }
 
     public void reset() {
-    	m_requestedVarbinds.clear();
+        m_requestedVarbinds.clear();
     }
-
 
     /**
      * Make sure that we can setUp() and tearDown() the agent.
+     *
      * @throws InterruptedException
      */
     @Test
@@ -193,62 +195,71 @@ public class LLDPMibTest  {
     @Test
     public void testGetNext() throws Exception {
 
-    	request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32, new Integer32(4));
+        request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32,
+                                                   new Integer32(4));
 
-    	doGetNext();
+        doGetNext();
 
     }
 
     @Test
     public void testGetNextMultipleVarbinds() throws Exception {
 
-    	request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32, new Integer32(4));
+        request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32,
+                                                   new Integer32(4));
 
-    	doGetNext();
+        doGetNext();
 
-    	m_agent.getUsm().setEngineBoots(15);
+        m_agent.getUsm().setEngineBoots(15);
 
-    	byte[] hexString = new byte[] {  (byte)0x80, (byte)0x71, (byte)0x1F, (byte)0x8F, (byte)0xAF, (byte)0xC0 };
-    	request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32, new Integer32(4));
-    	request(".1.0.8802.1.1.2.1.3.2").andExpect(".1.0.8802.1.1.2.1.3.2.0", SMIConstants.SYNTAX_OCTET_STRING, new OctetString(hexString));
-    	request(".1.0.8802.1.1.2.1.3.3").andExpect(".1.0.8802.1.1.2.1.3.3.0", SMIConstants.SYNTAX_OCTET_STRING, new OctetString("penrose-mx480".getBytes()));
+        byte[] hexString = new byte[] { (byte) 0x80, (byte) 0x71, (byte) 0x1F, (byte) 0x8F, (byte) 0xAF, (byte) 0xC0 };
+        request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32,
+                                                   new Integer32(4));
+        request(".1.0.8802.1.1.2.1.3.2").andExpect(".1.0.8802.1.1.2.1.3.2.0", SMIConstants.SYNTAX_OCTET_STRING,
+                                                   new OctetString(hexString));
+        request(".1.0.8802.1.1.2.1.3.3").andExpect(".1.0.8802.1.1.2.1.3.3.0", SMIConstants.SYNTAX_OCTET_STRING,
+                                                   new OctetString("penrose-mx480".getBytes()));
 
-    	doGetNext();
+        doGetNext();
 
         // This statement breaks the internal state of the SNMP4J agent
-        // m_agent.getUsm().setLocalEngine(m_agent.getUsm().getLocalEngineID(), 15, 200);
+        // m_agent.getUsm().setLocalEngine(m_agent.getUsm().getLocalEngineID(),
+        // 15, 200);
         m_agent.getUsm().removeEngineTime(m_usm.getLocalEngineID());
         m_usm.removeEngineTime(m_agent.getUsm().getLocalEngineID());
 
-    	request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32, new Integer32(4));
-    	doGetNext();
+        request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32,
+                                                   new Integer32(4));
+        doGetNext();
 
     }
 
     private void doGetNext() throws Exception {
-    	requestAndVerifyResponse(PDU.GETNEXT, m_version);
+        requestAndVerifyResponse(PDU.GETNEXT, m_version);
     }
 
     private void requestAndVerifyResponse(int pduType, int version) throws Exception {
-    	PDU pdu = createPDU(version);
+        PDU pdu = createPDU(version);
 
-    	for(AnticipatedRequest a : m_requestedVarbinds) {
-    		pdu.add(a.getRequestVarbind());
-    	}
-    	pdu.setType(pduType);
+        for (AnticipatedRequest a : m_requestedVarbinds) {
+            pdu.add(a.getRequestVarbind());
+        }
+        pdu.setType(pduType);
 
-    	PDU response = sendRequest(pdu, version);
+        PDU response = sendRequest(pdu, version);
 
         assertNotNull("request timed out", response);
-        System.err.println("Response is: "+response);
-        assertTrue("unexpected report pdu: " + ((VariableBinding)response.getVariableBindings().get(0)).getOid(), response.getType() != PDU.REPORT);
+        System.err.println("Response is: " + response);
+        assertTrue("unexpected report pdu: " + ((VariableBinding) response.getVariableBindings().get(0)).getOid(),
+                   response.getType() != PDU.REPORT);
 
-        assertEquals("Unexpected number of varbinds returned.", m_requestedVarbinds.size(), response.getVariableBindings().size());
+        assertEquals("Unexpected number of varbinds returned.", m_requestedVarbinds.size(),
+                     response.getVariableBindings().size());
 
-        for(int i = 0; i < m_requestedVarbinds.size(); i++) {
-        	AnticipatedRequest a = m_requestedVarbinds.get(i);
-        	VariableBinding vb = response.get(i);
-        	a.verify(vb);
+        for (int i = 0; i < m_requestedVarbinds.size(); i++) {
+            AnticipatedRequest a = m_requestedVarbinds.get(i);
+            VariableBinding vb = response.get(i);
+            a.verify(vb);
         }
 
         reset();
@@ -256,30 +267,30 @@ public class LLDPMibTest  {
     }
 
     private PDU createPDU(int version) {
-    	if (version == SnmpConstants.version3) {
-    		return new ScopedPDU();
-    	} else {
-    		return new PDU();
-    	}
+        if (version == SnmpConstants.version3) {
+            return new ScopedPDU();
+        } else {
+            return new PDU();
+        }
     }
 
     private PDU sendRequest(PDU pdu, int version) throws Exception {
-    	if (version == SnmpConstants.version3) {
-    		return sendRequestV3(pdu);
-    	} else {
-    		return sendRequestV1V2(pdu, version);
-    	}
+        if (version == SnmpConstants.version3) {
+            return sendRequestV3(pdu);
+        } else {
+            return sendRequestV1V2(pdu, version);
+        }
     }
 
-	private PDU sendRequestV1V2(PDU pdu, int version) throws Exception {
-		PDU response;
-		CommunityTarget target = new CommunityTarget();
+    private PDU sendRequestV1V2(PDU pdu, int version) throws Exception {
+        PDU response;
+        CommunityTarget target = new CommunityTarget();
         target.setCommunity(new OctetString("public"));
         target.setAddress(new UdpAddress(InetAddress.getByName("127.0.0.1"), 1691));
-		target.setVersion(version);
-		if (m_timeout > 0) {
-			target.setTimeout(m_timeout);
-		}
+        target.setVersion(version);
+        if (m_timeout > 0) {
+            target.setTimeout(m_timeout);
+        }
 
         TransportMapping transport = null;
         try {
@@ -294,11 +305,11 @@ public class LLDPMibTest  {
                 transport.close();
             }
         }
-		return response;
-	}
+        return response;
+    }
 
-	private PDU sendRequestV3(PDU pdu) throws IOException {
-		PDU response;
+    private PDU sendRequestV3(PDU pdu) throws IOException {
+        PDU response;
 
         OctetString userId = new OctetString("opennmsUser");
         OctetString pw = new OctetString("0p3nNMSv3");
@@ -308,11 +319,11 @@ public class LLDPMibTest  {
         target.setSecurityName(userId);
         target.setAddress(new UdpAddress(InetAddress.getByName("127.0.0.1"), 1691));
         target.setVersion(SnmpConstants.version3);
-		if (m_timeout > 0) {
-			target.setTimeout(m_timeout);
-		} else {
-			target.setTimeout(5000);
-		}
+        if (m_timeout > 0) {
+            target.setTimeout(m_timeout);
+        } else {
+            target.setTimeout(5000);
+        }
 
         TransportMapping transport = null;
         try {
@@ -333,12 +344,11 @@ public class LLDPMibTest  {
                 transport.close();
             }
         }
-		return response;
-	}
+        return response;
+    }
 
-	private URL classPathResource(String path) {
-		return getClass().getClassLoader().getResource(path);
-	}
-
+    private URL classPathResource(String path) {
+        return getClass().getClassLoader().getResource(path);
+    }
 
 }

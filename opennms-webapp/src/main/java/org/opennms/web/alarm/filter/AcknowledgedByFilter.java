@@ -43,16 +43,21 @@ public class AcknowledgedByFilter extends EqualsFilter<String> {
     public static final String TYPE = "acknowledgedBy";
 
     /**
-     * <p>Constructor for AcknowledgedByFilter.</p>
+     * <p>
+     * Constructor for AcknowledgedByFilter.
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public AcknowledgedByFilter(String user) {
         super(TYPE, SQLType.STRING, "ALARMACKUSER", "alarmAckUser", user);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +67,9 @@ public class AcknowledgedByFilter extends EqualsFilter<String> {
     }
 
     /**
-     * <p>getAcknowledgedByFilter</p>
+     * <p>
+     * getAcknowledgedByFilter
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

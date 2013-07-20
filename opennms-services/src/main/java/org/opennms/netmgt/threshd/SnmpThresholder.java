@@ -75,7 +75,6 @@ import org.springframework.util.Assert;
  */
 public final class SnmpThresholder implements ServiceThresholder {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(SnmpThresholder.class);
 
     private String m_serviceName;
@@ -99,18 +98,18 @@ public final class SnmpThresholder implements ServiceThresholder {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Initialize the service thresholder.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                plug-in from functioning.
      */
     @Override
-    public void initialize(Map<?,?> parameters) {
+    public void initialize(Map<?, ?> parameters) {
 
-        m_serviceName = (String)parameters.get("svcName");
+        m_serviceName = (String) parameters.get("svcName");
 
         setupThresholdsDao();
         setupIfInfoGetter();
@@ -125,7 +124,9 @@ public final class SnmpThresholder implements ServiceThresholder {
     }
 
     /**
-     * <p>reinitialize</p>
+     * <p>
+     * reinitialize
+     * </p>
      */
     @Override
     public void reinitialize() {
@@ -133,7 +134,7 @@ public final class SnmpThresholder implements ServiceThresholder {
     }
 
     private void setupThresholdsDao() {
-       DefaultThresholdsDao defaultThresholdsDao = new DefaultThresholdsDao();
+        DefaultThresholdsDao defaultThresholdsDao = new DefaultThresholdsDao();
 
         try {
             defaultThresholdsDao.setThresholdingConfigFactory(ThresholdingConfigFactory.getInstance());
@@ -156,14 +157,15 @@ public final class SnmpThresholder implements ServiceThresholder {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Responsible for performing all necessary initialization for the specified
+     * {@inheritDoc} Responsible for performing all necessary initialization for
+     * the specified
      * interface in preparation for thresholding.
      */
     @Override
-    public void initialize(ThresholdNetworkInterface netIface, Map<?,?> parms) {
-        SnmpThresholdNetworkInterface snmpThresholdNetworkInterface = new SnmpThresholdNetworkInterface(m_thresholdsDao, netIface, parms);
+    public void initialize(ThresholdNetworkInterface netIface, Map<?, ?> parms) {
+        SnmpThresholdNetworkInterface snmpThresholdNetworkInterface = new SnmpThresholdNetworkInterface(
+                                                                                                        m_thresholdsDao,
+                                                                                                        netIface, parms);
         m_snmpThresholdNetworkInterfaces.put(netIface, snmpThresholdNetworkInterface);
 
         SnmpThresholdConfiguration config = snmpThresholdNetworkInterface.getThresholdConfiguration();
@@ -176,23 +178,23 @@ public final class SnmpThresholder implements ServiceThresholder {
             LOG.debug("initialize: dumping node thresholds defined for {}:", snmpThresholdNetworkInterface);
             for (Set<ThresholdEntity> entitySet : config.getNodeResourceType().getThresholdMap().values()) {
                 for (ThresholdEntity entity : entitySet) {
-			LOG.debug(" {}", entity);
+                    LOG.debug(" {}", entity);
                 }
             }
 
             LOG.debug("initialize: dumping interface thresholds defined for {}:", snmpThresholdNetworkInterface);
             for (Set<ThresholdEntity> entitySet : config.getIfResourceType().getThresholdMap().values()) {
-            	for (ThresholdEntity entity : entitySet) {
-			LOG.debug(" {}", entity);
-            	}
+                for (ThresholdEntity entity : entitySet) {
+                    LOG.debug(" {}", entity);
+                }
             }
 
             LOG.debug("initialize: dumping generic resources thresholds defined for {}:", snmpThresholdNetworkInterface);
             for (String resourceType : config.getGenericResourceTypeMap().keySet()) {
                 for (Set<ThresholdEntity> entitySet : config.getGenericResourceTypeMap().get(resourceType).getThresholdMap().values()) {
-                	for (ThresholdEntity entity : entitySet) {
-				LOG.debug("    {}.{}", resourceType, entity);
-                	}
+                    for (ThresholdEntity entity : entitySet) {
+                        LOG.debug("    {}.{}", resourceType, entity);
+                    }
                 }
             }
         }
@@ -203,9 +205,8 @@ public final class SnmpThresholder implements ServiceThresholder {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Responsible for releasing any resources associated with the specified
+     * {@inheritDoc} Responsible for releasing any resources associated with the
+     * specified
      * interface.
      */
     @Override
@@ -214,12 +215,10 @@ public final class SnmpThresholder implements ServiceThresholder {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Perform threshold checking.
+     * {@inheritDoc} Perform threshold checking.
      */
     @Override
-    public int check(ThresholdNetworkInterface netIface, EventProxy eproxy, Map<?,?> parms) {
+    public int check(ThresholdNetworkInterface netIface, EventProxy eproxy, Map<?, ?> parms) {
         SnmpThresholdNetworkInterface snmpThresholdNetworkInterface = m_snmpThresholdNetworkInterfaces.get(netIface);
         if (snmpThresholdNetworkInterface == null) {
             LOG.warn("check: interface has not been initialized in this thresholder: {}", netIface);
@@ -229,46 +228,47 @@ public final class SnmpThresholder implements ServiceThresholder {
         SnmpThresholdConfiguration config = snmpThresholdNetworkInterface.getThresholdConfiguration();
 
         // Get configuration parameters
-        LOG.debug("check: service={} address={} thresholding-group={} interval={}ms range={} mS", serviceName(), snmpThresholdNetworkInterface.getIpAddress(), config.getGroupName(), config.getInterval(), config.getRange());
+        LOG.debug("check: service={} address={} thresholding-group={} interval={}ms range={} mS", serviceName(),
+                  snmpThresholdNetworkInterface.getIpAddress(), config.getGroupName(), config.getInterval(),
+                  config.getRange());
 
         // RRD Repository attribute
         LOG.debug("check: rrd repository={}", config.getRrdRepository());
 
-
         /*
          * -----------------------------------------------------------
-         *
          * Perform node-level threshold checking
-         *
          * -----------------------------------------------------------
          */
 
         // Get File object representing the node directory
         File nodeDirectory = new File(config.getRrdRepository(), snmpThresholdNetworkInterface.getNodeId().toString());
         if (!RrdFileConstants.isValidRRDNodeDir(nodeDirectory)) {
-            LOG.info("Node directory for {}/{} does not exist or is not a valid RRD node directory.", snmpThresholdNetworkInterface.getNodeId(), snmpThresholdNetworkInterface.getIpAddress());
-            LOG.info("Threshold checking failed for primary SNMP interface {}", snmpThresholdNetworkInterface.getIpAddress());
+            LOG.info("Node directory for {}/{} does not exist or is not a valid RRD node directory.",
+                     snmpThresholdNetworkInterface.getNodeId(), snmpThresholdNetworkInterface.getIpAddress());
+            LOG.info("Threshold checking failed for primary SNMP interface {}",
+                     snmpThresholdNetworkInterface.getIpAddress());
             return THRESHOLDING_FAILED;
         }
 
-        // Create empty Events object to hold any threshold events generated during the thresholding check
+        // Create empty Events object to hold any threshold events generated
+        // during the thresholding check
         Events events = new Events();
 
         // Date stamp for all outgoing events
         Date date = new Date();
 
         try {
-        	checkNodeDir(nodeDirectory, snmpThresholdNetworkInterface, date, events);
+            checkNodeDir(nodeDirectory, snmpThresholdNetworkInterface, date, events);
         } catch (IllegalArgumentException e) {
-            LOG.info("check: Threshold checking failed for primary SNMP interface {}", snmpThresholdNetworkInterface.getIpAddress(), e);
+            LOG.info("check: Threshold checking failed for primary SNMP interface {}",
+                     snmpThresholdNetworkInterface.getIpAddress(), e);
             return THRESHOLDING_FAILED;
         }
 
         /*
          * -----------------------------------------------------------
-         *
          * Perform interface-level threshold checking
-         *
          * -----------------------------------------------------------
          */
 
@@ -284,7 +284,8 @@ public final class SnmpThresholder implements ServiceThresholder {
                     // Found interface directory...
                     checkIfDir(file, snmpThresholdNetworkInterface, date, events);
                 } catch (IllegalArgumentException e) {
-                    LOG.info("check: Threshold checking failed for primary SNMP interface {}", snmpThresholdNetworkInterface.getIpAddress(), e);
+                    LOG.info("check: Threshold checking failed for primary SNMP interface {}",
+                             snmpThresholdNetworkInterface.getIpAddress(), e);
                     return THRESHOLDING_FAILED;
                 }
             }
@@ -292,9 +293,7 @@ public final class SnmpThresholder implements ServiceThresholder {
 
         /*
          * -----------------------------------------------------------
-         *
          * Perform generic resources threshold checking
-         *
          * -----------------------------------------------------------
          */
 
@@ -310,12 +309,12 @@ public final class SnmpThresholder implements ServiceThresholder {
                     // Found resource directory...
                     checkResourceDir(file, snmpThresholdNetworkInterface, date, events);
                 } catch (IllegalArgumentException e) {
-                    LOG.info("check: Threshold checking failed for primary SNMP interface {}", snmpThresholdNetworkInterface.getIpAddress(), e);
+                    LOG.info("check: Threshold checking failed for primary SNMP interface {}",
+                             snmpThresholdNetworkInterface.getIpAddress(), e);
                     return THRESHOLDING_FAILED;
                 }
             }
         }
-
 
         // Send created events
         if (events.getEventCount() > 0) {
@@ -344,9 +343,13 @@ public final class SnmpThresholder implements ServiceThresholder {
      *            a result of threshold checking.
      * @throws java.lang.IllegalArgumentException
      *             if path parameter is not a directory.
-     * @param thresholdNetworkInterface a {@link org.opennms.netmgt.threshd.SnmpThresholdNetworkInterface} object.
+     * @param thresholdNetworkInterface
+     *            a
+     *            {@link org.opennms.netmgt.threshd.SnmpThresholdNetworkInterface}
+     *            object.
      */
-    protected void checkNodeDir(File directory, SnmpThresholdNetworkInterface thresholdNetworkInterface, Date date, Events events) throws IllegalArgumentException {
+    protected void checkNodeDir(File directory, SnmpThresholdNetworkInterface thresholdNetworkInterface, Date date,
+            Events events) throws IllegalArgumentException {
         Assert.notNull(directory, "directory argument cannot be null");
         Assert.notNull(thresholdNetworkInterface, "thresholdNetworkInterface argument cannot be null");
         Assert.notNull(date, "date argument cannot be null");
@@ -354,65 +357,72 @@ public final class SnmpThresholder implements ServiceThresholder {
 
         SnmpThresholdConfiguration config = thresholdNetworkInterface.getThresholdConfiguration();
         Assert.notNull(config, "getThresholdConfiguration() of thresholdNetworkInterface argument cannot be null");
-        Assert.notNull(thresholdNetworkInterface.getNetworkInterface(), "getNetworkInterface() of thresholdNetworkInterface argument cannot be null");
-        Assert.notNull(thresholdNetworkInterface.getNodeId(), "getNodeId() of thresholdNetworkInterface argument cannot be null");
-        Assert.notNull(thresholdNetworkInterface.getInetAddress(), "getInetAddress() of thresholdNetworkInterface argument cannot be null");
+        Assert.notNull(thresholdNetworkInterface.getNetworkInterface(),
+                       "getNetworkInterface() of thresholdNetworkInterface argument cannot be null");
+        Assert.notNull(thresholdNetworkInterface.getNodeId(),
+                       "getNodeId() of thresholdNetworkInterface argument cannot be null");
+        Assert.notNull(thresholdNetworkInterface.getInetAddress(),
+                       "getInetAddress() of thresholdNetworkInterface argument cannot be null");
 
         LOG.debug("checkNodeDir: threshold checking node dir: {}", directory.getAbsolutePath());
 
         Map<String, Set<ThresholdEntity>> thresholdMap = thresholdNetworkInterface.getNodeThresholdMap();
 
-        for(String threshKey  :thresholdMap.keySet()) {
-        	for (ThresholdEntity thresholdEntity : thresholdMap.get(threshKey)) {
-        		processThresholdForNode(directory, thresholdNetworkInterface, date, events, thresholdEntity);
-        	}
+        for (String threshKey : thresholdMap.keySet()) {
+            for (ThresholdEntity thresholdEntity : thresholdMap.get(threshKey)) {
+                processThresholdForNode(directory, thresholdNetworkInterface, date, events, thresholdEntity);
+            }
         }
     }
 
-    private List<Event> processThreshold(File directory, SnmpThresholdNetworkInterface snmpIface, ThresholdEntity threshold, Date date) {
-        //Find out what data sources this threshold needs, check if they are available, and if so,
+    private List<Event> processThreshold(File directory, SnmpThresholdNetworkInterface snmpIface,
+            ThresholdEntity threshold, Date date) {
+        // Find out what data sources this threshold needs, check if they are
+        // available, and if so,
         // then get them and evaluate with them
         SnmpThresholdConfiguration thresholdConfiguration = snmpIface.getThresholdConfiguration();
-        Collection<String> requiredDatasources=threshold.getRequiredDatasources();
-        Map<String, Double> values=new HashMap<String,Double>();
+        Collection<String> requiredDatasources = threshold.getRequiredDatasources();
+        Map<String, Double> values = new HashMap<String, Double>();
         String group = snmpIface.getThresholdConfiguration().getGroupName();
-        for(String ds: requiredDatasources) {
-            File dsFile= ResourceTypeUtils.getRrdFileForDs(directory,ds);
-            Double dsValue=null;
-            if(dsFile.exists() && passedThresholdFilters(directory, group, threshold.getDatasourceType(), ds)) {
+        for (String ds : requiredDatasources) {
+            File dsFile = ResourceTypeUtils.getRrdFileForDs(directory, ds);
+            Double dsValue = null;
+            if (dsFile.exists() && passedThresholdFilters(directory, group, threshold.getDatasourceType(), ds)) {
                 dsValue = getDataSourceValue(thresholdConfiguration, dsFile, ds);
             }
-            if(dsValue==null) {
+            if (dsValue == null) {
                 LOG.info("Could not get data source value for '{}'.  Not evaluating threshold.", ds);
                 return null;
             }
-            values.put(ds,dsValue);
+            values.put(ds, dsValue);
         }
-        List<Event> eventList=threshold.evaluateAndCreateEvents(values, date);
+        List<Event> eventList = threshold.evaluateAndCreateEvents(values, date);
         return eventList;
     }
 
     private String getDsLabel(ThresholdEntity threshold) {
         String dsLabelValue = threshold.getDatasourceLabel();
-        if(dsLabelValue == null) {
+        if (dsLabelValue == null) {
             dsLabelValue = "Null";
         }
         return dsLabelValue;
     }
 
-    private void processThresholdForNode(File directory, SnmpThresholdNetworkInterface snmpIface, Date date, Events events, ThresholdEntity threshold)  {
-        List<Event> eventList=processThreshold(directory, snmpIface, threshold, date);
-        if (eventList==null || eventList.size() == 0) {
-            //Nothing to do, so return
+    private void processThresholdForNode(File directory, SnmpThresholdNetworkInterface snmpIface, Date date,
+            Events events, ThresholdEntity threshold) {
+        List<Event> eventList = processThreshold(directory, snmpIface, threshold, date);
+        if (eventList == null || eventList.size() == 0) {
+            // Nothing to do, so return
             return;
         }
         completeEventListAndAddToEvents(events, eventList, snmpIface, null, getDsLabel(threshold));
     }
 
-    private void processThresholdForInterface(File directory, SnmpThresholdNetworkInterface snmpIface, Date date, Events events, ThresholdEntity threshold, String ifLabel, Map<String, String> ifDataMap)  {
-        List<Event> eventList=processThreshold(directory, snmpIface, threshold, date);
-        if (eventList==null || eventList.size() == 0) {
-            //Nothing to do, so return
+    private void processThresholdForInterface(File directory, SnmpThresholdNetworkInterface snmpIface, Date date,
+            Events events, ThresholdEntity threshold, String ifLabel, Map<String, String> ifDataMap) {
+        List<Event> eventList = processThreshold(directory, snmpIface, threshold, date);
+        if (eventList == null || eventList.size() == 0) {
+            // Nothing to do, so return
             return;
         }
 
@@ -422,9 +432,10 @@ public final class SnmpThresholder implements ServiceThresholder {
         completeEventListAndAddToEvents(events, eventList, snmpIface, ifDataMap, getDsLabel(threshold));
     }
 
-    private void processThresholdForResource(File directory, SnmpThresholdNetworkInterface snmpIface, Date date, Events events, ThresholdEntity threshold, String resource)  {
-        List<Event> eventList=processThreshold(directory, snmpIface, threshold, date);
-        if (eventList==null || eventList.size() == 0) {
+    private void processThresholdForResource(File directory, SnmpThresholdNetworkInterface snmpIface, Date date,
+            Events events, ThresholdEntity threshold, String resource) {
+        List<Event> eventList = processThreshold(directory, snmpIface, threshold, date);
+        if (eventList == null || eventList.size() == 0) {
             return;
         }
 
@@ -436,7 +447,8 @@ public final class SnmpThresholder implements ServiceThresholder {
      *
      * @param directory
      *            RRD repository directory
-     * @param snmpIface TODO
+     * @param snmpIface
+     *            TODO
      * @param date
      *            Source for timestamp to be used for all generated events
      * @param events
@@ -445,11 +457,13 @@ public final class SnmpThresholder implements ServiceThresholder {
      * @throws java.lang.IllegalArgumentException
      *             if path parameter is not a directory.
      */
-    protected void checkIfDir(File directory, SnmpThresholdNetworkInterface snmpIface, Date date, Events events) throws IllegalArgumentException {
+    protected void checkIfDir(File directory, SnmpThresholdNetworkInterface snmpIface, Date date, Events events)
+            throws IllegalArgumentException {
         // TODO: do more specific and thorough assertions on arguments
 
         // Sanity Check
-        if (directory == null || snmpIface.getNodeId() == null || snmpIface.getInetAddress() == null || date == null || events == null) {
+        if (directory == null || snmpIface.getNodeId() == null || snmpIface.getInetAddress() == null || date == null
+                || events == null) {
             throw new IllegalArgumentException("Null parameters not permitted.");
         }
 
@@ -461,27 +475,38 @@ public final class SnmpThresholder implements ServiceThresholder {
         Map<String, Set<ThresholdEntity>> thresholdMap = snmpIface.getInterfaceThresholdMap(ifLabel);
 
         Map<String, String> ifDataMap = new HashMap<String, String>();
-        for(String threshKey  :thresholdMap.keySet()) {
-        	for (ThresholdEntity thresholdEntity : thresholdMap.get(threshKey)) {
-        		processThresholdForInterface(directory, snmpIface, date, events, thresholdEntity, ifLabel, ifDataMap);
-        	}
+        for (String threshKey : thresholdMap.keySet()) {
+            for (ThresholdEntity thresholdEntity : thresholdMap.get(threshKey)) {
+                processThresholdForInterface(directory, snmpIface, date, events, thresholdEntity, ifLabel, ifDataMap);
+            }
         }
     }
 
     /**
-     * <p>checkResourceDir</p>
+     * <p>
+     * checkResourceDir
+     * </p>
      *
-     * @param directory a {@link java.io.File} object.
-     * @param snmpIface a {@link org.opennms.netmgt.threshd.SnmpThresholdNetworkInterface} object.
-     * @param date a {@link java.util.Date} object.
-     * @param events a {@link org.opennms.netmgt.xml.event.Events} object.
-     * @throws java.lang.IllegalArgumentException if any.
+     * @param directory
+     *            a {@link java.io.File} object.
+     * @param snmpIface
+     *            a
+     *            {@link org.opennms.netmgt.threshd.SnmpThresholdNetworkInterface}
+     *            object.
+     * @param date
+     *            a {@link java.util.Date} object.
+     * @param events
+     *            a {@link org.opennms.netmgt.xml.event.Events} object.
+     * @throws java.lang.IllegalArgumentException
+     *             if any.
      */
-    protected void checkResourceDir(File directory, SnmpThresholdNetworkInterface snmpIface, Date date, Events events) throws IllegalArgumentException {
+    protected void checkResourceDir(File directory, SnmpThresholdNetworkInterface snmpIface, Date date, Events events)
+            throws IllegalArgumentException {
         // TODO: do more specific and thorough assertions on arguments
 
         // Sanity Check
-        if (directory == null || snmpIface.getNodeId() == null || snmpIface.getInetAddress() == null || date == null || events == null) {
+        if (directory == null || snmpIface.getNodeId() == null || snmpIface.getInetAddress() == null || date == null
+                || events == null) {
             throw new IllegalArgumentException("Null parameters not permitted.");
         }
 
@@ -490,8 +515,8 @@ public final class SnmpThresholder implements ServiceThresholder {
         String resourceType = directory.getName();
 
         if (!directory.exists()) {
-		LOG.debug("Aborting check because this node does not support Resource Type {}", resourceType);
-        	return;
+            LOG.debug("Aborting check because this node does not support Resource Type {}", resourceType);
+            return;
         }
 
         SnmpThresholdConfiguration config = snmpIface.getThresholdConfiguration();
@@ -507,11 +532,11 @@ public final class SnmpThresholder implements ServiceThresholder {
         File[] files = directory.listFiles();
         for (File file : files) {
             String resource = file.getName();
-            for(String threshKey  :thresholdMap.keySet()) {
+            for (String threshKey : thresholdMap.keySet()) {
                 LOG.debug("checkResourceDir: resource=", resource);
                 for (ThresholdEntity thresholdEntity : thresholdMap.get(threshKey)) {
-	                String dsLabelValue = getDataSourceLabel(file, snmpIface, thresholdEntity);
-	                processThresholdForResource(file, snmpIface, date, events, thresholdEntity, dsLabelValue);
+                    String dsLabelValue = getDataSourceLabel(file, snmpIface, thresholdEntity);
+                    processThresholdForResource(file, snmpIface, date, events, thresholdEntity, dsLabelValue);
                 }
             }
         }
@@ -521,12 +546,12 @@ public final class SnmpThresholder implements ServiceThresholder {
         Collection<Basethresholddef> thresholds = m_thresholdsDao.getThresholdingConfigFactory().getThresholds(thresholdGroup);
         for (Basethresholddef thresh : thresholds) {
             if (thresh instanceof Threshold) {
-                Threshold t = (Threshold)thresh;
+                Threshold t = (Threshold) thresh;
                 if (t.getDsName().equals(dataSource)) {
                     return t.getResourceFilter();
                 }
             } else {
-                Expression e = (Expression)thresh;
+                Expression e = (Expression) thresh;
                 if (e.getExpression().indexOf(dataSource) > 0) {
                     return e.getResourceFilter();
                 }
@@ -537,61 +562,82 @@ public final class SnmpThresholder implements ServiceThresholder {
     }
 
     /*
-     * If Threshold has Filters defined for selected ThresholdGroup/DataSource/ResourceType then, apply filter rules.
+     * If Threshold has Filters defined for selected
+     * ThresholdGroup/DataSource/ResourceType then, apply filter rules.
      * TODO: What happend if getAttributeValue returns null ?
      */
     /**
-     * <p>passedThresholdFilters</p>
+     * <p>
+     * passedThresholdFilters
+     * </p>
      *
-     * @param resourceDir a {@link java.io.File} object.
-     * @param thresholdGroup a {@link java.lang.String} object.
-     * @param resourceType a {@link java.lang.String} object.
-     * @param dataSource a {@link java.lang.String} object.
+     * @param resourceDir
+     *            a {@link java.io.File} object.
+     * @param thresholdGroup
+     *            a {@link java.lang.String} object.
+     * @param resourceType
+     *            a {@link java.lang.String} object.
+     * @param dataSource
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
-    protected boolean passedThresholdFilters(File resourceDir, String thresholdGroup, String resourceType, String dataSource) {
+    protected boolean passedThresholdFilters(File resourceDir, String thresholdGroup, String resourceType,
+            String dataSource) {
 
-        // Find the filters for threshold definition for selected group/dataSource
+        // Find the filters for threshold definition for selected
+        // group/dataSource
         ResourceFilter[] filters = getThresholdFilters(thresholdGroup, dataSource);
-        if (filters.length == 0) return true;
+        if (filters.length == 0)
+            return true;
 
-        // Threshold definition with filters must match ThresholdEntity (checking DataSource and ResourceType)
-        LOG.debug("checkFilters: resource={}, group={}, type={}, filters={}", resourceDir.getName(), thresholdGroup, resourceType, filters.length);
+        // Threshold definition with filters must match ThresholdEntity
+        // (checking DataSource and ResourceType)
+        LOG.debug("checkFilters: resource={}, group={}, type={}, filters={}", resourceDir.getName(), thresholdGroup,
+                  resourceType, filters.length);
         int count = 1;
         for (ResourceFilter f : filters) {
             LOG.debug("checkFilters: filter #{}: field={}, regex={}", count, f.getField(), f.getContent());
             count++;
-            // Read Resource Attribute and apply filter rules if attribute is not null
+            // Read Resource Attribute and apply filter rules if attribute is
+            // not null
             String attr = getAttributeValue(resourceDir, resourceType, f.getField());
             if (attr != null) {
                 Pattern p = Pattern.compile(f.getContent());
                 Matcher m = p.matcher(attr);
                 boolean pass = m.find();
                 LOG.debug("checkFilters: the value of {} is {}. Pass filter? {}", dataSource, attr, pass);
-                if (pass) return true;
+                if (pass)
+                    return true;
             }
         }
         return false;
     }
 
-    private void completeEventListAndAddToEvents(Events events, List<Event> eventList, SnmpThresholdNetworkInterface snmpIface, Map<String, String> ifDataMap, String dsLabelValue) {
+    private void completeEventListAndAddToEvents(Events events, List<Event> eventList,
+            SnmpThresholdNetworkInterface snmpIface, Map<String, String> ifDataMap, String dsLabelValue) {
         // TODO: do more specific and thorough assertions on arguments
         for (Event event : eventList) {
             /*
-            Integer nodeId = snmpIface.getNodeId();
-            InetAddress primary = snmpIface.getInetAddress();
-            if (nodeId == null || primary == null) {
-                throw new IllegalArgumentException("nodeid, primary, and threshold cannot be null.");
-            }
-
-            if (log().isDebugEnabled()) {
-                log().debug("createEvent: nodeId=" + nodeId + " primaryAddr=" + primary + " ds=" + threshold.getDsName() + " uei=" + uei);
-
-                if (ifDataMap != null) {
-                    log().debug("createEvent: specific interface data: ifAddr=" + ifDataMap.get("ipaddr") + " macAddr=" + ifDataMap.get("snmpphysaddr") + " ifName=" + ifDataMap.get("snmpifname") + " ifDescr=" + ifDataMap.get("snmpifdescr") + " ifIndex=" + ifDataMap.get("snmpifindex") + " ifLabel=" + ifDataMap.get("iflabel"));
-                }
-            }
-            */
+             * Integer nodeId = snmpIface.getNodeId();
+             * InetAddress primary = snmpIface.getInetAddress();
+             * if (nodeId == null || primary == null) {
+             * throw new IllegalArgumentException(
+             * "nodeid, primary, and threshold cannot be null.");
+             * }
+             * if (log().isDebugEnabled()) {
+             * log().debug("createEvent: nodeId=" + nodeId + " primaryAddr=" +
+             * primary + " ds=" + threshold.getDsName() + " uei=" + uei);
+             * if (ifDataMap != null) {
+             * log().debug("createEvent: specific interface data: ifAddr=" +
+             * ifDataMap.get("ipaddr") + " macAddr=" +
+             * ifDataMap.get("snmpphysaddr") + " ifName=" +
+             * ifDataMap.get("snmpifname") + " ifDescr=" +
+             * ifDataMap.get("snmpifdescr") + " ifIndex=" +
+             * ifDataMap.get("snmpifindex") + " ifLabel=" +
+             * ifDataMap.get("iflabel"));
+             * }
+             * }
+             */
 
             // create the event to be sent
             event.setNodeid(snmpIface.getNodeId().longValue());
@@ -606,7 +652,6 @@ public final class SnmpThresholder implements ServiceThresholder {
             } else {
                 /*
                  * Interface-level datasource
-                 *
                  * NOTE: Non-IP interfaces will have an
                  * address of "0.0.0.0".
                  */
@@ -663,13 +708,18 @@ public final class SnmpThresholder implements ServiceThresholder {
         Double dsValue;
 
         try {
-        	if (thresholdConfiguration.getRange() != 0) {
-			LOG.debug("Checking datasource '{}' for values within {} milliseconds of last possible PDP with interval {}.", datasource, thresholdConfiguration.getRange(), thresholdConfiguration.getInterval());
-        		dsValue = RrdUtils.fetchLastValueInRange(file.getAbsolutePath(), datasource, thresholdConfiguration.getInterval(), thresholdConfiguration.getRange());
-        	} else {
-			LOG.debug("Checking datasource '{}' for value of last possible PDP only with interval {}.", datasource, thresholdConfiguration.getInterval());
-        		dsValue = RrdUtils.fetchLastValue(file.getAbsolutePath(), datasource, thresholdConfiguration.getInterval());
-        	}
+            if (thresholdConfiguration.getRange() != 0) {
+                LOG.debug("Checking datasource '{}' for values within {} milliseconds of last possible PDP with interval {}.",
+                          datasource, thresholdConfiguration.getRange(), thresholdConfiguration.getInterval());
+                dsValue = RrdUtils.fetchLastValueInRange(file.getAbsolutePath(), datasource,
+                                                         thresholdConfiguration.getInterval(),
+                                                         thresholdConfiguration.getRange());
+            } else {
+                LOG.debug("Checking datasource '{}' for value of last possible PDP only with interval {}.", datasource,
+                          thresholdConfiguration.getInterval());
+                dsValue = RrdUtils.fetchLastValue(file.getAbsolutePath(), datasource,
+                                                  thresholdConfiguration.getInterval());
+            }
         } catch (NumberFormatException e) {
             LOG.warn("Unable to convert retrieved value for datasource '{}' to a double", datasource, e);
             return null;
@@ -695,18 +745,21 @@ public final class SnmpThresholder implements ServiceThresholder {
      * File name has format: <datsource><extension>
      *
      * @return the fileName with the <extension> portion stripped off the end.
-     * @param fileName a {@link java.lang.String} object.
+     * @param fileName
+     *            a {@link java.lang.String} object.
      */
     protected String stripRrdExtension(String fileName) {
         if (!fileName.endsWith(RrdUtils.getExtension())) {
-            LOG.info("stripRrdExtension: File '{}' does not end with the RRD extension '{}'.", fileName, RrdUtils.getExtension());
+            LOG.info("stripRrdExtension: File '{}' does not end with the RRD extension '{}'.", fileName,
+                     RrdUtils.getExtension());
             return null;
         }
         return fileName.substring(0, fileName.lastIndexOf(RrdUtils.getExtension()));
     }
 
     /*
-     * This directly access database to get OnmsSnmpInterface (snmpinterface table on database) data
+     * This directly access database to get OnmsSnmpInterface (snmpinterface
+     * table on database) data
      * for selected Interface ID.
      */
     private String getAttributeValue(File resourceDirectory, String resourceType, String attribute) {
@@ -720,7 +773,7 @@ public final class SnmpThresholder implements ServiceThresholder {
             if (resourceType.equals("if")) {
                 String ifLabel = resourceDirectory.getName();
                 int nodeId = Integer.parseInt(resourceDirectory.getParentFile().getName());
-                Map<String,String> info = new HashMap<String,String>();
+                Map<String, String> info = new HashMap<String, String>();
                 populateIfDataMap(info, nodeId, ifLabel);
                 value = info.get(attribute);
             } else {
@@ -742,23 +795,21 @@ public final class SnmpThresholder implements ServiceThresholder {
             String key = threshold.getDatasourceLabel();
             dsLabelValue = (key == null ? null : ResourceTypeUtils.getStringProperty(directory, key));
         } catch (DataAccessException e) {
-            LOG.debug ("getDataSourceLabel: I/O exception when looking for strings.properties file for node id: " + snmpIface.getNodeId() + " looking here: " + directory, e);
+            LOG.debug("getDataSourceLabel: I/O exception when looking for strings.properties file for node id: "
+                    + snmpIface.getNodeId() + " looking here: " + directory, e);
         }
 
         return (dsLabelValue == null ? "Unknown" : dsLabelValue);
 
     }
 
-
     /**
      * ifLabel will either be set to null for node level
      * datasource values
      * or to a specific interface in the case of an
      * interface level datasource.
-     *
      * ifLabel has the following format:
      * <ifName|ifDescr>-<macAddr>
-     *
      * Call IfLabel.getInterfaceInfoFromLabel() utility
      * method to retrieve
      * data from the 'snmpInterfaces' table for this
@@ -769,14 +820,19 @@ public final class SnmpThresholder implements ServiceThresholder {
     private void populateIfDataMap(Map<String, String> ifDataMap, int nodeId, String ifLabel) {
         Map<String, String> ifInfo = m_ifInfoGetter.getIfInfoForNodeAndLabel(nodeId, ifLabel);
         ifDataMap.putAll(ifInfo);
-       // Adding ifLabel value to the map for potential use by the createEvent() method
+        // Adding ifLabel value to the map for potential use by the
+        // createEvent() method
         ifDataMap.put("iflabel", ifLabel);
     }
 
     /**
-     * <p>getAttributeMap</p>
+     * <p>
+     * getAttributeMap
+     * </p>
      *
-     * @param resourceType a {@link org.opennms.netmgt.threshd.ThresholdResourceType} object.
+     * @param resourceType
+     *            a {@link org.opennms.netmgt.threshd.ThresholdResourceType}
+     *            object.
      * @return a {@link java.util.Map} object.
      */
     protected static Map<String, Set<ThresholdEntity>> getAttributeMap(ThresholdResourceType resourceType) {
@@ -788,18 +844,20 @@ public final class SnmpThresholder implements ServiceThresholder {
          * for this interface.
          */
         for (Set<ThresholdEntity> entitySet : resourceType.getThresholdMap().values()) {
-        	for (ThresholdEntity entity : entitySet) {
-        		if (!thresholdMap.containsKey(entity.getDataSourceExpression())) {
-        			thresholdMap.put(entity.getDataSourceExpression(), new LinkedHashSet<ThresholdEntity>());
-        		}
-        		thresholdMap.get(entity.getDataSourceExpression()).add(entity.clone());
-        	}
+            for (ThresholdEntity entity : entitySet) {
+                if (!thresholdMap.containsKey(entity.getDataSourceExpression())) {
+                    thresholdMap.put(entity.getDataSourceExpression(), new LinkedHashSet<ThresholdEntity>());
+                }
+                thresholdMap.get(entity.getDataSourceExpression()).add(entity.clone());
+            }
         }
         return Collections.unmodifiableMap(thresholdMap);
     }
 
     /**
-     * <p>getThresholdsDao</p>
+     * <p>
+     * getThresholdsDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdsDao} object.
      */
@@ -808,16 +866,21 @@ public final class SnmpThresholder implements ServiceThresholder {
     }
 
     /**
-     * <p>setThresholdsDao</p>
+     * <p>
+     * setThresholdsDao
+     * </p>
      *
-     * @param thresholdsDao a {@link org.opennms.netmgt.threshd.ThresholdsDao} object.
+     * @param thresholdsDao
+     *            a {@link org.opennms.netmgt.threshd.ThresholdsDao} object.
      */
     public void setThresholdsDao(ThresholdsDao thresholdsDao) {
         m_thresholdsDao = thresholdsDao;
     }
 
     /**
-     * <p>getIfInfoGetter</p>
+     * <p>
+     * getIfInfoGetter
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.threshd.IfInfoGetter} object.
      */
@@ -826,9 +889,12 @@ public final class SnmpThresholder implements ServiceThresholder {
     }
 
     /**
-     * <p>setIfInfoGetter</p>
+     * <p>
+     * setIfInfoGetter
+     * </p>
      *
-     * @param ifInfoGetter a {@link org.opennms.netmgt.threshd.IfInfoGetter} object.
+     * @param ifInfoGetter
+     *            a {@link org.opennms.netmgt.threshd.IfInfoGetter} object.
      */
     public void setIfInfoGetter(IfInfoGetter ifInfoGetter) {
         m_ifInfoGetter = ifInfoGetter;

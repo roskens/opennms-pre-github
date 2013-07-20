@@ -77,9 +77,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({
-    JUnitHttpServerExecutionListener.class
-})
+@TestExecutionListeners({ JUnitHttpServerExecutionListener.class })
 public class HttpDataCollectionTest {
 
     /** The Constant TEST_SNMP_DIRECTORY. */
@@ -94,7 +92,8 @@ public class HttpDataCollectionTest {
     /**
      * Sets the up.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Before
     public void setUp() throws Exception {
@@ -127,7 +126,8 @@ public class HttpDataCollectionTest {
     /**
      * Tear down.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception {
@@ -138,12 +138,11 @@ public class HttpDataCollectionTest {
     /**
      * Test HTTP Data Collection with XPath
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    @JUnitHttpServer(port=10342, https=false, webapps={
-            @Webapp(context="/junit", path="src/test/resources/test-webapp")
-    })
+    @JUnitHttpServer(port = 10342, https = false, webapps = { @Webapp(context = "/junit", path = "src/test/resources/test-webapp") })
     public void testHttpCollection() throws Exception {
         File configFile = new File("src/test/resources/http-datacollection-config.xml");
         XmlDataCollectionConfig config = JaxbUtils.unmarshal(XmlDataCollectionConfig.class, configFile);
@@ -161,8 +160,8 @@ public class HttpDataCollectionTest {
         XmlCollectionSet collectionSet = collector.collect(m_collectionAgent, collection, parameters);
         Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
 
-        ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
-        BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
+        ServiceParameters serviceParams = new ServiceParameters(new HashMap<String, Object>());
+        BasePersister persister = new GroupPersister(serviceParams, repository); // storeByGroup=true;
         collectionSet.visit(persister);
 
         RrdDb jrb = new RrdDb(new File("target/snmp/1/count-stats.jrb"));
@@ -176,12 +175,11 @@ public class HttpDataCollectionTest {
     /**
      * Test HTTP Data Collection with CSS Selector
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    @JUnitHttpServer(port=10342, https=false, webapps={
-            @Webapp(context="/junit", path="src/test/resources/test-webapp")
-    })
+    @JUnitHttpServer(port = 10342, https = false, webapps = { @Webapp(context = "/junit", path = "src/test/resources/test-webapp") })
     public void testCssSelectorHttpCollection() throws Exception {
         File configFile = new File("src/test/resources/http-datacollection-config.xml");
         XmlDataCollectionConfig config = JaxbUtils.unmarshal(XmlDataCollectionConfig.class, configFile);
@@ -199,8 +197,8 @@ public class HttpDataCollectionTest {
         XmlCollectionSet collectionSet = collector.collect(m_collectionAgent, collection, parameters);
         Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
 
-        ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
-        BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
+        ServiceParameters serviceParams = new ServiceParameters(new HashMap<String, Object>());
+        BasePersister persister = new GroupPersister(serviceParams, repository); // storeByGroup=true;
         collectionSet.visit(persister);
 
         RrdDb jrb = new RrdDb(new File("target/snmp/1/market.jrb"));
@@ -214,12 +212,11 @@ public class HttpDataCollectionTest {
     /**
      * Test HTTP Data Collection with JSON
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    @JUnitHttpServer(port=10342, https=false, webapps={
-            @Webapp(context="/junit", path="src/test/resources/test-webapp")
-    })
+    @JUnitHttpServer(port = 10342, https = false, webapps = { @Webapp(context = "/junit", path = "src/test/resources/test-webapp") })
     public void testJsonHttpCollection() throws Exception {
         File configFile = new File("src/test/resources/solaris-zones-datacollection-config.xml");
         XmlDataCollectionConfig config = JaxbUtils.unmarshal(XmlDataCollectionConfig.class, configFile);
@@ -237,8 +234,8 @@ public class HttpDataCollectionTest {
         XmlCollectionSet collectionSet = collector.collect(m_collectionAgent, collection, parameters);
         Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
 
-        ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
-        BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
+        ServiceParameters serviceParams = new ServiceParameters(new HashMap<String, Object>());
+        BasePersister persister = new GroupPersister(serviceParams, repository); // storeByGroup=true;
         collectionSet.visit(persister);
 
         RrdDb jrb = new RrdDb(new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb"));
@@ -253,7 +250,8 @@ public class HttpDataCollectionTest {
      * Creates the RRD repository.
      *
      * @return the RRD repository
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private RrdRepository createRrdRepository(XmlRrd rrd) throws IOException {
         RrdRepository repository = new RrdRepository();

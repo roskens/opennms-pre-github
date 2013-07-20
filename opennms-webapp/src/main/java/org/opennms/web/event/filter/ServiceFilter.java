@@ -46,13 +46,18 @@ import org.springframework.context.ApplicationContext;
 public class ServiceFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="service"</code> */
     public static final String TYPE = "service";
+
     private ServletContext m_servletContext;
+
     private ApplicationContext m_appContext;
 
     /**
-     * <p>Constructor for ServiceFilter.</p>
+     * <p>
+     * Constructor for ServiceFilter.
+     * </p>
      *
-     * @param serviceId a int.
+     * @param serviceId
+     *            a int.
      * @param servletContext
      */
     public ServiceFilter(int serviceId, ServletContext servletContext) {
@@ -61,9 +66,12 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>Constructor for ServiceFilter.</p>
+     * <p>
+     * Constructor for ServiceFilter.
+     * </p>
      *
-     * @param serviceId a int.
+     * @param serviceId
+     *            a int.
      * @param appContext
      */
     public ServiceFilter(int serviceId, ApplicationContext appContext) {
@@ -72,20 +80,25 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getTextDescription() {
-        NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext) : NetworkElementFactory.getInstance(m_servletContext));
+        NetworkElementFactoryInterface factory = (m_servletContext == null ? NetworkElementFactory.getInstance(m_appContext)
+            : NetworkElementFactory.getInstance(m_servletContext));
         String serviceName = factory.getServiceNameFromId(getServiceId());
 
         return (TYPE + " is " + serviceName);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,7 +108,9 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getServiceId</p>
+     * <p>
+     * getServiceId
+     * </p>
      *
      * @return a int.
      */

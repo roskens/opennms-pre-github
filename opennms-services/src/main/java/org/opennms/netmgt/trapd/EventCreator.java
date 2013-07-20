@@ -45,18 +45,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>EventCreator class.</p>
+ * <p>
+ * EventCreator class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class EventCreator implements TrapProcessor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EventCreator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EventCreator.class);
 
     private EventBuilder m_eventBuilder;
-    private TrapdIpMgr m_trapdIpMgr;
 
+    private TrapdIpMgr m_trapdIpMgr;
 
     public EventCreator(TrapdIpMgr trapdIpMgr) {
         m_trapdIpMgr = trapdIpMgr;

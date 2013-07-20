@@ -42,7 +42,9 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndFeedImpl;
 
 /**
- * <p>NotificationFeed class.</p>
+ * <p>
+ * NotificationFeed class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @version $Id: $
@@ -50,11 +52,12 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  */
 public class NotificationFeed extends AbstractFeed {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NotificationFeed.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(NotificationFeed.class);
 
     /**
-     * <p>getFeed</p>
+     * <p>
+     * getFeed
+     * </p>
      *
      * @return a {@link com.sun.syndication.feed.synd.SyndFeed} object.
      */

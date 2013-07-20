@@ -56,18 +56,12 @@ public class OutagesTest extends XmlTest<Outages> {
         outage.addTime(time);
         Outages outages = new Outages();
         outages.addOutage(outage);
-        return Arrays.asList(new Object[][] {
-            {
+        return Arrays.asList(new Object[][] { {
                 outages,
-                "<outages>\n" +
-                "  <outage name='junit test' type='weekly'>\n" +
-                "    <time day='monday' begins='13:30:00' ends='14:45:00'/>\n" +
-                "    <interface address='match-any'/>\n" +
-                "  </outage>\n" +
-                "</outages>\n",
-                "target/classes/xsds/poll-outages.xsd"
-            }
-        });
+                "<outages>\n" + "  <outage name='junit test' type='weekly'>\n"
+                        + "    <time day='monday' begins='13:30:00' ends='14:45:00'/>\n"
+                        + "    <interface address='match-any'/>\n" + "  </outage>\n" + "</outages>\n",
+                "target/classes/xsds/poll-outages.xsd" } });
     }
 
 }

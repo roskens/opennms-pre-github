@@ -31,9 +31,10 @@ package org.opennms.netmgt.provision.detector.simple;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-
 /**
- * <p>Pop3Detector class.</p>
+ * <p>
+ * Pop3Detector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,6 +44,7 @@ import org.springframework.stereotype.Component;
 public class Pop3Detector extends AsyncLineOrientedDetectorMinaImpl {
 
     private static final int DEFAULT_PORT = 110;
+
     private static final String DEFAULT_SERVICE_NAME = "POP3";
 
     /**
@@ -55,18 +57,22 @@ public class Pop3Detector extends AsyncLineOrientedDetectorMinaImpl {
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public Pop3Detector(final String serviceName, final int port) {
         super(serviceName, port);
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
-    protected void onInit(){
+    protected void onInit() {
         expectBanner(startsWith("+OK"));
         send(request("QUIT"), startsWith("+OK"));
     }

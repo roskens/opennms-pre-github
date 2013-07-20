@@ -34,7 +34,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * <p>JUnit Test Class for NsclientManager.</p>
+ * <p>
+ * JUnit Test Class for NsclientManager.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
@@ -43,24 +45,21 @@ public class NSClientTest extends AbstractNsclientTest {
 
     private NsclientManager m_nsclientManager;
 
-    private String[] counters = {
-            "\\Processor(_Total)\\% Processor Time",
-            "\\Processor(_Total)\\% Interrupt Time",
-            "\\Processor(_Total)\\% Privileged Time",
-            "\\Processor(_Total)\\% User Time"
-    };
+    private String[] counters = { "\\Processor(_Total)\\% Processor Time", "\\Processor(_Total)\\% Interrupt Time",
+            "\\Processor(_Total)\\% Privileged Time", "\\Processor(_Total)\\% User Time" };
 
     @Before
     @Override
     public void setUp() throws Exception {
         super.setUp();
         startServer("None&8&", "10");
-        m_nsclientManager = new NsclientManager(getServer().getInetAddress().getHostAddress(), getServer().getLocalPort());
+        m_nsclientManager = new NsclientManager(getServer().getInetAddress().getHostAddress(),
+                                                getServer().getLocalPort());
     }
 
     @After
     @Override
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         stopServer();
         super.tearDown();
     }

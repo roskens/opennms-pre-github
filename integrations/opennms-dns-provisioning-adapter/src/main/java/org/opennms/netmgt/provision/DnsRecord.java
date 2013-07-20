@@ -38,14 +38,16 @@ import org.opennms.netmgt.model.OnmsNode;
 
 class DnsRecord {
     private static final Logger LOG = LoggerFactory.getLogger(DnsRecord.class);
+
     private InetAddress m_ip;
+
     private String m_hostname;
+
     private String m_zone;
 
     DnsRecord(OnmsNode node) {
 
         OnmsIpInterface primaryInterface = node.getPrimaryInterface();
-
 
         if (primaryInterface == null) {
             LOG.debug("Constructor: no primary interface found for nodeid: {}", node.getNodeId());
@@ -67,7 +69,9 @@ class DnsRecord {
     }
 
     /**
-     * <p>getIp</p>
+     * <p>
+     * getIp
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -76,7 +80,9 @@ class DnsRecord {
     }
 
     /**
-     * <p>getZone</p>
+     * <p>
+     * getZone
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,7 +91,9 @@ class DnsRecord {
     }
 
     /**
-     * <p>getHostname</p>
+     * <p>
+     * getHostname
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

@@ -45,25 +45,33 @@ public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
     public static final String TYPE = "severityNot";
 
     /**
-     * <p>Constructor for NegativeSeverityFilter.</p>
+     * <p>
+     * Constructor for NegativeSeverityFilter.
+     * </p>
      *
-     * @param severity a int.
+     * @param severity
+     *            a int.
      */
     public NegativeSeverityFilter(int severity) {
         super(TYPE, SQLType.INT, "EVENTSEVERITY", "eventSeverity", severity);
     }
 
     /**
-     * <p>Constructor for NegativeSeverityFilter.</p>
+     * <p>
+     * Constructor for NegativeSeverityFilter.
+     * </p>
      *
-     * @param severity a {@link org.opennms.netmgt.model.OnmsSeverity} object.
+     * @param severity
+     *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
     public NegativeSeverityFilter(OnmsSeverity severity) {
         this(severity.getId());
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -73,7 +81,9 @@ public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,7 +93,9 @@ public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
     }
 
     /**
-     * <p>getSeverity</p>
+     * <p>
+     * getSeverity
+     * </p>
      *
      * @return a int.
      */

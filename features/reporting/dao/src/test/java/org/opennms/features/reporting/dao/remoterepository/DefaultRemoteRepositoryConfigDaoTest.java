@@ -42,14 +42,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * <p>DefaultRemoteRepositoryConfigDaoTest class.</p>
+ * <p>
+ * DefaultRemoteRepositoryConfigDaoTest class.
+ * </p>
  *
  * @author Ronny Trommer <ronny@opennms.org>
  * @version $Id: $
  * @since 1.8.1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/opennms/applicationContext-reportingDaoTest.xml"})
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDaoTest.xml" })
 public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
 
     /**
@@ -64,7 +66,9 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
     }
 
     /**
-     * <p>tearDown</p>
+     * <p>
+     * tearDown
+     * </p>
      * <p/>
      * Cleanup
      *
@@ -76,7 +80,9 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
     }
 
     /**
-     * <p>testIsRepositoryActive</p>
+     * <p>
+     * testIsRepositoryActive
+     * </p>
      * <p/>
      * Test to read all as active configured repositories
      *
@@ -84,11 +90,14 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      */
     @Test
     public void testIsRepositoryActive() throws Exception {
-        assertEquals("Test 1 active repository configured", 1, m_remoteRepositoryConfigDao.getActiveRepositories().size());
+        assertEquals("Test 1 active repository configured", 1,
+                     m_remoteRepositoryConfigDao.getActiveRepositories().size());
     }
 
     /**
-     * <p>testGetURI</p>
+     * <p>
+     * testGetURI
+     * </p>
      * <p/>
      * Test to get repository URI for all configured remote repositories
      *
@@ -96,12 +105,18 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      */
     @Test
     public void testGetURI() throws Exception {
-        assertEquals("Get URI for configured CIO remote repository", new URI("http://localhost:8080/opennms/connect/rest/repo/"), m_remoteRepositoryConfigDao.getAllRepositories().get(0).getURI());
-        assertEquals("Get URI for configured CONNECT remote repository", new URI("http://localhost:8080/opennms/connect/rest/repo/connect"), m_remoteRepositoryConfigDao.getAllRepositories().get(1).getURI());
+        assertEquals("Get URI for configured CIO remote repository",
+                     new URI("http://localhost:8080/opennms/connect/rest/repo/"),
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(0).getURI());
+        assertEquals("Get URI for configured CONNECT remote repository",
+                     new URI("http://localhost:8080/opennms/connect/rest/repo/connect"),
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(1).getURI());
     }
 
     /**
-     * <p>testGetLoginUser</p>
+     * <p>
+     * testGetLoginUser
+     * </p>
      * <p/>
      * Test to get user names for all configured remote repositories
      *
@@ -109,12 +124,16 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      */
     @Test
     public void testGetLoginUser() throws Exception {
-        assertEquals("Get user name for CIO remote repository", "patrick", m_remoteRepositoryConfigDao.getAllRepositories().get(0).getLoginUser());
-        assertEquals("Get user name for CONNECT remote repository", "ethan", m_remoteRepositoryConfigDao.getAllRepositories().get(1).getLoginUser());
+        assertEquals("Get user name for CIO remote repository", "patrick",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(0).getLoginUser());
+        assertEquals("Get user name for CONNECT remote repository", "ethan",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(1).getLoginUser());
     }
 
     /**
-     * <p>testGetLoginRepoPassword</p>
+     * <p>
+     * testGetLoginRepoPassword
+     * </p>
      * <p/>
      * Test to get passwords for all configured remote repositories
      *
@@ -122,12 +141,16 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      */
     @Test
     public void testGetLoginRepoPassword() throws Exception {
-        assertEquals("Get password for CIO remote repository", "bateman", m_remoteRepositoryConfigDao.getAllRepositories().get(0).getLoginRepoPassword());
-        assertEquals("Get password for CONNECT remote repository", "galstad", m_remoteRepositoryConfigDao.getAllRepositories().get(1).getLoginRepoPassword());
+        assertEquals("Get password for CIO remote repository", "bateman",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(0).getLoginRepoPassword());
+        assertEquals("Get password for CONNECT remote repository", "galstad",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(1).getLoginRepoPassword());
     }
 
     /**
-     * <p>testGetRepositoryName</p>
+     * <p>
+     * testGetRepositoryName
+     * </p>
      * <p/>
      * Test to get all names for all configured remote repositories
      *
@@ -135,12 +158,16 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      */
     @Test
     public void testGetRepositoryName() throws Exception {
-        assertEquals("Get CIO remote repository name", "OpenNMS CIO-Reporting", m_remoteRepositoryConfigDao.getAllRepositories().get(0).getRepositoryName());
-        assertEquals("Get CONNECT remote repository name", "OpenNMS Connect Reports", m_remoteRepositoryConfigDao.getAllRepositories().get(1).getRepositoryName());
+        assertEquals("Get CIO remote repository name", "OpenNMS CIO-Reporting",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(0).getRepositoryName());
+        assertEquals("Get CONNECT remote repository name", "OpenNMS Connect Reports",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(1).getRepositoryName());
     }
 
     /**
-     * <p>testGetRepositoryDescription</p>
+     * <p>
+     * testGetRepositoryDescription
+     * </p>
      * <p/>
      * Test to get all descriptions for all configured remote repositories
      *
@@ -148,12 +175,16 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      */
     @Test
     public void testGetRepositoryDescription() throws Exception {
-        assertEquals("Get CIO remote repository name", "OpenNMS.com provides high value reports.", m_remoteRepositoryConfigDao.getAllRepositories().get(0).getRepositoryDescription());
-        assertEquals("Get CONNECT remote repository name", "OpenNMS Community provides free reports.", m_remoteRepositoryConfigDao.getAllRepositories().get(1).getRepositoryDescription());
+        assertEquals("Get CIO remote repository name", "OpenNMS.com provides high value reports.",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(0).getRepositoryDescription());
+        assertEquals("Get CONNECT remote repository name", "OpenNMS Community provides free reports.",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(1).getRepositoryDescription());
     }
 
     /**
-     * <p>testGetRepositoryManagementURL</p>
+     * <p>
+     * testGetRepositoryManagementURL
+     * </p>
      * <p/>
      * Test to get all management URLs for all configured remote repositories
      *
@@ -161,12 +192,16 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      */
     @Test
     public void testGetRepositoryManagementURL() throws Exception {
-        assertEquals("Get CIO remote repository management URL", "http://www.opennms.com", m_remoteRepositoryConfigDao.getAllRepositories().get(0).getRepositoryManagementURL());
-        assertEquals("Get CONNECT remote repository management URL", "http://www.opennms.org", m_remoteRepositoryConfigDao.getAllRepositories().get(1).getRepositoryManagementURL());
+        assertEquals("Get CIO remote repository management URL", "http://www.opennms.com",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(0).getRepositoryManagementURL());
+        assertEquals("Get CONNECT remote repository management URL", "http://www.opennms.org",
+                     m_remoteRepositoryConfigDao.getAllRepositories().get(1).getRepositoryManagementURL());
     }
 
     /**
-     * <p>testGetRepositoryById</p>
+     * <p>
+     * testGetRepositoryById
+     * </p>
      * <p/>
      * Test to get a repository by ID
      *
@@ -174,7 +209,9 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      */
     @Test
     public void testGetRepositoryById() throws Exception {
-        assertEquals("Get CIO remote repository by ID", "cioreporting", m_remoteRepositoryConfigDao.getRepositoryById("cioreporting").getRepositoryId());
-        assertEquals("Get CONNECT remote repository by ID", "connectreporting", m_remoteRepositoryConfigDao.getRepositoryById("connectreporting").getRepositoryId());
+        assertEquals("Get CIO remote repository by ID", "cioreporting",
+                     m_remoteRepositoryConfigDao.getRepositoryById("cioreporting").getRepositoryId());
+        assertEquals("Get CONNECT remote repository by ID", "connectreporting",
+                     m_remoteRepositoryConfigDao.getRepositoryById("connectreporting").getRepositoryId());
     }
 }

@@ -31,14 +31,15 @@ package org.opennms.netmgt.model.events;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * Back-end interface for the EventIpcManager.  Used by eventd to send events
+ * Back-end interface for the EventIpcManager. Used by eventd to send events
  * to interested listeners.
  */
 public interface EventIpcBroadcaster {
     /**
      * Called by eventd to send an event to all interested listeners.
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     void broadcastNow(Event event);
 }

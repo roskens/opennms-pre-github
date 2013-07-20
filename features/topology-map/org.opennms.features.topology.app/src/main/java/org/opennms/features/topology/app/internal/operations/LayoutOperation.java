@@ -39,15 +39,15 @@ import org.opennms.features.topology.api.topo.VertexRef;
 
 public abstract class LayoutOperation extends AbstractCheckedOperation {
 
-	private final LayoutFactory m_factory;
+    private final LayoutFactory m_factory;
 
-	protected static interface LayoutFactory {
-		LayoutAlgorithm getLayoutAlgorithm();
-	}
+    protected static interface LayoutFactory {
+        LayoutAlgorithm getLayoutAlgorithm();
+    }
 
-	public LayoutOperation(LayoutFactory factory) {
-		m_factory = factory;
-	}
+    public LayoutOperation(LayoutFactory factory) {
+        m_factory = factory;
+    }
 
     @Override
     public final Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
@@ -69,17 +69,18 @@ public abstract class LayoutOperation extends AbstractCheckedOperation {
 
     @Override
     protected final boolean isChecked(GraphContainer container) {
-        if(container.getLayoutAlgorithm().getClass().getName().equals(m_factory.getLayoutAlgorithm().getClass().getName())) {
+        if (container.getLayoutAlgorithm().getClass().getName().equals(m_factory.getLayoutAlgorithm().getClass().getName())) {
             return true;
         }
         return false;
     }
 
-	@Override
-	public void applyHistory(GraphContainer container, Map<String, String> settings) {
-		// If the setting for this operation is set to true, then set the layout algorithm
-		if ("true".equals(settings.get(this.getClass().getName()))) {
-			execute(container);
-		}
-	}
+    @Override
+    public void applyHistory(GraphContainer container, Map<String, String> settings) {
+        // If the setting for this operation is set to true, then set the layout
+        // algorithm
+        if ("true".equals(settings.get(this.getClass().getName()))) {
+            execute(container);
+        }
+    }
 }

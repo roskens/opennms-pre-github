@@ -38,17 +38,22 @@ import java.util.Map;
 
 public class IndexDao {
     private Map<String, Index> m_nameMap;
+
     private Map<String, List<Index>> m_tableMap;
 
     /**
-     * <p>Constructor for IndexDao.</p>
+     * <p>
+     * Constructor for IndexDao.
+     * </p>
      */
     public IndexDao() {
         reset();
     }
 
     /**
-     * <p>reset</p>
+     * <p>
+     * reset
+     * </p>
      */
     public void reset() {
         m_nameMap = new LinkedHashMap<String, Index>();
@@ -56,16 +61,17 @@ public class IndexDao {
     }
 
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param i a {@link org.opennms.netmgt.dao.db.Index} object.
+     * @param i
+     *            a {@link org.opennms.netmgt.dao.db.Index} object.
      */
     public void add(Index i) {
         String lowerName = i.getName().toLowerCase();
         if (m_nameMap.containsKey(lowerName)) {
-            throw new IllegalArgumentException("Index with name of '"
-                                               + lowerName
-                                               + "' already exists.");
+            throw new IllegalArgumentException("Index with name of '" + lowerName + "' already exists.");
         }
 
         m_nameMap.put(lowerName, i);
@@ -81,9 +87,12 @@ public class IndexDao {
     }
 
     /**
-     * <p>getIndexesForTable</p>
+     * <p>
+     * getIndexesForTable
+     * </p>
      *
-     * @param table a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     public List<Index> getIndexesForTable(String table) {
@@ -95,7 +104,9 @@ public class IndexDao {
     }
 
     /**
-     * <p>getAllIndexes</p>
+     * <p>
+     * getAllIndexes
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -104,18 +115,19 @@ public class IndexDao {
     }
 
     /**
-     * <p>remove</p>
+     * <p>
+     * remove
+     * </p>
      *
-     * @param indexName a {@link java.lang.String} object.
+     * @param indexName
+     *            a {@link java.lang.String} object.
      */
     public void remove(String indexName) {
         String lowerName = indexName.toLowerCase();
 
         Index index = m_nameMap.remove(lowerName);
         if (index == null) {
-            throw new IllegalArgumentException("Index with name of '"
-                                               + lowerName
-                                               + "' does not exist.");
+            throw new IllegalArgumentException("Index with name of '" + lowerName + "' does not exist.");
         }
 
         for (List<Index> indexes : m_tableMap.values()) {

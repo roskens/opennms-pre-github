@@ -38,7 +38,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * This class is responsible for holding the {@link DashletFactory} instances of the OSGI container.
+ * This class is responsible for holding the {@link DashletFactory} instances of
+ * the OSGI container.
  *
  * @author Christian Pape
  */
@@ -47,6 +48,7 @@ public class DashletSelector implements BundleActivator {
      * A {@link List} holding the {@link ServiceListChangedListener} references
      */
     List<ServiceListChangedListener> m_serviceListChangedListeners = new ArrayList<ServiceListChangedListener>();
+
     /**
      * A {@link Map} holding the {@link DashletFactory} instances
      */
@@ -62,7 +64,8 @@ public class DashletSelector implements BundleActivator {
     /**
      * Start method of this registry.
      *
-     * @param context the {@link BundleContext}
+     * @param context
+     *            the {@link BundleContext}
      * @throws Exception
      */
     public void start(final BundleContext context) throws Exception {
@@ -72,7 +75,8 @@ public class DashletSelector implements BundleActivator {
     /**
      * Stop method of this registry.
      *
-     * @param context the {@link BundleContext}
+     * @param context
+     *            the {@link BundleContext}
      * @throws Exception
      */
     public void stop(final BundleContext context) throws Exception {
@@ -80,9 +84,11 @@ public class DashletSelector implements BundleActivator {
     }
 
     /**
-     * This method adds a {@link DashletFactory} to the list of available dashlet factories.
+     * This method adds a {@link DashletFactory} to the list of available
+     * dashlet factories.
      *
-     * @param dashletFactory the new {@link DashletFactory}
+     * @param dashletFactory
+     *            the new {@link DashletFactory}
      */
     public void bind(DashletFactory dashletFactory) {
         if (dashletFactory != null) {
@@ -96,9 +102,11 @@ public class DashletSelector implements BundleActivator {
     }
 
     /**
-     * This method removes a {@link DashletFactory} from the list of available dashlet factories.
+     * This method removes a {@link DashletFactory} from the list of available
+     * dashlet factories.
      *
-     * @param dashletFactory the {@link DashletFactory} to be removed
+     * @param dashletFactory
+     *            the {@link DashletFactory} to be removed
      */
     public void unbind(DashletFactory dashletFactory) {
         if (dashletFactory != null) {
@@ -114,7 +122,8 @@ public class DashletSelector implements BundleActivator {
     /**
      * Method for adding a {@link ServiceListChangedListener}.
      *
-     * @param serviceListChangedListener the {@link ServiceListChangedListener} to add
+     * @param serviceListChangedListener
+     *            the {@link ServiceListChangedListener} to add
      */
     public void addServiceListChangedListener(ServiceListChangedListener serviceListChangedListener) {
         m_serviceListChangedListeners.add(serviceListChangedListener);
@@ -123,14 +132,16 @@ public class DashletSelector implements BundleActivator {
     /**
      * Method for removing a {@link ServiceListChangedListener}.
      *
-     * @param serviceListChangedListener the {@link ServiceListChangedListener} to be removed
+     * @param serviceListChangedListener
+     *            the {@link ServiceListChangedListener} to be removed
      */
     public void removeServiceListChangedListener(ServiceListChangedListener serviceListChangedListener) {
         m_serviceListChangedListeners.remove(serviceListChangedListener);
     }
 
     /**
-     * This method will fire execute the {@link ServiceListChangedListener} listeners.
+     * This method will fire execute the {@link ServiceListChangedListener}
+     * listeners.
      */
     private void fireServiceListChangedListeners() {
         List<DashletFactory> factoryList = new ArrayList<DashletFactory>();
@@ -155,7 +166,8 @@ public class DashletSelector implements BundleActivator {
     /**
      * Returns the {@link DashletFactory} instance for a given nane.
      *
-     * @param name the naem fo the {@link DashletFactory}
+     * @param name
+     *            the naem fo the {@link DashletFactory}
      * @return the {@link DashletFactory}
      */
     public DashletFactory getDashletFactoryForName(String name) {

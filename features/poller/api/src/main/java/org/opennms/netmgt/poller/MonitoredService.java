@@ -30,9 +30,10 @@ package org.opennms.netmgt.poller;
 
 import java.net.InetAddress;
 
-
 /**
- * <p>MonitoredService interface.</p>
+ * <p>
+ * MonitoredService interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -73,7 +74,8 @@ public interface MonitoredService {
     String getNodeLabel();
 
     /**
-     * Returns the Netinterface object for this service.  This netinterface object is
+     * Returns the Netinterface object for this service. This netinterface
+     * object is
      * guarenteed to be the same each time init or poll is called
      *
      * @return the Netinterface

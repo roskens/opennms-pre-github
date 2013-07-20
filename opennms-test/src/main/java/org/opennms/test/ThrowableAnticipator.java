@@ -37,18 +37,24 @@ import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
 
 /**
- * <p>ThrowableAnticipator class.</p>
+ * <p>
+ * ThrowableAnticipator class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class ThrowableAnticipator extends Assert {
-    /** Constant <code>IGNORE_MESSAGE="*** ThrowableAnticipator ignore Throwab"{trunked}</code> */
-    public final static String IGNORE_MESSAGE =
-        "*** ThrowableAnticipator ignore Throwable.getMessage() ***";
+    /**
+     * Constant
+     * <code>IGNORE_MESSAGE="*** ThrowableAnticipator ignore Throwab"{trunked}</code>
+     */
+    public final static String IGNORE_MESSAGE = "*** ThrowableAnticipator ignore Throwable.getMessage() ***";
 
     private List<Throwable> m_anticipated;
+
     private List<Throwable> m_unanticipated;
+
     private boolean m_failFast;
 
     /**
@@ -61,9 +67,10 @@ public class ThrowableAnticipator extends Assert {
     /**
      * Create a new anticipator with the specified failFast setting.
      *
-     * @param failFast whether unanticipated exceptions will cause an immediate
-     *        junit.framework.Assert#fail(String).  See #setFailFast(boolean)
-     *        for details.
+     * @param failFast
+     *            whether unanticipated exceptions will cause an immediate
+     *            junit.framework.Assert#fail(String). See #setFailFast(boolean)
+     *            for details.
      */
     public ThrowableAnticipator(boolean failFast) {
         init();
@@ -79,20 +86,23 @@ public class ThrowableAnticipator extends Assert {
     /**
      * Anticipate a specific java.lang.Throwable.
      *
-     * @param t The java.lang.Throwable to anticipate.  Both the class and the
-     *          message will be matched.
+     * @param t
+     *            The java.lang.Throwable to anticipate. Both the class and the
+     *            message will be matched.
      */
     public void anticipate(Throwable t) {
         m_anticipated.add(t);
     }
 
     /**
-     * Process a received throwable.  See #setFailFast(boolean) for the effects
+     * Process a received throwable. See #setFailFast(boolean) for the effects
      * of the failFast setting on when errors are signaled.
      *
-     * @param t The received throwable.
-     * @throws AssertionFailedError if failFast is set to true and an
-     *         unanticipated java.lang.Throwable is received.
+     * @param t
+     *            The received throwable.
+     * @throws AssertionFailedError
+     *             if failFast is set to true and an
+     *             unanticipated java.lang.Throwable is received.
      */
     public void throwableReceived(Throwable t) {
         if (t == null) {
@@ -103,10 +113,8 @@ public class ThrowableAnticipator extends Assert {
 
         for (Throwable our : m_anticipated) {
             if (t.getClass().isAssignableFrom(our.getClass())) {
-                if (IGNORE_MESSAGE.equals(our.getMessage())
-                        || (t.getMessage() == null && our.getMessage() == null)
-                        || (t.getMessage() != null
-                                && t.getMessage().equals(our.getMessage()))) {
+                if (IGNORE_MESSAGE.equals(our.getMessage()) || (t.getMessage() == null && our.getMessage() == null)
+                        || (t.getMessage() != null && t.getMessage().equals(our.getMessage()))) {
                     m_anticipated.remove(our);
                     foundMatch = true;
                     break;
@@ -128,21 +136,25 @@ public class ThrowableAnticipator extends Assert {
     }
 
     /**
-     * Set the failFast value for this anticipator.  This controls what happens
-     * when an unanticipation throwable is received #receiveThrowable(Throwable).
+     * Set the failFast value for this anticipator. This controls what happens
+     * when an unanticipation throwable is received
+     * #receiveThrowable(Throwable).
      *
-     * @param failFast when set to true (the default), an unanticipated throwable
-     *        will cause #receiveThrowable(Throwable) to call
-     *        junit.framework.Assert#fail().  When set to false, the error will
-     *        be delayed until #verifyAnticipated() is called.
-     * @throws junit.framework.AssertionFailedError if failFast is being changed from false to
-     *         true and one or more unanticipated exceptions have been received.
+     * @param failFast
+     *            when set to true (the default), an unanticipated throwable
+     *            will cause #receiveThrowable(Throwable) to call
+     *            junit.framework.Assert#fail(). When set to false, the error
+     *            will
+     *            be delayed until #verifyAnticipated() is called.
+     * @throws junit.framework.AssertionFailedError
+     *             if failFast is being changed from false to
+     *             true and one or more unanticipated exceptions have been
+     *             received.
      */
     public void setFailFast(boolean failFast) throws AssertionFailedError {
-        if (m_failFast == false && failFast == true
-                && m_unanticipated.size() > 0) {
-            fail("failFast is being changed from false to true and unanticipated "
-                 + "exceptions have been received:\n" + listUnanticipated());
+        if (m_failFast == false && failFast == true && m_unanticipated.size() > 0) {
+            fail("failFast is being changed from false to true and unanticipated " + "exceptions have been received:\n"
+                    + listUnanticipated());
         }
         m_failFast = failFast;
     }
@@ -150,7 +162,7 @@ public class ThrowableAnticipator extends Assert {
     /**
      * Returns the failFast value for this anticipator.
      *
-     * @return failFast value.  See #setFailFast(boolean) for details.
+     * @return failFast value. See #setFailFast(boolean) for details.
      */
     public boolean isFailFast() {
         return m_failFast;
@@ -165,25 +177,26 @@ public class ThrowableAnticipator extends Assert {
     }
 
     /**
-     * Perform after-test verification that all anticipated java.lang.Throwable's
+     * Perform after-test verification that all anticipated
+     * java.lang.Throwable's
      * have been seen and that no unanticipated java.lang.Throwable's have been
      * seen.
      *
-     * @throws junit.framework.AssertionFailedError if one or more anticipated Throwables were
-     *         not received or one or more unanticipated Throwables were received.
+     * @throws junit.framework.AssertionFailedError
+     *             if one or more anticipated Throwables were
+     *             not received or one or more unanticipated Throwables were
+     *             received.
      */
     public void verifyAnticipated() throws AssertionFailedError {
         StringBuffer error = new StringBuffer();
 
         if (m_anticipated.size() != 0) {
-            error.append("Anticipated list is non-zero (has "
-                         + m_anticipated.size() + " entries):\n");
+            error.append("Anticipated list is non-zero (has " + m_anticipated.size() + " entries):\n");
             error.append(listAnticipated());
         }
 
         if (m_unanticipated.size() != 0) {
-            error.append("Unanticipated list is non-zero (has "
-                         + m_unanticipated.size() + " entries):\n");
+            error.append("Unanticipated list is non-zero (has " + m_unanticipated.size() + " entries):\n");
             error.append(listUnanticipated());
         }
 
@@ -193,8 +206,7 @@ public class ThrowableAnticipator extends Assert {
     }
 
     private StringBuffer listAnticipated() {
-        return makeList(m_anticipated,
-                        "Anticipated but unreceived Throwable: ", "\n");
+        return makeList(m_anticipated, "Anticipated but unreceived Throwable: ", "\n");
     }
 
     private StringBuffer listUnanticipated() {
@@ -219,10 +231,13 @@ public class ThrowableAnticipator extends Assert {
     /**
      * Generate an AssertionFailedError with the specified cause.
      *
-     * @param message error message
-     * @param t java.lang.Throwable that caused this error to be thrown
-     * @throws junit.framework.AssertionFailedError always thrown.  Generated based on the
-     * parameters passed.
+     * @param message
+     *            error message
+     * @param t
+     *            java.lang.Throwable that caused this error to be thrown
+     * @throws junit.framework.AssertionFailedError
+     *             always thrown. Generated based on the
+     *             parameters passed.
      */
     public void fail(String message, Throwable t) throws AssertionFailedError {
         AssertionFailedError error = new AssertionFailedError(message);

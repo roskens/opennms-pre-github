@@ -40,27 +40,32 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 /**
- * <p>WebSecurityUtils class.</p>
+ * <p>
+ * WebSecurityUtils class.
+ * </p>
  *
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @version $Id: $
  */
 public abstract class WebSecurityUtils {
 
-	private final static Logger LOG = LoggerFactory.getLogger(WebSecurityUtils.class);
+    private final static Logger LOG = LoggerFactory.getLogger(WebSecurityUtils.class);
 
-	private final static Pattern ILLEGAL_IN_INTEGER = Pattern.compile("[^0-9+-]");
+    private final static Pattern ILLEGAL_IN_INTEGER = Pattern.compile("[^0-9+-]");
 
-	private final static Pattern ILLEGAL_IN_FLOAT = Pattern.compile("[^0-9.Ee+-]");
+    private final static Pattern ILLEGAL_IN_FLOAT = Pattern.compile("[^0-9.Ee+-]");
 
-	private final static Pattern ILLEGAL_IN_COLUMN_NAME_PATTERN = Pattern.compile("[^A-Za-z0-9_]");
+    private final static Pattern ILLEGAL_IN_COLUMN_NAME_PATTERN = Pattern.compile("[^A-Za-z0-9_]");
 
     private final static Pattern scriptPattern = Pattern.compile("script", Pattern.CASE_INSENSITIVE);
 
     /**
-     * <p>sanitizeString</p>
+     * <p>
+     * sanitizeString
+     * </p>
      *
-     * @param raw an array of {@link java.lang.String} objects.
+     * @param raw
+     *            an array of {@link java.lang.String} objects.
      * @return an array of {@link java.lang.String} objects.
      */
     public static String[] sanitizeString(String[] raw) {
@@ -71,9 +76,12 @@ public abstract class WebSecurityUtils {
     }
 
     /**
-     * <p>sanitizeString</p>
+     * <p>
+     * sanitizeString
+     * </p>
      *
-     * @param raw a {@link java.lang.String} object.
+     * @param raw
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String sanitizeString(String raw) {
@@ -81,15 +89,18 @@ public abstract class WebSecurityUtils {
     }
 
     /**
-     * <p>sanitizeString</p>
+     * <p>
+     * sanitizeString
+     * </p>
      *
-     * @param raw a {@link java.lang.String} object.
-     * @param allowHTML a boolean.
+     * @param raw
+     *            a {@link java.lang.String} object.
+     * @param allowHTML
+     *            a boolean.
      * @return a {@link java.lang.String} object.
      */
-    public static String sanitizeString(String raw, boolean allowHTML)
-    {
-        if (raw==null || raw.length()==0) {
+    public static String sanitizeString(String raw, boolean allowHTML) {
+        if (raw == null || raw.length() == 0) {
             return raw;
         }
 
@@ -102,11 +113,15 @@ public abstract class WebSecurityUtils {
     }
 
     /**
-     * <p>safeParseInt</p>
+     * <p>
+     * safeParseInt
+     * </p>
      *
-     * @param dirty an array of {@link java.lang.String} objects.
+     * @param dirty
+     *            an array of {@link java.lang.String} objects.
      * @return an array of int.
-     * @throws java.lang.NumberFormatException if any.
+     * @throws java.lang.NumberFormatException
+     *             if any.
      */
     public static int[] safeParseInt(String[] dirty) throws NumberFormatException {
         final int[] clean = new int[dirty.length];
@@ -118,58 +133,77 @@ public abstract class WebSecurityUtils {
         return clean;
     }
 
-	/**
-	 * <p>safeParseInt</p>
-	 *
-	 * @param dirty a {@link java.lang.String} object.
-	 * @return a int.
-	 * @throws java.lang.NumberFormatException if any.
-	 */
-	public static int safeParseInt(String dirty) throws NumberFormatException {
-		String clean = ILLEGAL_IN_INTEGER.matcher(dirty).replaceAll("");
-		return Integer.parseInt(clean);
-	}
-
-	/**
-	 * <p>safeParseLong</p>
-	 *
-	 * @param dirty a {@link java.lang.String} object.
-	 * @return a long.
-	 * @throws java.lang.NumberFormatException if any.
-	 */
-	public static long safeParseLong(String dirty) throws NumberFormatException {
-		String clean = ILLEGAL_IN_INTEGER.matcher(dirty).replaceAll("");
-		return Long.parseLong(clean);
-	}
-
-	/**
-	 * <p>safeParseFloat</p>
-	 *
-	 * @param dirty a {@link java.lang.String} object.
-	 * @return a float.
-	 * @throws java.lang.NumberFormatException if any.
-	 */
-	public static float safeParseFloat(String dirty) throws NumberFormatException {
-		String clean = ILLEGAL_IN_FLOAT.matcher(dirty).replaceAll("");
-		return Float.parseFloat(clean);
-	}
-
-	/**
-	 * <p>safeParseDouble</p>
-	 *
-	 * @param dirty a {@link java.lang.String} object.
-	 * @return a double.
-	 * @throws java.lang.NumberFormatException if any.
-	 */
-	public static double safeParseDouble(String dirty) throws NumberFormatException {
-		String clean = ILLEGAL_IN_FLOAT.matcher(dirty).replaceAll("");
-		return Double.parseDouble(clean);
-	}
+    /**
+     * <p>
+     * safeParseInt
+     * </p>
+     *
+     * @param dirty
+     *            a {@link java.lang.String} object.
+     * @return a int.
+     * @throws java.lang.NumberFormatException
+     *             if any.
+     */
+    public static int safeParseInt(String dirty) throws NumberFormatException {
+        String clean = ILLEGAL_IN_INTEGER.matcher(dirty).replaceAll("");
+        return Integer.parseInt(clean);
+    }
 
     /**
-     * <p>sanitizeDbColumnName</p>
+     * <p>
+     * safeParseLong
+     * </p>
      *
-     * @param dirty a {@link java.lang.String} object.
+     * @param dirty
+     *            a {@link java.lang.String} object.
+     * @return a long.
+     * @throws java.lang.NumberFormatException
+     *             if any.
+     */
+    public static long safeParseLong(String dirty) throws NumberFormatException {
+        String clean = ILLEGAL_IN_INTEGER.matcher(dirty).replaceAll("");
+        return Long.parseLong(clean);
+    }
+
+    /**
+     * <p>
+     * safeParseFloat
+     * </p>
+     *
+     * @param dirty
+     *            a {@link java.lang.String} object.
+     * @return a float.
+     * @throws java.lang.NumberFormatException
+     *             if any.
+     */
+    public static float safeParseFloat(String dirty) throws NumberFormatException {
+        String clean = ILLEGAL_IN_FLOAT.matcher(dirty).replaceAll("");
+        return Float.parseFloat(clean);
+    }
+
+    /**
+     * <p>
+     * safeParseDouble
+     * </p>
+     *
+     * @param dirty
+     *            a {@link java.lang.String} object.
+     * @return a double.
+     * @throws java.lang.NumberFormatException
+     *             if any.
+     */
+    public static double safeParseDouble(String dirty) throws NumberFormatException {
+        String clean = ILLEGAL_IN_FLOAT.matcher(dirty).replaceAll("");
+        return Double.parseDouble(clean);
+    }
+
+    /**
+     * <p>
+     * sanitizeDbColumnName
+     * </p>
+     *
+     * @param dirty
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String sanitizeDbColumnName(String dirty) {
@@ -177,40 +211,52 @@ public abstract class WebSecurityUtils {
     }
 
     /**
-     * <p>sanitizeBeanStringProperties</p>
+     * <p>
+     * sanitizeBeanStringProperties
+     * </p>
      * This is a simple method is used to sanitize all bean string properties.
      *
-     * @param bean a {@link java.lang.Object} object.
-     * @param Set of fieldnames as Strings that are allowed for html content. All fieldnames in lowercase. null -> no html
+     * @param bean
+     *            a {@link java.lang.Object} object.
+     * @param Set
+     *            of fieldnames as Strings that are allowed for html content.
+     *            All fieldnames in lowercase. null -> no html
      * @return a {@link java.lang.Object} object.
      */
     public static <T> T sanitizeBeanStringProperties(T bean, Set<String> allowHtmlFields) {
-    	BeanWrapper beanWrapper = new BeanWrapperImpl(bean.getClass());
+        BeanWrapper beanWrapper = new BeanWrapperImpl(bean.getClass());
 
-    	// get all bean property descriptors
-    	PropertyDescriptor[] descriptions = beanWrapper.getPropertyDescriptors();
+        // get all bean property descriptors
+        PropertyDescriptor[] descriptions = beanWrapper.getPropertyDescriptors();
 
-    	// Iterate over all properties
-    	for (PropertyDescriptor description : descriptions) {
+        // Iterate over all properties
+        for (PropertyDescriptor description : descriptions) {
 
-    		// If we have a property with type of java.lang.String, then sanitize string and write back
-    		if (description.getReadMethod().getReturnType().equals(java.lang.String.class)) {
-    			try {
-    				boolean allowHTML = false;
-	    	        if (allowHtmlFields != null && allowHtmlFields.contains(description.getName().toLowerCase())) {
-	    	            allowHTML = true;
-	    	        }
-    				LOG.debug("Try to sanitize string {} in {} with html {}", description.getName(), bean.getClass(), allowHTML);
-    				description.getWriteMethod().invoke(bean, WebSecurityUtils.sanitizeString((String)description.getReadMethod().invoke(bean), allowHTML));
-    			}catch (IllegalArgumentException e) {
-    				LOG.error("Illegal argument by sanitize object {} on property {}. Error {}", description.getName(), bean.getClass(), e.getMessage());
-				} catch (IllegalAccessException e) {
-					LOG.error("Illegal access by sanitize object {} on property {}. Error {}", description.getName(), bean.getClass(), e.getMessage());
-				} catch (InvocationTargetException e) {
-					LOG.error("Invocation target exception by sanitize object {} on property {}. Error {}", description.getName(), bean.getClass(), e.getMessage());
-				}
-    		}
-    	}
-    	return bean;
+            // If we have a property with type of java.lang.String, then
+            // sanitize string and write back
+            if (description.getReadMethod().getReturnType().equals(java.lang.String.class)) {
+                try {
+                    boolean allowHTML = false;
+                    if (allowHtmlFields != null && allowHtmlFields.contains(description.getName().toLowerCase())) {
+                        allowHTML = true;
+                    }
+                    LOG.debug("Try to sanitize string {} in {} with html {}", description.getName(), bean.getClass(),
+                              allowHTML);
+                    description.getWriteMethod().invoke(bean,
+                                                        WebSecurityUtils.sanitizeString((String) description.getReadMethod().invoke(bean),
+                                                                                        allowHTML));
+                } catch (IllegalArgumentException e) {
+                    LOG.error("Illegal argument by sanitize object {} on property {}. Error {}", description.getName(),
+                              bean.getClass(), e.getMessage());
+                } catch (IllegalAccessException e) {
+                    LOG.error("Illegal access by sanitize object {} on property {}. Error {}", description.getName(),
+                              bean.getClass(), e.getMessage());
+                } catch (InvocationTargetException e) {
+                    LOG.error("Invocation target exception by sanitize object {} on property {}. Error {}",
+                              description.getName(), bean.getClass(), e.getMessage());
+                }
+            }
+        }
+        return bean;
     }
 }

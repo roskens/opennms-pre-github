@@ -40,7 +40,6 @@ import org.opennms.protocols.snmp.asn1.ASN1;
  * included for backwards compatability
  *
  * @deprecated Obsoleted in RFC 1902.
- *
  * @author Brian Weaver <weave@oculan.com>
  * @version 1.1.1.1
  */
@@ -68,7 +67,6 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
      *
      * @param value
      *            The unsigned value for the party clock
-     *
      */
     public SnmpV2PartyClock(long value) {
         super(value);
@@ -79,7 +77,6 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
      *
      * @param value
      *            The unsigned value for the party clock
-     *
      */
     public SnmpV2PartyClock(Long value) {
         super(value);
@@ -90,7 +87,6 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
      *
      * @param second
      *            The party clock to duplicate
-     *
      */
     public SnmpV2PartyClock(SnmpV2PartyClock second) {
         super(second);
@@ -101,7 +97,6 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
      *
      * @param uint32
      *            The super class value to initialize self with.
-     *
      */
     public SnmpV2PartyClock(SnmpUInt32 uint32) {
         super(uint32);
@@ -111,7 +106,6 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
      * Used to retreive the ASN.1 value for this object.
      *
      * @return The ASN.1 type.
-     *
      */
     @Override
     public byte typeId() {
@@ -122,7 +116,6 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
      * Creates and returns a duplicate object of self.
      *
      * @return A newly created copy of self.
-     *
      */
     @Override
     public SnmpSyntax duplicate() {
@@ -133,7 +126,6 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
      * Creates and returns a duplicate object of self.
      *
      * @return A newly created copy of self.
-     *
      */
     @Override
     public Object clone() {
@@ -142,7 +134,6 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Returns the string representation of the object.
-     *
      */
     @Override
     public String toString() {

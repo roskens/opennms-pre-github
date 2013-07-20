@@ -60,20 +60,28 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class JMXMonitor extends AbstractServiceMonitor {
 
-
     public static final Logger LOG = LoggerFactory.getLogger(JMXMonitor.class);
 
     /**
-     * <p>getMBeanServerConnection</p>
+     * <p>
+     * getMBeanServerConnection
+     * </p>
      *
-     * @param parameterMap a {@link java.util.Map} object.
-     * @param address a {@link java.net.InetAddress} object.
-     * @return a {@link org.opennms.protocols.jmx.connectors.ConnectionWrapper} object.
+     * @param parameterMap
+     *            a {@link java.util.Map} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @return a {@link org.opennms.protocols.jmx.connectors.ConnectionWrapper}
+     *         object.
      */
     public abstract ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address);
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.monitors.ServiceMonitor#poll(org.opennms.netmgt.poller.monitors.NetworkInterface, java.util.Map, org.opennms.netmgt.config.poller.Package)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.monitors.ServiceMonitor#poll(org.opennms.netmgt
+     * .poller.monitors.NetworkInterface, java.util.Map,
+     * org.opennms.netmgt.config.poller.Package)
      */
     /** {@inheritDoc} */
     @Override
@@ -81,19 +89,18 @@ public abstract class JMXMonitor extends AbstractServiceMonitor {
 
         NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
-        PollStatus     serviceStatus = PollStatus.unavailable();
-        String         dsName        = null;
-        InetAddress    ipv4Addr      = (InetAddress)iface.getAddress();
+        PollStatus serviceStatus = PollStatus.unavailable();
+        String dsName = null;
+        InetAddress ipv4Addr = (InetAddress) iface.getAddress();
 
         ConnectionWrapper connection = null;
-
 
         try {
 
             int retry = ParameterMap.getKeyedInteger(map, "retry", 3);
 
             long t0 = 0;
-            for (int attempts=0; attempts <= retry && !serviceStatus.isAvailable(); attempts++) {
+            for (int attempts = 0; attempts <= retry && !serviceStatus.isAvailable(); attempts++) {
                 try {
                     t0 = System.nanoTime();
                     connection = getMBeanServerConnection(map, ipv4Addr);
@@ -103,16 +110,15 @@ public abstract class JMXMonitor extends AbstractServiceMonitor {
                         serviceStatus = PollStatus.available(nanoResponseTime / 1000000.0);
                         break;
                     }
-                }
-                catch(IOException e) {
-                    String reason = dsName+": IOException while polling address: " + ipv4Addr;
+                } catch (IOException e) {
+                    String reason = dsName + ": IOException while polling address: " + ipv4Addr;
                     LOG.debug(reason);
                     serviceStatus = PollStatus.unavailable(reason);
                     break;
                 }
             }
         } catch (Throwable e) {
-            String reason = dsName+" Monitor - failed! " + InetAddressUtils.str(ipv4Addr);
+            String reason = dsName + " Monitor - failed! " + InetAddressUtils.str(ipv4Addr);
             LOG.debug(reason);
             serviceStatus = PollStatus.unavailable(reason);
         } finally {

@@ -31,7 +31,9 @@ package org.openoss.opennms.spring.qosd.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>QoSDMBean interface.</p>
+ * <p>
+ * QoSDMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

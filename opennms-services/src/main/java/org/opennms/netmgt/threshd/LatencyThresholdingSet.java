@@ -41,7 +41,9 @@ import org.opennms.netmgt.poller.LatencyCollectionResource;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>LatencyThresholdingSet class.</p>
+ * <p>
+ * LatencyThresholdingSet class.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @version $Id: $
@@ -49,13 +51,20 @@ import org.opennms.netmgt.xml.event.Event;
 public class LatencyThresholdingSet extends ThresholdingSet {
 
     /**
-     * <p>Constructor for LatencyThresholdingSet.</p>
+     * <p>
+     * Constructor for LatencyThresholdingSet.
+     * </p>
      *
-     * @param nodeId a int.
-     * @param hostAddress a {@link java.lang.String} object.
-     * @param serviceName a {@link java.lang.String} object.
-     * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
-     * @param interval a long.
+     * @param nodeId
+     *            a int.
+     * @param hostAddress
+     *            a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param repository
+     *            a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param interval
+     *            a long.
      */
     public LatencyThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository) {
         super(nodeId, hostAddress, serviceName, repository);
@@ -63,12 +72,16 @@ public class LatencyThresholdingSet extends ThresholdingSet {
 
     /*
      * Latency thresholds use ds-type="if"
-     * Returns true if any attribute of the service is involved in any of defined thresholds.
+     * Returns true if any attribute of the service is involved in any of
+     * defined thresholds.
      */
     /**
-     * <p>hasThresholds</p>
+     * <p>
+     * hasThresholds
+     * </p>
      *
-     * @param attributes a {@link java.util.Map} object.
+     * @param attributes
+     *            a {@link java.util.Map} object.
      * @return a boolean.
      */
     public boolean hasThresholds(Map<String, Double> attributes) {
@@ -81,8 +94,10 @@ public class LatencyThresholdingSet extends ThresholdingSet {
     }
 
     /*
-     * Apply thresholds definitions for specified service using attributesMap as current values.
-     * Return a list of events to be send if some thresholds must be triggered or be rearmed.
+     * Apply thresholds definitions for specified service using attributesMap as
+     * current values.
+     * Return a list of events to be send if some thresholds must be triggered
+     * or be rearmed.
      */
     /** {@inheritDoc} */
     public List<Event> applyThresholds(String svcName, Map<String, Double> attributes) {
@@ -91,10 +106,14 @@ public class LatencyThresholdingSet extends ThresholdingSet {
         for (String ds : attributes.keySet()) {
             attributesMap.put(ds, new LatencyCollectionAttribute(latencyResource, ds, attributes.get(ds)));
         }
-        //The timestamp is irrelevant; latency is never a COUNTER (which is the only reason the date is used).
-        //Yes, we have to know a little too much about the implementation details of CollectionResourceWrapper to say that, but
+        // The timestamp is irrelevant; latency is never a COUNTER (which is the
+        // only reason the date is used).
+        // Yes, we have to know a little too much about the implementation
+        // details of CollectionResourceWrapper to say that, but
         // we have little choice
-        CollectionResourceWrapper resourceWrapper = new CollectionResourceWrapper(new Date(), m_nodeId, m_hostAddress, m_serviceName, m_repository, latencyResource, attributesMap);
+        CollectionResourceWrapper resourceWrapper = new CollectionResourceWrapper(new Date(), m_nodeId, m_hostAddress,
+                                                                                  m_serviceName, m_repository,
+                                                                                  latencyResource, attributesMap);
         return Collections.unmodifiableList(applyThresholds(resourceWrapper, attributesMap));
     }
 

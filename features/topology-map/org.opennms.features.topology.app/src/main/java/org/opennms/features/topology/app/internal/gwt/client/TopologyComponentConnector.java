@@ -8,14 +8,14 @@ import com.vaadin.client.ui.AbstractComponentConnector;
 import com.vaadin.shared.ui.Connect;
 
 @Connect(org.opennms.features.topology.app.internal.TopologyComponent.class)
-public class TopologyComponentConnector extends AbstractComponentConnector{
+public class TopologyComponentConnector extends AbstractComponentConnector {
 
-   TopologyComponentServerRpc m_rpc = RpcProxy.create(TopologyComponentServerRpc.class, this);
+    TopologyComponentServerRpc m_rpc = RpcProxy.create(TopologyComponentServerRpc.class, this);
 
-   @Override
-   public VTopologyComponent getWidget() {
-       return (VTopologyComponent) super.getWidget();
-   }
+    @Override
+    public VTopologyComponent getWidget() {
+        return (VTopologyComponent) super.getWidget();
+    }
 
     @Override
     protected Widget createWidget() {
@@ -25,16 +25,16 @@ public class TopologyComponentConnector extends AbstractComponentConnector{
     }
 
     @Override
-   public TopologyComponentState getState() {
-       return (TopologyComponentState) super.getState();
-   }
+    public TopologyComponentState getState() {
+        return (TopologyComponentState) super.getState();
+    }
 
-   @Override
-   public void onStateChanged(StateChangeEvent event) {
-       super.onStateChanged(event);
+    @Override
+    public void onStateChanged(StateChangeEvent event) {
+        super.onStateChanged(event);
 
-       getWidget().updateGraph(getConnection(), getState());
+        getWidget().updateGraph(getConnection(), getState());
 
-   }
+    }
 
 }

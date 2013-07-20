@@ -44,7 +44,7 @@ import org.apache.http.message.BasicNameValuePair;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="form-fields")
+@XmlRootElement(name = "form-fields")
 @SuppressWarnings("serial")
 public class FormFields extends ArrayList<FormField> {
 
@@ -53,7 +53,7 @@ public class FormFields extends ArrayList<FormField> {
      *
      * @return the fields
      */
-    @XmlElement(name="form-field")
+    @XmlElement(name = "form-field")
     public List<FormField> getFields() {
         return this;
     }
@@ -62,7 +62,8 @@ public class FormFields extends ArrayList<FormField> {
      * Gets the entity.
      *
      * @return the entity
-     * @throws UnsupportedEncodingException the unsupported encoding exception
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
      */
     @XmlTransient
     public UrlEncodedFormEntity getEntity() throws UnsupportedEncodingException {

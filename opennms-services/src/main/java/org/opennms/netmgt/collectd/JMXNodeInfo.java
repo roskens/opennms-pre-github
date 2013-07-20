@@ -46,14 +46,20 @@ import org.opennms.netmgt.config.collectd.jmx.Attrib;
  */
 public class JMXNodeInfo {
     private int m_nodeId;
+
     private Map<String, List<Attrib>> m_oidList;
+
     private Map<String, BeanInfo> m_mbeans;
+
     private Map<String, JMXDataSource> m_dsList;
 
     /**
-     * <p>Constructor for JMXNodeInfo.</p>
+     * <p>
+     * Constructor for JMXNodeInfo.
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     public JMXNodeInfo(int nodeId) {
         m_nodeId = nodeId;
@@ -63,7 +69,9 @@ public class JMXNodeInfo {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -72,16 +80,21 @@ public class JMXNodeInfo {
     }
 
     /**
-     * <p>setMBeans</p>
+     * <p>
+     * setMBeans
+     * </p>
      *
-     * @param map a {@link java.util.Map} object.
+     * @param map
+     *            a {@link java.util.Map} object.
      */
     public void setMBeans(Map<String, BeanInfo> map) {
         m_mbeans = map;
     }
 
     /**
-     * <p>getMBeans</p>
+     * <p>
+     * getMBeans
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -90,25 +103,33 @@ public class JMXNodeInfo {
     }
 
     /**
-     * <p>setNodeId</p>
+     * <p>
+     * setNodeId
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     public void setNodeId(int nodeId) {
         m_nodeId = nodeId;
     }
 
     /**
-     * <p>setDsMap</p>
+     * <p>
+     * setDsMap
+     * </p>
      *
-     * @param dsList a {@link java.util.Map} object.
+     * @param dsList
+     *            a {@link java.util.Map} object.
      */
     public void setDsMap(Map<String, JMXDataSource> dsList) {
         m_dsList = dsList;
     }
 
     /**
-     * <p>getAttributeMap</p>
+     * <p>
+     * getAttributeMap
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -117,16 +138,21 @@ public class JMXNodeInfo {
     }
 
     /**
-     * <p>setAttributeMap</p>
+     * <p>
+     * setAttributeMap
+     * </p>
      *
-     * @param oidList a {@link java.util.Map} object.
+     * @param oidList
+     *            a {@link java.util.Map} object.
      */
     public void setAttributeMap(Map<String, List<Attrib>> oidList) {
         m_oidList = oidList;
     }
 
     /**
-     * <p>getDsMap</p>
+     * <p>
+     * getDsMap
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */

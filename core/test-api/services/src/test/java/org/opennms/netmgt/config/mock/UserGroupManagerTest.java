@@ -53,25 +53,39 @@ import org.opennms.netmgt.config.users.User;
 
 public class UserGroupManagerTest {
     private GroupManager m_groupManager;
+
     private UserManager m_userManager;
 
     private User brozow;
+
     private User admin;
+
     private User upUser;
+
     private User david;
 
     private Role oncall;
+
     private Role unscheduled;
 
     private Date night;
+
     private Date day;
+
     private Date sunday;
 
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
-        m_groupManager = new MockGroupManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "groups.xml", new String[][] {}));
-        m_userManager = new MockUserManager(m_groupManager, ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "users.xml", new String[][] {}));
+        m_groupManager = new MockGroupManager(
+                                              ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                          "groups.xml",
+                                                                                                          new String[][] {}));
+        m_userManager = new MockUserManager(
+                                            m_groupManager,
+                                            ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                        "users.xml",
+                                                                                                        new String[][] {}));
 
         night = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse("21-FEB-2005 23:00:00"); // monday
         day = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse("21-FEB-2005 11:59:56"); // monday
@@ -115,7 +129,7 @@ public class UserGroupManagerTest {
     }
 
     @Test
-    public void testRenameUser() throws Exception{
+    public void testRenameUser() throws Exception {
         m_userManager.renameUser("brozow", "brozow2");
         List<String> userNameList = m_userManager.getUserNames();
 
@@ -185,7 +199,6 @@ public class UserGroupManagerTest {
 
         group.addDutySchedule("MoTuWeThFr0900-1700");
 
-
         m_groupManager.saveGroups();
 
         // now user is on duty only from 9-5
@@ -193,7 +206,6 @@ public class UserGroupManagerTest {
         assertEquals(0, m_groupManager.groupNextOnDuty(groupName, dayCal));
         assertFalse(m_groupManager.isGroupOnDuty(groupName, nightCal));
         assertEquals(36000000, m_groupManager.groupNextOnDuty(groupName, nightCal));
-
 
     }
 
@@ -219,7 +231,7 @@ public class UserGroupManagerTest {
 
     @Test
     public void testUserScheduledForRoleNew() throws Exception {
-        Date[] dates = new Date[] {night, day, sunday};
+        Date[] dates = new Date[] { night, day, sunday };
         for (int i = 0; i < dates.length; i++) {
             testUsersScheduledForRolesAt(dates[i]);
         }
@@ -234,14 +246,16 @@ public class UserGroupManagerTest {
     }
 
     private void testUsersScheduleForRoleAt(String role, Date date) throws Exception {
-        for(String userId : m_userManager.getUserNames()) {
+        for (String userId : m_userManager.getUserNames()) {
             User u = m_userManager.getUser(userId);
             testUserScheduledForRoleAt(u, role, date);
         }
     }
 
     private void testUserScheduledForRoleAt(User u, String role, Date date) throws Exception {
-        assertEquals("Unexpected value "+u.getUserId()+" for role "+role+" at "+date, m_userManager.isUserScheduledForRole(u, role, date), m_userManager.isUserScheduledForRole(u, role, date));
+        assertEquals("Unexpected value " + u.getUserId() + " for role " + role + " at " + date,
+                     m_userManager.isUserScheduledForRole(u, role, date),
+                     m_userManager.isUserScheduledForRole(u, role, date));
     }
 
     @Test
@@ -277,10 +291,10 @@ public class UserGroupManagerTest {
     @Test
     public void testGetUsersScheduledForRole() throws Exception {
         String[] nightUserNames = m_userManager.getUsersScheduledForRole("oncall", night);
-        assertUsers(nightUserNames, new User[]{ david });
+        assertUsers(nightUserNames, new User[] { david });
 
         String[] dayUserNames = m_userManager.getUsersScheduledForRole("oncall", day);
-        assertUsers(dayUserNames, new User[]{ brozow });
+        assertUsers(dayUserNames, new User[] { brozow });
 
         String[] sundayUserNames = m_userManager.getUsersScheduledForRole("oncall", sunday);
         assertUsers(sundayUserNames, new User[] { brozow, admin });
@@ -295,12 +309,11 @@ public class UserGroupManagerTest {
         assertEquals("Unexpected number of users", expected.length, roleNames.length);
 
         List<String> nameList = Arrays.asList(roleNames);
-        for(int i = 0; i < expected.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             Role r = expected[i];
-            assertTrue("Expected user "+r.getName()+" in list "+nameList, nameList.contains(r.getName()));
+            assertTrue("Expected user " + r.getName() + " in list " + nameList, nameList.contains(r.getName()));
         }
     }
-
 
     private void assertUsers(String[] userNames, User[] expected) {
         if (expected == null)
@@ -310,11 +323,10 @@ public class UserGroupManagerTest {
         assertEquals("Unexpected number of users", expected.length, userNames.length);
 
         List<String> nameList = Arrays.asList(userNames);
-        for(int i = 0; i < expected.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             User u = expected[i];
-            assertTrue("Expected user "+u.getUserId()+" in list "+nameList, nameList.contains(u.getUserId()));
+            assertTrue("Expected user " + u.getUserId() + " in list " + nameList, nameList.contains(u.getUserId()));
         }
     }
-
 
 }

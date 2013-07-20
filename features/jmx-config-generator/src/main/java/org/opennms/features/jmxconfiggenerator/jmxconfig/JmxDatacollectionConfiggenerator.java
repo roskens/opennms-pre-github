@@ -81,6 +81,7 @@ public class JmxDatacollectionConfiggenerator {
     private static ArrayList<String> aliasList = new ArrayList<String>();
 
     private static Rrd rrd = new Rrd();
+
     private static NameCutter nameCutter = new NameCutter();
 
     static {
@@ -109,9 +110,11 @@ public class JmxDatacollectionConfiggenerator {
         rrd.getRra().addAll(rras);
     }
 
-    public JmxDatacollectionConfig generateJmxConfigModel(MBeanServerConnection mBeanServerConnection, String serviceName, Boolean runStandardVmBeans, Boolean runWritableMBeans, Map<String, String> dictionary) {
+    public JmxDatacollectionConfig generateJmxConfigModel(MBeanServerConnection mBeanServerConnection,
+            String serviceName, Boolean runStandardVmBeans, Boolean runWritableMBeans, Map<String, String> dictionary) {
 
-        logger.debug("Startup values: \n serviceName: " + serviceName + "\n runStandardVmBeans: " + runStandardVmBeans + "\n runWritableMBeans: " + runWritableMBeans + "\n dictionary" + dictionary);
+        logger.debug("Startup values: \n serviceName: " + serviceName + "\n runStandardVmBeans: " + runStandardVmBeans
+                + "\n runWritableMBeans: " + runWritableMBeans + "\n dictionary" + dictionary);
         nameCutter.setDictionary(dictionary);
         JmxDatacollectionConfig xmlJmxDatacollectionConfig = xmlObjectFactory.createJmxDatacollectionConfig();
         JmxCollection xmlJmxCollection = xmlObjectFactory.createJmxCollection();
@@ -138,10 +141,8 @@ public class JmxDatacollectionConfiggenerator {
                     logger.info("domain: " + domainName);
 
                     // for all mBeans of the actual domain
-                    for (ObjectInstance jmxObjectInstance : mBeanServerConnection.queryMBeans(new ObjectName(
-                                                                                                             domainName
-                                                                                                                     + ":*"),
-                                                                                              null)) {
+                    for (ObjectInstance jmxObjectInstance : mBeanServerConnection.queryMBeans(new ObjectName(domainName
+                            + ":*"), null)) {
                         Mbean xmlMbean = xmlObjectFactory.createMbean();
                         xmlMbean.setObjectname(jmxObjectInstance.getObjectName().toString());
                         String typeAndOthers = StringUtils.substringAfterLast(jmxObjectInstance.getObjectName().getCanonicalName(),
@@ -155,28 +156,23 @@ public class JmxDatacollectionConfiggenerator {
                             jmxMbeanInfo = mBeanServerConnection.getMBeanInfo(jmxObjectInstance.getObjectName());
                         } catch (InstanceNotFoundException e) {
                             logger.error("InstanceNotFoundException skipping MBean '{}' message: '{}'",
-                                         jmxObjectInstance.getObjectName(),
-                                         e.getMessage());
+                                         jmxObjectInstance.getObjectName(), e.getMessage());
                             continue;
                         } catch (IntrospectionException e) {
                             logger.error("IntrospectionException skipping MBean '{}' message: '{}'",
-                                         jmxObjectInstance.getObjectName(),
-                                         e.getMessage());
+                                         jmxObjectInstance.getObjectName(), e.getMessage());
                             continue;
                         } catch (ReflectionException e) {
                             logger.error("ReflectionException skipping MBean '{}' message: '{}'",
-                                         jmxObjectInstance.getObjectName(),
-                                         e.getMessage());
+                                         jmxObjectInstance.getObjectName(), e.getMessage());
                             continue;
                         } catch (Throwable e) {
                             logger.error("problem during remote call to get MBeanInfo for '{}' skipping this MBean. Message '{}'",
-                                         jmxObjectInstance.getObjectName(),
-                                         e.getMessage());
+                                         jmxObjectInstance.getObjectName(), e.getMessage());
                             continue;
                         }
 
-                        logger.debug("--- Attributes for "
-                                + jmxObjectInstance.getObjectName());
+                        logger.debug("--- Attributes for " + jmxObjectInstance.getObjectName());
 
                         for (MBeanAttributeInfo jmxBeanAttributeInfo : jmxMbeanInfo.getAttributes()) {
 
@@ -184,20 +180,17 @@ public class JmxDatacollectionConfiggenerator {
                             if (jmxBeanAttributeInfo.isReadable()) {
                                 // precess writable mbeans if run writable
                                 // mbeans is set
-                                if (!jmxBeanAttributeInfo.isWritable()
-                                        || runWritableMBeans) {
+                                if (!jmxBeanAttributeInfo.isWritable() || runWritableMBeans) {
 
                                     logger.debug("Check mBean: '{}', attribute: '{}'",
                                                  jmxObjectInstance.getObjectName().toString(),
                                                  jmxBeanAttributeInfo.getName());
-                                    logger.debug("isWritable: '{}', type: '{}'",
-                                                 jmxBeanAttributeInfo.isWritable(),
+                                    logger.debug("isWritable: '{}', type: '{}'", jmxBeanAttributeInfo.isWritable(),
                                                  jmxBeanAttributeInfo.getType());
 
                                     // check for CompositeData
                                     if ("javax.management.openmbean.CompositeData".equals(jmxBeanAttributeInfo.getType())) {
-                                        logger.error("actual mBean: '{}'",
-                                                     jmxObjectInstance.getObjectName());
+                                        logger.error("actual mBean: '{}'", jmxObjectInstance.getObjectName());
                                         CompAttrib compAttrib = createCompAttrib(mBeanServerConnection,
                                                                                  jmxObjectInstance,
                                                                                  jmxBeanAttributeInfo);
@@ -210,9 +203,7 @@ public class JmxDatacollectionConfiggenerator {
                                     if (numbers.contains(jmxBeanAttributeInfo.getType())) {
                                         Attrib xmlJmxAttribute = createAttr(jmxBeanAttributeInfo);
                                         logger.debug("Added MBean: '{}' Added attribute: '{}'",
-                                                     xmlMbean.getObjectname(),
-                                                     xmlJmxAttribute.getName()
-                                                             + " as "
+                                                     xmlMbean.getObjectname(), xmlJmxAttribute.getName() + " as "
                                                              + xmlJmxAttribute.getAlias());
                                         xmlMbean.getAttrib().add(xmlJmxAttribute);
                                     }
@@ -220,12 +211,10 @@ public class JmxDatacollectionConfiggenerator {
                             }
                         }
 
-                        if (xmlMbean.getAttrib().size() > 0
-                                || xmlMbean.getCompAttrib().size() > 0) {
+                        if (xmlMbean.getAttrib().size() > 0 || xmlMbean.getCompAttrib().size() > 0) {
                             xmlJmxCollection.getMbeans().getMbean().add(xmlMbean);
                         } else {
-                            logger.debug("mbean: " + xmlMbean.getName()
-                                    + " has no relavant attributes.");
+                            logger.debug("mbean: " + xmlMbean.getName() + " has no relavant attributes.");
                         }
                     }
                 } else {
@@ -242,8 +231,7 @@ public class JmxDatacollectionConfiggenerator {
         return xmlJmxDatacollectionConfig;
     }
 
-    public MBeanServerConnection createMBeanServerConnection(
-            JMXConnector jmxConnector) throws IOException {
+    public MBeanServerConnection createMBeanServerConnection(JMXConnector jmxConnector) throws IOException {
         MBeanServerConnection jmxServerConnection = jmxConnector.getMBeanServerConnection();
         logger.debug("jmxServerConnection: '{}'", jmxServerConnection);
         logger.debug("count: " + jmxServerConnection.getMBeanCount());
@@ -265,8 +253,8 @@ public class JmxDatacollectionConfiggenerator {
      *             if the connection to the given jmxServiceURL fails (e.g.
      *             authentication failure or not reachable)
      */
-    public JMXConnector getJmxConnector(String username, String password,
-            JMXServiceURL jmxServiceURL) throws IOException {
+    public JMXConnector getJmxConnector(String username, String password, JMXServiceURL jmxServiceURL)
+            throws IOException {
         JMXConnector jmxConnector;
         HashMap<String, String[]> env = new HashMap<String, String[]>();
 
@@ -290,27 +278,20 @@ public class JmxDatacollectionConfiggenerator {
      * @return
      * @throws MalformedURLException
      */
-    public JMXServiceURL getJmxServiceURL(Boolean jmxmp, String hostName,
-            String port) throws MalformedURLException {
+    public JMXServiceURL getJmxServiceURL(Boolean jmxmp, String hostName, String port) throws MalformedURLException {
         if (jmxmp) {
-            return new JMXServiceURL("service:jmx:jmxmp://" + hostName + ":"
-                    + port);
+            return new JMXServiceURL("service:jmx:jmxmp://" + hostName + ":" + port);
         }
-        return new JMXServiceURL("service:jmx:rmi:///jndi/rmi://" + hostName
-                + ":" + port + "/jmxrmi");
+        return new JMXServiceURL("service:jmx:rmi:///jndi/rmi://" + hostName + ":" + port + "/jmxrmi");
     }
 
-    public void writeJmxConfigFile(
-            JmxDatacollectionConfig jmxDatacollectionConfigModel,
-            String outFile) {
+    public void writeJmxConfigFile(JmxDatacollectionConfig jmxDatacollectionConfigModel, String outFile) {
         logger.debug("start marshalling");
         JAXB.marshal(jmxDatacollectionConfigModel, new File(outFile));
         logger.debug("finished marshalling");
     }
 
-    private CompAttrib createCompAttrib(
-            MBeanServerConnection jmxServerConnection,
-            ObjectInstance jmxObjectInstance,
+    private CompAttrib createCompAttrib(MBeanServerConnection jmxServerConnection, ObjectInstance jmxObjectInstance,
             MBeanAttributeInfo jmxMBeanAttributeInfo) {
         Boolean contentAdded = false;
 
@@ -328,8 +309,7 @@ public class JmxDatacollectionConfiggenerator {
                 logger.warn("compositeData is null. jmxObjectInstance.getObjectName: '{}', jmxMBeanAttributeInfo.getName: '{}'");
             }
             if (compositeData != null) {
-                logger.debug("compositeData.getCompositeType: '{}'",
-                             compositeData.getCompositeType());
+                logger.debug("compositeData.getCompositeType: '{}'", compositeData.getCompositeType());
                 Set<String> keys = compositeData.getCompositeType().keySet();
                 for (String key : keys) {
                     Object compositeEntry = compositeData.get(key);
@@ -338,19 +318,20 @@ public class JmxDatacollectionConfiggenerator {
                         CompMember xmlCompMember = xmlObjectFactory.createCompMember();
                         xmlCompMember.setName(key);
 
-                        logger.debug("composite member pure alias: '{}'", jmxMBeanAttributeInfo.getName() + StringUtils.capitalize(key));
-                        String alias = nameCutter.trimByDictionary(jmxMBeanAttributeInfo.getName() + StringUtils.capitalize(key));
+                        logger.debug("composite member pure alias: '{}'",
+                                     jmxMBeanAttributeInfo.getName() + StringUtils.capitalize(key));
+                        String alias = nameCutter.trimByDictionary(jmxMBeanAttributeInfo.getName()
+                                + StringUtils.capitalize(key));
                         alias = createAndRegisterUniqueAlias(alias);
                         xmlCompMember.setAlias(alias);
-                        logger.debug("composite member trimmed alias: '{}'",
-                                     alias);
+                        logger.debug("composite member trimmed alias: '{}'", alias);
 
                         xmlCompMember.setType("gauge");
                         xmlCompAttrib.getCompMember().add(xmlCompMember);
 
                     } else {
-                        logger.debug("composite member key '{}' object's class '{}' was not a number.",
-                                     key, compositeEntry.getClass().getName());
+                        logger.debug("composite member key '{}' object's class '{}' was not a number.", key,
+                                     compositeEntry.getClass().getName());
                     }
                 }
             }
@@ -359,8 +340,7 @@ public class JmxDatacollectionConfiggenerator {
         }
 
         if (contentAdded) {
-            logger.debug("xmlCompAttrib returned by createCompAttrib it's '{}'",
-                         xmlCompAttrib);
+            logger.debug("xmlCompAttrib returned by createCompAttrib it's '{}'", xmlCompAttrib);
             return xmlCompAttrib;
         }
         return null;
@@ -387,7 +367,7 @@ public class JmxDatacollectionConfiggenerator {
             aliasMap.put(originalAlias, aliasMap.get(originalAlias) + 1);
             uniqueAlias = aliasMap.get(originalAlias).toString() + originalAlias;
         }
-        //find alias crashes caused by cuting down alias length to 19 chars
+        // find alias crashes caused by cuting down alias length to 19 chars
         if (aliasList.contains(nameCutter.trimByCamelCase(uniqueAlias, 19))) {
             logger.error("ALIAS CRASH AT :" + uniqueAlias + "\t as: " + nameCutter.trimByCamelCase(uniqueAlias, 19));
             uniqueAlias = uniqueAlias + "_NAME_CRASH_AS_19_CHAR_VALUE";

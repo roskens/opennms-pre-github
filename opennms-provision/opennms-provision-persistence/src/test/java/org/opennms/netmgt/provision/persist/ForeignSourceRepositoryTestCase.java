@@ -41,9 +41,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/testForeignSourceContext.xml"
-})
+@ContextConfiguration(locations = { "classpath:/testForeignSourceContext.xml" })
 @JUnitConfigurationEnvironment
 public abstract class ForeignSourceRepositoryTestCase implements InitializingBean {
     @Override

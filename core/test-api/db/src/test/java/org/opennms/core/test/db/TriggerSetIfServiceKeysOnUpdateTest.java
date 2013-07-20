@@ -28,8 +28,8 @@
 
 package org.opennms.core.test.db;
 
-public class TriggerSetIfServiceKeysOnUpdateTest extends
-        PopulatedTemporaryDatabaseTestCase {
+public class TriggerSetIfServiceKeysOnUpdateTest extends PopulatedTemporaryDatabaseTestCase {
 
-    public void testBogus() {}
+    public void testBogus() {
+    }
 }

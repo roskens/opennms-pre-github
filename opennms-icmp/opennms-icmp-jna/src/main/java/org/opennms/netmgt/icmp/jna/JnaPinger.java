@@ -47,7 +47,6 @@ import org.opennms.protocols.rt.RequestTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Main
  *
@@ -59,18 +58,25 @@ public class JnaPinger implements Pinger {
     private final int m_pingerId = (int) (Math.random() * Short.MAX_VALUE);
 
     private RequestTracker<JnaPingRequest, JnaPingReply> m_pingTracker;
+
     private JnaIcmpMessenger m_messenger;
 
     /**
      * Initializes this singleton
+     *
      * @throws Exception
      */
     private synchronized void initialize() throws Exception {
-        if (m_pingTracker != null) return;
+        if (m_pingTracker != null)
+            return;
         m_messenger = new JnaIcmpMessenger(m_pingerId);
-        m_pingTracker = Logging.withPrefix("icmp", new Callable<RequestTracker<JnaPingRequest,JnaPingReply>>() {
-            @Override public RequestTracker<JnaPingRequest, JnaPingReply> call() throws Exception {
-                return new RequestTracker<JnaPingRequest, JnaPingReply>("JNA-ICMP-"+m_pingerId, m_messenger, new IDBasedRequestLocator<JnaPingRequestId, JnaPingRequest, JnaPingReply>());
+        m_pingTracker = Logging.withPrefix("icmp", new Callable<RequestTracker<JnaPingRequest, JnaPingReply>>() {
+            @Override
+            public RequestTracker<JnaPingRequest, JnaPingReply> call() throws Exception {
+                return new RequestTracker<JnaPingRequest, JnaPingReply>(
+                                                                        "JNA-ICMP-" + m_pingerId,
+                                                                        m_messenger,
+                                                                        new IDBasedRequestLocator<JnaPingRequestId, JnaPingRequest, JnaPingReply>());
             }
         });
         m_pingTracker.start();
@@ -93,7 +99,8 @@ public class JnaPinger implements Pinger {
         } catch (final Throwable t) {
             LOG.trace("Failed to initialize IPv4", t);
         }
-        if (m_messenger == null) return false;
+        if (m_messenger == null)
+            return false;
         return m_messenger.isV4Available();
     }
 
@@ -104,43 +111,63 @@ public class JnaPinger implements Pinger {
         } catch (final Throwable t) {
             LOG.trace("Failed to initialize IPv6", t);
         }
-        if (m_messenger == null) return false;
+        if (m_messenger == null)
+            return false;
         return m_messenger.isV6Available();
     }
 
     /**
-     * <p>ping</p>
+     * <p>
+     * ping
+     * </p>
      *
-     * @param host a {@link java.net.InetAddress} object.
-     * @param timeout a long.
-     * @param retries a int.
-     * @param packetsize The size in byte of the ICMP packet.
-     * @param sequenceId a short.
-     * @param cb a {@link org.opennms.netmgt.ping.PingResponseCallback} object.
-     * @throws java.lang.Exception if any.
+     * @param host
+     *            a {@link java.net.InetAddress} object.
+     * @param timeout
+     *            a long.
+     * @param retries
+     *            a int.
+     * @param packetsize
+     *            The size in byte of the ICMP packet.
+     * @param sequenceId
+     *            a short.
+     * @param cb
+     *            a {@link org.opennms.netmgt.ping.PingResponseCallback} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
-    public void ping(final InetAddress host, final long timeout, final int retries, final int packetsize, final int sequenceId, final PingResponseCallback cb) throws Exception {
+    public void ping(final InetAddress host, final long timeout, final int retries, final int packetsize,
+            final int sequenceId, final PingResponseCallback cb) throws Exception {
         initialize();
         m_pingTracker.sendRequest(new JnaPingRequest(host, m_pingerId, sequenceId, timeout, retries, packetsize, cb));
     }
 
     /**
-     * <p>ping</p>
+     * <p>
+     * ping
+     * </p>
      *
-     * @param host a {@link java.net.InetAddress} object.
-     * @param timeout a long.
-     * @param retries a int.
-     * @param sequenceId a short.
-     * @param cb a {@link org.opennms.netmgt.ping.PingResponseCallback} object.
-     * @throws java.lang.Exception if any.
+     * @param host
+     *            a {@link java.net.InetAddress} object.
+     * @param timeout
+     *            a long.
+     * @param retries
+     *            a int.
+     * @param sequenceId
+     *            a short.
+     * @param cb
+     *            a {@link org.opennms.netmgt.ping.PingResponseCallback} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
-    public void ping(final InetAddress host, final long timeout, final int retries, final int sequenceId, final PingResponseCallback cb) throws Exception {
+    public void ping(final InetAddress host, final long timeout, final int retries, final int sequenceId,
+            final PingResponseCallback cb) throws Exception {
         initialize();
-        m_pingTracker.sendRequest(new JnaPingRequest(host, m_pingerId, sequenceId, timeout, retries, DEFAULT_PACKET_SIZE, cb));
+        m_pingTracker.sendRequest(new JnaPingRequest(host, m_pingerId, sequenceId, timeout, retries,
+                                                     DEFAULT_PACKET_SIZE, cb));
     }
-
 
     /**
      * This method is used to ping a remote host to test for ICMP support. If
@@ -153,13 +180,18 @@ public class JnaPinger implements Pinger {
      *            The time to wait between each retry.
      * @param retries
      *            The number of times to retry
-     * @return The response time in microseconds if the host is reachable and has responded with an echo reply, otherwise a null value.
-     * @throws InterruptedException if any.
-     * @throws IOException if any.
-     * @throws java.lang.Exception if any.
+     * @return The response time in microseconds if the host is reachable and
+     *         has responded with an echo reply, otherwise a null value.
+     * @throws InterruptedException
+     *             if any.
+     * @throws IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
-    public Number ping(final InetAddress host, final long timeout, final int retries, final int packetsize) throws Exception {
+    public Number ping(final InetAddress host, final long timeout, final int retries, final int packetsize)
+            throws Exception {
         final SinglePingResponseCallback cb = new SinglePingResponseCallback(host);
         ping(host, timeout, retries, packetsize, 1, cb);
         cb.waitFor();
@@ -178,10 +210,14 @@ public class JnaPinger implements Pinger {
      *            The time to wait between each retry.
      * @param retries
      *            The number of times to retry
-     * @return The response time in microseconds if the host is reachable and has responded with an echo reply, otherwise a null value.
-     * @throws InterruptedException if any.
-     * @throws IOException if any.
-     * @throws java.lang.Exception if any.
+     * @return The response time in microseconds if the host is reachable and
+     *         has responded with an echo reply, otherwise a null value.
+     * @throws InterruptedException
+     *             if any.
+     * @throws IOException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public Number ping(final InetAddress host, final long timeout, final int retries) throws Exception {
@@ -191,11 +227,15 @@ public class JnaPinger implements Pinger {
     /**
      * Ping a remote host, using the default number of retries and timeouts.
      *
-     * @param host the host to ping
+     * @param host
+     *            the host to ping
      * @return the round-trip time of the packet
-     * @throws IOException if any.
-     * @throws InterruptedException if any.
-     * @throws java.lang.Exception if any.
+     * @throws IOException
+     *             if any.
+     * @throws InterruptedException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public Number ping(final InetAddress host) throws Exception {
@@ -203,23 +243,33 @@ public class JnaPinger implements Pinger {
     }
 
     /**
-     * <p>parallelPing</p>
+     * <p>
+     * parallelPing
+     * </p>
      *
-     * @param host a {@link java.net.InetAddress} object.
-     * @param count a int.
-     * @param timeout a long.
-     * @param pingInterval a long.
+     * @param host
+     *            a {@link java.net.InetAddress} object.
+     * @param count
+     *            a int.
+     * @param timeout
+     *            a long.
+     * @param pingInterval
+     *            a long.
      * @return a {@link java.util.List} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
-    public List<Number> parallelPing(final InetAddress host, final int count, final long timeout, final long pingInterval) throws Exception {
+    public List<Number> parallelPing(final InetAddress host, final int count, final long timeout,
+            final long pingInterval) throws Exception {
         initialize();
         final ParallelPingResponseCallback cb = new ParallelPingResponseCallback(count);
 
         final long threadId = JnaPingRequest.getNextTID();
         for (int seqNum = 0; seqNum < count; seqNum++) {
-            final JnaPingRequest request = new JnaPingRequest(host, m_pingerId, seqNum, threadId, timeout == 0? DEFAULT_TIMEOUT : timeout,0 , DEFAULT_PACKET_SIZE, cb);
+            final JnaPingRequest request = new JnaPingRequest(host, m_pingerId, seqNum, threadId,
+                                                              timeout == 0 ? DEFAULT_TIMEOUT : timeout, 0,
+                                                              DEFAULT_PACKET_SIZE, cb);
             m_pingTracker.sendRequest(request);
             Thread.sleep(pingInterval);
         }

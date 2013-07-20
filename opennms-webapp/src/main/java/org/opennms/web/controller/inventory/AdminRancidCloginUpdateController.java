@@ -44,7 +44,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
- * <p>AdminRancidCloginUpdateController class.</p>
+ * <p>
+ * AdminRancidCloginUpdateController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,24 +55,24 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 @SuppressWarnings("deprecation")
 public class AdminRancidCloginUpdateController extends SimpleFormController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AdminRancidCloginUpdateController.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(AdminRancidCloginUpdateController.class);
 
     InventoryService m_inventoryService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
-            Object command, BindException errors) throws ServletException, IOException, Exception {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+            BindException errors) throws ServletException, IOException, Exception {
 
         LOG.debug("AdminRancidCloginUpdateController ModelAndView onSubmit");
 
         AdminRancidCloginCommClass bean = (AdminRancidCloginCommClass) command;
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
 
-            boolean done = m_inventoryService.updateClogin(bean.getDeviceName(), bean.getGroupName(), bean.getUserID(), bean.getPass(),
-                                            bean.getEnpass(), bean.getLoginM(), bean.getAutoE());
-            if (!done){
+            boolean done = m_inventoryService.updateClogin(bean.getDeviceName(), bean.getGroupName(), bean.getUserID(),
+                                                           bean.getPass(), bean.getEnpass(), bean.getLoginM(),
+                                                           bean.getAutoE());
+            if (!done) {
                 LOG.debug("AdminRancidCloginUpdateController error on submitting cLogin changes");
             }
         }
@@ -78,6 +80,7 @@ public class AdminRancidCloginUpdateController extends SimpleFormController {
         response.sendRedirect(redirectURL);
         return super.onSubmit(request, response, command, errors);
     }
+
     /** {@inheritDoc} */
     @Override
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {
@@ -85,18 +88,25 @@ public class AdminRancidCloginUpdateController extends SimpleFormController {
     }
 
     /**
-     * <p>getInventoryService</p>
+     * <p>
+     * getInventoryService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *         object.
      */
     public InventoryService getInventoryService() {
         return m_inventoryService;
     }
 
     /**
-     * <p>setInventoryService</p>
+     * <p>
+     * setInventoryService
+     * </p>
      *
-     * @param inventoryService a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @param inventoryService
+     *            a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *            object.
      */
     public void setInventoryService(InventoryService inventoryService) {
         m_inventoryService = inventoryService;

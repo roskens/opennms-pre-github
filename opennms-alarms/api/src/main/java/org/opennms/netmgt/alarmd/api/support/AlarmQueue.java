@@ -40,10 +40,12 @@ import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.alarmd.api.Preservable;
 
 /**
- * Based on Matt's queue implementation of event forwarding in opennmsd (OVAPI daemon)
- * When in forwarding state, uses Nagle's algorithm to batch up alarms for forwarding by the NBI.
- *
- * FIXME: Need to make sure the are reasonable defaults in the configuration just-in-case
+ * Based on Matt's queue implementation of event forwarding in opennmsd (OVAPI
+ * daemon)
+ * When in forwarding state, uses Nagle's algorithm to batch up alarms for
+ * forwarding by the NBI.
+ * FIXME: Need to make sure the are reasonable defaults in the configuration
+ * just-in-case
  * the NBI implementations don't set the batch size, etc.
  *
  * @auther <a mailto:brozow@opennms.org>Matt Brozowski</a>
@@ -54,7 +56,9 @@ class AlarmQueue<T extends Preservable> {
 
     public abstract class State {
         abstract List<T> getAlarmsToForward() throws InterruptedException;
+
         abstract void forwardSuccessful(List<T> alarms);
+
         abstract void forwardFailed(List<T> alarms);
 
         protected void addToPreservedQueue(T a) {
@@ -74,7 +78,7 @@ class AlarmQueue<T extends Preservable> {
         }
 
         protected void addPreservedToPreservedQueue(List<T> alarms) {
-            for(Iterator<T> it = alarms.iterator(); it.hasNext(); ) {
+            for (Iterator<T> it = alarms.iterator(); it.hasNext();) {
                 T a = it.next();
                 if (a.isPreserved()) {
                     addToPreservedQueue(a);
@@ -96,7 +100,6 @@ class AlarmQueue<T extends Preservable> {
 
             T a = m_queue.take();
             alarms.add(a);
-
 
             m_queue.drainTo(alarms, m_maxBatchSize - alarms.size());
 
@@ -132,12 +135,14 @@ class AlarmQueue<T extends Preservable> {
             addPreservedToPreservedQueue(alarms);
 
             if (!m_preservedQueue.isEmpty()) {
-               setState(FAILING);
+                setState(FAILING);
             }
         }
 
         @Override
-        public String toString() { return "FORWARDING"; }
+        public String toString() {
+            return "FORWARDING";
+        }
 
     };
 
@@ -149,8 +154,7 @@ class AlarmQueue<T extends Preservable> {
 
             loadNextBatch();
 
-
-            //Matt, why are we returning a field?
+            // Matt, why are we returning a field?
             return m_nextBatch;
         }
 
@@ -170,7 +174,9 @@ class AlarmQueue<T extends Preservable> {
         }
 
         @Override
-        public String toString() { return "FAILING"; }
+        public String toString() {
+            return "FAILING";
+        }
 
     };
 
@@ -204,30 +210,32 @@ class AlarmQueue<T extends Preservable> {
 
     // operational parameters
     private int m_maxPreservedAlarms = 300000;
+
     private int m_maxBatchSize = 100;
+
     private long m_naglesDelay = 1000;
 
     // queue for all alarms to be forwarded
     private BlockingQueue<T> m_queue = new LinkedBlockingQueue<T>();
 
-    // queue for preserving alarms that are being saved during a forwarding failure
+    // queue for preserving alarms that are being saved during a forwarding
+    // failure
     private BlockingQueue<T> m_preservedQueue = new LinkedBlockingQueue<T>();
 
     // a list of alarms that are pending due to a forwarding failure
     private List<T> m_nextBatch;
 
-    // used to define the behavior of the getNext and forwardSuccessful and forwardFailed
+    // used to define the behavior of the getNext and forwardSuccessful and
+    // forwardFailed
     private State m_state = FORWARDING;
 
     // creates messages use to indicate that a connection failure has
     // occurred or queue has overflowed
     private StatusFactory<T> m_statusFactory;
 
-
     public AlarmQueue(StatusFactory<T> statusFactory) {
-    	m_statusFactory = statusFactory;
-	}
-
+        m_statusFactory = statusFactory;
+    }
 
     private void setState(State state) {
         m_state = state;
@@ -259,7 +267,7 @@ class AlarmQueue<T extends Preservable> {
     }
 
     public void init() {
-       m_nextBatch = new ArrayList<T>(m_maxBatchSize);
+        m_nextBatch = new ArrayList<T>(m_maxBatchSize);
     }
 
     public void discard(T a) {

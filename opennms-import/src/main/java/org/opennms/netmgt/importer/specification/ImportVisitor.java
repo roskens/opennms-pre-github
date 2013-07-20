@@ -36,7 +36,9 @@ import org.opennms.netmgt.importer.config.MonitoredService;
 import org.opennms.netmgt.importer.config.Node;
 
 /**
- * <p>ImportVisitor interface.</p>
+ * <p>
+ * ImportVisitor interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,75 +46,126 @@ import org.opennms.netmgt.importer.config.Node;
 public interface ImportVisitor {
 
     /**
-     * <p>visitModelImport</p>
+     * <p>
+     * visitModelImport
+     * </p>
      *
-     * @param mi a {@link org.opennms.netmgt.importer.config.ModelImport} object.
+     * @param mi
+     *            a {@link org.opennms.netmgt.importer.config.ModelImport}
+     *            object.
      */
     public void visitModelImport(ModelImport mi);
+
     /**
-     * <p>completeModelImport</p>
+     * <p>
+     * completeModelImport
+     * </p>
      *
-     * @param modelImport a {@link org.opennms.netmgt.importer.config.ModelImport} object.
+     * @param modelImport
+     *            a {@link org.opennms.netmgt.importer.config.ModelImport}
+     *            object.
      */
     public void completeModelImport(ModelImport modelImport);
+
     /**
-     * <p>visitNode</p>
+     * <p>
+     * visitNode
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.importer.config.Node} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.importer.config.Node} object.
      */
     public void visitNode(Node node);
+
     /**
-     * <p>completeNode</p>
+     * <p>
+     * completeNode
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.importer.config.Node} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.importer.config.Node} object.
      */
     public void completeNode(Node node);
+
     /**
-     * <p>visitInterface</p>
+     * <p>
+     * visitInterface
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.importer.config.Interface} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.importer.config.Interface} object.
      */
     public void visitInterface(Interface iface);
+
     /**
-     * <p>completeInterface</p>
+     * <p>
+     * completeInterface
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.importer.config.Interface} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.importer.config.Interface} object.
      */
     public void completeInterface(Interface iface);
+
     /**
-     * <p>visitMonitoredService</p>
+     * <p>
+     * visitMonitoredService
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.importer.config.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.importer.config.MonitoredService}
+     *            object.
      */
     public void visitMonitoredService(MonitoredService svc);
+
     /**
-     * <p>completeMonitoredService</p>
+     * <p>
+     * completeMonitoredService
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.importer.config.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.importer.config.MonitoredService}
+     *            object.
      */
     public void completeMonitoredService(MonitoredService svc);
+
     /**
-     * <p>visitCategory</p>
+     * <p>
+     * visitCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.importer.config.Category} object.
+     * @param category
+     *            a {@link org.opennms.netmgt.importer.config.Category} object.
      */
     public void visitCategory(Category category);
+
     /**
-     * <p>completeCategory</p>
+     * <p>
+     * completeCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.importer.config.Category} object.
+     * @param category
+     *            a {@link org.opennms.netmgt.importer.config.Category} object.
      */
     public void completeCategory(Category category);
+
     /**
-     * <p>visitAsset</p>
+     * <p>
+     * visitAsset
+     * </p>
      *
-     * @param asset a {@link org.opennms.netmgt.importer.config.Asset} object.
+     * @param asset
+     *            a {@link org.opennms.netmgt.importer.config.Asset} object.
      */
     public void visitAsset(Asset asset);
+
     /**
-     * <p>completeAsset</p>
+     * <p>
+     * completeAsset
+     * </p>
      *
-     * @param asset a {@link org.opennms.netmgt.importer.config.Asset} object.
+     * @param asset
+     *            a {@link org.opennms.netmgt.importer.config.Asset} object.
      */
     public void completeAsset(Asset asset);
 

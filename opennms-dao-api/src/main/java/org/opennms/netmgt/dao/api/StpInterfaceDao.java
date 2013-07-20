@@ -33,10 +33,9 @@ import java.util.Date;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsStpInterface;
 
-
 public interface StpInterfaceDao extends OnmsDao<OnmsStpInterface, Integer> {
 
-	void markDeletedIfNodeDeleted();
+    void markDeletedIfNodeDeleted();
 
     void deactivateForNodeIdIfOlderThan(int nodeid, Date scanTime);
 

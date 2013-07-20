@@ -54,7 +54,7 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * The SQL statement used to extract the list of currently known IP
      * addresses and their node IDs from the IP Interface table.
      */
-    private final  String IP_LOAD_SQL = "SELECT ipAddr, nodeid FROM ipInterface";
+    private final String IP_LOAD_SQL = "SELECT ipAddr, nodeid FROM ipInterface";
 
     /**
      * A Map of IP addresses and node IDs
@@ -67,11 +67,14 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
     public JdbcTrapdIpMgr() {
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.trapd.TrapdIpMgr#dataSourceSync()
      */
     /**
-     * <p>dataSourceSync</p>
+     * <p>
+     * dataSourceSync
+     * </p>
      */
     @Override
     public synchronized void dataSourceSync() {
@@ -85,7 +88,8 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
         });
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.trapd.TrapdIpMgr#getNodeId(java.lang.String)
      */
     /** {@inheritDoc} */
@@ -97,8 +101,10 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
         return longValue(m_knownips.get(addr));
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.trapd.TrapdIpMgr#setNodeId(java.lang.String, long)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.netmgt.trapd.TrapdIpMgr#setNodeId(java.lang.String,
+     * long)
      */
     /** {@inheritDoc} */
     @Override
@@ -110,7 +116,8 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
         return longValue(m_knownips.put(addr, Long.valueOf(nodeid)));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.trapd.TrapdIpMgr#removeNodeId(java.lang.String)
      */
     /** {@inheritDoc} */
@@ -122,11 +129,14 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
         return longValue(m_knownips.remove(addr));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.trapd.TrapdIpMgr#clearKnownIpsMap()
      */
     /**
-     * <p>clearKnownIpsMap</p>
+     * <p>
+     * clearKnownIpsMap
+     * </p>
      */
     @Override
     public synchronized void clearKnownIpsMap() {
@@ -138,7 +148,9 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
     }
 
     /**
-     * <p>getDataSource</p>
+     * <p>
+     * getDataSource
+     * </p>
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -147,18 +159,24 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
     }
 
     /**
-     * <p>setDataSource</p>
+     * <p>
+     * setDataSource
+     * </p>
      *
-     * @param dataSource a {@link javax.sql.DataSource} object.
+     * @param dataSource
+     *            a {@link javax.sql.DataSource} object.
      */
     public void setDataSource(DataSource dataSource) {
         m_dataSource = dataSource;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

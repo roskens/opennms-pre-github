@@ -48,10 +48,9 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Interface to which the outage applies.
- *
  */
 
-@XmlRootElement(name="interface", namespace="http://xmlns.opennms.org/xsd/config/poller/outages")
+@XmlRootElement(name = "interface", namespace = "http://xmlns.opennms.org/xsd/config/poller/outages")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("poll-outages.xsd")
 public class Interface implements Serializable {
@@ -60,7 +59,7 @@ public class Interface implements Serializable {
     /**
      * IP address
      */
-    @XmlAttribute(name="address")
+    @XmlAttribute(name = "address")
     private String _address;
 
     public Interface() {
@@ -75,18 +74,18 @@ public class Interface implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof Interface) {
 
-            Interface temp = (Interface)obj;
+            Interface temp = (Interface) obj;
             if (this._address != null) {
-                if (temp._address == null) return false;
+                if (temp._address == null)
+                    return false;
                 else if (!(this._address.equals(temp._address)))
                     return false;
-            }
-            else if (temp._address != null)
+            } else if (temp._address != null)
                 return false;
             return true;
         }
@@ -106,8 +105,8 @@ public class Interface implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -138,13 +137,13 @@ public class Interface implements Serializable {
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -152,15 +151,16 @@ public class Interface implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -171,7 +171,8 @@ public class Interface implements Serializable {
      * Sets the value of field 'address'. The field 'address' has
      * the following description: IP address
      *
-     * @param address the value of field 'address'.
+     * @param address
+     *            the value of field 'address'.
      */
     public void setAddress(final String address) {
         this._address = address;
@@ -181,12 +182,14 @@ public class Interface implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * org.opennms.netmgt.config.poller.Interface
+     *         org.opennms.netmgt.config.poller.Interface
      */
     @Deprecated
     public static Interface unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -194,10 +197,9 @@ public class Interface implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

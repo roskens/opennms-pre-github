@@ -34,7 +34,6 @@ import java.util.Map;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.netmgt.capsd.AbstractPlugin;
 
-
 /**
  * This plugin does nothing more than return true for all
  * discovered interfaces so that we have an entry point
@@ -67,9 +66,8 @@ public class K5Plugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * Default to returning false unless K5 is set as active.
      */
@@ -79,9 +77,8 @@ public class K5Plugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -99,4 +96,3 @@ public class K5Plugin extends AbstractPlugin {
         return false;
     }
 }
-

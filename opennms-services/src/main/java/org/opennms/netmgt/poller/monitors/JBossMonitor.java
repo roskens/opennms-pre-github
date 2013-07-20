@@ -43,20 +43,25 @@ import org.opennms.protocols.jmx.connectors.JBossConnectionFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 /**
- * <p>JBossMonitor class.</p>
+ * <p>
+ * JBossMonitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class JBossMonitor extends JMXMonitor {
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.poller.monitors.JMXMonitor#getMBeanServer(java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.poller.monitors.JMXMonitor#getMBeanServer(java.util
+     * .Map)
      */
     /** {@inheritDoc} */
     @Override
-    public ConnectionWrapper getMBeanServerConnection(Map<String,Object> parameterMap, InetAddress address) {
-        return  JBossConnectionFactory.getMBeanServerConnection(parameterMap, address);
+    public ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address) {
+        return JBossConnectionFactory.getMBeanServerConnection(parameterMap, address);
     }
 
 }

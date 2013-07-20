@@ -38,7 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>ScheduledOutagesDaoImpl class.</p>
+ * <p>
+ * ScheduledOutagesDaoImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,36 +49,35 @@ public class ScheduledOutagesDaoImpl implements ScheduledOutagesDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScheduledOutagesDaoImpl.class);
 
-	/**
-	 * <p>Constructor for ScheduledOutagesDaoImpl.</p>
-	 */
-	public ScheduledOutagesDaoImpl() {
-		loadScheduledOutagesConfigFactory();
-	}
+    /**
+     * <p>
+     * Constructor for ScheduledOutagesDaoImpl.
+     * </p>
+     */
+    public ScheduledOutagesDaoImpl() {
+        loadScheduledOutagesConfigFactory();
+    }
 
-	private void loadScheduledOutagesConfigFactory() {
-	    // Load up the configuration for the scheduled outages.
-	    try {
-	        PollOutagesConfigFactory.reload();
-	    } catch (MarshalException ex) {
-	        LOG.error("init: Failed to load poll-outage configuration", ex);
-	        throw new UndeclaredThrowableException(ex);
-	    } catch (ValidationException ex) {
-	        LOG.error("init: Failed to load poll-outage configuration", ex);
-	        throw new UndeclaredThrowableException(ex);
-	    } catch (IOException ex) {
-	        LOG.error("init: Failed to load poll-outage configuration", ex);
-	        throw new UndeclaredThrowableException(ex);
-	    }
-	}
+    private void loadScheduledOutagesConfigFactory() {
+        // Load up the configuration for the scheduled outages.
+        try {
+            PollOutagesConfigFactory.reload();
+        } catch (MarshalException ex) {
+            LOG.error("init: Failed to load poll-outage configuration", ex);
+            throw new UndeclaredThrowableException(ex);
+        } catch (ValidationException ex) {
+            LOG.error("init: Failed to load poll-outage configuration", ex);
+            throw new UndeclaredThrowableException(ex);
+        } catch (IOException ex) {
+            LOG.error("init: Failed to load poll-outage configuration", ex);
+            throw new UndeclaredThrowableException(ex);
+        }
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public OnmsOutageCalendar get(String outageName) {
-		return new OnmsOutageCalendar();
-	}
-
-
-
+    /** {@inheritDoc} */
+    @Override
+    public OnmsOutageCalendar get(String outageName) {
+        return new OnmsOutageCalendar();
+    }
 
 }

@@ -33,31 +33,37 @@ import org.smslib.AGateway;
 import org.smslib.test.*;
 
 /**
- * <p>TestGatewayGroupImpl class.</p>
+ * <p>
+ * TestGatewayGroupImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class TestGatewayGroupImpl implements GatewayGroup {
 
-	AGateway[] m_gateways;
+    AGateway[] m_gateways;
 
-	/**
-	 * <p>Constructor for TestGatewayGroupImpl.</p>
-	 */
-	public TestGatewayGroupImpl(){
-		m_gateways = new AGateway[1];
-		m_gateways[0] = new TestGateway("modem.id");
-	}
+    /**
+     * <p>
+     * Constructor for TestGatewayGroupImpl.
+     * </p>
+     */
+    public TestGatewayGroupImpl() {
+        m_gateways = new AGateway[1];
+        m_gateways[0] = new TestGateway("modem.id");
+    }
 
-	/**
-	 * <p>getGateways</p>
-	 *
-	 * @return an array of {@link org.smslib.AGateway} objects.
-	 */
-        @Override
-	public AGateway[] getGateways() {
-		return m_gateways;
-	}
+    /**
+     * <p>
+     * getGateways
+     * </p>
+     *
+     * @return an array of {@link org.smslib.AGateway} objects.
+     */
+    @Override
+    public AGateway[] getGateways() {
+        return m_gateways;
+    }
 
 }

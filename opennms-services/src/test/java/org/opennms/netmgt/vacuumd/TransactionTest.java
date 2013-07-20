@@ -45,19 +45,22 @@ import junit.framework.TestCase;
  *
  * @author <a href=mailto:brozow@opennms.org>Mathew Brozowski</a>
  * @author <a href=mailto:david@opennms.org>David Hustace</a>
- *
  */
 public class TransactionTest extends TestCase {
 
-	EasyMockUtils m_ezMock = new EasyMockUtils();
+    EasyMockUtils m_ezMock = new EasyMockUtils();
+
     Connection m_conn;
+
     Connection m_conn2;
+
     DataSource m_ds;
+
     DataSource m_ds2;
 
-        @Override
-	protected void setUp() throws Exception {
-		super.setUp();
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
 
         m_ds = m_ezMock.createMock(DataSource.class);
         m_ds2 = m_ezMock.createMock(DataSource.class);
@@ -68,37 +71,36 @@ public class TransactionTest extends TestCase {
         DataSourceFactory.setInstance("ds", m_ds);
         DataSourceFactory.setInstance("ds2", m_ds2);
 
+    }
 
-	}
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 
-        @Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
-
-	public void testCommit() throws Exception {
+    public void testCommit() throws Exception {
 
         EasyMock.expect(m_ds.getConnection()).andReturn(m_conn);
         EasyMock.expect(m_ds2.getConnection()).andReturn(m_conn2);
 
         m_conn.setAutoCommit(false);
-		m_conn.commit();
-		m_conn.close();
+        m_conn.commit();
+        m_conn.close();
 
         m_conn2.setAutoCommit(false);
         m_conn2.commit();
         m_conn2.close();
 
-		m_ezMock.replayAll();
+        m_ezMock.replayAll();
 
-		Transaction.begin();
+        Transaction.begin();
         Transaction.getConnection("ds");
         Transaction.getConnection("ds2");
-		Transaction.end();
+        Transaction.end();
 
-		m_ezMock.verifyAll();
+        m_ezMock.verifyAll();
 
-	}
+    }
 
     public void testRollback() throws Exception {
 
@@ -155,7 +157,6 @@ public class TransactionTest extends TestCase {
         Statement stmt = m_ezMock.createMock(Statement.class);
         ResultSet rs = m_ezMock.createMock(ResultSet.class);
 
-
         rs.close();
         stmt.close();
         m_conn.close();
@@ -172,6 +173,5 @@ public class TransactionTest extends TestCase {
         m_ezMock.verifyAll();
 
     }
-
 
 }

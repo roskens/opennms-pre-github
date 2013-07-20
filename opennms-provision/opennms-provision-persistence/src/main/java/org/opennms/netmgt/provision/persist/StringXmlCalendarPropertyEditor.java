@@ -36,7 +36,9 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
- * <p>StringXmlCalendarPropertyEditor class.</p>
+ * <p>
+ * StringXmlCalendarPropertyEditor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -54,12 +56,14 @@ public class StringXmlCalendarPropertyEditor extends PropertyEditorSupport imple
     }
 
     /**
-     * <p>getAsText</p>
+     * <p>
+     * getAsText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getAsText() {
-        return ((XMLGregorianCalendar)getValue()).toXMLFormat();
+        return ((XMLGregorianCalendar) getValue()).toXMLFormat();
     }
 }

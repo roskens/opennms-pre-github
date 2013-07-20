@@ -43,7 +43,9 @@ import org.springframework.core.io.ClassPathResource;
 
 public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
     private static final String HOST_PROPERTY = "mock.snmpHost";
+
     private static final String DEFAULT_HOST = "127.0.0.1";
+
     private static final int PORT = 9161;
 
     private InetAddress m_addr;
@@ -79,12 +81,14 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         m_addr = InetAddressUtils.addr(hostName);
         m_ifSnmpc = new IfSnmpCollector(m_addr);
 
-        m_agent = MockSnmpAgent.createAgentAndRun(new ClassPathResource("org/opennms/netmgt/snmp/snmpTestData1.properties").getURL(), InetAddressUtils.str(m_addr) + "/" + PORT);
+        m_agent = MockSnmpAgent.createAgentAndRun(new ClassPathResource(
+                                                                        "org/opennms/netmgt/snmp/snmpTestData1.properties").getURL(),
+                                                  InetAddressUtils.str(m_addr) + "/" + PORT);
 
         runCollection();
     }
 
-	@Override
+    @Override
     protected void tearDown() throws Exception {
         m_agent.shutDownAndWait();
 
@@ -145,7 +149,8 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
 
         List<InetAddress> addresses = ipAddrTable.getIpAddresses();
         assertTrue("ipAddrTable should contain 172.20.1.201", addresses.contains(InetAddressUtils.addr("172.20.1.201")));
-        assertTrue("ipAddrTable should contain 127.0.0.1 like any good IP stack should", addresses.contains(InetAddressUtils.addr(DEFAULT_HOST)));
+        assertTrue("ipAddrTable should contain 127.0.0.1 like any good IP stack should",
+                   addresses.contains(InetAddressUtils.addr(DEFAULT_HOST)));
     }
 
     public final void testHasIfXTable() {

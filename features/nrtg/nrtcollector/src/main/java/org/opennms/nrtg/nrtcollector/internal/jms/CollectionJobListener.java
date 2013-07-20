@@ -54,8 +54,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class CollectionJobListener implements MessageListener {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(CollectionJobListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(CollectionJobListener.class);
 
     private final SimpleMessageConverter simpleMessageConverter = new SimpleMessageConverter();
 
@@ -81,10 +80,10 @@ public class CollectionJobListener implements MessageListener {
     }
 
     /**
-     * @param protocolCollectorRegistry the protocolCollectorRegistry to set
+     * @param protocolCollectorRegistry
+     *            the protocolCollectorRegistry to set
      */
-    public void setProtocolCollectorRegistry(
-            ProtocolCollectorRegistry protocolCollectorRegistry) {
+    public void setProtocolCollectorRegistry(ProtocolCollectorRegistry protocolCollectorRegistry) {
         this.protocolCollectorRegistry = protocolCollectorRegistry;
     }
 
@@ -118,23 +117,25 @@ public class CollectionJobListener implements MessageListener {
             }
 
             LightweightMeasurementSet errorMeasurementSet = new LightweightMeasurementSet(
-                    collectionJob.getNodeId(), collectionJob.getService(),
-                    collectionJob.getNetInterface(),
-                    collectionJob.getFinishedTimestamp());
+                                                                                          collectionJob.getNodeId(),
+                                                                                          collectionJob.getService(),
+                                                                                          collectionJob.getNetInterface(),
+                                                                                          collectionJob.getFinishedTimestamp());
 
             for (String metricId : collectionJob.getAllMetrics()) {
 
                 if (collectionJob.getMetricValue(metricId) == null) {
-                    errorMeasurementSet.addMeasurement(metricId, collectionJob.getMetricType(metricId), null, collectionJob.getOnmsLogicMetricId(metricId));
+                    errorMeasurementSet.addMeasurement(metricId, collectionJob.getMetricType(metricId), null,
+                                                       collectionJob.getOnmsLogicMetricId(metricId));
                 }
 
-                logger.trace("collected metric of job #{}='{}'", counter + ": "
-                        + metricId, collectionJob.getMetricValue(metricId));
+                logger.trace("collected metric of job #{}='{}'", counter + ": " + metricId,
+                             collectionJob.getMetricValue(metricId));
             }
 
             if (errorMeasurementSet.getMeasurements().size() > 0) {
-                logger.warn("result set of job #{} contains {} null values",
-                        counter, errorMeasurementSet.getMeasurements().size());
+                logger.warn("result set of job #{} contains {} null values", counter,
+                            errorMeasurementSet.getMeasurements().size());
                 jmsTemplate.convertAndSend("error", errorMeasurementSet);
                 logger.trace("** sending to 'error'");
             }

@@ -52,7 +52,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>FilesystemForeignSourceRepository class.</p>
+ * <p>
+ * FilesystemForeignSourceRepository class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -60,18 +62,26 @@ import org.springframework.util.Assert;
 public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepository implements InitializingBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(FilesystemForeignSourceRepository.class);
+
     private String m_requisitionPath;
+
     private String m_foreignSourcePath;
+
     private boolean m_updateDateStamps = true;
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
-     * <p>Constructor for FilesystemForeignSourceRepository.</p>
+     * <p>
+     * Constructor for FilesystemForeignSourceRepository.
+     * </p>
      *
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     public FilesystemForeignSourceRepository() throws ForeignSourceRepositoryException {
         super();
@@ -84,7 +94,9 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     }
 
     /**
-     * <p>getActiveForeignSourceNames</p>
+     * <p>
+     * getActiveForeignSourceNames
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -116,9 +128,12 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     }
 
     /**
-     * <p>setUpdateDateStamps</p>
+     * <p>
+     * setUpdateDateStamps
+     * </p>
      *
-     * @param update a boolean.
+     * @param update
+     *            a boolean.
      */
     public void setUpdateDateStamps(final boolean update) {
         m_writeLock.lock();
@@ -130,10 +145,13 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     }
 
     /**
-     * <p>getForeignSourceCount</p>
+     * <p>
+     * getForeignSourceCount
+     * </p>
      *
      * @return a int.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     @Override
     public int getForeignSourceCount() throws ForeignSourceRepositoryException {
@@ -146,10 +164,13 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     }
 
     /**
-     * <p>getForeignSources</p>
+     * <p>
+     * getForeignSources
+     * </p>
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     @Override
     public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException {
@@ -194,12 +215,12 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     /** {@inheritDoc} */
     @Override
     public void save(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
-    	if (foreignSource == null) {
+        if (foreignSource == null) {
             throw new ForeignSourceRepositoryException("can't save a null foreign source!");
         }
 
-    	LOG.debug("Writing foreign source {} to {}", foreignSource.getName(), m_foreignSourcePath);
-    	validate(foreignSource);
+        LOG.debug("Writing foreign source {} to {}", foreignSource.getName(), m_foreignSourcePath);
+        validate(foreignSource);
 
         m_writeLock.lock();
         try {
@@ -207,7 +228,8 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
                 putDefaultForeignSource(foreignSource);
                 return;
             }
-            final File outputFile = RequisitionFileUtils.getOutputFileForForeignSource(m_foreignSourcePath, foreignSource);
+            final File outputFile = RequisitionFileUtils.getOutputFileForForeignSource(m_foreignSourcePath,
+                                                                                       foreignSource);
             OutputStream outputStream = null;
             Writer writer = null;
             try {
@@ -234,7 +256,8 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
         m_writeLock.lock();
         try {
             LOG.debug("Deleting foreign source {} from {} (if necessary)", foreignSource.getName(), m_foreignSourcePath);
-            final File deleteFile = RequisitionFileUtils.getOutputFileForForeignSource(m_foreignSourcePath, foreignSource);
+            final File deleteFile = RequisitionFileUtils.getOutputFileForForeignSource(m_foreignSourcePath,
+                                                                                       foreignSource);
             if (deleteFile.exists()) {
                 if (!deleteFile.delete()) {
                     throw new ForeignSourceRepositoryException("unable to delete foreign source file " + deleteFile);
@@ -246,10 +269,13 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     }
 
     /**
-     * <p>getRequisitions</p>
+     * <p>
+     * getRequisitions
+     * </p>
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     @Override
     public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException {
@@ -263,8 +289,10 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
                         try {
                             requisitions.add(RequisitionFileUtils.getRequisitionFromFile(file));
                         } catch (ForeignSourceRepositoryException e) {
-                            // race condition, probably got deleted by the importer as part of moving things
-                            // need a better way to handle this; move "pending" to the database?
+                            // race condition, probably got deleted by the
+                            // importer as part of moving things
+                            // need a better way to handle this; move "pending"
+                            // to the database?
                         }
                     }
                 }
@@ -294,11 +322,19 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     }
 
     /**
-     * <p>getRequisition</p>
+     * <p>
+     * getRequisition
+     * </p>
      *
-     * @param foreignSource a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param foreignSource
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *         object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     @Override
     public Requisition getRequisition(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
@@ -314,10 +350,16 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     }
 
     /**
-     * <p>save</p>
+     * <p>
+     * save
+     * </p>
      *
-     * @param requisition a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param requisition
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *            object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     @Override
     public void save(final Requisition requisition) throws ForeignSourceRepositoryException {
@@ -352,10 +394,16 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     }
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param requisition a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
+     * @param requisition
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *            object.
+     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
+     *             if any.
      */
     @Override
     public void delete(final Requisition requisition) throws ForeignSourceRepositoryException {
@@ -364,7 +412,8 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
         }
         m_writeLock.lock();
         try {
-            LOG.debug("Deleting requisition {} from {} (if necessary)", requisition.getForeignSource(), m_requisitionPath);
+            LOG.debug("Deleting requisition {} from {} (if necessary)", requisition.getForeignSource(),
+                      m_requisitionPath);
             final File deleteFile = RequisitionFileUtils.getOutputFileForRequisition(m_requisitionPath, requisition);
             if (deleteFile.exists()) {
                 if (!deleteFile.delete()) {
@@ -377,9 +426,12 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
     }
 
     /**
-     * <p>setRequisitionPath</p>
+     * <p>
+     * setRequisitionPath
+     * </p>
      *
-     * @param path a {@link java.lang.String} object.
+     * @param path
+     *            a {@link java.lang.String} object.
      */
     public void setRequisitionPath(final String path) {
         m_writeLock.lock();
@@ -389,10 +441,14 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
             m_writeLock.unlock();
         }
     }
+
     /**
-     * <p>setForeignSourcePath</p>
+     * <p>
+     * setForeignSourcePath
+     * </p>
      *
-     * @param path a {@link java.lang.String} object.
+     * @param path
+     *            a {@link java.lang.String} object.
      */
     public void setForeignSourcePath(final String path) {
         m_writeLock.lock();
@@ -437,7 +493,8 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
 
     @Override
     public void flush() throws ForeignSourceRepositoryException {
-        // Unnecessary, there is no caching/delayed writes in FilesystemForeignSourceRepository
+        // Unnecessary, there is no caching/delayed writes in
+        // FilesystemForeignSourceRepository
         LOG.debug("flush() called");
     }
 }

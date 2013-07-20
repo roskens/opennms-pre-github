@@ -33,7 +33,9 @@ import org.opennms.web.filter.BetweenFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>SeverityBetweenFilter class.</p>
+ * <p>
+ * SeverityBetweenFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,17 +46,23 @@ public class SeverityBetweenFilter extends BetweenFilter<OnmsSeverity> {
     public static final String TYPE = "severityBetween";
 
     /**
-     * <p>Constructor for SeverityBetweenFilter.</p>
+     * <p>
+     * Constructor for SeverityBetweenFilter.
+     * </p>
      *
-     * @param rangeBegin a {@link org.opennms.netmgt.model.OnmsSeverity} object.
-     * @param rangeEnd a {@link org.opennms.netmgt.model.OnmsSeverity} object.
+     * @param rangeBegin
+     *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
+     * @param rangeEnd
+     *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
-    public SeverityBetweenFilter(OnmsSeverity rangeBegin, OnmsSeverity rangeEnd){
+    public SeverityBetweenFilter(OnmsSeverity rangeBegin, OnmsSeverity rangeEnd) {
         super(TYPE, SQLType.SEVERITY, "SEVERITY", "severity", rangeBegin, rangeEnd);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,7 +76,9 @@ public class SeverityBetweenFilter extends BetweenFilter<OnmsSeverity> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

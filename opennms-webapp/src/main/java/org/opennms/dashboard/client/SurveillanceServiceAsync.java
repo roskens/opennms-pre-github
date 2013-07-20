@@ -38,65 +38,96 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface SurveillanceServiceAsync {
     /**
-     * <p>getSurveillanceData</p>
+     * <p>
+     * getSurveillanceData
+     * </p>
      *
-     * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @param cb
+     *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getSurveillanceData(AsyncCallback<SurveillanceData> cb);
 
     /**
-     * <p>getAlarmsForSet</p>
+     * <p>
+     * getAlarmsForSet
+     * </p>
      *
-     * @param set a {@link org.opennms.dashboard.client.SurveillanceSet} object.
-     * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @param set
+     *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.
+     * @param cb
+     *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getAlarmsForSet(SurveillanceSet set, AsyncCallback<Alarm[]> cb);
 
     /**
-     * <p>getNotificationsForSet</p>
+     * <p>
+     * getNotificationsForSet
+     * </p>
      *
-     * @param set a {@link org.opennms.dashboard.client.SurveillanceSet} object.
-     * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @param set
+     *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.
+     * @param cb
+     *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getNotificationsForSet(SurveillanceSet set, AsyncCallback<Notification[]> cb);
 
     /**
-     * <p>getNodeNames</p>
+     * <p>
+     * getNodeNames
+     * </p>
      *
-     * @param set a {@link org.opennms.dashboard.client.SurveillanceSet} object.
-     * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @param set
+     *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.
+     * @param cb
+     *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getNodeNames(SurveillanceSet set, AsyncCallback<String[]> cb);
 
     /**
-     * <p>getResources</p>
+     * <p>
+     * getResources
+     * </p>
      *
-     * @param set a {@link org.opennms.dashboard.client.SurveillanceSet} object.
-     * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @param set
+     *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.
+     * @param cb
+     *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getResources(SurveillanceSet set, AsyncCallback<String[][]> cb);
 
     /**
-     * <p>getChildResources</p>
+     * <p>
+     * getChildResources
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} object.
-     * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @param resourceId
+     *            a {@link java.lang.String} object.
+     * @param cb
+     *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getChildResources(String resourceId, AsyncCallback<String[][]> cb);
 
     /**
-     * <p>getPrefabGraphs</p>
+     * <p>
+     * getPrefabGraphs
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} object.
-     * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @param resourceId
+     *            a {@link java.lang.String} object.
+     * @param cb
+     *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getPrefabGraphs(String resourceId, AsyncCallback<String[][]> cb);
 
     /**
-     * <p>getRtcForSet</p>
+     * <p>
+     * getRtcForSet
+     * </p>
      *
-     * @param set a {@link org.opennms.dashboard.client.SurveillanceSet} object.
-     * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @param set
+     *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.
+     * @param cb
+     *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getRtcForSet(SurveillanceSet set, AsyncCallback<NodeRtc[]> cb);
 }

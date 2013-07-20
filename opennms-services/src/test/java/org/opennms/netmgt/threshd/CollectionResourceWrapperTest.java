@@ -71,7 +71,6 @@ import org.opennms.netmgt.snmp.SnmpValue;
 
 /**
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
- *
  */
 public class CollectionResourceWrapperTest {
     private boolean m_ignoreWarnings = false;
@@ -84,7 +83,8 @@ public class CollectionResourceWrapperTest {
 
     @After
     public void tearDown() throws Exception {
-        if (!m_ignoreWarnings ) MockLogAppender.assertNoWarningsOrGreater();
+        if (!m_ignoreWarnings)
+            MockLogAppender.assertNoWarningsOrGreater();
     }
 
     @Test
@@ -109,17 +109,17 @@ public class CollectionResourceWrapperTest {
         EasyMock.verify(agent);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testBadConstructorCall() throws Throwable {
         try {
             new CollectionResourceWrapper(null, 1, "127.0.0.1", "HTTP", null, null, null);
         } catch (Throwable e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             throw e;
         }
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testBadderConstructorCall() throws Throwable {
         try {
             new CollectionResourceWrapper(null, -1, null, null, null, null, null);
@@ -142,30 +142,39 @@ public class CollectionResourceWrapperTest {
         SnmpAttribute attribute = addAttributeToCollectionResource(resource, attributeName, "counter", "0", 1000);
         attributes.put(attribute.getName(), attribute);
 
-        //We manipulate the Date objects passed to the CollectionResourceWrapper to simulate various collection intervals
+        // We manipulate the Date objects passed to the
+        // CollectionResourceWrapper to simulate various collection intervals
         Date baseDate = new Date();
 
         // Get counter value - first time
         CollectionResourceWrapper wrapper = createWrapper(resource, attributes, baseDate);
 
         Assert.assertFalse(CollectionResourceWrapper.s_cache.containsKey(attributeId));
-        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last value is null
-        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last value is null
+        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last
+                                                                                   // value
+                                                                                   // is
+                                                                                   // null
+        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last
+                                                                                   // value
+                                                                                   // is
+                                                                                   // null
         Assert.assertEquals(1000.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
 
         // Increase counter
         attribute = addAttributeToCollectionResource(resource, attributeName, "counter", "0", 2500);
         attributes.put(attribute.getName(), attribute);
-        //Next wrapper is told the data was collected 5 minutes in the future (300 seconds)
-        wrapper = createWrapper(resource, attributes, new Date(baseDate.getTime()+300000));
+        // Next wrapper is told the data was collected 5 minutes in the future
+        // (300 seconds)
+        wrapper = createWrapper(resource, attributes, new Date(baseDate.getTime() + 300000));
 
         // Get counter value - second time
-        // Last value is 1000.0, so 2500-1000/300 = 1500/300 =  5.
+        // Last value is 1000.0, so 2500-1000/300 = 1500/300 = 5.
         Assert.assertEquals(1000.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
         Assert.assertEquals(5.0, wrapper.getAttributeValue(attributeName));
-        //Validate that the cached counter value has been updated
+        // Validate that the cached counter value has been updated
         Assert.assertEquals(2500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
-        //but that calling getAttributeValue doesn't re-calculate the rate inappropriately
+        // but that calling getAttributeValue doesn't re-calculate the rate
+        // inappropriately
         Assert.assertEquals(5.0, wrapper.getAttributeValue(attributeName));
         Assert.assertEquals(2500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
         Assert.assertEquals(5.0, wrapper.getAttributeValue(attributeName));
@@ -174,11 +183,12 @@ public class CollectionResourceWrapperTest {
         // Increase counter
         attribute = addAttributeToCollectionResource(resource, attributeName, "counter", "0", 5500);
         attributes.put(attribute.getName(), attribute);
-        //Next wrapper is told the data was collected 10 minutes in the future (600 seconds), or after the first collection
-        wrapper = createWrapper(resource, attributes, new Date(baseDate.getTime()+600000));
+        // Next wrapper is told the data was collected 10 minutes in the future
+        // (600 seconds), or after the first collection
+        wrapper = createWrapper(resource, attributes, new Date(baseDate.getTime() + 600000));
 
         // Get counter value - third time
-        // Last value is 2500.0, so 5500-2500/300 = 3000/300 =  10;
+        // Last value is 2500.0, so 5500-2500/300 = 3000/300 = 10;
         Assert.assertEquals(2500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
         Assert.assertEquals(10.0, wrapper.getAttributeValue(attributeName));
         Assert.assertEquals(5500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
@@ -188,108 +198,112 @@ public class CollectionResourceWrapperTest {
         Assert.assertEquals(5500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
     }
 
+    /**
+     * Per bug report NMS-4244, multiple calls to the getCounter functionality
+     * on CollectionResourceWrapper used to pay
+     * no mind of the actual time when samples were collected, instead assuming
+     * that it was the collection interval ago.
+     * When a collection cycle fails (entirely or partly) and thresholded values
+     * weren't available, the counter value
+     * was incorrectly calculated on the next succeeding cycle (taking the
+     * difference from the last successful
+     * collection and dividing by just a single collection interval.
+     */
+    @Test
+    public void testGetCounterValueWithGap() throws Exception {
+        m_ignoreWarnings = true; // we get a warning on the first
+                                 // getAttributeValue()
 
-     /**
-      * Per bug report NMS-4244, multiple calls to the getCounter functionality on CollectionResourceWrapper used to pay
-      * no mind of the actual time when samples were collected, instead assuming that it was the collection interval ago.
-      * When a collection cycle fails (entirely or partly) and thresholded values weren't available, the counter value
-      * was incorrectly calculated on the next succeeding cycle (taking the difference from the last successful
-      * collection and dividing by just a single collection interval.
-      */
-	@Test
-	public void testGetCounterValueWithGap() throws Exception {
-	        m_ignoreWarnings = true; // we get a warning on the first getAttributeValue()
+        CollectionAgent agent = createCollectionAgent();
+        SnmpCollectionResource resource = createNodeResource(agent);
 
-		CollectionAgent agent = createCollectionAgent();
-		SnmpCollectionResource resource = createNodeResource(agent);
+        // Add Counter Attribute
+        String attributeName = "myCounter";
+        String attributeId = "node[1].resourceType[node].instance[null].metric[" + attributeName + "]";
+        Map<String, CollectionAttribute> attributes = new HashMap<String, CollectionAttribute>();
+        SnmpAttribute attribute = addAttributeToCollectionResource(resource, attributeName, "counter", "0", 1000);
+        attributes.put(attribute.getName(), attribute);
 
-		// Add Counter Attribute
-		String attributeName = "myCounter";
-	        String attributeId = "node[1].resourceType[node].instance[null].metric[" + attributeName + "]";
-		Map<String, CollectionAttribute> attributes = new HashMap<String, CollectionAttribute>();
-		SnmpAttribute attribute = addAttributeToCollectionResource(resource,
-				attributeName, "counter", "0", 1000);
-		attributes.put(attribute.getName(), attribute);
+        // We manipulate the Date objects passed to the
+        // CollectionResourceWrapper to simulate various collection intervals
+        Date baseDate = new Date();
 
-		// We manipulate the Date objects passed to the
-		// CollectionResourceWrapper to simulate various collection intervals
-		Date baseDate = new Date();
+        // Get counter value - first time
+        CollectionResourceWrapper wrapper = createWrapper(resource, attributes, baseDate);
 
-		// Get counter value - first time
-		CollectionResourceWrapper wrapper = createWrapper(resource, attributes,
-				baseDate);
-
-		Assert.assertFalse(CollectionResourceWrapper.s_cache
-				.containsKey(attributeId));
-		Assert.assertEquals(Double.NaN,
-				wrapper.getAttributeValue(attributeName)); // Last value is null
-		Assert.assertEquals(Double.NaN,
-				wrapper.getAttributeValue(attributeName)); // Last value is null
-		Assert.assertEquals(1000.0,
-				CollectionResourceWrapper.s_cache.get(attributeId).value);
+        Assert.assertFalse(CollectionResourceWrapper.s_cache.containsKey(attributeId));
+        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last
+                                                                                   // value
+                                                                                   // is
+                                                                                   // null
+        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last
+                                                                                   // value
+                                                                                   // is
+                                                                                   // null
+        Assert.assertEquals(1000.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
 
         // Increase counter
         attribute = addAttributeToCollectionResource(resource, attributeName, "counter", "0", 2500);
         attributes.put(attribute.getName(), attribute);
-        //Next wrapper is told the data was collected 5 minutes in the future (300 seconds)
-        wrapper = createWrapper(resource, attributes, new Date(baseDate.getTime()+300000));
+        // Next wrapper is told the data was collected 5 minutes in the future
+        // (300 seconds)
+        wrapper = createWrapper(resource, attributes, new Date(baseDate.getTime() + 300000));
 
         // Get counter value - second time
-        // Last value is 1000.0, so 2500-1000/300 = 1500/300 =  5.
+        // Last value is 1000.0, so 2500-1000/300 = 1500/300 = 5.
         Assert.assertEquals(1000.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
         Assert.assertEquals(5.0, wrapper.getAttributeValue(attributeName));
-        //Validate that the cached counter value has been updated
+        // Validate that the cached counter value has been updated
         Assert.assertEquals(2500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
-        //but that calling getAttributeValue doesn't re-calculate the rate inappropriately or update the static cache
+        // but that calling getAttributeValue doesn't re-calculate the rate
+        // inappropriately or update the static cache
         Assert.assertEquals(5.0, wrapper.getAttributeValue(attributeName));
         Assert.assertEquals(2500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
 
-		// Now create a collection that is missing the counter value; we're
-		// expecting null result and no cache updates
-		attributes = new HashMap<String, CollectionAttribute>();
-		attribute = addAttributeToCollectionResource(resource, "notMyCounter",
-				"counter", "0", 1000); // We want a value, just not one called "myCounter"
-		attributes.put(attribute.getName(), attribute);
-		// Next collection is 10 minutes (600 seconds) after the first.
-		wrapper = createWrapper(resource, attributes,
-				new Date(baseDate.getTime() + 600000));
+        // Now create a collection that is missing the counter value; we're
+        // expecting null result and no cache updates
+        attributes = new HashMap<String, CollectionAttribute>();
+        attribute = addAttributeToCollectionResource(resource, "notMyCounter", "counter", "0", 1000); // We
+                                                                                                      // want
+                                                                                                      // a
+                                                                                                      // value,
+                                                                                                      // just
+                                                                                                      // not
+                                                                                                      // one
+                                                                                                      // called
+                                                                                                      // "myCounter"
+        attributes.put(attribute.getName(), attribute);
+        // Next collection is 10 minutes (600 seconds) after the first.
+        wrapper = createWrapper(resource, attributes, new Date(baseDate.getTime() + 600000));
 
-		// No change, so we expect the cache to have (and continue to) remain
-		// the same, and to get no attribute value out
-		Assert.assertEquals(2500.0,
-				CollectionResourceWrapper.s_cache.get(attributeId).value);
-		Assert.assertNull(wrapper.getAttributeValue(attributeName));
-		Assert.assertEquals(2500.0,
-				CollectionResourceWrapper.s_cache.get(attributeId).value);
+        // No change, so we expect the cache to have (and continue to) remain
+        // the same, and to get no attribute value out
+        Assert.assertEquals(2500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
+        Assert.assertNull(wrapper.getAttributeValue(attributeName));
+        Assert.assertEquals(2500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
 
-		// Now if we collect successfully again, we expect the counter to be the
-		// change divided by two collection cycles
-		attributes = new HashMap<String, CollectionAttribute>();
-		attribute = addAttributeToCollectionResource(resource, attributeName,
-				"counter", "0", 7300);
-		attributes.put(attribute.getName(), attribute);
+        // Now if we collect successfully again, we expect the counter to be the
+        // change divided by two collection cycles
+        attributes = new HashMap<String, CollectionAttribute>();
+        attribute = addAttributeToCollectionResource(resource, attributeName, "counter", "0", 7300);
+        attributes.put(attribute.getName(), attribute);
 
-		// Next collection is 15 minutes (900 seconds) after the first.
-		wrapper = createWrapper(resource, attributes,
-				new Date(baseDate.getTime() + 900000));
+        // Next collection is 15 minutes (900 seconds) after the first.
+        wrapper = createWrapper(resource, attributes, new Date(baseDate.getTime() + 900000));
 
-		// Get counter value - fourth time
-		// Last value is 5500, but we've had two collection cycles, so
-		// 7300-2500/600 = 4800/600 = 8
-		Assert.assertEquals(2500.0,
-				CollectionResourceWrapper.s_cache.get(attributeId).value);
-		Assert.assertEquals(8.0, wrapper.getAttributeValue(attributeName));
-		Assert.assertEquals(7300.0,
-				CollectionResourceWrapper.s_cache.get(attributeId).value);
-		Assert.assertEquals(8.0, wrapper.getAttributeValue(attributeName));
-		Assert.assertEquals(7300.0,
-				CollectionResourceWrapper.s_cache.get(attributeId).value);
-		Assert.assertEquals(8.0, wrapper.getAttributeValue(attributeName));
-		Assert.assertEquals(7300.0,
-				CollectionResourceWrapper.s_cache.get(attributeId).value);
+        // Get counter value - fourth time
+        // Last value is 5500, but we've had two collection cycles, so
+        // 7300-2500/600 = 4800/600 = 8
+        Assert.assertEquals(2500.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
+        Assert.assertEquals(8.0, wrapper.getAttributeValue(attributeName));
+        Assert.assertEquals(7300.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
+        Assert.assertEquals(8.0, wrapper.getAttributeValue(attributeName));
+        Assert.assertEquals(7300.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
+        Assert.assertEquals(8.0, wrapper.getAttributeValue(attributeName));
+        Assert.assertEquals(7300.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
 
-		EasyMock.verify(agent);
-	}
+        EasyMock.verify(agent);
+    }
 
     @Test
     public void testGetCounterValueWithWrap() throws Exception {
@@ -297,23 +311,30 @@ public class CollectionResourceWrapperTest {
         CollectionAgent agent = createCollectionAgent();
         SnmpCollectionResource resource = createNodeResource(agent);
 
-		// We manipulate the Date objects passed to the
-		// CollectionResourceWrapper to simulate various collection intervals
-		Date baseDate = new Date();
+        // We manipulate the Date objects passed to the
+        // CollectionResourceWrapper to simulate various collection intervals
+        Date baseDate = new Date();
 
         // Add Counter Attribute
         String attributeName = "myCounter";
         String attributeId = "node[1].resourceType[node].instance[null].metric[" + attributeName + "]";
         Map<String, CollectionAttribute> attributes = new HashMap<String, CollectionAttribute>();
         BigInteger initialValue = new BigDecimal(Math.pow(2, 32) - 20000).toBigInteger();
-        SnmpAttribute attribute = addAttributeToCollectionResource(resource, attributeName, "counter", "0", initialValue);
+        SnmpAttribute attribute = addAttributeToCollectionResource(resource, attributeName, "counter", "0",
+                                                                   initialValue);
         attributes.put(attribute.getName(), attribute);
 
         // Get counter value - first time
         CollectionResourceWrapper wrapper = createWrapper(resource, attributes, baseDate);
         Assert.assertFalse(CollectionResourceWrapper.s_cache.containsKey(attributeId));
-        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last value is null
-        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last value is null
+        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last
+                                                                                   // value
+                                                                                   // is
+                                                                                   // null
+        Assert.assertEquals(Double.NaN, wrapper.getAttributeValue(attributeName)); // Last
+                                                                                   // value
+                                                                                   // is
+                                                                                   // null
         Assert.assertEquals(initialValue.doubleValue(), CollectionResourceWrapper.s_cache.get(attributeId).value);
 
         // Increase counter
@@ -322,7 +343,8 @@ public class CollectionResourceWrapperTest {
         wrapper = createWrapper(resource, attributes, new Date(baseDate.getTime() + 300000));
 
         // Get counter value - second time (wrap)
-        // last = MAX - 20000, new = 40000; then last - new = 60000, rate: 60000/300 = 200
+        // last = MAX - 20000, new = 40000; then last - new = 60000, rate:
+        // 60000/300 = 200
         Assert.assertEquals(initialValue.doubleValue(), CollectionResourceWrapper.s_cache.get(attributeId).value);
         Assert.assertEquals(200.0, wrapper.getAttributeValue(attributeName));
         Assert.assertEquals(40000.0, CollectionResourceWrapper.s_cache.get(attributeId).value);
@@ -352,7 +374,8 @@ public class CollectionResourceWrapperTest {
         network.addService("HTTP");
         MockDatabase db = new MockDatabase();
         db.populate(network);
-        db.update("update snmpinterface set snmpifindex=?, snmpifname=?, snmpifdescr=? where id=?", ifIndex, ifName, ifName, 1);
+        db.update("update snmpinterface set snmpifindex=?, snmpifname=?, snmpifdescr=? where id=?", ifIndex, ifName,
+                  ifName, 1);
         DataSourceFactory.setInstance(db);
         Vault.setDataSource(db);
 
@@ -370,7 +393,9 @@ public class CollectionResourceWrapperTest {
         // Creating IfResourceType
         CollectionAgent agent = createCollectionAgent();
         MockDataCollectionConfig dataCollectionConfig = new MockDataCollectionConfig();
-        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent, new ServiceParameters(new HashMap<String, Object>()), dataCollectionConfig);
+        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent,
+                                                               new ServiceParameters(new HashMap<String, Object>()),
+                                                               dataCollectionConfig);
         IfResourceType resourceType = new IfResourceType(agent, collection);
 
         // Creating Resource
@@ -384,56 +409,86 @@ public class CollectionResourceWrapperTest {
 
         // Validations
         Assert.assertEquals(node.getId().intValue(), wrapper.getNodeId());
-        Assert.assertEquals("127.0.0.1", wrapper.getHostAddress()); // Should be the address of the SNMP Agent (Bug 3808)
+        Assert.assertEquals("127.0.0.1", wrapper.getHostAddress()); // Should be
+                                                                    // the
+                                                                    // address
+                                                                    // of the
+                                                                    // SNMP
+                                                                    // Agent
+                                                                    // (Bug
+                                                                    // 3808)
         Assert.assertEquals("eth0", wrapper.getIfLabel());
         Assert.assertEquals("if", wrapper.getResourceTypeName());
         Assert.assertEquals("SNMP", wrapper.getServiceName());
         Assert.assertEquals(true, wrapper.isAnInterfaceResource());
         Assert.assertEquals(Integer.toString(ifIndex), wrapper.getInstance());
         Assert.assertEquals(Integer.toString(ifIndex), wrapper.getIfIndex());
-        Assert.assertEquals(Integer.toString(ifIndex), wrapper.getIfIndex()); // IfLabel is called only once
-        Assert.assertEquals(Integer.toString(ifIndex), wrapper.getIfIndex()); // IfLabel is called only once
-        Assert.assertEquals("eth0", wrapper.getIfInfoValue("snmpifname"));  // IfLabel is called only once
+        Assert.assertEquals(Integer.toString(ifIndex), wrapper.getIfIndex()); // IfLabel
+                                                                              // is
+                                                                              // called
+                                                                              // only
+                                                                              // once
+        Assert.assertEquals(Integer.toString(ifIndex), wrapper.getIfIndex()); // IfLabel
+                                                                              // is
+                                                                              // called
+                                                                              // only
+                                                                              // once
+        Assert.assertEquals("eth0", wrapper.getIfInfoValue("snmpifname")); // IfLabel
+                                                                           // is
+                                                                           // called
+                                                                           // only
+                                                                           // once
     }
 
     private SnmpCollectionResource createNodeResource(CollectionAgent agent) {
         MockDataCollectionConfig dataCollectionConfig = new MockDataCollectionConfig();
-        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent, new ServiceParameters(new HashMap<String, Object>()), dataCollectionConfig);
+        OnmsSnmpCollection collection = new OnmsSnmpCollection(agent,
+                                                               new ServiceParameters(new HashMap<String, Object>()),
+                                                               dataCollectionConfig);
         NodeResourceType resourceType = new NodeResourceType(agent, collection);
         return new NodeInfo(resourceType, agent);
     }
 
-    // Wrapper interval value for counter rates calculation should be expressed in seconds.
-    private CollectionResourceWrapper createWrapper(SnmpCollectionResource resource, Map<String, CollectionAttribute> attributes, Date timestamp) {
-        CollectionResourceWrapper wrapper = new CollectionResourceWrapper(timestamp, 1, "127.0.0.1", "SNMP", getRepository(), resource, attributes);
+    // Wrapper interval value for counter rates calculation should be expressed
+    // in seconds.
+    private CollectionResourceWrapper createWrapper(SnmpCollectionResource resource,
+            Map<String, CollectionAttribute> attributes, Date timestamp) {
+        CollectionResourceWrapper wrapper = new CollectionResourceWrapper(timestamp, 1, "127.0.0.1", "SNMP",
+                                                                          getRepository(), resource, attributes);
         return wrapper;
     }
 
-    private CollectionResourceWrapper createWrapper(SnmpCollectionResource resource, Map<String, CollectionAttribute> attributes) {
-    	return this.createWrapper(resource, attributes, new Date());
+    private CollectionResourceWrapper createWrapper(SnmpCollectionResource resource,
+            Map<String, CollectionAttribute> attributes) {
+        return this.createWrapper(resource, attributes, new Date());
     }
 
     private CollectionAgent createCollectionAgent() {
         CollectionAgent agent = EasyMock.createMock(CollectionAgent.class);
         EasyMock.expect(agent.getNodeId()).andReturn(1).anyTimes();
         EasyMock.expect(agent.getHostAddress()).andReturn("127.0.0.1").anyTimes();
-        EasyMock.expect(agent.getSnmpInterfaceInfo((IfResourceType)EasyMock.anyObject())).andReturn(new HashSet<IfInfo>()).anyTimes();
+        EasyMock.expect(agent.getSnmpInterfaceInfo((IfResourceType) EasyMock.anyObject())).andReturn(new HashSet<IfInfo>()).anyTimes();
         EasyMock.expect(agent.getStorageDir()).andReturn(new File("target/foo")).anyTimes();
         EasyMock.replay(agent);
         return agent;
     }
 
-    private SnmpAttribute addAttributeToCollectionResource(SnmpCollectionResource resource, String attributeName, String attributeType, String attributeInstance, long value) {
+    private SnmpAttribute addAttributeToCollectionResource(SnmpCollectionResource resource, String attributeName,
+            String attributeType, String attributeInstance, long value) {
         MibObject object = createMibObject(attributeType, attributeName, attributeInstance);
-        SnmpAttributeType objectType = new NumericAttributeType(resource.getResourceType(), "default", object, new AttributeGroupType("mibGroup", "ignore"));
-        SnmpValue snmpValue = attributeType.equals("counter") ? SnmpUtils.getValueFactory().getCounter32(value) : SnmpUtils.getValueFactory().getGauge32(value);
+        SnmpAttributeType objectType = new NumericAttributeType(resource.getResourceType(), "default", object,
+                                                                new AttributeGroupType("mibGroup", "ignore"));
+        SnmpValue snmpValue = attributeType.equals("counter") ? SnmpUtils.getValueFactory().getCounter32(value)
+            : SnmpUtils.getValueFactory().getGauge32(value);
         resource.setAttributeValue(objectType, snmpValue);
         return new SnmpAttribute(resource, objectType, snmpValue);
     }
 
-    private SnmpAttribute addAttributeToCollectionResource(SnmpCollectionResource resource, String attributeName, String attributeType, String attributeInstance, BigInteger value) {
+    private SnmpAttribute addAttributeToCollectionResource(SnmpCollectionResource resource, String attributeName,
+            String attributeType, String attributeInstance, BigInteger value) {
         MibObject object = createMibObject(attributeType, attributeName, attributeInstance);
-        SnmpAttributeType objectType = new NumericAttributeType(resource.getResourceType(), "default", object, new AttributeGroupType("mibGroup", "ignore"));
+        SnmpAttributeType objectType = new NumericAttributeType(resource.getResourceType(), "default", object,
+                                                                new AttributeGroupType("mibGroup", "ignore"));
         SnmpValue snmpValue = SnmpUtils.getValueFactory().getCounter64(value);
         resource.setAttributeValue(objectType, snmpValue);
         return new SnmpAttribute(resource, objectType, snmpValue);

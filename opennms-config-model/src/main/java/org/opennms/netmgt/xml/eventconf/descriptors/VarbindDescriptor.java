@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.eventconf.descriptors;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.opennms.netmgt.xml.eventconf.Varbind;
@@ -48,10 +48,9 @@ import org.opennms.netmgt.xml.eventconf.Varbind;
  */
 public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _elementDefinition.
@@ -78,10 +77,9 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
      */
     private org.exolab.castor.xml.XMLFieldDescriptor _identity;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public VarbindDescriptor() {
         super();
@@ -89,35 +87,36 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
         _xmlName = "varbind";
         _elementDefinition = true;
 
-        //-- set grouping compositor
+        // -- set grouping compositor
         setCompositorAsSequence();
-        org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
-        org.exolab.castor.mapping.FieldHandler             handler        = null;
-        org.exolab.castor.xml.FieldValidator               fieldValidator = null;
-        //-- initialize attribute descriptors
+        org.exolab.castor.xml.util.XMLFieldDescriptorImpl desc = null;
+        org.exolab.castor.mapping.FieldHandler handler = null;
+        org.exolab.castor.xml.FieldValidator fieldValidator = null;
+        // -- initialize attribute descriptors
 
-        //-- _textualConvention
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_textualConvention", "textual-convention", org.exolab.castor.xml.NodeType.Attribute);
+        // -- _textualConvention
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_textualConvention",
+                                                                     "textual-convention",
+                                                                     org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Varbind target = (Varbind) object;
                 return target.getTextualConvention();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Varbind target = (Varbind) object;
-                    target.setTextualConvention( (java.lang.String) value);
+                    target.setTextualConvention((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             public java.lang.Object newInstance(java.lang.Object parent) {
                 return null;
@@ -128,9 +127,9 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
 
-        //-- validation code for: _textualConvention
+        // -- validation code for: _textualConvention
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
@@ -138,33 +137,37 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
             typeValidator.setWhiteSpace("preserve");
         }
         desc.setValidator(fieldValidator);
-        //-- initialize element descriptors
+        // -- initialize element descriptors
 
-        //-- _vbnumber
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_vbnumber", "vbnumber", org.exolab.castor.xml.NodeType.Element);
+        // -- _vbnumber
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_vbnumber", "vbnumber",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Varbind target = (Varbind) object;
-                if (!target.hasVbnumber()) { return null; }
+                if (!target.hasVbnumber()) {
+                    return null;
+                }
                 return new java.lang.Integer(target.getVbnumber());
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Varbind target = (Varbind) object;
                     // ignore null values for non optional primitives
-                    if (value == null) { return; }
+                    if (value == null) {
+                        return;
+                    }
 
-                    target.setVbnumber( ((java.lang.Integer) value).intValue());
+                    target.setVbnumber(((java.lang.Integer) value).intValue());
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             public java.lang.Object newInstance(java.lang.Object parent) {
                 return null;
@@ -177,10 +180,10 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _vbnumber
+        // -- validation code for: _vbnumber
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.IntValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.IntValidator();
             fieldValidator.setValidator(typeValidator);
@@ -188,28 +191,28 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
             typeValidator.setMaxInclusive(2147483647);
         }
         desc.setValidator(fieldValidator);
-        //-- _vbvalueList
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_vbvalueList", "vbvalue", org.exolab.castor.xml.NodeType.Element);
+        // -- _vbvalueList
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_vbvalueList", "vbvalue",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Varbind target = (Varbind) object;
                 return target.getVbvalue();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Varbind target = (Varbind) object;
-                    target.addVbvalue( (java.lang.String) value);
+                    target.addVbvalue((java.lang.String) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             public void resetValue(Object object) throws IllegalStateException, IllegalArgumentException {
                 try {
@@ -219,6 +222,7 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             public java.lang.Object newInstance(java.lang.Object parent) {
                 return null;
@@ -231,10 +235,10 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _vbvalueList
+        // -- validation code for: _vbvalueList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
-        { //-- local scope
+        { // -- local scope
             org.exolab.castor.xml.validators.StringValidator typeValidator;
             typeValidator = new org.exolab.castor.xml.validators.StringValidator();
             fieldValidator.setValidator(typeValidator);
@@ -243,10 +247,9 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
         desc.setValidator(fieldValidator);
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Method getAccessMode.
@@ -254,8 +257,7 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
      * @return the access mode specified for this class.
      */
     @Override()
-    public org.exolab.castor.mapping.AccessMode getAccessMode(
-    ) {
+    public org.exolab.castor.mapping.AccessMode getAccessMode() {
         return null;
     }
 
@@ -263,11 +265,10 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
      * Method getIdentity.
      *
      * @return the identity field, null if this class has no
-     * identity.
+     *         identity.
      */
     @Override()
-    public org.exolab.castor.mapping.FieldDescriptor getIdentity(
-    ) {
+    public org.exolab.castor.mapping.FieldDescriptor getIdentity() {
         return _identity;
     }
 
@@ -277,8 +278,7 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
      * @return the Java class represented by this descriptor.
      */
     @Override()
-    public java.lang.Class<?> getJavaClass(
-    ) {
+    public java.lang.Class<?> getJavaClass() {
         return org.opennms.netmgt.xml.eventconf.Varbind.class;
     }
 
@@ -288,8 +288,7 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpacePrefix(
-    ) {
+    public java.lang.String getNameSpacePrefix() {
         return _nsPrefix;
     }
 
@@ -297,11 +296,10 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
      * Method getNameSpaceURI.
      *
      * @return the namespace URI used when marshaling and
-     * unmarshaling as XML.
+     *         unmarshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpaceURI(
-    ) {
+    public java.lang.String getNameSpaceURI() {
         return _nsURI;
     }
 
@@ -309,11 +307,10 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
      * Method getValidator.
      *
      * @return a specific validator for the class described by this
-     * ClassDescriptor.
+     *         ClassDescriptor.
      */
     @Override()
-    public org.exolab.castor.xml.TypeValidator getValidator(
-    ) {
+    public org.exolab.castor.xml.TypeValidator getValidator() {
         return this;
     }
 
@@ -323,8 +320,7 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
      * @return the XML Name for the Class being described.
      */
     @Override()
-    public java.lang.String getXMLName(
-    ) {
+    public java.lang.String getXMLName() {
         return _xmlName;
     }
 
@@ -332,12 +328,11 @@ public class VarbindDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
      * Method isElementDefinition.
      *
      * @return true if XML schema definition of this Class is that
-     * of a global
-     * element or element with anonymous type definition.
+     *         of a global
+     *         element or element with anonymous type definition.
      */
     @Override
-    public boolean isElementDefinition(
-    ) {
+    public boolean isElementDefinition() {
         return _elementDefinition;
     }
 

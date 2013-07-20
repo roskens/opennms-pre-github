@@ -106,15 +106,14 @@ public class RTCNodeKey implements Comparable<RTCNodeKey> {
      */
     @Override
     public int hashCode() {
-        int hcode = (int) (m_nodeID + (m_ip == null ? 0 : m_ip.hashCode()) + (m_svcName == null ? 0 : m_svcName.hashCode()));
+        int hcode = (int) (m_nodeID + (m_ip == null ? 0 : m_ip.hashCode()) + (m_svcName == null ? 0
+            : m_svcName.hashCode()));
 
         return hcode;
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Overrides the 'equals()' method in the 'Object' superclass
+     * {@inheritDoc} Overrides the 'equals()' method in the 'Object' superclass
      */
     @Override
     public boolean equals(Object o) {
@@ -122,13 +121,14 @@ public class RTCNodeKey implements Comparable<RTCNodeKey> {
             return false;
         }
 
-        return compareTo((RTCNodeKey)o) == 0;
+        return compareTo((RTCNodeKey) o) == 0;
     }
 
     /**
      * Implements java.jang.Comparable since this is a key to a tree map
      *
-     * @param obj a {@link org.opennms.netmgt.rtc.datablock.RTCNodeKey} object.
+     * @param obj
+     *            a {@link org.opennms.netmgt.rtc.datablock.RTCNodeKey} object.
      * @return a int.
      */
     @Override
@@ -148,7 +148,7 @@ public class RTCNodeKey implements Comparable<RTCNodeKey> {
             return rc;
         }
 
-        if(m_svcName == null) {
+        if (m_svcName == null) {
             if (obj.getSvcName() == null) {
                 return 0;
             } else {
@@ -166,7 +166,8 @@ public class RTCNodeKey implements Comparable<RTCNodeKey> {
      */
     @Override
     public String toString() {
-        String s = "RTCNodeKey\n[\n\t" + "nodeID    = " + m_nodeID + "\n\t" + "IP        = " + InetAddressUtils.str(m_ip) + "\n\t" + "Service   = " + m_svcName + "\n]\n";
+        String s = "RTCNodeKey\n[\n\t" + "nodeID    = " + m_nodeID + "\n\t" + "IP        = "
+                + InetAddressUtils.str(m_ip) + "\n\t" + "Service   = " + m_svcName + "\n]\n";
         return s;
     }
 }

@@ -23,38 +23,69 @@ import org.opennms.netmgt.snmp.SnmpValue;
  */
 public class EventdStresser {
     private static final String DEFAULT_IPADDRESS = "127.0.0.1";
+
     private static final String REPORT_SPACING = "\t";
+
     private static final String PROPERTY_TRAP_SINK = "trap.sink";
+
     private static final String PROPERTY_AGENT_IPADDRESS = "agent.ipaddress";
+
     private static final String PROPERTY_BATCH_SIZE = "batch.size";
+
     private static final String PROPERTY_BATCH_DELAY = "batch.delay";
+
     private static final String PROPERTY_TRAP_RATE = "trap.rate";
+
     private static final String PROPERTY_TRAP_COUNT = "trap.count";
+
     private static final String PROPERTY_TRAP_COMMUNITY = "trap.community";
+
     private static final String PROPERTY_TRAP_PORT = "trap.port";
+
     private static final String PROPERTY_PERSIST_WAIT = "persist.wait";
+
     private static final String PROPERTY_DELETE_ALL_EVENTS = "delete.all.events";
+
     private static final String PROPERTY_DELETE_TEST_EVENTS = "delete.test.events";
+
     private static final String PROPERTY_DB_SVR = "db.server";
+
     private static final String PROPERTY_DB_NAME = "db.name";
+
     private static final String PROPERTY_DB_USER = "db.user";
+
     private static final String PROPERTY_DB_PW = "db.password";
 
     private static InetAddress m_agentAddress;
+
     private static InetAddress m_trapSink;
+
     private static Integer m_trapPort = Integer.valueOf(162);
+
     private static String m_trapCommunity = "public";
+
     private static Double m_trapRate = Double.valueOf(100); // seconds
+
     private static Integer m_trapCount = Integer.valueOf(10000);
+
     private static Integer m_batchDelay = Integer.valueOf(1); // seconds
+
     private static Integer m_batchSize = m_trapCount;
+
     private static int m_batchCount = 1;
+
     private static int m_persistWait = 60;
+
     private static boolean m_deleteAllEvents = false;
+
     private static boolean m_deleteTestEvents = false;
+
     private static String m_dbSvr = "127.0.0.1";
+
     private static String m_dbName = "opennms";
+
     private static String m_dbUser = "opennms";
+
     private static String m_dbPass = "opennms";
 
     @SuppressWarnings("unused")
@@ -128,7 +159,8 @@ public class EventdStresser {
 
         System.out.println();
         System.out.println("Example:");
-        System.out.println(REPORT_SPACING + "java -D\" + PROPERTY_TRAP_SINK + \"=127.0.0.1\" + \" -D\" + PROPERTY_TRAP_RATE + \"=100 -jar opennms-eventd-stresser.jar");
+        System.out.println(REPORT_SPACING
+                + "java -D\" + PROPERTY_TRAP_SINK + \"=127.0.0.1\" + \" -D\" + PROPERTY_TRAP_RATE + \"=100 -jar opennms-eventd-stresser.jar");
         System.out.println();
         System.out.println();
     }
@@ -223,28 +255,28 @@ public class EventdStresser {
 
         property = System.getProperty(PROPERTY_DB_SVR);
         if (property != null) {
-        	m_dbSvr = property;
+            m_dbSvr = property;
         }
 
         property = System.getProperty(PROPERTY_DB_NAME);
         if (property != null) {
-        	m_dbName = property;
+            m_dbName = property;
         }
 
         property = System.getProperty(PROPERTY_DB_USER);
         if (property != null) {
-        	m_dbUser = property;
+            m_dbUser = property;
         }
 
         property = System.getProperty(PROPERTY_DB_PW);
         if (property != null) {
-        	m_dbPass = property;
+            m_dbPass = property;
         }
-
 
     }
 
-    public static void stressEventd(final SnmpTrapBuilder builder) throws ClassNotFoundException, SQLException, IllegalStateException, InterruptedException {
+    public static void stressEventd(final SnmpTrapBuilder builder) throws ClassNotFoundException, SQLException,
+            IllegalStateException, InterruptedException {
 
         Connection connection = createConnection();
         PoolingConnection pool = new PoolingConnection(connection);
@@ -285,11 +317,13 @@ public class EventdStresser {
 
             finalEventCount = currentEventCount;
 
-            System.out.println("Persist wait time (secs): " + ((System.currentTimeMillis() - beginPersistenceCheck) / 1000));
+            System.out.println("Persist wait time (secs): "
+                    + ((System.currentTimeMillis() - beginPersistenceCheck) / 1000));
             System.out.println("Current Event count: " + Integer.valueOf(finalEventCount).toString());
 
             if (Calendar.getInstance().getTimeInMillis() - beginPersistenceCheck > m_persistWait) {
-                System.out.println("Waited " + ((System.currentTimeMillis() - beginPersistenceCheck) / 1000) + " millisecs for queue to flush.  Apparently missed " + (trapsSent - finalEventCount)
+                System.out.println("Waited " + ((System.currentTimeMillis() - beginPersistenceCheck) / 1000)
+                        + " millisecs for queue to flush.  Apparently missed " + (trapsSent - finalEventCount)
                         + " traps :(");
                 break;
             }
@@ -323,21 +357,24 @@ public class EventdStresser {
         System.out.println();
     }
 
-    private static int sendTraps(final SnmpTrapBuilder builder, PoolingConnection pool, long beginMillis, int initialEventCount) throws IllegalStateException, InterruptedException, SQLException {
+    private static int sendTraps(final SnmpTrapBuilder builder, PoolingConnection pool, long beginMillis,
+            int initialEventCount) throws IllegalStateException, InterruptedException, SQLException {
 
         m_sleepMillis = 0;
         int totalTrapsSent = 0;
 
-        System.out.println("Sending " + m_trapCount + " traps in " + m_batchCount + " batches with a batch interval of " + m_batchDelay.toString() + " seconds...");
+        System.out.println("Sending " + m_trapCount + " traps in " + m_batchCount
+                + " batches with a batch interval of " + m_batchDelay.toString() + " seconds...");
         for (int i = 1; i <= m_batchCount; i++) {
 
             Long batchBegin = Calendar.getInstance().getTimeInMillis();
             Double currentRate = 0.0;
             Integer batchTrapsSent = 0;
             Long batchElapsedMillis = 0L;
-            System.out.println("Sending batch " + i + " of " + Integer.valueOf(m_batchCount) + " batches of " + m_batchSize.intValue() + " traps at the rate of " + m_trapRate.toString()
-                    + " traps/sec...");
-            System.out.println("Estimated time to send: " + m_batchSize.doubleValue() / m_trapRate.doubleValue() + " seconds");
+            System.out.println("Sending batch " + i + " of " + Integer.valueOf(m_batchCount) + " batches of "
+                    + m_batchSize.intValue() + " traps at the rate of " + m_trapRate.toString() + " traps/sec...");
+            System.out.println("Estimated time to send: " + m_batchSize.doubleValue() / m_trapRate.doubleValue()
+                    + " seconds");
 
             while (batchTrapsSent.intValue() < m_batchSize.intValue()) {
 
@@ -422,7 +459,8 @@ public class EventdStresser {
     private static Connection createConnection() throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
 
-        Connection connection = DriverManager.getConnection("jdbc:postgresql://" + m_dbSvr + ":5432/"+m_dbName, m_dbUser, m_dbPass);
+        Connection connection = DriverManager.getConnection("jdbc:postgresql://" + m_dbSvr + ":5432/" + m_dbName,
+                                                            m_dbUser, m_dbPass);
         return connection;
     }
 

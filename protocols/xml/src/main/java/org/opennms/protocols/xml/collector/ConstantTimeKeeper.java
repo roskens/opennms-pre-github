@@ -46,7 +46,8 @@ public class ConstantTimeKeeper implements TimeKeeper {
     /**
      * Instantiates a new constant time keeper.
      *
-     * @param date the date
+     * @param date
+     *            the date
      */
     public ConstantTimeKeeper(final Date date) {
         m_date = date;

@@ -47,7 +47,7 @@ import edu.bucknell.net.JDHCP.DHCPMessage;
 
 final class Client extends Observable implements Runnable, Fiber {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Client.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Client.class);
 
     private final static short DHCP_TARGET_PORT = 67;
 
@@ -70,7 +70,7 @@ final class Client extends Observable implements Runnable, Fiber {
     private boolean m_keepListening;
 
     static {
-    	NULL_ADDR = InetAddressUtils.addr("0.0.0.0");
+        NULL_ADDR = InetAddressUtils.addr("0.0.0.0");
     }
 
     /**
@@ -114,7 +114,7 @@ final class Client extends Observable implements Runnable, Fiber {
         @Override
         public void run() {
 
-                LOG.debug("thread {} running...", this.getName());
+            LOG.debug("thread {} running...", this.getName());
 
             // set socket timeout to 1 second so the value of m_keepListening
             // can be checked periodically
@@ -155,7 +155,8 @@ final class Client extends Observable implements Runnable, Fiber {
                 } catch (ArrayIndexOutOfBoundsException oobE) {
                     // Packet was too large for buffer...log and discard
                     LOG.debug("UnicastListener.run: array out of bounds exception.", oobE);
-                    LOG.warn("UnicastListener.run: malformed DHCP packet, packet too large for buffer (buffer sz={}), discarding packet.", dgbuf.length);
+                    LOG.warn("UnicastListener.run: malformed DHCP packet, packet too large for buffer (buffer sz={}), discarding packet.",
+                             dgbuf.length);
                 } catch (IOException ioE) {
                     LOG.error("UnicastListener.run: io exception receiving response", ioE);
                     m_keepListening = false;
@@ -165,7 +166,7 @@ final class Client extends Observable implements Runnable, Fiber {
                 }
             }
 
-                LOG.debug("thread {} exiting...", super.getName());
+            LOG.debug("thread {} exiting...", super.getName());
         }
     }
 
@@ -195,7 +196,9 @@ final class Client extends Observable implements Runnable, Fiber {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public synchronized void start() {
@@ -213,7 +216,9 @@ final class Client extends Observable implements Runnable, Fiber {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public synchronized void stop() {
@@ -229,7 +234,9 @@ final class Client extends Observable implements Runnable, Fiber {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -239,7 +246,9 @@ final class Client extends Observable implements Runnable, Fiber {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -249,7 +258,9 @@ final class Client extends Observable implements Runnable, Fiber {
     }
 
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      */
     @Override
     public void run() {
@@ -279,15 +290,16 @@ final class Client extends Observable implements Runnable, Fiber {
             try {
                 Message msg = (Message) input.readObject();
                 if (msg.getAddress().equals(NULL_ADDR)) {
-                        LOG.debug("Got disconnect request from Poller corresponding to sending port {}", m_sender.getLocalPort());
+                    LOG.debug("Got disconnect request from Poller corresponding to sending port {}",
+                              m_sender.getLocalPort());
                     isOk = false;
                 } else {
-                        LOG.debug("Got request... adress = {}", msg.getAddress());
+                    LOG.debug("Got request... adress = {}", msg.getAddress());
                     byte[] dhcp = msg.getMessage().externalize();
 
                     DatagramPacket pkt = new DatagramPacket(dhcp, dhcp.length, msg.getAddress(), DHCP_TARGET_PORT);
                     try {
-                           LOG.debug("sending request on port: {}", m_sender.getLocalPort());
+                        LOG.debug("sending request on port: {}", m_sender.getLocalPort());
                         m_sender.send(pkt);
                     } catch (IOException ex) {
                     } // discard
@@ -314,13 +326,13 @@ final class Client extends Observable implements Runnable, Fiber {
         // stop the unicast listener thread and wait for it to exit
         //
         m_keepListening = false;
-            LOG.debug("run: waiting for UnicastListener thread {} to die...", this.getName());
+        LOG.debug("run: waiting for UnicastListener thread {} to die...", this.getName());
         try {
             m_unicastListener.join();
         } catch (InterruptedException e) {
             LOG.debug("run: interrupted while waiting for UnicastListener thread {} to die", this.getName(), e);
         }
-            LOG.debug("run: UnicastListener thread {} is dead...", this.getName());
+        LOG.debug("run: UnicastListener thread {} is dead...", this.getName());
 
         // close the datagram socket
         //

@@ -182,14 +182,11 @@ public class ServiceTemplate implements Serializable, Comparable<ServiceTemplate
 
     @Override
     public int compareTo(ServiceTemplate obj) {
-        return new CompareToBuilder()
-            .append(getName(), obj.getName())
-            .append(getThreads(), obj.getThreads())
-            .append(getPassiveServiceName(), obj.getPassiveServiceName())
-            .append(getInterval(), obj.getInterval())
-            .append(getStatus(), obj.getStatus())
-            .append(getParameters().toArray(OF_PARAMETERS), obj.getParameters().toArray(OF_PARAMETERS))
-            .toComparison();
+        return new CompareToBuilder().append(getName(), obj.getName()).append(getThreads(), obj.getThreads()).append(getPassiveServiceName(),
+                                                                                                                     obj.getPassiveServiceName()).append(getInterval(),
+                                                                                                                                                         obj.getInterval()).append(getStatus(),
+                                                                                                                                                                                   obj.getStatus()).append(getParameters().toArray(OF_PARAMETERS),
+                                                                                                                                                                                                           obj.getParameters().toArray(OF_PARAMETERS)).toComparison();
     }
 
     @Override
@@ -209,14 +206,11 @@ public class ServiceTemplate implements Serializable, Comparable<ServiceTemplate
     public boolean equals(Object obj) {
         if (obj instanceof ServiceTemplate) {
             ServiceTemplate other = (ServiceTemplate) obj;
-            return new EqualsBuilder()
-                .append(getName(), other.getName())
-                .append(getThreads(), other.getThreads())
-                .append(getPassiveServiceName(), other.getPassiveServiceName())
-                .append(getInterval(), other.getInterval())
-                .append(getStatus(), other.getStatus())
-                .append(getParameters().toArray(OF_PARAMETERS), other.getParameters().toArray(OF_PARAMETERS))
-                .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getThreads(), other.getThreads()).append(getPassiveServiceName(),
+                                                                                                                          other.getPassiveServiceName()).append(getInterval(),
+                                                                                                                                                                other.getInterval()).append(getStatus(),
+                                                                                                                                                                                            other.getStatus()).append(getParameters().toArray(OF_PARAMETERS),
+                                                                                                                                                                                                                      other.getParameters().toArray(OF_PARAMETERS)).isEquals();
         }
         return false;
     }

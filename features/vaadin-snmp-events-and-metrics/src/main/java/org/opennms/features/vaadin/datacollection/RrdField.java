@@ -96,8 +96,8 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
         table.setCaption("RRA List");
         table.setContainerDataSource(container);
         table.setStyleName(Runo.TABLE_SMALL);
-        table.setVisibleColumns(new Object[]{"cf", "xff", "steps", "rows"});
-        table.setColumnHeaders(new String[]{"Consolidation Function", "XFF", "Steps", "Rows"});
+        table.setVisibleColumns(new Object[] { "cf", "xff", "steps", "rows" });
+        table.setColumnHeaders(new String[] { "Consolidation Function", "XFF", "Steps", "Rows" });
         table.setEditable(!isReadOnly());
         table.setSelectable(true);
         table.setImmediate(true);
@@ -193,13 +193,14 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
     public Rrd getValue() {
         Rrd dto = new Rrd();
         dto.setStep(new Integer((String) step.getValue()));
-        for (Object itemId: container.getItemIds()) {
+        for (Object itemId : container.getItemIds()) {
             dto.addRra(container.getItem(itemId).getBean().getRra());
         }
         return dto;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
      */
     @Override
@@ -210,8 +211,10 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
         super.setReadOnly(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
@@ -239,7 +242,8 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
         if (itemId == null) {
             Notification.show("Please select a RRA from the table.");
         } else {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
                                            "Do you really want to remove the selected RRA?<br/>This action cannot be undone.",

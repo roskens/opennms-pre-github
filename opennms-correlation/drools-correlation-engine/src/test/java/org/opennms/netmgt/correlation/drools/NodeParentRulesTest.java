@@ -36,14 +36,13 @@ import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.EasyMockUtils;
 
-
 public class NodeParentRulesTest extends CorrelationRulesTestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
     @Test
     public void testParentNodeDown() throws Exception {
 
-        //anticipate(createRootCauseEvent(1, 1));
+        // anticipate(createRootCauseEvent(1, 1));
 
         NodeService nodeService = m_mocks.createMock(NodeService.class);
 
@@ -72,10 +71,10 @@ public class NodeParentRulesTest extends CorrelationRulesTestCase {
     }
 
     // Currently unused
-//    private Event createRootCauseEvent(int symptom, int cause) {
-//        return new EventBuilder(createNodeEvent("rootCauseEvent", cause)).getEvent();
-//    }
-
+    // private Event createRootCauseEvent(int symptom, int cause) {
+    // return new EventBuilder(createNodeEvent("rootCauseEvent",
+    // cause)).getEvent();
+    // }
 
     public Event createNodeDownEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_DOWN_EVENT_UEI, nodeid);
@@ -86,12 +85,7 @@ public class NodeParentRulesTest extends CorrelationRulesTestCase {
     }
 
     private Event createNodeEvent(String uei, int nodeid) {
-        return new EventBuilder(uei, "test")
-            .setNodeid(nodeid)
-            .getEvent();
+        return new EventBuilder(uei, "test").setNodeid(nodeid).getEvent();
     }
-
-
-
 
 }

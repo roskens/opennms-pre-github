@@ -36,47 +36,63 @@ import org.opennms.netmgt.dao.api.ReportdConfigurationDao;
 import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
- * <p>DefaultReportdConfigurationDao class.</p>
+ * <p>
+ * DefaultReportdConfigurationDao class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<ReportdConfiguration, ReportdConfiguration> implements ReportdConfigurationDao {
+public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<ReportdConfiguration, ReportdConfiguration>
+        implements ReportdConfigurationDao {
 
     /**
-     * <p>Constructor for DefaultReportdConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultReportdConfigurationDao.
+     * </p>
      */
     public DefaultReportdConfigurationDao() {
         super(ReportdConfiguration.class, "Reportd Configuration");
     }
 
     /**
-     * <p>getConfig</p>
+     * <p>
+     * getConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.reportd.ReportdConfiguration} object.
+     * @return a {@link org.opennms.netmgt.config.reportd.ReportdConfiguration}
+     *         object.
      */
     @Override
     public ReportdConfiguration getConfig() {
         return getContainer().getObject();
     }
 
-    //@Override
+    // @Override
     /**
-     * <p>translateConfig</p>
+     * <p>
+     * translateConfig
+     * </p>
      *
-     * @param castorConfig a {@link org.opennms.netmgt.config.reportd.ReportdConfiguration} object.
-     * @return a {@link org.opennms.netmgt.config.reportd.ReportdConfiguration} object.
+     * @param castorConfig
+     *            a
+     *            {@link org.opennms.netmgt.config.reportd.ReportdConfiguration}
+     *            object.
+     * @return a {@link org.opennms.netmgt.config.reportd.ReportdConfiguration}
+     *         object.
      */
     @Override
     public ReportdConfiguration translateConfig(ReportdConfiguration castorConfig) {
         return castorConfig;
     }
 
-
     /**
-     * <p>reloadConfiguration</p>
+     * <p>
+     * reloadConfiguration
+     * </p>
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException if any.
+     * @throws org.springframework.dao.DataAccessResourceFailureException
+     *             if any.
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {
@@ -95,7 +111,9 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
     }
 
     /**
-     * <p>getReports</p>
+     * <p>
+     * getReports
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -105,29 +123,33 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
     }
 
     /**
-     * <p>getPersistFlag</p>
+     * <p>
+     * getPersistFlag
+     * </p>
      *
      * @return a boolean.
      */
     @Override
     public boolean getPersistFlag() {
 
-        //return  getConfig().getPersistReports();
+        // return getConfig().getPersistReports();
         String strval = getConfig().getPersistReports();
-        boolean retval=false;
-        if(strval.equals("yes") || strval.equals("on") ){
+        boolean retval = false;
+        if (strval.equals("yes") || strval.equals("on")) {
             retval = true;
         }
 
-        else if(strval.equals("off") ||strval.equals("no")){
-          retval = false;
+        else if (strval.equals("off") || strval.equals("no")) {
+            retval = false;
         }
 
         return retval;
     }
 
     /**
-     * <p>getStorageDirectory</p>
+     * <p>
+     * getStorageDirectory
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -138,9 +160,8 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
 
     /** {@inheritDoc} */
     @Override
-    public boolean deleteReport(String report){
+    public boolean deleteReport(String report) {
         return getConfig().removeReport(getReport(report));
     }
-
 
 }

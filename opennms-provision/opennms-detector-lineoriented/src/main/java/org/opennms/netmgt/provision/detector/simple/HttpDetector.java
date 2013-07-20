@@ -40,7 +40,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>HttpDetector class.</p>
+ * <p>
+ * HttpDetector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,13 +52,19 @@ import org.springframework.stereotype.Component;
 public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest, HttpStatusResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(HttpDetector.class);
+
     private static final String DEFAULT_SERVICE_NAME = "HTTP";
+
     private static final int DEFAULT_PORT = 80;
-    private static String DEFAULT_URL="/";
+
+    private static String DEFAULT_URL = "/";
+
     private static int DEFAULT_MAX_RET_CODE = 399;
 
     private String m_url;
+
     private int m_maxRetCode;
+
     private boolean m_checkRetCode = false;
 
     /**
@@ -70,8 +78,10 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public HttpDetector(final String serviceName, final int port) {
         super(serviceName, port);
@@ -85,7 +95,9 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -93,9 +105,12 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
     }
 
     /**
-     * <p>httpCommand</p>
+     * <p>
+     * httpCommand
+     * </p>
      *
-     * @param command a {@link java.lang.String} object.
+     * @param command
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected String httpCommand(final String command) {
@@ -104,26 +119,40 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
     }
 
     /**
-     * <p>request</p>
+     * <p>
+     * request
+     * </p>
      *
-     * @param command a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
+     * @param command
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *         object.
      */
     protected static LineOrientedRequest request(final String command) {
         return new LineOrientedRequest(command);
     }
 
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
-     * @param url a {@link java.lang.String} object.
-     * @param isCheckCode a boolean.
-     * @param maxRetCode a int.
-     * @return a {@link org.opennms.netmgt.provision.support.AsyncClientConversation.ResponseValidator} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
+     * @param isCheckCode
+     *            a boolean.
+     * @param maxRetCode
+     *            a int.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.support.AsyncClientConversation.ResponseValidator}
+     *         object.
      */
-    protected static ResponseValidator<HttpStatusResponse> contains(final String pattern, final String url, final boolean isCheckCode, final int maxRetCode){
-        return new ResponseValidator<HttpStatusResponse>(){
+    protected static ResponseValidator<HttpStatusResponse> contains(final String pattern, final String url,
+            final boolean isCheckCode, final int maxRetCode) {
+        return new ResponseValidator<HttpStatusResponse>() {
 
             @Override
             public boolean validate(final HttpStatusResponse message) {
@@ -139,20 +168,24 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
         };
     }
 
-
-    //Public setters and getters
+    // Public setters and getters
 
     /**
-     * <p>setUrl</p>
+     * <p>
+     * setUrl
+     * </p>
      *
-     * @param url a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
      */
     public void setUrl(final String url) {
         m_url = url;
     }
 
     /**
-     * <p>getUrl</p>
+     * <p>
+     * getUrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -161,16 +194,21 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
     }
 
     /**
-     * <p>setMaxRetCode</p>
+     * <p>
+     * setMaxRetCode
+     * </p>
      *
-     * @param maxRetCode a int.
+     * @param maxRetCode
+     *            a int.
      */
     public void setMaxRetCode(final int maxRetCode) {
         m_maxRetCode = maxRetCode;
     }
 
     /**
-     * <p>getMaxRetCode</p>
+     * <p>
+     * getMaxRetCode
+     * </p>
      *
      * @return a int.
      */
@@ -179,16 +217,21 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
     }
 
     /**
-     * <p>setCheckRetCode</p>
+     * <p>
+     * setCheckRetCode
+     * </p>
      *
-     * @param checkRetCode a boolean.
+     * @param checkRetCode
+     *            a boolean.
      */
     public void setCheckRetCode(final boolean checkRetCode) {
         m_checkRetCode = checkRetCode;
     }
 
     /**
-     * <p>isCheckRetCode</p>
+     * <p>
+     * isCheckRetCode
+     * </p>
      *
      * @return a boolean.
      */

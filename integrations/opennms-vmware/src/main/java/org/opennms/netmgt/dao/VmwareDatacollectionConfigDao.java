@@ -35,7 +35,8 @@ import org.opennms.netmgt.model.RrdRepository;
 /**
  * The Interface VmwareDatacollectionConfigDao
  * <p/>
- * This class is used for defining the methods for accessing the configuration data for the Vmware Data Collection
+ * This class is used for defining the methods for accessing the configuration
+ * data for the Vmware Data Collection
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
@@ -49,9 +50,11 @@ public interface VmwareDatacollectionConfigDao {
     VmwareDatacollectionConfig getConfig();
 
     /**
-     * This method returns a subset of the configuration data for a given collection name.
+     * This method returns a subset of the configuration data for a given
+     * collection name.
      *
-     * @param collectionName the collection's name
+     * @param collectionName
+     *            the collection's name
      * @return the collection object
      */
     VmwareCollection getVmwareCollection(String collectionName);
@@ -59,7 +62,8 @@ public interface VmwareDatacollectionConfigDao {
     /**
      * Returns the Rrd repository for a given collection name.
      *
-     * @param collectionName the collection's name
+     * @param collectionName
+     *            the collection's name
      * @return the repository
      */
     public RrdRepository getRrdRepository(String collectionName);

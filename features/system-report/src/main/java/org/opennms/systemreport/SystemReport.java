@@ -57,6 +57,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SystemReport extends Bootstrap {
     private static final Logger LOG = LoggerFactory.getLogger(SystemReport.class);
+
     final static Pattern m_pattern = Pattern.compile("^-D(.*?)=(.*)$");
 
     public static void main(String[] args) throws Exception {
@@ -92,13 +93,13 @@ public class SystemReport extends Bootstrap {
         final CommandLineParser parser = new PosixParser();
 
         final Options options = new Options();
-        options.addOption("h", "help",           false, "this help");
-        options.addOption("D", "define",         true,  "define a java property");
-        options.addOption("p", "list-plugins",   false, "list the available system report plugins");
-        options.addOption("u", "use-plugins",    true,  "select the plugins to output");
-        options.addOption("l", "list-formats",   false, "list the available output formats");
-        options.addOption("f", "format",         true,  "the format to output");
-        options.addOption("o", "output",         true,  "the file to write output to");
+        options.addOption("h", "help", false, "this help");
+        options.addOption("D", "define", true, "define a java property");
+        options.addOption("p", "list-plugins", false, "list the available system report plugins");
+        options.addOption("u", "use-plugins", true, "select the plugins to output");
+        options.addOption("l", "list-formats", false, "list the available output formats");
+        options.addOption("f", "format", true, "the format to output");
+        options.addOption("o", "output", true, "the file to write output to");
 
         final CommandLine line = parser.parse(options, args, false);
         final Set<String> plugins = new LinkedHashSet<String>();
@@ -139,7 +140,9 @@ public class SystemReport extends Bootstrap {
     }
 
     private ServiceRegistry m_serviceRegistry;
+
     private String m_output = "-";
+
     private String m_format = "text";
 
     private void setOutput(final String file) {
@@ -191,16 +194,18 @@ public class SystemReport extends Bootstrap {
         }
 
         final int pluginSize = plugins.size();
-        final Map<String,SystemReportPlugin> pluginMap = new HashMap<String,SystemReportPlugin>();
+        final Map<String, SystemReportPlugin> pluginMap = new HashMap<String, SystemReportPlugin>();
         for (final SystemReportPlugin plugin : getPlugins()) {
             final String name = plugin.getName();
-            if (pluginSize == 0) plugins.add(name);
+            if (pluginSize == 0)
+                plugins.add(name);
             pluginMap.put(name, plugin);
         }
 
         try {
             formatter.begin();
-            if (stream != null) stream.flush();
+            if (stream != null)
+                stream.flush();
             for (final String pluginName : plugins) {
                 final SystemReportPlugin plugin = pluginMap.get(pluginName);
                 if (plugin == null) {
@@ -211,11 +216,13 @@ public class SystemReport extends Bootstrap {
                     } catch (final Exception e) {
                         LOG.error("An error occurred calling plugin '{}'", plugin.getName(), e);
                     }
-                    if (stream != null) stream.flush();
+                    if (stream != null)
+                        stream.flush();
                 }
             }
             formatter.end();
-            if (stream != null) stream.flush();
+            if (stream != null)
+                stream.flush();
         } catch (final Exception e) {
             LOG.error("An error occurred writing plugin data to output.", e);
             System.exit(1);
@@ -238,14 +245,16 @@ public class SystemReport extends Bootstrap {
 
     public List<SystemReportPlugin> getPlugins() {
         initializeSpring();
-        final List<SystemReportPlugin> plugins = new ArrayList<SystemReportPlugin>(m_serviceRegistry.findProviders(SystemReportPlugin.class));
+        final List<SystemReportPlugin> plugins = new ArrayList<SystemReportPlugin>(
+                                                                                   m_serviceRegistry.findProviders(SystemReportPlugin.class));
         Collections.sort(plugins);
         return plugins;
     }
 
     public List<SystemReportFormatter> getFormatters() {
         initializeSpring();
-        final List<SystemReportFormatter> formatters = new ArrayList<SystemReportFormatter>(m_serviceRegistry.findProviders(SystemReportFormatter.class));
+        final List<SystemReportFormatter> formatters = new ArrayList<SystemReportFormatter>(
+                                                                                            m_serviceRegistry.findProviders(SystemReportFormatter.class));
         Collections.sort(formatters);
         return formatters;
     }
@@ -257,7 +266,8 @@ public class SystemReport extends Bootstrap {
             configs.add("classpath:/META-INF/opennms/applicationContext-dao.xml");
             configs.add("classpath*:/META-INF/opennms/component-dao.xml");
             configs.add("classpath:/META-INF/opennms/applicationContext-systemReport.xml");
-            final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(configs.toArray(new String[0]));
+            final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                                                                                              configs.toArray(new String[0]));
             m_serviceRegistry = (ServiceRegistry) context.getBean("serviceRegistry");
         }
     }

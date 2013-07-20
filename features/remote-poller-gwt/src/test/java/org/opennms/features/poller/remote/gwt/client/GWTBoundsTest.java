@@ -33,7 +33,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-
 public class GWTBoundsTest {
 
     @Test
@@ -43,7 +42,6 @@ public class GWTBoundsTest {
 
         GWTLatLng coords = new GWTLatLng(35.0, 75.0);
 
-
         assertTrue(bounds.contains(coords));
     }
 
@@ -52,7 +50,6 @@ public class GWTBoundsTest {
         GWTBounds bounds = new GWTBounds(new GWTLatLng(30.0, -80.0), new GWTLatLng(40.0, -70.0));
 
         GWTLatLng coords = new GWTLatLng(35.0, -75.0);
-
 
         assertTrue(bounds.contains(coords));
 
@@ -64,18 +61,15 @@ public class GWTBoundsTest {
 
         GWTLatLng coords = new GWTLatLng(-35.0, -75.0);
 
-
         assertTrue(bounds.contains(coords));
 
     }
-
 
     @Test
     public void testDatelineContains() {
         GWTBounds bounds = new GWTBounds(new GWTLatLng(-40.0, 80.0), new GWTLatLng(30.0, -70.0));
 
         GWTLatLng coords = new GWTLatLng(10.0, -175.0);
-
 
         assertTrue(bounds.contains(coords));
 
@@ -92,7 +86,6 @@ public class GWTBoundsTest {
         assertTrue(b2.equals(b1));
         assertFalse(b1.equals(b3));
         assertFalse(b3.equals(b1));
-
 
     }
 }

@@ -39,7 +39,6 @@ import java.net.InetAddress;
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
  * @author Sowmya
- *
  * @see SnmpPortal
  * @see SnmpSession
  * @see SnmpTrapSession
@@ -47,11 +46,10 @@ import java.net.InetAddress;
 interface SnmpPacketHandler {
     /**
      * <P>
-     * This method is used to process received SNMP messages in the standard V1 &
-     * V2 format. The only SNMP message not processed by this callback is an
+     * This method is used to process received SNMP messages in the standard V1
+     * & V2 format. The only SNMP message not processed by this callback is an
      * SNMPv1 Trap message.
      * </P>
-     *
      * <P>
      * For any class that implements this interface the processing time should
      * be kept as small as possible. Any time spent in the handler method is
@@ -71,11 +69,11 @@ interface SnmpPacketHandler {
      *            The PDU implicit command value.
      * @param pdu
      *            The Protocol Data Unit (PDU).
-     *
      * @see SnmpPortal.Receiver#run
      * @see SnmpPortal#handlePkt
      */
-    void processSnmpMessage(InetAddress agent, int port, SnmpInt32 version, SnmpOctetString community, int pduType, SnmpPduPacket pdu) throws SnmpPduEncodingException;
+    void processSnmpMessage(InetAddress agent, int port, SnmpInt32 version, SnmpOctetString community, int pduType,
+            SnmpPduPacket pdu) throws SnmpPduEncodingException;
 
     /**
      * <P>
@@ -83,7 +81,6 @@ interface SnmpPacketHandler {
      * SnmpPduRequest & SnmpPduTrap do not share a common base class, a separate
      * method is used to handle the v1 traps.
      * </P>
-     *
      * <P>
      * Since this method only handles SNMPv1 traps the version and pdu type are
      * not passed as parameters to the object.
@@ -97,11 +94,10 @@ interface SnmpPacketHandler {
      *            The community string in the message.
      * @param pdu
      *            The SNMP trap Protocol Data Unit.
-     *
      * @see SnmpPduTrap
-     *
      */
-    void processSnmpTrap(InetAddress agent, int port, SnmpOctetString community, SnmpPduTrap pdu) throws SnmpPduEncodingException;
+    void processSnmpTrap(InetAddress agent, int port, SnmpOctetString community, SnmpPduTrap pdu)
+            throws SnmpPduEncodingException;
 
     /**
      * <P>
@@ -112,7 +108,6 @@ interface SnmpPacketHandler {
      *
      * @param pkt
      *            The datagram packet that failed to parse.
-     *
      */
     void processBadDatagram(DatagramPacket pkt);
 
@@ -122,7 +117,6 @@ interface SnmpPacketHandler {
      * of an SNMP message is handled by this method. Methods that are not
      * forwarded are SnmpPduEncodingExceptions and AsnDecodingExceptions.
      * </P>
-     *
      * <P>
      * Exceptions that may need to be processed by the handler include
      * IOExceptions or other socket related errors.
@@ -130,7 +124,6 @@ interface SnmpPacketHandler {
      *
      * @param e
      *            The caught exception.
-     *
      * @see SnmpPortal
      */
     void processException(Exception e);

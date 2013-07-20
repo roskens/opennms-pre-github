@@ -34,7 +34,9 @@ import javax.management.MalformedObjectNameException;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>UdpEventReceiverMBean interface.</p>
+ * <p>
+ * UdpEventReceiverMBean interface.
+ * </p>
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
@@ -44,46 +46,66 @@ import org.opennms.netmgt.daemon.BaseOnmsMBean;
  */
 public interface UdpEventReceiverMBean extends BaseOnmsMBean {
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      */
     void destroy();
 
     /**
-     * <p>setPort</p>
+     * <p>
+     * setPort
+     * </p>
      *
-     * @param port a {@link java.lang.Integer} object.
+     * @param port
+     *            a {@link java.lang.Integer} object.
      */
     void setPort(Integer port);
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     Integer getPort();
 
     /**
-     * <p>addEventHandler</p>
+     * <p>
+     * addEventHandler
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @throws javax.management.MalformedObjectNameException if any.
-     * @throws javax.management.InstanceNotFoundException if any.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @throws javax.management.MalformedObjectNameException
+     *             if any.
+     * @throws javax.management.InstanceNotFoundException
+     *             if any.
      */
     void addEventHandler(String name) throws MalformedObjectNameException, InstanceNotFoundException;
 
     /**
-     * <p>removeEventHandler</p>
+     * <p>
+     * removeEventHandler
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @throws javax.management.MalformedObjectNameException if any.
-     * @throws javax.management.InstanceNotFoundException if any.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @throws javax.management.MalformedObjectNameException
+     *             if any.
+     * @throws javax.management.InstanceNotFoundException
+     *             if any.
      */
     void removeEventHandler(String name) throws MalformedObjectNameException, InstanceNotFoundException;
 
     /**
-     * <p>setLogPrefix</p>
+     * <p>
+     * setLogPrefix
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      */
     void setLogPrefix(String prefix);
 }

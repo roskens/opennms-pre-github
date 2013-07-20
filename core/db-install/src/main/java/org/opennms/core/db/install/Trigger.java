@@ -38,24 +38,30 @@ import java.util.regex.Pattern;
 public class Trigger {
 
     private String m_name;
+
     private String m_table;
+
     private String m_storedProcedure;
+
     private String m_sql;
 
-    private static Pattern m_pattern =
-        Pattern.compile("(?i)"
-                        + "(CREATE TRIGGER (\\S+)\\s+"
-                        + "BEFORE (?:INSERT|UPDATE|INSERT OR UPDATE)\\s+"
-                        + "ON (\\S+) FOR EACH ROW\\s+"
-                        + "EXECUTE PROCEDURE (\\S+)\\(\\));");
+    private static Pattern m_pattern = Pattern.compile("(?i)" + "(CREATE TRIGGER (\\S+)\\s+"
+            + "BEFORE (?:INSERT|UPDATE|INSERT OR UPDATE)\\s+" + "ON (\\S+) FOR EACH ROW\\s+"
+            + "EXECUTE PROCEDURE (\\S+)\\(\\));");
 
     /**
-     * <p>Constructor for Trigger.</p>
+     * <p>
+     * Constructor for Trigger.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param table a {@link java.lang.String} object.
-     * @param storedProcedure a {@link java.lang.String} object.
-     * @param sql a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param table
+     *            a {@link java.lang.String} object.
+     * @param storedProcedure
+     *            a {@link java.lang.String} object.
+     * @param sql
+     *            a {@link java.lang.String} object.
      */
     public Trigger(String name, String table, String storedProcedure, String sql) {
         m_name = name;
@@ -65,9 +71,12 @@ public class Trigger {
     }
 
     /**
-     * <p>findTriggerInString</p>
+     * <p>
+     * findTriggerInString
+     * </p>
      *
-     * @param create a {@link java.lang.String} object.
+     * @param create
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.dao.db.Trigger} object.
      */
     public static Trigger findTriggerInString(String create) {
@@ -85,11 +94,15 @@ public class Trigger {
     }
 
     /**
-     * <p>isOnDatabase</p>
+     * <p>
+     * isOnDatabase
+     * </p>
      *
-     * @param connection a {@link java.sql.Connection} object.
+     * @param connection
+     *            a {@link java.sql.Connection} object.
      * @return a boolean.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public boolean isOnDatabase(Connection connection) throws SQLException {
         boolean exists;
@@ -97,12 +110,10 @@ public class Trigger {
         Statement st = connection.createStatement();
         ResultSet rs = null;
         try {
-            rs = st.executeQuery("SELECT oid FROM pg_trigger WHERE tgname = '"
-                                           + m_name.toLowerCase()
-                                           + "' AND tgrelid = (SELECT oid FROM pg_class WHERE relname = '"
-                                           + m_table.toLowerCase()
-                                           + "' ) AND tgfoid = (SELECT oid FROM pg_proc WHERE proname = '"
-                                           + m_storedProcedure.toLowerCase() + "')");
+            rs = st.executeQuery("SELECT oid FROM pg_trigger WHERE tgname = '" + m_name.toLowerCase()
+                    + "' AND tgrelid = (SELECT oid FROM pg_class WHERE relname = '" + m_table.toLowerCase()
+                    + "' ) AND tgfoid = (SELECT oid FROM pg_proc WHERE proname = '" + m_storedProcedure.toLowerCase()
+                    + "')");
             exists = rs.next();
         } finally {
             if (rs != null) {
@@ -115,38 +126,47 @@ public class Trigger {
     }
 
     /**
-     * <p>removeFromDatabase</p>
+     * <p>
+     * removeFromDatabase
+     * </p>
      *
-     * @param connection a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException if any.
+     * @param connection
+     *            a {@link java.sql.Connection} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void removeFromDatabase(Connection connection) throws SQLException {
         Statement st = connection.createStatement();
         try {
             st.execute("DROP TRIGGER " + getName() + " ON " + getTable());
-        } finally{
+        } finally {
             st.close();
         }
     }
 
     /**
-     * <p>addToDatabase</p>
+     * <p>
+     * addToDatabase
+     * </p>
      *
-     * @param connection a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException if any.
+     * @param connection
+     *            a {@link java.sql.Connection} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void addToDatabase(Connection connection) throws SQLException {
         Statement st = connection.createStatement();
         try {
             st.execute(getSql());
-        } finally{
+        } finally {
             st.close();
         }
     }
 
-
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -155,7 +175,9 @@ public class Trigger {
     }
 
     /**
-     * <p>getSql</p>
+     * <p>
+     * getSql
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -164,7 +186,9 @@ public class Trigger {
     }
 
     /**
-     * <p>getStoredProcedure</p>
+     * <p>
+     * getStoredProcedure
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -173,7 +197,9 @@ public class Trigger {
     }
 
     /**
-     * <p>getTable</p>
+     * <p>
+     * getTable
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

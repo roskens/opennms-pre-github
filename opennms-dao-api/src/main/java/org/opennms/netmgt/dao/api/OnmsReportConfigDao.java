@@ -28,85 +28,116 @@
 
 package org.opennms.netmgt.dao.api;
 
-
 import org.opennms.netmgt.config.reporting.DateParm;
 import org.opennms.netmgt.config.reporting.IntParm;
 import org.opennms.netmgt.config.reporting.Parameters;
 import org.opennms.netmgt.config.reporting.StringParm;
 
 /**
- * <p>OnmsReportConfigDao interface.</p>
+ * <p>
+ * OnmsReportConfigDao interface.
+ * </p>
  */
 public interface OnmsReportConfigDao {
 
     /**
-     * <p>getParameters</p>
+     * <p>
+     * getParameters
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.reporting.Parameters} object.
      */
     Parameters getParameters(String id);
 
     /**
-     * <p>getDateParms</p>
+     * <p>
+     * getDateParms
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
-     * @return an array of {@link org.opennms.netmgt.config.reporting.DateParm} objects.
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @return an array of {@link org.opennms.netmgt.config.reporting.DateParm}
+     *         objects.
      */
     DateParm[] getDateParms(String id);
 
     /**
-     * <p>getStringParms</p>
+     * <p>
+     * getStringParms
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
-     * @return an array of {@link org.opennms.netmgt.config.reporting.StringParm} objects.
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @return an array of
+     *         {@link org.opennms.netmgt.config.reporting.StringParm} objects.
      */
     StringParm[] getStringParms(String id);
 
     /**
-     * <p>getIntParms</p>
+     * <p>
+     * getIntParms
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
-     * @return an array of {@link org.opennms.netmgt.config.reporting.IntParm} objects.
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @return an array of {@link org.opennms.netmgt.config.reporting.IntParm}
+     *         objects.
      */
     IntParm[] getIntParms(String id);
 
     /**
-     * <p>getPdfStylesheetLocation</p>
+     * <p>
+     * getPdfStylesheetLocation
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     String getPdfStylesheetLocation(String id);
 
     /**
-     * <p>getSvgStylesheetLocation</p>
+     * <p>
+     * getSvgStylesheetLocation
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     String getSvgStylesheetLocation(String id);
 
     /**
-     * <p>getHtmlStylesheetLocation</p>
+     * <p>
+     * getHtmlStylesheetLocation
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     String getHtmlStylesheetLocation(String id);
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     String getType(String id);
 
     /**
-     * <p>getLogo</p>
+     * <p>
+     * getLogo
+     * </p>
      *
-     * @param logo a {@link java.lang.String} object.
+     * @param logo
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     String getLogo(String logo);

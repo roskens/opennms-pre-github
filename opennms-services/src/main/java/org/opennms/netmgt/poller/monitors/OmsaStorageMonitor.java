@@ -33,7 +33,6 @@
  *
  */
 
-
 package org.opennms.netmgt.poller.monitors;
 
 import java.io.IOException;
@@ -58,9 +57,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>OmsaStorageMonitor class.</p>
  * <p>
- * This does SNMP and therefore relies on the SNMP configuration so it is not distributable.
+ * OmsaStorageMonitor class.
+ * </p>
+ * <p>
+ * This does SNMP and therefore relies on the SNMP configuration so it is not
+ * distributable.
  * </p>
  *
  * @author ranger
@@ -74,13 +76,19 @@ final public class OmsaStorageMonitor extends SnmpMonitorStrategy {
     private static final String m_serviceName = "OMSAStorage";
 
     private static final String virtualDiskRollUpStatus = ".1.3.6.1.4.1.674.10893.1.20.140.1.1.19";
+
     private static final String arrayDiskLogicalConnectionVirtualDiskNumber = ".1.3.6.1.4.1.674.10893.1.20.140.3.1.5";
+
     private static final String arrayDiskNexusID = ".1.3.6.1.4.1.674.10893.1.20.130.4.1.26";
-    private static final String arrayDiskLogicalConnectionArrayDiskNumber =".1.3.6.1.4.1.674.10893.1.20.140.3.1.3";
-    private static final String arrayDiskState=".1.3.6.1.4.1.674.10893.1.20.130.4.1.4";
+
+    private static final String arrayDiskLogicalConnectionArrayDiskNumber = ".1.3.6.1.4.1.674.10893.1.20.140.3.1.3";
+
+    private static final String arrayDiskState = ".1.3.6.1.4.1.674.10893.1.20.130.4.1.4";
 
     /**
-     * <p>serviceName</p>
+     * <p>
+     * serviceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,18 +102,20 @@ final public class OmsaStorageMonitor extends SnmpMonitorStrategy {
         try {
             SnmpPeerFactory.init();
         } catch (IOException ex) {
-        	LOG.error("initialize: Failed to load SNMP configuration", ex);
+            LOG.error("initialize: Failed to load SNMP configuration", ex);
             throw new UndeclaredThrowableException(ex);
         }
 
         return;
     }
 
-
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
     @Override
     public void initialize(MonitoredService svc) {
@@ -130,60 +140,68 @@ final public class OmsaStorageMonitor extends SnmpMonitorStrategy {
         LOG.debug("poll: service= SNMP address= {}", agentConfig);
 
         final String hostAddress = InetAddressUtils.str(ipaddr);
-		try {
+        try {
             LOG.debug("OMSAStorageMonitor.poll: SnmpAgentConfig address: {}", agentConfig);
-            SnmpObjId virtualDiskRollUpStatusSnmpObject = SnmpObjId.get(virtualDiskRollUpStatus + "." + virtualDiskNumber);
+            SnmpObjId virtualDiskRollUpStatusSnmpObject = SnmpObjId.get(virtualDiskRollUpStatus + "."
+                    + virtualDiskNumber);
             SnmpValue virtualDiskRollUpStatus = SnmpUtils.get(agentConfig, virtualDiskRollUpStatusSnmpObject);
 
-            if(virtualDiskRollUpStatus == null || virtualDiskRollUpStatus.isNull()) {
-                LOG.debug("SNMP poll failed: no results, addr={} oid={}", hostAddress, virtualDiskRollUpStatusSnmpObject);
+            if (virtualDiskRollUpStatus == null || virtualDiskRollUpStatus.isNull()) {
+                LOG.debug("SNMP poll failed: no results, addr={} oid={}", hostAddress,
+                          virtualDiskRollUpStatusSnmpObject);
                 return PollStatus.unavailable();
             }
 
-            if(virtualDiskRollUpStatus.toInt() != 3){
-		// array or one of its components is not happy lets find out which
+            if (virtualDiskRollUpStatus.toInt() != 3) {
+                // array or one of its components is not happy lets find out
+                // which
 
-                returnValue.append("log vol(").append(virtualDiskNumber).append(") degraded"); // XXX should degraded be the virtualDiskState ?
+                returnValue.append("log vol(").append(virtualDiskNumber).append(") degraded"); // XXX
+                                                                                               // should
+                                                                                               // degraded
+                                                                                               // be
+                                                                                               // the
+                                                                                               // virtualDiskState
+                                                                                               // ?
 
-		SnmpObjId arrayDiskLogicalConnectionVirtualDiskNumberSnmpObject = SnmpObjId.get(arrayDiskLogicalConnectionVirtualDiskNumber);
-            	Map<SnmpInstId,SnmpValue> arrayDisks = SnmpUtils.getOidValues(agentConfig, "OMSAStorageMonitor", arrayDiskLogicalConnectionVirtualDiskNumberSnmpObject);
+                SnmpObjId arrayDiskLogicalConnectionVirtualDiskNumberSnmpObject = SnmpObjId.get(arrayDiskLogicalConnectionVirtualDiskNumber);
+                Map<SnmpInstId, SnmpValue> arrayDisks = SnmpUtils.getOidValues(agentConfig, "OMSAStorageMonitor",
+                                                                               arrayDiskLogicalConnectionVirtualDiskNumberSnmpObject);
 
-            	SnmpObjId arrayDiskLogicalConnectionArrayDiskNumberSnmpObject = SnmpObjId.get(arrayDiskLogicalConnectionArrayDiskNumber);
-    			Map<SnmpInstId,SnmpValue> arrayDiskConnectionNumber = SnmpUtils.getOidValues(agentConfig,"OMSAStorageMonitor", arrayDiskLogicalConnectionArrayDiskNumberSnmpObject);
+                SnmpObjId arrayDiskLogicalConnectionArrayDiskNumberSnmpObject = SnmpObjId.get(arrayDiskLogicalConnectionArrayDiskNumber);
+                Map<SnmpInstId, SnmpValue> arrayDiskConnectionNumber = SnmpUtils.getOidValues(agentConfig,
+                                                                                              "OMSAStorageMonitor",
+                                                                                              arrayDiskLogicalConnectionArrayDiskNumberSnmpObject);
 
+                for (Map.Entry<SnmpInstId, SnmpValue> disk : arrayDisks.entrySet()) {
 
+                    LOG.debug("OMSAStorageMonitor :: arrayDiskNembers=", disk.getValue());
+                    if (disk.getValue().toInt() == virtualDiskNumber) {
+                        LOG.debug("OMSAStorageMonitor :: Disk Found! ");
 
+                        LOG.debug("OMSAStorageMonitor :: Found This Array Disk Value {}", disk.getKey());
 
+                        SnmpObjId arrayDiskStateSnmpObject = SnmpObjId.get(arrayDiskState + "."
+                                + arrayDiskConnectionNumber.get(disk.getKey()));
 
-            	for (Map.Entry<SnmpInstId, SnmpValue> disk: arrayDisks.entrySet()) {
+                        SnmpValue diskValue = SnmpUtils.get(agentConfig, arrayDiskStateSnmpObject);
 
+                        LOG.debug("OmsaStorageMonitor :: Disk State=", diskValue);
+                        if (diskValue.toInt() != 3) {
 
-					LOG.debug("OMSAStorageMonitor :: arrayDiskNembers=", disk.getValue());
-            		if(disk.getValue().toInt()==virtualDiskNumber){
-            			LOG.debug("OMSAStorageMonitor :: Disk Found! ");
+                            String arrayDiskState = getArrayDiskStatus(diskValue);
+                            SnmpObjId arrayDiskNexusIDSnmpObject = SnmpObjId.get(arrayDiskNexusID + "."
+                                    + disk.getKey().toString());
+                            SnmpValue nexusValue = SnmpUtils.get(agentConfig, arrayDiskNexusIDSnmpObject);
 
+                            returnValue.append(" phy drv(").append(nexusValue).append(") ").append(arrayDiskState);
+                        }
 
-				LOG.debug("OMSAStorageMonitor :: Found This Array Disk Value {}", disk.getKey());
+                    }
 
-            			SnmpObjId arrayDiskStateSnmpObject = SnmpObjId.get(arrayDiskState + "." + arrayDiskConnectionNumber.get(disk.getKey()));
+                }
 
-            			SnmpValue diskValue = SnmpUtils.get(agentConfig,arrayDiskStateSnmpObject);
-
-				LOG.debug("OmsaStorageMonitor :: Disk State=", diskValue);
-            			if(diskValue.toInt() != 3) {
-
-            			String arrayDiskState = getArrayDiskStatus(diskValue);
-            			SnmpObjId arrayDiskNexusIDSnmpObject = SnmpObjId.get(arrayDiskNexusID + "." + disk.getKey().toString());
-            			SnmpValue nexusValue =  SnmpUtils.get(agentConfig,arrayDiskNexusIDSnmpObject);
-
-            			returnValue.append(" phy drv(").append(nexusValue).append(") ").append(arrayDiskState);
-            			}
-
-            		}
-
-				}
-
-            	return PollStatus.unavailable(returnValue.toString());
+                return PollStatus.unavailable(returnValue.toString());
 
             }
 
@@ -204,35 +222,54 @@ final public class OmsaStorageMonitor extends SnmpMonitorStrategy {
         return status;
     }
 
-	private SnmpAgentConfig configureAgent(Map<String, Object> parameters, NetworkInterface<InetAddress> iface, InetAddress ipaddr) throws RuntimeException {
+    private SnmpAgentConfig configureAgent(Map<String, Object> parameters, NetworkInterface<InetAddress> iface,
+            InetAddress ipaddr) throws RuntimeException {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        if (agentConfig == null)
+            throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
         LOG.debug("poll: setting SNMP peer attribute for interface {}", InetAddressUtils.str(ipaddr));
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry", ParameterMap.getKeyedInteger(parameters, "retries", agentConfig.getRetries())));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(parameters, "retries",
+                                                                                         agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
-		return agentConfig;
-	}
+        return agentConfig;
+    }
 
-	private String getArrayDiskStatus(SnmpValue diskValue) {
-		switch(diskValue.toInt()){
-			case 1:  return "Ready";
-			case 2:  return "Failed";
-			case 3:  return "Online";
-			case 4:  return "Offline";
-			case 6:  return "Degraded";  // how does that happen for a disk and not a volume?
-			case 7:  return "Recovering";
-			case 11: return "Removed";
-			case 15: return "Resynching";
-			case 24: return "Rebuilding";
-			case 25: return "noMedia";
-			case 26: return "Formating";
-			case 28: return "Running Diagnostics";
-		 	case 35: return "Initializing";
-			default: break;
-		}
-		return null;
-	}
+    private String getArrayDiskStatus(SnmpValue diskValue) {
+        switch (diskValue.toInt()) {
+        case 1:
+            return "Ready";
+        case 2:
+            return "Failed";
+        case 3:
+            return "Online";
+        case 4:
+            return "Offline";
+        case 6:
+            return "Degraded"; // how does that happen for a disk and not a
+                               // volume?
+        case 7:
+            return "Recovering";
+        case 11:
+            return "Removed";
+        case 15:
+            return "Resynching";
+        case 24:
+            return "Rebuilding";
+        case 25:
+            return "noMedia";
+        case 26:
+            return "Formating";
+        case 28:
+            return "Running Diagnostics";
+        case 35:
+            return "Initializing";
+        default:
+            break;
+        }
+        return null;
+    }
 }

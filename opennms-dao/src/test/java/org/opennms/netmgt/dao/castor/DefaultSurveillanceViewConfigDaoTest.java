@@ -46,6 +46,7 @@ import org.springframework.core.io.Resource;
 
 public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
     private static final String CONFIG_WITH_VIEWS_RESOURCE = "/surveillance-views.testdata.xml";
+
     private static final String CONFIG_NO_VIEWS_RESOURCE = "/surveillance-views.testdata.noviews.xml";
 
     private DefaultSurveillanceViewConfigDao m_dao;
@@ -53,7 +54,7 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
+        MockUtil.println("------------ Begin Test " + getName() + " --------------------------");
         MockLogAppender.setupLogging();
 
         createDaoWithResource(CONFIG_WITH_VIEWS_RESOURCE);
@@ -63,7 +64,7 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
     public void runTest() throws Throwable {
         super.runTest();
         MockLogAppender.assertNoWarningsOrGreater();
-        MockUtil.println("------------ End Test "+getName()+" --------------------------");
+        MockUtil.println("------------ End Test " + getName() + " --------------------------");
     }
 
     public void testNothing() {
@@ -192,6 +193,5 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         m_dao.setConfigResource(resource);
         m_dao.afterPropertiesSet();
     }
-
 
 }

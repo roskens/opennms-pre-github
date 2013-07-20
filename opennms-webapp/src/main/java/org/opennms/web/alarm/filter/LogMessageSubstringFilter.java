@@ -31,7 +31,9 @@ package org.opennms.web.alarm.filter;
 import org.opennms.web.filter.SubstringFilter;
 
 /**
- * <p>LogMessageSubstringFilter class.</p>
+ * <p>
+ * LogMessageSubstringFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,16 +44,21 @@ public class LogMessageSubstringFilter extends SubstringFilter {
     public static final String TYPE = "msgsub";
 
     /**
-     * <p>Constructor for LogMessageSubstringFilter.</p>
+     * <p>
+     * Constructor for LogMessageSubstringFilter.
+     * </p>
      *
-     * @param substring a {@link java.lang.String} object.
+     * @param substring
+     *            a {@link java.lang.String} object.
      */
     public LogMessageSubstringFilter(String substring) {
         super(TYPE, "logMsg", "logMsg", substring);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,7 +68,9 @@ public class LogMessageSubstringFilter extends SubstringFilter {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,7 +80,9 @@ public class LogMessageSubstringFilter extends SubstringFilter {
     }
 
     /**
-     * <p>getSubstring</p>
+     * <p>
+     * getSubstring
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

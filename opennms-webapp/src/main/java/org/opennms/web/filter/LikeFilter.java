@@ -32,7 +32,9 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * <p>Abstract LikeFilter class.</p>
+ * <p>
+ * Abstract LikeFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,14 +43,22 @@ import org.hibernate.criterion.Restrictions;
 public abstract class LikeFilter<T> extends OneArgFilter<T> {
 
     /**
-     * <p>Constructor for LikeFilter.</p>
+     * <p>
+     * Constructor for LikeFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param type a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param value a T object.
-     * @param <T> a T object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param type
+     *            a {@link org.opennms.web.filter.SQLType} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a T object.
+     * @param <T>
+     *            a T object.
      */
     public LikeFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T value) {
         super(filterType, type, fieldName, propertyName, value);

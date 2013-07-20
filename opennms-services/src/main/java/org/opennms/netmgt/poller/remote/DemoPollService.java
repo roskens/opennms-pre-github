@@ -34,71 +34,82 @@ import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 class DemoPollService implements PollService {
 
-	private int m_repetitions;
-	private int m_pollCount;
-	private PollStatus m_currentStatus;
+    private int m_repetitions;
 
-	/**
-	 * <p>Constructor for DemoPollService.</p>
-	 *
-	 * @param repetitions a int.
-	 * @param initialStatus a {@link org.opennms.netmgt.model.PollStatus} object.
-	 */
-	public DemoPollService(int repetitions, PollStatus initialStatus) {
-		m_repetitions = repetitions;
-		m_currentStatus = initialStatus;
-	}
+    private int m_pollCount;
 
-	/**
-	 * <p>Constructor for DemoPollService.</p>
-	 *
-	 * @param repetitions a int.
-	 */
-	public DemoPollService(int repetitions) {
-		this(repetitions, PollStatus.up());
-	}
+    private PollStatus m_currentStatus;
 
-	/**
-	 * <p>Constructor for DemoPollService.</p>
-	 */
-	public DemoPollService() {
-		this(2);
-	}
+    /**
+     * <p>
+     * Constructor for DemoPollService.
+     * </p>
+     *
+     * @param repetitions
+     *            a int.
+     * @param initialStatus
+     *            a {@link org.opennms.netmgt.model.PollStatus} object.
+     */
+    public DemoPollService(int repetitions, PollStatus initialStatus) {
+        m_repetitions = repetitions;
+        m_currentStatus = initialStatus;
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public PollStatus poll(PolledService polledService) {
+    /**
+     * <p>
+     * Constructor for DemoPollService.
+     * </p>
+     *
+     * @param repetitions
+     *            a int.
+     */
+    public DemoPollService(int repetitions) {
+        this(repetitions, PollStatus.up());
+    }
+
+    /**
+     * <p>
+     * Constructor for DemoPollService.
+     * </p>
+     */
+    public DemoPollService() {
+        this(2);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public PollStatus poll(PolledService polledService) {
         PollStatus status = m_currentStatus;
 
         m_pollCount++;
         if (m_pollCount % m_repetitions == 0) {
-        	m_currentStatus = (m_currentStatus.isDown() ? PollStatus.up(100.0+m_pollCount) : PollStatus.down("pollCount is "+m_pollCount));
+            m_currentStatus = (m_currentStatus.isDown() ? PollStatus.up(100.0 + m_pollCount)
+                : PollStatus.down("pollCount is " + m_pollCount));
         }
 
         return status;
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void initialize(PolledService polledService) {
         // TODO Auto-generated method stub
 
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void release(PolledService polledService) {
         // TODO Auto-generated method stub
 
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void setServiceMonitorLocators(Collection<ServiceMonitorLocator> locators) {
         // TODO Auto-generated method stub
 

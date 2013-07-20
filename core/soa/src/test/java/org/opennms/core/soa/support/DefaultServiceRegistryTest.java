@@ -44,8 +44,6 @@ import org.opennms.core.soa.RegistrationHook;
 import org.opennms.core.soa.RegistrationListener;
 import org.opennms.core.soa.ServiceRegistry;
 
-
-
 /**
  * DefaultServiceRegistryTest
  *
@@ -74,38 +72,35 @@ public class DefaultServiceRegistryTest {
         }
 
         public boolean contains(T provider) {
-           return m_providers.contains(provider);
+            return m_providers.contains(provider);
         }
 
     }
 
     public static class Hook implements RegistrationHook {
 
-    	private int m_registrationCount = 0;
+        private int m_registrationCount = 0;
 
-		@Override
-		public void registrationAdded(Registration registration) {
-			m_registrationCount++;
-		}
+        @Override
+        public void registrationAdded(Registration registration) {
+            m_registrationCount++;
+        }
 
-		@Override
-		public void registrationRemoved(Registration registration) {
-			m_registrationCount--;
-		}
+        @Override
+        public void registrationRemoved(Registration registration) {
+            m_registrationCount--;
+        }
 
-		public int getCount() {
-			return m_registrationCount;
-		}
+        public int getCount() {
+            return m_registrationCount;
+        }
 
     }
-
-
 
     @Test
     public void testRegisterUnregister() {
 
         MyProvider provider = new MyProvider();
-
 
         Registration registration = m_registry.register(provider, Hello.class, Goodbye.class);
 
@@ -117,7 +112,6 @@ public class DefaultServiceRegistryTest {
 
         Collection<Hello> hellos = m_registry.findProviders(Hello.class);
         Collection<Goodbye> goodbyes = m_registry.findProviders(Goodbye.class);
-
 
         assertEquals(1, hellos.size());
         assertEquals(1, goodbyes.size());
@@ -195,7 +189,6 @@ public class DefaultServiceRegistryTest {
 
         assertTrue(m_registry.findProviders(Hello.class, "(size=big)").isEmpty());
         assertTrue(m_registry.findProviders(Hello.class, "(size=small)").isEmpty());
-
 
         hellos = m_registry.findProviders(Hello.class);
         goodbyes = m_registry.findProviders(Goodbye.class);

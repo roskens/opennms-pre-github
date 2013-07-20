@@ -58,7 +58,6 @@ import org.opennms.netmgt.poller.monitors.AbstractServiceMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * This Monitor is used to poll hosts supporting Radius Authentication.
  * This is done by sending a radius auth packet to the host.
@@ -73,7 +72,7 @@ import org.slf4j.LoggerFactory;
 @Distributable
 final public class RadiusAuthMonitor extends AbstractServiceMonitor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthMonitor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthMonitor.class);
 
     /**
      * Number of milliseconds to wait before timing out a radius AUTH request
@@ -119,29 +118,29 @@ final public class RadiusAuthMonitor extends AbstractServiceMonitor {
      * Default NAS-ID
      */
 
-    public static final String DEFAULT_NASID ="opennms";
+    public static final String DEFAULT_NASID = "opennms";
 
     /**
      * Class constructor.
      *
-     * @throws java.lang.ClassNotFoundException if any.
-     * @throws java.lang.InstantiationException if any.
-     * @throws java.lang.IllegalAccessException if any.
+     * @throws java.lang.ClassNotFoundException
+     *             if any.
+     * @throws java.lang.InstantiationException
+     *             if any.
+     * @throws java.lang.IllegalAccessException
+     *             if any.
      */
     public RadiusAuthMonitor() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         LOG.info("RadiusAuthMonitor class loaded");
     }
 
-
     /**
-     * {@inheritDoc}
-     *
-     * Radius Authentication Poller
-     *
+     * {@inheritDoc} Radius Authentication Poller
      * Note that the poller will return SERVICE_AVAILABLE only if the
      * authentication Request actually succeeds. A failed authentication
      * request will result in SERVICE_UNAVILABLE, although the radius
      * server may actually be up.
+     *
      * @see org.opennms.netmgt.poller.ServiceMonitor#SERVICE_AVAILABLE
      * @see org.opennms.netmgt.poller.ServiceMonitor#SERVICE_UNAVAILABLE
      * @see org.opennms.netmgt.poller.ServiceMonitor#SERVICE_UNRESPONSIVE
@@ -154,9 +153,9 @@ final public class RadiusAuthMonitor extends AbstractServiceMonitor {
      */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-    	final NetworkInterface<InetAddress> iface = svc.getNetInterface();
+        final NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
-    	// Assume that the service is down
+        // Assume that the service is down
         PollStatus status = PollStatus.unavailable();
 
         if (parameters == null) {
@@ -207,8 +206,10 @@ final public class RadiusAuthMonitor extends AbstractServiceMonitor {
 
                 tracker.startAttempt();
 
-                // The retry should be handled by the RadiusClient because otherwise it will thrown an exception.
-                RadiusPacket reply = rc.authenticate(accessRequest, auth, ParameterMap.getKeyedInteger(parameters, "retry", DEFAULT_RETRY));
+                // The retry should be handled by the RadiusClient because
+                // otherwise it will thrown an exception.
+                RadiusPacket reply = rc.authenticate(accessRequest, auth,
+                                                     ParameterMap.getKeyedInteger(parameters, "retry", DEFAULT_RETRY));
                 if (reply instanceof AccessAccept) {
                     double responseTime = tracker.elapsedTimeInMillis();
                     status = PollStatus.available(responseTime);
@@ -231,8 +232,8 @@ final public class RadiusAuthMonitor extends AbstractServiceMonitor {
         return status;
     }
 
-	private int convertTimeoutToSeconds(int timeout) {
-		return timeout/1000 > 0 ? timeout/1000 : 1;
-	}
+    private int convertTimeoutToSeconds(int timeout) {
+        return timeout / 1000 > 0 ? timeout / 1000 : 1;
+    }
 
 }

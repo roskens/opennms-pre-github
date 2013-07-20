@@ -155,8 +155,12 @@ public class AuthorityRepositoryIbatisTest {
     }
 
     private DBUser dbUser = new DBUser();
+
     private DBAuthority dbAuth = new DBAuthority();
+
     private DBGroup dbGroup = new DBGroup();
+
     private DbGroupMemeber dbGroupMember = new DbGroupMemeber();
+
     private static AuthorityRepository repo;
 }

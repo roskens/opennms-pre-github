@@ -36,13 +36,17 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 
 public class JdbcCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
     String m_alias;
+
     String m_value;
+
     JdbcCollectionResource m_resource;
+
     CollectionAttributeType m_attribType;
 
-    public JdbcCollectionAttribute(JdbcCollectionResource resource, CollectionAttributeType attribType, String alias, String value) {
-        m_resource=resource;
-        m_attribType=attribType;
+    public JdbcCollectionAttribute(JdbcCollectionResource resource, CollectionAttributeType attribType, String alias,
+            String value) {
+        m_resource = resource;
+        m_attribType = attribType;
         m_alias = alias;
         m_value = value;
     }
@@ -69,7 +73,7 @@ public class JdbcCollectionAttribute extends AbstractCollectionAttribute impleme
 
     @Override
     public String getStringValue() {
-        return m_value; //Should this be null instead?
+        return m_value; // Should this be null instead?
     }
 
     @Override
@@ -84,7 +88,7 @@ public class JdbcCollectionAttribute extends AbstractCollectionAttribute impleme
 
     @Override
     public String toString() {
-        return "JdbcCollectionAttribute " + m_alias+"=" + m_value;
+        return "JdbcCollectionAttribute " + m_alias + "=" + m_value;
     }
 
     @Override

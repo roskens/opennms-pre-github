@@ -28,7 +28,6 @@
 
 package org.opennms.sms.reflector.smsservice.internal;
 
-
 import java.io.IOException;
 import java.util.Queue;
 
@@ -51,14 +50,14 @@ import org.smslib.Message.MessageTypes;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
-
 /**
  * SmsMessenger
  *
  * @author brozow
  * @version $Id: $
  */
-public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse>, OnmsInboundMessageNotification, IUSSDNotification, InitializingBean {
+public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse>, OnmsInboundMessageNotification,
+        IUSSDNotification, InitializingBean {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
@@ -67,18 +66,25 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
     private Queue<MobileMsgResponse> m_replyQueue;
 
     /**
-     * <p>setSmsService</p>
+     * <p>
+     * setSmsService
+     * </p>
      *
-     * @param smsService a {@link org.opennms.sms.reflector.smsservice.SmsService} object.
+     * @param smsService
+     *            a {@link org.opennms.sms.reflector.smsservice.SmsService}
+     *            object.
      */
     public void setSmsService(SmsService smsService) {
         m_smsService = smsService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -86,33 +92,36 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
-     * @throws java.lang.Exception if any.
+     * @param request
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void sendRequest(MobileMsgRequest request) throws Exception {
-    	request.setSendTimestamp(System.currentTimeMillis());
+        request.setSendTimestamp(System.currentTimeMillis());
 
-    	if (request instanceof SmsRequest) {
-    	    SmsRequest smsRequest = (SmsRequest)request;
+        if (request instanceof SmsRequest) {
+            SmsRequest smsRequest = (SmsRequest) request;
             debugf("SmsMessenger.send sms message %s", smsRequest);
             if (!m_smsService.sendMessage(smsRequest.getMessage())) {
                 throw new IOException("Failed to send sms message");
             }
-    	}
-    	else if (request instanceof UssdRequest) {
-    	    UssdRequest ussdRequest = (UssdRequest)request;
+        } else if (request instanceof UssdRequest) {
+            UssdRequest ussdRequest = (UssdRequest) request;
             debugf("SmsMessenger.send ussd message %s", ussdRequest);
             if (!m_smsService.sendUSSDRequest(ussdRequest.getMessage(), ussdRequest.getGatewayId())) {
                 throw new IOException("Unable to send ussd message");
             }
-	}
-    	else {
-    	    throw new IOException("Unrecognized type of request: " + request);
-    	}
-
+        } else {
+            throw new IOException("Unrecognized type of request: " + request);
+        }
 
     }
 
@@ -151,6 +160,5 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
             log.debug(String.format(fmt, args));
         }
     }
-
 
 }

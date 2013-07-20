@@ -29,7 +29,9 @@
 package org.opennms.netmgt.syslogd;
 
 /**
- * <p>MessageDiscardedException class.</p>
+ * <p>
+ * MessageDiscardedException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

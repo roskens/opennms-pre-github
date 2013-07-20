@@ -46,10 +46,12 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * TODO Tak refactor this test to be snmp and not tca
+ *
  * @author Markus Neumann
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml", "classpath:SnmpProtocolCollectorTestContext.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
+        "classpath:SnmpProtocolCollectorTestContext.xml" })
 @JUnitSnmpAgent(port = 9161, host = "127.0.0.1", resource = "classpath:SnmpSample.properties")
 public class SnmpProtocolCollectorTest implements InitializingBean {
 
@@ -57,11 +59,15 @@ public class SnmpProtocolCollectorTest implements InitializingBean {
     private ProtocolCollector protocolCollector;
 
     private CollectionJob collectionJob;
+
     private InetAddress localhost;
+
     private SnmpAgentConfig snmpAgentConfig;
+
     private Set<String> destinations;
 
     private final String testMetric = ".1.3.6.1.2.1.1.1.0";
+
     private final String testMetricValue = "Mock Juniper TCA Device";
 
     @Autowired

@@ -45,16 +45,15 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="resource-key")
+@XmlRootElement(name = "resource-key")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlResourceKey implements Serializable, Comparable<XmlResourceKey> {
-
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2666286031765770432L;
 
     /** The key-path list. */
-    @XmlElement(name="key-xpath", required=true)
+    @XmlElement(name = "key-xpath", required = true)
     private List<String> m_keyXpathList = new ArrayList<String>();
 
     /**
@@ -76,7 +75,8 @@ public class XmlResourceKey implements Serializable, Comparable<XmlResourceKey> 
     /**
      * Sets the key XPath list.
      *
-     * @param keyXpathList the new key XPath list
+     * @param keyXpathList
+     *            the new key XPath list
      */
     public void setKeyXpathList(List<String> keyXpathList) {
         this.m_keyXpathList = keyXpathList;
@@ -85,7 +85,8 @@ public class XmlResourceKey implements Serializable, Comparable<XmlResourceKey> 
     /**
      * Adds the key XPath.
      *
-     * @param keyXpath the key XPath
+     * @param keyXpath
+     *            the key XPath
      */
     public void addKeyXpath(String keyXpath) {
         m_keyXpathList.add(keyXpath);
@@ -94,32 +95,31 @@ public class XmlResourceKey implements Serializable, Comparable<XmlResourceKey> 
     /**
      * Removes the key XPath.
      *
-     * @param keyXpath the key XPath
+     * @param keyXpath
+     *            the key XPath
      */
     public void removeKeyXpath(String keyXpath) {
         m_keyXpathList.remove(keyXpath);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
     public int compareTo(XmlResourceKey obj) {
-        return new CompareToBuilder()
-        .append(getKeyXpathList(), obj.getKeyXpathList())
-        .toComparison();
+        return new CompareToBuilder().append(getKeyXpathList(), obj.getKeyXpathList()).toComparison();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof XmlResourceKey) {
             XmlResourceKey other = (XmlResourceKey) obj;
-            return new EqualsBuilder()
-            .append(getKeyXpathList(), other.getKeyXpathList())
-            .isEquals();
+            return new EqualsBuilder().append(getKeyXpathList(), other.getKeyXpathList()).isEquals();
         }
         return false;
     }

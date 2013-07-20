@@ -43,16 +43,21 @@ public class ExactUEIFilter extends EqualsFilter<String> {
     public static final String TYPE = "exactUei";
 
     /**
-     * <p>Constructor for ExactUEIFilter.</p>
+     * <p>
+     * Constructor for ExactUEIFilter.
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      */
     public ExactUEIFilter(String uei) {
         super(TYPE, SQLType.STRING, "EVENTUEI", "uei", uei);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +67,9 @@ public class ExactUEIFilter extends EqualsFilter<String> {
     }
 
     /**
-     * <p>getUEI</p>
+     * <p>
+     * getUEI
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

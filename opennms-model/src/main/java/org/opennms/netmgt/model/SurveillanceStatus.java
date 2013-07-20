@@ -49,9 +49,13 @@ public interface SurveillanceStatus {
      * A string presenting the status of the associated set of nodes
      * Possible values are:
      * <ul>
-     * <li>'Normal' representing that there are no ouages for active services on the set of associated nodes<li>
-     * <li>'Warning' representing exactly one service from set of all active services on the associated nodes has an outage
-     * <li>'Critical' representing that more than one service on the from the set of all active services on the assocuate nodes has an outage
+     * <li>'Normal' representing that there are no ouages for active services on
+     * the set of associated nodes
+     * <li>
+     * <li>'Warning' representing exactly one service from set of all active
+     * services on the associated nodes has an outage
+     * <li>'Critical' representing that more than one service on the from the
+     * set of all active services on the assocuate nodes has an outage
      * </ul>
      */
     String getStatus();

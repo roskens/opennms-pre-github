@@ -60,40 +60,42 @@ public class DNSResolutionMonitorTest {
 
     @Test
     public void testPoll() throws Exception {
-        MockMonitoredService dual = new MockMonitoredService(1, "wipv6day.opennms.org", InetAddress.getLocalHost(), "RESOLVE");
-        MockMonitoredService v4only = new MockMonitoredService(1, "choopa-ipv4.opennms.org", InetAddress.getLocalHost(), "RESOLVE");
-        MockMonitoredService v6only = new MockMonitoredService(1, "choopa-ipv6.opennms.org", InetAddress.getLocalHost(), "RESOLVE");
-        MockMonitoredService neither = new MockMonitoredService(1, "no-such-name.example.com", InetAddress.getLocalHost(), "RESOLVE");
+        MockMonitoredService dual = new MockMonitoredService(1, "wipv6day.opennms.org", InetAddress.getLocalHost(),
+                                                             "RESOLVE");
+        MockMonitoredService v4only = new MockMonitoredService(1, "choopa-ipv4.opennms.org",
+                                                               InetAddress.getLocalHost(), "RESOLVE");
+        MockMonitoredService v6only = new MockMonitoredService(1, "choopa-ipv6.opennms.org",
+                                                               InetAddress.getLocalHost(), "RESOLVE");
+        MockMonitoredService neither = new MockMonitoredService(1, "no-such-name.example.com",
+                                                                InetAddress.getLocalHost(), "RESOLVE");
 
         DNSResolutionMonitor monitor = new DNSResolutionMonitor();
-        monitor.initialize(Collections.<String, Object>emptyMap());
+        monitor.initialize(Collections.<String, Object> emptyMap());
 
         monitor.initialize(dual);
         monitor.initialize(v4only);
         monitor.initialize(v6only);
         monitor.initialize(neither);
 
-
-        Map<String, Object> v4Parms = Collections.<String, Object>singletonMap(RESOLUTION_TYPE_PARM, RT_V4);
-        Map<String, Object> v6Parms = Collections.<String, Object>singletonMap(RESOLUTION_TYPE_PARM, RT_V6);
-        Map<String, Object> bothParms = Collections.<String, Object>singletonMap(RESOLUTION_TYPE_PARM, RT_BOTH);
-        Map<String, Object> eitherParms = Collections.<String, Object>singletonMap(RESOLUTION_TYPE_PARM, RT_EITHER);
-
+        Map<String, Object> v4Parms = Collections.<String, Object> singletonMap(RESOLUTION_TYPE_PARM, RT_V4);
+        Map<String, Object> v6Parms = Collections.<String, Object> singletonMap(RESOLUTION_TYPE_PARM, RT_V6);
+        Map<String, Object> bothParms = Collections.<String, Object> singletonMap(RESOLUTION_TYPE_PARM, RT_BOTH);
+        Map<String, Object> eitherParms = Collections.<String, Object> singletonMap(RESOLUTION_TYPE_PARM, RT_EITHER);
 
         assertEquals(PollStatus.available(), monitor.poll(dual, v4Parms));
         assertEquals(PollStatus.available(), monitor.poll(dual, v6Parms));
         assertEquals(PollStatus.available(), monitor.poll(dual, bothParms));
         assertEquals(PollStatus.available(), monitor.poll(dual, eitherParms));
 
-        assertEquals(PollStatus.available(),   monitor.poll(v4only, v4Parms));
+        assertEquals(PollStatus.available(), monitor.poll(v4only, v4Parms));
         assertEquals(PollStatus.unavailable(), monitor.poll(v4only, v6Parms));
         assertEquals(PollStatus.unavailable(), monitor.poll(v4only, bothParms));
-        assertEquals(PollStatus.available(),   monitor.poll(v4only, eitherParms));
+        assertEquals(PollStatus.available(), monitor.poll(v4only, eitherParms));
 
         assertEquals(PollStatus.unavailable(), monitor.poll(v6only, v4Parms));
-        assertEquals(PollStatus.available(),   monitor.poll(v6only, v6Parms));
+        assertEquals(PollStatus.available(), monitor.poll(v6only, v6Parms));
         assertEquals(PollStatus.unavailable(), monitor.poll(v6only, bothParms));
-        assertEquals(PollStatus.available(),   monitor.poll(v6only, eitherParms));
+        assertEquals(PollStatus.available(), monitor.poll(v6only, eitherParms));
 
         assertEquals(PollStatus.unavailable(), monitor.poll(neither, v4Parms));
         assertEquals(PollStatus.unavailable(), monitor.poll(neither, v6Parms));

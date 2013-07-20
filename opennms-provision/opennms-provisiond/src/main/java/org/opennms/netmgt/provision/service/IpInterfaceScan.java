@@ -46,7 +46,9 @@ import org.opennms.netmgt.provision.ServiceDetector;
 import org.opennms.netmgt.provision.SyncServiceDetector;
 
 /**
- * <p>IpInterfaceScan class.</p>
+ * <p>
+ * IpInterfaceScan class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -55,19 +57,31 @@ public class IpInterfaceScan implements RunInBatch {
     private static final Logger LOG = LoggerFactory.getLogger(IpInterfaceScan.class);
 
     private ProvisionService m_provisionService;
+
     private InetAddress m_address;
+
     private Integer m_nodeId;
+
     private String m_foreignSource;
 
     /**
-     * <p>Constructor for IpInterfaceScan.</p>
+     * <p>
+     * Constructor for IpInterfaceScan.
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param address a {@link java.net.InetAddress} object.
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param provisionService a {@link org.opennms.netmgt.provision.service.ProvisionService} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param provisionService
+     *            a
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *            object.
      */
-    public IpInterfaceScan(final Integer nodeId, final InetAddress address, final String foreignSource, final ProvisionService provisionService) {
+    public IpInterfaceScan(final Integer nodeId, final InetAddress address, final String foreignSource,
+            final ProvisionService provisionService) {
         m_nodeId = nodeId;
         m_address = address;
         m_foreignSource = foreignSource;
@@ -75,7 +89,9 @@ public class IpInterfaceScan implements RunInBatch {
     }
 
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,7 +100,9 @@ public class IpInterfaceScan implements RunInBatch {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -93,7 +111,9 @@ public class IpInterfaceScan implements RunInBatch {
     }
 
     /**
-     * <p>getAddress</p>
+     * <p>
+     * getAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -102,33 +122,39 @@ public class IpInterfaceScan implements RunInBatch {
     }
 
     /**
-     * <p>getProvisionService</p>
+     * <p>
+     * getProvisionService
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.service.ProvisionService} object.
+     * @return a {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *         object.
      */
     public ProvisionService getProvisionService() {
         return m_provisionService;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-        	.append("address", m_address)
-        	.append("foreign source", m_foreignSource)
-        	.append("node ID", m_nodeId)
-        	.toString();
+        return new ToStringBuilder(this).append("address", m_address).append("foreign source", m_foreignSource).append("node ID",
+                                                                                                                       m_nodeId).toString();
     }
 
     /**
-     * <p>servicePersister</p>
+     * <p>
+     * servicePersister
+     * </p>
      *
-     * @param currentPhase a {@link org.opennms.core.tasks.BatchTask} object.
-     * @param serviceName a {@link java.lang.String} object.
+     * @param currentPhase
+     *            a {@link org.opennms.core.tasks.BatchTask} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.core.tasks.Callback} object.
      */
     public Callback<Boolean> servicePersister(final BatchTask currentPhase, final String serviceName) {
@@ -136,27 +162,22 @@ public class IpInterfaceScan implements RunInBatch {
             @Override
             public void complete(final Boolean serviceDetected) {
                 final String hostAddress = str(getAddress());
-				LOG.info("Attempted to detect service {} on address {}: {}", serviceName, hostAddress, serviceDetected);
+                LOG.info("Attempted to detect service {} on address {}: {}", serviceName, hostAddress, serviceDetected);
                 if (serviceDetected) {
 
-                    currentPhase.getBuilder().addSequence(
-                            new RunInBatch() {
-                                @Override
-                                public void run(final BatchTask batch) {
-                                    if ("SNMP".equals(serviceName)) {
-                                        setupAgentInfo(currentPhase);
-                                    }
-                                }
-                            },
-                            new RunInBatch() {
-                                @Override
-                                public void run(final BatchTask batch) {
-                                    getProvisionService().addMonitoredService(getNodeId(), hostAddress, serviceName);
-                                }
-                            });
-
-
-
+                    currentPhase.getBuilder().addSequence(new RunInBatch() {
+                        @Override
+                        public void run(final BatchTask batch) {
+                            if ("SNMP".equals(serviceName)) {
+                                setupAgentInfo(currentPhase);
+                            }
+                        }
+                    }, new RunInBatch() {
+                        @Override
+                        public void run(final BatchTask batch) {
+                            getProvisionService().addMonitoredService(getNodeId(), hostAddress, serviceName);
+                        }
+                    });
 
                 }
                 getProvisionService().updateMonitoredServiceState(getNodeId(), hostAddress, serviceName); // NMS-3906
@@ -164,7 +185,8 @@ public class IpInterfaceScan implements RunInBatch {
 
             @Override
             public void handleException(final Throwable t) {
-                LOG.info("Exception occurred while trying to detect service {} on address {}", serviceName, str(getAddress()), t);
+                LOG.info("Exception occurred while trying to detect service {} on address {}", serviceName,
+                         str(getAddress()), t);
             }
         };
     }
@@ -174,7 +196,8 @@ public class IpInterfaceScan implements RunInBatch {
             @Override
             public void run() {
                 try {
-                    LOG.info("Attemping to detect service {} on address {}", detector.getServiceName(), str(getAddress()));
+                    LOG.info("Attemping to detect service {} on address {}", detector.getServiceName(),
+                             str(getAddress()));
                     cb.complete(detector.isServiceDetected(getAddress()));
                 } catch (final Throwable t) {
                     cb.handleException(t);
@@ -204,19 +227,25 @@ public class IpInterfaceScan implements RunInBatch {
     }
 
     private Task createAsyncDetectorTask(final BatchTask currentPhase, final AsyncServiceDetector asyncDetector) {
-        return currentPhase.getCoordinator().createTask(currentPhase, runDetector(asyncDetector), servicePersister(currentPhase, asyncDetector.getServiceName()));
+        return currentPhase.getCoordinator().createTask(currentPhase, runDetector(asyncDetector),
+                                                        servicePersister(currentPhase, asyncDetector.getServiceName()));
     }
 
     private Task createSyncDetectorTask(final BatchTask currentPhase, final SyncServiceDetector syncDetector) {
-        return currentPhase.getCoordinator().createTask(currentPhase, runDetector(syncDetector, servicePersister(currentPhase, syncDetector.getServiceName())));
+        return currentPhase.getCoordinator().createTask(currentPhase,
+                                                        runDetector(syncDetector,
+                                                                    servicePersister(currentPhase,
+                                                                                     syncDetector.getServiceName())));
     }
 
     /** {@inheritDoc} */
     @Override
     public void run(final BatchTask currentPhase) {
-    	final Collection<ServiceDetector> detectors = getProvisionService().getDetectorsForForeignSource(getForeignSource() == null ? "default" : getForeignSource());
+        final Collection<ServiceDetector> detectors = getProvisionService().getDetectorsForForeignSource(getForeignSource() == null ? "default"
+                                                                                                             : getForeignSource());
 
-        LOG.info("Detecting services for node {}/{} on address {}: found {} detectors", getNodeId(), getForeignSource(), str(getAddress()), detectors.size());
+        LOG.info("Detecting services for node {}/{} on address {}: found {} detectors", getNodeId(),
+                 getForeignSource(), str(getAddress()), detectors.size());
 
         for (final ServiceDetector detector : detectors) {
             currentPhase.add(createDetectorTask(currentPhase, detector));

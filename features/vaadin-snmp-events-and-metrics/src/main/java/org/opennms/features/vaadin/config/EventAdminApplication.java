@@ -74,7 +74,6 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 public class EventAdminApplication extends UI {
     private static final Logger LOG = LoggerFactory.getLogger(EventAdminApplication.class);
 
-
     /** The OpenNMS Event Proxy. */
     private EventProxy eventProxy;
 
@@ -84,7 +83,8 @@ public class EventAdminApplication extends UI {
     /**
      * Sets the OpenNMS Event configuration DAO.
      *
-     * @param eventConfDao the new OpenNMS Event configuration DAO
+     * @param eventConfDao
+     *            the new OpenNMS Event configuration DAO
      */
     public void setEventConfDao(EventConfDao eventConfDao) {
         this.eventConfDao = eventConfDao;
@@ -93,13 +93,15 @@ public class EventAdminApplication extends UI {
     /**
      * Sets the OpenNMS Event Proxy.
      *
-     * @param eventProxy the new event proxy
+     * @param eventProxy
+     *            the new event proxy
      */
     public void setEventProxy(EventProxy eventProxy) {
         this.eventProxy = eventProxy;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.Application#init()
      */
     @Override
@@ -120,7 +122,9 @@ public class EventAdminApplication extends UI {
 
         final File eventsDir = new File(ConfigFileConstants.getFilePathString(), "events");
         final XmlFileContainer container = new XmlFileContainer(eventsDir, true);
-        container.addExcludeFile("default.events.xml"); // This is a protected file, should not be updated.
+        container.addExcludeFile("default.events.xml"); // This is a protected
+                                                        // file, should not be
+                                                        // updated.
         final ComboBox eventSource = new ComboBox();
         toolbar.addComponent(eventSource);
         eventSource.setImmediate(true);
@@ -172,10 +176,13 @@ public class EventAdminApplication extends UI {
                     return;
                 }
                 final File file = (File) eventSource.getValue();
-                MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+                MessageBox mb = new MessageBox(
+                                               getUI().getWindows().iterator().next(),
                                                "Are you sure?",
                                                MessageBox.Icon.QUESTION,
-                                               "Do you really want to remove the file " + file.getName() + "?<br/>This cannot be undone and OpenNMS won't be able to handle the events configured on this file.",
+                                               "Do you really want to remove the file "
+                                                       + file.getName()
+                                                       + "?<br/>This cannot be undone and OpenNMS won't be able to handle the events configured on this file.",
                                                new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
                                                new MessageBox.ButtonConfig(MessageBox.ButtonType.NO, "No"));
                 mb.addStyleName(Runo.WINDOW_DIALOG);
@@ -199,7 +206,9 @@ public class EventAdminApplication extends UI {
                                     }
                                     if (modified) {
                                         JaxbUtils.marshal(config, new FileWriter(configFile));
-                                        EventBuilder eb = new EventBuilder(EventConstants.EVENTSCONFIG_CHANGED_EVENT_UEI, "WebUI");
+                                        EventBuilder eb = new EventBuilder(
+                                                                           EventConstants.EVENTSCONFIG_CHANGED_EVENT_UEI,
+                                                                           "WebUI");
                                         eventProxy.send(eb.getEvent());
                                     }
                                     // Updating UI Components
@@ -207,8 +216,10 @@ public class EventAdminApplication extends UI {
                                     if (layout.getComponentCount() > 1)
                                         layout.removeComponent(layout.getComponent(1));
                                 } catch (Exception e) {
-                                    LOG.error("an error ocurred while saving the event configuration: {}", e.getMessage(), e);
-                                    Notification.show("Can't save event configuration. " + e.getMessage(), Notification.Type.ERROR_MESSAGE);
+                                    LOG.error("an error ocurred while saving the event configuration: {}",
+                                              e.getMessage(), e);
+                                    Notification.show("Can't save event configuration. " + e.getMessage(),
+                                                      Notification.Type.ERROR_MESSAGE);
                                 }
                             } else {
                                 Notification.show("Cannot delete file " + file, Notification.Type.WARNING_MESSAGE);
@@ -229,9 +240,12 @@ public class EventAdminApplication extends UI {
     /**
      * Adds a new Events Panel.
      *
-     * @param layout the layout
-     * @param file the Events File Name
-     * @param events the Events Object
+     * @param layout
+     *            the layout
+     * @param file
+     *            the Events File Name
+     * @param events
+     *            the Events Object
      * @return a new Events Panel Object
      */
     private void addEventPanel(final VerticalLayout layout, final File file, final Events events) {
@@ -240,11 +254,13 @@ public class EventAdminApplication extends UI {
             public void cancel() {
                 this.setVisible(false);
             }
+
             @Override
             public void success() {
                 Notification.show("Event file " + file.getName() + " has been successfuly saved.");
                 this.setVisible(false);
             }
+
             @Override
             public void failure() {
                 Notification.show("Event file " + file.getName() + " cannot be saved.", Notification.Type.ERROR_MESSAGE);
@@ -258,7 +274,8 @@ public class EventAdminApplication extends UI {
     /**
      * Removes the event panel.
      *
-     * @param layout the layout
+     * @param layout
+     *            the layout
      */
     private void removeEventPanel(final VerticalLayout layout) {
         if (layout.getComponentCount() > 1)

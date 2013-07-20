@@ -36,8 +36,10 @@ import javax.xml.bind.annotation.XmlValue;
 
 /**
  * The Class Content.
+ * <p>
+ * Post a Form:
+ * </p>
  *
- * <p>Post a Form:</p>
  * <pre>
  *   &lt;content type='application/x-www-form-urlencoded'&gt;&lt;![CDATA[
  *     &lt;form-fields&gt;
@@ -46,8 +48,10 @@ import javax.xml.bind.annotation.XmlValue;
  *     &lt;/form-fields&gt;
  *   ]]&gt;&lt;/content&gt;
  * </pre>
+ * <p>
+ * Post a JSON Object:
+ * </p>
  *
- * <p>Post a JSON Object:</p>
  * <pre>
  *   &lt;content type='application/json'&gt;&lt;![CDATA[
  *     {
@@ -58,8 +62,10 @@ import javax.xml.bind.annotation.XmlValue;
  *     }
  *   ]]&gt;&lt;/content&gt;
  * </pre>
+ * <p>
+ * Post a XML:
+ * </p>
  *
- * <p>Post a XML:</p>
  * <pre>
  *   &lt;content type='application/xml'&gt;&lt;![CDATA[
  *     &lt;person&gt;
@@ -71,16 +77,19 @@ import javax.xml.bind.annotation.XmlValue;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="content")
+@XmlRootElement(name = "content")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Content {
 
     /** The type. */
-    @XmlAttribute(required=true)
+    @XmlAttribute(required = true)
     private String type;
 
-    /** The data.
-     *  <p>In order to put any arbitrary XML content, CDATA is required.</p>
+    /**
+     * The data.
+     * <p>
+     * In order to put any arbitrary XML content, CDATA is required.
+     * </p>
      */
     @XmlValue
     private String data;
@@ -88,13 +97,16 @@ public class Content {
     /**
      * Instantiates a new content.
      */
-    public Content() {}
+    public Content() {
+    }
 
     /**
      * Instantiates a new content.
      *
-     * @param type the type
-     * @param data the data
+     * @param type
+     *            the type
+     * @param data
+     *            the data
      */
     public Content(String type, String data) {
         this.type = type;
@@ -113,7 +125,8 @@ public class Content {
     /**
      * Sets the type.
      *
-     * @param type the new type
+     * @param type
+     *            the new type
      */
     public void setType(String type) {
         this.type = type;
@@ -131,7 +144,8 @@ public class Content {
     /**
      * Sets the data.
      *
-     * @param data the new data
+     * @param data
+     *            the new data
      */
     public void setData(String data) {
         this.data = data;

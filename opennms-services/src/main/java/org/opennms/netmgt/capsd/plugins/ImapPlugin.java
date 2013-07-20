@@ -93,7 +93,9 @@ public final class ImapPlugin extends AbstractTcpPlugin {
     private static final String PROTOCOL_NAME = "IMAP";
 
     /**
-     * <p>Constructor for ImapPlugin.</p>
+     * <p>
+     * Constructor for ImapPlugin.
+     * </p>
      */
     public ImapPlugin() {
         super(PROTOCOL_NAME, DEFAULT_PORT, DEFAULT_TIMEOUT, DEFAULT_RETRY);

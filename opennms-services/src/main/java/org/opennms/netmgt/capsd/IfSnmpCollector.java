@@ -86,7 +86,8 @@ public final class IfSnmpCollector implements Runnable {
      * the collection point. The collection does not occur until the
      * <code>run</code> method is invoked.
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      */
     public IfSnmpCollector(InetAddress address) {
         m_address = address;
@@ -134,9 +135,9 @@ public final class IfSnmpCollector implements Runnable {
      */
     public boolean hasIfTable() {
         // FIXME What should we do if the table had no error but was empty
-		if (m_ifTable == null) {
-			LOG.debug("hasIfTable: No interface table present.");
-		}
+        if (m_ifTable == null) {
+            LOG.debug("hasIfTable: No interface table present.");
+        }
         return (m_ifTable != null && !m_ifTable.failed());
     }
 
@@ -156,9 +157,9 @@ public final class IfSnmpCollector implements Runnable {
      */
     public boolean hasIpAddrTable() {
         // FIXME What should we do if the table had no error but was empty
-		if (m_ipAddrTable == null) {
-			LOG.debug("hasIpAddrTable: No IP interface address table present.");
-		}
+        if (m_ipAddrTable == null) {
+            LOG.debug("hasIpAddrTable: No IP interface address table present.");
+        }
         return (m_ipAddrTable != null && !m_ipAddrTable.failed());
     }
 
@@ -178,9 +179,9 @@ public final class IfSnmpCollector implements Runnable {
      */
     public boolean hasIfXTable() {
         // FIXME What should we do if the table had no error but was empty
-    		if (m_ifXTable == null) {
-    			LOG.debug("hasIfXTable: No interface extensions table present.");
-    		}
+        if (m_ifXTable == null) {
+            LOG.debug("hasIfXTable: No interface extensions table present.");
+        }
         return (m_ifXTable != null && !m_ifXTable.failed());
     }
 
@@ -222,9 +223,12 @@ public final class IfSnmpCollector implements Runnable {
     }
 
     /**
-     * <p>getAdminStatus</p>
+     * <p>
+     * getAdminStatus
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a int.
      */
     public int getAdminStatus(int ifIndex) {
@@ -236,9 +240,12 @@ public final class IfSnmpCollector implements Runnable {
     }
 
     /**
-     * <p>getOperStatus</p>
+     * <p>
+     * getOperStatus
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a int.
      */
     public int getOperStatus(int ifIndex) {
@@ -250,9 +257,12 @@ public final class IfSnmpCollector implements Runnable {
     }
 
     /**
-     * <p>getIfType</p>
+     * <p>
+     * getIfType
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a int.
      */
     public int getIfType(int ifIndex) {
@@ -264,9 +274,12 @@ public final class IfSnmpCollector implements Runnable {
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      * @return a int.
      */
     public int getIfIndex(InetAddress address) {
@@ -280,9 +293,12 @@ public final class IfSnmpCollector implements Runnable {
     }
 
     /**
-     * <p>getIfName</p>
+     * <p>
+     * getIfName
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getIfName(int ifIndex) {
@@ -303,9 +319,12 @@ public final class IfSnmpCollector implements Runnable {
     }
 
     /**
-     * <p>getIfDescr</p>
+     * <p>
+     * getIfDescr
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getIfDescr(final int ifIndex) {
@@ -318,9 +337,12 @@ public final class IfSnmpCollector implements Runnable {
     }
 
     /**
-     * <p>getInterfaceSpeed</p>
+     * <p>
+     * getInterfaceSpeed
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.Long} object.
      */
     public Long getInterfaceSpeed(final int ifIndex) {
@@ -328,24 +350,28 @@ public final class IfSnmpCollector implements Runnable {
 
         try {
 
-            if (hasIfXTable() && getIfXTable().getIfHighSpeed(ifIndex) != null && getIfXTable().getIfHighSpeed(ifIndex) > 4294) {
-                ifSpeed = getIfXTable().getIfHighSpeed(ifIndex)*1000000L;
+            if (hasIfXTable() && getIfXTable().getIfHighSpeed(ifIndex) != null
+                    && getIfXTable().getIfHighSpeed(ifIndex) > 4294) {
+                ifSpeed = getIfXTable().getIfHighSpeed(ifIndex) * 1000000L;
                 LOG.debug("getInterfaceSpeed:  Using ifHighSpeed for ifIndex {}: {}", ifIndex, ifSpeed);
             } else if (hasIfTable()) {
                 ifSpeed = m_ifTable.getIfSpeed(ifIndex);
                 LOG.debug("getInterfaceSpeed:  Using ifSpeed for ifIndex {}: {}", ifIndex, ifSpeed);
             }
 
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             LOG.warn("getInterfaceSpeed: exception retrieving interface speed for ifIndex {}", ifIndex);
         }
         return ifSpeed;
     }
 
     /**
-     * <p>getPhysAddr</p>
+     * <p>
+     * getPhysAddr
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getPhysAddr(final int ifIndex) {
@@ -358,9 +384,12 @@ public final class IfSnmpCollector implements Runnable {
     }
 
     /**
-     * <p>getIfAlias</p>
+     * <p>
+     * getIfAlias
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getIfAlias(int ifIndex) {
@@ -389,7 +418,6 @@ public final class IfSnmpCollector implements Runnable {
      * failure of the collection should be tested via the <code>failed</code>
      * method.
      * </p>
-     *
      * <p>
      * No synchronization is preformed, so if this is used in a separate thread
      * context synchornization must be added.
@@ -407,13 +435,16 @@ public final class IfSnmpCollector implements Runnable {
 
         LOG.debug("run: collecting for: {} with agentConfig: {}", m_address, agentConfig);
 
-        SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "system/ifTable/ifXTable/ipAddrTable", new CollectionTracker[] { m_sysGroup, m_ifTable, m_ipAddrTable, m_ifXTable});
+        SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "system/ifTable/ifXTable/ipAddrTable",
+                                                   new CollectionTracker[] { m_sysGroup, m_ifTable, m_ipAddrTable,
+                                                           m_ifXTable });
         walker.start();
 
         try {
             // wait a maximum of five minutes!
             //
-            // FIXME: Why do we do this. If we are successfully processing responses shouldn't we keep going?
+            // FIXME: Why do we do this. If we are successfully processing
+            // responses shouldn't we keep going?
             walker.waitFor(300000);
         } catch (InterruptedException e) {
             m_sysGroup = null;

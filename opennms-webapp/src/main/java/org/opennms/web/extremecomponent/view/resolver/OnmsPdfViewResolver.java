@@ -51,7 +51,8 @@ import org.extremecomponents.table.filter.ViewResolver;
 public class OnmsPdfViewResolver implements ViewResolver {
 
     @Override
-    public void resolveView(ServletRequest request, ServletResponse response, Preferences preferences, Object viewData) throws Exception {
+    public void resolveView(ServletRequest request, ServletResponse response, Preferences preferences, Object viewData)
+            throws Exception {
         InputStream is = new ByteArrayInputStream(((String) viewData).getBytes("UTF-8"));
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();

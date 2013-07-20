@@ -49,75 +49,74 @@ import org.opennms.netmgt.snmp.SnmpWalker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Command(scope = "snmp", name = "walk", description="Walk the agent on the specified host and print the results.")
+@Command(scope = "snmp", name = "walk", description = "Walk the agent on the specified host and print the results.")
 public class WalkCommand extends OsgiCommandSupport {
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(WalkCommand.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(WalkCommand.class);
 
-	@Option(name="-v", aliases="--version", description="SNMP version either 1, 2c or 3", required=true, multiValued=false)
-	String m_version;
+    @Option(name = "-v", aliases = "--version", description = "SNMP version either 1, 2c or 3", required = true, multiValued = false)
+    String m_version;
 
-	@Option(name="-c", aliases="--community", description="SNMP community string to use, defaults to 'public'", required=false, multiValued=false)
-	String m_community="public";
+    @Option(name = "-c", aliases = "--community", description = "SNMP community string to use, defaults to 'public'", required = false, multiValued = false)
+    String m_community = "public";
 
-	@Option(name="-p", aliases="--port", description="port to use to address the agent defaults to 161", required=false, multiValued=false)
-	int m_port = 161;
+    @Option(name = "-p", aliases = "--port", description = "port to use to address the agent defaults to 161", required = false, multiValued = false)
+    int m_port = 161;
 
-	@Argument(index = 0, name = "host", description = "hostname/ipAddress of the system to walk", required = true, multiValued = false)
-	String m_host;
+    @Argument(index = 0, name = "host", description = "hostname/ipAddress of the system to walk", required = true, multiValued = false)
+    String m_host;
 
-	@Argument(index = 1, name = "oids", description = "list of objectIds to retrieve from the agent", required = true, multiValued = true)
-	List<String> m_oids;
+    @Argument(index = 1, name = "oids", description = "list of objectIds to retrieve from the agent", required = true, multiValued = true)
+    List<String> m_oids;
 
-	private boolean validate() {
-		return true;
-	}
-
+    private boolean validate() {
+        return true;
+    }
 
     @Override
     protected Object doExecute() throws Exception {
 
-    	LOG.debug("snmp:walk -v {} -c {} -p {} {} {}", m_version, m_community, m_port, m_host, m_oids);
+        LOG.debug("snmp:walk -v {} -c {} -p {} {} {}", m_version, m_community, m_port, m_host, m_oids);
 
-    	if (!validate()) {
-    		return null;
-    	}
+        if (!validate()) {
+            return null;
+        }
 
-    	SnmpAgentConfig config = new SnmpAgentConfig(InetAddress.getByName(m_host));
-    	config.setPort(m_port);
-    	config.setVersionAsString("v"+m_version);
-    	config.setReadCommunity(m_community);
+        SnmpAgentConfig config = new SnmpAgentConfig(InetAddress.getByName(m_host));
+        config.setPort(m_port);
+        config.setVersionAsString("v" + m_version);
+        config.setReadCommunity(m_community);
 
-    	Collection<Collectable> trackers = new ArrayList<Collectable>();
+        Collection<Collectable> trackers = new ArrayList<Collectable>();
 
-    	for(String oid : m_oids) {
-    		SnmpObjId objId = SnmpObjId.get(oid);
-    		ColumnTracker tracker = new ColumnTracker(objId);
-    		trackers.add(tracker);
-    	}
+        for (String oid : m_oids) {
+            SnmpObjId objId = SnmpObjId.get(oid);
+            ColumnTracker tracker = new ColumnTracker(objId);
+            trackers.add(tracker);
+        }
 
-    	CollectionTracker agg = new AggregateTracker(trackers) {
+        CollectionTracker agg = new AggregateTracker(trackers) {
 
-			@Override
-			protected void storeResult(SnmpResult res) {
-				System.out.printf("[%s].[%s] = %s%n", res.getBase(), res.getInstance(), res.getValue());
-			}
+            @Override
+            protected void storeResult(SnmpResult res) {
+                System.out.printf("[%s].[%s] = %s%n", res.getBase(), res.getInstance(), res.getValue());
+            }
 
-    	};
+        };
 
-    	SnmpWalker walker = SnmpUtils.createWalker(config, "snmp:walk", agg);
+        SnmpWalker walker = SnmpUtils.createWalker(config, "snmp:walk", agg);
 
-    	walker.start();
+        walker.start();
 
-    	walker.waitFor();
+        walker.waitFor();
 
-    	if (walker.timedOut()) {
-    		System.err.println("Timed Out");
-    	} else if (walker.failed()) {
-    		System.err.println(walker.getErrorMessage());
-    	}
+        if (walker.timedOut()) {
+            System.err.println("Timed Out");
+        } else if (walker.failed()) {
+            System.err.println(walker.getErrorMessage());
+        }
 
-    	return null;
+        return null;
 
     }
 }

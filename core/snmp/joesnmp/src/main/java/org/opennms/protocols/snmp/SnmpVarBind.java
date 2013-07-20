@@ -39,21 +39,17 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * This class defined the SNMP variables that are transmitted to and from an
  * agent. A variable is defined by its name (a SnmpObjectId) and its value
  * (SnmpSyntax).
- *
  * The SnmpVarBind is used by the SnmpPduPacket class and uses SnmpObjectId
  * along with any class that implements the SnmpSyntax interface.
  *
  * @see SnmpSyntax
  * @see SnmpPduPacket
- *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @version 1.1.1.1
- *
  */
 public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serializable {
     /**
      * Allows for evolution of serialization format.
-     *
      */
     static final long serialVersionUID = 2328987288282447623L;
 
@@ -105,7 +101,6 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *            The object identifier name
      * @param value
      *            The syntax object.
-     *
      */
     public SnmpVarBind(SnmpObjectId name, SnmpSyntax value) {
         m_name = (SnmpObjectId) name.duplicate();
@@ -118,9 +113,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *
      * @param name
      *            Dotted decimal object identifier.
-     *
      * @see SnmpObjectId
-     *
      */
     public SnmpVarBind(String name) {
         m_name = new SnmpObjectId(name);
@@ -136,7 +129,6 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *            The dotted decimal object identifer name
      * @param value
      *            The SnmpSyntax value for the variable
-     *
      */
     public SnmpVarBind(String name, SnmpSyntax value) {
         m_name = new SnmpObjectId(name);
@@ -150,7 +142,6 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *
      * @param second
      *            The variable to copy
-     *
      */
     public SnmpVarBind(SnmpVarBind second) {
         m_name = (SnmpObjectId) second.m_name.duplicate();
@@ -171,7 +162,6 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *
      * @param name
      *            The new object id for the variable.
-     *
      */
     public void setName(SnmpObjectId name) {
         m_name = (SnmpObjectId) name.duplicate();
@@ -182,7 +172,6 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *
      * @param name
      *            The dotted decimal object identifier.
-     *
      */
     public void setName(String name) {
         m_name = new SnmpObjectId(name);
@@ -202,7 +191,6 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *
      * @param value
      *            The new value for the object
-     *
      */
     public void setValue(SnmpSyntax value) {
         m_value = value.duplicate();
@@ -212,7 +200,6 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      * Returns the ASN.1 type id for the object.
      *
      * @return The ASN.1 type identifier.
-     *
      */
     @Override
     public byte typeId() {
@@ -231,14 +218,11 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *            Offset to start encoding data
      * @param encoder
      *            The encoder used to convert the data
-     *
      * @exception AnsEncodingException
      *                Thrown if the encoder encounters an error while building
      *                the buffer.
-     *
      * @return The offset of the next byte immediantly after the last encoded
      *         byte by this routine.
-     *
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -272,14 +256,11 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *            Offset to first byte of encoded data
      * @param encoder
      *            The encoder used to convert the data
-     *
      * @return The byte offset immediantly after the last decoded byte of
      *         information.
-     *
      * @exception AnsDecodingException
      *                Thrown if an error occurs while attempting to decode the
      *                data. This exception will be thrown byte encoder object.
-     *
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {

@@ -34,7 +34,9 @@ package org.opennms.netmgt.ackd.readers;
 import java.util.concurrent.TimeUnit;
 
 /**
- * <p>ReaderSchedule class.</p>
+ * <p>
+ * ReaderSchedule class.
+ * </p>
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -42,12 +44,17 @@ import java.util.concurrent.TimeUnit;
 public class ReaderSchedule {
 
     private long m_initialDelay;
+
     private long m_interval;
+
     private long m_attemptsRemaining;
+
     private TimeUnit m_unit;
 
     /**
-     * <p>createSchedule</p>
+     * <p>
+     * createSchedule
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.ackd.readers.ReaderSchedule} object.
      */
@@ -56,12 +63,18 @@ public class ReaderSchedule {
     }
 
     /**
-     * <p>createSchedule</p>
+     * <p>
+     * createSchedule
+     * </p>
      *
-     * @param initDelay a long.
-     * @param interval a long.
-     * @param attempts a int.
-     * @param unit a {@link java.util.concurrent.TimeUnit} object.
+     * @param initDelay
+     *            a long.
+     * @param interval
+     *            a long.
+     * @param attempts
+     *            a int.
+     * @param unit
+     *            a {@link java.util.concurrent.TimeUnit} object.
      * @return a {@link org.opennms.netmgt.ackd.readers.ReaderSchedule} object.
      */
     public static ReaderSchedule createSchedule(long initDelay, long interval, int attempts, TimeUnit unit) {
@@ -80,7 +93,9 @@ public class ReaderSchedule {
     }
 
     /**
-     * <p>getInitialDelay</p>
+     * <p>
+     * getInitialDelay
+     * </p>
      *
      * @return a long.
      */
@@ -89,16 +104,21 @@ public class ReaderSchedule {
     }
 
     /**
-     * <p>setInitialDelay</p>
+     * <p>
+     * setInitialDelay
+     * </p>
      *
-     * @param initialDelay a long.
+     * @param initialDelay
+     *            a long.
      */
     public void setInitialDelay(long initialDelay) {
         m_initialDelay = initialDelay;
     }
 
     /**
-     * <p>getInterval</p>
+     * <p>
+     * getInterval
+     * </p>
      *
      * @return a long.
      */
@@ -107,16 +127,21 @@ public class ReaderSchedule {
     }
 
     /**
-     * <p>setInterval</p>
+     * <p>
+     * setInterval
+     * </p>
      *
-     * @param interval a long.
+     * @param interval
+     *            a long.
      */
     public void setInterval(long interval) {
         m_interval = interval;
     }
 
     /**
-     * <p>getAttemptsRemaining</p>
+     * <p>
+     * getAttemptsRemaining
+     * </p>
      *
      * @return a long.
      */
@@ -125,16 +150,21 @@ public class ReaderSchedule {
     }
 
     /**
-     * <p>setAttemptsRemaining</p>
+     * <p>
+     * setAttemptsRemaining
+     * </p>
      *
-     * @param attemptsRemaining a long.
+     * @param attemptsRemaining
+     *            a long.
      */
     public void setAttemptsRemaining(long attemptsRemaining) {
         m_attemptsRemaining = attemptsRemaining;
     }
 
     /**
-     * <p>getUnit</p>
+     * <p>
+     * getUnit
+     * </p>
      *
      * @return a {@link java.util.concurrent.TimeUnit} object.
      */
@@ -143,34 +173,40 @@ public class ReaderSchedule {
     }
 
     /**
-     * <p>setUnit</p>
+     * <p>
+     * setUnit
+     * </p>
      *
-     * @param unit a {@link java.util.concurrent.TimeUnit} object.
+     * @param unit
+     *            a {@link java.util.concurrent.TimeUnit} object.
      */
     public void setUnit(TimeUnit unit) {
         m_unit = unit;
     }
 
     /**
-     * Creates a proper <code>ReaderSchedule</code> based by computing a new interval based on the
+     * Creates a proper <code>ReaderSchedule</code> based by computing a new
+     * interval based on the
      * string representation of units from the ackd-configuration:
-     *     hours(h), days(d), minutes(m), seconds(s), milliseconds(ms)
-     *
-     * note: if the specification in the configuration is seconds (s) or milliseconds (ms), then no computation is made
+     * hours(h), days(d), minutes(m), seconds(s), milliseconds(ms)
+     * note: if the specification in the configuration is seconds (s) or
+     * milliseconds (ms), then no computation is made
      * to adjust the interval.
      *
-     * @param interval a long.
-     * @param unit a {@link java.lang.String} object.
+     * @param interval
+     *            a long.
+     * @param unit
+     *            a {@link java.lang.String} object.
      * @return an adjusted <code>ReaderSchedule</code>
      */
     public static ReaderSchedule createSchedule(long interval, String unit) {
         TimeUnit tu = TimeUnit.SECONDS;
 
         if ("d".equals(unit)) {
-            interval = interval * 60*60*24;
+            interval = interval * 60 * 60 * 24;
 
         } else if ("h".equals(unit)) {
-            interval = interval * 60*60;
+            interval = interval * 60 * 60;
 
         } else if ("m".equals(unit)) {
             interval = interval * 60;

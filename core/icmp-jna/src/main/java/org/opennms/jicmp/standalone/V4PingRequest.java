@@ -50,8 +50,8 @@ class V4PingRequest extends ICMPEchoPacket {
         setIdentifier(id);
         setSequenceNumber(seqNum);
         ByteBuffer buf = getContentBuffer();
-        for(int b = 0; b < 56; b++) {
-            buf.put((byte)b);
+        for (int b = 0; b < 56; b++) {
+            buf.put((byte) b);
         }
     }
 

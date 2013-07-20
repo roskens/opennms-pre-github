@@ -38,69 +38,97 @@ import org.opennms.netmgt.model.ReportCatalogEntry;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>ReportStoreService interface.</p>
+ * <p>
+ * ReportStoreService interface.
+ * </p>
  */
 @Transactional(readOnly = true)
 public interface ReportStoreService {
 
     /**
-     * <p>getAll</p>
+     * <p>
+     * getAll
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<ReportCatalogEntry> getAll();
 
     /**
-     * <p>getFormatMap</p>
+     * <p>
+     * getFormatMap
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     public Map<String, Object> getFormatMap();
 
     /**
-     * <p>render</p>
+     * <p>
+     * render
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
-     * @param format a {@link org.opennms.api.reporting.ReportFormat} object.
-     * @param outputStream a {@link java.io.OutputStream} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
+     * @param format
+     *            a {@link org.opennms.api.reporting.ReportFormat} object.
+     * @param outputStream
+     *            a {@link java.io.OutputStream} object.
      */
     public void render(Integer id, ReportFormat format, OutputStream outputStream);
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param ids an array of {@link java.lang.Integer} objects.
+     * @param ids
+     *            an array of {@link java.lang.Integer} objects.
      */
     @Transactional(readOnly = false)
     public void delete(Integer[] ids);
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     @Transactional(readOnly = false)
     public void delete(Integer id);
 
     /**
-     * <p>save</p>
+     * <p>
+     * save
+     * </p>
      *
-     * @param reportCatalogEntry a {@link org.opennms.netmgt.model.ReportCatalogEntry} object.
+     * @param reportCatalogEntry
+     *            a {@link org.opennms.netmgt.model.ReportCatalogEntry} object.
      */
     @Transactional(readOnly = false)
     public void save(ReportCatalogEntry reportCatalogEntry);
 
     /**
-     * <p>setReportCatalogDao</p>
+     * <p>
+     * setReportCatalogDao
+     * </p>
      *
-     * @param reportCatalogDao a {@link org.opennms.netmgt.dao.api.ReportCatalogDao} object.
+     * @param reportCatalogDao
+     *            a {@link org.opennms.netmgt.dao.api.ReportCatalogDao} object.
      */
     public void setReportCatalogDao(ReportCatalogDao reportCatalogDao);
 
     /**
-     * <p>setReportServiceLocator</p>
+     * <p>
+     * setReportServiceLocator
+     * </p>
      *
-     * @param reportServiceLocator a {@link org.opennms.reporting.core.svclayer.ReportServiceLocator} object.
+     * @param reportServiceLocator
+     *            a
+     *            {@link org.opennms.reporting.core.svclayer.ReportServiceLocator}
+     *            object.
      */
     public void setReportServiceLocator(ReportServiceLocator reportServiceLocator);
 }

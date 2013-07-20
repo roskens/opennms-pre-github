@@ -36,9 +36,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
- * <p>OnmsNodeList class.</p>
+ * <p>
+ * OnmsNodeList class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,26 +48,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OnmsNodeList extends LinkedList<OnmsNode> {
 
     private static final long serialVersionUID = 8031737923157780179L;
+
     private int m_totalCount;
 
     /**
-     * <p>Constructor for OnmsNodeList.</p>
+     * <p>
+     * Constructor for OnmsNodeList.
+     * </p>
      */
     public OnmsNodeList() {
         super();
     }
 
     /**
-     * <p>Constructor for OnmsNodeList.</p>
+     * <p>
+     * Constructor for OnmsNodeList.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public OnmsNodeList(Collection<? extends OnmsNode> c) {
         super(c);
     }
 
     /**
-     * <p>getNodes</p>
+     * <p>
+     * getNodes
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -76,44 +85,56 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
     }
 
     /**
-     * <p>setNodes</p>
+     * <p>
+     * setNodes
+     * </p>
      *
-     * @param nodes a {@link java.util.List} object.
+     * @param nodes
+     *            a {@link java.util.List} object.
      */
     public void setNodes(List<OnmsNode> nodes) {
-        if (nodes == this) return;
+        if (nodes == this)
+            return;
         clear();
         addAll(nodes);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public int getCount() {
         return this.size();
     }
 
-    // The property has a getter "" but no setter. For unmarshalling, please define setters.
+    // The property has a getter "" but no setter. For unmarshalling, please
+    // define setters.
     public void setCount(final int count) {
     }
 
     /**
-     * <p>getTotalCount</p>
+     * <p>
+     * getTotalCount
+     * </p>
      *
      * @return a int.
      */
-    @XmlAttribute(name="totalCount")
+    @XmlAttribute(name = "totalCount")
     public int getTotalCount() {
         return m_totalCount;
     }
 
     /**
-     * <p>setTotalCount</p>
+     * <p>
+     * setTotalCount
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      */
     public void setTotalCount(int count) {
         m_totalCount = count;

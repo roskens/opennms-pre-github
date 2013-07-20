@@ -34,7 +34,9 @@ import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.model.OnmsOutage;
 
 /**
- * <p>SuppressOutages class.</p>
+ * <p>
+ * SuppressOutages class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @author <a href="mailto:djgregor@opennms.org">DJ Gregor</a>
@@ -44,43 +46,51 @@ public class SuppressOutages {
     // me love you, LONG_TIME
     private static Integer LONG_TIME = Integer.valueOf(100);
 
-	/**
-	 * <p>suppress</p>
-	 *
-	 * @param outageid a {@link java.lang.Integer} object.
-	 * @param time a {@link java.lang.String} object.
-	 * @param outageService a {@link org.opennms.web.svclayer.outage.OutageService} object.
-	 * @param suppressor a {@link java.lang.String} object.
-	 */
-	public final void suppress(final Integer outageid, final String time,final OutageService outageService, final String suppressor) {
+    /**
+     * <p>
+     * suppress
+     * </p>
+     *
+     * @param outageid
+     *            a {@link java.lang.Integer} object.
+     * @param time
+     *            a {@link java.lang.String} object.
+     * @param outageService
+     *            a {@link org.opennms.web.svclayer.outage.OutageService}
+     *            object.
+     * @param suppressor
+     *            a {@link java.lang.String} object.
+     */
+    public final void suppress(final Integer outageid, final String time, final OutageService outageService,
+            final String suppressor) {
 
-		OnmsOutage outage = (OnmsOutage) outageService.load(outageid);
-		GregorianCalendar suppress = new GregorianCalendar();
+        OnmsOutage outage = (OnmsOutage) outageService.load(outageid);
+        GregorianCalendar suppress = new GregorianCalendar();
 
-		if (time.equals("-1")) {
-			// Suppress forever
-			suppress.add(GregorianCalendar.YEAR, LONG_TIME);
+        if (time.equals("-1")) {
+            // Suppress forever
+            suppress.add(GregorianCalendar.YEAR, LONG_TIME);
 
-		} else if (time == "") {
-			// Just ignore this for now.
+        } else if (time == "") {
+            // Just ignore this for now.
 
-		} else {
-			// We just append the time to the suppresstime column.
-			suppress.add(GregorianCalendar.MINUTE, WebSecurityUtils.safeParseInt(time));
+        } else {
+            // We just append the time to the suppresstime column.
+            suppress.add(GregorianCalendar.MINUTE, WebSecurityUtils.safeParseInt(time));
 
-		}
+        }
 
-		if (time != "") {
+        if (time != "") {
 
-			if (time == "-2") {
-			    outage.setSuppressTime(null);
-			} else {
-			    outage.setSuppressTime(suppress.getTime());
-			}
-			outage.setSuppressedBy(suppressor);
-			outageService.update(outage);
+            if (time == "-2") {
+                outage.setSuppressTime(null);
+            } else {
+                outage.setSuppressTime(suppress.getTime());
+            }
+            outage.setSuppressedBy(suppressor);
+            outageService.update(outage);
 
-		}
-	}
+        }
+    }
 
 }

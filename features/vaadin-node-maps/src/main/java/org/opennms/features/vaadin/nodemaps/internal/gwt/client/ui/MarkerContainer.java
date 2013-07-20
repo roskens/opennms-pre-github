@@ -9,7 +9,8 @@ import org.opennms.features.vaadin.nodemaps.internal.gwt.client.MarkerProvider;
 import org.opennms.features.vaadin.nodemaps.internal.gwt.client.NodeMarker;
 
 public class MarkerContainer implements MarkerProvider {
-    final List<NodeMarker> m_markers         = new ArrayList<NodeMarker>();
+    final List<NodeMarker> m_markers = new ArrayList<NodeMarker>();
+
     final List<NodeMarker> m_filteredMarkers = new ArrayList<NodeMarker>();
 
     private MarkerFilter m_filter;

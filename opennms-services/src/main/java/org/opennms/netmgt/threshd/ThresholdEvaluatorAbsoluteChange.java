@@ -39,14 +39,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 /**
- * Implements an absolute change threshold check.  If the value changes by more than the specified amount
- * then it will trigger.  As for relative change, re-arm and trigger are unused
+ * Implements an absolute change threshold check. If the value changes by more
+ * than the specified amount
+ * then it will trigger. As for relative change, re-arm and trigger are unused
  *
  * @author ranger
  * @version $Id: $
  */
 public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdEvaluatorAbsoluteChange.class);
+
     private static final String TYPE = "absoluteChange";
 
     /** {@inheritDoc} */
@@ -63,6 +65,7 @@ public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
 
     public static class ThresholdEvaluatorStateAbsoluteChange extends AbstractThresholdEvaluatorState {
         private BaseThresholdDefConfigWrapper m_thresholdConfig;
+
         private double m_change;
 
         private double m_lastSample = Double.NaN;
@@ -83,10 +86,17 @@ public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
             Assert.isTrue(thresholdConfig.hasRearm(), "threshold must have a 'rearm' value set");
             Assert.isTrue(thresholdConfig.hasTrigger(), "threshold must have a 'trigger' value set");
 
-            Assert.isTrue(TYPE.equals(thresholdConfig.getType()), "threshold for ds-name '" + thresholdConfig.getDatasourceExpression() + "' has type of '" + thresholdConfig.getType() + "', but this evaluator only supports thresholds with a 'type' value of '" + TYPE + "'");
+            Assert.isTrue(TYPE.equals(thresholdConfig.getType()),
+                          "threshold for ds-name '" + thresholdConfig.getDatasourceExpression() + "' has type of '"
+                                  + thresholdConfig.getType()
+                                  + "', but this evaluator only supports thresholds with a 'type' value of '" + TYPE
+                                  + "'");
 
-            Assert.isTrue(!Double.isNaN(thresholdConfig.getValue()), "threshold must have a 'value' value that is a number");
-            Assert.isTrue(thresholdConfig.getValue() != Double.POSITIVE_INFINITY && thresholdConfig.getValue() != Double.NEGATIVE_INFINITY, "threshold must have a 'value' value that is not positive or negative infinity");
+            Assert.isTrue(!Double.isNaN(thresholdConfig.getValue()),
+                          "threshold must have a 'value' value that is a number");
+            Assert.isTrue(thresholdConfig.getValue() != Double.POSITIVE_INFINITY
+                                  && thresholdConfig.getValue() != Double.NEGATIVE_INFINITY,
+                          "threshold must have a 'value' value that is not positive or negative infinity");
             Assert.isTrue(thresholdConfig.getValue() != 0.0, "threshold must not be 0 for absolute change");
 
             m_thresholdConfig = thresholdConfig;
@@ -100,11 +110,12 @@ public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
 
         @Override
         public Status evaluate(double dsValue) {
-            if(!Double.isNaN(getLastSample())) {
-                double threshold = getLastSample()+getChange();
+            if (!Double.isNaN(getLastSample())) {
+                double threshold = getLastSample() + getChange();
 
                 if (getChange() < 0.0) {
-                    //Negative change; care if the value is *below* the threshold
+                    // Negative change; care if the value is *below* the
+                    // threshold
                     if (dsValue <= threshold) {
                         setPreviousTriggeringSample(getLastSample());
                         setLastSample(dsValue);
@@ -112,7 +123,8 @@ public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
                         return Status.TRIGGERED;
                     }
                 } else {
-                    //Positive change; care if the current value is *above* the threshold
+                    // Positive change; care if the current value is *above* the
+                    // threshold
                     if (dsValue >= threshold) {
                         setPreviousTriggeringSample(getLastSample());
                         setLastSample(dsValue);
@@ -136,9 +148,9 @@ public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
         @Override
         public Event getEventForState(Status status, Date date, double dsValue, CollectionResourceWrapper resource) {
             if (status == Status.TRIGGERED) {
-                String uei=getThresholdConfig().getTriggeredUEI();
-                if(uei==null || "".equals(uei)) {
-                    uei=EventConstants.ABSOLUTE_CHANGE_THRESHOLD_EVENT_UEI;
+                String uei = getThresholdConfig().getTriggeredUEI();
+                if (uei == null || "".equals(uei)) {
+                    uei = EventConstants.ABSOLUTE_CHANGE_THRESHOLD_EVENT_UEI;
                 }
                 return createBasicEvent(uei, date, dsValue, resource);
             } else {
@@ -147,7 +159,7 @@ public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
         }
 
         private Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource) {
-            Map<String,String> params = new HashMap<String,String>();
+            Map<String, String> params = new HashMap<String, String>();
             params.put("previousValue", formatValue(getPreviousTriggeringSample()));
             params.put("changeThreshold", Double.toString(getThresholdConfig().getValue()));
             params.put("trigger", Integer.toString(getThresholdConfig().getTrigger()));

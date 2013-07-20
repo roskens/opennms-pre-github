@@ -59,9 +59,13 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
     private static final long serialVersionUID = -52686562234234234L;
 
     private String m_physAddr;
+
     private Integer m_nodeId;
+
     private String m_pollingPackage;
+
     private AccessPointStatus m_status = AccessPointStatus.UNKNOWN;
+
     private InetAddress m_controllerIpAddr;
 
     /**
@@ -230,12 +234,9 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-            .append("physAddr", getPhysAddr())
-            .append("pollingPackage", getPollingPackage())
-            .append("status", getStatus())
-            .append("controllerIpAddr", getControllerIpAddress())
-            .toString();
+        return new ToStringCreator(this).append("physAddr", getPhysAddr()).append("pollingPackage", getPollingPackage()).append("status",
+                                                                                                                                getStatus()).append("controllerIpAddr",
+                                                                                                                                                    getControllerIpAddress()).toString();
     }
 
     /**

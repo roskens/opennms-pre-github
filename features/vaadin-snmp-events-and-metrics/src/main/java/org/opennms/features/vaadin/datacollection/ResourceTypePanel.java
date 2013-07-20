@@ -68,11 +68,15 @@ public class ResourceTypePanel extends VerticalLayout {
     /**
      * Instantiates a new resource type panel.
      *
-     * @param dataCollectionConfigDao the OpenNMS Data Collection Configuration DAO
-     * @param source the OpenNMS Data Collection Group object
-     * @param logger the logger object
+     * @param dataCollectionConfigDao
+     *            the OpenNMS Data Collection Configuration DAO
+     * @param source
+     *            the OpenNMS Data Collection Group object
+     * @param logger
+     *            the logger object
      */
-    public ResourceTypePanel(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup source, final Logger logger) {
+    public ResourceTypePanel(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup source,
+            final Logger logger) {
         addStyleName(Runo.PANEL_LIGHT);
 
         form = new ResourceTypeForm() {
@@ -86,6 +90,7 @@ public class ResourceTypePanel extends VerticalLayout {
                 }
                 table.refreshRowCache();
             }
+
             @Override
             public void deleteResourceType(ResourceType resourceType) {
                 logger.info("Resource type " + resourceType.getName() + " has been removed.");
@@ -112,7 +117,10 @@ public class ResourceTypePanel extends VerticalLayout {
                 rt.setLabel("New Resource Type");
                 rt.setResourceLabel("{index}");
                 PersistenceSelectorStrategy persistence = new PersistenceSelectorStrategy();
-                persistence.setClazz("org.opennms.netmgt.collectd.PersistAllSelectorStrategy"); // To avoid requires opennms-services
+                persistence.setClazz("org.opennms.netmgt.collectd.PersistAllSelectorStrategy"); // To
+                                                                                                // avoid
+                                                                                                // requires
+                                                                                                // opennms-services
                 rt.setPersistenceSelectorStrategy(persistence);
                 StorageStrategy storage = new StorageStrategy();
                 storage.setClazz(IndexStorageStrategy.class.getName());
@@ -141,7 +149,7 @@ public class ResourceTypePanel extends VerticalLayout {
     public Collection<ResourceType> getResourceTypes() {
         final Collection<ResourceType> types = new ArrayList<ResourceType>();
         for (Object itemId : table.getContainerDataSource().getItemIds()) {
-            types.add(((BeanItem<ResourceType>)table.getContainerDataSource().getItem(itemId)).getBean());
+            types.add(((BeanItem<ResourceType>) table.getContainerDataSource().getItem(itemId)).getBean());
         }
         return types;
     }
@@ -149,7 +157,8 @@ public class ResourceTypePanel extends VerticalLayout {
     /**
      * Sets the value of the ifNew flag.
      *
-     * @param isNew true, if the resource type is new.
+     * @param isNew
+     *            true, if the resource type is new.
      */
     public void setIsNew(boolean isNew) {
         this.isNew = isNew;

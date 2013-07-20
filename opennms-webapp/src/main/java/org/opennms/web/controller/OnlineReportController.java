@@ -50,7 +50,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
- * <p>OnlineReportController class.</p>
+ * <p>
+ * OnlineReportController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -59,11 +61,15 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 public class OnlineReportController extends SimpleFormController {
 
     private ReportWrapperService m_reportWrapperService;
+
     private CategoryConfigService m_catConfigService;
+
     private CategoryDao m_categoryDao;
 
     /**
-     * <p>Constructor for OnlineReportController.</p>
+     * <p>
+     * Constructor for OnlineReportController.
+     * </p>
      */
     public OnlineReportController() {
         setFormView("report/database/onlineReport");
@@ -92,22 +98,17 @@ public class OnlineReportController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected final void initBinder(final HttpServletRequest req,
-            final ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(
-                                    Date.class,
-                                    new CustomDateEditor(
-                                                         new SimpleDateFormat(
-                                                                              "yyyy-MM-dd"),
-                                                         true));
+    protected final void initBinder(final HttpServletRequest req, final ServletRequestDataBinder binder)
+            throws Exception {
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView onSubmit(final HttpServletRequest request, final HttpServletResponse response, final Object command, final BindException errors) throws Exception {
+    protected final ModelAndView onSubmit(final HttpServletRequest request, final HttpServletResponse response,
+            final Object command, final BindException errors) throws Exception {
         ReportParameters parameters = (ReportParameters) command;
-        if ((parameters.getFormat() == ReportFormat.PDF)
-                || (parameters.getFormat() == ReportFormat.SVG) ) {
+        if ((parameters.getFormat() == ReportFormat.PDF) || (parameters.getFormat() == ReportFormat.SVG)) {
             response.setContentType("application/pdf;charset=UTF-8");
             response.setHeader("Content-disposition", "inline; filename=report.pdf");
             response.setHeader("Pragma", "public");
@@ -115,7 +116,7 @@ public class OnlineReportController extends SimpleFormController {
             response.setHeader("Cache-Control", "must-revalidate");
         }
 
-        if(parameters.getFormat() == ReportFormat.CSV) {
+        if (parameters.getFormat() == ReportFormat.CSV) {
             response.setContentType("text/csv;charset=UTF-8");
             response.setHeader("Content-disposition", "inline; filename=report.csv");
             response.setHeader("Pragma", "public");
@@ -127,29 +128,41 @@ public class OnlineReportController extends SimpleFormController {
     }
 
     /**
-     * <p>setReportWrapperService</p>
+     * <p>
+     * setReportWrapperService
+     * </p>
      *
-     * @param reportWrapperService a {@link org.opennms.reporting.core.svclayer.ReportWrapperService} object.
+     * @param reportWrapperService
+     *            a
+     *            {@link org.opennms.reporting.core.svclayer.ReportWrapperService}
+     *            object.
      */
     public final void setReportWrapperService(final ReportWrapperService reportWrapperService) {
         m_reportWrapperService = reportWrapperService;
     }
 
     /**
-     * <p>setCategoryConfigService</p>
+     * <p>
+     * setCategoryConfigService
+     * </p>
      *
-     * @param catConfigService a {@link org.opennms.web.svclayer.CategoryConfigService} object.
+     * @param catConfigService
+     *            a {@link org.opennms.web.svclayer.CategoryConfigService}
+     *            object.
      */
     public final void setCategoryConfigService(final CategoryConfigService catConfigService) {
         m_catConfigService = catConfigService;
     }
 
     /**
-     * <p>setCategoryDao</p>
+     * <p>
+     * setCategoryDao
+     * </p>
      *
-     * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
+     * @param categoryDao
+     *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
     public final void setCategoryDao(final CategoryDao categoryDao) {
-    	m_categoryDao = categoryDao;
+        m_categoryDao = categoryDao;
     }
 }

@@ -70,15 +70,12 @@ import org.xml.sax.SAXException;
 
 /**
  * Contains and maintains all the data for the RTC.
- *
  * The basic datablock is a 'RTCNode' that gets added to relevant
  * 'RTCCategory's. it also gets added to a map with different keys for easy
  * lookup
- *
  * The map('RTCHashMap') is keyed with 'RTCNodeKey's(a nodeid/ip/svc
  * combination), nodeid/ip combinations and nodeid and these keys either lookup
  * a single RTCNode or lists of 'RTCNode's
- *
  * Incoming events have a method in the DataManager to alter data - for e.g., a
  * 'nodeGainedService' event would result in the 'nodeGainedService()' method
  * being called by the DataUpdater(s).
@@ -91,95 +88,99 @@ public class DataManager extends Object {
     private static final Logger LOG = LoggerFactory.getLogger(DataManager.class);
 
     private class RTCNodeProcessor implements RowCallbackHandler {
-		RTCNodeKey m_currentKey = null;
+        RTCNodeKey m_currentKey = null;
 
-		Map<String,Set<Integer>> m_categoryNodeIdLists = new HashMap<String,Set<Integer>>();
+        Map<String, Set<Integer>> m_categoryNodeIdLists = new HashMap<String, Set<Integer>>();
 
-                @Override
-		public void processRow(ResultSet rs) throws SQLException {
-			RTCNodeKey key = new RTCNodeKey(rs.getLong("nodeid"), InetAddressUtils.addr(rs.getString("ipaddr")), rs.getString("servicename"));
-			processKey(key);
-			processOutage(key, rs.getTimestamp("ifLostService"), rs.getTimestamp("ifRegainedService"));
-		}
+        @Override
+        public void processRow(ResultSet rs) throws SQLException {
+            RTCNodeKey key = new RTCNodeKey(rs.getLong("nodeid"), InetAddressUtils.addr(rs.getString("ipaddr")),
+                                            rs.getString("servicename"));
+            processKey(key);
+            processOutage(key, rs.getTimestamp("ifLostService"), rs.getTimestamp("ifRegainedService"));
+        }
 
-		private void processKey(RTCNodeKey key) {
-			if (!matchesCurrent(key)) {
-				m_currentKey = key;
-				processIfService(key);
-			}
-		}
+        private void processKey(RTCNodeKey key) {
+            if (!matchesCurrent(key)) {
+                m_currentKey = key;
+                processIfService(key);
+            }
+        }
 
-		private boolean matchesCurrent(RTCNodeKey key) {
-			return (m_currentKey != null && m_currentKey.equals(key));
-		}
+        private boolean matchesCurrent(RTCNodeKey key) {
+            return (m_currentKey != null && m_currentKey.equals(key));
+        }
 
-		// This is called exactly once for each unique (node ID, IP address, service name) tuple
-		public void processIfService(RTCNodeKey key) {
-		    for (RTCCategory cat : m_categories.values()) {
-				if (catContainsIfService(cat, key)) {
-					RTCNode rtcN = getRTCNode(key);
-					addNodeToCategory(cat, rtcN);
-				}
-			}
+        // This is called exactly once for each unique (node ID, IP address,
+        // service name) tuple
+        public void processIfService(RTCNodeKey key) {
+            for (RTCCategory cat : m_categories.values()) {
+                if (catContainsIfService(cat, key)) {
+                    RTCNode rtcN = getRTCNode(key);
+                    addNodeToCategory(cat, rtcN);
+                }
+            }
 
-		}
+        }
 
-		private RTCNode getRTCNode(RTCNodeKey key) {
-			RTCNode rtcN = m_map.getRTCNode(key);
-			if (rtcN == null) {
-				rtcN = new RTCNode(key);
-				addRTCNode(rtcN);
-			}
-			return rtcN;
-		}
+        private RTCNode getRTCNode(RTCNodeKey key) {
+            RTCNode rtcN = m_map.getRTCNode(key);
+            if (rtcN == null) {
+                rtcN = new RTCNode(key);
+                addRTCNode(rtcN);
+            }
+            return rtcN;
+        }
 
-		private boolean catContainsIfService(RTCCategory cat, RTCNodeKey key) {
-			return cat.containsService(key.getSvcName()) && catContainsNode(cat, (int)key.getNodeID());
-		}
+        private boolean catContainsIfService(RTCCategory cat, RTCNodeKey key) {
+            return cat.containsService(key.getSvcName()) && catContainsNode(cat, (int) key.getNodeID());
+        }
 
-		private boolean catContainsNode(RTCCategory cat, Integer nodeID) {
-			Set<Integer> nodeIds = catGetNodeIds(cat);
-			return nodeIds.contains(nodeID);
-		}
+        private boolean catContainsNode(RTCCategory cat, Integer nodeID) {
+            Set<Integer> nodeIds = catGetNodeIds(cat);
+            return nodeIds.contains(nodeID);
+        }
 
-		private Set<Integer> catGetNodeIds(RTCCategory cat) {
-			Set<Integer> nodeIds = m_categoryNodeIdLists.get(cat.getLabel());
-			if(nodeIds == null) {
-				nodeIds = catConstructNodeIds(cat);
-				m_categoryNodeIdLists.put(cat.getLabel(), nodeIds);
-			}
-			return nodeIds;
-		}
+        private Set<Integer> catGetNodeIds(RTCCategory cat) {
+            Set<Integer> nodeIds = m_categoryNodeIdLists.get(cat.getLabel());
+            if (nodeIds == null) {
+                nodeIds = catConstructNodeIds(cat);
+                m_categoryNodeIdLists.put(cat.getLabel(), nodeIds);
+            }
+            return nodeIds;
+        }
 
-		private Set<Integer> catConstructNodeIds (RTCCategory cat) {
-			String filterRule = cat.getEffectiveRule();
-			try {
-				LOG.debug("Category: {}\t{}", cat.getLabel(), filterRule);
+        private Set<Integer> catConstructNodeIds(RTCCategory cat) {
+            String filterRule = cat.getEffectiveRule();
+            try {
+                LOG.debug("Category: {}\t{}", cat.getLabel(), filterRule);
 
-				Set<Integer> nodeIds = FilterDaoFactory.getInstance().getNodeMap(filterRule).keySet();
+                Set<Integer> nodeIds = FilterDaoFactory.getInstance().getNodeMap(filterRule).keySet();
 
-		        LOG.debug("Number of nodes satisfying rule: {}", nodeIds.size());
+                LOG.debug("Number of nodes satisfying rule: {}", nodeIds.size());
 
-		        return nodeIds;
+                return nodeIds;
 
-			} catch (FilterParseException e) {
-				LOG.error("Unable to parse filter rule {} ignoring category {}", filterRule, cat.getLabel(), e);
-				return Collections.emptySet();
-			}
-		}
+            } catch (FilterParseException e) {
+                LOG.error("Unable to parse filter rule {} ignoring category {}", filterRule, cat.getLabel(), e);
+                return Collections.emptySet();
+            }
+        }
 
-		// This is processed for each outage, passing two null means there is not outage
-		public void processOutage(RTCNodeKey key, Timestamp ifLostService, Timestamp ifRegainedService) {
-			RTCNode rtcN = m_map.getRTCNode(key);
-			// if we can't find the node it doesn't belong to any category
-			if (rtcN == null) return;
+        // This is processed for each outage, passing two null means there is
+        // not outage
+        public void processOutage(RTCNodeKey key, Timestamp ifLostService, Timestamp ifRegainedService) {
+            RTCNode rtcN = m_map.getRTCNode(key);
+            // if we can't find the node it doesn't belong to any category
+            if (rtcN == null)
+                return;
 
-			addOutageToRTCNode(rtcN, ifLostService, ifRegainedService);
+            addOutageToRTCNode(rtcN, ifLostService, ifRegainedService);
 
-		}
-	}
+        }
+    }
 
-	/**
+    /**
      * The RTC categories
      */
     private Map<String, RTCCategory> m_categories;
@@ -198,47 +199,52 @@ public class DataManager extends Object {
      *            the interface for which the status is required
      * @param svc
      *            the service for which status is required
-     *
      * @return the 'status' from the ifServices table
      */
     private char getServiceStatus(long nodeid, InetAddress ip, String svc) {
 
-    	JdbcTemplate template = new JdbcTemplate(getConnectionFactory());
-    	String status= (String)template.queryForObject(RTCConstants.DB_GET_SERVICE_STATUS, new Object[] { Long.valueOf(nodeid), InetAddressUtils.str(ip), svc }, String.class);
+        JdbcTemplate template = new JdbcTemplate(getConnectionFactory());
+        String status = (String) template.queryForObject(RTCConstants.DB_GET_SERVICE_STATUS,
+                                                         new Object[] { Long.valueOf(nodeid), InetAddressUtils.str(ip),
+                                                                 svc }, String.class);
 
-    	if (status == null) return '\0';
-    	return status.charAt(0);
+        if (status == null)
+            return '\0';
+        return status.charAt(0);
 
     }
 
-	private void addOutageToRTCNode(RTCNode rtcN, Timestamp lostTimeTS, Timestamp regainedTimeTS) {
-		if (lostTimeTS == null) return;
-		long lostTime = lostTimeTS.getTime();
-		long regainedTime = -1;
-		if (regainedTimeTS != null)
-			regainedTime = regainedTimeTS.getTime();
+    private void addOutageToRTCNode(RTCNode rtcN, Timestamp lostTimeTS, Timestamp regainedTimeTS) {
+        if (lostTimeTS == null)
+            return;
+        long lostTime = lostTimeTS.getTime();
+        long regainedTime = -1;
+        if (regainedTimeTS != null)
+            regainedTime = regainedTimeTS.getTime();
 
-		LOG.debug("lost time for nodeid/ip/svc: {}/{}/{}: {}/{}", rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), lostTimeTS, lostTime);
+        LOG.debug("lost time for nodeid/ip/svc: {}/{}/{}: {}/{}", rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(),
+                  lostTimeTS, lostTime);
 
-		LOG.debug("regained time for nodeid/ip/svc: {}/{}/{}: {}/{}", rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), regainedTimeTS, regainedTime);
+        LOG.debug("regained time for nodeid/ip/svc: {}/{}/{}: {}/{}", rtcN.getNodeID(), rtcN.getIP(),
+                  rtcN.getSvcName(), regainedTimeTS, regainedTime);
 
-		rtcN.addSvcTime(lostTime, regainedTime);
-	}
+        rtcN.addSvcTime(lostTime, regainedTime);
+    }
 
-	private void addRTCNode(RTCNode rtcN) {
-		m_map.add(rtcN);
-	}
+    private void addRTCNode(RTCNode rtcN) {
+        m_map.add(rtcN);
+    }
 
-	private void addNodeToCategory(RTCCategory cat, RTCNode rtcN) {
+    private void addNodeToCategory(RTCCategory cat, RTCNode rtcN) {
 
-		// add the category info to the node
+        // add the category info to the node
         rtcN.addCategory(cat.getLabel());
 
-		// Add node to category
-		cat.addNode(rtcN);
+        // Add node to category
+        cat.addNode(rtcN);
 
-		LOG.debug("rtcN : {}/{}/{} added to cat: {}", rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), cat.getLabel());
-	}
+        LOG.debug("rtcN : {}/{}/{} added to cat: {}", rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), cat.getLabel());
+    }
 
     /**
      * Creates the categories map. Reads the categories from the categories.xml
@@ -282,9 +288,9 @@ public class DataManager extends Object {
      * list, this reads the services and outage tables to get the initial data,
      * creates 'RTCNode' objects that are added to the map and and to the
      * appropriate category.
+     *
      * @param dbConn
      *            the database connection.
-     *
      * @throws SQLException
      *             if the database read fails due to an SQL error
      * @throws FilterParseException
@@ -294,59 +300,43 @@ public class DataManager extends Object {
      *             if the database read or filtering the data against the
      *             category rule fails for some reason
      */
-    private void populateNodesFromDB(String query, Object[] args) throws SQLException, FilterParseException, RTCException {
+    private void populateNodesFromDB(String query, Object[] args) throws SQLException, FilterParseException,
+            RTCException {
 
-	final String getOutagesInWindow =
-			"select " +
-			"       ifsvc.nodeid as nodeid, " +
-			"       ifsvc.ipAddr as ipaddr, " +
-			"       s.servicename as servicename, " +
-			"       o.ifLostService as ifLostService, " +
-			"       o.ifRegainedService as ifRegainedService " +
-			"  from " +
-			"       ifservices ifsvc " +
-			"  join " +
-			"       service s on (ifsvc.serviceid = s.serviceid) " +
-			"left outer  join " +
-    			"       outages o on " +
-			"          (" +
-			"            o.nodeid = ifsvc.nodeid " +
-			"            and o.ipaddr = ifsvc.ipaddr " +
-			"            and o.serviceid = ifsvc.serviceid " +
-    			"            and " +
-			"            (" +
-			"               o.ifLostService > ? " +
-			"               OR  o.ifRegainedService > ? " +
-    			"               OR  o.ifRegainedService is null " +
-    			"            )" +
-    			"          ) " +
-    			" where ifsvc.status='A' " +
-                (query == null ? "" : "and "+query) +
-			" order by " +
-    			"       ifsvc.nodeid, ifsvc.ipAddr, ifsvc.serviceid, o.ifLostService ";
+        final String getOutagesInWindow = "select " + "       ifsvc.nodeid as nodeid, "
+                + "       ifsvc.ipAddr as ipaddr, " + "       s.servicename as servicename, "
+                + "       o.ifLostService as ifLostService, " + "       o.ifRegainedService as ifRegainedService "
+                + "  from " + "       ifservices ifsvc " + "  join "
+                + "       service s on (ifsvc.serviceid = s.serviceid) " + "left outer  join " + "       outages o on "
+                + "          (" + "            o.nodeid = ifsvc.nodeid " + "            and o.ipaddr = ifsvc.ipaddr "
+                + "            and o.serviceid = ifsvc.serviceid " + "            and " + "            ("
+                + "               o.ifLostService > ? " + "               OR  o.ifRegainedService > ? "
+                + "               OR  o.ifRegainedService is null " + "            )" + "          ) "
+                + " where ifsvc.status='A' " + (query == null ? "" : "and " + query) + " order by "
+                + "       ifsvc.nodeid, ifsvc.ipAddr, ifsvc.serviceid, o.ifLostService ";
 
-		long window = (new Date()).getTime() - RTCManager.getRollingWindow();
-		Timestamp windowTS = new Timestamp(window);
+        long window = (new Date()).getTime() - RTCManager.getRollingWindow();
+        Timestamp windowTS = new Timestamp(window);
 
-    	RowCallbackHandler rowHandler = new RTCNodeProcessor();
+        RowCallbackHandler rowHandler = new RTCNodeProcessor();
 
-    	Object[] sqlArgs = createArgs(windowTS, windowTS, args);
+        Object[] sqlArgs = createArgs(windowTS, windowTS, args);
 
-    	JdbcTemplate template = new JdbcTemplate(getConnectionFactory());
-    	template.query(getOutagesInWindow, sqlArgs, rowHandler);
+        JdbcTemplate template = new JdbcTemplate(getConnectionFactory());
+        template.query(getOutagesInWindow, sqlArgs, rowHandler);
 
     }
 
-	private Object[] createArgs(Object arg1, Object arg2, Object[] remaining) {
-		LinkedList<Object> args = new LinkedList<Object>();
-		args.add(arg1);
-		args.add(arg2);
-		if (remaining != null)
-			args.addAll(Arrays.asList(remaining));
-		return args.toArray();
-	}
+    private Object[] createArgs(Object arg1, Object arg2, Object[] remaining) {
+        LinkedList<Object> args = new LinkedList<Object>();
+        args.add(arg1);
+        args.add(arg2);
+        if (remaining != null)
+            args.addAll(Arrays.asList(remaining));
+        return args.toArray();
+    }
 
-	/**
+    /**
      * Constructor. Parses categories from the categories.xml and populates them
      * with 'RTCNode' objects created from data read from the database (services
      * and outage tables)
@@ -358,45 +348,50 @@ public class DataManager extends Object {
      *                if a rule in the categories.xml was incorrect
      * @exception RTCException
      *                if the initialization/data reading does not go through
-     * @throws org.xml.sax.SAXException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.sql.SQLException if any.
-     * @throws org.opennms.netmgt.filter.FilterParseException if any.
-     * @throws org.opennms.netmgt.rtc.RTCException if any.
+     * @throws org.xml.sax.SAXException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.sql.SQLException
+     *             if any.
+     * @throws org.opennms.netmgt.filter.FilterParseException
+     *             if any.
+     * @throws org.opennms.netmgt.rtc.RTCException
+     *             if any.
      */
     public DataManager() throws SAXException, IOException, SQLException, FilterParseException, RTCException {
 
-    	// read the categories.xml to get all the categories
-    	createCategoriesMap();
+        // read the categories.xml to get all the categories
+        createCategoriesMap();
 
-    	if (m_categories == null || m_categories.isEmpty()) {
-    		throw new RTCException("No categories found in categories.xml");
-    	}
+        if (m_categories == null || m_categories.isEmpty()) {
+            throw new RTCException("No categories found in categories.xml");
+        }
 
-	LOG.debug("Number of categories read: {}", m_categories.size());
+        LOG.debug("Number of categories read: {}", m_categories.size());
 
-    	// create data holder
-    	m_map = new RTCHashMap(30000);
+        // create data holder
+        m_map = new RTCHashMap(30000);
 
-    	// Populate the nodes initially from the database
-    	populateNodesFromDB(null, null);
+        // Populate the nodes initially from the database
+        populateNodesFromDB(null, null);
 
     }
 
-	private DataSource getConnectionFactory() {
-		DataSource connFactory;
-		try {
-		    DataSourceFactory.init();
-		    connFactory = DataSourceFactory.getInstance();
-		} catch (IOException ex) {
-		    LOG.warn("Failed to load database config", ex);
-		    throw new UndeclaredThrowableException(ex);
-		} catch (MarshalException ex) {
-		    LOG.warn("Failed to unmarshall database config", ex);
-		    throw new UndeclaredThrowableException(ex);
-		} catch (ValidationException ex) {
-		    LOG.warn("Failed to unmarshall database config", ex);
-		    throw new UndeclaredThrowableException(ex);
+    private DataSource getConnectionFactory() {
+        DataSource connFactory;
+        try {
+            DataSourceFactory.init();
+            connFactory = DataSourceFactory.getInstance();
+        } catch (IOException ex) {
+            LOG.warn("Failed to load database config", ex);
+            throw new UndeclaredThrowableException(ex);
+        } catch (MarshalException ex) {
+            LOG.warn("Failed to unmarshall database config", ex);
+            throw new UndeclaredThrowableException(ex);
+        } catch (ValidationException ex) {
+            LOG.warn("Failed to unmarshall database config", ex);
+            throw new UndeclaredThrowableException(ex);
         } catch (ClassNotFoundException ex) {
             LOG.warn("Failed to get database connection", ex);
             throw new UndeclaredThrowableException(ex);
@@ -407,8 +402,8 @@ public class DataManager extends Object {
             LOG.warn("Failed to get database connection", ex);
             throw new UndeclaredThrowableException(ex);
         }
-		return connFactory;
-	}
+        return connFactory;
+    }
 
     /**
      * Handles a node gained service event. Add a new entry to the map and the
@@ -521,7 +516,7 @@ public class DataManager extends Object {
      *            the time at which service was lost
      */
     public synchronized void nodeDown(long nodeid, long t) {
-    	for (RTCNode rtcN : (List<RTCNode>) m_map.getRTCNodes(nodeid)) {
+        for (RTCNode rtcN : (List<RTCNode>) m_map.getRTCNodes(nodeid)) {
             rtcN.nodeLostService(t);
         }
     }
@@ -535,7 +530,7 @@ public class DataManager extends Object {
      *            the time at which service was regained
      */
     public synchronized void nodeUp(long nodeid, long t) {
-    	for (RTCNode rtcN : (List<RTCNode>) m_map.getRTCNodes(nodeid)) {
+        for (RTCNode rtcN : (List<RTCNode>) m_map.getRTCNodes(nodeid)) {
             rtcN.nodeRegainedService(t);
         }
     }
@@ -598,7 +593,8 @@ public class DataManager extends Object {
         // lookup the node
         RTCNode rtcN = m_map.getRTCNode(key);
         if (rtcN == null) {
-            LOG.warn("Received a {} event for an unknown node: {}", EventConstants.SERVICE_DELETED_EVENT_UEI, key.toString());
+            LOG.warn("Received a {} event for an unknown node: {}", EventConstants.SERVICE_DELETED_EVENT_UEI,
+                     key.toString());
 
             return;
         }
@@ -639,13 +635,16 @@ public class DataManager extends Object {
     }
 
     /**
-     * <p>assetInfoChanged</p>
+     * <p>
+     * assetInfoChanged
+     * </p>
      *
-     * @param nodeid a long.
+     * @param nodeid
+     *            a long.
      */
     public synchronized void assetInfoChanged(long nodeid) {
         try {
-        	rtcNodeRescan(nodeid);
+            rtcNodeRescan(nodeid);
         } catch (FilterParseException ex) {
             LOG.warn("Failed to unmarshall database config", ex);
             throw new UndeclaredThrowableException(ex);
@@ -657,17 +656,19 @@ public class DataManager extends Object {
             throw new UndeclaredThrowableException(ex);
         }
 
-
     }
 
     /**
-     * <p>nodeCategoryMembershipChanged</p>
+     * <p>
+     * nodeCategoryMembershipChanged
+     * </p>
      *
-     * @param nodeid a long.
+     * @param nodeid
+     *            a long.
      */
     public synchronized void nodeCategoryMembershipChanged(long nodeid) {
         try {
-        	rtcNodeRescan(nodeid);
+            rtcNodeRescan(nodeid);
         } catch (FilterParseException ex) {
             LOG.warn("Failed to unmarshall database config", ex);
             throw new UndeclaredThrowableException(ex);
@@ -697,27 +698,26 @@ public class DataManager extends Object {
      */
     public synchronized void rtcNodeRescan(long nodeid) throws SQLException, FilterParseException, RTCException {
 
-    	for (Iterator<RTCCategory> it = m_categories.values().iterator(); it.hasNext();) {
-			RTCCategory cat = it.next();
-			cat.deleteNode(nodeid);
-		}
+        for (Iterator<RTCCategory> it = m_categories.values().iterator(); it.hasNext();) {
+            RTCCategory cat = it.next();
+            cat.deleteNode(nodeid);
+        }
 
-    	m_map.deleteNode(nodeid);
+        m_map.deleteNode(nodeid);
 
-    	populateNodesFromDB("ifsvc.nodeid = ?", new Object[] { Long.valueOf(nodeid) });
+        populateNodesFromDB("ifsvc.nodeid = ?", new Object[] { Long.valueOf(nodeid) });
 
     }
 
     /**
      * Reparent an interface. This effectively means updating the nodelist of
      * the categories and the map
-     *
      * Use the ip/oldnodeid combination to get all nodes that will be affected -
      * for each of these nodes, remove the old entry and add a new one with new
-     * keys to the map
-     *
-     * <em>Note:</em> Each of these nodes could belong to more than one
-     * category. However, category rule evaluation is done based ONLY on the IP -
+     * keys to the map <em>Note:</em> Each of these nodes could belong to more
+     * than one
+     * category. However, category rule evaluation is done based ONLY on the IP
+     * -
      * therefore changing the nodeID on the node should update the categories
      * appropriately
      *
@@ -730,7 +730,7 @@ public class DataManager extends Object {
      */
     public synchronized void interfaceReparented(InetAddress ip, long oldNodeId, long newNodeId) {
         // get all RTCNodes with the IP/old node ID
-    	List<RTCNode> nodesList = m_map.getRTCNodes(oldNodeId, ip);
+        List<RTCNode> nodesList = m_map.getRTCNodes(oldNodeId, ip);
         ListIterator<RTCNode> listIter = new LinkedList<RTCNode>(nodesList).listIterator();
         while (listIter.hasNext()) {
             RTCNode rtcN = listIter.next();
@@ -825,7 +825,9 @@ public class DataManager extends Object {
     }
 
     /**
-     * <p>getCategories</p>
+     * <p>
+     * getCategories
+     * </p>
      *
      * @return the categories
      */

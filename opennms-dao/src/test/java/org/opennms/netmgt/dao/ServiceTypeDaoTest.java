@@ -44,36 +44,32 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(reuseDatabase=false)
+@JUnitTemporaryDatabase(reuseDatabase = false)
 public class ServiceTypeDaoTest implements InitializingBean {
-	@Autowired
-	private ServiceTypeDao m_serviceTypeDao;
+    @Autowired
+    private ServiceTypeDao m_serviceTypeDao;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testLazyLoad() {
-    	OnmsServiceType t = new OnmsServiceType("ICMP");
-    	m_serviceTypeDao.save(t);
+        OnmsServiceType t = new OnmsServiceType("ICMP");
+        m_serviceTypeDao.save(t);
 
-
-    	OnmsServiceType type = m_serviceTypeDao.get(1);
-    	assertEquals("ICMP", type.getName());
+        OnmsServiceType type = m_serviceTypeDao.get(1);
+        assertEquals("ICMP", type.getName());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSave() {
         String name = "ICMP";
         tweakSvcType(name);
@@ -87,7 +83,7 @@ public class ServiceTypeDaoTest implements InitializingBean {
         if (svcType == null)
             m_serviceTypeDao.save(new OnmsServiceType(name));
         else {
-            svcType.setName(svcType.getName()+'-'+svcType.getId());
+            svcType.setName(svcType.getName() + '-' + svcType.getId());
             m_serviceTypeDao.update(svcType);
         }
         m_serviceTypeDao.clear();

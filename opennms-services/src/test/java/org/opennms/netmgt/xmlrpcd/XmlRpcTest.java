@@ -49,12 +49,14 @@ import org.opennms.test.mock.EasyMockUtils;
  *
  * @author brozow
  */
-public class XmlRpcTest  {
-
+public class XmlRpcTest {
 
     static private WebServer m_webServer;
+
     private Provisioner m_provisioner;
+
     private Provisioner m_proxy;
+
     private XmlRpcServiceExporter m_exporter;
 
     private EasyMockUtils m_mocks = new EasyMockUtils();
@@ -91,12 +93,12 @@ public class XmlRpcTest  {
 
     private void setUpWebServer() throws Exception {
         if (m_webServer == null) {
-            //XmlRpc.debug = true;
+            // XmlRpc.debug = true;
             XmlRpcWebServerFactoryBean wsf = new XmlRpcWebServerFactoryBean();
             wsf.setPort(9192);
             wsf.setSecure(false);
             wsf.afterPropertiesSet();
-            m_webServer = (WebServer)wsf.getObject();
+            m_webServer = (WebServer) wsf.getObject();
             Thread.sleep(1000);
         }
     }
@@ -117,10 +119,11 @@ public class XmlRpcTest  {
         m_mocks.verifyAll();
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testXmlRpcAddServiceICMPIllegalArg() throws Throwable {
         String msg = "retries must be greater than or equals to zero";
-        EasyMock.expect(m_provisioner.addServiceICMP("RS-ICMP-1", -1, 1000, 300000, 30000, 300000)).andThrow(new IllegalArgumentException(msg));
+        EasyMock.expect(m_provisioner.addServiceICMP("RS-ICMP-1", -1, 1000, 300000, 30000, 300000)).andThrow(new IllegalArgumentException(
+                                                                                                                                          msg));
         m_mocks.replayAll();
         m_proxy.addServiceICMP("RS-ICMP-1", -1, 1000, 300000, 30000, 300000);
     }
@@ -146,19 +149,23 @@ public class XmlRpcTest  {
     @Test
     public void testAddServiceHTTP() throws MalformedURLException {
         String url = "http://www.opennms.org";
-        EasyMock.expect(m_provisioner.addServiceHTTP("RS-HTTP-1", 3, 1000, 300000, 30000, 300000, "", 80, "200", "Login", url, "user", "pw", "OpenNMS Monitor")).andReturn(true);
+        EasyMock.expect(m_provisioner.addServiceHTTP("RS-HTTP-1", 3, 1000, 300000, 30000, 300000, "", 80, "200",
+                                                     "Login", url, "user", "pw", "OpenNMS Monitor")).andReturn(true);
         m_mocks.replayAll();
-        boolean retVal = m_proxy.addServiceHTTP("RS-HTTP-1", 3, 1000, 300000, 30000, 300000, "", 80, "200", "Login", url, "user", "pw", "OpenNMS Monitor");
+        boolean retVal = m_proxy.addServiceHTTP("RS-HTTP-1", 3, 1000, 300000, 30000, 300000, "", 80, "200", "Login",
+                                                url, "user", "pw", "OpenNMS Monitor");
         assertTrue(retVal);
         m_mocks.verifyAll();
     }
 
-    @Test(expected=MalformedURLException.class)
+    @Test(expected = MalformedURLException.class)
     public void testAddServiceHTTPInvalidURL() throws MalformedURLException {
         String url = "htt://www.opennms.org";
-        EasyMock.expect(m_provisioner.addServiceHTTP("RS-HTTP-1", 3, 1000, 300000, 30000, 300000, "", 80, "200", "Login", url, "user", "pw", "OpenNMS Monitor")).andThrow(getMalformedUrlException(url));
+        EasyMock.expect(m_provisioner.addServiceHTTP("RS-HTTP-1", 3, 1000, 300000, 30000, 300000, "", 80, "200",
+                                                     "Login", url, "user", "pw", "OpenNMS Monitor")).andThrow(getMalformedUrlException(url));
         m_mocks.replayAll();
-        m_proxy.addServiceHTTP("RS-HTTP-1", 3, 1000, 300000, 30000, 300000, "", 80, "200", "Login", url, "user", "pw", "OpenNMS Monitor");
+        m_proxy.addServiceHTTP("RS-HTTP-1", 3, 1000, 300000, 30000, 300000, "", 80, "200", "Login", url, "user", "pw",
+                               "OpenNMS Monitor");
     }
 
     private MalformedURLException getMalformedUrlException(String url) {
@@ -174,9 +181,11 @@ public class XmlRpcTest  {
     @Test
     public void testAddServiceHTTPS() throws MalformedURLException {
         String url = "https://www.opennms.org";
-        EasyMock.expect(m_provisioner.addServiceHTTPS("RS-HTTPS-1", 3, 1000, 300000, 30000, 300000, "", 80, "200", "Login", url, "user", "pw", "OpenNMS Monitor")).andReturn(true);
+        EasyMock.expect(m_provisioner.addServiceHTTPS("RS-HTTPS-1", 3, 1000, 300000, 30000, 300000, "", 80, "200",
+                                                      "Login", url, "user", "pw", "OpenNMS Monitor")).andReturn(true);
         m_mocks.replayAll();
-        boolean retVal = m_proxy.addServiceHTTPS("RS-HTTPS-1", 3, 1000, 300000, 30000, 300000, "", 80, "200", "Login", url, "user", "pw", "OpenNMS Monitor");
+        boolean retVal = m_proxy.addServiceHTTPS("RS-HTTPS-1", 3, 1000, 300000, 30000, 300000, "", 80, "200", "Login",
+                                                 url, "user", "pw", "OpenNMS Monitor");
         assertTrue(retVal);
         m_mocks.verifyAll();
     }
@@ -184,9 +193,11 @@ public class XmlRpcTest  {
     @Test
     public void testAddServiceDatabase() throws MalformedURLException {
         String url = "jdbc://localhost/database";
-        EasyMock.expect(m_provisioner.addServiceDatabase("RS-POSTGRES-1", 3, 1000, 300000, 30000, 300000, "sa", "", "org.postgresql.Driver", url)).andReturn(true);
+        EasyMock.expect(m_provisioner.addServiceDatabase("RS-POSTGRES-1", 3, 1000, 300000, 30000, 300000, "sa", "",
+                                                         "org.postgresql.Driver", url)).andReturn(true);
         m_mocks.replayAll();
-        boolean retVal = m_proxy.addServiceDatabase("RS-POSTGRES-1", 3, 1000, 300000, 30000, 300000, "sa", "", "org.postgresql.Driver", url);
+        boolean retVal = m_proxy.addServiceDatabase("RS-POSTGRES-1", 3, 1000, 300000, 30000, 300000, "sa", "",
+                                                    "org.postgresql.Driver", url);
         assertTrue(retVal);
         m_mocks.verifyAll();
     }

@@ -41,13 +41,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Abstract AbstractThresholdEvaluatorState class.</p>
+ * <p>
+ * Abstract AbstractThresholdEvaluatorState class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public abstract class AbstractThresholdEvaluatorState implements ThresholdEvaluatorState {
-
 
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(AbstractThresholdEvaluatorState.class);
@@ -55,33 +56,47 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
     private static final String UNKNOWN = "Unknown";
 
     /**
-     * <p>createBasicEvent</p>
+     * <p>
+     * createBasicEvent
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
-     * @param date a {@link java.util.Date} object.
-     * @param dsValue a double.
-     * @param resource a {@link org.opennms.netmgt.threshd.CollectionResourceWrapper} object.
-     * @param additionalParams a {@link java.util.Map} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param date
+     *            a {@link java.util.Date} object.
+     * @param dsValue
+     *            a double.
+     * @param resource
+     *            a {@link org.opennms.netmgt.threshd.CollectionResourceWrapper}
+     *            object.
+     * @param additionalParams
+     *            a {@link java.util.Map} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    protected Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource, Map<String,String> additionalParams) {
-        if (resource == null) { // Still works, mimic old code when instance value is null.
+    protected Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource,
+            Map<String, String> additionalParams) {
+        if (resource == null) { // Still works, mimic old code when instance
+                                // value is null.
             resource = new CollectionResourceWrapper(date, 0, null, null, null, null, null);
         }
         String dsLabelValue = resource.getLabelValue(resource.getLabel());
-        if (dsLabelValue == null) dsLabelValue = UNKNOWN;
+        if (dsLabelValue == null)
+            dsLabelValue = UNKNOWN;
 
         // create the event to be sent
-        EventBuilder bldr = new EventBuilder(uei, "OpenNMS.Threshd." + getThresholdConfig().getDatasourceExpression(), date);
+        EventBuilder bldr = new EventBuilder(uei, "OpenNMS.Threshd." + getThresholdConfig().getDatasourceExpression(),
+                                             date);
 
         bldr.setNodeid(resource.getNodeId());
         bldr.setService(resource.getServiceName());
 
-        // As a suggestion from Bug2711. Host Address will contain Interface IP Address for Interface Resource
+        // As a suggestion from Bug2711. Host Address will contain Interface IP
+        // Address for Interface Resource
         bldr.setInterface(addr(resource.getHostAddress()));
 
         if (resource.isAnInterfaceResource()) {
-            // Update threshold label if it is unknown. This is useful because usually reduction-key is associated to label parameter
+            // Update threshold label if it is unknown. This is useful because
+            // usually reduction-key is associated to label parameter
             if (UNKNOWN.equals(dsLabelValue))
                 dsLabelValue = resource.getIfLabel();
             // Set interface specific parameters
@@ -119,18 +134,21 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
     }
 
     /**
-     * <p>formatValue</p>
+     * <p>
+     * formatValue
+     * </p>
      *
-     * @param value a {@link java.lang.Double} object.
+     * @param value
+     *            a {@link java.lang.Double} object.
      * @return a {@link java.lang.String} object.
      */
     protected String formatValue(double value) {
-        if (Double.isNaN(value)) // When reconfiguring thresholds, the value is set to NaN.
+        if (Double.isNaN(value)) // When reconfiguring thresholds, the value is
+                                 // set to NaN.
             return "NaN";
         String pattern = System.getProperty("org.opennms.threshd.value.decimalformat", "###.##");
         DecimalFormat valueFormatter = new DecimalFormat(pattern);
         return valueFormatter.format(value);
     }
-
 
 }

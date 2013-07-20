@@ -37,20 +37,17 @@ import org.opennms.core.test.xml.XmlTestNoCastor;
 
 public class DecodeTest extends XmlTestNoCastor<Decode> {
 
-	public DecodeTest(final Decode sampleObject, final String sampleXml, final String schemaFile) {
-		super(sampleObject, sampleXml, schemaFile);
-	}
+    public DecodeTest(final Decode sampleObject, final String sampleXml, final String schemaFile) {
+        super(sampleObject, sampleXml, schemaFile);
+    }
 
-	@Parameters
-	public static Collection<Object[]> data() throws ParseException {
-		Decode decode0 = new Decode();
-		decode0.setVarbinddecodedstring("testing");
-		decode0.setVarbindvalue("3");
-		return Arrays.asList(new Object[][] {
-				{decode0,
-				"<decode varbinddecodedstring=\"testing\" varbindvalue=\"3\"/>",
-				"target/classes/xsds/eventconf.xsd" }
-		});
-	}
+    @Parameters
+    public static Collection<Object[]> data() throws ParseException {
+        Decode decode0 = new Decode();
+        decode0.setVarbinddecodedstring("testing");
+        decode0.setVarbindvalue("3");
+        return Arrays.asList(new Object[][] { { decode0,
+                "<decode varbinddecodedstring=\"testing\" varbindvalue=\"3\"/>", "target/classes/xsds/eventconf.xsd" } });
+    }
 
 }

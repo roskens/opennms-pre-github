@@ -46,8 +46,9 @@ import org.opennms.netmgt.poller.remote.PollerConfiguration;
 import org.springframework.remoting.RemoteAccessException;
 
 /**
- * ExceptionProtectedPollerBackEnd.  This turns all server side exceptions
- * into RemoteAccessExceptions so the ServerUnreachableAdapter can handle the code correctly.
+ * ExceptionProtectedPollerBackEnd. This turns all server side exceptions
+ * into RemoteAccessExceptions so the ServerUnreachableAdapter can handle the
+ * code correctly.
  *
  * @author brozow
  * @version $Id: $
@@ -58,16 +59,22 @@ public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
     private PollerBackEnd m_delegate;
 
     /**
-     * <p>setDelegate</p>
+     * <p>
+     * setDelegate
+     * </p>
      *
-     * @param delegate a {@link org.opennms.netmgt.poller.remote.PollerBackEnd} object.
+     * @param delegate
+     *            a {@link org.opennms.netmgt.poller.remote.PollerBackEnd}
+     *            object.
      */
     public void setDelegate(PollerBackEnd delegate) {
         m_delegate = delegate;
     }
 
     /**
-     * <p>checkForDisconnectedMonitors</p>
+     * <p>
+     * checkForDisconnectedMonitors
+     * </p>
      */
     @Override
     public void checkForDisconnectedMonitors() {
@@ -80,7 +87,9 @@ public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
     }
 
     /**
-     * <p>configurationUpdated</p>
+     * <p>
+     * configurationUpdated
+     * </p>
      */
     @Override
     public void configurationUpdated() {
@@ -104,7 +113,9 @@ public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
     }
 
     /**
-     * <p>getMonitoringLocations</p>
+     * <p>
+     * getMonitoringLocations
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -186,8 +197,7 @@ public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
 
     /** {@inheritDoc} */
     @Override
-    public void reportResult(int locationMonitorID, int serviceId,
-            PollStatus status) {
+    public void reportResult(int locationMonitorID, int serviceId, PollStatus status) {
         try {
             m_delegate.reportResult(locationMonitorID, serviceId, status);
         } catch (Throwable t) {
@@ -197,7 +207,8 @@ public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
     }
 
     @Override
-    public void saveResponseTimeData(String locationMonitor, OnmsMonitoredService monSvc, double responseTime, Package pkg) {
+    public void saveResponseTimeData(String locationMonitor, OnmsMonitoredService monSvc, double responseTime,
+            Package pkg) {
         try {
             m_delegate.saveResponseTimeData(locationMonitor, monSvc, responseTime, pkg);
         } catch (Throwable t) {

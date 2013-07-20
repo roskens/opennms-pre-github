@@ -45,17 +45,21 @@ import org.opennms.protocols.jmx.connectors.Jsr160ConnectionFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 /**
- * <p>Jsr160Plugin class.</p>
+ * <p>
+ * Jsr160Plugin class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Jsr160Plugin extends JMXPlugin {
 
-    /* The factory handles the creation of the connection and returns a CollectionWrapper which is used
+    /*
+     * The factory handles the creation of the connection and returns a
+     * CollectionWrapper which is used
      * in the JXMPlugin base class to determine whether this capability exists.
-     *
-     * @see org.opennms.netmgt.capsd.JMXPlugin#getMBeanServer(java.util.Map, java.net.InetAddress)
+     * @see org.opennms.netmgt.capsd.JMXPlugin#getMBeanServer(java.util.Map,
+     * java.net.InetAddress)
      */
     /** {@inheritDoc} */
     @Override
@@ -63,7 +67,8 @@ public class Jsr160Plugin extends JMXPlugin {
         return Jsr160ConnectionFactory.getMBeanServerConnection(parameterMap, address);
     }
 
-    /* The protocol name is used to...
+    /*
+     * The protocol name is used to...
      * @see org.opennms.netmgt.capsd.Plugin#getProtocolName()
      */
     /** {@inheritDoc} */
@@ -73,15 +78,16 @@ public class Jsr160Plugin extends JMXPlugin {
     }
 
     /*
-     * @see org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress)
+     * @see
+     * org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress)
      */
     /** {@inheritDoc} */
     @Override
     public boolean isProtocolSupported(InetAddress address) {
         HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("port",           "9004");
-        map.put("factory",        "JMXRMI");
-        map.put("friendlyname",   "jsr160");
+        map.put("port", "9004");
+        map.put("factory", "JMXRMI");
+        map.put("friendlyname", "jsr160");
 
         return isProtocolSupported(address, map);
     }

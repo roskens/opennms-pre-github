@@ -35,90 +35,112 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Abstract MobileSequenceOperation class.</p>
+ * <p>
+ * Abstract MobileSequenceOperation class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public abstract class MobileSequenceOperation {
     private static final Logger LOG = LoggerFactory.getLogger(MobileSequenceOperation.class);
-	/**
-	 * <p>Constructor for MobileSequenceOperation.</p>
-	 */
-	public MobileSequenceOperation() {
-	}
 
-	/**
-	 * <p>Constructor for MobileSequenceOperation.</p>
-	 *
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public MobileSequenceOperation(String label) {
-		setLabel(label);
-	}
+    /**
+     * <p>
+     * Constructor for MobileSequenceOperation.
+     * </p>
+     */
+    public MobileSequenceOperation() {
+    }
 
-	/**
-	 * <p>Constructor for MobileSequenceOperation.</p>
-	 *
-	 * @param gatewayId a {@link java.lang.String} object.
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public MobileSequenceOperation(String gatewayId, String label) {
-		setGatewayId(gatewayId);
-		setLabel(label);
-	}
+    /**
+     * <p>
+     * Constructor for MobileSequenceOperation.
+     * </p>
+     *
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public MobileSequenceOperation(String label) {
+        setLabel(label);
+    }
 
-	private String m_gatewayId;
-	private String m_label;
+    /**
+     * <p>
+     * Constructor for MobileSequenceOperation.
+     * </p>
+     *
+     * @param gatewayId
+     *            a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public MobileSequenceOperation(String gatewayId, String label) {
+        setGatewayId(gatewayId);
+        setLabel(label);
+    }
 
-	/**
-	 * <p>getGatewayId</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	@XmlAttribute(name="gatewayId")
-	public String getGatewayId() {
-		return m_gatewayId;
-	}
+    private String m_gatewayId;
 
-	/**
-	 * <p>setGatewayId</p>
-	 *
-	 * @param gatewayId a {@link java.lang.String} object.
-	 */
-	public void setGatewayId(String gatewayId) {
-		m_gatewayId = gatewayId;
-	}
+    private String m_label;
 
-	/**
-	 * <p>getLabel</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	@XmlAttribute(name="label")
-	public String getLabel() {
-		return m_label;
-	}
+    /**
+     * <p>
+     * getGatewayId
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @XmlAttribute(name = "gatewayId")
+    public String getGatewayId() {
+        return m_gatewayId;
+    }
 
-	/**
-	 * <p>setLabel</p>
-	 *
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public void setLabel(String label) {
-		m_label = label;
-	}
+    /**
+     * <p>
+     * setGatewayId
+     * </p>
+     *
+     * @param gatewayId
+     *            a {@link java.lang.String} object.
+     */
+    public void setGatewayId(String gatewayId) {
+        m_gatewayId = gatewayId;
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String toString() {
-		return new ToStringBuilder(this)
-			.append("gatewayId", getGatewayId())
-			.append("label", getLabel())
-			.toString();
-	}
+    /**
+     * <p>
+     * getLabel
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @XmlAttribute(name = "label")
+    public String getLabel() {
+        return m_label;
+    }
+
+    /**
+     * <p>
+     * setLabel
+     * </p>
+     *
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public void setLabel(String label) {
+        m_label = label;
+    }
+
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("gatewayId", getGatewayId()).append("label", getLabel()).toString();
+    }
 }

@@ -31,6 +31,7 @@ package org.opennms.features.topology.app.internal.gwt.client.d3;
 public class TransitionBuilder {
 
     D3Behavior m_behavior;
+
     int m_delay = 0;
 
     public TransitionBuilder fadeOut(int duration) {

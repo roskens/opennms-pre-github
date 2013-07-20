@@ -40,18 +40,19 @@ import org.opennms.container.web.felix.base.internal.util.MimeTypes;
 import org.osgi.framework.Bundle;
 import org.osgi.service.http.HttpContext;
 
-public final class ServletContextImpl
-    implements ExtServletContext
-{
+public final class ServletContextImpl implements ExtServletContext {
     private final Bundle bundle;
+
     private final ServletContext context;
+
     private final HttpContext httpContext;
+
     private final Map<String, Object> attributes;
+
     private final ServletContextAttributeListener attributeListener;
 
     public ServletContextImpl(Bundle bundle, ServletContext context, HttpContext httpContext,
-        ServletContextAttributeListener attributeListener, boolean sharedAttributes)
-    {
+            ServletContextAttributeListener attributeListener, boolean sharedAttributes) {
         this.bundle = bundle;
         this.context = context;
         this.httpContext = httpContext;
@@ -60,32 +61,27 @@ public final class ServletContextImpl
     }
 
     @Override
-    public String getContextPath()
-    {
+    public String getContextPath() {
         return this.context.getContextPath();
     }
 
     @Override
-    public ServletContext getContext(String uri)
-    {
+    public ServletContext getContext(String uri) {
         return this.context.getContext(uri);
     }
 
     @Override
-    public int getMajorVersion()
-    {
+    public int getMajorVersion() {
         return this.context.getMajorVersion();
     }
 
     @Override
-    public int getMinorVersion()
-    {
+    public int getMinorVersion() {
         return this.context.getMinorVersion();
     }
 
     @Override
-    public Set<String> getResourcePaths(String path)
-    {
+    public Set<String> getResourcePaths(String path) {
         Enumeration<?> paths = this.bundle.getEntryPaths(normalizePath(path));
         if ((paths == null) || !paths.hasMoreElements()) {
             return null;
@@ -100,14 +96,12 @@ public final class ServletContextImpl
     }
 
     @Override
-    public URL getResource(String path)
-    {
+    public URL getResource(String path) {
         return this.httpContext.getResource(normalizePath(path));
     }
 
     @Override
-    public InputStream getResourceAsStream(String path)
-    {
+    public InputStream getResourceAsStream(String path) {
         URL res = getResource(path);
         if (res != null) {
             try {
@@ -120,8 +114,7 @@ public final class ServletContextImpl
         return null;
     }
 
-    private static String normalizePath(String path)
-    {
+    private static String normalizePath(String path) {
         if (path == null) {
             return null;
         }
@@ -135,151 +128,119 @@ public final class ServletContextImpl
     }
 
     @Override
-    public RequestDispatcher getRequestDispatcher(String uri)
-    {
+    public RequestDispatcher getRequestDispatcher(String uri) {
         return null;
     }
 
     @Override
-    public RequestDispatcher getNamedDispatcher(String name)
-    {
+    public RequestDispatcher getNamedDispatcher(String name) {
         return null;
     }
 
     @Override
-    public String getInitParameter(String name)
-    {
+    public String getInitParameter(String name) {
         return this.context.getInitParameter(name);
     }
 
     @Override
-    public Enumeration<?> getInitParameterNames()
-    {
+    public Enumeration<?> getInitParameterNames() {
         return this.context.getInitParameterNames();
     }
 
     @Override
-    public Object getAttribute(String name)
-    {
+    public Object getAttribute(String name) {
         return (this.attributes != null) ? this.attributes.get(name) : this.context.getAttribute(name);
     }
 
     @Override
-    public Enumeration<?> getAttributeNames()
-    {
-        return (this.attributes != null) ? Collections.enumeration(this.attributes.keySet()) : this.context
-            .getAttributeNames();
+    public Enumeration<?> getAttributeNames() {
+        return (this.attributes != null) ? Collections.enumeration(this.attributes.keySet())
+            : this.context.getAttributeNames();
     }
 
     @Override
-    public void setAttribute(String name, Object value)
-    {
-        if (value == null)
-        {
+    public void setAttribute(String name, Object value) {
+        if (value == null) {
             this.removeAttribute(name);
-        }
-        else if (name != null)
-        {
+        } else if (name != null) {
             Object oldValue;
-            if (this.attributes != null)
-            {
+            if (this.attributes != null) {
                 oldValue = this.attributes.put(name, value);
-            }
-            else
-            {
+            } else {
                 oldValue = this.context.getAttribute(name);
                 this.context.setAttribute(name, value);
             }
 
-            if (oldValue == null)
-            {
+            if (oldValue == null) {
                 attributeListener.attributeAdded(new ServletContextAttributeEvent(this, name, value));
-            }
-            else
-            {
+            } else {
                 attributeListener.attributeReplaced(new ServletContextAttributeEvent(this, name, oldValue));
             }
         }
     }
 
     @Override
-    public void removeAttribute(String name)
-    {
+    public void removeAttribute(String name) {
         Object oldValue;
-        if (this.attributes != null)
-        {
+        if (this.attributes != null) {
             oldValue = this.attributes.remove(name);
-        }
-        else
-        {
+        } else {
             oldValue = this.context.getAttribute(name);
             this.context.removeAttribute(name);
         }
 
-        if (oldValue != null)
-        {
+        if (oldValue != null) {
             attributeListener.attributeRemoved(new ServletContextAttributeEvent(this, name, oldValue));
         }
     }
 
     @Override
-    public Servlet getServlet(String name)
-        throws ServletException
-    {
+    public Servlet getServlet(String name) throws ServletException {
         return null;
     }
 
     @Override
-    public Enumeration<?> getServlets()
-    {
+    public Enumeration<?> getServlets() {
         return Collections.enumeration(Collections.emptyList());
     }
 
     @Override
-    public Enumeration<?> getServletNames()
-    {
+    public Enumeration<?> getServletNames() {
         return Collections.enumeration(Collections.emptyList());
     }
 
     @Override
-    public void log(String message)
-    {
+    public void log(String message) {
         SystemLogger.info(message);
     }
 
     @Override
-    public void log(Exception cause, String message)
-    {
+    public void log(Exception cause, String message) {
         SystemLogger.error(message, cause);
     }
 
     @Override
-    public void log(String message, Throwable cause)
-    {
+    public void log(String message, Throwable cause) {
         SystemLogger.error(message, cause);
     }
 
     @Override
-    public String getServletContextName()
-    {
+    public String getServletContextName() {
         return this.context.getServletContextName();
     }
 
     @Override
-    public String getRealPath(String name)
-    {
+    public String getRealPath(String name) {
         return null;
     }
 
     @Override
-    public String getServerInfo()
-    {
+    public String getServerInfo() {
         return this.context.getServerInfo();
     }
 
     @Override
-    public String getMimeType(String file)
-    {
+    public String getMimeType(String file) {
         String type = this.httpContext.getMimeType(file);
         if (type != null) {
             return type;
@@ -289,9 +250,7 @@ public final class ServletContextImpl
     }
 
     @Override
-    public boolean handleSecurity(HttpServletRequest req, HttpServletResponse res)
-        throws IOException
-    {
+    public boolean handleSecurity(HttpServletRequest req, HttpServletResponse res) throws IOException {
         return this.httpContext.handleSecurity(req, res);
     }
 }

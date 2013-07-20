@@ -55,7 +55,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>UserServiceImpl class.</p>
+ * <p>
+ * UserServiceImpl class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -77,9 +79,12 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * <p>save</p>
+     * <p>
+     * save
+     * </p>
      *
-     * @param user a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
+     * @param user
+     *            a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
      * @return a boolean.
      */
     @Override
@@ -88,9 +93,12 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * <p>updatePassword</p>
+     * <p>
+     * updatePassword
+     * </p>
      *
-     * @param user a {@link org.opennms.acl.model.UserDTO} object.
+     * @param user
+     *            a {@link org.opennms.acl.model.UserDTO} object.
      * @return a boolean.
      */
     public boolean updatePassword(UserDTO user) {
@@ -130,7 +138,9 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * <p>getUsersNumber</p>
+     * <p>
+     * getUsersNumber
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -140,7 +150,9 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * <p>getTotalItemsNumber</p>
+     * <p>
+     * getTotalItemsNumber
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -162,9 +174,12 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * <p>Setter for the field <code>userRepository</code>.</p>
+     * <p>
+     * Setter for the field <code>userRepository</code>.
+     * </p>
      *
-     * @param userRepository a {@link org.opennms.acl.repository.UserRepository} object.
+     * @param userRepository
+     *            a {@link org.opennms.acl.repository.UserRepository} object.
      */
     @Autowired
     public void setUserRepository(UserRepository userRepository) {

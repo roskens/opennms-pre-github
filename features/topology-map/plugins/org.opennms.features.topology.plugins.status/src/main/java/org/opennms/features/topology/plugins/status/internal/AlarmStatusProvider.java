@@ -19,10 +19,12 @@ import org.opennms.netmgt.model.alarm.AlarmSummary;
 
 public class AlarmStatusProvider implements StatusProvider {
 
-    public class AlarmStatus implements Status{
+    public class AlarmStatus implements Status {
 
         private int m_statusId;
+
         private String m_label;
+
         private int m_alarmCount = 0;
 
         public AlarmStatus(int id, String label, int count) {
@@ -47,6 +49,7 @@ public class AlarmStatusProvider implements StatusProvider {
     }
 
     private AlarmDao m_alarmDao;
+
     private VertexProvider m_vertexProvider;
 
     public VertexProvider getVertexProvider() {
@@ -68,10 +71,10 @@ public class AlarmStatusProvider implements StatusProvider {
     @Override
     public Status getStatusForVertex(VertexRef vertexRef) {
 
-        if(vertexRef.getNamespace().equals("nodes")) {
+        if (vertexRef.getNamespace().equals("nodes")) {
             try {
                 Collection<Integer> nodeIds = new ArrayList<Integer>();
-                if(isGroup(vertexRef)) {
+                if (isGroup(vertexRef)) {
                     addChildrenRecursively(vertexRef, nodeIds);
                 } else {
                     nodeIds.add(Integer.valueOf(vertexRef.getId()));
@@ -89,7 +92,7 @@ public class AlarmStatusProvider implements StatusProvider {
     @Override
     public Collection<Status> getStatusForVertices(Collection<VertexRef> vertices) {
         Collection<Status> verticesStatus = new ArrayList<Status>();
-        for(VertexRef vert : vertices) {
+        for (VertexRef vert : vertices) {
             verticesStatus.add(getStatusForVertex(vert));
         }
         return verticesStatus;
@@ -102,7 +105,7 @@ public class AlarmStatusProvider implements StatusProvider {
 
     private Status getAlarmStatus(Collection<Integer> nodeIds) {
         List<AlarmSummary> alarmSummaries = m_alarmDao.getNodeAlarmSummaries(nodeIds.toArray(new Integer[nodeIds.size()]));
-        if(alarmSummaries != null && alarmSummaries.size() >= 1) {
+        if (alarmSummaries != null && alarmSummaries.size() >= 1) {
             return calculateAlarmStatus(alarmSummaries);
         } else {
             return createIndeterminateStatus();
@@ -111,8 +114,8 @@ public class AlarmStatusProvider implements StatusProvider {
 
     private void addChildrenRecursively(VertexRef groupRef, Collection<Integer> nodeIds) {
         List<Vertex> vertices = getVertexProvider().getChildren(groupRef);
-        for(Vertex vertex : vertices) {
-            if(!vertex.isGroup()) {
+        for (Vertex vertex : vertices) {
+            if (!vertex.isGroup()) {
                 nodeIds.add(vertex.getNodeID());
             } else {
                 addChildrenRecursively(vertex, nodeIds);
@@ -121,7 +124,7 @@ public class AlarmStatusProvider implements StatusProvider {
     }
 
     private boolean isGroup(VertexRef vertexRef) {
-        if(vertexRef instanceof Vertex) {
+        if (vertexRef instanceof Vertex) {
             return ((Vertex) vertexRef).isGroup();
         }
         return false;

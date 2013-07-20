@@ -53,28 +53,32 @@ import org.springframework.core.io.ClassPathResource;
 
 public class MockSnmpStrategyTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MockSnmpStrategyTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MockSnmpStrategyTest.class);
 
     private static MockSnmpStrategy m_strategy;
+
     private InetAddress m_agentAddress = InetAddressUtils.addr("127.0.0.1");
+
     private int m_agentPort = 1691;
+
     private String m_oldProperty;
 
     @Before
     public void setUp() throws Exception {
         m_strategy = new MockSnmpStrategy();
-        MockSnmpStrategy.setDataForAddress(new SnmpAgentAddress(m_agentAddress, m_agentPort), new ClassPathResource("loadSnmpDataTest.properties"));
+        MockSnmpStrategy.setDataForAddress(new SnmpAgentAddress(m_agentAddress, m_agentPort),
+                                           new ClassPathResource("loadSnmpDataTest.properties"));
         m_oldProperty = System.getProperty("org.opennms.snmp.strategyClass");
         System.setProperty("org.opennms.snmp.strategyClass", m_strategy.getClass().getName());
     }
 
     @After
     public void tearDown() {
-    	if (m_oldProperty == null) {
-    		System.getProperties().remove("org.opennms.snmp.strategyClass");
-    	} else {
-    		System.setProperty("org.opennms.snmp.strategyClass", m_oldProperty);
-    	}
+        if (m_oldProperty == null) {
+            System.getProperties().remove("org.opennms.snmp.strategyClass");
+        } else {
+            System.setProperty("org.opennms.snmp.strategyClass", m_oldProperty);
+        }
 
     }
 
@@ -91,10 +95,7 @@ public class MockSnmpStrategyTest {
 
     @Test
     public void testGetMultipleValues() throws Exception {
-        final SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
 
         final SnmpValue[] values = m_strategy.get(getAgentConfig(), oids);
 
@@ -106,10 +107,7 @@ public class MockSnmpStrategyTest {
 
     @Test
     public void testGetBulkMultipleValues() throws Exception {
-        final SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
 
         final SnmpValue[] values = m_strategy.get(getAgentConfig(), oids);
 
@@ -133,10 +131,7 @@ public class MockSnmpStrategyTest {
 
     @Test
     public void testGetNextMultipleValues() throws Exception {
-        final SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0"),
-        };
+        final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
 
         final SnmpValue[] values = m_strategy.getNext(getAgentConfig(), oids);
 
@@ -150,66 +145,56 @@ public class MockSnmpStrategyTest {
 
     @Test
     public void testSetSingleValue() throws Exception {
-    	m_strategy.set(getAgentConfig(), SnmpObjId.get(".1.3.5.1.1.3.0"), m_strategy.getValueFactory().getInt32(4));
+        m_strategy.set(getAgentConfig(), SnmpObjId.get(".1.3.5.1.1.3.0"), m_strategy.getValueFactory().getInt32(4));
 
-    	final SnmpValue result = m_strategy.get(getAgentConfig(), SnmpObjId.get(".1.3.5.1.1.3.0"));
-    	assertNotNull(result);
-    	assertEquals(4, result.toInt());
+        final SnmpValue result = m_strategy.get(getAgentConfig(), SnmpObjId.get(".1.3.5.1.1.3.0"));
+        assertNotNull(result);
+        assertEquals(4, result.toInt());
     }
 
     @Test
     public void testSetBadAgent() throws Exception {
-    	final SnmpAgentConfig sac = getAgentConfig();
-    	sac.setAddress(InetAddressUtils.addr("1.2.3.4"));
+        final SnmpAgentConfig sac = getAgentConfig();
+        sac.setAddress(InetAddressUtils.addr("1.2.3.4"));
 
-    	m_strategy.set(sac, SnmpObjId.get(".1.3.5.1.1.3.0"), m_strategy.getValueFactory().getInt32(4));
+        m_strategy.set(sac, SnmpObjId.get(".1.3.5.1.1.3.0"), m_strategy.getValueFactory().getInt32(4));
 
-    	final SnmpValue result = m_strategy.get(sac, SnmpObjId.get(".1.3.5.1.1.3.0"));
+        final SnmpValue result = m_strategy.get(sac, SnmpObjId.get(".1.3.5.1.1.3.0"));
 
-    	assertNull(result);
+        assertNull(result);
     }
 
     @Test
     public void testSetMultipleValues() throws Exception {
-        final SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0")
-        };
-        final SnmpValue[] values = new SnmpValue[] {
-        		m_strategy.getValueFactory().getInt32(4),
-        		m_strategy.getValueFactory().getGauge32(5)
-        };
+        final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0") };
+        final SnmpValue[] values = new SnmpValue[] { m_strategy.getValueFactory().getInt32(4),
+                m_strategy.getValueFactory().getGauge32(5) };
 
         m_strategy.set(getAgentConfig(), oids, values);
 
-    	final SnmpValue[] results = m_strategy.get(getAgentConfig(), oids);
-    	assertNotNull(results);
-    	assertEquals(2, results.length);
-    	assertEquals(4, results[0].toInt());
-    	assertEquals(5, results[1].toInt());
+        final SnmpValue[] results = m_strategy.get(getAgentConfig(), oids);
+        assertNotNull(results);
+        assertEquals(2, results.length);
+        assertEquals(4, results[0].toInt());
+        assertEquals(5, results[1].toInt());
     }
 
     @Test
     public void testSetMultipleBadAgent() throws Exception {
-    	final SnmpAgentConfig sac = getAgentConfig();
-    	sac.setAddress(InetAddressUtils.addr("1.2.3.4"));
+        final SnmpAgentConfig sac = getAgentConfig();
+        sac.setAddress(InetAddressUtils.addr("1.2.3.4"));
 
-        final SnmpObjId[] oids = new SnmpObjId[] {
-                SnmpObjId.get(".1.3.5.1.1.3.0"),
-                SnmpObjId.get(".1.3.5.1.1.4.0")
-        };
-        final SnmpValue[] values = new SnmpValue[] {
-        		m_strategy.getValueFactory().getInt32(4),
-        		m_strategy.getValueFactory().getGauge32(5)
-        };
+        final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0") };
+        final SnmpValue[] values = new SnmpValue[] { m_strategy.getValueFactory().getInt32(4),
+                m_strategy.getValueFactory().getGauge32(5) };
 
         m_strategy.set(sac, oids, values);
 
-    	final SnmpValue[] results = m_strategy.get(sac, oids);
-    	assertNotNull(results);
-    	assertEquals(2, results.length);
-    	assertNull(results[0]);
-    	assertNull(results[1]);
+        final SnmpValue[] results = m_strategy.get(sac, oids);
+        assertNotNull(results);
+        assertEquals(2, results.length);
+        assertNull(results[0]);
+        assertNull(results[1]);
     }
 
     @Test
@@ -232,7 +217,8 @@ public class MockSnmpStrategyTest {
         assertEquals("it should match no columns (timeout)", Long.valueOf(0).longValue(), ct.getCount());
     }
 
-    private void assertSnmpValueEquals(final String message, final int expectedType, final int expectedValue, final SnmpValue value) {
+    private void assertSnmpValueEquals(final String message, final int expectedType, final int expectedValue,
+            final SnmpValue value) {
         assertEquals(message + " getType()", expectedType, value.getType());
         assertEquals(message + " toInt()", expectedValue, value.toInt());
     }
@@ -257,18 +243,22 @@ public class MockSnmpStrategyTest {
 
     static private class CountingColumnTracker extends ColumnTracker {
         private long m_count = 0;
+
         public CountingColumnTracker(final SnmpObjId base) {
             super(base);
         }
+
         public CountingColumnTracker(final SnmpObjId base, final int maxRepetitions) {
             super(base, maxRepetitions);
         }
+
         public long getCount() {
             return m_count;
         }
+
         @Override
         protected void storeResult(final SnmpResult res) {
-        	LOG.debug("storing result {}", res);
+            LOG.debug("storing result {}", res);
             m_count++;
         }
 

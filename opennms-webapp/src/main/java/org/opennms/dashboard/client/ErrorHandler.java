@@ -29,7 +29,9 @@
 package org.opennms.dashboard.client;
 
 /**
- * <p>ErrorHandler interface.</p>
+ * <p>
+ * ErrorHandler interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -38,9 +40,12 @@ package org.opennms.dashboard.client;
 public interface ErrorHandler {
 
     /**
-     * <p>error</p>
+     * <p>
+     * error
+     * </p>
      *
-     * @param e a {@link java.lang.Throwable} object.
+     * @param e
+     *            a {@link java.lang.Throwable} object.
      */
     public void error(Throwable e);
 

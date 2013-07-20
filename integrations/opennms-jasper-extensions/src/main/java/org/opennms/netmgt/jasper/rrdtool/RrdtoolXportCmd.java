@@ -46,50 +46,50 @@ import org.springframework.util.FileCopyUtils;
 public class RrdtoolXportCmd {
     private static final Logger LOG = LoggerFactory.getLogger(RrdtoolXportCmd.class);
 
-	public JRDataSource executeCommand(String queryString) throws JRException {
-		Xport data = getXportData(queryString);
-		return new RrdtoolDataSource(data);
-	}
+    public JRDataSource executeCommand(String queryString) throws JRException {
+        Xport data = getXportData(queryString);
+        return new RrdtoolDataSource(data);
+    }
 
-	private Xport getXportData(String queryString) throws JRException {
-	    String rrdBinary = getRrdBinary();
-        if(rrdBinary == null) {
+    private Xport getXportData(String queryString) throws JRException {
+        String rrdBinary = getRrdBinary();
+        if (rrdBinary == null) {
             throw new JRException("rrd.binary property must be set either in opennms.properties or in iReport");
         }
 
-		String command = rrdBinary + " xport " + queryString.replaceAll("[\r\n]+", " ").replaceAll("\\s+", " ");
-		LOG.debug("getXportData: executing command: {}", command);
-		String[] commandArray = StringUtils.createCommandArray(command, '@');
-		Xport data = null;
-		try {
-			Process process = Runtime.getRuntime().exec(commandArray);
-			// this closes the stream when its finished
-			byte[] byteArray = FileCopyUtils.copyToByteArray(process.getInputStream());
-			// this close the stream when its finished
-			String errors = FileCopyUtils.copyToString(new InputStreamReader(process.getErrorStream()));
-			if (errors.length() > 0) {
-				LOG.error("getXportData: RRDtool command fail: {}", errors);
-				return null;
-			}
-			BufferedReader reader = null;
-			try {
-				InputStream is = new ByteArrayInputStream(byteArray);
-				reader = new BufferedReader(new InputStreamReader(is));
-				data = (Xport) Unmarshaller.unmarshal(Xport.class, reader);
-			} finally {
-				reader.close();
-			}
-		} catch (Exception e) {
-			LOG.error("getXportData: can't execute command '{}'", command, e);
-			throw new JRException("getXportData: can't execute command '" + command + ": ", e);
-		}
-		return data;
-	}
+        String command = rrdBinary + " xport " + queryString.replaceAll("[\r\n]+", " ").replaceAll("\\s+", " ");
+        LOG.debug("getXportData: executing command: {}", command);
+        String[] commandArray = StringUtils.createCommandArray(command, '@');
+        Xport data = null;
+        try {
+            Process process = Runtime.getRuntime().exec(commandArray);
+            // this closes the stream when its finished
+            byte[] byteArray = FileCopyUtils.copyToByteArray(process.getInputStream());
+            // this close the stream when its finished
+            String errors = FileCopyUtils.copyToString(new InputStreamReader(process.getErrorStream()));
+            if (errors.length() > 0) {
+                LOG.error("getXportData: RRDtool command fail: {}", errors);
+                return null;
+            }
+            BufferedReader reader = null;
+            try {
+                InputStream is = new ByteArrayInputStream(byteArray);
+                reader = new BufferedReader(new InputStreamReader(is));
+                data = (Xport) Unmarshaller.unmarshal(Xport.class, reader);
+            } finally {
+                reader.close();
+            }
+        } catch (Exception e) {
+            LOG.error("getXportData: can't execute command '{}'", command, e);
+            throw new JRException("getXportData: can't execute command '" + command + ": ", e);
+        }
+        return data;
+    }
 
-	private String getRrdBinary() {
-	    if(System.getProperty("rrd.binary") != null) {
+    private String getRrdBinary() {
+        if (System.getProperty("rrd.binary") != null) {
             return System.getProperty("rrd.binary");
-        } else if(JRProperties.getProperty("rrd.binary") != null) {
+        } else if (JRProperties.getProperty("rrd.binary") != null) {
             return JRProperties.getProperty("rrd.binary");
         } else {
             return null;

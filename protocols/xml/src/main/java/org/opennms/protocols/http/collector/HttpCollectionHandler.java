@@ -75,11 +75,16 @@ import org.slf4j.LoggerFactory;
 public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
     private static final Logger LOG = LoggerFactory.getLogger(HttpCollectionHandler.class);
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.XmlCollectionHandler#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.protocols.xml.config.XmlDataCollection, java.util.Map)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.XmlCollectionHandler#collect(org.
+     * opennms.netmgt.collectd.CollectionAgent,
+     * org.opennms.protocols.xml.config.XmlDataCollection, java.util.Map)
      */
     @Override
-    public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters) throws CollectionException {
+    public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters)
+            throws CollectionException {
         XmlCollectionSet collectionSet = new XmlCollectionSet(agent);
         collectionSet.setCollectionTimestamp(new Date());
         collectionSet.setStatus(ServiceCollector.COLLECTION_UNKNOWN);
@@ -98,8 +103,12 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#processXmlResource(org.opennms.protocols.xml.collector.XmlCollectionResource, org.opennms.netmgt.config.collector.AttributeGroupType)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#
+     * processXmlResource
+     * (org.opennms.protocols.xml.collector.XmlCollectionResource,
+     * org.opennms.netmgt.config.collector.AttributeGroupType)
      */
     @Override
     protected void processXmlResource(XmlCollectionResource collectionResource, AttributeGroupType attribGroupType) {
@@ -108,21 +117,29 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Fill collection set.
      *
-     * @param agent the agent
-     * @param collectionSet the collection set
-     * @param source the source
-     * @param document the JSoup document
-     * @throws ParseException the parse exception
+     * @param agent
+     *            the agent
+     * @param collectionSet
+     *            the collection set
+     * @param source
+     *            the source
+     * @param document
+     *            the JSoup document
+     * @throws ParseException
+     *             the parse exception
      */
-    protected void fillCollectionSet(CollectionAgent agent, XmlCollectionSet collectionSet, XmlSource source, Document doc) throws ParseException {
+    protected void fillCollectionSet(CollectionAgent agent, XmlCollectionSet collectionSet, XmlSource source,
+            Document doc) throws ParseException {
         for (XmlGroup group : source.getXmlGroups()) {
-            LOG.debug("fillCollectionSet: getting resources for XML group {} using selector {}", group.getName(), group.getResourceXpath());
+            LOG.debug("fillCollectionSet: getting resources for XML group {} using selector {}", group.getName(),
+                      group.getResourceXpath());
             Date timestamp = getTimeStamp(doc, group);
             Elements elements = doc.select(group.getResourceXpath());
             LOG.debug("fillCollectionSet: {} => {}", group.getResourceXpath(), elements);
             String resourceName = getResourceName(elements, group);
             LOG.debug("fillCollectionSet: processing XML resource {}", resourceName);
-            XmlCollectionResource collectionResource = getCollectionResource(agent, resourceName, group.getResourceType(), timestamp);
+            XmlCollectionResource collectionResource = getCollectionResource(agent, resourceName,
+                                                                             group.getResourceType(), timestamp);
             AttributeGroupType attribGroupType = new AttributeGroupType(group.getName(), group.getIfType());
             for (XmlObject object : group.getXmlObjects()) {
                 Elements el = elements.select(object.getXpath());
@@ -137,8 +154,10 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Gets the resource name.
      *
-     * @param elements the JSoup elements
-     * @param group the group
+     * @param elements
+     *            the JSoup elements
+     * @param group
+     *            the group
      * @return the resource name
      */
     private String getResourceName(Elements elements, XmlGroup group) {
@@ -154,7 +173,8 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
             }
             return StringUtils.join(keys, "_");
         }
-        // If key-xpath doesn't exist or not found, a node resource will be assumed.
+        // If key-xpath doesn't exist or not found, a node resource will be
+        // assumed.
         if (group.getKeyXpath() == null) {
             return "node";
         }
@@ -167,8 +187,10 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Gets the time stamp.
      *
-     * @param document the JSoup document
-     * @param group the group
+     * @param document
+     *            the JSoup document
+     * @param group
+     *            the group
      * @return the time stamp
      */
     protected Date getTimeStamp(Document doc, XmlGroup group) {
@@ -176,7 +198,8 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
             return null;
         }
         String pattern = group.getTimestampFormat() == null ? "yyyy-MM-dd HH:mm:ss" : group.getTimestampFormat();
-        LOG.debug("getTimeStamp: retrieving custom timestamp to be used when updating RRDs using selector {} and pattern {}", group.getTimestampXpath(), pattern);
+        LOG.debug("getTimeStamp: retrieving custom timestamp to be used when updating RRDs using selector {} and pattern {}",
+                  group.getTimestampXpath(), pattern);
         Elements el = doc.select(group.getTimestampXpath());
         if (el == null) {
             return null;
@@ -196,8 +219,10 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Gets the JSoup document.
      *
-     * @param urlString the URL string
-     * @param request the request
+     * @param urlString
+     *            the URL string
+     * @param request
+     *            the request
      * @return the JSoup document
      */
     protected Document getJsoupDocument(String urlString, Request request) {

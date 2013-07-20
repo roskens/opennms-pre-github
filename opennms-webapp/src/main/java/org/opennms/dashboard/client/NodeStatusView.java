@@ -31,7 +31,6 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.ui.FlexTable;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class NodeStatusView extends PageableTableView {
@@ -39,8 +38,8 @@ class NodeStatusView extends PageableTableView {
     private NodeRtc[] m_rtcs;
 
     NodeStatusView(Dashlet dashlet) {
-		super(dashlet, 5, new String[] { "Node", "Current Outages", "24 Hour Availability" });
-	}
+        super(dashlet, 5, new String[] { "Node", "Current Outages", "24 Hour Availability" });
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -48,9 +47,10 @@ class NodeStatusView extends PageableTableView {
         NodeRtc rtc = m_rtcs[elementIndex];
 
         if (rtc.getIsDashboardRole()) {
-             table.setText(row, 0, rtc.getNodeLabel());
+            table.setText(row, 0, rtc.getNodeLabel());
         } else {
-            table.setHTML(row, 0, "<a href=\"element/node.jsp?node=" + rtc.getNodeId() + "\">" + rtc.getNodeLabel() + "</a>");
+            table.setHTML(row, 0, "<a href=\"element/node.jsp?node=" + rtc.getNodeId() + "\">" + rtc.getNodeLabel()
+                    + "</a>");
         }
 
         table.setText(row, 1, rtc.getDownServiceCount() + " of " + rtc.getServiceCount());
@@ -63,7 +63,9 @@ class NodeStatusView extends PageableTableView {
     }
 
     /**
-     * <p>getElementCount</p>
+     * <p>
+     * getElementCount
+     * </p>
      *
      * @return a int.
      */
@@ -72,22 +74,27 @@ class NodeStatusView extends PageableTableView {
         return (m_rtcs == null ? 0 : m_rtcs.length);
     }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	protected void formatCells(FlexTable table, int row) {
-        // Don't call the super implementation... it will erase our NodeRtc-specific styling on columns 1 and 2
+    protected void formatCells(FlexTable table, int row) {
+        // Don't call the super implementation... it will erase our
+        // NodeRtc-specific styling on columns 1 and 2
 
         table.getCellFormatter().addStyleName(row, 1, "bright");
         table.getCellFormatter().addStyleName(row, 1, "divider");
 
         table.getCellFormatter().addStyleName(row, 2, "bright");
         table.getCellFormatter().addStyleName(row, 2, "divider");
-	}
+    }
 
     /**
-     * <p>setNodeRtc</p>
+     * <p>
+     * setNodeRtc
+     * </p>
      *
-     * @param rtcs an array of {@link org.opennms.dashboard.client.NodeRtc} objects.
+     * @param rtcs
+     *            an array of {@link org.opennms.dashboard.client.NodeRtc}
+     *            objects.
      */
     public void setNodeRtc(NodeRtc[] rtcs) {
         m_rtcs = rtcs;

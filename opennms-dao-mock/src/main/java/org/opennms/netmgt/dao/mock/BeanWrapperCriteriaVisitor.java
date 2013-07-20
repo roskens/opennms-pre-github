@@ -13,15 +13,23 @@ import org.opennms.core.criteria.Order;
 import org.opennms.core.criteria.restrictions.Restriction;
 
 public class BeanWrapperCriteriaVisitor implements CriteriaVisitor {
-    // private static final Logger LOG = LoggerFactory.getLogger(BeanWrapperCriteriaVisitor.class);
+    // private static final Logger LOG =
+    // LoggerFactory.getLogger(BeanWrapperCriteriaVisitor.class);
 
     private List<Order> m_orders = new ArrayList<Order>();
+
     private List<Alias> m_aliases = new ArrayList<Alias>();
+
     private List<Fetch> m_fetches = new ArrayList<Fetch>();
+
     private boolean m_distinct = false;
+
     private Integer m_limit = 0;
+
     private Integer m_offset = 0;
+
     private List<?> m_entities;
+
     private List<?> m_matching;
 
     public BeanWrapperCriteriaVisitor(final Object... obj) {
@@ -56,7 +64,7 @@ public class BeanWrapperCriteriaVisitor implements CriteriaVisitor {
 
     @Override
     public void visitOrdersFinished() {
-        //throw new UnsupportedOperationException("Not yet implemented!");
+        // throw new UnsupportedOperationException("Not yet implemented!");
     }
 
     @Override
@@ -66,7 +74,7 @@ public class BeanWrapperCriteriaVisitor implements CriteriaVisitor {
 
     @Override
     public void visitAliasesFinished() {
-        //throw new UnsupportedOperationException("Not yet implemented!");
+        // throw new UnsupportedOperationException("Not yet implemented!");
     }
 
     @Override
@@ -76,7 +84,7 @@ public class BeanWrapperCriteriaVisitor implements CriteriaVisitor {
 
     @Override
     public void visitFetchesFinished() {
-        //throw new UnsupportedOperationException("Not yet implemented!");
+        // throw new UnsupportedOperationException("Not yet implemented!");
     }
 
     @Override
@@ -94,7 +102,7 @@ public class BeanWrapperCriteriaVisitor implements CriteriaVisitor {
 
     @Override
     public void visitRestrictionsFinished() {
-        //throw new UnsupportedOperationException("Not yet implemented!");
+        // throw new UnsupportedOperationException("Not yet implemented!");
     }
 
     @Override

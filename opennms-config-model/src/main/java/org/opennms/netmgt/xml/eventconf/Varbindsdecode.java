@@ -51,29 +51,30 @@ import org.xml.sax.ContentHandler;
 
 /**
  * This element is used for converting event
- *  varbind value in static decoded string.
+ * varbind value in static decoded string.
  */
-@XmlRootElement(name="varbindsdecode")
+@XmlRootElement(name = "varbindsdecode")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
-@XmlType(propOrder={"m_parmid", "m_decodes"})
+@XmlType(propOrder = { "m_parmid", "m_decodes" })
 public class Varbindsdecode implements Serializable {
-	private static final long serialVersionUID = -6483547334892439888L;
-	private static final Decode[] EMPTY_DECODE_ARRAY = new Decode[0];
+    private static final long serialVersionUID = -6483547334892439888L;
 
-	/**
+    private static final Decode[] EMPTY_DECODE_ARRAY = new Decode[0];
+
+    /**
      * The identifier of the parameters to be decoded
      */
-	// @NotNull
-	@XmlElement(name="parmid", required=true)
+    // @NotNull
+    @XmlElement(name = "parmid", required = true)
     private String m_parmid;
 
     /**
      * The value to string decoding map
      */
-	// @Size(min=1)
-	// @NotNull
-	@XmlElement(name="decode", required=true)
+    // @Size(min=1)
+    // @NotNull
+    @XmlElement(name = "decode", required = true)
     private List<Decode> m_decodes = new ArrayList<Decode>();
 
     public String getParmid() {
@@ -81,7 +82,7 @@ public class Varbindsdecode implements Serializable {
     }
 
     public void setParmid(final String parmid) {
-        m_parmid = parmid == null? null : parmid.intern();
+        m_parmid = parmid == null ? null : parmid.intern();
     }
 
     public Decode[] getDecode() {
@@ -109,7 +110,8 @@ public class Varbindsdecode implements Serializable {
     }
 
     public void setDecode(final List<Decode> decodes) {
-        if (m_decodes == decodes) return;
+        if (m_decodes == decodes)
+            return;
         m_decodes.clear();
         m_decodes.addAll(decodes);
     }
@@ -121,7 +123,7 @@ public class Varbindsdecode implements Serializable {
     public void setDecode(final Decode[] decodes) {
         m_decodes.clear();
         for (final Decode decode : decodes) {
-        	m_decodes.add(decode);
+            m_decodes.add(decode);
         }
     }
 
@@ -129,7 +131,7 @@ public class Varbindsdecode implements Serializable {
         setDecode(decodes);
     }
 
-	public void addDecode(final Decode decode) throws IndexOutOfBoundsException {
+    public void addDecode(final Decode decode) throws IndexOutOfBoundsException {
         m_decodes.add(decode);
     }
 
@@ -174,32 +176,37 @@ public class Varbindsdecode implements Serializable {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_decodes == null) ? 0 : m_decodes.hashCode());
-		result = prime * result + ((m_parmid == null) ? 0 : m_parmid.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_decodes == null) ? 0 : m_decodes.hashCode());
+        result = prime * result + ((m_parmid == null) ? 0 : m_parmid.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Varbindsdecode)) return false;
-		final Varbindsdecode other = (Varbindsdecode) obj;
-		if (m_decodes == null) {
-			if (other.m_decodes != null) return false;
-		} else if (!m_decodes.equals(other.m_decodes)) {
-			return false;
-		}
-		if (m_parmid == null) {
-			if (other.m_parmid != null) return false;
-		} else if (!m_parmid.equals(other.m_parmid)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Varbindsdecode))
+            return false;
+        final Varbindsdecode other = (Varbindsdecode) obj;
+        if (m_decodes == null) {
+            if (other.m_decodes != null)
+                return false;
+        } else if (!m_decodes.equals(other.m_decodes)) {
+            return false;
+        }
+        if (m_parmid == null) {
+            if (other.m_parmid != null)
+                return false;
+        } else if (!m_parmid.equals(other.m_parmid)) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -33,12 +33,14 @@ import org.junit.Test;
 
 /**
  * Basic unit tests for OnmsNode Class
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class OnmsNodeTest {
 
     /*
-     * Test the equals method of the PrimaryType class and therefore the getPrimaryInterface method
+     * Test the equals method of the PrimaryType class and therefore the
+     * getPrimaryInterface method
      * of the node.
      */
     @Test
@@ -54,7 +56,6 @@ public class OnmsNodeTest {
         PrimaryType not_eligible1 = PrimaryType.NOT_ELIGIBLE;
         iface2.setIsSnmpPrimary(not_eligible1);
         node.addIpInterface(iface2);
-
 
         Object o = node.getPrimaryInterface();
 

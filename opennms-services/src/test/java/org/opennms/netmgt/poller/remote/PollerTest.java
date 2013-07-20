@@ -72,57 +72,59 @@ public class PollerTest {
         testSchedule(true, getIPv6MonitoredService());
     }
 
-	public void testSchedule(boolean reschedule, OnmsMonitoredService svc) throws Exception {
+    public void testSchedule(boolean reschedule, OnmsMonitoredService svc) throws Exception {
 
-		Scheduler scheduler = createMock(Scheduler.class);
-		PollService pollService = createNiceMock(PollService.class);
-		PollerFrontEnd pollerFrontEnd = createMock(PollerFrontEnd.class);
+        Scheduler scheduler = createMock(Scheduler.class);
+        PollService pollService = createNiceMock(PollService.class);
+        PollerFrontEnd pollerFrontEnd = createMock(PollerFrontEnd.class);
 
         svc.setId(7);
 
-		PollConfiguration pollConfig = new PollConfiguration(svc, new HashMap<String,Object>(), 300000);
+        PollConfiguration pollConfig = new PollConfiguration(svc, new HashMap<String, Object>(), 300000);
 
-		PolledService polledService = new PolledService(pollConfig.getMonitoredService(), pollConfig.getMonitorConfiguration(), pollConfig.getPollModel());
+        PolledService polledService = new PolledService(pollConfig.getMonitoredService(),
+                                                        pollConfig.getMonitorConfiguration(), pollConfig.getPollModel());
 
-		Set<PolledService> polledServices = Collections.singleton(polledService);
+        Set<PolledService> polledServices = Collections.singleton(polledService);
 
         Poller poller = new Poller();
 
         pollerFrontEnd.addConfigurationChangedListener(poller);
         pollerFrontEnd.addPropertyChangeListener(poller);
-		expect(pollerFrontEnd.getPolledServices()).andReturn(polledServices);
+        expect(pollerFrontEnd.getPolledServices()).andReturn(polledServices);
         expect(pollerFrontEnd.isStarted()).andReturn(true);
 
         expect(scheduler.deleteJob(polledService.toString(), PollJobDetail.GROUP)).andReturn(reschedule);
 
-		pollerFrontEnd.setInitialPollTime(eq(svc.getId()), isA(Date.class));
-		expect(scheduler.scheduleJob(isA(PollJobDetail.class), isA(PolledServiceTrigger.class))).andReturn(new Date());
+        pollerFrontEnd.setInitialPollTime(eq(svc.getId()), isA(Date.class));
+        expect(scheduler.scheduleJob(isA(PollJobDetail.class), isA(PolledServiceTrigger.class))).andReturn(new Date());
 
-		replay(scheduler, pollService, pollerFrontEnd);
+        replay(scheduler, pollService, pollerFrontEnd);
 
-		poller.setScheduler(scheduler);
-		poller.setPollerFrontEnd(pollerFrontEnd);
+        poller.setScheduler(scheduler);
+        poller.setPollerFrontEnd(pollerFrontEnd);
 
-		poller.afterPropertiesSet();
+        poller.afterPropertiesSet();
 
-		verify(scheduler, pollService, pollerFrontEnd);
+        verify(scheduler, pollService, pollerFrontEnd);
 
-	}
+    }
 
-	private OnmsMonitoredService getMonitoredService() {
-		OnmsNode node = new OnmsNode();
-		node.setId(1);
-		OnmsIpInterface iface = new OnmsIpInterface("192.168.1.1", node);
-		OnmsServiceType svcType = new OnmsServiceType("HTTP");
-		OnmsMonitoredService svc = new OnmsMonitoredService(iface, svcType);
-		return svc;
-	}
+    private OnmsMonitoredService getMonitoredService() {
+        OnmsNode node = new OnmsNode();
+        node.setId(1);
+        OnmsIpInterface iface = new OnmsIpInterface("192.168.1.1", node);
+        OnmsServiceType svcType = new OnmsServiceType("HTTP");
+        OnmsMonitoredService svc = new OnmsMonitoredService(iface, svcType);
+        return svc;
+    }
 
     private OnmsMonitoredService getIPv6MonitoredService() {
         OnmsNode node = new OnmsNode();
         node.setId(1);
         OnmsIpInterface iface = new OnmsIpInterface("::1", node);
-        // Make sure that the address is being converted into fully-qualified format
+        // Make sure that the address is being converted into fully-qualified
+        // format
         assertEquals("0000:0000:0000:0000:0000:0000:0000:0001", str(iface.getIpAddress()));
         OnmsServiceType svcType = new OnmsServiceType("HTTP");
         OnmsMonitoredService svc = new OnmsMonitoredService(iface, svcType);

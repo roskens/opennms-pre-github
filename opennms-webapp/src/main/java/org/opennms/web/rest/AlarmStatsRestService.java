@@ -75,8 +75,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class AlarmStatsRestService extends AlarmRestServiceBase {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AlarmStatsRestService.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(AlarmStatsRestService.class);
 
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
@@ -87,7 +86,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
     UriInfo m_uriInfo;
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     public AlarmStatistics getStats() {
         readLock();
         try {
@@ -99,8 +98,9 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
 
     @GET
     @Path("/by-severity")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
-    public AlarmStatisticsBySeverity getStatsForEachSeverity(@QueryParam("severities") final String severitiesString) {
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
+    public AlarmStatisticsBySeverity getStatsForEachSeverity(@QueryParam("severities")
+    final String severitiesString) {
         readLock();
 
         try {
@@ -130,7 +130,8 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
 
         final CriteriaBuilder builder = getCriteriaBuilder(m_uriInfo.getQueryParameters(), false);
 
-        // note: this is just the *total count* criteria, so no ordering, and count everything
+        // note: this is just the *total count* criteria, so no ordering, and
+        // count everything
         builder.clearOrder();
         builder.limit(null);
         builder.offset(0);
@@ -196,7 +197,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
     }
 
     protected CriteriaBuilder getCriteriaBuilder(final OnmsSeverity severity) {
-    	final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
+        final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
         if (severity != null) {
             builder.eq("severity", severity);
         }
@@ -216,7 +217,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
     public static class AlarmStatisticsBySeverity {
         private List<AlarmStatistics> m_stats = new LinkedList<AlarmStatistics>();
 
-        @XmlElement(name="alarmStatistics")
+        @XmlElement(name = "alarmStatistics")
         public List<AlarmStatistics> getStats() {
             return m_stats;
         }
@@ -231,9 +232,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this)
-                .append("alarmStatistics", m_stats)
-                .toString();
+            return new ToStringBuilder(this).append("alarmStatistics", m_stats).toString();
         }
     }
 
@@ -241,27 +240,31 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
     @XmlRootElement(name = "alarmStatistics")
     public static class AlarmStatistics {
         private int m_totalCount = 0;
+
         private int m_acknowledgedCount = 0;
+
         private OnmsSeverity m_severity = null;
 
         private OnmsAlarm m_newestAcknowledged;
+
         private OnmsAlarm m_newestUnacknowledged;
+
         private OnmsAlarm m_oldestAcknowledged;
+
         private OnmsAlarm m_oldestUnacknowledged;
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this)
-                .append("totalCount", m_totalCount)
-                .append("acknowledgedCount", m_acknowledgedCount)
-                .append("unacknowledgedCount", getUnacknowledgedCount())
-                .append("newestAcknowledged", m_newestAcknowledged)
-                .append("newestUnacknowledged", m_newestUnacknowledged)
-                .append("oldestAcknowledged", m_oldestAcknowledged)
-                .append("oldestUnacknowledged", m_oldestUnacknowledged)
-                .toString();
+            return new ToStringBuilder(this).append("totalCount", m_totalCount).append("acknowledgedCount",
+                                                                                       m_acknowledgedCount).append("unacknowledgedCount",
+                                                                                                                   getUnacknowledgedCount()).append("newestAcknowledged",
+                                                                                                                                                    m_newestAcknowledged).append("newestUnacknowledged",
+                                                                                                                                                                                 m_newestUnacknowledged).append("oldestAcknowledged",
+                                                                                                                                                                                                                m_oldestAcknowledged).append("oldestUnacknowledged",
+                                                                                                                                                                                                                                             m_oldestUnacknowledged).toString();
         }
-        @XmlAttribute(name="totalCount")
+
+        @XmlAttribute(name = "totalCount")
         public int getTotalCount() {
             return m_totalCount;
         }
@@ -270,7 +273,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
             m_totalCount = count;
         }
 
-        @XmlAttribute(name="acknowledgedCount")
+        @XmlAttribute(name = "acknowledgedCount")
         public int getAcknowledgedCount() {
             return m_acknowledgedCount;
         }
@@ -279,14 +282,15 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
             m_acknowledgedCount = count;
         }
 
-        @XmlAttribute(name="unacknowledgedCount")
+        @XmlAttribute(name = "unacknowledgedCount")
         public int getUnacknowledgedCount() {
             return m_totalCount - m_acknowledgedCount;
         }
 
-        public void setUnacknowledgedCount(final int count) {}
+        public void setUnacknowledgedCount(final int count) {
+        }
 
-        @XmlAttribute(name="severity")
+        @XmlAttribute(name = "severity")
         public OnmsSeverity getSeverity() {
             return m_severity;
         }
@@ -295,8 +299,8 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
             m_severity = severity;
         }
 
-        @XmlElementWrapper(name="newestAcked")
-        @XmlElement(name="alarm")
+        @XmlElementWrapper(name = "newestAcked")
+        @XmlElement(name = "alarm")
         public List<OnmsAlarm> getNewestAcknowledged() {
             return Collections.singletonList(m_newestAcknowledged);
         }
@@ -305,8 +309,8 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
             m_newestAcknowledged = alarm;
         }
 
-        @XmlElementWrapper(name="newestUnacked")
-        @XmlElement(name="alarm")
+        @XmlElementWrapper(name = "newestUnacked")
+        @XmlElement(name = "alarm")
         public List<OnmsAlarm> getNewestUnacknowledged() {
             return Collections.singletonList(m_newestUnacknowledged);
         }
@@ -315,8 +319,8 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
             m_newestUnacknowledged = alarm;
         }
 
-        @XmlElementWrapper(name="oldestAcked")
-        @XmlElement(name="alarm")
+        @XmlElementWrapper(name = "oldestAcked")
+        @XmlElement(name = "alarm")
         public List<OnmsAlarm> getOldestAcknowledged() {
             return Collections.singletonList(m_oldestAcknowledged);
         }
@@ -325,8 +329,8 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
             m_oldestAcknowledged = alarm;
         }
 
-        @XmlElementWrapper(name="oldestUnacked")
-        @XmlElement(name="alarm")
+        @XmlElementWrapper(name = "oldestUnacked")
+        @XmlElement(name = "alarm")
         public List<OnmsAlarm> getOldestUnacknowledged() {
             return Collections.singletonList(m_oldestUnacknowledged);
         }

@@ -53,43 +53,45 @@ import org.xml.sax.InputSource;
 
 @Provider
 public class ValidatingMessageBodyReader<T> implements MessageBodyReader<T> {
-	private static final Logger LOG = LoggerFactory.getLogger(ValidatingMessageBodyReader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ValidatingMessageBodyReader.class);
 
+    @Context
+    protected Providers providers;
 
-	@Context
-	protected Providers providers;
+    /**
+     * @return true if the class is a JAXB-marshallable class that has
+     *         an {@link javax.xml.bind.annotation.XmlRootElement} annotation.
+     */
+    @Override
+    public boolean isReadable(final Class<?> clazz, final Type type, final Annotation[] annotations,
+            final MediaType mediaType) {
+        return (clazz.getAnnotation(XmlRootElement.class) != null);
+    }
 
-	/**
-	 * @return true if the class is a JAXB-marshallable class that has
-	 * an {@link javax.xml.bind.annotation.XmlRootElement} annotation.
-	 */
-        @Override
-	public boolean isReadable(final Class<?> clazz, final Type type, final Annotation[] annotations, final MediaType mediaType) {
-		return (clazz.getAnnotation(XmlRootElement.class) != null);
-	}
+    @Override
+    public T readFrom(final Class<T> clazz, final Type type, final Annotation[] annotations, final MediaType mediaType,
+            final MultivaluedMap<String, String> parameters, final InputStream stream) throws IOException,
+            WebApplicationException {
+        LOG.debug("readFrom: {}/{}/{}", clazz.getSimpleName(), type, mediaType);
 
-        @Override
-	public T readFrom(final Class<T> clazz, final Type type, final Annotation[] annotations, final MediaType mediaType, final MultivaluedMap<String, String> parameters, final InputStream stream) throws IOException, WebApplicationException {
-		LOG.debug("readFrom: {}/{}/{}", clazz.getSimpleName(), type, mediaType);
+        JAXBContext jaxbContext = null;
+        final ContextResolver<JAXBContext> resolver = providers.getContextResolver(JAXBContext.class, mediaType);
+        try {
 
-		JAXBContext jaxbContext = null;
-		final ContextResolver<JAXBContext> resolver = providers.getContextResolver(JAXBContext.class, mediaType);
-		try {
+            if (resolver != null) {
+                jaxbContext = resolver.getContext(clazz);
+            }
 
-			if (resolver != null) {
-				jaxbContext = resolver.getContext(clazz);
-			}
+            if (jaxbContext == null) {
+                jaxbContext = JAXBContext.newInstance(clazz);
 
-			if (jaxbContext == null) {
-				jaxbContext = JAXBContext.newInstance(clazz);
+            }
 
-			}
+            return JaxbUtils.unmarshal(clazz, new InputSource(stream), jaxbContext);
 
-			return JaxbUtils.unmarshal(clazz, new InputSource(stream), jaxbContext);
-
-		} catch (final JAXBException e) {
-			LOG.warn("An error occurred while unmarshaling a {} object", clazz.getSimpleName(), e);
-			throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
-		}
-	}
+        } catch (final JAXBException e) {
+            LOG.warn("An error occurred while unmarshaling a {} object", clazz.getSimpleName(), e);
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

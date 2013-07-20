@@ -74,7 +74,8 @@ public class ManageNodesServlet extends HttpServlet {
     private static final long serialVersionUID = -4938417809629844445L;
 
     // FIXME: Should this be removed?
-    //private static final String UPDATE_INTERFACE = "UPDATE ipinterface SET isManaged = ? WHERE ipaddr IN (?)";
+    // private static final String UPDATE_INTERFACE =
+    // "UPDATE ipinterface SET isManaged = ? WHERE ipaddr IN (?)";
 
     private static final String UPDATE_SERVICE = "UPDATE ifservices SET status = ? WHERE ipaddr = ? AND nodeID = ? AND serviceid = ?";
 
@@ -86,9 +87,12 @@ public class ManageNodesServlet extends HttpServlet {
     public static final String NOTICE_NAME = "Email-Reporting";
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -187,7 +191,8 @@ public class ManageNodesServlet extends HttpServlet {
                             stmt.setString(2, curInterface.getAddress());
                             stmt.setInt(3, curInterface.getNodeid());
                             stmt.setInt(4, curService.getId());
-                            this.log("DEBUG: executing manage service update for " + curInterface.getAddress() + " " + curService.getName());
+                            this.log("DEBUG: executing manage service update for " + curInterface.getAddress() + " "
+                                    + curService.getName());
                             stmt.executeUpdate();
                         } else if (!serviceList.contains(serviceKey) && curService.getStatus().equals("managed")) {
                             EventBuilder bldr = new EventBuilder(EventConstants.SERVICE_UNMANAGED_EVENT_UEI, "web ui");
@@ -204,7 +209,8 @@ public class ManageNodesServlet extends HttpServlet {
                             outagesstmt.setString(1, curInterface.getAddress());
                             outagesstmt.setInt(2, curInterface.getNodeid());
                             outagesstmt.setInt(3, curService.getId());
-                            this.log("DEBUG: executing unmanage service update for " + curInterface.getAddress() + " " + curService.getName());
+                            this.log("DEBUG: executing unmanage service update for " + curInterface.getAddress() + " "
+                                    + curService.getName());
                             stmt.executeUpdate();
                             outagesstmt.executeUpdate();
                         }
@@ -306,8 +312,8 @@ public class ManageNodesServlet extends HttpServlet {
         Writer fileWriter = null;
         FileOutputStream fos = null;
         try {
-        	fos = new FileOutputStream(fileName);
-        	fileWriter = new OutputStreamWriter(fos, "UTF-8");
+            fos = new FileOutputStream(fileName);
+            fileWriter = new OutputStreamWriter(fos, "UTF-8");
 
             for (int i = 0; i < interfaceList.size(); i++) {
                 fileWriter.write((String) interfaceList.get(i) + System.getProperty("line.separator"));
@@ -318,8 +324,8 @@ public class ManageNodesServlet extends HttpServlet {
         } catch (IOException e) {
             throw new ServletException("Error writing the include url file " + fileName + ": " + e.getMessage(), e);
         } finally {
-        	IOUtils.closeQuietly(fileWriter);
-        	IOUtils.closeQuietly(fos);
+            IOUtils.closeQuietly(fileWriter);
+            IOUtils.closeQuietly(fos);
         }
     }
 

@@ -51,11 +51,15 @@ import org.slf4j.LoggerFactory;
 public class VmwareTopologyProvider extends SimpleGraphProvider implements GraphProvider {
 
     public static final String TOPOLOGY_NAMESPACE_VMWARE = "vmware";
+
     private static final Logger LOG = LoggerFactory.getLogger(VmwareTopologyProvider.class);
 
     private final String SPLIT_REGEXP = " *, *";
+
     private NodeDao m_nodeDao;
+
     private IpInterfaceDao m_ipInterfaceDao;
+
     private boolean m_generated = false;
 
     public VmwareTopologyProvider() {
@@ -134,7 +138,8 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         return vertex;
     }
 
-    private AbstractVertex addVirtualMachineVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
+    private AbstractVertex addVirtualMachineVertex(String vertexId, String vertexName, String primaryInterface, int id,
+            String powerState) {
         if (containsVertexId(vertexId)) {
             return (AbstractVertex) getVertex(TOPOLOGY_NAMESPACE_VMWARE, vertexId);
         }
@@ -157,7 +162,8 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         return vertex;
     }
 
-    private AbstractVertex addHostSystemVertex(String vertexId, String vertexName, String primaryInterface, int id, String powerState) {
+    private AbstractVertex addHostSystemVertex(String vertexId, String vertexName, String primaryInterface, int id,
+            String powerState) {
         if (containsVertexId(vertexId)) {
             return (AbstractVertex) getVertex(TOPOLOGY_NAMESPACE_VMWARE, vertexId);
         }
@@ -179,7 +185,6 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         vertex.setNodeID(id);
         return vertex;
     }
-
 
     private void addHostSystem(OnmsNode hostSystem) {
         // getting data for nodes
@@ -245,23 +250,29 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
             primaryInterface = ipInterface.getIpHostName();
         }
 
-        AbstractVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, hostSystem.getLabel(), primaryInterface, hostSystem.getId(), vmwareState);
+        AbstractVertex hostSystemVertex = addHostSystemVertex(vmwareManagementServer + "/" + vmwareManagedObjectId,
+                                                              hostSystem.getLabel(), primaryInterface,
+                                                              hostSystem.getId(), vmwareState);
 
         // set the parent vertex
         // hostSystemVertex.setParent(datacenterVertex);
         setParent(hostSystemVertex, datacenterVertex);
 
         for (String network : networks) {
-            AbstractVertex networkVertex = addNetworkVertex(vmwareManagementServer + "/" + network, moIdToName.get(network));
+            AbstractVertex networkVertex = addNetworkVertex(vmwareManagementServer + "/" + network,
+                                                            moIdToName.get(network));
             // networkVertex.setParent(datacenterVertex);
             setParent(networkVertex, datacenterVertex);
-            connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + network, hostSystemVertex, networkVertex);
+            connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + network, hostSystemVertex,
+                            networkVertex);
         }
         for (String datastore : datastores) {
-            AbstractVertex datastoreVertex = addDatastoreVertex(vmwareManagementServer + "/" + datastore, moIdToName.get(datastore));
+            AbstractVertex datastoreVertex = addDatastoreVertex(vmwareManagementServer + "/" + datastore,
+                                                                moIdToName.get(datastore));
             // datastoreVertex.setParent(datacenterVertex);
             setParent(datastoreVertex, datacenterVertex);
-            connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + datastore, hostSystemVertex, datastoreVertex);
+            connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + datastore, hostSystemVertex,
+                            datastoreVertex);
         }
     }
 
@@ -325,7 +336,8 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         }
 
         if (vmwareHostSystemId == null) {
-            System.err.println("Cannot find host system id for virtual machine " + vmwareManagementServer + "/" + vmwareManagedObjectId);
+            System.err.println("Cannot find host system id for virtual machine " + vmwareManagementServer + "/"
+                    + vmwareManagedObjectId);
         }
 
         AbstractVertex datacenterVertex = addDatacenterGroup(vmwareManagementServer, datacenterName);
@@ -341,18 +353,25 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         }
 
         // add a vertex for the virtual machine
-        AbstractVertex virtualMachineVertex = addVirtualMachineVertex(vmwareManagementServer + "/" + vmwareManagedObjectId, virtualMachine.getLabel(), primaryInterface, virtualMachine.getId(), vmwareState);
+        AbstractVertex virtualMachineVertex = addVirtualMachineVertex(vmwareManagementServer + "/"
+                                                                              + vmwareManagedObjectId,
+                                                                      virtualMachine.getLabel(), primaryInterface,
+                                                                      virtualMachine.getId(),
+                                                                      vmwareState);
 
         if (containsVertexId(vmwareManagementServer + "/" + vmwareHostSystemId)) {
             // and set the parent vertex
             // virtualMachineVertex.setParent(datacenterVertex);
             setParent(virtualMachineVertex, datacenterVertex);
         } else {
-            addHostSystemVertex(vmwareManagementServer + "/" + vmwareHostSystemId, moIdToName.get(vmwareHostSystemId) + " (not in database)", "", -1, "unknown");
+            addHostSystemVertex(vmwareManagementServer + "/" + vmwareHostSystemId, moIdToName.get(vmwareHostSystemId)
+                    + " (not in database)", "", -1, "unknown");
         }
 
         // connect the virtual machine to the host system
-        connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + vmwareManagementServer + "/" + vmwareHostSystemId, virtualMachineVertex, getVertex(getVertexNamespace(), vmwareManagementServer + "/" + vmwareHostSystemId));
+        connectVertices(vmwareManagementServer + "/" + vmwareManagedObjectId + "->" + vmwareManagementServer + "/"
+                                + vmwareHostSystemId, virtualMachineVertex,
+                        getVertex(getVertexNamespace(), vmwareManagementServer + "/" + vmwareHostSystemId));
     }
 
     @Override
@@ -371,7 +390,8 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         }
 
         // get all virtual machines
-        List<OnmsNode> virtualMachines = m_nodeDao.findAllByVarCharAssetColumn("vmwareManagedEntityType", "VirtualMachine");
+        List<OnmsNode> virtualMachines = m_nodeDao.findAllByVarCharAssetColumn("vmwareManagedEntityType",
+                                                                               "VirtualMachine");
         if (virtualMachines.isEmpty()) {
             LOG.info("refresh: No virtual machines with defined VMware assets fields found!");
         } else {

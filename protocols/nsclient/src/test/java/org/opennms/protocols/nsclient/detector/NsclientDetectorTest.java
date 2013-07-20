@@ -49,13 +49,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * <p>JUnit Test Class for NsclientDetector.</p>
+ * <p>
+ * JUnit Test Class for NsclientDetector.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath*:/META-INF/opennms/detectors.xml" })
 public class NsclientDetectorTest implements InitializingBean {
 
     @Autowired
@@ -69,7 +71,7 @@ public class NsclientDetectorTest implements InitializingBean {
     }
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         if (m_server != null) {
             m_server.stopServer();
             m_server = null;
@@ -77,10 +79,10 @@ public class NsclientDetectorTest implements InitializingBean {
     }
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         MockLogAppender.setupLogging();
         // Initialize Mock NSClient Server
-        m_server  = new SimpleServer() {
+        m_server = new SimpleServer() {
             @Override
             public void onInit() {
                 addResponseHandler(startsWith("None&1"), new RequestHandler() {
@@ -101,22 +103,22 @@ public class NsclientDetectorTest implements InitializingBean {
         m_detector.setRetries(3);
     }
 
-    @Test(timeout=90000)
-    public void testServerSuccess() throws Exception{
+    @Test(timeout = 90000)
+    public void testServerSuccess() throws Exception {
         m_detector.setCommand("CLIENTVERSION");
         m_detector.init();
         Assert.assertTrue(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
-    public void testBadCommand() throws Exception{
+    @Test(timeout = 90000)
+    public void testBadCommand() throws Exception {
         m_detector.setCommand("UNKNOWN");
         m_detector.init();
         Assert.assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
-    @Test(timeout=90000)
-    public void testNoCommand() throws Exception{
+    @Test(timeout = 90000)
+    public void testNoCommand() throws Exception {
         m_detector.init(); // Assumes CLIENTVERSION
         Assert.assertTrue(m_detector.isServiceDetected(m_server.getInetAddress()));
     }

@@ -51,15 +51,23 @@ import org.opennms.core.utils.TimeKeeper;
 @RunWith(Parameterized.class)
 public class RelativeTimeTest {
     private TimeZone m_timeZone;
+
     private int m_offset;
+
     private int m_startYear;
+
     private int m_startMonth;
+
     private int m_startDay;
+
     private int m_endYear;
+
     private int m_endMonth;
+
     private int m_endDay;
 
-    public RelativeTimeTest(final String timeZone, final int offset, final int startYear, final int startMonth, final int startDay, final int endYear, final int endMonth, final int endDay) {
+    public RelativeTimeTest(final String timeZone, final int offset, final int startYear, final int startMonth,
+            final int startDay, final int endYear, final int endMonth, final int endDay) {
         m_timeZone = TimeZone.getTimeZone(timeZone);
         m_offset = offset * 60 * 60 * 1000;
         m_startYear = startYear;
@@ -73,13 +81,12 @@ public class RelativeTimeTest {
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         return Arrays.asList(new Object[][] {
-                { "America/Chicago",       -6, 2006, Calendar.APRIL,      3, 2006, Calendar.OCTOBER, 30 },
-                { "America/New_York",      -5, 2006, Calendar.APRIL,      3, 2006, Calendar.OCTOBER, 30 },
-                { "Europe/Berlin",          1, 2006, Calendar.MARCH,     27, 2006, Calendar.OCTOBER, 30 },
-                { "Europe/Rome",            1, 2006, Calendar.MARCH,     27, 2006, Calendar.OCTOBER, 30 },
-                { "Antarctica/South_Pole", 12, 2006, Calendar.OCTOBER,    2, 2006, Calendar.MARCH,   20 },
-                { "Pacific/Auckland",      12, 2006, Calendar.OCTOBER,    2, 2006, Calendar.MARCH,   20 }
-        });
+                { "America/Chicago", -6, 2006, Calendar.APRIL, 3, 2006, Calendar.OCTOBER, 30 },
+                { "America/New_York", -5, 2006, Calendar.APRIL, 3, 2006, Calendar.OCTOBER, 30 },
+                { "Europe/Berlin", 1, 2006, Calendar.MARCH, 27, 2006, Calendar.OCTOBER, 30 },
+                { "Europe/Rome", 1, 2006, Calendar.MARCH, 27, 2006, Calendar.OCTOBER, 30 },
+                { "Antarctica/South_Pole", 12, 2006, Calendar.OCTOBER, 2, 2006, Calendar.MARCH, 20 },
+                { "Pacific/Auckland", 12, 2006, Calendar.OCTOBER, 2, 2006, Calendar.MARCH, 20 } });
     }
 
     @Test

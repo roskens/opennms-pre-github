@@ -68,18 +68,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false,tempDbClass=MockDatabase.class)
+@JUnitTemporaryDatabase(dirtiesContext = false, tempDbClass = MockDatabase.class)
 @Transactional
 public class Nms4335Test implements InitializingBean {
 
@@ -91,9 +88,7 @@ public class Nms4335Test implements InitializingBean {
     private MockEventIpcManager m_eventIpcManager;
 
     private final List<ExecutorService> m_executorServices = Arrays.asList(new ExecutorService[] {
-            Executors.newFixedThreadPool(3),
-            Executors.newFixedThreadPool(3)
-    });
+            Executors.newFixedThreadPool(3), Executors.newFixedThreadPool(3) });
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -106,47 +101,38 @@ public class Nms4335Test implements InitializingBean {
 
         InputStream stream = null;
         try {
-            final String config = "<?xml version=\"1.0\"?> \n" +
-			"<syslogd-configuration> \n" +
-			"    <configuration \n" +
-			"            syslog-port=\"10514\" \n" +
-			"            new-suspect-on-message=\"false\" \n" +
-			"            forwarding-regexp=\"^((.+?) (.*))\\n?$\" \n" +
-			"            matching-group-host=\"2\" \n" +
-			"            matching-group-message=\"3\" \n" +
-			"            discard-uei=\"DISCARD-MATCHING-MESSAGES\" \n" +
-			"            /> \n" +
-			"\n" +
-			"    <!-- Use the following to convert UEI ad-hoc --> \n" +
-			"    <ueiList> \n" +
-			"        <ueiMatch> \n" +
-			"            <match type=\"substr\" expression=\"CRISCO\"/> \n" +
-			"            <uei>CISCO</uei> \n" +
-			"        </ueiMatch> \n" +
-			"        <ueiMatch> \n" +
-			"            <match type=\"regex\" expression=\".*su:auth.*authentication failure.*\"/> \n" +
-			"            <uei>uei.opennms.org/syslog/pam/su/suFailure</uei> \n" +
-			"        </ueiMatch> \n" +
-			"        <!-- Use the following to discard a syslog message without ever creating an event for it. \n" +
-			"             If you change the value of \"discard-uei\" above, you must change the UEI used here to match. --> \n" +
-			"        <ueiMatch> \n" +
-			"            <match type=\"substr\" expression=\"JUNK\"/> \n" +
-			"            <uei>DISCARD-MATCHING-MESSAGES</uei> \n" +
-			"        </ueiMatch> \n" +
-			"    </ueiList> \n" +
-			"\n" +
-			"    <!-- Use the following to remove a syslog message from the event-trail --> \n" +
-			"\n" +
-			"    <hideMessage> \n" +
-			"        <hideMatch> \n" +
-			"            <match type=\"substr\" expression=\"SECRET\"/> \n" +
-			"        </hideMatch> \n" +
-			"        <hideMatch> \n" +
-			"            <match type=\"regex\" expression=\".*(double|triple)secret.*\"/> \n" +
-			"        </hideMatch> \n" +
-			"    </hideMessage> \n" +
-			"\n" +
-            		"</syslogd-configuration>\n";
+            final String config = "<?xml version=\"1.0\"?> \n"
+                    + "<syslogd-configuration> \n"
+                    + "    <configuration \n"
+                    + "            syslog-port=\"10514\" \n"
+                    + "            new-suspect-on-message=\"false\" \n"
+                    + "            forwarding-regexp=\"^((.+?) (.*))\\n?$\" \n"
+                    + "            matching-group-host=\"2\" \n"
+                    + "            matching-group-message=\"3\" \n"
+                    + "            discard-uei=\"DISCARD-MATCHING-MESSAGES\" \n"
+                    + "            /> \n"
+                    + "\n"
+                    + "    <!-- Use the following to convert UEI ad-hoc --> \n"
+                    + "    <ueiList> \n"
+                    + "        <ueiMatch> \n"
+                    + "            <match type=\"substr\" expression=\"CRISCO\"/> \n"
+                    + "            <uei>CISCO</uei> \n"
+                    + "        </ueiMatch> \n"
+                    + "        <ueiMatch> \n"
+                    + "            <match type=\"regex\" expression=\".*su:auth.*authentication failure.*\"/> \n"
+                    + "            <uei>uei.opennms.org/syslog/pam/su/suFailure</uei> \n"
+                    + "        </ueiMatch> \n"
+                    + "        <!-- Use the following to discard a syslog message without ever creating an event for it. \n"
+                    + "             If you change the value of \"discard-uei\" above, you must change the UEI used here to match. --> \n"
+                    + "        <ueiMatch> \n" + "            <match type=\"substr\" expression=\"JUNK\"/> \n"
+                    + "            <uei>DISCARD-MATCHING-MESSAGES</uei> \n" + "        </ueiMatch> \n"
+                    + "    </ueiList> \n" + "\n"
+                    + "    <!-- Use the following to remove a syslog message from the event-trail --> \n" + "\n"
+                    + "    <hideMessage> \n" + "        <hideMatch> \n"
+                    + "            <match type=\"substr\" expression=\"SECRET\"/> \n" + "        </hideMatch> \n"
+                    + "        <hideMatch> \n"
+                    + "            <match type=\"regex\" expression=\".*(double|triple)secret.*\"/> \n"
+                    + "        </hideMatch> \n" + "    </hideMessage> \n" + "\n" + "</syslogd-configuration>\n";
 
             stream = new ByteArrayInputStream(config.getBytes());
             SyslogdConfigFactory.setInstance(new SyslogdConfigFactory(stream));
@@ -168,34 +154,37 @@ public class Nms4335Test implements InitializingBean {
     @Test
     public void testAuthFailureShouldLog() throws Exception {
         doMessageTest("Jan 7 12:42:46 192.168.0.1 su[25856]: pam_unix(su:auth): authentication failure; logname=jeffg uid=1004 euid=0 tty=pts/1 ruser=jeffg rhost= user=root",
-                      "192.168.0.1",
-                      "uei.opennms.org/syslog/pam/su/suFailure",
+                      "192.168.0.1", "uei.opennms.org/syslog/pam/su/suFailure",
                       "pam_unix(su:auth): authentication failure; logname=jeffg uid=1004 euid=0 tty=pts/1 ruser=jeffg rhost= user=root");
     }
 
     @Test
     @Ignore
     public void testAuthFailureShouldNotLog() throws Exception {
-        doMessageTest("Jan 7 12:42:48 cartman su[25856]: pam_authenticate: Authentication failure",
-                      "192.168.0.1",
-                      "uei.opennms.org/blah",
-                      "");
+        doMessageTest("Jan 7 12:42:48 cartman su[25856]: pam_authenticate: Authentication failure", "192.168.0.1",
+                      "uei.opennms.org/blah", "");
 
     }
 
     /**
      * Send a raw syslog message and expect a given event as a result
      *
-     * @param testPDU The raw syslog message as it would appear on the wire (just the UDP payload)
-     * @param expectedHost The host from which the event should be resolved as originating
-     * @param expectedUEI The expected UEI of the resulting event
-     * @param expectedLogMsg The expected contents of the logmsg for the resulting event
-     *
+     * @param testPDU
+     *            The raw syslog message as it would appear on the wire (just
+     *            the UDP payload)
+     * @param expectedHost
+     *            The host from which the event should be resolved as
+     *            originating
+     * @param expectedUEI
+     *            The expected UEI of the resulting event
+     * @param expectedLogMsg
+     *            The expected contents of the logmsg for the resulting event
      * @throws UnknownHostException
      * @throws InterruptedException
      * @throws ExecutionException
      */
-    private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg) throws UnknownHostException, InterruptedException, ExecutionException {
+    private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg)
+            throws UnknownHostException, InterruptedException, ExecutionException {
         startSyslogdGracefully();
 
         final EventBuilder expectedEventBldr = new EventBuilder(expectedUEI, "syslogd");
@@ -210,9 +199,13 @@ public class Nms4335Test implements InitializingBean {
         final SyslogClient sc = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
         final DatagramPacket pkt = sc.getPacket(SyslogClient.LOG_DEBUG, testPDU);
         final SyslogdConfig config = SyslogdConfigFactory.getInstance();
-        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, config.getForwardingRegexp(), config.getMatchingGroupHost(), config.getMatchingGroupMessage(), config.getUeiList(), config.getHideMessages(), config.getDiscardUei()));
+        WaterfallExecutor.waterfall(m_executorServices,
+                                    new SyslogConnection(pkt, config.getForwardingRegexp(),
+                                                         config.getMatchingGroupHost(),
+                                                         config.getMatchingGroupMessage(), config.getUeiList(),
+                                                         config.getHideMessages(), config.getDiscardUei()));
 
-        ea.verifyAnticipated(5000,0,0,0,0);
+        ea.verifyAnticipated(5000, 0, 0, 0, 0);
         final Event receivedEvent = ea.getAnticipatedEventsRecieved().get(0);
         assertEquals("Log messages do not match", expectedLogMsg, receivedEvent.getLogmsg().getContent());
 

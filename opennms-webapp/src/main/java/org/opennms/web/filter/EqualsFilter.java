@@ -33,7 +33,8 @@ import org.hibernate.criterion.Restrictions;
 
 public abstract class EqualsFilter<T> extends OneArgFilter<T> {
 
-    public EqualsFilter(final String filterType, final SQLType<T> type, final String fieldName, final String propertyName, final T value){
+    public EqualsFilter(final String filterType, final SQLType<T> type, final String fieldName,
+            final String propertyName, final T value) {
         super(filterType, type, fieldName, propertyName, value);
     }
 

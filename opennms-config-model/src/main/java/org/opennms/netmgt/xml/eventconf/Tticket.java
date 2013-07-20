@@ -48,19 +48,19 @@ import org.xml.sax.ContentHandler;
 
 /**
  * The trouble ticket info with state on/off determining if
- *  action is taken on the trouble ticket
+ * action is taken on the trouble ticket
  */
-@XmlRootElement(name="tticket")
+@XmlRootElement(name = "tticket")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Tticket implements java.io.Serializable {
-	private static final long serialVersionUID = -2030876837447357150L;
+    private static final long serialVersionUID = -2030876837447357150L;
 
-	@XmlValue
+    @XmlValue
     private String m_content;
 
-	// @Pattern(regexp="(on|off)", message="'state' must be 'on' or 'off'")
-	@XmlAttribute(name="state", required=false)
+    // @Pattern(regexp="(on|off)", message="'state' must be 'on' or 'off'")
+    @XmlAttribute(name = "state", required = false)
     private String m_state;
 
     public String getContent() {
@@ -68,7 +68,8 @@ public class Tticket implements java.io.Serializable {
     }
 
     public String getState() {
-        return m_state == null? "on" : m_state; // Default state is "on" according to the XSD
+        return m_state == null ? "on" : m_state; // Default state is "on"
+                                                 // according to the XSD
     }
 
     public void setContent(final String content) {
@@ -80,32 +81,37 @@ public class Tticket implements java.io.Serializable {
     }
 
     @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_content == null) ? 0 : m_content.hashCode());
-		result = prime * result + ((m_state == null) ? 0 : m_state.hashCode());
-		return result;
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_content == null) ? 0 : m_content.hashCode());
+        result = prime * result + ((m_state == null) ? 0 : m_state.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Tticket)) return false;
-		final Tticket other = (Tticket) obj;
-		if (m_content == null) {
-			if (other.m_content != null) return false;
-		} else if (!m_content.equals(other.m_content)) {
-			return false;
-		}
-		if (m_state == null) {
-			if (other.m_state != null) return false;
-		} else if (!m_state.equals(other.m_state)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Tticket))
+            return false;
+        final Tticket other = (Tticket) obj;
+        if (m_content == null) {
+            if (other.m_content != null)
+                return false;
+        } else if (!m_content.equals(other.m_content)) {
+            return false;
+        }
+        if (m_state == null) {
+            if (other.m_state != null)
+                return false;
+        } else if (!m_state.equals(other.m_state)) {
+            return false;
+        }
+        return true;
+    }
 
     public boolean isValid() {
         try {

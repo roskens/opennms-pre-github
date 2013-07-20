@@ -29,7 +29,9 @@
 package org.opennms.netmgt.protocols.ssh;
 
 /**
- * <p>SshException class.</p>
+ * <p>
+ * SshException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,35 +41,47 @@ public class SshException extends Exception {
     private static final long serialVersionUID = 1390108956262402029L;
 
     /**
-     * <p>Constructor for SshException.</p>
+     * <p>
+     * Constructor for SshException.
+     * </p>
      */
     public SshException() {
         super();
     }
 
     /**
-     * <p>Constructor for SshException.</p>
+     * <p>
+     * Constructor for SshException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public SshException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for SshException.</p>
+     * <p>
+     * Constructor for SshException.
+     * </p>
      *
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public SshException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * <p>Constructor for SshException.</p>
+     * <p>
+     * Constructor for SshException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public SshException(String message, Throwable cause) {
         super(message, cause);

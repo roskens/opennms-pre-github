@@ -57,13 +57,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class MX4JDetectorTest implements InitializingBean {
 
     @Autowired
     public MX4JDetector m_detector;
 
     public static MBeanServer m_beanServer;
+
     private JMXConnectorServer m_connectorServer;
 
     @Override
@@ -72,7 +73,7 @@ public class MX4JDetectorTest implements InitializingBean {
     }
 
     @BeforeClass
-    public static void beforeTest() throws RemoteException{
+    public static void beforeTest() throws RemoteException {
         LocateRegistry.createRegistry(9999);
         m_beanServer = ManagementFactory.getPlatformMBeanServer();
     }
@@ -91,30 +92,30 @@ public class MX4JDetectorTest implements InitializingBean {
     }
 
     @After
-    public void tearDown() throws IOException{
+    public void tearDown() throws IOException {
         m_connectorServer.stop();
     }
 
-    @Test(timeout=90000)
-    public void testDetectoredWired(){
+    @Test(timeout = 90000)
+    public void testDetectoredWired() {
         assertNotNull(m_detector);
     }
 
-    @Test(timeout=90000)
-    public void testDetectorSuccess() throws IOException{
+    @Test(timeout = 90000)
+    public void testDetectorSuccess() throws IOException {
         m_detector.init();
         assertTrue(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
-    @Test(timeout=90000)
-    public void testDetectorWrongPort() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testDetectorWrongPort() throws UnknownHostException {
         m_detector.setPort(9000);
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
-    @Test(timeout=90000)
-    public void testDetectorWrongUrlPath() throws UnknownHostException{
+    @Test(timeout = 90000)
+    public void testDetectorWrongUrlPath() throws UnknownHostException {
         m_detector.setUrlPath("wrongpath");
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddress.getLocalHost()));

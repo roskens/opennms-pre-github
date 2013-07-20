@@ -33,7 +33,9 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * <p>XmlRpcProxyFactoryBean class.</p>
+ * <p>
+ * XmlRpcProxyFactoryBean class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -44,7 +46,9 @@ public class XmlRpcProxyFactoryBean<T> extends XmlRpcClientInterceptor implement
     private T serviceProxy;
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -56,19 +60,23 @@ public class XmlRpcProxyFactoryBean<T> extends XmlRpcClientInterceptor implement
     }
 
     /**
-     * <p>getObject</p>
+     * <p>
+     * getObject
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public T getObject() throws Exception {
         return this.serviceProxy;
     }
 
-
     /**
-     * <p>getObjectType</p>
+     * <p>
+     * getObjectType
+     * </p>
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -78,7 +86,9 @@ public class XmlRpcProxyFactoryBean<T> extends XmlRpcClientInterceptor implement
     }
 
     /**
-     * <p>isSingleton</p>
+     * <p>
+     * isSingleton
+     * </p>
      *
      * @return a boolean.
      */
@@ -86,6 +96,5 @@ public class XmlRpcProxyFactoryBean<T> extends XmlRpcClientInterceptor implement
     public boolean isSingleton() {
         return true;
     }
-
 
 }

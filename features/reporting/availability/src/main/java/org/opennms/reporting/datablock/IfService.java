@@ -73,11 +73,16 @@ public class IfService extends Object {
     /**
      * Constructor that initialises the nodeid, ipaddr, service.
      *
-     * @param node a int.
-     * @param ip a {@link java.lang.String} object.
-     * @param service a int.
-     * @param name a {@link java.lang.String} object.
-     * @param svcname a {@link java.lang.String} object.
+     * @param node
+     *            a int.
+     * @param ip
+     *            a {@link java.lang.String} object.
+     * @param service
+     *            a int.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param svcname
+     *            a {@link java.lang.String} object.
      */
     public IfService(int node, String ip, int service, String name, String svcname) {
         nodeid = node;

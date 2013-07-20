@@ -102,5 +102,4 @@ public class Snmp4JValueFactory implements SnmpValueFactory {
         return new Snmp4JValue(new Opaque(bs));
     }
 
-
 }

@@ -31,7 +31,9 @@ package org.opennms.netmgt.config.ami;
 import java.net.InetAddress;
 
 /**
- * <p>AmiAgentConfig class.</p>
+ * <p>
+ * AmiAgentConfig class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,41 +41,61 @@ import java.net.InetAddress;
 public class AmiAgentConfig {
     /** Constant <code>DEFAULT_TIMEOUT=3000</code> */
     public static final int DEFAULT_TIMEOUT = 3000;
+
     /** Constant <code>DEFAULT_RETRIES=1</code> */
     public static final int DEFAULT_RETRIES = 1;
+
     /** Constant <code>DEFAULT_PASSWORD=""</code> */
     public static final String DEFAULT_PASSWORD = "";
+
     /** Constant <code>DEFAULT_USERNAME="opennms"</code> */
-    public static final String DEFAULT_USERNAME="opennms";
+    public static final String DEFAULT_USERNAME = "opennms";
+
     /** Constant <code>DEFAULT_PORT=5038</code> */
     public static final int DEFAULT_PORT = 5038;
+
     /** Constant <code>DEFAULT_TLS_PORT=5039</code> */
     public static final int DEFAULT_TLS_PORT = 5039;
+
     /** Constant <code>DEFAULT_USE_TLS=false</code> */
     public static final boolean DEFAULT_USE_TLS = false;
 
     private InetAddress m_address;
+
     private int m_timeout;
+
     private int m_retries;
+
     private String m_username;
+
     private String m_password;
+
     private int m_port;
+
     private boolean m_useTls;
 
     String user = "";
-	String pass = "";
-	String matchType = "all";
+
+    String pass = "";
+
+    String matchType = "all";
+
     /**
-     * <p>Constructor for AmiAgentConfig.</p>
+     * <p>
+     * Constructor for AmiAgentConfig.
+     * </p>
      */
     public AmiAgentConfig() {
         setDefaults();
     }
 
     /**
-     * <p>Constructor for AmiAgentConfig.</p>
+     * <p>
+     * Constructor for AmiAgentConfig.
+     * </p>
      *
-     * @param agentAddress a {@link java.net.InetAddress} object.
+     * @param agentAddress
+     *            a {@link java.net.InetAddress} object.
      */
     public AmiAgentConfig(InetAddress agentAddress) {
         m_address = agentAddress;
@@ -89,27 +111,38 @@ public class AmiAgentConfig {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
         StringBuffer buff = new StringBuffer("AgentConfig[");
-        buff.append("Address: "+m_address);
-        buff.append(", Port: " +m_port);
-        buff.append(", TLS: "+m_useTls);
-        buff.append(", Username: "+String.valueOf(m_username)); //use valueOf to handle null values of m_username
-        buff.append(", Password: "+String.valueOf(m_password)); //use valueOf to handle null values of m_password
-        buff.append(", Timeout: "+m_timeout);
-        buff.append(", Retries: "+m_retries);
+        buff.append("Address: " + m_address);
+        buff.append(", Port: " + m_port);
+        buff.append(", TLS: " + m_useTls);
+        buff.append(", Username: " + String.valueOf(m_username)); // use valueOf
+                                                                  // to handle
+                                                                  // null values
+                                                                  // of
+                                                                  // m_username
+        buff.append(", Password: " + String.valueOf(m_password)); // use valueOf
+                                                                  // to handle
+                                                                  // null values
+                                                                  // of
+                                                                  // m_password
+        buff.append(", Timeout: " + m_timeout);
+        buff.append(", Retries: " + m_retries);
         buff.append("]");
         return buff.toString();
     }
 
-
     /**
-     * <p>getAddress</p>
+     * <p>
+     * getAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -118,16 +151,21 @@ public class AmiAgentConfig {
     }
 
     /**
-     * <p>setAddress</p>
+     * <p>
+     * setAddress
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      */
     public void setAddress(InetAddress address) {
         m_address = address;
     }
 
     /**
-     * <p>getTimeout</p>
+     * <p>
+     * getTimeout
+     * </p>
      *
      * @return a int.
      */
@@ -136,16 +174,21 @@ public class AmiAgentConfig {
     }
 
     /**
-     * <p>setTimeout</p>
+     * <p>
+     * setTimeout
+     * </p>
      *
-     * @param timeout a int.
+     * @param timeout
+     *            a int.
      */
     public void setTimeout(int timeout) {
         m_timeout = timeout;
     }
 
     /**
-     * <p>getRetries</p>
+     * <p>
+     * getRetries
+     * </p>
      *
      * @return a int.
      */
@@ -154,25 +197,33 @@ public class AmiAgentConfig {
     }
 
     /**
-     * <p>setRetries</p>
+     * <p>
+     * setRetries
+     * </p>
      *
-     * @param retries a int.
+     * @param retries
+     *            a int.
      */
     public void setRetries(int retries) {
         m_retries = retries;
     }
 
     /**
-     * <p>setPassword</p>
+     * <p>
+     * setPassword
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         m_password = password;
     }
 
     /**
-     * <p>getPassword</p>
+     * <p>
+     * getPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -180,9 +231,10 @@ public class AmiAgentConfig {
         return m_password;
     }
 
-
     /**
-     * <p>getUsername</p>
+     * <p>
+     * getUsername
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -191,16 +243,21 @@ public class AmiAgentConfig {
     }
 
     /**
-     * <p>setUsername</p>
+     * <p>
+     * setUsername
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      */
     public void setUsername(String username) {
-    	m_username = username;
+        m_username = username;
     }
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a int.
      */
@@ -209,16 +266,21 @@ public class AmiAgentConfig {
     }
 
     /**
-     * <p>setPort</p>
+     * <p>
+     * setPort
+     * </p>
      *
-     * @param port a int.
+     * @param port
+     *            a int.
      */
     public void setPort(int port) {
         m_port = port;
     }
 
     /**
-     * <p>getUseTls</p>
+     * <p>
+     * getUseTls
+     * </p>
      *
      * @return a boolean.
      */
@@ -227,9 +289,12 @@ public class AmiAgentConfig {
     }
 
     /**
-     * <p>setUseTls</p>
+     * <p>
+     * setUseTls
+     * </p>
      *
-     * @param useTls a boolean.
+     * @param useTls
+     *            a boolean.
      */
     public void setUseTls(boolean useTls) {
         m_useTls = useTls;

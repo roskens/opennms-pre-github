@@ -30,58 +30,56 @@ package org.opennms.features.jmxconfiggenerator.webui.ui;
 import java.util.Arrays;
 
 public enum UiState {
-	IntroductionView("Introduction", true),
-	ServiceConfigurationView("Service Configuration", true),
-	MbeansDetection("Determine MBeans information", false),
-	MbeansView("MBeans Configuration", true),
-	ResultConfigGeneration("Generate OpenNMS Configuration snippets", false),
-	ResultView("OpenNMS Configuration", true);
+    IntroductionView("Introduction", true), ServiceConfigurationView("Service Configuration", true), MbeansDetection(
+            "Determine MBeans information", false), MbeansView("MBeans Configuration", true), ResultConfigGeneration(
+            "Generate OpenNMS Configuration snippets", false), ResultView("OpenNMS Configuration", true);
 
-	private final String description;
-	private boolean ui;
+    private final String description;
 
-	private UiState(String description, boolean ui) {
-		this.description = description;
-		this.ui = ui;
-	}
+    private boolean ui;
 
-	boolean hasUi() {
-		return ui;
-	}
+    private UiState(String description, boolean ui) {
+        this.description = description;
+        this.ui = ui;
+    }
 
-	public String getDescription() {
-		return this.description;
-	}
+    boolean hasUi() {
+        return ui;
+    }
 
-	public boolean hasPrevious() {
-		return !isFirst();
-	}
+    public String getDescription() {
+        return this.description;
+    }
 
-	public boolean hasNext() {
-		return !isLast();
-	}
+    public boolean hasPrevious() {
+        return !isFirst();
+    }
 
-	private boolean isFirst() {
-		return UiState.values()[0].equals(this);
-	}
+    public boolean hasNext() {
+        return !isLast();
+    }
 
-	private boolean isLast() {
-		return UiState.values()[UiState.values().length - 1].equals(this);
-	}
+    private boolean isFirst() {
+        return UiState.values()[0].equals(this);
+    }
 
-	public UiState getPrevious() {
-		if (hasPrevious()) {
-			int currentIndex = Arrays.asList(UiState.values()).indexOf(this);
-			return UiState.values()[currentIndex - 1];
-		}
-		return null; // no previous element
-	}
+    private boolean isLast() {
+        return UiState.values()[UiState.values().length - 1].equals(this);
+    }
 
-	public UiState getNext() {
-		if (hasNext()) {
-			int currentIndex = Arrays.asList(UiState.values()).indexOf(this);
-			return UiState.values()[currentIndex + 1];
-		}
-		return null; // no next element
-	}
+    public UiState getPrevious() {
+        if (hasPrevious()) {
+            int currentIndex = Arrays.asList(UiState.values()).indexOf(this);
+            return UiState.values()[currentIndex - 1];
+        }
+        return null; // no previous element
+    }
+
+    public UiState getNext() {
+        if (hasNext()) {
+            int currentIndex = Arrays.asList(UiState.values()).indexOf(this);
+            return UiState.values()[currentIndex + 1];
+        }
+        return null; // no next element
+    }
 }

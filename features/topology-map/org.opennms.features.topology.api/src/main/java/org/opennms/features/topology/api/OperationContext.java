@@ -32,10 +32,15 @@ import com.vaadin.ui.UI;
 
 public interface OperationContext {
 
-	enum DisplayLocation { MENUBAR, CONTEXTMENU };
+    enum DisplayLocation {
+        MENUBAR, CONTEXTMENU
+    };
 
     UI getMainWindow();
+
     GraphContainer getGraphContainer();
+
     DisplayLocation getDisplayLocation();
+
     boolean isChecked();
 }

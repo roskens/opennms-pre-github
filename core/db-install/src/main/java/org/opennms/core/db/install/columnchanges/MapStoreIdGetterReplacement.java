@@ -43,18 +43,26 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 
 public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
     private final AutoIntegerIdMapStoreReplacement m_storeFoo;
+
     private final String[] m_indexColumns;
+
     private final boolean m_noMatchOkay;
 
     /**
-     * <p>Constructor for MapStoreIdGetterReplacement.</p>
+     * <p>
+     * Constructor for MapStoreIdGetterReplacement.
+     * </p>
      *
-     * @param storeFoo a {@link org.opennms.netmgt.dao.db.columnchanges.AutoIntegerIdMapStoreReplacement} object.
-     * @param columns an array of {@link java.lang.String} objects.
-     * @param noMatchOkay a boolean.
+     * @param storeFoo
+     *            a
+     *            {@link org.opennms.netmgt.dao.db.columnchanges.AutoIntegerIdMapStoreReplacement}
+     *            object.
+     * @param columns
+     *            an array of {@link java.lang.String} objects.
+     * @param noMatchOkay
+     *            a boolean.
      */
-    public MapStoreIdGetterReplacement(AutoIntegerIdMapStoreReplacement storeFoo,
-            String[] columns, boolean noMatchOkay) {
+    public MapStoreIdGetterReplacement(AutoIntegerIdMapStoreReplacement storeFoo, String[] columns, boolean noMatchOkay) {
         m_storeFoo = storeFoo;
         m_indexColumns = columns;
         m_noMatchOkay = noMatchOkay;
@@ -67,7 +75,9 @@ public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>addColumnIfColumnIsNew</p>
+     * <p>
+     * addColumnIfColumnIsNew
+     * </p>
      *
      * @return a boolean.
      */
@@ -77,7 +87,9 @@ public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
     }
 
     /**
-     * <p>close</p>
+     * <p>
+     * close
+     * </p>
      */
     @Override
     public void close() {

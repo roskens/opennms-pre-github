@@ -37,14 +37,15 @@ import java.util.ListIterator;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
- * <p>DetectorCollection class.</p>
+ * <p>
+ * DetectorCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="detectors")
+@XmlRootElement(name = "detectors")
 public class DetectorCollection implements List<PluginConfig> {
     private LinkedList<PluginConfig> m_list = null;
 
@@ -57,26 +58,33 @@ public class DetectorCollection implements List<PluginConfig> {
     }
 
     /**
-     * <p>getDetectors</p>
+     * <p>
+     * getDetectors
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    @XmlElement(name="detector")
+    @XmlElement(name = "detector")
     public List<PluginConfig> getDetectors() {
-        synchronized(m_list) {
-            if (m_list != null) return m_list;
+        synchronized (m_list) {
+            if (m_list != null)
+                return m_list;
         }
         return null;
     }
 
     /**
-     * <p>setDetectors</p>
+     * <p>
+     * setDetectors
+     * </p>
      *
-     * @param detectors a {@link java.util.List} object.
+     * @param detectors
+     *            a {@link java.util.List} object.
      */
     public void setDetectors(final List<PluginConfig> detectors) {
-        synchronized(m_list) {
-            if (m_list == detectors) return;
+        synchronized (m_list) {
+            if (m_list == detectors)
+                return;
             m_list.clear();
             m_list.addAll(detectors);
         }
@@ -197,4 +205,3 @@ public class DetectorCollection implements List<PluginConfig> {
         return m_list.toArray(type);
     }
 }
-

@@ -63,7 +63,9 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapExecutor;
 
 /**
- * <p>GroupRepositoryIbatis class.</p>
+ * <p>
+ * GroupRepositoryIbatis class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -75,7 +77,8 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
     /** {@inheritDoc} */
     @Autowired
     @Override
-    public void setSqlMapClient(@Qualifier("sqlMapClient") SqlMapClient sqlMapClient) {
+    public void setSqlMapClient(@Qualifier("sqlMapClient")
+    SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);
     }
 
@@ -93,9 +96,12 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
     }
 
     /**
-     * <p>getGroupUsernames</p>
+     * <p>
+     * getGroupUsernames
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.util.List} object.
      */
     @SuppressWarnings("unchecked")
@@ -123,7 +129,9 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
     }
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -156,8 +164,7 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
                     ris = executor.executeBatch();
                 } catch (SQLException e) {
                     Logger log = LoggerFactory.getLogger(this.getClass());
-                    StringBuffer sb = new StringBuffer("saveGroups failed \n").append("num groups batch:").append(groups.size()).append("\n").append(" username:").append(username).append("\n")
-                            .append(e.getNextException());
+                    StringBuffer sb = new StringBuffer("saveGroups failed \n").append("num groups batch:").append(groups.size()).append("\n").append(" username:").append(username).append("\n").append(e.getNextException());
                     log.error(sb.toString());
                 }
                 return ris > 0;
@@ -176,7 +183,9 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
     }
 
     /**
-     * <p>getGroupsNumber</p>
+     * <p>
+     * getGroupsNumber
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -244,8 +253,7 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
                     ris = executor.executeBatch();
                 } catch (SQLException e) {
                     Logger log = LoggerFactory.getLogger(this.getClass());
-                    StringBuffer sb = new StringBuffer("saveAuthorities failed \n").append("num authorities batch:").append(authorities.size()).append("\n").append(" group:").append(group).append(
-                            "\n").append(e.getNextException());
+                    StringBuffer sb = new StringBuffer("saveAuthorities failed \n").append("num authorities batch:").append(authorities.size()).append("\n").append(" group:").append(group).append("\n").append(e.getNextException());
                     log.error(sb.toString());
                 }
                 return ris > 0;

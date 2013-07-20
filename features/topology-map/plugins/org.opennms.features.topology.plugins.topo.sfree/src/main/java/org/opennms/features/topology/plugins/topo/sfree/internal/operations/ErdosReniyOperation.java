@@ -41,36 +41,36 @@ import org.slf4j.LoggerFactory;
 
 public class ErdosReniyOperation implements Operation {
 
-	@Override
-	public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
-		if (operationContext != null && operationContext.getGraphContainer() != null) {
-			try {
-				operationContext.getGraphContainer().getBaseTopology().load(SFreeTopologyProvider.ERDOS_RENIS);
-			} catch (MalformedURLException e) {
-				// TODO: Display the error in the UI
-				LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);
-			} catch (JAXBException e) {
-				// TODO: Display the error in the UI
-				LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);
-			}
-			operationContext.getGraphContainer().redoLayout();
-		}
-		return null;
-	}
+    @Override
+    public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
+        if (operationContext != null && operationContext.getGraphContainer() != null) {
+            try {
+                operationContext.getGraphContainer().getBaseTopology().load(SFreeTopologyProvider.ERDOS_RENIS);
+            } catch (MalformedURLException e) {
+                // TODO: Display the error in the UI
+                LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);
+            } catch (JAXBException e) {
+                // TODO: Display the error in the UI
+                LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);
+            }
+            operationContext.getGraphContainer().redoLayout();
+        }
+        return null;
+    }
 
-	@Override
-	public boolean display(List<VertexRef> targets, OperationContext operationContext) {
-		return true;
-	}
+    @Override
+    public boolean display(List<VertexRef> targets, OperationContext operationContext) {
+        return true;
+    }
 
-	@Override
-	public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
-		return true;
-	}
+    @Override
+    public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
+        return true;
+    }
 
-	@Override
-	public String getId() {
-		return "ScaleFreeTopologyProviderErdosReniyOperation";
-	}
+    @Override
+    public String getId() {
+        return "ScaleFreeTopologyProviderErdosReniyOperation";
+    }
 
 }

@@ -34,7 +34,9 @@ import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
 import org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedResponse;
 
 /**
- * <p>MultilineOrientedResponseDecoder class.</p>
+ * <p>
+ * MultilineOrientedResponseDecoder class.
+ * </p>
  *
  * @author Seth
  */
@@ -43,28 +45,36 @@ public class MultilineOrientedResponseDecoder extends OneToOneDecoder {
     public static final String DEFAULT_MULTILINE_INDICATOR = "-";
 
     private final String m_multilineIndicator;
+
     private MultilineOrientedResponse m_response;
 
     /**
-     * <p>Constructor for MultilineOrientedResponseDecoder.</p>
+     * <p>
+     * Constructor for MultilineOrientedResponseDecoder.
+     * </p>
      *
-     * @param multilineIndicator a {@link java.lang.String} object.
+     * @param multilineIndicator
+     *            a {@link java.lang.String} object.
      */
     public MultilineOrientedResponseDecoder() {
         this(DEFAULT_MULTILINE_INDICATOR);
     }
 
     /**
-     * <p>Constructor for MultilineOrientedResponseDecoder.</p>
+     * <p>
+     * Constructor for MultilineOrientedResponseDecoder.
+     * </p>
      *
-     * @param multilineIndicator a {@link java.lang.String} object.
+     * @param multilineIndicator
+     *            a {@link java.lang.String} object.
      */
     public MultilineOrientedResponseDecoder(final String multilineIndicator) {
         m_multilineIndicator = multilineIndicator;
     }
 
     /**
-     * This method decodes {@link String} objects into {@link MultilineOrientedResponse} instances
+     * This method decodes {@link String} objects into
+     * {@link MultilineOrientedResponse} instances
      * that contain each line of the string response.
      */
     @Override
@@ -77,9 +87,9 @@ public class MultilineOrientedResponseDecoder extends OneToOneDecoder {
         if (m_response == null) {
             m_response = new MultilineOrientedResponse();
         }
-        String response = (String)msg;
+        String response = (String) msg;
         m_response.addLine(response);
-        if(checkIndicator(response)) {
+        if (checkIndicator(response)) {
             // Do nothing; if the multi-line indicator is present then
             // continue to accumulate lines into the m_response instance
             return null;
@@ -91,9 +101,12 @@ public class MultilineOrientedResponseDecoder extends OneToOneDecoder {
     }
 
     /**
-     * <p>checkIndicator</p>
+     * <p>
+     * checkIndicator
+     * </p>
      *
-     * @param line a {@link String} object.
+     * @param line
+     *            a {@link String} object.
      * @return a boolean.
      */
     protected boolean checkIndicator(final String line) {
@@ -101,7 +114,9 @@ public class MultilineOrientedResponseDecoder extends OneToOneDecoder {
     }
 
     /**
-     * <p>getMultilineIndicator</p>
+     * <p>
+     * getMultilineIndicator
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

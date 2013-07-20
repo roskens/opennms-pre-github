@@ -43,7 +43,9 @@ import org.opennms.netmgt.importer.ModelImportException;
 import org.springframework.core.io.Resource;
 
 /**
- * <p>SpecFile class.</p>
+ * <p>
+ * SpecFile class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,26 +55,36 @@ public class SpecFile {
     private ModelImport m_mi;
 
     /**
-     * <p>loadResource</p>
+     * <p>
+     * loadResource
+     * </p>
      *
-     * @param resource a {@link org.springframework.core.io.Resource} object.
-     * @throws org.opennms.netmgt.importer.ModelImportException if any.
-     * @throws java.io.IOException if any.
+     * @param resource
+     *            a {@link org.springframework.core.io.Resource} object.
+     * @throws org.opennms.netmgt.importer.ModelImportException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void loadResource(Resource resource) throws ModelImportException, IOException {
         try {
             m_mi = CastorUtils.unmarshal(ModelImport.class, resource);
         } catch (MarshalException e) {
-            throw new ModelImportException("Exception while marshalling import: "+e, e);
+            throw new ModelImportException("Exception while marshalling import: " + e, e);
         } catch (ValidationException e) {
-            throw new ModelImportException("Exception while validating import "+e);
+            throw new ModelImportException("Exception while validating import " + e);
         }
     }
 
     /**
-     * <p>visitImport</p>
+     * <p>
+     * visitImport
+     * </p>
      *
-     * @param visitor a {@link org.opennms.netmgt.importer.specification.ImportVisitor} object.
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.importer.specification.ImportVisitor}
+     *            object.
      */
     public void visitImport(ImportVisitor visitor) {
         doVisitImport(visitor);
@@ -144,7 +156,9 @@ public class SpecFile {
     }
 
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -153,9 +167,12 @@ public class SpecFile {
     }
 
     /**
-     * <p>setForeignSource</p>
+     * <p>
+     * setForeignSource
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
      */
     public void setForeignSource(String foreignSource) {
         m_mi.setForeignSource(foreignSource);

@@ -56,15 +56,15 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
      */
     private PingRequestId m_id;
 
-	/**
-	 * the request packet
-	 */
-	private OutboundMessage m_request = null;
+    /**
+     * the request packet
+     */
+    private OutboundMessage m_request = null;
 
-	/**
-	 * the response packet
-	 */
-	private InboundMessage m_response = null;
+    /**
+     * the response packet
+     */
+    private InboundMessage m_response = null;
 
     /**
      * The callback to use when this object is ready to do something
@@ -91,19 +91,18 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
      */
     private Logger m_log;
 
-	private Long m_sentTimestamp;
+    private Long m_sentTimestamp;
 
-	private Long m_responseTimestamp;
+    private Long m_responseTimestamp;
 
-	private volatile boolean m_processed = false;
-
+    private volatile boolean m_processed = false;
 
     PingRequest(PingRequestId id, long timeout, int retries, Logger logger, PingResponseCallback cb) {
         m_id = id;
-        m_retries    = retries;
-        m_timeout    = timeout;
-        m_log        = logger;
-        m_callback   = cb;
+        m_retries = retries;
+        m_timeout = timeout;
+        m_log = logger;
+        m_callback = cb;
 
         m_expiration = System.currentTimeMillis() + timeout;
 
@@ -113,19 +112,27 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>Constructor for PingRequest.</p>
+     * <p>
+     * Constructor for PingRequest.
+     * </p>
      *
-     * @param id a {@link org.opennms.sms.ping.PingRequestId} object.
-     * @param timeout a long.
-     * @param retries a int.
-     * @param cb a {@link org.opennms.sms.ping.PingResponseCallback} object.
+     * @param id
+     *            a {@link org.opennms.sms.ping.PingRequestId} object.
+     * @param timeout
+     *            a long.
+     * @param retries
+     *            a int.
+     * @param cb
+     *            a {@link org.opennms.sms.ping.PingResponseCallback} object.
      */
     public PingRequest(PingRequestId id, long timeout, int retries, PingResponseCallback cb) {
         this(id, timeout, retries, LoggerFactory.getLogger(PingRequest.class), cb);
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link org.opennms.sms.ping.PingRequestId} object.
      */
@@ -135,7 +142,9 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>getRetries</p>
+     * <p>
+     * getRetries
+     * </p>
      *
      * @return a int.
      */
@@ -144,7 +153,9 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>getTimeout</p>
+     * <p>
+     * getTimeout
+     * </p>
      *
      * @return a long.
      */
@@ -153,7 +164,9 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>getRequest</p>
+     * <p>
+     * getRequest
+     * </p>
      *
      * @return a {@link org.smslib.OutboundMessage} object.
      */
@@ -162,7 +175,9 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>getResponse</p>
+     * <p>
+     * getResponse
+     * </p>
      *
      * @return a {@link org.smslib.InboundMessage} object.
      */
@@ -170,9 +185,10 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
         return m_response;
     }
 
-
     /**
-     * <p>getExpiration</p>
+     * <p>
+     * getExpiration
+     * </p>
      *
      * @return a long.
      */
@@ -185,9 +201,12 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>processResponse</p>
+     * <p>
+     * processResponse
+     * </p>
      *
-     * @param reply a {@link org.opennms.sms.ping.internal.PingReply} object.
+     * @param reply
+     *            a {@link org.opennms.sms.ping.internal.PingReply} object.
      * @return a boolean.
      */
     @Override
@@ -203,12 +222,14 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
 
     private void processResponse(InboundMessage packet) {
         m_response = packet;
-        log().debug(System.currentTimeMillis()+": Ping Response Received "+this);
+        log().debug(System.currentTimeMillis() + ": Ping Response Received " + this);
         m_callback.handleResponse(this, packet);
     }
 
     /**
-     * <p>processTimeout</p>
+     * <p>
+     * processTimeout
+     * </p>
      *
      * @return a {@link org.opennms.sms.ping.internal.PingRequest} object.
      */
@@ -219,9 +240,9 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
             if (this.isExpired()) {
                 if (this.getRetries() > 0) {
                     returnval = new PingRequest(getId(), getTimeout(), getRetries() - 1, log(), m_callback);
-                    log().debug(System.currentTimeMillis()+": Retrying Ping Request "+returnval);
+                    log().debug(System.currentTimeMillis() + ": Retrying Ping Request " + returnval);
                 } else {
-                    log().debug(System.currentTimeMillis()+": Ping Request Timed out "+this);
+                    log().debug(System.currentTimeMillis() + ": Ping Request Timed out " + this);
                     m_callback.handleTimeout(this, getRequest());
                 }
             }
@@ -232,7 +253,9 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>isExpired</p>
+     * <p>
+     * isExpired
+     * </p>
      *
      * @return a boolean.
      */
@@ -241,7 +264,9 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -266,17 +291,22 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param request a {@link java.util.concurrent.Delayed} object.
+     * @param request
+     *            a {@link java.util.concurrent.Delayed} object.
      * @return a int.
      */
     @Override
     public int compareTo(Delayed request) {
         long myDelay = getDelay(TimeUnit.MILLISECONDS);
         long otherDelay = request.getDelay(TimeUnit.MILLISECONDS);
-        if (myDelay < otherDelay) return -1;
-        if (myDelay == otherDelay) return 0;
+        if (myDelay < otherDelay)
+            return -1;
+        if (myDelay == otherDelay)
+            return 0;
         return 1;
     }
 
@@ -291,34 +321,44 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     }
 
     /**
-     * <p>setSentTimestamp</p>
+     * <p>
+     * setSentTimestamp
+     * </p>
      *
-     * @param millis a {@link java.lang.Long} object.
+     * @param millis
+     *            a {@link java.lang.Long} object.
      */
-    public void setSentTimestamp(Long millis){
-    	m_sentTimestamp = millis;
+    public void setSentTimestamp(Long millis) {
+        m_sentTimestamp = millis;
     }
 
     /**
-     * <p>setResponseTimestamp</p>
+     * <p>
+     * setResponseTimestamp
+     * </p>
      *
-     * @param millis a {@link java.lang.Long} object.
+     * @param millis
+     *            a {@link java.lang.Long} object.
      */
-    public void setResponseTimestamp(Long millis){
-    	m_responseTimestamp = millis;
+    public void setResponseTimestamp(Long millis) {
+        m_responseTimestamp = millis;
     }
 
     /**
-     * <p>getRoundTripTime</p>
+     * <p>
+     * getRoundTripTime
+     * </p>
      *
      * @return a long.
      */
-    public long getRoundTripTime(){
-    	return m_responseTimestamp - m_sentTimestamp;
+    public long getRoundTripTime() {
+        return m_responseTimestamp - m_sentTimestamp;
     }
 
     /**
-     * <p>isProcessed</p>
+     * <p>
+     * isProcessed
+     * </p>
      *
      * @return a boolean.
      */
@@ -326,7 +366,5 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     public boolean isProcessed() {
         return m_processed;
     }
-
-
 
 }

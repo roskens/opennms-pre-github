@@ -38,11 +38,10 @@ import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTestNoCastor;
 import org.opennms.netmgt.config.service.types.InvokeAtType;
 
-public class ServiceConfigurationTest extends
-        XmlTestNoCastor<ServiceConfiguration> {
+public class ServiceConfigurationTest extends XmlTestNoCastor<ServiceConfiguration> {
 
-    public ServiceConfigurationTest(final ServiceConfiguration sampleObject,
-            final String sampleXml, final String schemaFile) {
+    public ServiceConfigurationTest(final ServiceConfiguration sampleObject, final String sampleXml,
+            final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
@@ -57,34 +56,23 @@ public class ServiceConfigurationTest extends
         arguments.add(new Argument("java.lang.String", "admin"));
 
         List<Invoke> invokes = new LinkedList<Invoke>();
-        invokes.add(new Invoke(InvokeAtType.START, 0, "addAuthorization",
-                               arguments));
+        invokes.add(new Invoke(InvokeAtType.START, 0, "addAuthorization", arguments));
 
         List<Service> services = new LinkedList<Service>();
-        Service svc = new Service(":Name=HttpAdaptor",
-                                  "mx4j.tools.adaptor.http.HttpAdaptor",
-                                  attributes, invokes);
+        Service svc = new Service(":Name=HttpAdaptor", "mx4j.tools.adaptor.http.HttpAdaptor", attributes, invokes);
         services.add(svc);
 
         return Arrays.asList(new Object[][] { {
                 new ServiceConfiguration(services),
-                "<service-configuration>"
-                        + "  <service>\n"
-                        + "    <name>:Name=HttpAdaptor</name>\n"
-                        + "    <class-name>mx4j.tools.adaptor.http.HttpAdaptor</class-name>\n"
-                        + "    <attribute>\n"
-                        + "      <name>Port</name>\n"
-                        + "      <value type=\"java.lang.Integer\">58180</value>\n"
-                        + "    </attribute>\n"
-                        + "    <attribute>\n"
-                        + "      <name>Host</name>\n"
-                        + "      <value type=\"java.lang.String\">127.0.0.1</value>\n"
-                        + "    </attribute>\n"
+                "<service-configuration>" + "  <service>\n" + "    <name>:Name=HttpAdaptor</name>\n"
+                        + "    <class-name>mx4j.tools.adaptor.http.HttpAdaptor</class-name>\n" + "    <attribute>\n"
+                        + "      <name>Port</name>\n" + "      <value type=\"java.lang.Integer\">58180</value>\n"
+                        + "    </attribute>\n" + "    <attribute>\n" + "      <name>Host</name>\n"
+                        + "      <value type=\"java.lang.String\">127.0.0.1</value>\n" + "    </attribute>\n"
                         + "    <invoke at=\"start\" pass=\"0\" method=\"addAuthorization\">\n"
                         + "      <argument type=\"java.lang.String\">admin</argument>\n"
-                        + "      <argument type=\"java.lang.String\">admin</argument>\n"
-                        + "    </invoke>\n" + "  </service>\n"
-                        + "</service-configuration>",
+                        + "      <argument type=\"java.lang.String\">admin</argument>\n" + "    </invoke>\n"
+                        + "  </service>\n" + "</service-configuration>",
                 "target/classes/xsds/service-configuration.xsd", }, });
     }
 }

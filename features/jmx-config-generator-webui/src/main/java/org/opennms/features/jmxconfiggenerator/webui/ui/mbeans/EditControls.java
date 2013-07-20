@@ -58,328 +58,337 @@ import com.vaadin.ui.Table;
  * @author Markus von Rüden
  */
 class EditControls<T extends Component> extends HorizontalLayout implements ReadOnlyStatusChangeListener,
-		Button.ClickListener {
+        Button.ClickListener {
 
-	/**
-	 * This callback is implemented by any instance which uses the EditControls,
-	 * so on a button click this callback is invoked.
-	 *
-	 * @author Markus von Rüden
-	 *
-	 * @param <T>
-	 *            The type of the component which uses the EditControl.
-	 */
-	public static interface Callback<T extends Component> {
-		void callback(ButtonType type, T outer);
-	}
+    /**
+     * This callback is implemented by any instance which uses the EditControls,
+     * so on a button click this callback is invoked.
+     *
+     * @author Markus von Rüden
+     * @param <T>
+     *            The type of the component which uses the EditControl.
+     */
+    public static interface Callback<T extends Component> {
+        void callback(ButtonType type, T outer);
+    }
 
-	/**
-	 * Abstraction of how the outer component toggles between read and write
-	 * mode and vice versa.
-	 *
-	 * @param <T>
-	 *            Type of the outer component.
-	 * @author Markus von Rüden
-	 */
-	public static interface ButtonHandler<T extends Component> {
+    /**
+     * Abstraction of how the outer component toggles between read and write
+     * mode and vice versa.
+     *
+     * @param <T>
+     *            Type of the outer component.
+     * @author Markus von Rüden
+     */
+    public static interface ButtonHandler<T extends Component> {
 
-		/**
-		 * Handles the action which is performed on 'save' button click.
-		 */
-		void handleSave();
+        /**
+         * Handles the action which is performed on 'save' button click.
+         */
+        void handleSave();
 
-		/**
-		 * Handles the action which is performed on 'cancel' button click.
-		 */
-		void handleCancel();
+        /**
+         * Handles the action which is performed on 'cancel' button click.
+         */
+        void handleCancel();
 
-		/**
-		 * Handles the action which is performed on 'edit' button click.
-		 */
-		void handleEdit();
+        /**
+         * Handles the action which is performed on 'edit' button click.
+         */
+        void handleEdit();
 
-		/**
-		 * The outer component, which has the {@link EditControls} a component.
-		 *
-		 * @return The component which has the {@link EditControls} as a
-		 *         component.
-		 */
-		T getOuter();
-	}
+        /**
+         * The outer component, which has the {@link EditControls} a component.
+         *
+         * @return The component which has the {@link EditControls} as a
+         *         component.
+         */
+        T getOuter();
+    }
 
-	/**
-	 * The supported Button types.
-	 *
-	 * @author Markus von Rüden
-	 *
-	 */
-	public static enum ButtonType {
-		edit, cancel, save;
-	}
+    /**
+     * The supported Button types.
+     *
+     * @author Markus von Rüden
+     */
+    public static enum ButtonType {
+        edit, cancel, save;
+    }
 
-	/**
-	 * Simple implementation of a ButtonHandler for Components. It allows
-	 * setting the outer component.
-	 *
-	 * @author Markus von Rüden
-	 *
-	 * @param <T>
-	 *            Type of the outer component.
-	 */
-	public static abstract class AbstractButtonHandler<T extends Component> implements ButtonHandler<T> {
+    /**
+     * Simple implementation of a ButtonHandler for Components. It allows
+     * setting the outer component.
+     *
+     * @author Markus von Rüden
+     * @param <T>
+     *            Type of the outer component.
+     */
+    public static abstract class AbstractButtonHandler<T extends Component> implements ButtonHandler<T> {
 
-		private final T outer;
+        private final T outer;
 
-		public AbstractButtonHandler(T outer) {
-			this.outer = outer;
-		}
+        public AbstractButtonHandler(T outer) {
+            this.outer = outer;
+        }
 
-		@Override
-		public T getOuter() {
-			return outer;
-		}
-	}
+        @Override
+        public T getOuter() {
+            return outer;
+        }
+    }
 
-	/**
-	 * An <code>EditHandler</code> of a vaadin Form. Switching from read to
-	 * write mode is handled by setting the read only flag.
-	 * <ul>
-	 * <li>form.setReadOnly(true)</li> -> read mode
-	 * <li>form.setReadOnly(false)</li> -> write mode
-	 * </ul>
-	 *
-	 * @author Markus von Rüden
-	 */
-	public static class FormButtonHandler<T extends AbstractField> extends AbstractButtonHandler<T> {
+    /**
+     * An <code>EditHandler</code> of a vaadin Form. Switching from read to
+     * write mode is handled by setting the read only flag.
+     * <ul>
+     * <li>form.setReadOnly(true)</li> -> read mode
+     * <li>form.setReadOnly(false)</li> -> write mode
+     * </ul>
+     *
+     * @author Markus von Rüden
+     */
+    public static class FormButtonHandler<T extends AbstractField> extends AbstractButtonHandler<T> {
 
-		public FormButtonHandler(T outer) {
-			super(outer);
-		}
+        public FormButtonHandler(T outer) {
+            super(outer);
+        }
 
-		@Override
-		public void handleSave() {
-			if (!getOuter().isValid()) return;
-			getOuter().commit();
-			setEditAllowed(false);
-		}
+        @Override
+        public void handleSave() {
+            if (!getOuter().isValid())
+                return;
+            getOuter().commit();
+            setEditAllowed(false);
+        }
 
-		@Override
-		public void handleCancel() {
-			getOuter().discard();
-			setEditAllowed(false);
-		}
+        @Override
+        public void handleCancel() {
+            getOuter().discard();
+            setEditAllowed(false);
+        }
 
-		@Override
-		public void handleEdit() {
-			setEditAllowed(true);
-		}
+        @Override
+        public void handleEdit() {
+            setEditAllowed(true);
+        }
 
-		/**
-		 *
-		 * @param component
-		 *            the outer component, which toggles from read to write mode
-		 *            (or vice versa).
-		 * @param editAllowed
-		 *            true: <code>component</code> is in edit mode, false:
-		 *            <code>component</code> is in read mode
-		 */
-		protected void setEditAllowed(boolean editAllowed) {
-			getOuter().setReadOnly(!editAllowed);
-		}
-	}
+        /**
+         * @param component
+         *            the outer component, which toggles from read to write mode
+         *            (or vice versa).
+         * @param editAllowed
+         *            true: <code>component</code> is in edit mode, false:
+         *            <code>component</code> is in read mode
+         */
+        protected void setEditAllowed(boolean editAllowed) {
+            getOuter().setReadOnly(!editAllowed);
+        }
+    }
 
-	/**
-	 * An <code>EditHandler</codE> for a vaadin Table. Switching from read to
-	 * write mode is handled by setting the editable flag. Setting read only
-	 * flag does not change from non-editable to editable.
-	 *
-	 * @author Markus von Rüden
-	 */
-	public static class TableButtonHandler<T extends Table> extends FormButtonHandler<T> {
+    /**
+     * An <code>EditHandler</codE> for a vaadin Table. Switching from read to
+     * write mode is handled by setting the editable flag. Setting read only
+     * flag does not change from non-editable to editable.
+     *
+     * @author Markus von Rüden
+     */
+    public static class TableButtonHandler<T extends Table> extends FormButtonHandler<T> {
 
-		public TableButtonHandler(T t) {
-			super(t);
-		}
+        public TableButtonHandler(T t) {
+            super(t);
+        }
 
-		@Override
-		protected void setEditAllowed(boolean editAllowed) {
-			getOuter().setReadOnly(!editAllowed); // to be consistent, we set
-													// readOnly
-			getOuter().setEditable(editAllowed);
-		}
-	};
+        @Override
+        protected void setEditAllowed(boolean editAllowed) {
+            getOuter().setReadOnly(!editAllowed); // to be consistent, we set
+                                                  // readOnly
+            getOuter().setEditable(editAllowed);
+        }
+    };
 
-	/**
-	 * "cancel" button. Visibility public, so we can add some additional
-	 * behaviour, if we want to.
-	 */
-	public final Button cancel;
-	/**
-	 * "save" button. Visibility public, so we can add some additional
-	 * behaviour, if we want to.
-	 */
-	public final Button save;
-	/**
-	 * "edit" button. Visibility public, so we can add some additional
-	 * behaviour, if we want to.
-	 */
-	public final Button edit;
-	/**
-	 * If a component uses the EditControls, we may want to do something after
-	 * clicking one of the buttons.
-	 */
-	private final Map<Button, List<Callback<?>>> hooks = new HashMap<Button, List<Callback<?>>>();
-	/**
-	 * Default edit handler. It encapsulates what happens on a button click.
-	 *
-	 * @see ButtonHandler
-	 * @see #FORM_BUTTON_HANDLER
-	 * @see #TABLE_EDITING
-	 */
-	private ButtonHandler<T> buttonHandler;
+    /**
+     * "cancel" button. Visibility public, so we can add some additional
+     * behaviour, if we want to.
+     */
+    public final Button cancel;
 
-	protected EditControls(final Form outerForm) {
-		this(outerForm, new FormButtonHandler(outerForm));
-	}
+    /**
+     * "save" button. Visibility public, so we can add some additional
+     * behaviour, if we want to.
+     */
+    public final Button save;
 
-	protected EditControls(final Table outerTable) {
-		this(outerTable, new TableButtonHandler(outerTable));
-	}
+    /**
+     * "edit" button. Visibility public, so we can add some additional
+     * behaviour, if we want to.
+     */
+    public final Button edit;
 
-	protected EditControls(ReadOnlyStatusChangeNotifier callback, ButtonHandler<T> buttonHandler) {
-		this.buttonHandler = buttonHandler;
-		// we need to do this, otherwise we don't notice when to hide/show
-		// buttons
-		callback.addListener((ReadOnlyStatusChangeListener) this);
-		save = UIHelper.createButton("save", IconProvider.BUTTON_SAVE);
-		cancel = UIHelper.createButton("cancel", IconProvider.BUTTON_CANCEL);
-		edit = UIHelper.createButton("edit", IconProvider.BUTTON_EDIT);
-		addComponent(edit);
-		addComponent(save);
-		addComponent(cancel);
-		initFooterButtonActions();
-		initHooks();
-		setSpacing(true);
-		setStyleName("editlayout");
-	}
+    /**
+     * If a component uses the EditControls, we may want to do something after
+     * clicking one of the buttons.
+     */
+    private final Map<Button, List<Callback<?>>> hooks = new HashMap<Button, List<Callback<?>>>();
 
-	/**
-	 * Adds an empty list to the buttons.
-	 */
-	private void initHooks() {
-		hooks.put(cancel, new ArrayList<Callback<?>>());
-		hooks.put(save, new ArrayList<Callback<?>>());
-		hooks.put(edit, new ArrayList<Callback<?>>());
-	}
+    /**
+     * Default edit handler. It encapsulates what happens on a button click.
+     *
+     * @see ButtonHandler
+     * @see #FORM_BUTTON_HANDLER
+     * @see #TABLE_EDITING
+     */
+    private ButtonHandler<T> buttonHandler;
 
-	private void initFooterButtonActions() {
-		edit.addListener((Button.ClickListener) this);
-		save.addListener((Button.ClickListener) this);
-		cancel.addListener((Button.ClickListener) this);
-	}
+    protected EditControls(final Form outerForm) {
+        this(outerForm, new FormButtonHandler(outerForm));
+    }
 
-	/**
-	 * Update the visibility of the buttons, depending on readOnly. Be aware,
-	 * that readOnly does not mean, the outer component has set readOnly to
-	 * true. It just means, that the outer component is in read only mode or in
-	 * editing mode. The handling of the editing and readOnly mode depends on
-	 * the outer component.
-	 *
-	 * @param readOnly
-	 *            if true => edit is visible, if false cancel and save are
-	 *            visible.
-	 */
-	private void updateVisibility(boolean readOnly) {
-		edit.setVisible(readOnly);
-		cancel.setVisible(!readOnly);
-		save.setVisible(!readOnly);
-	}
+    protected EditControls(final Table outerTable) {
+        this(outerTable, new TableButtonHandler(outerTable));
+    }
 
-	/**
-	 * If any button is clicked, we toggle from read to write mode and vice
-	 * versa. In edition we execute any registerd hooks afterwards.
-	 *
-	 * @param event
-	 */
-	@Override
-	public void buttonClick(Button.ClickEvent event) {
-		Button source = event.getButton();
-		if (source == save) buttonHandler.handleSave();
-		if (source == cancel) buttonHandler.handleCancel();
-		if (source == edit) buttonHandler.handleEdit();
-		executeHooks(event);
-	}
+    protected EditControls(ReadOnlyStatusChangeNotifier callback, ButtonHandler<T> buttonHandler) {
+        this.buttonHandler = buttonHandler;
+        // we need to do this, otherwise we don't notice when to hide/show
+        // buttons
+        callback.addListener((ReadOnlyStatusChangeListener) this);
+        save = UIHelper.createButton("save", IconProvider.BUTTON_SAVE);
+        cancel = UIHelper.createButton("cancel", IconProvider.BUTTON_CANCEL);
+        edit = UIHelper.createButton("edit", IconProvider.BUTTON_EDIT);
+        addComponent(edit);
+        addComponent(save);
+        addComponent(cancel);
+        initFooterButtonActions();
+        initHooks();
+        setSpacing(true);
+        setStyleName("editlayout");
+    }
 
-	/**
-	 * You can add a <code>Button.ClickListener</code> to the layout to do some
-	 * stuff AFTER handling the toggle between read and write mode. <br/>
-	 * <br/>
-	 * <b>Be aware that <code>button</code> should be one of:</b> {@link #save},
-	 * {@link #edit}, {@link #cancel}.
-	 *
-	 * @param button
-	 *            {@link #save}, {@link #edit}, {@link #cancel}
-	 * @param listener
-	 */
-	private void addHook(ButtonType button, Callback callback) {
-		Button b = getButton(button);
-		if (hooks.get(b) == null) return;
-		hooks.get(b).add(callback);
-	}
+    /**
+     * Adds an empty list to the buttons.
+     */
+    private void initHooks() {
+        hooks.put(cancel, new ArrayList<Callback<?>>());
+        hooks.put(save, new ArrayList<Callback<?>>());
+        hooks.put(edit, new ArrayList<Callback<?>>());
+    }
 
-	public void addSaveHook(Callback<?> callback) {
-		addHook(ButtonType.save, callback);
-	}
+    private void initFooterButtonActions() {
+        edit.addListener((Button.ClickListener) this);
+        save.addListener((Button.ClickListener) this);
+        cancel.addListener((Button.ClickListener) this);
+    }
 
-	public void addEditHook(Callback<?> callback) {
-		addHook(ButtonType.edit, callback);
-	}
+    /**
+     * Update the visibility of the buttons, depending on readOnly. Be aware,
+     * that readOnly does not mean, the outer component has set readOnly to
+     * true. It just means, that the outer component is in read only mode or in
+     * editing mode. The handling of the editing and readOnly mode depends on
+     * the outer component.
+     *
+     * @param readOnly
+     *            if true => edit is visible, if false cancel and save are
+     *            visible.
+     */
+    private void updateVisibility(boolean readOnly) {
+        edit.setVisible(readOnly);
+        cancel.setVisible(!readOnly);
+        save.setVisible(!readOnly);
+    }
 
-	public void addCancelHook(Callback<?> callback) {
-		addHook(ButtonType.cancel, callback);
-	}
+    /**
+     * If any button is clicked, we toggle from read to write mode and vice
+     * versa. In edition we execute any registerd hooks afterwards.
+     *
+     * @param event
+     */
+    @Override
+    public void buttonClick(Button.ClickEvent event) {
+        Button source = event.getButton();
+        if (source == save)
+            buttonHandler.handleSave();
+        if (source == cancel)
+            buttonHandler.handleCancel();
+        if (source == edit)
+            buttonHandler.handleEdit();
+        executeHooks(event);
+    }
 
-	@Override
-	public void readOnlyStatusChange(Property.ReadOnlyStatusChangeEvent event) {
-		updateVisibility(event.getProperty().isReadOnly());
-	}
+    /**
+     * You can add a <code>Button.ClickListener</code> to the layout to do some
+     * stuff AFTER handling the toggle between read and write mode. <br/>
+     * <br/>
+     * <b>Be aware that <code>button</code> should be one of:</b> {@link #save},
+     * {@link #edit}, {@link #cancel}.
+     *
+     * @param button
+     *            {@link #save}, {@link #edit}, {@link #cancel}
+     * @param listener
+     */
+    private void addHook(ButtonType button, Callback callback) {
+        Button b = getButton(button);
+        if (hooks.get(b) == null)
+            return;
+        hooks.get(b).add(callback);
+    }
 
-	private void executeHooks(final Button.ClickEvent event) {
-		if (hooks.get(event.getButton()) == null) return; // nothing to do
-															// //nothing to do
-		for (Callback callback : hooks.get(event.getButton())) {
-			callback.callback(getButtonType(event.getButton()), buttonHandler.getOuter());
-		}
-	}
+    public void addSaveHook(Callback<?> callback) {
+        addHook(ButtonType.save, callback);
+    }
 
-	private Button getButton(ButtonType button) {
-		switch (button) {
-			default:
-			case edit:
-				return edit;
-			case cancel:
-				return cancel;
-			case save:
-				return save;
-		}
-	}
+    public void addEditHook(Callback<?> callback) {
+        addHook(ButtonType.edit, callback);
+    }
 
-	private ButtonType getButtonType(Button button) {
-		if (button == cancel) return ButtonType.cancel;
-		if (button == save) return ButtonType.save;
-		if (button == edit) return ButtonType.edit;
-		return ButtonType.cancel;
-	}
+    public void addCancelHook(Callback<?> callback) {
+        addHook(ButtonType.cancel, callback);
+    }
 
-	/**
-	 * Sets a new <code>editHandler</code>.
-	 *
-	 * @param editHandler
-	 * @return
-	 * @see ButtonHandler
-	 */
-	protected EditControls<T> changeButtonHandler(ButtonHandler<T> editHandler) {
-		this.buttonHandler = editHandler;
-		return this;
-	}
+    @Override
+    public void readOnlyStatusChange(Property.ReadOnlyStatusChangeEvent event) {
+        updateVisibility(event.getProperty().isReadOnly());
+    }
+
+    private void executeHooks(final Button.ClickEvent event) {
+        if (hooks.get(event.getButton()) == null)
+            return; // nothing to do
+                    // //nothing to do
+        for (Callback callback : hooks.get(event.getButton())) {
+            callback.callback(getButtonType(event.getButton()), buttonHandler.getOuter());
+        }
+    }
+
+    private Button getButton(ButtonType button) {
+        switch (button) {
+        default:
+        case edit:
+            return edit;
+        case cancel:
+            return cancel;
+        case save:
+            return save;
+        }
+    }
+
+    private ButtonType getButtonType(Button button) {
+        if (button == cancel)
+            return ButtonType.cancel;
+        if (button == save)
+            return ButtonType.save;
+        if (button == edit)
+            return ButtonType.edit;
+        return ButtonType.cancel;
+    }
+
+    /**
+     * Sets a new <code>editHandler</code>.
+     *
+     * @param editHandler
+     * @return
+     * @see ButtonHandler
+     */
+    protected EditControls<T> changeButtonHandler(ButtonHandler<T> editHandler) {
+        this.buttonHandler = editHandler;
+        return this;
+    }
 }

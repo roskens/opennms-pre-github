@@ -45,7 +45,7 @@ public final class EventUtils {
      * @param e
      *            the event
      * @throws org.opennms.netmgt.linkd.InsufficientInformationException
-     *             if  neither an interface nor an ifIndex is available
+     *             if neither an interface nor an ifIndex is available
      */
     static public void checkInterfaceOrIfIndex(Event e) throws InsufficientInformationException {
         if (e == null)

@@ -56,7 +56,9 @@ public class SetCriticalPathServlet extends HttpServlet {
      *
      */
     private static final long serialVersionUID = -5363097208855224954L;
+
     private static final String SQL_SET_CRITICAL_PATH = "INSERT INTO pathoutage (nodeid, criticalpathip, criticalpathservicename) VALUES (?, ?, ?)";
+
     private static final String SQL_DELETE_CRITICAL_PATH = "DELETE FROM pathoutage WHERE nodeid=?";
 
     /** {@inheritDoc} */
@@ -69,7 +71,7 @@ public class SetCriticalPathServlet extends HttpServlet {
         int node = -1;
         try {
             node = WebSecurityUtils.safeParseInt(nodeString);
-        } catch (NumberFormatException numE)  {
+        } catch (NumberFormatException numE) {
             throw new ServletException(numE);
         }
 
@@ -81,17 +83,22 @@ public class SetCriticalPathServlet extends HttpServlet {
             }
         } else if (task.equals("Submit")) {
             try {
-            setCriticalPath(node, criticalIp, criticalSvc);
+                setCriticalPath(node, criticalIp, criticalSvc);
             } catch (SQLException e) {
                 throw new ServletException("SetCriticalPathServlet: Error writing to database." + e);
             }
         } else {
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/nodemanagement/setPathOutage.jsp?node=" + node + "&task=Requested operation " + task + " not understood.");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/nodemanagement/setPathOutage.jsp?node="
+                                                                                                 + node
+                                                                                                 + "&task=Requested operation "
+                                                                                                 + task
+                                                                                                 + " not understood.");
             dispatcher.forward(request, response);
             return;
         }
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/nodemanagement/index.jsp?node=" + node);
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/nodemanagement/index.jsp?node="
+                                                                                             + node);
         dispatcher.forward(request, response);
     }
 

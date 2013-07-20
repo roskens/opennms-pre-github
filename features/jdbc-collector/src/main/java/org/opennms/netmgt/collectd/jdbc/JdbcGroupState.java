@@ -32,6 +32,7 @@ import java.util.Date;
 
 public class JdbcGroupState {
     private boolean available = false;
+
     private Date lastChecked;
 
     public JdbcGroupState(boolean isAvailable) {
@@ -58,6 +59,5 @@ public class JdbcGroupState {
     public void setAvailable(boolean available) {
         this.available = available;
     }
-
 
 }

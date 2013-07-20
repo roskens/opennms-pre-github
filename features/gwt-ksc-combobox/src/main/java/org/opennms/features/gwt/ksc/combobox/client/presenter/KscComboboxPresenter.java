@@ -42,8 +42,8 @@ import com.google.gwt.user.client.ui.HasWidgets;
 public class KscComboboxPresenter implements Presenter, KscComboboxView.Presenter<KscReportDetail> {
 
     private KscComboboxView<KscReportDetail> m_view;
-    private List<KscReportDetail> m_kscReportDetails;
 
+    private List<KscReportDetail> m_kscReportDetails;
 
     public KscComboboxPresenter(KscComboboxViewImpl view, JsArray<KscReportDetail> kscReportDetails) {
         m_view = view;
@@ -58,8 +58,8 @@ public class KscComboboxPresenter implements Presenter, KscComboboxView.Presente
 
     private List<KscReportDetail> filterResultsByName(String searchText) {
         List<KscReportDetail> list = new ArrayList<KscReportDetail>();
-        for(KscReportDetail detail : m_kscReportDetails) {
-            if(detail.getLabel().toLowerCase().contains(searchText.toLowerCase())) {
+        for (KscReportDetail detail : m_kscReportDetails) {
+            if (detail.getLabel().toLowerCase().contains(searchText.toLowerCase())) {
                 list.add(detail);
             }
         }
@@ -90,18 +90,18 @@ public class KscComboboxPresenter implements Presenter, KscComboboxView.Presente
     private List<KscReportDetail> convertJsArrayToList(JsArray<KscReportDetail> kscReportDetails) {
         List<KscReportDetail> m_list = new ArrayList<KscReportDetail>();
 
-        for(int i = 0; i < kscReportDetails.length(); i++) {
+        for (int i = 0; i < kscReportDetails.length(); i++) {
             m_list.add(kscReportDetails.get(i));
         }
         return m_list;
     }
 
     public native final String getBaseHref() /*-{
-        try{
-            return $wnd.getBaseHref();
-        }catch(err){
-            return "";
-        }
-    }-*/;
+                                             try{
+                                             return $wnd.getBaseHref();
+                                             }catch(err){
+                                             return "";
+                                             }
+                                             }-*/;
 
 }

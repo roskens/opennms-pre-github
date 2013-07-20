@@ -48,7 +48,9 @@ import org.opennms.netmgt.xml.event.Event;
 public class MockDatabaseTest extends TestCase {
 
     private MockNetwork m_network;
+
     private MockDatabase m_db;
+
     private MockDatabase m_secondDb;
 
     @Override
@@ -74,7 +76,6 @@ public class MockDatabaseTest extends TestCase {
         m_db = new MockDatabase();
         m_db.populate(m_network);
 
-
     }
 
     @Override
@@ -82,7 +83,8 @@ public class MockDatabaseTest extends TestCase {
         super.tearDown();
 
         m_db.drop();
-        if (m_secondDb != null) m_secondDb.drop();
+        if (m_secondDb != null)
+            m_secondDb.drop();
     }
 
     public void testNodeQuery() {
@@ -102,19 +104,19 @@ public class MockDatabaseTest extends TestCase {
     }
 
     public void testMultipleDatabases() throws Exception {
-    		m_secondDb = new MockDatabase(m_db.getTestDatabase() + "_test2");
+        m_secondDb = new MockDatabase(m_db.getTestDatabase() + "_test2");
 
-    		Querier secondQuerier = new Querier(m_secondDb, "select * from node");
-    		secondQuerier.execute();
-    		Querier querier = new Querier(m_db, "select * from node");
-    		querier.execute();
-    		assertFalse(secondQuerier.getCount() == querier.getCount());
+        Querier secondQuerier = new Querier(m_secondDb, "select * from node");
+        secondQuerier.execute();
+        Querier querier = new Querier(m_db, "select * from node");
+        querier.execute();
+        assertFalse(secondQuerier.getCount() == querier.getCount());
 
-    		MockNode node = m_network.getNode(1);
-    		m_secondDb.writeNode(node);
-    		secondQuerier = new Querier(m_secondDb, "select * from node");
-    		secondQuerier.execute();
-    		assertEquals(1, secondQuerier.getCount());
+        MockNode node = m_network.getNode(1);
+        m_secondDb.writeNode(node);
+        secondQuerier = new Querier(m_secondDb, "select * from node");
+        secondQuerier.execute();
+        assertEquals(1, secondQuerier.getCount());
 
     }
 
@@ -135,7 +137,9 @@ public class MockDatabaseTest extends TestCase {
     }
 
     public void testServiceQuery() {
-        Querier querier = new Querier(m_db, "select nodeId, ipAddr, ifServices.status as status, ifServices.serviceId as serviceId, service.serviceName as serviceName from ifServices, service where ifServices.serviceId = service.serviceId;") {
+        Querier querier = new Querier(
+                                      m_db,
+                                      "select nodeId, ipAddr, ifServices.status as status, ifServices.serviceId as serviceId, service.serviceName as serviceName from ifServices, service where ifServices.serviceId = service.serviceId;") {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
                 int nodeId = rs.getInt("nodeId");
@@ -200,7 +204,5 @@ public class MockDatabaseTest extends TestCase {
         m_db.setServiceStatus(svc, 'U');
         assertEquals('U', m_db.getServiceStatus(svc));
     }
-
-
 
 }

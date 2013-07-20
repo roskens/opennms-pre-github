@@ -113,7 +113,7 @@ public class SimpleGraphProviderTest {
 
     @Before
     public void setUp() {
-        if(m_topologyProvider == null) {
+        if (m_topologyProvider == null) {
             m_topologyProvider = new SimpleGraphProvider();
         }
 
@@ -124,14 +124,14 @@ public class SimpleGraphProviderTest {
 
     @After
     public void tearDown() {
-        if(m_topologyProvider != null) {
+        if (m_topologyProvider != null) {
             m_topologyProvider.resetContainer();
         }
     }
 
     /**
-     * This test makes sure that the afterUnmarshall() functions are working on the
-     * {@link WrappedVertex} class.
+     * This test makes sure that the afterUnmarshall() functions are working on
+     * the {@link WrappedVertex} class.
      */
     @Test
     public void testUnmarshallVertex() throws Exception {
@@ -150,11 +150,11 @@ public class SimpleGraphProviderTest {
 
         Vertex vertexA = m_topologyProvider.addVertex(50, 100);
         assertEquals(1, m_topologyProvider.getVertices().size());
-        //LoggerFactory.getLogger(this.getClass()).debug(m_topologyProvider.getVertices().get(0).toString());
+        // LoggerFactory.getLogger(this.getClass()).debug(m_topologyProvider.getVertices().get(0).toString());
         assertTrue(m_topologyProvider.containsVertexId(vertexA));
         assertTrue(m_topologyProvider.containsVertexId("v0"));
         assertFalse(m_topologyProvider.containsVertexId("v1"));
-        ((AbstractVertex)vertexA).setIpAddress("10.0.0.4");
+        ((AbstractVertex) vertexA).setIpAddress("10.0.0.4");
         final String namespace = m_topologyProvider.getVertexNamespace();
         VertexRef ref0 = new AbstractVertexRef(namespace, "v0", namespace + ":v0");
         VertexRef ref1 = new AbstractVertexRef(namespace, "v1", namespace + ":v0");
@@ -268,7 +268,8 @@ public class SimpleGraphProviderTest {
 
         for (Vertex vertex : topologyProvider.getVertices()) {
             assertEquals("vertex", vertex.getNamespace());
-            assertTrue(vertex.getIpAddress(), "127.0.0.1".equals(vertex.getIpAddress()) || "64.146.64.214".equals(vertex.getIpAddress()));
+            assertTrue(vertex.getIpAddress(),
+                       "127.0.0.1".equals(vertex.getIpAddress()) || "64.146.64.214".equals(vertex.getIpAddress()));
         }
         for (Edge edge : topologyProvider.getEdges()) {
             assertEquals("vertex", edge.getNamespace());
@@ -291,7 +292,7 @@ public class SimpleGraphProviderTest {
         AddVertexOperation addOperation = new AddVertexOperation(Constants.GROUP_ICON_KEY);
         addOperation.execute(targets, operationContext);
 
-        Collection<? extends Vertex> vertIds =  m_topologyProvider.getVertices();
+        Collection<? extends Vertex> vertIds = m_topologyProvider.getVertices();
         assertEquals(1, vertIds.size());
         assertTrue("v0".equals(vertIds.iterator().next().getId()));
     }
@@ -301,7 +302,7 @@ public class SimpleGraphProviderTest {
 
         m_topologyProvider.resetContainer();
 
-        //Add existing vertex
+        // Add existing vertex
         VertexRef vertexRef = addVertexToTopr();
 
         GraphContainer graphContainer = EasyMock.createMock(GraphContainer.class);
@@ -310,7 +311,6 @@ public class SimpleGraphProviderTest {
         graphContainer.redoLayout();
 
         EasyMock.replay(graphContainer);
-
 
         List<VertexRef> targets = new ArrayList<VertexRef>();
         targets.add(vertexRef);
@@ -387,10 +387,8 @@ public class SimpleGraphProviderTest {
         m_topologyProvider.addVertexListener(new VertexListener() {
 
             @Override
-            public void vertexSetChanged(VertexProvider provider,
-                    Collection<? extends Vertex> added,
-                    Collection<? extends Vertex> update,
-                    Collection<String> removedVertexIds) {
+            public void vertexSetChanged(VertexProvider provider, Collection<? extends Vertex> added,
+                    Collection<? extends Vertex> update, Collection<String> removedVertexIds) {
                 eventsReceived.incrementAndGet();
             }
 

@@ -10,8 +10,11 @@ import java.util.logging.Logger;
 
 public abstract class SearchStateManager {
     static Logger logger = Logger.getLogger(SearchStateManager.class.getName());
+
     private SearchState m_state;
+
     private ValueItem m_valueItem;
+
     private ValueItem m_history;
 
     public SearchStateManager(final ValueItem valueItem, final ValueItem history) {
@@ -46,7 +49,8 @@ public abstract class SearchStateManager {
     public boolean handleAutocompleteEvent(final NativeEvent event) {
         final String eventType = event.getType();
         final int eventKeyCode = event.getKeyCode();
-        logger.log(Level.INFO, "handleAutocompleteEvent(" + m_state + "): received " + eventType + " (keyCode = " + eventKeyCode + ")");
+        logger.log(Level.INFO, "handleAutocompleteEvent(" + m_state + "): received " + eventType + " (keyCode = "
+                + eventKeyCode + ")");
 
         if ("keydown".equals(eventType)) {
             switch (eventKeyCode) {
@@ -85,7 +89,9 @@ public abstract class SearchStateManager {
 
     public void handleSearchIconEvent(final NativeEvent event) {
         final String eventType = event.getType();
-        logger.log(Level.INFO, "handleSearchIconEvent(" + m_state + "): received " + eventType + " (keyCode = " + event.getKeyCode() + ")");
+        logger.log(Level.INFO,
+                   "handleSearchIconEvent(" + m_state + "): received " + eventType + " (keyCode = "
+                           + event.getKeyCode() + ")");
 
         if ("click".equals(eventType) || "touchstart".equals(eventType)) {
             Scheduler.get().scheduleDeferred(new ScheduledCommand() {
@@ -101,7 +107,9 @@ public abstract class SearchStateManager {
 
     public void handleInputEvent(final NativeEvent event) {
         final String eventType = event.getType();
-        logger.log(Level.INFO, "handleInputEvent(" + m_state + "): received " + eventType + " (keyCode = " + event.getKeyCode() + ")");
+        logger.log(Level.INFO,
+                   "handleInputEvent(" + m_state + "): received " + eventType + " (keyCode = " + event.getKeyCode()
+                           + ")");
 
         if ("keydown".equals(eventType)) {
             switch (event.getKeyCode()) {
@@ -164,16 +172,23 @@ public abstract class SearchStateManager {
 
     interface SearchState {
         public abstract SearchState initialize(SearchStateManager manager);
+
         public abstract SearchState cancelSearching(SearchStateManager manager);
+
         public abstract SearchState finishedSearching(SearchStateManager manager);
+
         public abstract SearchState currentEntrySelected(SearchStateManager manager);
+
         public abstract SearchState searchInputReceived(SearchStateManager manager);
+
         public abstract SearchState autocompleteStartNavigation(SearchStateManager manager);
+
         public abstract SearchState updateMatchCount(SearchStateManager manager, int matchCount);
     }
 
     enum State implements SearchState {
-        // Markers are not being filtered, input box is empty, autocomplete is hidden.
+        // Markers are not being filtered, input box is empty, autocomplete is
+        // hidden.
         NOT_SEARCHING {
             @Override
             public SearchState initialize(final SearchStateManager manager) {
@@ -225,7 +240,8 @@ public abstract class SearchStateManager {
                 return this;
             }
         },
-        // Markers are being filtered, input box has content, autocomplete is visible.
+        // Markers are being filtered, input box has content, autocomplete is
+        // visible.
         SEARCHING_AUTOCOMPLETE_VISIBLE {
             @Override
             public SearchState initialize(final SearchStateManager manager) {
@@ -291,7 +307,8 @@ public abstract class SearchStateManager {
                 }
             }
         },
-        // Markers are being filtered, input box has content, autocomplete is focused and navigable.
+        // Markers are being filtered, input box has content, autocomplete is
+        // focused and navigable.
         SEARCHING_AUTOCOMPLETE_ACTIVE {
             @Override
             public SearchState initialize(final SearchStateManager manager) {
@@ -321,7 +338,8 @@ public abstract class SearchStateManager {
 
             @Override
             public SearchState searchInputReceived(final SearchStateManager manager) {
-                // somehow we've got new search input, user has probably typed something in themselves,
+                // somehow we've got new search input, user has probably typed
+                // something in themselves,
                 // flip back to the input-box-has-focus state
                 manager.focusInput();
                 return SEARCHING_AUTOCOMPLETE_VISIBLE.searchInputReceived(manager);
@@ -356,7 +374,8 @@ public abstract class SearchStateManager {
                 }
             }
         },
-        // Markers are being filtered, input box has content, autocomplete is not visible.
+        // Markers are being filtered, input box has content, autocomplete is
+        // not visible.
         // (this happens when there are 0 matches to the current search)
         SEARCHING_AUTOCOMPLETE_HIDDEN {
             @Override
@@ -394,20 +413,23 @@ public abstract class SearchStateManager {
 
             @Override
             public SearchState searchInputReceived(final SearchStateManager manager) {
-                // refresh, and let the marker update trigger a match count update
+                // refresh, and let the marker update trigger a match count
+                // update
                 manager.refresh();
                 return this;
             }
 
             @Override
             public SearchState autocompleteStartNavigation(final SearchStateManager manager) {
-                logger.log(Level.INFO, "Autocomplete is already hidden because of a previous match count update, this doesn't make sense!");
+                logger.log(Level.INFO,
+                           "Autocomplete is already hidden because of a previous match count update, this doesn't make sense!");
                 return this;
             }
 
             @Override
             public SearchState updateMatchCount(final SearchStateManager manager, final int matchCount) {
-                // autocomplete is hidden, so if we have matches now, we should re-show it
+                // autocomplete is hidden, so if we have matches now, we should
+                // re-show it
                 if (matchCount > 0) {
                     manager.showAutocomplete();
                     return SEARCHING_AUTOCOMPLETE_VISIBLE;
@@ -415,7 +437,8 @@ public abstract class SearchStateManager {
                 return this;
             }
         },
-        // Markers are being filtered, input box has content, autocomplete is hidden.
+        // Markers are being filtered, input box has content, autocomplete is
+        // hidden.
         SEARCHING_FINISHED {
             @Override
             public SearchState initialize(final SearchStateManager manager) {
@@ -437,8 +460,10 @@ public abstract class SearchStateManager {
 
             @Override
             public SearchState autocompleteStartNavigation(final SearchStateManager manager) {
-                // we're "finished" searching, but if the user wishes to start navigation again,
-                // they can hit the down-arrow to re-open autocomplete and resume searching
+                // we're "finished" searching, but if the user wishes to start
+                // navigation again,
+                // they can hit the down-arrow to re-open autocomplete and
+                // resume searching
                 manager.showAutocomplete();
                 manager.focusAutocomplete();
                 manager.refresh();
@@ -469,7 +494,8 @@ public abstract class SearchStateManager {
 
             @Override
             public SearchState updateMatchCount(final SearchStateManager manager, final int matchCount) {
-                // map count is updated, but search is finished, so autocomplete should stay hidden
+                // map count is updated, but search is finished, so autocomplete
+                // should stay hidden
                 return this;
             }
         };
@@ -495,11 +521,17 @@ public abstract class SearchStateManager {
     }
 
     public abstract void refresh();
+
     public abstract void entrySelected();
+
     public abstract void clearSearchInput();
+
     public abstract void focusInput();
+
     public abstract void focusAutocomplete();
+
     public abstract void showAutocomplete();
+
     public abstract void hideAutocomplete();
 
 }

@@ -40,26 +40,27 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.springframework.core.io.Resource;
 
 /**
- *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class ConfigureSnmpTest extends TestCase {
     final private int m_startingDefCount = 5;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
     @Override
     protected void setUp() throws Exception {
-    	super.setUp();
+        super.setUp();
 
         Resource rsrc = ConfigurationTestUtils.getSpringResourceForResource(this, "snmp-config-configureSnmpTest.xml");
-    	SnmpPeerFactory.setInstance(new SnmpPeerFactory(rsrc));
+        SnmpPeerFactory.setInstance(new SnmpPeerFactory(rsrc));
     }
 
     /**
-     * Tests creating a string representation of an IP address that is converted to an InetAddress and then
+     * Tests creating a string representation of an IP address that is converted
+     * to an InetAddress and then
      * a long and back to an IP address.
      *
      * @throws UnknownHostException
@@ -70,7 +71,9 @@ public class ConfigureSnmpTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.config.SnmpPeerFactory#createSnmpEventInfo(org.opennms.netmgt.xml.event.Event)}.
+     * Test method for
+     * {@link org.opennms.netmgt.config.SnmpPeerFactory#createSnmpEventInfo(org.opennms.netmgt.xml.event.Event)}
+     * .
      * Tests creating an SNMP config definition from a configureSNMP event.
      *
      * @throws UnknownHostException
@@ -88,7 +91,9 @@ public class ConfigureSnmpTest extends TestCase {
     }
 
     /**
-     * Tests getting the correct SNMP Peer after a configureSNMP event and merge to the running config.
+     * Tests getting the correct SNMP Peer after a configureSNMP event and merge
+     * to the running config.
+     *
      * @throws UnknownHostException
      */
     public void testSnmpEventInfoClassWithSpecific() throws UnknownHostException {
@@ -105,7 +110,8 @@ public class ConfigureSnmpTest extends TestCase {
     }
 
     /**
-     * This test should remove the specific 192.168.0.5 from the first definition and
+     * This test should remove the specific 192.168.0.5 from the first
+     * definition and
      * replace it with a range 192.168.0.5 - 192.168.0.7.
      *
      * @throws UnknownHostException
@@ -130,7 +136,8 @@ public class ConfigureSnmpTest extends TestCase {
     }
 
     /**
-     * Tests getting the correct SNMP Peer after merging a new range that super sets a current range.
+     * Tests getting the correct SNMP Peer after merging a new range that super
+     * sets a current range.
      *
      * @throws UnknownHostException
      */
@@ -154,7 +161,8 @@ public class ConfigureSnmpTest extends TestCase {
     }
 
     /**
-     * Tests getting the correct SNMP Peer after receiving a configureSNMP event that moves a
+     * Tests getting the correct SNMP Peer after receiving a configureSNMP event
+     * that moves a
      * specific from one definition into another.
      *
      * @throws UnknownHostException
@@ -179,8 +187,10 @@ public class ConfigureSnmpTest extends TestCase {
     }
 
     /**
-     * This test should show that a specific is added to the definition and the current
-     * single definition should become the beginning address in the adjacent range.
+     * This test should show that a specific is added to the definition and the
+     * current
+     * single definition should become the beginning address in the adjacent
+     * range.
      *
      * @throws UnknownHostException
      */

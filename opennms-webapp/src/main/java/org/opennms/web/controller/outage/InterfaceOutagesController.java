@@ -49,7 +49,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>InterfaceOutagesController class.</p>
+ * <p>
+ * InterfaceOutagesController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -58,19 +60,21 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class InterfaceOutagesController extends AbstractController implements InitializingBean {
 
     private String m_successView;
+
     private WebOutageRepository m_webOutageRepository;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	String nodeIdString = request.getParameter("node");
-    	String ipAddr = request.getParameter("ipAddr");
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        String nodeIdString = request.getParameter("node");
+        String ipAddr = request.getParameter("ipAddr");
 
-    	int nodeId = -1;
+        int nodeId = -1;
         Outage[] outages = new Outage[0];
 
         if (nodeIdString != null && ipAddr != null) {
-        	nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
+            nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
             List<Filter> filters = new ArrayList<Filter>();
 
             filters.add(new InterfaceFilter(ipAddr));
@@ -89,9 +93,12 @@ public class InterfaceOutagesController extends AbstractController implements In
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -104,18 +111,24 @@ public class InterfaceOutagesController extends AbstractController implements In
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>setWebOutageRepository</p>
+     * <p>
+     * setWebOutageRepository
+     * </p>
      *
-     * @param webOutageRepository a {@link org.opennms.web.outage.WebOutageRepository} object.
+     * @param webOutageRepository
+     *            a {@link org.opennms.web.outage.WebOutageRepository} object.
      */
     public void setWebOutageRepository(WebOutageRepository webOutageRepository) {
         m_webOutageRepository = webOutageRepository;

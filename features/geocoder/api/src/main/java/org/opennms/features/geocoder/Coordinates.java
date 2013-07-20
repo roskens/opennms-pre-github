@@ -4,15 +4,20 @@ import java.io.Serializable;
 
 public class Coordinates implements Serializable {
     private static final long serialVersionUID = 2079876989978267336L;
+
     public static final String BAD_COORDINATES = Integer.MIN_VALUE + "," + Integer.MIN_VALUE;
 
     private float m_longitude;
+
     private float m_latitude;
 
-    public Coordinates() {}
+    public Coordinates() {
+    }
+
     public Coordinates(final String lonLat) throws GeocoderException {
         setCoordinates(lonLat);
     }
+
     public Coordinates(final float longitude, final float latitude) {
         setCoordinates(longitude, latitude);
     }
@@ -35,7 +40,7 @@ public class Coordinates implements Serializable {
 
         final Float[] coordinates = splitCommaSeparatedFloats(lonLat);
         m_longitude = coordinates[0].floatValue();
-        m_latitude  = coordinates[1].floatValue();
+        m_latitude = coordinates[1].floatValue();
     }
 
     protected void setCoordinates(final float longitude, final float latitude) {
@@ -64,16 +69,21 @@ public class Coordinates implements Serializable {
         result = prime * result + Float.floatToIntBits(m_latitude);
         return result;
     }
+
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
         if (!(obj instanceof Coordinates)) {
             return false;
         }
         final Coordinates other = (Coordinates) obj;
-        if (Float.floatToIntBits(m_longitude) != Float.floatToIntBits(other.m_longitude)) return false;
-        if (Float.floatToIntBits(m_latitude)  != Float.floatToIntBits(other.m_latitude))  return false;
+        if (Float.floatToIntBits(m_longitude) != Float.floatToIntBits(other.m_longitude))
+            return false;
+        if (Float.floatToIntBits(m_latitude) != Float.floatToIntBits(other.m_latitude))
+            return false;
         return true;
     }
 

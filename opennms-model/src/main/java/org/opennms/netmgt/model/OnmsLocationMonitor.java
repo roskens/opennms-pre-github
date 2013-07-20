@@ -52,7 +52,6 @@ import org.springframework.core.style.ToStringCreator;
 /**
  * Represents the current status of a location monitor from the
  * view of the controlling OpenNMS daemon.
- *
  * Note: this class has a natural ordering that is inconsistent
  * with equals.
  *
@@ -64,22 +63,15 @@ import org.springframework.core.style.ToStringCreator;
 public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
 
     public static enum MonitorStatus {
-    	/** @deprecated */
-        NEW,
-        REGISTERED,
-        STARTED,
-        STOPPED,
         /** @deprecated */
-        UNRESPONSIVE,
-        DISCONNECTED,
-        PAUSED,
-        CONFIG_CHANGED,
-        DELETED
+        NEW, REGISTERED, STARTED, STOPPED,
+        /** @deprecated */
+        UNRESPONSIVE, DISCONNECTED, PAUSED, CONFIG_CHANGED, DELETED
     }
 
     private Integer m_id;
 
-    //private String m_name;
+    // private String m_name;
 
     private MonitorStatus m_status = MonitorStatus.REGISTERED;
 
@@ -91,17 +83,19 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      */
     private String m_definitionName;
 
-    //private OnmsMonitoringLocationDefinition m_locationDefinition;
+    // private OnmsMonitoringLocationDefinition m_locationDefinition;
 
     private Map<String, String> m_details;
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(nullable=false)
+    @Column(nullable = false)
     @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
     @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
@@ -109,16 +103,21 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getDefinitionName</p>
+     * <p>
+     * getDefinitionName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,47 +127,61 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
     }
 
     /**
-     * <p>setDefinitionName</p>
+     * <p>
+     * setDefinitionName
+     * </p>
      *
-     * @param definitionName a {@link java.lang.String} object.
+     * @param definitionName
+     *            a {@link java.lang.String} object.
      */
     public void setDefinitionName(String definitionName) {
         m_definitionName = definitionName;
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus} object.
+     * @return a
+     *         {@link org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus}
+     *         object.
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", length=31, nullable=false)
+    @Column(name = "status", length = 31, nullable = false)
     public MonitorStatus getStatus() {
         return normalize(m_status);
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param status a {@link org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus} object.
+     * @param status
+     *            a
+     *            {@link org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus}
+     *            object.
      */
     public void setStatus(MonitorStatus status) {
-    	m_status = normalize(status);
+        m_status = normalize(status);
     }
 
     private MonitorStatus normalize(MonitorStatus status) {
-    	switch(status) {
-    	case UNRESPONSIVE:
-    		return MonitorStatus.DISCONNECTED;
-    	case NEW:
-    		return MonitorStatus.REGISTERED;
-    	default:
-    		return status;
-    	}
+        switch (status) {
+        case UNRESPONSIVE:
+            return MonitorStatus.DISCONNECTED;
+        case NEW:
+            return MonitorStatus.REGISTERED;
+        default:
+            return status;
+        }
     }
 
     /**
-     * <p>getLastCheckInTime</p>
+     * <p>
+     * getLastCheckInTime
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -179,41 +192,51 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
     }
 
     /**
-     * <p>setLastCheckInTime</p>
+     * <p>
+     * setLastCheckInTime
+     * </p>
      *
-     * @param lastCheckInTime a {@link java.util.Date} object.
+     * @param lastCheckInTime
+     *            a {@link java.util.Date} object.
      */
     public void setLastCheckInTime(Date lastCheckInTime) {
         m_lastCheckInTime = lastCheckInTime;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Transient
     public String getName() {
-        return m_definitionName+'-'+getId();
+        return m_definitionName + '-' + getId();
     }
 
     /**
-     * <p>getDetails</p>
+     * <p>
+     * getDetails
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     @CollectionOfElements
-    @JoinTable(name="location_monitor_details", joinColumns = @JoinColumn(name="locationMonitorId"))
-    @MapKey(columns=@Column(name="property"))
-    @Column(name="propertyValue", nullable=false)
+    @JoinTable(name = "location_monitor_details", joinColumns = @JoinColumn(name = "locationMonitorId"))
+    @MapKey(columns = @Column(name = "property"))
+    @Column(name = "propertyValue", nullable = false)
     public Map<String, String> getDetails() {
         return m_details;
     }
 
     /**
-     * <p>setDetails</p>
+     * <p>
+     * setDetails
+     * </p>
      *
-     * @param pollerDetails a {@link java.util.Map} object.
+     * @param pollerDetails
+     *            a {@link java.util.Map} object.
      */
     public void setDetails(Map<String, String> pollerDetails) {
         m_details = pollerDetails;
@@ -222,16 +245,16 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-        .append("id", m_id)
-        .append("status", m_status)
-        .toString();
+        return new ToStringCreator(this).append("id", m_id).append("status", m_status).toString();
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param o a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
+     * @param o
+     *            a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
      * @return a int.
      */
     @Override

@@ -43,24 +43,39 @@ import org.opennms.protocols.rt.Request;
 public abstract class MobileMsgRequest implements Request<String, MobileMsgRequest, MobileMsgResponse> {
 
     private long m_timeout;
+
     private int m_retries;
+
     private MobileMsgResponseCallback m_cb;
+
     private MobileMsgResponseMatcher m_responseMatcher;
 
     private long m_expiration;
-	private long m_sentTime;
 
-	private volatile boolean m_processed = false;
+    private long m_sentTime;
+
+    private volatile boolean m_processed = false;
 
     /**
-     * <p>Constructor for MobileMsgRequest.</p>
+     * <p>
+     * Constructor for MobileMsgRequest.
+     * </p>
      *
-     * @param timeout a long.
-     * @param retries a int.
-     * @param cb a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback} object.
-     * @param responseMatcher a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher} object.
+     * @param timeout
+     *            a long.
+     * @param retries
+     *            a int.
+     * @param cb
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
+     *            object.
+     * @param responseMatcher
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
+     *            object.
      */
-    public MobileMsgRequest(long timeout, int retries, MobileMsgResponseCallback cb, MobileMsgResponseMatcher responseMatcher) {
+    public MobileMsgRequest(long timeout, int retries, MobileMsgResponseCallback cb,
+            MobileMsgResponseMatcher responseMatcher) {
         m_timeout = timeout;
         m_retries = retries;
         m_cb = cb;
@@ -68,16 +83,20 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>getSentTime</p>
+     * <p>
+     * getSentTime
+     * </p>
      *
      * @return a long.
      */
     public long getSentTime() {
-    	return m_sentTime;
+        return m_sentTime;
     }
 
     /**
-     * <p>getTimeout</p>
+     * <p>
+     * getTimeout
+     * </p>
      *
      * @return the timeout
      */
@@ -86,16 +105,21 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>setTimeout</p>
+     * <p>
+     * setTimeout
+     * </p>
      *
-     * @param timeout the timeout to set
+     * @param timeout
+     *            the timeout to set
      */
     public void setTimeout(long timeout) {
         m_timeout = timeout;
     }
 
     /**
-     * <p>getRetries</p>
+     * <p>
+     * getRetries
+     * </p>
      *
      * @return the retries
      */
@@ -104,16 +128,21 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>setRetries</p>
+     * <p>
+     * setRetries
+     * </p>
      *
-     * @param retries the retries to set
+     * @param retries
+     *            the retries to set
      */
     public void setRetries(int retries) {
         m_retries = retries;
     }
 
     /**
-     * <p>getCb</p>
+     * <p>
+     * getCb
+     * </p>
      *
      * @return the cb
      */
@@ -122,16 +151,21 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>setCb</p>
+     * <p>
+     * setCb
+     * </p>
      *
-     * @param cb the cb to set
+     * @param cb
+     *            the cb to set
      */
     public void setCb(MobileMsgResponseCallback cb) {
         m_cb = cb;
     }
 
     /**
-     * <p>getResponseMatcher</p>
+     * <p>
+     * getResponseMatcher
+     * </p>
      *
      * @return the responseMatcher
      */
@@ -140,21 +174,27 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>setResponseMatcher</p>
+     * <p>
+     * setResponseMatcher
+     * </p>
      *
-     * @param responseMatcher the responseMatcher to set
+     * @param responseMatcher
+     *            the responseMatcher to set
      */
     public void setResponseMatcher(MobileMsgResponseMatcher responseMatcher) {
         m_responseMatcher = responseMatcher;
     }
 
     /**
-     * <p>setSendTimestamp</p>
+     * <p>
+     * setSendTimestamp
+     * </p>
      *
-     * @param timeInMillis a long.
+     * @param timeInMillis
+     *            a long.
      */
     public void setSendTimestamp(long timeInMillis) {
-    	m_sentTime = timeInMillis;
+        m_sentTime = timeInMillis;
         m_expiration = timeInMillis + m_timeout;
     }
 
@@ -165,7 +205,9 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -183,9 +225,14 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>processResponse</p>
+     * <p>
+     * processResponse
+     * </p>
      *
-     * @param response a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse} object.
+     * @param response
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *            object.
      * @return a boolean.
      */
     @Override
@@ -199,9 +246,12 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>processTimeout</p>
+     * <p>
+     * processTimeout
+     * </p>
      *
-     * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
+     * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
      */
     @Override
     public MobileMsgRequest processTimeout() {
@@ -217,29 +267,40 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>createNextRetry</p>
+     * <p>
+     * createNextRetry
+     * </p>
      *
-     * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
+     * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
      */
     public abstract MobileMsgRequest createNextRetry();
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param o a {@link java.util.concurrent.Delayed} object.
+     * @param o
+     *            a {@link java.util.concurrent.Delayed} object.
      * @return a int.
      */
     @Override
     public int compareTo(Delayed o) {
         long thisVal = this.getDelay(TimeUnit.NANOSECONDS);
         long anotherVal = o.getDelay(TimeUnit.NANOSECONDS);
-        return (thisVal<anotherVal ? -1 : (thisVal==anotherVal ? 0 : 1));
+        return (thisVal < anotherVal ? -1 : (thisVal == anotherVal ? 0 : 1));
     }
 
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param response a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse} object.
+     * @param response
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *            object.
      * @return a boolean.
      */
     public boolean matches(MobileMsgResponse response) {
@@ -247,7 +308,9 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     }
 
     /**
-     * <p>isProcessed</p>
+     * <p>
+     * isProcessed
+     * </p>
      *
      * @return a boolean.
      */
@@ -258,15 +321,12 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("matcher", m_responseMatcher)
-            .append("callback", m_cb)
-            .append("timeout", m_timeout)
-            .append("retries", m_retries)
-            .append("expiration", m_expiration)
-            .append("sent", m_sentTime)
-            .append("processed", m_processed)
-            .toString();
+        return new ToStringBuilder(this).append("matcher", m_responseMatcher).append("callback", m_cb).append("timeout",
+                                                                                                              m_timeout).append("retries",
+                                                                                                                                m_retries).append("expiration",
+                                                                                                                                                  m_expiration).append("sent",
+                                                                                                                                                                       m_sentTime).append("processed",
+                                                                                                                                                                                          m_processed).toString();
     }
 
 }

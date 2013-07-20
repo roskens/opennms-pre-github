@@ -31,40 +31,32 @@ import org.osgi.framework.BundleContext;
  * implementing the respective Servlet API 2.4 listener interface.
  */
 public class HttpSessionAttributeListenerManager extends AbstractListenerManager<HttpSessionAttributeListener>
-    implements HttpSessionAttributeListener
-{
+        implements HttpSessionAttributeListener {
 
-    public HttpSessionAttributeListenerManager(BundleContext context)
-    {
+    public HttpSessionAttributeListenerManager(BundleContext context) {
         super(context, HttpSessionAttributeListener.class);
     }
 
     @Override
-    public void attributeAdded(final HttpSessionBindingEvent se)
-    {
+    public void attributeAdded(final HttpSessionBindingEvent se) {
         final Iterator<HttpSessionAttributeListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().attributeAdded(se);
         }
     }
 
     @Override
-    public void attributeRemoved(final HttpSessionBindingEvent se)
-    {
+    public void attributeRemoved(final HttpSessionBindingEvent se) {
         final Iterator<HttpSessionAttributeListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().attributeRemoved(se);
         }
     }
 
     @Override
-    public void attributeReplaced(final HttpSessionBindingEvent se)
-    {
+    public void attributeReplaced(final HttpSessionBindingEvent se) {
         final Iterator<HttpSessionAttributeListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().attributeReplaced(se);
         }
     }

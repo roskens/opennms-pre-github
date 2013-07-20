@@ -53,8 +53,11 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
+
 /**
- * <p>CategoryNodeAclRepositoryIbatis class.</p>
+ * <p>
+ * CategoryNodeAclRepositoryIbatis class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -66,12 +69,15 @@ public class CategoryNodeAclRepositoryIbatis extends SqlMapClientTemplate implem
     /** {@inheritDoc} */
     @Autowired
     @Override
-    public void setSqlMapClient(@Qualifier("onmsSqlMapClient") SqlMapClient sqlMapClient) {
+    public void setSqlMapClient(@Qualifier("onmsSqlMapClient")
+    SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);
     }
 
     /**
-     * <p>getItems</p>
+     * <p>
+     * getItems
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */

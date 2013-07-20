@@ -52,7 +52,9 @@ public class IrcCatNotificationStrategy implements NotificationStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(IrcCatNotificationStrategy.class);
 
     /**
-     * <p>Constructor for IrcCatNotificationStrategy.</p>
+     * <p>
+     * Constructor for IrcCatNotificationStrategy.
+     * </p>
      */
     public IrcCatNotificationStrategy() {
     }
@@ -98,11 +100,13 @@ public class IrcCatNotificationStrategy implements NotificationStrategy {
         }
 
         if (recipient == null) {
-            // FIXME We should have a better Exception to use here for configuration problems
+            // FIXME We should have a better Exception to use here for
+            // configuration problems
             throw new IllegalArgumentException("no recipient specified, but is required");
         }
         if (message == null) {
-            // FIXME We should have a better Exception to use here for configuration problems
+            // FIXME We should have a better Exception to use here for
+            // configuration problems
             throw new IllegalArgumentException("no message specified, but is required");
         }
 

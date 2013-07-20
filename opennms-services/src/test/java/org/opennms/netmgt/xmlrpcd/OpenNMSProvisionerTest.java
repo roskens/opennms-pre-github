@@ -73,64 +73,49 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class OpenNMSProvisionerTest {
 
-
     private OpenNMSProvisioner m_provisioner;
 
     private TestCapsdConfigManager m_capsdConfig;
 
     private TestPollerConfigManager m_pollerConfig;
 
-    public static final String POLLER_CONFIG = "\n" +
-        "<poller-configuration\n" +
-        "   threads=\"10\"\n" +
-        "   nextOutageId=\"SELECT nextval(\'outageNxtId\')\"\n" +
-        "   serviceUnresponsiveEnabled=\"false\">\n" +
-        "   <node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>\n" +
-        "   <package name=\"default\">\n" +
-        "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n" +
-        "       <rrd step = \"300\">\n" +
-        "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
-        "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" +
-        "           <rra>RRA:MIN:0.5:12:4464</rra>\n" +
-        "           <rra>RRA:MAX:0.5:12:4464</rra>\n" +
-        "       </rrd>\n" +
-        "       <service name=\"ICMP\" interval=\"300000\">\n" +
-        "           <parameter key=\"retry\" value=\"2\" />\n" +
-        "           <parameter key=\"timeout\" value=\"3000\"/>\n" +
-        "       </service>\n" +
-        "       <downtime begin=\"10000\" end=\"40000\" interval=\"300000\"/>\n" +
-        "       <downtime begin=\"40000\" interval=\"300000\"/>\n" +
-        "   </package>\n" +
-        "   <package name=\"MyTcp\">\n" +
-        "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n" +
-        "       <rrd step = \"300\">\n" +
-        "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
-        "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" +
-        "           <rra>RRA:MIN:0.5:12:4464</rra>\n" +
-        "           <rra>RRA:MAX:0.5:12:4464</rra>\n" +
-        "       </rrd>\n" +
-        "       <service name=\"MyTcp\" interval=\"1234\">\n" +
-        "           <parameter key=\"retry\" value=\"3\" />\n" +
-        "           <parameter key=\"timeout\" value=\"314159\"/>\n" +
-        "           <parameter key=\"port\" value=\"1776\"/>\n" +
-        "           <parameter key=\"banner\" value=\"Right back at ya!\"/>\n" +
-        "       </service>\n" +
-        "       <downtime begin=\"0\" end=\"1492\" interval=\"17\"/>\n" +
-        "       <downtime begin=\"1492\" interval=\"1234\"/>\n" +
-        "   </package>\n" +
-        "   <monitor service=\"ICMP\" class-name=\"org.opennms.netmgt.poller.monitors.LdapMonitor\"/>\n" +
-        "   <monitor service=\"MyTcp\" class-name=\"org.opennms.netmgt.poller.monitors.LdapMonitor\"/>\n" +
-        "</poller-configuration>\n";
+    public static final String POLLER_CONFIG = "\n" + "<poller-configuration\n" + "   threads=\"10\"\n"
+            + "   nextOutageId=\"SELECT nextval(\'outageNxtId\')\"\n" + "   serviceUnresponsiveEnabled=\"false\">\n"
+            + "   <node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>\n"
+            + "   <package name=\"default\">\n" + "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n"
+            + "       <rrd step = \"300\">\n" + "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n"
+            + "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" + "           <rra>RRA:MIN:0.5:12:4464</rra>\n"
+            + "           <rra>RRA:MAX:0.5:12:4464</rra>\n" + "       </rrd>\n"
+            + "       <service name=\"ICMP\" interval=\"300000\">\n"
+            + "           <parameter key=\"retry\" value=\"2\" />\n"
+            + "           <parameter key=\"timeout\" value=\"3000\"/>\n" + "       </service>\n"
+            + "       <downtime begin=\"10000\" end=\"40000\" interval=\"300000\"/>\n"
+            + "       <downtime begin=\"40000\" interval=\"300000\"/>\n" + "   </package>\n"
+            + "   <package name=\"MyTcp\">\n" + "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n"
+            + "       <rrd step = \"300\">\n" + "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n"
+            + "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" + "           <rra>RRA:MIN:0.5:12:4464</rra>\n"
+            + "           <rra>RRA:MAX:0.5:12:4464</rra>\n" + "       </rrd>\n"
+            + "       <service name=\"MyTcp\" interval=\"1234\">\n"
+            + "           <parameter key=\"retry\" value=\"3\" />\n"
+            + "           <parameter key=\"timeout\" value=\"314159\"/>\n"
+            + "           <parameter key=\"port\" value=\"1776\"/>\n"
+            + "           <parameter key=\"banner\" value=\"Right back at ya!\"/>\n" + "       </service>\n"
+            + "       <downtime begin=\"0\" end=\"1492\" interval=\"17\"/>\n"
+            + "       <downtime begin=\"1492\" interval=\"1234\"/>\n" + "   </package>\n"
+            + "   <monitor service=\"ICMP\" class-name=\"org.opennms.netmgt.poller.monitors.LdapMonitor\"/>\n"
+            + "   <monitor service=\"MyTcp\" class-name=\"org.opennms.netmgt.poller.monitors.LdapMonitor\"/>\n"
+            + "</poller-configuration>\n";
 
-    private static final String CAPSD_CONFIG = "\n" +
-            "<capsd-configuration max-suspect-thread-pool-size=\"2\" max-rescan-thread-pool-size=\"3\"\n" +
-            "   delete-propagation-enabled=\"true\">\n" +
-            "   <protocol-plugin protocol=\"ICMP\" class-name=\"org.opennms.netmgt.capsd.plugins.LdapPlugin\"/>\n" +
-            "   <protocol-plugin protocol=\"MyTcp\" class-name=\"org.opennms.netmgt.capsd.plugins.LdapPlugin\"/>\n" +
-            "</capsd-configuration>\n";
+    private static final String CAPSD_CONFIG = "\n"
+            + "<capsd-configuration max-suspect-thread-pool-size=\"2\" max-rescan-thread-pool-size=\"3\"\n"
+            + "   delete-propagation-enabled=\"true\">\n"
+            + "   <protocol-plugin protocol=\"ICMP\" class-name=\"org.opennms.netmgt.capsd.plugins.LdapPlugin\"/>\n"
+            + "   <protocol-plugin protocol=\"MyTcp\" class-name=\"org.opennms.netmgt.capsd.plugins.LdapPlugin\"/>\n"
+            + "</capsd-configuration>\n";
 
     private EasyMockUtils m_mocks = new EasyMockUtils();
-    private RrdStrategy<?,?> m_strategy = m_mocks.createMock(RrdStrategy.class);
+
+    private RrdStrategy<?, ?> m_strategy = m_mocks.createMock(RrdStrategy.class);
 
     private MockEventIpcManager m_eventManager;
 
@@ -167,8 +152,10 @@ public class OpenNMSProvisionerTest {
         DatabaseSchemaConfigFactory.setInstance(new DatabaseSchemaConfigFactory(configStream));
         configStream.close();
 
-        configStream = ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/capsd/collectd-configuration.xml");
-        CollectdConfigFactory.setInstance(new CollectdConfigFactory(configStream, onmsSvrConfig.getServerName(), onmsSvrConfig.verifyServer()));
+        configStream = ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                        "/org/opennms/netmgt/capsd/collectd-configuration.xml");
+        CollectdConfigFactory.setInstance(new CollectdConfigFactory(configStream, onmsSvrConfig.getServerName(),
+                                                                    onmsSvrConfig.verifyServer()));
         configStream.close();
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(db);
@@ -195,7 +182,8 @@ public class OpenNMSProvisionerTest {
     static class TestPollerConfigManager extends PollerConfigManager {
         String m_xml;
 
-        public TestPollerConfigManager(String xml, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
+        public TestPollerConfigManager(String xml, String localServer, boolean verifyServer) throws MarshalException,
+                ValidationException, IOException {
             super(new ByteArrayInputStream(xml.getBytes("UTF-8")), localServer, verifyServer);
             save();
         }
@@ -221,7 +209,6 @@ public class OpenNMSProvisionerTest {
             return m_xml;
         }
 
-
     }
 
     @Test
@@ -230,14 +217,17 @@ public class OpenNMSProvisionerTest {
         checkTcpConfiguration("MyTcp", "MyTcp", 3, 314159, 1234, 17, 1492, 1776, "Right back at ya!");
     }
 
-    private Map<String, Object> checkTcpConfiguration(String pkgName, String svcName, int retries, int timeout, int interval, int downtimeInterval, int downtimeDuration, int port, String banner) throws Exception {
-        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval, downtimeInterval, downtimeDuration);
+    private Map<String, Object> checkTcpConfiguration(String pkgName, String svcName, int retries, int timeout,
+            int interval, int downtimeInterval, int downtimeDuration, int port, String banner) throws Exception {
+        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval,
+                                                                     downtimeInterval, downtimeDuration);
         assertEquals(Integer.valueOf(port), configParams.get("port"));
         assertEquals(banner, configParams.get("banner"));
         return configParams;
     }
 
-    private Map<String, Object> checkServiceConfiguration(String pkgName, String svcName, int retries, int timeout, int interval, int downtimeInterval, int downtimeDuration) throws Exception {
+    private Map<String, Object> checkServiceConfiguration(String pkgName, String svcName, int retries, int timeout,
+            int interval, int downtimeInterval, int downtimeDuration) throws Exception {
         Map<String, Object> configParams = m_provisioner.getServiceConfiguration(pkgName, svcName);
         assertEquals(svcName, configParams.get("serviceid"));
         assertEquals(Integer.valueOf(interval), configParams.get("interval"));
@@ -255,11 +245,14 @@ public class OpenNMSProvisionerTest {
         Service svc = mgr.getServiceInPackage(svcName, pkg);
         assertNotNull(svc);
         assertEquals(interval, svc.getInterval());
-        assertNotNull("Unables to find monitor for svc "+svcName+" in origonal config", m_pollerConfig.getServiceMonitor(svcName));
-        assertNotNull("Unable to find monitor for svc "+svcName, mgr.getServiceMonitor(svcName));
+        assertNotNull("Unables to find monitor for svc " + svcName + " in origonal config",
+                      m_pollerConfig.getServiceMonitor(svcName));
+        assertNotNull("Unable to find monitor for svc " + svcName, mgr.getServiceMonitor(svcName));
 
-        assertNotNull("Unable to find protocol plugin in capsdConfig for svc "+svcName, m_capsdConfig.getProtocolPlugin(svcName));
-        assertNotNull("Unable to find service table entry in capsdConfig for svc "+svcName, m_syncer.getServiceId(svcName));
+        assertNotNull("Unable to find protocol plugin in capsdConfig for svc " + svcName,
+                      m_capsdConfig.getProtocolPlugin(svcName));
+        assertNotNull("Unable to find service table entry in capsdConfig for svc " + svcName,
+                      m_syncer.getServiceId(svcName));
 
         return configParams;
     }
@@ -316,8 +309,6 @@ public class OpenNMSProvisionerTest {
         assertNotNull(pkg);
         assertNotNull(mgr.getServiceInPackage("MyIcmp", pkg));
 
-
-
     }
 
     // TODO: Add test for exception on save of XML file
@@ -326,8 +317,10 @@ public class OpenNMSProvisionerTest {
         expectUpdateEvent();
         m_mocks.replayAll();
 
-        m_provisioner.addServiceDatabase("MyDB", 13, 2001, 54321, 71, 23456, "dbuser", "dbPasswd", "org.mydb.MyDriver", "jdbc://mydbhost:2");
-        checkDatabaseConfiguration("MyDB", "MyDB", 13, 2001, 54321, 71, 23456, "dbuser", "dbPasswd", "org.mydb.MyDriver", "jdbc://mydbhost:2");
+        m_provisioner.addServiceDatabase("MyDB", 13, 2001, 54321, 71, 23456, "dbuser", "dbPasswd", "org.mydb.MyDriver",
+                                         "jdbc://mydbhost:2");
+        checkDatabaseConfiguration("MyDB", "MyDB", 13, 2001, 54321, 71, 23456, "dbuser", "dbPasswd",
+                                   "org.mydb.MyDriver", "jdbc://mydbhost:2");
 
         m_mocks.verifyAll();
         verifyEvents();
@@ -350,8 +343,10 @@ public class OpenNMSProvisionerTest {
         expectUpdateEvent();
         m_mocks.replayAll();
 
-        m_provisioner.addServiceHTTP("MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, "200-203", "Home", "/index.html", "user", "passwd", null);
-        checkHTTPConfiguration("MyHTTP", "MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, "200-203", "Home", "/index.html", "user", "passwd", null);
+        m_provisioner.addServiceHTTP("MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, "200-203", "Home",
+                                     "/index.html", "user", "passwd", null);
+        checkHTTPConfiguration("MyHTTP", "MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, "200-203", "Home",
+                               "/index.html", "user", "passwd", null);
 
         m_mocks.verifyAll();
         verifyEvents();
@@ -362,15 +357,20 @@ public class OpenNMSProvisionerTest {
         expectUpdateEvent();
         m_mocks.replayAll();
 
-        m_provisioner.addServiceHTTP("MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, "", "Home", "/index.html", "user", "pw", "");
-        checkHTTPConfiguration("MyHTTP", "MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, null, "Home", "/index.html", "user", "pw", "");
+        m_provisioner.addServiceHTTP("MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, "", "Home",
+                                     "/index.html", "user", "pw", "");
+        checkHTTPConfiguration("MyHTTP", "MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, null, "Home",
+                               "/index.html", "user", "pw", "");
 
         m_mocks.verifyAll();
         verifyEvents();
     }
 
-    private Map<String, Object> checkHTTPConfiguration(String pkgName, String svcName, int retries, int timeout, int interval, int downtimeInterval, int downtimeDuration, String hostName, int port, String responseCode, String contentCheck, String url, String user, String passwd, String agent) throws Exception {
-        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval, downtimeInterval, downtimeDuration);
+    private Map<String, Object> checkHTTPConfiguration(String pkgName, String svcName, int retries, int timeout,
+            int interval, int downtimeInterval, int downtimeDuration, String hostName, int port, String responseCode,
+            String contentCheck, String url, String user, String passwd, String agent) throws Exception {
+        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval,
+                                                                     downtimeInterval, downtimeDuration);
         assertEquals(hostName, configParams.get("hostname"));
         assertEquals(Integer.valueOf(port), configParams.get("port"));
         assertEquals(responseCode, configParams.get("response"));
@@ -387,15 +387,20 @@ public class OpenNMSProvisionerTest {
         expectUpdateEvent();
         m_mocks.replayAll();
 
-        m_provisioner.addServiceHTTPS("MyHTTPS", 33, 3333, 33333, 333, 333333, "opennms.com", 313, "303", "Secure", "/secure.html", "user", "pw", "");
-        checkHTTPSConfiguration("MyHTTPS", "MyHTTPS", 33, 3333, 33333, 333, 333333, "opennms.com", 313, "303", "Secure", "/secure.html", "user", "pw", "");
+        m_provisioner.addServiceHTTPS("MyHTTPS", 33, 3333, 33333, 333, 333333, "opennms.com", 313, "303", "Secure",
+                                      "/secure.html", "user", "pw", "");
+        checkHTTPSConfiguration("MyHTTPS", "MyHTTPS", 33, 3333, 33333, 333, 333333, "opennms.com", 313, "303",
+                                "Secure", "/secure.html", "user", "pw", "");
 
         m_mocks.verifyAll();
         verifyEvents();
     }
 
-    private Map<String, Object> checkHTTPSConfiguration(String pkgName, String svcName, int retries, int timeout, int interval, int downtimeInterval, int downtimeDuration, String hostName, int port, String responseCode, String contentCheck, String url, String user, String passwd, String agent) throws Exception {
-        return checkHTTPConfiguration(pkgName, svcName, retries, timeout, interval, downtimeInterval, downtimeDuration, hostName, port, responseCode, contentCheck, url, user, passwd, agent);
+    private Map<String, Object> checkHTTPSConfiguration(String pkgName, String svcName, int retries, int timeout,
+            int interval, int downtimeInterval, int downtimeDuration, String hostName, int port, String responseCode,
+            String contentCheck, String url, String user, String passwd, String agent) throws Exception {
+        return checkHTTPConfiguration(pkgName, svcName, retries, timeout, interval, downtimeInterval, downtimeDuration,
+                                      hostName, port, responseCode, contentCheck, url, user, passwd, agent);
     }
 
     @Test
@@ -411,7 +416,8 @@ public class OpenNMSProvisionerTest {
     }
 
     private void expectUpdateEvent() {
-        m_eventManager.getEventAnticipator().anticipateEvent(MockEventUtil.createEventBuilder("Test", EventConstants.SCHEDOUTAGES_CHANGED_EVENT_UEI).getEvent());
+        m_eventManager.getEventAnticipator().anticipateEvent(MockEventUtil.createEventBuilder("Test",
+                                                                                              EventConstants.SCHEDOUTAGES_CHANGED_EVENT_UEI).getEvent());
     }
 
     private void verifyEvents() {
@@ -438,22 +444,29 @@ public class OpenNMSProvisionerTest {
 
     // TODO: ensure the data gets saved to the config file
 
-    private Map<String, Object> checkTCPConfiguration(String pkgName, String svcName, int retries, int timeout, int interval, int downtimeInterval, int downtimeDuration, int port, String contentCheck) throws Exception {
-        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval, downtimeInterval, downtimeDuration);
+    private Map<String, Object> checkTCPConfiguration(String pkgName, String svcName, int retries, int timeout,
+            int interval, int downtimeInterval, int downtimeDuration, int port, String contentCheck) throws Exception {
+        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval,
+                                                                     downtimeInterval, downtimeDuration);
         assertEquals(Integer.valueOf(port), configParams.get("port"));
         assertEquals(contentCheck, configParams.get("banner"));
         return configParams;
     }
 
-    private Map<String, Object> checkDNSConfiguration(String pkgName, String svcName, int retries, int timeout, int interval, int downtimeInterval, int downtimeDuration, int port, String lookup) throws Exception {
-        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval, downtimeInterval, downtimeDuration);
+    private Map<String, Object> checkDNSConfiguration(String pkgName, String svcName, int retries, int timeout,
+            int interval, int downtimeInterval, int downtimeDuration, int port, String lookup) throws Exception {
+        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval,
+                                                                     downtimeInterval, downtimeDuration);
         assertEquals(Integer.valueOf(port), configParams.get("port"));
         assertEquals(lookup, configParams.get("lookup"));
         return configParams;
     }
 
-    private Map<String, Object> checkDatabaseConfiguration(String pkgName, String svcName, int retries, int timeout, int interval, int downtimeInterval, int downtimeDuration, String username, String password, String driver, String dbUrl) throws Exception {
-        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval, downtimeInterval, downtimeDuration);
+    private Map<String, Object> checkDatabaseConfiguration(String pkgName, String svcName, int retries, int timeout,
+            int interval, int downtimeInterval, int downtimeDuration, String username, String password, String driver,
+            String dbUrl) throws Exception {
+        Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval,
+                                                                     downtimeInterval, downtimeDuration);
         assertEquals(username, configParams.get("user"));
         assertEquals(password, configParams.get("password"));
         assertEquals(driver, configParams.get("driver"));

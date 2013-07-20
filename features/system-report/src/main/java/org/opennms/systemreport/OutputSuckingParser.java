@@ -38,7 +38,9 @@ import org.slf4j.LoggerFactory;
 
 public class OutputSuckingParser extends Thread {
     private static final Logger LOG = LoggerFactory.getLogger(OutputSuckingParser.class);
+
     private StringBuffer m_buffer = new StringBuffer();
+
     private DataInputStream m_input;
 
     public OutputSuckingParser(final DataInputStream input) {

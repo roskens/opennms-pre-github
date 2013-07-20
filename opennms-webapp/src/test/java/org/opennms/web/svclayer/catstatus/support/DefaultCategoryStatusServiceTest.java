@@ -57,140 +57,127 @@ import org.opennms.web.svclayer.catstatus.model.StatusSection;
 import org.opennms.web.svclayer.dao.CategoryConfigDao;
 import org.opennms.web.svclayer.dao.ViewDisplayDao;
 
-
 public class DefaultCategoryStatusServiceTest extends TestCase {
 
-	private DefaultCategoryStatusService categoryStatusService;
-	private ViewDisplayDao viewDisplayDao;
-	private CategoryConfigDao categoryDao;
-	private OutageDao outageDao;
+    private DefaultCategoryStatusService categoryStatusService;
 
-        @Override
+    private ViewDisplayDao viewDisplayDao;
+
+    private CategoryConfigDao categoryDao;
+
+    private OutageDao outageDao;
+
+    @Override
     protected final void setUp() throws Exception {
-		super.setUp();
-		viewDisplayDao = createMock(ViewDisplayDao.class);
-		categoryDao = createMock(CategoryConfigDao.class);
-		outageDao = createMock(OutageDao.class);
-		categoryStatusService = new DefaultCategoryStatusService();
-		categoryStatusService.setViewDisplayDao(viewDisplayDao);
-		categoryStatusService.setCategoryConfigDao(categoryDao);
-		categoryStatusService.setOutageDao(outageDao);
-	}
+        super.setUp();
+        viewDisplayDao = createMock(ViewDisplayDao.class);
+        categoryDao = createMock(CategoryConfigDao.class);
+        outageDao = createMock(OutageDao.class);
+        categoryStatusService = new DefaultCategoryStatusService();
+        categoryStatusService.setViewDisplayDao(viewDisplayDao);
+        categoryStatusService.setCategoryConfigDao(categoryDao);
+        categoryStatusService.setOutageDao(outageDao);
+    }
 
+    public final void testCategoryGroupsReturnedWhenNoneExist() {
 
-	public final void testCategoryGroupsReturnedWhenNoneExist() {
+        View view = new View();
 
+        expect(viewDisplayDao.getView()).andReturn(view);
+        replay(viewDisplayDao);
 
-		View view = new View();
+        Collection<StatusSection> categories = categoryStatusService.getCategoriesStatus();
 
+        verify(viewDisplayDao);
 
-		expect(viewDisplayDao.getView()).andReturn(view);
-		replay(viewDisplayDao);
+        assertTrue("Collection Should Be Empty", categories.isEmpty());
+    }
 
-		Collection<StatusSection> categories = categoryStatusService.getCategoriesStatus();
+    public final void testGetCategoriesStatus() {
 
-		verify(viewDisplayDao);
+        View view = new View();
+        Section section = new Section();
+        org.opennms.netmgt.config.views.Category category = new org.opennms.netmgt.config.views.Category();
 
-		assertTrue("Collection Should Be Empty", categories.isEmpty());
-	}
+        section.setSectionName("Section One");
+        section.addCategory("Category One");
 
+        category.setLabel("Category One");
+        // category.setCategoryComment("Category One Comment");
 
-	public final void testGetCategoriesStatus(){
+        OnmsOutage outage = new OnmsOutage();
+        Collection<OnmsOutage> outages = new ArrayList<OnmsOutage>();
 
-		View view = new View();
-		Section section = new Section();
-		org.opennms.netmgt.config.views.Category category = new org.opennms.netmgt.config.views.Category();
+        outage.setId(300);
 
-		section.setSectionName("Section One");
-		section.addCategory("Category One");
+        OnmsServiceType svcType = new OnmsServiceType();
+        svcType.setId(3);
+        svcType.setName("HTTP");
+        OnmsNode node = new OnmsNode();
+        node.setId(1);
+        node.setLabel("superLabel");
+        OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(node, 1);
+        OnmsIpInterface iface = new OnmsIpInterface("192.168.1.1", node);
+        iface.setSnmpInterface(snmpIface);
+        // iface.setId(9);
+        OnmsMonitoredService monSvc = new OnmsMonitoredService(iface, svcType);
 
-		category.setLabel("Category One");
-		//category.setCategoryComment("Category One Comment");
+        outage.setMonitoredService(monSvc);
 
-		OnmsOutage outage = new OnmsOutage();
-		Collection<OnmsOutage> outages = new ArrayList<OnmsOutage>();
+        outages.add(outage);
 
-		outage.setId(300);
+        view.addSection(section);
+        List<String> services = new ArrayList<String>();
+        services.add("HTTP");
+        // ServiceSelector selector = new
+        // ServiceSelector("isHTTP",(List<String>) services);
 
+        expect(viewDisplayDao.getView()).andReturn(view);
+        expect(categoryDao.getCategoryByLabel(category.getLabel())).andReturn(createCategoryFromLabel(category.getLabel()));
+        expect(outageDao.matchingCurrentOutages(isA(ServiceSelector.class))).andReturn(outages);
 
-		OnmsServiceType svcType = new OnmsServiceType();
-		svcType.setId(3);
-		svcType.setName("HTTP");
-		OnmsNode node = new OnmsNode();
-		node.setId(1);
-		node.setLabel("superLabel");
-		OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(node, 1);
-		OnmsIpInterface iface = new OnmsIpInterface("192.168.1.1", node);
-		iface.setSnmpInterface(snmpIface);
-		//iface.setId(9);
-		OnmsMonitoredService monSvc = new OnmsMonitoredService(iface, svcType);
+        replay(categoryDao);
+        replay(viewDisplayDao);
+        replay(outageDao);
 
-		outage.setMonitoredService(monSvc);
+        Collection<StatusSection> statusSections = categoryStatusService.getCategoriesStatus();
+        verify(viewDisplayDao);
+        verify(categoryDao);
+        verify(outageDao);
 
-		outages.add(outage);
+        assertEquals("Wrong Number of StatusSections", view.getSectionCount(), statusSections.size());
 
-		view.addSection(section);
-		List <String>services = new ArrayList<String>();
-		services.add("HTTP");
-//		ServiceSelector selector = new ServiceSelector("isHTTP",(List<String>) services);
+        for (StatusSection statusSection : statusSections) {
 
+            assertEquals("StatusSection Name Does Not Match", "Section One", statusSection.getName());
 
+            Collection<StatusCategory> statusCategorys = statusSection.getCategories();
 
-		expect(viewDisplayDao.getView()).andReturn(view);
-		expect(categoryDao.getCategoryByLabel( category.getLabel() ) ).andReturn(createCategoryFromLabel(category.getLabel()));
-		expect(outageDao.matchingCurrentOutages(isA(ServiceSelector.class))).andReturn(outages);
+            for (StatusCategory statusCategory : statusCategorys) {
 
+                assertEquals("StatusCategoryName does not match", "Category One", statusCategory.getLabel());
+                // assertEquals("Category Comment Does not match","Category One Comment",statusCategory.getComment());
+                assertTrue("Nodes >= 1", statusCategory.getNodes().size() >= 1);
 
-		replay(categoryDao);
-		replay(viewDisplayDao);
-		replay(outageDao);
+                for (StatusNode statusNode : statusCategory.getNodes()) {
 
-		Collection<StatusSection> statusSections = categoryStatusService.getCategoriesStatus();
-		verify(viewDisplayDao);
-		verify(categoryDao);
-		verify(outageDao);
+                    assertEquals("Label does not match", "superLabel", statusNode.getLabel());
+                }
+            }
 
-		assertEquals("Wrong Number of StatusSections",view.getSectionCount(),statusSections.size());
+        }
 
+    }
 
-		for (StatusSection statusSection : statusSections) {
+    private Category createCategoryFromLabel(final String label) {
 
+        Category category = new Category();
 
-			assertEquals("StatusSection Name Does Not Match","Section One",statusSection.getName());
+        category.setLabel(label);
+        category.setRule("isHTTP");
+        category.addService("HTTP");
 
-			Collection <StatusCategory> statusCategorys = statusSection.getCategories();
-
-			for(StatusCategory statusCategory : statusCategorys){
-
-				assertEquals("StatusCategoryName does not match","Category One",statusCategory.getLabel());
-				//assertEquals("Category Comment Does not match","Category One Comment",statusCategory.getComment());
-				assertTrue("Nodes >= 1",statusCategory.getNodes().size() >= 1);
-
-				for(StatusNode statusNode : statusCategory.getNodes()){
-
-					assertEquals("Label does not match","superLabel",statusNode.getLabel());
-				}
-			}
-
-		}
-
-
-	}
-
-
-	private Category createCategoryFromLabel(final String label) {
-
-		Category category = new Category();
-
-		category.setLabel(label);
-		category.setRule("isHTTP");
-		category.addService("HTTP");
-
-
-		return category;
-	}
-
-
-
+        return category;
+    }
 
 }

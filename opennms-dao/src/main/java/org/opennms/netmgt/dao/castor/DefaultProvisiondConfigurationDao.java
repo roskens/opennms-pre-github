@@ -36,25 +36,33 @@ import org.opennms.netmgt.dao.api.ProvisiondConfigurationDao;
 import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
- * Default implementation of <code>AckdConfiguration</code> containing utility methods for manipulating
+ * Default implementation of <code>AckdConfiguration</code> containing utility
+ * methods for manipulating
  * the <code>Ackd</code> and <code>AckdReader</code>s.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
-public class DefaultProvisiondConfigurationDao extends AbstractCastorConfigDao<ProvisiondConfiguration, ProvisiondConfiguration> implements ProvisiondConfigurationDao {
+public class DefaultProvisiondConfigurationDao extends
+        AbstractCastorConfigDao<ProvisiondConfiguration, ProvisiondConfiguration> implements ProvisiondConfigurationDao {
 
     /**
-     * <p>Constructor for DefaultProvisiondConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultProvisiondConfigurationDao.
+     * </p>
      */
     public DefaultProvisiondConfigurationDao() {
         super(ProvisiondConfiguration.class, "Provisiond Configuration");
     }
 
     /**
-     * <p>getConfig</p>
+     * <p>
+     * getConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.provisiond.ProvisiondConfiguration} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.provisiond.ProvisiondConfiguration}
+     *         object.
      */
     @Override
     public ProvisiondConfiguration getConfig() {
@@ -68,10 +76,12 @@ public class DefaultProvisiondConfigurationDao extends AbstractCastorConfigDao<P
     }
 
     /**
-     * The exception boils up from the container class  The container class should
+     * The exception boils up from the container class The container class
+     * should
      * indicate this.
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException if any.
+     * @throws org.springframework.dao.DataAccessResourceFailureException
+     *             if any.
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {
@@ -93,7 +103,9 @@ public class DefaultProvisiondConfigurationDao extends AbstractCastorConfigDao<P
     }
 
     /**
-     * <p>getDefs</p>
+     * <p>
+     * getDefs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -103,7 +115,9 @@ public class DefaultProvisiondConfigurationDao extends AbstractCastorConfigDao<P
     }
 
     /**
-     * <p>getForeignSourceDir</p>
+     * <p>
+     * getForeignSourceDir
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,7 +127,9 @@ public class DefaultProvisiondConfigurationDao extends AbstractCastorConfigDao<P
     }
 
     /**
-     * <p>getRequisitionDir</p>
+     * <p>
+     * getRequisitionDir
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,43 +139,51 @@ public class DefaultProvisiondConfigurationDao extends AbstractCastorConfigDao<P
     }
 
     /**
-     * <p>getImportThreads</p>
+     * <p>
+     * getImportThreads
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Override
     public Integer getImportThreads() {
-        return Integer.valueOf((int)getConfig().getImportThreads());
+        return Integer.valueOf((int) getConfig().getImportThreads());
     }
 
     /**
-     * <p>getScanThreads</p>
+     * <p>
+     * getScanThreads
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Override
     public Integer getScanThreads() {
-        return Integer.valueOf((int)getConfig().getScanThreads());
+        return Integer.valueOf((int) getConfig().getScanThreads());
     }
 
     /**
-     * <p>getRescanThreads</p>
+     * <p>
+     * getRescanThreads
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Override
     public Integer getRescanThreads() {
-        return Integer.valueOf((int)getConfig().getRescanThreads());
+        return Integer.valueOf((int) getConfig().getRescanThreads());
     }
 
     /**
-     * <p>getWriteThreads</p>
+     * <p>
+     * getWriteThreads
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Override
     public Integer getWriteThreads() {
-        return Integer.valueOf((int)getConfig().getWriteThreads());
+        return Integer.valueOf((int) getConfig().getWriteThreads());
     }
 
 }

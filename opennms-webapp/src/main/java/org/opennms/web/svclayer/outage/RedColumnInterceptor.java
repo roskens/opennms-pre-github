@@ -33,7 +33,9 @@ import org.extremecomponents.table.core.TableModel;
 import org.extremecomponents.table.interceptor.ColumnInterceptor;
 
 /**
- * <p>RedColumnInterceptor class.</p>
+ * <p>
+ * RedColumnInterceptor class.
+ * </p>
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -46,7 +48,7 @@ public class RedColumnInterceptor implements ColumnInterceptor {
     /** {@inheritDoc} */
     @Override
     public void addColumnAttributes(final TableModel tableModel, final Column column) {
-        //do nothing
+        // do nothing
     }
 
     /** {@inheritDoc} */

@@ -54,20 +54,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Populates a test database with some entities (nodes, interfaces, services).
- *
  * Example usage:
+ *
  * <pre>
  * private DatabasePopulator m_populator;
  *
- * @Override
+ * &#064;Override
  * protected String[] getConfigLocations() {
- *     return new String[] {
- *         "classpath:/META-INF/opennms/applicationContext-dao.xml",
- *         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml"
- *     };
+ *     return new String[] { &quot;classpath:/META-INF/opennms/applicationContext-dao.xml&quot;,
+ *             &quot;classpath:/META-INF/opennms/applicationContext-databasePopulator.xml&quot; };
  * }
  *
- * @Override
+ * &#064;Override
  * protected void onSetUpInTransactionIfEnabled() {
  *     m_populator.populateDatabase();
  * }
@@ -82,18 +80,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EasyMockDataPopulator {
     @Autowired
     private OnmsMapDao m_onmsMapDao;
+
     @Autowired
     private OnmsMapElementDao m_onmsMapElementDao;
+
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
     private OnmsNode m_node1;
+
     private OnmsNode m_node2;
+
     private OnmsNode m_node3;
+
     private OnmsNode m_node4;
+
     private OnmsNode m_node5;
+
     private OnmsNode m_node6;
+
     private OnmsNode m_node7;
+
     private OnmsNode m_node8;
 
     public void populateDatabase() {
@@ -108,32 +115,15 @@ public class EasyMockDataPopulator {
         setNode1(builder.addNode("node1").setForeignSource("imported:").setForeignId("1").setType("A").getNode());
         Assert.assertNotNull("newly built node 1 should not be null", getNode1());
         builder.setBuilding("HQ");
-        builder.addInterface("192.168.1.1").setIsManaged("M").setIsSnmpPrimary("P").addSnmpInterface(1)
-            .setCollectionEnabled(true)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .setIfDescr("ATM0")
-            .setIfAlias("Initial ifAlias value")
-            .setIfType(37);
+        builder.addInterface("192.168.1.1").setIsManaged("M").setIsSnmpPrimary("P").addSnmpInterface(1).setCollectionEnabled(true).setIfOperStatus(1).setIfSpeed(10000000).setIfDescr("ATM0").setIfAlias("Initial ifAlias value").setIfType(37);
         builder.addService(icmp);
         builder.addService(snmp);
-        builder.addInterface("192.168.1.2").setIsManaged("M").setIsSnmpPrimary("S").addSnmpInterface(2)
-            .setCollectionEnabled(true)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000)
-            .setIfName("eth0")
-            .setIfType(6);
+        builder.addInterface("192.168.1.2").setIsManaged("M").setIsSnmpPrimary("S").addSnmpInterface(2).setCollectionEnabled(true).setIfOperStatus(1).setIfSpeed(10000000).setIfName("eth0").setIfType(6);
         builder.addService(icmp);
         builder.addService(http);
-        builder.addInterface("192.168.1.3").setIsManaged("M").setIsSnmpPrimary("N").addSnmpInterface(3)
-            .setCollectionEnabled(false)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000);
+        builder.addInterface("192.168.1.3").setIsManaged("M").setIsSnmpPrimary("N").addSnmpInterface(3).setCollectionEnabled(false).setIfOperStatus(1).setIfSpeed(10000000);
         builder.addService(icmp);
-        builder.addInterface("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5").setIsManaged("M").setIsSnmpPrimary("N").addSnmpInterface(4)
-            .setCollectionEnabled(false)
-            .setIfOperStatus(1)
-            .setIfSpeed(10000000);
+        builder.addInterface("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5").setIsManaged("M").setIsSnmpPrimary("N").addSnmpInterface(4).setCollectionEnabled(false).setIfOperStatus(1).setIfSpeed(10000000);
         builder.addService(icmp);
         final OnmsNode node1 = builder.getCurrentNode();
         setNode1(node1);
@@ -176,7 +166,7 @@ public class EasyMockDataPopulator {
         OnmsNode node4 = builder.getCurrentNode();
         setNode4(node4);
 
-        //This node purposely doesn't have a foreignId style assetNumber
+        // This node purposely doesn't have a foreignId style assetNumber
         builder.addNode("alternate-node1").setType("A").getAssetRecord().setAssetNumber("5");
         builder.addInterface("10.1.1.1").setIsManaged("M").setIsSnmpPrimary("P");
         builder.addService(icmp);
@@ -189,7 +179,8 @@ public class EasyMockDataPopulator {
         OnmsNode node5 = builder.getCurrentNode();
         setNode5(node5);
 
-        //This node purposely doesn't have a assetNumber and is used by a test to check the category
+        // This node purposely doesn't have a assetNumber and is used by a test
+        // to check the category
         builder.addNode("alternate-node2").setType("A").getAssetRecord().setDisplayCategory("category1");
         builder.addInterface("10.1.2.1").setIsManaged("M").setIsSnmpPrimary("P");
         builder.addService(icmp);
@@ -254,96 +245,65 @@ public class EasyMockDataPopulator {
         map4.setMapGroup("admin");
         map4.setId(4);
 
-
-
-        final OnmsMapElement element1 = new OnmsMapElement(map1, getNode1().getId(),
-                OnmsMapElement.NODE_TYPE,
-                "Test Node",
-                OnmsMapElement.defaultNodeIcon,
-                0,
-                10);
+        final OnmsMapElement element1 = new OnmsMapElement(map1, getNode1().getId(), OnmsMapElement.NODE_TYPE,
+                                                           "Test Node", OnmsMapElement.defaultNodeIcon, 0, 10);
         element1.setId(1001);
         map1.addMapElement(element1);
 
-        final OnmsMapElement element2 = new OnmsMapElement(map1, getNode2().getId(),
-                                                              OnmsMapElement.NODE_TYPE,
-                                                              "Test Node",
-                                                              OnmsMapElement.defaultNodeIcon,
-                                                              0,
-                                                              10);
+        final OnmsMapElement element2 = new OnmsMapElement(map1, getNode2().getId(), OnmsMapElement.NODE_TYPE,
+                                                           "Test Node", OnmsMapElement.defaultNodeIcon, 0, 10);
         element2.setId(1002);
         map1.addMapElement(element2);
 
-        final OnmsMapElement element3 = new OnmsMapElement(map2, getNode3().getId(),
-                                                              OnmsMapElement.NODE_TYPE,
-                                                              "Test Node",
-                                                              OnmsMapElement.defaultNodeIcon,
-                                                              0,
-                                                              10);
+        final OnmsMapElement element3 = new OnmsMapElement(map2, getNode3().getId(), OnmsMapElement.NODE_TYPE,
+                                                           "Test Node", OnmsMapElement.defaultNodeIcon, 0, 10);
         element3.setId(1003);
         map2.addMapElement(element3);
 
-        final OnmsMapElement element4 = new OnmsMapElement(map2, getNode4().getId(),
-                                                              OnmsMapElement.NODE_TYPE,
-                                                              "Test Node",
-                                                              OnmsMapElement.defaultNodeIcon,
-                                                              0,
-                                                              10);
+        final OnmsMapElement element4 = new OnmsMapElement(map2, getNode4().getId(), OnmsMapElement.NODE_TYPE,
+                                                           "Test Node", OnmsMapElement.defaultNodeIcon, 0, 10);
         element4.setId(1004);
         map2.addMapElement(element4);
 
-        final OnmsMapElement element5 = new OnmsMapElement(map3, getNode5().getId(),
-                                                              OnmsMapElement.NODE_TYPE,
-                                                              "Test Node",
-                                                              OnmsMapElement.defaultNodeIcon,
-                                                              0,
-                                                              10);
+        final OnmsMapElement element5 = new OnmsMapElement(map3, getNode5().getId(), OnmsMapElement.NODE_TYPE,
+                                                           "Test Node", OnmsMapElement.defaultNodeIcon, 0, 10);
         element5.setId(1005);
         map3.addMapElement(element5);
 
-        final OnmsMapElement element6 = new OnmsMapElement(map3, getNode6().getId(),
-                                                              OnmsMapElement.NODE_TYPE,
-                                                              "Test Node",
-                                                              OnmsMapElement.defaultNodeIcon,
-                                                              0,
-                                                              10);
+        final OnmsMapElement element6 = new OnmsMapElement(map3, getNode6().getId(), OnmsMapElement.NODE_TYPE,
+                                                           "Test Node", OnmsMapElement.defaultNodeIcon, 0, 10);
         element6.setId(1006);
         map3.addMapElement(element6);
 
-        final OnmsMapElement element7 = new OnmsMapElement(map1, map2.getId(),
-                                                              OnmsMapElement.MAP_TYPE,
-                                                              "Test Node",
-                                                              OnmsMapElement.defaultMapIcon,
-                                                              0,
-                                                              10);
+        final OnmsMapElement element7 = new OnmsMapElement(map1, map2.getId(), OnmsMapElement.MAP_TYPE, "Test Node",
+                                                           OnmsMapElement.defaultMapIcon, 0, 10);
         element7.setId(1007);
         map1.addMapElement(element7);
 
-        final OnmsMapElement element8 = new OnmsMapElement(map1, map3.getId(),
-                                                              OnmsMapElement.MAP_TYPE,
-                                                              "Test Node",
-                                                              OnmsMapElement.defaultMapIcon,
-                                                              0,
-                                                              10);
+        final OnmsMapElement element8 = new OnmsMapElement(map1, map3.getId(), OnmsMapElement.MAP_TYPE, "Test Node",
+                                                           OnmsMapElement.defaultMapIcon, 0, 10);
         element8.setId(1009);
         map1.addMapElement(element8);
 
-        final OnmsMapElement element9 = new OnmsMapElement(map4, getNode7().getId(),
-                                                              OnmsMapElement.NODE_TYPE,
-                                                              "Test Node",
-                                                              OnmsMapElement.defaultNodeIcon,
-                                                              0,
-                                                              10);
+        final OnmsMapElement element9 = new OnmsMapElement(map4, getNode7().getId(), OnmsMapElement.NODE_TYPE,
+                                                           "Test Node", OnmsMapElement.defaultNodeIcon, 0, 10);
         element9.setId(1009);
         map4.addMapElement(element9);
 
-        final DataLinkInterface dli12 = new DataLinkInterface(getNode2(), 1, getNode1().getId(), 1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli13 = new DataLinkInterface(getNode3(), 2, getNode1().getId(), 1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli14 = new DataLinkInterface(getNode4(), 1, getNode1().getId(), 1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli15 = new DataLinkInterface(getNode5(), 1, getNode1().getId(), 1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli76 = new DataLinkInterface(getNode6(), 2, getNode7().getId(), 1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli78 = new DataLinkInterface(getNode8(), 1, getNode7().getId(), 1, StatusType.ACTIVE, new Date());
-        final DataLinkInterface dli68 = new DataLinkInterface(getNode8(), 1, getNode6().getId(), 1, StatusType.ACTIVE, new Date());
+        final DataLinkInterface dli12 = new DataLinkInterface(getNode2(), 1, getNode1().getId(), 1, StatusType.ACTIVE,
+                                                              new Date());
+        final DataLinkInterface dli13 = new DataLinkInterface(getNode3(), 2, getNode1().getId(), 1, StatusType.ACTIVE,
+                                                              new Date());
+        final DataLinkInterface dli14 = new DataLinkInterface(getNode4(), 1, getNode1().getId(), 1, StatusType.ACTIVE,
+                                                              new Date());
+        final DataLinkInterface dli15 = new DataLinkInterface(getNode5(), 1, getNode1().getId(), 1, StatusType.ACTIVE,
+                                                              new Date());
+        final DataLinkInterface dli76 = new DataLinkInterface(getNode6(), 2, getNode7().getId(), 1, StatusType.ACTIVE,
+                                                              new Date());
+        final DataLinkInterface dli78 = new DataLinkInterface(getNode8(), 1, getNode7().getId(), 1, StatusType.ACTIVE,
+                                                              new Date());
+        final DataLinkInterface dli68 = new DataLinkInterface(getNode8(), 1, getNode6().getId(), 1, StatusType.ACTIVE,
+                                                              new Date());
 
         Collection<DataLinkInterface> links1 = new ArrayList<DataLinkInterface>();
         Collection<DataLinkInterface> links2 = new ArrayList<DataLinkInterface>();
@@ -388,13 +348,13 @@ public class EasyMockDataPopulator {
         EasyMock.expect(m_dataLinkInterfaceDao.findByNodeParentId(7)).andReturn(links7).anyTimes();
         EasyMock.expect(m_dataLinkInterfaceDao.findByNodeParentId(8)).andReturn(links8).anyTimes();
 
-        EasyMock.replay(m_dataLinkInterfaceDao,m_onmsMapDao,m_onmsMapElementDao);
+        EasyMock.replay(m_dataLinkInterfaceDao, m_onmsMapDao, m_onmsMapElementDao);
 
     }
 
     private Set<OnmsMapElement> getMapElements(Set<OnmsMapElement> elements) {
         Set<OnmsMapElement> mapElements = new HashSet<OnmsMapElement>();
-        for (OnmsMapElement element: elements) {
+        for (OnmsMapElement element : elements) {
             if (element.getType().equals(OnmsMapElement.MAP_TYPE))
                 mapElements.add(element);
         }
@@ -403,7 +363,7 @@ public class EasyMockDataPopulator {
 
     private Set<OnmsMapElement> getNodeElements(Set<OnmsMapElement> elements) {
         Set<OnmsMapElement> nodeElements = new HashSet<OnmsMapElement>();
-        for (OnmsMapElement element: elements) {
+        for (OnmsMapElement element : elements) {
             if (element.getType().equals(OnmsMapElement.NODE_TYPE))
                 nodeElements.add(element);
         }
@@ -411,8 +371,8 @@ public class EasyMockDataPopulator {
     }
 
     public void tearDown() {
-        EasyMock.verify(m_dataLinkInterfaceDao,m_onmsMapDao,m_onmsMapElementDao);
-        EasyMock.reset(m_dataLinkInterfaceDao,m_onmsMapDao,m_onmsMapElementDao);
+        EasyMock.verify(m_dataLinkInterfaceDao, m_onmsMapDao, m_onmsMapElementDao);
+        EasyMock.reset(m_dataLinkInterfaceDao, m_onmsMapDao, m_onmsMapElementDao);
     }
 
     public OnmsNode getNode1() {

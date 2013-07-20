@@ -41,7 +41,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
 
 /**
- * <p>LocationMonitorDetailsController class.</p>
+ * <p>
+ * LocationMonitorDetailsController class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -50,11 +52,13 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
 public class LocationMonitorDetailsController extends AbstractCommandController implements InitializingBean {
 
     private DistributedPollerService m_distributedPollerService;
+
     private String m_successView;
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handle(final HttpServletRequest request, final HttpServletResponse response, final Object command, final BindException errors) throws Exception {
+    protected final ModelAndView handle(final HttpServletRequest request, final HttpServletResponse response,
+            final Object command, final BindException errors) throws Exception {
         LocationMonitorIdCommand cmd = (LocationMonitorIdCommand) command;
         LocationMonitorListModel model = getDistributedPollerService().getLocationMonitorDetails(cmd, errors);
         ModelAndView modelAndView = new ModelAndView(getSuccessView(), "model", model);
@@ -68,25 +72,34 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
     }
 
     /**
-     * <p>getDistributedPollerService</p>
+     * <p>
+     * getDistributedPollerService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.DistributedPollerService} object.
+     * @return a {@link org.opennms.web.svclayer.DistributedPollerService}
+     *         object.
      */
     public final DistributedPollerService getDistributedPollerService() {
         return m_distributedPollerService;
     }
 
     /**
-     * <p>setDistributedPollerService</p>
+     * <p>
+     * setDistributedPollerService
+     * </p>
      *
-     * @param distributedPollerService a {@link org.opennms.web.svclayer.DistributedPollerService} object.
+     * @param distributedPollerService
+     *            a {@link org.opennms.web.svclayer.DistributedPollerService}
+     *            object.
      */
     public final void setDistributedPollerService(final DistributedPollerService distributedPollerService) {
         m_distributedPollerService = distributedPollerService;
     }
 
     /**
-     * <p>getSuccessView</p>
+     * <p>
+     * getSuccessView
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,18 +108,24 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public final void setSuccessView(final String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {

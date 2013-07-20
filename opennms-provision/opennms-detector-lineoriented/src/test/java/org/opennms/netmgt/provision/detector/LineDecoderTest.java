@@ -45,17 +45,16 @@ import org.opennms.netmgt.provision.server.exchange.RequestHandler;
 
 /**
  * @author Donald Desloge
- *
  */
 public class LineDecoderTest {
 
-    public static class TestServer extends SimpleServer{
+    public static class TestServer extends SimpleServer {
 
         @Override
         protected void sendBanner(OutputStream out) throws IOException {
             String[] tokens = getBanner().split("");
 
-            for(int i = 0; i < tokens.length; i++) {
+            for (int i = 0; i < tokens.length; i++) {
                 String str = tokens[i];
                 out.write(str.getBytes());
                 out.flush();
@@ -108,6 +107,7 @@ public class LineDecoderTest {
     }
 
     private TestServer m_server;
+
     private TestDetector m_detector;
 
     @Before
@@ -128,7 +128,7 @@ public class LineDecoderTest {
 
     @After
     public void tearDown() throws Exception {
-        if(m_server != null) {
+        if (m_server != null) {
             m_server.stopServer();
             m_server = null;
         }
@@ -139,9 +139,8 @@ public class LineDecoderTest {
 
         m_detector = createDetector(m_server.getLocalPort());
         m_detector.setIdleTime(1000);
-        assertTrue( doCheck( m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-
 
     @Test
     public void testFailureWithBogusResponse() throws Exception {
@@ -149,7 +148,7 @@ public class LineDecoderTest {
 
         m_detector = createDetector(m_server.getLocalPort());
 
-        assertFalse( doCheck( m_detector.isServiceDetected( m_server.getInetAddress())));
+        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
 
     }
 
@@ -158,16 +157,16 @@ public class LineDecoderTest {
         m_server.setBanner(null);
         m_detector = createDetector(m_server.getLocalPort());
 
-        assertFalse( doCheck( m_detector.isServiceDetected( m_server.getInetAddress())));
+        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
 
     }
 
     @Test
-    public void testDetectorFailWrongPort() throws Exception{
+    public void testDetectorFailWrongPort() throws Exception {
 
         m_detector = createDetector(9000);
 
-        assertFalse( doCheck( m_detector.isServiceDetected( m_server.getInetAddress())));
+        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
     private static TestDetector createDetector(int port) {

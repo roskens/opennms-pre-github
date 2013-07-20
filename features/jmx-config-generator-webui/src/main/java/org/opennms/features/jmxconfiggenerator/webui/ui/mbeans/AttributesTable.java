@@ -54,143 +54,159 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 
 /**
- *
  * @author Markus von Rüden
  */
 public class AttributesTable extends Table {
 
-	final private Map<Object, Field<String>> fieldsToValidate = new HashMap<Object, Field<String>>();
-	private List<Field<?>> fields = new ArrayList<Field<?>>();
-	private final UniqueAttributeNameValidator uniqueAttributeNameValidator;
-	private final Callback callback;
+    final private Map<Object, Field<String>> fieldsToValidate = new HashMap<Object, Field<String>>();
 
-	public AttributesTable(NameProvider provider, MBeansController.Callback callback) {
-		this.callback = callback;
-		this.uniqueAttributeNameValidator =  new UniqueAttributeNameValidator(provider, fieldsToValidate);
-		setSizeFull();
-		setSelectable(false);
-		setEditable(false);
-		setValidationVisible(true);
-		setReadOnly(true);
-		setImmediate(true);
-		setTableFieldFactory(new AttributesTableFieldFactory());
-	}
+    private List<Field<?>> fields = new ArrayList<Field<?>>();
 
-	public void modelChanged(Mbean bean) {
-		if (getData() == bean) return;
-		setData(bean);
-		fieldsToValidate.clear();
-		fields.clear();
-		setContainerDataSource(callback.getContainer());
-		if (getContainerDataSource() == MBeansController.AttributesContainerCache.NULL) return;
-		setVisibleColumns(new Object[]{MetaAttribItem.SELECTED, MetaAttribItem.NAME, MetaAttribItem.ALIAS, MetaAttribItem.TYPE});
-	}
+    private final UniqueAttributeNameValidator uniqueAttributeNameValidator;
 
-	void viewStateChanged(ViewStateChangedEvent event) {
-		switch (event.getNewState()) {
-			case Init:
-				fieldsToValidate.clear();
-				fields.clear();
-			case NonLeafSelected:
-				modelChanged(null);
-				break;
-			case LeafSelected:
-				setReadOnly(true);
-				break;
-//			case Edit:
-//				setReadOnly(event.getSource() != this);
-//				break;
-		}
-	}
+    private final Callback callback;
 
-	private class AttributesTableFieldFactory implements TableFieldFactory {
+    public AttributesTable(NameProvider provider, MBeansController.Callback callback) {
+        this.callback = callback;
+        this.uniqueAttributeNameValidator = new UniqueAttributeNameValidator(provider, fieldsToValidate);
+        setSizeFull();
+        setSelectable(false);
+        setEditable(false);
+        setValidationVisible(true);
+        setReadOnly(true);
+        setImmediate(true);
+        setTableFieldFactory(new AttributesTableFieldFactory());
+    }
 
-		final private Validator nameValidator = new AttributeNameValidator();
-		final private Validator lengthValidator = new StringLengthValidator(String.format("Maximal length is %d", Config.ATTRIBUTES_ALIAS_MAX_LENGTH), 0, Config.ATTRIBUTES_ALIAS_MAX_LENGTH, false);
+    public void modelChanged(Mbean bean) {
+        if (getData() == bean)
+            return;
+        setData(bean);
+        fieldsToValidate.clear();
+        fields.clear();
+        setContainerDataSource(callback.getContainer());
+        if (getContainerDataSource() == MBeansController.AttributesContainerCache.NULL)
+            return;
+        setVisibleColumns(new Object[] { MetaAttribItem.SELECTED, MetaAttribItem.NAME, MetaAttribItem.ALIAS,
+                MetaAttribItem.TYPE });
+    }
 
-		@Override
-		public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
-			Field<?> field = null;
-			if (propertyId.toString().equals(MetaAttribItem.ALIAS)) {
-				Field<String> tf = new TableTextFieldWrapper(createAlias(itemId));
-				fieldsToValidate.put(itemId, tf); //is needed to decide if this table is valid or not
-				field = tf;
-			}
-			if (propertyId.toString().equals(MetaAttribItem.SELECTED)) {
-				CheckBox c = new CheckBox();
-				c.setBuffered(true);
-				field = c;
-			}
-			if (propertyId.toString().equals(MetaAttribItem.TYPE))
-				field = createType(itemId);
-			if (field == null) return null;
-			fields.add(field);
-			return field;
-		}
+    void viewStateChanged(ViewStateChangedEvent event) {
+        switch (event.getNewState()) {
+        case Init:
+            fieldsToValidate.clear();
+            fields.clear();
+        case NonLeafSelected:
+            modelChanged(null);
+            break;
+        case LeafSelected:
+            setReadOnly(true);
+            break;
+        // case Edit:
+        // setReadOnly(event.getSource() != this);
+        // break;
+        }
+    }
 
-		private ComboBox createType(Object itemId) {
-			ComboBox select = new ComboBox();
-			for (AttribType type : AttribType.values())
-				select.addItem(type.name());
-			select.setValue(AttribType.valueOf(itemId).name());
-			select.setNullSelectionAllowed(false);
-			select.setData(itemId);
-			select.setBuffered(true);
-			return select;
-		}
+    private class AttributesTableFieldFactory implements TableFieldFactory {
 
-		private TextField createAlias(Object itemId) {
-			final TextField tf = new TextField();
-			tf.setValidationVisible(true);
-			tf.setBuffered(true);
-			tf.setImmediate(true);
-			tf.setRequired(true);
-			tf.setWidth(100, Unit.PERCENTAGE);
-			tf.setMaxLength(Config.ATTRIBUTES_ALIAS_MAX_LENGTH);
-			tf.setRequiredError("You must provide an attribute name.");
-			tf.addValidator(nameValidator);
-			tf.addValidator(lengthValidator);
-			tf.addValidator(uniqueAttributeNameValidator);
-			tf.setData(itemId);
-			return tf;
-		}
-	}
+        final private Validator nameValidator = new AttributeNameValidator();
 
-	@Override
-	public void commit() throws SourceException, InvalidValueException {
-		super.commit();
-		if (isReadOnly()) return; //we do not commit on read only
-		for (Field f : fields) f.commit();
-	}
+        final private Validator lengthValidator = new StringLengthValidator(
+                                                                            String.format("Maximal length is %d",
+                                                                                          Config.ATTRIBUTES_ALIAS_MAX_LENGTH),
+                                                                            0, Config.ATTRIBUTES_ALIAS_MAX_LENGTH,
+                                                                            false);
 
-	@Override
-	public void discard() throws SourceException {
-		super.discard();
-		for (Field f : fields) f.discard();
-	}
+        @Override
+        public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
+            Field<?> field = null;
+            if (propertyId.toString().equals(MetaAttribItem.ALIAS)) {
+                Field<String> tf = new TableTextFieldWrapper(createAlias(itemId));
+                fieldsToValidate.put(itemId, tf); // is needed to decide if this
+                                                  // table is valid or not
+                field = tf;
+            }
+            if (propertyId.toString().equals(MetaAttribItem.SELECTED)) {
+                CheckBox c = new CheckBox();
+                c.setBuffered(true);
+                field = c;
+            }
+            if (propertyId.toString().equals(MetaAttribItem.TYPE))
+                field = createType(itemId);
+            if (field == null)
+                return null;
+            fields.add(field);
+            return field;
+        }
 
-	@Override
-	public void validate() throws InvalidValueException {
-		super.validate();
-		InvalidValueException validationException = null;
-		//validators must be invoked manually
-		for (Field tf : fieldsToValidate.values()) {
-			try {
-				tf.validate();
-			} catch (InvalidValueException ex) {
-				validationException = ex;
-			}
-		}
-		if (validationException != null) throw validationException;
-	}
+        private ComboBox createType(Object itemId) {
+            ComboBox select = new ComboBox();
+            for (AttribType type : AttribType.values())
+                select.addItem(type.name());
+            select.setValue(AttribType.valueOf(itemId).name());
+            select.setNullSelectionAllowed(false);
+            select.setData(itemId);
+            select.setBuffered(true);
+            return select;
+        }
 
-	@Override
-	public boolean isValid() {
-		try {
-			validate();
-		} catch (InvalidValueException invex) {
-			return false;
-		}
-		return true;
-	}
+        private TextField createAlias(Object itemId) {
+            final TextField tf = new TextField();
+            tf.setValidationVisible(true);
+            tf.setBuffered(true);
+            tf.setImmediate(true);
+            tf.setRequired(true);
+            tf.setWidth(100, Unit.PERCENTAGE);
+            tf.setMaxLength(Config.ATTRIBUTES_ALIAS_MAX_LENGTH);
+            tf.setRequiredError("You must provide an attribute name.");
+            tf.addValidator(nameValidator);
+            tf.addValidator(lengthValidator);
+            tf.addValidator(uniqueAttributeNameValidator);
+            tf.setData(itemId);
+            return tf;
+        }
+    }
+
+    @Override
+    public void commit() throws SourceException, InvalidValueException {
+        super.commit();
+        if (isReadOnly())
+            return; // we do not commit on read only
+        for (Field f : fields)
+            f.commit();
+    }
+
+    @Override
+    public void discard() throws SourceException {
+        super.discard();
+        for (Field f : fields)
+            f.discard();
+    }
+
+    @Override
+    public void validate() throws InvalidValueException {
+        super.validate();
+        InvalidValueException validationException = null;
+        // validators must be invoked manually
+        for (Field tf : fieldsToValidate.values()) {
+            try {
+                tf.validate();
+            } catch (InvalidValueException ex) {
+                validationException = ex;
+            }
+        }
+        if (validationException != null)
+            throw validationException;
+    }
+
+    @Override
+    public boolean isValid() {
+        try {
+            validate();
+        } catch (InvalidValueException invex) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -28,11 +28,12 @@
 
 package org.opennms.dashboard.client;
 
-
 import com.google.gwt.user.client.ui.ListBox;
 
 /**
- * <p>ValidatedListBox class.</p>
+ * <p>
+ * ValidatedListBox class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -46,14 +47,20 @@ public class ValidatedListBox extends ListBox {
      *
      */
     private Dashlet m_dashlet;
+
     private boolean m_allowWrapAround = true;
+
     private ValidatedListBox m_parent = null;
+
     private DirectionalChangeHandler m_directionalChangeHandler = null;
 
     /**
-     * <p>Constructor for ValidatedListBox.</p>
+     * <p>
+     * Constructor for ValidatedListBox.
+     * </p>
      *
-     * @param dashlet a {@link org.opennms.dashboard.client.Dashlet} object.
+     * @param dashlet
+     *            a {@link org.opennms.dashboard.client.Dashlet} object.
      */
     public ValidatedListBox(Dashlet dashlet) {
         super();
@@ -61,25 +68,36 @@ public class ValidatedListBox extends ListBox {
     }
 
     /**
-     * <p>setParent</p>
+     * <p>
+     * setParent
+     * </p>
      *
-     * @param parent a {@link org.opennms.dashboard.client.ValidatedListBox} object.
+     * @param parent
+     *            a {@link org.opennms.dashboard.client.ValidatedListBox}
+     *            object.
      */
     public void setParent(ValidatedListBox parent) {
         m_parent = parent;
     }
 
     /**
-     * <p>setDirectionalChangeHandler</p>
+     * <p>
+     * setDirectionalChangeHandler
+     * </p>
      *
-     * @param handler a {@link org.opennms.dashboard.client.DirectionalChangeHandler} object.
+     * @param handler
+     *            a
+     *            {@link org.opennms.dashboard.client.DirectionalChangeHandler}
+     *            object.
      */
     public void setDirectionalChangeHandler(DirectionalChangeHandler handler) {
         m_directionalChangeHandler = handler;
     }
 
     /**
-     * <p>getSelectedValue</p>
+     * <p>
+     * getSelectedValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,9 +112,12 @@ public class ValidatedListBox extends ListBox {
     }
 
     /**
-     * <p>getRelativeSelectedValue</p>
+     * <p>
+     * getRelativeSelectedValue
+     * </p>
      *
-     * @param offset a int.
+     * @param offset
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getRelativeSelectedValue(int offset) {
@@ -109,9 +130,12 @@ public class ValidatedListBox extends ListBox {
     }
 
     /**
-     * <p>adjustSelectedValue</p>
+     * <p>
+     * adjustSelectedValue
+     * </p>
      *
-     * @param direction a int.
+     * @param direction
+     *            a int.
      */
     public void adjustSelectedValue(int direction) {
         int newPrefabIndex = getSelectedIndex() + direction;
@@ -121,7 +145,7 @@ public class ValidatedListBox extends ListBox {
                 return;
             } else {
                 if (m_allowWrapAround) {
-                    newPrefabIndex = getItemCount() -1;
+                    newPrefabIndex = getItemCount() - 1;
                 } else {
                     return;
                 }

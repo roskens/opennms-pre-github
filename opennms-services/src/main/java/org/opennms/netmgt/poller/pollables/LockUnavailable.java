@@ -39,7 +39,9 @@ public class LockUnavailable extends RuntimeException {
     private static final long serialVersionUID = 6054183865580259303L;
 
     /**
-     * <p>Constructor for LockUnavailable.</p>
+     * <p>
+     * Constructor for LockUnavailable.
+     * </p>
      */
     public LockUnavailable() {
         super();
@@ -47,9 +49,12 @@ public class LockUnavailable extends RuntimeException {
     }
 
     /**
-     * <p>Constructor for LockUnavailable.</p>
+     * <p>
+     * Constructor for LockUnavailable.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public LockUnavailable(String message) {
         super(message);
@@ -57,10 +62,14 @@ public class LockUnavailable extends RuntimeException {
     }
 
     /**
-     * <p>Constructor for LockUnavailable.</p>
+     * <p>
+     * Constructor for LockUnavailable.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public LockUnavailable(String message, Throwable cause) {
         super(message, cause);
@@ -68,9 +77,12 @@ public class LockUnavailable extends RuntimeException {
     }
 
     /**
-     * <p>Constructor for LockUnavailable.</p>
+     * <p>
+     * Constructor for LockUnavailable.
+     * </p>
      *
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public LockUnavailable(Throwable cause) {
         super(cause);

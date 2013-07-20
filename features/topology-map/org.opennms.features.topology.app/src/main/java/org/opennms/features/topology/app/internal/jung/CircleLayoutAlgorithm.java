@@ -43,51 +43,45 @@ import edu.uci.ics.jung.graph.SparseGraph;
 
 public class CircleLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
-	@Override
-	public void updateLayout(final GraphContainer graphContainer) {
+    @Override
+    public void updateLayout(final GraphContainer graphContainer) {
 
-		Graph g = graphContainer.getGraph();
+        Graph g = graphContainer.getGraph();
 
-		final Layout graphLayout = g.getLayout();
+        final Layout graphLayout = g.getLayout();
 
-		SparseGraph<VertexRef, Edge> jungGraph = new SparseGraph<VertexRef, Edge>();
+        SparseGraph<VertexRef, Edge> jungGraph = new SparseGraph<VertexRef, Edge>();
 
-		Collection<? extends Vertex> vertices = g.getDisplayVertices();
+        Collection<? extends Vertex> vertices = g.getDisplayVertices();
 
-		for(VertexRef v : vertices) {
-			jungGraph.addVertex(v);
-		}
+        for (VertexRef v : vertices) {
+            jungGraph.addVertex(v);
+        }
 
-		for(Edge e : g.getDisplayEdges()) {
-			jungGraph.addEdge(e, e.getSource().getVertex(), e.getTarget().getVertex());
-		}
+        for (Edge e : g.getDisplayEdges()) {
+            jungGraph.addEdge(e, e.getSource().getVertex(), e.getTarget().getVertex());
+        }
 
+        CircleLayout<VertexRef, Edge> layout = new CircleLayout<VertexRef, Edge>(jungGraph);
+        layout.setInitializer(initializer(graphLayout));
+        layout.setSize(selectLayoutSize(graphContainer));
 
-		CircleLayout<VertexRef, Edge> layout = new CircleLayout<VertexRef, Edge>(jungGraph);
-		layout.setInitializer(initializer(graphLayout));
-		layout.setSize(selectLayoutSize(graphContainer));
+        for (VertexRef v : vertices) {
+            graphLayout.setLocation(v, (int) layout.getX(v), (int) layout.getY(v));
+        }
 
-		for(VertexRef v : vertices) {
-			graphLayout.setLocation(v, (int)layout.getX(v), (int)layout.getY(v));
-		}
+    }
 
+    @Override
+    protected Dimension selectLayoutSize(GraphContainer g) {
+        int vertexCount = g.getGraph().getDisplayVertices().size();
 
+        int spacing = ELBOW_ROOM / 5;
 
+        int diameter = (int) (vertexCount * spacing / Math.PI);
 
-	}
+        return new Dimension(diameter + ELBOW_ROOM, diameter + ELBOW_ROOM);
 
-	@Override
-	protected Dimension selectLayoutSize(GraphContainer g) {
-		int vertexCount = g.getGraph().getDisplayVertices().size();
-
-		int spacing = ELBOW_ROOM/5;
-
-		int diameter = (int)(vertexCount*spacing/Math.PI);
-
-		 return new Dimension(diameter+ELBOW_ROOM, diameter+ELBOW_ROOM);
-
-	}
-
-
+    }
 
 }

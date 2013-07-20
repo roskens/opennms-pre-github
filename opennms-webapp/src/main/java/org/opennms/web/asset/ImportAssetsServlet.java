@@ -58,26 +58,30 @@ import org.slf4j.LoggerFactory;
 import au.com.bytecode.opencsv.CSVReader;
 
 /**
- * <p>ImportAssetsServlet class.</p>
+ * <p>
+ * ImportAssetsServlet class.
+ * </p>
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski</A>
  * @author <A HREF="mailto:ranger@opennms.org">Benjamin Reed</A>
  */
 public class ImportAssetsServlet extends HttpServlet {
     private static final long serialVersionUID = 8282814214167099107L;
+
     private Logger logger = LoggerFactory.getLogger(ImportAssetsServlet.class.getName());
+
     private List<String> errors = new ArrayList<String>();
 
     private class AssetException extends Exception {
         private static final long serialVersionUID = 2498335935646001342L;
 
         public AssetException(String message) {
-    		super(message);
-    	}
+            super(message);
+        }
 
-		public AssetException(String message, Throwable t) {
-		    super(message, t);
-	    }
+        public AssetException(String message, Throwable t) {
+            super(message, t);
+        }
 
     }
 
@@ -88,10 +92,12 @@ public class ImportAssetsServlet extends HttpServlet {
 
     /**
      * Looks up the <code>redirect.success</code> parameter in the servlet's
-     * configuration. If not present, this servlet will throw an exception so it will
+     * configuration. If not present, this servlet will throw an exception so it
+     * will
      * be marked unavailable.
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -107,9 +113,8 @@ public class ImportAssetsServlet extends HttpServlet {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Acknowledge the events specified in the POST and then redirect the client
+     * {@inheritDoc} Acknowledge the events specified in the POST and then
+     * redirect the client
      * to an appropriate URL for display.
      */
     @Override
@@ -156,27 +161,31 @@ public class ImportAssetsServlet extends HttpServlet {
             request.getSession().setAttribute("message", messageText.toString());
             response.sendRedirect(response.encodeRedirectURL(this.redirectSuccess + "&showMessage=true"));
         } catch (AssetException e) {
-        	String message = "Error importing assets: " + e.getMessage();
-        	redirectWithErrorMessage(request, response, e, message);
+            String message = "Error importing assets: " + e.getMessage();
+            redirectWithErrorMessage(request, response, e, message);
         } catch (SQLException e) {
-        	String message ="Database exception importing assets: " + e.getMessage();
-        	redirectWithErrorMessage(request, response, e, message);
+            String message = "Database exception importing assets: " + e.getMessage();
+            redirectWithErrorMessage(request, response, e, message);
         }
     }
 
-	private void redirectWithErrorMessage(HttpServletRequest request, HttpServletResponse response,
-			Exception e, String message) throws IOException, UnsupportedEncodingException {
-		this.log(message, e);
-		request.getSession().setAttribute("message", message);
-		response.sendRedirect(response.encodeRedirectURL("import.jsp?showMessage=true"));
-	}
+    private void redirectWithErrorMessage(HttpServletRequest request, HttpServletResponse response, Exception e,
+            String message) throws IOException, UnsupportedEncodingException {
+        this.log(message, e);
+        request.getSession().setAttribute("message", message);
+        response.sendRedirect(response.encodeRedirectURL("import.jsp?showMessage=true"));
+    }
 
     /**
-     * <p>decodeAssetsText</p>
+     * <p>
+     * decodeAssetsText
+     * </p>
      *
-     * @param text a {@link java.lang.String} object.
+     * @param text
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.asset.ImportAssetsServlet$AssetException if any.
+     * @throws org.opennms.web.asset.ImportAssetsServlet$AssetException
+     *             if any.
      */
     public List<Asset> decodeAssetsText(String text) throws AssetException {
         CSVReader csvReader = null;
@@ -194,15 +203,16 @@ public class ImportAssetsServlet extends HttpServlet {
             while ((line = csvReader.readNext()) != null) {
                 count++;
                 try {
-                    logger.debug("asset line is:'{}'", (Object)line);
+                    logger.debug("asset line is:'{}'", (Object) line);
                     if (line.length <= 37) {
-                        logger.error("csv test row length was not at least 37 line length: '{}' line was:'{}', line length", line.length, line);
+                        logger.error("csv test row length was not at least 37 line length: '{}' line was:'{}', line length",
+                                     line.length, line);
                         throw new NoSuchElementException();
                     }
 
                     // skip the first line if it's the headers
                     if (line[0].equals("Node Label")) {
-                        logger.debug("line was header. line:'{}'", (Object)line);
+                        logger.debug("line was header. line:'{}'", (Object) line);
                         continue;
                     }
 
@@ -282,12 +292,13 @@ public class ImportAssetsServlet extends HttpServlet {
                     }
 
                     list.add(asset);
-                    logger.debug("decoded asset:'{}'", (Object)asset);
+                    logger.debug("decoded asset:'{}'", (Object) asset);
 
                 } catch (NoSuchElementException e) {
                     errors.add("Ignoring malformed import for entry " + count + ", not enough values.");
                 } catch (NumberFormatException e) {
-                    logger.error("NodeId parsing to int faild, ignoreing malformed import for entry number '{}' exception message:'{}'", count, e.getMessage());
+                    logger.error("NodeId parsing to int faild, ignoreing malformed import for entry number '{}' exception message:'{}'",
+                                 count, e.getMessage());
                     errors.add("Ignoring malformed import for entry " + count + ", node id not a number.");
                 }
             }
@@ -301,17 +312,20 @@ public class ImportAssetsServlet extends HttpServlet {
 
         if (list.size() == 0) {
             logger.error("No asset information was found, list size was 0");
-        	throw new AssetException("No asset information was found.");
+            throw new AssetException("No asset information was found.");
         }
 
         return list;
     }
 
     /**
-     * <p>getCurrentAssetNodesList</p>
+     * <p>
+     * getCurrentAssetNodesList
+     * </p>
      *
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public List<Integer> getCurrentAssetNodesList() throws SQLException {
         Connection conn = Vault.getDbConnection();

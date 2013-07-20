@@ -33,6 +33,7 @@ import java.util.Map;
 public interface Status {
 
     String computeStatus();
+
     Map<String, String> getStatusProperties();
 
 }

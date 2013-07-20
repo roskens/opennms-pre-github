@@ -38,7 +38,9 @@ import org.smslib.IUSSDNotification;
 import org.smslib.USSDResponse;
 
 /**
- * <p>UssdNotificationDispatcher class.</p>
+ * <p>
+ * UssdNotificationDispatcher class.
+ * </p>
  *
  * @author jeffg
  * @version $Id: $
@@ -50,27 +52,31 @@ public class UssdNotificationDispatcher implements IUSSDNotification {
     private Collection<IUSSDNotification> m_listenerList;
 
     /**
-     * <p>Constructor for UssdNotificationDispatcher.</p>
+     * <p>
+     * Constructor for UssdNotificationDispatcher.
+     * </p>
      */
     public UssdNotificationDispatcher() {
     }
 
     /**
-     * <p>Constructor for UssdNotificationDispatcher.</p>
+     * <p>
+     * Constructor for UssdNotificationDispatcher.
+     * </p>
      *
-     * @param listeners a {@link java.util.List} object.
+     * @param listeners
+     *            a {@link java.util.List} object.
      */
-    public UssdNotificationDispatcher(List<IUSSDNotification> listeners){
+    public UssdNotificationDispatcher(List<IUSSDNotification> listeners) {
         m_listenerList = listeners;
     }
 
     /** {@inheritDoc} */
     @Override
     public void process(AGateway gateway, USSDResponse ussdResponse) {
-        log.debug( "Forwarding message to registered listeners: {} : {}", getListeners(), ussdResponse);
+        log.debug("Forwarding message to registered listeners: {} : {}", getListeners(), ussdResponse);
 
-        for( IUSSDNotification listener : getListeners() )
-        {
+        for (IUSSDNotification listener : getListeners()) {
             if (listener != this) {
                 listener.process(gateway, ussdResponse);
             }
@@ -82,13 +88,15 @@ public class UssdNotificationDispatcher implements IUSSDNotification {
     }
 
     /**
-     * <p>setListenerList</p>
+     * <p>
+     * setListenerList
+     * </p>
      *
-     * @param list a {@link java.util.List} object.
+     * @param list
+     *            a {@link java.util.List} object.
      */
-    public void setListenerList(List<IUSSDNotification> list){
+    public void setListenerList(List<IUSSDNotification> list) {
         m_listenerList = list;
     }
-
 
 }

@@ -64,97 +64,109 @@ import org.springframework.stereotype.Service;
 @Service("nodesItemsService")
 public class AclNodeServiceImpl implements AclItemService {
 
-	/**
-	 * <p>init</p>
-	 */
-	@SuppressWarnings("unchecked")
-	public void init() {
-		List<AuthorityDTO> authorities = new FastArrayList();
-		for (AuthorityDTO authorityDTO : authorityService.getAuthorities()) {
-			authorityDTO.setItems(authorityService
-					.getIdItemsAuthority(authorityDTO.getId()));
-			if (authorityDTO.hasItems()) {
-				authorities.add(authorityDTO);
-			}
-		}
-		if (authorities.size() > 0) {
-			authItemsHelper = new AuthoritiesNodeHelper(authorities);
-		}
-		ready = true;
-	}
+    /**
+     * <p>
+     * init
+     * </p>
+     */
+    @SuppressWarnings("unchecked")
+    public void init() {
+        List<AuthorityDTO> authorities = new FastArrayList();
+        for (AuthorityDTO authorityDTO : authorityService.getAuthorities()) {
+            authorityDTO.setItems(authorityService.getIdItemsAuthority(authorityDTO.getId()));
+            if (authorityDTO.hasItems()) {
+                authorities.add(authorityDTO);
+            }
+        }
+        if (authorities.size() > 0) {
+            authItemsHelper = new AuthoritiesNodeHelper(authorities);
+        }
+        ready = true;
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public Boolean deleteAuthority(String authority) {
-		return authItemsHelper.deleteAuthority(authority);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Boolean deleteAuthority(String authority) {
+        return authItemsHelper.deleteAuthority(authority);
+    }
 
-	/**
-	 * <p>getItems</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	@SuppressWarnings("unchecked")
-        @Override
-	public List<CategoryNodeONMSDTO> getItems() {
-		return (List<CategoryNodeONMSDTO>) itemAclRepository.getItems();
-	}
+    /**
+     * <p>
+     * getItems
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<CategoryNodeONMSDTO> getItems() {
+        return (List<CategoryNodeONMSDTO>) itemAclRepository.getItems();
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public Set<Integer> getAclItems(Set<AuthorityView> authorities) {
-		if (!ready)
-			init();
-		return authItemsHelper.getAuthoritiesItems(authorities);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Set<Integer> getAclItems(Set<AuthorityView> authorities) {
+        if (!ready)
+            init();
+        return authItemsHelper.getAuthoritiesItems(authorities);
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public Boolean deleteItem(Integer id) {
-		return authItemsHelper.deleteItem(id);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Boolean deleteItem(Integer id) {
+        return authItemsHelper.deleteItem(id);
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public List<?> getAuthorityItems(List<Integer> items) {
-		return itemAclRepository.getAuthorityItems(items);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public List<?> getAuthorityItems(List<Integer> items) {
+        return itemAclRepository.getAuthorityItems(items);
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public List<?> getFreeItems(List<Integer> items) {
-		return itemAclRepository.getFreeItems(items);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public List<?> getFreeItems(List<Integer> items) {
+        return itemAclRepository.getFreeItems(items);
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void addAuthority(AuthorityDTO authority) {
-		authItemsHelper.addAuthorityWithNodes(authority);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void addAuthority(AuthorityDTO authority) {
+        authItemsHelper.addAuthorityWithNodes(authority);
+    }
 
-	/**
-	 * <p>Setter for the field <code>itemAclRepository</code>.</p>
-	 *
-	 * @param itemAclRepository a {@link org.opennms.acl.repository.ItemAclRepository} object.
-	 */
-	@Autowired
-	public void setItemAclRepository(
-			@Qualifier("categoryNodeRepository") ItemAclRepository itemAclRepository) {
-		this.itemAclRepository = itemAclRepository;
-	}
+    /**
+     * <p>
+     * Setter for the field <code>itemAclRepository</code>.
+     * </p>
+     *
+     * @param itemAclRepository
+     *            a {@link org.opennms.acl.repository.ItemAclRepository} object.
+     */
+    @Autowired
+    public void setItemAclRepository(@Qualifier("categoryNodeRepository")
+    ItemAclRepository itemAclRepository) {
+        this.itemAclRepository = itemAclRepository;
+    }
 
-	/**
-	 * <p>Setter for the field <code>authorityService</code>.</p>
-	 *
-	 * @param authorityService a {@link org.opennms.acl.service.AuthorityService} object.
-	 */
-	@Autowired
-	public void setAuthorityService(AuthorityService authorityService) {
-		this.authorityService = authorityService;
-	}
+    /**
+     * <p>
+     * Setter for the field <code>authorityService</code>.
+     * </p>
+     *
+     * @param authorityService
+     *            a {@link org.opennms.acl.service.AuthorityService} object.
+     */
+    @Autowired
+    public void setAuthorityService(AuthorityService authorityService) {
+        this.authorityService = authorityService;
+    }
 
-	private ItemAclRepository itemAclRepository;
-	private AuthorityService authorityService;
-	private AuthoritiesNodeHelper authItemsHelper;
-	private boolean ready = false;
+    private ItemAclRepository itemAclRepository;
+
+    private AuthorityService authorityService;
+
+    private AuthoritiesNodeHelper authItemsHelper;
+
+    private boolean ready = false;
 }

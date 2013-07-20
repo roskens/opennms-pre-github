@@ -75,17 +75,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-    "classpath:/META-INF/opennms/applicationContext-dao.xml",
-    "classpath*:/META-INF/opennms/component-dao.xml",
-    "classpath:META-INF/opennms/applicationContext-soa.xml",
-    "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-    "classpath:/META-INF/opennms/mockEventIpcManager.xml",
-    "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
-    "classpath:META-INF/opennms/applicationContext-commonConfigs.xml",
-    "classpath:META-INF/opennms/applicationContext-accesspointmonitord.xml",
-    "classpath:META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-dao.xml",
+        "classpath*:/META-INF/opennms/component-dao.xml", "classpath:META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-daemon.xml",
+        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
+        "classpath:META-INF/opennms/applicationContext-commonConfigs.xml",
+        "classpath:META-INF/opennms/applicationContext-accesspointmonitord.xml",
+        "classpath:META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(reuseDatabase = false)
 @DirtiesContext
@@ -114,19 +111,27 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
     AccessPointMonitord m_apm;
 
     AnnotationBasedEventListenerAdapter m_adapter;
+
     AccessPointMonitorConfigFactory m_apmdConfigFactory;
+
     private MockEventIpcManager m_eventMgr;
+
     private EventAnticipator m_anticipator;
 
     private final static String AP1_MAC = "00:01:02:03:04:05";
+
     private final static String AP2_MAC = "07:08:09:0A:0B:0C";
+
     private final static String AP3_MAC = "F0:05:BA:11:00:FF";
 
     private final static int AGENT_TIMEOUT = 1000;
+
     private final static int POLLING_INTERVAL = 5000;
+
     private final static int POLLING_INTERVAL_DELTA = POLLING_INTERVAL + 2000;
 
     private static final String PASSIVE_STATUS_UEI = "uei.opennms.org/services/passiveServiceStatus";
+
     private static final String SNMP_DATA_PATH = "/org/opennms/netmgt/accesspointmonitor/poller/instancestrategy/";
 
     @Override
@@ -438,10 +443,9 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
      */
     @Test
     @JUnitSnmpAgents(value = {
-        @JUnitSnmpAgent(host = "10.1.0.2", port = 161, resource = SNMP_DATA_PATH + "10.1.0.2-walk.txt"),
-        @JUnitSnmpAgent(host = "10.1.1.2", port = 161, resource = SNMP_DATA_PATH + "10.1.1.2-walk.txt"),
-        @JUnitSnmpAgent(host = "10.1.2.2", port = 161, resource = SNMP_DATA_PATH + "10.1.2.2-walk.txt")
-    })
+            @JUnitSnmpAgent(host = "10.1.0.2", port = 161, resource = SNMP_DATA_PATH + "10.1.0.2-walk.txt"),
+            @JUnitSnmpAgent(host = "10.1.1.2", port = 161, resource = SNMP_DATA_PATH + "10.1.1.2-walk.txt"),
+            @JUnitSnmpAgent(host = "10.1.2.2", port = 161, resource = SNMP_DATA_PATH + "10.1.2.2-walk.txt") })
     public void testManyControllers() throws Exception {
         // Add AP1 and AP2 to the default package
         addNewAccessPoint("ap1", AP1_MAC, "default");
@@ -515,9 +519,8 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
      */
     @Test
     @JUnitSnmpAgents(value = {
-        @JUnitSnmpAgent(host = "10.1.0.2", port = 161, resource = SNMP_DATA_PATH + "10.1.0.2-walk.txt"),
-        @JUnitSnmpAgent(host = "10.1.1.2", port = 161, resource = SNMP_DATA_PATH + "10.1.1.2-walk.txt")
-    })
+            @JUnitSnmpAgent(host = "10.1.0.2", port = 161, resource = SNMP_DATA_PATH + "10.1.0.2-walk.txt"),
+            @JUnitSnmpAgent(host = "10.1.1.2", port = 161, resource = SNMP_DATA_PATH + "10.1.1.2-walk.txt") })
     public void testAddControllerToPackage() throws Exception {
         // Add AP1 and AP2 to the default package
         addNewAccessPoint("ap1", AP1_MAC, "default");
@@ -620,94 +623,102 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
     }
 
     private String getEmptyConfig() {
-    	return "<?xml version=\"1.0\"?>\n" +
-    	"<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n" +
-    	"        <package name=\"default-empty\">\n" +
-    	"                <filter>IPADDR = '1.1.1.1'</filter>\n" +
-    	"                <service name=\"Aruba-AP-IsAdoptedOnController\" interval=\"" + POLLING_INTERVAL + "\" user-defined=\"false\" status=\"on\">\n" +
-    	"                        <parameter key=\"retry\" value=\"3\"/>\n" +
-    	"                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n" +
-    	"                        <parameter key=\"operator\" value=\"=\"/>\n" +
-    	"                        <parameter key=\"operand\" value=\"1\"/>\n" +
-    	"                        <parameter key=\"match\" value=\"true\"/>\n" +
-    	"                </service>\n" +
-    	"        </package>\n" +
-    	"        <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n" +
-    	"</access-point-monitor-configuration>\n" +
-    	"";
+        return "<?xml version=\"1.0\"?>\n"
+                + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n"
+                + "        <package name=\"default-empty\">\n"
+                + "                <filter>IPADDR = '1.1.1.1'</filter>\n"
+                + "                <service name=\"Aruba-AP-IsAdoptedOnController\" interval=\""
+                + POLLING_INTERVAL
+                + "\" user-defined=\"false\" status=\"on\">\n"
+                + "                        <parameter key=\"retry\" value=\"3\"/>\n"
+                + "                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n"
+                + "                        <parameter key=\"operator\" value=\"=\"/>\n"
+                + "                        <parameter key=\"operand\" value=\"1\"/>\n"
+                + "                        <parameter key=\"match\" value=\"true\"/>\n"
+                + "                </service>\n"
+                + "        </package>\n"
+                + "        <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n"
+                + "</access-point-monitor-configuration>\n" + "";
     }
 
     private String getStandardConfig() {
-    	return "<?xml version=\"1.0\"?>\n" +
-    	"<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n" +
-		"   	<service-template name=\"Aruba-AP-IsAdoptedOnController\" interval=\"" + POLLING_INTERVAL + "\" status=\"off\">\n" +
-    	"                        <parameter key=\"timeout\" value=\"" + AGENT_TIMEOUT + "\"/>\n" +
-		"                        <parameter key=\"retry\" value=\"0\"/>\n" +
-    	"                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n" +
-    	"                        <parameter key=\"operator\" value=\"=\"/>\n" +
-    	"                        <parameter key=\"operand\" value=\"1\"/>\n" +
-    	"                        <parameter key=\"match\" value=\"true\"/>\n" +
-		"		</service-template>" +
-    	"       <package name=\"default\">\n" +
-    	"               <filter>(IPADDR != '0.0.0.0' &amp; (IPADDR IPLIKE 10.1.0.*))</filter>\n" +
-    	"               <service name=\"Aruba-AP-IsAdoptedOnController\" status=\"on\"/>" +
-    	"       </package>\n" +
-    	"       <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n" +
-    	"</access-point-monitor-configuration>\n" +
-    	"";
+        return "<?xml version=\"1.0\"?>\n"
+                + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n"
+                + "   	<service-template name=\"Aruba-AP-IsAdoptedOnController\" interval=\""
+                + POLLING_INTERVAL
+                + "\" status=\"off\">\n"
+                + "                        <parameter key=\"timeout\" value=\""
+                + AGENT_TIMEOUT
+                + "\"/>\n"
+                + "                        <parameter key=\"retry\" value=\"0\"/>\n"
+                + "                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n"
+                + "                        <parameter key=\"operator\" value=\"=\"/>\n"
+                + "                        <parameter key=\"operand\" value=\"1\"/>\n"
+                + "                        <parameter key=\"match\" value=\"true\"/>\n"
+                + "		</service-template>"
+                + "       <package name=\"default\">\n"
+                + "               <filter>(IPADDR != '0.0.0.0' &amp; (IPADDR IPLIKE 10.1.0.*))</filter>\n"
+                + "               <service name=\"Aruba-AP-IsAdoptedOnController\" status=\"on\"/>"
+                + "       </package>\n"
+                + "       <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n"
+                + "</access-point-monitor-configuration>\n" + "";
     }
 
     private String getMultiControllerConfig() {
-        return "<?xml version=\"1.0\"?>\n" +
-    	"<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n" +
-    	"        <package name=\"default\">\n" +
-    	"                <filter>(IPADDR != '0.0.0.0' &amp; (IPADDR IPLIKE 10.1.*.*))</filter>\n" +
-    	"                <service name=\"Aruba-AP-IsAdoptedOnController\" interval=\"" + POLLING_INTERVAL + "\" user-defined=\"false\" status=\"on\">\n" +
-    	"                        <parameter key=\"retry\" value=\"3\"/>\n" +
-    	"                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n" +
-    	"                        <parameter key=\"operator\" value=\"=\"/>\n" +
-    	"                        <parameter key=\"operand\" value=\"1\"/>\n" +
-    	"                        <parameter key=\"match\" value=\"true\"/>\n" +
-    	"                </service>\n" +
-    	"        </package>\n" +
-    	"        <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n" +
-    	"</access-point-monitor-configuration>\n" +
-    	"";
+        return "<?xml version=\"1.0\"?>\n"
+                + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n"
+                + "        <package name=\"default\">\n"
+                + "                <filter>(IPADDR != '0.0.0.0' &amp; (IPADDR IPLIKE 10.1.*.*))</filter>\n"
+                + "                <service name=\"Aruba-AP-IsAdoptedOnController\" interval=\""
+                + POLLING_INTERVAL
+                + "\" user-defined=\"false\" status=\"on\">\n"
+                + "                        <parameter key=\"retry\" value=\"3\"/>\n"
+                + "                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n"
+                + "                        <parameter key=\"operator\" value=\"=\"/>\n"
+                + "                        <parameter key=\"operand\" value=\"1\"/>\n"
+                + "                        <parameter key=\"match\" value=\"true\"/>\n"
+                + "                </service>\n"
+                + "        </package>\n"
+                + "        <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n"
+                + "</access-point-monitor-configuration>\n" + "";
     }
 
     private String getMultiControllerClusteredConfig() {
-    	return "<?xml version=\"1.0\"?>\n" +
-    	"<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n" +
-    	"        <package name=\"default\">\n" +
-    	"                <filter>(IPADDR != '0.0.0.0' &amp; (IPADDR IPLIKE 10.1.4.*))</filter>\n" +
-    	"                <service name=\"Aruba-AP-IsAdoptedOnController\" interval=\"" + POLLING_INTERVAL + "\" user-defined=\"false\" status=\"on\">\n" +
-    	"                        <parameter key=\"retry\" value=\"3\"/>\n" +
-    	"                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n" +
-    	"                        <parameter key=\"operator\" value=\"=\"/>\n" +
-    	"                        <parameter key=\"operand\" value=\"1\"/>\n" +
-    	"                        <parameter key=\"match\" value=\"true\"/>\n" +
-    	"                </service>\n" +
-    	"        </package>\n" +
-    	"        <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n" +
-    	"</access-point-monitor-configuration>\n" +
-    	"";
+        return "<?xml version=\"1.0\"?>\n"
+                + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n"
+                + "        <package name=\"default\">\n"
+                + "                <filter>(IPADDR != '0.0.0.0' &amp; (IPADDR IPLIKE 10.1.4.*))</filter>\n"
+                + "                <service name=\"Aruba-AP-IsAdoptedOnController\" interval=\""
+                + POLLING_INTERVAL
+                + "\" user-defined=\"false\" status=\"on\">\n"
+                + "                        <parameter key=\"retry\" value=\"3\"/>\n"
+                + "                        <parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>\n"
+                + "                        <parameter key=\"operator\" value=\"=\"/>\n"
+                + "                        <parameter key=\"operand\" value=\"1\"/>\n"
+                + "                        <parameter key=\"match\" value=\"true\"/>\n"
+                + "                </service>\n"
+                + "        </package>\n"
+                + "        <monitor service=\"Aruba-AP-IsAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />\n"
+                + "</access-point-monitor-configuration>\n" + "";
     }
 
     private String getDynamicPackageConfig() {
-        return "<?xml version=\"1.0\"?>" +
-        "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">" +
-        "	<service-template name=\"Aruba-IsAPAdoptedOnController\" interval=\"" + POLLING_INTERVAL + "\" status=\"off\">" +
-        "		<parameter key=\"retry\" value=\"3\"/>" +
-        "		<parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>" +
-        "		<parameter key=\"operator\" value=\"=\"/>" +
-        "		<parameter key=\"operand\" value=\"1\"/>" +
-        "		<parameter key=\"match\" value=\"true\"/>" +
-        "	</service-template>" +
-        "	<package name=\"aruba-%\">" +
-        "		<filter>(IPADDR != '0.0.0.0' &amp; (pollerCategory == '%packageName%'))</filter>" +
-        "		<service name=\"Aruba-IsAPAdoptedOnController\" status=\"on\"/>" +
-        "	</package>" +
-        "	<monitor service=\"Aruba-IsAPAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />" +
-        "</access-point-monitor-configuration>";
+        return "<?xml version=\"1.0\"?>"
+                + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">"
+                + "	<service-template name=\"Aruba-IsAPAdoptedOnController\" interval=\""
+                + POLLING_INTERVAL
+                + "\" status=\"off\">"
+                + "		<parameter key=\"retry\" value=\"3\"/>"
+                + "		<parameter key=\"oid\" value=\".1.3.6.1.4.1.14823.2.2.1.5.2.1.4.1.19\"/>"
+                + "		<parameter key=\"operator\" value=\"=\"/>"
+                + "		<parameter key=\"operand\" value=\"1\"/>"
+                + "		<parameter key=\"match\" value=\"true\"/>"
+                + "	</service-template>"
+                + "	<package name=\"aruba-%\">"
+                + "		<filter>(IPADDR != '0.0.0.0' &amp; (pollerCategory == '%packageName%'))</filter>"
+                + "		<service name=\"Aruba-IsAPAdoptedOnController\" status=\"on\"/>"
+                + "	</package>"
+                + "	<monitor service=\"Aruba-IsAPAdoptedOnController\" class-name=\"org.opennms.netmgt.accesspointmonitor.poller.InstanceStrategy\" />"
+                + "</access-point-monitor-configuration>";
     }
 }

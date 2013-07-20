@@ -92,7 +92,8 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      *            a {@link java.util.List} object.
      */
     public void setAccessPoints(List<OnmsAccessPoint> accesspoints) {
-        if (accesspoints == this) return;
+        if (accesspoints == this)
+            return;
         clear();
         addAll(accesspoints);
     }

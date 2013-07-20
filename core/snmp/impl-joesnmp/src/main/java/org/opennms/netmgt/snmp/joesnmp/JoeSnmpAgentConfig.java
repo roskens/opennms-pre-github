@@ -181,9 +181,9 @@ public class JoeSnmpAgentConfig {
 
     public static int convertVersion(int version) {
         switch (version) {
-        case SnmpAgentConfig.VERSION2C :
+        case SnmpAgentConfig.VERSION2C:
             return SnmpSMI.SNMPV2;
-        default :
+        default:
             return SnmpSMI.SNMPV1;
         }
     }

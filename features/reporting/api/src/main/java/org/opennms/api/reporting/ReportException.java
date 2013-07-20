@@ -29,7 +29,9 @@
 package org.opennms.api.reporting;
 
 /**
- * <p>ReportException class.</p>
+ * <p>
+ * ReportException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,28 +41,38 @@ public class ReportException extends Exception {
     private static final long serialVersionUID = 4117625493115237316L;
 
     /**
-     * <p>Constructor for ReportException.</p>
+     * <p>
+     * Constructor for ReportException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public ReportException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * <p>Constructor for ReportException.</p>
+     * <p>
+     * Constructor for ReportException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public ReportException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for ReportException.</p>
+     * <p>
+     * Constructor for ReportException.
+     * </p>
      *
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public ReportException(Throwable cause) {
         super(cause);

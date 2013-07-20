@@ -47,13 +47,17 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse> {
     private static final String DEFAULT_SERVICE_NAME = "SMS";
+
     private static final int DEFAULT_PORT = 0;
 
     private String m_ipMatch;
+
     private boolean m_isSupported = true;
 
     /**
-     * <p>Constructor for SmsDetector.</p>
+     * <p>
+     * Constructor for SmsDetector.
+     * </p>
      */
     public SmsDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
@@ -75,7 +79,7 @@ public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse>
 
     private static ResponseValidator<SmsResponse> ipMatches(final String ipAddr) {
 
-        return new ResponseValidator<SmsResponse>(){
+        return new ResponseValidator<SmsResponse>() {
 
             @Override
             public boolean validate(SmsResponse response) {
@@ -86,16 +90,21 @@ public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse>
     }
 
     /**
-     * <p>setIpMatch</p>
+     * <p>
+     * setIpMatch
+     * </p>
      *
-     * @param ipMatch a {@link java.lang.String} object.
+     * @param ipMatch
+     *            a {@link java.lang.String} object.
      */
     public void setIpMatch(String ipMatch) {
         m_ipMatch = ipMatch;
     }
 
     /**
-     * <p>getIpMatch</p>
+     * <p>
+     * getIpMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,16 +113,21 @@ public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse>
     }
 
     /**
-     * <p>setSupported</p>
+     * <p>
+     * setSupported
+     * </p>
      *
-     * @param isSupported a boolean.
+     * @param isSupported
+     *            a boolean.
      */
     public void setSupported(boolean isSupported) {
         m_isSupported = isSupported;
     }
 
     /**
-     * <p>isSupported</p>
+     * <p>
+     * isSupported
+     * </p>
      *
      * @return a boolean.
      */

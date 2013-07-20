@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.capsd.plugins;
 
-
 /**
  * <P>
  * This class is designed to be used by the capabilities daemon to test for the
@@ -43,7 +42,9 @@ package org.opennms.netmgt.capsd.plugins;
 public class NotesHttpPlugin extends HttpPlugin {
 
     /**
-     * <p>Constructor for NotesHttpPlugin.</p>
+     * <p>
+     * Constructor for NotesHttpPlugin.
+     * </p>
      */
     public NotesHttpPlugin() {
         super("NotesHTTP", false, "HEAD / HTTP/1.0\r\n\r\n", "Lotus");

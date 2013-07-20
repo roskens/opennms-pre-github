@@ -29,14 +29,19 @@
 package org.opennms.core.utils;
 
 /**
- * <p>ReplaceAllOperation class.</p>
+ * <p>
+ * ReplaceAllOperation class.
+ * </p>
  */
 public class ReplaceAllOperation extends StringReplaceOperation {
 
     /**
-     * <p>Constructor for ReplaceAllOperation.</p>
+     * <p>
+     * Constructor for ReplaceAllOperation.
+     * </p>
      *
-     * @param spec a {@link java.lang.String} object.
+     * @param spec
+     *            a {@link java.lang.String} object.
      */
     public ReplaceAllOperation(String spec) {
         super(spec);

@@ -74,8 +74,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class PersistRegexSelectorStrategyTest {
 
     private IpInterfaceDao ipInterfaceDao;
+
     private GenericIndexResource resourceA;
+
     private GenericIndexResource resourceB;
+
     private ServiceParameters serviceParams;
 
     @Before
@@ -135,7 +138,8 @@ public class PersistRegexSelectorStrategyTest {
         mibObject.setInstance("1");
         mibObject.setAlias("name");
         mibObject.setType("string");
-        StringAttributeType attributeType = new StringAttributeType(resourceType, snmpCollection.getName(), mibObject, groupType);
+        StringAttributeType attributeType = new StringAttributeType(resourceType, snmpCollection.getName(), mibObject,
+                                                                    groupType);
         SnmpValue snmpValue = new Snmp4JValueFactory().getOctetString("agalue rules!".getBytes());
         resourceA.setAttributeValue(attributeType, snmpValue);
 

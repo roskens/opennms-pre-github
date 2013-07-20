@@ -32,108 +32,130 @@ import org.opennms.netmgt.model.OnmsArpInterface;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 
 /**
- * <p>AtInterface class.</p>
+ * <p>
+ * AtInterface class.
+ * </p>
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  */
-public class AtInterface
-{
-        private final int     m_nodeId;
-        private final int     m_sourcenodeid;
-        private final int     m_ifindex;
-        private final String  m_ipaddr;
-        private final String  m_physaddr;
-        private final String  m_lastPollTime;
-        private final String  m_status;
+public class AtInterface {
+    private final int m_nodeId;
 
-        /* package-protected so only the NetworkElementFactory can instantiate */
-        AtInterface(OnmsArpInterface iface)
-        {
-                m_nodeId = iface.getNode().getId();
-                m_sourcenodeid = iface.getSourceNode().getId();
-				m_ifindex = iface.getIfIndex();
-                m_ipaddr = iface.getIpAddress();
-                m_physaddr = iface.getPhysAddr();
-                m_lastPollTime = iface.getLastPoll().toString();
-                m_status = StatusType.getStatusString(iface.getStatus().getCharCode());
-        }
+    private final int m_sourcenodeid;
 
-        /**
-         * <p>toString</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
-        @Override
-        public String toString()
-        {
-                StringBuffer str = new StringBuffer("Node Id = " + m_nodeId + "\n" );
-                str.append("Node Source = " + m_sourcenodeid + "\n" );
-                str.append("At Last Poll Time = " + m_lastPollTime + "\n" );
-                str.append("Dp name = " + m_physaddr + "\n" );
-                str.append("Node At Status= " + m_status + "\n" );
-                return str.toString();
-        }
-		/**
-		 * <p>get_ifindex</p>
-		 *
-		 * @return a int.
-		 */
-		public int get_ifindex() {
-			return m_ifindex;
-		}
+    private final int m_ifindex;
 
-		/**
-		 * <p>get_ipaddr</p>
-		 *
-		 * @return a {@link java.lang.String} object.
-		 */
-		public String get_ipaddr() {
-			return m_ipaddr;
-		}
+    private final String m_ipaddr;
 
-		/**
-		 * <p>get_lastPollTime</p>
-		 *
-		 * @return a {@link java.lang.String} object.
-		 */
-		public String get_lastPollTime() {
-			return m_lastPollTime;
-		}
+    private final String m_physaddr;
 
-		/**
-		 * <p>get_nodeId</p>
-		 *
-		 * @return a int.
-		 */
-		public int get_nodeId() {
-			return m_nodeId;
-		}
+    private final String m_lastPollTime;
 
-		/**
-		 * <p>get_physaddr</p>
-		 *
-		 * @return a {@link java.lang.String} object.
-		 */
-		public String get_physaddr() {
-			return m_physaddr;
-		}
+    private final String m_status;
 
-		/**
-		 * <p>get_sourcenodeid</p>
-		 *
-		 * @return a int.
-		 */
-		public int get_sourcenodeid() {
-			return m_sourcenodeid;
-		}
+    /* package-protected so only the NetworkElementFactory can instantiate */
+    AtInterface(OnmsArpInterface iface) {
+        m_nodeId = iface.getNode().getId();
+        m_sourcenodeid = iface.getSourceNode().getId();
+        m_ifindex = iface.getIfIndex();
+        m_ipaddr = iface.getIpAddress();
+        m_physaddr = iface.getPhysAddr();
+        m_lastPollTime = iface.getLastPoll().toString();
+        m_status = StatusType.getStatusString(iface.getStatus().getCharCode());
+    }
 
-		/**
-		 * <p>get_status</p>
-		 *
-		 * @return a char.
-		 */
-		public String get_status() {
-			return m_status;
-		}
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        StringBuffer str = new StringBuffer("Node Id = " + m_nodeId + "\n");
+        str.append("Node Source = " + m_sourcenodeid + "\n");
+        str.append("At Last Poll Time = " + m_lastPollTime + "\n");
+        str.append("Dp name = " + m_physaddr + "\n");
+        str.append("Node At Status= " + m_status + "\n");
+        return str.toString();
+    }
+
+    /**
+     * <p>
+     * get_ifindex
+     * </p>
+     *
+     * @return a int.
+     */
+    public int get_ifindex() {
+        return m_ifindex;
+    }
+
+    /**
+     * <p>
+     * get_ipaddr
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String get_ipaddr() {
+        return m_ipaddr;
+    }
+
+    /**
+     * <p>
+     * get_lastPollTime
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String get_lastPollTime() {
+        return m_lastPollTime;
+    }
+
+    /**
+     * <p>
+     * get_nodeId
+     * </p>
+     *
+     * @return a int.
+     */
+    public int get_nodeId() {
+        return m_nodeId;
+    }
+
+    /**
+     * <p>
+     * get_physaddr
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String get_physaddr() {
+        return m_physaddr;
+    }
+
+    /**
+     * <p>
+     * get_sourcenodeid
+     * </p>
+     *
+     * @return a int.
+     */
+    public int get_sourcenodeid() {
+        return m_sourcenodeid;
+    }
+
+    /**
+     * <p>
+     * get_status
+     * </p>
+     *
+     * @return a char.
+     */
+    public String get_status() {
+        return m_status;
+    }
 
 }

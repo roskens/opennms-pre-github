@@ -33,19 +33,26 @@ import org.opennms.netmgt.provision.DetectFuture;
 import org.opennms.netmgt.provision.DetectFutureListener;
 
 /**
- * <p>DetectFutureNettyImpl class.</p>
+ * <p>
+ * DetectFutureNettyImpl class.
+ * </p>
  *
  * @author Seth
  */
 public class DetectFutureFailedImpl implements DetectFuture {
 
     final AsyncServiceDetector m_detector;
+
     final Throwable m_cause;
 
     /**
-     * <p>Constructor for DefaultDetectFuture.</p>
+     * <p>
+     * Constructor for DefaultDetectFuture.
+     * </p>
      *
-     * @param detector a {@link org.opennms.netmgt.provision.AsyncServiceDetector} object.
+     * @param detector
+     *            a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
+     *            object.
      * @param e
      */
     public DetectFutureFailedImpl(final AsyncServiceDetector detector, Throwable e) {
@@ -54,9 +61,12 @@ public class DetectFutureFailedImpl implements DetectFuture {
     }
 
     /**
-     * <p>getServiceDetector</p>
+     * <p>
+     * getServiceDetector
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector} object.
+     * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
+     *         object.
      */
     @Override
     public AsyncServiceDetector getServiceDetector() {
@@ -64,7 +74,9 @@ public class DetectFutureFailedImpl implements DetectFuture {
     }
 
     /**
-     * <p>isServiceDetected</p>
+     * <p>
+     * isServiceDetected
+     * </p>
      *
      * @return a boolean.
      */
@@ -74,7 +86,9 @@ public class DetectFutureFailedImpl implements DetectFuture {
     }
 
     /**
-     * <p>getException</p>
+     * <p>
+     * getException
+     * </p>
      *
      * @return a {@link java.lang.Throwable} object.
      */

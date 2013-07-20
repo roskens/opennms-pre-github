@@ -43,16 +43,21 @@ public class AlarmIDFilter extends EqualsFilter<Integer> {
     public static final String TYPE = "alarm";
 
     /**
-     * <p>Constructor for AlarmIDFilter.</p>
+     * <p>
+     * Constructor for AlarmIDFilter.
+     * </p>
      *
-     * @param alarmId a int.
+     * @param alarmId
+     *            a int.
      */
     public AlarmIDFilter(int alarmId) {
         super(TYPE, SQLType.INT, "ALARMID", "alarm.id", alarmId);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +67,9 @@ public class AlarmIDFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +79,9 @@ public class AlarmIDFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getAlarmId</p>
+     * <p>
+     * getAlarmId
+     * </p>
      *
      * @return a int.
      */

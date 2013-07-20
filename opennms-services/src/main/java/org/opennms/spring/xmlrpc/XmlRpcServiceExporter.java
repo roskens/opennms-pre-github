@@ -47,21 +47,27 @@ import org.springframework.remoting.support.RemoteExporter;
 import org.springframework.util.MethodInvoker;
 
 /**
- * <p>XmlRpcServiceExporter class.</p>
+ * <p>
+ * XmlRpcServiceExporter class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class XmlRpcServiceExporter extends RemoteExporter implements InitializingBean, DisposableBean, XmlRpcHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(XmlRpcServiceExporter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XmlRpcServiceExporter.class);
 
     private WebServer webServer;
+
     private Object proxy;
+
     private String serviceName;
 
     /**
-     * <p>Getter for the field <code>webServer</code>.</p>
+     * <p>
+     * Getter for the field <code>webServer</code>.
+     * </p>
      *
      * @return a {@link org.apache.xmlrpc.WebServer} object.
      */
@@ -70,16 +76,21 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
     }
 
     /**
-     * <p>Setter for the field <code>webServer</code>.</p>
+     * <p>
+     * Setter for the field <code>webServer</code>.
+     * </p>
      *
-     * @param webServer a {@link org.apache.xmlrpc.WebServer} object.
+     * @param webServer
+     *            a {@link org.apache.xmlrpc.WebServer} object.
      */
     public void setWebServer(WebServer webServer) {
         this.webServer = webServer;
     }
 
     /**
-     * <p>Getter for the field <code>serviceName</code>.</p>
+     * <p>
+     * Getter for the field <code>serviceName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,18 +99,24 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
     }
 
     /**
-     * <p>Setter for the field <code>serviceName</code>.</p>
+     * <p>
+     * Setter for the field <code>serviceName</code>.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -118,9 +135,12 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void destroy() throws Exception {
@@ -151,7 +171,8 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
 
     /** {@inheritDoc} */
     @Override
-    public Object execute(String method, @SuppressWarnings("unchecked") Vector params) throws Exception {
+    public Object execute(String method, @SuppressWarnings("unchecked")
+    Vector params) throws Exception {
 
         LOG.debug("calling: {}({})", method, toArgList(params));
 
@@ -162,22 +183,22 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
         invoker.prepare();
 
         try {
-        Object returnValue =  invoker.invoke();
+            Object returnValue = invoker.invoke();
 
-        if (returnValue == null && invoker.getPreparedMethod().getReturnType() == Void.TYPE) {
-            returnValue = "void";
-        }
+            if (returnValue == null && invoker.getPreparedMethod().getReturnType() == Void.TYPE) {
+                returnValue = "void";
+            }
 
-        else if (returnValue instanceof Map<?,?> && !(returnValue instanceof Hashtable<?,?>)) {
-            returnValue = new Hashtable<Object, Object>((Map<?, ?>)returnValue);
-        }
+            else if (returnValue instanceof Map<?, ?> && !(returnValue instanceof Hashtable<?, ?>)) {
+                returnValue = new Hashtable<Object, Object>((Map<?, ?>) returnValue);
+            }
 
-        else if (returnValue instanceof Collection<?> && !(returnValue instanceof Vector<?>)) {
-            returnValue = new Vector<Object>((Collection<?>)returnValue);
-        }
+            else if (returnValue instanceof Collection<?> && !(returnValue instanceof Vector<?>)) {
+                returnValue = new Vector<Object>((Collection<?>) returnValue);
+            }
 
-        LOG.debug("returning from: {}({}) result = {}", method, toArgList(params), returnValue);
-        return returnValue;
+            LOG.debug("returning from: {}({}) result = {}", method, toArgList(params), returnValue);
+            return returnValue;
 
         } catch (InvocationTargetException e) {
             Throwable targetException = e.getTargetException();
@@ -185,9 +206,8 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
                 throw new MsgPreservingXmlRpcException(XmlRpcConstants.FAULT_INVALID_DATA, targetException.getMessage());
             } else if (targetException instanceof MalformedURLException) {
                 throw new MsgPreservingXmlRpcException(XmlRpcConstants.FAULT_INVALID_URL, targetException.getMessage());
-            }
-            else if (targetException instanceof Exception && targetException.toString() != null) {
-                throw (Exception)targetException;
+            } else if (targetException instanceof Exception && targetException.toString() != null) {
+                throw (Exception) targetException;
             }
 
             String msg = targetException.toString();
@@ -201,10 +221,12 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
 
     }
 
-    private String toArgList(@SuppressWarnings("unchecked") Vector params) {
+    private String toArgList(@SuppressWarnings("unchecked")
+    Vector params) {
         StringBuffer sb = new StringBuffer();
-        for(int i = 0; i < params.size(); i++) {
-            if (i != 0) sb.append(", ");
+        for (int i = 0; i < params.size(); i++) {
+            if (i != 0)
+                sb.append(", ");
             sb.append(params.get(i));
         }
         return sb.toString();
@@ -216,8 +238,5 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
         else
             return method.substring(serviceName.length());
     }
-
-
-
 
 }

@@ -34,24 +34,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>AckAction class.</p>
+ * <p>
+ * AckAction class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public enum AckAction {
-    UNSPECIFIED(1, "Unspecified"),
-    ACKNOWLEDGE(2, "Acknowledge"),
-    UNACKNOWLEDGE(3, "Unacknowledge"),
-    ESCALATE(4, "Escalate"),
-    CLEAR(5, "Clear");
+    UNSPECIFIED(1, "Unspecified"), ACKNOWLEDGE(2, "Acknowledge"), UNACKNOWLEDGE(3, "Unacknowledge"), ESCALATE(4,
+            "Escalate"), CLEAR(5, "Clear");
 
     /** Constant <code>m_idMap</code> */
     private static final Map<Integer, AckAction> m_idMap;
+
     private static final List<Integer> m_ids;
 
-
     private int m_id;
+
     private String m_label;
 
     static {
@@ -62,7 +62,6 @@ public enum AckAction {
             m_idMap.put(action.getId(), action);
         }
     }
-
 
     private AckAction(int id, String label) {
         m_id = id;
@@ -80,9 +79,12 @@ public enum AckAction {
     }
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      * @return a {@link org.opennms.netmgt.model.AckAction} object.
      */
     public static AckAction get(int id) {
@@ -92,6 +94,5 @@ public enum AckAction {
             throw new IllegalArgumentException("Cannot create AckAction from unknown ID " + id);
         }
     }
-
 
 }

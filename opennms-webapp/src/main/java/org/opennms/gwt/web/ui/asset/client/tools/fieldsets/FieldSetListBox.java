@@ -40,86 +40,87 @@ import com.google.gwt.user.client.ui.ListBox;
  */
 public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
 
-	private ListBox listBox = new ListBox(false);
-	private ArrayList<String> options;
+    private ListBox listBox = new ListBox(false);
 
-	@UiConstructor
-	public FieldSetListBox(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value, null);
-	}
+    private ArrayList<String> options;
 
-	public FieldSetListBox(String name, String value, String helpText, ArrayList<String> options) {
-		super(name, helpText);
-		init(value, options);
-	}
+    @UiConstructor
+    public FieldSetListBox(String name, String value, String helpText) {
+        super(name, helpText);
+        init(value, null);
+    }
 
-	@Override
-	public String getValue() {
-		return listBox.getItemText(listBox.getSelectedIndex());
-	}
+    public FieldSetListBox(String name, String value, String helpText, ArrayList<String> options) {
+        super(name, helpText);
+        init(value, options);
+    }
 
-	private void init(String value, ArrayList<String> options) {
-		inititalValue = value;
+    @Override
+    public String getValue() {
+        return listBox.getItemText(listBox.getSelectedIndex());
+    }
 
-		this.options = options;
+    private void init(String value, ArrayList<String> options) {
+        inititalValue = value;
 
-		if (options != null) {
-			for (String string : options) {
-				listBox.addItem(string);
-			}
-			if (options.contains(value)) {
-				listBox.setSelectedIndex(options.indexOf(value));
-			} else {
-				listBox.addItem(value);
-				listBox.setSelectedIndex(options.size());
-			}
-		}
+        this.options = options;
 
-		if (options == null) {
-			listBox.addItem(value);
-			listBox.setSelectedIndex(0);
-		}
+        if (options != null) {
+            for (String string : options) {
+                listBox.addItem(string);
+            }
+            if (options.contains(value)) {
+                listBox.setSelectedIndex(options.indexOf(value));
+            } else {
+                listBox.addItem(value);
+                listBox.setSelectedIndex(options.size());
+            }
+        }
 
-		listBox.setVisibleItemCount(1);
-		listBox.addChangeHandler(this);
-		listBox.setStyleName("listBox");
+        if (options == null) {
+            listBox.addItem(value);
+            listBox.setSelectedIndex(0);
+        }
 
-		listBox.setSize("300px", "18px");
+        listBox.setVisibleItemCount(1);
+        listBox.addChangeHandler(this);
+        listBox.setStyleName("listBox");
 
-		panel.add(listBox);
-	}
+        listBox.setSize("300px", "18px");
 
-	@Override
-	public void setEnabled(Boolean enabled) {
-		listBox.setEnabled(enabled);
-	}
+        panel.add(listBox);
+    }
 
-	/**
-	 * Takes a ArraList of Strings as options. Options will be shown at the
-	 * list.
-	 *
-	 * @param ArrayList
-	 *            <String> options
-	 */
-	public void setOptions(ArrayList<String> options) {
-		this.options = options;
-		listBox.clear();
-		for (String string : options) {
-			listBox.addItem(string);
-		}
-	}
+    @Override
+    public void setEnabled(Boolean enabled) {
+        listBox.setEnabled(enabled);
+    }
 
-	@Override
-	public void setValue(String value) {
-		if (options.contains(value)) {
-			listBox.setSelectedIndex(options.indexOf(value));
-		} else {
-			listBox.addItem(value);
-			listBox.getItemCount();
-			listBox.setSelectedIndex(listBox.getItemCount() - 1);
-		}
-		inititalValue = value;
-		validate(this.getValue());
-	}
+    /**
+     * Takes a ArraList of Strings as options. Options will be shown at the
+     * list.
+     *
+     * @param ArrayList
+     *            <String> options
+     */
+    public void setOptions(ArrayList<String> options) {
+        this.options = options;
+        listBox.clear();
+        for (String string : options) {
+            listBox.addItem(string);
+        }
+    }
+
+    @Override
+    public void setValue(String value) {
+        if (options.contains(value)) {
+            listBox.setSelectedIndex(options.indexOf(value));
+        } else {
+            listBox.addItem(value);
+            listBox.getItemCount();
+            listBox.setSelectedIndex(listBox.getItemCount() - 1);
+        }
+        inititalValue = value;
+        validate(this.getValue());
+    }
 }

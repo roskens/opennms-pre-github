@@ -50,9 +50,9 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class PercDetector extends SnmpDetector {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PercDetector.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PercDetector.class);
 
-	/**
+    /**
      * Name of monitored service.
      */
     private static final String PROTOCOL_NAME = "PERC";
@@ -68,16 +68,17 @@ public class PercDetector extends SnmpDetector {
     private String m_arrayNumber = "0.0";
 
     /**
-     * <p>Constructor for CiscoIpSlaDetector.</p>
+     * <p>
+     * Constructor for CiscoIpSlaDetector.
+     * </p>
      */
-    public PercDetector(){
+    public PercDetector() {
         setServiceName(PROTOCOL_NAME);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If
      * the protocol is not supported then a false value is returned to the
      * caller. The qualifier map passed to the method is used by the plugin to
      * return additional information by key-name. These key-value pairs can be

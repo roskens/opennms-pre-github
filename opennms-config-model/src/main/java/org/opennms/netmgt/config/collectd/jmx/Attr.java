@@ -31,12 +31,13 @@ package org.opennms.netmgt.config.collectd.jmx;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * <p>Attr class.</p>
+ * <p>
+ * Attr class.
+ * </p>
  *
  * @author mjamison
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public class Attr {
@@ -77,7 +78,8 @@ public class Attr {
     /**
      * This method is used to assign the object's identifier.
      *
-     * @param oid -
+     * @param oid
+     *            -
      *            object identifier in dotted decimal notation (e.g.,
      *            ".1.3.6.1.2.1.1.1")
      */
@@ -88,7 +90,8 @@ public class Attr {
     /**
      * This method is used to assign the object's alias.
      *
-     * @param alias -
+     * @param alias
+     *            -
      *            object alias (e.g., "sysDescription")
      */
     public void setAlias(String alias) {
@@ -98,7 +101,8 @@ public class Attr {
     /**
      * This method is used to assign the object's expected data type.
      *
-     * @param type -
+     * @param type
+     *            -
      *            object's data type
      */
     public void setType(String type) {
@@ -171,9 +175,8 @@ public class Attr {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is responsible for comparing this MibObject with the passed
+     * {@inheritDoc} This method is responsible for comparing this MibObject
+     * with the passed
      * Object to determine if they are equivalent. The objects are equivalent if
      * the argument is a MibObject object with the same object identifier,
      * instance, alias and type.
@@ -201,19 +204,12 @@ public class Attr {
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(7, 11)
-            .append(this.getName())
-            .append(this.getType())
-            .append(this.getAlias())
-            .append(this.getMinval())
-            .append(this.getMaxval())
-            .toHashCode();
+        return new HashCodeBuilder(7, 11).append(this.getName()).append(this.getType()).append(this.getAlias()).append(this.getMinval()).append(this.getMaxval()).toHashCode();
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is responsible for returning a String object which represents
+     * {@inheritDoc} This method is responsible for returning a String object
+     * which represents
      * the content of this MibObject. Primarily used for debugging purposes.
      */
     @Override

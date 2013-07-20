@@ -41,38 +41,53 @@ import org.springframework.dao.DataAccessResourceFailureException;
 public interface MicroblogConfigurationDao {
 
     /**
-     * <p>getConfig</p>
+     * <p>
+     * getConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.microblog.MicroblogConfiguration} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.microblog.MicroblogConfiguration}
+     *         object.
      */
     MicroblogConfiguration getConfig();
 
     /**
-     * <p>getProfile</p>
+     * <p>
+     * getProfile
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.config.microblog.MicroblogProfile} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.config.microblog.MicroblogProfile}
+     *         object.
      */
     MicroblogProfile getProfile(String name);
 
     /**
-     * <p>getDefaultProfile</p>
+     * <p>
+     * getDefaultProfile
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.microblog.MicroblogProfile} object.
+     * @return a {@link org.opennms.netmgt.config.microblog.MicroblogProfile}
+     *         object.
      */
     MicroblogProfile getDefaultProfile();
 
     /**
-     * The underlying Castor based DAO abstraction in the default implementation doesn't provide access to the container so
-     * this method is defined so that access to the container doesn't have to be exposed and a reload can still be controlled
+     * The underlying Castor based DAO abstraction in the default implementation
+     * doesn't provide access to the container so
+     * this method is defined so that access to the container doesn't have to be
+     * exposed and a reload can still be controlled
      * by the user.
-     *
-     * Automatically reading in new values if the file changes is a different use case from expecting the services to alter
-     * their state based on a configuration change.  This method will most likely be used with event processing and possibly
+     * Automatically reading in new values if the file changes is a different
+     * use case from expecting the services to alter
+     * their state based on a configuration change. This method will most likely
+     * be used with event processing and possibly
      * in the ReST API.
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException if any.
+     * @throws org.springframework.dao.DataAccessResourceFailureException
+     *             if any.
      */
     void reloadConfiguration() throws DataAccessResourceFailureException;
 
-    }
+}

@@ -36,8 +36,10 @@ public class RTQueue implements Serializable {
     /**
 	 *
 	 */
-	private static final long serialVersionUID = 875365658091878358L;
-	private long m_id;
+    private static final long serialVersionUID = 875365658091878358L;
+
+    private long m_id;
+
     private String m_name;
 
     public RTQueue() {
@@ -68,12 +70,8 @@ public class RTQueue implements Serializable {
         return true;
     }
 
-        @Override
+    @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", m_id)
-            .append("name", m_name)
-            .append("accessible", isAccessible())
-            .toString();
+        return new ToStringBuilder(this).append("id", m_id).append("name", m_name).append("accessible", isAccessible()).toString();
     }
 }

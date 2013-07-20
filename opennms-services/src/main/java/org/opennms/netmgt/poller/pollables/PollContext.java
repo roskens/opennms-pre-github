@@ -42,75 +42,112 @@ import org.opennms.netmgt.xml.event.Event;
 public interface PollContext {
 
     /**
-     * <p>getCriticalServiceName</p>
+     * <p>
+     * getCriticalServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getCriticalServiceName();
 
     /**
-     * <p>isNodeProcessingEnabled</p>
+     * <p>
+     * isNodeProcessingEnabled
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isNodeProcessingEnabled();
 
     /**
-     * <p>isPollingAllIfCritServiceUndefined</p>
+     * <p>
+     * isPollingAllIfCritServiceUndefined
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isPollingAllIfCritServiceUndefined();
 
     /**
-     * <p>sendEvent</p>
+     * <p>
+     * sendEvent
+     * </p>
      *
-     * @param event the event to send
+     * @param event
+     *            the event to send
      * @return the same event
      */
     public PollEvent sendEvent(Event event);
 
     /**
-     * <p>createEvent</p>
+     * <p>
+     * createEvent
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
-     * @param nodeId a int.
-     * @param address a {@link java.net.InetAddress} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @param date a {@link java.util.Date} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param date
+     *            a {@link java.util.Date} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public Event createEvent(String uei, int nodeId, InetAddress address, String svcName, Date date, String reason);
 
     /**
-     * <p>openOutage</p>
+     * <p>
+     * openOutage
+     * </p>
      *
-     * @param pSvc a {@link org.opennms.netmgt.poller.pollables.PollableService} object.
-     * @param svcLostEvent a {@link org.opennms.netmgt.poller.pollables.PollEvent} object.
+     * @param pSvc
+     *            a {@link org.opennms.netmgt.poller.pollables.PollableService}
+     *            object.
+     * @param svcLostEvent
+     *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
+     *            object.
      */
     public void openOutage(PollableService pSvc, PollEvent svcLostEvent);
 
     /**
-     * <p>resolveOutage</p>
+     * <p>
+     * resolveOutage
+     * </p>
      *
-     * @param pSvc a {@link org.opennms.netmgt.poller.pollables.PollableService} object.
-     * @param svcRegainEvent a {@link org.opennms.netmgt.poller.pollables.PollEvent} object.
+     * @param pSvc
+     *            a {@link org.opennms.netmgt.poller.pollables.PollableService}
+     *            object.
+     * @param svcRegainEvent
+     *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
+     *            object.
      */
     public void resolveOutage(PollableService pSvc, PollEvent svcRegainEvent);
+
     /**
-     * <p>isServiceUnresponsiveEnabled</p>
+     * <p>
+     * isServiceUnresponsiveEnabled
+     * </p>
      *
      * @return a boolean.
      */
     public boolean isServiceUnresponsiveEnabled();
 
     /**
-     * <p>reparentOutages</p>
+     * <p>
+     * reparentOutages
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param oldNodeId a int.
-     * @param newNodeId a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param oldNodeId
+     *            a int.
+     * @param newNodeId
+     *            a int.
      */
     public void reparentOutages(String ipAddr, int oldNodeId, int newNodeId);
 

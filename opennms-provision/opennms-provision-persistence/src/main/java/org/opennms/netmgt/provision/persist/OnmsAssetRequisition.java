@@ -41,9 +41,14 @@ public class OnmsAssetRequisition {
     private RequisitionAsset m_asset;
 
     /**
-     * <p>Constructor for OnmsAssetRequisition.</p>
+     * <p>
+     * Constructor for OnmsAssetRequisition.
+     * </p>
      *
-     * @param asset a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset} object.
+     * @param asset
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset}
+     *            object.
      */
     public OnmsAssetRequisition(RequisitionAsset asset) {
         m_asset = asset;
@@ -54,9 +59,14 @@ public class OnmsAssetRequisition {
     }
 
     /**
-     * <p>visit</p>
+     * <p>
+     * visit
+     * </p>
      *
-     * @param visitor a {@link org.opennms.netmgt.provision.persist.RequisitionVisitor} object.
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.RequisitionVisitor}
+     *            object.
      */
     public void visit(RequisitionVisitor visitor) {
         visitor.visitAsset(this);
@@ -64,7 +74,9 @@ public class OnmsAssetRequisition {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -73,14 +85,14 @@ public class OnmsAssetRequisition {
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getValue() {
         return m_asset.getValue();
     }
-
-
 
 }

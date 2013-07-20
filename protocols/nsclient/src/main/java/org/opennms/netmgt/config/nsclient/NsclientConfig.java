@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.nsclient;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.exolab.castor.xml.Marshaller;
@@ -44,21 +44,21 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * Top-level element for the nsclient-config.xml configuration
- *  file.
+ * file.
  *
  * @version $Revision$ $Date$
  */
 
-@SuppressWarnings("all") public class NsclientConfig implements java.io.Serializable {
+@SuppressWarnings("all")
+public class NsclientConfig implements java.io.Serializable {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * If set, overrides TCP port 1248 as the port where NSClient
-     *  requests are sent.
+     * requests are sent.
      */
     private int _port;
 
@@ -94,82 +94,71 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Maps IP addresses to specific NSClient parmeters
-     *  (retries, timeouts...)
+     * (retries, timeouts...)
      */
     private java.util.List<org.opennms.netmgt.config.nsclient.Definition> _definitionList;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public NsclientConfig() {
         super();
         this._definitionList = new java.util.ArrayList<org.opennms.netmgt.config.nsclient.Definition>();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
-     *
-     *
      * @param vDefinition
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addDefinition(
-            final org.opennms.netmgt.config.nsclient.Definition vDefinition)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addDefinition(final org.opennms.netmgt.config.nsclient.Definition vDefinition)
+            throws java.lang.IndexOutOfBoundsException {
         this._definitionList.add(vDefinition);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vDefinition
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addDefinition(
-            final int index,
-            final org.opennms.netmgt.config.nsclient.Definition vDefinition)
-    throws java.lang.IndexOutOfBoundsException {
+    public void addDefinition(final int index, final org.opennms.netmgt.config.nsclient.Definition vDefinition)
+            throws java.lang.IndexOutOfBoundsException {
         this._definitionList.add(index, vDefinition);
     }
 
     /**
      */
-    public void deletePort(
-    ) {
-        this._has_port= false;
+    public void deletePort() {
+        this._has_port = false;
     }
 
     /**
      */
-    public void deleteRetry(
-    ) {
-        this._has_retry= false;
+    public void deleteRetry() {
+        this._has_retry = false;
     }
 
     /**
      */
-    public void deleteTimeout(
-    ) {
-        this._has_timeout= false;
+    public void deleteTimeout() {
+        this._has_timeout = false;
     }
 
     /**
      * Method enumerateDefinition.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
-    public java.util.Enumeration<org.opennms.netmgt.config.nsclient.Definition> enumerateDefinition(
-    ) {
+    public java.util.Enumeration<org.opennms.netmgt.config.nsclient.Definition> enumerateDefinition() {
         return java.util.Collections.enumeration(this._definitionList);
     }
 
@@ -180,14 +169,13 @@ import org.exolab.castor.xml.Unmarshaller;
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
-        if ( this == obj )
+    public boolean equals(final java.lang.Object obj) {
+        if (this == obj)
             return true;
 
         if (obj instanceof NsclientConfig) {
 
-            NsclientConfig temp = (NsclientConfig)obj;
+            NsclientConfig temp = (NsclientConfig) obj;
             if (this._port != temp._port)
                 return false;
             if (this._has_port != temp._has_port)
@@ -201,18 +189,18 @@ import org.exolab.castor.xml.Unmarshaller;
             if (this._has_timeout != temp._has_timeout)
                 return false;
             if (this._password != null) {
-                if (temp._password == null) return false;
+                if (temp._password == null)
+                    return false;
                 else if (!(this._password.equals(temp._password)))
                     return false;
-            }
-            else if (temp._password != null)
+            } else if (temp._password != null)
                 return false;
             if (this._definitionList != null) {
-                if (temp._definitionList == null) return false;
+                if (temp._definitionList == null)
+                    return false;
                 else if (!(this._definitionList.equals(temp._definitionList)))
                     return false;
-            }
-            else if (temp._definitionList != null)
+            } else if (temp._definitionList != null)
                 return false;
             return true;
         }
@@ -223,18 +211,19 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getDefinition.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * org.opennms.netmgt.config.nsclient.Definition at the given
-     * index
+     *         org.opennms.netmgt.config.nsclient.Definition at the given
+     *         index
      */
-    public org.opennms.netmgt.config.nsclient.Definition getDefinition(
-            final int index)
-    throws java.lang.IndexOutOfBoundsException {
+    public org.opennms.netmgt.config.nsclient.Definition getDefinition(final int index)
+            throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._definitionList.size()) {
-            throw new IndexOutOfBoundsException("getDefinition: Index value '" + index + "' not in range [0.." + (this._definitionList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getDefinition: Index value '" + index + "' not in range [0.."
+                    + (this._definitionList.size() - 1) + "]");
         }
 
         return (org.opennms.netmgt.config.nsclient.Definition) _definitionList.get(index);
@@ -242,15 +231,16 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getDefinition.Returns the contents of the collection
-     * in an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public org.opennms.netmgt.config.nsclient.Definition[] getDefinition(
-    ) {
+    public org.opennms.netmgt.config.nsclient.Definition[] getDefinition() {
         org.opennms.netmgt.config.nsclient.Definition[] array = new org.opennms.netmgt.config.nsclient.Definition[0];
         return (org.opennms.netmgt.config.nsclient.Definition[]) this._definitionList.toArray(array);
     }
@@ -262,8 +252,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<org.opennms.netmgt.config.nsclient.Definition> getDefinitionCollection(
-    ) {
+    public java.util.List<org.opennms.netmgt.config.nsclient.Definition> getDefinitionCollection() {
         return this._definitionList;
     }
 
@@ -272,8 +261,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the size of this collection
      */
-    public int getDefinitionCount(
-    ) {
+    public int getDefinitionCount() {
         return this._definitionList.size();
     }
 
@@ -283,8 +271,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Password'.
      */
-    public java.lang.String getPassword(
-    ) {
+    public java.lang.String getPassword() {
         return this._password;
     }
 
@@ -292,12 +279,11 @@ import org.exolab.castor.xml.Unmarshaller;
      * Returns the value of field 'port'. The field 'port' has the
      * following description: If set, overrides TCP port 1248 as
      * the port where NSClient
-     *  requests are sent.
+     * requests are sent.
      *
      * @return the value of field 'Port'.
      */
-    public int getPort(
-    ) {
+    public int getPort() {
         return this._port;
     }
 
@@ -307,8 +293,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Retry'.
      */
-    public int getRetry(
-    ) {
+    public int getRetry() {
         return this._retry;
     }
 
@@ -319,8 +304,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return the value of field 'Timeout'.
      */
-    public int getTimeout(
-    ) {
+    public int getTimeout() {
         return this._timeout;
     }
 
@@ -329,8 +313,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if at least one Port has been added
      */
-    public boolean hasPort(
-    ) {
+    public boolean hasPort() {
         return this._has_port;
     }
 
@@ -339,8 +322,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if at least one Retry has been added
      */
-    public boolean hasRetry(
-    ) {
+    public boolean hasRetry() {
         return this._has_retry;
     }
 
@@ -349,22 +331,20 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if at least one Timeout has been added
      */
-    public boolean hasTimeout(
-    ) {
+    public boolean hasTimeout() {
         return this._has_timeout;
     }
 
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
     @Override
-    public int hashCode(
-    ) {
+    public int hashCode() {
         int result = 17;
 
         long tmp;
@@ -372,10 +352,10 @@ import org.exolab.castor.xml.Unmarshaller;
         result = 37 * result + _retry;
         result = 37 * result + _timeout;
         if (_password != null) {
-           result = 37 * result + _password.hashCode();
+            result = 37 * result + _password.hashCode();
         }
         if (_definitionList != null) {
-           result = 37 * result + _definitionList.hashCode();
+            result = 37 * result + _definitionList.hashCode();
         }
 
         return result;
@@ -386,8 +366,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *
      * @return true if this object is valid according to the schema
      */
-    public boolean isValid(
-    ) {
+    public boolean isValid() {
         try {
             validate();
         } catch (org.exolab.castor.xml.ValidationException vex) {
@@ -400,49 +379,46 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method iterateDefinition.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
-    public java.util.Iterator<org.opennms.netmgt.config.nsclient.Definition> iterateDefinition(
-    ) {
+    public java.util.Iterator<org.opennms.netmgt.config.nsclient.Definition> iterateDefinition() {
         return this._definitionList.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void marshal(
-            final java.io.Writer out)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
+            org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
-    public void marshal(
-            final org.xml.sax.ContentHandler handler)
-    throws java.io.IOException, org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+    public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
+            org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
         Marshaller.marshal(this, handler);
     }
 
     /**
      */
-    public void removeAllDefinition(
-    ) {
+    public void removeAllDefinition() {
         this._definitionList.clear();
     }
 
@@ -452,8 +428,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * @param vDefinition
      * @return true if the object was removed from the collection.
      */
-    public boolean removeDefinition(
-            final org.opennms.netmgt.config.nsclient.Definition vDefinition) {
+    public boolean removeDefinition(final org.opennms.netmgt.config.nsclient.Definition vDefinition) {
         boolean removed = _definitionList.remove(vDefinition);
         return removed;
     }
@@ -464,44 +439,38 @@ import org.exolab.castor.xml.Unmarshaller;
      * @param index
      * @return the element removed from the collection
      */
-    public org.opennms.netmgt.config.nsclient.Definition removeDefinitionAt(
-            final int index) {
+    public org.opennms.netmgt.config.nsclient.Definition removeDefinitionAt(final int index) {
         java.lang.Object obj = this._definitionList.remove(index);
         return (org.opennms.netmgt.config.nsclient.Definition) obj;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vDefinition
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setDefinition(
-            final int index,
-            final org.opennms.netmgt.config.nsclient.Definition vDefinition)
-    throws java.lang.IndexOutOfBoundsException {
+    public void setDefinition(final int index, final org.opennms.netmgt.config.nsclient.Definition vDefinition)
+            throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._definitionList.size()) {
-            throw new IndexOutOfBoundsException("setDefinition: Index value '" + index + "' not in range [0.." + (this._definitionList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setDefinition: Index value '" + index + "' not in range [0.."
+                    + (this._definitionList.size() - 1) + "]");
         }
 
         this._definitionList.set(index, vDefinition);
     }
 
     /**
-     *
-     *
      * @param vDefinitionArray
      */
-    public void setDefinition(
-            final org.opennms.netmgt.config.nsclient.Definition[] vDefinitionArray) {
-        //-- copy array
+    public void setDefinition(final org.opennms.netmgt.config.nsclient.Definition[] vDefinitionArray) {
+        // -- copy array
         _definitionList.clear();
 
         for (int i = 0; i < vDefinitionArray.length; i++) {
-                this._definitionList.add(vDefinitionArray[i]);
+            this._definitionList.add(vDefinitionArray[i]);
         }
     }
 
@@ -509,10 +478,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_definitionList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param vDefinitionList the Vector to copy.
+     * @param vDefinitionList
+     *            the Vector to copy.
      */
-    public void setDefinition(
-            final java.util.List<org.opennms.netmgt.config.nsclient.Definition> vDefinitionList) {
+    public void setDefinition(final java.util.List<org.opennms.netmgt.config.nsclient.Definition> vDefinitionList) {
         // copy vector
         this._definitionList.clear();
 
@@ -522,9 +491,10 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_definitionList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param definitionList the Vector to set.
+     * @deprecated
+     * @param definitionList
+     *            the Vector to set.
      */
     public void setDefinitionCollection(
             final java.util.List<org.opennms.netmgt.config.nsclient.Definition> definitionList) {
@@ -535,10 +505,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'password'. The field 'password' has
      * the following description: Default password
      *
-     * @param password the value of field 'password'.
+     * @param password
+     *            the value of field 'password'.
      */
-    public void setPassword(
-            final java.lang.String password) {
+    public void setPassword(final java.lang.String password) {
         this._password = password;
     }
 
@@ -546,12 +516,12 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'port'. The field 'port' has the
      * following description: If set, overrides TCP port 1248 as
      * the port where NSClient
-     *  requests are sent.
+     * requests are sent.
      *
-     * @param port the value of field 'port'.
+     * @param port
+     *            the value of field 'port'.
      */
-    public void setPort(
-            final int port) {
+    public void setPort(final int port) {
         this._port = port;
         this._has_port = true;
     }
@@ -560,10 +530,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'retry'. The field 'retry' has the
      * following description: Default number of retries
      *
-     * @param retry the value of field 'retry'.
+     * @param retry
+     *            the value of field 'retry'.
      */
-    public void setRetry(
-            final int retry) {
+    public void setRetry(final int retry) {
         this._retry = retry;
         this._has_retry = true;
     }
@@ -572,10 +542,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'timeout'. The field 'timeout' has
      * the following description: Default timeout (in milliseconds)
      *
-     * @param timeout the value of field 'timeout'.
+     * @param timeout
+     *            the value of field 'timeout'.
      */
-    public void setTimeout(
-            final int timeout) {
+    public void setTimeout(final int timeout) {
         this._timeout = timeout;
         this._has_timeout = true;
     }
@@ -584,28 +554,27 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * org.opennms.netmgt.config.nsclient.NsclientConfig
+     *         org.opennms.netmgt.config.nsclient.NsclientConfig
      */
-    public static org.opennms.netmgt.config.nsclient.NsclientConfig unmarshal(
-            final java.io.Reader reader)
-    throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
-        return (org.opennms.netmgt.config.nsclient.NsclientConfig) Unmarshaller.unmarshal(org.opennms.netmgt.config.nsclient.NsclientConfig.class, reader);
+    public static org.opennms.netmgt.config.nsclient.NsclientConfig unmarshal(final java.io.Reader reader)
+            throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
+        return (org.opennms.netmgt.config.nsclient.NsclientConfig) Unmarshaller.unmarshal(org.opennms.netmgt.config.nsclient.NsclientConfig.class,
+                                                                                          reader);
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void validate(
-    )
-    throws org.exolab.castor.xml.ValidationException {
+    public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();
         validator.validate(this);
     }

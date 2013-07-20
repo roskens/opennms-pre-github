@@ -65,7 +65,6 @@ import com.sun.jersey.spi.resource.PerRequest;
  * <b>Be aware</b> that setting the SNMP configuration for a rage of IPs is
  * currently not supported by this REST service!
  * </p>
- *
  * <p>
  * The implementation only supports a PUT request because it is an implied
  * "Update" of the configuration since it requires an IP address and all IPs
@@ -113,22 +112,26 @@ public class SnmpConfigRestService extends OnmsRestService {
     private SnmpPeerFactory m_snmpPeerFactory;
 
     /**
-     * <p>getSnmpInfo</p>
+     * <p>
+     * getSnmpInfo
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.snmpinfo.SnmpInfo} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{ipAddr}")
-    public SnmpInfo getSnmpInfo(@PathParam("ipAddr") String ipAddr) {
+    public SnmpInfo getSnmpInfo(@PathParam("ipAddr")
+    String ipAddr) {
         readLock();
         try {
             final InetAddress addr = InetAddressUtils.addr(ipAddr);
             if (addr == null) {
                 throw new WebApplicationException(Response.serverError().build());
             }
-    		SnmpAgentConfig config = m_snmpPeerFactory.getAgentConfig(addr);
+            SnmpAgentConfig config = m_snmpPeerFactory.getAgentConfig(addr);
             return new SnmpInfo(config);
         } finally {
             readUnlock();
@@ -136,21 +139,27 @@ public class SnmpConfigRestService extends OnmsRestService {
     }
 
     /**
-     * <p>setSnmpInfo</p>
+     * <p>
+     * setSnmpInfo
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param snmpInfo a {@link org.opennms.web.snmpinfo.SnmpInfo} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param snmpInfo
+     *            a {@link org.opennms.web.snmpinfo.SnmpInfo} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_XML)
     @Path("{ipAddr}")
-    public Response setSnmpInfo(@PathParam("ipAddr") final String ipAddress, final SnmpInfo snmpInfo) {
+    public Response setSnmpInfo(@PathParam("ipAddr")
+    final String ipAddress, final SnmpInfo snmpInfo) {
         writeLock();
         try {
             final SnmpEventInfo eventInfo = snmpInfo.createEventInfo(ipAddress);
             m_snmpPeerFactory.define(eventInfo);
-            SnmpPeerFactory.saveCurrent(); //TODO: this shouldn't be a static call
+            SnmpPeerFactory.saveCurrent(); // TODO: this shouldn't be a static
+                                           // call
             return Response.seeOther(getRedirectUri(m_uriInfo)).build();
         } catch (final Throwable e) {
             return Response.serverError().build();
@@ -162,15 +171,18 @@ public class SnmpConfigRestService extends OnmsRestService {
     /**
      * Updates a specific interface
      *
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param params
+     *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @PUT
     @Path("{ipAddr}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public Response updateInterface(@PathParam("ipAddr") final String ipAddress, final MultivaluedMapImpl params) {
+    public Response updateInterface(@PathParam("ipAddr")
+    final String ipAddress, final MultivaluedMapImpl params) {
         writeLock();
         try {
             final SnmpInfo info = new SnmpInfo();

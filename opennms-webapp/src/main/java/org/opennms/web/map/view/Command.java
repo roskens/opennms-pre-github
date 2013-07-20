@@ -36,36 +36,33 @@ import java.util.List;
 
 public class Command {
     private final BufferedReader out;
+
     private final Process p;
+
     private boolean scheduledtoremove;
+
     private int scheduletoremoverequest = 0;
 
     private final List<String> lines = new ArrayList<String>();
 
-    public Command(String command) throws IOException, IllegalStateException
-    {
-        if(command.startsWith("traceroute") || command.startsWith("ping") || command.startsWith("ipmitool")){
-                 p = Runtime.getRuntime().exec(command);
-                out = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        }else{
-                throw new IllegalStateException("Command "+ command+" not supported.");
+    public Command(String command) throws IOException, IllegalStateException {
+        if (command.startsWith("traceroute") || command.startsWith("ping") || command.startsWith("ipmitool")) {
+            p = Runtime.getRuntime().exec(command);
+            out = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        } else {
+            throw new IllegalStateException("Command " + command + " not supported.");
         }
 
-        new Thread(new Runnable()
-        {
+        new Thread(new Runnable() {
             @Override
-            public void run()
-            {
-                try
-                {
+            public void run() {
+                try {
                     String s = null;
-                    while((s = out.readLine()) != null)
-                    {
+                    while ((s = out.readLine()) != null) {
                         addLineBuffer(s);
                     }
 
-                }
-                catch(IOException io){
+                } catch (IOException io) {
                     throw new IllegalStateException("Error while writing the IO buffer");
                 }
             }
@@ -78,8 +75,8 @@ public class Command {
     }
 
     public synchronized String getNextLine() {
-        scheduledtoremove=false;
-        scheduletoremoverequest=0;
+        scheduledtoremove = false;
+        scheduletoremoverequest = 0;
         if (lines.size() > 0)
             return lines.remove(0);
         return null;
@@ -100,7 +97,7 @@ public class Command {
 
     public void scheduleToRemove() {
         scheduletoremoverequest++;
-        if (scheduletoremoverequest > 2  )
-        scheduledtoremove=true;
+        if (scheduletoremoverequest > 2)
+            scheduledtoremove = true;
     }
 }

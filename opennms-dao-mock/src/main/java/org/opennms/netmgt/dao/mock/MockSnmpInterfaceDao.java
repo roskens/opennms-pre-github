@@ -30,10 +30,12 @@ public class MockSnmpInterfaceDao extends AbstractMockDao<OnmsSnmpInterface, Int
     }
 
     @Override
-    public OnmsSnmpInterface findByForeignKeyAndIfIndex(final String foreignSource, final String foreignId, final Integer ifIndex) {
+    public OnmsSnmpInterface findByForeignKeyAndIfIndex(final String foreignSource, final String foreignId,
+            final Integer ifIndex) {
         for (final OnmsSnmpInterface iface : findAll()) {
             final OnmsNode node = iface.getNode();
-            if (foreignSource.equals(node.getForeignSource()) && foreignId.equals(node.getForeignId()) && ifIndex.equals(iface.getIfIndex())) {
+            if (foreignSource.equals(node.getForeignSource()) && foreignId.equals(node.getForeignId())
+                    && ifIndex.equals(iface.getIfIndex())) {
                 return iface;
             }
         }

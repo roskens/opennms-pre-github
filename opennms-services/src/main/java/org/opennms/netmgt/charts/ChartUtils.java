@@ -72,7 +72,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>ChartUtils class.</p>
+ * <p>
+ * ChartUtils class.
+ * </p>
  *
  * @author <a href="david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -83,7 +85,7 @@ public abstract class ChartUtils {
 
     /**
      * Use this it initialize required factories so that the WebUI doesn't
-     * have to.  Can't wait for Spring.
+     * have to. Can't wait for Spring.
      */
     static {
         try {
@@ -108,18 +110,25 @@ public abstract class ChartUtils {
     }
 
     /**
-     * This method will returns a JFreeChart bar chart constructed based on XML configuration.
+     * This method will returns a JFreeChart bar chart constructed based on XML
+     * configuration.
      *
-     * @param chartName Name specified in chart-configuration.xml
+     * @param chartName
+     *            Name specified in chart-configuration.xml
      * @return <code>JFreeChart</code> constructed from the chartName
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.sql.SQLException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public static JFreeChart getBarChart(String chartName) throws MarshalException, ValidationException, IOException, SQLException {
+    public static JFreeChart getBarChart(String chartName) throws MarshalException, ValidationException, IOException,
+            SQLException {
 
-        //ChartConfigFactory.reload();
+        // ChartConfigFactory.reload();
 
         BarChart chartConfig = null;
         chartConfig = getBarChartConfigByName(chartName);
@@ -133,10 +142,9 @@ public abstract class ChartUtils {
         addSubTitles(chartConfig, barChart);
 
         String subLabelClass = chartConfig.getSubLabelClass();
-        if(subLabelClass != null) {
+        if (subLabelClass != null) {
             addSubLabels(barChart, subLabelClass);
         }
-
 
         customizeSeries(barChart, chartConfig);
 
@@ -145,7 +153,8 @@ public abstract class ChartUtils {
     }
 
     /**
-     * @param barChart TODO
+     * @param barChart
+     *            TODO
      * @param subLabelClass
      */
     private static void addSubLabels(JFreeChart barChart, String subLabelClass) {
@@ -154,8 +163,8 @@ public abstract class ChartUtils {
         try {
             subLabels = (ExtendedCategoryAxis) Class.forName(subLabelClass).newInstance();
             List<?> cats = plot.getCategories();
-            for(int i=0; i<cats.size(); i++) {
-                subLabels.addSubLabel((Comparable<?>)cats.get(i), cats.get(i).toString());
+            for (int i = 0; i < cats.size(); i++) {
+                subLabels.addSubLabel((Comparable<?>) cats.get(i), cats.get(i).toString());
             }
             plot.setDomainAxis(subLabels);
         } catch (InstantiationException e) {
@@ -168,7 +177,8 @@ public abstract class ChartUtils {
     }
 
     /**
-     * @param barChart TODO
+     * @param barChart
+     *            TODO
      * @param chartConfig
      */
     private static void customizeSeries(JFreeChart barChart, BarChart chartConfig) {
@@ -176,7 +186,8 @@ public abstract class ChartUtils {
         /*
          * Set the series colors and labels
          */
-        CategoryItemLabelGenerator itemLabelGenerator = new StandardCategoryItemLabelGenerator("{2}", new DecimalFormat("0"));
+        CategoryItemLabelGenerator itemLabelGenerator = new StandardCategoryItemLabelGenerator("{2}",
+                                                                                               new DecimalFormat("0"));
         SeriesDef[] seriesDefs = chartConfig.getSeriesDef();
         CustomSeriesColors seriesColors = null;
 
@@ -196,15 +207,16 @@ public abstract class ChartUtils {
             SeriesDef seriesDef = seriesDefs[i];
             Paint paint = Color.BLACK;
             if (seriesColors != null) {
-                Comparable<?> cat = (Comparable<?>)((BarRenderer)barChart.getCategoryPlot().getRenderer()).getPlot().getCategories().get(i);
+                Comparable<?> cat = (Comparable<?>) ((BarRenderer) barChart.getCategoryPlot().getRenderer()).getPlot().getCategories().get(i);
                 paint = seriesColors.getPaint(cat);
             } else {
                 Rgb rgb = seriesDef.getRgb();
                 paint = new Color(rgb.getRed().getRgbColor(), rgb.getGreen().getRgbColor(), rgb.getBlue().getRgbColor());
             }
-            ((BarRenderer)barChart.getCategoryPlot().getRenderer()).setSeriesPaint(i, paint);
-            ((BarRenderer)barChart.getCategoryPlot().getRenderer()).setSeriesItemLabelsVisible(i, seriesDef.getUseLabels());
-            ((BarRenderer)barChart.getCategoryPlot().getRenderer()).setSeriesItemLabelGenerator(i, itemLabelGenerator);
+            ((BarRenderer) barChart.getCategoryPlot().getRenderer()).setSeriesPaint(i, paint);
+            ((BarRenderer) barChart.getCategoryPlot().getRenderer()).setSeriesItemLabelsVisible(i,
+                                                                                                seriesDef.getUseLabels());
+            ((BarRenderer) barChart.getCategoryPlot().getRenderer()).setSeriesItemLabelGenerator(i, itemLabelGenerator);
         }
     }
 
@@ -231,29 +243,23 @@ public abstract class ChartUtils {
      * @return
      */
     private static JFreeChart createBarChart(BarChart chartConfig, DefaultCategoryDataset baseDataSet) {
-        PlotOrientation po = (chartConfig.getPlotOrientation() == "horizontal" ? PlotOrientation.HORIZONTAL : PlotOrientation.VERTICAL);
+        PlotOrientation po = (chartConfig.getPlotOrientation() == "horizontal" ? PlotOrientation.HORIZONTAL
+            : PlotOrientation.VERTICAL);
         JFreeChart barChart = null;
         if ("3d".equalsIgnoreCase(chartConfig.getVariation())) {
             barChart = ChartFactory.createBarChart3D(chartConfig.getTitle().getValue(),
-                    chartConfig.getDomainAxisLabel(),
-                    chartConfig.getRangeAxisLabel(),
-                    baseDataSet,
-                    po,
-                    chartConfig.getShowLegend(),
-                    chartConfig.getShowToolTips(),
-                    chartConfig.getShowUrls());
+                                                     chartConfig.getDomainAxisLabel(), chartConfig.getRangeAxisLabel(),
+                                                     baseDataSet, po, chartConfig.getShowLegend(),
+                                                     chartConfig.getShowToolTips(), chartConfig.getShowUrls());
         } else {
-            barChart = ChartFactory.createBarChart(chartConfig.getTitle().getValue(),
-                    chartConfig.getDomainAxisLabel(),
-                    chartConfig.getRangeAxisLabel(),
-                    baseDataSet,
-                    po,
-                    chartConfig.getShowLegend(),
-                    chartConfig.getShowToolTips(),
-                    chartConfig.getShowUrls());
+            barChart = ChartFactory.createBarChart(chartConfig.getTitle().getValue(), chartConfig.getDomainAxisLabel(),
+                                                   chartConfig.getRangeAxisLabel(), baseDataSet, po,
+                                                   chartConfig.getShowLegend(), chartConfig.getShowToolTips(),
+                                                   chartConfig.getShowUrls());
         }
 
-        // Create a bit more headroom for value labels than is allowed for by the default 0.05 upper margin
+        // Create a bit more headroom for value labels than is allowed for by
+        // the default 0.05 upper margin
         ValueAxis rangeAxis = barChart.getCategoryPlot().getRangeAxis();
         if (rangeAxis.getUpperMargin() < 0.1) {
             rangeAxis.setUpperMargin(0.1);
@@ -270,7 +276,7 @@ public abstract class ChartUtils {
     private static DefaultCategoryDataset buildCategoryDataSet(BarChart chartConfig) throws SQLException {
         DefaultCategoryDataset baseDataSet = new DefaultCategoryDataset();
         /*
-         * Configuration can contain more than one series.  This loop adds
+         * Configuration can contain more than one series. This loop adds
          * single series data sets returned from sql query to a base data set
          * to be displayed in a the chart.
          */
@@ -297,16 +303,24 @@ public abstract class ChartUtils {
     }
 
     /**
-     * Helper method that returns the JFreeChart to an output stream written in JPEG format.
+     * Helper method that returns the JFreeChart to an output stream written in
+     * JPEG format.
      *
-     * @param chartName a {@link java.lang.String} object.
-     * @param out a {@link java.io.OutputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.sql.SQLException if any.
+     * @param chartName
+     *            a {@link java.lang.String} object.
+     * @param out
+     *            a {@link java.io.OutputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public static void getBarChart(String chartName, OutputStream out) throws MarshalException, ValidationException, IOException, SQLException {
+    public static void getBarChart(String chartName, OutputStream out) throws MarshalException, ValidationException,
+            IOException, SQLException {
         BarChart chartConfig = getBarChartConfigByName(chartName);
         JFreeChart chart = getBarChart(chartName);
         ImageSize imageSize = chartConfig.getImageSize();
@@ -326,24 +340,32 @@ public abstract class ChartUtils {
     }
 
     /**
-     * Helper method that returns the JFreeChart to an output stream written in JPEG format.
+     * Helper method that returns the JFreeChart to an output stream written in
+     * JPEG format.
      *
-     * @param chartName a {@link java.lang.String} object.
-     * @param out a {@link java.io.OutputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.sql.SQLException if any.
+     * @param chartName
+     *            a {@link java.lang.String} object.
+     * @param out
+     *            a {@link java.io.OutputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public static void getBarChartPNG(String chartName, OutputStream out) throws MarshalException, ValidationException, IOException, SQLException {
+    public static void getBarChartPNG(String chartName, OutputStream out) throws MarshalException, ValidationException,
+            IOException, SQLException {
         ChartFactory.setChartTheme(StandardChartTheme.createLegacyTheme());
         BarChart chartConfig = getBarChartConfigByName(chartName);
         JFreeChart chart = getBarChart(chartName);
-        if(chartConfig.getChartBackgroundColor() != null) {
+        if (chartConfig.getChartBackgroundColor() != null) {
             setChartBackgroundColor(chartConfig, chart);
         }
 
-        if(chartConfig.getPlotBackgroundColor() !=  null) {
+        if (chartConfig.getPlotBackgroundColor() != null) {
             setPlotBackgroundColor(chartConfig, chart);
         }
         ImageSize imageSize = chartConfig.getImageSize();
@@ -362,8 +384,7 @@ public abstract class ChartUtils {
 
     }
 
-    private static void setPlotBackgroundColor(BarChart chartConfig,
-            JFreeChart chart) {
+    private static void setPlotBackgroundColor(BarChart chartConfig, JFreeChart chart) {
         Red red = chartConfig.getPlotBackgroundColor().getRgb().getRed();
         Blue blue = chartConfig.getPlotBackgroundColor().getRgb().getBlue();
         Green green = chartConfig.getPlotBackgroundColor().getRgb().getGreen();
@@ -371,8 +392,7 @@ public abstract class ChartUtils {
         chart.getPlot().setBackgroundPaint(new Color(red.getRgbColor(), green.getRgbColor(), blue.getRgbColor()));
     }
 
-    private static void setChartBackgroundColor(BarChart chartConfig,
-            JFreeChart chart) {
+    private static void setChartBackgroundColor(BarChart chartConfig, JFreeChart chart) {
         Red red = chartConfig.getChartBackgroundColor().getRgb().getRed();
         Blue blue = chartConfig.getChartBackgroundColor().getRgb().getBlue();
         Green green = chartConfig.getChartBackgroundColor().getRgb().getGreen();
@@ -382,14 +402,20 @@ public abstract class ChartUtils {
     /**
      * Helper method that returns the JFreeChart as a PNG byte array.
      *
-     * @param chartName a {@link java.lang.String} object.
+     * @param chartName
+     *            a {@link java.lang.String} object.
      * @return a byte array
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.sql.SQLException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public static byte[] getBarChartAsPNGByteArray(String chartName) throws MarshalException, ValidationException, IOException, SQLException {
+    public static byte[] getBarChartAsPNGByteArray(String chartName) throws MarshalException, ValidationException,
+            IOException, SQLException {
         BarChart chartConfig = getBarChartConfigByName(chartName);
         JFreeChart chart = getBarChart(chartName);
         ImageSize imageSize = chartConfig.getImageSize();
@@ -409,14 +435,20 @@ public abstract class ChartUtils {
     /**
      * Helper method used to return a JFreeChart as a buffered Image.
      *
-     * @param chartName a {@link java.lang.String} object.
+     * @param chartName
+     *            a {@link java.lang.String} object.
      * @return a <code>BufferedImage</code>
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
-     * @throws java.sql.SQLException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
-    public static BufferedImage getChartAsBufferedImage(String chartName) throws MarshalException, ValidationException, IOException, SQLException {
+    public static BufferedImage getChartAsBufferedImage(String chartName) throws MarshalException, ValidationException,
+            IOException, SQLException {
         BarChart chartConfig = getBarChartConfigByName(chartName);
         JFreeChart chart = getBarChart(chartName);
         ImageSize imageSize = chartConfig.getImageSize();
@@ -438,17 +470,22 @@ public abstract class ChartUtils {
     /**
      * Helper method used to retrieve the XML defined BarChart (castor class)
      *
-     * @param chartName a {@link java.lang.String} object.
+     * @param chartName
+     *            a {@link java.lang.String} object.
      * @return a derived Castor class: BarChart
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public static BarChart getBarChartConfigByName(String chartName) throws MarshalException, ValidationException, IOException {
+    public static BarChart getBarChartConfigByName(String chartName) throws MarshalException, ValidationException,
+            IOException {
         Iterator<BarChart> it = getChartCollectionIterator();
         BarChart chart = null;
         while (it.hasNext()) {
-            chart = (BarChart)it.next();
+            chart = (BarChart) it.next();
             if (chart.getName().equals(chartName))
                 return chart;
         }
@@ -459,11 +496,15 @@ public abstract class ChartUtils {
      * Helper method used to fetch an Iterator for all defined Charts
      *
      * @return <code>BarChart</code> Iterator
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public static Iterator<BarChart> getChartCollectionIterator() throws IOException, MarshalException, ValidationException {
+    public static Iterator<BarChart> getChartCollectionIterator() throws IOException, MarshalException,
+            ValidationException {
         return ChartConfigFactory.getInstance().getConfiguration().getBarChartCollection().iterator();
     }
 

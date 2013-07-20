@@ -72,18 +72,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false,tempDbClass=MockDatabase.class)
+@JUnitTemporaryDatabase(dirtiesContext = false, tempDbClass = MockDatabase.class)
 @Transactional
 public class SyslogdTest implements InitializingBean {
 
@@ -92,9 +89,7 @@ public class SyslogdTest implements InitializingBean {
     private Syslogd m_syslogd;
 
     private final List<ExecutorService> m_executorServices = Arrays.asList(new ExecutorService[] {
-            Executors.newFixedThreadPool(3),
-            Executors.newFixedThreadPool(3)
-    });
+            Executors.newFixedThreadPool(3), Executors.newFixedThreadPool(3) });
 
     @Autowired
     private MockEventIpcManager m_eventIpcManager;
@@ -146,16 +141,22 @@ public class SyslogdTest implements InitializingBean {
     /**
      * Send a raw syslog message and expect a given event as a result
      *
-     * @param testPDU The raw syslog message as it would appear on the wire (just the UDP payload)
-     * @param expectedHost The host from which the event should be resolved as originating
-     * @param expectedUEI The expected UEI of the resulting event
-     * @param expectedLogMsg The expected contents of the logmsg for the resulting event
-     *
+     * @param testPDU
+     *            The raw syslog message as it would appear on the wire (just
+     *            the UDP payload)
+     * @param expectedHost
+     *            The host from which the event should be resolved as
+     *            originating
+     * @param expectedUEI
+     *            The expected UEI of the resulting event
+     * @param expectedLogMsg
+     *            The expected contents of the logmsg for the resulting event
      * @throws UnknownHostException
      * @throws InterruptedException
      * @throws ExecutionException
      */
-    private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg) throws UnknownHostException, InterruptedException, ExecutionException {
+    private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg)
+            throws UnknownHostException, InterruptedException, ExecutionException {
         startSyslogdGracefully();
 
         final EventBuilder expectedEventBldr = new EventBuilder(expectedUEI, "syslogd");
@@ -170,27 +171,34 @@ public class SyslogdTest implements InitializingBean {
         final SyslogClient sc = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
         final DatagramPacket pkt = sc.getPacket(SyslogClient.LOG_DEBUG, testPDU);
         final SyslogdConfig config = SyslogdConfigFactory.getInstance();
-        WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, config.getForwardingRegexp(), config.getMatchingGroupHost(), config.getMatchingGroupMessage(), config.getUeiList(), config.getHideMessages(), config.getDiscardUei()));
+        WaterfallExecutor.waterfall(m_executorServices,
+                                    new SyslogConnection(pkt, config.getForwardingRegexp(),
+                                                         config.getMatchingGroupHost(),
+                                                         config.getMatchingGroupMessage(), config.getUeiList(),
+                                                         config.getHideMessages(), config.getDiscardUei()));
 
-        ea.verifyAnticipated(5000,0,0,0,0);
+        ea.verifyAnticipated(5000, 0, 0, 0, 0);
         final Event receivedEvent = ea.getAnticipatedEventsRecieved().get(0);
         assertEquals("Log messages do not match", expectedLogMsg, receivedEvent.getLogmsg().getContent());
 
         return ea.getAnticipatedEventsRecieved();
     }
 
-	private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg, Map<String,String> expectedParams) throws UnknownHostException, InterruptedException, ExecutionException {
-    	final List<Event> receivedEvents = doMessageTest(testPDU, expectedHost, expectedUEI, expectedLogMsg);
+    private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg,
+            Map<String, String> expectedParams) throws UnknownHostException, InterruptedException, ExecutionException {
+        final List<Event> receivedEvents = doMessageTest(testPDU, expectedHost, expectedUEI, expectedLogMsg);
 
-        final Map<String,String> actualParms = new HashMap<String,String>();
+        final Map<String, String> actualParms = new HashMap<String, String>();
         for (final Parm actualParm : receivedEvents.get(0).getParmCollection()) {
             actualParms.put(actualParm.getParmName(), actualParm.getValue().getContent());
         }
 
         for (final String expectedKey : expectedParams.keySet()) {
-        	final String expectedValue = expectedParams.get(expectedKey);
-            assertTrue("Actual event does not have a parameter called " + expectedKey, actualParms.containsKey(expectedKey));
-            assertEquals("Actual event has a parameter called " + expectedKey + " but its value does not match", expectedValue, actualParms.get(expectedKey));
+            final String expectedValue = expectedParams.get(expectedKey);
+            assertTrue("Actual event does not have a parameter called " + expectedKey,
+                       actualParms.containsKey(expectedKey));
+            assertEquals("Actual event has a parameter called " + expectedKey + " but its value does not match",
+                         expectedValue, actualParms.get(expectedKey));
         }
         return receivedEvents;
     }
@@ -205,7 +213,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient(null, 0, SyslogClient.LOG_DAEMON);
             s.syslog(SyslogClient.LOG_ERR, "Hello.");
         } catch (UnknownHostException e) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
     }
 
@@ -216,7 +224,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
             s.syslog(SyslogClient.LOG_DEBUG, "2007-01-01 host.domain.com A SyslogNG style message");
         } catch (UnknownHostException e) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
     }
 
@@ -243,7 +251,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
             s.syslog(SyslogClient.LOG_CRIT, testPDU);
         } catch (UnknownHostException uhe) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
 
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
@@ -276,7 +284,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient("maltd", 10, SyslogClient.LOG_LOCAL1);
             s.syslog(SyslogClient.LOG_WARNING, testPDU);
         } catch (UnknownHostException uhe) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
 
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
@@ -308,7 +316,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient(null, 10, SyslogClient.LOG_LOCAL1);
             s.syslog(SyslogClient.LOG_WARNING, testPDU);
         } catch (UnknownHostException uhe) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
 
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
@@ -339,7 +347,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient(null, 10, SyslogClient.LOG_LOCAL0);
             s.syslog(SyslogClient.LOG_DEBUG, testPDU);
         } catch (UnknownHostException uhe) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
 
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
@@ -370,7 +378,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient("beerd", 10, SyslogClient.LOG_DAEMON);
             s.syslog(SyslogClient.LOG_DEBUG, testPDU);
         } catch (UnknownHostException uhe) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
 
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
@@ -383,7 +391,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
             s.syslog(SyslogClient.LOG_DEBUG, "2007-01-01 127.0.0.1 A SyslogNG style message");
         } catch (UnknownHostException e) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
     }
 
@@ -394,7 +402,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
             s.syslog(SyslogClient.LOG_DEBUG, "2007-01-01 www.opennms.org A SyslogNG style message");
         } catch (UnknownHostException e) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
     }
 
@@ -412,31 +420,27 @@ public class SyslogdTest implements InitializingBean {
 
     @Test
     public void testSubstrUEIRewrite() throws Exception {
-        doMessageTest("2007-01-01 localhost A CRISCO message",
-                      m_localhost, "uei.opennms.org/tests/syslogd/substrUeiRewriteTest",
-                      "A CRISCO message");
+        doMessageTest("2007-01-01 localhost A CRISCO message", m_localhost,
+                      "uei.opennms.org/tests/syslogd/substrUeiRewriteTest", "A CRISCO message");
     }
 
     @Test
-	public void testRegexUEIRewrite() throws Exception {
+    public void testRegexUEIRewrite() throws Exception {
         MockLogAppender.setupLogging(true, "TRACE");
-        doMessageTest("2007-01-01 localhost foo: 100 out of 666 tests failed for bar",
-                      m_localhost, "uei.opennms.org/tests/syslogd/regexUeiRewriteTest",
-                      "100 out of 666 tests failed for bar");
+        doMessageTest("2007-01-01 localhost foo: 100 out of 666 tests failed for bar", m_localhost,
+                      "uei.opennms.org/tests/syslogd/regexUeiRewriteTest", "100 out of 666 tests failed for bar");
     }
 
     @Test
     public void testSubstrTESTTestThatRemovesATESTString() throws Exception {
         doMessageTest("2007-01-01 localhost A CRISCO message that is also a TESTHIDING message -- hide me!",
-                      m_localhost, "uei.opennms.org/tests/syslogd/substrUeiRewriteTest",
-                      ConvertToEvent.HIDDEN_MESSAGE);
+                      m_localhost, "uei.opennms.org/tests/syslogd/substrUeiRewriteTest", ConvertToEvent.HIDDEN_MESSAGE);
     }
 
     @Test
     public void testRegexTESTTestThatRemovesADoubleSecretString() throws Exception {
-        doMessageTest("2007-01-01 localhost foo: 100 out of 666 tests failed for doubleSecret",
-                      m_localhost, "uei.opennms.org/tests/syslogd/regexUeiRewriteTest",
-                      ConvertToEvent.HIDDEN_MESSAGE);
+        doMessageTest("2007-01-01 localhost foo: 100 out of 666 tests failed for doubleSecret", m_localhost,
+                      "uei.opennms.org/tests/syslogd/regexUeiRewriteTest", ConvertToEvent.HIDDEN_MESSAGE);
     }
 
     @Test
@@ -476,7 +480,7 @@ public class SyslogdTest implements InitializingBean {
         final String expectedLogMsg = "Secretly replaced rangerrick's coffee with 42 wombats";
         final String[] testGroups = { "rangerrick's", "42", "wombats" };
 
-        final Map<String,String> expectedParms = new HashMap<String,String>();
+        final Map<String, String> expectedParms = new HashMap<String, String>();
         expectedParms.put("group1", testGroups[0]);
         expectedParms.put("whoseBeverage", testGroups[0]);
         expectedParms.put("group2", testGroups[1]);
@@ -515,7 +519,7 @@ public class SyslogdTest implements InitializingBean {
             s = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
             s.syslog(SyslogClient.LOG_DEBUG, testPDU);
         } catch (UnknownHostException uhe) {
-            //Failures are for weenies
+            // Failures are for weenies
         }
 
         ea.verifyAnticipated(5000, 0, 0, 0, 0);

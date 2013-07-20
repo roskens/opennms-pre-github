@@ -52,7 +52,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class is designed to be used by the service poller framework to test the
- * availability of the Memcached service on remote interfaces. The class implements
+ * availability of the Memcached service on remote interfaces. The class
+ * implements
  * the ServiceMonitor interface that allows it to be used along with other
  * plug-ins by the service poller framework.
  *
@@ -60,7 +61,6 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable
 final public class MemcachedMonitor extends AbstractServiceMonitor {
-
 
     public static final Logger LOG = LoggerFactory.getLogger(MemcachedMonitor.class);
 
@@ -78,20 +78,16 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
      * Default timeout. Specifies how long (in milliseconds) to block waiting
      * for data from the monitored interface.
      */
-    private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on read()
+    private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on
+                                                     // read()
 
-    private static final String[] m_keys = new String[] {
-        "uptime", "rusageuser", "rusagesystem",
-        "curritems", "totalitems", "bytes", "limitmaxbytes",
-        "currconnections", "totalconnections", "connectionstructure",
-        "cmdget", "cmdset", "gethits", "getmisses", "evictions",
-        "bytesread", "byteswritten", "threads"
-    };
+    private static final String[] m_keys = new String[] { "uptime", "rusageuser", "rusagesystem", "curritems",
+            "totalitems", "bytes", "limitmaxbytes", "currconnections", "totalconnections", "connectionstructure",
+            "cmdget", "cmdset", "gethits", "getmisses", "evictions", "bytesread", "byteswritten", "threads" };
 
     /**
-     * {@inheritDoc}
-     *
-     * Poll the specified address for Memcached service availability.
+     * {@inheritDoc} Poll the specified address for Memcached service
+     * availability.
      */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
@@ -108,7 +104,7 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
 
         PollStatus serviceStatus = PollStatus.unavailable();
 
-        for(timeoutTracker.reset(); timeoutTracker.shouldRetry() && !serviceStatus.isAvailable(); timeoutTracker.nextAttempt()) {
+        for (timeoutTracker.reset(); timeoutTracker.shouldRetry() && !serviceStatus.isAvailable(); timeoutTracker.nextAttempt()) {
             Socket socket = null;
             try {
 
@@ -129,7 +125,7 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
                 // Allocate a line reader
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-                Map<String, Number> statProps = new LinkedHashMap<String,Number>();
+                Map<String, Number> statProps = new LinkedHashMap<String, Number>();
                 for (String key : m_keys) {
                     statProps.put(key, null);
                 }
@@ -137,7 +133,8 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
                 String line = null;
                 do {
                     line = reader.readLine();
-                    if (line == null) break;
+                    if (line == null)
+                        break;
                     String[] statEntry = line.trim().split("\\s", 3);
                     if (statEntry[0].equals("STAT")) {
                         try {
@@ -170,20 +167,21 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
                 serviceStatus.setResponseTime(timeoutTracker.elapsedTimeInMillis());
             } catch (ConnectException e) {
                 // Connection refused!! Continue to retry.
-            	String reason = "Connection refused by host "+host;
+                String reason = "Connection refused by host " + host;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } catch (NoRouteToHostException e) {
-            	// No route to host!! Try retries anyway in case strict timeouts are enabled
+                // No route to host!! Try retries anyway in case strict timeouts
+                // are enabled
                 String reason = "Unable to test host " + host + ", no route available";
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } catch (InterruptedIOException e) {
-            	String reason = "did not connect to host " + host +" within timeout: " + timeoutTracker;
+                String reason = "did not connect to host " + host + " within timeout: " + timeoutTracker;
                 LOG.debug(reason);
                 serviceStatus = PollStatus.unavailable(reason);
             } catch (IOException e) {
-            	String reason = "Error communicating with host " + host;
+                String reason = "Error communicating with host " + host;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } catch (Throwable t) {

@@ -40,12 +40,12 @@ import org.opennms.netmgt.xml.event.Autoaction;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 final class BroadcastEventProcessor implements EventListener {
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
+
     /**
      * The location where executable events are enqueued to be executed.
      */
@@ -56,7 +56,6 @@ final class BroadcastEventProcessor implements EventListener {
      *
      * @param execQ
      *            The queue where executable events are stored.
-     *
      */
     BroadcastEventProcessor(FifoQueue<String> execQ) {
         // set up the exectuable queue first
@@ -77,9 +76,8 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is invoked by the EventIpcManager when a new event is
+     * {@inheritDoc} This method is invoked by the EventIpcManager when a new
+     * event is
      * available for processing. Each event's autoactions and trouble tickets
      * are queued to be run
      */
@@ -116,8 +114,8 @@ final class BroadcastEventProcessor implements EventListener {
             try {
                 m_execQ.add(event.getTticket().getContent()); // java.lang.String
 
-
-                LOG.debug("Added event \'{}\' to execute tticket \'{}\'", event.getUei(), event.getTticket().getContent());
+                LOG.debug("Added event \'{}\' to execute tticket \'{}\'", event.getUei(),
+                          event.getTticket().getContent());
             } catch (FifoQueueException ex) {
                 LOG.error("Failed to add event to execution queue", ex);
             } catch (InterruptedException ex) {

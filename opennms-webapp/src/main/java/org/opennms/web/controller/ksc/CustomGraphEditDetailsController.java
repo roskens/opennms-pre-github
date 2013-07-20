@@ -47,7 +47,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>CustomGraphEditDetailsController class.</p>
+ * <p>
+ * CustomGraphEditDetailsController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -56,23 +58,25 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class CustomGraphEditDetailsController extends AbstractController implements InitializingBean {
 
     public enum Parameters {
-        resourceId,
-        graphtype
+        resourceId, graphtype
     }
 
     private KSC_PerformanceReportFactory m_kscReportFactory;
+
     private KscReportService m_kscReportService;
+
     private ResourceService m_resourceService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         String resourceId = request.getParameter(Parameters.resourceId.toString());
         if (resourceId == null) {
             throw new MissingParameterException(Parameters.resourceId.toString());
         }
 
-        //optional parameter graphtype
+        // optional parameter graphtype
         String prefabReportName = request.getParameter(Parameters.graphtype.toString());
 
         KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), true);
@@ -80,7 +84,8 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
         Report report = editor.getWorkingReport();
         org.opennms.netmgt.config.kscReports.Graph sample_graph = editor.getWorkingGraph();
         if (sample_graph == null) {
-            throw new IllegalArgumentException("Invalid working graph argument -- null pointer. Possibly missing prefab report in snmp-graph.properties?");
+            throw new IllegalArgumentException(
+                                               "Invalid working graph argument -- null pointer. Possibly missing prefab report in snmp-graph.properties?");
         }
 
         // Set the resourceId in the working graph in case it changed
@@ -102,7 +107,8 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
         Calendar end_time = Calendar.getInstance();
         KSC_PerformanceReportFactory.getBeginEndTime(sample_graph.getTimespan(), begin_time, end_time);
 
-        KscResultSet resultSet = new KscResultSet(sample_graph.getTitle(), begin_time.getTime(), end_time.getTime(), resource, display_graph);
+        KscResultSet resultSet = new KscResultSet(sample_graph.getTitle(), begin_time.getTime(), end_time.getTime(),
+                                                  resource, display_graph);
 
         ModelAndView modelAndView = new ModelAndView("KSC/customGraphEditDetails");
 
@@ -125,10 +131,15 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
     }
 
     /**
-     * <p>getPrefabGraphFromList</p>
+     * <p>
+     * getPrefabGraphFromList
+     * </p>
      *
-     * @param graphs an array of {@link org.opennms.netmgt.model.PrefabGraph} objects.
-     * @param name a {@link java.lang.String} object.
+     * @param graphs
+     *            an array of {@link org.opennms.netmgt.model.PrefabGraph}
+     *            objects.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */
     public PrefabGraph getPrefabGraphFromList(PrefabGraph[] graphs, String name) {
@@ -141,7 +152,9 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
     }
 
     /**
-     * <p>getResourceService</p>
+     * <p>
+     * getResourceService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -150,34 +163,47 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
     }
 
     /**
-     * <p>setResourceService</p>
+     * <p>
+     * setResourceService
+     * </p>
      *
-     * @param resourceService a {@link org.opennms.web.svclayer.ResourceService} object.
+     * @param resourceService
+     *            a {@link org.opennms.web.svclayer.ResourceService} object.
      */
     public void setResourceService(ResourceService resourceService) {
         m_resourceService = resourceService;
     }
 
     /**
-     * <p>getKscReportFactory</p>
+     * <p>
+     * getKscReportFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *         object.
      */
     public KSC_PerformanceReportFactory getKscReportFactory() {
         return m_kscReportFactory;
     }
 
     /**
-     * <p>setKscReportFactory</p>
+     * <p>
+     * setKscReportFactory
+     * </p>
      *
-     * @param kscReportFactory a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @param kscReportFactory
+     *            a
+     *            {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *            object.
      */
     public void setKscReportFactory(KSC_PerformanceReportFactory kscReportFactory) {
         m_kscReportFactory = kscReportFactory;
     }
 
     /**
-     * <p>getKscReportService</p>
+     * <p>
+     * getKscReportService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -186,18 +212,24 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
     }
 
     /**
-     * <p>setKscReportService</p>
+     * <p>
+     * setKscReportService
+     * </p>
      *
-     * @param kscReportService a {@link org.opennms.web.svclayer.KscReportService} object.
+     * @param kscReportService
+     *            a {@link org.opennms.web.svclayer.KscReportService} object.
      */
     public void setKscReportService(KscReportService kscReportService) {
         m_kscReportService = kscReportService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

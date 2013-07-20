@@ -33,7 +33,9 @@ import org.opennms.web.notification.AcknowledgeType;
 import org.opennms.web.notification.SortStyle;
 
 /**
- * <p>NotificationCriteria class.</p>
+ * <p>
+ * NotificationCriteria class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,49 +43,73 @@ import org.opennms.web.notification.SortStyle;
  */
 public class NotificationCriteria {
 
-    public static interface NotificationCriteriaVisitor<E extends Exception>{
+    public static interface NotificationCriteriaVisitor<E extends Exception> {
         public void visitAckType(AcknowledgeType ackType) throws E;
+
         public void visitFilter(Filter filter) throws E;
+
         public void visitSortStyle(SortStyle sortStyle) throws E;
+
         public void visitLimit(int limit, int offset) throws E;
     }
 
-    public static class BaseNotificationCriteriaVisitor<E extends Exception> implements NotificationCriteriaVisitor<E>{
+    public static class BaseNotificationCriteriaVisitor<E extends Exception> implements NotificationCriteriaVisitor<E> {
         @Override
-        public void visitAckType(AcknowledgeType ackType) throws E { }
+        public void visitAckType(AcknowledgeType ackType) throws E {
+        }
+
         @Override
-        public void visitFilter(Filter filter) throws E { }
+        public void visitFilter(Filter filter) throws E {
+        }
+
         @Override
-        public void visitLimit(int limit, int offset) throws E { }
+        public void visitLimit(int limit, int offset) throws E {
+        }
+
         @Override
-        public void visitSortStyle(SortStyle sortStyle) throws E { }
+        public void visitSortStyle(SortStyle sortStyle) throws E {
+        }
     }
 
     Filter[] m_filters = null;
+
     SortStyle m_sortStyle = SortStyle.ID;
+
     AcknowledgeType m_ackType = AcknowledgeType.UNACKNOWLEDGED;
+
     int m_limit = -1;
+
     int m_offset = -1;
 
     /**
-     * <p>Constructor for NotificationCriteria.</p>
+     * <p>
+     * Constructor for NotificationCriteria.
+     * </p>
      *
-     * @param filters a org$opennms$web$filter$Filter object.
+     * @param filters
+     *            a org$opennms$web$filter$Filter object.
      */
-    public NotificationCriteria(Filter...filters){
+    public NotificationCriteria(Filter... filters) {
         this(filters, null, null, -1, -1);
     }
 
     /**
-     * <p>Constructor for NotificationCriteria.</p>
+     * <p>
+     * Constructor for NotificationCriteria.
+     * </p>
      *
-     * @param filters an array of org$opennms$web$filter$Filter objects.
-     * @param sortStyle a {@link org.opennms.web.notification.SortStyle} object.
-     * @param ackType a {@link org.opennms.web.notification.AcknowledgeType} object.
-     * @param limit a int.
-     * @param offset a int.
+     * @param filters
+     *            an array of org$opennms$web$filter$Filter objects.
+     * @param sortStyle
+     *            a {@link org.opennms.web.notification.SortStyle} object.
+     * @param ackType
+     *            a {@link org.opennms.web.notification.AcknowledgeType} object.
+     * @param limit
+     *            a int.
+     * @param offset
+     *            a int.
      */
-    public NotificationCriteria(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType, int limit, int offset){
+    public NotificationCriteria(Filter[] filters, SortStyle sortStyle, AcknowledgeType ackType, int limit, int offset) {
         m_filters = filters;
         m_sortStyle = sortStyle;
         m_ackType = ackType;
@@ -92,33 +118,44 @@ public class NotificationCriteria {
     }
 
     /**
-     * <p>Constructor for NotificationCriteria.</p>
+     * <p>
+     * Constructor for NotificationCriteria.
+     * </p>
      *
-     * @param ackType a {@link org.opennms.web.notification.AcknowledgeType} object.
-     * @param filters an array of org$opennms$web$filter$Filter objects.
+     * @param ackType
+     *            a {@link org.opennms.web.notification.AcknowledgeType} object.
+     * @param filters
+     *            an array of org$opennms$web$filter$Filter objects.
      */
     public NotificationCriteria(AcknowledgeType ackType, Filter[] filters) {
         this(filters, null, ackType, -1, -1);
     }
 
     /**
-     * <p>visit</p>
+     * <p>
+     * visit
+     * </p>
      *
-     * @param visitor a {@link org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor} object.
-     * @param <E> a E object.
-     * @throws E if any.
+     * @param visitor
+     *            a
+     *            {@link org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor}
+     *            object.
+     * @param <E>
+     *            a E object.
+     * @throws E
+     *             if any.
      */
-    public <E extends Exception> void visit(NotificationCriteriaVisitor<E> visitor) throws E{
-        if(m_ackType != null){
+    public <E extends Exception> void visit(NotificationCriteriaVisitor<E> visitor) throws E {
+        if (m_ackType != null) {
             visitor.visitAckType(m_ackType);
         }
-        for(Filter filter : m_filters){
+        for (Filter filter : m_filters) {
             visitor.visitFilter(filter);
         }
-        if(m_sortStyle != null){
+        if (m_sortStyle != null) {
             visitor.visitSortStyle(m_sortStyle);
         }
-        if(m_limit > 0 && m_offset > -1){
+        if (m_limit > 0 && m_offset > -1) {
             visitor.visitLimit(m_limit, m_offset);
         }
     }

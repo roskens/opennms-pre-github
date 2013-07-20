@@ -36,44 +36,60 @@ import org.opennms.netmgt.model.PrefabGraph;
 import org.opennms.netmgt.model.PrefabGraphType;
 
 /**
- * <p>GraphDao interface.</p>
+ * <p>
+ * GraphDao interface.
+ * </p>
  */
 public interface GraphDao {
     /**
-     * <p>findByName</p>
+     * <p>
+     * findByName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PrefabGraphType} object.
      */
     public PrefabGraphType findPrefabGraphTypeByName(String name);
 
     /**
-     * <p>findAdhocByName</p>
+     * <p>
+     * findAdhocByName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.AdhocGraphType} object.
      */
     public AdhocGraphType findAdhocGraphTypeByName(String name);
 
     /**
-     * <p>getAllPrefabGraphs</p>
+     * <p>
+     * getAllPrefabGraphs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<PrefabGraph> getAllPrefabGraphs();
 
     /**
-     * <p>getPrefabGraph</p>
+     * <p>
+     * getPrefabGraph
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */
     public PrefabGraph getPrefabGraph(String name);
 
     /**
-     * <p>getPrefabGraphsForResource</p>
+     * <p>
+     * getPrefabGraphsForResource
+     * </p>
      *
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
      * @return an array of {@link org.opennms.netmgt.model.PrefabGraph} objects.
      */
     public PrefabGraph[] getPrefabGraphsForResource(OnmsResource resource);

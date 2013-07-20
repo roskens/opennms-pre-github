@@ -32,7 +32,9 @@ import org.opennms.web.graph.GraphResults;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>GraphResultsService interface.</p>
+ * <p>
+ * GraphResultsService interface.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -41,16 +43,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface GraphResultsService {
     /**
-     * <p>findResults</p>
+     * <p>
+     * findResults
+     * </p>
      *
-     * @param resources an array of {@link java.lang.String} objects.
-     * @param reports an array of {@link java.lang.String} objects.
-     * @param start a long.
-     * @param end a long.
-     * @param relativeTime a {@link java.lang.String} object.
+     * @param resources
+     *            an array of {@link java.lang.String} objects.
+     * @param reports
+     *            an array of {@link java.lang.String} objects.
+     * @param start
+     *            a long.
+     * @param end
+     *            a long.
+     * @param relativeTime
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.graph.GraphResults} object.
      */
-    public GraphResults findResults(String[] resources,
-            String[] reports,
-            long start, long end, String relativeTime);
+    public GraphResults findResults(String[] resources, String[] reports, long start, long end, String relativeTime);
 }

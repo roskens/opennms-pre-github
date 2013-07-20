@@ -45,7 +45,8 @@ public class DefaultKscReportService implements KscReportService {
     }
 
     @Override
-    public void addGraphToReport(final RequestCallback callback, final int kscReportId, final String graphTitle, final String graphName, final String resourceId, final String timeSpan) {
+    public void addGraphToReport(final RequestCallback callback, final int kscReportId, final String graphTitle,
+            final String graphName, final String resourceId, final String timeSpan) {
         UrlBuilder builder = new UrlBuilder();
         builder.setPath(BASE_URL + "/" + kscReportId);
         builder.setParameter("title", graphTitle);
@@ -53,7 +54,8 @@ public class DefaultKscReportService implements KscReportService {
         builder.setParameter("resourceId", resourceId);
         builder.setParameter("timespan", timeSpan);
 
-        // we just want a relative URL, so we render it and strip the beginning :)
+        // we just want a relative URL, so we render it and strip the beginning
+        // :)
         final String url = builder.buildString().replace("http:///", "");
         GWT.log("making request: " + url);
         sendRequest(callback, RequestBuilder.PUT, url);

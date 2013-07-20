@@ -42,9 +42,8 @@ import org.opennms.netmgt.model.OnmsAlarm;
  *
  * @author <a mailto:brozow@opennms.org>Matt Brozowski</a>
  * @author <a mailto:david@opennms.org>David Hustace</a>
- *
  */
-public class AlarmQueueTest implements StatusFactory<NorthboundAlarm>{
+public class AlarmQueueTest implements StatusFactory<NorthboundAlarm> {
 
     public int alarmNumber = 0;
 
@@ -89,7 +88,6 @@ public class AlarmQueueTest implements StatusFactory<NorthboundAlarm>{
 
         queue.forwardSuccessful(alarms);
 
-
     }
 
     public void testFailure() throws InterruptedException {
@@ -97,9 +95,9 @@ public class AlarmQueueTest implements StatusFactory<NorthboundAlarm>{
         queue.setMaxBatchSize(3);
         queue.init();
 
-        queue.accept(createAlarm());  // 1
+        queue.accept(createAlarm()); // 1
         queue.preserve(createAlarm()); // 2
-        queue.accept(createAlarm());  // 3
+        queue.accept(createAlarm()); // 3
 
         List<NorthboundAlarm> alarms = queue.getAlarmsToForward();
         assertNotNull(alarms);
@@ -108,9 +106,9 @@ public class AlarmQueueTest implements StatusFactory<NorthboundAlarm>{
         queue.forwardSuccessful(alarms);
 
         queue.preserve(createAlarm()); // 4
-        queue.accept(createAlarm());  // 5
+        queue.accept(createAlarm()); // 5
         queue.preserve(createAlarm()); // 6
-        queue.accept(createAlarm());  // 7
+        queue.accept(createAlarm()); // 7
 
         alarms = queue.getAlarmsToForward();
         assertNotNull(alarms);
@@ -160,7 +158,6 @@ public class AlarmQueueTest implements StatusFactory<NorthboundAlarm>{
 
         queue.forwardSuccessful(alarms);
 
-
     }
 
     private void assertPreservedAlarm(List<NorthboundAlarm> alarms, int index, int id) {
@@ -168,9 +165,9 @@ public class AlarmQueueTest implements StatusFactory<NorthboundAlarm>{
         assertEquals(id, alarms.get(index).getId().intValue());
     }
 
-	@Override
-	public NorthboundAlarm createSyncLostMessage() {
-		return NorthboundAlarm.SYNC_LOST_ALARM;
-	}
+    @Override
+    public NorthboundAlarm createSyncLostMessage() {
+        return NorthboundAlarm.SYNC_LOST_ALARM;
+    }
 
 }

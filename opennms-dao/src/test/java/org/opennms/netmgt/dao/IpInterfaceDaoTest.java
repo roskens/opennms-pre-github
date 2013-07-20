@@ -64,14 +64,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class IpInterfaceDaoTest implements InitializingBean {
@@ -140,7 +138,8 @@ public class IpInterfaceDaoTest implements InitializingBean {
         crit.add(Restrictions.like("ipAddress", "192.168.1.%"));
         assertEquals(3, m_ipInterfaceDao.countMatching(crit));
 
-        if (Boolean.getBoolean("skipIpv6Tests")) return;
+        if (Boolean.getBoolean("skipIpv6Tests"))
+            return;
 
         crit = new OnmsCriteria(OnmsIpInterface.class);
         crit.add(Restrictions.like("ipAddress", "fe80:%dddd\\%5"));
@@ -150,7 +149,8 @@ public class IpInterfaceDaoTest implements InitializingBean {
     @Test
     @Transactional
     public void testGetIPv6Interfaces() {
-        if (Boolean.getBoolean("skipIpv6Tests")) return;
+        if (Boolean.getBoolean("skipIpv6Tests"))
+            return;
 
         OnmsCriteria crit = new OnmsCriteria(OnmsIpInterface.class);
         crit.add(Restrictions.like("ipAddress", "fe80:%dddd\\%5"));
@@ -159,7 +159,7 @@ public class IpInterfaceDaoTest implements InitializingBean {
 
         OnmsIpInterface iface = ifaces.get(0);
         assertTrue(iface.getIpAddress() instanceof Inet6Address);
-        Inet6Address v6address = (Inet6Address)iface.getIpAddress();
+        Inet6Address v6address = (Inet6Address) iface.getIpAddress();
         assertEquals(5, v6address.getScopeId());
         assertEquals("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5", InetAddressUtils.str(iface.getIpAddress()));
     }
@@ -174,10 +174,14 @@ public class IpInterfaceDaoTest implements InitializingBean {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
 
-        assertEquals("node ID for 192.168.1.1", m_databasePopulator.getNode1().getId(), interfaceNodes.get(InetAddressUtils.addr("192.168.1.1")));
-        assertEquals("node ID for 192.168.1.2", m_databasePopulator.getNode1().getId(), interfaceNodes.get(InetAddressUtils.addr("192.168.1.2")));
-        // This hack assumes that the database ID of node 2 is node1.getId() + 1  :)
-        assertEquals("node ID for 192.168.2.1", Integer.valueOf(m_databasePopulator.getNode1().getId() + 1), interfaceNodes.get(InetAddressUtils.addr("192.168.2.1")));
+        assertEquals("node ID for 192.168.1.1", m_databasePopulator.getNode1().getId(),
+                     interfaceNodes.get(InetAddressUtils.addr("192.168.1.1")));
+        assertEquals("node ID for 192.168.1.2", m_databasePopulator.getNode1().getId(),
+                     interfaceNodes.get(InetAddressUtils.addr("192.168.1.2")));
+        // This hack assumes that the database ID of node 2 is node1.getId() + 1
+        // :)
+        assertEquals("node ID for 192.168.2.1", Integer.valueOf(m_databasePopulator.getNode1().getId() + 1),
+                     interfaceNodes.get(InetAddressUtils.addr("192.168.2.1")));
         assertFalse("node ID for *BOGUS*IP* should not have been found", interfaceNodes.containsKey("*BOGUS*IP*"));
     }
 

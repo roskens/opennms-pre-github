@@ -29,7 +29,9 @@
 package org.opennms.web.controller.inventory;
 
 /**
- * <p>AdminRancidRouterDbCommClass class.</p>
+ * <p>
+ * AdminRancidRouterDbCommClass class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,7 +50,9 @@ public class AdminRancidRouterDbCommClass {
     private String comment;
 
     /**
-     * <p>Getter for the field <code>comment</code>.</p>
+     * <p>
+     * Getter for the field <code>comment</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -57,16 +61,21 @@ public class AdminRancidRouterDbCommClass {
     }
 
     /**
-     * <p>Setter for the field <code>comment</code>.</p>
+     * <p>
+     * Setter for the field <code>comment</code>.
+     * </p>
      *
-     * @param comment a {@link java.lang.String} object.
+     * @param comment
+     *            a {@link java.lang.String} object.
      */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
     /**
-     * <p>Getter for the field <code>deviceTypeName</code>.</p>
+     * <p>
+     * Getter for the field <code>deviceTypeName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,16 +84,21 @@ public class AdminRancidRouterDbCommClass {
     }
 
     /**
-     * <p>Setter for the field <code>deviceTypeName</code>.</p>
+     * <p>
+     * Setter for the field <code>deviceTypeName</code>.
+     * </p>
      *
-     * @param deviceTypeName a {@link java.lang.String} object.
+     * @param deviceTypeName
+     *            a {@link java.lang.String} object.
      */
     public void setDeviceTypeName(String deviceTypeName) {
         this.deviceTypeName = deviceTypeName;
     }
 
     /**
-     * <p>Getter for the field <code>statusName</code>.</p>
+     * <p>
+     * Getter for the field <code>statusName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,16 +107,21 @@ public class AdminRancidRouterDbCommClass {
     }
 
     /**
-     * <p>Setter for the field <code>statusName</code>.</p>
+     * <p>
+     * Setter for the field <code>statusName</code>.
+     * </p>
      *
-     * @param statusName a {@link java.lang.String} object.
+     * @param statusName
+     *            a {@link java.lang.String} object.
      */
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
 
     /**
-     * <p>Getter for the field <code>groupName</code>.</p>
+     * <p>
+     * Getter for the field <code>groupName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,16 +130,21 @@ public class AdminRancidRouterDbCommClass {
     }
 
     /**
-     * <p>Setter for the field <code>groupName</code>.</p>
+     * <p>
+     * Setter for the field <code>groupName</code>.
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
      */
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 
     /**
-     * <p>Getter for the field <code>deviceName</code>.</p>
+     * <p>
+     * Getter for the field <code>deviceName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,9 +153,12 @@ public class AdminRancidRouterDbCommClass {
     }
 
     /**
-     * <p>Setter for the field <code>deviceName</code>.</p>
+     * <p>
+     * Setter for the field <code>deviceName</code>.
+     * </p>
      *
-     * @param deviceName a {@link java.lang.String} object.
+     * @param deviceName
+     *            a {@link java.lang.String} object.
      */
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;

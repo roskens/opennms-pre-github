@@ -37,24 +37,24 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsStpInterface;
 
-public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterface, Integer>  implements StpInterfaceDao {
+public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterface, Integer> implements
+        StpInterfaceDao {
 
     public StpInterfaceDaoHibernate() {
         super(OnmsStpInterface.class);
     }
 
-	@Override
-	public void markDeletedIfNodeDeleted() {
-		final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
+    @Override
+    public void markDeletedIfNodeDeleted() {
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.type", "D"));
 
         for (final OnmsStpInterface stpIface : findMatching(criteria)) {
-        	stpIface.setStatus(StatusType.DELETED);
-        	saveOrUpdate(stpIface);
+            stpIface.setStatus(StatusType.DELETED);
+            saveOrUpdate(stpIface);
         }
-	}
-
+    }
 
     @Override
     public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {

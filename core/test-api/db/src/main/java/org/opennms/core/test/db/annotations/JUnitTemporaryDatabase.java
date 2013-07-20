@@ -44,11 +44,15 @@ import org.opennms.core.test.db.TemporaryDatabasePostgreSQL;
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitTemporaryDatabase {
     boolean createSchema() default true;
+
     String useExistingDatabase() default "";
+
     Class<? extends TemporaryDatabase> tempDbClass() default TemporaryDatabasePostgreSQL.class;
+
     boolean reuseDatabase() default true;
+
     boolean dirtiesContext() default true;
 }

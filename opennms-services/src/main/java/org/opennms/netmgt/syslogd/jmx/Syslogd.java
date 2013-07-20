@@ -29,14 +29,18 @@
 package org.opennms.netmgt.syslogd.jmx;
 
 /**
- * <p>Syslogd class.</p>
+ * <p>
+ * Syslogd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Syslogd implements SyslogdMBean {
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
@@ -44,7 +48,9 @@ public class Syslogd implements SyslogdMBean {
     }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public void start() {
@@ -52,7 +58,9 @@ public class Syslogd implements SyslogdMBean {
     }
 
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
@@ -60,7 +68,9 @@ public class Syslogd implements SyslogdMBean {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -70,7 +80,9 @@ public class Syslogd implements SyslogdMBean {
     }
 
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -80,7 +92,9 @@ public class Syslogd implements SyslogdMBean {
     }
 
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

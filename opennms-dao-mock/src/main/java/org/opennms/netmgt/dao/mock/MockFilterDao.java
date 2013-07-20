@@ -21,6 +21,7 @@ import org.springframework.util.Assert;
 
 public class MockFilterDao implements FilterDao, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(MockFilterDao.class);
+
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
@@ -82,6 +83,7 @@ public class MockFilterDao implements FilterDao, InitializingBean {
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
+
     public void setIpInterfaceDao(final IpInterfaceDao dao) {
         m_ipInterfaceDao = dao;
     }

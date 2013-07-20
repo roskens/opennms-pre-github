@@ -55,15 +55,18 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * <p>LocationBroadcastProcessor class.</p>
+ * <p>
+ * LocationBroadcastProcessor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-@EventListener(name="LocationStatusService")
+@EventListener(name = "LocationStatusService")
 public class LocationBroadcastProcessor implements InitializingBean, DisposableBean {
     private static final Logger LOG = LoggerFactory.getLogger(LocationBroadcastProcessor.class);
+
     @Autowired
     private LocationDataService m_locationDataService;
 
@@ -72,35 +75,36 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
 
     @SuppressWarnings("unused")
     private static final long UPDATE_PERIOD = 1000 * 60;
+
     @SuppressWarnings("unused")
     private static volatile Timer m_timer;
 
-    private String[] m_events = new String[] {
-            EventConstants.LOCATION_MONITOR_STARTED_UEI,
-            EventConstants.LOCATION_MONITOR_STOPPED_UEI,
-            EventConstants.LOCATION_MONITOR_DISCONNECTED_UEI,
-            EventConstants.LOCATION_MONITOR_RECONNECTED_UEI,
-            EventConstants.LOCATION_MONITOR_REGISTERED_UEI,
-            EventConstants.LOCATION_MONITOR_PAUSED_UEI,
-            EventConstants.REMOTE_NODE_LOST_SERVICE_UEI,
-            EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI
-    };
+    private String[] m_events = new String[] { EventConstants.LOCATION_MONITOR_STARTED_UEI,
+            EventConstants.LOCATION_MONITOR_STOPPED_UEI, EventConstants.LOCATION_MONITOR_DISCONNECTED_UEI,
+            EventConstants.LOCATION_MONITOR_RECONNECTED_UEI, EventConstants.LOCATION_MONITOR_REGISTERED_UEI,
+            EventConstants.LOCATION_MONITOR_PAUSED_UEI, EventConstants.REMOTE_NODE_LOST_SERVICE_UEI,
+            EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI };
 
     public LocationEventHandler m_eventHandler;
 
     private TimerTask m_task;
 
     /**
-     * <p>Constructor for LocationBroadcastProcessor.</p>
+     * <p>
+     * Constructor for LocationBroadcastProcessor.
+     * </p>
      */
     public LocationBroadcastProcessor() {
         m_timer = new Timer();
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -112,20 +116,22 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
             @Override
             public void run() {
                 final Date now = new Date();
-                final OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class)
-                    .add(Restrictions.between("eventTime", m_lastRun, now))
-                    .add(Restrictions.in("eventUei", m_events));
+                final OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class).add(Restrictions.between("eventTime",
+                                                                                                         m_lastRun, now)).add(Restrictions.in("eventUei",
+                                                                                                                                              m_events));
                 for (final OnmsEvent e : m_eventDao.findMatching(criteria)) {
                     handleLocationEvent(e);
                 }
                 m_lastRun = now;
             }
         };
-        //m_timer.schedule(m_task, UPDATE_PERIOD, UPDATE_PERIOD);
+        // m_timer.schedule(m_task, UPDATE_PERIOD, UPDATE_PERIOD);
     }
 
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      */
     @Override
     public void destroy() {
@@ -136,9 +142,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
     }
 
     /**
-     * <p>locationMonitorStarted</p>
+     * <p>
+     * locationMonitorStarted
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.LOCATION_MONITOR_STARTED_UEI)
     public void locationMonitorStarted(final Event event) {
@@ -146,9 +155,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
     }
 
     /**
-     * <p>locationMonitorStopped</p>
+     * <p>
+     * locationMonitorStopped
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.LOCATION_MONITOR_STOPPED_UEI)
     public void locationMonitorStopped(final Event event) {
@@ -156,9 +168,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
     }
 
     /**
-     * <p>locationMonitorDisconnected</p>
+     * <p>
+     * locationMonitorDisconnected
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.LOCATION_MONITOR_DISCONNECTED_UEI)
     public void locationMonitorDisconnected(final Event event) {
@@ -166,9 +181,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
     }
 
     /**
-     * <p>locationMonitorReconnected</p>
+     * <p>
+     * locationMonitorReconnected
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.LOCATION_MONITOR_RECONNECTED_UEI)
     public void locationMonitorReconnected(final Event event) {
@@ -176,9 +194,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
     }
 
     /**
-     * <p>locationMonitorRegistered</p>
+     * <p>
+     * locationMonitorRegistered
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.LOCATION_MONITOR_REGISTERED_UEI)
     public void locationMonitorRegistered(final Event event) {
@@ -186,9 +207,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
     }
 
     /**
-     * <p>locationMonitorPaused</p>
+     * <p>
+     * locationMonitorPaused
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.LOCATION_MONITOR_PAUSED_UEI)
     public void locationMonitorPaused(final Event event) {
@@ -196,9 +220,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
     }
 
     /**
-     * <p>nodeLostService</p>
+     * <p>
+     * nodeLostService
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.REMOTE_NODE_LOST_SERVICE_UEI)
     public void nodeLostService(final Event event) {
@@ -206,9 +233,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
     }
 
     /**
-     * <p>nodeRegainedService</p>
+     * <p>
+     * nodeRegainedService
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     @EventHandler(uei = EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI)
     public void nodeRegainedService(final Event event) {
@@ -216,9 +246,14 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
     }
 
     /**
-     * <p>setEventHandler</p>
+     * <p>
+     * setEventHandler
+     * </p>
      *
-     * @param handler a {@link org.opennms.features.poller.remote.gwt.server.LocationEventHandler} object.
+     * @param handler
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.server.LocationEventHandler}
+     *            object.
      */
     public void setEventHandler(final LocationEventHandler handler) {
         m_eventHandler = handler;
@@ -231,6 +266,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
         }
         handleEventParms(Parameter.decode(event.getEventParms()));
     }
+
     private void handleLocationEvent(final Event event) {
         if (m_eventHandler == null) {
             LOG.warn("handleLocationEvent called, but no eventHandler is registered");

@@ -41,7 +41,9 @@ import org.opennms.netmgt.dao.api.SiteStatusViewConfigDao;
 import org.springframework.dao.DataRetrievalFailureException;
 
 /**
- * <p>DefaultSiteStatusViewConfigDao class.</p>
+ * <p>
+ * DefaultSiteStatusViewConfigDao class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -63,7 +65,9 @@ public class DefaultSiteStatusViewConfigDao implements SiteStatusViewConfigDao {
     }
 
     /**
-     * <p>Constructor for DefaultSiteStatusViewConfigDao.</p>
+     * <p>
+     * Constructor for DefaultSiteStatusViewConfigDao.
+     * </p>
      */
     public DefaultSiteStatusViewConfigDao() {
     }
@@ -93,7 +97,8 @@ public class DefaultSiteStatusViewConfigDao implements SiteStatusViewConfigDao {
     }
 
     /**
-     * Use this method to get a Map of view names to marshalled classes based on the generated View class
+     * Use this method to get a Map of view names to marshalled classes based on
+     * the generated View class
      * from the XSD.
      *
      * @return <code>Map</> of View classes.
@@ -103,7 +108,9 @@ public class DefaultSiteStatusViewConfigDao implements SiteStatusViewConfigDao {
     }
 
     /**
-     * <p>getDefaultView</p>
+     * <p>
+     * getDefaultView
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.siteStatusViews.View} object.
      */

@@ -43,16 +43,21 @@ public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
     public static final String TYPE = "acknowledgedByNot";
 
     /**
-     * <p>Constructor for NegativeAcknowledgedByFilter.</p>
+     * <p>
+     * Constructor for NegativeAcknowledgedByFilter.
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public NegativeAcknowledgedByFilter(String user) {
         super(TYPE, SQLType.STRING, "EVENTACKUSER", "eventAckUser", user);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +67,9 @@ public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +79,9 @@ public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
     }
 
     /**
-     * <p>getAcknowledgedByFilter</p>
+     * <p>
+     * getAcknowledgedByFilter
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

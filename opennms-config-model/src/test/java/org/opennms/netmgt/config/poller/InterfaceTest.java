@@ -51,22 +51,9 @@ public class InterfaceTest extends XmlTest<Interface> {
         intf3.setAddress("match-any");
 
         return Arrays.asList(new Object[][] {
-            {
-                intf1,
-                "<interface address='100.10.0.1'/>\n",
-                "target/classes/xsds/poll-outages.xsd"
-            },
-            {
-                intf2,
-                "<interface address='2001:100::1'/>\n",
-                "target/classes/xsds/poll-outages.xsd"
-            },
-            {
-                intf3,
-                "<interface address='match-any'/>\n",
-                "target/classes/xsds/poll-outages.xsd"
-            }
-        });
+                { intf1, "<interface address='100.10.0.1'/>\n", "target/classes/xsds/poll-outages.xsd" },
+                { intf2, "<interface address='2001:100::1'/>\n", "target/classes/xsds/poll-outages.xsd" },
+                { intf3, "<interface address='match-any'/>\n", "target/classes/xsds/poll-outages.xsd" } });
     }
 
 }

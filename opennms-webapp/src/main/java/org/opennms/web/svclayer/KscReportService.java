@@ -37,7 +37,9 @@ import org.opennms.netmgt.model.OnmsResource;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>KscReportService interface.</p>
+ * <p>
+ * KscReportService interface.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -46,49 +48,75 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface KscReportService {
     /**
-     * <p>buildNodeReport</p>
+     * <p>
+     * buildNodeReport
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link org.opennms.netmgt.config.kscReports.Report} object.
      */
     public Report buildNodeReport(int nodeId);
+
     /**
-     * <p>buildNodeSourceReport</p>
+     * <p>
+     * buildNodeSourceReport
+     * </p>
      *
-     * @param nodeSource a String.
+     * @param nodeSource
+     *            a String.
      * @return a {@link org.opennms.netmgt.config.kscReports.Report} object.
      */
     public Report buildNodeSourceReport(String nodeSource);
+
     /**
-     * <p>buildDomainReport</p>
+     * <p>
+     * buildDomainReport
+     * </p>
      *
-     * @param domain a {@link java.lang.String} object.
+     * @param domain
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.kscReports.Report} object.
      */
     public Report buildDomainReport(String domain);
+
     /**
-     * <p>getResourceFromGraph</p>
+     * <p>
+     * getResourceFromGraph
+     * </p>
      *
-     * @param graph a {@link org.opennms.netmgt.config.kscReports.Graph} object.
+     * @param graph
+     *            a {@link org.opennms.netmgt.config.kscReports.Graph} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceFromGraph(Graph graph);
+
     /**
-     * <p>getResourcesFromGraphs</p>
+     * <p>
+     * getResourcesFromGraphs
+     * </p>
      *
-     * @param graphs a {@link java.util.List} object.
+     * @param graphs
+     *            a {@link java.util.List} object.
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource>getResourcesFromGraphs(List<Graph> graphs);
+    public List<OnmsResource> getResourcesFromGraphs(List<Graph> graphs);
+
     /**
-     * <p>getTimeSpans</p>
+     * <p>
+     * getTimeSpans
+     * </p>
      *
-     * @param includeNone a boolean.
+     * @param includeNone
+     *            a boolean.
      * @return a java$util$Map object.
      */
     public Map<String, String> getTimeSpans(boolean includeNone);
+
     /**
-     * <p>getReportList</p>
+     * <p>
+     * getReportList
+     * </p>
      *
      * @return a java$util$Map object.
      */

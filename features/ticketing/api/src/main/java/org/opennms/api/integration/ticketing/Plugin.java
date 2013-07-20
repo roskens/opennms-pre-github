@@ -40,9 +40,11 @@ public interface Plugin {
      * DAO like get method to be implemented by HelpDesk specific
      * plugin.
      *
-     * @param ticketId a {@link java.lang.String} object.
+     * @param ticketId
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.api.integration.ticketing.Ticket} object.
-     * @throws org.opennms.api.integration.ticketing.PluginException if any.
+     * @throws org.opennms.api.integration.ticketing.PluginException
+     *             if any.
      */
     public Ticket get(String ticketId) throws PluginException;
 
@@ -50,8 +52,10 @@ public interface Plugin {
      * DAO like saveOrUpdate method to be implemented by HelpDesk specific
      * plugin.
      *
-     * @param ticket a {@link org.opennms.api.integration.ticketing.Ticket} object.
-     * @throws org.opennms.api.integration.ticketing.PluginException if any.
+     * @param ticket
+     *            a {@link org.opennms.api.integration.ticketing.Ticket} object.
+     * @throws org.opennms.api.integration.ticketing.PluginException
+     *             if any.
      */
     public void saveOrUpdate(Ticket ticket) throws PluginException;
 

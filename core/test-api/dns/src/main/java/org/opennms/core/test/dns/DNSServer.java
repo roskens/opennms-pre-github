@@ -51,15 +51,19 @@ import org.xbill.DNS.*;
 
 public class DNSServer {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DNSServer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DNSServer.class);
 
     private static final int DEFAULT_SOCKET_TIMEOUT = 100;
 
     private final class TCPListener implements Stoppable {
         private final int m_port;
+
         private final InetAddress m_addr;
+
         private ServerSocket m_socket;
+
         private volatile boolean m_stopped = false;
+
         private CountDownLatch m_latch = new CountDownLatch(1);
 
         private TCPListener(final int port, final InetAddress addr) {
@@ -95,7 +99,8 @@ public class DNSServer {
                                         } catch (final IOException e) {
                                             response = formerrMessage(in);
                                         }
-                                        LOG.debug("returned response: {}", response == null? null : new Message(response));
+                                        LOG.debug("returned response: {}", response == null ? null
+                                            : new Message(response));
                                         if (response != null) {
                                             final DataOutputStream dataOut = new DataOutputStream(s.getOutputStream());
                                             dataOut.writeShort(response.length);
@@ -113,13 +118,13 @@ public class DNSServer {
                                         }
                                     }
                                 } catch (final SocketTimeoutException e) {
-                                	LOG.trace("timed out waiting for request", e);
+                                    LOG.trace("timed out waiting for request", e);
                                 }
                             }
                         });
                         t.start();
                     } catch (final SocketTimeoutException e) {
-                    	LOG.trace("timed out waiting for request", e);
+                        LOG.trace("timed out waiting for request", e);
                     }
                 }
             } catch (final IOException e) {
@@ -148,8 +153,11 @@ public class DNSServer {
 
     private final class UDPListener implements Stoppable {
         private final int m_port;
+
         private final InetAddress m_addr;
+
         private volatile boolean m_stopped = false;
+
         private CountDownLatch m_latch = new CountDownLatch(1);
 
         private UDPListener(int port, InetAddress addr) {
@@ -221,18 +229,23 @@ public class DNSServer {
     }
 
     static final int FLAG_DNSSECOK = 1;
+
     static final int FLAG_SIGONLY = 2;
 
     final Map<Integer, Cache> m_caches = new HashMap<Integer, Cache>();
+
     final Map<Name, Zone> m_znames = new HashMap<Name, Zone>();
+
     final Map<Name, TSIG> m_TSIGs = new HashMap<Name, TSIG>();
+
     final List<Integer> m_ports = new ArrayList<Integer>();
+
     final List<InetAddress> m_addresses = new ArrayList<InetAddress>();
 
     final List<Stoppable> m_activeListeners = new ArrayList<Stoppable>();
 
     private static String addrport(final InetAddress addr, final int port) {
-    	return InetAddressUtils.str(addr) + "#" + port;
+        return InetAddressUtils.str(addr) + "#" + port;
     }
 
     public DNSServer(final String conffile) throws IOException, ZoneTransferException, ConfigurationException {
@@ -345,7 +358,8 @@ public class DNSServer {
     }
 
     public void setPorts(final List<Integer> ports) {
-        if (m_ports == ports) return;
+        if (m_ports == ports)
+            return;
         m_ports.clear();
         m_ports.addAll(ports);
     }
@@ -355,7 +369,8 @@ public class DNSServer {
     }
 
     public void setAddresses(final List<InetAddress> addresses) {
-        if (m_addresses == addresses) return;
+        if (m_addresses == addresses)
+            return;
         m_addresses.clear();
         m_addresses.addAll(addresses);
     }
@@ -430,7 +445,8 @@ public class DNSServer {
 
     void addRRset(final Name name, final Message response, final RRset rrset, final int section, final int flags) {
         for (int s = 1; s <= section; s++) {
-            if (response.findRRset(name, rrset.getType(), s)) return;
+            if (response.findRRset(name, rrset.getType(), s))
+                return;
         }
         if ((flags & FLAG_SIGONLY) == 0) {
             @SuppressWarnings("unchecked")
@@ -469,7 +485,8 @@ public class DNSServer {
 
     private final void addCacheNS(final Message response, final Cache cache, final Name name) {
         final SetResponse sr = cache.lookupRecords(name, Type.NS, Credibility.HINT);
-        if (!sr.isDelegation()) return;
+        if (!sr.isDelegation())
+            return;
         final RRset nsRecords = sr.getNS();
         @SuppressWarnings("unchecked")
         final Iterator<Record> it = nsRecords.rrs();
@@ -481,7 +498,8 @@ public class DNSServer {
 
     private void addGlue(final Message response, final Name name, final int flags) {
         final RRset a = findExactMatch(name, Type.A, DClass.IN, true);
-        if (a == null) return;
+        if (a == null)
+            return;
         addRRset(name, response, a, Section.ADDITIONAL, flags);
     }
 
@@ -490,7 +508,8 @@ public class DNSServer {
         for (int i = 0; i < records.length; i++) {
             final Record r = records[i];
             final Name glueName = r.getAdditionalName();
-            if (glueName != null) addGlue(response, glueName, flags);
+            if (glueName != null)
+                addGlue(response, glueName, flags);
         }
     }
 
@@ -525,13 +544,15 @@ public class DNSServer {
             response.getHeader().setRcode(Rcode.NXDOMAIN);
             if (zone != null) {
                 addSOA(response, zone);
-                if (iterations == 0) response.getHeader().setFlag(Flags.AA);
+                if (iterations == 0)
+                    response.getHeader().setFlag(Flags.AA);
             }
             rcode = Rcode.NXDOMAIN;
         } else if (sr.isNXRRSET()) {
             if (zone != null) {
                 addSOA(response, zone);
-                if (iterations == 0) response.getHeader().setFlag(Flags.AA);
+                if (iterations == 0)
+                    response.getHeader().setFlag(Flags.AA);
             }
         } else if (sr.isDelegation()) {
             final RRset nsRecords = sr.getNS();
@@ -539,7 +560,8 @@ public class DNSServer {
         } else if (sr.isCNAME()) {
             final CNAMERecord cname = sr.getCNAME();
             addRRset(name, response, new RRset(cname), Section.ANSWER, flags);
-            if (zone != null && iterations == 0) response.getHeader().setFlag(Flags.AA);
+            if (zone != null && iterations == 0)
+                response.getHeader().setFlag(Flags.AA);
             rcode = addAnswer(response, cname.getTarget(), type, dclass, iterations + 1, flags);
         } else if (sr.isDNAME()) {
             final DNAMERecord dname = sr.getDNAME();

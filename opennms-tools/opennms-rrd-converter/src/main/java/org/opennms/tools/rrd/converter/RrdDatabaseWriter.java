@@ -40,8 +40,11 @@ import org.jrobin.core.Sample;
 
 public class RrdDatabaseWriter {
     private final RrdDb m_rrd;
+
     private final long m_step;
-    private Map<String,Double> m_lastValue = new HashMap<String,Double>();
+
+    private Map<String, Double> m_lastValue = new HashMap<String, Double>();
+
     private BigDecimal m_doubleMax = BigDecimal.valueOf(Double.MAX_VALUE);
 
     public RrdDatabaseWriter(final RrdDb rrd) throws IOException {
@@ -61,7 +64,8 @@ public class RrdDatabaseWriter {
                     if (dataSource.getDsType().equals("COUNTER")) {
                         final double counterValue = getLastValue(dsName) + (value * m_step);
                         if (Double.isInfinite(counterValue)) {
-                            // if we've overrun the counter, calculate our own counter loop
+                            // if we've overrun the counter, calculate our own
+                            // counter loop
                             final BigDecimal bigValue = BigDecimal.valueOf(value);
                             final BigDecimal bigLastValue = BigDecimal.valueOf(getLastValue(dsName));
                             final BigDecimal bigStep = BigDecimal.valueOf(m_step);
@@ -78,7 +82,7 @@ public class RrdDatabaseWriter {
             i++;
         }
         s.setValues(values);
-//        LogUtils.debugf(this, "writing sample to %s: %s", outputRrd, s);
+        // LogUtils.debugf(this, "writing sample to %s: %s", outputRrd, s);
         s.update();
     }
 
@@ -87,7 +91,8 @@ public class RrdDatabaseWriter {
         if (lastValue == null) {
             lastValue = 0.0D;
         }
-        if (LogUtils.isTraceEnabled(this)) LogUtils.tracef(this, "getLastValue(%s) = %f", dsName, lastValue);
+        if (LogUtils.isTraceEnabled(this))
+            LogUtils.tracef(this, "getLastValue(%s) = %f", dsName, lastValue);
         return lastValue;
     }
 

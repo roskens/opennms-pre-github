@@ -47,11 +47,13 @@ import org.opennms.netmgt.poller.pollables.PollableService;
 
 public class PassiveServiceMonitorTest extends PassiveStatusKeeperTest {
 
-    // inherit from PassiveStatusKeeperTest so we can inherit all the proper initialization
+    // inherit from PassiveStatusKeeperTest so we can inherit all the proper
+    // initialization
     public void testPoll() throws UnknownHostException {
 
         PassiveStatusKeeper psk = PassiveStatusKeeper.getInstance();
-        psk.setStatus("localhost", "127.0.0.1", "my-passive-service", PollStatus.get(PollStatus.SERVICE_UNAVAILABLE, "testing failure"));
+        psk.setStatus("localhost", "127.0.0.1", "my-passive-service",
+                      PollStatus.get(PollStatus.SERVICE_UNAVAILABLE, "testing failure"));
 
         ServiceMonitor sm = new PassiveServiceMonitor();
 
@@ -59,13 +61,17 @@ public class PassiveServiceMonitorTest extends PassiveStatusKeeperTest {
         PollStatus ps = sm.poll(ms, new HashMap<String, Object>());
         assertEquals(PollStatus.down(), ps);
 
-        psk.setStatus("localhost", "127.0.0.1", "my-passive-service", PollStatus.get(PollStatus.SERVICE_AVAILABLE, "testing failure"));
+        psk.setStatus("localhost", "127.0.0.1", "my-passive-service",
+                      PollStatus.get(PollStatus.SERVICE_AVAILABLE, "testing failure"));
         ps = sm.poll(ms, new HashMap<String, Object>());
         assertEquals(PollStatus.up(), ps);
     }
 
-    private PollableService createMonitoredService(int nodeId, String nodeLabel, String ipAddr, String serviceName) throws UnknownHostException {
-        return new PollableService(new PollableInterface(new PollableNode(new PollableNetwork(new MockPollContext()), nodeId, nodeLabel), InetAddressUtils.addr(ipAddr)), serviceName);
+    private PollableService createMonitoredService(int nodeId, String nodeLabel, String ipAddr, String serviceName)
+            throws UnknownHostException {
+        return new PollableService(new PollableInterface(new PollableNode(new PollableNetwork(new MockPollContext()),
+                                                                          nodeId, nodeLabel),
+                                                         InetAddressUtils.addr(ipAddr)), serviceName);
     }
 
 }

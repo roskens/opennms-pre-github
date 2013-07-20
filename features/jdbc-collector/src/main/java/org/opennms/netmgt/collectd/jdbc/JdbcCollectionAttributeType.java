@@ -36,11 +36,12 @@ import org.opennms.netmgt.config.jdbc.JdbcColumn;
 
 public class JdbcCollectionAttributeType implements CollectionAttributeType {
     JdbcColumn m_column;
+
     AttributeGroupType m_groupType;
 
     public JdbcCollectionAttributeType(JdbcColumn column, AttributeGroupType groupType) {
-        m_groupType=groupType;
-        m_column=column;
+        m_groupType = groupType;
+        m_column = column;
     }
 
     @Override

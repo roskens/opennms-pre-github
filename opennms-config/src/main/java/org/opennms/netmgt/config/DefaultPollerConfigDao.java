@@ -40,29 +40,39 @@ import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 /**
- * <p>DefaultPollerConfigDao class.</p>
+ * <p>
+ * DefaultPollerConfigDao class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class DefaultPollerConfigDao implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPollerConfigDao.class);
+
     private Resource m_configResource;
+
     private String m_localServer;
+
     private Boolean m_verifyServer;
 
     private PollerConfig m_pollerConfig;
 
     /**
-     * <p>Constructor for DefaultPollerConfigDao.</p>
+     * <p>
+     * Constructor for DefaultPollerConfigDao.
+     * </p>
      */
     public DefaultPollerConfigDao() {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -96,7 +106,9 @@ public class DefaultPollerConfigDao implements InitializingBean {
     }
 
     /**
-     * <p>getPollerConfig</p>
+     * <p>
+     * getPollerConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.PollerConfig} object.
      */
@@ -109,7 +121,9 @@ public class DefaultPollerConfigDao implements InitializingBean {
     }
 
     /**
-     * <p>getConfigResource</p>
+     * <p>
+     * getConfigResource
+     * </p>
      *
      * @return a {@link org.springframework.core.io.Resource} object.
      */
@@ -118,16 +132,21 @@ public class DefaultPollerConfigDao implements InitializingBean {
     }
 
     /**
-     * <p>setConfigResource</p>
+     * <p>
+     * setConfigResource
+     * </p>
      *
-     * @param configResource a {@link org.springframework.core.io.Resource} object.
+     * @param configResource
+     *            a {@link org.springframework.core.io.Resource} object.
      */
     public void setConfigResource(Resource configResource) {
         m_configResource = configResource;
     }
 
     /**
-     * <p>getLocalServer</p>
+     * <p>
+     * getLocalServer
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -136,16 +155,21 @@ public class DefaultPollerConfigDao implements InitializingBean {
     }
 
     /**
-     * <p>setLocalServer</p>
+     * <p>
+     * setLocalServer
+     * </p>
      *
-     * @param localServer a {@link java.lang.String} object.
+     * @param localServer
+     *            a {@link java.lang.String} object.
      */
     public void setLocalServer(String localServer) {
         m_localServer = localServer;
     }
 
     /**
-     * <p>isVerifyServer</p>
+     * <p>
+     * isVerifyServer
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -154,13 +178,15 @@ public class DefaultPollerConfigDao implements InitializingBean {
     }
 
     /**
-     * <p>setVerifyServer</p>
+     * <p>
+     * setVerifyServer
+     * </p>
      *
-     * @param verifyServer a {@link java.lang.Boolean} object.
+     * @param verifyServer
+     *            a {@link java.lang.Boolean} object.
      */
     public void setVerifyServer(Boolean verifyServer) {
         m_verifyServer = verifyServer;
     }
-
 
 }

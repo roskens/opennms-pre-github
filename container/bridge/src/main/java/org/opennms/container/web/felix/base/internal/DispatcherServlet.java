@@ -31,98 +31,78 @@ import javax.servlet.http.HttpServletResponse;
 import org.opennms.container.web.felix.base.internal.dispatch.NotFoundFilterChain;
 import org.opennms.container.web.felix.base.internal.listener.ServletRequestAttributeListenerManager;
 
-public final class DispatcherServlet
-    extends HttpServlet
-{
+public final class DispatcherServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
     private final HttpServiceController controller;
 
-    public DispatcherServlet(HttpServiceController controller)
-    {
+    public DispatcherServlet(HttpServiceController controller) {
         this.controller = controller;
     }
 
     @Override
-    public void init(ServletConfig config)
-        throws ServletException
-    {
+    public void init(ServletConfig config) throws ServletException {
         super.init(config);
         this.controller.register(getServletContext());
     }
 
     @Override
-    public void destroy()
-    {
+    public void destroy() {
         this.controller.unregister();
         super.destroy();
     }
 
     @Override
-    public void service(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException
-    {
+    public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         final ServletRequestEvent sre = new ServletRequestEvent(getServletContext(), req);
         this.controller.getRequestListener().requestInitialized(sre);
-        try
-        {
+        try {
             req = new AttributeEventRequest(getServletContext(), this.controller.getRequestAttributeListener(), req);
             this.controller.getDispatcher().dispatch(req, res, new NotFoundFilterChain());
-        }
-        finally
-        {
+        } finally {
             this.controller.getRequestListener().requestDestroyed(sre);
         }
     }
 
-    private static class AttributeEventRequest extends HttpServletRequestWrapper
-    {
+    private static class AttributeEventRequest extends HttpServletRequestWrapper {
 
         private final ServletContext servletContext;
+
         private final ServletRequestAttributeListenerManager requestAttributeListener;
 
         public AttributeEventRequest(ServletContext servletContext,
-            ServletRequestAttributeListenerManager requestAttributeListener, HttpServletRequest request)
-        {
+                ServletRequestAttributeListenerManager requestAttributeListener, HttpServletRequest request) {
             super(request);
             this.servletContext = servletContext;
             this.requestAttributeListener = requestAttributeListener;
         }
 
         @Override
-        public void setAttribute(String name, Object value)
-        {
-            if (value == null)
-            {
+        public void setAttribute(String name, Object value) {
+            if (value == null) {
                 this.removeAttribute(name);
-            }
-            else if (name != null)
-            {
+            } else if (name != null) {
                 Object oldValue = this.getAttribute(name);
                 super.setAttribute(name, value);
 
-                if (oldValue == null)
-                {
+                if (oldValue == null) {
                     requestAttributeListener.attributeAdded(new ServletRequestAttributeEvent(servletContext, this,
-                        name, value));
-                }
-                else
-                {
+                                                                                             name, value));
+                } else {
                     requestAttributeListener.attributeReplaced(new ServletRequestAttributeEvent(servletContext, this,
-                        name, oldValue));
+                                                                                                name, oldValue));
                 }
             }
         }
 
         @Override
-        public void removeAttribute(String name)
-        {
+        public void removeAttribute(String name) {
             Object oldValue = this.getAttribute(name);
             super.removeAttribute(name);
 
-            if (oldValue != null)
-            {
+            if (oldValue != null) {
                 requestAttributeListener.attributeRemoved(new ServletRequestAttributeEvent(servletContext, this, name,
-                    oldValue));
+                                                                                           oldValue));
             }
         }
     }

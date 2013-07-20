@@ -43,7 +43,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Abstract AbstractSimpleServer class.</p>
+ * <p>
+ * Abstract AbstractSimpleServer class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -52,24 +54,27 @@ abstract public class AbstractSimpleServer {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSimpleServer.class);
 
-    public static interface RequestMatcher{
+    public static interface RequestMatcher {
         public boolean matches(String input);
     }
 
     public static interface Exchange {
         public boolean sendReply(OutputStream out) throws IOException;
+
         public boolean processRequest(BufferedReader in) throws IOException;
     }
 
-    public static class BannerExchange implements Exchange{
+    public static class BannerExchange implements Exchange {
         private String m_banner;
 
-        public BannerExchange(String banner){
+        public BannerExchange(String banner) {
             m_banner = banner;
         }
 
         @Override
-        public boolean processRequest(BufferedReader in) throws IOException { return true; }
+        public boolean processRequest(BufferedReader in) throws IOException {
+            return true;
+        }
 
         @Override
         public boolean sendReply(OutputStream out) throws IOException {
@@ -79,11 +84,12 @@ abstract public class AbstractSimpleServer {
 
     }
 
-    public static class SimpleServerExchange implements Exchange{
+    public static class SimpleServerExchange implements Exchange {
         private String m_response;
+
         private RequestMatcher m_requestMatcher;
 
-        public SimpleServerExchange(RequestMatcher requestMatcher, String response){
+        public SimpleServerExchange(RequestMatcher requestMatcher, String response) {
             m_response = response;
             m_requestMatcher = requestMatcher;
         }
@@ -93,7 +99,8 @@ abstract public class AbstractSimpleServer {
             String line = in.readLine();
             LOG.info("processing request: {}", line);
 
-            if(line == null)return false;
+            if (line == null)
+                return false;
 
             return m_requestMatcher.matches(line);
         }
@@ -108,13 +115,19 @@ abstract public class AbstractSimpleServer {
     }
 
     private ServerSocket m_serverSocket = null;
+
     private Thread m_serverThread = null;
+
     private Socket m_socket;
+
     private int m_timeout;
+
     private List<Exchange> m_conversation = new ArrayList<Exchange>();
 
     /**
-     * <p>getTimeout</p>
+     * <p>
+     * getTimeout
+     * </p>
      *
      * @return a int.
      */
@@ -123,38 +136,48 @@ abstract public class AbstractSimpleServer {
     }
 
     /**
-     * <p>setTimeout</p>
+     * <p>
+     * setTimeout
+     * </p>
      *
-     * @param timeout a int.
+     * @param timeout
+     *            a int.
      */
     public void setTimeout(int timeout) {
         m_timeout = timeout;
     }
 
     /**
-     * <p>getInetAddress</p>
+     * <p>
+     * getInetAddress
+     * </p>
      *
      * @return InetAddress returns the inetaddress from the serversocket.
      */
-    public InetAddress getInetAddress(){
+    public InetAddress getInetAddress() {
         return m_serverSocket.getInetAddress();
     }
 
     /**
-     * <p>getLocalPort</p>
+     * <p>
+     * getLocalPort
+     * </p>
      *
      * @return a int.
      */
-    public int getLocalPort(){
+    public int getLocalPort() {
         return m_serverSocket.getLocalPort();
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public final void init() throws Exception{
+    public final void init() throws Exception {
         m_serverSocket = new ServerSocket();
         m_serverSocket.bind(null);
         onInit();
@@ -162,34 +185,42 @@ abstract public class AbstractSimpleServer {
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     protected void onInit() {
         // Do nothing by default
     }
 
     /**
-     * <p>startServer</p>
+     * <p>
+     * startServer
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public void startServer() throws Exception{
+    public void startServer() throws Exception {
         m_serverThread = new Thread(getRunnable(), this.getClass().getSimpleName());
         m_serverThread.start();
     }
 
     /**
-     * <p>getRunnable</p>
+     * <p>
+     * getRunnable
+     * </p>
      *
      * @return a {@link java.lang.Runnable} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public Runnable getRunnable() throws Exception{
-        return new Runnable(){
+    public Runnable getRunnable() throws Exception {
+        return new Runnable() {
 
             @Override
-            public void run(){
-                try{
+            public void run() {
+                try {
                     m_serverSocket.setSoTimeout(getTimeout());
                     m_socket = m_serverSocket.accept();
 
@@ -199,7 +230,7 @@ abstract public class AbstractSimpleServer {
                     attemptConversation(in, out);
 
                     m_socket.close();
-                }catch(Throwable e){
+                } catch (Throwable e) {
                     throw new UndeclaredThrowableException(e);
                 }
             }
@@ -208,20 +239,25 @@ abstract public class AbstractSimpleServer {
     }
 
     /**
-     * <p>attemptConversation</p>
+     * <p>
+     * attemptConversation
+     * </p>
      *
-     * @param in a {@link java.io.BufferedReader} object.
-     * @param out a {@link java.io.OutputStream} object.
+     * @param in
+     *            a {@link java.io.BufferedReader} object.
+     * @param out
+     *            a {@link java.io.OutputStream} object.
      * @return a boolean.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    protected boolean attemptConversation(BufferedReader in, OutputStream out) throws IOException{
-        for(Exchange ex : m_conversation){
-            if(!ex.processRequest(in)){
+    protected boolean attemptConversation(BufferedReader in, OutputStream out) throws IOException {
+        for (Exchange ex : m_conversation) {
+            if (!ex.processRequest(in)) {
                 return false;
             }
 
-            if(!ex.sendReply(out)){
+            if (!ex.sendReply(out)) {
                 return false;
             }
         }
@@ -230,29 +266,41 @@ abstract public class AbstractSimpleServer {
     }
 
     /**
-     * <p>setExpectedBanner</p>
+     * <p>
+     * setExpectedBanner
+     * </p>
      *
-     * @param banner a {@link java.lang.String} object.
+     * @param banner
+     *            a {@link java.lang.String} object.
      */
-    protected void setExpectedBanner(String banner){
+    protected void setExpectedBanner(String banner) {
         m_conversation.add(new BannerExchange(banner));
     }
 
     /**
-     * <p>addRequestResponse</p>
+     * <p>
+     * addRequestResponse
+     * </p>
      *
-     * @param request a {@link java.lang.String} object.
-     * @param response a {@link java.lang.String} object.
+     * @param request
+     *            a {@link java.lang.String} object.
+     * @param response
+     *            a {@link java.lang.String} object.
      */
-    protected void addRequestResponse(String request, String response){
+    protected void addRequestResponse(String request, String response) {
         m_conversation.add(new SimpleServerExchange(regexpMatches(request), response));
     }
 
     /**
-     * <p>regexpMatches</p>
+     * <p>
+     * regexpMatches
+     * </p>
      *
-     * @param regex a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.server.AbstractSimpleServer.RequestMatcher} object.
+     * @param regex
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.server.AbstractSimpleServer.RequestMatcher}
+     *         object.
      */
     protected RequestMatcher regexpMatches(final String regex) {
         return new RequestMatcher() {

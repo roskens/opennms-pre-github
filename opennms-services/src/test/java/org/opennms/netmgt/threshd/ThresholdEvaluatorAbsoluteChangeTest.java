@@ -53,8 +53,8 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(0.9);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
-       new ThresholdEvaluatorStateAbsoluteChange(wrapper);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
+        new ThresholdEvaluatorStateAbsoluteChange(wrapper);
     }
 
     @Test
@@ -79,8 +79,8 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(0.9);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
-       ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
+        ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
     }
@@ -94,7 +94,7 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(0.9);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
@@ -110,7 +110,7 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(-1.0);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
@@ -126,7 +126,7 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(-1.0);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
@@ -142,7 +142,7 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(-1.0);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
@@ -158,7 +158,7 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(1.0);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
@@ -174,7 +174,7 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(1.0);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
@@ -190,7 +190,7 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(1.0);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
@@ -206,10 +206,11 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(1.1);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
-        assertNull("should not have created an event", evaluator.getEventForState(Status.NO_CHANGE, new Date(), 10.0, null));
+        assertNull("should not have created an event",
+                   evaluator.getEventForState(Status.NO_CHANGE, new Date(), 10.0, null));
     }
 
     @Test
@@ -221,7 +222,7 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(1.0);
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateAbsoluteChange evaluator = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(8.0));
@@ -239,7 +240,8 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         parmPresentWithValue(event, "changeThreshold", "1.0");
 
         // And again with a non-null instance
-        event = evaluator.getEventForState(Status.TRIGGERED, new Date(), 10.0, new MockCollectionResourceWrapper("testInstance"));
+        event = evaluator.getEventForState(Status.TRIGGERED, new Date(), 10.0,
+                                           new MockCollectionResourceWrapper("testInstance"));
         assertNotNull("should have created an event", event);
         assertEquals("UEIs should be the same", EventConstants.ABSOLUTE_CHANGE_THRESHOLD_EVENT_UEI, event.getUei());
 
@@ -260,16 +262,17 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setValue(99.0);
         threshold.setRearm(95.0);
         threshold.setTrigger(1);
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
 
         ThresholdEvaluatorStateAbsoluteChange item = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
-        Event event=item.getEventForState(Status.TRIGGERED, new Date(), 100.0, null);
-        assertEquals("UEI should be the absoluteChangeThresholdTriggered", EventConstants.ABSOLUTE_CHANGE_THRESHOLD_EVENT_UEI, event.getUei());
+        Event event = item.getEventForState(Status.TRIGGERED, new Date(), 100.0, null);
+        assertEquals("UEI should be the absoluteChangeThresholdTriggered",
+                     EventConstants.ABSOLUTE_CHANGE_THRESHOLD_EVENT_UEI, event.getUei());
     }
 
     @Test
     public void testGetEventForStateCustomUEIS() {
-        String triggeredUEI="uei.opennms.org/custom/absoluteChangeThresholdTriggered";
+        String triggeredUEI = "uei.opennms.org/custom/absoluteChangeThresholdTriggered";
         Threshold threshold = new Threshold();
         threshold.setType("absoluteChange");
         threshold.setDsName("ds-name");
@@ -279,11 +282,11 @@ public class ThresholdEvaluatorAbsoluteChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(1);
         threshold.setTriggeredUEI(triggeredUEI);
 
-        ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
+        ThresholdConfigWrapper wrapper = new ThresholdConfigWrapper(threshold);
 
         ThresholdEvaluatorStateAbsoluteChange item = new ThresholdEvaluatorStateAbsoluteChange(wrapper);
-        Event event=item.getEventForState(Status.TRIGGERED, new Date(), 100.0, null);
-        assertEquals("UEI should be the "+triggeredUEI, triggeredUEI, event.getUei());
+        Event event = item.getEventForState(Status.TRIGGERED, new Date(), 100.0, null);
+        assertEquals("UEI should be the " + triggeredUEI, triggeredUEI, event.getUei());
 
     }
 }

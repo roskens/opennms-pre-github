@@ -78,9 +78,9 @@ import de.novanic.eventservice.client.event.RemoteEventService;
 
 /**
  * <p>
- * This class implements both {@link LocationManager} (the model portion of
- * the webapp) and {@link RemotePollerPresenter} (the controller portion of
- * the webapp code). It is responsible for maintaining the knowledgebase of
+ * This class implements both {@link LocationManager} (the model portion of the
+ * webapp) and {@link RemotePollerPresenter} (the controller portion of the
+ * webapp code). It is responsible for maintaining the knowledgebase of
  * {@link Location} objects and responding to events triggered when:
  * </p>
  * <ul>
@@ -120,7 +120,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     public class LocationUpdater implements Scheduler.RepeatingCommand {
 
         private Queue<LocationInfo> m_locations;
+
         private int m_count = 0;
+
         private int m_updated = 0;
 
         public LocationUpdater(Collection<LocationInfo> locations) {
@@ -134,9 +136,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
 
         @Override
         public boolean execute() {
-            if(m_locations.isEmpty()) {
+            if (m_locations.isEmpty()) {
                 return false;
-            }else {
+            } else {
                 LocationInfo location = m_locations.remove();
                 updateLocation(location);
                 m_updated++;
@@ -151,10 +153,15 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     private final DataManager m_dataManager = new DataManager();
 
     private final ApplicationFilter m_applicationFilter = new ApplicationFilter();
+
     private final StatusFilter m_statusFilter = new StatusFilter();
+
     private final TagFilter m_tagFilter = new TagFilter();
+
     private final LocationFilter m_locationViewFilter = m_tagFilter;
+
     private final LocationFilter m_applicationViewFilter = new AndFilter(m_applicationFilter, m_tagFilter);
+
     private LocationFilter m_selectedFilter = m_locationViewFilter;
 
     private final HandlerManager m_eventBus;
@@ -174,15 +181,28 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     private final AndFilter m_selectedVisibleFilter = new AndFilter(m_selectedFilter, m_statusFilter);
 
     /**
-     * <p>Constructor for DefaultLocationManager.</p>
+     * <p>
+     * Constructor for DefaultLocationManager.
+     * </p>
      *
-     * @param eventBus a {@link com.google.gwt.event.shared.HandlerManager} object.
+     * @param eventBus
+     *            a {@link com.google.gwt.event.shared.HandlerManager} object.
      * @param view
-     * @param mapPanel a {@link org.opennms.features.poller.remote.gwt.client.MapPanel} object.
-     * @param panel a {@link com.google.gwt.user.client.ui.SplitLayoutPanel} object.
-     * @param locationPanel a {@link org.opennms.features.poller.remote.gwt.client.LocationPanel} object.
+     * @param mapPanel
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.MapPanel}
+     *            object.
+     * @param panel
+     *            a {@link com.google.gwt.user.client.ui.SplitLayoutPanel}
+     *            object.
+     * @param locationPanel
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.LocationPanel}
+     *            object.
      */
-    public DefaultLocationManager(final HandlerManager eventBus, ApplicationView view, LocationStatusServiceAsync remoteService, RemoteEventService remoteEventService, CommandExecutor commandExecutor) {
+    public DefaultLocationManager(final HandlerManager eventBus, ApplicationView view,
+            LocationStatusServiceAsync remoteService, RemoteEventService remoteEventService,
+            CommandExecutor commandExecutor) {
         m_eventBus = eventBus;
         m_view = view;
         m_remoteService = remoteService;
@@ -225,7 +245,8 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         getRemoteService().start(new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable throwable) {
-                // Log.debug("unable to start location even service backend", throwable);
+                // Log.debug("unable to start location even service backend",
+                // throwable);
                 Window.alert("unable to start location event service backend: " + throwable.getMessage());
                 throw new InitializationException("remote service start failed", throwable);
             }
@@ -238,16 +259,22 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * <p>initializationComplete</p>
+     * <p>
+     * initializationComplete
+     * </p>
      */
     protected void initializationComplete() {
         m_handlerManager.fireEvent(new LocationManagerInitializationCompleteEvent());
     }
 
     /**
-     * <p>getRemoteService</p>
+     * <p>
+     * getRemoteService
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.LocationStatusServiceAsync} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.LocationStatusServiceAsync}
+     *         object.
      */
     protected LocationStatusServiceAsync getRemoteService() {
         return m_remoteService;
@@ -255,15 +282,20 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
 
     /** {@inheritDoc} */
     @Override
-    public void addLocationManagerInitializationCompleteEventHandler(LocationManagerInitializationCompleteEventHander handler) {
+    public void addLocationManagerInitializationCompleteEventHandler(
+            LocationManagerInitializationCompleteEventHander handler) {
         m_handlerManager.addHandler(LocationManagerInitializationCompleteEvent.TYPE, handler);
     };
 
     /**
-     * <p>displayDialog</p>
+     * <p>
+     * displayDialog
+     * </p>
      *
-     * @param title a {@link java.lang.String} object.
-     * @param contents a {@link java.lang.String} object.
+     * @param title
+     *            a {@link java.lang.String} object.
+     * @param contents
+     *            a {@link java.lang.String} object.
      */
     protected void displayDialog(final String title, final String contents) {
         final DialogBox db = new DialogBox();
@@ -275,7 +307,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * <p>getAllLocationNames</p>
+     * <p>
+     * getAllLocationNames
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -289,7 +323,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * <p>fitMapToLocations</p>
+     * <p>
+     * fitMapToLocations
+     * </p>
      */
     public void fitMapToLocations() {
         m_view.fitMapToLocations(m_dataManager.getLocationBounds());
@@ -312,7 +348,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         for (final LocationInfo location : visibleLocations) {
             final GWTMarkerState markerState = location.getMarkerState();
 
-            if ( markerState.isWithinBounds(mapBounds)) {
+            if (markerState.isWithinBounds(mapBounds)) {
                 inBounds.add(location);
             }
         }
@@ -338,9 +374,8 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Handler triggered when a user clicks on a specific location record.
+     * {@inheritDoc} Handler triggered when a user clicks on a specific location
+     * record.
      */
     @Override
     public void onLocationSelected(final LocationPanelSelectEvent event) {
@@ -356,26 +391,22 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
             public void onFailure(final Throwable t) {
                 String htmlTitle = "Error Getting Location Details";
                 String htmlContent = "<p>An error occurred getting the location details.</p>" + "<pre>"
-                           + URL.encode(t.getMessage()) + "</pre>";
+                        + URL.encode(t.getMessage()) + "</pre>";
                 m_view.showLocationDetails(locationName, htmlTitle, htmlContent);
             }
 
             @Override
             public void onSuccess(final LocationDetails locationDetails) {
-                m_view.showLocationDetails(
-                    locationName,
-                    locationName + " (" + loc.getArea() + ")",
-                    getLocationInfoDetails(loc, locationDetails)
-                );
+                m_view.showLocationDetails(locationName, locationName + " (" + loc.getArea() + ")",
+                                           getLocationInfoDetails(loc, locationDetails));
             }
 
         });
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Refresh the list of locations whenever the map panel boundaries change.
+     * {@inheritDoc} Refresh the list of locations whenever the map panel
+     * boundaries change.
      */
     @Override
     public void onBoundsChanged(final MapPanelBoundsChangedEvent e) {
@@ -389,9 +420,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Invoked by the {@link LocationUpdatedRemoteEvent} and
+     * {@inheritDoc} Invoked by the {@link LocationUpdatedRemoteEvent} and
      * {@link LocationsUpdatedRemoteEvent} events.
      */
     @Override
@@ -407,7 +436,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
 
             if (m_updated) {
                 // Update the icon/caption in the LHN
-                if(oldLocation == null || (m_selectedVisibleFilter.matches(newLocation) != m_selectedVisibleFilter.matches(oldLocation)) || (oldLocation.getStatus() != newLocation.getStatus())) {
+                if (oldLocation == null
+                        || (m_selectedVisibleFilter.matches(newLocation) != m_selectedVisibleFilter.matches(oldLocation))
+                        || (oldLocation.getStatus() != newLocation.getStatus())) {
                     m_view.updateLocationList(getLocationsForLocationPanel());
                 }
 
@@ -427,10 +458,11 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Invoked by the {@link org.opennms.features.poller.remote.gwt.client.remoteevents.ApplicationUpdatedRemoteEvent} and
-     * {@link org.opennms.features.poller.remote.gwt.client.remoteevents.ApplicationUpdatedRemoteEvent} events.
+     * {@inheritDoc} Invoked by the
+     * {@link org.opennms.features.poller.remote.gwt.client.remoteevents.ApplicationUpdatedRemoteEvent}
+     * and
+     * {@link org.opennms.features.poller.remote.gwt.client.remoteevents.ApplicationUpdatedRemoteEvent}
+     * events.
      */
     @Override
     public void updateApplication(final ApplicationInfo applicationInfo) {
@@ -512,7 +544,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * <p>onTagCleared</p>
+     * <p>
+     * onTagCleared
+     * </p>
      */
     @Override
     public void onTagCleared() {
@@ -533,7 +567,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * @return a {@link java.util.Set} object.
      */
     public Set<String> getAllApplicationNames() {
-        //TODO: move this to ApplicationPresenter
+        // TODO: move this to ApplicationPresenter
         return m_dataManager.getAllApplicationNames();
     }
 
@@ -581,11 +615,10 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     @Override
     public void onApplicationSelected(final ApplicationSelectedEvent event) {
 
-
         final String applicationName = event.getApplicationname();
         final ApplicationInfo app = m_dataManager.getApplicationInfo(applicationName);
-        //App maybe null if the user types an invalid name
-        if(app == null) {
+        // App maybe null if the user types an invalid name
+        if (app == null) {
             return;
         }
 
@@ -622,7 +655,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * <p>locationClicked</p>
+     * <p>
+     * locationClicked
+     * </p>
      */
     @Override
     public void locationClicked() {
@@ -631,7 +666,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * <p>applicationClicked</p>
+     * <p>
+     * applicationClicked
+     * </p>
      */
     @Override
     public void applicationClicked() {
@@ -640,19 +677,27 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
     }
 
     /**
-     * <p>getLocationInfoDetails</p>
+     * <p>
+     * getLocationInfoDetails
+     * </p>
      *
-     * @param locationInfo a {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo} object.
-     * @param locationDetails a {@link org.opennms.features.poller.remote.gwt.client.location.LocationDetails} object.
+     * @param locationInfo
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo}
+     *            object.
+     * @param locationDetails
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.location.LocationDetails}
+     *            object.
      * @return a {@link java.lang.String} object.
      */
     public static String getLocationInfoDetails(final LocationInfo locationInfo, final LocationDetails locationDetails) {
         final LocationMonitorState state = locationDetails.getLocationMonitorState();
 
-        int pollersStarted      = state.getMonitorsStarted();
-        int pollersStopped      = state.getMonitorsStopped();
+        int pollersStarted = state.getMonitorsStarted();
+        int pollersStopped = state.getMonitorsStopped();
         int pollersDisconnected = state.getMonitorsDisconnected();
-        int services            = state.getServices().size();
+        int services = state.getServices().size();
         int servicesWithOutages = state.getServicesDown().size();
         int monitorsWithOutages = state.getMonitorsWithServicesDown().size();
 
@@ -680,9 +725,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
             }
             sb.append("<dt class=\"").append(styleName).append(" statusDt\">").append("Services:").append("</dt>\n");
             sb.append("<dd class=\"").append(styleName).append(" statusDd\">");
-            sb.append(servicesWithOutages).append(" outage").append(servicesWithOutages == 1? "" : "s");
-            sb.append(" (of ").append(services).append(" service").append(services == 1? "" : "s").append(")").append("<br>\n");
-            sb.append(monitorsWithOutages).append(" poller").append(monitorsWithOutages == 1? "" : "s").append(" reporting errors").append("\n");
+            sb.append(servicesWithOutages).append(" outage").append(servicesWithOutages == 1 ? "" : "s");
+            sb.append(" (of ").append(services).append(" service").append(services == 1 ? "" : "s").append(")").append("<br>\n");
+            sb.append(monitorsWithOutages).append(" poller").append(monitorsWithOutages == 1 ? "" : "s").append(" reporting errors").append("\n");
             sb.append("</dd>\n");
         }
 

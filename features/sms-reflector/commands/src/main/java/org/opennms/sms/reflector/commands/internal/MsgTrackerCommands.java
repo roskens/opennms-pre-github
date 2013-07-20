@@ -43,7 +43,6 @@ import org.slf4j.LoggerFactory;
 import org.smslib.OutboundMessage;
 import org.smslib.USSDRequest;
 
-
 /**
  * Public API representing an example OSGi service
  *
@@ -58,6 +57,7 @@ public class MsgTrackerCommands implements CommandProvider {
     private static class MsgCallback implements MobileMsgResponseCallback {
 
         MobileMsgResponse m_response;
+
         CountDownLatch m_latch = new CountDownLatch(1);
 
         @Override
@@ -76,7 +76,7 @@ public class MsgTrackerCommands implements CommandProvider {
 
         @Override
         public void handleTimeout(MobileMsgRequest request) {
-           LOG.trace("Request {} timed out!", request);
+            LOG.trace("Request {} timed out!", request);
             m_latch.countDown();
         }
 
@@ -108,27 +108,33 @@ public class MsgTrackerCommands implements CommandProvider {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this)
-                .append("regex", m_regex)
-                .toString();
+            return new ToStringBuilder(this).append("regex", m_regex).toString();
         }
     }
 
-
     /**
-     * <p>setMobileMsgTracker</p>
+     * <p>
+     * setMobileMsgTracker
+     * </p>
      *
-     * @param tracker a {@link org.opennms.sms.reflector.smsservice.MobileMsgTracker} object.
+     * @param tracker
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgTracker}
+     *            object.
      */
     public void setMobileMsgTracker(MobileMsgTracker tracker) {
         m_tracker = tracker;
     }
 
-
     /**
-     * <p>_trackSms</p>
+     * <p>
+     * _trackSms
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      */
     public void _trackSms(CommandInterpreter intp) {
 
@@ -149,7 +155,7 @@ public class MsgTrackerCommands implements CommandProvider {
 
             cb.waitFor();
 
-            intp.println("Response: "+ cb.getResponse());
+            intp.println("Response: " + cb.getResponse());
 
         } catch (Throwable e) {
             intp.printStackTrace(e);
@@ -158,9 +164,14 @@ public class MsgTrackerCommands implements CommandProvider {
     }
 
     /**
-     * <p>_trackUssd</p>
+     * <p>
+     * _trackUssd
+     * </p>
      *
-     * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
+     * @param intp
+     *            a
+     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *            object.
      */
     public void _trackUssd(CommandInterpreter intp) {
 
@@ -182,7 +193,7 @@ public class MsgTrackerCommands implements CommandProvider {
 
             cb.waitFor();
 
-            intp.println("Response: "+ cb.getResponse());
+            intp.println("Response: " + cb.getResponse());
 
         } catch (Throwable e) {
             intp.printStackTrace(e);
@@ -190,7 +201,9 @@ public class MsgTrackerCommands implements CommandProvider {
     }
 
     /**
-     * <p>getHelp</p>
+     * <p>
+     * getHelp
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -204,4 +217,3 @@ public class MsgTrackerCommands implements CommandProvider {
         return buffer.toString();
     }
 }
-

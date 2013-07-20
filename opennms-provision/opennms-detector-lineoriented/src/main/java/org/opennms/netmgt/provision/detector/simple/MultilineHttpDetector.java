@@ -37,38 +37,52 @@ import org.opennms.netmgt.provision.support.codec.MultilineHttpProtocolFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>Abstract MultilineHttpDetector class.</p>
+ * <p>
+ * Abstract MultilineHttpDetector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest, MultilineHttpResponse> {
+public abstract class MultilineHttpDetector extends
+        AsyncBasicDetectorMinaImpl<LineOrientedRequest, MultilineHttpResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(MultilineHttpDetector.class);
+
     private static final String DEFAULT_SERVICE_NAME = "HTTP";
+
     private static final int DEFAULT_PORT = 80;
-    private static String DEFAULT_URL="/";
+
+    private static String DEFAULT_URL = "/";
+
     private static int DEFAULT_MAX_RET_CODE = 399;
 
     private String m_url;
+
     private int m_maxRetCode;
+
     private boolean m_checkRetCode = false;
 
     /**
-     * <p>Constructor for MultilineHttpDetector.</p>
+     * <p>
+     * Constructor for MultilineHttpDetector.
+     * </p>
      */
-    public MultilineHttpDetector(){
+    public MultilineHttpDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
         contructDefaults();
     }
 
     /**
-     * <p>Constructor for MultilineHttpDetector.</p>
+     * <p>
+     * Constructor for MultilineHttpDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public MultilineHttpDetector(final String serviceName, final int port) {
         super(serviceName, port);
@@ -81,8 +95,6 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
         setMaxRetCode(DEFAULT_MAX_RET_CODE);
     }
 
-
-
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
@@ -90,9 +102,12 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
     }
 
     /**
-     * <p>httpCommand</p>
+     * <p>
+     * httpCommand
+     * </p>
      *
-     * @param command a {@link java.lang.String} object.
+     * @param command
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected String httpCommand(final String command) {
@@ -101,26 +116,40 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
     }
 
     /**
-     * <p>request</p>
+     * <p>
+     * request
+     * </p>
      *
-     * @param command a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest} object.
+     * @param command
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *         object.
      */
     protected static LineOrientedRequest request(final String command) {
         return new LineOrientedRequest(command);
     }
 
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
-     * @param url a {@link java.lang.String} object.
-     * @param isCheckCode a boolean.
-     * @param maxRetCode a int.
-     * @return a {@link org.opennms.netmgt.provision.support.AsyncClientConversation.ResponseValidator} object.
+     * @param pattern
+     *            a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
+     * @param isCheckCode
+     *            a boolean.
+     * @param maxRetCode
+     *            a int.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.support.AsyncClientConversation.ResponseValidator}
+     *         object.
      */
-    protected static ResponseValidator<MultilineHttpResponse> contains(final String pattern, final String url, final boolean isCheckCode, final int maxRetCode){
-        return new ResponseValidator<MultilineHttpResponse>(){
+    protected static ResponseValidator<MultilineHttpResponse> contains(final String pattern, final String url,
+            final boolean isCheckCode, final int maxRetCode) {
+        return new ResponseValidator<MultilineHttpResponse>() {
 
             @Override
             public boolean validate(final MultilineHttpResponse message) {
@@ -137,16 +166,21 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
     }
 
     /**
-     * <p>setUrl</p>
+     * <p>
+     * setUrl
+     * </p>
      *
-     * @param url a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
      */
     public void setUrl(final String url) {
         m_url = url;
     }
 
     /**
-     * <p>getUrl</p>
+     * <p>
+     * getUrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -155,16 +189,21 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
     }
 
     /**
-     * <p>setMaxRetCode</p>
+     * <p>
+     * setMaxRetCode
+     * </p>
      *
-     * @param maxRetCode a int.
+     * @param maxRetCode
+     *            a int.
      */
     public void setMaxRetCode(final int maxRetCode) {
         m_maxRetCode = maxRetCode;
     }
 
     /**
-     * <p>getMaxRetCode</p>
+     * <p>
+     * getMaxRetCode
+     * </p>
      *
      * @return a int.
      */
@@ -173,16 +212,21 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
     }
 
     /**
-     * <p>setCheckRetCode</p>
+     * <p>
+     * setCheckRetCode
+     * </p>
      *
-     * @param checkRetCode a boolean.
+     * @param checkRetCode
+     *            a boolean.
      */
     public void setCheckRetCode(final boolean checkRetCode) {
         m_checkRetCode = checkRetCode;
     }
 
     /**
-     * <p>isCheckRetCode</p>
+     * <p>
+     * isCheckRetCode
+     * </p>
      *
      * @return a boolean.
      */

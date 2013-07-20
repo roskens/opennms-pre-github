@@ -37,11 +37,11 @@ import org.opennms.netmgt.collectd.tca.config.TcaDataCollectionConfig;
  */
 public interface TcaDataCollectionConfigDao {
 
-	/**
-	 * Gets the configuration.
-	 *
-	 * @return the configuration
-	 */
-	public TcaDataCollectionConfig getConfig();
+    /**
+     * Gets the configuration.
+     *
+     * @return the configuration
+     */
+    public TcaDataCollectionConfig getConfig();
 
 }

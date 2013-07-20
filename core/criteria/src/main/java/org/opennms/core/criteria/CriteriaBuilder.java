@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 
 public class CriteriaBuilder {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CriteriaBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CriteriaBuilder.class);
 
     private Class<?> m_class;
 
@@ -114,7 +114,6 @@ public class CriteriaBuilder {
     public CriteriaBuilder alias(final String associationPath, final String alias) {
         return alias(associationPath, alias, JoinType.LEFT_JOIN);
     }
-
 
     public CriteriaBuilder createAlias(final String associationPath, final String alias) {
         return alias(associationPath, alias);

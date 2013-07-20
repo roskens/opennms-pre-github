@@ -31,17 +31,22 @@ package org.opennms.netmgt.snmp;
 public abstract class AbstractSnmpValue implements SnmpValue {
 
     /**
-     * <p>If the value is in the unprintable ASCII range (< 32) and is not a:</p>
+     * <p>
+     * If the value is in the unprintable ASCII range (< 32) and is not a:
+     * </p>
      * <ul>
-     *   <li>Tab (9)</li>
-     *   <li>Linefeed (10)</li>
-     *   <li>Carriage return (13)</li>
+     * <li>Tab (9)</li>
+     * <li>Linefeed (10)</li>
+     * <li>Carriage return (13)</li>
      * <ul>
-     * <p>or the byte is Delete (127) then this method will return false. Also, if the byte
-     * array has a NULL byte (0) that occurs anywhere besides the last character, return false.
-     * We will allow the NULL byte as a special case at the end of the string.</p>
-     *
-     * Based on a modified version of http://stackoverflow.com/a/1447720 for UTF-8 detection.
+     * <p>
+     * or the byte is Delete (127) then this method will return false. Also, if
+     * the byte array has a NULL byte (0) that occurs anywhere besides the last
+     * character, return false. We will allow the NULL byte as a special case at
+     * the end of the string.
+     * </p>
+     * Based on a modified version of http://stackoverflow.com/a/1447720 for
+     * UTF-8 detection.
      */
     protected boolean allBytesDisplayable(final byte[] bytes) {
         int i = 0;
@@ -58,18 +63,21 @@ public abstract class AbstractSnmpValue implements SnmpValue {
             if ((octet & 0x80) == 0) {
                 if (octet == 0) {
                     if (i != (j - 1)) {
-                        //System.err.println("null found: i=" + i + ", j=" + j + ", octet=" + octet);
+                        // System.err.println("null found: i=" + i + ", j=" + j
+                        // + ", octet=" + octet);
                         return false;
                     }
                 }
                 // control chars that aren't cr/lf and tab
                 else if (octet < 32 && octet != 9 && octet != 10 && octet != 13) {
-                    //System.err.println("invalid chars: i=" + i + ", j=" + j + ", octet=" + octet);
+                    // System.err.println("invalid chars: i=" + i + ", j=" + j +
+                    // ", octet=" + octet);
                     return false;
                 }
                 // delete
                 else if (octet == 127) {
-                    //System.err.println("delete found: i=" + i + ", j=" + j + ", octet=" + octet);
+                    // System.err.println("delete found: i=" + i + ", j=" + j +
+                    // ", octet=" + octet);
                     return false;
                 }
 
@@ -85,7 +93,7 @@ public abstract class AbstractSnmpValue implements SnmpValue {
                 end = i + 3;
             } else {
                 // Java only supports BMP so 3 is max
-                //System.err.println("BMP > 3");
+                // System.err.println("BMP > 3");
                 return false;
             }
 
@@ -93,7 +101,7 @@ public abstract class AbstractSnmpValue implements SnmpValue {
                 i++;
                 octet = bytes[i];
                 if ((octet & 0xC0) != 0x80) {
-                    //System.err.println("Not a valid trailing byte.");
+                    // System.err.println("Not a valid trailing byte.");
                     // Not a valid trailing byte
                     return false;
                 }

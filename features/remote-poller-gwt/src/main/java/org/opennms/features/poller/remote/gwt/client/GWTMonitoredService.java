@@ -36,7 +36,9 @@ import org.opennms.features.poller.remote.gwt.client.utils.CompareToBuilder;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * <p>GWTMonitoredService class.</p>
+ * <p>
+ * GWTMonitoredService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,9 +46,9 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class GWTMonitoredService implements Serializable, IsSerializable, Comparable<GWTMonitoredService> {
 
-	private static final long serialVersionUID = -8529053406347958362L;
+    private static final long serialVersionUID = -8529053406347958362L;
 
-	private int m_id;
+    private int m_id;
 
     private int m_ifIndex;
 
@@ -63,22 +65,29 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
     private Set<String> m_applications;
 
     /**
-     * <p>Constructor for GWTMonitoredService.</p>
+     * <p>
+     * Constructor for GWTMonitoredService.
+     * </p>
      */
     public GWTMonitoredService() {
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a int.
+     * @param id
+     *            a int.
      */
     public void setId(final int id) {
         m_id = id;
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -87,16 +96,21 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
     }
 
     /**
-     * <p>setIfIndex</p>
+     * <p>
+     * setIfIndex
+     * </p>
      *
-     * @param ifIndex a {@link java.lang.Integer} object.
+     * @param ifIndex
+     *            a {@link java.lang.Integer} object.
      */
     public void setIfIndex(final Integer ifIndex) {
         m_ifIndex = ifIndex;
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -105,16 +119,21 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
     }
 
     /**
-     * <p>setIpInterfaceId</p>
+     * <p>
+     * setIpInterfaceId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setIpInterfaceId(final Integer id) {
         m_ipInterfaceId = id;
     }
 
     /**
-     * <p>getIpInterfaceId</p>
+     * <p>
+     * getIpInterfaceId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -123,16 +142,21 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
     }
 
     /**
-     * <p>setIpAddress</p>
+     * <p>
+     * setIpAddress
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddress(final String ipAddress) {
         m_ipAddress = ipAddress;
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -141,16 +165,21 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
     }
 
     /**
-     * <p>setHostname</p>
+     * <p>
+     * setHostname
+     * </p>
      *
-     * @param hostname a {@link java.lang.String} object.
+     * @param hostname
+     *            a {@link java.lang.String} object.
      */
     public void setHostname(final String hostname) {
         m_hostname = hostname;
     }
 
     /**
-     * <p>getHostname</p>
+     * <p>
+     * getHostname
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -159,16 +188,21 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
     }
 
     /**
-     * <p>setNodeId</p>
+     * <p>
+     * setNodeId
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
      */
     public void setNodeId(final Integer nodeId) {
         m_nodeId = nodeId;
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -177,16 +211,21 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
     }
 
     /**
-     * <p>setServiceName</p>
+     * <p>
+     * setServiceName
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      */
     public void setServiceName(final String serviceName) {
         m_serviceName = serviceName;
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -195,7 +234,9 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
     }
 
     /**
-     * <p>getApplications</p>
+     * <p>
+     * getApplications
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -204,40 +245,48 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
     }
 
     /**
-     * <p>setApplications</p>
+     * <p>
+     * setApplications
+     * </p>
      *
-     * @param applications a {@link java.util.Set} object.
+     * @param applications
+     *            a {@link java.util.Set} object.
      */
     public void setApplications(final Set<String> applications) {
         m_applications = applications;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String toString() {
-        return "GWTMonitoredService[id=" + m_id + ",service=" + m_serviceName + ",nodeId=" + m_nodeId + ",ipInterfaceId=" + m_ipInterfaceId
-                + "]";
+        return "GWTMonitoredService[id=" + m_id + ",service=" + m_serviceName + ",nodeId=" + m_nodeId
+                + ",ipInterfaceId=" + m_ipInterfaceId + "]";
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param that a {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService} object.
+     * @param that
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
+     *            object.
      * @return a int.
      */
-        @Override
+    @Override
     public int compareTo(GWTMonitoredService that) {
-        return new CompareToBuilder()
-        .append(this.getServiceName(), that.getServiceName())
-        .append(this.getNodeId(), that.getNodeId())
-        .append(this.getIpInterfaceId(), that.getIpInterfaceId())
-        .append(this.getApplications(), that.getApplications())
-        .append(this.getId(), that.getId())
-        .toComparison();
+        return new CompareToBuilder().append(this.getServiceName(), that.getServiceName()).append(this.getNodeId(),
+                                                                                                  that.getNodeId()).append(this.getIpInterfaceId(),
+                                                                                                                           that.getIpInterfaceId()).append(this.getApplications(),
+                                                                                                                                                           that.getApplications()).append(this.getId(),
+                                                                                                                                                                                          that.getId()).toComparison();
     }
 
 }

@@ -32,15 +32,22 @@ import org.opennms.api.reporting.parameter.ReportParameters;
 import org.opennms.netmgt.config.reporting.Parameters;
 
 /**
- * <p>ParameterConversionService interface.</p>
+ * <p>
+ * ParameterConversionService interface.
+ * </p>
  */
 public interface ParameterConversionService {
 
     /**
-     * <p>convert</p>
+     * <p>
+     * convert
+     * </p>
      *
-     * @param parameters a {@link org.opennms.netmgt.config.reporting.Parameters} object.
-     * @return a {@link org.opennms.api.reporting.parameter.ReportParameters} object.
+     * @param parameters
+     *            a {@link org.opennms.netmgt.config.reporting.Parameters}
+     *            object.
+     * @return a {@link org.opennms.api.reporting.parameter.ReportParameters}
+     *         object.
      */
     public ReportParameters convert(Parameters parameters);
 

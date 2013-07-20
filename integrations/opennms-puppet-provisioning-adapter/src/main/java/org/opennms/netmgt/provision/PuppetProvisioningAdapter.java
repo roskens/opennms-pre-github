@@ -28,13 +28,12 @@
 
 package org.opennms.netmgt.provision;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * Integrates Puppet with OpenNMS.  We need create a Puppet Java API for this class.
+ * Integrates Puppet with OpenNMS. We need create a Puppet Java API for this
+ * class.
  * Jason, you know anything about openQRM?
  *
  * @author <a href="mailto:jason.aras@opennms.org">Jason Aras</a>
@@ -67,11 +66,14 @@ public class PuppetProvisioningAdapter extends SimpleQueuedProvisioningAdapter {
         LOG.info("processPendingOperationForNode: Handling Operation: {}", op);
 
         if (op.getType() == AdapterOperationType.ADD || op.getType() == AdapterOperationType.UPDATE) {
-            throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: "+op+", is currently not supported."));
+            throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: " + op
+                    + ", is currently not supported."));
         } else if (op.getType() == AdapterOperationType.DELETE) {
-            throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: "+op+", is currently not supported."));
+            throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: " + op
+                    + ", is currently not supported."));
         } else if (op.getType() == AdapterOperationType.CONFIG_CHANGE) {
-            throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: "+op+", is currently not supported."));
+            throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: " + op
+                    + ", is currently not supported."));
         } else {
             LOG.warn("unknown operation: {}", op.getType());
         }

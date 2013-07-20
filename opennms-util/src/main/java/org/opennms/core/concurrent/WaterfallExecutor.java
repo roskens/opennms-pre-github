@@ -35,20 +35,22 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-
 /**
  * @author Seth
  */
 public class WaterfallExecutor {
-    public static void waterfall(Iterable<ExecutorService> executors, Callable<Callable<?>> callable) throws InterruptedException, ExecutionException {
+    public static void waterfall(Iterable<ExecutorService> executors, Callable<Callable<?>> callable)
+            throws InterruptedException, ExecutionException {
         waterfall(executors.iterator(), callable);
     }
 
     /**
-     * This function recursively calls the {@link WaterfallCallable} tasks with the given chain of ExecutorServices.
+     * This function recursively calls the {@link WaterfallCallable} tasks with
+     * the given chain of ExecutorServices.
      */
     @SuppressWarnings("unchecked")
-    public static void waterfall(Iterator<ExecutorService> executors, Callable<Callable<?>> callable) throws InterruptedException, ExecutionException {
+    public static void waterfall(Iterator<ExecutorService> executors, Callable<Callable<?>> callable)
+            throws InterruptedException, ExecutionException {
         // Fetch the next ExecutorService
         ExecutorService executor = null;
         try {
@@ -66,7 +68,8 @@ public class WaterfallExecutor {
 
         Callable value = task.get();
         if (value == null) {
-            // The {@link WaterfallCallable} returned null; this terminates the chain of execution
+            // The {@link WaterfallCallable} returned null; this terminates the
+            // chain of execution
             return;
         } else {
             // Send the return value to the next ExecutorService

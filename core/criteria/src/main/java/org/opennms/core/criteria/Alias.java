@@ -32,7 +32,6 @@ import org.opennms.core.criteria.restrictions.Restriction;
 
 public class Alias {
 
-
     public static interface AliasVisitor {
         public void visitAlias(final String alias);
 
@@ -97,30 +96,40 @@ public class Alias {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof Alias)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Alias))
+            return false;
         final Alias other = (Alias) obj;
         if (m_alias == null) {
-            if (other.m_alias != null) return false;
+            if (other.m_alias != null)
+                return false;
         } else if (!m_alias.equals(other.m_alias)) {
             return false;
         }
         if (m_associationPath == null) {
-            if (other.m_associationPath != null) return false;
+            if (other.m_associationPath != null)
+                return false;
         } else if (!m_associationPath.equals(other.m_associationPath)) {
             return false;
         }
-        if (m_type != other.m_type) return false;
-        if (m_joinCondition == null && other.m_joinCondition != null) return false;
-        if (m_joinCondition != null && other.m_joinCondition == null) return false;
-        if (!m_joinCondition.equals(other.m_joinCondition)) return false;
+        if (m_type != other.m_type)
+            return false;
+        if (m_joinCondition == null && other.m_joinCondition != null)
+            return false;
+        if (m_joinCondition != null && other.m_joinCondition == null)
+            return false;
+        if (!m_joinCondition.equals(other.m_joinCondition))
+            return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Alias [associationPath=" + m_associationPath + ", alias=" + m_alias + ", type=" + m_type + ", joinCondition=" + m_joinCondition + "]";
+        return "Alias [associationPath=" + m_associationPath + ", alias=" + m_alias + ", type=" + m_type
+                + ", joinCondition=" + m_joinCondition + "]";
     }
 
 }

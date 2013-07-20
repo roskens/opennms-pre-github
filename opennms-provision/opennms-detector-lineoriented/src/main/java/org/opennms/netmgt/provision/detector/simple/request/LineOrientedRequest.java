@@ -32,7 +32,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * <p>LineOrientedRequest class.</p>
+ * <p>
+ * LineOrientedRequest class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -47,26 +49,35 @@ public class LineOrientedRequest {
     private String m_command;
 
     /**
-     * <p>Constructor for LineOrientedRequest.</p>
+     * <p>
+     * Constructor for LineOrientedRequest.
+     * </p>
      *
-     * @param command a {@link java.lang.String} object.
+     * @param command
+     *            a {@link java.lang.String} object.
      */
     public LineOrientedRequest(final String command) {
         m_command = command;
     }
 
     /**
-     * <p>send</p>
+     * <p>
+     * send
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @param out a {@link java.io.OutputStream} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @param out
+     *            a {@link java.io.OutputStream} object.
      */
     public void send(final OutputStream out) throws IOException {
         out.write(String.format("%s\r\n", m_command).getBytes("UTF-8"));
     }
 
     /**
-     * <p>getRequest</p>
+     * <p>
+     * getRequest
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,7 +86,9 @@ public class LineOrientedRequest {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

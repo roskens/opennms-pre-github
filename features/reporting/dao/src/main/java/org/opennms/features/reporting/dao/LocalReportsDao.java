@@ -35,56 +35,71 @@ import java.util.List;
 
 public interface LocalReportsDao {
     /**
-     * <p>getReports</p>
+     * <p>
+     * getReports
+     * </p>
      *
      * @return a {@link java.util.List} object
      */
-    List <BasicReportDefinition> getReports();
+    List<BasicReportDefinition> getReports();
 
     /**
-     * <p>getOnlineReports</p>
+     * <p>
+     * getOnlineReports
+     * </p>
      *
      * @return a {@link java.util.List} object
      */
-    List <BasicReportDefinition> getOnlineReports();
+    List<BasicReportDefinition> getOnlineReports();
 
     /**
-     * <p>getReportService</p>
+     * <p>
+     * getReportService
+     * </p>
      *
-     * @param id a {@link java.lang.String} object
+     * @param id
+     *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
     String getReportService(String id);
 
     /**
-     * <p>getDisplayName</p>
+     * <p>
+     * getDisplayName
+     * </p>
      *
-     * @param id a {@link java.lang.String} object
+     * @param id
+     *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
     String getDisplayName(String id);
 
     /**
-     * <p>loadConfiguration</p>
-     *
+     * <p>
+     * loadConfiguration
+     * </p>
      * Load XML configuration and unmarshalling
      */
     void loadConfiguration() throws Exception;
 
     /**
-     * <p>setLocalReportConfigResource</p>
-     *
+     * <p>
+     * setLocalReportConfigResource
+     * </p>
      * Set local report config resource for DAO
      *
-     * @param configResource a {@link org.springframework.core.io.Resource} object
+     * @param configResource
+     *            a {@link org.springframework.core.io.Resource} object
      */
-    void setConfigResource (Resource configResource);
+    void setConfigResource(Resource configResource);
 
     /**
-     * <p>getConfigResource</p>
-     *
+     * <p>
+     * getConfigResource
+     * </p>
      * Get local report configuration resource for DAO
+     *
      * @return a {@link org.springframework.core.io.Resource} object
      */
-    Resource getConfigResource ();
+    Resource getConfigResource();
 }

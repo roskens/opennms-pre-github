@@ -13,18 +13,20 @@ public class SearchOptions extends ControlOptions {
     public String getPlaceholder() {
         return getPropertyAsString("placeholder");
     }
+
     /** placeholder text in the search box */
     public SearchOptions setPlaceholder(final String placeholder) {
-        return (SearchOptions)setProperty("placeholder", placeholder);
+        return (SearchOptions) setProperty("placeholder", placeholder);
     }
 
     /** how often to live-update search results as search-typing is happening **/
     public int getSearchRefreshInterval() {
         return getPropertyAsInt("interval");
     }
+
     /** how often to live-update search results as search-typing is happening **/
     public SearchOptions setSearchRefreshInterval(final int interval) {
-        return (SearchOptions)setProperty("interval", interval);
+        return (SearchOptions) setProperty("interval", interval);
     }
 
     public int getPropertyAsInteger(final String name) {

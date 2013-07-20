@@ -36,7 +36,9 @@ import org.opennms.core.xml.CastorUtils;
 import org.opennms.netmgt.config.server.LocalServer;
 
 /**
- * <p>OpennmsServerConfigManager class.</p>
+ * <p>
+ * OpennmsServerConfigManager class.
+ * </p>
  */
 public class OpennmsServerConfigManager {
     /**
@@ -45,11 +47,16 @@ public class OpennmsServerConfigManager {
     private LocalServer m_config;
 
     /**
-     * <p>Constructor for OpennmsServerConfigManager.</p>
+     * <p>
+     * Constructor for OpennmsServerConfigManager.
+     * </p>
      *
-     * @param is a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param is
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     protected OpennmsServerConfigManager(final InputStream is) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(LocalServer.class, is);

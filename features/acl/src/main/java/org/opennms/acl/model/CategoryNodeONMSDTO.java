@@ -43,7 +43,9 @@
 package org.opennms.acl.model;
 
 /**
- * <p>CategoryNodeONMSDTO class.</p>
+ * <p>
+ * CategoryNodeONMSDTO class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -52,7 +54,9 @@ package org.opennms.acl.model;
 public class CategoryNodeONMSDTO {
 
     /**
-     * <p>Getter for the field <code>categoryId</code>.</p>
+     * <p>
+     * Getter for the field <code>categoryId</code>.
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -61,16 +65,21 @@ public class CategoryNodeONMSDTO {
     }
 
     /**
-     * <p>Setter for the field <code>categoryId</code>.</p>
+     * <p>
+     * Setter for the field <code>categoryId</code>.
+     * </p>
      *
-     * @param categoryId a {@link java.lang.Integer} object.
+     * @param categoryId
+     *            a {@link java.lang.Integer} object.
      */
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
     /**
-     * <p>Getter for the field <code>categoryName</code>.</p>
+     * <p>
+     * Getter for the field <code>categoryName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -79,16 +88,21 @@ public class CategoryNodeONMSDTO {
     }
 
     /**
-     * <p>Setter for the field <code>categoryName</code>.</p>
+     * <p>
+     * Setter for the field <code>categoryName</code>.
+     * </p>
      *
-     * @param categoryName a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      */
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
 
     /**
-     * <p>Getter for the field <code>categoryDescription</code>.</p>
+     * <p>
+     * Getter for the field <code>categoryDescription</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -97,9 +111,12 @@ public class CategoryNodeONMSDTO {
     }
 
     /**
-     * <p>Setter for the field <code>categoryDescription</code>.</p>
+     * <p>
+     * Setter for the field <code>categoryDescription</code>.
+     * </p>
      *
-     * @param categoryDescription a {@link java.lang.String} object.
+     * @param categoryDescription
+     *            a {@link java.lang.String} object.
      */
     public void setCategoryDescription(String categoryDescription) {
         this.categoryDescription = categoryDescription;
@@ -112,7 +129,8 @@ public class CategoryNodeONMSDTO {
         if (!(o instanceof CategoryNodeONMSDTO))
             return false;
         CategoryNodeONMSDTO category = (CategoryNodeONMSDTO) o;
-        return (categoryName.equalsIgnoreCase(category.getCategoryName()) && categoryDescription.equalsIgnoreCase(category.getCategoryDescription()) && categoryId == category.categoryId);
+        return (categoryName.equalsIgnoreCase(category.getCategoryName())
+                && categoryDescription.equalsIgnoreCase(category.getCategoryDescription()) && categoryId == category.categoryId);
     }
 
     /** {@inheritDoc} */
@@ -130,6 +148,8 @@ public class CategoryNodeONMSDTO {
     }
 
     private Integer categoryId;
+
     private String categoryName, categoryDescription;
+
     private volatile int hashCode;
 }

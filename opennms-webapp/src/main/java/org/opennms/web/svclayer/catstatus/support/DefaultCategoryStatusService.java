@@ -50,116 +50,126 @@ import org.opennms.web.svclayer.dao.CategoryConfigDao;
 import org.opennms.web.svclayer.dao.ViewDisplayDao;
 
 /**
- * <p>DefaultCategoryStatusService class.</p>
+ * <p>
+ * DefaultCategoryStatusService class.
+ * </p>
  *
  * @author <a href="mailto:jason.aras@opennms.org">Jason Aras</a>
  * @version $Id: $
  * @since 1.8.1
  */
 public class DefaultCategoryStatusService implements CategoryStatusService {
-	private ViewDisplayDao m_viewDisplayDao;
-	private CategoryConfigDao m_categoryConfigDao;
-	private OutageDao m_outageDao;
+    private ViewDisplayDao m_viewDisplayDao;
 
-	/**
-	 * <p>getCategoriesStatus</p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
-        @Override
-	public Collection<StatusSection> getCategoriesStatus() {
-		View view = m_viewDisplayDao.getView();
+    private CategoryConfigDao m_categoryConfigDao;
 
-		Collection<Section> sections = getSectionsForView(view);
+    private OutageDao m_outageDao;
+
+    /**
+     * <p>
+     * getCategoriesStatus
+     * </p>
+     *
+     * @return a {@link java.util.Collection} object.
+     */
+    @Override
+    public Collection<StatusSection> getCategoriesStatus() {
+        View view = m_viewDisplayDao.getView();
+
+        Collection<Section> sections = getSectionsForView(view);
 
         Collection<StatusSection> statusSections = new ArrayList<StatusSection>();
-		for (Section section : sections) {
-			statusSections.add(createSection(section));
-		}
+        for (Section section : sections) {
+            statusSections.add(createSection(section));
+        }
 
-		return statusSections;
-	}
+        return statusSections;
+    }
 
-	private StatusSection createSection(Section section) {
-		StatusSection statusSection = new StatusSection();
+    private StatusSection createSection(Section section) {
+        StatusSection statusSection = new StatusSection();
 
-		statusSection.setName(section.getSectionName());
+        statusSection.setName(section.getSectionName());
 
-		Collection<String> categories = getCategoriesForSection(section);
+        Collection<String> categories = getCategoriesForSection(section);
 
-		for (String category : categories) {
-			StatusCategory statusCategory = createCategory(category);
-			statusSection.addCategory(statusCategory);
-		}
+        for (String category : categories) {
+            StatusCategory statusCategory = createCategory(category);
+            statusSection.addCategory(statusCategory);
+        }
 
-		return statusSection;
-	}
+        return statusSection;
+    }
 
-	private StatusCategory createCategory(String category) {
-		Collection<OnmsOutage> outages;
+    private StatusCategory createCategory(String category) {
+        Collection<OnmsOutage> outages;
 
-		CategoryBuilder categoryBuilder = new CategoryBuilder();
+        CategoryBuilder categoryBuilder = new CategoryBuilder();
 
-		StatusCategory statusCategory = new StatusCategory();
-		Category categoryDetail =  m_categoryConfigDao.getCategoryByLabel(category);
+        StatusCategory statusCategory = new StatusCategory();
+        Category categoryDetail = m_categoryConfigDao.getCategoryByLabel(category);
 
-		//statusCategory.setComment(categoryDetail.getCategoryComment());
-		statusCategory.setLabel(category);
+        // statusCategory.setComment(categoryDetail.getCategoryComment());
+        statusCategory.setLabel(category);
 
-		ServiceSelector selector = new ServiceSelector(categoryDetail.getRule(), getServicesForCategory(categoryDetail));
-		outages = m_outageDao.matchingCurrentOutages(selector);
+        ServiceSelector selector = new ServiceSelector(categoryDetail.getRule(), getServicesForCategory(categoryDetail));
+        outages = m_outageDao.matchingCurrentOutages(selector);
 
-		for (OnmsOutage outage : outages) {
-			OnmsMonitoredService monitoredService = outage.getMonitoredService();
-			OnmsServiceType serviceType = monitoredService.getServiceType();
-			OnmsIpInterface ipInterface = monitoredService.getIpInterface();
+        for (OnmsOutage outage : outages) {
+            OnmsMonitoredService monitoredService = outage.getMonitoredService();
+            OnmsServiceType serviceType = monitoredService.getServiceType();
+            OnmsIpInterface ipInterface = monitoredService.getIpInterface();
 
-			final String ipAddress = InetAddressUtils.str(ipInterface.getIpAddress());
-			categoryBuilder.addOutageService(
-					monitoredService.getNodeId(),
-					ipAddress,
-					ipAddress,
-					ipInterface.getNode().getLabel(),
-					serviceType.getName());
+            final String ipAddress = InetAddressUtils.str(ipInterface.getIpAddress());
+            categoryBuilder.addOutageService(monitoredService.getNodeId(), ipAddress, ipAddress,
+                                             ipInterface.getNode().getLabel(), serviceType.getName());
 
-		}
+        }
 
-		for (StatusNode node : categoryBuilder.getNodes()) {
-			statusCategory.addNode(node);
-		}
+        for (StatusNode node : categoryBuilder.getNodes()) {
+            statusCategory.addNode(node);
+        }
 
-		return statusCategory;
+        return statusCategory;
 
+    }
 
+    /**
+     * <p>
+     * setViewDisplayDao
+     * </p>
+     *
+     * @param viewDisplayDao
+     *            a {@link org.opennms.web.svclayer.dao.ViewDisplayDao} object.
+     */
+    public void setViewDisplayDao(ViewDisplayDao viewDisplayDao) {
+        m_viewDisplayDao = viewDisplayDao;
+    }
 
-	}
+    /**
+     * <p>
+     * setCategoryConfigDao
+     * </p>
+     *
+     * @param categoryDao
+     *            a {@link org.opennms.web.svclayer.dao.CategoryConfigDao}
+     *            object.
+     */
+    public void setCategoryConfigDao(CategoryConfigDao categoryDao) {
+        m_categoryConfigDao = categoryDao;
+    }
 
-	/**
-	 * <p>setViewDisplayDao</p>
-	 *
-	 * @param viewDisplayDao a {@link org.opennms.web.svclayer.dao.ViewDisplayDao} object.
-	 */
-	public void setViewDisplayDao(ViewDisplayDao viewDisplayDao){
-		m_viewDisplayDao = viewDisplayDao;
-	}
-
-	/**
-	 * <p>setCategoryConfigDao</p>
-	 *
-	 * @param categoryDao a {@link org.opennms.web.svclayer.dao.CategoryConfigDao} object.
-	 */
-	public void setCategoryConfigDao(CategoryConfigDao categoryDao){
-		m_categoryConfigDao = categoryDao;
-	}
-
-	/**
-	 * <p>setOutageDao</p>
-	 *
-	 * @param outageDao a {@link org.opennms.netmgt.dao.api.OutageDao} object.
-	 */
-	public void setOutageDao(OutageDao outageDao) {
-		m_outageDao = outageDao;
-	}
+    /**
+     * <p>
+     * setOutageDao
+     * </p>
+     *
+     * @param outageDao
+     *            a {@link org.opennms.netmgt.dao.api.OutageDao} object.
+     */
+    public void setOutageDao(OutageDao outageDao) {
+        m_outageDao = outageDao;
+    }
 
     private List<Section> getSectionsForView(View view) {
         return view.getSectionCollection();

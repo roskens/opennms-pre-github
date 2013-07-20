@@ -4,6 +4,6 @@ import org.snmp4j.smi.Variable;
 
 public interface DynamicVariable {
 
-	public Variable getVariableForOID(String oidStr);
+    public Variable getVariableForOID(String oidStr);
 
 }

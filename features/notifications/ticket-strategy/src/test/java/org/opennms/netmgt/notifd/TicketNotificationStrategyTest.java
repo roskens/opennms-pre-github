@@ -53,47 +53,52 @@ import javax.sql.DataSource;
 public class TicketNotificationStrategyTest extends TestCase {
 
     private EasyMockUtils m_easyMockUtils;
+
     private MockEventIpcManager m_eventIpcManager;
+
     private EventAnticipator m_anticipator;
+
     private MockTicketNotificationStrategy m_ticketNotificationStrategy;
+
     private DataSource m_dataSource;
 
     private class MockTicketNotificationStrategy extends TicketNotificationStrategy {
-    	AlarmState m_alarmState;
-    	AlarmType m_alarmType;
+        AlarmState m_alarmState;
 
-    	public MockTicketNotificationStrategy() {
-    		m_alarmState = new AlarmState(0,"",0);
-    		m_alarmType = AlarmType.NOT_AN_ALARM;
-    	}
+        AlarmType m_alarmType;
 
-    	public void setAlarmState(AlarmState alarmState) {
-    		m_alarmState = alarmState;
-    	}
+        public MockTicketNotificationStrategy() {
+            m_alarmState = new AlarmState(0, "", 0);
+            m_alarmType = AlarmType.NOT_AN_ALARM;
+        }
 
-    	@SuppressWarnings("unused")
-		public AlarmState getAlarmState() {
-    		return m_alarmState;
-    	}
+        public void setAlarmState(AlarmState alarmState) {
+            m_alarmState = alarmState;
+        }
 
-    	public void setAlarmType(AlarmType alarmType) {
-    		m_alarmType = alarmType;
-    	}
+        @SuppressWarnings("unused")
+        public AlarmState getAlarmState() {
+            return m_alarmState;
+        }
 
-    	@SuppressWarnings("unused")
-    	public AlarmType getAlarmType(AlarmType alarmType) {
-    		return m_alarmType;
-    	}
+        public void setAlarmType(AlarmType alarmType) {
+            m_alarmType = alarmType;
+        }
 
-    	@Override
-    	protected AlarmState getAlarmStateFromEvent(int eventID) {
-    		return m_alarmState;
-    	}
+        @SuppressWarnings("unused")
+        public AlarmType getAlarmType(AlarmType alarmType) {
+            return m_alarmType;
+        }
 
-    	@Override
-    	protected AlarmType getAlarmTypeFromUEI(String eventUEI) {
-    		return m_alarmType;
-    	}
+        @Override
+        protected AlarmState getAlarmStateFromEvent(int eventID) {
+            return m_alarmState;
+        }
+
+        @Override
+        protected AlarmType getAlarmTypeFromUEI(String eventUEI) {
+            return m_alarmType;
+        }
     };
 
     /** {@inheritDoc} */
@@ -119,20 +124,24 @@ public class TicketNotificationStrategyTest extends TestCase {
     }
 
     public void testNoticeWithNoEventID() {
-    	assertEquals("Strategy should fail if no event id is given.", 1, m_ticketNotificationStrategy.send(new ArrayList<Argument>()));
+        assertEquals("Strategy should fail if no event id is given.", 1,
+                     m_ticketNotificationStrategy.send(new ArrayList<Argument>()));
     }
 
     public void testNoticeWithNoAlarmID() {
-    	m_ticketNotificationStrategy.setAlarmState(new TicketNotificationStrategy.AlarmState(0));
-    	m_ticketNotificationStrategy.setAlarmType(AlarmType.NOT_AN_ALARM);
-    	List<Argument> arguments = buildArguments("1", EventConstants.NODE_DOWN_EVENT_UEI);
-    	assertEquals("Strategy should fail silently if the event has no alarm id.", 0, m_ticketNotificationStrategy.send(arguments));
-    	assertTrue("Strategy should log a warning if the event has no alarm id.", !MockLogAppender.noWarningsOrHigherLogged());
+        m_ticketNotificationStrategy.setAlarmState(new TicketNotificationStrategy.AlarmState(0));
+        m_ticketNotificationStrategy.setAlarmType(AlarmType.NOT_AN_ALARM);
+        List<Argument> arguments = buildArguments("1", EventConstants.NODE_DOWN_EVENT_UEI);
+        assertEquals("Strategy should fail silently if the event has no alarm id.", 0,
+                     m_ticketNotificationStrategy.send(arguments));
+        assertTrue("Strategy should log a warning if the event has no alarm id.",
+                   !MockLogAppender.noWarningsOrHigherLogged());
     }
 
     public void testCreateTicket() {
         // Setup the event anticipator
-    	EventBuilder newSuspectBuilder = new EventBuilder(EventConstants.TROUBLETICKET_CREATE_UEI, m_ticketNotificationStrategy.getName());
+        EventBuilder newSuspectBuilder = new EventBuilder(EventConstants.TROUBLETICKET_CREATE_UEI,
+                                                          m_ticketNotificationStrategy.getName());
         newSuspectBuilder.setParam(EventConstants.PARM_ALARM_ID, "1");
         newSuspectBuilder.setParam(EventConstants.PARM_ALARM_UEI, EventConstants.NODE_DOWN_EVENT_UEI);
         newSuspectBuilder.setParam(EventConstants.PARM_USER, "admin");
@@ -143,15 +152,14 @@ public class TicketNotificationStrategyTest extends TestCase {
         List<Argument> arguments = buildArguments("1", EventConstants.NODE_DOWN_EVENT_UEI);
 
         assertEquals(0, m_ticketNotificationStrategy.send(arguments));
-	    assertTrue("Expected events not forthcoming", m_anticipator.waitForAnticipated(0).isEmpty());
-	    assertEquals("Received unexpected events", 0, m_anticipator.unanticipatedEvents().size());
+        assertTrue("Expected events not forthcoming", m_anticipator.waitForAnticipated(0).isEmpty());
+        assertEquals("Received unexpected events", 0, m_anticipator.unanticipatedEvents().size());
     }
 
-    protected List<Argument> buildArguments(String eventID, String eventUEI)
-    {
-		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(new Argument("eventID", null, eventID, false));
-		arguments.add(new Argument("eventUEI", null, eventUEI, false));
-		return arguments;
+    protected List<Argument> buildArguments(String eventID, String eventUEI) {
+        List<Argument> arguments = new ArrayList<Argument>();
+        arguments.add(new Argument("eventID", null, eventID, false));
+        arguments.add(new Argument("eventUEI", null, eventUEI, false));
+        return arguments;
     }
 }

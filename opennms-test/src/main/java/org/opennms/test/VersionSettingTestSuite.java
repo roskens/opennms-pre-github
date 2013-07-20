@@ -37,7 +37,9 @@ import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 /**
- * <p>VersionSettingTestSuite class.</p>
+ * <p>
+ * VersionSettingTestSuite class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,9 +49,12 @@ public class VersionSettingTestSuite extends TestSuite {
     int m_version;
 
     /**
-     * <p>Constructor for VersionSettingTestSuite.</p>
+     * <p>
+     * Constructor for VersionSettingTestSuite.
+     * </p>
      *
-     * @param version a int.
+     * @param version
+     *            a int.
      */
     public VersionSettingTestSuite(int version) {
         super();
@@ -57,11 +62,16 @@ public class VersionSettingTestSuite extends TestSuite {
     }
 
     /**
-     * <p>Constructor for VersionSettingTestSuite.</p>
+     * <p>
+     * Constructor for VersionSettingTestSuite.
+     * </p>
      *
-     * @param theClass a {@link java.lang.Class} object.
-     * @param name a {@link java.lang.String} object.
-     * @param version a int.
+     * @param theClass
+     *            a {@link java.lang.Class} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param version
+     *            a int.
      */
     public VersionSettingTestSuite(Class<? extends TestCase> theClass, String name, int version) {
         super(theClass, name);
@@ -70,10 +80,14 @@ public class VersionSettingTestSuite extends TestSuite {
     }
 
     /**
-     * <p>Constructor for VersionSettingTestSuite.</p>
+     * <p>
+     * Constructor for VersionSettingTestSuite.
+     * </p>
      *
-     * @param theClass a {@link java.lang.Class} object.
-     * @param version a int.
+     * @param theClass
+     *            a {@link java.lang.Class} object.
+     * @param version
+     *            a int.
      */
     public VersionSettingTestSuite(Class<? extends TestCase> theClass, int version) {
         super(theClass);
@@ -82,10 +96,14 @@ public class VersionSettingTestSuite extends TestSuite {
     }
 
     /**
-     * <p>Constructor for VersionSettingTestSuite.</p>
+     * <p>
+     * Constructor for VersionSettingTestSuite.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param version a int.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param version
+     *            a int.
      */
     public VersionSettingTestSuite(String name, int version) {
         super(name);
@@ -99,7 +117,7 @@ public class VersionSettingTestSuite extends TestSuite {
             addTest(new TestCase("warning") {
                 @Override
                 protected void runTest() {
-                    fail("Unable to locate setVersion method in class "+theClass.getName() + ": " + e);
+                    fail("Unable to locate setVersion method in class " + theClass.getName() + ": " + e);
                 }
             });
         }
@@ -122,7 +140,8 @@ public class VersionSettingTestSuite extends TestSuite {
             Method m = getSetVersionMethod(test.getClass());
             m.invoke(test, new Object[] { new Integer(m_version) });
         } catch (Throwable e) {
-            AssertionFailedError newE = new AssertionFailedError("Could not call setVersion on " + test.getClass().getName() + ": " + e);
+            AssertionFailedError newE = new AssertionFailedError("Could not call setVersion on "
+                    + test.getClass().getName() + ": " + e);
             newE.initCause(e);
             throw newE;
         }

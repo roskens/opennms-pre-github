@@ -27,19 +27,19 @@
  *******************************************************************************/
 
 /*
-* OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
-* DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
-*
-* This file was contributed to the OpenNMS(R) project under the
-* terms of the OpenNMS Contributor Agreement (OCA).  For details on
-* the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
-*
-* Contributed under the terms of the OCA by:
-*
-* Bobby Krupczak <rdk@krupczak.org>
-* THE KRUPCZAK ORGANIZATION, LLC
-* http://www.krupczak.org/
-*/
+ * OCA CONTRIBUTION ACKNOWLEDGEMENT - NOT PART OF LEGAL BOILERPLATE
+ * DO NOT DUPLICATE THIS COMMENT BLOCK WHEN CREATING NEW FILES!
+ *
+ * This file was contributed to the OpenNMS(R) project under the
+ * terms of the OpenNMS Contributor Agreement (OCA).  For details on
+ * the OCA, see http://www.opennms.org/index.php/Contributor_Agreement
+ *
+ * Contributed under the terms of the OCA by:
+ *
+ * Bobby Krupczak <rdk@krupczak.org>
+ * THE KRUPCZAK ORGANIZATION, LLC
+ * http://www.krupczak.org/
+ */
 
 /**
  *   Xmp CollectionSet class serves as a container for a collection of
@@ -55,37 +55,40 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import org.opennms.netmgt.collectd.CollectionAgent;
 import org.opennms.netmgt.collectd.ServiceCollector;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 public class XmpCollectionSet implements CollectionSet {
 
     /* class variables and methods *********************** */
-	private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionSet.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionSet.class);
 
     /* instance variables ******************************** */
     int status;
+
     boolean ignorePersistVar;
+
     CollectionAgent agent;
+
     XmpCollectionResource collectionResource;
-    Set<XmpCollectionResource>listOfResources;
+
+    Set<XmpCollectionResource> listOfResources;
+
     private Date m_timestamp;
 
-    /* constructors  ************************************* */
-    XmpCollectionSet(CollectionAgent agent)
-    {
+    /* constructors ************************************* */
+    XmpCollectionSet(CollectionAgent agent) {
         // default status
         status = ServiceCollector.COLLECTION_SUCCEEDED;
         ignorePersistVar = false;
         this.agent = agent;
 
         // this is going to change
-        //collectionResource = new XmpCollectionResource(agent,"node",null);
+        // collectionResource = new XmpCollectionResource(agent,"node",null);
 
         listOfResources = new HashSet<XmpCollectionResource>();
 
@@ -94,98 +97,143 @@ public class XmpCollectionSet implements CollectionSet {
 
     /* private methods *********************************** */
 
-
     /* public methods ************************************ */
 
     /**
-     * <p>addResource</p>
+     * <p>
+     * addResource
+     * </p>
      *
-     * @param aResource a {@link org.opennms.netmgt.protocols.xmp.collector.XmpCollectionResource} object.
+     * @param aResource
+     *            a
+     *            {@link org.opennms.netmgt.protocols.xmp.collector.XmpCollectionResource}
+     *            object.
      */
-    public void addResource(XmpCollectionResource aResource)
-    {
+    public void addResource(XmpCollectionResource aResource) {
         listOfResources.add(aResource);
     }
 
     /**
-     * <p>getResources</p>
+     * <p>
+     * getResources
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<XmpCollectionResource>getResources()
-    {
+    public Collection<XmpCollectionResource> getResources() {
         return listOfResources;
     }
 
     // return a ServiceCollector status value
     /**
-     * <p>getCollectionAgent</p>
+     * <p>
+     * getCollectionAgent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
-    public CollectionAgent getCollectionAgent() { return agent; }
-    /**
-     * <p>setCollectionAgent</p>
-     *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
-     */
-    public void setCollectionAgent(CollectionAgent agent) { this.agent = agent; }
+    public CollectionAgent getCollectionAgent() {
+        return agent;
+    }
 
     /**
-     * <p>Getter for the field <code>status</code>.</p>
+     * <p>
+     * setCollectionAgent
+     * </p>
+     *
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     */
+    public void setCollectionAgent(CollectionAgent agent) {
+        this.agent = agent;
+    }
+
+    /**
+     * <p>
+     * Getter for the field <code>status</code>.
+     * </p>
      *
      * @return a int.
      */
     @Override
-    public int getStatus() { return status; }
-    /**
-     * <p>Setter for the field <code>status</code>.</p>
-     *
-     * @param status a int.
-     */
-    public void setStatus(int status) { this.status = status; }
+    public int getStatus() {
+        return status;
+    }
 
     /**
-     * <p>setStatusSuccess</p>
+     * <p>
+     * Setter for the field <code>status</code>.
+     * </p>
+     *
+     * @param status
+     *            a int.
      */
-    public void setStatusSuccess() { this.status = ServiceCollector.COLLECTION_SUCCEEDED; }
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     /**
-     * <p>setStatusFailed</p>
+     * <p>
+     * setStatusSuccess
+     * </p>
      */
-    public void setStatusFailed() { this.status = ServiceCollector.COLLECTION_FAILED; }
+    public void setStatusSuccess() {
+        this.status = ServiceCollector.COLLECTION_SUCCEEDED;
+    }
+
+    /**
+     * <p>
+     * setStatusFailed
+     * </p>
+     */
+    public void setStatusFailed() {
+        this.status = ServiceCollector.COLLECTION_FAILED;
+    }
 
     // ignorePersist returns true if system has been restarted
     // that is, if sysUpTime has gone backwards, return true
     // if system has continued, return false
 
     /**
-     * <p>ignorePersist</p>
+     * <p>
+     * ignorePersist
+     * </p>
      *
      * @return a boolean.
      */
     @Override
-    public boolean ignorePersist() { return ignorePersistVar; }
+    public boolean ignorePersist() {
+        return ignorePersistVar;
+    }
 
     /**
-     * <p>ignorePersistTrue</p>
+     * <p>
+     * ignorePersistTrue
+     * </p>
      */
-    public void ignorePersistTrue() { ignorePersistVar = true; }
+    public void ignorePersistTrue() {
+        ignorePersistVar = true;
+    }
+
     /**
-     * <p>ignorePersistFalse</p>
+     * <p>
+     * ignorePersistFalse
+     * </p>
      */
-    public void ignorePersistFalse() { ignorePersistVar = false; }
+    public void ignorePersistFalse() {
+        ignorePersistVar = false;
+    }
 
     // Visitor design pattern
 
     // visit is called repeatedly with a vistor and I fill in values
     // into CollectionSetVisitor
 
-    //public XmpCollectionResource getResource() { return collectionResource; }
+    // public XmpCollectionResource getResource() { return collectionResource; }
 
     /** {@inheritDoc} */
     @Override
-    public void visit(CollectionSetVisitor visitor)
-    {
+    public void visit(CollectionSetVisitor visitor) {
         LOG.debug("XmpCollectionSet: visit starting for set {}", agent);
 
         visitor.visitCollectionSet(this);
@@ -194,7 +242,7 @@ public class XmpCollectionSet implements CollectionSet {
         // this will change
         // collectionResource.visit(visitor);
 
-        for (XmpCollectionResource resource: getResources()) {
+        for (XmpCollectionResource resource : getResources()) {
             resource.visit(visitor);
         }
 
@@ -202,11 +250,12 @@ public class XmpCollectionSet implements CollectionSet {
     }
 
     @Override
-	public Date getCollectionTimestamp() {
-		return m_timestamp;
-	}
+    public Date getCollectionTimestamp() {
+        return m_timestamp;
+    }
+
     public void setCollectionTimestamp(Date timestamp) {
-    	this.m_timestamp = timestamp;
-	}
+        this.m_timestamp = timestamp;
+    }
 
 } /* class XmpCollectionSet */

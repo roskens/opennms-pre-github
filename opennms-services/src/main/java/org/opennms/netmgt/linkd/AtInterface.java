@@ -33,27 +33,33 @@ import java.net.InetAddress;
 public class AtInterface {
 
     Integer m_nodeid;
+
     Integer m_ifIndex;
+
     public Integer getIfIndex() {
         return m_ifIndex;
     }
+
     public void setIfIndex(Integer ifIndex) {
         m_ifIndex = ifIndex;
     }
 
-
-
     String m_macAddress;
+
     InetAddress m_ipAddress;
+
     public Integer getNodeid() {
         return m_nodeid;
     }
+
     public void setNodeid(Integer nodeid) {
         m_nodeid = nodeid;
     }
+
     public String getMacAddress() {
         return m_macAddress;
     }
+
     public void setMacAddress(String macAddress) {
         m_macAddress = macAddress;
     }
@@ -61,16 +67,21 @@ public class AtInterface {
     public InetAddress getIpAddress() {
         return m_ipAddress;
     }
+
     public void setIpAddress(InetAddress ipAddress) {
         m_ipAddress = ipAddress;
     }
 
     public boolean equals(AtInterface a) {
-    	if (a.getNodeid() != m_nodeid) return false;
-    	if (!a.getIpAddress().equals(m_ipAddress)) return false;
-    	if (!a.getMacAddress().equals(m_macAddress)) return false;
-    	if (!a.getIfIndex().equals(m_ifIndex)) return false;
-    	return true;
+        if (a.getNodeid() != m_nodeid)
+            return false;
+        if (!a.getIpAddress().equals(m_ipAddress))
+            return false;
+        if (!a.getMacAddress().equals(m_macAddress))
+            return false;
+        if (!a.getIfIndex().equals(m_ifIndex))
+            return false;
+        return true;
     }
 
     public AtInterface(Integer nodeid, String macAddress, InetAddress ipAddress) {
@@ -79,6 +90,5 @@ public class AtInterface {
         m_macAddress = macAddress;
         m_ipAddress = ipAddress;
     }
-
 
 }

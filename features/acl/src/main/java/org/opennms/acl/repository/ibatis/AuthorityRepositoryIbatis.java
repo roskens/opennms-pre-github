@@ -64,7 +64,9 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapExecutor;
 
 /**
- * <p>AuthorityRepositoryIbatis class.</p>
+ * <p>
+ * AuthorityRepositoryIbatis class.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -76,7 +78,8 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
     /** {@inheritDoc} */
     @Autowired
     @Override
-    public void setSqlMapClient(@Qualifier("sqlMapClient") SqlMapClient sqlMapClient) {
+    public void setSqlMapClient(@Qualifier("sqlMapClient")
+    SqlMapClient sqlMapClient) {
         super.setSqlMapClient(sqlMapClient);
     }
 
@@ -87,7 +90,9 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
     }
 
     /**
-     * <p>getAuthorities</p>
+     * <p>
+     * getAuthorities
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -112,7 +117,9 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
     }
 
     /**
-     * <p>getFreeAuthoritiesForGroup</p>
+     * <p>
+     * getFreeAuthoritiesForGroup
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -159,8 +166,7 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
                     ris = executor.executeBatch();
                 } catch (SQLException e) {
                     Logger log = LoggerFactory.getLogger(this.getClass());
-                    StringBuffer sb = new StringBuffer("saveAuthorities failed \n").append("num items batch:").append(authorities.size()).append("\n").append(" groupId:").append(groupId).append("\n")
-                            .append(e.getNextException());
+                    StringBuffer sb = new StringBuffer("saveAuthorities failed \n").append("num items batch:").append(authorities.size()).append("\n").append(" groupId:").append(groupId).append("\n").append(e.getNextException());
                     log.error(sb.toString());
                 }
                 return ris > 0;
@@ -189,8 +195,7 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
                     ris = executor.executeBatch();
                 } catch (SQLException e) {
                     Logger log = LoggerFactory.getLogger(this.getClass());
-                    StringBuffer sb = new StringBuffer("saveItems failed \n").append("num items batch:").append(items.size()).append("\n").append(" idUser:").append(authority).append("\n").append(
-                            e.getNextException());
+                    StringBuffer sb = new StringBuffer("saveItems failed \n").append("num items batch:").append(items.size()).append("\n").append(" idUser:").append(authority).append("\n").append(e.getNextException());
                     log.error(sb.toString());
                 }
                 return ris > 0;
@@ -199,7 +204,9 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
     }
 
     /**
-     * <p>getAuthoritiesNumber</p>
+     * <p>
+     * getAuthoritiesNumber
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */

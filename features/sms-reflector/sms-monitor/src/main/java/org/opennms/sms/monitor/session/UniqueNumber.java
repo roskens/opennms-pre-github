@@ -33,58 +33,69 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>UniqueNumber class.</p>
+ * <p>
+ * UniqueNumber class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class UniqueNumber extends BaseSessionVariableGenerator {
-	private int min = 0;
-	private int max = 1000;
-	private static Set<Integer> m_used = new HashSet<Integer>();
+    private int min = 0;
 
-	/**
-	 * <p>Constructor for UniqueNumber.</p>
-	 */
-	public UniqueNumber() {
-		super();
-	}
+    private int max = 1000;
 
-	/**
-	 * <p>Constructor for UniqueNumber.</p>
-	 *
-	 * @param parameters a {@link java.util.Map} object.
-	 */
-	public UniqueNumber(Map<String,String> parameters) {
-		super(parameters);
+    private static Set<Integer> m_used = new HashSet<Integer>();
 
-		if (parameters.containsKey("min")) {
-			min = Integer.valueOf(parameters.get("min"));
-		}
-		if (parameters.containsKey("max")) {
-			max = Integer.valueOf(parameters.get("max"));
-		}
-}
+    /**
+     * <p>
+     * Constructor for UniqueNumber.
+     * </p>
+     */
+    public UniqueNumber() {
+        super();
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void checkIn(String variable) {
-		m_used.remove(Integer.valueOf(variable));
-	}
+    /**
+     * <p>
+     * Constructor for UniqueNumber.
+     * </p>
+     *
+     * @param parameters
+     *            a {@link java.util.Map} object.
+     */
+    public UniqueNumber(Map<String, String> parameters) {
+        super(parameters);
 
-	/**
-	 * <p>checkOut</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String checkOut() {
-		for (int i = min; i < max; i++) {
-			if (!m_used.contains(i)) {
-				m_used.add(i);
-				return String.valueOf(i);
-			}
-		}
-		return null;
-	}
+        if (parameters.containsKey("min")) {
+            min = Integer.valueOf(parameters.get("min"));
+        }
+        if (parameters.containsKey("max")) {
+            max = Integer.valueOf(parameters.get("max"));
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void checkIn(String variable) {
+        m_used.remove(Integer.valueOf(variable));
+    }
+
+    /**
+     * <p>
+     * checkOut
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String checkOut() {
+        for (int i = min; i < max; i++) {
+            if (!m_used.contains(i)) {
+                m_used.add(i);
+                return String.valueOf(i);
+            }
+        }
+        return null;
+    }
 }

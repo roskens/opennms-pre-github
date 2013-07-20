@@ -35,61 +35,64 @@ import org.opennms.netmgt.config.discovery.DiscoveryConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 class GeneralSettingsLoader {
-	private static final Logger LOG = LoggerFactory.getLogger(GeneralSettingsLoader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GeneralSettingsLoader.class);
 
-	/** Constant <code>log</code> */
+    /** Constant <code>log</code> */
 
-	/**
-	 * <p>load</p>
-	 *
-	 * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-	 * @param config a {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration} object.
-	 * @return a {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration} object.
-	 */
-	public static DiscoveryConfiguration load(HttpServletRequest request, DiscoveryConfiguration config){
-		String initSTStr = request.getParameter("initialsleeptime");
-		String restartSTStr = request.getParameter("restartsleeptime");
-		String threadsStr = request.getParameter("threads");
-		String retriesStr = request.getParameter("retries");
-		String timeoutStr = request.getParameter("timeout");
+    /**
+     * <p>
+     * load
+     * </p>
+     *
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param config
+     *            a
+     *            {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration}
+     *         object.
+     */
+    public static DiscoveryConfiguration load(HttpServletRequest request, DiscoveryConfiguration config) {
+        String initSTStr = request.getParameter("initialsleeptime");
+        String restartSTStr = request.getParameter("restartsleeptime");
+        String threadsStr = request.getParameter("threads");
+        String retriesStr = request.getParameter("retries");
+        String timeoutStr = request.getParameter("timeout");
 
-		LOG.debug("initialsleeptime: {}", initSTStr);
-		LOG.debug("restartsleeptime: {}", restartSTStr);
-		LOG.debug("threads: {}", threadsStr);
-		LOG.debug("retries: {}", retriesStr);
-		LOG.debug("timeout: {}", timeoutStr);
+        LOG.debug("initialsleeptime: {}", initSTStr);
+        LOG.debug("restartsleeptime: {}", restartSTStr);
+        LOG.debug("threads: {}", threadsStr);
+        LOG.debug("retries: {}", retriesStr);
+        LOG.debug("timeout: {}", timeoutStr);
 
+        long initSt = WebSecurityUtils.safeParseLong(initSTStr);
+        long restartSt = WebSecurityUtils.safeParseLong(restartSTStr);
 
-		long initSt = WebSecurityUtils.safeParseLong(initSTStr);
-		long restartSt = WebSecurityUtils.safeParseLong(restartSTStr);
+        config.setInitialSleepTime(initSt);
+        config.setRestartSleepTime(restartSt);
+        // set the general settings loaded into current configuration
+        if (threadsStr != null) {
+            config.setThreads(WebSecurityUtils.safeParseInt(threadsStr));
+        }
 
-		config.setInitialSleepTime(initSt);
-		config.setRestartSleepTime(restartSt);
-		//set the general settings loaded into current configuration
-		if(threadsStr!=null){
-			config.setThreads(WebSecurityUtils.safeParseInt(threadsStr));
-		}
+        if (retriesStr != null && (!retriesStr.trim().equals("") && !retriesStr.trim().equals("3"))) {
+            config.setRetries(WebSecurityUtils.safeParseInt(retriesStr));
+        } else {
+            config.deleteRetries();
+        }
 
+        if (timeoutStr != null && (!timeoutStr.trim().equals("") && !timeoutStr.trim().equals("800"))) {
+            config.setTimeout(Long.valueOf(timeoutStr).longValue());
+        } else {
+            config.deleteTimeout();
+        }
 
-		if(retriesStr!=null && (!retriesStr.trim().equals("") && !retriesStr.trim().equals("3"))){
-				config.setRetries(WebSecurityUtils.safeParseInt(retriesStr));
-		}else{
-			config.deleteRetries();
-		}
+        LOG.debug("General settings uploaded.");
 
-		if(timeoutStr!=null && (!timeoutStr.trim().equals("") && !timeoutStr.trim().equals("800"))){
-			config.setTimeout(Long.valueOf(timeoutStr).longValue());
-		}else{
-			config.deleteTimeout();
-		}
-
-
-		LOG.debug("General settings uploaded.");
-
-		return config;
-	}
+        return config;
+    }
 
 }

@@ -80,17 +80,25 @@ public abstract class AbstractSpringJerseyRestTestCase {
     private static Logger s_log = LoggerFactory.getLogger(AbstractSpringJerseyRestTestCase.class);
 
     static String GET = "GET";
+
     static String POST = "POST";
+
     static String DELETE = "DELETE";
+
     static String PUT = "PUT";
 
     String contextPath = "/opennms/rest";
 
     private ServletContainer dispatcher;
+
     private MockServletConfig servletConfig;
+
     private MockServletContext servletContext;
+
     private ContextLoaderListener contextListener;
+
     private Filter filter;
+
     private WebApplicationContext m_webAppContext;
 
     @Before
@@ -99,7 +107,8 @@ public abstract class AbstractSpringJerseyRestTestCase {
 
         setServletContext(new MockServletContext("file:src/main/webapp"));
 
-        getServletContext().addInitParameter("contextConfigLocation", "file:src/main/resources/META-INF/opennms/component-service.xml");
+        getServletContext().addInitParameter("contextConfigLocation",
+                                             "file:src/main/resources/META-INF/opennms/component-service.xml");
 
         getServletContext().addInitParameter("parentContextKey", "testDaoContext");
 
@@ -164,10 +173,12 @@ public abstract class AbstractSpringJerseyRestTestCase {
 
     }
 
-    protected void dispatch(final MockHttpServletRequest request, final MockHttpServletResponse response) throws Exception {
+    protected void dispatch(final MockHttpServletRequest request, final MockHttpServletResponse response)
+            throws Exception {
         final FilterChain filterChain = new FilterChain() {
             @Override
-            public void doFilter(final ServletRequest filterRequest, final ServletResponse filterResponse) throws IOException, ServletException {
+            public void doFilter(final ServletRequest filterRequest, final ServletResponse filterResponse)
+                    throws IOException, ServletException {
                 getDispatcher().service(filterRequest, filterResponse);
             }
         };
@@ -183,7 +194,8 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     protected MockHttpServletRequest createRequest(final String requestType, final String urlPath) {
-        final MockHttpServletRequest request = new MockHttpServletRequest(getServletContext(), requestType, contextPath + urlPath) {
+        final MockHttpServletRequest request = new MockHttpServletRequest(getServletContext(), requestType, contextPath
+                + urlPath) {
 
             @Override
             public void setContentType(final String contentType) {
@@ -216,7 +228,8 @@ public abstract class AbstractSpringJerseyRestTestCase {
         sendData(requestType, contentType, url, data, 200);
     }
 
-    protected void sendData(String requestType, String contentType, String url, String data, int statusCode) throws Exception {
+    protected void sendData(String requestType, String contentType, String url, String data, int statusCode)
+            throws Exception {
         MockHttpServletRequest request = createRequest(requestType, url);
         request.setContentType(contentType);
 
@@ -264,7 +277,8 @@ public abstract class AbstractSpringJerseyRestTestCase {
         return retVal;
     }
 
-    protected String sendRequest(String requestType, String url, Map<?, ?> parameters, int expectedStatus) throws Exception {
+    protected String sendRequest(String requestType, String url, Map<?, ?> parameters, int expectedStatus)
+            throws Exception {
         final MockHttpServletRequest request = createRequest(requestType, url);
         request.setParameters(parameters);
         request.setQueryString(getQueryString(parameters));
@@ -289,7 +303,8 @@ public abstract class AbstractSpringJerseyRestTestCase {
                     }
 
                     for (final String valueEntry : valueEntries) {
-                        sb.append(URLEncoder.encode((String) key, "UTF-8")).append("=").append(URLEncoder.encode((String) valueEntry, "UTF-8")).append("&");
+                        sb.append(URLEncoder.encode((String) key, "UTF-8")).append("=").append(URLEncoder.encode((String) valueEntry,
+                                                                                                                 "UTF-8")).append("&");
                     }
                 } else {
                     s_log.warn("key was not a string! ({})", key);
@@ -307,7 +322,8 @@ public abstract class AbstractSpringJerseyRestTestCase {
         return sendRequest(request, expectedStatus);
     }
 
-    protected String sendRequest(MockHttpServletRequest request, int spectedStatus) throws Exception, UnsupportedEncodingException {
+    protected String sendRequest(MockHttpServletRequest request, int spectedStatus) throws Exception,
+            UnsupportedEncodingException {
         MockHttpServletResponse response = createResponse();
         dispatch(request, response);
         String xml = response.getContentAsString();
@@ -318,7 +334,8 @@ public abstract class AbstractSpringJerseyRestTestCase {
         return xml;
     }
 
-    protected <T> T getXmlObject(JAXBContext context, String url, int expectedStatus, Class<T> expectedClass) throws Exception {
+    protected <T> T getXmlObject(JAXBContext context, String url, int expectedStatus, Class<T> expectedClass)
+            throws Exception {
         MockHttpServletRequest request = createRequest(GET, url);
         MockHttpServletResponse response = createResponse();
         dispatch(request, response);
@@ -353,29 +370,36 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     protected void createNode() throws Exception {
-        String node = "<node label=\"TestMachine\">" + "<labelSource>H</labelSource>" + "<sysContact>The Owner</sysContact>" + "<sysDescription>"
-                + "Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0: Mon Jun  9 19:30:53 PDT 2008; root:xnu-1228.5.20~1/RELEASE_I386 i386" + "</sysDescription>"
-                + "<sysLocation>DevJam</sysLocation>" + "<sysName>TestMachine</sysName>" + "<sysObjectId>.1.3.6.1.4.1.8072.3.2.255</sysObjectId>" + "<type>A</type>" + "</node>";
+        String node = "<node label=\"TestMachine\">"
+                + "<labelSource>H</labelSource>"
+                + "<sysContact>The Owner</sysContact>"
+                + "<sysDescription>"
+                + "Darwin TestMachine 9.4.0 Darwin Kernel Version 9.4.0: Mon Jun  9 19:30:53 PDT 2008; root:xnu-1228.5.20~1/RELEASE_I386 i386"
+                + "</sysDescription>" + "<sysLocation>DevJam</sysLocation>" + "<sysName>TestMachine</sysName>"
+                + "<sysObjectId>.1.3.6.1.4.1.8072.3.2.255</sysObjectId>" + "<type>A</type>" + "</node>";
         sendPost("/nodes", node);
     }
 
     protected void createIpInterface() throws Exception {
         createNode();
-        String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" + "<ipAddress>10.10.10.10</ipAddress>" + "<hostName>TestMachine</hostName>" + "<ipStatus>1</ipStatus>"
-                + "</ipInterface>";
+        String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" + "<ipAddress>10.10.10.10</ipAddress>"
+                + "<hostName>TestMachine</hostName>" + "<ipStatus>1</ipStatus>" + "</ipInterface>";
         sendPost("/nodes/1/ipinterfaces", ipInterface);
     }
 
     protected void createSnmpInterface() throws Exception {
         createIpInterface();
-        String snmpInterface = "<snmpInterface ifIndex=\"6\">" + "<ifAdminStatus>1</ifAdminStatus>" + "<ifDescr>en1</ifDescr>" + "<ifName>en1</ifName>" + "<ifOperStatus>1</ifOperStatus>"
-                + "<ifSpeed>10000000</ifSpeed>" + "<ifType>6</ifType>" + "<netMask>255.255.255.0</netMask>" + "<physAddr>001e5271136d</physAddr>" + "</snmpInterface>";
+        String snmpInterface = "<snmpInterface ifIndex=\"6\">" + "<ifAdminStatus>1</ifAdminStatus>"
+                + "<ifDescr>en1</ifDescr>" + "<ifName>en1</ifName>" + "<ifOperStatus>1</ifOperStatus>"
+                + "<ifSpeed>10000000</ifSpeed>" + "<ifType>6</ifType>" + "<netMask>255.255.255.0</netMask>"
+                + "<physAddr>001e5271136d</physAddr>" + "</snmpInterface>";
         sendPost("/nodes/1/snmpinterfaces", snmpInterface);
     }
 
     protected void createService() throws Exception {
         createIpInterface();
-        String service = "<service source=\"P\" status=\"N\">" + "<notify>Y</notify>" + "<serviceType>" + "<name>ICMP</name>" + "</serviceType>" + "</service>";
+        String service = "<service source=\"P\" status=\"N\">" + "<notify>Y</notify>" + "<serviceType>"
+                + "<name>ICMP</name>" + "</serviceType>" + "</service>";
         sendPost("/nodes/1/ipinterfaces/10.10.10.10/services", service);
     }
 

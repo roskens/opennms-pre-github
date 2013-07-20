@@ -28,13 +28,14 @@ public class IconCreateCallback extends JSObjectWrapper {
 
         int severity = 0;
         String severityLabel = "Normal";
-        for (final NodeMarker marker : (List<NodeMarker>)cluster.getAllChildMarkers()) {
+        for (final NodeMarker marker : (List<NodeMarker>) cluster.getAllChildMarkers()) {
             final int nodeSeverity = marker.getSeverity();
             if (nodeSeverity > severity) {
                 severity = nodeSeverity;
                 severityLabel = marker.getSeverityLabel();
             }
-            if (severity == 7) break;
+            if (severity == 7)
+                break;
         }
 
         options.setClassName("marker-cluster marker-cluster-" + severityLabel);
@@ -43,9 +44,9 @@ public class IconCreateCallback extends JSObjectWrapper {
     }
 
     public native final JSObject getCallbackFunction() /*-{
-        var self = this;
-        return function(cluster) {
-            return self.@org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.IconCreateCallback::createIcon(Lorg/opennms/features/vaadin/nodemaps/internal/gwt/client/ui/MarkerCluster;)(cluster);
-        };
-    }-*/;
+                                                       var self = this;
+                                                       return function(cluster) {
+                                                       return self.@org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.IconCreateCallback::createIcon(Lorg/opennms/features/vaadin/nodemaps/internal/gwt/client/ui/MarkerCluster;)(cluster);
+                                                       };
+                                                       }-*/;
 }

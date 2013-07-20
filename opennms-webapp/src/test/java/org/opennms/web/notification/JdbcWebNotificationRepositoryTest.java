@@ -53,14 +53,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/jdbcWebRepositoryTestContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/jdbcWebRepositoryTestContext.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class JdbcWebNotificationRepositoryTest implements InitializingBean {
@@ -77,18 +73,18 @@ public class JdbcWebNotificationRepositoryTest implements InitializingBean {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
 
     }
 
     @Test
     @Transactional
-    public void testNotificationCount(){
+    public void testNotificationCount() {
         List<Filter> filterList = new ArrayList<Filter>();
         Filter[] filters = filterList.toArray(new Filter[0]);
         AcknowledgeType ackType = AcknowledgeType.UNACKNOWLEDGED;
@@ -105,24 +101,30 @@ public class JdbcWebNotificationRepositoryTest implements InitializingBean {
         AcknowledgeType ackType = AcknowledgeType.UNACKNOWLEDGED;
         SortStyle sortStyle = SortStyle.DEFAULT_SORT_STYLE;
         Filter[] filters = filterList.toArray(new Filter[0]);
-        Notification[] notices = m_notificationRepo.getMatchingNotifications(new NotificationCriteria(filters, sortStyle, ackType, limit, limit * multiple));
+        Notification[] notices = m_notificationRepo.getMatchingNotifications(new NotificationCriteria(filters,
+                                                                                                      sortStyle,
+                                                                                                      ackType, limit,
+                                                                                                      limit * multiple));
         assertEquals(1, notices.length);
         assertEquals("This is a test notification", notices[0].getTextMessage());
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testGetNotification(){
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
+    public void testGetNotification() {
         Notification notice = m_notificationRepo.getNotification(1);
         assertNotNull(notice);
     }
 
     @Test
     @Transactional
-    public void testAcknowledgeNotification(){
+    public void testAcknowledgeNotification() {
         m_notificationRepo.acknowledgeMatchingNotification("TestUser", new Date(), new NotificationCriteria());
 
-        int notifCount = m_notificationRepo.countMatchingNotifications(new NotificationCriteria(new AcknowledgedByFilter("TestUser")));
+        int notifCount = m_notificationRepo.countMatchingNotifications(new NotificationCriteria(
+                                                                                                new AcknowledgedByFilter(
+                                                                                                                         "TestUser")));
         assertEquals(1, notifCount);
     }
 

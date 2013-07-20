@@ -53,11 +53,13 @@ public class OutageBoxController extends AbstractController implements Initializ
     public static final int ROWS = 12;
 
     private WebOutageRepository m_webOutageRepository;
+
     private String m_successView;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         int rows = Integer.getInteger("opennms.nodesWithOutages.count", ROWS);
         final String parm = request.getParameter("outageCount");
         if (parm != null) {
@@ -82,25 +84,33 @@ public class OutageBoxController extends AbstractController implements Initializ
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>setWebOutageRepository</p>
+     * <p>
+     * setWebOutageRepository
+     * </p>
      *
-     * @param webOutageRepository a {@link org.opennms.web.outage.WebOutageRepository} object.
+     * @param webOutageRepository
+     *            a {@link org.opennms.web.outage.WebOutageRepository} object.
      */
     public void setWebOutageRepository(WebOutageRepository webOutageRepository) {
         m_webOutageRepository = webOutageRepository;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {

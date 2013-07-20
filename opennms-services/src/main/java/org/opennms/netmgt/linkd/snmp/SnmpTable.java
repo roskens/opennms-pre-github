@@ -42,9 +42,10 @@ import org.opennms.netmgt.snmp.SnmpResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>Abstract SnmpTable class.</p>
+ * <p>
+ * Abstract SnmpTable class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,16 +54,25 @@ public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker im
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTable.class);
 
     private final Map<SnmpInstId, T> m_results = new TreeMap<SnmpInstId, T>();
+
     private InetAddress m_address;
+
     private String m_tableName;
 
     /**
-     * <p>Constructor for SnmpTable.</p>
+     * <p>
+     * Constructor for SnmpTable.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param tableName a {@link java.lang.String} object.
-     * @param columns an array of {@link org.opennms.netmgt.linkd.snmp.NamedSnmpVar} objects.
-     * @param <T> a T object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param tableName
+     *            a {@link java.lang.String} object.
+     * @param columns
+     *            an array of {@link org.opennms.netmgt.linkd.snmp.NamedSnmpVar}
+     *            objects.
+     * @param <T>
+     *            a T object.
      */
     protected SnmpTable(InetAddress address, String tableName, NamedSnmpVar[] columns) {
         super(NamedSnmpVar.getTrackersFor(columns));
@@ -82,17 +92,24 @@ public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker im
     }
 
     /**
-     * <p>createTableEntry</p>
+     * <p>
+     * createTableEntry
+     * </p>
      *
-     * @param base a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
-     * @param inst a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
-     * @param val a {@link java.lang.Object} object.
+     * @param base
+     *            a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
+     * @param inst
+     *            a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
+     * @param val
+     *            a {@link java.lang.Object} object.
      * @return a T object.
      */
     protected abstract T createTableEntry(SnmpObjId base, SnmpInstId inst, Object val);
 
     /**
-     * <p>getEntries</p>
+     * <p>
+     * getEntries
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -101,7 +118,9 @@ public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker im
     }
 
     /**
-     * <p>iterator</p>
+     * <p>
+     * iterator
+     * </p>
      *
      * @return a {@link java.util.Iterator} object.
      */

@@ -43,19 +43,13 @@ public class ICMPPacket {
     public static final int CHECKSUM_INDEX = 2;
 
     public enum Type {
-        EchoReply(0),
-        DestUnreachable(3),
-        SourceQuench(4),
-        Redirect(5),
-        EchoRequest(8),
-        TimeExceeded(11),
-        Traceroute(30),
+        EchoReply(0), DestUnreachable(3), SourceQuench(4), Redirect(5), EchoRequest(8), TimeExceeded(11), Traceroute(30),
 
         // this is used to represent a type code that we have not handled
         Other(-1);
 
-
         private int m_code;
+
         private Type(int code) {
             m_code = code;
         }
@@ -65,7 +59,7 @@ public class ICMPPacket {
         }
 
         public static Type toType(int code) {
-            for(Type p : Type.values()) {
+            for (Type p : Type.values()) {
                 if (code == p.getCode()) {
                     return p;
                 }
@@ -87,7 +81,7 @@ public class ICMPPacket {
 
     public ICMPPacket(int size) {
         this(ByteBuffer.allocate(size));
-        //this(ByteBuffer.allocateDirect(size));
+        // this(ByteBuffer.allocateDirect(size));
     }
 
     public Type getType() {
@@ -95,7 +89,7 @@ public class ICMPPacket {
     }
 
     public void setType(Type t) {
-        m_packetData.put(0, ((byte)(t.getCode())));
+        m_packetData.put(0, ((byte) (t.getCode())));
     }
 
     public int getCode() {
@@ -103,7 +97,7 @@ public class ICMPPacket {
     }
 
     public void setCode(int code) {
-        m_packetData.put(1, ((byte)code));
+        m_packetData.put(1, ((byte) code));
     }
 
     public int getChecksum() {
@@ -119,7 +113,7 @@ public class ICMPPacket {
         int sum = 0;
         int count = m_packetData.remaining();
         int index = 0;
-        while(count > 1) {
+        while (count > 1) {
             if (index != CHECKSUM_INDEX) {
                 sum += getUnsignedShort(index);
             }
@@ -129,7 +123,7 @@ public class ICMPPacket {
 
         if (count > 0) {
 
-            sum += makeUnsignedShort(m_packetData.get((m_packetData.remaining()-1)), (byte)0);
+            sum += makeUnsignedShort(m_packetData.get((m_packetData.remaining() - 1)), (byte) 0);
         }
 
         int sumLo = sum & 0xffff;
@@ -147,8 +141,9 @@ public class ICMPPacket {
     }
 
     /**
-     * @param index The byte offset into the packet where the bytes will
-     * be inserted
+     * @param index
+     *            The byte offset into the packet where the bytes will
+     *            be inserted
      */
     public void setBytes(int index, byte[] b) {
         ByteBuffer payload = m_packetData;
@@ -162,25 +157,27 @@ public class ICMPPacket {
     }
 
     public int makeUnsignedShort(byte b1, byte b0) {
-        return 0xffff & (((b1 & 0xff) << 8) |
-                         ((b0 & 0xff) << 0));
+        return 0xffff & (((b1 & 0xff) << 8) | ((b0 & 0xff) << 0));
     }
 
     /**
-     * @param index The byte offset into the packet where the value
-     * can be found
+     * @param index
+     *            The byte offset into the packet where the value
+     *            can be found
      */
     public int getUnsignedShort(int index) {
         return m_packetData.getShort(index) & 0xffff;
     }
 
     /**
-     * @param index The byte offset into the packet where the value
-     * can be found
-     * @param us Unsigned short value to insert into the buffer
+     * @param index
+     *            The byte offset into the packet where the value
+     *            can be found
+     * @param us
+     *            Unsigned short value to insert into the buffer
      */
     public void setUnsignedShort(int index, int us) {
-        m_packetData.putShort(index, ((short)(us & 0xffff)));
+        m_packetData.putShort(index, ((short) (us & 0xffff)));
     }
 
     public NativeDatagramPacket toDatagramPacket(InetAddress destinationAddress) {

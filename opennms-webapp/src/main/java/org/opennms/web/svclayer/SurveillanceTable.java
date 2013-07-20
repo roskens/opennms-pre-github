@@ -39,7 +39,6 @@ import java.util.Set;
 import org.opennms.netmgt.model.OnmsNode;
 
 /**
- *
  * This class manages a table of AggregateStatus values.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -57,15 +56,23 @@ import org.opennms.netmgt.model.OnmsNode;
 public class SurveillanceTable {
 
     String m_label = null;
+
     AggregateStatus[][] m_statusTable = null;
+
     Set<OnmsNode>[] m_rowNodes = null;
+
     Set<OnmsNode>[] m_columnNodes = null;
+
     String[] m_rowHeaders = null;
+
     String[] m_columnHeaders = null;
-	private SimpleWebTable m_webTable;
+
+    private SimpleWebTable m_webTable;
 
     /**
-     * <p>Constructor for SurveillanceTable.</p>
+     * <p>
+     * Constructor for SurveillanceTable.
+     * </p>
      */
     public SurveillanceTable() {
 
@@ -73,10 +80,14 @@ public class SurveillanceTable {
 
     // FIXME: Can we get rid of the the @SuppressWarnings?
     /**
-     * <p>Constructor for SurveillanceTable.</p>
+     * <p>
+     * Constructor for SurveillanceTable.
+     * </p>
      *
-     * @param rows a int.
-     * @param columns a int.
+     * @param rows
+     *            a int.
+     * @param columns
+     *            a int.
      */
     @SuppressWarnings("unchecked")
     public SurveillanceTable(int rows, int columns) {
@@ -88,39 +99,53 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>setWebTable</p>
+     * <p>
+     * setWebTable
+     * </p>
      *
-     * @param webTable a {@link org.opennms.web.svclayer.SimpleWebTable} object.
+     * @param webTable
+     *            a {@link org.opennms.web.svclayer.SimpleWebTable} object.
      */
     public void setWebTable(SimpleWebTable webTable) {
-    	m_webTable = webTable;
+        m_webTable = webTable;
     }
 
     /**
-     * <p>getWebTable</p>
+     * <p>
+     * getWebTable
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.SimpleWebTable} object.
      */
     public SimpleWebTable getWebTable() {
-    	return m_webTable;
+        return m_webTable;
     }
 
     /**
-     * <p>setStatus</p>
+     * <p>
+     * setStatus
+     * </p>
      *
-     * @param row a int.
-     * @param col a int.
-     * @param status a {@link org.opennms.web.svclayer.AggregateStatus} object.
+     * @param row
+     *            a int.
+     * @param col
+     *            a int.
+     * @param status
+     *            a {@link org.opennms.web.svclayer.AggregateStatus} object.
      */
     public void setStatus(int row, int col, AggregateStatus status) {
         m_statusTable[row][col] = status;
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
-     * @param row a int.
-     * @param col a int.
+     * @param row
+     *            a int.
+     * @param col
+     *            a int.
      * @return a {@link org.opennms.web.svclayer.AggregateStatus} object.
      */
     public AggregateStatus getStatus(int row, int col) {
@@ -128,7 +153,9 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>getRowCount</p>
+     * <p>
+     * getRowCount
+     * </p>
      *
      * @return a int.
      */
@@ -137,7 +164,9 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>getColumnCount</p>
+     * <p>
+     * getColumnCount
+     * </p>
      *
      * @return a int.
      */
@@ -146,10 +175,14 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>getStatusRow</p>
+     * <p>
+     * getStatusRow
+     * </p>
      *
-     * @param row a int.
-     * @return an array of {@link org.opennms.web.svclayer.AggregateStatus} objects.
+     * @param row
+     *            a int.
+     * @return an array of {@link org.opennms.web.svclayer.AggregateStatus}
+     *         objects.
      */
     public AggregateStatus[] getStatusRow(int row) {
         return m_statusTable[row];
@@ -157,7 +190,7 @@ public class SurveillanceTable {
 
     /**
      * This method returns an ordered list of Aggregate Status rows
-     * and columns the internal table.  Usefull when needing to
+     * and columns the internal table. Usefull when needing to
      * work with collections and not arrays.
      *
      * @return List<AggregateStatus[]>
@@ -191,7 +224,9 @@ public class SurveillanceTable {
      * This method returns on ordered list of Aggregate Status columns
      * based on the array argument.
      *
-     * @param row an array of {@link org.opennms.web.svclayer.AggregateStatus} objects.
+     * @param row
+     *            an array of {@link org.opennms.web.svclayer.AggregateStatus}
+     *            objects.
      * @return List<AggregateStatus> orderedRow
      */
     public List<AggregateStatus> getColumnOrderedRow(AggregateStatus[] row) {
@@ -210,13 +245,15 @@ public class SurveillanceTable {
      * This method returns on ordered list of Aggregate Status columns
      * based on the row specified from the status internal table.
      *
-     * @param row a int.
+     * @param row
+     *            a int.
      * @return List<AggregateStatus> orderedRow
      */
     public List<AggregateStatus> getColumnOrderedRow(int row) {
         List<AggregateStatus> orderedRow = new LinkedList<AggregateStatus>();
         /*
-         * we received a row index into the status table to retrieve an array (1 row)
+         * we received a row index into the status table to retrieve an array (1
+         * row)
          * of aggregate status columns, loop over
          * the array in order and add each status to the list.
          */
@@ -227,9 +264,12 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>getRowHeader</p>
+     * <p>
+     * getRowHeader
+     * </p>
      *
-     * @param row a int.
+     * @param row
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getRowHeader(int row) {
@@ -237,17 +277,23 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>setRowHeader</p>
+     * <p>
+     * setRowHeader
+     * </p>
      *
-     * @param row a int.
-     * @param header a {@link java.lang.String} object.
+     * @param row
+     *            a int.
+     * @param header
+     *            a {@link java.lang.String} object.
      */
     public void setRowHeader(int row, String header) {
         m_rowHeaders[row] = header;
     }
 
     /**
-     * <p>getRowHeaders</p>
+     * <p>
+     * getRowHeaders
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -256,7 +302,9 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>getRowHeaderList</p>
+     * <p>
+     * getRowHeaderList
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -265,17 +313,23 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>setColumnHeader</p>
+     * <p>
+     * setColumnHeader
+     * </p>
      *
-     * @param col a int.
-     * @param header a {@link java.lang.String} object.
+     * @param col
+     *            a int.
+     * @param header
+     *            a {@link java.lang.String} object.
      */
     public void setColumnHeader(int col, String header) {
         m_columnHeaders[col] = header;
     }
 
     /**
-     * <p>getColumnHeaders</p>
+     * <p>
+     * getColumnHeaders
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -284,7 +338,9 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>getColumnHeaderList</p>
+     * <p>
+     * getColumnHeaderList
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -293,7 +349,9 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -302,18 +360,24 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>setLabel</p>
+     * <p>
+     * setLabel
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public void setLabel(String label) {
         m_label = label;
     }
 
     /**
-     * <p>getStatusTable</p>
+     * <p>
+     * getStatusTable
+     * </p>
      *
-     * @return an array of {@link org.opennms.web.svclayer.AggregateStatus} objects.
+     * @return an array of {@link org.opennms.web.svclayer.AggregateStatus}
+     *         objects.
      */
     public AggregateStatus[][] getStatusTable() {
         return m_statusTable;
@@ -328,7 +392,9 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>getRowNodes</p>
+     * <p>
+     * getRowNodes
+     * </p>
      *
      * @return an array of {@link java.util.Set} objects.
      */
@@ -337,25 +403,33 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>setRowNodes</p>
+     * <p>
+     * setRowNodes
+     * </p>
      *
-     * @param rowNodes an array of {@link java.util.Set} objects.
+     * @param rowNodes
+     *            an array of {@link java.util.Set} objects.
      */
     public void setRowNodes(Set<OnmsNode>[] rowNodes) {
         m_rowNodes = rowNodes;
     }
 
     /**
-     * <p>setRowHeaders</p>
+     * <p>
+     * setRowHeaders
+     * </p>
      *
-     * @param rowHeaders an array of {@link java.lang.String} objects.
+     * @param rowHeaders
+     *            an array of {@link java.lang.String} objects.
      */
     public void setRowHeaders(String[] rowHeaders) {
         m_rowHeaders = rowHeaders;
     }
 
     /**
-     * <p>getColumnNodes</p>
+     * <p>
+     * getColumnNodes
+     * </p>
      *
      * @return an array of {@link java.util.Set} objects.
      */
@@ -364,36 +438,49 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>setColumnNodes</p>
+     * <p>
+     * setColumnNodes
+     * </p>
      *
-     * @param columnNodes an array of {@link java.util.Set} objects.
+     * @param columnNodes
+     *            an array of {@link java.util.Set} objects.
      */
     public void setColumnNodes(Set<OnmsNode>[] columnNodes) {
         m_columnNodes = columnNodes;
     }
 
     /**
-     * <p>setColumnHeaders</p>
+     * <p>
+     * setColumnHeaders
+     * </p>
      *
-     * @param columnHeaders an array of {@link java.lang.String} objects.
+     * @param columnHeaders
+     *            an array of {@link java.lang.String} objects.
      */
     public void setColumnHeaders(String[] columnHeaders) {
         m_columnHeaders = columnHeaders;
     }
 
     /**
-     * <p>setStatusTable</p>
+     * <p>
+     * setStatusTable
+     * </p>
      *
-     * @param statusTable an array of {@link org.opennms.web.svclayer.AggregateStatus} objects.
+     * @param statusTable
+     *            an array of {@link org.opennms.web.svclayer.AggregateStatus}
+     *            objects.
      */
     public void setStatusTable(AggregateStatus[][] statusTable) {
         m_statusTable = statusTable;
     }
 
     /**
-     * <p>getNodesForRow</p>
+     * <p>
+     * getNodesForRow
+     * </p>
      *
-     * @param row a int.
+     * @param row
+     *            a int.
      * @return a {@link java.util.Set} object.
      */
     public Set<OnmsNode> getNodesForRow(int row) {
@@ -401,19 +488,26 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>setNodesForRow</p>
+     * <p>
+     * setNodesForRow
+     * </p>
      *
-     * @param row a int.
-     * @param nodes a {@link java.util.Collection} object.
+     * @param row
+     *            a int.
+     * @param nodes
+     *            a {@link java.util.Collection} object.
      */
-    public void setNodesForRow(int row, Collection<OnmsNode>nodes) {
+    public void setNodesForRow(int row, Collection<OnmsNode> nodes) {
         m_rowNodes[row] = new HashSet<OnmsNode>(nodes);
     }
 
     /**
-     * <p>getNodesForColumn</p>
+     * <p>
+     * getNodesForColumn
+     * </p>
      *
-     * @param col a int.
+     * @param col
+     *            a int.
      * @return a {@link java.util.Set} object.
      */
     public Set<OnmsNode> getNodesForColumn(int col) {
@@ -421,10 +515,14 @@ public class SurveillanceTable {
     }
 
     /**
-     * <p>setNodesForColumn</p>
+     * <p>
+     * setNodesForColumn
+     * </p>
      *
-     * @param col a int.
-     * @param columnNodes a {@link java.util.Collection} object.
+     * @param col
+     *            a int.
+     * @param columnNodes
+     *            a {@link java.util.Collection} object.
      */
     public void setNodesForColumn(int col, Collection<OnmsNode> columnNodes) {
         m_columnNodes[col] = new HashSet<OnmsNode>(columnNodes);

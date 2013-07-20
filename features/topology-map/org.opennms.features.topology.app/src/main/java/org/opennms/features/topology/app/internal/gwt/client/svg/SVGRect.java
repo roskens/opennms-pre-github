@@ -32,22 +32,23 @@ import com.google.gwt.dom.client.Element;
 
 public class SVGRect extends Element {
 
-    protected SVGRect() {};
+    protected SVGRect() {
+    };
 
     public final native int getHeight() /*-{
-        return this.height;
-    }-*/;
+                                        return this.height;
+                                        }-*/;
 
     public final native int getWidth() /*-{
-        return this.width;
-    }-*/;
+                                       return this.width;
+                                       }-*/;
 
     public final native int getX() /*-{
-        return this.x;
-    }-*/;
+                                   return this.x;
+                                   }-*/;
 
     public final native int getY() /*-{
-        return this.y;
-    }-*/;
+                                   return this.y;
+                                   }-*/;
 
 }

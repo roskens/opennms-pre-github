@@ -39,21 +39,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-@XmlRootElement(name="group")
+@XmlRootElement(name = "group")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OnmsGroup implements Serializable {
     private static final long serialVersionUID = -7658664550834146185L;
 
-    @XmlElement(name="name", required=true)
+    @XmlElement(name = "name", required = true)
     private String m_name;
 
-    @XmlElement(name="comments", required=false)
+    @XmlElement(name = "comments", required = false)
     private String m_comments;
 
-    @XmlElement(name="user", required=false)
+    @XmlElement(name = "user", required = false)
     private List<String> m_users = new ArrayList<String>();
 
-    public OnmsGroup() { }
+    public OnmsGroup() {
+    }
 
     public OnmsGroup(final String groupName) {
         m_name = groupName;
@@ -91,16 +92,13 @@ public class OnmsGroup implements Serializable {
     }
 
     public void removeUser(final String userName) {
-        if (m_users == null) return;
+        if (m_users == null)
+            return;
         m_users.remove(userName);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("name", m_name)
-            .append("comments", m_comments)
-            .append("users", m_users)
-            .toString();
+        return new ToStringBuilder(this).append("name", m_name).append("comments", m_comments).append("users", m_users).toString();
     }
 }

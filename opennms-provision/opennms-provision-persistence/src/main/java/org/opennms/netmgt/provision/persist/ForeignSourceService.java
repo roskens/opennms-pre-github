@@ -35,7 +35,9 @@ import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
 import org.opennms.netmgt.provision.support.PluginWrapper;
 
 /**
- * <p>ForeignSourceService interface.</p>
+ * <p>
+ * ForeignSourceService interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,123 +45,208 @@ import org.opennms.netmgt.provision.support.PluginWrapper;
 public interface ForeignSourceService {
 
     /**
-     * <p>setDeployedForeignSourceRepository</p>
+     * <p>
+     * setDeployedForeignSourceRepository
+     * </p>
      *
-     * @param repo a {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository} object.
+     * @param repo
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository}
+     *            object.
      */
     void setDeployedForeignSourceRepository(ForeignSourceRepository repo);
+
     /**
-     * <p>setPendingForeignSourceRepository</p>
+     * <p>
+     * setPendingForeignSourceRepository
+     * </p>
      *
-     * @param repo a {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository} object.
+     * @param repo
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository}
+     *            object.
      */
     void setPendingForeignSourceRepository(ForeignSourceRepository repo);
 
     /**
-     * <p>getAllForeignSources</p>
+     * <p>
+     * getAllForeignSources
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
     Set<ForeignSource> getAllForeignSources();
 
     /**
-     * <p>getForeignSource</p>
+     * <p>
+     * getForeignSource
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
      */
     ForeignSource getForeignSource(String name);
-    /**
-     * <p>saveForeignSource</p>
-     *
-     * @param name a {@link java.lang.String} object.
-     * @param fs a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     */
-    ForeignSource saveForeignSource(String name, ForeignSource fs);
-    /**
-     * <p>cloneForeignSource</p>
-     *
-     * @param name a {@link java.lang.String} object.
-     * @param target a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
-     */
-    ForeignSource cloneForeignSource(String name, String target);
-    /**
-     * <p>deleteForeignSource</p>
-     *
-     * @param name a {@link java.lang.String} object.
-     */
-    void          deleteForeignSource(String name);
 
     /**
-     * <p>deletePath</p>
+     * <p>
+     * saveForeignSource
+     * </p>
      *
-     * @param foreignSourceName a {@link java.lang.String} object.
-     * @param dataPath a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param fs
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
+     */
+    ForeignSource saveForeignSource(String name, ForeignSource fs);
+
+    /**
+     * <p>
+     * cloneForeignSource
+     * </p>
+     *
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param target
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
+     */
+    ForeignSource cloneForeignSource(String name, String target);
+
+    /**
+     * <p>
+     * deleteForeignSource
+     * </p>
+     *
+     * @param name
+     *            a {@link java.lang.String} object.
+     */
+    void deleteForeignSource(String name);
+
+    /**
+     * <p>
+     * deletePath
+     * </p>
+     *
+     * @param foreignSourceName
+     *            a {@link java.lang.String} object.
+     * @param dataPath
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
      */
     ForeignSource deletePath(String foreignSourceName, String dataPath);
+
     /**
-     * <p>addParameter</p>
+     * <p>
+     * addParameter
+     * </p>
      *
-     * @param foreignSourceName a {@link java.lang.String} object.
-     * @param dataPath a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
+     * @param foreignSourceName
+     *            a {@link java.lang.String} object.
+     * @param dataPath
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
      */
     ForeignSource addParameter(String foreignSourceName, String dataPath);
 
     /**
-     * <p>addDetectorToForeignSource</p>
+     * <p>
+     * addDetectorToForeignSource
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
      */
     ForeignSource addDetectorToForeignSource(String foreignSource, String name);
+
     /**
-     * <p>deleteDetector</p>
+     * <p>
+     * deleteDetector
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
      */
     ForeignSource deleteDetector(String foreignSource, String name);
 
     /**
-     * <p>addPolicyToForeignSource</p>
+     * <p>
+     * addPolicyToForeignSource
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
      */
     ForeignSource addPolicyToForeignSource(String foreignSource, String name);
+
     /**
-     * <p>deletePolicy</p>
+     * <p>
+     * deletePolicy
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param name a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
      */
     ForeignSource deletePolicy(String foreignSource, String name);
 
     /**
-     * <p>getDetectorTypes</p>
+     * <p>
+     * getDetectorTypes
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    Map<String,String> getDetectorTypes();
+    Map<String, String> getDetectorTypes();
+
     /**
-     * <p>getPolicyTypes</p>
+     * <p>
+     * getPolicyTypes
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    Map<String,String> getPolicyTypes();
+    Map<String, String> getPolicyTypes();
+
     /**
-     * <p>getWrappers</p>
+     * <p>
+     * getWrappers
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
-    Map<String,PluginWrapper> getWrappers();
+    Map<String, PluginWrapper> getWrappers();
 
 }

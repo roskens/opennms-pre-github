@@ -58,23 +58,29 @@ import edu.bucknell.net.JDHCP.DHCPMessage;
  */
 final class Poller {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Poller.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Poller.class);
 
     /**
      * The hardware address (ex: 00:06:0D:BE:9C:B2)
      */
-    private static final byte[] DEFAULT_MAC_ADDRESS = { (byte) 0x00,
-            (byte) 0x06, (byte) 0x0d, (byte) 0xbe, (byte) 0x9c, (byte) 0xb2,
-            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
-            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 };
+    private static final byte[] DEFAULT_MAC_ADDRESS = { (byte) 0x00, (byte) 0x06, (byte) 0x0d, (byte) 0xbe,
+            (byte) 0x9c, (byte) 0xb2, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 };
 
     private static byte[] s_hwAddress = null;
+
     private static byte[] s_myIpAddress = null;
+
     private static byte[] s_requestIpAddress = null;
+
     private static boolean reqTargetIp = true;
+
     private static boolean targetOffset = true;
+
     private static boolean relayMode = false;
+
     private static boolean paramsChecked = false;
+
     private static Boolean extendedMode = false;
 
     /**
@@ -171,7 +177,8 @@ final class Poller {
         messageOut.setChaddr(s_hwAddress); // set hardware address
         if (relayMode) {
             messageOut.setHops((byte) 1);
-            messageOut.setGiaddr(s_myIpAddress); // set relay address for replies
+            messageOut.setGiaddr(s_myIpAddress); // set relay address for
+                                                 // replies
         } else {
             messageOut.setHops((byte) 0);
             messageOut.setFlags(BROADCAST_FLAG);
@@ -199,7 +206,8 @@ final class Poller {
      * Ensures that during garbage collection the resources used by this
      * object are released!
      *
-     * @throws java.lang.Throwable if any.
+     * @throws java.lang.Throwable
+     *             if any.
      */
     @Override
     protected void finalize() throws Throwable {
@@ -217,10 +225,10 @@ final class Poller {
     private Poller(long timeout) throws IOException {
         DhcpdConfigFactory dcf = DhcpdConfigFactory.getInstance();
         try {
-                LOG.debug("Poller.ctor: opening socket connection with DHCP client daemon on port {}", dcf.getPort());
+            LOG.debug("Poller.ctor: opening socket connection with DHCP client daemon on port {}", dcf.getPort());
             m_connection = new Socket(InetAddressUtils.addr("127.0.0.1"), dcf.getPort());
 
-                LOG.debug("Poller.ctor: setting socket timeout to {}", timeout);
+            LOG.debug("Poller.ctor: setting socket timeout to {}", timeout);
             m_connection.setSoTimeout((int) timeout);
 
             // Establish input/output object streams
@@ -261,7 +269,7 @@ final class Poller {
      */
     public void close() {
         try {
-                LOG.debug("Closing connection");
+            LOG.debug("Closing connection");
             m_ins.close();
             m_outs.close();
             m_connection.close();
@@ -271,19 +279,19 @@ final class Poller {
 
     /**
      * <p>
-     * This method actually tests the remote host to determine if it is
-     * running a functional DHCP server.
+     * This method actually tests the remote host to determine if it is running
+     * a functional DHCP server.
      * </p>
      * <p>
-     * Formats a DHCP query and encodes it in a client request message which
-     * is sent to the DHCP daemon over the established TCP socket connection.
-     * If a matching DHCP response packet is not received from the DHCP daemon
-     * within the specified timeout the client request message will be re-sent
-     * up to the specified number of retries.
+     * Formats a DHCP query and encodes it in a client request message which is
+     * sent to the DHCP daemon over the established TCP socket connection. If a
+     * matching DHCP response packet is not received from the DHCP daemon within
+     * the specified timeout the client request message will be re-sent up to
+     * the specified number of retries.
      * </p>
      * <p>
-     * If a response is received from the DHCP daemon it is validated to
-     * ensure that:
+     * If a response is received from the DHCP daemon it is validated to ensure
+     * that:
      * </p>
      * <ul>
      * <li>The DHCP response packet was sent from the remote host to which the
@@ -320,14 +328,14 @@ final class Poller {
             } else {
                 extendedMode = Boolean.parseBoolean(s_extendedMode);
             }
-                LOG.debug("isServer: DHCP extended mode is {}", extendedMode);
+            LOG.debug("isServer: DHCP extended mode is {}", extendedMode);
 
             String hwAddressStr = dcf.getMacAddress();
-                LOG.debug("isServer: DHCP query hardware/MAC address is {}", hwAddressStr);
+            LOG.debug("isServer: DHCP query hardware/MAC address is {}", hwAddressStr);
             setHwAddress(hwAddressStr);
 
             String myIpStr = dcf.getMyIpAddress();
-                LOG.debug("isServer: DHCP relay agent address is {}", myIpStr);
+            LOG.debug("isServer: DHCP relay agent address is {}", myIpStr);
             if (myIpStr == null || myIpStr.equals("") || myIpStr.equalsIgnoreCase("broadcast")) {
                 // do nothing
             } else if (IpValidator.isIpValid(myIpStr)) {
@@ -337,7 +345,7 @@ final class Poller {
 
             if (extendedMode == true) {
                 String requestStr = dcf.getRequestIpAddress();
-                    LOG.debug("isServer: REQUEST query target is {}", requestStr);
+                LOG.debug("isServer: REQUEST query target is {}", requestStr);
                 if (requestStr == null || requestStr.equals("") || requestStr.equalsIgnoreCase("targetSubnet")) {
                     // do nothing
                 } else if (requestStr.equalsIgnoreCase("targetHost")) {
@@ -347,7 +355,7 @@ final class Poller {
                     reqTargetIp = false;
                     targetOffset = false;
                 }
-                    LOG.debug("REQUEST query options are: reqTargetIp = {}, targetOffset = {}", reqTargetIp, targetOffset);
+                LOG.debug("REQUEST query options are: reqTargetIp = {}, targetOffset = {}", reqTargetIp, targetOffset);
             }
             paramsChecked = true;
         }
@@ -370,7 +378,8 @@ final class Poller {
 
                 int rt = retries;
                 while (rt >= 0 && !isDhcpServer) {
-                        LOG.debug("isServer: sending DHCP {} query to host {} with Xid: {}", typeName[i], InetAddressUtils.str(host), ping.getMessage().getXid());
+                    LOG.debug("isServer: sending DHCP {} query to host {} with Xid: {}", typeName[i],
+                              InetAddressUtils.str(host), ping.getMessage().getXid());
 
                     long start = System.currentTimeMillis();
                     p.m_outs.writeObject(ping);
@@ -388,22 +397,26 @@ final class Poller {
                             responseTime = System.currentTimeMillis() - start;
 
                             // DEBUG only
-                                LOG.debug("isServer: got a DHCP response from host {} with Xid: {}", InetAddressUtils.str(resp.getAddress()), resp.getMessage().getXid());
+                            LOG.debug("isServer: got a DHCP response from host {} with Xid: {}",
+                                      InetAddressUtils.str(resp.getAddress()), resp.getMessage().getXid());
 
-                            if (host.equals(resp.getAddress()) && ping.getMessage().getXid() == resp.getMessage().getXid()) {
-                                // Inspect response message to see if it is a valid DHCP response
+                            if (host.equals(resp.getAddress())
+                                    && ping.getMessage().getXid() == resp.getMessage().getXid()) {
+                                // Inspect response message to see if it is a
+                                // valid DHCP response
                                 byte[] type = resp.getMessage().getOption(MESSAGE_TYPE);
-                                    if (type[0] == DHCPMessage.OFFER) {
-                                        LOG.debug("isServer: got a DHCP OFFER response, validating...");
-                                    } else if (type[0] == DHCPMessage.ACK) {
-                                        LOG.debug("isServer: got a DHCP ACK response, validating...");
-                                    } else if (type[0] == DHCPMessage.NAK) {
-                                        LOG.debug("isServer: got a DHCP NAK response, validating...");
-                                    }
+                                if (type[0] == DHCPMessage.OFFER) {
+                                    LOG.debug("isServer: got a DHCP OFFER response, validating...");
+                                } else if (type[0] == DHCPMessage.ACK) {
+                                    LOG.debug("isServer: got a DHCP ACK response, validating...");
+                                } else if (type[0] == DHCPMessage.NAK) {
+                                    LOG.debug("isServer: got a DHCP NAK response, validating...");
+                                }
 
                                 // accept offer or ACK or NAK
-                                if (type[0] == DHCPMessage.OFFER || (extendedMode == true && (type[0] == DHCPMessage.ACK || type[0] == DHCPMessage.NAK))) {
-                                        LOG.debug("isServer: got a valid DHCP response. responseTime= {}ms", responseTime);
+                                if (type[0] == DHCPMessage.OFFER
+                                        || (extendedMode == true && (type[0] == DHCPMessage.ACK || type[0] == DHCPMessage.NAK))) {
+                                    LOG.debug("isServer: got a valid DHCP response. responseTime= {}ms", responseTime);
 
                                     isDhcpServer = true;
                                     break pollit;
@@ -415,17 +428,17 @@ final class Poller {
 
                     } while ((end - start) < timeout);
 
-                        if (!isDhcpServer) {
-                            LOG.debug("Timed out waiting for DHCP response, remaining retries: {}", rt);
-                        }
+                    if (!isDhcpServer) {
+                        LOG.debug("Timed out waiting for DHCP response, remaining retries: {}", rt);
+                    }
 
                     --rt;
                 }
             }
 
-                LOG.debug("Sending disconnect request");
+            LOG.debug("Sending disconnect request");
             p.m_outs.writeObject(getDisconnectRequest());
-                LOG.debug("wait half a sec before closing connection");
+            LOG.debug("wait half a sec before closing connection");
             Thread.sleep(500);
             p.close();
         } catch (IOException ex) {
@@ -455,7 +468,7 @@ final class Poller {
 
         StringTokenizer token = new StringTokenizer(hwAddressStr, ":");
         if (token.countTokens() != 6) {
-                LOG.debug("Invalid format for hwAddress {}", hwAddressStr);
+            LOG.debug("Invalid format for hwAddress {}", hwAddressStr);
         }
         int temp;
         int i = 0;
@@ -465,7 +478,7 @@ final class Poller {
                 s_hwAddress[i] = (byte) temp;
                 i++;
             } catch (NumberFormatException ex) {
-                    LOG.debug("Invalid format for hwAddress, {}", ex);
+                LOG.debug("Invalid format for hwAddress, {}", ex);
             }
         }
     }

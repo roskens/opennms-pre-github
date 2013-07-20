@@ -28,7 +28,6 @@
 
 package org.opennms.core.soa.filter;
 
-
 /**
  * GreaterThanFilter
  *

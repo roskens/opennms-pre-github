@@ -41,7 +41,9 @@ import org.opennms.core.utils.Owner;
 import org.opennms.netmgt.config.groups.Role;
 
 /**
- * <p>Day class.</p>
+ * <p>
+ * Day class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,15 +52,22 @@ import org.opennms.netmgt.config.groups.Role;
 public class Day {
 
     private Calendar m_calendar;
+
     private Role m_role;
+
     private GroupManager m_groupManager;
 
     /**
-     * <p>Constructor for Day.</p>
+     * <p>
+     * Constructor for Day.
+     * </p>
      *
-     * @param date a java$util$Date object.
-     * @param role a {@link org.opennms.netmgt.config.groups.Role} object.
-     * @param groupManager a {@link org.opennms.netmgt.config.GroupManager} object.
+     * @param date
+     *            a java$util$Date object.
+     * @param role
+     *            a {@link org.opennms.netmgt.config.groups.Role} object.
+     * @param groupManager
+     *            a {@link org.opennms.netmgt.config.GroupManager} object.
      */
     public Day(Date date, Role role, GroupManager groupManager) {
         m_role = role;
@@ -68,7 +77,9 @@ public class Day {
     }
 
     /**
-     * <p>getDate</p>
+     * <p>
+     * getDate
+     * </p>
      *
      * @return a java$util$Date object.
      */
@@ -77,28 +88,42 @@ public class Day {
     }
 
     /**
-     * <p>getMonth</p>
+     * <p>
+     * getMonth
+     * </p>
      *
      * @return a int.
      */
-    public int getMonth() { return m_calendar.get(Calendar.MONTH); }
+    public int getMonth() {
+        return m_calendar.get(Calendar.MONTH);
+    }
 
     /**
-     * <p>getDayOfMonth</p>
+     * <p>
+     * getDayOfMonth
+     * </p>
      *
      * @return a int.
      */
-    public int getDayOfMonth() { return m_calendar.get(Calendar.DAY_OF_MONTH); }
+    public int getDayOfMonth() {
+        return m_calendar.get(Calendar.DAY_OF_MONTH);
+    }
 
     /**
-     * <p>getDayOfYear</p>
+     * <p>
+     * getDayOfYear
+     * </p>
      *
      * @return a int.
      */
-    public int getDayOfYear() { return m_calendar.get(Calendar.DAY_OF_YEAR); }
+    public int getDayOfYear() {
+        return m_calendar.get(Calendar.DAY_OF_YEAR);
+    }
 
     /**
-     * <p>getDayOfWeek</p>
+     * <p>
+     * getDayOfWeek
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,32 +132,42 @@ public class Day {
     }
 
     /**
-     * <p>getTime</p>
+     * <p>
+     * getTime
+     * </p>
      *
-     * @param hours a int.
-     * @param minutes a int.
+     * @param hours
+     *            a int.
+     * @param minutes
+     *            a int.
      * @return a java$util$Date object.
      */
     public Date getTime(int hours, int minutes) {
         Calendar time = Calendar.getInstance();
-        time.set(m_calendar.get(Calendar.YEAR), m_calendar.get(Calendar.MONTH), m_calendar.get(Calendar.DAY_OF_MONTH), hours, minutes);
+        time.set(m_calendar.get(Calendar.YEAR), m_calendar.get(Calendar.MONTH), m_calendar.get(Calendar.DAY_OF_MONTH),
+                 hours, minutes);
         return time.getTime();
     }
 
     /**
-     * <p>getEntries</p>
+     * <p>
+     * getEntries
+     * </p>
      *
-     * @return an array of {@link org.opennms.web.admin.roles.CalendarEntry} objects.
+     * @return an array of {@link org.opennms.web.admin.roles.CalendarEntry}
+     *         objects.
      */
     public CalendarEntry[] getEntries() {
         try {
             List<CalendarEntry> entries = new ArrayList<CalendarEntry>();
 
-            OwnedIntervalSequence schedEntries = m_groupManager.getRoleScheduleEntries(m_role.getName(), getTime(0,0), getTime(24,0));
+            OwnedIntervalSequence schedEntries = m_groupManager.getRoleScheduleEntries(m_role.getName(), getTime(0, 0),
+                                                                                       getTime(24, 0));
 
             for (Iterator<OwnedInterval> it = schedEntries.iterator(); it.hasNext();) {
                 OwnedInterval schedEntry = it.next();
-                CalendarEntry entry = new CalendarEntry(schedEntry.getStart(), schedEntry.getEnd(), ownerString(schedEntry.getOwners()), schedEntry.getOwners());
+                CalendarEntry entry = new CalendarEntry(schedEntry.getStart(), schedEntry.getEnd(),
+                                                        ownerString(schedEntry.getOwners()), schedEntry.getOwners());
                 entries.add(entry);
             }
 

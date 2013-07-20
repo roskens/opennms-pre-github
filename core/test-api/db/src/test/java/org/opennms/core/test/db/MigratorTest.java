@@ -61,13 +61,11 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/migratorTest.xml"
-})
+@ContextConfiguration(locations = { "classpath:/migratorTest.xml" })
 @JUnitTemporaryDatabase
 public class MigratorTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MigratorTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MigratorTest.class);
 
     @Autowired
     DataSource m_dataSource;
@@ -85,19 +83,25 @@ public class MigratorTest {
         MockLogAppender.setupLogging();
 
         m_migration = new Migration();
-        m_migration.setAdminUser(System.getProperty(TemporaryDatabase.ADMIN_USER_PROPERTY, TemporaryDatabase.DEFAULT_ADMIN_USER));
-        m_migration.setAdminPassword(System.getProperty(TemporaryDatabase.ADMIN_PASSWORD_PROPERTY, TemporaryDatabase.DEFAULT_ADMIN_PASSWORD));
-        m_migration.setDatabaseUser(System.getProperty(TemporaryDatabase.ADMIN_USER_PROPERTY, TemporaryDatabase.DEFAULT_ADMIN_USER));
-        m_migration.setDatabasePassword(System.getProperty(TemporaryDatabase.ADMIN_PASSWORD_PROPERTY, TemporaryDatabase.DEFAULT_ADMIN_PASSWORD));
+        m_migration.setAdminUser(System.getProperty(TemporaryDatabase.ADMIN_USER_PROPERTY,
+                                                    TemporaryDatabase.DEFAULT_ADMIN_USER));
+        m_migration.setAdminPassword(System.getProperty(TemporaryDatabase.ADMIN_PASSWORD_PROPERTY,
+                                                        TemporaryDatabase.DEFAULT_ADMIN_PASSWORD));
+        m_migration.setDatabaseUser(System.getProperty(TemporaryDatabase.ADMIN_USER_PROPERTY,
+                                                       TemporaryDatabase.DEFAULT_ADMIN_USER));
+        m_migration.setDatabasePassword(System.getProperty(TemporaryDatabase.ADMIN_PASSWORD_PROPERTY,
+                                                           TemporaryDatabase.DEFAULT_ADMIN_PASSWORD));
         m_migration.setChangeLog("changelog.xml");
     }
 
     /**
-     * This test is a bit fragile because it relies on the fact that the main changelog.xml will
-     * be located in the classpath before the schema.a and schema.b test migrations.
+     * This test is a bit fragile because it relies on the fact that the main
+     * changelog.xml will
+     * be located in the classpath before the schema.a and schema.b test
+     * migrations.
      */
     @Test
-    @JUnitTemporaryDatabase(createSchema=false)
+    @JUnitTemporaryDatabase(createSchema = false)
     public void testUpdate() throws Exception {
         // Make sure there is no databasechangelog table
         Connection connection = m_dataSource.getConnection();
@@ -111,10 +115,11 @@ public class MigratorTest {
         }
 
         for (final Resource resource : m_context.getResources("classpath*:/changelog.xml")) {
-        	LOG.info("=== found resource: {} ===", resource);
+            LOG.info("=== found resource: {} ===", resource);
         }
 
-        // Make sure that none of the tables that are added during the migration are present
+        // Make sure that none of the tables that are added during the migration
+        // are present
         Connection conn = null;
         try {
             conn = m_dataSource.getConnection();
@@ -141,7 +146,8 @@ public class MigratorTest {
                 procs.add(rs.getString("PROCEDURE_NAME").toLowerCase());
             }
             LOG.info("procs = {}", procs);
-            assertFalse("must not have stored procedure 'setSnmpInterfaceKeysOnUpdate'", procs.contains("setsnmpinterfacekeysonupdate"));
+            assertFalse("must not have stored procedure 'setSnmpInterfaceKeysOnUpdate'",
+                        procs.contains("setsnmpinterfacekeysonupdate"));
         } finally {
             if (conn != null) {
                 conn.close();
@@ -186,7 +192,8 @@ public class MigratorTest {
                 procs.add(rs.getString("PROCEDURE_NAME").toLowerCase());
             }
             LOG.info("procs = {}", procs);
-            assertTrue("must have stored procedure 'setSnmpInterfaceKeysOnUpdate'", procs.contains("setsnmpinterfacekeysonupdate"));
+            assertTrue("must have stored procedure 'setSnmpInterfaceKeysOnUpdate'",
+                       procs.contains("setsnmpinterfacekeysonupdate"));
         } finally {
             if (conn != null) {
                 conn.close();
@@ -195,7 +202,7 @@ public class MigratorTest {
     }
 
     @Test
-    @JUnitTemporaryDatabase(createSchema=false)
+    @JUnitTemporaryDatabase(createSchema = false)
     public void testMultipleChangelogs() throws Exception {
         // Make sure there is no databasechangelog table
         Connection connection = m_dataSource.getConnection();
@@ -215,10 +222,11 @@ public class MigratorTest {
         m.setCreateUser(false);
         m.setCreateDatabase(false);
 
-        // Add a resource accessor to the migration so that it will load multiple changelog.xml files
+        // Add a resource accessor to the migration so that it will load
+        // multiple changelog.xml files
         // from the classpath
         for (final Resource resource : m_context.getResources("classpath*:/changelog.xml")) {
-        	LOG.info("=== found resource: {} ===", resource);
+            LOG.info("=== found resource: {} ===", resource);
             m_migration.setAccessor(new ExistingResourceAccessor(resource));
             m.migrate(m_migration);
         }
@@ -238,7 +246,7 @@ public class MigratorTest {
     }
 
     @Test
-    @JUnitTemporaryDatabase(createSchema=false)
+    @JUnitTemporaryDatabase(createSchema = false)
     public void testUpdateTwice() throws Exception {
         final Migrator m = new Migrator();
         m.setDataSource(m_dataSource);

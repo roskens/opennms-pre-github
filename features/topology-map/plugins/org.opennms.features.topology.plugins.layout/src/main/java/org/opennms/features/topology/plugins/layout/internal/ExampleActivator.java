@@ -39,24 +39,21 @@ import org.slf4j.LoggerFactory;
 /**
  * Extension of the default OSGi bundle activator
  */
-public final class ExampleActivator
-    implements BundleActivator
-{
+public final class ExampleActivator implements BundleActivator {
     /**
      * Called whenever the OSGi framework starts our bundle
      */
     @Override
-    public void start( BundleContext bc )
-        throws Exception
-    {
+    public void start(BundleContext bc) throws Exception {
         LoggerFactory.getLogger(getClass()).debug("STARTING {}", ExampleService.class.getName());
 
-        Dictionary<String,Object> props = new Hashtable<String,Object>();
+        Dictionary<String, Object> props = new Hashtable<String, Object>();
         // add specific service properties here...
 
         LoggerFactory.getLogger(getClass()).debug("REGISTER {}", ExampleService.class.getName());
 
-        // Register our example service implementation in the OSGi service registry
+        // Register our example service implementation in the OSGi service
+        // registry
         bc.registerService(ExampleService.class, new ExampleServiceImpl(), props);
     }
 
@@ -64,12 +61,10 @@ public final class ExampleActivator
      * Called whenever the OSGi framework stops our bundle
      */
     @Override
-    public void stop( BundleContext bc )
-        throws Exception
-    {
+    public void stop(BundleContext bc) throws Exception {
         LoggerFactory.getLogger(getClass()).debug("STOPPING {}", ExampleService.class.getName());
 
-        // no need to unregister our service - the OSGi framework handles it for us
+        // no need to unregister our service - the OSGi framework handles it for
+        // us
     }
 }
-

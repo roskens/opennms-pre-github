@@ -44,12 +44,16 @@ import org.opennms.web.filter.SQLType;
 public class NodeFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="node"</code> */
     public static final String TYPE = "node";
+
     private ServletContext m_servletContext;
 
     /**
-     * <p>Constructor for NodeFilter.</p>
+     * <p>
+     * Constructor for NodeFilter.
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     public NodeFilter(int nodeId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "OUTAGES.NODEID", "node.id", nodeId);
@@ -57,7 +61,9 @@ public class NodeFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -65,7 +71,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
     public String getTextDescription() {
         String nodeName = NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getNode());
 
-        if(nodeName == null) {
+        if (nodeName == null) {
             nodeName = Integer.toString(getNode());
         }
 
@@ -73,7 +79,9 @@ public class NodeFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,7 +91,9 @@ public class NodeFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a int.
      */

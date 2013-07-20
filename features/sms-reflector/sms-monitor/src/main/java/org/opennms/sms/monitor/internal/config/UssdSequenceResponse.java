@@ -36,42 +36,53 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 import org.opennms.sms.reflector.smsservice.UssdResponse;
 
 /**
- * <p>UssdSequenceResponse class.</p>
+ * <p>
+ * UssdSequenceResponse class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="ussd-response")
+@XmlRootElement(name = "ussd-response")
 public class UssdSequenceResponse extends MobileSequenceResponse {
 
     /**
-     * <p>Constructor for UssdSequenceResponse.</p>
+     * <p>
+     * Constructor for UssdSequenceResponse.
+     * </p>
      */
     public UssdSequenceResponse() {
-		super();
-	}
+        super();
+    }
 
-	/**
-	 * <p>Constructor for UssdSequenceResponse.</p>
-	 *
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public UssdSequenceResponse(String label) {
-		super(label);
-	}
+    /**
+     * <p>
+     * Constructor for UssdSequenceResponse.
+     * </p>
+     *
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public UssdSequenceResponse(String label) {
+        super(label);
+    }
 
-	/**
-	 * <p>Constructor for UssdSequenceResponse.</p>
-	 *
-	 * @param gatewayId a {@link java.lang.String} object.
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public UssdSequenceResponse(String gatewayId, String label) {
-		super(gatewayId, label);
-	}
+    /**
+     * <p>
+     * Constructor for UssdSequenceResponse.
+     * </p>
+     *
+     * @param gatewayId
+     *            a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public UssdSequenceResponse(String gatewayId, String label) {
+        super(gatewayId, label);
+    }
 
-	/** {@inheritDoc} */
-	@Override
+    /** {@inheritDoc} */
+    @Override
     protected boolean matchesResponseType(MobileMsgRequest request, MobileMsgResponse response) {
         return response instanceof UssdResponse;
     }
@@ -83,7 +94,5 @@ public class UssdSequenceResponse extends MobileSequenceResponse {
 
         }
     }
-
-
 
 }

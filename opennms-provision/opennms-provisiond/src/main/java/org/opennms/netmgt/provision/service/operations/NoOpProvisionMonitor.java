@@ -32,113 +32,132 @@ import java.util.List;
 
 import org.opennms.netmgt.xml.event.Event;
 import org.springframework.core.io.Resource;
+
 public class NoOpProvisionMonitor implements ProvisionMonitor {
-	/** {@inheritDoc} */
-        @Override
-	public void beginProcessingOps(int deleteCount, int updateCount, int insertCount) {
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void beginProcessingOps(int deleteCount, int updateCount, int insertCount) {
+    }
 
-	/**
-	 * <p>finishProcessingOps</p>
-	 */
-        @Override
-	public void finishProcessingOps() {
-	}
+    /**
+     * <p>
+     * finishProcessingOps
+     * </p>
+     */
+    @Override
+    public void finishProcessingOps() {
+    }
 
-	/**
-	 * <p>beginPreprocessingOps</p>
-	 */
-        @Override
-	public void beginPreprocessingOps() {
-	}
+    /**
+     * <p>
+     * beginPreprocessingOps
+     * </p>
+     */
+    @Override
+    public void beginPreprocessingOps() {
+    }
 
-	/**
-	 * <p>finishPreprocessingOps</p>
-	 */
-        @Override
-	public void finishPreprocessingOps() {
-	}
+    /**
+     * <p>
+     * finishPreprocessingOps
+     * </p>
+     */
+    @Override
+    public void finishPreprocessingOps() {
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void beginPreprocessing(ImportOperation oper) {
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void beginPreprocessing(ImportOperation oper) {
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void finishPreprocessing(ImportOperation oper) {
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void finishPreprocessing(ImportOperation oper) {
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void beginPersisting(ImportOperation oper) {
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void beginPersisting(ImportOperation oper) {
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void finishPersisting(ImportOperation oper) {
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void finishPersisting(ImportOperation oper) {
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void beginSendingEvents(ImportOperation oper, List<Event> events) {
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void beginSendingEvents(ImportOperation oper, List<Event> events) {
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void finishSendingEvents(ImportOperation oper, List<Event> events) {
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void finishSendingEvents(ImportOperation oper, List<Event> events) {
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void beginLoadingResource(Resource resource) {
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void beginLoadingResource(Resource resource) {
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void finishLoadingResource(Resource resource) {
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void finishLoadingResource(Resource resource) {
+    }
 
-	/**
-	 * <p>beginImporting</p>
-	 */
-        @Override
-	public void beginImporting() {
-	}
+    /**
+     * <p>
+     * beginImporting
+     * </p>
+     */
+    @Override
+    public void beginImporting() {
+    }
 
-	/**
-	 * <p>finishImporting</p>
-	 */
-        @Override
-	public void finishImporting() {
-	}
+    /**
+     * <p>
+     * finishImporting
+     * </p>
+     */
+    @Override
+    public void finishImporting() {
+    }
 
-	/**
-	 * <p>beginAuditNodes</p>
-	 */
-        @Override
-	public void beginAuditNodes() {
-	}
+    /**
+     * <p>
+     * beginAuditNodes
+     * </p>
+     */
+    @Override
+    public void beginAuditNodes() {
+    }
 
-	/**
-	 * <p>finishAuditNodes</p>
-	 */
-        @Override
-	public void finishAuditNodes() {
-	}
+    /**
+     * <p>
+     * finishAuditNodes
+     * </p>
+     */
+    @Override
+    public void finishAuditNodes() {
+    }
 
-	/**
-	 * <p>beginRelateNodes</p>
-	 */
-        @Override
-	public void beginRelateNodes() {
-	}
+    /**
+     * <p>
+     * beginRelateNodes
+     * </p>
+     */
+    @Override
+    public void beginRelateNodes() {
+    }
 
-	/**
-	 * <p>finishRelateNodes</p>
-	 */
-        @Override
-	public void finishRelateNodes() {
-	}
+    /**
+     * <p>
+     * finishRelateNodes
+     * </p>
+     */
+    @Override
+    public void finishRelateNodes() {
+    }
 
 }

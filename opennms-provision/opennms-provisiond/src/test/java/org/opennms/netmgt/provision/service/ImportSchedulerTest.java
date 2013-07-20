@@ -58,19 +58,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-provisiond.xml",
-        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
-        "classpath*:/META-INF/opennms/detectors.xml",
-        "classpath:/mockForeignSourceContext.xml",
-        "classpath:/importerServiceTest.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml", "classpath*:/META-INF/opennms/detectors.xml",
+        "classpath:/mockForeignSourceContext.xml", "classpath:/importerServiceTest.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class ImportSchedulerTest implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(ImportSchedulerTest.class);
 
@@ -104,7 +100,6 @@ public class ImportSchedulerTest implements InitializingBean {
         JobDetail detail = new JobDetail("test", ImportScheduler.JOB_GROUP, ImportJob.class, false, false, false);
         detail.getJobDataMap().put(ImportJob.KEY, def.getImportUrlResource());
 
-
         class MyBoolWrapper {
             volatile Boolean m_called = false;
 
@@ -120,7 +115,6 @@ public class ImportSchedulerTest implements InitializingBean {
         final MyBoolWrapper callTracker = new MyBoolWrapper();
 
         m_importScheduler.getScheduler().addTriggerListener(new TriggerListener() {
-
 
             @Override
             public String getName() {
@@ -139,9 +133,10 @@ public class ImportSchedulerTest implements InitializingBean {
                 Job jobInstance = context.getJobInstance();
 
                 if (jobInstance instanceof ImportJob) {
-                    Assert.assertNotNull( ((ImportJob)jobInstance).getProvisioner());
+                    Assert.assertNotNull(((ImportJob) jobInstance).getProvisioner());
                     Assert.assertTrue(context.getJobDetail().getJobDataMap().containsKey(ImportJob.KEY));
-                    Assert.assertEquals("dns://localhost/localhost", context.getJobDetail().getJobDataMap().get(ImportJob.KEY));
+                    Assert.assertEquals("dns://localhost/localhost",
+                                        context.getJobDetail().getJobDataMap().get(ImportJob.KEY));
                 }
                 callTracker.setCalled(true);
             }
@@ -170,11 +165,12 @@ public class ImportSchedulerTest implements InitializingBean {
         m_importScheduler.start();
 
         int callCheck = 0;
-        while (!callTracker.getCalled() && callCheck++ < 2 ) {
+        while (!callTracker.getCalled() && callCheck++ < 2) {
             Thread.sleep(5000);
         }
 
-        //TODO: need to fix the interrupted exception that occurs in the provisioner
+        // TODO: need to fix the interrupted exception that occurs in the
+        // provisioner
 
     }
 

@@ -27,6 +27,7 @@
  *******************************************************************************/
 
 package org.opennms.netmgt.collectd;
+
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,7 +39,9 @@ import org.opennms.netmgt.dao.support.ResourceTypeUtils;
 import org.opennms.netmgt.model.RrdRepository;
 
 /**
- * <p>GroupPersister class.</p>
+ * <p>
+ * GroupPersister class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -46,10 +49,16 @@ import org.opennms.netmgt.model.RrdRepository;
 public class GroupPersister extends BasePersister {
 
     /**
-     * <p>Constructor for GroupPersister.</p>
+     * <p>
+     * Constructor for GroupPersister.
+     * </p>
      *
-     * @param params a {@link org.opennms.netmgt.config.collector.ServiceParameters} object.
-     * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param params
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
+     *            object.
+     * @param repository
+     *            a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
     public GroupPersister(ServiceParameters params, RrdRepository repository) {
         super(params, repository);
@@ -62,7 +71,7 @@ public class GroupPersister extends BasePersister {
         pushShouldPersist(group);
         if (shouldPersist()) {
 
-            Map<String, String> dsNamesToRrdNames = new LinkedHashMap<String , String>();
+            Map<String, String> dsNamesToRrdNames = new LinkedHashMap<String, String>();
             for (CollectionAttribute a : group.getAttributes()) {
                 if (NumericAttributeType.supportsType(a.getType())) {
                     dsNamesToRrdNames.put(a.getName(), group.getName());
@@ -83,6 +92,5 @@ public class GroupPersister extends BasePersister {
         }
         popShouldPersist();
     }
-
 
 }

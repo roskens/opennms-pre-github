@@ -38,13 +38,14 @@ import de.novanic.eventservice.client.event.listener.RemoteEventListener;
 public class TestServer extends AbstractTestServer {
 
     private RemoteEventListener m_userSpecificListener;
+
     private RemoteEventListener m_domainListener;
 
     @Override
     public void addListener(Domain aDomain, RemoteEventListener aRemoteListener) {
-        if(aDomain == null) {
+        if (aDomain == null) {
             m_userSpecificListener = aRemoteListener;
-        }else {
+        } else {
             m_domainListener = aRemoteListener;
         }
     }
@@ -54,11 +55,11 @@ public class TestServer extends AbstractTestServer {
         anAsyncCallback.onSuccess(null);
     }
 
-    public void sendUserSpecificEvent( MapRemoteEvent remoteEvent ) {
+    public void sendUserSpecificEvent(MapRemoteEvent remoteEvent) {
         m_userSpecificListener.apply(remoteEvent);
     }
 
-    public void sendDomainEvent( MapRemoteEvent remoteEvent) {
+    public void sendDomainEvent(MapRemoteEvent remoteEvent) {
         m_domainListener.apply(remoteEvent);
     }
 

@@ -33,7 +33,6 @@
 // Generated on: 2009.01.29 at 01:15:48 PM EST
 //
 
-
 package org.opennms.netmgt.provision.persist.requisition;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,36 +44,45 @@ import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang.builder.CompareToBuilder;
 
 /**
- * <p>RequisitionCategory class.</p>
+ * <p>
+ * RequisitionCategory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="")
-@XmlRootElement(name="category")
+@XmlType(name = "")
+@XmlRootElement(name = "category")
 public class RequisitionCategory implements Comparable<RequisitionCategory> {
 
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     protected String m_name;
 
     /**
-     * <p>Constructor for RequisitionCategory.</p>
+     * <p>
+     * Constructor for RequisitionCategory.
+     * </p>
      */
     public RequisitionCategory() {
     }
 
     /**
-     * <p>Constructor for RequisitionCategory.</p>
+     * <p>
+     * Constructor for RequisitionCategory.
+     * </p>
      *
-     * @param category a {@link java.lang.String} object.
+     * @param category
+     *            a {@link java.lang.String} object.
      */
     public RequisitionCategory(String category) {
         m_name = category;
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,9 +91,12 @@ public class RequisitionCategory implements Comparable<RequisitionCategory> {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setName(String value) {
         m_name = value;
@@ -101,12 +112,16 @@ public class RequisitionCategory implements Comparable<RequisitionCategory> {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof RequisitionCategory)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof RequisitionCategory))
+            return false;
         final RequisitionCategory other = (RequisitionCategory) obj;
         if (m_name == null) {
-            if (other.m_name != null) return false;
+            if (other.m_name != null)
+                return false;
         } else if (!m_name.equals(other.m_name)) {
             return false;
         }
@@ -120,8 +135,6 @@ public class RequisitionCategory implements Comparable<RequisitionCategory> {
 
     @Override
     public int compareTo(final RequisitionCategory other) {
-        return new CompareToBuilder()
-            .append(m_name, other.m_name)
-            .toComparison();
+        return new CompareToBuilder().append(m_name, other.m_name).toComparison();
     }
 }

@@ -28,34 +28,41 @@
 
 package org.opennms.netmgt.mock;
 
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>MockNode class.</p>
+ * <p>
+ * MockNode class.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
-public class MockNode extends MockContainer<MockNetwork,MockInterface> {
+public class MockNode extends MockContainer<MockNetwork, MockInterface> {
 
     String m_label;
 
     int m_nodeid;
+
     int m_nextIfIndex = 1;
 
     /**
-     * <p>Constructor for MockNode.</p>
+     * <p>
+     * Constructor for MockNode.
+     * </p>
      *
-     * @param network a {@link org.opennms.netmgt.mock.MockNetwork} object.
-     * @param nodeid a int.
-     * @param label a {@link java.lang.String} object.
+     * @param network
+     *            a {@link org.opennms.netmgt.mock.MockNetwork} object.
+     * @param nodeid
+     *            a int.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public MockNode(MockNetwork network, int nodeid, String label) {
         super(network);
@@ -65,9 +72,12 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
 
     // model
     /**
-     * <p>addInterface</p>
+     * <p>
+     * addInterface
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.mock.MockInterface} object.
      */
     public MockInterface addInterface(String ipAddr) {
@@ -76,9 +86,12 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
 
     // model
     /**
-     * <p>getInterface</p>
+     * <p>
+     * getInterface
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.mock.MockInterface} object.
      */
     public MockInterface getInterface(String ipAddr) {
@@ -93,7 +106,9 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
 
     // model
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -102,9 +117,12 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     }
 
     /**
-     * <p>setLabel</p>
+     * <p>
+     * setLabel
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      */
     public void setLabel(String label) {
         m_label = label;
@@ -112,7 +130,9 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
 
     // model
     /**
-     * <p>getNetwork</p>
+     * <p>
+     * getNetwork
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.mock.MockNetwork} object.
      */
@@ -123,7 +143,9 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
 
     // model
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -132,7 +154,9 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     }
 
     /**
-     * <p>getNextIfIndex</p>
+     * <p>
+     * getNextIfIndex
+     * </p>
      *
      * @return a int.
      */
@@ -142,9 +166,12 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
 
     // model
     /**
-     * <p>removeInterface</p>
+     * <p>
+     * removeInterface
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.mock.MockInterface} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.mock.MockInterface} object.
      */
     public void removeInterface(MockInterface iface) {
         removeMember(iface);
@@ -152,16 +179,15 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
 
     // impl
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("id", m_nodeid)
-    		.append("label", m_label)
-    		.append("members", getMembers()).toString();
+        return new ToStringBuilder(this).append("id", m_nodeid).append("label", m_label).append("members", getMembers()).toString();
     }
 
     // impl
@@ -174,7 +200,9 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     }
 
     /**
-     * <p>createUpEvent</p>
+     * <p>
+     * createUpEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -184,7 +212,9 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     }
 
     /**
-     * <p>createDownEvent</p>
+     * <p>
+     * createDownEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -194,9 +224,12 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     }
 
     /**
-     * <p>createDownEventWithReason</p>
+     * <p>
+     * createDownEventWithReason
+     * </p>
      *
-     * @param reason a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public Event createDownEventWithReason(String reason) {
@@ -204,7 +237,9 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     }
 
     /**
-     * <p>createNewEvent</p>
+     * <p>
+     * createNewEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -214,7 +249,9 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     }
 
     /**
-     * <p>createDeleteEvent</p>
+     * <p>
+     * createDeleteEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -224,7 +261,9 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     }
 
     /**
-     * <p>createNodeLabelChangedEvent</p>
+     * <p>
+     * createNodeLabelChangedEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */

@@ -47,12 +47,12 @@ import javax.xml.transform.stream.StreamSource;
 
 public abstract class StringUtils {
     final static boolean s_headless = Boolean.getBoolean("java.awt.headless");
+
     final static Pattern s_windowsDrive = Pattern.compile("^[A-Za-z]\\:\\\\");
 
     /**
      * Convenience method for creating arrays of strings suitable for use as
      * command-line parameters when executing an external process.
-     *
      * <p>
      * The default {@link Runtime#exec Runtime.exec}method will split a single
      * string based on spaces, but it does not respect spaces within quotation
@@ -62,7 +62,6 @@ public abstract class StringUtils {
      * string by the remaining out-of-quote spaces. It then goes through each
      * substring and replaces the delimiters with spaces.
      * </p>
-     *
      * <p>
      * <em>Caveat:</em> This method does not respect escaped quotes! It will
      * simply remove them and leave the stray escape characters.
@@ -74,8 +73,8 @@ public abstract class StringUtils {
      *            a char that does not already exist in <code>s</code>
      * @return An array of strings split by spaces outside of quotes.
      * @throws java.lang.IllegalArgumentException
-     *             If <code>s</code> is null or if <code>delim</code>
-     *             already exists in <code>s</code>.
+     *             If <code>s</code> is null or if <code>delim</code> already
+     *             exists in <code>s</code>.
      */
     public static String[] createCommandArray(String s, char delim) {
         if (s == null) {
@@ -125,34 +124,43 @@ public abstract class StringUtils {
     }
 
     /**
-     * <p>truncate</p>
+     * <p>
+     * truncate
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param length a int.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param length
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public static String truncate(String name, int length) {
-        if (name.length() <= length) return name;
+        if (name.length() <= length)
+            return name;
         return name.substring(0, length);
     }
 
     public static boolean isLocalWindowsPath(final String path) {
-    	if (File.separatorChar != '\\') return false;
-    	if (path.length() < 3) return false;
+        if (File.separatorChar != '\\')
+            return false;
+        if (path.length() < 3)
+            return false;
 
-    	final char colon = path.charAt(1);
-    	final char slash = path.charAt(2);
+        final char colon = path.charAt(1);
+        final char slash = path.charAt(2);
 
-    	if (colon != ':') return false;
-    	if (slash != '\\' && slash != '/') return false;
+        if (colon != ':')
+            return false;
+        if (slash != '\\' && slash != '/')
+            return false;
 
-    	final String drive = path.substring(0, 3);
-    	if (s_headless) {
-    		return s_windowsDrive.matcher(drive).matches();
-    	} else {
-    		final File file = new File(drive);
-        	return FileSystemView.getFileSystemView().isFileSystemRoot(file);
-    	}
+        final String drive = path.substring(0, 3);
+        if (s_headless) {
+            return s_windowsDrive.matcher(drive).matches();
+        } else {
+            final File file = new File(drive);
+            return FileSystemView.getFileSystemView().isFileSystemRoot(file);
+        }
     }
 
     /**
@@ -163,9 +171,10 @@ public abstract class StringUtils {
         StringWriter out = new StringWriter();
 
         TransformerFactory transFactory = TransformerFactory.newInstance();
-        Transformer transformer  = transFactory.newTransformer();
+        Transformer transformer = transFactory.newTransformer();
 
-        // Set options on the transformer so that it will indent the XML properly
+        // Set options on the transformer so that it will indent the XML
+        // properly
         transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");

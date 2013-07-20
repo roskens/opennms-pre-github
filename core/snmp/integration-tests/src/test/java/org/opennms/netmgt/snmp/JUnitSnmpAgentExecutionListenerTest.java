@@ -44,48 +44,40 @@ import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * @author brozow
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners(JUnitSnmpAgentExecutionListener.class)
 public class JUnitSnmpAgentExecutionListenerTest {
-	final SnmpObjId m_oid = SnmpObjId.get(".1.3.5.1.1.1.0");
+    final SnmpObjId m_oid = SnmpObjId.get(".1.3.5.1.1.1.0");
 
     @Before
     public void setUp() throws Exception {
-    	MockLogAppender.setupLogging();
-    	SnmpPeerFactory.setInstance(new ProxySnmpAgentConfigFactory(ConfigurationTestUtils.getInputStreamForConfigFile("snmp-config.xml")));
+        MockLogAppender.setupLogging();
+        SnmpPeerFactory.setInstance(new ProxySnmpAgentConfigFactory(
+                                                                    ConfigurationTestUtils.getInputStreamForConfigFile("snmp-config.xml")));
     }
 
     @Test
-    @JUnitSnmpAgent(resource="classpath:loadSnmpDataTest.properties", host="192.168.0.254")
+    @JUnitSnmpAgent(resource = "classpath:loadSnmpDataTest.properties", host = "192.168.0.254")
     public void testClassAgent() throws Exception {
-    	assertEquals(
-    			octetString("TestData"),
-    			SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.254")), m_oid)
-    	);
+        assertEquals(octetString("TestData"),
+                     SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.254")), m_oid));
     }
 
     @Test
     @JUnitSnmpAgents({
-    		@JUnitSnmpAgent(host="192.168.0.1", port=161, resource="classpath:loadSnmpDataTest.properties"),
-    		@JUnitSnmpAgent(host="192.168.0.2", port=161, resource="classpath:differentSnmpData.properties")
-    })
+            @JUnitSnmpAgent(host = "192.168.0.1", port = 161, resource = "classpath:loadSnmpDataTest.properties"),
+            @JUnitSnmpAgent(host = "192.168.0.2", port = 161, resource = "classpath:differentSnmpData.properties") })
     public void testMultipleHosts() throws Exception {
-    	assertEquals(
-    			octetString("TestData"),
-    			SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.1")), m_oid)
-    	);
-    	assertEquals(
-    			octetString("DifferentTestData"),
-    			SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.2")), m_oid)
-    	);
+        assertEquals(octetString("TestData"),
+                     SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.1")), m_oid));
+        assertEquals(octetString("DifferentTestData"),
+                     SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.2")), m_oid));
     }
 
     private SnmpValue octetString(String s) {
-    	return SnmpUtils.getValueFactory().getOctetString(s.getBytes());
+        return SnmpUtils.getValueFactory().getOctetString(s.getBytes());
     }
 }

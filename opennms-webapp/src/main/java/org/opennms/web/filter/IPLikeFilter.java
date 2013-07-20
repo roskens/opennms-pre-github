@@ -32,21 +32,27 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
-
 /**
  * Encapsulates all interface filtering functionality.
  */
 public abstract class IPLikeFilter extends OneArgFilter<String> {
 
     /**
-     * <p>Constructor for IPLikeFilter.</p>
+     * <p>
+     * Constructor for IPLikeFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param ipLikePattern a {@link java.lang.String} object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param ipLikePattern
+     *            a {@link java.lang.String} object.
      */
-    public IPLikeFilter(final String filterType, final String fieldName, final String propertyName, final String ipLikePattern) {
+    public IPLikeFilter(final String filterType, final String fieldName, final String propertyName,
+            final String ipLikePattern) {
         super(filterType, SQLType.STRING, fieldName, propertyName, ipLikePattern);
     }
 
@@ -59,9 +65,8 @@ public abstract class IPLikeFilter extends OneArgFilter<String> {
     /** {@inheritDoc} */
     @Override
     public Criterion getCriterion() {
-        return Restrictions.sqlRestriction("iplike( {alias}."+getPropertyName()+", ?)", getValue(), Hibernate.STRING);
+        return Restrictions.sqlRestriction("iplike( {alias}." + getPropertyName() + ", ?)", getValue(),
+                                           Hibernate.STRING);
     }
-
-
 
 }

@@ -34,16 +34,16 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 
 public class StatusTypeEditor extends PropertyEditorSupport {
 
-	/** {@inheritDoc} */
-	@Override
-	public String getAsText() {
-	    return Character.toString(((StatusType)super.getValue()).getCharCode());
-	}
+    /** {@inheritDoc} */
+    @Override
+    public String getAsText() {
+        return Character.toString(((StatusType) super.getValue()).getCharCode());
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void setAsText(final String text) throws IllegalArgumentException {
-	    super.setValue(StatusType.get(text));
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setAsText(final String text) throws IllegalArgumentException {
+        super.setValue(StatusType.get(text));
+    }
 
 }

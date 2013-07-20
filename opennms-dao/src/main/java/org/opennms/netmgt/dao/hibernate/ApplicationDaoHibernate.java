@@ -33,16 +33,18 @@ import org.opennms.netmgt.model.OnmsApplication;
 
 public class ApplicationDaoHibernate extends AbstractDaoHibernate<OnmsApplication, Integer> implements ApplicationDao {
 
-	/**
-	 * <p>Constructor for ApplicationDaoHibernate.</p>
-	 */
-	public ApplicationDaoHibernate() {
-		super(OnmsApplication.class);
-	}
+    /**
+     * <p>
+     * Constructor for ApplicationDaoHibernate.
+     * </p>
+     */
+    public ApplicationDaoHibernate() {
+        super(OnmsApplication.class);
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public OnmsApplication findByName(final String name) {
-		return findUnique("from OnmsApplication as app where app.name = ?", name);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public OnmsApplication findByName(final String name) {
+        return findUnique("from OnmsApplication as app where app.name = ?", name);
+    }
 }

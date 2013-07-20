@@ -35,34 +35,46 @@ import org.w3c.dom.Document;
 
 /**
  * The Mock Class for DefaultXmlCollectionHandler.
- * <p>This file is created in order to avoid calling a real server to retrieve a valid file and  parse a provided sample file through MockDocumentBuilder</p>
+ * <p>
+ * This file is created in order to avoid calling a real server to retrieve a
+ * valid file and parse a provided sample file through MockDocumentBuilder
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MockDefaultXmlCollectionHandler extends DefaultXmlCollectionHandler {
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#getXmlDocument(java.lang.String, org.opennms.protocols.xml.config.Request)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#
+     * getXmlDocument(java.lang.String,
+     * org.opennms.protocols.xml.config.Request)
      */
     @Override
     protected Document getXmlDocument(String urlString, Request request) {
         return MockDocumentBuilder.getXmlDocument();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#parseUrl(java.lang.String, org.opennms.netmgt.collectd.CollectionAgent, java.lang.Integer)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#parseUrl
+     * (java.lang.String, org.opennms.netmgt.collectd.CollectionAgent,
+     * java.lang.Integer)
      */
     @Override
     protected String parseUrl(String unformattedUrl, CollectionAgent agent, Integer collectionStep) {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#getXmlResourceType(org.opennms.netmgt.collectd.CollectionAgent, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#
+     * getXmlResourceType(org.opennms.netmgt.collectd.CollectionAgent,
+     * java.lang.String)
      */
     @Override
     protected XmlResourceType getXmlResourceType(CollectionAgent agent, String resourceType) {
         return XmlResourceUtils.getXmlResourceType(agent, resourceType);
     }
 }
-

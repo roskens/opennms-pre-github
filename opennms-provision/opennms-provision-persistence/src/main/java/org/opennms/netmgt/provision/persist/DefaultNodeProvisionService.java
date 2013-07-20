@@ -57,7 +57,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * <p>DefaultNodeProvisionService class.</p>
+ * <p>
+ * DefaultNodeProvisionService class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -96,14 +98,15 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
     /** {@inheritDoc} */
     @Transactional
     @Override
-    public boolean provisionNode(final String user, String foreignSource, String foreignId, String nodeLabel, String ipAddress,
-            String[] categories, String snmpCommunity, String snmpVersion,
-            String deviceUsername, String devicePassword, String enablePassword,
-            String accessMethod, String autoEnable, String noSNMP) throws NodeProvisionException {
+    public boolean provisionNode(final String user, String foreignSource, String foreignId, String nodeLabel,
+            String ipAddress, String[] categories, String snmpCommunity, String snmpVersion, String deviceUsername,
+            String devicePassword, String enablePassword, String accessMethod, String autoEnable, String noSNMP)
+            throws NodeProvisionException {
 
         LOG.debug("adding SNMP community {} ({})", snmpCommunity, snmpVersion);
         // Set the SNMP community name (if necessary)
-        if (noSNMP == null &&  snmpCommunity != null && !snmpCommunity.equals("") && snmpVersion != null && !snmpVersion.equals("")) {
+        if (noSNMP == null && snmpCommunity != null && !snmpCommunity.equals("") && snmpVersion != null
+                && !snmpVersion.equals("")) {
             try {
                 SnmpEventInfo info = new SnmpEventInfo();
                 info.setCommunityString(snmpCommunity);
@@ -125,7 +128,7 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
         reqIface.setStatus(1);
 
         reqIface.putMonitoredService(new RequisitionMonitoredService("ICMP"));
-        if(noSNMP == null) {
+        if (noSNMP == null) {
             reqIface.putMonitoredService(new RequisitionMonitoredService("SNMP"));
         }
 
@@ -166,9 +169,8 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
             throw new RuntimeException("unable to retrieve foreign source '" + foreignSource + "'", e);
         }
 
-        Event e = new EventBuilder(EventConstants.RELOAD_IMPORT_UEI, "NodeProvisionService")
-            .addParam("url", m_foreignSourceRepository.getRequisitionURL(foreignSource).toString())
-            .getEvent();
+        Event e = new EventBuilder(EventConstants.RELOAD_IMPORT_UEI, "NodeProvisionService").addParam("url",
+                                                                                                      m_foreignSourceRepository.getRequisitionURL(foreignSource).toString()).getEvent();
         m_eventForwarder.sendNow(e);
 
         LOG.warn("about to return ({})", System.currentTimeMillis());
@@ -176,19 +178,28 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
     }
 
     /**
-     * <p>setForeignSourceRepository</p>
+     * <p>
+     * setForeignSourceRepository
+     * </p>
      *
-     * @param repository a {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository} object.
+     * @param repository
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository}
+     *            object.
      */
     public void setForeignSourceRepository(ForeignSourceRepository repository) {
         m_foreignSourceRepository = repository;
     }
 
     /**
-     * <p>setEventProxy</p>
+     * <p>
+     * setEventProxy
+     * </p>
      *
-     * @param proxy a {@link org.opennms.netmgt.model.events.EventProxy} object.
-     * @throws java.lang.Exception if any.
+     * @param proxy
+     *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void setEventProxy(final EventProxy proxy) throws Exception {
         EventForwarder proxyForwarder = new EventForwarder() {
@@ -197,7 +208,7 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
                 try {
                     proxy.send(event);
                 } catch (EventProxyException e) {
-                    throw new NodeProvisionException("Unable to send "+event, e);
+                    throw new NodeProvisionException("Unable to send " + event, e);
                 }
             }
 
@@ -206,7 +217,7 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
                 try {
                     proxy.send(eventLog);
                 } catch (EventProxyException e) {
-                    throw new NodeProvisionException("Unable to send eventLog "+eventLog, e);
+                    throw new NodeProvisionException("Unable to send eventLog " + eventLog, e);
                 }
             }
 

@@ -34,40 +34,53 @@ import org.opennms.netmgt.config.CollectdPackage;
 import org.opennms.netmgt.config.collectd.Collector;
 
 /**
- * <p>CollectorConfigDao interface.</p>
+ * <p>
+ * CollectorConfigDao interface.
+ * </p>
  */
 public interface CollectorConfigDao {
 
     /**
-     * <p>getSchedulerThreads</p>
+     * <p>
+     * getSchedulerThreads
+     * </p>
      *
      * @return a int.
      */
     int getSchedulerThreads();
 
     /**
-     * <p>getCollectors</p>
+     * <p>
+     * getCollectors
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     Collection<Collector> getCollectors();
 
     /**
-     * <p>rebuildPackageIpListMap</p>
+     * <p>
+     * rebuildPackageIpListMap
+     * </p>
      */
     void rebuildPackageIpListMap();
 
     /**
-     * <p>getPackages</p>
+     * <p>
+     * getPackages
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     Collection<CollectdPackage> getPackages();
 
     /**
-     * <p>getPackage</p>
+     * <p>
+     * getPackage
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.CollectdPackage} object.
      */
     CollectdPackage getPackage(String name);

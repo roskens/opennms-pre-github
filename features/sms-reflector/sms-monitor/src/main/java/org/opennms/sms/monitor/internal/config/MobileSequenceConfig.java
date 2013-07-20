@@ -47,82 +47,102 @@ import org.opennms.sms.monitor.internal.MobileSequenceExecution;
 import org.springframework.util.Assert;
 
 /**
- * <p>MobileSequenceConfig class.</p>
+ * <p>
+ * MobileSequenceConfig class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="mobile-sequence")
+@XmlRootElement(name = "mobile-sequence")
 public class MobileSequenceConfig implements Serializable, Comparable<MobileSequenceConfig> {
 
     /**
      *
      */
     private static final long serialVersionUID = 142043644615784730L;
+
     /* attributes and elements */
-	private List<SequenceSessionVariable> m_sessionVariables;
+    private List<SequenceSessionVariable> m_sessionVariables;
+
     private List<MobileSequenceTransaction> m_transactions;
 
+    /**
+     * <p>
+     * addSessionVariable
+     * </p>
+     *
+     * @param var
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.SequenceSessionVariable}
+     *            object.
+     */
+    public void addSessionVariable(SequenceSessionVariable var) {
+        getSessionVariables().add(var);
+    }
 
-	/**
-	 * <p>addSessionVariable</p>
-	 *
-	 * @param var a {@link org.opennms.sms.monitor.internal.config.SequenceSessionVariable} object.
-	 */
-	public void addSessionVariable(SequenceSessionVariable var) {
-		getSessionVariables().add(var);
-	}
-
-	/**
-	 * <p>getSessionVariables</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	@XmlElement(name="session-variable")
-	public List<SequenceSessionVariable> getSessionVariables() {
-		if (m_sessionVariables == null) {
-			m_sessionVariables = createSessionVariableList();
-		}
-		return m_sessionVariables;
-	}
+    /**
+     * <p>
+     * getSessionVariables
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    @XmlElement(name = "session-variable")
+    public List<SequenceSessionVariable> getSessionVariables() {
+        if (m_sessionVariables == null) {
+            m_sessionVariables = createSessionVariableList();
+        }
+        return m_sessionVariables;
+    }
 
     private List<SequenceSessionVariable> createSessionVariableList() {
         return Collections.synchronizedList(new ArrayList<SequenceSessionVariable>());
     }
 
-	/**
-	 * <p>setSessionVariables</p>
-	 *
-	 * @param sessionVariables a {@link java.util.List} object.
-	 */
-	public void setSessionVariables(List<SequenceSessionVariable> sessionVariables) {
-		m_sessionVariables = sessionVariables;
-	}
+    /**
+     * <p>
+     * setSessionVariables
+     * </p>
+     *
+     * @param sessionVariables
+     *            a {@link java.util.List} object.
+     */
+    public void setSessionVariables(List<SequenceSessionVariable> sessionVariables) {
+        m_sessionVariables = sessionVariables;
+    }
 
-	/**
-	 * <p>addTransaction</p>
-	 *
-	 * @param transaction a {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction} object.
-	 */
-	public void addTransaction(MobileSequenceTransaction transaction) {
-		getTransactions().add(transaction);
-	}
+    /**
+     * <p>
+     * addTransaction
+     * </p>
+     *
+     * @param transaction
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
+     *            object.
+     */
+    public void addTransaction(MobileSequenceTransaction transaction) {
+        getTransactions().add(transaction);
+    }
 
-	/**
-	 * <p>getTransactions</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	@XmlElement(name="transaction")
-	public List<MobileSequenceTransaction> getTransactions() {
+    /**
+     * <p>
+     * getTransactions
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    @XmlElement(name = "transaction")
+    public List<MobileSequenceTransaction> getTransactions() {
         if (m_transactions == null) {
             m_transactions = createTransactionList();
         }
-		return m_transactions;
-	}
+        return m_transactions;
+    }
 
-	private List<MobileSequenceTransaction> createTransactionList() {
-	    return new TriggeredList<MobileSequenceTransaction>() {
+    private List<MobileSequenceTransaction> createTransactionList() {
+        return new TriggeredList<MobileSequenceTransaction>() {
 
             @Override
             protected void onAdd(int index, MobileSequenceTransaction element) {
@@ -133,105 +153,143 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
             protected void onRemove(int index, MobileSequenceTransaction element) {
                 element.setSequenceConfig(null);
             }
-	    };
+        };
     }
 
     /**
-     * <p>setTransactions</p>
+     * <p>
+     * setTransactions
+     * </p>
      *
-     * @param transactions a {@link java.util.List} object.
+     * @param transactions
+     *            a {@link java.util.List} object.
      */
     public void setTransactions(List<MobileSequenceTransaction> transactions) {
         final List<MobileSequenceTransaction> oldTransactions = getTransactions();
-        if (oldTransactions == transactions) return;
+        if (oldTransactions == transactions)
+            return;
         oldTransactions.clear();
         oldTransactions.addAll(transactions);
-	}
+    }
 
-	/**
-	 * <p>compareTo</p>
-	 *
-	 * @param o a {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig} object.
-	 * @return a int.
-	 */
+    /**
+     * <p>
+     * compareTo
+     * </p>
+     *
+     * @param o
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
+     *            object.
+     * @return a int.
+     */
     @Override
-	public int compareTo(MobileSequenceConfig o) {
-		return new CompareToBuilder()
-			.append(this.getTransactions(), o.getTransactions())
-			.toComparison();
-	}
+    public int compareTo(MobileSequenceConfig o) {
+        return new CompareToBuilder().append(this.getTransactions(), o.getTransactions()).toComparison();
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-	public String toString() {
-		return new ToStringBuilder(this)
-			.append("transactions", getTransactions())
-			.toString();
-	}
+    public String toString() {
+        return new ToStringBuilder(this).append("transactions", getTransactions()).toString();
+    }
 
-	/**
-	 * <p>computeDefaultGateways</p>
-	 */
-	public void computeDefaultGateways() {
-		String defaultGatewayId = "*";
-		for (final MobileSequenceTransaction t : getTransactions()) {
-			if (t.getGatewayId() != null) {
-				defaultGatewayId = t.getGatewayId();
-			}
+    /**
+     * <p>
+     * computeDefaultGateways
+     * </p>
+     */
+    public void computeDefaultGateways() {
+        String defaultGatewayId = "*";
+        for (final MobileSequenceTransaction t : getTransactions()) {
+            if (t.getGatewayId() != null) {
+                defaultGatewayId = t.getGatewayId();
+            }
 
-			t.setDefaultGatewayId(defaultGatewayId);
-		}
-	}
+            t.setDefaultGatewayId(defaultGatewayId);
+        }
+    }
 
-	/**
-	 * <p>createTransaction</p>
-	 *
-	 * @param request a {@link org.opennms.sms.monitor.internal.config.MobileSequenceRequest} object.
-	 * @param response a {@link org.opennms.sms.monitor.internal.config.MobileSequenceResponse} object.
-	 * @return a {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction} object.
-	 */
-	public MobileSequenceTransaction createTransaction(MobileSequenceRequest request, MobileSequenceResponse response) {
+    /**
+     * <p>
+     * createTransaction
+     * </p>
+     *
+     * @param request
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceRequest}
+     *            object.
+     * @param response
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceResponse}
+     *            object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
+     *         object.
+     */
+    public MobileSequenceTransaction createTransaction(MobileSequenceRequest request, MobileSequenceResponse response) {
 
         MobileSequenceTransaction t = new MobileSequenceTransaction();
-		addTransaction(t);
+        addTransaction(t);
 
-		t.setRequest(request);
+        t.setRequest(request);
 
-		t.addResponse(response);
+        t.addResponse(response);
         return t;
     }
 
-	/**
-	 * <p>executeSequence</p>
-	 *
-	 * @param session a {@link org.opennms.sms.monitor.MobileSequenceSession} object.
-	 * @param coordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
-	 * @return a {@link java.util.Map} object.
-	 * @throws org.opennms.sms.monitor.SequencerException if any.
-	 * @throws java.lang.Throwable if any.
-	 */
-	public Map<String, Number> executeSequence(MobileSequenceSession session, DefaultTaskCoordinator coordinator) throws SequencerException, Throwable {
+    /**
+     * <p>
+     * executeSequence
+     * </p>
+     *
+     * @param session
+     *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
+     *            object.
+     * @param coordinator
+     *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     * @return a {@link java.util.Map} object.
+     * @throws org.opennms.sms.monitor.SequencerException
+     *             if any.
+     * @throws java.lang.Throwable
+     *             if any.
+     */
+    public Map<String, Number> executeSequence(MobileSequenceSession session, DefaultTaskCoordinator coordinator)
+            throws SequencerException, Throwable {
 
         MobileSequenceExecution execution = start(session, coordinator);
 
         waitFor(session, execution);
 
-		return execution.getResponseTimes();
-	}
+        return execution.getResponseTimes();
+    }
 
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      *
-     * @param session a {@link org.opennms.sms.monitor.MobileSequenceSession} object.
-     * @param coordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
-     * @return a {@link org.opennms.sms.monitor.internal.MobileSequenceExecution} object.
-     * @throws org.opennms.sms.monitor.SequencerException if any.
+     * @param session
+     *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
+     *            object.
+     * @param coordinator
+     *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.MobileSequenceExecution}
+     *         object.
+     * @throws org.opennms.sms.monitor.SequencerException
+     *             if any.
      */
-    public MobileSequenceExecution start(MobileSequenceSession session, DefaultTaskCoordinator coordinator) throws SequencerException {
+    public MobileSequenceExecution start(MobileSequenceSession session, DefaultTaskCoordinator coordinator)
+            throws SequencerException {
 
         Assert.notNull(coordinator);
 
@@ -250,15 +308,26 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
     }
 
     /**
-     * <p>waitFor</p>
+     * <p>
+     * waitFor
+     * </p>
      *
-     * @param session a {@link org.opennms.sms.monitor.MobileSequenceSession} object.
-     * @param execution a {@link org.opennms.sms.monitor.internal.MobileSequenceExecution} object.
-     * @throws java.lang.InterruptedException if any.
-     * @throws java.util.concurrent.ExecutionException if any.
-     * @throws java.lang.Throwable if any.
+     * @param session
+     *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
+     *            object.
+     * @param execution
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.MobileSequenceExecution}
+     *            object.
+     * @throws java.lang.InterruptedException
+     *             if any.
+     * @throws java.util.concurrent.ExecutionException
+     *             if any.
+     * @throws java.lang.Throwable
+     *             if any.
      */
-    public void waitFor(MobileSequenceSession session, MobileSequenceExecution execution) throws InterruptedException, ExecutionException, Throwable {
+    public void waitFor(MobileSequenceSession session, MobileSequenceExecution execution) throws InterruptedException,
+            ExecutionException, Throwable {
 
         execution.waitFor();
 
@@ -266,7 +335,9 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
     }
 
     /**
-     * <p>hasTransactions</p>
+     * <p>
+     * hasTransactions
+     * </p>
      *
      * @return a boolean.
      */
@@ -274,6 +345,4 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
         return getTransactions() != null && getTransactions().size() != 0;
     }
 
-
 }
-

@@ -31,7 +31,9 @@ package org.opennms.netmgt.notifd.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>NotifdMBean interface.</p>
+ * <p>
+ * NotifdMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

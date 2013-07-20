@@ -47,11 +47,12 @@ import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 
-public class ReportSelectListViewImpl extends Composite implements ReportSelectListView<ResourceListItem>{
+public class ReportSelectListViewImpl extends Composite implements ReportSelectListView<ResourceListItem> {
 
     private static ReportSelectListViewImplUiBinder uiBinder = GWT.create(ReportSelectListViewImplUiBinder.class);
 
-    interface ReportSelectListViewImplUiBinder extends UiBinder<Widget, ReportSelectListViewImpl> { }
+    interface ReportSelectListViewImplUiBinder extends UiBinder<Widget, ReportSelectListViewImpl> {
+    }
 
     @UiField
     LayoutPanel m_layoutPanel;
@@ -79,6 +80,7 @@ public class ReportSelectListViewImpl extends Composite implements ReportSelectL
     private List<ResourceListItem> m_dataList;
 
     private final MultiSelectionModel<ResourceListItem> m_selectionModel;
+
     private List<ResourceListItem> m_selectedReports;
 
     private Presenter<ResourceListItem> m_presenter;
@@ -91,9 +93,9 @@ public class ReportSelectListViewImpl extends Composite implements ReportSelectL
 
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
-                if(m_selectionModel.getSelectedSet().size() > 0) {
+                if (m_selectionModel.getSelectedSet().size() > 0) {
                     m_selectedReports = new ArrayList<ResourceListItem>(m_selectionModel.getSelectedSet());
-                }else {
+                } else {
                     m_selectedReports = null;
                 }
 
@@ -124,7 +126,7 @@ public class ReportSelectListViewImpl extends Composite implements ReportSelectL
 
     @UiHandler("m_selectAllButton")
     public void onSelectAllButtonClick(ClickEvent event) {
-        for(ResourceListItem item : m_dataList) {
+        for (ResourceListItem item : m_dataList) {
             m_selectionModel.setSelected(item, true);
         }
     }
@@ -179,6 +181,5 @@ public class ReportSelectListViewImpl extends Composite implements ReportSelectL
     public List<ResourceListItem> getAllReports() {
         return m_dataList;
     }
-
 
 }

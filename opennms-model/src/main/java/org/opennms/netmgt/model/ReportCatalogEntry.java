@@ -41,8 +41,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="reportCatalog")
-
+@Table(name = "reportCatalog")
 /**
  * ReportStoreCatalog contains details of reports that have already been run
  *
@@ -64,99 +63,124 @@ public class ReportCatalogEntry implements Serializable {
     private String m_location;
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(name="id")
-    @SequenceGenerator(name="reportCatalogSequence", sequenceName="reportCatalogNxtId")
-    @GeneratedValue(generator="reportCatalogSequence")
+    @Column(name = "id")
+    @SequenceGenerator(name = "reportCatalogSequence", sequenceName = "reportCatalogNxtId")
+    @GeneratedValue(generator = "reportCatalogSequence")
     public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getReportId</p>
+     * <p>
+     * getReportId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="reportId", length=256)
+    @Column(name = "reportId", length = 256)
     public String getReportId() {
         return m_reportId;
     }
 
     /**
-     * <p>setReportId</p>
+     * <p>
+     * setReportId
+     * </p>
      *
-     * @param reportId a {@link java.lang.String} object.
+     * @param reportId
+     *            a {@link java.lang.String} object.
      */
     public void setReportId(String reportId) {
         m_reportId = reportId;
     }
 
     /**
-     * <p>getTitle</p>
+     * <p>
+     * getTitle
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="title", length=256)
+    @Column(name = "title", length = 256)
     public String getTitle() {
         return m_title;
     }
 
     /**
-     * <p>setTitle</p>
+     * <p>
+     * setTitle
+     * </p>
      *
-     * @param title a {@link java.lang.String} object.
+     * @param title
+     *            a {@link java.lang.String} object.
      */
     public void setTitle(String title) {
         m_title = title;
     }
 
     /**
-     * <p>getDate</p>
+     * <p>
+     * getDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="date", nullable=false)
+    @Column(name = "date", nullable = false)
     public Date getDate() {
         return m_date;
     }
 
     /**
-     * <p>setDate</p>
+     * <p>
+     * setDate
+     * </p>
      *
-     * @param date a {@link java.util.Date} object.
+     * @param date
+     *            a {@link java.util.Date} object.
      */
     public void setDate(Date date) {
         m_date = date;
     }
 
     /**
-     * <p>getLocation</p>
+     * <p>
+     * getLocation
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="location", length=256)
+    @Column(name = "location", length = 256)
     public String getLocation() {
         return m_location;
     }
 
     /**
-     * <p>setLocation</p>
+     * <p>
+     * setLocation
+     * </p>
      *
-     * @param location a {@link java.lang.String} object.
+     * @param location
+     *            a {@link java.lang.String} object.
      */
     public void setLocation(String location) {
         m_location = location;

@@ -39,7 +39,9 @@ import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 import org.opennms.web.graph.RelativeTimePeriod;
 
 /**
- * <p>DistributedStatusHistoryModel class.</p>
+ * <p>
+ * DistributedStatusHistoryModel class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -50,42 +52,61 @@ import org.opennms.web.graph.RelativeTimePeriod;
  */
 public class DistributedStatusHistoryModel {
     private List<OnmsMonitoringLocationDefinition> m_locations;
+
     private List<OnmsApplication> m_applications;
+
     private OnmsMonitoringLocationDefinition m_chosenLocation;
+
     private OnmsApplication m_chosenApplication;
+
     private Collection<OnmsMonitoredService> m_chosenApplicationMemberServices;
+
     private List<String> m_errors;
+
     private List<RelativeTimePeriod> m_periods;
+
     private RelativeTimePeriod m_chosenPeriod;
+
     private List<OnmsLocationMonitor> m_monitors;
+
     private OnmsLocationMonitor m_chosenMonitor;
+
     private SortedSet<ServiceGraph> m_serviceGraphs;
 
     /**
-     * <p>Constructor for DistributedStatusHistoryModel.</p>
+     * <p>
+     * Constructor for DistributedStatusHistoryModel.
+     * </p>
      *
-     * @param locations a {@link java.util.List} object.
-     * @param applications a {@link java.util.List} object.
-     * @param monitors a {@link java.util.List} object.
-     * @param periods a {@link java.util.List} object.
-     * @param chosenLocation a {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition} object.
-     * @param chosenApplication a {@link org.opennms.netmgt.model.OnmsApplication} object.
-     * @param chosenApplicationMemberServices a {@link java.util.Collection} object.
-     * @param chosenMonitor a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
-     * @param chosenPeriod a {@link org.opennms.web.graph.RelativeTimePeriod} object.
-     * @param errors a {@link java.util.List} object.
+     * @param locations
+     *            a {@link java.util.List} object.
+     * @param applications
+     *            a {@link java.util.List} object.
+     * @param monitors
+     *            a {@link java.util.List} object.
+     * @param periods
+     *            a {@link java.util.List} object.
+     * @param chosenLocation
+     *            a
+     *            {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition}
+     *            object.
+     * @param chosenApplication
+     *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
+     * @param chosenApplicationMemberServices
+     *            a {@link java.util.Collection} object.
+     * @param chosenMonitor
+     *            a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
+     * @param chosenPeriod
+     *            a {@link org.opennms.web.graph.RelativeTimePeriod} object.
+     * @param errors
+     *            a {@link java.util.List} object.
      */
-    public DistributedStatusHistoryModel(
-            final List<OnmsMonitoringLocationDefinition> locations,
-            final List<OnmsApplication> applications,
-            final List<OnmsLocationMonitor> monitors,
-            final List<RelativeTimePeriod> periods,
-            final OnmsMonitoringLocationDefinition chosenLocation,
+    public DistributedStatusHistoryModel(final List<OnmsMonitoringLocationDefinition> locations,
+            final List<OnmsApplication> applications, final List<OnmsLocationMonitor> monitors,
+            final List<RelativeTimePeriod> periods, final OnmsMonitoringLocationDefinition chosenLocation,
             final OnmsApplication chosenApplication,
             final Collection<OnmsMonitoredService> chosenApplicationMemberServices,
-            final OnmsLocationMonitor chosenMonitor,
-            final RelativeTimePeriod chosenPeriod,
-            final List<String> errors) {
+            final OnmsLocationMonitor chosenMonitor, final RelativeTimePeriod chosenPeriod, final List<String> errors) {
         m_locations = locations;
         m_applications = applications;
         m_monitors = monitors;
@@ -100,7 +121,9 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getApplications</p>
+     * <p>
+     * getApplications
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -109,7 +132,9 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getLocations</p>
+     * <p>
+     * getLocations
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -118,7 +143,9 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getChosenApplication</p>
+     * <p>
+     * getChosenApplication
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsApplication} object.
      */
@@ -127,7 +154,9 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getChosenApplicationMemberServices</p>
+     * <p>
+     * getChosenApplicationMemberServices
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -136,16 +165,22 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getChosenLocation</p>
+     * <p>
+     * getChosenLocation
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition} object.
+     * @return a
+     *         {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition}
+     *         object.
      */
     public final OnmsMonitoringLocationDefinition getChosenLocation() {
         return m_chosenLocation;
     }
 
     /**
-     * <p>getErrors</p>
+     * <p>
+     * getErrors
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -154,7 +189,9 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getChosenPeriod</p>
+     * <p>
+     * getChosenPeriod
+     * </p>
      *
      * @return a {@link org.opennms.web.graph.RelativeTimePeriod} object.
      */
@@ -163,7 +200,9 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getPeriods</p>
+     * <p>
+     * getPeriods
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -172,7 +211,9 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getChosenMonitor</p>
+     * <p>
+     * getChosenMonitor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
      */
@@ -181,7 +222,9 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getMonitors</p>
+     * <p>
+     * getMonitors
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -190,18 +233,23 @@ public class DistributedStatusHistoryModel {
     }
 
     /**
-     * <p>getServiceGraphs</p>
+     * <p>
+     * getServiceGraphs
+     * </p>
      *
      * @return a {@link java.util.SortedSet} object.
      */
-    public final SortedSet<ServiceGraph >getServiceGraphs() {
+    public final SortedSet<ServiceGraph> getServiceGraphs() {
         return m_serviceGraphs;
     }
 
     /**
-     * <p>setServiceGraphs</p>
+     * <p>
+     * setServiceGraphs
+     * </p>
      *
-     * @param serviceGraphs a {@link java.util.SortedSet} object.
+     * @param serviceGraphs
+     *            a {@link java.util.SortedSet} object.
      */
     public final void setServiceGraphs(final SortedSet<ServiceGraph> serviceGraphs) {
         m_serviceGraphs = serviceGraphs;
@@ -209,7 +257,9 @@ public class DistributedStatusHistoryModel {
 
     public static class ServiceGraph {
         private OnmsMonitoredService m_service;
+
         private String m_url;
+
         private String[] m_errors;
 
         public ServiceGraph(final OnmsMonitoredService service, final String url) {

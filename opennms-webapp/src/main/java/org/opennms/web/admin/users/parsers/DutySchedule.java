@@ -95,7 +95,8 @@ public class DutySchedule implements Cloneable {
      * A mapping between the days of the week as indexed by the DutySchedule
      * class and those of the Calendar class
      */
-    private static final int[] CALENDAR_DAY_MAPPING = { Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY };
+    private static final int[] CALENDAR_DAY_MAPPING = { Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY,
+            Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY };
 
     /**
      * Create a new DutySchedule. Builds the BitSet used to identify the days of
@@ -273,7 +274,8 @@ public class DutySchedule implements Cloneable {
 
         // make two new Calendar objects from the YEAR, MONTH and DATE of the
         // date we are checking.
-        Calendar startTime = new GregorianCalendar(aTime.get(Calendar.YEAR), aTime.get(Calendar.MONTH), aTime.get(Calendar.DATE));
+        Calendar startTime = new GregorianCalendar(aTime.get(Calendar.YEAR), aTime.get(Calendar.MONTH),
+                                                   aTime.get(Calendar.DATE));
 
         // the hour will be the integer part of the start time divided by 100
         // cause it should be
@@ -285,7 +287,8 @@ public class DutySchedule implements Cloneable {
         startTime.set(Calendar.MINUTE, (m_startTime % 100));
         startTime.set(Calendar.SECOND, 0);
 
-        Calendar endTime = new GregorianCalendar(aTime.get(Calendar.YEAR), aTime.get(Calendar.MONTH), aTime.get(Calendar.DATE));
+        Calendar endTime = new GregorianCalendar(aTime.get(Calendar.YEAR), aTime.get(Calendar.MONTH),
+                                                 aTime.get(Calendar.DATE));
 
         endTime.set(Calendar.HOUR_OF_DAY, (m_stopTime / 100));
         endTime.set(Calendar.MINUTE, (m_stopTime % 100));
@@ -368,9 +371,12 @@ public class DutySchedule implements Cloneable {
     }
 
     /**
-     * <p>hasDay</p>
+     * <p>
+     * hasDay
+     * </p>
      *
-     * @param aDay a int.
+     * @param aDay
+     *            a int.
      * @return a boolean.
      */
     public boolean hasDay(int aDay) {
@@ -378,9 +384,12 @@ public class DutySchedule implements Cloneable {
     }
 
     /**
-     * <p>clone</p>
+     * <p>
+     * clone
+     * </p>
      *
-     * @return a {@link org.opennms.web.admin.users.parsers.DutySchedule} object.
+     * @return a {@link org.opennms.web.admin.users.parsers.DutySchedule}
+     *         object.
      */
     @Override
     public DutySchedule clone() {

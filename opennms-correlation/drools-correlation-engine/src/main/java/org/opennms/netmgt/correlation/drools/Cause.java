@@ -35,7 +35,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>Cause class.</p>
+ * <p>
+ * Cause class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -43,24 +45,33 @@ import org.opennms.netmgt.xml.event.Event;
 public class Cause {
 
     public enum Type {
-        POSSIBLE,
-        IMPACT,
-        ROOT
+        POSSIBLE, IMPACT, ROOT
     }
 
     private Type m_type;
+
     private Long m_cause;
+
     private Event m_symptom;
+
     private Integer m_timerId;
+
     private final Set<Cause> m_impacted = new HashSet<Cause>();
 
     /**
-     * <p>Constructor for Cause.</p>
+     * <p>
+     * Constructor for Cause.
+     * </p>
      *
-     * @param type a {@link org.opennms.netmgt.correlation.drools.Cause.Type} object.
-     * @param cause a {@link java.lang.Long} object.
-     * @param symptom a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param timerId a {@link java.lang.Integer} object.
+     * @param type
+     *            a {@link org.opennms.netmgt.correlation.drools.Cause.Type}
+     *            object.
+     * @param cause
+     *            a {@link java.lang.Long} object.
+     * @param symptom
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param timerId
+     *            a {@link java.lang.Integer} object.
      */
     public Cause(final Type type, final Long cause, final Event symptom, final Integer timerId) {
         m_type = type;
@@ -70,36 +81,51 @@ public class Cause {
     }
 
     /**
-     * <p>Constructor for Cause.</p>
+     * <p>
+     * Constructor for Cause.
+     * </p>
      *
-     * @param type a {@link org.opennms.netmgt.correlation.drools.Cause.Type} object.
-     * @param cause a {@link java.lang.Long} object.
-     * @param symptom a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param type
+     *            a {@link org.opennms.netmgt.correlation.drools.Cause.Type}
+     *            object.
+     * @param cause
+     *            a {@link java.lang.Long} object.
+     * @param symptom
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public Cause(final Type type, final Long cause, final Event symptom) {
         this(type, cause, symptom, null);
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.correlation.drools.Cause.Type} object.
+     * @return a {@link org.opennms.netmgt.correlation.drools.Cause.Type}
+     *         object.
      */
     public Type getType() {
         return m_type;
     }
 
     /**
-     * <p>setType</p>
+     * <p>
+     * setType
+     * </p>
      *
-     * @param type a {@link org.opennms.netmgt.correlation.drools.Cause.Type} object.
+     * @param type
+     *            a {@link org.opennms.netmgt.correlation.drools.Cause.Type}
+     *            object.
      */
     public void setType(final Type type) {
         m_type = type;
     }
 
     /**
-     * <p>getCause</p>
+     * <p>
+     * getCause
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -108,16 +134,21 @@ public class Cause {
     }
 
     /**
-     * <p>setCause</p>
+     * <p>
+     * setCause
+     * </p>
      *
-     * @param causeNodeId a {@link java.lang.Long} object.
+     * @param causeNodeId
+     *            a {@link java.lang.Long} object.
      */
     public void setCause(final Long causeNodeId) {
         m_cause = causeNodeId;
     }
 
     /**
-     * <p>getSymptom</p>
+     * <p>
+     * getSymptom
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -126,16 +157,21 @@ public class Cause {
     }
 
     /**
-     * <p>setSymptom</p>
+     * <p>
+     * setSymptom
+     * </p>
      *
-     * @param symptomEvent a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param symptomEvent
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public void setSymptom(final Event symptomEvent) {
         m_symptom = symptomEvent;
     }
 
     /**
-     * <p>getImpacted</p>
+     * <p>
+     * getImpacted
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -144,31 +180,34 @@ public class Cause {
     }
 
     /**
-     * <p>addImpacted</p>
+     * <p>
+     * addImpacted
+     * </p>
      *
-     * @param cause a {@link org.opennms.netmgt.correlation.drools.Cause} object.
+     * @param cause
+     *            a {@link org.opennms.netmgt.correlation.drools.Cause} object.
      */
     public void addImpacted(final Cause cause) {
         m_impacted.add(cause);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-            .append("type", m_type)
-            .append("cause", m_cause)
-            .append("symptom", m_symptom)
-            .append("impacted", m_impacted)
-            .toString();
+        return new ToStringBuilder(this).append("type", m_type).append("cause", m_cause).append("symptom", m_symptom).append("impacted",
+                                                                                                                             m_impacted).toString();
     }
 
     /**
-     * <p>getTimerId</p>
+     * <p>
+     * getTimerId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -177,9 +216,12 @@ public class Cause {
     }
 
     /**
-     * <p>setTimerId</p>
+     * <p>
+     * setTimerId
+     * </p>
      *
-     * @param timerId a {@link java.lang.Integer} object.
+     * @param timerId
+     *            a {@link java.lang.Integer} object.
      */
     public void setTimerId(final Integer timerId) {
         m_timerId = timerId;

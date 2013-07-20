@@ -68,9 +68,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class AuthorityController {
 
     /**
-     * <p>list</p>
+     * <p>
+     * list
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/authority.list.page")
@@ -83,9 +86,12 @@ public class AuthorityController {
     }
 
     /**
-     * <p>detail</p>
+     * <p>
+     * detail
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/authority.detail.page")
@@ -95,23 +101,30 @@ public class AuthorityController {
     }
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/authority.delete.page")
     public ModelAndView delete(HttpServletRequest req) {
         Authority authority = WebUtils.getAuthority(req);
         ModelAndView mav = new ModelAndView(Constants.REDIRECT_AUTHORITY_LIST);
-        mav.addObject(Constants.MESSAGE, authority.remove() ? Constants.MSG_AUTHORITY_DELETE_SUCCESS : Constants.MSG_AUTHORITY_DELETE_FAILURE);
+        mav.addObject(Constants.MESSAGE, authority.remove() ? Constants.MSG_AUTHORITY_DELETE_SUCCESS
+            : Constants.MSG_AUTHORITY_DELETE_FAILURE);
         return mav;
     }
 
     /**
-     * <p>confirmDelete</p>
+     * <p>
+     * confirmDelete
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/authority.confirm.page")
@@ -124,9 +137,12 @@ public class AuthorityController {
     }
 
     /**
-     * <p>items</p>
+     * <p>
+     * items
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/authority.items.page")
@@ -144,29 +160,39 @@ public class AuthorityController {
     }
 
     /**
-     * <p>selection</p>
+     * <p>
+     * selection
+     * </p>
      *
-     * @param ids a {@link java.lang.String} object.
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param ids
+     *            a {@link java.lang.String} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/authority.selection.page")
-    public ModelAndView selection(@RequestParam("includedHidden") String ids, HttpServletRequest req) {
+    public ModelAndView selection(@RequestParam("includedHidden")
+    String ids, HttpServletRequest req) {
         Authority authority = WebUtils.getAuthority(req);
         if (ids != null && ids.length() > 0) {
             authority.setNewItems(WebUtils.extractIdGrantedAuthorityFromString(ids, Constants.COMMA));
             authority.save();
         }
-        return new ModelAndView(new StringBuilder(Constants.REDIRECT_AUTHORITY_LIST).append("?").append(Constants.AUTHORITY_ID).append("=").append(authority.getId()).toString());
+        return new ModelAndView(
+                                new StringBuilder(Constants.REDIRECT_AUTHORITY_LIST).append("?").append(Constants.AUTHORITY_ID).append("=").append(authority.getId()).toString());
     }
 
     /**
-     * <p>Constructor for AuthorityController.</p>
+     * <p>
+     * Constructor for AuthorityController.
+     * </p>
      *
-     * @param authorityService a {@link org.opennms.acl.service.AuthorityService} object.
+     * @param authorityService
+     *            a {@link org.opennms.acl.service.AuthorityService} object.
      */
     @Autowired
-    public AuthorityController(@Qualifier("authorityService") AuthorityService authorityService) {
+    public AuthorityController(@Qualifier("authorityService")
+    AuthorityService authorityService) {
         this.authorityService = authorityService;
     }
 

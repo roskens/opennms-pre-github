@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "users")
 public class OnmsUserList extends LinkedList<OnmsUser> {
     private static final long serialVersionUID = 870025150817734414L;
+
     private int m_totalCount;
 
     public OnmsUserList() {
@@ -55,29 +56,34 @@ public class OnmsUserList extends LinkedList<OnmsUser> {
     }
 
     public void setUsers(final List<OnmsUser> users) {
-        if (users == this) return;
+        if (users == this)
+            return;
         clear();
         addAll(users);
     }
 
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public int getCount() {
         return this.size();
     }
 
-    // The property has a getter "" but no setter. For unmarshalling, please define setters.
+    // The property has a getter "" but no setter. For unmarshalling, please
+    // define setters.
     public void setCount(final int count) {
     }
 
-    @XmlAttribute(name="totalCount")
+    @XmlAttribute(name = "totalCount")
     public int getTotalCount() {
         return m_totalCount;
     }
 
     /**
-     * <p>setTotalCount</p>
+     * <p>
+     * setTotalCount
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      */
     public void setTotalCount(final int count) {
         m_totalCount = count;

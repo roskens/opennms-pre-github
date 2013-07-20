@@ -80,8 +80,7 @@ public class FileAnticipatorTest extends TestCase {
     public void testExpectingDeleteExpected() throws Exception {
         String file = "FileAnticipatorTest_" + System.currentTimeMillis();
         File tempFile = m_anticipator.expecting(file);
-        assertTrue("createNewFile: " + tempFile.getAbsolutePath(),
-                   tempFile.createNewFile());
+        assertTrue("createNewFile: " + tempFile.getAbsolutePath(), tempFile.createNewFile());
         m_anticipator.deleteExpected();
     }
 
@@ -89,7 +88,9 @@ public class FileAnticipatorTest extends TestCase {
         String file = "FileAnticipatorTest_bogus_" + System.currentTimeMillis();
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new AssertionFailedError("Errors occurred inside FileAnticipator:\nExpected file that needs to be deleted does not exist: " + m_anticipator.getTempDir() + File.separator + file));
+        ta.anticipate(new AssertionFailedError(
+                                               "Errors occurred inside FileAnticipator:\nExpected file that needs to be deleted does not exist: "
+                                                       + m_anticipator.getTempDir() + File.separator + file));
 
         m_anticipator.expecting(file);
 
@@ -105,7 +106,8 @@ public class FileAnticipatorTest extends TestCase {
     public void testTempDir() throws Exception {
         String file = "FileAnticipatorTest_tempDir_" + System.currentTimeMillis();
         File f = m_anticipator.tempDir(file);
-        assertEquals("temporary directory name", m_anticipator.getTempDir() + File.separator + file, f.getAbsolutePath());
+        assertEquals("temporary directory name", m_anticipator.getTempDir() + File.separator + file,
+                     f.getAbsolutePath());
         assertTrue("temporary directory should exist at " + f.getAbsolutePath(), f.isDirectory());
         m_anticipator.deleteExpected();
     }
@@ -127,7 +129,8 @@ public class FileAnticipatorTest extends TestCase {
 
         String file = "FileAnticipatorTest_tempDir_" + System.currentTimeMillis();
         File f = m_anticipator.tempDir(parent, file);
-        assertEquals("temporary directory name", m_anticipator.getTempDir() + File.separator + "parent" + File.separator + file, f.getAbsolutePath());
+        assertEquals("temporary directory name", m_anticipator.getTempDir() + File.separator + "parent"
+                + File.separator + file, f.getAbsolutePath());
         assertTrue("temporary directory should exist at " + f.getAbsolutePath(), f.isDirectory());
         m_anticipator.deleteExpected();
     }
@@ -157,11 +160,11 @@ public class FileAnticipatorTest extends TestCase {
 
         String file = "FileAnticipatorTest_tempFile_" + System.currentTimeMillis();
         File f = m_anticipator.tempFile(parent, file);
-        assertEquals("temporary file name", m_anticipator.getTempDir() + File.separator + "parent" + File.separator + file, f.getAbsolutePath());
+        assertEquals("temporary file name", m_anticipator.getTempDir() + File.separator + "parent" + File.separator
+                + file, f.getAbsolutePath());
         assertTrue("temporary file should exist at " + f.getAbsolutePath(), f.isFile());
         m_anticipator.deleteExpected();
     }
-
 
     public void testTempFileWithParentNullParent() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -237,7 +240,8 @@ public class FileAnticipatorTest extends TestCase {
         String file = "FileAnticipatorTest_tempFile_" + System.currentTimeMillis();
         String contents = "yay!";
         File f = m_anticipator.tempFile(parent, file, contents);
-        assertEquals("temporary file name", m_anticipator.getTempDir() + File.separator + "parent" + File.separator + file, f.getAbsolutePath());
+        assertEquals("temporary file name", m_anticipator.getTempDir() + File.separator + "parent" + File.separator
+                + file, f.getAbsolutePath());
         assertTrue("temporary file should exist at " + f.getAbsolutePath(), f.isFile());
 
         StringBuffer b = new StringBuffer();
@@ -252,7 +256,6 @@ public class FileAnticipatorTest extends TestCase {
 
         m_anticipator.deleteExpected();
     }
-
 
     public void testTempFileWithContentsAndParentNullParent() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -321,6 +324,7 @@ public class FileAnticipatorTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
+
     public void testNotInitializedThenTempFileWithContents() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
 
@@ -372,7 +376,6 @@ public class FileAnticipatorTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-
 
     public void testNotInitializedThenTearDown() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);

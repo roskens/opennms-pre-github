@@ -33,133 +33,145 @@ import com.vaadin.data.util.BeanItem;
 
 public class AbstractVertex extends AbstractVertexRef implements Vertex {
 
-	private String m_tooltipText;
-	private String m_iconKey;
-	private String m_styleName;
-	private VertexRef m_parent;
-	private Integer m_x;
-	private Integer m_y;
-	private boolean m_selected;
-	private boolean m_locked = false;
-	private String m_ipAddr ="127.0.0.1";
-	private Integer m_nodeID;
+    private String m_tooltipText;
 
-	public AbstractVertex(String namespace, String id) {
-		super(namespace, id);
-	}
+    private String m_iconKey;
 
-	/**
-	 * @deprecated Use namespace/id tuple
-	 */
-	@Override
-	public final String getKey() {
-		return getNamespace() + ":" + getId();
-	}
+    private String m_styleName;
 
-	@Override
-	public Item getItem() {
-		return new BeanItem<AbstractVertex>(this);
-	}
+    private VertexRef m_parent;
 
-	@Override
-	public String getTooltipText() {
-		return m_tooltipText != null ? m_tooltipText : getLabel();
-	}
+    private Integer m_x;
 
-	public final void setTooltipText(String tooltpText) {
-		m_tooltipText = tooltpText;
-	}
+    private Integer m_y;
 
-	@Override
-	public final String getIconKey() {
-		return m_iconKey;
-	}
+    private boolean m_selected;
 
-	public final void setIconKey(String iconKey) {
-		m_iconKey = iconKey;
-	}
+    private boolean m_locked = false;
 
-	@Override
-	public String getStyleName() {
-		return m_styleName;
-	}
+    private String m_ipAddr = "127.0.0.1";
 
-	public final void setStyleName(String styleName) {
-		m_styleName = styleName;
-	}
+    private Integer m_nodeID;
 
-	@Override
-	public final Integer getX() {
-		return m_x;
-	}
+    public AbstractVertex(String namespace, String id) {
+        super(namespace, id);
+    }
 
-	public final void setX(Integer x) {
-		m_x = x;
-	}
+    /**
+     * @deprecated Use namespace/id tuple
+     */
+    @Override
+    public final String getKey() {
+        return getNamespace() + ":" + getId();
+    }
 
-	@Override
-	public final Integer getY() {
-		return m_y;
-	}
+    @Override
+    public Item getItem() {
+        return new BeanItem<AbstractVertex>(this);
+    }
 
-	public final void setY(Integer y) {
-		m_y = y;
-	}
+    @Override
+    public String getTooltipText() {
+        return m_tooltipText != null ? m_tooltipText : getLabel();
+    }
 
-        @Override
-	public final VertexRef getParent() {
-		return m_parent;
-	}
+    public final void setTooltipText(String tooltpText) {
+        m_tooltipText = tooltpText;
+    }
 
-	/**
-	 * @param parent
-	 */
-	@Override
-	public final void setParent(VertexRef parent) {
-		m_parent = parent;
-	}
+    @Override
+    public final String getIconKey() {
+        return m_iconKey;
+    }
 
-	@Override
-	public final boolean isLocked() {
-		return m_locked;
-	}
+    public final void setIconKey(String iconKey) {
+        m_iconKey = iconKey;
+    }
 
-	public final void setLocked(boolean locked) {
-		m_locked = locked;
-	}
+    @Override
+    public String getStyleName() {
+        return m_styleName;
+    }
 
-	@Override
-	public boolean isGroup() {
-		return false;
-	}
+    public final void setStyleName(String styleName) {
+        m_styleName = styleName;
+    }
 
-	@Override
-	public final boolean isSelected() {
-		return m_selected;
-	}
+    @Override
+    public final Integer getX() {
+        return m_x;
+    }
 
-	public final void setSelected(boolean selected) {
-		m_selected = selected;
-	}
+    public final void setX(Integer x) {
+        m_x = x;
+    }
 
-	@Override
-	public final String getIpAddress() {
-		return m_ipAddr;
-	}
+    @Override
+    public final Integer getY() {
+        return m_y;
+    }
 
-	public final void setIpAddress(String ipAddr){
-		m_ipAddr = ipAddr;
-	}
+    public final void setY(Integer y) {
+        m_y = y;
+    }
 
-	@Override
-	public final Integer getNodeID() {
-		return m_nodeID;
-	}
+    @Override
+    public final VertexRef getParent() {
+        return m_parent;
+    }
 
-	public final void setNodeID(Integer nodeID) {
-		m_nodeID = nodeID;
-	}
+    /**
+     * @param parent
+     */
+    @Override
+    public final void setParent(VertexRef parent) {
+        m_parent = parent;
+    }
 
-	 @Override
-	 public String toString() { return "Vertex:"+getNamespace()+":"+getId() + "[label="+getLabel()+", styleName="+getStyleName()+"]"; }
+    @Override
+    public final boolean isLocked() {
+        return m_locked;
+    }
+
+    public final void setLocked(boolean locked) {
+        m_locked = locked;
+    }
+
+    @Override
+    public boolean isGroup() {
+        return false;
+    }
+
+    @Override
+    public final boolean isSelected() {
+        return m_selected;
+    }
+
+    public final void setSelected(boolean selected) {
+        m_selected = selected;
+    }
+
+    @Override
+    public final String getIpAddress() {
+        return m_ipAddr;
+    }
+
+    public final void setIpAddress(String ipAddr) {
+        m_ipAddr = ipAddr;
+    }
+
+    @Override
+    public final Integer getNodeID() {
+        return m_nodeID;
+    }
+
+    public final void setNodeID(Integer nodeID) {
+        m_nodeID = nodeID;
+    }
+
+    @Override
+    public String toString() {
+        return "Vertex:" + getNamespace() + ":" + getId() + "[label=" + getLabel() + ", styleName=" + getStyleName()
+                + "]";
+    }
 }

@@ -116,6 +116,7 @@ public class Snmp4JAgentConfig {
 
     /**
      * Returns a string representation of the SNMP4J version constant
+     *
      * @param version
      * @return
      */
@@ -142,10 +143,11 @@ public class Snmp4JAgentConfig {
     }
 
     /**
-     * This method converts an InetAddress to an implementation of an SNMP4J Address
+     * This method converts an InetAddress to an implementation of an SNMP4J
+     * Address
      * (UdpAddress or TcpAddress)
-     *
-     * TODO: This needs to be updated when the protocol flag is added to the SNMP Config
+     * TODO: This needs to be updated when the protocol flag is added to the
+     * SNMP Config
      * so that UDP or TCP can be used in v3 operations.
      */
     private Address convertAddress(InetAddress address, int port) {
@@ -308,17 +310,17 @@ public class Snmp4JAgentConfig {
      */
     private int convertSecurityLevel(int securityLevel) {
         switch (securityLevel) {
-        case SnmpAgentConfig.AUTH_NOPRIV :
+        case SnmpAgentConfig.AUTH_NOPRIV:
             securityLevel = SecurityLevel.AUTH_NOPRIV;
             break;
-        case SnmpAgentConfig.AUTH_PRIV :
+        case SnmpAgentConfig.AUTH_PRIV:
             securityLevel = SecurityLevel.AUTH_PRIV;
             break;
-        case SnmpAgentConfig.NOAUTH_NOPRIV :
+        case SnmpAgentConfig.NOAUTH_NOPRIV:
             securityLevel = SecurityLevel.NOAUTH_NOPRIV;
             break;
-        default :
-           securityLevel = SecurityLevel.NOAUTH_NOPRIV;
+        default:
+            securityLevel = SecurityLevel.NOAUTH_NOPRIV;
         }
 
         return securityLevel;
@@ -332,23 +334,18 @@ public class Snmp4JAgentConfig {
             // Make a new USM
             USM usm = new USM(SecurityProtocols.getInstance(), new OctetString(MPv3.createLocalEngineID()), 0);
             // Add the specified user to the USM
-            usm.addUser(
-                getSecurityName(),
-                new UsmUser(
-                    getSecurityName(),
-                    getAuthProtocol(),
-                    getAuthPassPhrase(),
-                    getPrivProtocol(),
-                    getPrivPassPhrase()
-                )
-            );
-            // Remove the old SNMPv3 MessageProcessingModel. If you don't do this, you'll end up with
-            // two SNMPv3 MessageProcessingModel instances in the dispatcher and connections will fail.
+            usm.addUser(getSecurityName(), new UsmUser(getSecurityName(), getAuthProtocol(), getAuthPassPhrase(),
+                                                       getPrivProtocol(), getPrivPassPhrase()));
+            // Remove the old SNMPv3 MessageProcessingModel. If you don't do
+            // this, you'll end up with
+            // two SNMPv3 MessageProcessingModel instances in the dispatcher and
+            // connections will fail.
             MessageProcessingModel oldModel = session.getMessageDispatcher().getMessageProcessingModel(MessageProcessingModel.MPv3);
             if (oldModel != null) {
                 session.getMessageDispatcher().removeMessageProcessingModel(oldModel);
             }
-            // Add a new SNMPv3 MessageProcessingModel with the newly-created USM
+            // Add a new SNMPv3 MessageProcessingModel with the newly-created
+            // USM
             session.getMessageDispatcher().addMessageProcessingModel(new MPv3(usm));
         }
 

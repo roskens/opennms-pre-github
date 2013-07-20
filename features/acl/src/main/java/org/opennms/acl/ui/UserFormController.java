@@ -74,15 +74,22 @@ import org.springframework.web.bind.support.SessionStatus;
 public class UserFormController implements InitializingBean {
 
     /**
-     * <p>processSubmit</p>
+     * <p>
+     * processSubmit
+     * </p>
      *
-     * @param user a {@link org.opennms.acl.model.UserDTO} object.
-     * @param result a {@link org.springframework.validation.BindingResult} object.
-     * @param status a {@link org.springframework.web.bind.support.SessionStatus} object.
+     * @param user
+     *            a {@link org.opennms.acl.model.UserDTO} object.
+     * @param result
+     *            a {@link org.springframework.validation.BindingResult} object.
+     * @param status
+     *            a {@link org.springframework.web.bind.support.SessionStatus}
+     *            object.
      * @return a {@link java.lang.String} object.
      */
     @RequestMapping(method = RequestMethod.POST)
-    protected String processSubmit(@ModelAttribute("user") UserDTO user, BindingResult result, SessionStatus status) {
+    protected String processSubmit(@ModelAttribute("user")
+    UserDTO user, BindingResult result, SessionStatus status) {
         String mav = userForm;
         validator.validate(user, result);
         if (!result.hasErrors()) {
@@ -94,10 +101,14 @@ public class UserFormController implements InitializingBean {
     }
 
     /**
-     * <p>initBinder</p>
+     * <p>
+     * initBinder
+     * </p>
      *
-     * @param binder a {@link org.springframework.web.bind.WebDataBinder} object.
-     * @throws java.lang.Exception if any.
+     * @param binder
+     *            a {@link org.springframework.web.bind.WebDataBinder} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @InitBinder()
     public void initBinder(WebDataBinder binder) throws Exception {
@@ -105,14 +116,19 @@ public class UserFormController implements InitializingBean {
     }
 
     /**
-     * <p>setupForm</p>
+     * <p>
+     * setupForm
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
-     * @param model a {@link org.springframework.ui.ModelMap} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
+     * @param model
+     *            a {@link org.springframework.ui.ModelMap} object.
      * @return a {@link java.lang.String} object.
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String setupForm(@RequestParam(required = false, value = "sid") Integer id, ModelMap model) {
+    public String setupForm(@RequestParam(required = false, value = "sid")
+    Integer id, ModelMap model) {
         UserDTO user;
         if (id == null) {
             user = new UserDTO();
@@ -126,9 +142,11 @@ public class UserFormController implements InitializingBean {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     @Qualifier("userValidator")
     private UserValidator validator;
+
     private final String userForm = "user/form";
 
     @Override

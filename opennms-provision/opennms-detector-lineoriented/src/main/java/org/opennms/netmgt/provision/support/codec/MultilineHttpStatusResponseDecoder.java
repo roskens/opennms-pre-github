@@ -37,9 +37,10 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 import org.opennms.netmgt.provision.detector.simple.response.MultilineHttpResponse;
 import org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedResponse;
 
-
 /**
- * <p>MultilineHttpStatusResponseDecoder class.</p>
+ * <p>
+ * MultilineHttpStatusResponseDecoder class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,9 +48,12 @@ import org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedRe
 public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
 
     /**
-     * <p>Constructor for MultilineHttpStatusResponseDecoder.</p>
+     * <p>
+     * Constructor for MultilineHttpStatusResponseDecoder.
+     * </p>
      *
-     * @param charset a {@link java.nio.charset.Charset} object.
+     * @param charset
+     *            a {@link java.nio.charset.Charset} object.
      */
     public MultilineHttpStatusResponseDecoder(final Charset charset) {
         super(charset, "\r\n");
@@ -57,9 +61,10 @@ public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
 
     /** {@inheritDoc} */
     @Override
-    protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out) throws Exception {
+    protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out)
+            throws Exception {
         MultilineOrientedResponse response = (MultilineHttpResponse) session.getAttribute(CURRENT_RESPONSE);
-        if(response == null) {
+        if (response == null) {
             response = new MultilineHttpResponse();
             session.setAttribute(CURRENT_RESPONSE, response);
         }
@@ -81,15 +86,14 @@ public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
                     // The bytes between in.position() and in.limit()
                     // now contain a full CRLF terminated line.
 
-                   if(!checkIndicator(in.slice())) {
-                       response.addLine(in.getString(getCharset().newDecoder()));
-                       out.write(response);
-                       session.removeAttribute(CURRENT_RESPONSE);
-                       return true;
-                    }else {
-                       response.addLine(in.getString(getCharset().newDecoder()));
+                    if (!checkIndicator(in.slice())) {
+                        response.addLine(in.getString(getCharset().newDecoder()));
+                        out.write(response);
+                        session.removeAttribute(CURRENT_RESPONSE);
+                        return true;
+                    } else {
+                        response.addLine(in.getString(getCharset().newDecoder()));
                     }
-
 
                 } finally {
                     // Set the position to point right after the
@@ -104,7 +108,7 @@ public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
                 // buffer.
                 return true;
 
-                }
+            }
 
             previous = current;
         }
@@ -119,7 +123,8 @@ public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
     @Override
     protected boolean checkIndicator(final IoBuffer in) throws CharacterCodingException {
         final String line = in.getString(getCharset().newDecoder());
-        return !line.equals("\r\n"); //line.substring(3, 4).equals(getMultilineIndicator());
+        return !line.equals("\r\n"); // line.substring(3,
+                                     // 4).equals(getMultilineIndicator());
     }
 
 }

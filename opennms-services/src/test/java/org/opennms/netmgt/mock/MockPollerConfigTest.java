@@ -37,9 +37,8 @@ import org.opennms.netmgt.config.poller.Service;
 
 /**
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
 public class MockPollerConfigTest extends TestCase {
 
@@ -68,7 +67,6 @@ public class MockPollerConfigTest extends TestCase {
         m_pollerConfig.setDefaultPollInterval(1000L);
         m_pollerConfig.populatePackage(network);
         m_pollerConfig.setPollInterval("ICMP", 500L);
-
 
     }
 
@@ -109,12 +107,10 @@ public class MockPollerConfigTest extends TestCase {
             if ("ICMP".equals(svc.getName())) {
                 icmpFound = true;
                 assertEquals(500L, svc.getInterval());
-            }
-            else if ("HTTP".equals(svc.getName())) {
+            } else if ("HTTP".equals(svc.getName())) {
                 httpFound = true;
                 assertEquals(750L, svc.getInterval());
-            }
-            else {
+            } else {
                 assertEquals(1000L, svc.getInterval());
             }
         }
@@ -133,7 +129,5 @@ public class MockPollerConfigTest extends TestCase {
         assertNotNull(m_pollerConfig.getServiceMonitor("SMTP"));
 
     }
-
-
 
 }

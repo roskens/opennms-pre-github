@@ -36,7 +36,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-
 /**
  * SimplerQueuedProvisioningAdapter
  *
@@ -48,51 +47,71 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
     private static final Logger LOG = LoggerFactory.getLogger(SimplerQueuedProvisioningAdapter.class);
 
     private String m_name;
+
     protected long m_delay = 1;
+
     protected TimeUnit m_timeUnit = TimeUnit.SECONDS;
 
     protected TransactionTemplate m_template;
 
     /**
-     * <p>getTemplate</p>
+     * <p>
+     * getTemplate
+     * </p>
      *
-     * @return a {@link org.springframework.transaction.support.TransactionTemplate} object.
+     * @return a
+     *         {@link org.springframework.transaction.support.TransactionTemplate}
+     *         object.
      */
     public TransactionTemplate getTemplate() {
         return m_template;
     }
 
     /**
-     * <p>setTemplate</p>
+     * <p>
+     * setTemplate
+     * </p>
      *
-     * @param template a {@link org.springframework.transaction.support.TransactionTemplate} object.
+     * @param template
+     *            a
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
      */
     public void setTemplate(TransactionTemplate template) {
         m_template = template;
     }
 
     /**
-     * <p>Constructor for SimplerQueuedProvisioningAdapter.</p>
+     * <p>
+     * Constructor for SimplerQueuedProvisioningAdapter.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public SimplerQueuedProvisioningAdapter(String name) {
         m_name = name;
     }
 
     /**
-     * <p>setTimeUnit</p>
+     * <p>
+     * setTimeUnit
+     * </p>
      *
-     * @param timeUnit a {@link java.util.concurrent.TimeUnit} object.
+     * @param timeUnit
+     *            a {@link java.util.concurrent.TimeUnit} object.
      */
     public void setTimeUnit(TimeUnit timeUnit) {
         m_timeUnit = timeUnit;
     }
 
     /**
-     * <p>setDelay</p>
+     * <p>
+     * setDelay
+     * </p>
      *
-     * @param delay a long.
+     * @param delay
+     *            a long.
      */
     public void setDelay(long delay) {
         m_delay = delay;
@@ -144,7 +163,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
             m_template.execute(new TransactionCallback<Object>() {
                 @Override
                 public Object doInTransaction(TransactionStatus arg0) {
-                    LOG.debug("processPendingOperationForNode: calling doDeleteNode() for node ID: {}", op.getNodeId() );
+                    LOG.debug("processPendingOperationForNode: calling doDeleteNode() for node ID: {}", op.getNodeId());
                     doDeleteNode(op.getNodeId());
                     return null;
                 }
@@ -154,7 +173,8 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
             m_template.execute(new TransactionCallback<Object>() {
                 @Override
                 public Object doInTransaction(TransactionStatus arg0) {
-                    LOG.debug("processPendingOperationForNode: calling doNotifyConfigChange() for node ID: {}", op.getNodeId() );
+                    LOG.debug("processPendingOperationForNode: calling doNotifyConfigChange() for node ID: {}",
+                              op.getNodeId());
                     doNotifyConfigChange(op.getNodeId());
                     return null;
                 }
@@ -176,34 +196,51 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
     }
 
     private void assertTrue(boolean b, String m) {
-        if (!b) throw new IllegalStateException(m);
+        if (!b)
+            throw new IllegalStateException(m);
     }
 
     /**
-     * <p>doAddNode</p>
+     * <p>
+     * doAddNode
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      */
-    public void doAddNode(int nodeid) {}
+    public void doAddNode(int nodeid) {
+    }
 
     /**
-     * <p>doUpdateNode</p>
+     * <p>
+     * doUpdateNode
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      */
-    public void doUpdateNode(int nodeid) {}
+    public void doUpdateNode(int nodeid) {
+    }
 
     /**
-     * <p>doDeleteNode</p>
+     * <p>
+     * doDeleteNode
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      */
-    public void doDeleteNode(int nodeid) {}
+    public void doDeleteNode(int nodeid) {
+    }
 
     /**
-     * <p>doNotifyConfigChange</p>
+     * <p>
+     * doNotifyConfigChange
+     * </p>
      *
-     * @param nodeid a int.
+     * @param nodeid
+     *            a int.
      */
-    public void doNotifyConfigChange(int nodeid) {}
+    public void doNotifyConfigChange(int nodeid) {
+    }
 }

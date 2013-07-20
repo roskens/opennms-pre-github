@@ -34,19 +34,18 @@ import net.sf.jasperreports.engine.query.QueryExecuterFactoryBundle;
 
 import org.opennms.netmgt.jasper.jrobin.JRobinQueryExecutorFactory;
 
-public class ResourceQueryExecuterFactoryBundle implements
-        QueryExecuterFactoryBundle {
+public class ResourceQueryExecuterFactoryBundle implements QueryExecuterFactoryBundle {
 
     @Override
     public String[] getLanguages() {
-        return new String[] {"resourceQuery"};
+        return new String[] { "resourceQuery" };
     }
 
     @Override
     public JRQueryExecuterFactory getQueryExecuterFactory(String language) throws JRException {
-        if("resourceQuery".equals(language)) {
+        if ("resourceQuery".equals(language)) {
             return new JRobinQueryExecutorFactory();
-        }else {
+        } else {
             return null;
         }
     }

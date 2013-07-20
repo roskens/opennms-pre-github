@@ -67,32 +67,30 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class AlarmDaoTest implements InitializingBean {
 
-	@Autowired
+    @Autowired
     private DistPollerDao m_distPollerDao;
 
-	@Autowired
-	private EventDao m_eventDao;
+    @Autowired
+    private EventDao m_eventDao;
 
-	@Autowired
-	private NodeDao m_nodeDao;
+    @Autowired
+    private NodeDao m_nodeDao;
 
-	@Autowired
-	private AlarmDao m_alarmDao;
+    @Autowired
+    private AlarmDao m_alarmDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     private static boolean m_populated = false;
 
@@ -114,9 +112,9 @@ public class AlarmDaoTest implements InitializingBean {
         }
     }
 
-	@Test
-	@Transactional
-	public void testActions() {
+    @Test
+    @Transactional
+    public void testActions() {
         OnmsEvent event = new OnmsEvent();
         event.setEventLog("Y");
         event.setEventDisplay("Y");
@@ -161,10 +159,9 @@ public class AlarmDaoTest implements InitializingBean {
 
     }
 
-
     @Test
-	@Transactional
-	public void testSave() {
+    @Transactional
+    public void testSave() {
         OnmsEvent event = new OnmsEvent();
         event.setEventLog("Y");
         event.setEventDisplay("Y");
@@ -205,8 +202,8 @@ public class AlarmDaoTest implements InitializingBean {
         assertEquals(alarm.getLastEvent().getId(), newAlarm.getLastEvent().getId());
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testWithoutDistPoller() {
         OnmsEvent event = new OnmsEvent();
         event.setEventLog("Y");
@@ -231,7 +228,8 @@ public class AlarmDaoTest implements InitializingBean {
         alarm.setCounter(1);
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new DataIntegrityViolationException("not-null property references a null or transient value: org.opennms.netmgt.model.OnmsAlarm.distPoller; nested exception is org.hibernate.PropertyValueException: not-null property references a null or transient value: org.opennms.netmgt.model.OnmsAlarm.distPoller"));
+        ta.anticipate(new DataIntegrityViolationException(
+                                                          "not-null property references a null or transient value: org.opennms.netmgt.model.OnmsAlarm.distPoller; nested exception is org.hibernate.PropertyValueException: not-null property references a null or transient value: org.opennms.netmgt.model.OnmsAlarm.distPoller"));
 
         try {
             m_alarmDao.save(alarm);
@@ -242,86 +240,83 @@ public class AlarmDaoTest implements InitializingBean {
         ta.verifyAnticipated();
     }
 
-	@Test
-	@Transactional
-	public void testAlarmSummary() {
-	    OnmsEvent event = new OnmsEvent();
-	    event.setEventLog("Y");
-	    event.setEventDisplay("Y");
-	    event.setEventCreateTime(new Date());
-	    event.setDistPoller(m_distPollerDao.load("localhost"));
-	    event.setEventTime(new Date());
-	    event.setEventSeverity(new Integer(7));
-	    event.setEventUei("uei://org/opennms/test/EventDaoTest");
-	    event.setEventSource("test");
-	    m_eventDao.save(event);
+    @Test
+    @Transactional
+    public void testAlarmSummary() {
+        OnmsEvent event = new OnmsEvent();
+        event.setEventLog("Y");
+        event.setEventDisplay("Y");
+        event.setEventCreateTime(new Date());
+        event.setDistPoller(m_distPollerDao.load("localhost"));
+        event.setEventTime(new Date());
+        event.setEventSeverity(new Integer(7));
+        event.setEventUei("uei://org/opennms/test/EventDaoTest");
+        event.setEventSource("test");
+        m_eventDao.save(event);
 
-	    OnmsNode node = m_nodeDao.findAll().iterator().next();
+        OnmsNode node = m_nodeDao.findAll().iterator().next();
 
-	    OnmsAlarm alarm = new OnmsAlarm();
+        OnmsAlarm alarm = new OnmsAlarm();
 
-	    alarm.setNode(node);
-	    alarm.setUei(event.getEventUei());
-	    alarm.setSeverityId(event.getEventSeverity());
-	    alarm.setFirstEventTime(event.getEventTime());
-	    alarm.setLastEvent(event);
-	    alarm.setCounter(1);
-	    alarm.setDistPoller(m_distPollerDao.load("localhost"));
+        alarm.setNode(node);
+        alarm.setUei(event.getEventUei());
+        alarm.setSeverityId(event.getEventSeverity());
+        alarm.setFirstEventTime(event.getEventTime());
+        alarm.setLastEvent(event);
+        alarm.setCounter(1);
+        alarm.setDistPoller(m_distPollerDao.load("localhost"));
 
-	    m_alarmDao.save(alarm);
+        m_alarmDao.save(alarm);
 
-	    List<AlarmSummary> summary = m_alarmDao.getNodeAlarmSummaries();
-	    Assert.assertNotNull(summary);
-	    Assert.assertEquals(1, summary.size());
-	    AlarmSummary sum = summary.get(0);
-	    Assert.assertEquals(node.getLabel(), sum.getNodeLabel());
-            Assert.assertEquals(alarm.getSeverity().getId(), sum.getMaxSeverity().getId());
-            Assert.assertNotSame("N/A", sum.getFuzzyTimeDown());
-	}
+        List<AlarmSummary> summary = m_alarmDao.getNodeAlarmSummaries();
+        Assert.assertNotNull(summary);
+        Assert.assertEquals(1, summary.size());
+        AlarmSummary sum = summary.get(0);
+        Assert.assertEquals(node.getLabel(), sum.getNodeLabel());
+        Assert.assertEquals(alarm.getSeverity().getId(), sum.getMaxSeverity().getId());
+        Assert.assertNotSame("N/A", sum.getFuzzyTimeDown());
+    }
 
     @Test
     @Transactional
     public void testAlarmSummary_WithEmptyNodeIdsArray() {
         List<AlarmSummary> summary = m_alarmDao.getNodeAlarmSummaries(new Integer[0]);
-        Assert.assertNotNull(summary); // the result does not really matter, as long as we get a result
+        Assert.assertNotNull(summary); // the result does not really matter, as
+                                       // long as we get a result
         summary = null;
         summary = m_alarmDao.getNodeAlarmSummaries(null);
         Assert.assertNotNull(summary);
     }
 
-        @Test
-        @Transactional
-        public void testAlarmSummary_AlarmWithNoEvent() {
-            OnmsNode node = m_nodeDao.findAll().iterator().next();
+    @Test
+    @Transactional
+    public void testAlarmSummary_AlarmWithNoEvent() {
+        OnmsNode node = m_nodeDao.findAll().iterator().next();
 
-            OnmsAlarm alarm = new OnmsAlarm();
-            alarm.setNode(node);
-            alarm.setUei("uei://org/opennms/test/badAlarmTest");
-            alarm.setSeverityId(new Integer(7));
-            alarm.setCounter(1);
-            alarm.setDistPoller(m_distPollerDao.load("localhost"));
+        OnmsAlarm alarm = new OnmsAlarm();
+        alarm.setNode(node);
+        alarm.setUei("uei://org/opennms/test/badAlarmTest");
+        alarm.setSeverityId(new Integer(7));
+        alarm.setCounter(1);
+        alarm.setDistPoller(m_distPollerDao.load("localhost"));
 
-            m_alarmDao.save(alarm);
+        m_alarmDao.save(alarm);
 
-            List<AlarmSummary> summary = m_alarmDao.getNodeAlarmSummaries();
-            Assert.assertNotNull(summary);
-            Assert.assertEquals(1, summary.size());
-            AlarmSummary sum = summary.get(0);
-            Assert.assertEquals(node.getLabel(), sum.getNodeLabel());
-            Assert.assertEquals(alarm.getSeverity().getId(), sum.getMaxSeverity().getId());
-            Assert.assertEquals("N/A", sum.getFuzzyTimeDown());
-        }
+        List<AlarmSummary> summary = m_alarmDao.getNodeAlarmSummaries();
+        Assert.assertNotNull(summary);
+        Assert.assertEquals(1, summary.size());
+        AlarmSummary sum = summary.get(0);
+        Assert.assertEquals(node.getLabel(), sum.getNodeLabel());
+        Assert.assertEquals(alarm.getSeverity().getId(), sum.getMaxSeverity().getId());
+        Assert.assertEquals("N/A", sum.getFuzzyTimeDown());
+    }
 
-        @Test
-        @Transactional
-        public void testSortOnNodeLabel() {
-            Criteria criteria = new Criteria(OnmsAlarm.class);
-            criteria.setAliases(Arrays.asList(new Alias[] {
-                    new Alias("node", "node", JoinType.LEFT_JOIN)
-            }));
-            criteria.setOrders(Arrays.asList(new Order[] {
-                    Order.asc("node.label")
-            }));
-            m_alarmDao.findMatching(criteria);
-        }
+    @Test
+    @Transactional
+    public void testSortOnNodeLabel() {
+        Criteria criteria = new Criteria(OnmsAlarm.class);
+        criteria.setAliases(Arrays.asList(new Alias[] { new Alias("node", "node", JoinType.LEFT_JOIN) }));
+        criteria.setOrders(Arrays.asList(new Order[] { Order.asc("node.label") }));
+        m_alarmDao.findMatching(criteria);
+    }
 }

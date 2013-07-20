@@ -9,7 +9,7 @@ import org.opennms.netmgt.dao.api.VlanDao;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsVlan;
 
-public class MockVlanDao extends AbstractMockDao<OnmsVlan,Integer> implements VlanDao {
+public class MockVlanDao extends AbstractMockDao<OnmsVlan, Integer> implements VlanDao {
     private AtomicInteger m_id = new AtomicInteger(0);
 
     @Override
@@ -62,7 +62,8 @@ public class MockVlanDao extends AbstractMockDao<OnmsVlan,Integer> implements Vl
     private List<OnmsVlan> getVlansForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
         final List<OnmsVlan> vlans = new ArrayList<OnmsVlan>();
         for (final OnmsVlan vlan : findAll()) {
-            if (vlan.getNode() != null && vlan.getNode().getId() != nodeId) continue;
+            if (vlan.getNode() != null && vlan.getNode().getId() != nodeId)
+                continue;
             if (vlan.getLastPollTime() != null || vlan.getLastPollTime().before(scanTime)) {
                 vlans.add(vlan);
             }
@@ -73,7 +74,8 @@ public class MockVlanDao extends AbstractMockDao<OnmsVlan,Integer> implements Vl
     @Override
     public OnmsVlan findByNodeAndVlan(final Integer nodeId, final Integer vlanId) {
         for (final OnmsVlan vlan : findAll()) {
-            if (vlan.getNode() != null && !vlan.getNode().getId().equals(nodeId)) continue;
+            if (vlan.getNode() != null && !vlan.getNode().getId().equals(nodeId))
+                continue;
             if (vlan.getVlanId().equals(vlanId)) {
                 return vlan;
             }

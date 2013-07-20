@@ -51,28 +51,38 @@ import org.w3c.dom.Document;
  */
 public class MockSftp3gppStrictCollectionHandler extends Sftp3gppXmlCollectionHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MockSftp3gppStrictCollectionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MockSftp3gppStrictCollectionHandler.class);
 
-
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#getXmlDocument(java.lang.String, org.opennms.protocols.xml.config.Request)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#
+     * getXmlDocument(java.lang.String,
+     * org.opennms.protocols.xml.config.Request)
      */
     @Override
     protected Document getXmlDocument(String urlString, Request request) {
         return MockDocumentBuilder.getXmlDocument();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.Sftp3gppXmlCollectionHandler#parseUrl(java.lang.String, org.opennms.netmgt.collectd.CollectionAgent, java.lang.Integer, long)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.Sftp3gppXmlCollectionHandler#parseUrl
+     * (java.lang.String, org.opennms.netmgt.collectd.CollectionAgent,
+     * java.lang.Integer, long)
      */
     @Override
-    protected String parseUrl(String unformattedUrl, CollectionAgent agent, Integer collectionStep, long currentTimestamp) throws IllegalArgumentException {
+    protected String parseUrl(String unformattedUrl, CollectionAgent agent, Integer collectionStep,
+            long currentTimestamp) throws IllegalArgumentException {
         LOG.info("parseUrl: reference timestamp is {}", new Date(currentTimestamp));
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#getXmlResourceType(org.opennms.netmgt.collectd.CollectionAgent, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#
+     * getXmlResourceType(org.opennms.netmgt.collectd.CollectionAgent,
+     * java.lang.String)
      */
     @Override
     protected XmlResourceType getXmlResourceType(CollectionAgent agent, String resourceType) {
@@ -85,8 +95,12 @@ public class MockSftp3gppStrictCollectionHandler extends Sftp3gppXmlCollectionHa
         return new XmlResourceType(agent, rt);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#getTimeStamp(org.w3c.dom.Document, javax.xml.xpath.XPath, org.opennms.protocols.xml.config.XmlGroup)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.protocols.xml.collector.AbstractXmlCollectionHandler#getTimeStamp
+     * (org.w3c.dom.Document, javax.xml.xpath.XPath,
+     * org.opennms.protocols.xml.config.XmlGroup)
      */
     @Override
     protected Date getTimeStamp(Document doc, XPath xpath, XmlGroup group) throws XPathExpressionException {
@@ -96,4 +110,3 @@ public class MockSftp3gppStrictCollectionHandler extends Sftp3gppXmlCollectionHa
     }
 
 }
-

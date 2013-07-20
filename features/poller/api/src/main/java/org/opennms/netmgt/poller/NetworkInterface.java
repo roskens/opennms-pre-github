@@ -36,7 +36,6 @@ package org.opennms.netmgt.poller;
  * differences this class provides the basic information that a monitor can use
  * to determine the type of interface and its expected address type.
  * </P>
- *
  * <P>
  * In addition to providing typing and address information, the interface allows
  * for the monitor to associate key-value pairs with an interface. This can be
@@ -89,7 +88,6 @@ public interface NetworkInterface<T> {
      * but requires that the lookup be performed using a String name. The object
      * may be of any instance that the monitor previous stored.
      * </P>
-     *
      * <P>
      * If there is no matching object for the property key, then a null pointer
      * is returned to the application.

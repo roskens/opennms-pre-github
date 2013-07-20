@@ -28,9 +28,10 @@
 
 package org.opennms.features.poller.remote.gwt.client.remoteevents;
 
-
 /**
- * <p>GeocodingFinishedRemoteEvent class.</p>
+ * <p>
+ * GeocodingFinishedRemoteEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -38,37 +39,46 @@ package org.opennms.features.poller.remote.gwt.client.remoteevents;
  */
 public class GeocodingFinishedRemoteEvent implements MapRemoteEvent {
 
-	private static final long serialVersionUID = 5945314534020957562L;
+    private static final long serialVersionUID = 5945314534020957562L;
 
-	private int m_size = 0;
+    private int m_size = 0;
 
-	/**
-	 * <p>Constructor for GeocodingFinishedRemoteEvent.</p>
-	 */
-	public GeocodingFinishedRemoteEvent() {}
+    /**
+     * <p>
+     * Constructor for GeocodingFinishedRemoteEvent.
+     * </p>
+     */
+    public GeocodingFinishedRemoteEvent() {
+    }
 
-	/**
-	 * <p>Constructor for GeocodingFinishedRemoteEvent.</p>
-	 *
-	 * @param size a int.
-	 */
-	public GeocodingFinishedRemoteEvent(final int size) {
-		m_size = size;
-	}
+    /**
+     * <p>
+     * Constructor for GeocodingFinishedRemoteEvent.
+     * </p>
+     *
+     * @param size
+     *            a int.
+     */
+    public GeocodingFinishedRemoteEvent(final int size) {
+        m_size = size;
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void dispatch(final MapRemoteEventHandler presenter) {
-//		Window.alert("Updated geocoding on " + m_size + " location definitions.");
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void dispatch(final MapRemoteEventHandler presenter) {
+        // Window.alert("Updated geocoding on " + m_size +
+        // " location definitions.");
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String toString() {
-	    return "GeocodingFinishedRemoteEvent[size=" + m_size + "]";
-	}
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return "GeocodingFinishedRemoteEvent[size=" + m_size + "]";
+    }
 }

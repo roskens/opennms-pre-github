@@ -40,10 +40,10 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * <P>
- * CiscoVlanTable uses a SnmpSession to collect the Cisco VTP specific MIB VLAN table
- * entries. It implements the SnmpHandler to receive notifications when a reply
- * is received/error occurs in the SnmpSession used to send requests/receive
- * replies.
+ * CiscoVlanTable uses a SnmpSession to collect the Cisco VTP specific MIB VLAN
+ * table entries. It implements the SnmpHandler to receive notifications when a
+ * reply is received/error occurs in the SnmpSession used to send
+ * requests/receive replies.
  * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo </A>
@@ -52,37 +52,38 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public class CiscoVlanTable extends VlanTableBasic {
 
-	/**
-	 * <P>
-	 * Constructs an CiscoVlanTable object that is used to collect the vlan
-	 * elements from the remote agent. Once all the elements are collected, or
-	 * there is an error in the collection the signaler object is <EM>notified
-	 * </EM> to inform other threads.
-	 * </P>
-	 *
-	 * @see CiscoVlanTableEntry
-	 * @param address a {@link java.net.InetAddress} object.
-	 */
-	public CiscoVlanTable(InetAddress address) {
+    /**
+     * <P>
+     * Constructs an CiscoVlanTable object that is used to collect the vlan
+     * elements from the remote agent. Once all the elements are collected, or
+     * there is an error in the collection the signaler object is <EM>notified
+     * </EM> to inform other threads.
+     * </P>
+     *
+     * @see CiscoVlanTableEntry
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     */
+    public CiscoVlanTable(InetAddress address) {
         super(address, "ciscoVlanTable", CiscoVlanTableEntry.cisco_vlan_elemList);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     protected CiscoVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new CiscoVlanTableEntry();
     }
 
-	@Override
-	public List<OnmsVlan> getVlansForSnmpCollection() {
-		List<OnmsVlan> vlans = new ArrayList<OnmsVlan>();
-		for (SnmpStore elm: getEntries()) {
-			OnmsVlan vlan = ((CiscoVlanTableEntry) elm).getOnmsVlan();
-			if (vlan.getVlanType().equals(VlanType.CISCO_VTP_ETHERNET)
-					&& vlan.getVlanStatus().equals(VlanStatus.CISCOVTP_OPERATIONAL))
-				vlans.add(vlan);
-		}
-		return vlans;
-	}
+    @Override
+    public List<OnmsVlan> getVlansForSnmpCollection() {
+        List<OnmsVlan> vlans = new ArrayList<OnmsVlan>();
+        for (SnmpStore elm : getEntries()) {
+            OnmsVlan vlan = ((CiscoVlanTableEntry) elm).getOnmsVlan();
+            if (vlan.getVlanType().equals(VlanType.CISCO_VTP_ETHERNET)
+                    && vlan.getVlanStatus().equals(VlanStatus.CISCOVTP_OPERATIONAL))
+                vlans.add(vlan);
+        }
+        return vlans;
+    }
 
 }

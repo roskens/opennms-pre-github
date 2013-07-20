@@ -37,7 +37,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>DroolsTicketerConfigDao class.</p>
+ * <p>
+ * DroolsTicketerConfigDao class.
+ * </p>
  *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  * @version $Id: $
@@ -45,25 +47,24 @@ import org.slf4j.LoggerFactory;
 public class DroolsTicketerConfigDao {
     private static final Logger LOG = LoggerFactory.getLogger(DroolsTicketerConfigDao.class);
 
-	/**
-	 * Retrieves the properties defined in the drools-ticketer.properties file.
-	 *
-	 */
-	private Configuration getProperties() {
-		String propsFile = new String(System.getProperty("opennms.home") + "/etc/drools-ticketer.properties");
-		LOG.debug("loading properties from: {}", propsFile);
-		Configuration config = null;
+    /**
+     * Retrieves the properties defined in the drools-ticketer.properties file.
+     */
+    private Configuration getProperties() {
+        String propsFile = new String(System.getProperty("opennms.home") + "/etc/drools-ticketer.properties");
+        LOG.debug("loading properties from: {}", propsFile);
+        Configuration config = null;
 
-		try {
-			config = new PropertiesConfiguration(propsFile);
-		} catch (final ConfigurationException e) {
-		    LOG.debug("Unable to load properties from {}", propsFile, e);
-		}
+        try {
+            config = new PropertiesConfiguration(propsFile);
+        } catch (final ConfigurationException e) {
+            LOG.debug("Unable to load properties from {}", propsFile, e);
+        }
 
-		return config;
-	}
+        return config;
+    }
 
-	public File getRulesFile() {
-		return new File(getProperties().getString("drools-ticketer.rules-file"));
-	}
+    public File getRulesFile() {
+        return new File(getProperties().getString("drools-ticketer.rules-file"));
+    }
 }

@@ -40,42 +40,50 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 import org.opennms.sms.reflector.smsservice.SmsResponse;
 
 /**
- * <p>SmsSourceMatcher class.</p>
+ * <p>
+ * SmsSourceMatcher class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="validate-source")
+@XmlRootElement(name = "validate-source")
 public class SmsSourceMatcher extends SequenceResponseMatcher {
     private static final Logger LOG = LoggerFactory.getLogger(SmsSourceMatcher.class);
 
-	/**
-	 * <p>Constructor for SmsSourceMatcher.</p>
-	 */
-	public SmsSourceMatcher() {
-		super();
-	}
+    /**
+     * <p>
+     * Constructor for SmsSourceMatcher.
+     * </p>
+     */
+    public SmsSourceMatcher() {
+        super();
+    }
 
-	/**
-	 * <p>Constructor for SmsSourceMatcher.</p>
-	 *
-	 * @param originator a {@link java.lang.String} object.
-	 */
-	public SmsSourceMatcher(String originator) {
-		super(originator);
-	}
+    /**
+     * <p>
+     * Constructor for SmsSourceMatcher.
+     * </p>
+     *
+     * @param originator
+     *            a {@link java.lang.String} object.
+     */
+    public SmsSourceMatcher(String originator) {
+        super(originator);
+    }
 
-	/** {@inheritDoc} */
-	@Override
+    /** {@inheritDoc} */
+    @Override
     public boolean matches(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
         LOG.trace("smsFrom.matches({}, {}, {})", Arrays.asList(session.substitute(getText()), request, response));
-        return response instanceof SmsResponse && session.eqOrMatches(getText(), ((SmsResponse)response).getOriginator());
+        return response instanceof SmsResponse
+                && session.eqOrMatches(getText(), ((SmsResponse) response).getOriginator());
     }
 
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return "smsSourceMatches(" + getText() +")";
+        return "smsSourceMatches(" + getText() + ")";
     }
 
 }

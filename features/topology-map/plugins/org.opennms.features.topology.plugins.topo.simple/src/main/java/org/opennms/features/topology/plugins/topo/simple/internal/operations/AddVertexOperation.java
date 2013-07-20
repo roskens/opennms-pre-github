@@ -38,9 +38,10 @@ import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
 
-public class AddVertexOperation implements Operation{
+public class AddVertexOperation implements Operation {
 
     private String m_iconKey;
+
     public AddVertexOperation(String iconKey) {
         m_iconKey = iconKey;
     }
@@ -51,8 +52,9 @@ public class AddVertexOperation implements Operation{
     }
 
     @Override
-    public boolean enabled(List<VertexRef> targets,OperationContext operationContext) {
-    	if(targets.size() > 1) return false;
+    public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
+        if (targets.size() > 1)
+            return false;
         return true;
     }
 
@@ -65,7 +67,8 @@ public class AddVertexOperation implements Operation{
         Vertex vertId1 = graphContainer.getBaseTopology().addVertex(0, 0);
         // Make the new vertex a root node
         vertId1.setParent(null);
-        graphContainer.getBaseTopology().connectVertices(graphContainer.getBaseTopology().getVertex(graphContainer.getBaseTopology().getVertexNamespace(), vertexId), vertId1);
+        graphContainer.getBaseTopology().connectVertices(graphContainer.getBaseTopology().getVertex(graphContainer.getBaseTopology().getVertexNamespace(),
+                                                                                                    vertexId), vertId1);
     }
 
     public String getIconKey() {
@@ -79,9 +82,9 @@ public class AddVertexOperation implements Operation{
         String icon = getIconKey();
         if (vertexId == null) {
             if (operationContext.getGraphContainer().getBaseTopology().containsVertexId(Constants.CENTER_VERTEX_ID)) {
-            	connectNewVertex(Constants.CENTER_VERTEX_ID, Constants.SERVER_ICON_KEY, operationContext.getGraphContainer());
-            }
-            else {
+                connectNewVertex(Constants.CENTER_VERTEX_ID, Constants.SERVER_ICON_KEY,
+                                 operationContext.getGraphContainer());
+            } else {
                 Vertex vertId = operationContext.getGraphContainer().getBaseTopology().addVertex(250, 250);
                 vertId.setParent(null);
 

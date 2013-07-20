@@ -9,7 +9,7 @@ import org.opennms.netmgt.dao.mock.AbstractMockDao;
 import org.opennms.netmgt.model.OnmsAccessPoint;
 import org.opennms.netmgt.model.OnmsAccessPointCollection;
 
-public class MockAccessPointDao extends AbstractMockDao<OnmsAccessPoint,String> implements AccessPointDao {
+public class MockAccessPointDao extends AbstractMockDao<OnmsAccessPoint, String> implements AccessPointDao {
 
     @Override
     protected void generateId(final OnmsAccessPoint ap) {

@@ -31,21 +31,18 @@ package org.opennms.core.fiber;
 /**
  * <p>
  * The <code>Fiber</code> interface is similar to the core Java language
- * {@link java.lang.Thread Thread}class. The <code>Fiber</code> class is used
- * to define a working <em>context</em>, which is the basic feature of a
- * <code>Thread</code>. The differences end there since the
- * <code>Thread</code> class is part of the core language and can only be
- * extended since it is a concrete class.
+ * {@link java.lang.Thread Thread}class. The <code>Fiber</code> class is used to
+ * define a working <em>context</em>, which is the basic feature of a
+ * <code>Thread</code>. The differences end there since the <code>Thread</code>
+ * class is part of the core language and can only be extended since it is a
+ * concrete class.
  * </p>
- *
  * <p>
- * The <code>Fiber</code> concept is used to represent an implementation
- * defined execution context outside of the core Java language. It provides a
- * very loose definition of what and how a <code>Fiber</code> should behave.
- * This gives a great deal of implementation independence to the implementing
- * classes.
+ * The <code>Fiber</code> concept is used to represent an implementation defined
+ * execution context outside of the core Java language. It provides a very loose
+ * definition of what and how a <code>Fiber</code> should behave. This gives a
+ * great deal of implementation independence to the implementing classes.
  * </p>
- *
  * <p>
  * For example, the <code>Fiber</code> interface could be used to represent a
  * one-to-one mapping of a Java <code>Thread</code>. It could be used to
@@ -62,21 +59,20 @@ public interface Fiber {
     /**
      * The string names that correspond to the states of the fiber.
      */
-    public static final String STATUS_NAMES[] = {
-        "START_PENDING", // 0
-        "STARTING", // 1
-        "RUNNING", // 2
-        "STOP_PENDING", // 3
-        "STOPPED", // 4
-        "PAUSE_PENDING", // 5
-        "PAUSED", // 6
-        "RESUME_PENDING" // 7
+    public static final String STATUS_NAMES[] = { "START_PENDING", // 0
+            "STARTING", // 1
+            "RUNNING", // 2
+            "STOP_PENDING", // 3
+            "STOPPED", // 4
+            "PAUSE_PENDING", // 5
+            "PAUSED", // 6
+            "RESUME_PENDING" // 7
     };
 
     /**
-     * This is the initial <code>Fiber</code> state. When the
-     * <code>Fiber</code> begins it startup process it will transition to the
-     * <code>STARTING</code> state. A <code>Fiber</code> in a start pending
+     * This is the initial <code>Fiber</code> state. When the <code>Fiber</code>
+     * begins it startup process it will transition to the <code>STARTING</code>
+     * state. A <code>Fiber</code> in a start pending
      * state has not begun any of the initialization process.
      */
     public static final int START_PENDING = 0;

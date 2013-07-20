@@ -41,13 +41,16 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.ui.HasWidgets;
 
-public class SuggestionComboboxPresenter implements Presenter, SuggestionComboboxView.Presenter<NodeDetail>{
+public class SuggestionComboboxPresenter implements Presenter, SuggestionComboboxView.Presenter<NodeDetail> {
 
     private final SimpleEventBus m_eventBus;
+
     private final SuggestionComboboxView<NodeDetail> m_view;
+
     private final NodeService m_nodeService;
 
-    public SuggestionComboboxPresenter(SimpleEventBus eventBus, SuggestionComboboxView<NodeDetail> view, NodeService nodeService) {
+    public SuggestionComboboxPresenter(SimpleEventBus eventBus, SuggestionComboboxView<NodeDetail> view,
+            NodeService nodeService) {
         m_eventBus = eventBus;
         m_view = view;
         m_view.setPresenter(this);
@@ -75,10 +78,10 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
 
             @Override
             public void onResponseReceived(Request request, Response response) {
-                if(response.getStatusCode() == 200) {
+                if (response.getStatusCode() == 200) {
                     m_view.setData(NodeRestResponseMapper.mapNodeJSONtoNodeDetail(response.getText()));
-                }else {
-                    //m_view.setData(NodeRestResponseMapper.mapNodeJSONtoNodeDetail(DefaultNodeService.TEST_RESPONSE));
+                } else {
+                    // m_view.setData(NodeRestResponseMapper.mapNodeJSONtoNodeDetail(DefaultNodeService.TEST_RESPONSE));
                     Window.alert("Error Occurred Retreiving Nodes");
                 }
             }
@@ -96,10 +99,10 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
 
             @Override
             public void onResponseReceived(Request request, Response response) {
-                if(response.getStatusCode() == 200) {
+                if (response.getStatusCode() == 200) {
                     m_view.setData(NodeRestResponseMapper.mapNodeJSONtoNodeDetail(response.getText()));
                     Window.alert("Error Occurred Retreiving Nodes");
-                }else {
+                } else {
                     // m_view.setData(NodeRestResponseMapper.mapNodeJSONtoNodeDetail(DefaultNodeService.TEST_RESPONSE));
                 }
             }
@@ -128,11 +131,11 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
     }
 
     public native final String getBaseHref()/*-{
-        try{
-            return $wnd.getBaseHref();
-        }catch(err){
-            return "";
-        }
-    }-*/;
+                                            try{
+                                            return $wnd.getBaseHref();
+                                            }catch(err){
+                                            return "";
+                                            }
+                                            }-*/;
 
 }

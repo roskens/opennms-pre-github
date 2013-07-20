@@ -31,66 +31,83 @@ package org.opennms.web.map.config;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * <p>ContextMenu class.</p>
+ * <p>
+ * ContextMenu class.
+ * </p>
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  * @since 1.8.1
  */
 public class ContextMenu {
-	List<CMEntry> entries = new ArrayList<CMEntry>();
+    List<CMEntry> entries = new ArrayList<CMEntry>();
 
-	/**
-	 * <p>addEntry</p>
-	 *
-	 * @param command a {@link java.lang.String} object.
-	 * @param link a {@link java.lang.String} object.
-	 * @param params a {@link java.lang.String} object.
-	 */
-	public void addEntry(String command, String link, String params){
-		CMEntry entry = new CMEntry(command,link,params);
-		entries.add(entry);
-	}
+    /**
+     * <p>
+     * addEntry
+     * </p>
+     *
+     * @param command
+     *            a {@link java.lang.String} object.
+     * @param link
+     *            a {@link java.lang.String} object.
+     * @param params
+     *            a {@link java.lang.String} object.
+     */
+    public void addEntry(String command, String link, String params) {
+        CMEntry entry = new CMEntry(command, link, params);
+        entries.add(entry);
+    }
 
-	public class CMEntry{
-		public String command;
-		public String link;
-		public String params;
-		CMEntry(String command, String link, String params) {
-			super();
-			this.command = command;
-			this.link = link;
-			this.params = params;
-		}
-		public String getCommand() {
-			return command;
-		}
-		public void setCommand(String command) {
-			this.command = command;
-		}
-		public String getLink() {
-			return link;
-		}
-		public void setLink(String link) {
-			this.link = link;
-		}
-		public String getParams() {
-			return params;
-		}
-		public void setParams(String params) {
-			this.params = params;
-		}
+    public class CMEntry {
+        public String command;
 
-	}
+        public String link;
 
-	/**
-	 * <p>Getter for the field <code>entries</code>.</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	public List<CMEntry> getEntries(){
-		return entries;
-	}
+        public String params;
+
+        CMEntry(String command, String link, String params) {
+            super();
+            this.command = command;
+            this.link = link;
+            this.params = params;
+        }
+
+        public String getCommand() {
+            return command;
+        }
+
+        public void setCommand(String command) {
+            this.command = command;
+        }
+
+        public String getLink() {
+            return link;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
+        }
+
+        public String getParams() {
+            return params;
+        }
+
+        public void setParams(String params) {
+            this.params = params;
+        }
+
+    }
+
+    /**
+     * <p>
+     * Getter for the field <code>entries</code>.
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    public List<CMEntry> getEntries() {
+        return entries;
+    }
 }

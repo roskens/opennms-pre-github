@@ -38,16 +38,14 @@ import org.opennms.protocols.rt.ResponseWithId;
 /**
  * <p>
  * This class is use to encapsulate an ICMP reply that conforms to the
- * {@link EchoPacket packet}class. The reply must be of type ICMP Echo Reply and be
- * the correct length.
+ * {@link EchoPacket packet}class. The reply must be of type ICMP Echo Reply and
+ * be the correct length.
  * </p>
- *
  * <p>
  * When constructed by the <code>create</code> method the returned reply
  * encapsulates the sender's address and the received packet as final,
  * non-mutable values for the instance.
  * </p>
- *
  */
 public final class Jni6PingResponse implements ResponseWithId<Jni6PingRequestId>, EchoPacket {
     /**
@@ -93,7 +91,9 @@ public final class Jni6PingResponse implements ResponseWithId<Jni6PingRequestId>
     }
 
     /**
-     * <p>getRequestId</p>
+     * <p>
+     * getRequestId
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.icmp.spi.PingRequestId} object.
      */
@@ -111,7 +111,6 @@ public final class Jni6PingResponse implements ResponseWithId<Jni6PingRequestId>
     public boolean isEchoReply() {
         return getPacket().isEchoReply();
     }
-
 
     @Override
     public int getIdentifier() {
@@ -140,7 +139,8 @@ public final class Jni6PingResponse implements ResponseWithId<Jni6PingRequestId>
 
     @Override
     public double elapsedTime(TimeUnit timeUnit) {
-        // {@link org.opennms.protocols.icmp.ICMPEchoPacket.getPingRTT()} returns microseconds.
+        // {@link org.opennms.protocols.icmp.ICMPEchoPacket.getPingRTT()}
+        // returns microseconds.
         double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, timeUnit);
         return (getPacket().getRoundTripTime() * 1000) / nanosPerUnit;
     }

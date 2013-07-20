@@ -31,7 +31,9 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.ui.Label;
 
 /**
- * <p>OutageDashlet class.</p>
+ * <p>
+ * OutageDashlet class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -40,9 +42,12 @@ import com.google.gwt.user.client.ui.Label;
 public class OutageDashlet extends Dashlet {
 
     /**
-     * <p>Constructor for OutageDashlet.</p>
+     * <p>
+     * Constructor for OutageDashlet.
+     * </p>
      *
-     * @param dashboard a {@link org.opennms.dashboard.client.Dashboard} object.
+     * @param dashboard
+     *            a {@link org.opennms.dashboard.client.Dashboard} object.
      */
     public OutageDashlet(Dashboard dashboard) {
         super(dashboard, "Outages");

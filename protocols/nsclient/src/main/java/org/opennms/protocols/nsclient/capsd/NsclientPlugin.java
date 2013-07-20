@@ -44,9 +44,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <P>
- * This class is designed to be used by the capabilities daemon to test
- * whether a NSClient service is running on the remote server and if the given
- * command can be successfully executed against the service.
+ * This class is designed to be used by the capabilities daemon to test whether
+ * a NSClient service is running on the remote server and if the given command
+ * can be successfully executed against the service.
  * </P>
  *
  * @author <a href="mailto:matt.raykowski@gmail.com">Matt Raykowski</a>
@@ -54,8 +54,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NsclientPlugin extends AbstractPlugin {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NsclientPlugin.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(NsclientPlugin.class);
 
     /**
      * The protocol supported by the plugin
@@ -84,27 +83,22 @@ public class NsclientPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If
      * the protocol is not supported then a false value is returned to the
      * caller.
      * <P>
-     * The NsclientPlugin does not support undirected checks, we must have a
-     * map of parameters to determine how to issue a check to the target
-     * server.
+     * The NsclientPlugin does not support undirected checks, we must have a map
+     * of parameters to determine how to issue a check to the target server.
      */
     @Override
     public boolean isProtocolSupported(InetAddress address) {
-        throw new UnsupportedOperationException(
-                                                "Undirected TCP checking not "
-                                                        + "supported");
+        throw new UnsupportedOperationException("Undirected TCP checking not " + "supported");
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If
      * the protocol is not supported then a false value is returned to the
      * caller. The qualifier map passed to the method is used by the plugin to
      * return additional information by key-name. These key-value pairs can be
@@ -118,12 +112,12 @@ public class NsclientPlugin extends AbstractPlugin {
      * <LI>retry - overrides the number of times to retry connecting to the
      * service.
      * <LI>timeout - tcp port timeout.
-     * <LI>parameter - a string used for checking services. see documentation
-     * on specific check types for use.
+     * <LI>parameter - a string used for checking services. see documentation on
+     * specific check types for use.
      * <LI>criticalPercent - typically a percentage used for testing results,
      * for example disk space used.
-     * <LI>warningPercent - typically a percentage used for testing results,
-     * for example memory space used.
+     * <LI>warningPercent - typically a percentage used for testing results, for
+     * example memory space used.
      * </UL>
      * Protocol will return as supported only if the result code is
      * <code>NsclientPacket.RES_STATE_OK</code> or
@@ -141,34 +135,23 @@ public class NsclientPlugin extends AbstractPlugin {
         int critPerc = 0, warnPerc = 0;
 
         if (qualifiers != null) {
-            command = ParameterMap.getKeyedString(
-                                                  qualifiers,
+            command = ParameterMap.getKeyedString(qualifiers,
                                                   "command",
                                                   NsclientManager.convertTypeToString(NsclientManager.CHECK_CLIENTVERSION));
-            port = ParameterMap.getKeyedInteger(qualifiers, "port",
-                                                NsclientManager.DEFAULT_PORT);
-            retries = ParameterMap.getKeyedInteger(qualifiers, "retry",
-                                                   DEFAULT_RETRY);
-            timeout = ParameterMap.getKeyedInteger(qualifiers, "timeout",
-                                                   DEFAULT_TIMEOUT);
-            parameter = ParameterMap.getKeyedString(qualifiers, "parameter",
-                                                    null);
-            critPerc = ParameterMap.getKeyedInteger(qualifiers,
-                                                    "criticalPercent", 0);
-            warnPerc = ParameterMap.getKeyedInteger(qualifiers,
-                                                    "warningPercent", 0);
-            password = ParameterMap.getKeyedString(qualifiers, "password",
-                                                   NSClientAgentConfig.DEFAULT_PASSWORD);
+            port = ParameterMap.getKeyedInteger(qualifiers, "port", NsclientManager.DEFAULT_PORT);
+            retries = ParameterMap.getKeyedInteger(qualifiers, "retry", DEFAULT_RETRY);
+            timeout = ParameterMap.getKeyedInteger(qualifiers, "timeout", DEFAULT_TIMEOUT);
+            parameter = ParameterMap.getKeyedString(qualifiers, "parameter", null);
+            critPerc = ParameterMap.getKeyedInteger(qualifiers, "criticalPercent", 0);
+            warnPerc = ParameterMap.getKeyedInteger(qualifiers, "warningPercent", 0);
+            password = ParameterMap.getKeyedString(qualifiers, "password", NSClientAgentConfig.DEFAULT_PASSWORD);
         }
 
         // set up my check params.
-        NsclientCheckParams params = new NsclientCheckParams(critPerc,
-                                                             warnPerc,
-                                                             parameter);
+        NsclientCheckParams params = new NsclientCheckParams(critPerc, warnPerc, parameter);
         // and perform the check, we'll get a packet back containing the check
         // data.
-        NsclientPacket pack = isServer(address, port, password, command, retries,
-                                       timeout, params);
+        NsclientPacket pack = isServer(address, port, password, command, retries, timeout, params);
 
         if (pack == null) {
             LOG.debug("Received a null packet response from isServer.");
@@ -207,9 +190,8 @@ public class NsclientPlugin extends AbstractPlugin {
      * @return The NsclientPacket the server sent, updated by NsclientManager
      *         to contain the proper result code based on the params passed.
      */
-    private NsclientPacket isServer(InetAddress host, int port,
-            String password, String command, int retries, int timeout,
-            NsclientCheckParams params) {
+    private NsclientPacket isServer(InetAddress host, int port, String password, String command, int retries,
+            int timeout, NsclientCheckParams params) {
         boolean isAServer = false;
 
         NsclientPacket response = null;
@@ -228,13 +210,12 @@ public class NsclientPlugin extends AbstractPlugin {
                 message.append("NsclientPlugin: Check failed... NsclientManager returned exception: ");
                 message.append(e.getMessage());
                 message.append(" : ");
-                message.append((e.getCause() == null ? "": e.getCause().getMessage()));
+                message.append((e.getCause() == null ? "" : e.getCause().getMessage()));
                 LOG.info(message.toString());
                 isAServer = false;
             }
         }
         return response;
     }
-
 
 }

@@ -62,47 +62,50 @@ import org.smslib.USSDSessionStatus;
  */
 public class MobileMsgTrackerTest {
 
-	private static final String PHONE_NUMBER = "+19195551212";
+    private static final String PHONE_NUMBER = "+19195551212";
+
     public static final String TMOBILE_RESPONSE = "37.28 received on 08/31/09. For continued service through 10/28/09, please pay 79.56 by 09/28/09.    ";
+
     public static final String TMOBILE_USSD_MATCH = "^.*[\\d\\.]+ received on \\d\\d/\\d\\d/\\d\\d. For continued service through \\d\\d/\\d\\d/\\d\\d, please pay [\\d\\.]+ by \\d\\d/\\d\\d/\\d\\d.*$";
 
     private final class LatencyCallback implements Callback<MobileMsgResponse> {
-		private final AtomicLong m_start = new AtomicLong();
-		private final AtomicLong m_end = new AtomicLong();
+        private final AtomicLong m_start = new AtomicLong();
 
-		private LatencyCallback(long startTime) {
-			m_start.set(startTime);
-		}
+        private final AtomicLong m_end = new AtomicLong();
 
-                @Override
-		public void complete(MobileMsgResponse t) {
-			if (t != null) {
-				m_end.set(System.currentTimeMillis());
-			}
-		}
+        private LatencyCallback(long startTime) {
+            m_start.set(startTime);
+        }
 
-                @Override
-		public void handleException(Throwable t) {
-		}
+        @Override
+        public void complete(MobileMsgResponse t) {
+            if (t != null) {
+                m_end.set(System.currentTimeMillis());
+            }
+        }
 
-		public Long getLatency() {
-			if (m_end.get() == 0) {
-				return null;
-			} else {
-				return m_end.get() - m_start.get();
-			}
-		}
-	}
+        @Override
+        public void handleException(Throwable t) {
+        }
 
-	/**
+        public Long getLatency() {
+            if (m_end.get() == 0) {
+                return null;
+            } else {
+                return m_end.get() - m_start.get();
+            }
+        }
+    }
+
+    /**
      * @author brozow
-     *
      */
     public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse> {
 
         Queue<MobileMsgResponse> m_q;
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
          * @see org.opennms.protocols.rt.Messenger#sendRequest(java.lang.Object)
          */
         @Override
@@ -111,7 +114,8 @@ public class MobileMsgTrackerTest {
             request.setSendTimestamp(System.currentTimeMillis());
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
          * @see org.opennms.protocols.rt.Messenger#start(java.util.Queue)
          */
         @Override
@@ -142,9 +146,10 @@ public class MobileMsgTrackerTest {
     public static class TestCallback implements MobileMsgResponseCallback {
 
         AtomicReference<String> m_calledMethods = new AtomicReference<String>();
-        CountDownLatch m_latch = new CountDownLatch(1);
-        AtomicReference<MobileMsgResponse> m_response = new AtomicReference<MobileMsgResponse>(null);
 
+        CountDownLatch m_latch = new CountDownLatch(1);
+
+        AtomicReference<MobileMsgResponse> m_response = new AtomicReference<MobileMsgResponse>(null);
 
         MobileMsgResponse getResponse() throws InterruptedException {
             m_latch.await();
@@ -165,8 +170,12 @@ public class MobileMsgTrackerTest {
             }
         }
 
-        /* (non-Javadoc)
-         * @see org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleError(org.opennms.sms.reflector.smsservice.SmsRequest, java.lang.Throwable)
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleError
+         * (org.opennms.sms.reflector.smsservice.SmsRequest,
+         * java.lang.Throwable)
          */
         @Override
         public void handleError(MobileMsgRequest request, Throwable t) {
@@ -175,8 +184,12 @@ public class MobileMsgTrackerTest {
             m_latch.countDown();
         }
 
-        /* (non-Javadoc)
-         * @see org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleResponse(org.opennms.sms.reflector.smsservice.SmsRequest, org.opennms.sms.reflector.smsservice.SmsResponse)
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleResponse
+         * (org.opennms.sms.reflector.smsservice.SmsRequest,
+         * org.opennms.sms.reflector.smsservice.SmsResponse)
          */
         @Override
         public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse response) {
@@ -186,8 +199,11 @@ public class MobileMsgTrackerTest {
             return true;
         }
 
-        /* (non-Javadoc)
-         * @see org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleTimeout(org.opennms.sms.reflector.smsservice.SmsRequest)
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.opennms.sms.reflector.smsservice.SmsResponseCallback#handleTimeout
+         * (org.opennms.sms.reflector.smsservice.SmsRequest)
          */
         @Override
         public void handleTimeout(MobileMsgRequest request) {
@@ -203,16 +219,16 @@ public class MobileMsgTrackerTest {
         public InboundMessage getMessage() throws InterruptedException {
             MobileMsgResponse response = getResponse();
             if (response instanceof SmsResponse) {
-                return ((SmsResponse)response).getMessage();
+                return ((SmsResponse) response).getMessage();
             }
             return null;
 
         }
 
-        public USSDResponse getUSSDResponse() throws InterruptedException{
+        public USSDResponse getUSSDResponse() throws InterruptedException {
             MobileMsgResponse response = getResponse();
             if (response instanceof UssdResponse) {
-                return ((UssdResponse)response).getMessage();
+                return ((UssdResponse) response).getMessage();
             }
             return null;
         }
@@ -220,10 +236,13 @@ public class MobileMsgTrackerTest {
     }
 
     TestMessenger m_messenger;
+
     MobileMsgTrackerImpl m_tracker;
-	DefaultTaskCoordinator m_coordinator;
-	@SuppressWarnings("unused")
-	private Properties m_session;
+
+    DefaultTaskCoordinator m_coordinator;
+
+    @SuppressWarnings("unused")
+    private Properties m_session;
 
     @Before
     public void setUp() throws Exception {
@@ -233,9 +252,12 @@ public class MobileMsgTrackerTest {
 
         m_session = new Properties();
 
-        m_coordinator = new DefaultTaskCoordinator("MobileMsgTrackerTest", Executors.newSingleThreadExecutor(
-            new LogPreservingThreadFactory("MobileMsgTrackerTest", 1, false)
-        ));
+        m_coordinator = new DefaultTaskCoordinator(
+                                                   "MobileMsgTrackerTest",
+                                                   Executors.newSingleThreadExecutor(new LogPreservingThreadFactory(
+                                                                                                                    "MobileMsgTrackerTest",
+                                                                                                                    1,
+                                                                                                                    false)));
 
         System.err.println("=== STARTING TEST ===");
     }
@@ -286,7 +308,6 @@ public class MobileMsgTrackerTest {
         assertSame(responseMsg, cb.getMessage());
         assertSame(responseMsg2, cb2.getMessage());
 
-
     }
 
     @Test
@@ -305,15 +326,15 @@ public class MobileMsgTrackerTest {
         assertSame(response, cb.getUSSDResponse());
     }
 
-	private USSDResponse sendTmobileUssdResponse(String gatewayId) {
-		USSDResponse response = new USSDResponse();
+    private USSDResponse sendTmobileUssdResponse(String gatewayId) {
+        USSDResponse response = new USSDResponse();
         response.setContent(TMOBILE_RESPONSE);
         response.setUSSDSessionStatus(USSDSessionStatus.NO_FURTHER_ACTION_REQUIRED);
         response.setDcs(USSDDcs.UNSPECIFIED_7BIT);
 
         m_messenger.sendTestResponse(gatewayId, response);
-		return response;
-	}
+        return response;
+    }
 
     /**
      * @param originator
@@ -324,6 +345,5 @@ public class MobileMsgTrackerTest {
         InboundMessage msg = new InboundMessage(new Date(), originator, text, 0, "0");
         return msg;
     }
-
 
 }

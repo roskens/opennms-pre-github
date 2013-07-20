@@ -46,8 +46,8 @@ import org.springframework.test.context.ContextConfiguration;
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 // context not used but we this annotation is mandator
-@ContextConfiguration(locations="classpath:/test-context.xml")
-@JUnitHttpServer(port=10342)
+@ContextConfiguration(locations = "classpath:/test-context.xml")
+@JUnitHttpServer(port = 10342)
 public class HttpNorthBounderTest {
 
     @Test
@@ -66,9 +66,9 @@ public class HttpNorthBounderTest {
         alarm.setUei("uei.opennms.org/test/httpNorthBounder");
 
         NorthboundAlarm a = new NorthboundAlarm(alarm);
-//        List<Alarm> alarms = Arrays.asList(a);
-//
-//        nb.forwardAlarms(alarms);
+        // List<Alarm> alarms = Arrays.asList(a);
+        //
+        // nb.forwardAlarms(alarms);
 
         nb.onAlarm(a);
 

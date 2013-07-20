@@ -39,48 +39,46 @@ import org.opennms.netmgt.snmp.SnmpInstId;
  */
 public final class TcaDataEntry extends SnmpStore {
 
-	/** Constant <code>TCA_PEER_ADDRESS="jnxTcaSlaRawDataPeerIPAddress"</code>. */
-	public final static	String	TCA_PEER_ADDRESS = "jnxTcaSlaRawDataPeerIPAddress";
+    /** Constant <code>TCA_PEER_ADDRESS="jnxTcaSlaRawDataPeerIPAddress"</code>. */
+    public final static String TCA_PEER_ADDRESS = "jnxTcaSlaRawDataPeerIPAddress";
 
-	/** Constant <code>TCA_RAW_DATA="jnxTcaSlaRawDataString"</code>. */
-	public final static	String	TCA_RAW_DATA = "jnxTcaSlaRawDataString";
+    /** Constant <code>TCA_RAW_DATA="jnxTcaSlaRawDataString"</code>. */
+    public final static String TCA_RAW_DATA = "jnxTcaSlaRawDataString";
 
-	/** The Constant TCA Element List. */
-	public final static NamedSnmpVar[] tca_elemList = new NamedSnmpVar[] {
-		new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, TCA_PEER_ADDRESS, ".1.3.6.1.4.1.27091.3.1.6.1.1", 1),
-		new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, TCA_RAW_DATA, ".1.3.6.1.4.1.27091.3.1.6.1.2", 2),
-	};
+    /** The Constant TCA Element List. */
+    public final static NamedSnmpVar[] tca_elemList = new NamedSnmpVar[] {
+            new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, TCA_PEER_ADDRESS, ".1.3.6.1.4.1.27091.3.1.6.1.1", 1),
+            new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, TCA_RAW_DATA, ".1.3.6.1.4.1.27091.3.1.6.1.2", 2), };
 
-	private final SnmpInstId m_instance;
+    private final SnmpInstId m_instance;
 
-	/**
-	 * Instantiates a new TCA data entry.
-	 */
-	public TcaDataEntry(SnmpInstId instance) {
-		super(tca_elemList);
-		m_instance = instance;
-	}
+    /**
+     * Instantiates a new TCA data entry.
+     */
+    public TcaDataEntry(SnmpInstId instance) {
+        super(tca_elemList);
+        m_instance = instance;
+    }
 
+    public SnmpInstId getInstance() {
+        return m_instance;
+    }
 
-	public SnmpInstId getInstance() {
-		return m_instance;
-	}
+    /**
+     * Gets the peer address.
+     *
+     * @return the peer address
+     */
+    public String getPeerAddress() {
+        return getDisplayString(TCA_PEER_ADDRESS);
+    }
 
-	/**
-	 * Gets the peer address.
-	 *
-	 * @return the peer address
-	 */
-	public String getPeerAddress() {
-		return getDisplayString(TCA_PEER_ADDRESS);
-	}
-
-	/**
-	 * Gets the raw data.
-	 *
-	 * @return the raw data
-	 */
-	public String getRawData() {
-		return getDisplayString(TCA_RAW_DATA);
-	}
+    /**
+     * Gets the raw data.
+     *
+     * @return the raw data
+     */
+    public String getRawData() {
+        return getDisplayString(TCA_RAW_DATA);
+    }
 }

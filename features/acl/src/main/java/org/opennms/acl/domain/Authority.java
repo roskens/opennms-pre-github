@@ -52,7 +52,8 @@ import org.opennms.acl.service.AclItemService;
 import org.opennms.acl.service.AuthorityService;
 
 /**
- * This entity class represent s an Authority (permission/authority/group/category/other...)
+ * This entity class represent s an Authority
+ * (permission/authority/group/category/other...)
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -64,13 +65,16 @@ public class Authority implements Serializable {
      *
      */
     private static final long serialVersionUID = 8511033606854401267L;
+
     /**
      * Constructor used by AuthorityFactory
      *
      * @param authority
      * @param authorityService
-     * @param authorityService a {@link org.opennms.acl.service.AuthorityService} object.
-     * @param aclItemService a {@link org.opennms.acl.service.AclItemService} object.
+     * @param authorityService
+     *            a {@link org.opennms.acl.service.AuthorityService} object.
+     * @param aclItemService
+     *            a {@link org.opennms.acl.service.AclItemService} object.
      */
     public Authority(AuthorityDTO authority, AuthorityService authorityService, AclItemService aclItemService) {
         this.authority = authority;
@@ -81,7 +85,8 @@ public class Authority implements Serializable {
     /**
      * Return a paginated list of anemic authorities
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
+     * @param pager
+     *            a {@link org.opennms.acl.model.Pager} object.
      * @return a {@link java.util.List} object.
      */
     public List<AuthorityDTO> getAuthorities(Pager pager) {
@@ -98,7 +103,9 @@ public class Authority implements Serializable {
     }
 
     /**
-     * <p>hasItems</p>
+     * <p>
+     * hasItems
+     * </p>
      *
      * @return hasItems
      */
@@ -116,7 +123,8 @@ public class Authority implements Serializable {
     /**
      * Overwrite the items assigned to this Autority
      *
-     * @param items a {@link java.util.List} object.
+     * @param items
+     *            a {@link java.util.List} object.
      */
     public void setNewItems(List<?> items) {
         authority.setItems(items);
@@ -159,7 +167,9 @@ public class Authority implements Serializable {
     }
 
     /**
-     * <p>getFreeItems</p>
+     * <p>
+     * getFreeItems
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -187,6 +197,8 @@ public class Authority implements Serializable {
     }
 
     private AuthorityDTO authority;
+
     private AuthorityService authorityService;
+
     private AclItemService aclItemService;
 }

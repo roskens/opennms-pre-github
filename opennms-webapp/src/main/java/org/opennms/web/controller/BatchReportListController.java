@@ -43,7 +43,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * <p>BatchReportListController class.</p>
+ * <p>
+ * BatchReportListController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,45 +55,57 @@ import java.util.Map;
 public class BatchReportListController extends AbstractController {
 
     private DatabaseReportListService m_reportListService;
+
     private int m_pageSize;
 
     /** {@inheritDoc} */
     @Override
     protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
-                                                 final HttpServletResponse response) throws Exception {
-        Map<ReportRepositoryDescription, PagedListHolder<DatabaseReportDescription>> repositoryList = new LinkedHashMap<ReportRepositoryDescription, PagedListHolder <DatabaseReportDescription>>();
+            final HttpServletResponse response) throws Exception {
+        Map<ReportRepositoryDescription, PagedListHolder<DatabaseReportDescription>> repositoryList = new LinkedHashMap<ReportRepositoryDescription, PagedListHolder<DatabaseReportDescription>>();
 
-        // Go through all active repositories and get all reports for each repository
+        // Go through all active repositories and get all reports for each
+        // repository
         for (ReportRepositoryDescription reportRepositoryDescription : m_reportListService.getActiveRepositories()) {
-            PagedListHolder<DatabaseReportDescription> pageListholder = new PagedListHolder<DatabaseReportDescription>(m_reportListService.getReportsByRepositoryId(reportRepositoryDescription.getId()));
+            PagedListHolder<DatabaseReportDescription> pageListholder = new PagedListHolder<DatabaseReportDescription>(
+                                                                                                                       m_reportListService.getReportsByRepositoryId(reportRepositoryDescription.getId()));
             pageListholder.setPageSize(m_pageSize);
-            int page = ServletRequestUtils.getIntParameter(request,"p_" + reportRepositoryDescription.getId(),0);
+            int page = ServletRequestUtils.getIntParameter(request, "p_" + reportRepositoryDescription.getId(), 0);
             pageListholder.setPage(page);
             repositoryList.put(reportRepositoryDescription, pageListholder);
         }
-        return new ModelAndView("report/database/batchList","repositoryList", repositoryList);
+        return new ModelAndView("report/database/batchList", "repositoryList", repositoryList);
     }
 
     /**
-     * <p>getDatabaseReportListService</p>
+     * <p>
+     * getDatabaseReportListService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.DatabaseReportListService} object.
+     * @return a {@link org.opennms.web.svclayer.DatabaseReportListService}
+     *         object.
      */
     public final DatabaseReportListService getDatabaseReportListService() {
         return m_reportListService;
     }
 
     /**
-     * <p>setDatabaseReportListService</p>
+     * <p>
+     * setDatabaseReportListService
+     * </p>
      *
-     * @param listService a {@link org.opennms.web.svclayer.DatabaseReportListService} object.
+     * @param listService
+     *            a {@link org.opennms.web.svclayer.DatabaseReportListService}
+     *            object.
      */
     public final void setDatabaseReportListService(final DatabaseReportListService listService) {
         m_reportListService = listService;
     }
 
     /**
-     * <p>getPageSize</p>
+     * <p>
+     * getPageSize
+     * </p>
      *
      * @return a int.
      */
@@ -100,9 +114,12 @@ public class BatchReportListController extends AbstractController {
     }
 
     /**
-     * <p>setPageSize</p>
+     * <p>
+     * setPageSize
+     * </p>
      *
-     * @param pageSize a int.
+     * @param pageSize
+     *            a int.
      */
     public final void setPageSize(final int pageSize) {
         m_pageSize = pageSize;

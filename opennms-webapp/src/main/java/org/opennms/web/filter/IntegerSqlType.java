@@ -32,7 +32,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * <p>IntegerSqlType class.</p>
+ * <p>
+ * IntegerSqlType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,9 +43,12 @@ import java.sql.SQLException;
 public class IntegerSqlType implements SQLType<Integer> {
 
     /**
-     * <p>formatValue</p>
+     * <p>
+     * formatValue
+     * </p>
      *
-     * @param value a {@link java.lang.Integer} object.
+     * @param value
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -52,9 +57,12 @@ public class IntegerSqlType implements SQLType<Integer> {
     }
 
     /**
-     * <p>getValueAsString</p>
+     * <p>
+     * getValueAsString
+     * </p>
      *
-     * @param value a {@link java.lang.Integer} object.
+     * @param value
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -63,12 +71,18 @@ public class IntegerSqlType implements SQLType<Integer> {
     }
 
     /**
-     * <p>bindParam</p>
+     * <p>
+     * bindParam
+     * </p>
      *
-     * @param ps a {@link java.sql.PreparedStatement} object.
-     * @param parameterIndex a int.
-     * @param value a {@link java.lang.Integer} object.
-     * @throws java.sql.SQLException if any.
+     * @param ps
+     *            a {@link java.sql.PreparedStatement} object.
+     * @param parameterIndex
+     *            a int.
+     * @param value
+     *            a {@link java.lang.Integer} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     @Override
     public void bindParam(PreparedStatement ps, int parameterIndex, Integer value) throws SQLException {
@@ -76,10 +90,14 @@ public class IntegerSqlType implements SQLType<Integer> {
     }
 
     /**
-     * <p>createArray</p>
+     * <p>
+     * createArray
+     * </p>
      *
-     * @param value1 a {@link java.lang.Integer} object.
-     * @param value2 a {@link java.lang.Integer} object.
+     * @param value1
+     *            a {@link java.lang.Integer} object.
+     * @param value2
+     *            a {@link java.lang.Integer} object.
      * @return an array of {@link java.lang.Integer} objects.
      */
     @Override

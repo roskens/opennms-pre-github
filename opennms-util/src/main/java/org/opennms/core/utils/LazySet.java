@@ -32,139 +32,146 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-
 /**
- * <p>LazySet class.</p>
+ * <p>
+ * LazySet class.
+ * </p>
  */
 public class LazySet<E> extends JdbcSet<E> {
 
-	public static interface Loader<E> {
-		Set<E> load();
-	}
+    public static interface Loader<E> {
+        Set<E> load();
+    }
 
-	private Loader<E> m_loader;
-	private boolean m_loaded = false;
+    private Loader<E> m_loader;
 
-	/**
-	 * <p>Constructor for LazySet.</p>
-	 *
-	 * @param loader a {@link org.opennms.core.utils.LazySet.Loader} object.
-	 */
-	public LazySet(Loader<E> loader) {
-		m_loader = loader;
-	}
+    private boolean m_loaded = false;
 
-        /** {@inheritDoc} */
-        @Override
-	public Iterator<E> iterator() {
-		load();
-		return super.iterator();
-	}
+    /**
+     * <p>
+     * Constructor for LazySet.
+     * </p>
+     *
+     * @param loader
+     *            a {@link org.opennms.core.utils.LazySet.Loader} object.
+     */
+    public LazySet(Loader<E> loader) {
+        m_loader = loader;
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public int size() {
-		load();
-		return super.size();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Iterator<E> iterator() {
+        load();
+        return super.iterator();
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public boolean removeAll(Collection<?> arg0) {
-		load();
-		return super.removeAll(arg0);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public int size() {
+        load();
+        return super.size();
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public boolean addAll(Collection<? extends E> arg0) {
-		load();
-		return super.addAll(arg0);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean removeAll(Collection<?> arg0) {
+        load();
+        return super.removeAll(arg0);
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public void clear() {
-		load();
-		super.clear();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean addAll(Collection<? extends E> arg0) {
+        load();
+        return super.addAll(arg0);
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public boolean contains(Object o) {
-		load();
-		return super.contains(o);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void clear() {
+        load();
+        super.clear();
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public boolean containsAll(Collection<?> arg0) {
-		load();
-		return super.containsAll(arg0);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean contains(Object o) {
+        load();
+        return super.contains(o);
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public boolean isEmpty() {
-		load();
-		return super.isEmpty();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean containsAll(Collection<?> arg0) {
+        load();
+        return super.containsAll(arg0);
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public boolean remove(Object o) {
-		load();
-		return super.remove(o);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean isEmpty() {
+        load();
+        return super.isEmpty();
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public boolean retainAll(Collection<?> arg0) {
-		load();
-		return super.retainAll(arg0);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean remove(Object o) {
+        load();
+        return super.remove(o);
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public Object[] toArray() {
-		load();
-		return super.toArray();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean retainAll(Collection<?> arg0) {
+        load();
+        return super.retainAll(arg0);
+    }
 
-        /** {@inheritDoc} */
-        @Override
-	public <T> T[] toArray(T[] arg0) {
-		load();
-		return super.toArray(arg0);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public Object[] toArray() {
+        load();
+        return super.toArray();
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String toString() {
-		load();
-		return super.toString();
-	}
+    /** {@inheritDoc} */
+    @Override
+    public <T> T[] toArray(T[] arg0) {
+        load();
+        return super.toArray(arg0);
+    }
 
-	private void load() {
-		if (!m_loaded) {
-			setElements(m_loader.load());
-			m_loaded = true;
-		}
-	}
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        load();
+        return super.toString();
+    }
 
-	/**
-	 * <p>isLoaded</p>
-	 *
-	 * @return a boolean.
-	 */
-	public boolean isLoaded() {
-		return m_loaded;
-	}
+    private void load() {
+        if (!m_loaded) {
+            setElements(m_loader.load());
+            m_loaded = true;
+        }
+    }
 
-
+    /**
+     * <p>
+     * isLoaded
+     * </p>
+     *
+     * @return a boolean.
+     */
+    public boolean isLoaded() {
+        return m_loaded;
+    }
 
 }

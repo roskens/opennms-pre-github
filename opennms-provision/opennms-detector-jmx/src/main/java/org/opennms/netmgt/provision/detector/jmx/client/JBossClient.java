@@ -37,7 +37,9 @@ import org.opennms.netmgt.provision.support.jmx.connectors.ConnectionWrapper;
 import org.opennms.netmgt.provision.support.jmx.connectors.JBossConnectionFactory;
 
 /**
- * <p>JBossClient class.</p>
+ * <p>
+ * JBossClient class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

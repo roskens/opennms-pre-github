@@ -42,11 +42,12 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#init()
      */
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
@@ -60,11 +61,12 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#start()
      */
     /**
-     * <p>start</p>
+     * <p>
+     * start
+     * </p>
      */
     @Override
     public void start() {
@@ -73,11 +75,12 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#stop()
      */
     /**
-     * <p>stop</p>
+     * <p>
+     * stop
+     * </p>
      */
     @Override
     public void stop() {
@@ -86,11 +89,12 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#getStatus()
      */
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */
@@ -101,11 +105,12 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#status()
      */
     /**
-     * <p>status</p>
+     * <p>
+     * status
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,11 +121,12 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#getStatusText()
      */
     /**
-     * <p>getStatusText</p>
+     * <p>
+     * getStatusText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

@@ -37,27 +37,27 @@ import com.google.gwt.core.client.GWT;
  *         Validates given object to be castable to Integer.
  */
 public class StringAsIntegerValidator implements Validator {
-	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
+    private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
-	/**
-	 * Validates if the string representation of given object a valid integer.
-	 * Validation will run against
-	 * <code>Integer.parseInt(object.toString())</code> so make sure to use a
-	 * proper object.
-	 *
-	 * @param object
-	 */
-	@Override
-	public String validate(Object object) {
-		if (object.toString().equals("")) {
-			return "";
-		}
+    /**
+     * Validates if the string representation of given object a valid integer.
+     * Validation will run against
+     * <code>Integer.parseInt(object.toString())</code> so make sure to use a
+     * proper object.
+     *
+     * @param object
+     */
+    @Override
+    public String validate(Object object) {
+        if (object.toString().equals("")) {
+            return "";
+        }
 
-		try {
-			Integer.parseInt(object.toString());
-			return "";
-		} catch (Exception e) {
-			return con.stringNoValidInteger();
-		}
-	}
+        try {
+            Integer.parseInt(object.toString());
+            return "";
+        } catch (Exception e) {
+            return con.stringNoValidInteger();
+        }
+    }
 }

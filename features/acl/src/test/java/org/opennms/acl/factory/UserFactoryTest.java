@@ -119,8 +119,11 @@ public class UserFactoryTest {
     }
 
     private DBUser dbUser = new DBUser();
+
     private DBAuthority dbAuth = new DBAuthority();
+
     private DBGroup dbGroup = new DBGroup();
+
     // private DBAuthoritiesAuth dbAuthoritiesAuth = new DBAuthoritiesAuth();
     private static AclUserFactory factory;
 }

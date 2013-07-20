@@ -29,7 +29,9 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>FilterManager interface.</p>
+ * <p>
+ * FilterManager interface.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -40,14 +42,19 @@ public interface FilterManager {
     public static final String AUTH_FILTER_NAME = "authorizedOnly";
 
     /**
-     * <p>enableAuthorizationFilter</p>
+     * <p>
+     * enableAuthorizationFilter
+     * </p>
      *
-     * @param authorizationGroups an array of {@link java.lang.String} objects.
+     * @param authorizationGroups
+     *            an array of {@link java.lang.String} objects.
      */
     public void enableAuthorizationFilter(String[] authorizationGroups);
 
     /**
-     * <p>disableAuthorizationFilter</p>
+     * <p>
+     * disableAuthorizationFilter
+     * </p>
      */
     public void disableAuthorizationFilter();
 

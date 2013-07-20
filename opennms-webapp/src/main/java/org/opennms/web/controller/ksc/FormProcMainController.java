@@ -42,7 +42,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>FormProcMainController class.</p>
+ * <p>
+ * FormProcMainController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,18 +53,15 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class FormProcMainController extends AbstractController implements InitializingBean {
 
     public enum Actions {
-        View,
-        Customize,
-        CreateFrom,
-        Delete,
-        Create
+        View, Customize, CreateFrom, Delete, Create
     }
 
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         String action = request.getParameter("report_action");
 
         if (action == null) {
@@ -75,8 +74,10 @@ public class FormProcMainController extends AbstractController implements Initia
             modelAndView.addObject("type", "custom");
             return modelAndView;
 
-        } else if (( request.isUserInRole( Authentication.ROLE_ADMIN ) || !request.isUserInRole(Authentication.ROLE_READONLY) ) && (request.getRemoteUser() != null)) {
-            // Fetch the KscReportEditor or create one if there isn't one already
+        } else if ((request.isUserInRole(Authentication.ROLE_ADMIN) || !request.isUserInRole(Authentication.ROLE_READONLY))
+                && (request.getRemoteUser() != null)) {
+            // Fetch the KscReportEditor or create one if there isn't one
+            // already
             KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), false);
 
             if (Actions.Customize.toString().equals(action)) {
@@ -90,10 +91,10 @@ public class FormProcMainController extends AbstractController implements Initia
                 return new ModelAndView("redirect:/KSC/index.htm");
             } else if (Actions.Create.toString().equals(action)) {
                 editor.loadNewWorkingReport();
-               return new ModelAndView("redirect:/KSC/customReport.htm");
+                return new ModelAndView("redirect:/KSC/customReport.htm");
             }
         }
-        throw new ServletException ("Invalid Parameter contents for report_action: " + action);
+        throw new ServletException("Invalid Parameter contents for report_action: " + action);
     }
 
     private static int getReportIndex(HttpServletRequest request) {
@@ -105,27 +106,38 @@ public class FormProcMainController extends AbstractController implements Initia
     }
 
     /**
-     * <p>getKscReportFactory</p>
+     * <p>
+     * getKscReportFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *         object.
      */
     public KSC_PerformanceReportFactory getKscReportFactory() {
         return m_kscReportFactory;
     }
 
     /**
-     * <p>setKscReportFactory</p>
+     * <p>
+     * setKscReportFactory
+     * </p>
      *
-     * @param kscReportFactory a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @param kscReportFactory
+     *            a
+     *            {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *            object.
      */
     public void setKscReportFactory(KSC_PerformanceReportFactory kscReportFactory) {
         m_kscReportFactory = kscReportFactory;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

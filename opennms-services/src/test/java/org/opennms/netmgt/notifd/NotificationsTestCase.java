@@ -64,16 +64,27 @@ import org.opennms.test.mock.MockUtil;
 public class NotificationsTestCase {
 
     protected Notifd m_notifd;
+
     protected MockEventIpcManager m_eventMgr;
+
     protected MockNotifdConfigManager m_notifdConfig;
+
     protected MockGroupManager m_groupManager;
+
     protected MockUserManager m_userManager;
+
     protected NotificationManager m_notificationManager;
+
     protected NotificationCommandManager m_notificationCommandManger;
+
     protected MockDestinationPathManager m_destinationPathManager;
+
     protected MockDatabase m_db;
+
     protected MockNetwork m_network;
+
     protected NotificationAnticipator m_anticipator;
+
     private PollOutagesConfigManager m_pollOutagesConfigManager;
 
     protected void setUp() throws Exception {
@@ -91,16 +102,26 @@ public class NotificationsTestCase {
         m_eventMgr = new MockEventIpcManager();
         m_eventMgr.setEventWriter(m_db);
 
-        m_notifdConfig = new MockNotifdConfigManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifd-configuration.xml"));
+        m_notifdConfig = new MockNotifdConfigManager(
+                                                     ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                                 "notifd-configuration.xml"));
         m_notifdConfig.setNextNotifIdSql(m_db.getNextNotifIdSql());
         m_notifdConfig.setNextUserNotifIdSql(m_db.getNextUserNotifIdSql());
 
         m_groupManager = createGroupManager();
         m_userManager = createUserManager(m_groupManager);
 
-        m_destinationPathManager = new MockDestinationPathManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "destination-paths.xml"));
-        m_notificationCommandManger = new MockNotificationCommandManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notification-commands.xml"));
-        m_notificationManager = new MockNotificationManager(m_notifdConfig, m_db, ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifications.xml"));
+        m_destinationPathManager = new MockDestinationPathManager(
+                                                                  ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                                              "destination-paths.xml"));
+        m_notificationCommandManger = new MockNotificationCommandManager(
+                                                                         ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                                                     "notification-commands.xml"));
+        m_notificationManager = new MockNotificationManager(
+                                                            m_notifdConfig,
+                                                            m_db,
+                                                            ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                                        "notifications.xml"));
         m_pollOutagesConfigManager = new MockPollerConfig(m_network);
 
         m_anticipator = new NotificationAnticipator();
@@ -119,18 +140,18 @@ public class NotificationsTestCase {
         m_notifd.init();
         m_notifd.start();
 
-//        Date downDate = new Date();
-//        anticipateNotificationsForGroup("node 2 down.", "All services are down on node 2.", "InitialGroup", downDate, 0);
-//
-//        //bring node down now
-//        m_eventMgr.sendEventToListeners(m_network.getNode(2).createDownEvent(downDate));
-//
-//        m_anticipator.waitForAnticipated(2000);
-//
-//        m_anticipator.reset();
+        // Date downDate = new Date();
+        // anticipateNotificationsForGroup("node 2 down.",
+        // "All services are down on node 2.", "InitialGroup", downDate, 0);
+        //
+        // //bring node down now
+        // m_eventMgr.sendEventToListeners(m_network.getNode(2).createDownEvent(downDate));
+        //
+        // m_anticipator.waitForAnticipated(2000);
+        //
+        // m_anticipator.reset();
 
         MockUtil.println("################ Finish Setup ################");
-
 
     }
 
@@ -147,8 +168,10 @@ public class NotificationsTestCase {
         return network;
     }
 
-    private MockUserManager createUserManager(MockGroupManager groupManager) throws MarshalException, ValidationException, IOException {
-        return new MockUserManager(groupManager, ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "users.xml"));
+    private MockUserManager createUserManager(MockGroupManager groupManager) throws MarshalException,
+            ValidationException, IOException {
+        return new MockUserManager(groupManager,
+                                   ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "users.xml"));
     }
 
     private MockGroupManager createGroupManager() throws MarshalException, ValidationException, IOException {
@@ -171,29 +194,35 @@ public class NotificationsTestCase {
     }
 
     public void testDoNothing() {
-        // this is only here to ensure that we don't get an error when running AllTests
+        // this is only here to ensure that we don't get an error when running
+        // AllTests
     }
 
-    protected long anticipateNotificationsForGroup(String subject, String textMsg, String groupName, Date startTime, long interval) throws Exception {
+    protected long anticipateNotificationsForGroup(String subject, String textMsg, String groupName, Date startTime,
+            long interval) throws Exception {
         return anticipateNotificationsForGroup(subject, textMsg, groupName, startTime.getTime(), interval);
     }
 
-    protected long anticipateNotificationsForGroup(String subject, String textMsg, String groupName, long startTime, long interval) throws Exception {
+    protected long anticipateNotificationsForGroup(String subject, String textMsg, String groupName, long startTime,
+            long interval) throws Exception {
         Group group = m_groupManager.getGroup(groupName);
         String[] users = group.getUser();
         return anticipateNotificationsForUsers(users, subject, textMsg, startTime, interval);
     }
 
-    protected long anticipateNotificationsForRole(String subject, String textMsg, String groupName, Date startTime, long interval) throws Exception {
+    protected long anticipateNotificationsForRole(String subject, String textMsg, String groupName, Date startTime,
+            long interval) throws Exception {
         return anticipateNotificationsForRole(subject, textMsg, groupName, startTime.getTime(), interval);
     }
 
-    protected long anticipateNotificationsForRole(String subject, String textMsg, String roleName, long startTime, long interval) throws MarshalException, ValidationException, IOException {
+    protected long anticipateNotificationsForRole(String subject, String textMsg, String roleName, long startTime,
+            long interval) throws MarshalException, ValidationException, IOException {
         String[] users = m_userManager.getUsersScheduledForRole(roleName, new Date(startTime));
         return anticipateNotificationsForUsers(users, subject, textMsg, startTime, interval);
     }
 
-    protected long anticipateNotificationsForUsers(String[] users, String subject, String textMsg, long startTime, long interval) throws IOException, MarshalException, ValidationException {
+    protected long anticipateNotificationsForUsers(String[] users, String subject, String textMsg, long startTime,
+            long interval) throws IOException, MarshalException, ValidationException {
         long expectedTime = startTime;
         for (int i = 0; i < users.length; i++) {
             User user = m_userManager.getUser(users[i]);
@@ -201,12 +230,13 @@ public class NotificationsTestCase {
             for (int j = 0; j < contacts.length; j++) {
                 Contact contact = contacts[j];
                 if ("email".equals(contact.getType())) {
-                    m_anticipator.anticipateNotification(createMockNotification(expectedTime, subject, textMsg, contact.getInfo()));
+                    m_anticipator.anticipateNotification(createMockNotification(expectedTime, subject, textMsg,
+                                                                                contact.getInfo()));
                 }
             }
             expectedTime += interval;
         }
-        return expectedTime-interval;
+        return expectedTime - interval;
     }
 
     protected Collection<String> getUsersInGroup(String groupName) throws Exception {
@@ -231,7 +261,7 @@ public class NotificationsTestCase {
         }
     }
 
-    protected  MockNotification createMockNotification(long expectedTime, String subject, String textMsg, String email) {
+    protected MockNotification createMockNotification(long expectedTime, String subject, String textMsg, String email) {
         MockNotification notification;
         notification = new MockNotification();
         notification.setExpectedTime(expectedTime);

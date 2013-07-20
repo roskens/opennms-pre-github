@@ -23,29 +23,27 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.log.LogService;
 
-public final class LogServiceLogger
-    extends AbstractLogger
-{
+public final class LogServiceLogger extends AbstractLogger {
     private final ConsoleLogger consoleLogger;
-    private final ServiceTracker<?,?> tracker;
 
-    public LogServiceLogger(BundleContext context)
-    {
+    private final ServiceTracker<?, ?> tracker;
+
+    public LogServiceLogger(BundleContext context) {
         this.consoleLogger = new ConsoleLogger();
-        this.tracker = new ServiceTracker<ServiceReference<LogService>,LogService>(context, LogService.class.getName(), null);
+        this.tracker = new ServiceTracker<ServiceReference<LogService>, LogService>(context,
+                                                                                    LogService.class.getName(), null);
         this.tracker.open();
     }
 
-    public void close()
-    {
+    public void close() {
         this.tracker.close();
     }
 
     @Override
-    @SuppressWarnings("unchecked") // Because of OSGi API
-    public void log(ServiceReference ref, int level, String message, Throwable cause)
-    {
-        LogService log = (LogService)this.tracker.getService();
+    @SuppressWarnings("unchecked")
+    // Because of OSGi API
+    public void log(ServiceReference ref, int level, String message, Throwable cause) {
+        LogService log = (LogService) this.tracker.getService();
         if (log != null) {
             log.log(ref, level, message, cause);
         } else {

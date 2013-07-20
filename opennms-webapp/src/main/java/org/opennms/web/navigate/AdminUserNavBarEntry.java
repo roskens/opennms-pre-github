@@ -33,7 +33,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.opennms.web.springframework.security.Authentication;
 
 /**
- * <p>AdminUserNavBarEntry class.</p>
+ * <p>
+ * AdminUserNavBarEntry class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

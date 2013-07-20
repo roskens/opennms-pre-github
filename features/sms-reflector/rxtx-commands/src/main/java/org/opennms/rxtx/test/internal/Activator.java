@@ -39,45 +39,35 @@ import org.osgi.framework.ServiceRegistration;
  * @author ranger
  * @version $Id: $
  */
-public final class Activator
-    implements BundleActivator
-{
+public final class Activator implements BundleActivator {
 
-	ServiceRegistration<CommandProvider> m_registration;
-	RxtxCommands m_commands;
+    ServiceRegistration<CommandProvider> m_registration;
+
+    RxtxCommands m_commands;
 
     /**
-     * {@inheritDoc}
-     *
-     * Called whenever the OSGi framework starts our bundle
+     * {@inheritDoc} Called whenever the OSGi framework starts our bundle
      */
-        @Override
-    public void start( BundleContext bc )
-        throws Exception
-    {
+    @Override
+    public void start(BundleContext bc) throws Exception {
 
-    	m_commands = new RxtxCommands();
+        m_commands = new RxtxCommands();
 
-        // Register our example service implementation in the OSGi service registry
+        // Register our example service implementation in the OSGi service
+        // registry
         m_registration = bc.registerService(CommandProvider.class, m_commands, null);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Called whenever the OSGi framework stops our bundle
+     * {@inheritDoc} Called whenever the OSGi framework stops our bundle
      */
-        @Override
-    public void stop( BundleContext bc )
-        throws Exception
-    {
+    @Override
+    public void stop(BundleContext bc) throws Exception {
 
-    	m_registration.unregister();
-    	m_registration = null;
-
+        m_registration.unregister();
+        m_registration = null;
 
         m_commands.stop();
         m_commands = null;
     }
 }
-

@@ -47,26 +47,26 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
 
     private static final JdbcColumn[] OF_JDBC_COLUMNS = new JdbcColumn[0];
 
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     private String m_queryName;
 
-    @XmlAttribute(name="recheckInterval")
+    @XmlAttribute(name = "recheckInterval")
     private int m_recheckInterval;
 
-    @XmlAttribute(name="ifType", required=true)
+    @XmlAttribute(name = "ifType", required = true)
     private String m_ifType;
 
-    @XmlAttribute(name="resourceType", required=true)
+    @XmlAttribute(name = "resourceType", required = true)
     private String m_resourceType;
 
-    @XmlElement(name="statement", required=true)
+    @XmlElement(name = "statement", required = true)
     private JdbcStatement m_jdbcStatement;
 
-    @XmlAttribute(name="instance-column", required=false)
+    @XmlAttribute(name = "instance-column", required = false)
     private String m_instanceColumn;
 
-    @XmlElementWrapper(name="columns")
-    @XmlElement(name="column")
+    @XmlElementWrapper(name = "columns")
+    @XmlElement(name = "column")
     private List<JdbcColumn> m_jdbcColumns = new ArrayList<JdbcColumn>();
 
     @XmlTransient
@@ -105,9 +105,9 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
     }
 
     public void removeColumnByName(String name) {
-        for (Iterator<JdbcColumn> itr = m_jdbcColumns.iterator(); itr.hasNext(); ) {
+        for (Iterator<JdbcColumn> itr = m_jdbcColumns.iterator(); itr.hasNext();) {
             JdbcColumn column = itr.next();
-            if(column.getColumnName().equals(name)) {
+            if (column.getColumnName().equals(name)) {
                 m_jdbcColumns.remove(column);
                 return;
             }
@@ -132,7 +132,6 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
         m_ifType = ifType;
     }
 
-
     @XmlTransient
     public String getResourceType() {
         return m_resourceType;
@@ -153,24 +152,20 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
 
     @Override
     public int compareTo(JdbcQuery obj) {
-        return new CompareToBuilder()
-            .append(getQueryName(), obj.getQueryName())
-            .append(getJdbcStatement(), obj.getJdbcStatement())
-            .append(getJdbcColumns().toArray(OF_JDBC_COLUMNS), obj.getJdbcColumns().toArray(OF_JDBC_COLUMNS))
-            .append(getRecheckInterval(), obj.getRecheckInterval())
-            .append(getIfType(), obj.getIfType())
-            .toComparison();
+        return new CompareToBuilder().append(getQueryName(), obj.getQueryName()).append(getJdbcStatement(),
+                                                                                        obj.getJdbcStatement()).append(getJdbcColumns().toArray(OF_JDBC_COLUMNS),
+                                                                                                                       obj.getJdbcColumns().toArray(OF_JDBC_COLUMNS)).append(getRecheckInterval(),
+                                                                                                                                                                             obj.getRecheckInterval()).append(getIfType(),
+                                                                                                                                                                                                              obj.getIfType()).toComparison();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcQuery) {
             JdbcQuery other = (JdbcQuery) obj;
-            return new EqualsBuilder()
-                .append(getQueryName(), other.getQueryName())
-                .append(getJdbcStatement(), other.getJdbcStatement())
-                .append(getJdbcColumns().toArray(OF_JDBC_COLUMNS), other.getJdbcColumns().toArray(OF_JDBC_COLUMNS))
-                .isEquals();
+            return new EqualsBuilder().append(getQueryName(), other.getQueryName()).append(getJdbcStatement(),
+                                                                                           other.getJdbcStatement()).append(getJdbcColumns().toArray(OF_JDBC_COLUMNS),
+                                                                                                                            other.getJdbcColumns().toArray(OF_JDBC_COLUMNS)).isEquals();
         }
         return false;
     }

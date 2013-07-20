@@ -38,9 +38,12 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
  */
 public interface SnmpInterfacePolicy extends OnmsPolicy {
     /**
-     * <p>apply</p>
+     * <p>
+     * apply
+     * </p>
      *
-     * @param snmpIface a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
+     * @param snmpIface
+     *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      * @return a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      */
     OnmsSnmpInterface apply(OnmsSnmpInterface snmpIface);

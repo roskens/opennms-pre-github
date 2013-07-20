@@ -70,18 +70,26 @@ import org.slf4j.LoggerFactory;
  */
 public class WebMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(WebMonitor.class);
+
     static Integer DEFAULT_TIMEOUT = 3000;
+
     static Integer DEFAULT_PORT = 80;
+
     static String DEFAULT_USER_AGENT = "OpenNMS WebMonitor";
+
     static String DEFAULT_PATH = "/";
+
     static String DEFAULT_USER = "admin";
+
     static String DEFAULT_PASSWORD = "admin";
+
     static String DEFAULT_HTTP_STATUS_RANGE = "100-399";
+
     static String DEFAULT_SCHEME = "http";
 
     /** {@inheritDoc} */
     @Override
-    public PollStatus poll(MonitoredService svc, Map<String,Object> map) {
+    public PollStatus poll(MonitoredService svc, Map<String, Object> map) {
         PollStatus pollStatus = PollStatus.unresponsive();
         DefaultHttpClient httpClient = new DefaultHttpClient();
 
@@ -94,46 +102,59 @@ public class WebMonitor extends AbstractServiceMonitor {
             ub.setPort(ParameterMap.getKeyedInteger(map, "port", DEFAULT_PORT));
             ub.setPath(ParameterMap.getKeyedString(map, "path", DEFAULT_PATH));
             HttpGet getMethod = new HttpGet(ub.build());
-            httpClient.getParams().setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, ParameterMap.getKeyedInteger(map, "timeout", DEFAULT_TIMEOUT));
-            httpClient.getParams().setIntParameter(CoreConnectionPNames.SO_TIMEOUT, ParameterMap.getKeyedInteger(map, "timeout", DEFAULT_TIMEOUT));
-            httpClient.getParams().setParameter( CoreProtocolPNames.USER_AGENT, ParameterMap.getKeyedString(map,"user-agent",DEFAULT_USER_AGENT));
+            httpClient.getParams().setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
+                                                   ParameterMap.getKeyedInteger(map, "timeout", DEFAULT_TIMEOUT));
+            httpClient.getParams().setIntParameter(CoreConnectionPNames.SO_TIMEOUT,
+                                                   ParameterMap.getKeyedInteger(map, "timeout", DEFAULT_TIMEOUT));
+            httpClient.getParams().setParameter(CoreProtocolPNames.USER_AGENT,
+                                                ParameterMap.getKeyedString(map, "user-agent", DEFAULT_USER_AGENT));
 
-            // Set the virtual host to the 'virtual-host' parameter or the host address if 'virtual-host' is not present
+            // Set the virtual host to the 'virtual-host' parameter or the host
+            // address if 'virtual-host' is not present
             getMethod.getParams().setParameter(ClientPNames.VIRTUAL_HOST,
-                new HttpHost(
-                    ParameterMap.getKeyedString(map,"virtual-host", hostAddress),
-                    ParameterMap.getKeyedInteger(map, "port", DEFAULT_PORT)
-                )
-            );
+                                               new HttpHost(ParameterMap.getKeyedString(map, "virtual-host",
+                                                                                        hostAddress),
+                                                            ParameterMap.getKeyedInteger(map, "port", DEFAULT_PORT)));
 
-            if(ParameterMap.getKeyedBoolean(map, "http-1.0", false)) {
+            if (ParameterMap.getKeyedBoolean(map, "http-1.0", false)) {
                 httpClient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_0);
             }
 
-            for(Object okey : map.keySet()) {
+            for (Object okey : map.keySet()) {
                 String key = okey.toString();
-                if(key.matches("header_[0-9]+$")){
-                    String headerName  = ParameterMap.getKeyedString(map,key,null);
-                    String headerValue = ParameterMap.getKeyedString(map,key + "_value",null);
+                if (key.matches("header_[0-9]+$")) {
+                    String headerName = ParameterMap.getKeyedString(map, key, null);
+                    String headerValue = ParameterMap.getKeyedString(map, key + "_value", null);
                     getMethod.setHeader(headerName, headerValue);
                 }
             }
 
-            if(ParameterMap.getKeyedBoolean(map,"auth-enabled",false)){
-                httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, new UsernamePasswordCredentials( ParameterMap.getKeyedString(map, "auth-user", DEFAULT_USER), ParameterMap.getKeyedString(map, "auth-password", DEFAULT_PASSWORD)));
+            if (ParameterMap.getKeyedBoolean(map, "auth-enabled", false)) {
+                httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY,
+                                                                   new UsernamePasswordCredentials(
+                                                                                                   ParameterMap.getKeyedString(map,
+                                                                                                                               "auth-user",
+                                                                                                                               DEFAULT_USER),
+                                                                                                   ParameterMap.getKeyedString(map,
+                                                                                                                               "auth-password",
+                                                                                                                               DEFAULT_PASSWORD)));
                 if (ParameterMap.getKeyedBoolean(map, "auth-preemptive", true)) {
                     /**
-                     * Add an HttpRequestInterceptor that will perform preemptive auth
-                     * @see http://hc.apache.org/httpcomponents-client-4.0.1/tutorial/html/authentication.html
+                     * Add an HttpRequestInterceptor that will perform
+                     * preemptive auth
+                     *
+                     * @see http
+                     *      ://hc.apache.org/httpcomponents-client-4.0.1/tutorial
+                     *      /html/authentication.html
                      */
                     HttpRequestInterceptor preemptiveAuth = new HttpRequestInterceptor() {
 
                         @Override
                         public void process(final HttpRequest request, final HttpContext context) throws IOException {
 
-                            AuthState authState = (AuthState)context.getAttribute(ClientContext.TARGET_AUTH_STATE);
-                            CredentialsProvider credsProvider = (CredentialsProvider)context.getAttribute(ClientContext.CREDS_PROVIDER);
-                            HttpHost targetHost = (HttpHost)context.getAttribute(ExecutionContext.HTTP_TARGET_HOST);
+                            AuthState authState = (AuthState) context.getAttribute(ClientContext.TARGET_AUTH_STATE);
+                            CredentialsProvider credsProvider = (CredentialsProvider) context.getAttribute(ClientContext.CREDS_PROVIDER);
+                            HttpHost targetHost = (HttpHost) context.getAttribute(ExecutionContext.HTTP_TARGET_HOST);
 
                             // If not auth scheme has been initialized yet
                             if (authState.getAuthScheme() == null) {
@@ -157,28 +178,25 @@ public class WebMonitor extends AbstractServiceMonitor {
             HttpResponse response = httpClient.execute(getMethod);
             int statusCode = response.getStatusLine().getStatusCode();
             String statusText = response.getStatusLine().getReasonPhrase();
-            String expectedText = ParameterMap.getKeyedString(map,"response-text",null);
+            String expectedText = ParameterMap.getKeyedString(map, "response-text", null);
 
             LOG.debug("returned results are:");
 
-            if(!inRange(ParameterMap.getKeyedString(map, "response-range", DEFAULT_HTTP_STATUS_RANGE),statusCode)){
+            if (!inRange(ParameterMap.getKeyedString(map, "response-range", DEFAULT_HTTP_STATUS_RANGE), statusCode)) {
                 pollStatus = PollStatus.unavailable(statusText);
-            }
-            else {
+            } else {
                 pollStatus = PollStatus.available();
             }
 
-            if (expectedText!=null){
+            if (expectedText != null) {
                 String responseText = EntityUtils.toString(response.getEntity());
-                if(expectedText.charAt(0)=='~'){
-                    if(!responseText.matches(expectedText.substring(1))){
+                if (expectedText.charAt(0) == '~') {
+                    if (!responseText.matches(expectedText.substring(1))) {
                         pollStatus = PollStatus.unavailable("Regex Failed");
-                    }
-                    else
+                    } else
                         pollStatus = PollStatus.available();
-                }
-                else {
-                    if(expectedText.equals(responseText))
+                } else {
+                    if (expectedText.equals(responseText))
                         pollStatus = PollStatus.available();
                     else
                         pollStatus = PollStatus.unavailable("Did not find expected Text");
@@ -197,9 +215,9 @@ public class WebMonitor extends AbstractServiceMonitor {
         return pollStatus;
     }
 
-    private boolean inRange(String range,Integer val){
+    private boolean inRange(String range, Integer val) {
         String boundries[] = range.split("-");
-        if(val < new Integer(boundries[0]) || val > new Integer(boundries[1]))
+        if (val < new Integer(boundries[0]) || val > new Integer(boundries[1]))
             return false;
         else
             return true;

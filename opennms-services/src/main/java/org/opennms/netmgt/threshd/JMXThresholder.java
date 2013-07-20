@@ -81,8 +81,8 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class JMXThresholder implements ServiceThresholder {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(JMXThresholder.class);
+
     /**
      * SQL statement to retrieve interface's 'ipinterface' table information.
      */
@@ -90,7 +90,6 @@ public abstract class JMXThresholder implements ServiceThresholder {
 
     /**
      * Default thresholding interval (in milliseconds).
-     *
      */
     private static final int DEFAULT_INTERVAL = 300000; // 300s or 5m
 
@@ -99,7 +98,6 @@ public abstract class JMXThresholder implements ServiceThresholder {
      */
 
     private static final int DEFAULT_RANGE = 0; // 300s or 5m
-
 
     /**
      * Interface attribute key used to store the interface's node id
@@ -137,9 +135,12 @@ public abstract class JMXThresholder implements ServiceThresholder {
     private boolean useFriendlyName = false;
 
     /**
-     * <p>Setter for the field <code>serviceName</code>.</p>
+     * <p>
+     * Setter for the field <code>serviceName</code>.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setServiceName(String name) {
         serviceName = name;
@@ -158,25 +159,28 @@ public abstract class JMXThresholder implements ServiceThresholder {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Initialize the service thresholder.
      * </P>
+     *
      * @exception RuntimeException
      *                Thrown if an unrecoverable error occurs that prevents the
      *                plug-in from functioning.
      */
     @Override
-    public void initialize(Map<?,?> parameters) {
+    public void initialize(Map<?, ?> parameters) {
     }
 
     /**
-     * <p>reinitialize</p>
+     * <p>
+     * reinitialize
+     * </p>
      */
     @Override
     public void reinitialize() {
-        //Nothing to do
+        // Nothing to do
     }
+
     /**
      * Responsible for freeing up any resources held by the thresholder.
      */
@@ -186,13 +190,12 @@ public abstract class JMXThresholder implements ServiceThresholder {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Responsible for performing all necessary initialization for the specified
+     * {@inheritDoc} Responsible for performing all necessary initialization for
+     * the specified
      * interface in preparation for thresholding.
      */
     @Override
-    public void initialize(ThresholdNetworkInterface iface, Map<?,?> parameters) {
+    public void initialize(ThresholdNetworkInterface iface, Map<?, ?> parameters) {
         // Get interface address from NetworkInterface
         if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new RuntimeException("Unsupported interface type, only TYPE_INET currently supported");
@@ -228,7 +231,7 @@ public abstract class JMXThresholder implements ServiceThresholder {
         // for a single datasource a warning messages is generated. Only
         // the first threshold in such a scenario will be used for thresholding.
         //
-        Map<String, ThresholdEntity> nodeMap   = new HashMap<String, ThresholdEntity>();
+        Map<String, ThresholdEntity> nodeMap = new HashMap<String, ThresholdEntity>();
         Map<String, ThresholdEntity> baseIfMap = new HashMap<String, ThresholdEntity>();
         try {
             for (Basethresholddef thresh : ThresholdingConfigFactory.getInstance().getThresholds(groupName)) {
@@ -237,7 +240,7 @@ public abstract class JMXThresholder implements ServiceThresholder {
                 boolean newEntity = false;
                 ThresholdEntity thresholdEntity = null;
                 try {
-                    BaseThresholdDefConfigWrapper wrapper=BaseThresholdDefConfigWrapper.getConfigWrapper(thresh);
+                    BaseThresholdDefConfigWrapper wrapper = BaseThresholdDefConfigWrapper.getConfigWrapper(thresh);
                     if (wrapper.getDsType().equals("node")) {
                         thresholdEntity = nodeMap.get(wrapper.getDatasourceExpression());
                     } else if (wrapper.getDsType().equals("if")) {
@@ -254,7 +257,8 @@ public abstract class JMXThresholder implements ServiceThresholder {
                     try {
                         thresholdEntity.addThreshold(wrapper);
                     } catch (IllegalStateException e) {
-                        LOG.warn("Encountered duplicate {} for datasource {}", thresh.getType(), wrapper.getDatasourceExpression(), e);
+                        LOG.warn("Encountered duplicate {} for datasource {}", thresh.getType(),
+                                 wrapper.getDatasourceExpression(), e);
                     }
 
                     // Add new entity to the map
@@ -276,7 +280,7 @@ public abstract class JMXThresholder implements ServiceThresholder {
 
         // Add node and interface thresholding maps as attributes of the
         // interface for retrieval by the check() method.
-        iface.setAttribute(NODE_THRESHOLD_MAP_KEY,    nodeMap);
+        iface.setAttribute(NODE_THRESHOLD_MAP_KEY, nodeMap);
         iface.setAttribute(BASE_IF_THRESHOLD_MAP_KEY, baseIfMap);
 
         // Now create an empty map which will hold interface level
@@ -284,7 +288,7 @@ public abstract class JMXThresholder implements ServiceThresholder {
         // This map will be keyed by the interface's iflabel and will
         // contain as a value a map of ThresholdEntity objects keyed
         // by datasource name.
-        iface.setAttribute(ALL_IF_THRESHOLD_MAP_KEY, new HashMap<String,Map<String,ThresholdEntity>>());
+        iface.setAttribute(ALL_IF_THRESHOLD_MAP_KEY, new HashMap<String, Map<String, ThresholdEntity>>());
 
         final DBUtils d = new DBUtils(getClass());
         // Get database connection in order to retrieve the nodeid and
@@ -308,7 +312,7 @@ public abstract class JMXThresholder implements ServiceThresholder {
             // 'ifIndex' and 'isSnmpPrimary' fields from the ipInterface table.
             PreparedStatement stmt = null;
             final String hostAddress = InetAddressUtils.str(ipAddr);
-			try {
+            try {
                 stmt = dbConn.prepareStatement(SQL_GET_NODEID);
                 d.watch(stmt);
                 stmt.setString(1, hostAddress); // interface address
@@ -322,7 +326,8 @@ public abstract class JMXThresholder implements ServiceThresholder {
                 }
             } catch (SQLException e) {
                 LOG.debug("initialize: SQL exception!!", e);
-                throw new RuntimeException("SQL exception while attempting to retrieve node id for interface " + hostAddress, e);
+                throw new RuntimeException("SQL exception while attempting to retrieve node id for interface "
+                        + hostAddress, e);
             }
 
             // RuntimeException is thrown if any of the following are true:
@@ -343,7 +348,7 @@ public abstract class JMXThresholder implements ServiceThresholder {
 
         // Debug
         final String hostAddress = InetAddressUtils.str(ipAddr);
-		if (LOG.isDebugEnabled()) {
+        if (LOG.isDebugEnabled()) {
             LOG.debug("initialize: dumping node thresholds defined for {}/{}:", hostAddress, groupName);
             Iterator<ThresholdEntity> iter = nodeMap.values().iterator();
             while (iter.hasNext()) {
@@ -363,9 +368,8 @@ public abstract class JMXThresholder implements ServiceThresholder {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Responsible for releasing any resources associated with the specified
+     * {@inheritDoc} Responsible for releasing any resources associated with the
+     * specified
      * interface.
      */
     @Override
@@ -374,17 +378,15 @@ public abstract class JMXThresholder implements ServiceThresholder {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Perform threshold checking.
+     * {@inheritDoc} Perform threshold checking.
      */
     @Override
-    public int check(ThresholdNetworkInterface iface, EventProxy eproxy, Map<?,?> parameters) {
+    public int check(ThresholdNetworkInterface iface, EventProxy eproxy, Map<?, ?> parameters) {
         String dsDir = serviceName;
 
-        String port         = ParameterMap.getKeyedString( parameters, "port",           null);
-        String friendlyName = ParameterMap.getKeyedString( parameters, "friendly-name",  port);
-        int range = ParameterMap.getKeyedInteger( parameters, "range",  DEFAULT_RANGE);
+        String port = ParameterMap.getKeyedString(parameters, "port", null);
+        String friendlyName = ParameterMap.getKeyedString(parameters, "friendly-name", port);
+        int range = ParameterMap.getKeyedInteger(parameters, "range", DEFAULT_RANGE);
 
         if (useFriendlyName) {
             dsDir = friendlyName;
@@ -394,10 +396,11 @@ public abstract class JMXThresholder implements ServiceThresholder {
 
         // Get configuration parameters
         String groupName = ParameterMap.getKeyedString(parameters, "thresholding-group", serviceName);
-        int    interval  = ParameterMap.getKeyedInteger(parameters, "interval", DEFAULT_INTERVAL);
+        int interval = ParameterMap.getKeyedInteger(parameters, "interval", DEFAULT_INTERVAL);
 
         final String hostAddress = InetAddressUtils.str(primary);
-	LOG.debug("check: service= {} address= {} thresholding-group={} interval={} mS range = {} mS", serviceName.toUpperCase(), hostAddress, groupName, interval, range);
+        LOG.debug("check: service= {} address= {} thresholding-group={} interval={} mS range = {} mS",
+                  serviceName.toUpperCase(), hostAddress, groupName, interval, range);
 
         // RRD Repository attribute
         String repository = iface.getAttribute(RRD_REPOSITORY_KEY);
@@ -407,9 +410,9 @@ public abstract class JMXThresholder implements ServiceThresholder {
         Integer nodeId = iface.getAttribute(NODE_ID_KEY);
 
         // node and interface ThresholdEntity map attributes
-        Map<Object,ThresholdEntity> nodeMap   = iface.getAttribute(NODE_THRESHOLD_MAP_KEY);
-        Map<String,ThresholdEntity> baseIfMap = iface.getAttribute(BASE_IF_THRESHOLD_MAP_KEY);
-        Map<String,Map<String,ThresholdEntity>> allIfMap  = iface.getAttribute(ALL_IF_THRESHOLD_MAP_KEY);
+        Map<Object, ThresholdEntity> nodeMap = iface.getAttribute(NODE_THRESHOLD_MAP_KEY);
+        Map<String, ThresholdEntity> baseIfMap = iface.getAttribute(BASE_IF_THRESHOLD_MAP_KEY);
+        Map<String, Map<String, ThresholdEntity>> allIfMap = iface.getAttribute(ALL_IF_THRESHOLD_MAP_KEY);
 
         // -----------------------------------------------------------
         //
@@ -419,10 +422,12 @@ public abstract class JMXThresholder implements ServiceThresholder {
 
         // Get File object representing the node directory
         File nodeDirectory = new File(repository + File.separator + nodeId.toString() + File.separator + dsDir);
-        //if (!RrdFileConstants.isValidRRDNodeDir(nodeDirectory)) {
-        //    log.error("Node directory for " + nodeDirectory + " does not exist or is not a valid RRD node directory.");
-        //    log.error("Threshold checking failed for primary " + serviceName + " interface " + InetAddressUtils.str(primary));
-        //}
+        // if (!RrdFileConstants.isValidRRDNodeDir(nodeDirectory)) {
+        // log.error("Node directory for " + nodeDirectory +
+        // " does not exist or is not a valid RRD node directory.");
+        // log.error("Threshold checking failed for primary " + serviceName +
+        // " interface " + InetAddressUtils.str(primary));
+        // }
 
         // Create empty Events object to hold any threshold
         // events generated during the thresholding check...
@@ -454,7 +459,8 @@ public abstract class JMXThresholder implements ServiceThresholder {
                     // Found interface directory...
                     checkIfDir(files[i], nodeId, primary, interval, range, dateStamp, baseIfMap, allIfMap, events);
                 } catch (IllegalArgumentException e) {
-                    LOG.info("check: Threshold checking failed for primary {} interface {}", serviceName, hostAddress, e);
+                    LOG.info("check: Threshold checking failed for primary {} interface {}", serviceName, hostAddress,
+                             e);
                     return THRESHOLDING_FAILED;
                 }
             }
@@ -477,12 +483,13 @@ public abstract class JMXThresholder implements ServiceThresholder {
 
     }
 
-    private Map<String, Double> getThresholdValues(File directory, int range, int interval, Collection<String> requiredDatasources) {
-        Map<String, Double> values=new HashMap<String,Double>();
-        for(String ds: requiredDatasources) {
-            File dsFile=new File(directory,ds+RrdUtils.getExtension());
-            Double thisValue=null;
-            if(dsFile.exists()) {
+    private Map<String, Double> getThresholdValues(File directory, int range, int interval,
+            Collection<String> requiredDatasources) {
+        Map<String, Double> values = new HashMap<String, Double>();
+        for (String ds : requiredDatasources) {
+            File dsFile = new File(directory, ds + RrdUtils.getExtension());
+            Double thisValue = null;
+            if (dsFile.exists()) {
                 try {
                     if (range != 0) {
                         LOG.debug("checking values within {} mS of last possible PDP", range);
@@ -492,7 +499,8 @@ public abstract class JMXThresholder implements ServiceThresholder {
                         thisValue = RrdUtils.fetchLastValue(dsFile.getAbsolutePath(), ds, interval);
                     }
                 } catch (NumberFormatException e) {
-                    LOG.warn("Unable to convert retrieved value for datasource '{}' to a double, skipping evaluation.", ds);
+                    LOG.warn("Unable to convert retrieved value for datasource '{}' to a double, skipping evaluation.",
+                             ds);
                 } catch (RrdException e) {
                     LOG.info("An error occurred retriving the last value for datasource '{}'", ds, e);
                 }
@@ -501,7 +509,7 @@ public abstract class JMXThresholder implements ServiceThresholder {
             if (thisValue == null || thisValue.isNaN()) {
                 return null;
             }
-            values.put(ds,thisValue);
+            values.put(ds, thisValue);
         }
         return values;
     }
@@ -527,24 +535,25 @@ public abstract class JMXThresholder implements ServiceThresholder {
      * @param events
      *            Castor events object containing any events to be generated as
      *            a result of threshold checking.
-     *
      * @throws IllegalArgumentException
      *             if path parameter is not a directory.
      */
-    private void checkNodeDir(File directory, Integer nodeId, InetAddress primary, int interval, int range,  Date date, Map<Object,ThresholdEntity> thresholdMap, Events events) throws IllegalArgumentException {
+    private void checkNodeDir(File directory, Integer nodeId, InetAddress primary, int interval, int range, Date date,
+            Map<Object, ThresholdEntity> thresholdMap, Events events) throws IllegalArgumentException {
         // Sanity Check
-        if (directory == null || nodeId == null || primary == null || date == null || thresholdMap == null || events == null) {
+        if (directory == null || nodeId == null || primary == null || date == null || thresholdMap == null
+                || events == null) {
             throw new IllegalArgumentException("Null parameters not permitted.");
         }
 
         LOG.debug("checkNodeDir: threshold checking node dir: {}", directory.getAbsolutePath());
 
-        for(Object threshKey  :thresholdMap.keySet()) {
+        for (Object threshKey : thresholdMap.keySet()) {
             ThresholdEntity threshold = thresholdMap.get(threshKey);
-            Collection<String> requiredDatasources=threshold.getRequiredDatasources();
-            Map<String, Double> values=getThresholdValues(directory, range, interval, requiredDatasources);
-            if(values==null) {
-                continue; //Not all values were available
+            Collection<String> requiredDatasources = threshold.getRequiredDatasources();
+            Map<String, Double> values = getThresholdValues(directory, range, interval, requiredDatasources);
+            if (values == null) {
+                continue; // Not all values were available
             }
             List<Event> eventList = threshold.evaluateAndCreateEvents(values, date);
             if (eventList.size() == 0) {
@@ -555,9 +564,7 @@ public abstract class JMXThresholder implements ServiceThresholder {
             completeEventListAndAddToEvents(events, eventList, nodeId, primary, null);
         }
 
-
     }
-
 
     /**
      * Performs threshold checking on an JMX RRD interface directory.
@@ -582,13 +589,15 @@ public abstract class JMXThresholder implements ServiceThresholder {
      * @param events
      *            Castor events object containing any events to be generated as
      *            a result of threshold checking.
-     *
      * @throws IllegalArgumentException
      *             if path parameter is not a directory.
      */
-    private void checkIfDir(File directory, Integer nodeId, InetAddress primary, int interval, int range, Date date, Map<String,ThresholdEntity> baseIfThresholdMap, Map<String,Map<String,ThresholdEntity>> allIfThresholdMap, Events events) throws IllegalArgumentException {
+    private void checkIfDir(File directory, Integer nodeId, InetAddress primary, int interval, int range, Date date,
+            Map<String, ThresholdEntity> baseIfThresholdMap,
+            Map<String, Map<String, ThresholdEntity>> allIfThresholdMap, Events events) throws IllegalArgumentException {
         // Sanity Check
-        if (directory == null || nodeId == null || primary == null || date == null || baseIfThresholdMap == null || allIfThresholdMap == null || events == null) {
+        if (directory == null || nodeId == null || primary == null || date == null || baseIfThresholdMap == null
+                || allIfThresholdMap == null || events == null) {
             throw new IllegalArgumentException("Null parameters not permitted.");
         }
 
@@ -631,12 +640,12 @@ public abstract class JMXThresholder implements ServiceThresholder {
         }
 
         Map<String, String> ifDataMap = new HashMap<String, String>();
-        for(Object threshKey  :thresholdMap.keySet()) {
+        for (Object threshKey : thresholdMap.keySet()) {
             ThresholdEntity threshold = thresholdMap.get(threshKey);
-            Collection<String> requiredDatasources=threshold.getRequiredDatasources();
-            Map<String, Double> values=getThresholdValues(directory, range, interval, requiredDatasources);
-            if(values==null) {
-                continue; //Not all values were available
+            Collection<String> requiredDatasources = threshold.getRequiredDatasources();
+            Map<String, Double> values = getThresholdValues(directory, range, interval, requiredDatasources);
+            if (values == null) {
+                continue; // Not all values were available
             }
             List<Event> eventList = threshold.evaluateAndCreateEvents(values, date);
             if (eventList.size() == 0) {
@@ -650,7 +659,8 @@ public abstract class JMXThresholder implements ServiceThresholder {
         }
     }
 
-    private void completeEventListAndAddToEvents(Events events, List<Event> eventList, Integer nodeId, InetAddress primary, Map<String, String> ifDataMap) {
+    private void completeEventListAndAddToEvents(Events events, List<Event> eventList, Integer nodeId,
+            InetAddress primary, Map<String, String> ifDataMap) {
         for (Event event : eventList) {
             event.setNodeid(nodeId.longValue());
             event.setService(serviceName());
@@ -664,7 +674,6 @@ public abstract class JMXThresholder implements ServiceThresholder {
             } else {
                 /*
                  * Interface-level datasource
-                 *
                  * NOTE: Non-IP interfaces will have an
                  * address of "0.0.0.0".
                  */
@@ -699,9 +708,12 @@ public abstract class JMXThresholder implements ServiceThresholder {
     }
 
     /**
-     * <p>Setter for the field <code>useFriendlyName</code>.</p>
+     * <p>
+     * Setter for the field <code>useFriendlyName</code>.
+     * </p>
      *
-     * @param useFriendlyName a boolean.
+     * @param useFriendlyName
+     *            a boolean.
      */
     public void setUseFriendlyName(boolean useFriendlyName) {
         this.useFriendlyName = useFriendlyName;

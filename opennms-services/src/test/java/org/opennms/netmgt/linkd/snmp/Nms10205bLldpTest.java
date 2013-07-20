@@ -50,10 +50,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class Nms10205bLldpTest extends Nms10205bNetworkBuilder implements InitializingBean {
 
     @Override
@@ -62,15 +60,14 @@ public class Nms10205bLldpTest extends Nms10205bNetworkBuilder implements Initia
     }
 
     @Test
-    @JUnitSnmpAgents(value = {
-            @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205b/" + "J6350-42_" + J6350_42_IP + ".txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205b/"
+            + "J6350-42_" + J6350_42_IP + ".txt") })
     public void testNetwork10205bJ63542LldpLocalBaseCollection() throws Exception {
 
         String name = "lldpLocGroup";
         LldpLocalGroup m_lLldpLocalGroup = new LldpLocalGroup(InetAddressUtils.addr(J6350_42_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[]{m_lLldpLocalGroup};
+        tracker = new CollectionTracker[] { m_lLldpLocalGroup };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(J6350_42_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
@@ -86,17 +83,15 @@ public class Nms10205bLldpTest extends Nms10205bNetworkBuilder implements Initia
         assertEquals(J6350_42_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
-
     @Test
-    @JUnitSnmpAgents(value = {
-            @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205b/" + "J6350-42_" + J6350_42_IP + ".txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205b/"
+            + "J6350-42_" + J6350_42_IP + ".txt") })
     public void testNetwork10205bJ63542LldpRemTableCollection() throws Exception {
 
         String name = "lldpRemTable";
         LldpRemTable m_lldpRemTable = new LldpRemTable(InetAddressUtils.addr(J6350_42_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[]{m_lldpRemTable};
+        tracker = new CollectionTracker[] { m_lldpRemTable };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(J6350_42_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
@@ -112,15 +107,14 @@ public class Nms10205bLldpTest extends Nms10205bNetworkBuilder implements Initia
     }
 
     @Test
-    @JUnitSnmpAgents(value = {
-            @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205b/" + "J6350-42_" + J6350_42_IP + ".txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205b/"
+            + "J6350-42_" + J6350_42_IP + ".txt") })
     public void testNetwork10205bJ63542LldpLocTableCollection() throws Exception {
 
         String name = "lldpLocTable";
         LldpLocTable m_lldpLocTable = new LldpLocTable(InetAddressUtils.addr(J6350_42_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[]{m_lldpLocTable};
+        tracker = new CollectionTracker[] { m_lldpLocTable };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(J6350_42_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();

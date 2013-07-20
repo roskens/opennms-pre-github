@@ -34,7 +34,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * <p>LocalJasperReportsDao interface.<p/>
+ * <p>
+ * LocalJasperReportsDao interface.
+ * <p/>
  * <p/>
  * Interface for generic local reports configuration access.
  *
@@ -46,55 +48,67 @@ import java.io.InputStream;
 public interface LocalJasperReportsDao {
 
     /**
-     * <p>getEngine</p>
+     * <p>
+     * getEngine
+     * </p>
      * <p/>
      * Get jasper report database engine
      *
-     * @param id a {@link java.lang.String} object
+     * @param id
+     *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
     String getEngine(String id);
 
-
     /**
-     * <p>getTemplateStream</p>
+     * <p>
+     * getTemplateStream
+     * </p>
      * <p/>
      * Get jasper report template as input stream
      *
-     * @param id a {@link java.lang.String} object
+     * @param id
+     *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
     InputStream getTemplateStream(String id) throws FileNotFoundException;
 
     /**
-     * <p>getTemplateLocation</p>
+     * <p>
+     * getTemplateLocation
+     * </p>
      * <p/>
      * Get jasper report template location
      *
-     * @param id a {@link java.lang.String} object
+     * @param id
+     *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
     String getTemplateLocation(String id);
 
     /**
-     * <p>loadConfiguration</p>
-     *
+     * <p>
+     * loadConfiguration
+     * </p>
      * Load XML configuration and unmarshalling
      */
     void loadConfiguration() throws Exception;
 
     /**
-     * <p>setConfigResource</p>
-     *
+     * <p>
+     * setConfigResource
+     * </p>
      * Set configuration resource DAO for jasper reports
      *
-     * @param configResource a {@link org.springframework.core.io.Resource} object
+     * @param configResource
+     *            a {@link org.springframework.core.io.Resource} object
      */
     void setConfigResource(Resource configResource);
 
     /**
-     * <p>getConfigResource</p>>
-     *
+     * <p>
+     * getConfigResource
+     * </p>>
      * Get configuration resource DAO for jasper reports
      *
      * @return a {@link org.springframework.core.io.Resource} object
@@ -102,17 +116,20 @@ public interface LocalJasperReportsDao {
     Resource getConfigResource();
 
     /**
-     * <p>setJrTemplateResource</p>
-     *
+     * <p>
+     * setJrTemplateResource
+     * </p>
      * Set configuration resource DAO for jasper report templates
      *
-     * @param jrTemplateResource a {@link org.springframework.core.io.Resource} object
+     * @param jrTemplateResource
+     *            a {@link org.springframework.core.io.Resource} object
      */
     void setJrTemplateResource(Resource jrTemplateResource);
 
     /**
-     * <p>getJrTemplateResource</p>>
-     *
+     * <p>
+     * getJrTemplateResource
+     * </p>>
      * Get configuration resource DAO for jasper report templates
      *
      * @return a {@link org.springframework.core.io.Resource} object

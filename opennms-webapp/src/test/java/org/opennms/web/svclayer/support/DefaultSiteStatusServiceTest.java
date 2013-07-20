@@ -59,7 +59,9 @@ import org.opennms.web.svclayer.AggregateStatus;
 public class DefaultSiteStatusServiceTest {
 
     private NodeDao m_nodeDao;
+
     private CategoryDao m_categoryDao;
+
     private SiteStatusViewConfigDao m_siteStatusViewConfigDao;
 
     @Before
@@ -77,14 +79,20 @@ public class DefaultSiteStatusServiceTest {
         OnmsCategory catRouters = new OnmsCategory("routers");
         OnmsCategory catSwitches = new OnmsCategory("switches");
 
-        AggregateStatusDefinition definition =
-            new AggregateStatusDefinition("Routers/Switches", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ catRouters, catSwitches })));
+        AggregateStatusDefinition definition = new AggregateStatusDefinition(
+                                                                             "Routers/Switches",
+                                                                             new HashSet<OnmsCategory>(
+                                                                                                       Arrays.asList(new OnmsCategory[] {
+                                                                                                               catRouters,
+                                                                                                               catSwitches })));
         defs.add(definition);
 
         OnmsCategory catServers = new OnmsCategory("servers");
 
-        definition =
-            new AggregateStatusDefinition("Servers", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ catServers })));
+        definition = new AggregateStatusDefinition(
+                                                   "Servers",
+                                                   new HashSet<OnmsCategory>(
+                                                                             Arrays.asList(new OnmsCategory[] { catServers })));
         defs.add(definition);
 
         DefaultSiteStatusViewService aggregateSvc = new DefaultSiteStatusViewService();
@@ -147,12 +155,21 @@ public class DefaultSiteStatusServiceTest {
         Collection<AggregateStatus> aggrStati;
         Collection<AggregateStatusDefinition> defs = new HashSet<AggregateStatusDefinition>();
 
-        AggregateStatusDefinition definition =
-            new AggregateStatusDefinition("Routers/Switches", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("routers"), new OnmsCategory("switches") })));
+        AggregateStatusDefinition definition = new AggregateStatusDefinition(
+                                                                             "Routers/Switches",
+                                                                             new HashSet<OnmsCategory>(
+                                                                                                       Arrays.asList(new OnmsCategory[] {
+                                                                                                               new OnmsCategory(
+                                                                                                                                "routers"),
+                                                                                                               new OnmsCategory(
+                                                                                                                                "switches") })));
         defs.add(definition);
 
-        definition =
-            new AggregateStatusDefinition("Servers", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("servers") })));
+        definition = new AggregateStatusDefinition(
+                                                   "Servers",
+                                                   new HashSet<OnmsCategory>(
+                                                                             Arrays.asList(new OnmsCategory[] { new OnmsCategory(
+                                                                                                                                 "servers") })));
 
         defs.add(definition);
 

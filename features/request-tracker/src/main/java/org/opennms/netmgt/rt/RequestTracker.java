@@ -64,6 +64,7 @@ import org.slf4j.LoggerFactory;
 
 public class RequestTracker {
     private static final Logger LOG = LoggerFactory.getLogger(RequestTracker.class);
+
     private final String m_baseURL;
 
     private String m_user;
@@ -104,7 +105,8 @@ public class RequestTracker {
         return postEdit(post, content, m_ticketUpdatedPattern);
     }
 
-    public Long postEdit(final HttpPost post, final String content, final Pattern pattern) throws RequestTrackerException {
+    public Long postEdit(final HttpPost post, final String content, final Pattern pattern)
+            throws RequestTrackerException {
         String rtTicketNumber = null;
 
         final List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -205,7 +207,8 @@ public class RequestTracker {
             ticket.setRequestor(attributes.remove("requestor"));
         }
 
-        // We previously normalized to the new custom-field syntax, so no need to check here for the old
+        // We previously normalized to the new custom-field syntax, so no need
+        // to check here for the old
         for (String bute : attributes.keySet()) {
             String headerForm = bute + ": " + attributes.get(bute);
             Matcher cfMatcher = m_customFieldPatternNew.matcher(headerForm);
@@ -245,7 +248,8 @@ public class RequestTracker {
         params.add(new BasicNameValuePair("query", "Queue='" + queueName + "' AND Status='open'"));
         params.add(new BasicNameValuePair("format", "i"));
         params.add(new BasicNameValuePair("orderby", "-id"));
-        final HttpGet get = new HttpGet(m_baseURL + "/REST/1.0/search/ticket?" + URLEncodedUtils.format(params, "UTF-8"));
+        final HttpGet get = new HttpGet(m_baseURL + "/REST/1.0/search/ticket?"
+                + URLEncodedUtils.format(params, "UTF-8"));
 
         final List<RTTicket> tickets = new ArrayList<RTTicket>();
         final List<Long> ticketIds = new ArrayList<Long>();
@@ -259,13 +263,14 @@ public class RequestTracker {
                 InputStreamReader isr = null;
                 BufferedReader br = null;
                 try {
-                    if (response.getEntity() == null) return null;
+                    if (response.getEntity() == null)
+                        return null;
                     isr = new InputStreamReader(response.getEntity().getContent());
                     br = new BufferedReader(isr);
                     String line = null;
                     do {
                         line = br.readLine();
-                        if (line != null ) {
+                        if (line != null) {
                             if (line.contains("does not exist.")) {
                                 return null;
                             }
@@ -304,7 +309,8 @@ public class RequestTracker {
         }
 
         for (final RTQueue queue : getQueuesForUser(username)) {
-            if (queue.isAccessible() && !queue.getName().startsWith("___")) return queue;
+            if (queue.isAccessible() && !queue.getName().startsWith("___"))
+                return queue;
         }
 
         return null;
@@ -394,7 +400,7 @@ public class RequestTracker {
 
         getSession();
 
-        Map<String,String> ticketAttributes = Collections.emptyMap();
+        Map<String, String> ticketAttributes = Collections.emptyMap();
         final HttpGet get = new HttpGet(m_baseURL + "/REST/1.0/ticket/" + ticketQuery);
 
         try {
@@ -419,17 +425,18 @@ public class RequestTracker {
         return ticketAttributes;
     }
 
-    protected Map<String,String> parseResponseStream(final InputStream responseStream) throws IOException {
-        final Map<String,String> ticketAttributes = new HashMap<String,String>();
+    protected Map<String, String> parseResponseStream(final InputStream responseStream) throws IOException {
+        final Map<String, String> ticketAttributes = new HashMap<String, String>();
 
         LOG.debug("parsing response");
         String lastIndent = "";
         String lastKey = null;
-        for (final String line : (List<String>)IOUtils.readLines(responseStream)) {
+        for (final String line : (List<String>) IOUtils.readLines(responseStream)) {
             LOG.trace("line = {}", line);
             if (line.contains("does not exist.")) {
                 return ticketAttributes;
-            } if (lastIndent.length() > 0 && line.startsWith(lastIndent)) {
+            }
+            if (lastIndent.length() > 0 && line.startsWith(lastIndent)) {
                 final String value = ticketAttributes.get(lastKey) + "\n" + line.replaceFirst("^" + lastIndent, "");
                 ticketAttributes.put(lastKey, value);
             } else {
@@ -441,8 +448,7 @@ public class RequestTracker {
                         lastKey = "CF.{" + cfMatcherOld.group(1) + "}";
                     } else if (cfMatcherNew.matches()) {
                         lastKey = "CF.{" + cfMatcherNew.group(1) + "}";
-                    }
-                    else {
+                    } else {
                         lastKey = inTokensMatcher.group(1).toLowerCase();
                     }
                     lastIndent = lastKey.replaceAll(".", " ") + "  ";
@@ -456,7 +462,8 @@ public class RequestTracker {
 
     private void getSession() {
         if (m_client == null) {
-            // we need to log in at least once with a POST method before we can do any GETs so we get a session cookie
+            // we need to log in at least once with a POST method before we can
+            // do any GETs so we get a session cookie
 
             final HttpPost post = new HttpPost(m_baseURL + "/REST/1.0/user/" + m_user);
             final List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -475,7 +482,8 @@ public class RequestTracker {
                 final HttpResponse response = getClient().execute(post);
                 int responseCode = response.getStatusLine().getStatusCode();
                 if (responseCode != HttpStatus.SC_OK) {
-                    throw new RequestTrackerException("Received a non-200 response code from the server: " + responseCode);
+                    throw new RequestTrackerException("Received a non-200 response code from the server: "
+                            + responseCode);
                 } else {
                     if (response.getEntity() != null) {
                         EntityUtils.consume(response.getEntity());
@@ -519,13 +527,11 @@ public class RequestTracker {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-        .append("base-url", m_baseURL)
-        .append("username", m_user)
-        .append("password", m_password.replaceAll(".", "*"))
-        .append("timeout", m_timeout)
-        .append("retries", m_retries)
-        .toString();
+        return new ToStringBuilder(this).append("base-url", m_baseURL).append("username", m_user).append("password",
+                                                                                                         m_password.replaceAll(".",
+                                                                                                                               "*")).append("timeout",
+                                                                                                                                            m_timeout).append("retries",
+                                                                                                                                                              m_retries).toString();
     }
 
     public String getUsername() {

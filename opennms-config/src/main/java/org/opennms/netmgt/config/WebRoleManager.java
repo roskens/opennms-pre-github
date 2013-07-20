@@ -31,7 +31,9 @@ package org.opennms.netmgt.config;
 import java.util.Collection;
 
 /**
- * <p>WebRoleManager interface.</p>
+ * <p>
+ * WebRoleManager interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,36 +42,49 @@ import java.util.Collection;
 public interface WebRoleManager {
 
     /**
-     * <p>getRoles</p>
+     * <p>
+     * getRoles
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     public Collection<WebRole> getRoles();
 
     /**
-     * <p>deleteRole</p>
+     * <p>
+     * deleteRole
+     * </p>
      *
-     * @param roleName a {@link java.lang.String} object.
+     * @param roleName
+     *            a {@link java.lang.String} object.
      */
     public void deleteRole(String roleName);
 
     /**
-     * <p>getRole</p>
+     * <p>
+     * getRole
+     * </p>
      *
-     * @param roleName a {@link java.lang.String} object.
+     * @param roleName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.admin.roles.WebRole} object.
      */
     public WebRole getRole(String roleName);
 
     /**
-     * <p>saveRole</p>
+     * <p>
+     * saveRole
+     * </p>
      *
-     * @param role a {@link org.opennms.web.admin.roles.WebRole} object.
+     * @param role
+     *            a {@link org.opennms.web.admin.roles.WebRole} object.
      */
     public void saveRole(WebRole role);
 
     /**
-     * <p>createRole</p>
+     * <p>
+     * createRole
+     * </p>
      *
      * @return a {@link org.opennms.web.admin.roles.WebRole} object.
      */

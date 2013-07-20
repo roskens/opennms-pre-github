@@ -34,9 +34,12 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
 public interface SnmpAgentConfigFactory {
     /**
-     * <p>getAgentConfig</p>
+     * <p>
+     * getAgentConfig
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     public SnmpAgentConfig getAgentConfig(InetAddress address);

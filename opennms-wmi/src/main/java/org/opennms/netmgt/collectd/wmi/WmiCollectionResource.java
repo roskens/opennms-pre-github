@@ -34,7 +34,9 @@ import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
 /**
- * <p>Abstract WmiCollectionResource class.</p>
+ * <p>
+ * Abstract WmiCollectionResource class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,12 +44,16 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 public abstract class WmiCollectionResource extends AbstractCollectionResource {
 
     protected int m_nodeId;
+
     protected CollectionAgent m_agent;
 
     /**
-     * <p>Constructor for WmiCollectionResource.</p>
+     * <p>
+     * Constructor for WmiCollectionResource.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
     public WmiCollectionResource(CollectionAgent agent) {
         super(agent);
@@ -56,18 +62,22 @@ public abstract class WmiCollectionResource extends AbstractCollectionResource {
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a int.
      */
     @Override
     public int getType() {
-        return -1; //Is this right?
+        return -1; // Is this right?
     }
 
-    //A rescan is never needed for the WmiCollector, at least on resources
+    // A rescan is never needed for the WmiCollector, at least on resources
     /**
-     * <p>rescanNeeded</p>
+     * <p>
+     * rescanNeeded
+     * </p>
      *
      * @return a boolean.
      */
@@ -83,10 +93,16 @@ public abstract class WmiCollectionResource extends AbstractCollectionResource {
     }
 
     /**
-     * <p>setAttributeValue</p>
+     * <p>
+     * setAttributeValue
+     * </p>
      *
-     * @param type a {@link org.opennms.netmgt.config.collector.CollectionAttributeType} object.
-     * @param value a {@link java.lang.String} object.
+     * @param type
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
+     *            object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setAttributeValue(final CollectionAttributeType type, final String value) {
         final WmiCollectionAttribute attr = new WmiCollectionAttribute(this, type, type.getName(), value);
@@ -94,16 +110,19 @@ public abstract class WmiCollectionResource extends AbstractCollectionResource {
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public abstract String getResourceTypeName();
 
-
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

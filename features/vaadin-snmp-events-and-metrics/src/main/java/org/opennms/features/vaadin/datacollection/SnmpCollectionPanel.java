@@ -73,8 +73,10 @@ public class SnmpCollectionPanel extends VerticalLayout {
     /**
      * Instantiates a new SNMP collection panel.
      *
-     * @param dataCollectionConfigDao the data collection configuration DAO
-     * @param logger the logger
+     * @param dataCollectionConfigDao
+     *            the data collection configuration DAO
+     * @param logger
+     *            the logger
      */
     public SnmpCollectionPanel(final DataCollectionConfigDao dataCollectionConfigDao, final Logger logger) {
         setCaption("SNMP Collections");
@@ -92,6 +94,7 @@ public class SnmpCollectionPanel extends VerticalLayout {
                 table.refreshRowCache();
                 saveSnmpCollections(dataCollectionConfigDao, logger);
             }
+
             @Override
             public void deleteSnmpCollection(SnmpCollection snmpCollection) {
                 logger.info("SNMP Collection " + snmpCollection.getName() + " has been removed.");
@@ -134,8 +137,7 @@ public class SnmpCollectionPanel extends VerticalLayout {
         final Button refresh = new Button("Refresh SNMP Collections", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
-                                               "Are you sure?",
+                MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(), "Are you sure?",
                                                MessageBox.Icon.QUESTION,
                                                "By doing this all unsafed changes in SNMP collection will be lost.",
                                                new MessageBox.ButtonConfig(MessageBox.ButtonType.YES, "Yes"),
@@ -176,7 +178,7 @@ public class SnmpCollectionPanel extends VerticalLayout {
     public List<SnmpCollection> getSnmpCollections() {
         final List<SnmpCollection> collections = new ArrayList<SnmpCollection>();
         for (Object itemId : table.getContainerDataSource().getItemIds()) {
-            SnmpCollection c = ((BeanItem<SnmpCollection>)table.getContainerDataSource().getItem(itemId)).getBean();
+            SnmpCollection c = ((BeanItem<SnmpCollection>) table.getContainerDataSource().getItem(itemId)).getBean();
             c.setGroups(null);
             c.setSystems(null);
             collections.add(c);
@@ -187,7 +189,8 @@ public class SnmpCollectionPanel extends VerticalLayout {
     /**
      * Sets the value of the ifNew flag.
      *
-     * @param isNew true, if the resource type is new.
+     * @param isNew
+     *            true, if the resource type is new.
      */
     public void setIsNew(boolean isNew) {
         this.isNew = isNew;
@@ -196,8 +199,10 @@ public class SnmpCollectionPanel extends VerticalLayout {
     /**
      * Save SNMP collections.
      *
-     * @param dataCollectionConfigDao the OpenNMS data collection configuration DAO
-     * @param logger the logger
+     * @param dataCollectionConfigDao
+     *            the OpenNMS data collection configuration DAO
+     * @param logger
+     *            the logger
      */
     public void saveSnmpCollections(final DataCollectionConfigDao dataCollectionConfigDao, Logger logger) {
         try {
@@ -209,7 +214,8 @@ public class SnmpCollectionPanel extends VerticalLayout {
             logger.info("The data collection configuration has been saved.");
         } catch (Exception e) {
             logger.error("An error ocurred while saving the data collection configuration, " + e.getMessage());
-            Notification.show("Can't save data collection configuration. " + e.getMessage(), Notification.Type.ERROR_MESSAGE);
+            Notification.show("Can't save data collection configuration. " + e.getMessage(),
+                              Notification.Type.ERROR_MESSAGE);
         }
     }
 }

@@ -25,43 +25,37 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.context.ExtServletContext;
 
-public final class FilterHandler
-    extends AbstractHandler implements Comparable<FilterHandler>
-{
+public final class FilterHandler extends AbstractHandler implements Comparable<FilterHandler> {
     private final Filter filter;
+
     private final Pattern regex;
+
     private final int ranking;
 
-    public FilterHandler(ExtServletContext context, Filter filter, String pattern, int ranking)
-    {
+    public FilterHandler(ExtServletContext context, Filter filter, String pattern, int ranking) {
         super(context);
         this.filter = filter;
         this.ranking = ranking;
-	    this.regex = Pattern.compile(pattern);
+        this.regex = Pattern.compile(pattern);
     }
 
-    public Filter getFilter()
-    {
+    public Filter getFilter() {
         return this.filter;
     }
 
     @Override
-    public void init()
-        throws ServletException
-    {
+    public void init() throws ServletException {
         String name = "filter_" + getId();
         FilterConfig config = new FilterConfigImpl(name, getContext(), getInitParams());
         this.filter.init(config);
     }
 
     @Override
-    public void destroy()
-    {
+    public void destroy() {
         this.filter.destroy();
     }
 
-    public boolean matches(String uri)
-    {
+    public boolean matches(String uri) {
         // assume root if uri is null
         if (uri == null) {
             uri = "/";
@@ -70,11 +64,11 @@ public final class FilterHandler
         return this.regex.matcher(uri).matches();
     }
 
-    public void handle(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
-        throws ServletException, IOException
-    {
-        // pathInfo is null if using *.htm style uri-mapping, or if we're in a filter rather than a specific servlet
-        final boolean matches = matches(req.getPathInfo() == null? req.getServletPath() : req.getPathInfo());
+    public void handle(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException,
+            IOException {
+        // pathInfo is null if using *.htm style uri-mapping, or if we're in a
+        // filter rather than a specific servlet
+        final boolean matches = matches(req.getPathInfo() == null ? req.getServletPath() : req.getPathInfo());
         if (matches) {
             doHandle(req, res, chain);
         } else {
@@ -82,9 +76,8 @@ public final class FilterHandler
         }
     }
 
-    private void doHandle(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
-        throws ServletException, IOException
-    {
+    private void doHandle(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException,
+            IOException {
         if (!getContext().handleSecurity(req, res)) {
             res.sendError(HttpServletResponse.SC_FORBIDDEN);
         } else {
@@ -93,8 +86,7 @@ public final class FilterHandler
     }
 
     @Override
-    public int compareTo(FilterHandler other)
-    {
+    public int compareTo(FilterHandler other) {
         return other.ranking - this.ranking;
     }
 }

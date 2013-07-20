@@ -39,12 +39,17 @@ import org.opennms.netmgt.config.SyslogdConfigFactory;
 
 public class CustomSyslogParser extends SyslogParser {
     private static final Logger LOG = LoggerFactory.getLogger(CustomSyslogParser.class);
+
     private static final Pattern m_messageIdPattern = Pattern.compile("^((\\S+):\\s*)");
+
     private static final Pattern m_datePattern = Pattern.compile("^((\\d\\d\\d\\d-\\d\\d-\\d\\d)\\s+)");
+
     private static final Pattern m_oldDatePattern = Pattern.compile("^\\s*(\\S\\S\\S\\s+\\d{1,2}\\s+\\d\\d:\\d\\d:\\d\\d)\\s+");
 
     private Pattern m_forwardingPattern;
+
     private int m_matchingGroupHost;
+
     private int m_matchingGroupMessage;
 
     protected CustomSyslogParser(final String text) throws SyslogParserException {
@@ -124,7 +129,7 @@ public class CustomSyslogParser extends SyslogParser {
             if (stampMatcher.find()) {
                 timestamp = stampMatcher.group(2);
                 LOG.trace("found timestamp '{}'", timestamp);
-//                message = message.substring(stampMatcher.group(1).length());
+                // message = message.substring(stampMatcher.group(1).length());
             } else {
                 try {
                     timestamp = SyslogTimeStamp.getInstance().format(new Date());

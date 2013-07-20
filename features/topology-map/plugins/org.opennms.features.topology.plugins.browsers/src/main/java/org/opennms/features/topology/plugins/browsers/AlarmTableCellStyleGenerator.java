@@ -42,5 +42,4 @@ public class AlarmTableCellStyleGenerator implements CellStyleGenerator {
         return null;
     }
 
-
 }

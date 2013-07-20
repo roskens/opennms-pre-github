@@ -69,41 +69,61 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- * <p>BaseImporter class.</p>
+ * <p>
+ * BaseImporter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class BaseImporter implements ImportOperationFactory {
 
-	private static final Logger LOG = LoggerFactory.getLogger(BaseImporter.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(BaseImporter.class);
 
     protected TransactionTemplate m_transTemplate;
-    protected DistPollerDao m_distPollerDao;
-    private NodeDao m_nodeDao;
-    private IpInterfaceDao m_ipInterfaceDao;
-    private ServiceTypeDao m_serviceTypeDao;
-    private MonitoredServiceDao m_monitoredServiceDao;
-    private AssetRecordDao m_assetRecordDao;
-    private CategoryDao m_categoryDao;
-    private final ThreadLocal<HashMap<String, OnmsServiceType>> m_typeCache = new ThreadLocal<HashMap<String, OnmsServiceType>>();
-    private final ThreadLocal<HashMap<String, OnmsCategory>> m_categoryCache = new ThreadLocal<HashMap<String, OnmsCategory>>();
-	private int m_scanThreads = 50;
-	private int m_writeThreads = 4;
 
-    //FIXME: We have a setTransactionTemplate and a setTransTemplate for the same field.
+    protected DistPollerDao m_distPollerDao;
+
+    private NodeDao m_nodeDao;
+
+    private IpInterfaceDao m_ipInterfaceDao;
+
+    private ServiceTypeDao m_serviceTypeDao;
+
+    private MonitoredServiceDao m_monitoredServiceDao;
+
+    private AssetRecordDao m_assetRecordDao;
+
+    private CategoryDao m_categoryDao;
+
+    private final ThreadLocal<HashMap<String, OnmsServiceType>> m_typeCache = new ThreadLocal<HashMap<String, OnmsServiceType>>();
+
+    private final ThreadLocal<HashMap<String, OnmsCategory>> m_categoryCache = new ThreadLocal<HashMap<String, OnmsCategory>>();
+
+    private int m_scanThreads = 50;
+
+    private int m_writeThreads = 4;
+
+    // FIXME: We have a setTransactionTemplate and a setTransTemplate for the
+    // same field.
     /**
-     * <p>setTransactionTemplate</p>
+     * <p>
+     * setTransactionTemplate
+     * </p>
      *
-     * @param transTemplate a {@link org.springframework.transaction.support.TransactionTemplate} object.
+     * @param transTemplate
+     *            a
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
      */
     public void setTransactionTemplate(TransactionTemplate transTemplate) {
         m_transTemplate = transTemplate;
     }
 
     /**
-     * <p>getDistPollerDao</p>
+     * <p>
+     * getDistPollerDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.DistPollerDao} object.
      */
@@ -112,16 +132,21 @@ public class BaseImporter implements ImportOperationFactory {
     }
 
     /**
-     * <p>setDistPollerDao</p>
+     * <p>
+     * setDistPollerDao
+     * </p>
      *
-     * @param distPollerDao a {@link org.opennms.netmgt.dao.api.DistPollerDao} object.
+     * @param distPollerDao
+     *            a {@link org.opennms.netmgt.dao.api.DistPollerDao} object.
      */
     public void setDistPollerDao(DistPollerDao distPollerDao) {
         m_distPollerDao = distPollerDao;
     }
 
     /**
-     * <p>getNodeDao</p>
+     * <p>
+     * getNodeDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -130,16 +155,21 @@ public class BaseImporter implements ImportOperationFactory {
     }
 
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
     /**
-     * <p>getIpInterfaceDao</p>
+     * <p>
+     * getIpInterfaceDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
@@ -148,16 +178,21 @@ public class BaseImporter implements ImportOperationFactory {
     }
 
     /**
-     * <p>setIpInterfaceDao</p>
+     * <p>
+     * setIpInterfaceDao
+     * </p>
      *
-     * @param ipInterfaceDao a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
+     * @param ipInterfaceDao
+     *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
     public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
     /**
-     * <p>getMonitoredServiceDao</p>
+     * <p>
+     * getMonitoredServiceDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao} object.
      */
@@ -166,16 +201,22 @@ public class BaseImporter implements ImportOperationFactory {
     }
 
     /**
-     * <p>setMonitoredServiceDao</p>
+     * <p>
+     * setMonitoredServiceDao
+     * </p>
      *
-     * @param monitoredServiceDao a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao} object.
+     * @param monitoredServiceDao
+     *            a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao}
+     *            object.
      */
     public void setMonitoredServiceDao(MonitoredServiceDao monitoredServiceDao) {
         m_monitoredServiceDao = monitoredServiceDao;
     }
 
     /**
-     * <p>getServiceTypeDao</p>
+     * <p>
+     * getServiceTypeDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
      */
@@ -184,16 +225,21 @@ public class BaseImporter implements ImportOperationFactory {
     }
 
     /**
-     * <p>setServiceTypeDao</p>
+     * <p>
+     * setServiceTypeDao
+     * </p>
      *
-     * @param serviceTypeDao a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
+     * @param serviceTypeDao
+     *            a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
      */
     public void setServiceTypeDao(ServiceTypeDao serviceTypeDao) {
         m_serviceTypeDao = serviceTypeDao;
     }
 
     /**
-     * <p>getAssetRecordDao</p>
+     * <p>
+     * getAssetRecordDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.AssetRecordDao} object.
      */
@@ -202,27 +248,39 @@ public class BaseImporter implements ImportOperationFactory {
     }
 
     /**
-     * <p>setAssetRecordDao</p>
+     * <p>
+     * setAssetRecordDao
+     * </p>
      *
-     * @param assetRecordDao a {@link org.opennms.netmgt.dao.api.AssetRecordDao} object.
+     * @param assetRecordDao
+     *            a {@link org.opennms.netmgt.dao.api.AssetRecordDao} object.
      */
     public void setAssetRecordDao(AssetRecordDao assetRecordDao) {
         m_assetRecordDao = assetRecordDao;
     }
 
     /**
-     * <p>getTransTemplate</p>
+     * <p>
+     * getTransTemplate
+     * </p>
      *
-     * @return a {@link org.springframework.transaction.support.TransactionTemplate} object.
+     * @return a
+     *         {@link org.springframework.transaction.support.TransactionTemplate}
+     *         object.
      */
     public TransactionTemplate getTransTemplate() {
         return m_transTemplate;
     }
 
     /**
-     * <p>setTransTemplate</p>
+     * <p>
+     * setTransTemplate
+     * </p>
      *
-     * @param transTemplate a {@link org.springframework.transaction.support.TransactionTemplate} object.
+     * @param transTemplate
+     *            a
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
      */
     public void setTransTemplate(TransactionTemplate transTemplate) {
         m_transTemplate = transTemplate;
@@ -230,7 +288,8 @@ public class BaseImporter implements ImportOperationFactory {
 
     /** {@inheritDoc} */
     @Override
-    public InsertOperation createInsertOperation(String foreignSource, String foreignId, String nodeLabel, String building, String city) {
+    public InsertOperation createInsertOperation(String foreignSource, String foreignId, String nodeLabel,
+            String building, String city) {
         InsertOperation insertOperation = new InsertOperation(foreignSource, foreignId, nodeLabel, building, city);
         insertOperation.setNodeDao(m_nodeDao);
         insertOperation.setDistPollerDao(m_distPollerDao);
@@ -244,8 +303,10 @@ public class BaseImporter implements ImportOperationFactory {
 
     /** {@inheritDoc} */
     @Override
-    public UpdateOperation createUpdateOperation(Integer nodeId, String foreignSource, String foreignId, String nodeLabel, String building, String city) {
-        UpdateOperation updateOperation = new UpdateOperation(nodeId, foreignSource, foreignId, nodeLabel, building, city);
+    public UpdateOperation createUpdateOperation(Integer nodeId, String foreignSource, String foreignId,
+            String nodeLabel, String building, String city) {
+        UpdateOperation updateOperation = new UpdateOperation(nodeId, foreignSource, foreignId, nodeLabel, building,
+                                                              city);
         updateOperation.setNodeDao(m_nodeDao);
         updateOperation.setDistPollerDao(m_distPollerDao);
         updateOperation.setServiceTypeDao(m_serviceTypeDao);
@@ -262,35 +323,49 @@ public class BaseImporter implements ImportOperationFactory {
     }
 
     /**
-     * <p>importModelFromResource</p>
+     * <p>
+     * importModelFromResource
+     * </p>
      *
-     * @param resource a {@link org.springframework.core.io.Resource} object.
-     * @throws java.io.IOException if any.
-     * @throws org.opennms.netmgt.importer.ModelImportException if any.
+     * @param resource
+     *            a {@link org.springframework.core.io.Resource} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.opennms.netmgt.importer.ModelImportException
+     *             if any.
      */
     protected void importModelFromResource(Resource resource) throws IOException, ModelImportException {
-    	importModelFromResource(resource, new DefaultImportStatistics(), null);
+        importModelFromResource(resource, new DefaultImportStatistics(), null);
     }
 
     /**
-     * <p>importModelFromResource</p>
+     * <p>
+     * importModelFromResource
+     * </p>
      *
-     * @param resource a {@link org.springframework.core.io.Resource} object.
-     * @param stats a {@link org.opennms.netmgt.importer.operations.ImportStatistics} object.
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws java.io.IOException if any.
-     * @throws org.opennms.netmgt.importer.ModelImportException if any.
+     * @param resource
+     *            a {@link org.springframework.core.io.Resource} object.
+     * @param stats
+     *            a
+     *            {@link org.opennms.netmgt.importer.operations.ImportStatistics}
+     *            object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.opennms.netmgt.importer.ModelImportException
+     *             if any.
      */
-    protected void importModelFromResource(Resource resource, ImportStatistics stats, Event event) throws IOException, ModelImportException {
+    protected void importModelFromResource(Resource resource, ImportStatistics stats, Event event) throws IOException,
+            ModelImportException {
 
-    	stats.beginImporting();
-    	stats.beginLoadingResource(resource);
+        stats.beginImporting();
+        stats.beginLoadingResource(resource);
 
         SpecFile specFile = new SpecFile();
         specFile.loadResource(resource);
 
         stats.finishLoadingResource(resource);
-
 
         if (event != null && getEventForeignSource(event) != null) {
             specFile.setForeignSource(getEventForeignSource(event));
@@ -325,21 +400,30 @@ public class BaseImporter implements ImportOperationFactory {
         return EventUtil.getNamedParmValue("parm[foreignSource]", event);
     }
 
-	/**
-	 * <p>createImportOperationsManager</p>
-	 *
-	 * @param foreignIdsToNodes a {@link java.util.Map} object.
-	 * @param stats a {@link org.opennms.netmgt.importer.operations.ImportStatistics} object.
-	 * @return a {@link org.opennms.netmgt.importer.operations.ImportOperationsManager} object.
-	 */
-	protected ImportOperationsManager createImportOperationsManager(Map<String, Integer> foreignIdsToNodes, ImportStatistics stats) {
-		ImportOperationsManager opsMgr = new ImportOperationsManager(foreignIdsToNodes, this);
+    /**
+     * <p>
+     * createImportOperationsManager
+     * </p>
+     *
+     * @param foreignIdsToNodes
+     *            a {@link java.util.Map} object.
+     * @param stats
+     *            a
+     *            {@link org.opennms.netmgt.importer.operations.ImportStatistics}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.importer.operations.ImportOperationsManager}
+     *         object.
+     */
+    protected ImportOperationsManager createImportOperationsManager(Map<String, Integer> foreignIdsToNodes,
+            ImportStatistics stats) {
+        ImportOperationsManager opsMgr = new ImportOperationsManager(foreignIdsToNodes, this);
         opsMgr.setStats(stats);
-		return opsMgr;
-	}
+        return opsMgr;
+    }
 
     private void auditNodes(final ImportOperationsManager opsMgr, final SpecFile specFile) {
-    	m_transTemplate.execute(new TransactionCallbackWithoutResult() {
+        m_transTemplate.execute(new TransactionCallbackWithoutResult() {
 
             @Override
             public void doInTransactionWithoutResult(TransactionStatus status) {
@@ -350,92 +434,92 @@ public class BaseImporter implements ImportOperationFactory {
         });
     }
 
-	class NodeRelator extends AbstractImportVisitor {
-		String m_foreignSource;
+    class NodeRelator extends AbstractImportVisitor {
+        String m_foreignSource;
 
-		public NodeRelator(String foreignSource) {
-			m_foreignSource = foreignSource;
-		}
+        public NodeRelator(String foreignSource) {
+            m_foreignSource = foreignSource;
+        }
 
-                @Override
+        @Override
         public void visitNode(final Node node) {
-			m_transTemplate.execute(new TransactionCallbackWithoutResult() {
-                                @Override
-				protected void doInTransactionWithoutResult(TransactionStatus status) {
+            m_transTemplate.execute(new TransactionCallbackWithoutResult() {
+                @Override
+                protected void doInTransactionWithoutResult(TransactionStatus status) {
 
-					OnmsNode dbNode = findNodeByForeignId(m_foreignSource, node.getForeignId());
-					if (dbNode == null) {
-					    LOG.error("Error setting parent on node: {} node not in database", node.getForeignId());
-					    return;
-					}
-					OnmsNode parent = findParent(node);
+                    OnmsNode dbNode = findNodeByForeignId(m_foreignSource, node.getForeignId());
+                    if (dbNode == null) {
+                        LOG.error("Error setting parent on node: {} node not in database", node.getForeignId());
+                        return;
+                    }
+                    OnmsNode parent = findParent(node);
 
-					OnmsIpInterface critIface = null;
-					if (parent != null) {
-						critIface = getCriticalInterface(parent);
-					}
+                    OnmsIpInterface critIface = null;
+                    if (parent != null) {
+                        critIface = getCriticalInterface(parent);
+                    }
 
-					LOG.info("Setting parent of node: {} to: {}", dbNode, parent);
-					dbNode.setParent(parent);
-					LOG.info("Setting criticalInterface of node: {} to: {}", dbNode, critIface);
-					if (critIface == null) {
-						dbNode.setPathElement(null);
-					} else {
-						final String ipAddress = InetAddressUtils.str(critIface.getIpAddress());
-						dbNode.setPathElement(new PathElement(ipAddress, "ICMP"));
-					}
-					getNodeDao().update(dbNode);
-				}
+                    LOG.info("Setting parent of node: {} to: {}", dbNode, parent);
+                    dbNode.setParent(parent);
+                    LOG.info("Setting criticalInterface of node: {} to: {}", dbNode, critIface);
+                    if (critIface == null) {
+                        dbNode.setPathElement(null);
+                    } else {
+                        final String ipAddress = InetAddressUtils.str(critIface.getIpAddress());
+                        dbNode.setPathElement(new PathElement(ipAddress, "ICMP"));
+                    }
+                    getNodeDao().update(dbNode);
+                }
 
-				private OnmsIpInterface getCriticalInterface(OnmsNode parent) {
+                private OnmsIpInterface getCriticalInterface(OnmsNode parent) {
 
-					OnmsIpInterface critIface = parent.getPrimaryInterface();
-					if (critIface != null) {
-						return critIface;
-					}
+                    OnmsIpInterface critIface = parent.getPrimaryInterface();
+                    if (critIface != null) {
+                        return critIface;
+                    }
 
-					return parent.getInterfaceWithService("ICMP");
+                    return parent.getInterfaceWithService("ICMP");
 
-				}
+                }
 
-			});
-		}
+            });
+        }
 
-		private OnmsNode findParent(Node node) {
-			if (node.getParentForeignId() != null) {
+        private OnmsNode findParent(Node node) {
+            if (node.getParentForeignId() != null) {
                 return findNodeByForeignId(m_foreignSource, node.getParentForeignId());
             } else if (node.getParentNodeLabel() != null) {
                 return findNodeByNodeLabel(node.getParentNodeLabel());
             }
 
-			return null;
-		}
+            return null;
+        }
 
-		private OnmsNode findNodeByNodeLabel(String label) {
-			Collection<OnmsNode> nodes = getNodeDao().findByLabel(label);
-			if (nodes.size() == 1) {
+        private OnmsNode findNodeByNodeLabel(String label) {
+            Collection<OnmsNode> nodes = getNodeDao().findByLabel(label);
+            if (nodes.size() == 1) {
                 return nodes.iterator().next();
             }
 
-			LOG.error("Unable to locate a unique node using label {}{} nodes found.  Ignoring relationship.", label, nodes.size());
-			return null;
-		}
+            LOG.error("Unable to locate a unique node using label {}{} nodes found.  Ignoring relationship.", label,
+                      nodes.size());
+            return null;
+        }
 
-		private OnmsNode findNodeByForeignId(String foreignSource, String foreignId) {
+        private OnmsNode findNodeByForeignId(String foreignSource, String foreignId) {
             return getNodeDao().findByForeignId(foreignSource, foreignId);
-		}
+        }
 
-	};
+    };
 
-	private void relateNodes(SpecFile specFile) {
-		specFile.visitImport(new NodeRelator(specFile.getForeignSource()));
-	}
+    private void relateNodes(SpecFile specFile) {
+        specFile.visitImport(new NodeRelator(specFile.getForeignSource()));
+    }
 
-
-	private Map<String, Integer> getForeignIdToNodeMap(final String foreignSource) {
+    private Map<String, Integer> getForeignIdToNodeMap(final String foreignSource) {
         return m_transTemplate.execute(new TransactionCallback<Map<String, Integer>>() {
             @Override
-            public Map<String,Integer> doInTransaction(TransactionStatus status) {
+            public Map<String, Integer> doInTransaction(TransactionStatus status) {
                 return Collections.unmodifiableMap(getNodeDao().getForeignIdToNodeIdMap(foreignSource));
             }
         });
@@ -460,7 +544,9 @@ public class BaseImporter implements ImportOperationFactory {
     }
 
     /**
-     * <p>getCategoryDao</p>
+     * <p>
+     * getCategoryDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -469,48 +555,61 @@ public class BaseImporter implements ImportOperationFactory {
     }
 
     /**
-     * <p>setCategoryDao</p>
+     * <p>
+     * setCategoryDao
+     * </p>
      *
-     * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
+     * @param categoryDao
+     *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
     public void setCategoryDao(CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
 
-	/**
-	 * <p>getScanThreads</p>
-	 *
-	 * @return a int.
-	 */
-	public int getScanThreads() {
-		return m_scanThreads;
-	}
+    /**
+     * <p>
+     * getScanThreads
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getScanThreads() {
+        return m_scanThreads;
+    }
 
-	/**
-	 * <p>setScanThreads</p>
-	 *
-	 * @param poolSize a int.
-	 */
-	public void setScanThreads(int poolSize) {
-		m_scanThreads = poolSize;
-	}
+    /**
+     * <p>
+     * setScanThreads
+     * </p>
+     *
+     * @param poolSize
+     *            a int.
+     */
+    public void setScanThreads(int poolSize) {
+        m_scanThreads = poolSize;
+    }
 
-	/**
-	 * <p>getWriteThreads</p>
-	 *
-	 * @return a int.
-	 */
-	public int getWriteThreads() {
-		return m_writeThreads;
-	}
+    /**
+     * <p>
+     * getWriteThreads
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getWriteThreads() {
+        return m_writeThreads;
+    }
 
-	/**
-	 * <p>setWriteThreads</p>
-	 *
-	 * @param writeThreads a int.
-	 */
-	public void setWriteThreads(int writeThreads) {
-		m_writeThreads = writeThreads;
-	}
+    /**
+     * <p>
+     * setWriteThreads
+     * </p>
+     *
+     * @param writeThreads
+     *            a int.
+     */
+    public void setWriteThreads(int writeThreads) {
+        m_writeThreads = writeThreads;
+    }
 
 }

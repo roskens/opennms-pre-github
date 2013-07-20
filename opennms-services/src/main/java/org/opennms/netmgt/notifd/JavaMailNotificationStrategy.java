@@ -47,18 +47,18 @@ import org.slf4j.LoggerFactory;
  */
 public class JavaMailNotificationStrategy implements NotificationStrategy {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(JavaMailNotificationStrategy.class);
 
     /**
-     * <p>Constructor for JavaMailNotificationStrategy.</p>
+     * <p>
+     * Constructor for JavaMailNotificationStrategy.
+     * </p>
      */
     public JavaMailNotificationStrategy() {
     }
 
     /*
      * (non-Javadoc)
-     *
      * @see org.opennms.netmgt.notifd.NotificationStrategy#send(java.util.List)
      */
     /** {@inheritDoc} */
@@ -97,7 +97,6 @@ public class JavaMailNotificationStrategy implements NotificationStrategy {
              * Note: The recipient gets set by whichever of the two switches:
              * (PARAM_EMAIL or PARAM_PAGER_EMAIL) are specified last in the
              * notificationCommands.xml file
-             *
              * And the message body will get set to whichever is set last
              * (PARAM_NUM_MSG or PARAM_TEXT_MSG)
              */

@@ -40,7 +40,9 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.datacollection.Parameter;
 
 /**
- * <p>SiblingColumnStorageStrategy class.</p>
+ * <p>
+ * SiblingColumnStorageStrategy class.
+ * </p>
  *
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
@@ -50,14 +52,19 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(SiblingColumnStorageStrategy.class);
 
     private static final String PARAM_SIBLING_COLUMN_NAME = "sibling-column-name";
+
     private String m_siblingColumnName;
 
     private static final String PARAM_REPLACE_FIRST = "replace-first";
+
     private static final String PARAM_REPLACE_ALL = "replace-all";
+
     private List<StringReplaceOperation> m_replaceOps;
 
     /**
-     * <p>Constructor for SiblingColumnStorageStrategy.</p>
+     * <p>
+     * Constructor for SiblingColumnStorageStrategy.
+     * </p>
      */
     public SiblingColumnStorageStrategy() {
         super();
@@ -67,12 +74,14 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
     /** {@inheritDoc} */
     @Override
     public String getResourceNameFromIndex(CollectionResource resource) {
-        LOG.debug("Finding the value of sibling column {} for resource {}@{}", m_siblingColumnName, resource.getInstance(), resource.getParent());
+        LOG.debug("Finding the value of sibling column {} for resource {}@{}", m_siblingColumnName,
+                  resource.getInstance(), resource.getParent());
         StringAttributeVisitor visitor = new StringAttributeVisitor(m_siblingColumnName);
         resource.visit(visitor);
         String value = (visitor.getValue() != null ? visitor.getValue() : resource.getInstance());
 
-        // First remove all non-US-ASCII characters and turn all forward slashes into dashes
+        // First remove all non-US-ASCII characters and turn all forward slashes
+        // into dashes
         String name = value.replaceAll("[^\\x00-\\x7F]", "").replaceAll("/", "-");
 
         // Then perform all replacement operations specified in the parameters
@@ -81,7 +90,8 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
             name = op.replace(name);
         }
 
-        LOG.debug("Inbound instance name was '{}', outbound was '{}'", resource.getInstance(), ("".equals(name) ? resource.getInstance() : name));
+        LOG.debug("Inbound instance name was '{}', outbound was '{}'", resource.getInstance(),
+                  ("".equals(name) ? resource.getInstance() : name));
         return ("".equals(name) ? resource.getInstance() : name);
     }
 
@@ -89,7 +99,8 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
     @Override
     public void setParameters(List<Parameter> parameterCollection) throws IllegalArgumentException {
         if (parameterCollection == null) {
-            final String msg ="Got a null parameter list, but need one containing a '" + PARAM_SIBLING_COLUMN_NAME + "' parameter.";
+            final String msg = "Got a null parameter list, but need one containing a '" + PARAM_SIBLING_COLUMN_NAME
+                    + "' parameter.";
             LOG.error(msg);
             throw new IllegalArgumentException(msg);
         }
@@ -107,13 +118,15 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
                     LOG.error(msg);
                     throw new IllegalArgumentException(msg);
                 } else {
-                    LOG.warn("Encountered unsupported parameter key=\"{}\". Can accept: {}, {}, {}", param.getKey(), PARAM_SIBLING_COLUMN_NAME, PARAM_REPLACE_FIRST, PARAM_REPLACE_ALL);
+                    LOG.warn("Encountered unsupported parameter key=\"{}\". Can accept: {}, {}, {}", param.getKey(),
+                             PARAM_SIBLING_COLUMN_NAME, PARAM_REPLACE_FIRST, PARAM_REPLACE_ALL);
                 }
             }
         }
 
         if (m_siblingColumnName == null) {
-            final String msg = "The provided parameter list must contain a '" + PARAM_SIBLING_COLUMN_NAME + "' parameter.";
+            final String msg = "The provided parameter list must contain a '" + PARAM_SIBLING_COLUMN_NAME
+                    + "' parameter.";
             LOG.error(msg);
             throw new IllegalArgumentException(msg);
         }

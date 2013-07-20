@@ -33,9 +33,9 @@ import java.util.Map;
 
 import com.google.gwt.dom.client.Element;
 
-
-public class DragHandlerManager{
+public class DragHandlerManager {
     Map<String, DragBehaviorHandler> m_dragHandlers = new HashMap<String, DragBehaviorHandler>();
+
     DragBehaviorHandler m_currentHandler;
 
     public void addDragBehaviorHandler(String key, DragBehaviorHandler handler) {
@@ -43,7 +43,7 @@ public class DragHandlerManager{
     }
 
     public boolean setCurrentDragHandler(String key) {
-        if(m_dragHandlers.containsKey(key)) {
+        if (m_dragHandlers.containsKey(key)) {
             m_currentHandler = m_dragHandlers.get(key);
             return true;
         }

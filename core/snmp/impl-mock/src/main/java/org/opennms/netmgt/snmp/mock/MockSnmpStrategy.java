@@ -56,14 +56,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
 public class MockSnmpStrategy implements SnmpStrategy {
-	private static final transient Logger LOG = LoggerFactory.getLogger(MockSnmpStrategy.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(MockSnmpStrategy.class);
 
     public static final SnmpAgentAddress ALL_AGENTS = new SnmpAgentAddress(InetAddrUtils.addr("0.0.0.0"), 161);
+
     private static final SnmpValue[] EMPTY_SNMP_VALUE_ARRAY = new SnmpValue[0];
 
     // TOG's enterprise ID
     private static int s_enterpriseId = 5813;
-    private static Map<SnmpAgentAddress,PropertyOidContainer> m_loaders = new HashMap<SnmpAgentAddress,PropertyOidContainer>();
+
+    private static Map<SnmpAgentAddress, PropertyOidContainer> m_loaders = new HashMap<SnmpAgentAddress, PropertyOidContainer>();
 
     public MockSnmpStrategy() {
     }
@@ -82,46 +84,52 @@ public class MockSnmpStrategy implements SnmpStrategy {
 
     @Override
     public SnmpWalker createWalker(final SnmpAgentConfig agentConfig, final String name, final CollectionTracker tracker) {
-        LOG.debug("createWalker({}/{}, {}, {})", InetAddrUtils.str(agentConfig.getAddress()), agentConfig.getPort(), name, tracker.getClass().getName());
+        LOG.debug("createWalker({}/{}, {}, {})", InetAddrUtils.str(agentConfig.getAddress()), agentConfig.getPort(),
+                  name, tracker.getClass().getName());
         final SnmpAgentAddress aa = new SnmpAgentAddress(agentConfig.getAddress(), agentConfig.getPort());
         final PropertyOidContainer oidContainer = getOidContainer(aa);
-        return new MockSnmpWalker(aa, agentConfig.getVersion(), oidContainer, name, tracker, agentConfig.getMaxVarsPerPdu());
+        return new MockSnmpWalker(aa, agentConfig.getVersion(), oidContainer, name, tracker,
+                                  agentConfig.getMaxVarsPerPdu());
     }
 
     @Override
     public SnmpValue set(final SnmpAgentConfig agentConfig, final SnmpObjId oid, final SnmpValue value) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null) return null;
+        if (oidContainer == null)
+            return null;
         return oidContainer.set(oid, value);
     }
 
     @Override
     public SnmpValue[] set(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids, final SnmpValue[] values) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null) return new SnmpValue[values.length];
+        if (oidContainer == null)
+            return new SnmpValue[values.length];
         return oidContainer.set(oids, values);
     }
 
     @Override
     public SnmpValue get(final SnmpAgentConfig agentConfig, final SnmpObjId oid) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null) return null;
+        if (oidContainer == null)
+            return null;
 
         SnmpValue val = oidContainer.findValueForOid(oid);
         if (val.isNull()) {
-        	return null;
+            return null;
         }
-		return val;
+        return val;
     }
 
     @Override
     public SnmpValue[] get(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids) {
         final PropertyOidContainer container = getOidContainer(agentConfig);
-        if (container == null) return new SnmpValue[oids.length];
+        if (container == null)
+            return new SnmpValue[oids.length];
         final List<SnmpValue> values = new ArrayList<SnmpValue>();
 
         for (final SnmpObjId oid : oids) {
-    		values.add(container.findValueForOid(oid));
+            values.add(container.findValueForOid(oid));
         }
         return values.toArray(EMPTY_SNMP_VALUE_ARRAY);
     }
@@ -129,14 +137,16 @@ public class MockSnmpStrategy implements SnmpStrategy {
     @Override
     public SnmpValue getNext(final SnmpAgentConfig agentConfig, final SnmpObjId oid) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null) return null;
+        if (oidContainer == null)
+            return null;
         return oidContainer.findNextValueForOid(oid);
     }
 
     @Override
     public SnmpValue[] getNext(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null) return null;
+        if (oidContainer == null)
+            return null;
         final List<SnmpValue> values = new ArrayList<SnmpValue>();
 
         for (final SnmpObjId oid : oids) {
@@ -151,22 +161,26 @@ public class MockSnmpStrategy implements SnmpStrategy {
     }
 
     @Override
-    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort) throws IOException {
+    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
+            final InetAddress address, final int snmpTrapPort) throws IOException {
         LOG.warn("Can't register for traps.  No network in the MockSnmpStrategy!");
     }
 
     @Override
-    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, final int snmpTrapPort) throws IOException {
+    public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
+            final int snmpTrapPort) throws IOException {
         LOG.warn("Can't register for traps.  No network in the MockSnmpStrategy!");
     }
 
     @Override
-    public void registerForTraps(TrapNotificationListener listener, TrapProcessorFactory processorFactory, InetAddress address, int snmpTrapPort, List<SnmpV3User> snmpv3Users) throws IOException {
+    public void registerForTraps(TrapNotificationListener listener, TrapProcessorFactory processorFactory,
+            InetAddress address, int snmpTrapPort, List<SnmpV3User> snmpv3Users) throws IOException {
         LOG.warn("Can't register for traps.  No network in the MockSnmpStrategy!");
     }
 
     @Override
-    public void unregisterForTraps(final TrapNotificationListener listener, final InetAddress address, final int snmpTrapPort) throws IOException {
+    public void unregisterForTraps(final TrapNotificationListener listener, final InetAddress address,
+            final int snmpTrapPort) throws IOException {
     }
 
     @Override
@@ -175,37 +189,37 @@ public class MockSnmpStrategy implements SnmpStrategy {
 
     @Override
     public SnmpValueFactory getValueFactory() {
-    	return new MockSnmpValueFactory();
+        return new MockSnmpValueFactory();
     }
 
     @Override
     public SnmpV1TrapBuilder getV1TrapBuilder() {
-    	throw new UnsupportedOperationException("Not yet implemented!");
-//        return new NullSnmpV1TrapBuilder();
+        throw new UnsupportedOperationException("Not yet implemented!");
+        // return new NullSnmpV1TrapBuilder();
     }
 
     @Override
     public SnmpTrapBuilder getV2TrapBuilder() {
-    	throw new UnsupportedOperationException("Not yet implemented!");
-//        return new NullSnmpTrapBuilder();
+        throw new UnsupportedOperationException("Not yet implemented!");
+        // return new NullSnmpTrapBuilder();
     }
 
     @Override
     public SnmpV3TrapBuilder getV3TrapBuilder() {
-    	throw new UnsupportedOperationException("Not yet implemented!");
-//        return new NullSnmpV3TrapBuilder();
+        throw new UnsupportedOperationException("Not yet implemented!");
+        // return new NullSnmpV3TrapBuilder();
     }
 
     @Override
     public SnmpV2TrapBuilder getV2InformBuilder() {
-    	throw new UnsupportedOperationException("Not yet implemented!");
-//        return new NullSnmpV2TrapBuilder();
+        throw new UnsupportedOperationException("Not yet implemented!");
+        // return new NullSnmpV2TrapBuilder();
     }
 
     @Override
     public SnmpV3TrapBuilder getV3InformBuilder() {
-    	throw new UnsupportedOperationException("Not yet implemented!");
-//        return new NullSnmpV3TrapBuilder();
+        throw new UnsupportedOperationException("Not yet implemented!");
+        // return new NullSnmpV3TrapBuilder();
     }
 
     @Override
@@ -231,14 +245,15 @@ public class MockSnmpStrategy implements SnmpStrategy {
             engineID[4] = 4;
         }
 
-        byte[] bytes = new byte[engineID.length+ip.length];
+        byte[] bytes = new byte[engineID.length + ip.length];
         System.arraycopy(engineID, 0, bytes, 0, engineID.length);
         System.arraycopy(ip, 0, bytes, engineID.length, ip.length);
 
         return bytes;
     }
 
-    public static void setDataForAddress(final SnmpAgentAddress agentAddress, final Resource resource) throws IOException {
+    public static void setDataForAddress(final SnmpAgentAddress agentAddress, final Resource resource)
+            throws IOException {
         m_loaders.put(agentAddress, new PropertyOidContainer(resource));
     }
 

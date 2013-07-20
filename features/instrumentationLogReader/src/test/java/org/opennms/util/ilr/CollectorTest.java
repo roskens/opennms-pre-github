@@ -41,24 +41,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
-
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.opennms.util.ilr.Collector;
 import org.opennms.util.ilr.Collector.SortColumn;
 import org.opennms.util.ilr.Collector.SortOrder;
 
-
 public class CollectorTest {
     private Date getDate(String dateString) throws ParseException {
-        return new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss,S").parse(dateString);
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,S").parse(dateString);
     }
+
     @Test
     public void testStartNotSetEnd() throws ParseException {
         Collector c = new Collector();
-        c.addLog("2010-05-26 12:12:38,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: end:24/216.216.217.254/SNMP");	
+        c.addLog("2010-05-26 12:12:38,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: end:24/216.216.217.254/SNMP");
         c.addLog("2010-05-26 12:12:40,883 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: begin:24/216.216.217.254/SNMP");
         c.addLog("2010-05-26 12:12:48,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: end:24/216.216.217.254/SNMP");
         c.addLog("2010-05-26 12:12:50,883 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: begin:24/216.216.217.254/SNMP");
@@ -66,18 +63,20 @@ public class CollectorTest {
         assertEquals(getDate("2010-05-26 12:12:48,027"), c.getEndTime());
         assertEquals(7144, c.getDuration());
     }
+
     @Test
     public void testStartAndEndTime() throws ParseException {
         Collector c = new Collector();
         c.addLog("2010-05-26 12:12:40,883 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: begin:24/216.216.217.254/SNMP");
-        c.addLog("2010-05-26 12:12:48,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: end:24/216.216.217.254/SNMP");	
+        c.addLog("2010-05-26 12:12:48,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: end:24/216.216.217.254/SNMP");
 
         assertEquals(getDate("2010-05-26 12:12:40,883"), c.getStartTime());
         assertEquals(getDate("2010-05-26 12:12:48,027"), c.getEndTime());
         assertEquals(7144, c.getDuration());
     }
+
     @Test
-    public void testServiceCount(){
+    public void testServiceCount() {
         Collector c = new Collector();
         assertEquals(0, c.getServiceCount());
         c.addLog("2010-05-26 12:12:40,883 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: begin:24/216.216.217.254/SNMP");
@@ -100,7 +99,7 @@ public class CollectorTest {
     }
 
     @Test
-    public void testThreadcount(){
+    public void testThreadcount() {
         Collector c = new Collector();
         assertEquals(0, c.getThreadCount());
         c.addLog("2010-05-26 12:12:40,883 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: begin:24/216.216.217.254/SNMP");
@@ -130,12 +129,13 @@ public class CollectorTest {
         c.addLog("2010-06-01 08:45:12,104 DEBUG [CollectdScheduler-50 Pool-fiber2] Collectd: collector.collect: persistDataQueueing: end: 86/172.20.1.25/WMI");
         c.addLog("2010-06-01 08:39:46,648 DEBUG [CollectdScheduler-50 Pool-fiber3] Collectd: collector.collect: begin:58/172.20.1.201/SNMP");
         c.addLog("2010-06-01 08:39:46,650 DEBUG [CollectdScheduler-50 Pool-fiber3] Collectd: collector.collect: begin:58/172.20.1.201/SNMP");
-        assertEquals(1,c.getCollectionsPerService("24/216.216.217.254/SNMP"));
-        assertEquals(0,c.getCollectionsPerService("19/209.61.128.9/SNMP"));
-        assertEquals(1,c.getCollectionsPerService("60/172.20.1.202/SNMP"));
-        assertEquals(0,c.getCollectionsPerService("86/172.20.1.25/WMI"));
-        assertEquals(0,c.getCollectionsPerService("58/172.20.1.201/SNMP"));
+        assertEquals(1, c.getCollectionsPerService("24/216.216.217.254/SNMP"));
+        assertEquals(0, c.getCollectionsPerService("19/209.61.128.9/SNMP"));
+        assertEquals(1, c.getCollectionsPerService("60/172.20.1.202/SNMP"));
+        assertEquals(0, c.getCollectionsPerService("86/172.20.1.25/WMI"));
+        assertEquals(0, c.getCollectionsPerService("58/172.20.1.201/SNMP"));
     }
+
     @Test
     public void testAverageCollectionTimePerService() {
         Collector c = new Collector();
@@ -149,12 +149,13 @@ public class CollectorTest {
         c.addLog("2010-06-01 08:45:12,104 DEBUG [CollectdScheduler-50 Pool-fiber2] Collectd: collector.collect: persistDataQueueing: end: 86/172.20.1.25/WMI");
         c.addLog("2010-06-01 08:39:46,648 DEBUG [CollectdScheduler-50 Pool-fiber3] Collectd: collector.collect: begin:58/172.20.1.201/SNMP");
         c.addLog("2010-06-01 08:39:46,650 DEBUG [CollectdScheduler-50 Pool-fiber3] Collectd: collector.collect: begin:58/172.20.1.201/SNMP");
-        assertEquals(7144,c.getAverageCollectionTimePerService("24/216.216.217.254/SNMP"));
-        assertEquals(0,c.getAverageCollectionTimePerService("19/209.61.128.9/SNMP"));
-        assertEquals(513,c.getAverageCollectionTimePerService("60/172.20.1.202/SNMP"));
-        assertEquals(0,c.getAverageCollectionTimePerService("86/172.20.1.25/WMI"));
-        assertEquals(0,c.getAverageCollectionTimePerService("58/172.20.1.201/SNMP"));
+        assertEquals(7144, c.getAverageCollectionTimePerService("24/216.216.217.254/SNMP"));
+        assertEquals(0, c.getAverageCollectionTimePerService("19/209.61.128.9/SNMP"));
+        assertEquals(513, c.getAverageCollectionTimePerService("60/172.20.1.202/SNMP"));
+        assertEquals(0, c.getAverageCollectionTimePerService("86/172.20.1.25/WMI"));
+        assertEquals(0, c.getAverageCollectionTimePerService("58/172.20.1.201/SNMP"));
     }
+
     @Test
     public void testTotalCollectionTimePerService() {
         Collector c = new Collector();
@@ -168,11 +169,11 @@ public class CollectorTest {
         c.addLog("2010-06-01 08:45:12,104 DEBUG [CollectdScheduler-50 Pool-fiber2] Collectd: collector.collect: persistDataQueueing: end: 86/172.20.1.25/WMI");
         c.addLog("2010-06-01 08:39:46,648 DEBUG [CollectdScheduler-50 Pool-fiber3] Collectd: collector.collect: begin:58/172.20.1.201/SNMP");
         c.addLog("2010-06-01 08:39:46,650 DEBUG [CollectdScheduler-50 Pool-fiber3] Collectd: collector.collect: begin:58/172.20.1.201/SNMP");
-        assertEquals(7144,c.getAverageCollectionTimePerService("24/216.216.217.254/SNMP"));
-        assertEquals(0,c.getAverageCollectionTimePerService("19/209.61.128.9/SNMP"));
-        assertEquals(513,c.getAverageCollectionTimePerService("60/172.20.1.202/SNMP"));
-        assertEquals(0,c.getAverageCollectionTimePerService("86/172.20.1.25/WMI"));
-        assertEquals(0,c.getAverageCollectionTimePerService("58/172.20.1.201/SNMP"));
+        assertEquals(7144, c.getAverageCollectionTimePerService("24/216.216.217.254/SNMP"));
+        assertEquals(0, c.getAverageCollectionTimePerService("19/209.61.128.9/SNMP"));
+        assertEquals(513, c.getAverageCollectionTimePerService("60/172.20.1.202/SNMP"));
+        assertEquals(0, c.getAverageCollectionTimePerService("86/172.20.1.25/WMI"));
+        assertEquals(0, c.getAverageCollectionTimePerService("58/172.20.1.201/SNMP"));
     }
 
     @Test
@@ -190,7 +191,8 @@ public class CollectorTest {
         c.addLog("2010-03-13 03:06:28,926 DEBUG [CollectdScheduler-400 Pool-fiber307] Collectd: collector.collect: end:32028/209.219.9.78/SNMP");
         c.addLog("2010-03-13 03:18:27,559 DEBUG [CollectdScheduler-400 Pool-fiber264] Collectd: collector.collect: begin:32028/209.219.9.78/SNMP");
         c.addLog("2010-03-13 03:19:06,934 DEBUG [CollectdScheduler-400 Pool-fiber264] Collectd: collector.collect: end:32028/209.219.9.78/SNMP");
-        assertEquals(39451+19332+3768+21889+41372+39375,c.getTotalCollectionTimePerService("32028/209.219.9.78/SNMP"));
+        assertEquals(39451 + 19332 + 3768 + 21889 + 41372 + 39375,
+                     c.getTotalCollectionTimePerService("32028/209.219.9.78/SNMP"));
     }
 
     @Test
@@ -296,9 +298,8 @@ public class CollectorTest {
         assertEquals(new Duration(30000), collectors.get(0).getAverageCollectionDuration());
         assertEquals(new Duration(20000), collectors.get(1).getAverageCollectionDuration());
         assertEquals(new Duration(10000), collectors.get(2).getAverageCollectionDuration());
-
-
     }
+
     @Test
     public void testSortByTotalCollectionTime() {
 
@@ -317,8 +318,6 @@ public class CollectorTest {
         assertEquals(new Duration(30000), collectors.get(0).getTotalCollectionDuration());
         assertEquals(new Duration(10000), collectors.get(1).getTotalCollectionDuration());
         assertEquals(new Duration(5000), collectors.get(2).getTotalCollectionDuration());
-
-
     }
 
     @Test
@@ -343,8 +342,6 @@ public class CollectorTest {
         assertEquals(3, collectors.get(0).getCollectionCount());
         assertEquals(2, collectors.get(1).getCollectionCount());
         assertEquals(1, collectors.get(2).getCollectionCount());
-
-
     }
 
     @Test
@@ -369,8 +366,6 @@ public class CollectorTest {
         assertEquals(5000, collectors.get(0).getAverageTimeBetweenCollections());
         assertEquals(3000, collectors.get(1).getAverageTimeBetweenCollections());
         assertEquals(1000, collectors.get(2).getAverageTimeBetweenCollections());
-
-
     }
 
     @Test
@@ -393,9 +388,8 @@ public class CollectorTest {
         assertEquals(100.0, collectors.get(0).getSuccessPercentage(),0);
         assertEquals(50.0, collectors.get(1).getSuccessPercentage(),0);
         assertEquals(0.0, collectors.get(2).getSuccessPercentage(),0);
-
-
     }
+
     @Test
     public void testSortBySuccessfulCollections() {
 
@@ -437,9 +431,8 @@ public class CollectorTest {
         assertEquals(new Duration(30000), collectors.get(0).getAverageCollectionDuration());
         assertEquals(new Duration(20000), collectors.get(1).getAverageCollectionDuration());
         assertEquals(new Duration(10000), collectors.get(2).getAverageCollectionDuration());
-
-
     }
+
     @Test
     public void testSortByUnsuccessfulCollections() {
 
@@ -461,9 +454,8 @@ public class CollectorTest {
         assertEquals(2, collectors.get(0).getErrorCollectionCount());
         assertEquals(1, collectors.get(1).getErrorCollectionCount());
         assertEquals(0, collectors.get(2).getErrorCollectionCount());
-
-
     }
+
     @Test
     public void testSortByTotalPersistTime() {
 
@@ -480,10 +472,7 @@ public class CollectorTest {
         assertEquals(9000, collectors.get(0).getTotalPersistTime());
         assertEquals(2000, collectors.get(1).getTotalPersistTime());
         assertEquals(1000, collectors.get(2).getTotalPersistTime());
-
-
     }
-
 
     @Test
     public void testSortByUnsuccessfulPercentage() {
@@ -502,12 +491,11 @@ public class CollectorTest {
         c.addLog("2010-03-13 02:23:50,000 DEBUG [CollectdScheduler-400 Pool-fiber51] Collectd: collector.collect: end:0/3.3.3.3/SNMP");
         List<ServiceCollector> collectors = c.getServiceCollectors();
         assertEquals(3, collectors.size());
-        assertEquals(100.0, collectors.get(0).getErrorPercentage(),0);
-        assertEquals(50.0, collectors.get(1).getErrorPercentage(),0);
-        assertEquals(0.0, collectors.get(2).getErrorPercentage(),0);
-
-
+        assertEquals(100.0, collectors.get(0).getErrorPercentage(), 0);
+        assertEquals(50.0, collectors.get(1).getErrorPercentage(), 0);
+        assertEquals(0.0, collectors.get(2).getErrorPercentage(), 0);
     }
+
     @Test
     public void testSortByAverageUnsuccessfulCollectionTime() {
 
@@ -528,7 +516,7 @@ public class CollectorTest {
         assertEquals(3, collectors.size());
         assertEquals(17500, collectors.get(0).getAverageErrorCollectionTime());
         assertEquals(10000, collectors.get(1).getAverageErrorCollectionTime());
-        assertEquals(0,  collectors.get(2).getAverageErrorCollectionTime());
+        assertEquals(0, collectors.get(2).getAverageErrorCollectionTime());
 
     }
 

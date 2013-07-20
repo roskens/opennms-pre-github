@@ -34,22 +34,30 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-
 /**
- * <p>Querier class.</p>
+ * <p>
+ * Querier class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class Querier extends JDBCTemplate implements RowProcessor {
     private int m_count;
+
     private RowProcessor m_rowProcessor;
+
     /**
-     * <p>Constructor for Querier.</p>
+     * <p>
+     * Constructor for Querier.
+     * </p>
      *
-     * @param db a {@link javax.sql.DataSource} object.
-     * @param sql a {@link java.lang.String} object.
-     * @param rowProcessor a {@link org.opennms.netmgt.utils.RowProcessor} object.
+     * @param db
+     *            a {@link javax.sql.DataSource} object.
+     * @param sql
+     *            a {@link java.lang.String} object.
+     * @param rowProcessor
+     *            a {@link org.opennms.netmgt.utils.RowProcessor} object.
      */
     public Querier(DataSource db, String sql, RowProcessor rowProcessor) {
         super(db, sql);
@@ -61,17 +69,23 @@ public class Querier extends JDBCTemplate implements RowProcessor {
     }
 
     /**
-     * <p>Constructor for Querier.</p>
+     * <p>
+     * Constructor for Querier.
+     * </p>
      *
-     * @param db a {@link javax.sql.DataSource} object.
-     * @param sql a {@link java.lang.String} object.
+     * @param db
+     *            a {@link javax.sql.DataSource} object.
+     * @param sql
+     *            a {@link java.lang.String} object.
      */
     public Querier(DataSource db, String sql) {
         this(db, sql, null);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a int.
      */
@@ -101,4 +115,4 @@ public class Querier extends JDBCTemplate implements RowProcessor {
     public void processRow(ResultSet rs) throws SQLException {
     }
 
- }
+}

@@ -93,7 +93,6 @@ public class OspfNbrInterface {
         return m_ospfNbrRouterId;
     }
 
-
     public InetAddress getOspfNbrNetMask() {
         return m_ospfNbrNetMask;
     }
@@ -111,12 +110,11 @@ public class OspfNbrInterface {
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("ospfNbrRouterId" ,m_ospfNbrRouterId)
-                                        .append("ospfNbrIpAddress",m_ospfNbrIpAddr)
-                                        .append("ospfNbrnetMask"  ,m_ospfNbrNetMask)
-                                        .append("ospfNbrNodeId"   ,m_ospfNbrNodeId)
-                                        .append("ospfNbrIfIndex"  ,m_ospfNbrIfIndex)
-                                        .toString();
+        return new ToStringBuilder(this).append("ospfNbrRouterId", m_ospfNbrRouterId).append("ospfNbrIpAddress",
+                                                                                             m_ospfNbrIpAddr).append("ospfNbrnetMask",
+                                                                                                                     m_ospfNbrNetMask).append("ospfNbrNodeId",
+                                                                                                                                              m_ospfNbrNodeId).append("ospfNbrIfIndex",
+                                                                                                                                                                      m_ospfNbrIfIndex).toString();
     }
 
 }

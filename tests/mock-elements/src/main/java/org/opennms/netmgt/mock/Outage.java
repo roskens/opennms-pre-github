@@ -30,15 +30,21 @@ package org.opennms.netmgt.mock;
 
 import java.sql.Timestamp;
 
-
 public class Outage {
     int m_nodeId;
+
     String m_ipAddr;
+
     int m_serviceId;
+
     String m_serviceName;
+
     int m_lostEventId;
+
     int m_regainedEventId;
+
     Timestamp m_lostEventTime;
+
     Timestamp m_regainedEventTime;
 
     public Outage(int nodeId, String ipAddr, int serviceId) {
@@ -62,9 +68,7 @@ public class Outage {
     }
 
     public boolean isForService(MockService svc) {
-        return m_nodeId == svc.getNodeId() &&
-            m_ipAddr.equals(svc.getIpAddr()) &&
-            m_serviceId == svc.getId();
+        return m_nodeId == svc.getNodeId() && m_ipAddr.equals(svc.getIpAddr()) && m_serviceId == svc.getId();
     }
 
     @Override
@@ -74,37 +78,31 @@ public class Outage {
 
     @Override
     public String toString() {
-        return "Outage["+m_nodeId+"/"+m_ipAddr+"/"+(m_serviceName == null ? ""+m_serviceId : m_serviceName)+" cause: "+m_lostEventId+" resolution: "+m_regainedEventId+" ]";
+        return "Outage[" + m_nodeId + "/" + m_ipAddr + "/" + (m_serviceName == null ? "" + m_serviceId : m_serviceName)
+                + " cause: " + m_lostEventId + " resolution: " + m_regainedEventId + " ]";
     }
 
     @Override
     public boolean equals(Object o) {
-        if (! (o instanceof Outage)) return false;
-        Outage outage = (Outage)o;
-        return (
-                (m_nodeId == outage.m_nodeId) &&
-                (m_ipAddr.equals(outage.m_ipAddr)) &&
-                (m_serviceId == outage.m_serviceId) &&
-                (m_lostEventId == outage.m_lostEventId) &&
-                (m_lostEventTime == null ? outage.m_lostEventTime == null : m_lostEventTime.equals(outage.m_lostEventTime)) &&
-                (m_regainedEventId == outage.m_regainedEventId) &&
-                (m_regainedEventTime == null ? outage.m_regainedEventTime == null : m_regainedEventTime.equals(outage.m_regainedEventTime))
-                );
+        if (!(o instanceof Outage))
+            return false;
+        Outage outage = (Outage) o;
+        return ((m_nodeId == outage.m_nodeId)
+                && (m_ipAddr.equals(outage.m_ipAddr))
+                && (m_serviceId == outage.m_serviceId)
+                && (m_lostEventId == outage.m_lostEventId)
+                && (m_lostEventTime == null ? outage.m_lostEventTime == null
+                    : m_lostEventTime.equals(outage.m_lostEventTime))
+                && (m_regainedEventId == outage.m_regainedEventId) && (m_regainedEventTime == null ? outage.m_regainedEventTime == null
+            : m_regainedEventTime.equals(outage.m_regainedEventTime)));
     }
 
     /**
      * @return
      */
     public String toDetailedString() {
-        return "Outage[" +
-                m_nodeId + ":" +
-                m_ipAddr + ":" +
-                m_serviceId + ":" +
-                m_lostEventId + ":" +
-                m_lostEventTime + ":" +
-                m_regainedEventId + ":" +
-                m_regainedEventTime +
-                "]";
+        return "Outage[" + m_nodeId + ":" + m_ipAddr + ":" + m_serviceId + ":" + m_lostEventId + ":" + m_lostEventTime
+                + ":" + m_regainedEventId + ":" + m_regainedEventTime + "]";
     }
 
     public int getServiceId() {
@@ -114,6 +112,5 @@ public class Outage {
     public void setServiceName(String svcName) {
         m_serviceName = svcName;
     }
-
 
 }

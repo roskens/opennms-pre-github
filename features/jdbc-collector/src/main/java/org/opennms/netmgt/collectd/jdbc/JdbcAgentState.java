@@ -51,17 +51,23 @@ public class JdbcAgentState {
     private static final String JAS_NO_DATASOURCE_FOUND = "NO_DATASOURCE_FOUND";
 
     private boolean m_useDataSourceName;
+
     private String m_dataSourceName;
 
     private String m_driverClass;
+
     private String m_dbUser;
+
     private String m_dbPass;
+
     private String m_dbUrl;
 
     Driver m_driver = null;
+
     Properties m_dbProps = null;
 
     private String m_address;
+
     private HashMap<String, JdbcGroupState> m_groupStates = new HashMap<String, JdbcGroupState>();
 
     public JdbcAgentState(InetAddress address, Map<String, Object> parameters) {
@@ -73,12 +79,12 @@ public class JdbcAgentState {
             throw new NullPointerException("parameter cannot be null");
         }
 
-        //setupDatabaseConnections(parameters);
+        // setupDatabaseConnections(parameters);
     }
 
     public void setupDatabaseConnections(Map<String, Object> parameters) {
         String dataSourceName = ParameterMap.getKeyedString(parameters, "data-source", JAS_NO_DATASOURCE_FOUND);
-        if(dataSourceName.equals(JAS_NO_DATASOURCE_FOUND)) {
+        if (dataSourceName.equals(JAS_NO_DATASOURCE_FOUND)) {
             // No 'data-source' parameter was set in the configuration file.
             m_useDataSourceName = false;
             setupJdbcUrl(parameters);
@@ -95,9 +101,9 @@ public class JdbcAgentState {
         // Extract the driver class name and create a driver class instance.
         try {
             m_driverClass = ParameterMap.getKeyedString(parameters, "driver", DBTools.DEFAULT_JDBC_DRIVER);
-            m_driver = (Driver)Class.forName(m_driverClass).newInstance();
+            m_driver = (Driver) Class.forName(m_driverClass).newInstance();
         } catch (Throwable exp) {
-            throw new RuntimeException("Unable to load driver class: "+exp.toString(), exp);
+            throw new RuntimeException("Unable to load driver class: " + exp.toString(), exp);
         }
 
         LOG.info("Loaded JDBC driver");
@@ -115,21 +121,22 @@ public class JdbcAgentState {
     }
 
     public Connection getJdbcConnection() throws JdbcCollectorException {
-        if(m_useDataSourceName) {
-            throw new JdbcCollectorException("Attempt to retrieve a JDBC Connection when the collector should be using the DataSourceFactory!");
+        if (m_useDataSourceName) {
+            throw new JdbcCollectorException(
+                                             "Attempt to retrieve a JDBC Connection when the collector should be using the DataSourceFactory!");
         }
 
         try {
             return m_driver.connect(m_dbUrl, m_dbProps);
-        } catch(SQLException e) {
-            throw new JdbcCollectorException("Unable to connect to JDBC URL: '" + m_dbUrl +"'", e);
+        } catch (SQLException e) {
+            throw new JdbcCollectorException("Unable to connect to JDBC URL: '" + m_dbUrl + "'", e);
         }
     }
 
     public Statement createStatement(Connection con) {
         try {
             return con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             LOG.warn("Unable to create SQL statement: {}", e.getMessage());
             throw new JdbcCollectorException("Unable to create SQL statement: " + e.getMessage(), e);
         }
@@ -138,15 +145,17 @@ public class JdbcAgentState {
     public ResultSet executeJdbcQuery(Statement stmt, JdbcQuery query) {
         try {
             return stmt.executeQuery(query.getJdbcStatement().getJdbcQuery());
-        } catch(SQLException e) {
-            //closeAgentConnection();
+        } catch (SQLException e) {
+            // closeAgentConnection();
 
-            throw new JdbcCollectorException("Unable to execute query '" + query.getQueryName() + "'! Check your jdbc-datacollection-config.xml configuration!", e);
+            throw new JdbcCollectorException("Unable to execute query '" + query.getQueryName()
+                    + "'! Check your jdbc-datacollection-config.xml configuration!", e);
         }
     }
 
     public void closeConnection(Connection con) {
-        if (con == null) return;
+        if (con == null)
+            return;
         try {
             con.close();
         } catch (SQLException ignore) {
@@ -171,7 +180,6 @@ public class JdbcAgentState {
             }
         }
     }
-
 
     public String getAddress() {
         return m_address;
@@ -237,7 +245,5 @@ public class JdbcAgentState {
     public void setUseDataSourceName(boolean useDataSourceName) {
         m_useDataSourceName = useDataSourceName;
     }
-
-
 
 }

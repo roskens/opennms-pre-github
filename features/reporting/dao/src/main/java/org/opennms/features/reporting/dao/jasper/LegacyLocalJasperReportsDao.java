@@ -45,16 +45,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.Assert;
 
 /**
- * <p>LegacyLocalJasperReportsDao class.</p>
+ * <p>
+ * LegacyLocalJasperReportsDao class.
+ * </p>
  * <p/>
- * Class realize the data access and preserve compatibility to jasper-reports.xml.
+ * Class realize the data access and preserve compatibility to
+ * jasper-reports.xml.
  *
  * @author Markus Neumann <markus@opennms.com>
  * @author Ronny Trommer <ronny@opennms.com>
  * @version $Id: $
  * @since 1.8.1
  */
-@ContextConfiguration(locations = {"classpath:META-INF/opennms/applicationContext-reportingDao.xml"})
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
 public class LegacyLocalJasperReportsDao implements LocalJasperReportsDao {
     /**
      * Logging
@@ -191,40 +194,48 @@ public class LegacyLocalJasperReportsDao implements LocalJasperReportsDao {
             for (JasperReportDefinition report : m_LocalJasperReports.getReportList()) {
                 if (id.equals(report.getId())) {
                     try {
-                        reportTemplateStream = new FileInputStream(
-                                new File(
-                                        reportTemplateFolder + "/" + report.getTemplate()));
+                        reportTemplateStream = new FileInputStream(new File(reportTemplateFolder + "/"
+                                + report.getTemplate()));
                     } catch (FileNotFoundException e) {
-                        logger.error("Template file '{}' at folder '{}' not found.", report.getTemplate(), reportTemplateFolder);
+                        logger.error("Template file '{}' at folder '{}' not found.", report.getTemplate(),
+                                     reportTemplateFolder);
 
-                        //TODO indigo: Add e.message to error message
+                        // TODO indigo: Add e.message to error message
                         e.printStackTrace();
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace(); // To change body of catch statement use File |
+                                 // Settings | File Templates.
         }
         return reportTemplateStream;
     }
 
     /**
-     * <p>getLocalJasperReports</p>
-     *
+     * <p>
+     * getLocalJasperReports
+     * </p>
      * Get local jasper reports
      *
-     * @return a {@link org.opennms.features.reporting.model.jasperreport.LocalJasperReports} object
+     * @return a
+     *         {@link org.opennms.features.reporting.model.jasperreport.LocalJasperReports}
+     *         object
      */
     public LocalJasperReports getLocalJasperReports() {
         return m_LocalJasperReports;
     }
 
     /**
-     * <p>setLocalJasperReports</p>
-     *
+     * <p>
+     * setLocalJasperReports
+     * </p>
      * Set local jasper reports
      *
-     * @param localJasperReports a {@link org.opennms.features.reporting.model.jasperreport.LocalJasperReports} object
+     * @param localJasperReports
+     *            a
+     *            {@link org.opennms.features.reporting.model.jasperreport.LocalJasperReports}
+     *            object
      */
     public void setLocalJasperReports(LocalJasperReports localJasperReports) {
         m_LocalJasperReports = localJasperReports;

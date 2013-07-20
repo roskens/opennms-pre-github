@@ -45,18 +45,22 @@ import org.opennms.netmgt.config.service.ServiceConfiguration;
  * the factory loads the configuration from the file system, allowing access to
  * the information by others. The <code>init<code> method may be called by more
  * than one thread, but <em>MUST</em> be called by at least one thread before
- * the factory can be used.</p>
- *
- * <p>The factory supports the singleton design pattern, and thus the configuration
- * is loaded only once. All callers get the same reference unless a call to <code>
- * reload</code> is made. After than any saved instances of the factory can still
- * be referenced. Old references will not reflect any changes in the file if the
- * factory is reloaded.</p>
+ * the factory can be used.
+ * </p>
+ * <p>
+ * The factory supports the singleton design pattern, and thus the configuration
+ * is loaded only once. All callers get the same reference unless a call to
+ * <code>
+ * reload</code> is made. After than any saved instances of the factory can
+ * still be referenced. Old references will not reflect any changes in the file
+ * if the factory is reloaded.
+ * </p>
  *
  * @author <a href="mailto:weave@oculan.com">Weave</a>
  */
 public final class ServiceConfigFactory {
     private static final Logger LOG = LoggerFactory.getLogger(ServiceConfigFactory.class);
+
     /**
      * The singleton instance of this factory
      */
@@ -78,7 +82,6 @@ public final class ServiceConfigFactory {
      *
      * @param configFile
      *            The name of the configuration file.
-     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      */
@@ -92,7 +95,8 @@ public final class ServiceConfigFactory {
      *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static synchronized void init() throws IOException {
         if (m_loaded) {
@@ -102,7 +106,6 @@ public final class ServiceConfigFactory {
         }
 
         File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SERVICE_CONF_FILE_NAME);
-
 
         LOG.debug("ServiceConfigFactory.init: config file path {}", cfgFile.getPath());
 
@@ -115,7 +118,8 @@ public final class ServiceConfigFactory {
      *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read/loaded
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static synchronized void reload() throws IOException {
         m_singleton = null;
@@ -141,9 +145,13 @@ public final class ServiceConfigFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.ServiceConfigFactory} object.
+     * @param instance
+     *            a {@link org.opennms.netmgt.config.ServiceConfigFactory}
+     *            object.
      */
     public static synchronized void setInstance(ServiceConfigFactory instance) {
         m_loaded = true;

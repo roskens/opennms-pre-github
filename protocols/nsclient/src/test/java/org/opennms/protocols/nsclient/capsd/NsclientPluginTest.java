@@ -37,7 +37,9 @@ import org.opennms.protocols.nsclient.AbstractNsclientTest;
 import org.opennms.protocols.nsclient.capsd.NsclientPlugin;
 
 /**
- * <p>JUnit Test Class for NsclientPlugin.</p>
+ * <p>
+ * JUnit Test Class for NsclientPlugin.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $

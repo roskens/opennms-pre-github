@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.collectd;
 
-
 import java.net.InetAddress;
 
 import junit.framework.TestSuite;
@@ -67,7 +66,8 @@ public class SnmpNodeCollectorTest extends SnmpCollectorTestCase {
     private SnmpNodeCollector createNodeCollector() throws Exception, InterruptedException {
         initializeAgent();
 
-        SnmpNodeCollector collector = new SnmpNodeCollector(InetAddress.getLocalHost(), getCollectionSet().getAttributeList(), getCollectionSet());
+        SnmpNodeCollector collector = new SnmpNodeCollector(InetAddress.getLocalHost(),
+                                                            getCollectionSet().getAttributeList(), getCollectionSet());
 
         createWalker(collector);
         waitForSignal();

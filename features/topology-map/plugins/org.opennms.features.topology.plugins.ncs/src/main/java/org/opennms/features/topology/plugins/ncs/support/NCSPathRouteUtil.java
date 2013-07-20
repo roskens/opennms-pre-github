@@ -18,8 +18,8 @@ import org.xml.sax.SAXException;
 
 public class NCSPathRouteUtil {
 
-
     private NCSComponentRepository m_dao;
+
     private NodeDao m_nodeDao;
 
     public NCSPathRouteUtil(NCSComponentRepository dao, NodeDao nodeDao) {
@@ -27,9 +27,11 @@ public class NCSPathRouteUtil {
         m_nodeDao = nodeDao;
     }
 
-    public void getServiceName(@JuniperXPath(value="//juniper:ServiceType") String data, Exchange exchange) throws ParserConfigurationException, SAXException, IOException {
+    public void getServiceName(@JuniperXPath(value = "//juniper:ServiceType")
+    String data, Exchange exchange) throws ParserConfigurationException, SAXException, IOException {
         Message in = exchange.getIn();
-        LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil [getServiceName] received message: " + in.toString());
+        LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil [getServiceName] received message: "
+                                                              + in.toString());
         Map<String, Object> header = new HashMap<String, Object>();
         header.put("serviceType", data);
         header.put("deviceA", in.getHeader("deviceA"));
@@ -39,12 +41,15 @@ public class NCSPathRouteUtil {
         header.put("nodeForeignSource", in.getHeader("nodeForeignSource"));
         header.put("serviceName", in.getHeader("serviceName"));
         exchange.getOut().setHeaders(header);
-        LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil send headers: " + exchange.getOut().getHeaders());
+        LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil send headers: "
+                                                              + exchange.getOut().getHeaders());
     }
 
-    public NCSServicePath createPath(@JuniperXPath("//juniper:Data") Node data, Exchange exchange) {
+    public NCSServicePath createPath(@JuniperXPath("//juniper:Data")
+    Node data, Exchange exchange) {
         Message in = exchange.getIn();
-        LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil [createPath] received message: " + in.toString());
+        LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil [createPath] received message: "
+                                                              + in.toString());
         String nodeForeignSource = (String) in.getHeader("nodeForeignSource");
         String serviceForeignSource = (String) in.getHeader("foreignSource");
         Node servicePath = data;
@@ -55,7 +60,8 @@ public class NCSPathRouteUtil {
 
         String string = servicePath.getOwnerDocument().getTextContent();
         LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil parsing nodes: " + string);
-        return new NCSServicePath(servicePath, m_dao, m_nodeDao, nodeForeignSource, serviceForeignSource, deviceA, deviceZ, serviceName);
+        return new NCSServicePath(servicePath, m_dao, m_nodeDao, nodeForeignSource, serviceForeignSource, deviceA,
+                                  deviceZ, serviceName);
 
     }
 }

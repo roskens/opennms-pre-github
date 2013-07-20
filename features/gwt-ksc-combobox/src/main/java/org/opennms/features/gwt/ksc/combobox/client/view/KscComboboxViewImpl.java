@@ -81,7 +81,7 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
                 }
 
                 @Override
-                public void render(KscReportDetail reportDetail,SafeHtmlBuilder builder) {
+                public void render(KscReportDetail reportDetail, SafeHtmlBuilder builder) {
                     builder.appendEscaped(reportDetail.getLabel());
                 }
             });
@@ -97,7 +97,8 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
     private static KscComboboxViewImplUiBinder uiBinder = GWT.create(KscComboboxViewImplUiBinder.class);
 
     @UiTemplate("KscComboboxViewImpl.ui.xml")
-    interface KscComboboxViewImplUiBinder extends UiBinder<Widget, KscComboboxViewImpl> {}
+    interface KscComboboxViewImplUiBinder extends UiBinder<Widget, KscComboboxViewImpl> {
+    }
 
     @UiField
     LayoutPanel m_layoutPanel;
@@ -109,14 +110,16 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
     Button m_searchButton;
 
     CellList<KscReportDetail> m_reportList;
+
     SimplePager m_pager;
+
     PopupPanel m_popupPanel;
 
     private Presenter<KscReportDetail> m_presenter;
+
     private ListDataProvider<KscReportDetail> m_dataList;
 
     private SingleSelectionModel<KscReportDetail> m_selectionModel;
-
 
     public KscComboboxViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -126,8 +129,8 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
 
             @Override
             public void onKeyDown(KeyDownEvent event) {
-                if(event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-                    if(m_presenter != null) {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                    if (m_presenter != null) {
                         m_presenter.onEnterKeyEvent();
                     }
                 }

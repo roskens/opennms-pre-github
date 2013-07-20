@@ -37,7 +37,9 @@ import org.springframework.webflow.execution.repository.NoSuchFlowExecutionExcep
 import org.springframework.webflow.mvc.servlet.AbstractFlowHandler;
 
 /**
- * <p>BatchReportFlowHander class.</p>
+ * <p>
+ * BatchReportFlowHander class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,8 +50,8 @@ public class BatchReportFlowHander extends AbstractFlowHandler {
     /** {@inheritDoc} */
     @Override
     public String handleExecutionOutcome(FlowExecutionOutcome outcome, HttpServletRequest request,
-        HttpServletResponse response) {
-    return "contextRelative:/report/database/reportList.htm";
+            HttpServletResponse response) {
+        return "contextRelative:/report/database/reportList.htm";
     }
 
     /** {@inheritDoc} */

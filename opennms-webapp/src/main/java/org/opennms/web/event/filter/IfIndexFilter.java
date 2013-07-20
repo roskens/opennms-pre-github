@@ -43,16 +43,21 @@ public class IfIndexFilter extends EqualsFilter<Integer> {
     public static final String TYPE = "ifindex";
 
     /**
-     * <p>Constructor for IfIndexFilter.</p>
+     * <p>
+     * Constructor for IfIndexFilter.
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      */
     public IfIndexFilter(int ifIndex) {
         super(TYPE, SQLType.INT, "ifIndex", "ifIndex", ifIndex);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +67,9 @@ public class IfIndexFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a int.
      */

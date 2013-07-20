@@ -38,7 +38,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- * Model class for a resource reference.  This maps a unique
+ * Model class for a resource reference. This maps a unique
  * string resourceID to a unique integer to minimize costs of
  * storing repeated resourceID strings in the database.
  *
@@ -47,15 +47,18 @@ import javax.persistence.Table;
  * @version $Id: $
  */
 @Entity
-@Table(name="resourceReference")
+@Table(name = "resourceReference")
 public class ResourceReference implements Serializable {
     private static final long serialVersionUID = -8681671877772073153L;
 
     private Integer m_id;
+
     private String m_resourceId;
 
     /**
-     * <p>Constructor for ResourceReference.</p>
+     * <p>
+     * Constructor for ResourceReference.
+     * </p>
      */
     public ResourceReference() {
     }
@@ -66,35 +69,44 @@ public class ResourceReference implements Serializable {
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(name="id")
-    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")
+    @Column(name = "id")
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
         return m_id;
     }
+
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getResourceId</p>
+     * <p>
+     * getResourceId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="resourceId")
+    @Column(name = "resourceId")
     public String getResourceId() {
         return m_resourceId;
     }
 
     /**
-     * <p>setResourceId</p>
+     * <p>
+     * setResourceId
+     * </p>
      *
-     * @param resourceId a {@link java.lang.String} object.
+     * @param resourceId
+     *            a {@link java.lang.String} object.
      */
     public void setResourceId(String resourceId) {
         m_resourceId = resourceId;

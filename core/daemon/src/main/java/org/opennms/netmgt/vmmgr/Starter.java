@@ -50,15 +50,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * The Manager is reponsible for launching/starting all services in the VM
- * that it is started for. The Manager operates in two modes, normal and
- * server
+ * The Manager is reponsible for launching/starting all services in the VM that
+ * it is started for. The Manager operates in two modes, normal and server
  * </p>
  * <p>
  * normal mode: In the normal mode, the Manager starts all services configured
- * for its VM in the service-configuration.xml and starts listening for
- * control events on the 'control-broadcast' JMS topic for stop control
- * messages for itself
+ * for its VM in the service-configuration.xml and starts listening for control
+ * events on the 'control-broadcast' JMS topic for stop control messages for
+ * itself
  * </p>
  * <p>
  * server mode: In the server mode, the Manager starts up and listens on the
@@ -68,9 +67,9 @@ import org.slf4j.LoggerFactory;
  * an 'error' response to the Controller
  * </p>
  * <p>
- * <strong>Note: </strong>The Manager is NOT intelligent - if it receives a
- * stop control event, it will exit - does not check to see if the services
- * its started are all stopped
+ * <strong>Note: </strong>The Manager is NOT intelligent - if it receives a stop
+ * control event, it will exit - does not check to see if the services its
+ * started are all stopped
  * <p>
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
@@ -86,7 +85,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Starter {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Starter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Starter.class);
 
     /**
      * The log4j category used to log debug messsages and statements.
@@ -98,54 +97,55 @@ public class Starter {
     }
 
     /**
-     * <p>startDaemon</p>
+     * <p>
+     * startDaemon
+     * </p>
      */
     public void startDaemon() {
-    	try {
-    		configureLog4j();
+        try {
+            configureLog4j();
 
-    		setLogPrefix();
+            setLogPrefix();
 
-    		setupMx4jLogger();
+            setupMx4jLogger();
 
-    		loadGlobalProperties();
+            loadGlobalProperties();
 
-    		setDefaultProperties();
+            setDefaultProperties();
 
-    		start();
-    	} catch(Exception e) {
-    		die("Exception during startup: " + e.getMessage(), e);
-    	}
+            start();
+        } catch (Exception e) {
+            die("Exception during startup: " + e.getMessage(), e);
+        }
     }
-
 
     private static class Mx4jSlf4JLogger extends mx4j.log.Logger {
 
-    	Logger m_slf4jLogger;
+        Logger m_slf4jLogger;
 
-		@Override
-		protected void log(int priority, Object msg, Throwable t) {
-			switch(priority) {
-			case mx4j.log.Logger.DEBUG:
-				m_slf4jLogger.debug(msg == null ? "" : msg.toString(), t);
-			case mx4j.log.Logger.ERROR:
-				m_slf4jLogger.error(msg == null ? "" : msg.toString(), t);
-			case mx4j.log.Logger.FATAL:
-				m_slf4jLogger.error(msg == null ? "" : msg.toString(), t);
-			case mx4j.log.Logger.INFO:
-				m_slf4jLogger.info(msg == null ? "" : msg.toString(), t);
-			case mx4j.log.Logger.TRACE:
-				m_slf4jLogger.trace(msg == null ? "" : msg.toString(), t);
-			case mx4j.log.Logger.WARN:
-				m_slf4jLogger.warn(msg == null ? "" : msg.toString(), t);
-			}
-		}
+        @Override
+        protected void log(int priority, Object msg, Throwable t) {
+            switch (priority) {
+            case mx4j.log.Logger.DEBUG:
+                m_slf4jLogger.debug(msg == null ? "" : msg.toString(), t);
+            case mx4j.log.Logger.ERROR:
+                m_slf4jLogger.error(msg == null ? "" : msg.toString(), t);
+            case mx4j.log.Logger.FATAL:
+                m_slf4jLogger.error(msg == null ? "" : msg.toString(), t);
+            case mx4j.log.Logger.INFO:
+                m_slf4jLogger.info(msg == null ? "" : msg.toString(), t);
+            case mx4j.log.Logger.TRACE:
+                m_slf4jLogger.trace(msg == null ? "" : msg.toString(), t);
+            case mx4j.log.Logger.WARN:
+                m_slf4jLogger.warn(msg == null ? "" : msg.toString(), t);
+            }
+        }
 
-		@Override
-		protected void setCategory(String category) {
-			super.setCategory(category);
-			m_slf4jLogger = LoggerFactory.getLogger(category);
-		}
+        @Override
+        protected void setCategory(String category) {
+            super.setCategory(category);
+            m_slf4jLogger = LoggerFactory.getLogger(category);
+        }
 
     }
 
@@ -157,10 +157,13 @@ public class Starter {
 
     }
 
-	private void setDefaultProperties() {
-        setupFileResourceProperty("opennms.library.jicmp", System.mapLibraryName("jicmp"), "Initialization of ICMP socket will likely fail.");
-        setupFileResourceProperty("opennms.library.jrrd", System.mapLibraryName("jrrd"), "Initialization of RRD code will likely fail if the JniRrdStrategy is used.");
-        setupFileResourceProperty("jcifs.properties", "jcifs.properties", "Initialization of JCIFS will likely fail or may be improperly configured.");
+    private void setDefaultProperties() {
+        setupFileResourceProperty("opennms.library.jicmp", System.mapLibraryName("jicmp"),
+                                  "Initialization of ICMP socket will likely fail.");
+        setupFileResourceProperty("opennms.library.jrrd", System.mapLibraryName("jrrd"),
+                                  "Initialization of RRD code will likely fail if the JniRrdStrategy is used.");
+        setupFileResourceProperty("jcifs.properties", "jcifs.properties",
+                                  "Initialization of JCIFS will likely fail or may be improperly configured.");
     }
 
     private void setupFileResourceProperty(String propertyName, String file, String notFoundWarning) {
@@ -171,7 +174,8 @@ public class Starter {
                 LOG.info("Found file '{}' at '{}'.  Setting '{}' to this path.", file, url.getPath(), propertyName);
                 System.setProperty(propertyName, url.getPath());
             } else {
-                LOG.warn("Did not find file '{}' in the class path. {} Set the property '{}' to the location of the file.", file, notFoundWarning, propertyName);
+                LOG.warn("Did not find file '{}' in the class path. {} Set the property '{}' to the location of the file.",
+                         file, notFoundWarning, propertyName);
             }
         } else {
             LOG.debug("System property '{}' already set to '{}'.", propertyName, System.getProperty(propertyName));
@@ -205,15 +209,18 @@ public class Starter {
         for (Entry<Object, Object> entry : props.entrySet()) {
             String systemValue = System.getProperty(entry.getKey().toString());
             if (systemValue != null) {
-                LOG.debug("Property '{}' from {} already exists as a system property (with value '{}').  Not overridding existing system property.", entry.getKey(), propertiesFile, systemValue);
+                LOG.debug("Property '{}' from {} already exists as a system property (with value '{}').  Not overridding existing system property.",
+                          entry.getKey(), propertiesFile, systemValue);
             } else {
-                LOG.debug("Setting system property '{}' to '{}' from {}.", entry.getKey(), entry.getValue(), propertiesFile);
+                LOG.debug("Setting system property '{}' to '{}' from {}.", entry.getKey(), entry.getValue(),
+                          propertiesFile);
                 System.setProperty(entry.getKey().toString(), entry.getValue().toString());
             }
         }
 
         if (props.containsKey("networkaddress.cache.ttl")) {
-            java.security.Security.setProperty("networkaddress.cache.ttl", props.getProperty("networkaddress.cache.ttl"));
+            java.security.Security.setProperty("networkaddress.cache.ttl",
+                                               props.getProperty("networkaddress.cache.ttl"));
         } else {
             java.security.Security.setProperty("networkaddress.cache.ttl", "120");
         }
@@ -223,11 +230,13 @@ public class Starter {
      * Print out a message and stack trace and then exit.
      * This method does not return.
      *
-     * @param message message to print to System.err
-     * @param t Throwable for which to print a stack trace
+     * @param message
+     *            message to print to System.err
+     * @param t
+     *            Throwable for which to print a stack trace
      */
-    private void die(String message, Throwable  t) {
-    	LOG.error(message, t);
+    private void die(String message, Throwable t) {
+        LOG.error(message, t);
         System.exit(1);
     }
 
@@ -262,10 +271,8 @@ public class Starter {
                 String name = service.getName();
                 String className = service.getClassName();
 
-                String message =
-                    "An error occurred while attempting to start the \"" +
-                    name + "\" service (class " + className + ").  "
-                    + "Shutting down and exiting.";
+                String message = "An error occurred while attempting to start the \"" + name + "\" service (class "
+                        + className + ").  " + "Shutting down and exiting.";
                 LOG.error(message, result.getThrowable());
                 System.err.println(message);
                 result.getThrowable().printStackTrace();

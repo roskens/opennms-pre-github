@@ -40,13 +40,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The editor component used for editing a single {@link DashletSpec} entry inside a {@link WallboardEditor}.
+ * The editor component used for editing a single {@link DashletSpec} entry
+ * inside a {@link WallboardEditor}.
  *
  * @author Christian Pape
  */
 public class DashletSpecEditor extends Panel {
     /**
-     * The {@link DashletSpec} instance this editor component is associated with.
+     * The {@link DashletSpec} instance this editor component is associated
+     * with.
      */
     private DashletSpec m_dashletSpec;
 
@@ -56,7 +58,8 @@ public class DashletSpecEditor extends Panel {
     private WallboardEditor m_wallboardEditor;
 
     /**
-     * The {@link NativeSelect} instance for selecting available dashlet factories.
+     * The {@link NativeSelect} instance for selecting available dashlet
+     * factories.
      */
     private NativeSelect m_dashletSelect;
 
@@ -66,7 +69,8 @@ public class DashletSpecEditor extends Panel {
     private boolean m_savingDisabled = false;
 
     /**
-     * The used {@link DashletSelector} used for querying available dashlet factories
+     * The used {@link DashletSelector} used for querying available dashlet
+     * factories
      */
     private DashletSelector m_dashletSelector;
 
@@ -78,9 +82,14 @@ public class DashletSpecEditor extends Panel {
     /**
      * Constructor for the DashletSpecEditor.
      *
-     * @param wallboardEditor the {@link WallboardEditor} wallboard editor this editor belongs to
-     * @param dashletSelector the {@link DashletSelector} used to query available {@link DashletFactory} instances
-     * @param dashletSpec     the associated {@link DashletSpec} instance
+     * @param wallboardEditor
+     *            the {@link WallboardEditor} wallboard editor this editor
+     *            belongs to
+     * @param dashletSelector
+     *            the {@link DashletSelector} used to query available
+     *            {@link DashletFactory} instances
+     * @param dashletSpec
+     *            the associated {@link DashletSpec} instance
      */
     public DashletSpecEditor(WallboardEditor wallboardEditor, DashletSelector dashletSelector, DashletSpec dashletSpec) {
         /**
@@ -220,7 +229,6 @@ public class DashletSpecEditor extends Panel {
             }
         });
 
-
         /**
          * Duration field setup, layout and adding listener and validator
          */
@@ -282,7 +290,8 @@ public class DashletSpecEditor extends Panel {
         });
 
         /**
-         * Adding the required input fields and buttons to several {@link FormLayout} instances for better layout.
+         * Adding the required input fields and buttons to several
+         * {@link FormLayout} instances for better layout.
          */
         FormLayout f2 = new FormLayout();
         f2.addComponent(priorityField);
@@ -327,7 +336,8 @@ public class DashletSpecEditor extends Panel {
         removeButton.setStyleName("small");
 
         /**
-         * Adding the different {@link FormLayout} instances to a {@link GridLayout}
+         * Adding the different {@link FormLayout} instances to a
+         * {@link GridLayout}
          */
         gridLayout.addComponent(f1);
         gridLayout.addComponent(f2);
@@ -338,14 +348,17 @@ public class DashletSpecEditor extends Panel {
     }
 
     /**
-     * Method for updating the {@link NativeSelect} instance to display the available {@link DashletFactory} instances.
+     * Method for updating the {@link NativeSelect} instance to display the
+     * available {@link DashletFactory} instances.
      *
-     * @param factoryList the list of available {@link DashletFactory} instances
+     * @param factoryList
+     *            the list of available {@link DashletFactory} instances
      */
     public void updateDashletSelection(List<DashletFactory> factoryList) {
         m_savingDisabled = true;
 
-        String savedSelection = (m_dashletSelect.getValue() == null ? "Undefined" : m_dashletSelect.getValue().toString());
+        String savedSelection = (m_dashletSelect.getValue() == null ? "Undefined"
+            : m_dashletSelect.getValue().toString());
 
         if (!m_dashletSelect.removeAllItems()) {
             LoggerFactory.getLogger(DashletSpecEditor.class).warn("problem removing items");

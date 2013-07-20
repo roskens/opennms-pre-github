@@ -67,24 +67,16 @@ public class SystemsTest extends XmlTest<Systems> {
 
         systems.addSystemDef(riverbed);
 
-        return Arrays.asList(new Object[][] {
-            {
+        return Arrays.asList(new Object[][] { {
                 systems,
-                "<systems>\n" +
-                "      <systemDef name=\"Riverbed Steelhead WAN Accelerators\">\n" +
-                "        <sysoid>.1.3.6.1.4.1.17163.1.1</sysoid>\n" +
-                "        <collect>\n" +
-                "          <includeGroup>mib2-X-interfaces</includeGroup>\n" +
-                "          <includeGroup>riverbed-steelhead-scalars</includeGroup>\n" +
-                "          <includeGroup>riverbed-steelhead-cpu-stats</includeGroup>\n" +
-                "          <includeGroup>riverbed-steelhead-port-bandwidth</includeGroup>\n" +
-                "        </collect>\n" +
-                "      </systemDef>\n" +
-                "</systems>\n",
-                "target/classes/xsds/datacollection-config.xsd"
-            }
-        });
+                "<systems>\n" + "      <systemDef name=\"Riverbed Steelhead WAN Accelerators\">\n"
+                        + "        <sysoid>.1.3.6.1.4.1.17163.1.1</sysoid>\n" + "        <collect>\n"
+                        + "          <includeGroup>mib2-X-interfaces</includeGroup>\n"
+                        + "          <includeGroup>riverbed-steelhead-scalars</includeGroup>\n"
+                        + "          <includeGroup>riverbed-steelhead-cpu-stats</includeGroup>\n"
+                        + "          <includeGroup>riverbed-steelhead-port-bandwidth</includeGroup>\n"
+                        + "        </collect>\n" + "      </systemDef>\n" + "</systems>\n",
+                "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

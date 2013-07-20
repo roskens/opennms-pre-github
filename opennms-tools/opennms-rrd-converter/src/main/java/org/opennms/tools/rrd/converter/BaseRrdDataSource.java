@@ -35,7 +35,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public abstract class BaseRrdDataSource implements TimeSeriesDataSource {
-    private Map<String,Integer> m_dsNameMapping = new TreeMap<String,Integer>();
+    private Map<String, Integer> m_dsNameMapping = new TreeMap<String, Integer>();
+
     private List<String> m_dsNames = new ArrayList<String>();
 
     public BaseRrdDataSource(final List<String> dsNames) {
@@ -63,7 +64,7 @@ public abstract class BaseRrdDataSource implements TimeSeriesDataSource {
     protected int getRowNumberForTimestamp(final long timestamp) throws IOException {
         final long arcStep = getNativeStep();
         final long offset = timestamp - getStartTime();
-        final int row = (int)(offset/arcStep);
+        final int row = (int) (offset / arcStep);
         return row;
     }
 
@@ -80,16 +81,16 @@ public abstract class BaseRrdDataSource implements TimeSeriesDataSource {
     }
 
     public int getRows() throws IOException {
-        return (int)((getEndTime() - getStartTime()) / getNativeStep());
+        return (int) ((getEndTime() - getStartTime()) / getNativeStep());
     }
 
     /*
-    public abstract long getStartTime() throws IOException;
-    public abstract long getEndTime() throws IOException;
-    public abstract long getNativeStep() throws IOException;
-    public abstract long getRows() throws IOException;
-    public abstract RrdEntry getDataAt(long timestamp) throws IOException;
-    public abstract List<RrdEntry> getData(long step) throws IOException;
-    */
+     * public abstract long getStartTime() throws IOException;
+     * public abstract long getEndTime() throws IOException;
+     * public abstract long getNativeStep() throws IOException;
+     * public abstract long getRows() throws IOException;
+     * public abstract RrdEntry getDataAt(long timestamp) throws IOException;
+     * public abstract List<RrdEntry> getData(long step) throws IOException;
+     */
 
 }

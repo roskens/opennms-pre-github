@@ -38,70 +38,73 @@ import java.util.List;
  */
 public class TreeNodeImpl implements TreeNode {
 
-	/**
-	 * Stores the children of this node.
-	 */
-	private final List<TreeNode> children = new ArrayList<TreeNode>();
-	/**
-	 * Stores the parent of this node. If is null, current node is a root node.
-	 */
-	private TreeNode parent = null;
-	/**
-	 * Stores the user data of this node.
-	 */
-	private Object data;
+    /**
+     * Stores the children of this node.
+     */
+    private final List<TreeNode> children = new ArrayList<TreeNode>();
 
-	public TreeNodeImpl() {
-		this(null, null);
-	}
+    /**
+     * Stores the parent of this node. If is null, current node is a root node.
+     */
+    private TreeNode parent = null;
 
-	public TreeNodeImpl(TreeNode parent, Object data) {
-		this.parent = parent;
-		this.data = data;
-	}
+    /**
+     * Stores the user data of this node.
+     */
+    private Object data;
 
-	public TreeNodeImpl(Object data) {
-		this(null, data);
-	}
+    public TreeNodeImpl() {
+        this(null, null);
+    }
 
-	@Override
-	public boolean isRoot() {
-		return parent == null;
-	}
+    public TreeNodeImpl(TreeNode parent, Object data) {
+        this.parent = parent;
+        this.data = data;
+    }
 
-	@Override
-	public boolean hasChildren() {
-		return !children.isEmpty();
-	}
+    public TreeNodeImpl(Object data) {
+        this(null, data);
+    }
 
-	@Override
-	public void addChild(TreeNode child) {
-		if (children.contains(child)) return;
-		children.add(child);
-	}
+    @Override
+    public boolean isRoot() {
+        return parent == null;
+    }
 
-	@Override
-	public void setParent(TreeNode parent) {
-		this.parent = parent;
-	}
+    @Override
+    public boolean hasChildren() {
+        return !children.isEmpty();
+    }
 
-	@Override
-	public TreeNode getParent() {
-		return parent;
-	}
+    @Override
+    public void addChild(TreeNode child) {
+        if (children.contains(child))
+            return;
+        children.add(child);
+    }
 
-	@Override
-	public void setData(Object data) {
-		this.data = data;
-	}
+    @Override
+    public void setParent(TreeNode parent) {
+        this.parent = parent;
+    }
 
-	@Override
-	public Object getData() {
-		return this.data;
-	}
+    @Override
+    public TreeNode getParent() {
+        return parent;
+    }
 
-	@Override
-	public List<TreeNode> getChildren() {
-		return this.children;
-	}
+    @Override
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    @Override
+    public Object getData() {
+        return this.data;
+    }
+
+    @Override
+    public List<TreeNode> getChildren() {
+        return this.children;
+    }
 }

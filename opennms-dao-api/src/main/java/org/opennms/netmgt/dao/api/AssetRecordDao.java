@@ -34,7 +34,9 @@ import java.util.Map;
 import org.opennms.netmgt.model.OnmsAssetRecord;
 
 /**
- * <p>AssetRecordDao interface.</p>
+ * <p>
+ * AssetRecordDao interface.
+ * </p>
  */
 public interface AssetRecordDao extends OnmsDao<OnmsAssetRecord, Integer> {
 

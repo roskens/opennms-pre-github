@@ -60,7 +60,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>WebClient class.</p>
+ * <p>
+ * WebClient class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
@@ -68,6 +70,7 @@ import org.slf4j.LoggerFactory;
 public class WebClient implements Client<WebRequest, WebResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebClient.class);
+
     private DefaultHttpClient m_httpClient;
 
     private HttpGet m_httpMethod;
@@ -103,7 +106,7 @@ public class WebClient implements Client<WebRequest, WebResponse> {
 
     @Override
     public WebResponse sendRequest(WebRequest request) throws IOException, Exception {
-        for (Entry<String,String> entry : request.getHeaders().entrySet()) {
+        for (Entry<String, String> entry : request.getHeaders().entrySet()) {
             m_httpMethod.addHeader(entry.getKey(), entry.getValue());
         }
         try {
@@ -148,20 +151,24 @@ public class WebClient implements Client<WebRequest, WebResponse> {
 
     public void setAuth(String userName, String password) {
         LOG.debug("enabling user authentication using credentials for {}", userName);
-        m_httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(userName, password));
+        m_httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY,
+                                                             new UsernamePasswordCredentials(userName, password));
     }
 
     public void setAuthPreemtive(boolean authPreemtive) {
         /**
-         * Add an HttpRequestInterceptor that will perform preemptive authentication
-         * @see http://hc.apache.org/httpcomponents-client-4.0.1/tutorial/html/authentication.html
+         * Add an HttpRequestInterceptor that will perform preemptive
+         * authentication
+         *
+         * @see http://hc.apache.org/httpcomponents-client-4.0.1/tutorial/html/
+         *      authentication.html
          */
         HttpRequestInterceptor preemptiveAuth = new HttpRequestInterceptor() {
             @Override
             public void process(final HttpRequest request, final HttpContext context) throws IOException {
-                AuthState authState = (AuthState)context.getAttribute(ClientContext.TARGET_AUTH_STATE);
-                CredentialsProvider credsProvider = (CredentialsProvider)context.getAttribute(ClientContext.CREDS_PROVIDER);
-                HttpHost targetHost = (HttpHost)context.getAttribute(ExecutionContext.HTTP_TARGET_HOST);
+                AuthState authState = (AuthState) context.getAttribute(ClientContext.TARGET_AUTH_STATE);
+                CredentialsProvider credsProvider = (CredentialsProvider) context.getAttribute(ClientContext.CREDS_PROVIDER);
+                HttpHost targetHost = (HttpHost) context.getAttribute(ExecutionContext.HTTP_TARGET_HOST);
                 // If not authentication scheme has been initialized yet
                 if (authState.getAuthScheme() == null) {
                     AuthScope authScope = new AuthScope(targetHost.getHostName(), targetHost.getPort());

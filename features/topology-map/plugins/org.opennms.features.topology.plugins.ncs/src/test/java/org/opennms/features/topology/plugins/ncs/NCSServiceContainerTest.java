@@ -18,20 +18,26 @@ import com.vaadin.data.util.BeanItem;
 
 public class NCSServiceContainerTest {
 
-    private class TestRepository implements NCSComponentRepository{
+    private class TestRepository implements NCSComponentRepository {
 
         List<NCSComponent> m_componentList = new ArrayList<NCSComponent>();
+
         public TestRepository() {
-            m_componentList.add(createNCSComponent(1537, "MplsLSP", "ServiceElementComponent", "space_TransportActivate"));
+            m_componentList.add(createNCSComponent(1537, "MplsLSP", "ServiceElementComponent",
+                                                   "space_TransportActivate"));
             m_componentList.add(createNCSComponent(1538, "RpdLSP", "ServiceElementComponent", "space_TransportActivate"));
             m_componentList.add(createNCSComponent(1539, "", "ServiceElement", "space_TransportActivate"));
             m_componentList.add(createNCSComponent(1540, "Delhi_Bagmane", "Service", "space_TransportActivate"));
             m_componentList.add(createNCSComponent(1939, "Synce_Service", "Service", "space_Timing"));
-            m_componentList.add(createNCSComponent(2007, "VpnIf", "ServiceElementComponent", "space_ServiceProvisioning"));
-            m_componentList.add(createNCSComponent(2008, "VpnPW", "ServiceElementComponent", "space_ServiceProvisioning"));
+            m_componentList.add(createNCSComponent(2007, "VpnIf", "ServiceElementComponent",
+                                                   "space_ServiceProvisioning"));
+            m_componentList.add(createNCSComponent(2008, "VpnPW", "ServiceElementComponent",
+                                                   "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2009, "", "ServiceElement", "space_ServiceProvisioning"));
-            m_componentList.add(createNCSComponent(2010, "VpnIf", "ServiceElementComponent", "space_ServiceProvisioning"));
-            m_componentList.add(createNCSComponent(2011, "VpnPW", "ServiceElementComponent", "space_ServiceProvisioning"));
+            m_componentList.add(createNCSComponent(2010, "VpnIf", "ServiceElementComponent",
+                                                   "space_ServiceProvisioning"));
+            m_componentList.add(createNCSComponent(2011, "VpnPW", "ServiceElementComponent",
+                                                   "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2012, "", "ServiceElement", "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2013, "P2P_Single_Vlan", "Service", "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2264, "RDI", "ServiceElementComponent", "space_OAM"));
@@ -43,19 +49,23 @@ public class NCSServiceContainerTest {
             m_componentList.add(createNCSComponent(2270, "ERROR", "ServiceElementComponent", "space_OAM"));
             m_componentList.add(createNCSComponent(2271, "", "ServiceElement", "space_OAM"));
             m_componentList.add(createNCSComponent(2272, "Test_OAM", "Service", "space_OAM"));
-            m_componentList.add(createNCSComponent(2273, "VpnPW", "ServiceElementComponent", "space_ServiceProvisioning"));
+            m_componentList.add(createNCSComponent(2273, "VpnPW", "ServiceElementComponent",
+                                                   "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2274, "", "ServiceElement", "space_ServiceProvisioning"));
-            m_componentList.add(createNCSComponent(2275, "VpnPW", "ServiceElementComponent", "space_ServiceProvisioning"));
+            m_componentList.add(createNCSComponent(2275, "VpnPW", "ServiceElementComponent",
+                                                   "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2276, "", "ServiceElement", "space_ServiceProvisioning"));
-            m_componentList.add(createNCSComponent(2277, "VpnPW", "ServiceElementComponent", "space_ServiceProvisioning"));
+            m_componentList.add(createNCSComponent(2277, "VpnPW", "ServiceElementComponent",
+                                                   "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2278, "", "ServiceElement", "space_ServiceProvisioning"));
-            m_componentList.add(createNCSComponent(2279, "VpnPW", "ServiceElementComponent", "space_ServiceProvisioning"));
+            m_componentList.add(createNCSComponent(2279, "VpnPW", "ServiceElementComponent",
+                                                   "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2280, "", "ServiceElement", "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2281, "VPLS_Multi_Point", "Service", "space_ServiceProvisioning"));
 
         }
 
-        private NCSComponent createNCSComponent(long id, String name, String type , String foreignSource) {
+        private NCSComponent createNCSComponent(long id, String name, String type, String foreignSource) {
             NCSComponent component = new NCSComponent();
             component.setId(id);
             component.setName(name);
@@ -65,16 +75,20 @@ public class NCSServiceContainerTest {
         }
 
         @Override
-        public void lock() {}
+        public void lock() {
+        }
 
         @Override
-        public void initialize(Object obj) {}
+        public void initialize(Object obj) {
+        }
 
         @Override
-        public void flush() {}
+        public void flush() {
+        }
 
         @Override
-        public void clear() {}
+        public void clear() {
+        }
 
         @Override
         public int countAll() {
@@ -82,7 +96,8 @@ public class NCSServiceContainerTest {
         }
 
         @Override
-        public void delete(NCSComponent component) {}
+        public void delete(NCSComponent component) {
+        }
 
         @Override
         public List<NCSComponent> findAll() {
@@ -90,10 +105,14 @@ public class NCSServiceContainerTest {
         }
 
         @Override
-        public List<NCSComponent> findMatching(OnmsCriteria criteria) { return null; }
+        public List<NCSComponent> findMatching(OnmsCriteria criteria) {
+            return null;
+        }
 
         @Override
-        public int countMatching(OnmsCriteria onmsCrit) { return 0; }
+        public int countMatching(OnmsCriteria onmsCrit) {
+            return 0;
+        }
 
         @Override
         public NCSComponent get(Long id) {
@@ -107,19 +126,22 @@ public class NCSServiceContainerTest {
         }
 
         @Override
-        public void save(NCSComponent component) {}
+        public void save(NCSComponent component) {
+        }
 
         @Override
-        public void saveOrUpdate(NCSComponent component) {}
+        public void saveOrUpdate(NCSComponent component) {
+        }
 
         @Override
-        public void update(NCSComponent component) {}
+        public void update(NCSComponent component) {
+        }
 
         @Override
         public List<NCSComponent> findByType(String type) {
             List<NCSComponent> retVal = new ArrayList<NCSComponent>();
-            for(NCSComponent component : m_componentList) {
-                if(component.getType().equals(type)) {
+            for (NCSComponent component : m_componentList) {
+                if (component.getType().equals(type)) {
                     retVal.add(component);
                 }
             }
@@ -133,7 +155,7 @@ public class NCSServiceContainerTest {
         }
 
         @Override
-        public List<NCSComponent> findComponentsThatDependOn( NCSComponent component) {
+        public List<NCSComponent> findComponentsThatDependOn(NCSComponent component) {
             // TODO Auto-generated method stub
             return null;
         }
@@ -171,7 +193,7 @@ public class NCSServiceContainerTest {
         Long parentId = rootItemIds.iterator().next();
         System.out.println(parentId);
         Collection<Long> children = m_container.getChildren(parentId);
-        for(Long id : children) {
+        for (Long id : children) {
             assertFalse(parentId == id);
         }
         System.out.println(children);
@@ -181,10 +203,10 @@ public class NCSServiceContainerTest {
     public void testAreChildrenAllowed() {
         Collection<Long> allItemIds = m_container.getItemIds();
 
-        for(Long itemId : allItemIds) {
+        for (Long itemId : allItemIds) {
             BeanItem<NCSServiceItem> item = m_container.getItem(itemId);
             boolean isRoot = (Boolean) item.getItemProperty("isRoot").getValue();
-            if(isRoot) {
+            if (isRoot) {
                 assertTrue(m_container.areChildrenAllowed(itemId));
             } else {
                 assertFalse(m_container.areChildrenAllowed(itemId));

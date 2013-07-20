@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.model.events;
 
-
 import org.opennms.netmgt.model.AbstractEntityVisitor;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsMonitoredService;
@@ -36,32 +35,41 @@ import org.opennms.netmgt.model.OnmsNode;
 
 public class DeleteEventVisitor extends AbstractEntityVisitor {
     private final EventForwarder m_eventForwarder;
+
     private static final String m_eventSource = "Provisiond";
 
-	/**
-	 * <p>Constructor for DeleteEventVisitor.</p>
-	 *
-	 * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
-	 */
-	public DeleteEventVisitor(EventForwarder eventForwarder) {
-	    m_eventForwarder = eventForwarder;
-	}
+    /**
+     * <p>
+     * Constructor for DeleteEventVisitor.
+     * </p>
+     *
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
+     */
+    public DeleteEventVisitor(EventForwarder eventForwarder) {
+        m_eventForwarder = eventForwarder;
+    }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void visitMonitoredServiceComplete(OnmsMonitoredService monSvc) {
-	    m_eventForwarder.sendNow(EventUtils.createServiceDeletedEvent(m_eventSource, monSvc.getNodeId(), monSvc.getIpAddress(), monSvc.getServiceType().getName()));
-	}
+    public void visitMonitoredServiceComplete(OnmsMonitoredService monSvc) {
+        m_eventForwarder.sendNow(EventUtils.createServiceDeletedEvent(m_eventSource, monSvc.getNodeId(),
+                                                                      monSvc.getIpAddress(),
+                                                                      monSvc.getServiceType().getName()));
+    }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void visitIpInterfaceComplete(OnmsIpInterface iface) {
-	    m_eventForwarder.sendNow(EventUtils.createInterfaceDeletedEvent(m_eventSource, iface.getNode().getId(), iface.getIpAddress()));
-	}
+    public void visitIpInterfaceComplete(OnmsIpInterface iface) {
+        m_eventForwarder.sendNow(EventUtils.createInterfaceDeletedEvent(m_eventSource, iface.getNode().getId(),
+                                                                        iface.getIpAddress()));
+    }
 
-	/** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-	public void visitNodeComplete(OnmsNode node) {
-	    m_eventForwarder.sendNow(EventUtils.createNodeDeletedEvent(m_eventSource, node.getId(), node.getLabel(), node.getLabel()));
-	}
+    public void visitNodeComplete(OnmsNode node) {
+        m_eventForwarder.sendNow(EventUtils.createNodeDeletedEvent(m_eventSource, node.getId(), node.getLabel(),
+                                                                   node.getLabel()));
+    }
 }

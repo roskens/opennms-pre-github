@@ -76,7 +76,6 @@ public class MibObject implements Collectable {
     /**
      * Object's instance to be retrieved. Indicates a value to be appended to
      * the objects' oid string prior to issuing an SNMP GET request.
-     *
      * decimal value: instance of object to retrieve (value is appended to the
      * objects oid string) keyword value: currently supported keywords are
      * "ifIndex" and "ifAddress".
@@ -90,7 +89,7 @@ public class MibObject implements Collectable {
 
     private String m_groupIfType;
 
-	private ResourceType m_resourceType;
+    private ResourceType m_resourceType;
 
     /**
      * Reserved instance keywords.
@@ -122,7 +121,8 @@ public class MibObject implements Collectable {
     /**
      * This method is used to assign the object's identifier.
      *
-     * @param oid -
+     * @param oid
+     *            -
      *            object identifier in dotted decimal notation (e.g.,
      *            ".1.3.6.1.2.1.1.1")
      */
@@ -134,7 +134,8 @@ public class MibObject implements Collectable {
     /**
      * This method is used to assign the object's alias.
      *
-     * @param alias -
+     * @param alias
+     *            -
      *            object alias (e.g., "sysDescription")
      */
     public void setAlias(String alias) {
@@ -144,7 +145,8 @@ public class MibObject implements Collectable {
     /**
      * This method is used to assign the object's expected data type.
      *
-     * @param type -
+     * @param type
+     *            -
      *            object's data type
      */
     public void setType(String type) {
@@ -184,16 +186,20 @@ public class MibObject implements Collectable {
      * @see #INSTANCE_IFADDRESS
      * @see #INSTANCE_IFINDEX
      * @see #INSTANCE_IFADDRESS
-     * @param instance a {@link java.lang.String} object.
+     * @param instance
+     *            a {@link java.lang.String} object.
      */
     public void setInstance(String instance) {
         m_instance = instance;
     }
 
     /**
-     * <p>setGroupName</p>
+     * <p>
+     * setGroupName
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
      */
     public void setGroupName(String groupName) {
         m_groupName = groupName;
@@ -256,7 +262,9 @@ public class MibObject implements Collectable {
     }
 
     /**
-     * <p>getGroupName</p>
+     * <p>
+     * getGroupName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -265,9 +273,8 @@ public class MibObject implements Collectable {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is responsible for comparing this MibObject with the passed
+     * {@inheritDoc} This method is responsible for comparing this MibObject
+     * with the passed
      * Object to determine if they are equivalent. The objects are equivalent if
      * the argument is a MibObject object with the same object identifier,
      * instance, alias and type.
@@ -291,8 +298,10 @@ public class MibObject implements Collectable {
                 // 'alias' and 'type', values are optional so we need to check
                 // for null
                 //
-                if ((m_alias == null && aMibObject.getInstance() == null) || (m_alias != null && aMibObject != null && m_alias.equals(aMibObject.getAlias()))) {
-                    if ((m_type == null && aMibObject.getType() == null) || (m_type != null && aMibObject != null && m_type.equals(aMibObject.getType()))) {
+                if ((m_alias == null && aMibObject.getInstance() == null)
+                        || (m_alias != null && aMibObject != null && m_alias.equals(aMibObject.getAlias()))) {
+                    if ((m_type == null && aMibObject.getType() == null)
+                            || (m_type != null && aMibObject != null && m_type.equals(aMibObject.getType()))) {
                         return true;
                     }
                 }
@@ -303,10 +312,10 @@ public class MibObject implements Collectable {
 
     }
 
-
-
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
@@ -336,7 +345,9 @@ public class MibObject implements Collectable {
     }
 
     /**
-     * <p>getCollectionTracker</p>
+     * <p>
+     * getCollectionTracker
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.CollectionTracker} object.
      */
@@ -351,9 +362,12 @@ public class MibObject implements Collectable {
     }
 
     /**
-     * <p>getCollectionTracker</p>
+     * <p>
+     * getCollectionTracker
+     * </p>
      *
-     * @param instances a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
+     * @param instances
+     *            a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
      * @return a {@link org.opennms.netmgt.snmp.CollectionTracker} object.
      */
     public CollectionTracker getCollectionTracker(SnmpInstId... instances) {
@@ -366,10 +380,14 @@ public class MibObject implements Collectable {
     }
 
     /**
-     * <p>getCollectionTrackers</p>
+     * <p>
+     * getCollectionTrackers
+     * </p>
      *
-     * @param objList a {@link java.util.List} object.
-     * @return an array of {@link org.opennms.netmgt.snmp.CollectionTracker} objects.
+     * @param objList
+     *            a {@link java.util.List} object.
+     * @return an array of {@link org.opennms.netmgt.snmp.CollectionTracker}
+     *         objects.
      */
     public static CollectionTracker[] getCollectionTrackers(List<MibObject> objList) {
         CollectionTracker[] trackers = new CollectionTracker[objList.size()];
@@ -382,11 +400,16 @@ public class MibObject implements Collectable {
     }
 
     /**
-     * <p>getCollectionTrackers</p>
+     * <p>
+     * getCollectionTrackers
+     * </p>
      *
-     * @param objList a {@link java.util.List} object.
-     * @param instances a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
-     * @return an array of {@link org.opennms.netmgt.snmp.CollectionTracker} objects.
+     * @param objList
+     *            a {@link java.util.List} object.
+     * @param instances
+     *            a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
+     * @return an array of {@link org.opennms.netmgt.snmp.CollectionTracker}
+     *         objects.
      */
     public static CollectionTracker[] getCollectionTrackers(List<MibObject> objList, SnmpInstId... instances) {
         CollectionTracker[] trackers = new CollectionTracker[objList.size()];
@@ -399,7 +422,9 @@ public class MibObject implements Collectable {
     }
 
     /**
-     * <p>getSnmpObjId</p>
+     * <p>
+     * getSnmpObjId
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
      */
@@ -414,16 +439,21 @@ public class MibObject implements Collectable {
     }
 
     /**
-     * <p>setGroupIfType</p>
+     * <p>
+     * setGroupIfType
+     * </p>
      *
-     * @param groupIfType a {@link java.lang.String} object.
+     * @param groupIfType
+     *            a {@link java.lang.String} object.
      */
     public void setGroupIfType(String groupIfType) {
         m_groupIfType = groupIfType;
     }
 
     /**
-     * <p>getGroupIfType</p>
+     * <p>
+     * getGroupIfType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -431,23 +461,30 @@ public class MibObject implements Collectable {
         return m_groupIfType;
     }
 
-	/**
-	 * <p>setResourceType</p>
-	 *
-	 * @param resourceType a {@link org.opennms.netmgt.config.datacollection.ResourceType} object.
-	 */
-	public void setResourceType(ResourceType resourceType) {
-		m_resourceType = resourceType;
-	}
+    /**
+     * <p>
+     * setResourceType
+     * </p>
+     *
+     * @param resourceType
+     *            a
+     *            {@link org.opennms.netmgt.config.datacollection.ResourceType}
+     *            object.
+     */
+    public void setResourceType(ResourceType resourceType) {
+        m_resourceType = resourceType;
+    }
 
-	/**
-	 * <p>getResourceType</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.config.datacollection.ResourceType} object.
-	 */
-	public ResourceType getResourceType() {
-		return m_resourceType;
-	}
-
+    /**
+     * <p>
+     * getResourceType
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.config.datacollection.ResourceType}
+     *         object.
+     */
+    public ResourceType getResourceType() {
+        return m_resourceType;
+    }
 
 }

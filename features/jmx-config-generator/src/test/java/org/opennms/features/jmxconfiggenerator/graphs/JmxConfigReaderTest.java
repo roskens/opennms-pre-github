@@ -42,6 +42,7 @@ import org.junit.*;
 public class JmxConfigReaderTest {
 
     private JmxConfigReader jmxConfigReader;
+
     private GraphConfigGenerator graphConfigGenerator;
 
     public JmxConfigReaderTest() {
@@ -77,7 +78,7 @@ public class JmxConfigReaderTest {
         Assert.assertEquals("read structure from jmx-datacollection-config.xml", 139, reports.size());
     }
 
-    //TODO move to GraphConfigGenerator
+    // TODO move to GraphConfigGenerator
     @Test
     public void testVelociteyRun() {
         Collection<Report> reports = jmxConfigReader.generateReportsByJmxDatacollectionConfig("src/test/resources/JVM-Basics.xml");

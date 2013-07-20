@@ -44,7 +44,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>CollectorThresholdingSet class.</p>
+ * <p>
+ * CollectorThresholdingSet class.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @version $Id: $
@@ -54,17 +56,25 @@ public class CollectorThresholdingSet extends ThresholdingSet {
 
     // CollectionSpecification parameters
     boolean storeByIfAlias = false;
+
     boolean storeByForeignSource = false;
 
     /**
-     * <p>Constructor for CollectorThresholdingSet.</p>
+     * <p>
+     * Constructor for CollectorThresholdingSet.
+     * </p>
      *
-     * @param nodeId a int.
-     * @param hostAddress a {@link java.lang.String} object.
-     * @param serviceName a {@link java.lang.String} object.
-     * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param nodeId
+     *            a int.
+     * @param hostAddress
+     *            a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param repository
+     *            a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
-    public CollectorThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository, Map<String, Object> roProps) {
+    public CollectorThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository,
+            Map<String, Object> roProps) {
         super(nodeId, hostAddress, serviceName, repository);
         String storeByIfAliasString = ParameterMap.getKeyedString(roProps, "storeByIfAlias", null);
         storeByIfAlias = storeByIfAliasString != null && storeByIfAliasString.toLowerCase().equals("true");
@@ -73,16 +83,22 @@ public class CollectorThresholdingSet extends ThresholdingSet {
     }
 
     public static boolean isStoreByForeignSource() {
-       return Boolean.getBoolean("org.opennms.rrd.storeByForeignSource");
+        return Boolean.getBoolean("org.opennms.rrd.storeByForeignSource");
     }
 
     /*
-     * Returns true if the specified attribute is involved in any of defined thresholds for node/address/service
+     * Returns true if the specified attribute is involved in any of defined
+     * thresholds for node/address/service
      */
     /**
-     * <p>hasThresholds</p>
+     * <p>
+     * hasThresholds
+     * </p>
      *
-     * @param attribute a {@link org.opennms.netmgt.config.collector.CollectionAttribute} object.
+     * @param attribute
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionAttribute}
+     *            object.
      * @return a boolean.
      */
     public boolean hasThresholds(CollectionAttribute attribute) {
@@ -95,18 +111,22 @@ public class CollectorThresholdingSet extends ThresholdingSet {
     }
 
     /*
-     * Apply thresholds definitions for specified resource using attribuesMap as current values.
-     * Return a list of events to be send if some thresholds must be triggered or be rearmed.
+     * Apply thresholds definitions for specified resource using attribuesMap as
+     * current values.
+     * Return a list of events to be send if some thresholds must be triggered
+     * or be rearmed.
      */
     /** {@inheritDoc} */
-    public List<Event> applyThresholds(CollectionResource resource, Map<String, CollectionAttribute> attributesMap, Date collectionTimestamp) {
+    public List<Event> applyThresholds(CollectionResource resource, Map<String, CollectionAttribute> attributesMap,
+            Date collectionTimestamp) {
         if (!isCollectionEnabled(resource)) {
-            LOG.debug("applyThresholds: Ignoring resource {} because data collection is disabled for this resource.", resource);
+            LOG.debug("applyThresholds: Ignoring resource {} because data collection is disabled for this resource.",
+                      resource);
             return new LinkedList<Event>();
         }
-		CollectionResourceWrapper resourceWrapper = new CollectionResourceWrapper(
-				collectionTimestamp, m_nodeId, m_hostAddress, m_serviceName,
-				m_repository, resource, attributesMap);
+        CollectionResourceWrapper resourceWrapper = new CollectionResourceWrapper(collectionTimestamp, m_nodeId,
+                                                                                  m_hostAddress, m_serviceName,
+                                                                                  m_repository, resource, attributesMap);
         return applyThresholds(resourceWrapper, attributesMap);
     }
 
@@ -117,7 +137,8 @@ public class CollectorThresholdingSet extends ThresholdingSet {
     @Override
     protected boolean passedThresholdFilters(CollectionResourceWrapper resource, ThresholdEntity thresholdEntity) {
         if (resource.isAnInterfaceResource() && !resource.isValidInterfaceResource()) {
-            LOG.info("passedThresholdFilters: Could not get data interface information for '{}' or this interface has an invalid ifIndex.  Not evaluating threshold.", resource.getIfLabel());
+            LOG.info("passedThresholdFilters: Could not get data interface information for '{}' or this interface has an invalid ifIndex.  Not evaluating threshold.",
+                     resource.getIfLabel());
             return false;
         }
         return super.passedThresholdFilters(resource, thresholdEntity);

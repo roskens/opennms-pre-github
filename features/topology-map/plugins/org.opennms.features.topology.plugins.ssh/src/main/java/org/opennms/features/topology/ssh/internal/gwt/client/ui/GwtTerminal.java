@@ -40,67 +40,74 @@ import com.google.gwt.user.client.ui.FocusPanel;
 
 /**
  * The GwtTerminal class is a widget which emulates a VT100 terminal
+ *
  * @author Leonardo Bell
  * @author Philip Grenon
  */
 public class GwtTerminal extends Composite implements HasAllKeyHandlers {
 
-	private Element div; //Outer container for the Terminal <span>'s
-	private FocusPanel fPanel; //A container that provides KeyHandling functionality
+    private Element div; // Outer container for the Terminal <span>'s
 
-	/**
-	 * The GwtTerminal() constructor sets up the layout of the widget and assigns
-	 * CSS styles for HTML elements
-	 */
-	public GwtTerminal() {
-		fPanel = new FocusPanel();
-		fPanel.getElement().setClassName("focusPanel");
-		fPanel.getElement().setId("termFocusPanel");
-		div = DOM.createDiv();
-		div.setClassName("term");
-		DOM.appendChild(fPanel.getElement(), div);
-		initWidget(fPanel);
-	}
+    private FocusPanel fPanel; // A container that provides KeyHandling
+                               // functionality
 
-	/**
-	 * The addKeyUpHandler method allows other classes to assign KeyUpHandlers
-	 * to the FocusPanel within this widget
-	 */
-        @Override
-	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
-		return fPanel.addKeyUpHandler(handler);
-	}
+    /**
+     * The GwtTerminal() constructor sets up the layout of the widget and
+     * assigns
+     * CSS styles for HTML elements
+     */
+    public GwtTerminal() {
+        fPanel = new FocusPanel();
+        fPanel.getElement().setClassName("focusPanel");
+        fPanel.getElement().setId("termFocusPanel");
+        div = DOM.createDiv();
+        div.setClassName("term");
+        DOM.appendChild(fPanel.getElement(), div);
+        initWidget(fPanel);
+    }
 
-	/**
-	 * The addKeyDownHandler method allows other classes to assign KeyDownHandlers
-	 * to the FocusPanel within this widget
-	 */
-        @Override
-	public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
-		return fPanel.addKeyDownHandler(handler);
-	}
+    /**
+     * The addKeyUpHandler method allows other classes to assign KeyUpHandlers
+     * to the FocusPanel within this widget
+     */
+    @Override
+    public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+        return fPanel.addKeyUpHandler(handler);
+    }
 
-	/**
-	 * The addKeyPressHandler method allows other classes to assign KeyPressHandlers
-	 * to the FocusPanel within this widget
-	 */
-        @Override
-	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
-		return fPanel.addKeyPressHandler(handler);
-	}
+    /**
+     * The addKeyDownHandler method allows other classes to assign
+     * KeyDownHandlers
+     * to the FocusPanel within this widget
+     */
+    @Override
+    public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+        return fPanel.addKeyDownHandler(handler);
+    }
 
-	/**
-	 * The dump method sets the inner HTML of the main Div element.
-	 * This method is called whenever the server sends the client the current
-	 * representation of the Terminal
-	 * @param receivedBytes
-	 */
+    /**
+     * The addKeyPressHandler method allows other classes to assign
+     * KeyPressHandlers
+     * to the FocusPanel within this widget
+     */
+    @Override
+    public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+        return fPanel.addKeyPressHandler(handler);
+    }
+
+    /**
+     * The dump method sets the inner HTML of the main Div element.
+     * This method is called whenever the server sends the client the current
+     * representation of the Terminal
+     *
+     * @param receivedBytes
+     */
     public void dump(String receivedBytes) {
-    	div.setInnerHTML(receivedBytes);
+        div.setInnerHTML(receivedBytes);
     }
 
     public void focus() {
-    	fPanel.getElement().focus();
+        fPanel.getElement().focus();
     }
 
 }

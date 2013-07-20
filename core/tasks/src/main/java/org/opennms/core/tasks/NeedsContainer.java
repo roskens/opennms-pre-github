@@ -36,9 +36,12 @@ package org.opennms.core.tasks;
  */
 public interface NeedsContainer {
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      *
-     * @param container a {@link org.opennms.core.tasks.ContainerTask} object.
+     * @param container
+     *            a {@link org.opennms.core.tasks.ContainerTask} object.
      */
     public void run(ContainerTask<?> container);
 }

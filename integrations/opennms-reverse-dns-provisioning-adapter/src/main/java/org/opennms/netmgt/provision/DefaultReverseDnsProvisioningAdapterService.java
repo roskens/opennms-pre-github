@@ -11,50 +11,67 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.Assert;
 
-public class DefaultReverseDnsProvisioningAdapterService implements
-        ReverseDnsProvisioningAdapterService {
+public class DefaultReverseDnsProvisioningAdapterService implements ReverseDnsProvisioningAdapterService {
 
     private NodeDao m_nodeDao;
+
     private IpInterfaceDao m_ipInterfaceDao;
+
     private TransactionTemplate m_template;
 
     /**
-     * <p>setTemplate</p>
+     * <p>
+     * setTemplate
+     * </p>
      *
-     * @param template a {@link org.springframework.transaction.support.TransactionTemplate} object.
+     * @param template
+     *            a
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
      */
     public void setTemplate(TransactionTemplate template) {
         m_template = template;
     }
 
     /**
-     * <p>getTemplate</p>
+     * <p>
+     * getTemplate
+     * </p>
      *
-     * @return a {@link org.springframework.transaction.support.TransactionTemplate} object.
+     * @return a
+     *         {@link org.springframework.transaction.support.TransactionTemplate}
+     *         object.
      */
     public TransactionTemplate getTemplate() {
         return m_template;
     }
 
-
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
+
     public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
+
     /**
-     * <p>getNodeDao</p>
+     * <p>
+     * getNodeDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
+
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param dao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param dao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public void setNodeDao(NodeDao dao) {
         m_nodeDao = dao;

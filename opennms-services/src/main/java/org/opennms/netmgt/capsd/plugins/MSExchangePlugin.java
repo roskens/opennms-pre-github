@@ -152,9 +152,11 @@ public final class MSExchangePlugin extends AbstractPlugin {
                 // ignore this
                 LOG.debug("MSExchangePlugin: did not connect to host within timeout: {} attempt: {}", attempts, timeout);
             } catch (IOException e) {
-                LOG.info("isServer: Unexpected I/O exception occured with host {} on port {}", InetAddressUtils.str(host), port, e);
+                LOG.info("isServer: Unexpected I/O exception occured with host {} on port {}",
+                         InetAddressUtils.str(host), port, e);
             } catch (Throwable t) {
-                LOG.error("isServer: Undeclared throwable caught communicating with host {} on port {}", InetAddressUtils.str(host), port, t);
+                LOG.error("isServer: Undeclared throwable caught communicating with host {} on port {}",
+                          InetAddressUtils.str(host), port, t);
             } finally {
                 try {
                     if (socket != null) {
@@ -184,7 +186,6 @@ public final class MSExchangePlugin extends AbstractPlugin {
      *            The remote ports to test. Port value of -1 indicates that all
      *            ports should be tested, otherwise only the specified
      *            port/protocol will be tested..
-     *
      * @return The array of supported protocols by the exchange server The
      *         values are in the order POP3, IMAP, MAPI in the returned array.
      */
@@ -192,7 +193,7 @@ public final class MSExchangePlugin extends AbstractPlugin {
         boolean isExPop3 = false;
         boolean isExImap = false;
         boolean isExMapi = false; // NOTE: MAPI protocol check currently
-                                    // disabled...see NOTE
+                                  // disabled...see NOTE
         // below...
 
         if (ports[POP3_INDEX] > 0)
@@ -228,22 +229,21 @@ public final class MSExchangePlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
     public boolean isProtocolSupported(InetAddress address) {
-        boolean[] result = isServer(address, new int[] { DEFAULT_POP3_PORT, DEFAULT_IMAP_PORT, DEFAULT_MAPI_PORT }, DEFAULT_RETRY, DEFAULT_TIMEOUT);
+        boolean[] result = isServer(address, new int[] { DEFAULT_POP3_PORT, DEFAULT_IMAP_PORT, DEFAULT_MAPI_PORT },
+                                    DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
         return (result[0] || result[1] || result[2]);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to

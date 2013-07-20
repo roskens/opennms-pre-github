@@ -35,82 +35,65 @@ import java.util.HashSet;
 import org.junit.Test;
 
 /**
- *
  * <p>
  * WebSecurityUtilsTest class.
  * </p>
  *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *
  */
 public class WebSecurityUtilsTest {
 
-	@Test
-	public void testBasicSanitizeString() {
-		String script = "<script>foo</script>";
-		String html = "<table>";
-		script = WebSecurityUtils.sanitizeString(script);
-		html = WebSecurityUtils.sanitizeString(html);
-		assertTrue("Script is sanitized",
-				script.equals("&lt;&#x73;cript&gt;foo&lt;/&#x73;cript&gt;"));
-		assertTrue("Html is sanitized", html.equals("&lt;table&gt;"));
-	}
+    @Test
+    public void testBasicSanitizeString() {
+        String script = "<script>foo</script>";
+        String html = "<table>";
+        script = WebSecurityUtils.sanitizeString(script);
+        html = WebSecurityUtils.sanitizeString(html);
+        assertTrue("Script is sanitized", script.equals("&lt;&#x73;cript&gt;foo&lt;/&#x73;cript&gt;"));
+        assertTrue("Html is sanitized", html.equals("&lt;table&gt;"));
+    }
 
-	@Test
-	public void testHTMLallowedSanitizeString() {
-		String script = "<script>foo</script>";
-		String html = "<table>";
-		script = WebSecurityUtils.sanitizeString(script, true);
-		html = WebSecurityUtils.sanitizeString(html, true);
-		assertTrue("Script is sanitized with HTML allowed",
-				script.equals("<&#x73;cript>foo</&#x73;cript>"));
-		assertTrue("HtmlTable is sanitized with HTML allowed, so unchanged",
-				html.equals("<table>"));
-	}
+    @Test
+    public void testHTMLallowedSanitizeString() {
+        String script = "<script>foo</script>";
+        String html = "<table>";
+        script = WebSecurityUtils.sanitizeString(script, true);
+        html = WebSecurityUtils.sanitizeString(html, true);
+        assertTrue("Script is sanitized with HTML allowed", script.equals("<&#x73;cript>foo</&#x73;cript>"));
+        assertTrue("HtmlTable is sanitized with HTML allowed, so unchanged", html.equals("<table>"));
+    }
 
-	@Test
-	public void testBasicBeanSanitizer() {
-		CommandBeanMockup bean = new CommandBeanMockup();
-		bean = (CommandBeanMockup) WebSecurityUtils
-				.sanitizeBeanStringProperties(bean, null);
+    @Test
+    public void testBasicBeanSanitizer() {
+        CommandBeanMockup bean = new CommandBeanMockup();
+        bean = (CommandBeanMockup) WebSecurityUtils.sanitizeBeanStringProperties(bean, null);
 
-		assertTrue("Script property is sanitized",
-				WebSecurityUtils.sanitizeString("<script>foo</script>", false)
-						.equals(bean.getScript()));
-		assertTrue("Script property is not sanitized with Html allowed",
-				!WebSecurityUtils.sanitizeString("<script>foo</script>", true)
-						.equals(bean.getScript()));
+        assertTrue("Script property is sanitized",
+                   WebSecurityUtils.sanitizeString("<script>foo</script>", false).equals(bean.getScript()));
+        assertTrue("Script property is not sanitized with Html allowed",
+                   !WebSecurityUtils.sanitizeString("<script>foo</script>", true).equals(bean.getScript()));
 
-		assertTrue("HtmlTable is sanitized and html removed", WebSecurityUtils
-				.sanitizeString("<table>", false).equals(bean.getHtmlTable()));
-		assertTrue(
-				"Not, HtmlTable is sanitized with Html allowed",
-				!WebSecurityUtils.sanitizeString("<table>", true).equals(
-						bean.getHtmlTable()));
-	}
+        assertTrue("HtmlTable is sanitized and html removed",
+                   WebSecurityUtils.sanitizeString("<table>", false).equals(bean.getHtmlTable()));
+        assertTrue("Not, HtmlTable is sanitized with Html allowed",
+                   !WebSecurityUtils.sanitizeString("<table>", true).equals(bean.getHtmlTable()));
+    }
 
-	@Test
-	public void testBeanSanitizerWithHtmlAllowList() {
-		CommandBeanMockup bean = new CommandBeanMockup();
-		HashSet<String> set = new HashSet<String>();
-		set.add("htmltable");
-		bean = (CommandBeanMockup) WebSecurityUtils
-				.sanitizeBeanStringProperties(bean, set);
+    @Test
+    public void testBeanSanitizerWithHtmlAllowList() {
+        CommandBeanMockup bean = new CommandBeanMockup();
+        HashSet<String> set = new HashSet<String>();
+        set.add("htmltable");
+        bean = (CommandBeanMockup) WebSecurityUtils.sanitizeBeanStringProperties(bean, set);
 
-		assertTrue("Script property is sanitized no Html allowed",
-				WebSecurityUtils.sanitizeString("<script>foo</script>", false)
-						.equals(bean.getScript()));
-		assertTrue("Not, Script property is sanitized with Html allowed",
-				!WebSecurityUtils.sanitizeString("<script>foo</script>", true)
-						.equals(bean.getScript()));
+        assertTrue("Script property is sanitized no Html allowed",
+                   WebSecurityUtils.sanitizeString("<script>foo</script>", false).equals(bean.getScript()));
+        assertTrue("Not, Script property is sanitized with Html allowed",
+                   !WebSecurityUtils.sanitizeString("<script>foo</script>", true).equals(bean.getScript()));
 
-		assertTrue(
-				"HtmlTable is sanitzied with Html allowed so, no changes",
-				WebSecurityUtils.sanitizeString("<table>", true).equals(
-						bean.getHtmlTable()));
-		assertTrue(
-				"Not, HtmlTable is sanitized and html removed",
-				!WebSecurityUtils.sanitizeString("<table>", false).equals(
-						bean.getHtmlTable()));
-	}
+        assertTrue("HtmlTable is sanitzied with Html allowed so, no changes",
+                   WebSecurityUtils.sanitizeString("<table>", true).equals(bean.getHtmlTable()));
+        assertTrue("Not, HtmlTable is sanitized and html removed",
+                   !WebSecurityUtils.sanitizeString("<table>", false).equals(bean.getHtmlTable()));
+    }
 }

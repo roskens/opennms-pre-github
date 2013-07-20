@@ -46,28 +46,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * <p>
  * Once loaded or create, the class tracks any changes and will write those
- * changes to the database whenever the <code>store</code> method is invoked.
- * If a database conneciton is not passed to the store method, then a temporary
- * one is allocated to write the results.
+ * changes to the database whenever the <code>store</code> method is invoked. If
+ * a database conneciton is not passed to the store method, then a temporary one
+ * is allocated to write the results.
  * </p>
- *
  * <p>
  * NOTE: if the connection is passed in and is not in auto commit mode, then the
  * caller must call <code>commit</code> to inform the database that the
  * transaction is complete.
  *
- * @deprecated Objects like this that control their own data access are deprecated in favor
- * of the JAXB beans (opennms-model) and DAO objects (opennms-dao).
- *
+ * @deprecated Objects like this that control their own data access are
+ *             deprecated in favor
+ *             of the JAXB beans (opennms-model) and DAO objects (opennms-dao).
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class DbIfServiceEntry {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DbIfServiceEntry.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DbIfServiceEntry.class);
 
     /** Constant <code>STATUS_UNMANAGED='U'</code> */
     public final static char STATUS_UNMANAGED = 'U';
@@ -192,11 +190,11 @@ public final class DbIfServiceEntry {
     private static final int CHANGED_QUALIFIER = 1 << 6;
 
     /**
-     * Inserts the new interface into the ipInterface table of the OpenNMS database.
+     * Inserts the new interface into the ipInterface table of the OpenNMS
+     * database.
      *
      * @param c
      *            The connection to the database.
-     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -246,7 +244,7 @@ public final class DbIfServiceEntry {
 
         names.append(") VALUES (").append(values).append(')');
 
-            LOG.debug("DbIfServiceEntry.insert: SQL insert statment = {}", names.toString());
+        LOG.debug("DbIfServiceEntry.insert: SQL insert statment = {}", names.toString());
 
         // create the Prepared statement and then
         // start setting the result values
@@ -259,7 +257,7 @@ public final class DbIfServiceEntry {
             // Delete any conflicting services marked as deleted
             // before inserting this one
             String delCmd = "DELETE FROM ifServices WHERE status = 'D' "
-                + "AND nodeid = ? AND ipAddr = ? AND serviceID = ?";
+                    + "AND nodeid = ? AND ipAddr = ? AND serviceID = ?";
 
             delStmt = c.prepareStatement(delCmd);
             d.watch(delStmt);
@@ -309,11 +307,14 @@ public final class DbIfServiceEntry {
                 if (noRollback) {
                     throw e;
                 } else {
-                    LOG.warn("ifServices DB insert got exception; will retry after deletion of any existing records for this ifService that are marked for deletion.", e);
+                    LOG.warn("ifServices DB insert got exception; will retry after deletion of any existing records for this ifService that are marked for deletion.",
+                             e);
 
                     /*
-                     * Maybe there's already an entry for this (service, node, IP address)
-                     * in the table, but it's marked for deletion. Delete it and try
+                     * Maybe there's already an entry for this (service, node,
+                     * IP address)
+                     * in the table, but it's marked for deletion. Delete it and
+                     * try
                      * the insertion again.
                      */
                     c.rollback();
@@ -344,7 +345,6 @@ public final class DbIfServiceEntry {
      *
      * @param c
      *            The connection used for the update.
-     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -471,7 +471,6 @@ public final class DbIfServiceEntry {
      *
      * @param c
      *            The connection used to load the data.
-     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -558,7 +557,6 @@ public final class DbIfServiceEntry {
 
     /**
      * Default constructor.
-     *
      */
     private DbIfServiceEntry() {
         throw new UnsupportedOperationException("Default constructor not supported!");
@@ -575,7 +573,6 @@ public final class DbIfServiceEntry {
      *            The service identifier
      * @param exists
      *            True if the interface already exists.
-     *
      */
     private DbIfServiceEntry(long nid, InetAddress address, int sid, boolean exists) {
         m_fromDb = exists;
@@ -596,7 +593,6 @@ public final class DbIfServiceEntry {
      * Returns the node entry's unique identifier. This is a non-mutable
      * element. If the record does not yet exist in the database then a -1 is
      * returned.
-     *
      */
     public long getNodeId() {
         return m_nodeId;
@@ -605,7 +601,6 @@ public final class DbIfServiceEntry {
     /**
      * Returns the name of the distributed poller for the entry. This is a
      * non-mutable element of the record.
-     *
      */
     public InetAddress getIfAddress() {
         return m_ipAddr;
@@ -641,7 +636,6 @@ public final class DbIfServiceEntry {
      *
      * @param time
      *            The poll time.
-     *
      */
     public void setLastGood(String time) throws ParseException {
         if (time == null) {
@@ -658,7 +652,6 @@ public final class DbIfServiceEntry {
      *
      * @param time
      *            The poll time.
-     *
      */
     public void setLastGood(Date time) {
         m_lastGood = new Timestamp(time.getTime());
@@ -670,7 +663,6 @@ public final class DbIfServiceEntry {
      *
      * @param time
      *            The poll time.
-     *
      */
     public void setLastGood(Timestamp time) {
         m_lastGood = time;
@@ -700,7 +692,6 @@ public final class DbIfServiceEntry {
      *
      * @param time
      *            The poll time.
-     *
      */
     public void setLastFail(String time) throws ParseException {
         if (time == null) {
@@ -717,7 +708,6 @@ public final class DbIfServiceEntry {
      *
      * @param time
      *            The poll time.
-     *
      */
     public void setLastFail(Date time) {
         m_lastFail = new Timestamp(time.getTime());
@@ -729,7 +719,6 @@ public final class DbIfServiceEntry {
      *
      * @param time
      *            The poll time.
-     *
      */
     public void setLastFail(Timestamp time) {
         m_lastFail = time;
@@ -788,7 +777,6 @@ public final class DbIfServiceEntry {
      *
      * @param status
      *            The new status.
-     *
      */
     public void setStatus(char status) {
         m_status = status;
@@ -963,7 +951,6 @@ public final class DbIfServiceEntry {
      *            The node id of the interface.
      * @param sid
      *            The service id for the interface.
-     *
      * @return A new interface record.
      */
     public static DbIfServiceEntry create(int nid, InetAddress address, int sid) {
@@ -981,9 +968,7 @@ public final class DbIfServiceEntry {
      *            The ip address.
      * @param sid
      *            The service id.
-     *
      * @return The loaded entry or null if one could not be found.
-     *
      */
     public static DbIfServiceEntry get(int nid, InetAddress addr, int sid) throws SQLException {
         Connection db = null;
@@ -1012,9 +997,7 @@ public final class DbIfServiceEntry {
      *            The node id key
      * @param addr
      *            The IP address.
-     *
      * @return The loaded entry or null if one could not be found.
-     *
      */
     public static DbIfServiceEntry get(Connection db, long nodeId, InetAddress addr, int sid) throws SQLException {
         DbIfServiceEntry entry = new DbIfServiceEntry(nodeId, addr, sid, true);
@@ -1052,11 +1035,13 @@ public final class DbIfServiceEntry {
     /**
      * For debugging only
      *
-     * @param args an array of {@link java.lang.String} objects.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
      */
     public static void main(String[] args) {
         try {
-            DbIfServiceEntry entry = DbIfServiceEntry.get(Integer.parseInt(args[0]), InetAddressUtils.addr(args[1]), Integer.parseInt(args[2]));
+            DbIfServiceEntry entry = DbIfServiceEntry.get(Integer.parseInt(args[0]), InetAddressUtils.addr(args[1]),
+                                                          Integer.parseInt(args[2]));
             System.out.println(entry.toString());
         } catch (Throwable t) {
             t.printStackTrace();

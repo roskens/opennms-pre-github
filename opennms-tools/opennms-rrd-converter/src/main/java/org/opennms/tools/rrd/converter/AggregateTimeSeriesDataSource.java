@@ -97,8 +97,6 @@ public class AggregateTimeSeriesDataSource extends BaseRrdDataSource {
     }
 
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("dataSources", m_dataSources)
-            .toString();
+        return new ToStringBuilder(this).append("dataSources", m_dataSources).toString();
     }
 }

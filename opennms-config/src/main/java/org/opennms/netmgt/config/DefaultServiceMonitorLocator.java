@@ -45,13 +45,18 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
     private static final long serialVersionUID = 4852206182208816721L;
 
     String m_serviceName;
+
     Class<? extends ServiceMonitor> m_serviceClass;
 
     /**
-     * <p>Constructor for DefaultServiceMonitorLocator.</p>
+     * <p>
+     * Constructor for DefaultServiceMonitorLocator.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param serviceClass a {@link java.lang.Class} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param serviceClass
+     *            a {@link java.lang.Class} object.
      */
     public DefaultServiceMonitorLocator(String serviceName, Class<? extends ServiceMonitor> serviceClass) {
         m_serviceName = serviceName;
@@ -60,10 +65,13 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
 
     /*
      * FIXME The use of CastorObjectRetrievalFailureException doesn't seem
-     * appropriate below, as I don't see Castor being used at all. - dj@opennms.org
+     * appropriate below, as I don't see Castor being used at all. -
+     * dj@opennms.org
      */
     /**
-     * <p>getServiceMonitor</p>
+     * <p>
+     * getServiceMonitor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
      */
@@ -71,19 +79,21 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
     public ServiceMonitor getServiceMonitor() {
         try {
             ServiceMonitor mon = m_serviceClass.newInstance();
-            mon.initialize((Map<String,Object>)null);
+            mon.initialize((Map<String, Object>) null);
             return mon;
         } catch (InstantiationException e) {
             throw new ConfigObjectRetrievalFailureException("Unable to instantiate monitor for service "
-                    +m_serviceName+" with class-name "+m_serviceClass.getName(), e);
+                    + m_serviceName + " with class-name " + m_serviceClass.getName(), e);
         } catch (IllegalAccessException e) {
             throw new ConfigObjectRetrievalFailureException("Illegal access trying to instantiate monitor for service "
-                    +m_serviceName+" with class-name "+m_serviceClass.getName(), e);
+                    + m_serviceName + " with class-name " + m_serviceClass.getName(), e);
         }
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,7 +103,9 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
     }
 
     /**
-     * <p>getServiceLocatorKey</p>
+     * <p>
+     * getServiceLocatorKey
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

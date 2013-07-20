@@ -35,29 +35,28 @@ import org.junit.Test;
 
 /**
  * @author Donald Desloge
- *
  */
 public class SmbDetectorTest {
 
-//    private SmbDetector m_detector;
+    // private SmbDetector m_detector;
 
-//    @Before
-//    public void setUp() {
-//        MockLogAppender.setupLogging();
-//        m_detector = new SmbDetector();
-//
-//    }
+    // @Before
+    // public void setUp() {
+    // MockLogAppender.setupLogging();
+    // m_detector = new SmbDetector();
+    //
+    // }
 
     @After
     public void tearDown() {
 
     }
 
-    //Tested against a Windows XP machine on local network.
-    @Test(timeout=30000)
+    // Tested against a Windows XP machine on local network.
+    @Test(timeout = 30000)
     public void testMyDetector() throws UnknownHostException {
-        //m_detector.init();
-        //FIXME: This needs to be fixed
-        //assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
+        // m_detector.init();
+        // FIXME: This needs to be fixed
+        // assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 }

@@ -44,6 +44,7 @@ import org.opennms.test.mock.EasyMockUtils;
  */
 public class BroadcastEventProcessorTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private EventConfDao m_eventConfDao = m_mocks.createMock(EventConfDao.class);
 
     public void testInstantiateWithNullEventIpcManager() {

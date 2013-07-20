@@ -44,9 +44,7 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  *
  * @see SnmpPduRequest
  * @see SnmpPduBulk
- *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
- *
  */
 public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Cloneable {
     /**
@@ -106,7 +104,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     /**
      * Default class constructor. Initialzies all primitive members to zero, and
      * allocates a new array list for the variables.
-     *
      */
     protected SnmpPduPacket() {
         m_command = 0;
@@ -123,7 +120,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *
      * @param second
      *            The source pdu to copy values from.
-     *
      */
     protected SnmpPduPacket(SnmpPduPacket second) {
         m_command = second.m_command;
@@ -144,7 +140,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *
      * @param command
      *            The type of pdu packet.
-     *
      */
     protected SnmpPduPacket(int command) {
         this();
@@ -158,7 +153,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *            The type of pdu packet.
      * @param vars
      *            The variable list for the pdu.
-     *
      */
     protected SnmpPduPacket(int command, SnmpVarBind[] vars) {
         this(command);
@@ -349,7 +343,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      * Returns the type of PDU.
      *
      * @return The current PDU command
-     *
      */
     public int getCommand() {
         return m_command;
@@ -360,7 +353,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *
      * @param cmd
      *            The new command.
-     *
      */
     public void setCommand(int cmd) {
         m_command = cmd;
@@ -370,7 +362,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      * Returns the current request id for this packet.
      *
      * @return The sequence identifier
-     *
      */
     public int getRequestId() {
         return m_requestId;
@@ -381,7 +372,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *
      * @param peer
      *            The peer of this packet
-     *
      */
     public void setPeer(SnmpPeer peer) {
         m_peer = peer;
@@ -391,7 +381,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      * Returns the current peer for this packet.
      *
      * @return The peer or null, if its a own request
-     *
      */
     public SnmpPeer getPeer() {
         return m_peer;
@@ -402,7 +391,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *
      * @param reqid
      *            The new request id
-     *
      */
     public void setRequestId(int reqid) {
         m_requestId = reqid;
@@ -435,7 +423,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *            The index of the variable
      * @param vb
      *            The new variable.
-     *
      */
     public void addVarBindAt(int ndx, SnmpVarBind vb) {
         m_variables.add(ndx, vb);
@@ -446,9 +433,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *
      * @param ndx
      *            The index of the variable
-     *
      * @return The variable at the specified index
-     *
      */
     public SnmpVarBind getVarBindAt(int ndx) {
         return ((SnmpVarBind) (m_variables.get(ndx)));
@@ -461,7 +446,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *            The location to set
      * @param vb
      *            The new variable
-     *
      */
     public void setVarBindAt(int ndx, SnmpVarBind vb) {
         m_variables.set(ndx, vb);
@@ -472,9 +456,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *
      * @param ndx
      *            The index of the variable to remove
-     *
      * @return The removed variable
-     *
      */
     public SnmpVarBind removeVarBindAt(int ndx) {
         return (SnmpVarBind) m_variables.remove(ndx);
@@ -484,7 +466,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      * Returns a list of all the variables managed by this protocol data unit.
      *
      * @return An array of the internal variable.
-     *
      */
     public SnmpVarBind[] toVarBindArray() {
         Object[] list = m_variables.toArray();
@@ -516,9 +497,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *            The offset to start writing information
      * @param encoder
      *            The encoder object.
-     *
      * @return The offset of the byte immediantly after the last encoded byte.
-     *
      * @exception AsnEncodingException
      *                Thrown if the encoder finds an error in the buffer.
      */
@@ -590,10 +569,8 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *            The offset byte to begin decoding
      * @param encoder
      *            The decoder object.
-     *
      * @return The index of the byte immediantly after the last decoded byte of
      *         information.
-     *
      * @exception AsnDecodingException
      *                Thrown by the encoder if an error occurs trying to decode
      *                the data buffer.
@@ -674,7 +651,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     /**
      * Defined for derived classes to return a duplicate of self. This method
      * not defined.
-     *
      */
     @Override
     public abstract SnmpSyntax duplicate();
@@ -682,7 +658,6 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     /**
      * Defined for derived classes to return a duplicate of self. This method
      * not defined.
-     *
      */
     @Override
     public abstract Object clone();

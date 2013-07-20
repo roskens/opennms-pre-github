@@ -25,18 +25,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.handler.HandlerRegistry;
 
-public final class Dispatcher
-{
+public final class Dispatcher {
     private final HandlerRegistry handlerRegistry;
 
-    public Dispatcher(HandlerRegistry handlerRegistry)
-    {
+    public Dispatcher(HandlerRegistry handlerRegistry) {
         this.handlerRegistry = handlerRegistry;
     }
 
-    public void dispatch(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
-        throws ServletException, IOException
-    {
+    public void dispatch(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException,
+            IOException {
         ServletPipeline servletPipeline = new ServletPipeline(this.handlerRegistry.getServlets());
         FilterPipeline filterPipeline = new FilterPipeline(this.handlerRegistry.getFilters(), servletPipeline);
         filterPipeline.dispatch(req, res, chain);

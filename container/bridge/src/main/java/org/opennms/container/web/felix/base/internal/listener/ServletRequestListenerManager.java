@@ -30,28 +30,22 @@ import org.osgi.framework.BundleContext;
  * interfaces forwarding any event calls to registered OSGi services
  * implementing the respective Servlet API 2.4 listener interface.
  */
-public class ServletRequestListenerManager extends AbstractListenerManager<ServletRequestListener>
-{
+public class ServletRequestListenerManager extends AbstractListenerManager<ServletRequestListener> {
 
-    public ServletRequestListenerManager(BundleContext context)
-    {
+    public ServletRequestListenerManager(BundleContext context) {
         super(context, ServletRequestListener.class);
     }
 
-    public void requestDestroyed(final ServletRequestEvent sre)
-    {
+    public void requestDestroyed(final ServletRequestEvent sre) {
         final Iterator<ServletRequestListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().requestDestroyed(sre);
         }
     }
 
-    public void requestInitialized(final ServletRequestEvent sre)
-    {
+    public void requestInitialized(final ServletRequestEvent sre) {
         final Iterator<ServletRequestListener> listeners = getContextListeners();
-        while (listeners.hasNext())
-        {
+        while (listeners.hasNext()) {
             listeners.next().requestInitialized(sre);
         }
     }

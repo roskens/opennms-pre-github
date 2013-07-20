@@ -58,7 +58,8 @@ public class AdminPageNavEntry implements PageNavEntry {
     /**
      * Sets the name of the PageNavEntry.
      *
-     * @param name the name to be set
+     * @param name
+     *            the name to be set
      */
     public void setName(final String name) {
         this.m_name = name;
@@ -77,7 +78,8 @@ public class AdminPageNavEntry implements PageNavEntry {
     /**
      * Sets the URL of this PageNavEntry.
      *
-     * @param url the URL to be set
+     * @param url
+     *            the URL to be set
      */
     public void setUrl(final String url) {
         this.m_url = url;

@@ -55,9 +55,12 @@ import java.security.NoSuchAlgorithmException;
 public class Cripto {
 
     /**
-     * <p>stringToSHA</p>
+     * <p>
+     * stringToSHA
+     * </p>
      *
-     * @param buffer a {@link java.lang.String} object.
+     * @param buffer
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String stringToSHA(String buffer) {

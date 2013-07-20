@@ -43,7 +43,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>GroupListController class.</p>
+ * <p>
+ * GroupListController class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -51,38 +53,44 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class GroupListController extends AbstractController {
 
-	private GroupManager m_groupManager;
+    private GroupManager m_groupManager;
 
-	/** {@inheritDoc} */
-	@Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-		Map<String, Group> groups = m_groupManager.getGroups();
-		List<Group> groupList = new ArrayList<Group>(groups.values());
-		Collections.sort(groupList, new Comparator<Group>() {
-                    @Override
-		    public int compare(final Group g1, final Group g2) {
-		        return g1.getName().toLowerCase().compareTo(g2.getName().toLowerCase());
-		    }
-		});
-		return new ModelAndView("admin/userGroupView/groups/list", "groups", groupList);
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
+        Map<String, Group> groups = m_groupManager.getGroups();
+        List<Group> groupList = new ArrayList<Group>(groups.values());
+        Collections.sort(groupList, new Comparator<Group>() {
+            @Override
+            public int compare(final Group g1, final Group g2) {
+                return g1.getName().toLowerCase().compareTo(g2.getName().toLowerCase());
+            }
+        });
+        return new ModelAndView("admin/userGroupView/groups/list", "groups", groupList);
+    }
 
-	/**
-	 * <p>getGroupManager</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.config.GroupManager} object.
-	 */
-	public final GroupManager getGroupManager() {
-		return m_groupManager;
-	}
+    /**
+     * <p>
+     * getGroupManager
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.config.GroupManager} object.
+     */
+    public final GroupManager getGroupManager() {
+        return m_groupManager;
+    }
 
-	/**
-	 * <p>setGroupManager</p>
-	 *
-	 * @param groupManager a {@link org.opennms.netmgt.config.GroupManager} object.
-	 */
-	public final void setGroupManager(final GroupManager groupManager) {
-		m_groupManager = groupManager;
-	}
+    /**
+     * <p>
+     * setGroupManager
+     * </p>
+     *
+     * @param groupManager
+     *            a {@link org.opennms.netmgt.config.GroupManager} object.
+     */
+    public final void setGroupManager(final GroupManager groupManager) {
+        m_groupManager = groupManager;
+    }
 
 }

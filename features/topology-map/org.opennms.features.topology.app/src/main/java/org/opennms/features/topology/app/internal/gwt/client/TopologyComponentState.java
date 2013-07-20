@@ -7,11 +7,17 @@ import com.vaadin.shared.AbstractComponentState;
 public class TopologyComponentState extends AbstractComponentState {
 
     private int m_boundX;
+
     private int m_boundY;
+
     private int m_boundWidth;
+
     private int m_boundHeight;
+
     private String m_activeTool;
+
     private List<SharedVertex> m_vertices;
+
     private List<SharedEdge> m_edges;
 
     public void setBoundX(int boundX) {
@@ -69,6 +75,5 @@ public class TopologyComponentState extends AbstractComponentState {
     public void setEdges(List<SharedEdge> edges) {
         m_edges = edges;
     }
-
 
 }

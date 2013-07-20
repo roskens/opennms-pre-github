@@ -50,7 +50,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
- * <p>RancidReportExecController class.</p>
+ * <p>
+ * RancidReportExecController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -59,51 +61,69 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 public class RancidReportExecController extends SimpleFormController {
     private static final Logger LOG = LoggerFactory.getLogger(RancidReportExecController.class);
 
-//    InventoryService m_inventoryService;
+    // InventoryService m_inventoryService;
     ConfigurationReportService m_configurationReportService;
+
     InventoryReportService m_inventoryReportService;
 
-
-
     /**
-     * <p>getConfigurationReportService</p>
+     * <p>
+     * getConfigurationReportService
+     * </p>
      *
-     * @return a {@link org.opennms.report.configuration.svclayer.ConfigurationReportService} object.
+     * @return a
+     *         {@link org.opennms.report.configuration.svclayer.ConfigurationReportService}
+     *         object.
      */
     public ConfigurationReportService getConfigurationReportService() {
         return m_configurationReportService;
     }
+
     /**
-     * <p>setConfigurationReportService</p>
+     * <p>
+     * setConfigurationReportService
+     * </p>
      *
-     * @param configurationReportService a {@link org.opennms.report.configuration.svclayer.ConfigurationReportService} object.
+     * @param configurationReportService
+     *            a
+     *            {@link org.opennms.report.configuration.svclayer.ConfigurationReportService}
+     *            object.
      */
-    public void setConfigurationReportService(
-            ConfigurationReportService configurationReportService) {
+    public void setConfigurationReportService(ConfigurationReportService configurationReportService) {
         m_configurationReportService = configurationReportService;
     }
+
     /**
-     * <p>getInventoryReportService</p>
+     * <p>
+     * getInventoryReportService
+     * </p>
      *
-     * @return a {@link org.opennms.report.inventory.svclayer.InventoryReportService} object.
+     * @return a
+     *         {@link org.opennms.report.inventory.svclayer.InventoryReportService}
+     *         object.
      */
     public InventoryReportService getInventoryReportService() {
         return m_inventoryReportService;
     }
+
     /**
-     * <p>setInventoryReportService</p>
+     * <p>
+     * setInventoryReportService
+     * </p>
      *
-     * @param inventoryReportService a {@link org.opennms.report.inventory.svclayer.InventoryReportService} object.
+     * @param inventoryReportService
+     *            a
+     *            {@link org.opennms.report.inventory.svclayer.InventoryReportService}
+     *            object.
      */
-    public void setInventoryReportService(
-            InventoryReportService inventoryReportService) {
+    public void setInventoryReportService(InventoryReportService inventoryReportService) {
         m_inventoryReportService = inventoryReportService;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
-            Object command, BindException errors) throws ServletException, IOException, Exception {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+            BindException errors) throws ServletException, IOException, Exception {
 
         LOG.debug("RancidReportExecController ModelAndView onSubmit");
 
@@ -115,36 +135,43 @@ public class RancidReportExecController extends SimpleFormController {
         String user = request.getRemoteUser();
         Date reportRequestDate = new Date();
 
-
         ModelAndView mav = new ModelAndView(getSuccessView());
 
-        if (bean.getReporttype().compareTo("rancidlist") == 0){
+        if (bean.getReporttype().compareTo("rancidlist") == 0) {
             LOG.debug("RancidReportExecController rancidlist report");
-            ConfigurationReportCriteria criteria = new ConfigurationReportCriteria(bean.getDate(), bean.getReportfiletype(), bean.getReportemail(), user, reportRequestDate);
-//            boolean done = m_inventoryService.runRancidListReport(bean.getDate(), bean.getReportfiletype(), bean.getReportemail(), user, reportRequestDate);
+            ConfigurationReportCriteria criteria = new ConfigurationReportCriteria(bean.getDate(),
+                                                                                   bean.getReportfiletype(),
+                                                                                   bean.getReportemail(), user,
+                                                                                   reportRequestDate);
+            // boolean done =
+            // m_inventoryService.runRancidListReport(bean.getDate(),
+            // bean.getReportfiletype(), bean.getReportemail(), user,
+            // reportRequestDate);
             boolean done = m_configurationReportService.runReport(criteria);
             mav.addObject("type", "Rancid List");
-            if (!done){
+            if (!done) {
                 LOG.debug("RancidReportExecController error");
             }
-        } else if (bean.getReporttype().compareTo("inventory") == 0){
+        } else if (bean.getReporttype().compareTo("inventory") == 0) {
             LOG.debug("RancidReportExecController inventory report");
-            InventoryReportCriteria criteria = new InventoryReportCriteria(bean.getDate(), bean.getFieldhas(), bean.getReportfiletype(),bean.getReportemail(), user, reportRequestDate);
+            InventoryReportCriteria criteria = new InventoryReportCriteria(bean.getDate(), bean.getFieldhas(),
+                                                                           bean.getReportfiletype(),
+                                                                           bean.getReportemail(), user,
+                                                                           reportRequestDate);
             boolean done = m_inventoryReportService.runReport(criteria);
             mav.addObject("type", "Inventory Report");
-            if (!done){
+            if (!done) {
                 LOG.debug("RancidReportExecController error");
             }
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy/M/d");
         try {
             mav.addObject("date", format.parse(bean.getDate()));
-        }
-        catch (ParseException pe){
+        } catch (ParseException pe) {
             mav.addObject("date", format.format(Calendar.getInstance().getTime()));
         }
         mav.addObject("searchfield", bean.getFieldhas());
-        if( bean.getReportfiletype().compareTo("pdftype") == 0){
+        if (bean.getReportfiletype().compareTo("pdftype") == 0) {
             mav.addObject("reportformat", "PDF");
         } else {
             mav.addObject("reportformat", "HTML");
@@ -152,11 +179,11 @@ public class RancidReportExecController extends SimpleFormController {
 
         return mav;
 
-
-//        String redirectURL = request.getHeader("Referer");
-//        response.sendRedirect(redirectURL);
-//        return super.onSubmit(request, response, command, errors);
+        // String redirectURL = request.getHeader("Referer");
+        // response.sendRedirect(redirectURL);
+        // return super.onSubmit(request, response, command, errors);
     }
+
     /** {@inheritDoc} */
     @Override
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {

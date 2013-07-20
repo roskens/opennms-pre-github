@@ -42,12 +42,10 @@ import org.opennms.jicmp.jna.NativeDatagramPacket;
 public class IPPacket {
 
     public enum Protocol {
-        ICMP(1),
-        TCP(6),
-        UDP(17),
-        V6_OVER_V4(41);
+        ICMP(1), TCP(6), UDP(17), V6_OVER_V4(41);
 
         private int m_code;
+
         private Protocol(int code) {
             m_code = code;
         }
@@ -57,7 +55,7 @@ public class IPPacket {
         }
 
         public static Protocol toProtocol(int code) {
-            for(Protocol p : Protocol.values()) {
+            for (Protocol p : Protocol.values()) {
                 if (code == p.getCode()) {
                     return p;
                 }
@@ -96,9 +94,11 @@ public class IPPacket {
      * Returns the length of the header in bytes
      */
     public int getHeaderLength() {
-        // Specifies the length of the IP packet header in 32 bit words. The minimum value for a valid header is 5.
+        // Specifies the length of the IP packet header in 32 bit words. The
+        // minimum value for a valid header is 5.
         // This is stored in bits 4-7 of header (low bits of first byte)
-        return (m_buffer.get(0) & 0xf) << 2; // shift effectively does * 4 (4 bytes per 32 bit word)
+        return (m_buffer.get(0) & 0xf) << 2; // shift effectively does * 4 (4
+                                             // bytes per 32 bit word)
     }
 
     private InetAddress getAddrAtOffset(int offset) {
@@ -143,6 +143,7 @@ public class IPPacket {
         data.position(getHeaderLength());
         return data.slice();
     }
+
     public int getPayloadLength() {
         return getPayload().remaining();
     }

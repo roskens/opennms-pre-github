@@ -60,7 +60,8 @@ public class ResourceCommandTest {
         pathField.setName("path");
         String pathVal = (String) dataSource.getFieldValue(pathField);
         assertNotNull(pathVal);
-        assertTrue(String.format("Path does not match: %s", pathVal), pathVal.matches(".*src/test/resources/share/rrd/snmp/10/nsVpnMonitor/tun_id_1"));
+        assertTrue(String.format("Path does not match: %s", pathVal),
+                   pathVal.matches(".*src/test/resources/share/rrd/snmp/10/nsVpnMonitor/tun_id_1"));
 
         JRDesignField filterField = new JRDesignField();
         filterField.setName("icmp");
@@ -87,14 +88,13 @@ public class ResourceCommandTest {
         assertTrue(dsFieldValue.matches(".*src/test/resources/share/rrd/snmp/10/nsVpnMonitor/tun_id_1/nsVpnMonBytesIn.jrb"));
     }
 
-
     @Test
     public void testDataSourceWithStringProperties() throws JRException {
-        JRDataSource dataSource = new ResourceQueryCommand().executeCommand("--rrdDir src/test/resources/share/rrd/snmp" +
-                " --nodeId 10" +
-                " --resourceType nsVpnMonitor" +
-                " --dsName nsVpnMonBytesIn" +
-                " --string nsVpnMonVpnName");
+        JRDataSource dataSource = new ResourceQueryCommand().executeCommand("--rrdDir src/test/resources/share/rrd/snmp"
+                + " --nodeId 10"
+                + " --resourceType nsVpnMonitor"
+                + " --dsName nsVpnMonBytesIn"
+                + " --string nsVpnMonVpnName");
         assertNotNull(dataSource);
         assertTrue(dataSource.next());
 
@@ -128,7 +128,6 @@ public class ResourceCommandTest {
 
         assertFalse(next);
     }
-
 
     private String getCommandWithBogusFilter() {
         return "--rrdDir src/test/resources/share/rrd/snmp  --nodeid 10 --resourceType nsVpnMonitor --dsName bogus";

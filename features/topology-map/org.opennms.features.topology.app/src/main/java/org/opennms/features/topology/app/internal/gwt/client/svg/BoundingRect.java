@@ -33,6 +33,7 @@ import com.google.gwt.touch.client.Point;
 public class BoundingRect {
 
     Point m_topLeft;
+
     Point m_bottomRight;
 
     public double getCenterX() {
@@ -54,16 +55,17 @@ public class BoundingRect {
     }
 
     public void addPoint(Point point) {
-        if(m_topLeft == null) {
+        if (m_topLeft == null) {
             m_topLeft = point;
-        }else {
+        } else {
             m_topLeft = new Point(Math.min(m_topLeft.getX(), point.getX()), Math.min(m_topLeft.getY(), point.getY()));
         }
 
-        if(m_bottomRight == null) {
+        if (m_bottomRight == null) {
             m_bottomRight = point;
-        }else {
-            m_bottomRight = new Point(Math.max(m_bottomRight.getX(), point.getX()), Math.max(m_bottomRight.getY(), point.getY()));
+        } else {
+            m_bottomRight = new Point(Math.max(m_bottomRight.getX(), point.getX()), Math.max(m_bottomRight.getY(),
+                                                                                             point.getY()));
         }
     }
 

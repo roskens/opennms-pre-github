@@ -53,29 +53,27 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class AssetRecordDaoTest implements InitializingBean {
 
-	@Autowired
-	private DistPollerDao m_distPollerDao;
+    @Autowired
+    private DistPollerDao m_distPollerDao;
 
-	@Autowired
-	private NodeDao m_nodeDao;
+    @Autowired
+    private NodeDao m_nodeDao;
 
-	@Autowired
-	private AssetRecordDao m_assetRecordDao;
+    @Autowired
+    private AssetRecordDao m_assetRecordDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -97,8 +95,8 @@ public class AssetRecordDaoTest implements InitializingBean {
         }
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testCreateAndGets() {
         OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
         onmsNode.setLabel("myNode");
@@ -108,18 +106,18 @@ public class AssetRecordDaoTest implements InitializingBean {
         m_assetRecordDao.update(assetRecord);
         m_assetRecordDao.flush();
 
-        //Test findAll method
+        // Test findAll method
         Collection<OnmsAssetRecord> assetRecords = m_assetRecordDao.findAll();
         assertEquals(7, assetRecords.size());
 
-        //Test countAll method
+        // Test countAll method
         assertEquals(7, m_assetRecordDao.countAll());
 
     }
 
     @Test
     @Transactional
-	public void testAddUserName() {
+    public void testAddUserName() {
         OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
         onmsNode.setLabel("myNode");
         m_nodeDao.save(onmsNode);
@@ -132,7 +130,7 @@ public class AssetRecordDaoTest implements InitializingBean {
         m_assetRecordDao.update(assetRecord);
         m_assetRecordDao.flush();
 
-        //Test findAll method
+        // Test findAll method
         int id = assetRecord.getId();
         OnmsAssetRecord assetRecordFromDb = m_assetRecordDao.get(id);
         assertEquals(assetRecord.getUsername(), assetRecordFromDb.getUsername());
@@ -142,7 +140,7 @@ public class AssetRecordDaoTest implements InitializingBean {
 
     }
 
-	@Test
+    @Test
     @Transactional
     public void testAddAutoenable() {
         OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
@@ -157,7 +155,7 @@ public class AssetRecordDaoTest implements InitializingBean {
         m_assetRecordDao.update(assetRecord);
         m_assetRecordDao.flush();
 
-        //Test findAll method
+        // Test findAll method
         int id = assetRecord.getId();
         OnmsAssetRecord assetRecordFromDb = m_assetRecordDao.get(id);
         assertEquals(assetRecord.getUsername(), assetRecordFromDb.getUsername());
@@ -167,8 +165,8 @@ public class AssetRecordDaoTest implements InitializingBean {
 
     }
 
-        @Test
-        @Transactional
+    @Test
+    @Transactional
     public void testFindByNodeId() {
         OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
         onmsNode.setLabel("myNode");
@@ -178,40 +176,40 @@ public class AssetRecordDaoTest implements InitializingBean {
         m_assetRecordDao.update(assetRecord);
         m_assetRecordDao.flush();
 
-        //Test findByNodeId method
+        // Test findByNodeId method
         OnmsAssetRecord a = m_assetRecordDao.findByNodeId(onmsNode.getId());
         assertTrue(a.equals(assetRecord));
     }
 
-        @Test
-        @Transactional
-        public void testGeolocation() {
-            OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
-            onmsNode.setLabel("myNode");
-            m_nodeDao.save(onmsNode);
-            OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
-            OnmsGeolocation geo = assetRecord.getGeolocation();
-            if (geo == null) {
-                geo = new OnmsGeolocation();
-                assetRecord.setGeolocation(geo);
-            }
-            geo.setAddress1("220 Chatham Business Drive");
-            geo.setCity("Pittsboro");
-            geo.setState("NC");
-            geo.setZip("27312");
-            geo.setCountry("US");
-            m_assetRecordDao.update(assetRecord);
-            m_assetRecordDao.flush();
-
-            //Test findAll method
-            int id = assetRecord.getId();
-            OnmsAssetRecord assetRecordFromDb = m_assetRecordDao.get(id);
-            assertNotNull(assetRecordFromDb.getGeolocation());
-            assertEquals(geo.getAddress1(), assetRecordFromDb.getGeolocation().getAddress1());
-            assertEquals(geo.getCity(), assetRecordFromDb.getGeolocation().getCity());
-            assertEquals(geo.getState(), assetRecordFromDb.getGeolocation().getState());
-            assertEquals(geo.getZip(), assetRecordFromDb.getGeolocation().getZip());
-            assertEquals(geo.getCountry(), assetRecordFromDb.getGeolocation().getCountry());
+    @Test
+    @Transactional
+    public void testGeolocation() {
+        OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
+        onmsNode.setLabel("myNode");
+        m_nodeDao.save(onmsNode);
+        OnmsAssetRecord assetRecord = onmsNode.getAssetRecord();
+        OnmsGeolocation geo = assetRecord.getGeolocation();
+        if (geo == null) {
+            geo = new OnmsGeolocation();
+            assetRecord.setGeolocation(geo);
         }
+        geo.setAddress1("220 Chatham Business Drive");
+        geo.setCity("Pittsboro");
+        geo.setState("NC");
+        geo.setZip("27312");
+        geo.setCountry("US");
+        m_assetRecordDao.update(assetRecord);
+        m_assetRecordDao.flush();
+
+        // Test findAll method
+        int id = assetRecord.getId();
+        OnmsAssetRecord assetRecordFromDb = m_assetRecordDao.get(id);
+        assertNotNull(assetRecordFromDb.getGeolocation());
+        assertEquals(geo.getAddress1(), assetRecordFromDb.getGeolocation().getAddress1());
+        assertEquals(geo.getCity(), assetRecordFromDb.getGeolocation().getCity());
+        assertEquals(geo.getState(), assetRecordFromDb.getGeolocation().getState());
+        assertEquals(geo.getZip(), assetRecordFromDb.getGeolocation().getZip());
+        assertEquals(geo.getCountry(), assetRecordFromDb.getGeolocation().getCountry());
+    }
 
 }

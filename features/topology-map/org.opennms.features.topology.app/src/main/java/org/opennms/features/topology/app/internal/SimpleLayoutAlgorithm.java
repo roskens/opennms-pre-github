@@ -38,39 +38,41 @@ import org.slf4j.LoggerFactory;
 
 public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 
-	private static final Logger s_log = LoggerFactory.getLogger(SimpleLayoutAlgorithm.class);
+    private static final Logger s_log = LoggerFactory.getLogger(SimpleLayoutAlgorithm.class);
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.vaadin.topology.LayoutAlgorithm#updateLayout(org.opennms.features.vaadin.topology.Graph)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.vaadin.topology.LayoutAlgorithm#updateLayout(org
+     * .opennms.features.vaadin.topology.Graph)
      */
-        @Override
+    @Override
     public void updateLayout(GraphContainer graphContainer) {
 
-    	Graph g = graphContainer.getGraph();
+        Graph g = graphContainer.getGraph();
 
-		Layout layout = g.getLayout();
+        Layout layout = g.getLayout();
 
         int r = 100;
         int cx = 500;
         int cy = 500;
 
-		int i = 0;
-		for(Vertex vertex : g.getDisplayVertices()) {
+        int i = 0;
+        for (Vertex vertex : g.getDisplayVertices()) {
             s_log.debug("Laying out vertex id : {}", vertex);
-			if(i == 0) {
-				layout.setLocation(vertex, cx, cy);
-            }else {
-    	        int n = i - 1;
-    	        double a = (2*Math.PI)/(g.getDisplayVertices().size() -1);
+            if (i == 0) {
+                layout.setLocation(vertex, cx, cy);
+            } else {
+                int n = i - 1;
+                double a = (2 * Math.PI) / (g.getDisplayVertices().size() - 1);
 
-    	        int x = (int) (r * Math.cos(n*a) + cx);
-    	        int y = (int) (r * Math.sin(n*a) + cy);
+                int x = (int) (r * Math.cos(n * a) + cx);
+                int y = (int) (r * Math.sin(n * a) + cy);
 
-    	        layout.setLocation(vertex, x, y);
+                layout.setLocation(vertex, x, y);
             }
-			i++;
+            i++;
         }
     }
-
 
 }

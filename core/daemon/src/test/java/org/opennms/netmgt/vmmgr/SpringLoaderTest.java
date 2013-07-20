@@ -47,46 +47,46 @@ public class SpringLoaderTest {
 
     @Test
     @Ignore("broken")
-	public void testStart() {
-		System.setProperty("opennms.startup.context", "classpath:/startup.xml");
-		SpringLoader.main(new String[] { "start" });
+    public void testStart() {
+        System.setProperty("opennms.startup.context", "classpath:/startup.xml");
+        SpringLoader.main(new String[] { "start" });
 
-		assertNoSuchBean("nothere");
+        assertNoSuchBean("nothere");
 
-		assertBeanExists("testDaemon");
+        assertBeanExists("testDaemon");
 
-		ServiceDaemon daemon = (ServiceDaemon)Registry.getBean("testDaemon");
+        ServiceDaemon daemon = (ServiceDaemon) Registry.getBean("testDaemon");
 
-		assertEquals(Fiber.RUNNING, daemon.getStatus());
-	}
-
-    @Test
-    @Ignore("broken")
-	public void testContexts() {
-		SpringLoader.main(new String[] { "start" });
-
-		ServiceDaemon daemon = (ServiceDaemon)Registry.getBean("collectd");
-		assertEquals(Fiber.RUNNING, daemon.getStatus());
-	}
-
-    @Test
-    @Ignore("broken")
-    public void testStatus() {
-		SpringLoader.main(new String[] { "status" });
+        assertEquals(Fiber.RUNNING, daemon.getStatus());
     }
 
     @Test
     @Ignore("broken")
-	public void testStop() {
-		SpringLoader.main(new String[] { "stop" });
-	}
+    public void testContexts() {
+        SpringLoader.main(new String[] { "start" });
 
-	private void assertNoSuchBean(String beanName) {
-		assertFalse(Registry.containsBean(beanName));
-	}
+        ServiceDaemon daemon = (ServiceDaemon) Registry.getBean("collectd");
+        assertEquals(Fiber.RUNNING, daemon.getStatus());
+    }
+
+    @Test
+    @Ignore("broken")
+    public void testStatus() {
+        SpringLoader.main(new String[] { "status" });
+    }
+
+    @Test
+    @Ignore("broken")
+    public void testStop() {
+        SpringLoader.main(new String[] { "stop" });
+    }
+
+    private void assertNoSuchBean(String beanName) {
+        assertFalse(Registry.containsBean(beanName));
+    }
 
     private void assertBeanExists(String beanName) {
-		assertTrue(Registry.containsBean(beanName));
-	}
+        assertTrue(Registry.containsBean(beanName));
+    }
 
 }

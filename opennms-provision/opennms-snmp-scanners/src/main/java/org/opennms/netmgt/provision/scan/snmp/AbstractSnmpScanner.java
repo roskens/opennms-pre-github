@@ -46,7 +46,9 @@ import org.opennms.netmgt.snmp.SnmpWalker;
 import org.springframework.util.Assert;
 
 /**
- * <p>AbstractSnmpScanner class.</p>
+ * <p>
+ * AbstractSnmpScanner class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -54,13 +56,18 @@ import org.springframework.util.Assert;
 public class AbstractSnmpScanner implements Scanner {
 
     private String m_name = null;
+
     private SnmpAgentConfigFactory m_snmpAgentConfigFactory = null;
+
     private List<SnmpExchange> m_exchangeCollection = null;
 
     /**
-     * <p>Constructor for AbstractSnmpScanner.</p>
+     * <p>
+     * Constructor for AbstractSnmpScanner.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     protected AbstractSnmpScanner(String name) {
         m_name = name;
@@ -68,7 +75,9 @@ public class AbstractSnmpScanner implements Scanner {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -77,37 +86,48 @@ public class AbstractSnmpScanner implements Scanner {
     }
 
     /**
-     * <p>setSnmpAgentConfigFactory</p>
+     * <p>
+     * setSnmpAgentConfigFactory
+     * </p>
      *
-     * @param snmpPeerFactory a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory} object.
+     * @param snmpPeerFactory
+     *            a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
+     *            object.
      */
     public void setSnmpAgentConfigFactory(SnmpAgentConfigFactory snmpPeerFactory) {
         m_snmpAgentConfigFactory = snmpPeerFactory;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.Scanner#init()
      */
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
         Assert.notNull(m_snmpAgentConfigFactory, "snmpAgentConfigFactory must be set");
-
 
         onInit();
 
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     protected void onInit() {
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.provision.Scanner#scan(org.opennms.netmgt.provision.ScanContext)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.provision.Scanner#scan(org.opennms.netmgt.provision
+     * .ScanContext)
      */
     /** {@inheritDoc} */
     @Override
@@ -124,8 +144,6 @@ public class AbstractSnmpScanner implements Scanner {
 
         walker.waitFor();
 
-
-
     }
 
     /**
@@ -134,11 +152,11 @@ public class AbstractSnmpScanner implements Scanner {
      */
     private CollectionTracker createCollectionTracker(final ScanContext scanContext) {
         List<Collectable> trackers = new ArrayList<Collectable>();
-        for(SnmpExchange exchange : m_exchangeCollection) {
+        for (SnmpExchange exchange : m_exchangeCollection) {
             trackers.add(exchange.createTracker(scanContext));
         }
         return new AggregateTracker(trackers);
-     }
+    }
 
     public static interface Storer {
         public void storeResult(ScanContext scanContext, SnmpResult res);
@@ -146,19 +164,27 @@ public class AbstractSnmpScanner implements Scanner {
 
     public interface SnmpExchange {
         public CollectionTracker createTracker(ScanContext context);
+
         public void andStoreIn(Storer storer);
     }
 
     /**
-     * <p>getSingleInstance</p>
+     * <p>
+     * getSingleInstance
+     * </p>
      *
-     * @param base a {@link java.lang.String} object.
-     * @param inst a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.provision.scan.snmp.AbstractSnmpScanner.SnmpExchange} object.
+     * @param base
+     *            a {@link java.lang.String} object.
+     * @param inst
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.scan.snmp.AbstractSnmpScanner.SnmpExchange}
+     *         object.
      */
     protected SnmpExchange getSingleInstance(final String base, final String inst) {
         SnmpExchange exchange = new SnmpExchange() {
             Storer m_storer;
+
             @Override
             public CollectionTracker createTracker(final ScanContext scanContext) {
                 return new SingleInstanceTracker(base, inst) {
@@ -169,6 +195,7 @@ public class AbstractSnmpScanner implements Scanner {
 
                 };
             }
+
             @Override
             public void andStoreIn(Storer storer) {
                 m_storer = storer;
@@ -178,7 +205,5 @@ public class AbstractSnmpScanner implements Scanner {
         m_exchangeCollection.add(exchange);
         return exchange;
     }
-
-
 
 }

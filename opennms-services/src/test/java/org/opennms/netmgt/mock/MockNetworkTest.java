@@ -100,7 +100,7 @@ public class MockNetworkTest extends TestCase {
         }
 
         @Override
-        public void visitContainer(MockContainer<?,?> c) {
+        public void visitContainer(MockContainer<?, ?> c) {
             containerCount++;
         }
 
@@ -279,8 +279,10 @@ public class MockNetworkTest extends TestCase {
     }
 
     public void testEventListeners() {
-        Event sentEvent = MockEventUtil.createEvent("Test", EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, 1, "192.168.1.1", "NEW", null);
-        Event sentEvent2 = MockEventUtil.createEvent("Test", EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI, 1, "192.168.1.1", "NEW", null);
+        Event sentEvent = MockEventUtil.createEvent("Test", EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, 1,
+                                                    "192.168.1.1", "NEW", null);
+        Event sentEvent2 = MockEventUtil.createEvent("Test", EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI, 1,
+                                                     "192.168.1.1", "NEW", null);
 
         class MockListener implements EventListener {
             private Event receivedEvent;
@@ -356,7 +358,9 @@ public class MockNetworkTest extends TestCase {
         MockVisitor lostSvcSender = new MockVisitorAdapter() {
             @Override
             public void visitService(MockService svc) {
-                Event event = MockEventUtil.createEvent("Test", EventConstants.NODE_LOST_SERVICE_EVENT_UEI, svc.getNodeId(), svc.getIpAddr(), svc.getSvcName(), String.valueOf(PollStatus.SERVICE_UNAVAILABLE));
+                Event event = MockEventUtil.createEvent("Test", EventConstants.NODE_LOST_SERVICE_EVENT_UEI,
+                                                        svc.getNodeId(), svc.getIpAddr(), svc.getSvcName(),
+                                                        String.valueOf(PollStatus.SERVICE_UNAVAILABLE));
                 m_eventMgr.sendNow(event);
             }
         };
@@ -371,7 +375,8 @@ public class MockNetworkTest extends TestCase {
         MockVisitor gainedSvcSender = new MockVisitorAdapter() {
             @Override
             public void visitService(MockService svc) {
-                Event event = MockEventUtil.createEvent("Test", EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI, svc.getNodeId(), svc.getIpAddr(), svc.getSvcName(), null);
+                Event event = MockEventUtil.createEvent("Test", EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI,
+                                                        svc.getNodeId(), svc.getIpAddr(), svc.getSvcName(), null);
                 m_eventMgr.sendNow(event);
             }
         };
@@ -547,7 +552,10 @@ public class MockNetworkTest extends TestCase {
         m_pollerConfig.addScheduledOutage("outage3", now - tenMinutes, now, 1);
         m_pollerConfig.addScheduledOutage("outage4", now - tenMinutes, now, 2);
 
-        try { Thread.sleep(1000); } catch (InterruptedException e) {}
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
 
         Package pkg = m_pollerConfig.getPackage("TestPackage");
         assertNotNull(pkg);
@@ -751,6 +759,5 @@ public class MockNetworkTest extends TestCase {
         assertEquals(m_upChecker.getServiceCount(), m_downChecker.getServiceCount());
 
     }
-
 
 }

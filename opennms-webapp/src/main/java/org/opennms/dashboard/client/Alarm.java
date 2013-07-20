@@ -33,7 +33,9 @@ import java.util.Date;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * <p>Alarm class.</p>
+ * <p>
+ * Alarm class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -45,38 +47,62 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Alarm implements IsSerializable {
 
     private String m_logMsg;
+
     private String m_descrption;
+
     private String m_severity;
+
     private int m_count;
+
     private String m_nodeLabel;
+
     private int m_nodeId;
+
     private String m_ipAddress;
+
     private String m_svcName;
+
     private Date m_firstEventTime;
+
     private Date m_lastEventTime;
+
     private boolean m_isDashboardRole;
 
     /**
-     * <p>Constructor for Alarm.</p>
+     * <p>
+     * Constructor for Alarm.
+     * </p>
      */
     public Alarm() {
 
     }
 
     /**
-     * <p>Constructor for Alarm.</p>
+     * <p>
+     * Constructor for Alarm.
+     * </p>
      *
-     * @param severity a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param nodeId a int.
-     * @param isDashboardRole a boolean.
-     * @param logMsg a {@link java.lang.String} object.
-     * @param description a {@link java.lang.String} object.
-     * @param count a int.
-     * @param firstEventTime a java$util$Date object.
-     * @param lastEventTime a java$util$Date object.
+     * @param severity
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param isDashboardRole
+     *            a boolean.
+     * @param logMsg
+     *            a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
+     * @param count
+     *            a int.
+     * @param firstEventTime
+     *            a java$util$Date object.
+     * @param lastEventTime
+     *            a java$util$Date object.
      */
-    public Alarm(String severity, String nodeLabel, int nodeId, boolean isDashboardRole, String logMsg, String description, int count, Date firstEventTime, Date lastEventTime) {
+    public Alarm(String severity, String nodeLabel, int nodeId, boolean isDashboardRole, String logMsg,
+            String description, int count, Date firstEventTime, Date lastEventTime) {
         m_severity = severity;
         m_nodeLabel = nodeLabel;
         m_nodeId = nodeId;
@@ -87,121 +113,172 @@ public class Alarm implements IsSerializable {
         m_firstEventTime = firstEventTime;
         m_lastEventTime = lastEventTime;
     }
+
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a int.
      */
     public int getCount() {
         return m_count;
     }
+
     /**
-     * <p>setCount</p>
+     * <p>
+     * setCount
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      */
     public void setCount(int count) {
         m_count = count;
     }
+
     /**
-     * <p>getDescrption</p>
+     * <p>
+     * getDescrption
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getDescrption() {
         return m_descrption;
     }
+
     /**
-     * <p>setDescrption</p>
+     * <p>
+     * setDescrption
+     * </p>
      *
-     * @param descrption a {@link java.lang.String} object.
+     * @param descrption
+     *            a {@link java.lang.String} object.
      */
     public void setDescrption(String descrption) {
         m_descrption = descrption;
     }
+
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getIpAddress() {
         return m_ipAddress;
     }
+
     /**
-     * <p>setIpAddress</p>
+     * <p>
+     * setIpAddress
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddress(String ipAddress) {
         m_ipAddress = ipAddress;
     }
+
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
     public int getNodeId() {
         return m_nodeId;
     }
+
     /**
-     * <p>setNodeId</p>
+     * <p>
+     * setNodeId
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     public void setNodeId(int nodeId) {
         m_nodeId = nodeId;
     }
+
     /**
-     * <p>getNodeLabel</p>
+     * <p>
+     * getNodeLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getNodeLabel() {
         return m_nodeLabel;
     }
+
     /**
-     * <p>setNodeLabel</p>
+     * <p>
+     * setNodeLabel
+     * </p>
      *
-     * @param nodeLabel a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
      */
     public void setNodeLabel(String nodeLabel) {
         m_nodeLabel = nodeLabel;
     }
+
     /**
-     * <p>getSeverity</p>
+     * <p>
+     * getSeverity
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSeverity() {
         return m_severity;
     }
+
     /**
-     * <p>setSeverity</p>
+     * <p>
+     * setSeverity
+     * </p>
      *
-     * @param severity a {@link java.lang.String} object.
+     * @param severity
+     *            a {@link java.lang.String} object.
      */
     public void setSeverity(String severity) {
         m_severity = severity;
     }
+
     /**
-     * <p>getSvcName</p>
+     * <p>
+     * getSvcName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSvcName() {
         return m_svcName;
     }
+
     /**
-     * <p>setSvcName</p>
+     * <p>
+     * setSvcName
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      */
     public void setSvcName(String svcName) {
         m_svcName = svcName;
     }
 
     /**
-     * <p>getFirstEventTime</p>
+     * <p>
+     * getFirstEventTime
+     * </p>
      *
      * @return a java$util$Date object.
      */
@@ -210,16 +287,21 @@ public class Alarm implements IsSerializable {
     }
 
     /**
-     * <p>setFirstEventTime</p>
+     * <p>
+     * setFirstEventTime
+     * </p>
      *
-     * @param firstEventTime a java$util$Date object.
+     * @param firstEventTime
+     *            a java$util$Date object.
      */
     public void setFirstEventTime(Date firstEventTime) {
         m_firstEventTime = firstEventTime;
     }
 
     /**
-     * <p>getLastEventTime</p>
+     * <p>
+     * getLastEventTime
+     * </p>
      *
      * @return a java$util$Date object.
      */
@@ -228,16 +310,21 @@ public class Alarm implements IsSerializable {
     }
 
     /**
-     * <p>setLastEventTime</p>
+     * <p>
+     * setLastEventTime
+     * </p>
      *
-     * @param lastEventTime a java$util$Date object.
+     * @param lastEventTime
+     *            a java$util$Date object.
      */
     public void setLastEventTime(Date lastEventTime) {
         m_lastEventTime = lastEventTime;
     }
 
     /**
-     * <p>getLogMsg</p>
+     * <p>
+     * getLogMsg
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -246,25 +333,33 @@ public class Alarm implements IsSerializable {
     }
 
     /**
-     * <p>setLogMsg</p>
+     * <p>
+     * setLogMsg
+     * </p>
      *
-     * @param logMsg a {@link java.lang.String} object.
+     * @param logMsg
+     *            a {@link java.lang.String} object.
      */
     public void setLogMsg(String logMsg) {
         m_logMsg = logMsg;
     }
 
     /**
-     * <p>setIsDashboardRole</p>
+     * <p>
+     * setIsDashboardRole
+     * </p>
      *
-     * @param isDashboardRole a boolean.
+     * @param isDashboardRole
+     *            a boolean.
      */
     public void setIsDashboardRole(boolean isDashboardRole) {
         m_isDashboardRole = isDashboardRole;
     }
 
     /**
-     * <p>getIsDashboardRole</p>
+     * <p>
+     * getIsDashboardRole
+     * </p>
      *
      * @return a boolean.
      */

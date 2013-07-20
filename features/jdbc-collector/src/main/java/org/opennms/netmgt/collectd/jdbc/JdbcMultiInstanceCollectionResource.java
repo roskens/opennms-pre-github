@@ -39,6 +39,7 @@ public class JdbcMultiInstanceCollectionResource extends JdbcCollectionResource 
     private static final Logger LOG = LoggerFactory.getLogger(JdbcMultiInstanceCollectionResource.class);
 
     private String m_inst;
+
     private String m_name;
 
     public JdbcMultiInstanceCollectionResource(CollectionAgent agent, String instance, String name) {
@@ -52,7 +53,10 @@ public class JdbcMultiInstanceCollectionResource extends JdbcCollectionResource 
         File rrdBaseDir = repository.getRrdBaseDir();
         File nodeDir = new File(rrdBaseDir, getParent());
         File typeDir = new File(nodeDir, m_name);
-        File instDir = new File(typeDir, m_inst.replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]", "_"));
+        File instDir = new File(
+                                typeDir,
+                                m_inst.replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]",
+                                                                                                                       "_"));
         LOG.debug("getResourceDir: {}", instDir.toString());
         return instDir;
     }
@@ -69,6 +73,6 @@ public class JdbcMultiInstanceCollectionResource extends JdbcCollectionResource 
 
     @Override
     public String toString() {
-        return "Node[" + m_agent.getNodeId() + "]/type["+ m_name+"]/instance[" + m_inst +"]";
+        return "Node[" + m_agent.getNodeId() + "]/type[" + m_name + "]/instance[" + m_inst + "]";
     }
 }

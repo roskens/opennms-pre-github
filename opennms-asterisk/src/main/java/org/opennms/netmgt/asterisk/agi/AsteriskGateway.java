@@ -34,7 +34,9 @@ import org.asteriskjava.fastagi.DefaultAgiServer;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 
 /**
- * <p>AsteriskGateway class.</p>
+ * <p>
+ * AsteriskGateway class.
+ * </p>
  *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
@@ -45,11 +47,15 @@ import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 public class AsteriskGateway extends AbstractServiceDaemon {
 
     AgiServerThread m_agiServerThread;
+
     private int m_port = 4573;
+
     private int m_maxPoolSize = 10;
 
     /**
-     * <p>Constructor for AsteriskGateway.</p>
+     * <p>
+     * Constructor for AsteriskGateway.
+     * </p>
      */
     protected AsteriskGateway() {
         super("asterisk-gateway");

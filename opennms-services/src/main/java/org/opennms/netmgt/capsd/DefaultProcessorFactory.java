@@ -29,7 +29,9 @@
 package org.opennms.netmgt.capsd;
 
 /**
- * <p>DefaultProcessorFactory class.</p>
+ * <p>
+ * DefaultProcessorFactory class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -37,28 +39,37 @@ package org.opennms.netmgt.capsd;
 public class DefaultProcessorFactory implements SuspectEventProcessorFactory, RescanProcessorFactory {
 
     private CapsdDbSyncer m_capsdDbSyncer;
+
     private PluginManager m_pluginManager;
 
     /**
-     * <p>setCapsdDbSyncer</p>
+     * <p>
+     * setCapsdDbSyncer
+     * </p>
      *
-     * @param capsdDbSyncer a {@link org.opennms.netmgt.capsd.CapsdDbSyncer} object.
+     * @param capsdDbSyncer
+     *            a {@link org.opennms.netmgt.capsd.CapsdDbSyncer} object.
      */
     public void setCapsdDbSyncer(CapsdDbSyncer capsdDbSyncer) {
         m_capsdDbSyncer = capsdDbSyncer;
     }
 
     /**
-     * <p>setPluginManager</p>
+     * <p>
+     * setPluginManager
+     * </p>
      *
-     * @param pluginManager a {@link org.opennms.netmgt.capsd.PluginManager} object.
+     * @param pluginManager
+     *            a {@link org.opennms.netmgt.capsd.PluginManager} object.
      */
     public void setPluginManager(PluginManager pluginManager) {
         m_pluginManager = pluginManager;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.capsd.SuspectEventProcessorFactory#createSuspectEventProcessor(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.netmgt.capsd.SuspectEventProcessorFactory#
+     * createSuspectEventProcessor(java.lang.String)
      */
     /** {@inheritDoc} */
     @Override
@@ -66,8 +77,11 @@ public class DefaultProcessorFactory implements SuspectEventProcessorFactory, Re
         return new SuspectEventProcessor(m_capsdDbSyncer, m_pluginManager, ifAddress);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.capsd.RescanProcessorFactory#createRescanProcessor(int)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.capsd.RescanProcessorFactory#createRescanProcessor
+     * (int)
      */
     /** {@inheritDoc} */
     @Override
@@ -75,8 +89,11 @@ public class DefaultProcessorFactory implements SuspectEventProcessorFactory, Re
         return new RescanProcessor(nodeId, false, m_capsdDbSyncer, m_pluginManager);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.capsd.RescanProcessorFactory#createForcedRescanProcessor(int)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.capsd.RescanProcessorFactory#createForcedRescanProcessor
+     * (int)
      */
     /** {@inheritDoc} */
     @Override

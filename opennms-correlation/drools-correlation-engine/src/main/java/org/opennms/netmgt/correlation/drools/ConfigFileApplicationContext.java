@@ -39,10 +39,12 @@ import org.springframework.core.io.Resource;
 public class ConfigFileApplicationContext extends AbstractXmlApplicationContext {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigFileApplicationContext.class);
 
-	private Resource m_resource;
+    private Resource m_resource;
+
     private String m_configFileLocation;
 
-    public ConfigFileApplicationContext(Resource basePath, final String configFileLocation, final ApplicationContext parent) {
+    public ConfigFileApplicationContext(Resource basePath, final String configFileLocation,
+            final ApplicationContext parent) {
         super(parent);
         m_resource = basePath;
         m_configFileLocation = configFileLocation;
@@ -51,7 +53,7 @@ public class ConfigFileApplicationContext extends AbstractXmlApplicationContext 
 
     @Override
     protected String[] getConfigLocations() {
-        if ( m_configFileLocation == null ) {
+        if (m_configFileLocation == null) {
             return null;
         }
         return new String[] { m_configFileLocation };
@@ -59,12 +61,12 @@ public class ConfigFileApplicationContext extends AbstractXmlApplicationContext 
 
     @Override
     protected Resource getResourceByPath(final String path) {
-    	try {
-    		return m_resource.createRelative(path);
-    	} catch(IOException e) {
-		LOG.error("Unable to create resource for path {} relative the directory of {}", path, m_resource, e);
-    		throw new IllegalArgumentException("Failed to create relative path for " + path);
-    	}
+        try {
+            return m_resource.createRelative(path);
+        } catch (IOException e) {
+            LOG.error("Unable to create resource for path {} relative the directory of {}", path, m_resource, e);
+            throw new IllegalArgumentException("Failed to create relative path for " + path);
+        }
     }
 
 }

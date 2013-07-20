@@ -109,7 +109,7 @@ public class AddPollerConfigServlet extends HttpServlet {
         if (packageColl != null && packageColl.size() > 0) {
             firstPackage = packageColl.iterator().next();
             for (org.opennms.netmgt.config.poller.Package pkg : packageColl) {
-                for(Service svcProp : pkg.getServiceCollection()) {
+                for (Service svcProp : pkg.getServiceCollection()) {
                     pollerServices.put(svcProp.getName(), svcProp);
                 }
             }
@@ -134,7 +134,8 @@ public class AddPollerConfigServlet extends HttpServlet {
         String port1 = request.getParameter("port1");
         List<String> checkedList = new ArrayList<String>();
         if (name1 != null && !name1.equals("")) {
-            if (!addPollerInfo(pollerConfig, firstPackage, props, check1, name1, port1, user_id, protoArray1, response, request)) {
+            if (!addPollerInfo(pollerConfig, firstPackage, props, check1, name1, port1, user_id, protoArray1, response,
+                               request)) {
                 return;
             }
             checkedList.add(name1);
@@ -145,8 +146,14 @@ public class AddPollerConfigServlet extends HttpServlet {
             }
         }
         props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
-        Writer poller_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME)), "UTF-8");
-        Writer capsd_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)), "UTF-8");
+        Writer poller_fileWriter = new OutputStreamWriter(
+                                                          new FileOutputStream(
+                                                                               ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME)),
+                                                          "UTF-8");
+        Writer capsd_fileWriter = new OutputStreamWriter(
+                                                         new FileOutputStream(
+                                                                              ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)),
+                                                         "UTF-8");
         try {
             Marshaller.marshal(pollerConfig, poller_fileWriter);
             Marshaller.marshal(capsdConfig, capsd_fileWriter);
@@ -159,18 +166,30 @@ public class AddPollerConfigServlet extends HttpServlet {
     }
 
     /**
-     * <p>addCapsdInfo</p>
+     * <p>
+     * addCapsdInfo
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param port a {@link java.lang.String} object.
-     * @param user a {@link java.lang.String} object.
-     * @param protocol a {@link java.lang.String} object.
-     * @param response a {@link javax.servlet.http.HttpServletResponse} object.
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @throws javax.servlet.ServletException if any.
-     * @throws java.io.IOException if any.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param protocol
+     *            a {@link java.lang.String} object.
+     * @param response
+     *            a {@link javax.servlet.http.HttpServletResponse} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @throws javax.servlet.ServletException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    private boolean addCapsdInfo(CapsdConfiguration capsdConfig, org.opennms.netmgt.config.poller.Package pkg, Properties props, String name, String port, String user, String protocol, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+    private boolean addCapsdInfo(CapsdConfiguration capsdConfig, org.opennms.netmgt.config.poller.Package pkg,
+            Properties props, String name, String port, String user, String protocol, HttpServletResponse response,
+            HttpServletRequest request) throws ServletException, IOException {
         // Check to see if the name is duplicate of the already specified names
         // first.
         for (ProtocolPlugin svc : capsdConfig.getProtocolPluginCollection()) {
@@ -181,7 +200,8 @@ public class AddPollerConfigServlet extends HttpServlet {
                         Collection<Service> tmpPoller = pkg.getServiceCollection();
                         if (tmpPoller.contains(pollersvc) && pollersvc.getName().equals(name)) {
                             tmpPoller.remove(pollersvc);
-                            response.sendRedirect(Util.calculateUrlBase(request, "/admin/error.jsp?error=1&name=" + name));
+                            response.sendRedirect(Util.calculateUrlBase(request, "/admin/error.jsp?error=1&name="
+                                    + name));
                             return false;
                         }
                         break;
@@ -219,8 +239,10 @@ public class AddPollerConfigServlet extends HttpServlet {
                 }
                 pluginAdd.addProperty(newprop);
             } else {
-                if (props.get("service." + protocol + ".port") == null || ((String) props.get("service." + protocol + ".port")).equals("")) {
-                    response.sendRedirect(Util.calculateUrlBase(request, "admin/error.jsp?error=0&name=" + "service." + protocol + ".port"));
+                if (props.get("service." + protocol + ".port") == null
+                        || ((String) props.get("service." + protocol + ".port")).equals("")) {
+                    response.sendRedirect(Util.calculateUrlBase(request, "admin/error.jsp?error=0&name=" + "service."
+                            + protocol + ".port"));
                     return false;
                 } else {
                     port = (String) props.get("service." + protocol + ".port");
@@ -260,25 +282,39 @@ public class AddPollerConfigServlet extends HttpServlet {
             // Everything worked, return true
             return true;
         } else {
-            response.sendRedirect(Util.calculateUrlBase(request, "admin/error.jsp?error=0&name=" + "service." + protocol + ".capsd-class"));
+            response.sendRedirect(Util.calculateUrlBase(request, "admin/error.jsp?error=0&name=" + "service."
+                    + protocol + ".capsd-class"));
             return false;
         }
     }
 
     /**
-     * <p>addPollerInfo</p>
+     * <p>
+     * addPollerInfo
+     * </p>
      *
-     * @param bPolled a {@link java.lang.String} object.
-     * @param name a {@link java.lang.String} object.
-     * @param port a {@link java.lang.String} object.
-     * @param user a {@link java.lang.String} object.
-     * @param protocol a {@link java.lang.String} object.
-     * @param response a {@link javax.servlet.http.HttpServletResponse} object.
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @throws javax.servlet.ServletException if any.
-     * @throws java.io.IOException if any.
+     * @param bPolled
+     *            a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param protocol
+     *            a {@link java.lang.String} object.
+     * @param response
+     *            a {@link javax.servlet.http.HttpServletResponse} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @throws javax.servlet.ServletException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    private boolean addPollerInfo(PollerConfiguration pollerConfig, org.opennms.netmgt.config.poller.Package pkg, Properties props, String bPolled, String name, String port, String user, String protocol, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+    private boolean addPollerInfo(PollerConfiguration pollerConfig, org.opennms.netmgt.config.poller.Package pkg,
+            Properties props, String bPolled, String name, String port, String user, String protocol,
+            HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
         // Check to see if the name is duplicate of the already specified names
         // first.
         for (Service svc : pkg.getServiceCollection()) {
@@ -306,7 +342,8 @@ public class AddPollerConfigServlet extends HttpServlet {
                 newMonitor.setService(name);
                 newMonitor.setClassName(monitor);
             } else {
-                response.sendRedirect(Util.calculateUrlBase(request, "admin/error.jsp?error=0&name=" + "service." + protocol + ".monitor"));
+                response.sendRedirect(Util.calculateUrlBase(request, "admin/error.jsp?error=0&name=" + "service."
+                        + protocol + ".monitor"));
                 return false;
             }
 
@@ -345,10 +382,12 @@ public class AddPollerConfigServlet extends HttpServlet {
 
             newprop = new org.opennms.netmgt.config.poller.Parameter();
             if (port == null || port.equals("")) {
-                if (props.get("service." + protocol + ".port") == null || ((String) props.get("service." + protocol + ".port")).equals("")) {
+                if (props.get("service." + protocol + ".port") == null
+                        || ((String) props.get("service." + protocol + ".port")).equals("")) {
                     newMonitor = null;
                     newService = null;
-                    response.sendRedirect(Util.calculateUrlBase(request, "admin/error.jsp?error=0&name=" + "service." + protocol + ".port"));
+                    response.sendRedirect(Util.calculateUrlBase(request, "admin/error.jsp?error=0&name=" + "service."
+                            + protocol + ".port"));
                     return false;
                 } else {
                     port = (String) props.get("service." + protocol + ".port");

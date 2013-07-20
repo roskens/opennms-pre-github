@@ -44,7 +44,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class FtpDetectorTest {
 
     @Autowired
@@ -80,31 +80,30 @@ public class FtpDetectorTest {
         m_detector.dispose();
     }
 
-
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorSingleLineResponseSuccess() throws Exception {
 
         m_server.setBanner("220 ProFTPD 1.3.0 Server (ProFTPD)");
         m_detector.setPort(m_server.getLocalPort());
         m_detector.setIdleTime(10000);
-       assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorMultilineSuccess() throws Exception {
 
         m_server.setBanner("220---------- Welcome to Pure-FTPd [TLS] ----------\r\n220-You are user number 1 of 50 allowed.\r\n220-Local time is now 07:47. Server port: 21.\r\n220 You will be disconnected after 15 minutes of inactivity.");
         m_detector.setPort(m_server.getLocalPort());
         m_detector.setIdleTime(10000);
 
-       assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testFailureClosedPort() throws Exception {
 
         m_server.setBanner("WRONG BANNER");
-        m_detector.setPort(1000); //m_server.getLocalPort()
+        m_detector.setPort(1000); // m_server.getLocalPort()
         m_detector.setIdleTime(10000);
 
         DetectFuture df = m_detector.isServiceDetected(m_server.getInetAddress());
@@ -112,9 +111,9 @@ public class FtpDetectorTest {
 
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testFailureNoBannerSent() throws Exception {
-       m_server = new SimpleServer();
+        m_server = new SimpleServer();
         m_server.init();
         m_server.startServer();
         m_detector.setPort(m_server.getLocalPort());

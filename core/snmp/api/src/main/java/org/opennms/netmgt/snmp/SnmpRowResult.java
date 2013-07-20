@@ -34,8 +34,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SnmpRowResult {
-    private final Map<SnmpObjId, SnmpResult> m_results = new TreeMap<SnmpObjId,SnmpResult>();
+    private final Map<SnmpObjId, SnmpResult> m_results = new TreeMap<SnmpObjId, SnmpResult>();
+
     private SnmpInstId m_instance;
+
     private int m_columnCount;
 
     public SnmpRowResult(int columnCount, SnmpInstId instance) {
@@ -71,7 +73,8 @@ public class SnmpRowResult {
     }
 
     public void addResult(SnmpObjId column, SnmpResult result) {
-        assertTrue(m_instance.equals(result.getInstance()), "unexpected result %s passed to row with instance %s", result, m_instance);
+        assertTrue(m_instance.equals(result.getInstance()), "unexpected result %s passed to row with instance %s",
+                   result, m_instance);
         m_results.put(column, result);
     }
 
@@ -84,7 +87,7 @@ public class SnmpRowResult {
      * @return
      */
     public SnmpValue getValue(SnmpObjId base) {
-        for(SnmpResult result : getResults()) {
+        for (SnmpResult result : getResults()) {
             if (base.equals(result.getBase())) {
                 return result.getValue();
             }
@@ -94,18 +97,14 @@ public class SnmpRowResult {
     }
 
     private void assertTrue(boolean b, String fmt, Object... args) {
-    	if (!b) {
-    		throw new IllegalArgumentException(String.format(fmt, args));
-    	}
+        if (!b) {
+            throw new IllegalArgumentException(String.format(fmt, args));
+        }
     }
-
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("columnCount", m_columnCount)
-            .append("results", m_results)
-            .toString();
+        return new ToStringBuilder(this).append("columnCount", m_columnCount).append("results", m_results).toString();
     }
 
 }

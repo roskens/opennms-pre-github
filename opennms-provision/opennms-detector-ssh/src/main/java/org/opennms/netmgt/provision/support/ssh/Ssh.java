@@ -42,7 +42,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Ssh class.</p>
+ * <p>
+ * Ssh class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @version $Id: $
@@ -50,6 +52,7 @@ import org.slf4j.LoggerFactory;
 public class Ssh extends AbstractPoll {
 
     private static final Logger LOG = LoggerFactory.getLogger(Ssh.class);
+
     // SSH port is 22
     /** Constant <code>DEFAULT_PORT=22</code> */
     public static final int DEFAULT_PORT = 22;
@@ -59,36 +62,54 @@ public class Ssh extends AbstractPoll {
     public static final String DEFAULT_CLIENT_BANNER = "SSH-1.99-OpenNMS_1.5";
 
     protected int m_port = DEFAULT_PORT;
+
     protected String m_username;
+
     protected String m_password;
+
     protected String m_banner = DEFAULT_CLIENT_BANNER;
+
     protected String m_serverBanner = "";
+
     protected InetAddress m_address;
+
     protected Throwable m_error;
 
     private Socket m_socket = null;
+
     private BufferedReader m_reader = null;
+
     private OutputStream m_writer = null;
 
     /**
-     * <p>Constructor for Ssh.</p>
+     * <p>
+     * Constructor for Ssh.
+     * </p>
      */
-    public Ssh() { }
+    public Ssh() {
+    }
 
     /**
-     * <p>Constructor for Ssh.</p>
+     * <p>
+     * Constructor for Ssh.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      */
     public Ssh(InetAddress address) {
         setAddress(address);
     }
 
     /**
-     * <p>Constructor for Ssh.</p>
+     * <p>
+     * Constructor for Ssh.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param port a int.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param port
+     *            a int.
      */
     public Ssh(InetAddress address, int port) {
         setAddress(address);
@@ -96,11 +117,16 @@ public class Ssh extends AbstractPoll {
     }
 
     /**
-     * <p>Constructor for Ssh.</p>
+     * <p>
+     * Constructor for Ssh.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param port a int.
-     * @param timeout a int.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
      */
     public Ssh(InetAddress address, int port, int timeout) {
         setAddress(address);
@@ -111,7 +137,8 @@ public class Ssh extends AbstractPoll {
     /**
      * Set the address to connect to.
      *
-     * @param address the address
+     * @param address
+     *            the address
      */
     public void setAddress(InetAddress address) {
         m_address = address;
@@ -129,7 +156,8 @@ public class Ssh extends AbstractPoll {
     /**
      * Set the port to connect to.
      *
-     * @param port the port
+     * @param port
+     *            the port
      */
     public void setPort(int port) {
         m_port = port;
@@ -150,7 +178,8 @@ public class Ssh extends AbstractPoll {
     /**
      * Set the username to connect as.
      *
-     * @param username the username
+     * @param username
+     *            the username
      */
     public void setUsername(String username) {
         m_username = username;
@@ -168,7 +197,8 @@ public class Ssh extends AbstractPoll {
     /**
      * Set the password to connect with.
      *
-     * @param password the password
+     * @param password
+     *            the password
      */
     public void setPassword(String password) {
         m_password = password;
@@ -186,7 +216,8 @@ public class Ssh extends AbstractPoll {
     /**
      * Set the banner string to use when connecting
      *
-     * @param banner the banner
+     * @param banner
+     *            the banner
      */
     public void setClientBanner(String banner) {
         m_banner = banner;
@@ -211,16 +242,21 @@ public class Ssh extends AbstractPoll {
     }
 
     /**
-     * <p>setError</p>
+     * <p>
+     * setError
+     * </p>
      *
-     * @param t a {@link java.lang.Throwable} object.
+     * @param t
+     *            a {@link java.lang.Throwable} object.
      */
     protected void setError(Throwable t) {
         m_error = t;
     }
 
     /**
-     * <p>getError</p>
+     * <p>
+     * getError
+     * </p>
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -233,7 +269,8 @@ public class Ssh extends AbstractPoll {
      * the object.
      *
      * @return true if it is able to connect
-     * @throws org.opennms.netmgt.provision.support.ssh.InsufficientParametersException if any.
+     * @throws org.opennms.netmgt.provision.support.ssh.InsufficientParametersException
+     *             if any.
      */
     protected boolean tryConnect() throws InsufficientParametersException {
         if (getAddress() == null) {
@@ -272,7 +309,9 @@ public class Ssh extends AbstractPoll {
     }
 
     /**
-     * <p>disconnect</p>
+     * <p>
+     * disconnect
+     * </p>
      */
     protected void disconnect() {
         if (m_writer != null) {

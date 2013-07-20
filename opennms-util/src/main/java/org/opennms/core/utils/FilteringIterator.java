@@ -31,7 +31,9 @@ package org.opennms.core.utils;
 import java.util.Iterator;
 
 /**
- * <p>Abstract FilteringIterator class.</p>
+ * <p>
+ * Abstract FilteringIterator class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,8 +43,8 @@ abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
     private static final class PeekableIterator<T> implements Iterator<T> {
 
         Iterator<T> m_it;
-        T m_peeked = null;
 
+        T m_peeked = null;
 
         public PeekableIterator(Iterator<T> it) {
             m_it = it;
@@ -82,25 +84,33 @@ abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
     private PeekableIterator<T> m_it;
 
     /**
-     * <p>Constructor for FilteringIterator.</p>
+     * <p>
+     * Constructor for FilteringIterator.
+     * </p>
      *
-     * @param iterable a {@link java.lang.Iterable} object.
+     * @param iterable
+     *            a {@link java.lang.Iterable} object.
      */
     public FilteringIterator(Iterable<T> iterable) {
         this(iterable.iterator());
     }
 
     /**
-     * <p>Constructor for FilteringIterator.</p>
+     * <p>
+     * Constructor for FilteringIterator.
+     * </p>
      *
-     * @param iterator a {@link java.util.Iterator} object.
+     * @param iterator
+     *            a {@link java.util.Iterator} object.
      */
     public FilteringIterator(Iterator<T> iterator) {
         m_it = new PeekableIterator<T>(iterator);
     }
 
     /**
-     * <p>hasNext</p>
+     * <p>
+     * hasNext
+     * </p>
      *
      * @return a boolean.
      */
@@ -111,7 +121,7 @@ abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
     }
 
     private void skipNonMatching() {
-        while(m_it.hasNext() && !matches(m_it.peek())) {
+        while (m_it.hasNext() && !matches(m_it.peek())) {
             m_it.next();
         }
     }
@@ -120,15 +130,20 @@ abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
      * This iterator will only return objects for which matches returns true;
      */
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param item a T object.
+     * @param item
+     *            a T object.
      * @return a boolean.
      */
     abstract protected boolean matches(T item);
 
     /**
-     * <p>next</p>
+     * <p>
+     * next
+     * </p>
      *
      * @return a T object.
      */
@@ -139,7 +154,9 @@ abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
-     * <p>remove</p>
+     * <p>
+     * remove
+     * </p>
      */
     @Override
     public void remove() {
@@ -147,7 +164,9 @@ abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
-     * <p>iterator</p>
+     * <p>
+     * iterator
+     * </p>
      *
      * @return a {@link java.util.Iterator} object.
      */

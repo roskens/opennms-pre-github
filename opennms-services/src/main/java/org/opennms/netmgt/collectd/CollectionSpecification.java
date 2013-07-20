@@ -45,27 +45,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>CollectionSpecification class.</p>
+ * <p>
+ * CollectionSpecification class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class CollectionSpecification {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(CollectionSpecification.class);
 
     private CollectdPackage m_package;
+
     private String m_svcName;
+
     private ServiceCollector m_collector;
+
     private Map<String, Object> m_parameters;
 
     /**
-     * <p>Constructor for CollectionSpecification.</p>
+     * <p>
+     * Constructor for CollectionSpecification.
+     * </p>
      *
-     * @param wpkg a {@link org.opennms.netmgt.config.CollectdPackage} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @param collector a {@link org.opennms.netmgt.collectd.ServiceCollector} object.
+     * @param wpkg
+     *            a {@link org.opennms.netmgt.config.CollectdPackage} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param collector
+     *            a {@link org.opennms.netmgt.collectd.ServiceCollector} object.
      */
     public CollectionSpecification(CollectdPackage wpkg, String svcName, ServiceCollector collector) {
         m_package = wpkg;
@@ -76,7 +85,9 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>getPackageName</p>
+     * <p>
+     * getPackageName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -109,7 +120,9 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -122,7 +135,9 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>getInterval</p>
+     * <p>
+     * getInterval
+     * </p>
      *
      * @return a long.
      */
@@ -132,7 +147,9 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -150,8 +167,10 @@ public class CollectionSpecification {
     }
 
     /**
-     * Return a read only instance of the parameters, which consists of the overall service parameters,
-     * plus various other Collection specific parameters (e.g. storeByNodeID etc)
+     * Return a read only instance of the parameters, which consists of the
+     * overall service parameters,
+     * plus various other Collection specific parameters (e.g. storeByNodeID
+     * etc)
      *
      * @return A read only Map instance
      */
@@ -168,7 +187,7 @@ public class CollectionSpecification {
     }
 
     private void initializeParameters() {
-    	final Map<String, Object> m = new TreeMap<String, Object>();
+        final Map<String, Object> m = new TreeMap<String, Object>();
         m.put("SERVICE", m_svcName);
         StringBuffer sb;
         Collection<Parameter> params = getService().getParameterCollection();
@@ -191,7 +210,7 @@ public class CollectionSpecification {
             if (storeByNodeId() != null) {
                 if (isTrue(storeByNodeId())) {
                     m.put("storeByNodeID", "true");
-                } else if(isFalse(storeByNodeId())) {
+                } else if (isFalse(storeByNodeId())) {
                     m.put("storeByNodeID", "false");
                 } else {
                     m.put("storeByNodeID", "normal");
@@ -225,9 +244,12 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
     public void initialize(CollectionAgent agent) throws CollectionInitializationException {
         Collectd.instrumentation().beginCollectorInitialize(agent.getNodeId(), agent.getHostAddress(), m_svcName);
@@ -239,9 +261,12 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>release</p>
+     * <p>
+     * release
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
     public void release(CollectionAgent agent) {
         Collectd.instrumentation().beginCollectorRelease(agent.getNodeId(), agent.getHostAddress(), m_svcName);
@@ -253,11 +278,16 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>collect</p>
+     * <p>
+     * collect
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
-     * @return a {@link org.opennms.netmgt.config.collector.CollectionSet} object.
-     * @throws org.opennms.netmgt.collectd.CollectionException if any.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @return a {@link org.opennms.netmgt.config.collector.CollectionSet}
+     *         object.
+     * @throws org.opennms.netmgt.collectd.CollectionException
+     *             if any.
      */
     public CollectionSet collect(CollectionAgent agent) throws CollectionException {
         Collectd.instrumentation().beginCollectorCollect(agent.getNodeId(), agent.getHostAddress(), m_svcName);
@@ -269,9 +299,12 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>scheduledOutage</p>
+     * <p>
+     * scheduledOutage
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      * @return a boolean.
      */
     public boolean scheduledOutage(CollectionAgent agent) {
@@ -290,10 +323,10 @@ public class CollectionSpecification {
             // Does the outage apply to the current time?
             if (outageFactory.isCurTimeInOutage(outageName)) {
                 // Does the outage apply to this interface?
-                if ((outageFactory.isNodeIdInOutage(agent.getNodeId(), outageName)) ||
-                        (outageFactory.isInterfaceInOutage(agent.getHostAddress(), outageName)))
-                {
-                    LOG.debug("scheduledOutage: configured outage '{}' applies, interface {} will not be collected for {}", outageName, agent.getHostAddress(), this);
+                if ((outageFactory.isNodeIdInOutage(agent.getNodeId(), outageName))
+                        || (outageFactory.isInterfaceInOutage(agent.getHostAddress(), outageName))) {
+                    LOG.debug("scheduledOutage: configured outage '{}' applies, interface {} will not be collected for {}",
+                              outageName, agent.getHostAddress(), this);
                     outageFound = true;
                     break;
                 }
@@ -304,9 +337,13 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>refresh</p>
+     * <p>
+     * refresh
+     * </p>
      *
-     * @param collectorConfigDao a {@link org.opennms.netmgt.dao.api.CollectorConfigDao} object.
+     * @param collectorConfigDao
+     *            a {@link org.opennms.netmgt.dao.api.CollectorConfigDao}
+     *            object.
      */
     public void refresh(CollectorConfigDao collectorConfigDao) {
         CollectdPackage refreshedPackage = collectorConfigDao.getPackage(getPackageName());
@@ -316,9 +353,12 @@ public class CollectionSpecification {
     }
 
     /**
-     * <p>getRrdRepository</p>
+     * <p>
+     * getRrdRepository
+     * </p>
      *
-     * @param collectionName a {@link java.lang.String} object.
+     * @param collectionName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
     public RrdRepository getRrdRepository(String collectionName) {

@@ -42,6 +42,7 @@ import com.vaadin.server.Page;
 
 public class NodeInfoOperation extends AbstractOperation {
     private String m_nodePageURL;
+
     private String m_nodeListURL;
 
     @Override
@@ -56,7 +57,7 @@ public class NodeInfoOperation extends AbstractOperation {
                     final Integer nodeValue = getNodeIdValue(operationContext, target);
 
                     if (nodeValue != null && nodeValue > 0) {
-                        label = labelValue == null? "" : labelValue;
+                        label = labelValue == null ? "" : labelValue;
                         nodeID = nodeValue.intValue();
                     }
                 }
@@ -82,12 +83,11 @@ public class NodeInfoOperation extends AbstractOperation {
 
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
-    	if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
-    		return true;
-    	}
-    	else if(targets != null && targets.size() > 0 && targets.get(0) != null) {
+        if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
             return true;
-        }else {
+        } else if (targets != null && targets.size() > 0 && targets.get(0) != null) {
+            return true;
+        } else {
             return false;
         }
 

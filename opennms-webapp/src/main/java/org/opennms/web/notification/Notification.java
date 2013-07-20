@@ -86,22 +86,37 @@ public class Notification {
     }
 
     /**
-     * <p>Constructor for Notification.</p>
+     * <p>
+     * Constructor for Notification.
+     * </p>
      *
-     * @param sentToList a {@link java.util.List} object.
-     * @param notifyId a int.
-     * @param txtMsg a {@link java.lang.String} object.
-     * @param numMsg a {@link java.lang.String} object.
-     * @param timeSent a long.
-     * @param timeReply a long.
-     * @param responder a {@link java.lang.String} object.
-     * @param nodeid a int.
-     * @param interfaceID a {@link java.lang.String} object.
-     * @param svcId a int.
-     * @param svcName a {@link java.lang.String} object.
-     * @param eventid a int.
+     * @param sentToList
+     *            a {@link java.util.List} object.
+     * @param notifyId
+     *            a int.
+     * @param txtMsg
+     *            a {@link java.lang.String} object.
+     * @param numMsg
+     *            a {@link java.lang.String} object.
+     * @param timeSent
+     *            a long.
+     * @param timeReply
+     *            a long.
+     * @param responder
+     *            a {@link java.lang.String} object.
+     * @param nodeid
+     *            a int.
+     * @param interfaceID
+     *            a {@link java.lang.String} object.
+     * @param svcId
+     *            a int.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param eventid
+     *            a int.
      */
-    public Notification(List<NoticeSentTo> sentToList, int notifyId, String txtMsg, String numMsg, long timeSent, long timeReply, String responder, int nodeid, String interfaceID, int svcId, String svcName, int eventid) {
+    public Notification(List<NoticeSentTo> sentToList, int notifyId, String txtMsg, String numMsg, long timeSent,
+            long timeReply, String responder, int nodeid, String interfaceID, int svcId, String svcName, int eventid) {
         m_sentTo = sentToList;
         m_notifyID = notifyId;
         m_txtMsg = txtMsg;
@@ -117,7 +132,9 @@ public class Notification {
     }
 
     /**
-     * <p>getSentTo</p>
+     * <p>
+     * getSentTo
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -126,7 +143,9 @@ public class Notification {
     }
 
     /**
-     * <p>getTextMessage</p>
+     * <p>
+     * getTextMessage
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,7 +154,9 @@ public class Notification {
     }
 
     /**
-     * <p>getNumericMessage</p>
+     * <p>
+     * getNumericMessage
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -144,7 +165,9 @@ public class Notification {
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a int.
      */
@@ -153,7 +176,9 @@ public class Notification {
     }
 
     /**
-     * <p>getTimeSent</p>
+     * <p>
+     * getTimeSent
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -162,7 +187,9 @@ public class Notification {
     }
 
     /**
-     * <p>getTimeReplied</p>
+     * <p>
+     * getTimeReplied
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -176,7 +203,9 @@ public class Notification {
     }
 
     /**
-     * <p>getResponder</p>
+     * <p>
+     * getResponder
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -185,7 +214,9 @@ public class Notification {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -194,7 +225,9 @@ public class Notification {
     }
 
     /**
-     * <p>getInterfaceId</p>
+     * <p>
+     * getInterfaceId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -203,7 +236,9 @@ public class Notification {
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -212,7 +247,9 @@ public class Notification {
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -221,7 +258,9 @@ public class Notification {
     }
 
     /**
-     * <p>getServiceId</p>
+     * <p>
+     * getServiceId
+     * </p>
      *
      * @return a int.
      */
@@ -230,7 +269,9 @@ public class Notification {
     }
 
     /**
-     * <p>getEventId</p>
+     * <p>
+     * getEventId
+     * </p>
      *
      * @return a int.
      */

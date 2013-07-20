@@ -33,6 +33,7 @@ import org.opennms.web.navigate.PageNavEntry;
 public class NCSAlarmListNavItem implements PageNavEntry {
 
     private String m_name;
+
     private String m_url;
 
     @Override

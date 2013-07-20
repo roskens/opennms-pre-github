@@ -42,20 +42,26 @@ import org.springframework.dao.DataAccessResourceFailureException;
  * @author brozow
  * @version $Id: $
  */
-public class DefaultTl1ConfigurationDao extends AbstractCastorConfigDao<Tl1dConfiguration, Tl1dConfiguration>implements Tl1ConfigurationDao {
+public class DefaultTl1ConfigurationDao extends AbstractCastorConfigDao<Tl1dConfiguration, Tl1dConfiguration> implements
+        Tl1ConfigurationDao {
 
     /**
-     * <p>Constructor for DefaultTl1ConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultTl1ConfigurationDao.
+     * </p>
      */
     public DefaultTl1ConfigurationDao() {
         super(Tl1dConfiguration.class, "TL1d configuration");
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.dao.Tl1ConfigurationDao#getElements()
      */
     /**
-     * <p>getElements</p>
+     * <p>
+     * getElements
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -65,9 +71,12 @@ public class DefaultTl1ConfigurationDao extends AbstractCastorConfigDao<Tl1dConf
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException if any.
+     * @throws org.springframework.dao.DataAccessResourceFailureException
+     *             if any.
      */
     @Override
     public void update() throws DataAccessResourceFailureException {

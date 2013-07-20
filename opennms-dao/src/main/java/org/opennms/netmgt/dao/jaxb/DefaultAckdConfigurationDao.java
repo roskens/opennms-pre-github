@@ -42,25 +42,32 @@ import org.opennms.netmgt.dao.api.AckdConfigurationDao;
 import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
- * Default implementation of <code>AckdConfiguration</code> containing utility methods for manipulating
+ * Default implementation of <code>AckdConfiguration</code> containing utility
+ * methods for manipulating
  * the <code>Ackd</code> and <code>AckdReader</code>s.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
-public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfiguration, AckdConfiguration> implements AckdConfigurationDao {
+public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfiguration, AckdConfiguration> implements
+        AckdConfigurationDao {
 
     /**
-     * <p>Constructor for DefaultAckdConfigurationDao.</p>
+     * <p>
+     * Constructor for DefaultAckdConfigurationDao.
+     * </p>
      */
     public DefaultAckdConfigurationDao() {
         super(AckdConfiguration.class, "Ackd Configuration");
     }
 
     /**
-     * <p>getConfig</p>
+     * <p>
+     * getConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.ackd.AckdConfiguration} object.
+     * @return a {@link org.opennms.netmgt.config.ackd.AckdConfiguration}
+     *         object.
      */
     @Override
     public AckdConfiguration getConfig() {
@@ -160,10 +167,12 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
     }
 
     /**
-     * The exception boils up from the container class  The container class should
+     * The exception boils up from the container class The container class
+     * should
      * indicate this.
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException if any.
+     * @throws org.springframework.dao.DataAccessResourceFailureException
+     *             if any.
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {
@@ -171,7 +180,9 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
     }
 
     /**
-     * <p>getEnabledReaderCount</p>
+     * <p>
+     * getEnabledReaderCount
+     * </p>
      *
      * @return a int.
      */

@@ -43,9 +43,10 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-
 /**
- * <p>AdminRancidCreateController class.</p>
+ * <p>
+ * AdminRancidCreateController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -54,24 +55,30 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 @SuppressWarnings("deprecation")
 public class AdminRancidCreateController extends SimpleFormController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AdminRancidCreateController.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(AdminRancidCreateController.class);
 
     InventoryService m_inventoryService;
 
     /**
-     * <p>getInventoryService</p>
+     * <p>
+     * getInventoryService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *         object.
      */
     public InventoryService getInventoryService() {
         return m_inventoryService;
     }
 
     /**
-     * <p>setInventoryService</p>
+     * <p>
+     * setInventoryService
+     * </p>
      *
-     * @param inventoryService a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @param inventoryService
+     *            a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *            object.
      */
     public void setInventoryService(InventoryService inventoryService) {
         m_inventoryService = inventoryService;
@@ -79,18 +86,22 @@ public class AdminRancidCreateController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
-            Object command, BindException errors) throws ServletException, IOException, Exception {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+            BindException errors) throws ServletException, IOException, Exception {
 
         LOG.debug("AdminRancidCreateController ModelAndView onSubmit");
 
         AdminRancidRouterDbCommClass bean = (AdminRancidRouterDbCommClass) command;
 
-        LOG.debug("AdminRancidCreateController ModelAndView onSubmit updating device[{}] group[{}] status[{}]", bean.getDeviceName(), bean.getGroupName(), bean.getStatusName());
+        LOG.debug("AdminRancidCreateController ModelAndView onSubmit updating device[{}] group[{}] status[{}]",
+                  bean.getDeviceName(), bean.getGroupName(), bean.getStatusName());
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
-            boolean done = m_inventoryService.createNodeOnRouterDb(bean.getGroupName(), bean.getDeviceName(), bean.getDeviceTypeName(), bean.getStatusName(),bean.getComment());
-            if (!done){
-                LOG.debug("AdminRancidCreateController ModelAndView onSubmit error while updating status for{}/{}", bean.getGroupName(), bean.getDeviceName());
+            boolean done = m_inventoryService.createNodeOnRouterDb(bean.getGroupName(), bean.getDeviceName(),
+                                                                   bean.getDeviceTypeName(), bean.getStatusName(),
+                                                                   bean.getComment());
+            if (!done) {
+                LOG.debug("AdminRancidCreateController ModelAndView onSubmit error while updating status for{}/{}",
+                          bean.getGroupName(), bean.getDeviceName());
             }
         }
         String redirectURL = request.getHeader("Referer");
@@ -100,8 +111,7 @@ public class AdminRancidCreateController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
-        throws ServletException {
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {
         LOG.debug("AdminRancidCreateController initBinder");
     }
 

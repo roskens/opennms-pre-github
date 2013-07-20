@@ -66,11 +66,15 @@ public class SystemDefPanel extends VerticalLayout {
     /**
      * Instantiates a new system definition panel.
      *
-     * @param dataCollectionConfigDao the OpenNMS Data Collection Configuration DAO
-     * @param source the OpenNMS Data Collection Group object
-     * @param logger the logger object
+     * @param dataCollectionConfigDao
+     *            the OpenNMS Data Collection Configuration DAO
+     * @param source
+     *            the OpenNMS Data Collection Group object
+     * @param logger
+     *            the logger object
      */
-    public SystemDefPanel(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup source, final Logger logger) {
+    public SystemDefPanel(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup source,
+            final Logger logger) {
         addStyleName(Runo.PANEL_LIGHT);
 
         form = new SystemDefForm(dataCollectionConfigDao, source) {
@@ -84,6 +88,7 @@ public class SystemDefPanel extends VerticalLayout {
                 }
                 table.refreshRowCache();
             }
+
             @Override
             public void deleteSystemDef(SystemDef systemDef) {
                 logger.info("System Definition " + systemDef.getName() + " has been removed.");
@@ -133,7 +138,7 @@ public class SystemDefPanel extends VerticalLayout {
     public Collection<SystemDef> getSystemDefinitions() {
         final Collection<SystemDef> groups = new ArrayList<SystemDef>();
         for (Object itemId : table.getContainerDataSource().getItemIds()) {
-            groups.add(((BeanItem<SystemDef>)table.getContainerDataSource().getItem(itemId)).getBean());
+            groups.add(((BeanItem<SystemDef>) table.getContainerDataSource().getItem(itemId)).getBean());
         }
         return groups;
     }
@@ -141,7 +146,8 @@ public class SystemDefPanel extends VerticalLayout {
     /**
      * Sets the value of the ifNew flag.
      *
-     * @param isNew true, if the system definition is new.
+     * @param isNew
+     *            true, if the system definition is new.
      */
     public void setIsNew(boolean isNew) {
         this.isNew = isNew;

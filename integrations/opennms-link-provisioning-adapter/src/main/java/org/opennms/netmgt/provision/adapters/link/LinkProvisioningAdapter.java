@@ -43,15 +43,15 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
-
 /**
- * This adapter automatically creates links between nodes based on an expression applied
+ * This adapter automatically creates links between nodes based on an expression
+ * applied
  * to the node label (hostname)
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
-@EventListener(name="LinkProvisioningAdapter")
+@EventListener(name = "LinkProvisioningAdapter")
 public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(LinkProvisioningAdapter.class);
 
@@ -69,7 +69,9 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
     }
 
     /**
-     * <p>Constructor for LinkProvisioningAdapter.</p>
+     * <p>
+     * Constructor for LinkProvisioningAdapter.
+     * </p>
      */
     public LinkProvisioningAdapter() {
         super(ADAPTER_NAME);
@@ -97,7 +99,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
 
         LOG.info("running doAddNode on node {} nodeId: {}", nodeLabel, nodeId);
 
-        if(nodeId != null && parentNodeId != null){
+        if (nodeId != null && parentNodeId != null) {
             LOG.info("Found link between parentNode {} and node {}", parentNodeLabel, nodeLabel);
             m_nodeLinkService.createLink(parentNodeId, nodeId);
         }
@@ -117,7 +119,8 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
     /** {@inheritDoc} */
     @Override
     public void doDeleteNode(final int nodeid) {
-        //This is handle using cascading deletes from the node table to the datalink table
+        // This is handle using cascading deletes from the node table to the
+        // datalink table
     }
 
     /** {@inheritDoc} */
@@ -126,17 +129,20 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
     }
 
     /**
-     * <p>dataLinkFailed</p>
+     * <p>
+     * dataLinkFailed
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.DATA_LINK_FAILED_EVENT_UEI)
+    @EventHandler(uei = EventConstants.DATA_LINK_FAILED_EVENT_UEI)
     public void dataLinkFailed(final Event event) {
-        try{
+        try {
             updateLinkStatus("dataLinkFailed", event, "B");
-        }catch(final Throwable t){
+        } catch (final Throwable t) {
             LOG.debug("Caught an exception in dataLinkFailed", t);
-        }finally{
+        } finally {
             LOG.debug("Bailing out of dataLinkFailed handler");
         }
     }
@@ -154,98 +160,127 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
         final Integer nodeId = m_nodeLinkService.getNodeId(nodeLabel);
         final Integer parentNodeId = m_nodeLinkService.getNodeId(parentNodeLabel);
 
-        if(nodeId != null && parentNodeId != null) {
-            LOG.info("{}: updated link nodeLabel: {}, nodeId: {}, parentLabel: {}, parentId: {} ", method, nodeLabel, nodeId, parentNodeLabel, parentNodeId);
+        if (nodeId != null && parentNodeId != null) {
+            LOG.info("{}: updated link nodeLabel: {}, nodeId: {}, parentLabel: {}, parentId: {} ", method, nodeLabel,
+                     nodeId, parentNodeLabel, parentNodeId);
             m_nodeLinkService.updateLinkStatus(parentNodeId, nodeId, newStatus);
-        }else {
+        } else {
             LOG.info("{}: found no link with parent: {} and node {}", method, parentNodeLabel, nodeLabel);
         }
     }
 
     /**
-     * <p>dataLinkRestored</p>
+     * <p>
+     * dataLinkRestored
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.DATA_LINK_RESTORED_EVENT_UEI)
-    public void dataLinkRestored(final Event event){
-        try{
+    @EventHandler(uei = EventConstants.DATA_LINK_RESTORED_EVENT_UEI)
+    public void dataLinkRestored(final Event event) {
+        try {
             updateLinkStatus("dataLinkRestored", event, "G");
-        }catch(final Throwable t){
+        } catch (final Throwable t) {
             LOG.debug("Caught a throwable in dataLinkRestored", t);
-        }finally{
+        } finally {
             LOG.debug("Bailing out of dataLinkRestored handler");
         }
     }
 
     /**
-     * <p>dataLinkUnmanaged</p>
+     * <p>
+     * dataLinkUnmanaged
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.DATA_LINK_UNMANAGED_EVENT_UEI)
+    @EventHandler(uei = EventConstants.DATA_LINK_UNMANAGED_EVENT_UEI)
     public void dataLinkUnmanaged(final Event e) {
-        try{
+        try {
             updateLinkStatus("dataLinkUnmanaged", e, "U");
-        }catch(final Throwable t){
+        } catch (final Throwable t) {
             LOG.debug("Caught a throwable in dataLinkUnmanaged", t);
-        }finally{
+        } finally {
             LOG.debug("Bailing out of dataLinkUnmanaged handler");
         }
     }
 
     /**
-     * <p>max</p>
+     * <p>
+     * max
+     * </p>
      *
-     * @param string1 a {@link java.lang.String} object.
-     * @param string2 a {@link java.lang.String} object.
+     * @param string1
+     *            a {@link java.lang.String} object.
+     * @param string2
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String max(final String string1, final String string2) {
-        if(string1 == null || (string2 != null && string1.compareTo(string2) < 0)) {
+        if (string1 == null || (string2 != null && string1.compareTo(string2) < 0)) {
             return string2;
-        }else {
+        } else {
             return string1;
         }
     }
 
     /**
-     * <p>min</p>
+     * <p>
+     * min
+     * </p>
      *
-     * @param string1 a {@link java.lang.String} object.
-     * @param string2 a {@link java.lang.String} object.
+     * @param string1
+     *            a {@link java.lang.String} object.
+     * @param string2
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String min(final String string1, final String string2) {
-        if(string1 == null || (string2 != null && string1.compareTo(string2) < 0)) {
+        if (string1 == null || (string2 != null && string1.compareTo(string2) < 0)) {
             return string1;
-        }else {
+        } else {
             return string2;
         }
     }
 
     /**
-     * <p>setLinkMatchResolver</p>
+     * <p>
+     * setLinkMatchResolver
+     * </p>
      *
-     * @param linkMatchResolver a {@link org.opennms.netmgt.provision.adapters.link.LinkMatchResolver} object.
+     * @param linkMatchResolver
+     *            a
+     *            {@link org.opennms.netmgt.provision.adapters.link.LinkMatchResolver}
+     *            object.
      */
     public void setLinkMatchResolver(final LinkMatchResolver linkMatchResolver) {
         m_linkMatchResolver = linkMatchResolver;
     }
 
     /**
-     * <p>getLinkMatchResolver</p>
+     * <p>
+     * getLinkMatchResolver
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.adapters.link.LinkMatchResolver} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.adapters.link.LinkMatchResolver}
+     *         object.
      */
     public LinkMatchResolver getLinkMatchResolver() {
         return m_linkMatchResolver;
     }
 
     /**
-     * <p>setNodeLinkService</p>
+     * <p>
+     * setNodeLinkService
+     * </p>
      *
-     * @param nodeLinkService a {@link org.opennms.netmgt.provision.adapters.link.NodeLinkService} object.
+     * @param nodeLinkService
+     *            a
+     *            {@link org.opennms.netmgt.provision.adapters.link.NodeLinkService}
+     *            object.
      */
     public void setNodeLinkService(final NodeLinkService nodeLinkService) {
         m_nodeLinkService = nodeLinkService;

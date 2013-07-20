@@ -40,14 +40,18 @@ import org.opennms.netmgt.model.OnmsMap;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 /**
- * <p>OnmsMapDaoHibernate class.</p>
+ * <p>
+ * OnmsMapDaoHibernate class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> implements OnmsMapDao {
     /**
-     * <p>Constructor for OnmsMapDaoHibernate.</p>
+     * <p>
+     * Constructor for OnmsMapDaoHibernate.
+     * </p>
      */
     public OnmsMapDaoHibernate() {
         super(OnmsMap.class);
@@ -61,10 +65,7 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
 
             @Override
             public Collection<OnmsMap> doInHibernate(Session session) throws HibernateException, SQLException {
-                return session.createCriteria(OnmsMap.class)
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .list();
+                return session.createCriteria(OnmsMap.class).setFirstResult(offset).setMaxResults(limit).list();
             }
 
         });
@@ -91,7 +92,7 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
     /** {@inheritDoc} */
     @Override
     public Collection<OnmsMap> findMapsByNameAndType(String mapName, String mapType) {
-        Object[] values = {mapName, mapType};
+        Object[] values = { mapName, mapType };
         return find("from OnmsMap as map where map.name = ? and map.type = ?", values);
     }
 
@@ -102,7 +103,9 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
     }
 
     /**
-     * <p>findAutoMaps</p>
+     * <p>
+     * findAutoMaps
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -112,7 +115,9 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
     }
 
     /**
-     * <p>findUserMaps</p>
+     * <p>
+     * findUserMaps
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -122,7 +127,9 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
     }
 
     /**
-     * <p>findSaveMaps</p>
+     * <p>
+     * findSaveMaps
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -146,35 +153,36 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
     /** {@inheritDoc} */
     @Override
     public Collection<OnmsMap> findVisibleMapsByGroup(String group) {
-        Object[] values = {OnmsMap.ACCESS_MODE_ADMIN, OnmsMap.ACCESS_MODE_USER,OnmsMap.ACCESS_MODE_GROUP,group};
-        return find("from OnmsMap as map where map.accessMode = ? or map.accessMode = ? or " +
-        		"(map.accessMode = ? and map.mapGroup = ?)", values);
+        Object[] values = { OnmsMap.ACCESS_MODE_ADMIN, OnmsMap.ACCESS_MODE_USER, OnmsMap.ACCESS_MODE_GROUP, group };
+        return find("from OnmsMap as map where map.accessMode = ? or map.accessMode = ? or "
+                + "(map.accessMode = ? and map.mapGroup = ?)", values);
     }
 
     /**
-     * <p>findAutoAndSaveMaps</p>
+     * <p>
+     * findAutoAndSaveMaps
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     @Override
     public Collection<OnmsMap> findAutoAndSaveMaps() {
-        Object[] values = {OnmsMap.AUTOMATIC_SAVED_MAP, OnmsMap.AUTOMATICALLY_GENERATED_MAP};
+        Object[] values = { OnmsMap.AUTOMATIC_SAVED_MAP, OnmsMap.AUTOMATICALLY_GENERATED_MAP };
         return find("from OnmsMap as map where map.type = ? or map.type = ? ", values);
     }
 
     /** {@inheritDoc} */
     @Override
     public int updateAllAutomatedMap(final Date time) {
-        return getHibernateTemplate().execute(
-                                       new HibernateCallback<Integer>() {
+        return getHibernateTemplate().execute(new HibernateCallback<Integer>() {
             @Override
             public Integer doInHibernate(Session session) throws HibernateException, SQLException {
 
-             String hql = "update OnmsMap as map set map.lastModifiedTime = :time where map.type = :type";
-             Query query = session.createQuery(hql);
-             query.setTimestamp("time", time);
-             query.setString("type", OnmsMap.AUTOMATICALLY_GENERATED_MAP);
-             return query.executeUpdate();
+                String hql = "update OnmsMap as map set map.lastModifiedTime = :time where map.type = :type";
+                Query query = session.createQuery(hql);
+                query.setTimestamp("time", time);
+                query.setString("type", OnmsMap.AUTOMATICALLY_GENERATED_MAP);
+                return query.executeUpdate();
             }
         });
 

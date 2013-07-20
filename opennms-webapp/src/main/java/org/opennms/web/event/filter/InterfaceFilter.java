@@ -43,16 +43,21 @@ public class InterfaceFilter extends EqualsFilter<String> {
     public static final String TYPE = "interface";
 
     /**
-     * <p>Constructor for InterfaceFilter.</p>
+     * <p>
+     * Constructor for InterfaceFilter.
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public InterfaceFilter(String ipAddress) {
         super(TYPE, SQLType.STRING, "IPADDR", "ipAddr", ipAddress);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +67,9 @@ public class InterfaceFilter extends EqualsFilter<String> {
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

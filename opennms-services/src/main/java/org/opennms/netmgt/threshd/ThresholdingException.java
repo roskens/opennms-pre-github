@@ -29,7 +29,9 @@
 package org.opennms.netmgt.threshd;
 
 /**
- * <p>ThresholdingException class.</p>
+ * <p>
+ * ThresholdingException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,10 +43,14 @@ public class ThresholdingException extends Exception {
     private int m_failureCode;
 
     /**
-     * <p>Constructor for ThresholdingException.</p>
+     * <p>
+     * Constructor for ThresholdingException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param failureCode a int.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param failureCode
+     *            a int.
      */
     public ThresholdingException(String message, int failureCode) {
         super(message);
@@ -52,7 +58,9 @@ public class ThresholdingException extends Exception {
     }
 
     /**
-     * <p>getFailureCode</p>
+     * <p>
+     * getFailureCode
+     * </p>
      *
      * @return a int.
      */

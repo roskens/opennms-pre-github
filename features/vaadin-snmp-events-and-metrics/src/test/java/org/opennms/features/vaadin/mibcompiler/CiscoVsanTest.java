@@ -38,8 +38,10 @@ import org.opennms.features.vaadin.mibcompiler.services.JsmiMibParser;
 
 /**
  * The Test Class for CISCO-VSAN-MIB
- * <p>This test was created in order to verify that jsmiparser now supports read-create
- * in ModuleComplianceAccess.</p>
+ * <p>
+ * This test was created in order to verify that jsmiparser now supports
+ * read-create in ModuleComplianceAccess.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
@@ -63,7 +65,8 @@ public class CiscoVsanTest {
     /**
      * Test custom parse.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testCustomParse() throws Exception {

@@ -31,7 +31,9 @@ package org.opennms.netmgt.model;
 import org.springframework.util.Assert;
 
 /**
- * <p>PrefabGraph class.</p>
+ * <p>
+ * PrefabGraph class.
+ * </p>
  */
 public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     private String m_name;
@@ -59,26 +61,38 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     private String[] m_suppress;
 
     /**
-     * <p>Constructor for PrefabGraph.</p>
+     * <p>
+     * Constructor for PrefabGraph.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param title a {@link java.lang.String} object.
-     * @param columns an array of {@link java.lang.String} objects.
-     * @param command a {@link java.lang.String} object.
-     * @param externalValues an array of {@link java.lang.String} objects.
-     * @param propertiesValues an array of {@link java.lang.String} objects.
-     * @param order a int.
-     * @param types an array of {@link java.lang.String} objects.
-     * @param description a {@link java.lang.String} object.
-     * @param graphWidth a {@link java.lang.Integer} object.
-     * @param graphHeight a {@link java.lang.Integer} object.
-     * @param suppress an array of {@link java.lang.String} objects.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param title
+     *            a {@link java.lang.String} object.
+     * @param columns
+     *            an array of {@link java.lang.String} objects.
+     * @param command
+     *            a {@link java.lang.String} object.
+     * @param externalValues
+     *            an array of {@link java.lang.String} objects.
+     * @param propertiesValues
+     *            an array of {@link java.lang.String} objects.
+     * @param order
+     *            a int.
+     * @param types
+     *            an array of {@link java.lang.String} objects.
+     * @param description
+     *            a {@link java.lang.String} object.
+     * @param graphWidth
+     *            a {@link java.lang.Integer} object.
+     * @param graphHeight
+     *            a {@link java.lang.Integer} object.
+     * @param suppress
+     *            an array of {@link java.lang.String} objects.
      */
-    public PrefabGraph(String name, String title, String[] columns,
-            String command, String[] externalValues,
-            String[] propertiesValues, int order, String[] types,
-            String description, Integer graphWidth, Integer graphHeight,
-            String[] suppress) {
+    public PrefabGraph(String name, String title, String[] columns, String command, String[] externalValues,
+            String[] propertiesValues, int order, String[] types, String description, Integer graphWidth,
+            Integer graphHeight, String[] suppress) {
         Assert.notNull(name, "name argument cannot be null");
         Assert.notNull(title, "title argument cannot be null");
         Assert.notNull(columns, "columns argument cannot be null");
@@ -103,7 +117,9 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,7 +128,9 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>getTitle</p>
+     * <p>
+     * getTitle
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,7 +139,9 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>getOrder</p>
+     * <p>
+     * getOrder
+     * </p>
      *
      * @return a int.
      */
@@ -130,7 +150,9 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>getColumns</p>
+     * <p>
+     * getColumns
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -139,7 +161,9 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>getCommand</p>
+     * <p>
+     * getCommand
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -148,7 +172,9 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>getExternalValues</p>
+     * <p>
+     * getExternalValues
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -157,7 +183,9 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>getPropertiesValues</p>
+     * <p>
+     * getPropertiesValues
+     * </p>
      *
      * @return list of required string properties
      * @see org.opennms.netmgt.model.StringPropertyAttribute
@@ -176,9 +204,12 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>hasMatchingType</p>
+     * <p>
+     * hasMatchingType
+     * </p>
      *
-     * @param matchingTypes a {@link java.lang.String} object.
+     * @param matchingTypes
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean hasMatchingType(String... matchingTypes) {
@@ -220,7 +251,9 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>getSuppress</p>
+     * <p>
+     * getSuppress
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -229,9 +262,12 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param other a {@link org.opennms.netmgt.model.PrefabGraph} object.
+     * @param other
+     *            a {@link org.opennms.netmgt.model.PrefabGraph} object.
      * @return a int.
      */
     @Override

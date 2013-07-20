@@ -39,20 +39,27 @@ public class LazyList<E> implements List<E> {
     }
 
     private Loader<E> m_loader;
+
     private List<E> m_list;
+
     private boolean m_loaded = false;
 
     /**
-     * <p>Constructor for LazyList.</p>
+     * <p>
+     * Constructor for LazyList.
+     * </p>
      *
-     * @param loader a {@link org.opennms.core.utils.LazyList.Loader} object.
+     * @param loader
+     *            a {@link org.opennms.core.utils.LazyList.Loader} object.
      */
     public LazyList(Loader<E> loader) {
         m_loader = loader;
     }
 
     /**
-     * <p>iterator</p>
+     * <p>
+     * iterator
+     * </p>
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -63,7 +70,9 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>size</p>
+     * <p>
+     * size
+     * </p>
      *
      * @return a int.
      */
@@ -88,7 +97,9 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>clear</p>
+     * <p>
+     * clear
+     * </p>
      */
     @Override
     public void clear() {
@@ -111,7 +122,9 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>isEmpty</p>
+     * <p>
+     * isEmpty
+     * </p>
      *
      * @return a boolean.
      */
@@ -129,7 +142,9 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>toArray</p>
+     * <p>
+     * toArray
+     * </p>
      *
      * @return an array of {@link java.lang.Object} objects.
      */
@@ -140,10 +155,14 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>toArray</p>
+     * <p>
+     * toArray
+     * </p>
      *
-     * @param arg0 an array of T objects.
-     * @param <T> a T object.
+     * @param arg0
+     *            an array of T objects.
+     * @param <T>
+     *            a T object.
      * @return an array of T objects.
      */
     @Override
@@ -153,7 +172,9 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -171,7 +192,9 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>isLoaded</p>
+     * <p>
+     * isLoaded
+     * </p>
      *
      * @return a boolean.
      */
@@ -187,9 +210,12 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param o a E object.
+     * @param o
+     *            a E object.
      * @return a boolean.
      */
     @Override
@@ -199,10 +225,14 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param index a int.
-     * @param element a E object.
+     * @param index
+     *            a int.
+     * @param element
+     *            a E object.
      */
     @Override
     public void add(int index, E element) {
@@ -232,7 +262,9 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>listIterator</p>
+     * <p>
+     * listIterator
+     * </p>
      *
      * @return a {@link java.util.ListIterator} object.
      */
@@ -250,9 +282,12 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>remove</p>
+     * <p>
+     * remove
+     * </p>
      *
-     * @param index a int.
+     * @param index
+     *            a int.
      * @return a E object.
      */
     @Override
@@ -269,10 +304,14 @@ public class LazyList<E> implements List<E> {
     }
 
     /**
-     * <p>set</p>
+     * <p>
+     * set
+     * </p>
      *
-     * @param index a int.
-     * @param element a E object.
+     * @param index
+     *            a int.
+     * @param element
+     *            a E object.
      * @return a E object.
      */
     @Override

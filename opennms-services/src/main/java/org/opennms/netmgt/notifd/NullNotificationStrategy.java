@@ -48,7 +48,9 @@ public class NullNotificationStrategy implements NotificationStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(NullNotificationStrategy.class);
 
     /**
-     * <p>Constructor for NullNotificationStrategy.</p>
+     * <p>
+     * Constructor for NullNotificationStrategy.
+     * </p>
      */
     public NullNotificationStrategy() {
     }

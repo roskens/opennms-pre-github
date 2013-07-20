@@ -34,7 +34,8 @@ import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
 /**
- * This class implements a {@link Dashlet} for testing purposes and displays a static map image.
+ * This class implements a {@link Dashlet} for testing purposes and displays a
+ * static map image.
  *
  * @author Christian Pape
  */
@@ -43,6 +44,7 @@ public class MapDashlet extends VerticalLayout implements Dashlet {
      * the dashlet's name
      */
     private String m_name;
+
     /**
      * The {@link DashletSpec} for this instance
      */
@@ -51,7 +53,8 @@ public class MapDashlet extends VerticalLayout implements Dashlet {
     /**
      * Constructor for instantiating new objects.
      *
-     * @param dashletSpec the {@link DashletSpec} to be used
+     * @param dashletSpec
+     *            the {@link DashletSpec} to be used
      */
     public MapDashlet(String name, DashletSpec dashletSpec) {
         /**
@@ -75,7 +78,8 @@ public class MapDashlet extends VerticalLayout implements Dashlet {
         /**
          * creating browser frame to display node-maps
          */
-        BrowserFrame browserFrame = new BrowserFrame(null, new ExternalResource("/opennms/node-maps#search/" + searchString));
+        BrowserFrame browserFrame = new BrowserFrame(null, new ExternalResource("/opennms/node-maps#search/"
+                + searchString));
         browserFrame.setSizeFull();
         addComponent(browserFrame);
     }

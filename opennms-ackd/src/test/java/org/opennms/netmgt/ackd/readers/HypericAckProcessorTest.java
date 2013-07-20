@@ -67,17 +67,13 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration test for the Hyperic Acknowledgement Reader Implementation.
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-ackd.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 @Transactional
@@ -164,11 +160,11 @@ public class HypericAckProcessorTest implements InitializingBean {
         OnmsAlarm alarm = new OnmsAlarm();
         alarm.setEventParms("platform.id=10001(string,text);platform.commentText=(string,text);platform.platformType.os=null(string,text);platform.platformType.osVersion=null(string,text);platform.platformType.arch=null(string,text);platform.agent.address=172.20.1.143(string,text);platform.agent.port=2144(string,text);platform.fqdn=172.20.1.143(string,text);platform.name=delta(string,text);platform.description=Fedora 12(string,text);platform.location=(string,text);alert.id=11757(string,text);alert.fixed=false(string,text);alert.ctime=1267219500000(string,text);alert.timestamp=1267219500000(string,text);alert.ackedBy=null(string,text);alert.stateId=null(string,text);alert.url=http://192.168.0.5:7080/alerts/Alerts.do?mode%61viewAlert&eid%611:10001&a%6111757(string,text);alert.baseURL=http://192.168.0.5:7080(string,text);alert.source=HQ(string,text);alertDef.id=10002(string,text);alertDef.name=Load Above 2(string,text);alertDef.description=(string,text);alertDef.priority=2(string,text);alertDef.appdefType=1(string,text);alertDef.appdefId=10001(string,text);alertDef.notifyFiltered=false(string,text);action.shortReason=Load Above 2 delta Load Average 5 Minutes (1.4)(string,text);action.longReason=If Load Average 5 Minutes > 0.5 (actual value %61 1.4)(string,text);resource.instanceId=10001(string,text);resource.name=delta(string,text);resource.url=http://192.168.0.5:7080/Resource.do?eid%611:10001(string,text);resource.resourceType.name=covalentEAMPlatform(string,text)");
         /*
-        OnmsAlarm alarm = createMock(OnmsAlarm.class);
-        expect(alarm.getEventParms()).andReturn(
-                "platform.id=10001(string,text);platform.commentText=(string,text);platform.platformType.os=null(string,text);platform.platformType.osVersion=null(string,text);platform.platformType.arch=null(string,text);platform.agent.address=172.20.1.143(string,text);platform.agent.port=2144(string,text);platform.fqdn=172.20.1.143(string,text);platform.name=delta(string,text);platform.description=Fedora 12(string,text);platform.location=(string,text);alert.id=11757(string,text);alert.fixed=false(string,text);alert.ctime=1267219500000(string,text);alert.timestamp=1267219500000(string,text);alert.ackedBy=null(string,text);alert.stateId=null(string,text);alert.url=http://192.168.0.5:7080/alerts/Alerts.do?mode%61viewAlert&eid%611:10001&a%6111757(string,text);alert.baseURL=http://192.168.0.5:7080(string,text);alert.source=HQ(string,text);alertDef.id=10002(string,text);alertDef.name=Load Above 2(string,text);alertDef.description=(string,text);alertDef.priority=2(string,text);alertDef.appdefType=1(string,text);alertDef.appdefId=10001(string,text);alertDef.notifyFiltered=false(string,text);action.shortReason=Load Above 2 delta Load Average 5 Minutes (1.4)(string,text);action.longReason=If Load Average 5 Minutes > 0.5 (actual value %61 1.4)(string,text);resource.instanceId=10001(string,text);resource.name=delta(string,text);resource.url=http://192.168.0.5:7080/Resource.do?eid%611:10001(string,text);resource.resourceType.name=covalentEAMPlatform(string,text)"
-        ).times(2);
-        replay(alarm);
+         * OnmsAlarm alarm = createMock(OnmsAlarm.class);
+         * expect(alarm.getEventParms()).andReturn(
+         * "platform.id=10001(string,text);platform.commentText=(string,text);platform.platformType.os=null(string,text);platform.platformType.osVersion=null(string,text);platform.platformType.arch=null(string,text);platform.agent.address=172.20.1.143(string,text);platform.agent.port=2144(string,text);platform.fqdn=172.20.1.143(string,text);platform.name=delta(string,text);platform.description=Fedora 12(string,text);platform.location=(string,text);alert.id=11757(string,text);alert.fixed=false(string,text);alert.ctime=1267219500000(string,text);alert.timestamp=1267219500000(string,text);alert.ackedBy=null(string,text);alert.stateId=null(string,text);alert.url=http://192.168.0.5:7080/alerts/Alerts.do?mode%61viewAlert&eid%611:10001&a%6111757(string,text);alert.baseURL=http://192.168.0.5:7080(string,text);alert.source=HQ(string,text);alertDef.id=10002(string,text);alertDef.name=Load Above 2(string,text);alertDef.description=(string,text);alertDef.priority=2(string,text);alertDef.appdefType=1(string,text);alertDef.appdefId=10001(string,text);alertDef.notifyFiltered=false(string,text);action.shortReason=Load Above 2 delta Load Average 5 Minutes (1.4)(string,text);action.longReason=If Load Average 5 Minutes > 0.5 (actual value %61 1.4)(string,text);resource.instanceId=10001(string,text);resource.name=delta(string,text);resource.url=http://192.168.0.5:7080/Resource.do?eid%611:10001(string,text);resource.resourceType.name=covalentEAMPlatform(string,text)"
+         * ).times(2);
+         * replay(alarm);
          */
 
         assertEquals("Alert source not parsed properly", "HQ", HypericAckProcessor.getAlertSourceParmValue(alarm));
@@ -176,7 +172,7 @@ public class HypericAckProcessorTest implements InitializingBean {
     }
 
     @Test
-    @JUnitHttpServer(port=7081)
+    @JUnitHttpServer(port = 7081)
     public void testStartAckd() throws Exception {
         AckdConfigurationDao realDao = createAckdConfigDao();
 
@@ -189,7 +185,10 @@ public class HypericAckProcessorTest implements InitializingBean {
 
         m_daemon.setConfigDao(mockDao);
         m_daemon.start();
-        try { Thread.sleep(5000); } catch (InterruptedException e) {}
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+        }
         m_daemon.destroy();
         verify(mockDao);
     }
@@ -201,31 +200,34 @@ public class HypericAckProcessorTest implements InitializingBean {
     }
 
     @Test
-    @JUnitHttpServer(port=7081,basicAuth=true)
+    @JUnitHttpServer(port = 7081, basicAuth = true)
     public void testFetchHypericAlerts() throws Exception {
         // Test reading alerts over the HTTP server
         {
-            List<HypericAckProcessor.HypericAlertStatus> alerts = HypericAckProcessor.fetchHypericAlerts("http://hqadmin:hqadmin@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu", Arrays.asList(new String[] { "1", "2", "3" }));
+            List<HypericAckProcessor.HypericAlertStatus> alerts = HypericAckProcessor.fetchHypericAlerts("http://hqadmin:hqadmin@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu",
+                                                                                                         Arrays.asList(new String[] {
+                                                                                                                 "1",
+                                                                                                                 "2",
+                                                                                                                 "3" }));
             assertEquals(5, alerts.size());
             for (HypericAckProcessor.HypericAlertStatus alert : alerts) {
                 System.out.println(alert.toString());
             }
 
-            alerts = HypericAckProcessor.fetchHypericAlerts("http://uhohcolons:this%3Apassword%3Ahas%3Acolons@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu", Arrays.asList(new String[] { "1", "2", "3" }));
+            alerts = HypericAckProcessor.fetchHypericAlerts("http://uhohcolons:this%3Apassword%3Ahas%3Acolons@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu",
+                                                            Arrays.asList(new String[] { "1", "2", "3" }));
             assertEquals(5, alerts.size());
         }
 
         // Try with bad credentials to make sure we get a malformed response
         {
             boolean caughtAuthFailure = false;
-            for (String url : new String[] {
-                    "http://:badcredentials@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu",
+            for (String url : new String[] { "http://:badcredentials@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu",
                     "http://blankpass@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu",
                     "http://blankpass:@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu",
                     "http://hqadmin@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu",
                     "http://hqadmin:@127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu",
-                    "http://127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu"
-            }) {
+                    "http://127.0.0.1:7081/hqu/opennms/alertStatus/list.hqu" }) {
                 try {
                     HypericAckProcessor.fetchHypericAlerts(url, Arrays.asList(new String[] { "1", "2", "3" }));
                 } catch (JAXBException e) {
@@ -239,10 +241,13 @@ public class HypericAckProcessorTest implements InitializingBean {
 
     @Test
     public void testParseHypericAlerts() throws Exception {
-        LineNumberReader reader = new LineNumberReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("hqu/opennms/alertStatus/list.hqu"), "UTF-8"));
+        LineNumberReader reader = new LineNumberReader(
+                                                       new InputStreamReader(
+                                                                             Thread.currentThread().getContextClassLoader().getResourceAsStream("hqu/opennms/alertStatus/list.hqu"),
+                                                                             "UTF-8"));
         reader.mark(4000);
         try {
-            while(true) {
+            while (true) {
                 String line = reader.readLine();
                 if (line == null) {
                     break;

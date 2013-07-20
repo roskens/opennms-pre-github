@@ -29,7 +29,9 @@
 package org.opennms.web.svclayer;
 
 /**
- * <p>PaletteItem class.</p>
+ * <p>
+ * PaletteItem class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -40,76 +42,94 @@ package org.opennms.web.svclayer;
  */
 public class PaletteItem {
 
-	/** Constant <code>SPACER</code> */
-	public static final PaletteItem SPACER = new PaletteItem(null, null, true);
+    /** Constant <code>SPACER</code> */
+    public static final PaletteItem SPACER = new PaletteItem(null, null, true);
 
-	private String m_label;
-	private String m_id;
-	private boolean m_spacer = false;
+    private String m_label;
 
-	/**
-	 * <p>Constructor for PaletteItem.</p>
-	 *
-	 * @param id a {@link java.lang.String} object.
-	 * @param label a {@link java.lang.String} object.
-	 * @param spacer a boolean.
-	 */
-	protected PaletteItem(String id, String label, boolean spacer) {
-		m_id = id;
-		m_label = label;
-		m_spacer = spacer;
-	}
+    private String m_id;
 
-	/**
-	 * <p>Constructor for PaletteItem.</p>
-	 *
-	 * @param id a {@link java.lang.String} object.
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public PaletteItem(String id, String label) {
-		this(id, label, false);
-	}
+    private boolean m_spacer = false;
 
-	/**
-	 * <p>getLabel</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getLabel() {
-		return m_label;
-	}
+    /**
+     * <p>
+     * Constructor for PaletteItem.
+     * </p>
+     *
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @param spacer
+     *            a boolean.
+     */
+    protected PaletteItem(String id, String label, boolean spacer) {
+        m_id = id;
+        m_label = label;
+        m_spacer = spacer;
+    }
 
-	/**
-	 * <p>getId</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getId() {
-		return m_id;
-	}
+    /**
+     * <p>
+     * Constructor for PaletteItem.
+     * </p>
+     *
+     * @param id
+     *            a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public PaletteItem(String id, String label) {
+        this(id, label, false);
+    }
 
-	/**
-	 * <p>isSpacer</p>
-	 *
-	 * @return a boolean.
-	 */
-	public boolean isSpacer() {
-		return m_spacer;
-	}
+    /**
+     * <p>
+     * getLabel
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getLabel() {
+        return m_label;
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String toString() {
-		if (isSpacer()) {
-			return "SPACER";
-		}
-		else {
-			return m_label+"<"+m_id+">";
-		}
-	}
+    /**
+     * <p>
+     * getId
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getId() {
+        return m_id;
+    }
+
+    /**
+     * <p>
+     * isSpacer
+     * </p>
+     *
+     * @return a boolean.
+     */
+    public boolean isSpacer() {
+        return m_spacer;
+    }
+
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        if (isSpacer()) {
+            return "SPACER";
+        } else {
+            return m_label + "<" + m_id + ">";
+        }
+    }
 
 }

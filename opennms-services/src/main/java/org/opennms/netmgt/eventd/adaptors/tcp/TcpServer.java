@@ -51,7 +51,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http;//www.opennms.org">OpenNMS </a>
- *
  */
 final class TcpServer implements Runnable {
 
@@ -90,10 +89,9 @@ final class TcpServer implements Runnable {
     /**
      * <p>
      * The list of receivers that are currently being processed. Each instance
-     * in this list is of type {@link java.lang.Thread Thread}and will remain
-     * in the list so long as it's alive.
+     * in this list is of type {@link java.lang.Thread Thread}and will remain in
+     * the list so long as it's alive.
      * </p>
-     *
      * <p>
      * This list is periodically cleaned by the main server thread.
      * </p>
@@ -133,8 +131,10 @@ final class TcpServer implements Runnable {
      *
      * @param parent
      *            The parent fiber
-     * @param handlers a {@link java.util.List} object.
-     * @throws java.io.IOException if any.
+     * @param handlers
+     *            a {@link java.util.List} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     public TcpServer(Fiber parent, List<EventHandler> handlers) throws IOException {
         this(parent, handlers, TCP_PORT, InetAddressUtils.addr(DEFAULT_IP_ADDRESS));
@@ -148,9 +148,12 @@ final class TcpServer implements Runnable {
      *            The parent fiber
      * @param port
      *            The port to listen on.
-     * @param address TODO
-     * @param handlers a {@link java.util.List} object.
-     * @throws java.io.IOException if any.
+     * @param address
+     *            TODO
+     * @param handlers
+     *            a {@link java.util.List} object.
+     * @throws java.io.IOException
+     *             if any.
      */
     public TcpServer(Fiber parent, List<EventHandler> handlers, int port, InetAddress address) throws IOException {
         m_parent = parent;
@@ -166,7 +169,8 @@ final class TcpServer implements Runnable {
         try {
             m_tcpSock = new ServerSocket(m_tcpPort, 0, m_ipAddress);
         } catch (IOException e) {
-            IOException n = new IOException("Could not create listening TCP socket on " + m_ipAddress + ":" + m_tcpPort + ": " + e);
+            IOException n = new IOException("Could not create listening TCP socket on " + m_ipAddress + ":" + m_tcpPort
+                    + ": " + e);
             n.initCause(e);
             throw n;
         }
@@ -176,7 +180,8 @@ final class TcpServer implements Runnable {
      * This is called inform the current execution of this object is stopped.
      * Once called the object cannot be reused in another thread.
      *
-     * @throws java.lang.InterruptedException if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public void stop() throws InterruptedException {
         LOG.debug("stop method invoked");
@@ -269,7 +274,6 @@ final class TcpServer implements Runnable {
         LOG.debug("Server connection processor started on {}:{}", m_ipAddress, m_tcpPort);
 
         /*
-         *
          * Set the initial timeout on the socket. This allows
          * the thread to wake up every 1/2 second and check the
          * shutdown status.
@@ -372,18 +376,24 @@ final class TcpServer implements Runnable {
     }
 
     /**
-     * <p>setLogPrefix</p>
+     * <p>
+     * setLogPrefix
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      */
     public void setLogPrefix(String prefix) {
         m_logPrefix = prefix;
     }
 
     /**
-     * <p>setEventsPerConnection</p>
+     * <p>
+     * setEventsPerConnection
+     * </p>
      *
-     * @param number a int.
+     * @param number
+     *            a int.
      */
     public void setEventsPerConnection(int number) {
         m_recsPerConn = number;

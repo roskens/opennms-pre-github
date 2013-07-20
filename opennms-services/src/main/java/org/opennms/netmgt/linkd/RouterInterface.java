@@ -36,88 +36,103 @@ import org.opennms.core.utils.InetAddressUtils;
 public class RouterInterface {
 
     private int m_ifIndex;
+
     private final int m_nextHopNodeId;
+
     private final int m_nextHopIfIndex;
+
     private final InetAddress m_nextHopNetmask;
+
     private InetAddress m_nextHop;
 
+    RouterInterface(final int nextHopNodeId, final int nextHopIfIndex, final InetAddress nextHopNetmask) {
+        m_nextHopNodeId = nextHopNodeId;
+        m_nextHopIfIndex = nextHopIfIndex;
+        m_nextHopNetmask = nextHopNetmask;
+    }
 
-	RouterInterface(final int nextHopNodeId, final int nextHopIfIndex, final InetAddress nextHopNetmask) {
-		m_nextHopNodeId = nextHopNodeId;
-		m_nextHopIfIndex = nextHopIfIndex;
-		m_nextHopNetmask = nextHopNetmask;
-	}
+    RouterInterface(final int nextHopNodeId, final int nextHopIfIndex) {
+        m_nextHopNodeId = nextHopNodeId;
+        m_nextHopIfIndex = nextHopIfIndex;
+        m_nextHopNetmask = InetAddressUtils.TWO_FIFTY_FIVES;
+    }
 
-	RouterInterface(final int nextHopNodeId, final int nextHopIfIndex) {
-		m_nextHopNodeId = nextHopNodeId;
-		m_nextHopIfIndex = nextHopIfIndex;
-		m_nextHopNetmask = InetAddressUtils.TWO_FIFTY_FIVES;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>ifindex</code>.
+     * </p>
+     *
+     * @return Returns the ifindex.
+     */
+    public int getIfindex() {
+        return m_ifIndex;
+    }
 
-	/**
-	 * <p>Getter for the field <code>ifindex</code>.</p>
-	 *
-	 * @return Returns the ifindex.
-	 */
-	public int getIfindex() {
-		return m_ifIndex;
-	}
+    /**
+     * <p>
+     * getNetmask
+     * </p>
+     *
+     * @return a {@link java.net.InetAddress} object.
+     */
+    public InetAddress getNextHopNetmask() {
+        return m_nextHopNetmask;
+    }
 
-	/**
-	 * <p>getNetmask</p>
-	 *
-	 * @return a {@link java.net.InetAddress} object.
-	 */
-	public InetAddress getNextHopNetmask() {
-		return m_nextHopNetmask;
-	}
-	/**
-	 * <p>getNextHopNodeid</p>
-	 *
-	 * @return a int.
-	 */
-	public int getNextHopNodeid() {
-		return m_nextHopNodeId;
-	}
-	/**
-	 * <p>Getter for the field <code>nextHopIfindex</code>.</p>
-	 *
-	 * @return a int.
-	 */
-	public int getNextHopIfindex() {
-		return m_nextHopIfIndex;
-	}
-	/**
-	 * <p>Setter for the field <code>ifindex</code>.</p>
-	 *
-	 * @param ifindex a int.
-	 */
-	public void setIfindex(final int ifindex) {
-		m_ifIndex = ifindex;
-	}
+    /**
+     * <p>
+     * getNextHopNodeid
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getNextHopNodeid() {
+        return m_nextHopNodeId;
+    }
 
-	public InetAddress getNextHop() {
-		return m_nextHop;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>nextHopIfindex</code>.
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getNextHopIfindex() {
+        return m_nextHopIfIndex;
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
+    /**
+     * <p>
+     * Setter for the field <code>ifindex</code>.
+     * </p>
+     *
+     * @param ifindex
+     *            a int.
+     */
+    public void setIfindex(final int ifindex) {
+        m_ifIndex = ifindex;
+    }
+
+    public InetAddress getNextHop() {
+        return m_nextHop;
+    }
+
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-	public String toString() {
-	    return new ToStringBuilder(this)
-	    .append("ifIndex", m_ifIndex)
-	    .append("nextHop", m_nextHop)
-	    .append("nextHopNodeId", m_nextHopNodeId)
-	    .append("nextHopIfIndex", m_nextHopIfIndex)
-	    .append("nextHopNetmask", m_nextHopNetmask)
-	    .toString();
-	}
+    public String toString() {
+        return new ToStringBuilder(this).append("ifIndex", m_ifIndex).append("nextHop", m_nextHop).append("nextHopNodeId",
+                                                                                                          m_nextHopNodeId).append("nextHopIfIndex",
+                                                                                                                                  m_nextHopIfIndex).append("nextHopNetmask",
+                                                                                                                                                           m_nextHopNetmask).toString();
+    }
 
-	public void setNextHop(InetAddress nexthop) {
-		m_nextHop = nexthop;
-	}
+    public void setNextHop(InetAddress nexthop) {
+        m_nextHop = nexthop;
+    }
 }
-

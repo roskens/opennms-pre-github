@@ -78,18 +78,14 @@ import org.springframework.transaction.annotation.Transactional;
 import de.novanic.eventservice.service.EventExecutorService;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/opennms/mockEventIpcManager.xml",
+@ContextConfiguration(locations = { "classpath:META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "file:src/main/webapp/WEB-INF/applicationContext-remote-poller.xml",
-        "classpath:/locationDataManagerTest.xml",
-        "classpath:META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "file:src/main/webapp/WEB-INF/applicationContext-remote-poller.xml", "classpath:/locationDataManagerTest.xml",
+        "classpath:META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(useExistingDatabase="opennms")
+@JUnitTemporaryDatabase(useExistingDatabase = "opennms")
 @Transactional
 @Ignore("requires custom database")
 public class LocationDataManagerTest implements InitializingBean {
@@ -138,18 +134,17 @@ public class LocationDataManagerTest implements InitializingBean {
         m_easyMockUtils.verifyAll();
     }
 
-
     @Test
     public void testGetInfoForAllLocations() {
         long count = 10;
         long start = System.currentTimeMillis();
 
-        for(int i = 0; i < count; i++ ) {
+        for (int i = 0; i < count; i++) {
             List<LocationInfo> locations = m_locationDataService.getInfoForAllLocations();
             assertEquals(2880, locations.size());
         }
 
-        System.err.printf("Avg getInfoForAllLocations: %d\n", (System.currentTimeMillis() - start)/count);
+        System.err.printf("Avg getInfoForAllLocations: %d\n", (System.currentTimeMillis() - start) / count);
     }
 
     @Test
@@ -157,7 +152,7 @@ public class LocationDataManagerTest implements InitializingBean {
         Map<String, StatusDetails> statusDetails = m_locationDataService.getStatusDetailsForAllLocations();
         assertEquals(2880, statusDetails.size());
 
-        assertEquals(2880-376, countStatus(Status.UNKNOWN, statusDetails));
+        assertEquals(2880 - 376, countStatus(Status.UNKNOWN, statusDetails));
         assertEquals(3, countStatus(Status.DISCONNECTED, statusDetails));
         assertEquals(4, countStatus(Status.STOPPED, statusDetails));
         assertEquals(0, countStatus(Status.MARGINAL, statusDetails));
@@ -169,7 +164,7 @@ public class LocationDataManagerTest implements InitializingBean {
 
     private int countStatus(Status status, Map<String, StatusDetails> statusDetails) {
         int count = 0;
-        for(Entry<String, StatusDetails> entry : statusDetails.entrySet()) {
+        for (Entry<String, StatusDetails> entry : statusDetails.entrySet()) {
             if (status.equals(entry.getValue().getStatus())) {
                 count++;
             }
@@ -182,12 +177,12 @@ public class LocationDataManagerTest implements InitializingBean {
         long count = 10;
         long start = System.currentTimeMillis();
 
-        for(int i = 0; i < count; i++ ) {
+        for (int i = 0; i < count; i++) {
             List<ApplicationInfo> applications = m_locationDataService.getInfoForAllApplications();
             assertEquals(12, applications.size());
         }
 
-        System.err.printf("Avg getInfoForAllApplications: %d\n", (System.currentTimeMillis() - start)/count);
+        System.err.printf("Avg getInfoForAllApplications: %d\n", (System.currentTimeMillis() - start) / count);
     }
 
     @Test
@@ -205,25 +200,24 @@ public class LocationDataManagerTest implements InitializingBean {
         int count = 100;
         long start = System.currentTimeMillis();
 
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
 
             OnmsApplication app = m_applicationDao.findByName(appName);
 
-            //System.err.println("TEST testGetSatusDetailsForApplication: calling getStatusDetailsForApplication");
+            // System.err.println("TEST testGetSatusDetailsForApplication: calling getStatusDetailsForApplication");
 
             StatusDetails details = m_locationDataService.getStatusDetailsForApplication(app);
             assertEquals(Status.UP, details.getStatus());
 
         }
 
-        System.err.println(String.format("Avg getStatusDetailsForApplication: %d\n", (System.currentTimeMillis() - start)/count));
+        System.err.println(String.format("Avg getStatusDetailsForApplication: %d\n",
+                                         (System.currentTimeMillis() - start) / count));
     }
 
     @Test
     public void testGetApplicationInfo() {
         String appName = "Domain Controllers";
-
-
 
         OnmsApplication app = m_applicationDao.findByName(appName);
 
@@ -248,7 +242,6 @@ public class LocationDataManagerTest implements InitializingBean {
 
         Collection<OnmsLocationSpecificStatus> changes = m_locationMonitorDao.getAllStatusChangesAt(new Date());
 
-
         assertEquals(4888, changes.size());
 
     }
@@ -257,8 +250,12 @@ public class LocationDataManagerTest implements InitializingBean {
     @Ignore
     public void testGetStatusChangesForApplicationBetween() throws ParseException {
 
-        Collection<OnmsLocationSpecificStatus> changes = m_locationMonitorDao.getStatusChangesForApplicationBetween(june(7, 2010), june(8, 2010), "Domain Controllers");
-       assertEquals(54, changes.size());
+        Collection<OnmsLocationSpecificStatus> changes = m_locationMonitorDao.getStatusChangesForApplicationBetween(june(7,
+                                                                                                                         2010),
+                                                                                                                    june(8,
+                                                                                                                         2010),
+                                                                                                                    "Domain Controllers");
+        assertEquals(54, changes.size());
 
     }
 
@@ -271,7 +268,6 @@ public class LocationDataManagerTest implements InitializingBean {
         service.addEventUserSpecific(hasStatus(Status.UP));
         expectLastCall().times(357);
 
-
         service.addEventUserSpecific(hasStatus(Status.DISCONNECTED));
         expectLastCall().times(3);
 
@@ -279,7 +275,7 @@ public class LocationDataManagerTest implements InitializingBean {
         expectLastCall().times(4);
 
         service.addEventUserSpecific(hasStatus(Status.UNKNOWN));
-        expectLastCall().times(2880-376);
+        expectLastCall().times(2880 - 376);
 
         service.addEventUserSpecific(isA(ApplicationUpdatedRemoteEvent.class));
         expectLastCall().times(12);
@@ -292,7 +288,7 @@ public class LocationDataManagerTest implements InitializingBean {
 
     @Test
     public void testJune() throws ParseException {
-        Date d= june(1, 2009);
+        Date d = june(1, 2009);
 
         assertEquals("2009-06-01 00:00:00,000", s_format.format(d));
 
@@ -302,7 +298,6 @@ public class LocationDataManagerTest implements InitializingBean {
         Calendar cal = new GregorianCalendar(year, Calendar.JUNE, day);
         return cal.getTime();
     }
-
 
     public static LocationUpdatedRemoteEvent hasStatus(final Status status) {
         reportMatcher(new IArgumentMatcher() {
@@ -315,7 +310,7 @@ public class LocationDataManagerTest implements InitializingBean {
             @Override
             public boolean matches(Object argument) {
                 if (argument instanceof LocationUpdatedRemoteEvent) {
-                    LocationUpdatedRemoteEvent e = (LocationUpdatedRemoteEvent)argument;
+                    LocationUpdatedRemoteEvent e = (LocationUpdatedRemoteEvent) argument;
                     return status.equals(e.getLocationInfo().getStatus());
                 } else {
                     return false;

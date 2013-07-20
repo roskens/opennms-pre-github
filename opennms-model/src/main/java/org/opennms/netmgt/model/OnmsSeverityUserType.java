@@ -41,7 +41,8 @@ public class OnmsSeverityUserType implements UserType {
     /**
      * A public default constructor is required by Hibernate.
      */
-    public OnmsSeverityUserType() {}
+    public OnmsSeverityUserType() {
+    }
 
     @Override
     public Object assemble(final Serializable cached, final Object owner) throws HibernateException {
@@ -56,19 +57,22 @@ public class OnmsSeverityUserType implements UserType {
             // immutable, we can just return the value
             return value;
         } else {
-            throw new IllegalArgumentException("Unexpected type that is mapped with " + this.getClass().getSimpleName() + ": " + value.getClass().getName());
+            throw new IllegalArgumentException("Unexpected type that is mapped with " + this.getClass().getSimpleName()
+                    + ": " + value.getClass().getName());
         }
     }
 
     @Override
     public Serializable disassemble(final Object value) throws HibernateException {
-        return (Serializable)deepCopy(value);
+        return (Serializable) deepCopy(value);
     }
 
     @Override
     public boolean equals(final Object x, final Object y) throws HibernateException {
-        if (x == y) return true;
-        if (x == null || y == null) return false;
+        if (x == y)
+            return true;
+        if (x == null || y == null)
+            return false;
         return x.equals(y);
     }
 
@@ -83,19 +87,21 @@ public class OnmsSeverityUserType implements UserType {
     }
 
     @Override
-    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException, SQLException {
+    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException,
+            SQLException {
         return OnmsSeverity.get(rs.getInt(names[0]));
     }
 
     @Override
-    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException, SQLException {
+    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException,
+            SQLException {
         if (value == null) {
             st.setInt(index, 1);
         } else if (value instanceof OnmsSeverity) {
-            st.setInt(index,((OnmsSeverity)value).getId());
+            st.setInt(index, ((OnmsSeverity) value).getId());
         } else if (value instanceof String) {
             try {
-                st.setInt(index, Integer.parseInt((String)value));
+                st.setInt(index, Integer.parseInt((String) value));
             } catch (final IllegalArgumentException e) {
                 throw new HibernateException("unable to set severity " + value, e);
             }

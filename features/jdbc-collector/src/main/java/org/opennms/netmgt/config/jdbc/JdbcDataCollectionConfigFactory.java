@@ -51,18 +51,21 @@ public class JdbcDataCollectionConfigFactory {
             InputStream reader = new FileInputStream(cfgFile);
             unmarshall(reader);
             reader.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             // TODO rethrow.
         }
     }
 
     public JdbcDataCollectionConfig unmarshall(InputStream configFile) {
         try {
-            m_jdbcDataCollectionConfig = JaxbUtils.unmarshal(JdbcDataCollectionConfig.class, new InputSource(configFile));
+            m_jdbcDataCollectionConfig = JaxbUtils.unmarshal(JdbcDataCollectionConfig.class,
+                                                             new InputSource(configFile));
             return m_jdbcDataCollectionConfig;
         } catch (Throwable e) {
             // TODO!!
-            //throw new ForeignSourceRepositoryException("unable to access default foreign source resource", e);
+            // throw new
+            // ForeignSourceRepositoryException("unable to access default foreign source resource",
+            // e);
         }
         return m_jdbcDataCollectionConfig;
     }

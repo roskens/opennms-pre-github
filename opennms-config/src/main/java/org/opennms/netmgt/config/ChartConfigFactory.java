@@ -43,7 +43,9 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
 
 /**
- * <p>ChartConfigFactory class.</p>
+ * <p>
+ * ChartConfigFactory class.
+ * </p>
  *
  * @author david
  * @version $Id: $
@@ -51,19 +53,29 @@ import org.opennms.core.utils.ConfigFileConstants;
 public class ChartConfigFactory extends ChartConfigManager {
 
     private static boolean m_initialized = false;
+
     private static ChartConfigFactory m_instance = null;
+
     private static File m_chartConfigFile;
+
     private static long m_lastModified;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws java.io.IOException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public static synchronized void init() throws MarshalException, ValidationException, FileNotFoundException, IOException {
+    public static synchronized void init() throws MarshalException, ValidationException, FileNotFoundException,
+            IOException {
         if (!m_initialized) {
             m_instance = new ChartConfigFactory();
             reload();
@@ -72,14 +84,21 @@ public class ChartConfigFactory extends ChartConfigManager {
     }
 
     /**
-     * <p>reload</p>
+     * <p>
+     * reload
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public static synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+    public static synchronized void reload() throws IOException, FileNotFoundException, MarshalException,
+            ValidationException {
         m_chartConfigFile = ConfigFileConstants.getFile(ConfigFileConstants.CHART_CONFIG_FILE_NAME);
 
         InputStream configIn = null;
@@ -106,11 +125,16 @@ public class ChartConfigFactory extends ChartConfigManager {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {
@@ -120,7 +144,9 @@ public class ChartConfigFactory extends ChartConfigManager {
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.ChartConfigFactory} object.
      */
@@ -133,9 +159,12 @@ public class ChartConfigFactory extends ChartConfigManager {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.ChartConfigFactory} object.
+     * @param instance
+     *            a {@link org.opennms.netmgt.config.ChartConfigFactory} object.
      */
     public static void setInstance(ChartConfigFactory instance) {
         m_instance = instance;

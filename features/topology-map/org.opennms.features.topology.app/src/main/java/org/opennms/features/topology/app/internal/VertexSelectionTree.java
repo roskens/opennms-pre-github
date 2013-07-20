@@ -9,10 +9,11 @@ import org.opennms.features.topology.api.topo.VertexRef;
 
 import com.vaadin.ui.Tree;
 
-@SuppressWarnings({"serial"})
+@SuppressWarnings({ "serial" })
 public class VertexSelectionTree extends Tree implements SelectionListener {
 
-	private final String m_title;
+    private final String m_title;
+
     private final GraphContainer m_graphContainer;
 
     public VertexSelectionTree(String title, GraphContainer graphContainer) {
@@ -26,11 +27,11 @@ public class VertexSelectionTree extends Tree implements SelectionListener {
             @Override
             public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
 
-            	@SuppressWarnings("unchecked")
-				Collection<VertexRef> refs = (Collection<VertexRef>)event.getProperty().getValue();
+                @SuppressWarnings("unchecked")
+                Collection<VertexRef> refs = (Collection<VertexRef>) event.getProperty().getValue();
 
-            	Collection<VertexRef> vertices = m_graphContainer.getVertexRefForest(refs);
-            	m_graphContainer.getSelectionManager().setSelectedVertexRefs(vertices);
+                Collection<VertexRef> vertices = m_graphContainer.getVertexRefForest(refs);
+                m_graphContainer.getSelectionManager().setSelectedVertexRefs(vertices);
 
             }
         });
@@ -38,7 +39,8 @@ public class VertexSelectionTree extends Tree implements SelectionListener {
     }
 
     /**
-     * When a user clicks on a vertex or edge in the UI, update the selection in the tree view.
+     * When a user clicks on a vertex or edge in the UI, update the selection in
+     * the tree view.
      */
     @Override
     public void selectionChanged(SelectionContext selectionContext) {
@@ -47,10 +49,12 @@ public class VertexSelectionTree extends Tree implements SelectionListener {
 
     @Override
     public GCFilterableContainer getContainerDataSource() {
-        return (GCFilterableContainer)super.getContainerDataSource();
+        return (GCFilterableContainer) super.getContainerDataSource();
     }
 
-    public String getTitle() { return m_title; }
+    public String getTitle() {
+        return m_title;
+    }
 
     @Override
     public String toString() {

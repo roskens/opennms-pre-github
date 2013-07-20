@@ -46,7 +46,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
- *
  */
 final class UdpProcessor implements Runnable {
 
@@ -139,7 +138,7 @@ final class UdpProcessor implements Runnable {
 
             UdpReceivedEvent re = null;
             synchronized (m_eventsIn) {
-                // wait for an event to show up.  wait in 1/2 second intervals
+                // wait for an event to show up. wait in 1/2 second intervals
                 while (m_eventsIn.isEmpty()) {
                     try {
                         m_eventsIn.wait(500);
@@ -162,13 +161,16 @@ final class UdpProcessor implements Runnable {
             Event[] events = null;
             try {
                 LOG.debug("Event from {}:{}", InetAddressUtils.str(re.getSender()), re.getPort());
-                LOG.debug("Unmarshalling Event text \\{{}{}{}}", System.getProperty("line.separator"), re.getXmlData(), System.getProperty("line.separator"));
+                LOG.debug("Unmarshalling Event text \\{{}{}{}}", System.getProperty("line.separator"), re.getXmlData(),
+                          System.getProperty("line.separator"));
                 events = re.unmarshal().getEvents().getEvent();
             } catch (MarshalException e) {
-                LOG.warn("Failed to unmarshal the event from {}:{}", InetAddressUtils.str(re.getSender()), re.getPort(), e);
+                LOG.warn("Failed to unmarshal the event from {}:{}", InetAddressUtils.str(re.getSender()),
+                         re.getPort(), e);
                 continue;
             } catch (ValidationException e) {
-                LOG.warn("Failed to validate the event from {}:{}", InetAddressUtils.str(re.getSender()), re.getPort(), e);
+                LOG.warn("Failed to validate the event from {}:{}", InetAddressUtils.str(re.getSender()), re.getPort(),
+                         e);
                 continue;
             }
 
@@ -187,7 +189,8 @@ final class UdpProcessor implements Runnable {
                  * of event handlers.
                  */
                 for (EventHandler handler : m_handlers) {
-                    // iterate over the list of the events for the received events
+                    // iterate over the list of the events for the received
+                    // events
                     for (int ndx = 0; ndx < events.length; ndx++) {
                         try {
                             /*
@@ -219,4 +222,3 @@ final class UdpProcessor implements Runnable {
         m_logPrefix = prefix;
     }
 }
-

@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements NodeDao {
     private static final Logger LOG = LoggerFactory.getLogger(MockNodeDao.class);
+
     private AtomicInteger m_id = new AtomicInteger(0);
 
     @Override
@@ -48,14 +49,16 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
 
     @Override
     public void update(final OnmsNode node) {
-        if (node == null) return;
+        if (node == null)
+            return;
         super.update(node);
         updateSubObjects(node);
     }
 
     @Override
     public void save(final OnmsNode node) {
-        if (node == null) return;
+        if (node == null)
+            return;
         super.save(node);
         updateSubObjects(node);
     }
@@ -100,7 +103,7 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     @Override
     public String getLabelForId(final Integer id) {
         final OnmsNode node = get(id);
-        return node == null? null : node.getLabel();
+        return node == null ? null : node.getLabel();
     }
 
     @Override
@@ -132,7 +135,7 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
 
     @Override
     public Map<String, Integer> getForeignIdToNodeIdMap(final String foreignSource) {
-        final Map<String,Integer> nodes = new HashMap<String,Integer>();
+        final Map<String, Integer> nodes = new HashMap<String, Integer>();
         for (final OnmsNode node : findAll()) {
             if (foreignSource.equals(node.getForeignSource())) {
                 nodes.put(node.getForeignId(), node.getId());
@@ -150,7 +153,8 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     }
 
     @Override
-    public List<OnmsNode> findAllByVarCharAssetColumnCategoryList(final String columnName, final String columnValue, final Collection<OnmsCategory> categories) {
+    public List<OnmsNode> findAllByVarCharAssetColumnCategoryList(final String columnName, final String columnValue,
+            final Collection<OnmsCategory> categories) {
         final List<OnmsNode> nodes = new ArrayList<OnmsNode>();
         for (final OnmsNode node : findAllByVarCharAssetColumn(columnName, columnValue)) {
             for (final OnmsCategory cat : categories) {
@@ -188,7 +192,8 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     }
 
     @Override
-    public List<OnmsNode> findAllByCategoryLists(final Collection<OnmsCategory> rowCatNames, final Collection<OnmsCategory> colCatNames) {
+    public List<OnmsNode> findAllByCategoryLists(final Collection<OnmsCategory> rowCatNames,
+            final Collection<OnmsCategory> colCatNames) {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 
@@ -222,7 +227,8 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     public List<OnmsNode> findAllProvisionedNodes() {
         final List<OnmsNode> nodes = new ArrayList<OnmsNode>();
         for (final OnmsNode node : findAll()) {
-            if (node.getForeignSource() != null) nodes.add(node);
+            if (node.getForeignSource() != null)
+                nodes.add(node);
         }
         return nodes;
     }
@@ -231,12 +237,14 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     public List<OnmsIpInterface> findObsoleteIpInterfaces(final Integer nodeId, final Date scanStamp) {
         final List<OnmsIpInterface> ifaces = new ArrayList<OnmsIpInterface>();
         final OnmsNode node = get(nodeId);
-        if (node == null) return ifaces;
+        if (node == null)
+            return ifaces;
 
         for (final OnmsIpInterface iface : node.getIpInterfaces()) {
-            if (iface.isPrimary()) continue;
-            if (iface.getIpLastCapsdPoll() == null
-                    || iface.getIpLastCapsdPoll().before(scanStamp)) ifaces.add(iface);
+            if (iface.isPrimary())
+                continue;
+            if (iface.getIpLastCapsdPoll() == null || iface.getIpLastCapsdPoll().before(scanStamp))
+                ifaces.add(iface);
         }
 
         return ifaces;
@@ -245,7 +253,8 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     @Override
     public void deleteObsoleteInterfaces(final Integer nodeId, final Date scanStamp) {
         final OnmsNode node = get(nodeId);
-        if (node == null) return;
+        if (node == null)
+            return;
 
         for (final OnmsIpInterface iface : findObsoleteIpInterfaces(nodeId, scanStamp)) {
             LOG.debug("Deleting obsolete IP interface: {}", iface);
@@ -254,8 +263,7 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
         }
         final Collection<OnmsSnmpInterface> snmpInterfaces = Collections.unmodifiableCollection(node.getSnmpInterfaces());
         for (final OnmsSnmpInterface iface : snmpInterfaces) {
-            if (iface.getLastCapsdPoll() == null
-                    || iface.getLastCapsdPoll().before(scanStamp)) {
+            if (iface.getLastCapsdPoll() == null || iface.getLastCapsdPoll().before(scanStamp)) {
                 LOG.debug("Deleting obsolete SNMP interface: {}", iface);
                 snmpInterfaces.remove(iface);
                 getSnmpInterfaceDao().delete(iface.getId());
@@ -283,7 +291,8 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
         for (final OnmsNode node : findAll()) {
             if (foreignSource.equals(node.getForeignSource())) {
                 final OnmsIpInterface iface = node.getIpInterfaceByIpAddress(ipAddress);
-                if (iface != null) nodes.add(node);
+                if (iface != null)
+                    nodes.add(node);
                 continue;
             }
         }
@@ -291,7 +300,8 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     }
 
     @Override
-    public SurveillanceStatus findSurveillanceStatusByCategoryLists(final Collection<OnmsCategory> rowCategories, final Collection<OnmsCategory> columnCategories) {
+    public SurveillanceStatus findSurveillanceStatusByCategoryLists(final Collection<OnmsCategory> rowCategories,
+            final Collection<OnmsCategory> columnCategories) {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 

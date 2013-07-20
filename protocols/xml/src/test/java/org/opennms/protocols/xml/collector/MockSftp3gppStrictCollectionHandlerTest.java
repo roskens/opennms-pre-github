@@ -43,7 +43,8 @@ public class MockSftp3gppStrictCollectionHandlerTest {
     /**
      * Test parser.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testParser() throws Exception {
@@ -51,7 +52,7 @@ public class MockSftp3gppStrictCollectionHandlerTest {
 
         String format = handler.get3gppFormat("cdmaSc");
         Assert.assertEquals("system|/=/v=1/sg-name=<mmeScSgName>|", format);
-        Map<String,String> properties = handler.get3gppProperties(format, "system|/=/v=1/sg-name=GA|");
+        Map<String, String> properties = handler.get3gppProperties(format, "system|/=/v=1/sg-name=GA|");
         Assert.assertEquals(3, properties.size());
         Assert.assertEquals("system|/=/v=1/sg-name=GA|", properties.get("instance"));
         Assert.assertEquals("GA", properties.get("sg-name"));
@@ -68,15 +69,18 @@ public class MockSftp3gppStrictCollectionHandlerTest {
         Assert.assertEquals("nse-id=1201, sg-name=GB71, su-number=1", properties.get("label"));
 
         format = handler.get3gppFormat("platformSystemFilesystem");
-        Assert.assertEquals("disk|/=/v=1/frame=<frame>/shelf=<shelf>/slot=<slot>/sub-slot=<sub-slot>/name=<directory path>|", format);
-        properties = handler.get3gppProperties(format, "disk|/=/v=1/frame=0/shelf=0/slot=2/sub-slot=0/name=\\/opt\\/hitachi\\/agw\\/data\\/trace|");
+        Assert.assertEquals("disk|/=/v=1/frame=<frame>/shelf=<shelf>/slot=<slot>/sub-slot=<sub-slot>/name=<directory path>|",
+                            format);
+        properties = handler.get3gppProperties(format,
+                                               "disk|/=/v=1/frame=0/shelf=0/slot=2/sub-slot=0/name=\\/opt\\/hitachi\\/agw\\/data\\/trace|");
         Assert.assertEquals(7, properties.size());
         Assert.assertEquals("0", properties.get("frame"));
         Assert.assertEquals("0", properties.get("shelf"));
         Assert.assertEquals("2", properties.get("slot"));
         Assert.assertEquals("0", properties.get("sub-slot"));
         Assert.assertEquals("/opt/hitachi/agw/data/trace", properties.get("name"));
-        Assert.assertEquals("frame=0, shelf=0, slot=2, sub-slot=0, name=/opt/hitachi/agw/data/trace", properties.get("label"));
+        Assert.assertEquals("frame=0, shelf=0, slot=2, sub-slot=0, name=/opt/hitachi/agw/data/trace",
+                            properties.get("label"));
     }
 
 }

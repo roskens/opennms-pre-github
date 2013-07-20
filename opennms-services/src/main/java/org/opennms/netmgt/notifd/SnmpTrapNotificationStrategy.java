@@ -45,7 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>SnmpTrapNotificationStrategy class.</p>
+ * <p>
+ * SnmpTrapNotificationStrategy class.
+ * </p>
  *
  * @author david
  * @version $Id: $
@@ -58,7 +60,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public int send (List<Argument> arguments) {
+    public int send(List<Argument> arguments) {
 
         m_arguments = arguments;
         String argVersion = getVersion();
@@ -68,7 +70,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
             argVersion = "v1";
         }
 
-        //determine version of trap and send it.
+        // determine version of trap and send it.
         try {
             if (argVersion.equals("v1")) {
                 sendV1Trap();
@@ -82,7 +84,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
                 return 1;
             }
         } catch (Throwable e) {
-            LOG.info("send: Exception trying to send trap. ",e);
+            LOG.info("send: Exception trying to send trap. ", e);
             return 1;
         }
 
@@ -94,9 +96,12 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
     }
 
     /**
-     * <p>sendV1Trap</p>
+     * <p>
+     * sendV1Trap
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void sendV1Trap() throws Exception {
         SnmpV1TrapBuilder pdu = SnmpUtils.getV1TrapBuilder();
@@ -111,15 +116,19 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
         InetAddress agentAddress = getHostInetAddress();
         pdu.setAgentAddress(agentAddress);
-        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.4.1.5813.20.1"), SnmpUtils.getValueFactory().getOctetString(getVarbind().getBytes()));
+        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.4.1.5813.20.1"),
+                       SnmpUtils.getValueFactory().getOctetString(getVarbind().getBytes()));
 
         pdu.send(InetAddressUtils.str(agentAddress), getPort(), getCommunity());
     }
 
     /**
-     * <p>sendV2Trap</p>
+     * <p>
+     * sendV2Trap
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void sendV2Trap() throws Exception {
 
@@ -141,9 +150,11 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
         pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.1.0"), SnmpUtils.getValueFactory().getObjectId(trapOID));
 
         if (isGeneric) {
-            pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.3.0"), SnmpUtils.getValueFactory().getObjectId(enterpriseId));
+            pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.3.0"),
+                           SnmpUtils.getValueFactory().getObjectId(enterpriseId));
         }
-        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.4.1.5813.20.1"), SnmpUtils.getValueFactory().getOctetString(getVarbind().getBytes()));
+        pdu.addVarBind(SnmpObjId.get(".1.3.6.1.4.1.5813.20.1"),
+                       SnmpUtils.getValueFactory().getOctetString(getVarbind().getBytes()));
 
         pdu.send(InetAddressUtils.str(getHostInetAddress()), getPort(), getCommunity());
     }
@@ -168,6 +179,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
     /**
      * Helper method to get the port argument.
+     *
      * @return
      */
     private int getPort() {
@@ -184,6 +196,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
     /**
      * Helper method to get the trap community string argument.
+     *
      * @return
      */
     private String getCommunity() {
@@ -200,6 +213,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
     /**
      * Helper method to get the trap enterprise ID argument.
+     *
      * @return
      */
     private String getEnterpriseId() {
@@ -216,6 +230,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
     /**
      * Helper method to get the trap generic ID argument.
+     *
      * @return
      */
     private int getGenericId() {
@@ -232,6 +247,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
     /**
      * Helper method to get the trap specific id argument.
+     *
      * @return
      */
     private int getSpecificId() {
@@ -248,6 +264,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
     /**
      * Helper method to get the trap specific id argument.
+     *
      * @return
      */
     private String getVarbind() {
@@ -263,8 +280,10 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
     }
 
     /**
-     * Helper method to look into the Argument list and return the associaated value.
+     * Helper method to look into the Argument list and return the associaated
+     * value.
      * If the value is an empty String, this method returns null.
+     *
      * @param argSwitch
      * @return
      */

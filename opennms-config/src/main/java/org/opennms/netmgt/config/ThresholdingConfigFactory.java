@@ -58,7 +58,6 @@ import org.opennms.netmgt.config.threshd.ThresholdingConfig;
  * This class is the main repository for thresholding configuration information
  * used by the thresholding daemon.. When this class is loaded it reads the
  * thresholding configuration into memory.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -71,6 +70,7 @@ import org.opennms.netmgt.config.threshd.ThresholdingConfig;
  */
 public final class ThresholdingConfigFactory {
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdingConfigFactory.class);
+
     /**
      * The singleton instance of this factory
      */
@@ -117,11 +117,16 @@ public final class ThresholdingConfigFactory {
     }
 
     /**
-     * <p>Constructor for ThresholdingConfigFactory.</p>
+     * <p>
+     * Constructor for ThresholdingConfigFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public ThresholdingConfigFactory(InputStream stream) throws MarshalException, ValidationException {
         parseXML(stream);
@@ -135,7 +140,6 @@ public final class ThresholdingConfigFactory {
     /**
      * Build map of org.opennms.netmgt.config.threshd.Group objects
      * indexed by group name.
-     *
      * This is parsed and built at initialization for
      * faster processing at run-timne.
      */
@@ -159,9 +163,12 @@ public final class ThresholdingConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -178,19 +185,18 @@ public final class ThresholdingConfigFactory {
 
         for (String groupName : tcf.getGroupNames()) {
             Group g = tcf.getGroup(groupName);
-            for (org.opennms.netmgt.config.threshd.Threshold threshold :  g.getThresholdCollection()) {
+            for (org.opennms.netmgt.config.threshd.Threshold threshold : g.getThresholdCollection()) {
                 if (threshold.getDsName().length() > ConfigFileConstants.RRD_DS_MAX_SIZE) {
                     throw new ValidationException(
-                        String.format("ds-name '%s' in group '%s' is greater than %d characters",
-                            threshold.getDsName(), groupName, ConfigFileConstants.RRD_DS_MAX_SIZE)
-                    );
+                                                  String.format("ds-name '%s' in group '%s' is greater than %d characters",
+                                                                threshold.getDsName(), groupName,
+                                                                ConfigFileConstants.RRD_DS_MAX_SIZE));
                 }
             }
         }
         m_singleton = tcf;
         m_loaded = true;
     }
-
 
     /**
      * Reload the config from the default config file
@@ -201,9 +207,12 @@ public final class ThresholdingConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -228,14 +237,19 @@ public final class ThresholdingConfigFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.ThresholdingConfigFactory} object.
+     * @param instance
+     *            a {@link org.opennms.netmgt.config.ThresholdingConfigFactory}
+     *            object.
      */
     public static synchronized void setInstance(ThresholdingConfigFactory instance) {
         m_loaded = true;
         m_singleton = instance;
     }
+
     /**
      * Retrieves the configured path to the RRD file repository for the
      * specified thresholding group.
@@ -251,9 +265,12 @@ public final class ThresholdingConfigFactory {
     }
 
     /**
-     * <p>getGroup</p>
+     * <p>
+     * getGroup
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.threshd.Group} object.
      */
     public Group getGroup(String groupName) {
@@ -277,15 +294,17 @@ public final class ThresholdingConfigFactory {
      *             if group name does not exist in the group map.
      */
     public Collection<Basethresholddef> getThresholds(String groupName) {
-        Group group=getGroup(groupName);
-        Collection<Basethresholddef> result=new ArrayList<Basethresholddef>();
+        Group group = getGroup(groupName);
+        Collection<Basethresholddef> result = new ArrayList<Basethresholddef>();
         result.addAll(group.getThresholdCollection());
         result.addAll(group.getExpressionCollection());
         return result;
     }
 
     /**
-     * <p>getGroupNames</p>
+     * <p>
+     * getGroupNames
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -296,9 +315,12 @@ public final class ThresholdingConfigFactory {
     /**
      * Saves the current in-memory configuration to disk and reloads
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public synchronized void saveCurrent() throws MarshalException, IOException, ValidationException {
         // Marshal to a string first, then write the string to the file. This
@@ -320,12 +342,18 @@ public final class ThresholdingConfigFactory {
         update();
 
     }
+
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public void update() throws IOException, MarshalException, ValidationException {
         File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.THRESHOLDING_CONF_FILE_NAME);

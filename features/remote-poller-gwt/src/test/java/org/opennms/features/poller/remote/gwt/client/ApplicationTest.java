@@ -110,7 +110,8 @@ public class ApplicationTest {
         Map<String, List<GWTLocationSpecificStatus>> appStatuses = new HashMap<String, List<GWTLocationSpecificStatus>>();
         appStatuses.put("TestApp1", getUpStatusList());
         appStatuses.put("TestApp1", getUpStatusList());
-        ApplicationState appState = new ApplicationState(m_from, m_to, applications, getMonitors(appStatuses.values()), appStatuses);
+        ApplicationState appState = new ApplicationState(m_from, m_to, applications, getMonitors(appStatuses.values()),
+                                                         appStatuses);
 
         assertEquals(Status.UNKNOWN, appState.getStatusDetails().getStatus());
     }
@@ -124,7 +125,8 @@ public class ApplicationTest {
         Map<String, List<GWTLocationSpecificStatus>> appStatuses = new HashMap<String, List<GWTLocationSpecificStatus>>();
         appStatuses.put("TestApp1", getMarginalStatusList());
         appStatuses.put("TestApp2", getUpStatusList());
-        ApplicationState appState = new ApplicationState(m_from, m_to, applications, getMonitors(appStatuses.values()), appStatuses);
+        ApplicationState appState = new ApplicationState(m_from, m_to, applications, getMonitors(appStatuses.values()),
+                                                         appStatuses);
 
         assertEquals(Status.MARGINAL, appState.getStatusDetails().getStatus());
     }
@@ -138,7 +140,8 @@ public class ApplicationTest {
         Map<String, List<GWTLocationSpecificStatus>> appStatuses = new HashMap<String, List<GWTLocationSpecificStatus>>();
         appStatuses.put("TestApp1", getDownStatusList());
         appStatuses.put("TestApp2", getUpStatusList());
-        ApplicationState appState = new ApplicationState(m_from, m_to, applications, getMonitors(appStatuses.values()), appStatuses);
+        ApplicationState appState = new ApplicationState(m_from, m_to, applications, getMonitors(appStatuses.values()),
+                                                         appStatuses);
 
         assertEquals(Status.DOWN, appState.getStatusDetails().getStatus());
     }
@@ -147,10 +150,14 @@ public class ApplicationTest {
     public void testSet() {
         final Set<ApplicationInfo> applicationSet = new HashSet<ApplicationInfo>();
 
-        final ApplicationInfo ai1u = new ApplicationInfo(1, "test1", new TreeSet<GWTMonitoredService>(), new TreeSet<String>(), StatusDetails.unknown());
-        final ApplicationInfo ai2u = new ApplicationInfo(2, "test2", new TreeSet<GWTMonitoredService>(), new TreeSet<String>(), StatusDetails.unknown());
-        final ApplicationInfo ai1d = new ApplicationInfo(1, "test1", new TreeSet<GWTMonitoredService>(), new TreeSet<String>(), StatusDetails.down("busted"));
-        final ApplicationInfo ai2d = new ApplicationInfo(2, "test2", new TreeSet<GWTMonitoredService>(), new TreeSet<String>(), StatusDetails.down("busted"));
+        final ApplicationInfo ai1u = new ApplicationInfo(1, "test1", new TreeSet<GWTMonitoredService>(),
+                                                         new TreeSet<String>(), StatusDetails.unknown());
+        final ApplicationInfo ai2u = new ApplicationInfo(2, "test2", new TreeSet<GWTMonitoredService>(),
+                                                         new TreeSet<String>(), StatusDetails.unknown());
+        final ApplicationInfo ai1d = new ApplicationInfo(1, "test1", new TreeSet<GWTMonitoredService>(),
+                                                         new TreeSet<String>(), StatusDetails.down("busted"));
+        final ApplicationInfo ai2d = new ApplicationInfo(2, "test2", new TreeSet<GWTMonitoredService>(),
+                                                         new TreeSet<String>(), StatusDetails.down("busted"));
         applicationSet.add(ai1u);
         applicationSet.add(ai2u);
         applicationSet.add(ai1d);
@@ -163,7 +170,8 @@ public class ApplicationTest {
 
     private ApplicationDetails getDownApplicationStatus(final String appName) {
         List<GWTLocationSpecificStatus> statuses = getDownStatusList();
-        ApplicationDetails status = new ApplicationDetails(getApplication(appName), m_from, m_to, getMonitors(statuses), statuses);
+        ApplicationDetails status = new ApplicationDetails(getApplication(appName), m_from, m_to,
+                                                           getMonitors(statuses), statuses);
         return status;
     }
 
@@ -214,7 +222,8 @@ public class ApplicationTest {
 
     private ApplicationDetails getUpApplicationStatus(final String appName) {
         List<GWTLocationSpecificStatus> statuses = getUpStatusList();
-        ApplicationDetails status = new ApplicationDetails(getApplication(appName), m_from, m_to, getMonitors(statuses), statuses);
+        ApplicationDetails status = new ApplicationDetails(getApplication(appName), m_from, m_to,
+                                                           getMonitors(statuses), statuses);
         return status;
     }
 
@@ -231,7 +240,8 @@ public class ApplicationTest {
 
     private ApplicationDetails getMarginalApplicationStatus(final String appName) {
         List<GWTLocationSpecificStatus> statuses = getMarginalStatusList();
-        ApplicationDetails status = new ApplicationDetails(getApplication(appName), m_from, m_to, getMonitors(statuses), statuses);
+        ApplicationDetails status = new ApplicationDetails(getApplication(appName), m_from, m_to,
+                                                           getMonitors(statuses), statuses);
         return status;
     }
 
@@ -240,7 +250,8 @@ public class ApplicationTest {
         Date date = m_from;
         for (int i = 0; i < 6; i++) {
             statuses.add(getStatus(date, "RDU", monitorOffset + 1, up(date)));
-            statuses.add(getStatus(date, "RDU", monitorOffset + 2, down(date, "I'm so high, I have no idea what's going on!")));
+            statuses.add(getStatus(date, "RDU", monitorOffset + 2,
+                                   down(date, "I'm so high, I have no idea what's going on!")));
             date = new Date(date.getTime() + FIVE_MINUTES);
         }
         statuses.add(getStatus(date, "RDU", monitorOffset + 1, up(date)));

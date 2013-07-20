@@ -38,7 +38,9 @@ import org.opennms.web.filter.OneArgFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>RecentOutagesFilter class.</p>
+ * <p>
+ * RecentOutagesFilter class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -49,16 +51,21 @@ public class RecentOutagesFilter extends OneArgFilter<Date> {
     public static final String TYPE = "recent";
 
     /**
-     * <p>Constructor for RecentOutagesFilter.</p>
+     * <p>
+     * Constructor for RecentOutagesFilter.
+     * </p>
      */
     public RecentOutagesFilter() {
         this(yesterday());
     }
 
     /**
-     * <p>Constructor for RecentOutagesFilter.</p>
+     * <p>
+     * Constructor for RecentOutagesFilter.
+     * </p>
      *
-     * @param since a {@link java.util.Date} object.
+     * @param since
+     *            a {@link java.util.Date} object.
      */
     public RecentOutagesFilter(Date since) {
         super(TYPE, SQLType.DATE, "OUTAGES.IFREGAINEDSERVICE", "ifRegainedService", since);
@@ -83,7 +90,9 @@ public class RecentOutagesFilter extends OneArgFilter<Date> {
     }
 
     /**
-     * <p>yesterday</p>
+     * <p>
+     * yesterday
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */

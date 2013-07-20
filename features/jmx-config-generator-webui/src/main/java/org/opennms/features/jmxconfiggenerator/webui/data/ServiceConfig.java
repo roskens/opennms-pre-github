@@ -27,9 +27,10 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
 
 /**
  * This class encapsulates all parameters for
- * {@link org.opennms.tools.jmxconfiggenerator.jmxconfig.JmxDatacollectionConfiggenerator}.
- * Therefore the API of the
- * <code>JmxDatacollectionConfiggenerator</code> can be used and in addition it
+ * {@link org.opennms.tools.jmxconfiggenerator.jmxconfig.JmxDatacollectionConfiggenerator}
+ * .
+ * Therefore the API of the <code>JmxDatacollectionConfiggenerator</code> can be
+ * used and in addition it
  * is possible to provide further information for additional stuff in the
  * future.
  *
@@ -38,16 +39,26 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
 public class ServiceConfig {
 
     private String serviceName = "anyservice";
+
     private boolean jmxmp = false;
+
     private String host = "localhost";
+
     private String port = "18980";
+
     private String outFile = "JmxConfig.xml";
+
     private String user = null;
+
     private String password = null;
+
     // FIXME this is never used
     private boolean ssl = false;
+
     private boolean skipDefaultVM = false;
+
     private boolean runWritableMBeans = false;
+
     private boolean authenticate = false;
 
     public boolean isAuthenticate() {

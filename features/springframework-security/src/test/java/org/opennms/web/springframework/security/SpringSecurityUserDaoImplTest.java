@@ -61,21 +61,19 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-mock-usergroup.xml",
         "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml",
-        "classpath:/org/opennms/web/springframework/security/AuthenticationIntegrationTest-context.xml"
-})
+        "classpath:/org/opennms/web/springframework/security/AuthenticationIntegrationTest-context.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class SpringSecurityUserDaoImplTest extends TestCase implements InitializingBean {
 
     private static final String MAGIC_USERS_FILE = "src/test/resources/org/opennms/web/springframework/security/magic-users.properties";
+
     private static final String USERS_XML_FILE = "src/test/resources/org/opennms/web/springframework/security/users.xml";
 
     @Autowired
@@ -206,24 +204,28 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
             authorities = user.getAuthorities();
             assertNotNull("user GrantedAuthorities[] object should not be null", authorities);
             assertEquals("user GrantedAuthorities[] object should have only one entry", 1, authorities.size());
-            assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_DASHBOARD, authorities.iterator().next().getAuthority());
+            assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_DASHBOARD,
+                         authorities.iterator().next().getAuthority());
 
             /*
-             *  On UNIX, the resolution of the last modified time is 1 second,
-             *  so we need to wait at least that long before rewriting the
-             *  file to ensure that we have crossed over into the next second.
-             *  At least we're not crossing over with John Edward.
+             * On UNIX, the resolution of the last modified time is 1 second,
+             * so we need to wait at least that long before rewriting the
+             * file to ensure that we have crossed over into the next second.
+             * At least we're not crossing over with John Edward.
              */
             Thread.sleep(1100);
 
-            writeTemporaryFile(magicUsers, getMagicUsersContents().replace("role.dashboard.users=dashboard", "role.dashboard.users="));
+            writeTemporaryFile(magicUsers,
+                               getMagicUsersContents().replace("role.dashboard.users=dashboard",
+                                                               "role.dashboard.users="));
 
             user = ((SpringSecurityUserDao) m_springSecurityDao).getByUsername("dashboard");
             assertNotNull("dashboard user should exist and the object should not be null", user);
             authorities = user.getAuthorities();
             assertNotNull("user GrantedAuthorities[] object should not be null", authorities);
             assertEquals("user GrantedAuthorities[] object should have only one entry", 1, authorities.size());
-            assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_USER, authorities.iterator().next().getAuthority());
+            assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_USER,
+                         authorities.iterator().next().getAuthority());
         } finally {
             fa.deleteExpected();
             fa.tearDown();
@@ -231,14 +233,14 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
     }
 
     /**
-     * Test for bugzilla bug #1810.  This is the case:
+     * Test for bugzilla bug #1810. This is the case:
      * <ol>
      * <li>Both users and magic users files are loaded</li>
      * <li>Magic users file is changed</li>
      * <li>Magic users file is reloaded on the next call to getByUsername</li>
      * <li>Subsequent calls to getByUsername call causes a reload because the
-     *     last update time for the users file is stored when magic users is
-     *     reloaded</li>
+     * last update time for the users file is stored when magic users is
+     * reloaded</li>
      * </ol>
      *
      * @param file
@@ -276,34 +278,40 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
             authorities = user.getAuthorities();
             assertNotNull("user GrantedAuthorities[] object should not be null", authorities);
             assertEquals("user GrantedAuthorities[] object should have only one entry", 1, authorities.size());
-            assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_DASHBOARD, authorities.iterator().next().getAuthority());
+            assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_DASHBOARD,
+                         authorities.iterator().next().getAuthority());
 
             /*
-             *  On UNIX, the resolution of the last modified time is 1 second,
-             *  so we need to wait at least that long before rewriting the
-             *  file to ensure that we have crossed over into the next second.
-             *  At least we're not crossing over with John Edward.
+             * On UNIX, the resolution of the last modified time is 1 second,
+             * so we need to wait at least that long before rewriting the
+             * file to ensure that we have crossed over into the next second.
+             * At least we're not crossing over with John Edward.
              */
             Thread.sleep(1100);
 
-            writeTemporaryFile(magicUsers, getMagicUsersContents().replace("role.dashboard.users=dashboard", "role.dashboard.users="));
+            writeTemporaryFile(magicUsers,
+                               getMagicUsersContents().replace("role.dashboard.users=dashboard",
+                                                               "role.dashboard.users="));
 
             user = ((SpringSecurityUserDao) m_springSecurityDao).getByUsername("dashboard");
             assertNotNull("dashboard user should exist and the object should not be null", user);
             authorities = user.getAuthorities();
             assertNotNull("user GrantedAuthorities[] object should not be null", authorities);
             assertEquals("user GrantedAuthorities[] object should have only one entry", 1, authorities.size());
-            assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_USER, authorities.iterator().next().getAuthority());
+            assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_USER,
+                         authorities.iterator().next().getAuthority());
 
             long ourLastModifiedTime = magicUsers.lastModified();
             long daoLastModifiedTime = ((SpringSecurityUserDaoImpl) m_springSecurityDao).getMagicUsersLastModified();
 
-            assertEquals("last modified time of magic users file does not match what the DAO stored after reloading the file", ourLastModifiedTime, daoLastModifiedTime);
+            assertEquals("last modified time of magic users file does not match what the DAO stored after reloading the file",
+                         ourLastModifiedTime, daoLastModifiedTime);
         } finally {
             fa.deleteExpected();
             fa.tearDown();
         }
     }
+
     private void writeTemporaryFile(File file, String content) throws IOException {
         Writer writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
         writer.write(content);

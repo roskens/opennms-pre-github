@@ -30,9 +30,10 @@ package org.opennms.report.inventory.svclayer;
 
 import java.util.Date;
 
-
 /**
- * <p>InventoryReportCriteria class.</p>
+ * <p>
+ * InventoryReportCriteria class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,14 +41,21 @@ import java.util.Date;
 public class InventoryReportCriteria {
 
     String theDate;
+
     String theField;
+
     String reportFormat;
+
     String reportEmail;
+
     String user;
+
     Date reportRequestDate;
 
     /**
-     * <p>Getter for the field <code>theDate</code>.</p>
+     * <p>
+     * Getter for the field <code>theDate</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -56,16 +64,21 @@ public class InventoryReportCriteria {
     }
 
     /**
-     * <p>Setter for the field <code>theDate</code>.</p>
+     * <p>
+     * Setter for the field <code>theDate</code>.
+     * </p>
      *
-     * @param theDate a {@link java.lang.String} object.
+     * @param theDate
+     *            a {@link java.lang.String} object.
      */
     public void setTheDate(String theDate) {
         this.theDate = theDate;
     }
 
     /**
-     * <p>Getter for the field <code>theField</code>.</p>
+     * <p>
+     * Getter for the field <code>theField</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -74,16 +87,21 @@ public class InventoryReportCriteria {
     }
 
     /**
-     * <p>Setter for the field <code>theField</code>.</p>
+     * <p>
+     * Setter for the field <code>theField</code>.
+     * </p>
      *
-     * @param theField a {@link java.lang.String} object.
+     * @param theField
+     *            a {@link java.lang.String} object.
      */
     public void setTheField(String theField) {
         this.theField = theField;
     }
 
     /**
-     * <p>Getter for the field <code>reportFormat</code>.</p>
+     * <p>
+     * Getter for the field <code>reportFormat</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,16 +110,21 @@ public class InventoryReportCriteria {
     }
 
     /**
-     * <p>Setter for the field <code>reportFormat</code>.</p>
+     * <p>
+     * Setter for the field <code>reportFormat</code>.
+     * </p>
      *
-     * @param reportFormat a {@link java.lang.String} object.
+     * @param reportFormat
+     *            a {@link java.lang.String} object.
      */
     public void setReportFormat(String reportFormat) {
         this.reportFormat = reportFormat;
     }
 
     /**
-     * <p>Getter for the field <code>reportEmail</code>.</p>
+     * <p>
+     * Getter for the field <code>reportEmail</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -110,16 +133,21 @@ public class InventoryReportCriteria {
     }
 
     /**
-     * <p>Setter for the field <code>reportEmail</code>.</p>
+     * <p>
+     * Setter for the field <code>reportEmail</code>.
+     * </p>
      *
-     * @param reportEmail a {@link java.lang.String} object.
+     * @param reportEmail
+     *            a {@link java.lang.String} object.
      */
     public void setReportEmail(String reportEmail) {
         this.reportEmail = reportEmail;
     }
 
     /**
-     * <p>Getter for the field <code>user</code>.</p>
+     * <p>
+     * Getter for the field <code>user</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,35 +156,49 @@ public class InventoryReportCriteria {
     }
 
     /**
-     * <p>Setter for the field <code>user</code>.</p>
+     * <p>
+     * Setter for the field <code>user</code>.
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public void setUser(String user) {
         this.user = user;
     }
 
     /**
-     * <p>Constructor for InventoryReportCriteria.</p>
+     * <p>
+     * Constructor for InventoryReportCriteria.
+     * </p>
      *
-     * @param _date a {@link java.lang.String} object.
-     * @param _field a {@link java.lang.String} object.
-     * @param _format a {@link java.lang.String} object.
-     * @param _reportemail a {@link java.lang.String} object.
-     * @param _user a {@link java.lang.String} object.
-     * @param _reportRequestDate a {@link java.util.Date} object.
+     * @param _date
+     *            a {@link java.lang.String} object.
+     * @param _field
+     *            a {@link java.lang.String} object.
+     * @param _format
+     *            a {@link java.lang.String} object.
+     * @param _reportemail
+     *            a {@link java.lang.String} object.
+     * @param _user
+     *            a {@link java.lang.String} object.
+     * @param _reportRequestDate
+     *            a {@link java.util.Date} object.
      */
-    public InventoryReportCriteria(String _date, String _field, String _format, String _reportemail, String _user, Date _reportRequestDate){
+    public InventoryReportCriteria(String _date, String _field, String _format, String _reportemail, String _user,
+            Date _reportRequestDate) {
         theDate = _date;
         theField = _field;
         reportFormat = _format;
         reportEmail = _reportemail;
-        user=_user;
+        user = _user;
         reportRequestDate = _reportRequestDate;
     }
 
     /**
-     * <p>Getter for the field <code>reportRequestDate</code>.</p>
+     * <p>
+     * Getter for the field <code>reportRequestDate</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -165,14 +207,15 @@ public class InventoryReportCriteria {
     }
 
     /**
-     * <p>Setter for the field <code>reportRequestDate</code>.</p>
+     * <p>
+     * Setter for the field <code>reportRequestDate</code>.
+     * </p>
      *
-     * @param reportRequestDate a {@link java.util.Date} object.
+     * @param reportRequestDate
+     *            a {@link java.util.Date} object.
      */
     public void setReportRequestDate(Date reportRequestDate) {
         this.reportRequestDate = reportRequestDate;
     }
-
-
 
 }

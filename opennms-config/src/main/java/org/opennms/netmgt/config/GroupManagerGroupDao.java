@@ -44,7 +44,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.util.Assert;
 
 /**
- * <p>GroupManagerGroupDao class.</p>
+ * <p>
+ * GroupManagerGroupDao class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -101,7 +103,9 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
     }
 
     /**
-     * <p>getGroupNames</p>
+     * <p>
+     * getGroupNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -115,7 +119,9 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
     }
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -139,7 +145,9 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
     }
 
     /**
-     * <p>getRoleNames</p>
+     * <p>
+     * getRoleNames
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -154,12 +162,15 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
         try {
             return m_groupManager.getRoleScheduleEntries(role, start, end);
         } catch (Throwable e) {
-            throw CASTOR_EXCEPTION_TRANSLATOR.translate("getting scheduled entries for role '" + role + "' between " + start + " and " + end, e);
+            throw CASTOR_EXCEPTION_TRANSLATOR.translate("getting scheduled entries for role '" + role + "' between "
+                    + start + " and " + end, e);
         }
     }
 
     /**
-     * <p>getRoles</p>
+     * <p>
+     * getRoles
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -188,7 +199,8 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
         try {
             return m_groupManager.getUserSchedulesForRole(user, role);
         } catch (Throwable e) {
-            throw CASTOR_EXCEPTION_TRANSLATOR.translate("getting user schedules for user '" + user + "' for role '" + role + "'", e);
+            throw CASTOR_EXCEPTION_TRANSLATOR.translate("getting user schedules for user '" + user + "' for role '"
+                    + role + "'", e);
         }
     }
 
@@ -198,7 +210,8 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
         try {
             return m_groupManager.groupNextOnDuty(group, time);
         } catch (Throwable e) {
-            throw CASTOR_EXCEPTION_TRANSLATOR.translate("getting next on duty time for group '" + group + "' after " + time, e);
+            throw CASTOR_EXCEPTION_TRANSLATOR.translate("getting next on duty time for group '" + group + "' after "
+                    + time, e);
         }
     }
 
@@ -218,7 +231,8 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
         try {
             return m_groupManager.isGroupOnDuty(group, time);
         } catch (Throwable e) {
-            throw CASTOR_EXCEPTION_TRANSLATOR.translate("getting group '" + group + "' to see if it is on duty at " + time, e);
+            throw CASTOR_EXCEPTION_TRANSLATOR.translate("getting group '" + group + "' to see if it is on duty at "
+                    + time, e);
         }
     }
 
@@ -228,7 +242,8 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
         try {
             return m_groupManager.isUserScheduledForRole(user, role, time);
         } catch (Throwable e) {
-            throw CASTOR_EXCEPTION_TRANSLATOR.translate("checking to see if user '" + user + "' is schedule for role '" + role + "' at " + time, e);
+            throw CASTOR_EXCEPTION_TRANSLATOR.translate("checking to see if user '" + user + "' is schedule for role '"
+                    + role + "' at " + time, e);
         }
     }
 
@@ -263,7 +278,9 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
     }
 
     /**
-     * <p>saveGroups</p>
+     * <p>
+     * saveGroups
+     * </p>
      */
     @Override
     public void saveGroups() {
@@ -296,12 +313,15 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
         try {
             return m_groupManager.userHasRole(user, role);
         } catch (Throwable e) {
-            throw CASTOR_EXCEPTION_TRANSLATOR.translate("checking to see if user '" + user + "' has role '" + role + "'", e);
+            throw CASTOR_EXCEPTION_TRANSLATOR.translate("checking to see if user '" + user + "' has role '" + role
+                    + "'", e);
         }
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {
@@ -309,7 +329,9 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
     }
 
     /**
-     * <p>getGroupManager</p>
+     * <p>
+     * getGroupManager
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.GroupManager} object.
      */
@@ -318,9 +340,12 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
     }
 
     /**
-     * <p>setGroupManager</p>
+     * <p>
+     * setGroupManager
+     * </p>
      *
-     * @param groupManager a {@link org.opennms.netmgt.config.GroupManager} object.
+     * @param groupManager
+     *            a {@link org.opennms.netmgt.config.GroupManager} object.
      */
     public void setGroupManager(GroupManager groupManager) {
         m_groupManager = groupManager;
@@ -335,7 +360,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
     /** {@inheritDoc} */
     @Override
     public String getDefaultMapForUser(String user) {
-        for (Group group: findGroupsForUser(user)) {
+        for (Group group : findGroupsForUser(user)) {
             if (group.getDefaultMap() != null)
                 return group.getDefaultMap();
         }

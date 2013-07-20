@@ -50,7 +50,6 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
     /**
      * The internal 64-bit unsigned quantity implemented as a 64-bit signed
      * quantity
-     *
      */
     private BigInteger m_value;
 
@@ -58,18 +57,17 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      * The ASN.1 value for an unsigned integer value. BEWARE this value will
      * conflict with the SnmpSMI.SMI_COUNTER32 value. This object should not be
      * dynamically registered with the SNMP library
-     *
      */
     public static final byte ASNTYPE = SnmpSMI.SMI_COUNTER64;
 
     /**
      * Default class constructor. Constructs the object with a value of zero(0).
-     *
      */
     public SnmpCounter64() {
         m_value = BigInteger.valueOf(0L);
-        m_value = m_value.clearBit(65); // ensures that the 64-bits are treated as
-                                // unsigned!
+        m_value = m_value.clearBit(65); // ensures that the 64-bits are treated
+                                        // as
+        // unsigned!
     }
 
     /**
@@ -77,12 +75,12 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      *
      * @param value
      *            The new 64-bit value.
-     *
      */
     public SnmpCounter64(long value) {
         m_value = BigInteger.valueOf(value & Long.MAX_VALUE);
-        m_value = m_value.clearBit(65); // ensures that the 64-bits are treated as
-                                // unsigned!
+        m_value = m_value.clearBit(65); // ensures that the 64-bits are treated
+                                        // as
+        // unsigned!
     }
 
     /**
@@ -90,12 +88,12 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      *
      * @param value
      *            The new 64-bit value.
-     *
      */
     public SnmpCounter64(BigInteger value) {
         m_value = new BigInteger(value.toByteArray());
-        m_value = m_value.clearBit(65); // ensures that the 64-bits are treated as
-                                // unsigned!
+        m_value = m_value.clearBit(65); // ensures that the 64-bits are treated
+                                        // as
+        // unsigned!
     }
 
     /**
@@ -104,12 +102,12 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      *
      * @param second
      *            The object to copy the value from.
-     *
      */
     public SnmpCounter64(SnmpCounter64 second) {
         m_value = new BigInteger(second.m_value.toByteArray());
-        m_value = m_value.clearBit(65); // ensures that the 64-bits are treated as
-                                // unsigned!
+        m_value = m_value.clearBit(65); // ensures that the 64-bits are treated
+                                        // as
+        // unsigned!
     }
 
     /**
@@ -122,7 +120,6 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      *
      * @param value
      *            The string encoded value.
-     *
      * @throws java.lang.NumberFormatException
      *             Thrown if the passed value is malformed and cannot be parsed.
      * @throws java.lang.IllegalArgumentException
@@ -143,7 +140,6 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      * Used to retreive the 64-bit unsigned value.
      *
      * @return The internal 64-bit value.
-     *
      */
     public BigInteger getValue() {
         return m_value;
@@ -165,7 +161,6 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      * Used to retreive the ASN.1 type for this object.
      *
      * @return The ASN.1 value for the SnmpCounter64
-     *
      */
     @Override
     public byte typeId() {
@@ -182,9 +177,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      *            The start of the encoded buffer.
      * @param encoder
      *            The ASN.1 encoder object
-     *
      * @return The byte immediantly after the last encoded byte.
-     *
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -202,9 +195,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      *            The offset of the first byte of data
      * @param encoder
      *            The ASN.1 decoder object.
-     *
      * @return The byte immediantly after the last decoded byte of information.
-     *
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -240,7 +231,6 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
 
     /**
      * Returns the string representation of the object.
-     *
      */
     @Override
     public String toString() {

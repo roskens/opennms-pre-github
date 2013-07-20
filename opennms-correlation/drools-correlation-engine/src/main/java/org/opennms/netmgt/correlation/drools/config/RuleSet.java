@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.correlation.drools.config;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.IOException;
@@ -82,51 +82,50 @@ import org.xml.sax.ContentHandler;
  */
 
 @SuppressWarnings("all")
-@XmlRootElement(name="rule-set")
+@XmlRootElement(name = "rule-set")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RuleSet implements Serializable {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _name.
      */
-	@XmlAttribute(name="name")
+    @XmlAttribute(name = "name")
     private String _name;
 
-	@XmlAttribute(name="assert-behaviour")
-	private String _assertBehaviour;
+    @XmlAttribute(name = "assert-behaviour")
+    private String _assertBehaviour;
+
     /**
      * Field _ruleFileList.
      */
-	@XmlElement(name="rule-file")
+    @XmlElement(name = "rule-file")
     private List<String> _ruleFileList;
 
     /**
      * Field _eventList.
      */
-	@XmlElement(name="event")
+    @XmlElement(name = "event")
     private List<String> _eventList;
 
     /**
      * Field _appContext.
      */
-	@XmlElement(name="app-context")
+    @XmlElement(name = "app-context")
     private String _appContext;
 
     /**
      * Field _globalList.
      */
-	@XmlElement(name="global")
+    @XmlElement(name = "global")
     private List<Global> _globalList;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public RuleSet() {
         super();
@@ -135,102 +134,78 @@ public class RuleSet implements Serializable {
         this._globalList = new ArrayList<Global>();
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     public String getAssertBehaviour() {
-		return _assertBehaviour == null? "identity" : _assertBehaviour;
-	}
+        return _assertBehaviour == null ? "identity" : _assertBehaviour;
+    }
 
+    public void setAssertBehaviour(String assertBehaviour) {
+        this._assertBehaviour = assertBehaviour;
+    }
 
-	public void setAssertBehaviour(String assertBehaviour) {
-		this._assertBehaviour = assertBehaviour;
-	}
-
-
-	/**
-     *
-     *
+    /**
      * @param vEvent
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addEvent(
-            final String vEvent)
-    throws IndexOutOfBoundsException {
+    public void addEvent(final String vEvent) throws IndexOutOfBoundsException {
         this._eventList.add(vEvent);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vEvent
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addEvent(
-            final int index,
-            final String vEvent)
-    throws IndexOutOfBoundsException {
+    public void addEvent(final int index, final String vEvent) throws IndexOutOfBoundsException {
         this._eventList.add(index, vEvent);
     }
 
     /**
-     *
-     *
      * @param vGlobal
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addGlobal(
-            final Global vGlobal)
-    throws IndexOutOfBoundsException {
+    public void addGlobal(final Global vGlobal) throws IndexOutOfBoundsException {
         this._globalList.add(vGlobal);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vGlobal
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addGlobal(
-            final int index,
-            final Global vGlobal)
-    throws IndexOutOfBoundsException {
+    public void addGlobal(final int index, final Global vGlobal) throws IndexOutOfBoundsException {
         this._globalList.add(index, vGlobal);
     }
 
     /**
-     *
-     *
      * @param vRuleFile
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addRuleFile(
-            final String vRuleFile)
-    throws IndexOutOfBoundsException {
+    public void addRuleFile(final String vRuleFile) throws IndexOutOfBoundsException {
         this._ruleFileList.add(vRuleFile);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vRuleFile
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addRuleFile(
-            final int index,
-            final String vRuleFile)
-    throws IndexOutOfBoundsException {
+    public void addRuleFile(final int index, final String vRuleFile) throws IndexOutOfBoundsException {
         this._ruleFileList.add(index, vRuleFile);
     }
 
@@ -238,10 +213,9 @@ public class RuleSet implements Serializable {
      * Method enumerateEvent.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
-    public Enumeration<String> enumerateEvent(
-    ) {
+    public Enumeration<String> enumerateEvent() {
         return Collections.enumeration(this._eventList);
     }
 
@@ -249,10 +223,9 @@ public class RuleSet implements Serializable {
      * Method enumerateGlobal.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
-    public Enumeration<Global> enumerateGlobal(
-    ) {
+    public Enumeration<Global> enumerateGlobal() {
         return Collections.enumeration(this._globalList);
     }
 
@@ -260,10 +233,9 @@ public class RuleSet implements Serializable {
      * Method enumerateRuleFile.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
-    public Enumeration<String> enumerateRuleFile(
-    ) {
+    public Enumeration<String> enumerateRuleFile() {
         return Collections.enumeration(this._ruleFileList);
     }
 
@@ -272,8 +244,7 @@ public class RuleSet implements Serializable {
      *
      * @return the value of field 'AppContext'.
      */
-    public String getAppContext(
-    ) {
+    public String getAppContext() {
         return this._appContext;
     }
 
@@ -281,16 +252,16 @@ public class RuleSet implements Serializable {
      * Method getEvent.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the String at the given index
      */
-    public String getEvent(
-            final int index)
-    throws IndexOutOfBoundsException {
+    public String getEvent(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._eventList.size()) {
-            throw new IndexOutOfBoundsException("getEvent: Index value '" + index + "' not in range [0.." + (this._eventList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getEvent: Index value '" + index + "' not in range [0.."
+                    + (this._eventList.size() - 1) + "]");
         }
 
         return (String) _eventList.get(index);
@@ -298,15 +269,16 @@ public class RuleSet implements Serializable {
 
     /**
      * Method getEvent.Returns the contents of the collection in an
-     * Array.  <p>Note:  Just in case the collection contents are
-     * changing in another thread, we pass a 0-length Array of the
-     * correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public String[] getEvent(
-    ) {
+    public String[] getEvent() {
         String[] array = new String[0];
         return (String[]) this._eventList.toArray(array);
     }
@@ -318,8 +290,7 @@ public class RuleSet implements Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public List<String> getEventCollection(
-    ) {
+    public List<String> getEventCollection() {
         return this._eventList;
     }
 
@@ -328,8 +299,7 @@ public class RuleSet implements Serializable {
      *
      * @return the size of this collection
      */
-    public int getEventCount(
-    ) {
+    public int getEventCount() {
         return this._eventList.size();
     }
 
@@ -337,18 +307,18 @@ public class RuleSet implements Serializable {
      * Method getGlobal.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * Global at the
-     * given index
+     *         Global at the
+     *         given index
      */
-    public Global getGlobal(
-            final int index)
-    throws IndexOutOfBoundsException {
+    public Global getGlobal(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._globalList.size()) {
-            throw new IndexOutOfBoundsException("getGlobal: Index value '" + index + "' not in range [0.." + (this._globalList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getGlobal: Index value '" + index + "' not in range [0.."
+                    + (this._globalList.size() - 1) + "]");
         }
 
         return (Global) _globalList.get(index);
@@ -356,15 +326,16 @@ public class RuleSet implements Serializable {
 
     /**
      * Method getGlobal.Returns the contents of the collection in
-     * an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public Global[] getGlobal(
-    ) {
+    public Global[] getGlobal() {
         Global[] array = new Global[0];
         return (Global[]) this._globalList.toArray(array);
     }
@@ -376,8 +347,7 @@ public class RuleSet implements Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public List<Global> getGlobalCollection(
-    ) {
+    public List<Global> getGlobalCollection() {
         return this._globalList;
     }
 
@@ -386,8 +356,7 @@ public class RuleSet implements Serializable {
      *
      * @return the size of this collection
      */
-    public int getGlobalCount(
-    ) {
+    public int getGlobalCount() {
         return this._globalList.size();
     }
 
@@ -396,8 +365,7 @@ public class RuleSet implements Serializable {
      *
      * @return the value of field 'Name'.
      */
-    public String getName(
-    ) {
+    public String getName() {
         return this._name;
     }
 
@@ -405,16 +373,16 @@ public class RuleSet implements Serializable {
      * Method getRuleFile.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the String at the given index
      */
-    public String getRuleFile(
-            final int index)
-    throws IndexOutOfBoundsException {
+    public String getRuleFile(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._ruleFileList.size()) {
-            throw new IndexOutOfBoundsException("getRuleFile: Index value '" + index + "' not in range [0.." + (this._ruleFileList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getRuleFile: Index value '" + index + "' not in range [0.."
+                    + (this._ruleFileList.size() - 1) + "]");
         }
 
         return (String) _ruleFileList.get(index);
@@ -422,15 +390,16 @@ public class RuleSet implements Serializable {
 
     /**
      * Method getRuleFile.Returns the contents of the collection in
-     * an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public String[] getRuleFile(
-    ) {
+    public String[] getRuleFile() {
         String[] array = new String[0];
         return (String[]) this._ruleFileList.toArray(array);
     }
@@ -442,8 +411,7 @@ public class RuleSet implements Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public List<String> getRuleFileCollection(
-    ) {
+    public List<String> getRuleFileCollection() {
         return this._ruleFileList;
     }
 
@@ -452,8 +420,7 @@ public class RuleSet implements Serializable {
      *
      * @return the size of this collection
      */
-    public int getRuleFileCount(
-    ) {
+    public int getRuleFileCount() {
         return this._ruleFileList.size();
     }
 
@@ -462,8 +429,7 @@ public class RuleSet implements Serializable {
      *
      * @return true if this object is valid according to the schema
      */
-    public boolean isValid(
-    ) {
+    public boolean isValid() {
         try {
             validate();
         } catch (ValidationException vex) {
@@ -476,10 +442,9 @@ public class RuleSet implements Serializable {
      * Method iterateEvent.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
-    public Iterator<String> iterateEvent(
-    ) {
+    public Iterator<String> iterateEvent() {
         return this._eventList.iterator();
     }
 
@@ -487,10 +452,9 @@ public class RuleSet implements Serializable {
      * Method iterateGlobal.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
-    public Iterator<Global> iterateGlobal(
-    ) {
+    public Iterator<Global> iterateGlobal() {
         return this._globalList.iterator();
     }
 
@@ -498,63 +462,56 @@ public class RuleSet implements Serializable {
      * Method iterateRuleFile.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
-    public Iterator<String> iterateRuleFile(
-    ) {
+    public Iterator<String> iterateRuleFile() {
         return this._ruleFileList.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void marshal(
-            final Writer out)
-    throws MarshalException, ValidationException {
+    public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
-    public void marshal(
-            final ContentHandler handler)
-    throws IOException, MarshalException, ValidationException {
+    public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
     /**
      */
-    public void removeAllEvent(
-    ) {
+    public void removeAllEvent() {
         this._eventList.clear();
     }
 
     /**
      */
-    public void removeAllGlobal(
-    ) {
+    public void removeAllGlobal() {
         this._globalList.clear();
     }
 
     /**
      */
-    public void removeAllRuleFile(
-    ) {
+    public void removeAllRuleFile() {
         this._ruleFileList.clear();
     }
 
@@ -564,8 +521,7 @@ public class RuleSet implements Serializable {
      * @param vEvent
      * @return true if the object was removed from the collection.
      */
-    public boolean removeEvent(
-            final String vEvent) {
+    public boolean removeEvent(final String vEvent) {
         boolean removed = _eventList.remove(vEvent);
         return removed;
     }
@@ -576,8 +532,7 @@ public class RuleSet implements Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public String removeEventAt(
-            final int index) {
+    public String removeEventAt(final int index) {
         Object obj = this._eventList.remove(index);
         return (String) obj;
     }
@@ -588,8 +543,7 @@ public class RuleSet implements Serializable {
      * @param vGlobal
      * @return true if the object was removed from the collection.
      */
-    public boolean removeGlobal(
-            final Global vGlobal) {
+    public boolean removeGlobal(final Global vGlobal) {
         boolean removed = _globalList.remove(vGlobal);
         return removed;
     }
@@ -600,8 +554,7 @@ public class RuleSet implements Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public Global removeGlobalAt(
-            final int index) {
+    public Global removeGlobalAt(final int index) {
         Object obj = this._globalList.remove(index);
         return (Global) obj;
     }
@@ -612,8 +565,7 @@ public class RuleSet implements Serializable {
      * @param vRuleFile
      * @return true if the object was removed from the collection.
      */
-    public boolean removeRuleFile(
-            final String vRuleFile) {
+    public boolean removeRuleFile(final String vRuleFile) {
         boolean removed = _ruleFileList.remove(vRuleFile);
         return removed;
     }
@@ -624,8 +576,7 @@ public class RuleSet implements Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public String removeRuleFileAt(
-            final int index) {
+    public String removeRuleFileAt(final int index) {
         Object obj = this._ruleFileList.remove(index);
         return (String) obj;
     }
@@ -633,45 +584,39 @@ public class RuleSet implements Serializable {
     /**
      * Sets the value of field 'appContext'.
      *
-     * @param appContext the value of field 'appContext'.
+     * @param appContext
+     *            the value of field 'appContext'.
      */
-    public void setAppContext(
-            final String appContext) {
+    public void setAppContext(final String appContext) {
         this._appContext = appContext;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vEvent
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setEvent(
-            final int index,
-            final String vEvent)
-    throws IndexOutOfBoundsException {
+    public void setEvent(final int index, final String vEvent) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._eventList.size()) {
-            throw new IndexOutOfBoundsException("setEvent: Index value '" + index + "' not in range [0.." + (this._eventList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setEvent: Index value '" + index + "' not in range [0.."
+                    + (this._eventList.size() - 1) + "]");
         }
 
         this._eventList.set(index, vEvent);
     }
 
     /**
-     *
-     *
      * @param vEventArray
      */
-    public void setEvent(
-            final String[] vEventArray) {
-        //-- copy array
+    public void setEvent(final String[] vEventArray) {
+        // -- copy array
         _eventList.clear();
 
         for (int i = 0; i < vEventArray.length; i++) {
-                this._eventList.add(vEventArray[i]);
+            this._eventList.add(vEventArray[i]);
         }
     }
 
@@ -679,10 +624,10 @@ public class RuleSet implements Serializable {
      * Sets the value of '_eventList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vEventList the Vector to copy.
+     * @param vEventList
+     *            the Vector to copy.
      */
-    public void setEvent(
-            final List<String> vEventList) {
+    public void setEvent(final List<String> vEventList) {
         // copy vector
         this._eventList.clear();
 
@@ -692,47 +637,41 @@ public class RuleSet implements Serializable {
     /**
      * Sets the value of '_eventList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param eventList the Vector to set.
+     * @deprecated
+     * @param eventList
+     *            the Vector to set.
      */
-    public void setEventCollection(
-            final List<String> eventList) {
+    public void setEventCollection(final List<String> eventList) {
         this._eventList = eventList;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vGlobal
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setGlobal(
-            final int index,
-            final Global vGlobal)
-    throws IndexOutOfBoundsException {
+    public void setGlobal(final int index, final Global vGlobal) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._globalList.size()) {
-            throw new IndexOutOfBoundsException("setGlobal: Index value '" + index + "' not in range [0.." + (this._globalList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setGlobal: Index value '" + index + "' not in range [0.."
+                    + (this._globalList.size() - 1) + "]");
         }
 
         this._globalList.set(index, vGlobal);
     }
 
     /**
-     *
-     *
      * @param vGlobalArray
      */
-    public void setGlobal(
-            final Global[] vGlobalArray) {
-        //-- copy array
+    public void setGlobal(final Global[] vGlobalArray) {
+        // -- copy array
         _globalList.clear();
 
         for (int i = 0; i < vGlobalArray.length; i++) {
-                this._globalList.add(vGlobalArray[i]);
+            this._globalList.add(vGlobalArray[i]);
         }
     }
 
@@ -740,10 +679,10 @@ public class RuleSet implements Serializable {
      * Sets the value of '_globalList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param vGlobalList the Vector to copy.
+     * @param vGlobalList
+     *            the Vector to copy.
      */
-    public void setGlobal(
-            final List<Global> vGlobalList) {
+    public void setGlobal(final List<Global> vGlobalList) {
         // copy vector
         this._globalList.clear();
 
@@ -753,57 +692,51 @@ public class RuleSet implements Serializable {
     /**
      * Sets the value of '_globalList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param globalList the Vector to set.
+     * @deprecated
+     * @param globalList
+     *            the Vector to set.
      */
-    public void setGlobalCollection(
-            final List<Global> globalList) {
+    public void setGlobalCollection(final List<Global> globalList) {
         this._globalList = globalList;
     }
 
     /**
      * Sets the value of field 'name'.
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
-    public void setName(
-            final String name) {
+    public void setName(final String name) {
         this._name = name;
     }
 
     /**
-     *
-     *
      * @param index
      * @param vRuleFile
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setRuleFile(
-            final int index,
-            final String vRuleFile)
-    throws IndexOutOfBoundsException {
+    public void setRuleFile(final int index, final String vRuleFile) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._ruleFileList.size()) {
-            throw new IndexOutOfBoundsException("setRuleFile: Index value '" + index + "' not in range [0.." + (this._ruleFileList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setRuleFile: Index value '" + index + "' not in range [0.."
+                    + (this._ruleFileList.size() - 1) + "]");
         }
 
         this._ruleFileList.set(index, vRuleFile);
     }
 
     /**
-     *
-     *
      * @param vRuleFileArray
      */
-    public void setRuleFile(
-            final String[] vRuleFileArray) {
-        //-- copy array
+    public void setRuleFile(final String[] vRuleFileArray) {
+        // -- copy array
         _ruleFileList.clear();
 
         for (int i = 0; i < vRuleFileArray.length; i++) {
-                this._ruleFileList.add(vRuleFileArray[i]);
+            this._ruleFileList.add(vRuleFileArray[i]);
         }
     }
 
@@ -811,10 +744,10 @@ public class RuleSet implements Serializable {
      * Sets the value of '_ruleFileList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param vRuleFileList the Vector to copy.
+     * @param vRuleFileList
+     *            the Vector to copy.
      */
-    public void setRuleFile(
-            final List<String> vRuleFileList) {
+    public void setRuleFile(final List<String> vRuleFileList) {
         // copy vector
         this._ruleFileList.clear();
 
@@ -824,12 +757,12 @@ public class RuleSet implements Serializable {
     /**
      * Sets the value of '_ruleFileList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param ruleFileList the Vector to set.
+     * @deprecated
+     * @param ruleFileList
+     *            the Vector to set.
      */
-    public void setRuleFileCollection(
-            final List<String> ruleFileList) {
+    public void setRuleFileCollection(final List<String> ruleFileList) {
         this._ruleFileList = ruleFileList;
     }
 
@@ -837,143 +770,128 @@ public class RuleSet implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * RuleSet
+     *         RuleSet
      */
-    public static RuleSet unmarshal(
-            final Reader reader)
-    throws MarshalException, ValidationException {
+    public static RuleSet unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (RuleSet) Unmarshaller.unmarshal(RuleSet.class, reader);
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-    public void validate(
-    )
-    throws ValidationException {
+    public void validate() throws ValidationException {
         Validator validator = new Validator();
         validator.validate(this);
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((_appContext == null) ? 0 : _appContext.hashCode());
+        result = prime * result + ((_eventList == null) ? 0 : _eventList.hashCode());
+        result = prime * result + ((_globalList == null) ? 0 : _globalList.hashCode());
+        result = prime * result + ((_name == null) ? 0 : _name.hashCode());
+        result = prime * result + ((_ruleFileList == null) ? 0 : _ruleFileList.hashCode());
+        return result;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((_appContext == null) ? 0 : _appContext.hashCode());
-		result = prime * result
-				+ ((_eventList == null) ? 0 : _eventList.hashCode());
-		result = prime * result
-				+ ((_globalList == null) ? 0 : _globalList.hashCode());
-		result = prime * result + ((_name == null) ? 0 : _name.hashCode());
-		result = prime * result
-				+ ((_ruleFileList == null) ? 0 : _ruleFileList.hashCode());
-		return result;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        RuleSet other = (RuleSet) obj;
+        if (_appContext == null) {
+            if (other._appContext != null)
+                return false;
+        } else if (!_appContext.equals(other._appContext))
+            return false;
+        if (_eventList == null) {
+            if (other._eventList != null)
+                return false;
+        } else if (!_eventList.equals(other._eventList))
+            return false;
+        if (_globalList == null) {
+            if (other._globalList != null)
+                return false;
+        } else if (!_globalList.equals(other._globalList))
+            return false;
+        if (_name == null) {
+            if (other._name != null)
+                return false;
+        } else if (!_name.equals(other._name))
+            return false;
+        if (_ruleFileList == null) {
+            if (other._ruleFileList != null)
+                return false;
+        } else if (!_ruleFileList.equals(other._ruleFileList))
+            return false;
+        return true;
+    }
 
+    public CorrelationEngine constructEngine(Resource basePath, ApplicationContext appContext,
+            EventIpcManager eventIpcManager) {
+        final ApplicationContext configContext = new ConfigFileApplicationContext(basePath, getConfigLocation(),
+                                                                                  appContext);
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RuleSet other = (RuleSet) obj;
-		if (_appContext == null) {
-			if (other._appContext != null)
-				return false;
-		} else if (!_appContext.equals(other._appContext))
-			return false;
-		if (_eventList == null) {
-			if (other._eventList != null)
-				return false;
-		} else if (!_eventList.equals(other._eventList))
-			return false;
-		if (_globalList == null) {
-			if (other._globalList != null)
-				return false;
-		} else if (!_globalList.equals(other._globalList))
-			return false;
-		if (_name == null) {
-			if (other._name != null)
-				return false;
-		} else if (!_name.equals(other._name))
-			return false;
-		if (_ruleFileList == null) {
-			if (other._ruleFileList != null)
-				return false;
-		} else if (!_ruleFileList.equals(other._ruleFileList))
-			return false;
-		return true;
-	}
+        final DroolsCorrelationEngine engine = new DroolsCorrelationEngine();
+        engine.setName(getName());
+        engine.setAssertBehaviour(getAssertBehaviour());
+        engine.setEventIpcManager(eventIpcManager);
+        engine.setScheduler(new Timer(getName() + "-Timer"));
+        engine.setInterestingEvents(getInterestingEvents());
+        engine.setRulesResources(getRuleResources(configContext));
+        engine.setGlobals(getGlobals(configContext));
+        try {
+            engine.initialize();
+            return engine;
+        } catch (final Throwable e) {
+            throw new RuntimeException("Unable to initialize Drools engine " + getName(), e);
+        }
+    }
 
+    public Map<String, Object> getGlobals(final ApplicationContext context) {
+        final Map<String, Object> globals = new HashMap<String, Object>();
 
-	public CorrelationEngine constructEngine(Resource basePath, ApplicationContext appContext, EventIpcManager eventIpcManager) {
-		final ApplicationContext configContext = new ConfigFileApplicationContext(basePath, getConfigLocation(), appContext);
+        for (final Global global : getGlobal()) {
+            globals.put(global.getName(), global.constructValue(context));
+        }
 
-		final DroolsCorrelationEngine engine = new DroolsCorrelationEngine();
-		engine.setName(getName());
-		engine.setAssertBehaviour(getAssertBehaviour());
-		engine.setEventIpcManager(eventIpcManager);
-		engine.setScheduler(new Timer(getName()+"-Timer"));
-		engine.setInterestingEvents(getInterestingEvents());
-		engine.setRulesResources(getRuleResources(configContext));
-		engine.setGlobals(getGlobals(configContext));
-		try {
-		    engine.initialize();
-		    return engine;
-		} catch (final Throwable e) {
-		    throw new RuntimeException("Unable to initialize Drools engine "+getName(), e);
-		}
-	}
+        return globals;
+    }
 
+    public List<String> getInterestingEvents() {
+        return Arrays.asList(getEvent());
+    }
 
-	public Map<String, Object> getGlobals(final ApplicationContext context) {
-		final Map<String, Object> globals = new HashMap<String, Object>();
+    public Resource getResource(final ResourceLoader resourceLoader, final String resourcePath) {
+        return resourceLoader.getResource(PropertiesUtils.substitute(resourcePath, System.getProperties()));
+    }
 
-		for(final Global global : getGlobal()) {
-	        globals.put(global.getName(), global.constructValue(context));
-		}
+    public List<Resource> getRuleResources(final ResourceLoader resourceLoader) {
+        final List<Resource> resources = new LinkedList<Resource>();
+        for (final String resourcePath : getRuleFile()) {
+            resources.add(getResource(resourceLoader, resourcePath));
+        }
 
-		return globals;
-	}
+        return resources;
+    }
 
-
-	public List<String> getInterestingEvents() {
-		return Arrays.asList(getEvent());
-	}
-
-
-	public Resource getResource(final ResourceLoader resourceLoader, final String resourcePath) {
-		return resourceLoader.getResource( PropertiesUtils.substitute( resourcePath, System.getProperties() ) );
-	}
-
-
-	public List<Resource> getRuleResources(final ResourceLoader resourceLoader) {
-		final List<Resource> resources = new LinkedList<Resource>();
-		for(final String resourcePath : getRuleFile()) {
-	        resources.add( getResource(resourceLoader, resourcePath) );
-	    }
-
-	    return resources;
-	}
-
-
-	public String getConfigLocation() {
-		return PropertiesUtils.substitute(getAppContext(), System.getProperties());
-	}
-
-
+    public String getConfigLocation() {
+        return PropertiesUtils.substitute(getAppContext(), System.getProperties());
+    }
 
 }

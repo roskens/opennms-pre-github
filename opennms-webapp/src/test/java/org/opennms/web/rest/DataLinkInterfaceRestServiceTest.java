@@ -106,14 +106,10 @@ public class DataLinkInterfaceRestServiceTest extends AbstractSpringJerseyRestTe
 
     @Test
     public void testPost() throws Exception {
-        final String xml = "  <link status=\"A\" source=\"monkey\">" +
-                "    <ifIndex>1</ifIndex>" +
-                "    <lastPollTime>2012-10-30T14:27:38.685-04:00</lastPollTime>" +
-                "    <linkTypeId>-1</linkTypeId>" +
-                "    <nodeId>2</nodeId>" +
-                "    <nodeParentId>1</nodeParentId>" +
-                "    <parentIfIndex>1</parentIfIndex>" +
-                "  </link>";
+        final String xml = "  <link status=\"A\" source=\"monkey\">" + "    <ifIndex>1</ifIndex>"
+                + "    <lastPollTime>2012-10-30T14:27:38.685-04:00</lastPollTime>" + "    <linkTypeId>-1</linkTypeId>"
+                + "    <nodeId>2</nodeId>" + "    <nodeParentId>1</nodeParentId>"
+                + "    <parentIfIndex>1</parentIfIndex>" + "  </link>";
 
         MockHttpServletResponse response = sendPost("/links", xml, 303, null);
         assertTrue(response.getHeader("Location").toString().contains("opennms/rest/links/"));

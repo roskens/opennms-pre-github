@@ -31,7 +31,9 @@ package org.opennms.features.poller.remote.gwt.client;
 import org.opennms.features.poller.remote.gwt.client.utils.HashCodeBuilder;
 
 /**
- * <p>GWTBounds class.</p>
+ * <p>
+ * GWTBounds class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,13 +42,22 @@ import org.opennms.features.poller.remote.gwt.client.utils.HashCodeBuilder;
 public class GWTBounds {
 
     GWTLatLng m_northEastCorner;
+
     GWTLatLng m_southWestCorner;
 
     /**
-     * <p>Constructor for GWTBounds.</p>
+     * <p>
+     * Constructor for GWTBounds.
+     * </p>
      *
-     * @param southWestCorner a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng} object.
-     * @param northEastCorner a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng} object.
+     * @param southWestCorner
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
+     *            object.
+     * @param northEastCorner
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
+     *            object.
      */
     public GWTBounds(GWTLatLng southWestCorner, GWTLatLng northEastCorner) {
         m_northEastCorner = northEastCorner;
@@ -54,25 +65,36 @@ public class GWTBounds {
     }
 
     /**
-     * <p>Constructor for GWTBounds.</p>
+     * <p>
+     * Constructor for GWTBounds.
+     * </p>
      *
-     * @param swLat a double.
-     * @param swLng a double.
-     * @param neLat a double.
-     * @param neLng a double.
+     * @param swLat
+     *            a double.
+     * @param swLng
+     *            a double.
+     * @param neLat
+     *            a double.
+     * @param neLng
+     *            a double.
      */
     public GWTBounds(double swLat, double swLng, double neLat, double neLng) {
         this(new GWTLatLng(swLat, swLng), new GWTLatLng(neLat, neLng));
     }
 
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param coords a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng} object.
+     * @param coords
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
+     *            object.
      * @return a boolean.
      */
     public boolean contains(GWTLatLng coords) {
-         return containsLongitude(coords.getLongitude()) && containsLatitude(coords.getLatitude());
+        return containsLongitude(coords.getLongitude()) && containsLatitude(coords.getLatitude());
     }
 
     private boolean containsLongitude(Double longitude) {
@@ -88,9 +110,14 @@ public class GWTBounds {
     }
 
     /**
-     * <p>contains</p>
+     * <p>
+     * contains
+     * </p>
      *
-     * @param bounds a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds} object.
+     * @param bounds
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
+     *            object.
      * @return a boolean.
      */
     public boolean contains(GWTBounds bounds) {
@@ -98,18 +125,24 @@ public class GWTBounds {
     }
 
     /**
-     * <p>getSouthWestCorner</p>
+     * <p>
+     * getSouthWestCorner
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng} object.
+     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
+     *         object.
      */
     public GWTLatLng getSouthWestCorner() {
         return m_southWestCorner;
     }
 
     /**
-     * <p>getNorthEastCorner</p>
+     * <p>
+     * getNorthEastCorner
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng} object.
+     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
+     *         object.
      */
     public GWTLatLng getNorthEastCorner() {
         return m_northEastCorner;
@@ -119,27 +152,28 @@ public class GWTBounds {
     @Override
     public boolean equals(Object o) {
         if (o instanceof GWTBounds) {
-            GWTBounds b = (GWTBounds)o;
+            GWTBounds b = (GWTBounds) o;
             return m_southWestCorner.equals(b.m_southWestCorner) && m_northEastCorner.equals(b.m_northEastCorner);
         }
         return false;
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
     @Override
     public int hashCode() {
-    	return new HashCodeBuilder()
-    		.append(m_southWestCorner)
-    		.append(m_northEastCorner)
-    		.toHashcode();
+        return new HashCodeBuilder().append(m_southWestCorner).append(m_northEastCorner).toHashcode();
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

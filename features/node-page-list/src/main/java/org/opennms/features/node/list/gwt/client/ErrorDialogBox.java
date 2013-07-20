@@ -45,14 +45,16 @@ import com.google.gwt.user.client.ui.Widget;
 public class ErrorDialogBox extends PopupPanel {
 
     private final Label m_errorLabel = new Label();
+
     private final HTML m_caption = new HTML();
+
     private DockLayoutPanel m_layoutPanel;
 
     public ErrorDialogBox() {
 
         setModal(false);
 
-        //setText("Error");
+        // setText("Error");
         // Enable animation.
         setAnimationEnabled(true);
         setWidget(createWidget());
@@ -63,10 +65,10 @@ public class ErrorDialogBox extends PopupPanel {
         m_errorLabel.setText("hello");
         Button ok = new Button("OK");
         ok.addClickHandler(new ClickHandler() {
-          @Override
-          public void onClick(ClickEvent event) {
-              ErrorDialogBox.this.hide();
-          }
+            @Override
+            public void onClick(ClickEvent event) {
+                ErrorDialogBox.this.hide();
+            }
         });
 
         final CheckBox check = new CheckBox();
@@ -75,13 +77,12 @@ public class ErrorDialogBox extends PopupPanel {
 
             @Override
             public void onClick(ClickEvent event) {
-                if(check.getValue()) {
+                if (check.getValue()) {
                     Cookies.setCookie(PageableNodeList.COOKIE, "true", new Date(new Date().getTime() + 86400000));
                 }
 
             }
         });
-
 
         m_layoutPanel = new DockLayoutPanel(Unit.EM);
         m_layoutPanel.setWidth("100%");

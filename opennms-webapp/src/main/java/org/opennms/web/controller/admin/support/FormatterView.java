@@ -47,10 +47,10 @@ import org.springframework.web.servlet.view.InternalResourceView;
 
 public final class FormatterView implements View {
 
-	private static final Logger LOG = LoggerFactory.getLogger(FormatterView.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(FormatterView.class);
 
     private SystemReportFormatter m_formatter = null;
+
     private InternalResourceView m_view = null;
 
     public FormatterView(final SystemReportFormatter formatter) {
@@ -66,13 +66,16 @@ public final class FormatterView implements View {
 
     @Override
     public String getContentType() {
-        if (m_view != null) return m_view.getContentType();
-        if (m_formatter == null) return "application/octet-stream";
+        if (m_view != null)
+            return m_view.getContentType();
+        if (m_formatter == null)
+            return "application/octet-stream";
         return m_formatter.getContentType();
     }
 
     @Override
-    public void render(final Map<String, ?> model, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    public void render(final Map<String, ?> model, final HttpServletRequest request, final HttpServletResponse response)
+            throws Exception {
         if (m_view == null) {
             String fileName = getFileName(request);
             response.addHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
@@ -81,7 +84,7 @@ public final class FormatterView implements View {
             m_formatter.setOutput(outputParameter);
         }
         if (model.containsKey("report")) {
-            final SystemReportInfo info = (SystemReportInfo)model.get("report");
+            final SystemReportInfo info = (SystemReportInfo) model.get("report");
             LOG.debug("found report = {}", info);
             final OutputStream output;
 
@@ -90,7 +93,8 @@ public final class FormatterView implements View {
             } else {
                 output = new OutputStream() {
                     @Override
-                    public void write(int b) throws IOException {}
+                    public void write(int b) throws IOException {
+                    }
                 };
             }
 
@@ -136,8 +140,6 @@ public final class FormatterView implements View {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("formatter", m_formatter)
-            .toString();
+        return new ToStringBuilder(this).append("formatter", m_formatter).toString();
     }
 }

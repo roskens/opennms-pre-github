@@ -38,7 +38,8 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsIpRouteInterface;
 
-public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRouteInterface, Integer>  implements IpRouteInterfaceDao {
+public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRouteInterface, Integer> implements
+        IpRouteInterfaceDao {
 
     public IpRouteInterfaceDaoHibernate() {
         super(OnmsIpRouteInterface.class);
@@ -83,7 +84,6 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
         }
     }
 
-
     @Override
     public void setStatusForNode(final Integer nodeid, final StatusType action) {
         // UPDATE iprouteinterface set status = ? WHERE nodeid = ?
@@ -100,7 +100,8 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
 
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
-        // UPDATE iprouteinterface set status = ? WHERE nodeid = ? AND routeifindex = ?
+        // UPDATE iprouteinterface set status = ? WHERE nodeid = ? AND
+        // routeifindex = ?
 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);

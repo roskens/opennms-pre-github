@@ -42,15 +42,19 @@ import org.slf4j.LoggerFactory;
 /**
  * A ProtocolCollector to execute CollectionJobs for TCA
  * TCA provides multiple values behind special SnmpOids.
- * This Collector is providing directly addressed values from the multiple value SnmpOids.
+ * This Collector is providing directly addressed values from the multiple value
+ * SnmpOids.
  *
  * @author Markus Neumann
  */
 public class TcaProtocolCollector implements ProtocolCollector {
 
     private static Logger logger = LoggerFactory.getLogger(TcaProtocolCollector.class);
+
     private static final String PROTOCOL = "TCA";
+
     private SnmpStrategy m_snmpStrategy;
+
     private final List<String> keywords = new ArrayList<String>();
     {
         keywords.add("inboundDelay");
@@ -60,6 +64,7 @@ public class TcaProtocolCollector implements ProtocolCollector {
         keywords.add("timesyncStatus");
 
     }
+
     public SnmpStrategy getSnmpStrategy() {
         return m_snmpStrategy;
     }
@@ -69,14 +74,15 @@ public class TcaProtocolCollector implements ProtocolCollector {
     }
 
     protected String getCompositeValue(String keyword, String snmpResult) {
-        //String sampleSnmpResult = "|25|1327451762,42,23,11,0,1|1327451763,11,0,11,0,1|1327451764,11,0,11,0,1|1327451765,11,0,11,0,1|1327451766,11,0,11,0,1|1327451767,11,0,11,0,1|1327451768,11,0,11,0,1|1327451769,11,0,11,0,1|1327451770,11,0,11,0,1|1327451771,11,0,11,0,1|1327451772,11,0,11,0,1|1327451773,11,0,11,0,1|1327451774,11,0,11,0,1|1327451775,11,0,11,0,1|1327451776,11,0,11,0,1|1327451777,11,0,11,0,1|1327451778,11,0,11,0,1|1327451779,11,0,11,0,1|1327451780,11,0,11,0,1|1327451781,11,0,11,0,1|1327451782,11,0,11,0,1|1327451783,11,0,11,0,1|1327451784,11,0,11,0,1|1327451785,11,0,11,0,1|1327451786,12,0,11,0,423|";
+        // String sampleSnmpResult =
+        // "|25|1327451762,42,23,11,0,1|1327451763,11,0,11,0,1|1327451764,11,0,11,0,1|1327451765,11,0,11,0,1|1327451766,11,0,11,0,1|1327451767,11,0,11,0,1|1327451768,11,0,11,0,1|1327451769,11,0,11,0,1|1327451770,11,0,11,0,1|1327451771,11,0,11,0,1|1327451772,11,0,11,0,1|1327451773,11,0,11,0,1|1327451774,11,0,11,0,1|1327451775,11,0,11,0,1|1327451776,11,0,11,0,1|1327451777,11,0,11,0,1|1327451778,11,0,11,0,1|1327451779,11,0,11,0,1|1327451780,11,0,11,0,1|1327451781,11,0,11,0,1|1327451782,11,0,11,0,1|1327451783,11,0,11,0,1|1327451784,11,0,11,0,1|1327451785,11,0,11,0,1|1327451786,12,0,11,0,423|";
         String result = null;
         if (snmpResult != null && keyword != null && keywords.contains(keyword)) {
             String[] snmpResultSets = snmpResult.split("\\|");
             Integer amount = Integer.parseInt(snmpResultSets[1]);
-            String snmpResultSubSet = snmpResultSets[amount +1];
+            String snmpResultSubSet = snmpResultSets[amount + 1];
             String[] results = snmpResultSubSet.split(",");
-            result = results[keywords.indexOf(keyword) +1];
+            result = results[keywords.indexOf(keyword) + 1];
         }
 
         return result;
@@ -125,7 +131,9 @@ public class TcaProtocolCollector implements ProtocolCollector {
 
         CollectionTracker tracker = new AggregateTracker(trackers);
 
-        SnmpWalker walker = m_snmpStrategy.createWalker(snmpAgentConfig, "SnmpProtocolCollector for " + snmpAgentConfig.getAddress(), tracker);
+        SnmpWalker walker = m_snmpStrategy.createWalker(snmpAgentConfig,
+                                                        "SnmpProtocolCollector for " + snmpAgentConfig.getAddress(),
+                                                        tracker);
 
         walker.start();
         try {
@@ -139,7 +147,6 @@ public class TcaProtocolCollector implements ProtocolCollector {
 
     /*
      * (non-Javadoc)
-     *
      * @see org.opennms.nrtg.api.ProtocolCollector#getProtcol()
      */
     @Override

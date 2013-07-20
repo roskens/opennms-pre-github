@@ -33,6 +33,7 @@ import junit.framework.TestCase;
 
 public class ThrowableAnticipatorTest extends TestCase {
     private ThrowableAnticipator m_anticipator;
+
     private Throwable m_throwable = new Throwable("our test throwable");
 
     public ThrowableAnticipatorTest() {
@@ -99,6 +100,7 @@ public class ThrowableAnticipatorTest extends TestCase {
             fail("Received unexpected Throwable: " + t);
         }
     }
+
     public void testThrowableReceived() {
         m_anticipator.anticipate(m_throwable);
         m_anticipator.throwableReceived(m_throwable);

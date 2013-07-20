@@ -69,7 +69,6 @@ import org.xml.sax.InputSource;
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http;//www.opennms.org">OpenNMS </a>
- *
  */
 final class TcpStreamHandler implements Runnable {
 
@@ -77,8 +76,8 @@ final class TcpStreamHandler implements Runnable {
 
     /**
      * The registered list of event handlers. Each incoming event will be
-     * passed to all event handlers. The event handlers <em>MUST NOT</em>
-     * modify the passed event.
+     * passed to all event handlers. The event handlers <em>MUST NOT</em> modify
+     * the passed event.
      */
     private List<EventHandler> m_handlers;
 
@@ -175,7 +174,7 @@ final class TcpStreamHandler implements Runnable {
             try {
                 m_connection.close();
             } catch (final IOException e) {
-            	LOG.error("An error occured while closing the connection.", e);
+                LOG.error("An error occured while closing the connection.", e);
             }
 
             LOG.debug("Thread context exiting");
@@ -198,17 +197,19 @@ final class TcpStreamHandler implements Runnable {
          */
         final LinkedList<Object> pipeXchange = new LinkedList<Object>();
         final TcpRecordHandler chunker = new TcpRecordHandler(m_connection, pipeXchange);
-        final Thread tchunker = new Thread(chunker, "TCPRecord Chunker[" + InetAddressUtils.str(m_connection.getInetAddress()) + ":" + m_connection.getPort() + "]");
+        final Thread tchunker = new Thread(chunker, "TCPRecord Chunker["
+                + InetAddressUtils.str(m_connection.getInetAddress()) + ":" + m_connection.getPort() + "]");
         synchronized (tchunker) {
             tchunker.start();
             try {
                 tchunker.wait();
             } catch (final InterruptedException e) {
-            	LOG.error("The thread was interrupted.", e);
+                LOG.error("The thread was interrupted.", e);
             }
         }
 
-        MAINLOOP: while (!m_stop && m_parent.getStatus() != Fiber.STOP_PENDING && m_parent.getStatus() != Fiber.STOPPED && m_recsPerConn != 0) {
+        MAINLOOP: while (!m_stop && m_parent.getStatus() != Fiber.STOP_PENDING && m_parent.getStatus() != Fiber.STOPPED
+                && m_recsPerConn != 0) {
             // get a new pipe input stream
             PipedInputStream pipeIn = null;
             synchronized (pipeXchange) {
@@ -255,7 +256,7 @@ final class TcpStreamHandler implements Runnable {
             Log eLog = null;
             boolean doCleanup = false;
             try {
-            	eLog = JaxbUtils.unmarshal(Log.class, new InputSource(stream));
+                eLog = JaxbUtils.unmarshal(Log.class, new InputSource(stream));
                 LOG.debug("Event record converted");
             } catch (final Exception e) {
                 LOG.error("Could not unmarshall the XML record.", e);
@@ -339,7 +340,6 @@ final class TcpStreamHandler implements Runnable {
                  * often, which is shouldn't then might want to consider
                  * duplicating the handlers into an array before processing
                  * the events.
-                 *
                  * Doing the synchronization in the outer loop prevents spending
                  * lots of cycles doing synchronization when it should not
                  * normally be necesary.
@@ -354,10 +354,10 @@ final class TcpStreamHandler implements Runnable {
                         for (final Event event : events) {
                             /*
                              * Process the event and log any errors,
-                             *  but don't die on these errors
+                             * but don't die on these errors
                              */
                             try {
-                            	LOG.debug("handling event: {}", event);
+                                LOG.debug("handling event: {}", event);
 
                                 // shortcut and BOTH parts MUST execute!
                                 if (hdl.processEvent(event)) {
@@ -386,8 +386,9 @@ final class TcpStreamHandler implements Runnable {
                 if (hasReceipt) {
                     // Transform it to XML and send it to the socket in one call
                     try {
-                    	final Writer writer = new BufferedWriter(new OutputStreamWriter(m_connection.getOutputStream(), "UTF-8"));
-                    	JaxbUtils.marshal(receipt, writer);
+                        final Writer writer = new BufferedWriter(new OutputStreamWriter(m_connection.getOutputStream(),
+                                                                                        "UTF-8"));
+                        JaxbUtils.marshal(receipt, writer);
                         writer.flush();
 
                         synchronized (m_handlers) {
@@ -407,8 +408,8 @@ final class TcpStreamHandler implements Runnable {
 
                         if (LOG.isDebugEnabled()) {
                             try {
-                            	final StringWriter swriter = new StringWriter();
-                            	JaxbUtils.marshal(receipt, swriter);
+                                final StringWriter swriter = new StringWriter();
+                                JaxbUtils.marshal(receipt, swriter);
 
                                 LOG.debug("Sent Event Receipt {");
                                 LOG.debug(swriter.getBuffer().toString());

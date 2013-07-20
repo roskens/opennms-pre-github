@@ -53,15 +53,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-reportingCore.xml",
         "classpath*:/META-INF/opennms/component-reporting.xml",
         "classpath:/META-INF/opennms/applicationContext-availabilityDatabasePopulator.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AvailabilityReportIntegrationTest implements InitializingBean {
@@ -120,8 +117,7 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
         return match;
     }
 
-    private Day getCalSectionDay(Category category, String title, int row,
-            int col) {
+    private Day getCalSectionDay(Category category, String title, int row, int col) {
 
         Section calSection = getSectionByName(category, title);
         CalendarTable table = calSection.getCalendarTable();
@@ -135,7 +131,6 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
     private double fourDec(double number) {
         return (Math.round(number * 10000.0)) / 10000.0;
     }
-
 
     @Test
     @Ignore("Don't run this test (which has less coverage than the next) until I figure out why we're holding onto the previous test's dataSource.")
@@ -162,12 +157,10 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
 
             // basic test
             Assert.assertEquals("category node count", 2, category.getNodeCount());
-            Assert.assertEquals("category ip address count", 3,
-                         category.getIpaddrCount());
+            Assert.assertEquals("category ip address count", 3, category.getIpaddrCount());
             Assert.assertEquals("category service count", 3, category.getServiceCount());
 
-            Section section = getSectionByName(category,
-                                               "LastMonthsDailyAvailability");
+            Section section = getSectionByName(category, "LastMonthsDailyAvailability");
             Assert.assertNull("section calendar table", section.getCalendarTable());
             Created created = report.getCreated();
             Assert.assertNotNull("report created period", created.getPeriod());
@@ -178,7 +171,8 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
 
     }
 
-    //TODO indigo: Spring Injection for DefaultRemoteRepositoryConfigDao necessary
+    // TODO indigo: Spring Injection for DefaultRemoteRepositoryConfigDao
+    // necessary
     @Ignore
     @Test
     public void testBuiltCalendarReport() {
@@ -194,7 +188,7 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
             calendarAvailabilityCalculator.setMonthFormat("calendar");
             calendarAvailabilityCalculator.setCategoryName("Network Interfaces");
 
-			calendarAvailabilityCalculator.calculate();
+            calendarAvailabilityCalculator.calculate();
             Report report = calendarAvailabilityCalculator.getReport();
 
             Assert.assertNotNull("report", report);
@@ -206,59 +200,59 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
             Category category = categories.getCategory(0);
 
             Assert.assertEquals("category node count", 2, category.getNodeCount());
-            Assert.assertEquals("category ip address count", 3,
-                         category.getIpaddrCount());
+            Assert.assertEquals("category ip address count", 3, category.getIpaddrCount());
             Assert.assertEquals("category service count", 3, category.getServiceCount());
 
-            // Section calSection = getSectionByName(category, "LastMonthsDailyAvailability");
+            // Section calSection = getSectionByName(category,
+            // "LastMonthsDailyAvailability");
 
             // First four days in month are invisible for US...
 
-            day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,0);
+            day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 0);
             Assert.assertNotNull("day 0,0 object", day);
             Assert.assertFalse("day 0,0 visibility", day.getVisible());
 
-            day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,1);
+            day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 1);
             Assert.assertNotNull("day 0,1 object", day);
             Assert.assertFalse("day 0,1 visibility", day.getVisible());
 
-            day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,2);
+            day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 2);
             Assert.assertNotNull("day 0,2 object", day);
             Assert.assertFalse("day 0,2 visibility", day.getVisible());
 
-            day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,4);
+            day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 4);
             Assert.assertNotNull("day 0,4 object", day);
             Assert.assertFalse("day 0,4 visibility", day.getVisible());
 
-            day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,5);
+            day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 5);
             Assert.assertNotNull("day 0,5 object", day);
             Assert.assertEquals("day 0,5 percentage value", oneHundred, day.getPctValue(), 0);
             Assert.assertTrue("day 0,5 visibility", day.getVisible());
-            Assert.assertEquals("day 0,5 date", 1,day.getDate());
+            Assert.assertEquals("day 0,5 date", 1, day.getDate());
 
-            day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,6);
+            day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 6);
             Assert.assertNotNull("day 0,6 object", day);
             Assert.assertEquals("day 0,6 percentage value", 99.3056, fourDec(day.getPctValue()), 0);
             Assert.assertTrue("day 0,6 visibility", day.getVisible());
-            Assert.assertEquals("day 0,6 date", 2,day.getDate());
+            Assert.assertEquals("day 0,6 date", 2, day.getDate());
 
-            day = getCalSectionDay(category,"LastMonthsDailyAvailability",1,0);
+            day = getCalSectionDay(category, "LastMonthsDailyAvailability", 1, 0);
             Assert.assertNotNull("day 1,0 object", day);
             Assert.assertEquals("day 1,0 percentage value", 97.2454, fourDec(day.getPctValue()), 0);
             Assert.assertTrue("day 1,0 visibility", day.getVisible());
-            Assert.assertEquals("day 1,0 date", 3,day.getDate());
+            Assert.assertEquals("day 1,0 date", 3, day.getDate());
 
-            day = getCalSectionDay(category,"LastMonthsDailyAvailability",1,1);
+            day = getCalSectionDay(category, "LastMonthsDailyAvailability", 1, 1);
             Assert.assertNotNull("day 1,1 object", day);
             Assert.assertEquals("day 1,1 percentage value", 99.3056, fourDec(day.getPctValue()), 0);
             Assert.assertTrue("day 1,1 visibility", day.getVisible());
-            Assert.assertEquals("day 1,1 date", 4,day.getDate());
+            Assert.assertEquals("day 1,1 date", 4, day.getDate());
 
-            day = getCalSectionDay(category,"LastMonthsDailyAvailability",1,2);
+            day = getCalSectionDay(category, "LastMonthsDailyAvailability", 1, 2);
             Assert.assertNotNull("day 1,2 object", day);
             Assert.assertEquals("day 1,2 percentage value", 99.3056, fourDec(day.getPctValue()), 0);
             Assert.assertTrue("day 1,2 visibility", day.getVisible());
-            Assert.assertEquals("day 1,2 date", 5,day.getDate());
+            Assert.assertEquals("day 1,2 date", 5, day.getDate());
 
         } catch (Throwable e) {
             throw new UndeclaredThrowableException(e);

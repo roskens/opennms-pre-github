@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -42,11 +41,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -60,19 +60,15 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "parmName",
-    "value"
-})
+@XmlType(name = "", propOrder = { "parmName", "value" })
 @XmlRootElement(name = "parm")
 public class Parm {
 
     @XmlElement(required = true)
     protected String parmName;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event", required = true)
     protected Value value;
 
@@ -80,9 +76,7 @@ public class Parm {
      * Gets the value of the parmName property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getParmName() {
         return parmName;
@@ -92,9 +86,7 @@ public class Parm {
      * Sets the value of the parmName property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setParmName(String value) {
         this.parmName = value;
@@ -104,9 +96,7 @@ public class Parm {
      * parm value
      *
      * @return
-     *     possible object is
-     *     {@link Value }
-     *
+     *         possible object is {@link Value }
      */
     public Value getValue() {
         return value;
@@ -116,9 +106,7 @@ public class Parm {
      * Sets the value of the value property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Value }
-     *
+     *            allowed object is {@link Value }
      */
     public void setValue(Value value) {
         this.value = value;

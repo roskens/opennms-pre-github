@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.provision.service.snmp;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.snmp.AbstractSnmpStore;
@@ -50,9 +49,14 @@ public class SnmpStore extends AbstractSnmpStore {
     protected NamedSnmpVar[] ms_elemList = null;
 
     /**
-     * <p>Constructor for SnmpStore.</p>
+     * <p>
+     * Constructor for SnmpStore.
+     * </p>
      *
-     * @param list an array of {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar} objects.
+     * @param list
+     *            an array of
+     *            {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
+     *            objects.
      */
     public SnmpStore(NamedSnmpVar[] list) {
         super();
@@ -71,9 +75,13 @@ public class SnmpStore extends AbstractSnmpStore {
     }
 
     /**
-     * <p>getElements</p>
+     * <p>
+     * getElements
+     * </p>
      *
-     * @return an array of {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar} objects.
+     * @return an array of
+     *         {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
+     *         objects.
      */
     public NamedSnmpVar[] getElements() {
         return ms_elemList;
@@ -86,12 +94,16 @@ public class SnmpStore extends AbstractSnmpStore {
         for (NamedSnmpVar var : ms_elemList) {
             if (res.getBase().equals(var.getSnmpObjId())) {
                 if (res.getValue().isError()) {
-                    LOG.error("storeResult: got an error for alias {} [{}].[{}], but we should only be getting non-errors: {}", res.getValue(), var.getAlias(), res.getBase(), res.getInstance());
+                    LOG.error("storeResult: got an error for alias {} [{}].[{}], but we should only be getting non-errors: {}",
+                              res.getValue(), var.getAlias(), res.getBase(), res.getInstance());
                 } else if (res.getValue().isEndOfMib()) {
-                    LOG.debug("storeResult: got endOfMib for alias {} [{}].[{}], not storing", var.getAlias(), res.getBase(), res.getInstance());
+                    LOG.debug("storeResult: got endOfMib for alias {} [{}].[{}], not storing", var.getAlias(),
+                              res.getBase(), res.getInstance());
                 } else {
                     SnmpValueType type = SnmpValueType.valueOf(res.getValue().getType());
-                    LOG.debug("Storing Result: alias: {} [{}].[{}] = {}: {}", toLogString(res.getValue()), var.getAlias(), res.getBase(), res.getInstance(), (type == null ? "Unknown" : type.getDisplayString()));
+                    LOG.debug("Storing Result: alias: {} [{}].[{}] = {}: {}", toLogString(res.getValue()),
+                              var.getAlias(), res.getBase(), res.getInstance(),
+                              (type == null ? "Unknown" : type.getDisplayString()));
                     putValue(var.getAlias(), res.getValue());
                 }
             }

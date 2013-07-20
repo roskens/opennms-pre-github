@@ -44,6 +44,7 @@ public class AlarmsDashletFactory extends AbstractDashletFactory {
      * The {@link AlarmDao} used
      */
     private AlarmDao m_alarmDao;
+
     /**
      * The {@link NodeDao} used
      */
@@ -52,8 +53,10 @@ public class AlarmsDashletFactory extends AbstractDashletFactory {
     /**
      * Constructor used for instantiating a new factory.
      *
-     * @param alarmDao the {@link AlarmDao} to be used
-     * @param nodeDao  the {@link NodeDao} to be used
+     * @param alarmDao
+     *            the {@link AlarmDao} to be used
+     * @param nodeDao
+     *            the {@link NodeDao} to be used
      */
     public AlarmsDashletFactory(AlarmDao alarmDao, NodeDao nodeDao) {
         m_alarmDao = alarmDao;
@@ -63,7 +66,8 @@ public class AlarmsDashletFactory extends AbstractDashletFactory {
     /**
      * Method for instatiating a new {@link Dashlet} instance.
      *
-     * @param dashletSpec the {@link DashletSpec} to use
+     * @param dashletSpec
+     *            the {@link DashletSpec} to use
      * @return a new {@link Dashlet} instance
      */
     public Dashlet newDashletInstance(DashletSpec dashletSpec) {

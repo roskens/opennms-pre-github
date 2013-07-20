@@ -43,10 +43,15 @@ import org.opennms.jicmp.jna.NativeDatagramSocket;
 public abstract class AbstractPinger<T extends InetAddress> implements Runnable {
 
     private NativeDatagramSocket m_pingSocket;
+
     private Thread m_thread;
+
     protected final AtomicReference<Throwable> m_throwable = new AtomicReference<Throwable>(null);
+
     protected final Metric m_metric = new Metric();
+
     private volatile boolean m_stopped = false;
+
     private final List<PingReplyListener> m_listeners = new ArrayList<PingReplyListener>();
 
     protected AbstractPinger(NativeDatagramSocket pingSocket) {
@@ -78,7 +83,7 @@ public abstract class AbstractPinger<T extends InetAddress> implements Runnable 
         m_stopped = true;
         if (m_thread != null) {
             m_thread.interrupt();
-            //m_thread.join();
+            // m_thread.join();
         }
         m_thread = null;
     }
@@ -93,13 +98,14 @@ public abstract class AbstractPinger<T extends InetAddress> implements Runnable 
         return m_listeners;
     }
 
-    abstract public PingReplyMetric ping(T addr, int id, int sequenceNumber, int count, long interval) throws InterruptedException;
+    abstract public PingReplyMetric ping(T addr, int id, int sequenceNumber, int count, long interval)
+            throws InterruptedException;
 
     public void addPingReplyListener(PingReplyListener listener) {
         m_listeners.add(listener);
     }
 
-     PingReplyMetric ping(T addr4)  throws InterruptedException {
+    PingReplyMetric ping(T addr4) throws InterruptedException {
         Thread t = new Thread(this);
         t.start();
         return ping(addr4, 1234, 1, 10, 1000);

@@ -33,32 +33,47 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * <p>Exchange interface.</p>
+ * <p>
+ * Exchange interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public interface Exchange {
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param out a {@link java.io.OutputStream} object.
+     * @param out
+     *            a {@link java.io.OutputStream} object.
      * @return a boolean.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     boolean sendRequest(OutputStream out) throws IOException;
+
     /**
-     * <p>processResponse</p>
+     * <p>
+     * processResponse
+     * </p>
      *
-     * @param in a {@link java.io.BufferedReader} object.
+     * @param in
+     *            a {@link java.io.BufferedReader} object.
      * @return a boolean.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     boolean processResponse(BufferedReader in) throws IOException;
+
     /**
-     * <p>matchResponseByString</p>
+     * <p>
+     * matchResponseByString
+     * </p>
      *
-     * @param input a {@link java.lang.String} object.
+     * @param input
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     boolean matchResponseByString(String input);

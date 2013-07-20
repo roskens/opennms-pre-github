@@ -48,7 +48,7 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/emptyContext.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class HttpPluginTest {
     @Before
@@ -61,7 +61,7 @@ public class HttpPluginTest {
 
     @Test
     @Ignore("This operation is not supported yet, see http://issues.opennms.org/browse/NMS-2963")
-    @JUnitHttpServer(port=10342, basicAuth=true)
+    @JUnitHttpServer(port = 10342, basicAuth = true)
     public void testHttpBasicAuth() throws UnknownHostException {
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         Parameter p = new Parameter();

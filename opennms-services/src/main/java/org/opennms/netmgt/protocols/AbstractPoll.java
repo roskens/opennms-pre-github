@@ -35,7 +35,9 @@ import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.model.PollStatus;
 
 /**
- * <p>Abstract AbstractPoll class.</p>
+ * <p>
+ * Abstract AbstractPoll class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,7 +49,8 @@ public abstract class AbstractPoll implements Poll {
     /**
      * Set the timeout in milliseconds.
      *
-     * @param milliseconds the timeout
+     * @param milliseconds
+     *            the timeout
      */
     public void setTimeout(int milliseconds) {
         m_timeout = milliseconds;
@@ -63,23 +66,30 @@ public abstract class AbstractPoll implements Poll {
     }
 
     /**
-     * <p>poll</p>
+     * <p>
+     * poll
+     * </p>
      *
-     * @param tracker a {@link org.opennms.core.utils.TimeoutTracker} object.
+     * @param tracker
+     *            a {@link org.opennms.core.utils.TimeoutTracker} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
-     * @throws org.opennms.netmgt.protocols.InsufficientParametersException if any.
+     * @throws org.opennms.netmgt.protocols.InsufficientParametersException
+     *             if any.
      */
     public abstract PollStatus poll(TimeoutTracker tracker) throws InsufficientParametersException;
 
     /**
-     * <p>poll</p>
+     * <p>
+     * poll
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
-     * @throws org.opennms.netmgt.protocols.InsufficientParametersException if any.
+     * @throws org.opennms.netmgt.protocols.InsufficientParametersException
+     *             if any.
      */
     @Override
     public PollStatus poll() throws InsufficientParametersException {
-        Map<String,?> emptyMap = Collections.emptyMap();
+        Map<String, ?> emptyMap = Collections.emptyMap();
         TimeoutTracker tracker = new TimeoutTracker(emptyMap, 1, getTimeout());
         return poll(tracker);
     }

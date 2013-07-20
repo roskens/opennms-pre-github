@@ -58,14 +58,16 @@ import com.vaadin.ui.TextField;
 @SuppressWarnings("deprecation")
 public class ConfigForm extends Form implements ModelChangeListener<UiModel>, ClickListener {
     private static final long serialVersionUID = -9179098093927051983L;
+
     private JmxConfigGeneratorApplication app;
-	private ButtonPanel buttonPanel = new ButtonPanel(this);
+
+    private ButtonPanel buttonPanel = new ButtonPanel(this);
 
     public ConfigForm(JmxConfigGeneratorApplication app) {
-		this.app = app;
-		setImmediate(true);
-		setDescription(UIHelper.loadContentFromFile(getClass(), "/descriptions/ServiceConfiguration.html"));
-		setFormFieldFactory(new com.vaadin.ui.DefaultFieldFactory() {
+        this.app = app;
+        setImmediate(true);
+        setDescription(UIHelper.loadContentFromFile(getClass(), "/descriptions/ServiceConfiguration.html"));
+        setFormFieldFactory(new com.vaadin.ui.DefaultFieldFactory() {
 
             @Override
             public Field<?> createField(Item item, Object propertyId, Component uiContext) {
@@ -78,9 +80,9 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
                 return super.createField(item, propertyId, uiContext);
             }
         });
-		setBuffered(false);
-		setFooter(buttonPanel);
-	}
+        setBuffered(false);
+        setFooter(buttonPanel);
+    }
 
     @Override
     public void modelChanged(UiModel newModel) {
@@ -91,119 +93,112 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
         updateAuthenticationFields(false); // default -> hide those fields
     }
 
-	@Override
-	public void buttonClick(ClickEvent event) {
-		if (buttonPanel.getNext().equals(event.getButton())) {
-			if (!isValid()) {
-				UIHelper.showValidationError(
-						"There are still errors on this page. You cannot continue. Please check if all required fields have been filled.");
-				return;
-			}
-			app.updateView(UiState.MbeansDetection);
-		}
-		if (buttonPanel.getPrevious().equals(event.getButton())) {
-			app.updateView(UiState.IntroductionView);
-		}
-	}
+    @Override
+    public void buttonClick(ClickEvent event) {
+        if (buttonPanel.getNext().equals(event.getButton())) {
+            if (!isValid()) {
+                UIHelper.showValidationError("There are still errors on this page. You cannot continue. Please check if all required fields have been filled.");
+                return;
+            }
+            app.updateView(UiState.MbeansDetection);
+        }
+        if (buttonPanel.getPrevious().equals(event.getButton())) {
+            app.updateView(UiState.IntroductionView);
+        }
+    }
 
-	private Object[] createVisibleItemProperties() {
-	    return new Object[] { MetaConfigModel.SERVICE_NAME,
-	            MetaConfigModel.JMXMP,
-	            MetaConfigModel.HOST,
-	            MetaConfigModel.PORT,
-	            MetaConfigModel.AUTHENTICATE,
-	            MetaConfigModel.USER,
-	            MetaConfigModel.PASSWORD,
-	            MetaConfigModel.SKIP_DEFAULT_VM,
-	            MetaConfigModel.RUN_WRITABLE_MBEANS };
-	}
-	/**
-	 * Toggles the visibility of user and password fields. The fields are shown
-	 * if "authenticate" checkbox is presssed. Otherwise they are not shown.
-	 */
-	private void updateAuthenticationFields(boolean visible) throws ReadOnlyException, ConversionException {
-	    getField(MetaConfigModel.AUTHENTICATE).setValue(visible);
-		getField(MetaConfigModel.USER).setVisible(visible);
-		getField(MetaConfigModel.PASSWORD).setVisible(visible);
-		if (!visible) {
-			getField(MetaConfigModel.USER).setValue(null);
-			getField(MetaConfigModel.PASSWORD).setValue(null);
-		}
-	}
+    private Object[] createVisibleItemProperties() {
+        return new Object[] { MetaConfigModel.SERVICE_NAME, MetaConfigModel.JMXMP, MetaConfigModel.HOST,
+                MetaConfigModel.PORT, MetaConfigModel.AUTHENTICATE, MetaConfigModel.USER, MetaConfigModel.PASSWORD,
+                MetaConfigModel.SKIP_DEFAULT_VM, MetaConfigModel.RUN_WRITABLE_MBEANS };
+    }
 
-	/**
-	 * DefaultFieldFactory works for us, we only add some additional stuff to
-	 * each field -> if needed.
-	 *
-	 */
-	private void initFields() {
-		getField(MetaConfigModel.AUTHENTICATE).addListener(new ValueChangeListener() {
-			@Override
-			public void valueChange(Property.ValueChangeEvent event) {
-				updateAuthenticationFields((Boolean) event.getProperty().getValue());
-			}
-		});
-		((TextField) getField(MetaConfigModel.USER)).setNullRepresentation("");
-		((PasswordField) getField(MetaConfigModel.PASSWORD)).setNullRepresentation("");
+    /**
+     * Toggles the visibility of user and password fields. The fields are shown
+     * if "authenticate" checkbox is presssed. Otherwise they are not shown.
+     */
+    private void updateAuthenticationFields(boolean visible) throws ReadOnlyException, ConversionException {
+        getField(MetaConfigModel.AUTHENTICATE).setValue(visible);
+        getField(MetaConfigModel.USER).setVisible(visible);
+        getField(MetaConfigModel.PASSWORD).setVisible(visible);
+        if (!visible) {
+            getField(MetaConfigModel.USER).setValue(null);
+            getField(MetaConfigModel.PASSWORD).setValue(null);
+        }
+    }
 
-		final TextField serviceNameField = ((TextField) getField(MetaConfigModel.SERVICE_NAME));
-		serviceNameField.setNullRepresentation("");
-		serviceNameField.setRequired(true);
-		serviceNameField.setRequiredError("required");
-		serviceNameField.addValidator(new RegexpValidator("^[A-Za-z0-9_-]+$",
-				"You must specify a valid name. Allowed characters: (A-Za-z0-9_-)"));
+    /**
+     * DefaultFieldFactory works for us, we only add some additional stuff to
+     * each field -> if needed.
+     */
+    private void initFields() {
+        getField(MetaConfigModel.AUTHENTICATE).addListener(new ValueChangeListener() {
+            @Override
+            public void valueChange(Property.ValueChangeEvent event) {
+                updateAuthenticationFields((Boolean) event.getProperty().getValue());
+            }
+        });
+        ((TextField) getField(MetaConfigModel.USER)).setNullRepresentation("");
+        ((PasswordField) getField(MetaConfigModel.PASSWORD)).setNullRepresentation("");
 
-		final TextField hostNameField = ((TextField) getField(MetaConfigModel.HOST));
-		hostNameField.setRequired(true);
-		hostNameField.setRequiredError("required");
+        final TextField serviceNameField = ((TextField) getField(MetaConfigModel.SERVICE_NAME));
+        serviceNameField.setNullRepresentation("");
+        serviceNameField.setRequired(true);
+        serviceNameField.setRequiredError("required");
+        serviceNameField.addValidator(new RegexpValidator("^[A-Za-z0-9_-]+$",
+                                                          "You must specify a valid name. Allowed characters: (A-Za-z0-9_-)"));
 
-		final TextField portField = ((TextField) getField(MetaConfigModel.PORT));
-		portField.setRequired(true);
-		portField.setRequiredError("required");
-	}
+        final TextField hostNameField = ((TextField) getField(MetaConfigModel.HOST));
+        hostNameField.setRequired(true);
+        hostNameField.setRequiredError("required");
 
-	/**
-	 * Updates the descriptions (tool tips) of each field in the form using
-	 * {@link #getOptionDescriptions()
+        final TextField portField = ((TextField) getField(MetaConfigModel.PORT));
+        portField.setRequired(true);
+        portField.setRequiredError("required");
+    }
+
+    /**
+     * Updates the descriptions (tool tips) of each field in the form using
+     * {@link #getOptionDescriptions()
      * }
-	 */
-	private void updateDescriptions() {
-		Map<String, String> optionDescriptions = getOptionDescriptions();
-		Starter.class.getAnnotation(org.kohsuke.args4j.Option.class);
-		for (Object property : getVisibleItemProperties()) {
-			String propName = property.toString();
-			if (getField(propName) != null && optionDescriptions.get(propName) != null) {
-				// There is no tooltip description in Vaadin 7
-				//getField(propName).setDescription(optionDescriptions.get(propName));
-			}
-		}
-	}
+     */
+    private void updateDescriptions() {
+        Map<String, String> optionDescriptions = getOptionDescriptions();
+        Starter.class.getAnnotation(org.kohsuke.args4j.Option.class);
+        for (Object property : getVisibleItemProperties()) {
+            String propName = property.toString();
+            if (getField(propName) != null && optionDescriptions.get(propName) != null) {
+                // There is no tooltip description in Vaadin 7
+                // getField(propName).setDescription(optionDescriptions.get(propName));
+            }
+        }
+    }
 
-	/**
-	 * In class {@link org.opennms.tools.jmxconfiggenerator.Starter} are several
-	 * command line options defined. Each option has a name (mandatory) and a
-	 * description (optional). This method gets all descriptions and assign each
-	 * description to the name. If the option starts with at least one '-' all
-	 * '-' are removed. Therefore the builded map looks like:
-	 *
-	 * <pre>
-	 *      {key} -> {value}
-	 *      "force" -> "this option forces the deletion of the file"
-	 * </pre>
-	 *
-	 * @return a Map containing a description for each option defined in
-	 *         {@link org.opennms.tools.jmxconfiggenerator.Starter}
-	 * @see org.opennms.tools.jmxconfiggenerator.Starter
-	 */
-	private Map<String, String> getOptionDescriptions() {
-		Map<String, String> optionDescriptions = new HashMap<String, String>();
-		for (java.lang.reflect.Field f : Starter.class.getDeclaredFields()) {
-			Option ann = f.getAnnotation(Option.class);
-			if (ann == null || ann.usage() == null) {
-				continue;
-			}
-			optionDescriptions.put(ann.name().replaceAll("-", ""), ann.usage());
-		}
-		return optionDescriptions;
-	}
+    /**
+     * In class {@link org.opennms.tools.jmxconfiggenerator.Starter} are several
+     * command line options defined. Each option has a name (mandatory) and a
+     * description (optional). This method gets all descriptions and assign each
+     * description to the name. If the option starts with at least one '-' all
+     * '-' are removed. Therefore the builded map looks like:
+     *
+     * <pre>
+     *      {key} -> {value}
+     *      "force" -> "this option forces the deletion of the file"
+     * </pre>
+     *
+     * @return a Map containing a description for each option defined in
+     *         {@link org.opennms.tools.jmxconfiggenerator.Starter}
+     * @see org.opennms.tools.jmxconfiggenerator.Starter
+     */
+    private Map<String, String> getOptionDescriptions() {
+        Map<String, String> optionDescriptions = new HashMap<String, String>();
+        for (java.lang.reflect.Field f : Starter.class.getDeclaredFields()) {
+            Option ann = f.getAnnotation(Option.class);
+            if (ann == null || ann.usage() == null) {
+                continue;
+            }
+            optionDescriptions.put(ann.name().replaceAll("-", ""), ann.usage());
+        }
+        return optionDescriptions;
+    }
 }

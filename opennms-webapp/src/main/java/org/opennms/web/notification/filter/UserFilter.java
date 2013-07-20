@@ -34,8 +34,6 @@ import org.hibernate.criterion.Restrictions;
 import org.opennms.web.filter.OneArgFilter;
 import org.opennms.web.filter.SQLType;
 
-
-
 /**
  * Encapsulates all user filtering functionality.
  *
@@ -48,30 +46,31 @@ public class UserFilter extends OneArgFilter<String> {
     public static final String TYPE = "user";
 
     /**
-     * <p>Constructor for UserFilter.</p>
+     * <p>
+     * Constructor for UserFilter.
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public UserFilter(String user) {
         super(TYPE, SQLType.STRING, "NOTIFICATIONS.NOTIFYID", "notifyId", user);
     }
 
-
     /** {@inheritDoc} */
     @Override
     public String getSQLTemplate() {
-        return " " + getSQLFieldName() + " in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=%s)";
+        return " " + getSQLFieldName()
+                + " in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=%s)";
     }
-
 
     /** {@inheritDoc} */
     @Override
     public Criterion getCriterion() {
 
-
-        return Restrictions.sqlRestriction(" {alias}.notifyId in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=?)", getValue(), Hibernate.STRING);
+        return Restrictions.sqlRestriction(" {alias}.notifyId in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=?)",
+                                           getValue(), Hibernate.STRING);
     }
-
 
     /** {@inheritDoc} */
     @Override
@@ -80,7 +79,9 @@ public class UserFilter extends OneArgFilter<String> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,7 +91,9 @@ public class UserFilter extends OneArgFilter<String> {
     }
 
     /**
-     * <p>getUser</p>
+     * <p>
+     * getUser
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

@@ -51,10 +51,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements InitializingBean {
 
     @Override
@@ -63,15 +61,14 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
     }
 
     @Test
-    @JUnitSnmpAgents(value = {
-            @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/" + MUMBAI_NAME + "_" + MUMBAI_IP + ".txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/"
+            + MUMBAI_NAME + "_" + MUMBAI_IP + ".txt") })
     public void testNetwork10205bMumbayOspfGeneralGroupCollection() throws Exception {
 
         String name = "ospfGeneralGroup";
         OspfGeneralGroup m_ospfGeneralGroup = new OspfGeneralGroup(InetAddressUtils.addr(MUMBAI_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[]{m_ospfGeneralGroup};
+        tracker = new CollectionTracker[] { m_ospfGeneralGroup };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(MUMBAI_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
@@ -86,15 +83,14 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
     }
 
     @Test
-    @JUnitSnmpAgents(value = {
-            @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205b/" + "SRX-100_" + SRX_100_IP + ".txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205b/"
+            + "SRX-100_" + SRX_100_IP + ".txt") })
     public void testNetwork10205bSrx100OspfGeneralGroupCollection() throws Exception {
 
         String name = "ospfGeneralGroup";
         OspfGeneralGroup m_ospfGeneralGroup = new OspfGeneralGroup(InetAddressUtils.addr(SRX_100_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[]{m_ospfGeneralGroup};
+        tracker = new CollectionTracker[] { m_ospfGeneralGroup };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SRX_100_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
@@ -109,15 +105,14 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
     }
 
     @Test
-    @JUnitSnmpAgents(value = {
-            @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/" + MUMBAI_NAME + "_" + MUMBAI_IP + ".txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/"
+            + MUMBAI_NAME + "_" + MUMBAI_IP + ".txt") })
     public void testNetwork10205bMumbayOspfIfTableCollection() throws Exception {
 
         String name = "ospfIfTable";
         OspfIfTable m_ospfIfTable = new OspfIfTable(InetAddressUtils.addr(MUMBAI_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[]{m_ospfIfTable};
+        tracker = new CollectionTracker[] { m_ospfIfTable };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(MUMBAI_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
@@ -138,15 +133,14 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
     }
 
     @Test
-    @JUnitSnmpAgents(value = {
-            @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205b/" + "SRX-100_" + SRX_100_IP + ".txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205b/"
+            + "SRX-100_" + SRX_100_IP + ".txt") })
     public void testNetwork10205bSrx100OspfIfTableCollection() throws Exception {
 
         String name = "ospfIfTable";
         OspfIfTable m_ospfIfTable = new OspfIfTable(InetAddressUtils.addr(SRX_100_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[]{m_ospfIfTable};
+        tracker = new CollectionTracker[] { m_ospfIfTable };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SRX_100_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
@@ -162,15 +156,14 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
     }
 
     @Test
-    @JUnitSnmpAgents(value = {
-            @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/" + MUMBAI_NAME + "_" + MUMBAI_IP + ".txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/"
+            + MUMBAI_NAME + "_" + MUMBAI_IP + ".txt") })
     public void testNetwork10205bMumbayOspfNbrTableCollection() throws Exception {
 
         String name = "ospfNbrTable";
         OspfNbrTable m_ospfNbrTable = new OspfNbrTable(InetAddressUtils.addr(MUMBAI_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[]{m_ospfNbrTable};
+        tracker = new CollectionTracker[] { m_ospfNbrTable };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(MUMBAI_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();
@@ -191,15 +184,14 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
     }
 
     @Test
-    @JUnitSnmpAgents(value = {
-            @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205b/" + "SRX-100_" + SRX_100_IP + ".txt")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205b/"
+            + "SRX-100_" + SRX_100_IP + ".txt") })
     public void testNetwork10205bSrx100OspfNbrTableCollection() throws Exception {
 
         String name = "ospfNbrTable";
         OspfNbrTable m_ospfNbrTable = new OspfNbrTable(InetAddressUtils.addr(SRX_100_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
-        tracker = new CollectionTracker[]{m_ospfNbrTable};
+        tracker = new CollectionTracker[] { m_ospfNbrTable };
         SnmpAgentConfig snmpAgent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(SRX_100_IP));
         SnmpWalker walker = SnmpUtils.createWalker(snmpAgent, name, tracker);
         walker.start();

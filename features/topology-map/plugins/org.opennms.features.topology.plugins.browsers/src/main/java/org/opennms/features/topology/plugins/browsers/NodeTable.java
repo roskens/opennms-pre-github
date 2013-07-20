@@ -28,12 +28,12 @@
 
 package org.opennms.features.topology.plugins.browsers;
 
-
 @SuppressWarnings("serial")
 public class NodeTable extends SelectionAwareTable {
 
-	@SuppressWarnings("unchecked") // Because Aries Blueprint cannot handle generics
-	public NodeTable(String caption, NodeDaoContainer container) {
-		super(caption, container);
-	}
+    @SuppressWarnings("unchecked")
+    // Because Aries Blueprint cannot handle generics
+    public NodeTable(String caption, NodeDaoContainer container) {
+        super(caption, container);
+    }
 }

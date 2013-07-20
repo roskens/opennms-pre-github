@@ -41,7 +41,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>IfResourceType class.</p>
+ * <p>
+ * IfResourceType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,10 +55,15 @@ public class IfResourceType extends ResourceType {
     private TreeMap<Integer, IfInfo> m_ifMap;
 
     /**
-     * <p>Constructor for IfResourceType.</p>
+     * <p>
+     * Constructor for IfResourceType.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
-     * @param snmpCollection a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param snmpCollection
+     *            a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection}
+     *            object.
      */
     public IfResourceType(CollectionAgent agent, OnmsSnmpCollection snmpCollection) {
         super(agent, snmpCollection);
@@ -73,9 +80,9 @@ public class IfResourceType extends ResourceType {
     }
 
     private void addKnownIfResources() {
-    	Set<IfInfo> ifInfos = getAgent().getSnmpInterfaceInfo(this);
+        Set<IfInfo> ifInfos = getAgent().getSnmpInterfaceInfo(this);
 
-        for(IfInfo ifInfo : ifInfos) {
+        for (IfInfo ifInfo : ifInfos) {
             addIfInfo(ifInfo);
         }
     }
@@ -108,7 +115,9 @@ public class IfResourceType extends ResourceType {
     }
 
     /**
-     * <p>getResources</p>
+     * <p>
+     * getResources
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -120,8 +129,8 @@ public class IfResourceType extends ResourceType {
     /** {@inheritDoc} */
     @Override
     protected Collection<SnmpAttributeType> loadAttributeTypes() {
-        return Collections.unmodifiableCollection(getCollection().getIndexedAttributeTypesForResourceType(getAgent(), this));
+        return Collections.unmodifiableCollection(getCollection().getIndexedAttributeTypesForResourceType(getAgent(),
+                                                                                                          this));
     }
-
 
 }

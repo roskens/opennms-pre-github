@@ -19,22 +19,25 @@ public class CustomHttpClientConfigurer implements HttpClientConfigurer {
     private static class DefaultTrustManager implements X509TrustManager {
 
         @Override
-        public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {}
+        public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+        }
 
         @Override
-        public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {}
+        public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+        }
 
         @Override
         public X509Certificate[] getAcceptedIssuers() {
-                return null;
+            return null;
         }
     }
 
     private String m_username = "admin";
+
     private String m_password = "admin";
 
     @Override
-	public void configureHttpClient(HttpClient client) {
+    public void configureHttpClient(HttpClient client) {
         try {
 
             SSLContext ctx = SSLContext.getInstance("SSL");
@@ -49,8 +52,7 @@ public class CustomHttpClientConfigurer implements HttpClientConfigurer {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-	}
-
+    }
 
     public String getUsername() {
         return m_username;
@@ -67,6 +69,5 @@ public class CustomHttpClientConfigurer implements HttpClientConfigurer {
     public void setPassword(String password) {
         m_password = password;
     }
-
 
 }

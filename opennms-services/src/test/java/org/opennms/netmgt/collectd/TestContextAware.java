@@ -31,7 +31,8 @@ package org.opennms.netmgt.collectd;
 import org.springframework.test.context.TestContext;
 
 /**
- * This marker interface is used to denote classes where the {@link TestContext} instance
+ * This marker interface is used to denote classes where the {@link TestContext}
+ * instance
  * can be injected into the test class.
  */
 public interface TestContextAware {

@@ -35,7 +35,7 @@ import org.junit.Test;
 public class JsStringConvertTest {
 
     @Test
-    public void testJsStringConversion(){
+    public void testJsStringConversion() {
         String convertStr = "a\\\"b\\tz\\n";
 
         String convertedStr = Util.convertToJsSafeString(convertStr);

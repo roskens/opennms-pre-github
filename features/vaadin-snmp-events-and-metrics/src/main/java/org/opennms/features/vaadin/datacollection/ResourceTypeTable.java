@@ -53,10 +53,11 @@ public abstract class ResourceTypeTable extends Table {
     /**
      * Instantiates a new resource type table.
      *
-     * @param group the OpenNMS Data Collection Group
+     * @param group
+     *            the OpenNMS Data Collection Group
      */
     public ResourceTypeTable(final DatacollectionGroup group) {
-        BeanContainer<String,ResourceType> container = new BeanContainer<String,ResourceType>(ResourceType.class);
+        BeanContainer<String, ResourceType> container = new BeanContainer<String, ResourceType>(ResourceType.class);
         container.setBeanIdProperty("name");
         container.addAll(group.getResourceTypeCollection());
         setContainerDataSource(container);
@@ -82,18 +83,20 @@ public abstract class ResourceTypeTable extends Table {
     /**
      * Update external source.
      *
-     * @param item the item
+     * @param item
+     *            the item
      */
     public abstract void updateExternalSource(BeanItem<ResourceType> item);
 
     /**
      * Adds a resource type.
      *
-     * @param resourceType the resource type
+     * @param resourceType
+     *            the resource type
      */
     @SuppressWarnings("unchecked")
     public void addResourceType(ResourceType resourceType) {
-        ((BeanContainer<String,ResourceType>) getContainerDataSource()).addBean(resourceType);
+        ((BeanContainer<String, ResourceType>) getContainerDataSource()).addBean(resourceType);
     }
 
 }

@@ -41,11 +41,9 @@ public class ObjectNameEditor extends PropertyEditorSupport {
         try {
             setValue(new ObjectName(text));
         } catch (MalformedObjectNameException e) {
-            throw new IllegalArgumentException("Invalide ObjectName ["+text+"]");
+            throw new IllegalArgumentException("Invalide ObjectName [" + text + "]");
         }
 
     }
-
-
 
 }

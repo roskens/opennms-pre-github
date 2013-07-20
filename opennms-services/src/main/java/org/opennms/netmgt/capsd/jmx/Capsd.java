@@ -31,7 +31,9 @@ package org.opennms.netmgt.capsd.jmx;
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
 
 /**
- * <p>Capsd class.</p>
+ * <p>
+ * Capsd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

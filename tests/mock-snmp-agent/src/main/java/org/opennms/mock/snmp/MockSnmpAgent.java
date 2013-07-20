@@ -91,7 +91,9 @@ import org.snmp4j.util.ThreadPool;
  * @version 1.0
  */
 /**
- * <p>MockSnmpAgent class.</p>
+ * <p>
+ * MockSnmpAgent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -101,29 +103,34 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
 
     // initialize Log4J logging
     static {
-    	try {
-    		Class.forName("org.apache.log4j.Logger");
-    		LogFactory.setLogFactory(new Log4jLogFactory());
-    	} catch (Exception e) {
-    		LogFactory.setLogFactory(new ConsoleLogFactory());
-    	}
-
+        try {
+            Class.forName("org.apache.log4j.Logger");
+            LogFactory.setLogFactory(new Log4jLogFactory());
+        } catch (Exception e) {
+            LogFactory.setLogFactory(new ConsoleLogFactory());
+        }
 
     }
 
     private static final LogAdapter s_log = LogFactory.getLogger(MockSnmpAgent.class);
 
     private String m_address;
+
     private URL m_moFile;
+
     private boolean m_running;
+
     private boolean m_stopped;
+
     private List<ManagedObject> m_moList;
+
     private MockSnmpMOLoader m_moLoader;
+
     private IOException m_failure;
 
     private static File BOOT_COUNT_FILE;
 
-	public static boolean allowSetOnMissingOid = false;
+    public static boolean allowSetOnMissingOid = false;
 
     static {
         File bootCountFile;
@@ -141,7 +148,8 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     public MockSnmpAgent(final File confFile, final URL moFile) {
-        super(BOOT_COUNT_FILE, confFile, new CommandProcessor(new OctetString(MPv3.createLocalEngineID(new OctetString("MOCKAGENT")))));
+        super(BOOT_COUNT_FILE, confFile,
+              new CommandProcessor(new OctetString(MPv3.createLocalEngineID(new OctetString("MOCKAGENT")))));
         m_moLoader = new PropertiesBackedManagedObject();
         m_moFile = moFile;
         agent.setWorkerPool(ThreadPool.create("RequestPool", 4));
@@ -152,23 +160,31 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * to read and store the agent configuration, and to read the mocked
      * managed objects (MOs), plus a string describing the address and port
      * to bind to.
-     *
      * @param bootFile
-     * 		a file containing the boot counter in serialized form (as expected by BaseAgent).
+     * a file containing the boot counter in serialized form (as expected by
+     * BaseAgent).
      * @param confFile
-     * 		a configuration file with serialized management information.
+     * a configuration file with serialized management information.
      * @param moFile
-     * 		a MIB dump file describing the managed objects to be mocked.  The current implementation
-     * 		expects a Java properties file, which can conveniently be generated using the Net-SNMP
-     * 		utility <code>snmpwalk</code> with the <code>-One</code> option set.
+     * a MIB dump file describing the managed objects to be mocked. The current
+     * implementation
+     * expects a Java properties file, which can conveniently be generated using
+     * the Net-SNMP
+     * utility <code>snmpwalk</code> with the <code>-One</code> option set.
      */
     /**
-     * <p>Constructor for MockSnmpAgent.</p>
+     * <p>
+     * Constructor for MockSnmpAgent.
+     * </p>
      *
-     * @param bootFile a {@link java.io.File} object.
-     * @param confFile a {@link java.io.File} object.
-     * @param moFile a {@link org.springframework.core.io.Resource} object.
-     * @param bindAddress a {@link java.lang.String} object.
+     * @param bootFile
+     *            a {@link java.io.File} object.
+     * @param confFile
+     *            a {@link java.io.File} object.
+     * @param moFile
+     *            a {@link org.springframework.core.io.Resource} object.
+     * @param bindAddress
+     *            a {@link java.lang.String} object.
      * @throws IOException
      */
     public MockSnmpAgent(final File confFile, final URL moFile, final String bindAddress) {
@@ -177,19 +193,26 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     /**
-     * <p>createAgentAndRun</p>
+     * <p>
+     * createAgentAndRun
+     * </p>
      *
-     * @param moFile a {@link org.springframework.core.io.Resource} object.
-     * @param bindAddress a {@link java.lang.String} object.
+     * @param moFile
+     *            a {@link org.springframework.core.io.Resource} object.
+     * @param bindAddress
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.mock.snmp.MockSnmpAgent} object.
-     * @throws java.lang.InterruptedException if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public static MockSnmpAgent createAgentAndRun(URL moFile, String bindAddress) throws InterruptedException {
-    	setupLogging();
+        setupLogging();
         try {
-        	InputStream in = moFile.openStream();
+            InputStream in = moFile.openStream();
             if (in == null) {
-                throw new IllegalArgumentException("could not get InputStream mock object resource; does it exist?  Resource: " + moFile);
+                throw new IllegalArgumentException(
+                                                   "could not get InputStream mock object resource; does it exist?  Resource: "
+                                                           + moFile);
             }
             in.close();
 
@@ -226,20 +249,23 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     private static void setupLogging() {
-    	if (LogFactory.getLogFactory() == null) {
-    		LogFactory.setLogFactory(new ConsoleLogFactory());
-    	}
-	}
+        if (LogFactory.getLogFactory() == null) {
+            LogFactory.setLogFactory(new ConsoleLogFactory());
+        }
+    }
 
-	/**
-     * <p>main</p>
+    /**
+     * <p>
+     * main
+     * </p>
      *
-     * @param args an array of {@link java.lang.String} objects.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
      * @throws MalformedURLException
      * @throws UnknownHostException
      */
     public static void main(String[] args) throws UnknownHostException, MalformedURLException {
-    	LogFactory.setLogFactory(new ConsoleLogFactory());
+        LogFactory.setLogFactory(new ConsoleLogFactory());
         AgentConfigData agentConfig = parseCli(args);
         if (agentConfig == null) {
             System.err.println("Could not parse configuration.");
@@ -247,17 +273,20 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         }
         String listenSpec = agentConfig.getListenAddr().getHostAddress() + "/" + agentConfig.getListenPort();
 
-       	try {
-       	    MockSnmpAgent.createAgentAndRun(agentConfig.getMoFile(), listenSpec);
-       	} catch (InterruptedException e) {
-       	    System.exit(0);
-       	}
+        try {
+            MockSnmpAgent.createAgentAndRun(agentConfig.getMoFile(), listenSpec);
+        } catch (InterruptedException e) {
+            System.exit(0);
+        }
     }
 
     /**
-     * <p>parseCli</p>
+     * <p>
+     * parseCli
+     * </p>
      *
-     * @param args an array of {@link java.lang.String} objects.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
      * @return a {@link org.opennms.mock.snmp.AgentConfigData} object.
      * @throws MalformedURLException
      * @throws UnknownHostException
@@ -268,36 +297,34 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         String listenAddr = "127.0.0.1";
         int listenPort = 1691;
 
-    	for(int i = 0; i < args.length; i++) {
-    		if ("-d".equals(args[i]) || "--dump-file".equals(args[i])) {
-    			if (i+1 >= args.length) {
+        for (int i = 0; i < args.length; i++) {
+            if ("-d".equals(args[i]) || "--dump-file".equals(args[i])) {
+                if (i + 1 >= args.length) {
                     usage("You must specify at least a pathname or URL for the dump file.");
-    			} else {
-    				dumpFile = args[++i];
-    			}
-    		}
-    		else if ("-l".equals(args[i]) || "--listen-addr".equals(args[i])) {
-    			if (i+1 >= args.length) {
-    				usage("You must pass an address argument when using " + args[i] + ".");
-    			} else {
-    				listenAddr = args[++i];
-    			}
-    		}
-    		else if ("-p".equals(args[i]) || "--port".equals(args[i])) {
-    			if (i+1 >= args.length) {
-    				usage("You must pass a port number when using " + args[i] + ".");
-    			} else {
-    				listenPort = Integer.parseInt(args[++i]);
-    			}
-    		}
+                } else {
+                    dumpFile = args[++i];
+                }
+            } else if ("-l".equals(args[i]) || "--listen-addr".equals(args[i])) {
+                if (i + 1 >= args.length) {
+                    usage("You must pass an address argument when using " + args[i] + ".");
+                } else {
+                    listenAddr = args[++i];
+                }
+            } else if ("-p".equals(args[i]) || "--port".equals(args[i])) {
+                if (i + 1 >= args.length) {
+                    usage("You must pass a port number when using " + args[i] + ".");
+                } else {
+                    listenPort = Integer.parseInt(args[++i]);
+                }
+            }
 
-    	}
+        }
 
-    	if (dumpFile == null) {
+        if (dumpFile == null) {
             usage("You must specify at least a pathname or URL for the dump file.");
-    	}
+        }
 
-    	return new AgentConfigData(dumpFile, listenAddr, listenPort);
+        return new AgentConfigData(dumpFile, listenAddr, listenPort);
 
     }
 
@@ -310,16 +337,12 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         System.exit(1);
     }
 
-
-
     /** {@inheritDoc} */
     @Override
     protected void initMessageDispatcher() {
         dispatcher = new MessageDispatcherImpl();
 
-        usm = new USM(SecurityProtocols.getInstance(),
-                agent.getContextEngineID(),
-                updateEngineBoots());
+        usm = new USM(SecurityProtocols.getInstance(), agent.getContextEngineID(), updateEngineBoots());
 
         mpv3 = new MPv3(usm);
 
@@ -331,9 +354,12 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     /**
-     * <p>shutDownAndWait</p>
+     * <p>
+     * shutDownAndWait
+     * </p>
      *
-     * @throws java.lang.InterruptedException if any.
+     * @throws java.lang.InterruptedException
+     *             if any.
      */
     public void shutDownAndWait() throws InterruptedException {
         if (!isRunning()) {
@@ -348,17 +374,19 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     /*
-     * Starts the <code>MockSnmpAgent</code> running.  Meant to be called from the
+     * Starts the <code>MockSnmpAgent</code> running. Meant to be called from
+     * the
      * <code>start</code> method of class <code>Thread</code>, but could also be
      * used to bring up a standalone mock agent.
      * @see org.snmp4j.agent.BaseAgent#run()
-     *
      * @author Jeff Gehlbach
      * @version 1.0
      */
     // XXX fix catch blocks
     /**
-     * <p>run</p>
+     * <p>
+     * run
+     * </p>
      */
     @Override
     public void run() {
@@ -370,9 +398,10 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
             super.run();
             m_running = true;
         } catch (final BindException e) {
-        	s_log.error(String.format("Unable to bind to %s.  You probably specified an invalid address or a port < 1024 and are not running as root.", m_address), e);
+            s_log.error(String.format("Unable to bind to %s.  You probably specified an invalid address or a port < 1024 and are not running as root.",
+                                      m_address), e);
         } catch (final Throwable t) {
-        	s_log.error("An error occurred while initializing.", t);
+            s_log.error("An error occurred while initializing.", t);
         }
 
         boolean interrupted = false;
@@ -387,23 +416,27 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
 
         for (final TransportMapping transportMapping : transportMappings) {
             try {
-                if (transportMapping != null) transportMapping.close();
+                if (transportMapping != null)
+                    transportMapping.close();
             } catch (final IOException t) {
-            	s_log.error("an error occurred while closing the transport mapping", t);
+                s_log.error("an error occurred while closing the transport mapping", t);
             }
         }
 
         m_stopped = true;
 
         s_log.debug("Agent is no longer running.");
-        if (interrupted) Thread.currentThread().interrupt();
+        if (interrupted)
+            Thread.currentThread().interrupt();
     }
 
     /*
      *
      */
     /**
-     * <p>shutDown</p>
+     * <p>
+     * shutDown
+     * </p>
      */
     public void shutDown() {
         m_running = false;
@@ -411,7 +444,9 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     /**
-     * <p>isRunning</p>
+     * <p>
+     * isRunning
+     * </p>
      *
      * @return a boolean.
      */
@@ -420,7 +455,9 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     /**
-     * <p>isStopped</p>
+     * <p>
+     * isStopped
+     * </p>
      *
      * @return a boolean.
      */
@@ -431,173 +468,103 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     /** {@inheritDoc} */
     @Override
     protected void addCommunities(SnmpCommunityMIB communityMIB) {
-        Variable[] com2sec = new Variable[] {
-                new OctetString("public"),              // community name
-                new OctetString("public"),              // security name
-                getAgent().getContextEngineID(),        // local engine ID
-                new OctetString(),                      // default context name
-                new OctetString(),                      // transport tag
+        Variable[] com2sec = new Variable[] { new OctetString("public"), // community
+                                                                         // name
+                new OctetString("public"), // security name
+                getAgent().getContextEngineID(), // local engine ID
+                new OctetString(), // default context name
+                new OctetString(), // transport tag
                 new Integer32(StorageType.nonVolatile), // storage type
-                new Integer32(RowStatus.active)         // row status
+                new Integer32(RowStatus.active) // row status
         };
-        MOTableRow row =
-            communityMIB.getSnmpCommunityEntry().createRow(
-                                                           new OctetString("public2public").toSubIndex(true), com2sec);
+        MOTableRow row = communityMIB.getSnmpCommunityEntry().createRow(new OctetString("public2public").toSubIndex(true),
+                                                                        com2sec);
         communityMIB.getSnmpCommunityEntry().addRow(row);
     }
 
     /** {@inheritDoc} */
     @Override
     protected void addViews(VacmMIB vacm) {
-        vacm.addGroup(SecurityModel.SECURITY_MODEL_SNMPv1,
-                      new OctetString("public"),
-                      new OctetString("v1v2group"),
+        vacm.addGroup(SecurityModel.SECURITY_MODEL_SNMPv1, new OctetString("public"), new OctetString("v1v2group"),
                       StorageType.nonVolatile);
-        vacm.addGroup(SecurityModel.SECURITY_MODEL_SNMPv2c,
-                      new OctetString("public"),
-                      new OctetString("v1v2group"),
+        vacm.addGroup(SecurityModel.SECURITY_MODEL_SNMPv2c, new OctetString("public"), new OctetString("v1v2group"),
                       StorageType.nonVolatile);
-        vacm.addGroup(SecurityModel.SECURITY_MODEL_USM,
-                      new OctetString("SHADES"),
-                      new OctetString("v3group"),
+        vacm.addGroup(SecurityModel.SECURITY_MODEL_USM, new OctetString("SHADES"), new OctetString("v3group"),
                       StorageType.nonVolatile);
-        vacm.addGroup(SecurityModel.SECURITY_MODEL_USM,
-                      new OctetString("TEST"),
-                      new OctetString("v3test"),
+        vacm.addGroup(SecurityModel.SECURITY_MODEL_USM, new OctetString("TEST"), new OctetString("v3test"),
                       StorageType.nonVolatile);
-        vacm.addGroup(SecurityModel.SECURITY_MODEL_USM,
-                      new OctetString("opennmsUser"),
-                      new OctetString("v3group"),
+        vacm.addGroup(SecurityModel.SECURITY_MODEL_USM, new OctetString("opennmsUser"), new OctetString("v3group"),
                       StorageType.nonVolatile);
-        vacm.addGroup(SecurityModel.SECURITY_MODEL_USM,
-                      new OctetString("SHA"),
-                      new OctetString("v3restricted"),
+        vacm.addGroup(SecurityModel.SECURITY_MODEL_USM, new OctetString("SHA"), new OctetString("v3restricted"),
                       StorageType.nonVolatile);
 
-        vacm.addAccess(new OctetString("v1v2group"), new OctetString(),
-                       SecurityModel.SECURITY_MODEL_ANY,
-                       SecurityLevel.NOAUTH_NOPRIV, VacmMIB.vacmExactMatch,
-                       new OctetString("fullReadView"),
-                       new OctetString("fullWriteView"),
-                       new OctetString("fullNotifyView"),
+        vacm.addAccess(new OctetString("v1v2group"), new OctetString(), SecurityModel.SECURITY_MODEL_ANY,
+                       SecurityLevel.NOAUTH_NOPRIV, VacmMIB.vacmExactMatch, new OctetString("fullReadView"),
+                       new OctetString("fullWriteView"), new OctetString("fullNotifyView"), StorageType.nonVolatile);
+        vacm.addAccess(new OctetString("v3group"), new OctetString(), SecurityModel.SECURITY_MODEL_USM,
+                       SecurityLevel.AUTH_PRIV, VacmMIB.vacmExactMatch, new OctetString("fullReadView"),
+                       new OctetString("fullWriteView"), new OctetString("fullNotifyView"), StorageType.nonVolatile);
+        vacm.addAccess(new OctetString("v3restricted"), new OctetString(), SecurityModel.SECURITY_MODEL_USM,
+                       SecurityLevel.AUTH_NOPRIV, VacmMIB.vacmExactMatch, new OctetString("restrictedReadView"),
+                       new OctetString("restrictedWriteView"), new OctetString("restrictedNotifyView"),
                        StorageType.nonVolatile);
-        vacm.addAccess(new OctetString("v3group"), new OctetString(),
-                       SecurityModel.SECURITY_MODEL_USM,
-                       SecurityLevel.AUTH_PRIV, VacmMIB.vacmExactMatch,
-                       new OctetString("fullReadView"),
-                       new OctetString("fullWriteView"),
-                       new OctetString("fullNotifyView"),
-                       StorageType.nonVolatile);
-        vacm.addAccess(new OctetString("v3restricted"), new OctetString(),
-                       SecurityModel.SECURITY_MODEL_USM,
-                       SecurityLevel.AUTH_NOPRIV, VacmMIB.vacmExactMatch,
-                       new OctetString("restrictedReadView"),
-                       new OctetString("restrictedWriteView"),
-                       new OctetString("restrictedNotifyView"),
-                       StorageType.nonVolatile);
-        vacm.addAccess(new OctetString("v3test"), new OctetString(),
-                       SecurityModel.SECURITY_MODEL_USM,
-                       SecurityLevel.AUTH_PRIV, VacmMIB.vacmExactMatch,
-                       new OctetString("testReadView"),
-                       new OctetString("testWriteView"),
-                       new OctetString("testNotifyView"),
-                       StorageType.nonVolatile);
+        vacm.addAccess(new OctetString("v3test"), new OctetString(), SecurityModel.SECURITY_MODEL_USM,
+                       SecurityLevel.AUTH_PRIV, VacmMIB.vacmExactMatch, new OctetString("testReadView"),
+                       new OctetString("testWriteView"), new OctetString("testNotifyView"), StorageType.nonVolatile);
 
-        vacm.addViewTreeFamily(new OctetString("fullReadView"), new OID("1"),
-                               new OctetString(), VacmMIB.vacmViewIncluded,
-                               StorageType.nonVolatile);
-        vacm.addViewTreeFamily(new OctetString("fullWriteView"), new OID("1"),
-                               new OctetString(), VacmMIB.vacmViewIncluded,
-                               StorageType.nonVolatile);
-        vacm.addViewTreeFamily(new OctetString("fullNotifyView"), new OID("1"),
-                               new OctetString(), VacmMIB.vacmViewIncluded,
-                               StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("fullReadView"), new OID("1"), new OctetString(),
+                               VacmMIB.vacmViewIncluded, StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("fullWriteView"), new OID("1"), new OctetString(),
+                               VacmMIB.vacmViewIncluded, StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("fullNotifyView"), new OID("1"), new OctetString(),
+                               VacmMIB.vacmViewIncluded, StorageType.nonVolatile);
 
-        vacm.addViewTreeFamily(new OctetString("restrictedReadView"),
-                               new OID("1.3.6.1.2"),
-                               new OctetString(), VacmMIB.vacmViewIncluded,
-                               StorageType.nonVolatile);
-        vacm.addViewTreeFamily(new OctetString("restrictedWriteView"),
-                               new OID("1.3.6.1.2.1"),
-                               new OctetString(),
-                               VacmMIB.vacmViewIncluded,
-                               StorageType.nonVolatile);
-        vacm.addViewTreeFamily(new OctetString("restrictedNotifyView"),
-                               new OID("1.3.6.1.2"),
-                               new OctetString(), VacmMIB.vacmViewIncluded,
-                               StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("restrictedReadView"), new OID("1.3.6.1.2"), new OctetString(),
+                               VacmMIB.vacmViewIncluded, StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("restrictedWriteView"), new OID("1.3.6.1.2.1"), new OctetString(),
+                               VacmMIB.vacmViewIncluded, StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("restrictedNotifyView"), new OID("1.3.6.1.2"), new OctetString(),
+                               VacmMIB.vacmViewIncluded, StorageType.nonVolatile);
 
-        vacm.addViewTreeFamily(new OctetString("testReadView"),
-                               new OID("1.3.6.1.2"),
-                               new OctetString(), VacmMIB.vacmViewIncluded,
-                               StorageType.nonVolatile);
-        vacm.addViewTreeFamily(new OctetString("testReadView"),
-                               new OID("1.3.6.1.2.1.1"),
-                               new OctetString(), VacmMIB.vacmViewExcluded,
-                               StorageType.nonVolatile);
-        vacm.addViewTreeFamily(new OctetString("testWriteView"),
-                               new OID("1.3.6.1.2.1"),
-                               new OctetString(),
-                               VacmMIB.vacmViewIncluded,
-                               StorageType.nonVolatile);
-        vacm.addViewTreeFamily(new OctetString("testNotifyView"),
-                               new OID("1.3.6.1.2"),
-                               new OctetString(), VacmMIB.vacmViewIncluded,
-                               StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("testReadView"), new OID("1.3.6.1.2"), new OctetString(),
+                               VacmMIB.vacmViewIncluded, StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("testReadView"), new OID("1.3.6.1.2.1.1"), new OctetString(),
+                               VacmMIB.vacmViewExcluded, StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("testWriteView"), new OID("1.3.6.1.2.1"), new OctetString(),
+                               VacmMIB.vacmViewIncluded, StorageType.nonVolatile);
+        vacm.addViewTreeFamily(new OctetString("testNotifyView"), new OID("1.3.6.1.2"), new OctetString(),
+                               VacmMIB.vacmViewIncluded, StorageType.nonVolatile);
 
     }
 
     /** {@inheritDoc} */
     @Override
-    protected void addNotificationTargets(SnmpTargetMIB targetMIB,
-            SnmpNotificationMIB notificationMIB) {
+    protected void addNotificationTargets(SnmpTargetMIB targetMIB, SnmpNotificationMIB notificationMIB) {
         targetMIB.addDefaultTDomains();
 
-        targetMIB.addTargetAddress(new OctetString("notification"),
-                                   TransportDomains.transportDomainUdpIpv4,
-                                   new OctetString(new UdpAddress("127.0.0.1/162").getValue()),
-                                   200, 1,
-                                   new OctetString("notify"),
-                                   new OctetString("v2c"),
-                                   StorageType.permanent);
-        targetMIB.addTargetParams(new OctetString("v2c"),
-                                  MessageProcessingModel.MPv2c,
-                                  SecurityModel.SECURITY_MODEL_SNMPv2c,
-                                  new OctetString("public"),
-                                  SecurityLevel.NOAUTH_NOPRIV,
-                                  StorageType.permanent);
-        notificationMIB.addNotifyEntry(new OctetString("default"),
-                                       new OctetString("notify"),
-                                       SnmpNotificationMIB.SnmpNotifyTypeEnum.trap,
-                                       StorageType.permanent);
+        targetMIB.addTargetAddress(new OctetString("notification"), TransportDomains.transportDomainUdpIpv4,
+                                   new OctetString(new UdpAddress("127.0.0.1/162").getValue()), 200, 1,
+                                   new OctetString("notify"), new OctetString("v2c"), StorageType.permanent);
+        targetMIB.addTargetParams(new OctetString("v2c"), MessageProcessingModel.MPv2c,
+                                  SecurityModel.SECURITY_MODEL_SNMPv2c, new OctetString("public"),
+                                  SecurityLevel.NOAUTH_NOPRIV, StorageType.permanent);
+        notificationMIB.addNotifyEntry(new OctetString("default"), new OctetString("notify"),
+                                       SnmpNotificationMIB.SnmpNotifyTypeEnum.trap, StorageType.permanent);
     }
 
     /** {@inheritDoc} */
     @Override
     protected void addUsmUser(USM usm) {
-        UsmUser user = new UsmUser(new OctetString("SHADES"),
-                                   AuthSHA.ID,
-                                   new OctetString("SHADESAuthPassword"),
-                                   PrivDES.ID,
-                                   new OctetString("SHADESPrivPassword"));
+        UsmUser user = new UsmUser(new OctetString("SHADES"), AuthSHA.ID, new OctetString("SHADESAuthPassword"),
+                                   PrivDES.ID, new OctetString("SHADESPrivPassword"));
         usm.addUser(user.getSecurityName(), usm.getLocalEngineID(), user);
-        user = new UsmUser(new OctetString("TEST"),
-                           AuthSHA.ID,
-                           new OctetString("maplesyrup"),
-                           PrivDES.ID,
+        user = new UsmUser(new OctetString("TEST"), AuthSHA.ID, new OctetString("maplesyrup"), PrivDES.ID,
                            new OctetString("maplesyrup"));
         usm.addUser(user.getSecurityName(), usm.getLocalEngineID(), user);
-        user = new UsmUser(new OctetString("opennmsUser"),
-                           AuthMD5.ID,
-                           new OctetString("0p3nNMSv3"),
-                           PrivDES.ID,
+        user = new UsmUser(new OctetString("opennmsUser"), AuthMD5.ID, new OctetString("0p3nNMSv3"), PrivDES.ID,
                            new OctetString("0p3nNMSv3"));
         usm.addUser(user.getSecurityName(), usm.getLocalEngineID(), user);
-        user = new UsmUser(new OctetString("SHA"),
-                           AuthSHA.ID,
-                           new OctetString("SHAAuthPassword"),
-                           null,
-                           null);
+        user = new UsmUser(new OctetString("SHA"), AuthSHA.ID, new OctetString("SHAAuthPassword"), null, null);
         usm.addUser(user.getSecurityName(), usm.getLocalEngineID(), user);
     }
 
@@ -606,15 +573,12 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     protected void initTransportMappings() throws IOException {
         try {
             transportMappings = new TransportMapping[1];
-            transportMappings[0] =
-                new DefaultUdpTransportMapping(new UdpAddress(m_address));
+            transportMappings[0] = new DefaultUdpTransportMapping(new UdpAddress(m_address));
         } catch (final IOException e) {
             m_failure = e;
             throw e;
         }
     }
-
-
 
     // override the agent defaults since we are providing all the agent data
     /** {@inheritDoc} */
@@ -622,8 +586,6 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     protected void registerSnmpMIBs() {
         registerManagedObjects();
     }
-
-
 
     /** {@inheritDoc} */
     @Override
@@ -639,9 +601,8 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         while (moListIter.hasNext()) {
             try {
                 server.register(moListIter.next(), null);
-            }
-            catch (final DuplicateRegistrationException ex) {
-            	s_log.error("unable to register managed object", ex);
+            } catch (final DuplicateRegistrationException ex) {
+                s_log.error("unable to register managed object", ex);
             }
         }
     }
@@ -656,7 +617,9 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     /**
-     * <p>createMockMOs</p>
+     * <p>
+     * createMockMOs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -665,7 +628,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     private ManagedObject findMOForOid(OID oid) {
-        for(ManagedObject mo : m_moList) {
+        for (ManagedObject mo : m_moList) {
             if (mo.getScope().covers(oid)) {
                 return mo;
             }
@@ -674,79 +637,106 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     /**
-     * <p>updateValue</p>
+     * <p>
+     * updateValue
+     * </p>
      *
-     * @param oid a {@link org.snmp4j.smi.OID} object.
-     * @param value a {@link org.snmp4j.smi.Variable} object.
+     * @param oid
+     *            a {@link org.snmp4j.smi.OID} object.
+     * @param value
+     *            a {@link org.snmp4j.smi.Variable} object.
      */
     public void updateValue(OID oid, Variable value) {
         ManagedObject mo = findMOForOid(oid);
-        assertNotNull("Unable to find oid in mib for mockAgent: "+oid, mo);
+        assertNotNull("Unable to find oid in mib for mockAgent: " + oid, mo);
         if (mo instanceof Updatable) {
-            ((Updatable)mo).updateValue(oid, value);
+            ((Updatable) mo).updateValue(oid, value);
         }
     }
 
     private void assertNotNull(final String string, final Object o) {
-    	if (!allowSetOnMissingOid  && o == null) {
+        if (!allowSetOnMissingOid && o == null) {
             throw new IllegalStateException(string);
         }
     }
 
     /**
-     * <p>updateValue</p>
+     * <p>
+     * updateValue
+     * </p>
      *
-     * @param oid a {@link java.lang.String} object.
-     * @param value a {@link org.snmp4j.smi.Variable} object.
+     * @param oid
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link org.snmp4j.smi.Variable} object.
      */
     public void updateValue(String oid, Variable value) {
         updateValue(new OID(oid), value);
     }
 
     /**
-     * <p>updateIntValue</p>
+     * <p>
+     * updateIntValue
+     * </p>
      *
-     * @param oid a {@link java.lang.String} object.
-     * @param val a int.
+     * @param oid
+     *            a {@link java.lang.String} object.
+     * @param val
+     *            a int.
      */
     public void updateIntValue(String oid, int val) {
         updateValue(oid, new Integer32(val));
     }
 
     /**
-     * <p>updateStringValue</p>
+     * <p>
+     * updateStringValue
+     * </p>
      *
-     * @param oid a {@link java.lang.String} object.
-     * @param val a {@link java.lang.String} object.
+     * @param oid
+     *            a {@link java.lang.String} object.
+     * @param val
+     *            a {@link java.lang.String} object.
      */
     public void updateStringValue(String oid, String val) {
         updateValue(oid, new OctetString(val));
     }
 
     /**
-     * <p>updateCounter32Value</p>
+     * <p>
+     * updateCounter32Value
+     * </p>
      *
-     * @param oid a {@link java.lang.String} object.
-     * @param val a int.
+     * @param oid
+     *            a {@link java.lang.String} object.
+     * @param val
+     *            a int.
      */
     public void updateCounter32Value(String oid, int val) {
         updateValue(oid, new Counter32(val));
     }
 
     /**
-     * <p>updateCounter64Value</p>
+     * <p>
+     * updateCounter64Value
+     * </p>
      *
-     * @param oid a {@link java.lang.String} object.
-     * @param val a long.
+     * @param oid
+     *            a {@link java.lang.String} object.
+     * @param val
+     *            a long.
      */
     public void updateCounter64Value(String oid, long val) {
         updateValue(oid, new Counter64(val));
     }
 
     /**
-     * <p>updateValuesFromResource</p>
+     * <p>
+     * updateValuesFromResource
+     * </p>
      *
-     * @param moFile a {@link org.springframework.core.io.Resource} object.
+     * @param moFile
+     *            a {@link org.springframework.core.io.Resource} object.
      */
     public void updateValuesFromResource(final URL moFile) {
         unregisterManagedObjects();
@@ -755,14 +745,15 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return "MockSnmpAgent["+m_address+"]";
+        return "MockSnmpAgent[" + m_address + "]";
     }
-
 
 }

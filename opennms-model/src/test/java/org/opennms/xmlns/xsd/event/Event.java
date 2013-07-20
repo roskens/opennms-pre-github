@@ -33,7 +33,6 @@
 // Generated on: 2011.03.17 at 12:58:43 PM EDT
 //
 
-
 package org.opennms.xmlns.xsd.event;
 
 import java.util.ArrayList;
@@ -46,11 +45,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
- *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * Java class for anonymous complex type.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType>
@@ -101,97 +101,97 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "dbid",
-    "distPoller",
-    "creationTime",
-    "masterStation",
-    "mask",
-    "uei",
-    "source",
-    "nodeid",
-    "time",
-    "host",
-    "_interface",
-    "snmphost",
-    "service",
-    "snmp",
-    "parms",
-    "descr",
-    "logmsg",
-    "severity",
-    "pathoutage",
-    "correlation",
-    "operinstruct",
-    "autoaction",
-    "operaction",
-    "autoacknowledge",
-    "loggroup",
-    "tticket",
-    "forward",
-    "script",
-    "ifIndex",
-    "ifAlias",
-    "mouseovertext",
-    "alarmData"
-})
+@XmlType(name = "", propOrder = { "dbid", "distPoller", "creationTime", "masterStation", "mask", "uei", "source",
+        "nodeid", "time", "host", "_interface", "snmphost", "service", "snmp", "parms", "descr", "logmsg", "severity",
+        "pathoutage", "correlation", "operinstruct", "autoaction", "operaction", "autoacknowledge", "loggroup",
+        "tticket", "forward", "script", "ifIndex", "ifAlias", "mouseovertext", "alarmData" })
 @XmlRootElement(name = "event")
 public class Event {
 
     protected Integer dbid;
+
     @XmlElement(name = "dist-poller")
     protected String distPoller;
+
     @XmlElement(name = "creation-time")
     protected String creationTime;
+
     @XmlElement(name = "master-station")
     protected String masterStation;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Mask mask;
+
     protected String uei;
+
     @XmlElement(required = true)
     protected String source;
+
     protected Long nodeid;
+
     @XmlElement(required = true)
     protected String time;
+
     protected String host;
+
     @XmlElement(name = "interface")
     protected String _interface;
+
     protected String snmphost;
+
     protected String service;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Snmp snmp;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Parms parms;
+
     protected String descr;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Logmsg logmsg;
+
     protected String severity;
+
     protected String pathoutage;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Correlation correlation;
+
     protected String operinstruct;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected List<Autoaction> autoaction;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected List<Operaction> operaction;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Autoacknowledge autoacknowledge;
+
     protected List<String> loggroup;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Tticket tticket;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected List<Forward> forward;
+
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected List<Script> script;
+
     protected Integer ifIndex;
+
     protected String ifAlias;
+
     protected String mouseovertext;
+
     @XmlElement(name = "alarm-data", namespace = "http://xmlns.opennms.org/xsd/event")
     protected AlarmData alarmData;
+
     @XmlAttribute(name = "uuid")
     protected String uuid;
 
@@ -199,9 +199,7 @@ public class Event {
      * Gets the value of the dbid property.
      *
      * @return
-     *     possible object is
-     *     {@link Integer }
-     *
+     *         possible object is {@link Integer }
      */
     public Integer getDbid() {
         return dbid;
@@ -211,9 +209,7 @@ public class Event {
      * Sets the value of the dbid property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *
+     *            allowed object is {@link Integer }
      */
     public void setDbid(Integer value) {
         this.dbid = value;
@@ -223,9 +219,7 @@ public class Event {
      * Gets the value of the distPoller property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getDistPoller() {
         return distPoller;
@@ -235,9 +229,7 @@ public class Event {
      * Sets the value of the distPoller property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setDistPoller(String value) {
         this.distPoller = value;
@@ -247,9 +239,7 @@ public class Event {
      * Gets the value of the creationTime property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getCreationTime() {
         return creationTime;
@@ -259,9 +249,7 @@ public class Event {
      * Sets the value of the creationTime property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setCreationTime(String value) {
         this.creationTime = value;
@@ -271,9 +259,7 @@ public class Event {
      * Gets the value of the masterStation property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getMasterStation() {
         return masterStation;
@@ -283,9 +269,7 @@ public class Event {
      * Sets the value of the masterStation property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setMasterStation(String value) {
         this.masterStation = value;
@@ -293,12 +277,10 @@ public class Event {
 
     /**
      * The event mask which helps to uniquely identify an
-     *             event
+     * event
      *
      * @return
-     *     possible object is
-     *     {@link Mask }
-     *
+     *         possible object is {@link Mask }
      */
     public Mask getMask() {
         return mask;
@@ -308,9 +290,7 @@ public class Event {
      * Sets the value of the mask property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Mask }
-     *
+     *            allowed object is {@link Mask }
      */
     public void setMask(Mask value) {
         this.mask = value;
@@ -320,9 +300,7 @@ public class Event {
      * Gets the value of the uei property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getUei() {
         return uei;
@@ -332,9 +310,7 @@ public class Event {
      * Sets the value of the uei property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setUei(String value) {
         this.uei = value;
@@ -344,9 +320,7 @@ public class Event {
      * Gets the value of the source property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getSource() {
         return source;
@@ -356,9 +330,7 @@ public class Event {
      * Sets the value of the source property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setSource(String value) {
         this.source = value;
@@ -368,9 +340,7 @@ public class Event {
      * Gets the value of the nodeid property.
      *
      * @return
-     *     possible object is
-     *     {@link Long }
-     *
+     *         possible object is {@link Long }
      */
     public Long getNodeid() {
         return nodeid;
@@ -380,9 +350,7 @@ public class Event {
      * Sets the value of the nodeid property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Long }
-     *
+     *            allowed object is {@link Long }
      */
     public void setNodeid(Long value) {
         this.nodeid = value;
@@ -392,9 +360,7 @@ public class Event {
      * Gets the value of the time property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getTime() {
         return time;
@@ -404,9 +370,7 @@ public class Event {
      * Sets the value of the time property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setTime(String value) {
         this.time = value;
@@ -416,9 +380,7 @@ public class Event {
      * Gets the value of the host property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getHost() {
         return host;
@@ -428,9 +390,7 @@ public class Event {
      * Sets the value of the host property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setHost(String value) {
         this.host = value;
@@ -440,9 +400,7 @@ public class Event {
      * Gets the value of the interface property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getInterface() {
         return _interface;
@@ -452,9 +410,7 @@ public class Event {
      * Sets the value of the interface property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setInterface(String value) {
         this._interface = value;
@@ -464,9 +420,7 @@ public class Event {
      * Gets the value of the snmphost property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getSnmphost() {
         return snmphost;
@@ -476,9 +430,7 @@ public class Event {
      * Sets the value of the snmphost property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setSnmphost(String value) {
         this.snmphost = value;
@@ -488,9 +440,7 @@ public class Event {
      * Gets the value of the service property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getService() {
         return service;
@@ -500,9 +450,7 @@ public class Event {
      * Sets the value of the service property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setService(String value) {
         this.service = value;
@@ -512,9 +460,7 @@ public class Event {
      * The snmp information from the trap
      *
      * @return
-     *     possible object is
-     *     {@link Snmp }
-     *
+     *         possible object is {@link Snmp }
      */
     public Snmp getSnmp() {
         return snmp;
@@ -524,9 +470,7 @@ public class Event {
      * Sets the value of the snmp property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Snmp }
-     *
+     *            allowed object is {@link Snmp }
      */
     public void setSnmp(Snmp value) {
         this.snmp = value;
@@ -536,9 +480,7 @@ public class Event {
      * The varbinds from the trap
      *
      * @return
-     *     possible object is
-     *     {@link Parms }
-     *
+     *         possible object is {@link Parms }
      */
     public Parms getParms() {
         return parms;
@@ -548,9 +490,7 @@ public class Event {
      * Sets the value of the parms property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Parms }
-     *
+     *            allowed object is {@link Parms }
      */
     public void setParms(Parms value) {
         this.parms = value;
@@ -560,9 +500,7 @@ public class Event {
      * Gets the value of the descr property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getDescr() {
         return descr;
@@ -572,9 +510,7 @@ public class Event {
      * Sets the value of the descr property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setDescr(String value) {
         this.descr = value;
@@ -584,9 +520,7 @@ public class Event {
      * The event logmsg
      *
      * @return
-     *     possible object is
-     *     {@link Logmsg }
-     *
+     *         possible object is {@link Logmsg }
      */
     public Logmsg getLogmsg() {
         return logmsg;
@@ -596,9 +530,7 @@ public class Event {
      * Sets the value of the logmsg property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Logmsg }
-     *
+     *            allowed object is {@link Logmsg }
      */
     public void setLogmsg(Logmsg value) {
         this.logmsg = value;
@@ -608,9 +540,7 @@ public class Event {
      * Gets the value of the severity property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getSeverity() {
         return severity;
@@ -620,9 +550,7 @@ public class Event {
      * Sets the value of the severity property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setSeverity(String value) {
         this.severity = value;
@@ -632,9 +560,7 @@ public class Event {
      * Gets the value of the pathoutage property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getPathoutage() {
         return pathoutage;
@@ -644,9 +570,7 @@ public class Event {
      * Sets the value of the pathoutage property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setPathoutage(String value) {
         this.pathoutage = value;
@@ -656,9 +580,7 @@ public class Event {
      * The event correlation information
      *
      * @return
-     *     possible object is
-     *     {@link Correlation }
-     *
+     *         possible object is {@link Correlation }
      */
     public Correlation getCorrelation() {
         return correlation;
@@ -668,9 +590,7 @@ public class Event {
      * Sets the value of the correlation property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Correlation }
-     *
+     *            allowed object is {@link Correlation }
      */
     public void setCorrelation(Correlation value) {
         this.correlation = value;
@@ -680,9 +600,7 @@ public class Event {
      * Gets the value of the operinstruct property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getOperinstruct() {
         return operinstruct;
@@ -692,9 +610,7 @@ public class Event {
      * Sets the value of the operinstruct property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setOperinstruct(String value) {
         this.operinstruct = value;
@@ -702,26 +618,21 @@ public class Event {
 
     /**
      * The automatic action to occur when this event
-     *             occurs Gets the value of the autoaction property.
-     *
+     * occurs Gets the value of the autoaction property.
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the autoaction property.
-     *
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the autoaction property.
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getAutoaction().add(newItem);
+     * getAutoaction().add(newItem);
      * </pre>
-     *
-     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Autoaction }
-     *
-     *
      */
     public List<Autoaction> getAutoaction() {
         if (autoaction == null) {
@@ -732,26 +643,21 @@ public class Event {
 
     /**
      * The operator action to be taken when this event
-     *             occurs Gets the value of the operaction property.
-     *
+     * occurs Gets the value of the operaction property.
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the operaction property.
-     *
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the operaction property.
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getOperaction().add(newItem);
+     * getOperaction().add(newItem);
      * </pre>
-     *
-     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Operaction }
-     *
-     *
      */
     public List<Operaction> getOperaction() {
         if (operaction == null) {
@@ -762,12 +668,10 @@ public class Event {
 
     /**
      * The autoacknowledge information for the
-     *             user
+     * user
      *
      * @return
-     *     possible object is
-     *     {@link Autoacknowledge }
-     *
+     *         possible object is {@link Autoacknowledge }
      */
     public Autoacknowledge getAutoacknowledge() {
         return autoacknowledge;
@@ -777,9 +681,7 @@ public class Event {
      * Sets the value of the autoacknowledge property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Autoacknowledge }
-     *
+     *            allowed object is {@link Autoacknowledge }
      */
     public void setAutoacknowledge(Autoacknowledge value) {
         this.autoacknowledge = value;
@@ -787,25 +689,19 @@ public class Event {
 
     /**
      * Gets the value of the loggroup property.
-     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the loggroup property.
-     *
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the loggroup property.
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getLoggroup().add(newItem);
+     * getLoggroup().add(newItem);
      * </pre>
-     *
-     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     *
-     *
+     * Objects of the following type(s) are allowed in the list {@link String }
      */
     public List<String> getLoggroup() {
         if (loggroup == null) {
@@ -818,9 +714,7 @@ public class Event {
      * The trouble ticket info
      *
      * @return
-     *     possible object is
-     *     {@link Tticket }
-     *
+     *         possible object is {@link Tticket }
      */
     public Tticket getTticket() {
         return tticket;
@@ -830,9 +724,7 @@ public class Event {
      * Sets the value of the tticket property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Tticket }
-     *
+     *            allowed object is {@link Tticket }
      */
     public void setTticket(Tticket value) {
         this.tticket = value;
@@ -840,26 +732,20 @@ public class Event {
 
     /**
      * The forwarding information for this
-     *             event Gets the value of the forward property.
-     *
+     * event Gets the value of the forward property.
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the forward property.
-     *
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the forward property.
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getForward().add(newItem);
+     * getForward().add(newItem);
      * </pre>
-     *
-     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Forward }
-     *
-     *
+     * Objects of the following type(s) are allowed in the list {@link Forward }
      */
     public List<Forward> getForward() {
         if (forward == null) {
@@ -870,26 +756,20 @@ public class Event {
 
     /**
      * The script information for this
-     *             event Gets the value of the script property.
-     *
+     * event Gets the value of the script property.
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the script property.
-     *
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the script property.
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getScript().add(newItem);
+     * getScript().add(newItem);
      * </pre>
-     *
-     *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Script }
-     *
-     *
+     * Objects of the following type(s) are allowed in the list {@link Script }
      */
     public List<Script> getScript() {
         if (script == null) {
@@ -902,9 +782,7 @@ public class Event {
      * Gets the value of the ifIndex property.
      *
      * @return
-     *     possible object is
-     *     {@link Integer }
-     *
+     *         possible object is {@link Integer }
      */
     public Integer getIfIndex() {
         return ifIndex;
@@ -914,9 +792,7 @@ public class Event {
      * Sets the value of the ifIndex property.
      *
      * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *
+     *            allowed object is {@link Integer }
      */
     public void setIfIndex(Integer value) {
         this.ifIndex = value;
@@ -926,9 +802,7 @@ public class Event {
      * Gets the value of the ifAlias property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getIfAlias() {
         return ifAlias;
@@ -938,9 +812,7 @@ public class Event {
      * Sets the value of the ifAlias property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setIfAlias(String value) {
         this.ifAlias = value;
@@ -950,9 +822,7 @@ public class Event {
      * Gets the value of the mouseovertext property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getMouseovertext() {
         return mouseovertext;
@@ -962,9 +832,7 @@ public class Event {
      * Sets the value of the mouseovertext property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setMouseovertext(String value) {
         this.mouseovertext = value;
@@ -974,9 +842,7 @@ public class Event {
      * Data used to create an event.
      *
      * @return
-     *     possible object is
-     *     {@link AlarmData }
-     *
+     *         possible object is {@link AlarmData }
      */
     public AlarmData getAlarmData() {
         return alarmData;
@@ -986,9 +852,7 @@ public class Event {
      * Sets the value of the alarmData property.
      *
      * @param value
-     *     allowed object is
-     *     {@link AlarmData }
-     *
+     *            allowed object is {@link AlarmData }
      */
     public void setAlarmData(AlarmData value) {
         this.alarmData = value;
@@ -998,9 +862,7 @@ public class Event {
      * Gets the value of the uuid property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
-     *
+     *         possible object is {@link String }
      */
     public String getUuid() {
         return uuid;
@@ -1010,9 +872,7 @@ public class Event {
      * Sets the value of the uuid property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *
+     *            allowed object is {@link String }
      */
     public void setUuid(String value) {
         this.uuid = value;

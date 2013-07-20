@@ -41,7 +41,9 @@ import org.opennms.protocols.nsclient.AbstractNsclientTest;
 import org.opennms.protocols.nsclient.monitor.NsclientMonitor;
 
 /**
- * <p>JUnit Test Class for NsclientMonitor.</p>
+ * <p>
+ * JUnit Test Class for NsclientMonitor.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
@@ -107,14 +109,17 @@ public class NsclientMonitorTest extends AbstractNsclientTest {
                     public int getType() {
                         return NetworkInterface.TYPE_INET;
                     }
+
                     @Override
                     public InetAddress getAddress() {
                         return address;
                     }
+
                     @Override
                     public <V> V getAttribute(String property) {
                         return null;
                     }
+
                     @Override
                     public Object setAttribute(String property, Object value) {
                         return null;

@@ -36,7 +36,9 @@ import java.util.List;
 import javax.ws.rs.core.MultivaluedMap;
 
 /**
- * <p>MultivaluedMapImpl class.</p>
+ * <p>
+ * MultivaluedMapImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,68 +53,83 @@ public class MultivaluedMapImpl extends HashMap<String, List<String>> implements
     }
 
     /**
-	 * This constructor can be used as a convenience method to create populated
-	 * {@link MultivaluedMapImpl} instances.
-	 */
-	public MultivaluedMapImpl(String[][] keyValuePairs) {
-	    super();
-	    for (String[] keyValuePair : keyValuePairs) {
-	        this.add(keyValuePair[0], keyValuePair[1]);
-	    }
-	}
+     * This constructor can be used as a convenience method to create populated
+     * {@link MultivaluedMapImpl} instances.
+     */
+    public MultivaluedMapImpl(String[][] keyValuePairs) {
+        super();
+        for (String[] keyValuePair : keyValuePairs) {
+            this.add(keyValuePair[0], keyValuePair[1]);
+        }
+    }
 
-	/**
-	 * <p>add</p>
-	 *
-	 * @param key a {@link java.lang.String} object.
-	 * @param value a {@link java.lang.String} object.
-	 */
+    /**
+     * <p>
+     * add
+     * </p>
+     *
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
+     */
     @Override
-	public void add(String key, String value) {
-		List<String> valueList=super.get(key);
-		if(valueList==null) {
-			valueList=new ArrayList<String>();
-			super.put(key, valueList);
-		}
-		valueList.add(value);
-	}
+    public void add(String key, String value) {
+        List<String> valueList = super.get(key);
+        if (valueList == null) {
+            valueList = new ArrayList<String>();
+            super.put(key, valueList);
+        }
+        valueList.add(value);
+    }
 
-	/**
-	 * <p>getFirst</p>
-	 *
-	 * @param key a {@link java.lang.String} object.
-	 * @return a {@link java.lang.String} object.
-	 */
+    /**
+     * <p>
+     * getFirst
+     * </p>
+     *
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-	public String getFirst(String key) {
-		List<String> values=super.get(key);
-		if(values == null || values.size()==0) {
-			return null;
-		}
-		return values.get(0);
-	}
+    public String getFirst(String key) {
+        List<String> values = super.get(key);
+        if (values == null || values.size() == 0) {
+            return null;
+        }
+        return values.get(0);
+    }
 
-	/**
-	 * <p>putSingle</p>
-	 *
-	 * @param key a {@link java.lang.String} object.
-	 * @param value a {@link java.lang.String} object.
-	 */
+    /**
+     * <p>
+     * putSingle
+     * </p>
+     *
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
+     */
     @Override
-	public void putSingle(String key, String value) {
-		List<String> list=new ArrayList<String>();
-		list.add(value);
-		super.put(key, list);
-	}
+    public void putSingle(String key, String value) {
+        List<String> list = new ArrayList<String>();
+        list.add(value);
+        super.put(key, list);
+    }
 
-	/**
-	 * <p>put</p>
-	 *
-	 * @param key a {@link java.lang.String} object.
-	 * @param values a {@link java.lang.String} object.
-	 */
-	public void put(String key, String...values){
-	    put(key, new ArrayList<String>(Arrays.asList(values)));
-	}
+    /**
+     * <p>
+     * put
+     * </p>
+     *
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param values
+     *            a {@link java.lang.String} object.
+     */
+    public void put(String key, String... values) {
+        put(key, new ArrayList<String>(Arrays.asList(values)));
+    }
 
 }

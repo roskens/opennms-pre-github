@@ -55,5 +55,4 @@ public class IpListTest extends XmlTest<IpList> {
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
 
-
 }

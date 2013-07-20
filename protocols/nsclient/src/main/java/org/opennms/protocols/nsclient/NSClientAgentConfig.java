@@ -31,7 +31,9 @@ package org.opennms.protocols.nsclient;
 import java.net.InetAddress;
 
 /**
- * <p>NSClientAgentConfig class.</p>
+ * <p>
+ * NSClientAgentConfig class.
+ * </p>
  *
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  * @version $Id: $
@@ -39,31 +41,42 @@ import java.net.InetAddress;
 public class NSClientAgentConfig {
     /** Constant <code>DEFAULT_TIMEOUT=3000</code> */
     public static final int DEFAULT_TIMEOUT = 3000;
+
     /** Constant <code>DEFAULT_PORT=1248</code> */
     public static final int DEFAULT_PORT = 1248;
+
     /** Constant <code>DEFAULT_RETRIES=1</code> */
     public static final int DEFAULT_RETRIES = 1;
+
     /** Constant <code>DEFAULT_PASSWORD="None"</code> */
     public static final String DEFAULT_PASSWORD = "None";
 
     private InetAddress m_address;
+
     private int m_timeout;
+
     private int m_retries;
+
     private int m_port;
+
     private String m_password;
 
-
     /**
-     * <p>Constructor for NSClientAgentConfig.</p>
+     * <p>
+     * Constructor for NSClientAgentConfig.
+     * </p>
      */
     public NSClientAgentConfig() {
         setDefaults();
     }
 
     /**
-     * <p>Constructor for NSClientAgentConfig.</p>
+     * <p>
+     * Constructor for NSClientAgentConfig.
+     * </p>
      *
-     * @param agentAddress a {@link java.net.InetAddress} object.
+     * @param agentAddress
+     *            a {@link java.net.InetAddress} object.
      */
     public NSClientAgentConfig(InetAddress agentAddress) {
         m_address = agentAddress;
@@ -78,25 +91,32 @@ public class NSClientAgentConfig {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
         StringBuffer buff = new StringBuffer("AgentConfig[");
-        buff.append("Address: "+m_address);
-        buff.append(", Port: "+m_port);
-        buff.append(", Password: "+String.valueOf(m_password)); //use valueOf to handle null values of m_password
-        buff.append(", Timeout: "+m_timeout);
-        buff.append(", Retries: "+m_retries);
+        buff.append("Address: " + m_address);
+        buff.append(", Port: " + m_port);
+        buff.append(", Password: " + String.valueOf(m_password)); // use valueOf
+                                                                  // to handle
+                                                                  // null values
+                                                                  // of
+                                                                  // m_password
+        buff.append(", Timeout: " + m_timeout);
+        buff.append(", Retries: " + m_retries);
         buff.append("]");
         return buff.toString();
     }
 
-
     /**
-     * <p>getAddress</p>
+     * <p>
+     * getAddress
+     * </p>
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -105,16 +125,21 @@ public class NSClientAgentConfig {
     }
 
     /**
-     * <p>setAddress</p>
+     * <p>
+     * setAddress
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      */
     public void setAddress(InetAddress address) {
         m_address = address;
     }
 
     /**
-     * <p>getPort</p>
+     * <p>
+     * getPort
+     * </p>
      *
      * @return a int.
      */
@@ -123,16 +148,21 @@ public class NSClientAgentConfig {
     }
 
     /**
-     * <p>setPort</p>
+     * <p>
+     * setPort
+     * </p>
      *
-     * @param port a int.
+     * @param port
+     *            a int.
      */
     public void setPort(int port) {
         m_port = port;
     }
 
     /**
-     * <p>getTimeout</p>
+     * <p>
+     * getTimeout
+     * </p>
      *
      * @return a int.
      */
@@ -141,16 +171,21 @@ public class NSClientAgentConfig {
     }
 
     /**
-     * <p>setTimeout</p>
+     * <p>
+     * setTimeout
+     * </p>
      *
-     * @param timeout a int.
+     * @param timeout
+     *            a int.
      */
     public void setTimeout(int timeout) {
         m_timeout = timeout;
     }
 
     /**
-     * <p>getRetries</p>
+     * <p>
+     * getRetries
+     * </p>
      *
      * @return a int.
      */
@@ -159,25 +194,33 @@ public class NSClientAgentConfig {
     }
 
     /**
-     * <p>setRetries</p>
+     * <p>
+     * setRetries
+     * </p>
      *
-     * @param retries a int.
+     * @param retries
+     *            a int.
      */
     public void setRetries(int retries) {
         m_retries = retries;
     }
 
     /**
-     * <p>setPassword</p>
+     * <p>
+     * setPassword
+     * </p>
      *
-     * @param password a {@link java.lang.String} object.
+     * @param password
+     *            a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
         m_password = password;
     }
 
     /**
-     * <p>getPassword</p>
+     * <p>
+     * getPassword
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

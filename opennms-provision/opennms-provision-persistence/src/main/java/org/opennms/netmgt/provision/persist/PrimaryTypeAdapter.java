@@ -36,12 +36,12 @@ public class PrimaryTypeAdapter extends XmlAdapter<String, PrimaryType> {
 
     @Override
     public String marshal(final PrimaryType type) throws Exception {
-        return type == null? null : type.getCode();
+        return type == null ? null : type.getCode();
     }
 
     @Override
     public PrimaryType unmarshal(final String typeCode) throws Exception {
-        return typeCode == null? null : PrimaryType.get(typeCode);
+        return typeCode == null ? null : PrimaryType.get(typeCode);
     }
 
 }

@@ -55,16 +55,17 @@ import org.hibernate.annotations.Type;
 import org.opennms.core.xml.bind.InetAddressXmlAdapter;
 import org.springframework.core.style.ToStringCreator;
 
-
 /**
- * <p>OnmsOutage class.</p>
+ * <p>
+ * OnmsOutage class.
+ * </p>
  *
  * @hibernate.class table="outages"
  */
-@XmlRootElement(name="outage")
+@XmlRootElement(name = "outage")
 @Entity
-@Table(name="outages")
-@Filter(name=FilterManager.AUTH_FILTER_NAME, condition="exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
+@Table(name = "outages")
+@Filter(name = FilterManager.AUTH_FILTER_NAME, condition = "exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
 public class OnmsOutage implements Serializable {
 
     /**
@@ -99,15 +100,24 @@ public class OnmsOutage implements Serializable {
     /**
      * full constructor
      *
-     * @param ifLostService a {@link java.util.Date} object.
-     * @param ifRegainedService a {@link java.util.Date} object.
-     * @param eventBySvcRegainedEvent a {@link org.opennms.netmgt.model.OnmsEvent} object.
-     * @param eventBySvcLostEvent a {@link org.opennms.netmgt.model.OnmsEvent} object.
-     * @param monitoredService a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
-     * @param suppressTime a {@link java.util.Date} object.
-     * @param suppressedBy a {@link java.lang.String} object.
+     * @param ifLostService
+     *            a {@link java.util.Date} object.
+     * @param ifRegainedService
+     *            a {@link java.util.Date} object.
+     * @param eventBySvcRegainedEvent
+     *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
+     * @param eventBySvcLostEvent
+     *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
+     * @param monitoredService
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
+     * @param suppressTime
+     *            a {@link java.util.Date} object.
+     * @param suppressedBy
+     *            a {@link java.lang.String} object.
      */
-    public OnmsOutage(Date ifLostService, Date ifRegainedService, OnmsEvent eventBySvcRegainedEvent, OnmsEvent eventBySvcLostEvent, OnmsMonitoredService monitoredService, Date suppressTime, String suppressedBy) {
+    public OnmsOutage(Date ifLostService, Date ifRegainedService, OnmsEvent eventBySvcRegainedEvent,
+            OnmsEvent eventBySvcLostEvent, OnmsMonitoredService monitoredService, Date suppressTime, String suppressedBy) {
         m_ifLostService = ifLostService;
         m_ifRegainedService = ifRegainedService;
         m_serviceRegainedEvent = eventBySvcRegainedEvent;
@@ -127,9 +137,13 @@ public class OnmsOutage implements Serializable {
     /**
      * minimal constructor
      *
-     * @param ifLostService a {@link java.util.Date} object.
-     * @param eventBySvcLostEvent a {@link org.opennms.netmgt.model.OnmsEvent} object.
-     * @param monitoredService a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
+     * @param ifLostService
+     *            a {@link java.util.Date} object.
+     * @param eventBySvcLostEvent
+     *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
+     * @param monitoredService
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
      */
     public OnmsOutage(Date ifLostService, OnmsEvent eventBySvcLostEvent, OnmsMonitoredService monitoredService) {
         m_ifLostService = ifLostService;
@@ -138,23 +152,28 @@ public class OnmsOutage implements Serializable {
     }
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @XmlAttribute(name="id")
-    @Column(name="outageId", nullable=false)
-    @SequenceGenerator(name="outageSequence", sequenceName="outageNxtId")
-    @GeneratedValue(generator="outageSequence")
+    @XmlAttribute(name = "id")
+    @Column(name = "outageId", nullable = false)
+    @SequenceGenerator(name = "outageSequence", sequenceName = "outageNxtId")
+    @GeneratedValue(generator = "outageSequence")
     public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param outageId a {@link java.lang.Integer} object.
+     * @param outageId
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer outageId) {
         m_id = outageId;
@@ -162,41 +181,51 @@ public class OnmsOutage implements Serializable {
 
     // @XmlTransient
     /**
-     * <p>getMonitoredService</p>
+     * <p>
+     * getMonitoredService
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
     @ManyToOne
-    @JoinColumn(name="ifserviceId")
+    @JoinColumn(name = "ifserviceId")
     public OnmsMonitoredService getMonitoredService() {
         return m_monitoredService;
     }
 
     /**
-     * <p>setMonitoredService</p>
+     * <p>
+     * setMonitoredService
+     * </p>
      *
-     * @param monitoredService a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
+     * @param monitoredService
+     *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
+     *            object.
      */
     public void setMonitoredService(OnmsMonitoredService monitoredService) {
         m_monitoredService = monitoredService;
     }
 
-
     /**
-     * <p>getIfLostService</p>
+     * <p>
+     * getIfLostService
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="ifLostService", nullable=false)
+    @Column(name = "ifLostService", nullable = false)
     public Date getIfLostService() {
         return m_ifLostService;
     }
 
     /**
-     * <p>setIfLostService</p>
+     * <p>
+     * setIfLostService
+     * </p>
      *
-     * @param ifLostService a {@link java.util.Date} object.
+     * @param ifLostService
+     *            a {@link java.util.Date} object.
      */
     public void setIfLostService(Date ifLostService) {
         m_ifLostService = ifLostService;
@@ -204,41 +233,50 @@ public class OnmsOutage implements Serializable {
 
     // @XmlTransient
     /**
-     * <p>getServiceLostEvent</p>
+     * <p>
+     * getServiceLostEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsEvent} object.
      */
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="svcLostEventId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "svcLostEventId")
     public OnmsEvent getServiceLostEvent() {
         return m_serviceLostEvent;
     }
 
     /**
-     * <p>setServiceLostEvent</p>
+     * <p>
+     * setServiceLostEvent
+     * </p>
      *
-     * @param svcLostEvent a {@link org.opennms.netmgt.model.OnmsEvent} object.
+     * @param svcLostEvent
+     *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
      */
     public void setServiceLostEvent(OnmsEvent svcLostEvent) {
         m_serviceLostEvent = svcLostEvent;
     }
 
-
     /**
-     * <p>getIfRegainedService</p>
+     * <p>
+     * getIfRegainedService
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="ifRegainedService")
+    @Column(name = "ifRegainedService")
     public Date getIfRegainedService() {
         return m_ifRegainedService;
     }
 
     /**
-     * <p>setIfRegainedService</p>
+     * <p>
+     * setIfRegainedService
+     * </p>
      *
-     * @param ifRegainedService a {@link java.util.Date} object.
+     * @param ifRegainedService
+     *            a {@link java.util.Date} object.
      */
     public void setIfRegainedService(Date ifRegainedService) {
         m_ifRegainedService = ifRegainedService;
@@ -246,91 +284,110 @@ public class OnmsOutage implements Serializable {
 
     // @XmlTransient
     /**
-     * <p>getServiceRegainedEvent</p>
+     * <p>
+     * getServiceRegainedEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsEvent} object.
      */
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="svcRegainedEventId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "svcRegainedEventId")
     public OnmsEvent getServiceRegainedEvent() {
         return m_serviceRegainedEvent;
     }
 
     /**
-     * <p>setServiceRegainedEvent</p>
+     * <p>
+     * setServiceRegainedEvent
+     * </p>
      *
-     * @param svcRegainedEvent a {@link org.opennms.netmgt.model.OnmsEvent} object.
+     * @param svcRegainedEvent
+     *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
      */
     public void setServiceRegainedEvent(OnmsEvent svcRegainedEvent) {
         m_serviceRegainedEvent = svcRegainedEvent;
     }
 
     /**
-     * <p>getSuppressTime</p>
+     * <p>
+     * getSuppressTime
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="suppressTime")
-    public Date getSuppressTime(){
-    	return m_suppressTime;
+    @Column(name = "suppressTime")
+    public Date getSuppressTime() {
+        return m_suppressTime;
     }
 
     /**
-     * <p>setSuppressTime</p>
+     * <p>
+     * setSuppressTime
+     * </p>
      *
-     * @param timeToSuppress a {@link java.util.Date} object.
+     * @param timeToSuppress
+     *            a {@link java.util.Date} object.
      */
-    public void setSuppressTime(Date timeToSuppress){
-    	m_suppressTime = timeToSuppress;
+    public void setSuppressTime(Date timeToSuppress) {
+        m_suppressTime = timeToSuppress;
     }
 
-
     /**
-     * <p>getSuppressedBy</p>
+     * <p>
+     * getSuppressedBy
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="suppressedBy")
-    public String getSuppressedBy(){
-    	return m_suppressedBy;
+    @Column(name = "suppressedBy")
+    public String getSuppressedBy() {
+        return m_suppressedBy;
     }
 
     /**
-     * <p>setSuppressedBy</p>
+     * <p>
+     * setSuppressedBy
+     * </p>
      *
-     * @param suppressorMan a {@link java.lang.String} object.
+     * @param suppressorMan
+     *            a {@link java.lang.String} object.
      */
-    public void setSuppressedBy(String suppressorMan){
-    	m_suppressedBy = suppressorMan;
+    public void setSuppressedBy(String suppressorMan) {
+        m_suppressedBy = suppressorMan;
     }
 
-
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Transient
-    public Integer getNodeId(){
-    	return getMonitoredService().getNodeId();
+    public Integer getNodeId() {
+        return getMonitoredService().getNodeId();
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Transient
-    @XmlElement(name="ipAddress")
-    @Type(type="org.opennms.netmgt.model.InetAddressUserType")
+    @XmlElement(name = "ipAddress")
+    @Type(type = "org.opennms.netmgt.model.InetAddressUserType")
     @XmlJavaTypeAdapter(InetAddressXmlAdapter.class)
     public InetAddress getIpAddress() {
         return getMonitoredService().getIpAddress();
     }
 
     /**
-     * <p>getIpAddressAsString</p>
+     * <p>
+     * getIpAddressAsString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      * @deprecated use getIpAddress
@@ -342,30 +399,31 @@ public class OnmsOutage implements Serializable {
     }
 
     /**
-     * <p>getServiceId</p>
+     * <p>
+     * getServiceId
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Transient
     public Integer getServiceId() {
-    	return getMonitoredService().getServiceId();
+        return getMonitoredService().getServiceId();
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-            .append("outageId", m_id)
-            .append("ifLostService", m_ifLostService)
-            .append("ifRegainedService", m_ifRegainedService)
-            .append("service", m_monitoredService)
-            .append("suppressedBy", m_suppressedBy)
-            .append("suppressTime", m_suppressTime)
-            .toString();
+        return new ToStringCreator(this).append("outageId", m_id).append("ifLostService", m_ifLostService).append("ifRegainedService",
+                                                                                                                  m_ifRegainedService).append("service",
+                                                                                                                                              m_monitoredService).append("suppressedBy",
+                                                                                                                                                                         m_suppressedBy).append("suppressTime",
+                                                                                                                                                                                                m_suppressTime).toString();
     }
 
 }

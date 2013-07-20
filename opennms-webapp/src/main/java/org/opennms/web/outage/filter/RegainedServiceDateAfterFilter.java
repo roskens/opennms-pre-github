@@ -34,7 +34,9 @@ import org.opennms.web.filter.GreaterThanFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>RegainedServiceDateAfterFilter class.</p>
+ * <p>
+ * RegainedServiceDateAfterFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,25 +47,33 @@ public class RegainedServiceDateAfterFilter extends GreaterThanFilter<Date> {
     public static final String TYPE = "regainedafter";
 
     /**
-     * <p>Constructor for RegainedServiceDateAfterFilter.</p>
+     * <p>
+     * Constructor for RegainedServiceDateAfterFilter.
+     * </p>
      *
-     * @param date a {@link java.util.Date} object.
+     * @param date
+     *            a {@link java.util.Date} object.
      */
     public RegainedServiceDateAfterFilter(Date date) {
         super(TYPE, SQLType.DATE, "OUTAGES.IFREGAINEDSERVICE", "ifRegainedService", date);
     }
 
     /**
-     * <p>Constructor for RegainedServiceDateAfterFilter.</p>
+     * <p>
+     * Constructor for RegainedServiceDateAfterFilter.
+     * </p>
      *
-     * @param epochTime a long.
+     * @param epochTime
+     *            a long.
      */
     public RegainedServiceDateAfterFilter(long epochTime) {
         this(new Date(epochTime));
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -73,7 +83,9 @@ public class RegainedServiceDateAfterFilter extends GreaterThanFilter<Date> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,7 +95,9 @@ public class RegainedServiceDateAfterFilter extends GreaterThanFilter<Date> {
     }
 
     /**
-     * <p>getDate</p>
+     * <p>
+     * getDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */

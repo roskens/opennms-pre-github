@@ -32,7 +32,9 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * <p>Abstract InFilter class.</p>
+ * <p>
+ * Abstract InFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,16 +43,24 @@ import org.hibernate.criterion.Restrictions;
 public abstract class InFilter<T> extends MultiArgFilter<T> {
 
     /**
-     * <p>Constructor for InFilter.</p>
+     * <p>
+     * Constructor for InFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param type a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param values an array of T objects.
-     * @param <T> a T object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param type
+     *            a {@link org.opennms.web.filter.SQLType} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param values
+     *            an array of T objects.
+     * @param <T>
+     *            a T object.
      */
-    public InFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T[] values){
+    public InFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T[] values) {
         super(filterType, type, fieldName, propertyName, values);
     }
 
@@ -68,7 +78,7 @@ public abstract class InFilter<T> extends MultiArgFilter<T> {
         buf.append(" IN (");
         T[] values = getValues();
 
-        for(int i = 0; i < values.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             if (i != 0) {
                 buf.append(", ");
             }

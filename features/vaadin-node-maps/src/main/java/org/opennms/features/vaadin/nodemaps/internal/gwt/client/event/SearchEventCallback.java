@@ -24,9 +24,9 @@ public abstract class SearchEventCallback extends DomEventCallback {
 
     @Override
     protected native JSObject getCallbackFunction(final GwtCallback callback) /*-{
-        var self = callback;
-        return function(event) {
-            self.@org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.SearchEventCallback::onEvent(Lcom/google/gwt/dom/client/NativeEvent;)(event);
-        }
-    }-*/;
+                                                                              var self = callback;
+                                                                              return function(event) {
+                                                                              self.@org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.SearchEventCallback::onEvent(Lcom/google/gwt/dom/client/NativeEvent;)(event);
+                                                                              }
+                                                                              }-*/;
 }

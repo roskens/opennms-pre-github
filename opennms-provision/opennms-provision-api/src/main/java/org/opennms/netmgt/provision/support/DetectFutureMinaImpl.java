@@ -35,7 +35,9 @@ import org.opennms.netmgt.provision.DetectFuture;
 import org.opennms.netmgt.provision.DetectFutureListener;
 
 /**
- * <p>DefaultDetectFuture class.</p>
+ * <p>
+ * DefaultDetectFuture class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -45,9 +47,13 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
     private final AsyncServiceDetector m_detector;
 
     /**
-     * <p>Constructor for DefaultDetectFuture.</p>
+     * <p>
+     * Constructor for DefaultDetectFuture.
+     * </p>
      *
-     * @param detector a {@link org.opennms.netmgt.provision.AsyncServiceDetector} object.
+     * @param detector
+     *            a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
+     *            object.
      */
     public DetectFutureMinaImpl(final AsyncServiceDetector detector) {
         super(null);
@@ -55,9 +61,12 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
     }
 
     /**
-     * <p>getServiceDetector</p>
+     * <p>
+     * getServiceDetector
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector} object.
+     * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
+     *         object.
      */
     @Override
     public AsyncServiceDetector getServiceDetector() {
@@ -65,7 +74,9 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
     }
 
     /**
-     * <p>isServiceDetected</p>
+     * <p>
+     * isServiceDetected
+     * </p>
      *
      * @return a boolean.
      */
@@ -75,7 +86,9 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
     }
 
     /**
-     * <p>getException</p>
+     * <p>
+     * getException
+     * </p>
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -83,7 +96,7 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
     public Throwable getException() {
         final Object val = getValue();
         if (val instanceof Throwable) {
-            return (Throwable)val;
+            return (Throwable) val;
         }
         return null;
     }
@@ -97,12 +110,14 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
     /** {@inheritDoc} */
     @Override
     public void setException(final Throwable throwable) {
-//        System.err.println("setting exception to " + throwable);
+        // System.err.println("setting exception to " + throwable);
         setValue(throwable);
     }
 
     /**
-     * <p>getObjectValue</p>
+     * <p>
+     * getObjectValue
+     * </p>
      *
      * @return a {@link java.lang.Object} object.
      */

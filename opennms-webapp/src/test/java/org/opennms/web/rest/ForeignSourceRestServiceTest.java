@@ -37,11 +37,8 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 
-
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/component-dao.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/component-dao.xml" })
 @JUnitConfigurationEnvironment
 public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
@@ -106,23 +103,21 @@ public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCa
     }
 
     private void createForeignSource() throws Exception {
-        String fs =
-            "<foreign-source xmlns=\"http://xmlns.opennms.org/xsd/config/foreign-source\" name=\"test\">" +
-                "<scan-interval>1d</scan-interval>" +
-                "<detectors>" +
-                    "<detector class=\"org.opennms.netmgt.provision.detector.datagram.DnsDetector\" name=\"DNS\"/>" +
-                    "<detector class=\"org.opennms.netmgt.provision.detector.simple.HttpDetector\" name=\"HTTP\"/>" +
-                    "<detector class=\"org.opennms.netmgt.provision.detector.simple.HttpsDetector\" name=\"HTTPS\"/>" +
-                    "<detector class=\"org.opennms.netmgt.provision.detector.icmp.IcmpDetector\" name=\"ICMP\"/>" +
-                "</detectors>" +
-                "<policies>" +
-                    "<policy name=\"lower-case-node\" class=\"org.opennms.netmgt.provision.persist.policies.NodeCategoryPolicy\">" +
-                        "<parameter key=\"label\" value=\"~^[a-z]$\" />" +
-                        "<parameter key=\"category\" value=\"Lower-Case-Nodes\" />" +
-                    "</policy>" +
-                    "<policy name=\"all-ipinterfaces\" class=\"org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy\" />" +
-                "</policies>" +
-            "</foreign-source>";
+        String fs = "<foreign-source xmlns=\"http://xmlns.opennms.org/xsd/config/foreign-source\" name=\"test\">"
+                + "<scan-interval>1d</scan-interval>"
+                + "<detectors>"
+                + "<detector class=\"org.opennms.netmgt.provision.detector.datagram.DnsDetector\" name=\"DNS\"/>"
+                + "<detector class=\"org.opennms.netmgt.provision.detector.simple.HttpDetector\" name=\"HTTP\"/>"
+                + "<detector class=\"org.opennms.netmgt.provision.detector.simple.HttpsDetector\" name=\"HTTPS\"/>"
+                + "<detector class=\"org.opennms.netmgt.provision.detector.icmp.IcmpDetector\" name=\"ICMP\"/>"
+                + "</detectors>"
+                + "<policies>"
+                + "<policy name=\"lower-case-node\" class=\"org.opennms.netmgt.provision.persist.policies.NodeCategoryPolicy\">"
+                + "<parameter key=\"label\" value=\"~^[a-z]$\" />"
+                + "<parameter key=\"category\" value=\"Lower-Case-Nodes\" />"
+                + "</policy>"
+                + "<policy name=\"all-ipinterfaces\" class=\"org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy\" />"
+                + "</policies>" + "</foreign-source>";
         MockHttpServletResponse response = sendPost("/foreignSources", fs, 303, "/foreignSources/test");
         System.err.println("response = " + stringifyResponse(response));
     }

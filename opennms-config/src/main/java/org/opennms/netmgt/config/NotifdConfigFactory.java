@@ -41,8 +41,11 @@ import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
+
 /**
- * <p>NotifdConfigFactory class.</p>
+ * <p>
+ * NotifdConfigFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -75,7 +78,9 @@ public class NotifdConfigFactory extends NotifdConfigManager {
     }
 
     /**
-     * <p>Getter for the field <code>instance</code>.</p>
+     * <p>
+     * Getter for the field <code>instance</code>.
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.NotifdConfigFactory} object.
      */
@@ -87,14 +92,21 @@ public class NotifdConfigFactory extends NotifdConfigManager {
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+    public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
+            ValidationException {
         if (!initialized) {
             instance = new NotifdConfigFactory();
             instance.reload();
@@ -103,12 +115,18 @@ public class NotifdConfigFactory extends NotifdConfigManager {
     }
 
     /**
-     * <p>reload</p>
+     * <p>
+     * reload
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         m_notifdConfFile = ConfigFileConstants.getFile(ConfigFileConstants.NOTIFD_CONFIG_FILE_NAME);
@@ -129,12 +147,14 @@ public class NotifdConfigFactory extends NotifdConfigManager {
      * Gets a nicely formatted string for the Web UI to display
      *
      * @return On, Off, or Unknown depending on status
-     *
-     * TODO: Pull up into base class but keep this reference for the
-     * webapp until singleton is removed.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     *         TODO: Pull up into base class but keep this reference for the
+     *         webapp until singleton is removed.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static String getPrettyStatus() throws IOException, MarshalException, ValidationException {
         if (!initialized)
@@ -164,11 +184,16 @@ public class NotifdConfigFactory extends NotifdConfigManager {
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Override
     protected synchronized void update() throws IOException, MarshalException, ValidationException {
@@ -176,6 +201,5 @@ public class NotifdConfigFactory extends NotifdConfigManager {
             NotifdConfigFactory.getInstance().reload();
         }
     }
-
 
 }

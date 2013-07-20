@@ -34,25 +34,34 @@ import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.alarm.AlarmSummary;
 
 /**
- * <p>AlarmDao interface.</p>
+ * <p>
+ * AlarmDao interface.
+ * </p>
  */
 public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
 
     /**
-     * <p>findByReductionKey</p>
+     * <p>
+     * findByReductionKey
+     * </p>
      *
-     * @param reductionKey a {@link java.lang.String} object.
+     * @param reductionKey
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
      */
     OnmsAlarm findByReductionKey(String reductionKey);
 
     /**
-     * <p>Get the list of current alarms per node with severity greater than normal,
-     * reflecting the max severity, the minimum last event time and alarm count;
-     * ordered by the oldest.</p>
+     * <p>
+     * Get the list of current alarms per node with severity greater than
+     * normal, reflecting the max severity, the minimum last event time and
+     * alarm count; ordered by the oldest.
+     * </p>
      *
      * @return A list of alarm summaries.
-     * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
+     * @param nodeIds
+     *            If you want to restrict the NodeAlarmSummaries to specific
+     *            nodes (optional)
      */
     List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
 

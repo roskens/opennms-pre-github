@@ -49,12 +49,13 @@ import org.springframework.context.access.DefaultLocatorFactory;
  */
 public abstract class BeanUtils {
 
-	public static final Logger LOG = LoggerFactory.getLogger(BeanUtils.class);
+    public static final Logger LOG = LoggerFactory.getLogger(BeanUtils.class);
 
     /**
      * Get a Spring BeanFactory by context ID.
      *
-     * @param contextId the context ID of the BeanFactory to fetch
+     * @param contextId
+     *            the context ID of the BeanFactory to fetch
      * @return the BeanFactory
      */
     public static BeanFactoryReference getBeanFactory(String contextId) {
@@ -63,13 +64,17 @@ public abstract class BeanUtils {
     }
 
     /**
-     * Get a Spring bean by name.  Uses Java 5 generics to cast the returned
+     * Get a Spring bean by name. Uses Java 5 generics to cast the returned
      * class to the appropriate type.
      *
-     * @param <T> class for the returned bean
-     * @param beanFactory bean factory to use to fetch this bean
-     * @param beanId ID of the bean to fetch
-     * @param clazz class representing the type for the returned bean
+     * @param <T>
+     *            class for the returned bean
+     * @param beanFactory
+     *            bean factory to use to fetch this bean
+     * @param beanId
+     *            ID of the bean to fetch
+     * @param clazz
+     *            class representing the type for the returned bean
      * @return bean for given bean ID casted to the appropriate class
      */
     public static <T> T getBean(BeanFactoryReference beanFactory, String beanId, Class<T> clazz) {
@@ -79,11 +84,15 @@ public abstract class BeanUtils {
     /**
      * Helper method that combines getBeanFactory and getBean.
      *
-     * @param <T> class for the returned bean
-     * @param contextId the context ID of the BeanFactory from which to fetch
-     *      this bean
-     * @param beanId ID of the bean to fetch
-     * @param clazz class representing the type for the returned bean
+     * @param <T>
+     *            class for the returned bean
+     * @param contextId
+     *            the context ID of the BeanFactory from which to fetch
+     *            this bean
+     * @param beanId
+     *            ID of the bean to fetch
+     * @param clazz
+     *            class representing the type for the returned bean
      * @return bean for given bean ID casted to the appropriate class
      */
     public static <T> T getBean(String contextId, String beanId, Class<T> clazz) {
@@ -94,9 +103,12 @@ public abstract class BeanUtils {
      * Helper method that calls getBeanFactory(contextId).getFactory()
      * and casts the result.
      *
-     * @param <T> class for the returned factory
-     * @param contextId the context ID of the BeanFactory to fetch
-     * @param clazz class representing the type for the returned factory
+     * @param <T>
+     *            class for the returned factory
+     * @param contextId
+     *            the context ID of the BeanFactory to fetch
+     * @param clazz
+     *            class representing the type for the returned factory
      * @return the factory casted to <T>
      */
     @SuppressWarnings("unchecked")
@@ -117,7 +129,8 @@ public abstract class BeanUtils {
                     notNull(field.get(instance), "@Autowired/@Resource field " + field.getName() + " cannot be null");
                     LOG.debug("{} is not null", field.getName());
                 } catch (IllegalAccessException e) {
-                    throw new IllegalArgumentException("Illegal access to @Autowired/@Resource field " + field.getName());
+                    throw new IllegalArgumentException("Illegal access to @Autowired/@Resource field "
+                            + field.getName());
                 }
             }
         }

@@ -54,18 +54,20 @@ public class StringUtilsTest {
 
     @Test
     public void testWindowsPaths() {
-    	if (File.separatorChar != '\\') return;
-    	if (Boolean.getBoolean("java.awt.headless")) return;
+        if (File.separatorChar != '\\')
+            return;
+        if (Boolean.getBoolean("java.awt.headless"))
+            return;
 
-    	final String[] trueStrings = new String[] { "C:\\monkey", "C:/monkey", "C:/", "C:\\" };
-    	final String[] falseStrings = new String[] { "C:", "foo/bar", "/tmp/blah", "", "/", "blah:baz" };
+        final String[] trueStrings = new String[] { "C:\\monkey", "C:/monkey", "C:/", "C:\\" };
+        final String[] falseStrings = new String[] { "C:", "foo/bar", "/tmp/blah", "", "/", "blah:baz" };
 
-    	for (final String trueString : trueStrings) {
-    		assertTrue(trueString, StringUtils.isLocalWindowsPath(trueString));
-    	}
-    	for (final String falseString : falseStrings) {
-    		assertFalse(falseString, StringUtils.isLocalWindowsPath(falseString));
-    	}
+        for (final String trueString : trueStrings) {
+            assertTrue(trueString, StringUtils.isLocalWindowsPath(trueString));
+        }
+        for (final String falseString : falseStrings) {
+            assertFalse(falseString, StringUtils.isLocalWindowsPath(falseString));
+        }
     }
 
     private void testCreateCmdArray(String[] expected, String arg) {

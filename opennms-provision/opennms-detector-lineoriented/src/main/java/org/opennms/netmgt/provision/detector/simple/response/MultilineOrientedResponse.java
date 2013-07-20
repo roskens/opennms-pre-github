@@ -38,7 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>MultilineOrientedResponse class.</p>
+ * <p>
+ * MultilineOrientedResponse class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -46,64 +48,79 @@ import org.slf4j.LoggerFactory;
 public class MultilineOrientedResponse {
 
     private static final Logger LOG = LoggerFactory.getLogger(MultilineOrientedResponse.class);
+
     private BufferedReader m_in;
 
     private List<String> m_responseList = new ArrayList<String>();
 
     /**
-     * <p>Constructor for MultilineOrientedResponse.</p>
+     * <p>
+     * Constructor for MultilineOrientedResponse.
+     * </p>
      */
     public MultilineOrientedResponse() {
     }
 
     /**
-     * <p>addLine</p>
+     * <p>
+     * addLine
+     * </p>
      *
-     * @param line a {@link java.lang.String} object.
+     * @param line
+     *            a {@link java.lang.String} object.
      */
     public void addLine(final String line) {
         getResponseList().add(line);
     }
 
-
     /**
-     * <p>receive</p>
+     * <p>
+     * receive
+     * </p>
      *
-     * @param in a {@link java.io.BufferedReader} object.
+     * @param in
+     *            a {@link java.io.BufferedReader} object.
      */
     public void receive(final BufferedReader in) {
         m_in = in;
     }
 
     /**
-     * <p>startsWith</p>
+     * <p>
+     * startsWith
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean startsWith(final String prefix) {
-        for(final String line : getResponseList()) {
-           if(!line.startsWith(prefix)) {
-               return false;
-           }
+        for (final String line : getResponseList()) {
+            if (!line.startsWith(prefix)) {
+                return false;
+            }
         }
         return true;
     }
 
     /**
-     * <p>expectedCodeRange</p>
+     * <p>
+     * expectedCodeRange
+     * </p>
      *
-     * @param beginCodeRange a int.
-     * @param endCodeRange a int.
+     * @param beginCodeRange
+     *            a int.
+     * @param endCodeRange
+     *            a int.
      * @return a boolean.
      */
     public boolean expectedCodeRange(final int beginCodeRange, final int endCodeRange) {
 
-        for(final String line : getResponseList()) {
-            if(!validateCodeRange(getCode(line), beginCodeRange, endCodeRange)) {
+        for (final String line : getResponseList()) {
+            if (!validateCodeRange(getCode(line), beginCodeRange, endCodeRange)) {
                 return false;
             }
-         }
+        }
 
         return true;
 
@@ -113,24 +130,31 @@ public class MultilineOrientedResponse {
         return firstResponseLine.substring(0, 3);
     }
 
-
-    //Kept in here
+    // Kept in here
     /**
-     * <p>containedInHTTP</p>
+     * <p>
+     * containedInHTTP
+     * </p>
      *
-     * @param pattern a {@link java.lang.String} object.
-     * @param url a {@link java.lang.String} object.
-     * @param isCheckCode a boolean.
-     * @param maxRetCode a int.
+     * @param pattern
+     *            a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
+     * @param isCheckCode
+     *            a boolean.
+     * @param maxRetCode
+     *            a int.
      * @return a boolean.
      */
-    public boolean containedInHTTP(final String pattern, final String url, final boolean isCheckCode, final int maxRetCode) {
+    public boolean containedInHTTP(final String pattern, final String url, final boolean isCheckCode,
+            final int maxRetCode) {
         int checkMaxRetCode = maxRetCode;
 
         try {
 
             final String response = getEntireResponse(m_in);
-            LOG.debug("Checking http response, pattern: {}  URL: {}  isCheckCode: {}  MaxRetCode: {}\n", pattern, url, isCheckCode, checkMaxRetCode);
+            LOG.debug("Checking http response, pattern: {}  URL: {}  isCheckCode: {}  MaxRetCode: {}\n", pattern, url,
+                      isCheckCode, checkMaxRetCode);
             if (response != null && response.contains(pattern)) {
                 LOG.debug("Return from server was: {}", response);
                 if (isCheckCode) {
@@ -188,7 +212,7 @@ public class MultilineOrientedResponse {
         try {
             final int code = Integer.parseInt(codeString);
             return (code >= beginCodeRange && code <= endCodeRange);
-        } catch(final Exception e) {
+        } catch (final Exception e) {
             return false;
         }
 
@@ -196,20 +220,26 @@ public class MultilineOrientedResponse {
 
     @Override
     public String toString() {
-        return getResponseList().isEmpty() ? "MultilineOrientedResponse" : String.format("Response: %s", getResponseList().toArray());
+        return getResponseList().isEmpty() ? "MultilineOrientedResponse" : String.format("Response: %s",
+                                                                                         getResponseList().toArray());
     }
 
     /**
-     * <p>setResponseList</p>
+     * <p>
+     * setResponseList
+     * </p>
      *
-     * @param responseList a {@link java.util.List} object.
+     * @param responseList
+     *            a {@link java.util.List} object.
      */
     public void setResponseList(final List<String> responseList) {
         m_responseList = responseList;
     }
 
     /**
-     * <p>getResponseList</p>
+     * <p>
+     * getResponseList
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */

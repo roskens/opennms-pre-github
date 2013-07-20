@@ -46,10 +46,8 @@ import org.slf4j.LoggerFactory;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * Poller service from the poller-configuration XML file.
- *
  * A mapping of the configured URLs to the IP list they contain is built at
  * init() time so as to avoid numerous file reads.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -74,6 +72,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerConfigManager {
     private static final Logger LOG = LoggerFactory.getLogger(SnmpInterfacePollerConfigFactory.class);
+
     /**
      * The singleton instance of this factory
      */
@@ -90,17 +89,27 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
     private long m_currentVersion = -1L;
 
     /**
-     * <p>Constructor for SnmpInterfacePollerConfigFactory.</p>
+     * <p>
+     * Constructor for SnmpInterfacePollerConfigFactory.
+     * </p>
      *
-     * @param currentVersion a long.
-     * @param stream a {@link java.io.InputStream} object.
-     * @param localServer a {@link java.lang.String} object.
-     * @param verifyServer a boolean.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param currentVersion
+     *            a long.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @param localServer
+     *            a {@link java.lang.String} object.
+     * @param verifyServer
+     *            a boolean.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
-    public SnmpInterfacePollerConfigFactory(long currentVersion, InputStream stream, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
+    public SnmpInterfacePollerConfigFactory(long currentVersion, InputStream stream, String localServer,
+            boolean verifyServer) throws MarshalException, ValidationException, IOException {
         super(stream, localServer, verifyServer);
         m_currentVersion = currentVersion;
     }
@@ -115,9 +124,12 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -136,7 +148,11 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
         InputStream stream = null;
         try {
             stream = new FileInputStream(cfgFile);
-            SnmpInterfacePollerConfigFactory config = new SnmpInterfacePollerConfigFactory(cfgFile.lastModified(), stream, onmsSvrConfig.getServerName(), onmsSvrConfig.verifyServer());
+            SnmpInterfacePollerConfigFactory config = new SnmpInterfacePollerConfigFactory(
+                                                                                           cfgFile.lastModified(),
+                                                                                           stream,
+                                                                                           onmsSvrConfig.getServerName(),
+                                                                                           onmsSvrConfig.verifyServer());
             setInstance(config);
         } finally {
             if (stream != null) {
@@ -154,9 +170,12 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         init();
@@ -169,7 +188,7 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
         if (xml != null) {
             long timestamp = System.currentTimeMillis();
             File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SNMP_INTERFACE_POLLER_CONFIG_FILE_NAME);
-            LOG.debug("saveXml: saving config file at {}: {}",timestamp, cfgFile.getPath());
+            LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile.getPath());
             Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
             fileWriter.write(xml);
             fileWriter.flush();
@@ -194,9 +213,13 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.SnmpInterfacePollerConfig} object.
+     * @param instance
+     *            a {@link org.opennms.netmgt.config.SnmpInterfacePollerConfig}
+     *            object.
      */
     public static synchronized void setInstance(SnmpInterfacePollerConfig instance) {
         m_singleton = instance;
@@ -204,11 +227,16 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Override
     public synchronized void update() throws IOException, MarshalException, ValidationException {

@@ -34,7 +34,6 @@ package org.opennms.netmgt.provision.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.net.InetAddress;
 import java.util.List;
 
@@ -53,16 +52,23 @@ final class NodeInfoScan implements RunInBatch {
     private static final Logger LOG = LoggerFactory.getLogger(NodeInfoScan.class);
 
     private final SnmpAgentConfigFactory m_agentConfigFactory;
+
     private final InetAddress m_agentAddress;
+
     private final String m_foreignSource;
+
     private OnmsNode m_node;
+
     private Integer m_nodeId;
+
     private boolean restoreCategories = false;
+
     private final ProvisionService m_provisionService;
+
     private final ScanProgress m_scanProgress;
 
-
-    NodeInfoScan(OnmsNode node, InetAddress agentAddress, String foreignSource, ScanProgress scanProgress, SnmpAgentConfigFactory agentConfigFactory, ProvisionService provisionService, Integer nodeId){
+    NodeInfoScan(OnmsNode node, InetAddress agentAddress, String foreignSource, ScanProgress scanProgress,
+            SnmpAgentConfigFactory agentConfigFactory, ProvisionService provisionService, Integer nodeId) {
         m_node = node;
         m_agentAddress = agentAddress;
         m_foreignSource = foreignSource;
@@ -76,19 +82,17 @@ final class NodeInfoScan implements RunInBatch {
     @Override
     public void run(BatchTask phase) {
 
-        phase.getBuilder().addSequence(
-                new RunInBatch() {
-                    @Override
-                    public void run(BatchTask batch) {
-                        collectNodeInfo();
-                    }
-                },
-                new RunInBatch() {
-                    @Override
-                    public void run(BatchTask phase) {
-                        doPersistNodeInfo();
-                    }
-                });
+        phase.getBuilder().addSequence(new RunInBatch() {
+            @Override
+            public void run(BatchTask batch) {
+                collectNodeInfo();
+            }
+        }, new RunInBatch() {
+            @Override
+            public void run(BatchTask phase) {
+                doPersistNodeInfo();
+            }
+        });
     }
 
     private InetAddress getAgentAddress() {
@@ -143,8 +147,7 @@ final class NodeInfoScan implements RunInBatch {
 
             if (walker.timedOut()) {
                 abort("Aborting node scan : Agent timed out while scanning the system table");
-            }
-            else if (walker.failed()) {
+            } else if (walker.failed()) {
                 abort("Aborting node scan : Agent failed while scanning the system table: " + walker.getErrorMessage());
             } else {
 
@@ -158,12 +161,13 @@ final class NodeInfoScan implements RunInBatch {
                 if (getNodeId() != null && nodePolicies.size() > 0) {
                     restoreCategories = true;
                     node = m_provisionService.getDbNodeInitCat(getNodeId());
-                    LOG.debug("collectNodeInfo: checking {} node policies for restoration of categories", nodePolicies.size());
+                    LOG.debug("collectNodeInfo: checking {} node policies for restoration of categories",
+                              nodePolicies.size());
                 }
             } else {
                 node = getNode();
             }
-            for(NodePolicy policy : nodePolicies) {
+            for (NodePolicy policy : nodePolicies) {
                 if (node != null) {
                     LOG.info("Applying NodePolicy {}({}) to {}", policy.getClass(), policy, node.getLabel());
                     node = policy.apply(node);
@@ -187,7 +191,7 @@ final class NodeInfoScan implements RunInBatch {
     }
 
     private String getEffectiveForeignSource() {
-        return getForeignSource()  == null ? "default" : getForeignSource();
+        return getForeignSource() == null ? "default" : getForeignSource();
     }
 
     private void doPersistNodeInfo() {

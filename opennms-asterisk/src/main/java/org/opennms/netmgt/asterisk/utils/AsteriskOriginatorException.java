@@ -29,7 +29,9 @@
 package org.opennms.netmgt.asterisk.utils;
 
 /**
- * <p>AsteriskOriginatorException class.</p>
+ * <p>
+ * AsteriskOriginatorException class.
+ * </p>
  *
  * @author jeffg
  * @version $Id: $
@@ -41,35 +43,47 @@ public class AsteriskOriginatorException extends Exception {
     private static final long serialVersionUID = -6830694356801565351L;
 
     /**
-     * <p>Constructor for AsteriskOriginatorException.</p>
+     * <p>
+     * Constructor for AsteriskOriginatorException.
+     * </p>
      */
     public AsteriskOriginatorException() {
         super();
     }
 
     /**
-     * <p>Constructor for AsteriskOriginatorException.</p>
+     * <p>
+     * Constructor for AsteriskOriginatorException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public AsteriskOriginatorException(String message) {
         super(message);
     }
 
     /**
-     * <p>Constructor for AsteriskOriginatorException.</p>
+     * <p>
+     * Constructor for AsteriskOriginatorException.
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param message
+     *            a {@link java.lang.String} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public AsteriskOriginatorException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * <p>Constructor for AsteriskOriginatorException.</p>
+     * <p>
+     * Constructor for AsteriskOriginatorException.
+     * </p>
      *
-     * @param cause a {@link java.lang.Throwable} object.
+     * @param cause
+     *            a {@link java.lang.Throwable} object.
      */
     public AsteriskOriginatorException(Throwable cause) {
         super(cause);

@@ -38,56 +38,58 @@ import liquibase.statement.SqlStatement;
 
 public class SetSequenceChange extends AbstractChange {
     private String m_sequenceName;
-	private Integer m_value;
-	private List<TableConfig> m_tables = new ArrayList<TableConfig>();
 
-	public SetSequenceChange() {
+    private Integer m_value;
+
+    private List<TableConfig> m_tables = new ArrayList<TableConfig>();
+
+    public SetSequenceChange() {
         super("setSequence", "Set Sequence", ChangeMetaData.PRIORITY_DEFAULT);
     }
 
-	public void setSequenceName(final String sequenceName) {
-		m_sequenceName = sequenceName;
-	}
+    public void setSequenceName(final String sequenceName) {
+        m_sequenceName = sequenceName;
+    }
 
-	public String getSequenceName() {
-		return m_sequenceName;
-	}
+    public String getSequenceName() {
+        return m_sequenceName;
+    }
 
-	public void setValue(final String value) {
-		m_value = Integer.valueOf(value);
-	}
+    public void setValue(final String value) {
+        m_value = Integer.valueOf(value);
+    }
 
-	public String getValue() {
-		return m_value.toString();
-	}
+    public String getValue() {
+        return m_value.toString();
+    }
 
-	public TableConfig createTable() {
-		final TableConfig tc = new TableConfig();
-		m_tables.add(tc);
-		return tc;
-	}
+    public TableConfig createTable() {
+        final TableConfig tc = new TableConfig();
+        m_tables.add(tc);
+        return tc;
+    }
 
-	public void addTable(final TableConfig table) {
-		m_tables.add(table);
-	}
+    public void addTable(final TableConfig table) {
+        m_tables.add(table);
+    }
 
-	public List<TableConfig> getTables() {
-		return m_tables;
-	}
-
-    @Override
-	public SqlStatement[] generateStatements(final Database database) {
-		final SetSequenceStatement statement = new SetSequenceStatement(getSequenceName());
-		statement.setValue(m_value);
-		for (final TableConfig table : m_tables) {
-			statement.addTable(table.getName(), table.getSchemaName(), table.getColumn());
-		}
-		return new SqlStatement[] { statement };
-	}
+    public List<TableConfig> getTables() {
+        return m_tables;
+    }
 
     @Override
-	public String getConfirmationMessage() {
-		return "Sequence " + m_sequenceName + " updated";
-	}
+    public SqlStatement[] generateStatements(final Database database) {
+        final SetSequenceStatement statement = new SetSequenceStatement(getSequenceName());
+        statement.setValue(m_value);
+        for (final TableConfig table : m_tables) {
+            statement.addTable(table.getName(), table.getSchemaName(), table.getColumn());
+        }
+        return new SqlStatement[] { statement };
+    }
+
+    @Override
+    public String getConfirmationMessage() {
+        return "Sequence " + m_sequenceName + " updated";
+    }
 
 }

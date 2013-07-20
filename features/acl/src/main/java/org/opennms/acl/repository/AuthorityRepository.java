@@ -59,7 +59,8 @@ public interface AuthorityRepository {
     /**
      * Save an authorityDTO
      *
-     * @param authority a {@link org.opennms.acl.model.AuthorityDTO} object.
+     * @param authority
+     *            a {@link org.opennms.acl.model.AuthorityDTO} object.
      * @return the result of the operation
      */
     public Boolean save(AuthorityDTO authority);
@@ -67,7 +68,8 @@ public interface AuthorityRepository {
     /**
      * Retrieve an authority by id
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return authority
      */
     public AuthorityDTO getAuthority(Integer id);
@@ -75,51 +77,67 @@ public interface AuthorityRepository {
     /**
      * Remove an authority by id
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return the result of the operation
      */
     public Boolean removeAuthority(Integer id);
 
     /**
-     * <p>getAuthorities</p>
+     * <p>
+     * getAuthorities
+     * </p>
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
+     * @param pager
+     *            a {@link org.opennms.acl.model.Pager} object.
      * @return paginated list of authorities
      */
     public List<AuthorityDTO> getAuthorities(Pager pager);
 
     /**
-     * <p>getAuthorities</p>
+     * <p>
+     * getAuthorities
+     * </p>
      *
      * @return list of all authorities
      */
     public List<AuthorityDTO> getAuthorities();
 
     /**
-     * <p>getAuthoritiesNumber</p>
+     * <p>
+     * getAuthoritiesNumber
+     * </p>
      *
      * @return numbers of authorities present in the system
      */
     public Integer getAuthoritiesNumber();
 
     /**
-     * <p>getUserAuthorities</p>
+     * <p>
+     * getUserAuthorities
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the list of user's authorities by username
      */
     public List<AuthorityDTO> getUserAuthorities(String username);
 
     /**
-     * <p>getFreeAuthorities</p>
+     * <p>
+     * getFreeAuthorities
+     * </p>
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the list of authorities that user doesn't have
      */
     public List<AuthorityDTO> getFreeAuthorities(String username);
 
     /**
-     * <p>getFreeAuthoritiesForGroup</p>
+     * <p>
+     * getFreeAuthoritiesForGroup
+     * </p>
      *
      * @return the list of authorities that Group doesn't have
      */
@@ -128,9 +146,11 @@ public interface AuthorityRepository {
     /**
      * Save a list of authorities for a given group
      *
-     * @param authorities a {@link java.util.List} object.
+     * @param authorities
+     *            a {@link java.util.List} object.
      * @return the result of operation
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public Boolean saveAuthorities(Integer id, List<Integer> authorities);
 
@@ -144,31 +164,41 @@ public interface AuthorityRepository {
     /**
      * Delete all user's groups
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the result of the operation
      */
     public Boolean deleteUserGroups(String username);
 
     /**
-     * <p>getIdItemsAuthority</p>
+     * <p>
+     * getIdItemsAuthority
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.util.List} object.
      */
     public List<Integer> getIdItemsAuthority(Integer id);
 
     /**
-     * <p>getGroupAuthorities</p>
+     * <p>
+     * getGroupAuthorities
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.util.List} object.
      */
     public List<AuthorityDTO> getGroupAuthorities(Integer id);
 
     /**
-     * <p>removeGroupFromAuthorities</p>
+     * <p>
+     * removeGroupFromAuthorities
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link java.lang.Boolean} object.
      */
     public Boolean removeGroupFromAuthorities(Integer id);

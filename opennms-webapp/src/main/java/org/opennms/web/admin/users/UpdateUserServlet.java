@@ -78,7 +78,8 @@ public class UpdateUserServlet extends HttpServlet {
             newUser.setFullName(request.getParameter("fullName"));
             newUser.setUserComments(request.getParameter("userComments"));
             newUser.setReadOnly(false);
-            if (request.getParameter("readOnly") != null && (request.getParameter("readOnly").equalsIgnoreCase("true") || request.getParameter("readOnly").equalsIgnoreCase("on"))) {
+            if (request.getParameter("readOnly") != null
+                    && (request.getParameter("readOnly").equalsIgnoreCase("true") || request.getParameter("readOnly").equalsIgnoreCase("on"))) {
                 newUser.setReadOnly(true);
             }
 

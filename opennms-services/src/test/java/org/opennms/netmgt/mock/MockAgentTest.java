@@ -63,11 +63,12 @@ import org.snmp4j.util.TableUtils;
 public class MockAgentTest extends TestCase {
 
     private MockNetwork m_network;
+
     private MockProxy m_proxy;
 
     @Override
     protected final void setUp() throws Exception {
-        MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
+        MockUtil.println("------------ Begin Test " + getName() + " --------------------------");
         MockLogAppender.setupLogging();
 
         m_network = new MockNetwork();
@@ -112,7 +113,7 @@ public class MockAgentTest extends TestCase {
         m_proxy.stop();
 
         MockLogAppender.assertNoWarningsOrGreater();
-        MockUtil.println("------------ End Test "+getName()+" --------------------------");
+        MockUtil.println("------------ End Test " + getName() + " --------------------------");
 
     }
 
@@ -123,25 +124,24 @@ public class MockAgentTest extends TestCase {
         snmp.listen();
 
         Address addr = new UdpAddress(InetAddress.getLocalHost(), 9161);
-        //Address addr = new UdpAddress(InetAddressUtils.addr("192.168.0.100"), 161);
+        // Address addr = new UdpAddress(InetAddressUtils.addr("192.168.0.100"),
+        // 161);
         Target target = new CommunityTarget(addr, new OctetString("public"));
         target.setVersion(SnmpConstants.version1);
         target.setTimeout(3000);
         target.setRetries(3);
 
         // Implements snmp4j API
-        List results = walker.getTable(target, new OID[] {new OID("1.3.6.1.2.1.1")}, null, null);
+        List results = walker.getTable(target, new OID[] { new OID("1.3.6.1.2.1.1") }, null, null);
 
         assertNotNull(results);
         assertFalse(results.isEmpty());
 
-        assertTrue(results.get(results.size()-1) instanceof TableEvent);
+        assertTrue(results.get(results.size() - 1) instanceof TableEvent);
 
-        TableEvent lastEvent = (TableEvent)results.get(results.size()-1);
-        MockUtil.println("Status of lastEvent is "+lastEvent.getStatus());
+        TableEvent lastEvent = (TableEvent) results.get(results.size() - 1);
+        MockUtil.println("Status of lastEvent is " + lastEvent.getStatus());
         assertEquals(TableEvent.STATUS_OK, lastEvent.getStatus());
-
-
 
     }
 
@@ -151,7 +151,8 @@ public class MockAgentTest extends TestCase {
         snmp.listen();
 
         Address addr = new UdpAddress(InetAddress.getLocalHost(), 9161);
-        //Address addr = new UdpAddress(InetAddressUtils.addr("192.168.0.100"), 161);
+        // Address addr = new UdpAddress(InetAddressUtils.addr("192.168.0.100"),
+        // 161);
         Target target = new CommunityTarget(addr, new OctetString("public"));
         target.setVersion(SnmpConstants.version1);
         target.setTimeout(3000);
@@ -164,7 +165,6 @@ public class MockAgentTest extends TestCase {
         PDU response = e.getResponse();
 
         assertEquals(new OctetString("mockhost"), response.get(0).getVariable());
-
 
     }
 

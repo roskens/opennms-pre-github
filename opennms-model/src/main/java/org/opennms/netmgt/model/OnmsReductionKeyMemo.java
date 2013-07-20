@@ -34,14 +34,15 @@ import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>Specific memo which is attached to every alarm with a matching reduction
- * key.</p>
+ * <p>
+ * Specific memo which is attached to every alarm with a matching reduction key.
+ * </p>
  *
  * @author <a href="mailto:Markus@OpenNMS.com">Markus Neumann</a>
  */
 @XmlRootElement(name = "reductionKeyMemo")
 @Entity
-@DiscriminatorValue(value="ReductionKeyMemo")
+@DiscriminatorValue(value = "ReductionKeyMemo")
 public class OnmsReductionKeyMemo extends OnmsMemo {
 
     private static final long serialVersionUID = 7472348439687562161L;

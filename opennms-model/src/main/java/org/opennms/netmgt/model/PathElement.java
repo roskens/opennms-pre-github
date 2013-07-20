@@ -34,7 +34,9 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- * <p>PathElement class.</p>
+ * <p>
+ * PathElement class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -44,63 +46,79 @@ public class PathElement implements Serializable {
     private static final long serialVersionUID = 2437052160139305371L;
 
     private String m_ipAddress;
-	private String m_serviceName;
 
-	/**
-	 * <p>Constructor for PathElement.</p>
-	 */
-	public PathElement() {
+    private String m_serviceName;
 
-	}
+    /**
+     * <p>
+     * Constructor for PathElement.
+     * </p>
+     */
+    public PathElement() {
 
-	/**
-	 * <p>Constructor for PathElement.</p>
-	 *
-	 * @param ipAddress a {@link java.lang.String} object.
-	 * @param serviceName a {@link java.lang.String} object.
-	 */
-	public PathElement(String ipAddress, String serviceName) {
-		m_ipAddress = ipAddress;
-		m_serviceName = serviceName;
-	}
+    }
 
-	/**
-	 * <p>getIpAddress</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	@Column(name="criticalPathIp")
-	public String getIpAddress() {
-		return m_ipAddress;
-	}
+    /**
+     * <p>
+     * Constructor for PathElement.
+     * </p>
+     *
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     */
+    public PathElement(String ipAddress, String serviceName) {
+        m_ipAddress = ipAddress;
+        m_serviceName = serviceName;
+    }
 
-	/**
-	 * <p>setIpAddress</p>
-	 *
-	 * @param ipAddress a {@link java.lang.String} object.
-	 */
-	public void setIpAddress(String ipAddress) {
-		m_ipAddress = ipAddress;
-	}
+    /**
+     * <p>
+     * getIpAddress
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Column(name = "criticalPathIp")
+    public String getIpAddress() {
+        return m_ipAddress;
+    }
 
-	/**
-	 * <p>getServiceName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	@Column(name="criticalPathServiceName")
-	public String getServiceName() {
-		return m_serviceName;
-	}
+    /**
+     * <p>
+     * setIpAddress
+     * </p>
+     *
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     */
+    public void setIpAddress(String ipAddress) {
+        m_ipAddress = ipAddress;
+    }
 
-	/**
-	 * <p>setServiceName</p>
-	 *
-	 * @param serviceName a {@link java.lang.String} object.
-	 */
-	public void setServiceName(String serviceName) {
-		m_serviceName = serviceName;
-	}
+    /**
+     * <p>
+     * getServiceName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Column(name = "criticalPathServiceName")
+    public String getServiceName() {
+        return m_serviceName;
+    }
 
+    /**
+     * <p>
+     * setServiceName
+     * </p>
+     *
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     */
+    public void setServiceName(String serviceName) {
+        m_serviceName = serviceName;
+    }
 
 }

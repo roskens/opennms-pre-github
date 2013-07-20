@@ -62,12 +62,12 @@ public class EventCountDaoHibernate extends AbstractDaoHibernate<OnmsEvent, Inte
                 @SuppressWarnings("unchecked")
                 final List<Object[]> l = queryObject.list();
                 for (final Object[] o : l) {
-                    ueis.add(new CountedObject<String>((String)o[0], (Long)o[1]));
+                    ueis.add(new CountedObject<String>((String) o[0], (Long) o[1]));
                 }
                 return ueis;
             }
         };
-        ueis.addAll((List<CountedObject<String>>)getHibernateTemplate().executeWithNativeSession(hc));
+        ueis.addAll((List<CountedObject<String>>) getHibernateTemplate().executeWithNativeSession(hc));
         return ueis;
     }
 

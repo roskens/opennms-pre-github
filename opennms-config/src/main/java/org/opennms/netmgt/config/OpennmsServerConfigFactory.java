@@ -40,7 +40,6 @@ import org.opennms.core.utils.ConfigFileConstants;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * OutageManager from the outage-configuration xml file.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -59,11 +58,16 @@ public final class OpennmsServerConfigFactory extends OpennmsServerConfigManager
     private static boolean m_loaded = false;
 
     /**
-     * <p>Constructor for OpennmsServerConfigFactory.</p>
+     * <p>
+     * Constructor for OpennmsServerConfigFactory.
+     * </p>
      *
-     * @param is a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param is
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public OpennmsServerConfigFactory(final InputStream is) throws MarshalException, ValidationException {
         super(is);
@@ -79,9 +83,12 @@ public final class OpennmsServerConfigFactory extends OpennmsServerConfigManager
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -108,9 +115,12 @@ public final class OpennmsServerConfigFactory extends OpennmsServerConfigManager
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -134,9 +144,13 @@ public final class OpennmsServerConfigFactory extends OpennmsServerConfigManager
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory} object.
+     * @param instance
+     *            a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory}
+     *            object.
      */
     public static synchronized void setInstance(OpennmsServerConfigFactory instance) {
         m_singleton = instance;

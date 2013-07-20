@@ -60,8 +60,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
@@ -72,12 +71,10 @@ import org.springframework.transaction.annotation.Transactional;
         // Override the capsd config with a stripped-down version
         "classpath:/META-INF/opennms/capsdTest.xml",
         // override snmp-config configuration
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @JUnitTemporaryDatabase
 public class Nms17216CapsdNetworkBuilderTest extends Nms17216NetworkBuilder implements InitializingBean {
-
 
     @Autowired
     private IpInterfaceDao m_interfaceDao;
@@ -100,19 +97,17 @@ public class Nms17216CapsdNetworkBuilderTest extends Nms17216NetworkBuilder impl
         assertTrue("Capsd must not be null", m_capsd != null);
     }
 
-
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=ROUTER1_IP, port=161, resource="classpath:linkd/nms17216/router1-walk.txt"),
-            @JUnitSnmpAgent(host=ROUTER2_IP, port=161, resource="classpath:linkd/nms17216/router2-walk.txt"),
-            @JUnitSnmpAgent(host=ROUTER3_IP, port=161, resource="classpath:linkd/nms17216/router3-walk.txt"),
-            @JUnitSnmpAgent(host=ROUTER4_IP, port=161, resource="classpath:linkd/nms17216/router4-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH2_IP, port=161, resource="classpath:linkd/nms17216/switch2-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH3_IP, port=161, resource="classpath:linkd/nms17216/switch3-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH4_IP, port=161, resource="classpath:linkd/nms17216/switch4-walk.txt"),
-            @JUnitSnmpAgent(host=SWITCH5_IP, port=161, resource="classpath:linkd/nms17216/switch5-walk.txt")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = ROUTER1_IP, port = 161, resource = "classpath:linkd/nms17216/router1-walk.txt"),
+            @JUnitSnmpAgent(host = ROUTER2_IP, port = 161, resource = "classpath:linkd/nms17216/router2-walk.txt"),
+            @JUnitSnmpAgent(host = ROUTER3_IP, port = 161, resource = "classpath:linkd/nms17216/router3-walk.txt"),
+            @JUnitSnmpAgent(host = ROUTER4_IP, port = 161, resource = "classpath:linkd/nms17216/router4-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH1_IP, port = 161, resource = "classpath:linkd/nms17216/switch1-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH2_IP, port = 161, resource = "classpath:linkd/nms17216/switch2-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH3_IP, port = 161, resource = "classpath:linkd/nms17216/switch3-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH4_IP, port = 161, resource = "classpath:linkd/nms17216/switch4-walk.txt"),
+            @JUnitSnmpAgent(host = SWITCH5_IP, port = 161, resource = "classpath:linkd/nms17216/switch5-walk.txt") })
     @Transactional
     public final void testCapsdNms17216() throws MarshalException, ValidationException, IOException {
         m_capsd.init();
@@ -127,15 +122,15 @@ public class Nms17216CapsdNetworkBuilderTest extends Nms17216NetworkBuilder impl
         m_capsd.scanSuspectInterface(SWITCH4_IP);
         m_capsd.scanSuspectInterface(SWITCH5_IP);
 
-        printNode(ROUTER1_IP,"ROUTER1");
-        printNode(ROUTER2_IP,"ROUTER2");
-        printNode(ROUTER3_IP,"ROUTER3");
-        printNode(ROUTER4_IP,"ROUTER4");
-        printNode(SWITCH1_IP,"SWITCH1");
-        printNode(SWITCH2_IP,"SWITCH2");
-        printNode(SWITCH3_IP,"SWITCH3");
-        printNode(SWITCH4_IP,"SWITCH4");
-        printNode(SWITCH5_IP,"SWITCH5");
+        printNode(ROUTER1_IP, "ROUTER1");
+        printNode(ROUTER2_IP, "ROUTER2");
+        printNode(ROUTER3_IP, "ROUTER3");
+        printNode(ROUTER4_IP, "ROUTER4");
+        printNode(SWITCH1_IP, "SWITCH1");
+        printNode(SWITCH2_IP, "SWITCH2");
+        printNode(SWITCH3_IP, "SWITCH3");
+        printNode(SWITCH4_IP, "SWITCH4");
+        printNode(SWITCH5_IP, "SWITCH5");
 
         m_capsd.stop();
     }

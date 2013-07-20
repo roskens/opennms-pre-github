@@ -70,7 +70,6 @@ public final class SmtpMonitor extends AbstractServiceMonitor {
 
     public static final Logger LOG = LoggerFactory.getLogger(SmtpMonitor.class);
 
-
     /**
      * Default SMTP port.
      */
@@ -112,11 +111,9 @@ public final class SmtpMonitor extends AbstractServiceMonitor {
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Poll the specified address for SMTP service availability.
      * </P>
-     *
      * <P>
      * During the poll an attempt is made to connect on the specified port (by
      * default TCP port 25). If the connection request is successful, the banner
@@ -135,7 +132,8 @@ public final class SmtpMonitor extends AbstractServiceMonitor {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET) {
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
         }
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
@@ -309,24 +307,24 @@ public final class SmtpMonitor extends AbstractServiceMonitor {
                     serviceStatus = PollStatus.unavailable();
                 }
             } catch (NumberFormatException e) {
-            	String reason = "NumberFormatException while polling address " + hostAddress;
+                String reason = "NumberFormatException while polling address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } catch (NoRouteToHostException e) {
-            	String reason = "No route to host exception for address " + hostAddress;
+                String reason = "No route to host exception for address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
                 break; // Break out of for(;;)
             } catch (InterruptedIOException e) {
-            	String reason = "Did not receive expected response within timeout " + tracker;
+                String reason = "Did not receive expected response within timeout " + tracker;
                 LOG.debug(reason);
                 serviceStatus = PollStatus.unavailable(reason);
             } catch (ConnectException e) {
-            	String reason = "Unable to connect to address " + hostAddress;
+                String reason = "Unable to connect to address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } catch (IOException e) {
-            	String reason = "IOException while polling address " + hostAddress;
+                String reason = "IOException while polling address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } finally {

@@ -36,12 +36,15 @@ import java.lang.annotation.Target;
 
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.ANNOTATION_TYPE})
+@Target({ ElementType.ANNOTATION_TYPE })
 public @interface DNSZone {
 
     String name();
+
     String v4address() default "127.0.0.1";
+
     String v6address() default "::1";
+
     DNSEntry[] entries() default {};
 
 }

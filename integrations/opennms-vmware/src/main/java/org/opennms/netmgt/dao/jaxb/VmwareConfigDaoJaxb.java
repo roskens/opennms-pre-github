@@ -62,10 +62,12 @@ public class VmwareConfigDaoJaxb extends AbstractJaxbConfigDao<VmwareConfig, Vmw
     }
 
     /**
-     * Used to transform the config object to a custom representation. This method is not modified in this class, it just
+     * Used to transform the config object to a custom representation. This
+     * method is not modified in this class, it just
      * returns the config object itself.
      *
-     * @param jaxbConfig a config object.
+     * @param jaxbConfig
+     *            a config object.
      * @return a custom object
      */
     @Override

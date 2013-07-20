@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
  * @version $Id: $
  */
 @Scope("prototype")
-public class JdbcDetector extends AbstractJdbcDetector{
+public class JdbcDetector extends AbstractJdbcDetector {
 
     private static final String DEFAULT_SERVICE_NAME = "JDBC";
 

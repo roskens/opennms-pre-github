@@ -57,70 +57,51 @@ import org.xml.sax.ContentHandler;
  * Top-level element for the snmp-config.xml configuration file.
  */
 
-@XmlRootElement(name="snmp-config")
+@XmlRootElement(name = "snmp-config")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SnmpConfig extends Configuration implements Serializable {
-	private static final long serialVersionUID = 3139857316489386441L;
+    private static final long serialVersionUID = 3139857316489386441L;
 
-	private static final Definition[] EMPTY_DEFINITION = new Definition[0];
+    private static final Definition[] EMPTY_DEFINITION = new Definition[0];
 
-	/**
+    /**
      * Maps IP addresses to specific SNMP parameters (retries, timeouts...)
      */
-	 @XmlElement(name="definition")
+    @XmlElement(name = "definition")
     private List<Definition> _definitionList = new ArrayList<Definition>();
 
     public SnmpConfig() {
         super();
     }
 
-    public SnmpConfig(
-    		final Integer port,
-    		final Integer retry,
-    		final Integer timeout,
-    		final String readCommunity,
-    		final String writeCommunity,
-			final String proxyHost,
-			final String version,
-			final Integer maxVarsPerPdu,
-			final Integer maxRepetitions,
-			final Integer maxRequestSize,
-			final String securityName,
-			final Integer securityLevel,
-			final String authPassphrase,
-			final String authProtocol,
-			final String engineId,
-			final String contextEngineId,
-			final String contextName,
-			final String privacyPassphrase,
-			final String privacyProtocol,
-			final String enterpriseId,
-			final List<Definition> definitionList) {
-    	super(port, retry, timeout, readCommunity, writeCommunity, proxyHost, version, maxVarsPerPdu, maxRepetitions, maxRequestSize,
-    			securityName, securityLevel, authPassphrase, authProtocol, engineId, contextEngineId, contextName, privacyPassphrase,
-    			privacyProtocol, enterpriseId);
-    	setDefinition(definitionList);
-	}
+    public SnmpConfig(final Integer port, final Integer retry, final Integer timeout, final String readCommunity,
+            final String writeCommunity, final String proxyHost, final String version, final Integer maxVarsPerPdu,
+            final Integer maxRepetitions, final Integer maxRequestSize, final String securityName,
+            final Integer securityLevel, final String authPassphrase, final String authProtocol, final String engineId,
+            final String contextEngineId, final String contextName, final String privacyPassphrase,
+            final String privacyProtocol, final String enterpriseId, final List<Definition> definitionList) {
+        super(port, retry, timeout, readCommunity, writeCommunity, proxyHost, version, maxVarsPerPdu, maxRepetitions,
+              maxRequestSize, securityName, securityLevel, authPassphrase, authProtocol, engineId, contextEngineId,
+              contextName, privacyPassphrase, privacyProtocol, enterpriseId);
+        setDefinition(definitionList);
+    }
 
-
-	/**
-     *
-     *
+    /**
      * @param vDefinition
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addDefinition(final Definition vDefinition) throws IndexOutOfBoundsException {
         this._definitionList.add(vDefinition);
     }
 
     /**
-     *
-     *
      * @param index
      * @param vDefinition
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addDefinition(final int index, final Definition vDefinition) throws IndexOutOfBoundsException {
         this._definitionList.add(index, vDefinition);
@@ -130,7 +111,7 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Method enumerateDefinition.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public java.util.Enumeration<Definition> enumerateDefinition() {
         return Collections.enumeration(this._definitionList);
@@ -144,29 +125,31 @@ public class SnmpConfig extends Configuration implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-		if (obj instanceof Configuration == false) return false;
-		if (this == obj) return true;
+        if (obj instanceof Configuration == false)
+            return false;
+        if (this == obj)
+            return true;
 
-		final SnmpConfig temp = (SnmpConfig)obj;
+        final SnmpConfig temp = (SnmpConfig) obj;
 
-		return new EqualsBuilder()
-			.appendSuper(super.equals(obj))
-			.append(getDefinitionCollection(), temp.getDefinitionCollection())
-			.isEquals();
+        return new EqualsBuilder().appendSuper(super.equals(obj)).append(getDefinitionCollection(),
+                                                                         temp.getDefinitionCollection()).isEquals();
     }
 
     /**
      * Method getDefinition.
      *
      * @param index
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * Definition at the given index
+     *         Definition at the given index
      */
     public Definition getDefinition(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= this._definitionList.size()) {
-            throw new IndexOutOfBoundsException("getDefinition: Index value '" + index + "' not in range [0.." + (this._definitionList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getDefinition: Index value '" + index + "' not in range [0.."
+                    + (this._definitionList.size() - 1) + "]");
         }
 
         return _definitionList.get(index);
@@ -174,10 +157,12 @@ public class SnmpConfig extends Configuration implements Serializable {
 
     /**
      * Method getDefinition.Returns the contents of the collection
-     * in an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
@@ -208,17 +193,17 @@ public class SnmpConfig extends Configuration implements Serializable {
     /**
      * Overrides the Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
-        @Override
+    @Override
     public int hashCode() {
-    	final int result = 17;
+        final int result = 17;
 
         if (_definitionList != null) {
-        	return 37 * result + _definitionList.hashCode();
+            return 37 * result + _definitionList.hashCode();
         }
 
         return result;
@@ -229,7 +214,7 @@ public class SnmpConfig extends Configuration implements Serializable {
      *
      * @return true if this object is valid according to the schema
      */
-        @Override
+    @Override
     public boolean isValid() {
         try {
             validate();
@@ -243,46 +228,46 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Method iterateDefinition.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public java.util.Iterator<Definition> iterateDefinition() {
         return this._definitionList.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-        @Override
+    @Override
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws IOException if an IOException occurs during
-     * marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
-        @Override
+    @Override
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
     /**
      */
-    public void removeAllDefinition(
-    ) {
+    public void removeAllDefinition() {
         this._definitionList.clear();
     }
 
@@ -307,31 +292,29 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param vDefinition
-     * @throws IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setDefinition(final int index, final Definition vDefinition) throws IndexOutOfBoundsException {
         if (index < 0 || index >= this._definitionList.size()) {
-            throw new IndexOutOfBoundsException("setDefinition: Index value '" + index + "' not in range [0.." + (this._definitionList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setDefinition: Index value '" + index + "' not in range [0.."
+                    + (this._definitionList.size() - 1) + "]");
         }
 
         this._definitionList.set(index, vDefinition);
     }
 
     /**
-     *
-     *
      * @param vDefinitionArray
      */
     public void setDefinition(final Definition[] vDefinitionArray) {
         _definitionList.clear();
 
         for (int i = 0; i < vDefinitionArray.length; i++) {
-                this._definitionList.add(vDefinitionArray[i]);
+            this._definitionList.add(vDefinitionArray[i]);
         }
     }
 
@@ -339,7 +322,8 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Sets the value of '_definitionList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param vDefinitionList the Vector to copy.
+     * @param vDefinitionList
+     *            the Vector to copy.
      */
     public void setDefinition(final List<Definition> vDefinitionList) {
         this._definitionList.clear();
@@ -350,9 +334,10 @@ public class SnmpConfig extends Configuration implements Serializable {
     /**
      * Sets the value of '_definitionList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param definitionList the Vector to set.
+     * @deprecated
+     * @param definitionList
+     *            the Vector to set.
      */
     public void setDefinitionCollection(final List<Definition> definitionList) {
         this._definitionList = definitionList;
@@ -362,33 +347,31 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * Configuration
+     *         Configuration
      */
     public static Configuration unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Configuration) Unmarshaller.unmarshal(org.opennms.netmgt.config.snmp.SnmpConfig.class, reader);
     }
 
     /**
-     *
-     *
-     * @throws ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
-        @Override
+    @Override
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
     @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.appendSuper(super.toString())
-    		.append("definitions", getDefinitionCollection())
-    		.toString();
+        return new ToStringBuilder(this).appendSuper(super.toString()).append("definitions", getDefinitionCollection()).toString();
     }
 }

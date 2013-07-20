@@ -45,20 +45,28 @@ import org.springframework.stereotype.Component;
  * @version $Id: $
  */
 @Scope("prototype")
-public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
+public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
 
     private static String DEFAULT_HOPTION = "--hostname";
+
     private static String DEFAULT_TOPTION = "--timeout";
 
     private String m_script;
+
     private String m_args;
+
     private String m_banner;
+
     private String m_match;
+
     private String m_hoption = DEFAULT_HOPTION;
+
     private String m_toption = DEFAULT_TOPTION;
 
     /**
-     * <p>Constructor for GpDetector.</p>
+     * <p>
+     * Constructor for GpDetector.
+     * </p>
      */
     protected GpDetector() {
         super("GP", 0);
@@ -84,7 +92,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
     }
 
     private static ResponseValidator<GpResponse> responseMatches(final String banner) {
-        return new ResponseValidator<GpResponse>(){
+        return new ResponseValidator<GpResponse>() {
 
             @Override
             public boolean validate(final GpResponse response) {
@@ -95,16 +103,21 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
     }
 
     /**
-     * <p>setScript</p>
+     * <p>
+     * setScript
+     * </p>
      *
-     * @param script a {@link java.lang.String} object.
+     * @param script
+     *            a {@link java.lang.String} object.
      */
     public void setScript(final String script) {
         m_script = script;
     }
 
     /**
-     * <p>getScript</p>
+     * <p>
+     * getScript
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,16 +126,21 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
     }
 
     /**
-     * <p>setArgs</p>
+     * <p>
+     * setArgs
+     * </p>
      *
-     * @param args a {@link java.lang.String} object.
+     * @param args
+     *            a {@link java.lang.String} object.
      */
     public void setArgs(final String args) {
         m_args = args;
     }
 
     /**
-     * <p>getArgs</p>
+     * <p>
+     * getArgs
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,16 +149,21 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
     }
 
     /**
-     * <p>setBanner</p>
+     * <p>
+     * setBanner
+     * </p>
      *
-     * @param banner a {@link java.lang.String} object.
+     * @param banner
+     *            a {@link java.lang.String} object.
      */
     public void setBanner(final String banner) {
         m_banner = banner;
     }
 
     /**
-     * <p>getBanner</p>
+     * <p>
+     * getBanner
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -149,16 +172,21 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
     }
 
     /**
-     * <p>setMatch</p>
+     * <p>
+     * setMatch
+     * </p>
      *
-     * @param match a {@link java.lang.String} object.
+     * @param match
+     *            a {@link java.lang.String} object.
      */
     public void setMatch(final String match) {
         m_match = match;
     }
 
     /**
-     * <p>getMatch</p>
+     * <p>
+     * getMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -167,16 +195,21 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
     }
 
     /**
-     * <p>setHoption</p>
+     * <p>
+     * setHoption
+     * </p>
      *
-     * @param hoption a {@link java.lang.String} object.
+     * @param hoption
+     *            a {@link java.lang.String} object.
      */
     public void setHoption(final String hoption) {
         m_hoption = hoption;
     }
 
     /**
-     * <p>getHoption</p>
+     * <p>
+     * getHoption
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -185,16 +218,21 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
     }
 
     /**
-     * <p>setToption</p>
+     * <p>
+     * setToption
+     * </p>
      *
-     * @param toption a {@link java.lang.String} object.
+     * @param toption
+     *            a {@link java.lang.String} object.
      */
     public void setToption(final String toption) {
         m_toption = toption;
     }
 
     /**
-     * <p>getToption</p>
+     * <p>
+     * getToption
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

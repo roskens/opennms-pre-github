@@ -34,7 +34,9 @@ import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Value;
 
 /**
- * <p>SyntaxToEvent class.</p>
+ * <p>
+ * SyntaxToEvent class.
+ * </p>
  */
 public class SyntaxToEvent {
     int m_typeId;
@@ -49,10 +51,14 @@ public class SyntaxToEvent {
     }
 
     /**
-     * <p>Constructor for SyntaxToEvent.</p>
+     * <p>
+     * Constructor for SyntaxToEvent.
+     * </p>
      *
-     * @param typeId a int.
-     * @param type a {@link java.lang.String} object.
+     * @param typeId
+     *            a int.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     private SyntaxToEvent(int typeId, String type) {
         m_typeId = typeId;
@@ -60,7 +66,9 @@ public class SyntaxToEvent {
     }
 
     /**
-     * <p>getTypeId</p>
+     * <p>
+     * getTypeId
+     * </p>
      *
      * @return a int.
      */
@@ -69,7 +77,9 @@ public class SyntaxToEvent {
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -78,33 +88,38 @@ public class SyntaxToEvent {
     }
 
     /**
-     * <p>setupSyntax</p>
+     * <p>
+     * setupSyntax
+     * </p>
      */
     public static void setupSyntax() {
         m_syntaxToEvents = new SyntaxToEvent[] {
-                new SyntaxToEvent(SnmpValue.SNMP_INT32,             EventConstants.TYPE_SNMP_INT32),
-                new SyntaxToEvent(SnmpValue.SNMP_NULL,              EventConstants.TYPE_SNMP_NULL),
+                new SyntaxToEvent(SnmpValue.SNMP_INT32, EventConstants.TYPE_SNMP_INT32),
+                new SyntaxToEvent(SnmpValue.SNMP_NULL, EventConstants.TYPE_SNMP_NULL),
                 new SyntaxToEvent(SnmpValue.SNMP_OBJECT_IDENTIFIER, EventConstants.TYPE_SNMP_OBJECT_IDENTIFIER),
-                new SyntaxToEvent(SnmpValue.SNMP_IPADDRESS,         EventConstants.TYPE_SNMP_IPADDRESS),
-                new SyntaxToEvent(SnmpValue.SNMP_TIMETICKS,         EventConstants.TYPE_SNMP_TIMETICKS),
-                new SyntaxToEvent(SnmpValue.SNMP_COUNTER32,         EventConstants.TYPE_SNMP_COUNTER32),
-                new SyntaxToEvent(SnmpValue.SNMP_GAUGE32,           EventConstants.TYPE_SNMP_GAUGE32),
-                new SyntaxToEvent(SnmpValue.SNMP_OCTET_STRING,      EventConstants.TYPE_SNMP_OCTET_STRING),
-                new SyntaxToEvent(SnmpValue.SNMP_OPAQUE,            EventConstants.TYPE_SNMP_OPAQUE),
-                new SyntaxToEvent(SnmpValue.SNMP_COUNTER64,         EventConstants.TYPE_SNMP_COUNTER64),
-                new SyntaxToEvent(-1,                               EventConstants.TYPE_STRING)
-        };
+                new SyntaxToEvent(SnmpValue.SNMP_IPADDRESS, EventConstants.TYPE_SNMP_IPADDRESS),
+                new SyntaxToEvent(SnmpValue.SNMP_TIMETICKS, EventConstants.TYPE_SNMP_TIMETICKS),
+                new SyntaxToEvent(SnmpValue.SNMP_COUNTER32, EventConstants.TYPE_SNMP_COUNTER32),
+                new SyntaxToEvent(SnmpValue.SNMP_GAUGE32, EventConstants.TYPE_SNMP_GAUGE32),
+                new SyntaxToEvent(SnmpValue.SNMP_OCTET_STRING, EventConstants.TYPE_SNMP_OCTET_STRING),
+                new SyntaxToEvent(SnmpValue.SNMP_OPAQUE, EventConstants.TYPE_SNMP_OPAQUE),
+                new SyntaxToEvent(SnmpValue.SNMP_COUNTER64, EventConstants.TYPE_SNMP_COUNTER64),
+                new SyntaxToEvent(-1, EventConstants.TYPE_STRING) };
     }
 
     /**
-     * <p>processSyntax</p>
+     * <p>
+     * processSyntax
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link org.opennms.netmgt.snmp.SnmpValue} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      * @return a {@link org.opennms.netmgt.xml.event.Parm} object.
      */
     public static Parm processSyntax(final String name, final SnmpValue value) {
-    	final Value val = new Value();
+        final Value val = new Value();
 
         boolean found = false;
         for (int i = 0; i < m_syntaxToEvents.length; i++) {
@@ -131,7 +146,8 @@ public class SyntaxToEvent {
             }
         }
         if (!found) {
-            throw new IllegalStateException("Internal error: fell through the " + "bottom of the loop.  The syntax-to-events array might not have a " + "catch-all for Object");
+            throw new IllegalStateException("Internal error: fell through the "
+                    + "bottom of the loop.  The syntax-to-events array might not have a " + "catch-all for Object");
         }
 
         final Parm parm = new Parm();

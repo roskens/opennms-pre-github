@@ -43,31 +43,44 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * <p>EndPointMonitor class.</p>
+ * <p>
+ * EndPointMonitor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class EndPointMonitor extends AbstractServiceMonitor {
 
-    /** Constant <code>SNMP_AGENTCONFIG_KEY="org.opennms.netmgt.snmp.SnmpAgentConfig"</code> */
+    /**
+     * Constant
+     * <code>SNMP_AGENTCONFIG_KEY="org.opennms.netmgt.snmp.SnmpAgentConfig"</code>
+     */
     public static final String SNMP_AGENTCONFIG_KEY = "org.opennms.netmgt.snmp.SnmpAgentConfig";
+
     private EndPointConfigurationDao m_configDao;
+
     private NodeDao m_nodeDao;
+
     private SnmpAgentConfigFactory m_agentConfigFactory;
 
     /**
-     * <p>Constructor for EndPointMonitor.</p>
+     * <p>
+     * Constructor for EndPointMonitor.
+     * </p>
      */
-    public EndPointMonitor() {}
+    public EndPointMonitor() {
+    }
 
     /** {@inheritDoc} */
     @Override
     public void initialize(Map<String, Object> parameters) {
-        ClassPathXmlApplicationContext appContext = BeanUtils.getFactory("linkAdapterPollerContext", ClassPathXmlApplicationContext.class);
+        ClassPathXmlApplicationContext appContext = BeanUtils.getFactory("linkAdapterPollerContext",
+                                                                         ClassPathXmlApplicationContext.class);
         m_configDao = (EndPointConfigurationDao) appContext.getBean("endPointConfigDao");
         m_nodeDao = (NodeDao) appContext.getBean("nodeDao");
-        m_agentConfigFactory = (SnmpAgentConfigFactory) appContext.getBean("snmpPeerFactory", SnmpAgentConfigFactory.class);
+        m_agentConfigFactory = (SnmpAgentConfigFactory) appContext.getBean("snmpPeerFactory",
+                                                                           SnmpAgentConfigFactory.class);
 
     }
 

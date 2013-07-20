@@ -32,18 +32,19 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * <p>StubGenericURLConnection class.</p>
- *
+ * <p>
+ * StubGenericURLConnection class.
+ * </p>
  * Stub implementation for GenericURLConnection
  *
  * @author Ronny Trommer <ronny@opennms.org>
  * @version $Id: $
  * @since 1.8.1
  */
-public class StubGenericURLConnection extends GenericURLConnection{
+public class StubGenericURLConnection extends GenericURLConnection {
 
     public StubGenericURLConnection(URL url) {
-        super (url);
+        super(url);
     }
 
     @Override

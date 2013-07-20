@@ -46,28 +46,35 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     public static final String TYPE = "service";
 
     /**
-     * <p>Constructor for ServiceFilter.</p>
+     * <p>
+     * Constructor for ServiceFilter.
+     * </p>
      *
-     * @param serviceId a int.
+     * @param serviceId
+     *            a int.
      */
     public ServiceFilter(int serviceId) {
         super(TYPE, SQLType.INT, "SERVICEID", "serviceType.id", serviceId);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getTextDescription(ServletContext servletContext) {
         String serviceName = Integer.toString(getServiceId());
-            serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getServiceId());
+        serviceName = NetworkElementFactory.getInstance(servletContext).getServiceNameFromId(getServiceId());
 
         return (TYPE + "=" + serviceName);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -77,7 +84,9 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getServiceId</p>
+     * <p>
+     * getServiceId
+     * </p>
      *
      * @return a int.
      */

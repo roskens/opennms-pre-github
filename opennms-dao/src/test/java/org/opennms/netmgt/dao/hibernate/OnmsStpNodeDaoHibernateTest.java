@@ -58,45 +58,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class OnmsStpNodeDaoHibernateTest implements InitializingBean {
     @Autowired
     private NodeDao m_nodeDao;
 
-	@Autowired
+    @Autowired
     private StpNodeDao m_stpNodeDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Before
-	public void setUp() {
-	    for (final OnmsNode node : m_nodeDao.findAll()) {
-	        m_nodeDao.delete(node);
-	    }
-	    m_nodeDao.flush();
-		m_databasePopulator.populateDatabase();
-	}
-
+    @Before
+    public void setUp() {
+        for (final OnmsNode node : m_nodeDao.findAll()) {
+            m_nodeDao.delete(node);
+        }
+        m_nodeDao.flush();
+        m_databasePopulator.populateDatabase();
+    }
 
     @Test
     public void testSaveOnmsStpNode() {
         // Create a new data link interface and save it.
-        OnmsStpNode stpnode = new OnmsStpNode(m_databasePopulator.getNode2(),1);
+        OnmsStpNode stpnode = new OnmsStpNode(m_databasePopulator.getNode2(), 1);
 
         stpnode.setBaseBridgeAddress("0a0112345678");
         stpnode.setBaseNumPorts(20);
@@ -114,8 +111,9 @@ public class OnmsStpNodeDaoHibernateTest implements InitializingBean {
         assertEquals(1, m_stpNodeDao.countAll());
         OnmsStpNode dbStpNode = m_stpNodeDao.findByNodeAndVlan(m_databasePopulator.getNode2().getId(), 1);
         assertEquals(stpnode.getBaseBridgeAddress(), dbStpNode.getBaseBridgeAddress());
-        assertEquals("transparent-only",BridgeBaseType.getBridgeBaseTypeString(dbStpNode.getBaseType().getIntCode()));
-        assertEquals("ieee8021d",StpProtocolSpecification.getStpProtocolSpecificationString(dbStpNode.getStpProtocolSpecification().getIntCode()));
+        assertEquals("transparent-only", BridgeBaseType.getBridgeBaseTypeString(dbStpNode.getBaseType().getIntCode()));
+        assertEquals("ieee8021d",
+                     StpProtocolSpecification.getStpProtocolSpecificationString(dbStpNode.getStpProtocolSpecification().getIntCode()));
     }
 
 }

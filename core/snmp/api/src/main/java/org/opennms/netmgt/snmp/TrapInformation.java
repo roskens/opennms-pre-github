@@ -35,16 +35,18 @@ import org.slf4j.LoggerFactory;
 
 public abstract class TrapInformation implements TrapNotification {
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(TrapInformation.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(TrapInformation.class);
 
     /**
      * The internet address of the sending agent
      */
     private InetAddress m_agent;
+
     /**
      * The community string from the actual SNMP packet
      */
     private String m_community;
+
     private TrapProcessor m_trapProcessor;
 
     protected TrapInformation(InetAddress agent, String community, TrapProcessor trapProcessor) {
@@ -80,7 +82,8 @@ public abstract class TrapInformation implements TrapNotification {
 
     @Override
     public TrapProcessor getTrapProcessor() {
-        // We do this here to processing of the data is delayed until it is requested.
+        // We do this here to processing of the data is delayed until it is
+        // requested.
         processTrap();
         return m_trapProcessor;
     }

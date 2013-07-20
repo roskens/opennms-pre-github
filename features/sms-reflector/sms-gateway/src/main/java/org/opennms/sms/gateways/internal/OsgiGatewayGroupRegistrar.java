@@ -38,38 +38,44 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.osgi.context.BundleContextAware;
 
 /**
- * <p>OsgiGatewayGroupRegistrar class.</p>
+ * <p>
+ * OsgiGatewayGroupRegistrar class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class OsgiGatewayGroupRegistrar implements GatewayGroupRegistrar, BundleContextAware, DisposableBean {
 
-	private BundleContext m_context;
-	private final List<ServiceRegistration<GatewayGroup>> m_registrations = new ArrayList<ServiceRegistration<GatewayGroup>>();
+    private BundleContext m_context;
 
-	/** {@inheritDoc} */
-        @Override
-	public void registerGatewayGroup( GatewayGroup gatewayGroup ) {
-		m_registrations.add(m_context.registerService(GatewayGroup.class, gatewayGroup, null));
-	}
+    private final List<ServiceRegistration<GatewayGroup>> m_registrations = new ArrayList<ServiceRegistration<GatewayGroup>>();
 
-	/** {@inheritDoc} */
-        @Override
-	public void setBundleContext( BundleContext bundleContext ) {
-		m_context = bundleContext;
+    /** {@inheritDoc} */
+    @Override
+    public void registerGatewayGroup(GatewayGroup gatewayGroup) {
+        m_registrations.add(m_context.registerService(GatewayGroup.class, gatewayGroup, null));
+    }
 
-	}
+    /** {@inheritDoc} */
+    @Override
+    public void setBundleContext(BundleContext bundleContext) {
+        m_context = bundleContext;
 
-	/**
-	 * <p>destroy</p>
-	 *
-	 * @throws java.lang.Exception if any.
-	 */
-        @Override
-	public void destroy() throws Exception {
-		for(ServiceRegistration<GatewayGroup> registration : m_registrations) {
+    }
+
+    /**
+     * <p>
+     * destroy
+     * </p>
+     *
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    @Override
+    public void destroy() throws Exception {
+        for (ServiceRegistration<GatewayGroup> registration : m_registrations) {
             registration.unregister();
         }
-	}
+    }
 }

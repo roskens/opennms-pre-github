@@ -74,28 +74,38 @@ public final class TcpEventProxy implements EventProxy {
     private int m_timeout = DEFAULT_TIMEOUT;
 
     /**
-     * <p>Constructor for TcpEventProxy.</p>
+     * <p>
+     * Constructor for TcpEventProxy.
+     * </p>
      *
-     * @throws java.net.UnknownHostException if any.
+     * @throws java.net.UnknownHostException
+     *             if any.
      */
     public TcpEventProxy() throws UnknownHostException {
         this(new InetSocketAddress(InetAddressUtils.addr("127.0.0.1"), DEFAULT_PORT));
     }
 
     /**
-     * <p>Constructor for TcpEventProxy.</p>
+     * <p>
+     * Constructor for TcpEventProxy.
+     * </p>
      *
-     * @param address a {@link java.net.InetSocketAddress} object.
+     * @param address
+     *            a {@link java.net.InetSocketAddress} object.
      */
     public TcpEventProxy(InetSocketAddress address) {
         m_address = address;
     }
 
     /**
-     * <p>Constructor for TcpEventProxy.</p>
+     * <p>
+     * Constructor for TcpEventProxy.
+     * </p>
      *
-     * @param address a {@link java.net.InetSocketAddress} object.
-     * @param timeout a int.
+     * @param address
+     *            a {@link java.net.InetSocketAddress} object.
+     * @param timeout
+     *            a int.
      */
     public TcpEventProxy(InetSocketAddress address, int timeout) {
         this(address);
@@ -103,9 +113,8 @@ public final class TcpEventProxy implements EventProxy {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} This method is called to send the event out
      *
-     * This method is called to send the event out
      * @exception UndeclaredThrowableException
      *                thrown if the send fails for any reason
      */
@@ -127,7 +136,8 @@ public final class TcpEventProxy implements EventProxy {
      *            the events to be sent out
      * @exception UndeclaredThrowableException
      *                thrown if the send fails for any reason
-     * @throws org.opennms.netmgt.model.events.EventProxyException if any.
+     * @throws org.opennms.netmgt.model.events.EventProxyException
+     *             if any.
      */
     @Override
     public void send(Log eventLog) throws EventProxyException {
@@ -138,7 +148,8 @@ public final class TcpEventProxy implements EventProxy {
             JaxbUtils.marshal(eventLog, writer);
             writer.flush();
         } catch (ConnectException e) {
-            throw new EventProxyException("Could not connect to event daemon " + m_address + " to send event: " + e.getMessage(), e);
+            throw new EventProxyException("Could not connect to event daemon " + m_address + " to send event: "
+                    + e.getMessage(), e);
         } catch (Throwable e) {
             throw new EventProxyException("Unknown exception while sending event: " + e, e);
         } finally {
@@ -163,12 +174,13 @@ public final class TcpEventProxy implements EventProxy {
             m_sock.setSoTimeout(500);
             LOG.debug("Default Charset:", Charset.defaultCharset().displayName());
             LOG.debug("Setting Charset: UTF-8");
-            m_writer = new OutputStreamWriter(new BufferedOutputStream(m_sock.getOutputStream()), Charset.forName("UTF-8"));
+            m_writer = new OutputStreamWriter(new BufferedOutputStream(m_sock.getOutputStream()),
+                                              Charset.forName("UTF-8"));
             m_input = m_sock.getInputStream();
             m_rdrThread = new Thread("TcpEventProxy Input Discarder") {
                 @Override
                 public void run() {
-                    for (int ch = 0; ch != -1; ) {
+                    for (int ch = 0; ch != -1;) {
                         try {
                             ch = m_input.read();
                         } catch (InterruptedIOException e) {

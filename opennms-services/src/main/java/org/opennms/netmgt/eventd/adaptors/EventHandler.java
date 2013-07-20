@@ -41,17 +41,23 @@ import org.opennms.netmgt.xml.event.EventReceipt;
  */
 public interface EventHandler {
     /**
-     * <p>processEvent</p>
+     * <p>
+     * processEvent
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public boolean processEvent(Event event);
 
     /**
-     * <p>receiptSent</p>
+     * <p>
+     * receiptSent
+     * </p>
      *
-     * @param receipt a {@link org.opennms.netmgt.xml.event.EventReceipt} object.
+     * @param receipt
+     *            a {@link org.opennms.netmgt.xml.event.EventReceipt} object.
      */
     public void receiptSent(EventReceipt receipt);
 }

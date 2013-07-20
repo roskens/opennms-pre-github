@@ -33,9 +33,9 @@ import org.opennms.netmgt.config.monitoringLocations.MonitoringLocationsConfigur
 
 public class TestMonitoringLocationsConfiguration extends MonitoringLocationsConfiguration {
 
-	private static final long serialVersionUID = 3008390415267170754L;
+    private static final long serialVersionUID = 3008390415267170754L;
 
-	@Override
+    @Override
     public void validate() throws ValidationException {
     }
 

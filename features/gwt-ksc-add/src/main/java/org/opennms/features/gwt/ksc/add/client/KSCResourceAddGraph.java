@@ -45,15 +45,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class KSCResourceAddGraph implements EntryPoint {
     final static public boolean DEBUG = true;
-    final static private String m_debugResponse =
-        "{" +
-            "\"@totalCount\":\"2\"," +
-            "\"@count\":\"2\"," +
-            "\"kscReport\":[" +
-                "{\"@label\":\"Test\",\"@id\":\"0\"}," +
-                "{\"@label\":\"Test 2\",\"@id\":\"1\"}" +
-            "]" +
-        "}";
+
+    final static private String m_debugResponse = "{" + "\"@totalCount\":\"2\"," + "\"@count\":\"2\","
+            + "\"kscReport\":[" + "{\"@label\":\"Test\",\"@id\":\"0\"}," + "{\"@label\":\"Test 2\",\"@id\":\"1\"}"
+            + "]" + "}";
 
     @Override
     public void onModuleLoad() {
@@ -71,7 +66,8 @@ public class KSCResourceAddGraph implements EntryPoint {
                         if (DEBUG) {
                             responseText = m_debugResponse;
                         } else {
-                            Window.alert("Error occurred retrieving list of KSC reports (response was " + response.getStatusCode() + ".");
+                            Window.alert("Error occurred retrieving list of KSC reports (response was "
+                                    + response.getStatusCode() + ".");
                             responseText = null;
                         }
                     }
@@ -86,7 +82,8 @@ public class KSCResourceAddGraph implements EntryPoint {
                     if (DEBUG) {
                         handleResponseText(nodes, m_debugResponse);
                     } else {
-                        Window.alert("Error occurred retrieving list of KSC reports: " + exception.getLocalizedMessage());
+                        Window.alert("Error occurred retrieving list of KSC reports: "
+                                + exception.getLocalizedMessage());
                     }
                 }
 

@@ -35,29 +35,27 @@ import org.springframework.jms.listener.AbstractMessageListenerContainer;
 
 /**
  * A JMS based NrtCollector listening to CollectionJobs using a
- * {@link org.springframework.jms.listener.AbstractMessageListenerContainer}. Received Jobs will be send to a
- * {@link CollectionJobListener} configured via spring.
+ * {@link org.springframework.jms.listener.AbstractMessageListenerContainer}.
+ * Received Jobs will be send to a {@link CollectionJobListener} configured via
+ * spring.
  *
  * @author Simon Walter
  */
 public class NrtCollectorJMSDLMC implements NrtCollector {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(NrtCollectorJMSDLMC.class);
+    private static final Logger logger = LoggerFactory.getLogger(NrtCollectorJMSDLMC.class);
 
     private AbstractMessageListenerContainer listenerContainer;
 
-    public void setListenerContainer(
-            AbstractMessageListenerContainer listenerContainer) {
+    public void setListenerContainer(AbstractMessageListenerContainer listenerContainer) {
         this.listenerContainer = listenerContainer;
     }
 
     @Override
     public void start() {
-        logger.info("Starting instance: " + this.hashCode()
-                + " with destination: ["
-                + listenerContainer.getDestinationName() + "] msgListener: ["
-                + listenerContainer.getMessageListener() + "]");
+        logger.info("Starting instance: " + this.hashCode() + " with destination: ["
+                + listenerContainer.getDestinationName() + "] msgListener: [" + listenerContainer.getMessageListener()
+                + "]");
 
         listenerContainer.start();
     }

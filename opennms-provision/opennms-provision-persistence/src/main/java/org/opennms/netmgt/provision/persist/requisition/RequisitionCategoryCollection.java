@@ -36,63 +36,76 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
- * <p>RequisitionCategoryCollection class.</p>
+ * <p>
+ * RequisitionCategoryCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="categories")
+@XmlRootElement(name = "categories")
 public class RequisitionCategoryCollection extends LinkedList<RequisitionCategory> {
 
     private static final long serialVersionUID = -4537041686190969655L;
 
     /**
-	 * <p>Constructor for RequisitionCategoryCollection.</p>
-	 */
-	public RequisitionCategoryCollection() {
+     * <p>
+     * Constructor for RequisitionCategoryCollection.
+     * </p>
+     */
+    public RequisitionCategoryCollection() {
         super();
     }
 
     /**
-     * <p>Constructor for RequisitionCategoryCollection.</p>
+     * <p>
+     * Constructor for RequisitionCategoryCollection.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public RequisitionCategoryCollection(Collection<? extends RequisitionCategory> c) {
         super(c);
     }
 
     /**
-     * <p>getCategories</p>
+     * <p>
+     * getCategories
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    @XmlElement(name="category")
+    @XmlElement(name = "category")
     public List<RequisitionCategory> getCategories() {
         return this;
     }
 
     /**
-     * <p>setCategories</p>
+     * <p>
+     * setCategories
+     * </p>
      *
-     * @param categories a {@link java.util.List} object.
+     * @param categories
+     *            a {@link java.util.List} object.
      */
     public void setCategories(List<RequisitionCategory> categories) {
-        if (categories == this) return;
+        if (categories == this)
+            return;
         clear();
         addAll(categories);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
-    	return this.size();
+        return this.size();
     }
 }
-

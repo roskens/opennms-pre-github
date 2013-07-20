@@ -35,25 +35,32 @@ import java.util.LinkedList;
 
 import org.opennms.netmgt.config.collectd.CollectdConfiguration;
 import org.opennms.netmgt.config.collectd.Package;
+
 public class CollectdConfig {
     private CollectdConfiguration m_config;
+
     private Collection<CollectdPackage> m_packages;
+
     private String m_localServer;
+
     private boolean m_verifyServer;
 
     /**
      * Convenience object for CollectdConfiguration.
      *
-     * @param config collectd configuration object
-     * @param localServer local server name from opennms-server.xml
-     * @param verifyServer verify server option from opennms-server.xml
+     * @param config
+     *            collectd configuration object
+     * @param localServer
+     *            local server name from opennms-server.xml
+     * @param verifyServer
+     *            verify server option from opennms-server.xml
      */
     protected CollectdConfig(CollectdConfiguration config, String localServer, boolean verifyServer) {
         m_config = config;
         m_localServer = localServer;
         m_verifyServer = verifyServer;
 
-//      instantiateCollectors();
+        // instantiateCollectors();
 
         createPackageObjects(localServer, verifyServer);
 
@@ -71,16 +78,22 @@ public class CollectdConfig {
     }
 
     /**
-     * <p>getConfig</p>
+     * <p>
+     * getConfig
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.collectd.CollectdConfiguration} object.
+     * @return a
+     *         {@link org.opennms.netmgt.config.collectd.CollectdConfiguration}
+     *         object.
      */
     public CollectdConfiguration getConfig() {
         return m_config;
     }
 
     /**
-     * <p>getPackages</p>
+     * <p>
+     * getPackages
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -89,7 +102,9 @@ public class CollectdConfig {
     }
 
     /**
-     * <p>getThreads</p>
+     * <p>
+     * getThreads
+     * </p>
      *
      * @return a int.
      */
@@ -103,9 +118,11 @@ public class CollectdConfig {
      * from the database.
      *
      * @param localServer2
-     * @param localServer TODO
+     * @param localServer
+     *            TODO
      * @param verifyServer2
-     * @param verifyServer TODO
+     * @param verifyServer
+     *            TODO
      */
     protected void createPackageIpListMap(String localServer, boolean verifyServer) {
 
@@ -119,27 +136,36 @@ public class CollectdConfig {
     }
 
     /**
-     * <p>rebuildPackageIpListMap</p>
+     * <p>
+     * rebuildPackageIpListMap
+     * </p>
      */
     public void rebuildPackageIpListMap() {
         createPackageIpListMap(m_localServer, m_verifyServer);
     }
 
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param localServer TODO
-     * @param verifyServer TODO
+     * @param localServer
+     *            TODO
+     * @param verifyServer
+     *            TODO
      */
-    protected void initialize(String localServer, boolean verifyServer)  {
+    protected void initialize(String localServer, boolean verifyServer) {
         createPackageIpListMap(localServer, verifyServer);
 
     }
 
     /**
-     * <p>getPackage</p>
+     * <p>
+     * getPackage
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.CollectdPackage} object.
      */
     public CollectdPackage getPackage(String name) {
@@ -162,8 +188,7 @@ public class CollectdConfig {
     public boolean domainExists(String name) {
         for (Iterator<CollectdPackage> it = getPackages().iterator(); it.hasNext();) {
             CollectdPackage wpkg = it.next();
-            if ((wpkg.ifAliasDomain() != null)
-                    && wpkg.ifAliasDomain().equals(name)) {
+            if ((wpkg.ifAliasDomain() != null) && wpkg.ifAliasDomain().equals(name)) {
                 return true;
             }
         }
@@ -184,7 +209,7 @@ public class CollectdConfig {
      */
     public boolean isServiceCollectionEnabled(final String ipAddr, final String svcName) {
         for (final Iterator<CollectdPackage> it = getPackages().iterator(); it.hasNext();) {
-        	final CollectdPackage wpkg = it.next();
+            final CollectdPackage wpkg = it.next();
 
             // Does the package include the interface?
             //
@@ -194,7 +219,7 @@ public class CollectdConfig {
                 //
                 if (wpkg.serviceInPackageAndEnabled(svcName)) {
                     // Thats all we need to know...
-                	return true;
+                    return true;
                 }
             }
         }

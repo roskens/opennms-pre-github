@@ -32,31 +32,32 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 
 public class ButtonPanel extends HorizontalLayout implements ModelChangeListener<UiState> {
-	private final Button next;
-	private final Button previous;
+    private final Button next;
 
-	public ButtonPanel(ClickListener listener) {
-		next = UIHelper.createButton("next", IconProvider.BUTTON_NEXT, listener);
-		previous = UIHelper.createButton("previous", IconProvider.BUTTON_PREVIOUS, listener);
-//		help = UIHelper.createButton("help", IconProvider.BUTTON_INFO, this);
+    private final Button previous;
 
-		addComponent(previous);
-//		addComponent(help);
-		addComponent(next);
-	}
+    public ButtonPanel(ClickListener listener) {
+        next = UIHelper.createButton("next", IconProvider.BUTTON_NEXT, listener);
+        previous = UIHelper.createButton("previous", IconProvider.BUTTON_PREVIOUS, listener);
+        // help = UIHelper.createButton("help", IconProvider.BUTTON_INFO, this);
 
-	public Button getNext() {
-		return next;
-	}
+        addComponent(previous);
+        // addComponent(help);
+        addComponent(next);
+    }
 
-	public Button getPrevious() {
-		return previous;
-	}
+    public Button getNext() {
+        return next;
+    }
 
-	@Override
-	public void modelChanged(UiState newModel) {
-//		help.setVisible(false); // TODO enable/disable help dynamically
-		previous.setVisible(newModel.hasPrevious());
-		next.setVisible(newModel.hasNext());
-	}
+    public Button getPrevious() {
+        return previous;
+    }
+
+    @Override
+    public void modelChanged(UiState newModel) {
+        // help.setVisible(false); // TODO enable/disable help dynamically
+        previous.setVisible(newModel.hasPrevious());
+        next.setVisible(newModel.hasNext());
+    }
 }

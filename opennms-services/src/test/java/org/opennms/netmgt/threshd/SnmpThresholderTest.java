@@ -63,7 +63,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
@@ -73,11 +72,17 @@ public class SnmpThresholderTest {
 
     @SuppressWarnings("deprecation")
     private SnmpThresholder m_snmpThresholder;
+
     private ThresholdNetworkInterface m_iface;
+
     private SnmpThresholdNetworkInterface m_thresholdInterface;
+
     private Map<String, String> m_params;
+
     private DefaultThresholdsDao m_thresholdsDao;
+
     private FileAnticipator m_fileAnticipator;
+
     private IfInfoGetter m_ifInfoGetter;
 
     private EasyMockUtils m_mocks = new EasyMockUtils();
@@ -112,9 +117,9 @@ public class SnmpThresholderTest {
 
     @After
     public void tearDown() {
-    	IOUtils.closeQuietly(m_out);
-    	m_out = null;
-    	System.gc();
+        IOUtils.closeQuietly(m_out);
+        m_out = null;
+        System.gc();
         m_fileAnticipator.tearDown();
     }
 
@@ -151,7 +156,8 @@ public class SnmpThresholderTest {
         ta.verifyAnticipated();
     }
 
-    // FIXME: This doesn't work now that config has been moved into SnmpThresholdNetworkInterface
+    // FIXME: This doesn't work now that config has been moved into
+    // SnmpThresholdNetworkInterface
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullThresholdConfiguration() {
@@ -201,7 +207,8 @@ public class SnmpThresholderTest {
         SnmpThresholdNetworkInterface snmpIface = new SnmpThresholdNetworkInterface(m_thresholdsDao, intf, m_params);
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new IllegalArgumentException("getInetAddress() of thresholdNetworkInterface argument cannot be null"));
+        ta.anticipate(new IllegalArgumentException(
+                                                   "getInetAddress() of thresholdNetworkInterface argument cannot be null"));
 
         try {
             m_snmpThresholder.checkNodeDir(new File(""), snmpIface, new Date(), new Events());
@@ -215,20 +222,19 @@ public class SnmpThresholderTest {
     @Test
     public void testCheckNodeDirNullFoo() throws Exception {
         /*
-        ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new IllegalArgumentException("directory argument cannot be null"));
-
-        try {
-        */
-                m_snmpThresholder.checkNodeDir(new File(""), m_thresholdInterface, new Date(), new Events());
-            /*
-        } catch (Throwable t) {
-            ta.throwableReceived(t);
-        }
-        ta.verifyAnticipated();
-        */
+         * ThrowableAnticipator ta = new ThrowableAnticipator();
+         * ta.anticipate(new
+         * IllegalArgumentException("directory argument cannot be null"));
+         * try {
+         */
+        m_snmpThresholder.checkNodeDir(new File(""), m_thresholdInterface, new Date(), new Events());
+        /*
+         * } catch (Throwable t) {
+         * ta.throwableReceived(t);
+         * }
+         * ta.verifyAnticipated();
+         */
     }
-
 
     @SuppressWarnings("deprecation")
     @Test
@@ -248,7 +254,8 @@ public class SnmpThresholderTest {
     @SuppressWarnings("deprecation")
     @Test
     public void testStripRrdExtensionWithValidExtensionTwice() throws Exception {
-        String strippedName = m_snmpThresholder.stripRrdExtension("foo" + RrdUtils.getExtension() + RrdUtils.getExtension());
+        String strippedName = m_snmpThresholder.stripRrdExtension("foo" + RrdUtils.getExtension()
+                + RrdUtils.getExtension());
         assertNotNull("stripped file name should not be null", strippedName);
         assertEquals("stripped file name", "foo" + RrdUtils.getExtension(), strippedName);
     }
@@ -267,10 +274,11 @@ public class SnmpThresholderTest {
         m_thresholdInterface.getThresholdConfiguration().setThresholdGroup(group);
         Collection<Basethresholddef> thresholds = m_thresholdsDao.getThresholdingConfigFactory().getThresholds("generic-snmp");
         int count = 0;
-        for (Basethresholddef threshold: thresholds) {
+        for (Basethresholddef threshold : thresholds) {
             count += threshold.getResourceFilterCount();
         }
-        assertEquals(5, count); // Count how many resource-filter entries are defined on test-thresholods.xml
+        assertEquals(5, count); // Count how many resource-filter entries are
+                                // defined on test-thresholods.xml
     }
 
     @SuppressWarnings("deprecation")
@@ -314,19 +322,21 @@ public class SnmpThresholderTest {
         Events events = new Events();
 
         // Creating Mock ifInfo Data for eth0
-        Map<String,String> ifInfoEth0 = new HashMap<String,String>();
+        Map<String, String> ifInfoEth0 = new HashMap<String, String>();
         ifInfoEth0.put("snmpifindex", "1");
         ifInfoEth0.put("snmpifdesc", "eth0");
         ifInfoEth0.put("snmpifalias", "ethernet interface");
-        // 3 times because there are 2 thresholds instances, one with two filters and one without filter (a total of 3) on test-thresholds.xml
+        // 3 times because there are 2 thresholds instances, one with two
+        // filters and one without filter (a total of 3) on test-thresholds.xml
         EasyMock.expect(m_ifInfoGetter.getIfInfoForNodeAndLabel(1, "eth0")).andReturn(ifInfoEth0).times(3);
 
         // Creating Mock ifInfo Data for wlan0
-        Map<String,String> ifInfoWlan0 = new HashMap<String,String>();
+        Map<String, String> ifInfoWlan0 = new HashMap<String, String>();
         ifInfoWlan0.put("snmpifindex", "2");
         ifInfoWlan0.put("snmpifdesc", "wlan0");
         ifInfoWlan0.put("snmpifalias", "wireless interface");
-        // 3 times because there are 2 thresholds instances, one with two filters and one without filter (a total of 3) on test-thresholds.xml
+        // 3 times because there are 2 thresholds instances, one with two
+        // filters and one without filter (a total of 3) on test-thresholds.xml
         EasyMock.expect(m_ifInfoGetter.getIfInfoForNodeAndLabel(1, "wlan0")).andReturn(ifInfoWlan0).times(3);
 
         m_mocks.replayAll();
@@ -334,14 +344,16 @@ public class SnmpThresholderTest {
         m_snmpThresholder.checkIfDir(intf2Dir, m_thresholdInterface, new Date(start), events);
         m_mocks.verifyAll();
 
-        //assertEquals(3, events.getEventCount()); // with no Filters. See test-thresholds.xml
-        assertEquals(2, events.getEventCount()); // with Filters Enabled. See test-thresholds.xml
+        // assertEquals(3, events.getEventCount()); // with no Filters. See
+        // test-thresholds.xml
+        assertEquals(2, events.getEventCount()); // with Filters Enabled. See
+                                                 // test-thresholds.xml
     }
 
     @SuppressWarnings("deprecation")
     @Test
     public void testThresholdWithGenericResourceTypes() throws Exception {
-    	System.err.println("--------------------------------------------------------");
+        System.err.println("--------------------------------------------------------");
         // Set storeByGroup, because JRBs will be created with this feature
         System.setProperty("org.opennms.rrd.storeByGroup", "true");
 
@@ -372,8 +384,8 @@ public class SnmpThresholderTest {
         strings.setProperty("frIntf", "0");
         File sFile1 = m_fileAnticipator.tempFile(r1Dir, "strings.properties");
         m_out = new FileOutputStream(sFile1);
-		strings.store(m_out, null);
-		m_out.close();
+        strings.store(m_out, null);
+        m_out.close();
 
         // Creating JRB content for Resource 1
         List<String> data1 = new ArrayList<String>();
@@ -390,8 +402,8 @@ public class SnmpThresholderTest {
         strings.setProperty("frIntf", "1");
         File sFile2 = m_fileAnticipator.tempFile(r2Dir, "strings.properties");
         m_out = new FileOutputStream(sFile2);
-		strings.store(m_out, null);
-		m_out.close();
+        strings.store(m_out, null);
+        m_out.close();
 
         // Creating JRB content for Resource 2
         List<String> data2 = new ArrayList<String>();
@@ -402,12 +414,14 @@ public class SnmpThresholderTest {
         m_thresholdInterface.getThresholdConfiguration().setThresholdGroup(group);
         Events events = new Events();
         m_snmpThresholder.checkResourceDir(rtDir, m_thresholdInterface, new Date(start), events);
-        //assertEquals(3, events.getEventCount()); // with no Filters. See test-thresholds.xml
-        assertEquals(2, events.getEventCount()); // with Filters Enabled. See test-thresholds.xml
+        // assertEquals(3, events.getEventCount()); // with no Filters. See
+        // test-thresholds.xml
+        assertEquals(2, events.getEventCount()); // with Filters Enabled. See
+                                                 // test-thresholds.xml
         // Validating ds-value for bug 2129
         for (Event e : events.getEvent()) {
-        	assertEquals("label", e.getParmCollection().get(7).getParmName());
-        	assertEquals("caracas", e.getParmCollection().get(7).getValue().getContent());
+            assertEquals("label", e.getParmCollection().get(7).getParmName());
+            assertEquals("caracas", e.getParmCollection().get(7).getValue().getContent());
         }
     }
 
@@ -458,8 +472,8 @@ public class SnmpThresholderTest {
         assertEquals(1, events.getEventCount());
         // Validating ds-value for bug 2129
         for (Event e : events.getEvent()) {
-        	assertEquals("label", e.getParmCollection().get(7).getParmName());
-        	assertEquals("/opt", e.getParmCollection().get(7).getValue().getContent());
+            assertEquals("label", e.getParmCollection().get(7).getParmName());
+            assertEquals("/opt", e.getParmCollection().get(7).getValue().getContent());
         }
     }
 
@@ -474,9 +488,10 @@ public class SnmpThresholderTest {
         m_out.close();
     }
 
-    private void createAndUpdateRrd(File rrdPath, long start, List<String> sources, List<String> values) throws Exception {
+    private void createAndUpdateRrd(File rrdPath, long start, List<String> sources, List<String> values)
+            throws Exception {
         // Creating RRD
-        long ts = start/1000;
+        long ts = start / 1000;
         RrdDef rrdDef = new RrdDef(rrdPath.getAbsolutePath(), ts - 300, 300);
         for (String source : sources) {
             rrdDef.addDatasource(source, "GAUGE", 600, 0, Double.NaN);

@@ -35,13 +35,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
- * <p>FilterDaoFactory class.</p>
+ * <p>
+ * FilterDaoFactory class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class FilterDaoFactory {
     private static final Logger LOG = LoggerFactory.getLogger(FilterDaoFactory.class);
+
     private static FilterDao m_filterDao;
 
     // Only static methods, so don't let the constructor be called
@@ -49,7 +52,9 @@ public class FilterDaoFactory {
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.FilterDao} object.
      */
@@ -62,9 +67,12 @@ public class FilterDaoFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param filterDao a {@link org.opennms.netmgt.dao.FilterDao} object.
+     * @param filterDao
+     *            a {@link org.opennms.netmgt.dao.FilterDao} object.
      */
     public static void setInstance(final FilterDao filterDao) {
         LOG.debug("setInstance({})", filterDao);
@@ -72,7 +80,9 @@ public class FilterDaoFactory {
     }
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     protected static synchronized void init() {
         if (m_filterDao != null) {

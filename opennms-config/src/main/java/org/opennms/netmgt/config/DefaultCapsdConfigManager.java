@@ -45,46 +45,63 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>DefaultCapsdConfigManager class.</p>
+ * <p>
+ * DefaultCapsdConfigManager class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class DefaultCapsdConfigManager extends CapsdConfigManager {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultCapsdConfigManager.class);
+
     /**
      * Timestamp of the file for the currently loaded configuration
      */
     private long m_currentVersion = -1L;
 
     /**
-     * <p>Constructor for DefaultCapsdConfigManager.</p>
+     * <p>
+     * Constructor for DefaultCapsdConfigManager.
+     * </p>
      */
     public DefaultCapsdConfigManager() {
         super();
     }
 
     /**
-     * <p>Constructor for DefaultCapsdConfigManager.</p>
+     * <p>
+     * Constructor for DefaultCapsdConfigManager.
+     * </p>
      *
-     * @param is a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param is
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public DefaultCapsdConfigManager(InputStream is) throws MarshalException, ValidationException {
         super(is);
     }
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     @Override
-    protected synchronized void update() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+    protected synchronized void update() throws IOException, FileNotFoundException, MarshalException,
+            ValidationException {
         File configFile = ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME);
 
         LOG.debug("Checking to see if capsd configuration should be reloaded from {}", configFile);

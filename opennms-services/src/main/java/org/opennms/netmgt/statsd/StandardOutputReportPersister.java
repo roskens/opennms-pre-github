@@ -34,7 +34,9 @@ import java.util.SortedSet;
 import org.opennms.netmgt.model.AttributeStatistic;
 
 /**
- * <p>StandardOutputReportPersister class.</p>
+ * <p>
+ * StandardOutputReportPersister class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -43,10 +45,13 @@ public class StandardOutputReportPersister implements ReportPersister {
     /** {@inheritDoc} */
     @Override
     public void persist(ReportInstance report) {
-        System.out.println("Top " + report.getCount() + " " + report.getAttributeMatch() + " data sources on resources of type " + report.getResourceTypeMatch() + " from " + new Date(report.getStartTime()) + " to " + new Date(report.getEndTime()));
+        System.out.println("Top " + report.getCount() + " " + report.getAttributeMatch()
+                + " data sources on resources of type " + report.getResourceTypeMatch() + " from "
+                + new Date(report.getStartTime()) + " to " + new Date(report.getEndTime()));
         SortedSet<AttributeStatistic> top = report.getResults();
         for (AttributeStatistic stat : top) {
-            System.out.println(stat.getAttribute().getResource().getId() + "/" + stat.getAttribute().getName() + ": " + stat.getStatistic());
+            System.out.println(stat.getAttribute().getResource().getId() + "/" + stat.getAttribute().getName() + ": "
+                    + stat.getStatistic());
         }
         System.out.println("");
     }

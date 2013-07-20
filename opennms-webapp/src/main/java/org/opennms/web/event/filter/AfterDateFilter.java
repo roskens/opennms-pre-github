@@ -34,7 +34,9 @@ import org.opennms.web.filter.GreaterThanFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * <p>AfterDateFilter class.</p>
+ * <p>
+ * AfterDateFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,24 +47,33 @@ public class AfterDateFilter extends GreaterThanFilter<Date> {
     public static final String TYPE = "afterdate";
 
     /**
-     * <p>Constructor for AfterDateFilter.</p>
+     * <p>
+     * Constructor for AfterDateFilter.
+     * </p>
      *
-     * @param date a java$util$Date object.
+     * @param date
+     *            a java$util$Date object.
      */
     public AfterDateFilter(java.util.Date date) {
         super(TYPE, SQLType.DATE, "EVENTTIME", "eventTime", date);
     }
 
     /**
-     * <p>Constructor for AfterDateFilter.</p>
+     * <p>
+     * Constructor for AfterDateFilter.
+     * </p>
      *
-     * @param epochTime a long.
+     * @param epochTime
+     *            a long.
      */
     public AfterDateFilter(long epochTime) {
         this(new java.util.Date(epochTime));
     }
+
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +83,9 @@ public class AfterDateFilter extends GreaterThanFilter<Date> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -82,7 +95,9 @@ public class AfterDateFilter extends GreaterThanFilter<Date> {
     }
 
     /**
-     * <p>getDate</p>
+     * <p>
+     * getDate
+     * </p>
      *
      * @return a java$util$Date object.
      */

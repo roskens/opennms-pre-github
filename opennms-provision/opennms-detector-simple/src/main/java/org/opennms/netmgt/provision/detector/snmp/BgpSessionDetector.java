@@ -60,17 +60,19 @@ public class BgpSessionDetector extends SnmpDetector {
     private static final String BGP_PEER_STATE_OID = ".1.3.6.1.2.1.15.3.1.2";
 
     private String m_bgpPeerIp = "";
+
     /**
-     * <p>Constructor for BgpSessionDetector.</p>
+     * <p>
+     * Constructor for BgpSessionDetector.
+     * </p>
      */
-    public BgpSessionDetector(){
+    public BgpSessionDetector() {
         setServiceName(PROTOCOL_NAME);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If
      * the protocol is not supported then a false value is returned to the
      * caller. The qualifier map passed to the method is used by the plugin to
      * return additional information by key-name. These key-value pairs can be
@@ -88,7 +90,7 @@ public class BgpSessionDetector extends SnmpDetector {
 
             String bgpPeerState = getValue(agentConfig, BGP_PEER_STATE_OID + "." + bgpPeerIp);
             LOG.debug("BgpSessionMonitor.capsd: bgpPeerState: {}", bgpPeerState);
-            if  (bgpPeerState != null && Integer.parseInt(bgpPeerState) >= 1 && Integer.parseInt(bgpPeerState) <= 6){
+            if (bgpPeerState != null && Integer.parseInt(bgpPeerState) >= 1 && Integer.parseInt(bgpPeerState) <= 6) {
                 return true;
             }
 
@@ -99,16 +101,21 @@ public class BgpSessionDetector extends SnmpDetector {
     }
 
     /**
-     * <p>setBgpPeerIp</p>
+     * <p>
+     * setBgpPeerIp
+     * </p>
      *
-     * @param bgpPeerIp a {@link java.lang.String} object.
+     * @param bgpPeerIp
+     *            a {@link java.lang.String} object.
      */
     public void setBgpPeerIp(String bgpPeerIp) {
         m_bgpPeerIp = bgpPeerIp;
     }
 
     /**
-     * <p>getBgpPeerIp</p>
+     * <p>
+     * getBgpPeerIp
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

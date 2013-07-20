@@ -40,19 +40,20 @@ import org.osgi.service.cm.ManagedService;
 
 public class ConfigurableIconRepository implements IconRepository, ManagedService {
 
-	private final AtomicReference<Map<String, String>> m_iconMap;
+    private final AtomicReference<Map<String, String>> m_iconMap;
 
-	public ConfigurableIconRepository() {
-		this(Collections.<String, String>emptyMap());
-	}
+    public ConfigurableIconRepository() {
+        this(Collections.<String, String> emptyMap());
+    }
 
-	public ConfigurableIconRepository(Map<String, String> iconMap) {
-		 m_iconMap = new AtomicReference<Map<String,String>>(iconMap);
-	}
+    public ConfigurableIconRepository(Map<String, String> iconMap) {
+        m_iconMap = new AtomicReference<Map<String, String>>(iconMap);
+    }
 
-	private Map<String, String> iconMap() {
-		return m_iconMap.get();
-	}
+    private Map<String, String> iconMap() {
+        return m_iconMap.get();
+    }
+
     @Override
     public boolean contains(String type) {
         return iconMap().containsKey(type);
@@ -63,30 +64,31 @@ public class ConfigurableIconRepository implements IconRepository, ManagedServic
         return iconMap().get(type);
     }
 
-	@Override
-	public void updated(Dictionary<String,?> properties) throws ConfigurationException {
+    @Override
+    public void updated(Dictionary<String, ?> properties) throws ConfigurationException {
 
-		while(true) {
-			Map<String, String> oldMap = m_iconMap.get();
+        while (true) {
+            Map<String, String> oldMap = m_iconMap.get();
 
-			// create the new map using the old as defaults
-			Map<String, String> newMap = new HashMap<String, String>(oldMap);
-			for(String key : Collections.list(properties.keys())) {
-				String v = ((String)properties.get(key));
-				if (v == null || v.trim().isEmpty()) {
-					newMap.remove(key);
-				} else {
-					newMap.put(key, v.trim());
-				}
-			}
+            // create the new map using the old as defaults
+            Map<String, String> newMap = new HashMap<String, String>(oldMap);
+            for (String key : Collections.list(properties.keys())) {
+                String v = ((String) properties.get(key));
+                if (v == null || v.trim().isEmpty()) {
+                    newMap.remove(key);
+                } else {
+                    newMap.put(key, v.trim());
+                }
+            }
 
-			// only update the newMap if the oldMap is the same one we started with
-			// if not then try again with whichever map is there now
-			if (m_iconMap.compareAndSet(oldMap, newMap)) {
-				return;
-			}
-		}
+            // only update the newMap if the oldMap is the same one we started
+            // with
+            // if not then try again with whichever map is there now
+            if (m_iconMap.compareAndSet(oldMap, newMap)) {
+                return;
+            }
+        }
 
-	}
+    }
 
 }

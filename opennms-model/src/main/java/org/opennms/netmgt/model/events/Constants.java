@@ -88,12 +88,12 @@ public class Constants extends EventConstants {
      */
     public static String escape(final String inStr, final char delimchar) {
 
-        final StringBuilder buf = new StringBuilder(inStr.length()+16);
+        final StringBuilder buf = new StringBuilder(inStr.length() + 16);
 
         for (final char ch : inStr.toCharArray()) {
             if (ch == delimchar || (Character.isISOControl(ch) && !Character.isWhitespace(ch))) {
                 buf.append('%');
-                buf.append(String.valueOf((int)ch));
+                buf.append(String.valueOf((int) ch));
             } else {
                 buf.append(ch);
             }
@@ -124,7 +124,8 @@ public class Constants extends EventConstants {
         boolean first = true;
 
         for (String s : strings) {
-            if (maxlen != 0 && buf.length() >= maxlen) break;
+            if (maxlen != 0 && buf.length() >= maxlen)
+                break;
             s = escape(s, MULTIPLE_VAL_DELIM);
             if (!first)
                 buf.append(MULTIPLE_VAL_DELIM);
@@ -160,7 +161,8 @@ public class Constants extends EventConstants {
         boolean first = true;
 
         for (String s : strings) {
-            if (maxlen != 0 && buf.length() >= maxlen) break;
+            if (maxlen != 0 && buf.length() >= maxlen)
+                break;
             s = escape(s, MULTIPLE_VAL_DELIM);
             if (!first)
                 buf.append(MULTIPLE_VAL_DELIM);
@@ -182,7 +184,8 @@ public class Constants extends EventConstants {
      * @param maxlen
      *            The maximum length of the composite string
      * @return The string(truncated if necessary).
-     * @param origString a {@link java.lang.String} object.
+     * @param origString
+     *            a {@link java.lang.String} object.
      */
     public static String format(final String origString, final int maxlen) {
         if (origString == null)

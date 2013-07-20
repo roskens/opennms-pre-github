@@ -37,28 +37,28 @@ import org.opennms.features.topology.api.topo.AbstractVertex;
 
 public class TestVertex extends AbstractVertex {
 
-	List<TestEdge> m_edges = new ArrayList<TestEdge>();
+    List<TestEdge> m_edges = new ArrayList<TestEdge>();
 
-	public TestVertex(String id) {
-		super("test", id);
-	}
+    public TestVertex(String id) {
+        super("test", id);
+    }
 
-	public TestVertex(String id, int x, int y) {
-		this(id);
-		setX(x);
-		setY(y);
-	}
+    public TestVertex(String id, int x, int y) {
+        this(id);
+        setX(x);
+        setY(y);
+    }
 
-	@XmlTransient
-	public List<TestEdge> getEdges() {
-		return m_edges;
-	}
+    @XmlTransient
+    public List<TestEdge> getEdges() {
+        return m_edges;
+    }
 
-	void addEdge(TestEdge edge) {
-		m_edges.add(edge);
-	}
+    void addEdge(TestEdge edge) {
+        m_edges.add(edge);
+    }
 
-	void removeEdge(TestEdge edge) {
-		m_edges.remove(edge);
-	}
+    void removeEdge(TestEdge edge) {
+        m_edges.remove(edge);
+    }
 }

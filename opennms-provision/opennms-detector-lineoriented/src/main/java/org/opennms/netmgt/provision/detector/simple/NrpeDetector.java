@@ -38,7 +38,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>NrpeDetector class.</p>
+ * <p>
+ * NrpeDetector class.
+ * </p>
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -57,7 +59,9 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
     private final static boolean DEFAULT_USE_SSL = true;
 
     private boolean m_useSsl = DEFAULT_USE_SSL;
+
     private int m_padding = 2;
+
     private String m_command = NrpePacket.HELLO_COMMAND;
 
     /**
@@ -70,8 +74,10 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public NrpeDetector(final String serviceName, final int port) {
         super(serviceName, port);
@@ -83,12 +89,12 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
         send(request(m_command), resultCodeEquals(0));
     }
 
-    private static ResponseValidator<NrpePacket> resultCodeEquals(final int desiredResultCode){
+    private static ResponseValidator<NrpePacket> resultCodeEquals(final int desiredResultCode) {
         return new ResponseValidator<NrpePacket>() {
 
             @Override
             public boolean validate(final NrpePacket response) {
-                if(response.getResultCode() == desiredResultCode) {
+                if (response.getResultCode() == desiredResultCode) {
                     return true;
                 }
                 return false;
@@ -115,18 +121,22 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
         return client;
     }
 
-
     /**
-     * <p>setUseSsl</p>
+     * <p>
+     * setUseSsl
+     * </p>
      *
-     * @param useSsl a boolean.
+     * @param useSsl
+     *            a boolean.
      */
     public void setUseSsl(final boolean useSsl) {
         m_useSsl = useSsl;
     }
 
     /**
-     * <p>isUseSsl</p>
+     * <p>
+     * isUseSsl
+     * </p>
      *
      * @return a boolean.
      */
@@ -135,16 +145,21 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
     }
 
     /**
-     * <p>setPadding</p>
+     * <p>
+     * setPadding
+     * </p>
      *
-     * @param padding a int.
+     * @param padding
+     *            a int.
      */
     public void setPadding(final int padding) {
         m_padding = padding;
     }
 
     /**
-     * <p>getPadding</p>
+     * <p>
+     * getPadding
+     * </p>
      *
      * @return a int.
      */
@@ -153,16 +168,21 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
     }
 
     /**
-     * <p>setCommand</p>
+     * <p>
+     * setCommand
+     * </p>
      *
-     * @param command a String.
+     * @param command
+     *            a String.
      */
     public void setCommand(final String command) {
         this.m_command = command;
     }
 
     /**
-     * <p>getCommand</p>
+     * <p>
+     * getCommand
+     * </p>
      *
      * @return a String.
      */

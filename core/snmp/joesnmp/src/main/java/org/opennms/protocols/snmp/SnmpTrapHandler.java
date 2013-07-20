@@ -40,7 +40,6 @@ import java.net.InetAddress;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @version 1.1.1.1 2001/11/11 17:27:22
- *
  */
 public interface SnmpTrapHandler {
     /**
@@ -60,9 +59,9 @@ public interface SnmpTrapHandler {
      *            The community string
      * @param pdu
      *            The SNMP pdu
-     *
      */
-    void snmpReceivedTrap(SnmpTrapSession session, InetAddress agent, int port, SnmpOctetString community, SnmpPduPacket pdu);
+    void snmpReceivedTrap(SnmpTrapSession session, InetAddress agent, int port, SnmpOctetString community,
+            SnmpPduPacket pdu);
 
     /**
      * <P>
@@ -81,9 +80,9 @@ public interface SnmpTrapHandler {
      *            The community string
      * @param pdu
      *            The SNMP trap pdu
-     *
      */
-    void snmpReceivedTrap(SnmpTrapSession session, InetAddress agent, int port, SnmpOctetString community, SnmpPduTrap pdu);
+    void snmpReceivedTrap(SnmpTrapSession session, InetAddress agent, int port, SnmpOctetString community,
+            SnmpPduTrap pdu);
 
     /**
      * <P>
@@ -91,7 +90,6 @@ public interface SnmpTrapHandler {
      * code that represents the failure will be passed in the second parameter,
      * 'error'. The error codes can be found in the class SnmpTrapSession class.
      * </P>
-     *
      * <P>
      * If a particular PDU is part of the error condition it will be passed in
      * the third parameter, 'pdu'. The pdu will be of the type SnmpPduRequest or
@@ -107,8 +105,6 @@ public interface SnmpTrapHandler {
      * @param ref
      *            The PDU reference, or potentially null. It may also be an
      *            exception.
-     *
-     *
      */
     void snmpTrapSessionError(SnmpTrapSession session, int error, Object ref);
 }

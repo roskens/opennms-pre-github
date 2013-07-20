@@ -41,9 +41,12 @@ public class PingRequestId {
     private String m_destination;
 
     /**
-     * <p>Constructor for PingRequestId.</p>
+     * <p>
+     * Constructor for PingRequestId.
+     * </p>
      *
-     * @param destination a {@link java.lang.String} object.
+     * @param destination
+     *            a {@link java.lang.String} object.
      */
     public PingRequestId(String destination) {
         Assert.notNull(destination);
@@ -51,7 +54,9 @@ public class PingRequestId {
     }
 
     /**
-     * <p>getDestination</p>
+     * <p>
+     * getDestination
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -63,7 +68,7 @@ public class PingRequestId {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof PingRequestId) {
-            PingRequestId o = (PingRequestId)obj;
+            PingRequestId o = (PingRequestId) obj;
             return m_destination.equals(o.m_destination);
         }
         return false;
@@ -80,6 +85,5 @@ public class PingRequestId {
     public String toString() {
         return m_destination;
     }
-
 
 }

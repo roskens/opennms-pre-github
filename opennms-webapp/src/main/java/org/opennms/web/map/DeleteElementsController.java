@@ -48,95 +48,99 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>DeleteElementsController class.</p>
+ * <p>
+ * DeleteElementsController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class DeleteElementsController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DeleteElementsController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeleteElementsController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+        String action = request.getParameter("action");
+        String elems = request.getParameter("elems");
+        LOG.debug("Adding elements action:{}, elems={}", action, elems);
 
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+        try {
+            VMap map = manager.openMap();
+            LOG.debug("Got map from manager {}", map);
 
-		String action = request.getParameter("action");
-		String elems = request.getParameter("elems");
-		LOG.debug("Adding elements action:{}, elems={}", action, elems);
-
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
-		try {
-			VMap map = manager.openMap();
-				LOG.debug("Got map from manager {}", map);
-
-			Integer[] elemeids = null;
-			String type = MapsConstants.NODE_TYPE;
+            Integer[] elemeids = null;
+            String type = MapsConstants.NODE_TYPE;
 
             String[] mapids = elems.split(",");
             elemeids = new Integer[mapids.length];
-            for (int i = 0; i<mapids.length; i++) {
+            for (int i = 0; i < mapids.length; i++) {
                 elemeids[i] = new Integer(mapids[i]);
             }
 
-			boolean actionfound = false;
-			if (action.equals(MapsConstants.DELETENODES_ACTION)) {
-				actionfound = true;
-			}
+            boolean actionfound = false;
+            if (action.equals(MapsConstants.DELETENODES_ACTION)) {
+                actionfound = true;
+            }
 
-			if (action.equals(MapsConstants.DELETEMAPS_ACTION)) {
-				actionfound = true;
-				type = MapsConstants.MAP_TYPE;
-			}
+            if (action.equals(MapsConstants.DELETEMAPS_ACTION)) {
+                actionfound = true;
+                type = MapsConstants.MAP_TYPE;
+            }
 
-			List<String> velemsids = new ArrayList<String>();
-			if (actionfound) {
-				for (int i = 0; i < elemeids.length; i++) {
-					int elemId = elemeids[i].intValue();
-					if (map.containsElement(elemId, type)) {
-						map.removeLinksOnElementList(elemId, type);
-						VElement ve = map.removeElement(elemId, type);
-						velemsids.add(ve.getId()+ve.getType());
-					}
-				}
-			}
-			bw.write(ResponseAssembler.getDeleteElementsResponse(velemsids));
-		} catch (Throwable e) {
-			LOG.error("Error while adding nodes for action: {}", action, e);
-			bw.write(ResponseAssembler.getMapErrorResponse(action));
-		} finally {
-			bw.close();
-		}
+            List<String> velemsids = new ArrayList<String>();
+            if (actionfound) {
+                for (int i = 0; i < elemeids.length; i++) {
+                    int elemId = elemeids[i].intValue();
+                    if (map.containsElement(elemId, type)) {
+                        map.removeLinksOnElementList(elemId, type);
+                        VElement ve = map.removeElement(elemId, type);
+                        velemsids.add(ve.getId() + ve.getType());
+                    }
+                }
+            }
+            bw.write(ResponseAssembler.getDeleteElementsResponse(velemsids));
+        } catch (Throwable e) {
+            LOG.error("Error while adding nodes for action: {}", action, e);
+            bw.write(ResponseAssembler.getMapErrorResponse(action));
+        } finally {
+            bw.close();
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

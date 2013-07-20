@@ -59,8 +59,11 @@ import org.opennms.test.ThrowableAnticipator;
  */
 public class ResourceTypeUtilsTest {
     private FileAnticipator m_fileAnticipator;
+
     private File m_snmp;
+
     private File m_node;
+
     private File m_intf;
 
     @Before
@@ -75,13 +78,12 @@ public class ResourceTypeUtilsTest {
         m_fileAnticipator.tearDown();
     }
 
-
     @Test
     public void testLoadPropertiesNullRrdDirectory() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("rrdDirectory argument must not be null"));
         try {
-            //ResourceTypeUtils.loadProperties(null);
+            // ResourceTypeUtils.loadProperties(null);
             ResourceTypeUtils.getStringProperties(null, "something");
         } catch (Throwable t) {
             ta.throwableReceived(t);
@@ -94,7 +96,7 @@ public class ResourceTypeUtilsTest {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("relativePath argument must not be null"));
         try {
-            //ResourceTypeUtils.loadProperties(null);
+            // ResourceTypeUtils.loadProperties(null);
             ResourceTypeUtils.getStringProperties(new File(""), null);
         } catch (Throwable t) {
             ta.throwableReceived(t);
@@ -158,7 +160,8 @@ public class ResourceTypeUtilsTest {
         // Creating a new strings.properties file and adding one value to it
         ResourceTypeUtils.updateStringProperty(resourceDir, "2012", "year");
         assertEquals("2012", ResourceTypeUtils.getStringProperty(resourceDir, "year"));
-        Thread.sleep(1000l); // Simulate a delay, to be sure that we are going to have a different lastModifyTime
+        Thread.sleep(1000l); // Simulate a delay, to be sure that we are going
+                             // to have a different lastModifyTime
 
         // Externally updating the strings.proeprties file
         Properties properties = new Properties();
@@ -170,9 +173,9 @@ public class ResourceTypeUtilsTest {
         assertEquals("2013", ResourceTypeUtils.getStringProperty(resourceDir, "year"));
     }
 
-
     private OnmsResource createResource() {
-        OnmsResource topResource = new OnmsResource("1", "Node One", new MockResourceType(), new HashSet<OnmsAttribute>(0));
+        OnmsResource topResource = new OnmsResource("1", "Node One", new MockResourceType(),
+                                                    new HashSet<OnmsAttribute>(0));
         Set<OnmsAttribute> attributes = new HashSet<OnmsAttribute>(1);
         attributes.add(new RrdGraphAttribute("foo", "1/eth0", "foo.jrb"));
         OnmsResource childResource = new OnmsResource("eth0", "Interface eth0", new MockResourceType(), attributes);
@@ -180,7 +183,8 @@ public class ResourceTypeUtilsTest {
         return childResource;
     }
 
-    private File createPropertiesFile(OnmsResource childResource, String propertiesContent, boolean onlyCreateParentDirectories) throws IOException {
+    private File createPropertiesFile(OnmsResource childResource, String propertiesContent,
+            boolean onlyCreateParentDirectories) throws IOException {
         m_fileAnticipator.initialize();
         m_snmp = m_fileAnticipator.tempDir(DefaultResourceDao.SNMP_DIRECTORY);
         m_node = m_fileAnticipator.tempDir(m_snmp, childResource.getParent().getName());

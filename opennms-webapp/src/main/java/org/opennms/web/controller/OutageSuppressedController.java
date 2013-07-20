@@ -50,7 +50,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>OutageSuppressedController class.</p>
+ * <p>
+ * OutageSuppressedController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -58,117 +60,121 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class OutageSuppressedController extends AbstractController {
 
-	OutageService m_outageService;
+    OutageService m_outageService;
 
-	OutageListBuilder m_cview = new OutageListBuilder();
+    OutageListBuilder m_cview = new OutageListBuilder();
 
-	Collection<OnmsOutage> foundOutages;
+    Collection<OnmsOutage> foundOutages;
 
-	Collection<OnmsOutage> viewOutages;
+    Collection<OnmsOutage> viewOutages;
 
-	SuppressOutages m_suppress = new SuppressOutages();
+    SuppressOutages m_suppress = new SuppressOutages();
 
-	private String m_successView;
+    private String m_successView;
 
-	private static final int ROW_LIMIT = 25;
+    private static final int ROW_LIMIT = 25;
 
-	/**
-	 * <p>setOutageService</p>
-	 *
-	 * @param service a {@link org.opennms.web.svclayer.outage.OutageService} object.
-	 */
-	public final void setOutageService(final OutageService service) {
-		m_outageService = service;
-	}
+    /**
+     * <p>
+     * setOutageService
+     * </p>
+     *
+     * @param service
+     *            a {@link org.opennms.web.svclayer.outage.OutageService}
+     *            object.
+     */
+    public final void setOutageService(final OutageService service) {
+        m_outageService = service;
+    }
 
-	// public Map referenceData(HttpServletRequest request) throws Exception {
-	/** {@inheritDoc} */
-	@Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
-			final HttpServletResponse reply) throws Exception {
+    // public Map referenceData(HttpServletRequest request) throws Exception {
+    /** {@inheritDoc} */
+    @Override
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse reply)
+            throws Exception {
 
-		Context context = new HttpServletRequestContext(request);
-		LimitFactory limitFactory = new TableLimitFactory(context, "tabledata");
-		Limit limit = new TableLimit(limitFactory);
+        Context context = new HttpServletRequestContext(request);
+        LimitFactory limitFactory = new TableLimitFactory(context, "tabledata");
+        Limit limit = new TableLimit(limitFactory);
 
-		CurrentOutageParseResponse.findSelectedOutagesIDs(request,m_outageService);
+        CurrentOutageParseResponse.findSelectedOutagesIDs(request, m_outageService);
 
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		Integer totalRows = m_outageService.getSuppressedOutageCount();
+        Map<String, Object> myModel = new HashMap<String, Object>();
+        Integer totalRows = m_outageService.getSuppressedOutageCount();
 
-		myModel.put("request", limit.toString());
+        myModel.put("request", limit.toString());
 
-		myModel.put("all_params", request.getParameterNames().toString());
-		if (limit.getPage() == 1) {
-			// no offset set
-			myModel.put("rowStart", 0);
-			context.setRequestAttribute("rowStart", 0);
-			context.setRequestAttribute("rowEnd", ROW_LIMIT);
-			myModel.put("rowEnd", ROW_LIMIT);
+        myModel.put("all_params", request.getParameterNames().toString());
+        if (limit.getPage() == 1) {
+            // no offset set
+            myModel.put("rowStart", 0);
+            context.setRequestAttribute("rowStart", 0);
+            context.setRequestAttribute("rowEnd", ROW_LIMIT);
+            myModel.put("rowEnd", ROW_LIMIT);
 
-			if (limit.getSort().getProperty() == null) {
-				foundOutages = m_outageService.getSuppressedOutagesByRange(0,
-						ROW_LIMIT, "outages.nodeid", "asc");
+            if (limit.getSort().getProperty() == null) {
+                foundOutages = m_outageService.getSuppressedOutagesByRange(0, ROW_LIMIT, "outages.nodeid", "asc");
 
-			} else {
-				foundOutages = m_outageService.getSuppressedOutagesByRange(0,
-						ROW_LIMIT, "outages.nodeid,outages." + limit.getSort().getProperty(), limit
-								.getSort().getSortOrder());
+            } else {
+                foundOutages = m_outageService.getSuppressedOutagesByRange(0, ROW_LIMIT, "outages.nodeid,outages."
+                        + limit.getSort().getProperty(), limit.getSort().getSortOrder());
 
-			}
-			myModel.put("begin", 0);
-			myModel.put("end", ROW_LIMIT);
+            }
+            myModel.put("begin", 0);
+            myModel.put("end", ROW_LIMIT);
 
-		} else {
+        } else {
 
-			Integer rowstart = null;
-			Integer rowend = null;
+            Integer rowstart = null;
+            Integer rowend = null;
 
+            // quirky situation... - as we started on 0 (zero)
+            rowstart = ((limit.getPage() * ROW_LIMIT + 1) - ROW_LIMIT);
+            rowend = (ROW_LIMIT);
+            myModel.put("begin", rowstart);
+            myModel.put("end", rowend);
 
-				//quirky situation... - as we started on 0 (zero)
-				rowstart = ((limit.getPage() * ROW_LIMIT +1 ) - ROW_LIMIT);
-				rowend = ( ROW_LIMIT);
-				myModel.put("begin", rowstart);
-				myModel.put("end", rowend);
+            if (limit.getSort().getProperty() == null) {
+                foundOutages = m_outageService.getSuppressedOutagesByRange(rowstart, rowend, "outages.nodeid", "asc");
 
-			if (limit.getSort().getProperty() == null) {
-				foundOutages = m_outageService.getSuppressedOutagesByRange(
-						rowstart, rowend, "outages.nodeid", "asc");
+            } else {
 
-			} else {
+                foundOutages = m_outageService.getSuppressedOutagesByRange(rowstart, rowend, "outages.nodeid,outages."
+                        + limit.getSort().getProperty() + " ", limit.getSort().getSortOrder());
 
-				foundOutages = m_outageService.getSuppressedOutagesByRange(rowstart,
-						rowend, "outages.nodeid,outages." + limit.getSort().getProperty() + " ", limit
-								.getSort().getSortOrder());
-
-			}
-		}
-
-		// Pretty smart to build the collection after any suppressions.....
-		Collection<Map<String,Object>> theTable = m_cview.theTable(foundOutages);
-
-		myModel.put("tabledata", theTable);
-		myModel.put("totalRows", totalRows);
-
-		myModel.put("selected_outages", CurrentOutageParseResponse.findSelectedOutagesIDs(request,m_outageService));
-		return new ModelAndView(getSuccessView(), myModel);
-	}
-
-        /**
-         * <p>setSuccessView</p>
-         *
-         * @param successView a {@link java.lang.String} object.
-         */
-        public final void setSuccessView(final String successView) {
-                m_successView = successView;
+            }
         }
 
-        /**
-         * <p>getSuccessView</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
-        public final String getSuccessView() {
-                return m_successView;
-        }
+        // Pretty smart to build the collection after any suppressions.....
+        Collection<Map<String, Object>> theTable = m_cview.theTable(foundOutages);
+
+        myModel.put("tabledata", theTable);
+        myModel.put("totalRows", totalRows);
+
+        myModel.put("selected_outages", CurrentOutageParseResponse.findSelectedOutagesIDs(request, m_outageService));
+        return new ModelAndView(getSuccessView(), myModel);
+    }
+
+    /**
+     * <p>
+     * setSuccessView
+     * </p>
+     *
+     * @param successView
+     *            a {@link java.lang.String} object.
+     */
+    public final void setSuccessView(final String successView) {
+        m_successView = successView;
+    }
+
+    /**
+     * <p>
+     * getSuccessView
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public final String getSuccessView() {
+        return m_successView;
+    }
 }

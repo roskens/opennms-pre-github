@@ -45,13 +45,13 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
- * <p>AlarmDetailController class.</p>
+ * <p>
+ * AlarmDetailController class.
+ * </p>
  *
  * @author Ronny Trommer <ronny@opennms.org>
  */
 public class AlarmDetailController extends MultiActionController {
-
-
 
     /**
      * OpenNMS alarm repository
@@ -69,19 +69,24 @@ public class AlarmDetailController extends MultiActionController {
     private Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + AlarmDetailController.class.getName());
 
     /**
-     * <p>setWebAlarmRepository</p>
+     * <p>
+     * setWebAlarmRepository
+     * </p>
      *
-     * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository}
-     * object.
+     * @param webAlarmRepository
+     *            a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
      */
     public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public final void afterPropertiesSet() throws Exception {
         Assert.notNull(m_webAlarmRepository, "webAlarmRepository must be set");
@@ -91,17 +96,17 @@ public class AlarmDetailController extends MultiActionController {
      * {@inheritDoc}
      */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         logger.debug("AlarmDetailController handleRequestInternal called");
         return super.handleRequestInternal(request, response);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Display alarm detail page
+     * {@inheritDoc} Display alarm detail page
      */
-    public final ModelAndView detail(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView detail(final HttpServletRequest httpServletRequest,
+            final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
         List<OnmsAcknowledgment> acknowledgments = null;
@@ -129,7 +134,8 @@ public class AlarmDetailController extends MultiActionController {
         return mv;
     }
 
-    public final ModelAndView removeStickyMemo(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView removeStickyMemo(final HttpServletRequest httpServletRequest,
+            final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
 
@@ -142,11 +148,13 @@ public class AlarmDetailController extends MultiActionController {
             return new ModelAndView(new RedirectView("detail.htm", true), "id", alarmId);
         } catch (NumberFormatException e) {
             logger.error("Could not parse alarm ID '{}' to integer.", httpServletRequest.getParameter("alarmId"));
-            throw new ServletException("Could not parse alarm ID " + httpServletRequest.getParameter("alarmId") + " to integer.");
+            throw new ServletException("Could not parse alarm ID " + httpServletRequest.getParameter("alarmId")
+                    + " to integer.");
         }
     }
 
-    public final ModelAndView saveStickyMemo(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView saveStickyMemo(final HttpServletRequest httpServletRequest,
+            final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
 
@@ -159,11 +167,13 @@ public class AlarmDetailController extends MultiActionController {
             return new ModelAndView(new RedirectView("detail.htm", true), "id", alarmId);
         } catch (NumberFormatException e) {
             logger.error("Could not parse alarm ID '{}' to integer.", httpServletRequest.getParameter("alarmId"));
-            throw new ServletException("Could not parse alarm ID " + httpServletRequest.getParameter("alarmId") + " to integer.");
+            throw new ServletException("Could not parse alarm ID " + httpServletRequest.getParameter("alarmId")
+                    + " to integer.");
         }
     }
 
-    public final ModelAndView removeJournalMemo(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView removeJournalMemo(final HttpServletRequest httpServletRequest,
+            final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
 
@@ -176,11 +186,13 @@ public class AlarmDetailController extends MultiActionController {
             return new ModelAndView(new RedirectView("detail.htm", true), "id", alarmId);
         } catch (NumberFormatException e) {
             logger.error("Could not parse alarm ID '{}' to integer.", httpServletRequest.getParameter("alarmId"));
-            throw new ServletException("Could not parse alarm ID " + httpServletRequest.getParameter("alarmId") + " to integer.");
+            throw new ServletException("Could not parse alarm ID " + httpServletRequest.getParameter("alarmId")
+                    + " to integer.");
         }
     }
 
-    public final ModelAndView saveJournalMemo(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView saveJournalMemo(final HttpServletRequest httpServletRequest,
+            final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
 
@@ -194,7 +206,8 @@ public class AlarmDetailController extends MultiActionController {
             return new ModelAndView(new RedirectView("detail.htm", true), "id", alarmId);
         } catch (NumberFormatException e) {
             logger.error("Could not parse alarm ID '{}' to integer.", httpServletRequest.getParameter("alarmId"));
-            throw new ServletException("Could not parse alarm ID " + httpServletRequest.getParameter("alarmId") + " to integer.");
+            throw new ServletException("Could not parse alarm ID " + httpServletRequest.getParameter("alarmId")
+                    + " to integer.");
         }
     }
 }

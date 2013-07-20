@@ -54,7 +54,9 @@ import org.opennms.web.outage.filter.RegainedServiceDateBeforeFilter;
 import org.opennms.web.outage.filter.ServiceFilter;
 
 /**
- * <p>Abstract OutageUtil class.</p>
+ * <p>
+ * Abstract OutageUtil class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -68,9 +70,12 @@ public abstract class OutageUtil extends Object {
     public static final String FILTER_SERVLET_URL_BASE = "outage/list.htm";
 
     /**
-     * <p>getFilter</p>
+     * <p>
+     * getFilter
+     * </p>
      *
-     * @param filterString a {@link java.lang.String} object.
+     * @param filterString
+     *            a {@link java.lang.String} object.
      * @return a org$opennms$web$filter$Filter object.
      */
     public static Filter getFilter(String filterString, ServletContext servletContext) {
@@ -118,9 +123,12 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>getFilterString</p>
+     * <p>
+     * getFilterString
+     * </p>
      *
-     * @param filter a org$opennms$web$filter$Filter object.
+     * @param filter
+     *            a org$opennms$web$filter$Filter object.
      * @return a {@link java.lang.String} object.
      */
     public static String getFilterString(Filter filter) {
@@ -134,7 +142,8 @@ public abstract class OutageUtil extends Object {
     /**
      * Returns the color to use for an outage, if no color then it returns null.
      *
-     * @param outage a {@link org.opennms.web.outage.Outage} object.
+     * @param outage
+     *            a {@link org.opennms.web.outage.Outage} object.
      * @return a {@link java.lang.String} object.
      */
     public static String getStatusColor(Outage outage) {
@@ -154,7 +163,8 @@ public abstract class OutageUtil extends Object {
     /**
      * Returns the icon to use for an outage, if no icon then it returns null.
      *
-     * @param outage a {@link org.opennms.web.outage.Outage} object.
+     * @param outage
+     *            a {@link org.opennms.web.outage.Outage} object.
      * @return a {@link java.lang.String} object.
      */
     public static String getStatusLabel(Outage outage) {
@@ -171,20 +181,31 @@ public abstract class OutageUtil extends Object {
         return label;
     }
 
-    /** Constant <code>LINK_IGNORES="new String[] { sortby, outtype, limit, "{trunked}</code> */
+    /**
+     * Constant
+     * <code>LINK_IGNORES="new String[] { sortby, outtype, limit, "{trunked}</code>
+     */
     protected static final String[] LINK_IGNORES = new String[] { "sortby", "outtype", "limit", "multiple", "filter" };
 
     /**
-     * <p>makeLink</p>
+     * <p>
+     * makeLink
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param sortStyle a {@link org.opennms.web.outage.SortStyle} object.
-     * @param outageType a {@link org.opennms.web.outage.OutageType} object.
-     * @param filters a {@link java.util.List} object.
-     * @param limit a int.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param sortStyle
+     *            a {@link org.opennms.web.outage.SortStyle} object.
+     * @param outageType
+     *            a {@link org.opennms.web.outage.OutageType} object.
+     * @param filters
+     *            a {@link java.util.List} object.
+     * @param limit
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
-    public static String makeLink(HttpServletRequest request, SortStyle sortStyle, OutageType outageType, List<Filter> filters, int limit) {
+    public static String makeLink(HttpServletRequest request, SortStyle sortStyle, OutageType outageType,
+            List<Filter> filters, int limit) {
         if (request == null || sortStyle == null || outageType == null || filters == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -208,14 +229,19 @@ public abstract class OutageUtil extends Object {
             additions.put("filter", filterStrings);
         }
 
-        return FILTER_SERVLET_URL_BASE + "?" + Util.makeQueryString(request, additions, LINK_IGNORES, Util.IgnoreType.REQUEST_ONLY);
+        return FILTER_SERVLET_URL_BASE + "?"
+                + Util.makeQueryString(request, additions, LINK_IGNORES, Util.IgnoreType.REQUEST_ONLY);
     }
 
     /**
-     * <p>makeLink</p>
+     * <p>
+     * makeLink
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
      * @return a {@link java.lang.String} object.
      */
     public static String makeLink(HttpServletRequest request, OutageQueryParms parms) {
@@ -227,11 +253,16 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeLink</p>
+     * <p>
+     * makeLink
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
-     * @param sortStyle a {@link org.opennms.web.outage.SortStyle} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param sortStyle
+     *            a {@link org.opennms.web.outage.SortStyle} object.
      * @return a {@link java.lang.String} object.
      */
     public static String makeLink(HttpServletRequest request, OutageQueryParms parms, SortStyle sortStyle) {
@@ -243,11 +274,16 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeLink</p>
+     * <p>
+     * makeLink
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
-     * @param outageType a {@link org.opennms.web.outage.OutageType} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param outageType
+     *            a {@link org.opennms.web.outage.OutageType} object.
      * @return a {@link java.lang.String} object.
      */
     public static String makeLink(HttpServletRequest request, OutageQueryParms parms, OutageType outageType) {
@@ -259,11 +295,16 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeLink</p>
+     * <p>
+     * makeLink
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
-     * @param filters a {@link java.util.List} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param filters
+     *            a {@link java.util.List} object.
      * @return a {@link java.lang.String} object.
      */
     public static String makeLink(HttpServletRequest request, OutageQueryParms parms, List<Filter> filters) {
@@ -275,12 +316,18 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeLink</p>
+     * <p>
+     * makeLink
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
-     * @param filter a org$opennms$web$filter$Filter object.
-     * @param add a boolean.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param filter
+     *            a org$opennms$web$filter$Filter object.
+     * @param add
+     *            a boolean.
      * @return a {@link java.lang.String} object.
      */
     public static String makeLink(HttpServletRequest request, OutageQueryParms parms, Filter filter, boolean add) {
@@ -300,16 +347,24 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeHiddenTags</p>
+     * <p>
+     * makeHiddenTags
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param sortStyle a {@link org.opennms.web.outage.SortStyle} object.
-     * @param outageType a {@link org.opennms.web.outage.OutageType} object.
-     * @param filters a {@link java.util.List} object.
-     * @param limit a int.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param sortStyle
+     *            a {@link org.opennms.web.outage.SortStyle} object.
+     * @param outageType
+     *            a {@link org.opennms.web.outage.OutageType} object.
+     * @param filters
+     *            a {@link java.util.List} object.
+     * @param limit
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
-    public static String makeHiddenTags(HttpServletRequest request, SortStyle sortStyle, OutageType outageType, List<Filter> filters, int limit) {
+    public static String makeHiddenTags(HttpServletRequest request, SortStyle sortStyle, OutageType outageType,
+            List<Filter> filters, int limit) {
         if (request == null || sortStyle == null || outageType == null || filters == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -337,10 +392,14 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeHiddenTags</p>
+     * <p>
+     * makeHiddenTags
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
      * @return a {@link java.lang.String} object.
      */
     public static String makeHiddenTags(HttpServletRequest request, OutageQueryParms parms) {
@@ -352,11 +411,16 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeHiddenTags</p>
+     * <p>
+     * makeHiddenTags
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
-     * @param sortStyle a {@link org.opennms.web.outage.SortStyle} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param sortStyle
+     *            a {@link org.opennms.web.outage.SortStyle} object.
      * @return a {@link java.lang.String} object.
      */
     public static String makeHiddenTags(HttpServletRequest request, OutageQueryParms parms, SortStyle sortStyle) {
@@ -368,11 +432,16 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeHiddenTags</p>
+     * <p>
+     * makeHiddenTags
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
-     * @param outageType a {@link org.opennms.web.outage.OutageType} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param outageType
+     *            a {@link org.opennms.web.outage.OutageType} object.
      * @return a {@link java.lang.String} object.
      */
     public static String makeHiddenTags(HttpServletRequest request, OutageQueryParms parms, OutageType outageType) {
@@ -384,11 +453,16 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeHiddenTags</p>
+     * <p>
+     * makeHiddenTags
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
-     * @param filters a {@link java.util.List} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param filters
+     *            a {@link java.util.List} object.
      * @return a {@link java.lang.String} object.
      */
     public static String makeHiddenTags(HttpServletRequest request, OutageQueryParms parms, List<Filter> filters) {
@@ -400,12 +474,18 @@ public abstract class OutageUtil extends Object {
     }
 
     /**
-     * <p>makeHiddenTags</p>
+     * <p>
+     * makeHiddenTags
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param parms a {@link org.opennms.web.outage.OutageQueryParms} object.
-     * @param filter a org$opennms$web$filter$Filter object.
-     * @param add a boolean.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param parms
+     *            a {@link org.opennms.web.outage.OutageQueryParms} object.
+     * @param filter
+     *            a org$opennms$web$filter$Filter object.
+     * @param add
+     *            a boolean.
      * @return a {@link java.lang.String} object.
      */
     public static String makeHiddenTags(HttpServletRequest request, OutageQueryParms parms, Filter filter, boolean add) {

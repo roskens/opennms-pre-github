@@ -47,57 +47,62 @@ import com.vaadin.ui.themes.BaseTheme;
 
 public class AlarmIdColumnLinkGenerator implements ColumnGenerator {
 
-	private static final long serialVersionUID = 621311104480258016L;
-	private final String alarmIdPropertyName;
-	private final AlarmDao alarmDao;
+    private static final long serialVersionUID = 621311104480258016L;
 
-	/**
-	 * @param alarmIdPropertyName Property name of the alarm Id property (e.g. "id")
-	 */
-	public AlarmIdColumnLinkGenerator(final AlarmDao alarmDao, final String alarmIdPropertyName) {
-		this.alarmIdPropertyName = alarmIdPropertyName;
-		this.alarmDao = alarmDao;
-	}
+    private final String alarmIdPropertyName;
 
-	@Override
-	public Object generateCell(final Table source, Object itemId, Object columnId) {
-		if (source == null) return null; // no source
-		Property<Integer> alarmIdProperty = source.getContainerProperty(itemId,  alarmIdPropertyName);
-		final Integer alarmId = alarmIdProperty.getValue();
-		if (alarmId == null) return null; // no value
+    private final AlarmDao alarmDao;
 
-		// create Link
-		Button button = new Button("" + alarmId);
-		button.setStyleName(BaseTheme.BUTTON_LINK);
-		button.addClickListener(new ClickListener() {
+    /**
+     * @param alarmIdPropertyName
+     *            Property name of the alarm Id property (e.g. "id")
+     */
+    public AlarmIdColumnLinkGenerator(final AlarmDao alarmDao, final String alarmIdPropertyName) {
+        this.alarmIdPropertyName = alarmIdPropertyName;
+        this.alarmDao = alarmDao;
+    }
+
+    @Override
+    public Object generateCell(final Table source, Object itemId, Object columnId) {
+        if (source == null)
+            return null; // no source
+        Property<Integer> alarmIdProperty = source.getContainerProperty(itemId, alarmIdPropertyName);
+        final Integer alarmId = alarmIdProperty.getValue();
+        if (alarmId == null)
+            return null; // no value
+
+        // create Link
+        Button button = new Button("" + alarmId);
+        button.setStyleName(BaseTheme.BUTTON_LINK);
+        button.addClickListener(new ClickListener() {
             private static final long serialVersionUID = 3698209256202413810L;
 
             @Override
-			public void buttonClick(ClickEvent event) {
-			    // try if alarm is there, otherwise show information dialog
-			    OnmsAlarm alarm = alarmDao.get(alarmId);
-			    if (alarm == null) {
-		           new DialogWindow(source.getUI(),
-		                         "Alarm does not exist!",
-		                         "The alarm information cannot be shown. \nThe alarm does not exist anymore. \n\nPlease refresh the Alarm Table.");
-			        return;
-			    }
+            public void buttonClick(ClickEvent event) {
+                // try if alarm is there, otherwise show information dialog
+                OnmsAlarm alarm = alarmDao.get(alarmId);
+                if (alarm == null) {
+                    new DialogWindow(source.getUI(), "Alarm does not exist!",
+                                     "The alarm information cannot be shown. \nThe alarm does not exist anymore. \n\nPlease refresh the Alarm Table.");
+                    return;
+                }
 
-			    // alarm still exists, show alarm details
-				try {
-					source.getUI().addWindow(
-						new InfoWindow(new URL(Page.getCurrent().getLocation().toURL(), "../../alarm/detail.htm?id=" + alarmId), new LabelCreator() {
+                // alarm still exists, show alarm details
+                try {
+                    source.getUI().addWindow(new InfoWindow(new URL(Page.getCurrent().getLocation().toURL(),
+                                                                    "../../alarm/detail.htm?id=" + alarmId),
+                                                            new LabelCreator() {
 
-							@Override
-							public String getLabel() {
-								return "Alarm Info " + alarmId;
-							}
-						}));
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		return button;
-	}
+                                                                @Override
+                                                                public String getLabel() {
+                                                                    return "Alarm Info " + alarmId;
+                                                                }
+                                                            }));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return button;
+    }
 }

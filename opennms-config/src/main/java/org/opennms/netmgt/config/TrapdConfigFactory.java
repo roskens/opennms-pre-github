@@ -46,7 +46,6 @@ import org.springframework.core.io.FileSystemResource;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * Trapd from the trapd-configuration.xml.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -86,11 +85,16 @@ public final class TrapdConfigFactory implements TrapdConfig {
     }
 
     /**
-     * <p>Constructor for TrapdConfigFactory.</p>
+     * <p>
+     * Constructor for TrapdConfigFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public TrapdConfigFactory(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(TrapdConfiguration.class, stream);
@@ -106,9 +110,12 @@ public final class TrapdConfigFactory implements TrapdConfig {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -132,9 +139,12 @@ public final class TrapdConfigFactory implements TrapdConfig {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -158,9 +168,12 @@ public final class TrapdConfigFactory implements TrapdConfig {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param config a {@link org.opennms.netmgt.config.TrapdConfig} object.
+     * @param config
+     *            a {@link org.opennms.netmgt.config.TrapdConfig} object.
      */
     public static synchronized void setInstance(TrapdConfig config) {
         m_singleton = config;
@@ -169,7 +182,7 @@ public final class TrapdConfigFactory implements TrapdConfig {
 
     @Override
     public synchronized String getSnmpTrapAddress() {
-    	return m_config.getSnmpTrapAddress();
+        return m_config.getSnmpTrapAddress();
     }
 
     /**
@@ -197,13 +210,9 @@ public final class TrapdConfigFactory implements TrapdConfig {
     public synchronized List<SnmpV3User> getSnmpV3Users() {
         List<SnmpV3User> snmpUsers = new ArrayList<SnmpV3User>();
         for (Snmpv3User user : m_config.getSnmpv3UserCollection()) {
-            snmpUsers.add(new SnmpV3User(
-                    user.getEngineId(),
-                    user.getSecurityName(),
-                    user.getAuthProtocol(),
-                    user.getAuthPassphrase(),
-                    user.getPrivacyProtocol(),
-                    user.getPrivacyPassphrase()));
+            snmpUsers.add(new SnmpV3User(user.getEngineId(), user.getSecurityName(), user.getAuthProtocol(),
+                                         user.getAuthPassphrase(), user.getPrivacyProtocol(),
+                                         user.getPrivacyPassphrase()));
         }
         return snmpUsers;
     }

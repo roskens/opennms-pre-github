@@ -32,39 +32,38 @@ import java.net.UnknownHostException;
 
 import org.opennms.netmgt.xml.event.Event;
 
-public class SnmpV1TrapEventForwarder extends SnmpTrapForwarderHelper implements
-		EventForwarder {
+public class SnmpV1TrapEventForwarder extends SnmpTrapForwarderHelper implements EventForwarder {
 
-	public SnmpV1TrapEventForwarder(String source_ip, String ip, int port, String community, SnmpTrapHelper snmpTrapHelper) {
-		super(source_ip,ip, port, community, snmpTrapHelper);
-	}
+    public SnmpV1TrapEventForwarder(String source_ip, String ip, int port, String community,
+            SnmpTrapHelper snmpTrapHelper) {
+        super(source_ip, ip, port, community, snmpTrapHelper);
+    }
 
-        @Override
-	public void flushEvent(Event event) {
-		event =	super.filter(event);
-		if (event != null) {
-		try {
-			sendV1EventTrap(event);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-		}
-	}
+    @Override
+    public void flushEvent(Event event) {
+        event = super.filter(event);
+        if (event != null) {
+            try {
+                sendV1EventTrap(event);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-        @Override
-	public void flushSyncEvent(Event event) {
-		flushEvent(event);
-	}
+    @Override
+    public void flushSyncEvent(Event event) {
+        flushEvent(event);
+    }
 
-        @Override
-	public void sendStartSync() {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public void sendStartSync() {
+        throw new UnsupportedOperationException();
+    }
 
-        @Override
-	public void sendEndSync() {
-		throw new UnsupportedOperationException();
-	}
-
+    @Override
+    public void sendEndSync() {
+        throw new UnsupportedOperationException();
+    }
 
 }

@@ -41,12 +41,11 @@ import javax.persistence.TemporalType;
 
 import org.springframework.core.style.ToStringCreator;
 
-
 /**
  * Represents an OpenNMS Distributed Poller
  */
 @Entity
-@Table(name="distPoller")
+@Table(name = "distPoller")
 public class OnmsDistPoller implements Serializable {
 
     private static final long serialVersionUID = -1094353783612066524L;
@@ -81,13 +80,16 @@ public class OnmsDistPoller implements Serializable {
     /**
      * default constructor
      */
-    public OnmsDistPoller() {}
+    public OnmsDistPoller() {
+    }
 
     /**
      * minimal constructor
      *
-     * @param name a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public OnmsDistPoller(String name, String ipAddress) {
         m_name = name;
@@ -101,15 +103,18 @@ public class OnmsDistPoller implements Serializable {
      * @return a {@link java.lang.String} object.
      */
     @Id
-    @Column(name="dpName", nullable=false)
+    @Column(name = "dpName", nullable = false)
     public String getName() {
         return m_name;
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param dpname a {@link java.lang.String} object.
+     * @param dpname
+     *            a {@link java.lang.String} object.
      */
     public void setName(String dpname) {
         m_name = dpname;
@@ -120,15 +125,18 @@ public class OnmsDistPoller implements Serializable {
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="dpIP", nullable=false, length=16)
+    @Column(name = "dpIP", nullable = false, length = 16)
     public String getIpAddress() {
         return m_ipAddress;
     }
 
     /**
-     * <p>setIpAddress</p>
+     * <p>
+     * setIpAddress
+     * </p>
      *
-     * @param dpip a {@link java.lang.String} object.
+     * @param dpip
+     *            a {@link java.lang.String} object.
      */
     public void setIpAddress(String dpip) {
         m_ipAddress = dpip;
@@ -139,35 +147,42 @@ public class OnmsDistPoller implements Serializable {
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="dpComment", length=256)
+    @Column(name = "dpComment", length = 256)
     public String getComment() {
         return m_comment;
     }
 
     /**
-     * <p>setComment</p>
+     * <p>
+     * setComment
+     * </p>
      *
-     * @param dpcomment a {@link java.lang.String} object.
+     * @param dpcomment
+     *            a {@link java.lang.String} object.
      */
     public void setComment(String dpcomment) {
         m_comment = dpcomment;
     }
 
     /**
-     * Numeric representation of percentage of interface speed available to discovery
-     * process.  See documentation for "bandwidth troll"
+     * Numeric representation of percentage of interface speed available to
+     * discovery
+     * process. See documentation for "bandwidth troll"
      *
      * @return a {@link java.math.BigDecimal} object.
      */
-    @Column(name="dpDiscLimit", length=5, scale=2)
+    @Column(name = "dpDiscLimit", length = 5, scale = 2)
     public BigDecimal getDiscoveryLimit() {
         return m_discoveryLimit;
     }
 
     /**
-     * <p>setDiscoveryLimit</p>
+     * <p>
+     * setDiscoveryLimit
+     * </p>
      *
-     * @param dpdisclimit a {@link java.math.BigDecimal} object.
+     * @param dpdisclimit
+     *            a {@link java.math.BigDecimal} object.
      */
     public void setDiscoveryLimit(BigDecimal dpdisclimit) {
         m_discoveryLimit = dpdisclimit;
@@ -178,15 +193,19 @@ public class OnmsDistPoller implements Serializable {
      *
      * @return a {@link java.util.Date} object.
      */
-    @Temporal(TemporalType.TIMESTAMP) @Column(name="dpLastNodePull")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dpLastNodePull")
     public Date getLastNodePull() {
         return m_lastNodePull;
     }
 
     /**
-     * <p>setLastNodePull</p>
+     * <p>
+     * setLastNodePull
+     * </p>
      *
-     * @param dplastnodepull a {@link java.util.Date} object.
+     * @param dplastnodepull
+     *            a {@link java.util.Date} object.
      */
     public void setLastNodePull(Date dplastnodepull) {
         m_lastNodePull = dplastnodepull;
@@ -197,15 +216,19 @@ public class OnmsDistPoller implements Serializable {
      *
      * @return a {@link java.util.Date} object.
      */
-    @Temporal(TemporalType.TIMESTAMP) @Column(name="dpLastEventPull")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dpLastEventPull")
     public Date getLastEventPull() {
         return m_lastEventPull;
     }
 
     /**
-     * <p>setLastEventPull</p>
+     * <p>
+     * setLastEventPull
+     * </p>
      *
-     * @param dplasteventpull a {@link java.util.Date} object.
+     * @param dplasteventpull
+     *            a {@link java.util.Date} object.
      */
     public void setLastEventPull(Date dplasteventpull) {
         m_lastEventPull = dplasteventpull;
@@ -216,15 +239,19 @@ public class OnmsDistPoller implements Serializable {
      *
      * @return a {@link java.util.Date} object.
      */
-    @Temporal(TemporalType.TIMESTAMP) @Column(name="dpLastPackagePush")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dpLastPackagePush")
     public Date getLastPackagePush() {
         return m_lastPackagePush;
     }
 
     /**
-     * <p>setLastPackagePush</p>
+     * <p>
+     * setLastPackagePush
+     * </p>
      *
-     * @param dplastpackagepush a {@link java.util.Date} object.
+     * @param dplastpackagepush
+     *            a {@link java.util.Date} object.
      */
     public void setLastPackagePush(Date dplastpackagepush) {
         m_lastPackagePush = dplastpackagepush;
@@ -235,15 +262,18 @@ public class OnmsDistPoller implements Serializable {
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @Column(name="dpAdminState")
+    @Column(name = "dpAdminState")
     public Integer getAdminState() {
         return m_adminState;
     }
 
     /**
-     * <p>setAdminState</p>
+     * <p>
+     * setAdminState
+     * </p>
      *
-     * @param dpadminstate a {@link java.lang.Integer} object.
+     * @param dpadminstate
+     *            a {@link java.lang.Integer} object.
      */
     public void setAdminState(Integer dpadminstate) {
         m_adminState = dpadminstate;
@@ -251,34 +281,37 @@ public class OnmsDistPoller implements Serializable {
 
     /**
      * Reflects the current perceived state of the distributed
-     * poller.  1 = Up, 0 = Down
+     * poller. 1 = Up, 0 = Down
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @Column(name="dpRunState")
+    @Column(name = "dpRunState")
     public Integer getRunState() {
         return m_runState;
     }
 
     /**
-     * <p>setRunState</p>
+     * <p>
+     * setRunState
+     * </p>
      *
-     * @param dprunstate a {@link java.lang.Integer} object.
+     * @param dprunstate
+     *            a {@link java.lang.Integer} object.
      */
     public void setRunState(Integer dprunstate) {
         m_runState = dprunstate;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-            .append("name", getName())
-            .toString();
+        return new ToStringCreator(this).append("name", getName()).toString();
     }
 
 }

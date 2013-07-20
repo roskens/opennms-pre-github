@@ -70,9 +70,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class GroupController {
 
     /**
-     * <p>list</p>
+     * <p>
+     * list
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/group.list.page")
@@ -85,9 +88,12 @@ public class GroupController {
     }
 
     /**
-     * <p>detail</p>
+     * <p>
+     * detail
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/group.detail.page")
@@ -97,23 +103,30 @@ public class GroupController {
     }
 
     /**
-     * <p>delete</p>
+     * <p>
+     * delete
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/group.delete.page")
     public ModelAndView delete(HttpServletRequest req) {
         Group group = WebUtils.getGroup(req);
         ModelAndView mav = new ModelAndView(Constants.REDIRECT_GROUP_LIST);
-        mav.addObject(Constants.MESSAGE, group.remove() ? Constants.MSG_AUTHORITY_DELETE_SUCCESS : Constants.MSG_AUTHORITY_DELETE_FAILURE);
+        mav.addObject(Constants.MESSAGE, group.remove() ? Constants.MSG_AUTHORITY_DELETE_SUCCESS
+            : Constants.MSG_AUTHORITY_DELETE_FAILURE);
         return mav;
     }
 
     /**
-     * <p>confirmDelete</p>
+     * <p>
+     * confirmDelete
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/group.confirm.page")
@@ -126,9 +139,12 @@ public class GroupController {
     }
 
     /**
-     * <p>items</p>
+     * <p>
+     * items
+     * </p>
      *
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/group.items.page")
@@ -146,14 +162,19 @@ public class GroupController {
     }
 
     /**
-     * <p>selection</p>
+     * <p>
+     * selection
+     * </p>
      *
-     * @param ids a {@link java.lang.String} object.
-     * @param req a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param ids
+     *            a {@link java.lang.String} object.
+     * @param req
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     @RequestMapping("/group.selection.page")
-    public ModelAndView selection(@RequestParam("includedHidden") String ids, HttpServletRequest req) {
+    public ModelAndView selection(@RequestParam("includedHidden")
+    String ids, HttpServletRequest req) {
         Group group = WebUtils.getGroup(req);
         if (group != null && ids.length() > 0) {
             group.setNewAuthorities(WebUtils.extractIdGrantedAuthorityFromString(ids, Constants.COMMA));
@@ -161,16 +182,21 @@ public class GroupController {
             group.setNewAuthorities(new ArrayList<Integer>());
         }
         group.save();
-        return new ModelAndView(new StringBuilder(Constants.REDIRECT_GROUP_LIST).append("?").append(Constants.GROUP_ID).append("=").append(group.getId()).toString());
+        return new ModelAndView(
+                                new StringBuilder(Constants.REDIRECT_GROUP_LIST).append("?").append(Constants.GROUP_ID).append("=").append(group.getId()).toString());
     }
 
     /**
-     * <p>Constructor for GroupController.</p>
+     * <p>
+     * Constructor for GroupController.
+     * </p>
      *
-     * @param groupService a {@link org.opennms.acl.service.GroupService} object.
+     * @param groupService
+     *            a {@link org.opennms.acl.service.GroupService} object.
      */
     @Autowired
-    public GroupController(@Qualifier("groupService") GroupService groupService) {
+    public GroupController(@Qualifier("groupService")
+    GroupService groupService) {
         this.groupService = groupService;
     }
 

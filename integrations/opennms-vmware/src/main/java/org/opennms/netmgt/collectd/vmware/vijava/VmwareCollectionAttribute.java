@@ -36,11 +36,15 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 
 public class VmwareCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
     private String m_alias;
+
     private String m_value;
+
     private VmwareCollectionResource m_resource;
+
     private CollectionAttributeType m_attribType;
 
-    public VmwareCollectionAttribute(final VmwareCollectionResource resource, final CollectionAttributeType attribType, final String alias, final String value) {
+    public VmwareCollectionAttribute(final VmwareCollectionResource resource, final CollectionAttributeType attribType,
+            final String alias, final String value) {
         m_resource = resource;
         m_attribType = attribType;
         m_alias = alias;
@@ -74,7 +78,7 @@ public class VmwareCollectionAttribute extends AbstractCollectionAttribute imple
 
     @Override
     public String getStringValue() {
-        return m_value; //Should this be null instead?
+        return m_value; // Should this be null instead?
     }
 
     /**

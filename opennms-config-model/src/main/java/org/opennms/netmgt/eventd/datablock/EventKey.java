@@ -129,7 +129,8 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
      * Constructor for this class
      *
      * @see java.util.HashMap#HashMap(int)
-     * @param initCapacity a int.
+     * @param initCapacity
+     *            a int.
      */
     public EventKey(int initCapacity) {
         super(initCapacity);
@@ -140,8 +141,10 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
      * Constructor for this class
      *
      * @see java.util.HashMap#HashMap(int, float)
-     * @param initCapacity a int.
-     * @param loadFactor a float.
+     * @param initCapacity
+     *            a int.
+     * @param loadFactor
+     *            a float.
      */
     public EventKey(int initCapacity, float loadFactor) {
         super(initCapacity, loadFactor);
@@ -252,9 +255,8 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Override to re-evaluate hashcode
      *
-     * Override to re-evaluate hashcode
      * @see java.util.HashMap#put(Object, Object)
      */
     @Override
@@ -265,9 +267,8 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Override to re-evaluate hashcode
      *
-     * Override to re-evaluate hashcode
      * @see java.util.HashMap#putAll(Map)
      */
     @Override
@@ -277,9 +278,8 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Override to re-evaluate hashcode
      *
-     * Override to re-evaluate hashcode
      * @see java.util.HashMap#remove(Object)
      */
     @Override
@@ -300,8 +300,7 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
      *  This hashtable gets constructed once and does not really change -
      *  so hashcode is only evaluated at construction time. Also, while
      *  the superclass uses just the entry set to calculate the hashcode,
-     *  this uses both the names and their values in calculating the hashcode
-     *
+     * this uses both the names and their values in calculating the hashcode
      */
     private void evaluateHashCode() {
         m_hashCode = 0;
@@ -328,7 +327,8 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
      * Implementation for the Comparable interface
      *
      * @see java.lang.Comparable#compareTo(Object)
-     * @param obj a {@link org.opennms.netmgt.eventd.datablock.EventKey} object.
+     * @param obj
+     *            a {@link org.opennms.netmgt.eventd.datablock.EventKey} object.
      * @return a int.
      */
     @Override
@@ -381,7 +381,8 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
      *
      *  @return value of the event element
      * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param mename a {@link java.lang.String} object.
+     * @param mename a
+     * {@link java.lang.String} object.
      */
     public static String getMaskElementValue(org.opennms.netmgt.xml.event.Event event, String mename) {
         String retParmVal = null;

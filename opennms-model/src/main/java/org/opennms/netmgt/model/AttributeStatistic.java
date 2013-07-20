@@ -28,22 +28,28 @@
 
 package org.opennms.netmgt.model;
 
-
 /**
- * <p>AttributeStatistic class.</p>
+ * <p>
+ * AttributeStatistic class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class AttributeStatistic implements Comparable<AttributeStatistic> {
     private OnmsAttribute m_attribute;
+
     private Double m_statistic;
 
     /**
-     * <p>Constructor for AttributeStatistic.</p>
+     * <p>
+     * Constructor for AttributeStatistic.
+     * </p>
      *
-     * @param attribute a {@link org.opennms.netmgt.model.OnmsAttribute} object.
-     * @param statistic a {@link java.lang.Double} object.
+     * @param attribute
+     *            a {@link org.opennms.netmgt.model.OnmsAttribute} object.
+     * @param statistic
+     *            a {@link java.lang.Double} object.
      */
     public AttributeStatistic(OnmsAttribute attribute, Double statistic) {
         m_attribute = attribute;
@@ -51,7 +57,9 @@ public class AttributeStatistic implements Comparable<AttributeStatistic> {
     }
 
     /**
-     * <p>getAttribute</p>
+     * <p>
+     * getAttribute
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsAttribute} object.
      */
@@ -60,7 +68,9 @@ public class AttributeStatistic implements Comparable<AttributeStatistic> {
     }
 
     /**
-     * <p>getStatistic</p>
+     * <p>
+     * getStatistic
+     * </p>
      *
      * @return a {@link java.lang.Double} object.
      */
@@ -69,10 +79,13 @@ public class AttributeStatistic implements Comparable<AttributeStatistic> {
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
      * @see java.lang.Comparable#compareTo(java.lang.Object)
-     * @param o a {@link org.opennms.netmgt.model.AttributeStatistic} object.
+     * @param o
+     *            a {@link org.opennms.netmgt.model.AttributeStatistic} object.
      * @return a int.
      */
     @Override

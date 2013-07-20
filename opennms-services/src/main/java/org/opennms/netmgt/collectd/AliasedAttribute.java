@@ -33,99 +33,116 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.snmp.SnmpValue;
 
 /**
- * <p>AliasedAttribute class.</p>
+ * <p>
+ * AliasedAttribute class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class AliasedAttribute extends SnmpAttribute {
 
+    /**
+     * <p>
+     * Constructor for AliasedAttribute.
+     * </p>
+     *
+     * @param resource
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
+     * @param attr
+     *            a {@link org.opennms.netmgt.collectd.SnmpAttribute} object.
+     */
+    public AliasedAttribute(CollectionResource resource, SnmpAttribute attr) {
+        super(resource, attr.getAttributeType(), attr.getValue());
+        m_attr = attr;
+    }
 
-	/**
-	 * <p>Constructor for AliasedAttribute.</p>
-	 *
-	 * @param resource a {@link org.opennms.netmgt.config.collector.CollectionResource} object.
-	 * @param attr a {@link org.opennms.netmgt.collectd.SnmpAttribute} object.
-	 */
-	public AliasedAttribute(CollectionResource resource, SnmpAttribute attr) {
-		super(resource, attr.getAttributeType(), attr.getValue());
-		m_attr = attr;
-	}
+    private SnmpAttribute m_attr;
 
-	private SnmpAttribute m_attr;
-
-	/** {@inheritDoc} */
-        @Override
-	public boolean equals(Object obj) {
-		return m_attr.equals(obj);
-	}
-
-	/**
-	 * <p>getAttributeType</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.collectd.SnmpAttributeType} object.
-	 */
-        @Override
-	public SnmpAttributeType getAttributeType() {
-		return m_attr.getAttributeType();
-	}
-
-	/**
-	 * <p>getName</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String getName() {
-		return m_attr.getName();
-	}
-
-	/**
-	 * <p>getType</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String getType() {
-		return m_attr.getType();
-	}
-
-	/**
-	 * <p>getValue</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.snmp.SnmpValue} object.
-	 */
-        @Override
-	public SnmpValue getValue() {
-		return m_attr.getValue();
-	}
-
-	/**
-	 * <p>hashCode</p>
-	 *
-	 * @return a int.
-	 */
-        @Override
-	public int hashCode() {
-		return m_attr.hashCode();
-	}
-
-	/** {@inheritDoc} */
-        @Override
-	public boolean shouldPersist(ServiceParameters params) {
-		return m_attr.shouldPersist(params);
-	}
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+        return m_attr.equals(obj);
+    }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * getAttributeType
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.collectd.SnmpAttributeType} object.
+     */
+    @Override
+    public SnmpAttributeType getAttributeType() {
+        return m_attr.getAttributeType();
+    }
+
+    /**
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
-    public String toString() {
-        return getResource()+"."+getAttributeType()+" = "+getValue();
+    @Override
+    public String getName() {
+        return m_attr.getName();
     }
 
+    /**
+     * <p>
+     * getType
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String getType() {
+        return m_attr.getType();
+    }
 
+    /**
+     * <p>
+     * getValue
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.snmp.SnmpValue} object.
+     */
+    @Override
+    public SnmpValue getValue() {
+        return m_attr.getValue();
+    }
+
+    /**
+     * <p>
+     * hashCode
+     * </p>
+     *
+     * @return a int.
+     */
+    @Override
+    public int hashCode() {
+        return m_attr.hashCode();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean shouldPersist(ServiceParameters params) {
+        return m_attr.shouldPersist(params);
+    }
+
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        return getResource() + "." + getAttributeType() + " = " + getValue();
+    }
 
 }

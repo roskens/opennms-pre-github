@@ -37,88 +37,108 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>ServiceMonitorFactoryBean class.</p>
+ * <p>
+ * ServiceMonitorFactoryBean class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, InitializingBean {
 
-	private ServiceMonitor m_serviceMonitor;
-	private Class<? extends ServiceMonitor> m_monitorClass;
-	private Map<String,Object> m_monitorParameters;
+    private ServiceMonitor m_serviceMonitor;
 
-	/**
-	 * <p>setMonitorClass</p>
-	 *
-	 * @param serviceClass a {@link java.lang.Class} object.
-	 */
-	public void setMonitorClass(Class<? extends ServiceMonitor> serviceClass) {
-		m_monitorClass = serviceClass;
-	}
+    private Class<? extends ServiceMonitor> m_monitorClass;
 
-	/**
-	 * <p>setMonitorParameters</p>
-	 *
-	 * @param serviceParameters a {@link java.util.Map} object.
-	 */
-	public void setMonitorParameters(Map<String,Object> serviceParameters) {
-		m_monitorParameters = serviceParameters;
-	}
+    private Map<String, Object> m_monitorParameters;
 
-	/**
-	 * <p>getObject</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
-	 * @throws java.lang.Exception if any.
-	 */
-        @Override
-	public ServiceMonitor getObject() throws Exception {
-		return m_serviceMonitor;
-	}
+    /**
+     * <p>
+     * setMonitorClass
+     * </p>
+     *
+     * @param serviceClass
+     *            a {@link java.lang.Class} object.
+     */
+    public void setMonitorClass(Class<? extends ServiceMonitor> serviceClass) {
+        m_monitorClass = serviceClass;
+    }
 
-	/**
-	 * <p>getObjectType</p>
-	 *
-	 * @return a {@link java.lang.Class} object.
-	 */
-        @Override
-	public Class<? extends ServiceMonitor> getObjectType() {
-		return m_monitorClass;
-	}
+    /**
+     * <p>
+     * setMonitorParameters
+     * </p>
+     *
+     * @param serviceParameters
+     *            a {@link java.util.Map} object.
+     */
+    public void setMonitorParameters(Map<String, Object> serviceParameters) {
+        m_monitorParameters = serviceParameters;
+    }
 
-	/**
-	 * <p>isSingleton</p>
-	 *
-	 * @return a boolean.
-	 */
-        @Override
-	public boolean isSingleton() {
-		return true;
-	}
+    /**
+     * <p>
+     * getObject
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    @Override
+    public ServiceMonitor getObject() throws Exception {
+        return m_serviceMonitor;
+    }
 
-	/**
-	 * <p>afterPropertiesSet</p>
-	 *
-	 * @throws java.lang.Exception if any.
-	 */
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		assertNotNull(m_monitorClass, "monitorClass");
+    /**
+     * <p>
+     * getObjectType
+     * </p>
+     *
+     * @return a {@link java.lang.Class} object.
+     */
+    @Override
+    public Class<? extends ServiceMonitor> getObjectType() {
+        return m_monitorClass;
+    }
 
-		Assert.state(ServiceMonitor.class.isAssignableFrom(m_monitorClass), "monitorClass must implement the ServiceMonitor interface");
+    /**
+     * <p>
+     * isSingleton
+     * </p>
+     *
+     * @return a boolean.
+     */
+    @Override
+    public boolean isSingleton() {
+        return true;
+    }
 
-		if (m_monitorParameters == null)
-			m_monitorParameters = new HashMap<String,Object>();
+    /**
+     * <p>
+     * afterPropertiesSet
+     * </p>
+     *
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        assertNotNull(m_monitorClass, "monitorClass");
 
-		m_serviceMonitor = (ServiceMonitor)m_monitorClass.newInstance();
-		m_serviceMonitor.initialize(m_monitorParameters);
+        Assert.state(ServiceMonitor.class.isAssignableFrom(m_monitorClass),
+                     "monitorClass must implement the ServiceMonitor interface");
 
-	}
+        if (m_monitorParameters == null)
+            m_monitorParameters = new HashMap<String, Object>();
 
-	private void assertNotNull(Object propertyValue, String propertyName) {
-		Assert.state(propertyValue != null, propertyName+" must be set for instances of "+Poller.class);
-	}
+        m_serviceMonitor = (ServiceMonitor) m_monitorClass.newInstance();
+        m_serviceMonitor.initialize(m_monitorParameters);
 
+    }
+
+    private void assertNotNull(Object propertyValue, String propertyName) {
+        Assert.state(propertyValue != null, propertyName + " must be set for instances of " + Poller.class);
+    }
 
 }

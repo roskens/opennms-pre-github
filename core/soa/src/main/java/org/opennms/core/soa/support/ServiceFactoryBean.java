@@ -47,17 +47,22 @@ import org.springframework.util.StringUtils;
  * @author brozow
  * @version $Id: $
  */
-public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactoryAware, InitializingBean, DisposableBean {
+public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactoryAware, InitializingBean,
+        DisposableBean {
 
     private BeanFactory m_beanFactory;
+
     private ServiceRegistry m_serviceRegistry;
+
     private String m_targetBeanName;
+
     private Object m_target;
+
     private Class<?>[] m_serviceInterfaces;
+
     private Map<String, String> m_serviceProperties;
 
     private Registration m_registration;
-
 
     /** {@inheritDoc} */
     @Override
@@ -66,54 +71,72 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
     }
 
     /**
-     * <p>setTargetBeanName</p>
+     * <p>
+     * setTargetBeanName
+     * </p>
      *
-     * @param targetBeanName a {@link java.lang.String} object.
+     * @param targetBeanName
+     *            a {@link java.lang.String} object.
      */
     public void setTargetBeanName(String targetBeanName) {
         m_targetBeanName = targetBeanName;
     }
 
     /**
-     * <p>setTarget</p>
+     * <p>
+     * setTarget
+     * </p>
      *
-     * @param target a {@link java.lang.Object} object.
+     * @param target
+     *            a {@link java.lang.Object} object.
      */
     public void setTarget(Object target) {
         m_target = target;
     }
 
     /**
-     * <p>setInterfaces</p>
+     * <p>
+     * setInterfaces
+     * </p>
      *
-     * @param serviceInterfaces an array of {@link java.lang.Class} objects.
+     * @param serviceInterfaces
+     *            an array of {@link java.lang.Class} objects.
      */
     public void setInterfaces(Class<?>[] serviceInterfaces) {
         m_serviceInterfaces = serviceInterfaces;
     }
 
     /**
-     * <p>setServiceProperties</p>
+     * <p>
+     * setServiceProperties
+     * </p>
      *
-     * @param serviceInterfaces an array of {@link java.lang.Class} objects.
+     * @param serviceInterfaces
+     *            an array of {@link java.lang.Class} objects.
      */
     public void setServiceProperties(Map<String, String> serviceProperties) {
         m_serviceProperties = serviceProperties;
     }
 
     /**
-     * <p>setServiceRegistry</p>
+     * <p>
+     * setServiceRegistry
+     * </p>
      *
-     * @param serviceRegistry a {@link org.opennms.core.soa.ServiceRegistry} object.
+     * @param serviceRegistry
+     *            a {@link org.opennms.core.soa.ServiceRegistry} object.
      */
     public void setServiceRegistry(ServiceRegistry serviceRegistry) {
         m_serviceRegistry = serviceRegistry;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -121,7 +144,6 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
         boolean hasText = StringUtils.hasText(m_targetBeanName);
         Assert.isTrue(hasText || m_target != null, "targetBeanName or target must be set");
         Assert.notEmpty(m_serviceInterfaces, "interfaces must be set");
-
 
         if (m_target == null) {
             Assert.notNull(m_beanFactory, "beanFactory must not be null");
@@ -133,24 +155,29 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
 
     }
 
-
     /**
-     * <p>destroy</p>
+     * <p>
+     * destroy
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void destroy() throws Exception {
-        if ( m_registration != null ) {
+        if (m_registration != null) {
             m_registration.unregister();
         }
     }
 
     /**
-     * <p>getObject</p>
+     * <p>
+     * getObject
+     * </p>
      *
      * @return a {@link org.opennms.core.soa.Registration} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public Registration getObject() throws Exception {
@@ -158,7 +185,9 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
     }
 
     /**
-     * <p>getObjectType</p>
+     * <p>
+     * getObjectType
+     * </p>
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -168,7 +197,9 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
     }
 
     /**
-     * <p>isSingleton</p>
+     * <p>
+     * isSingleton
+     * </p>
      *
      * @return a boolean.
      */
@@ -176,9 +207,5 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
     public boolean isSingleton() {
         return true;
     }
-
-
-
-
 
 }

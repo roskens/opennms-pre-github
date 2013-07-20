@@ -34,49 +34,49 @@ package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
  * @see NameEditForm
  */
 public interface FormParameter {
-	/**
-	 * Defines the caption for the {@link NameEditForm}.
-	 *
-	 * @return the caption of the {@link NameEditForm}.
-	 */
-	String getCaption();
+    /**
+     * Defines the caption for the {@link NameEditForm}.
+     *
+     * @return the caption of the {@link NameEditForm}.
+     */
+    String getCaption();
 
-	/**
-	 * Returns the name of the property which is editable.
-	 *
-	 * @return the property name which is editable.
-	 */
-	String getEditablePropertyName();
+    /**
+     * Returns the name of the property which is editable.
+     *
+     * @return the property name which is editable.
+     */
+    String getEditablePropertyName();
 
-	/**
-	 * Returns the property name which is not editable.
-	 *
-	 * @return the property name which is not editable.
-	 */
-	String getNonEditablePropertyName();
+    /**
+     * Returns the property name which is not editable.
+     *
+     * @return the property name which is not editable.
+     */
+    String getNonEditablePropertyName();
 
-	/**
-	 * Returns the property names of all properties, which are visible.
-	 *
-	 * @return the property names of all properties, which are visible.
-	 */
-	Object[] getVisiblePropertieNames();
+    /**
+     * Returns the property names of all properties, which are visible.
+     *
+     * @return the property names of all properties, which are visible.
+     */
+    Object[] getVisiblePropertieNames();
 
-	/**
-	 * Returns an optional callback which is invoked after the usual hooks from
-	 * {@link EditControls} have been invoked and executed. May return null.
-	 *
-	 * @return an optional callback which is invoked after the usual hooks from
-	 *         {@link EditControls} have been invoked and executed. May return
-	 *         null.
-	 */
-	@SuppressWarnings("unchecked")
-	EditControls.Callback getAdditionalCallback();
+    /**
+     * Returns an optional callback which is invoked after the usual hooks from
+     * {@link EditControls} have been invoked and executed. May return null.
+     *
+     * @return an optional callback which is invoked after the usual hooks from
+     *         {@link EditControls} have been invoked and executed. May return
+     *         null.
+     */
+    @SuppressWarnings("unchecked")
+    EditControls.Callback getAdditionalCallback();
 
-	/**
-	 * Defines wether the {@link NameEditForm} has a footer or not.
-	 *
-	 * @return true if there is any footer, false otherwise.
-	 */
-	public boolean hasFooter();
+    /**
+     * Defines wether the {@link NameEditForm} has a footer or not.
+     *
+     * @return true if there is any footer, false otherwise.
+     */
+    public boolean hasFooter();
 }

@@ -60,66 +60,63 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.hibernate.annotations.CollectionOfElements;
 import org.hibernate.annotations.MapKey;
 
-
 @Entity
-@Table(name="ncscomponent")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@XmlRootElement(name="component")
+@Table(name = "ncscomponent")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@XmlRootElement(name = "component")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NCSComponent {
 
-	public enum DependencyRequirements { ANY, ALL };
+    public enum DependencyRequirements {
+        ANY, ALL
+    };
 
-	@XmlRootElement(name="node")
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@Embeddable
-	public static class NodeIdentification {
-		@XmlAttribute(name="foreignSource", required=true)
-		private String m_foreignSource;
+    @XmlRootElement(name = "node")
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @Embeddable
+    public static class NodeIdentification {
+        @XmlAttribute(name = "foreignSource", required = true)
+        private String m_foreignSource;
 
-	    @XmlAttribute(name="foreignId", required=true)
-	    private String m_foreignId;
+        @XmlAttribute(name = "foreignId", required = true)
+        private String m_foreignId;
 
-	    public NodeIdentification() {
-		}
+        public NodeIdentification() {
+        }
 
-	    /**
-	     * @param nodeForeignSource
-	     * @param nodeForeignId
-	     */
-	    public NodeIdentification(String nodeForeignSource, String nodeForeignId) {
-	    	m_foreignSource = nodeForeignSource;
-	    	m_foreignId = nodeForeignId;
-	    }
+        /**
+         * @param nodeForeignSource
+         * @param nodeForeignId
+         */
+        public NodeIdentification(String nodeForeignSource, String nodeForeignId) {
+            m_foreignSource = nodeForeignSource;
+            m_foreignId = nodeForeignId;
+        }
 
-		@Column(name = "nodeForeignSource")
-		public String getForeignSource() {
-			return m_foreignSource;
-		}
+        @Column(name = "nodeForeignSource")
+        public String getForeignSource() {
+            return m_foreignSource;
+        }
 
-		public void setForeignSource(String foreignSource) {
-			m_foreignSource = foreignSource;
-		}
+        public void setForeignSource(String foreignSource) {
+            m_foreignSource = foreignSource;
+        }
 
-		@Column(name = "nodeForeignId")
-		public String getForeignId() {
-			return m_foreignId;
-		}
+        @Column(name = "nodeForeignId")
+        public String getForeignId() {
+            return m_foreignId;
+        }
 
-		public void setForeignId(String foreignId) {
-			m_foreignId = foreignId;
-		}
+        public void setForeignId(String foreignId) {
+            m_foreignId = foreignId;
+        }
 
         @Override
         public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result
-                    + ((m_foreignId == null) ? 0 : m_foreignId.hashCode());
-            result = prime
-                    * result
-                    + ((m_foreignSource == null) ? 0 : m_foreignSource
-                            .hashCode());
+            result = prime * result + ((m_foreignId == null) ? 0 : m_foreignId.hashCode());
+            result = prime * result + ((m_foreignSource == null) ? 0 : m_foreignSource.hashCode());
             return result;
         }
 
@@ -145,50 +142,47 @@ public class NCSComponent {
             return true;
         }
 
+    }
 
-
-
-	}
-
-    @XmlElement(name="id")
+    @XmlElement(name = "id")
     private Long m_id;
 
     @XmlTransient
     private Integer m_version;
 
-    @XmlAttribute(name="foreignSource", required=true)
+    @XmlAttribute(name = "foreignSource", required = true)
     private String m_foreignSource;
 
-    @XmlAttribute(name="foreignId", required=true)
+    @XmlAttribute(name = "foreignId", required = true)
     private String m_foreignId;
 
-    @XmlAttribute(name="type", required=true)
+    @XmlAttribute(name = "type", required = true)
     private String m_type;
 
-    @XmlElement(name="name")
+    @XmlElement(name = "name")
     private String m_name;
 
-    @XmlElement(name="node")
+    @XmlElement(name = "node")
     private NodeIdentification m_nodeIdentification;
 
-    @XmlElement(name="upEventUei")
+    @XmlElement(name = "upEventUei")
     private String m_upEventUei;
 
-    @XmlElement(name="downEventUei")
+    @XmlElement(name = "downEventUei")
     private String m_downEventUei;
 
-    @XmlElement(name="dependenciesRequired", required=false, defaultValue="ALL")
+    @XmlElement(name = "dependenciesRequired", required = false, defaultValue = "ALL")
     private DependencyRequirements m_dependenciesRequired;
 
     @XmlElement(name = "attributes", required = false)
     @XmlJavaTypeAdapter(JAXBMapAdapter.class)
     private Map<String, String> m_attributes = new LinkedHashMap<String, String>();
 
-    @XmlElement(name="component")
+    @XmlElement(name = "component")
     private Set<NCSComponent> m_subcomponents = new LinkedHashSet<NCSComponent>();
 
     @XmlTransient
-	private Set<NCSComponent> m_parents = new LinkedHashSet<NCSComponent>();
+    private Set<NCSComponent> m_parents = new LinkedHashSet<NCSComponent>();
 
     /**
      * @param type
@@ -196,24 +190,24 @@ public class NCSComponent {
      * @param foreignId
      */
     public NCSComponent(final String type, final String foreignSource, final String foreignId) {
-    	this();
-    	m_type = type;
-    	m_foreignSource = foreignSource;
-    	m_foreignId = foreignId;
+        this();
+        m_type = type;
+        m_foreignSource = foreignSource;
+        m_foreignId = foreignId;
     }
 
     public NCSComponent() {
     }
 
     @Id
-    @Column(name="id", nullable=false)
-    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")
+    @Column(name = "id", nullable = false)
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     public Long getId() {
         return m_id;
     }
 
-	public void setId(Long id) {
+    public void setId(Long id) {
         m_id = id;
     }
 
@@ -226,151 +220,151 @@ public class NCSComponent {
         m_version = version;
     }
 
-	public String getForeignSource() {
-		return m_foreignSource;
-	}
+    public String getForeignSource() {
+        return m_foreignSource;
+    }
 
-	public void setForeignSource(String foreignSource) {
-		m_foreignSource = foreignSource;
-	}
+    public void setForeignSource(String foreignSource) {
+        m_foreignSource = foreignSource;
+    }
 
-	public String getForeignId() {
-		return m_foreignId;
-	}
+    public String getForeignId() {
+        return m_foreignId;
+    }
 
-	public void setForeignId(String foreignId) {
-		m_foreignId = foreignId;
-	}
+    public void setForeignId(String foreignId) {
+        m_foreignId = foreignId;
+    }
 
-	public String getType() {
-		return m_type;
-	}
+    public String getType() {
+        return m_type;
+    }
 
-	public void setType(String type) {
-		m_type = type;
-	}
+    public void setType(String type) {
+        m_type = type;
+    }
 
-	public NodeIdentification getNodeIdentification() {
-		return m_nodeIdentification;
-	}
+    public NodeIdentification getNodeIdentification() {
+        return m_nodeIdentification;
+    }
 
-	public void setNodeIdentification(NodeIdentification nodeIdentification) {
-		m_nodeIdentification = nodeIdentification;
-	}
+    public void setNodeIdentification(NodeIdentification nodeIdentification) {
+        m_nodeIdentification = nodeIdentification;
+    }
 
-	public String getName() {
-		return m_name;
-	}
+    public String getName() {
+        return m_name;
+    }
 
-	public void setName(String name) {
-		m_name = name;
-	}
+    public void setName(String name) {
+        m_name = name;
+    }
 
-	public String getUpEventUei() {
-		return m_upEventUei;
-	}
+    public String getUpEventUei() {
+        return m_upEventUei;
+    }
 
-	public void setUpEventUei(String upEventUei) {
-		m_upEventUei = upEventUei;
-	}
+    public void setUpEventUei(String upEventUei) {
+        m_upEventUei = upEventUei;
+    }
 
-	public String getDownEventUei() {
-		return m_downEventUei;
-	}
+    public String getDownEventUei() {
+        return m_downEventUei;
+    }
 
-	public void setDownEventUei(String downEventUei) {
-		m_downEventUei = downEventUei;
-	}
+    public void setDownEventUei(String downEventUei) {
+        m_downEventUei = downEventUei;
+    }
 
     @Enumerated(EnumType.STRING)
     @Column(name = "depsRequired")
-	public DependencyRequirements getDependenciesRequired() {
-		return m_dependenciesRequired;
-	}
-
-	public void setDependenciesRequired(DependencyRequirements dependenciesRequired) {
-		m_dependenciesRequired = dependenciesRequired;
-	}
-
-	@ManyToMany
-	@JoinTable(name="subcomponents", joinColumns = { @JoinColumn(name="subcomponent_id") }, inverseJoinColumns = { @JoinColumn(name="component_id") })
-	public Set<NCSComponent> getParentComponents() {
-		return m_parents ;
-	}
-
-	public void setParentComponents(final Set<NCSComponent> parents) {
-		m_parents = parents;
-	}
-
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="subcomponents", joinColumns = { @JoinColumn(name="component_id") }, inverseJoinColumns = { @JoinColumn(name="subcomponent_id") })
-	public Set<NCSComponent> getSubcomponents() {
-        return m_subcomponents;
-	}
-
-	public void setSubcomponents(Set<NCSComponent> subComponents) {
-		m_subcomponents = subComponents;
-	}
-
-	public void addSubcomponent(NCSComponent subComponent) {
-		getSubcomponents().add(subComponent);
-	}
-
-	public void removeSubcomponent(NCSComponent subComponent) {
-		getSubcomponents().remove(subComponent);
-	}
-
-	/**
-	 * @param foreignSource
-	 * @param foreignId
-	 */
-	public NCSComponent getSubcomponent(String foreignSource, String foreignId) {
-		for(NCSComponent subcomponent : getSubcomponents()) {
-			if (subcomponent.hasIdentity(foreignSource, foreignId)) {
-				return subcomponent;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @param foreignSource
-	 * @param foreignId
-	 */
-	public boolean hasIdentity(String foreignSource, String foreignId) {
-		return m_foreignSource.equals(foreignSource) && m_foreignId.equals(foreignId);
-	}
-
-    @CollectionOfElements
-    @JoinTable(name="ncs_attributes")
-    @MapKey(columns=@Column(name="key"))
-    @Column(name="value", nullable=false)
-	public Map<String, String> getAttributes() {
-		return m_attributes;
-	}
-
-    public void setAttributes(Map<String, String> attributes) {
-    	m_attributes = attributes;
+    public DependencyRequirements getDependenciesRequired() {
+        return m_dependenciesRequired;
     }
 
-	public void setAttribute(String key, String value) {
-		m_attributes.put(key, value);
-	}
+    public void setDependenciesRequired(DependencyRequirements dependenciesRequired) {
+        m_dependenciesRequired = dependenciesRequired;
+    }
 
-	public String removeAttribute(String key) {
-		return m_attributes.remove(key);
-	}
+    @ManyToMany
+    @JoinTable(name = "subcomponents", joinColumns = { @JoinColumn(name = "subcomponent_id") }, inverseJoinColumns = { @JoinColumn(name = "component_id") })
+    public Set<NCSComponent> getParentComponents() {
+        return m_parents;
+    }
 
-	public void visit(NCSComponentVisitor visitor) {
-	    // visit this component
-	    visitor.visitComponent(this);
+    public void setParentComponents(final Set<NCSComponent> parents) {
+        m_parents = parents;
+    }
 
-	    // visit subcomponents
-	    for(NCSComponent subcomponent : getSubcomponents()) {
-	        subcomponent.visit(visitor);
-	    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "subcomponents", joinColumns = { @JoinColumn(name = "component_id") }, inverseJoinColumns = { @JoinColumn(name = "subcomponent_id") })
+    public Set<NCSComponent> getSubcomponents() {
+        return m_subcomponents;
+    }
 
-	    // complete visiting this component
-	    visitor.completeComponent(this);
-	}
+    public void setSubcomponents(Set<NCSComponent> subComponents) {
+        m_subcomponents = subComponents;
+    }
+
+    public void addSubcomponent(NCSComponent subComponent) {
+        getSubcomponents().add(subComponent);
+    }
+
+    public void removeSubcomponent(NCSComponent subComponent) {
+        getSubcomponents().remove(subComponent);
+    }
+
+    /**
+     * @param foreignSource
+     * @param foreignId
+     */
+    public NCSComponent getSubcomponent(String foreignSource, String foreignId) {
+        for (NCSComponent subcomponent : getSubcomponents()) {
+            if (subcomponent.hasIdentity(foreignSource, foreignId)) {
+                return subcomponent;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param foreignSource
+     * @param foreignId
+     */
+    public boolean hasIdentity(String foreignSource, String foreignId) {
+        return m_foreignSource.equals(foreignSource) && m_foreignId.equals(foreignId);
+    }
+
+    @CollectionOfElements
+    @JoinTable(name = "ncs_attributes")
+    @MapKey(columns = @Column(name = "key"))
+    @Column(name = "value", nullable = false)
+    public Map<String, String> getAttributes() {
+        return m_attributes;
+    }
+
+    public void setAttributes(Map<String, String> attributes) {
+        m_attributes = attributes;
+    }
+
+    public void setAttribute(String key, String value) {
+        m_attributes.put(key, value);
+    }
+
+    public String removeAttribute(String key) {
+        return m_attributes.remove(key);
+    }
+
+    public void visit(NCSComponentVisitor visitor) {
+        // visit this component
+        visitor.visitComponent(this);
+
+        // visit subcomponents
+        for (NCSComponent subcomponent : getSubcomponents()) {
+            subcomponent.visit(visitor);
+        }
+
+        // complete visiting this component
+        visitor.completeComponent(this);
+    }
 }

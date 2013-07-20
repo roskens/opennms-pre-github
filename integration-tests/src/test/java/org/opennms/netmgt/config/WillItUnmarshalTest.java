@@ -94,18 +94,14 @@ import static org.opennms.core.test.ConfigurationTestUtils.getDaemonEtcDirectory
 /**
  * This is an integration test checking if all provided example XML files can be
  * unmarshalled.
- *
  * For each file to test, an entry in the {@link #files()} list must exist.
  * During test run, all tests methods are executed for each test.
- *
  * To ensure, that all provided files are covered, a meta test is used
  * ({@link WillItUnmarshalMetaTest}).
- *
  * The name of this class is a tribute to
  * <a href="http://www.willitblend.com/">www.willitblend.com</a>.
  *
  * @author Dustin Frisch<fooker@lab.sh>
- *
  * @see WillItUnmarshalMetaTest
  */
 @RunWith(value = Parameterized.class)
@@ -116,36 +112,34 @@ public class WillItUnmarshalTest {
      * Possible implementations for resource loading.
      */
     public static enum Source {
-        CONFIG,
-        EXAMPLE,
-        SPRING,
-        ABSOLUTE,
+        CONFIG, EXAMPLE, SPRING, ABSOLUTE,
     }
 
     /**
      * Possible implementation used for unmarshalling.
      */
     public static enum Impl {
-        JAXB,
-        CASTOR
+        JAXB, CASTOR
     }
 
     /**
      * A list of test parameters to execute.
-     *
      * See {@link #files()} for detailed information.
      */
     public static final ArrayList<Object[]> FILES = new ArrayList<Object[]>();
 
-    private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl, final boolean lenient, final String exceptionMessage) {
-        FILES.add(new Object[] {source, file, clazz, impl, lenient, exceptionMessage});
+    private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl,
+            final boolean lenient, final String exceptionMessage) {
+        FILES.add(new Object[] { source, file, clazz, impl, lenient, exceptionMessage });
     }
 
-    private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl, final String exceptionMessage) {
+    private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl,
+            final String exceptionMessage) {
         addFile(source, file, clazz, impl, false, exceptionMessage);
     }
 
-    private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl, final boolean lenient) {
+    private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl,
+            final boolean lenient) {
         addFile(source, file, clazz, impl, lenient, null);
     }
 
@@ -157,7 +151,8 @@ public class WillItUnmarshalTest {
         addFile(Source.SPRING, "eventconf-good-ordering.xml", Events.class, Impl.JAXB);
         addFile(Source.SPRING, "eventconf-bad-ordering.xml", Events.class, Impl.JAXB, true);
 
-        addFile(Source.SPRING, "eventconf-bad-element.xml", Events.class, Impl.JAXB, "Invalid content was found starting with element 'bad-element'.");
+        addFile(Source.SPRING, "eventconf-bad-element.xml", Events.class, Impl.JAXB,
+                "Invalid content was found starting with element 'bad-element'.");
 
         addFile(Source.CONFIG, "access-point-monitor-configuration.xml", AccessPointMonitorConfig.class, Impl.CASTOR);
         addFile(Source.CONFIG, "actiond-configuration.xml", ActiondConfiguration.class, Impl.CASTOR);
@@ -182,7 +177,8 @@ public class WillItUnmarshalTest {
         addFile(Source.CONFIG, "groups.xml", Groupinfo.class, Impl.CASTOR);
         addFile(Source.EXAMPLE, "groups.xml", Groupinfo.class, Impl.CASTOR);
         addFile(Source.CONFIG, "http-datacollection-config.xml", HttpDatacollectionConfig.class, Impl.CASTOR);
-        addFile(Source.EXAMPLE, "devices/motorola_cpei_150_wimax_gateway/http-datacollection-config.xml", HttpDatacollectionConfig.class, Impl.CASTOR);
+        addFile(Source.EXAMPLE, "devices/motorola_cpei_150_wimax_gateway/http-datacollection-config.xml",
+                HttpDatacollectionConfig.class, Impl.CASTOR);
         addFile(Source.CONFIG, "jasper-reports.xml", LocalJasperReports.class, Impl.JAXB);
         addFile(Source.CONFIG, "jmx-datacollection-config.xml", JmxDatacollectionConfig.class, Impl.CASTOR);
         addFile(Source.CONFIG, "ksc-performance-reports.xml", ReportsList.class, Impl.CASTOR);
@@ -215,7 +211,8 @@ public class WillItUnmarshalTest {
         addFile(Source.CONFIG, "site-status-views.xml", SiteStatusViewConfiguration.class, Impl.CASTOR);
         addFile(Source.CONFIG, "snmp-config.xml", SnmpConfig.class, Impl.JAXB);
         addFile(Source.EXAMPLE, "snmp-config.xml", SnmpConfig.class, Impl.JAXB);
-        addFile(Source.CONFIG, "snmp-interface-poller-configuration.xml", SnmpInterfacePollerConfiguration.class, Impl.CASTOR);
+        addFile(Source.CONFIG, "snmp-interface-poller-configuration.xml", SnmpInterfacePollerConfiguration.class,
+                Impl.CASTOR);
         addFile(Source.CONFIG, "statsd-configuration.xml", StatisticsDaemonConfiguration.class, Impl.CASTOR);
         addFile(Source.CONFIG, "surveillance-views.xml", SurveillanceViewConfiguration.class, Impl.CASTOR);
         addFile(Source.EXAMPLE, "surveillance-views.xml", SurveillanceViewConfiguration.class, Impl.CASTOR);
@@ -255,51 +252,48 @@ public class WillItUnmarshalTest {
         addFile(Source.CONFIG, "vmware-config.xml", VmwareConfig.class, Impl.JAXB);
         addFile(Source.CONFIG, "vmware-datacollection-config.xml", VmwareDatacollectionConfig.class, Impl.JAXB);
         addFile(Source.CONFIG, "vmware-cim-datacollection-config.xml", VmwareCimDatacollectionConfig.class, Impl.JAXB);
-        addFile(Source.EXAMPLE, "jvm-datacollection/collectd-configuration.xml", CollectdConfiguration.class, Impl.CASTOR);
-        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection-config.xml", JmxDatacollectionConfig.class, Impl.JAXB);
-        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/ActiveMQ/5.6/ActiveMQBasic0.xml", Mbeans.class, Impl.JAXB);
-        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/Cassandra/1.1.2/CassandraBasic0.xml", Mbeans.class, Impl.JAXB);
-        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/JBoss/4/JBossBasic0.xml", Mbeans.class, Impl.JAXB);
+        addFile(Source.EXAMPLE, "jvm-datacollection/collectd-configuration.xml", CollectdConfiguration.class,
+                Impl.CASTOR);
+        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection-config.xml", JmxDatacollectionConfig.class,
+                Impl.JAXB);
+        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/ActiveMQ/5.6/ActiveMQBasic0.xml", Mbeans.class,
+                Impl.JAXB);
+        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/Cassandra/1.1.2/CassandraBasic0.xml",
+                Mbeans.class, Impl.JAXB);
+        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/JBoss/4/JBossBasic0.xml", Mbeans.class,
+                Impl.JAXB);
         addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/Jvm/1.6/JvmBasic0.xml", Mbeans.class, Impl.JAXB);
         addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/Jvm/1.6/JvmLegacy.xml", Mbeans.class, Impl.JAXB);
-        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/OpenNMS/1.10/OpenNMSBasic0.xml", Mbeans.class, Impl.JAXB);
-        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/OpenNMS/1.10/OpenNMSLegacy.xml", Mbeans.class, Impl.JAXB);
+        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/OpenNMS/1.10/OpenNMSBasic0.xml", Mbeans.class,
+                Impl.JAXB);
+        addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/OpenNMS/1.10/OpenNMSLegacy.xml", Mbeans.class,
+                Impl.JAXB);
 
         // Add all event files
-        for (final File file : FileUtils.listFiles(new File(getDaemonEtcDirectory(), "events"),
-                                                   new String[] { "xml" },
+        for (final File file : FileUtils.listFiles(new File(getDaemonEtcDirectory(), "events"), new String[] { "xml" },
                                                    true)) {
-            addFile(Source.ABSOLUTE,
-                    file.getPath(),
-                    Events.class,
-                    Impl.CASTOR);
+            addFile(Source.ABSOLUTE, file.getPath(), Events.class, Impl.CASTOR);
         }
 
         // Add all datacollection group files
         for (final File file : FileUtils.listFiles(new File(getDaemonEtcDirectory(), "datacollection"),
-                                                   new String[] { "xml" },
-                                                   true)) {
-            addFile(Source.ABSOLUTE,
-                    file.getPath(),
-                    DatacollectionGroup.class,
-                    Impl.JAXB);
+                                                   new String[] { "xml" }, true)) {
+            addFile(Source.ABSOLUTE, file.getPath(), DatacollectionGroup.class, Impl.JAXB);
         }
     }
 
     /**
      * The list of files to test.
-     *
      * For each XML file to test, this method must return an entry in the list.
      * Each entry consists of the following parts:
      * <ul>
-     *   <li>The source to load the resource from</li>
-     *   <li>The file to test</li>
-     *   <li>The class used for unmarshaling</li>
-     *   <li>The implementation to use for unmarshalling</li>
-     *   <li>Flag for being lenient</li>
-     *   <li>An expected exception message</li>
+     * <li>The source to load the resource from</li>
+     * <li>The file to test</li>
+     * <li>The class used for unmarshaling</li>
+     * <li>The implementation to use for unmarshalling</li>
+     * <li>Flag for being lenient</li>
+     * <li>An expected exception message</li>
      * </ul>
-     *
      * The returned file list is stored in {@link #FILES} which is filled in the
      * static constructor.
      *
@@ -311,18 +305,19 @@ public class WillItUnmarshalTest {
     }
 
     private final Source source;
+
     private final String file;
+
     private final Class<?> clazz;
+
     private final Impl impl;
+
     private final boolean lenient;
+
     private final String exception;
 
-    public WillItUnmarshalTest(final Source source,
-                               final String file,
-                               final Class<?> clazz,
-                               final Impl impl,
-                               final boolean lenient,
-                               final String exception) {
+    public WillItUnmarshalTest(final Source source, final String file, final Class<?> clazz, final Impl impl,
+            final boolean lenient, final String exception) {
         this.source = source;
         this.file = file;
         this.clazz = clazz;
@@ -335,7 +330,8 @@ public class WillItUnmarshalTest {
     public void setUp() throws Exception {
         // Reload castor properties every time
         LocalConfiguration.getInstance().getProperties().clear();
-        LocalConfiguration.getInstance().getProperties().load(ConfigurationTestUtils.getInputStreamForResource(this, "/castor.properties"));
+        LocalConfiguration.getInstance().getProperties().load(ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                                                               "/castor.properties"));
     }
 
     @Test
@@ -354,25 +350,25 @@ public class WillItUnmarshalTest {
         Object result = null;
         try {
             switch (impl) {
-                case CASTOR:
-                    result = CastorUtils.unmarshal(this.clazz, resource);
-                    break;
+            case CASTOR:
+                result = CastorUtils.unmarshal(this.clazz, resource);
+                break;
 
-                case JAXB:
-                    result = JaxbUtils.unmarshal(this.clazz, resource);
-                    break;
+            case JAXB:
+                result = JaxbUtils.unmarshal(this.clazz, resource);
+                break;
 
-                default:
-                    fail("Implementation unknown: " + this.impl);
+            default:
+                fail("Implementation unknown: " + this.impl);
             }
 
             // Assert that unmarshalling returned a valid result
             assertNotNull("Unmarshalled instance must not be null", result);
 
-        } catch(AssertionFailedError ex) {
+        } catch (AssertionFailedError ex) {
             throw ex;
 
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             // If we have an expected exception, the returned exception muss
             // match - if not the test failed
             if (this.exception != null) {
@@ -394,20 +390,20 @@ public class WillItUnmarshalTest {
         // Create a resource for the config file to unmarshall using the
         // configured source
         switch (this.source) {
-            case CONFIG:
-                return new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile(file));
+        case CONFIG:
+            return new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile(file));
 
-            case EXAMPLE:
-                return new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile("examples/" + file));
+        case EXAMPLE:
+            return new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile("examples/" + file));
 
-            case SPRING:
-                return ConfigurationTestUtils.getSpringResourceForResource(this, this.file);
+        case SPRING:
+            return ConfigurationTestUtils.getSpringResourceForResource(this, this.file);
 
-            case ABSOLUTE:
-                return new FileSystemResource(this.file);
+        case ABSOLUTE:
+            return new FileSystemResource(this.file);
 
-            default:
-                throw new RuntimeException("Source unknown: " + this.source);
+        default:
+            throw new RuntimeException("Source unknown: " + this.source);
         }
     }
 }

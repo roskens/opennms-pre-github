@@ -56,83 +56,96 @@ import org.ops4j.pax.exam.junit.Configuration;
 import org.ops4j.pax.exam.junit.JUnit4TestRunner;
 
 @RunWith(JUnit4TestRunner.class)
-//@ExamReactorStrategy(AllConfinedStagedReactorFactory.class)
+// @ExamReactorStrategy(AllConfinedStagedReactorFactory.class)
 public class TopologyMapIntegrationTest extends KarafTestSupport {
 
-    //@Inject
-    //private TopologyProvider<?,?,?,?> m_topologyProvider;
+    // @Inject
+    // private TopologyProvider<?,?,?,?> m_topologyProvider;
 
     @Before
     public void setUp() {
-        //MockLogAppender.setupLogging();
+        // MockLogAppender.setupLogging();
     }
 
     @Configuration
     @Override
     public Option[] config() {
         return new Option[] {
-            karafDistributionConfiguration().frameworkUrl(
-                    // Use mvn:org.opennms.container:karaf:tar.gz as the Karaf distribution so that it has the same
-                    // settings as a running OpenNMS system
-                    maven().groupId("org.opennms.container").artifactId("karaf").versionAsInProject().type("tar.gz")
-                ).karafVersion(
-                    //MavenUtils.getArtifactVersion("org.apache.karaf", "apache-karaf")
-                    "2.3.1"
-                ).name("OpenNMS Apache Karaf").unpackDirectory(new File("target/exam")
-            ),
+                karafDistributionConfiguration().frameworkUrl(
+                // Use mvn:org.opennms.container:karaf:tar.gz as the Karaf
+                // distribution so that it has the same
+                // settings as a running OpenNMS system
+                maven().groupId("org.opennms.container").artifactId("karaf").versionAsInProject().type("tar.gz")).karafVersion(
+                // MavenUtils.getArtifactVersion("org.apache.karaf",
+                // "apache-karaf")
+                "2.3.1").name("OpenNMS Apache Karaf").unpackDirectory(new File("target/exam")),
 
-            keepRuntimeFolder(),
+                keepRuntimeFolder(),
 
-            // Crank the logging
-            logLevel(LogLevelOption.LogLevel.DEBUG),
+                // Crank the logging
+                logLevel(LogLevelOption.LogLevel.DEBUG),
 
-            // Change the RMI/JMX ports that Karaf management runs on so that it doesn't conflict
-            // with a running OpenNMS instance.
-            //
-            // Note: The next time we upgrade Karaf, this should be unnecessary because the configs in
-            // KarafTestSupport have been changed in an identical manner.
-            editConfigurationFilePut("etc/org.apache.karaf.management.cfg", "rmiRegistryPort", "1101"),
-            editConfigurationFilePut("etc/org.apache.karaf.management.cfg", "rmiServerPort", "44445"),
+                // Change the RMI/JMX ports that Karaf management runs on so
+                // that it doesn't conflict
+                // with a running OpenNMS instance.
+                //
+                // Note: The next time we upgrade Karaf, this should be
+                // unnecessary because the configs in
+                // KarafTestSupport have been changed in an identical manner.
+                editConfigurationFilePut("etc/org.apache.karaf.management.cfg", "rmiRegistryPort", "1101"),
+                editConfigurationFilePut("etc/org.apache.karaf.management.cfg", "rmiServerPort", "44445"),
 
-            editConfigurationFilePut("etc/org.apache.karaf.features.cfg", "featuresBoot", "config,ssh,http,http-whiteboard,exam"),
+                editConfigurationFilePut("etc/org.apache.karaf.features.cfg", "featuresBoot",
+                                         "config,ssh,http,http-whiteboard,exam"),
 
-            // Change the SSH port so that it doesn't conflict with a running OpenNMS instance
-            editConfigurationFilePut("etc/org.apache.karaf.shell.cfg", "sshPort", "8201"),
+                // Change the SSH port so that it doesn't conflict with a
+                // running OpenNMS instance
+                editConfigurationFilePut("etc/org.apache.karaf.shell.cfg", "sshPort", "8201"),
 
-            /**
-             * I think that we need to install org.apache.karaf.itests:itests:tests and all of its dependencies
-             * into the container so that the unit test will execute properly. This doesn't seem to work with
-             * Karaf 2.3.1... I get inconsistent behavior, almost like there is a race condition when registering
-             * services or something. *sigh*
-             */
-            //wrappedBundle(mavenBundle("org.apache.karaf.itests", "itests").versionAsInProject().classifier("tests")),
-            /*
-            mavenBundle("org.ops4j.base", "ops4j-base-util-property").versionAsInProject(),
-            mavenBundle("org.ops4j.base", "ops4j-base-monitors").versionAsInProject(),
-            mavenBundle("org.ops4j.base", "ops4j-base-io").versionAsInProject(),
-            mavenBundle("org.ops4j.base", "ops4j-base-lang").versionAsInProject(),
-            mavenBundle("org.ops4j.base", "ops4j-base-store").versionAsInProject(),
-            mavenBundle("org.apache.felix", "org.apache.felix.gogo.runtime").versionAsInProject(),
-            */
-            mavenBundle("org.apache.karaf.shell", "org.apache.karaf.shell.console").versionAsInProject().noStart(),
-            mavenBundle("org.ops4j.pax.exam", "pax-exam").versionAsInProject().noStart(),
-            mavenBundle("org.apache.karaf.itests", "itests").versionAsInProject().classifier("tests").noStart(),
+                /**
+                 * I think that we need to install
+                 * org.apache.karaf.itests:itests:tests and all of its
+                 * dependencies
+                 * into the container so that the unit test will execute
+                 * properly. This doesn't seem to work with
+                 * Karaf 2.3.1... I get inconsistent behavior, almost like there
+                 * is a race condition when registering
+                 * services or something. *sigh*
+                 */
+                // wrappedBundle(mavenBundle("org.apache.karaf.itests",
+                // "itests").versionAsInProject().classifier("tests")),
+                /*
+                 * mavenBundle("org.ops4j.base",
+                 * "ops4j-base-util-property").versionAsInProject(),
+                 * mavenBundle("org.ops4j.base",
+                 * "ops4j-base-monitors").versionAsInProject(),
+                 * mavenBundle("org.ops4j.base",
+                 * "ops4j-base-io").versionAsInProject(),
+                 * mavenBundle("org.ops4j.base",
+                 * "ops4j-base-lang").versionAsInProject(),
+                 * mavenBundle("org.ops4j.base",
+                 * "ops4j-base-store").versionAsInProject(),
+                 * mavenBundle("org.apache.felix",
+                 * "org.apache.felix.gogo.runtime").versionAsInProject(),
+                 */
+                mavenBundle("org.apache.karaf.shell", "org.apache.karaf.shell.console").versionAsInProject().noStart(),
+                mavenBundle("org.ops4j.pax.exam", "pax-exam").versionAsInProject().noStart(),
+                mavenBundle("org.apache.karaf.itests", "itests").versionAsInProject().classifier("tests").noStart(),
 
-            junitBundles()
-        };
+                junitBundles() };
     }
 
     /**
      * Override this function to specify a different port for the RMI service.
-     *
-     * Note: The next time we upgrade Karaf, this should be unnecessary because the configs in
+     * Note: The next time we upgrade Karaf, this should be unnecessary because
+     * the configs in
      * KarafTestSupport have been changed in an identical manner.
      */
     @Override
     public JMXConnector getJMXConnector() throws Exception {
         JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:1101/karaf-root");
-        Hashtable<String,String[]> env = new Hashtable<String,String[]>();
-        String[] credentials = new String[]{"admin", "admin"};
+        Hashtable<String, String[]> env = new Hashtable<String, String[]>();
+        String[] credentials = new String[] { "admin", "admin" };
         env.put("jmx.remote.credentials", credentials);
         JMXConnector connector = JMXConnectorFactory.connect(url, env);
         return connector;

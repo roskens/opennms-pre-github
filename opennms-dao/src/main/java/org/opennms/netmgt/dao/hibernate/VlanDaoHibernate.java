@@ -37,23 +37,23 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsVlan;
 
-public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  implements VlanDao {
+public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer> implements VlanDao {
 
     public VlanDaoHibernate() {
         super(OnmsVlan.class);
     }
 
-	@Override
-	public void markDeletedIfNodeDeleted() {
-		final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
+    @Override
+    public void markDeletedIfNodeDeleted() {
+        final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.type", "D"));
 
         for (final OnmsVlan vlan : findMatching(criteria)) {
-        	vlan.setStatus(StatusType.DELETED);
-        	saveOrUpdate(vlan);
+            vlan.setStatus(StatusType.DELETED);
+            saveOrUpdate(vlan);
         }
-	}
+    }
 
     @Override
     public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
@@ -81,7 +81,6 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  i
             delete(item);
         }
     }
-
 
     @Override
     public void setStatusForNode(final Integer nodeId, final StatusType action) {

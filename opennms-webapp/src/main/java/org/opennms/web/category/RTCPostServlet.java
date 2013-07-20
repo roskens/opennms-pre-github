@@ -45,7 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>RTCPostServlet class.</p>
+ * <p>
+ * RTCPostServlet class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,7 +55,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RTCPostServlet extends HttpServlet {
 
-	private static final Logger LOG = LoggerFactory.getLogger(RTCPostServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RTCPostServlet.class);
 
     /**
      *
@@ -62,11 +64,13 @@ public class RTCPostServlet extends HttpServlet {
 
     protected CategoryModel model;
 
-
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -112,7 +116,8 @@ public class RTCPostServlet extends HttpServlet {
             // note the unmarshaller closes the input stream, so don't try to
             // close
             // it again or the servlet container will complain
-            org.opennms.netmgt.xml.rtc.EuiLevel level = CastorUtils.unmarshal(org.opennms.netmgt.xml.rtc.EuiLevel.class, inStream);
+            org.opennms.netmgt.xml.rtc.EuiLevel level = CastorUtils.unmarshal(org.opennms.netmgt.xml.rtc.EuiLevel.class,
+                                                                              inStream);
 
             // for now we only deal with the first category, they're only sent
             // one
@@ -120,11 +125,13 @@ public class RTCPostServlet extends HttpServlet {
             category = level.getCategory(0);
         } catch (MarshalException ex) {
             LOG.error("Failed to load configuration", ex);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid XML input: MarshalException: " + ex.getMessage());
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                               "Invalid XML input: MarshalException: " + ex.getMessage());
             return;
         } catch (ValidationException ex) {
             LOG.error("Failed to load configuration", ex);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid XML input: ValidationException" + ex.getMessage());
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                               "Invalid XML input: ValidationException" + ex.getMessage());
             return;
         }
 

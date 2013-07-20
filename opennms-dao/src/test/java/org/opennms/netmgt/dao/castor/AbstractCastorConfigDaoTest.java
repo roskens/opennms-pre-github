@@ -61,7 +61,6 @@ public class AbstractCastorConfigDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
-
     public void testAfterPropertiesSetWithBogusFileResource() throws Exception {
         Resource resource = new FileSystemResource("/bogus-file");
         TestCastorConfigDao dao = new TestCastorConfigDao();

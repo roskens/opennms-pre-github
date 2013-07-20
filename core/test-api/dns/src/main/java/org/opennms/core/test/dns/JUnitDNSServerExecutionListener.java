@@ -47,14 +47,17 @@ import org.xbill.DNS.SOARecord;
 import org.xbill.DNS.Zone;
 
 /**
- * This {@link TestExecutionListener} looks for the {@link JUnitDNSServer} annotation
- * and uses attributes on it to launch a temporary HTTP server for use during unit tests.
+ * This {@link TestExecutionListener} looks for the {@link JUnitDNSServer}
+ * annotation
+ * and uses attributes on it to launch a temporary HTTP server for use during
+ * unit tests.
  */
 public class JUnitDNSServerExecutionListener extends OpenNMSAbstractTestExecutionListener {
 
-	private static final Logger LOG = LoggerFactory.getLogger(JUnitDNSServerExecutionListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JUnitDNSServerExecutionListener.class);
 
     private static final int DEFAULT_TTL = 3600;
+
     private DNSServer m_server;
 
     /** {@inheritDoc} */
@@ -81,12 +84,12 @@ public class JUnitDNSServerExecutionListener extends OpenNMSAbstractTestExecutio
             final Name zoneName = Name.fromString(name, Name.root);
             LOG.debug("zoneName = {}", zoneName);
             final Zone zone = new Zone(zoneName, new Record[] {
-                    new SOARecord(zoneName, DClass.IN, DEFAULT_TTL, zoneName, Name.fromString("admin." + name), 1, DEFAULT_TTL, DEFAULT_TTL, DEFAULT_TTL, DEFAULT_TTL),
+                    new SOARecord(zoneName, DClass.IN, DEFAULT_TTL, zoneName, Name.fromString("admin." + name), 1,
+                                  DEFAULT_TTL, DEFAULT_TTL, DEFAULT_TTL, DEFAULT_TTL),
                     new NSRecord(zoneName, DClass.IN, DEFAULT_TTL, Name.fromString("resolver1.opendns.com.")),
                     new NSRecord(zoneName, DClass.IN, DEFAULT_TTL, Name.fromString("resolver2.opendns.com.")),
                     new ARecord(zoneName, DClass.IN, DEFAULT_TTL, InetAddressUtils.addr(dnsZone.v4address())),
-                    new AAAARecord(zoneName, DClass.IN, DEFAULT_TTL, InetAddressUtils.addr(dnsZone.v6address()))
-            });
+                    new AAAARecord(zoneName, DClass.IN, DEFAULT_TTL, InetAddressUtils.addr(dnsZone.v6address())) });
             LOG.debug("zone = {}", zone);
 
             for (final DNSEntry entry : dnsZone.entries()) {
@@ -95,9 +98,11 @@ public class JUnitDNSServerExecutionListener extends OpenNMSAbstractTestExecutio
                 final Name recordName = Name.fromString(hostname, zoneName);
                 LOG.debug("name = {}", recordName);
                 if (entry.ipv6()) {
-                    zone.addRecord(new AAAARecord(recordName, DClass.IN, DEFAULT_TTL, InetAddressUtils.addr(entry.address())));
+                    zone.addRecord(new AAAARecord(recordName, DClass.IN, DEFAULT_TTL,
+                                                  InetAddressUtils.addr(entry.address())));
                 } else {
-                    zone.addRecord(new ARecord(recordName, DClass.IN, DEFAULT_TTL, InetAddressUtils.addr(entry.address())));
+                    zone.addRecord(new ARecord(recordName, DClass.IN, DEFAULT_TTL,
+                                               InetAddressUtils.addr(entry.address())));
                 }
             }
 

@@ -45,9 +45,12 @@ public class RrdTest extends XmlTest<Rrd> {
     /**
      * Instantiates a new attribute test.
      *
-     * @param sampleObject the sample object
-     * @param sampleXml the sample XML
-     * @param schemaFile the schema file
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample XML
+     * @param schemaFile
+     *            the schema file
      */
     public RrdTest(Rrd sampleObject, String sampleXml, String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
@@ -57,7 +60,8 @@ public class RrdTest extends XmlTest<Rrd> {
      * Data.
      *
      * @return the collection
-     * @throws ParseException the parse exception
+     * @throws ParseException
+     *             the parse exception
      */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
@@ -65,9 +69,7 @@ public class RrdTest extends XmlTest<Rrd> {
         rrd.setStep(300);
         rrd.addRra("RRA:AVERAGE:0.5:1:2016");
 
-        return Arrays.asList(new Object[][] { {
-            rrd,
-            "<rrd step=\"300\"><rra>RRA:AVERAGE:0.5:1:2016</rra></rrd>",
-            "target/classes/xsds/jmx-datacollection-config.xsd" } });
+        return Arrays.asList(new Object[][] { { rrd, "<rrd step=\"300\"><rra>RRA:AVERAGE:0.5:1:2016</rra></rrd>",
+                "target/classes/xsds/jmx-datacollection-config.xsd" } });
     }
 }

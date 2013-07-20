@@ -52,10 +52,13 @@ import org.springframework.stereotype.Component;
 public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
 
     private static final Logger LOG = LoggerFactory.getLogger(NtpDetector.class);
+
     private final NtpClient m_client;
 
     /**
-     * <p>Constructor for NtpDetector.</p>
+     * <p>
+     * Constructor for NtpDetector.
+     * </p>
      */
     public NtpDetector() {
         super("NTP", 123);
@@ -75,7 +78,7 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
     }
 
     private ResponseValidator<DatagramPacket> validateResponse() {
-        return new ResponseValidator<DatagramPacket>(){
+        return new ResponseValidator<DatagramPacket>() {
 
             @Override
             public boolean validate(final DatagramPacket response) {
@@ -83,9 +86,11 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
                     // Parse the incoming data
                     NtpMessage m = new NtpMessage(response.getData());
                     LOG.info("NTP message received {}", m.toString());
-                    // All timestamps returned on the package are required in order to process the NTP package on the client side.
-                    return m.originateTimestamp > 0 && m.transmitTimestamp > 0 && m.referenceTimestamp > 0 && m.receiveTimestamp > 0;
-                }else{
+                    // All timestamps returned on the package are required in
+                    // order to process the NTP package on the client side.
+                    return m.originateTimestamp > 0 && m.transmitTimestamp > 0 && m.referenceTimestamp > 0
+                            && m.receiveTimestamp > 0;
+                } else {
                     return false;
                 }
             }
@@ -94,7 +99,7 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
     }
 
     private RequestBuilder<NtpMessage> createNtpMessage() {
-        return new RequestBuilder<NtpMessage>(){
+        return new RequestBuilder<NtpMessage>() {
 
             @Override
             public NtpMessage getRequest() {
@@ -105,11 +110,13 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
     }
 
     public void setIpToValidate(String address) {
-        // This method only exists for compatibility purposes, this won't be used. The address to be used will be the one defined on the client.
+        // This method only exists for compatibility purposes, this won't be
+        // used. The address to be used will be the one defined on the client.
     }
 
     public String getIpToValidate() {
-        // This method only exists for compatibility purposes, this won't be used. The address to be used will be the one defined on the client.
+        // This method only exists for compatibility purposes, this won't be
+        // used. The address to be used will be the one defined on the client.
         return null;
     }
 

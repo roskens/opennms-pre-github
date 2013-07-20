@@ -42,7 +42,6 @@ public class SnmpPduEncodingException extends Exception {
 
     /**
      * The default exception constructor
-     *
      */
     public SnmpPduEncodingException() {
         super();
@@ -53,7 +52,6 @@ public class SnmpPduEncodingException extends Exception {
      *
      * @param why
      *            The reason the exception is being raised
-     *
      */
     public SnmpPduEncodingException(String why) {
         super(why);

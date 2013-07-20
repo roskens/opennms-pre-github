@@ -35,10 +35,10 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * <P>
- * ExtremeNetworkVlanTable uses a SnmpSession to collect Extreme Network vendor-specific VLAN table
- * entries. It implements the SnmpHandler to receive notifications when a reply
- * is received/error occurs in the SnmpSession used to send requests/receive
- * replies.
+ * ExtremeNetworkVlanTable uses a SnmpSession to collect Extreme Network
+ * vendor-specific VLAN table entries. It implements the SnmpHandler to receive
+ * notifications when a reply is received/error occurs in the SnmpSession used
+ * to send requests/receive replies.
  * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo </A>
@@ -47,20 +47,22 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public class ExtremeNetworkVlanTable extends VlanTableBasic implements VlanTable {
 
-	/**
-	 * <p>Constructor for ExtremeNetworkVlanTable.</p>
-	 *
-	 * @param address a {@link java.net.InetAddress} object.
-	 */
-	public ExtremeNetworkVlanTable(InetAddress address) {
+    /**
+     * <p>
+     * Constructor for ExtremeNetworkVlanTable.
+     * </p>
+     *
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     */
+    public ExtremeNetworkVlanTable(InetAddress address) {
         super(address, "ExtremeNetworkVlanTable", ExtremeNetworkVlanTableEntry.enVlan_elemList);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     protected ExtremeNetworkVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new ExtremeNetworkVlanTableEntry();
     }
 
 }
-

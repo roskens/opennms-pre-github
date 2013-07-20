@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 
 public class TableTracker extends CollectionTracker implements RowCallback, RowResultFactory {
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(TableTracker.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(TableTracker.class);
 
     private final SnmpTableResult m_tableResult;
 
@@ -64,7 +64,7 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
 
     @Override
     public void setMaxRepetitions(int maxRepetitions) {
-        for(ColumnTracker child : m_columnTrackers) {
+        for (ColumnTracker child : m_columnTrackers) {
             child.setMaxRepetitions(maxRepetitions);
         }
     }
@@ -99,24 +99,24 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
         return new CombinedColumnResponseProcessor(processors);
     }
 
-        @Override
+    @Override
     public void storeResult(SnmpResult res) {
-        //System.err.println(String.format("storeResult: %s", res));
-    	LOG.debug("storeResult: {}", res);
+        // System.err.println(String.format("storeResult: %s", res));
+        LOG.debug("storeResult: {}", res);
         m_tableResult.storeResult(res);
     }
 
-        @Override
+    @Override
     public void rowCompleted(SnmpRowResult row) {
         // the default implementation just forwards this to the super class
         // like the defaults for other CollectionTrackers except this does it
         // from the rowCompleted method rather than from storeResult
-        for(SnmpResult result : row.getResults()) {
+        for (SnmpResult result : row.getResults()) {
             super.storeResult(result);
         }
     }
 
-        @Override
+    @Override
     public SnmpRowResult createRowResult(int columnCount, SnmpInstId instance) {
         return m_tableResult.createRowResult(columnCount, instance);
     }
@@ -128,16 +128,19 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
         Collections.sort(sortedTrackerList, new Comparator<ColumnTracker>() {
             @Override
             public int compare(ColumnTracker o1, ColumnTracker o2) {
-            	SnmpInstId lhs = o1.getLastInstance();
-				SnmpInstId rhs = o2.getLastInstance();
-				if (lhs == rhs) return 0;
-				if (lhs == null) return -1;
-				if (rhs == null) return 1;
-				return lhs.compareTo(rhs);
+                SnmpInstId lhs = o1.getLastInstance();
+                SnmpInstId rhs = o2.getLastInstance();
+                if (lhs == rhs)
+                    return 0;
+                if (lhs == null)
+                    return -1;
+                if (rhs == null)
+                    return 1;
+                return lhs.compareTo(rhs);
             }
         });
 
-        for(Iterator<ColumnTracker> it = sortedTrackerList.iterator(); it.hasNext() && trackers.size() < maxVarsPerPdu; ) {
+        for (Iterator<ColumnTracker> it = sortedTrackerList.iterator(); it.hasNext() && trackers.size() < maxVarsPerPdu;) {
 
             ColumnTracker tracker = it.next();
 
@@ -152,6 +155,7 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
 
     static private class CombinedColumnResponseProcessor implements ResponseProcessor {
         private final List<ResponseProcessor> m_processors;
+
         private int m_currentIndex = 0;
 
         public CombinedColumnResponseProcessor(List<ResponseProcessor> processors) {
@@ -161,13 +165,13 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
         @Override
         public void processResponse(SnmpObjId responseObjId, SnmpValue val) {
             try {
-            ResponseProcessor rp = m_processors.get(m_currentIndex);
+                ResponseProcessor rp = m_processors.get(m_currentIndex);
 
-            if (++m_currentIndex == m_processors.size()) {
-                m_currentIndex = 0;
-            }
+                if (++m_currentIndex == m_processors.size()) {
+                    m_currentIndex = 0;
+                }
 
-            rp.processResponse(responseObjId, val);
+                rp.processResponse(responseObjId, val);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -179,8 +183,6 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
 
             /*
              * errorIndex is varBind index (1 based array of vars)
-             *
-             *
              */
 
             int columnIndex = (errorIndex - 1) % m_processors.size();
@@ -191,8 +193,5 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
         }
 
     }
-
-
-
 
 }

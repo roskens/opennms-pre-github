@@ -39,167 +39,242 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
 /**
- * <p>ReportDefinition class.</p>
+ * <p>
+ * ReportDefinition class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class ReportDefinition implements InitializingBean {
     private PackageReport m_report;
+
     private Class<? extends AttributeStatisticVisitorWithResults> m_reportClass;
 
     private Integer m_count;
+
     private String m_consolidationFunction;
+
     private RelativeTime m_relativeTime;
+
     private String m_resourceTypeMatch;
+
     private String m_attributeMatch;
+
     private String m_resourceAttributeKey;
+
     private String m_resourceAttributeValueMatch;
 
     /**
-     * <p>getAttributeMatch</p>
+     * <p>
+     * getAttributeMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getAttributeMatch() {
         return m_attributeMatch;
     }
+
     /**
-     * <p>setAttributeMatch</p>
+     * <p>
+     * setAttributeMatch
+     * </p>
      *
-     * @param attributeMatch a {@link java.lang.String} object.
+     * @param attributeMatch
+     *            a {@link java.lang.String} object.
      */
     public void setAttributeMatch(String attributeMatch) {
         m_attributeMatch = attributeMatch;
     }
+
     /**
-     * <p>getConsolidationFunction</p>
+     * <p>
+     * getConsolidationFunction
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getConsolidationFunction() {
         return m_consolidationFunction;
     }
+
     /**
-     * <p>setConsolidationFunction</p>
+     * <p>
+     * setConsolidationFunction
+     * </p>
      *
-     * @param consolidationFunction a {@link java.lang.String} object.
+     * @param consolidationFunction
+     *            a {@link java.lang.String} object.
      */
     public void setConsolidationFunction(String consolidationFunction) {
         m_consolidationFunction = consolidationFunction;
     }
+
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     public Integer getCount() {
         return m_count;
     }
+
     /**
-     * <p>setCount</p>
+     * <p>
+     * setCount
+     * </p>
      *
-     * @param count a {@link java.lang.Integer} object.
+     * @param count
+     *            a {@link java.lang.Integer} object.
      */
     public void setCount(Integer count) {
         m_count = count;
     }
+
     /**
-     * <p>getResourceTypeMatch</p>
+     * <p>
+     * getResourceTypeMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getResourceTypeMatch() {
         return m_resourceTypeMatch;
     }
+
     /**
-     * <p>setResourceTypeMatch</p>
+     * <p>
+     * setResourceTypeMatch
+     * </p>
      *
-     * @param resourceTypeMatch a {@link java.lang.String} object.
+     * @param resourceTypeMatch
+     *            a {@link java.lang.String} object.
      */
     public void setResourceTypeMatch(String resourceTypeMatch) {
         this.m_resourceTypeMatch = resourceTypeMatch;
     }
+
     /**
-     * <p>getReportClass</p>
+     * <p>
+     * getReportClass
+     * </p>
      *
      * @return a {@link java.lang.Class} object.
      */
     public Class<? extends AttributeStatisticVisitorWithResults> getReportClass() {
         return m_reportClass;
     }
+
     /**
-     * <p>setReportClass</p>
+     * <p>
+     * setReportClass
+     * </p>
      *
-     * @param reportClass a {@link java.lang.Class} object.
+     * @param reportClass
+     *            a {@link java.lang.Class} object.
      */
     public void setReportClass(Class<? extends AttributeStatisticVisitorWithResults> reportClass) {
         /*
          * Even though we are using generics, it's just a compile-time check,
          * so let's do a runtime check, too.
          */
-        Assert.isAssignable(AttributeStatisticVisitorWithResults.class, reportClass, "the value of property reportClass does not implement the interface " + AttributeStatisticVisitorWithResults.class.getName() + "; ");
+        Assert.isAssignable(AttributeStatisticVisitorWithResults.class, reportClass,
+                            "the value of property reportClass does not implement the interface "
+                                    + AttributeStatisticVisitorWithResults.class.getName() + "; ");
 
         m_reportClass = reportClass;
     }
+
     /**
-     * <p>getRelativeTime</p>
+     * <p>
+     * getRelativeTime
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.statsd.RelativeTime} object.
      */
     public RelativeTime getRelativeTime() {
         return m_relativeTime;
     }
+
     /**
-     * <p>setRelativeTime</p>
+     * <p>
+     * setRelativeTime
+     * </p>
      *
-     * @param relativeTime a {@link org.opennms.netmgt.statsd.RelativeTime} object.
+     * @param relativeTime
+     *            a {@link org.opennms.netmgt.statsd.RelativeTime} object.
      */
     public void setRelativeTime(RelativeTime relativeTime) {
         m_relativeTime = relativeTime;
     }
+
     /**
-     * <p>getReport</p>
+     * <p>
+     * getReport
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.statsd.model.PackageReport} object.
+     * @return a {@link org.opennms.netmgt.config.statsd.model.PackageReport}
+     *         object.
      */
     public PackageReport getReport() {
         return m_report;
     }
+
     /**
-     * <p>setReport</p>
+     * <p>
+     * setReport
+     * </p>
      *
-     * @param report a {@link org.opennms.netmgt.config.statsd.model.PackageReport} object.
+     * @param report
+     *            a {@link org.opennms.netmgt.config.statsd.model.PackageReport}
+     *            object.
      */
     public void setReport(PackageReport report) {
         m_report = report;
     }
+
     /**
-     * <p>setResourceAttributeKey</p>
+     * <p>
+     * setResourceAttributeKey
+     * </p>
      *
-     * @param resourceAttributeKey a {@link java.lang.String} object.
+     * @param resourceAttributeKey
+     *            a {@link java.lang.String} object.
      */
     public void setResourceAttributeKey(String resourceAttributeKey) {
         m_resourceAttributeKey = resourceAttributeKey;
     }
+
     /**
-     * <p>setResourceAttributeValueMatch</p>
+     * <p>
+     * setResourceAttributeValueMatch
+     * </p>
      *
-     * @param resourceAttributeValueMatch a {@link java.lang.String} object.
+     * @param resourceAttributeValueMatch
+     *            a {@link java.lang.String} object.
      */
     public void setResourceAttributeValueMatch(String resourceAttributeValueMatch) {
         m_resourceAttributeValueMatch = resourceAttributeValueMatch;
     }
+
     /**
-     * <p>getResourceAttributeKey</p>
+     * <p>
+     * getResourceAttributeKey
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getResourceAttributeKey() {
         return m_resourceAttributeValueMatch;
     }
+
     /**
-     * <p>getResourceAttributeValueMatch</p>
+     * <p>
+     * getResourceAttributeValueMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -207,33 +282,43 @@ public class ReportDefinition implements InitializingBean {
         return m_resourceAttributeKey;
     }
 
-
     /**
-     * <p>getCronExpression</p>
+     * <p>
+     * getCronExpression
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getCronExpression() {
         return getReport().getSchedule();
     }
+
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getDescription() {
         return getReport().getDescription();
     }
+
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getName() {
         return getReport().getReport().getName();
     }
+
     /**
-     * <p>getRetainInterval</p>
+     * <p>
+     * getRetainInterval
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -241,17 +326,23 @@ public class ReportDefinition implements InitializingBean {
         return getReport().getRetainInterval();
     }
 
-
     /**
-     * <p>createReport</p>
+     * <p>
+     * createReport
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
-     * @param rrdDao a {@link org.opennms.netmgt.dao.api.RrdDao} object.
-     * @param filterDao a {@link org.opennms.netmgt.filter.FilterDao} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param rrdDao
+     *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.
+     * @param filterDao
+     *            a {@link org.opennms.netmgt.filter.FilterDao} object.
      * @return a {@link org.opennms.netmgt.statsd.ReportInstance} object.
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
-    public ReportInstance createReport(NodeDao nodeDao, ResourceDao resourceDao, RrdDao rrdDao, FilterDao filterDao) throws Exception {
+    public ReportInstance createReport(NodeDao nodeDao, ResourceDao resourceDao, RrdDao rrdDao, FilterDao filterDao)
+            throws Exception {
         Assert.notNull(resourceDao, "resourceDao argument must not be null");
         Assert.notNull(rrdDao, "rrdDao argument must not be null");
         Assert.notNull(filterDao, "filterDao argument must not be null");
@@ -260,7 +351,9 @@ public class ReportDefinition implements InitializingBean {
         try {
             visitor = getReportClass().newInstance();
         } catch (Throwable e) {
-            throw new DataAccessResourceFailureException("Could not instantiate visitor object; nested exception: " + e, e);
+            throw new DataAccessResourceFailureException(
+                                                         "Could not instantiate visitor object; nested exception: " + e,
+                                                         e);
         }
 
         ReportInstance report;
@@ -307,11 +400,15 @@ public class ReportDefinition implements InitializingBean {
         return m_report.getDescription();
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {

@@ -31,7 +31,9 @@ package org.opennms.api.reporting.parameter;
 import java.io.Serializable;
 
 /**
- * <p>ReportIntParm class.</p>
+ * <p>
+ * ReportIntParm class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -41,17 +43,22 @@ public class ReportIntParm extends ReportParm implements Serializable {
     private static final long serialVersionUID = 4587512112540000518L;
 
     int m_value;
+
     String m_type;
 
     /**
-     * <p>Constructor for ReportIntParm.</p>
+     * <p>
+     * Constructor for ReportIntParm.
+     * </p>
      */
     public ReportIntParm() {
-      super();
+        super();
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a int.
      */
@@ -60,26 +67,35 @@ public class ReportIntParm extends ReportParm implements Serializable {
     }
 
     /**
-     * <p>setValue</p>
+     * <p>
+     * setValue
+     * </p>
      *
-     * @param value a int.
+     * @param value
+     *            a int.
      */
     public void setValue(int value) {
         m_value = value;
     }
 
     /**
-     * <p>getInputType</p>
+     * <p>
+     * getInputType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getInputType() {
         return m_type;
     }
+
     /**
-     * <p>setInputType</p>
+     * <p>
+     * setInputType
+     * </p>
      *
-     * @param type a {@link java.lang.String} object.
+     * @param type
+     *            a {@link java.lang.String} object.
      */
     public void setInputType(String type) {
         m_type = type;

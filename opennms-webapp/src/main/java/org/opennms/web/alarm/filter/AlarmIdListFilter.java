@@ -31,9 +31,10 @@ package org.opennms.web.alarm.filter;
 import org.opennms.web.filter.InFilter;
 import org.opennms.web.filter.SQLType;
 
-
 /**
- * <p>AlarmIdListFilter class.</p>
+ * <p>
+ * AlarmIdListFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,10 +45,11 @@ public class AlarmIdListFilter extends InFilter<Integer> {
     public static final String TYPE = "alarmIdList";
 
     private static Integer[] box(int[] values) {
-        if (values == null) return null;
+        if (values == null)
+            return null;
 
         Integer[] boxed = new Integer[values.length];
-        for(int i = 0; i < values.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             boxed[i] = values[i];
         }
 
@@ -55,16 +57,21 @@ public class AlarmIdListFilter extends InFilter<Integer> {
     }
 
     /**
-     * <p>Constructor for AlarmIdListFilter.</p>
+     * <p>
+     * Constructor for AlarmIdListFilter.
+     * </p>
      *
-     * @param alarmIds an array of int.
+     * @param alarmIds
+     *            an array of int.
      */
     public AlarmIdListFilter(int[] alarmIds) {
         super(TYPE, SQLType.INT, "ALARMID", "id", box(alarmIds));
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

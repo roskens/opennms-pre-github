@@ -57,9 +57,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <P>
- * This is a low-level WMI client harnessing DCOM to communicate with remote agents.
- * The interface provided is similar but not identical to that of the SWbemServices
- * interface.
+ * This is a low-level WMI client harnessing DCOM to communicate with remote
+ * agents. The interface provided is similar but not identical to that of the
+ * SWbemServices interface.
  * </P>
  *
  * @author <a href="mailto:matt.raykowski@gmail.com">Matt Raykowski</a>
@@ -67,24 +67,33 @@ import org.slf4j.LoggerFactory;
  */
 public class WmiClient implements IWmiClient {
 
-	private static final Logger LOG = LoggerFactory.getLogger(WmiClient.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(WmiClient.class);
 
     private JIComServer m_ComStub = null;
+
     private IJIComObject m_ComObject = null;
+
     private IJIDispatch m_Dispatch = null;
+
     private String m_Address = null;
+
     private JISession m_Session = null;
+
     private IJIDispatch m_WbemServices = null;
 
     private static final String WMI_CLSID = "76A6415B-CB41-11d1-8B02-00600806D9B6";
+
     private static final String WMI_PROGID = "WbemScripting.SWbemLocator";
 
     /**
-     * <p>Constructor for WmiClient.</p>
+     * <p>
+     * Constructor for WmiClient.
+     * </p>
      *
-     * @param address a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @param address
+     *            a {@link java.lang.String} object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public WmiClient(final String address) throws WmiException {
         JISystem.setAutoRegisteration(true);
@@ -96,8 +105,10 @@ public class WmiClient implements IWmiClient {
     @Override
     public OnmsWbemObjectSet performInstanceOf(final String wmiClass) throws WmiException {
         try {
-            // Execute the InstancesOf method on the remote SWbemServices object.
-            final JIVariant results[] = m_WbemServices.callMethodA("InstancesOf", new Object[]{new JIString(wmiClass), 0, JIVariant.OPTIONAL_PARAM()});
+            // Execute the InstancesOf method on the remote SWbemServices
+            // object.
+            final JIVariant results[] = m_WbemServices.callMethodA("InstancesOf", new Object[] {
+                    new JIString(wmiClass), 0, JIVariant.OPTIONAL_PARAM() });
             final IJIDispatch wOSd = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
             return new OnmsWbemObjectSetImpl(wOSd);
@@ -115,27 +126,34 @@ public class WmiClient implements IWmiClient {
 
     /** {@inheritDoc} */
     @Override
-    public OnmsWbemObjectSet performExecQuery (final String strQuery, final String strQueryLanguage, final Integer flags) throws WmiException {
+    public OnmsWbemObjectSet performExecQuery(final String strQuery, final String strQueryLanguage, final Integer flags)
+            throws WmiException {
         try {
-            final JIVariant results[] = m_WbemServices.callMethodA("ExecQuery", new Object[]{new JIString(strQuery), JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM(),JIVariant.OPTIONAL_PARAM()});
-            final IJIDispatch wOSd = (IJIDispatch)JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
+            final JIVariant results[] = m_WbemServices.callMethodA("ExecQuery", new Object[] { new JIString(strQuery),
+                    JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM() });
+            final IJIDispatch wOSd = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
             return new OnmsWbemObjectSetImpl(wOSd);
-        } catch(final JIException e) {
+        } catch (final JIException e) {
             throw new WmiException("Failed to execute query '" + strQuery + "': " + e.getMessage(), e);
         }
     }
 
     /**
-     * <p>performWmiGet</p>
+     * <p>
+     * performWmiGet
+     * </p>
      *
-     * @param strObjectPath a {@link java.lang.String} object.
+     * @param strObjectPath
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObject} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public OnmsWbemObject performWmiGet(final String strObjectPath) throws WmiException {
         try {
-            final JIVariant results[] = m_WbemServices.callMethodA("Get", new Object[]{new JIString(strObjectPath), JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM()});
+            final JIVariant results[] = m_WbemServices.callMethodA("Get", new Object[] { new JIString(strObjectPath),
+                    JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM() });
             final IJIDispatch obj_dsp = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
             return new OnmsWbemObjectImpl(obj_dsp);
@@ -145,15 +163,21 @@ public class WmiClient implements IWmiClient {
     }
 
     /**
-     * <p>performSubclassOf</p>
+     * <p>
+     * performSubclassOf
+     * </p>
      *
-     * @param strSuperClass a {@link java.lang.String} object.
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @param strSuperClass
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
+     *         object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public OnmsWbemObjectSet performSubclassOf(final String strSuperClass) throws WmiException {
         try {
-            final JIVariant results[] = m_WbemServices.callMethodA("SubclassesOf", new Object[]{new JIString(strSuperClass), JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM()});
+            final JIVariant results[] = m_WbemServices.callMethodA("SubclassesOf", new Object[] {
+                    new JIString(strSuperClass), JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM() });
             final IJIDispatch objset_dsp = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
             return new OnmsWbemObjectSetImpl(objset_dsp);
@@ -163,14 +187,21 @@ public class WmiClient implements IWmiClient {
     }
 
     /**
-     * <p>performSubclassOf</p>
+     * <p>
+     * performSubclassOf
+     * </p>
      *
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
+     *         object.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public OnmsWbemObjectSet performSubclassOf() throws WmiException {
         try {
-            final JIVariant results[] = m_WbemServices.callMethodA("SubclassesOf", new Object[]{ JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM()});
+            final JIVariant results[] = m_WbemServices.callMethodA("SubclassesOf",
+                                                                   new Object[] { JIVariant.OPTIONAL_PARAM(),
+                                                                           JIVariant.OPTIONAL_PARAM(),
+                                                                           JIVariant.OPTIONAL_PARAM() });
             final IJIDispatch objset_dsp = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
             return new OnmsWbemObjectSetImpl(objset_dsp);
@@ -180,44 +211,49 @@ public class WmiClient implements IWmiClient {
     }
 
     /**
-     * <p>convertToNativeType</p>
+     * <p>
+     * convertToNativeType
+     * </p>
      *
-     * @param type a {@link org.jinterop.dcom.core.JIVariant} object.
+     * @param type
+     *            a {@link org.jinterop.dcom.core.JIVariant} object.
      * @return a {@link java.lang.Object} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     public static Object convertToNativeType(final JIVariant type) throws WmiException {
         try {
             if (type.isArray()) {
                 final ArrayList<Object> objs = new ArrayList<Object>();
-                final Object [] array = (Object[])type.getObjectAsArray().getArrayInstance();
+                final Object[] array = (Object[]) type.getObjectAsArray().getArrayInstance();
 
                 for (final Object element : array) {
-                    objs.add(convertToNativeType((JIVariant)element));
+                    objs.add(convertToNativeType((JIVariant) element));
                 }
 
                 return objs;
             }
 
             switch (type.getType()) {
-                case JIVariant.VT_NULL:
-                    return null;
-                case JIVariant.VT_BSTR:
-                    return type.getObjectAsString().getString();
-                case JIVariant.VT_I2: // sint16
-                    return type.getObjectAsShort();
-                case JIVariant.VT_I4:
-                    return type.getObjectAsInt();
-                case JIVariant.VT_UI1: // uint8 (convert to Java Number)
-                    return type.getObjectAsUnsigned().getValue();
-                case JIVariant.VT_BOOL:
-                    return type.getObjectAsBoolean();
-                case JIVariant.VT_DECIMAL:
-                    return type.getObjectAsFloat();
-                case JIVariant.VT_DATE:
-                    return type.getObjectAsDate();
-                default:
-                    throw new WmiException("Unknown type presented (" + type.getType() + "), defaulting to Object: " + type.toString());
+            case JIVariant.VT_NULL:
+                return null;
+            case JIVariant.VT_BSTR:
+                return type.getObjectAsString().getString();
+            case JIVariant.VT_I2: // sint16
+                return type.getObjectAsShort();
+            case JIVariant.VT_I4:
+                return type.getObjectAsInt();
+            case JIVariant.VT_UI1: // uint8 (convert to Java Number)
+                return type.getObjectAsUnsigned().getValue();
+            case JIVariant.VT_BOOL:
+                return type.getObjectAsBoolean();
+            case JIVariant.VT_DECIMAL:
+                return type.getObjectAsFloat();
+            case JIVariant.VT_DATE:
+                return type.getObjectAsDate();
+            default:
+                throw new WmiException("Unknown type presented (" + type.getType() + "), defaulting to Object: "
+                        + type.toString());
             }
         } catch (final JIException e) {
             throw new WmiException("Failed to conver WMI type to native object: " + e.getMessage(), e);
@@ -240,19 +276,14 @@ public class WmiClient implements IWmiClient {
 
             // This will obtain the dispatch interface
             m_Dispatch = (IJIDispatch) JIObjectFactory.narrowObject(m_ComObject.queryInterface(IJIDispatch.IID));
-            final JIVariant results[] = m_Dispatch.callMethodA(
-                "ConnectServer",
-                new Object[]{
-                    new JIString(m_Address),
-                    JIVariant.OPTIONAL_PARAM(),
-                    JIVariant.OPTIONAL_PARAM(),
-                    JIVariant.OPTIONAL_PARAM(),
-                    JIVariant.OPTIONAL_PARAM(),
-                    JIVariant.OPTIONAL_PARAM(),
-                    0,
-                    JIVariant.OPTIONAL_PARAM()
-                }
-            );
+            final JIVariant results[] = m_Dispatch.callMethodA("ConnectServer",
+                                                               new Object[] { new JIString(m_Address),
+                                                                       JIVariant.OPTIONAL_PARAM(),
+                                                                       JIVariant.OPTIONAL_PARAM(),
+                                                                       JIVariant.OPTIONAL_PARAM(),
+                                                                       JIVariant.OPTIONAL_PARAM(),
+                                                                       JIVariant.OPTIONAL_PARAM(), 0,
+                                                                       JIVariant.OPTIONAL_PARAM() });
 
             m_WbemServices = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
@@ -264,7 +295,8 @@ public class WmiClient implements IWmiClient {
                     LOG.error("Failed to destroy session after incomplete connect with host '{}'.", m_Address, e1);
                 }
             }
-            throw new WmiException("Failed to establish COM session with host '" + m_Address + "': " + e.getMessage(), e);
+            throw new WmiException("Failed to establish COM session with host '" + m_Address + "': " + e.getMessage(),
+                                   e);
         } catch (final UnknownHostException e) {
             if (m_Session != null) {
                 try {
@@ -278,9 +310,12 @@ public class WmiClient implements IWmiClient {
     }
 
     /**
-     * <p>disconnect</p>
+     * <p>
+     * disconnect
+     * </p>
      *
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public void disconnect() throws WmiException {
@@ -292,11 +327,15 @@ public class WmiClient implements IWmiClient {
     }
 
     /**
-     * <p>convertWmiDate</p>
+     * <p>
+     * convertWmiDate
+     * </p>
      *
-     * @param dateStr a {@link java.lang.String} object.
+     * @param dateStr
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Date} object.
-     * @throws java.text.ParseException if any.
+     * @throws java.text.ParseException
+     *             if any.
      */
     public static Date convertWmiDate(final String dateStr) throws ParseException {
         return new SimpleDateFormat("yyyyMMddHHmmss.ssssss+000").parse(dateStr);

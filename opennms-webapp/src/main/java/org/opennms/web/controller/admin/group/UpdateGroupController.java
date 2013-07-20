@@ -55,14 +55,15 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @version $Id: $
  * @since 1.8.1
  */
-public class UpdateGroupController extends AbstractController implements InitializingBean{
+public class UpdateGroupController extends AbstractController implements InitializingBean {
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         HttpSession userSession = request.getSession(false);
 
         if (userSession != null) {
-            //group.modifyGroup.jsp
+            // group.modifyGroup.jsp
             WebGroup newGroup = (WebGroup) userSession.getAttribute("group.modifyGroup.jsp");
 
             // get the rest of the group information from the form
@@ -116,7 +117,7 @@ public class UpdateGroupController extends AbstractController implements Initial
      * @return
      */
     @SuppressWarnings("unused")
-    private String[] removeAll(final String[] a,  final String[] b) {
+    private String[] removeAll(final String[] a, final String[] b) {
         ArrayList<String> list = new ArrayList<String>();
         list.addAll(Arrays.asList(a));
         list.removeAll(Arrays.asList(b));
@@ -124,9 +125,12 @@ public class UpdateGroupController extends AbstractController implements Initial
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

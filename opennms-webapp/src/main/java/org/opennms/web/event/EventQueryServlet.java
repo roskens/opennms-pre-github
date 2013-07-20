@@ -77,7 +77,10 @@ public class EventQueryServlet extends HttpServlet {
      * The list of parameters that are extracted by this servlet and not passed
      * on to the servlet.
      */
-    protected static String[] IGNORE_LIST = new String[] { "msgsub", "msgmatchany", "nodenamelike", "service", "iplike", "severity", "relativetime", "usebeforetime", "beforehour", "beforeminute", "beforeampm", "beforedate", "beforemonth", "beforeyear", "useaftertime", "afterhour", "afterminute", "afterampm", "afterdate", "aftermonth", "afteryear" };
+    protected static String[] IGNORE_LIST = new String[] { "msgsub", "msgmatchany", "nodenamelike", "service",
+            "iplike", "severity", "relativetime", "usebeforetime", "beforehour", "beforeminute", "beforeampm",
+            "beforedate", "beforemonth", "beforeyear", "useaftertime", "afterhour", "afterminute", "afterampm",
+            "afterdate", "aftermonth", "afteryear" };
 
     /**
      * The URL for the servlet. The
@@ -87,9 +90,12 @@ public class EventQueryServlet extends HttpServlet {
     protected String redirectUrl = "filter";
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -101,9 +107,8 @@ public class EventQueryServlet extends HttpServlet {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Extracts the key parameters from the parameter set, translates them into
+     * {@inheritDoc} Extracts the key parameters from the parameter set,
+     * translates them into
      * filter-based parameters, and then passes the modified parameter set to
      * the event filter.
      */
@@ -204,9 +209,12 @@ public class EventQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getBeforeDateFilter</p>
+     * <p>
+     * getBeforeDateFilter
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.web.event.filter.BeforeDateFilter} object.
      */
     protected BeforeDateFilter getBeforeDateFilter(HttpServletRequest request) {
@@ -215,9 +223,12 @@ public class EventQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getAfterDateFilter</p>
+     * <p>
+     * getAfterDateFilter
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.web.event.filter.AfterDateFilter} object.
      */
     protected AfterDateFilter getAfterDateFilter(HttpServletRequest request) {
@@ -226,12 +237,17 @@ public class EventQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getDateFromRequest</p>
+     * <p>
+     * getDateFromRequest
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param prefix a {@link java.lang.String} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      * @return a java$util$Date object.
-     * @throws org.opennms.web.servlet.MissingParameterException if any.
+     * @throws org.opennms.web.servlet.MissingParameterException
+     *             if any.
      */
     protected Date getDateFromRequest(HttpServletRequest request, String prefix) throws MissingParameterException {
         if (request == null || prefix == null) {
@@ -302,13 +318,17 @@ public class EventQueryServlet extends HttpServlet {
     }
 
     /**
-     * <p>getRequiredDateFields</p>
+     * <p>
+     * getRequiredDateFields
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      * @return an array of {@link java.lang.String} objects.
      */
     protected String[] getRequiredDateFields(String prefix) {
-        return new String[] { prefix + "hour", prefix + "minute", prefix + "ampm", prefix + "date", prefix + "month", prefix + "year" };
+        return new String[] { prefix + "hour", prefix + "minute", prefix + "ampm", prefix + "date", prefix + "month",
+                prefix + "year" };
     }
 
 }

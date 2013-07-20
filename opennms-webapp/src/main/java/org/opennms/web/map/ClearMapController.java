@@ -44,63 +44,65 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>ClearMapController class.</p>
+ * <p>
+ * ClearMapController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class ClearMapController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ClearMapController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClearMapController.class);
 
+    private Manager manager;
 
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
-	private Manager manager;
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+        LOG.info("Clearing map.");
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+        try {
+            manager.clearMap();
+            bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.CLEAR_ACTION));
+        } catch (Throwable e) {
+            LOG.error("Error while doing clear map", e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.CLEAR_ACTION));
+        } finally {
+            bw.close();
+        }
 
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		LOG.info("Clearing map.");
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
-					.getOutputStream(), "UTF-8"));
-
-		try {
-			manager.clearMap();
-			bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.CLEAR_ACTION));
-		} catch (Throwable e) {
-			LOG.error("Error while doing clear map", e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.CLEAR_ACTION));
-		} finally {
-			bw.close();
-		}
-
-		return null;
-	}
+        return null;
+    }
 
 }

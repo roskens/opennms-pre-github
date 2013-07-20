@@ -33,15 +33,19 @@ import com.vaadin.ui.UI;
 
 public class JmxConfigToolApplicationFactory extends AbstractApplicationFactory {
 
-    /* (non-Javadoc)
-     * @see org.ops4j.pax.vaadin.ApplicationFactory#createApplication(javax.servlet.http.HttpServletRequest)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.ops4j.pax.vaadin.ApplicationFactory#createApplication(javax.servlet
+     * .http.HttpServletRequest)
      */
     @Override
     public UI getUI() {
         return new JmxConfigGeneratorApplication();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.ops4j.pax.vaadin.ApplicationFactory#getApplicationClass()
      */
     @Override

@@ -34,25 +34,19 @@ import java.util.Map;
 import org.springframework.util.Assert;
 
 /**
- * <p>SortStyle class.</p>
+ * <p>
+ * SortStyle class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public enum SortStyle {
-    NODE("node"),
-    INTERFACE("interface"),
-    SERVICE("service"),
-    IFLOSTSERVICE("iflostservice"),
-    IFREGAINEDSERVICE("ifregainedservice"),
-    ID("id"),
-    REVERSE_NODE("rev_node"),
-    REVERSE_INTERFACE("rev_interface"),
-    REVERSE_SERVICE("rev_service"),
-    REVERSE_IFLOSTSERVICE("rev_iflostservice"),
-    REVERSE_IFREGAINEDSERVICE("rev_ifregainedservice"),
-    REVERSE_ID("rev_id");
+    NODE("node"), INTERFACE("interface"), SERVICE("service"), IFLOSTSERVICE("iflostservice"), IFREGAINEDSERVICE(
+            "ifregainedservice"), ID("id"), REVERSE_NODE("rev_node"), REVERSE_INTERFACE("rev_interface"), REVERSE_SERVICE(
+            "rev_service"), REVERSE_IFLOSTSERVICE("rev_iflostservice"), REVERSE_IFREGAINEDSERVICE(
+            "rev_ifregainedservice"), REVERSE_ID("rev_id");
 
     /** Constant <code>DEFAULT_SORT_STYLE</code> */
     public static final SortStyle DEFAULT_SORT_STYLE = SortStyle.ID;
@@ -74,7 +68,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,7 +80,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,7 +91,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getShortName</p>
+     * <p>
+     * getShortName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -102,9 +102,12 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getSortStyle</p>
+     * <p>
+     * getSortStyle
+     * </p>
      *
-     * @param sortStyleString a {@link java.lang.String} object.
+     * @param sortStyleString
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.outage.SortStyle} object.
      */
     public static SortStyle getSortStyle(String sortStyleString) {

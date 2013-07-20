@@ -28,9 +28,10 @@
 
 package org.opennms.features.poller.remote.gwt.client.remoteevents;
 
-
 /**
- * <p>ApplicationRemovedRemoteEvent class.</p>
+ * <p>
+ * ApplicationRemovedRemoteEvent class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -38,36 +39,44 @@ package org.opennms.features.poller.remote.gwt.client.remoteevents;
  */
 public class ApplicationRemovedRemoteEvent implements MapRemoteEvent {
 
-	private static final long serialVersionUID = -3983688320772535953L;
+    private static final long serialVersionUID = -3983688320772535953L;
 
-	private String m_applicationName;
+    private String m_applicationName;
 
     /**
-     * <p>Constructor for ApplicationRemovedRemoteEvent.</p>
+     * <p>
+     * Constructor for ApplicationRemovedRemoteEvent.
+     * </p>
      */
-    public ApplicationRemovedRemoteEvent() {}
+    public ApplicationRemovedRemoteEvent() {
+    }
 
     /**
-     * <p>Constructor for ApplicationRemovedRemoteEvent.</p>
+     * <p>
+     * Constructor for ApplicationRemovedRemoteEvent.
+     * </p>
      *
-     * @param applicationName a {@link java.lang.String} object.
+     * @param applicationName
+     *            a {@link java.lang.String} object.
      */
     public ApplicationRemovedRemoteEvent(final String applicationName) {
         m_applicationName = applicationName;
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void dispatch(final MapRemoteEventHandler locationManager) {
         locationManager.removeApplication(m_applicationName);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String toString() {
         return "ApplicationRemovedRemoteEvent[applicationName=" + m_applicationName + "]";
     }

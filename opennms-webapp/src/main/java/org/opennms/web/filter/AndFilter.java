@@ -42,11 +42,14 @@ import org.hibernate.criterion.Restrictions;
 public class AndFilter extends ConditionalFilter {
 
     /**
-     * <p>Constructor for AndFilter.</p>
+     * <p>
+     * Constructor for AndFilter.
+     * </p>
      *
-     * @param filters a {@link org.opennms.web.filter.Filter} object.
+     * @param filters
+     *            a {@link org.opennms.web.filter.Filter} object.
      */
-    public AndFilter(Filter...filters) {
+    public AndFilter(Filter... filters) {
         super("AND", filters);
     }
 
@@ -55,7 +58,7 @@ public class AndFilter extends ConditionalFilter {
     public Criterion getCriterion() {
         Conjunction conjunction = Restrictions.conjunction();
 
-        for(Filter filter : getFilters()) {
+        for (Filter filter : getFilters()) {
             conjunction.add(filter.getCriterion());
         }
 

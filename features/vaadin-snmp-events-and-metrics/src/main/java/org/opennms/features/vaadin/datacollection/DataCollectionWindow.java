@@ -57,16 +57,23 @@ public class DataCollectionWindow extends Window {
     /**
      * Instantiates a new data collection window.
      *
-     * @param parser the MIB parser
-     * @param dataCollectionConfigDao the OpenNMS Data Collection Configuration DAO
-     * @param fileName the MIB's file name
-     * @param dcGroup the OpenNMS data collection group
-     * @param logger the logger object
-     * @throws Exception the exception
+     * @param parser
+     *            the MIB parser
+     * @param dataCollectionConfigDao
+     *            the OpenNMS Data Collection Configuration DAO
+     * @param fileName
+     *            the MIB's file name
+     * @param dcGroup
+     *            the OpenNMS data collection group
+     * @param logger
+     *            the logger object
+     * @throws Exception
+     *             the exception
      */
-    public DataCollectionWindow(final MibParser parser, final DataCollectionConfigDao dataCollectionConfigDao, final String fileName, final DatacollectionGroup dcGroup, final Logger logger) throws Exception {
+    public DataCollectionWindow(final MibParser parser, final DataCollectionConfigDao dataCollectionConfigDao,
+            final String fileName, final DatacollectionGroup dcGroup, final Logger logger) throws Exception {
         super(fileName); // Using fileName for as the window's name.
-        //setScrollable(true);
+        // setScrollable(true);
         setModal(false);
         setClosable(false);
         setDraggable(false);
@@ -78,9 +85,11 @@ public class DataCollectionWindow extends Window {
             public void cancel() {
                 close();
             }
+
             @Override
             public void success() {
-                MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+                MessageBox mb = new MessageBox(
+                                               getUI().getWindows().iterator().next(),
                                                "Graph Templates",
                                                MessageBox.Icon.QUESTION,
                                                "Do you want to generate the default graph templates?<br/>All the existing templates will be overriden.",
@@ -97,6 +106,7 @@ public class DataCollectionWindow extends Window {
                     }
                 });
             }
+
             @Override
             public void failure() {
                 close();
@@ -107,8 +117,10 @@ public class DataCollectionWindow extends Window {
     /**
      * Generate graph templates.
      *
-     * @param parser the MIB parser
-     * @param logger the logger
+     * @param parser
+     *            the MIB parser
+     * @param logger
+     *            the logger
      */
     public void generateGraphTemplates(final MibParser parser, final Logger logger) {
         final File configDir = new File(ConfigFileConstants.getHome(), "etc/snmp-graph.properties.d/");

@@ -52,7 +52,6 @@ import org.opennms.netmgt.config.syslogd.UeiList;
 
 /**
  * @deprecated This class should be combined with {@link SyslogHandler}
- *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
  * @author <a href="http://www.oculan.com">Oculan Corporation</a>
  * @fiddler joed
@@ -99,8 +98,8 @@ class SyslogReceiver implements Runnable {
      * @param hostGroup
      * @param messageGroup
      */
-    SyslogReceiver(DatagramSocket sock, String matchPattern, int hostGroup, int messageGroup,
-                   UeiList ueiList, HideMessage hideMessages, String discardUei) {
+    SyslogReceiver(DatagramSocket sock, String matchPattern, int hostGroup, int messageGroup, UeiList ueiList,
+            HideMessage hideMessages, String discardUei) {
         m_stop = false;
         m_dgSock = sock;
         m_matchPattern = matchPattern;
@@ -110,34 +109,26 @@ class SyslogReceiver implements Runnable {
         m_UeiList = ueiList;
         m_HideMessages = hideMessages;
 
-        m_executors.add(new ThreadPoolExecutor(
-            1,
-            Integer.MAX_VALUE,
-            100L,
-            TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>(),
-            new LogPreservingThreadFactory(getClass().getSimpleName(), Integer.MAX_VALUE, false)
-        ));
+        m_executors.add(new ThreadPoolExecutor(1, Integer.MAX_VALUE, 100L, TimeUnit.MILLISECONDS,
+                                               new LinkedBlockingQueue<Runnable>(),
+                                               new LogPreservingThreadFactory(getClass().getSimpleName(),
+                                                                              Integer.MAX_VALUE, false)));
 
-        m_executors.add(new ThreadPoolExecutor(
-            1,
-            Integer.MAX_VALUE,
-            100L,
-            TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>(),
-            new LogPreservingThreadFactory(getClass().getSimpleName(), Integer.MAX_VALUE, false)
-        ));
-}
+        m_executors.add(new ThreadPoolExecutor(1, Integer.MAX_VALUE, 100L, TimeUnit.MILLISECONDS,
+                                               new LinkedBlockingQueue<Runnable>(),
+                                               new LogPreservingThreadFactory(getClass().getSimpleName(),
+                                                                              Integer.MAX_VALUE, false)));
+    }
 
     /*
      * stop the current receiver
      * @throws InterruptedException
-     *
      */
     void stop() throws InterruptedException {
         m_stop = true;
 
-        // Shut down the thread pools that are executing SyslogConnection and SyslogProcessor tasks
+        // Shut down the thread pools that are executing SyslogConnection and
+        // SyslogProcessor tasks
         for (ExecutorService service : m_executors) {
             service.shutdown();
         }
@@ -204,8 +195,11 @@ class SyslogReceiver implements Runnable {
                 DatagramPacket pkt = new DatagramPacket(buffer, length);
                 m_dgSock.receive(pkt);
 
-                //SyslogConnection *Must* copy packet data and InetAddress as DatagramPacket is a mutable type
-                WaterfallExecutor.waterfall(m_executors, new SyslogConnection(pkt, m_matchPattern, m_hostGroup, m_messageGroup, m_UeiList, m_HideMessages, m_discardUei));
+                // SyslogConnection *Must* copy packet data and InetAddress as
+                // DatagramPacket is a mutable type
+                WaterfallExecutor.waterfall(m_executors, new SyslogConnection(pkt, m_matchPattern, m_hostGroup,
+                                                                              m_messageGroup, m_UeiList,
+                                                                              m_HideMessages, m_discardUei));
                 ioInterrupted = false; // reset the flag
             } catch (SocketTimeoutException e) {
                 ioInterrupted = true;
@@ -231,9 +225,12 @@ class SyslogReceiver implements Runnable {
     }
 
     /**
-     * <p>setLogPrefix</p>
+     * <p>
+     * setLogPrefix
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
      */
     protected void setLogPrefix(String prefix) {
     }

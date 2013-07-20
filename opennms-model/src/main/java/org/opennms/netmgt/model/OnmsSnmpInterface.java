@@ -63,15 +63,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.style.ToStringCreator;
 
 /**
- * <p>OnmsSnmpInterface class.</p>
+ * <p>
+ * OnmsSnmpInterface class.
+ * </p>
  */
 @XmlRootElement(name = "snmpInterface")
 @Entity
 @Table(name = "snmpInterface")
 public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OnmsSnmpInterface.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(OnmsSnmpInterface.class);
 
     /**
      *
@@ -123,18 +124,28 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     private Set<OnmsIpInterface> m_ipInterfaces = new HashSet<OnmsIpInterface>();
 
     /**
-     * <p>Constructor for OnmsSnmpInterface.</p>
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
-     * @param ifIndex a int.
+     * <p>
+     * Constructor for OnmsSnmpInterface.
+     * </p>
+     *
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param ifIndex
+     *            a int.
      */
     public OnmsSnmpInterface(OnmsNode node, int ifIndex) {
         this(node, new Integer(ifIndex));
     }
 
     /**
-     * <p>Constructor for OnmsSnmpInterface.</p>
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
-     * @param ifIndex a {@link java.lang.Integer} object.
+     * <p>
+     * Constructor for OnmsSnmpInterface.
+     * </p>
+     *
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param ifIndex
+     *            a {@link java.lang.Integer} object.
      */
     public OnmsSnmpInterface(OnmsNode node, Integer ifIndex) {
         m_ifIndex = ifIndex;
@@ -156,46 +167,56 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(nullable=false)
+    @Column(nullable = false)
     @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
     @GeneratedValue(generator = "opennmsSequence")
-    @XmlAttribute(name="id")
+    @XmlAttribute(name = "id")
     public Integer getId() {
         return m_id;
     }
 
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * <p>getNetMask</p>
+     * <p>
+     * getNetMask
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Column(name = "snmpIpAdEntNetMask")
-    @Type(type="org.opennms.netmgt.model.InetAddressUserType")
+    @Type(type = "org.opennms.netmgt.model.InetAddressUserType")
     @XmlJavaTypeAdapter(InetAddressXmlAdapter.class)
     public InetAddress getNetMask() {
         return m_netMask;
     }
 
     /**
-     * <p>setNetMask</p>
+     * <p>
+     * setNetMask
+     * </p>
      *
-     * @param snmpipadentnetmask a {@link java.lang.String} object.
+     * @param snmpipadentnetmask
+     *            a {@link java.lang.String} object.
      */
     public void setNetMask(InetAddress snmpipadentnetmask) {
         m_netMask = snmpipadentnetmask;
     }
 
     /**
-     * <p>getPhysAddr</p>
+     * <p>
+     * getPhysAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -205,36 +226,46 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setPhysAddr</p>
+     * <p>
+     * setPhysAddr
+     * </p>
      *
-     * @param snmpphysaddr a {@link java.lang.String} object.
+     * @param snmpphysaddr
+     *            a {@link java.lang.String} object.
      */
     public void setPhysAddr(String snmpphysaddr) {
         m_physAddr = snmpphysaddr;
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     @Column(name = "snmpIfIndex")
-    @XmlAttribute(name="ifIndex")
+    @XmlAttribute(name = "ifIndex")
     public Integer getIfIndex() {
         return m_ifIndex;
     }
 
     /**
-     * <p>setIfIndex</p>
+     * <p>
+     * setIfIndex
+     * </p>
      *
-     * @param snmpifindex a {@link java.lang.Integer} object.
+     * @param snmpifindex
+     *            a {@link java.lang.Integer} object.
      */
     public void setIfIndex(Integer snmpifindex) {
         m_ifIndex = snmpifindex;
     }
 
     /**
-     * <p>getIfDescr</p>
+     * <p>
+     * getIfDescr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -244,16 +275,21 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setIfDescr</p>
+     * <p>
+     * setIfDescr
+     * </p>
      *
-     * @param snmpifdescr a {@link java.lang.String} object.
+     * @param snmpifdescr
+     *            a {@link java.lang.String} object.
      */
     public void setIfDescr(String snmpifdescr) {
         m_ifDescr = snmpifdescr;
     }
 
     /**
-     * <p>getIfType</p>
+     * <p>
+     * getIfType
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -263,16 +299,21 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setIfType</p>
+     * <p>
+     * setIfType
+     * </p>
      *
-     * @param snmpiftype a {@link java.lang.Integer} object.
+     * @param snmpiftype
+     *            a {@link java.lang.Integer} object.
      */
     public void setIfType(Integer snmpiftype) {
         m_ifType = snmpiftype;
     }
 
     /**
-     * <p>getIfName</p>
+     * <p>
+     * getIfName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -282,16 +323,21 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setIfName</p>
+     * <p>
+     * setIfName
+     * </p>
      *
-     * @param snmpifname a {@link java.lang.String} object.
+     * @param snmpifname
+     *            a {@link java.lang.String} object.
      */
     public void setIfName(String snmpifname) {
         m_ifName = snmpifname;
     }
 
     /**
-     * <p>getIfSpeed</p>
+     * <p>
+     * getIfSpeed
+     * </p>
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -301,16 +347,21 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setIfSpeed</p>
+     * <p>
+     * setIfSpeed
+     * </p>
      *
-     * @param snmpifspeed a {@link java.lang.Long} object.
+     * @param snmpifspeed
+     *            a {@link java.lang.Long} object.
      */
     public void setIfSpeed(Long snmpifspeed) {
         m_ifSpeed = snmpifspeed;
     }
 
     /**
-     * <p>getIfAdminStatus</p>
+     * <p>
+     * getIfAdminStatus
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -320,16 +371,21 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setIfAdminStatus</p>
+     * <p>
+     * setIfAdminStatus
+     * </p>
      *
-     * @param snmpifadminstatus a {@link java.lang.Integer} object.
+     * @param snmpifadminstatus
+     *            a {@link java.lang.Integer} object.
      */
     public void setIfAdminStatus(Integer snmpifadminstatus) {
         m_ifAdminStatus = snmpifadminstatus;
     }
 
     /**
-     * <p>getIfOperStatus</p>
+     * <p>
+     * getIfOperStatus
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -339,16 +395,21 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setIfOperStatus</p>
+     * <p>
+     * setIfOperStatus
+     * </p>
      *
-     * @param snmpifoperstatus a {@link java.lang.Integer} object.
+     * @param snmpifoperstatus
+     *            a {@link java.lang.Integer} object.
      */
     public void setIfOperStatus(Integer snmpifoperstatus) {
         m_ifOperStatus = snmpifoperstatus;
     }
 
     /**
-     * <p>getIfAlias</p>
+     * <p>
+     * getIfAlias
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -358,195 +419,237 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setIfAlias</p>
+     * <p>
+     * setIfAlias
+     * </p>
      *
-     * @param snmpifalias a {@link java.lang.String} object.
+     * @param snmpifalias
+     *            a {@link java.lang.String} object.
      */
     public void setIfAlias(String snmpifalias) {
         m_ifAlias = snmpifalias;
     }
 
     /**
-     * <p>getLastCapsdPoll</p>
+     * <p>
+     * getLastCapsdPoll
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="snmpLastCapsdPoll")
+    @Column(name = "snmpLastCapsdPoll")
     public Date getLastCapsdPoll() {
         return m_lastCapsdPoll;
     }
 
     /**
-     * <p>setLastCapsdPoll</p>
+     * <p>
+     * setLastCapsdPoll
+     * </p>
      *
-     * @param lastCapsdPoll a {@link java.util.Date} object.
+     * @param lastCapsdPoll
+     *            a {@link java.util.Date} object.
      */
     public void setLastCapsdPoll(Date lastCapsdPoll) {
         m_lastCapsdPoll = lastCapsdPoll;
     }
 
     /**
-     * <p>getCollect</p>
+     * <p>
+     * getCollect
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="snmpCollect")
-    @XmlAttribute(name="collectFlag")
+    @Column(name = "snmpCollect")
+    @XmlAttribute(name = "collectFlag")
     public String getCollect() {
         return m_collect;
     }
 
     /**
-     * <p>setCollect</p>
+     * <p>
+     * setCollect
+     * </p>
      *
-     * @param collect a {@link java.lang.String} object.
+     * @param collect
+     *            a {@link java.lang.String} object.
      */
     public void setCollect(String collect) {
         m_collect = collect;
     }
 
     /**
-     * <p>getPoll</p>
+     * <p>
+     * getPoll
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="snmpPoll")
-    @XmlAttribute(name="pollFlag")
+    @Column(name = "snmpPoll")
+    @XmlAttribute(name = "pollFlag")
     public String getPoll() {
         return m_poll;
     }
 
     /**
-     * <p>setPoll</p>
+     * <p>
+     * setPoll
+     * </p>
      *
-     * @param poll a {@link java.lang.String} object.
+     * @param poll
+     *            a {@link java.lang.String} object.
      */
     public void setPoll(String poll) {
         m_poll = poll;
     }
 
     /**
-     * <p>getLastSnmpPoll</p>
+     * <p>
+     * getLastSnmpPoll
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="snmpLastSnmpPoll")
+    @Column(name = "snmpLastSnmpPoll")
     public Date getLastSnmpPoll() {
         return m_lastSnmpPoll;
     }
 
     /**
-     * <p>setLastSnmpPoll</p>
+     * <p>
+     * setLastSnmpPoll
+     * </p>
      *
-     * @param lastSnmpPoll a {@link java.util.Date} object.
+     * @param lastSnmpPoll
+     *            a {@link java.util.Date} object.
      */
     public void setLastSnmpPoll(Date lastSnmpPoll) {
         m_lastSnmpPoll = lastSnmpPoll;
     }
 
     /**
-     * <p>isCollectionUserSpecified</p>
+     * <p>
+     * isCollectionUserSpecified
+     * </p>
      *
      * @return a boolean.
      */
     @Transient
-    public boolean isCollectionUserSpecified(){
+    public boolean isCollectionUserSpecified() {
         return m_collect.startsWith("U");
     }
 
     /**
-     * <p>isCollectionEnabled</p>
+     * <p>
+     * isCollectionEnabled
+     * </p>
      *
      * @return a boolean.
      */
     @Transient
-    @XmlAttribute(name="collect")
+    @XmlAttribute(name = "collect")
     public boolean isCollectionEnabled() {
         return "C".equals(m_collect) || "UC".equals(m_collect);
     }
 
     /**
-     * <p>setCollectionEnabled</p>
+     * <p>
+     * setCollectionEnabled
+     * </p>
      *
-     * @param shouldCollect a boolean.
+     * @param shouldCollect
+     *            a boolean.
      */
     public void setCollectionEnabled(boolean shouldCollect) {
         setCollectionEnabled(shouldCollect, false);
     }
 
     /**
-     * <p>setCollectionEnabled</p>
+     * <p>
+     * setCollectionEnabled
+     * </p>
      *
-     * @param shouldCollect a boolean.
-     * @param userSpecified a boolean.
+     * @param shouldCollect
+     *            a boolean.
+     * @param userSpecified
+     *            a boolean.
      */
-    public void setCollectionEnabled(boolean shouldCollect, boolean userSpecified){
-       if(userSpecified){
-           m_collect = shouldCollect ? "UC":"UN";
-       }else if(!m_collect.startsWith("U")){
-           m_collect = shouldCollect ? "C" : "N";
-       }
+    public void setCollectionEnabled(boolean shouldCollect, boolean userSpecified) {
+        if (userSpecified) {
+            m_collect = shouldCollect ? "UC" : "UN";
+        } else if (!m_collect.startsWith("U")) {
+            m_collect = shouldCollect ? "C" : "N";
+        }
     }
 
     /**
-     * <p>isPollEnabled</p>
+     * <p>
+     * isPollEnabled
+     * </p>
      *
      * @return a boolean.
      */
     @Transient
-    @XmlAttribute(name="poll")
+    @XmlAttribute(name = "poll")
     public boolean isPollEnabled() {
         return "P".equals(m_poll);
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     @XmlIDREF
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "nodeId")
-    @XmlElement(name="nodeId")
+    @XmlElement(name = "nodeId")
     public OnmsNode getNode() {
         return m_node;
     }
 
     /**
-     * <p>setNode</p>
+     * <p>
+     * setNode
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void setNode(OnmsNode node) {
         m_node = node;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-            .append("snmpipadentnetmask", getNetMask())
-            .append("snmpphysaddr", getPhysAddr())
-            .append("snmpifindex", getIfIndex())
-            .append("snmpifdescr", getIfDescr())
-            .append("snmpiftype", getIfType())
-            .append("snmpifname", getIfName())
-            .append("snmpifspeed", getIfSpeed())
-            .append("snmpifadminstatus", getIfAdminStatus())
-            .append("snmpifoperstatus", getIfOperStatus())
-            .append("snmpifalias", getIfAlias())
-            .append("snmpCollect", getCollect())
-            .append("snmpPoll", getPoll())
-            .append("nodeId", getNode() == null ? null : getNode().getId())
-            .append("lastCapsdPoll", getLastCapsdPoll())
-            .append("lastSnmpPoll", getLastSnmpPoll())
-            .toString();
+        return new ToStringCreator(this).append("snmpipadentnetmask", getNetMask()).append("snmpphysaddr",
+                                                                                           getPhysAddr()).append("snmpifindex",
+                                                                                                                 getIfIndex()).append("snmpifdescr",
+                                                                                                                                      getIfDescr()).append("snmpiftype",
+                                                                                                                                                           getIfType()).append("snmpifname",
+                                                                                                                                                                               getIfName()).append("snmpifspeed",
+                                                                                                                                                                                                   getIfSpeed()).append("snmpifadminstatus",
+                                                                                                                                                                                                                        getIfAdminStatus()).append("snmpifoperstatus",
+                                                                                                                                                                                                                                                   getIfOperStatus()).append("snmpifalias",
+                                                                                                                                                                                                                                                                             getIfAlias()).append("snmpCollect",
+                                                                                                                                                                                                                                                                                                  getCollect()).append("snmpPoll",
+                                                                                                                                                                                                                                                                                                                       getPoll()).append("nodeId",
+                                                                                                                                                                                                                                                                                                                                         getNode() == null ? null
+                                                                                                                                                                                                                                                                                                                                             : getNode().getId()).append("lastCapsdPoll",
+                                                                                                                                                                                                                                                                                                                                                                         getLastCapsdPoll()).append("lastSnmpPoll",
+                                                                                                                                                                                                                                                                                                                                                                                                    getLastSnmpPoll()).toString();
     }
 
     /** {@inheritDoc} */
@@ -557,7 +660,9 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>getIpInterfaces</p>
+     * <p>
+     * getIpInterfaces
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -568,9 +673,12 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>setIpInterfaces</p>
+     * <p>
+     * setIpInterfaces
+     * </p>
      *
-     * @param ipInterfaces a {@link java.util.Set} object.
+     * @param ipInterfaces
+     *            a {@link java.util.Set} object.
      */
     public void setIpInterfaces(Set<OnmsIpInterface> ipInterfaces) {
         m_ipInterfaces = ipInterfaces;
@@ -590,7 +698,9 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     // }
 
     /**
-     * <p>getPrimaryIpInterface</p>
+     * <p>
+     * getPrimaryIpInterface
+     * </p>
      *
      * @return an {@link OnmsIpInterface} object.
      */
@@ -600,10 +710,10 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
         return getNode().getPrimaryInterface();
     }
 
-
-
     /**
-     * <p>computePhysAddrForRRD</p>
+     * <p>
+     * computePhysAddrForRRD
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -620,7 +730,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
             if (parsedPhysAddr.length() == 12) {
                 physAddrForRRD = parsedPhysAddr;
             } else {
-                    LOG.debug("physAddrForRRD: physical address len is NOT 12, physAddr={}", parsedPhysAddr);
+                LOG.debug("physAddrForRRD: physical address len is NOT 12, physAddr={}", parsedPhysAddr);
             }
         }
         LOG.debug("computed physAddr for {} to be {}", this, physAddrForRRD);
@@ -628,7 +738,9 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>computeNameForRRD</p>
+     * <p>
+     * computeNameForRRD
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -655,7 +767,9 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>computeLabelForRRD</p>
+     * <p>
+     * computeLabelForRRD
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -664,9 +778,12 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>addIpInterface</p>
+     * <p>
+     * addIpInterface
+     * </p>
      *
-     * @param iface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     public void addIpInterface(OnmsIpInterface iface) {
         iface.setSnmpInterface(this);
@@ -674,9 +791,12 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * <p>mergeSnmpInterfaceAttributes</p>
+     * <p>
+     * mergeSnmpInterfaceAttributes
+     * </p>
      *
-     * @param scannedSnmpIface a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
+     * @param scannedSnmpIface
+     *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      */
     public void mergeSnmpInterfaceAttributes(OnmsSnmpInterface scannedSnmpIface) {
 
@@ -728,7 +848,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
             setLastSnmpPoll(scannedSnmpIface.getLastSnmpPoll());
         }
 
-        if(scannedSnmpIface.isCollectionUserSpecified() || !isCollectionUserSpecified()){
+        if (scannedSnmpIface.isCollectionUserSpecified() || !isCollectionUserSpecified()) {
             setCollectionEnabled(scannedSnmpIface.isCollectionEnabled(), scannedSnmpIface.isCollectionUserSpecified());
         }
 

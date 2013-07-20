@@ -50,11 +50,15 @@ public abstract class BaseRestriction implements Restriction {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof BaseRestriction)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof BaseRestriction))
+            return false;
         final BaseRestriction other = (BaseRestriction) obj;
-        if (m_type != other.m_type) return false;
+        if (m_type != other.m_type)
+            return false;
         return true;
     }
 

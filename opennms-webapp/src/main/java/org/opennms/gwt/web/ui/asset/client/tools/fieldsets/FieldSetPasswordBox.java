@@ -37,56 +37,57 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br> {@link FieldSet} for displaying and editing passwords as a PasswordTextBox.
+ *         </br> {@link FieldSet} for displaying and editing passwords as a
+ *         PasswordTextBox.
  */
 public class FieldSetPasswordBox extends AbstractFieldSet implements FieldSet, KeyUpHandler {
 
-	protected PasswordTextBox passBox = new PasswordTextBox();
+    protected PasswordTextBox passBox = new PasswordTextBox();
 
-	public FieldSetPasswordBox(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value, -1);
-	}
+    public FieldSetPasswordBox(String name, String value, String helpText) {
+        super(name, helpText);
+        init(value, -1);
+    }
 
-	@UiConstructor
-	public FieldSetPasswordBox(String name, String value, String helpText, int maxLength) {
-		super(name, helpText);
-		init(value, maxLength);
-	}
+    @UiConstructor
+    public FieldSetPasswordBox(String name, String value, String helpText, int maxLength) {
+        super(name, helpText);
+        init(value, maxLength);
+    }
 
-	@Override
-	public String getValue() {
-		return passBox.getText();
-	}
+    @Override
+    public String getValue() {
+        return passBox.getText();
+    }
 
-	private void init(String value, int maxLength) {
-		if (maxLength > 0) {
-			addErrorValidator(new StringMaxLengthValidator(maxLength));
-		}
-		inititalValue = value;
-		passBox.setText(value);
-		passBox.setEnabled(enabled);
-		passBox.addChangeHandler(this);
-		passBox.addKeyUpHandler(this);
-		passBox.setStyleName("passBox");
-		passBox.setSize("300px", "18px");
-		panel.add(passBox);
-	}
+    private void init(String value, int maxLength) {
+        if (maxLength > 0) {
+            addErrorValidator(new StringMaxLengthValidator(maxLength));
+        }
+        inititalValue = value;
+        passBox.setText(value);
+        passBox.setEnabled(enabled);
+        passBox.addChangeHandler(this);
+        passBox.addKeyUpHandler(this);
+        passBox.setStyleName("passBox");
+        passBox.setSize("300px", "18px");
+        panel.add(passBox);
+    }
 
-	@Override
-	public void onKeyUp(KeyUpEvent event) {
-		checkField();
-	}
+    @Override
+    public void onKeyUp(KeyUpEvent event) {
+        checkField();
+    }
 
-	@Override
-	public void setEnabled(Boolean enabled) {
-		passBox.setEnabled(enabled);
-	}
+    @Override
+    public void setEnabled(Boolean enabled) {
+        passBox.setEnabled(enabled);
+    }
 
-	@Override
-	public void setValue(String value) {
-		passBox.setText(value);
-		inititalValue = value;
-		validate(this.getValue());
-	}
+    @Override
+    public void setValue(String value) {
+        passBox.setText(value);
+        inititalValue = value;
+        validate(this.getValue());
+    }
 }

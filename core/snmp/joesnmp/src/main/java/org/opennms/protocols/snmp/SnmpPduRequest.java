@@ -32,7 +32,6 @@ package org.opennms.protocols.snmp;
  * The SnmpPduRequest defines the SNMPv1 and SNMPv2 Protocol Data Unit (PDU) for
  * certain message types. The types include: GetRequest, GetNextRequest,
  * SetRequest, SNMPv2-Trap, InformRequest, and Response.
- *
  * By default the class is constructed as a SNMP GetRequest, but can be defined
  * to any of the accepted types. For more information see [Stallings99] page
  * 368.
@@ -53,7 +52,6 @@ public class SnmpPduRequest extends SnmpPduPacket {
      *
      * @param second
      *            The object to make a duplicate of.
-     *
      */
     public SnmpPduRequest(SnmpPduRequest second) {
         super(second);
@@ -64,7 +62,6 @@ public class SnmpPduRequest extends SnmpPduPacket {
      *
      * @param command
      *            The type of PDU to construct
-     *
      * @see SnmpPduPacket#GET
      * @see SnmpPduPacket#GETNEXT
      * @see SnmpPduPacket#SET
@@ -84,7 +81,6 @@ public class SnmpPduRequest extends SnmpPduPacket {
      *            The type of PDU to construct
      * @param vars
      *            The SNMP variables for the PDU.
-     *
      * @see SnmpPduPacket#GET
      * @see SnmpPduPacket#GETNEXT
      * @see SnmpPduPacket#SET
@@ -103,7 +99,6 @@ public class SnmpPduRequest extends SnmpPduPacket {
      * error conditions see the SnmpPduPacket class.
      *
      * @return The error status of the pdu
-     *
      * @see SnmpPduPacket
      */
     public int getErrorStatus() {
@@ -149,7 +144,6 @@ public class SnmpPduRequest extends SnmpPduPacket {
      * Fixes a PDU in error. If the error index and error status is non-zero
      * then the variable in error is removed from the PDU. Once the variable is
      * removed the error index and error status are reset to zero.
-     *
      */
     public void fix() {
         if (super.m_errStatus != 0 && super.m_errIndex != 0) {

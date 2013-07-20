@@ -45,11 +45,12 @@ import org.slf4j.LoggerFactory;
 @XmlRootElement(name = "snmpAgentConfig")
 public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
 
-	private static final long serialVersionUID = 1456963719970029200L;
+    private static final long serialVersionUID = 1456963719970029200L;
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(SnmpAgentConfig.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(SnmpAgentConfig.class);
 
     private InetAddress m_address;
+
     private InetAddress m_proxyFor;
 
     public SnmpAgentConfig() {
@@ -70,7 +71,9 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
             throw new IllegalArgumentException("Protocol configuration string for SnmpAgentConfig must not be null.");
         }
         if (!protocolConfigString.startsWith("snmp:")) {
-            throw new IllegalArgumentException("Invalid protocol configuration string for SnmpAgentConfig: Expected it to start with snmp:" + protocolConfigString);
+            throw new IllegalArgumentException(
+                                               "Invalid protocol configuration string for SnmpAgentConfig: Expected it to start with snmp:"
+                                                       + protocolConfigString);
         }
 
         SnmpAgentConfig agentConfig = new SnmpAgentConfig();
@@ -80,7 +83,9 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
         for (String attribute : attributes) {
             String[] pair = attribute.split("=");
             if (pair.length != 2) {
-                throw new IllegalArgumentException("unexpected format for key value pair in SnmpAgentConfig configuration string" + attribute);
+                throw new IllegalArgumentException(
+                                                   "unexpected format for key value pair in SnmpAgentConfig configuration string"
+                                                           + attribute);
             }
 
             String key = pair[0];
@@ -117,15 +122,15 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
             } else if ("read-community".equalsIgnoreCase(key)) {
                 agentConfig.setReadCommunity(value);
             } else if ("engine-id".equalsIgnoreCase(key)) {
-            	agentConfig.setEngineId(value);
+                agentConfig.setEngineId(value);
             } else if ("context-engine-id".equalsIgnoreCase(key)) {
-            	agentConfig.setContextEngineId(value);
+                agentConfig.setContextEngineId(value);
             } else if ("context-name".equalsIgnoreCase(key)) {
-            	agentConfig.setContextName(value);
+                agentConfig.setContextName(value);
             } else if ("enterprise-id".equalsIgnoreCase(key)) {
-            	agentConfig.setEnterpriseId(value);
+                agentConfig.setEnterpriseId(value);
             } else if ("write-community".equalsIgnoreCase(key)) {
-            	agentConfig.setWriteCommunity(value);
+                agentConfig.setWriteCommunity(value);
             } else {
                 LOG.warn("Unexpected attribute in protocol configuration string for SnmpAgentConfig: '{}'", attribute);
             }
@@ -135,7 +140,7 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
 
     public String toProtocolConfigString() {
         StringBuffer buff = new StringBuffer("snmp:");
-        buff.append("address=" + (m_address == null? null : InetAddrUtils.str(m_address)));
+        buff.append("address=" + (m_address == null ? null : InetAddrUtils.str(m_address)));
         buff.append(",port=" + getPort());
         buff.append(",timeout=" + getTimeout());
         buff.append(",retries=" + getRetries());
@@ -161,11 +166,11 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
         return buff.toString();
     }
 
-        @Override
+    @Override
     public String toString() {
         StringBuffer buff = new StringBuffer("SnmpAgentConfig[");
-        buff.append("Address: " + (m_address == null? null : InetAddrUtils.str(m_address)));
-        buff.append(", ProxyForAddress: " + (m_proxyFor == null? null : InetAddrUtils.str(m_proxyFor)));
+        buff.append("Address: " + (m_address == null ? null : InetAddrUtils.str(m_address)));
+        buff.append(", ProxyForAddress: " + (m_proxyFor == null ? null : InetAddrUtils.str(m_proxyFor)));
         buff.append(", Port: " + getPort());
         buff.append(", Timeout: " + getTimeout());
         buff.append(", Retries: " + getRetries());
@@ -185,13 +190,12 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
             buff.append(", ContextName: " + getContextName());
             buff.append(", EnterpriseId:" + getEnterpriseId());
         } else {
-        	buff.append(", ReadCommunity: " + getReadCommunity());
-        	buff.append(", WriteCommunity: " + getWriteCommunity());
+            buff.append(", ReadCommunity: " + getReadCommunity());
+            buff.append(", WriteCommunity: " + getWriteCommunity());
         }
         buff.append("]");
         return buff.toString();
     }
-
 
     @XmlJavaTypeAdapter(InetAddrXmlAdapter.class)
     public InetAddress getAddress() {
@@ -213,7 +217,8 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
 
     @XmlTransient
     public InetAddress getEffectiveAddress() {
-        if (m_proxyFor == null) return m_address;
+        if (m_proxyFor == null)
+            return m_address;
         return m_proxyFor;
     }
 

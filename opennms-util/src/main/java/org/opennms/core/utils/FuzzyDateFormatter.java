@@ -31,7 +31,9 @@ package org.opennms.core.utils;
 import java.util.Date;
 
 /**
- * <p>FuzzyDateFormatter class.</p>
+ * <p>
+ * FuzzyDateFormatter class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @version $Id: $
@@ -39,25 +41,35 @@ import java.util.Date;
 public class FuzzyDateFormatter {
     /** Constant <code>MILLISECONDS_PER_SECOND=1000.0</code> */
     public static final double MILLISECONDS_PER_SECOND = 1000.0;
+
     /** Constant <code>MILLISECONDS_PER_DAY=86400000.0</code> */
     public static final double MILLISECONDS_PER_DAY = 86400000.0;
+
     /** Constant <code>MILLISECONDS_PER_HOUR=3600000.0</code> */
     public static final double MILLISECONDS_PER_HOUR = 3600000.0;
+
     /** Constant <code>MILLISECONDS_PER_MINUTE=60000.0</code> */
     public static final double MILLISECONDS_PER_MINUTE = 60000.0;
 
     /**
-     * <p>Constructor for FuzzyDateFormatter.</p>
+     * <p>
+     * Constructor for FuzzyDateFormatter.
+     * </p>
      */
     public FuzzyDateFormatter() {
     }
 
     /**
-     * <p>formatNumber</p>
+     * <p>
+     * formatNumber
+     * </p>
      *
-     * @param number a {@link java.lang.Double} object.
-     * @param singular a {@link java.lang.String} object.
-     * @param plural a {@link java.lang.String} object.
+     * @param number
+     *            a {@link java.lang.Double} object.
+     * @param singular
+     *            a {@link java.lang.String} object.
+     * @param plural
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected static String formatNumber(Double number, String singular, String plural) {
@@ -69,15 +81,20 @@ public class FuzzyDateFormatter {
         } else {
             returnVal = returnVal + " " + plural;
         }
-        // System.err.println("returning " + returnVal + " for number " + number.doubleValue());
+        // System.err.println("returning " + returnVal + " for number " +
+        // number.doubleValue());
         return returnVal;
     }
 
     /**
-     * <p>calculateDifference</p>
+     * <p>
+     * calculateDifference
+     * </p>
      *
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      * @return a {@link java.lang.String} object.
      */
     public static String calculateDifference(Date start, Date end) {

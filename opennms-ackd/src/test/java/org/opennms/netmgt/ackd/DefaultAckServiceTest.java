@@ -69,35 +69,38 @@ import org.springframework.transaction.annotation.Transactional;
  * Test class.
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 @Transactional
 public class DefaultAckServiceTest implements InitializingBean {
 
-    @Autowired AcknowledgmentDao m_ackDao;
+    @Autowired
+    AcknowledgmentDao m_ackDao;
 
-    @Autowired NotificationDao m_notifDao;
+    @Autowired
+    NotificationDao m_notifDao;
 
-    @Autowired AlarmDao m_alarmDao;
+    @Autowired
+    AlarmDao m_alarmDao;
 
-    @Autowired EventDao m_eventDao;
+    @Autowired
+    EventDao m_eventDao;
 
-    @Autowired NodeDao m_nodeDao;
+    @Autowired
+    NodeDao m_nodeDao;
 
-    @Autowired DatabasePopulator m_populator;
+    @Autowired
+    DatabasePopulator m_populator;
 
-    @Before public void createDb() {
+    @Before
+    public void createDb() {
         Properties props = new Properties();
         props.setProperty("log4j.logger.org.hibernate", "INFO");
         props.setProperty("log4j.logger.org.springframework", "INFO");
@@ -112,7 +115,7 @@ public class DefaultAckServiceTest implements InitializingBean {
         BeanUtils.assertAutowiring(this);
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void notificationWithMissingAlarm() {
 
         OnmsNode dbNode = m_nodeDao.get(m_populator.getNode1().getId());

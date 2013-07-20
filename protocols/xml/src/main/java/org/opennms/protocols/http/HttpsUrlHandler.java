@@ -30,7 +30,6 @@ package org.opennms.protocols.http;
 
 import org.opennms.protocols.xml.config.Request;
 
-
 /**
  * The class for handling HTTPS URL Connection using Apache HTTP Client
  *
@@ -44,13 +43,15 @@ public class HttpsUrlHandler extends HttpUrlHandler {
     /**
      * Instantiates a new HTTPS URL handler.
      *
-     * @param request the request
+     * @param request
+     *            the request
      */
     public HttpsUrlHandler(Request request) {
         super(request);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLStreamHandler#getDefaultPort()
      */
     @Override

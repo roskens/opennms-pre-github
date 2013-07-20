@@ -45,7 +45,9 @@ import org.drools.audit.WorkingMemoryFileLogger;
 import org.drools.compiler.PackageBuilder;
 
 /**
- * <p>CorrelationExample class.</p>
+ * <p>
+ * CorrelationExample class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -53,15 +55,21 @@ import org.drools.compiler.PackageBuilder;
 public class CorrelationExample {
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param args an array of {@link java.lang.String} objects.
-     * @throws java.lang.Exception if any.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public static void main(final String[] args) throws Exception {
 
         final PackageBuilder builder = new PackageBuilder();
-        builder.addPackageFromDrl(new InputStreamReader( CorrelationExample.class.getResourceAsStream( "CorrelationExample.drl" ), "UTF-8" ));
+        builder.addPackageFromDrl(new InputStreamReader(
+                                                        CorrelationExample.class.getResourceAsStream("CorrelationExample.drl"),
+                                                        "UTF-8"));
 
         final RuleBase ruleBase = RuleBaseFactory.newRuleBase();
         ruleBase.addPackage(builder.getPackage());
@@ -73,157 +81,165 @@ public class CorrelationExample {
 
         final InputStream in = CorrelationExample.class.getResourceAsStream("simulation");
         try {
-        	final Simulation simulation = new Simulation();
-        	System.out.println("Loading Simulation");
-        	simulation.load(in);
-        	System.out.println("Executing Simulation");
-        	simulation.simulate(workingMemory);
+            final Simulation simulation = new Simulation();
+            System.out.println("Loading Simulation");
+            simulation.load(in);
+            System.out.println("Executing Simulation");
+            simulation.simulate(workingMemory);
 
         } finally {
-        	if (in != null) in.close();
+            if (in != null)
+                in.close();
         }
-
 
         logger.writeToDisk();
     }
 
     private static void sleep(final int delay) {
-    	try { Thread.sleep(delay); } catch (InterruptedException e) {}
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+        }
 
-	}
+    }
 
     public static class Simulation {
 
-    	public static class SimItem {
-    		final int m_delay;
-    		final EventBean m_event;
+        public static class SimItem {
+            final int m_delay;
 
-    		public SimItem(final int delay, final EventBean event) {
-    			m_delay = delay;
-    			m_event = event;
-    		}
+            final EventBean m_event;
 
-			public void simulate(final WorkingMemory memory) {
-				sleep(m_delay);
-    			System.out.println("Start simulation of "+this);
-				memory.insert(m_event);
-				memory.fireAllRules();
-    			System.out.println("End simulation of "+this);
-			}
+            public SimItem(final int delay, final EventBean event) {
+                m_delay = delay;
+                m_event = event;
+            }
 
-    	}
+            public void simulate(final WorkingMemory memory) {
+                sleep(m_delay);
+                System.out.println("Start simulation of " + this);
+                memory.insert(m_event);
+                memory.fireAllRules();
+                System.out.println("End simulation of " + this);
+            }
 
-    	final Map<Integer, Node> m_nodes = new HashMap<Integer, Node>();
-    	final List<SimItem> m_eventSequence = new LinkedList<SimItem>();
+        }
 
-    	public void load(final InputStream in) {
+        final Map<Integer, Node> m_nodes = new HashMap<Integer, Node>();
 
-    		final Scanner scanner = new Scanner(in);
-            while(scanner.hasNext()) {
-            	final String lineType = scanner.next();
-            	if ("#".equals(lineType)) {
-            		scanner.nextLine();
-            	}
-            	else if ("node".equals(lineType)) {
-            		/* expect line to be
-			 * node <nodeLabel> <nodeid> (<parentnodeid>?)
-			 *
-            		 * Note: parent nodes need to be defined before their children
-            		 * If the parentnodeid is missing then we assume that it has no parent
-            		 */
-            		final String nodeLabel = scanner.next();
-            		final Integer nodeId = scanner.nextInt();
-            		assert m_nodes.get(nodeId) == null : "Already have a node with id "+nodeId;
+        final List<SimItem> m_eventSequence = new LinkedList<SimItem>();
 
-            		Integer parentId = null;
-            		if (scanner.hasNextInt()) {
-            			parentId = scanner.nextInt();
-            		}
+        public void load(final InputStream in) {
 
-            		assert (parentId == null || m_nodes.containsKey(parentId)) : "Reference to parentId "+parentId+" that is not yet defined";
+            final Scanner scanner = new Scanner(in);
+            while (scanner.hasNext()) {
+                final String lineType = scanner.next();
+                if ("#".equals(lineType)) {
+                    scanner.nextLine();
+                } else if ("node".equals(lineType)) {
+                    /*
+                     * expect line to be
+                     * node <nodeLabel> <nodeid> (<parentnodeid>?)
+                     * Note: parent nodes need to be defined before their
+                     * children
+                     * If the parentnodeid is missing then we assume that it has
+                     * no parent
+                     */
+                    final String nodeLabel = scanner.next();
+                    final Integer nodeId = scanner.nextInt();
+                    assert m_nodes.get(nodeId) == null : "Already have a node with id " + nodeId;
 
-            		final Node parent = (parentId == null ? null : m_nodes.get(parentId));
-            		final Node node = new Node(nodeId, nodeLabel, parent);
-            		m_nodes.put(nodeId, node);
+                    Integer parentId = null;
+                    if (scanner.hasNextInt()) {
+                        parentId = scanner.nextInt();
+                    }
 
-            	} else if ("event".equals(lineType)) {
-            		/*
-            		 * expect line to be
-			 * event delay uei nodeid
-            		 */
-            		final int delay = scanner.nextInt();
-            		final String uei = scanner.next();
-            		final Integer nodeId = scanner.nextInt();
+                    assert (parentId == null || m_nodes.containsKey(parentId)) : "Reference to parentId " + parentId
+                            + " that is not yet defined";
 
-            		assert m_nodes.containsKey(nodeId) : "Invalid nodeId "+nodeId;
+                    final Node parent = (parentId == null ? null : m_nodes.get(parentId));
+                    final Node node = new Node(nodeId, nodeLabel, parent);
+                    m_nodes.put(nodeId, node);
 
-            		final EventBean e = new EventBean(uei, m_nodes.get(nodeId));
-            		final SimItem item = new SimItem(delay, e);
-            		m_eventSequence.add(item);
+                } else if ("event".equals(lineType)) {
+                    /*
+                     * expect line to be
+                     * event delay uei nodeid
+                     */
+                    final int delay = scanner.nextInt();
+                    final String uei = scanner.next();
+                    final Integer nodeId = scanner.nextInt();
 
-            	}
+                    assert m_nodes.containsKey(nodeId) : "Invalid nodeId " + nodeId;
+
+                    final EventBean e = new EventBean(uei, m_nodes.get(nodeId));
+                    final SimItem item = new SimItem(delay, e);
+                    m_eventSequence.add(item);
+
+                }
 
             }
-    	}
+        }
 
-
-    	public  void simulate(final WorkingMemory memory) {
-    		for (final SimItem item : m_eventSequence) {
-    			item.simulate(memory);
-    			System.out.println("Memory Size = " + getObjectCount(memory) );
-    		}
-    	}
+        public void simulate(final WorkingMemory memory) {
+            for (final SimItem item : m_eventSequence) {
+                item.simulate(memory);
+                System.out.println("Memory Size = " + getObjectCount(memory));
+            }
+        }
     }
 
-	public static class Outage {
-    	private EventBean m_problem;
-    	private EventBean m_resolution;
-		private Node m_cause;
-		private Node m_node;
+    public static class Outage {
+        private EventBean m_problem;
 
-		public Outage(final Node node, final EventBean problem) {
-			m_node = node;
-    		m_problem = problem;
-    	}
+        private EventBean m_resolution;
 
-		public Node getNode() {
-			return m_node;
-		}
+        private Node m_cause;
 
-		public EventBean getProblem() {
-			return m_problem;
-		}
+        private Node m_node;
 
-		public EventBean getResolution() {
-			return m_resolution;
-		}
+        public Outage(final Node node, final EventBean problem) {
+            m_node = node;
+            m_problem = problem;
+        }
 
-		public void setResolution(final EventBean resolution) {
-			m_resolution = resolution;
-		}
+        public Node getNode() {
+            return m_node;
+        }
 
-		public Node getCause() {
-			return m_cause;
-		}
+        public EventBean getProblem() {
+            return m_problem;
+        }
 
-		public void setCause(final Node cause) {
-			m_cause = cause;
-		}
+        public EventBean getResolution() {
+            return m_resolution;
+        }
 
-            @Override
-		public String toString() {
-			return new ToStringBuilder(this)
-				.append("problem", m_problem)
-				.append("cause", m_cause)
-				.append("resolution", m_resolution)
-				.toString();
-		}
+        public void setResolution(final EventBean resolution) {
+            m_resolution = resolution;
+        }
+
+        public Node getCause() {
+            return m_cause;
+        }
+
+        public void setCause(final Node cause) {
+            m_cause = cause;
+        }
+
+        @Override
+        public String toString() {
+            return new ToStringBuilder(this).append("problem", m_problem).append("cause", m_cause).append("resolution",
+                                                                                                          m_resolution).toString();
+        }
 
     }
 
     public static class Node {
         private Integer m_id;
+
         private Node m_parent;
+
         private String m_label;
 
         public Node(final Integer id, final String label, final Node parent) {
@@ -246,91 +262,85 @@ public class CorrelationExample {
 
         @Override
         public String toString() {
-        	return new ToStringBuilder(this)
-        		.append("id", m_id)
-        		.append("label", m_label)
-        		.toString();
+            return new ToStringBuilder(this).append("id", m_id).append("label", m_label).toString();
         }
     }
-	public static class EventBean {
-	    private String m_uei;
-	    private Node m_node;
 
-	    public EventBean(final String uei, final Node node) {
-	        m_uei = uei;
-	        m_node = node;
-	    }
+    public static class EventBean {
+        private String m_uei;
 
-	    public String getUei() {
-	        return m_uei;
-	    }
+        private Node m_node;
 
-	    public Node getNode() {
-	        return m_node;
-	    }
+        public EventBean(final String uei, final Node node) {
+            m_uei = uei;
+            m_node = node;
+        }
 
-            @Override
-	    public String toString() {
-	    	return new ToStringBuilder(this)
-	    		.append("uei", m_uei)
-	    		.append("node", m_node)
-	    		.toString();
-	    }
-	}
+        public String getUei() {
+            return m_uei;
+        }
 
+        public Node getNode() {
+            return m_node;
+        }
 
-
-    public static class PossibleCause {
-    	private Node m_node;
-		private Outage m_outage;
-		private boolean m_verified;
-
-		public PossibleCause(final Node node, final Outage outage) {
-			this(node, outage, false);
-		}
-
-		public PossibleCause(final Node node, final Outage outage, final boolean verified) {
-    		m_node = node;
-    		m_outage = outage;
-    		m_verified = verified;
-    	}
-
-		public Node getNode() {
-			return m_node;
-		}
-
-		public Outage getOutage() {
-			return m_outage;
-		}
-
-		public boolean isVerified() {
-			return m_verified;
-		}
-
-		public void setVerified(final boolean verified) {
-			m_verified = verified;
-		}
-
-            @Override
-		public String toString() {
-			return new ToStringBuilder(this)
-				.append("node", m_node)
-				.append("outage", m_outage)
-				.toString();
-		}
+        @Override
+        public String toString() {
+            return new ToStringBuilder(this).append("uei", m_uei).append("node", m_node).toString();
+        }
     }
 
+    public static class PossibleCause {
+        private Node m_node;
 
+        private Outage m_outage;
+
+        private boolean m_verified;
+
+        public PossibleCause(final Node node, final Outage outage) {
+            this(node, outage, false);
+        }
+
+        public PossibleCause(final Node node, final Outage outage, final boolean verified) {
+            m_node = node;
+            m_outage = outage;
+            m_verified = verified;
+        }
+
+        public Node getNode() {
+            return m_node;
+        }
+
+        public Outage getOutage() {
+            return m_outage;
+        }
+
+        public boolean isVerified() {
+            return m_verified;
+        }
+
+        public void setVerified(final boolean verified) {
+            m_verified = verified;
+        }
+
+        @Override
+        public String toString() {
+            return new ToStringBuilder(this).append("node", m_node).append("outage", m_outage).toString();
+        }
+    }
 
     /**
-     * <p>getObjectCount</p>
+     * <p>
+     * getObjectCount
+     * </p>
      *
-     * @param memory a {@link org.drools.WorkingMemory} object.
+     * @param memory
+     *            a {@link org.drools.WorkingMemory} object.
      * @return a int.
      */
     public static int getObjectCount(final WorkingMemory memory) {
-    	int count = 0;
-        for(final Iterator<?> it = memory.iterateObjects(); it.hasNext(); it.next()) {
+        int count = 0;
+        for (final Iterator<?> it = memory.iterateObjects(); it.hasNext(); it.next()) {
             count++;
         }
         return count;

@@ -31,7 +31,9 @@ package org.opennms.netmgt.dhcpd.jmx;
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
 /**
- * <p>DhcpdMBean interface.</p>
+ * <p>
+ * DhcpdMBean interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $

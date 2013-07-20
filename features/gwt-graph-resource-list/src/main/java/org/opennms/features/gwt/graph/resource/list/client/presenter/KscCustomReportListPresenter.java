@@ -42,16 +42,18 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class KscCustomReportListPresenter extends DefaultResourceListPresenter implements Presenter {
 
-
-    public interface SelectionDisplay{
+    public interface SelectionDisplay {
         HasClickHandlers getSubmitButton();
+
         String getSelectAction();
+
         Widget asWidget();
     }
 
     private SelectionDisplay m_selectionDisplay;
 
-    public KscCustomReportListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopupDisplay searchPopup, JsArray<ResourceListItem> dataList, SelectionDisplay selectionDisplay, String baseUrl) {
+    public KscCustomReportListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopupDisplay searchPopup,
+            JsArray<ResourceListItem> dataList, SelectionDisplay selectionDisplay, String baseUrl) {
         super(view, searchPopup, dataList, baseUrl);
         initializeSelectionDisplay(selectionDisplay);
     }
@@ -66,25 +68,26 @@ public class KscCustomReportListPresenter extends DefaultResourceListPresenter i
                 StringBuilder urlBuilder = new StringBuilder();
                 urlBuilder.append(getBaseUrl() + "/KSC/formProcMain.htm");
 
-                if(m_selectionDisplay.getSelectAction() != null) {
-                    if(m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.VIEW)) {
+                if (m_selectionDisplay.getSelectAction() != null) {
+                    if (m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.VIEW)) {
                         urlBuilder.append("?report_action=View");
-                    }else if(m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.CUSTOMIZE)) {
+                    } else if (m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.CUSTOMIZE)) {
                         urlBuilder.append("?report_action=Customize");
-                    }else if(m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.CREATE_NEW)) {
+                    } else if (m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.CREATE_NEW)) {
                         urlBuilder.append("?report_action=Create");
-                    }else if(m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.CREATE_NEW_FROM_EXISTING)) {
+                    } else if (m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.CREATE_NEW_FROM_EXISTING)) {
                         urlBuilder.append("?report_action=CreateFrom");
-                    }else if(m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.DELETE)) {
+                    } else if (m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.DELETE)) {
                         urlBuilder.append("?report_action=Delete");
                     }
 
-                    if(getView().getSelectedResource() != null) {
-                        urlBuilder.append("&report=" +  getView().getSelectedResource().getId());
+                    if (getView().getSelectedResource() != null) {
+                        urlBuilder.append("&report=" + getView().getSelectedResource().getId());
                         Location.assign(urlBuilder.toString());
-                    } else if(getView().getSelectedResource() == null && m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.CREATE_NEW)) {
+                    } else if (getView().getSelectedResource() == null
+                            && m_selectionDisplay.getSelectAction().equals(KscCustomSelectionView.CREATE_NEW)) {
                         Location.assign(urlBuilder.toString());
-                    }else {
+                    } else {
                         getView().showWarning();
                     }
                 } else {
@@ -104,7 +107,7 @@ public class KscCustomReportListPresenter extends DefaultResourceListPresenter i
 
     @Override
     public void onResourceItemSelected() {
-        //Don't do anything on selection
+        // Don't do anything on selection
     }
 
 }

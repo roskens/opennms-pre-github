@@ -50,8 +50,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Tests Marshaling of North bound Alarm
- *
- * FIXME: This is just a stub for getting started.  Needs lots of work.
+ * FIXME: This is just a stub for getting started. Needs lots of work.
  *
  * @author <a mailto:brozow@opennms.org>Matt Brozowski</a>
  * @author <a mailto:david@opennms.org>David Hustace</a>
@@ -59,91 +58,72 @@ import org.xml.sax.SAXException;
 public class MarshallTest {
 
     private Marshaller m_marshaller;
-	private Unmarshaller m_unmarshaller;
 
+    private Unmarshaller m_unmarshaller;
 
     @Before
     public void setUp() throws JAXBException {
 
-		// Create a Marshaller
-		JAXBContext context = JAXBContext.newInstance(ServiceAlarmNotification.class);
-		m_marshaller = context.createMarshaller();
-		m_marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        // Create a Marshaller
+        JAXBContext context = JAXBContext.newInstance(ServiceAlarmNotification.class);
+        m_marshaller = context.createMarshaller();
+        m_marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-
-		m_unmarshaller = context.createUnmarshaller();
+        m_unmarshaller = context.createUnmarshaller();
 
     }
 
     private <T> byte[] marshallToUTF8(T t) throws JAXBException {
 
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-		// marshall the output
-		m_marshaller.marshal(t, out);
+        // marshall the output
+        m_marshaller.marshal(t, out);
 
-		// verify its matches the expected results
-		byte[] utf8 = out.toByteArray();
+        // verify its matches the expected results
+        byte[] utf8 = out.toByteArray();
 
-		return utf8;
+        return utf8;
     }
 
     private <T> T unmarshallFromUTF8(byte[] utf8, Class<T> expected) throws JAXBException {
-		Source source = new StreamSource(new ByteArrayInputStream(utf8));
-		return m_unmarshaller.unmarshal(source, expected).getValue();
+        Source source = new StreamSource(new ByteArrayInputStream(utf8));
+        return m_unmarshaller.unmarshal(source, expected).getValue();
     }
 
-	@Test
-	public void testMarshall() throws JAXBException, UnsupportedEncodingException, SAXException {
+    @Test
+    public void testMarshall() throws JAXBException, UnsupportedEncodingException, SAXException {
 
-		String expectedXML = "" +
-				"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-				"<ServiceAlarmNotification xmlns=\"http://junosspace.juniper.net/monitoring\">\n" +
-				"    <ServiceAlarm>\n" +
-				"        <Id>Id</Id>\n" +
-				"        <Name>Name</Name>\n" +
-				"        <Status>Status</Status>\n" +
-				"    </ServiceAlarm>\n" +
-				"    <ServiceAlarm>\n" +
-				"        <Id>Id</Id>\n" +
-				"        <Name>Name</Name>\n" +
-				"        <Status>Status</Status>\n" +
-				"    </ServiceAlarm>\n" +
-				"    <ServiceAlarm>\n" +
-				"        <Id>Id</Id>\n" +
-				"        <Name>Name</Name>\n" +
-				"        <Status>Status</Status>\n" +
-				"    </ServiceAlarm>\n" +
-				"    <ServiceAlarm>\n" +
-				"        <Id>Id</Id>\n" +
-				"        <Name>Name</Name>\n" +
-				"        <Status>Status</Status>\n" +
-				"    </ServiceAlarm>\n" +
-				"</ServiceAlarmNotification>\n" +
-				"";
+        String expectedXML = "" + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                + "<ServiceAlarmNotification xmlns=\"http://junosspace.juniper.net/monitoring\">\n"
+                + "    <ServiceAlarm>\n" + "        <Id>Id</Id>\n" + "        <Name>Name</Name>\n"
+                + "        <Status>Status</Status>\n" + "    </ServiceAlarm>\n" + "    <ServiceAlarm>\n"
+                + "        <Id>Id</Id>\n" + "        <Name>Name</Name>\n" + "        <Status>Status</Status>\n"
+                + "    </ServiceAlarm>\n" + "    <ServiceAlarm>\n" + "        <Id>Id</Id>\n"
+                + "        <Name>Name</Name>\n" + "        <Status>Status</Status>\n" + "    </ServiceAlarm>\n"
+                + "    <ServiceAlarm>\n" + "        <Id>Id</Id>\n" + "        <Name>Name</Name>\n"
+                + "        <Status>Status</Status>\n" + "    </ServiceAlarm>\n" + "</ServiceAlarmNotification>\n" + "";
 
+        List<ServiceAlarm> svcAlarms = new ArrayList<ServiceAlarm>();
+        for (int i = 0; i < 4; i++) {
+            svcAlarms.add(new ServiceAlarm("Id", "Name", "Status"));
+        }
 
-		List<ServiceAlarm> svcAlarms = new ArrayList<ServiceAlarm>();
-		for(int i = 0; i < 4; i++) {
-			svcAlarms.add(new ServiceAlarm("Id", "Name", "Status"));
-		}
+        ServiceAlarmNotification notification = new ServiceAlarmNotification();
+        notification.setServiceAlarms(svcAlarms);
 
-		ServiceAlarmNotification notification = new ServiceAlarmNotification();
-		notification.setServiceAlarms(svcAlarms);
+        byte[] utf8 = marshallToUTF8(notification);
 
-		byte[] utf8 = marshallToUTF8(notification);
+        String result = new String(utf8, "UTF-8");
+        assertEquals(expectedXML, result);
 
+        System.err.println(result);
 
-		String result = new String(utf8, "UTF-8");
-		assertEquals(expectedXML, result);
+        ServiceAlarmNotification read = unmarshallFromUTF8(utf8, ServiceAlarmNotification.class);
+        assertNotNull(read);
 
-		System.err.println(result);
-
-		ServiceAlarmNotification read = unmarshallFromUTF8(utf8, ServiceAlarmNotification.class);
-		assertNotNull(read);
-
-		String roundTrip = new String(marshallToUTF8(read));
-		assertEquals(expectedXML, roundTrip);
-	}
+        String roundTrip = new String(marshallToUTF8(read));
+        assertEquals(expectedXML, roundTrip);
+    }
 
 }

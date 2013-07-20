@@ -36,7 +36,9 @@ package org.opennms.netmgt.scheduler;
  */
 public interface Timer {
     /**
-     * <p>getCurrentTime</p>
+     * <p>
+     * getCurrentTime
+     * </p>
      *
      * @return a long.
      */

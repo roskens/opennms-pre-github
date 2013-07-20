@@ -38,7 +38,9 @@ import org.opennms.netmgt.config.threshd.Expression;
 import org.opennms.netmgt.config.threshd.Threshold;
 
 /**
- * <p>Abstract BaseThresholdDefConfigWrapper class.</p>
+ * <p>
+ * Abstract BaseThresholdDefConfigWrapper class.
+ * </p>
  *
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
@@ -47,34 +49,49 @@ public abstract class BaseThresholdDefConfigWrapper {
     Basethresholddef m_baseDef;
 
     /**
-     * <p>Constructor for BaseThresholdDefConfigWrapper.</p>
+     * <p>
+     * Constructor for BaseThresholdDefConfigWrapper.
+     * </p>
      *
-     * @param baseDef a {@link org.opennms.netmgt.config.threshd.Basethresholddef} object.
+     * @param baseDef
+     *            a {@link org.opennms.netmgt.config.threshd.Basethresholddef}
+     *            object.
      */
     protected BaseThresholdDefConfigWrapper(Basethresholddef baseDef) {
-        m_baseDef=baseDef;
+        m_baseDef = baseDef;
     }
 
     /**
-     * <p>getConfigWrapper</p>
+     * <p>
+     * getConfigWrapper
+     * </p>
      *
-     * @param baseDef a {@link org.opennms.netmgt.config.threshd.Basethresholddef} object.
-     * @return a {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper} object.
-     * @throws org.opennms.netmgt.threshd.ThresholdExpressionException if any.
+     * @param baseDef
+     *            a {@link org.opennms.netmgt.config.threshd.Basethresholddef}
+     *            object.
+     * @return a
+     *         {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
+     *         object.
+     * @throws org.opennms.netmgt.threshd.ThresholdExpressionException
+     *             if any.
      */
-    public static BaseThresholdDefConfigWrapper getConfigWrapper(Basethresholddef baseDef) throws ThresholdExpressionException {
-        if(baseDef instanceof Threshold) {
-            return new ThresholdConfigWrapper((Threshold)baseDef);
-        } else if(baseDef instanceof Expression) {
-            return new ExpressionConfigWrapper((Expression)baseDef);
+    public static BaseThresholdDefConfigWrapper getConfigWrapper(Basethresholddef baseDef)
+            throws ThresholdExpressionException {
+        if (baseDef instanceof Threshold) {
+            return new ThresholdConfigWrapper((Threshold) baseDef);
+        } else if (baseDef instanceof Expression) {
+            return new ExpressionConfigWrapper((Expression) baseDef);
         }
         return null;
     }
 
     /**
-     * <p>getDatasourceExpression</p>
+     * <p>
+     * getDatasourceExpression
+     * </p>
      *
-     * @return a descriptive string for the data source - typically either a data source name, or an expression of data source names
+     * @return a descriptive string for the data source - typically either a
+     *         data source name, or an expression of data source names
      */
     public abstract String getDatasourceExpression();
 
@@ -86,16 +103,21 @@ public abstract class BaseThresholdDefConfigWrapper {
     public abstract Collection<String> getRequiredDatasources();
 
     /**
-     * Evaluate the threshold expression/datasource in terms of the named values supplied, and return that value
+     * Evaluate the threshold expression/datasource in terms of the named values
+     * supplied, and return that value
      *
-     * @param values named values to use in evaluating the expression/data source
+     * @param values
+     *            named values to use in evaluating the expression/data source
      * @return the value of the evaluated expression
-     * @throws org.opennms.netmgt.threshd.ThresholdExpressionException if any.
+     * @throws org.opennms.netmgt.threshd.ThresholdExpressionException
+     *             if any.
      */
-    public abstract double evaluate(Map<String, Double> values)  throws ThresholdExpressionException;
+    public abstract double evaluate(Map<String, Double> values) throws ThresholdExpressionException;
 
     /**
-     * <p>getDsType</p>
+     * <p>
+     * getDsType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,7 +126,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>getDsLabel</p>
+     * <p>
+     * getDsLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,7 +137,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>getRearm</p>
+     * <p>
+     * getRearm
+     * </p>
      *
      * @return a double.
      */
@@ -122,7 +148,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>getTrigger</p>
+     * <p>
+     * getTrigger
+     * </p>
      *
      * @return a int.
      */
@@ -131,7 +159,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>getType</p>
+     * <p>
+     * getType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,7 +170,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a double.
      */
@@ -149,7 +181,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>hasRearm</p>
+     * <p>
+     * hasRearm
+     * </p>
      *
      * @return a boolean.
      */
@@ -158,7 +192,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>hasTrigger</p>
+     * <p>
+     * hasTrigger
+     * </p>
      *
      * @return a boolean.
      */
@@ -167,7 +203,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>hasValue</p>
+     * <p>
+     * hasValue
+     * </p>
      *
      * @return a boolean.
      */
@@ -176,7 +214,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>getTriggeredUEI</p>
+     * <p>
+     * getTriggeredUEI
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -185,7 +225,9 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>getRearmedUEI</p>
+     * <p>
+     * getRearmedUEI
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -194,69 +236,84 @@ public abstract class BaseThresholdDefConfigWrapper {
     }
 
     /**
-     * <p>getBasethresholddef</p>
+     * <p>
+     * getBasethresholddef
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.threshd.Basethresholddef} object.
+     * @return a {@link org.opennms.netmgt.config.threshd.Basethresholddef}
+     *         object.
      */
     public Basethresholddef getBasethresholddef() {
         return m_baseDef;
     }
 
     /*
-     * Threshold merging config will use this to check if a new configuration is the same as other.
-     * The rule will be, if the threshold type (i.e., hiqh, low, relative), the datasource type, and
-     * the threshold expression matches, they are the same, even if they have different triger/rearm
+     * Threshold merging config will use this to check if a new configuration is
+     * the same as other.
+     * The rule will be, if the threshold type (i.e., hiqh, low, relative), the
+     * datasource type, and
+     * the threshold expression matches, they are the same, even if they have
+     * different triger/rearm
      * values.
      */
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null) return false;
-        if (!(obj instanceof BaseThresholdDefConfigWrapper)) return false;
-        BaseThresholdDefConfigWrapper o = (BaseThresholdDefConfigWrapper)obj;
-        return getType().equals(o.getType())
-        && getDsType().equals(o.getDsType())
-        && getDatasourceExpression().equals(o.getDatasourceExpression());
+        if (obj == null)
+            return false;
+        if (!(obj instanceof BaseThresholdDefConfigWrapper))
+            return false;
+        BaseThresholdDefConfigWrapper o = (BaseThresholdDefConfigWrapper) obj;
+        return getType().equals(o.getType()) && getDsType().equals(o.getDsType())
+                && getDatasourceExpression().equals(o.getDatasourceExpression());
     }
 
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(97, 3)
-            .append(m_baseDef)
-            .toHashCode();
+        return new HashCodeBuilder(97, 3).append(m_baseDef).toHashCode();
     }
 
     /*
-     * Returns true only if parameter object has exactly the same values for all attributes of
+     * Returns true only if parameter object has exactly the same values for all
+     * attributes of
      * the current object.
      */
     /**
-     * <p>identical</p>
+     * <p>
+     * identical
+     * </p>
      *
-     * @param o a {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper} object.
+     * @param o
+     *            a
+     *            {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
+     *            object.
      * @return a boolean.
      */
     public boolean identical(BaseThresholdDefConfigWrapper o) {
         return equals(o)
-        && (getDsLabel() == o.getDsLabel() || (getDsLabel() != null && getDsLabel().equals(o.getDsLabel())))
-        && (getTriggeredUEI() == o.getTriggeredUEI() || (getTriggeredUEI() != null && getTriggeredUEI().equals(o.getTriggeredUEI())))
-        && (getRearmedUEI() ==  o.getRearmedUEI() || (getRearmedUEI() != null && getRearmedUEI().equals(o.getRearmedUEI())))
-        && getValue() == o.getValue()
-        && getRearm() == o.getRearm()
-        && getTrigger() == o.getTrigger()
-        && getBasethresholddef().getFilterOperator().equals(o.getBasethresholddef().getFilterOperator())
-        && Arrays.equals(getBasethresholddef().getResourceFilter(), o.getBasethresholddef().getResourceFilter());
+                && (getDsLabel() == o.getDsLabel() || (getDsLabel() != null && getDsLabel().equals(o.getDsLabel())))
+                && (getTriggeredUEI() == o.getTriggeredUEI() || (getTriggeredUEI() != null && getTriggeredUEI().equals(o.getTriggeredUEI())))
+                && (getRearmedUEI() == o.getRearmedUEI() || (getRearmedUEI() != null && getRearmedUEI().equals(o.getRearmedUEI())))
+                && getValue() == o.getValue()
+                && getRearm() == o.getRearm()
+                && getTrigger() == o.getTrigger()
+                && getBasethresholddef().getFilterOperator().equals(o.getBasethresholddef().getFilterOperator())
+                && Arrays.equals(getBasethresholddef().getResourceFilter(), o.getBasethresholddef().getResourceFilter());
     }
 
     /**
-     * <p>merge</p>
+     * <p>
+     * merge
+     * </p>
      *
-     * @param threshold a {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper} object.
+     * @param threshold
+     *            a
+     *            {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
+     *            object.
      */
     public void merge(BaseThresholdDefConfigWrapper threshold) {
         m_baseDef = threshold.getBasethresholddef();
     }
 
 }
-

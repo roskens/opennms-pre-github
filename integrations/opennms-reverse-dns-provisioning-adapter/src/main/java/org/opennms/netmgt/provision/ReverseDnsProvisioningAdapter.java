@@ -56,9 +56,9 @@ import org.xbill.DNS.TSIG;
 import org.xbill.DNS.Type;
 import org.xbill.DNS.Update;
 
-
 /**
- * A Dynamic DNS provisioning adapter for integration with OpenNMS Provisioning daemon API.
+ * A Dynamic DNS provisioning adapter for integration with OpenNMS Provisioning
+ * daemon API.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -70,18 +70,24 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
      * A read-only DAO will be set by the Provisioning Daemon.
      */
     private EventForwarder m_eventForwarder;
+
     private Resolver m_resolver = null;
+
     private String m_signature;
+
     private ReverseDnsProvisioningAdapterService m_reverseDnsProvisioningAdapterService;
 
     private static final String MESSAGE_PREFIX = "Dynamic Reverse DNS provisioning failed: ";
-    private static final String ADAPTER_NAME="Reverse DNS Provisioning Adapter";
 
+    private static final String ADAPTER_NAME = "Reverse DNS Provisioning Adapter";
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -117,16 +123,22 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
     }
 
     /**
-     * <p>setEventForwarder</p>
+     * <p>
+     * setEventForwarder
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
 
     /**
-     * <p>getEventForwarder</p>
+     * <p>
+     * getEventForwarder
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -135,7 +147,9 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -160,9 +174,9 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
         if (op.getType() == AdapterOperationType.ADD || op.getType() == AdapterOperationType.UPDATE) {
             doUpdate(op);
         } else if (op.getType() == AdapterOperationType.DELETE) {
-            //do nothing in this adapter
+            // do nothing in this adapter
         } else if (op.getType() == AdapterOperationType.CONFIG_CHANGE) {
-            //do nothing in this adapter
+            // do nothing in this adapter
         } else {
             LOG.warn("unknown operation: {}", op.getType());
         }
@@ -170,14 +184,15 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
 
     private void doUpdate(AdapterOperation op) {
         LOG.debug("doUpdate: operation: {}", op.getType().name());
-        for (ReverseDnsRecord record : m_reverseDnsProvisioningAdapterService.get(op.getNodeId()) ) {
-            LOG.debug("doUpdate: ReverseDnsRecord: hostname: {} zone: {} ip address: {}", record.getIp().getHostAddress(), record.getHostname(), record.getZone());
+        for (ReverseDnsRecord record : m_reverseDnsProvisioningAdapterService.get(op.getNodeId())) {
+            LOG.debug("doUpdate: ReverseDnsRecord: hostname: {} zone: {} ip address: {}",
+                      record.getIp().getHostAddress(), record.getHostname(), record.getZone());
             try {
                 Update update = new Update(Name.fromString(record.getZone()));
-                Name ptrRecord=ReverseMap.fromAddress(record.getIp());
+                Name ptrRecord = ReverseMap.fromAddress(record.getIp());
                 update.replace(ptrRecord, Type.PTR, 3600, record.getHostname());
                 m_resolver.send(update);
-                m_reverseDnsProvisioningAdapterService.update(op.getNodeId(),record);
+                m_reverseDnsProvisioningAdapterService.update(op.getNodeId(), record);
             } catch (Exception e) {
                 LOG.error("updateNode: Error handling updated event.", e);
                 sendAndThrow(op.getNodeId(), e);
@@ -186,7 +201,9 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
     }
 
     private void sendAndThrow(int nodeId, Exception e) {
-        Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED, nodeId).addParam("reason", MESSAGE_PREFIX+e.getLocalizedMessage()).getEvent();
+        Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED, nodeId).addParam("reason",
+                                                                                              MESSAGE_PREFIX
+                                                                                                      + e.getLocalizedMessage()).getEvent();
         m_eventForwarder.sendNow(event);
         throw new ProvisioningAdapterException(MESSAGE_PREFIX, e);
     }

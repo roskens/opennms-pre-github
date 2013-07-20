@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -44,15 +43,20 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * <p>CategoryDaoHibernate class.</p>
+ * <p>
+ * CategoryDaoHibernate class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCategory, Integer, String> implements CategoryDao {
+public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCategory, Integer, String> implements
+        CategoryDao {
 
     /**
-     * <p>Constructor for CategoryDaoHibernate.</p>
+     * <p>
+     * Constructor for CategoryDaoHibernate.
+     * </p>
      */
     public CategoryDaoHibernate() {
         super(OnmsCategory.class, false);
@@ -81,7 +85,9 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
     }
 
     /**
-     * <p>getAllCategoryNames</p>
+     * <p>
+     * getAllCategoryNames
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -91,9 +97,12 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
     }
 
     /**
-     * <p>getCriterionForCategorySetsUnion</p>
+     * <p>
+     * getCriterionForCategorySetsUnion
+     * </p>
      *
-     * @param categories an array of {@link java.lang.String} objects.
+     * @param categories
+     *            an array of {@link java.lang.String} objects.
      * @return a {@link java.util.List} object.
      */
     @Override
@@ -101,7 +110,8 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
         Assert.notNull(categories, "categories argument must not be null");
         Assert.isTrue(categories.length >= 1, "categories must have at least one set of categories");
 
-        // Build a list a list of category IDs to use when building the restrictions
+        // Build a list a list of category IDs to use when building the
+        // restrictions
         List<List<Integer>> categoryIdsList = new ArrayList<List<Integer>>(categories.length);
         for (String[] categoryStrings : categories) {
             List<Integer> categoryIds = new ArrayList<Integer>(categoryStrings.length);
@@ -126,21 +136,26 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
                 types[i] = theOneAndOnlyType;
                 questionMarks[i] = "?";
             }
-            String sql = "{alias}.nodeId in (select distinct cn.nodeId from category_node cn where cn.categoryId in (" + StringUtils.arrayToCommaDelimitedString(questionMarks) + "))";
+            String sql = "{alias}.nodeId in (select distinct cn.nodeId from category_node cn where cn.categoryId in ("
+                    + StringUtils.arrayToCommaDelimitedString(questionMarks) + "))";
             criteria.add(Restrictions.sqlRestriction(sql, categoryIds.toArray(new Integer[categoryIds.size()]), types));
         }
 
         return criteria;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.dao.CategoryDao#getCategoriesWithAuthorizedGroup(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.dao.CategoryDao#getCategoriesWithAuthorizedGroup(java
+     * .lang.String)
      */
     /** {@inheritDoc} */
     @Override
     public List<OnmsCategory> getCategoriesWithAuthorizedGroup(String groupName) {
         OnmsCriteria crit = new OnmsCriteria(OnmsCategory.class);
-        crit.add(Restrictions.sqlRestriction("{alias}.categoryId in (select cg.categoryId from category_group cg where cg.groupId = ?)", groupName, Hibernate.STRING));
+        crit.add(Restrictions.sqlRestriction("{alias}.categoryId in (select cg.categoryId from category_group cg where cg.groupId = ?)",
+                                             groupName, Hibernate.STRING));
         return findMatching(crit);
     }
 }

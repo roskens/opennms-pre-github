@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlValue;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="form-field")
+@XmlRootElement(name = "form-field")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class FormField {
 
@@ -50,17 +50,19 @@ public class FormField {
     @XmlValue
     private String value;
 
-
     /**
      * Instantiates a new form field.
      */
-    public FormField() {}
+    public FormField() {
+    }
 
     /**
      * Instantiates a new form field.
      *
-     * @param name the name
-     * @param value the value
+     * @param name
+     *            the name
+     * @param value
+     *            the value
      */
     public FormField(String name, String value) {
         this.name = name;
@@ -79,7 +81,8 @@ public class FormField {
     /**
      * Sets the name.
      *
-     * @param name the new name
+     * @param name
+     *            the new name
      */
     public void setName(String name) {
         this.name = name;
@@ -97,7 +100,8 @@ public class FormField {
     /**
      * Sets the value.
      *
-     * @param value the new value
+     * @param value
+     *            the new value
      */
     public void setValue(String value) {
         this.value = value;

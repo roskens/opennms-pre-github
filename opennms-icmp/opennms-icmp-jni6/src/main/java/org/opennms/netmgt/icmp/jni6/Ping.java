@@ -42,11 +42,11 @@ import org.slf4j.LoggerFactory;
 
 public class Ping {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Ping.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(Ping.class);
 
     public static class Stuff implements Runnable {
         private ICMPv6Socket m_socket;
+
         private short m_icmpId;
 
         public Stuff(ICMPv6Socket socket, short icmpId) {
@@ -67,16 +67,11 @@ public class Ping {
                         continue;
                     }
 
-                    if (reply.isEchoReply()
-                            && reply.getThreadId() == m_icmpId) {
+                    if (reply.isEchoReply() && reply.getThreadId() == m_icmpId) {
                         double rtt = reply.elapsedTime(TimeUnit.MILLISECONDS);
-                        System.out.println(ICMPEchoPacket.getNetworkSize()
-                                + " bytes from "
-                                + InetAddressUtils.str(pkt.getAddress())
-                                + ": icmp_seq="
-                                + reply.getIdentifier()
-                                + ". time="
-                                + rtt + " ms");
+                        System.out.println(ICMPEchoPacket.getNetworkSize() + " bytes from "
+                                + InetAddressUtils.str(pkt.getAddress()) + ": icmp_seq=" + reply.getIdentifier()
+                                + ". time=" + rtt + " ms");
                     }
                 }
             } catch (final Throwable t) {
@@ -87,15 +82,17 @@ public class Ping {
     }
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param argv an array of {@link java.lang.String} objects.
+     * @param argv
+     *            an array of {@link java.lang.String} objects.
      */
     public static void main(String[] argv) {
         if (argv.length != 1) {
             System.err.println("incorrect number of command-line arguments.");
-            System.err.println("usage: java -cp ... "
-                    + IcmpSocket.class.getName() + " <host>");
+            System.err.println("usage: java -cp ... " + IcmpSocket.class.getName() + " <host>");
             System.exit(1);
         }
 
@@ -106,24 +103,19 @@ public class Ping {
         try {
             m_socket = new ICMPv6Socket();
         } catch (UnsatisfiedLinkError e) {
-            System.err.println("UnsatisfiedLinkError while creating an "
-                    + "IcmpSocket.  Most likely failed to load "
-                    + "libjicmp.so.  Try setting the property "
-                    + "'opennms.library.jicmp' to point at the "
-                    + "full path name of the libjicmp.so shared "
-                    + "library "
+            System.err.println("UnsatisfiedLinkError while creating an " + "IcmpSocket.  Most likely failed to load "
+                    + "libjicmp.so.  Try setting the property " + "'opennms.library.jicmp' to point at the "
+                    + "full path name of the libjicmp.so shared " + "library "
                     + "(e.g. 'java -Dopennms.library.jicmp=/some/path/libjicmp.so ...')");
             e.printStackTrace();
             System.exit(1);
         } catch (NoClassDefFoundError e) {
-            System.err.println("NoClassDefFoundError while creating an "
-                    + "IcmpSocket.  Most likely failed to load "
+            System.err.println("NoClassDefFoundError while creating an " + "IcmpSocket.  Most likely failed to load "
                     + "libjicmp.so.");
             e.printStackTrace();
             System.exit(1);
         } catch (IOException e) {
-            System.err.println("IOException while creating an "
-                    + "IcmpSocket.");
+            System.err.println("IOException while creating an " + "IcmpSocket.");
             e.printStackTrace();
             System.exit(1);
         }
@@ -132,8 +124,7 @@ public class Ping {
         try {
             addr = InetAddress.getByName(host);
         } catch (java.net.UnknownHostException e) {
-            System.err.println("UnknownHostException when looking up "
-                    + host + ".");
+            System.err.println("UnknownHostException when looking up " + host + ".");
             e.printStackTrace();
             System.exit(1);
         }
@@ -154,8 +145,7 @@ public class Ping {
 
             // convert it to a datagram to be sent
             byte[] buf = pingPkt.toBytes();
-            DatagramPacket sendPkt =
-                new DatagramPacket(buf, buf.length, addr, 0);
+            DatagramPacket sendPkt = new DatagramPacket(buf, buf.length, addr, 0);
             buf = null;
             pingPkt = null;
 

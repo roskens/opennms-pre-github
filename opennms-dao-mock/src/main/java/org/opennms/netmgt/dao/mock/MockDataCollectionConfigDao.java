@@ -18,7 +18,8 @@ public class MockDataCollectionConfigDao implements DataCollectionConfigDao {
     }
 
     @Override
-    public List<MibObject> getMibObjectList(final String cName, final String aSysoid, final String anAddress, final int ifType) {
+    public List<MibObject> getMibObjectList(final String cName, final String aSysoid, final String anAddress,
+            final int ifType) {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 

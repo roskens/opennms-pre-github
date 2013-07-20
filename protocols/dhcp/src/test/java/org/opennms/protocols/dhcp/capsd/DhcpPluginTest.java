@@ -42,17 +42,15 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.dhcpd.Dhcpd;
 import org.opennms.protocols.dhcp.capsd.DhcpPlugin;
 
-
 /**
  * @author thedesloge
- *
  */
 public class DhcpPluginTest {
 
     private Dhcpd m_dhcpd;
 
     @Before
-    public void setup() throws Exception{
+    public void setup() throws Exception {
         m_dhcpd = Dhcpd.getInstance();
         m_dhcpd.init();
         m_dhcpd.start();
@@ -60,7 +58,7 @@ public class DhcpPluginTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         m_dhcpd.stop();
     }
 

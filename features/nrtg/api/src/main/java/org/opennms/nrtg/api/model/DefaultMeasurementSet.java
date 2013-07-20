@@ -30,6 +30,7 @@ import java.util.List;
 public class DefaultMeasurementSet implements MeasurementSet {
 
     private static final long serialVersionUID = 7536809905120941525L;
+
     private List<Measurement> m_measurements = new ArrayList<Measurement>();
 
     public void addMeasurement(Measurement measurement) {
@@ -69,9 +70,11 @@ public class DefaultMeasurementSet implements MeasurementSet {
     }
 
     /**
-     * This toString method is for displaying reasons in the webapp NrtGrapher only. It's for prototyping only.
+     * This toString method is for displaying reasons in the webapp NrtGrapher
+     * only. It's for prototyping only.
      *
-     * @return a {@link String} that contains the metrics and there values in a easy parsable way.
+     * @return a {@link String} that contains the metrics and there values in a
+     *         easy parsable way.
      */
     @Override
     public String toString() {

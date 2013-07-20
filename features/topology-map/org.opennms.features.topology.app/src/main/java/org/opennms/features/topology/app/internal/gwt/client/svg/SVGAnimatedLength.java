@@ -9,6 +9,6 @@ public class SVGAnimatedLength extends JavaScriptObject {
     }
 
     public final native SVGLength getBaseVal() /*-{
-        return this.baseVal;
-    }-*/;
+                                               return this.baseVal;
+                                               }-*/;
 }

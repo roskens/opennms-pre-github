@@ -38,6 +38,7 @@ import org.opennms.netmgt.snmp.SnmpValue;
 
 /**
  * We are trying to make sure that this doesn't happen:
+ *
  * <pre>
  * 2008-05-10 14:32:38,044 DEBUG [DefaultUDPTransportMapping_172.16.1.194/0] org.opennms.netmgt.capsd.snmp.IfXTableEntry: Storing Result: alias: ifAlias [.1.3.6.1.2.1.31.1.1.1.18].[1] = (4) We don't need no stinkin' ifAlias! (576520646f6e2774206e656564206e6f207374696e6b696e27206966416c69617321)
  * 2008-05-10 14:32:38,044 DEBUG [DefaultUDPTransportMapping_172.16.1.194/0] org.opennms.netmgt.capsd.snmp.IfXTableEntry: Storing Result: alias: ifAlias [.1.3.6.1.2.1.31.1.1.1.18].[1] = (130) endOfMibView
@@ -45,19 +46,22 @@ import org.opennms.netmgt.snmp.SnmpValue;
  * </pre>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
-  */
+ */
 public class SnmpStoreTest extends TestCase {
     public void testStoreResultWithValueThenEndOfMibView() {
         String baseOid = ".1.3.6.1.2.1.31.1.1.1.18";
         String ifAliasName = "ifAlias";
         String ifAliasValue = "Foo!";
 
-        SnmpStore store = new SnmpStore(new NamedSnmpVar[] { new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, ifAliasName, baseOid, 18) });
+        SnmpStore store = new SnmpStore(new NamedSnmpVar[] { new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING,
+                                                                              ifAliasName, baseOid, 18) });
         SnmpObjId base = SnmpObjId.get(baseOid);
         SnmpInstId inst = new SnmpInstId("1");
 
-        store.storeResult(new SnmpResult(base, inst, SnmpUtils.getValueFactory().getOctetString(ifAliasValue.getBytes())));
-        store.storeResult(new SnmpResult(base, inst, SnmpUtils.getValueFactory().getValue(SnmpValue.SNMP_END_OF_MIB, null)));
+        store.storeResult(new SnmpResult(base, inst,
+                                         SnmpUtils.getValueFactory().getOctetString(ifAliasValue.getBytes())));
+        store.storeResult(new SnmpResult(base, inst, SnmpUtils.getValueFactory().getValue(SnmpValue.SNMP_END_OF_MIB,
+                                                                                          null)));
 
         assertEquals("ifAlias value", ifAliasValue, store.getDisplayString(ifAliasName));
     }

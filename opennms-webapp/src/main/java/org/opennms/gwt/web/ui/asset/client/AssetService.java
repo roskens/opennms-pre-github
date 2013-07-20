@@ -42,39 +42,39 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("asset")
 public interface AssetService extends RemoteService {
 
-	/**
-	 * Calling this method will return a {@link AssetCommand} with contains all
-	 * asset data and additional data for GWT asset ui. If no OnmsNode is found
-	 * by given nodeId a exception will occur.
-	 *
-	 * @param nodeId
-	 *            related to OnmsNode.
-	 * @return {@link AssetCommand} by the given nodeId
-	 * @throws Exception
-	 *             , used asset service can throw all types of exception
-	 */
-	AssetCommand getAssetByNodeId(int nodeId) throws Exception;
+    /**
+     * Calling this method will return a {@link AssetCommand} with contains all
+     * asset data and additional data for GWT asset ui. If no OnmsNode is found
+     * by given nodeId a exception will occur.
+     *
+     * @param nodeId
+     *            related to OnmsNode.
+     * @return {@link AssetCommand} by the given nodeId
+     * @throws Exception
+     *             , used asset service can throw all types of exception
+     */
+    AssetCommand getAssetByNodeId(int nodeId) throws Exception;
 
-	/**
-	 * Calling this method will return an {@link AssetSuggCommand} that contains
-	 * all suggestions for all {@link FieldSetSuggestBox}es at the GWT asset ui.
-	 *
-	 * @return {@link AssetSuggCommand}
-	 * @throws Exception
-	 *             , used asset service can throw all types of exception
-	 */
-	AssetSuggCommand getAssetSuggestions() throws Exception;
+    /**
+     * Calling this method will return an {@link AssetSuggCommand} that contains
+     * all suggestions for all {@link FieldSetSuggestBox}es at the GWT asset ui.
+     *
+     * @return {@link AssetSuggCommand}
+     * @throws Exception
+     *             , used asset service can throw all types of exception
+     */
+    AssetSuggCommand getAssetSuggestions() throws Exception;
 
-	/**
-	 * Calling this method will save or update a OnmsAsset by the given
-	 * {@link AssetCommand}. Problems will be thrown as exceptions.
-	 *
-	 * @param nodeId
-	 *            related to OnmsNode.
-	 * @param {@link AssetCommand}
-	 * @return If the operation went well result will be true, if not false.
-	 * @throws Exception
-	 *             , used asset service can throw all types of exception
-	 */
-	Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset) throws Exception;
+    /**
+     * Calling this method will save or update a OnmsAsset by the given
+     * {@link AssetCommand}. Problems will be thrown as exceptions.
+     *
+     * @param nodeId
+     *            related to OnmsNode.
+     * @param {@link AssetCommand}
+     * @return If the operation went well result will be true, if not false.
+     * @throws Exception
+     *             , used asset service can throw all types of exception
+     */
+    Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset) throws Exception;
 }

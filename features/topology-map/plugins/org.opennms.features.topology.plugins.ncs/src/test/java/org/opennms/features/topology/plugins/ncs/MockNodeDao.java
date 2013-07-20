@@ -149,15 +149,13 @@ public class MockNodeDao implements NodeDao {
     }
 
     @Override
-    public List<OnmsNode> findAllByVarCharAssetColumn(String columnName,
-            String columnValue) {
+    public List<OnmsNode> findAllByVarCharAssetColumn(String columnName, String columnValue) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<OnmsNode> findAllByVarCharAssetColumnCategoryList(
-            String columnName, String columnValue,
+    public List<OnmsNode> findAllByVarCharAssetColumnCategoryList(String columnName, String columnValue,
             Collection<OnmsCategory> categories) {
         // TODO Auto-generated method stub
         return null;
@@ -170,15 +168,13 @@ public class MockNodeDao implements NodeDao {
     }
 
     @Override
-    public List<OnmsNode> findAllByCategoryList(
-            Collection<OnmsCategory> categories) {
+    public List<OnmsNode> findAllByCategoryList(Collection<OnmsCategory> categories) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<OnmsNode> findAllByCategoryLists(
-            Collection<OnmsCategory> rowCatNames,
+    public List<OnmsNode> findAllByCategoryLists(Collection<OnmsCategory> rowCatNames,
             Collection<OnmsCategory> colCatNames) {
         // TODO Auto-generated method stub
         return null;
@@ -199,7 +195,7 @@ public class MockNodeDao implements NodeDao {
     @Override
     public OnmsNode findByForeignId(String foreignSource, String foreignId) {
         OnmsNode node = new OnmsNode();
-        node.setId((int)(Math.random()* 100));
+        node.setId((int) (Math.random() * 100));
         node.setLabel("node-label");
         return node;
     }
@@ -217,8 +213,7 @@ public class MockNodeDao implements NodeDao {
     }
 
     @Override
-    public List<OnmsIpInterface> findObsoleteIpInterfaces(Integer nodeId,
-            Date scanStamp) {
+    public List<OnmsIpInterface> findObsoleteIpInterfaces(Integer nodeId, Date scanStamp) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -242,15 +237,13 @@ public class MockNodeDao implements NodeDao {
     }
 
     @Override
-    public List<OnmsNode> findByForeignSourceAndIpAddress(String foreignSource,
-            String ipAddress) {
+    public List<OnmsNode> findByForeignSourceAndIpAddress(String foreignSource, String ipAddress) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public SurveillanceStatus findSurveillanceStatusByCategoryLists(
-            Collection<OnmsCategory> rowCategories,
+    public SurveillanceStatus findSurveillanceStatusByCategoryLists(Collection<OnmsCategory> rowCategories,
             Collection<OnmsCategory> columnCategories) {
         // TODO Auto-generated method stub
         return null;

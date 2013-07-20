@@ -71,10 +71,14 @@ public class HttpPostInfo extends Object {
     /**
      * Constructor
      *
-     * @param hurl a {@link java.net.URL} object.
-     * @param clabel a {@link java.lang.String} object.
-     * @param user a {@link java.lang.String} object.
-     * @param passwd a {@link java.lang.String} object.
+     * @param hurl
+     *            a {@link java.net.URL} object.
+     * @param clabel
+     *            a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param passwd
+     *            a {@link java.lang.String} object.
      */
     public HttpPostInfo(URL hurl, String clabel, String user, String passwd) {
         m_url = hurl;
@@ -89,11 +93,16 @@ public class HttpPostInfo extends Object {
      *
      * @exception MalformedURLException
      *                thrown if the string url passed is not a valid url
-     * @param hurl a {@link java.lang.String} object.
-     * @param clabel a {@link java.lang.String} object.
-     * @param user a {@link java.lang.String} object.
-     * @param passwd a {@link java.lang.String} object.
-     * @throws java.net.MalformedURLException if any.
+     * @param hurl
+     *            a {@link java.lang.String} object.
+     * @param clabel
+     *            a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param passwd
+     *            a {@link java.lang.String} object.
+     * @throws java.net.MalformedURLException
+     *             if any.
      */
     public HttpPostInfo(String hurl, String clabel, String user, String passwd) throws MalformedURLException {
         m_url = new URL(hurl);

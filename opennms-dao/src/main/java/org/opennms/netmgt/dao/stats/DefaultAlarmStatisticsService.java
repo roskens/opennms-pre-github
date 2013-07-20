@@ -36,9 +36,11 @@ import org.opennms.netmgt.model.OnmsAlarm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService<OnmsAlarm> implements AlarmStatisticsService {
+public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService<OnmsAlarm> implements
+        AlarmStatisticsService {
 
-    @Autowired AlarmDao m_alarmDao;
+    @Autowired
+    AlarmDao m_alarmDao;
 
     @Override
     public AlarmDao getDao() {
@@ -48,7 +50,7 @@ public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService
     @Transactional
     @Override
     public int getAcknowledgedCount(final Criteria criteria) {
-    	criteria.addRestriction(org.opennms.core.criteria.restrictions.Restrictions.isNotNull("alarmAckUser"));
+        criteria.addRestriction(org.opennms.core.criteria.restrictions.Restrictions.isNotNull("alarmAckUser"));
         return m_alarmDao.countMatching(criteria);
     }
 
@@ -58,7 +60,8 @@ public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService
         criteria.addRestriction(org.opennms.core.criteria.restrictions.Restrictions.isNotNull("alarmAckUser"));
         criteria.setLimit(1);
         final List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
-        if (alarms.size() == 0) return null;
+        if (alarms.size() == 0)
+            return null;
         return alarms.get(0);
     }
 
@@ -68,7 +71,8 @@ public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService
         criteria.addRestriction(org.opennms.core.criteria.restrictions.Restrictions.isNull("alarmAckUser"));
         criteria.setLimit(1);
         final List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
-        if (alarms.size() == 0) return null;
+        if (alarms.size() == 0)
+            return null;
         return alarms.get(0);
     }
 

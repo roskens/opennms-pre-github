@@ -5,7 +5,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.opennms.netmgt.dao.api.UserNotificationDao;
 import org.opennms.netmgt.model.OnmsUserNotification;
 
-public class MockUserNotificationDao extends AbstractMockDao<OnmsUserNotification, Integer> implements UserNotificationDao {
+public class MockUserNotificationDao extends AbstractMockDao<OnmsUserNotification, Integer> implements
+        UserNotificationDao {
     private AtomicInteger m_id = new AtomicInteger(0);
 
     @Override

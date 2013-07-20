@@ -72,7 +72,7 @@ import org.springframework.util.Assert;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.opennms.org/">OpenNMS.org </a>
  */
-@EventListener(name="OpenNMS.Discovery", logPrefix="discover")
+@EventListener(name = "OpenNMS.Discovery", logPrefix = "discover")
 public class Discovery extends AbstractServiceDaemon {
 
     private static final Logger LOG = LoggerFactory.getLogger(Discovery.class);
@@ -84,13 +84,15 @@ public class Discovery extends AbstractServiceDaemon {
 
     private static final String LOG4J_CATEGORY = "discover";
 
-
     private static final int PING_IDLE = 0;
+
     private static final int PING_RUNNING = 1;
+
     private static final int PING_FINISHING = 2;
 
     /**
-     * The SQL query used to get the list of managed IP addresses from the database
+     * The SQL query used to get the list of managed IP addresses from the
+     * database
      */
     private static final String ALL_IP_ADDRS_SQL = "SELECT DISTINCT ipAddr FROM ipInterface WHERE isManaged <> 'D'";
 
@@ -110,25 +112,34 @@ public class Discovery extends AbstractServiceDaemon {
     private Pinger m_pinger;
 
     /**
-     * <p>setEventForwarder</p>
+     * <p>
+     * setEventForwarder
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
 
     /**
-     * <p>setPinger</p>
+     * <p>
+     * setPinger
+     * </p>
      *
-     * @param pinger a {@link JniPinger} object.
+     * @param pinger
+     *            a {@link JniPinger} object.
      */
     public void setPinger(Pinger pinger) {
         m_pinger = pinger;
     }
 
     /**
-     * <p>getEventForwarder</p>
+     * <p>
+     * getEventForwarder
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -137,18 +148,25 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setDiscoveryFactory</p>
+     * <p>
+     * setDiscoveryFactory
+     * </p>
      *
-     * @param discoveryFactory a {@link org.opennms.netmgt.config.DiscoveryConfigFactory} object.
+     * @param discoveryFactory
+     *            a {@link org.opennms.netmgt.config.DiscoveryConfigFactory}
+     *            object.
      */
     public void setDiscoveryFactory(DiscoveryConfigFactory discoveryFactory) {
         m_discoveryFactory = discoveryFactory;
     }
 
     /**
-     * <p>getDiscoveryFactory</p>
+     * <p>
+     * getDiscoveryFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.DiscoveryConfigFactory} object.
+     * @return a {@link org.opennms.netmgt.config.DiscoveryConfigFactory}
+     *         object.
      */
     public DiscoveryConfigFactory getDiscoveryFactory() {
         return m_discoveryFactory;
@@ -162,9 +180,12 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      *
-     * @throws java.lang.IllegalStateException if any.
+     * @throws java.lang.IllegalStateException
+     *             if any.
      */
     @Override
     protected void onInit() throws IllegalStateException {
@@ -193,7 +214,6 @@ public class Discovery extends AbstractServiceDaemon {
         } catch (Throwable e) {
             LOG.error("doPings: could not re-init configuration, continuing with in memory configuration.", e);
         }
-
 
         m_xstatus = PING_RUNNING;
 
@@ -261,7 +281,8 @@ public class Discovery extends AbstractServiceDaemon {
         final Lock readLock = getDiscoveryFactory().getReadLock();
         readLock.lock();
         try {
-            m_timer.scheduleAtFixedRate(task, getDiscoveryFactory().getInitialSleepTime(), getDiscoveryFactory().getRestartSleepTime());
+            m_timer.scheduleAtFixedRate(task, getDiscoveryFactory().getInitialSleepTime(),
+                                        getDiscoveryFactory().getRestartSleepTime());
         } finally {
             readLock.unlock();
         }
@@ -279,16 +300,20 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
-    	syncAlreadyDiscovered();
+        syncAlreadyDiscovered();
         startTimer();
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -296,7 +321,9 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onPause</p>
+     * <p>
+     * onPause
+     * </p>
      */
     @Override
     protected void onPause() {
@@ -304,7 +331,9 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onResume</p>
+     * <p>
+     * onResume
+     * </p>
      */
     @Override
     protected void onResume() {
@@ -312,47 +341,54 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>syncAlreadyDiscovered</p>
+     * <p>
+     * syncAlreadyDiscovered
+     * </p>
      */
     protected void syncAlreadyDiscovered() {
-    	/**
-    	 * Make a new list with which we'll replace the existing one, that way
-    	 * if something goes wrong with the DB we won't lose whatever was already
-    	 * in there
-    	 */
-    	Set<String> newAlreadyDiscovered = Collections.synchronizedSet(new HashSet<String>());
-    	Connection conn = null;
+        /**
+         * Make a new list with which we'll replace the existing one, that way
+         * if something goes wrong with the DB we won't lose whatever was
+         * already
+         * in there
+         */
+        Set<String> newAlreadyDiscovered = Collections.synchronizedSet(new HashSet<String>());
+        Connection conn = null;
         final DBUtils d = new DBUtils(getClass());
 
-    	try {
-    		conn = DataSourceFactory.getInstance().getConnection();
-    		d.watch(conn);
-    		PreparedStatement stmt = conn.prepareStatement(ALL_IP_ADDRS_SQL);
-    		d.watch(stmt);
-    		ResultSet rs = stmt.executeQuery();
-    		d.watch(rs);
-    		if (rs != null) {
-    			while (rs.next()) {
-    				newAlreadyDiscovered.add(rs.getString(1));
-    			}
-    		} else {
-    			LOG.warn("Got null ResultSet from query for all IP addresses");
-    		}
-    		m_alreadyDiscovered = newAlreadyDiscovered;
-    	} catch (SQLException sqle) {
-		LOG.warn("Caught SQLException while trying to query for all IP addresses: {}", sqle.getMessage());
-    	} finally {
-    	    d.cleanUp();
-    	}
-	LOG.info("syncAlreadyDiscovered initialized list of managed IP addresses with {} members", m_alreadyDiscovered.size());
+        try {
+            conn = DataSourceFactory.getInstance().getConnection();
+            d.watch(conn);
+            PreparedStatement stmt = conn.prepareStatement(ALL_IP_ADDRS_SQL);
+            d.watch(stmt);
+            ResultSet rs = stmt.executeQuery();
+            d.watch(rs);
+            if (rs != null) {
+                while (rs.next()) {
+                    newAlreadyDiscovered.add(rs.getString(1));
+                }
+            } else {
+                LOG.warn("Got null ResultSet from query for all IP addresses");
+            }
+            m_alreadyDiscovered = newAlreadyDiscovered;
+        } catch (SQLException sqle) {
+            LOG.warn("Caught SQLException while trying to query for all IP addresses: {}", sqle.getMessage());
+        } finally {
+            d.cleanUp();
+        }
+        LOG.info("syncAlreadyDiscovered initialized list of managed IP addresses with {} members",
+                 m_alreadyDiscovered.size());
     }
 
     /**
-     * <p>handleDiscoveryConfigurationChanged</p>
+     * <p>
+     * handleDiscoveryConfigurationChanged
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.DISCOVERYCONFIG_CHANGED_EVENT_UEI)
+    @EventHandler(uei = EventConstants.DISCOVERYCONFIG_CHANGED_EVENT_UEI)
     public void handleDiscoveryConfigurationChanged(Event event) {
         LOG.info("handleDiscoveryConfigurationChanged: handling message that a change to configuration happened...");
         reloadAndReStart();
@@ -386,11 +422,14 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>reloadDaemonConfig</p>
+     * <p>
+     * reloadDaemonConfig
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.RELOAD_DAEMON_CONFIG_UEI)
+    @EventHandler(uei = EventConstants.RELOAD_DAEMON_CONFIG_UEI)
     public void reloadDaemonConfig(Event e) {
         LOG.info("reloadDaemonConfig: processing reload daemon event...");
         if (isReloadConfigEventTarget(e)) {
@@ -405,7 +444,8 @@ public class Discovery extends AbstractServiceDaemon {
         final List<Parm> parmCollection = event.getParmCollection();
 
         for (final Parm parm : parmCollection) {
-            if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && "Discovery".equalsIgnoreCase(parm.getValue().getContent())) {
+            if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName())
+                    && "Discovery".equalsIgnoreCase(parm.getValue().getContent())) {
                 isTarget = true;
                 break;
             }
@@ -416,27 +456,33 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>handleInterfaceDeleted</p>
+     * <p>
+     * handleInterfaceDeleted
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.INTERFACE_DELETED_EVENT_UEI)
+    @EventHandler(uei = EventConstants.INTERFACE_DELETED_EVENT_UEI)
     public void handleInterfaceDeleted(final Event event) {
-        if(event.getInterface() != null) {
+        if (event.getInterface() != null) {
             // remove from known nodes
             final String iface = event.getInterface();
-			m_alreadyDiscovered.remove(iface);
+            m_alreadyDiscovered.remove(iface);
 
             LOG.debug("Removed {} from known node list", iface);
         }
     }
 
     /**
-     * <p>handleDiscoveryResume</p>
+     * <p>
+     * handleDiscoveryResume
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.DISC_RESUME_EVENT_UEI)
+    @EventHandler(uei = EventConstants.DISC_RESUME_EVENT_UEI)
     public void handleDiscoveryResume(Event event) {
         try {
             resume();
@@ -445,11 +491,14 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>handleDiscoveryPause</p>
+     * <p>
+     * handleDiscoveryPause
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.DISC_PAUSE_EVENT_UEI)
+    @EventHandler(uei = EventConstants.DISC_PAUSE_EVENT_UEI)
     public void handleDiscoveryPause(Event event) {
         try {
             pause();
@@ -458,15 +507,18 @@ public class Discovery extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>handleNodeGainedInterface</p>
+     * <p>
+     * handleNodeGainedInterface
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI)
+    @EventHandler(uei = EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI)
     public void handleNodeGainedInterface(Event event) {
         // add to known nodes
         final String iface = event.getInterface();
-		m_alreadyDiscovered.add(iface);
+        m_alreadyDiscovered.add(iface);
 
         LOG.debug("Added {} as discovered", iface);
     }

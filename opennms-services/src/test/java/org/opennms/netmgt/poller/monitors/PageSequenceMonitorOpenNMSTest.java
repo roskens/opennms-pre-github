@@ -53,30 +53,29 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
- *
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 /*
-@TestExecutionListeners({
-    OpenNMSConfigurationExecutionListener.class,
-    JUnitHttpServerExecutionListener.class
-})
-*/
-@ContextConfiguration(locations="classpath:META-INF/opennms/emptyContext.xml")
-//@JUnitHttpServer(port=10342)
-public class PageSequenceMonitorOpenNMSTest /* implements SystemReportPlugin */ {
+ * @TestExecutionListeners({
+ * OpenNMSConfigurationExecutionListener.class,
+ * JUnitHttpServerExecutionListener.class
+ * })
+ */
+@ContextConfiguration(locations = "classpath:META-INF/opennms/emptyContext.xml")
+// @JUnitHttpServer(port=10342)
+public class PageSequenceMonitorOpenNMSTest /* implements SystemReportPlugin */{
 
     PageSequenceMonitor m_monitor;
-    Map<String, Object> m_params;
 
+    Map<String, Object> m_params;
 
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
         m_monitor = new PageSequenceMonitor();
-        m_monitor.initialize(Collections.<String, Object>emptyMap());
+        m_monitor.initialize(Collections.<String, Object> emptyMap());
 
         m_params = new HashMap<String, Object>();
         m_params.put("timeout", "8000");
@@ -94,7 +93,6 @@ public class PageSequenceMonitorOpenNMSTest /* implements SystemReportPlugin */ 
         return svc;
     }
 
-
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
@@ -102,16 +100,15 @@ public class PageSequenceMonitorOpenNMSTest /* implements SystemReportPlugin */ 
 
     @Test
     @Ignore
-    // @JUnitHttpServer(port=10342, webapps=@Webapp(context="/opennms", path="src/test/resources/loginTestWar"))
+    // @JUnitHttpServer(port=10342, webapps=@Webapp(context="/opennms",
+    // path="src/test/resources/loginTestWar"))
     public void testOpenNMSUserInterface() throws Exception {
 
         StringBuffer config = new StringBuffer();
         LineNumberReader in = new LineNumberReader(
-            new InputStreamReader(
-                Thread.currentThread().getContextClassLoader().getResourceAsStream("opennmsPageSequence.xml"),
-                "UTF-8"
-            )
-        );
+                                                   new InputStreamReader(
+                                                                         Thread.currentThread().getContextClassLoader().getResourceAsStream("opennmsPageSequence.xml"),
+                                                                         "UTF-8"));
         String line;
         while ((line = in.readLine()) != null) {
             config.append(line);
@@ -124,7 +121,8 @@ public class PageSequenceMonitorOpenNMSTest /* implements SystemReportPlugin */ 
 
         try {
             PollStatus status = m_monitor.poll(getHttpService("localhost"), m_params);
-            assertTrue("Expected available but was "+status+": reason = "+status.getReason(), status.isAvailable());
+            assertTrue("Expected available but was " + status + ": reason = " + status.getReason(),
+                       status.isAvailable());
         } finally {
             // Print some debug output if necessary
         }

@@ -40,30 +40,37 @@ import org.opennms.protocols.xml.config.XmlDataCollection;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-public interface XmlCollectionHandler  {
+public interface XmlCollectionHandler {
 
     /**
      * Collect.
      *
-     * @param agent the collection agent
-     * @param collection the XML collection configuration
-     * @param parameters the collector parameters
+     * @param agent
+     *            the collection agent
+     * @param collection
+     *            the XML collection configuration
+     * @param parameters
+     *            the collector parameters
      * @return the XML collection set
-     * @throws CollectionException the collection exception
+     * @throws CollectionException
+     *             the collection exception
      */
-    public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters) throws CollectionException;
+    public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters)
+            throws CollectionException;
 
     /**
      * Sets the RRD repository.
      *
-     * @param repository the new RRD repository
+     * @param repository
+     *            the new RRD repository
      */
     public void setRrdRepository(RrdRepository repository);
 
     /**
      * Sets the service name associated with this Collection Handler.
      *
-     * @param serviceName the new service name
+     * @param serviceName
+     *            the new service name
      */
     public void setServiceName(String serviceName);
 

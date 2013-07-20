@@ -77,19 +77,13 @@ public class AvailabilityCalculatorTest extends TestCase {
         m_db.update("insert into node (nodeID, nodelabel, nodeCreateTime, nodeType) values (1,'test1.availability.opennms.org','2004-03-01 09:00:00','A')");
         m_db.update("insert into node (nodeID, nodelabel, nodeCreateTime, nodeType) values (2,'test2.availability.opennms.org','2004-03-01 09:00:00','A')");
 
-        m_db.update("insert into service (serviceid, servicename) values\n"
-                + "(1, 'ICMP');");
-        m_db.update("insert into service (serviceid, servicename) values\n"
-                + "(2, 'HTTP');");
-        m_db.update("insert into service (serviceid, servicename) values\n"
-                + "(3, 'SNMP');");
+        m_db.update("insert into service (serviceid, servicename) values\n" + "(1, 'ICMP');");
+        m_db.update("insert into service (serviceid, servicename) values\n" + "(2, 'HTTP');");
+        m_db.update("insert into service (serviceid, servicename) values\n" + "(3, 'SNMP');");
 
-        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n"
-                + "(1, 1,'192.168.100.1','M');");
-        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n"
-                + "(2, 2,'192.168.100.2','M');");
-        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n"
-                + "(3, 2,'192.168.100.3','M');");
+        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n" + "(1, 1,'192.168.100.1','M');");
+        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n" + "(2, 2,'192.168.100.2','M');");
+        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n" + "(3, 2,'192.168.100.3','M');");
 
         m_db.update("insert into ifservices (nodeid, ipaddr, serviceid, status, ipInterfaceId) values "
                 + "(1,'192.168.100.1',1,'A', 1);");
@@ -144,8 +138,7 @@ public class AvailabilityCalculatorTest extends TestCase {
         return match;
     }
 
-    private Day getCalSectionDay(Category category, String title, int row,
-            int col) {
+    private Day getCalSectionDay(Category category, String title, int row, int col) {
 
         Section calSection = getSectionByName(category, title);
         CalendarTable table = calSection.getCalendarTable();
@@ -161,33 +154,32 @@ public class AvailabilityCalculatorTest extends TestCase {
     }
 
     /*
-    private int numRowsWithValue(Section section, String title, String data) {
-
-        int rowMatched = 0;
-        boolean titlematch;
-        boolean datamatch;
-
-        ClassicTable table = section.getClassicTable();
-        Rows rows = table.getRows();
-        Row[] row = rows.getRow();
-        for (int j = 0; j < row.length; j++) {
-            Value[] value = row[j].getValue();
-            titlematch = false;
-            datamatch = false;
-            for (int k = 0; k < value.length; k++) {
-                if (value[k].getType().equals("title")
-                        && value[k].getContent().equals(title))
-                    titlematch = true;
-                if (value[k].getType().equals("data")
-                        && value[k].getContent().equals(data))
-                    datamatch = true;
-                if (datamatch && titlematch)
-                    rowMatched++;
-            }
-        }
-        return rowMatched;
-    }
-    */
+     * private int numRowsWithValue(Section section, String title, String data)
+     * {
+     * int rowMatched = 0;
+     * boolean titlematch;
+     * boolean datamatch;
+     * ClassicTable table = section.getClassicTable();
+     * Rows rows = table.getRows();
+     * Row[] row = rows.getRow();
+     * for (int j = 0; j < row.length; j++) {
+     * Value[] value = row[j].getValue();
+     * titlematch = false;
+     * datamatch = false;
+     * for (int k = 0; k < value.length; k++) {
+     * if (value[k].getType().equals("title")
+     * && value[k].getContent().equals(title))
+     * titlematch = true;
+     * if (value[k].getType().equals("data")
+     * && value[k].getContent().equals(data))
+     * datamatch = true;
+     * if (datamatch && titlematch)
+     * rowMatched++;
+     * }
+     * }
+     * return rowMatched;
+     * }
+     */
 
     private Report buildReport(Calendar calendar, String calFormat) {
 
@@ -200,7 +192,7 @@ public class AvailabilityCalculatorTest extends TestCase {
          * report.setViewInfo(viewInfo); report.setCategories(m_categories);
          */
 
-        //AvailabilityData availData = null;
+        // AvailabilityData availData = null;
         try {
             AvailabilityCalculator calculator = new AvailabilityCalculatorImpl();
             AvailabilityData data = new AvailabilityData();
@@ -222,21 +214,14 @@ public class AvailabilityCalculatorTest extends TestCase {
 
     public void testMyDatabase() {
         assertEquals("node DB count", 2, m_db.countRows("select * from node"));
-        assertEquals("service DB count", 3,
-                     m_db.countRows("select * from service"));
-        assertEquals("ipinterface DB count", 3,
-                     m_db.countRows("select * from ipinterface"));
-        assertEquals("interface services DB count", 3,
-                     m_db.countRows("select * from ifservices"));
+        assertEquals("service DB count", 3, m_db.countRows("select * from service"));
+        assertEquals("ipinterface DB count", 3, m_db.countRows("select * from ipinterface"));
+        assertEquals("interface services DB count", 3, m_db.countRows("select * from ifservices"));
         // assertEquals("outages DB count", 3, m_db.countRows("select * from
         // outages"));
-        assertEquals(
-                     "ip interface DB count where ipaddr = 192.168.100.1",
-                     1,
+        assertEquals("ip interface DB count where ipaddr = 192.168.100.1", 1,
                      m_db.countRows("select * from ipinterface where ipaddr = '192.168.100.1'"));
-        assertEquals(
-                     "number of interfaces returned from IPLIKE",
-                     3,
+        assertEquals("number of interfaces returned from IPLIKE", 3,
                      m_db.countRows("select * from ipinterface where iplike(ipaddr,'192.168.100.*')"));
     }
 
@@ -254,12 +239,10 @@ public class AvailabilityCalculatorTest extends TestCase {
 
         // basic testst
         assertEquals("category node count", 2, category.getNodeCount());
-        assertEquals("category ip address count", 3,
-                     category.getIpaddrCount());
+        assertEquals("category ip address count", 3, category.getIpaddrCount());
         assertEquals("category service count", 3, category.getServiceCount());
 
-        Section section = getSectionByName(category,
-                                           "LastMonthsDailyAvailability");
+        Section section = getSectionByName(category, "LastMonthsDailyAvailability");
         assertNull("section calendar table", section.getCalendarTable());
         Created created = report.getCreated();
         assertNotNull("report created period", created.getPeriod());
@@ -283,59 +266,59 @@ public class AvailabilityCalculatorTest extends TestCase {
         Category category = categories.getCategory(0);
 
         assertEquals("category node count", 2, category.getNodeCount());
-        assertEquals("category ip address count", 3,
-                     category.getIpaddrCount());
+        assertEquals("category ip address count", 3, category.getIpaddrCount());
         assertEquals("category service count", 3, category.getServiceCount());
 
-        // Section calSection = getSectionByName(category, "LastMonthsDailyAvailability");
+        // Section calSection = getSectionByName(category,
+        // "LastMonthsDailyAvailability");
 
         // First four days in month are invisible for US...
 
-        day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,0);
+        day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 0);
         assertNotNull("day 0,0 object", day);
         assertFalse("day 0,0 visibility", day.getVisible());
 
-        day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,1);
+        day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 1);
         assertNotNull("day 0,1 object", day);
         assertFalse("day 0,1 visibility", day.getVisible());
 
-        day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,2);
+        day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 2);
         assertNotNull("day 0,2 object", day);
         assertFalse("day 0,2 visibility", day.getVisible());
 
-        day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,4);
+        day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 4);
         assertNotNull("day 0,4 object", day);
         assertFalse("day 0,4 visibility", day.getVisible());
 
-        day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,5);
+        day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 5);
         assertNotNull("day 0,5 object", day);
         assertEquals("day 0,5 percentage value", oneHundred, day.getPctValue(), 0);
         assertTrue("day 0,5 visibility", day.getVisible());
-        assertEquals("day 0,5 date", 1,day.getDate());
+        assertEquals("day 0,5 date", 1, day.getDate());
 
-        day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,6);
+        day = getCalSectionDay(category, "LastMonthsDailyAvailability", 0, 6);
         assertNotNull("day 0,6 object", day);
         assertEquals("day 0,6 percentage value", 99.3056, fourDec(day.getPctValue()), 0);
         assertTrue("day 0,6 visibility", day.getVisible());
-        assertEquals("day 0,6 date", 2,day.getDate());
+        assertEquals("day 0,6 date", 2, day.getDate());
 
-        day = getCalSectionDay(category,"LastMonthsDailyAvailability",1,0);
+        day = getCalSectionDay(category, "LastMonthsDailyAvailability", 1, 0);
         assertNotNull("day 1,0 object", day);
         assertEquals("day 1,0 percentage value", 97.2454, fourDec(day.getPctValue()), 0);
         assertTrue("day 1,0 visibility", day.getVisible());
-        assertEquals("day 1,0 date", 3,day.getDate());
+        assertEquals("day 1,0 date", 3, day.getDate());
 
-        day = getCalSectionDay(category,"LastMonthsDailyAvailability",1,1);
+        day = getCalSectionDay(category, "LastMonthsDailyAvailability", 1, 1);
         assertNotNull("day 1,1 object", day);
         assertEquals("day 1,1 percentage value", 99.3056, fourDec(day.getPctValue()), 0);
         assertTrue("day 1,1 visibility", day.getVisible());
-        assertEquals("day 1,1 date", 4,day.getDate());
+        assertEquals("day 1,1 date", 4, day.getDate());
 
-        day = getCalSectionDay(category,"LastMonthsDailyAvailability",1,2);
+        day = getCalSectionDay(category, "LastMonthsDailyAvailability", 1, 2);
         assertNotNull("day 1,2 object", day);
         assertEquals("day 1,2 percentage value", 99.3056, fourDec(day.getPctValue()), 0);
         assertTrue("day 1,2 visibility", day.getVisible());
-        assertEquals("day 1,2 date", 5,day.getDate());
+        assertEquals("day 1,2 date", 5, day.getDate());
 
     }
 

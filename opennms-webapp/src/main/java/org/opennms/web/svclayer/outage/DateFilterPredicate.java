@@ -45,17 +45,15 @@ import java.util.Locale;
 
 /**
  * Filter Predicate implementation which enable date comparison.
- *
  * Based on example code from: @author Nathan MA
  *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @version $Id: $
  * @since 1.8.1
  */
-public class DateFilterPredicate implements Predicate
-{
+public class DateFilterPredicate implements Predicate {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DateFilterPredicate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DateFilterPredicate.class);
 
     /** less than or equal. usage: <= 18-12-1997 */
     public static final String LESS_THAN_OR_EQUAL = "<=";
@@ -73,70 +71,57 @@ public class DateFilterPredicate implements Predicate
     public static final String DELIM = "\\s";
 
     private static final String asterisk = "*";
+
     private static final String emptyString = "";
+
     private TableModel model;
 
     /**
      * Creates a new DateFilterPredicate object.
      *
-     * @param model table model
+     * @param model
+     *            table model
      */
-    public DateFilterPredicate(final TableModel model)
-    {
-    	this.model = model;
+    public DateFilterPredicate(final TableModel model) {
+        this.model = model;
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Use the filter parameters to filter out the table.
+     * {@inheritDoc} Use the filter parameters to filter out the table.
      */
     @Override
-    public final boolean evaluate(final Object bean)
-    {
+    public final boolean evaluate(final Object bean) {
         boolean match = false;
 
-        try
-        {
+        try {
             @SuppressWarnings("unchecked")
             Iterator<Column> iter = model.getColumnHandler().getColumns().iterator();
 
-            while (iter.hasNext())
-            {
+            while (iter.hasNext()) {
                 Column column = iter.next();
                 String alias = column.getAlias();
-                String filterValue = model.getLimit().getFilterSet()
-                                          .getFilterValue(alias);
+                String filterValue = model.getLimit().getFilterSet().getFilterValue(alias);
 
-                if (StringUtils.isEmpty(filterValue))
-                {
+                if (StringUtils.isEmpty(filterValue)) {
                     continue;
                 }
 
                 String property = column.getProperty();
                 Object value = PropertyUtils.getProperty(bean, property);
 
-                if (value == null)
-                {
+                if (value == null) {
                     continue;
                 }
 
-                if (column.isDate())
-                {
+                if (column.isDate()) {
                     Locale locale = model.getLocale();
-                    value = ExtremeUtils.formatDate(column.getParse(),
-                            column.getFormat(), value, locale);
-                }
-                else if (column.isCurrency())
-                {
+                    value = ExtremeUtils.formatDate(column.getParse(), column.getFormat(), value, locale);
+                } else if (column.isCurrency()) {
                     Locale locale = model.getLocale();
-                    value = ExtremeUtils.formatNumber(column.getFormat(),
-                            value, locale);
+                    value = ExtremeUtils.formatNumber(column.getFormat(), value, locale);
                 }
 
-                if (!isSearchMatch(value, filterValue, column.isDate(),
-                            column.getFormat(), model.getLocale()))
-                {
+                if (!isSearchMatch(value, filterValue, column.isDate(), column.getFormat(), model.getLocale())) {
                     match = false; // as soon as fail just short circuit
 
                     break;
@@ -144,89 +129,63 @@ public class DateFilterPredicate implements Predicate
 
                 match = true;
             }
-        }
-        catch (Throwable e)
-        {
+        } catch (Throwable e) {
             LOG.error("FilterPredicate.evaluate() had problems", e);
         }
 
         return match;
     }
 
-    private boolean isSearchMatch(final Object value, final String searchIn, final boolean isDate,
-        final String format, final Locale locale)
-    {
+    private boolean isSearchMatch(final Object value, final String searchIn, final boolean isDate, final String format,
+            final Locale locale) {
         String valueStr = value.toString().toLowerCase().trim();
         String search = searchIn.toLowerCase().trim();
 
-        if (search.startsWith(asterisk) &&
-                valueStr.endsWith(StringUtils.replace(search, asterisk,
-                        emptyString)))
-        {
+        if (search.startsWith(asterisk) && valueStr.endsWith(StringUtils.replace(search, asterisk, emptyString))) {
             return true;
-        }
-        else if (search.endsWith(asterisk) &&
-                valueStr.startsWith(StringUtils.replace(search, asterisk,
-                        emptyString)))
-        {
+        } else if (search.endsWith(asterisk) && valueStr.startsWith(StringUtils.replace(search, asterisk, emptyString))) {
             return true;
-        }
-        else if (isDate)
-        {
+        } else if (isDate) {
             DateFormat dateFormat = new SimpleDateFormat(format, locale);
 
             Date dateToCompare = null;
             Date dateToCompare2 = null;
 
-            try
-            {
+            try {
                 Date dateValue = dateFormat.parse(value.toString());
 
                 String[] result = search.split(DELIM);
 
                 String operator = result[0];
 
-                if (operator.equals(LESS_THAN_OR_EQUAL))
-                {
+                if (operator.equals(LESS_THAN_OR_EQUAL)) {
                     dateToCompare = dateFormat.parse(result[1]);
 
                     return dateValue.getTime() <= dateToCompare.getTime();
-                }
-                else if (operator.equals(GREATER_THAN_OR_EQUAL))
-                {
+                } else if (operator.equals(GREATER_THAN_OR_EQUAL)) {
                     dateToCompare = dateFormat.parse(result[1]);
 
                     return dateValue.getTime() >= dateToCompare.getTime();
-                }
-                else if (operator.equals(BETWEEN))
-                {
+                } else if (operator.equals(BETWEEN)) {
                     dateToCompare = dateFormat.parse(result[1]);
                     dateToCompare2 = dateFormat.parse(result[2]);
 
-                    return (dateValue.getTime() >= dateToCompare.getTime()) &&
-                    (dateValue.getTime() <= dateToCompare2.getTime());
-                }
-                else if (operator.equals(NOT_EQUAL))
-                {
+                    return (dateValue.getTime() >= dateToCompare.getTime())
+                            && (dateValue.getTime() <= dateToCompare2.getTime());
+                } else if (operator.equals(NOT_EQUAL)) {
                     dateToCompare = dateFormat.parse(result[1]);
 
                     return dateValue.getTime() != dateToCompare.getTime();
-                }
-                else
-                {
+                } else {
                     return StringUtils.contains(valueStr, search);
                 }
-            }
-            catch (Throwable e)
-            {
+            } catch (Throwable e) {
                 LOG.error("The parse was incorrectly defined for date String [{}].", search);
 
                 // date comparions failed. Campare it as normal string.
                 return StringUtils.contains(valueStr, search);
             }
-        }
-        else if (StringUtils.contains(valueStr, search))
-        {
+        } else if (StringUtils.contains(valueStr, search)) {
             return true;
         }
 

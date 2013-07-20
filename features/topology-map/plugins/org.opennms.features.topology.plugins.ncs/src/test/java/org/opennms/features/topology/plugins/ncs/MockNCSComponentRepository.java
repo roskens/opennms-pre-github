@@ -8,9 +8,13 @@ import org.opennms.netmgt.model.ncs.NCSComponentRepository;
 
 public class MockNCSComponentRepository implements NCSComponentRepository {
     @Override
-    public void lock() {}
+    public void lock() {
+    }
+
     @Override
-    public void initialize(Object obj) {}
+    public void initialize(Object obj) {
+    }
+
     @Override
     public void flush() {
         // TODO Auto-generated method stub
@@ -90,22 +94,19 @@ public class MockNCSComponentRepository implements NCSComponentRepository {
     }
 
     @Override
-    public NCSComponent findByTypeAndForeignIdentity(String type,
-            String foreignSource, String foreignId) {
+    public NCSComponent findByTypeAndForeignIdentity(String type, String foreignSource, String foreignId) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<NCSComponent> findComponentsThatDependOn(
-            NCSComponent component) {
+    public List<NCSComponent> findComponentsThatDependOn(NCSComponent component) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List<NCSComponent> findComponentsWithAttribute(String attrKey,
-            String attrValue) {
+    public List<NCSComponent> findComponentsWithAttribute(String attrKey, String attrValue) {
         // TODO Auto-generated method stub
         return null;
     }

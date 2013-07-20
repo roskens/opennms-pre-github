@@ -31,7 +31,9 @@ package org.opennms.netmgt.dao.api;
 import org.opennms.netmgt.model.OnmsUserNotification;
 
 /**
- * <p>UserNotificationDao interface.</p>
+ * <p>
+ * UserNotificationDao interface.
+ * </p>
  */
 public interface UserNotificationDao extends OnmsDao<OnmsUserNotification, Integer> {
 

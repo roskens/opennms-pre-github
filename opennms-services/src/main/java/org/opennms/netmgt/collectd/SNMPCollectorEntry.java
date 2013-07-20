@@ -45,7 +45,6 @@ import org.slf4j.LoggerFactory;
  * The SNMPCollectorEntry class is designed to hold all SNMP collected data
  * pertaining to a particular interface.
  * </P>
- *
  * <P>
  * An instance of this class is created by calling the constructor and passing a
  * list of SnmpVarBind objects from an SNMP PDU response. This class extends
@@ -67,13 +66,19 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
      * the map.
      */
     private Collection<SnmpAttributeType> m_attrList;
+
     private SnmpCollectionSet m_collectionSet;
 
     /**
-     * <p>Constructor for SNMPCollectorEntry.</p>
+     * <p>
+     * Constructor for SNMPCollectorEntry.
+     * </p>
      *
-     * @param attrList a {@link java.util.Collection} object.
-     * @param collectionSet a {@link org.opennms.netmgt.collectd.SnmpCollectionSet} object.
+     * @param attrList
+     *            a {@link java.util.Collection} object.
+     * @param collectionSet
+     *            a {@link org.opennms.netmgt.collectd.SnmpCollectionSet}
+     *            object.
      */
     public SNMPCollectorEntry(Collection<SnmpAttributeType> attrList, SnmpCollectionSet collectionSet) {
         super();
@@ -83,7 +88,6 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
         m_attrList = attrList;
         m_collectionSet = collectionSet;
     }
-
 
     private List<SnmpAttributeType> findAttributeTypeForOid(SnmpObjId base, SnmpInstId inst) {
         List<SnmpAttributeType> matching = new LinkedList<SnmpAttributeType>();
@@ -95,7 +99,6 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
         return matching;
     }
 
-
     /** {@inheritDoc} */
     @Override
     public void storeResult(SnmpResult res) {
@@ -103,7 +106,8 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
         putValue(key, res.getValue());
         List<SnmpAttributeType> attrTypes = findAttributeTypeForOid(res.getBase(), res.getInstance());
         if (attrTypes.isEmpty()) {
-        	throw new IllegalArgumentException("Received result for unexpected oid ["+res.getBase()+"].["+res.getInstance()+"]");
+            throw new IllegalArgumentException("Received result for unexpected oid [" + res.getBase() + "].["
+                    + res.getInstance() + "]");
         }
 
         for (SnmpAttributeType attrType : attrTypes) {
@@ -115,14 +119,12 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
         }
     }
 
-
     String getValueForBase(String baseOid) {
 
         String instance = String.valueOf(getIfIndex());
         if (instance == null || instance.equals("")) {
             return null;
         }
-
 
         String fullOid = baseOid + "." + instance;
 

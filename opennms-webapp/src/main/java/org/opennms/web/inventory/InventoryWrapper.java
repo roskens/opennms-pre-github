@@ -31,7 +31,9 @@ package org.opennms.web.inventory;
 import java.util.Date;
 
 /**
- * <p>InventoryWrapper class.</p>
+ * <p>
+ * InventoryWrapper class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,20 +42,28 @@ import java.util.Date;
 public class InventoryWrapper {
 
     private String version;
+
     private Date date;
+
     private String group;
+
     private String urlViewVC;
 
-
     /**
-     * <p>Constructor for InventoryWrapper.</p>
+     * <p>
+     * Constructor for InventoryWrapper.
+     * </p>
      *
-     * @param version a {@link java.lang.String} object.
-     * @param date a java$util$Date object.
-     * @param group a {@link java.lang.String} object.
-     * @param urlViewVC a {@link java.lang.String} object.
+     * @param version
+     *            a {@link java.lang.String} object.
+     * @param date
+     *            a java$util$Date object.
+     * @param group
+     *            a {@link java.lang.String} object.
+     * @param urlViewVC
+     *            a {@link java.lang.String} object.
      */
-    public InventoryWrapper(String version, Date date, String group, String urlViewVC){
+    public InventoryWrapper(String version, Date date, String group, String urlViewVC) {
         this.version = version;
         this.date = date;
         this.group = group;
@@ -61,35 +71,46 @@ public class InventoryWrapper {
     }
 
     /**
-     * <p>Getter for the field <code>version</code>.</p>
+     * <p>
+     * Getter for the field <code>version</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getVersion(){
+    public String getVersion() {
         return version;
     }
+
     /**
-     * <p>Getter for the field <code>date</code>.</p>
+     * <p>
+     * Getter for the field <code>date</code>.
+     * </p>
      *
      * @return a java$util$Date object.
      */
     public Date getDate() {
         return date;
     }
+
     /**
-     * <p>Getter for the field <code>group</code>.</p>
+     * <p>
+     * Getter for the field <code>group</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getGroup(){
+    public String getGroup() {
         return group;
     }
+
     /**
-     * <p>Getter for the field <code>urlViewVC</code>.</p>
+     * <p>
+     * Getter for the field <code>urlViewVC</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getUrlViewVC(){
+    public String getUrlViewVC() {
         return urlViewVC;
     }
 }

@@ -32,7 +32,9 @@ import java.util.Iterator;
 import java.util.Vector;
 
 /**
- * <p>SurveillanceListenerCollection class.</p>
+ * <p>
+ * SurveillanceListenerCollection class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -45,42 +47,55 @@ public class SurveillanceListenerCollection extends Vector<SurveillanceListener>
     private static final long serialVersionUID = 5693264759623736384L;
 
     /**
-     * <p>fireAllClicked</p>
+     * <p>
+     * fireAllClicked
+     * </p>
      *
-     * @param viewer a {@link org.opennms.dashboard.client.Dashlet} object.
+     * @param viewer
+     *            a {@link org.opennms.dashboard.client.Dashlet} object.
      */
     public void fireAllClicked(Dashlet viewer) {
         for (Iterator<SurveillanceListener> it = iterator(); it.hasNext();) {
             SurveillanceListener listener = it.next();
             listener.onAllClicked(viewer);
-          }
+        }
     }
 
     /**
-     * <p>fireSurveillanceGroupClicked</p>
+     * <p>
+     * fireSurveillanceGroupClicked
+     * </p>
      *
-     * @param viewer a {@link org.opennms.dashboard.client.Dashlet} object.
-     * @param group a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
+     * @param viewer
+     *            a {@link org.opennms.dashboard.client.Dashlet} object.
+     * @param group
+     *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
+     *            object.
      */
     public void fireSurveillanceGroupClicked(Dashlet viewer, SurveillanceGroup group) {
         for (Iterator<SurveillanceListener> it = iterator(); it.hasNext();) {
             SurveillanceListener listener = it.next();
             listener.onSurveillanceGroupClicked(viewer, group);
-          }
+        }
     }
 
     /**
-     * <p>fireIntersectionClicked</p>
+     * <p>
+     * fireIntersectionClicked
+     * </p>
      *
-     * @param viewer a {@link org.opennms.dashboard.client.Dashlet} object.
-     * @param intersection a {@link org.opennms.dashboard.client.SurveillanceIntersection} object.
+     * @param viewer
+     *            a {@link org.opennms.dashboard.client.Dashlet} object.
+     * @param intersection
+     *            a
+     *            {@link org.opennms.dashboard.client.SurveillanceIntersection}
+     *            object.
      */
     public void fireIntersectionClicked(Dashlet viewer, SurveillanceIntersection intersection) {
         for (Iterator<SurveillanceListener> it = iterator(); it.hasNext();) {
             SurveillanceListener listener = it.next();
             listener.onIntersectionClicked(viewer, intersection);
-          }
+        }
     }
-
 
 }

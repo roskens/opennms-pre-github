@@ -46,12 +46,16 @@ import org.springframework.stereotype.Component;
  * @version $Id: $
  */
 @Scope("prototype")
-public class SshDetector extends BasicDetector<NullRequest, SshResponse>{
+public class SshDetector extends BasicDetector<NullRequest, SshResponse> {
 
     private static final String DEFAULT_SERVICE_NAME = "SSH";
+
     private static final int DEFAULT_PORT = 22;
+
     private String m_banner = null;
+
     private String m_match = null;
+
     private String m_clientBanner = Ssh.DEFAULT_CLIENT_BANNER;
 
     /**
@@ -64,8 +68,10 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse>{
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public SshDetector(String serviceName, int port) {
         super(serviceName, port);
@@ -92,7 +98,7 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse>{
      */
     private static ResponseValidator<SshResponse> sshIsAvailable() {
 
-        return new ResponseValidator<SshResponse>(){
+        return new ResponseValidator<SshResponse>() {
 
             @Override
             public boolean validate(SshResponse response) {
@@ -103,16 +109,21 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse>{
     }
 
     /**
-     * <p>setBanner</p>
+     * <p>
+     * setBanner
+     * </p>
      *
-     * @param banner a {@link java.lang.String} object.
+     * @param banner
+     *            a {@link java.lang.String} object.
      */
     public void setBanner(String banner) {
         m_banner = banner;
     }
 
     /**
-     * <p>getBanner</p>
+     * <p>
+     * getBanner
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,16 +132,21 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse>{
     }
 
     /**
-     * <p>setMatch</p>
+     * <p>
+     * setMatch
+     * </p>
      *
-     * @param match a {@link java.lang.String} object.
+     * @param match
+     *            a {@link java.lang.String} object.
      */
     public void setMatch(String match) {
         m_match = match;
     }
 
     /**
-     * <p>getMatch</p>
+     * <p>
+     * getMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -139,16 +155,21 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse>{
     }
 
     /**
-     * <p>setClientBanner</p>
+     * <p>
+     * setClientBanner
+     * </p>
      *
-     * @param clientBanner a {@link java.lang.String} object.
+     * @param clientBanner
+     *            a {@link java.lang.String} object.
      */
     public void setClientBanner(String clientBanner) {
         m_clientBanner = clientBanner;
     }
 
     /**
-     * <p>getClientBanner</p>
+     * <p>
+     * getClientBanner
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

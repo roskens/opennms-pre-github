@@ -40,27 +40,41 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.util.Assert;
 
 /**
- * <p>GenericIndexResourceType class.</p>
+ * <p>
+ * GenericIndexResourceType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class GenericIndexResourceType extends ResourceType {
     private static final Logger LOG = LoggerFactory.getLogger(GenericIndexResourceType.class);
+
     private String m_name;
+
     private PersistenceSelectorStrategy m_persistenceSelectorStrategy;
+
     private StorageStrategy m_storageStrategy;
 
     private Map<SnmpInstId, GenericIndexResource> m_resourceMap = new HashMap<SnmpInstId, GenericIndexResource>();
 
     /**
-     * <p>Constructor for GenericIndexResourceType.</p>
+     * <p>
+     * Constructor for GenericIndexResourceType.
+     * </p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
-     * @param snmpCollection a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection} object.
-     * @param resourceType a {@link org.opennms.netmgt.config.datacollection.ResourceType} object.
+     * @param agent
+     *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param snmpCollection
+     *            a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection}
+     *            object.
+     * @param resourceType
+     *            a
+     *            {@link org.opennms.netmgt.config.datacollection.ResourceType}
+     *            object.
      */
-    public GenericIndexResourceType(CollectionAgent agent, OnmsSnmpCollection snmpCollection, org.opennms.netmgt.config.datacollection.ResourceType resourceType) throws IllegalArgumentException {
+    public GenericIndexResourceType(CollectionAgent agent, OnmsSnmpCollection snmpCollection,
+            org.opennms.netmgt.config.datacollection.ResourceType resourceType) throws IllegalArgumentException {
         super(agent, snmpCollection);
 
         Assert.notNull(resourceType, "resourceType argument must not be null");
@@ -77,17 +91,17 @@ public class GenericIndexResourceType extends ResourceType {
         try {
             cinst = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class,
-                    className, "Could not load class", e);
+            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class, className,
+                                                      "Could not load class", e);
         }
         try {
             m_persistenceSelectorStrategy = (PersistenceSelectorStrategy) cinst.newInstance();
         } catch (InstantiationException e) {
-            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class,
-                    className, "Could not instantiate", e);
+            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class, className,
+                                                      "Could not instantiate", e);
         } catch (IllegalAccessException e) {
-            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class,
-                    className, "Could not instantiate", e);
+            throw new ObjectRetrievalFailureException(PersistenceSelectorStrategy.class, className,
+                                                      "Could not instantiate", e);
         }
     }
 
@@ -96,17 +110,14 @@ public class GenericIndexResourceType extends ResourceType {
         try {
             cinst = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            throw new ObjectRetrievalFailureException(StorageStrategy.class,
-                    className, "Could not load class", e);
+            throw new ObjectRetrievalFailureException(StorageStrategy.class, className, "Could not load class", e);
         }
         try {
             m_storageStrategy = (StorageStrategy) cinst.newInstance();
         } catch (InstantiationException e) {
-            throw new ObjectRetrievalFailureException(StorageStrategy.class,
-                    className, "Could not instantiate", e);
+            throw new ObjectRetrievalFailureException(StorageStrategy.class, className, "Could not instantiate", e);
         } catch (IllegalAccessException e) {
-            throw new ObjectRetrievalFailureException(StorageStrategy.class,
-                    className, "Could not instantiate", e);
+            throw new ObjectRetrievalFailureException(StorageStrategy.class, className, "Could not instantiate", e);
         }
 
         m_storageStrategy.setResourceTypeName(m_name);
@@ -145,7 +156,9 @@ public class GenericIndexResourceType extends ResourceType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -154,7 +167,9 @@ public class GenericIndexResourceType extends ResourceType {
     }
 
     /**
-     * <p>getStorageStrategy</p>
+     * <p>
+     * getStorageStrategy
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.StorageStrategy} object.
      */

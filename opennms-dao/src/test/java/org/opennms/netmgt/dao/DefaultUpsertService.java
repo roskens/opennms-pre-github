@@ -65,11 +65,14 @@ public class DefaultUpsertService implements UpsertService, InitializingBean {
 
     @Override
     public OnmsSnmpInterface upsert(final int nodeId, final OnmsSnmpInterface snmpInterface, final int sleep) {
-        UpsertTemplate<OnmsSnmpInterface, SnmpInterfaceDao> upzerter = new UpsertTemplate<OnmsSnmpInterface, SnmpInterfaceDao>(m_transactionManager, m_snmpInterfaceDao) {
+        UpsertTemplate<OnmsSnmpInterface, SnmpInterfaceDao> upzerter = new UpsertTemplate<OnmsSnmpInterface, SnmpInterfaceDao>(
+                                                                                                                               m_transactionManager,
+                                                                                                                               m_snmpInterfaceDao) {
 
             @Override
             public OnmsSnmpInterface query() {
-                OnmsSnmpInterface dbSnmpIface = m_snmpInterfaceDao.findByNodeIdAndIfIndex(nodeId, snmpInterface.getIfIndex());
+                OnmsSnmpInterface dbSnmpIface = m_snmpInterfaceDao.findByNodeIdAndIfIndex(nodeId,
+                                                                                          snmpInterface.getIfIndex());
                 sleep(sleep);
                 return dbSnmpIface;
             }
@@ -77,7 +80,8 @@ public class DefaultUpsertService implements UpsertService, InitializingBean {
             @Override
             public OnmsSnmpInterface doUpdate(OnmsSnmpInterface dbSnmpIface) {
                 // update the interface that was found
-                LOG.debug("nodeId = {}, ifIndex = {}, dbSnmpIface = {}", nodeId, snmpInterface.getIfIndex(), dbSnmpIface);
+                LOG.debug("nodeId = {}, ifIndex = {}, dbSnmpIface = {}", nodeId, snmpInterface.getIfIndex(),
+                          dbSnmpIface);
                 dbSnmpIface.mergeSnmpInterfaceAttributes(snmpInterface);
                 LOG.info("Updating SnmpInterface {}", dbSnmpIface);
                 m_snmpInterfaceDao.update(dbSnmpIface);
@@ -89,7 +93,8 @@ public class DefaultUpsertService implements UpsertService, InitializingBean {
             public OnmsSnmpInterface doInsert() {
                 // add the interface to the node, if it wasn't found
                 final OnmsNode dbNode = m_nodeDao.get(nodeId);
-                // for performance reasons we don't add the snmp interface to the node so we avoid loading all the interfaces
+                // for performance reasons we don't add the snmp interface to
+                // the node so we avoid loading all the interfaces
                 // setNode only sets the node in the interface
                 snmpInterface.setNode(dbNode);
                 LOG.info("Saving SnmpInterface {}", snmpInterface);
@@ -104,7 +109,10 @@ public class DefaultUpsertService implements UpsertService, InitializingBean {
     }
 
     public void sleep(int sleep) {
-        try { Thread.sleep(sleep); } catch (InterruptedException e) { /* ignore for the test */}
+        try {
+            Thread.sleep(sleep);
+        } catch (InterruptedException e) { /* ignore for the test */
+        }
     }
 
 }

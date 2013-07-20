@@ -35,13 +35,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RemoteReportSDO {
 
     private String m_id;
+
     private String m_engine;
+
     private String m_template;
+
     private String m_description;
+
     private String m_displayName;
+
     private String m_reportService;
+
     private boolean m_allowAccess;
+
     private boolean m_online;
+
     private boolean m_subreport;
 
     @XmlElement(name = "description")
@@ -127,10 +135,8 @@ public class RemoteReportSDO {
 
     @Override
     public String toString() {
-        return "RemoteReportSDO [m_id=" + m_id + ", m_engine=" + m_engine
-                + ", m_template=" + m_template + ", m_description="
-                + m_description + ", m_displayName=" + m_displayName
-                + ", m_reportService=" + m_reportService + ", m_allowAccess="
-                + m_allowAccess + ", m_online=" + m_online + "]";
+        return "RemoteReportSDO [m_id=" + m_id + ", m_engine=" + m_engine + ", m_template=" + m_template
+                + ", m_description=" + m_description + ", m_displayName=" + m_displayName + ", m_reportService="
+                + m_reportService + ", m_allowAccess=" + m_allowAccess + ", m_online=" + m_online + "]";
     }
 }

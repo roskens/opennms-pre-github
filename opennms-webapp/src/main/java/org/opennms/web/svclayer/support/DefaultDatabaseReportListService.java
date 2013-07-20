@@ -45,8 +45,7 @@ import java.util.List;
  * @version $Id: $
  * @since 1.8.1
  */
-public class DefaultDatabaseReportListService implements
-        DatabaseReportListService {
+public class DefaultDatabaseReportListService implements DatabaseReportListService {
 
     private GlobalReportRepository m_globalReportRepository;
 
@@ -102,14 +101,14 @@ public class DefaultDatabaseReportListService implements
         List<DatabaseReportDescription> onlineReportList = new ArrayList<DatabaseReportDescription>();
 
         for (BasicReportDefinition reportDefinition : m_globalReportRepository.getRepositoryById(repositoryId).getOnlineReports()) {
-                DatabaseReportDescription summary = new DatabaseReportDescription();
-                summary.setRepositoryId(reportDefinition.getRepositoryId());
-                summary.setId(reportDefinition.getId());
-                summary.setDisplayName(reportDefinition.getDisplayName());
-                summary.setDescription(reportDefinition.getDescription());
-                summary.setIsOnline(reportDefinition.getOnline());
-                summary.setAllowAccess(reportDefinition.getAllowAccess());
-                onlineReportList.add(summary);
+            DatabaseReportDescription summary = new DatabaseReportDescription();
+            summary.setRepositoryId(reportDefinition.getRepositoryId());
+            summary.setId(reportDefinition.getId());
+            summary.setDisplayName(reportDefinition.getDisplayName());
+            summary.setDescription(reportDefinition.getDescription());
+            summary.setIsOnline(reportDefinition.getOnline());
+            summary.setAllowAccess(reportDefinition.getAllowAccess());
+            onlineReportList.add(summary);
         }
         return onlineReportList;
     }

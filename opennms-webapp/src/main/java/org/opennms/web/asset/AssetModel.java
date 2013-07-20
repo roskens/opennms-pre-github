@@ -47,19 +47,24 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * <p>AssetModel class.</p>
+ * <p>
+ * AssetModel class.
+ * </p>
  */
 public class AssetModel {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AssetModel.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(AssetModel.class);
 
     /**
-     * <p>getAsset</p>
+     * <p>
+     * getAsset
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      * @return a {@link org.opennms.web.asset.Asset} object.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Asset getAsset(int nodeId) throws SQLException {
         Asset asset = null;
@@ -87,10 +92,13 @@ public class AssetModel {
     }
 
     /**
-     * <p>getAllAssets</p>
+     * <p>
+     * getAllAssets
+     * </p>
      *
      * @return an array of {@link org.opennms.web.asset.Asset} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public Asset[] getAllAssets() throws SQLException {
         Asset[] assets = new Asset[0];
@@ -113,10 +121,14 @@ public class AssetModel {
     }
 
     /**
-     * <p>createAsset</p>
+     * <p>
+     * createAsset
+     * </p>
      *
-     * @param asset a {@link org.opennms.web.asset.Asset} object.
-     * @throws java.sql.SQLException if any.
+     * @param asset
+     *            a {@link org.opennms.web.asset.Asset} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void createAsset(Asset asset) throws SQLException {
         Assert.notNull(asset, "argument asset cannot be null");
@@ -199,10 +211,14 @@ public class AssetModel {
     }
 
     /**
-     * <p>modifyAsset</p>
+     * <p>
+     * modifyAsset
+     * </p>
      *
-     * @param asset a {@link org.opennms.web.asset.Asset} object.
-     * @throws java.sql.SQLException if any.
+     * @param asset
+     *            a {@link org.opennms.web.asset.Asset} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void modifyAsset(Asset asset) throws SQLException {
         Assert.notNull(asset, "argument asset cannot be null");
@@ -305,12 +321,18 @@ public class AssetModel {
     }
 
     /**
-     * <p>searchAssets</p>
+     * <p>
+     * searchAssets
+     * </p>
      *
-     * @param columnName a {@link java.lang.String} object.
-     * @param searchText a {@link java.lang.String} object.
-     * @return an array of {@link org.opennms.web.asset.AssetModel.MatchingAsset} objects.
-     * @throws java.sql.SQLException if any.
+     * @param columnName
+     *            a {@link java.lang.String} object.
+     * @param searchText
+     *            a {@link java.lang.String} object.
+     * @return an array of
+     *         {@link org.opennms.web.asset.AssetModel.MatchingAsset} objects.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public static MatchingAsset[] searchAssets(String columnName, String searchText) throws SQLException {
         Assert.notNull(columnName, "argument columnName cannot be null");
@@ -319,9 +341,10 @@ public class AssetModel {
         /*
          * TODO: delete this test soon.
          * The category column is used in the search and but is not in the
-         * s_columns static var.  This breaks the WebUI.
+         * s_columns static var. This breaks the WebUI.
          */
-        // Assert.isTrue(isColumnValid(columnName), "Column \"" + columnName + "\" is not a valid column name");
+        // Assert.isTrue(isColumnValid(columnName), "Column \"" + columnName +
+        // "\" is not a valid column name");
 
         List<MatchingAsset> list = new ArrayList<MatchingAsset>();
 
@@ -331,7 +354,9 @@ public class AssetModel {
         try {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
-            PreparedStatement stmt = conn.prepareStatement("SELECT ASSETS.NODEID, NODE.NODELABEL, ASSETS." + columnName + " FROM ASSETS, NODE WHERE LOWER(ASSETS." + columnName + ") LIKE ? AND ASSETS.NODEID=NODE.NODEID ORDER BY NODE.NODELABEL");
+            PreparedStatement stmt = conn.prepareStatement("SELECT ASSETS.NODEID, NODE.NODELABEL, ASSETS." + columnName
+                    + " FROM ASSETS, NODE WHERE LOWER(ASSETS." + columnName
+                    + ") LIKE ? AND ASSETS.NODEID=NODE.NODEID ORDER BY NODE.NODELABEL");
             d.watch(stmt);
             stmt.setString(1, "%" + searchText.toLowerCase() + "%");
 
@@ -386,11 +411,15 @@ public class AssetModel {
     }
 
     /**
-     * <p>rs2Assets</p>
+     * <p>
+     * rs2Assets
+     * </p>
      *
-     * @param rs a {@link java.sql.ResultSet} object.
+     * @param rs
+     *            a {@link java.sql.ResultSet} object.
      * @return an array of {@link org.opennms.web.asset.Asset} objects.
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     protected static Asset[] rs2Assets(ResultSet rs) throws SQLException {
         List<Asset> list = new ArrayList<Asset>();
@@ -468,7 +497,8 @@ public class AssetModel {
             }
             asset.setCountry(rs.getString("country"));
 
-            // Convert from java.sql.Timestamp to java.util.Date, since it looks more pretty or something
+            // Convert from java.sql.Timestamp to java.util.Date, since it looks
+            // more pretty or something
             asset.lastModifiedDate = new Date(rs.getTimestamp("lastModifiedDate").getTime());
 
             list.add(asset);
@@ -478,7 +508,9 @@ public class AssetModel {
     }
 
     /**
-     * <p>getColumns</p>
+     * <p>
+     * getColumns
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -486,7 +518,7 @@ public class AssetModel {
         return s_columns;
     }
 
-    //TODO: no one is calling this now... delete soon.
+    // TODO: no one is calling this now... delete soon.
     @SuppressWarnings("unused")
     private static boolean isColumnValid(String column) {
         Assert.notNull(column, "argument column cannot be null");
@@ -504,68 +536,38 @@ public class AssetModel {
      * Hard-coded (for now) list of human-readable asset columns and the
      * corresponding database column.
      */
-    private static final String[][] s_columns = new String[][] {
-        new String[] { "Address 1", "address1" },
-        new String[] { "Address 2", "address2" },
-        new String[] { "Asset Number", "assetNumber" },
-        new String[] { "Building", "building" },
-        new String[] { "Circuit ID", "circuitId" },
-        new String[] { "City", "city" },
-        new String[] { "Comments", "comment" },
-        new String[] { "Date Installed", "dateInstalled" },
-        new String[] { "Department", "department" },
-        new String[] { "Description", "description" },
-        new String[] { "Display Category", "displayCategory" },
-        new String[] { "Division", "division" },
-        new String[] { "Floor", "floor" },
-        new String[] { "Lease", "lease" },
-        new String[] { "Lease Expires", "leaseExpires" },
-        new String[] { "Maint Contract", "maintContract" },
-        new String[] { "Maint Contract Expires", "maintContractExpires" },
-        new String[] { "Maint Phone", "supportPhone" },
-        new String[] { "Manufacturer", "manufacturer" },
-        new String[] { "Model Number", "modelNumber" },
-        new String[] { "Notification Category", "notifyCategory" },
-        new String[] { "Operating System", "operatingSystem" },
-        new String[] { "Port", "port" },
-        new String[] { "Poller Category", "pollerCategory" },
-        new String[] { "Rack", "rack" },
-        new String[] { "Region", "region" },
-        new String[] { "Room", "room" },
-        new String[] { "Serial Number", "serialNumber" },
-        new String[] { "Slot", "slot" },
-        new String[] { "State", "state" },
-        new String[] { "Threshold Category", "thresholdCategory" },
-        new String[] { "User Last Modified", "userLastModified" },
-        new String[] { "Vendor", "vendor" },
-        new String[] { "Vendor Asset Number", "vendorAssetNumber" },
-        new String[] { "Vendor Fax", "vendorFax" },
-        new String[] { "Vendor Phone", "vendorPhone" },
-        new String[] { "ZIP Code", "zip" },
-        new String[] { "Username", "username" },
-        new String[] { "Password", "password" },
-        new String[] { "Enable Password", "enable" },
-        new String[] { "Connection type", "connection" },
-        new String[] { "Auto Enable", "autoenable" },
-        new String[] { "Cpu", "cpu" },
-        new String[] { "Ram", "ram" },
-        new String[] { "Storage Controller", "storagectrl" },
-        new String[] { "HDD 1", "hdd1" },
-        new String[] { "HDD 2", "hdd2" },
-        new String[] { "HDD 3", "hdd3" },
-        new String[] { "HDD 4", "hdd4" },
-        new String[] { "HDD 5", "hdd5" },
-        new String[] { "HDD 6", "hdd6" },
-        new String[] { "Number of power supplies", "numpowersupplies" },
-        new String[] { "Inputpower", "inputpower" },
-        new String[] { "Additional hardware", "additionalhardware" },
-        new String[] { "Admin", "admin" },
-        new String[] { "SNMP community", "snmpcommunity" },
-	new String[] { "Rack unit height", "rackunitheight" },
-        new String[] { "GeoLocation Longitude", "longitude" },
-        new String[] { "GeoLocation Latitude", "latitude" },
-        new String[] { "Country", "country" }
-    };
+    private static final String[][] s_columns = new String[][] { new String[] { "Address 1", "address1" },
+            new String[] { "Address 2", "address2" }, new String[] { "Asset Number", "assetNumber" },
+            new String[] { "Building", "building" }, new String[] { "Circuit ID", "circuitId" },
+            new String[] { "City", "city" }, new String[] { "Comments", "comment" },
+            new String[] { "Date Installed", "dateInstalled" }, new String[] { "Department", "department" },
+            new String[] { "Description", "description" }, new String[] { "Display Category", "displayCategory" },
+            new String[] { "Division", "division" }, new String[] { "Floor", "floor" },
+            new String[] { "Lease", "lease" }, new String[] { "Lease Expires", "leaseExpires" },
+            new String[] { "Maint Contract", "maintContract" },
+            new String[] { "Maint Contract Expires", "maintContractExpires" },
+            new String[] { "Maint Phone", "supportPhone" }, new String[] { "Manufacturer", "manufacturer" },
+            new String[] { "Model Number", "modelNumber" }, new String[] { "Notification Category", "notifyCategory" },
+            new String[] { "Operating System", "operatingSystem" }, new String[] { "Port", "port" },
+            new String[] { "Poller Category", "pollerCategory" }, new String[] { "Rack", "rack" },
+            new String[] { "Region", "region" }, new String[] { "Room", "room" },
+            new String[] { "Serial Number", "serialNumber" }, new String[] { "Slot", "slot" },
+            new String[] { "State", "state" }, new String[] { "Threshold Category", "thresholdCategory" },
+            new String[] { "User Last Modified", "userLastModified" }, new String[] { "Vendor", "vendor" },
+            new String[] { "Vendor Asset Number", "vendorAssetNumber" }, new String[] { "Vendor Fax", "vendorFax" },
+            new String[] { "Vendor Phone", "vendorPhone" }, new String[] { "ZIP Code", "zip" },
+            new String[] { "Username", "username" }, new String[] { "Password", "password" },
+            new String[] { "Enable Password", "enable" }, new String[] { "Connection type", "connection" },
+            new String[] { "Auto Enable", "autoenable" }, new String[] { "Cpu", "cpu" }, new String[] { "Ram", "ram" },
+            new String[] { "Storage Controller", "storagectrl" }, new String[] { "HDD 1", "hdd1" },
+            new String[] { "HDD 2", "hdd2" }, new String[] { "HDD 3", "hdd3" }, new String[] { "HDD 4", "hdd4" },
+            new String[] { "HDD 5", "hdd5" }, new String[] { "HDD 6", "hdd6" },
+            new String[] { "Number of power supplies", "numpowersupplies" },
+            new String[] { "Inputpower", "inputpower" }, new String[] { "Additional hardware", "additionalhardware" },
+            new String[] { "Admin", "admin" }, new String[] { "SNMP community", "snmpcommunity" },
+            new String[] { "Rack unit height", "rackunitheight" },
+            new String[] { "GeoLocation Longitude", "longitude" }, new String[] { "GeoLocation Latitude", "latitude" },
+            new String[] { "Country", "country" } };
 
     private Float safeFloat(final String value) {
         if (StringUtils.hasLength(value)) {

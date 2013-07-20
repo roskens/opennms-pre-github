@@ -46,7 +46,9 @@ import org.opennms.web.api.Util;
 import org.opennms.web.servlet.MissingParameterException;
 
 /**
- * <p>ModifyAssetServlet class.</p>
+ * <p>
+ * ModifyAssetServlet class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -54,14 +56,18 @@ import org.opennms.web.servlet.MissingParameterException;
  */
 public class ModifyAssetServlet extends HttpServlet {
     private static final long serialVersionUID = 1476437673416953289L;
+
     private static Set<String> s_allowHtmlFields;
 
     protected AssetModel model;
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -116,10 +122,14 @@ public class ModifyAssetServlet extends HttpServlet {
     }
 
     /**
-     * <p>getRequestParameter</p>
+     * <p>
+     * getRequestParameter
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param name a {@link java.lang.String} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected String getRequestParameter(final HttpServletRequest request, final String name) {
@@ -131,10 +141,14 @@ public class ModifyAssetServlet extends HttpServlet {
     }
 
     /**
-     * <p>parms2Asset</p>
+     * <p>
+     * parms2Asset
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
-     * @param nodeId a int.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param nodeId
+     *            a int.
      * @return a {@link org.opennms.web.asset.Asset} object.
      */
     protected Asset parms2Asset(HttpServletRequest request, int nodeId) {

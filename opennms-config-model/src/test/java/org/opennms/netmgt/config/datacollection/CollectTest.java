@@ -48,11 +48,9 @@ public class CollectTest extends XmlTest<Collect> {
         collect.addIncludeGroup("foo");
         collect.addIncludeGroup("bar");
 
-        return Arrays.asList(new Object[][] { {
-                collect,
+        return Arrays.asList(new Object[][] { { collect,
                 "<collect><includeGroup>foo</includeGroup><includeGroup>bar</includeGroup></collect>",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

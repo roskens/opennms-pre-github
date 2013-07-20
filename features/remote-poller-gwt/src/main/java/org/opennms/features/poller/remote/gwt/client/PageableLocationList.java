@@ -40,9 +40,10 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-
 /**
- * <p>PageableLocationList class.</p>
+ * <p>
+ * PageableLocationList class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -52,11 +53,14 @@ public class PageableLocationList extends PageableList {
 
     private ArrayList<? extends LocationInfo> m_locations;
 
-    private class LocationInfoDisplay extends Widget{
+    private class LocationInfoDisplay extends Widget {
 
         Image m_icon = new Image();
+
         Label m_nameLabel = new Label();
+
         Label m_areaLabel = new Label();
+
         Label m_statusLabel = new Label();
 
         @Override
@@ -108,15 +112,17 @@ public class PageableLocationList extends PageableList {
     }
 
     /**
-     * TODO: Maybe enhance this so that it only adds/updates/deletes individual items
+     * TODO: Maybe enhance this so that it only adds/updates/deletes individual
+     * items
      * TODO: Don't skip to the front page on every update
      *
-     * @param locations a {@link java.util.ArrayList} object.
+     * @param locations
+     *            a {@link java.util.ArrayList} object.
      */
     public void updateList(final ArrayList<? extends LocationInfo> locations) {
         setLocations(locations);
         setCurrentPageIndex(getCurrentPageIndex());
-        //refresh();
+        // refresh();
     }
 
     private ArrayList<? extends LocationInfo> getLocations() {
@@ -130,24 +136,28 @@ public class PageableLocationList extends PageableList {
     /** {@inheritDoc} */
     @Override
     protected int getListSize() {
-        if (getLocations() == null) return 0;
+        if (getLocations() == null)
+            return 0;
         return getLocations().size();
     }
 
     /** {@inheritDoc} */
     @Override
     public void onItemClickHandler(final ClickEvent event) {
-      final Cell cell = getCellForEvent(event);
-      LocationInfo location = m_locations.get(cell.getRowIndex() + (getCurrentPageIndex() * getTotalListItemsPerPage()));
+        final Cell cell = getCellForEvent(event);
+        LocationInfo location = m_locations.get(cell.getRowIndex()
+                + (getCurrentPageIndex() * getTotalListItemsPerPage()));
 
-      fireEvent(new LocationPanelSelectEvent(location.getName()));
+        fireEvent(new LocationPanelSelectEvent(location.getName()));
     }
 
     /**
-     * <p>refreshLocationListResize</p>
+     * <p>
+     * refreshLocationListResize
+     * </p>
      */
     public void refreshLocationListResize() {
-        for(int i = 0; i < getDataList().getRowCount(); i++) {
+        for (int i = 0; i < getDataList().getRowCount(); i++) {
             LocationInfoDisplay locInfo = (LocationInfoDisplay) getDataList().getWidget(i, 0);
             locInfo.resizeToFit();
         }

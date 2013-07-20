@@ -58,48 +58,46 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class UserNotificationDaoTest implements InitializingBean {
 
-	@Autowired
-	private DistPollerDao m_distPollerDao;
+    @Autowired
+    private DistPollerDao m_distPollerDao;
 
-	@Autowired
-	private NodeDao m_nodeDao;
+    @Autowired
+    private NodeDao m_nodeDao;
 
-	@Autowired
-	private UserNotificationDao m_userNotificationDao;
+    @Autowired
+    private UserNotificationDao m_userNotificationDao;
 
-	@Autowired
-	private NotificationDao m_notificationDao;
+    @Autowired
+    private NotificationDao m_notificationDao;
 
-	@Autowired
-	private EventDao m_eventDao;
+    @Autowired
+    private EventDao m_eventDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Before
-	public void setUp() {
-		m_databasePopulator.populateDatabase();
-	}
+    @Before
+    public void setUp() {
+        m_databasePopulator.populateDatabase();
+    }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSaveUserNotification() {
         OnmsEvent event = new OnmsEvent();
         event.setDistPoller(m_distPollerDao.load("localhost"));
@@ -118,15 +116,14 @@ public class UserNotificationDaoTest implements InitializingBean {
         event.setAlarm(alarm);
 
         OnmsNode node = (OnmsNode) m_nodeDao.findAll().iterator().next();
-        OnmsIpInterface iface = (OnmsIpInterface)node.getIpInterfaces().iterator().next();
-        OnmsMonitoredService service = (OnmsMonitoredService)iface.getMonitoredServices().iterator().next();
+        OnmsIpInterface iface = (OnmsIpInterface) node.getIpInterfaces().iterator().next();
+        OnmsMonitoredService service = (OnmsMonitoredService) iface.getMonitoredServices().iterator().next();
         event.setNode(node);
-	    event.setServiceType(service.getServiceType());
+        event.setServiceType(service.getServiceType());
         event.setIpAddr(iface.getIpAddress());
         m_eventDao.save(event);
         OnmsEvent newEvent = m_eventDao.load(event.getId());
         assertEquals("uei://org/opennms/test/UserNotificationDaoTest", newEvent.getEventUei());
-
 
         OnmsNotification notification = new OnmsNotification();
         notification.setEvent(newEvent);

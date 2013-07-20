@@ -26,7 +26,6 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-
 package org.opennms.netmgt.model;
 
 import java.io.Serializable;
@@ -45,7 +44,9 @@ public enum AccessPointStatus implements Serializable {
     UNKNOWN(0, "Unknown"), ONLINE(1, "Online"), OFFLINE(3, "Offline");
 
     private static final Map<Integer, AccessPointStatus> ID_MAP;
+
     private int m_id;
+
     private String m_label;
 
     static {

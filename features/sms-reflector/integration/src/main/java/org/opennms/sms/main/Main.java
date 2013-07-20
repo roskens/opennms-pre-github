@@ -40,17 +40,20 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param args an array of {@link java.lang.String} objects.
-     * @throws java.lang.InterruptedException if any.
-     * @throws java.lang.Exception if any.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
+     * @throws java.lang.InterruptedException
+     *             if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public static void main(String[] args) throws InterruptedException, Exception {
-        String[] contextFiles = new String[] {
-                "classpath*:/META-INF/spring/bundle-context.xml",
-                "classpath*:/META-INF/opennms/bundle-context-opennms.xml",
-        };
+        String[] contextFiles = new String[] { "classpath*:/META-INF/spring/bundle-context.xml",
+                "classpath*:/META-INF/opennms/bundle-context-opennms.xml", };
 
         ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(contextFiles);
         appContext.registerShutdownHook();

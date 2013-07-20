@@ -55,39 +55,47 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
-@EventListener(name="OpenNMS:Tl1d", logPrefix="tl1d")
+@EventListener(name = "OpenNMS:Tl1d", logPrefix = "tl1d")
 public class Tl1d extends AbstractServiceDaemon {
 
     private static final Logger LOG = LoggerFactory.getLogger(Tl1d.class);
 
     private static final String LOG4J_CATEGORY = "tl1d";
 
-	/*
+    /*
      * The last status sent to the service control manager.
      */
     private volatile int m_status = START_PENDING;
+
     private volatile Thread m_tl1MesssageProcessor;
+
     private volatile EventForwarder m_eventForwarder;
-	private volatile Tl1ConfigurationDao m_configurationDao;
+
+    private volatile Tl1ConfigurationDao m_configurationDao;
 
     private final BlockingQueue<Tl1AutonomousMessage> m_tl1Queue = new LinkedBlockingQueue<Tl1AutonomousMessage>();
+
     private final List<Tl1Client> m_tl1Clients = new ArrayList<Tl1Client>();
 
     /**
-     * <p>Constructor for Tl1d.</p>
+     * <p>
+     * Constructor for Tl1d.
+     * </p>
      */
     public Tl1d() {
         super(LOG4J_CATEGORY);
     }
 
     /**
-     * <p>handleRelooadConfigurationEvent</p>
+     * <p>
+     * handleRelooadConfigurationEvent
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    @EventHandler(uei=EventConstants.RELOAD_DAEMON_CONFIG_UEI)
+    @EventHandler(uei = EventConstants.RELOAD_DAEMON_CONFIG_UEI)
     public void handleRelooadConfigurationEvent(Event e) {
-
 
         if (isReloadConfigEventTarget(e)) {
             EventBuilder ebldr = null;
@@ -95,11 +103,12 @@ public class Tl1d extends AbstractServiceDaemon {
                 stopListeners();
                 removeClients();
                 /*
-                 * leave everything currently on the queue, no need to mess with that, might want a handler
-                 * someday for emptying the current queue on a reload event or even a pause clients or something.
-                 *
-                 * Don't interrupt message processor, it simply waits on the queue from something to be added.
-                 *
+                 * leave everything currently on the queue, no need to mess with
+                 * that, might want a handler
+                 * someday for emptying the current queue on a reload event or
+                 * even a pause clients or something.
+                 * Don't interrupt message processor, it simply waits on the
+                 * queue from something to be added.
                  */
 
                 m_configurationDao.update();
@@ -134,7 +143,8 @@ public class Tl1d extends AbstractServiceDaemon {
         List<Parm> parmCollection = event.getParmCollection();
 
         for (Parm parm : parmCollection) {
-            if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && "Tl1d".equalsIgnoreCase(parm.getValue().getContent())) {
+            if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName())
+                    && "Tl1d".equalsIgnoreCase(parm.getValue().getContent())) {
                 isTarget = true;
                 break;
             }
@@ -145,7 +155,9 @@ public class Tl1d extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     public synchronized void onInit() {
@@ -153,7 +165,9 @@ public class Tl1d extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     public synchronized void onStart() {
@@ -187,22 +201,24 @@ public class Tl1d extends AbstractServiceDaemon {
         LOG.info("startClients: clients started.");
     }
 
-	/**
-	 * <p>onStop</p>
-	 */
+    /**
+     * <p>
+     * onStop
+     * </p>
+     */
     @Override
-	public synchronized void onStop() {
-		stopListeners();
+    public synchronized void onStop() {
+        stopListeners();
         m_tl1MesssageProcessor.interrupt();
-		removeClients();
-	}
+        removeClients();
+    }
 
-	private void removeClients() {
+    private void removeClients() {
 
-	    LOG.info("removeClients: removing current set of defined TL1 clients...");
+        LOG.info("removeClients: removing current set of defined TL1 clients...");
 
-	    Iterator<Tl1Client> it = m_tl1Clients.iterator();
-	    while (it.hasNext()) {
+        Iterator<Tl1Client> it = m_tl1Clients.iterator();
+        while (it.hasNext()) {
             Tl1Client client = it.next();
 
             LOG.debug("removeClients: removing client: {}", client);
@@ -211,16 +227,16 @@ public class Tl1d extends AbstractServiceDaemon {
             it.remove();
         }
 
-	    LOG.info("removeClients: all clients removed.");
-	}
+        LOG.info("removeClients: all clients removed.");
+    }
 
     private void stopListeners() {
         LOG.info("stopListeners: calling stop on all clients...");
 
         for (Tl1Client client : m_tl1Clients) {
             LOG.debug("stopListeners: calling stop on client: {}", client);
-			client.stop();
-		}
+            client.stop();
+        }
 
         LOG.info("stopListeners: clients stopped.");
     }
@@ -230,7 +246,7 @@ public class Tl1d extends AbstractServiceDaemon {
 
         List<Tl1Element> configElements = m_configurationDao.getElements();
 
-        for(Tl1Element element : configElements) {
+        for (Tl1Element element : configElements) {
             try {
                 Tl1Client client = (Tl1Client) Class.forName(element.getTl1ClientApi()).newInstance();
 
@@ -262,8 +278,8 @@ public class Tl1d extends AbstractServiceDaemon {
 
         EventBuilder bldr = new EventBuilder(Tl1AutonomousMessage.UEI, "Tl1d");
         bldr.setHost(message.getHost());
-        bldr.setInterface(addr(message.getHost())); //interface is the IP
-        bldr.setService("TL-1"); //Service it TL-1
+        bldr.setInterface(addr(message.getHost())); // interface is the IP
+        bldr.setService("TL-1"); // Service it TL-1
         bldr.setSeverity(message.getId().getHighestSeverity());
 
         bldr.setTime(message.getTimestamp());
@@ -272,14 +288,13 @@ public class Tl1d extends AbstractServiceDaemon {
         bldr.addParam("atag", message.getId().getAlarmTag());
         bldr.addParam("verb", message.getId().getVerb());
         bldr.addParam("autoblock", message.getAutoBlock().getBlock());
-        bldr.addParam("aid",message.getAutoBlock().getAid());
-        bldr.addParam("additionalParams",message.getAutoBlock().getAdditionalParams());
+        bldr.addParam("aid", message.getAutoBlock().getAid());
+        bldr.addParam("additionalParams", message.getAutoBlock().getAdditionalParams());
 
         m_eventForwarder.sendNow(bldr.getEvent());
 
         LOG.debug("processMessage: Message processed: {}", message);
     }
-
 
     /**
      * Returns the current status of the service.
@@ -294,7 +309,7 @@ public class Tl1d extends AbstractServiceDaemon {
     private void doMessageProcessing() {
         LOG.debug("doMessageProcessing: Processing messages.");
         boolean cont = true;
-        while (cont ) {
+        while (cont) {
             try {
                 LOG.debug("doMessageProcessing: taking message from queue..");
 
@@ -312,16 +327,22 @@ public class Tl1d extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setEventForwarder</p>
+     * <p>
+     * setEventForwarder
+     * </p>
      *
-     * @param eventForwarder a {@link org.opennms.netmgt.model.events.EventForwarder} object.
+     * @param eventForwarder
+     *            a {@link org.opennms.netmgt.model.events.EventForwarder}
+     *            object.
      */
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
 
     /**
-     * <p>getEventForwarder</p>
+     * <p>
+     * getEventForwarder
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -330,13 +351,16 @@ public class Tl1d extends AbstractServiceDaemon {
     }
 
     /**
-     * <p>setConfigurationDao</p>
+     * <p>
+     * setConfigurationDao
+     * </p>
      *
-     * @param configurationDao a {@link org.opennms.netmgt.dao.api.Tl1ConfigurationDao} object.
+     * @param configurationDao
+     *            a {@link org.opennms.netmgt.dao.api.Tl1ConfigurationDao}
+     *            object.
      */
     public void setConfigurationDao(Tl1ConfigurationDao configurationDao) {
         m_configurationDao = configurationDao;
     }
-
 
 }

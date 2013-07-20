@@ -35,7 +35,9 @@ import org.joda.time.Duration;
 import org.joda.time.Period;
 
 /**
- * <p>StringIntervalPropertyEditor class.</p>
+ * <p>
+ * StringIntervalPropertyEditor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -49,13 +51,15 @@ public class StringIntervalPropertyEditor extends PropertyEditorSupport implemen
     }
 
     /**
-     * <p>getAsText</p>
+     * <p>
+     * getAsText
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String getAsText() {
-        Period p = ((Duration)getValue()).toPeriod().normalizedStandard();
+        Period p = ((Duration) getValue()).toPeriod().normalizedStandard();
         return StringIntervalAdapter.DEFAULT_PERIOD_FORMATTER.print(p);
     }
 }

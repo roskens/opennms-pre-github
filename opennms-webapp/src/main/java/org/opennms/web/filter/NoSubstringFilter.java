@@ -33,7 +33,9 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * <p>Abstract NoSubstringFilter class.</p>
+ * <p>
+ * Abstract NoSubstringFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,12 +44,18 @@ import org.hibernate.criterion.Restrictions;
 public abstract class NoSubstringFilter extends OneArgFilter<String> {
 
     /**
-     * <p>Constructor for NoSubstringFilter.</p>
+     * <p>
+     * Constructor for NoSubstringFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param daoPropertyName a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param daoPropertyName
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public NoSubstringFilter(String filterType, String fieldName, String daoPropertyName, String value) {
         super(filterType, SQLType.STRING, fieldName, daoPropertyName, value);
@@ -75,8 +83,7 @@ public abstract class NoSubstringFilter extends OneArgFilter<String> {
     /** {@inheritDoc} */
     @Override
     public String formatValue(String value) {
-        return super.formatValue('%'+value+'%');
+        return super.formatValue('%' + value + '%');
     }
-
 
 }

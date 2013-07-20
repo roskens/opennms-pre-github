@@ -34,7 +34,9 @@ import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
 
 /**
- * <p>PollService interface.</p>
+ * <p>
+ * PollService interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -42,33 +44,47 @@ import org.opennms.netmgt.poller.ServiceMonitorLocator;
 public interface PollService {
 
     /**
-     * <p>setServiceMonitorLocators</p>
+     * <p>
+     * setServiceMonitorLocators
+     * </p>
      *
-     * @param locators a {@link java.util.Collection} object.
+     * @param locators
+     *            a {@link java.util.Collection} object.
      */
     public void setServiceMonitorLocators(Collection<ServiceMonitorLocator> locators);
 
     /**
-     * <p>initialize</p>
+     * <p>
+     * initialize
+     * </p>
      *
-     * @param polledService a {@link org.opennms.netmgt.poller.remote.PolledService} object.
+     * @param polledService
+     *            a {@link org.opennms.netmgt.poller.remote.PolledService}
+     *            object.
      */
     public void initialize(PolledService polledService);
 
-	/**
-	 * <p>poll</p>
-	 *
-	 * @param polledService a {@link org.opennms.netmgt.poller.remote.PolledService} object.
-	 * @return a {@link org.opennms.netmgt.model.PollStatus} object.
-	 */
-	public PollStatus poll(PolledService polledService);
+    /**
+     * <p>
+     * poll
+     * </p>
+     *
+     * @param polledService
+     *            a {@link org.opennms.netmgt.poller.remote.PolledService}
+     *            object.
+     * @return a {@link org.opennms.netmgt.model.PollStatus} object.
+     */
+    public PollStatus poll(PolledService polledService);
 
     /**
-     * <p>release</p>
+     * <p>
+     * release
+     * </p>
      *
-     * @param polledService a {@link org.opennms.netmgt.poller.remote.PolledService} object.
+     * @param polledService
+     *            a {@link org.opennms.netmgt.poller.remote.PolledService}
+     *            object.
      */
     public void release(PolledService polledService);
-
 
 }

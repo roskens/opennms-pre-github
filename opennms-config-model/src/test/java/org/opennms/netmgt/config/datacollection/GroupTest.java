@@ -66,13 +66,11 @@ public class GroupTest extends XmlTest<Group> {
 
         return Arrays.asList(new Object[][] { {
                 group,
-                "      <group name=\"windows-host\" ifType=\"ignore\">\n" +
-                "        <mibObj oid=\".1.3.6.1.2.1.25.3.3.1.2\" instance=\"1\" alias=\"cpuPercentBusy\" type=\"integer\" />\n" +
-                "        <mibObj oid=\".1.3.6.1.2.1.25.2.2\"     instance=\"0\" alias=\"memorySize\"     type=\"integer\" />\n" +
-                "        <includeGroup>foo</includeGroup>\n" +
-                "      </group>",
+                "      <group name=\"windows-host\" ifType=\"ignore\">\n"
+                        + "        <mibObj oid=\".1.3.6.1.2.1.25.3.3.1.2\" instance=\"1\" alias=\"cpuPercentBusy\" type=\"integer\" />\n"
+                        + "        <mibObj oid=\".1.3.6.1.2.1.25.2.2\"     instance=\"0\" alias=\"memorySize\"     type=\"integer\" />\n"
+                        + "        <includeGroup>foo</includeGroup>\n" + "      </group>",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

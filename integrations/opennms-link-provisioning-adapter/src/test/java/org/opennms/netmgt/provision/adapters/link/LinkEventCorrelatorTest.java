@@ -60,18 +60,28 @@ import org.springframework.core.io.ClassPathResource;
 public class LinkEventCorrelatorTest {
 
     private Event m_unmanagedEvent = new EventBuilder(EventConstants.DATA_LINK_UNMANAGED_EVENT_UEI, "Test").getEvent();
+
     private Event m_failedEvent = new EventBuilder(EventConstants.DATA_LINK_FAILED_EVENT_UEI, "Test").getEvent();
+
     private Event m_regainedEvent = new EventBuilder(EventConstants.DATA_LINK_RESTORED_EVENT_UEI, "Test").getEvent();
 
     EasyMockUtils m_easyMock = new EasyMockUtils();
+
     // MockEventUtil m_eventUtil = new MockEventUtil();
     private MockNetwork m_network;
+
     private MockNode m_node1;
+
     private MockNode m_node2;
+
     private MockEventIpcManager m_eventIpcManager;
+
     private EventAnticipator m_anticipator;
+
     private NodeLinkService m_nodeLinkService;
+
     private DataLinkInterface m_dataLinkInterface;
+
     private DefaultEndPointConfigurationDao m_endPointConfigDao;
 
     @Before
@@ -102,8 +112,6 @@ public class LinkEventCorrelatorTest {
         expect(m_nodeLinkService.getLinkContainingNodeId(1)).andStubReturn(dlis);
         expect(m_nodeLinkService.getLinkContainingNodeId(2)).andStubReturn(dlis);
 
-
-
         expect(m_nodeLinkService.getNodeLabel(1)).andStubReturn("pittsboro-1");
         expect(m_nodeLinkService.getNodeLabel(2)).andStubReturn("pittsboro-2");
 
@@ -111,7 +119,7 @@ public class LinkEventCorrelatorTest {
 
     @Test
     public void testNodeDownEvent() {
-        OnmsLinkState ls = new OnmsLinkState( m_dataLinkInterface, LinkState.LINK_UP);
+        OnmsLinkState ls = new OnmsLinkState(m_dataLinkInterface, LinkState.LINK_UP);
         expect(m_nodeLinkService.getLinkStateForInterface(m_dataLinkInterface)).andStubReturn(ls);
 
         expect(m_nodeLinkService.nodeHasEndPointService(1)).andReturn(true);
@@ -131,7 +139,7 @@ public class LinkEventCorrelatorTest {
 
         correlator.handleNodeDown(e);
 
-        //verify that the event was successful
+        // verify that the event was successful
         m_eventIpcManager.finishProcessingEvents();
         m_anticipator.verifyAnticipated();
 
@@ -140,7 +148,7 @@ public class LinkEventCorrelatorTest {
 
     @Test
     public void testCorrelator1NodeDown() {
-        OnmsLinkState ls = new OnmsLinkState( m_dataLinkInterface, LinkState.LINK_UP);
+        OnmsLinkState ls = new OnmsLinkState(m_dataLinkInterface, LinkState.LINK_UP);
         expect(m_nodeLinkService.getLinkStateForInterface(m_dataLinkInterface)).andStubReturn(ls);
 
         expect(m_nodeLinkService.nodeHasEndPointService(1)).andReturn(true);
@@ -152,7 +160,6 @@ public class LinkEventCorrelatorTest {
         correlator.setEventForwarder(m_eventIpcManager);
         correlator.setNodeLinkService(m_nodeLinkService);
         correlator.setEndPointConfigDao(m_endPointConfigDao);
-
 
         m_anticipator.anticipateEvent(m_failedEvent);
         m_nodeLinkService.saveLinkState(new OnmsLinkState(m_dataLinkInterface, LinkState.LINK_PARENT_NODE_DOWN));
@@ -169,7 +176,8 @@ public class LinkEventCorrelatorTest {
         assertEquals(2, parms.size());
         int foundGood = 0;
         for (Parm p : parms) {
-            if (p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT1) || p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT2)) {
+            if (p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT1)
+                    || p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT2)) {
                 if ("pittsboro-1".equals(p.getValue().getContent()) || "pittsboro-2".equals(p.getValue().getContent())) {
                     foundGood++;
                 }
@@ -182,7 +190,7 @@ public class LinkEventCorrelatorTest {
 
     @Test
     public void testCorrelatorNodeFlap() {
-        OnmsLinkState ls = new OnmsLinkState( m_dataLinkInterface, LinkState.LINK_UP);
+        OnmsLinkState ls = new OnmsLinkState(m_dataLinkInterface, LinkState.LINK_UP);
         expect(m_nodeLinkService.getLinkStateForInterface(m_dataLinkInterface)).andStubReturn(ls);
 
         expect(m_nodeLinkService.nodeHasEndPointService(1)).andStubReturn(true);
@@ -222,7 +230,8 @@ public class LinkEventCorrelatorTest {
         assertEquals(2, parms.size());
         int foundGood = 0;
         for (Parm p : parms) {
-            if (p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT1) || p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT2)) {
+            if (p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT1)
+                    || p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT2)) {
                 if ("pittsboro-1".equals(p.getValue().getContent()) || "pittsboro-2".equals(p.getValue().getContent())) {
                     foundGood++;
                 }
@@ -235,7 +244,7 @@ public class LinkEventCorrelatorTest {
 
     @Test
     public void testCorrelatorUnmanagedNodeFlap() {
-        OnmsLinkState ls = new OnmsLinkState( m_dataLinkInterface, LinkState.LINK_BOTH_UNMANAGED);
+        OnmsLinkState ls = new OnmsLinkState(m_dataLinkInterface, LinkState.LINK_BOTH_UNMANAGED);
         expect(m_nodeLinkService.getLinkStateForInterface(m_dataLinkInterface)).andStubReturn(ls);
 
         LinkEventCorrelator correlator = new LinkEventCorrelator();
@@ -255,11 +264,9 @@ public class LinkEventCorrelatorTest {
         m_anticipator.anticipateEvent(m_regainedEvent);
         m_anticipator.anticipateEvent(m_unmanagedEvent);
 
-
         correlator.handleNodeGainedService(m_node1.getInterface("192.168.0.1").getService("EndPoint").createNewEvent());
         correlator.handleNodeGainedService(m_node2.getInterface("192.168.0.2").getService("EndPoint").createNewEvent());
         correlator.handleServiceDeleted(m_node1.getInterface("192.168.0.1").getService("EndPoint").createDeleteEvent());
-
 
         m_eventIpcManager.finishProcessingEvents();
 
@@ -269,7 +276,8 @@ public class LinkEventCorrelatorTest {
         assertEquals(2, parms.size());
         int foundGood = 0;
         for (Parm p : parms) {
-            if (p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT1) || p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT2)) {
+            if (p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT1)
+                    || p.getParmName().contentEquals(EventConstants.PARM_ENDPOINT2)) {
                 if ("pittsboro-1".equals(p.getValue().getContent()) || "pittsboro-2".equals(p.getValue().getContent())) {
                     foundGood++;
                 }
@@ -280,15 +288,15 @@ public class LinkEventCorrelatorTest {
         verify();
     }
 
-    public <T> T createMock(Class<T> clazz){
+    public <T> T createMock(Class<T> clazz) {
         return m_easyMock.createMock(clazz);
     }
 
-    public void verify(){
+    public void verify() {
         m_easyMock.verifyAll();
     }
 
-    public void replay(){
+    public void replay() {
         m_easyMock.replayAll();
     }
 }

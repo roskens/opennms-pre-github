@@ -53,13 +53,24 @@ import org.springframework.util.Assert;
 import org.springframework.web.context.support.ServletRequestHandledEvent;
 
 /**
- * <p>SecurityAuthenticationEventOnmsEventBuilder class.</p>
+ * <p>
+ * SecurityAuthenticationEventOnmsEventBuilder class.
+ * </p>
  */
-public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationListener<ApplicationEvent>, InitializingBean {
+public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationListener<ApplicationEvent>,
+        InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(SecurityAuthenticationEventOnmsEventBuilder.class);
-    /** Constant <code>SUCCESS_UEI="uei.opennms.org/internal/authentication"{trunked}</code> */
+
+    /**
+     * Constant
+     * <code>SUCCESS_UEI="uei.opennms.org/internal/authentication"{trunked}</code>
+     */
     public static final String SUCCESS_UEI = "uei.opennms.org/internal/authentication/successfulLogin";
-    /** Constant <code>FAILURE_UEI="uei.opennms.org/internal/authentication"{trunked}</code> */
+
+    /**
+     * Constant
+     * <code>FAILURE_UEI="uei.opennms.org/internal/authentication"{trunked}</code>
+     */
     public static final String FAILURE_UEI = "uei.opennms.org/internal/authentication/failure";
 
     private EventProxy m_eventProxy;
@@ -80,7 +91,8 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
         if (event instanceof AbstractAuthenticationFailureEvent) {
             AbstractAuthenticationFailureEvent authEvent = (AbstractAuthenticationFailureEvent) event;
 
-            LOG.debug("AbstractAuthenticationFailureEvent was received, exception message - {}", authEvent.getException().getMessage());
+            LOG.debug("AbstractAuthenticationFailureEvent was received, exception message - {}",
+                      authEvent.getException().getMessage());
             EventBuilder builder = createEvent(FAILURE_UEI, authEvent);
             builder.addParam("exceptionName", authEvent.getException().getClass().getSimpleName());
             builder.addParam("exceptionMessage", authEvent.getException().getMessage());
@@ -89,21 +101,26 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
 
         if (event instanceof AuthorizedEvent) {
             AuthorizedEvent authEvent = (AuthorizedEvent) event;
-            LOG.debug("AuthorizedEvent received - \n  Details - {}\n  Principal - {}", authEvent.getAuthentication().getDetails(), authEvent.getAuthentication().getPrincipal());
+            LOG.debug("AuthorizedEvent received - \n  Details - {}\n  Principal - {}",
+                      authEvent.getAuthentication().getDetails(), authEvent.getAuthentication().getPrincipal());
         }
         if (event instanceof AuthorizationFailureEvent) {
             AuthorizationFailureEvent authEvent = (AuthorizationFailureEvent) event;
-            LOG.debug("AuthorizationFailureEvent received  -\n   Details - {}\n  Principal - {}", authEvent.getAuthentication().getDetails(), authEvent.getAuthentication().getPrincipal());
+            LOG.debug("AuthorizationFailureEvent received  -\n   Details - {}\n  Principal - {}",
+                      authEvent.getAuthentication().getDetails(), authEvent.getAuthentication().getPrincipal());
         }
         if (event instanceof InteractiveAuthenticationSuccessEvent) {
             InteractiveAuthenticationSuccessEvent authEvent = (InteractiveAuthenticationSuccessEvent) event;
-            LOG.debug("InteractiveAuthenticationSuccessEvent received - \n  Details - {}\n  Principal - {}", authEvent.getAuthentication().getDetails(), authEvent.getAuthentication().getPrincipal());
+            LOG.debug("InteractiveAuthenticationSuccessEvent received - \n  Details - {}\n  Principal - {}",
+                      authEvent.getAuthentication().getDetails(), authEvent.getAuthentication().getPrincipal());
 
         }
         if (event instanceof ServletRequestHandledEvent) {
             ServletRequestHandledEvent authEvent = (ServletRequestHandledEvent) event;
-            LOG.debug("ServletRequestHandledEvent received - {}\n  Servlet - {}\n  URL - {}", authEvent.getDescription(), authEvent.getServletName(), authEvent.getRequestUrl());
-            LOG.info("{} requested from {} by user {}", authEvent.getRequestUrl(), authEvent.getClientAddress(), authEvent.getUserName());
+            LOG.debug("ServletRequestHandledEvent received - {}\n  Servlet - {}\n  URL - {}",
+                      authEvent.getDescription(), authEvent.getServletName(), authEvent.getRequestUrl());
+            LOG.info("{} requested from {} by user {}", authEvent.getRequestUrl(), authEvent.getClientAddress(),
+                     authEvent.getUserName());
         }
 
     }
@@ -137,16 +154,21 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
     }
 
     /**
-     * <p>setEventProxy</p>
+     * <p>
+     * setEventProxy
+     * </p>
      *
-     * @param eventProxy a {@link org.opennms.netmgt.model.events.EventProxy} object.
+     * @param eventProxy
+     *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
     public void setEventProxy(EventProxy eventProxy) {
         m_eventProxy = eventProxy;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public void afterPropertiesSet() {

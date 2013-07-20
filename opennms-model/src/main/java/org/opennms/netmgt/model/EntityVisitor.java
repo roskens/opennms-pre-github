@@ -29,24 +29,26 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>EntityVisitor interface.</p>
+ * <p>
+ * EntityVisitor interface.
+ * </p>
  */
 public interface EntityVisitor {
 
-	public void visitNode(OnmsNode node);
+    public void visitNode(OnmsNode node);
 
-	public void visitNodeComplete(OnmsNode node);
+    public void visitNodeComplete(OnmsNode node);
 
-	public void visitSnmpInterface(OnmsEntity snmpIface);
+    public void visitSnmpInterface(OnmsEntity snmpIface);
 
-	public void visitSnmpInterfaceComplete(OnmsEntity snmpIface);
+    public void visitSnmpInterfaceComplete(OnmsEntity snmpIface);
 
-	public void visitIpInterface(OnmsIpInterface iface);
+    public void visitIpInterface(OnmsIpInterface iface);
 
-	public void visitIpInterfaceComplete(OnmsIpInterface iface);
+    public void visitIpInterfaceComplete(OnmsIpInterface iface);
 
-	public void visitMonitoredService(OnmsMonitoredService monSvc);
+    public void visitMonitoredService(OnmsMonitoredService monSvc);
 
-	public void visitMonitoredServiceComplete(OnmsMonitoredService monSvc);
+    public void visitMonitoredServiceComplete(OnmsMonitoredService monSvc);
 
 }

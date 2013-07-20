@@ -43,26 +43,19 @@ import java.util.Map;
  * @version $Id: $
  */
 public enum OnmsWbemCimTypeEnum {
-    wbemCimtypeSint16(2, "wbemCimtypeSint16"),
-    wbemCimtypeSint32(3, "wbemCimtypeSint32"),
-    wbemCimtypeReal32(4, "wbemCimtypeReal32"),
-    wbemCimtypeReal64(5, "wbemCimtypeReal64"),
-    wbemCimtypeString(8, "wbemCimtypeString"),
-    wbemCimtypeBoolean(11, "wbemCimtypeBoolean"),
-    wbemCimtypeObject(13, "wbemCimtypeObject"),
-    wbemCimtypeSint8(16, "wbemCimtypeSint8"),
-    wbemCimtypeUint8(17, "wbemCimtypeUint8"),
-    wbemCimtypeUint16(18, "wbemCimtypeUint16"),
-    wbemCimtypeUint32(19, "wbemCimtypeUint32"),
-    wbemCimtypeSint64(20, "wbemCimtypeSint64"),
-    wbemCimtypeUint64(21, "wbemCimtypeUint64"),
-    wbemCimtypeDatetime(101, "wbemCimtypeDatetime"),
-    wbemCimtypeReference(102, "wbemCimtypeReference"),
-    wbemCimtypeChar16(103, "wbemCimtypeChar16");
+    wbemCimtypeSint16(2, "wbemCimtypeSint16"), wbemCimtypeSint32(3, "wbemCimtypeSint32"), wbemCimtypeReal32(4,
+            "wbemCimtypeReal32"), wbemCimtypeReal64(5, "wbemCimtypeReal64"), wbemCimtypeString(8, "wbemCimtypeString"), wbemCimtypeBoolean(
+            11, "wbemCimtypeBoolean"), wbemCimtypeObject(13, "wbemCimtypeObject"), wbemCimtypeSint8(16,
+            "wbemCimtypeSint8"), wbemCimtypeUint8(17, "wbemCimtypeUint8"), wbemCimtypeUint16(18, "wbemCimtypeUint16"), wbemCimtypeUint32(
+            19, "wbemCimtypeUint32"), wbemCimtypeSint64(20, "wbemCimtypeSint64"), wbemCimtypeUint64(21,
+            "wbemCimtypeUint64"), wbemCimtypeDatetime(101, "wbemCimtypeDatetime"), wbemCimtypeReference(102,
+            "wbemCimtypeReference"), wbemCimtypeChar16(103, "wbemCimtypeChar16");
 
     /** Constant <code>lookup</code> */
     private static final Map<Integer, OnmsWbemCimTypeEnum> lookup = new HashMap<Integer, OnmsWbemCimTypeEnum>();
+
     private int cimValue;
+
     private String cimName;
 
     static {
@@ -76,25 +69,38 @@ public enum OnmsWbemCimTypeEnum {
     }
 
     /**
-     * <p>Getter for the field <code>cimValue</code>.</p>
+     * <p>
+     * Getter for the field <code>cimValue</code>.
+     * </p>
      *
      * @return a int.
      */
-    public int getCimValue() { return cimValue; }
+    public int getCimValue() {
+        return cimValue;
+    }
+
     /**
-     * <p>Getter for the field <code>cimName</code>.</p>
+     * <p>
+     * Getter for the field <code>cimName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getCimName() { return cimName; }
+    public String getCimName() {
+        return cimName;
+    }
 
     /**
-     * <p>get</p>
+     * <p>
+     * get
+     * </p>
      *
-     * @param cimValue a int.
-     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemCimTypeEnum} object.
+     * @param cimValue
+     *            a int.
+     * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemCimTypeEnum}
+     *         object.
      */
     public static OnmsWbemCimTypeEnum get(final int cimValue) {
-          return lookup.get(cimValue);
-     }
+        return lookup.get(cimValue);
+    }
 }

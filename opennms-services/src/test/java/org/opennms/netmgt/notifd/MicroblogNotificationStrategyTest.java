@@ -49,12 +49,12 @@ import org.springframework.core.io.Resource;
  *
  * @author <a href="mailto:jeffg@opennms.org>Jeff Gehlbach</a>
  * @author <a href="http://www.opennms.org/>OpenNMS</a>
- *
  */
 @JUnitTemporaryDatabase
 public class MicroblogNotificationStrategyTest {
 
     protected DefaultMicroblogConfigurationDao m_dao;
+
     protected Resource m_daoConfigResource;
 
     @Before

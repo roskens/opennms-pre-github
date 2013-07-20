@@ -31,7 +31,9 @@ package org.opennms.netmgt.eventd;
 import java.lang.reflect.UndeclaredThrowableException;
 
 /**
- * <p>UndeclaredEventException class.</p>
+ * <p>
+ * UndeclaredEventException class.
+ * </p>
  *
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
@@ -44,19 +46,26 @@ public final class UndeclaredEventException extends UndeclaredThrowableException
     private static final long serialVersionUID = -3138934063775363857L;
 
     /**
-     * <p>Constructor for UndeclaredEventException.</p>
+     * <p>
+     * Constructor for UndeclaredEventException.
+     * </p>
      *
-     * @param t a {@link java.lang.Throwable} object.
+     * @param t
+     *            a {@link java.lang.Throwable} object.
      */
     public UndeclaredEventException(Throwable t) {
         super(t);
     }
 
     /**
-     * <p>Constructor for UndeclaredEventException.</p>
+     * <p>
+     * Constructor for UndeclaredEventException.
+     * </p>
      *
-     * @param t a {@link java.lang.Throwable} object.
-     * @param s a {@link java.lang.String} object.
+     * @param t
+     *            a {@link java.lang.Throwable} object.
+     * @param s
+     *            a {@link java.lang.String} object.
      */
     public UndeclaredEventException(Throwable t, String s) {
         super(t, s);

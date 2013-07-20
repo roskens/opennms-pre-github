@@ -42,204 +42,207 @@ import org.slf4j.LoggerFactory;
 
 public class SimpleEdgeProvider implements EdgeProvider {
 
-	private static abstract class MatchingCriteria implements Criteria {
+    private static abstract class MatchingCriteria implements Criteria {
 
-		private String m_namespace;
+        private String m_namespace;
 
-		public MatchingCriteria(String namespace) {
-			m_namespace = namespace;
-		}
+        public MatchingCriteria(String namespace) {
+            m_namespace = namespace;
+        }
 
-		@Override
-		public ElementType getType() {
-			return ElementType.EDGE;
-		}
+        @Override
+        public ElementType getType() {
+            return ElementType.EDGE;
+        }
 
-		@Override
-		public String getNamespace() {
-			return m_namespace;
-		}
+        @Override
+        public String getNamespace() {
+            return m_namespace;
+        }
 
-		public abstract boolean matches(Edge edge);
+        public abstract boolean matches(Edge edge);
 
-	}
+    }
 
-	public static Criteria labelMatches(String namespace, final String regex) {
-		return new MatchingCriteria(namespace) {
+    public static Criteria labelMatches(String namespace, final String regex) {
+        return new MatchingCriteria(namespace) {
 
-			@Override
-			public boolean matches(Edge edge) {
-				return edge.getLabel().matches(regex);
-			}
-		};
-	}
+            @Override
+            public boolean matches(Edge edge) {
+                return edge.getLabel().matches(regex);
+            }
+        };
+    }
 
-	private final String m_namespace;
-	private final Map<String, Edge> m_edgeMap = new LinkedHashMap<String, Edge>();
-	private final Set<EdgeListener> m_listeners = new CopyOnWriteArraySet<EdgeListener>();
-	private final String m_contributesTo;
+    private final String m_namespace;
 
-	public SimpleEdgeProvider(String namespace, String contributesTo) {
-		m_namespace = namespace;
-		m_contributesTo = contributesTo;
-	}
+    private final Map<String, Edge> m_edgeMap = new LinkedHashMap<String, Edge>();
 
-	public SimpleEdgeProvider(String namespace) {
-		this(namespace, null);
-	}
+    private final Set<EdgeListener> m_listeners = new CopyOnWriteArraySet<EdgeListener>();
 
-	@Override
-	public String getEdgeNamespace() {
-		return m_namespace;
-	}
+    private final String m_contributesTo;
 
-	@Override
-	public boolean contributesTo(String namespace) {
-		return m_contributesTo != null && m_contributesTo.equals(namespace);
-	}
+    public SimpleEdgeProvider(String namespace, String contributesTo) {
+        m_namespace = namespace;
+        m_contributesTo = contributesTo;
+    }
 
-	private Edge getEdge(String id) {
-		return m_edgeMap.get(id);
-	}
+    public SimpleEdgeProvider(String namespace) {
+        this(namespace, null);
+    }
 
-	@Override
-	public Edge getEdge(String namespace, String id) {
-		return getEdge(id);
-	}
+    @Override
+    public String getEdgeNamespace() {
+        return m_namespace;
+    }
 
-	@Override
-	public Edge getEdge(EdgeRef reference) {
-		return getSimpleEdge(reference);
-	}
+    @Override
+    public boolean contributesTo(String namespace) {
+        return m_contributesTo != null && m_contributesTo.equals(namespace);
+    }
 
-	private Edge getSimpleEdge(EdgeRef reference) {
-		if (getEdgeNamespace().equals(reference.getNamespace())) {
-			if (reference instanceof Edge) {
-				return Edge.class.cast(reference);
-			} else {
-				return m_edgeMap.get(reference.getId());
-			}
-		}
-		return null;
-	}
+    private Edge getEdge(String id) {
+        return m_edgeMap.get(id);
+    }
 
-	@Override
-	public List<Edge> getEdges() {
-		return Collections.unmodifiableList(new ArrayList<Edge>(m_edgeMap.values()));
-	}
+    @Override
+    public Edge getEdge(String namespace, String id) {
+        return getEdge(id);
+    }
 
-	@Override
-	public List<Edge> getEdges(Collection<? extends EdgeRef> references) {
-		List<Edge> edges = new ArrayList<Edge>();
-		for(EdgeRef ref : references) {
-			Edge edge = getSimpleEdge(ref);
-			if (ref != null) {
-				edges.add(edge);
-			}
-		}
-		return edges;
-	}
+    @Override
+    public Edge getEdge(EdgeRef reference) {
+        return getSimpleEdge(reference);
+    }
 
-	private void fireEdgeSetChanged() {
-		for(EdgeListener listener : m_listeners) {
-			listener.edgeSetChanged(this, null, null, null);
-		}
-	}
+    private Edge getSimpleEdge(EdgeRef reference) {
+        if (getEdgeNamespace().equals(reference.getNamespace())) {
+            if (reference instanceof Edge) {
+                return Edge.class.cast(reference);
+            } else {
+                return m_edgeMap.get(reference.getId());
+            }
+        }
+        return null;
+    }
 
-	private void fireEdgesAdded(List<Edge> edges) {
-		for(EdgeListener listener : m_listeners) {
-			listener.edgeSetChanged(this, edges, null, null);
-		}
-	}
+    @Override
+    public List<Edge> getEdges() {
+        return Collections.unmodifiableList(new ArrayList<Edge>(m_edgeMap.values()));
+    }
 
-	private void fireEdgesRemoved(List<? extends EdgeRef> edges) {
-		List<String> ids = new ArrayList<String>(edges.size());
-		for(EdgeRef e : edges) {
-			ids.add(e.getId());
-		}
-		for(EdgeListener listener : m_listeners) {
-			listener.edgeSetChanged(this, null, null, ids);
-		}
-	}
+    @Override
+    public List<Edge> getEdges(Collection<? extends EdgeRef> references) {
+        List<Edge> edges = new ArrayList<Edge>();
+        for (EdgeRef ref : references) {
+            Edge edge = getSimpleEdge(ref);
+            if (ref != null) {
+                edges.add(edge);
+            }
+        }
+        return edges;
+    }
 
-	@Override
-	public void addEdgeListener(EdgeListener edgeListener) {
-		m_listeners.add(edgeListener);
-	}
+    private void fireEdgeSetChanged() {
+        for (EdgeListener listener : m_listeners) {
+            listener.edgeSetChanged(this, null, null, null);
+        }
+    }
 
-	@Override
-	public void removeEdgeListener(EdgeListener edgeListener) {
-		m_listeners.remove(edgeListener);
-	}
+    private void fireEdgesAdded(List<Edge> edges) {
+        for (EdgeListener listener : m_listeners) {
+            listener.edgeSetChanged(this, edges, null, null);
+        }
+    }
 
-	private void removeEdges(List<? extends EdgeRef> edges) {
-		for(EdgeRef edge : edges) {
-			m_edgeMap.remove(edge.getId());
-		}
-	}
+    private void fireEdgesRemoved(List<? extends EdgeRef> edges) {
+        List<String> ids = new ArrayList<String>(edges.size());
+        for (EdgeRef e : edges) {
+            ids.add(e.getId());
+        }
+        for (EdgeListener listener : m_listeners) {
+            listener.edgeSetChanged(this, null, null, ids);
+        }
+    }
 
-	private void addEdges(List<Edge> edges) {
-		for(Edge edge : edges) {
-			if (edge.getNamespace() == null || edge.getId() == null) {
-				LoggerFactory.getLogger(this.getClass()).warn("Discarding invalid edge: {}", edge);
-				continue;
-			}
-			LoggerFactory.getLogger(this.getClass()).debug("Adding edge: {}", edge);
-			m_edgeMap.put(edge.getId(), edge);
-		}
-	}
+    @Override
+    public void addEdgeListener(EdgeListener edgeListener) {
+        m_listeners.add(edgeListener);
+    }
 
-	public void setEdges(List<Edge> edges) {
-		m_edgeMap.clear();
-		addEdges(edges);
-		fireEdgeSetChanged();
-	}
+    @Override
+    public void removeEdgeListener(EdgeListener edgeListener) {
+        m_listeners.remove(edgeListener);
+    }
 
-	public void add(Edge...edges) {
-		add(Arrays.asList(edges));
-	}
+    private void removeEdges(List<? extends EdgeRef> edges) {
+        for (EdgeRef edge : edges) {
+            m_edgeMap.remove(edge.getId());
+        }
+    }
 
-	public void add(List<Edge> edges) {
-		addEdges(edges);
-		fireEdgesAdded(edges);
-	}
+    private void addEdges(List<Edge> edges) {
+        for (Edge edge : edges) {
+            if (edge.getNamespace() == null || edge.getId() == null) {
+                LoggerFactory.getLogger(this.getClass()).warn("Discarding invalid edge: {}", edge);
+                continue;
+            }
+            LoggerFactory.getLogger(this.getClass()).debug("Adding edge: {}", edge);
+            m_edgeMap.put(edge.getId(), edge);
+        }
+    }
 
-	public void remove(List<EdgeRef> edges) {
-		removeEdges(edges);
-		fireEdgesRemoved(edges);
-	}
+    public void setEdges(List<Edge> edges) {
+        m_edgeMap.clear();
+        addEdges(edges);
+        fireEdgeSetChanged();
+    }
 
-	public void remove(EdgeRef... edges) {
-		remove(Arrays.asList(edges));
-	}
+    public void add(Edge... edges) {
+        add(Arrays.asList(edges));
+    }
 
-	@Override
-	public List<Edge> getEdges(Criteria c) {
-		MatchingCriteria criteria = (MatchingCriteria) c;
+    public void add(List<Edge> edges) {
+        addEdges(edges);
+        fireEdgesAdded(edges);
+    }
 
-		List<Edge> edges = new ArrayList<Edge>();
+    public void remove(List<EdgeRef> edges) {
+        removeEdges(edges);
+        fireEdgesRemoved(edges);
+    }
 
-		for(Edge e : getEdges()) {
-			if (criteria.matches(e)) {
-				edges.add(e);
-			}
-		}
-		return edges;
+    public void remove(EdgeRef... edges) {
+        remove(Arrays.asList(edges));
+    }
 
-	}
+    @Override
+    public List<Edge> getEdges(Criteria c) {
+        MatchingCriteria criteria = (MatchingCriteria) c;
 
-	@Override
-	public boolean matches(EdgeRef edgeRef, Criteria c) {
-		MatchingCriteria criteria = (MatchingCriteria)c;
+        List<Edge> edges = new ArrayList<Edge>();
 
-		return criteria.matches(getEdge(edgeRef));
-	}
+        for (Edge e : getEdges()) {
+            if (criteria.matches(e)) {
+                edges.add(e);
+            }
+        }
+        return edges;
 
-	@Override
-	public void clearEdges() {
-		List<Edge> all = getEdges();
-		removeEdges(all);
-		fireEdgesRemoved(all);
-	}
+    }
+
+    @Override
+    public boolean matches(EdgeRef edgeRef, Criteria c) {
+        MatchingCriteria criteria = (MatchingCriteria) c;
+
+        return criteria.matches(getEdge(edgeRef));
+    }
+
+    @Override
+    public void clearEdges() {
+        List<Edge> all = getEdges();
+        removeEdges(all);
+        fireEdgesRemoved(all);
+    }
 
 }

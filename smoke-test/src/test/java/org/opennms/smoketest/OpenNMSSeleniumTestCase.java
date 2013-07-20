@@ -59,7 +59,7 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
                 driver = new ChromeDriver();
             }
         }
-        
+
         // otherwise, Firefox
         if (driver == null) {
             driver = new FirefoxDriver();

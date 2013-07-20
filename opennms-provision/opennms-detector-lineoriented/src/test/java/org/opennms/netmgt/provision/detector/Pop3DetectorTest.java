@@ -48,10 +48,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class Pop3DetectorTest implements ApplicationContextAware {
     private SimpleServer m_server;
+
     private Pop3Detector m_detector;
+
     private ApplicationContext m_applicationContext;
 
     @Before
@@ -64,7 +66,7 @@ public class Pop3DetectorTest implements ApplicationContextAware {
             public void onInit() {
                 setBanner("+OK");
                 addResponseHandler(startsWith("QUIT"), shutdownServer("+OK"));
-                //setExpectedClose("QUIT", "+OK");
+                // setExpectedClose("QUIT", "+OK");
             }
         };
         m_server.init();
@@ -73,45 +75,45 @@ public class Pop3DetectorTest implements ApplicationContextAware {
 
     @After
     public void tearDown() throws Exception {
-        if(m_server != null) {
+        if (m_server != null) {
             m_server.stopServer();
             m_server = null;
         }
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testSuccess() throws Exception {
 
         m_detector = createDetector(m_server.getLocalPort());
         m_detector.setIdleTime(1000);
-        assertTrue( doCheck( m_detector.isServiceDetected(m_server.getInetAddress())));
+        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testFailureWithBogusResponse() throws Exception {
         m_server.setBanner("Oh Henry");
 
         m_detector = createDetector(m_server.getLocalPort());
 
-        assertFalse( doCheck( m_detector.isServiceDetected( m_server.getInetAddress())));
+        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
 
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testMonitorFailureWithNoResponse() throws Exception {
         m_server.setBanner(null);
         m_detector = createDetector(m_server.getLocalPort());
 
-        assertFalse( doCheck( m_detector.isServiceDetected( m_server.getInetAddress())));
+        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
 
     }
 
-    @Test(timeout=90000)
-    public void testDetectorFailWrongPort() throws Exception{
+    @Test(timeout = 90000)
+    public void testDetectorFailWrongPort() throws Exception {
 
         m_detector = createDetector(9000);
 
-        assertFalse( doCheck( m_detector.isServiceDetected( m_server.getInetAddress())));
+        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
     private Pop3Detector createDetector(int port) {
@@ -123,15 +125,18 @@ public class Pop3DetectorTest implements ApplicationContextAware {
         return detector;
     }
 
-    private boolean  doCheck(DetectFuture future) throws Exception {
+    private boolean doCheck(DetectFuture future) throws Exception {
 
         future.awaitFor();
 
         return future.isServiceDetected();
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.context.ApplicationContextAware#setApplicationContext
+     * (org.springframework.context.ApplicationContext)
      */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -142,6 +147,6 @@ public class Pop3DetectorTest implements ApplicationContextAware {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
-        return (Pop3Detector)bean;
+        return (Pop3Detector) bean;
     }
 }

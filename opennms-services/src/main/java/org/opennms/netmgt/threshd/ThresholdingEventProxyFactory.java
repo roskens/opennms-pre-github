@@ -29,7 +29,9 @@
 package org.opennms.netmgt.threshd;
 
 /**
- * <p>ThresholdingEventProxyFactory class.</p>
+ * <p>
+ * ThresholdingEventProxyFactory class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,21 +47,31 @@ public class ThresholdingEventProxyFactory {
         }
     };
 
-    private ThresholdingEventProxyFactory() {}
+    private ThresholdingEventProxyFactory() {
+    }
 
     /**
-     * <p>getProxy</p>
+     * <p>
+     * getProxy
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.threshd.ThresholdingEventProxy} object.
+     * @return a {@link org.opennms.netmgt.threshd.ThresholdingEventProxy}
+     *         object.
      */
     public ThresholdingEventProxy getProxy() {
         return eventProxyRef.get();
     }
 
     /**
-     * <p>getFactory</p>
+     * <p>
+     * getFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.threshd.ThresholdingEventProxyFactory} object.
+     * @return a
+     *         {@link org.opennms.netmgt.threshd.ThresholdingEventProxyFactory}
+     *         object.
      */
-    public static ThresholdingEventProxyFactory getFactory() { return instance; }
+    public static ThresholdingEventProxyFactory getFactory() {
+        return instance;
+    }
 }

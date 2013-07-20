@@ -37,7 +37,6 @@ import org.opennms.core.xml.JaxbUtils;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * DHCP client deamon from the dhcpd-configuration xml file.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -72,7 +71,7 @@ public final class DhcpdConfigFactory {
      *                Thrown if the contents do not match the required schema.
      */
     DhcpdConfigFactory(File configFile) {
-    	m_config = JaxbUtils.unmarshal(DhcpdConfiguration.class, configFile);
+        m_config = JaxbUtils.unmarshal(DhcpdConfiguration.class, configFile);
     }
 
     /**
@@ -85,9 +84,12 @@ public final class DhcpdConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException {
         if (m_loaded) {
@@ -111,9 +113,12 @@ public final class DhcpdConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException {
         m_singleton = null;
@@ -166,7 +171,6 @@ public final class DhcpdConfigFactory {
     public synchronized String getMyIpAddress() {
         return m_config.getMyIpAddress();
     }
-
 
     /**
      * Return the IP address to be used

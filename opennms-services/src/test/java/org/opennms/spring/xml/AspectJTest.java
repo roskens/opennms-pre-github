@@ -45,11 +45,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
-
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/org/opennms/spring/xml/applicationContext-testAOP.xml"
-})
+@ContextConfiguration(locations = { "classpath:/org/opennms/spring/xml/applicationContext-testAOP.xml" })
 @JUnitConfigurationEnvironment
 @DirtiesContext
 public class AspectJTest implements InitializingBean {

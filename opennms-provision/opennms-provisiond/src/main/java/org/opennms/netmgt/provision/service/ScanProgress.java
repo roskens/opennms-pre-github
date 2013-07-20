@@ -29,7 +29,9 @@
 package org.opennms.netmgt.provision.service;
 
 /**
- * <p>ScanProgress interface.</p>
+ * <p>
+ * ScanProgress interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,13 +39,19 @@ package org.opennms.netmgt.provision.service;
 public interface ScanProgress {
 
     /**
-     * <p>abort</p>
+     * <p>
+     * abort
+     * </p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message
+     *            a {@link java.lang.String} object.
      */
     public void abort(String message);
+
     /**
-     * <p>isAborted</p>
+     * <p>
+     * isAborted
+     * </p>
      *
      * @return a boolean.
      */

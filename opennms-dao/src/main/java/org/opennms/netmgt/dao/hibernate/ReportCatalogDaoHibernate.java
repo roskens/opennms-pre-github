@@ -32,17 +32,20 @@ import org.opennms.netmgt.dao.api.ReportCatalogDao;
 import org.opennms.netmgt.model.ReportCatalogEntry;
 
 /**
- * <p>ReportCatalogDaoHibernate class.</p>
+ * <p>
+ * ReportCatalogDaoHibernate class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public class ReportCatalogDaoHibernate extends
-        AbstractDaoHibernate<ReportCatalogEntry, Integer> implements
+public class ReportCatalogDaoHibernate extends AbstractDaoHibernate<ReportCatalogEntry, Integer> implements
         ReportCatalogDao {
 
     /**
-     * <p>Constructor for ReportCatalogDaoHibernate.</p>
+     * <p>
+     * Constructor for ReportCatalogDaoHibernate.
+     * </p>
      */
     public ReportCatalogDaoHibernate() {
         super(ReportCatalogEntry.class);
@@ -51,10 +54,9 @@ public class ReportCatalogDaoHibernate extends
     /** {@inheritDoc} */
     @Override
     public void delete(Integer id) {
-        ReportCatalogEntry catalogEntry = (ReportCatalogEntry)getHibernateTemplate().get(ReportCatalogEntry.class, id);
+        ReportCatalogEntry catalogEntry = (ReportCatalogEntry) getHibernateTemplate().get(ReportCatalogEntry.class, id);
         super.delete(catalogEntry);
 
     }
-
 
 }

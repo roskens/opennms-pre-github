@@ -59,23 +59,29 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * <p>InventoryReportCalculator class.</p>
+ * <p>
+ * InventoryReportCalculator class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class InventoryReportCalculator implements InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(InventoryReportCalculator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InventoryReportCalculator.class);
 
     String m_baseDir;
+
     // output file name
 
     private String m_outputFileName;
 
     ConnectionProperties m_cp;
+
     /**
-     * <p>getOutputFileName</p>
+     * <p>
+     * getOutputFileName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,9 +90,12 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>setOutputFileName</p>
+     * <p>
+     * setOutputFileName
+     * </p>
      *
-     * @param outputFileName a {@link java.lang.String} object.
+     * @param outputFileName
+     *            a {@link java.lang.String} object.
      */
     public void setOutputFileName(String outputFileName) {
         m_outputFileName = outputFileName;
@@ -95,15 +104,19 @@ public class InventoryReportCalculator implements InitializingBean {
     RWSConfig m_rwsConfig;
 
     String theDate;
+
     String user;
+
     String theField;
+
     Date reportRequestDate;
 
     RwsNbinventoryreport rnbi;
 
-
     /**
-     * <p>Getter for the field <code>theField</code>.</p>
+     * <p>
+     * Getter for the field <code>theField</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,16 +125,21 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>Setter for the field <code>theField</code>.</p>
+     * <p>
+     * Setter for the field <code>theField</code>.
+     * </p>
      *
-     * @param theField a {@link java.lang.String} object.
+     * @param theField
+     *            a {@link java.lang.String} object.
      */
     public void setTheField(String theField) {
         this.theField = theField;
     }
 
     /**
-     * <p>Getter for the field <code>theDate</code>.</p>
+     * <p>
+     * Getter for the field <code>theDate</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,16 +148,21 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>Setter for the field <code>theDate</code>.</p>
+     * <p>
+     * Setter for the field <code>theDate</code>.
+     * </p>
      *
-     * @param theDate a {@link java.lang.String} object.
+     * @param theDate
+     *            a {@link java.lang.String} object.
      */
     public void setTheDate(String theDate) {
         this.theDate = theDate;
     }
 
     /**
-     * <p>Getter for the field <code>user</code>.</p>
+     * <p>
+     * Getter for the field <code>user</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -148,16 +171,21 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>Setter for the field <code>user</code>.</p>
+     * <p>
+     * Setter for the field <code>user</code>.
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public void setUser(String user) {
         this.user = user;
     }
 
     /**
-     * <p>Getter for the field <code>reportRequestDate</code>.</p>
+     * <p>
+     * Getter for the field <code>reportRequestDate</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -166,16 +194,21 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>Setter for the field <code>reportRequestDate</code>.</p>
+     * <p>
+     * Setter for the field <code>reportRequestDate</code>.
+     * </p>
      *
-     * @param reportRequestDate a {@link java.util.Date} object.
+     * @param reportRequestDate
+     *            a {@link java.util.Date} object.
      */
     public void setReportRequestDate(Date reportRequestDate) {
         this.reportRequestDate = reportRequestDate;
     }
 
     /**
-     * <p>getRwsConfig</p>
+     * <p>
+     * getRwsConfig
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.RWSConfig} object.
      */
@@ -184,16 +217,21 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>setRwsConfig</p>
+     * <p>
+     * setRwsConfig
+     * </p>
      *
-     * @param rwsConfig a {@link org.opennms.netmgt.config.RWSConfig} object.
+     * @param rwsConfig
+     *            a {@link org.opennms.netmgt.config.RWSConfig} object.
      */
     public void setRwsConfig(RWSConfig rwsConfig) {
         m_rwsConfig = rwsConfig;
     }
 
     /**
-     * <p>getBaseDir</p>
+     * <p>
+     * getBaseDir
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -202,19 +240,24 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>setBaseDir</p>
+     * <p>
+     * setBaseDir
+     * </p>
      *
-     * @param baseDir a {@link java.lang.String} object.
+     * @param baseDir
+     *            a {@link java.lang.String} object.
      */
     public void setBaseDir(String baseDir) {
         m_baseDir = baseDir;
     }
 
-
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -253,16 +296,17 @@ public class InventoryReportCalculator implements InitializingBean {
 
     private RancidNode getFullNode(String groupName, String deviceName) {
         try {
-            return RWSClientApi.getRWSRancidNodeInventory(m_cp ,groupName, deviceName);
+            return RWSClientApi.getRWSRancidNodeInventory(m_cp, groupName, deviceName);
         } catch (RancidApiException e) {
             LOG.error("getFullNode:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage());
         }
         return null;
     }
 
-
     /**
-     * <p>calculate</p>
+     * <p>
+     * calculate
+     * </p>
      */
     public void calculate() {
 
@@ -271,7 +315,7 @@ public class InventoryReportCalculator implements InitializingBean {
         rnbi.setReportRequestDate(reportRequestDate.toString());
 
         boolean withKey = false;
-        if (theField.compareTo("")!=0){
+        if (theField.compareTo("") != 0) {
             withKey = true;
             rnbi.setTheField(theField);
         }
@@ -280,13 +324,11 @@ public class InventoryReportCalculator implements InitializingBean {
         Date tmp_date = new Date();
         try {
             tmp_date = format.parse(theDate);
-        }
-        catch (ParseException pe){
+        } catch (ParseException pe) {
             tmp_date = Calendar.getInstance().getTime();
         }
         LOG.debug("calculate:report date[{}]", tmp_date.toString());
         rnbi.setReportDate(tmp_date.toString());
-
 
         int totalGroups = 0;
         int groupsMatching = 0;
@@ -294,25 +336,25 @@ public class InventoryReportCalculator implements InitializingBean {
         int groupsWithNodesWithoutinventoryAtAll = 0;
         int groupsWithNodesWithoutinventoryAtReportDate = 0;
 
-        for(String groupName : getGroups()) {
+        for (String groupName : getGroups()) {
             LOG.debug("calculate:report group [{}]", groupName);
             totalGroups++;
             GroupSet gs = new GroupSet();
             gs.setGroupSetName(groupName);
             int totalNodes = 0;
             int nodeMatching = 0;
-            int nodesWithoutinventoryAtAll=0;
-            int nodesWithoutinventoryAtReportDate=0;
+            int nodesWithoutinventoryAtAll = 0;
+            int nodesWithoutinventoryAtReportDate = 0;
             boolean groupHasDevices = false;
             boolean groupHasNodesWithoutinventoryAtAll = false;
             boolean groupHasNodesWithoutinventoryAtrequestDate = false;
 
-            for (String deviceName: getDeviceListOnGroup(groupName)) {
+            for (String deviceName : getDeviceListOnGroup(groupName)) {
                 totalNodes++;
                 LOG.debug("calculate:report device [{}]", deviceName);
 
                 RancidNode rancidNode = getFullNode(groupName, deviceName);
-                if ( rancidNode == null ) {
+                if (rancidNode == null) {
                     groupHasNodesWithoutinventoryAtAll = true;
                     nodesWithoutinventoryAtAll++;
                     continue;
@@ -323,24 +365,25 @@ public class InventoryReportCalculator implements InitializingBean {
 
                 for (String versionMatch : getVersionListOnDevice(deviceName, groupName)) {
 
+                    invNode = (InventoryNode) rancidNode.getNodeVersions().get(versionMatch);
 
-                    invNode = (InventoryNode)rancidNode.getNodeVersions().get(versionMatch);
+                    LOG.debug("calculate:report parsing InventoryNode version[{}] date [{}]", invNode.getVersionId(),
+                              invNode.getCreationDate());
 
-                    LOG.debug("calculate:report parsing InventoryNode version[{}] date [{}]", invNode.getVersionId(), invNode.getCreationDate());
-
-                    if (tmp_date.compareTo(invNode.getCreationDate()) >  0 ) {
+                    if (tmp_date.compareTo(invNode.getCreationDate()) > 0) {
                         found = true;
-                        LOG.debug("calculate:report Date found is [{}] version is [{}]", invNode.getCreationDate(), versionMatch);
+                        LOG.debug("calculate:report Date found is [{}] version is [{}]", invNode.getCreationDate(),
+                                  versionMatch);
                         break;
                     }
-                }  //end for on version
+                } // end for on version
                 if (found == false) {
                     LOG.debug("calculate: device has no configuration at this date[{}]", deviceName);
                     groupHasNodesWithoutinventoryAtrequestDate = true;
                     nodesWithoutinventoryAtReportDate++;
                     continue;
                 }
-                //we have groupname devicename and version
+                // we have groupname devicename and version
 
                 NodeBaseInventory nodeBaseInv = getNodeBaseInventory(deviceName, groupName, invNode.getVersionId());
 
@@ -360,15 +403,16 @@ public class InventoryReportCalculator implements InitializingBean {
                 for (InventoryElement2 ie2 : nodeBaseInv.getIe()) {
                     InventoryElement2RP ie2rp = new InventoryElement2RP();
                     boolean addInventoryElement = false;
-                    for (Tuple tuple: ie2.getTupleList()) {
+                    for (Tuple tuple : ie2.getTupleList()) {
                         if (withKey) {
-                            if (Pattern.matches(theField,tuple.getDescription()) || Pattern.matches(theField,tuple.getName())) {
+                            if (Pattern.matches(theField, tuple.getDescription())
+                                    || Pattern.matches(theField, tuple.getName())) {
                                 includeNbisn = true;
-                                addInventoryElement=true;
+                                addInventoryElement = true;
                             }
                         } else {
                             includeNbisn = true;
-                            addInventoryElement=true;
+                            addInventoryElement = true;
                         }
                         if (tuple.getName().equalsIgnoreCase("name")) {
                             ie2rp.setName(tuple.getDescription());
@@ -380,33 +424,33 @@ public class InventoryReportCalculator implements InitializingBean {
                         }
                     }
 
-                    for(InventoryMemory im: ie2.getMemoryList()) {
+                    for (InventoryMemory im : ie2.getMemoryList()) {
                         if (withKey) {
-                            if (Pattern.matches(theField,"Memory") || Pattern.matches(theField,im.getType())) {
+                            if (Pattern.matches(theField, "Memory") || Pattern.matches(theField, im.getType())) {
                                 includeNbisn = true;
-                                addInventoryElement=true;
+                                addInventoryElement = true;
                             }
                         } else {
                             includeNbisn = true;
-                            addInventoryElement=true;
+                            addInventoryElement = true;
                         }
 
                         InventoryMemoryRP imrp = new InventoryMemoryRP();
-                            imrp.setType(im.getType());
-                            imrp.setSize(im.getSize());
-                            ie2rp.addInventoryMemoryRP(imrp);
+                        imrp.setType(im.getType());
+                        imrp.setSize(im.getSize());
+                        ie2rp.addInventoryMemoryRP(imrp);
                     }
 
-                    for(InventorySoftware is : ie2.getSoftwareList()) {
+                    for (InventorySoftware is : ie2.getSoftwareList()) {
                         if (withKey) {
-                            if (Pattern.matches(theField,"Software") || Pattern.matches(theField,is.getType()) ||
-                                    Pattern.matches(theField, is.getVersion())) {
+                            if (Pattern.matches(theField, "Software") || Pattern.matches(theField, is.getType())
+                                    || Pattern.matches(theField, is.getVersion())) {
                                 includeNbisn = true;
-                                addInventoryElement=true;
+                                addInventoryElement = true;
                             }
                         } else {
                             includeNbisn = true;
-                            addInventoryElement=true;
+                            addInventoryElement = true;
                         }
                         InventorySoftwareRP isrp = new InventorySoftwareRP();
                         isrp.setType(is.getType());
@@ -420,9 +464,9 @@ public class InventoryReportCalculator implements InitializingBean {
                 }
                 nbisn.setInventoryElement2RP(ie2rpList);
 
-                if(includeNbisn){
+                if (includeNbisn) {
                     nodeMatching++;
-                    groupHasDevices=true;
+                    groupHasDevices = true;
                     gs.addNbisinglenode(nbisn);
                 }
             }
@@ -431,13 +475,15 @@ public class InventoryReportCalculator implements InitializingBean {
             gs.setNodesWithoutinventoryAtReportDate(nodesWithoutinventoryAtReportDate);
             gs.setNodesWithoutinventoryAtAll(nodesWithoutinventoryAtAll);
             rnbi.addGroupSet(gs);
-            if (groupHasDevices) groupsMatching++;
-            else groupWithoutNodes++;
+            if (groupHasDevices)
+                groupsMatching++;
+            else
+                groupWithoutNodes++;
             if (groupHasDevices && groupHasNodesWithoutinventoryAtAll)
                 groupsWithNodesWithoutinventoryAtAll++;
-            if (groupHasDevices &&groupHasNodesWithoutinventoryAtrequestDate)
+            if (groupHasDevices && groupHasNodesWithoutinventoryAtrequestDate)
                 groupsWithNodesWithoutinventoryAtReportDate++;
-        } //end for groups
+        } // end for groups
         rnbi.setTotalGroups(totalGroups);
         rnbi.setGroupsMatching(groupsMatching);
         rnbi.setGroupsWithNodesWithoutinventoryAtAll(groupsWithNodesWithoutinventoryAtAll);
@@ -446,11 +492,16 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>getNodeBaseInventory</p>
+     * <p>
+     * getNodeBaseInventory
+     * </p>
      *
-     * @param node a {@link java.lang.String} object.
-     * @param group a {@link java.lang.String} object.
-     * @param version a {@link java.lang.String} object.
+     * @param node
+     *            a {@link java.lang.String} object.
+     * @param group
+     *            a {@link java.lang.String} object.
+     * @param version
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.report.inventory.NodeBaseInventory} object.
      */
     public NodeBaseInventory getNodeBaseInventory(String node, String group, String version) {
@@ -458,7 +509,6 @@ public class InventoryReportCalculator implements InitializingBean {
 
         LOG.debug("getNodeBaseInventory {} {} {}", node, group, version);
         NodeBaseInventory nbi = new NodeBaseInventory();
-
 
         RancidNode rn;
         try {
@@ -468,7 +518,7 @@ public class InventoryReportCalculator implements InitializingBean {
             return nbi;
         }
 
-        InventoryNode in = (InventoryNode)rn.getNodeVersions().get(version);
+        InventoryNode in = (InventoryNode) rn.getNodeVersions().get(version);
 
         nbi.setDevicename(node);
         nbi.setGroupname(group);
@@ -479,7 +529,7 @@ public class InventoryReportCalculator implements InitializingBean {
         nbi.setConfigurationurl(in.getConfigurationUrl());
 
         try {
-            nbi.setIe( RWSClientApi.getRWSRancidNodeInventoryElement2(m_cp, rn, version));
+            nbi.setIe(RWSClientApi.getRWSRancidNodeInventoryElement2(m_cp, rn, version));
         } catch (RancidApiException e) {
             LOG.debug("getNodeBaseInventory: inventory not found for version: {}. Skipping", version);
         }
@@ -489,9 +539,12 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     /**
-     * <p>writeXML</p>
+     * <p>
+     * writeXML
+     * </p>
      *
-     * @throws org.opennms.report.inventory.InventoryCalculationException if any.
+     * @throws org.opennms.report.inventory.InventoryCalculationException
+     *             if any.
      */
     public void writeXML() throws InventoryCalculationException {
         try {
@@ -499,7 +552,6 @@ public class InventoryReportCalculator implements InitializingBean {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmmss");
             String datestamp = fmt.format(reportRequestDate);
             m_outputFileName = "/NODEINVENTORY" + datestamp + ".xml";
-
 
             // Create a file name of type Category-monthFormat-startDate.xml
             LOG.debug("Report Store XML file: {}", m_outputFileName);
@@ -512,15 +564,17 @@ public class InventoryReportCalculator implements InitializingBean {
         }
     }
 
-
     /**
-     * <p>marshal</p>
+     * <p>
+     * marshal
+     * </p>
      *
-     * @param outputFile a {@link java.io.File} object.
-     * @throws org.opennms.report.inventory.InventoryCalculationException if any.
+     * @param outputFile
+     *            a {@link java.io.File} object.
+     * @throws org.opennms.report.inventory.InventoryCalculationException
+     *             if any.
      */
-    public void marshal(File outputFile)
-    throws InventoryCalculationException {
+    public void marshal(File outputFile) throws InventoryCalculationException {
         try {
             Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outputFile), "UTF-8");
             Marshaller marshaller = new Marshaller(fileWriter);

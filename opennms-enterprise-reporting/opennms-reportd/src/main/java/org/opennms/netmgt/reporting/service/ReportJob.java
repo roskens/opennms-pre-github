@@ -34,30 +34,30 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 /**
- * <p>ReportJob class.</p>
+ * <p>
+ * ReportJob class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class ReportJob implements Job {
 
-
     /** Constant <code>KEY="report"</code> */
     protected static final String KEY = "report";
 
     private Reportd m_reportd;
 
-
     /** {@inheritDoc} */
     @Override
-    public void execute(JobExecutionContext context)
-        throws JobExecutionException {
-            m_reportd.runReport((Report)context.getJobDetail().getJobDataMap().get(KEY));
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        m_reportd.runReport((Report) context.getJobDetail().getJobDataMap().get(KEY));
     }
 
-
     /**
-     * <p>getReportd</p>
+     * <p>
+     * getReportd
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.reporting.service.Reportd} object.
      */
@@ -65,11 +65,13 @@ public class ReportJob implements Job {
         return m_reportd;
     }
 
-
     /**
-     * <p>setReportd</p>
+     * <p>
+     * setReportd
+     * </p>
      *
-     * @param reportd a {@link org.opennms.netmgt.reporting.service.Reportd} object.
+     * @param reportd
+     *            a {@link org.opennms.netmgt.reporting.service.Reportd} object.
      */
     public void setReportd(Reportd reportd) {
         m_reportd = reportd;

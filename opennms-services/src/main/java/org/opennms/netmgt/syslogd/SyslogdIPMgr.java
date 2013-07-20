@@ -55,7 +55,7 @@ final class SyslogdIPMgr {
     /**
      * A Map of IP addresses and node IDs
      */
-    private static Map<String,Long> m_knownips = new ConcurrentHashMap<String,Long>();
+    private static Map<String, Long> m_knownips = new ConcurrentHashMap<String, Long>();
 
     /**
      * Clears and synchronizes the internal known IP address cache with the
@@ -108,7 +108,8 @@ final class SyslogdIPMgr {
     /**
      * Returns the nodeid for the IP Address
      *
-     * @param addr The IP Address to query.
+     * @param addr
+     *            The IP Address to query.
      * @return The node ID of the IP Address if known.
      */
     static synchronized long getNodeId(final String addr) {
@@ -121,8 +122,10 @@ final class SyslogdIPMgr {
     /**
      * Sets the IP Address and Node ID in the Map.
      *
-     * @param addr   The IP Address to add.
-     * @param nodeid The Node ID to add.
+     * @param addr
+     *            The IP Address to add.
+     * @param nodeid
+     *            The Node ID to add.
      * @return The nodeid if it existed in the map.
      */
     static long setNodeId(final String addr, final long nodeid) {
@@ -135,7 +138,8 @@ final class SyslogdIPMgr {
     /**
      * Removes an address from the node ID map.
      *
-     * @param addr The address to remove from the node ID map.
+     * @param addr
+     *            The address to remove from the node ID map.
      * @return The nodeid that was in the map.
      */
     static long removeNodeId(final String addr) {

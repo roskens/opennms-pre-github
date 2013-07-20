@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.Serializable;
@@ -51,44 +51,43 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The operator action to be taken when this event occurs
- *  with state controlling if action takes place. The menutext gets
- *  displayed in the UI.
+ * with state controlling if action takes place. The menutext gets
+ * displayed in the UI.
  *
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="operaction")
+@XmlRootElement(name = "operaction")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@ValidateUsing("event.xsd")
+// @ValidateUsing("event.xsd")
 public class Operaction implements Serializable {
-	private static final long serialVersionUID = -4021848582976244135L;
+    private static final long serialVersionUID = -4021848582976244135L;
 
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
-	/**
+    /**
      * internal content storage
      */
-	@XmlValue
+    @XmlValue
     private java.lang.String _content = "";
 
     /**
      * Field _state.
      */
-	@XmlAttribute(name="state")
+    @XmlAttribute(name = "state")
     private java.lang.String _state = "on";
 
     /**
      * Field _menutext.
      */
-	@XmlAttribute(name="menutext", required=true)
+    @XmlAttribute(name = "menutext", required = true)
     private java.lang.String _menutext;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Operaction() {
         super();
@@ -96,10 +95,9 @@ public class Operaction implements Serializable {
         setState("on");
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Returns the value of field 'content'. The field 'content'
@@ -107,8 +105,7 @@ public class Operaction implements Serializable {
      *
      * @return the value of field 'Content'.
      */
-    public java.lang.String getContent(
-    ) {
+    public java.lang.String getContent() {
         return this._content;
     }
 
@@ -117,8 +114,7 @@ public class Operaction implements Serializable {
      *
      * @return the value of field 'Menutext'.
      */
-    public java.lang.String getMenutext(
-    ) {
+    public java.lang.String getMenutext() {
         return this._menutext;
     }
 
@@ -127,8 +123,7 @@ public class Operaction implements Serializable {
      *
      * @return the value of field 'State'.
      */
-    public java.lang.String getState(
-    ) {
+    public java.lang.String getState() {
         return this._state;
     }
 
@@ -136,39 +131,36 @@ public class Operaction implements Serializable {
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
      *
-     * @param content the value of field 'content'.
+     * @param content
+     *            the value of field 'content'.
      */
-    public void setContent(
-            final java.lang.String content) {
+    public void setContent(final java.lang.String content) {
         this._content = content;
     }
 
     /**
      * Sets the value of field 'menutext'.
      *
-     * @param menutext the value of field 'menutext'.
+     * @param menutext
+     *            the value of field 'menutext'.
      */
-    public void setMenutext(
-            final java.lang.String menutext) {
+    public void setMenutext(final java.lang.String menutext) {
         this._menutext = menutext;
     }
 
     /**
      * Sets the value of field 'state'.
      *
-     * @param state the value of field 'state'.
+     * @param state
+     *            the value of field 'state'.
      */
-    public void setState(
-            final java.lang.String state) {
+    public void setState(final java.lang.String state) {
         this._state = state;
     }
 
-        @Override
+    @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("content", _content)
-    		.append("state", _state)
-    		.append("menutext", _menutext)
-    		.toString();
+        return new ToStringBuilder(this).append("content", _content).append("state", _state).append("menutext",
+                                                                                                    _menutext).toString();
     }
 }

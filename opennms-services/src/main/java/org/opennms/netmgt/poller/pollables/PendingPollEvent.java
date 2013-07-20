@@ -45,19 +45,29 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public class PendingPollEvent extends PollEvent {
     private static final Logger LOG = LoggerFactory.getLogger(PendingPollEvent.class);
-    // how long to wait, in milliseconds, before giving up on waiting for a poll event to get an event ID, defaults to 10 minutes
-    private static final long PENDING_EVENT_TIMEOUT = Long.getLong("org.opennms.netmgt.poller.pendingEventTimeout", 1000L * 60L * 10L);
+
+    // how long to wait, in milliseconds, before giving up on waiting for a poll
+    // event to get an event ID, defaults to 10 minutes
+    private static final long PENDING_EVENT_TIMEOUT = Long.getLong("org.opennms.netmgt.poller.pendingEventTimeout",
+                                                                   1000L * 60L * 10L);
 
     private final Event m_event;
+
     private Date m_date;
+
     private long m_expirationTimeInMillis;
+
     private boolean m_pending = true;
+
     private List<Runnable> m_pendingOutages = new LinkedList<Runnable>();
 
     /**
-     * <p>Constructor for PendingPollEvent.</p>
+     * <p>
+     * Constructor for PendingPollEvent.
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public PendingPollEvent(final Event event) {
         super(Scope.fromUei(event.getUei()));
@@ -72,7 +82,9 @@ public class PendingPollEvent extends PollEvent {
     }
 
     /**
-     * <p>getDate</p>
+     * <p>
+     * getDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -82,7 +94,9 @@ public class PendingPollEvent extends PollEvent {
     }
 
     /**
-     * <p>getEventId</p>
+     * <p>
+     * getEventId
+     * </p>
      *
      * @return a int.
      */
@@ -92,9 +106,12 @@ public class PendingPollEvent extends PollEvent {
     }
 
     /**
-     * <p>addPending</p>
+     * <p>
+     * addPending
+     * </p>
      *
-     * @param r a {@link java.lang.Runnable} object.
+     * @param r
+     *            a {@link java.lang.Runnable} object.
      */
     public void addPending(Runnable r) {
         if (m_pending)
@@ -104,7 +121,9 @@ public class PendingPollEvent extends PollEvent {
     }
 
     /**
-     * <p>getEvent</p>
+     * <p>
+     * getEvent
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -113,7 +132,9 @@ public class PendingPollEvent extends PollEvent {
     }
 
     /**
-     * <p>isPending</p>
+     * <p>
+     * isPending
+     * </p>
      *
      * @return a boolean.
      */
@@ -132,16 +153,21 @@ public class PendingPollEvent extends PollEvent {
     }
 
     /**
-     * <p>complete</p>
+     * <p>
+     * complete
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public void complete(Event e) {
         m_pending = false;
     }
 
     /**
-     * <p>processPending</p>
+     * <p>
+     * processPending
+     * </p>
      */
     public void processPending() {
         for (Runnable r : m_pendingOutages) {
@@ -152,7 +178,8 @@ public class PendingPollEvent extends PollEvent {
     }
 
     public String toString() {
-        return m_event+", uei: "+m_event.getUei()+", id: "+m_event.getDbid()+", isPending: "+m_pending+", list size: "+m_pendingOutages.size();
+        return m_event + ", uei: " + m_event.getUei() + ", id: " + m_event.getDbid() + ", isPending: " + m_pending
+                + ", list size: " + m_pendingOutages.size();
     }
 
     // for unit testing

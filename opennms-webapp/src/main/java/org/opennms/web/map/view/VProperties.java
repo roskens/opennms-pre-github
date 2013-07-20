@@ -38,53 +38,71 @@ import org.opennms.web.map.config.Severity;
 import org.opennms.web.map.config.Status;
 
 /**
- * <p>VProperties class.</p>
+ * <p>
+ * VProperties class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public class VProperties {
-    private boolean isUserAdmin=false;
-    private boolean reload=false;
+    private boolean isUserAdmin = false;
 
-	private boolean doubleClickEnabled=true;
-	private boolean contextMenuEnabled=true;
-    private boolean availEnabled=true;
+    private boolean reload = false;
 
-    private boolean useSemaphore=true;
+    private boolean doubleClickEnabled = true;
+
+    private boolean contextMenuEnabled = true;
+
+    private boolean availEnabled = true;
+
+    private boolean useSemaphore = true;
 
     private int unknownstatusid;
+
     private int maxLinks;
+
     private int summaryLink;
 
     private String summaryLinkColor;
+
     private String multilinkIgnoreColor;
+
     private String multilinkStatus;
 
     private ContextMenu contextMenu;
 
+    private List<Link> links;
 
-	private List<Link> links;
-	private List<LinkStatus> linkStatuses;
-	private List<Status> statuses;
-	private List<Severity> severities;
-	private List<Avail> avails;
+    private List<LinkStatus> linkStatuses;
+
+    private List<Status> statuses;
+
+    private List<Severity> severities;
+
+    private List<Avail> avails;
 
     private int defaultMapElementDimension;
 
-    private java.util.Map<String,String> icons;
-	private java.util.Map<String,String> backgroundImages;
-	private java.util.Map<String, String> mapElementDimensions;
+    private java.util.Map<String, String> icons;
+
+    private java.util.Map<String, String> backgroundImages;
+
+    private java.util.Map<String, String> mapElementDimensions;
 
     private String defaultNodeIcon;
+
     private String defaultMapIcon;
+
     private String defaultBackgroundColor;
 
-	private List<String> categories;
+    private List<String> categories;
 
     /**
-     * <p>Getter for the field <code>multilinkIgnoreColor</code>.</p>
+     * <p>
+     * Getter for the field <code>multilinkIgnoreColor</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,16 +111,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>multilinkIgnoreColor</code>.</p>
+     * <p>
+     * Setter for the field <code>multilinkIgnoreColor</code>.
+     * </p>
      *
-     * @param multilinkIgnoreColor a {@link java.lang.String} object.
+     * @param multilinkIgnoreColor
+     *            a {@link java.lang.String} object.
      */
     public void setMultilinkIgnoreColor(String multilinkIgnoreColor) {
         this.multilinkIgnoreColor = multilinkIgnoreColor;
     }
 
     /**
-     * <p>Getter for the field <code>multilinkStatus</code>.</p>
+     * <p>
+     * Getter for the field <code>multilinkStatus</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,16 +134,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>multilinkStatus</code>.</p>
+     * <p>
+     * Setter for the field <code>multilinkStatus</code>.
+     * </p>
      *
-     * @param multilinkStatus a {@link java.lang.String} object.
+     * @param multilinkStatus
+     *            a {@link java.lang.String} object.
      */
     public void setMultilinkStatus(String multilinkStatus) {
         this.multilinkStatus = multilinkStatus;
     }
 
     /**
-     * <p>Getter for the field <code>summaryLinkColor</code>.</p>
+     * <p>
+     * Getter for the field <code>summaryLinkColor</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,16 +157,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>summaryLinkColor</code>.</p>
+     * <p>
+     * Setter for the field <code>summaryLinkColor</code>.
+     * </p>
      *
-     * @param summaryLinkColor a {@link java.lang.String} object.
+     * @param summaryLinkColor
+     *            a {@link java.lang.String} object.
      */
     public void setSummaryLinkColor(String summaryLinkColor) {
         this.summaryLinkColor = summaryLinkColor;
     }
 
     /**
-     * <p>Getter for the field <code>summaryLink</code>.</p>
+     * <p>
+     * Getter for the field <code>summaryLink</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -147,16 +180,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>summaryLink</code>.</p>
+     * <p>
+     * Setter for the field <code>summaryLink</code>.
+     * </p>
      *
-     * @param summaryLink a int.
+     * @param summaryLink
+     *            a int.
      */
     public void setSummaryLink(int summaryLink) {
         this.summaryLink = summaryLink;
     }
 
     /**
-     * <p>Getter for the field <code>maxLinks</code>.</p>
+     * <p>
+     * Getter for the field <code>maxLinks</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -165,34 +203,44 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>maxLinks</code>.</p>
+     * <p>
+     * Setter for the field <code>maxLinks</code>.
+     * </p>
      *
-     * @param maxLinks a int.
+     * @param maxLinks
+     *            a int.
      */
     public void setMaxLinks(int maxLinks) {
         this.maxLinks = maxLinks;
     }
 
-	/**
-	 * <p>Getter for the field <code>unknownstatusid</code>.</p>
-	 *
-	 * @return a int.
-	 */
-	public int getUnknownstatusid() {
+    /**
+     * <p>
+     * Getter for the field <code>unknownstatusid</code>.
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getUnknownstatusid() {
         return unknownstatusid;
     }
 
     /**
-     * <p>Setter for the field <code>unknownstatusid</code>.</p>
+     * <p>
+     * Setter for the field <code>unknownstatusid</code>.
+     * </p>
      *
-     * @param unknownstatusid a int.
+     * @param unknownstatusid
+     *            a int.
      */
     public void setUnknownstatusid(int unknownstatusid) {
         this.unknownstatusid = unknownstatusid;
     }
 
     /**
-     * <p>isAvailEnabled</p>
+     * <p>
+     * isAvailEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -201,16 +249,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>availEnabled</code>.</p>
+     * <p>
+     * Setter for the field <code>availEnabled</code>.
+     * </p>
      *
-     * @param availEnabled a boolean.
+     * @param availEnabled
+     *            a boolean.
      */
     public void setAvailEnabled(boolean availEnabled) {
         this.availEnabled = availEnabled;
     }
 
     /**
-     * <p>isDoubleClickEnabled</p>
+     * <p>
+     * isDoubleClickEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -219,16 +272,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>doubleClickEnabled</code>.</p>
+     * <p>
+     * Setter for the field <code>doubleClickEnabled</code>.
+     * </p>
      *
-     * @param doubleClickEnabled a boolean.
+     * @param doubleClickEnabled
+     *            a boolean.
      */
     public void setDoubleClickEnabled(boolean doubleClickEnabled) {
         this.doubleClickEnabled = doubleClickEnabled;
     }
 
     /**
-     * <p>isContextMenuEnabled</p>
+     * <p>
+     * isContextMenuEnabled
+     * </p>
      *
      * @return a boolean.
      */
@@ -237,16 +295,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>contextMenuEnabled</code>.</p>
+     * <p>
+     * Setter for the field <code>contextMenuEnabled</code>.
+     * </p>
      *
-     * @param contextMenuEnabled a boolean.
+     * @param contextMenuEnabled
+     *            a boolean.
      */
     public void setContextMenuEnabled(boolean contextMenuEnabled) {
         this.contextMenuEnabled = contextMenuEnabled;
     }
 
     /**
-     * <p>isReload</p>
+     * <p>
+     * isReload
+     * </p>
      *
      * @return a boolean.
      */
@@ -255,16 +318,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>reload</code>.</p>
+     * <p>
+     * Setter for the field <code>reload</code>.
+     * </p>
      *
-     * @param reload a boolean.
+     * @param reload
+     *            a boolean.
      */
     public void setReload(boolean reload) {
         this.reload = reload;
     }
 
     /**
-     * <p>isUserAdmin</p>
+     * <p>
+     * isUserAdmin
+     * </p>
      *
      * @return a boolean.
      */
@@ -273,16 +341,21 @@ public class VProperties {
     }
 
     /**
-     * <p>setUserAdmin</p>
+     * <p>
+     * setUserAdmin
+     * </p>
      *
-     * @param isUserAdmin a boolean.
+     * @param isUserAdmin
+     *            a boolean.
      */
     public void setUserAdmin(boolean isUserAdmin) {
         this.isUserAdmin = isUserAdmin;
     }
 
     /**
-     * <p>Getter for the field <code>contextMenu</code>.</p>
+     * <p>
+     * Getter for the field <code>contextMenu</code>.
+     * </p>
      *
      * @return a {@link org.opennms.web.map.config.ContextMenu} object.
      */
@@ -291,16 +364,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>contextMenu</code>.</p>
+     * <p>
+     * Setter for the field <code>contextMenu</code>.
+     * </p>
      *
-     * @param contextMenu a {@link org.opennms.web.map.config.ContextMenu} object.
+     * @param contextMenu
+     *            a {@link org.opennms.web.map.config.ContextMenu} object.
      */
     public void setContextMenu(ContextMenu contextMenu) {
         this.contextMenu = contextMenu;
     }
 
     /**
-     * <p>Getter for the field <code>links</code>.</p>
+     * <p>
+     * Getter for the field <code>links</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -309,16 +387,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>links</code>.</p>
+     * <p>
+     * Setter for the field <code>links</code>.
+     * </p>
      *
-     * @param links a {@link java.util.List} object.
+     * @param links
+     *            a {@link java.util.List} object.
      */
     public void setLinks(List<Link> links) {
         this.links = links;
     }
 
     /**
-     * <p>Getter for the field <code>linkStatuses</code>.</p>
+     * <p>
+     * Getter for the field <code>linkStatuses</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -327,16 +410,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>linkStatuses</code>.</p>
+     * <p>
+     * Setter for the field <code>linkStatuses</code>.
+     * </p>
      *
-     * @param linkStatuses a {@link java.util.List} object.
+     * @param linkStatuses
+     *            a {@link java.util.List} object.
      */
     public void setLinkStatuses(List<LinkStatus> linkStatuses) {
         this.linkStatuses = linkStatuses;
     }
 
     /**
-     * <p>Getter for the field <code>statuses</code>.</p>
+     * <p>
+     * Getter for the field <code>statuses</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -345,16 +433,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>statuses</code>.</p>
+     * <p>
+     * Setter for the field <code>statuses</code>.
+     * </p>
      *
-     * @param statuses a {@link java.util.List} object.
+     * @param statuses
+     *            a {@link java.util.List} object.
      */
     public void setStatuses(List<Status> statuses) {
         this.statuses = statuses;
     }
 
     /**
-     * <p>Getter for the field <code>severities</code>.</p>
+     * <p>
+     * Getter for the field <code>severities</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -363,16 +456,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>severities</code>.</p>
+     * <p>
+     * Setter for the field <code>severities</code>.
+     * </p>
      *
-     * @param severities a {@link java.util.List} object.
+     * @param severities
+     *            a {@link java.util.List} object.
      */
     public void setSeverities(List<Severity> severities) {
         this.severities = severities;
     }
 
     /**
-     * <p>Getter for the field <code>avails</code>.</p>
+     * <p>
+     * Getter for the field <code>avails</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -381,16 +479,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>avails</code>.</p>
+     * <p>
+     * Setter for the field <code>avails</code>.
+     * </p>
      *
-     * @param avails a {@link java.util.List} object.
+     * @param avails
+     *            a {@link java.util.List} object.
      */
     public void setAvails(List<Avail> avails) {
         this.avails = avails;
     }
 
     /**
-     * <p>Getter for the field <code>icons</code>.</p>
+     * <p>
+     * Getter for the field <code>icons</code>.
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -399,16 +502,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>icons</code>.</p>
+     * <p>
+     * Setter for the field <code>icons</code>.
+     * </p>
      *
-     * @param icons a {@link java.util.Map} object.
+     * @param icons
+     *            a {@link java.util.Map} object.
      */
     public void setIcons(java.util.Map<String, String> icons) {
         this.icons = icons;
     }
 
     /**
-     * <p>Getter for the field <code>backgroundImages</code>.</p>
+     * <p>
+     * Getter for the field <code>backgroundImages</code>.
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -417,16 +525,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>backgroundImages</code>.</p>
+     * <p>
+     * Setter for the field <code>backgroundImages</code>.
+     * </p>
      *
-     * @param backgroundImages a {@link java.util.Map} object.
+     * @param backgroundImages
+     *            a {@link java.util.Map} object.
      */
     public void setBackgroundImages(java.util.Map<String, String> backgroundImages) {
         this.backgroundImages = backgroundImages;
     }
 
     /**
-     * <p>Getter for the field <code>mapElementDimensions</code>.</p>
+     * <p>
+     * Getter for the field <code>mapElementDimensions</code>.
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -435,17 +548,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>mapElementDimensions</code>.</p>
+     * <p>
+     * Setter for the field <code>mapElementDimensions</code>.
+     * </p>
      *
-     * @param mapElementDimensions a {@link java.util.Map} object.
+     * @param mapElementDimensions
+     *            a {@link java.util.Map} object.
      */
-    public void setMapElementDimensions(
-            java.util.Map<String, String> mapElementDimensions) {
+    public void setMapElementDimensions(java.util.Map<String, String> mapElementDimensions) {
         this.mapElementDimensions = mapElementDimensions;
     }
 
     /**
-     * <p>Getter for the field <code>defaultNodeIcon</code>.</p>
+     * <p>
+     * Getter for the field <code>defaultNodeIcon</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -454,16 +571,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>defaultNodeIcon</code>.</p>
+     * <p>
+     * Setter for the field <code>defaultNodeIcon</code>.
+     * </p>
      *
-     * @param defaultNodeIcon a {@link java.lang.String} object.
+     * @param defaultNodeIcon
+     *            a {@link java.lang.String} object.
      */
     public void setDefaultNodeIcon(String defaultNodeIcon) {
         this.defaultNodeIcon = defaultNodeIcon;
     }
 
     /**
-     * <p>Getter for the field <code>defaultMapIcon</code>.</p>
+     * <p>
+     * Getter for the field <code>defaultMapIcon</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -472,16 +594,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>defaultMapIcon</code>.</p>
+     * <p>
+     * Setter for the field <code>defaultMapIcon</code>.
+     * </p>
      *
-     * @param defaultMapIcon a {@link java.lang.String} object.
+     * @param defaultMapIcon
+     *            a {@link java.lang.String} object.
      */
     public void setDefaultMapIcon(String defaultMapIcon) {
         this.defaultMapIcon = defaultMapIcon;
     }
 
     /**
-     * <p>Getter for the field <code>defaultBackgroundColor</code>.</p>
+     * <p>
+     * Getter for the field <code>defaultBackgroundColor</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -490,16 +617,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>defaultBackgroundColor</code>.</p>
+     * <p>
+     * Setter for the field <code>defaultBackgroundColor</code>.
+     * </p>
      *
-     * @param defaultBackgroundColor a {@link java.lang.String} object.
+     * @param defaultBackgroundColor
+     *            a {@link java.lang.String} object.
      */
     public void setDefaultBackgroundColor(String defaultBackgroundColor) {
         this.defaultBackgroundColor = defaultBackgroundColor;
     }
 
     /**
-     * <p>Getter for the field <code>categories</code>.</p>
+     * <p>
+     * Getter for the field <code>categories</code>.
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -508,16 +640,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>categories</code>.</p>
+     * <p>
+     * Setter for the field <code>categories</code>.
+     * </p>
      *
-     * @param categories a {@link java.util.List} object.
+     * @param categories
+     *            a {@link java.util.List} object.
      */
     public void setCategories(List<String> categories) {
         this.categories = categories;
     }
 
     /**
-     * <p>Getter for the field <code>defaultMapElementDimension</code>.</p>
+     * <p>
+     * Getter for the field <code>defaultMapElementDimension</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -526,16 +663,21 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>defaultMapElementDimension</code>.</p>
+     * <p>
+     * Setter for the field <code>defaultMapElementDimension</code>.
+     * </p>
      *
-     * @param defaultMapElementDimension a int.
+     * @param defaultMapElementDimension
+     *            a int.
      */
     public void setDefaultMapElementDimension(int defaultMapElementDimension) {
         this.defaultMapElementDimension = defaultMapElementDimension;
     }
 
     /**
-     * <p>isUseSemaphore</p>
+     * <p>
+     * isUseSemaphore
+     * </p>
      *
      * @return a boolean.
      */
@@ -544,9 +686,12 @@ public class VProperties {
     }
 
     /**
-     * <p>Setter for the field <code>useSemaphore</code>.</p>
+     * <p>
+     * Setter for the field <code>useSemaphore</code>.
+     * </p>
      *
-     * @param useSemaphore a boolean.
+     * @param useSemaphore
+     *            a boolean.
      */
     public void setUseSemaphore(boolean useSemaphore) {
         this.useSemaphore = useSemaphore;

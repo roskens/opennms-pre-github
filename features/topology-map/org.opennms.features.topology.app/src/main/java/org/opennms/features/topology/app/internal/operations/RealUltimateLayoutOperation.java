@@ -33,21 +33,21 @@ import org.opennms.features.topology.app.internal.jung.RealUltimateLayoutAlgorit
 
 public class RealUltimateLayoutOperation extends LayoutOperation {
 
-	public RealUltimateLayoutOperation() {
-		super(new LayoutFactory() {
+    public RealUltimateLayoutOperation() {
+        super(new LayoutFactory() {
 
-		    private final RealUltimateLayoutAlgorithm m_layoutAlgorithm = new RealUltimateLayoutAlgorithm();
+            private final RealUltimateLayoutAlgorithm m_layoutAlgorithm = new RealUltimateLayoutAlgorithm();
 
-			@Override
-			public LayoutAlgorithm getLayoutAlgorithm() {
-				return m_layoutAlgorithm;
-			}
-		});
-	}
+            @Override
+            public LayoutAlgorithm getLayoutAlgorithm() {
+                return m_layoutAlgorithm;
+            }
+        });
+    }
 
-	@Override
-	public String getId() {
-		return getClass().getSimpleName();
-	}
+    @Override
+    public String getId() {
+        return getClass().getSimpleName();
+    }
 
 }

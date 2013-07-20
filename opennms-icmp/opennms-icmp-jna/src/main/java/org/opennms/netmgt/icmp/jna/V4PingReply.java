@@ -46,12 +46,13 @@ class V4PingReply extends ICMPEchoPacket implements EchoPacket {
 
     public boolean isValid() {
         ByteBuffer content = getContentBuffer();
-        return content.limit() >= V4PingRequest.DATA_LENGTH && V4PingRequest.COOKIE == content.getLong(V4PingRequest.OFFSET_COOKIE);
+        return content.limit() >= V4PingRequest.DATA_LENGTH
+                && V4PingRequest.COOKIE == content.getLong(V4PingRequest.OFFSET_COOKIE);
     }
 
     @Override
     public boolean isEchoReply() {
-    	return Type.EchoReply.equals(getType());
+        return Type.EchoReply.equals(getType());
     }
 
     @Override

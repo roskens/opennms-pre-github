@@ -56,10 +56,10 @@ import org.opennms.netmgt.EventConstants;
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
- *
  */
 final class KnownIPMgr {
     private static final Logger LOG = LoggerFactory.getLogger(KnownIPMgr.class);
+
     /**
      * The SQL statement used to extract the list of currently known IP
      * addresses from the IP Interface table.
@@ -84,7 +84,6 @@ final class KnownIPMgr {
      *
      * @author <a href="mailto:weave@oculan.com">Weave </a>
      * @author <a href="http://www.opennms.org">OpenNMS </a>
-     *
      */
     final static class IPInterface {
         /**
@@ -109,7 +108,6 @@ final class KnownIPMgr {
          *            The IP Interface address.
          * @param nodeid
          *            The node identifier for the address.
-         *
          */
         IPInterface(InetAddress iface, int nodeid) {
             m_interface = iface;
@@ -126,7 +124,6 @@ final class KnownIPMgr {
          *            The node identifier for the address.
          * @param date
          *            The last date this address was checked.
-         *
          */
         IPInterface(InetAddress iface, int nodeid, Timestamp date) {
             m_interface = iface;
@@ -143,7 +140,6 @@ final class KnownIPMgr {
          *            The node identifier for the address.
          * @param date
          *            The last date this address was checked.
-         *
          * @throws java.text.ParseException
          *             Thrown if the date is malformed.
          */
@@ -163,7 +159,6 @@ final class KnownIPMgr {
 
         /**
          * Returns the node identifier for this interface.
-         *
          */
         int getNodeId() {
             return m_nodeid;
@@ -189,7 +184,6 @@ final class KnownIPMgr {
          *
          * @param db
          *            The database to update the result in.
-         *
          * @throws java.sql.SQLException
          *             Thrown if an error occurs updating the database entry.
          */
@@ -215,7 +209,6 @@ final class KnownIPMgr {
      *
      * @throws java.lang.UnsupportedOperationException
      *             Always thrown.
-     *
      */
     private KnownIPMgr() {
         throw new UnsupportedOperationException("Construction is not supported");
@@ -233,7 +226,6 @@ final class KnownIPMgr {
      * @throws java.sql.SQLException
      *             Thrown if the connection cannot be created or a database
      *             error occurs.
-     *
      */
     static synchronized void dataSourceSync() throws SQLException {
 
@@ -293,9 +285,7 @@ final class KnownIPMgr {
      *
      * @param addr
      *            The IP Address to query.
-     *
      * @return True if the address is known to the manager.
-     *
      */
     static synchronized boolean isKnown(InetAddress addr) {
         return m_known.containsKey(addr);
@@ -309,12 +299,9 @@ final class KnownIPMgr {
      *
      * @param ipAddr
      *            The IP Address to query.
-     *
      * @return True if the address is known to the manager.
-     *
      * @throws java.io.UnknownHostException
      *             Thrown if the address name could not be converted.
-     *
      */
     static boolean isKnown(String ipAddr) throws UnknownHostException {
         return isKnown(InetAddressUtils.addr(ipAddr));
@@ -325,7 +312,6 @@ final class KnownIPMgr {
      *
      * @param addr
      *            The address to add to the discovered set.
-     *
      * @return True if the address was not already discovered.
      */
     static synchronized boolean addKnown(InetAddress addr) {
@@ -337,9 +323,7 @@ final class KnownIPMgr {
      *
      * @param addr
      *            The address to add to the discovered set.
-     *
      * @return True if the address was not already discovered.
-     *
      * @throws java.net.UnknownHost
      *             Thrown if the address cannot be converted.
      */
@@ -352,7 +336,6 @@ final class KnownIPMgr {
      * the set of known nodes.
      *
      * @return The arrry of all currently known InetAddress objects.
-     *
      */
     static synchronized InetAddress[] knownSet() {
         InetAddress[] set = new InetAddress[m_known.size()];

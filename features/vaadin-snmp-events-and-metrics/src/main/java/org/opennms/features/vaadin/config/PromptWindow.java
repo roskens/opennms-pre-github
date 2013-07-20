@@ -89,15 +89,17 @@ public abstract class PromptWindow extends Window implements Button.ClickListene
         setContent(layout);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
         final Button btn = event.getButton();
         if (btn == okButton) {
-            if (fileName.getValue() != null && ! ((String) fileName.getValue()).trim().equals("")) {
-                textFieldChanged((String)fileName.getValue());
+            if (fileName.getValue() != null && !((String) fileName.getValue()).trim().equals("")) {
+                textFieldChanged((String) fileName.getValue());
             }
         }
         close();
@@ -106,7 +108,8 @@ public abstract class PromptWindow extends Window implements Button.ClickListene
     /**
      * Text field changed.
      *
-     * @param fieldValue the field value
+     * @param fieldValue
+     *            the field value
      */
     public abstract void textFieldChanged(String fieldValue);
 

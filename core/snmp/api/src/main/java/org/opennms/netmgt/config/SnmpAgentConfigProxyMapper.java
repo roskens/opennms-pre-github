@@ -35,46 +35,54 @@ import java.util.Map;
 import org.opennms.netmgt.snmp.SnmpAgentAddress;
 
 public class SnmpAgentConfigProxyMapper {
-	private static SnmpAgentConfigProxyMapper m_instance;
-	private Map<InetAddress,SnmpAgentAddress> m_addressToProxyAddress = new HashMap<InetAddress,SnmpAgentAddress>();
+    private static SnmpAgentConfigProxyMapper m_instance;
 
-	protected SnmpAgentConfigProxyMapper() {
-	}
+    private Map<InetAddress, SnmpAgentAddress> m_addressToProxyAddress = new HashMap<InetAddress, SnmpAgentAddress>();
 
-	public static SnmpAgentConfigProxyMapper getInstance() {
-		if (m_instance == null) {
-			m_instance = new SnmpAgentConfigProxyMapper();
-		}
-		return m_instance;
-	}
+    protected SnmpAgentConfigProxyMapper() {
+    }
 
-	public static void setInstance(final SnmpAgentConfigProxyMapper mapper) {
-		m_instance = mapper;
-	}
+    public static SnmpAgentConfigProxyMapper getInstance() {
+        if (m_instance == null) {
+            m_instance = new SnmpAgentConfigProxyMapper();
+        }
+        return m_instance;
+    }
 
-	/**
-	 * Returns the proxied {@link SnmpAgentAddress} that the provided host address.
-	 * is mapped to.
-	 * @param address a "real" SNMP agent address
-	 * @return the monitored host address
-	 */
-	public SnmpAgentAddress getAddress(final InetAddress address) {
-		return m_addressToProxyAddress.get(address);
-	}
+    public static void setInstance(final SnmpAgentConfigProxyMapper mapper) {
+        m_instance = mapper;
+    }
 
-	/**
-	 * Sets the proxied {@link SnmpAgentAddress} for a given {@link SnmpAgentAddress}
-	 * @param hostAddress the "real" SNMP agent address
-	 * @param proxyAgentAddress the SNMP agent address it is mapped to
-	 */
-	public void addProxy(final InetAddress hostAddress, final SnmpAgentAddress proxyAgentAddress) {
-		m_addressToProxyAddress.put(hostAddress, proxyAgentAddress);
-	}
+    /**
+     * Returns the proxied {@link SnmpAgentAddress} that the provided host
+     * address.
+     * is mapped to.
+     *
+     * @param address
+     *            a "real" SNMP agent address
+     * @return the monitored host address
+     */
+    public SnmpAgentAddress getAddress(final InetAddress address) {
+        return m_addressToProxyAddress.get(address);
+    }
 
-	/**
-	 * Whether or not the given address is in use in the proxy mapper.
-	 */
-	public boolean contains(final SnmpAgentAddress listenAddress) {
-		return (m_addressToProxyAddress.values().contains(listenAddress));
-	}
+    /**
+     * Sets the proxied {@link SnmpAgentAddress} for a given
+     * {@link SnmpAgentAddress}
+     *
+     * @param hostAddress
+     *            the "real" SNMP agent address
+     * @param proxyAgentAddress
+     *            the SNMP agent address it is mapped to
+     */
+    public void addProxy(final InetAddress hostAddress, final SnmpAgentAddress proxyAgentAddress) {
+        m_addressToProxyAddress.put(hostAddress, proxyAgentAddress);
+    }
+
+    /**
+     * Whether or not the given address is in use in the proxy mapper.
+     */
+    public boolean contains(final SnmpAgentAddress listenAddress) {
+        return (m_addressToProxyAddress.values().contains(listenAddress));
+    }
 }

@@ -48,7 +48,9 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
- * <p>AcknowledgeEventByFilterController class.</p>
+ * <p>
+ * AcknowledgeEventByFilterController class.
+ * </p>
  *
  * @author ranger
  * @since 1.8.1
@@ -59,27 +61,36 @@ public class AcknowledgeEventByFilterController extends AbstractController imple
     private String m_redirectView;
 
     /**
-     * <p>setRedirectView</p>
+     * <p>
+     * setRedirectView
+     * </p>
      *
-     * @param redirectView a {@link java.lang.String} object.
+     * @param redirectView
+     *            a {@link java.lang.String} object.
      */
     public void setRedirectView(String redirectView) {
         m_redirectView = redirectView;
     }
 
     /**
-     * <p>setWebEventRepository</p>
+     * <p>
+     * setWebEventRepository
+     * </p>
      *
-     * @param webEventRepository a {@link org.opennms.web.event.WebEventRepository} object.
+     * @param webEventRepository
+     *            a {@link org.opennms.web.event.WebEventRepository} object.
      */
     public void setWebEventRepository(WebEventRepository webEventRepository) {
         m_webEventRepository = webEventRepository;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -88,13 +99,13 @@ public class AcknowledgeEventByFilterController extends AbstractController imple
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Acknowledge the events specified in the POST and then redirect the client
+     * {@inheritDoc} Acknowledge the events specified in the POST and then
+     * redirect the client
      * to an appropriate URL for display.
      */
     @Override
-    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         // required parameter
         String[] filterStrings = request.getParameterValues("filter");
         String action = request.getParameter("actionCode");
@@ -134,11 +145,11 @@ public class AcknowledgeEventByFilterController extends AbstractController imple
         if (redirect != null) {
             viewName = redirect;
         } else {
-            viewName = (redirectParms == null || redirectParms=="" || redirectParms=="null" ? m_redirectView : m_redirectView + "?" + redirectParms);
+            viewName = (redirectParms == null || redirectParms == "" || redirectParms == "null" ? m_redirectView
+                : m_redirectView + "?" + redirectParms);
         }
         RedirectView view = new RedirectView(viewName, true);
         return new ModelAndView(view);
     }
-
 
 }

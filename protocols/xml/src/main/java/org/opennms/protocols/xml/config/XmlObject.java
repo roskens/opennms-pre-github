@@ -43,7 +43,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="xml-object")
+@XmlRootElement(name = "xml-object")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlObject implements Serializable, Comparable<XmlObject> {
 
@@ -51,15 +51,15 @@ public class XmlObject implements Serializable, Comparable<XmlObject> {
     private static final long serialVersionUID = -774378322863486535L;
 
     /** The object name (or alias). */
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     private String m_name;
 
     /** The data type. */
-    @XmlAttribute(name="type", required=true)
+    @XmlAttribute(name = "type", required = true)
     private String m_dataType;
 
     /** The XPath. */
-    @XmlAttribute(name="xpath", required=true)
+    @XmlAttribute(name = "xpath", required = true)
     private String m_xpath;
 
     /**
@@ -72,8 +72,10 @@ public class XmlObject implements Serializable, Comparable<XmlObject> {
     /**
      * Instantiates a new XML object.
      *
-     * @param name the object name
-     * @param dataType the data type
+     * @param name
+     *            the object name
+     * @param dataType
+     *            the data type
      */
     public XmlObject(String name, String dataType) {
         this();
@@ -93,7 +95,8 @@ public class XmlObject implements Serializable, Comparable<XmlObject> {
     /**
      * Sets the name.
      *
-     * @param name the new name
+     * @param name
+     *            the new name
      */
     public void setName(String name) {
         m_name = name;
@@ -111,12 +114,12 @@ public class XmlObject implements Serializable, Comparable<XmlObject> {
     /**
      * Sets the data type.
      *
-     * @param dataType the new data type
+     * @param dataType
+     *            the new data type
      */
     public void setDataType(String dataType) {
         m_dataType = dataType;
     }
-
 
     /**
      * Gets the XPath.
@@ -130,36 +133,33 @@ public class XmlObject implements Serializable, Comparable<XmlObject> {
     /**
      * Sets the XPath.
      *
-     * @param xpath the new XPath
+     * @param xpath
+     *            the new XPath
      */
     public void setXpath(String xpath) {
         m_xpath = xpath;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
     public int compareTo(XmlObject obj) {
-        return new CompareToBuilder()
-        .append(getName(), obj.getName())
-        .append(getDataType(), obj.getDataType())
-        .append(getXpath(), obj.getXpath())
-        .toComparison();
+        return new CompareToBuilder().append(getName(), obj.getName()).append(getDataType(), obj.getDataType()).append(getXpath(),
+                                                                                                                       obj.getXpath()).toComparison();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof XmlObject) {
             XmlObject other = (XmlObject) obj;
-            return new EqualsBuilder()
-            .append(getName(), other.getName())
-            .append(getDataType(), other.getDataType())
-            .append(getXpath(), other.getXpath())
-            .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getDataType(), other.getDataType()).append(getXpath(),
+                                                                                                                            other.getXpath()).isEquals();
         }
         return false;
     }

@@ -67,7 +67,6 @@ import com.novell.ldap.LDAPSocketFactory;
 @Distributable
 public class LdapMonitor extends AbstractServiceMonitor {
 
-
     public static final Logger LOG = LoggerFactory.getLogger(LdapMonitor.class);
 
     /**
@@ -80,7 +79,7 @@ public class LdapMonitor extends AbstractServiceMonitor {
      * for data from the monitored interface.
      */
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on
-                                                        // read()
+                                                     // read()
 
     /**
      * Default search base for an LDAP search
@@ -111,12 +110,8 @@ public class LdapMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Poll the specified address for service availability.
-     *
+     * {@inheritDoc} Poll the specified address for service availability.
      * During the poll an attempt is made to connect the service.
-     *
      * Provided that the interface's response is valid we set the service status
      * to SERVICE_AVAILABLE and return.
      */
@@ -158,20 +153,19 @@ public class LdapMonitor extends AbstractServiceMonitor {
         try {
 
             socket = new Socket();
-            socket.connect(new InetSocketAddress((InetAddress) iface.getAddress(), ldapPort), tracker.getConnectionTimeout());
+            socket.connect(new InetSocketAddress((InetAddress) iface.getAddress(), ldapPort),
+                           tracker.getConnectionTimeout());
             socket.setSoTimeout(tracker.getSoTimeout());
             LOG.debug("LdapMonitor: connected to host: {} on port: {}", address, ldapPort);
 
             // We're connected, so upgrade status to unresponsive
             serviceStatus = PollStatus.SERVICE_UNRESPONSIVE;
 
-
             if (socket != null)
                 socket.close();
 
             // lets detect the service
             LDAPConnection lc = new LDAPConnection(new TimeoutLDAPSocket(tracker.getSoTimeout()));
-
 
             for (tracker.reset(); tracker.shouldRetry() && !(serviceStatus == PollStatus.SERVICE_AVAILABLE); tracker.nextAttempt()) {
                 LOG.debug("polling LDAP on {}, {}", address, tracker);
@@ -182,8 +176,8 @@ public class LdapMonitor extends AbstractServiceMonitor {
                     lc.connect(address, ldapPort);
                     LOG.debug("connected to LDAP server {} on port {}", address, ldapPort);
                 } catch (LDAPException e) {
-			LOG.debug("could not connect to LDAP server {} on port {}", address, ldapPort);
-                	reason = "could not connect to LDAP server " + address + " on port " + ldapPort;
+                    LOG.debug("could not connect to LDAP server {} on port {}", address, ldapPort);
+                    reason = "could not connect to LDAP server " + address + " on port " + ldapPort;
                     continue;
                 }
 
@@ -200,8 +194,10 @@ public class LdapMonitor extends AbstractServiceMonitor {
                             LOG.debug(ex.getMessage());
                         }
 
-                        LOG.debug("could not bind to LDAP server version {} with distinguished name {}", ldapVersion, ldapDn);
-                        reason = "could not bind to LDAP server version " + ldapVersion + " with distinguished name " + ldapDn;
+                        LOG.debug("could not bind to LDAP server version {} with distinguished name {}", ldapVersion,
+                                  ldapDn);
+                        reason = "could not bind to LDAP server version " + ldapVersion + " with distinguished name "
+                                + ldapDn;
                         continue;
                     }
                 }
@@ -246,17 +242,17 @@ public class LdapMonitor extends AbstractServiceMonitor {
                 }
             }
         } catch (ConnectException e) {
-		LOG.debug("connection refused to host {}", address, e);
-        	reason = "connection refused to host " + address;
+            LOG.debug("connection refused to host {}", address, e);
+            reason = "connection refused to host " + address;
         } catch (NoRouteToHostException e) {
-		LOG.debug("No route to host {}", address, e);
-        	reason = "No route to host " + address;
+            LOG.debug("No route to host {}", address, e);
+            reason = "No route to host " + address;
         } catch (InterruptedIOException e) {
-		LOG.debug("did not connect to host with {}", tracker);
-        	reason = "did not connect to host with "+tracker;
+            LOG.debug("did not connect to host with {}", tracker);
+            reason = "did not connect to host with " + tracker;
         } catch (Throwable t) {
-		LOG.debug("An undeclared throwable exception caught contacting host {}", address, t);
-        	reason = "An undeclared throwable exception caught contacting host " + address;
+            LOG.debug("An undeclared throwable exception caught contacting host {}", address, t);
+            reason = "An undeclared throwable exception caught contacting host " + address;
         }
 
         return PollStatus.get(serviceStatus, reason, responseTime);

@@ -33,8 +33,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.http.HttpService;
 
-public final class HttpServiceController
-{
+public final class HttpServiceController {
     /**
      * Name of the Framework property indicating whether the servlet context
      * attributes of the ServletContext objects created for each HttpContext
@@ -44,6 +43,7 @@ public final class HttpServiceController
      * shared. To have servlet context attributes shared amongst servlet context
      * and also with the ServletContext provided by the servlet container ensure
      * setting the property as follows:
+     *
      * <pre>
      * org.apache.felix.http.shared_servlet_context_attributes = true
      * </pre>
@@ -56,19 +56,28 @@ public final class HttpServiceController
     private static final String FELIX_HTTP_SHARED_SERVLET_CONTEXT_ATTRIBUTES = "org.apache.felix.http.shared_servlet_context_attributes";
 
     private final BundleContext bundleContext;
+
     private final HandlerRegistry registry;
+
     private final Dispatcher dispatcher;
+
     private final Hashtable<String, Object> serviceProps;
+
     private final ServletContextAttributeListenerManager contextAttributeListener;
+
     private final ServletRequestListenerManager requestListener;
+
     private final ServletRequestAttributeListenerManager requestAttributeListener;
+
     private final HttpSessionListenerManager sessionListener;
+
     private final HttpSessionAttributeListenerManager sessionAttributeListener;
+
     private final boolean sharedContextAttributes;
+
     private ServiceRegistration<?> serviceReg;
 
-    public HttpServiceController(BundleContext bundleContext)
-    {
+    public HttpServiceController(BundleContext bundleContext) {
         this.bundleContext = bundleContext;
         this.registry = new HandlerRegistry();
         this.dispatcher = new Dispatcher(this.registry);
@@ -81,38 +90,31 @@ public final class HttpServiceController
         this.sharedContextAttributes = getBoolean(FELIX_HTTP_SHARED_SERVLET_CONTEXT_ATTRIBUTES);
     }
 
-    public Dispatcher getDispatcher()
-    {
+    public Dispatcher getDispatcher() {
         return this.dispatcher;
     }
 
-    public ServletContextAttributeListenerManager getContextAttributeListener()
-    {
+    public ServletContextAttributeListenerManager getContextAttributeListener() {
         return contextAttributeListener;
     }
 
-    public ServletRequestListenerManager getRequestListener()
-    {
+    public ServletRequestListenerManager getRequestListener() {
         return requestListener;
     }
 
-    public ServletRequestAttributeListenerManager getRequestAttributeListener()
-    {
+    public ServletRequestAttributeListenerManager getRequestAttributeListener() {
         return requestAttributeListener;
     }
 
-    public HttpSessionListenerManager getSessionListener()
-    {
+    public HttpSessionListenerManager getSessionListener() {
         return sessionListener;
     }
 
-    public HttpSessionAttributeListenerManager getSessionAttributeListener()
-    {
+    public HttpSessionAttributeListenerManager getSessionAttributeListener() {
         return sessionAttributeListener;
     }
 
-    public void setProperties(Hashtable<String, Object> props)
-    {
+    public void setProperties(Hashtable<String, Object> props) {
         this.serviceProps.clear();
         this.serviceProps.putAll(props);
 
@@ -121,8 +123,7 @@ public final class HttpServiceController
         }
     }
 
-    public void register(ServletContext servletContext)
-    {
+    public void register(ServletContext servletContext) {
         this.contextAttributeListener.open();
         this.requestListener.open();
         this.requestAttributeListener.open();
@@ -130,13 +131,12 @@ public final class HttpServiceController
         this.sessionAttributeListener.open();
 
         HttpServiceFactory factory = new HttpServiceFactory(servletContext, this.registry,
-            this.contextAttributeListener, this.sharedContextAttributes);
+                                                            this.contextAttributeListener, this.sharedContextAttributes);
         String[] ifaces = new String[] { HttpService.class.getName(), ExtHttpService.class.getName() };
         this.serviceReg = this.bundleContext.registerService(ifaces, factory, this.serviceProps);
     }
 
-    public void unregister()
-    {
+    public void unregister() {
         if (this.serviceReg == null) {
             return;
         }
@@ -155,8 +155,7 @@ public final class HttpServiceController
         }
     }
 
-    private boolean getBoolean(final String property)
-    {
+    private boolean getBoolean(final String property) {
         String prop = this.bundleContext.getProperty(property);
         return (prop != null) ? Boolean.valueOf(prop).booleanValue() : false;
     }

@@ -37,78 +37,81 @@ import org.opennms.netmgt.model.ncs.NCSComponentRepository;
 
 public class NCSSelectionTree extends SelectionTree {
 
-	private static final long serialVersionUID = 8778577903128733601L;
+    private static final long serialVersionUID = 8778577903128733601L;
 
-	public static class NCSSelectionTreeCriteria extends ArrayList<Long> implements Criteria {
+    public static class NCSSelectionTreeCriteria extends ArrayList<Long> implements Criteria {
 
-		private static final long serialVersionUID = 5833460704861282509L;
+        private static final long serialVersionUID = 5833460704861282509L;
 
-		@Override
-		public String getNamespace() {
-			return "ncs";
-		}
+        @Override
+        public String getNamespace() {
+            return "ncs";
+        }
 
-		@Override
-		public ElementType getType() {
-			return ElementType.EDGE;
-		}
-	}
+        @Override
+        public ElementType getType() {
+            return ElementType.EDGE;
+        }
+    }
 
-	private NCSComponentRepository m_dao;
-	private NodeDao m_nodeDao;
-	private final NCSSelectionTreeCriteria m_currentCriteria = new NCSSelectionTreeCriteria();
-	//private EdgeProviderMapImpl m_edges = new EdgeProviderMapImpl();
+    private NCSComponentRepository m_dao;
 
-	public NCSSelectionTree(FilterableHierarchicalContainer container) {
-		super(container);
-	}
+    private NodeDao m_nodeDao;
 
-	public NodeDao getNodeDao() {
-		return m_nodeDao;
-	}
+    private final NCSSelectionTreeCriteria m_currentCriteria = new NCSSelectionTreeCriteria();
 
-	public void setNodeDao(NodeDao dao) {
-		m_nodeDao = dao;
-	}
+    // private EdgeProviderMapImpl m_edges = new EdgeProviderMapImpl();
 
-	public NCSComponentRepository getNcsComponentRepository() {
-		return m_dao;
-	}
+    public NCSSelectionTree(FilterableHierarchicalContainer container) {
+        super(container);
+    }
 
-	public void setNcsComponentRepository(NCSComponentRepository dao) {
-		m_dao = dao;
-	}
+    public NodeDao getNodeDao() {
+        return m_nodeDao;
+    }
 
-	@Override
-	public void select(Object itemId) {
-		m_currentCriteria.add((Long)itemId);
-		m_graphContainer.setCriteria(m_currentCriteria);
+    public void setNodeDao(NodeDao dao) {
+        m_nodeDao = dao;
+    }
 
-		/*
-		// TODO: Create edge references that correspond to the selected items
-		NCSComponent comp = m_dao.get((Long)itemId);
-		Long parentId = (Long)getParent(itemId);
-		for (Object peerKey : getChildren(parentId)) {
-			if (peerKey.equals(itemId)) {
-				continue;
-			} else if (isSelected(parentId)) {
-				// create edge between node and peer
-			} else if (isSelected(peerKey)) {
-				// create edge between node and peer
-			}
-		}
-		*/
-		super.select(itemId);
-	}
+    public NCSComponentRepository getNcsComponentRepository() {
+        return m_dao;
+    }
 
-	@Override
-	public void unselect(Object itemId) {
-		m_currentCriteria.remove((Long)itemId);
-		m_graphContainer.setCriteria(m_currentCriteria);
+    public void setNcsComponentRepository(NCSComponentRepository dao) {
+        m_dao = dao;
+    }
 
-		// TODO: Remove edge references that correspond to the unselected items
+    @Override
+    public void select(Object itemId) {
+        m_currentCriteria.add((Long) itemId);
+        m_graphContainer.setCriteria(m_currentCriteria);
 
-		super.unselect(itemId);
-	}
+        /*
+         * // TODO: Create edge references that correspond to the selected items
+         * NCSComponent comp = m_dao.get((Long)itemId);
+         * Long parentId = (Long)getParent(itemId);
+         * for (Object peerKey : getChildren(parentId)) {
+         * if (peerKey.equals(itemId)) {
+         * continue;
+         * } else if (isSelected(parentId)) {
+         * // create edge between node and peer
+         * } else if (isSelected(peerKey)) {
+         * // create edge between node and peer
+         * }
+         * }
+         */
+        super.select(itemId);
+    }
+
+    @Override
+    public void unselect(Object itemId) {
+        m_currentCriteria.remove((Long) itemId);
+        m_graphContainer.setCriteria(m_currentCriteria);
+
+        // TODO: Remove edge references that correspond to the unselected items
+
+        super.unselect(itemId);
+    }
 
 }

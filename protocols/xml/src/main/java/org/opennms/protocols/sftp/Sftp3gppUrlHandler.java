@@ -43,7 +43,8 @@ public class Sftp3gppUrlHandler extends URLStreamHandler {
     /** The Constant PROTOCOL. */
     public static final String PROTOCOL = "sftp.3gpp";
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLStreamHandler#getDefaultPort()
      */
     @Override
@@ -51,7 +52,8 @@ public class Sftp3gppUrlHandler extends URLStreamHandler {
         return 22;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.net.URLStreamHandler#openConnection(java.net.URL)
      */
     @Override

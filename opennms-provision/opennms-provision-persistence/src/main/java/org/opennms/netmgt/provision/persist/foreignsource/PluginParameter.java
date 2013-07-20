@@ -43,7 +43,9 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.opennms.netmgt.provision.support.PluginWrapper;
 
 /**
- * <p>PluginParameter class.</p>
+ * <p>
+ * PluginParameter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -54,26 +56,32 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
 
     private static final long serialVersionUID = -6314596729655404812L;
 
-    @XmlAttribute(name="key")
+    @XmlAttribute(name = "key")
     private String m_key = null;
 
-    @XmlAttribute(name="value")
+    @XmlAttribute(name = "value")
     private String m_value = null;
 
     @XmlTransient
     private PluginConfig m_parent = null;
 
     /**
-     * <p>Constructor for PluginParameter.</p>
+     * <p>
+     * Constructor for PluginParameter.
+     * </p>
      */
     public PluginParameter() {
     }
 
     /**
-     * <p>Constructor for PluginParameter.</p>
+     * <p>
+     * Constructor for PluginParameter.
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public PluginParameter(String key, String value) {
         m_key = key;
@@ -81,9 +89,12 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
     }
 
     /**
-     * <p>Constructor for PluginParameter.</p>
+     * <p>
+     * Constructor for PluginParameter.
+     * </p>
      *
-     * @param e a {@link java.util.Map.Entry} object.
+     * @param e
+     *            a {@link java.util.Map.Entry} object.
      */
     public PluginParameter(Entry<String, String> e) {
         m_key = e.getKey();
@@ -91,11 +102,18 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
     }
 
     /**
-     * <p>Constructor for PluginParameter.</p>
+     * <p>
+     * Constructor for PluginParameter.
+     * </p>
      *
-     * @param pluginConfig a {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig} object.
-     * @param key a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param pluginConfig
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
+     *            object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public PluginParameter(PluginConfig pluginConfig, String key, String value) {
         this(key, value);
@@ -103,10 +121,16 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
     }
 
     /**
-     * <p>Constructor for PluginParameter.</p>
+     * <p>
+     * Constructor for PluginParameter.
+     * </p>
      *
-     * @param pluginConfig a {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig} object.
-     * @param set a {@link java.util.Map.Entry} object.
+     * @param pluginConfig
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
+     *            object.
+     * @param set
+     *            a {@link java.util.Map.Entry} object.
      */
     public PluginParameter(PluginConfig pluginConfig, Entry<String, String> set) {
         this(set);
@@ -114,49 +138,69 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
     }
 
     /**
-     * <p>setPluginConfig</p>
+     * <p>
+     * setPluginConfig
+     * </p>
      *
-     * @param pc a {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig} object.
+     * @param pc
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
+     *            object.
      */
     public void setPluginConfig(PluginConfig pc) {
         m_parent = pc;
     }
 
     /**
-     * <p>getKey</p>
+     * <p>
+     * getKey
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getKey() {
         return m_key;
     }
+
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getValue() {
         return m_value;
     }
+
     /**
-     * <p>setKey</p>
+     * <p>
+     * setKey
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
      */
     public void setKey(String key) {
         m_key = key;
     }
+
     /**
-     * <p>setValue</p>
+     * <p>
+     * setValue
+     * </p>
      *
-     * @param value a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setValue(String value) {
         m_value = value;
     }
 
     /**
-     * <p>getAvailableParameterKeys</p>
+     * <p>
+     * getAvailableParameterKeys
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
@@ -189,17 +233,22 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof PluginParameter)) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof PluginParameter))
+            return false;
         final PluginParameter other = (PluginParameter) obj;
         if (m_key == null) {
-            if (other.m_key != null) return false;
+            if (other.m_key != null)
+                return false;
         } else if (!m_key.equals(other.m_key)) {
             return false;
         }
         if (m_value == null) {
-            if (other.m_value != null) return false;
+            if (other.m_value != null)
+                return false;
         } else if (!m_value.equals(other.m_value)) {
             return false;
         }
@@ -213,9 +262,6 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
 
     @Override
     public int compareTo(final PluginParameter other) {
-        return new CompareToBuilder()
-            .append(m_key, other.m_key)
-            .append(m_value, other.m_value)
-            .toComparison();
+        return new CompareToBuilder().append(m_key, other.m_key).append(m_value, other.m_value).toComparison();
     }
 }

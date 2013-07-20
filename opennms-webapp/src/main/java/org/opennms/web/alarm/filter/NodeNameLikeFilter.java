@@ -42,9 +42,12 @@ public class NodeNameLikeFilter extends SubstringFilter {
     public static final String TYPE = "nodenamelike";
 
     /**
-     * <p>Constructor for NodeNameLikeFilter.</p>
+     * <p>
+     * Constructor for NodeNameLikeFilter.
+     * </p>
      *
-     * @param substring a {@link java.lang.String} object.
+     * @param substring
+     *            a {@link java.lang.String} object.
      */
     public NodeNameLikeFilter(String substring) {
         super(TYPE, "NODELABEL", "node.label", substring);
@@ -57,7 +60,9 @@ public class NodeNameLikeFilter extends SubstringFilter {
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -67,7 +72,9 @@ public class NodeNameLikeFilter extends SubstringFilter {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -77,7 +84,9 @@ public class NodeNameLikeFilter extends SubstringFilter {
     }
 
     /**
-     * <p>getSubstring</p>
+     * <p>
+     * getSubstring
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

@@ -39,7 +39,9 @@ import org.slf4j.LoggerFactory;
 import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 
 /**
- * <p>GoogleMapsGeocoder class.</p>
+ * <p>
+ * GoogleMapsGeocoder class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,43 +49,47 @@ import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
  */
 public class GoogleMapsGeocoder implements Geocoder {
     private static final Logger LOG = LoggerFactory.getLogger(GoogleMapsGeocoder.class);
-	private static final long DEFAULT_RATE = 10;
-	private final GeoAddressStandardizer m_standardizer;
 
-	/**
-	 * <p>Constructor for GoogleMapsGeocoder.</p>
-	 */
-	public GoogleMapsGeocoder() {
-		final String apiKey = System.getProperty("gwt.apikey");
-		String rate = System.getProperty("gwt.geocoder.rate");
-		if (rate != null) {
-			m_standardizer = new GeoAddressStandardizer(apiKey, Long.valueOf(rate));
-		} else {
-			m_standardizer = new GeoAddressStandardizer(apiKey, DEFAULT_RATE);
-		}
+    private static final long DEFAULT_RATE = 10;
 
-	}
+    private final GeoAddressStandardizer m_standardizer;
 
-	/** {@inheritDoc} */
-        @Override
-	public GWTLatLng geocode(String geolocation) throws GeocoderException {
-		try {
-			List<GeoAddress> addresses = m_standardizer.standardizeToGeoAddresses(geolocation);
-			if (addresses.size() > 0) {
-				if (addresses.size() > 1) {
-					LOG.warn("received more than one address for geolocation '{}', returning the first", geolocation);
-				}
-				return getLatLng(addresses.get(0).getCoordinate());
-			}
-			throw new GeocoderException("unable to find latitude/longitude for geolocation '" + geolocation + "'");
-		} catch (Throwable e) {
-			LOG.info("unable to convert geolocation '{}'", geolocation, e);
-			throw new GeocoderException(e);
-		}
-	}
+    /**
+     * <p>
+     * Constructor for GoogleMapsGeocoder.
+     * </p>
+     */
+    public GoogleMapsGeocoder() {
+        final String apiKey = System.getProperty("gwt.apikey");
+        String rate = System.getProperty("gwt.geocoder.rate");
+        if (rate != null) {
+            m_standardizer = new GeoAddressStandardizer(apiKey, Long.valueOf(rate));
+        } else {
+            m_standardizer = new GeoAddressStandardizer(apiKey, DEFAULT_RATE);
+        }
 
-	private GWTLatLng getLatLng(final GeoCoordinate geoCoordinate) {
-		return new GWTLatLng(geoCoordinate.getLatitude(), geoCoordinate.getLongitude());
-	}
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public GWTLatLng geocode(String geolocation) throws GeocoderException {
+        try {
+            List<GeoAddress> addresses = m_standardizer.standardizeToGeoAddresses(geolocation);
+            if (addresses.size() > 0) {
+                if (addresses.size() > 1) {
+                    LOG.warn("received more than one address for geolocation '{}', returning the first", geolocation);
+                }
+                return getLatLng(addresses.get(0).getCoordinate());
+            }
+            throw new GeocoderException("unable to find latitude/longitude for geolocation '" + geolocation + "'");
+        } catch (Throwable e) {
+            LOG.info("unable to convert geolocation '{}'", geolocation, e);
+            throw new GeocoderException(e);
+        }
+    }
+
+    private GWTLatLng getLatLng(final GeoCoordinate geoCoordinate) {
+        return new GWTLatLng(geoCoordinate.getLatitude(), geoCoordinate.getLongitude());
+    }
 
 }

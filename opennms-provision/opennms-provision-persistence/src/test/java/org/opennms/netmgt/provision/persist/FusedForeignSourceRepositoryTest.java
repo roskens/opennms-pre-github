@@ -121,7 +121,8 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         m_pending.save(pendingReq);
         m_pending.flush();
         pendingReq = m_pending.getRequisition(pendingReq.getForeignSource());
-        final File pendingSnapshot = RequisitionFileUtils.createSnapshot(m_pending, pendingReq.getForeignSource(), pendingReq.getDate());
+        final File pendingSnapshot = RequisitionFileUtils.createSnapshot(m_pending, pendingReq.getForeignSource(),
+                                                                         pendingReq.getDate());
 
         m_repository.importResourceRequisition(new FileSystemResource(pendingSnapshot));
 
@@ -137,14 +138,17 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         m_pending.flush();
         final String foreignSource = pendingReq.getForeignSource();
         pendingReq = m_pending.getRequisition(foreignSource);
-        final File pendingSnapshotA = RequisitionFileUtils.createSnapshot(m_pending, foreignSource, pendingReq.getDate());
+        final File pendingSnapshotA = RequisitionFileUtils.createSnapshot(m_pending, foreignSource,
+                                                                          pendingReq.getDate());
 
-        // Now, start a new pending update after the original snapshot is "in progress"
+        // Now, start a new pending update after the original snapshot is
+        // "in progress"
         pendingReq.updateDateStamp();
         m_pending.save(pendingReq);
         m_pending.flush();
 
-        final File pendingSnapshotB = RequisitionFileUtils.createSnapshot(m_pending, foreignSource, pendingReq.getDate());
+        final File pendingSnapshotB = RequisitionFileUtils.createSnapshot(m_pending, foreignSource,
+                                                                          pendingReq.getDate());
 
         // "import" the A snapshot
         m_repository.importResourceRequisition(new FileSystemResource(pendingSnapshotA));
@@ -152,7 +156,8 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         assertFalse(pendingSnapshotA.exists());
         assertTrue(pendingSnapshotB.exists());
 
-        // since there's still a newer snapshot in-progress, the pending test.xml should not have been deleted yet
+        // since there's still a newer snapshot in-progress, the pending
+        // test.xml should not have been deleted yet
         URL pendingUrl = m_pending.getRequisitionURL(foreignSource);
         assertNotNull(pendingUrl);
         assertTrue(new File(pendingUrl.toURI()).exists());
@@ -194,12 +199,14 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
 
         /*
          * Now we got an import event, so we import that requisition file,
-         * and save it.  The ForeignSource in the pending repository should
+         * and save it. The ForeignSource in the pending repository should
          * match the one in the active one, now.
          */
-        Requisition activeReq = m_repository.importResourceRequisition(new UrlResource(m_pending.getRequisitionURL("test")));
+        Requisition activeReq = m_repository.importResourceRequisition(new UrlResource(
+                                                                                       m_pending.getRequisitionURL("test")));
         ForeignSource activeSource = m_active.getForeignSource("test");
-        // and the foreign source should be the same as the one we made earlier, only this time it's active
+        // and the foreign source should be the same as the one we made earlier,
+        // only this time it's active
 
         assertEquals(activeSource.getName(), pendingSource.getName());
         assertEquals(activeSource.getDetectorNames(), pendingSource.getDetectorNames());
@@ -211,7 +218,8 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
          * source should no longer be in the pending repo.
          */
         assertNull("the requisition should be null in the pending repo", m_pending.getRequisition("test"));
-        assertTrue("the foreign source should be default since there's no specific in the pending repo", m_pending.getForeignSource("test").isDefault());
+        assertTrue("the foreign source should be default since there's no specific in the pending repo",
+                   m_pending.getForeignSource("test").isDefault());
     }
 
     private Requisition createRequisition() {

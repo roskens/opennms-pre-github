@@ -45,20 +45,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>NodeSourceResourceType class.</p>
+ * <p>
+ * NodeSourceResourceType class.
+ * </p>
  */
 public class NodeSourceResourceType implements OnmsResourceType {
 
     private static final Logger LOG = LoggerFactory.getLogger(NodeSourceResourceType.class);
 
     private static final Set<OnmsAttribute> s_emptyAttributeSet = Collections.unmodifiableSet(new HashSet<OnmsAttribute>());
+
     private ResourceDao m_resourceDao;
+
     private NodeDao m_nodeDao;
 
     /**
-     * <p>Constructor for NodeSourceResourceType.</p>
+     * <p>
+     * Constructor for NodeSourceResourceType.
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      * @param nodeDao
      */
     public NodeSourceResourceType(ResourceDao resourceDao, NodeDao nodeDao) {
@@ -67,7 +74,9 @@ public class NodeSourceResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -77,7 +86,9 @@ public class NodeSourceResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,10 +129,9 @@ public class NodeSourceResourceType implements OnmsResourceType {
 
     /** {@inheritDoc} */
     @Override
-        public boolean isResourceTypeOnDomain(String domain) {
-                return false;
-        }
-
+    public boolean isResourceTypeOnDomain(String domain) {
+        return false;
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -132,16 +142,20 @@ public class NodeSourceResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>createChildResource</p>
+     * <p>
+     * createChildResource
+     * </p>
      *
-     * @param nodeSource a {@link java.lang.String} object.
+     * @param nodeSource
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource createChildResource(String nodeSource) {
         String[] ident = nodeSource.split(":");
         String label = ident[0] + ":" + m_nodeDao.findByForeignId(ident[0], ident[1]).getLabel();
         NodeSourceChildResourceLoader loader = new NodeSourceChildResourceLoader(nodeSource);
-        OnmsResource resource = new OnmsResource(nodeSource, label, this, s_emptyAttributeSet, new LazyList<OnmsResource>(loader));
+        OnmsResource resource = new OnmsResource(nodeSource, label, this, s_emptyAttributeSet,
+                                                 new LazyList<OnmsResource>(loader));
         loader.setParent(resource);
 
         return resource;
@@ -149,10 +163,11 @@ public class NodeSourceResourceType implements OnmsResourceType {
 
     public class NodeSourceChildResourceLoader implements LazyList.Loader<OnmsResource> {
         private String m_nodeSource;
+
         private OnmsResource m_parent;
 
         private int nodeSourceToNodeId() {
-                String[] ident = m_nodeSource.split(":");
+            String[] ident = m_nodeSource.split(":");
             return m_nodeDao.findByForeignId(ident[0], ident[1]).getId();
         }
 
@@ -190,6 +205,5 @@ public class NodeSourceResourceType implements OnmsResourceType {
             return resourceTypes;
         }
     }
-
 
 }

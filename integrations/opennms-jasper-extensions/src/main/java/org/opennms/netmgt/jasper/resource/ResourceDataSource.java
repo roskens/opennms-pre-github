@@ -45,8 +45,9 @@ import org.opennms.netmgt.jasper.helper.ResourcePathFileTraversal;
 
 public class ResourceDataSource implements JRDataSource {
 
-    private class ResourceFilterFields{
+    private class ResourceFilterFields {
         private String[] m_fields;
+
         private String[] m_strProps;
 
         public ResourceFilterFields(String[] fields, String[] strProps) {
@@ -55,11 +56,12 @@ public class ResourceDataSource implements JRDataSource {
         }
 
         public String getValueForField(String fieldName, String curPath) {
-            if(contains(fieldName, m_fields)) {
+            if (contains(fieldName, m_fields)) {
                 return getFilenameForField(fieldName, curPath);
-            }if(contains(fieldName, m_strProps)){
+            }
+            if (contains(fieldName, m_strProps)) {
                 return getStringsPropertyValue(fieldName, curPath);
-            }else {
+            } else {
                 return null;
             }
 
@@ -77,7 +79,7 @@ public class ResourceDataSource implements JRDataSource {
             };
 
             File[] strFiles = curDir.listFiles(filter);
-            if(curDir.exists() && strFiles.length == 1) {
+            if (curDir.exists() && strFiles.length == 1) {
                 File strPropFile = strFiles[0];
                 Properties props = new Properties();
                 try {
@@ -106,9 +108,10 @@ public class ResourceDataSource implements JRDataSource {
                     return name.matches("ds.properties");
                 }
             };
-            if(curDir.exists() && curDir.list(filter).length > 0) {
-                return getFilenameFromDSfile(new File(curDir.getAbsoluteFile() + "" + File.separator + "ds.properties"), dsName);
-            }else {
+            if (curDir.exists() && curDir.list(filter).length > 0) {
+                return getFilenameFromDSfile(new File(curDir.getAbsoluteFile() + "" + File.separator + "ds.properties"),
+                                             dsName);
+            } else {
                 return curDir.getAbsolutePath() + File.separator + dsName + getFileExtension();
             }
 
@@ -135,14 +138,14 @@ public class ResourceDataSource implements JRDataSource {
             String jniStrategy = System.getProperty("org.opennms.rrd.strategyClass");
             String rrdFileExtension = System.getProperty("org.opennms.rrd.fileExtension");
 
-            if(jniStrategy != null && jniStrategy.contains("JniStrategy")) {
-                if(rrdFileExtension != null) {
+            if (jniStrategy != null && jniStrategy.contains("JniStrategy")) {
+                if (rrdFileExtension != null) {
                     return rrdFileExtension;
-                }else {
+                } else {
                     return ".rrd";
                 }
 
-            }else {
+            } else {
                 return ".jrb";
             }
 
@@ -153,9 +156,9 @@ public class ResourceDataSource implements JRDataSource {
         }
 
         private boolean contains(String fieldName, String[] array) {
-            if(array != null) {
-                for(String fName : array) {
-                    if(fName.equals(fieldName)) {
+            if (array != null) {
+                for (String fName : array) {
+                    if (fName.equals(fieldName)) {
                         return true;
                     }
                 }
@@ -165,12 +168,14 @@ public class ResourceDataSource implements JRDataSource {
     }
 
     private int m_currentRow = -1;
+
     private List<String> m_paths;
+
     private ResourceFilterFields m_filterFields;
 
     public ResourceDataSource(ResourceQuery query) {
-      extractPaths(query);
-      m_filterFields = new ResourceFilterFields(query.getFilters(), query.getStringProperties());
+        extractPaths(query);
+        m_filterFields = new ResourceFilterFields(query.getFilters(), query.getStringProperties());
     }
 
     private void extractPaths(ResourceQuery query) {
@@ -187,14 +192,14 @@ public class ResourceDataSource implements JRDataSource {
     }
 
     private Object computeValueForField(JRField field) {
-        if(field.getName().toLowerCase().equals("path")) {
+        if (field.getName().toLowerCase().equals("path")) {
             String pathField = m_paths.get(m_currentRow);
             System.err.println("path field:[" + pathField + "]");
             return m_paths.get(m_currentRow);
-        }else {
-            if(m_filterFields.containsField(field.getName())) {
+        } else {
+            if (m_filterFields.containsField(field.getName())) {
                 return calculateFieldValue(field, m_paths.get(m_currentRow));
-            }else {
+            } else {
                 return null;
             }
 
@@ -202,7 +207,7 @@ public class ResourceDataSource implements JRDataSource {
     }
 
     private String calculateFieldValue(JRField field, String absolutePath) {
-        //TODO: check if there are dsName filters
+        // TODO: check if there are dsName filters
         return m_filterFields.getValueForField(field.getName(), absolutePath);
     }
 

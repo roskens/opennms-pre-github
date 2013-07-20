@@ -43,74 +43,72 @@ import com.google.gwt.user.client.ui.TextArea;
  */
 public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyUpHandler, MouseUpHandler {
 
-	private TextArea textArea = new TextArea();
+    private TextArea textArea = new TextArea();
 
-	public FieldSetTextArea(String name, String value, String helpText) {
-		super(name, helpText);
-		init(value, -1);
-	}
+    public FieldSetTextArea(String name, String value, String helpText) {
+        super(name, helpText);
+        init(value, -1);
+    }
 
-	@UiConstructor
-	public FieldSetTextArea(String name, String value, String helpText, int maxLength) {
-		super(name, helpText);
-		init(value, maxLength);
-	}
+    @UiConstructor
+    public FieldSetTextArea(String name, String value, String helpText, int maxLength) {
+        super(name, helpText);
+        init(value, maxLength);
+    }
 
-	@Override
-	public String getValue() {
-		return textArea.getText();
-	}
+    @Override
+    public String getValue() {
+        return textArea.getText();
+    }
 
-	private void init(String value, int maxLength) {
+    private void init(String value, int maxLength) {
 
-		if (maxLength > 0) {
-			addErrorValidator(new StringMaxLengthValidator(maxLength));
-		}
-		inititalValue = value;
-		textArea.setText(value);
-		textArea.setEnabled(enabled);
-		textArea.addChangeHandler(this);
-		textArea.addKeyUpHandler(this);
-		textArea.addMouseUpHandler(this);
-		textArea.setStyleName("textArea");
-		textArea.setSize("50em", "20em");
+        if (maxLength > 0) {
+            addErrorValidator(new StringMaxLengthValidator(maxLength));
+        }
+        inititalValue = value;
+        textArea.setText(value);
+        textArea.setEnabled(enabled);
+        textArea.addChangeHandler(this);
+        textArea.addKeyUpHandler(this);
+        textArea.addMouseUpHandler(this);
+        textArea.setStyleName("textArea");
+        textArea.setSize("50em", "20em");
 
-		panel.add(textArea);
-	}
+        panel.add(textArea);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event
-	 * .dom.client.KeyUpEvent)
-	 */
-	@Override
-	public void onKeyUp(KeyUpEvent event) {
-		checkField();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event
+     * .dom.client.KeyUpEvent)
+     */
+    @Override
+    public void onKeyUp(KeyUpEvent event) {
+        checkField();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt
-	 * .event.dom.client.MouseUpEvent)
-	 */
-	@Override
-	public void onMouseUp(MouseUpEvent event) {
-		checkField();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt
+     * .event.dom.client.MouseUpEvent)
+     */
+    @Override
+    public void onMouseUp(MouseUpEvent event) {
+        checkField();
+    }
 
-	@Override
-	public void setEnabled(Boolean enabled) {
-		textArea.setEnabled(enabled);
-	}
+    @Override
+    public void setEnabled(Boolean enabled) {
+        textArea.setEnabled(enabled);
+    }
 
-	@Override
-	public void setValue(String value) {
-		textArea.setText(value);
-		inititalValue = value;
-		validate(this.getValue());
-	}
+    @Override
+    public void setValue(String value) {
+        textArea.setText(value);
+        inititalValue = value;
+        validate(this.getValue());
+    }
 }

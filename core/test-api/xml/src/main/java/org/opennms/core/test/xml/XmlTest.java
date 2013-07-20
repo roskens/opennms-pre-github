@@ -75,10 +75,12 @@ import org.xml.sax.XMLFilter;
 @RunWith(Parameterized.class)
 abstract public class XmlTest<T> {
 
-	private static final Logger LOG = LoggerFactory.getLogger(XmlTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XmlTest.class);
 
     private T m_sampleObject;
+
     private String m_sampleXml;
+
     private String m_schemaFile;
 
     public XmlTest(final T sampleObject, final String sampleXml, final String schemaFile) {
@@ -128,7 +130,8 @@ abstract public class XmlTest<T> {
 
     @Test
     public void unmarshalXmlAndCompareToJaxb() throws Exception {
-        final T obj = JaxbUtils.unmarshal(getSampleClass(), new InputSource(new ByteArrayInputStream(m_sampleXml.getBytes())), null);
+        final T obj = JaxbUtils.unmarshal(getSampleClass(),
+                                          new InputSource(new ByteArrayInputStream(m_sampleXml.getBytes())), null);
         assertTrue("objects should match", getSampleObject().equals(obj));
     }
 
@@ -164,7 +167,7 @@ abstract public class XmlTest<T> {
 
     @Test
     public void validateJaxbXmlAgainstSchema() throws Exception {
-    	LOG.debug("Validating against XSD: {}", m_schemaFile);
+        LOG.debug("Validating against XSD: {}", m_schemaFile);
         javax.xml.bind.Unmarshaller unmarshaller = JaxbUtils.getUnmarshallerFor(getSampleClass(), null, true);
         final SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
         final Schema schema = factory.newSchema(new StreamSource(m_schemaFile));
@@ -172,7 +175,7 @@ abstract public class XmlTest<T> {
         unmarshaller.setEventHandler(new ValidationEventHandler() {
             @Override
             public boolean handleEvent(final ValidationEvent event) {
-            	LOG.debug("Received validation event: {}", event, event.getLinkedException());
+                LOG.debug("Received validation event: {}", event, event.getLinkedException());
                 return false;
             }
         });
@@ -190,7 +193,7 @@ abstract public class XmlTest<T> {
 
     protected void validateXmlString(final String xml) throws Exception {
         if (m_schemaFile == null) {
-        	LOG.warn("skipping validation, schema file not set");
+            LOG.warn("skipping validation, schema file not set");
             return;
         }
 
@@ -214,7 +217,7 @@ abstract public class XmlTest<T> {
     }
 
     protected String marshalToXmlWithCastor() {
-    	LOG.debug("Reference Object: {}", getSampleObject());
+        LOG.debug("Reference Object: {}", getSampleObject());
 
         final StringWriter writer = new StringWriter();
         CastorUtils.marshalWithTranslatedExceptions(getSampleObject(), writer);
@@ -224,7 +227,7 @@ abstract public class XmlTest<T> {
     }
 
     protected String marshalToXmlWithJaxb() {
-    	LOG.debug("Reference Object: {}", getSampleObject());
+        LOG.debug("Reference Object: {}", getSampleObject());
 
         final StringWriter writer = new StringWriter();
         JaxbUtils.marshal(getSampleObject(), writer);
@@ -236,12 +239,14 @@ abstract public class XmlTest<T> {
     public static void assertXmlEquals(final String expectedXml, final String actualXml) throws Exception {
         final List<Difference> differences = getDifferences(expectedXml, actualXml);
         if (differences.size() > 0) {
-        	LOG.debug("XML:\n\n{}\n\n...does not match XML:\n\n{}", expectedXml, actualXml);
+            LOG.debug("XML:\n\n{}\n\n...does not match XML:\n\n{}", expectedXml, actualXml);
         }
-        assertEquals("number of XMLUnit differences between the expected xml and the actual xml should be 0", 0, differences.size());
+        assertEquals("number of XMLUnit differences between the expected xml and the actual xml should be 0", 0,
+                     differences.size());
     }
 
-    protected static List<Difference> getDifferences(final String xmlA, final String xmlB) throws SAXException, IOException {
+    protected static List<Difference> getDifferences(final String xmlA, final String xmlB) throws SAXException,
+            IOException {
         final DetailedDiff myDiff = new DetailedDiff(XMLUnit.compareXML(xmlA, xmlB));
         final List<Difference> retDifferences = new ArrayList<Difference>();
         @SuppressWarnings("unchecked")
@@ -249,9 +254,9 @@ abstract public class XmlTest<T> {
         if (allDifferences.size() > 0) {
             for (final Difference d : allDifferences) {
                 if (d.getDescription().equals("namespace URI")) {
-                	LOG.info("Ignoring namspace difference: {}", d);
+                    LOG.info("Ignoring namspace difference: {}", d);
                 } else {
-                	LOG.warn("Found difference: {}", d);
+                    LOG.warn("Found difference: {}", d);
                     retDifferences.add(d);
                 }
             }
@@ -259,25 +264,31 @@ abstract public class XmlTest<T> {
         return retDifferences;
     }
 
-    public static void assertXpathDoesNotMatch(final String xml, final String expression) throws XPathExpressionException {
+    public static void assertXpathDoesNotMatch(final String xml, final String expression)
+            throws XPathExpressionException {
         assertXpathDoesNotMatch(null, xml, expression);
     }
 
-    public static void assertXpathDoesNotMatch(final String description, final String xml, final String expression) throws XPathExpressionException {
+    public static void assertXpathDoesNotMatch(final String description, final String xml, final String expression)
+            throws XPathExpressionException {
         final NodeList nodes = xpathGetNodesMatching(xml, expression);
-        assertTrue(description == null? ("Must get at least one node back from the query '" + expression + "'") : description, nodes == null || nodes.getLength() == 0);
+        assertTrue(description == null ? ("Must get at least one node back from the query '" + expression + "'")
+            : description, nodes == null || nodes.getLength() == 0);
     }
 
     public static void assertXpathMatches(final String xml, final String expression) throws XPathExpressionException {
         assertXpathMatches(null, xml, expression);
     }
 
-    public static void assertXpathMatches(final String description, final String xml, final String expression) throws XPathExpressionException {
+    public static void assertXpathMatches(final String description, final String xml, final String expression)
+            throws XPathExpressionException {
         final NodeList nodes = xpathGetNodesMatching(xml, expression);
-        assertTrue(description == null? ("Must get at least one node back from the query '" + expression + "'") : description, nodes != null && nodes.getLength() != 0);
+        assertTrue(description == null ? ("Must get at least one node back from the query '" + expression + "'")
+            : description, nodes != null && nodes.getLength() != 0);
     }
 
-    protected static NodeList xpathGetNodesMatching(final String xml, final String expression) throws XPathExpressionException {
+    protected static NodeList xpathGetNodesMatching(final String xml, final String expression)
+            throws XPathExpressionException {
         final XPath query = XPathFactory.newInstance().newXPath();
         StringReader sr = null;
         InputSource is = null;
@@ -285,7 +296,7 @@ abstract public class XmlTest<T> {
         try {
             sr = new StringReader(xml);
             is = new InputSource(sr);
-            nodes = (NodeList)query.evaluate(expression, is, XPathConstants.NODESET);
+            nodes = (NodeList) query.evaluate(expression, is, XPathConstants.NODESET);
         } finally {
             sr.close();
             IOUtils.closeQuietly(sr);

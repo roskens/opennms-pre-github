@@ -36,7 +36,9 @@ import org.opennms.netmgt.xml.eventconf.Events;
 import org.springframework.dao.DataAccessException;
 
 /**
- * <p>EventConfDao interface.</p>
+ * <p>
+ * EventConfDao interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,49 +46,66 @@ import org.springframework.dao.DataAccessException;
 public interface EventConfDao {
 
     /**
-     * <p>reload</p>
+     * <p>
+     * reload
+     * </p>
      *
-     * @throws org.springframework.dao.DataAccessException if any.
+     * @throws org.springframework.dao.DataAccessException
+     *             if any.
      */
     void reload() throws DataAccessException;
 
     /**
-     * <p>getEvents</p>
+     * <p>
+     * getEvents
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     List<Event> getEvents(String uei);
 
     /**
-     * <p>getEventUEIs</p>
+     * <p>
+     * getEventUEIs
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<String> getEventUEIs();
 
     /**
-     * <p>getEventLabels</p>
+     * <p>
+     * getEventLabels
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     Map<String, String> getEventLabels();
 
     /**
-     * <p>getEventLabel</p>
+     * <p>
+     * getEventLabel
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     String getEventLabel(String uei);
 
     /**
-     * <p>saveCurrent</p>
+     * <p>
+     * saveCurrent
+     * </p>
      */
     void saveCurrent();
 
     /**
-     * <p>getEventsByLabel</p>
+     * <p>
+     * getEventsByLabel
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -96,56 +115,77 @@ public interface EventConfDao {
      * Adds the event to the root level event config storage (file).
      * Does not save (you must save independently with saveCurrent)
      *
-     * @param event The fully configured Event object to add.
+     * @param event
+     *            The fully configured Event object to add.
      */
     void addEvent(Event event);
 
     /**
-     * Adds the given event to the programmatic event store.  This store currently implemented as a file (referenced from eventconf.xml)
-     * The programmatic store is a separate storage area, so that incidental programmatic editing of events (e.g. custom UEIs for thresholds, edited
-     * through the Web-UI) does not clutter up the otherwise carefully maintained event files.  This method does not save (persist) the changes
+     * Adds the given event to the programmatic event store. This store
+     * currently implemented as a file (referenced from eventconf.xml)
+     * The programmatic store is a separate storage area, so that incidental
+     * programmatic editing of events (e.g. custom UEIs for thresholds, edited
+     * through the Web-UI) does not clutter up the otherwise carefully
+     * maintained event files. This method does not save (persist) the changes
      *
-     * @param event The fully configured Event object to add.
+     * @param event
+     *            The fully configured Event object to add.
      */
     void addEventToProgrammaticStore(Event event);
 
     /**
-     * Removes the given event from the programmatic event store.  This store currently implemented as a file (referenced from eventconf.xml)
-     * The programmatic store is a separate storage area, so that incidental programmatic editing of events (e.g. custom UEIs for thresholds, edited
-     * through the Web-UI) does not clutter up the otherwise carefully maintained event files.  This method does not save (persist) the changes
+     * Removes the given event from the programmatic event store. This store
+     * currently implemented as a file (referenced from eventconf.xml)
+     * The programmatic store is a separate storage area, so that incidental
+     * programmatic editing of events (e.g. custom UEIs for thresholds, edited
+     * through the Web-UI) does not clutter up the otherwise carefully
+     * maintained event files. This method does not save (persist) the changes
      *
-     * @param event The fully configured Event object to remove.
-     * @returns true if the event was removed, false if it wasn't found (either not in the programmatic store, or the store didn't exist)
+     * @param event
+     *            The fully configured Event object to remove.
+     * @returns true if the event was removed, false if it wasn't found (either
+     *          not in the programmatic store, or the store didn't exist)
      * @return a boolean.
      */
     boolean removeEventFromProgrammaticStore(Event event);
 
     /**
-     * <p>isSecureTag</p>
+     * <p>
+     * isSecureTag
+     * </p>
      *
-     * @param tag a {@link java.lang.String} object.
+     * @param tag
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     boolean isSecureTag(String tag);
 
     /**
-     * <p>findByUei</p>
+     * <p>
+     * findByUei
+     * </p>
      *
-     * @param uei a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.eventconf.Event} object.
      */
     Event findByUei(String uei);
 
     /**
-     * <p>findByEvent</p>
+     * <p>
+     * findByEvent
+     * </p>
      *
-     * @param matchingEvent a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param matchingEvent
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a {@link org.opennms.netmgt.xml.eventconf.Event} object.
      */
     Event findByEvent(org.opennms.netmgt.xml.event.Event matchingEvent);
 
     /**
-     * <p>getRootEvents</p>
+     * <p>
+     * getRootEvents
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.xml.eventconf.Events} object.
      */

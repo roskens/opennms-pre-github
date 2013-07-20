@@ -35,40 +35,45 @@ import org.junit.Test;
 import com.vaadin.data.Validator;
 
 /**
- *
  * @author Markus von Rüden
  */
 public class MBeansNameValidatorTest {
 
-	public MBeansNameValidatorTest() {
-	}
+    public MBeansNameValidatorTest() {
+    }
 
+    @Test
+    public void testValidate() {
+        final String[] OK = new String[] { "com", "com_webserver", "someEntry", "HELLO-WORLD", "Hello_woRlD",
+                "some-additional-entry", "some_Entry", "com.java.op-erating-system" /*
+                                                                                     * strange
+                                                                                     * seperation
+                                                                                     * ,
+                                                                                     * but
+                                                                                     * we
+                                                                                     * must
+                                                                                     * test
+                                                                                     * this
+                                                                                     * !
+                                                                                     */,
+                "some.entry.separated.by_.dots.a__.lot.of_.dots", "a", "ab", "ab.cd", "a.bc", "ab.c" };
+        final String[] FAIL = new String[] { "", ".", ".org", "opennms.", ".serviceopennms.org", "servicename!",
+                "service name", "service,name", "service, name", "straße", "schädel", "hühner", "hölle" };
+        NameValidator validator = new NameValidator();
+        validate(validator, OK, true);
+        validate(validator, FAIL, false);
+    }
 
-	@Test
-	public void testValidate() {
-		final String[] OK = new String[]{
-			"com",  "com_webserver", "someEntry",
-			"HELLO-WORLD", "Hello_woRlD",
-			"some-additional-entry",  "some_Entry",
-			"com.java.op-erating-system" /*strange seperation, but we must test this!*/,
-			"some.entry.separated.by_.dots.a__.lot.of_.dots",
-			"a", "ab", "ab.cd", "a.bc", "ab.c"};
-		final String[] FAIL = new String[]{
-			"", ".", ".org", "opennms.", ".serviceopennms.org", "servicename!",
-			"service name", "service,name", "service, name", "straße", "schädel", "hühner", "hölle"};
-		NameValidator validator = new NameValidator();
-		validate(validator, OK, true);
-		validate(validator, FAIL, false);
-	}
-
-	public static void validate(Validator validator, String[] names, boolean shouldSucceed) {
-		for (String validateMe : names) {
-			try {
-				validator.validate(validateMe);
-				if (!shouldSucceed) fail("Validation succeeded unexpectedly: " + validateMe);
-			} catch (Throwable e) {
-				if (shouldSucceed) fail("Validation failed: " + validateMe);
-			}
-		}
-	}
+    public static void validate(Validator validator, String[] names, boolean shouldSucceed) {
+        for (String validateMe : names) {
+            try {
+                validator.validate(validateMe);
+                if (!shouldSucceed)
+                    fail("Validation succeeded unexpectedly: " + validateMe);
+            } catch (Throwable e) {
+                if (shouldSucceed)
+                    fail("Validation failed: " + validateMe);
+            }
+        }
+    }
 }

@@ -36,9 +36,12 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * The Class TcaCollectionAttributeType.
- *
- * <p>It is assumed that all metrics are not counters.</p>
- * <p>The metrics are fixed:</p>
+ * <p>
+ * It is assumed that all metrics are not counters.
+ * </p>
+ * <p>
+ * The metrics are fixed:
+ * </p>
  * <ul>
  * <li>delay local-remote ~ current inbound-delay</li>
  * <li>jitter local-remote ~ current inbound-jitter</li>
@@ -51,58 +54,69 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public class TcaCollectionAttributeType implements CollectionAttributeType {
 
-	/** The Attribute Group Type. */
-	private final AttributeGroupType m_groupType;
+    /** The Attribute Group Type. */
+    private final AttributeGroupType m_groupType;
 
-	private final SnmpObjId m_attributeObjectId;
+    private final SnmpObjId m_attributeObjectId;
 
-	/** The m_name. */
-	private final String m_name;
+    /** The m_name. */
+    private final String m_name;
 
-	/**
-	 * Instantiates a new TCA collection attribute type.
-	 *
-	 * @param groupType the group type
-	 * @param name the name
-	 */
-	public TcaCollectionAttributeType(AttributeGroupType groupType, SnmpObjId atributeObjectId, String name) {
-		super();
-		this.m_groupType = groupType;
-		this.m_attributeObjectId = atributeObjectId;
-		this.m_name = name;
-	}
+    /**
+     * Instantiates a new TCA collection attribute type.
+     *
+     * @param groupType
+     *            the group type
+     * @param name
+     *            the name
+     */
+    public TcaCollectionAttributeType(AttributeGroupType groupType, SnmpObjId atributeObjectId, String name) {
+        super();
+        this.m_groupType = groupType;
+        this.m_attributeObjectId = atributeObjectId;
+        this.m_name = name;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.config.collector.AttributeDefinition#getType()
-	 */
-	@Override
-	public String getType() {
-		return "Integer32";
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.AttributeDefinition#getType()
+     */
+    @Override
+    public String getType() {
+        return "Integer32";
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.config.collector.AttributeDefinition#getName()
-	 */
-	@Override
-	public String getName() {
-		return m_name;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.AttributeDefinition#getName()
+     */
+    @Override
+    public String getName() {
+        return m_name;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.config.collector.CollectionAttributeType#getGroupType()
-	 */
-	@Override
-	public AttributeGroupType getGroupType() {
-		return m_groupType;
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.config.collector.CollectionAttributeType#getGroupType
+     * ()
+     */
+    @Override
+    public AttributeGroupType getGroupType() {
+        return m_groupType;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.config.collector.CollectionAttributeType#storeAttribute(org.opennms.netmgt.config.collector.CollectionAttribute, org.opennms.netmgt.config.collector.Persister)
-	 */
-	@Override
-	public void storeAttribute(CollectionAttribute attribute, Persister persister) {
-		persister.persistNumericAttribute(attribute);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.config.collector.CollectionAttributeType#storeAttribute
+     * (org.opennms.netmgt.config.collector.CollectionAttribute,
+     * org.opennms.netmgt.config.collector.Persister)
+     */
+    @Override
+    public void storeAttribute(CollectionAttribute attribute, Persister persister) {
+        persister.persistNumericAttribute(attribute);
+    }
 
     public SnmpObjId getAttributeObjectId() {
         return m_attributeObjectId;

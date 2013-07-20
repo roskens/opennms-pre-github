@@ -48,28 +48,28 @@ import org.springframework.web.servlet.view.RedirectView;
  * @version $Id: $
  * @since 1.8.1
  */
-public class NodeProvisioningController extends AbstractController implements
-        InitializingBean {
+public class NodeProvisioningController extends AbstractController implements InitializingBean {
     private NodeProvisionService m_nodeProvisionService;
 
     private String m_successView;
+
     private String m_redirectView;
 
     /**
-     * {@inheritDoc}
-     *
-     * Acknowledge the alarms specified in the POST and then redirect the
+     * {@inheritDoc} Acknowledge the alarms specified in the POST and then
+     * redirect the
      * client to an appropriate URL for display.
      */
     @Transactional
     @Override
-    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
 
         String user = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        String action        = request.getParameter("actionCode");
+        String action = request.getParameter("actionCode");
         String redirectParms = request.getParameter("redirectParms");
-        String redirect      = request.getParameter("redirect");
+        String redirect = request.getParameter("redirect");
 
         if (action == null || !action.equals("add")) {
             ModelAndView modelAndView = m_nodeProvisionService.getModelAndView(request);
@@ -85,23 +85,18 @@ public class NodeProvisioningController extends AbstractController implements
                 }
             }
 
-            String foreignSource  = request.getParameter("foreignSource");
-            if (m_nodeProvisionService.provisionNode(
-                user,
-                foreignSource,
-                String.valueOf(System.currentTimeMillis()),
-                request.getParameter("nodeLabel"),
-                request.getParameter("ipAddress"),
-                request.getParameterValues("category"),
-                request.getParameter("community"),
-                request.getParameter("snmpVersion"),
-                request.getParameter("deviceUsername"),
-                request.getParameter("devicePassword"),
-                request.getParameter("enablePassword"),
-                request.getParameter("accessMethod"),
-                request.getParameter("autoEnable"),
-                request.getParameter("noSNMP")
-                )) {
+            String foreignSource = request.getParameter("foreignSource");
+            if (m_nodeProvisionService.provisionNode(user, foreignSource, String.valueOf(System.currentTimeMillis()),
+                                                     request.getParameter("nodeLabel"),
+                                                     request.getParameter("ipAddress"),
+                                                     request.getParameterValues("category"),
+                                                     request.getParameter("community"),
+                                                     request.getParameter("snmpVersion"),
+                                                     request.getParameter("deviceUsername"),
+                                                     request.getParameter("devicePassword"),
+                                                     request.getParameter("enablePassword"),
+                                                     request.getParameter("accessMethod"),
+                                                     request.getParameter("autoEnable"), request.getParameter("noSNMP"))) {
                 redirectParms = "success=true&foreignSource=" + foreignSource;
             }
         }
@@ -110,7 +105,8 @@ public class NodeProvisioningController extends AbstractController implements
         if (redirect != null) {
             viewName = redirect;
         } else {
-            viewName = (redirectParms == null || redirectParms == "" || redirectParms == "null" ? m_redirectView : m_redirectView + "?" + redirectParms);
+            viewName = (redirectParms == null || redirectParms == "" || redirectParms == "null" ? m_redirectView
+                : m_redirectView + "?" + redirectParms);
         }
         RedirectView view = new RedirectView(viewName, true);
         return new ModelAndView(view);
@@ -118,36 +114,50 @@ public class NodeProvisioningController extends AbstractController implements
     }
 
     /**
-     * <p>setRedirectView</p>
+     * <p>
+     * setRedirectView
+     * </p>
      *
-     * @param redirectView a {@link java.lang.String} object.
+     * @param redirectView
+     *            a {@link java.lang.String} object.
      */
     public void setRedirectView(String redirectView) {
         m_redirectView = redirectView;
     }
 
     /**
-     * <p>setSuccessView</p>
+     * <p>
+     * setSuccessView
+     * </p>
      *
-     * @param successView a {@link java.lang.String} object.
+     * @param successView
+     *            a {@link java.lang.String} object.
      */
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
 
     /**
-     * <p>setNodeProvisionService</p>
+     * <p>
+     * setNodeProvisionService
+     * </p>
      *
-     * @param nodeProvisionService a {@link org.opennms.netmgt.provision.persist.NodeProvisionService} object.
+     * @param nodeProvisionService
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.NodeProvisionService}
+     *            object.
      */
     public void setNodeProvisionService(NodeProvisionService nodeProvisionService) {
         m_nodeProvisionService = nodeProvisionService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

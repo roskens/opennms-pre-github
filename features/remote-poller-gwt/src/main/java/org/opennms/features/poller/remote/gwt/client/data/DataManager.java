@@ -45,7 +45,8 @@ import org.opennms.features.poller.remote.gwt.client.utils.BoundsBuilder;
 public class DataManager implements MapRemoteEventHandler {
 
     private final Map<String, LocationInfo> m_locations = new HashMap<String, LocationInfo>();
-    private final Map<String,ApplicationInfo> m_applications = new HashMap<String,ApplicationInfo>();
+
+    private final Map<String, ApplicationInfo> m_applications = new HashMap<String, ApplicationInfo>();
 
     public Map<String, LocationInfo> getLocationsMap() {
         return m_locations;
@@ -93,8 +94,12 @@ public class DataManager implements MapRemoteEventHandler {
         return retval;
     }
 
-    /** {@inheritDoc}
-     * @param name TODO*/
+    /**
+     * {@inheritDoc}
+     *
+     * @param name
+     *            TODO
+     */
     public ApplicationInfo getApplicationInfo(final String name) {
         if (name == null) {
             return null;
@@ -103,8 +108,12 @@ public class DataManager implements MapRemoteEventHandler {
         return getApplicationsMap().get(name);
     }
 
-    /** {@inheritDoc}
-     * @param locationName TODO*/
+    /**
+     * {@inheritDoc}
+     *
+     * @param locationName
+     *            TODO
+     */
     public LocationInfo getLocation(String locationName) {
         return getLocationsMap().get(locationName);
     }
@@ -149,7 +158,7 @@ public class DataManager implements MapRemoteEventHandler {
 
     @Override
     public void updateLocations(Collection<LocationInfo> locations) {
-        for(LocationInfo location : locations) {
+        for (LocationInfo location : locations) {
             // Update the location information in the model
             updateLocation(location);
         }

@@ -49,8 +49,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Location for user to define readers and they're schedules.
- * 
- * 
+ *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "readers")
@@ -91,33 +90,27 @@ public class Readers implements Serializable {
     // -----------/
 
     /**
-     * 
-     * 
      * @param vReader
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addReader(final Reader vReader)
-            throws IndexOutOfBoundsException {
+    public void addReader(final Reader vReader) throws IndexOutOfBoundsException {
         this._readerList.add(vReader);
     }
 
     /**
-     * 
-     * 
      * @param index
      * @param vReader
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void addReader(final int index, final Reader vReader)
-            throws IndexOutOfBoundsException {
+    public void addReader(final int index, final Reader vReader) throws IndexOutOfBoundsException {
         this._readerList.add(index, vReader);
     }
 
     /**
      * Method enumerateReader.
-     * 
+     *
      * @return an Enumeration over all possible elements of this collection
      */
     public Enumeration<Reader> enumerateReader() {
@@ -126,7 +119,7 @@ public class Readers implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -152,7 +145,7 @@ public class Readers implements Serializable {
 
     /**
      * Method getReader.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
@@ -162,8 +155,7 @@ public class Readers implements Serializable {
     public Reader getReader(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._readerList.size()) {
-            throw new IndexOutOfBoundsException("getReader: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("getReader: Index value '" + index + "' not in range [0.."
                     + (this._readerList.size() - 1) + "]");
         }
 
@@ -175,9 +167,9 @@ public class Readers implements Serializable {
      * <p>
      * Note: Just in case the collection contents are changing in another
      * thread, we pass a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of exactly the
-     * correct length.
-     * 
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
+     *
      * @return this collection as an Array
      */
     public Reader[] getReader() {
@@ -188,7 +180,7 @@ public class Readers implements Serializable {
     /**
      * Method getReaderCollection.Returns a reference to '_readerList'. No
      * type checking is performed on any modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Reader> getReaderCollection() {
@@ -197,7 +189,7 @@ public class Readers implements Serializable {
 
     /**
      * Method getReaderCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getReaderCount() {
@@ -209,7 +201,7 @@ public class Readers implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming Language
      * Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     public int hashCode() {
@@ -224,7 +216,7 @@ public class Readers implements Serializable {
 
     /**
      * Method iterateReader.
-     * 
+     *
      * @return an Iterator over all possible elements in this collection
      */
     public Iterator<Reader> iterateReader() {
@@ -239,7 +231,7 @@ public class Readers implements Serializable {
 
     /**
      * Method removeReader.
-     * 
+     *
      * @param vReader
      * @return true if the object was removed from the collection.
      */
@@ -249,7 +241,7 @@ public class Readers implements Serializable {
 
     /**
      * Method removeReaderAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -258,19 +250,15 @@ public class Readers implements Serializable {
     }
 
     /**
-     * 
-     * 
      * @param index
      * @param vReader
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
-    public void setReader(final int index, final Reader vReader)
-            throws IndexOutOfBoundsException {
+    public void setReader(final int index, final Reader vReader) throws IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._readerList.size()) {
-            throw new IndexOutOfBoundsException("setReader: Index value '"
-                    + index + "' not in range [0.."
+            throw new IndexOutOfBoundsException("setReader: Index value '" + index + "' not in range [0.."
                     + (this._readerList.size() - 1) + "]");
         }
 
@@ -278,8 +266,6 @@ public class Readers implements Serializable {
     }
 
     /**
-     * 
-     * 
      * @param vReaderArray
      */
     public void setReader(final Reader[] vReaderArray) {
@@ -294,7 +280,7 @@ public class Readers implements Serializable {
     /**
      * Sets the value of '_readerList' by copying the given Vector. All
      * elements will be checked for type safety.
-     * 
+     *
      * @param vReaderList
      *            the Vector to copy.
      */

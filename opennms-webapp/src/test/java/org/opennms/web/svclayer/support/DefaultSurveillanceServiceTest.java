@@ -52,7 +52,9 @@ public class DefaultSurveillanceServiceTest {
     private EasyMockUtils m_mockUtils;
 
     private NodeDao m_nodeDao;
+
     private CategoryDao m_categoryDao;
+
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;
 
     @Before
@@ -115,10 +117,9 @@ public class DefaultSurveillanceServiceTest {
         OnmsNode m_foundDownNode = new OnmsNode();
         m_foundDownNode.setId(1);
         if (m_foundDownNode != null) {
-            label = "<a href=\"element/node.jsp?node="+m_foundDownNode.getId()+"\">"+label+"</a>";
+            label = "<a href=\"element/node.jsp?node=" + m_foundDownNode.getId() + "\">" + label + "</a>";
         }
         return label;
     }
-
 
 }

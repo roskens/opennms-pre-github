@@ -32,13 +32,13 @@ public class RTInaccessibleQueue extends RTQueue {
     /**
 	 *
 	 */
-	private static final long serialVersionUID = 3834736202776385557L;
+    private static final long serialVersionUID = 3834736202776385557L;
 
-	public RTInaccessibleQueue(final long id) {
+    public RTInaccessibleQueue(final long id) {
         setId(id);
     }
 
-        @Override
+    @Override
     public boolean isAccessible() {
         return false;
     }

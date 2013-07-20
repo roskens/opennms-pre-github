@@ -71,8 +71,8 @@ public class VmwareMonitor extends AbstractServiceMonitor {
     private NodeDao m_nodeDao = null;
 
     /*
-    * default retries
-    */
+     * default retries
+     */
     private static final int DEFAULT_RETRY = 0;
 
     /*
@@ -83,7 +83,8 @@ public class VmwareMonitor extends AbstractServiceMonitor {
     /**
      * Initializes this object with a given parameter map.
      *
-     * @param parameters the parameter map to use
+     * @param parameters
+     *            the parameter map to use
      */
     @Override
     public void initialize(Map<String, Object> parameters) {
@@ -97,8 +98,10 @@ public class VmwareMonitor extends AbstractServiceMonitor {
     /**
      * This method queries the Vmware vCenter server for sensor data.
      *
-     * @param svc        the monitored service
-     * @param parameters the parameter map
+     * @param svc
+     *            the monitored service
+     * @param parameters
+     *            the parameter map
      * @return the poll status for this system
      */
     @Override
@@ -121,28 +124,39 @@ public class VmwareMonitor extends AbstractServiceMonitor {
             try {
                 vmwareViJavaAccess = new VmwareViJavaAccess(vmwareManagementServer);
             } catch (MarshalException e) {
-                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
+                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer
+                        + "'");
             } catch (ValidationException e) {
-                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
+                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer
+                        + "'");
             } catch (IOException e) {
-                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer + "'");
+                logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error initialising VMware connection to '" + vmwareManagementServer
+                        + "'");
             }
 
             try {
                 vmwareViJavaAccess.connect();
             } catch (MalformedURLException e) {
-                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
+                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer
+                        + "'");
             } catch (RemoteException e) {
-                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer, e.getMessage());
-                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer + "'");
+                logger.warn("Error connecting VMware management server '{}': '{}'", vmwareManagementServer,
+                            e.getMessage());
+                return PollStatus.unavailable("Error connecting VMware management server '" + vmwareManagementServer
+                        + "'");
             }
 
             if (!vmwareViJavaAccess.setTimeout(tracker.getConnectionTimeout())) {
-                logger.warn("Error setting connection timeout for VMware management server '{}'", vmwareManagementServer);
+                logger.warn("Error setting connection timeout for VMware management server '{}'",
+                            vmwareManagementServer);
             }
 
             String powerState = "unknown";
@@ -206,7 +220,8 @@ public class VmwareMonitor extends AbstractServiceMonitor {
     /**
      * Sets the NodeDao object for this instance.
      *
-     * @param nodeDao the NodeDao object to use
+     * @param nodeDao
+     *            the NodeDao object to use
      */
 
     public void setNodeDao(NodeDao nodeDao) {

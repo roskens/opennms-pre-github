@@ -46,6 +46,7 @@ import org.opennms.test.mock.EasyMockUtils;
  */
 public class AttributeMatchingResourceVisitorTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
+
     private AttributeVisitor m_attributeVisitor = m_mocks.createMock(AttributeVisitor.class);
 
     public void testAfterPropertiesSet() throws Exception {
@@ -54,7 +55,6 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
         resourceVisitor.setAttributeMatch("ifInOctets");
         resourceVisitor.afterPropertiesSet();
     }
-
 
     public void testAfterPropertiesSetNoAttributeVisitor() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();

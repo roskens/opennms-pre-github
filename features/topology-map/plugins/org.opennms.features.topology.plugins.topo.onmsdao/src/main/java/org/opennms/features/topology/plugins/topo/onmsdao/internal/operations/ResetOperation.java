@@ -50,14 +50,12 @@ public class ResetOperation implements Constants, Operation {
     }
 
     @Override
-    public boolean display(List<VertexRef> targets,
-            OperationContext operationContext) {
+    public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return false;
     }
 
     @Override
-    public boolean enabled(List<VertexRef> targets,
-            OperationContext operationContext) {
+    public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 

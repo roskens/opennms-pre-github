@@ -45,78 +45,79 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>RefreshMapController class.</p>
+ * <p>
+ * RefreshMapController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class RefreshMapController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(RefreshMapController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RefreshMapController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /** {@inheritDoc} */
+    @Override
+    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+        String action = request.getParameter("action");
+        LOG.debug("Received action={}", action);
 
-	/** {@inheritDoc} */
-        @Override
-	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		String action = request.getParameter("action");
-		LOG.debug("Received action={}", action);
-
-
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
-				.getOutputStream(), "UTF-8"));
-		VMap map = null;
-		try {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+        VMap map = null;
+        try {
             map = manager.openMap();
-			if (action.equals(MapsConstants.REFRESH_ACTION)) {
-				map = manager.refreshMap(map);
-			}
+            if (action.equals(MapsConstants.REFRESH_ACTION)) {
+                map = manager.refreshMap(map);
+            }
 
-			if (action.equals(MapsConstants.RELOAD_ACTION)) {
-				map = manager.reloadMap(map);
-			}
+            if (action.equals(MapsConstants.RELOAD_ACTION)) {
+                map = manager.reloadMap(map);
+            }
 
+            if (map == null) {
+                throw new MapNotFoundException();
+            } else {
+                bw.write(ResponseAssembler.getRefreshResponse(map));
+            }
+        } catch (Throwable e) {
+            LOG.error("Error while refreshing map. Action {}", action, e);
+            bw.write(ResponseAssembler.getMapErrorResponse(action));
+        } finally {
+            bw.close();
+        }
 
-			if (map==null) {
-				throw new MapNotFoundException();
-			} else {
-				bw.write(ResponseAssembler.getRefreshResponse(map));
-			}
-		} catch (Throwable e) {
-			LOG.error("Error while refreshing map. Action {}", action, e);
-			bw.write(ResponseAssembler.getMapErrorResponse(action));
-		} finally {
-			bw.close();
-		}
-
-		return null;
-	}
+        return null;
+    }
 
 }

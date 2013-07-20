@@ -31,7 +31,9 @@ package org.opennms.web.navigate;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * <p>LocationBasedNavBarEntry class.</p>
+ * <p>
+ * LocationBasedNavBarEntry class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,11 +41,15 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class LocationBasedNavBarEntry implements NavBarEntry {
     private String m_locationMatch;
+
     private String m_url;
+
     private String m_name;
 
     /**
-     * <p>getLocationMatch</p>
+     * <p>
+     * getLocationMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -52,19 +58,25 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
     }
 
     /**
-     * <p>setLocationMatch</p>
+     * <p>
+     * setLocationMatch
+     * </p>
      *
-     * @param locationMatch a {@link java.lang.String} object.
+     * @param locationMatch
+     *            a {@link java.lang.String} object.
      */
     public void setLocationMatch(String locationMatch) {
         m_locationMatch = locationMatch;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.web.navigate.NavBarEntry#getURL()
      */
     /**
-     * <p>getUrl</p>
+     * <p>
+     * getUrl
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -74,19 +86,25 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
     }
 
     /**
-     * <p>setUrl</p>
+     * <p>
+     * setUrl
+     * </p>
      *
-     * @param url a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
      */
     public void setUrl(String url) {
         m_url = url;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.web.navigate.NavBarEntry#getName()
      */
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,16 +114,21 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.web.navigate.NavBarEntry#evaluate(javax.servlet.http.HttpServletRequest)
+    /*
+     * (non-Javadoc)
+     * @see org.opennms.web.navigate.NavBarEntry#evaluate(javax.servlet.http.
+     * HttpServletRequest)
      */
     /** {@inheritDoc} */
     @Override
@@ -114,9 +137,12 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
     }
 
     /**
-     * <p>isLinkMatches</p>
+     * <p>
+     * isLinkMatches
+     * </p>
      *
-     * @param request a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param request
+     *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a boolean.
      */
     protected boolean isLinkMatches(HttpServletRequest request) {

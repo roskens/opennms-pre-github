@@ -34,13 +34,16 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * <p>ResourceTypeFilteringResourceVisitor class.</p>
+ * <p>
+ * ResourceTypeFilteringResourceVisitor class.
+ * </p>
  *
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, InitializingBean {
     private ResourceVisitor m_delegatedVisitor;
+
     private String m_resourceTypeMatch;
 
     /** {@inheritDoc} */
@@ -52,7 +55,9 @@ public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, In
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -63,7 +68,9 @@ public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, In
     }
 
     /**
-     * <p>getDelegatedVisitor</p>
+     * <p>
+     * getDelegatedVisitor
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
@@ -72,16 +79,21 @@ public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, In
     }
 
     /**
-     * <p>setDelegatedVisitor</p>
+     * <p>
+     * setDelegatedVisitor
+     * </p>
      *
-     * @param delegatedVisitor a {@link org.opennms.netmgt.model.ResourceVisitor} object.
+     * @param delegatedVisitor
+     *            a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
     public void setDelegatedVisitor(ResourceVisitor delegatedVisitor) {
         m_delegatedVisitor = delegatedVisitor;
     }
 
     /**
-     * <p>getResourceTypeMatch</p>
+     * <p>
+     * getResourceTypeMatch
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,9 +102,12 @@ public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, In
     }
 
     /**
-     * <p>setResourceTypeMatch</p>
+     * <p>
+     * setResourceTypeMatch
+     * </p>
      *
-     * @param resourceTypeMatch a {@link java.lang.String} object.
+     * @param resourceTypeMatch
+     *            a {@link java.lang.String} object.
      */
     public void setResourceTypeMatch(String resourceTypeMatch) {
         m_resourceTypeMatch = resourceTypeMatch;

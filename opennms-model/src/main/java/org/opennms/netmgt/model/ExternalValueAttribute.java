@@ -29,21 +29,29 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>ExternalValueAttribute class.</p>
+ * <p>
+ * ExternalValueAttribute class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class ExternalValueAttribute implements OnmsAttribute {
     private String m_name;
+
     private String m_value;
+
     private OnmsResource m_resource;
 
     /**
-     * <p>Constructor for ExternalValueAttribute.</p>
+     * <p>
+     * Constructor for ExternalValueAttribute.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public ExternalValueAttribute(String name, String value) {
         m_name = name;
@@ -51,7 +59,7 @@ public class ExternalValueAttribute implements OnmsAttribute {
     }
 
     /**
-     * Get the name for this attribute.  This is the name for
+     * Get the name for this attribute. This is the name for
      * this type of external value.
      *
      * @see org.opennms.netmgt.model.OnmsAttribute#getName()
@@ -63,7 +71,9 @@ public class ExternalValueAttribute implements OnmsAttribute {
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +82,9 @@ public class ExternalValueAttribute implements OnmsAttribute {
     }
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
      * @see org.opennms.netmgt.model.OnmsAttribute#getResource()
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.

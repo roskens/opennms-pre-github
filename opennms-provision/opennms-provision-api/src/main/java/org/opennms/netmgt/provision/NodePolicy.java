@@ -38,9 +38,12 @@ import org.opennms.netmgt.model.OnmsNode;
  */
 public interface NodePolicy extends OnmsPolicy {
     /**
-     * <p>apply</p>
+     * <p>
+     * apply
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public OnmsNode apply(OnmsNode node);

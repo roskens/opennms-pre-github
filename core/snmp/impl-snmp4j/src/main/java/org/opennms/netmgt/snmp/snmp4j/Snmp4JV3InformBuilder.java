@@ -40,8 +40,10 @@ public class Snmp4JV3InformBuilder extends Snmp4JV2TrapBuilder implements SnmpV3
     }
 
     @Override
-    public SnmpValue[] sendInform(String destAddr, int destPort, int timeout, int retry, String community) throws Exception {
-    	return super.sendInform(destAddr, destPort, 1000, 3, SnmpConfiguration.NOAUTH_NOPRIV, community, SnmpConfiguration.DEFAULT_AUTH_PASS_PHRASE,
-    			SnmpConfiguration.DEFAULT_AUTH_PROTOCOL, SnmpConfiguration.DEFAULT_PRIV_PASS_PHRASE, SnmpConfiguration.DEFAULT_PRIV_PROTOCOL);
+    public SnmpValue[] sendInform(String destAddr, int destPort, int timeout, int retry, String community)
+            throws Exception {
+        return super.sendInform(destAddr, destPort, 1000, 3, SnmpConfiguration.NOAUTH_NOPRIV, community,
+                                SnmpConfiguration.DEFAULT_AUTH_PASS_PHRASE, SnmpConfiguration.DEFAULT_AUTH_PROTOCOL,
+                                SnmpConfiguration.DEFAULT_PRIV_PASS_PHRASE, SnmpConfiguration.DEFAULT_PRIV_PROTOCOL);
     }
 }

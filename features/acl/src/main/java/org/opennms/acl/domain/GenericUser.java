@@ -65,12 +65,16 @@ public class GenericUser implements Serializable {
      *
      */
     private static final long serialVersionUID = 2527391420135516265L;
+
     /**
      * Constructor
      *
-     * @param user a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
-     * @param userService a {@link org.opennms.acl.service.UserService} object.
-     * @param groupService a {@link org.opennms.acl.service.GroupService} object.
+     * @param user
+     *            a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
+     * @param userService
+     *            a {@link org.opennms.acl.service.UserService} object.
+     * @param groupService
+     *            a {@link org.opennms.acl.service.GroupService} object.
      */
     public GenericUser(UserAuthoritiesDTO user, UserService userService, GroupService groupService) {
         Assert.notNull(user);
@@ -90,7 +94,8 @@ public class GenericUser implements Serializable {
     /**
      * Add a list of groups to this GenericUser
      *
-     * @param groups a {@link java.util.List} object.
+     * @param groups
+     *            a {@link java.util.List} object.
      */
     public void setNewGroups(List<Integer> groups) {
         user.setItems(groups);
@@ -106,7 +111,9 @@ public class GenericUser implements Serializable {
     }
 
     /**
-     * <p>getGroups</p>
+     * <p>
+     * getGroups
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -151,6 +158,8 @@ public class GenericUser implements Serializable {
     }
 
     private UserAuthoritiesDTO user;
+
     private GroupService groupService;
+
     private UserService userService;
 }

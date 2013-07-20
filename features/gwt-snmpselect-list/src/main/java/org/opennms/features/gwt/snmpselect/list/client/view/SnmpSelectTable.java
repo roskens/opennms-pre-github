@@ -44,7 +44,7 @@ import com.google.gwt.user.cellview.client.RowStyles;
 
 public class SnmpSelectTable extends CellTable<SnmpCellListItem> {
 
-    private abstract class SnmpTextColumn extends Column<SnmpCellListItem, String>{
+    private abstract class SnmpTextColumn extends Column<SnmpCellListItem, String> {
 
         public SnmpTextColumn() {
             super(new TextCell());
@@ -65,11 +65,11 @@ public class SnmpSelectTable extends CellTable<SnmpCellListItem> {
             @Override
             public String getStyleNames(SnmpCellListItem cellListItem, int rowIndex) {
                 String bgStyle = null;
-                if(cellListItem.getIfAdminStatus() != 1){
+                if (cellListItem.getIfAdminStatus() != 1) {
                     bgStyle = "onms-ipinterface-status-unknown";
-                }else if(cellListItem.getIfAdminStatus() == 1 && cellListItem.getIfOperStatus() == 1){
+                } else if (cellListItem.getIfAdminStatus() == 1 && cellListItem.getIfOperStatus() == 1) {
                     bgStyle = "onms-ipinterface-status-up";
-                }else if(cellListItem.getIfAdminStatus() == 1 && cellListItem.getIfOperStatus() != 1){
+                } else if (cellListItem.getIfAdminStatus() == 1 && cellListItem.getIfOperStatus() != 1) {
                     bgStyle = "onms-ipinterface-status-down";
                 }
 
@@ -88,7 +88,7 @@ public class SnmpSelectTable extends CellTable<SnmpCellListItem> {
 
         addColumn(ifIndexColumn, "Index");
 
-        SnmpTextColumn snmpIfType = new SnmpTextColumn(){
+        SnmpTextColumn snmpIfType = new SnmpTextColumn() {
 
             @Override
             public String getValue(SnmpCellListItem item) {
@@ -127,24 +127,24 @@ public class SnmpSelectTable extends CellTable<SnmpCellListItem> {
         };
         addColumn(snmpIfAlias, "SNMP ifAlias");
 
-        List<String> collectList = new ArrayList<String>() ;
+        List<String> collectList = new ArrayList<String>();
         collectList.add("Collect");
         collectList.add("Don't Collect");
         collectList.add("Default");
 
         SelectionCell collectSelection = new SelectionCell(collectList);
 
-        Column<SnmpCellListItem, String> collectColumn = new Column<SnmpCellListItem, String>(collectSelection){
+        Column<SnmpCellListItem, String> collectColumn = new Column<SnmpCellListItem, String>(collectSelection) {
 
             @Override
             public String getValue(SnmpCellListItem item) {
-                if(item.getCollectFlag().equals("C") || item.getCollectFlag().equals("UC")) {
+                if (item.getCollectFlag().equals("C") || item.getCollectFlag().equals("UC")) {
                     return "Collect";
-                }else if(item.getCollectFlag().equals("N") || item.getCollectFlag().equals("UN")) {
+                } else if (item.getCollectFlag().equals("N") || item.getCollectFlag().equals("UN")) {
                     return "Don't Collect";
-                }else if(item.getCollectFlag().equals("Default")) {
+                } else if (item.getCollectFlag().equals("Default")) {
                     return "Default";
-                }else {
+                } else {
                     return "Default";
                 }
             }
@@ -155,18 +155,19 @@ public class SnmpSelectTable extends CellTable<SnmpCellListItem> {
             @Override
             public void update(int index, SnmpCellListItem object, String value) {
                 String newCollectFlag = object.getCollectFlag();
-                if(value.equals("Collect")) {
+                if (value.equals("Collect")) {
                     newCollectFlag = "UC";
-                }else if(value.equals("Don't Collect")) {
+                } else if (value.equals("Don't Collect")) {
                     newCollectFlag = "UN";
-                }else if(value.equals("Default")) {
+                } else if (value.equals("Default")) {
                     newCollectFlag = "Default";
                 }
 
                 object.setCollectFlag(newCollectFlag);
 
-                if(getCollectUpdateHandler() != null) {
-                    getCollectUpdateHandler().onSnmpInterfaceCollectUpdated(Integer.parseInt(object.getIfIndex()), object.getCollectFlag(), newCollectFlag);
+                if (getCollectUpdateHandler() != null) {
+                    getCollectUpdateHandler().onSnmpInterfaceCollectUpdated(Integer.parseInt(object.getIfIndex()),
+                                                                            object.getCollectFlag(), newCollectFlag);
                 }
             }
         });

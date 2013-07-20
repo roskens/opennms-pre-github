@@ -42,41 +42,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * <p>DaemonStatusController class.</p>
+ * <p>
+ * DaemonStatusController class.
+ * </p>
  *
  * @author SriKumar Kareti
  * @author Tiffani Heeren
  * @since 1.8.1
  */
-//@Controller
-//@RequestMapping("/daemonstatus.htm")
+// @Controller
+// @RequestMapping("/daemonstatus.htm")
 public class DaemonStatusController implements InitializingBean {
 
     @Autowired
-	private DaemonStatusService daemonStatusService;
+    private DaemonStatusService daemonStatusService;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	protected Map<String, Collection<ServiceInfo>> referenceData() throws Exception {
-		Map<String, Collection<ServiceInfo>> referenceData = new HashMap<String, Collection<ServiceInfo>>();
-		Collection<ServiceInfo> daemons = daemonStatusService.getCurrentDaemonStatusColl();
-		referenceData.put("daemons", daemons);
-		return referenceData;
-	}
+    protected Map<String, Collection<ServiceInfo>> referenceData() throws Exception {
+        Map<String, Collection<ServiceInfo>> referenceData = new HashMap<String, Collection<ServiceInfo>>();
+        Collection<ServiceInfo> daemons = daemonStatusService.getCurrentDaemonStatusColl();
+        referenceData.put("daemons", daemons);
+        return referenceData;
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView onSubmit() throws Exception {
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView onSubmit() throws Exception {
         // FIXME: This isn't used
-	    /*
-		Map<String, ServiceInfo> daemons =
-			daemonStatusService.performOperationOnDaemons(ServletRequestUtils.getStringParameter(request, "operation"),
-				ServletRequestUtils.getStringParameters(request, "values"));
-		*/
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addAllObjects(referenceData());
-		return modelAndView;
-	}
+        /*
+         * Map<String, ServiceInfo> daemons =
+         * daemonStatusService.performOperationOnDaemons(ServletRequestUtils.
+         * getStringParameter(request, "operation"),
+         * ServletRequestUtils.getStringParameters(request, "values"));
+         */
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addAllObjects(referenceData());
+        return modelAndView;
+    }
 }

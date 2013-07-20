@@ -51,68 +51,83 @@ import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 /**
- * <p>DroolsCorrelationEngineBuilder class.</p>
+ * <p>
+ * DroolsCorrelationEngineBuilder class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
-public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySupport implements InitializingBean, ApplicationListener<ApplicationEvent> {
+public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySupport implements InitializingBean,
+        ApplicationListener<ApplicationEvent> {
     private static final Logger LOG = LoggerFactory.getLogger(DroolsCorrelationEngineBuilder.class);
 
-	public static final String PLUGIN_CONFIG_FILE_NAME = "drools-engine.xml";
+    public static final String PLUGIN_CONFIG_FILE_NAME = "drools-engine.xml";
 
-	private static class PluginConfiguration {
-		private Resource m_configResource;
-		private EngineConfiguration m_configuration;
+    private static class PluginConfiguration {
+        private Resource m_configResource;
 
-		public PluginConfiguration(Resource configResource) {
-			m_configResource = configResource;
-		}
+        private EngineConfiguration m_configuration;
 
-		public void readConfig() {
-			LOG.info("Parsing drools engine configuration at {}.", m_configResource);
-			m_configuration = JaxbUtils.unmarshal(EngineConfiguration.class, m_configResource);
-		}
+        public PluginConfiguration(Resource configResource) {
+            m_configResource = configResource;
+        }
 
-		public CorrelationEngine[] constructEngines(ApplicationContext appContext, EventIpcManager eventIpcManager) {
-			LOG.info("Creating drools engins for configuration {}.", m_configResource);
+        public void readConfig() {
+            LOG.info("Parsing drools engine configuration at {}.", m_configResource);
+            m_configuration = JaxbUtils.unmarshal(EngineConfiguration.class, m_configResource);
+        }
 
-			return m_configuration.constructEngines(m_configResource, appContext, eventIpcManager);
-		}
+        public CorrelationEngine[] constructEngines(ApplicationContext appContext, EventIpcManager eventIpcManager) {
+            LOG.info("Creating drools engins for configuration {}.", m_configResource);
 
-	}
+            return m_configuration.constructEngines(m_configResource, appContext, eventIpcManager);
+        }
 
-	// injected
-	private File m_configDirectory;
+    }
+
+    // injected
+    private File m_configDirectory;
+
     private Resource m_configResource;
+
     private EventIpcManager m_eventIpcManager;
+
     private CorrelationEngineRegistrar m_correlator;
 
     // built
     private PluginConfiguration[] m_pluginConfigurations;
 
-
     /**
-     * <p>Constructor for DroolsCorrelationEngineBuilder.</p>
+     * <p>
+     * Constructor for DroolsCorrelationEngineBuilder.
+     * </p>
      */
     public DroolsCorrelationEngineBuilder() {
         registerDefaultEditors();
     }
 
     /**
-     * <p>assertSet</p>
+     * <p>
+     * assertSet
+     * </p>
      *
-     * @param obj a {@link java.lang.Object} object.
-     * @param name a {@link java.lang.String} object.
+     * @param obj
+     *            a {@link java.lang.Object} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void assertSet(final Object obj, final String name) {
-        Assert.state(obj != null, name+" required for DroolsEngineFactoryBean");
+        Assert.state(obj != null, name + " required for DroolsEngineFactoryBean");
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -120,116 +135,133 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
         assertSet(m_eventIpcManager, "eventIpcManager");
         assertSet(m_correlator, "correlator");
 
-        Assert.state(!m_configDirectory.exists() || m_configDirectory.isDirectory(), m_configDirectory+" must be a directory!");
+        Assert.state(!m_configDirectory.exists() || m_configDirectory.isDirectory(), m_configDirectory
+                + " must be a directory!");
 
         readConfiguration();
     }
 
     private void registerEngines(final ApplicationContext appContext) {
-    	for(PluginConfiguration pluginConfig : m_pluginConfigurations) {
-    		m_correlator.addCorrelationEngines(pluginConfig.constructEngines(appContext, m_eventIpcManager));
-    	}
+        for (PluginConfiguration pluginConfig : m_pluginConfigurations) {
+            m_correlator.addCorrelationEngines(pluginConfig.constructEngines(appContext, m_eventIpcManager));
+        }
 
     }
 
-	/**
-     * <p>setEventIpcManager</p>
+    /**
+     * <p>
+     * setEventIpcManager
+     * </p>
      *
-     * @param eventIpcManager a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventIpcManager
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
      */
     public void setEventIpcManager(final EventIpcManager eventIpcManager) {
         m_eventIpcManager = eventIpcManager;
     }
 
     /**
-     * <p>setConfigurationResource</p>
+     * <p>
+     * setConfigurationResource
+     * </p>
      *
-     * @param configResource a {@link org.springframework.core.io.Resource} object.
+     * @param configResource
+     *            a {@link org.springframework.core.io.Resource} object.
      */
     public void setConfigurationResource(final Resource configResource) {
         m_configResource = configResource;
     }
 
     /**
-     * <p>setConfigurationDirectory</p>
+     * <p>
+     * setConfigurationDirectory
+     * </p>
      *
-     * @param configDirectory a {@link java.io.File} object.
+     * @param configDirectory
+     *            a {@link java.io.File} object.
      */
     public void setConfigurationDirectory(final File configDirectory) {
         m_configDirectory = configDirectory;
     }
 
     /**
-     * <p>setCorrelationEngineRegistrar</p>
+     * <p>
+     * setCorrelationEngineRegistrar
+     * </p>
      *
-     * @param correlator a {@link org.opennms.netmgt.correlation.CorrelationEngineRegistrar} object.
+     * @param correlator
+     *            a
+     *            {@link org.opennms.netmgt.correlation.CorrelationEngineRegistrar}
+     *            object.
      */
     public void setCorrelationEngineRegistrar(final CorrelationEngineRegistrar correlator) {
         m_correlator = correlator;
     }
 
     private void readConfiguration() throws Exception {
-    	m_pluginConfigurations = locatePluginConfigurations();
+        m_pluginConfigurations = locatePluginConfigurations();
 
-    	// now parse all of the configuration files
-    	for(PluginConfiguration pluginCofig : m_pluginConfigurations) {
-    		pluginCofig.readConfig();
-    	}
+        // now parse all of the configuration files
+        for (PluginConfiguration pluginCofig : m_pluginConfigurations) {
+            pluginCofig.readConfig();
+        }
 
     }
 
-	private PluginConfiguration[] locatePluginConfigurations() throws Exception {
-		List<PluginConfiguration> pluginConfigs = new LinkedList<PluginConfiguration>();
+    private PluginConfiguration[] locatePluginConfigurations() throws Exception {
+        List<PluginConfiguration> pluginConfigs = new LinkedList<PluginConfiguration>();
 
-		// first we see if the config is etc exists
-    	if (m_configResource != null && m_configResource.isReadable()) {
-			LOG.info("Found Drools Plugin config file {}.", m_configResource);
-    		pluginConfigs.add(new PluginConfiguration(m_configResource));
-    	}
+        // first we see if the config is etc exists
+        if (m_configResource != null && m_configResource.isReadable()) {
+            LOG.info("Found Drools Plugin config file {}.", m_configResource);
+            pluginConfigs.add(new PluginConfiguration(m_configResource));
+        }
 
-    	// then we look in each plugin dir for a config
-    	File[] pluginDirs = getPluginDirs();
+        // then we look in each plugin dir for a config
+        File[] pluginDirs = getPluginDirs();
 
-    	for(File pluginDir : pluginDirs) {
-    		File configFile = new File(pluginDir, PLUGIN_CONFIG_FILE_NAME);
-    		if (!configFile.exists()) {
-			LOG.error("Drools Plugin directory {} does not contains a {} config file.  Ignoring plugin.", pluginDir, PLUGIN_CONFIG_FILE_NAME);
-    		} else {
-			LOG.info("Found Drools Plugin directory {} containing a {} config file.", pluginDir, PLUGIN_CONFIG_FILE_NAME);
-    			pluginConfigs.add(new PluginConfiguration(new FileSystemResource(configFile)));
-    		}
-    	}
+        for (File pluginDir : pluginDirs) {
+            File configFile = new File(pluginDir, PLUGIN_CONFIG_FILE_NAME);
+            if (!configFile.exists()) {
+                LOG.error("Drools Plugin directory {} does not contains a {} config file.  Ignoring plugin.",
+                          pluginDir, PLUGIN_CONFIG_FILE_NAME);
+            } else {
+                LOG.info("Found Drools Plugin directory {} containing a {} config file.", pluginDir,
+                         PLUGIN_CONFIG_FILE_NAME);
+                pluginConfigs.add(new PluginConfiguration(new FileSystemResource(configFile)));
+            }
+        }
 
-    	return pluginConfigs.toArray(new PluginConfiguration[0]);
-	}
+        return pluginConfigs.toArray(new PluginConfiguration[0]);
+    }
 
-	private File[] getPluginDirs() throws Exception {
+    private File[] getPluginDirs() throws Exception {
 
-	LOG.debug("Checking {} for drools correlation plugins", m_configDirectory);
+        LOG.debug("Checking {} for drools correlation plugins", m_configDirectory);
 
+        if (!m_configDirectory.exists()) {
+            LOG.debug("Plugin configuration directory does not exists.");
+            return new File[0];
+        }
 
-		if (!m_configDirectory.exists()) {
-			LOG.debug("Plugin configuration directory does not exists.");
-			return new File[0];
-		}
+        File[] pluginDirs = m_configDirectory.listFiles(new FileFilter() {
 
-		File[] pluginDirs = m_configDirectory.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                return file.isDirectory();
+            }
+        });
+        LOG.debug("Found {} drools correlation plugin sub directories", pluginDirs.length);
 
-			@Override
-			public boolean accept(File file) {
-				return file.isDirectory();
-			}
-		});
-	LOG.debug("Found {} drools correlation plugin sub directories", pluginDirs.length);
+        return pluginDirs;
+    }
 
-		return pluginDirs;
-	}
-
-	/** {@inheritDoc} */
-        @Override
+    /** {@inheritDoc} */
+    @Override
     public void onApplicationEvent(final ApplicationEvent appEvent) {
         if (appEvent instanceof ContextRefreshedEvent) {
-            final ApplicationContext appContext = ((ContextRefreshedEvent)appEvent).getApplicationContext();
+            final ApplicationContext appContext = ((ContextRefreshedEvent) appEvent).getApplicationContext();
             if (!(appContext instanceof ConfigFileApplicationContext)) {
                 registerEngines(appContext);
             }

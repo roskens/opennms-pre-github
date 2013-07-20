@@ -56,7 +56,9 @@ import org.opennms.netmgt.config.poller.Outage;
 import org.opennms.netmgt.config.poller.Outages;
 
 /**
- * <p>ScheduleEditorServlet class.</p>
+ * <p>
+ * ScheduleEditorServlet class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -67,29 +69,43 @@ public class ScheduleEditorServlet extends HttpServlet {
      *
      */
     private static final long serialVersionUID = -7117332637559031820L;
-    private Map<String, ScheduleOp> m_ops = new HashMap<String, ScheduleOp>();
-    private Map<String, SingleMapping> m_maps = new HashMap<String, SingleMapping>();
-    private ScheduleOp m_defaultOp;
-    private ScheduleMapping m_defaultMapping;
-    private String m_defaultView;
 
+    private Map<String, ScheduleOp> m_ops = new HashMap<String, ScheduleOp>();
+
+    private Map<String, SingleMapping> m_maps = new HashMap<String, SingleMapping>();
+
+    private ScheduleOp m_defaultOp;
+
+    private ScheduleMapping m_defaultMapping;
+
+    private String m_defaultView;
 
     public interface ScheduleManager {
         public String getFileName();
+
         public void setFileName(String fileName);
+
         public void loadSchedules() throws ServletException;
+
         public void saveSchedules() throws ServletException;
+
         public void deleteSchedule(int index) throws ServletException;
+
         public void addSchedule(BasicSchedule schedule) throws ServletException;
+
         public void setSchedule(int index, BasicSchedule schedule) throws ServletException;
+
         public BasicSchedule createSchedule(String name, String type);
+
         public BasicSchedule getSchedule(int index);
+
         public BasicSchedule[] getSchedule();
     }
 
     static class OutageManager implements ScheduleManager {
 
         private Outages m_outages;
+
         private String m_fileName = null;
 
         @Override
@@ -102,13 +118,13 @@ public class ScheduleEditorServlet extends HttpServlet {
                     m_outages = CastorUtils.unmarshal(Outages.class, reader);
                     reader.close();
                 } catch (MarshalException e) {
-                    throw new ServletException("Unable to unmarshal "+m_fileName, e);
+                    throw new ServletException("Unable to unmarshal " + m_fileName, e);
                 } catch (ValidationException e) {
-                    throw new ServletException("Invalid xml in file "+m_fileName, e);
+                    throw new ServletException("Invalid xml in file " + m_fileName, e);
                 } catch (FileNotFoundException e) {
-                    throw new ServletException("Unable to locate file "+m_fileName, e);
+                    throw new ServletException("Unable to locate file " + m_fileName, e);
                 } catch (IOException e) {
-                    throw new ServletException("Error reading file "+m_fileName, e);
+                    throw new ServletException("Error reading file " + m_fileName, e);
                 }
             }
         }
@@ -123,13 +139,13 @@ public class ScheduleEditorServlet extends HttpServlet {
                     Marshaller.marshal(m_outages, writer);
                     writer.close();
                 } catch (MarshalException e) {
-                    throw new ServletException("Unable to unmarshal "+m_fileName, e);
+                    throw new ServletException("Unable to unmarshal " + m_fileName, e);
                 } catch (ValidationException e) {
-                    throw new ServletException("Invalid xml in file "+m_fileName, e);
+                    throw new ServletException("Invalid xml in file " + m_fileName, e);
                 } catch (FileNotFoundException e) {
-                    throw new ServletException("Unable to locate file "+m_fileName, e);
+                    throw new ServletException("Unable to locate file " + m_fileName, e);
                 } catch (IOException e) {
-                    throw new ServletException("Error reading file "+m_fileName, e);
+                    throw new ServletException("Error reading file " + m_fileName, e);
                 }
             }
         }
@@ -146,13 +162,13 @@ public class ScheduleEditorServlet extends HttpServlet {
 
         @Override
         public void addSchedule(BasicSchedule schedule) throws ServletException {
-            Outage outage = (Outage)schedule;
+            Outage outage = (Outage) schedule;
             m_outages.addOutage(outage);
         }
 
         @Override
         public void setSchedule(int index, BasicSchedule schedule) throws ServletException {
-            m_outages.setOutage(index, (Outage)schedule);
+            m_outages.setOutage(index, (Outage) schedule);
         }
 
         @Override
@@ -186,14 +202,15 @@ public class ScheduleEditorServlet extends HttpServlet {
     }
 
     interface ScheduleOp {
-        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map) throws ServletException;
+        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
+                throws ServletException;
     }
 
     class NewScheduleOp implements ScheduleOp {
         @Override
-        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map) throws ServletException {
+        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
+                throws ServletException {
             ScheduleManager schedMgr = getSchedMgr(request);
-
 
             int schedIndex = WebSecurityUtils.safeParseInt(request.getParameter("scheduleIndex"));
 
@@ -206,7 +223,8 @@ public class ScheduleEditorServlet extends HttpServlet {
 
     class EditOp implements ScheduleOp {
         @Override
-        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map) throws ServletException {
+        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
+                throws ServletException {
             ScheduleManager schedMgr = getSchedMgr(request);
 
             int schedIndex = WebSecurityUtils.safeParseInt(request.getParameter("scheduleIndex"));
@@ -220,7 +238,8 @@ public class ScheduleEditorServlet extends HttpServlet {
 
     class DeleteOp implements ScheduleOp {
         @Override
-        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map) throws ServletException {
+        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
+                throws ServletException {
             ScheduleManager schedMgr = getSchedMgr(request);
 
             // delete the schedule and save
@@ -234,9 +253,10 @@ public class ScheduleEditorServlet extends HttpServlet {
 
     class DisplayOp implements ScheduleOp {
         @Override
-        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map) throws ServletException {
+        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
+                throws ServletException {
             // FIXME: schedMgr isn't used
-            //ScheduleManager schedMgr = getSchedMgr(request);
+            // ScheduleManager schedMgr = getSchedMgr(request);
             return map.get("success");
         }
     }
@@ -247,9 +267,11 @@ public class ScheduleEditorServlet extends HttpServlet {
 
     static class SingleMapping implements ScheduleMapping {
         String m_view;
+
         public SingleMapping(String view) {
             m_view = view;
         }
+
         @Override
         public String get(String result) {
             return m_view;
@@ -257,7 +279,9 @@ public class ScheduleEditorServlet extends HttpServlet {
     }
 
     /**
-     * <p>Constructor for ScheduleEditorServlet.</p>
+     * <p>
+     * Constructor for ScheduleEditorServlet.
+     * </p>
      */
     public ScheduleEditorServlet() {
         m_defaultOp = new DisplayOp();
@@ -285,7 +309,7 @@ public class ScheduleEditorServlet extends HttpServlet {
 
         ScheduleOp op = m_ops.get(cmd);
         if (op == null) {
-            throw new IllegalArgumentException("Unrecognized operation "+cmd);
+            throw new IllegalArgumentException("Unrecognized operation " + cmd);
         }
 
         return op;
@@ -302,7 +326,8 @@ public class ScheduleEditorServlet extends HttpServlet {
         return map;
     }
 
-    void showView(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException {
+    void showView(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException,
+            IOException {
         String nextView = view;
         if (nextView == null) {
             nextView = m_defaultView;
@@ -320,10 +345,10 @@ public class ScheduleEditorServlet extends HttpServlet {
         process(request, response);
     }
 
-
     /** {@inheritDoc} */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
         process(request, response);
     }
 
@@ -334,8 +359,6 @@ public class ScheduleEditorServlet extends HttpServlet {
         showView(request, response, view);
 
     }
-
-
 
     private ScheduleManager getSchedMgr(HttpServletRequest request) throws ServletException {
         ScheduleManager schedMgr = (ScheduleManager) request.getSession().getAttribute("schedMgr");

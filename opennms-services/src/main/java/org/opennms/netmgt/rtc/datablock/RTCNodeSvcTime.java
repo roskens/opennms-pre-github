@@ -130,7 +130,8 @@ public class RTCNodeSvcTime extends Object {
      * Return if this outages has expired
      *
      * @return if this outages has expired
-     * @param startOfRollingWindow a long.
+     * @param startOfRollingWindow
+     *            a long.
      */
     public boolean hasExpired(long startOfRollingWindow) {
         if (m_svcRegainedTime == -1) {
@@ -151,8 +152,10 @@ public class RTCNodeSvcTime extends Object {
      *
      * @return the downtime (difference between the regained and lost times) in
      *         the last rolling window
-     * @param curTime a long.
-     * @param rollingWindow a long.
+     * @param curTime
+     *            a long.
+     * @param rollingWindow
+     *            a long.
      */
     public long getDownTime(long curTime, long rollingWindow) {
         long downTime = 0;

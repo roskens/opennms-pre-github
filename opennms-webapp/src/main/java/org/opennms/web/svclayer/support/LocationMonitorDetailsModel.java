@@ -35,7 +35,9 @@ import org.springframework.context.MessageSourceResolvable;
 import org.springframework.validation.Errors;
 
 /**
- * <p>LocationMonitorDetailsModel class.</p>
+ * <p>
+ * LocationMonitorDetailsModel class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -43,19 +45,27 @@ import org.springframework.validation.Errors;
  */
 public class LocationMonitorDetailsModel {
     private Errors m_errors;
+
     private MessageSourceResolvable m_title;
+
     private Map<MessageSourceResolvable, MessageSourceResolvable> m_mainDetails;
+
     private MessageSourceResolvable m_additionalDetailsTitle;
+
     private Map<MessageSourceResolvable, MessageSourceResolvable> m_additionalDetails;
 
     /**
-     * <p>Constructor for LocationMonitorDetailsModel.</p>
+     * <p>
+     * Constructor for LocationMonitorDetailsModel.
+     * </p>
      */
     public LocationMonitorDetailsModel() {
     }
 
     /**
-     * <p>getAdditionalDetails</p>
+     * <p>
+     * getAdditionalDetails
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -64,19 +74,28 @@ public class LocationMonitorDetailsModel {
     }
 
     /**
-     * <p>setAdditionalDetails</p>
+     * <p>
+     * setAdditionalDetails
+     * </p>
      *
-     * @param additionalDetails a {@link java.util.Map} object.
+     * @param additionalDetails
+     *            a {@link java.util.Map} object.
      */
     public final void setAdditionalDetails(final Map<MessageSourceResolvable, MessageSourceResolvable> additionalDetails) {
         m_additionalDetails = additionalDetails;
     }
 
     /**
-     * <p>addAdditionalDetail</p>
+     * <p>
+     * addAdditionalDetail
+     * </p>
      *
-     * @param key a {@link org.springframework.context.MessageSourceResolvable} object.
-     * @param value a {@link org.springframework.context.MessageSourceResolvable} object.
+     * @param key
+     *            a {@link org.springframework.context.MessageSourceResolvable}
+     *            object.
+     * @param value
+     *            a {@link org.springframework.context.MessageSourceResolvable}
+     *            object.
      */
     public final void addAdditionalDetail(final MessageSourceResolvable key, final MessageSourceResolvable value) {
         if (m_additionalDetails == null) {
@@ -86,25 +105,34 @@ public class LocationMonitorDetailsModel {
     }
 
     /**
-     * <p>getAdditionalDetailsTitle</p>
+     * <p>
+     * getAdditionalDetailsTitle
+     * </p>
      *
-     * @return a {@link org.springframework.context.MessageSourceResolvable} object.
+     * @return a {@link org.springframework.context.MessageSourceResolvable}
+     *         object.
      */
     public final MessageSourceResolvable getAdditionalDetailsTitle() {
         return m_additionalDetailsTitle;
     }
 
     /**
-     * <p>setAdditionalDetailsTitle</p>
+     * <p>
+     * setAdditionalDetailsTitle
+     * </p>
      *
-     * @param additionalDetailsTitle a {@link org.springframework.context.MessageSourceResolvable} object.
+     * @param additionalDetailsTitle
+     *            a {@link org.springframework.context.MessageSourceResolvable}
+     *            object.
      */
     public final void setAdditionalDetailsTitle(final MessageSourceResolvable additionalDetailsTitle) {
         m_additionalDetailsTitle = additionalDetailsTitle;
     }
 
     /**
-     * <p>getMainDetails</p>
+     * <p>
+     * getMainDetails
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -113,19 +141,28 @@ public class LocationMonitorDetailsModel {
     }
 
     /**
-     * <p>setMainDetails</p>
+     * <p>
+     * setMainDetails
+     * </p>
      *
-     * @param mainDetails a {@link java.util.Map} object.
+     * @param mainDetails
+     *            a {@link java.util.Map} object.
      */
     public final void setMainDetails(final Map<MessageSourceResolvable, MessageSourceResolvable> mainDetails) {
         m_mainDetails = mainDetails;
     }
 
     /**
-     * <p>addMainDetail</p>
+     * <p>
+     * addMainDetail
+     * </p>
      *
-     * @param key a {@link org.springframework.context.MessageSourceResolvable} object.
-     * @param value a {@link org.springframework.context.MessageSourceResolvable} object.
+     * @param key
+     *            a {@link org.springframework.context.MessageSourceResolvable}
+     *            object.
+     * @param value
+     *            a {@link org.springframework.context.MessageSourceResolvable}
+     *            object.
      */
     public final void addMainDetail(final MessageSourceResolvable key, final MessageSourceResolvable value) {
         if (m_mainDetails == null) {
@@ -135,25 +172,34 @@ public class LocationMonitorDetailsModel {
     }
 
     /**
-     * <p>getTitle</p>
+     * <p>
+     * getTitle
+     * </p>
      *
-     * @return a {@link org.springframework.context.MessageSourceResolvable} object.
+     * @return a {@link org.springframework.context.MessageSourceResolvable}
+     *         object.
      */
     public final MessageSourceResolvable getTitle() {
         return m_title;
     }
 
     /**
-     * <p>setTitle</p>
+     * <p>
+     * setTitle
+     * </p>
      *
-     * @param title a {@link org.springframework.context.MessageSourceResolvable} object.
+     * @param title
+     *            a {@link org.springframework.context.MessageSourceResolvable}
+     *            object.
      */
     public final void setTitle(final MessageSourceResolvable title) {
         m_title = title;
     }
 
     /**
-     * <p>getErrors</p>
+     * <p>
+     * getErrors
+     * </p>
      *
      * @return a {@link org.springframework.validation.Errors} object.
      */
@@ -162,9 +208,12 @@ public class LocationMonitorDetailsModel {
     }
 
     /**
-     * <p>setErrors</p>
+     * <p>
+     * setErrors
+     * </p>
      *
-     * @param errors a {@link org.springframework.validation.Errors} object.
+     * @param errors
+     *            a {@link org.springframework.validation.Errors} object.
      */
     public final void setErrors(final Errors errors) {
         m_errors = errors;

@@ -68,34 +68,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(reuseDatabase=false)
+@JUnitTemporaryDatabase(reuseDatabase = false)
 public class NotificationManagerTest implements InitializingBean {
-	@Autowired
-	private DataSource m_dataSource;
+    @Autowired
+    private DataSource m_dataSource;
 
-	@Autowired
-	private NodeDao m_nodeDao;
+    @Autowired
+    private NodeDao m_nodeDao;
 
-	@Autowired
-	private IpInterfaceDao m_ipInterfaceDao;
+    @Autowired
+    private IpInterfaceDao m_ipInterfaceDao;
 
-	@Autowired
-	private MonitoredServiceDao m_serviceDao;
+    @Autowired
+    private MonitoredServiceDao m_serviceDao;
 
-	@Autowired
-	private ServiceTypeDao m_serviceTypeDao;
+    @Autowired
+    private ServiceTypeDao m_serviceTypeDao;
 
-	@Autowired
-	private CategoryDao m_categoryDao;
+    @Autowired
+    private CategoryDao m_categoryDao;
 
     private NotificationManagerImpl m_notificationManager;
+
     private NotifdConfigManager m_configManager;
 
     @Override
@@ -113,7 +111,9 @@ public class NotificationManagerTest implements InitializingBean {
         jdbcFilterDao.afterPropertiesSet();
         FilterDaoFactory.setInstance(jdbcFilterDao);
 
-        m_configManager = new MockNotifdConfigManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifd-configuration.xml"));
+        m_configManager = new MockNotifdConfigManager(
+                                                      ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
+                                                                                                                  "notifd-configuration.xml"));
         m_notificationManager = new NotificationManagerImpl(m_configManager, m_dataSource);
 
         final OnmsDistPoller distPoller = new OnmsDistPoller("localhost", "127.0.0.1");
@@ -136,21 +136,21 @@ public class NotificationManagerTest implements InitializingBean {
         serviceType = new OnmsServiceType("HTTP");
         m_serviceTypeDao.save(serviceType);
 
-		node = new OnmsNode(distPoller, "node 1");
-		node.addCategory(category1);
-		node.addCategory(category2);
-		node.addCategory(category3);
+        node = new OnmsNode(distPoller, "node 1");
+        node.addCategory(category1);
+        node.addCategory(category2);
+        node.addCategory(category3);
 
-		ipInterface = new OnmsIpInterface(addr("192.168.1.1"), node);
+        ipInterface = new OnmsIpInterface(addr("192.168.1.1"), node);
         service = new OnmsMonitoredService(ipInterface, serviceType);
-		m_nodeDao.save(node);
+        m_nodeDao.save(node);
 
         // node 2
         node = new OnmsNode(distPoller, "node 2");
-		node.addCategory(category1);
-		node.addCategory(category2);
-		node.addCategory(category4);
-		m_nodeDao.save(node);
+        node.addCategory(category1);
+        node.addCategory(category2);
+        node.addCategory(category4);
+        m_nodeDao.save(node);
 
         ipInterface = new OnmsIpInterface(addr("192.168.1.1"), node);
         m_ipInterfaceDao.save(ipInterface);
@@ -188,11 +188,10 @@ public class NotificationManagerTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testNoElement() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           0, null, null,
-                                           "(ipaddr IPLIKE *.*.*.*)",
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 0, null, null, "(ipaddr IPLIKE *.*.*.*)",
                                            true);
     }
 
@@ -201,26 +200,24 @@ public class NotificationManagerTest implements InitializingBean {
      * the IP address is in the database on *some* node.
      */
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testNoNodeIdWithIpAddr() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           0, "192.168.1.1", null,
-                                           "(ipaddr == '192.168.1.1')",
-                                           true);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 0, "192.168.1.1", null,
+                                           "(ipaddr == '192.168.1.1')", true);
     }
 
     /**
      * Trapd sends events like this (with no nodeId set but an interface set)
      * when it gets a trap from a device with an IP that isn't in the
-     * database.  This shouldn't send an event.
+     * database. This shouldn't send an event.
      */
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testNoNodeIdWithIpAddrNotInDb() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           0, "192.168.1.2", null,
-                                           "(ipaddr == '192.168.1.1')",
-                                           false);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 0, "192.168.1.2", null,
+                                           "(ipaddr == '192.168.1.1')", false);
     }
 
     /**
@@ -228,23 +225,21 @@ public class NotificationManagerTest implements InitializingBean {
      * the IP address and service is in the database on *some* node.
      */
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testNoNodeIdWithService() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           0, null, "HTTP",
-                                           "(ipaddr == '192.168.1.1')",
-                                           true);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 0, null, "HTTP",
+                                           "(ipaddr == '192.168.1.1')", true);
     }
 
     // FIXME... do we really want to return true if the rule is wrong?????
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testRuleBogus() {
         try {
-            doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                               1, "192.168.1.1", "HTTP",
-                                               "(aklsdfjweklj89jaikj)",
-                                               false);
+            doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "192.168.1.1", "HTTP",
+                                               "(aklsdfjweklj89jaikj)", false);
             Assert.fail("Expected exception to be thrown!");
         } catch (FilterParseException e) {
             // I expected this
@@ -252,129 +247,114 @@ public class NotificationManagerTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testIplikeAllStars() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, "192.168.1.1", "HTTP",
-                                           "(ipaddr IPLIKE *.*.*.*)",
-                                           true);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "192.168.1.1", "HTTP",
+                                           "(ipaddr IPLIKE *.*.*.*)", true);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testNodeOnlyMatch() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, null, null,
-                                           "(ipaddr == '192.168.1.1')",
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, null, null, "(ipaddr == '192.168.1.1')",
                                            true);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testNodeOnlyMatchZeroesIpAddr() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, "0.0.0.0", null,
-                                           "(ipaddr == '192.168.1.1')",
-                                           true);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "0.0.0.0", null,
+                                           "(ipaddr == '192.168.1.1')", true);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testNodeOnlyNoMatch() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           3, null, null,
-                                           "(ipaddr == '192.168.1.1')",
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 3, null, null, "(ipaddr == '192.168.1.1')",
                                            false);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testWrongNodeId() throws InterruptedException {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           2, "192.168.1.1", "HTTP",
-                                           "(nodeid == 1)",
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 2, "192.168.1.1", "HTTP", "(nodeid == 1)",
                                            false);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testIpAddrSpecificPass() throws InterruptedException {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, "192.168.1.1", null,
-                                           "(ipaddr == '192.168.1.1')",
-                                           true);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "192.168.1.1", null,
+                                           "(ipaddr == '192.168.1.1')", true);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testIpAddrSpecificFail() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, "192.168.1.1", null,
-                                           "(ipaddr == '192.168.1.2')",
-                                           false);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "192.168.1.1", null,
+                                           "(ipaddr == '192.168.1.2')", false);
     }
 
-
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testIpAddrServiceSpecificPass() throws InterruptedException {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, "192.168.1.1", "HTTP",
-                                           "(ipaddr == '192.168.1.1')",
-                                           true);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "192.168.1.1", "HTTP",
+                                           "(ipaddr == '192.168.1.1')", true);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testIpAddrServiceSpecificFail() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, "192.168.1.1", "HTTP",
-                                           "(ipaddr == '192.168.1.2')",
-                                           false);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "192.168.1.1", "HTTP",
+                                           "(ipaddr == '192.168.1.2')", false);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testIpAddrServiceSpecificWrongService() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, "192.168.1.1", "ICMP",
-                                           "(ipaddr == '192.168.1.1')",
-                                           false);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "192.168.1.1", "ICMP",
+                                           "(ipaddr == '192.168.1.1')", false);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testIpAddrServiceSpecificWrongIP() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, "192.168.1.2", "HTTP",
-                                           "(ipaddr == '192.168.1.1')",
-                                           false);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "192.168.1.2", "HTTP",
+                                           "(ipaddr == '192.168.1.1')", false);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testMultipleCategories() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           1, "192.168.1.1", "HTTP",
-                                           "(catincCategoryOne) & (catincCategoryTwo) & (catincCategoryThree)",
-                                           true);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 1, "192.168.1.1", "HTTP",
+                                           "(catincCategoryOne) & (catincCategoryTwo) & (catincCategoryThree)", true);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testMultipleCategoriesNotMember() throws InterruptedException {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           2, "192.168.1.1", "HTTP",
-                                           "(catincCategoryOne) & (catincCategoryTwo) & (catincCategoryThree)",
-                                           false);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 2, "192.168.1.1", "HTTP",
+                                           "(catincCategoryOne) & (catincCategoryTwo) & (catincCategoryThree)", false);
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testIpAddrMatchWithNoServiceOnInterface() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           4, null, null,
-                                           "(ipaddr == '192.168.1.3')",
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 4, null, null, "(ipaddr == '192.168.1.3')",
                                            true);
     }
 
@@ -382,37 +362,35 @@ public class NotificationManagerTest implements InitializingBean {
      * This test returns false because the ipInterface table is the
      * "primary" table in database-schema.xml, so it is joined with
      * every query, even if we don't ask for it to be joined and if
-     * it isn't referenced in the filter query.  Sucky, huh?
+     * it isn't referenced in the filter query. Sucky, huh?
      */
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testNodeMatchWithNoInterfacesOnNode() {
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                                           5, null, null,
-                                           "(nodeId == 5)",
-                                           false);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 5, null, null, "(nodeId == 5)", false);
     }
 
     /**
-     * This tests bugzilla bug #1807.  The problem happened when we add our
+     * This tests bugzilla bug #1807. The problem happened when we add our
      * own constraints to the filter but fail to wrap the user's filter in
-     * parens.  This isn't a problem when the outermost logic expression in
+     * parens. This isn't a problem when the outermost logic expression in
      * the user's filter (if any) is an AND, but it is if it's an OR.
      */
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testRuleWithOrNoMatch() {
         /*
          * Note: the nodeLabel for nodeId=3/ipAddr=192.168.1.2 is 'node 3'
          * which shouldn't match the filter.
          */
-        doTestNodeInterfaceServiceWithRule("node/interface/service match",
-                3, "192.168.1.2", "HTTP",
-                "(nodelabel=='node 1') | (nodelabel=='node 2')",
-                false);
+        doTestNodeInterfaceServiceWithRule("node/interface/service match", 3, "192.168.1.2", "HTTP",
+                                           "(nodelabel=='node 1') | (nodelabel=='node 2')", false);
     }
 
-    private void doTestNodeInterfaceServiceWithRule(String description, int nodeId, String intf, String svc, String rule, boolean matches) {
+    private void doTestNodeInterfaceServiceWithRule(String description, int nodeId, String intf, String svc,
+            String rule, boolean matches) {
         Notification notif = new Notification();
         notif.setName("a notification");
         notif.setRule(rule);

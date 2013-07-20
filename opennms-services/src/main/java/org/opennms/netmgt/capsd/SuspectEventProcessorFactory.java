@@ -29,7 +29,9 @@
 package org.opennms.netmgt.capsd;
 
 /**
- * <p>SuspectEventProcessorFactory interface.</p>
+ * <p>
+ * SuspectEventProcessorFactory interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -37,12 +39,14 @@ package org.opennms.netmgt.capsd;
 public interface SuspectEventProcessorFactory {
 
     /**
-     * <p>createSuspectEventProcessor</p>
+     * <p>
+     * createSuspectEventProcessor
+     * </p>
      *
-     * @param ifAddress a {@link java.lang.String} object.
+     * @param ifAddress
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.capsd.SuspectEventProcessor} object.
      */
-    public abstract SuspectEventProcessor createSuspectEventProcessor(
-            String ifAddress);
+    public abstract SuspectEventProcessor createSuspectEventProcessor(String ifAddress);
 
 }

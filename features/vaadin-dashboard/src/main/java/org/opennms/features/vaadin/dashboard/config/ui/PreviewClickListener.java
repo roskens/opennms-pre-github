@@ -33,7 +33,8 @@ import org.opennms.features.vaadin.dashboard.model.Wallboard;
 import org.opennms.features.vaadin.dashboard.ui.wallboard.WallboardBody;
 
 /**
- * Class implementing {@link Button.ClickListener} for creating the preview window.
+ * Class implementing {@link Button.ClickListener} for creating the preview
+ * window.
  *
  * @author Christian Pape
  */
@@ -42,6 +43,7 @@ public class PreviewClickListener implements Button.ClickListener {
      * The component to use
      */
     private Component m_component;
+
     /**
      * The wallboard to be displayed
      */
@@ -50,8 +52,10 @@ public class PreviewClickListener implements Button.ClickListener {
     /**
      * Constructor for creating new instances of this listener.
      *
-     * @param component the {@link Component} to use
-     * @param wallboard the {@link Wallboard} to display
+     * @param component
+     *            the {@link Component} to use
+     * @param wallboard
+     *            the {@link Wallboard} to display
      */
     public PreviewClickListener(Component component, Wallboard wallboard) {
         m_component = component;

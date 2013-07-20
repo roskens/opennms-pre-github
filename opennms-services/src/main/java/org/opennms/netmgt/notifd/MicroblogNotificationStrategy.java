@@ -59,27 +59,35 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(MicroblogNotificationStrategy.class);
 
     private static final String UBLOG_PROFILE_NAME = "notifd";
+
     protected MicroblogConfigurationDao m_microblogConfigurationDao;
+
     protected MicroblogConfigurationDao m_configDao;
 
     /**
-     * <p>Constructor for MicroblogNotificationStrategy.</p>
+     * <p>
+     * Constructor for MicroblogNotificationStrategy.
+     * </p>
      *
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public MicroblogNotificationStrategy() throws IOException {
         this(findDefaultConfigResource());
     }
 
     /**
-     * <p>Constructor for MicroblogNotificationStrategy.</p>
+     * <p>
+     * Constructor for MicroblogNotificationStrategy.
+     * </p>
      *
-     * @param configResource a {@link org.springframework.core.io.Resource} object.
+     * @param configResource
+     *            a {@link org.springframework.core.io.Resource} object.
      */
     public MicroblogNotificationStrategy(Resource configResource) {
         m_configDao = new DefaultMicroblogConfigurationDao();
-        ((DefaultMicroblogConfigurationDao)m_configDao).setConfigResource(configResource);
-        ((DefaultMicroblogConfigurationDao)m_configDao).afterPropertiesSet();
+        ((DefaultMicroblogConfigurationDao) m_configDao).setConfigResource(configResource);
+        ((DefaultMicroblogConfigurationDao) m_configDao).afterPropertiesSet();
         setMicroblogConfigurationDao(m_configDao);
     }
 
@@ -90,12 +98,14 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
         String messageBody = buildMessageBody(arguments);
         Status response;
 
-        LOG.debug("Dispatching microblog notification for user '{}' at base URL '{}' with message '{}'", svc.getUserId(), svc.getBaseURL(), messageBody);
+        LOG.debug("Dispatching microblog notification for user '{}' at base URL '{}' with message '{}'",
+                  svc.getUserId(), svc.getBaseURL(), messageBody);
         try {
             response = svc.updateStatus(messageBody);
         } catch (TwitterException e) {
             LOG.error("Microblog notification failed");
-            LOG.info("Failed to update status for user '{}' at service URL '{}', caught exception: {}", svc.getUserId(), svc.getBaseURL(), e.getMessage());
+            LOG.info("Failed to update status for user '{}' at service URL '{}', caught exception: {}",
+                     svc.getUserId(), svc.getBaseURL(), e.getMessage());
             return 1;
         }
 
@@ -104,9 +114,12 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
     }
 
     /**
-     * <p>buildUblogService</p>
+     * <p>
+     * buildUblogService
+     * </p>
      *
-     * @param arguments a {@link java.util.List} object.
+     * @param arguments
+     *            a {@link java.util.List} object.
      * @return a {@link twitter4j.Twitter} object.
      */
     protected Twitter buildUblogService(List<Argument> arguments) {
@@ -115,13 +128,15 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
         String authenUser = "";
         String authenPass = "";
 
-        // First try to get a microblog profile called "notifd", falling back to the default if that fails
+        // First try to get a microblog profile called "notifd", falling back to
+        // the default if that fails
         profile = m_microblogConfigurationDao.getProfile("notifd");
         if (profile == null)
             profile = m_microblogConfigurationDao.getDefaultProfile();
 
         if (profile == null) {
-            LOG.error("Unable to find a microblog profile called '{}', and default profile does not exist; we cannot send microblog notifications!", UBLOG_PROFILE_NAME);
+            LOG.error("Unable to find a microblog profile called '{}', and default profile does not exist; we cannot send microblog notifications!",
+                      UBLOG_PROFILE_NAME);
             throw new RuntimeException("Could not find a usable microblog profile.");
         }
 
@@ -136,7 +151,8 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
         if (authenPass == null || "".equals(authenPass))
             LOG.warn("Working with a blank password, perhaps you forgot to set this in the microblog configuration?");
         if (serviceUrl == null || "".equals(serviceUrl))
-            throw new IllegalArgumentException("Cannot use a blank microblog service URL, perhaps you forgot to set this in the microblog configuration?");
+            throw new IllegalArgumentException(
+                                               "Cannot use a blank microblog service URL, perhaps you forgot to set this in the microblog configuration?");
 
         Twitter svc = new Twitter();
         svc.setBaseURL(serviceUrl);
@@ -147,9 +163,12 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
     }
 
     /**
-     * <p>buildMessageBody</p>
+     * <p>
+     * buildMessageBody
+     * </p>
      *
-     * @param arguments a {@link java.util.List} object.
+     * @param arguments
+     *            a {@link java.util.List} object.
      * @return a {@link java.lang.String} object.
      */
     protected String buildMessageBody(List<Argument> arguments) {
@@ -160,12 +179,14 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
             if (NotificationManager.PARAM_TEXT_MSG.equals(arg.getSwitch())) {
                 messageBody = arg.getValue();
             } else if (NotificationManager.PARAM_NUM_MSG.equals(arg.getSwitch())) {
-                if (messageBody == null) messageBody = arg.getValue();
+                if (messageBody == null)
+                    messageBody = arg.getValue();
             }
         }
 
         if (messageBody == null) {
-            // FIXME We should have a better Exception to use here for configuration problems
+            // FIXME We should have a better Exception to use here for
+            // configuration problems
             throw new IllegalArgumentException("No message specified, but is required");
         }
 
@@ -177,9 +198,12 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
     }
 
     /**
-     * <p>findDestName</p>
+     * <p>
+     * findDestName
+     * </p>
      *
-     * @param arguments a {@link java.util.List} object.
+     * @param arguments
+     *            a {@link java.util.List} object.
      * @return a {@link java.lang.String} object.
      */
     protected String findDestName(List<Argument> arguments) {
@@ -194,10 +218,13 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
     }
 
     /**
-     * <p>findDefaultConfigResource</p>
+     * <p>
+     * findDefaultConfigResource
+     * </p>
      *
      * @return a {@link org.springframework.core.io.Resource} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected static Resource findDefaultConfigResource() throws IOException {
         File configFile = ConfigFileConstants.getFile(ConfigFileConstants.MICROBLOG_CONFIG_FILE_NAME);
@@ -205,18 +232,25 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
     }
 
     /**
-     * <p>setMicroblogConfigurationDao</p>
+     * <p>
+     * setMicroblogConfigurationDao
+     * </p>
      *
-     * @param dao a {@link org.opennms.netmgt.dao.api.MicroblogConfigurationDao} object.
+     * @param dao
+     *            a {@link org.opennms.netmgt.dao.api.MicroblogConfigurationDao}
+     *            object.
      */
     public void setMicroblogConfigurationDao(MicroblogConfigurationDao dao) {
         m_microblogConfigurationDao = dao;
     }
 
     /**
-     * <p>getMicroblogConfigurationDao</p>
+     * <p>
+     * getMicroblogConfigurationDao
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.dao.api.MicroblogConfigurationDao} object.
+     * @return a {@link org.opennms.netmgt.dao.api.MicroblogConfigurationDao}
+     *         object.
      */
     public MicroblogConfigurationDao getMicroblogConfigurationDao() {
         return m_microblogConfigurationDao;

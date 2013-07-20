@@ -35,9 +35,9 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * <P>
- * RapidCityVlanPortTable uses a SnmpSession to collect the VLAN table
- * entries. It implements the SnmpHandler to receive notifications when a reply
- * is received/error occurs in the SnmpSession used to send requests/receive
+ * RapidCityVlanPortTable uses a SnmpSession to collect the VLAN table entries.
+ * It implements the SnmpHandler to receive notifications when a reply is
+ * received/error occurs in the SnmpSession used to send requests/receive
  * replies.
  * </P>
  *
@@ -47,20 +47,22 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public class RapidCityVlanTable extends VlanTableBasic {
 
-	/**
-	 * <p>Constructor for RapidCityVlanTable.</p>
-	 *
-	 * @param address a {@link java.net.InetAddress} object.
-	 */
-	public RapidCityVlanTable(InetAddress address) {
+    /**
+     * <p>
+     * Constructor for RapidCityVlanTable.
+     * </p>
+     *
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     */
+    public RapidCityVlanTable(InetAddress address) {
         super(address, "rapidCityVlanTable", RapidCityVlanTableEntry.rcVlan_elemList);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     protected RapidCityVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new RapidCityVlanTableEntry();
     }
 
 }
-

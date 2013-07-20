@@ -42,24 +42,31 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 /**
- * <p>BroadcastEventProcessor class.</p>
+ * <p>
+ * BroadcastEventProcessor class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class BroadcastEventProcessor implements EventListener {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
     private final EventIpcManager m_eventIpcManager;
+
     private final EventConfDao m_eventConfDao;
 
     /**
-     * <p>Constructor for BroadcastEventProcessor.</p>
+     * <p>
+     * Constructor for BroadcastEventProcessor.
+     * </p>
      *
-     * @param eventIpcManager a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
-     * @param eventConfDao a {@link org.opennms.netmgt.config.EventConfDao} object.
+     * @param eventIpcManager
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
+     * @param eventConfDao
+     *            a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
     public BroadcastEventProcessor(EventIpcManager eventIpcManager, EventConfDao eventConfDao) {
         Assert.notNull(eventIpcManager, "argument eventIpcManager must not be null");
@@ -94,7 +101,8 @@ public class BroadcastEventProcessor implements EventListener {
      * ensures that the <code>close</code> method is called <em>at least</em>
      * once during the cycle of this object.
      *
-     * @throws java.lang.Throwable if any.
+     * @throws java.lang.Throwable
+     *             if any.
      */
     @Override
     protected void finalize() throws Throwable {
@@ -102,7 +110,9 @@ public class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,10 +122,9 @@ public class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is invoked by the event manager when a new event is
-     * available for processing.  Each message is examined for its Universal
+     * {@inheritDoc} This method is invoked by the event manager when a new
+     * event is
+     * available for processing. Each message is examined for its Universal
      * Event Identifier and the appropriate action is taking based on each UEI.
      */
     @Override
@@ -150,13 +159,14 @@ public class BroadcastEventProcessor implements EventListener {
             List<Parm> parmCollection = event.getParmCollection();
 
             for (Parm parm : parmCollection) {
-                if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && "Eventd".equalsIgnoreCase(parm.getValue().getContent())) {
+                if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName())
+                        && "Eventd".equalsIgnoreCase(parm.getValue().getContent())) {
                     isTarget = true;
                     break;
                 }
             }
 
-        // Deprecating this one...
+            // Deprecating this one...
         } else if (EventConstants.EVENTSCONFIG_CHANGED_EVENT_UEI.equals(event.getUei())) {
             isTarget = true;
         }
@@ -164,4 +174,3 @@ public class BroadcastEventProcessor implements EventListener {
         return isTarget;
     }
 }
-

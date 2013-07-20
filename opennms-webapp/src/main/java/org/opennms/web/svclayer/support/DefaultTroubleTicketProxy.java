@@ -42,7 +42,9 @@ import org.opennms.web.svclayer.TroubleTicketProxy;
 import org.springframework.jdbc.datasource.lookup.DataSourceLookupFailureException;
 
 /**
- * <p>DefaultTroubleTicketProxy class.</p>
+ * <p>
+ * DefaultTroubleTicketProxy class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -54,21 +56,28 @@ import org.springframework.jdbc.datasource.lookup.DataSourceLookupFailureExcepti
 public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
 
     private AlarmDao m_alarmDao;
+
     private EventProxy m_eventProxy;
 
     /**
-     * <p>setAlarmDao</p>
+     * <p>
+     * setAlarmDao
+     * </p>
      *
-     * @param alarmDao a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
+     * @param alarmDao
+     *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
      */
     public final void setAlarmDao(final AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
     }
 
     /**
-     * <p>setEventProxy</p>
+     * <p>
+     * setEventProxy
+     * </p>
      *
-     * @param eventProxy a {@link org.opennms.netmgt.model.events.EventProxy} object.
+     * @param eventProxy
+     *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
     public final void setEventProxy(final EventProxy eventProxy) {
         m_eventProxy = eventProxy;
@@ -77,23 +86,23 @@ public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
     /** {@inheritDoc} */
     @Override
     public final void closeTicket(final Integer alarmId) {
-        changeTicket(alarmId, TroubleTicketState.CLOSE_PENDING, EventConstants.TROUBLETICKET_CLOSE_UEI,null);
+        changeTicket(alarmId, TroubleTicketState.CLOSE_PENDING, EventConstants.TROUBLETICKET_CLOSE_UEI, null);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void createTicket(final Integer alarmId, final Map<String,String> attributes) {
-        changeTicket(alarmId, TroubleTicketState.CREATE_PENDING, EventConstants.TROUBLETICKET_CREATE_UEI,attributes);
+    public final void createTicket(final Integer alarmId, final Map<String, String> attributes) {
+        changeTicket(alarmId, TroubleTicketState.CREATE_PENDING, EventConstants.TROUBLETICKET_CREATE_UEI, attributes);
     }
-
 
     /** {@inheritDoc} */
     @Override
     public final void updateTicket(final Integer alarmId) {
-        changeTicket(alarmId, TroubleTicketState.UPDATE_PENDING, EventConstants.TROUBLETICKET_UPDATE_UEI,null);
+        changeTicket(alarmId, TroubleTicketState.UPDATE_PENDING, EventConstants.TROUBLETICKET_UPDATE_UEI, null);
     }
 
-    private void changeTicket(final Integer alarmId, final TroubleTicketState newState, final String uei,final Map<String,String> attributes) {
+    private void changeTicket(final Integer alarmId, final TroubleTicketState newState, final String uei,
+            final Map<String, String> attributes) {
         OnmsAlarm alarm = m_alarmDao.get(alarmId);
         alarm.setTTicketState(newState);
         m_alarmDao.saveOrUpdate(alarm);
@@ -111,9 +120,9 @@ public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
             bldr.addParam(EventConstants.PARM_TROUBLE_TICKET, alarm.getTTicketId());
         }
         if (attributes != null) {
-        	for (Map.Entry<String, String> attribute: attributes.entrySet()) {
-        		bldr.addParam(attribute.getKey(), attribute.getValue());
-        	}
+            for (Map.Entry<String, String> attribute : attributes.entrySet()) {
+                bldr.addParam(attribute.getKey(), attribute.getValue());
+            }
         }
         send(bldr.getEvent());
     }

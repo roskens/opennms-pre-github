@@ -69,7 +69,6 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
             }
         });
 
-
         DblClickTextColumn<IpInterface> ipAddressColumn = new DblClickTextColumn<IpInterface>() {
 
             @Override
@@ -107,7 +106,6 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
         };
         addColumn(managedColumn, "Managed");
 
-
         final SingleSelectionModel<IpInterface> selectionModel = new SingleSelectionModel<IpInterface>();
         setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
@@ -115,22 +113,22 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
                 IpInterface selected = selectionModel.getSelectedObject();
-                if(selected != null) {
+                if (selected != null) {
                 }
             }
         });
 
-        addCellPreviewHandler(new CellPreviewEvent.Handler<IpInterface>(){
+        addCellPreviewHandler(new CellPreviewEvent.Handler<IpInterface>() {
 
             @Override
             public void onCellPreview(CellPreviewEvent<IpInterface> event) {
                 Event evt = Event.as(event.getNativeEvent());
 
-                switch(evt.getTypeInt()) {
-                    case Event.ONDBLCLICK:
-                        IpInterface selected = selectionModel.getSelectedObject();
-                        getEventBus().fireEvent(new IpInterfaceSelectionEvent(selected.getId()));
-                        break;
+                switch (evt.getTypeInt()) {
+                case Event.ONDBLCLICK:
+                    IpInterface selected = selectionModel.getSelectedObject();
+                    getEventBus().fireEvent(new IpInterfaceSelectionEvent(selected.getId()));
+                    break;
                 }
             }
 

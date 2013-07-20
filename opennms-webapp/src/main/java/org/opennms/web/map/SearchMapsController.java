@@ -49,65 +49,64 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>SearchMapsController class.</p>
+ * <p>
+ * SearchMapsController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class SearchMapsController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SearchMapsController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SearchMapsController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
-
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
-
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	    int mapWidth = WebSecurityUtils.safeParseInt(request
-	                                                   .getParameter("MapWidth"));
-        int mapHeight = WebSecurityUtils.safeParseInt(request
-	                                                       .getParameter("MapHeight"));
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        int mapWidth = WebSecurityUtils.safeParseInt(request.getParameter("MapWidth"));
+        int mapHeight = WebSecurityUtils.safeParseInt(request.getParameter("MapHeight"));
 
         LOG.debug("Current mapWidth={} and MapHeight={}", mapWidth, mapHeight);
 
-        int d = WebSecurityUtils.safeParseInt(request
-                                                     .getParameter("MapElemDimension"));
+        int d = WebSecurityUtils.safeParseInt(request.getParameter("MapElemDimension"));
 
         LOG.debug("default element dimension: {}", d);
-
 
         String elems = request.getParameter("elems");
         LOG.debug("Adding Searching Maps: elems={}", elems);
 
-
-        int n = mapWidth /4/d;
-        int k = mapHeight/2/d;
+        int n = mapWidth / 4 / d;
+        int k = mapHeight / 2 / d;
         LOG.debug("Max number of element on the row: {}", n);
         LOG.debug("Max number of element in the map: {}", n * k);
 
@@ -115,57 +114,55 @@ public class SearchMapsController extends MapsLoggingController {
 
         LOG.debug("Map Element to add to the Search Map: {}", smapids.length);
 
-        while (smapids.length > n*k) {
+        while (smapids.length > n * k) {
             LOG.info("the map dimension is too big: resizing");
             d = d - 5;
             LOG.info("new element dimension: {}", d);
-            n = mapWidth /4/d;
-            k = mapHeight/2/d;
+            n = mapWidth / 4 / d;
+            k = mapHeight / 2 / d;
             LOG.debug("Recalculated - Max number of element on the row: {}", n);
             LOG.debug("Recalculated - Max number of element in the map: {}", n * k);
         }
 
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
-                                                                      .getOutputStream(), "UTF-8"));
-		try {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+        try {
             List<VElement> velems = new ArrayList<VElement>();
             // response for addElement
 
-			int x = -1;
+            int x = -1;
             int y = 0;
             int s = 1;
 
-			for (int i = 0; i<smapids.length; i++) {
+            for (int i = 0; i < smapids.length; i++) {
 
-			    if (x < n) {
-			        x++;
-			    } else {
-	               y++;
-       		        if (s==1) {
-       		            x=1;
-       		            s--;
-       		        } else {
-                        x=0;
+                if (x < n) {
+                    x++;
+                } else {
+                    y++;
+                    if (s == 1) {
+                        x = 1;
+                        s--;
+                    } else {
+                        x = 0;
                         s++;
-       		        }
-			    }
-			    velems.add(manager.newElement(MapsConstants.SEARCH_MAP, new Integer(smapids[i]), MapsConstants.MAP_TYPE, null, x * 4 * d+s * 2 * d, y * 2 * d+d));
-			} // end for
+                    }
+                }
+                velems.add(manager.newElement(MapsConstants.SEARCH_MAP, new Integer(smapids[i]),
+                                              MapsConstants.MAP_TYPE, null, x * 4 * d + s * 2 * d, y * 2 * d + d));
+            } // end for
 
-			//get map
-            VMap map = manager.searchMap(request
-                                         .getRemoteUser(), request.getRemoteUser(),
-                                         mapWidth, mapHeight, velems);
+            // get map
+            VMap map = manager.searchMap(request.getRemoteUser(), request.getRemoteUser(), mapWidth, mapHeight, velems);
             LOG.debug("Got search map from manager {}", map);
-			bw.write(ResponseAssembler.getMapResponse(map));
-		} catch (Throwable e) {
-			LOG.error("Error while adding Maps", e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.SEARCHMAPS_ACTION));
-		} finally {
-			bw.close();
-		}
+            bw.write(ResponseAssembler.getMapResponse(map));
+        } catch (Throwable e) {
+            LOG.error("Error while adding Maps", e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.SEARCHMAPS_ACTION));
+        } finally {
+            bw.close();
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

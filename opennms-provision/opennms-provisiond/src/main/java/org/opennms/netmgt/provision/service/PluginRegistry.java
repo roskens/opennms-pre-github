@@ -37,7 +37,9 @@ import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
  * @author brozow
  */
 /**
- * <p>PluginRegistry interface.</p>
+ * <p>
+ * PluginRegistry interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,24 +47,33 @@ import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 public interface PluginRegistry {
 
     /**
-     * <p>getAllPlugins</p>
+     * <p>
+     * getAllPlugins
+     * </p>
      *
-     * @param pluginClass a {@link java.lang.Class} object.
-     * @param <T> a T object.
+     * @param pluginClass
+     *            a {@link java.lang.Class} object.
+     * @param <T>
+     *            a T object.
      * @return a {@link java.util.Collection} object.
      */
     public abstract <T> Collection<T> getAllPlugins(Class<T> pluginClass);
 
     /**
-     * <p>getPluginInstance</p>
+     * <p>
+     * getPluginInstance
+     * </p>
      *
-     * @param pluginClass a {@link java.lang.Class} object.
-     * @param pluginConfig a {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig} object.
-     * @param <T> a T object.
+     * @param pluginClass
+     *            a {@link java.lang.Class} object.
+     * @param pluginConfig
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
+     *            object.
+     * @param <T>
+     *            a T object.
      * @return a T object.
      */
-    public abstract <T> T getPluginInstance(Class<T> pluginClass,
-            PluginConfig pluginConfig);
-
+    public abstract <T> T getPluginInstance(Class<T> pluginClass, PluginConfig pluginConfig);
 
 }

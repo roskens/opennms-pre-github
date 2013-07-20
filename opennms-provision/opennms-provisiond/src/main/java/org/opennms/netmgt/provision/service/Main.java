@@ -36,14 +36,17 @@ import org.springframework.core.io.Resource;
 public class Main {
 
     /**
-     * <p>main</p>
+     * <p>
+     * main
+     * </p>
      *
-     * @param args an array of {@link java.lang.String} objects.
+     * @param args
+     *            an array of {@link java.lang.String} objects.
      */
     public static void main(String[] args) {
         try {
             ApplicationContext appContext = new ClassPathXmlApplicationContext("/META-INF/modelImport-appContext.xml");
-            Provisioner importer = (Provisioner)appContext.getBean("modelImporter");
+            Provisioner importer = (Provisioner) appContext.getBean("modelImporter");
             Resource resource = new FileSystemResource(args[0]);
             importer.importModelFromResource(resource, true);
         } catch (Throwable e) {

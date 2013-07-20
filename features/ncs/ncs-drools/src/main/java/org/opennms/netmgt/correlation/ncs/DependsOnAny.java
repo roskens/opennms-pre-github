@@ -30,19 +30,18 @@ package org.opennms.netmgt.correlation.ncs;
 
 import java.util.List;
 
-
-
 public class DependsOnAny {
-	private Component m_component;
-	private List<Component> m_subComponents;
+    private Component m_component;
 
-	public DependsOnAny() {}
+    private List<Component> m_subComponents;
 
-	public DependsOnAny(Component component, List<Component> subComponents)
-	{
-		m_component = component;
-		m_subComponents = subComponents;
-	}
+    public DependsOnAny() {
+    }
+
+    public DependsOnAny(Component component, List<Component> subComponents) {
+        m_component = component;
+        m_subComponents = subComponents;
+    }
 
     public Component getComponent() {
         return m_component;
@@ -59,10 +58,5 @@ public class DependsOnAny {
     public void setSubComponents(List<Component> subComponents) {
         m_subComponents = subComponents;
     }
-
-
-
-
-
 
 }

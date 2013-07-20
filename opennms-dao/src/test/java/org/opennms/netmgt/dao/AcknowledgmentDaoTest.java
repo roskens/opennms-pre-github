@@ -59,41 +59,38 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Tests for Acknowledgment DAO
- * @author <a href="mailto:david@opennms.org">David Hustace</a>
  *
+ * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class AcknowledgmentDaoTest implements InitializingBean {
-	@Autowired
+    @Autowired
     private AcknowledgmentDao m_acknowledgmentDao;
 
-	@Autowired
-	private DistPollerDao m_distPollerDao;
+    @Autowired
+    private DistPollerDao m_distPollerDao;
 
-	@Autowired
-	private AlarmDao m_alarmDao;
+    @Autowired
+    private AlarmDao m_alarmDao;
 
-	@Autowired
-	private NodeDao m_nodeDao;
+    @Autowired
+    private NodeDao m_nodeDao;
 
-	@Autowired
-	private EventDao m_eventDao;
+    @Autowired
+    private EventDao m_eventDao;
 
-	@Autowired
-	private DatabasePopulator m_databasePopulator;
+    @Autowired
+    private DatabasePopulator m_databasePopulator;
 
     private static boolean m_populated = false;
-
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -113,8 +110,8 @@ public class AcknowledgmentDaoTest implements InitializingBean {
         }
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSaveUnspecified() {
         OnmsAcknowledgment ack = new OnmsAcknowledgment();
         ack.setAckTime(new Date());
@@ -135,10 +132,10 @@ public class AcknowledgmentDaoTest implements InitializingBean {
     }
 
     private AcknowledgmentDao getAcknowledgmentDao() {
-    	return m_acknowledgmentDao;
-	}
+        return m_acknowledgmentDao;
+    }
 
-	@Test
+    @Test
     @Transactional
     public void testSaveWithAlarm() {
         OnmsEvent event = new OnmsEvent();

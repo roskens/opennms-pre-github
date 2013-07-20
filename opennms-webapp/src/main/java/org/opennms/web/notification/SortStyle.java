@@ -41,20 +41,10 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public enum SortStyle {
-    RESPONDER("responder"),
-    PAGETIME("pagetime"),
-    RESPONDTIME("respondtime"),
-    NODE("node"),
-    INTERFACE("interface"),
-    SERVICE("service"),
-    ID("id"),
-    REVERSE_RESPONDER("rev_responder"),
-    REVERSE_PAGETIME("rev_pagetime"),
-    REVERSE_RESPONDTIME("rev_respondtime"),
-    REVERSE_NODE("rev_node"),
-    REVERSE_INTERFACE("rev_interface"),
-    REVERSE_SERVICE("rev_service"),
-    REVERSE_ID("rev_id");
+    RESPONDER("responder"), PAGETIME("pagetime"), RESPONDTIME("respondtime"), NODE("node"), INTERFACE("interface"), SERVICE(
+            "service"), ID("id"), REVERSE_RESPONDER("rev_responder"), REVERSE_PAGETIME("rev_pagetime"), REVERSE_RESPONDTIME(
+            "rev_respondtime"), REVERSE_NODE("rev_node"), REVERSE_INTERFACE("rev_interface"), REVERSE_SERVICE(
+            "rev_service"), REVERSE_ID("rev_id");
 
     /** Constant <code>DEFAULT_SORT_STYLE</code> */
     public static final SortStyle DEFAULT_SORT_STYLE = SortStyle.ID;
@@ -76,7 +66,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,7 +78,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,7 +89,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getShortName</p>
+     * <p>
+     * getShortName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,9 +100,12 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getSortStyle</p>
+     * <p>
+     * getSortStyle
+     * </p>
      *
-     * @param sortStyleString a {@link java.lang.String} object.
+     * @param sortStyleString
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.notification.SortStyle} object.
      */
     public static SortStyle getSortStyle(String sortStyleString) {

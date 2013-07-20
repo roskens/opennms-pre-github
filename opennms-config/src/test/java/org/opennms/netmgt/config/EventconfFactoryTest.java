@@ -80,23 +80,27 @@ import org.springframework.util.StringUtils;
 
 /**
  * @author brozow
- *
  */
 public class EventconfFactoryTest {
     private static final Logger LOG = LoggerFactory.getLogger(EventconfFactoryTest.class);
 
-    private static final String knownUEI1="uei.opennms.org/internal/capsd/snmpConflictsWithDb";
-    private static final String knownLabel1="OpenNMS-defined capsd event: snmpConflictsWithDb";
-    private static final String knownSubfileUEI1="uei.opennms.org/IETF/Bridge/traps/newRoot";
-    private static final String knownSubfileLabel1="BRIDGE-MIB defined trap event: newRoot";
-    private static final String unknownUEI1="uei.opennms.org/foo/thisShouldBeAnUnknownUEI";
+    private static final String knownUEI1 = "uei.opennms.org/internal/capsd/snmpConflictsWithDb";
+
+    private static final String knownLabel1 = "OpenNMS-defined capsd event: snmpConflictsWithDb";
+
+    private static final String knownSubfileUEI1 = "uei.opennms.org/IETF/Bridge/traps/newRoot";
+
+    private static final String knownSubfileLabel1 = "BRIDGE-MIB defined trap event: newRoot";
+
+    private static final String unknownUEI1 = "uei.opennms.org/foo/thisShouldBeAnUnknownUEI";
 
     DefaultEventConfDao m_eventConfDao;
 
     @Before
     public void setUp() throws Exception {
         m_eventConfDao = new DefaultEventConfDao();
-        m_eventConfDao.setConfigResource(new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile("eventconf.xml")));
+        m_eventConfDao.setConfigResource(new FileSystemResource(
+                                                                ConfigurationTestUtils.getFileForConfigFile("eventconf.xml")));
         m_eventConfDao.afterPropertiesSet();
     }
 
@@ -129,38 +133,39 @@ public class EventconfFactoryTest {
         EventBuilder bldr = new EventBuilder(knownUEI1, "testFindByEventUeiKnown");
 
         Event eventConf = m_eventConfDao.findByEvent(bldr.getEvent());
-        assertNotNull("returned event configuration for event with known UEI '" + knownUEI1 + "' should not be null", eventConf);
+        assertNotNull("returned event configuration for event with known UEI '" + knownUEI1 + "' should not be null",
+                      eventConf);
         assertEquals("UEI", bldr.getEvent().getUei(), eventConf.getUei());
     }
 
     @Test
     public void testFindByEventUeiKnown1000Times() throws Exception {
 
-    	final int ATTEMPTS = 10000;
+        final int ATTEMPTS = 10000;
 
         EventBuilder bldr = new EventBuilder(knownUEI1, "testFindByEventUeiKnown");
 
-    	DefaultEventConfDao eventConfDao = loadConfiguration("eventconf-speedtest/eventconf.xml");
+        DefaultEventConfDao eventConfDao = loadConfiguration("eventconf-speedtest/eventconf.xml");
 
-    	Event eventConf = null;
-		org.opennms.netmgt.xml.event.Event event = bldr.getEvent();
+        Event eventConf = null;
+        org.opennms.netmgt.xml.event.Event event = bldr.getEvent();
         long start = System.currentTimeMillis();
-        for(int i = 0; i < ATTEMPTS; i++) {
-			eventConf = eventConfDao.findByEvent(event);
+        for (int i = 0; i < ATTEMPTS; i++) {
+            eventConf = eventConfDao.findByEvent(event);
         }
         long end = System.currentTimeMillis();
         long elapsed = end - start;
-        System.err.printf("%d Attempts: Elapsed: %d ms: events per second %f.%n", ATTEMPTS, elapsed, ATTEMPTS*1000.0/elapsed);
+        System.err.printf("%d Attempts: Elapsed: %d ms: events per second %f.%n", ATTEMPTS, elapsed, ATTEMPTS * 1000.0
+                / elapsed);
 
-
-        assertNotNull("returned event configuration for event with known UEI '" + knownUEI1 + "' should not be null", eventConf);
+        assertNotNull("returned event configuration for event with known UEI '" + knownUEI1 + "' should not be null",
+                      eventConf);
         assertEquals("UEI", bldr.getEvent().getUei(), eventConf.getUei());
     }
 
-    public class EventCreator  {
+    public class EventCreator {
 
         private EventBuilder m_eventBuilder;
-
 
         public EventCreator() {
             setEventBuilder(new EventBuilder(null, "trapd"));
@@ -222,93 +227,93 @@ public class EventconfFactoryTest {
             return getEventBuilder().getEvent();
         }
 
-		private EventBuilder getEventBuilder() {
-			return m_eventBuilder;
-		}
+        private EventBuilder getEventBuilder() {
+            return m_eventBuilder;
+        }
 
-		private void setEventBuilder(EventBuilder eventBuilder) {
-			m_eventBuilder = eventBuilder;
-		}
+        private void setEventBuilder(EventBuilder eventBuilder) {
+            m_eventBuilder = eventBuilder;
+        }
     }
+
     @Test
     public void testFindByTrap() throws Exception {
         String enterpriseId = ".1.3.6.1.4.1.5813.1";
-		int generic = 6;
-		int specific = 1;
+        int generic = 6;
+        int specific = 1;
         String ip = "127.0.0.1";
 
         EventBuilder bldr = new EventBuilder(null, "trapd");
-		bldr.setSnmpVersion("v2");
+        bldr.setSnmpVersion("v2");
         bldr.setCommunity("public");
-		bldr.setHost(ip);
+        bldr.setHost(ip);
         bldr.setSnmpHost(ip);
-		bldr.setInterface(InetAddress.getByName("127.0.0.1"));
+        bldr.setInterface(InetAddress.getByName("127.0.0.1"));
 
         // time-stamp (units is hundreths of a second
-		bldr.setSnmpTimeStamp(System.currentTimeMillis()/10);
+        bldr.setSnmpTimeStamp(System.currentTimeMillis() / 10);
 
         bldr.setGeneric(generic);
-		bldr.setSpecific(specific);
-		bldr.setEnterpriseId(enterpriseId);
+        bldr.setSpecific(specific);
+        bldr.setEnterpriseId(enterpriseId);
 
-		for(int i = 0; i < 19; i++) {
-			bldr.addParam(".1.3.6."+(i+1), "parm" + (i+1) );
-		}
+        for (int i = 0; i < 19; i++) {
+            bldr.addParam(".1.3.6." + (i + 1), "parm" + (i + 1));
+        }
 
+        DefaultEventConfDao eventConfDao = loadConfiguration("eventconf-speedtest/eventconf.xml");
 
-    	DefaultEventConfDao eventConfDao = loadConfiguration("eventconf-speedtest/eventconf.xml");
+        org.opennms.netmgt.xml.event.Event event = bldr.getEvent();
+        Event eventConf = eventConfDao.findByEvent(event);
 
-
-		org.opennms.netmgt.xml.event.Event event = bldr.getEvent();
-		Event eventConf = eventConfDao.findByEvent(event);
-
-
-        assertNotNull("returned event configuration for event with known UEI '" + knownUEI1 + "' should not be null", eventConf);
+        assertNotNull("returned event configuration for event with known UEI '" + knownUEI1 + "' should not be null",
+                      eventConf);
         assertEquals("uei.opennms.org/traps/eventTrap", eventConf.getUei());
     }
+
     @Test
     public void testFindByTrap1000Times() throws Exception {
         String enterpriseId = ".1.3.6.1.4.1.5813.1";
-		int generic = 6;
-		int specific = 1;
+        int generic = 6;
+        int specific = 1;
         String ip = "127.0.0.1";
 
         EventBuilder bldr = new EventBuilder(null, "trapd");
-		bldr.setSnmpVersion("v2");
+        bldr.setSnmpVersion("v2");
         bldr.setCommunity("public");
-		bldr.setHost(ip);
+        bldr.setHost(ip);
         bldr.setSnmpHost(ip);
-		bldr.setInterface(InetAddress.getByName("127.0.0.1"));
+        bldr.setInterface(InetAddress.getByName("127.0.0.1"));
 
         // time-stamp (units is hundreths of a second
-		bldr.setSnmpTimeStamp(System.currentTimeMillis()/10);
+        bldr.setSnmpTimeStamp(System.currentTimeMillis() / 10);
 
         bldr.setGeneric(generic);
-		bldr.setSpecific(specific);
-		bldr.setEnterpriseId(enterpriseId);
+        bldr.setSpecific(specific);
+        bldr.setEnterpriseId(enterpriseId);
 
-		for(int i = 0; i < 19; i++) {
-			bldr.addParam(".1.3.6."+(i+1), "parm" + (i+1) );
-		}
+        for (int i = 0; i < 19; i++) {
+            bldr.addParam(".1.3.6." + (i + 1), "parm" + (i + 1));
+        }
 
+        DefaultEventConfDao eventConfDao = loadConfiguration("eventconf-speedtest/eventconf.xml");
 
-    	DefaultEventConfDao eventConfDao = loadConfiguration("eventconf-speedtest/eventconf.xml");
-
-    	final int ATTEMPTS = 10000;
+        final int ATTEMPTS = 10000;
 
         Event eventConf = null;
 
-		org.opennms.netmgt.xml.event.Event event = bldr.getEvent();
+        org.opennms.netmgt.xml.event.Event event = bldr.getEvent();
         long start = System.currentTimeMillis();
-        for(int i = 0; i < ATTEMPTS; i++) {
-			eventConf = eventConfDao.findByEvent(event);
+        for (int i = 0; i < ATTEMPTS; i++) {
+            eventConf = eventConfDao.findByEvent(event);
         }
         long end = System.currentTimeMillis();
         long elapsed = end - start;
-        System.err.printf("%d Attempts: Elapsed: %d ms: events per second %f.%n", ATTEMPTS, elapsed, ATTEMPTS*1000.0/elapsed);
+        System.err.printf("%d Attempts: Elapsed: %d ms: events per second %f.%n", ATTEMPTS, elapsed, ATTEMPTS * 1000.0
+                / elapsed);
 
-
-        assertNotNull("returned event configuration for event with known UEI '" + knownUEI1 + "' should not be null", eventConf);
+        assertNotNull("returned event configuration for event with known UEI '" + knownUEI1 + "' should not be null",
+                      eventConf);
         assertEquals("uei.opennms.org/traps/eventTrap", eventConf.getUei());
     }
 
@@ -316,7 +321,8 @@ public class EventconfFactoryTest {
     public void testFindByEventUnknown() {
         EventBuilder bldr = new EventBuilder(unknownUEI1, "testFindByEventUnknown");
         Event eventConf = m_eventConfDao.findByEvent(bldr.getEvent());
-        assertNull("returned event configuration for event with unknown UEI '" + unknownUEI1 + "' should be null", eventConf);
+        assertNull("returned event configuration for event with unknown UEI '" + unknownUEI1 + "' should be null",
+                   eventConf);
     }
 
     @Test
@@ -345,31 +351,31 @@ public class EventconfFactoryTest {
 
     @Test
     public void testGetEventByUEI() {
-        List<Event> result=m_eventConfDao.getEvents(knownUEI1);
+        List<Event> result = m_eventConfDao.getEvents(knownUEI1);
         assertEquals("Should only be one result", 1, result.size());
-        Event firstEvent=(Event)result.get(0);
-        assertEquals("UEI should be "+knownUEI1, knownUEI1, firstEvent.getUei());
+        Event firstEvent = (Event) result.get(0);
+        assertEquals("UEI should be " + knownUEI1, knownUEI1, firstEvent.getUei());
 
-        result=m_eventConfDao.getEvents("uei.opennms.org/internal/capsd/nonexistent");
+        result = m_eventConfDao.getEvents("uei.opennms.org/internal/capsd/nonexistent");
         assertNull("Should be null list for non-existent URI", result);
 
-        //Find an event that's in a sub-file
-        result=m_eventConfDao.getEvents(knownSubfileUEI1);
+        // Find an event that's in a sub-file
+        result = m_eventConfDao.getEvents(knownSubfileUEI1);
         assertEquals("Should only be one result", 1, result.size());
-        firstEvent=(Event)result.get(0);
-        assertEquals("UEI should be "+knownSubfileUEI1,knownSubfileUEI1, firstEvent.getUei());
+        firstEvent = (Event) result.get(0);
+        assertEquals("UEI should be " + knownSubfileUEI1, knownSubfileUEI1, firstEvent.getUei());
     }
 
     @Test
     public void testGetEventUEIS() {
-        List<String> ueis=m_eventConfDao.getEventUEIs();
+        List<String> ueis = m_eventConfDao.getEventUEIs();
         assertTrue("Must contain known UEI", ueis.contains(knownUEI1));
         assertTrue("Must contain known UEI", ueis.contains(knownSubfileUEI1));
     }
 
     @Test
     public void testGetLabels() {
-        Map<String,String> labels=m_eventConfDao.getEventLabels();
+        Map<String, String> labels = m_eventConfDao.getEventLabels();
         assertTrue("Must contain known UEI", labels.containsKey(knownUEI1));
         assertEquals("Must have known Label", labels.get(knownUEI1), knownLabel1);
         assertTrue("Must contain known UEI", labels.containsKey(knownSubfileUEI1));
@@ -378,8 +384,9 @@ public class EventconfFactoryTest {
 
     @Test
     public void testGetLabel() {
-        assertEquals("Must have correct label"+knownLabel1, knownLabel1, m_eventConfDao.getEventLabel(knownUEI1));
-        assertEquals("Must have correct label"+knownSubfileLabel1, knownSubfileLabel1, m_eventConfDao.getEventLabel(knownSubfileUEI1));
+        assertEquals("Must have correct label" + knownLabel1, knownLabel1, m_eventConfDao.getEventLabel(knownUEI1));
+        assertEquals("Must have correct label" + knownSubfileLabel1, knownSubfileLabel1,
+                     m_eventConfDao.getEventLabel(knownSubfileUEI1));
     }
 
     @Test
@@ -397,37 +404,37 @@ public class EventconfFactoryTest {
         assertTrue("reduceme".equals(event.getAlarmData().getReductionKey()));
     }
 
-    //Ensure reload does indeed reload fresh data
+    // Ensure reload does indeed reload fresh data
     @Test
     public void testReload() {
-        String newUEI="uei.opennms.org/custom/newTestUEI";
-        List<Event> events=m_eventConfDao.getEvents(knownUEI1);
-        Event event=(Event)events.get(0);
+        String newUEI = "uei.opennms.org/custom/newTestUEI";
+        List<Event> events = m_eventConfDao.getEvents(knownUEI1);
+        Event event = (Event) events.get(0);
         event.setUei(newUEI);
 
-        //Check that the new UEI is there
-        List<Event> events2=m_eventConfDao.getEvents(newUEI);
-        Event event2=((Event)events2.get(0));
+        // Check that the new UEI is there
+        List<Event> events2 = m_eventConfDao.getEvents(newUEI);
+        Event event2 = ((Event) events2.get(0));
         assertNotNull("Must have some events", event2);
         assertEquals("Must be exactly 1 event", 1, events2.size());
         assertEquals("uei must be the new one", newUEI, event2.getUei());
 
-
-        //Now reload without saving - should not find the new one, but should find the old one
+        // Now reload without saving - should not find the new one, but should
+        // find the old one
         try {
             m_eventConfDao.reload();
         } catch (Throwable e) {
             e.printStackTrace();
-            fail("Should not have had exception while reloading factory "+e.getMessage());
+            fail("Should not have had exception while reloading factory " + e.getMessage());
         }
-        List<Event> events3=m_eventConfDao.getEvents(knownUEI1);
+        List<Event> events3 = m_eventConfDao.getEvents(knownUEI1);
         assertNotNull("Must have some events", events3);
         assertEquals("Must be exactly 1 event", 1, events3.size());
-        Event event3=(Event)events3.get(0);
+        Event event3 = (Event) events3.get(0);
         assertEquals("uei must be the new one", knownUEI1, event3.getUei());
 
-        //Check that the new UEI is *not* there this time
-        List<Event> events4=m_eventConfDao.getEvents(newUEI);
+        // Check that the new UEI is *not* there this time
+        List<Event> events4 = m_eventConfDao.getEvents(newUEI);
         assertNull("Must be no events by that name", events4);
     }
 
@@ -442,7 +449,7 @@ public class EventconfFactoryTest {
 
     /**
      * Test an eventconf.xml with &lt;event&gt; elements and &lt;event-file&gt;
-     * elements that contain absolute paths.  The included &lt;event-file&gt;
+     * elements that contain absolute paths. The included &lt;event-file&gt;
      * has no errors.
      */
     @Test
@@ -452,7 +459,7 @@ public class EventconfFactoryTest {
 
     /**
      * Test an eventconf.xml with &lt;event&gt; elements and &lt;event-file&gt;
-     * elements that contain absolute paths.  The included &lt;event-file&gt;
+     * elements that contain absolute paths. The included &lt;event-file&gt;
      * references additional &lt;event-file&gt;s which is an error.
      */
     @Test
@@ -476,7 +483,7 @@ public class EventconfFactoryTest {
 
     /**
      * Test an eventconf.xml with &lt;event&gt; elements and &lt;event-file&gt;
-     * elements that contain absolute paths.  The included &lt;event-file&gt;
+     * elements that contain absolute paths. The included &lt;event-file&gt;
      * has a &lt;global&gt; element which is an error.
      */
     @Test
@@ -500,7 +507,7 @@ public class EventconfFactoryTest {
 
     /**
      * Test an eventconf.xml with &lt;event&gt; elements and &lt;event-file&gt;
-     * elements that contain relative paths.  The included &lt;event-file&gt;
+     * elements that contain relative paths. The included &lt;event-file&gt;
      * has no errors.
      */
     @Test
@@ -561,7 +568,8 @@ public class EventconfFactoryTest {
             @Override
             public boolean accept(File file, String name) {
                 return name.endsWith(".xml");
-            } });
+            }
+        });
         Set<File> eventFilesOnDisk = new HashSet<File>(Arrays.asList(eventFilesOnDiskArray));
 
         Reader r = new FileReader(eventConfFile);
@@ -575,14 +583,17 @@ public class EventconfFactoryTest {
         Set<File> includedNotOnDisk = new HashSet<File>(eventFilesIncluded);
         includedNotOnDisk.removeAll(eventFilesOnDisk);
         if (!includedNotOnDisk.isEmpty()) {
-            fail("Event configuration file " + eventConfFile.getAbsolutePath() + " references included files that could not be found:\n\t"
+            fail("Event configuration file " + eventConfFile.getAbsolutePath()
+                    + " references included files that could not be found:\n\t"
                     + StringUtils.collectionToDelimitedString(includedNotOnDisk, "\n\t"));
         }
 
         Set<File> onDiskNotIncluded = new HashSet<File>(eventFilesOnDisk);
         onDiskNotIncluded.removeAll(eventFilesIncluded);
         if (!onDiskNotIncluded.isEmpty()) {
-            fail("Events directory " + eventsDirFile.getAbsolutePath() + " contains event files that are not referenced in event configuration file " + eventConfFile.getAbsolutePath() + ":\n\t"
+            fail("Events directory " + eventsDirFile.getAbsolutePath()
+                    + " contains event files that are not referenced in event configuration file "
+                    + eventConfFile.getAbsolutePath() + ":\n\t"
                     + StringUtils.collectionToDelimitedString(onDiskNotIncluded, "\n\t"));
         }
     }
@@ -601,12 +612,15 @@ public class EventconfFactoryTest {
         return loadConfiguration(relativeResourcePath, true);
     }
 
-    private DefaultEventConfDao loadConfiguration(String relativeResourcePath, boolean passFile) throws DataAccessException, IOException {
+    private DefaultEventConfDao loadConfiguration(String relativeResourcePath, boolean passFile)
+            throws DataAccessException, IOException {
         DefaultEventConfDao dao = new DefaultEventConfDao();
 
         if (passFile) {
             URL url = getUrlForRelativeResourcePath(relativeResourcePath);
-            dao.setConfigResource(new MockFileSystemResourceWithInputStream(new File(url.getFile()), getFilteredInputStreamForConfig(relativeResourcePath)));
+            dao.setConfigResource(new MockFileSystemResourceWithInputStream(
+                                                                            new File(url.getFile()),
+                                                                            getFilteredInputStreamForConfig(relativeResourcePath)));
         } else {
             dao.setConfigResource(new InputStreamResource(getFilteredInputStreamForConfig(relativeResourcePath)));
         }
@@ -618,8 +632,11 @@ public class EventconfFactoryTest {
     private InputStream getFilteredInputStreamForConfig(String resourceSuffix) throws IOException {
         URL url = getUrlForRelativeResourcePath(resourceSuffix);
 
-        return ConfigurationTestUtils.getInputStreamForResourceWithReplacements(this, getResourceForRelativePath(resourceSuffix),
-                new String[] { "\\$\\{install.etc.dir\\}", new File(url.getFile()).getParent() });
+        return ConfigurationTestUtils.getInputStreamForResourceWithReplacements(this,
+                                                                                getResourceForRelativePath(resourceSuffix),
+                                                                                new String[] {
+                                                                                        "\\$\\{install.etc.dir\\}",
+                                                                                        new File(url.getFile()).getParent() });
     }
 
     private URL getUrlForRelativeResourcePath(String resourceSuffix) {
@@ -634,6 +651,7 @@ public class EventconfFactoryTest {
 
     private class MockFileSystemResourceWithInputStream implements Resource {
         private Resource m_delegate;
+
         private InputStream m_inputStream;
 
         public MockFileSystemResourceWithInputStream(File file, InputStream inputStream) {

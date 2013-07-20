@@ -57,7 +57,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 @SuppressWarnings("serial")
 public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implements Button.ClickListener {
 
-	public static class MibObjArrayList extends ArrayList<MibObj> {}
+    public static class MibObjArrayList extends ArrayList<MibObj> {
+    }
 
     private static final long serialVersionUID = 3665919460707298011L;
 
@@ -65,7 +66,7 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
     private final Table table = new Table();
 
     /** The Container. */
-    private final BeanContainer<String,MibObj> container = new BeanContainer<String,MibObj>(MibObj.class);
+    private final BeanContainer<String, MibObj> container = new BeanContainer<String, MibObj>(MibObj.class);
 
     /** The Toolbar. */
     private final HorizontalLayout toolbar = new HorizontalLayout();
@@ -79,13 +80,14 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
     /**
      * Instantiates a new MIB object field.
      *
-     * @param resourceTypes the available resource types
+     * @param resourceTypes
+     *            the available resource types
      */
     public MibObjField(final List<String> resourceTypes) {
         container.setBeanIdProperty("oid");
         table.setContainerDataSource(container);
         table.setStyleName(Runo.TABLE_SMALL);
-        table.setVisibleColumns(new Object[]{"oid", "instance", "alias", "type"});
+        table.setVisibleColumns(new Object[] { "oid", "instance", "alias", "type" });
         table.setColumnHeader("oid", "OID");
         table.setColumnHeader("instance", "Instance");
         table.setColumnHeader("alias", "Alias");
@@ -138,13 +140,14 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
     @Override
     public MibObjArrayList getValue() {
         MibObjArrayList beans = new MibObjArrayList();
-        for (Object itemId: container.getItemIds()) {
+        for (Object itemId : container.getItemIds()) {
             beans.add(container.getItem(itemId).getBean());
         }
         return beans;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
      */
     @Override
@@ -154,8 +157,10 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
         super.setReadOnly(readOnly);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
@@ -168,7 +173,8 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.vaadin.addon.customfield.CustomField#isValid()
      */
     @Override
@@ -193,7 +199,8 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
         if (itemId == null) {
             Notification.show("Please select a MIB Object from the table.");
         } else {
-            MessageBox mb = new MessageBox(getUI().getWindows().iterator().next(),
+            MessageBox mb = new MessageBox(
+                                           getUI().getWindows().iterator().next(),
                                            "Are you sure?",
                                            MessageBox.Icon.QUESTION,
                                            "Do you really want to remove the selected MIB Object?<br/>This action cannot be undone.",

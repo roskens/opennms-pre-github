@@ -36,7 +36,9 @@ import org.opennms.netmgt.provision.persist.requisition.Requisition;
 
 public class RequisitionImport {
     private static final Logger LOG = LoggerFactory.getLogger(RequisitionImport.class);
+
     private Requisition m_requisition;
+
     private Throwable m_throwable;
 
     public Requisition getRequisition() {
@@ -51,7 +53,8 @@ public class RequisitionImport {
             if (m_throwable == null) {
                 m_throwable = e;
             } else {
-                LOG.debug("Requisition {} did not validate, but we'll ignore the exception because we've previously aborted with: {}", requisition, m_throwable, e);
+                LOG.debug("Requisition {} did not validate, but we'll ignore the exception because we've previously aborted with: {}",
+                          requisition, m_throwable, e);
             }
         }
     }
@@ -64,12 +67,14 @@ public class RequisitionImport {
         if (m_throwable == null) {
             m_throwable = t;
         } else {
-            LOG.warn("Requisition {} has already been aborted, but we received another abort message.  Ignoring.", m_requisition, t);
+            LOG.warn("Requisition {} has already been aborted, but we received another abort message.  Ignoring.",
+                     m_requisition, t);
         }
     }
 
     public boolean isAborted() {
-        if (m_throwable != null) return true;
+        if (m_throwable != null)
+            return true;
         return false;
     }
 

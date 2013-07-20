@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class SocketUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SocketUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SocketUtils.class);
 
     public static Socket wrapSocketInSslContext(Socket socket) throws IOException {
         return wrapSocketInSslContext(socket, null);
@@ -61,10 +61,10 @@ public abstract class SocketUtils {
             sslContext = SSLContext.getInstance("SSL");
             sslContext.init(null, tm, new java.security.SecureRandom());
         } catch (NoSuchAlgorithmException e) {
-        	LOG.error("wrapSocket: Error wrapping socket, throwing runtime exception", e);
+            LOG.error("wrapSocket: Error wrapping socket, throwing runtime exception", e);
             throw new IllegalStateException("No such algorithm in SSLSocketFactory: " + e);
         } catch (KeyManagementException e) {
-        	LOG.error("wrapSocket: Error wrapping socket, throwing runtime exception", e);
+            LOG.error("wrapSocket: Error wrapping socket, throwing runtime exception", e);
             throw new IllegalStateException("Key management exception in SSLSocketFactory: " + e);
         }
         SSLSocketFactory socketFactory = sslContext.getSocketFactory();

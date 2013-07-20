@@ -31,7 +31,6 @@ package org.opennms.netmgt.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-
 /**
  * Model Object behavioral testing
  *

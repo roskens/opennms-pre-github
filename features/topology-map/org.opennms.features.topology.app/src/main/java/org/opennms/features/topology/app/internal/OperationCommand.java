@@ -38,7 +38,7 @@ import org.opennms.features.topology.api.topo.VertexRef;
 
 import com.vaadin.event.Action;
 
-public class OperationCommand extends Action implements Command  {
+public class OperationCommand extends Action implements Command {
 
     private static final long serialVersionUID = -6018957365232489699L;
 
@@ -48,6 +48,7 @@ public class OperationCommand extends Action implements Command  {
     }
 
     Operation m_operation;
+
     Map<String, String> m_props;
 
     public OperationCommand(String caption, Operation operation, Map<String, String> props) {
@@ -56,32 +57,38 @@ public class OperationCommand extends Action implements Command  {
         m_props = props;
     }
 
-    public OperationCommand(String caption, String menuLocation, String contextMenuLocation){
-    	this(caption, null, getProperties(menuLocation, contextMenuLocation));
+    public OperationCommand(String caption, String menuLocation, String contextMenuLocation) {
+        this(caption, null, getProperties(menuLocation, contextMenuLocation));
     }
 
-    public static Map<String, String> getProperties(String menuLocation, String contextMenuLocation){
+    public static Map<String, String> getProperties(String menuLocation, String contextMenuLocation) {
         Map<String, String> props = new HashMap<String, String>();
-        if(menuLocation != null){
+        if (menuLocation != null) {
             props.put(Operation.OPERATION_MENU_LOCATION, menuLocation);
         }
 
-        if(contextMenuLocation != null){
+        if (contextMenuLocation != null) {
             props.put(Operation.OPERATION_CONTEXT_LOCATION, contextMenuLocation);
         }
 
         return props;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.features.topology.app.internal.Command#doCommand(java.lang.Object, org.opennms.features.topology.app.internal.SimpleGraphContainer, com.vaadin.ui.Window, org.opennms.features.topology.app.internal.CommandManager)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.features.topology.app.internal.Command#doCommand(java.lang
+     * .Object, org.opennms.features.topology.app.internal.SimpleGraphContainer,
+     * com.vaadin.ui.Window,
+     * org.opennms.features.topology.app.internal.CommandManager)
      */
     @Override
     public void doCommand(List<VertexRef> targets, OperationContext operationContext) {
         m_operation.execute(targets, operationContext);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.features.topology.app.internal.Command#undoCommand()
      */
     @Override
@@ -90,7 +97,8 @@ public class OperationCommand extends Action implements Command  {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.features.topology.app.internal.Command#getMenuPosition()
      */
     @Override
@@ -99,7 +107,8 @@ public class OperationCommand extends Action implements Command  {
         return menuLocation == null ? null : menuLocation.isEmpty() ? getCaption() : menuLocation + "|" + getCaption();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.features.topology.app.internal.Command#isAction()
      */
     @Override
@@ -118,10 +127,11 @@ public class OperationCommand extends Action implements Command  {
         return m_operation;
     }
 
-	@Override
-	public String getContextMenuPosition() {
-		String contextLocation = m_props.get(Operation.OPERATION_CONTEXT_LOCATION);
-		return contextLocation == null ? null : contextLocation.isEmpty() ? getCaption() : contextLocation + "|" + getCaption();
-	}
+    @Override
+    public String getContextMenuPosition() {
+        String contextLocation = m_props.get(Operation.OPERATION_CONTEXT_LOCATION);
+        return contextLocation == null ? null : contextLocation.isEmpty() ? getCaption() : contextLocation + "|"
+                + getCaption();
+    }
 
 }

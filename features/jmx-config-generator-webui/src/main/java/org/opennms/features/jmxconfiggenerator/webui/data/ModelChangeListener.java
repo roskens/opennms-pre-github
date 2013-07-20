@@ -29,16 +29,19 @@
 package org.opennms.features.jmxconfiggenerator.webui.data;
 
 /**
- * One part of the observer pattern. It indicates if the given model <code>T</code> has changed.
+ * One part of the observer pattern. It indicates if the given model
+ * <code>T</code> has changed.
  * In future releases a ModelChangeEvent may be introduced.
  *
  * @author Markus von Rüden
  */
 public interface ModelChangeListener<T extends Object> {
 
-	/**
-	 * Is invoked after a model changes.
-	 * @param newModel the new model
-	 */
-	void modelChanged(T newModel);
+    /**
+     * Is invoked after a model changes.
+     *
+     * @param newModel
+     *            the new model
+     */
+    void modelChanged(T newModel);
 }

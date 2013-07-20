@@ -33,7 +33,9 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>TroubleTicketProxy interface.</p>
+ * <p>
+ * TroubleTicketProxy interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -43,23 +45,32 @@ import org.springframework.transaction.annotation.Transactional;
 public interface TroubleTicketProxy {
 
     /**
-     * <p>createTicket</p>
+     * <p>
+     * createTicket
+     * </p>
      *
-     * @param alarmId a {@link java.lang.Integer} object.
+     * @param alarmId
+     *            a {@link java.lang.Integer} object.
      */
-    public void createTicket(Integer alarmId, Map<String,String> attributes);
+    public void createTicket(Integer alarmId, Map<String, String> attributes);
 
     /**
-     * <p>updateTicket</p>
+     * <p>
+     * updateTicket
+     * </p>
      *
-     * @param alarmId a {@link java.lang.Integer} object.
+     * @param alarmId
+     *            a {@link java.lang.Integer} object.
      */
     public void updateTicket(Integer alarmId);
 
     /**
-     * <p>closeTicket</p>
+     * <p>
+     * closeTicket
+     * </p>
      *
-     * @param alarmId a {@link java.lang.Integer} object.
+     * @param alarmId
+     *            a {@link java.lang.Integer} object.
      */
     public void closeTicket(Integer alarmId);
 }

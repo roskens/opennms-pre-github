@@ -37,55 +37,58 @@ import java.util.List;
 /* wrapper object to deal with old castor resources */
 public class BasicSchedule {
 
-	private String m_name;
-	private String m_type;
-	private List<Time> m_times = new ArrayList<Time>();
+    private String m_name;
 
-	public String getName() {
-		return m_name;
-	}
+    private String m_type;
 
-	public void setName(final String name) {
-		m_name = name;
-	}
+    private List<Time> m_times = new ArrayList<Time>();
 
-	public String getType() {
-		return m_type;
-	}
+    public String getName() {
+        return m_name;
+    }
 
-	public void setType(final String type) {
-		m_type = type;
-	}
+    public void setName(final String name) {
+        m_name = name;
+    }
 
-	public void setTimeCollection(final Collection<Time> times) {
-		synchronized(m_times) {
-			if (m_times == times) return;
-			m_times.clear();
-			m_times.addAll(times);
-		}
-	}
+    public String getType() {
+        return m_type;
+    }
 
-	public Collection<Time> getTimeCollection() {
-		synchronized(m_times) {
-			return m_times;
-		}
-	}
+    public void setType(final String type) {
+        m_type = type;
+    }
 
-	public Enumeration<Time> enumerateTime() {
-		synchronized(m_times) {
-			return Collections.enumeration(m_times);
-		}
-	}
+    public void setTimeCollection(final Collection<Time> times) {
+        synchronized (m_times) {
+            if (m_times == times)
+                return;
+            m_times.clear();
+            m_times.addAll(times);
+        }
+    }
 
-	public int getTimeCount() {
-		synchronized(m_times) {
-			return m_times.size();
-		}
-	}
+    public Collection<Time> getTimeCollection() {
+        synchronized (m_times) {
+            return m_times;
+        }
+    }
 
-	public Time getTime(final int index) {
-		synchronized(m_times) {
-			return m_times.get(index);
-		}
-	}
+    public Enumeration<Time> enumerateTime() {
+        synchronized (m_times) {
+            return Collections.enumeration(m_times);
+        }
+    }
+
+    public int getTimeCount() {
+        synchronized (m_times) {
+            return m_times.size();
+        }
+    }
+
+    public Time getTime(final int index) {
+        synchronized (m_times) {
+            return m_times.get(index);
+        }
+    }
 }

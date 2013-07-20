@@ -39,7 +39,9 @@ import org.opennms.netmgt.model.PrefabGraph;
 import org.opennms.netmgt.model.RrdGraphAttribute;
 
 /**
- * <p>Graph class.</p>
+ * <p>
+ * Graph class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -47,20 +49,28 @@ import org.opennms.netmgt.model.RrdGraphAttribute;
  */
 public class Graph implements Comparable<Graph> {
     private PrefabGraph m_graph = null;
+
     private OnmsResource m_resource;
+
     private Date m_start = null;
+
     private Date m_end = null;
 
     /**
-     * <p>Constructor for Graph.</p>
+     * <p>
+     * Constructor for Graph.
+     * </p>
      *
-     * @param graph a {@link org.opennms.netmgt.model.PrefabGraph} object.
-     * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param graph
+     *            a {@link org.opennms.netmgt.model.PrefabGraph} object.
+     * @param resource
+     *            a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      */
-    public Graph(PrefabGraph graph, OnmsResource resource,
-            Date start, Date end) {
+    public Graph(PrefabGraph graph, OnmsResource resource, Date start, Date end) {
         m_graph = graph;
         m_resource = resource;
         m_start = start;
@@ -68,7 +78,9 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getResource</p>
+     * <p>
+     * getResource
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
@@ -77,7 +89,9 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getStart</p>
+     * <p>
+     * getStart
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -86,7 +100,9 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getEnd</p>
+     * <p>
+     * getEnd
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -95,7 +111,9 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,7 +122,9 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getTitle</p>
+     * <p>
+     * getTitle
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,9 +133,12 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param other a {@link org.opennms.web.graph.Graph} object.
+     * @param other
+     *            a {@link org.opennms.web.graph.Graph} object.
      * @return a int.
      */
     @Override
@@ -128,7 +151,9 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getGraphWidth</p>
+     * <p>
+     * getGraphWidth
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -137,7 +162,9 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getGraphHeight</p>
+     * <p>
+     * getGraphHeight
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -146,7 +173,9 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getPrefabGraph</p>
+     * <p>
+     * getPrefabGraph
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */
@@ -155,7 +184,9 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getReport</p>
+     * <p>
+     * getReport
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -164,14 +195,16 @@ public class Graph implements Comparable<Graph> {
     }
 
     /**
-     * <p>getRequiredRrGraphdAttributes</p>
+     * <p>
+     * getRequiredRrGraphdAttributes
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     public Collection<RrdGraphAttribute> getRequiredRrGraphdAttributes() {
         Map<String, RrdGraphAttribute> available = m_resource.getRrdGraphAttributes();
         Set<RrdGraphAttribute> reqAttrs = new LinkedHashSet<RrdGraphAttribute>();
-        for(String attrName : m_graph.getColumns()) {
+        for (String attrName : m_graph.getColumns()) {
             RrdGraphAttribute attr = available.get(attrName);
             if (attr != null) {
                 reqAttrs.add(attr);

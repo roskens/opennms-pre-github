@@ -47,6 +47,7 @@ import org.springframework.dao.DataAccessException;
  */
 public class Correlation {
     private static final Logger LOG = LoggerFactory.getLogger(Correlation.class);
+
     /**
      * Format the correlation block to have the xml
      *

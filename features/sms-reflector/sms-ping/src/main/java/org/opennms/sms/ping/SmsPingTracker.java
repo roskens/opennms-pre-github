@@ -28,7 +28,6 @@
 
 package org.opennms.sms.ping;
 
-
 /**
  * SmsPingTracker
  *
@@ -38,13 +37,20 @@ package org.opennms.sms.ping;
 public interface SmsPingTracker {
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param phoneNumber a {@link java.lang.String} object.
-     * @param timeout a long.
-     * @param retries a int.
-     * @param cb a {@link org.opennms.sms.ping.PingResponseCallback} object.
-     * @throws java.lang.Exception if any.
+     * @param phoneNumber
+     *            a {@link java.lang.String} object.
+     * @param timeout
+     *            a long.
+     * @param retries
+     *            a int.
+     * @param cb
+     *            a {@link org.opennms.sms.ping.PingResponseCallback} object.
+     * @throws java.lang.Exception
+     *             if any.
      */
     void sendRequest(String phoneNumber, long timeout, int retries, PingResponseCallback cb) throws Exception;
 

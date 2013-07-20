@@ -73,12 +73,13 @@ import org.slf4j.LoggerFactory;
  */
 public class ManageNodeServlet extends HttpServlet {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ManageNodeServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ManageNodeServlet.class);
 
     private static final long serialVersionUID = -544260517139205801L;
 
     // FIXME: Should this be deleted?
-    //private static final String UPDATE_INTERFACE = "UPDATE ipinterface SET isManaged = ? WHERE ipaddr IN (?)";
+    // private static final String UPDATE_INTERFACE =
+    // "UPDATE ipinterface SET isManaged = ? WHERE ipaddr IN (?)";
 
     private static final String UPDATE_SERVICE = "UPDATE ifservices SET status = ? WHERE ipaddr = ? AND nodeID = ? AND serviceid = ?";
 
@@ -90,9 +91,12 @@ public class ManageNodeServlet extends HttpServlet {
     public static final String NOTICE_NAME = "Email-Reporting";
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      *
-     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException
+     *             if any.
      */
     @Override
     public void init() throws ServletException {
@@ -192,11 +196,13 @@ public class ManageNodeServlet extends HttpServlet {
                             stmt.setString(2, curInterface.getAddress());
                             stmt.setInt(3, curInterface.getNodeid());
                             stmt.setInt(4, curService.getId());
-                            LOG.debug("doPost: executing manage service update for {} {}", curInterface.getAddress(), curService.getName());
+                            LOG.debug("doPost: executing manage service update for {} {}", curInterface.getAddress(),
+                                      curService.getName());
                             stmt.executeUpdate();
                         } else if (!serviceList.contains(serviceKey) && curService.getStatus().equals("managed")) {
 
-                            EventBuilder bldr = new EventBuilder(EventConstants.SERVICE_UNMANAGED_EVENT_UEI, "web ui", curDate);
+                            EventBuilder bldr = new EventBuilder(EventConstants.SERVICE_UNMANAGED_EVENT_UEI, "web ui",
+                                                                 curDate);
                             bldr.setNodeid(curInterface.getNodeid());
                             bldr.setInterface(addr(curInterface.getAddress()));
                             bldr.setService(curService.getName());
@@ -209,7 +215,8 @@ public class ManageNodeServlet extends HttpServlet {
                             outagesstmt.setString(1, curInterface.getAddress());
                             outagesstmt.setInt(2, curInterface.getNodeid());
                             outagesstmt.setInt(3, curService.getId());
-                            LOG.debug("doPost: executing unmanage service update for {} {}", curInterface.getAddress(), curService.getName());
+                            LOG.debug("doPost: executing unmanage service update for {} {}", curInterface.getAddress(),
+                                      curService.getName());
                             stmt.executeUpdate();
                             outagesstmt.executeUpdate();
                         }
@@ -310,7 +317,7 @@ public class ManageNodeServlet extends HttpServlet {
         FileOutputStream fos = null;
         Writer fileWriter = null;
         try {
-        	fos = new FileOutputStream(fileName);
+            fos = new FileOutputStream(fileName);
             fileWriter = new OutputStreamWriter(fos, "UTF-8");
 
             for (int i = 0; i < interfaceList.size(); i++) {
@@ -322,8 +329,8 @@ public class ManageNodeServlet extends HttpServlet {
         } catch (final IOException e) {
             throw new ServletException("Error writing the include url file " + fileName + ": " + e.getMessage(), e);
         } finally {
-        	IOUtils.closeQuietly(fileWriter);
-        	IOUtils.closeQuietly(fos);
+            IOUtils.closeQuietly(fileWriter);
+            IOUtils.closeQuietly(fos);
         }
     }
 

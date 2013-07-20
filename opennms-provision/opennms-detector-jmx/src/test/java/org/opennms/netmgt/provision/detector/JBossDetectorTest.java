@@ -44,7 +44,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class JBossDetectorTest implements InitializingBean {
 
     @Autowired
@@ -56,12 +56,12 @@ public class JBossDetectorTest implements InitializingBean {
     }
 
     @Before
-    public void setUp() throws RemoteException{
-       MockLogAppender.setupLogging();
+    public void setUp() throws RemoteException {
+        MockLogAppender.setupLogging();
     }
 
-    @Test(timeout=90000)
-    public void testDetectoredWired(){
+    @Test(timeout = 90000)
+    public void testDetectoredWired() {
         assertNotNull(m_detector);
     }
 }

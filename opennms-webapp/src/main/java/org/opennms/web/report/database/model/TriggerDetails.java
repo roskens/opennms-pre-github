@@ -31,20 +31,24 @@ package org.opennms.web.report.database.model;
 import java.io.Serializable;
 
 /**
- * <p>TriggerDetails class.</p>
+ * <p>
+ * TriggerDetails class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
-public class TriggerDetails  implements Serializable {
+public class TriggerDetails implements Serializable {
 
     private static final long serialVersionUID = 3258199709023045243L;
 
     String m_cronExpression;
 
     /**
-     * <p>getCronExpression</p>
+     * <p>
+     * getCronExpression
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -53,9 +57,12 @@ public class TriggerDetails  implements Serializable {
     }
 
     /**
-     * <p>setCronExpression</p>
+     * <p>
+     * setCronExpression
+     * </p>
      *
-     * @param cronExpression a {@link java.lang.String} object.
+     * @param cronExpression
+     *            a {@link java.lang.String} object.
      */
     public void setCronExpression(String cronExpression) {
         m_cronExpression = cronExpression;

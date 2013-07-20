@@ -40,62 +40,89 @@ import java.util.LinkedHashMap;
  */
 public class Report {
     private String m_name;
+
     private String m_className;
+
     private LinkedHashMap<String, String> m_parameters = new LinkedHashMap<String, String>();
 
     /**
-     * <p>getClassName</p>
+     * <p>
+     * getClassName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getClassName() {
         return m_className;
     }
+
     /**
-     * <p>setClassName</p>
+     * <p>
+     * setClassName
+     * </p>
      *
-     * @param className a {@link java.lang.String} object.
+     * @param className
+     *            a {@link java.lang.String} object.
      */
     public void setClassName(String className) {
         m_className = className;
     }
+
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getName() {
         return m_name;
     }
+
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
+
     /**
-     * <p>getParameters</p>
+     * <p>
+     * getParameters
+     * </p>
      *
      * @return a {@link java.util.LinkedHashMap} object.
      */
     public LinkedHashMap<String, String> getParameters() {
         return m_parameters;
     }
+
     /**
-     * <p>setParameters</p>
+     * <p>
+     * setParameters
+     * </p>
      *
-     * @param parameters a {@link java.util.LinkedHashMap} object.
+     * @param parameters
+     *            a {@link java.util.LinkedHashMap} object.
      */
     public void setParameters(LinkedHashMap<String, String> parameters) {
         m_parameters = parameters;
     }
+
     /**
-     * <p>addParameter</p>
+     * <p>
+     * addParameter
+     * </p>
      *
-     * @param key a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param key
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void addParameter(String key, String value) {
         m_parameters.put(key, value);

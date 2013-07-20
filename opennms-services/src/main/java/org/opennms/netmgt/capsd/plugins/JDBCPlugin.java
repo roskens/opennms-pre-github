@@ -97,7 +97,6 @@ public class JDBCPlugin extends AbstractPlugin {
         int retries = ParameterMap.getKeyedInteger(qualifiers, "retry", DEFAULT_RETRY);
         String db_driver = ParameterMap.getKeyedString(qualifiers, "driver", DBTools.DEFAULT_JDBC_DRIVER);
 
-
         boolean status = false;
         Connection con = null;
         Statement statement = null;
@@ -108,7 +107,7 @@ public class JDBCPlugin extends AbstractPlugin {
 
             try {
                 LOG.info("Loading JDBC driver: '{}'", db_driver);
-                Driver driver = (Driver)Class.forName(db_driver).newInstance();
+                Driver driver = (Driver) Class.forName(db_driver).newInstance();
                 LOG.debug("JDBC driver loaded: '{}'", db_driver);
 
                 String url = DBTools.constructUrl(db_url, hostname);
@@ -117,7 +116,7 @@ public class JDBCPlugin extends AbstractPlugin {
                 Properties props = new Properties();
                 props.setProperty("user", user);
                 props.setProperty("password", password);
-                props.setProperty("timeout", String.valueOf(timeout/1000));
+                props.setProperty("timeout", String.valueOf(timeout / 1000));
                 con = driver.connect(url, props);
                 connected = true;
                 LOG.debug("Got database connection: '{}' ({}, {}, {})", con, url, user, password);
@@ -139,74 +138,74 @@ public class JDBCPlugin extends AbstractPlugin {
     }
 
     /**
-     * <p>checkStatus</p>
+     * <p>
+     * checkStatus
+     * </p>
      *
-     * @param con a {@link java.sql.Connection} object.
-     * @param qualifiers a {@link java.util.Map} object.
+     * @param con
+     *            a {@link java.sql.Connection} object.
+     * @param qualifiers
+     *            a {@link java.util.Map} object.
      * @return a boolean.
      */
-    public boolean checkStatus(Connection con, Map<String, Object> qualifiers )
-    {
-    	boolean status = false;
-    	ResultSet result = null;
-    	try
-    	{
-    		DatabaseMetaData metadata = con.getMetaData();
-    		LOG.debug("Got database metadata");
+    public boolean checkStatus(Connection con, Map<String, Object> qualifiers) {
+        boolean status = false;
+        ResultSet result = null;
+        try {
+            DatabaseMetaData metadata = con.getMetaData();
+            LOG.debug("Got database metadata");
 
-    		result = metadata.getCatalogs();
-    		while (result.next())
-    		{
-    			result.getString(1);
-    			LOG.debug("Metadata catalog: '{}'", result.getString(1));
-    		}
+            result = metadata.getCatalogs();
+            while (result.next()) {
+                result.getString(1);
+                LOG.debug("Metadata catalog: '{}'", result.getString(1));
+            }
 
-    		// The JDBC server was detected using JDBC, update the status
-    		if ( result != null ) status = true;
-    	}
-    	catch ( SQLException sqlException )
-    	{
-    		LOG.warn("error while getting database metadata", sqlException);
-    	}
-    	finally
-    	{
-    		closeResult(result);
-    	}
-    	return status;
+            // The JDBC server was detected using JDBC, update the status
+            if (result != null)
+                status = true;
+        } catch (SQLException sqlException) {
+            LOG.warn("error while getting database metadata", sqlException);
+        } finally {
+            closeResult(result);
+        }
+        return status;
     }
 
+    private void closeConn(Connection con) {
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException ignore) {
+            }
+        }
+    }
 
-	private void closeConn(Connection con) {
-		if (con != null) {
-		    try {
-		        con.close();
-		    } catch (SQLException ignore) {
-		    }
-		}
-	}
+    /**
+     * <p>
+     * closeStmt
+     * </p>
+     *
+     * @param statement
+     *            a {@link java.sql.Statement} object.
+     */
+    protected void closeStmt(Statement statement) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException ignore) {
+            }
+        }
+    }
 
-	/**
-	 * <p>closeStmt</p>
-	 *
-	 * @param statement a {@link java.sql.Statement} object.
-	 */
-	protected void closeStmt(Statement statement) {
-		if (statement != null) {
-		    try {
-		        statement.close();
-		    } catch (SQLException ignore) {
-		    }
-		}
-	}
-
-	private void closeResult(ResultSet result) {
-		if (result != null) {
-		    try {
-		        result.close();
-		    } catch (SQLException ignore) {
-		    }
-		}
-	}
+    private void closeResult(ResultSet result) {
+        if (result != null) {
+            try {
+                result.close();
+            } catch (SQLException ignore) {
+            }
+        }
+    }
 
     /**
      * Returns the default protocol name
@@ -219,9 +218,8 @@ public class JDBCPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Default checking method, asuming all the parameters by default. This
+     * {@inheritDoc} Default checking method, asuming all the parameters by
+     * default. This
      * method is likely to skip some machines because the default password is
      * empty. is recomended to use the parametric method instead (unless your
      * DBA is dummy enugh to leave a JDBC server with no password!!!).
@@ -239,15 +237,14 @@ public class JDBCPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Checking method, receives all the parameters as a Map. Currently
+     * {@inheritDoc} Checking method, receives all the parameters as a Map.
+     * Currently
      * supported:
      * <ul>
      * <li><b>port </b>- Port where the JDBC server is listening (defaults to
      * DEFAULT_PORT). Type: Integer
-     * <li><b>user </b>- Database user (defaults to DEFAULT_DATABASE_USER if
-     * not provided). Type String
+     * <li><b>user </b>- Database user (defaults to DEFAULT_DATABASE_USER if not
+     * provided). Type String
      * <li><b>password </b>- Database password (defaults to
      * DEFAULT_DATABASE_PASSWORD). Type String
      * <li><b>timeout </b>- Timeout

@@ -53,7 +53,9 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.util.StringUtils;
 
 /**
- * <p>NodeDaoHibernate class.</p>
+ * <p>
+ * NodeDaoHibernate class.
+ * </p>
  *
  * @author Ted Kazmark
  * @author David Hustace
@@ -62,7 +64,9 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     private static final Logger LOG = LoggerFactory.getLogger(NodeDaoHibernate.class);
 
     /**
-     * <p>Constructor for NodeDaoHibernate.</p>
+     * <p>
+     * Constructor for NodeDaoHibernate.
+     * </p>
      */
     public NodeDaoHibernate() {
         super(OnmsNode.class);
@@ -98,10 +102,8 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     /** {@inheritDoc} */
     @Override
     public OnmsNode getHierarchy(Integer id) {
-        OnmsNode node = findUnique(
-                                   "select distinct n from OnmsNode as n "
-                                           + "left join fetch n.assetRecord "
-                                           + "where n.id = ?", id);
+        OnmsNode node = findUnique("select distinct n from OnmsNode as n " + "left join fetch n.assetRecord "
+                + "where n.id = ?", id);
 
         initialize(node.getIpInterfaces());
         for (OnmsIpInterface i : node.getIpInterfaces()) {
@@ -125,41 +127,29 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsNode> findAllByVarCharAssetColumn(
-                                                      String columnName, String columnValue) {
-        return find("from OnmsNode as n where n.assetRecord." + columnName
-                    + " = ?", columnValue);
+    public List<OnmsNode> findAllByVarCharAssetColumn(String columnName, String columnValue) {
+        return find("from OnmsNode as n where n.assetRecord." + columnName + " = ?", columnValue);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsNode> findAllByVarCharAssetColumnCategoryList(
-                                                                  String columnName, String columnValue,
-                                                                  Collection<OnmsCategory> categories) {
+    public List<OnmsNode> findAllByVarCharAssetColumnCategoryList(String columnName, String columnValue,
+            Collection<OnmsCategory> categories) {
 
-        return find("select distinct n from OnmsNode as n "
-                + "join n.categories as c "
-                + "left join fetch n.assetRecord "
-                + "left join fetch n.ipInterfaces as ipInterface "
-                + "left join fetch ipInterface.monitoredServices as monSvc "
-                + "left join fetch monSvc.serviceType "
-                + "left join fetch monSvc.currentOutages "
-                + "where n.assetRecord." + columnName + " = ? "
-                + "and c.name in ("+categoryListToNameList(categories)+")", columnValue);
+        return find("select distinct n from OnmsNode as n " + "join n.categories as c "
+                + "left join fetch n.assetRecord " + "left join fetch n.ipInterfaces as ipInterface "
+                + "left join fetch ipInterface.monitoredServices as monSvc " + "left join fetch monSvc.serviceType "
+                + "left join fetch monSvc.currentOutages " + "where n.assetRecord." + columnName + " = ? "
+                + "and c.name in (" + categoryListToNameList(categories) + ")", columnValue);
     }
 
     /** {@inheritDoc} */
     @Override
     public List<OnmsNode> findByCategory(OnmsCategory category) {
-        return find("select distinct n from OnmsNode as n "
-                + "join n.categories c "
-                + "left join fetch n.assetRecord "
+        return find("select distinct n from OnmsNode as n " + "join n.categories c " + "left join fetch n.assetRecord "
                 + "left join fetch n.ipInterfaces as ipInterface "
-                + "left join fetch ipInterface.monitoredServices as monSvc "
-                + "left join fetch monSvc.serviceType "
-                + "left join fetch monSvc.currentOutages "
-                + "where c.name = ?",
-                category.getName());
+                + "left join fetch ipInterface.monitoredServices as monSvc " + "left join fetch monSvc.serviceType "
+                + "left join fetch monSvc.currentOutages " + "where c.name = ?", category.getName());
     }
 
     private String categoryListToNameList(Collection<OnmsCategory> categories) {
@@ -170,27 +160,20 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         return StringUtils.collectionToDelimitedString(categoryNames, ", ", "'", "'");
     }
 
-
-
     /** {@inheritDoc} */
     @Override
-    public List<OnmsNode> findAllByCategoryList(
-                                                Collection<OnmsCategory> categories) {
-        return find("select distinct n from OnmsNode as n "
-                + "join n.categories c "
-                + "left join fetch n.assetRecord "
-                + "left join fetch n.ipInterfaces as ipInterface "
-                + "left join fetch n.snmpInterfaces as snmpIface"
-                + "left join fetch ipInterface.monitoredServices as monSvc "
-                + "left join fetch monSvc.serviceType "
-                + "left join fetch monSvc.currentOutages "
-                + "where c.name in ("+categoryListToNameList(categories)+")"
-                + "and n.type != 'D'");
+    public List<OnmsNode> findAllByCategoryList(Collection<OnmsCategory> categories) {
+        return find("select distinct n from OnmsNode as n " + "join n.categories c " + "left join fetch n.assetRecord "
+                + "left join fetch n.ipInterfaces as ipInterface " + "left join fetch n.snmpInterfaces as snmpIface"
+                + "left join fetch ipInterface.monitoredServices as monSvc " + "left join fetch monSvc.serviceType "
+                + "left join fetch monSvc.currentOutages " + "where c.name in (" + categoryListToNameList(categories)
+                + ")" + "and n.type != 'D'");
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsNode> findAllByCategoryLists( final Collection<OnmsCategory> rowCategories, final Collection<OnmsCategory> columnCategories) {
+    public List<OnmsNode> findAllByCategoryLists(final Collection<OnmsCategory> rowCategories,
+            final Collection<OnmsCategory> columnCategories) {
 
         return getHibernateTemplate().execute(new HibernateCallback<List<OnmsNode>>() {
 
@@ -198,22 +181,20 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
             @Override
             public List<OnmsNode> doInHibernate(Session session) throws HibernateException, SQLException {
 
-                return (List<OnmsNode>)session.createQuery("select distinct n from OnmsNode as n "
-                        + "join n.categories c1 "
-                        + "join n.categories c2 "
-                        + "left join fetch n.assetRecord "
-                        + "left join fetch n.ipInterfaces as iface "
-                        + "left join fetch n.snmpInterfaces as snmpIface"
-                        + "left join fetch iface.monitoredServices as monSvc "
-                        + "left join fetch monSvc.serviceType "
-                        + "left join fetch monSvc.currentOutages "
-                        + "where c1 in (:rowCategories) "
-                        + "and c2 in (:colCategories) "
-                        + "and n.type != 'D'")
-                        .setParameterList("rowCategories", rowCategories)
-                        .setParameterList("colCategories", columnCategories)
-                        .list();
-
+                return (List<OnmsNode>) session.createQuery("select distinct n from OnmsNode as n "
+                                                                    + "join n.categories c1 "
+                                                                    + "join n.categories c2 "
+                                                                    + "left join fetch n.assetRecord "
+                                                                    + "left join fetch n.ipInterfaces as iface "
+                                                                    + "left join fetch n.snmpInterfaces as snmpIface"
+                                                                    + "left join fetch iface.monitoredServices as monSvc "
+                                                                    + "left join fetch monSvc.serviceType "
+                                                                    + "left join fetch monSvc.currentOutages "
+                                                                    + "where c1 in (:rowCategories) "
+                                                                    + "and c2 in (:colCategories) "
+                                                                    + "and n.type != 'D'").setParameterList("rowCategories",
+                                                                                                            rowCategories).setParameterList("colCategories",
+                                                                                                                                            columnCategories).list();
 
             }
 
@@ -225,14 +206,16 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         private static final Logger LOG = LoggerFactory.getLogger(SimpleSurveillanceStatus.class);
 
         private int m_serviceOutages;
+
         private int m_upNodeCount;
+
         private int m_nodeCount;
 
         public SimpleSurveillanceStatus(Number serviceOutages, Number upNodeCount, Number nodeCount) {
-            LOG.debug("Args: {} ({}), {} ({}), {} ({})",
-                serviceOutages, serviceOutages == null ? null : serviceOutages.getClass(),
-                upNodeCount, upNodeCount == null ? null : upNodeCount.getClass(),
-                nodeCount, nodeCount == null ? null : nodeCount.getClass());
+            LOG.debug("Args: {} ({}), {} ({}), {} ({})", serviceOutages,
+                      serviceOutages == null ? null : serviceOutages.getClass(), upNodeCount,
+                      upNodeCount == null ? null : upNodeCount.getClass(), nodeCount, nodeCount == null ? null
+                          : nodeCount.getClass());
 
             m_serviceOutages = serviceOutages == null ? 0 : serviceOutages.intValue();
             m_upNodeCount = upNodeCount == null ? 0 : upNodeCount.intValue();
@@ -252,71 +235,85 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         @Override
         public String getStatus() {
             switch (m_serviceOutages) {
-            case 0:  return "Normal";
-            case 1:  return "Warning";
-            default: return "Critical";
+            case 0:
+                return "Normal";
+            case 1:
+                return "Warning";
+            default:
+                return "Critical";
             }
         }
 
     }
+
     @Override
-    public SurveillanceStatus findSurveillanceStatusByCategoryLists(final Collection<OnmsCategory> rowCategories, final Collection<OnmsCategory> columnCategories) {
+    public SurveillanceStatus findSurveillanceStatusByCategoryLists(final Collection<OnmsCategory> rowCategories,
+            final Collection<OnmsCategory> columnCategories) {
         return getHibernateTemplate().execute(new HibernateCallback<SurveillanceStatus>() {
 
             @Override
             public SurveillanceStatus doInHibernate(Session session) throws HibernateException, SQLException {
-                return (SimpleSurveillanceStatus)session.createSQLQuery("select" +
-                        " count(distinct case when outages.outageid is not null and monSvc.status = 'A' then monSvc.id else null end) as svcCount," +
-                        " count(distinct case when outages.outageid is null and monSvc.status = 'A' then node.nodeid else null end) as upNodeCount," +
-                        " count(distinct node.nodeid) as nodeCount" +
-                        " from node" +
-                        " join category_node cn1 using (nodeid)" +
-                        " join category_node cn2 using (nodeid)" +
-                        " left outer join ipinterface ip using (nodeid)" +
-                        " left outer join ifservices monsvc on (monsvc.ipinterfaceid = ip.id)" +
-                        " left outer join outages on (outages.ifserviceid = monsvc.id and outages.ifregainedservice is null)" +
-                        " where nodeType <> 'D'" +
-                        " and cn1.categoryid in (:rowCategories)" +
-                        " and cn2.categoryid in (:columnCategories)"
-                        )
-                        .setParameterList("rowCategories", rowCategories)
-                        .setParameterList("columnCategories", columnCategories)
-                        .setResultTransformer(new ResultTransformer() {
-                            private static final long serialVersionUID = 5152094813503430377L;
+                return (SimpleSurveillanceStatus) session.createSQLQuery("select"
+                                                                                 + " count(distinct case when outages.outageid is not null and monSvc.status = 'A' then monSvc.id else null end) as svcCount,"
+                                                                                 + " count(distinct case when outages.outageid is null and monSvc.status = 'A' then node.nodeid else null end) as upNodeCount,"
+                                                                                 + " count(distinct node.nodeid) as nodeCount"
+                                                                                 + " from node"
+                                                                                 + " join category_node cn1 using (nodeid)"
+                                                                                 + " join category_node cn2 using (nodeid)"
+                                                                                 + " left outer join ipinterface ip using (nodeid)"
+                                                                                 + " left outer join ifservices monsvc on (monsvc.ipinterfaceid = ip.id)"
+                                                                                 + " left outer join outages on (outages.ifserviceid = monsvc.id and outages.ifregainedservice is null)"
+                                                                                 + " where nodeType <> 'D'"
+                                                                                 + " and cn1.categoryid in (:rowCategories)"
+                                                                                 + " and cn2.categoryid in (:columnCategories)").setParameterList("rowCategories",
+                                                                                                                                                  rowCategories).setParameterList("columnCategories",
+                                                                                                                                                                                  columnCategories).setResultTransformer(new ResultTransformer() {
+                                                                                                                                                                                                                             private static final long serialVersionUID = 5152094813503430377L;
 
-                            @Override
-                            public Object transformTuple(Object[] tuple, String[] aliases) {
-                                LOG.debug("tuple length = {}", tuple.length);
-                                for (int i = 0; i < tuple.length; i++) {
-                                    LOG.debug("{}: {} ({})", i, tuple[i], tuple[i].getClass());
-                                }
-                                return new SimpleSurveillanceStatus((Number)tuple[0], (Number)tuple[1], (Number)tuple[2]);
-                            }
+                                                                                                                                                                                                                             @Override
+                                                                                                                                                                                                                             public Object transformTuple(
+                                                                                                                                                                                                                                     Object[] tuple,
+                                                                                                                                                                                                                                     String[] aliases) {
+                                                                                                                                                                                                                                 LOG.debug("tuple length = {}",
+                                                                                                                                                                                                                                           tuple.length);
+                                                                                                                                                                                                                                 for (int i = 0; i < tuple.length; i++) {
+                                                                                                                                                                                                                                     LOG.debug("{}: {} ({})",
+                                                                                                                                                                                                                                               i,
+                                                                                                                                                                                                                                               tuple[i],
+                                                                                                                                                                                                                                               tuple[i].getClass());
+                                                                                                                                                                                                                                 }
+                                                                                                                                                                                                                                 return new SimpleSurveillanceStatus(
+                                                                                                                                                                                                                                                                     (Number) tuple[0],
+                                                                                                                                                                                                                                                                     (Number) tuple[1],
+                                                                                                                                                                                                                                                                     (Number) tuple[2]);
+                                                                                                                                                                                                                             }
 
-                            // Implements Hibernate API
-                            @SuppressWarnings("rawtypes")
-                            @Override
-                            public List transformList(List collection) {
-                                return collection;
-                            }
+                                                                                                                                                                                                                             // Implements
+                                                                                                                                                                                                                             // Hibernate
+                                                                                                                                                                                                                             // API
+                                                                                                                                                                                                                             @SuppressWarnings("rawtypes")
+                                                                                                                                                                                                                             @Override
+                                                                                                                                                                                                                             public List transformList(
+                                                                                                                                                                                                                                     List collection) {
+                                                                                                                                                                                                                                 return collection;
+                                                                                                                                                                                                                             }
 
-                        })
-                        .uniqueResult();
+                                                                                                                                                                                                                         }).uniqueResult();
             }
 
         });
 
     }
 
-
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Map<String, Integer> getForeignIdToNodeIdMap(String foreignSource) {
-        List<Object[]> pairs = getHibernateTemplate().find("select n.id, n.foreignId from OnmsNode n where n.foreignSource = ?", foreignSource);
+        List<Object[]> pairs = getHibernateTemplate().find("select n.id, n.foreignId from OnmsNode n where n.foreignSource = ?",
+                                                           foreignSource);
         Map<String, Integer> foreignIdMap = new HashMap<String, Integer>();
         for (Object[] pair : pairs) {
-            foreignIdMap.put((String)pair[1], (Integer)pair[0]);
+            foreignIdMap.put((String) pair[1], (Integer) pair[0]);
         }
         return Collections.unmodifiableMap(foreignIdMap);
     }
@@ -337,9 +334,11 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     @Override
     public List<OnmsNode> findByForeignSourceAndIpAddress(String foreignSource, String ipAddress) {
         if (foreignSource == null) {
-            return find("select distinct n from OnmsNode n join n.ipInterfaces as ipInterface where n.foreignSource is NULL and ipInterface.ipAddress = ?", ipAddress);
+            return find("select distinct n from OnmsNode n join n.ipInterfaces as ipInterface where n.foreignSource is NULL and ipInterface.ipAddress = ?",
+                        ipAddress);
         } else {
-            return find("select distinct n from OnmsNode n join n.ipInterfaces as ipInterface where n.foreignSource = ? and ipInterface.ipAddress = ?", foreignSource, ipAddress);
+            return find("select distinct n from OnmsNode n join n.ipInterfaces as ipInterface where n.foreignSource = ? and ipInterface.ipAddress = ?",
+                        foreignSource, ipAddress);
         }
     }
 
@@ -350,7 +349,9 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     }
 
     /**
-     * <p>findAll</p>
+     * <p>
+     * findAll
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -360,7 +361,9 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     }
 
     /**
-     * <p>findAllProvisionedNodes</p>
+     * <p>
+     * findAllProvisionedNodes
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -372,15 +375,20 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     /** {@inheritDoc} */
     @Override
     public List<OnmsIpInterface> findObsoleteIpInterfaces(Integer nodeId, Date scanStamp) {
-        // we exclude the primary interface from the obsolete list since the only way for them to be obsolete is when we have snmp
-        return findObjects(OnmsIpInterface.class, "from OnmsIpInterface ipInterface where ipInterface.node.id = ? and ipInterface.isSnmpPrimary != 'P' and (ipInterface.ipLastCapsdPoll is null or ipInterface.ipLastCapsdPoll < ?)", nodeId, scanStamp);
+        // we exclude the primary interface from the obsolete list since the
+        // only way for them to be obsolete is when we have snmp
+        return findObjects(OnmsIpInterface.class,
+                           "from OnmsIpInterface ipInterface where ipInterface.node.id = ? and ipInterface.isSnmpPrimary != 'P' and (ipInterface.ipLastCapsdPoll is null or ipInterface.ipLastCapsdPoll < ?)",
+                           nodeId, scanStamp);
     }
 
     /** {@inheritDoc} */
     @Override
     public void deleteObsoleteInterfaces(Integer nodeId, Date scanStamp) {
-        getHibernateTemplate().bulkUpdate("delete from OnmsIpInterface ipInterface where ipInterface.node.id = ? and ipInterface.isSnmpPrimary != 'P' and (ipInterface.ipLastCapsdPoll is null or ipInterface.ipLastCapsdPoll < ?)", new Object[] { nodeId, scanStamp });
-        getHibernateTemplate().bulkUpdate("delete from OnmsSnmpInterface snmpInterface where snmpInterface.node.id = ? and (snmpInterface.lastCapsdPoll is null or snmpInterface.lastCapsdPoll < ?)", new Object[] { nodeId, scanStamp });
+        getHibernateTemplate().bulkUpdate("delete from OnmsIpInterface ipInterface where ipInterface.node.id = ? and ipInterface.isSnmpPrimary != 'P' and (ipInterface.ipLastCapsdPoll is null or ipInterface.ipLastCapsdPoll < ?)",
+                                          new Object[] { nodeId, scanStamp });
+        getHibernateTemplate().bulkUpdate("delete from OnmsSnmpInterface snmpInterface where snmpInterface.node.id = ? and (snmpInterface.lastCapsdPoll is null or snmpInterface.lastCapsdPoll < ?)",
+                                          new Object[] { nodeId, scanStamp });
     }
 
     /** {@inheritDoc} */
@@ -392,7 +400,9 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     }
 
     /**
-     * <p>getNodeIds</p>
+     * <p>
+     * getNodeIds
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -402,16 +412,22 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     }
 
     @Override
-    public Integer getNextNodeId (Integer nodeId) {
+    public Integer getNextNodeId(Integer nodeId) {
         Integer nextNodeId = null;
-        nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id > ? and n.type != 'D' order by n.id asc limit 1", nodeId).get(0);
+        nextNodeId = findObjects(
+                                 Integer.class,
+                                 "select n.id from OnmsNode as n where n.id > ? and n.type != 'D' order by n.id asc limit 1",
+                                 nodeId).get(0);
         return nextNodeId;
     }
 
     @Override
-    public Integer getPreviousNodeId (Integer nodeId) {
+    public Integer getPreviousNodeId(Integer nodeId) {
         Integer nextNodeId = null;
-        nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id < ? and n.type != 'D' order by n.id desc limit 1", nodeId).get(0);
+        nextNodeId = findObjects(
+                                 Integer.class,
+                                 "select n.id from OnmsNode as n where n.id < ? and n.type != 'D' order by n.id desc limit 1",
+                                 nodeId).get(0);
         return nextNodeId;
     }
 }

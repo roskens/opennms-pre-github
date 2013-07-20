@@ -48,35 +48,33 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DistPollerDaoTest implements InitializingBean {
-	@Autowired
-	private DistPollerDao m_distPollerDao;
+    @Autowired
+    private DistPollerDao m_distPollerDao;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Test
-	@Transactional
-	public void testCreate() {
+    @Test
+    @Transactional
+    public void testCreate() {
         OnmsDistPoller distPoller = new OnmsDistPoller("otherpoller", "192.168.7.7");
         distPoller.setLastEventPull(new Date(1000000));
         getDistPollerDao().save(distPoller);
 
     }
 
-	@Test
+    @Test
     @Transactional
     public void testGet() {
         assertNull(getDistPollerDao().get("otherpoller"));
@@ -89,9 +87,8 @@ public class DistPollerDaoTest implements InitializingBean {
 
     }
 
-	private DistPollerDao getDistPollerDao() {
-		return m_distPollerDao;
-	}
-
+    private DistPollerDao getDistPollerDao() {
+        return m_distPollerDao;
+    }
 
 }

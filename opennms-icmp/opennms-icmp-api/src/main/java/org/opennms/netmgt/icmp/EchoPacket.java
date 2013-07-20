@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
- package org.opennms.netmgt.icmp;
+package org.opennms.netmgt.icmp;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,7 +36,7 @@ public interface EchoPacket {
 
     int getIdentifier();
 
-	int getSequenceNumber();
+    int getSequenceNumber();
 
     long getThreadId();
 
@@ -44,11 +44,10 @@ public interface EchoPacket {
 
     long getSentTimeNanos();
 
-	/**
-	 * Returns the round trip time in the requested TimeUnit
-	 * (note that a fractional value will be returned if necessary)
-	 */
-	double elapsedTime(TimeUnit timeUnit);
-
+    /**
+     * Returns the round trip time in the requested TimeUnit
+     * (note that a fractional value will be returned if necessary)
+     */
+    double elapsedTime(TimeUnit timeUnit);
 
 }

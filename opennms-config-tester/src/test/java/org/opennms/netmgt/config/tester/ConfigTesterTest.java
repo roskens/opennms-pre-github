@@ -55,8 +55,10 @@ import org.springframework.util.StringUtils;
 
 public class ConfigTesterTest {
     private static Set<String> m_filesTested = new HashSet<String>();
+
     private static Set<String> m_filesIgnored = new HashSet<String>();
-    //private ConfigTesterDataSource m_dataSource;
+
+    // private ConfigTesterDataSource m_dataSource;
 
     @Before
     public void init() {
@@ -74,9 +76,8 @@ public class ConfigTesterTest {
             for (SQLException e : dataSource.getConnectionGetAttempts()) {
                 e.printStackTrace(printWriter);
             }
-            fail(dataSource.getConnectionGetAttempts().size()
-                 + " DataSource.getConnection attempts were made: \n"
-                 + writer.toString());
+            fail(dataSource.getConnectionGetAttempts().size() + " DataSource.getConnection attempts were made: \n"
+                    + writer.toString());
         }
     }
 
@@ -547,7 +548,6 @@ public class ConfigTesterTest {
         testConfigFile("xmlrpcd-configuration.xml");
     }
 
-
     @Test
     public void testVMwareCimDatacollectionConfig() {
         testConfigFile("vmware-cim-datacollection-config.xml");
@@ -615,13 +615,15 @@ public class ConfigTesterTest {
         File someConfigFile = ConfigurationTestUtils.getFileForConfigFile("discovery-configuration.xml");
         File configDir = someConfigFile.getParentFile();
         assertTrue("daemon configuration directory exists at " + configDir.getAbsolutePath(), configDir.exists());
-        assertTrue("daemon configuration directory is a directory at " + configDir.getAbsolutePath(), configDir.isDirectory());
+        assertTrue("daemon configuration directory is a directory at " + configDir.getAbsolutePath(),
+                   configDir.isDirectory());
 
         String[] configFiles = configDir.list(new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {
                 return name.endsWith(".xml");
-            } });
+            }
+        });
 
         Set<String> allXml = new HashSet<String>(Arrays.asList(configFiles));
 
@@ -631,7 +633,8 @@ public class ConfigTesterTest {
         if (allXml.size() > 0) {
             List<String> files = new ArrayList<String>(allXml);
             Collections.sort(files);
-            fail("These files in " + configDir.getAbsolutePath() + " were not tested: \n\t" + StringUtils.collectionToDelimitedString(files, "\n\t"));
+            fail("These files in " + configDir.getAbsolutePath() + " were not tested: \n\t"
+                    + StringUtils.collectionToDelimitedString(files, "\n\t"));
         }
     }
 }

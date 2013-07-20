@@ -43,12 +43,18 @@ import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredServ
 public class OnmsMonitoredServiceRequisition {
 
     private RequisitionMonitoredService m_svc;
+
     private final List<OnmsServiceCategoryRequisition> m_categoryReqs;
 
     /**
-     * <p>Constructor for OnmsMonitoredServiceRequisition.</p>
+     * <p>
+     * Constructor for OnmsMonitoredServiceRequisition.
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService} object.
+     * @param svc
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService}
+     *            object.
      */
     public OnmsMonitoredServiceRequisition(RequisitionMonitoredService svc) {
         m_svc = svc;
@@ -56,13 +62,15 @@ public class OnmsMonitoredServiceRequisition {
     }
 
     private List<OnmsServiceCategoryRequisition> constructCategoryReqs() {
-        List<OnmsServiceCategoryRequisition> reqs = new ArrayList<OnmsServiceCategoryRequisition>(m_svc.getCategories().size());
+        List<OnmsServiceCategoryRequisition> reqs = new ArrayList<OnmsServiceCategoryRequisition>(
+                                                                                                  m_svc.getCategories().size());
         for (RequisitionCategory cat : m_svc.getCategories()) {
             reqs.add(new OnmsServiceCategoryRequisition(cat));
         }
         return reqs;
 
     }
+
     /**
      * @return the svc
      */
@@ -71,9 +79,14 @@ public class OnmsMonitoredServiceRequisition {
     }
 
     /**
-     * <p>visit</p>
+     * <p>
+     * visit
+     * </p>
      *
-     * @param visitor a {@link org.opennms.netmgt.provision.persist.RequisitionVisitor} object.
+     * @param visitor
+     *            a
+     *            {@link org.opennms.netmgt.provision.persist.RequisitionVisitor}
+     *            object.
      */
     public void visit(RequisitionVisitor visitor) {
         visitor.visitMonitoredService(this);
@@ -84,13 +97,14 @@ public class OnmsMonitoredServiceRequisition {
     }
 
     /**
-     * <p>getServiceName</p>
+     * <p>
+     * getServiceName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getServiceName() {
         return m_svc.getServiceName();
     }
-
 
 }

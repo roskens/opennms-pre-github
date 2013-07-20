@@ -40,12 +40,14 @@ import java.util.List;
 /**
  * The Class VmwareCimDatacollectionConfigDaoJaxb
  * <p/>
- * This class is used for accessing the Vmware Cim Data Collection configuration file
+ * This class is used for accessing the Vmware Cim Data Collection configuration
+ * file
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
-public class VmwareCimDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<VmwareCimDatacollectionConfig, VmwareCimDatacollectionConfig> implements VmwareCimDatacollectionConfigDao {
-
+public class VmwareCimDatacollectionConfigDaoJaxb extends
+        AbstractJaxbConfigDao<VmwareCimDatacollectionConfig, VmwareCimDatacollectionConfig> implements
+        VmwareCimDatacollectionConfigDao {
 
     /**
      * Default constructor
@@ -65,10 +67,12 @@ public class VmwareCimDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<
     }
 
     /**
-     * Used to transform the config object to a custom representation. This method is not modified in this class, it just
+     * Used to transform the config object to a custom representation. This
+     * method is not modified in this class, it just
      * returns the config object itself.
      *
-     * @param jaxbConfig a config object.
+     * @param jaxbConfig
+     *            a config object.
      * @return a custom object
      */
     @Override
@@ -77,9 +81,11 @@ public class VmwareCimDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<
     }
 
     /**
-     * This method returns a subset of the configuration data for a given collection name.
+     * This method returns a subset of the configuration data for a given
+     * collection name.
      *
-     * @param collectionName the collection's name
+     * @param collectionName
+     *            the collection's name
      * @return the Cim collection object
      */
     @Override
@@ -93,8 +99,8 @@ public class VmwareCimDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<
             }
         }
         if (collection == null) {
-            throw new IllegalArgumentException("getVmwareCimCollection: collection name: "
-                    + collectionName + " specified in collectd configuration not found in Vmware collection configuration.");
+            throw new IllegalArgumentException("getVmwareCimCollection: collection name: " + collectionName
+                    + " specified in collectd configuration not found in Vmware collection configuration.");
         }
         return collection;
     }
@@ -102,7 +108,8 @@ public class VmwareCimDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<
     /**
      * Returns the Rrd repository for a given collection name.
      *
-     * @param collectionName the collection's name
+     * @param collectionName
+     *            the collection's name
      * @return the repository
      */
     @Override
@@ -118,7 +125,8 @@ public class VmwareCimDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<
     /**
      * Used to retrieve the Rrd's step parameter for a given collection name.
      *
-     * @param cName the collection's name
+     * @param cName
+     *            the collection's name
      * @return the step value
      */
     private int getStep(String cName) {
@@ -133,7 +141,8 @@ public class VmwareCimDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<
     /**
      * Returns the RRAs for a given collection name.
      *
-     * @param cName the collection's name
+     * @param cName
+     *            the collection's name
      * @return the RRAs list
      */
     private List<String> getRRAList(String cName) {
@@ -155,8 +164,7 @@ public class VmwareCimDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<
     public String getRrdPath() {
         String rrdPath = getConfig().getRrdRepository();
         if (rrdPath == null) {
-            throw new RuntimeException("Configuration error, failed to "
-                    + "retrieve path to RRD repository.");
+            throw new RuntimeException("Configuration error, failed to " + "retrieve path to RRD repository.");
         }
 
         if (rrdPath.endsWith(File.separator)) {

@@ -37,17 +37,22 @@ import org.snmp4j.agent.ManagedObject;
  * @author Jeff Gehlbach <jeffg jeffg org>
  */
 /**
- * <p>MockSnmpMOLoader interface.</p>
+ * <p>
+ * MockSnmpMOLoader interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public interface MockSnmpMOLoader {
-	/**
-	 * <p>loadMOs</p>
-	 *
-	 * @param moFile a {@link org.springframework.core.io.Resource} object.
-	 * @return a {@link java.util.List} object.
-	 */
-	public List<ManagedObject> loadMOs(URL moFile);
+    /**
+     * <p>
+     * loadMOs
+     * </p>
+     *
+     * @param moFile
+     *            a {@link org.springframework.core.io.Resource} object.
+     * @return a {@link java.util.List} object.
+     */
+    public List<ManagedObject> loadMOs(URL moFile);
 }

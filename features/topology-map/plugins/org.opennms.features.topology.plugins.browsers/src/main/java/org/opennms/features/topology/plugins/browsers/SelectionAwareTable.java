@@ -43,114 +43,127 @@ import com.vaadin.ui.Table;
 
 public class SelectionAwareTable extends Table implements SelectionListener, SelectionNotifier {
 
-	private static final long serialVersionUID = 2761774077365441249L;
+    private static final long serialVersionUID = 2761774077365441249L;
 
-	private final OnmsDaoContainer<?,? extends Serializable> m_container;
-	private final Set<SelectionNotifier> m_selectionNotifiers = new CopyOnWriteArraySet<SelectionNotifier>();
-	private List<String> nonCollapsibleColumns = new ArrayList<String>();
+    private final OnmsDaoContainer<?, ? extends Serializable> m_container;
 
-	/**
-	 *  Leave OnmsDaoContainer without generics; the Aries blueprint code cannot match up
-	 *  the arguments if you put the generic types in.
-	 */
-	public SelectionAwareTable(String caption, OnmsDaoContainer container) {
-		super(caption, container);
-		m_container = container;
-	}
+    private final Set<SelectionNotifier> m_selectionNotifiers = new CopyOnWriteArraySet<SelectionNotifier>();
 
-	@Override
-	public void selectionChanged(SelectionContext selectionManager) {
-		m_container.selectionChanged(selectionManager);
-	}
+    private List<String> nonCollapsibleColumns = new ArrayList<String>();
 
-	/**
-	 * Delegate {@link SelectionNotifier} calls to the container.
-	 */
-	@Override
-	public void addSelectionListener(SelectionListener listener) {
-		if (listener != null) {
-			m_container.addSelectionListener(listener);
-			for (SelectionNotifier notifier : m_selectionNotifiers) {
-				notifier.addSelectionListener(listener);
-			}
-		}
-	}
+    /**
+     * Leave OnmsDaoContainer without generics; the Aries blueprint code cannot
+     * match up
+     * the arguments if you put the generic types in.
+     */
+    public SelectionAwareTable(String caption, OnmsDaoContainer container) {
+        super(caption, container);
+        m_container = container;
+    }
 
-	/**
-	 * Delegate {@link SelectionNotifier} calls to the container.
-	 */
-	@Override
-	public void removeSelectionListener(SelectionListener listener) {
-		m_container.removeSelectionListener(listener);
-		for (SelectionNotifier notifier : m_selectionNotifiers) {
-			notifier.removeSelectionListener(listener);
-		}
-	}
+    @Override
+    public void selectionChanged(SelectionContext selectionManager) {
+        m_container.selectionChanged(selectionManager);
+    }
 
-	/**
-	 * Delegate {@link SelectionNotifier} calls to the container.
-	 */
-	@Override
-	public void setSelectionListeners(Set<SelectionListener> listeners) {
-		m_container.setSelectionListeners(listeners);
-		for (SelectionNotifier notifier : m_selectionNotifiers) {
-			notifier.setSelectionListeners(listeners);
-		}
-	}
+    /**
+     * Delegate {@link SelectionNotifier} calls to the container.
+     */
+    @Override
+    public void addSelectionListener(SelectionListener listener) {
+        if (listener != null) {
+            m_container.addSelectionListener(listener);
+            for (SelectionNotifier notifier : m_selectionNotifiers) {
+                notifier.addSelectionListener(listener);
+            }
+        }
+    }
 
-	/**
-	 * Call this method before any of the {@link SelectionNotifier} methods to ensure
-	 * that the {@link SelectionListener} instances are registered with all of the
-	 * {@link ColumnGenerator} classes that also implement {@link SelectionNotifier}.
-	 */
-	public void setColumnGenerators(@SuppressWarnings("unchecked") Map generators) {
-		for (Object key : generators.keySet()) {
-			super.addGeneratedColumn(key, (ColumnGenerator)generators.get(key));
-			// If any of the column generators are {@link SelectionNotifier} instances,
-			// then register this component as a listener for events that they generate.
-			try {
-				m_selectionNotifiers.add((SelectionNotifier)generators.get(key));
-			} catch (ClassCastException e) {}
-		}
-	}
+    /**
+     * Delegate {@link SelectionNotifier} calls to the container.
+     */
+    @Override
+    public void removeSelectionListener(SelectionListener listener) {
+        m_container.removeSelectionListener(listener);
+        for (SelectionNotifier notifier : m_selectionNotifiers) {
+            notifier.removeSelectionListener(listener);
+        }
+    }
 
-	/**
-	 * Call this method before any of the {@link SelectionNotifier} methods to ensure
-	 * that the {@link SelectionListener} instances are registered with all of the
-	 * {@link ColumnGenerator} classes that also implement {@link SelectionNotifier}.
-	 */
-	@Override
-	public void setCellStyleGenerator(CellStyleGenerator generator) {
-		super.setCellStyleGenerator(generator);
-	}
+    /**
+     * Delegate {@link SelectionNotifier} calls to the container.
+     */
+    @Override
+    public void setSelectionListeners(Set<SelectionListener> listeners) {
+        m_container.setSelectionListeners(listeners);
+        for (SelectionNotifier notifier : m_selectionNotifiers) {
+            notifier.setSelectionListeners(listeners);
+        }
+    }
 
-	@Override
-	public String toString() {
-		Object value = getValue();
-		if (value == null) {
-			return null;
-		} else {
-			return value.toString();
-		}
-	}
+    /**
+     * Call this method before any of the {@link SelectionNotifier} methods to
+     * ensure
+     * that the {@link SelectionListener} instances are registered with all of
+     * the {@link ColumnGenerator} classes that also implement
+     * {@link SelectionNotifier}.
+     */
+    public void setColumnGenerators(@SuppressWarnings("unchecked")
+    Map generators) {
+        for (Object key : generators.keySet()) {
+            super.addGeneratedColumn(key, (ColumnGenerator) generators.get(key));
+            // If any of the column generators are {@link SelectionNotifier}
+            // instances,
+            // then register this component as a listener for events that they
+            // generate.
+            try {
+                m_selectionNotifiers.add((SelectionNotifier) generators.get(key));
+            } catch (ClassCastException e) {
+            }
+        }
+    }
 
-	/**
-	 * Sets the non collapsbile columns.
-	 * @param nonCollapsibleColumns
-	 */
-	public void setNonCollapsibleColumns(List<String> nonCollapsibleColumns) {
-	    // set all elements to collapsible
-	    for (Object eachPropertyId : m_container.getContainerPropertyIds()) {
-	        setColumnCollapsible(eachPropertyId,  true);
-	    }
+    /**
+     * Call this method before any of the {@link SelectionNotifier} methods to
+     * ensure
+     * that the {@link SelectionListener} instances are registered with all of
+     * the {@link ColumnGenerator} classes that also implement
+     * {@link SelectionNotifier}.
+     */
+    @Override
+    public void setCellStyleGenerator(CellStyleGenerator generator) {
+        super.setCellStyleGenerator(generator);
+    }
 
-	    // set new value
-	    if (nonCollapsibleColumns == null) nonCollapsibleColumns = new ArrayList<String>();
+    @Override
+    public String toString() {
+        Object value = getValue();
+        if (value == null) {
+            return null;
+        } else {
+            return value.toString();
+        }
+    }
+
+    /**
+     * Sets the non collapsbile columns.
+     *
+     * @param nonCollapsibleColumns
+     */
+    public void setNonCollapsibleColumns(List<String> nonCollapsibleColumns) {
+        // set all elements to collapsible
+        for (Object eachPropertyId : m_container.getContainerPropertyIds()) {
+            setColumnCollapsible(eachPropertyId, true);
+        }
+
+        // set new value
+        if (nonCollapsibleColumns == null)
+            nonCollapsibleColumns = new ArrayList<String>();
         this.nonCollapsibleColumns = nonCollapsibleColumns;
 
         // set non collapsible
         for (Object eachPropertyId : this.nonCollapsibleColumns) {
-            setColumnCollapsible(eachPropertyId,  false);
+            setColumnCollapsible(eachPropertyId, false);
         }
     }
 }

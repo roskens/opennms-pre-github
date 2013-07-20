@@ -29,7 +29,9 @@
 package org.opennms.web.svclayer.support;
 
 /**
- * <p>DatabaseReportDescription class.</p>
+ * <p>
+ * DatabaseReportDescription class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -68,82 +70,115 @@ public class DatabaseReportDescription {
     private boolean m_isOnline;
 
     /**
-     * <p>getId</p>
+     * <p>
+     * getId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public final String getId() {
         return m_id;
     }
+
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      */
     public final void setId(final String id) {
         m_id = id;
     }
+
     /**
-     * <p>getRepositoryId</p>
+     * <p>
+     * getRepositoryId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public final String getRepositoryId() {
         return m_repositoryId;
     }
+
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param repositoryId a {@link java.lang.String} object.
+     * @param repositoryId
+     *            a {@link java.lang.String} object.
      */
     public final void setRepositoryId(final String repositoryId) {
         m_repositoryId = repositoryId;
     }
+
     /**
-     * <p>getDisplayName</p>
+     * <p>
+     * getDisplayName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public final String getDisplayName() {
         return m_displayName;
     }
+
     /**
-     * <p>setDisplayName</p>
+     * <p>
+     * setDisplayName
+     * </p>
      *
-     * @param displayName a {@link java.lang.String} object.
+     * @param displayName
+     *            a {@link java.lang.String} object.
      */
     public final void setDisplayName(final String displayName) {
         m_displayName = displayName;
     }
+
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public final String getDescription() {
         return m_description;
     }
+
     /**
-     * <p>setDescription</p>
+     * <p>
+     * setDescription
+     * </p>
      *
-     * @param description a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
      */
     public final void setDescription(final String description) {
         m_description = description;
     }
 
     /**
-     * <p>setIsOnline</p>
-     * Set isOnline property to define if a report can be executed instantly from the WebUI.
+     * <p>
+     * setIsOnline
+     * </p>
+     * Set isOnline property to define if a report can be executed instantly
+     * from the WebUI.
      *
-     * @param isOnline a {@link boolean} object.
+     * @param isOnline
+     *            a {@link boolean} object.
      */
     public final void setIsOnline(final boolean isOnline) {
         m_isOnline = isOnline;
     }
 
     /**
-     * <p>getIsOnline</p>
+     * <p>
+     * getIsOnline
+     * </p>
      * Get isOnline property for instant report execution.
      *
      * @return a {@link boolean} object.
@@ -153,17 +188,22 @@ public class DatabaseReportDescription {
     }
 
     /**
-     * <p>setAllowAccess</p>
+     * <p>
+     * setAllowAccess
+     * </p>
      * Set allowAccess for report execution permission.
      *
-     * @param allowAccess a {@link boolean} object.
+     * @param allowAccess
+     *            a {@link boolean} object.
      */
     public final void setAllowAccess(final boolean allowAccess) {
         m_allowAccess = allowAccess;
     }
 
     /**
-     * <p>getAllowAccess</p>
+     * <p>
+     * getAllowAccess
+     * </p>
      * Get allowAccess for report execution permission.
      *
      * @return a {@link boolean} object

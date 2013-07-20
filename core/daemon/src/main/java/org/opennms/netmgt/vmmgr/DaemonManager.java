@@ -32,31 +32,41 @@ import java.util.Map;
 
 public interface DaemonManager {
 
-	/**
-	 * <p>start</p>
-	 */
-	public void start();
+    /**
+     * <p>
+     * start
+     * </p>
+     */
+    public void start();
 
-	/**
-	 * <p>stop</p>
-	 */
-	public void stop();
+    /**
+     * <p>
+     * stop
+     * </p>
+     */
+    public void stop();
 
-	/**
-	 * <p>pause</p>
-	 */
-	public void pause();
+    /**
+     * <p>
+     * pause
+     * </p>
+     */
+    public void pause();
 
-	/**
-	 * <p>resume</p>
-	 */
-	public void resume();
+    /**
+     * <p>
+     * resume
+     * </p>
+     */
+    public void resume();
 
-	/**
-	 * <p>status</p>
-	 *
-	 * @return a {@link java.util.Map} object.
-	 */
-	public Map<String, String> status();
+    /**
+     * <p>
+     * status
+     * </p>
+     *
+     * @return a {@link java.util.Map} object.
+     */
+    public Map<String, String> status();
 
 }

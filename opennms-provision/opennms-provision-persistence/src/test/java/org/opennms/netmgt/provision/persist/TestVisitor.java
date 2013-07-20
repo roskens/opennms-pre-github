@@ -31,7 +31,6 @@ package org.opennms.netmgt.provision.persist;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class TestVisitor extends AbstractRequisitionVisitor {
 
     private final List<OnmsNodeRequisition> m_nodeReqs = new ArrayList<OnmsNodeRequisition>();

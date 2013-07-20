@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.xml.event;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import java.io.Serializable;
@@ -51,45 +51,44 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The forwarding information for this event - state
- *  determines if event is forwarded, mechanism determines how
+ * determines if event is forwarded, mechanism determines how
  * event is
- *  forwarded .
+ * forwarded .
  *
  * @version $Revision$ $Date$
  */
 
-@XmlRootElement(name="forward")
+@XmlRootElement(name = "forward")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@ValidateUsing("event.xsd")
+// @ValidateUsing("event.xsd")
 public class Forward implements Serializable {
-	private static final long serialVersionUID = -4795441559557516585L;
+    private static final long serialVersionUID = -4795441559557516585L;
 
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
-	/**
+    /**
      * internal content storage
      */
-	@XmlValue
+    @XmlValue
     private java.lang.String _content = "";
 
     /**
      * Field _state.
      */
-	@XmlAttribute(name="state")
+    @XmlAttribute(name = "state")
     private java.lang.String _state = "off";
 
     /**
      * Field _mechanism.
      */
-	@XmlAttribute(name="mechanism")
+    @XmlAttribute(name = "mechanism")
     private java.lang.String _mechanism = "snmpudp";
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public Forward() {
         super();
@@ -98,10 +97,9 @@ public class Forward implements Serializable {
         setMechanism("snmpudp");
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Returns the value of field 'content'. The field 'content'
@@ -109,8 +107,7 @@ public class Forward implements Serializable {
      *
      * @return the value of field 'Content'.
      */
-    public java.lang.String getContent(
-    ) {
+    public java.lang.String getContent() {
         return this._content;
     }
 
@@ -119,8 +116,7 @@ public class Forward implements Serializable {
      *
      * @return the value of field 'Mechanism'.
      */
-    public java.lang.String getMechanism(
-    ) {
+    public java.lang.String getMechanism() {
         return this._mechanism;
     }
 
@@ -129,8 +125,7 @@ public class Forward implements Serializable {
      *
      * @return the value of field 'State'.
      */
-    public java.lang.String getState(
-    ) {
+    public java.lang.String getState() {
         return this._state;
     }
 
@@ -138,39 +133,36 @@ public class Forward implements Serializable {
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
      *
-     * @param content the value of field 'content'.
+     * @param content
+     *            the value of field 'content'.
      */
-    public void setContent(
-            final java.lang.String content) {
+    public void setContent(final java.lang.String content) {
         this._content = content;
     }
 
     /**
      * Sets the value of field 'mechanism'.
      *
-     * @param mechanism the value of field 'mechanism'.
+     * @param mechanism
+     *            the value of field 'mechanism'.
      */
-    public void setMechanism(
-            final java.lang.String mechanism) {
+    public void setMechanism(final java.lang.String mechanism) {
         this._mechanism = mechanism;
     }
 
     /**
      * Sets the value of field 'state'.
      *
-     * @param state the value of field 'state'.
+     * @param state
+     *            the value of field 'state'.
      */
-    public void setState(
-            final java.lang.String state) {
+    public void setState(final java.lang.String state) {
         this._state = state;
     }
 
-        @Override
+    @Override
     public String toString() {
-    	return new ToStringBuilder(this)
-    		.append("content", _content)
-    		.append("state", _state)
-    		.append("mechanism", _mechanism)
-    		.toString();
+        return new ToStringBuilder(this).append("content", _content).append("state", _state).append("mechanism",
+                                                                                                    _mechanism).toString();
     }
 }

@@ -33,7 +33,9 @@ import org.opennms.netmgt.config.jdbc.JdbcDataCollection;
 import org.opennms.netmgt.config.jdbc.JdbcDataCollectionConfig;
 import org.opennms.netmgt.dao.JdbcDataCollectionConfigDao;
 
-public class JdbcDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<JdbcDataCollectionConfig, JdbcDataCollectionConfig> implements JdbcDataCollectionConfigDao {
+public class JdbcDataCollectionConfigDaoJaxb extends
+        AbstractJaxbConfigDao<JdbcDataCollectionConfig, JdbcDataCollectionConfig> implements
+        JdbcDataCollectionConfigDao {
 
     public JdbcDataCollectionConfigDaoJaxb() {
         super(JdbcDataCollectionConfig.class, "JDBC Data Collection Configuration");
@@ -43,7 +45,7 @@ public class JdbcDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<JdbcD
     public JdbcDataCollection getDataCollectionByName(String name) {
         JdbcDataCollectionConfig jdcc = getContainer().getObject();
         for (JdbcDataCollection dataCol : jdcc.getJdbcDataCollections()) {
-            if(dataCol.getName().equals(name)) {
+            if (dataCol.getName().equals(name)) {
                 return dataCol;
             }
         }

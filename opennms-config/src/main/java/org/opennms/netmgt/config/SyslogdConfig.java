@@ -32,21 +32,27 @@ import org.opennms.netmgt.config.syslogd.HideMessage;
 import org.opennms.netmgt.config.syslogd.UeiList;
 
 /**
- * <p>SyslogdConfig interface.</p>
+ * <p>
+ * SyslogdConfig interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public interface SyslogdConfig {
     /**
-     * <p>getSyslogPort</p>
+     * <p>
+     * getSyslogPort
+     * </p>
      *
      * @return a int.
      */
     public abstract int getSyslogPort();
 
     /**
-     * <p>getListenAddress</p>
+     * <p>
+     * getListenAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      * @since 1.8.1
@@ -54,59 +60,75 @@ public interface SyslogdConfig {
     public abstract String getListenAddress();
 
     /**
-     * <p>getNewSuspectOnMessage</p>
+     * <p>
+     * getNewSuspectOnMessage
+     * </p>
      *
      * @return a boolean.
      */
     public abstract boolean getNewSuspectOnMessage();
 
     /**
-     * <p>getForwardingRegexp</p>
+     * <p>
+     * getForwardingRegexp
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getForwardingRegexp();
 
     /**
-     * <p>getMatchingGroupHost</p>
+     * <p>
+     * getMatchingGroupHost
+     * </p>
      *
      * @return a int.
      */
     public abstract int getMatchingGroupHost();
 
     /**
-     * <p>getMatchingGroupMessage</p>
+     * <p>
+     * getMatchingGroupMessage
+     * </p>
      *
      * @return a int.
      */
     public abstract int getMatchingGroupMessage();
 
     /**
-     * <p>getParser</p>
+     * <p>
+     * getParser
+     * </p>
      *
-     * @return the parser class to use when parsing syslog messages, as a string.
+     * @return the parser class to use when parsing syslog messages, as a
+     *         string.
      */
     public abstract String getParser();
 
     /**
-     * <p>getUeiList</p>
+     * <p>
+     * getUeiList
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.syslogd.UeiList} object.
      */
     public abstract UeiList getUeiList();
 
     /**
-     * <p>getHideMessages</p>
+     * <p>
+     * getHideMessages
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.syslogd.HideMessage} object.
      */
     public abstract HideMessage getHideMessages();
 
     /**
-     * <p>getDiscardUei</p>
+     * <p>
+     * getDiscardUei
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getDiscardUei();
 }
-

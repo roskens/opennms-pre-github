@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.provision.persist.policies;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
@@ -51,24 +50,31 @@ import org.springframework.stereotype.Component;
 public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> implements SnmpInterfacePolicy {
     private static final Logger LOG = LoggerFactory.getLogger(MatchingSnmpInterfacePolicy.class);
 
-    public static enum Action { ENABLE_COLLECTION, DISABLE_COLLECTION, DO_NOT_PERSIST, ENABLE_POLLING, DISABLE_POLLING };
+    public static enum Action {
+        ENABLE_COLLECTION, DISABLE_COLLECTION, DO_NOT_PERSIST, ENABLE_POLLING, DISABLE_POLLING
+    };
 
     private Action m_action = Action.DO_NOT_PERSIST;
 
     /**
-     * <p>getAction</p>
+     * <p>
+     * getAction
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Require({"ENABLE_COLLECTION", "DISABLE_COLLECTION", "DO_NOT_PERSIST", "ENABLE_POLLING", "DISABLE_POLLING"})
+    @Require({ "ENABLE_COLLECTION", "DISABLE_COLLECTION", "DO_NOT_PERSIST", "ENABLE_POLLING", "DISABLE_POLLING" })
     public String getAction() {
         return m_action.toString();
     }
 
     /**
-     * <p>setAction</p>
+     * <p>
+     * setAction
+     * </p>
      *
-     * @param action a {@link java.lang.String} object.
+     * @param action
+     *            a {@link java.lang.String} object.
      */
     public void setAction(String action) {
         if (action != null && action.equalsIgnoreCase("ENABLE_COLLECTION")) {
@@ -113,7 +119,9 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>getIfDescr</p>
+     * <p>
+     * getIfDescr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -122,16 +130,21 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>setIfDescr</p>
+     * <p>
+     * setIfDescr
+     * </p>
      *
-     * @param ifDescr a {@link java.lang.String} object.
+     * @param ifDescr
+     *            a {@link java.lang.String} object.
      */
     public void setIfDescr(String ifDescr) {
         putCriteria("ifDescr", ifDescr);
     }
 
     /**
-     * <p>getIfName</p>
+     * <p>
+     * getIfName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,16 +153,21 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>setIfName</p>
+     * <p>
+     * setIfName
+     * </p>
      *
-     * @param ifName a {@link java.lang.String} object.
+     * @param ifName
+     *            a {@link java.lang.String} object.
      */
     public void setIfName(String ifName) {
         putCriteria("ifName", ifName);
     }
 
     /**
-     * <p>getIfType</p>
+     * <p>
+     * getIfType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -158,16 +176,21 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>setIfType</p>
+     * <p>
+     * setIfType
+     * </p>
      *
-     * @param ifType a {@link java.lang.String} object.
+     * @param ifType
+     *            a {@link java.lang.String} object.
      */
     public void setIfType(String ifType) {
         putCriteria("ifType", ifType);
     }
 
     /**
-     * <p>getPhysAddr</p>
+     * <p>
+     * getPhysAddr
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -176,16 +199,21 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>setPhysAddr</p>
+     * <p>
+     * setPhysAddr
+     * </p>
      *
-     * @param physAddr a {@link java.lang.String} object.
+     * @param physAddr
+     *            a {@link java.lang.String} object.
      */
     public void setPhysAddr(String physAddr) {
         putCriteria("physAddr", physAddr);
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -194,16 +222,21 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>setIfIndex</p>
+     * <p>
+     * setIfIndex
+     * </p>
      *
-     * @param ifIndex a {@link java.lang.String} object.
+     * @param ifIndex
+     *            a {@link java.lang.String} object.
      */
     public void setIfIndex(String ifIndex) {
         putCriteria("ifIndex", ifIndex);
     }
 
     /**
-     * <p>getIfSpeed</p>
+     * <p>
+     * getIfSpeed
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -212,16 +245,21 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>setIfSpeed</p>
+     * <p>
+     * setIfSpeed
+     * </p>
      *
-     * @param ifSpeed a {@link java.lang.String} object.
+     * @param ifSpeed
+     *            a {@link java.lang.String} object.
      */
     public void setIfSpeed(String ifSpeed) {
         putCriteria("ifSpeed", ifSpeed);
     }
 
     /**
-     * <p>getIfAdminStatus</p>
+     * <p>
+     * getIfAdminStatus
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -230,16 +268,21 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>setIfAdminStatus</p>
+     * <p>
+     * setIfAdminStatus
+     * </p>
      *
-     * @param ifAdminStatus a {@link java.lang.String} object.
+     * @param ifAdminStatus
+     *            a {@link java.lang.String} object.
      */
     public void setIfAdminStatus(String ifAdminStatus) {
         putCriteria("ifAdminStatus", ifAdminStatus);
     }
 
     /**
-     * <p>getIfOperStatus</p>
+     * <p>
+     * getIfOperStatus
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -248,16 +291,21 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>setIfOperStatus</p>
+     * <p>
+     * setIfOperStatus
+     * </p>
      *
-     * @param ifOperStatus a {@link java.lang.String} object.
+     * @param ifOperStatus
+     *            a {@link java.lang.String} object.
      */
     public void setIfOperStatus(String ifOperStatus) {
         putCriteria("ifOperStatus", ifOperStatus);
     }
 
     /**
-     * <p>getIfAlias</p>
+     * <p>
+     * getIfAlias
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -266,13 +314,15 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     }
 
     /**
-     * <p>setIfAlias</p>
+     * <p>
+     * setIfAlias
+     * </p>
      *
-     * @param ifAlias a {@link java.lang.String} object.
+     * @param ifAlias
+     *            a {@link java.lang.String} object.
      */
     public void setIfAlias(String ifAlias) {
         putCriteria("ifAlias", ifAlias);
     }
-
 
 }

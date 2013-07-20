@@ -47,30 +47,39 @@ import org.opennms.netmgt.provision.adapters.link.EndPoint;
 import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 import org.opennms.netmgt.provision.adapters.link.EndPointValidationExpression;
 
-@XmlRootElement(name="endpoint-type")
-@XmlAccessorType(value=XmlAccessType.FIELD)
+@XmlRootElement(name = "endpoint-type")
+@XmlAccessorType(value = XmlAccessType.FIELD)
 public class EndPointType {
     private static final Logger LOG = LoggerFactory.getLogger(EndPointType.class);
-    @XmlAttribute(name="name")
+
+    @XmlAttribute(name = "name")
     private String m_name;
 
-    @XmlElement(name="sysoid-mask")
+    @XmlElement(name = "sysoid-mask")
     private String m_sysOid;
 
     @XmlElementRef
     private EndPointValidationExpressionImpl m_validator;
 
     /**
-     * <p>Constructor for EndPointType.</p>
+     * <p>
+     * Constructor for EndPointType.
+     * </p>
      */
     public EndPointType() {
     }
 
     /**
-     * <p>Constructor for EndPointType.</p>
+     * <p>
+     * Constructor for EndPointType.
+     * </p>
      *
-     * @param sysOid a {@link java.lang.String} object.
-     * @param validator a {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl} object.
+     * @param sysOid
+     *            a {@link java.lang.String} object.
+     * @param validator
+     *            a
+     *            {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
+     *            object.
      */
     public EndPointType(String sysOid, EndPointValidationExpressionImpl validator) {
         setSysOid(sysOid);
@@ -78,7 +87,9 @@ public class EndPointType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,36 +98,48 @@ public class EndPointType {
     }
 
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
     }
 
     /**
-     * <p>getValidator</p>
+     * <p>
+     * getValidator
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.adapters.link.EndPointValidationExpression} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.adapters.link.EndPointValidationExpression}
+     *         object.
      */
     public EndPointValidationExpression getValidator() {
         return m_validator;
     }
 
-
     /**
-     * <p>setValidator</p>
+     * <p>
+     * setValidator
+     * </p>
      *
-     * @param validator a {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl} object.
+     * @param validator
+     *            a
+     *            {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
+     *            object.
      */
     public void setValidator(EndPointValidationExpressionImpl validator) {
         m_validator = validator;
     }
 
-
     /**
-     * <p>getSysOid</p>
+     * <p>
+     * getSysOid
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,21 +147,26 @@ public class EndPointType {
         return m_sysOid;
     }
 
-
     /**
-     * <p>setSysOid</p>
+     * <p>
+     * setSysOid
+     * </p>
      *
-     * @param sysOid a {@link java.lang.String} object.
+     * @param sysOid
+     *            a {@link java.lang.String} object.
      */
     public void setSysOid(String sysOid) {
         m_sysOid = sysOid;
     }
 
-
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param ep a {@link org.opennms.netmgt.provision.adapters.link.EndPoint} object.
+     * @param ep
+     *            a {@link org.opennms.netmgt.provision.adapters.link.EndPoint}
+     *            object.
      * @return a boolean.
      */
     public boolean matches(EndPoint ep) {
@@ -157,14 +185,18 @@ public class EndPointType {
     }
 
     /**
-     * <p>validate</p>
+     * <p>
+     * validate
+     * </p>
      *
-     * @param ep a {@link org.opennms.netmgt.provision.adapters.link.EndPoint} object.
-     * @throws org.opennms.netmgt.provision.adapters.link.EndPointStatusException if any.
+     * @param ep
+     *            a {@link org.opennms.netmgt.provision.adapters.link.EndPoint}
+     *            object.
+     * @throws org.opennms.netmgt.provision.adapters.link.EndPointStatusException
+     *             if any.
      */
     public void validate(EndPoint ep) throws EndPointStatusException {
         m_validator.validate(ep);
     }
-
 
 }

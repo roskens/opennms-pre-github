@@ -43,7 +43,6 @@ public class TimeConverter {
      * milliseconds. The following extension are considered when converting the
      * string:
      * </P>
-     *
      * <TABLE BORDER=0>
      * <TR>
      * <TH>Extension</TH>
@@ -74,7 +73,6 @@ public class TimeConverter {
      * <TD>Days</TD>
      * </TR>
      * </TABLE>
-     *
      * <P>
      * A number entered with out any units is considered to be in milliseconds.
      * </P>
@@ -85,7 +83,8 @@ public class TimeConverter {
      * @exception java.lang.NumberFormatException
      *                Thrown if the string is malformed and a number cannot be
      *                extracted from the value.
-     * @throws java.lang.NumberFormatException if any.
+     * @throws java.lang.NumberFormatException
+     *             if any.
      */
     public static long convertToMillis(String valueToConvert) throws NumberFormatException {
         valueToConvert = valueToConvert.trim();

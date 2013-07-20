@@ -26,9 +26,10 @@ import org.slf4j.LoggerFactory;
 
 public class JUnitServer {
 
-	private static final Logger LOG = LoggerFactory.getLogger(JUnitServer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JUnitServer.class);
 
     private Server m_server;
+
     private JUnitHttpServer m_config;
 
     public JUnitServer(final JUnitHttpServer config) {
@@ -56,7 +57,7 @@ public class JUnitServer {
         m_server = server;
         final ContextHandler context1 = new ContextHandler();
         context1.setContextPath("/");
-        context1.setWelcomeFiles(new String[]{"index.html"});
+        context1.setWelcomeFiles(new String[] { "index.html" });
         context1.setResourceBase(config.resource());
         context1.setClassLoader(Thread.currentThread().getContextClassLoader());
         context1.setVirtualHosts(config.vhosts());
@@ -68,7 +69,7 @@ public class JUnitServer {
 
         if (config.basicAuth()) {
             // check for basic auth if we're configured to do so
-        	LOG.debug("configuring basic auth");
+            LOG.debug("configuring basic auth");
 
             final HashLoginService loginService = new HashLoginService("MyRealm", config.basicAuthFile());
             loginService.setRefreshInterval(300000);
@@ -99,7 +100,7 @@ public class JUnitServer {
             security.setHandler(context);
             topLevelHandler = security;
         } else {
-                topLevelHandler = context;
+            topLevelHandler = context;
         }
 
         final Webapp[] webapps = config.webapps();
@@ -113,7 +114,7 @@ public class JUnitServer {
         }
 
         final ResourceHandler rh = new ResourceHandler();
-        rh.setWelcomeFiles(new String[]{"index.html"});
+        rh.setWelcomeFiles(new String[] { "index.html" });
         rh.setResourceBase(config.resource());
         handlers.addHandler(rh);
 
@@ -125,22 +126,23 @@ public class JUnitServer {
     }
 
     public synchronized void start() throws Exception {
-    	LOG.debug("starting jetty on port {}", m_config.port());
+        LOG.debug("starting jetty on port {}", m_config.port());
         m_server.start();
     }
 
-    // NOTE: we retry server stop because of a concurrency issue inside Jetty that is not
+    // NOTE: we retry server stop because of a concurrency issue inside Jetty
+    // that is not
     // easily solvable.
     public synchronized void stop() throws Exception {
-    	LOG.debug("shutting down jetty on port {}", m_config.port());
+        LOG.debug("shutting down jetty on port {}", m_config.port());
         try {
             m_server.stop();
         } catch (final InterruptedException e) {
-        	LOG.debug("Interrupted while attempting to shut down Jetty, propagating interrupt and trying again.", e);
+            LOG.debug("Interrupted while attempting to shut down Jetty, propagating interrupt and trying again.", e);
             Thread.currentThread().interrupt();
             m_server.stop();
         } catch (final RuntimeException e) {
-        	LOG.debug("An exception occurred while attempting to shut down Jetty.", e);
+            LOG.debug("An exception occurred while attempting to shut down Jetty.", e);
             m_server.stop();
             throw e;
         }

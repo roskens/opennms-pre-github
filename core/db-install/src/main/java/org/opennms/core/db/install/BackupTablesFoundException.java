@@ -41,41 +41,46 @@ public class BackupTablesFoundException extends Exception {
 
     private List<String> m_oldTables;
 
-	private static final String s_ourMessage =
-		"One or more backup tables from a previous "
-			+ "install still exists--aborting installation.  "
-			+ "You either need to remove them or rename them "
-			+ "so they do not contain the string '_old_'.";
+    private static final String s_ourMessage = "One or more backup tables from a previous "
+            + "install still exists--aborting installation.  " + "You either need to remove them or rename them "
+            + "so they do not contain the string '_old_'.";
 
-	/**
-	 * <p>Constructor for BackupTablesFoundException.</p>
-	 *
-	 * @param oldTables a {@link java.util.List} object.
-	 */
-	public BackupTablesFoundException(List<String> oldTables) {
-		super(s_ourMessage);
-		m_oldTables = oldTables;
-	}
+    /**
+     * <p>
+     * Constructor for BackupTablesFoundException.
+     * </p>
+     *
+     * @param oldTables
+     *            a {@link java.util.List} object.
+     */
+    public BackupTablesFoundException(List<String> oldTables) {
+        super(s_ourMessage);
+        m_oldTables = oldTables;
+    }
 
-	/**
-	 * <p>getOldTables</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	public List<String> getOldTables() {
-		return Collections.unmodifiableList(m_oldTables);
-	}
+    /**
+     * <p>
+     * getOldTables
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    public List<String> getOldTables() {
+        return Collections.unmodifiableList(m_oldTables);
+    }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-	public String toString() {
-		StringBuffer m = new StringBuffer(getMessage());
-		m.append("\nBackup tables: \n\t");
-                m.append(StringUtils.collectionToDelimitedString(m_oldTables, "\n\t"));
-		return m.toString();
-	}
+    public String toString() {
+        StringBuffer m = new StringBuffer(getMessage());
+        m.append("\nBackup tables: \n\t");
+        m.append(StringUtils.collectionToDelimitedString(m_oldTables, "\n\t"));
+        return m.toString();
+    }
 }

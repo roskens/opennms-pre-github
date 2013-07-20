@@ -55,34 +55,49 @@ public class MobileSequenceConfigBuilder {
     private MobileSequenceConfig m_sequence;
 
     /**
-     * <p>Constructor for MobileSequenceConfigBuilder.</p>
+     * <p>
+     * Constructor for MobileSequenceConfigBuilder.
+     * </p>
      */
     public MobileSequenceConfigBuilder() {
         this(new MobileSequenceConfig());
     }
 
     /**
-     * <p>Constructor for MobileSequenceConfigBuilder.</p>
+     * <p>
+     * Constructor for MobileSequenceConfigBuilder.
+     * </p>
      *
-     * @param sequence a {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig} object.
+     * @param sequence
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
+     *            object.
      */
     public MobileSequenceConfigBuilder(MobileSequenceConfig sequence) {
         m_sequence = sequence;
     }
 
     /**
-     * <p>getSequence</p>
+     * <p>
+     * getSequence
+     * </p>
      *
-     * @return a {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig} object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
+     *         object.
      */
     public MobileSequenceConfig getSequence() {
         return m_sequence;
     }
 
     /**
-     * <p>addTransaction</p>
+     * <p>
+     * addTransaction
+     * </p>
      *
-     * @return a {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder} object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder}
+     *         object.
      */
     public MobileSequenceTransactionBuilder addTransaction() {
         MobileSequenceTransaction t = new MobileSequenceTransaction();
@@ -91,24 +106,38 @@ public class MobileSequenceConfigBuilder {
     }
 
     /**
-     * <p>request</p>
+     * <p>
+     * request
+     * </p>
      *
-     * @param request a {@link org.opennms.sms.monitor.internal.config.MobileSequenceRequest} object.
-     * @return a {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder} object.
+     * @param request
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceRequest}
+     *            object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder}
+     *         object.
      */
     public MobileSequenceTransactionBuilder request(MobileSequenceRequest request) {
         return addTransaction().setRequest(request);
     }
 
-
     /**
-     * <p>smsRequest</p>
+     * <p>
+     * smsRequest
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
-     * @param gatewayId a {@link java.lang.String} object.
-     * @param recipient a {@link java.lang.String} object.
-     * @param text a {@link java.lang.String} object.
-     * @return a {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @param gatewayId
+     *            a {@link java.lang.String} object.
+     * @param recipient
+     *            a {@link java.lang.String} object.
+     * @param text
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder}
+     *         object.
      */
     public MobileSequenceTransactionBuilder smsRequest(String label, String gatewayId, String recipient, String text) {
 
@@ -122,12 +151,19 @@ public class MobileSequenceConfigBuilder {
     }
 
     /**
-     * <p>ussdRequest</p>
+     * <p>
+     * ussdRequest
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
-     * @param gatewayId a {@link java.lang.String} object.
-     * @param text a {@link java.lang.String} object.
-     * @return a {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @param gatewayId
+     *            a {@link java.lang.String} object.
+     * @param text
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder}
+     *         object.
      */
     public MobileSequenceTransactionBuilder ussdRequest(String label, String gatewayId, String text) {
 
@@ -191,9 +227,7 @@ public class MobileSequenceConfigBuilder {
             return this;
         }
 
-
     }
-
 
     /**
      * SmsResponseBuilder
@@ -228,8 +262,6 @@ public class MobileSequenceConfigBuilder {
 
     }
 
-
-
     /**
      * SmsResponseBuilder
      *
@@ -262,14 +294,18 @@ public class MobileSequenceConfigBuilder {
 
     }
 
-
-
     /**
-     * <p>variable</p>
+     * <p>
+     * variable
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param variableClass a {@link java.lang.Class} object.
-     * @return a {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.SessionVariableBuilder} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param variableClass
+     *            a {@link java.lang.Class} object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.SessionVariableBuilder}
+     *         object.
      */
     public SessionVariableBuilder variable(String name, Class<? extends SessionVariableGenerator> variableClass) {
         SequenceSessionVariable var = new SequenceSessionVariable(name, variableClass.getName());
@@ -291,7 +327,5 @@ public class MobileSequenceConfigBuilder {
         }
 
     }
-
-
 
 }

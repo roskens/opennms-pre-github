@@ -34,29 +34,32 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
- * <P>Dot1DBasePortTable uses a SnmpSession to collect the dot1dBridge.dot1dBase.
- * Port table entries.
- * It implements the SnmpHandler to receive notifications when a reply is
- * received/error occurs in the SnmpSession used to send requests/receive
- * replies.</P>
+ * <P>
+ * Dot1DBasePortTable uses a SnmpSession to collect the dot1dBridge.dot1dBase.
+ * Port table entries. It implements the SnmpHandler to receive notifications
+ * when a reply is received/error occurs in the SnmpSession used to send
+ * requests/receive replies.
+ * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo</A>
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213</A>
  * @version $Id: $
  */
-public class Dot1dBasePortTable extends SnmpTable<Dot1dBasePortTableEntry>
-{
-	/**
-	 * <p>Constructor for Dot1dBasePortTable.</p>
-	 *
-	 * @param address a {@link java.net.InetAddress} object.
-	 */
-	public Dot1dBasePortTable(InetAddress address) {
+public class Dot1dBasePortTable extends SnmpTable<Dot1dBasePortTableEntry> {
+    /**
+     * <p>
+     * Constructor for Dot1dBasePortTable.
+     * </p>
+     *
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     */
+    public Dot1dBasePortTable(InetAddress address) {
         super(address, "dot1dBasePortTable", Dot1dBasePortTableEntry.bridgePort_elemList);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     protected Dot1dBasePortTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new Dot1dBasePortTableEntry();
     }

@@ -51,12 +51,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({
-    OpenNMSConfigurationExecutionListener.class,
-    DirtiesContextTestExecutionListener.class
-})
+@TestExecutionListeners({ OpenNMSConfigurationExecutionListener.class, DirtiesContextTestExecutionListener.class })
 public class InvokerTest {
     private List<InvokerService> m_services = null;
+
     private MBeanServer m_server;
 
     @Before
@@ -106,7 +104,8 @@ public class InvokerTest {
         for (InvokerService iservice : invoker.getServices()) {
             Service service = iservice.getService();
             ObjectName name = new ObjectName(service.getName());
-            System.err.println("object instance = " + getObjectInstanceString(invoker.getServer().getObjectInstance(name)));
+            System.err.println("object instance = "
+                    + getObjectInstanceString(invoker.getServer().getObjectInstance(name)));
         }
 
         List<InvokerResult> results = invoker.invokeMethods();
@@ -122,88 +121,56 @@ public class InvokerTest {
     }
 
     private static String getObjectInstanceString(ObjectInstance objectInstance) {
-        return new ToStringBuilder(objectInstance)
-            .append("class", objectInstance.getClassName())
-            .append("object", objectInstance.getObjectName())
-            .toString();
+        return new ToStringBuilder(objectInstance).append("class", objectInstance.getClassName()).append("object",
+                                                                                                         objectInstance.getObjectName()).toString();
     }
 
     private static Service[] getServiceList() throws Exception {
         List<Service> serviceList = new ArrayList<Service>();
 
-        serviceList.add(JaxbUtils.unmarshal(Service.class, new StringReader("  <service>\n" +
-			"    <name>:Name=XSLTProcessor</name>\n" +
-			"    <class-name>mx4j.tools.adaptor.http.XSLTProcessor</class-name>\n" +
-			"  </service>\n" +
-        		"")));
-        serviceList.add(JaxbUtils.unmarshal(Service.class, new StringReader("  <service>\n" +
-			"    <name>:Name=HttpAdaptor</name>\n" +
-			"    <class-name>mx4j.tools.adaptor.http.HttpAdaptor</class-name>\n" +
-			"    <attribute>\n" +
-			"      <name>Port</name>\n" +
-			"      <value type=\"java.lang.Integer\">58180</value>\n" +
-			"    </attribute>\n" +
-			"    <attribute>\n" +
-			"      <name>Host</name>\n" +
-			"      <value type=\"java.lang.String\">127.0.0.1</value>\n" +
-			"    </attribute>\n" +
-			"    <attribute>\n" +
-			"      <name>ProcessorName</name>\n" +
-			"      <value type=\"javax.management.ObjectName\">:Name=XSLTProcessor</value>\n" +
-			"    </attribute>\n" +
-			"    <attribute>\n" +
-			"      <name>AuthenticationMethod</name>\n" +
-			"      <value type=\"java.lang.String\">basic</value>\n" +
-			"    </attribute>\n" +
-			"    <invoke at=\"start\" pass=\"0\" method=\"addAuthorization\">\n" +
-			"      <argument type=\"java.lang.String\">admin</argument>\n" +
-			"      <argument type=\"java.lang.String\">admin</argument>\n" +
-			"    </invoke>\n" +
-			"    <invoke at=\"start\" pass=\"0\" method=\"start\"/>\n" +
-			"  </service>\n" +
-        		"")));
-        serviceList.add(JaxbUtils.unmarshal(Service.class, new StringReader("  <service>\n" +
-			"    <name>:Name=HttpAdaptorMgmt</name>\n" +
-			"    <class-name>mx4j.tools.adaptor.http.HttpAdaptor</class-name>\n" +
-			"    <attribute>\n" +
-			"      <name>Port</name>\n" +
-			"      <value type=\"java.lang.Integer\">58181</value>\n" +
-			"    </attribute>\n" +
-			"    <attribute>\n" +
-			"      <name>Host</name>\n" +
-			"      <value type=\"java.lang.String\">127.0.0.1</value>\n" +
-			"    </attribute>\n" +
-			"    <attribute>\n" +
-			"      <name>AuthenticationMethod</name>\n" +
-			"      <value type=\"java.lang.String\">basic</value>\n" +
-			"    </attribute>\n" +
-			"    <invoke at=\"start\" pass=\"0\" method=\"addAuthorization\">\n" +
-			"      <argument type=\"java.lang.String\">manager</argument>\n" +
-			"      <argument type=\"java.lang.String\">manager</argument>\n" +
-			"    </invoke>\n" +
-			"    <invoke at=\"start\" pass=\"0\" method=\"start\"/>\n" +
-			"  </service>\n" +
-        		"")));
+        serviceList.add(JaxbUtils.unmarshal(Service.class, new StringReader("  <service>\n"
+                + "    <name>:Name=XSLTProcessor</name>\n"
+                + "    <class-name>mx4j.tools.adaptor.http.XSLTProcessor</class-name>\n" + "  </service>\n" + "")));
+        serviceList.add(JaxbUtils.unmarshal(Service.class, new StringReader("  <service>\n"
+                + "    <name>:Name=HttpAdaptor</name>\n"
+                + "    <class-name>mx4j.tools.adaptor.http.HttpAdaptor</class-name>\n" + "    <attribute>\n"
+                + "      <name>Port</name>\n" + "      <value type=\"java.lang.Integer\">58180</value>\n"
+                + "    </attribute>\n" + "    <attribute>\n" + "      <name>Host</name>\n"
+                + "      <value type=\"java.lang.String\">127.0.0.1</value>\n" + "    </attribute>\n"
+                + "    <attribute>\n" + "      <name>ProcessorName</name>\n"
+                + "      <value type=\"javax.management.ObjectName\">:Name=XSLTProcessor</value>\n"
+                + "    </attribute>\n" + "    <attribute>\n" + "      <name>AuthenticationMethod</name>\n"
+                + "      <value type=\"java.lang.String\">basic</value>\n" + "    </attribute>\n"
+                + "    <invoke at=\"start\" pass=\"0\" method=\"addAuthorization\">\n"
+                + "      <argument type=\"java.lang.String\">admin</argument>\n"
+                + "      <argument type=\"java.lang.String\">admin</argument>\n" + "    </invoke>\n"
+                + "    <invoke at=\"start\" pass=\"0\" method=\"start\"/>\n" + "  </service>\n" + "")));
+        serviceList.add(JaxbUtils.unmarshal(Service.class, new StringReader("  <service>\n"
+                + "    <name>:Name=HttpAdaptorMgmt</name>\n"
+                + "    <class-name>mx4j.tools.adaptor.http.HttpAdaptor</class-name>\n" + "    <attribute>\n"
+                + "      <name>Port</name>\n" + "      <value type=\"java.lang.Integer\">58181</value>\n"
+                + "    </attribute>\n" + "    <attribute>\n" + "      <name>Host</name>\n"
+                + "      <value type=\"java.lang.String\">127.0.0.1</value>\n" + "    </attribute>\n"
+                + "    <attribute>\n" + "      <name>AuthenticationMethod</name>\n"
+                + "      <value type=\"java.lang.String\">basic</value>\n" + "    </attribute>\n"
+                + "    <invoke at=\"start\" pass=\"0\" method=\"addAuthorization\">\n"
+                + "      <argument type=\"java.lang.String\">manager</argument>\n"
+                + "      <argument type=\"java.lang.String\">manager</argument>\n" + "    </invoke>\n"
+                + "    <invoke at=\"start\" pass=\"0\" method=\"start\"/>\n" + "  </service>\n" + "")));
 
         return serviceList.toArray(new Service[0]);
     }
 
     private static String getResultString(InvokerResult result) {
-        return new ToStringBuilder(result)
-            .append("result", result.getResult())
-            .append("mbean", result.getMbean())
-            .append("service", getServiceString(result.getService()))
-            .append("throwable", result.getThrowable())
-            .toString();
+        return new ToStringBuilder(result).append("result", result.getResult()).append("mbean", result.getMbean()).append("service",
+                                                                                                                          getServiceString(result.getService())).append("throwable",
+                                                                                                                                                                        result.getThrowable()).toString();
     }
 
     private static String getServiceString(Service service) {
-        return new ToStringBuilder(service)
-            .append("name", service.getName())
-            .append("class", service.getClassName())
-            .append("attributes", service.getAttributeCollection())
-            .append("invoke", service.getInvokeCollection())
-            .toString();
+        return new ToStringBuilder(service).append("name", service.getName()).append("class", service.getClassName()).append("attributes",
+                                                                                                                             service.getAttributeCollection()).append("invoke",
+                                                                                                                                                                      service.getInvokeCollection()).toString();
     }
 
 }

@@ -31,12 +31,11 @@ package org.opennms.features.jmxconfiggenerator.webui.ui.validators;
 import com.vaadin.data.validator.RegexpValidator;
 
 /**
- *
  * @author Markus von Rüden
  */
 public class AttributeNameValidator extends RegexpValidator {
 
-	public AttributeNameValidator() {
-		super("[a-zA-Z0-9]+", "You must specify a valid attribute name. Only characters a-z, A-Z and 0-9 are allowed.");
-	}
+    public AttributeNameValidator() {
+        super("[a-zA-Z0-9]+", "You must specify a valid attribute name. Only characters a-z, A-Z and 0-9 are allowed.");
+    }
 }

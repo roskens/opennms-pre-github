@@ -31,7 +31,9 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * <p>AlarmDashlet class.</p>
+ * <p>
+ * AlarmDashlet class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -43,23 +45,24 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class AlarmDashlet extends Dashlet {
 
     /*
-    - Transient
-    - Don't need to be able to acknowledge them
-    - Items to show:
-        - Show if they have been acknowledged
-        - Description
-        - Severity (color-coded)
-        - Count
-        - May need to show the node label when filtering on the node label
-        - Show node/interface/service (maybe as a label)
-    - Sort by severity (highest first)
-    - Be able to page through results (first page, previous page, next page, last page)
-    - Show "Outages x - y of z"
-    - Ideally be able to sort by any column
-
+     * - Transient
+     * - Don't need to be able to acknowledge them
+     * - Items to show:
+     * - Show if they have been acknowledged
+     * - Description
+     * - Severity (color-coded)
+     * - Count
+     * - May need to show the node label when filtering on the node label
+     * - Show node/interface/service (maybe as a label)
+     * - Sort by severity (highest first)
+     * - Be able to page through results (first page, previous page, next page,
+     * last page)
+     * - Show "Outages x - y of z"
+     * - Ideally be able to sort by any column
      */
 
     private AlarmView m_view = new AlarmView(this);
+
     private AlarmLoader m_loader = new AlarmLoader();
 
     class AlarmLoader extends DashletLoader implements AsyncCallback<Alarm[]> {
@@ -108,11 +111,15 @@ public class AlarmDashlet extends Dashlet {
         m_loader.load(set);
     }
 
-
     /**
-     * <p>setSurveillanceService</p>
+     * <p>
+     * setSurveillanceService
+     * </p>
      *
-     * @param svc a {@link org.opennms.dashboard.client.SurveillanceServiceAsync} object.
+     * @param svc
+     *            a
+     *            {@link org.opennms.dashboard.client.SurveillanceServiceAsync}
+     *            object.
      */
     public void setSurveillanceService(SurveillanceServiceAsync svc) {
         m_loader.setSurveillanceService(svc);

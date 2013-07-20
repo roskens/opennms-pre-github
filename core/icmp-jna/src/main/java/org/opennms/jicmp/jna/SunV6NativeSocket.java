@@ -32,7 +32,6 @@ import java.net.UnknownHostException;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
-
 import com.sun.jna.LastErrorException;
 import com.sun.jna.Native;
 
@@ -44,7 +43,7 @@ import com.sun.jna.Native;
 public class SunV6NativeSocket extends NativeDatagramSocket {
 
     static {
-        Native.register((String)null);
+        Native.register((String) null);
     }
 
     private int m_sock;
@@ -55,9 +54,11 @@ public class SunV6NativeSocket extends NativeDatagramSocket {
 
     public native int socket(int domain, int type, int protocol) throws LastErrorException;
 
-    public native int sendto(int socket, Buffer buffer, int buflen, int flags, sun_sockaddr_in6 dest_addr, int dest_addr_len) throws LastErrorException;
+    public native int sendto(int socket, Buffer buffer, int buflen, int flags, sun_sockaddr_in6 dest_addr,
+            int dest_addr_len) throws LastErrorException;
 
-    public native int recvfrom(int socket, Buffer buffer, int buflen, int flags, sun_sockaddr_in6 in_addr, int[] in_addr_len) throws LastErrorException;
+    public native int recvfrom(int socket, Buffer buffer, int buflen, int flags, sun_sockaddr_in6 in_addr,
+            int[] in_addr_len) throws LastErrorException;
 
     public native int close(int socket) throws LastErrorException;
 

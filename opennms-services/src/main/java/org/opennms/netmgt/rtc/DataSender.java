@@ -57,7 +57,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The DataSender is responsible to send data out to 'listeners'
- *
  * When the RTCManager's timers go off, the DataSender is prompted to send data,
  * which it does by maintaining a 'SendRequest' runnable queue so as to not
  * block the RTCManager
@@ -73,7 +72,7 @@ final class DataSender implements Fiber {
     /**
      * The category map
      */
-    private Map<String,RTCCategory> m_categories;
+    private Map<String, RTCCategory> m_categories;
 
     /**
      * The listeners like the WebUI that send a URL to which the data is to be
@@ -148,10 +147,8 @@ final class DataSender implements Fiber {
         m_catUrlMap = new HashMap<String, Set<HttpPostInfo>>();
 
         // create and start the data sender pool
-        m_dsrPool = Executors.newFixedThreadPool(
-            numSenders,
-            new LogPreservingThreadFactory(getClass().getSimpleName(), numSenders, false)
-        );
+        m_dsrPool = Executors.newFixedThreadPool(numSenders, new LogPreservingThreadFactory(getClass().getSimpleName(),
+                                                                                            numSenders, false));
 
         // create category converter
         m_euiMapper = new EuiLevelMapper();
@@ -211,14 +208,19 @@ final class DataSender implements Fiber {
     }
 
     /**
-     * Subscribe - Add the received URL and related info to the category->URLs map
+     * Subscribe - Add the received URL and related info to the category->URLs
+     * map
      * so the sendData() can send out to appropriate URLs for each category.
      * Also send the latest info for the category
      *
-     * @param url a {@link java.lang.String} object.
-     * @param catlabel a {@link java.lang.String} object.
-     * @param user a {@link java.lang.String} object.
-     * @param passwd a {@link java.lang.String} object.
+     * @param url
+     *            a {@link java.lang.String} object.
+     * @param catlabel
+     *            a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param passwd
+     *            a {@link java.lang.String} object.
      */
     public synchronized void subscribe(String url, String catlabel, String user, String passwd) {
         // send category data to the newly subscribed URL
@@ -247,7 +249,8 @@ final class DataSender implements Fiber {
         }
 
         if (!urlList.add(postInfo)) {
-            LOG.debug("Already subscribed to URL: {}\tcatlabel: {}\tuser: {} - IGNORING LATEST subscribe event", url, catlabel, user);
+            LOG.debug("Already subscribed to URL: {}\tcatlabel: {}\tuser: {} - IGNORING LATEST subscribe event", url,
+                      catlabel, user);
         } else {
             LOG.debug("Subscribed to URL: {}\tcatlabel: {}\tuser:{}", url, catlabel, user);
         }
@@ -303,7 +306,8 @@ final class DataSender implements Fiber {
      * Unsubscribe - remove the received URL and related info from the
      * category->URLs map so the sendData() will know when it sends data out
      *
-     * @param urlStr a {@link java.lang.String} object.
+     * @param urlStr
+     *            a {@link java.lang.String} object.
      */
     public synchronized void unsubscribe(final String urlStr) {
         URL url = null;
@@ -390,10 +394,10 @@ final class DataSender implements Fiber {
 
                         LOG.debug("DataSender: posting data to: {}", postInfo.getURLString());
 
-                        inp = HttpUtils.post(postInfo.getURL(), inr, postInfo.getUser(), postInfo.getPassword(), 8 * HttpUtils.DEFAULT_POST_BUFFER_SIZE);
+                        inp = HttpUtils.post(postInfo.getURL(), inr, postInfo.getUser(), postInfo.getPassword(),
+                                             8 * HttpUtils.DEFAULT_POST_BUFFER_SIZE);
 
                         LOG.debug("DataSender: posted data for category: {}", catlabel);
-
 
                         byte[] tmp = new byte[1024];
                         int bytesRead;
@@ -407,17 +411,21 @@ final class DataSender implements Fiber {
                         postInfo.clearErrors();
 
                     } catch (IOException e) {
-                        LOG.warn("DataSender: unable to send data for category: {} due to {}: {}", catlabel, e.getClass().getName(), e.getMessage(), e);
+                        LOG.warn("DataSender: unable to send data for category: {} due to {}: {}", catlabel,
+                                 e.getClass().getName(), e.getMessage(), e);
                         postInfo.incrementErrors();
                         setCurrentThreadPriority(Thread.NORM_PRIORITY);
                     } catch (java.lang.OutOfMemoryError e) {
-                        LOG.warn("DataSender: unable to send data for category: {} due to {}: {}", catlabel, e.getClass().getName(), e.getMessage(), e);
+                        LOG.warn("DataSender: unable to send data for category: {} due to {}: {}", catlabel,
+                                 e.getClass().getName(), e.getMessage(), e);
                         setCurrentThreadPriority(Thread.NORM_PRIORITY);
                     } catch (RuntimeException e) {
-                        LOG.warn("DataSender: unable to send data for category: {} due to {}: {}", catlabel, e.getClass().getName(), e.getMessage(), e);
+                        LOG.warn("DataSender: unable to send data for category: {} due to {}: {}", catlabel,
+                                 e.getClass().getName(), e.getMessage(), e);
                         setCurrentThreadPriority(Thread.NORM_PRIORITY);
                     } catch (Throwable t) {
-                        LOG.warn("DataSender: unable to send data for category: {} due to {}: {}", catlabel, t.getClass().getName(), t.getMessage(), t);
+                        LOG.warn("DataSender: unable to send data for category: {} due to {}: {}", catlabel,
+                                 t.getClass().getName(), t.getMessage(), t);
                         setCurrentThreadPriority(Thread.NORM_PRIORITY);
                     } finally {
                         IOUtils.closeQuietly(inp);
@@ -429,7 +437,8 @@ final class DataSender implements Fiber {
                         // unsubscribe the URL
                         urlIter.remove();
 
-                        LOG.warn("URL {} UNSUBSCRIBED due to reaching error limit {}", postInfo.getURLString(), postInfo.getErrors());
+                        LOG.warn("URL {} UNSUBSCRIBED due to reaching error limit {}", postInfo.getURLString(),
+                                 postInfo.getErrors());
                     }
                 }
             }

@@ -54,22 +54,28 @@ import javax.persistence.Transient;
  * @version $Id: $
  */
 @Entity
-@Table(name="statisticsReport")
+@Table(name = "statisticsReport")
 public class StatisticsReport implements Serializable {
 
     private static final long serialVersionUID = -4311256943204150153L;
 
     private Integer m_id;
+
     private Date m_startDate;
+
     private Date m_endDate;
+
     private String m_name;
+
     private String m_description;
+
     private Date m_jobStartedDate;
+
     private Date m_jobCompletedDate;
+
     private Date m_purgeDate;
+
     private Set<StatisticsReportData> m_data = new HashSet<StatisticsReportData>();
-
-
 
     /**
      * Unique identifier for report.
@@ -77,40 +83,48 @@ public class StatisticsReport implements Serializable {
      * @return a {@link java.lang.Integer} object.
      */
     @Id
-    @Column(name="id")
-    @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")
+    @Column(name = "id")
+    @SequenceGenerator(name = "opennmsSequence", sequenceName = "opennmsNxtId")
+    @GeneratedValue(generator = "opennmsSequence")
     public Integer getId() {
         return m_id;
     }
+
     /**
-     * <p>setId</p>
+     * <p>
+     * setId
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      */
     public void setId(Integer id) {
         m_id = id;
     }
 
     /**
-     * The beginning date for the report (data starting at this time stamp is included).
+     * The beginning date for the report (data starting at this time stamp is
+     * included).
      *
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="startDate", nullable=false)
+    @Column(name = "startDate", nullable = false)
     public Date getStartDate() {
         return m_startDate;
     }
+
     /**
-     * <p>setStartDate</p>
+     * <p>
+     * setStartDate
+     * </p>
      *
-     * @param startDate a {@link java.util.Date} object.
+     * @param startDate
+     *            a {@link java.util.Date} object.
      */
     public void setStartDate(Date startDate) {
         m_startDate = startDate;
     }
-
 
     /**
      * The end date for the report (data up to,
@@ -119,19 +133,22 @@ public class StatisticsReport implements Serializable {
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="endDate", nullable=false)
+    @Column(name = "endDate", nullable = false)
     public Date getEndDate() {
         return m_endDate;
     }
+
     /**
-     * <p>setEndDate</p>
+     * <p>
+     * setEndDate
+     * </p>
      *
-     * @param endDate a {@link java.util.Date} object.
+     * @param endDate
+     *            a {@link java.util.Date} object.
      */
     public void setEndDate(Date endDate) {
         m_endDate = endDate;
     }
-
 
     /**
      * Report name this references a report definition
@@ -139,14 +156,18 @@ public class StatisticsReport implements Serializable {
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="name", length=63, nullable=false)
+    @Column(name = "name", length = 63, nullable = false)
     public String getName() {
         return m_name;
     }
+
     /**
-     * <p>setName</p>
+     * <p>
+     * setName
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setName(String name) {
         m_name = name;
@@ -157,14 +178,18 @@ public class StatisticsReport implements Serializable {
      *
      * @return a {@link java.lang.String} object.
      */
-    @Column(name="description", length=255, nullable=false)
+    @Column(name = "description", length = 255, nullable = false)
     public String getDescription() {
         return m_description;
     }
+
     /**
-     * <p>setDescription</p>
+     * <p>
+     * setDescription
+     * </p>
      *
-     * @param description a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
      */
     public void setDescription(String description) {
         m_description = description;
@@ -176,14 +201,18 @@ public class StatisticsReport implements Serializable {
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="jobStartedDate", nullable=false)
+    @Column(name = "jobStartedDate", nullable = false)
     public Date getJobStartedDate() {
         return m_jobStartedDate;
     }
+
     /**
-     * <p>setJobStartedDate</p>
+     * <p>
+     * setJobStartedDate
+     * </p>
      *
-     * @param jobStartedDate a {@link java.util.Date} object.
+     * @param jobStartedDate
+     *            a {@link java.util.Date} object.
      */
     public void setJobStartedDate(Date jobStartedDate) {
         m_jobStartedDate = jobStartedDate;
@@ -195,14 +224,18 @@ public class StatisticsReport implements Serializable {
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="jobCompletedDate", nullable=false)
+    @Column(name = "jobCompletedDate", nullable = false)
     public Date getJobCompletedDate() {
         return m_jobCompletedDate;
     }
+
     /**
-     * <p>setJobCompletedDate</p>
+     * <p>
+     * setJobCompletedDate
+     * </p>
      *
-     * @param jobCompletedDate a {@link java.util.Date} object.
+     * @param jobCompletedDate
+     *            a {@link java.util.Date} object.
      */
     public void setJobCompletedDate(Date jobCompletedDate) {
         m_jobCompletedDate = jobCompletedDate;
@@ -214,50 +247,66 @@ public class StatisticsReport implements Serializable {
      * @return a {@link java.util.Date} object.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="purgeDate", nullable=false)
+    @Column(name = "purgeDate", nullable = false)
     public Date getPurgeDate() {
         return m_purgeDate;
     }
+
     /**
-     * <p>setPurgeDate</p>
+     * <p>
+     * setPurgeDate
+     * </p>
      *
-     * @param purgeDate a {@link java.util.Date} object.
+     * @param purgeDate
+     *            a {@link java.util.Date} object.
      */
     public void setPurgeDate(Date purgeDate) {
         m_purgeDate = purgeDate;
     }
 
     /**
-     * <p>getData</p>
+     * <p>
+     * getData
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
-    @OneToMany(mappedBy="report", fetch=FetchType.LAZY)
-    @org.hibernate.annotations.Cascade( {
-        org.hibernate.annotations.CascadeType.ALL,
-        org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
+    @OneToMany(mappedBy = "report", fetch = FetchType.LAZY)
+    @org.hibernate.annotations.Cascade({ org.hibernate.annotations.CascadeType.ALL,
+            org.hibernate.annotations.CascadeType.DELETE_ORPHAN })
     public Set<StatisticsReportData> getData() {
         return m_data;
     }
+
     /**
-     * <p>setData</p>
+     * <p>
+     * setData
+     * </p>
      *
-     * @param data a {@link java.util.Set} object.
+     * @param data
+     *            a {@link java.util.Set} object.
      */
     public void setData(Set<StatisticsReportData> data) {
         m_data = data;
     }
+
     /**
-     * <p>addData</p>
+     * <p>
+     * addData
+     * </p>
      *
-     * @param datum a {@link org.opennms.netmgt.model.StatisticsReportData} object.
+     * @param datum
+     *            a {@link org.opennms.netmgt.model.StatisticsReportData}
+     *            object.
      */
     public void addData(StatisticsReportData datum) {
         m_data.add(datum);
     }
 
     /**
-     * <p>getDuration</p>
+     * <p>
+     * getDuration
+     * </p>
      *
      * @return a long.
      */
@@ -267,7 +316,9 @@ public class StatisticsReport implements Serializable {
     }
 
     /**
-     * <p>getDurationString</p>
+     * <p>
+     * getDurationString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -277,7 +328,9 @@ public class StatisticsReport implements Serializable {
     }
 
     /**
-     * <p>getJobDuration</p>
+     * <p>
+     * getJobDuration
+     * </p>
      *
      * @return a long.
      */
@@ -287,7 +340,9 @@ public class StatisticsReport implements Serializable {
     }
 
     /**
-     * <p>getJobDurationString</p>
+     * <p>
+     * getJobDurationString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -297,40 +352,42 @@ public class StatisticsReport implements Serializable {
     }
 
     /**
-     * <p>getMaxDatumValue</p>
+     * <p>
+     * getMaxDatumValue
+     * </p>
      *
      * @return a {@link java.lang.Double} object.
      */
     @Transient
     public Double getMaxDatumValue() {
         Double mv = null;
-        for ( Iterator<StatisticsReportData> it = m_data.iterator(); it.hasNext(); ) {
+        for (Iterator<StatisticsReportData> it = m_data.iterator(); it.hasNext();) {
             Double val = it.next().getValue();
             if (mv == null) {
-                 mv = val;
-            }
-            else if ( val > mv) {
-                 mv = val;
+                mv = val;
+            } else if (val > mv) {
+                mv = val;
             }
         }
         return mv;
     }
 
     /**
-     * <p>getMinDatumValue</p>
+     * <p>
+     * getMinDatumValue
+     * </p>
      *
      * @return a {@link java.lang.Double} object.
      */
     @Transient
     public Double getMinDatumValue() {
         Double mv = null;
-        for ( Iterator<StatisticsReportData> it = m_data.iterator(); it.hasNext(); ) {
+        for (Iterator<StatisticsReportData> it = m_data.iterator(); it.hasNext();) {
             Double val = it.next().getValue();
             if (mv == null) {
-                 mv = val;
-            }
-            else if ( val < mv) {
-                 mv = val;
+                mv = val;
+            } else if (val < mv) {
+                mv = val;
             }
         }
         return mv;

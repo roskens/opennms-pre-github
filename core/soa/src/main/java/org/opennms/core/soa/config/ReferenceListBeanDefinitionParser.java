@@ -43,7 +43,9 @@ import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Element;
 
 /**
- * <p>ReferenceListBeanDefinitionParser class.</p>
+ * <p>
+ * ReferenceListBeanDefinitionParser class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,18 +53,20 @@ import org.w3c.dom.Element;
 public class ReferenceListBeanDefinitionParser extends AbstractBeanDefinitionParser {
 
     private static final String INTERFACE_ATTR = "interface";
+
     private static final String FILTER_ATTR = "filter";
-	private String m_serviceInterface = null;
+
+    private String m_serviceInterface = null;
 
     /** {@inheritDoc} */
     @Override
-	protected AbstractBeanDefinition parseInternal(Element element, ParserContext context) {
-		BeanDefinitionBuilder factory = BeanDefinitionBuilder.rootBeanDefinition(ReferenceListFactoryBean.class);
-		factory.addPropertyReference("serviceRegistry", SERVICE_REGISTRY_BEAN_NAME);
+    protected AbstractBeanDefinition parseInternal(Element element, ParserContext context) {
+        BeanDefinitionBuilder factory = BeanDefinitionBuilder.rootBeanDefinition(ReferenceListFactoryBean.class);
+        factory.addPropertyReference("serviceRegistry", SERVICE_REGISTRY_BEAN_NAME);
 
-		String serviceInterface = element.getAttribute(INTERFACE_ATTR);
+        String serviceInterface = element.getAttribute(INTERFACE_ATTR);
         if (StringUtils.hasText(serviceInterface)) {
-        	m_serviceInterface = serviceInterface;
+            m_serviceInterface = serviceInterface;
             factory.addPropertyValue("serviceInterface", serviceInterface);
         }
 
@@ -74,25 +78,25 @@ public class ReferenceListBeanDefinitionParser extends AbstractBeanDefinitionPar
         List<Element> childElements = DomUtils.getChildElementsByTagName(element, "listener");
 
         if (childElements != null && childElements.size() > 0) {
-        	parseList(childElements, factory);
+            parseList(childElements, factory);
         }
 
-		return factory.getBeanDefinition();
-	}
+        return factory.getBeanDefinition();
+    }
 
-	private void parseList(List<Element> childElements, BeanDefinitionBuilder factory) {
-		BeanDefinitionBuilder listener = parseListener((Element)childElements.get(0));
-		factory.addPropertyValue("listener", listener.getBeanDefinition());
-	}
+    private void parseList(List<Element> childElements, BeanDefinitionBuilder factory) {
+        BeanDefinitionBuilder listener = parseListener((Element) childElements.get(0));
+        factory.addPropertyValue("listener", listener.getBeanDefinition());
+    }
 
-	private BeanDefinitionBuilder parseListener(Element element) {
-		BeanDefinitionBuilder listener = BeanDefinitionBuilder.rootBeanDefinition(RegistrationListenerBean.class);
-		listener.addPropertyReference("target", element.getAttribute("ref"));
-		listener.addPropertyValue("serviceInterface", m_serviceInterface);
-		listener.addPropertyValue("bindMethod", element.getAttribute("bind-method"));
-		listener.addPropertyValue("unbindMethod", element.getAttribute("unbind-method"));
+    private BeanDefinitionBuilder parseListener(Element element) {
+        BeanDefinitionBuilder listener = BeanDefinitionBuilder.rootBeanDefinition(RegistrationListenerBean.class);
+        listener.addPropertyReference("target", element.getAttribute("ref"));
+        listener.addPropertyValue("serviceInterface", m_serviceInterface);
+        listener.addPropertyValue("bindMethod", element.getAttribute("bind-method"));
+        listener.addPropertyValue("unbindMethod", element.getAttribute("unbind-method"));
 
-		return listener;
-	}
+        return listener;
+    }
 
 }

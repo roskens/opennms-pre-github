@@ -10,20 +10,20 @@ import com.vaadin.shared.ui.Connect;
 @Connect(SSHTerminal.class)
 public class TerminalConnector extends AbstractComponentConnector {
 
-	private static final long serialVersionUID = 5235402876358956383L;
+    private static final long serialVersionUID = 5235402876358956383L;
 
-	@Override
+    @Override
     public VTerminal getWidget() {
         return (VTerminal) super.getWidget();
     }
 
-	@Override
-	public SSHTerminalState getState() {
-	    return (SSHTerminalState) super.getState();
-	}
+    @Override
+    public SSHTerminalState getState() {
+        return (SSHTerminalState) super.getState();
+    }
 
-	@Override
-	public void onStateChanged(StateChangeEvent event) {
-	    super.onStateChanged(event);
-	}
+    @Override
+    public void onStateChanged(StateChangeEvent event) {
+        super.onStateChanged(event);
+    }
 }

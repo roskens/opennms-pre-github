@@ -39,7 +39,9 @@ import java.nio.ByteBuffer;
 public class NativeDatagramPacket {
 
     private ByteBuffer m_data;
+
     private InetAddress m_address;
+
     private int m_port;
 
     public NativeDatagramPacket(ByteBuffer data, InetAddress address, int port) {
@@ -104,8 +106,8 @@ public class NativeDatagramPacket {
         final int limit = data.limit();
         final int rows = (limit + bytesPerRow) / bytesPerRow;
         int index = 0;
-        for(int i = 0; i < rows && index < limit; i++) {
-            for(int j = 0; j < bytesPerRow && index < limit; j++) {
+        for (int i = 0; i < rows && index < limit; i++) {
+            for (int j = 0; j < bytesPerRow && index < limit; j++) {
                 buf.append(String.format("%02X", data.get(index++)));
             }
             buf.append("\n");

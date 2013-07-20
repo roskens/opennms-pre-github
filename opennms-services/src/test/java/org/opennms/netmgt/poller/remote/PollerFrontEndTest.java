@@ -75,8 +75,7 @@ public class PollerFrontEndTest extends TestCase {
                 return actual == null;
             }
 
-            return (m_expected.getSource() == actual.getSource() && m_expected
-                    .getIndex() == actual.getIndex());
+            return (m_expected.getSource() == actual.getSource() && m_expected.getIndex() == actual.getIndex());
         }
 
     }
@@ -104,7 +103,8 @@ public class PollerFrontEndTest extends TestCase {
         @Override
         public boolean matches(Object argument) {
             PropertyChangeEvent actual = (PropertyChangeEvent) argument;
-            if (m_expected == actual) return true;
+            if (m_expected == actual)
+                return true;
 
             if (m_expected == null) {
                 return actual == null;
@@ -112,11 +112,9 @@ public class PollerFrontEndTest extends TestCase {
 
             return (m_expected.getSource() == actual.getSource()
                     && m_expected.getPropertyName().equals(actual.getPropertyName())
-                    && nullSafeEquals(m_expected.getOldValue(), actual.getOldValue())
-                    && nullSafeEquals(m_expected.getNewValue(), actual.getNewValue()));
+                    && nullSafeEquals(m_expected.getOldValue(), actual.getOldValue()) && nullSafeEquals(m_expected.getNewValue(),
+                                                                                                        actual.getNewValue()));
         }
-
-
 
     }
 
@@ -238,13 +236,11 @@ public class PollerFrontEndTest extends TestCase {
 
         m_frontEnd.pollService(pollConfig().getFirstId());
 
-        ServicePollState pollState = m_frontEnd
-        .getServicePollState(pollConfig().getFirstId());
+        ServicePollState pollState = m_frontEnd.getServicePollState(pollConfig().getFirstId());
 
         m_mock.verifyAll();
 
-        assertEquals(PollStatus.SERVICE_AVAILABLE, pollState.getLastPoll()
-                     .getStatusCode());
+        assertEquals(PollStatus.SERVICE_AVAILABLE, pollState.getLastPoll().getStatusCode());
 
     }
 
@@ -282,21 +278,20 @@ public class PollerFrontEndTest extends TestCase {
 
         anticipateGetServicePollState();
 
-//      expect(m_settings.getMonitorId()).andReturn(1).atLeastOnce();
+        // expect(m_settings.getMonitorId()).andReturn(1).atLeastOnce();
 
-//      anticipateNewConfig(pollConfig());
+        // anticipateNewConfig(pollConfig());
 
-//      expect(m_backEnd.pollerStarting(1, getPollerDetails())).andReturn(true);
+        // expect(m_backEnd.pollerStarting(1,
+        // getPollerDetails())).andReturn(true);
 
         m_mock.replayAll();
 
         m_frontEnd.afterPropertiesSet();
 
-
         m_frontEnd.setInitialPollTime(polledServiceId, start);
 
-        assertEquals(start, m_frontEnd.getServicePollState(polledServiceId)
-                     .getNextPollTime());
+        assertEquals(start, m_frontEnd.getServicePollState(polledServiceId).getNextPollTime());
 
         m_mock.verifyAll();
     }
@@ -392,9 +387,9 @@ public class PollerFrontEndTest extends TestCase {
 
         m_frontEnd.setTimeAdjustment(new DefaultTimeAdjustment());
 
-//        ServerUnreachableAdaptor adaptor = new ServerUnreachableAdaptor();
-//        adaptor.setRemoteBackEnd(m_backEnd);
-//        m_frontEnd.setPollerBackEnd(adaptor);
+        // ServerUnreachableAdaptor adaptor = new ServerUnreachableAdaptor();
+        // adaptor.setRemoteBackEnd(m_backEnd);
+        // m_frontEnd.setPollerBackEnd(adaptor);
 
         m_frontEnd.setPollerBackEnd(m_backEnd);
 
@@ -425,7 +420,6 @@ public class PollerFrontEndTest extends TestCase {
 
         anticipateDoPollerStart();
 
-
     }
 
     private void anticipateDoPollerStart() {
@@ -446,8 +440,7 @@ public class PollerFrontEndTest extends TestCase {
     }
 
     private void anticipatePollerStarting() {
-        expect(m_backEnd.pollerStarting(getRegisteredId(), getPollerDetails()))
-        .andReturn(true);
+        expect(m_backEnd.pollerStarting(getRegisteredId(), getPollerDetails())).andReturn(true);
     }
 
     private void anticipateCheckConfig() {
@@ -457,7 +450,7 @@ public class PollerFrontEndTest extends TestCase {
     private void anticipateDoCheckIn() {
         anticipateGetMonitorId();
         anticipatePollerCheckingIn();
-        switch(m_monitorStatus) {
+        switch (m_monitorStatus) {
         case CONFIG_CHANGED:
             anticipateDoLoadConfig();
             break;
@@ -504,15 +497,14 @@ public class PollerFrontEndTest extends TestCase {
     }
 
     private void anticipateFireConfigurationChangeEvent() {
-        PropertyChangeEvent e = new PropertyChangeEvent(m_frontEnd,
-                                                        "configuration",
-                                                        (oldConfig() == null ? null : oldConfig().getConfigurationTimestamp()),
-                                                        (pollConfig() == null ? null : pollConfig().getConfigurationTimestamp()));
+        PropertyChangeEvent e = new PropertyChangeEvent(m_frontEnd, "configuration", (oldConfig() == null ? null
+            : oldConfig().getConfigurationTimestamp()), (pollConfig() == null ? null
+            : pollConfig().getConfigurationTimestamp()));
         m_configChangeListener.configurationChanged(eq(e));
     }
 
     private void anticipateFirePropertyChangeEvent(String property, Object oldValue, Object newValue) {
-        PropertyChangeEvent e= new PropertyChangeEvent(m_frontEnd, property, oldValue, newValue);
+        PropertyChangeEvent e = new PropertyChangeEvent(m_frontEnd, property, oldValue, newValue);
         m_registrationListener.propertyChange(eq(e));
     }
 
@@ -544,7 +536,7 @@ public class PollerFrontEndTest extends TestCase {
     private void anticipatePollerCheckingIn() {
 
         Date oldTimestamp = pollConfig().getConfigurationTimestamp();
-        switch(m_monitorStatus) {
+        switch (m_monitorStatus) {
         case CONFIG_CHANGED:
             setPollConfig(new DemoPollerConfiguration());
             break;
@@ -576,13 +568,9 @@ public class PollerFrontEndTest extends TestCase {
     }
 
     private void anticipatePollServiceSetMonitorLocators() {
-        ServiceMonitorLocator locator = new DefaultServiceMonitorLocator(
-                                                                         "HTTP", HttpMonitor.class);
+        ServiceMonitorLocator locator = new DefaultServiceMonitorLocator("HTTP", HttpMonitor.class);
         Set<ServiceMonitorLocator> locators = Collections.singleton(locator);
-        expect(
-               m_backEnd
-               .getServiceMonitorLocators(DistributionContext.REMOTE_MONITOR))
-               .andReturn(locators);
+        expect(m_backEnd.getServiceMonitorLocators(DistributionContext.REMOTE_MONITOR)).andReturn(locators);
         m_pollService.setServiceMonitorLocators(locators);
     }
 
@@ -595,7 +583,6 @@ public class PollerFrontEndTest extends TestCase {
     private void anticipateReportResult() {
         m_backEnd.reportResult(getRegisteredId(), pollConfig().getFirstId(), m_serviceStatus);
     }
-
 
     private void anticipateSetInitialPollTime() {
         anticipateGetServicePollState();
@@ -614,11 +601,9 @@ public class PollerFrontEndTest extends TestCase {
         anticipateFireServicePollStateChanged();
     }
 
-    private void assertPropertyEquals(String propertyName,
-            Map<String, String> details) {
+    private void assertPropertyEquals(String propertyName, Map<String, String> details) {
         assertNotNull("has " + propertyName, details.get(propertyName));
-        assertEquals(propertyName, System.getProperty(propertyName), details
-                     .get(propertyName));
+        assertEquals(propertyName, System.getProperty(propertyName), details.get(propertyName));
     }
 
     private PropertyChangeEvent eq(PropertyChangeEvent e) {

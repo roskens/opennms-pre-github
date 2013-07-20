@@ -36,8 +36,7 @@ import junit.framework.AssertionFailedError;
 
 import org.opennms.test.ThrowableAnticipator;
 
-public class TriggerSetIpInterfaceKeysOnInsertTest extends
-        PopulatedTemporaryDatabaseTestCase {
+public class TriggerSetIpInterfaceKeysOnInsertTest extends PopulatedTemporaryDatabaseTestCase {
 
     public void testSetIpInterfaceIdInIfService() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -50,8 +49,7 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT id, ipInterfaceID from ifServices");
-            assertTrue("could not advance to read first row in ResultSet",
-                       rs.next());
+            assertTrue("could not advance to read first row in ResultSet", rs.next());
             assertEquals("expected ifServices id", 3, rs.getInt(1));
             assertEquals("expected ifServices ipInterfaceId", 2, rs.getInt(2));
             assertFalse("ResultSet contains more than one row", rs.next());
@@ -60,7 +58,6 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         }
     }
 
-
     public void testSetIpInterfaceIdInIfServiceAllZeroesIpAddress() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1 )");
@@ -68,7 +65,8 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         executeSQL("INSERT INTO service (serviceID, serviceName) VALUES ( 1, 'COFFEE-READY' )");
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new AssertionFailedError("Could not execute statement: 'INSERT INTO ifServices (nodeID, ipAddr, ifIndex, serviceID) VALUES ( 1, '0.0.0.0', 1, 1)': ERROR: IfServices Trigger Exception, Condition 0: ipAddr of 0.0.0.0 is not allowed in ifServices table"));
+        ta.anticipate(new AssertionFailedError(
+                                               "Could not execute statement: 'INSERT INTO ifServices (nodeID, ipAddr, ifIndex, serviceID) VALUES ( 1, '0.0.0.0', 1, 1)': ERROR: IfServices Trigger Exception, Condition 0: ipAddr of 0.0.0.0 is not allowed in ifServices table"));
         try {
             executeSQL("INSERT INTO ifServices (nodeID, ipAddr, ifIndex, serviceID) VALUES ( 1, '0.0.0.0', 1, 1)");
         } catch (Throwable t) {
@@ -77,8 +75,7 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         ta.verifyAnticipated();
     }
 
-    public void testSetIpInterfaceIdInIfServiceNullIfIndexBoth()
-            throws Exception {
+    public void testSetIpInterfaceIdInIfServiceNullIfIndexBoth() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
         executeSQL("INSERT INTO service (serviceID, serviceName) VALUES ( 1, 'COFFEE-READY' )");
@@ -88,8 +85,7 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT id, ipInterfaceID from ifServices");
-            assertTrue("could not advance to read first row in ResultSet",
-                       rs.next());
+            assertTrue("could not advance to read first row in ResultSet", rs.next());
             assertEquals("expected ifServices id", 2, rs.getInt(1));
             assertEquals("expected ifServices ipInterfaceId", 1, rs.getInt(2));
             assertFalse("ResultSet contains more than one row", rs.next());
@@ -98,8 +94,7 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         }
     }
 
-    public void testSetIpInterfaceIdInIfServiceNullIfIndexInIfServices()
-            throws Exception {
+    public void testSetIpInterfaceIdInIfServiceNullIfIndexInIfServices() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 1 )");
@@ -110,16 +105,14 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT id, ipInterfaceID from ifServices");
-            assertTrue("could not advance to read first row in ResultSet",
-                       rs.next());
+            assertTrue("could not advance to read first row in ResultSet", rs.next());
             assertFalse("ResultSet contains more than one row", rs.next());
         } finally {
             connection.close();
         }
     }
 
-    public void testSetIpInterfaceIdInIfServiceNullIfIndexInIpInterface()
-            throws Exception {
+    public void testSetIpInterfaceIdInIfServiceNullIfIndexInIpInterface() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
         executeSQL("INSERT INTO service (serviceID, serviceName) VALUES ( 1, 'COFFEE-READY' )");
@@ -128,17 +121,14 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT id from ipInterface");
-            assertTrue("could not advance to read first results row from ipInterface",
-                       rs.next());
+            assertTrue("could not advance to read first results row from ipInterface", rs.next());
             int ipInterfaceId = rs.getInt(1);
 
-            executeSQL("INSERT INTO ifServices (ipInterfaceId, serviceID) VALUES ( "
-                       + ipInterfaceId + ", 1)");
+            executeSQL("INSERT INTO ifServices (ipInterfaceId, serviceID) VALUES ( " + ipInterfaceId + ", 1)");
 
             st = connection.createStatement();
             rs = st.executeQuery("SELECT id, ipInterfaceID from ifServices");
-            assertTrue("could not advance to read first row in ResultSet",
-                       rs.next());
+            assertTrue("could not advance to read first row in ResultSet", rs.next());
             rs.getInt(1);
             assertFalse("ifServices.id should be non-null", rs.wasNull());
             assertEquals("ifServices.ipInterfaceId", ipInterfaceId, rs.getInt(2));

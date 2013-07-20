@@ -47,105 +47,118 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class QoSD extends AbstractServiceDaemon implements QoSDMBean {
     private static final Logger LOG = LoggerFactory.getLogger(QoSD.class);
 
-	/**
-	 * <p>Constructor for QoSD.</p>
-	 */
-	public QoSD() {
-		super(NAME);
-	}
+    /**
+     * <p>
+     * Constructor for QoSD.
+     * </p>
+     */
+    public QoSD() {
+        super(NAME);
+    }
 
-	private static final String NAME = org.openoss.opennms.spring.qosd.QoSDimpl2.NAME;
+    private static final String NAME = org.openoss.opennms.spring.qosd.QoSDimpl2.NAME;
 
-	private ClassPathXmlApplicationContext m_context;
+    private ClassPathXmlApplicationContext m_context;
 
-	// used only for testing
-	ApplicationContext getContext() {
-		return m_context;
-	}
+    // used only for testing
+    ApplicationContext getContext() {
+        return m_context;
+    }
 
-	/**
-	 * <p>onInit</p>
-	 */
-        @Override
-	protected void onInit() {}
+    /**
+     * <p>
+     * onInit
+     * </p>
+     */
+    @Override
+    protected void onInit() {
+    }
 
+    /**
+     * <p>
+     * onStart
+     * </p>
+     */
+    @Override
+    protected void onStart() {
 
-	/**
-	 * <p>onStart</p>
-	 */
-        @Override
-	protected void onStart() {
+        // TODO REMOVE EXAMPLE IMPORTER CODE
+        // ThreadCategory.setPrefix(ImporterService.NAME);
+        // m_status = Fiber.STARTING;
+        // ThreadCategory.getInstance().debug("SPRING: thread.classLoader="+Thread.currentThread().getContextClassLoader());
 
+        // BeanFactoryLocator bfl = DefaultLocatorFactory.getInstance();
+        // BeanFactoryReference bf = bfl.useBeanFactory("daoContext");
+        // ApplicationContext daoContext = (ApplicationContext) bf.getFactory();
 
-//TODO REMOVE EXAMPLE IMPORTER CODE
-//		ThreadCategory.setPrefix(ImporterService.NAME);
-//		m_status = Fiber.STARTING;
-//		ThreadCategory.getInstance().debug("SPRING: thread.classLoader="+Thread.currentThread().getContextClassLoader());
+        // m_context = new ClassPathXmlApplicationContext(new String[] {
+        // "/org/opennms/netmgt/importer/importer-context.xml" }, daoContext);
+        // ThreadCategory.getInstance().debug("SPRING: context.classLoader="+m_context.getClassLoader());
+        // m_status = Fiber.RUNNING;
 
-//		BeanFactoryLocator bfl = DefaultLocatorFactory.getInstance();
-//		BeanFactoryReference bf = bfl.useBeanFactory("daoContext");
-//		ApplicationContext daoContext = (ApplicationContext) bf.getFactory();
+        LOG.debug("SPRING: thread.classLoader={}", Thread.currentThread().getContextClassLoader());
 
-//		m_context = new ClassPathXmlApplicationContext(new String[] { "/org/opennms/netmgt/importer/importer-context.xml" }, daoContext);
-//		ThreadCategory.getInstance().debug("SPRING: context.classLoader="+m_context.getClassLoader());
-//		m_status = Fiber.RUNNING;
+        // finds the already instantiated OpenNMS daoContext
+        BeanFactoryLocator bfl = DefaultLocatorFactory.getInstance();
+        BeanFactoryReference bf = bfl.useBeanFactory("daoContext");
+        ApplicationContext daoContext = (ApplicationContext) bf.getFactory();
 
-		LOG.debug("SPRING: thread.classLoader={}", Thread.currentThread().getContextClassLoader());
+        // this chooses if we expect AlarmMonitor to run in seperate j2ee
+        // container ( Jboss ) or in local
+        // OpenNMS spring container
+        String qosdj2ee = System.getProperty("qosd.usej2ee");
+        LOG.info("QoSD System Property qosd.usej2ee={}", qosdj2ee);
+        if ("true".equals(qosdj2ee)) {
+            LOG.debug("QoSD using /org/openoss/opennms/spring/qosd/qosd-j2ee-context.xml");
+            m_context = new ClassPathXmlApplicationContext(
+                                                           new String[] { "/org/openoss/opennms/spring/qosd/qosd-j2ee-context.xml" },
+                                                           daoContext);
+        } else {
+            LOG.debug("QoSD using /org/openoss/opennms/spring/qosd/qosd-spring-context.xml");
+            m_context = new ClassPathXmlApplicationContext(
+                                                           new String[] { "/org/openoss/opennms/spring/qosd/qosd-spring-context.xml" },
+                                                           daoContext);
+        }
 
-		// finds the already instantiated OpenNMS daoContext
-		BeanFactoryLocator bfl = DefaultLocatorFactory.getInstance();
-		BeanFactoryReference bf = bfl.useBeanFactory("daoContext");
-		ApplicationContext daoContext = (ApplicationContext) bf.getFactory();
+        LOG.debug("SPRING: context.classLoader={}", m_context.getClassLoader());
 
+        getQoSD().init();
+        getQoSD().start();
+    }
 
-		// this chooses if we expect AlarmMonitor to run in seperate j2ee container ( Jboss ) or in local
-		// OpenNMS spring container
-		String qosdj2ee=System.getProperty("qosd.usej2ee");
-		LOG.info("QoSD System Property qosd.usej2ee={}", qosdj2ee);
-		if ("true".equals(qosdj2ee)){
-			LOG.debug("QoSD using /org/openoss/opennms/spring/qosd/qosd-j2ee-context.xml");
-			m_context = new ClassPathXmlApplicationContext(new String[] { "/org/openoss/opennms/spring/qosd/qosd-j2ee-context.xml" },daoContext);
-		}
-		else {
-			LOG.debug("QoSD using /org/openoss/opennms/spring/qosd/qosd-spring-context.xml");
-			m_context = new ClassPathXmlApplicationContext(new String[] { "/org/openoss/opennms/spring/qosd/qosd-spring-context.xml" },daoContext);
-		}
+    /**
+     * <p>
+     * onStop
+     * </p>
+     */
+    @Override
+    protected void onStop() {
+        getQoSD().stop();
 
-		LOG.debug("SPRING: context.classLoader={}", m_context.getClassLoader());
+        m_context.close();
+    }
 
-		getQoSD().init();
-		getQoSD().start();
-	}
+    /**
+     * <p>
+     * getStats
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getStats() {
+        return getQoSD().getStats();
+    }
 
-
-	/**
-	 * <p>onStop</p>
-	 */
-        @Override
-	protected void onStop() {
-		getQoSD().stop();
-
-		m_context.close();
-	}
-
-	/**
-	 * <p>getStats</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getStats() {
-		return getQoSD().getStats();
-	}
-
-	/**
-	 * Returns the qosd singleton
-	 * @return qosd
-	 */
-	private org.openoss.opennms.spring.qosd.QoSD getQoSD() {
-		org.openoss.opennms.spring.qosd.QoSD qosd = (org.openoss.opennms.spring.qosd.QoSD)m_context.getBean("QoSD");
-		qosd.setApplicationContext(m_context); // pass in local spring application context
-		return qosd;
-	}
-
+    /**
+     * Returns the qosd singleton
+     *
+     * @return qosd
+     */
+    private org.openoss.opennms.spring.qosd.QoSD getQoSD() {
+        org.openoss.opennms.spring.qosd.QoSD qosd = (org.openoss.opennms.spring.qosd.QoSD) m_context.getBean("QoSD");
+        qosd.setApplicationContext(m_context); // pass in local spring
+                                               // application context
+        return qosd;
+    }
 
 }

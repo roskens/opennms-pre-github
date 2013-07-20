@@ -49,19 +49,19 @@ import org.xml.sax.ContentHandler;
 
 /**
  * The automatic action to occur when this event occurs with
- *  state controlling if action takes place
+ * state controlling if action takes place
  */
-@XmlRootElement(name="autoaction")
+@XmlRootElement(name = "autoaction")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Autoaction implements Serializable {
-	private static final long serialVersionUID = 2137780856580089677L;
+    private static final long serialVersionUID = 2137780856580089677L;
 
-	@XmlValue
+    @XmlValue
     private String m_content = "";
 
-	// @Pattern(regexp="(on|off)")
-	@XmlAttribute(name="state", required=false)
+    // @Pattern(regexp="(on|off)")
+    @XmlAttribute(name = "state", required = false)
     private String m_state;
 
     public String getContent() {
@@ -69,7 +69,7 @@ public class Autoaction implements Serializable {
     }
 
     public String getState() {
-        return m_state == null? "on" : m_state; // XSD default is on
+        return m_state == null ? "on" : m_state; // XSD default is on
     }
 
     /**
@@ -108,32 +108,37 @@ public class Autoaction implements Serializable {
         new Validator().validate(this);
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((m_content == null) ? 0 : m_content.hashCode());
-		result = prime * result + ((m_state == null) ? 0 : m_state.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_content == null) ? 0 : m_content.hashCode());
+        result = prime * result + ((m_state == null) ? 0 : m_state.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Autoaction)) return false;
-		final Autoaction other = (Autoaction) obj;
-		if (m_content == null) {
-			if (other.m_content != null) return false;
-		} else if (!m_content.equals(other.m_content)) {
-			return false;
-		}
-		if (m_state == null) {
-			if (other.m_state != null) return false;
-		} else if (!m_state.equals(other.m_state)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Autoaction))
+            return false;
+        final Autoaction other = (Autoaction) obj;
+        if (m_content == null) {
+            if (other.m_content != null)
+                return false;
+        } else if (!m_content.equals(other.m_content)) {
+            return false;
+        }
+        if (m_state == null) {
+            if (other.m_state != null)
+                return false;
+        } else if (!m_state.equals(other.m_state)) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -62,19 +62,25 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      */
     private static final String DEFAULT_OID = ".1.3.6.1.2.1.1.2.0";
 
-    //These are -1 so by default we use the AgentConfig
+    // These are -1 so by default we use the AgentConfig
     private static final int DEFAULT_PORT = -1;
+
     private static final int DEFAULT_TIMEOUT = -1;
+
     private static final int DEFAULT_RETRIES = -1;
 
     private String m_oid = DEFAULT_OID;
+
     private String m_forceVersion;
+
     private String m_vbvalue;
 
     private SnmpAgentConfigFactory m_agentConfigFactory;
 
     /**
-     * <p>Constructor for SnmpDetector.</p>
+     * <p>
+     * Constructor for SnmpDetector.
+     * </p>
      */
     public SnmpDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT, DEFAULT_TIMEOUT, DEFAULT_RETRIES);
@@ -83,8 +89,10 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public SnmpDetector(String serviceName, int port) {
         super(serviceName, port, DEFAULT_TIMEOUT, DEFAULT_RETRIES);
@@ -125,9 +133,12 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     }
 
     /**
-     * <p>configureAgentVersion</p>
+     * <p>
+     * configureAgentVersion
+     * </p>
      *
-     * @param agentConfig a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
+     * @param agentConfig
+     *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     protected void configureAgentVersion(SnmpAgentConfig agentConfig) {
         if (getForceVersion() != null) {
@@ -144,9 +155,12 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     }
 
     /**
-     * <p>configureAgentPTR</p>
+     * <p>
+     * configureAgentPTR
+     * </p>
      *
-     * @param agentConfig a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
+     * @param agentConfig
+     *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     protected void configureAgentPTR(SnmpAgentConfig agentConfig) {
         if (getPort() > 0) {
@@ -163,34 +177,42 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     }
 
     /**
-     * <p>getValue</p>
+     * <p>
+     * getValue
+     * </p>
      *
-     * @param agentConfig a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
-     * @param oid a {@link java.lang.String} object.
+     * @param agentConfig
+     *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
+     * @param oid
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected String getValue(SnmpAgentConfig agentConfig, String oid) {
         SnmpValue val = SnmpUtils.get(agentConfig, SnmpObjId.get(oid));
         if (val == null || val.isNull() || val.isEndOfMib() || val.isError()) {
             return null;
-        }
-        else {
+        } else {
             return val.toString();
         }
 
     }
 
     /**
-     * <p>setOid</p>
+     * <p>
+     * setOid
+     * </p>
      *
-     * @param oid a {@link java.lang.String} object.
+     * @param oid
+     *            a {@link java.lang.String} object.
      */
     public void setOid(String oid) {
         m_oid = oid;
     }
 
     /**
-     * <p>getOid</p>
+     * <p>
+     * getOid
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -199,16 +221,21 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     }
 
     /**
-     * <p>setForceVersion</p>
+     * <p>
+     * setForceVersion
+     * </p>
      *
-     * @param forceVersion a {@link java.lang.String} object.
+     * @param forceVersion
+     *            a {@link java.lang.String} object.
      */
     public void setForceVersion(String forceVersion) {
         m_forceVersion = forceVersion;
     }
 
     /**
-     * <p>getForceVersion</p>
+     * <p>
+     * getForceVersion
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -217,16 +244,21 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     }
 
     /**
-     * <p>setVbvalue</p>
+     * <p>
+     * setVbvalue
+     * </p>
      *
-     * @param vbvalue a {@link java.lang.String} object.
+     * @param vbvalue
+     *            a {@link java.lang.String} object.
      */
     public void setVbvalue(String vbvalue) {
         m_vbvalue = vbvalue;
     }
 
     /**
-     * <p>getVbvalue</p>
+     * <p>
+     * getVbvalue
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -235,9 +267,13 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     }
 
     /**
-     * <p>setAgentConfigFactory</p>
+     * <p>
+     * setAgentConfigFactory
+     * </p>
      *
-     * @param agentConfigFactory a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory} object.
+     * @param agentConfigFactory
+     *            a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
+     *            object.
      */
     @Autowired
     public void setAgentConfigFactory(SnmpAgentConfigFactory agentConfigFactory) {
@@ -245,15 +281,19 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     }
 
     /**
-     * <p>getAgentConfigFactory</p>
+     * <p>
+     * getAgentConfigFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory} object.
+     * @return a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
+     *         object.
      */
     public SnmpAgentConfigFactory getAgentConfigFactory() {
         return m_agentConfigFactory;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.provision.detector.AbstractDetector#onInit()
      */
     /** {@inheritDoc} */

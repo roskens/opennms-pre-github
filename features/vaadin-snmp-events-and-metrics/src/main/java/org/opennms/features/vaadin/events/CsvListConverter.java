@@ -44,10 +44,12 @@ public class CsvListConverter implements Converter<String, CsvListConverter.Stri
     /**
      * The Class StringList.
      */
-    public static class StringList extends ArrayList<String> {}
+    public static class StringList extends ArrayList<String> {
+    }
 
     @Override
-    public StringList convertToModel(String fieldValue, Class<? extends StringList> targetType, Locale locale) throws ConversionException {
+    public StringList convertToModel(String fieldValue, Class<? extends StringList> targetType, Locale locale)
+            throws ConversionException {
         StringList list = new StringList();
         if (fieldValue != null) {
             for (String s : fieldValue.split(",")) {
@@ -62,17 +64,18 @@ public class CsvListConverter implements Converter<String, CsvListConverter.Stri
     }
 
     @Override
-    public String convertToPresentation(StringList propertyValue, Class<? extends String> targetType, Locale locale) throws ConversionException {
+    public String convertToPresentation(StringList propertyValue, Class<? extends String> targetType, Locale locale)
+            throws ConversionException {
         return propertyValue == null ? null : StringUtils.join(propertyValue, ',');
     }
 
     @Override
-	public Class<StringList> getModelType() {
-		return StringList.class;
-	}
+    public Class<StringList> getModelType() {
+        return StringList.class;
+    }
 
-	@Override
-	public Class<String> getPresentationType() {
-		return String.class;
-	}
+    @Override
+    public Class<String> getPresentationType() {
+        return String.class;
+    }
 }

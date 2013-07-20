@@ -45,7 +45,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * <p>DefaultRrdDao class.</p>
+ * <p>
+ * DefaultRrdDao class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -53,8 +55,11 @@ import org.springframework.util.StringUtils;
 public class DefaultRrdDao implements RrdDao, InitializingBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultRrdDao.class);
+
     private RrdStrategy<?, ?> m_rrdStrategy;
+
     private File m_rrdBaseDirectory;
+
     private String m_rrdBinaryPath;
 
     /** {@inheritDoc} */
@@ -64,21 +69,30 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
     }
 
     /**
-     * <p>getPrintValues</p>
+     * <p>
+     * getPrintValues
+     * </p>
      *
-     * @param attribute a {@link org.opennms.netmgt.model.OnmsAttribute} object.
-     * @param rraConsolidationFunction a {@link java.lang.String} object.
-     * @param startTimeInMillis a long.
-     * @param endTimeInMillis a long.
-     * @param printFunctions a {@link java.lang.String} object.
+     * @param attribute
+     *            a {@link org.opennms.netmgt.model.OnmsAttribute} object.
+     * @param rraConsolidationFunction
+     *            a {@link java.lang.String} object.
+     * @param startTimeInMillis
+     *            a long.
+     * @param endTimeInMillis
+     *            a long.
+     * @param printFunctions
+     *            a {@link java.lang.String} object.
      * @return an array of double.
      */
     @Override
-    public double[] getPrintValues(OnmsAttribute attribute, String rraConsolidationFunction, long startTimeInMillis, long endTimeInMillis, String... printFunctions) {
+    public double[] getPrintValues(OnmsAttribute attribute, String rraConsolidationFunction, long startTimeInMillis,
+            long endTimeInMillis, String... printFunctions) {
         Assert.notNull(attribute, "attribute argument must not be null");
         Assert.notNull(rraConsolidationFunction, "rraConsolicationFunction argument must not be null");
         Assert.isTrue(endTimeInMillis > startTimeInMillis, "end argument must be after start argument");
-        Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class, "attribute argument must be assignable to RrdGraphAttribute");
+        Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class,
+                            "attribute argument must be assignable to RrdGraphAttribute");
 
         // if no printFunctions are given just use the rraConsolidationFunction
         if (printFunctions.length < 1) {
@@ -93,33 +107,38 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
                 "-",
                 "--start=" + (startTimeInMillis / 1000),
                 "--end=" + (endTimeInMillis / 1000),
-                "DEF:ds=" + RrdFileConstants.escapeForGraphing(rrdAttribute.getRrdRelativePath()) + ":" + attribute.getName() + ":" + rraConsolidationFunction,
-        };
+                "DEF:ds=" + RrdFileConstants.escapeForGraphing(rrdAttribute.getRrdRelativePath()) + ":"
+                        + attribute.getName() + ":" + rraConsolidationFunction, };
 
         String[] printDefs = new String[printFunctions.length];
         for (int i = 0; i < printFunctions.length; i++) {
             printDefs[i] = "PRINT:ds:" + printFunctions[i] + ":\"%le\"";
         }
 
-        String commandString = StringUtils.arrayToDelimitedString(command, " ") + ' ' + StringUtils.arrayToDelimitedString(printDefs, " ");
+        String commandString = StringUtils.arrayToDelimitedString(command, " ") + ' '
+                + StringUtils.arrayToDelimitedString(printDefs, " ");
 
         LOG.debug("commandString: {}", commandString);
         RrdGraphDetails graphDetails;
         try {
             graphDetails = m_rrdStrategy.createGraphReturnDetails(commandString, m_rrdBaseDirectory);
         } catch (Throwable e) {
-            throw new DataAccessResourceFailureException("Failure when generating graph to get data with command '" + commandString + "'", e);
+            throw new DataAccessResourceFailureException("Failure when generating graph to get data with command '"
+                    + commandString + "'", e);
         }
 
         String[] printLines;
         try {
             printLines = graphDetails.getPrintLines();
         } catch (Throwable e) {
-            throw new DataAccessResourceFailureException("Failure to get print lines from graph after graphing with command '" + commandString + "'", e);
+            throw new DataAccessResourceFailureException(
+                                                         "Failure to get print lines from graph after graphing with command '"
+                                                                 + commandString + "'", e);
         }
 
         if (printLines.length != printFunctions.length) {
-            throw new DataAccessResourceFailureException("Returned number of print lines should be "+printFunctions.length+", but was " + printLines.length + " from command: " + commandString);
+            throw new DataAccessResourceFailureException("Returned number of print lines should be "
+                    + printFunctions.length + ", but was " + printLines.length + " from command: " + commandString);
         }
 
         double[] values = new double[printLines.length];
@@ -131,7 +150,8 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
                 try {
                     values[i] = Double.parseDouble(printLines[i]);
                 } catch (NumberFormatException e) {
-                    throw new DataAccessResourceFailureException("Value of line " + (i + 1) + " of output from RRD is not a valid floating point number: '" + printLines[i] + "'");
+                    throw new DataAccessResourceFailureException("Value of line " + (i + 1)
+                            + " of output from RRD is not a valid floating point number: '" + printLines[i] + "'");
                 }
             }
         }
@@ -140,9 +160,12 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -152,7 +175,9 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
     }
 
     /**
-     * <p>getRrdStrategy</p>
+     * <p>
+     * getRrdStrategy
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
      */
@@ -161,16 +186,21 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
     }
 
     /**
-     * <p>setRrdStrategy</p>
+     * <p>
+     * setRrdStrategy
+     * </p>
      *
-     * @param rrdStrategy a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
+     * @param rrdStrategy
+     *            a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
      */
     public void setRrdStrategy(RrdStrategy<?, ?> rrdStrategy) {
         m_rrdStrategy = rrdStrategy;
     }
 
     /**
-     * <p>getRrdBaseDirectory</p>
+     * <p>
+     * getRrdBaseDirectory
+     * </p>
      *
      * @return a {@link java.io.File} object.
      */
@@ -179,16 +209,21 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
     }
 
     /**
-     * <p>setRrdBaseDirectory</p>
+     * <p>
+     * setRrdBaseDirectory
+     * </p>
      *
-     * @param rrdBaseDirectory a {@link java.io.File} object.
+     * @param rrdBaseDirectory
+     *            a {@link java.io.File} object.
      */
     public void setRrdBaseDirectory(File rrdBaseDirectory) {
         m_rrdBaseDirectory = rrdBaseDirectory;
     }
 
     /**
-     * <p>getRrdBinaryPath</p>
+     * <p>
+     * getRrdBinaryPath
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -197,31 +232,36 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
     }
 
     /**
-     * <p>setRrdBinaryPath</p>
+     * <p>
+     * setRrdBinaryPath
+     * </p>
      *
-     * @param rrdBinaryPath a {@link java.lang.String} object.
+     * @param rrdBinaryPath
+     *            a {@link java.lang.String} object.
      */
     public void setRrdBinaryPath(String rrdBinaryPath) {
         m_rrdBinaryPath = rrdBinaryPath;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Create an RRD graph.
      *
-     * Create an RRD graph.
-     * @see org.opennms.netmgt.dao.api.RrdDao#createGraph(java.lang.String, java.io.File)
+     * @see org.opennms.netmgt.dao.api.RrdDao#createGraph(java.lang.String,
+     *      java.io.File)
      */
     @Override
     public InputStream createGraph(String command, File workDir) throws DataRetrievalFailureException {
-       try {
-           return m_rrdStrategy.createGraph(command, workDir);
-       } catch (Throwable e) {
-           throw new DataRetrievalFailureException("Could not create graph: " + e, e);
-       }
+        try {
+            return m_rrdStrategy.createGraph(command, workDir);
+        } catch (Throwable e) {
+            throw new DataRetrievalFailureException("Could not create graph: " + e, e);
+        }
     }
 
     /**
-     * <p>getGraphTopOffsetWithText</p>
+     * <p>
+     * getGraphTopOffsetWithText
+     * </p>
      *
      * @see org.opennms.netmgt.dao.api.RrdDao#getGraphTopOffsetWithText()
      * @return a int.
@@ -232,7 +272,9 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
     }
 
     /**
-     * <p>getGraphLeftOffset</p>
+     * <p>
+     * getGraphLeftOffset
+     * </p>
      *
      * @see org.opennms.netmgt.dao.api.RrdDao#getGraphLeftOffset()
      * @return a int.
@@ -243,7 +285,9 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
     }
 
     /**
-     * <p>getGraphRightOffset</p>
+     * <p>
+     * getGraphRightOffset
+     * </p>
      *
      * @see org.opennms.netmgt.dao.api.RrdDao#getGraphRightOffset()
      * @return a int.
@@ -258,7 +302,8 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
     public Double getLastFetchValue(OnmsAttribute attribute, int interval) throws DataAccessResourceFailureException {
         Assert.notNull(attribute, "attribute argument must not be null");
         Assert.isTrue(interval > 0, "interval argument must be greater than zero");
-        Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class, "attribute argument must be assignable to RrdGraphAttribute");
+        Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class,
+                            "attribute argument must be assignable to RrdGraphAttribute");
 
         RrdGraphAttribute rrdAttribute = (RrdGraphAttribute) attribute;
 
@@ -266,17 +311,20 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         try {
             return m_rrdStrategy.fetchLastValue(rrdFile.getAbsolutePath(), attribute.getName(), interval);
         } catch (Throwable e) {
-            throw new DataAccessResourceFailureException("Failure to fetch last value from file '" + rrdFile + "' with interval " + interval, e);
+            throw new DataAccessResourceFailureException("Failure to fetch last value from file '" + rrdFile
+                    + "' with interval " + interval, e);
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double getLastFetchValue(OnmsAttribute attribute, int interval, int range) throws DataAccessResourceFailureException {
+    public Double getLastFetchValue(OnmsAttribute attribute, int interval, int range)
+            throws DataAccessResourceFailureException {
         Assert.notNull(attribute, "attribute argument must not be null");
         Assert.isTrue(interval > 0, "interval argument must be greater than zero");
         Assert.isTrue(range > 0, "range argument must be greater than zero");
-        Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class, "attribute argument must be assignable to RrdGraphAttribute");
+        Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class,
+                            "attribute argument must be assignable to RrdGraphAttribute");
 
         RrdGraphAttribute rrdAttribute = (RrdGraphAttribute) attribute;
 
@@ -284,7 +332,8 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         try {
             return m_rrdStrategy.fetchLastValueInRange(rrdFile.getAbsolutePath(), attribute.getName(), interval, range);
         } catch (Throwable e) {
-            throw new DataAccessResourceFailureException("Failure to fetch last value from file '" + rrdFile + "' with interval " + interval + " and range " + range, e);
+            throw new DataAccessResourceFailureException("Failure to fetch last value from file '" + rrdFile
+                    + "' with interval " + interval + " and range " + range, e);
         }
     }
 }

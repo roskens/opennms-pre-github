@@ -33,6 +33,7 @@ import org.opennms.netmgt.snmp.SnmpValue;
 
 public class TestVarBind {
     private SnmpObjId m_oid;
+
     private SnmpValue m_val;
 
     public TestVarBind(SnmpObjId oid) {
@@ -44,6 +45,7 @@ public class TestVarBind {
         m_val = val;
 
     }
+
     public SnmpObjId getObjId() {
         return m_oid;
     }

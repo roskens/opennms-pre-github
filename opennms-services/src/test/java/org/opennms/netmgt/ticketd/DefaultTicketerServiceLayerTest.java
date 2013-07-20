@@ -45,7 +45,6 @@ import org.opennms.core.test.MockLogAppender;
 import junit.framework.TestCase;
 
 /**
- *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -54,14 +53,21 @@ import junit.framework.TestCase;
 public class DefaultTicketerServiceLayerTest extends TestCase {
 
     private DefaultTicketerServiceLayer m_defaultTicketerServiceLayer;
+
     private EasyMockUtils m_easyMockUtils;
+
     private AlarmDao m_alarmDao;
+
     private Plugin m_ticketerPlugin;
+
     private OnmsAlarm m_alarm;
+
     private Ticket m_ticket;
+
     private MockEventIpcManager m_eventIpcManager;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      * TODO add event anticipators
      */
@@ -87,7 +93,8 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see junit.framework.TestCase#tearDown()
      */
     @Override
@@ -97,7 +104,9 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#cancelTicketForAlarm(int, java.lang.String)}.
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#cancelTicketForAlarm(int, java.lang.String)}
+     * .
      */
     public void testCancelTicketForAlarm() {
 
@@ -122,8 +131,11 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#cancelTicketForAlarm(int, java.lang.String)}.
-     * Tests for correct alarm TroubleTicketState set as CANCEL_FAILED when ticketer plugin fails
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#cancelTicketForAlarm(int, java.lang.String)}
+     * .
+     * Tests for correct alarm TroubleTicketState set as CANCEL_FAILED when
+     * ticketer plugin fails
      */
     public void testFailedCancelTicketForAlarm() {
 
@@ -146,7 +158,6 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
 
         m_easyMockUtils.verifyAll();
     }
-
 
     /**
      * @param state
@@ -187,8 +198,6 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
         });
     }
 
-
-
     /**
      * @param state
      */
@@ -215,7 +224,9 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#closeTicketForAlarm(int, java.lang.String)}.
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#closeTicketForAlarm(int, java.lang.String)}
+     * .
      */
     public void testCloseTicketForAlarm() {
         EasyMock.expect(m_alarmDao.get(m_alarm.getId())).andReturn(m_alarm);
@@ -238,8 +249,11 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#closeTicketForAlarm(int, java.lang.String)}.
-     * Tests for correct alarm TroubleTicketState set as CLOSE_FAILED when ticketer plugin fails
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#closeTicketForAlarm(int, java.lang.String)}
+     * .
+     * Tests for correct alarm TroubleTicketState set as CLOSE_FAILED when
+     * ticketer plugin fails
      */
     public void testFailedCloseTicketForAlarm() {
 
@@ -248,7 +262,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
         try {
             m_ticketerPlugin.get(m_ticket.getId());
         } catch (PluginException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
         }
 
         EasyMock.expectLastCall().andThrow(new PluginException("Failed Close"));
@@ -263,7 +277,9 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}.
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}
+     * .
      */
     public void testCreateTicketForAlarm() {
         EasyMock.expect(m_alarmDao.get(m_alarm.getId())).andReturn(m_alarm);
@@ -280,8 +296,11 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}.
-     * Tests for correct alarm TroubleTicketState set as CREATE_FAILED when ticketer plugin fails
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}
+     * .
+     * Tests for correct alarm TroubleTicketState set as CREATE_FAILED when
+     * ticketer plugin fails
      */
     public void testFailedCreateTicketForAlarm() {
 
@@ -290,7 +309,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
         try {
             m_ticketerPlugin.saveOrUpdate(EasyMock.isA(Ticket.class));
         } catch (PluginException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
         }
 
         EasyMock.expectLastCall().andThrow(new PluginException("Failed Create"));
@@ -299,13 +318,15 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
 
         m_easyMockUtils.replayAll();
 
-        m_defaultTicketerServiceLayer.createTicketForAlarm(m_alarm.getId(),new HashMap<String, String>());
+        m_defaultTicketerServiceLayer.createTicketForAlarm(m_alarm.getId(), new HashMap<String, String>());
 
         m_easyMockUtils.verifyAll();
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#updateTicketForAlarm(int, java.lang.String)}.
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#updateTicketForAlarm(int, java.lang.String)}
+     * .
      */
     public void testUpdateTicketForAlarm() {
 
@@ -319,7 +340,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
             e.printStackTrace();
         }
 
-        //expectUpdatedTicket();
+        // expectUpdatedTicket();
 
         expectNewAlarmState(TroubleTicketState.CANCELLED);
 
@@ -331,8 +352,11 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#updateTicketForAlarm(int, java.lang.String)}.
-     * Tests for correct alarm TroubleTicketState set as CANCEL_FAILED when ticketer plugin fails
+     * Test method for
+     * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#updateTicketForAlarm(int, java.lang.String)}
+     * .
+     * Tests for correct alarm TroubleTicketState set as CANCEL_FAILED when
+     * ticketer plugin fails
      */
 
     public void testFailedUpdateTicketForAlarm() {
@@ -347,7 +371,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
             // e.printStackTrace();
         }
 
-        //expectUpdatedTicket();
+        // expectUpdatedTicket();
 
         EasyMock.expectLastCall().andThrow(new PluginException("Failed Update"));
 

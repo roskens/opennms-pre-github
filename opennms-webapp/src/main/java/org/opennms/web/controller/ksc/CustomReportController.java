@@ -48,7 +48,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>CustomReportController class.</p>
+ * <p>
+ * CustomReportController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -57,20 +59,23 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class CustomReportController extends AbstractController implements InitializingBean {
 
     private KSC_PerformanceReportFactory m_kscReportFactory;
+
     private KscReportService m_kscReportService;
+
     private ResourceService m_resourceService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
 
         // Get Form Variables
         Report report = KscReportEditor.getFromSession(request.getSession(), true).getWorkingReport();
         if (report == null) {
             throw new IllegalStateException("There is no working report");
         }
-//        int report_index = getReportFactory().getWorkingReportIndex();
-//        String number_graphs[] = {"1", "2", "3", "4", "5", "6"};
+        // int report_index = getReportFactory().getWorkingReportIndex();
+        // String number_graphs[] = {"1", "2", "3", "4", "5", "6"};
 
         ArrayList<KscResultSet> resultSets = new ArrayList<KscResultSet>(report.getGraphCount());
         for (int i = 0; i < report.getGraphCount(); i++) {
@@ -83,7 +88,8 @@ public class CustomReportController extends AbstractController implements Initia
             Calendar end_time = Calendar.getInstance();
             KSC_PerformanceReportFactory.getBeginEndTime(current_graph.getTimespan(), begin_time, end_time);
 
-            KscResultSet resultSet = new KscResultSet(current_graph.getTitle(), begin_time.getTime(), end_time.getTime(), resource, display_graph);
+            KscResultSet resultSet = new KscResultSet(current_graph.getTitle(), begin_time.getTime(),
+                                                      end_time.getTime(), resource, display_graph);
             resultSets.add(resultSet);
         }
 
@@ -100,25 +106,35 @@ public class CustomReportController extends AbstractController implements Initia
     }
 
     /**
-     * <p>getKscReportFactory</p>
+     * <p>
+     * getKscReportFactory
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *         object.
      */
     public KSC_PerformanceReportFactory getKscReportFactory() {
         return m_kscReportFactory;
     }
 
     /**
-     * <p>setKscReportFactory</p>
+     * <p>
+     * setKscReportFactory
+     * </p>
      *
-     * @param kscReportFactory a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
+     * @param kscReportFactory
+     *            a
+     *            {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
+     *            object.
      */
     public void setKscReportFactory(KSC_PerformanceReportFactory kscReportFactory) {
         m_kscReportFactory = kscReportFactory;
     }
 
     /**
-     * <p>getKscReportService</p>
+     * <p>
+     * getKscReportService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -127,16 +143,21 @@ public class CustomReportController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setKscReportService</p>
+     * <p>
+     * setKscReportService
+     * </p>
      *
-     * @param kscReportService a {@link org.opennms.web.svclayer.KscReportService} object.
+     * @param kscReportService
+     *            a {@link org.opennms.web.svclayer.KscReportService} object.
      */
     public void setKscReportService(KscReportService kscReportService) {
         m_kscReportService = kscReportService;
     }
 
     /**
-     * <p>getResourceService</p>
+     * <p>
+     * getResourceService
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -145,18 +166,24 @@ public class CustomReportController extends AbstractController implements Initia
     }
 
     /**
-     * <p>setResourceService</p>
+     * <p>
+     * setResourceService
+     * </p>
      *
-     * @param resourceService a {@link org.opennms.web.svclayer.ResourceService} object.
+     * @param resourceService
+     *            a {@link org.opennms.web.svclayer.ResourceService} object.
      */
     public void setResourceService(ResourceService resourceService) {
         m_resourceService = resourceService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public void afterPropertiesSet() throws Exception {

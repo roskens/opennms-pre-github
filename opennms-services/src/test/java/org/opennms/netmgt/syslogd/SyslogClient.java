@@ -46,53 +46,83 @@ public class SyslogClient {
 
     // Priorities.
     public static final int LOG_EMERG = 0; // system is unusable
+
     public static final int LOG_ALERT = 1; // action must be taken immediately
+
     public static final int LOG_CRIT = 2; // critical conditions
+
     public static final int LOG_ERR = 3; // error conditions
+
     public static final int LOG_WARNING = 4; // warning conditions
+
     public static final int LOG_NOTICE = 5; // normal but significant condition
+
     public static final int LOG_INFO = 6; // informational
+
     public static final int LOG_DEBUG = 7; // debug-level messages
+
     public static final int LOG_PRIMASK = 0x0007; // mask to extract priority
 
     // Facilities.
     public static final int LOG_KERN = (0 << 3); // kernel messages
+
     public static final int LOG_USER = (1 << 3); // random user-level messages
+
     public static final int LOG_MAIL = (2 << 3); // mail system
+
     public static final int LOG_DAEMON = (3 << 3); // system daemons
+
     public static final int LOG_AUTH = (4 << 3); // security/authorization
+
     public static final int LOG_SYSLOG = (5 << 3); // internal syslogd use
+
     public static final int LOG_LPR = (6 << 3); // line printer subsystem
+
     public static final int LOG_NEWS = (7 << 3); // network news subsystem
+
     public static final int LOG_UUCP = (8 << 3); // UUCP subsystem
+
     public static final int LOG_CRON = (15 << 3); // clock daemon
+
     // Other codes through 15 reserved for system use.
     public static final int LOG_LOCAL0 = (16 << 3); // reserved for local use
+
     public static final int LOG_LOCAL1 = (17 << 3); // reserved for local use
+
     public static final int LOG_LOCAL2 = (18 << 3); // reserved for local use
+
     public static final int LOG_LOCAL3 = (19 << 3); // reserved for local use
+
     public static final int LOG_LOCAL4 = (20 << 3); // reserved for local use
+
     public static final int LOG_LOCAL5 = (21 << 3); // reserved for local use
+
     public static final int LOG_LOCAL6 = (22 << 3); // reserved for local use
+
     public static final int LOG_LOCAL7 = (23 << 3); // reserved for local use
 
     public static final int LOG_FACMASK = 0x03F8; // mask to extract facility
 
     // Option flags.
     public static final int LOG_PID = 0x01; // log the pid with each message
+
     public static final int LOG_CONS = 0x02; // log on the console if errors
+
     public static final int LOG_NDELAY = 0x08; // don't delay open
+
     public static final int LOG_NOWAIT = 0x10; // don't wait for console forks
 
     public static final int PORT = 10514;
 
     private String ident;
+
     private int facility;
 
     private InetAddress address;
+
     private DatagramSocket socket;
 
-    /// Creating a Syslog instance is equivalent of the Unix openlog() call.
+    // / Creating a Syslog instance is equivalent of the Unix openlog() call.
     // @exception SyslogException if there was a problem
     public SyslogClient(String ident, int logopt, int facility) throws UnknownHostException {
         if (ident == null) {
@@ -111,7 +141,7 @@ public class SyslogClient {
         }
     }
 
-    /// Use this method to log your syslog messages. The facility and
+    // / Use this method to log your syslog messages. The facility and
     // level are the same as their Unix counterparts, and the Syslog
     // class provides constants for these fields. The msg is what is
     // actually logged.
@@ -120,8 +150,7 @@ public class SyslogClient {
         final DatagramPacket packet = getPacket(priority, msg);
         try {
             socket.send(packet);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.warn("Exception sending data.", e);
         }
     }
@@ -144,4 +173,3 @@ public class SyslogClient {
     }
 
 }
-

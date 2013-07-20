@@ -45,13 +45,18 @@ import org.springframework.context.ApplicationContext;
 public class NodeFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="node"</code> */
     public static final String TYPE = "node";
+
     private ServletContext m_servletContext;
+
     private ApplicationContext m_appContext;
 
     /**
-     * <p>Constructor for NodeFilter.</p>
+     * <p>
+     * Constructor for NodeFilter.
+     * </p>
      *
-     * @param nodeId a int.
+     * @param nodeId
+     *            a int.
      */
     public NodeFilter(int nodeId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
@@ -64,7 +69,9 @@ public class NodeFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +79,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
     public String getTextDescription() {
         String nodeName = getNodeLabel();
 
-        if(nodeName == null) {
+        if (nodeName == null) {
             nodeName = Integer.toString(getNodeId());
         }
 
@@ -80,11 +87,14 @@ public class NodeFilter extends EqualsFilter<Integer> {
     }
 
     private String getNodeLabel() {
-        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getNodeId()) : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getNodeId());
+        return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getNodeId())
+            : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getNodeId());
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,7 +104,9 @@ public class NodeFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */

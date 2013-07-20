@@ -34,7 +34,9 @@ import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 /**
- * <p>PropertySettingTestSuite class.</p>
+ * <p>
+ * PropertySettingTestSuite class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -42,13 +44,18 @@ import junit.framework.TestSuite;
 public class PropertySettingTestSuite extends TestSuite {
 
     String m_propertyName;
+
     String m_propertyValue;
 
     /**
-     * <p>Constructor for PropertySettingTestSuite.</p>
+     * <p>
+     * Constructor for PropertySettingTestSuite.
+     * </p>
      *
-     * @param propertyName a {@link java.lang.String} object.
-     * @param propertyValue a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param propertyValue
+     *            a {@link java.lang.String} object.
      */
     public PropertySettingTestSuite(String propertyName, String propertyValue) {
         super();
@@ -57,25 +64,37 @@ public class PropertySettingTestSuite extends TestSuite {
     }
 
     /**
-     * <p>Constructor for PropertySettingTestSuite.</p>
+     * <p>
+     * Constructor for PropertySettingTestSuite.
+     * </p>
      *
-     * @param theClass a {@link java.lang.Class} object.
-     * @param name a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param propertyValue a {@link java.lang.String} object.
+     * @param theClass
+     *            a {@link java.lang.Class} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param propertyValue
+     *            a {@link java.lang.String} object.
      */
-    public PropertySettingTestSuite(Class<? extends TestCase> theClass, String name, String propertyName, String propertyValue) {
+    public PropertySettingTestSuite(Class<? extends TestCase> theClass, String name, String propertyName,
+            String propertyValue) {
         super(theClass, name);
         m_propertyName = propertyName;
         m_propertyValue = propertyValue;
     }
 
     /**
-     * <p>Constructor for PropertySettingTestSuite.</p>
+     * <p>
+     * Constructor for PropertySettingTestSuite.
+     * </p>
      *
-     * @param theClass a {@link java.lang.Class} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param propertyValue a {@link java.lang.String} object.
+     * @param theClass
+     *            a {@link java.lang.Class} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param propertyValue
+     *            a {@link java.lang.String} object.
      */
     public PropertySettingTestSuite(Class<? extends TestCase> theClass, String propertyName, String propertyValue) {
         super(theClass);
@@ -84,11 +103,16 @@ public class PropertySettingTestSuite extends TestSuite {
     }
 
     /**
-     * <p>Constructor for PropertySettingTestSuite.</p>
+     * <p>
+     * Constructor for PropertySettingTestSuite.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param propertyValue a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param propertyValue
+     *            a {@link java.lang.String} object.
      */
     public PropertySettingTestSuite(String name, String propertyName, String propertyValue) {
         super(name);
@@ -106,7 +130,5 @@ public class PropertySettingTestSuite extends TestSuite {
     private void setProperty() {
         System.setProperty(m_propertyName, m_propertyValue);
     }
-
-
 
 }

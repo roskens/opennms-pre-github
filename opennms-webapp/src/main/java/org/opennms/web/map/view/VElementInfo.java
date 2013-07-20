@@ -29,7 +29,9 @@
 package org.opennms.web.map.view;
 
 /**
- * <p>VElementInfo class.</p>
+ * <p>
+ * VElementInfo class.
+ * </p>
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
@@ -37,7 +39,7 @@ package org.opennms.web.map.view;
  */
 public class VElementInfo implements Cloneable {
 
-	private final int id;
+    private final int id;
 
     private String uei;
 
@@ -47,75 +49,96 @@ public class VElementInfo implements Cloneable {
 
     private String ipaddr;
 
-
-	/**
-	 * <p>Getter for the field <code>ipaddr</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getIpaddr() {
+    /**
+     * <p>
+     * Getter for the field <code>ipaddr</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getIpaddr() {
         return ipaddr;
     }
+
     /**
-     * <p>Getter for the field <code>label</code>.</p>
+     * <p>
+     * Getter for the field <code>label</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getLabel() {
-		return label;
-	}
-	/**
-	 * <p>Getter for the field <code>id</code>.</p>
-	 *
-	 * @return a int.
-	 */
-	public int getId() {
-		return id;
-	}
-	/**
-	 * <p>Getter for the field <code>severity</code>.</p>
-	 *
-	 * @return a int.
-	 */
-	public int getSeverity() {
-		return severity;
-	}
-	/**
-	 * <p>Getter for the field <code>uei</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getUei() {
-		return uei;
-	}
+        return label;
+    }
 
+    /**
+     * <p>
+     * Getter for the field <code>id</code>.
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getId() {
+        return id;
+    }
 
+    /**
+     * <p>
+     * Getter for the field <code>severity</code>.
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getSeverity() {
+        return severity;
+    }
 
-	/**
-	 * <p>Constructor for VElementInfo.</p>
-	 *
-	 * @param id a int.
-	 * @param label a {@link java.lang.String} object.
-	 * @param ipaddr a {@link java.lang.String} object.
-	 */
-	public VElementInfo(int id, String ipaddr, String label) {
-		super();
-		this.id = id;
-		this.ipaddr = ipaddr;
-		this.label=label;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>uei</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getUei() {
+        return uei;
+    }
 
-	/**
-	 * <p>Constructor for VElementInfo.</p>
-	 *
-	 * @param id a int.
-	 * @param uei a {@link java.lang.String} object.
-	 * @param severity a int.
-	 */
-	public VElementInfo(int id, String uei, int severity) {
-		super();
-		this.id = id;
-		this.uei = uei;
-		this.severity = severity;
-	}
+    /**
+     * <p>
+     * Constructor for VElementInfo.
+     * </p>
+     *
+     * @param id
+     *            a int.
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @param ipaddr
+     *            a {@link java.lang.String} object.
+     */
+    public VElementInfo(int id, String ipaddr, String label) {
+        super();
+        this.id = id;
+        this.ipaddr = ipaddr;
+        this.label = label;
+    }
+
+    /**
+     * <p>
+     * Constructor for VElementInfo.
+     * </p>
+     *
+     * @param id
+     *            a int.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param severity
+     *            a int.
+     */
+    public VElementInfo(int id, String uei, int severity) {
+        super();
+        this.id = id;
+        this.uei = uei;
+        this.severity = severity;
+    }
 }

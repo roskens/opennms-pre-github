@@ -39,51 +39,51 @@ import com.vaadin.ui.UI;
 
 public class SaveToXmlTest {
 
-	private class TestOperationContext implements OperationContext{
+    private class TestOperationContext implements OperationContext {
 
-		private GraphContainer m_graphContainer;
+        private GraphContainer m_graphContainer;
 
-		public TestOperationContext(GraphContainer graphContainer) {
-			m_graphContainer = graphContainer;
-		}
+        public TestOperationContext(GraphContainer graphContainer) {
+            m_graphContainer = graphContainer;
+        }
 
-		@Override
-		public UI getMainWindow() {
-			return EasyMock.createMock(UI.class);
-		}
+        @Override
+        public UI getMainWindow() {
+            return EasyMock.createMock(UI.class);
+        }
 
-		@Override
-		public GraphContainer getGraphContainer() {
-			return m_graphContainer;
-		}
+        @Override
+        public GraphContainer getGraphContainer() {
+            return m_graphContainer;
+        }
 
-		@Override
-		public boolean isChecked() {
-			// TODO Auto-generated method stub
-			return false;
-		}
+        @Override
+        public boolean isChecked() {
+            // TODO Auto-generated method stub
+            return false;
+        }
 
-		@Override
-		public DisplayLocation getDisplayLocation() {
-			return DisplayLocation.MENUBAR;
-		}
+        @Override
+        public DisplayLocation getDisplayLocation() {
+            return DisplayLocation.MENUBAR;
+        }
 
-	}
+    }
 
-	@Test
-	public void testSave() throws Exception {
+    @Test
+    public void testSave() throws Exception {
 
-		final SimpleGraphProvider simpleTopo = new SimpleGraphProvider();
-		simpleTopo.load("test-graph.xml");
+        final SimpleGraphProvider simpleTopo = new SimpleGraphProvider();
+        simpleTopo.load("test-graph.xml");
 
-		SaveToXmlOperation saver = new SaveToXmlOperation();
+        SaveToXmlOperation saver = new SaveToXmlOperation();
 
-		GraphContainer graphContainer = EasyMock.createMock(GraphContainer.class);
-		EasyMock.expect(graphContainer.getBaseTopology()).andReturn(simpleTopo).anyTimes();
-		EasyMock.replay(graphContainer);
+        GraphContainer graphContainer = EasyMock.createMock(GraphContainer.class);
+        EasyMock.expect(graphContainer.getBaseTopology()).andReturn(simpleTopo).anyTimes();
+        EasyMock.replay(graphContainer);
 
-		saver.execute(null, new TestOperationContext(graphContainer));
-	}
+        saver.execute(null, new TestOperationContext(graphContainer));
+    }
 
     public Property<Double> getScaleProperty() {
         return null;

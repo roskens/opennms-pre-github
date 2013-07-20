@@ -31,7 +31,9 @@ package org.opennms.core.tasks;
 import org.springframework.util.Assert;
 
 /**
- * <p>AsyncTask class.</p>
+ * <p>
+ * AsyncTask class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,27 +41,42 @@ import org.springframework.util.Assert;
 public class AsyncTask<T> extends Task {
 
     private final Async<T> m_async;
+
     private final Callback<T> m_callback;
 
     /**
-     * <p>Constructor for AsyncTask.</p>
+     * <p>
+     * Constructor for AsyncTask.
+     * </p>
      *
-     * @param coordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
-     * @param parent a {@link org.opennms.core.tasks.ContainerTask} object.
-     * @param async a {@link org.opennms.core.tasks.Async} object.
-     * @param <T> a T object.
+     * @param coordinator
+     *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     * @param parent
+     *            a {@link org.opennms.core.tasks.ContainerTask} object.
+     * @param async
+     *            a {@link org.opennms.core.tasks.Async} object.
+     * @param <T>
+     *            a T object.
      */
     public AsyncTask(DefaultTaskCoordinator coordinator, ContainerTask<?> parent, Async<T> async) {
         this(coordinator, parent, async, null);
     }
 
     /**
-     * <p>Constructor for AsyncTask.</p>
+     * <p>
+     * Constructor for AsyncTask.
+     * </p>
      *
-     * @param coordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
-     * @param parent a {@link org.opennms.core.tasks.ContainerTask} object.
-     * @param async a {@link org.opennms.core.tasks.Async} object.
-     * @param callback a {@link org.opennms.core.tasks.Callback} object.
+     * @param coordinator
+     *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     * @param parent
+     *            a {@link org.opennms.core.tasks.ContainerTask} object.
+     * @param async
+     *            a {@link org.opennms.core.tasks.Async} object.
+     * @param callback
+     *            a {@link org.opennms.core.tasks.Callback} object.
      */
     public AsyncTask(DefaultTaskCoordinator coordinator, ContainerTask<?> parent, Async<T> async, Callback<T> callback) {
         super(coordinator, parent);
@@ -89,23 +106,24 @@ public class AsyncTask<T> extends Task {
         return new Callback<T>() {
             @Override
             public void complete(T t) {
-		try {
-		    if (m_callback != null) {
-			m_callback.complete(t);
-		    }
-		} finally {
-		    markTaskAsCompleted();
-		}
+                try {
+                    if (m_callback != null) {
+                        m_callback.complete(t);
+                    }
+                } finally {
+                    markTaskAsCompleted();
+                }
             }
+
             @Override
             public void handleException(Throwable t) {
-		try {
-		    if (m_callback != null) {
-			m_callback.handleException(t);
-		    }
-		} finally {
-		    markTaskAsCompleted();
-		}
+                try {
+                    if (m_callback != null) {
+                        m_callback.handleException(t);
+                    }
+                } finally {
+                    markTaskAsCompleted();
+                }
             }
         };
     }

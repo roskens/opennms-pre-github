@@ -48,19 +48,21 @@ import org.opennms.test.ThrowableAnticipator;
 public class CapsdConfigManagerTest extends TestCase {
 
     public void testBogus() {
-        // Don't do anything... this is a place holder so we have at least one test
+        // Don't do anything... this is a place holder so we have at least one
+        // test
     }
 
     /*
      * This is disabled because the plugin instantiation isn't done in
-     * CapsdConfigManager anymore.  It's now in PluginManager.
+     * CapsdConfigManager anymore. It's now in PluginManager.
      */
     /**
      * Make sure that the constructor throws an exception when one of the
      * plugins cannot be loaded.
      */
     public void DISABLEDtestBadPlugin() throws Exception {
-        InputStream reader = ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/config/capsd-configuration-bad-class.xml");
+        InputStream reader = ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                              "/org/opennms/netmgt/config/capsd-configuration-bad-class.xml");
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new ValidationException(ThrowableAnticipator.IGNORE_MESSAGE));
@@ -71,20 +73,23 @@ public class CapsdConfigManagerTest extends TestCase {
         }
         ta.verifyAnticipated();
 
-        // This last assert here would fail if the constructor didn't throw an exception
-//        ProtocolInfo[] plugins = m_factory.getProtocolSpecification(InetAddressUtils.addr("127.0.0.1"));
-//
-//        assertNotNull("plugin list", plugins);
-//        assertEquals("plugin list size", 1, plugins.length);
-//
-//        ProtocolInfo plugin = plugins[0];
-//        assertNotNull("PluginInfo object for plugin zero", plugin);
-//
-//        assertNotNull("plugin for zero", plugin.getPlugin());
+        // This last assert here would fail if the constructor didn't throw an
+        // exception
+        // ProtocolInfo[] plugins =
+        // m_factory.getProtocolSpecification(InetAddressUtils.addr("127.0.0.1"));
+        //
+        // assertNotNull("plugin list", plugins);
+        // assertEquals("plugin list size", 1, plugins.length);
+        //
+        // ProtocolInfo plugin = plugins[0];
+        // assertNotNull("PluginInfo object for plugin zero", plugin);
+        //
+        // assertNotNull("plugin for zero", plugin.getPlugin());
     }
 
     public final void testHttpRegex() throws Exception {
-        CapsdConfigManager config = new DefaultCapsdConfigManager(Thread.currentThread().getContextClassLoader().getResourceAsStream("testHttpRegex.xml"));
+        CapsdConfigManager config = new DefaultCapsdConfigManager(
+                                                                  Thread.currentThread().getContextClassLoader().getResourceAsStream("testHttpRegex.xml"));
         ProtocolPlugin http = config.getProtocolPlugin("HTTP");
         Property regexProperty = null;
         for (Property prop : http.getPropertyCollection()) {
@@ -93,10 +98,12 @@ public class CapsdConfigManagerTest extends TestCase {
                 break;
             }
         }
-        assertEquals("HTTP regex does not match expected value", "~\\{.nodes.: \\[\\{.nodeid.:.*", regexProperty.getValue());
+        assertEquals("HTTP regex does not match expected value", "~\\{.nodes.: \\[\\{.nodeid.:.*",
+                     regexProperty.getValue());
 
         // This code approximates how this parameter is used inside
-        // {@link HttpPlugin#checkResponseBody(ConnectionConfig config, String response)
+        // {@link HttpPlugin#checkResponseBody(ConnectionConfig config, String
+        // response)
         Pattern bodyPat = Pattern.compile(regexProperty.getValue().substring(1), Pattern.DOTALL);
         assertTrue(bodyPat.matcher("{\"nodes\": [{\"nodeid\": \"19\", \"nodelabel\": \"\"},{\"nodeid\": \"21\", \"nodelabel\": \"\"}]}").matches());
         assertFalse(bodyPat.matcher("{\"nodes\": [ ]}").matches());

@@ -35,13 +35,14 @@ import javax.servlet.ServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndFeedImpl;
 import com.sun.syndication.io.SyndFeedOutput;
 
 /**
- * <p>AbstractFeed class.</p>
+ * <p>
+ * AbstractFeed class.
+ * </p>
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @version $Id: $
@@ -49,30 +50,40 @@ import com.sun.syndication.io.SyndFeedOutput;
  */
 public class AbstractFeed implements Feed {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractFeed.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractFeed.class);
 
     protected int m_maxEntries = 20;
+
     protected String m_feedType = "rss_2.0";
+
     protected String m_urlBase = "";
+
     protected ServletRequest m_servletRequest;
 
     /**
-     * <p>Constructor for AbstractFeed.</p>
+     * <p>
+     * Constructor for AbstractFeed.
+     * </p>
      */
     public AbstractFeed() {
     }
 
     /**
-     * <p>Constructor for AbstractFeed.</p>
+     * <p>
+     * Constructor for AbstractFeed.
+     * </p>
      *
-     * @param feedType a {@link java.lang.String} object.
+     * @param feedType
+     *            a {@link java.lang.String} object.
      */
     public AbstractFeed(String feedType) {
         setFeedType(feedType);
     }
 
     /**
-     * <p>getUrlBase</p>
+     * <p>
+     * getUrlBase
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,7 +99,9 @@ public class AbstractFeed implements Feed {
     }
 
     /**
-     * <p>getFeedType</p>
+     * <p>
+     * getFeedType
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,7 +117,9 @@ public class AbstractFeed implements Feed {
     }
 
     /**
-     * <p>getMaxEntries</p>
+     * <p>
+     * getMaxEntries
+     * </p>
      *
      * @return a int.
      */
@@ -120,7 +135,9 @@ public class AbstractFeed implements Feed {
     }
 
     /**
-     * <p>getRequest</p>
+     * <p>
+     * getRequest
+     * </p>
      *
      * @return a {@link javax.servlet.ServletRequest} object.
      */
@@ -136,7 +153,9 @@ public class AbstractFeed implements Feed {
     }
 
     /**
-     * <p>getFeed</p>
+     * <p>
+     * getFeed
+     * </p>
      *
      * @return a {@link com.sun.syndication.feed.synd.SyndFeed} object.
      */
@@ -145,7 +164,9 @@ public class AbstractFeed implements Feed {
     }
 
     /**
-     * <p>render</p>
+     * <p>
+     * render
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -166,9 +187,12 @@ public class AbstractFeed implements Feed {
     }
 
     /**
-     * <p>sanitizeTitle</p>
+     * <p>
+     * sanitizeTitle
+     * </p>
      *
-     * @param title a {@link java.lang.String} object.
+     * @param title
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     protected String sanitizeTitle(String title) {

@@ -32,7 +32,9 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * <p>Abstract NotEqualOrNullFilter class.</p>
+ * <p>
+ * Abstract NotEqualOrNullFilter class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,23 +42,33 @@ import org.hibernate.criterion.Restrictions;
  */
 public abstract class NotEqualOrNullFilter<T> extends OneArgFilter<T> {
 
-
     /**
-     * <p>Constructor for NotEqualOrNullFilter.</p>
+     * <p>
+     * Constructor for NotEqualOrNullFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param type a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param value a T object.
-     * @param <T> a T object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param type
+     *            a {@link org.opennms.web.filter.SQLType} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a T object.
+     * @param <T>
+     *            a T object.
      */
-    public NotEqualOrNullFilter(final String filterType, final SQLType<T> type, final String fieldName, final String propertyName, final T value) {
+    public NotEqualOrNullFilter(final String filterType, final SQLType<T> type, final String fieldName,
+            final String propertyName, final T value) {
         super(filterType, type, fieldName, propertyName, value);
     }
 
     /**
-     * <p>getCriterion</p>
+     * <p>
+     * getCriterion
+     * </p>
      *
      * @return a {@link org.hibernate.criterion.Criterion} object.
      */

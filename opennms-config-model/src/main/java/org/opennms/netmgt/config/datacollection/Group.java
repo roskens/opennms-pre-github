@@ -57,14 +57,15 @@ import org.xml.sax.ContentHandler;
  * a MIB object group
  */
 
-@XmlRootElement(name="group", namespace="http://xmlns.opennms.org/xsd/config/datacollection")
+@XmlRootElement(name = "group", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder={"name", "ifType", "mibObj", "includeGroup"})
+@XmlType(propOrder = { "name", "ifType", "mibObj", "includeGroup" })
 @ValidateUsing("datacollection-config.xsd")
 public class Group implements Serializable {
     private static final long serialVersionUID = 8424897884942605338L;
 
     private static final MibObj[] EMPTY_MIBOBJ_ARRAY = new MibObj[0];
+
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     /**
@@ -74,30 +75,30 @@ public class Group implements Serializable {
 
     /**
      * Interface type. Indicates the interface types from
-     *  which the groups MIB objects are to be collected. Supports
-     *  individual ifType values or comma-separated list of ifType
+     * which the groups MIB objects are to be collected. Supports
+     * individual ifType values or comma-separated list of ifType
      * values in
-     *  addition to "all" and "ignore" key words. For example: "6"
+     * addition to "all" and "ignore" key words. For example: "6"
      * indicates
-     *  that OIDs from this MIB group are to be collected only for
+     * that OIDs from this MIB group are to be collected only for
      * ethernet
-     *  interfaces (ifType = 6) "6,22" indicates that OIDs from
+     * interfaces (ifType = 6) "6,22" indicates that OIDs from
      * this MIB
-     *  group are to be collected only for ethernet and serial
+     * group are to be collected only for ethernet and serial
      * interfaces
-     *  "all" indicates that the OIDs from this MIB group are to be
-     *  collected for all interfaces regardless of ifType "ignore"
+     * "all" indicates that the OIDs from this MIB group are to be
+     * collected for all interfaces regardless of ifType "ignore"
      * indicates
-     *  that OIDs from this MIB group are node-level objects.
+     * that OIDs from this MIB group are node-level objects.
      * Sample ifType
-     *  descriptions/values: (Refer to
-     *  http://www.iana.org/assignments/ianaiftype-mib for a
+     * descriptions/values: (Refer to
+     * http://www.iana.org/assignments/ianaiftype-mib for a
      * comprehensive
-     *  list.); ethernetCsmacd 6; iso8825TokenRing 9; fddi 15; sdlc
+     * list.); ethernetCsmacd 6; iso8825TokenRing 9; fddi 15; sdlc
      * 17;
-     *  basicISDN 20; primaryISDN 21; propPointToPointSerial 22;
+     * basicISDN 20; primaryISDN 21; propPointToPointSerial 22;
      * ppp 23; atm
-     *  37; sonet 39; opticalChannel 195
+     * 37; sonet 39; opticalChannel 195
      */
     private String m_ifType;
 
@@ -121,46 +122,42 @@ public class Group implements Serializable {
     }
 
     /**
-     *
-     *
      * @param includeGroup
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addIncludeGroup(final String includeGroup) throws IndexOutOfBoundsException {
         m_includeGroups.add(includeGroup);
     }
 
     /**
-     *
-     *
      * @param index
      * @param includeGroup
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addIncludeGroup(final int index, final String includeGroup) throws IndexOutOfBoundsException {
         m_includeGroups.add(index, includeGroup.intern());
     }
 
     /**
-     *
-     *
      * @param mibObj
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addMibObj(final MibObj mibObj) throws IndexOutOfBoundsException {
         m_mibObjects.add(mibObj);
     }
 
     /**
-     *
-     *
      * @param index
      * @param mibObj
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void addMibObj(final int index, final MibObj mibObj) throws IndexOutOfBoundsException {
         m_mibObjects.add(index, mibObj);
@@ -170,7 +167,7 @@ public class Group implements Serializable {
      * Method enumerateIncludeGroup.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<String> enumerateIncludeGroup() {
         return Collections.enumeration(m_includeGroups);
@@ -180,7 +177,7 @@ public class Group implements Serializable {
      * Method enumerateMibObj.
      *
      * @return an Enumeration over all possible elements of this
-     * collection
+     *         collection
      */
     public Enumeration<MibObj> enumerateMibObj() {
         return Collections.enumeration(m_mibObjects);
@@ -194,39 +191,39 @@ public class Group implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if ( this == obj )
+        if (this == obj)
             return true;
 
         if (obj instanceof Group) {
 
-            final Group temp = (Group)obj;
+            final Group temp = (Group) obj;
             if (m_name != null) {
-                if (temp.m_name == null) return false;
+                if (temp.m_name == null)
+                    return false;
                 else if (!(m_name.equals(temp.m_name)))
                     return false;
-            }
-            else if (temp.m_name != null)
+            } else if (temp.m_name != null)
                 return false;
             if (m_ifType != null) {
-                if (temp.m_ifType == null) return false;
+                if (temp.m_ifType == null)
+                    return false;
                 else if (!(m_ifType.equals(temp.m_ifType)))
                     return false;
-            }
-            else if (temp.m_ifType != null)
+            } else if (temp.m_ifType != null)
                 return false;
             if (m_mibObjects != null) {
-                if (temp.m_mibObjects == null) return false;
+                if (temp.m_mibObjects == null)
+                    return false;
                 else if (!(m_mibObjects.equals(temp.m_mibObjects)))
                     return false;
-            }
-            else if (temp.m_mibObjects != null)
+            } else if (temp.m_mibObjects != null)
                 return false;
             if (m_includeGroups != null) {
-                if (temp.m_includeGroups == null) return false;
+                if (temp.m_includeGroups == null)
+                    return false;
                 else if (!(m_includeGroups.equals(temp.m_includeGroups)))
                     return false;
-            }
-            else if (temp.m_includeGroups != null)
+            } else if (temp.m_includeGroups != null)
                 return false;
             return true;
         }
@@ -237,34 +234,34 @@ public class Group implements Serializable {
      * Returns the value of field 'ifType'. The field 'ifType' has
      * the following description: Interface type. Indicates the
      * interface types from
-     *  which the groups MIB objects are to be collected. Supports
-     *  individual ifType values or comma-separated list of ifType
+     * which the groups MIB objects are to be collected. Supports
+     * individual ifType values or comma-separated list of ifType
      * values in
-     *  addition to "all" and "ignore" key words. For example: "6"
+     * addition to "all" and "ignore" key words. For example: "6"
      * indicates
-     *  that OIDs from this MIB group are to be collected only for
+     * that OIDs from this MIB group are to be collected only for
      * ethernet
-     *  interfaces (ifType = 6) "6,22" indicates that OIDs from
+     * interfaces (ifType = 6) "6,22" indicates that OIDs from
      * this MIB
-     *  group are to be collected only for ethernet and serial
+     * group are to be collected only for ethernet and serial
      * interfaces
-     *  "all" indicates that the OIDs from this MIB group are to be
-     *  collected for all interfaces regardless of ifType "ignore"
+     * "all" indicates that the OIDs from this MIB group are to be
+     * collected for all interfaces regardless of ifType "ignore"
      * indicates
-     *  that OIDs from this MIB group are node-level objects.
+     * that OIDs from this MIB group are node-level objects.
      * Sample ifType
-     *  descriptions/values: (Refer to
-     *  http://www.iana.org/assignments/ianaiftype-mib for a
+     * descriptions/values: (Refer to
+     * http://www.iana.org/assignments/ianaiftype-mib for a
      * comprehensive
-     *  list.); ethernetCsmacd 6; iso8825TokenRing 9; fddi 15; sdlc
+     * list.); ethernetCsmacd 6; iso8825TokenRing 9; fddi 15; sdlc
      * 17;
-     *  basicISDN 20; primaryISDN 21; propPointToPointSerial 22;
+     * basicISDN 20; primaryISDN 21; propPointToPointSerial 22;
      * ppp 23; atm
-     *  37; sonet 39; opticalChannel 195
+     * 37; sonet 39; opticalChannel 195
      *
      * @return the value of field 'IfType'.
      */
-    @XmlAttribute(name="ifType", required=true)
+    @XmlAttribute(name = "ifType", required = true)
     public String getIfType() {
         return m_ifType;
     }
@@ -273,28 +270,31 @@ public class Group implements Serializable {
      * Method getIncludeGroup.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the String at the given index
      */
     public String getIncludeGroup(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_includeGroups.size()) {
-            throw new IndexOutOfBoundsException("getIncludeGroup: Index value '" + index + "' not in range [0.." + (m_includeGroups.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getIncludeGroup: Index value '" + index + "' not in range [0.."
+                    + (m_includeGroups.size() - 1) + "]");
         }
         return m_includeGroups.get(index);
     }
 
     /**
      * Method getIncludeGroup.Returns the contents of the
-     * collection in an Array.  <p>Note:  Just in case the
-     * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call.
-     * This way we <i>know</i> that the Array returned is of
-     * exactly the correct length.
+     * collection in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="includeGroup")
+    @XmlElement(name = "includeGroup")
     public String[] getIncludeGroup() {
         return m_includeGroups.toArray(EMPTY_STRING_ARRAY);
     }
@@ -323,29 +323,33 @@ public class Group implements Serializable {
      * Method getMibObj.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      * @return the value of the
-     * MibObj at the
-     * given index
+     *         MibObj at the
+     *         given index
      */
     public MibObj getMibObj(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_mibObjects.size()) {
-            throw new IndexOutOfBoundsException("getMibObj: Index value '" + index + "' not in range [0.." + (m_mibObjects.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getMibObj: Index value '" + index + "' not in range [0.."
+                    + (m_mibObjects.size() - 1) + "]");
         }
         return m_mibObjects.get(index);
     }
 
     /**
      * Method getMibObj.Returns the contents of the collection in
-     * an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    @XmlElement(name="mibObj")
+    @XmlElement(name = "mibObj")
     public MibObj[] getMibObj() {
         return m_mibObjects.toArray(EMPTY_MIBOBJ_ARRAY);
     }
@@ -376,7 +380,7 @@ public class Group implements Serializable {
      *
      * @return the value of field 'Name'.
      */
-    @XmlAttribute(name="name", required=true)
+    @XmlAttribute(name = "name", required = true)
     public String getName() {
         return m_name;
     }
@@ -384,8 +388,8 @@ public class Group implements Serializable {
     /**
      * Overrides the java.lang.Object.hashCode method.
      * <p>
-     * The following steps came from <b>Effective Java Programming
-     * Language Guide</b> by Joshua Bloch, Chapter 3
+     * The following steps came from <b>Effective Java Programming Language
+     * Guide</b> by Joshua Bloch, Chapter 3
      *
      * @return a hash code value for the object.
      */
@@ -394,16 +398,16 @@ public class Group implements Serializable {
         int result = 17;
 
         if (m_name != null) {
-           result = 37 * result + m_name.hashCode();
+            result = 37 * result + m_name.hashCode();
         }
         if (m_ifType != null) {
-           result = 37 * result + m_ifType.hashCode();
+            result = 37 * result + m_ifType.hashCode();
         }
         if (m_mibObjects != null) {
-           result = 37 * result + m_mibObjects.hashCode();
+            result = 37 * result + m_mibObjects.hashCode();
         }
         if (m_includeGroups != null) {
-           result = 37 * result + m_includeGroups.hashCode();
+            result = 37 * result + m_includeGroups.hashCode();
         }
 
         return result;
@@ -428,7 +432,7 @@ public class Group implements Serializable {
      * Method iterateIncludeGroup.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<String> iterateIncludeGroup() {
         return m_includeGroups.iterator();
@@ -438,20 +442,20 @@ public class Group implements Serializable {
      * Method iterateMibObj.
      *
      * @return an Iterator over all possible elements in this
-     * collection
+     *         collection
      */
     public Iterator<MibObj> iterateMibObj() {
         return m_mibObjects.iterator();
     }
 
     /**
-     *
-     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -459,15 +463,16 @@ public class Group implements Serializable {
     }
 
     /**
-     *
-     *
      * @param handler
-     * @throws java.io.IOException if an IOException occurs during
-     * marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
+     * @throws java.io.IOException
+     *             if an IOException occurs during
+     *             marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -526,61 +531,60 @@ public class Group implements Serializable {
      * Sets the value of field 'ifType'. The field 'ifType' has the
      * following description: Interface type. Indicates the
      * interface types from
-     *  which the groups MIB objects are to be collected. Supports
-     *  individual ifType values or comma-separated list of ifType
+     * which the groups MIB objects are to be collected. Supports
+     * individual ifType values or comma-separated list of ifType
      * values in
-     *  addition to "all" and "ignore" key words. For example: "6"
+     * addition to "all" and "ignore" key words. For example: "6"
      * indicates
-     *  that OIDs from this MIB group are to be collected only for
+     * that OIDs from this MIB group are to be collected only for
      * ethernet
-     *  interfaces (ifType = 6) "6,22" indicates that OIDs from
+     * interfaces (ifType = 6) "6,22" indicates that OIDs from
      * this MIB
-     *  group are to be collected only for ethernet and serial
+     * group are to be collected only for ethernet and serial
      * interfaces
-     *  "all" indicates that the OIDs from this MIB group are to be
-     *  collected for all interfaces regardless of ifType "ignore"
+     * "all" indicates that the OIDs from this MIB group are to be
+     * collected for all interfaces regardless of ifType "ignore"
      * indicates
-     *  that OIDs from this MIB group are node-level objects.
+     * that OIDs from this MIB group are node-level objects.
      * Sample ifType
-     *  descriptions/values: (Refer to
-     *  http://www.iana.org/assignments/ianaiftype-mib for a
+     * descriptions/values: (Refer to
+     * http://www.iana.org/assignments/ianaiftype-mib for a
      * comprehensive
-     *  list.); ethernetCsmacd 6; iso8825TokenRing 9; fddi 15; sdlc
+     * list.); ethernetCsmacd 6; iso8825TokenRing 9; fddi 15; sdlc
      * 17;
-     *  basicISDN 20; primaryISDN 21; propPointToPointSerial 22;
+     * basicISDN 20; primaryISDN 21; propPointToPointSerial 22;
      * ppp 23; atm
-     *  37; sonet 39; opticalChannel 195
+     * 37; sonet 39; opticalChannel 195
      *
-     * @param ifType the value of field 'ifType'.
+     * @param ifType
+     *            the value of field 'ifType'.
      */
     public void setIfType(final String ifType) {
         m_ifType = ifType.intern();
     }
 
     /**
-     *
-     *
      * @param index
      * @param includeGroup
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setIncludeGroup(final int index, final String includeGroup) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_includeGroups.size()) {
-            throw new IndexOutOfBoundsException("setIncludeGroup: Index value '" + index + "' not in range [0.." + (m_includeGroups.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setIncludeGroup: Index value '" + index + "' not in range [0.."
+                    + (m_includeGroups.size() - 1) + "]");
         }
         m_includeGroups.set(index, includeGroup.intern());
     }
 
     /**
-     *
-     *
      * @param includeGroups
      */
     public void setIncludeGroup(final String[] includeGroups) {
         m_includeGroups.clear();
         for (int i = 0; i < includeGroups.length; i++) {
-                m_includeGroups.add(includeGroups[i].intern());
+            m_includeGroups.add(includeGroups[i].intern());
         }
     }
 
@@ -588,10 +592,12 @@ public class Group implements Serializable {
      * Sets the value of '_includeGroupList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param includeGroups the Vector to copy.
+     * @param includeGroups
+     *            the Vector to copy.
      */
     public void setIncludeGroup(final List<String> includeGroups) {
-        if (m_includeGroups == includeGroups) return;
+        if (m_includeGroups == includeGroups)
+            return;
         m_includeGroups.clear();
         m_includeGroups.addAll(includeGroups);
     }
@@ -599,9 +605,10 @@ public class Group implements Serializable {
     /**
      * Sets the value of '_includeGroupList' by setting it to the
      * given Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param includeGroups the Vector to set.
+     * @deprecated
+     * @param includeGroups
+     *            the Vector to set.
      */
     public void setIncludeGroupCollection(final List<String> includeGroups) {
         for (int i = 0; i < includeGroups.size(); i++) {
@@ -611,29 +618,27 @@ public class Group implements Serializable {
     }
 
     /**
-     *
-     *
      * @param index
      * @param mibObj
-     * @throws java.lang.IndexOutOfBoundsException if the index
-     * given is outside the bounds of the collection
+     * @throws java.lang.IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public void setMibObj(final int index, final MibObj mibObj) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_mibObjects.size()) {
-            throw new IndexOutOfBoundsException("setMibObj: Index value '" + index + "' not in range [0.." + (m_mibObjects.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setMibObj: Index value '" + index + "' not in range [0.."
+                    + (m_mibObjects.size() - 1) + "]");
         }
         m_mibObjects.set(index, mibObj);
     }
 
     /**
-     *
-     *
      * @param mibObjs
      */
     public void setMibObj(final MibObj[] mibObjs) {
         m_mibObjects.clear();
         for (int i = 0; i < mibObjs.length; i++) {
-                m_mibObjects.add(mibObjs[i]);
+            m_mibObjects.add(mibObjs[i]);
         }
     }
 
@@ -641,10 +646,12 @@ public class Group implements Serializable {
      * Sets the value of '_mibObjList' by copying the given Vector.
      * All elements will be checked for type safety.
      *
-     * @param mibObjs the Vector to copy.
+     * @param mibObjs
+     *            the Vector to copy.
      */
     public void setMibObj(final List<MibObj> mibObjs) {
-        if (m_mibObjects == mibObjs) return;
+        if (m_mibObjects == mibObjs)
+            return;
         m_mibObjects.clear();
         m_mibObjects.addAll(mibObjs);
     }
@@ -652,9 +659,10 @@ public class Group implements Serializable {
     /**
      * Sets the value of '_mibObjList' by setting it to the given
      * Vector. No type checking is performed.
-     * @deprecated
      *
-     * @param mibObjs the Vector to set.
+     * @deprecated
+     * @param mibObjs
+     *            the Vector to set.
      */
     public void setMibObjCollection(final List<MibObj> mibObjs) {
         m_mibObjects = mibObjs;
@@ -664,7 +672,8 @@ public class Group implements Serializable {
      * Sets the value of field 'name'. The field 'name' has the
      * following description: group name
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
     public void setName(final String name) {
         m_name = name.intern();
@@ -674,12 +683,14 @@ public class Group implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException if object is
-     * null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if object is
+     *             null or if any SAXException is thrown during marshaling
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      * @return the unmarshaled
-     * Group
+     *         Group
      */
     @Deprecated
     public static Group unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -687,10 +698,9 @@ public class Group implements Serializable {
     }
 
     /**
-     *
-     *
-     * @throws org.exolab.castor.xml.ValidationException if this
-     * object is an invalid instance according to the schema
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void validate() throws ValidationException {

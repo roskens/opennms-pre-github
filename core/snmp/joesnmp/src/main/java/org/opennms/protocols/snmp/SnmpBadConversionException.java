@@ -35,15 +35,14 @@ import java.io.PrintWriter;
  * Constructed when the library is unable to covert a value to another.
  *
  * @see SnmpIPAddress#convertToIpAddress()
- *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
- *
  */
 public class SnmpBadConversionException extends Exception {
     /**
      *
      */
     private static final long serialVersionUID = 5888208447180460071L;
+
     /**
      * The original exception that caused this exception to be generated.
      */
@@ -67,7 +66,6 @@ public class SnmpBadConversionException extends Exception {
      *            The message for the exception.
      * @param reason
      *            The original exception that caused the problem
-     *
      */
     public SnmpBadConversionException(String why, Exception reason) {
         super(why);
@@ -76,7 +74,6 @@ public class SnmpBadConversionException extends Exception {
 
     /**
      * The exception constructor
-     *
      */
     public SnmpBadConversionException() {
         super();

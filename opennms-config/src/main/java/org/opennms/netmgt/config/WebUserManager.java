@@ -31,7 +31,9 @@ package org.opennms.netmgt.config;
 import java.util.Collection;
 
 /**
- * <p>WebUserManager interface.</p>
+ * <p>
+ * WebUserManager interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -40,16 +42,21 @@ import java.util.Collection;
 public interface WebUserManager {
 
     /**
-     * <p>getUsers</p>
+     * <p>
+     * getUsers
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     public Collection<WebUser> getUsers();
 
     /**
-     * <p>getUser</p>
+     * <p>
+     * getUser
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.WebUser} object.
      */
     public WebUser getUser(String name);

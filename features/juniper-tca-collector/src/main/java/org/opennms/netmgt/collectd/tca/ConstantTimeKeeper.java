@@ -46,13 +46,15 @@ public class ConstantTimeKeeper implements TimeKeeper {
     /**
      * Instantiates a new constant time keeper.
      *
-     * @param timestamp the timestamp in seconds
+     * @param timestamp
+     *            the timestamp in seconds
      */
     public ConstantTimeKeeper(long timestampInSeconds) {
         m_date = new Date(timestampInSeconds * 1000);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.core.utils.TimeKeeper#getCurrentTime()
      */
     @Override
@@ -60,7 +62,8 @@ public class ConstantTimeKeeper implements TimeKeeper {
         return m_date.getTime();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.core.utils.TimeKeeper#getCurrentDate()
      */
     @Override
@@ -68,7 +71,8 @@ public class ConstantTimeKeeper implements TimeKeeper {
         return m_date;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.core.utils.TimeKeeper#getTimeZone()
      */
     @Override

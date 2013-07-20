@@ -29,8 +29,11 @@
 package org.opennms.netmgt.provision.support.ssh;
 
 import org.opennms.netmgt.model.PollStatus;
+
 /**
- * <p>Poll interface.</p>
+ * <p>
+ * Poll interface.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -40,7 +43,8 @@ public interface Poll {
      * Poll based on the configuration provided by the implementation
      *
      * @return a {@link PollStatus} status object
-     * @throws org.opennms.netmgt.provision.support.ssh.InsufficientParametersException if any.
+     * @throws org.opennms.netmgt.provision.support.ssh.InsufficientParametersException
+     *             if any.
      */
     public PollStatus poll() throws InsufficientParametersException;
 }

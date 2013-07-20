@@ -32,7 +32,9 @@ import org.smslib.USSDResponse;
 import org.smslib.USSDSessionStatus;
 
 /**
- * <p>UssdResponse class.</p>
+ * <p>
+ * UssdResponse class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -40,23 +42,31 @@ import org.smslib.USSDSessionStatus;
 public class UssdResponse extends MobileMsgResponse {
 
     private String m_gatewayId;
+
     private USSDResponse m_msg;
 
     /**
-     * <p>Constructor for UssdResponse.</p>
+     * <p>
+     * Constructor for UssdResponse.
+     * </p>
      *
-     * @param gatewayId a {@link java.lang.String} object.
-     * @param msg a {@link org.smslib.USSDResponse} object.
-     * @param receiveTime a long.
+     * @param gatewayId
+     *            a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link org.smslib.USSDResponse} object.
+     * @param receiveTime
+     *            a long.
      */
     public UssdResponse(String gatewayId, USSDResponse msg, long receiveTime) {
-    	super(receiveTime);
+        super(receiveTime);
         m_gatewayId = gatewayId;
         m_msg = msg;
     }
 
     /**
-     * <p>getGatewayId</p>
+     * <p>
+     * getGatewayId
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -65,7 +75,9 @@ public class UssdResponse extends MobileMsgResponse {
     }
 
     /**
-     * <p>getText</p>
+     * <p>
+     * getText
+     * </p>
      *
      * @return the text
      */
@@ -74,9 +86,10 @@ public class UssdResponse extends MobileMsgResponse {
         return m_msg.getContent();
     }
 
-
     /**
-     * <p>getSessionStatus</p>
+     * <p>
+     * getSessionStatus
+     * </p>
      *
      * @return a {@link org.smslib.USSDSessionStatus} object.
      */
@@ -85,7 +98,9 @@ public class UssdResponse extends MobileMsgResponse {
     }
 
     /**
-     * <p>getMessage</p>
+     * <p>
+     * getMessage
+     * </p>
      *
      * @return a {@link org.smslib.USSDResponse} object.
      */
@@ -99,7 +114,5 @@ public class UssdResponse extends MobileMsgResponse {
     public String toString() {
         return "" + m_msg;
     }
-
-
 
 }

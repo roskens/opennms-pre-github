@@ -35,11 +35,11 @@ import com.google.gwt.user.client.ui.HasWidgets;
  *         </br> Presenter interface recommended for GWT MVP design.
  */
 public interface Presenter {
-	/**
-	 * Start-up method for presenters recommended for GWT MVP design. First
-	 * method to start a presenter.
-	 *
-	 * @param {@link HasWidgets}, the area that will be controlled by presenter.
-	 */
-	public abstract void go(final HasWidgets container);
+    /**
+     * Start-up method for presenters recommended for GWT MVP design. First
+     * method to start a presenter.
+     *
+     * @param {@link HasWidgets}, the area that will be controlled by presenter.
+     */
+    public abstract void go(final HasWidgets container);
 }

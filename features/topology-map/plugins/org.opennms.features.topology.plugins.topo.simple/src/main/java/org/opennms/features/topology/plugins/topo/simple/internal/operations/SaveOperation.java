@@ -44,7 +44,7 @@ public class SaveOperation implements Operation {
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         try {
-            ((SimpleGraphProvider)operationContext.getGraphContainer().getBaseTopology()).save("graph.xml");
+            ((SimpleGraphProvider) operationContext.getGraphContainer().getBaseTopology()).save("graph.xml");
         } catch (MalformedURLException e) {
             // TODO: Display the error in the UI
             LoggerFactory.getLogger(this.getClass()).error(e.getMessage(), e);

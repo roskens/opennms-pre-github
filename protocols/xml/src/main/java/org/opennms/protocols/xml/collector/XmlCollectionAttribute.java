@@ -38,13 +38,16 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class XmlCollectionAttribute.
- * <p>This is related with the configuration class XmlObject (the attribute to be stored on a RRD file).</p>
+ * <p>
+ * This is related with the configuration class XmlObject (the attribute to be
+ * stored on a RRD file).
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
 
-	private static final Logger LOG = LoggerFactory.getLogger(XmlCollectionAttribute.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XmlCollectionAttribute.class);
 
     /** The Attribute Value. */
     private String m_value;
@@ -58,9 +61,12 @@ public class XmlCollectionAttribute extends AbstractCollectionAttribute implemen
     /**
      * Instantiates a new XML collection attribute.
      *
-     * @param resource the resource
-     * @param attribType the attribute type
-     * @param value the attribute value
+     * @param resource
+     *            the resource
+     * @param attribType
+     *            the attribute type
+     * @param value
+     *            the attribute value
      */
     public XmlCollectionAttribute(XmlCollectionResource resource, XmlCollectionAttributeType attribType, String value) {
         m_resource = resource;
@@ -68,15 +74,19 @@ public class XmlCollectionAttribute extends AbstractCollectionAttribute implemen
         m_value = value;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getAttributeType()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionAttribute#getAttributeType
+     * ()
      */
     @Override
     public CollectionAttributeType getAttributeType() {
         return m_attribType;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getName()
      */
     @Override
@@ -84,18 +94,30 @@ public class XmlCollectionAttribute extends AbstractCollectionAttribute implemen
         return m_attribType.getName();
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getNumericValue()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionAttribute#getNumericValue()
      */
     @Override
     public String getNumericValue() {
         try {
-            Double d = Double.parseDouble(m_value); // This covers negative and scientific notation numbers.
+            Double d = Double.parseDouble(m_value); // This covers negative and
+                                                    // scientific notation
+                                                    // numbers.
             return d.toString();
         } catch (Exception e) {
-            LOG.debug("getNumericValue: the value {} is not a valid number. Removing invalid characters and try again.", m_value);
+            LOG.debug("getNumericValue: the value {} is not a valid number. Removing invalid characters and try again.",
+                      m_value);
             try {
-                Double d = Double.parseDouble(m_value.replaceAll("[^-\\d.]+", ""));  // Removing Units to return only a numeric value.
+                Double d = Double.parseDouble(m_value.replaceAll("[^-\\d.]+", "")); // Removing
+                                                                                    // Units
+                                                                                    // to
+                                                                                    // return
+                                                                                    // only
+                                                                                    // a
+                                                                                    // numeric
+                                                                                    // value.
                 return d.toString();
             } catch (Exception ex) {
                 LOG.warn("getNumericValue: the value {} is not parsable as a valid numeric value.", m_value);
@@ -104,31 +126,39 @@ public class XmlCollectionAttribute extends AbstractCollectionAttribute implemen
         return "U"; // Ignoring value from RRDtool/JRobin point of view.
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getResource()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionAttribute#getResource()
      */
     @Override
     public CollectionResource getResource() {
         return m_resource;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getStringValue()
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionAttribute#getStringValue()
      */
     @Override
     public String getStringValue() {
         return m_value;
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.AbstractCollectionAttribute#shouldPersist
+     * (org.opennms.netmgt.config.collector.ServiceParameters)
      */
     @Override
     public boolean shouldPersist(ServiceParameters params) {
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.config.collector.CollectionAttribute#getType()
      */
     @Override
@@ -136,7 +166,8 @@ public class XmlCollectionAttribute extends AbstractCollectionAttribute implemen
         return m_attribType.getType();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
@@ -149,7 +180,6 @@ public class XmlCollectionAttribute extends AbstractCollectionAttribute implemen
      *
      * @return the thread category
      */
-
 
     @Override
     public String getMetricIdentifier() {

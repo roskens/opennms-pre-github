@@ -46,13 +46,10 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class HttpNotificationStrategyTest {
@@ -66,41 +63,44 @@ public class HttpNotificationStrategyTest {
     }
 
     /*
-     * Test method for 'org.opennms.netmgt.notifd.HttpNotificationStrategy.send(List)'
+     * Test method for
+     * 'org.opennms.netmgt.notifd.HttpNotificationStrategy.send(List)'
      */
     @Test
     @Ignore
     public void testSend() {
 
         try {
-        NotificationStrategy ns = new HttpNotificationStrategy();
-        List<Argument> arguments = new ArrayList<Argument>();
-        Argument arg = null;
-        arg = new Argument("url", null, "http://172.16.8.68/cgi-bin/noauth/nmsgw.pl", false);
-        arguments.add(arg);
-        arg = new Argument("post-NodeID", null, "1", false);
-        arguments.add(arg);
-//        arg = new Argument("post-event", null, "199", false);
-//        arguments.add(arg);
-//        arg = new Argument("post-nasid", null, "1", false);
-//        arguments.add(arg);
-//        arg = new Argument("post-message", null, "JUnit Test RT Integration", false);
-//        arguments.add(arg);
+            NotificationStrategy ns = new HttpNotificationStrategy();
+            List<Argument> arguments = new ArrayList<Argument>();
+            Argument arg = null;
+            arg = new Argument("url", null, "http://172.16.8.68/cgi-bin/noauth/nmsgw.pl", false);
+            arguments.add(arg);
+            arg = new Argument("post-NodeID", null, "1", false);
+            arguments.add(arg);
+            // arg = new Argument("post-event", null, "199", false);
+            // arguments.add(arg);
+            // arg = new Argument("post-nasid", null, "1", false);
+            // arguments.add(arg);
+            // arg = new Argument("post-message", null,
+            // "JUnit Test RT Integration", false);
+            // arguments.add(arg);
 
-//        arg = new Argument("result-match", null, ".*OK\\s([0-9]+)\\s.*", false);
-        arg = new Argument("result-match", null, "(?s).*OK\\s+([0-9]+).*", false);
-        arguments.add(arg);
+            // arg = new Argument("result-match", null, ".*OK\\s([0-9]+)\\s.*",
+            // false);
+            arg = new Argument("result-match", null, "(?s).*OK\\s+([0-9]+).*", false);
+            arguments.add(arg);
 
-        arg = new Argument("post-message", null, "-tm", false);
-        arguments.add(arg);
+            arg = new Argument("post-message", null, "-tm", false);
+            arguments.add(arg);
 
-        arg = new Argument("-tm", null, "text message for unit testing", false);
-        arguments.add(arg);
+            arg = new Argument("-tm", null, "text message for unit testing", false);
+            arguments.add(arg);
 
-        arg = new Argument("sql", null, "UPDATE alarms SET tticketID=${1} WHERE lastEventID = 1", false);
-        arguments.add(arg);
+            arg = new Argument("sql", null, "UPDATE alarms SET tticketID=${1} WHERE lastEventID = 1", false);
+            arguments.add(arg);
 
-        ns.send(arguments);
+            ns.send(arguments);
         } catch (Throwable e) {
             e.printStackTrace();
             fail("Caught Exception:");

@@ -43,26 +43,28 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * This class uses the ServiceConfigFactory to fetch the list of reflection-instantiated
- * classes that are started by the OpenNMS daemon process. It inspects each class to make
- * sure that it has a public constructor so that OpenNMS startup will work properly.
+ * This class uses the ServiceConfigFactory to fetch the list of
+ * reflection-instantiated
+ * classes that are started by the OpenNMS daemon process. It inspects each
+ * class to make
+ * sure that it has a public constructor so that OpenNMS startup will work
+ * properly.
  *
  * @author Seth
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({
-    OpenNMSConfigurationExecutionListener.class
-})
+@TestExecutionListeners({ OpenNMSConfigurationExecutionListener.class })
 @JUnitConfigurationEnvironment
 public class ServiceConfigurationPublicConstructorTest extends PublicConstructorTest {
-	@Override
-	protected List<Class<? extends Object>> getClasses() throws MarshalException, ValidationException, IOException, ClassNotFoundException {
-		List<Class<? extends Object>> retval = new ArrayList<Class<? extends Object>>();
-		ServiceConfigFactory.init();
-		Service[] services = ServiceConfigFactory.getInstance().getServices();
-		for (Service service : services) {
-			retval.add(Class.forName(service.getClassName()));
-		}
-		return retval;
-	}
+    @Override
+    protected List<Class<? extends Object>> getClasses() throws MarshalException, ValidationException, IOException,
+            ClassNotFoundException {
+        List<Class<? extends Object>> retval = new ArrayList<Class<? extends Object>>();
+        ServiceConfigFactory.init();
+        Service[] services = ServiceConfigFactory.getInstance().getServices();
+        for (Service service : services) {
+            retval.add(Class.forName(service.getClassName()));
+        }
+        return retval;
+    }
 }

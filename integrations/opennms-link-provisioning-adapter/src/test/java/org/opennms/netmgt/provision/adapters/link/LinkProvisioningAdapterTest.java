@@ -56,26 +56,24 @@ import org.springframework.test.context.ContextConfiguration;
  * Test the user stories/use cases associated with the Link Adapter.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
- *
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
-        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:testConfigContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath:testConfigContext.xml", "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class LinkProvisioningAdapterTest implements InitializingBean {
 
     public static final String END_POINT_1 = "nc-ral0001-to-ral0002-dwave";
+
     public static final String END_POINT_2 = "nc-ral0002-to-ral0001-dwave";
+
     public static final String UP_STATUS = "G";
+
     public static final String FAILED_STATUS = "B";
 
     @Autowired
@@ -86,7 +84,6 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
     private LinkMatchResolver m_matchResolver;
 
     private NodeLinkService m_nodeLinkService;
-
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -109,7 +106,7 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
     }
 
     @Test
-    public void dwoTestStubs(){
+    public void dwoTestStubs() {
         replay();
         assertEquals(END_POINT_2, m_matchResolver.getAssociatedEndPoint(END_POINT_1));
         assertEquals(END_POINT_1, m_matchResolver.getAssociatedEndPoint(END_POINT_2));
@@ -122,14 +119,13 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
-
-
     @Test
     public void dwoAddLinkedNodes() {
 
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
 
-        // we make node2 return null the first time so when node1 is added it appear node2 is not there
+        // we make node2 return null the first time so when node1 is added it
+        // appear node2 is not there
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andReturn(null).andStubReturn(2);
 
         m_nodeLinkService.createLink(1, 2);
@@ -139,12 +135,8 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
 
-
-
         m_adapter.doAddNode(1);
         m_adapter.doAddNode(2);
-
-
 
         verify();
     }
@@ -186,12 +178,12 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
     }
 
     @Test
-    public void dwoDataLinkFailedEventEndPoint1(){
+    public void dwoDataLinkFailedEventEndPoint1() {
 
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
 
-        m_nodeLinkService.updateLinkStatus(1,2, FAILED_STATUS);
+        m_nodeLinkService.updateLinkStatus(1, 2, FAILED_STATUS);
 
         replay();
 
@@ -207,7 +199,7 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
     }
 
     @Test
-    public void dwoDataLinkFailEventEndPoint2(){
+    public void dwoDataLinkFailEventEndPoint2() {
 
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
@@ -230,12 +222,12 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
     }
 
     @Test
-    public void dwoDataLinkRestoredEventEndPoint1(){
+    public void dwoDataLinkRestoredEventEndPoint1() {
 
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
 
-        m_nodeLinkService.updateLinkStatus(1,2, UP_STATUS);
+        m_nodeLinkService.updateLinkStatus(1, 2, UP_STATUS);
 
         replay();
 
@@ -253,12 +245,12 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
     }
 
     @Test
-    public void dwoDataLinkRestoredEventEndPoint2(){
+    public void dwoDataLinkRestoredEventEndPoint2() {
 
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
 
-        m_nodeLinkService.updateLinkStatus(1,2, UP_STATUS);
+        m_nodeLinkService.updateLinkStatus(1, 2, UP_STATUS);
 
         replay();
 
@@ -276,10 +268,11 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
     }
 
     @Test
-    public void dwoTestUpdateEndPoint1(){
+    public void dwoTestUpdateEndPoint1() {
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
 
-        // we make node2 return null the first time so when node1 is added it appear node2 is not there
+        // we make node2 return null the first time so when node1 is added it
+        // appear node2 is not there
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andReturn(null).andStubReturn(2);
 
         m_nodeLinkService.createLink(1, 2);
@@ -289,12 +282,8 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
 
-
-
         m_adapter.doAddNode(1);
         m_adapter.doAddNode(2);
-
-
 
         verify();
     }
@@ -335,21 +324,21 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
-    public <T> T createMock(Class<T> clazz){
+    public <T> T createMock(Class<T> clazz) {
         return m_easyMock.createMock(clazz);
     }
 
-    public void verify(){
+    public void verify() {
         m_easyMock.verifyAll();
     }
 
-    public void replay(){
+    public void replay() {
         m_easyMock.replayAll();
     }
 
-
     /**
-     * Test invocation of the addNode() operation to verify that the Spring context
+     * Test invocation of the addNode() operation to verify that the Spring
+     * context
      * is injecting all of the necessary dependencies.
      */
     @Test

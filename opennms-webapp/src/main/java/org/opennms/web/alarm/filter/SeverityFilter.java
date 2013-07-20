@@ -34,7 +34,6 @@ import org.opennms.web.filter.SQLType;
 
 /**
  * Encapsulates severity filtering functionality.
- *
  */
 public class SeverityFilter extends EqualsFilter<OnmsSeverity> {
     public static final String TYPE = "severity";

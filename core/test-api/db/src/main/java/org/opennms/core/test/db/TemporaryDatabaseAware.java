@@ -29,8 +29,11 @@
 package org.opennms.core.test.db;
 
 /**
- * This marker interface is used to denote classes where the {@link TemporaryDatabase} instance created by {@link TemporaryDatabaseExecutionListener}
- * can be reinjected. This is used when test classes need access to the specific {@link TemporaryDatabase} instance that is in use during the test.
+ * This marker interface is used to denote classes where the
+ * {@link TemporaryDatabase} instance created by
+ * {@link TemporaryDatabaseExecutionListener} can be reinjected. This is used
+ * when test classes need access to the specific {@link TemporaryDatabase}
+ * instance that is in use during the test.
  */
 public interface TemporaryDatabaseAware<T extends TemporaryDatabase> {
     public void setTemporaryDatabase(T database);

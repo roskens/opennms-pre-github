@@ -56,10 +56,15 @@ public class ScanManager {
     private static final Logger LOG = LoggerFactory.getLogger(ScanManager.class);
 
     private final InetAddress m_address;
+
     private SystemGroup m_systemGroup;
+
     private IfTable m_ifTable;
+
     private IpAddrTable m_ipAddrTable;
+
     private IpAddressTable m_ipAddressTable;
+
     private IfXTable m_ifXTable;
 
     ScanManager(InetAddress address) {
@@ -67,16 +72,21 @@ public class ScanManager {
     }
 
     /**
-     * <p>getSystemGroup</p>
+     * <p>
+     * getSystemGroup
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.provision.service.snmp.SystemGroup} object.
+     * @return a {@link org.opennms.netmgt.provision.service.snmp.SystemGroup}
+     *         object.
      */
     public SystemGroup getSystemGroup() {
         return m_systemGroup;
     }
 
     /**
-     * <p>getIfTable</p>
+     * <p>
+     * getIfTable
+     * </p>
      *
      * @return the ifTable
      */
@@ -85,7 +95,9 @@ public class ScanManager {
     }
 
     /**
-     * <p>getIpAddrTable</p>
+     * <p>
+     * getIpAddrTable
+     * </p>
      *
      * @return the ipAddrTable
      */
@@ -94,11 +106,13 @@ public class ScanManager {
     }
 
     public IpAddressTable getIpAddressTable() {
-    	return m_ipAddressTable;
+        return m_ipAddressTable;
     }
 
     /**
-     * <p>getIfXTable</p>
+     * <p>
+     * getIfXTable
+     * </p>
      *
      * @return the ifXTable
      */
@@ -107,12 +121,12 @@ public class ScanManager {
     }
 
     InetAddress getNetMask(final int ifIndex) {
-    	final InetAddress ipAddressNetmask = getIpAddressTable().getNetMask(ifIndex);
-    	if (ipAddressNetmask == null) {
-    		return getIpAddrTable().getNetMask(ifIndex);
-    	} else {
-    		return ipAddressNetmask;
-    	}
+        final InetAddress ipAddressNetmask = getIpAddressTable().getNetMask(ifIndex);
+        if (ipAddressNetmask == null) {
+            return getIpAddrTable().getNetMask(ifIndex);
+        } else {
+            return ipAddressNetmask;
+        }
     }
 
     boolean isSnmpDataForInterfacesUpToDate() {
@@ -132,28 +146,29 @@ public class ScanManager {
             final Set<SnmpInstId> ipAddrs = new TreeSet<SnmpInstId>();
             final Set<InetAddress> ipAddresses = new HashSet<InetAddress>();
 
-            for(final OnmsIpInterface iface : node.getIpInterfaces()) {
-            	final InetAddress addr = iface.getIpAddress();
+            for (final OnmsIpInterface iface : node.getIpInterfaces()) {
+                final InetAddress addr = iface.getIpAddress();
 
-            	if (addr != null && addr instanceof Inet4Address) {
-            		ipAddrs.add(new SnmpInstId(InetAddressUtils.toOid(addr)));
-            	}
+                if (addr != null && addr instanceof Inet4Address) {
+                    ipAddrs.add(new SnmpInstId(InetAddressUtils.toOid(addr)));
+                }
 
-            	ipAddresses.add(addr);
+                ipAddresses.add(addr);
             }
 
             m_ipAddrTable = new IpAddrTable(m_address, ipAddrs);
             m_ipAddressTable = IpAddressTable.createTable(m_address, ipAddresses);
 
             final SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(m_address);
-            SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "system/ipAddrTable/ipAddressTable", m_systemGroup, m_ipAddrTable, m_ipAddressTable);
+            SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "system/ipAddrTable/ipAddressTable", m_systemGroup,
+                                                       m_ipAddrTable, m_ipAddressTable);
 
             walker.start();
             walker.waitFor();
 
             final Set<SnmpInstId> ifIndices = new TreeSet<SnmpInstId>();
 
-            for(final Integer ifIndex : m_ipAddrTable.getIfIndices()) {
+            for (final Integer ifIndex : m_ipAddrTable.getIfIndices()) {
                 ifIndices.add(new SnmpInstId(ifIndex));
             }
 
@@ -167,20 +182,20 @@ public class ScanManager {
 
             m_systemGroup.updateSnmpDataForNode(node);
 
-            for(final SnmpInstId ifIndex : ifIndices) {
+            for (final SnmpInstId ifIndex : ifIndices) {
                 m_ifTable.updateSnmpInterfaceData(node, ifIndex.toInt());
             }
 
-            for(final SnmpInstId ifIndex : ifIndices) {
+            for (final SnmpInstId ifIndex : ifIndices) {
                 m_ifXTable.updateSnmpInterfaceData(node, ifIndex.toInt());
             }
 
-            for(final SnmpInstId ipAddr : ipAddrs) {
+            for (final SnmpInstId ipAddr : ipAddrs) {
                 m_ipAddrTable.updateIpInterfaceData(node, ipAddr.toString());
             }
 
             for (final InetAddress addr : ipAddresses) {
-            	m_ipAddressTable.updateIpInterfaceData(node, InetAddressUtils.str(addr));
+                m_ipAddressTable.updateIpInterfaceData(node, InetAddressUtils.str(addr));
             }
         } catch (final InterruptedException e) {
             LOG.info("thread interrupted while updating SNMP data", e);
@@ -188,16 +203,18 @@ public class ScanManager {
 
         }
 
-
     }
 
     /**
-     * <p>createCollectionTracker</p>
+     * <p>
+     * createCollectionTracker
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.snmp.AggregateTracker} object.
      */
     public AggregateTracker createCollectionTracker() {
-        return new AggregateTracker(new CollectionTracker[] { getSystemGroup(), getIfTable(), getIpAddrTable(), getIfXTable(), getIpAddressTable() });
+        return new AggregateTracker(new CollectionTracker[] { getSystemGroup(), getIfTable(), getIpAddrTable(),
+                getIfXTable(), getIpAddressTable() });
     }
 
 }

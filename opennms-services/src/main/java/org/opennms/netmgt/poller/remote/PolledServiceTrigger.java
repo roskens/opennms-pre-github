@@ -31,31 +31,38 @@ package org.opennms.netmgt.poller.remote;
 import org.springframework.scheduling.quartz.SimpleTriggerBean;
 
 /**
- * <p>PolledServiceTrigger class.</p>
+ * <p>
+ * PolledServiceTrigger class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class PolledServiceTrigger extends SimpleTriggerBean {
 
-	private static final long serialVersionUID = -3224274965842979439L;
+    private static final long serialVersionUID = -3224274965842979439L;
 
-	private PolledService m_polledService;
+    private PolledService m_polledService;
 
-	/**
-	 * <p>Constructor for PolledServiceTrigger.</p>
-	 *
-	 * @param polledService a {@link org.opennms.netmgt.poller.remote.PolledService} object.
-	 * @throws java.lang.Exception if any.
-	 */
-	public PolledServiceTrigger(PolledService polledService) throws Exception {
-		super();
-		m_polledService = polledService;
+    /**
+     * <p>
+     * Constructor for PolledServiceTrigger.
+     * </p>
+     *
+     * @param polledService
+     *            a {@link org.opennms.netmgt.poller.remote.PolledService}
+     *            object.
+     * @throws java.lang.Exception
+     *             if any.
+     */
+    public PolledServiceTrigger(PolledService polledService) throws Exception {
+        super();
+        m_polledService = polledService;
 
-		setName(polledService.getNodeId()+':'+polledService.getIpAddr()+':'+polledService.getSvcName());
-		setRepeatInterval(m_polledService.getPollModel().getPollInterval());
+        setName(polledService.getNodeId() + ':' + polledService.getIpAddr() + ':' + polledService.getSvcName());
+        setRepeatInterval(m_polledService.getPollModel().getPollInterval());
 
-		afterPropertiesSet();
-	}
+        afterPropertiesSet();
+    }
 
 }

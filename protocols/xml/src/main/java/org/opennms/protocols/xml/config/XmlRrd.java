@@ -46,7 +46,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="rrd")
+@XmlRootElement(name = "rrd")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlRrd implements Serializable, Comparable<XmlRrd> {
 
@@ -54,11 +54,11 @@ public class XmlRrd implements Serializable, Comparable<XmlRrd> {
     private static final long serialVersionUID = 143526958273169546L;
 
     /** The step. */
-    @XmlAttribute(name="step")
+    @XmlAttribute(name = "step")
     private Integer m_step;
 
     /** The XML RRAs list. */
-    @XmlElement(name="rra")
+    @XmlElement(name = "rra")
     private List<String> m_xmlRras = new ArrayList<String>();
 
     /**
@@ -80,7 +80,8 @@ public class XmlRrd implements Serializable, Comparable<XmlRrd> {
     /**
      * Sets the step.
      *
-     * @param step the new step
+     * @param step
+     *            the new step
      */
     public void setStep(Integer step) {
         m_step = step;
@@ -98,7 +99,8 @@ public class XmlRrd implements Serializable, Comparable<XmlRrd> {
     /**
      * Sets the XML RRAs.
      *
-     * @param xmlRras the new XML RRAs
+     * @param xmlRras
+     *            the new XML RRAs
      */
     public void setXmlRras(List<String> xmlRras) {
         m_xmlRras = xmlRras;
@@ -107,7 +109,8 @@ public class XmlRrd implements Serializable, Comparable<XmlRrd> {
     /**
      * Adds a new RRA.
      *
-     * @param rra the RRA
+     * @param rra
+     *            the RRA
      */
     public void addRra(String rra) {
         m_xmlRras.add(rra);
@@ -116,34 +119,33 @@ public class XmlRrd implements Serializable, Comparable<XmlRrd> {
     /**
      * Removes a RRA.
      *
-     * @param rra the RRA
+     * @param rra
+     *            the RRA
      */
     public void removeRra(String rra) {
         m_xmlRras.remove(rra);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
     public int compareTo(XmlRrd obj) {
-        return new CompareToBuilder()
-        .append(getStep(), obj.getStep())
-        .append(getXmlRras().toArray(), obj.getXmlRras().toArray())
-        .toComparison();
+        return new CompareToBuilder().append(getStep(), obj.getStep()).append(getXmlRras().toArray(),
+                                                                              obj.getXmlRras().toArray()).toComparison();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof XmlRrd) {
             XmlRrd other = (XmlRrd) obj;
-            return new EqualsBuilder()
-            .append(getStep(), other.getStep())
-            .append(getXmlRras().toArray(), other.getXmlRras().toArray())
-            .isEquals();
+            return new EqualsBuilder().append(getStep(), other.getStep()).append(getXmlRras().toArray(),
+                                                                                 other.getXmlRras().toArray()).isEquals();
         }
         return false;
     }

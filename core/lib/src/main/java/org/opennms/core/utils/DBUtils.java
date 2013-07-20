@@ -38,32 +38,41 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>DBUtils class.</p>
+ * <p>
+ * DBUtils class.
+ * </p>
  *
  * @author ranger
  */
 public class DBUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DBUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DBUtils.class);
 
     private final Set<Statement> m_statements;
+
     private final Set<ResultSet> m_resultSets;
+
     private final Set<Connection> m_connections;
+
     private Class<?> m_loggingClass;
 
     /**
-     * <p>Constructor for DBUtils.</p>
+     * <p>
+     * Constructor for DBUtils.
+     * </p>
      */
     public DBUtils() {
         this(DBUtils.class);
     }
 
     /**
-     * <p>Constructor for DBUtils.</p>
+     * <p>
+     * Constructor for DBUtils.
+     * </p>
      *
-     * @param loggingClass a {@link java.lang.Class} object.
+     * @param loggingClass
+     *            a {@link java.lang.Class} object.
      */
     public DBUtils(Class<?> loggingClass) {
         m_statements = Collections.synchronizedSet(new HashSet<Statement>());
@@ -73,9 +82,12 @@ public class DBUtils {
     }
 
     /**
-     * <p>setLoggingClass</p>
+     * <p>
+     * setLoggingClass
+     * </p>
      *
-     * @param c a {@link java.lang.Class} object.
+     * @param c
+     *            a {@link java.lang.Class} object.
      * @return a {@link org.opennms.core.utils.DBUtils} object.
      */
     public DBUtils setLoggingClass(Class<?> c) {
@@ -84,24 +96,29 @@ public class DBUtils {
     }
 
     /**
-     * <p>watch</p>
+     * <p>
+     * watch
+     * </p>
      *
-     * @param o a {@link java.lang.Object} object.
+     * @param o
+     *            a {@link java.lang.Object} object.
      * @return a {@link org.opennms.core.utils.DBUtils} object.
      */
     public DBUtils watch(Object o) {
         if (o instanceof Statement) {
-            m_statements.add((Statement)o);
+            m_statements.add((Statement) o);
         } else if (o instanceof ResultSet) {
-            m_resultSets.add((ResultSet)o);
+            m_resultSets.add((ResultSet) o);
         } else if (o instanceof Connection) {
-            m_connections.add((Connection)o);
+            m_connections.add((Connection) o);
         }
         return this;
     }
 
     /**
-     * <p>cleanUp</p>
+     * <p>
+     * cleanUp
+     * </p>
      */
     public void cleanUp() {
         for (ResultSet rs : m_resultSets) {

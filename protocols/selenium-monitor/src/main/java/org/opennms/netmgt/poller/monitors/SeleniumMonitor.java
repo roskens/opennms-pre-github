@@ -52,12 +52,11 @@ import org.slf4j.LoggerFactory;
 public class SeleniumMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(SeleniumMonitor.class);
 
-    public static class BaseUrlUtils{
+    public static class BaseUrlUtils {
         private static Pattern s_ipAddrPattern = Pattern.compile("\\$\\{ipAddr\\}");
 
-
         public static String replaceIpAddr(String baseUrl, String monSvcIpAddr) {
-            if(!baseUrl.contains("${ipAddr}")) {
+            if (!baseUrl.contains("${ipAddr}")) {
                 return baseUrl;
             }
 
@@ -70,91 +69,93 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
     }
 
     private static final int DEFAULT_SEQUENCE_RETRY = 0;
-	private static final int DEFAULT_TIMEOUT = 3000;
 
-	@Override
-	public PollStatus poll(MonitoredService svc, Map<String, Object> parameters)
-	{
-		PollStatus serviceStatus = PollStatus.unavailable("Poll not completed yet");
-		TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_SEQUENCE_RETRY, DEFAULT_TIMEOUT);
+    private static final int DEFAULT_TIMEOUT = 3000;
 
-		for(tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt()) {
-		    String seleniumTestFilename = getGroovyFilename(parameters);
-    		try {
+    @Override
+    public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
+        PollStatus serviceStatus = PollStatus.unavailable("Poll not completed yet");
+        TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_SEQUENCE_RETRY, DEFAULT_TIMEOUT);
+
+        for (tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt()) {
+            String seleniumTestFilename = getGroovyFilename(parameters);
+            try {
 
                 Map<String, Number> responseTimes = new HashMap<String, Number>();
                 responseTimes.put("response-time", Double.NaN);
 
                 tracker.startAttempt();
-                Result result = runTest(getBaseUrl(parameters, svc), getTimeout(parameters), createGroovyClass( seleniumTestFilename ));
+                Result result = runTest(getBaseUrl(parameters, svc), getTimeout(parameters),
+                                        createGroovyClass(seleniumTestFilename));
                 double responseTime = tracker.elapsedTimeInMillis();
                 responseTimes.put("response-time", responseTime);
 
-                if(result.wasSuccessful()) {
+                if (result.wasSuccessful()) {
                     serviceStatus = PollStatus.available();
                     serviceStatus.setProperties(responseTimes);
-                }else {
-                    serviceStatus = PollStatus.unavailable( getFailureMessage( result, svc ));
+                } else {
+                    serviceStatus = PollStatus.unavailable(getFailureMessage(result, svc));
                 }
             } catch (CompilationFailedException e) {
-                serviceStatus = PollStatus.unavailable("Selenium page sequence attempt on:" + svc.getIpAddr() + " failed : selenium-test compilation error " + e.getMessage());
+                serviceStatus = PollStatus.unavailable("Selenium page sequence attempt on:" + svc.getIpAddr()
+                        + " failed : selenium-test compilation error " + e.getMessage());
                 String reason = "Selenium sequence failed: CompilationFailedException" + e.getMessage();
                 SeleniumMonitor.LOG.debug(reason);
                 PollStatus.unavailable(reason);
             } catch (IOException e) {
-                serviceStatus = PollStatus.unavailable("Selenium page sequence attempt on " + svc.getIpAddr() + " failed: IOException occurred, failed to find selenium-test: " + seleniumTestFilename);
+                serviceStatus = PollStatus.unavailable("Selenium page sequence attempt on " + svc.getIpAddr()
+                        + " failed: IOException occurred, failed to find selenium-test: " + seleniumTestFilename);
                 String reason = "Selenium sequence failed: IOException: " + e.getMessage();
                 SeleniumMonitor.LOG.debug(reason);
                 PollStatus.unavailable(reason);
             } catch (Exception e) {
-                serviceStatus = PollStatus.unavailable("Selenium page sequence attempt on " + svc.getIpAddr() + " failed:\n" + e.getMessage());
+                serviceStatus = PollStatus.unavailable("Selenium page sequence attempt on " + svc.getIpAddr()
+                        + " failed:\n" + e.getMessage());
                 String reason = "Selenium sequence failed: Exception: " + e.getMessage();
                 SeleniumMonitor.LOG.debug(reason);
                 PollStatus.unavailable(reason);
             }
-		}
+        }
 
-		return serviceStatus;
-	}
+        return serviceStatus;
+    }
 
     private int getTimeout(Map<String, Object> parameters) {
-        if(parameters.containsKey("timeout")) {
+        if (parameters.containsKey("timeout")) {
             return Integer.parseInt("" + parameters.get("timeout"));
-        }else {
+        } else {
             return 3;
         }
     }
 
-    private String getBaseUrl(Map<String, Object> parameters, MonitoredService svc)
-    {
-        if(parameters.containsKey("base-url")) {
+    private String getBaseUrl(Map<String, Object> parameters, MonitoredService svc) {
+        if (parameters.containsKey("base-url")) {
             String baseUrl = (String) parameters.get("base-url");
 
-            if(!baseUrl.contains("http")) {
+            if (!baseUrl.contains("http")) {
                 baseUrl = "http://" + baseUrl;
             }
 
-            if(baseUrl.contains("${ipAddr}")) {
+            if (baseUrl.contains("${ipAddr}")) {
                 baseUrl = BaseUrlUtils.replaceIpAddr(baseUrl, svc.getIpAddr());
             }
 
-            if(parameters.containsKey("port")) {
+            if (parameters.containsKey("port")) {
                 String port = (String) parameters.get("port");
                 baseUrl = baseUrl + ":" + port;
             }
 
             return baseUrl;
-        }else {
+        } else {
             return null;
         }
 
     }
 
-    private String getFailureMessage(Result result, MonitoredService svc)
-    {
+    private String getFailureMessage(Result result, MonitoredService svc) {
         StringBuffer stringBuilder = new StringBuffer();
         stringBuilder.append("Failed: ");
-        for(Failure failure : result.getFailures()) {
+        for (Failure failure : result.getFailures()) {
             stringBuilder.append(" " + failure.getMessage() + "\n");
         }
         String reason = "Selenium sequence failed: " + stringBuilder.toString();
@@ -164,28 +165,25 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
         return stringBuilder.toString();
     }
 
-    private Result runTest(String baseUrl, int timeoutInSeconds, Class<?> clazz)
-    {
+    private Result runTest(String baseUrl, int timeoutInSeconds, Class<?> clazz) {
         return JUnitCore.runClasses(new SeleniumComputer(baseUrl, timeoutInSeconds), clazz);
     }
 
-    private String  getGroovyFilename(Map<String, Object> parameters)
-    {
-        if(parameters.containsKey("selenium-test")) {
+    private String getGroovyFilename(Map<String, Object> parameters) {
+        if (parameters.containsKey("selenium-test")) {
             return (String) parameters.get("selenium-test");
-        }else {
+        } else {
             return "";
         }
 
     }
 
-    private Class<?> createGroovyClass(String filename) throws CompilationFailedException, IOException
-    {
+    private Class<?> createGroovyClass(String filename) throws CompilationFailedException, IOException {
         GroovyClassLoader gcl = new GroovyClassLoader();
 
         String file = System.getProperty("opennms.home") + "/etc/selenium/" + filename;
         System.err.println("File name: " + file);
-        return gcl.parseClass(new File( file ));
+        return gcl.parseClass(new File(file));
     }
 
 }

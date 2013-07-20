@@ -33,19 +33,24 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 /**
- * <p>ClosableDataSource interface.</p>
+ * <p>
+ * ClosableDataSource interface.
+ * </p>
  */
 public interface ClosableDataSource extends DataSource {
 
     /**
      * Close the datasource, if necessary.
      *
-     * @throws java.sql.SQLException if any.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     void close() throws SQLException;
 
     /**
-     * How long, in seconds, an idle connection is kept in the pool before it is removed.
+     * How long, in seconds, an idle connection is kept in the pool before it is
+     * removed.
+     *
      * @param idleTimeout
      */
     void setIdleTimeout(final int idleTimeout);
@@ -58,18 +63,21 @@ public interface ClosableDataSource extends DataSource {
 
     /**
      * The minimum number of pooled connections to retain.
+     *
      * @param minPool
      */
     void setMinPool(final int minPool);
 
     /**
      * The maximum number of pooled connections to retain.
+     *
      * @param maxPool
      */
     void setMaxPool(final int maxPool);
 
     /**
      * The maximum number of connections that can be created.
+     *
      * @param maxSize
      */
     void setMaxSize(final int maxSize);

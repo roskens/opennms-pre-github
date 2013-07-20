@@ -28,7 +28,6 @@
 
 package org.opennms.web.map;
 
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -48,7 +47,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * <p>SaveMapController class.</p>
+ * <p>
+ * SaveMapController class.
+ * </p>
  *
  * @author mmigliore
  * @author antonio@opennms.it
@@ -57,96 +58,96 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class SaveMapController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SaveMapController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SaveMapController.class);
 
-	private Manager manager;
+    private Manager manager;
 
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+    private static List<VElement> elems = null;
 
-	private static List<VElement> elems = null;
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
-				.getOutputStream(), "UTF-8"));
+        int mapId = WebSecurityUtils.safeParseInt(request.getParameter("MapId"));
+        String mapName = request.getParameter("MapName");
+        String mapBackground = request.getParameter("MapBackground");
+        int mapWidth = WebSecurityUtils.safeParseInt(request.getParameter("MapWidth"));
+        int mapHeight = WebSecurityUtils.safeParseInt(request.getParameter("MapHeight"));
 
-		int mapId = WebSecurityUtils.safeParseInt(request.getParameter("MapId"));
-		String mapName = request.getParameter("MapName");
-		String mapBackground = request.getParameter("MapBackground");
-		int mapWidth = WebSecurityUtils.safeParseInt(request.getParameter("MapWidth"));
-		int mapHeight = WebSecurityUtils.safeParseInt(request.getParameter("MapHeight"));
+        String query = request.getQueryString();
+        String queryNodes = request.getParameter("Nodes");
 
-		String query = request.getQueryString();
-		String queryNodes = request.getParameter("Nodes");
-
-		LOG.debug("Saving map {} the query received is '{}'", mapName, query);
+        LOG.debug("Saving map {} the query received is '{}'", mapName, query);
         LOG.debug("Saving map {} the data received is '{}'", mapName, queryNodes);
 
-		try {
-			VMap map = manager.openMap();
-			if (mapId != MapsConstants.NEW_MAP && map.isNew())
-				map = manager.openMap(mapId, request.getRemoteUser(), false);
+        try {
+            VMap map = manager.openMap();
+            if (mapId != MapsConstants.NEW_MAP && map.isNew())
+                map = manager.openMap(mapId, request.getRemoteUser(), false);
 
-			LOG.debug("Instantiating new elems ArrayList");
-			elems = new ArrayList<VElement>();
+            LOG.debug("Instantiating new elems ArrayList");
+            elems = new ArrayList<VElement>();
 
-			StringTokenizer st = new StringTokenizer(queryNodes, "*");
-			while (st.hasMoreTokens()) {
-				String nodeToken = st.nextToken();
-				StringTokenizer nodeST = new StringTokenizer(nodeToken, ",");
-				int counter = 1;
-				String icon = "";
-				String type = MapsConstants.NODE_TYPE;
+            StringTokenizer st = new StringTokenizer(queryNodes, "*");
+            while (st.hasMoreTokens()) {
+                String nodeToken = st.nextToken();
+                StringTokenizer nodeST = new StringTokenizer(nodeToken, ",");
+                int counter = 1;
+                String icon = "";
+                String type = MapsConstants.NODE_TYPE;
 
-				int id = 0, x = 0, y = 0;
-				while (nodeST.hasMoreTokens()) {
-					String tmp = nodeST.nextToken();
-					if (counter == 1) {
-						id = WebSecurityUtils.safeParseInt(tmp);
-					}
-					if (counter == 2) {
-						x = WebSecurityUtils.safeParseInt(tmp);
-					}
-					if (counter == 3) {
-						y = WebSecurityUtils.safeParseInt(tmp);
-					}
-					if (counter == 4) {
-						icon = tmp;
-					}
-					if (counter == 5) {
-						type = tmp;
-					}
-					counter++;
-				}
-				if (!type.equals(MapsConstants.NODE_TYPE)
-						&& !type.equals(MapsConstants.MAP_TYPE)) {
-					throw new MapsException("Map element type " + type
-							+ " not valid! Valid values are:"
-							+ MapsConstants.NODE_TYPE + " and "
-							+ MapsConstants.MAP_TYPE);
-				}
+                int id = 0, x = 0, y = 0;
+                while (nodeST.hasMoreTokens()) {
+                    String tmp = nodeST.nextToken();
+                    if (counter == 1) {
+                        id = WebSecurityUtils.safeParseInt(tmp);
+                    }
+                    if (counter == 2) {
+                        x = WebSecurityUtils.safeParseInt(tmp);
+                    }
+                    if (counter == 3) {
+                        y = WebSecurityUtils.safeParseInt(tmp);
+                    }
+                    if (counter == 4) {
+                        icon = tmp;
+                    }
+                    if (counter == 5) {
+                        type = tmp;
+                    }
+                    counter++;
+                }
+                if (!type.equals(MapsConstants.NODE_TYPE) && !type.equals(MapsConstants.MAP_TYPE)) {
+                    throw new MapsException("Map element type " + type + " not valid! Valid values are:"
+                            + MapsConstants.NODE_TYPE + " and " + MapsConstants.MAP_TYPE);
+                }
 
-				String label=null;
+                String label = null;
                 if (map.getElement(id, type) != null && map.getElement(id, type).getLabel() != null) {
                     LOG.debug("preserving the label: {}", map.getElement(id, type).getLabel());
                     label = map.getElement(id, type).getLabel();
@@ -157,45 +158,44 @@ public class SaveMapController extends MapsLoggingController {
                     ve.setLabel(label);
 
                 LOG.debug("adding map element to map with id: {}{} and label: {}", id, type, ve.getLabel());
-				elems.add(ve);
-			}
+                elems.add(ve);
+            }
 
-			map.removeAllLinks();
-			map.removeAllElements();
+            map.removeAllLinks();
+            map.removeAllElements();
 
-			map.addElements(elems);
+            map.addElements(elems);
 
+            map.setUserLastModifies(request.getRemoteUser());
+            map.setName(mapName);
+            map.setBackground(mapBackground);
+            map.setWidth(mapWidth);
+            map.setHeight(mapHeight);
 
-			map.setUserLastModifies(request.getRemoteUser());
-			map.setName(mapName);
-			map.setBackground(mapBackground);
-			map.setWidth(mapWidth);
-			map.setHeight(mapHeight);
-
-			if (map.isNew()) {
-			    LOG.debug("Map is New Map");
-				map.setType(MapsConstants.USER_GENERATED_MAP);
-				map.setAccessMode(MapsConstants.ACCESS_MODE_ADMIN);
-			} else if (map.getType().trim().equalsIgnoreCase(MapsConstants.AUTOMATICALLY_GENERATED_MAP)) {
+            if (map.isNew()) {
+                LOG.debug("Map is New Map");
+                map.setType(MapsConstants.USER_GENERATED_MAP);
+                map.setAccessMode(MapsConstants.ACCESS_MODE_ADMIN);
+            } else if (map.getType().trim().equalsIgnoreCase(MapsConstants.AUTOMATICALLY_GENERATED_MAP)) {
                 LOG.debug("Map is Automated Map, saving as Static");
                 map.setType(MapsConstants.AUTOMATIC_SAVED_MAP);
-			}
-			mapId = manager.save(map);
+            }
+            mapId = manager.save(map);
 
-	        LOG.info("{} Map saved. With map id: {}", map.getName(),  mapId);
+            LOG.info("{} Map saved. With map id: {}", map.getName(), mapId);
 
-			if (map.isNew())
-			    map.setId(mapId);
+            if (map.isNew())
+                map.setId(mapId);
 
-			bw.write(ResponseAssembler.getSaveMapResponse(map));
-		} catch (Throwable e) {
-			LOG.error("Map save error", e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.SAVEMAP_ACTION));
-		} finally {
-			bw.close();
-			LOG.info("Sending response to the client");
-		}
-		return null;
-	}
+            bw.write(ResponseAssembler.getSaveMapResponse(map));
+        } catch (Throwable e) {
+            LOG.error("Map save error", e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.SAVEMAP_ACTION));
+        } finally {
+            bw.close();
+            LOG.info("Sending response to the client");
+        }
+        return null;
+    }
 
 }

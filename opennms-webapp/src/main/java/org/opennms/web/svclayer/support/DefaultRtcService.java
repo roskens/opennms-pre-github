@@ -46,9 +46,10 @@ import org.opennms.web.svclayer.RtcService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
-
 /**
- * <p>DefaultRtcService class.</p>
+ * <p>
+ * DefaultRtcService class.
+ * </p>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
@@ -56,10 +57,13 @@ import org.springframework.util.Assert;
  */
 public class DefaultRtcService implements RtcService, InitializingBean {
     private MonitoredServiceDao m_monitoredServiceDao;
+
     private OutageDao m_outageDao;
 
     /**
-     * <p>getNodeList</p>
+     * <p>
+     * getNodeList
+     * </p>
      *
      * @return a {@link org.opennms.web.svclayer.support.RtcNodeModel} object.
      */
@@ -73,7 +77,8 @@ public class DefaultRtcService implements RtcService, InitializingBean {
 
     /** {@inheritDoc} */
     @Override
-    public final RtcNodeModel getNodeListForCriteria(final OnmsCriteria serviceCriteria, final OnmsCriteria outageCriteria) {
+    public final RtcNodeModel getNodeListForCriteria(final OnmsCriteria serviceCriteria,
+            final OnmsCriteria outageCriteria) {
         serviceCriteria.addOrder(Order.asc("node.label"));
         serviceCriteria.addOrder(Order.asc("node.id"));
         serviceCriteria.addOrder(Order.asc("ipInterface.ipAddress"));
@@ -119,7 +124,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
             }
 
             Long downMillis = serviceDownTime.get(service);
-            if  (downMillis != null) {
+            if (downMillis != null) {
                 downMillisCount += downMillis;
             }
 
@@ -135,7 +140,9 @@ public class DefaultRtcService implements RtcService, InitializingBean {
     }
 
     /**
-     * <p>createOutageCriteria</p>
+     * <p>
+     * createOutageCriteria
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
@@ -154,7 +161,9 @@ public class DefaultRtcService implements RtcService, InitializingBean {
     }
 
     /**
-     * <p>createServiceCriteria</p>
+     * <p>
+     * createServiceCriteria
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
@@ -173,7 +182,8 @@ public class DefaultRtcService implements RtcService, InitializingBean {
         return serviceCriteria;
     }
 
-    private Map<OnmsMonitoredService, Long> calculateServiceDownTime(final Date periodEnd, final Date periodStart, final List<OnmsOutage> outages) {
+    private Map<OnmsMonitoredService, Long> calculateServiceDownTime(final Date periodEnd, final Date periodStart,
+            final List<OnmsOutage> outages) {
         Map<OnmsMonitoredService, Long> map = new HashMap<OnmsMonitoredService, Long>();
         for (OnmsOutage outage : outages) {
             if (map.get(outage.getMonitoredService()) == null) {
@@ -208,7 +218,9 @@ public class DefaultRtcService implements RtcService, InitializingBean {
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      */
     @Override
     public final void afterPropertiesSet() {
@@ -217,33 +229,47 @@ public class DefaultRtcService implements RtcService, InitializingBean {
     }
 
     /**
-     * <p>getMonitoredServiceDao</p>
+     * <p>
+     * getMonitoredServiceDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao} object.
      */
     public final MonitoredServiceDao getMonitoredServiceDao() {
         return m_monitoredServiceDao;
     }
+
     /**
-     * <p>setMonitoredServiceDao</p>
+     * <p>
+     * setMonitoredServiceDao
+     * </p>
      *
-     * @param monitoredServiceDao a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao} object.
+     * @param monitoredServiceDao
+     *            a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao}
+     *            object.
      */
     public final void setMonitoredServiceDao(final MonitoredServiceDao monitoredServiceDao) {
         m_monitoredServiceDao = monitoredServiceDao;
     }
+
     /**
-     * <p>getOutageDao</p>
+     * <p>
+     * getOutageDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
     public final OutageDao getOutageDao() {
         return m_outageDao;
     }
+
     /**
-     * <p>setOutageDao</p>
+     * <p>
+     * setOutageDao
+     * </p>
      *
-     * @param outageDao a {@link org.opennms.netmgt.dao.api.OutageDao} object.
+     * @param outageDao
+     *            a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
     public final void setOutageDao(final OutageDao outageDao) {
         m_outageDao = outageDao;

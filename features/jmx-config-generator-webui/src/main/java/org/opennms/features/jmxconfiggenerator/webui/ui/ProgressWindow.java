@@ -41,25 +41,27 @@ import com.vaadin.ui.Window;
  */
 public class ProgressWindow extends Window {
 
-	private ProgressIndicator progress = new ProgressIndicator();
-	private HorizontalLayout layout = new HorizontalLayout();
-	private Label label = new Label("calculating some stuff");
+    private ProgressIndicator progress = new ProgressIndicator();
 
-	public ProgressWindow() {
-		setCaption("processing...");
-		setModal(true);
-		setClosable(false);
-		setWidth(400, UNITS_PIXELS);
-		setHeight(200, UNITS_PIXELS);
-		progress.setIndeterminate(true);
-		layout.addComponent(progress);
-		layout.setSpacing(true);
-		layout.addComponent(label);
-		setContent(layout);
-		center();
-	}
+    private HorizontalLayout layout = new HorizontalLayout();
 
-	public void setLabelText(String label) {
-		this.label.setValue(label);
-	}
+    private Label label = new Label("calculating some stuff");
+
+    public ProgressWindow() {
+        setCaption("processing...");
+        setModal(true);
+        setClosable(false);
+        setWidth(400, UNITS_PIXELS);
+        setHeight(200, UNITS_PIXELS);
+        progress.setIndeterminate(true);
+        layout.addComponent(progress);
+        layout.setSpacing(true);
+        layout.addComponent(label);
+        setContent(layout);
+        center();
+    }
+
+    public void setLabelText(String label) {
+        this.label.setValue(label);
+    }
 }

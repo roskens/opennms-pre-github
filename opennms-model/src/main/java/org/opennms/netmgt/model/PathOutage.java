@@ -29,83 +29,104 @@
 package org.opennms.netmgt.model;
 
 /**
- * <p>PathOutage class.</p>
+ * <p>
+ * PathOutage class.
+ * </p>
  */
 public class PathOutage {
-	private int nodeId;
-	private String criticalPathIp;
-	private String criticalPathServiceName;
+    private int nodeId;
 
-	//Operations
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-        @Override
-	public String toString() {
-		StringBuffer result = new StringBuffer(50);
-		result.append("pathOutage { nodeID: ");
-		result.append(nodeId);
-		result.append(", criticalPathIp: ");
-		result.append(criticalPathIp);
-		result.append(", criticalPathServiceName: ");
-		result.append(criticalPathServiceName);
-		result.append(" }");
-		return result.toString();
-	}
+    private String criticalPathIp;
 
-	/**
-	 * <p>Getter for the field <code>criticalPathIp</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getCriticalPathIp() {
-		return criticalPathIp;
-	}
+    private String criticalPathServiceName;
 
-	/**
-	 * <p>Setter for the field <code>criticalPathIp</code>.</p>
-	 *
-	 * @param criticalPathIp a {@link java.lang.String} object.
-	 */
-	public void setCriticalPathIp(String criticalPathIp) {
-		this.criticalPathIp = criticalPathIp;
-	}
+    // Operations
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    @Override
+    public String toString() {
+        StringBuffer result = new StringBuffer(50);
+        result.append("pathOutage { nodeID: ");
+        result.append(nodeId);
+        result.append(", criticalPathIp: ");
+        result.append(criticalPathIp);
+        result.append(", criticalPathServiceName: ");
+        result.append(criticalPathServiceName);
+        result.append(" }");
+        return result.toString();
+    }
 
-	/**
-	 * <p>Getter for the field <code>criticalPathServiceName</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getCriticalPathServiceName() {
-		return criticalPathServiceName;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>criticalPathIp</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getCriticalPathIp() {
+        return criticalPathIp;
+    }
 
-	/**
-	 * <p>Setter for the field <code>criticalPathServiceName</code>.</p>
-	 *
-	 * @param criticalPathServiceName a {@link java.lang.String} object.
-	 */
-	public void setCriticalPathServiceName(String criticalPathServiceName) {
-		this.criticalPathServiceName = criticalPathServiceName;
-	}
+    /**
+     * <p>
+     * Setter for the field <code>criticalPathIp</code>.
+     * </p>
+     *
+     * @param criticalPathIp
+     *            a {@link java.lang.String} object.
+     */
+    public void setCriticalPathIp(String criticalPathIp) {
+        this.criticalPathIp = criticalPathIp;
+    }
 
-	/**
-	 * <p>Getter for the field <code>nodeId</code>.</p>
-	 *
-	 * @return a int.
-	 */
-	public int getNodeId() {
-		return nodeId;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>criticalPathServiceName</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getCriticalPathServiceName() {
+        return criticalPathServiceName;
+    }
 
-	/**
-	 * <p>Setter for the field <code>nodeId</code>.</p>
-	 *
-	 * @param nodeId a int.
-	 */
-	public void setNodeId(int nodeId) {
-		this.nodeId = nodeId;
-	}
+    /**
+     * <p>
+     * Setter for the field <code>criticalPathServiceName</code>.
+     * </p>
+     *
+     * @param criticalPathServiceName
+     *            a {@link java.lang.String} object.
+     */
+    public void setCriticalPathServiceName(String criticalPathServiceName) {
+        this.criticalPathServiceName = criticalPathServiceName;
+    }
+
+    /**
+     * <p>
+     * Getter for the field <code>nodeId</code>.
+     * </p>
+     *
+     * @return a int.
+     */
+    public int getNodeId() {
+        return nodeId;
+    }
+
+    /**
+     * <p>
+     * Setter for the field <code>nodeId</code>.
+     * </p>
+     *
+     * @param nodeId
+     *            a int.
+     */
+    public void setNodeId(int nodeId) {
+        this.nodeId = nodeId;
+    }
 }

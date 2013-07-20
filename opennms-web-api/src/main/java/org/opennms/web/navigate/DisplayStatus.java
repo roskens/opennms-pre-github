@@ -29,7 +29,9 @@
 package org.opennms.web.navigate;
 
 /**
- * <p>DisplayStatus class.</p>
+ * <p>
+ * DisplayStatus class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,6 +41,7 @@ public enum DisplayStatus {
     NO_DISPLAY(false, false), DISPLAY_NO_LINK(true, false), DISPLAY_LINK(true, true);
 
     private boolean m_display;
+
     private boolean m_displayLink;
 
     DisplayStatus(boolean display, boolean displayLink) {
@@ -47,7 +50,9 @@ public enum DisplayStatus {
     }
 
     /**
-     * <p>isDisplay</p>
+     * <p>
+     * isDisplay
+     * </p>
      *
      * @return a boolean.
      */
@@ -56,7 +61,9 @@ public enum DisplayStatus {
     }
 
     /**
-     * <p>isDisplayLink</p>
+     * <p>
+     * isDisplayLink
+     * </p>
      *
      * @return a boolean.
      */

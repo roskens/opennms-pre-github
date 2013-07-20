@@ -76,8 +76,7 @@ public class Attribute implements Serializable {
         super();
     }
 
-    public Attribute(final String name, final String type,
-            final String content) {
+    public Attribute(final String name, final String type, final String content) {
         super();
         setName(name);
         setValue(new Value(type, content));

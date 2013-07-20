@@ -49,10 +49,13 @@ public class VmwareConfigBuilder {
 
     private static class VMwareConfigMetric implements Comparable<VMwareConfigMetric> {
         private String humanReadableName, aliasName, groupName;
+
         private PerfCounterInfo perfCounterInfo;
+
         private boolean multiInstance = false;
 
-        public VMwareConfigMetric(PerfCounterInfo perfCounterInfo, String humanReadableName, String aliasName, boolean multiInstance, String groupName) {
+        public VMwareConfigMetric(PerfCounterInfo perfCounterInfo, String humanReadableName, String aliasName,
+                boolean multiInstance, String groupName) {
             this.perfCounterInfo = perfCounterInfo;
             this.humanReadableName = humanReadableName;
             this.aliasName = aliasName;
@@ -67,14 +70,21 @@ public class VmwareConfigBuilder {
         public String getGraphDefinition(String apiVersion) {
             String resourceType = (multiInstance ? "vmware" + apiVersion + groupName : "nodeSnmp");
 
-            String def = "report.vmware" + apiVersion + "." + aliasName + ".name=" + aliasName + "\n" + "report.vmware" + apiVersion + "." + aliasName + ".columns=" + aliasName + "\n";
+            String def = "report.vmware" + apiVersion + "." + aliasName + ".name=" + aliasName + "\n" + "report.vmware"
+                    + apiVersion + "." + aliasName + ".columns=" + aliasName + "\n";
 
             if (multiInstance) {
-                def += "report.vmware" + apiVersion + "." + aliasName + ".propertiesValues=vmware" + apiVersion + groupName + "Name\n";
+                def += "report.vmware" + apiVersion + "." + aliasName + ".propertiesValues=vmware" + apiVersion
+                        + groupName + "Name\n";
             }
 
-            def += "report.vmware" + apiVersion + "." + aliasName + ".type=" + resourceType + "\n" + "report.vmware" + apiVersion + "." + aliasName + ".command=--title=\"" + aliasName + (multiInstance ? " {" + resourceType + "Name}" : "") + "\" \\\n" + "--vertical-label=\"" + aliasName + "\" \\\n" + "DEF:xxx={rrd1}:"
-                    + aliasName + ":AVERAGE \\\n" + "LINE2:xxx#0000ff:\"" + aliasName + "\" \\\n" + "GPRINT:xxx:AVERAGE:\"Avg  \\\\: %8.2lf %s\" \\\n" + "GPRINT:xxx:MIN:\"Min  \\\\: %8.2lf %s\" \\\n" + "GPRINT:xxx:MAX:\"Max  \\\\: %8.2lf %s\\\\n\" \\\n\n";
+            def += "report.vmware" + apiVersion + "." + aliasName + ".type=" + resourceType + "\n" + "report.vmware"
+                    + apiVersion + "." + aliasName + ".command=--title=\"" + aliasName
+                    + (multiInstance ? " {" + resourceType + "Name}" : "") + "\" \\\n" + "--vertical-label=\""
+                    + aliasName + "\" \\\n" + "DEF:xxx={rrd1}:" + aliasName + ":AVERAGE \\\n" + "LINE2:xxx#0000ff:\""
+                    + aliasName + "\" \\\n" + "GPRINT:xxx:AVERAGE:\"Avg  \\\\: %8.2lf %s\" \\\n"
+                    + "GPRINT:xxx:MIN:\"Min  \\\\: %8.2lf %s\" \\\n"
+                    + "GPRINT:xxx:MAX:\"Max  \\\\: %8.2lf %s\\\\n\" \\\n\n";
 
             return def;
         }
@@ -106,10 +116,15 @@ public class VmwareConfigBuilder {
     }
 
     private String hostname, username, password;
+
     private ServiceInstance serviceInstance;
+
     private PerformanceManager performanceManager;
+
     private Map<String, Map<String, TreeSet<VMwareConfigMetric>>> collections = new HashMap<String, Map<String, TreeSet<VMwareConfigMetric>>>();
+
     private Map<Integer, PerfCounterInfo> perfCounterInfoMap = new HashMap<Integer, PerfCounterInfo>();
+
     private String versionInformation = "", apiVersion = "";
 
     private static class TrustAllManager implements javax.net.ssl.TrustManager, javax.net.ssl.X509TrustManager {
@@ -127,12 +142,14 @@ public class VmwareConfigBuilder {
         }
 
         @Override
-        public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) throws java.security.cert.CertificateException {
+        public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
+                throws java.security.cert.CertificateException {
             return;
         }
 
         @Override
-        public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) throws java.security.cert.CertificateException {
+        public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
+                throws java.security.cert.CertificateException {
             return;
         }
     }
@@ -144,7 +161,8 @@ public class VmwareConfigBuilder {
     }
 
     private String getHumanReadableName(PerfCounterInfo perfCounterInfo) {
-        return perfCounterInfo.getGroupInfo().getKey() + "." + perfCounterInfo.getNameInfo().getKey() + "." + perfCounterInfo.getRollupType().toString();
+        return perfCounterInfo.getGroupInfo().getKey() + "." + perfCounterInfo.getNameInfo().getKey() + "."
+                + perfCounterInfo.getRollupType().toString();
     }
 
     private String normalizeName(String name) {
@@ -153,8 +171,10 @@ public class VmwareConfigBuilder {
 
     private String normalizeGroupName(String groupName) {
         String modifiedGroupName = groupName;
-        String[] groupChunks = {"sys", "rescpu", "cpu", "net", "disk", "mem", "managementAgent", "virtualDisk", "datastore", "storageAdapter", "storagePath", "hbr", "power"};
-        String[] groupReplacements = {"Sys", "ResCpu", "Cpu", "Net", "Disk", "Mem", "MgtAgt", "VrtDisk", "DaSt", "StAdptr", "StPth", "Hbr", "Power"};
+        String[] groupChunks = { "sys", "rescpu", "cpu", "net", "disk", "mem", "managementAgent", "virtualDisk",
+                "datastore", "storageAdapter", "storagePath", "hbr", "power" };
+        String[] groupReplacements = { "Sys", "ResCpu", "Cpu", "Net", "Disk", "Mem", "MgtAgt", "VrtDisk", "DaSt",
+                "StAdptr", "StPth", "Hbr", "Power" };
 
         for (int i = 0; i < groupChunks.length; i++) {
             modifiedGroupName = modifiedGroupName.replace(groupChunks[i], groupReplacements[i]);
@@ -163,7 +183,8 @@ public class VmwareConfigBuilder {
     }
 
     private String condenseName(String text, String chunk) {
-        String ignoreCaseChunk = "[" + chunk.substring(0, 1) + chunk.substring(0, 1).toUpperCase() + "]" + chunk.substring(1);
+        String ignoreCaseChunk = "[" + chunk.substring(0, 1) + chunk.substring(0, 1).toUpperCase() + "]"
+                + chunk.substring(1);
         String replacement = chunk.substring(0, 1).toUpperCase() + chunk.substring(chunk.length() - 1);
         return text.replaceAll(ignoreCaseChunk, replacement);
     }
@@ -176,15 +197,18 @@ public class VmwareConfigBuilder {
 
         group = normalizeGroupName(group);
 
-        String[] rollupChunks = {"summation", "average", "latest", "none", "minimum", "maximum", "total"};
-        String[] rollupReplacements = {"Sum", "Avg", "Lat", "Non", "Min", "Max", "Tot"};
+        String[] rollupChunks = { "summation", "average", "latest", "none", "minimum", "maximum", "total" };
+        String[] rollupReplacements = { "Sum", "Avg", "Lat", "Non", "Min", "Max", "Tot" };
 
         for (int i = 0; i < rollupChunks.length; i++) {
             rollup = rollup.replace(rollupChunks[i], rollupReplacements[i]);
         }
 
-        String[] nameChunks = {"unkown", "protos", "threshold", "datastore", "alloc", "utilization", "normalized", "normal", "shares", "depth", "resource", "overhead", "swap", "rate", "metric", "number", "averaged", "load", "decompression", "compression", "device", "latency",
-                "capacity", "commands", "target", "aborted", "kernel", "unreserved", "reserved", "total", "read", "write", "queue", "limited", "sample", "count", "touched"};
+        String[] nameChunks = { "unkown", "protos", "threshold", "datastore", "alloc", "utilization", "normalized",
+                "normal", "shares", "depth", "resource", "overhead", "swap", "rate", "metric", "number", "averaged",
+                "load", "decompression", "compression", "device", "latency", "capacity", "commands", "target",
+                "aborted", "kernel", "unreserved", "reserved", "total", "read", "write", "queue", "limited", "sample",
+                "count", "touched" };
 
         for (String chunk : nameChunks) {
             name = condenseName(name, chunk);
@@ -209,7 +233,8 @@ public class VmwareConfigBuilder {
         managedObjectReference.setType("ManagedEntity");
         managedObjectReference.setVal(managedObjectId);
 
-        ManagedEntity managedEntity = MorUtil.createExactManagedEntity(serviceInstance.getServerConnection(), managedObjectReference);
+        ManagedEntity managedEntity = MorUtil.createExactManagedEntity(serviceInstance.getServerConnection(),
+                                                                       managedObjectReference);
 
         int refreshRate = performanceManager.queryPerfProviderSummary(managedEntity).getRefreshRate();
 
@@ -218,7 +243,7 @@ public class VmwareConfigBuilder {
         perfQuerySpec.setMaxSample(Integer.valueOf(1));
         perfQuerySpec.setIntervalId(refreshRate);
 
-        PerfEntityMetricBase[] perfEntityMetricBases = performanceManager.queryPerf(new PerfQuerySpec[]{perfQuerySpec});
+        PerfEntityMetricBase[] perfEntityMetricBases = performanceManager.queryPerf(new PerfQuerySpec[] { perfQuerySpec });
 
         HashMap<String, TreeSet<VMwareConfigMetric>> groupMap = new HashMap<String, TreeSet<VMwareConfigMetric>>();
 
@@ -250,7 +275,8 @@ public class VmwareConfigBuilder {
                             if (b == null) {
                                 b = Boolean.valueOf(instanceName != null && !"".equals(instanceName));
                             } else {
-                                b = Boolean.valueOf(b.booleanValue() || (instanceName != null && !"".equals(instanceName)));
+                                b = Boolean.valueOf(b.booleanValue()
+                                        || (instanceName != null && !"".equals(instanceName)));
                             }
 
                             if (!b) {
@@ -266,7 +292,8 @@ public class VmwareConfigBuilder {
 
                             multiInstance.put(getHumanReadableName(perfCounterInfo), b);
 
-                            counterSet.add(new VMwareConfigMetric(perfCounterInfo, humanReadableName, aliasName, b, normalizedGroupName));
+                            counterSet.add(new VMwareConfigMetric(perfCounterInfo, humanReadableName, aliasName, b,
+                                                                  normalizedGroupName));
                         }
                     }
                 }
@@ -286,7 +313,8 @@ public class VmwareConfigBuilder {
             perfCounterInfoMap.put(perfCounterInfo.getKey(), perfCounterInfo);
         }
 
-        System.out.println("Generating configuration files for '" + serviceInstance.getAboutInfo().getFullName() + "' using rrdRepository '" + rrdRepository + "'...");
+        System.out.println("Generating configuration files for '" + serviceInstance.getAboutInfo().getFullName()
+                + "' using rrdRepository '" + rrdRepository + "'...");
 
         StringBuffer buffer = new StringBuffer();
         buffer.append("Configuration file generated for:\n\n");
@@ -355,7 +383,8 @@ public class VmwareConfigBuilder {
             for (String groupName : collection.keySet()) {
                 TreeSet<VMwareConfigMetric> metrics = collection.get(groupName);
                 for (VMwareConfigMetric vmwarePerformanceMetric : metrics) {
-                    Boolean generated = (generatedGraphs.get(vmwarePerformanceMetric.getAliasName()) == null ? false : generatedGraphs.get(vmwarePerformanceMetric.getAliasName()));
+                    Boolean generated = (generatedGraphs.get(vmwarePerformanceMetric.getAliasName()) == null ? false
+                        : generatedGraphs.get(vmwarePerformanceMetric.getAliasName()));
 
                     if (!generated) {
                         buffer.append(vmwarePerformanceMetric.getGraphDefinition(apiVersion));
@@ -365,7 +394,8 @@ public class VmwareConfigBuilder {
             }
         }
 
-        saveFile("vmware" + apiVersion + "-graph-simple.properties", "reports=" + include.toString() + "\n\n" + buffer.toString());
+        saveFile("vmware" + apiVersion + "-graph-simple.properties",
+                 "reports=" + include.toString() + "\n\n" + buffer.toString());
     }
 
     private void saveFile(String filename, String contents) {
@@ -399,7 +429,9 @@ public class VmwareConfigBuilder {
 
         for (String groupName : groupNames) {
             if (!"node".equalsIgnoreCase(groupName)) {
-                buffer.append("  <resourceType name=\"vmware" + apiVersion + groupName + "\" label=\"VMware v" + apiVersion + " " + groupName + "\" resourceLabel=\"${vmware" + apiVersion + groupName + "Name}\">\n");
+                buffer.append("  <resourceType name=\"vmware" + apiVersion + groupName + "\" label=\"VMware v"
+                        + apiVersion + " " + groupName + "\" resourceLabel=\"${vmware" + apiVersion + groupName
+                        + "Name}\">\n");
                 buffer.append("    <persistenceSelectorStrategy class=\"org.opennms.netmgt.collectd.PersistAllSelectorStrategy\"/>\n");
                 buffer.append("    <storageStrategy class=\"org.opennms.netmgt.dao.support.IndexStorageStrategy\"/>\n");
                 buffer.append("  </resourceType>\n\n");
@@ -435,9 +467,11 @@ public class VmwareConfigBuilder {
             buffer.append("    <vmware-groups>\n");
             for (String groupName : collection.keySet()) {
                 if ("node".equalsIgnoreCase(groupName)) {
-                    buffer.append("      <vmware-group name=\"vmware" + apiVersion + groupName + "\" resourceType=\"" + groupName + "\">\n");
+                    buffer.append("      <vmware-group name=\"vmware" + apiVersion + groupName + "\" resourceType=\""
+                            + groupName + "\">\n");
                 } else {
-                    buffer.append("      <vmware-group name=\"vmware" + apiVersion + groupName + "\" resourceType=\"vmware" + apiVersion + groupName + "\">\n");
+                    buffer.append("      <vmware-group name=\"vmware" + apiVersion + groupName
+                            + "\" resourceType=\"vmware" + apiVersion + groupName + "\">\n");
                 }
                 TreeSet<VMwareConfigMetric> metrics = collection.get(groupName);
                 for (VMwareConfigMetric vmwarePerformanceMetric : metrics) {
@@ -474,7 +508,6 @@ public class VmwareConfigBuilder {
         usage(options, cmd, null, null);
     }
 
-
     public static void main(String args[]) throws ParseException {
         String hostname = null;
         String username = null;
@@ -483,7 +516,8 @@ public class VmwareConfigBuilder {
 
         final Options options = new Options();
 
-        options.addOption("rrdRepository", true, "set rrdRepository path for generated config files, default: '/opt/opennms/share/rrd/snmp/'");
+        options.addOption("rrdRepository", true,
+                          "set rrdRepository path for generated config files, default: '/opt/opennms/share/rrd/snmp/'");
 
         final CommandLineParser parser = new PosixParser();
         final CommandLine cmd = parser.parse(options, args);

@@ -69,13 +69,14 @@ public abstract class AbstractOperation implements Operation {
         return vertex == null ? null : vertex.getNodeID();
     }
 
-	protected static Vertex getVertexItem(final OperationContext operationContext, final VertexRef target) {
-		Vertex vertex = operationContext.getGraphContainer().getBaseTopology().getVertex(target);
-		if (vertex == null) {
-			LoggerFactory.getLogger(AbstractOperation.class).debug("Null vertex found for vertex reference: {}:{}", target.getNamespace(), target.getId());
-			return null;
-		} else {
-			return vertex;
-		}
-	}
+    protected static Vertex getVertexItem(final OperationContext operationContext, final VertexRef target) {
+        Vertex vertex = operationContext.getGraphContainer().getBaseTopology().getVertex(target);
+        if (vertex == null) {
+            LoggerFactory.getLogger(AbstractOperation.class).debug("Null vertex found for vertex reference: {}:{}",
+                                                                   target.getNamespace(), target.getId());
+            return null;
+        } else {
+            return vertex;
+        }
+    }
 }

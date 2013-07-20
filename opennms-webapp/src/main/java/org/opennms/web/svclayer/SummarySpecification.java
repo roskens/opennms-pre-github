@@ -29,7 +29,9 @@
 package org.opennms.web.svclayer;
 
 /**
- * <p>SummarySpecification class.</p>
+ * <p>
+ * SummarySpecification class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -37,61 +39,86 @@ package org.opennms.web.svclayer;
  */
 public class SummarySpecification {
     private String m_filterRule;
+
     private long m_startTime;
+
     private long m_endTime;
+
     private String m_attributeSieve;
 
     /**
-     * <p>getFilterRule</p>
+     * <p>
+     * getFilterRule
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getFilterRule() {
         return m_filterRule;
     }
+
     /**
-     * <p>setFilterRule</p>
+     * <p>
+     * setFilterRule
+     * </p>
      *
-     * @param filterRule a {@link java.lang.String} object.
+     * @param filterRule
+     *            a {@link java.lang.String} object.
      */
     public void setFilterRule(String filterRule) {
         m_filterRule = filterRule;
     }
+
     /**
-     * <p>getStartTime</p>
+     * <p>
+     * getStartTime
+     * </p>
      *
      * @return a long.
      */
     public long getStartTime() {
         return m_startTime;
     }
+
     /**
-     * <p>setStartTime</p>
+     * <p>
+     * setStartTime
+     * </p>
      *
-     * @param startTime a long.
+     * @param startTime
+     *            a long.
      */
     public void setStartTime(long startTime) {
         m_startTime = startTime;
     }
+
     /**
-     * <p>getEndTime</p>
+     * <p>
+     * getEndTime
+     * </p>
      *
      * @return a long.
      */
     public long getEndTime() {
         return m_endTime;
     }
+
     /**
-     * <p>setEndTime</p>
+     * <p>
+     * setEndTime
+     * </p>
      *
-     * @param endTime a long.
+     * @param endTime
+     *            a long.
      */
     public void setEndTime(long endTime) {
         m_endTime = endTime;
     }
 
     /**
-     * <p>getAttributeSieve</p>
+     * <p>
+     * getAttributeSieve
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,12 +127,14 @@ public class SummarySpecification {
     }
 
     /**
-     * <p>setAttributeSieve</p>
+     * <p>
+     * setAttributeSieve
+     * </p>
      *
-     * @param attributeSieve a {@link java.lang.String} object.
+     * @param attributeSieve
+     *            a {@link java.lang.String} object.
      */
     public void setAttributeSieve(String attributeSieve) {
         m_attributeSieve = attributeSieve;
     }
 }
-

@@ -43,7 +43,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * <P>
  * This class is designed to be used by plugins, services and programs to
@@ -52,10 +51,10 @@ import org.slf4j.LoggerFactory;
  * To use it you must first create an instance of the manager with the host,
  * port and/or password. Then you can set the timeout for the socket, if you
  * want to override DEFAULT_SOCKET_TIMEOUT. Once you have set up the manager,
- * you call the init() method to connect to the service. Once connected you
- * use the processCheckCommand() method to receive a NsclientPacket object
- * containing the response and the result code. Here's an example of using
- * this manager: <CODE> NsclientCheckParams params = new
+ * you call the init() method to connect to the service. Once connected you use
+ * the processCheckCommand() method to receive a NsclientPacket object
+ * containing the response and the result code. Here's an example of using this
+ * manager: <CODE> NsclientCheckParams params = new
  * NsclientCheckParams(critPerc, warnPerc, parameter); NsclientManager client =
  * new NsclientManager(host.getHostAddress(), port); client.init();
  * NsclientPacket
@@ -69,7 +68,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NsclientManager {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NsclientManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NsclientManager.class);
 
     /**
      * The default socket timeout.
@@ -167,7 +166,7 @@ public class NsclientManager {
     public static final String CHECK_INSTANCES = "10";
 
     /**
-     * The ID for checking the size of a directory.  NSClient++ only.
+     * The ID for checking the size of a directory. NSClient++ only.
      */
     public static final String CHECK_FILESIZE = "CheckFileSize";
 
@@ -401,11 +400,14 @@ public class NsclientManager {
         } catch (ConnectException e) {
             closeSocketAndThrow(new NsclientException("Connection refused to " + m_HostName + ":" + m_PortNumber, e));
         } catch (NoRouteToHostException e) {
-            closeSocketAndThrow(new NsclientException("Unable to connect to host: " + m_HostName + ", no route to host.", e));
+            closeSocketAndThrow(new NsclientException("Unable to connect to host: " + m_HostName
+                    + ", no route to host.", e));
         } catch (InterruptedIOException e) {
-            closeSocketAndThrow(new NsclientException("Unable to connect to host: " + m_HostName + ":" + m_PortNumber + ", exceeded timeout of " + m_Timeout, e));
+            closeSocketAndThrow(new NsclientException("Unable to connect to host: " + m_HostName + ":" + m_PortNumber
+                    + ", exceeded timeout of " + m_Timeout, e));
         } catch (IOException e) {
-            closeSocketAndThrow(new NsclientException("An unexpected I/O exception occured connecting to host: " + m_HostName + ":" + m_PortNumber, e));
+            closeSocketAndThrow(new NsclientException("An unexpected I/O exception occured connecting to host: "
+                    + m_HostName + ":" + m_PortNumber, e));
         }
     }
 
@@ -442,15 +444,14 @@ public class NsclientManager {
      *             is thrown if there is an IO error with send/receiving
      *             to/from the socket.
      */
-    private NsclientPacket sendCheckRequest(String request)
-            throws NsclientException {
+    private NsclientPacket sendCheckRequest(String request) throws NsclientException {
         byte[] buffer = new byte[1024];
         m_ByteArrayOutStream.reset();
 
         try {
-        	if (!request.endsWith("\n")) {
-        		request += "\n";
-        	}
+            if (!request.endsWith("\n")) {
+                request += "\n";
+            }
             m_Socket.getOutputStream().write(request.getBytes());
             m_Socket.getOutputStream().flush();
             int read = m_BufInStream.read(buffer);
@@ -460,8 +461,7 @@ public class NsclientManager {
 
             return new NsclientPacket(m_ByteArrayOutStream.toString());
         } catch (Throwable e) {
-            throw new NsclientException("Unknown exception: "
-                    + e.getMessage(), e);
+            throw new NsclientException("Unknown exception: " + e.getMessage(), e);
         }
     }
 
@@ -478,42 +478,34 @@ public class NsclientManager {
      * @return the NsclientPacket as processed by the check command method
      *         that is called.
      * @throws org.opennms.protocols.nsclient.NsclientException
-     *             this method rethrows org.opennms.netmgt.poller.nsclient.NsclientExceptions caused by the check
+     *             this method rethrows
+     *             org.opennms.netmgt.poller.nsclient.NsclientExceptions caused
+     *             by the check
      *             commands.
      */
-    public NsclientPacket processCheckCommand(String type,
-            NsclientCheckParams param) throws NsclientException {
+    public NsclientPacket processCheckCommand(String type, NsclientCheckParams param) throws NsclientException {
         try {
-        	if (type.equals(CHECK_CLIENTVERSION)) {
+            if (type.equals(CHECK_CLIENTVERSION)) {
                 return checkClientVersion(param);
-        	}
-        	else if (type.equals(CHECK_CPULOAD)) {
+            } else if (type.equals(CHECK_CPULOAD)) {
                 return checkCpuLoad(param);
-        	}
-        	else if (type.equals(CHECK_UPTIME)) {
+            } else if (type.equals(CHECK_UPTIME)) {
                 return checkUptime(param);
-        	}
-        	else if (type.equals(CHECK_SERVICESTATE)) {
+            } else if (type.equals(CHECK_SERVICESTATE)) {
                 return checkServiceState(param);
-        	}
-        	else if (type.equals(CHECK_USEDDISKSPACE)) {
+            } else if (type.equals(CHECK_USEDDISKSPACE)) {
                 return checkUsedDiskSpace(param);
-        	}
-        	else if (type.equals(CHECK_PROCSTATE)) {
+            } else if (type.equals(CHECK_PROCSTATE)) {
                 return checkProcState(param);
-        	}
-        	else if (type.equals(CHECK_MEMUSE)) {
+            } else if (type.equals(CHECK_MEMUSE)) {
                 return checkMemoryUsage(param);
-        	}
-        	else if (type.equals(CHECK_COUNTER)) {
+            } else if (type.equals(CHECK_COUNTER)) {
                 return checkPerfCounter(param);
-        	}
-        	else if (type.equals(CHECK_FILEAGE)) {
+            } else if (type.equals(CHECK_FILEAGE)) {
                 return checkFileAge(param);
+            } else if (type.equals(CHECK_INSTANCES)) {
+                return checkInstances(param);
             }
-        	else if (type.equals(CHECK_INSTANCES)) {
-        		return checkInstances(param);
-        	}
             return null;
         } catch (NsclientException e) {
             throw e;
@@ -526,8 +518,8 @@ public class NsclientManager {
      * this method only the 'parameter' string is used, this contains the four
      * digit version number which should be formatted like: 2.0.1.0 If the
      * parameter does not contain for period delimited digits, the check will
-     * return the packet with with
-     * <code>NsclientPacket.RES_STATE_UNKNOWN</code> for a result code.
+     * return the packet with with <code>NsclientPacket.RES_STATE_UNKNOWN</code>
+     * for a result code.
      *
      * @param param
      *            The param string member of this value contains the minimum
@@ -537,8 +529,7 @@ public class NsclientManager {
      *             this method rethrows the exception thrown by
      *             <code>sendCheckRequest</code>
      */
-    private NsclientPacket checkClientVersion(NsclientCheckParams param)
-            throws NsclientException {
+    private NsclientPacket checkClientVersion(NsclientCheckParams param) throws NsclientException {
         NsclientPacket pack = null;
 
         // get the client version response.
@@ -555,8 +546,7 @@ public class NsclientManager {
         }
 
         // if we're not checking the clientversion, just return OK.
-        if (param.getParamString() == null
-                || param.getParamString().equals("")) {
+        if (param.getParamString() == null || param.getParamString().equals("")) {
             pack.setResultCode(NsclientPacket.RES_STATE_OK);
             return pack;
         } else {
@@ -566,11 +556,12 @@ public class NsclientManager {
             String[] minimum = param.getParamString().split("\\.");
             String[] remote;
             if (pack.getResponse().contains(" ")) {
-            	// NSClient++ response with the format: NSClient++ 0.2.7 2007-03-06
-            	remote = pack.getResponse().split(" ")[1].split("\\.");
+                // NSClient++ response with the format: NSClient++ 0.2.7
+                // 2007-03-06
+                remote = pack.getResponse().split(" ")[1].split("\\.");
             } else {
-            	// Oldskool NSClient responds with the format: 2.0.1.0
-            	remote = pack.getResponse().split("\\.");
+                // Oldskool NSClient responds with the format: 2.0.1.0
+                remote = pack.getResponse().split("\\.");
             }
 
             // make sure they both contain the same number of version digits.
@@ -630,14 +621,12 @@ public class NsclientManager {
      *             this method rethrows the exception thrown by
      *             <code>sendCheckRequest</code>
      */
-    private NsclientPacket checkCpuLoad(NsclientCheckParams param)
-            throws NsclientException {
+    private NsclientPacket checkCpuLoad(NsclientCheckParams param) throws NsclientException {
         NsclientPacket pack = null;
         try {
             // get the packet from the server and assume it is okay. We'll
             // rule it out as we go.
-            pack = sendCheckRequest(m_Password + "&" + CHECK_CPULOAD
-                    + "&1&1&1");
+            pack = sendCheckRequest(m_Password + "&" + CHECK_CPULOAD + "&1&1&1");
             pack.setResultCode(NsclientPacket.RES_STATE_OK);
 
             // Check for "ERROR" string.
@@ -679,8 +668,7 @@ public class NsclientManager {
      *             this method rethrows the exception thrown by
      *             <code>sendCheckRequest</code>
      */
-    private NsclientPacket checkUptime(NsclientCheckParams param)
-            throws NsclientException {
+    private NsclientPacket checkUptime(NsclientCheckParams param) throws NsclientException {
         NsclientPacket pack = null;
         try {
             pack = sendCheckRequest(m_Password + "&" + CHECK_UPTIME);
@@ -715,22 +703,18 @@ public class NsclientManager {
      *             this method rethrows the exception thrown by
      *             <code>sendCheckRequest</code>
      */
-    private NsclientPacket checkServiceState(NsclientCheckParams param)
-            throws NsclientException {
+    private NsclientPacket checkServiceState(NsclientCheckParams param) throws NsclientException {
         NsclientPacket pack = null;
         try {
-            pack = sendCheckRequest(m_Password + "&" + CHECK_SERVICESTATE
-                    + "&ShowAll&" + prepList(param.getParamString()));
+            pack = sendCheckRequest(m_Password + "&" + CHECK_SERVICESTATE + "&ShowAll&"
+                    + prepList(param.getParamString()));
             pack.setResultCode(NsclientPacket.RES_STATE_OK);
 
             // check up response from "1& Service1: State - Service2: State"
-            String[] services = pack.getResponse().replaceFirst("^\\d&\\s+",
-                                                                "").split(
-                                                                          "\\s+-\\s+");
+            String[] services = pack.getResponse().replaceFirst("^\\d&\\s+", "").split("\\s+-\\s+");
             for (int i = 0; i < services.length; i++) {
-            	String stateValue = services[i].split(":\\s+")[1].trim();
-                if (stateValue.equals("Stopped") || stateValue.equals("Unknown") ||
-                        stateValue.equals("Not found")) {
+                String stateValue = services[i].split(":\\s+")[1].trim();
+                if (stateValue.equals("Stopped") || stateValue.equals("Unknown") || stateValue.equals("Not found")) {
                     pack.setResultCode(NsclientPacket.RES_STATE_CRIT);
                 }
             }
@@ -758,12 +742,10 @@ public class NsclientManager {
      *             this method rethrows the exception thrown by
      *             <code>sendCheckRequest</code>
      */
-    private NsclientPacket checkProcState(NsclientCheckParams param)
-            throws NsclientException {
+    private NsclientPacket checkProcState(NsclientCheckParams param) throws NsclientException {
         NsclientPacket pack = null;
         try {
-            pack = sendCheckRequest(m_Password + "&" + CHECK_PROCSTATE
-                    + "&ShowAll&" + prepList(param.getParamString()));
+            pack = sendCheckRequest(m_Password + "&" + CHECK_PROCSTATE + "&ShowAll&" + prepList(param.getParamString()));
             pack.setResultCode(NsclientPacket.RES_STATE_OK);
 
             // Check for "ERROR" string.
@@ -773,9 +755,7 @@ public class NsclientManager {
             }
 
             // check up response from "1& Prc1: State - Proc2: State"
-            String[] services = pack.getResponse().replaceFirst("^\\d&\\s+",
-                                                                "").split(
-                                                                          "\\s+-\\s+");
+            String[] services = pack.getResponse().replaceFirst("^\\d&\\s+", "").split("\\s+-\\s+");
             for (int i = 0; i < services.length; i++) {
                 if (services[i].split(":\\s+")[1].matches("not running\\s*"))
                     pack.setResultCode(NsclientPacket.RES_STATE_CRIT);
@@ -801,14 +781,12 @@ public class NsclientManager {
      *             this method rethrows the exception thrown by
      *             <code>sendCheckRequest</code>
      */
-    private NsclientPacket checkUsedDiskSpace(NsclientCheckParams param)
-            throws NsclientException {
+    private NsclientPacket checkUsedDiskSpace(NsclientCheckParams param) throws NsclientException {
         NsclientPacket pack = null;
 
         try {
             // send/receive the request
-            pack = sendCheckRequest(m_Password + "&" + CHECK_USEDDISKSPACE
-                    + "&" + param.getParamString());
+            pack = sendCheckRequest(m_Password + "&" + CHECK_USEDDISKSPACE + "&" + param.getParamString());
             pack.setResultCode(NsclientPacket.RES_STATE_OK);
 
             // Check for "ERROR" string.
@@ -862,8 +840,7 @@ public class NsclientManager {
      *             this method rethrows the exception thrown by
      *             <code>sendCheckRequest</code>
      */
-    private NsclientPacket checkMemoryUsage(NsclientCheckParams param)
-            throws NsclientException {
+    private NsclientPacket checkMemoryUsage(NsclientCheckParams param) throws NsclientException {
         NsclientPacket pack = null;
         try {
             // send/receive the request
@@ -918,14 +895,12 @@ public class NsclientManager {
      *             this method rethrows the exception thrown by
      *             <code>sendCheckRequest</code>
      */
-    private NsclientPacket checkPerfCounter(NsclientCheckParams param)
-            throws NsclientException {
+    private NsclientPacket checkPerfCounter(NsclientCheckParams param) throws NsclientException {
         NsclientPacket pack = null;
 
         try {
             // send/receive the request
-            pack = sendCheckRequest(m_Password + "&" + CHECK_COUNTER + "&"
-                    + prepList(param.getParamString()));
+            pack = sendCheckRequest(m_Password + "&" + CHECK_COUNTER + "&" + prepList(param.getParamString()));
             pack.setResultCode(NsclientPacket.RES_STATE_OK);
 
             // Check for "ERROR" string.
@@ -978,8 +953,7 @@ public class NsclientManager {
         String responseValue = "";
         try {
             // send/receive the request
-            pack = sendCheckRequest(m_Password + "&" + CHECK_FILEAGE + "&"
-                    + param.getParamString());
+            pack = sendCheckRequest(m_Password + "&" + CHECK_FILEAGE + "&" + param.getParamString());
             pack.setResultCode(NsclientPacket.RES_STATE_OK);
 
             // Check for "ERROR" string.
@@ -1018,43 +992,46 @@ public class NsclientManager {
      * This method requests a list of instances for a perfmon object as
      * defined by the 'parameter' string. Examples of this string would be:
      * Processor or PhysicalDisk- the available instances are returned by the
-     * agent as a comma-separated list.  The warning and critical members of
+     * agent as a comma-separated list. The warning and critical members of
      * param are ignored.
      *
      * @param param
-     *            The param string should contain a perfmon object name. Warning and
+     *            The param string should contain a perfmon object name. Warning
+     *            and
      *            critical values are ignored.
-     * @return the processed <code>NsclientPacket</code> containing a comma-separated instance list.
+     * @return the processed <code>NsclientPacket</code> containing a
+     *         comma-separated instance list.
      * @throws NsclientException
      *             this method rethrows the exception thrown by
      *             <code>sendCheckRequest</code>
      */
     private NsclientPacket checkInstances(NsclientCheckParams param) throws NsclientException {
-    	NsclientPacket pack = null;
-    	// String responseValue = "";
-    	try {
-    		// send/receive the request
-    		pack = sendCheckRequest(m_Password + "&" + CHECK_INSTANCES + "&" + param.getParamString());
-    		pack.setResultCode(NsclientPacket.RES_STATE_OK);
-    		// Check for "ERROR" string.
-    		if (pack.getResponse().matches(".*ERROR.*")) {
-    			pack.setResultCode(NsclientPacket.RES_STATE_UNKNOWN);
-    			return pack;
-    		}
+        NsclientPacket pack = null;
+        // String responseValue = "";
+        try {
+            // send/receive the request
+            pack = sendCheckRequest(m_Password + "&" + CHECK_INSTANCES + "&" + param.getParamString());
+            pack.setResultCode(NsclientPacket.RES_STATE_OK);
+            // Check for "ERROR" string.
+            if (pack.getResponse().matches(".*ERROR.*")) {
+                pack.setResultCode(NsclientPacket.RES_STATE_UNKNOWN);
+                return pack;
+            }
 
-    		// If we did not receive an ERROR report, then we are done here
-    		LOG.debug("checkInstances: received result '{}'", pack.getResponse());
-    		return pack;
-    	} catch (NsclientException e) {
-    		throw e;
-    	}
+            // If we did not receive an ERROR report, then we are done here
+            LOG.debug("checkInstances: received result '{}'", pack.getResponse());
+            return pack;
+        } catch (NsclientException e) {
+            throw e;
+        }
     }
 
     private String prepList(String list) {
         return list.replaceAll(",", "&");
     }
 
-    private NsclientPacket handleNumberFormatException(NsclientPacket pack, NumberFormatException e) throws NsclientException {
+    private NsclientPacket handleNumberFormatException(NsclientPacket pack, NumberFormatException e)
+            throws NsclientException {
         pack.setResultCode(NsclientPacket.RES_STATE_UNKNOWN);
         LOG.info("Unable to parse numeric value returned ({})", pack.getResponse(), e);
         return pack;

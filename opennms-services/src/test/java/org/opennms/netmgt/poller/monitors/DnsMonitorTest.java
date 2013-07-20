@@ -59,17 +59,11 @@ import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
-
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/emptyContext.xml"})
-@JUnitDNSServer(port=9153, zones={
-            @DNSZone(name="example.com", entries={
-                    @DNSEntry(hostname="test", address="192.168.0.1")
-            }),
-            @DNSZone(name="ipv6.example.com", entries= {
-                    @DNSEntry(hostname="ipv6test", address="2001:4860:8007::63", ipv6=true)
-            })
-    })
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
+@JUnitDNSServer(port = 9153, zones = {
+        @DNSZone(name = "example.com", entries = { @DNSEntry(hostname = "test", address = "192.168.0.1") }),
+        @DNSZone(name = "ipv6.example.com", entries = { @DNSEntry(hostname = "ipv6test", address = "2001:4860:8007::63", ipv6 = true) }) })
 @JUnitConfigurationEnvironment
 public class DnsMonitorTest {
 
@@ -91,12 +85,13 @@ public class DnsMonitorTest {
         m.put("lookup", "ipv6.example.com");
 
         final PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
 
     @Test
-    // type not found is still considered a valid response with the default response codes
+    // type not found is still considered a valid response with the default
+    // response codes
     public void testNotFound() throws UnknownHostException {
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
@@ -109,12 +104,13 @@ public class DnsMonitorTest {
         m.put("lookup", "bogus.example.com");
 
         final PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals("Expected service to be available", PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
 
     @Test
-    // type not found is still considered a valid response with the default response codes
+    // type not found is still considered a valid response with the default
+    // response codes
     public void testNotFoundWithCustomRcode() throws UnknownHostException {
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
@@ -128,7 +124,7 @@ public class DnsMonitorTest {
         m.put("fatal-response-codes", "3");
 
         final PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
     }
 
@@ -144,7 +140,7 @@ public class DnsMonitorTest {
         m.put("timeout", "500");
 
         final PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
     }
 
@@ -161,7 +157,7 @@ public class DnsMonitorTest {
         m.put("lookup", "example.com");
 
         final PollStatus status = monitor.poll(svc, m);
-        MockUtil.println("Reason: "+status.getReason());
+        MockUtil.println("Reason: " + status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
 
@@ -174,7 +170,7 @@ public class DnsMonitorTest {
         l.run();
 
         System.out.println("result: " + l.getResult());
-        if(l.getResult() == Lookup.SUCCESSFUL) {
+        if (l.getResult() == Lookup.SUCCESSFUL) {
             System.out.println(l.getAnswers()[0].rdataToString());
         }
         assertTrue(l.getResult() == Lookup.SUCCESSFUL);
@@ -189,7 +185,7 @@ public class DnsMonitorTest {
         l.run();
 
         System.out.println("result: " + l.getResult());
-        if(l.getResult() == Lookup.SUCCESSFUL) {
+        if (l.getResult() == Lookup.SUCCESSFUL) {
             System.out.println(l.getAnswers()[0].rdataToString());
         }
         assertTrue(l.getResult() == Lookup.SUCCESSFUL);
@@ -210,14 +206,14 @@ public class DnsMonitorTest {
         final Record record = answers[0];
         System.err.println(record.getTTL());
 
-        if(l.getResult() == Lookup.SUCCESSFUL) {
+        if (l.getResult() == Lookup.SUCCESSFUL) {
             System.out.println(l.getAnswers()[0].rdataToString());
         }
         assertTrue(l.getResult() == Lookup.SUCCESSFUL);
     }
 
     @Test
-    @JUnitDNSServer(port=9153, zones={})
+    @JUnitDNSServer(port = 9153, zones = {})
     public void testNoAnswer() throws Exception {
         final Lookup l = new Lookup("example.com", Type.AAAA);
         final SimpleResolver resolver = new SimpleResolver("::1");
@@ -233,7 +229,7 @@ public class DnsMonitorTest {
         final Record record = answers[0];
         System.err.println(record.getTTL());
 
-        if(l.getResult() == Lookup.SUCCESSFUL) {
+        if (l.getResult() == Lookup.SUCCESSFUL) {
             System.out.println(l.getAnswers()[0].rdataToString());
         }
         assertTrue(l.getResult() == Lookup.SUCCESSFUL);

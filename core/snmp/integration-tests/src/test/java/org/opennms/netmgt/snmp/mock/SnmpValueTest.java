@@ -50,7 +50,8 @@ import org.opennms.netmgt.snmp.joesnmp.JoeSnmpValueFactory;
 import org.opennms.netmgt.snmp.snmp4j.Snmp4JValueFactory;
 
 public class SnmpValueTest {
-    private static final SnmpValueFactory[] m_factories = new SnmpValueFactory[] { new Snmp4JValueFactory(), new JoeSnmpValueFactory(), new MockSnmpValueFactory() };
+    private static final SnmpValueFactory[] m_factories = new SnmpValueFactory[] { new Snmp4JValueFactory(),
+            new JoeSnmpValueFactory(), new MockSnmpValueFactory() };
 
     @Before
     public void setUp() {
@@ -70,7 +71,8 @@ public class SnmpValueTest {
         bb.flip();
         bb.get(parsed);
 
-        assertArrayEquals(new byte[] { (byte) 0x0, (byte) 0x24, (byte) 0x81, (byte) 0x8f, (byte) 0x40, (byte) 0x17 }, parsed);
+        assertArrayEquals(new byte[] { (byte) 0x0, (byte) 0x24, (byte) 0x81, (byte) 0x8f, (byte) 0x40, (byte) 0x17 },
+                          parsed);
     }
 
     @Test
@@ -145,9 +147,12 @@ public class SnmpValueTest {
             final String className = factory.getClass().getName();
 
             assertTrue(className + ": getInetAddress isDisplayable should be true", value.isDisplayable());
-            assertEquals(className + ": getInetAddress to InetAddress should return 192.168.0.1", address, value.toInetAddress());
-            assertEquals(className + ": getInetAddress to String should return 192.168.0.1", "192.168.0.1", value.toString());
-            assertEquals(className + ": getInetAddress to DisplayString should return 192.168.0.1", "192.168.0.1", value.toDisplayString());
+            assertEquals(className + ": getInetAddress to InetAddress should return 192.168.0.1", address,
+                         value.toInetAddress());
+            assertEquals(className + ": getInetAddress to String should return 192.168.0.1", "192.168.0.1",
+                         value.toString());
+            assertEquals(className + ": getInetAddress to DisplayString should return 192.168.0.1", "192.168.0.1",
+                         value.toDisplayString());
             try {
                 value.toInt();
                 fail(className + ": getInetAddress to int should throw an IllegalArgumentException");
@@ -187,7 +192,8 @@ public class SnmpValueTest {
             assertTrue(className + ": getInetAddress isDisplayable should be true", value.isDisplayable());
             assertEquals(className + ": getObjectId to SnmpObjId should return " + oid, id, value.toSnmpObjId());
             assertEquals(className + ": getObjectId to String should return " + oid, oid, value.toString());
-            assertEquals(className + ": getObjectId to DisplayString should return " + oid, oid, value.toDisplayString());
+            assertEquals(className + ": getObjectId to DisplayString should return " + oid, oid,
+                         value.toDisplayString());
             try {
                 value.toInt();
                 fail(className + ": getObjectId to int should throw an IllegalArgumentException");
@@ -225,9 +231,11 @@ public class SnmpValueTest {
                 assertTrue(className + ": getInetAddress isDisplayable should be true", value.isDisplayable());
                 assertEquals(className + ": getTimeTicks to int should return " + value.toInt(), 42, value.toInt());
                 assertEquals(className + ": getTimeTicks to long should return " + value.toLong(), 42, value.toLong());
-                assertEquals(className + ": getTimeTicks to BigInteger should return " + value.toBigInteger(), BigInteger.valueOf(42), value.toBigInteger());
+                assertEquals(className + ": getTimeTicks to BigInteger should return " + value.toBigInteger(),
+                             BigInteger.valueOf(42), value.toBigInteger());
                 assertEquals(className + ": getTimeTicks to String should return 42", "42", value.toString());
-                assertEquals(className + ": getTimeTicks to DisplayString should return 42", "42", value.toDisplayString());
+                assertEquals(className + ": getTimeTicks to DisplayString should return 42", "42",
+                             value.toDisplayString());
                 try {
                     value.toHexString();
                     fail(className + ": getTimeTicks to HexString should throw an IllegalArgumentException");
@@ -259,9 +267,12 @@ public class SnmpValueTest {
 
             assertArrayEquals(className + ": getOctetString bytes should match", rawBytes, value.getBytes());
             assertFalse(className + ": getOctetString displayable should be false", value.isDisplayable());
-            assertEquals(className + ": getOctetString to String should return " + stringBytes, stringBytes, value.toString());
-            assertEquals(className + ": getOctetString to DisplayString should return " + stringBytes, stringBytes, value.toDisplayString());
-            assertEquals(className + ": getOctetString to HexString should return " + hexString, hexString, value.toHexString());
+            assertEquals(className + ": getOctetString to String should return " + stringBytes, stringBytes,
+                         value.toString());
+            assertEquals(className + ": getOctetString to DisplayString should return " + stringBytes, stringBytes,
+                         value.toDisplayString());
+            assertEquals(className + ": getOctetString to HexString should return " + hexString, hexString,
+                         value.toHexString());
             try {
                 value.toInt();
                 fail(className + ": getOctetString to int should throw an IllegalArgumentException");
@@ -292,9 +303,12 @@ public class SnmpValueTest {
 
             assertArrayEquals(className + ": getOctetString bytes should match", rawBytes, value.getBytes());
             assertFalse(className + ": getOctetString displayable should be false", value.isDisplayable());
-            assertEquals(className + ": getOctetString to String should return " + stringBytes, stringBytes, value.toString());
-            assertEquals(className + ": getOctetString to DisplayString should return " + stringBytes, stringBytes, value.toDisplayString());
-            assertEquals(className + ": getOctetString to HexString should return " + hexString, hexString, value.toHexString());
+            assertEquals(className + ": getOctetString to String should return " + stringBytes, stringBytes,
+                         value.toString());
+            assertEquals(className + ": getOctetString to DisplayString should return " + stringBytes, stringBytes,
+                         value.toDisplayString());
+            assertEquals(className + ": getOctetString to HexString should return " + hexString, hexString,
+                         value.toHexString());
             try {
                 value.toInt();
                 fail(className + ": getOctetString to int should throw an IllegalArgumentException");
@@ -318,15 +332,19 @@ public class SnmpValueTest {
         for (final SnmpValueFactory factory : m_factories) {
             final String hex = "49206c696b65206368656573652100";
             final String expectedText = "I like cheese!.";
-            final byte[] rawBytes = { (byte)0x49, (byte)0x20, (byte)0x6c, (byte)0x69, (byte)0x6b, (byte)0x65, (byte)0x20, (byte)0x63, (byte)0x68, (byte)0x65, (byte)0x65, (byte)0x73, (byte)0x65, (byte)0x21, (byte)0x00 };
+            final byte[] rawBytes = { (byte) 0x49, (byte) 0x20, (byte) 0x6c, (byte) 0x69, (byte) 0x6b, (byte) 0x65,
+                    (byte) 0x20, (byte) 0x63, (byte) 0x68, (byte) 0x65, (byte) 0x65, (byte) 0x73, (byte) 0x65,
+                    (byte) 0x21, (byte) 0x00 };
             final String className = factory.getClass().getName();
 
             final SnmpValue value = factory.getOctetString(rawBytes);
 
             assertArrayEquals(className + ": getOctetString bytes should match", rawBytes, value.getBytes());
             assertTrue(className + ": getOctetString displayable should be true", value.isDisplayable());
-            assertEquals(className + ": getOctetString to String should return " + expectedText, expectedText, value.toString());
-            assertEquals(className + ": getOctetString to DisplayString should return " + expectedText, expectedText, value.toDisplayString());
+            assertEquals(className + ": getOctetString to String should return " + expectedText, expectedText,
+                         value.toString());
+            assertEquals(className + ": getOctetString to DisplayString should return " + expectedText, expectedText,
+                         value.toDisplayString());
             assertEquals(className + ": getOctetString to HexString should return " + hex, hex, value.toHexString());
             try {
                 value.toInt();
@@ -346,6 +364,7 @@ public class SnmpValueTest {
         }
 
     }
+
     @Test
     public void testNormalString() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -359,7 +378,8 @@ public class SnmpValueTest {
             assertArrayEquals(className + ": getOctetString bytes should match", rawBytes, value.getBytes());
             assertTrue(className + ": getOctetString displayable should be true", value.isDisplayable());
             assertEquals(className + ": getOctetString to String should return " + text, text, value.toString());
-            assertEquals(className + ": getOctetString to DisplayString should return " + text, text, value.toDisplayString());
+            assertEquals(className + ": getOctetString to DisplayString should return " + text, text,
+                         value.toDisplayString());
             assertEquals(className + ": getOctetString to HexString should return " + hex, hex, value.toHexString());
             try {
                 value.toInt();
@@ -379,14 +399,21 @@ public class SnmpValueTest {
         }
     }
 
-    private void doNumericCheck(final String className, final String methodName, final SnmpValue result, final String expectedResultString, final Long expectedResultNumber) {
+    private void doNumericCheck(final String className, final String methodName, final SnmpValue result,
+            final String expectedResultString, final Long expectedResultNumber) {
         assertTrue(className + ": " + methodName + " isDisplayable should be true", result.isDisplayable());
-        assertEquals(className + ": " + methodName + " to int should return " + expectedResultString, expectedResultNumber.intValue(), result.toInt());
-        assertEquals(className + ": " + methodName + " to long should return " + expectedResultString, expectedResultNumber.longValue(), result.toLong());
-        assertEquals(className + ": " + methodName + " to BigInteger should return " + expectedResultString, BigInteger.valueOf(expectedResultNumber.longValue()), result.toBigInteger());
-        assertEquals(className + ": " + methodName + " to String should return " + expectedResultString, expectedResultString, result.toString());
-        assertEquals(className + ": " + methodName + " to DisplayString should return " + expectedResultString, expectedResultString, result.toDisplayString());
-        assertEquals(className + ": " + methodName + " to bytes should return [" + expectedResultString + "]", "[" + expectedResultString + "]", Arrays.toString(result.getBytes()));
+        assertEquals(className + ": " + methodName + " to int should return " + expectedResultString,
+                     expectedResultNumber.intValue(), result.toInt());
+        assertEquals(className + ": " + methodName + " to long should return " + expectedResultString,
+                     expectedResultNumber.longValue(), result.toLong());
+        assertEquals(className + ": " + methodName + " to BigInteger should return " + expectedResultString,
+                     BigInteger.valueOf(expectedResultNumber.longValue()), result.toBigInteger());
+        assertEquals(className + ": " + methodName + " to String should return " + expectedResultString,
+                     expectedResultString, result.toString());
+        assertEquals(className + ": " + methodName + " to DisplayString should return " + expectedResultString,
+                     expectedResultString, result.toDisplayString());
+        assertEquals(className + ": " + methodName + " to bytes should return [" + expectedResultString + "]", "["
+                + expectedResultString + "]", Arrays.toString(result.getBytes()));
         try {
             result.toHexString();
             fail(className + ": " + methodName + " to HexString should throw an IllegalArgumentException");

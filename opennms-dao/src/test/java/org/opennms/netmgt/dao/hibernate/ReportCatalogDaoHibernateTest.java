@@ -48,27 +48,25 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class ReportCatalogDaoHibernateTest implements InitializingBean {
     @Autowired
-	private ReportCatalogDao m_reportCatalogDao;
+    private ReportCatalogDao m_reportCatalogDao;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testSave() {
 
         Date date = new Date();
@@ -83,16 +81,15 @@ public class ReportCatalogDaoHibernateTest implements InitializingBean {
 
         ReportCatalogEntry retrievedEntry = m_reportCatalogDao.get(id);
 
-        assertEquals(catalogEntry.getReportId(),retrievedEntry.getReportId());
+        assertEquals(catalogEntry.getReportId(), retrievedEntry.getReportId());
         assertEquals(catalogEntry.getTitle(), retrievedEntry.getTitle());
         assertEquals(catalogEntry.getLocation(), retrievedEntry.getLocation());
-        assertEquals(0,catalogEntry.getDate().compareTo(retrievedEntry.getDate()));
-
+        assertEquals(0, catalogEntry.getDate().compareTo(retrievedEntry.getDate()));
 
     }
 
-	@Test
-	@Transactional
+    @Test
+    @Transactional
     public void testDelete() {
 
         Date date = new Date();
@@ -109,7 +106,5 @@ public class ReportCatalogDaoHibernateTest implements InitializingBean {
         assertNull(m_reportCatalogDao.get(id));
 
     }
-
-
 
 }

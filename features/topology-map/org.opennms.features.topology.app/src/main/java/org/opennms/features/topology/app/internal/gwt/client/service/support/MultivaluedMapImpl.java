@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implements MultivaluedMap<K, V> {
+public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>> implements MultivaluedMap<K, V> {
 
     /**
      *
@@ -21,8 +21,8 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
     public static class SynchronizedMultivaluedMap<Key, Value> implements MultivaluedMap<Key, Value> {
 
         MultivaluedMap<Key, Value> m_data;
-        Object m_lock;
 
+        Object m_lock;
 
         public SynchronizedMultivaluedMap(MultivaluedMap<Key, Value> m) {
             m_data = m;
@@ -136,19 +136,24 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
 
     }
 
-
     /**
-     * <p>Constructor for MultivaluedMapImpl.</p>
+     * <p>
+     * Constructor for MultivaluedMapImpl.
+     * </p>
      */
     public MultivaluedMapImpl() {
         super();
     }
 
     /**
-     * <p>add</p>
+     * <p>
+     * add
+     * </p>
      *
-     * @param key a K object.
-     * @param value a V object.
+     * @param key
+     *            a K object.
+     * @param value
+     *            a V object.
      */
     @Override
     public void add(K key, V value) {
@@ -162,15 +167,20 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
     }
 
     /**
-     * <p>remove</p>
+     * <p>
+     * remove
+     * </p>
      *
-     * @param key a K object.
-     * @param value a V object.
+     * @param key
+     *            a K object.
+     * @param value
+     *            a V object.
      * @return a boolean.
      */
     @Override
     public boolean remove(K key, V value) {
-        if (!containsKey(key)) return false;
+        if (!containsKey(key))
+            return false;
 
         Set<V> valueList = get(key);
 
@@ -181,12 +191,15 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
         }
 
         return found;
-     }
+    }
 
     /**
-     * <p>getCopy</p>
+     * <p>
+     * getCopy
+     * </p>
      *
-     * @param key a K object.
+     * @param key
+     *            a K object.
      * @return a {@link java.util.Set} object.
      */
     @Override
@@ -195,13 +208,17 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
         return values == null ? null : new LinkedHashSet<V>(values);
     }
 
-
     /**
-     * <p>synchronizedMultivaluedMap</p>
+     * <p>
+     * synchronizedMultivaluedMap
+     * </p>
      *
-     * @param m a {@link org.opennms.core.soa.support.MultivaluedMap} object.
-     * @param <Key> a Key object.
-     * @param <Value> a Value object.
+     * @param m
+     *            a {@link org.opennms.core.soa.support.MultivaluedMap} object.
+     * @param <Key>
+     *            a Key object.
+     * @param <Value>
+     *            a Value object.
      * @return a {@link org.opennms.core.soa.support.MultivaluedMap} object.
      */
     public static <Key, Value> MultivaluedMap<Key, Value> synchronizedMultivaluedMap(MultivaluedMap<Key, Value> m) {
@@ -210,10 +227,14 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
     }
 
     /**
-     * <p>synchronizedMultivaluedMap</p>
+     * <p>
+     * synchronizedMultivaluedMap
+     * </p>
      *
-     * @param <Key> a Key object.
-     * @param <Value> a Value object.
+     * @param <Key>
+     *            a Key object.
+     * @param <Value>
+     *            a Value object.
      * @return a {@link org.opennms.core.soa.support.MultivaluedMap} object.
      */
     public static <Key, Value> MultivaluedMap<Key, Value> synchronizedMultivaluedMap() {

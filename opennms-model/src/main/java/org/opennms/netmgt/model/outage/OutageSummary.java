@@ -41,23 +41,37 @@ import org.opennms.core.utils.FuzzyDateFormatter;
  */
 public class OutageSummary implements Comparable<OutageSummary> {
     protected final int nodeId;
+
     protected final String nodeLabel;
+
     protected final Date timeDown;
+
     protected final Date timeUp;
+
     protected final Date timeNow;
 
     /**
-     * <p>Constructor for OutageSummary.</p>
+     * <p>
+     * Constructor for OutageSummary.
+     * </p>
      *
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param timeDown a {@link java.util.Date} object.
-     * @param timeUp a {@link java.util.Date} object.
-     * @param timeNow a {@link java.util.Date} object.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param timeDown
+     *            a {@link java.util.Date} object.
+     * @param timeUp
+     *            a {@link java.util.Date} object.
+     * @param timeNow
+     *            a {@link java.util.Date} object.
      */
-    public OutageSummary(final int nodeId, final String nodeLabel, final Date timeDown, final Date timeUp, final Date timeNow) {
+    public OutageSummary(final int nodeId, final String nodeLabel, final Date timeDown, final Date timeUp,
+            final Date timeNow) {
         if (timeDown == null) {
-            throw new IllegalArgumentException(String.format("timeDown cannot be null.  nodeId=%d, nodeLabel=%s, timeDown=%s, timeUp=%s, timeNow=%s", nodeId, nodeLabel, timeDown, timeUp, timeNow));
+            throw new IllegalArgumentException(
+                                               String.format("timeDown cannot be null.  nodeId=%d, nodeLabel=%s, timeDown=%s, timeUp=%s, timeNow=%s",
+                                                             nodeId, nodeLabel, timeDown, timeUp, timeNow));
         }
 
         if (nodeLabel == null) {
@@ -73,30 +87,43 @@ public class OutageSummary implements Comparable<OutageSummary> {
     }
 
     /**
-     * <p>Constructor for OutageSummary.</p>
+     * <p>
+     * Constructor for OutageSummary.
+     * </p>
      *
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param timeDown a {@link java.util.Date} object.
-     * @param timeUp a {@link java.util.Date} object.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param timeDown
+     *            a {@link java.util.Date} object.
+     * @param timeUp
+     *            a {@link java.util.Date} object.
      */
     public OutageSummary(final int nodeId, final String nodeLabel, final Date timeDown, final Date timeUp) {
         this(nodeId, nodeLabel, timeDown, timeUp, new Date());
     }
 
     /**
-     * <p>Constructor for OutageSummary.</p>
+     * <p>
+     * Constructor for OutageSummary.
+     * </p>
      *
-     * @param nodeId a int.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param timeDown a {@link java.util.Date} object.
+     * @param nodeId
+     *            a int.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param timeDown
+     *            a {@link java.util.Date} object.
      */
     public OutageSummary(final int nodeId, final String nodeLabel, final Date timeDown) {
         this(nodeId, nodeLabel, timeDown, null, new Date());
     }
 
     /**
-     * <p>Getter for the field <code>nodeId</code>.</p>
+     * <p>
+     * Getter for the field <code>nodeId</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -105,7 +132,9 @@ public class OutageSummary implements Comparable<OutageSummary> {
     }
 
     /**
-     * <p>getHostname</p>
+     * <p>
+     * getHostname
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -114,7 +143,9 @@ public class OutageSummary implements Comparable<OutageSummary> {
     }
 
     /**
-     * <p>Getter for the field <code>nodeLabel</code>.</p>
+     * <p>
+     * Getter for the field <code>nodeLabel</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,7 +154,9 @@ public class OutageSummary implements Comparable<OutageSummary> {
     }
 
     /**
-     * <p>Getter for the field <code>timeDown</code>.</p>
+     * <p>
+     * Getter for the field <code>timeDown</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -132,7 +165,9 @@ public class OutageSummary implements Comparable<OutageSummary> {
     }
 
     /**
-     * <p>Getter for the field <code>timeUp</code>.</p>
+     * <p>
+     * Getter for the field <code>timeUp</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -141,7 +176,9 @@ public class OutageSummary implements Comparable<OutageSummary> {
     }
 
     /**
-     * <p>getFuzzyTimeDown</p>
+     * <p>
+     * getFuzzyTimeDown
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -151,7 +188,9 @@ public class OutageSummary implements Comparable<OutageSummary> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -173,12 +212,10 @@ public class OutageSummary implements Comparable<OutageSummary> {
 
     @Override
     public int compareTo(final OutageSummary that) {
-        return new CompareToBuilder()
-            .append(this.getTimeDown(), that.getTimeDown())
-            .append(this.getTimeUp(), that.getTimeUp())
-            .append(this.getHostname(), that.getHostname())
-            .append(this.getNodeLabel(), that.getNodeLabel())
-            .toComparison();
+        return new CompareToBuilder().append(this.getTimeDown(), that.getTimeDown()).append(this.getTimeUp(),
+                                                                                            that.getTimeUp()).append(this.getHostname(),
+                                                                                                                     that.getHostname()).append(this.getNodeLabel(),
+                                                                                                                                                that.getNodeLabel()).toComparison();
     }
 
 };

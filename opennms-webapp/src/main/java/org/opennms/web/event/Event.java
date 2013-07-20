@@ -216,12 +216,18 @@ public class Event {
      * Create an event that represents a real network event with only the
      * required parameters.
      *
-     * @param id a int.
-     * @param uei a {@link java.lang.String} object.
-     * @param time a {@link java.util.Date} object.
-     * @param dpName a {@link java.lang.String} object.
-     * @param createTime a {@link java.util.Date} object.
-     * @param severityId a int.
+     * @param id
+     *            a int.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.util.Date} object.
+     * @param dpName
+     *            a {@link java.lang.String} object.
+     * @param createTime
+     *            a {@link java.util.Date} object.
+     * @param severityId
+     *            a int.
      */
     public Event(int id, String uei, Date time, String dpName, Date createTime, int severityId) {
         if (uei == null || time == null || dpName == null || createTime == null) {
@@ -240,115 +246,228 @@ public class Event {
      * Create an event that represents a real network event with all the
      * parameters.
      *
-     * @param id a int.
-     * @param uei a {@link java.lang.String} object.
-     * @param time a {@link java.util.Date} object.
-     * @param dpName a {@link java.lang.String} object.
-     * @param createTime a {@link java.util.Date} object.
-     * @param severityId a int.
-     * @param snmp a {@link java.lang.String} object.
-     * @param host a {@link java.lang.String} object.
-     * @param snmphost a {@link java.lang.String} object.
-     * @param parms a {@link java.lang.String} object.
-     * @param nodeID a {@link java.lang.Integer} object.
-     * @param serviceID a {@link java.lang.Integer} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param description a {@link java.lang.String} object.
-     * @param logMessage a {@link java.lang.String} object.
-     * @param logGroup a {@link java.lang.String} object.
-     * @param operatorInstruction a {@link java.lang.String} object.
-     * @param autoAction a {@link java.lang.String} object.
-     * @param operatorAction a {@link java.lang.String} object.
-     * @param operatorActionMenuText a {@link java.lang.String} object.
-     * @param notification a {@link java.lang.String} object.
-     * @param troubleTicket a {@link java.lang.String} object.
-     * @param troubleTicketState a {@link java.lang.Integer} object.
-     * @param forward a {@link java.lang.String} object.
-     * @param mouseOverText a {@link java.lang.String} object.
-     * @param acknowledgeUser a {@link java.lang.String} object.
-     * @param acknowledgeTime a {@link java.util.Date} object.
+     * @param id
+     *            a int.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.util.Date} object.
+     * @param dpName
+     *            a {@link java.lang.String} object.
+     * @param createTime
+     *            a {@link java.util.Date} object.
+     * @param severityId
+     *            a int.
+     * @param snmp
+     *            a {@link java.lang.String} object.
+     * @param host
+     *            a {@link java.lang.String} object.
+     * @param snmphost
+     *            a {@link java.lang.String} object.
+     * @param parms
+     *            a {@link java.lang.String} object.
+     * @param nodeID
+     *            a {@link java.lang.Integer} object.
+     * @param serviceID
+     *            a {@link java.lang.Integer} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
+     * @param logMessage
+     *            a {@link java.lang.String} object.
+     * @param logGroup
+     *            a {@link java.lang.String} object.
+     * @param operatorInstruction
+     *            a {@link java.lang.String} object.
+     * @param autoAction
+     *            a {@link java.lang.String} object.
+     * @param operatorAction
+     *            a {@link java.lang.String} object.
+     * @param operatorActionMenuText
+     *            a {@link java.lang.String} object.
+     * @param notification
+     *            a {@link java.lang.String} object.
+     * @param troubleTicket
+     *            a {@link java.lang.String} object.
+     * @param troubleTicketState
+     *            a {@link java.lang.Integer} object.
+     * @param forward
+     *            a {@link java.lang.String} object.
+     * @param mouseOverText
+     *            a {@link java.lang.String} object.
+     * @param acknowledgeUser
+     *            a {@link java.lang.String} object.
+     * @param acknowledgeTime
+     *            a {@link java.util.Date} object.
      */
-    public Event(int id, String uei, Date time, String dpName, Date createTime, int severityId, String snmp, String host, String snmphost, String parms, Integer nodeID, Integer serviceID, String ipAddr, String description, String logMessage, String logGroup, String operatorInstruction, String autoAction, String operatorAction, String operatorActionMenuText, String notification, String troubleTicket, Integer troubleTicketState, String forward, String mouseOverText, String acknowledgeUser, Date acknowledgeTime) {
-        this(id, uei, time, dpName, createTime, severityId, snmp, host, snmphost, parms, nodeID, serviceID, ipAddr, description, logMessage, logGroup, operatorInstruction, autoAction, operatorAction, operatorActionMenuText, notification, troubleTicket, troubleTicketState, forward, mouseOverText, acknowledgeUser, acknowledgeTime, null, null, null, null);
+    public Event(int id, String uei, Date time, String dpName, Date createTime, int severityId, String snmp,
+            String host, String snmphost, String parms, Integer nodeID, Integer serviceID, String ipAddr,
+            String description, String logMessage, String logGroup, String operatorInstruction, String autoAction,
+            String operatorAction, String operatorActionMenuText, String notification, String troubleTicket,
+            Integer troubleTicketState, String forward, String mouseOverText, String acknowledgeUser,
+            Date acknowledgeTime) {
+        this(id, uei, time, dpName, createTime, severityId, snmp, host, snmphost, parms, nodeID, serviceID, ipAddr,
+             description, logMessage, logGroup, operatorInstruction, autoAction, operatorAction,
+             operatorActionMenuText, notification, troubleTicket, troubleTicketState, forward, mouseOverText,
+             acknowledgeUser, acknowledgeTime, null, null, null, null);
     }
 
     /**
-     * <p>Constructor for Event.</p>
+     * <p>
+     * Constructor for Event.
+     * </p>
      *
-     * @param id a int.
-     * @param uei a {@link java.lang.String} object.
-     * @param time a {@link java.util.Date} object.
-     * @param dpName a {@link java.lang.String} object.
-     * @param createTime a {@link java.util.Date} object.
-     * @param severityId a int.
-     * @param snmp a {@link java.lang.String} object.
-     * @param host a {@link java.lang.String} object.
-     * @param snmphost a {@link java.lang.String} object.
-     * @param parms a {@link java.lang.String} object.
-     * @param nodeID a {@link java.lang.Integer} object.
-     * @param serviceID a {@link java.lang.Integer} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param description a {@link java.lang.String} object.
-     * @param logMessage a {@link java.lang.String} object.
-     * @param logGroup a {@link java.lang.String} object.
-     * @param operatorInstruction a {@link java.lang.String} object.
-     * @param autoAction a {@link java.lang.String} object.
-     * @param operatorAction a {@link java.lang.String} object.
-     * @param operatorActionMenuText a {@link java.lang.String} object.
-     * @param notification a {@link java.lang.String} object.
-     * @param troubleTicket a {@link java.lang.String} object.
-     * @param troubleTicketState a {@link java.lang.Integer} object.
-     * @param forward a {@link java.lang.String} object.
-     * @param mouseOverText a {@link java.lang.String} object.
-     * @param acknowledgeUser a {@link java.lang.String} object.
-     * @param acknowledgeTime a {@link java.util.Date} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param serviceName a {@link java.lang.String} object.
-     * @param alarmId a {@link java.lang.Integer} object.
+     * @param id
+     *            a int.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.util.Date} object.
+     * @param dpName
+     *            a {@link java.lang.String} object.
+     * @param createTime
+     *            a {@link java.util.Date} object.
+     * @param severityId
+     *            a int.
+     * @param snmp
+     *            a {@link java.lang.String} object.
+     * @param host
+     *            a {@link java.lang.String} object.
+     * @param snmphost
+     *            a {@link java.lang.String} object.
+     * @param parms
+     *            a {@link java.lang.String} object.
+     * @param nodeID
+     *            a {@link java.lang.Integer} object.
+     * @param serviceID
+     *            a {@link java.lang.Integer} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
+     * @param logMessage
+     *            a {@link java.lang.String} object.
+     * @param logGroup
+     *            a {@link java.lang.String} object.
+     * @param operatorInstruction
+     *            a {@link java.lang.String} object.
+     * @param autoAction
+     *            a {@link java.lang.String} object.
+     * @param operatorAction
+     *            a {@link java.lang.String} object.
+     * @param operatorActionMenuText
+     *            a {@link java.lang.String} object.
+     * @param notification
+     *            a {@link java.lang.String} object.
+     * @param troubleTicket
+     *            a {@link java.lang.String} object.
+     * @param troubleTicketState
+     *            a {@link java.lang.Integer} object.
+     * @param forward
+     *            a {@link java.lang.String} object.
+     * @param mouseOverText
+     *            a {@link java.lang.String} object.
+     * @param acknowledgeUser
+     *            a {@link java.lang.String} object.
+     * @param acknowledgeTime
+     *            a {@link java.util.Date} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param alarmId
+     *            a {@link java.lang.Integer} object.
      */
-    public Event(int id, String uei, Date time, String dpName, Date createTime, int severityId, String snmp, String host, String snmphost, String parms, Integer nodeID, Integer serviceID, String ipAddr, String description, String logMessage, String logGroup, String operatorInstruction, String autoAction, String operatorAction, String operatorActionMenuText, String notification, String troubleTicket, Integer troubleTicketState, String forward, String mouseOverText, String acknowledgeUser, Date acknowledgeTime, String nodeLabel, String serviceName, Integer alarmId) {
-        this(id, uei, time, dpName, createTime, severityId, snmp, host, snmphost, parms, nodeID, serviceID, ipAddr, description, logMessage, logGroup, operatorInstruction, autoAction, operatorAction, operatorActionMenuText, notification, troubleTicket, troubleTicketState, forward, mouseOverText, acknowledgeUser, acknowledgeTime, nodeLabel, serviceName, alarmId, null);
+    public Event(int id, String uei, Date time, String dpName, Date createTime, int severityId, String snmp,
+            String host, String snmphost, String parms, Integer nodeID, Integer serviceID, String ipAddr,
+            String description, String logMessage, String logGroup, String operatorInstruction, String autoAction,
+            String operatorAction, String operatorActionMenuText, String notification, String troubleTicket,
+            Integer troubleTicketState, String forward, String mouseOverText, String acknowledgeUser,
+            Date acknowledgeTime, String nodeLabel, String serviceName, Integer alarmId) {
+        this(id, uei, time, dpName, createTime, severityId, snmp, host, snmphost, parms, nodeID, serviceID, ipAddr,
+             description, logMessage, logGroup, operatorInstruction, autoAction, operatorAction,
+             operatorActionMenuText, notification, troubleTicket, troubleTicketState, forward, mouseOverText,
+             acknowledgeUser, acknowledgeTime, nodeLabel, serviceName, alarmId, null);
     }
+
     /**
      * Create an event that represents a real network event with all the
      * parameters.
      *
-     * @param id a int.
-     * @param uei a {@link java.lang.String} object.
-     * @param time a {@link java.util.Date} object.
-     * @param dpName a {@link java.lang.String} object.
-     * @param createTime a {@link java.util.Date} object.
-     * @param severityId a int.
-     * @param snmp a {@link java.lang.String} object.
-     * @param host a {@link java.lang.String} object.
-     * @param snmphost a {@link java.lang.String} object.
-     * @param parms a {@link java.lang.String} object.
-     * @param nodeID a {@link java.lang.Integer} object.
-     * @param serviceID a {@link java.lang.Integer} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param description a {@link java.lang.String} object.
-     * @param logMessage a {@link java.lang.String} object.
-     * @param logGroup a {@link java.lang.String} object.
-     * @param operatorInstruction a {@link java.lang.String} object.
-     * @param autoAction a {@link java.lang.String} object.
-     * @param operatorAction a {@link java.lang.String} object.
-     * @param operatorActionMenuText a {@link java.lang.String} object.
-     * @param notification a {@link java.lang.String} object.
-     * @param troubleTicket a {@link java.lang.String} object.
-     * @param troubleTicketState a {@link java.lang.Integer} object.
-     * @param forward a {@link java.lang.String} object.
-     * @param mouseOverText a {@link java.lang.String} object.
-     * @param acknowledgeUser a {@link java.lang.String} object.
-     * @param acknowledgeTime a {@link java.util.Date} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param serviceName a {@link java.lang.String} object.
-     * @param alarmId a {@link java.lang.Integer} object.
-     * @param eventDisplay a {@link java.lang.Boolean} object.
+     * @param id
+     *            a int.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param time
+     *            a {@link java.util.Date} object.
+     * @param dpName
+     *            a {@link java.lang.String} object.
+     * @param createTime
+     *            a {@link java.util.Date} object.
+     * @param severityId
+     *            a int.
+     * @param snmp
+     *            a {@link java.lang.String} object.
+     * @param host
+     *            a {@link java.lang.String} object.
+     * @param snmphost
+     *            a {@link java.lang.String} object.
+     * @param parms
+     *            a {@link java.lang.String} object.
+     * @param nodeID
+     *            a {@link java.lang.Integer} object.
+     * @param serviceID
+     *            a {@link java.lang.Integer} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param description
+     *            a {@link java.lang.String} object.
+     * @param logMessage
+     *            a {@link java.lang.String} object.
+     * @param logGroup
+     *            a {@link java.lang.String} object.
+     * @param operatorInstruction
+     *            a {@link java.lang.String} object.
+     * @param autoAction
+     *            a {@link java.lang.String} object.
+     * @param operatorAction
+     *            a {@link java.lang.String} object.
+     * @param operatorActionMenuText
+     *            a {@link java.lang.String} object.
+     * @param notification
+     *            a {@link java.lang.String} object.
+     * @param troubleTicket
+     *            a {@link java.lang.String} object.
+     * @param troubleTicketState
+     *            a {@link java.lang.Integer} object.
+     * @param forward
+     *            a {@link java.lang.String} object.
+     * @param mouseOverText
+     *            a {@link java.lang.String} object.
+     * @param acknowledgeUser
+     *            a {@link java.lang.String} object.
+     * @param acknowledgeTime
+     *            a {@link java.util.Date} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param alarmId
+     *            a {@link java.lang.Integer} object.
+     * @param eventDisplay
+     *            a {@link java.lang.Boolean} object.
      */
-    public Event(int id, String uei, Date time, String dpName, Date createTime, int severityId, String snmp, String host, String snmphost, String parms, Integer nodeID, Integer serviceID, String ipAddr, String description, String logMessage, String logGroup, String operatorInstruction, String autoAction, String operatorAction, String operatorActionMenuText, String notification, String troubleTicket, Integer troubleTicketState, String forward, String mouseOverText, String acknowledgeUser, Date acknowledgeTime, String nodeLabel, String serviceName, Integer alarmId, Boolean eventDisplay) {
+    public Event(int id, String uei, Date time, String dpName, Date createTime, int severityId, String snmp,
+            String host, String snmphost, String parms, Integer nodeID, Integer serviceID, String ipAddr,
+            String description, String logMessage, String logGroup, String operatorInstruction, String autoAction,
+            String operatorAction, String operatorActionMenuText, String notification, String troubleTicket,
+            Integer troubleTicketState, String forward, String mouseOverText, String acknowledgeUser,
+            Date acknowledgeTime, String nodeLabel, String serviceName, Integer alarmId, Boolean eventDisplay) {
 
         if (uei == null || time == null || dpName == null || createTime == null) {
-            throw new IllegalArgumentException("Cannot take null values for the following parameters: uei, time, dpName, createTime.");
+            throw new IllegalArgumentException(
+                                               "Cannot take null values for the following parameters: uei, time, dpName, createTime.");
         }
 
         // required fields
@@ -388,7 +507,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>id</code>.</p>
+     * <p>
+     * Getter for the field <code>id</code>.
+     * </p>
      *
      * @return a int.
      */
@@ -397,7 +518,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>uei</code>.</p>
+     * <p>
+     * Getter for the field <code>uei</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -406,7 +529,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>time</code>.</p>
+     * <p>
+     * Getter for the field <code>time</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -415,7 +540,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>dpName</code>.</p>
+     * <p>
+     * Getter for the field <code>dpName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -424,7 +551,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>createTime</code>.</p>
+     * <p>
+     * Getter for the field <code>createTime</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -433,7 +562,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>severity</code>.</p>
+     * <p>
+     * Getter for the field <code>severity</code>.
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
@@ -442,7 +573,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>snmp</code>.</p>
+     * <p>
+     * Getter for the field <code>snmp</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -451,7 +584,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>host</code>.</p>
+     * <p>
+     * Getter for the field <code>host</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -460,7 +595,9 @@ public class Event {
     }
 
     /**
-     * <p>getSnmpHost</p>
+     * <p>
+     * getSnmpHost
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -469,7 +606,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>parms</code>.</p>
+     * <p>
+     * Getter for the field <code>parms</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -478,7 +617,9 @@ public class Event {
     }
 
     /**
-     * <p>getNodeId</p>
+     * <p>
+     * getNodeId
+     * </p>
      *
      * @return a int.
      */
@@ -487,7 +628,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>nodeLabel</code>.</p>
+     * <p>
+     * Getter for the field <code>nodeLabel</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -496,7 +639,9 @@ public class Event {
     }
 
     /**
-     * <p>getServiceId</p>
+     * <p>
+     * getServiceId
+     * </p>
      *
      * @return a int.
      */
@@ -505,7 +650,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>serviceName</code>.</p>
+     * <p>
+     * Getter for the field <code>serviceName</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -514,7 +661,9 @@ public class Event {
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -523,7 +672,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>description</code>.</p>
+     * <p>
+     * Getter for the field <code>description</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -532,7 +683,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>logMessage</code>.</p>
+     * <p>
+     * Getter for the field <code>logMessage</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -541,7 +694,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>logGroup</code>.</p>
+     * <p>
+     * Getter for the field <code>logGroup</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -550,7 +705,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>operatorInstruction</code>.</p>
+     * <p>
+     * Getter for the field <code>operatorInstruction</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -559,7 +716,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>autoAction</code>.</p>
+     * <p>
+     * Getter for the field <code>autoAction</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -568,7 +727,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>operatorAction</code>.</p>
+     * <p>
+     * Getter for the field <code>operatorAction</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -577,7 +738,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>operatorActionMenuText</code>.</p>
+     * <p>
+     * Getter for the field <code>operatorActionMenuText</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -586,7 +749,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>notification</code>.</p>
+     * <p>
+     * Getter for the field <code>notification</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -595,7 +760,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>troubleTicket</code>.</p>
+     * <p>
+     * Getter for the field <code>troubleTicket</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -604,7 +771,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>troubleTicketState</code>.</p>
+     * <p>
+     * Getter for the field <code>troubleTicketState</code>.
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -613,7 +782,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>forward</code>.</p>
+     * <p>
+     * Getter for the field <code>forward</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -622,7 +793,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>mouseOverText</code>.</p>
+     * <p>
+     * Getter for the field <code>mouseOverText</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -631,7 +804,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>acknowledgeUser</code>.</p>
+     * <p>
+     * Getter for the field <code>acknowledgeUser</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -640,7 +815,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>acknowledgeTime</code>.</p>
+     * <p>
+     * Getter for the field <code>acknowledgeTime</code>.
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -649,7 +826,9 @@ public class Event {
     }
 
     /**
-     * <p>isAcknowledged</p>
+     * <p>
+     * isAcknowledged
+     * </p>
      *
      * @return a boolean.
      */
@@ -658,7 +837,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>alarmId</code>.</p>
+     * <p>
+     * Getter for the field <code>alarmId</code>.
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -667,7 +848,9 @@ public class Event {
     }
 
     /**
-     * <p>Getter for the field <code>eventDisplay</code>.</p>
+     * <p>
+     * Getter for the field <code>eventDisplay</code>.
+     * </p>
      *
      * @return a {@link java.lang.Boolean} object.
      */

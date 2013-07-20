@@ -38,7 +38,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>DistributedStatusHistoryController class.</p>
+ * <p>
+ * DistributedStatusHistoryController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -48,18 +50,25 @@ public class DistributedStatusHistoryController extends AbstractController {
     private DistributedStatusService m_distributedStatusService;
 
     /**
-     * <p>getDistributedStatusService</p>
+     * <p>
+     * getDistributedStatusService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.DistributedStatusService} object.
+     * @return a {@link org.opennms.web.svclayer.DistributedStatusService}
+     *         object.
      */
     public final DistributedStatusService getDistributedStatusService() {
         return m_distributedStatusService;
     }
 
     /**
-     * <p>setDistributedStatusService</p>
+     * <p>
+     * setDistributedStatusService
+     * </p>
      *
-     * @param statusService a {@link org.opennms.web.svclayer.DistributedStatusService} object.
+     * @param statusService
+     *            a {@link org.opennms.web.svclayer.DistributedStatusService}
+     *            object.
      */
     public final void setDistributedStatusService(final DistributedStatusService statusService) {
         m_distributedStatusService = statusService;
@@ -74,12 +83,9 @@ public class DistributedStatusHistoryController extends AbstractController {
         String applicationName = WebSecurityUtils.sanitizeString(request.getParameter("application"));
         String timeSpan = WebSecurityUtils.sanitizeString(request.getParameter("timeSpan"));
         String previousLocation = WebSecurityUtils.sanitizeString(request.getParameter("previousLocation"));
-        DistributedStatusHistoryModel model =
-            m_distributedStatusService.createHistoryModel(locationName,
-                                                          monitorId,
-                                                          applicationName,
-                                                          timeSpan,
-                                                          previousLocation);
+        DistributedStatusHistoryModel model = m_distributedStatusService.createHistoryModel(locationName, monitorId,
+                                                                                            applicationName, timeSpan,
+                                                                                            previousLocation);
         return new ModelAndView("distributedStatusHistory", "historyModel", model);
     }
 }

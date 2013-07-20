@@ -43,16 +43,21 @@ public class OutageIdFilter extends EqualsFilter<Integer> {
     public static final String TYPE = "outage";
 
     /**
-     * <p>Constructor for OutageIdFilter.</p>
+     * <p>
+     * Constructor for OutageIdFilter.
+     * </p>
      *
-     * @param outageId a int.
+     * @param outageId
+     *            a int.
      */
     public OutageIdFilter(int outageId) {
         super(TYPE, SQLType.INT, "OUTAGES.OUTAGEID", "id", outageId);
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +67,9 @@ public class OutageIdFilter extends EqualsFilter<Integer> {
     }
 
     /**
-     * <p>getOutage</p>
+     * <p>
+     * getOutage
+     * </p>
      *
      * @return a int.
      */

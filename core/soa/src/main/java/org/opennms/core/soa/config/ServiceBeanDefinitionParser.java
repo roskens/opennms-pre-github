@@ -44,20 +44,17 @@ import org.w3c.dom.NodeList;
 
 /**
  * ServiceRegistrationBeanDefinitionParser
- *
  * Simplest
  * <onmsgi:service ref="beanToRegister" interface="com.example.Interface" />
- *
  * ID also allowed and becomes the ID of the Registration object
- * <onmsgi:service id="registrationId" ref="beanToRegister" interface="interfaceToPublish" />
- *
+ * <onmsgi:service id="registrationId" ref="beanToRegister"
+ * interface="interfaceToPublish" />
  * More than interface supported with nested interfaces element
- *
  * <onmsgi:service ref="beanToRegister">
- *   <onmsgi:interfaces>
- *     <value>com.example.Interface1</value>
- *     <value>com.example.Interface2</value>
- *   </onmsgi:interfaces>
+ * <onmsgi:interfaces>
+ * <value>com.example.Interface1</value>
+ * <value>com.example.Interface2</value>
+ * </onmsgi:interfaces>
  * </onmsgi:service>
  *
  * @author brozow
@@ -67,12 +64,14 @@ public class ServiceBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
 
     /** Constant <code>REF_ATTR="ref"</code> */
     public static final String REF_ATTR = "ref";
+
     /** Constant <code>INTERFACE_ATTR="interface"</code> */
     public static final String INTERFACE_ATTR = "interface";
+
     /** Constant <code>INTERFACES_ELEM="interfaces"</code> */
     public static final String INTERFACES_ELEM = "interfaces";
-    public static final String PROPS_ELEM = "service-properties";
 
+    public static final String PROPS_ELEM = "service-properties";
 
     /** {@inheritDoc} */
     @Override
@@ -95,7 +94,7 @@ public class ServiceBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
 
         NodeList nodeList = element.getChildNodes();
 
-        for(int i = 0; i < nodeList.getLength(); i++) {
+        for (int i = 0; i < nodeList.getLength(); i++) {
             Node n = nodeList.item(i);
 
             if (n instanceof Element) {
@@ -104,22 +103,21 @@ public class ServiceBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
                 if (INTERFACES_ELEM.equals(child.getLocalName())) {
 
                     if (element.hasAttribute(INTERFACE_ATTR)) {
-                        context.getReaderContext().error("either 'interface' attribute or <intefaces> sub-element has be specified", element);
+                        context.getReaderContext().error("either 'interface' attribute or <intefaces> sub-element has be specified",
+                                                         element);
                     }
 
                     Set<?> interfaces = context.getDelegate().parseSetElement(child, bean.getBeanDefinition());
                     bean.addPropertyValue("interfaces", interfaces);
 
                 } else if (PROPS_ELEM.equals(child.getLocalName())) {
-                    Map<?,?> svcProps = context.getDelegate().parseMapElement(child, bean.getBeanDefinition());
+                    Map<?, ?> svcProps = context.getDelegate().parseMapElement(child, bean.getBeanDefinition());
                     bean.addPropertyValue("serviceProperties", svcProps);
                 }
 
             }
 
-
         }
-
 
     }
 
@@ -128,7 +126,5 @@ public class ServiceBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
     protected boolean shouldGenerateIdAsFallback() {
         return true;
     }
-
-
 
 }

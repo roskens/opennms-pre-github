@@ -62,7 +62,8 @@ public class EventMaskValueList extends ArrayList<String> {
     /**
      * constructor for this class
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public EventMaskValueList(Collection<String> c) {
         super(c);
@@ -72,7 +73,8 @@ public class EventMaskValueList extends ArrayList<String> {
     /**
      * constructor for this class
      *
-     * @param initCapacity a int.
+     * @param initCapacity
+     *            a int.
      */
     public EventMaskValueList(int initCapacity) {
         super(initCapacity);
@@ -99,7 +101,8 @@ public class EventMaskValueList extends ArrayList<String> {
      * Override to re-evaluate hashcode
      *
      * @see java.util.ArrayList#add(Object)
-     * @param o a {@link java.lang.String} object.
+     * @param o
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     @Override
@@ -113,8 +116,10 @@ public class EventMaskValueList extends ArrayList<String> {
      * Override to re-evaluate hashcode
      *
      * @see java.util.ArrayList#add(int, Object)
-     * @param index a int.
-     * @param o a {@link java.lang.String} object.
+     * @param index
+     *            a int.
+     * @param o
+     *            a {@link java.lang.String} object.
      */
     @Override
     public void add(int index, String o) {
@@ -123,9 +128,8 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Override to re-evaluate hashcode
      *
-     * Override to re-evaluate hashcode
      * @see java.util.ArrayList#addAll(Collection)
      */
     @Override
@@ -136,9 +140,8 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Override to re-evaluate hashcode
      *
-     * Override to re-evaluate hashcode
      * @see java.util.ArrayList#addAll(int, Collection)
      */
     @Override
@@ -160,9 +163,8 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Override to re-evaluate hashcode
      *
-     * Override to re-evaluate hashcode
      * @see java.util.ArrayList#remove(int)
      */
     @Override
@@ -174,9 +176,8 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Override to re-evaluate hashcode
      *
-     * Override to re-evaluate hashcode
      * @see java.util.ArrayList#removeRange(int,int)
      */
     @Override
@@ -189,7 +190,8 @@ public class EventMaskValueList extends ArrayList<String> {
      * Override to re-evaluate hashcode
      *
      * @see java.util.ArrayList#remove(Object)
-     * @param o a {@link java.lang.String} object.
+     * @param o
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean remove(String o) {
@@ -199,9 +201,8 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} Override to re-evaluate hashcode
      *
-     * Override to re-evaluate hashcode
      * @see java.util.ArrayList#removeAll(Collection)
      */
     @Override
@@ -215,8 +216,10 @@ public class EventMaskValueList extends ArrayList<String> {
      * Override to re-evaluate hashcode
      *
      * @see java.util.ArrayList#set(int,Object)
-     * @param index a int.
-     * @param o a {@link java.lang.String} object.
+     * @param index
+     *            a int.
+     * @param o
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -234,7 +237,6 @@ public class EventMaskValueList extends ArrayList<String> {
      * <p>
      * Handling the mask values ending with '%' is a pain since the hashcodes
      * will need to work in reverse!
-     *
      * <p>
      * For e.g. consider mask values '.1.3.6.1.4.1.9%' and '.1.3.6.1.4.1.%'
      * normal hashcodes will mean '.1.3.6.1.4.1.9%' will have a larger hashcode.

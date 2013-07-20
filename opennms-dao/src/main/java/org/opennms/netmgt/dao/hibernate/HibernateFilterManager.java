@@ -38,7 +38,9 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
- * <p>HibernateFilterManager class.</p>
+ * <p>
+ * HibernateFilterManager class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -47,21 +49,26 @@ public class HibernateFilterManager implements FilterManager {
 
     private HibernateTemplate m_template;
 
-
     /**
-     * <p>setSessionFactory</p>
+     * <p>
+     * setSessionFactory
+     * </p>
      *
-     * @param sessionFactory a {@link org.hibernate.SessionFactory} object.
+     * @param sessionFactory
+     *            a {@link org.hibernate.SessionFactory} object.
      */
     public void setSessionFactory(SessionFactory sessionFactory) {
         m_template = new HibernateTemplate(sessionFactory);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.netmgt.model.FilterManager#disableAuthorizationFilter()
      */
     /**
-     * <p>disableAuthorizationFilter</p>
+     * <p>
+     * disableAuthorizationFilter
+     * </p>
      */
     @Override
     public void disableAuthorizationFilter() {
@@ -78,13 +85,19 @@ public class HibernateFilterManager implements FilterManager {
         m_template.execute(cb);
     }
 
-    /* (non-Javadoc)
-     * @see org.opennms.netmgt.model.FilterManager#enableAuthorizationFilter(java.lang.String[])
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.model.FilterManager#enableAuthorizationFilter(java
+     * .lang.String[])
      */
     /**
-     * <p>enableAuthorizationFilter</p>
+     * <p>
+     * enableAuthorizationFilter
+     * </p>
      *
-     * @param authorizationGroups an array of {@link java.lang.String} objects.
+     * @param authorizationGroups
+     *            an array of {@link java.lang.String} objects.
      */
     @Override
     public void enableAuthorizationFilter(final String[] authorizationGroups) {

@@ -51,7 +51,8 @@ public class AsteriskConfig {
      * This loads the configuration file.
      *
      * @return a Properties object representing the configuration properties
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static synchronized Properties getProperties() throws IOException {
         LOG.debug("Loading Asterisk configuration properties.");

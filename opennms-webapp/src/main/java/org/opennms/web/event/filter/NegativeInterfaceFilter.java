@@ -43,16 +43,21 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
     public static final String TYPE = "interfacenot";
 
     /**
-     * <p>Constructor for NegativeInterfaceFilter.</p>
+     * <p>
+     * Constructor for NegativeInterfaceFilter.
+     * </p>
      *
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public NegativeInterfaceFilter(String ipAddress) {
         super(TYPE, SQLType.STRING, "IPADDR", "ipAddr", ipAddress);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,7 +67,9 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,7 +79,9 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
     }
 
     /**
-     * <p>getIpAddress</p>
+     * <p>
+     * getIpAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

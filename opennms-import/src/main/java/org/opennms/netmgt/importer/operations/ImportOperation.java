@@ -33,20 +33,26 @@ import java.util.List;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * <p>ImportOperation interface.</p>
+ * <p>
+ * ImportOperation interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public interface ImportOperation {
 
-	/**
-	 * <p>gatherAdditionalData</p>
-	 */
-	void gatherAdditionalData();
+    /**
+     * <p>
+     * gatherAdditionalData
+     * </p>
+     */
+    void gatherAdditionalData();
 
     /**
-     * <p>persist</p>
+     * <p>
+     * persist
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */

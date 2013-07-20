@@ -35,8 +35,8 @@
 
 package org.opennms.netmgt.config.collectd.jmx.descriptors;
 
-  //---------------------------------/
- //- Imported classes and packages -/
+//---------------------------------/
+//- Imported classes and packages -/
 //---------------------------------/
 
 import org.opennms.netmgt.config.collectd.jmx.Mbean;
@@ -47,12 +47,12 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
  *
  * @version $Revision$ $Date$
  */
-@SuppressWarnings("all") public class MbeansDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
+@SuppressWarnings("all")
+public class MbeansDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
 
-
-      //--------------------------/
-     //- Class/Member Variables -/
-    //--------------------------/
+    // --------------------------/
+    // - Class/Member Variables -/
+    // --------------------------/
 
     /**
      * Field _elementDefinition.
@@ -79,10 +79,9 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
      */
     private org.exolab.castor.xml.XMLFieldDescriptor _identity;
 
-
-      //----------------/
-     //- Constructors -/
-    //----------------/
+    // ----------------/
+    // - Constructors -/
+    // ----------------/
 
     public MbeansDescriptor() {
         super();
@@ -90,36 +89,36 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
         _xmlName = "mbeans";
         _elementDefinition = true;
 
-        //-- set grouping compositor
+        // -- set grouping compositor
         setCompositorAsSequence();
-        org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
-        org.exolab.castor.mapping.FieldHandler             handler        = null;
-        org.exolab.castor.xml.FieldValidator               fieldValidator = null;
-        //-- initialize attribute descriptors
+        org.exolab.castor.xml.util.XMLFieldDescriptorImpl desc = null;
+        org.exolab.castor.mapping.FieldHandler handler = null;
+        org.exolab.castor.xml.FieldValidator fieldValidator = null;
+        // -- initialize attribute descriptors
 
-        //-- initialize element descriptors
+        // -- initialize element descriptors
 
-        //-- _mbeanList
-        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(Mbean.class, "_mbeanList", "mbean", org.exolab.castor.xml.NodeType.Element);
+        // -- _mbeanList
+        desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(Mbean.class, "_mbeanList", "mbean",
+                                                                     org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object )
-                throws IllegalStateException
-            {
+            public java.lang.Object getValue(java.lang.Object object) throws IllegalStateException {
                 Mbeans target = (Mbeans) object;
                 return target.getMbean();
             }
+
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value)
-                throws IllegalStateException, IllegalArgumentException
-            {
+            public void setValue(java.lang.Object object, java.lang.Object value) throws IllegalStateException,
+                    IllegalArgumentException {
                 try {
                     Mbeans target = (Mbeans) object;
-                    target.addMbean( (Mbean) value);
+                    target.addMbean((Mbean) value);
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             public void resetValue(Object object) throws IllegalStateException, IllegalArgumentException {
                 try {
@@ -129,6 +128,7 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
                     throw new IllegalStateException(ex.toString());
                 }
             }
+
             @Override
             @SuppressWarnings("unused")
             public java.lang.Object newInstance(java.lang.Object parent) {
@@ -143,18 +143,17 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
         addFieldDescriptor(desc);
         addSequenceElement(desc);
 
-        //-- validation code for: _mbeanList
+        // -- validation code for: _mbeanList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
-        { //-- local scope
+        { // -- local scope
         }
         desc.setValidator(fieldValidator);
     }
 
-
-      //-----------/
-     //- Methods -/
-    //-----------/
+    // -----------/
+    // - Methods -/
+    // -----------/
 
     /**
      * Method getAccessMode.
@@ -162,8 +161,7 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
      * @return the access mode specified for this class.
      */
     @Override()
-    public org.exolab.castor.mapping.AccessMode getAccessMode(
-    ) {
+    public org.exolab.castor.mapping.AccessMode getAccessMode() {
         return null;
     }
 
@@ -171,11 +169,10 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
      * Method getIdentity.
      *
      * @return the identity field, null if this class has no
-     * identity.
+     *         identity.
      */
     @Override()
-    public org.exolab.castor.mapping.FieldDescriptor getIdentity(
-    ) {
+    public org.exolab.castor.mapping.FieldDescriptor getIdentity() {
         return _identity;
     }
 
@@ -185,8 +182,7 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
      * @return the Java class represented by this descriptor.
      */
     @Override()
-    public java.lang.Class<?> getJavaClass(
-    ) {
+    public java.lang.Class<?> getJavaClass() {
         return Mbeans.class;
     }
 
@@ -196,8 +192,7 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpacePrefix(
-    ) {
+    public java.lang.String getNameSpacePrefix() {
         return _nsPrefix;
     }
 
@@ -205,11 +200,10 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
      * Method getNameSpaceURI.
      *
      * @return the namespace URI used when marshaling and
-     * unmarshaling as XML.
+     *         unmarshaling as XML.
      */
     @Override()
-    public java.lang.String getNameSpaceURI(
-    ) {
+    public java.lang.String getNameSpaceURI() {
         return _nsURI;
     }
 
@@ -217,11 +211,10 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
      * Method getValidator.
      *
      * @return a specific validator for the class described by this
-     * ClassDescriptor.
+     *         ClassDescriptor.
      */
     @Override()
-    public org.exolab.castor.xml.TypeValidator getValidator(
-    ) {
+    public org.exolab.castor.xml.TypeValidator getValidator() {
         return this;
     }
 
@@ -231,8 +224,7 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
      * @return the XML Name for the Class being described.
      */
     @Override()
-    public java.lang.String getXMLName(
-    ) {
+    public java.lang.String getXMLName() {
         return _xmlName;
     }
 
@@ -240,12 +232,11 @@ import org.opennms.netmgt.config.collectd.jmx.Mbeans;
      * Method isElementDefinition.
      *
      * @return true if XML schema definition of this Class is that
-     * of a global
-     * element or element with anonymous type definition.
+     *         of a global
+     *         element or element with anonymous type definition.
      */
     @Override
-    public boolean isElementDefinition(
-    ) {
+    public boolean isElementDefinition() {
         return _elementDefinition;
     }
 

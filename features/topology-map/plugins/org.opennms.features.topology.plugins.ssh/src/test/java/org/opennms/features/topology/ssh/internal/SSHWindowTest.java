@@ -42,29 +42,36 @@ import com.vaadin.ui.UI;
 
 public class SSHWindowTest {
 
-	UI app;
+    UI app;
+
     SSHWindow sshWindow;
+
     SSHWindow sshWindow2;
+
     SshClient client;
+
     ClientSession session;
+
     String testHost = "debian.opennms.org";
+
     int testPort = 22;
 
     @SuppressWarnings("serial")
     @Before
-    public void setup () {
+    public void setup() {
         app = new UI() {
             @Override
-            public void init(VaadinRequest request) {}
+            public void init(VaadinRequest request) {
+            }
         };
         sshWindow = new SSHWindow(null, 200, 200);
         client = SshClient.setUpDefaultClient();
         client.start();
         try {
-			session = client.connect(testHost, testPort).await().getSession();
-		} catch (Exception e) {
-			fail("Could not connect to host");
-		}
+            session = client.connect(testHost, testPort).await().getSession();
+        } catch (Exception e) {
+            fail("Could not connect to host");
+        }
         sshWindow2 = new SSHWindow(session, 200, 200);
         app.addWindow(sshWindow);
         app.addWindow(sshWindow2);
@@ -73,15 +80,15 @@ public class SSHWindowTest {
 
     @Test
     public void testAttach() {
-    	assertTrue(app.getWindows().contains(sshWindow));
-    	app.removeWindow(sshWindow);
-    	assertFalse(app.getWindows().contains(sshWindow));
+        assertTrue(app.getWindows().contains(sshWindow));
+        app.removeWindow(sshWindow);
+        assertFalse(app.getWindows().contains(sshWindow));
     }
 
     @Test
     public void testClose() {
-    	sshWindow2.close();
-    	assertTrue(true); //Should execute above line without failure
+        sshWindow2.close();
+        assertTrue(true); // Should execute above line without failure
     }
 
 }

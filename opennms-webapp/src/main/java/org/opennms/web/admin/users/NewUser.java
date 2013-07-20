@@ -77,21 +77,35 @@ public class NewUser {
     }
 
     /**
-     * <p>Constructor for NewUser.</p>
+     * <p>
+     * Constructor for NewUser.
+     * </p>
      *
-     * @param fullName a {@link java.lang.String} object.
-     * @param userId a {@link java.lang.String} object.
-     * @param userPasswd a {@link java.lang.String} object.
-     * @param confirm a {@link java.lang.String} object.
-     * @param userComments a {@link java.lang.String} object.
-     * @param userEmail a {@link java.lang.String} object.
-     * @param numericSvc a {@link java.lang.String} object.
-     * @param numericPin a {@link java.lang.String} object.
-     * @param txtSvc a {@link java.lang.String} object.
-     * @param txtPin a {@link java.lang.String} object.
-     * @param duty a {@link java.lang.String} object.
+     * @param fullName
+     *            a {@link java.lang.String} object.
+     * @param userId
+     *            a {@link java.lang.String} object.
+     * @param userPasswd
+     *            a {@link java.lang.String} object.
+     * @param confirm
+     *            a {@link java.lang.String} object.
+     * @param userComments
+     *            a {@link java.lang.String} object.
+     * @param userEmail
+     *            a {@link java.lang.String} object.
+     * @param numericSvc
+     *            a {@link java.lang.String} object.
+     * @param numericPin
+     *            a {@link java.lang.String} object.
+     * @param txtSvc
+     *            a {@link java.lang.String} object.
+     * @param txtPin
+     *            a {@link java.lang.String} object.
+     * @param duty
+     *            a {@link java.lang.String} object.
      */
-    public NewUser(String fullName, String userId, String userPasswd, String confirm, String userComments, String userEmail, String numericSvc, String numericPin, String txtSvc, String txtPin, String duty) {
+    public NewUser(String fullName, String userId, String userPasswd, String confirm, String userComments,
+            String userEmail, String numericSvc, String numericPin, String txtSvc, String txtPin, String duty) {
         fullname = fullName;
         user = userId;
         passwd = userPasswd;
@@ -106,7 +120,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>fullname</code>.</p>
+     * <p>
+     * Getter for the field <code>fullname</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -115,7 +131,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>user</code>.</p>
+     * <p>
+     * Getter for the field <code>user</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,7 +142,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>passwd</code>.</p>
+     * <p>
+     * Getter for the field <code>passwd</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -133,7 +153,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>confirmpasswd</code>.</p>
+     * <p>
+     * Getter for the field <code>confirmpasswd</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -142,7 +164,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>comments</code>.</p>
+     * <p>
+     * Getter for the field <code>comments</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -151,7 +175,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>email</code>.</p>
+     * <p>
+     * Getter for the field <code>email</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -160,7 +186,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>numsvc</code>.</p>
+     * <p>
+     * Getter for the field <code>numsvc</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -169,7 +197,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>numpin</code>.</p>
+     * <p>
+     * Getter for the field <code>numpin</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -178,7 +208,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>txtsvc</code>.</p>
+     * <p>
+     * Getter for the field <code>txtsvc</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -187,7 +219,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>txtpin</code>.</p>
+     * <p>
+     * Getter for the field <code>txtpin</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -196,7 +230,9 @@ public class NewUser {
     }
 
     /**
-     * <p>Getter for the field <code>dutysch</code>.</p>
+     * <p>
+     * Getter for the field <code>dutysch</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -205,106 +241,141 @@ public class NewUser {
     }
 
     /**
-     * <p>Setter for the field <code>fullname</code>.</p>
+     * <p>
+     * Setter for the field <code>fullname</code>.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      */
     public void setFullname(String name) {
         this.fullname = name;
     }
 
     /**
-     * <p>Setter for the field <code>user</code>.</p>
+     * <p>
+     * Setter for the field <code>user</code>.
+     * </p>
      *
-     * @param user a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
      */
     public void setUser(String user) {
         this.user = user;
     }
 
     /**
-     * <p>Setter for the field <code>passwd</code>.</p>
+     * <p>
+     * Setter for the field <code>passwd</code>.
+     * </p>
      *
-     * @param passwd a {@link java.lang.String} object.
+     * @param passwd
+     *            a {@link java.lang.String} object.
      */
     public void setPasswd(String passwd) {
         this.passwd = passwd;
     }
 
     /**
-     * <p>Setter for the field <code>confirmpasswd</code>.</p>
+     * <p>
+     * Setter for the field <code>confirmpasswd</code>.
+     * </p>
      *
-     * @param confirmPass a {@link java.lang.String} object.
+     * @param confirmPass
+     *            a {@link java.lang.String} object.
      */
     public void setConfirmpasswd(String confirmPass) {
         this.confirmpasswd = confirmPass;
     }
 
     /**
-     * <p>Setter for the field <code>comments</code>.</p>
+     * <p>
+     * Setter for the field <code>comments</code>.
+     * </p>
      *
-     * @param comments a {@link java.lang.String} object.
+     * @param comments
+     *            a {@link java.lang.String} object.
      */
     public void setComments(String comments) {
         this.comments = comments;
     }
 
     /**
-     * <p>Setter for the field <code>email</code>.</p>
+     * <p>
+     * Setter for the field <code>email</code>.
+     * </p>
      *
-     * @param email a {@link java.lang.String} object.
+     * @param email
+     *            a {@link java.lang.String} object.
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * <p>Setter for the field <code>numsvc</code>.</p>
+     * <p>
+     * Setter for the field <code>numsvc</code>.
+     * </p>
      *
-     * @param num a {@link java.lang.String} object.
+     * @param num
+     *            a {@link java.lang.String} object.
      */
     public void setNumsvc(String num) {
         this.numsvc = num;
     }
 
     /**
-     * <p>Setter for the field <code>numpin</code>.</p>
+     * <p>
+     * Setter for the field <code>numpin</code>.
+     * </p>
      *
-     * @param pin a {@link java.lang.String} object.
+     * @param pin
+     *            a {@link java.lang.String} object.
      */
     public void setNumpin(String pin) {
         this.numpin = pin;
     }
 
     /**
-     * <p>Setter for the field <code>txtsvc</code>.</p>
+     * <p>
+     * Setter for the field <code>txtsvc</code>.
+     * </p>
      *
-     * @param svc a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link java.lang.String} object.
      */
     public void setTxtsvc(String svc) {
         this.txtsvc = svc;
     }
 
     /**
-     * <p>Setter for the field <code>txtpin</code>.</p>
+     * <p>
+     * Setter for the field <code>txtpin</code>.
+     * </p>
      *
-     * @param pin a {@link java.lang.String} object.
+     * @param pin
+     *            a {@link java.lang.String} object.
      */
     public void setTxtpin(String pin) {
         this.txtpin = pin;
     }
 
     /**
-     * <p>Setter for the field <code>dutysch</code>.</p>
+     * <p>
+     * Setter for the field <code>dutysch</code>.
+     * </p>
      *
-     * @param duty a {@link java.lang.String} object.
+     * @param duty
+     *            a {@link java.lang.String} object.
      */
     public void setDutysch(String duty) {
         this.dutysch = duty;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

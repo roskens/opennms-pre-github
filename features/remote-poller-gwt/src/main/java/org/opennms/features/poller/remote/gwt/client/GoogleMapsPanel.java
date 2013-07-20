@@ -64,7 +64,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <p>GoogleMapsPanel class.</p>
+ * <p>
+ * GoogleMapsPanel class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -74,19 +76,25 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
 
     private static GoogleMapsPanelUiBinder uiBinder = GWT.create(GoogleMapsPanelUiBinder.class);
 
-    interface GoogleMapsPanelUiBinder extends UiBinder<Widget, GoogleMapsPanel> {}
+    interface GoogleMapsPanelUiBinder extends UiBinder<Widget, GoogleMapsPanel> {
+    }
 
     @UiField
     MapWidget m_mapWidget;
 
     private Map<String, Marker> m_markers = new HashMap<String, Marker>();
-    private Map<String, GWTMarkerState> m_markerStates = new HashMap<String,GWTMarkerState>();
+
+    private Map<String, GWTMarkerState> m_markerStates = new HashMap<String, GWTMarkerState>();
+
     private HandlerManager m_eventBus;
 
     /**
-     * <p>Constructor for GoogleMapsPanel.</p>
+     * <p>
+     * Constructor for GoogleMapsPanel.
+     * </p>
      *
-     * @param eventBus a {@link com.google.gwt.event.shared.HandlerManager} object.
+     * @param eventBus
+     *            a {@link com.google.gwt.event.shared.HandlerManager} object.
      */
     public GoogleMapsPanel(final HandlerManager eventBus) {
         m_eventBus = eventBus;
@@ -128,9 +136,12 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
     }
 
     /**
-     * <p>getBounds</p>
+     * <p>
+     * getBounds
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds} object.
+     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
+     *         object.
      */
     @Override
     public GWTBounds getBounds() {
@@ -141,7 +152,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
     @Override
     public void setBounds(GWTBounds b) {
         LatLngBounds bounds = toLatLngBounds(b);
-    	getMapWidget().setCenter(bounds.getCenter(), getMapWidget().getBoundsZoomLevel(bounds));
+        getMapWidget().setCenter(bounds.getCenter(), getMapWidget().getBoundsZoomLevel(bounds));
     }
 
     private void initializeMapPanel() {
@@ -186,15 +197,15 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
     /** {@inheritDoc} */
     @Override
     public void placeMarker(final GWTMarkerState marker) {
-    	m_markerStates.put(marker.getName(), marker);
+        m_markerStates.put(marker.getName(), marker);
 
-    	Marker m = m_markers.get(marker.getName());
+        Marker m = m_markers.get(marker.getName());
         if (m == null) {
-        	m = createMarker(marker);
-        	m_markers.put(marker.getName(), m);
-        	addOverlay(m);
+            m = createMarker(marker);
+            m_markers.put(marker.getName(), m);
+            addOverlay(m);
         }
-    	updateMarkerFromState(m, marker);
+        updateMarkerFromState(m, marker);
     }
 
     private void updateMarkerFromState(Marker m, GWTMarkerState marker) {
@@ -211,13 +222,15 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
 
         @Override
         public void onClick(final MarkerClickEvent mke) {
-            //showLocationDetails(m_marker);
+            // showLocationDetails(m_marker);
             m_eventBus.fireEvent(new GWTMarkerClickedEvent(m_marker));
         }
     }
 
     /**
-     * <p>getWidget</p>
+     * <p>
+     * getWidget
+     * </p>
      *
      * @return a {@link com.google.gwt.user.client.ui.Widget} object.
      */

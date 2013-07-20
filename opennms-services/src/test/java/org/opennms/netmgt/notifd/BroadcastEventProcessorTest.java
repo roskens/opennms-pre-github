@@ -67,36 +67,44 @@ public class BroadcastEventProcessorTest extends NotificationsTestCase {
 
     /**
      * Test calling expandNotifParms to see if the regular expression in
-     * m_notifdExpandRE is initialized from {@link BroadcastEventProcessor.NOTIFD_EXPANSION_PARM}.
+     * m_notifdExpandRE is initialized from
+     * {@link BroadcastEventProcessor.NOTIFD_EXPANSION_PARM}.
      */
     @Test
     public void testExpandNotifParms() throws Exception {
-        String expandResult = NotificationManager.expandNotifParms("%foo%", new TreeMap<String,String>());
+        String expandResult = NotificationManager.expandNotifParms("%foo%", new TreeMap<String, String>());
         assertEquals("%foo%", expandResult);
 
-        // This is kinda non-intuitive... but expandNotifParms() only works on whitelisted expansion params
+        // This is kinda non-intuitive... but expandNotifParms() only works on
+        // whitelisted expansion params
         expandResult = NotificationManager.expandNotifParms("%foo%", Collections.singletonMap("foo", "bar"));
         assertEquals("%foo%", expandResult);
 
         // The 'noticeid' param is in the whitelist
-        expandResult = NotificationManager.expandNotifParms("Notice #%noticeid% RESOLVED: ", Collections.singletonMap("noticeid", "999"));
+        expandResult = NotificationManager.expandNotifParms("Notice #%noticeid% RESOLVED: ",
+                                                            Collections.singletonMap("noticeid", "999"));
         assertEquals("Notice #999 RESOLVED: ", expandResult);
 
         expandResult = NotificationManager.expandNotifParms("RESOLVED: ", Collections.singletonMap("noticeid", "999"));
         assertEquals("RESOLVED: ", expandResult);
 
         // <notification name="Disk Threshold" status="on"> from bug 2888
-        expandResult = NotificationManager.expandNotifParms("Notice %noticeid%: Disk threshold exceeded on %nodelabel%: %parm[all]%.", new TreeMap<String,String>());
+        expandResult = NotificationManager.expandNotifParms("Notice %noticeid%: Disk threshold exceeded on %nodelabel%: %parm[all]%.",
+                                                            new TreeMap<String, String>());
         assertEquals("Notice %noticeid%: Disk threshold exceeded on %nodelabel%: %parm[all]%.", expandResult);
         /*
-        <event>
-            <uei xmlns="">uei.opennms.org/abian/hr-dsk-full</uei>
-            <event-label xmlns="">Disk Full</event-label>
-            <descr xmlns="">Threshold exceeded for %service% datasource %parm[ds]% on interface %interface%, parms: %parm[all]%</descr>
-            <logmsg dest="logndisplay">Threshold exceeded for %service% datasource %parm[ds]% on interface %interface%, parms: %parm[all]%</logmsg>
-            <severity xmlns="">Minor</severity>
-            <alarm-data reduction-key="%uei%!%nodeid%!%parm[label]%" alarm-type="1" auto-clean="false" />
-        </event>
+         * <event>
+         * <uei xmlns="">uei.opennms.org/abian/hr-dsk-full</uei>
+         * <event-label xmlns="">Disk Full</event-label>
+         * <descr xmlns="">Threshold exceeded for %service% datasource
+         * %parm[ds]% on interface %interface%, parms: %parm[all]%</descr>
+         * <logmsg dest="logndisplay">Threshold exceeded for %service%
+         * datasource %parm[ds]% on interface %interface%, parms:
+         * %parm[all]%</logmsg>
+         * <severity xmlns="">Minor</severity>
+         * <alarm-data reduction-key="%uei%!%nodeid%!%parm[label]%"
+         * alarm-type="1" auto-clean="false" />
+         * </event>
          */
 
         EventBuilder bldr = new EventBuilder(EventConstants.HIGH_THRESHOLD_EVENT_UEI, "testExpandNotifParms");
@@ -115,31 +123,35 @@ public class BroadcastEventProcessorTest extends NotificationsTestCase {
         bldr.addParam("ifIndex", "");
 
         /*
-        List<String> names = m_notificationManager.getNotificationNames();
-        Collections.sort(names);
-        for (String name : names) {
-            System.out.println(name);
-        }
-        */
+         * List<String> names = m_notificationManager.getNotificationNames();
+         * Collections.sort(names);
+         * for (String name : names) {
+         * System.out.println(name);
+         * }
+         */
         Notification[] notifications = null;
         notifications = m_notificationManager.getNotifForEvent(null);
         assertNull(notifications);
         notifications = m_notificationManager.getNotifForEvent(bldr.getEvent());
         assertNotNull(notifications);
         assertEquals(1, notifications.length);
-        Map<String,String> paramMap = BroadcastEventProcessor.buildParameterMap(notifications[0], bldr.getEvent(), 9999);
+        Map<String, String> paramMap = BroadcastEventProcessor.buildParameterMap(notifications[0], bldr.getEvent(),
+                                                                                 9999);
         /*
-        for (Map.Entry<String,String> entry : paramMap.entrySet()) {
-            System.out.println(entry.getKey() + " => " + entry.getValue());
-        }
+         * for (Map.Entry<String,String> entry : paramMap.entrySet()) {
+         * System.out.println(entry.getKey() + " => " + entry.getValue());
+         * }
          */
-        assertEquals("High disk Threshold exceeded on 0.0.0.0, dsk-usr-pcent with Crap! There's only 15% free on the SAN and we need 20%! RUN AWAY!", paramMap.get("-tm"));
-        expandResult = NotificationManager.expandNotifParms("Notice #%noticeid%: Disk threshold exceeded on %nodelabel%: %parm[all]%.", paramMap);
+        assertEquals("High disk Threshold exceeded on 0.0.0.0, dsk-usr-pcent with Crap! There's only 15% free on the SAN and we need 20%! RUN AWAY!",
+                     paramMap.get("-tm"));
+        expandResult = NotificationManager.expandNotifParms("Notice #%noticeid%: Disk threshold exceeded on %nodelabel%: %parm[all]%.",
+                                                            paramMap);
         assertEquals("Notice #9999: Disk threshold exceeded on %nodelabel%: %parm[all]%.", expandResult);
     }
 
     /**
-     * Trip a notification and see if the %noticeid% token gets expanded to a numeric
+     * Trip a notification and see if the %noticeid% token gets expanded to a
+     * numeric
      * value in the subject and text message
      *
      * @author Jeff Gehlbach <jeffg@jeffg.org>
@@ -149,14 +161,18 @@ public class BroadcastEventProcessorTest extends NotificationsTestCase {
         MockService svc = m_network.getService(1, "192.168.1.1", "ICMP");
         Event event = MockEventUtil.createServiceEvent("Test", "uei.opennms.org/test/noticeIdExpansion", svc, null);
 
-        // We need to know what noticeID to expect -- whatever the NotificationManager
-        // gives us, the next notice to come out will have noticeID n+1.  This isn't
-        // foolproof, but it should work within the confines of JUnit as long as all
+        // We need to know what noticeID to expect -- whatever the
+        // NotificationManager
+        // gives us, the next notice to come out will have noticeID n+1. This
+        // isn't
+        // foolproof, but it should work within the confines of JUnit as long as
+        // all
         // previous cases have torn down the mock Notifd.
         String antNID = Integer.toString(m_notificationManager.getNoticeId() + 1);
 
         Date testDate = new Date();
-        long finishedNotifs = anticipateNotificationsForGroup("notification '" + antNID + "'", "Notification '" + antNID + "'", "InitialGroup", testDate, 0);
+        long finishedNotifs = anticipateNotificationsForGroup("notification '" + antNID + "'", "Notification '"
+                + antNID + "'", "InitialGroup", testDate, 0);
         MockEventUtil.setEventTime(event, testDate);
 
         m_eventMgr.sendEventToListeners(event);

@@ -37,7 +37,8 @@ import org.opennms.netmgt.config.ThreshdConfigManager;
 
 public class MockThreshdConfigManager extends ThreshdConfigManager {
 
-    public MockThreshdConfigManager(InputStream stream, String localServer, boolean verifyServer) throws MarshalException, ValidationException {
+    public MockThreshdConfigManager(InputStream stream, String localServer, boolean verifyServer)
+            throws MarshalException, ValidationException {
         super(stream, localServer, verifyServer);
     }
 

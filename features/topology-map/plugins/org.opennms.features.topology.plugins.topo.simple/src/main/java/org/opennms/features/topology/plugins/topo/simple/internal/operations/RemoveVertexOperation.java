@@ -36,7 +36,6 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
 
-
 public class RemoveVertexOperation implements Operation {
 
     @Override
@@ -46,14 +45,13 @@ public class RemoveVertexOperation implements Operation {
         if (targets == null) {
             LoggerFactory.getLogger(getClass()).debug("need to handle selection!!!");
         } else {
-            for(VertexRef target : targets) {
-            	if (operationContext.getGraphContainer().getBaseTopology().getVertexNamespace().equals(target.getNamespace())) {
-            		operationContext.getGraphContainer().getBaseTopology().removeVertex(target);
-            	}
+            for (VertexRef target : targets) {
+                if (operationContext.getGraphContainer().getBaseTopology().getVertexNamespace().equals(target.getNamespace())) {
+                    operationContext.getGraphContainer().getBaseTopology().removeVertex(target);
+                }
             }
 
-
-        	graphContainer.redoLayout();
+            graphContainer.redoLayout();
         }
         return null;
     }
@@ -65,9 +63,10 @@ public class RemoveVertexOperation implements Operation {
 
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
-        if(targets != null) {
-            for(VertexRef target : targets) {
-                if(operationContext.getGraphContainer().getBaseTopology().getVertex(target) == null) return false;
+        if (targets != null) {
+            for (VertexRef target : targets) {
+                if (operationContext.getGraphContainer().getBaseTopology().getVertex(target) == null)
+                    return false;
             }
             return true;
         }

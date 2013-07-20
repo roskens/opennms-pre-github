@@ -61,7 +61,8 @@ public interface CollectionJob extends Serializable {
 
     public String getMetricValue(String metricId) throws IllegalArgumentException;
 
-    public void addMetric(String metricId, Set<String> destinationSet, String onmsLogicMetricId) throws IllegalArgumentException;
+    public void addMetric(String metricId, Set<String> destinationSet, String onmsLogicMetricId)
+            throws IllegalArgumentException;
 
     public void setParameters(Map<String, Object> parameters);
 
@@ -91,7 +92,7 @@ public interface CollectionJob extends Serializable {
 
     public void setNetInterface(String theInterface);
 
-    //ToDo tak change to InetAddress
+    // ToDo tak change to InetAddress
     public String getNetInterface();
 
     public String getService();

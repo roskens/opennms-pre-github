@@ -55,7 +55,6 @@ import antlr.StringUtils;
  */
 public class HostResourceSwRunPlugin extends AbstractPlugin {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(HostResourceSwRunPlugin.class);
 
     /**
@@ -64,7 +63,8 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
     private static final String PROTOCOL_NAME = "HOST-RESOURCES";
 
     /**
-     * Default OID for the table that represents the name of the software running.
+     * Default OID for the table that represents the name of the software
+     * running.
      */
     private static final String HOSTRESOURCE_SW_NAME_OID = ".1.3.6.1.2.1.25.4.2.1.2";
 
@@ -86,9 +86,8 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
@@ -97,9 +96,8 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -113,11 +111,13 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        if (agentConfig == null)
+            throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
 
         // Get configuration parameters
         //
-        // This should never need to be overridden, but it can be in order to be used with similar tables.
+        // This should never need to be overridden, but it can be in order to be
+        // used with similar tables.
         String serviceNameOid = ParameterMap.getKeyedString(parameters, "service-name-oid", HOSTRESOURCE_SW_NAME_OID);
         // This is the string that represents the service name to be monitored.
         String serviceName = ParameterMap.getKeyedString(parameters, "service-name", null);
@@ -125,7 +125,9 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
         // set timeout and retries on SNMP peer object
         //
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
-        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry", ParameterMap.getKeyedInteger(parameters, "retries", agentConfig.getRetries())));
+        agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry",
+                                                            ParameterMap.getKeyedInteger(parameters, "retries",
+                                                                                         agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
 
         LOG.debug("capsd: service= SNMP address= {}", agentConfig);
@@ -138,15 +140,18 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
                 return status;
             }
 
-            // This returns two maps: one of instance and service name, and one of instance and status.
-            Map<SnmpInstId, SnmpValue> nameResults = SnmpUtils.getOidValues(agentConfig, "HostResourceSwRunMonitor", SnmpObjId.get(serviceNameOid));
+            // This returns two maps: one of instance and service name, and one
+            // of instance and status.
+            Map<SnmpInstId, SnmpValue> nameResults = SnmpUtils.getOidValues(agentConfig, "HostResourceSwRunMonitor",
+                                                                            SnmpObjId.get(serviceNameOid));
 
             // Iterate over the list of running services
-            for(SnmpInstId nameInstance : nameResults.keySet()) {
+            for (SnmpInstId nameInstance : nameResults.keySet()) {
 
                 // See if the service name is in the list of running services
                 if (match(serviceName, stripExtraQuotes(nameResults.get(nameInstance).toString()))) {
-                    LOG.debug("poll: HostResourceSwRunMonitor poll succeeded, addr={} service name={} value={}", InetAddressUtils.str(ipaddr), serviceName, nameResults.get(nameInstance));
+                    LOG.debug("poll: HostResourceSwRunMonitor poll succeeded, addr={} service name={} value={}",
+                              InetAddressUtils.str(ipaddr), serviceName, nameResults.get(nameInstance));
                     status = true;
                     break;
                 }

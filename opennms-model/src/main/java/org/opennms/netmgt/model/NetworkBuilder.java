@@ -42,12 +42,13 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessorFactory;
 
 /**
- * <p>NetworkBuilder class.</p>
+ * <p>
+ * NetworkBuilder class.
+ * </p>
  */
 public class NetworkBuilder {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NetworkBuilder.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(NetworkBuilder.class);
 
     private final OnmsDistPoller m_distPoller;
 
@@ -63,24 +64,31 @@ public class NetworkBuilder {
 
     OnmsMonitoredService m_currentMonSvc;
 
-    private Map<String,OnmsServiceType> m_serviceTypeCache = new HashMap<String,OnmsServiceType>();
+    private Map<String, OnmsServiceType> m_serviceTypeCache = new HashMap<String, OnmsServiceType>();
 
-    private Map<String,OnmsCategory> m_categoryCache = new HashMap<String,OnmsCategory>();
+    private Map<String, OnmsCategory> m_categoryCache = new HashMap<String, OnmsCategory>();
 
     /**
-     * <p>Constructor for NetworkBuilder.</p>
+     * <p>
+     * Constructor for NetworkBuilder.
+     * </p>
      *
-     * @param distPoller a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
+     * @param distPoller
+     *            a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
      */
     public NetworkBuilder(final OnmsDistPoller distPoller) {
         m_distPoller = distPoller;
     }
 
     /**
-     * <p>Constructor for NetworkBuilder.</p>
+     * <p>
+     * Constructor for NetworkBuilder.
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      */
     public NetworkBuilder(final String name, final String ipAddress) {
         m_distPoller = new OnmsDistPoller(name, ipAddress);
@@ -94,10 +102,14 @@ public class NetworkBuilder {
     }
 
     /**
-     * <p>addNode</p>
+     * <p>
+     * addNode
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.NetworkBuilder.NodeBuilder} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.opennms.netmgt.model.NetworkBuilder.NodeBuilder}
+     *         object.
      */
     public NodeBuilder addNode(String label) {
         m_currentNode = new OnmsNode(m_distPoller);
@@ -157,14 +169,18 @@ public class NetworkBuilder {
             return this;
         }
 
-
     }
 
     /**
-     * <p>addInterface</p>
+     * <p>
+     * addInterface
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
-     * @return a {@link org.opennms.netmgt.model.NetworkBuilder.InterfaceBuilder} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @return a
+     *         {@link org.opennms.netmgt.model.NetworkBuilder.InterfaceBuilder}
+     *         object.
      */
     public InterfaceBuilder addInterface(final String ipAddr) {
         m_currentIf = new OnmsIpInterface(InetAddressUtils.addr(ipAddr), m_currentNode);
@@ -193,8 +209,11 @@ public class NetworkBuilder {
         }
 
         /**
-         * @deprecated Create the SNMP Interface first, and then use {@link SnmpInterfaceBuilder#addIpInterface(String)} to add IP Interfaces.
-         * @param ifIndex the ifIndex
+         * @deprecated Create the SNMP Interface first, and then use
+         *             {@link SnmpInterfaceBuilder#addIpInterface(String)} to
+         *             add IP Interfaces.
+         * @param ifIndex
+         *            the ifIndex
          * @return an SnmpInterfaceBuilder
          */
         @Deprecated
@@ -251,11 +270,17 @@ public class NetworkBuilder {
     }
 
     /**
-     * <p>addInterface</p>
+     * <p>
+     * addInterface
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param snmpInterface a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
-     * @return a {@link org.opennms.netmgt.model.NetworkBuilder.InterfaceBuilder} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param snmpInterface
+     *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
+     * @return a
+     *         {@link org.opennms.netmgt.model.NetworkBuilder.InterfaceBuilder}
+     *         object.
      */
     public InterfaceBuilder addInterface(final String ipAddr, final OnmsSnmpInterface snmpInterface) {
         m_currentIf = new OnmsIpInterface(InetAddressUtils.addr(ipAddr), m_currentNode);
@@ -270,25 +295,31 @@ public class NetworkBuilder {
         return new AtInterfaceBuilder(m_currentAtIf);
     }
 
-
     /**
-     * <p>addSnmpInterface</p>
-     * @param ifIndex a int.
+     * <p>
+     * addSnmpInterface
+     * </p>
      *
+     * @param ifIndex
+     *            a int.
      * @return a {@link org.opennms.netmgt.model.SnmpInterfaceBuilder} object.
      */
     public SnmpInterfaceBuilder addSnmpInterface(final int ifIndex) {
         final OnmsSnmpInterface snmp = new OnmsSnmpInterface(m_currentNode, ifIndex);
-        if (m_currentIf != null) snmp.getIpInterfaces().add(m_currentIf);
+        if (m_currentIf != null)
+            snmp.getIpInterfaces().add(m_currentIf);
         final SnmpInterfaceBuilder snmpInterfaceBuilder = new SnmpInterfaceBuilder(snmp);
         m_currentSnmpIf = snmp;
         return snmpInterfaceBuilder;
     }
 
     /**
-     * <p>addService</p>
+     * <p>
+     * addService
+     * </p>
      *
-     * @param serviceType a {@link org.opennms.netmgt.model.OnmsServiceType} object.
+     * @param serviceType
+     *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
     public OnmsMonitoredService addService(final OnmsServiceType serviceType) {
@@ -299,7 +330,7 @@ public class NetworkBuilder {
         } else {
             final Set<OnmsIpInterface> ipInterfaces = m_currentSnmpIf.getIpInterfaces();
             if (m_currentSnmpIf != null && ipInterfaces != null && ipInterfaces.size() > 0) {
-                final OnmsIpInterface current = ipInterfaces.toArray(new OnmsIpInterface[]{})[ipInterfaces.size() - 1];
+                final OnmsIpInterface current = ipInterfaces.toArray(new OnmsIpInterface[] {})[ipInterfaces.size() - 1];
                 m_currentMonSvc = new OnmsMonitoredService(current, serviceType);
                 return m_currentMonSvc;
             }
@@ -309,25 +340,33 @@ public class NetworkBuilder {
     }
 
     /**
-     * <p>setDisplayCategory</p>
+     * <p>
+     * setDisplayCategory
+     * </p>
      *
-     * @param displayCategory a {@link java.lang.String} object.
+     * @param displayCategory
+     *            a {@link java.lang.String} object.
      */
     public void setDisplayCategory(final String displayCategory) {
         m_currentNode.getAssetRecord().setDisplayCategory(displayCategory);
     }
 
     /**
-     * <p>setBuilding</p>
+     * <p>
+     * setBuilding
+     * </p>
      *
-     * @param building a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
      */
     public void setBuilding(final String building) {
         m_currentNode.getAssetRecord().setBuilding(building);
     }
 
     /**
-     * <p>getCurrentNode</p>
+     * <p>
+     * getCurrentNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -336,9 +375,12 @@ public class NetworkBuilder {
     }
 
     /**
-     * <p>addCategory</p>
+     * <p>
+     * addCategory
+     * </p>
      *
-     * @param cat a {@link org.opennms.netmgt.model.OnmsCategory} object.
+     * @param cat
+     *            a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
     public void addCategory(final OnmsCategory cat) {
         m_categoryCache.put(cat.getName(), cat);
@@ -346,16 +388,21 @@ public class NetworkBuilder {
     }
 
     /**
-     * <p>addCategory</p>
+     * <p>
+     * addCategory
+     * </p>
      *
-     * @param categoryName a {@link java.lang.String} object.
+     * @param categoryName
+     *            a {@link java.lang.String} object.
      */
     public void addCategory(final String categoryName) {
         addCategory(getCategory(categoryName));
     }
 
     /**
-     * <p>clearInterface</p>
+     * <p>
+     * clearInterface
+     * </p>
      */
     public void clearInterface() {
         m_currentIf = null;
@@ -363,9 +410,12 @@ public class NetworkBuilder {
     }
 
     /**
-     * <p>addService</p>
+     * <p>
+     * addService
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
     public OnmsMonitoredService addService(final String serviceName) {
@@ -373,10 +423,14 @@ public class NetworkBuilder {
     }
 
     /**
-     * <p>setAssetAttribute</p>
+     * <p>
+     * setAssetAttribute
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
-     * @param value a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param value
+     *            a {@link java.lang.String} object.
      */
     public void setAssetAttribute(final String name, final String value) {
         try {
@@ -397,6 +451,6 @@ public class NetworkBuilder {
         if (!m_categoryCache.containsKey(categoryName)) {
             m_categoryCache.put(categoryName, new OnmsCategory(categoryName));
         }
-        return m_categoryCache .get(categoryName);
+        return m_categoryCache.get(categoryName);
     }
 }

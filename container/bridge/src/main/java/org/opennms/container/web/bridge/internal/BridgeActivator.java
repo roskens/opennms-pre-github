@@ -29,10 +29,11 @@ import org.opennms.container.web.felix.base.internal.HttpServiceController;
 import org.opennms.container.web.felix.base.internal.logger.SystemLogger;
 import org.osgi.framework.Constants;
 
-public final class BridgeActivator extends AbstractActivator
-{
+public final class BridgeActivator extends AbstractActivator {
     private DispatcherFilter dispatcher;
+
     private EventDispatcher eventDispatcher;
+
     private HttpServiceController controller;
 
     protected DispatcherFilter getDispatcherFilter() {

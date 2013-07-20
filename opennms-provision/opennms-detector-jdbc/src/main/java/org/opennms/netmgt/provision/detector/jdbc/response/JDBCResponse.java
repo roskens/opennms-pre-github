@@ -37,7 +37,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>JDBCResponse class.</p>
+ * <p>
+ * JDBCResponse class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $
@@ -45,15 +47,22 @@ import org.slf4j.LoggerFactory;
 public class JDBCResponse {
 
     private static final Logger LOG = LoggerFactory.getLogger(JDBCResponse.class);
+
     private ResultSet m_result;
+
     private boolean m_isValidProcedureCall = false;
+
     private boolean m_isValidQuery = false;
 
     /**
-     * <p>receive</p>
+     * <p>
+     * receive
+     * </p>
      *
-     * @param conn a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException if any.
+     * @param conn
+     *            a {@link java.sql.Connection} object.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void receive(Connection conn) throws SQLException {
 
@@ -65,14 +74,15 @@ public class JDBCResponse {
     }
 
     /**
-     * <p>resultSetNotNull</p>
+     * <p>
+     * resultSetNotNull
+     * </p>
      *
      * @return a boolean.
      */
     public boolean resultSetNotNull() {
         try {
-            while (m_result.next())
-            {
+            while (m_result.next()) {
                 m_result.getString(1);
                 LOG.debug("Metadata catalog: '{}'", m_result.getString(1));
             }
@@ -87,25 +97,32 @@ public class JDBCResponse {
     }
 
     /**
-     * <p>validProcedureCall</p>
+     * <p>
+     * validProcedureCall
+     * </p>
      *
      * @return a boolean.
      */
-    public boolean validProcedureCall(){
+    public boolean validProcedureCall() {
         return isValidProcedureCall();
     }
 
     /**
-     * <p>setValidProcedureCall</p>
+     * <p>
+     * setValidProcedureCall
+     * </p>
      *
-     * @param isValidProcedureCall a boolean.
+     * @param isValidProcedureCall
+     *            a boolean.
      */
     public void setValidProcedureCall(boolean isValidProcedureCall) {
         m_isValidProcedureCall = isValidProcedureCall;
     }
 
     /**
-     * <p>isValidProcedureCall</p>
+     * <p>
+     * isValidProcedureCall
+     * </p>
      *
      * @return a boolean.
      */
@@ -113,9 +130,10 @@ public class JDBCResponse {
         return m_isValidProcedureCall;
     }
 
-
     /**
-     * <p>isValidQuery</p>
+     * <p>
+     * isValidQuery
+     * </p>
      *
      * @return a boolean.
      */
@@ -124,9 +142,12 @@ public class JDBCResponse {
     }
 
     /**
-     * <p>setValidQuery</p>
+     * <p>
+     * setValidQuery
+     * </p>
      *
-     * @param isValidQuery a boolean.
+     * @param isValidQuery
+     *            a boolean.
      */
     public void setValidQuery(boolean isValidQuery) {
         m_isValidQuery = isValidQuery;

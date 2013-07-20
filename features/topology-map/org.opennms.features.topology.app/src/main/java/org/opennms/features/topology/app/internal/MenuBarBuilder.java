@@ -40,7 +40,6 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
-
 public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
 
     public MenuBarBuilder() {
@@ -48,30 +47,31 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
     }
 
     private void add(List<String> menuPath, Command command, Map<String, Object> menu) {
-        if(menuPath.isEmpty()) {
+        if (menuPath.isEmpty()) {
             return;
         }
 
-        String first = menuPath.get(0).contains(".") ? menuPath.get(0).substring(0, menuPath.get(0).indexOf('.')) : menuPath.get(0);
+        String first = menuPath.get(0).contains(".") ? menuPath.get(0).substring(0, menuPath.get(0).indexOf('.'))
+            : menuPath.get(0);
 
-        if(menuPath.size() == 1) {
-            if(menu.containsKey(first)) {
+        if (menuPath.size() == 1) {
+            if (menu.containsKey(first)) {
                 add(Collections.singletonList(first + "_dup"), command, menu);
-            }else {
+            } else {
                 menu.put(first, command);
             }
 
-        }else {
+        } else {
             Object item = menu.get(first);
-            if(item == null) {
+            if (item == null) {
                 Map<String, Object> subMenu = new LinkedHashMap<String, Object>();
                 menu.put(first, subMenu);
                 add(menuPath.subList(1, menuPath.size()), command, subMenu);
-            }else if(item instanceof Map<?,?>) {
+            } else if (item instanceof Map<?, ?>) {
                 @SuppressWarnings("unchecked")
                 Map<String, Object> subMenu = (Map<String, Object>) item;
                 add(menuPath.subList(1, menuPath.size()), command, subMenu);
-            }else {
+            } else {
                 List<String> newMenuPath = new LinkedList<String>();
                 newMenuPath.add(first + "_dup");
                 newMenuPath.addAll(menuPath.subList(1, menuPath.size()));
@@ -82,15 +82,15 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
     }
 
     @SuppressWarnings("unchecked")
-	public MenuBar get() {
+    public MenuBar get() {
         MenuBar menuBar = new MenuBar();
 
         Set<Entry<String, Object>> sortedEntrySet = getSortedMenuItems();
-        for(Entry<String, Object> entry : sortedEntrySet) {
-            if(entry.getValue() instanceof Map<?,?>) {
+        for (Entry<String, Object> entry : sortedEntrySet) {
+            if (entry.getValue() instanceof Map<?, ?>) {
                 MenuBar.MenuItem menuItem = menuBar.addItem(entry.getKey(), null);
                 addMenuItems(menuItem, (Map<String, Object>) entry.getValue());
-            }else {
+            } else {
                 menuBar.addItem(entry.getKey(), (Command) entry.getValue());
             }
 
@@ -98,25 +98,25 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
         return menuBar;
     }
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
-	protected void addMenuItems(MenuItem subMenu, Map<String, Object> value) {
+    protected void addMenuItems(MenuItem subMenu, Map<String, Object> value) {
 
-	    Set<Entry<String, Object>> sortedEntrySet = getSortedSubmenuGroup(subMenu.getText(), value);
-	    for(Entry<String, Object> entry : sortedEntrySet) {
-	        String commandKey = entry.getKey();
-	        if(entry.getValue() instanceof Map<?,?>) {
-	            MenuBar.MenuItem subMenuItem = subMenu.addItem(commandKey, null);
-	            addMenuItems(subMenuItem, (Map<String, Object>) entry.getValue());
-	        }else {
-	            if(commandKey.startsWith("separator")) {
-	                subMenu.addSeparator();
-	            }else {
-	                subMenu.addItem(removeLabelProperties(commandKey), (Command) entry.getValue());
-	            }
-	        }
+        Set<Entry<String, Object>> sortedEntrySet = getSortedSubmenuGroup(subMenu.getText(), value);
+        for (Entry<String, Object> entry : sortedEntrySet) {
+            String commandKey = entry.getKey();
+            if (entry.getValue() instanceof Map<?, ?>) {
+                MenuBar.MenuItem subMenuItem = subMenu.addItem(commandKey, null);
+                addMenuItems(subMenuItem, (Map<String, Object>) entry.getValue());
+            } else {
+                if (commandKey.startsWith("separator")) {
+                    subMenu.addSeparator();
+                } else {
+                    subMenu.addItem(removeLabelProperties(commandKey), (Command) entry.getValue());
+                }
+            }
 
-	    }
-	}
+        }
+    }
 
 }

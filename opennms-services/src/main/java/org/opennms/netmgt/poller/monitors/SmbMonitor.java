@@ -70,7 +70,7 @@ final public class SmbMonitor extends AbstractServiceMonitor {
      * TODO: Use it or loose it.
      * Commented out because it is not currently used in this monitor
      */
-    //private static final int DEFAULT_RETRY = 0;
+    // private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout. Specifies how long (in milliseconds) to block waiting
@@ -80,15 +80,13 @@ final public class SmbMonitor extends AbstractServiceMonitor {
      * TODO: Use it or loose it.
      * Commented out because it is not currently used in this monitor
      */
-    //private static final int DEFAULT_TIMEOUT = 5000;
+    // private static final int DEFAULT_TIMEOUT = 5000;
 
     /**
      * {@inheritDoc}
-     *
      * <P>
      * Poll the specified address for response to NetBIOS name queries.
      * </P>
-     *
      * <P>
      * During the poll ...
      * </P>
@@ -99,6 +97,7 @@ final public class SmbMonitor extends AbstractServiceMonitor {
      * First appears in OpenNMS 1.10.10. Default is true.
      */
     private static final String DO_NODE_STATUS = "do-node-status";
+
     private static final boolean DO_NODE_STATUS_DEFAULT = true;
 
     @Override
@@ -108,15 +107,18 @@ final public class SmbMonitor extends AbstractServiceMonitor {
         // Get interface address from NetworkInterface
         //
         if (iface.getType() != NetworkInterface.TYPE_INET)
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
 
         /*
          * TODO: Use it or loose it.
          * Commented out because it is not currently used in this monitor
          */
         // get parameters
-        //int retry = ParameterMap.getKeyedInteger(parameters, "retry", DEFAULT_RETRY);
-        //int timeout = ParameterMap.getKeyedInteger(parameters, "timeout", DEFAULT_TIMEOUT);
+        // int retry = ParameterMap.getKeyedInteger(parameters, "retry",
+        // DEFAULT_RETRY);
+        // int timeout = ParameterMap.getKeyedInteger(parameters, "timeout",
+        // DEFAULT_TIMEOUT);
 
         // Extract the address
         //
@@ -149,14 +151,15 @@ final public class SmbMonitor extends AbstractServiceMonitor {
                 serviceStatus = PollStatus.available();
 
         } catch (UnknownHostException uhE) {
-        	String reason = "Unknown host exception generated for " + hostAddress + ", reason: " + uhE.getLocalizedMessage();
+            String reason = "Unknown host exception generated for " + hostAddress + ", reason: "
+                    + uhE.getLocalizedMessage();
             LOG.debug(reason);
             serviceStatus = PollStatus.unavailable(reason);
         } catch (RuntimeException rE) {
-        	LOG.debug("Unexpected runtime exception", rE);
+            LOG.debug("Unexpected runtime exception", rE);
             serviceStatus = PollStatus.unavailable("Unexpected runtime exception");
         } catch (Throwable e) {
-        	LOG.debug("Unexpected exception", e);
+            LOG.debug("Unexpected exception", e);
             serviceStatus = PollStatus.unavailable("Unexpected exception");
         }
 

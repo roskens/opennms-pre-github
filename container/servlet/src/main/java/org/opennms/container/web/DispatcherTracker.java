@@ -25,38 +25,35 @@ import org.osgi.framework.Filter;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
-public final class DispatcherTracker
-    extends ServiceTracker<Object, Object>
-{
+public final class DispatcherTracker extends ServiceTracker<Object, Object> {
     final static String DEFAULT_FILTER = "(http.felix.dispatcher=*)";
 
     private final FilterConfig config;
+
     private javax.servlet.Filter dispatcher;
 
-    public DispatcherTracker(final BundleContext context, final String filter, final FilterConfig config) throws Exception {
+    public DispatcherTracker(final BundleContext context, final String filter, final FilterConfig config)
+            throws Exception {
         super(context, createFilter(context, filter, config.getServletContext()), null);
         this.config = config;
     }
 
-    public javax.servlet.Filter getDispatcher()
-    {
+    public javax.servlet.Filter getDispatcher() {
         return this.dispatcher;
     }
 
     @Override
-    public Object addingService(ServiceReference<Object> ref)
-    {
+    public Object addingService(ServiceReference<Object> ref) {
         Object service = super.addingService(ref);
         if (service instanceof javax.servlet.Filter) {
-            setDispatcher((javax.servlet.Filter)service);
+            setDispatcher((javax.servlet.Filter) service);
         }
 
         return service;
     }
 
     @Override
-    public void removedService(ServiceReference<Object> ref, Object service)
-    {
+    public void removedService(ServiceReference<Object> ref, Object service) {
         if (service instanceof javax.servlet.Filter) {
             setDispatcher(null);
         }
@@ -64,20 +61,17 @@ public final class DispatcherTracker
         super.removedService(ref, service);
     }
 
-    private void log(String message, Throwable cause)
-    {
+    private void log(String message, Throwable cause) {
         this.config.getServletContext().log(message, cause);
     }
 
-    private void setDispatcher(javax.servlet.Filter dispatcher)
-    {
+    private void setDispatcher(javax.servlet.Filter dispatcher) {
         destroyDispatcher();
         this.dispatcher = dispatcher;
         initDispatcher();
     }
 
-    private void destroyDispatcher()
-    {
+    private void destroyDispatcher() {
         if (this.dispatcher == null) {
             return;
         }
@@ -86,8 +80,7 @@ public final class DispatcherTracker
         this.dispatcher = null;
     }
 
-    private void initDispatcher()
-    {
+    private void initDispatcher() {
         if (this.dispatcher == null) {
             return;
         }
@@ -99,7 +92,8 @@ public final class DispatcherTracker
         }
     }
 
-    private static Filter createFilter(BundleContext context, String filter, ServletContext servletContext) throws Exception {
+    private static Filter createFilter(BundleContext context, String filter, ServletContext servletContext)
+            throws Exception {
         StringBuffer str = new StringBuffer();
         str.append("(&(").append(Constants.OBJECTCLASS).append("=");
         str.append(javax.servlet.Filter.class.getName()).append(")");

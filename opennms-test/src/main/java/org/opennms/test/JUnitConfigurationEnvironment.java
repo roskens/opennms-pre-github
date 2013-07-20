@@ -34,16 +34,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
 /**
  * This annotation triggers the usage of the opennms-base-assembly files as
- * configuration for the unit tests via the {@link OpenNMSConfigurationExecutionListener}.
+ * configuration for the unit tests via the
+ * {@link OpenNMSConfigurationExecutionListener}.
  *
  * @author brozow
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitConfigurationEnvironment {
     String[] systemProperties() default {};
 }

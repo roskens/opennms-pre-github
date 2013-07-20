@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class EmptyKeyRelaxedTrustSSLContext extends SSLContextSpi {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EmptyKeyRelaxedTrustSSLContext.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EmptyKeyRelaxedTrustSSLContext.class);
 
     public static final String ALGORITHM = "EmptyKeyRelaxedTrust";
 
@@ -66,30 +66,28 @@ public final class EmptyKeyRelaxedTrustSSLContext extends SSLContextSpi {
             TrustManager[] trustManagers = { new X509TrustManager() {
 
                 @Override
-                public void checkClientTrusted(X509Certificate[] chain,
-                        String authType) throws CertificateException {
+                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                     // Perform no checks
                 }
 
                 @Override
-                public void checkServerTrusted(X509Certificate[] chain,
-                        String authType) throws CertificateException {
+                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                     // Perform no checks
                 }
 
                 @Override
                 public X509Certificate[] getAcceptedIssuers() {
                     return null;
-                }}
-            };
+                }
+            } };
             customContext = SSLContext.getInstance("SSL");
             customContext.init(keyManager, trustManagers, new java.security.SecureRandom());
         } catch (NoSuchAlgorithmException e) {
             // Should never happen
-        	LOG.error("Could not find SSL algorithm in JVM", e);
+            LOG.error("Could not find SSL algorithm in JVM", e);
         } catch (KeyManagementException e) {
             // Should never happen
-        	LOG.error("Could not find SSL algorithm in JVM", e);
+            LOG.error("Could not find SSL algorithm in JVM", e);
         }
         m_delegate = customContext;
     }
@@ -126,6 +124,7 @@ public final class EmptyKeyRelaxedTrustSSLContext extends SSLContextSpi {
 
     @Override
     protected void engineInit(KeyManager[] km, TrustManager[] tm, SecureRandom arg2) throws KeyManagementException {
-        // Don't do anything, we've already initialized everything in the constructor
+        // Don't do anything, we've already initialized everything in the
+        // constructor
     }
 }

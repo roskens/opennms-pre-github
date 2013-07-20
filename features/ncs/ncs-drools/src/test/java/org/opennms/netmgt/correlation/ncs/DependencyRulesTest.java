@@ -89,7 +89,6 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         m_distPollerDao.save(distPoller);
 
-
         NetworkBuilder bldr = new NetworkBuilder(distPoller);
         bldr.addNode("PE1").setForeignSource("space").setForeignId("1111-PE1");
 
@@ -103,98 +102,61 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         m_pe2NodeId = bldr.getCurrentNode().getId();
 
-        m_svc = new NCSBuilder("Service", "NA-Service", "123")
-            .setName("CokeP2P")
-            .pushComponent("ServiceElement", "NA-ServiceElement", "8765")
-                .setName("PE1,SE1")
-                .setNodeIdentity("space", "1111-PE1")
-                .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "8765,jnxVpnIf")
-                    .setName("jnxVpnIf")
-                    .setNodeIdentity("space", "1111-PE1")
-                    .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp")
-                    .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown")
-                    .setAttribute("jnxVpnIfVpnType", "5")
-                    .setAttribute("jnxVpnIfVpnName", "ge-1/0/2.50")
-                    .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "8765,link")
-                        .setName("link")
-                        .setNodeIdentity("space", "1111-PE1")
-                        .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/linkUp")
-                        .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/linkDown")
-                        .setAttribute("linkName", "ge-1/0/2")
-                    .popComponent()
-                .popComponent()
-                .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)")
-                    .setName("jnxVpnPw-vcid(50)")
-                    .setNodeIdentity("space", "1111-PE1")
-                    .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp")
-                    .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown")
-                    .setAttribute("jnxVpnPwVpnType", "5")
-                    .setAttribute("jnxVpnPwVpnName", "ge-1/0/2.50")
-                    .setDependenciesRequired(DependencyRequirements.ANY)
-                    .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "8765,lspA-PE1-PE2")
-                        .setName("lspA-PE1-PE2")
-                        .setNodeIdentity("space", "1111-PE1")
-                        .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp")
-                        .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown")
-                        .setAttribute("mplsLspName", "lspA-PE1-PE2")
-                    .popComponent()
-                    .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "8765,lspB-PE1-PE2")
-                        .setName("lspB-PE1-PE2")
-                        .setNodeIdentity("space", "1111-PE1")
-                        .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp")
-                        .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown")
-                        .setAttribute("mplsLspName", "lspB-PE1-PE2")
-                    .popComponent()
-                .popComponent()
-            .popComponent()
-            .pushComponent("ServiceElement", "NA-ServiceElement", "9876")
-                .setName("PE2,SE1")
-                .setNodeIdentity("space", "2222-PE2")
-                .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnIf")
-                    .setName("jnxVpnIf")
-                    .setNodeIdentity("space", "2222-PE2")
-                    .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp")
-                    .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown")
-                    .setAttribute("jnxVpnIfVpnType", "5")
-                    .setAttribute("jnxVpnIfVpnName", "ge-3/1/4.50")
-                    .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,link")
-                        .setName("link")
-                        .setNodeIdentity("space", "2222-PE2")
-                        .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/linkUp")
-                        .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/linkDown")
-                        .setAttribute("linkName", "ge-3/1/4")
-                    .popComponent()
-                .popComponent()
-                .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)")
-                    .setName("jnxVpnPw-vcid(50)")
-                    .setNodeIdentity("space", "2222-PE2")
-                    .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp")
-                    .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown")
-                    .setAttribute("jnxVpnPwVpnType", "5")
-                    .setAttribute("jnxVpnPwVpnName", "ge-3/1/4.50")
-                    .setDependenciesRequired(DependencyRequirements.ANY)
-                    .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,lspA-PE2-PE1")
-                        .setName("lspA-PE2-PE1")
-                        .setNodeIdentity("space", "2222-PE2")
-                        .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp")
-                        .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown")
-                        .setAttribute("mplsLspName", "lspA-PE2-PE1")
-                    .popComponent()
-                    .pushComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,lspB-PE2-PE1")
-                        .setName("lspB-PE2-PE1")
-                        .setNodeIdentity("space", "2222-PE2")
-                        .setUpEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp")
-                        .setDownEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown")
-                        .setAttribute("mplsLspName", "lspB-PE2-PE1")
-                    .popComponent()
-                .popComponent()
-            .popComponent()
-            .get();
+        m_svc = new NCSBuilder("Service", "NA-Service", "123").setName("CokeP2P").pushComponent("ServiceElement",
+                                                                                                "NA-ServiceElement",
+                                                                                                "8765").setName("PE1,SE1").setNodeIdentity("space",
+                                                                                                                                           "1111-PE1").pushComponent("ServiceElementComponent",
+                                                                                                                                                                     "NA-SvcElemComp",
+                                                                                                                                                                     "8765,jnxVpnIf").setName("jnxVpnIf").setNodeIdentity("space",
+                                                                                                                                                                                                                          "1111-PE1").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown").setAttribute("jnxVpnIfVpnType",
+                                                                                                                                                                                                                                                                                                                                                                                         "5").setAttribute("jnxVpnIfVpnName",
+                                                                                                                                                                                                                                                                                                                                                                                                           "ge-1/0/2.50").pushComponent("ServiceElementComponent",
+                                                                                                                                                                                                                                                                                                                                                                                                                                        "NA-SvcElemComp",
+                                                                                                                                                                                                                                                                                                                                                                                                                                        "8765,link").setName("link").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "1111-PE1").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/linkUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/linkDown").setAttribute("linkName",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            "ge-1/0/2").popComponent().popComponent().pushComponent("ServiceElementComponent",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "NA-SvcElemComp",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "8765,jnxVpnPw-vcid(50)").setName("jnxVpnPw-vcid(50)").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           "1111-PE1").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown").setAttribute("jnxVpnPwVpnType",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          "5").setAttribute("jnxVpnPwVpnName",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            "ge-1/0/2.50").setDependenciesRequired(DependencyRequirements.ANY).pushComponent("ServiceElementComponent",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "NA-SvcElemComp",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "8765,lspA-PE1-PE2").setName("lspA-PE1-PE2").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          "1111-PE1").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown").setAttribute("mplsLspName",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               "lspA-PE1-PE2").popComponent().pushComponent("ServiceElementComponent",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            "NA-SvcElemComp",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            "8765,lspB-PE1-PE2").setName("lspB-PE1-PE2").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         "1111-PE1").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown").setAttribute("mplsLspName",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "lspB-PE1-PE2").popComponent().popComponent().popComponent().pushComponent("ServiceElement",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         "NA-ServiceElement",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         "9876").setName("PE2,SE1").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "2222-PE2").pushComponent("ServiceElementComponent",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "NA-SvcElemComp",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "9876,jnxVpnIf").setName("jnxVpnIf").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "2222-PE2").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown").setAttribute("jnxVpnIfVpnType",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  "5").setAttribute("jnxVpnIfVpnName",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "ge-3/1/4.50").pushComponent("ServiceElementComponent",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 "NA-SvcElemComp",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 "9876,link").setName("link").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "2222-PE2").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/linkUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/linkDown").setAttribute("linkName",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "ge-3/1/4").popComponent().popComponent().pushComponent("ServiceElementComponent",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "NA-SvcElemComp",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "9876,jnxVpnPw-vcid(50)").setName("jnxVpnPw-vcid(50)").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "2222-PE2").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown").setAttribute("jnxVpnPwVpnType",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "5").setAttribute("jnxVpnPwVpnName",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "ge-3/1/4.50").setDependenciesRequired(DependencyRequirements.ANY).pushComponent("ServiceElementComponent",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      "NA-SvcElemComp",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      "9876,lspA-PE2-PE1").setName("lspA-PE2-PE1").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "2222-PE2").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown").setAttribute("mplsLspName",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "lspA-PE2-PE1").popComponent().pushComponent("ServiceElementComponent",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "NA-SvcElemComp",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "9876,lspB-PE2-PE1").setName("lspB-PE2-PE1").setNodeIdentity("space",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  "2222-PE2").setUpEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp").setDownEventUei("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown").setAttribute("mplsLspName",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       "lspB-PE2-PE1").popComponent().popComponent().popComponent().get();
 
         m_repository.save(m_svc);
 
     }
-
 
     @Test
     @DirtiesContext
@@ -206,11 +168,11 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         // Anticipate component lspA down event
         getAnticipator().reset();
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,lspA-PE1-PE2"), 17 ));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,lspA-PE1-PE2"), 17));
 
         // Generate down event
         System.err.println("SENDING MplsLspPathDown on LspA EVENT!!");
-        engine.correlate(createMplsLspPathDownEvent( 17, m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2" ));
+        engine.correlate(createMplsLspPathDownEvent(17, m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2"));
 
         // Check lspA component impacted
         getAnticipator().verifyAnticipated();
@@ -218,35 +180,33 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         // Anticipate component lspB down event
         // Parent should go down too
         getAnticipator().reset();
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,lspB-PE1-PE2"), 18 ));
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ));
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,lspB-PE1-PE2"), 18));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "8765"), 18));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-Service", "123"), 18));
 
         // Generate down event
         System.err.println("SENDING MplsLspPathDown on LspB EVENT!!");
-        engine.correlate(createMplsLspPathDownEvent( 18, m_pe1NodeId, "10.1.1.1", "lspB-PE1-PE2" ));
+        engine.correlate(createMplsLspPathDownEvent(18, m_pe1NodeId, "10.1.1.1", "lspB-PE1-PE2"));
 
         // verify components were impacted
         getAnticipator().verifyAnticipated();
 
         // Anticipate impacted resolved when we send up event
         getAnticipator().reset();
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,lspA-PE1-PE2"), 18 ));
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ));
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,lspA-PE1-PE2"), 18));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "8765"), 18));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-Service", "123"), 18));
 
         // Generate up event
         System.err.println("SENDING MplsLspPathUp on LspA EVENT!!");
-        engine.correlate(createMplsLspPathUpEvent( 19, m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2" ));
+        engine.correlate(createMplsLspPathUpEvent(19, m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2"));
 
         // verify components are resolved
         getAnticipator().verifyAnticipated();
 
-
     }
-
 
     @Test
     @DirtiesContext
@@ -255,27 +215,28 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         // Get engine
         DroolsCorrelationEngine engine = findEngineByName("dependencyRules");
 
-
         // Antecipate down event
         getAnticipator().reset();
 
-        anticipate(transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)" ), toComponentImpactedEvent(17) ));
+        anticipate(transform(findPathToSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"),
+                             toComponentImpactedEvent(17)));
 
         // Generate down event
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate( createVpnPwDownEvent( 17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ) ); //  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"
+        engine.correlate(createVpnPwDownEvent(17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50")); // "NA-SvcElemComp",
+                                                                                                 // "9876,jnxVpnPw-vcid(50)"
 
         // Check down event
         getAnticipator().verifyAnticipated();
 
-
         // Anticipate up event
         getAnticipator().reset();
-        anticipate(transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)" ), toComponentResolvedEvent(17) ));
+        anticipate(transform(findPathToSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"),
+                             toComponentResolvedEvent(17)));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate(createVpnPwUpEvent( 19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
+        engine.correlate(createVpnPwUpEvent(19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50"));
 
         // Check up event
         getAnticipator().verifyAnticipated();
@@ -295,41 +256,45 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         // Antecipate down event
         getAnticipator().reset();
 
-        anticipate(transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)" ), toComponentImpactedEvent(17) ));
+        anticipate(transform(findPathToSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"),
+                             toComponentImpactedEvent(17)));
 
         // Generate down event
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate( createVpnPwDownEvent( 17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ) ); //  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"
+        engine.correlate(createVpnPwDownEvent(17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50")); // "NA-SvcElemComp",
+                                                                                                 // "9876,jnxVpnPw-vcid(50)"
 
         // Check down event
         getAnticipator().verifyAnticipated();
         getAnticipator().reset();
 
         // Second outage
-        anticipate(transform( singleton( findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnIf") ), toComponentImpactedEvent(18) ));
+        anticipate(transform(singleton(findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnIf")),
+                             toComponentImpactedEvent(18)));
 
         System.err.println("SENDING VpnIfDown EVENT!!");
-        engine.correlate(createVpnIfDownEvent(18, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
-
+        engine.correlate(createVpnIfDownEvent(18, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50"));
 
         getAnticipator().verifyAnticipated();
         getAnticipator().reset();
 
         // expect only the resolved subelement to come back up
-        anticipate(transform( singleton( findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)") ), toComponentResolvedEvent(17) ));
+        anticipate(transform(singleton(findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)")),
+                             toComponentResolvedEvent(17)));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate(createVpnPwUpEvent( 19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
+        engine.correlate(createVpnPwUpEvent(19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50"));
 
         // Check up event
         getAnticipator().verifyAnticipated();
         getAnticipator().reset();
 
-        anticipate(transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnIf" ), toComponentResolvedEvent(18) ));
+        anticipate(transform(findPathToSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnIf"),
+                             toComponentResolvedEvent(18)));
 
         System.err.println("SENDING VpnIfUp EVENT!!");
-        engine.correlate(createVpnIfUpEvent(20, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
+        engine.correlate(createVpnIfUpEvent(20, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50"));
 
         getAnticipator().verifyAnticipated();
 
@@ -338,94 +303,105 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
-
- // Test two down and two up events where the initial event that caused the propagation is
-    // resolved but a new component goes down. The expectation is that the service should remain
-    // down instead of going back up and then down again. This was reproduced with the following :
-    //echo "Send IfDown and PwDown"
-    //send-event.pl --parm "jnxVpnIfVpnName ge-1/3/2.1" --parm "jnxVpnIfVpnType 5" -n 5 uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown
-    //send-event.pl  --parm "jnxVpnPwVpnName ge-1/3/2.1" --parm "jnxVpnPwVpnType 5" -n 5 uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown
-    //sleep 10
-    //echo "Send IfUp and PwUp in same order this causes issue with clearing"
-    //send-event.pl --parm "jnxVpnIfVpnName ge-1/3/2.1" --parm "jnxVpnIfVpnType 5" -n 5 uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp
-    //send-event.pl --parm "jnxVpnPwVpnName ge-1/3/2.1" --parm "jnxVpnPwVpnType 5" -n 5 uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp
+    // Test two down and two up events where the initial event that caused the
+    // propagation is
+    // resolved but a new component goes down. The expectation is that the
+    // service should remain
+    // down instead of going back up and then down again. This was reproduced
+    // with the following :
+    // echo "Send IfDown and PwDown"
+    // send-event.pl --parm "jnxVpnIfVpnName ge-1/3/2.1" --parm
+    // "jnxVpnIfVpnType 5" -n 5
+    // uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown
+    // send-event.pl --parm "jnxVpnPwVpnName ge-1/3/2.1" --parm
+    // "jnxVpnPwVpnType 5" -n 5
+    // uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown
+    // sleep 10
+    // echo "Send IfUp and PwUp in same order this causes issue with clearing"
+    // send-event.pl --parm "jnxVpnIfVpnName ge-1/3/2.1" --parm
+    // "jnxVpnIfVpnType 5" -n 5 uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp
+    // send-event.pl --parm "jnxVpnPwVpnName ge-1/3/2.1" --parm
+    // "jnxVpnPwVpnType 5" -n 5 uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp
     @Test
     @DirtiesContext
     public void testTwoOutagesTwoResolutionsCase() throws Exception {
-        // Test what happens to the parent when there are two children impacted one is resolved
+        // Test what happens to the parent when there are two children impacted
+        // one is resolved
 
         // Get engine
         DroolsCorrelationEngine engine = findEngineByName("dependencyRules");
 
         // Anticipate 1st down event
         getAnticipator().reset();
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnIf"), 17 ));
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ));
-        anticipate(createComponentImpactedEvent(findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,jnxVpnIf"), 17));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "8765"), 17));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-Service", "123"), 17));
 
         // Generate vpn if down event
         System.err.println("SENDING VpnIfDown EVENT!!");
-        engine.correlate(createVpnIfDownEvent( 17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
+        engine.correlate(createVpnIfDownEvent(17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50"));
 
         // Check down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate 2nd down event
         getAnticipator().reset();
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ));
-        //anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18));
+        // anticipate(createComponentImpactedEvent( findSubcomponent (m_svc,
+        // "NA-ServiceElement", "8765"), 18 ));
 
         // Should we get this?
-        //anticipate(createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 18 ));
+        // anticipate(createComponentImpactedEvent( "Service", "CokeP2P",
+        // "NA-Service", "123", 18 ));
 
         // Generate vpn down event
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate(createVpnPwDownEvent( 18, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
+        engine.correlate(createVpnPwDownEvent(18, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50"));
 
         // Check 2nd down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate up event
         getAnticipator().reset();
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnIf"), 17 ));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,jnxVpnIf"), 17));
 
-        // The next two should not happen until the underlying subcomponents are also resolved
-        //anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ));
-        //anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
+        // The next two should not happen until the underlying subcomponents are
+        // also resolved
+        // anticipate(createComponentResolvedEvent( findSubcomponent (m_svc,
+        // "NA-ServiceElement", "8765"), 17 ));
+        // anticipate(createComponentResolvedEvent( findSubcomponent (m_svc,
+        // "NA-Service", "123"), 17 ));
 
-        //anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
-        //anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18 ));
-
+        // anticipate(createComponentImpactedEvent( findSubcomponent (m_svc,
+        // "NA-ServiceElement", "8765"), 18 ));
+        // anticipate(createComponentImpactedEvent( findSubcomponent (m_svc,
+        // "NA-Service", "123"), 18 ));
 
         // Generate up event
         System.err.println("SENDING VpnIfUp EVENT!!");
-        engine.correlate(createVpnIfUpEvent( 19, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
+        engine.correlate(createVpnIfUpEvent(19, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50"));
 
         // Check up event
         getAnticipator().verifyAnticipated();
 
         // Anticipate 2nd up event
         getAnticipator().reset();
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ));
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "8765"), 18));
 
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18 ));
-
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-Service", "123"), 18));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate(createVpnPwUpEvent( 20, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
+        engine.correlate(createVpnPwUpEvent(20, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50"));
 
         // Check up event
         getAnticipator().verifyAnticipated();
 
-
         // Memory should be clean!
         assertEquals(0, engine.getMemorySize());
 
-
     }
-
 
     @Test
     @DirtiesContext
@@ -434,34 +410,33 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         // Get engine
         DroolsCorrelationEngine engine = findEngineByName("dependencyRules");
 
-
         // Antecipate down event
         getAnticipator().reset();
 
         Set<NCSComponent> impactedByNodeDown = new LinkedHashSet<NCSComponent>();
 
-        for(NCSComponent c : findSubcomponentsOnNode(m_svc, "space", "1111-PE1") ) {
-            impactedByNodeDown.addAll( findPathToSubcomponent(m_svc, c.getForeignSource(), c.getForeignId()));
+        for (NCSComponent c : findSubcomponentsOnNode(m_svc, "space", "1111-PE1")) {
+            impactedByNodeDown.addAll(findPathToSubcomponent(m_svc, c.getForeignSource(), c.getForeignId()));
         }
 
         impactedByNodeDown = uniq(impactedByNodeDown);
 
-        anticipate(transform( impactedByNodeDown, toComponentImpactedEvent(17) ));
+        anticipate(transform(impactedByNodeDown, toComponentImpactedEvent(17)));
 
         // Generate down event
         System.err.println("SENDING nodeDown EVENT!!");
-        engine.correlate(createNodeDownEvent( 17, m_pe1NodeId ));
+        engine.correlate(createNodeDownEvent(17, m_pe1NodeId));
 
         // Check down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate up event
         getAnticipator().reset();
-        anticipate(transform( impactedByNodeDown, toComponentResolvedEvent(19) ));
+        anticipate(transform(impactedByNodeDown, toComponentResolvedEvent(19)));
 
         // Generate up event
         System.err.println("SENDING nodeUpEvent EVENT!!");
-        engine.correlate(createNodeUpEvent( 19, m_pe1NodeId ));
+        engine.correlate(createNodeUpEvent(19, m_pe1NodeId));
 
         // Check up event
         getAnticipator().verifyAnticipated();
@@ -473,7 +448,7 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     @Test
     @DirtiesContext
-    //@Ignore("not yet implemented")
+    // @Ignore("not yet implemented")
     public void testMultipleDownAndSingleUpCase() throws Exception {
 
         // Get engine
@@ -481,13 +456,13 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         // Anticipate down event
         getAnticipator().reset();
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 17 ));
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 17 ));
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 17));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "9876"), 17));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-Service", "123"), 17));
 
         // Generate down event
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate(createVpnPwDownEvent( 17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
+        engine.correlate(createVpnPwDownEvent(17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50"));
 
         // Check down event
         getAnticipator().verifyAnticipated();
@@ -495,19 +470,19 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         // Generate additional down event - nothing should happen
         getAnticipator().reset();
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate(createVpnPwDownEvent( 18, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
+        engine.correlate(createVpnPwDownEvent(18, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50"));
 
         getAnticipator().verifyAnticipated();
 
         // Anticipate up event
         getAnticipator().reset();
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 17 ));
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 17 ));
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 17));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "9876"), 17));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-Service", "123"), 17));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate(createVpnPwUpEvent( 19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
+        engine.correlate(createVpnPwUpEvent(19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50"));
 
         // Check up event
         getAnticipator().verifyAnticipated();
@@ -517,66 +492,66 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     @Test
     @DirtiesContext
     public void testTwoOutagesCase() throws Exception {
-        // Test what happens to the parent when there are two children impacted one is resolved
+        // Test what happens to the parent when there are two children impacted
+        // one is resolved
 
         // Get engine
         DroolsCorrelationEngine engine = findEngineByName("dependencyRules");
 
         // Anticipate 1st down event
         getAnticipator().reset();
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 17 ));
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ));
-        anticipate(createComponentImpactedEvent(findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 17));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "8765"), 17));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-Service", "123"), 17));
 
         // Generate down event
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate(createVpnPwDownEvent( 17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
+        engine.correlate(createVpnPwDownEvent(17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50"));
 
         // Check down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate 2nd down event
         getAnticipator().reset();
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 18 ));
-        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 18 ));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 18));
+        anticipate(createComponentImpactedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "9876"), 18));
 
         // Should we get this?
-        //anticipate(createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 18 ));
+        // anticipate(createComponentImpactedEvent( "Service", "CokeP2P",
+        // "NA-Service", "123", 18 ));
 
         // Generate another down event for the other PE
         System.err.println("SENDING 2nd VpnPwDown EVENT!!");
-        engine.correlate(createVpnPwDownEvent( 18, m_pe2NodeId, "10.1.1.2", "5", "ge-3/1/4.50" ));
+        engine.correlate(createVpnPwDownEvent(18, m_pe2NodeId, "10.1.1.2", "5", "ge-3/1/4.50"));
 
         // Check 2nd down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate up event
         getAnticipator().reset();
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 17 ));
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 17));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "8765"), 17));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate(createVpnPwUpEvent( 19, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
+        engine.correlate(createVpnPwUpEvent(19, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50"));
 
         // Check up event
         getAnticipator().verifyAnticipated();
 
         // Anticipate 2nd up event
         getAnticipator().reset();
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 18 ));
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 18 ));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 18));
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-ServiceElement", "9876"), 18));
 
-        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18 ));
-
+        anticipate(createComponentResolvedEvent(findSubcomponent(m_svc, "NA-Service", "123"), 18));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate(createVpnPwUpEvent( 20, m_pe2NodeId, "10.1.1.2", "5", "ge-3/1/4.50" ));
+        engine.correlate(createVpnPwUpEvent(20, m_pe2NodeId, "10.1.1.2", "5", "ge-3/1/4.50"));
 
         // Check up event
         getAnticipator().verifyAnticipated();
-
 
         // Memory should be clean!
         assertEquals(0, engine.getMemorySize());
@@ -590,185 +565,131 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     // propagate outages to 'dependsOn' parents
     // propagate outages to 'dependsOnAny' parents when ALL children are down
-    // resolve outages in 'dependsOn' parents when dependsOn children are resolved
+    // resolve outages in 'dependsOn' parents when dependsOn children are
+    // resolved
     // resolve outage in 'dependsOnAny' parents when ANY child is resolved
 
     // map various events to outages and resolutions
     // ignore duplicate cause events
     // ignore duplicate resolution events
 
-    private Event createMplsLspPathDownEvent( int dbId, int nodeid, String ipaddr, String lspname ) {
+    private Event createMplsLspPathDownEvent(int dbId, int nodeid, String ipaddr, String lspname) {
 
-        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown", "Test")
-        .setNodeid(nodeid)
-        .setInterface( addr( ipaddr ) )
-        .addParam("mplsLspName", lspname )
-        .getEvent();
+        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("mplsLspName",
+                                                                                                                                                             lspname).getEvent();
 
         event.setDbid(dbId);
         return event;
     }
 
-    private Event createMplsLspPathUpEvent( int dbId, int nodeid, String ipaddr, String lspname ) {
+    private Event createMplsLspPathUpEvent(int dbId, int nodeid, String ipaddr, String lspname) {
 
-        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp", "Drools")
-        .setNodeid(nodeid)
-        .setInterface( addr( ipaddr ) )
-        .addParam("mplsLspName", lspname )
-        .getEvent();
+        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp", "Drools").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("mplsLspName",
+                                                                                                                                                             lspname).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
+    private Event createVpnPwDownEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
-    private Event createVpnPwDownEvent( int dbId, int nodeid, String ipaddr, String pwtype, String pwname ) {
-
-        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown", "Test")
-                              .setNodeid(nodeid)
-                              .setInterface( addr( ipaddr ) )
-                              .addParam("jnxVpnPwVpnType", pwtype )
-                              .addParam("jnxVpnPwVpnName", pwname )
-                              .getEvent();
+        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("jnxVpnPwVpnType",
+                                                                                                                                                          pwtype).addParam("jnxVpnPwVpnName",
+                                                                                                                                                                           pwname).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
-    private Event createVpnPwUpEvent( int dbId, int nodeid, String ipaddr, String pwtype, String pwname ) {
+    private Event createVpnPwUpEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
-        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp", "Test")
-                            .setNodeid(nodeid)
-                            .setInterface( addr( ipaddr ) )
-                            .addParam("jnxVpnPwVpnType", pwtype )
-                            .addParam("jnxVpnPwVpnName", pwname )
-                            .getEvent();
+        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("jnxVpnPwVpnType",
+                                                                                                                                                        pwtype).addParam("jnxVpnPwVpnName",
+                                                                                                                                                                         pwname).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
-    private Event createVpnIfDownEvent( int dbId, int nodeid, String ipaddr, String pwtype, String pwname ) {
+    private Event createVpnIfDownEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
-        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown", "Test")
-                .setNodeid(nodeid)
-                .setInterface( addr( ipaddr ) )
-                .addParam("1.2.3.1", pwtype )
-                .addParam("1.2.3.2", pwname )
-                .getEvent();
+        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
+                                                                                                                                                          pwtype).addParam("1.2.3.2",
+                                                                                                                                                                           pwname).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
-    private Event createVpnIfUpEvent( int dbId, int nodeid, String ipaddr, String pwtype, String pwname ) {
+    private Event createVpnIfUpEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
-        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp", "Test")
-                .setNodeid(nodeid)
-                .setInterface( addr( ipaddr ) )
-                .addParam("1.2.3.1", pwtype )
-                .addParam("1.2.3.2", pwname )
-                .getEvent();
+        Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
+                                                                                                                                                        pwtype).addParam("1.2.3.2",
+                                                                                                                                                                         pwname).getEvent();
         event.setDbid(dbId);
         return event;
     }
-
 
     // Currently unused
-    //    private Event createRootCauseEvent(int symptom, int cause) {
-    //        return new EventBuilder(createNodeEvent("rootCauseEvent", cause)).getEvent();
-    //    }
+    // private Event createRootCauseEvent(int symptom, int cause) {
+    // return new EventBuilder(createNodeEvent("rootCauseEvent",
+    // cause)).getEvent();
+    // }
 
-    private Event createComponentImpactedEvent( NCSComponent component, int cause ) {
-        return createComponentImpactedEvent(
-                component.getType(),
-                component.getName(),
-                component.getForeignSource(),
-                component.getForeignId(),
-                cause);
+    private Event createComponentImpactedEvent(NCSComponent component, int cause) {
+        return createComponentImpactedEvent(component.getType(), component.getName(), component.getForeignSource(),
+                                            component.getForeignId(), cause);
     }
 
-    private Event createComponentImpactedEvent( String type, String name, String foreignSource, String foreignId, int cause ) {
-        return createComponentEvent(
-                "uei.opennms.org/internal/ncs/componentImpacted",
-                type,
-                name,
-                foreignSource,
-                foreignId,
-                cause
-                );
+    private Event createComponentImpactedEvent(String type, String name, String foreignSource, String foreignId,
+            int cause) {
+        return createComponentEvent("uei.opennms.org/internal/ncs/componentImpacted", type, name, foreignSource,
+                                    foreignId, cause);
     }
 
-    private Event createComponentResolvedEvent( NCSComponent component, int cause ) {
-        return createComponentResolvedEvent(
-                component.getType(),
-                component.getName(),
-                component.getForeignSource(),
-                component.getForeignId(),
-                cause);
+    private Event createComponentResolvedEvent(NCSComponent component, int cause) {
+        return createComponentResolvedEvent(component.getType(), component.getName(), component.getForeignSource(),
+                                            component.getForeignId(), cause);
     }
 
-    private Event createComponentResolvedEvent( String type, String name, String foreignSource, String foreignId, int cause ) {
-        return createComponentEvent(
-                "uei.opennms.org/internal/ncs/componentResolved",
-                type,
-                name,
-                foreignSource,
-                foreignId,
-                cause
-                );
+    private Event createComponentResolvedEvent(String type, String name, String foreignSource, String foreignId,
+            int cause) {
+        return createComponentEvent("uei.opennms.org/internal/ncs/componentResolved", type, name, foreignSource,
+                                    foreignId, cause);
     }
 
     private Event createComponentEvent(String uei, NCSComponent component, int cause) {
-        return createComponentEvent(
-                uei,
-                component.getType(),
-                component.getName(),
-                component.getForeignSource(),
-                component.getForeignId(),
-                cause);
+        return createComponentEvent(uei, component.getType(), component.getName(), component.getForeignSource(),
+                                    component.getForeignId(), cause);
     }
 
-    private Event createComponentEvent(String uei, String type, String name, String foreignSource, String foreignId, int cause) {
-        return new EventBuilder(uei, "Component Correlator")
-                        .addParam("componentType", type )
-                        .addParam("componentName", name)
-                        .addParam("componentForeignSource", foreignSource )
-                        .addParam("componentForeignId", foreignId )
-                        .addParam("cause", cause )
-                        .getEvent();
+    private Event createComponentEvent(String uei, String type, String name, String foreignSource, String foreignId,
+            int cause) {
+        return new EventBuilder(uei, "Component Correlator").addParam("componentType", type).addParam("componentName",
+                                                                                                      name).addParam("componentForeignSource",
+                                                                                                                     foreignSource).addParam("componentForeignId",
+                                                                                                                                             foreignId).addParam("cause",
+                                                                                                                                                                 cause).getEvent();
     }
-
 
     private Event createNodeDownEvent(int dbId, int nodeid) {
-        Event event = new EventBuilder("uei.opennms.org/nodes/nodeDown", "Test")
-                .setNodeid(nodeid)
-                .getEvent();
+        Event event = new EventBuilder("uei.opennms.org/nodes/nodeDown", "Test").setNodeid(nodeid).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
     private Event createNodeUpEvent(int dbId, int nodeid) {
-        Event event = new EventBuilder("uei.opennms.org/nodes/nodeUp", "Test")
-                .setNodeid(nodeid)
-                .getEvent();
+        Event event = new EventBuilder("uei.opennms.org/nodes/nodeUp", "Test").setNodeid(nodeid).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
-    public Event createNodeLostServiceEvent(int nodeid, String ipAddr, String svcName)
-    {
+    public Event createNodeLostServiceEvent(int nodeid, String ipAddr, String svcName) {
         return createSvcEvent("uei.opennms.org/nodes/nodeLostService", nodeid, ipAddr, svcName);
     }
 
-    public Event createNodeRegainedServiceEvent(int nodeid, String ipAddr, String svcName)
-    {
+    public Event createNodeRegainedServiceEvent(int nodeid, String ipAddr, String svcName) {
         return createSvcEvent("uei.opennms.org/nodes/nodeRegainedService", nodeid, ipAddr, svcName);
     }
 
-    private Event createSvcEvent(String uei, int nodeid, String ipaddr, String svcName)
-    {
-        return new EventBuilder(uei, "Test")
-        .setNodeid(nodeid)
-        .setInterface( addr( ipaddr ) )
-        .setService( svcName )
-        .getEvent();
+    private Event createSvcEvent(String uei, int nodeid, String ipaddr, String svcName) {
+        return new EventBuilder(uei, "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).setService(svcName).getEvent();
 
     }
 
@@ -776,10 +697,11 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         Set<NCSComponent> components = findMatchingComponents(svc, byId(foreignSource, foreignId));
 
         if (components.size() > 1) {
-            throw new IllegalStateException("Found more than one subcomponent with the same id " + foreignSource + ":" + foreignId);
+            throw new IllegalStateException("Found more than one subcomponent with the same id " + foreignSource + ":"
+                    + foreignId);
         }
 
-        if ( components.isEmpty() ) {
+        if (components.isEmpty()) {
             throw new IllegalStateException("Unabled to find component with id " + foreignSource + ":" + foreignId);
         }
 
@@ -813,7 +735,8 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return visitor.getRetVal();
     }
 
-    private List<NCSComponent> findPathToSubcomponent(NCSComponent svc, final String subForeignSource, final String subForeignId) {
+    private List<NCSComponent> findPathToSubcomponent(NCSComponent svc, final String subForeignSource,
+            final String subForeignId) {
 
         VisitorWithReturn<List<NCSComponent>> visitor = new VisitorWithReturn<List<NCSComponent>>() {
             Stack<NCSComponent> m_stack = new Stack<NCSComponent>();
@@ -821,7 +744,8 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
             @Override
             public void visitComponent(NCSComponent component) {
                 m_stack.push(component);
-                if (subForeignSource.equals(component.getForeignSource()) && subForeignId.equals(component.getForeignId())) {
+                if (subForeignSource.equals(component.getForeignSource())
+                        && subForeignId.equals(component.getForeignId())) {
                     setRetVal(new LinkedList<NCSComponent>(m_stack));
                 }
             }
@@ -836,20 +760,20 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
-    private <A,B> Set<B> transform(Set<A> as, Transform<A, B> transformer) {
+    private <A, B> Set<B> transform(Set<A> as, Transform<A, B> transformer) {
         Set<B> bs = new LinkedHashSet<B>();
 
-        for(A a : as) {
+        for (A a : as) {
             bs.add(transformer.transform(a));
         }
 
         return bs;
     }
 
-    private <A,B> List<B> transform(List<A> as, Transform<A, B> transformer) {
+    private <A, B> List<B> transform(List<A> as, Transform<A, B> transformer) {
         List<B> bs = new LinkedList<B>();
 
-        for(A a : as) {
+        for (A a : as) {
             bs.add(transformer.transform(a));
         }
 
@@ -861,8 +785,8 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
             @Override
             public boolean accept(NCSComponent c) {
-                return c.getNodeIdentification() != null &&
-                        nodeForeignSource.equals(c.getNodeIdentification().getForeignSource())
+                return c.getNodeIdentification() != null
+                        && nodeForeignSource.equals(c.getNodeIdentification().getForeignSource())
                         && nodeForeignId.equals(c.getNodeIdentification().getForeignId());
             }
 
@@ -885,7 +809,7 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
             @Override
             public String transform(NCSComponent a) {
-                return a.getForeignSource()+":"+a.getForeignId();
+                return a.getForeignSource() + ":" + a.getForeignId();
             }
 
         };
@@ -926,13 +850,12 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return new Event[0];
     }
 
-
     private static Set<NCSComponent> uniq(Set<NCSComponent> components) {
         Set<NCSComponent> results = new LinkedHashSet<NCSComponent>();
         Set<String> ids = new HashSet<String>();
 
-        for(NCSComponent component : components) {
-            String id = component.getForeignSource()+":"+component.getForeignId();
+        for (NCSComponent component : components) {
+            String id = component.getForeignSource() + ":" + component.getForeignId();
             if (!ids.contains(id)) {
                 ids.add(id);
                 results.add(component);

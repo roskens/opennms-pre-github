@@ -34,7 +34,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * <p>PollAnticipator class.</p>
+ * <p>
+ * PollAnticipator class.
+ * </p>
  *
  * @author brozow
  * @version $Id: $
@@ -46,9 +48,12 @@ public class PollAnticipator {
     List<MockService> m_unanticipatedPolls = new ArrayList<MockService>();
 
     /**
-     * <p>anticipateAllServices</p>
+     * <p>
+     * anticipateAllServices
+     * </p>
      *
-     * @param element a {@link org.opennms.netmgt.mock.MockElement} object.
+     * @param element
+     *            a {@link org.opennms.netmgt.mock.MockElement} object.
      */
     public void anticipateAllServices(MockElement element) {
         /*
@@ -67,18 +72,24 @@ public class PollAnticipator {
     }
 
     /**
-     * <p>anticipatePoll</p>
+     * <p>
+     * anticipatePoll
+     * </p>
      *
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      */
     public synchronized void anticipatePoll(MockService svc) {
         m_anticipatedPolls.add(svc);
     }
 
     /**
-     * <p>poll</p>
+     * <p>
+     * poll
+     * </p>
      *
-     * @param service a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param service
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      */
     public synchronized void poll(MockService service) {
 
@@ -94,7 +105,9 @@ public class PollAnticipator {
     }
 
     /**
-     * <p>reset</p>
+     * <p>
+     * reset
+     * </p>
      */
     public synchronized void reset() {
         m_anticipatedPolls.clear();
@@ -102,7 +115,9 @@ public class PollAnticipator {
     }
 
     /**
-     * <p>unanticipatedPolls</p>
+     * <p>
+     * unanticipatedPolls
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -125,7 +140,8 @@ public class PollAnticipator {
      * all come in before the timeout return an empty list. Otherwise return a
      * read-only list of the services that were anticipated but not received.
      *
-     * @param millis a long.
+     * @param millis
+     *            a long.
      * @return a {@link java.util.Collection} object.
      */
     public synchronized Collection<MockService> waitForAnticipated(long millis) {

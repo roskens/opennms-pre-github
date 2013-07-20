@@ -41,7 +41,10 @@ public final class Base64 extends Object {
      * six then it is padded with BASE64_PAD.
      * </P>
      */
-    private static final char BASE64_CHARS[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/' };
+    private static final char BASE64_CHARS[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+            'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3',
+            '4', '5', '6', '7', '8', '9', '+', '/' };
 
     // 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
     private static final byte BASE64_VALUES[] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -64,7 +67,6 @@ public final class Base64 extends Object {
      * schema is performed by grouping the bytes in to 6-bit quantities and then
      * encoding them.
      * </P>
-     *
      * <P>
      * For more information see RFC1341 for the format used for base64 encoding.
      * </P>
@@ -128,7 +130,7 @@ public final class Base64 extends Object {
      *                passed.
      */
     public static byte[] decodeBase64(char[] data) {
-        //. If the data is zero length just return a zero length byte array
+        // . If the data is zero length just return a zero length byte array
         if (data.length == 0) {
             return new byte[0];
         }

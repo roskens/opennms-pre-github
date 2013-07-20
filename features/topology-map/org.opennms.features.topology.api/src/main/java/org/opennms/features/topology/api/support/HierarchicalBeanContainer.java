@@ -31,37 +31,38 @@ package org.opennms.features.topology.api.support;
 import com.vaadin.data.Container;
 import com.vaadin.data.util.BeanContainer;
 
-public abstract class HierarchicalBeanContainer<K, T> extends BeanContainer<K,T> implements Container.Hierarchical {
+public abstract class HierarchicalBeanContainer<K, T> extends BeanContainer<K, T> implements Container.Hierarchical {
 
-	private static final long serialVersionUID = 194248426656888195L;
+    private static final long serialVersionUID = 194248426656888195L;
 
-	public HierarchicalBeanContainer(Class<? super T> type) {
-		super(type);
-	}
+    public HierarchicalBeanContainer(Class<? super T> type) {
+        super(type);
+    }
 
-	/**
-	 * This is a naive implementation of this method that just checks the size of
-	 * the collection returned by {@link #getChildren(Object)}.
-	 */
-	@Override
-	public boolean hasChildren(Object key) {
-		return getChildren(key).size() > 0;
-	}
+    /**
+     * This is a naive implementation of this method that just checks the size
+     * of
+     * the collection returned by {@link #getChildren(Object)}.
+     */
+    @Override
+    public boolean hasChildren(Object key) {
+        return getChildren(key).size() > 0;
+    }
 
-	/**
-	 * This is a naive implementation of this method that just checks to see if
-	 * {@link #getParent(Object)} returns null.
-	 */
-	@Override
-	public boolean isRoot(Object key) {
-		return (getParent(key) == null);
-	}
+    /**
+     * This is a naive implementation of this method that just checks to see if
+     * {@link #getParent(Object)} returns null.
+     */
+    @Override
+    public boolean isRoot(Object key) {
+        return (getParent(key) == null);
+    }
 
-	/**
-	 * Expose {@link #fireItemSetChange()} as a public method.
-	 */
-        @Override
-	public void fireItemSetChange() {
-		super.fireItemSetChange();
-	}
+    /**
+     * Expose {@link #fireItemSetChange()} as a public method.
+     */
+    @Override
+    public void fireItemSetChange() {
+        super.fireItemSetChange();
+    }
 }

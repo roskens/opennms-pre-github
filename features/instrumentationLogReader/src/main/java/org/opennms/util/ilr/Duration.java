@@ -36,13 +36,15 @@ import java.util.concurrent.TimeUnit;
  *
  * @author brozow
  */
-public class Duration implements Comparable<Duration>{
+public class Duration implements Comparable<Duration> {
 
     private long m_durationInMillis;
 
     public Duration(Date start, Date end) {
-        if (start == null) throw new IllegalArgumentException("startDate may not be null");
-        if (end == null) throw new IllegalArgumentException("endDate may not be null");
+        if (start == null)
+            throw new IllegalArgumentException("startDate may not be null");
+        if (end == null)
+            throw new IllegalArgumentException("endDate may not be null");
         if (start.after(end)) {
             throw new IllegalArgumentException("start must preceed end");
         }
@@ -50,7 +52,8 @@ public class Duration implements Comparable<Duration>{
     }
 
     public Duration(long duration, TimeUnit units) {
-        if (units == null) throw new IllegalArgumentException("timeUnit may not be null");
+        if (units == null)
+            throw new IllegalArgumentException("timeUnit may not be null");
         m_durationInMillis = TimeUnit.MILLISECONDS.convert(duration, units);
     }
 
@@ -74,14 +77,15 @@ public class Duration implements Comparable<Duration>{
 
     @Override
     public String toString() {
-        if (0 == millis()) return "0ms";
+        if (0 == millis())
+            return "0ms";
 
         StringBuilder buf = new StringBuilder();
 
         long millis = millis();
-        millis = appendUnit(buf, millis, 24*60*60*1000, "d");
-        millis = appendUnit(buf, millis, 60*60*1000, "h");
-        millis = appendUnit(buf, millis, 60*1000, "m");
+        millis = appendUnit(buf, millis, 24 * 60 * 60 * 1000, "d");
+        millis = appendUnit(buf, millis, 60 * 60 * 1000, "h");
+        millis = appendUnit(buf, millis, 60 * 1000, "m");
         millis = appendUnit(buf, millis, 1000, "s");
         millis = appendUnit(buf, millis, 1, "ms");
 
@@ -90,7 +94,7 @@ public class Duration implements Comparable<Duration>{
 
     @Override
     public int compareTo(Duration o) {
-        long diff = millis()-o.millis();
+        long diff = millis() - o.millis();
         return diff < 0 ? -1 : diff > 0 ? 1 : 0;
     }
 
@@ -102,14 +106,10 @@ public class Duration implements Comparable<Duration>{
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Duration) {
-            Duration d = (Duration)obj;
+            Duration d = (Duration) obj;
             return m_durationInMillis == d.m_durationInMillis;
         }
         return false;
     }
-
-
-
-
 
 }

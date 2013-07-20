@@ -37,7 +37,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * This class represents an abstract factory for instantiating {@link Dashlet} objects.
+ * This class represents an abstract factory for instantiating {@link Dashlet}
+ * objects.
  *
  * @author Christian Pape
  */
@@ -46,10 +47,12 @@ public abstract class AbstractDashletFactory implements DashletFactory {
      * The name of the provided {@link Dashlet}
      */
     protected String m_name;
+
     /**
      * A map holding the required parameters for the {@link Dashlet}
      */
     protected Map<String, String> m_requiredParameters = new TreeMap<String, String>();
+
     /**
      * A map holding the required parameter descriptions for the {@link Dashlet}
      */
@@ -64,7 +67,8 @@ public abstract class AbstractDashletFactory implements DashletFactory {
     /**
      * Constructor for instantiating a new factory with the given name.
      *
-     * @param name the dashlet's name
+     * @param name
+     *            the dashlet's name
      */
     public AbstractDashletFactory(String name) {
         m_name = name;
@@ -73,8 +77,10 @@ public abstract class AbstractDashletFactory implements DashletFactory {
     /**
      * Add a required parameter for this factory.
      *
-     * @param key          the key to use
-     * @param defaultValue the default value for this parameter
+     * @param key
+     *            the key to use
+     * @param defaultValue
+     *            the default value for this parameter
      */
     protected void addRequiredParameter(String key, String defaultValue) {
         m_requiredParameters.put(key, defaultValue);
@@ -92,7 +98,8 @@ public abstract class AbstractDashletFactory implements DashletFactory {
     /**
      * Sets the name of the {@link Dashlet} instances this object provides.
      *
-     * @param name the name
+     * @param name
+     *            the name
      */
     public void setName(String name) {
         m_name = name;
@@ -119,7 +126,8 @@ public abstract class AbstractDashletFactory implements DashletFactory {
     /**
      * This method sets the required parameters {@link Map}.
      *
-     * @param requiredParameters the parameter {@link Map} to be set
+     * @param requiredParameters
+     *            the parameter {@link Map} to be set
      */
     public void setRequiredParameters(Map<String, String> requiredParameters) {
         m_requiredParameters = new TreeMap<String, String>(requiredParameters);
@@ -128,14 +136,16 @@ public abstract class AbstractDashletFactory implements DashletFactory {
     /**
      * This method sets the required parameter descriptions {@link Map}.
      *
-     * @param requiredParameterDescriptions the parameter description {@link Map} to be set
+     * @param requiredParameterDescriptions
+     *            the parameter description {@link Map} to be set
      */
     public void setRequiredParameterDescriptions(Map<String, String> requiredParameterDescriptions) {
         m_requiredParameterDescriptions = requiredParameterDescriptions;
     }
 
     /**
-     * Returns true, if the factory provides a help component for the {@link org.opennms.features.vaadin.dashboard.model.Dashlet}.
+     * Returns true, if the factory provides a help component for the
+     * {@link org.opennms.features.vaadin.dashboard.model.Dashlet}.
      *
      * @return true, if help component is provided, false otherwise
      */
@@ -197,7 +207,8 @@ public abstract class AbstractDashletFactory implements DashletFactory {
             stringBuilder.append("<td class='help-table-cell'>'" + entry.getValue() + "'</td>");
 
             if (getRequiredParameterDescriptions().containsKey(entry.getKey())) {
-                stringBuilder.append("<td class='help-table-cell'>" + getRequiredParameterDescriptions().get(entry.getKey()) + "</td>");
+                stringBuilder.append("<td class='help-table-cell'>"
+                        + getRequiredParameterDescriptions().get(entry.getKey()) + "</td>");
             } else {
                 stringBuilder.append("<td class='help-table-cell'>-</td>");
             }

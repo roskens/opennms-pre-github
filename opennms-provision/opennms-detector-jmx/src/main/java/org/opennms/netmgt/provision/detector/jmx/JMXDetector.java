@@ -32,53 +32,73 @@ import org.opennms.netmgt.provision.support.BasicDetector;
 import org.opennms.netmgt.provision.support.ResponseValidator;
 import org.opennms.netmgt.provision.support.jmx.connectors.ConnectionWrapper;
 
-
 /**
- * <p>Abstract JMXDetector class.</p>
+ * <p>
+ * Abstract JMXDetector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-public abstract class JMXDetector extends BasicDetector<ConnectionWrapper, Integer>{
+public abstract class JMXDetector extends BasicDetector<ConnectionWrapper, Integer> {
 
     /**
-     * <p>Constructor for JMXDetector.</p>
+     * <p>
+     * Constructor for JMXDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     protected JMXDetector(String serviceName, int port) {
         super(serviceName, port);
     }
 
     /**
-     * <p>Constructor for JMXDetector.</p>
+     * <p>
+     * Constructor for JMXDetector.
+     * </p>
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
-     * @param timeout a int.
-     * @param retries a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
+     * @param timeout
+     *            a int.
+     * @param retries
+     *            a int.
      */
     protected JMXDetector(String serviceName, int port, int timeout, int retries) {
         super(serviceName, port, timeout, retries);
     }
 
     /**
-     * <p>expectBeanCount</p>
+     * <p>
+     * expectBeanCount
+     * </p>
      *
-     * @param bannerValidator a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param bannerValidator
+     *            a
+     *            {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *            object.
      */
     protected final void expectBeanCount(ResponseValidator<Integer> bannerValidator) {
         getConversation().expectBanner(bannerValidator);
     }
 
     /**
-     * <p>greatThan</p>
+     * <p>
+     * greatThan
+     * </p>
      *
-     * @param count a int.
-     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator} object.
+     * @param count
+     *            a int.
+     * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator}
+     *         object.
      */
-    protected static final ResponseValidator<Integer> greatThan(final int count){
+    protected static final ResponseValidator<Integer> greatThan(final int count) {
         return new ResponseValidator<Integer>() {
 
             @Override

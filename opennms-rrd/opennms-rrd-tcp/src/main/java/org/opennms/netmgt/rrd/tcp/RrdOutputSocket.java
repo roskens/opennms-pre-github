@@ -41,7 +41,9 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading;
 
 /**
- * <p>RrdOutputSocket class.</p>
+ * <p>
+ * RrdOutputSocket class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -51,15 +53,22 @@ public class RrdOutputSocket {
 
     // private final RrdDefinition m_def;
     private final String m_host;
+
     private final int m_port;
+
     private final PerformanceDataProtos.PerformanceDataReadings.Builder m_messages;
+
     private int m_messageCount = 0;
 
     /**
-     * <p>Constructor for RrdOutputSocket.</p>
+     * <p>
+     * Constructor for RrdOutputSocket.
+     * </p>
      *
-     * @param host a {@link java.lang.String} object.
-     * @param port a int.
+     * @param host
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public RrdOutputSocket(String host, int port) {
         m_host = host;
@@ -68,26 +77,28 @@ public class RrdOutputSocket {
     }
 
     /**
-     * <p>addData</p>
+     * <p>
+     * addData
+     * </p>
      *
-     * @param filename a {@link java.lang.String} object.
-     * @param owner a {@link java.lang.String} object.
-     * @param data a {@link java.lang.String} object.
+     * @param filename
+     *            a {@link java.lang.String} object.
+     * @param owner
+     *            a {@link java.lang.String} object.
+     * @param data
+     *            a {@link java.lang.String} object.
      */
     public void addData(String filename, String owner, String data) {
         Long timestamp = parseRrdTimestamp(data);
         List<Double> values = parseRrdValues(data);
-        m_messages.addMessage(PerformanceDataReading.newBuilder()
-                .setPath(filename)
-                .setOwner(owner)
-                .setTimestamp(timestamp).
-                addAllValue(values)
-        );
+        m_messages.addMessage(PerformanceDataReading.newBuilder().setPath(filename).setOwner(owner).setTimestamp(timestamp).addAllValue(values));
         m_messageCount++;
     }
 
     /**
-     * <p>writeData</p>
+     * <p>
+     * writeData
+     * </p>
      */
     public void writeData() {
         Socket socket = null;
@@ -99,7 +110,8 @@ public class RrdOutputSocket {
             // m_messages.build().writeTo(out);
             out.flush();
         } catch (Throwable e) {
-            LOG.warn("Error when trying to open connection to {}:{}, dropping {} performance messages: {}", m_host, m_port, m_messageCount, e.getMessage());
+            LOG.warn("Error when trying to open connection to {}:{}, dropping {} performance messages: {}", m_host,
+                     m_port, m_messageCount, e.getMessage());
         } finally {
             if (socket != null) {
                 try {

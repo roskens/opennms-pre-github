@@ -60,8 +60,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
@@ -72,12 +71,10 @@ import org.springframework.transaction.annotation.Transactional;
         // Override the capsd config with a stripped-down version
         "classpath:/META-INF/opennms/capsdTest.xml",
         // override snmp-config configuration
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @JUnitTemporaryDatabase
 public class Nms1055CapsdNetworkBuilderTest extends Nms1055NetworkBuilder implements InitializingBean {
-
 
     @Autowired
     private IpInterfaceDao m_interfaceDao;
@@ -102,14 +99,19 @@ public class Nms1055CapsdNetworkBuilderTest extends Nms1055NetworkBuilder implem
     }
 
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=PENROSE_IP, port=161, resource="classpath:linkd/nms1055/"+PENROSE_NAME+"_"+PENROSE_IP+".txt"),
-            @JUnitSnmpAgent(host=DELAWARE_IP, port=161, resource="classpath:linkd/nms1055/"+DELAWARE_NAME+"_"+DELAWARE_IP+".txt"),
-            @JUnitSnmpAgent(host=PHOENIX_IP, port=161, resource="classpath:linkd/nms1055/"+PHOENIX_NAME+"_"+PHOENIX_IP+".txt"),
-            @JUnitSnmpAgent(host=AUSTIN_IP, port=161, resource="classpath:linkd/nms1055/"+AUSTIN_NAME+"_"+AUSTIN_IP+".txt"),
-            @JUnitSnmpAgent(host=SANJOSE_IP, port=161, resource="classpath:linkd/nms1055/"+SANJOSE_NAME+"_"+SANJOSE_IP+".txt"),
-            @JUnitSnmpAgent(host=RIOVISTA_IP, port=161, resource="classpath:linkd/nms1055/"+RIOVISTA_NAME+"_"+RIOVISTA_IP+".txt")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = PENROSE_IP, port = 161, resource = "classpath:linkd/nms1055/" + PENROSE_NAME + "_"
+                    + PENROSE_IP + ".txt"),
+            @JUnitSnmpAgent(host = DELAWARE_IP, port = 161, resource = "classpath:linkd/nms1055/" + DELAWARE_NAME + "_"
+                    + DELAWARE_IP + ".txt"),
+            @JUnitSnmpAgent(host = PHOENIX_IP, port = 161, resource = "classpath:linkd/nms1055/" + PHOENIX_NAME + "_"
+                    + PHOENIX_IP + ".txt"),
+            @JUnitSnmpAgent(host = AUSTIN_IP, port = 161, resource = "classpath:linkd/nms1055/" + AUSTIN_NAME + "_"
+                    + AUSTIN_IP + ".txt"),
+            @JUnitSnmpAgent(host = SANJOSE_IP, port = 161, resource = "classpath:linkd/nms1055/" + SANJOSE_NAME + "_"
+                    + SANJOSE_IP + ".txt"),
+            @JUnitSnmpAgent(host = RIOVISTA_IP, port = 161, resource = "classpath:linkd/nms1055/" + RIOVISTA_NAME + "_"
+                    + RIOVISTA_IP + ".txt") })
     @Transactional
     public final void testCapsdNms1055() throws MarshalException, ValidationException, IOException {
         m_capsd.init();
@@ -122,15 +124,14 @@ public class Nms1055CapsdNetworkBuilderTest extends Nms1055NetworkBuilder implem
         m_capsd.scanSuspectInterface(SANJOSE_IP);
         m_capsd.scanSuspectInterface(RIOVISTA_IP);
 
-        printNode(PENROSE_IP,"PENROSE");
-        printNode(DELAWARE_IP,"DELAWARE");
-        printNode(PHOENIX_IP,"PHOENIX");
-        printNode(AUSTIN_IP,"AUSTIN");
-        printNode(SANJOSE_IP,"SANJOSE");
-        printNode(RIOVISTA_IP,"RIOVISTA");
+        printNode(PENROSE_IP, "PENROSE");
+        printNode(DELAWARE_IP, "DELAWARE");
+        printNode(PHOENIX_IP, "PHOENIX");
+        printNode(AUSTIN_IP, "AUSTIN");
+        printNode(SANJOSE_IP, "SANJOSE");
+        printNode(RIOVISTA_IP, "RIOVISTA");
 
         m_capsd.stop();
-
 
     }
 }

@@ -281,7 +281,8 @@ public class DNSAddressRequest {
      * </P>
      *
      * @return A byte array containing the request.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public byte[] buildRequest() throws IOException {
         ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
@@ -321,7 +322,8 @@ public class DNSAddressRequest {
      * @exception IOException
      *                Thrown if there is an error while reading the received
      *                packet
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void receiveResponse(byte[] data, int length) throws IOException {
         /*
@@ -378,7 +380,6 @@ public class DNSAddressRequest {
      * This method only goes so far as to decode the flags in the response byte
      * array to verify that a DNS server sent the response.
      * </P>
-     *
      * <P>
      * NOTE: This is really a hack to get around the fact that the
      * receiveResponse() method is not robust enough to handle all possible DNS
@@ -391,7 +392,8 @@ public class DNSAddressRequest {
      * @exception IOException
      *                Thrown if there is an error while reading the received
      *                packet
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public void verifyResponse(byte[] data, int length) throws IOException {
         /*
@@ -485,13 +487,16 @@ public class DNSAddressRequest {
      * @return The error string corresponding to the error code
      */
     public static String codeName(int code) {
-        String[] codeNames = { "Format Error", "Server Failure", "Non-Existent Domain", "Not Implemented", "Query Refused" };
+        String[] codeNames = { "Format Error", "Server Failure", "Non-Existent Domain", "Not Implemented",
+                "Query Refused" };
 
         return ((code >= 1) && (code <= 5)) ? codeNames[code - 1] : "Unknown error";
     }
 
     /**
-     * <p>getFatalResponseCodes</p>
+     * <p>
+     * getFatalResponseCodes
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -500,9 +505,12 @@ public class DNSAddressRequest {
     }
 
     /**
-     * <p>setFatalResponseCodes</p>
+     * <p>
+     * setFatalResponseCodes
+     * </p>
      *
-     * @param codes a {@link java.util.List} object.
+     * @param codes
+     *            a {@link java.util.List} object.
      */
     public void setFatalResponseCodes(List<Integer> codes) {
         m_fatalResponseCodes = codes;

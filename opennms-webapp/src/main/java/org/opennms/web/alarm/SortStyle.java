@@ -41,26 +41,11 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public enum SortStyle {
-    SEVERITY("severity"),
-    LASTEVENTTIME("lasteventtime"),
-    FIRSTEVENTTIME("firsteventtime"),
-    NODE("node"),
-    INTERFACE("interface"),
-    SERVICE("service"),
-    POLLER("poller"),
-    ID("id"),
-    COUNT("count"),
-    ACKUSER("ackuser"),
-    REVERSE_SEVERITY("rev_severity"),
-    REVERSE_LASTEVENTTIME("rev_lasteventtime"),
-    REVERSE_FIRSTEVENTTIME("rev_firsteventtime"),
-    REVERSE_NODE("rev_node"),
-    REVERSE_INTERFACE("rev_interface"),
-    REVERSE_SERVICE("rev_service"),
-    REVERSE_POLLER("rev_poller"),
-    REVERSE_ID("rev_id"),
-    REVERSE_COUNT("rev_count"),
-    REVERSE_ACKUSER("rev_ackuser");
+    SEVERITY("severity"), LASTEVENTTIME("lasteventtime"), FIRSTEVENTTIME("firsteventtime"), NODE("node"), INTERFACE(
+            "interface"), SERVICE("service"), POLLER("poller"), ID("id"), COUNT("count"), ACKUSER("ackuser"), REVERSE_SEVERITY(
+            "rev_severity"), REVERSE_LASTEVENTTIME("rev_lasteventtime"), REVERSE_FIRSTEVENTTIME("rev_firsteventtime"), REVERSE_NODE(
+            "rev_node"), REVERSE_INTERFACE("rev_interface"), REVERSE_SERVICE("rev_service"), REVERSE_POLLER(
+            "rev_poller"), REVERSE_ID("rev_id"), REVERSE_COUNT("rev_count"), REVERSE_ACKUSER("rev_ackuser");
 
     /** Constant <code>m_sortStylesString</code> */
     private static final Map<String, SortStyle> m_sortStylesString;
@@ -80,7 +65,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,7 +77,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -99,7 +88,9 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getShortName</p>
+     * <p>
+     * getShortName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -108,9 +99,12 @@ public enum SortStyle {
     }
 
     /**
-     * <p>getSortStyle</p>
+     * <p>
+     * getSortStyle
+     * </p>
      *
-     * @param sortStyleString a {@link java.lang.String} object.
+     * @param sortStyleString
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.alarm.SortStyle} object.
      */
     public static SortStyle getSortStyle(String sortStyleString) {

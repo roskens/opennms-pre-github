@@ -43,13 +43,17 @@ import org.opennms.core.xml.CastorUtils;
 import org.opennms.netmgt.config.eventd.EventdConfiguration;
 
 /**
- * <p>EventdConfigManager class.</p>
+ * <p>
+ * EventdConfigManager class.
+ * </p>
  *
  * @author david
  */
 public class EventdConfigManager {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
@@ -58,12 +62,18 @@ public class EventdConfigManager {
     protected EventdConfiguration m_config;
 
     /**
-     * <p>Constructor for EventdConfigManager.</p>
+     * <p>
+     * Constructor for EventdConfigManager.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
-     * @throws java.io.IOException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected EventdConfigManager(final InputStream stream) throws MarshalException, ValidationException, IOException {
         m_config = CastorUtils.unmarshal(EventdConfiguration.class, stream);
@@ -71,14 +81,21 @@ public class EventdConfigManager {
     }
 
     /**
-     * <p>Constructor for EventdConfigManager.</p>
+     * <p>
+     * Constructor for EventdConfigManager.
+     * </p>
      *
-     * @param configFile a {@link java.lang.String} object.
-     * @throws java.io.FileNotFoundException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param configFile
+     *            a {@link java.lang.String} object.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
-    public EventdConfigManager(final String configFile) throws FileNotFoundException, MarshalException, ValidationException {
+    public EventdConfigManager(final String configFile) throws FileNotFoundException, MarshalException,
+            ValidationException {
         InputStream stream = null;
         try {
             stream = new FileInputStream(configFile);
@@ -171,7 +188,8 @@ public class EventdConfigManager {
     /**
      * Return the length of the incoming event queue.
      *
-     * @return the maximum number of events that can be stored in the incoming event queue
+     * @return the maximum number of events that can be stored in the incoming
+     *         event queue
      */
     public int getQueueLength() {
         getReadLock().lock();

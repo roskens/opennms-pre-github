@@ -36,37 +36,40 @@ import com.vaadin.server.Resource;
 
 public class SelectionTreeFactory implements IViewContribution {
 
-	private final BlueprintContainer m_container;
-	private final String m_beanName;
-	private String m_title;
+    private final BlueprintContainer m_container;
 
-	public SelectionTreeFactory(BlueprintContainer container, String beanName) {
-		m_container = container;
-		m_beanName = beanName;
-	}
+    private final String m_beanName;
 
-	@Override
-	public SelectionTree getView(WidgetContext widgetContext) {
-		// Get the component by asking the blueprint container to instantiate a prototype bean
-		SelectionTree tree = (SelectionTree)m_container.getComponentInstance(m_beanName);
-		tree.setGraphContainer(widgetContext.getGraphContainer());
-		return tree;
-	}
+    private String m_title;
 
-	/**
-	 * Returns null.
-	 */
-	@Override
-	public Resource getIcon() {
-		return null;
-	}
+    public SelectionTreeFactory(BlueprintContainer container, String beanName) {
+        m_container = container;
+        m_beanName = beanName;
+    }
 
-	@Override
-	public String getTitle() {
-		return m_title;
-	}
+    @Override
+    public SelectionTree getView(WidgetContext widgetContext) {
+        // Get the component by asking the blueprint container to instantiate a
+        // prototype bean
+        SelectionTree tree = (SelectionTree) m_container.getComponentInstance(m_beanName);
+        tree.setGraphContainer(widgetContext.getGraphContainer());
+        return tree;
+    }
 
-	public void setTitle(String title) {
-		m_title = title;
-	}
+    /**
+     * Returns null.
+     */
+    @Override
+    public Resource getIcon() {
+        return null;
+    }
+
+    @Override
+    public String getTitle() {
+        return m_title;
+    }
+
+    public void setTitle(String title) {
+        m_title = title;
+    }
 }

@@ -55,6 +55,7 @@ public class JavaReadMailerTest {
 
     /**
      * Un-ignore this test with a proper gmail account
+     *
      * @throws JavaMailerException
      * @throws MessagingException
      * @throws InterruptedException
@@ -89,9 +90,9 @@ public class JavaReadMailerTest {
 
         JavaReadMailer readMailer = createGoogleReadMailer(gmailAccount, gmailPassword);
 
-        //See if search finds all 3 messages
-        SearchTerm st = new OrTerm(new SubjectTerm(".*"+term1+" #.*"), new SubjectTerm(".*"+term2+" #.*"));
-        st = new OrTerm(st, new SubjectTerm("*."+term3+" #.*"));
+        // See if search finds all 3 messages
+        SearchTerm st = new OrTerm(new SubjectTerm(".*" + term1 + " #.*"), new SubjectTerm(".*" + term2 + " #.*"));
+        st = new OrTerm(st, new SubjectTerm("*." + term3 + " #.*"));
 
         List<Message> msgs = null;
         try {
@@ -102,7 +103,7 @@ public class JavaReadMailerTest {
 
         Assert.assertEquals(3, msgs.size());
 
-        st = new OrTerm(new SubjectTerm(".*"+term1+" #.*"), new SubjectTerm(".*"+term2+" #.*"));
+        st = new OrTerm(new SubjectTerm(".*" + term1 + " #.*"), new SubjectTerm(".*" + term2 + " #.*"));
 
         try {
             msgs = readMailer.retrieveMessages(st);
@@ -110,18 +111,18 @@ public class JavaReadMailerTest {
             e.printStackTrace();
         }
 
-        //Should find only term1 and term2 messages
+        // Should find only term1 and term2 messages
         Assert.assertNotNull(msgs);
         Assert.assertEquals(2, msgs.size());
 
-        //Now cleanup
-        //Delete the term1 and term2 messages
+        // Now cleanup
+        // Delete the term1 and term2 messages
         for (Message msg : msgs) {
             msg.setFlag(Flag.DELETED, true);
         }
 
-        //Find and delete the term3 messages
-        st = new SubjectTerm("*."+term3+" #.*");
+        // Find and delete the term3 messages
+        st = new SubjectTerm("*." + term3 + " #.*");
         try {
             msgs = readMailer.retrieveMessages(st);
         } catch (JavaMailerException e) {
@@ -134,9 +135,9 @@ public class JavaReadMailerTest {
             eventMsg.setFlag(Flag.DELETED, true);
         }
 
-        //Make sure they're all gone
-        st = new OrTerm(new SubjectTerm(".*"+term1+" #.*"), new SubjectTerm(".*"+term2+" #.*"));
-        st = new OrTerm(st, new SubjectTerm("*."+term3+" #.*"));
+        // Make sure they're all gone
+        st = new OrTerm(new SubjectTerm(".*" + term1 + " #.*"), new SubjectTerm(".*" + term2 + " #.*"));
+        st = new OrTerm(st, new SubjectTerm("*." + term3 + " #.*"));
 
         try {
             msgs = readMailer.retrieveMessages(st);
@@ -157,9 +158,9 @@ public class JavaReadMailerTest {
 
     private SendmailMessage createAckMessage(String gmailAccount, String noticeId, String regards, String body) {
         SendmailMessage sendMsg = new SendmailMessage();
-        sendMsg.setTo(gmailAccount+"@gmail.com");
-        sendMsg.setFrom(gmailAccount+"@gmail.com");
-        sendMsg.setSubject("re:"+regards+" #"+noticeId+":");
+        sendMsg.setTo(gmailAccount + "@gmail.com");
+        sendMsg.setFrom(gmailAccount + "@gmail.com");
+        sendMsg.setSubject("re:" + regards + " #" + noticeId + ":");
         sendMsg.setBody(body);
         return sendMsg;
     }
@@ -232,6 +233,5 @@ public class JavaReadMailerTest {
         JavaReadMailer mailer = new JavaReadMailer(config, true);
         return mailer;
     }
-
 
 }

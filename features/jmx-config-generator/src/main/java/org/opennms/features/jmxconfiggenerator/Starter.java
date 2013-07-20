@@ -149,7 +149,11 @@ public class Starter {
 
                 jmxConnector = jmxConfigGenerator.getJmxConnector(username, password, jmxServiceURL);
                 MBeanServerConnection mBeanServerConnection = jmxConfigGenerator.createMBeanServerConnection(jmxConnector);
-                JmxDatacollectionConfig generateJmxConfigModel = jmxConfigGenerator.generateJmxConfigModel(mBeanServerConnection, serviceName, !skipDefaultVM, runWritableMBeans, dictionary);
+                JmxDatacollectionConfig generateJmxConfigModel = jmxConfigGenerator.generateJmxConfigModel(mBeanServerConnection,
+                                                                                                           serviceName,
+                                                                                                           !skipDefaultVM,
+                                                                                                           runWritableMBeans,
+                                                                                                           dictionary);
                 jmxConfigGenerator.writeJmxConfigFile(generateJmxConfigModel, outFile);
 
                 if (jmxConnector != null) {
@@ -192,8 +196,7 @@ public class Starter {
             // System.err.println("  Example: java -jar JmxConfigGenerator" +
             // parser.printExample(ALL));
             System.err.println("Examples:");
-            System.err
-                    .println(" Generation of jmx-datacollection.xml: java -jar JmxConfigGenerator.jar -jmx -host localhost -port 7199 -out JMX-DatacollectionDummy.xml [-service cassandra] [-skipDefaultVM] [-runWritableMBeans] [-dictionary dictionary.properties]");
+            System.err.println(" Generation of jmx-datacollection.xml: java -jar JmxConfigGenerator.jar -jmx -host localhost -port 7199 -out JMX-DatacollectionDummy.xml [-service cassandra] [-skipDefaultVM] [-runWritableMBeans] [-dictionary dictionary.properties]");
             System.err.println(" Generation of snmp-graph.properties: java -jar JmxConfigGenerator.jar -graph -input test.xml -out test.properies [-template graphTemplate.vm] [-service cassandra]");
         }
     }
@@ -203,7 +206,8 @@ public class Starter {
         Map<String, String> internalDictionary = new HashMap<String, String>();
         Properties properties = new Properties();
         try {
-            BufferedInputStream stream = new BufferedInputStream(Starter.class.getClassLoader().getResourceAsStream("dictionary.properties"));
+            BufferedInputStream stream = new BufferedInputStream(
+                                                                 Starter.class.getClassLoader().getResourceAsStream("dictionary.properties"));
             properties.load(stream);
             stream.close();
         } catch (IOException ex) {
@@ -235,5 +239,5 @@ public class Starter {
         }
         logger.info("Dictionary entries loaded: '{}'", externalDictionary.size());
         return externalDictionary;
-	}
+    }
 }

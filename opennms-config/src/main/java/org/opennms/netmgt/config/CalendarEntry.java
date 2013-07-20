@@ -34,7 +34,9 @@ import java.util.List;
 import org.opennms.core.utils.Owner;
 
 /**
- * <p>CalendarEntry class.</p>
+ * <p>
+ * CalendarEntry class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,17 +45,26 @@ import org.opennms.core.utils.Owner;
 public class CalendarEntry {
 
     Date m_start;
+
     Date m_end;
+
     String m_descr;
+
     List<Owner> m_labels;
 
     /**
-     * <p>Constructor for CalendarEntry.</p>
+     * <p>
+     * Constructor for CalendarEntry.
+     * </p>
      *
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
-     * @param descr a {@link java.lang.String} object.
-     * @param labels a {@link java.util.List} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
+     * @param descr
+     *            a {@link java.lang.String} object.
+     * @param labels
+     *            a {@link java.util.List} object.
      */
     public CalendarEntry(Date start, Date end, String descr, List<Owner> labels) {
         m_start = start;
@@ -63,30 +74,46 @@ public class CalendarEntry {
     }
 
     /**
-     * <p>getStartTime</p>
+     * <p>
+     * getStartTime
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
-    public Date getStartTime() { return m_start; }
+    public Date getStartTime() {
+        return m_start;
+    }
 
     /**
-     * <p>getEndTime</p>
+     * <p>
+     * getEndTime
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
-    public Date getEndTime() { return m_end; }
+    public Date getEndTime() {
+        return m_end;
+    }
 
     /**
-     * <p>getDescription</p>
+     * <p>
+     * getDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription() { return m_descr; }
+    public String getDescription() {
+        return m_descr;
+    }
 
     /**
-     * <p>getLabels</p>
+     * <p>
+     * getLabels
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    public List<Owner> getLabels() { return m_labels; }
+    public List<Owner> getLabels() {
+        return m_labels;
+    }
 }

@@ -31,7 +31,9 @@ package org.opennms.protocols.wmi.wbem;
 import org.opennms.protocols.wmi.WmiException;
 
 /**
- * <p>OnmsWbemMethod interface.</p>
+ * <p>
+ * OnmsWbemMethod interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -39,28 +41,38 @@ import org.opennms.protocols.wmi.WmiException;
 public interface OnmsWbemMethod {
 
     /**
-     * <p>getWmiName</p>
+     * <p>
+     * getWmiName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
-    public String getWmiName()throws WmiException;
+    public String getWmiName() throws WmiException;
 
     /**
-     * <p>getWmiOrigin</p>
+     * <p>
+     * getWmiOrigin
+     * </p>
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
-    public String getWmiOrigin()throws WmiException;
+    public String getWmiOrigin() throws WmiException;
 
     /**
-     * <p>getWmiOutParameters</p>
+     * <p>
+     * getWmiOutParameters
+     * </p>
      */
     public void getWmiOutParameters();
 
     /**
-     * <p>getWmiInParameters</p>
+     * <p>
+     * getWmiInParameters
+     * </p>
      */
     public void getWmiInParameters();
 }

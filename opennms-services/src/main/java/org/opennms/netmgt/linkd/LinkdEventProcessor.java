@@ -39,13 +39,14 @@ import org.opennms.netmgt.xml.event.Event;
  * @author <a href="mailto:matt@opennms.org">Matt Brozowski </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
-@EventListener(name="OpenNMS.Linkd", logPrefix="linkd")
+@EventListener(name = "OpenNMS.Linkd", logPrefix = "linkd")
 public final class LinkdEventProcessor {
 
     private Linkd m_linkd;
 
     /**
-     * @param linkd the linkd to set
+     * @param linkd
+     *            the linkd to set
      */
     public void setLinkd(Linkd linkd) {
         this.m_linkd = linkd;
@@ -60,7 +61,7 @@ public final class LinkdEventProcessor {
      *
      * @param event
      */
-    @EventHandler(uei=EventConstants.NODE_DELETED_EVENT_UEI)
+    @EventHandler(uei = EventConstants.NODE_DELETED_EVENT_UEI)
     public void handleNodeDeleted(Event event) throws InsufficientInformationException {
 
         EventUtils.checkNodeId(event);
@@ -68,7 +69,8 @@ public final class LinkdEventProcessor {
         // Remove the deleted node from the scheduler if it's an SNMP node
         m_linkd.deleteNode(event.getNodeid().intValue());
         // set to status = D in all the rows in table
-        // atinterface, iprouteinterface, datalinkinterface, stpnode, stpinterface
+        // atinterface, iprouteinterface, datalinkinterface, stpnode,
+        // stpinterface
     }
 
     /**
@@ -76,13 +78,13 @@ public final class LinkdEventProcessor {
      *
      * @param event
      */
-    @EventHandler(uei=EventConstants.INTERFACE_DELETED_EVENT_UEI)
+    @EventHandler(uei = EventConstants.INTERFACE_DELETED_EVENT_UEI)
     public void handleInterfaceDeleted(Event event) throws InsufficientInformationException {
 
         EventUtils.checkNodeId(event);
         EventUtils.checkInterfaceOrIfIndex(event);
         int ifIndex = -1;
-        if(event.hasIfIndex()) {
+        if (event.hasIfIndex()) {
             ifIndex = event.getIfIndex();
         }
 
@@ -96,7 +98,7 @@ public final class LinkdEventProcessor {
      *
      * @param event
      */
-    @EventHandler(uei=EventConstants.NODE_GAINED_SERVICE_EVENT_UEI)
+    @EventHandler(uei = EventConstants.NODE_GAINED_SERVICE_EVENT_UEI)
     public void handleNodeGainedService(Event event) throws InsufficientInformationException {
 
         EventUtils.checkNodeId(event);
@@ -109,7 +111,7 @@ public final class LinkdEventProcessor {
      *
      * @param event
      */
-    @EventHandler(uei=EventConstants.NODE_LOST_SERVICE_EVENT_UEI)
+    @EventHandler(uei = EventConstants.NODE_LOST_SERVICE_EVENT_UEI)
     public void handleNodeLostService(Event event) throws InsufficientInformationException {
 
         EventUtils.checkNodeId(event);
@@ -125,7 +127,7 @@ public final class LinkdEventProcessor {
      *
      * @param event
      */
-    @EventHandler(uei=EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI)
+    @EventHandler(uei = EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI)
     public void handleRegainedService(Event event) throws InsufficientInformationException {
 
         EventUtils.checkNodeId(event);

@@ -49,92 +49,127 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
     /**
      * Get a node based on it's node ID or foreignSource:foreignId
      *
-     * @param lookupCriteria the criteria, either the node ID, or a colon-separated string of foreignSource:foreignId
+     * @param lookupCriteria
+     *            the criteria, either the node ID, or a colon-separated string
+     *            of foreignSource:foreignId
      * @return the node
      */
     OnmsNode get(String lookupCriteria);
 
     /**
-     * Light weight call to simply get the node label without loading the entire node.
+     * Light weight call to simply get the node label without loading the entire
+     * node.
      *
      * @param id
-     * @return A String representing the provisioned label for the node.  Returns null if not found.
+     * @return A String representing the provisioned label for the node. Returns
+     *         null if not found.
      */
     String getLabelForId(Integer id);
 
     /**
-     * <p>findByLabel</p>
+     * <p>
+     * findByLabel
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findByLabel(String label);
 
     /**
-     * <p>findNodes</p>
+     * <p>
+     * findNodes
+     * </p>
      *
-     * @param dp a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
+     * @param dp
+     *            a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findNodes(OnmsDistPoller dp);
 
     /**
-     * <p>getHierarchy</p>
+     * <p>
+     * getHierarchy
+     * </p>
      *
-     * @param id a {@link java.lang.Integer} object.
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     OnmsNode getHierarchy(Integer id);
 
     /**
-     * <p>getForeignIdToNodeIdMap</p>
+     * <p>
+     * getForeignIdToNodeIdMap
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Map} object.
      */
     Map<String, Integer> getForeignIdToNodeIdMap(String foreignSource);
 
     /**
-     * <p>findAllByVarCharAssetColumn</p>
+     * <p>
+     * findAllByVarCharAssetColumn
+     * </p>
      *
-     * @param columnName a {@link java.lang.String} object.
-     * @param columnValue a {@link java.lang.String} object.
+     * @param columnName
+     *            a {@link java.lang.String} object.
+     * @param columnValue
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findAllByVarCharAssetColumn(String columnName, String columnValue);
 
     /**
-     * <p>findAllByVarCharAssetColumnCategoryList</p>
+     * <p>
+     * findAllByVarCharAssetColumnCategoryList
+     * </p>
      *
-     * @param columnName a {@link java.lang.String} object.
-     * @param columnValue a {@link java.lang.String} object.
-     * @param categories a {@link java.util.Collection} object.
+     * @param columnName
+     *            a {@link java.lang.String} object.
+     * @param columnValue
+     *            a {@link java.lang.String} object.
+     * @param categories
+     *            a {@link java.util.Collection} object.
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findAllByVarCharAssetColumnCategoryList(String columnName, String columnValue,
             Collection<OnmsCategory> categories);
 
     /**
-     * <p>findByCategory</p>
+     * <p>
+     * findByCategory
+     * </p>
      *
-     * @param category a {@link org.opennms.netmgt.model.OnmsCategory} object.
+     * @param category
+     *            a {@link org.opennms.netmgt.model.OnmsCategory} object.
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findByCategory(OnmsCategory category);
 
     /**
-     * <p>findAllByCategoryList</p>
+     * <p>
+     * findAllByCategoryList
+     * </p>
      *
-     * @param categories a {@link java.util.Collection} object.
+     * @param categories
+     *            a {@link java.util.Collection} object.
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findAllByCategoryList(Collection<OnmsCategory> categories);
 
     /**
-     * <p>findAllByCategoryLists</p>
+     * <p>
+     * findAllByCategoryLists
+     * </p>
      *
-     * @param rowCatNames a {@link java.util.Collection} object.
-     * @param colCatNames a {@link java.util.Collection} object.
+     * @param rowCatNames
+     *            a {@link java.util.Collection} object.
+     * @param colCatNames
+     *            a {@link java.util.Collection} object.
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findAllByCategoryLists(Collection<OnmsCategory> rowCatNames, Collection<OnmsCategory> colCatNames);
@@ -148,81 +183,112 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
     List<OnmsNode> findAll();
 
     /**
-     * <p>findByForeignSource</p>
+     * <p>
+     * findByForeignSource
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     List<OnmsNode> findByForeignSource(String foreignSource);
 
     /**
-     * <p>findByForeignId</p>
+     * <p>
+     * findByForeignId
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     OnmsNode findByForeignId(String foreignSource, String foreignId);
 
     /**
-     * <p>getNodeCountForForeignSource</p>
+     * <p>
+     * getNodeCountForForeignSource
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
      * @return a int.
      */
     int getNodeCountForForeignSource(String groupName);
 
     /**
-     * <p>findAllProvisionedNodes</p>
+     * <p>
+     * findAllProvisionedNodes
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     List<OnmsNode> findAllProvisionedNodes();
 
     /**
-     * <p>findObsoleteIpInterfaces</p>
+     * <p>
+     * findObsoleteIpInterfaces
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param scanStamp a {@link java.util.Date} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param scanStamp
+     *            a {@link java.util.Date} object.
      * @return a {@link java.util.List} object.
      */
     List<OnmsIpInterface> findObsoleteIpInterfaces(Integer nodeId, Date scanStamp);
 
     /**
-     * <p>deleteObsoleteInterfaces</p>
+     * <p>
+     * deleteObsoleteInterfaces
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param scanStamp a {@link java.util.Date} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param scanStamp
+     *            a {@link java.util.Date} object.
      */
     void deleteObsoleteInterfaces(Integer nodeId, Date scanStamp);
 
     /**
-     * <p>updateNodeScanStamp</p>
+     * <p>
+     * updateNodeScanStamp
+     * </p>
      *
-     * @param nodeId a {@link java.lang.Integer} object.
-     * @param scanStamp a {@link java.util.Date} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param scanStamp
+     *            a {@link java.util.Date} object.
      */
     void updateNodeScanStamp(Integer nodeId, Date scanStamp);
 
     /**
-     * <p>getNodeIds</p>
+     * <p>
+     * getNodeIds
+     * </p>
      *
      * @return a {@link java.util.Collection} object.
      */
     Collection<Integer> getNodeIds();
 
     /**
-     * <p>findByForeignSourceAndIpAddress</p>
+     * <p>
+     * findByForeignSourceAndIpAddress
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     List<OnmsNode> findByForeignSourceAndIpAddress(String foreignSource, String ipAddress);
 
-    SurveillanceStatus findSurveillanceStatusByCategoryLists(Collection<OnmsCategory> rowCategories, Collection<OnmsCategory> columnCategories);
+    SurveillanceStatus findSurveillanceStatusByCategoryLists(Collection<OnmsCategory> rowCategories,
+            Collection<OnmsCategory> columnCategories);
 
-    Integer getNextNodeId (Integer nodeId);
+    Integer getNextNodeId(Integer nodeId);
 
-    Integer getPreviousNodeId (Integer nodeId);
+    Integer getPreviousNodeId(Integer nodeId);
 }

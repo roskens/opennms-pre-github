@@ -38,7 +38,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * <p>FrontPageController class.</p>
+ * <p>
+ * FrontPageController class.
+ * </p>
  *
  * @author ranger
  * @since 1.8.1
@@ -48,7 +50,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class FrontPageController {
 
     @RequestMapping(method = RequestMethod.GET)
-    protected final ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response)
+            throws Exception {
         if (request.isUserInRole(Authentication.ROLE_DASHBOARD)) {
             return new ModelAndView("redirect:/dashboard.jsp");
         } else {

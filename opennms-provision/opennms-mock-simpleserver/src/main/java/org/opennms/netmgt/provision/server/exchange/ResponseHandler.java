@@ -29,7 +29,9 @@
 package org.opennms.netmgt.provision.server.exchange;
 
 /**
- * <p>ResponseHandler interface.</p>
+ * <p>
+ * ResponseHandler interface.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -37,9 +39,12 @@ package org.opennms.netmgt.provision.server.exchange;
 public interface ResponseHandler {
 
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param input a {@link java.lang.String} object.
+     * @param input
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean matches(String input);

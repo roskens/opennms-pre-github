@@ -42,6 +42,7 @@ import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 public class StringAttributeVisitor implements CollectionSetVisitor {
 
     private String attributeName;
+
     private String attributeValue;
 
     public StringAttributeVisitor(String attributeName) {
@@ -59,17 +60,30 @@ public class StringAttributeVisitor implements CollectionSetVisitor {
     }
 
     @Override
-    public void visitCollectionSet(CollectionSet set) {}
+    public void visitCollectionSet(CollectionSet set) {
+    }
+
     @Override
-    public void visitResource(CollectionResource resource) {}
+    public void visitResource(CollectionResource resource) {
+    }
+
     @Override
-    public void visitGroup(AttributeGroup group) {}
+    public void visitGroup(AttributeGroup group) {
+    }
+
     @Override
-    public void completeAttribute(CollectionAttribute attribute) {}
+    public void completeAttribute(CollectionAttribute attribute) {
+    }
+
     @Override
-    public void completeGroup(AttributeGroup group) {}
+    public void completeGroup(AttributeGroup group) {
+    }
+
     @Override
-    public void completeResource(CollectionResource resource) {}
+    public void completeResource(CollectionResource resource) {
+    }
+
     @Override
-    public void completeCollectionSet(CollectionSet set) {}
+    public void completeCollectionSet(CollectionSet set) {
+    }
 }

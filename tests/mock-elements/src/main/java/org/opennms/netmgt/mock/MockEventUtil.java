@@ -38,7 +38,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSeverity;
@@ -52,23 +51,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Abstract MockEventUtil class.</p>
+ * <p>
+ * Abstract MockEventUtil class.
+ * </p>
  *
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public abstract class MockEventUtil {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MockEventUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MockEventUtil.class);
+
     /**
-     * <p>createNodeLostServiceEvent</p>
+     * <p>
+     * createNodeLostServiceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeLostServiceEvent(String source, MockService svc, String reason) {
@@ -76,10 +83,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeLostServiceEvent</p>
+     * <p>
+     * createNodeLostServiceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeLostServiceEvent(String source, MockService svc) {
@@ -87,10 +98,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeRegainedServiceEvent</p>
+     * <p>
+     * createNodeRegainedServiceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeRegainedServiceEvent(String source, MockService svc) {
@@ -98,11 +113,16 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createServiceUnresponsiveEvent</p>
+     * <p>
+     * createServiceUnresponsiveEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createServiceUnresponsiveEvent(String source, MockService svc, String reason) {
@@ -110,11 +130,16 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createServiceUnresponsiveEventBuilder</p>
+     * <p>
+     * createServiceUnresponsiveEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public static EventBuilder createServiceUnresponsiveEventBuilder(String source, MockService svc, String reason) {
@@ -122,10 +147,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createServiceResponsiveEvent</p>
+     * <p>
+     * createServiceResponsiveEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createServiceResponsiveEvent(String source, MockService svc) {
@@ -133,11 +162,16 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createDemandPollServiceEvent</p>
+     * <p>
+     * createDemandPollServiceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
-     * @param demandPollId a int.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param demandPollId
+     *            a int.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createDemandPollServiceEvent(String source, MockService svc, int demandPollId) {
@@ -147,10 +181,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeGainedServiceEvent</p>
+     * <p>
+     * createNodeGainedServiceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeGainedServiceEvent(String source, MockService svc) {
@@ -158,10 +196,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createServiceDeletedEvent</p>
+     * <p>
+     * createServiceDeletedEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createServiceDeletedEvent(String source, MockService svc) {
@@ -169,10 +211,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createSuspendPollingServiceEvent</p>
+     * <p>
+     * createSuspendPollingServiceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createSuspendPollingServiceEvent(String source, MockService svc) {
@@ -180,10 +226,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createResumePollingServiceEvent</p>
+     * <p>
+     * createResumePollingServiceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createResumePollingServiceEvent(String source, MockService svc) {
@@ -191,12 +241,18 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createServiceEvent</p>
+     * <p>
+     * createServiceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createServiceEvent(String source, String uei, MockService svc, String reason) {
@@ -204,12 +260,18 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createServiceEventBuilder</p>
+     * <p>
+     * createServiceEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param svc a {@link org.opennms.netmgt.mock.MockService} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param svc
+     *            a {@link org.opennms.netmgt.mock.MockService} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public static EventBuilder createServiceEventBuilder(String source, String uei, MockService svc, String reason) {
@@ -217,10 +279,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createInterfaceDownEvent</p>
+     * <p>
+     * createInterfaceDownEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param iface a {@link org.opennms.netmgt.mock.MockInterface} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.mock.MockInterface} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createInterfaceDownEvent(String source, MockInterface iface) {
@@ -228,10 +294,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createInterfaceUpEvent</p>
+     * <p>
+     * createInterfaceUpEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param iface a {@link org.opennms.netmgt.mock.MockInterface} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.mock.MockInterface} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createInterfaceUpEvent(String source, MockInterface iface) {
@@ -239,10 +309,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeGainedInterfaceEvent</p>
+     * <p>
+     * createNodeGainedInterfaceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param iface a {@link org.opennms.netmgt.mock.MockInterface} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.mock.MockInterface} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeGainedInterfaceEvent(String source, MockInterface iface) {
@@ -250,10 +324,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createInterfaceDeletedEvent</p>
+     * <p>
+     * createInterfaceDeletedEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param iface a {@link org.opennms.netmgt.mock.MockInterface} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.mock.MockInterface} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createInterfaceDeletedEvent(String source, MockInterface iface) {
@@ -261,11 +339,16 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createInterfaceEvent</p>
+     * <p>
+     * createInterfaceEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param iface a {@link org.opennms.netmgt.mock.MockInterface} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.mock.MockInterface} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createInterfaceEvent(String source, String uei, MockInterface iface) {
@@ -273,11 +356,16 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createInterfaceEventBuilder</p>
+     * <p>
+     * createInterfaceEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param iface a {@link org.opennms.netmgt.mock.MockInterface} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param iface
+     *            a {@link org.opennms.netmgt.mock.MockInterface} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public static EventBuilder createInterfaceEventBuilder(String source, String uei, MockInterface iface) {
@@ -285,10 +373,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeDownEvent</p>
+     * <p>
+     * createNodeDownEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeDownEvent(String source, MockNode node) {
@@ -296,16 +388,21 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeDownEventBuilder</p>
+     * <p>
+     * createNodeDownEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public static EventBuilder createNodeDownEventBuilder(String source, MockNode node) {
         EventBuilder event = createNodeEventBuilder(source, EventConstants.NODE_DOWN_EVENT_UEI, node);
         event.setSeverity(OnmsSeverity.MAJOR.getLabel());
-        // <alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="1" auto-clean="false" />
+        // <alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="1"
+        // auto-clean="false" />
         AlarmData alarmData = new AlarmData();
         alarmData.setReductionKey("%uei%:%dpname%:%nodeid%");
         alarmData.setAlarmType(1);
@@ -315,16 +412,21 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeDownEventBuilder</p>
+     * <p>
+     * createNodeDownEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public static EventBuilder createNodeDownEventBuilder(String source, OnmsNode node) {
         EventBuilder event = createNodeEventBuilder(source, EventConstants.NODE_DOWN_EVENT_UEI, node);
         event.setSeverity(OnmsSeverity.MAJOR.getLabel());
-        // <alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="1" auto-clean="false" />
+        // <alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="1"
+        // auto-clean="false" />
         AlarmData alarmData = new AlarmData();
         alarmData.setReductionKey("%uei%:%dpname%:%nodeid%");
         alarmData.setAlarmType(1);
@@ -334,17 +436,23 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeDownEventWithReason</p>
+     * <p>
+     * createNodeDownEventWithReason
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeDownEventWithReason(String source, MockNode node, String reason) {
         Event event = createNodeEventWithReason(source, EventConstants.NODE_DOWN_EVENT_UEI, node, reason);
         event.setSeverity(OnmsSeverity.MAJOR.getLabel());
-        // <alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="1" auto-clean="false" />
+        // <alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="1"
+        // auto-clean="false" />
         AlarmData alarmData = new AlarmData();
         alarmData.setReductionKey("%uei%:%dpname%:%nodeid%");
         alarmData.setAlarmType(1);
@@ -354,16 +462,22 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeUpEvent</p>
+     * <p>
+     * createNodeUpEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeUpEvent(String source, MockNode node) {
         EventBuilder event = createNodeEventBuilder(source, EventConstants.NODE_UP_EVENT_UEI, node);
         event.setSeverity(OnmsSeverity.NORMAL.getLabel());
-        // <alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="2" clear-key="uei.opennms.org/nodes/nodeDown:%dpname%:%nodeid%" auto-clean="false" />
+        // <alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="2"
+        // clear-key="uei.opennms.org/nodes/nodeDown:%dpname%:%nodeid%"
+        // auto-clean="false" />
         AlarmData alarmData = new AlarmData();
         alarmData.setReductionKey("%uei%:%dpname%:%nodeid%");
         alarmData.setAlarmType(2);
@@ -374,10 +488,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeAddedEvent</p>
+     * <p>
+     * createNodeAddedEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeAddedEvent(String source, MockNode node) {
@@ -385,10 +503,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeDeletedEvent</p>
+     * <p>
+     * createNodeDeletedEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeDeletedEvent(String source, MockNode node) {
@@ -396,11 +518,16 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeEvent</p>
+     * <p>
+     * createNodeEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeEvent(String source, String uei, MockNode node) {
@@ -408,11 +535,16 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeEventBuilder</p>
+     * <p>
+     * createNodeEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public static EventBuilder createNodeEventBuilder(String source, String uei, MockNode node) {
@@ -420,11 +552,16 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeEventBuilder</p>
+     * <p>
+     * createNodeEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public static EventBuilder createNodeEventBuilder(String source, String uei, OnmsNode node) {
@@ -432,12 +569,18 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNodeEventWithReason</p>
+     * <p>
+     * createNodeEventWithReason
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeEventWithReason(String source, String uei, MockNode node, String reason) {
@@ -445,11 +588,16 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createNewSuspectEventBuilder</p>
+     * <p>
+     * createNewSuspectEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public static EventBuilder createNewSuspectEventBuilder(String source, String uei, String ipAddr) {
@@ -459,16 +607,24 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createBgpBkTnEvent</p>
+     * <p>
+     * createBgpBkTnEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param node a {@link org.opennms.netmgt.mock.MockNode} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param peerState a int.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.mock.MockNode} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param peerState
+     *            a int.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createBgpBkTnEvent(String source, MockNode node, String ipAddr, int peerState) {
-        EventBuilder event = createEventBuilder(source, "http://uei.opennms.org/standards/rfc1657/traps/bgpBackwardTransition", node.getNodeId(), null, null, null);
+        EventBuilder event = createEventBuilder(source,
+                                                "http://uei.opennms.org/standards/rfc1657/traps/bgpBackwardTransition",
+                                                node.getNodeId(), null, null, null);
 
         event.setInterface(addr("1.2.3.4"));
         event.addParam(".1.3.6.1.2.1.15.3.1.7." + ipAddr, peerState);
@@ -476,24 +632,36 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>setEventTime</p>
+     * <p>
+     * setEventTime
+     * </p>
      *
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param date a {@link java.util.Date} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param date
+     *            a {@link java.util.Date} object.
      */
     public static void setEventTime(Event event, Date date) {
         event.setTime(EventConstants.formatToString(date));
     }
 
     /**
-     * <p>createEvent</p>
+     * <p>
+     * createEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createEvent(String source, String uei, int nodeId, String ipAddr, String svcName, String reason) {
@@ -501,17 +669,26 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createEventBuilder</p>
+     * <p>
+     * createEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
-     * @param nodeId a int.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param svcName a {@link java.lang.String} object.
-     * @param reason a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a int.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
-    public static EventBuilder createEventBuilder(String source, String uei, int nodeId, String ipAddr, String svcName, String reason) {
+    public static EventBuilder createEventBuilder(String source, String uei, int nodeId, String ipAddr, String svcName,
+            String reason) {
 
         EventBuilder event = createEventBuilder(source, uei);
         event.setNodeid(nodeId);
@@ -525,10 +702,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createEventBuilder</p>
+     * <p>
+     * createEventBuilder
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param uei a {@link java.lang.String} object.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param uei
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public static EventBuilder createEventBuilder(String source, String uei) {
@@ -540,16 +721,23 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>createReparentEvent</p>
+     * <p>
+     * createReparentEvent
+     * </p>
      *
-     * @param source a {@link java.lang.String} object.
-     * @param ipAddr a {@link java.lang.String} object.
-     * @param oldNode a int.
-     * @param newNode a int.
+     * @param source
+     *            a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
+     * @param oldNode
+     *            a int.
+     * @param newNode
+     *            a int.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createReparentEvent(String source, String ipAddr, int oldNode, int newNode) {
-        EventBuilder event = createEventBuilder(source, EventConstants.INTERFACE_REPARENTED_EVENT_UEI, oldNode, ipAddr, null, null);
+        EventBuilder event = createEventBuilder(source, EventConstants.INTERFACE_REPARENTED_EVENT_UEI, oldNode, ipAddr,
+                                                null, null);
 
         event.addParam(EventConstants.PARM_OLD_NODEID, oldNode);
         event.addParam(EventConstants.PARM_NEW_NODEID, newNode);
@@ -557,9 +745,12 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>convertEventTimeIntoTimestamp</p>
+     * <p>
+     * convertEventTimeIntoTimestamp
+     * </p>
      *
-     * @param eventTime a {@link java.lang.String} object.
+     * @param eventTime
+     *            a {@link java.lang.String} object.
      * @return a {@link java.sql.Timestamp} object.
      */
     public static Timestamp convertEventTimeIntoTimestamp(String eventTime) {
@@ -568,19 +759,22 @@ public abstract class MockEventUtil {
             Date date = EventConstants.parseToDate(eventTime);
             timestamp = new Timestamp(date.getTime());
         } catch (ParseException e) {
-        	LOG.warn("Failed to convert event time {} to timestamp.", eventTime, e);
+            LOG.warn("Failed to convert event time {} to timestamp.", eventTime, e);
 
             timestamp = new Timestamp((new Date()).getTime());
         }
         return timestamp;
     }
 
-
     /**
-     * <p>eventsMatch</p>
+     * <p>
+     * eventsMatch
+     * </p>
      *
-     * @param e1 a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param e2 a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e1
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e2
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      * @deprecated Use {@link EventUtils#eventsMatch(Event,Event)} instead
      */
@@ -589,10 +783,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>eventsMatchDeep</p>
+     * <p>
+     * eventsMatchDeep
+     * </p>
      *
-     * @param e1 a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param e2 a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e1
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param e2
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean.
      */
     public static boolean eventsMatchDeep(Event e1, Event e2) {
@@ -644,10 +842,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>printEvent</p>
+     * <p>
+     * printEvent
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static void printEvent(String prefix, Event event) {
         if (!MockUtil.printEnabled()) {
@@ -660,10 +862,14 @@ public abstract class MockEventUtil {
     }
 
     /**
-     * <p>printEvents</p>
+     * <p>
+     * printEvents
+     * </p>
      *
-     * @param prefix a {@link java.lang.String} object.
-     * @param events a {@link java.util.Collection} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
+     * @param events
+     *            a {@link java.util.Collection} object.
      */
     public static void printEvents(String prefix, Collection<Event> events) {
         if (!MockUtil.printEnabled()) {

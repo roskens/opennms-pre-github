@@ -41,10 +41,9 @@ import org.slf4j.LoggerFactory;
  * interface table. It implements the SnmpHandler to receive notifications and
  * handle errors associated with the data collection. Data is collected using a
  * series of GETNEXT PDU request to walk multiple parts of the interface table
- * at once. The number of SNMP packets should not exceed the number of interface +
- * 1, assuming no lost packets or error conditions occur.
+ * at once. The number of SNMP packets should not exceed the number of interface
+ * + 1, assuming no lost packets or error conditions occur.
  * </P>
- *
  * <p>
  * <em>Addition by Jon Whetzel</em>
  * </p>
@@ -73,7 +72,8 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * </EM> to inform other threads.
      * </P>
      *
-     * @param address TODO
+     * @param address
+     *            TODO
      * @see IfTableEntry
      */
     public IfTable(InetAddress address) {
@@ -86,15 +86,17 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
         return new IfTableEntry();
     }
 
-
     /**
-     * <p>getEntry</p>
+     * <p>
+     * getEntry
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link org.opennms.netmgt.capsd.snmp.IfTableEntry} object.
      */
     public IfTableEntry getEntry(int ifIndex) {
-        for(IfTableEntry entry : this) {
+        for (IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
                 return entry;
@@ -105,13 +107,16 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     }
 
     /**
-     * <p>getOperStatus</p>
+     * <p>
+     * getOperStatus
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a int.
      */
     public int getOperStatus(int ifIndex) {
-        for(IfTableEntry entry : this) {
+        for (IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
                 // found it
@@ -126,13 +131,16 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     }
 
     /**
-     * <p>getAdminStatus</p>
+     * <p>
+     * getAdminStatus
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a int.
      */
     public int getAdminStatus(int ifIndex) {
-        for(IfTableEntry entry : this) {
+        for (IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
                 // found it
@@ -147,13 +155,16 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     }
 
     /**
-     * <p>getIfType</p>
+     * <p>
+     * getIfType
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a int.
      */
     public int getIfType(int ifIndex) {
-        for(IfTableEntry entry : this) {
+        for (IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
                 // found it
@@ -168,14 +179,17 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     }
 
     /**
-     * <p>getIfDescr</p>
+     * <p>
+     * getIfDescr
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getIfDescr(final int ifIndex) {
         String ifDescr = null;
-        for(IfTableEntry entry : this) {
+        for (IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
                 ifDescr = entry.getIfDescr();
@@ -185,14 +199,17 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     }
 
     /**
-     * <p>getIfSpeed</p>
+     * <p>
+     * getIfSpeed
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.Long} object.
      */
     public Long getIfSpeed(final int ifIndex) {
         Long ifSpeed = null;
-        for(IfTableEntry entry : this) {
+        for (IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
                 ifSpeed = entry.getIfSpeed();
@@ -202,14 +219,17 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     }
 
     /**
-     * <p>getPhysAddr</p>
+     * <p>
+     * getPhysAddr
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.lang.String} object.
      */
     public String getPhysAddr(final int ifIndex) {
         String physAddr = null;
-        for(IfTableEntry entry : this) {
+        for (IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
                 physAddr = entry.getPhysAddr();

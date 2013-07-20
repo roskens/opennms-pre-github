@@ -37,24 +37,30 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.config.snmp.Range;
 
 /**
- * Use this class to compare two castor generated Range objects from the SnmpConfig class.
+ * Use this class to compare two castor generated Range objects from the
+ * SnmpConfig class.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class RangeComparator implements Comparator<Range>, Serializable {
-	private static final long serialVersionUID = -6090811413071744038L;
+    private static final long serialVersionUID = -6090811413071744038L;
 
-	/**
-     * <p>compare</p>
+    /**
+     * <p>
+     * compare
+     * </p>
      *
-     * @param rng1 a {@link org.opennms.netmgt.config.common.Range} object.
-     * @param rng2 a {@link org.opennms.netmgt.config.common.Range} object.
+     * @param rng1
+     *            a {@link org.opennms.netmgt.config.common.Range} object.
+     * @param rng2
+     *            a {@link org.opennms.netmgt.config.common.Range} object.
      * @return a int.
      */
-        @Override
+    @Override
     public int compare(final Range rng1, final Range rng2) {
-    	final InetAddress addr1 = InetAddressUtils.addr(rng1.getBegin());
-		final InetAddress addr2 = InetAddressUtils.addr(rng2.getBegin());
-		return new ByteArrayComparator().compare(addr1 == null? null : addr1.getAddress(), addr2 == null? null : addr2.getAddress());
+        final InetAddress addr1 = InetAddressUtils.addr(rng1.getBegin());
+        final InetAddress addr2 = InetAddressUtils.addr(rng2.getBegin());
+        return new ByteArrayComparator().compare(addr1 == null ? null : addr1.getAddress(), addr2 == null ? null
+            : addr2.getAddress());
     }
 }

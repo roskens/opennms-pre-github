@@ -43,11 +43,12 @@ import org.opennms.features.poller.remote.gwt.client.utils.EqualsUtil;
 import org.opennms.features.poller.remote.gwt.client.utils.HashCodeBuilder;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
+
 public class GWTServiceOutage implements Serializable, IsSerializable, Comparable<GWTServiceOutage> {
 
-	private static final long serialVersionUID = -569168075556078550L;
+    private static final long serialVersionUID = -569168075556078550L;
 
-	private GWTLocationMonitor m_monitor;
+    private GWTLocationMonitor m_monitor;
 
     private GWTMonitoredService m_service;
 
@@ -56,16 +57,26 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
     private Date m_to;
 
     /**
-     * <p>Constructor for GWTServiceOutage.</p>
+     * <p>
+     * Constructor for GWTServiceOutage.
+     * </p>
      */
     public GWTServiceOutage() {
     }
 
     /**
-     * <p>Constructor for GWTServiceOutage.</p>
+     * <p>
+     * Constructor for GWTServiceOutage.
+     * </p>
      *
-     * @param monitor a {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor} object.
-     * @param service a {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService} object.
+     * @param monitor
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor}
+     *            object.
+     * @param service
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
+     *            object.
      */
     public GWTServiceOutage(final GWTLocationMonitor monitor, final GWTMonitoredService service) {
         m_monitor = monitor;
@@ -73,7 +84,9 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
     }
 
     /**
-     * <p>getFrom</p>
+     * <p>
+     * getFrom
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -82,16 +95,21 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
     }
 
     /**
-     * <p>setFrom</p>
+     * <p>
+     * setFrom
+     * </p>
      *
-     * @param from a {@link java.util.Date} object.
+     * @param from
+     *            a {@link java.util.Date} object.
      */
     public void setFrom(final Date from) {
         m_from = from;
     }
 
     /**
-     * <p>getTo</p>
+     * <p>
+     * getTo
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -100,52 +118,73 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
     }
 
     /**
-     * <p>setTo</p>
+     * <p>
+     * setTo
+     * </p>
      *
-     * @param to a {@link java.util.Date} object.
+     * @param to
+     *            a {@link java.util.Date} object.
      */
     public void setTo(final Date to) {
         m_to = to;
     }
 
     /**
-     * <p>getMonitor</p>
+     * <p>
+     * getMonitor
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor}
+     *         object.
      */
     public GWTLocationMonitor getMonitor() {
         return m_monitor;
     }
 
     /**
-     * <p>setMonitor</p>
+     * <p>
+     * setMonitor
+     * </p>
      *
-     * @param monitor a {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor} object.
+     * @param monitor
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor}
+     *            object.
      */
     public void setMonitor(final GWTLocationMonitor monitor) {
         m_monitor = monitor;
     }
 
     /**
-     * <p>getService</p>
+     * <p>
+     * getService
+     * </p>
      *
-     * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService} object.
+     * @return a
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
+     *         object.
      */
     public GWTMonitoredService getService() {
         return m_service;
     }
 
     /**
-     * <p>setService</p>
+     * <p>
+     * setService
+     * </p>
      *
-     * @param service a {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService} object.
+     * @param service
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
+     *            object.
      */
     public void setService(final GWTMonitoredService service) {
         m_service = service;
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof GWTServiceOutage))
             return false;
@@ -154,51 +193,58 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
         final GWTLocationMonitor thatMonitor = that.getMonitor();
         final GWTMonitoredService thisService = this.getService();
         final GWTMonitoredService thatService = that.getService();
-        return EqualsUtil.areEqual(
-            thisMonitor == null? null : thisMonitor.getId(),
-            thatMonitor == null? null : thatMonitor.getId()
-        ) && EqualsUtil.areEqual(
-            thisService == null? null : thisService.getId(),
-            thatService == null? null : thatService.getId()
-        ) && EqualsUtil.areEqual(this.getFrom(), that.getFrom())
-          && EqualsUtil.areEqual(this.getTo(), that.getTo());
+        return EqualsUtil.areEqual(thisMonitor == null ? null : thisMonitor.getId(), thatMonitor == null ? null
+            : thatMonitor.getId())
+                && EqualsUtil.areEqual(thisService == null ? null : thisService.getId(), thatService == null ? null
+                    : thatService.getId())
+                && EqualsUtil.areEqual(this.getFrom(), that.getFrom())
+                && EqualsUtil.areEqual(this.getTo(), that.getTo());
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
-        @Override
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(this.getMonitor()).append(this.getService()).append(this.getFrom()).append(this.getTo()).toHashcode();
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String toString() {
-        return "GWTServiceOutage[monitor=" + m_monitor + ",service=" + m_service + ",from=" + m_from + ",to=" + m_to + "]";
+        return "GWTServiceOutage[monitor=" + m_monitor + ",service=" + m_service + ",from=" + m_from + ",to=" + m_to
+                + "]";
     }
 
     /**
-     * <p>compareTo</p>
+     * <p>
+     * compareTo
+     * </p>
      *
-     * @param that a {@link org.opennms.features.poller.remote.gwt.client.GWTServiceOutage} object.
+     * @param that
+     *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTServiceOutage}
+     *            object.
      * @return a int.
      */
-        @Override
+    @Override
     public int compareTo(final GWTServiceOutage that) {
-        if (that == null) return -1;
-        return new CompareToBuilder()
-            .append(this.getService(), that.getService())
-            .append(this.getFrom(), that.getFrom())
-            .append(this.getMonitor(), that.getMonitor())
-            .append(this.getTo(),that.getTo())
-            .toComparison();
+        if (that == null)
+            return -1;
+        return new CompareToBuilder().append(this.getService(), that.getService()).append(this.getFrom(),
+                                                                                          that.getFrom()).append(this.getMonitor(),
+                                                                                                                 that.getMonitor()).append(this.getTo(),
+                                                                                                                                           that.getTo()).toComparison();
     }
 
 }

@@ -62,14 +62,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/component-service.xml",
-        "classpath:/daoWebRepositoryTestContext.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml", "classpath:/daoWebRepositoryTestContext.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AlarmRepositoryTest implements InitializingBean {
@@ -89,14 +85,14 @@ public class AlarmRepositoryTest implements InitializingBean {
     }
 
     @Before
-    public final void setUp(){
-       m_dbPopulator.populateDatabase();
+    public final void setUp() {
+        m_dbPopulator.populateDatabase();
     }
 
     @Test
     @Transactional
     @JUnitTemporaryDatabase
-    public final void testGetAlarmById(){
+    public final void testGetAlarmById() {
         OnmsAlarm alarm = m_alarmRepo.getAlarm(1);
         assertNotNull(alarm);
 
@@ -110,7 +106,7 @@ public class AlarmRepositoryTest implements InitializingBean {
 
     @Test
     @JUnitTemporaryDatabase
-    public final void testCountMatchingAlarms(){
+    public final void testCountMatchingAlarms() {
         int alarms = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmIdFilter(1))));
         assertEquals(1, alarms);
 
@@ -121,13 +117,13 @@ public class AlarmRepositoryTest implements InitializingBean {
     @Test
     @Transactional
     @JUnitTemporaryDatabase
-    public final void testCountMatchingAlarmsBySeverity(){
+    public final void testCountMatchingAlarmsBySeverity() {
         AlarmCriteria criteria = new AlarmCriteria();
-        int [] matchingAlarms = m_alarmRepo.countMatchingAlarmsBySeverity(AlarmUtil.getOnmsCriteria(criteria));
+        int[] matchingAlarms = m_alarmRepo.countMatchingAlarmsBySeverity(AlarmUtil.getOnmsCriteria(criteria));
 
         assertEquals(8, matchingAlarms.length);
 
-        //Make sure that the count is correct per severity
+        // Make sure that the count is correct per severity
         assertEquals(0, matchingAlarms[OnmsSeverity.CLEARED.getId()]);
         assertEquals(0, matchingAlarms[OnmsSeverity.CRITICAL.getId()]);
         assertEquals(0, matchingAlarms[OnmsSeverity.INDETERMINATE.getId()]);
@@ -139,12 +135,18 @@ public class AlarmRepositoryTest implements InitializingBean {
 
     @Test
     @JUnitTemporaryDatabase
-    public final void testGetMatchingAlarms(){
-        OnmsAlarm[] alarms = m_alarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new SeverityFilter(OnmsSeverity.NORMAL), new AlarmIdFilter(1))));
+    public final void testGetMatchingAlarms() {
+        OnmsAlarm[] alarms = m_alarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                       new SeverityFilter(
+                                                                                                                          OnmsSeverity.NORMAL),
+                                                                                                       new AlarmIdFilter(
+                                                                                                                         1))));
         assertNotNull(alarms);
         assertEquals(1, alarms.length);
 
-        alarms = m_alarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new SeverityFilter(OnmsSeverity.MAJOR))));
+        alarms = m_alarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                           new SeverityFilter(
+                                                                                                              OnmsSeverity.MAJOR))));
         assertNotNull(alarms);
         assertEquals(0, alarms.length);
     }
@@ -153,7 +155,8 @@ public class AlarmRepositoryTest implements InitializingBean {
     @JUnitTemporaryDatabase
     public final void testGetUnacknowledgedAlarms() {
         OnmsCriteria acked = AlarmUtil.getOnmsCriteria(new AlarmCriteria(AcknowledgeType.ACKNOWLEDGED, new Filter[0]));
-        OnmsCriteria unacked = AlarmUtil.getOnmsCriteria(new AlarmCriteria(AcknowledgeType.UNACKNOWLEDGED, new Filter[0]));
+        OnmsCriteria unacked = AlarmUtil.getOnmsCriteria(new AlarmCriteria(AcknowledgeType.UNACKNOWLEDGED,
+                                                                           new Filter[0]));
         OnmsCriteria all = AlarmUtil.getOnmsCriteria(new AlarmCriteria(AcknowledgeType.BOTH, new Filter[0]));
 
         int countAll = m_alarmRepo.countMatchingAlarms(all);
@@ -174,27 +177,34 @@ public class AlarmRepositoryTest implements InitializingBean {
         OnmsAlarm[] allAlarms = m_alarmRepo.getMatchingAlarms(all);
         assertEquals(countAll, allAlarms.length);
 
-        m_alarmRepo.acknowledgeMatchingAlarms("TestUser", new Date(), AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmIdFilter(1))));
+        m_alarmRepo.acknowledgeMatchingAlarms("TestUser", new Date(),
+                                              AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmIdFilter(1))));
 
-        assertEquals(countAcked+1, m_alarmRepo.countMatchingAlarms(acked));
-        assertEquals(countUnacked-1, m_alarmRepo.countMatchingAlarms(unacked));
+        assertEquals(countAcked + 1, m_alarmRepo.countMatchingAlarms(acked));
+        assertEquals(countUnacked - 1, m_alarmRepo.countMatchingAlarms(unacked));
 
-}
+    }
 
     @Test
     @JUnitTemporaryDatabase
     public final void testAcknowledgeUnacknowledge() {
 
         String user = "TestUser";
-        m_alarmRepo.acknowledgeMatchingAlarms(user, new Date(), AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmIdFilter(1))));
+        m_alarmRepo.acknowledgeMatchingAlarms(user, new Date(),
+                                              AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmIdFilter(1))));
 
-        int matchingAlarmCount = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AcknowledgedByFilter(user))));
+        int matchingAlarmCount = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                             new AcknowledgedByFilter(
+                                                                                                                                      user))));
 
         assertEquals(1, matchingAlarmCount);
 
-        m_alarmRepo.unacknowledgeMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmIdFilter(1))), user);
+        m_alarmRepo.unacknowledgeMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmIdFilter(1))),
+                                                user);
 
-        matchingAlarmCount = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AcknowledgedByFilter(user))));
+        matchingAlarmCount = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                         new AcknowledgedByFilter(
+                                                                                                                                  user))));
 
         assertEquals(0, matchingAlarmCount);
     }
@@ -204,10 +214,10 @@ public class AlarmRepositoryTest implements InitializingBean {
     @JUnitTemporaryDatabase
     public final void testSort() {
 
-        for(SortStyle style : SortStyle.values()) {
+        for (SortStyle style : SortStyle.values()) {
             AlarmCriteria sorted = new AlarmCriteria(new Filter[0], style, AcknowledgeType.UNACKNOWLEDGED, 100, 0);
             OnmsAlarm[] alarms = m_alarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(sorted));
-            assertTrue("Failed to sort with style "+style, alarms.length > 0);
+            assertTrue("Failed to sort with style " + style, alarms.length > 0);
         }
     }
 
@@ -220,7 +230,7 @@ public class AlarmRepositoryTest implements InitializingBean {
 
         AlarmCriteria sorted = new AlarmCriteria(filters, SortStyle.NODE, AcknowledgeType.UNACKNOWLEDGED, 100, 0);
         OnmsAlarm[] alarms = m_alarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(sorted));
-        assertTrue("Failed to sort with style "+SortStyle.NODE, alarms.length > 0);
+        assertTrue("Failed to sort with style " + SortStyle.NODE, alarms.length > 0);
     }
 
     @Test
@@ -230,30 +240,38 @@ public class AlarmRepositoryTest implements InitializingBean {
         String user = "TestUser";
         m_alarmRepo.acknowledgeAll(user, new Date());
 
-        int matchingAlarmCount = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AcknowledgedByFilter(user))));
+        int matchingAlarmCount = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                             new AcknowledgedByFilter(
+                                                                                                                                      user))));
         assertEquals(1, matchingAlarmCount);
 
         m_alarmRepo.unacknowledgeAll(user);
 
-        matchingAlarmCount = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AcknowledgedByFilter(user))));
+        matchingAlarmCount = m_alarmRepo.countMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                         new AcknowledgedByFilter(
+                                                                                                                                  user))));
         assertEquals(0, matchingAlarmCount);
     }
 
     @Test
     @Transactional
     @JUnitTemporaryDatabase
-    public final void testCountMatchingBySeverity(){
-        int[] matchingAlarmCount = m_alarmRepo.countMatchingAlarmsBySeverity(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new SeverityFilter(OnmsSeverity.NORMAL))));
+    public final void testCountMatchingBySeverity() {
+        int[] matchingAlarmCount = m_alarmRepo.countMatchingAlarmsBySeverity(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                                         new SeverityFilter(
+                                                                                                                                            OnmsSeverity.NORMAL))));
         assertEquals(8, matchingAlarmCount.length);
     }
 
     @Test
     @JUnitTemporaryDatabase
     public final void testEscalateAlarms() {
-        int[] alarmIds = {1};
+        int[] alarmIds = { 1 };
         m_alarmRepo.escalateAlarms(alarmIds, "TestUser", new Date());
 
-        OnmsAlarm[] alarms = m_alarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(new AlarmIdFilter(1))));
+        OnmsAlarm[] alarms = m_alarmRepo.getMatchingAlarms(AlarmUtil.getOnmsCriteria(new AlarmCriteria(
+                                                                                                       new AlarmIdFilter(
+                                                                                                                         1))));
 
         assertNotNull(alarms);
 
@@ -262,13 +280,13 @@ public class AlarmRepositoryTest implements InitializingBean {
 
     @Test
     @JUnitTemporaryDatabase
-    public final void testClearAlarms(){
+    public final void testClearAlarms() {
         OnmsAlarm alarm = m_alarmRepo.getAlarm(1);
 
         assertNotNull(alarm);
         assertEquals(OnmsSeverity.NORMAL.getId(), alarm.getSeverity().getId());
 
-        int[] alarmIds = {1};
+        int[] alarmIds = { 1 };
         m_alarmRepo.clearAlarms(alarmIds, "TestUser", new Date());
 
         alarm = m_alarmRepo.getAlarm(1);
@@ -278,7 +296,7 @@ public class AlarmRepositoryTest implements InitializingBean {
 
     @Test
     @JUnitTemporaryDatabase
-    public final void testAcknowledgements(){
+    public final void testAcknowledgements() {
         m_alarmRepo.acknowledgeAlarms(new int[] { 1 }, "agalue", new Date());
         List<OnmsAcknowledgment> acks = m_alarmRepo.getAcknowledgments(1);
         Assert.assertNotNull(acks);

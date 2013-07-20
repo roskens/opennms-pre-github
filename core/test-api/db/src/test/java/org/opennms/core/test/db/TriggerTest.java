@@ -34,7 +34,6 @@ import org.opennms.test.ThrowableAnticipator;
 
 public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
 
-
     public void testSetIpInterfaceIfIndexLikeCapsdDoes() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
@@ -47,7 +46,8 @@ public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
         executeSQL("UPDATE ipInterface SET ifIndex = 1 WHERE nodeID = 1 AND ipAddr = '1.2.3.4'");
         assertEquals("ifIndex", 1, jdbcTemplate.queryForInt("SELECT ifIndex FROM ipinterface"));
 
-        assertEquals("snmpInterfaceId", 2, jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
+        assertEquals("snmpInterfaceId", 2,
+                     jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
     }
 
     public void testSetIpInterfaceIfIndexLikeCapsdDoesBadIfIndex() throws Exception {
@@ -60,11 +60,11 @@ public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new AssertionFailedError(ThrowableAnticipator.IGNORE_MESSAGE));
         try {
-        	executeSQL("UPDATE ipInterface SET ifIndex = 2 WHERE nodeID = 1 AND ipAddr = '1.2.3.4'");
+            executeSQL("UPDATE ipInterface SET ifIndex = 2 WHERE nodeID = 1 AND ipAddr = '1.2.3.4'");
         } catch (Throwable t) {
-        	ta.throwableReceived(t);
+            ta.throwableReceived(t);
         } finally {
-        	ta.verifyAnticipated();
+            ta.verifyAnticipated();
         }
     }
 
@@ -73,7 +73,8 @@ public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 1 )");
 
-        assertEquals("snmpInterfaceId", 1, jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
+        assertEquals("snmpInterfaceId", 1,
+                     jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
     }
 
     public void testSetIpInterfaceIfIndexLikeCapsdButOppositeOrderUpdateWithBadIfIndex() throws Exception {
@@ -81,16 +82,17 @@ public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 1 )");
 
-        assertEquals("snmpInterfaceId", 1, jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
+        assertEquals("snmpInterfaceId", 1,
+                     jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new AssertionFailedError(ThrowableAnticipator.IGNORE_MESSAGE));
         try {
-        	executeSQL("UPDATE ipInterface SET ifIndex = 2 WHERE nodeID = 1 AND ipAddr = '1.2.3.4'");
+            executeSQL("UPDATE ipInterface SET ifIndex = 2 WHERE nodeID = 1 AND ipAddr = '1.2.3.4'");
         } catch (Throwable t) {
-        	ta.throwableReceived(t);
+            ta.throwableReceived(t);
         } finally {
-        	ta.verifyAnticipated();
+            ta.verifyAnticipated();
         }
     }
 }

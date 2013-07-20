@@ -54,13 +54,14 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class SystemReportController extends AbstractController implements InitializingBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SystemReportController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SystemReportController.class);
 
     private SystemReport m_systemReport;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response)
+            throws Exception {
         String operation = request.getParameter("operation");
 
         if (!StringUtils.hasText(operation)) {
@@ -69,7 +70,7 @@ public class SystemReportController extends AbstractController implements Initia
 
         LOG.debug("Calling operation {} in SystemReportController", operation);
 
-        if ("run".equalsIgnoreCase(operation)){
+        if ("run".equalsIgnoreCase(operation)) {
             SystemReportFormatter formatter = null;
             final String formatterName = request.getParameter("formatter");
 
@@ -81,7 +82,8 @@ public class SystemReportController extends AbstractController implements Initia
             }
 
             if (formatter == null) {
-                throw new FormatterNotFoundException("Unable to locate formatter plugin for format type '" + formatterName + "'");
+                throw new FormatterNotFoundException("Unable to locate formatter plugin for format type '"
+                        + formatterName + "'");
             }
 
             final List<String> selectedPlugins = Arrays.asList(request.getParameterValues("plugins"));
@@ -92,7 +94,8 @@ public class SystemReportController extends AbstractController implements Initia
                 }
             }
 
-            return new ModelAndView(new FormatterView(formatter), "report", new SystemReportInfo(Arrays.asList(formatter), plugins));
+            return new ModelAndView(new FormatterView(formatter), "report",
+                                    new SystemReportInfo(Arrays.asList(formatter), plugins));
         } else {
             return new ModelAndView("redirect:/admin/support/systemReportList.htm");
         }

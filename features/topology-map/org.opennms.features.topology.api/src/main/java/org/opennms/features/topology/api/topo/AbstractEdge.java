@@ -33,75 +33,82 @@ import com.vaadin.data.util.BeanItem;
 
 public class AbstractEdge extends AbstractEdgeRef implements Edge {
 
-	private final SimpleConnector m_source;
-	private final SimpleConnector m_target;
+    private final SimpleConnector m_source;
 
-	private String m_tooltipText;
-	private String m_styleName;
+    private final SimpleConnector m_target;
 
-	public AbstractEdge(String namespace, String id, Vertex source, Vertex target) {
-		super(namespace, id);
-		if (source == null) {
-			throw new IllegalArgumentException("Source is null");
-		} else if (target == null) {
-			throw new IllegalArgumentException("Target is null");
-		}
-		m_source = new SimpleConnector(namespace, id + "::" + source.getId(), source.getLabel() + " Connector", source, this);
-		m_target = new SimpleConnector(namespace, id + "::" + target.getId(), target.getLabel() + " Connector", target, this);
-		m_styleName = "edge";
-	}
+    private String m_tooltipText;
 
-	public AbstractEdge(String namespace, String id, SimpleConnector source, SimpleConnector target) {
-		super(namespace, id);
-		m_source = source;
-		m_target = target;
-		m_styleName = "edge";
-	}
+    private String m_styleName;
 
-	/**
-	 * @deprecated Use namespace/id tuple
-	 */
-	@Override
-	public String getKey() {
-		return getNamespace() + ":" + getId();
-	}
+    public AbstractEdge(String namespace, String id, Vertex source, Vertex target) {
+        super(namespace, id);
+        if (source == null) {
+            throw new IllegalArgumentException("Source is null");
+        } else if (target == null) {
+            throw new IllegalArgumentException("Target is null");
+        }
+        m_source = new SimpleConnector(namespace, id + "::" + source.getId(), source.getLabel() + " Connector", source,
+                                       this);
+        m_target = new SimpleConnector(namespace, id + "::" + target.getId(), target.getLabel() + " Connector", target,
+                                       this);
+        m_styleName = "edge";
+    }
 
-	@Override
-	public String getTooltipText() {
-		return m_tooltipText;
-	}
+    public AbstractEdge(String namespace, String id, SimpleConnector source, SimpleConnector target) {
+        super(namespace, id);
+        m_source = source;
+        m_target = target;
+        m_styleName = "edge";
+    }
 
-	@Override
-	public final String getStyleName() {
-		return m_styleName;
-	}
+    /**
+     * @deprecated Use namespace/id tuple
+     */
+    @Override
+    public String getKey() {
+        return getNamespace() + ":" + getId();
+    }
 
-	@Override
-	public final void setTooltipText(String tooltipText) {
-		m_tooltipText = tooltipText;
-	}
+    @Override
+    public String getTooltipText() {
+        return m_tooltipText;
+    }
 
-	@Override
-	public final void setStyleName(String styleName) {
-		m_styleName = styleName;
-	}
+    @Override
+    public final String getStyleName() {
+        return m_styleName;
+    }
 
-	@Override
-	public Item getItem() {
-		return new BeanItem<AbstractEdge>(this);
-	}
+    @Override
+    public final void setTooltipText(String tooltipText) {
+        m_tooltipText = tooltipText;
+    }
 
-	@Override
-	public final SimpleConnector getSource() {
-		return m_source;
-	}
+    @Override
+    public final void setStyleName(String styleName) {
+        m_styleName = styleName;
+    }
 
-	@Override
-	public final SimpleConnector getTarget() {
-		return m_target;
-	}
+    @Override
+    public Item getItem() {
+        return new BeanItem<AbstractEdge>(this);
+    }
 
-	@Override
-	public String toString() { return "Edge:"+getNamespace()+":"+getId() + "[label="+getLabel()+", styleName="+getStyleName()+"]"; }
+    @Override
+    public final SimpleConnector getSource() {
+        return m_source;
+    }
+
+    @Override
+    public final SimpleConnector getTarget() {
+        return m_target;
+    }
+
+    @Override
+    public String toString() {
+        return "Edge:" + getNamespace() + ":" + getId() + "[label=" + getLabel() + ", styleName=" + getStyleName()
+                + "]";
+    }
 
 }

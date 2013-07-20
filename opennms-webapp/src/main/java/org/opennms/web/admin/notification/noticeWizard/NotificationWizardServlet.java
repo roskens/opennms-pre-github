@@ -75,7 +75,8 @@ public class NotificationWizardServlet extends HttpServlet {
      */
     private static final long serialVersionUID = -8394875468854510137L;
 
-    //SOURCE_PAGE_EVENTS_VIEW is more of a tag than an actual page - can't be used for navigation as is
+    // SOURCE_PAGE_EVENTS_VIEW is more of a tag than an actual page - can't be
+    // used for navigation as is
     /** Constant <code>SOURCE_PAGE_OTHER_WEBUI="eventslist"</code> */
     public static final String SOURCE_PAGE_OTHER_WEBUI = "eventslist";
 
@@ -97,7 +98,10 @@ public class NotificationWizardServlet extends HttpServlet {
     /** Constant <code>SOURCE_PAGE_PATH_OUTAGE="buildPathOutage.jsp"</code> */
     public static final String SOURCE_PAGE_PATH_OUTAGE = "buildPathOutage.jsp";
 
-    /** Constant <code>SOURCE_PAGE_VALIDATE_PATH_OUTAGE="validatePathOutage.jsp"</code> */
+    /**
+     * Constant
+     * <code>SOURCE_PAGE_VALIDATE_PATH_OUTAGE="validatePathOutage.jsp"</code>
+     */
     public static final String SOURCE_PAGE_VALIDATE_PATH_OUTAGE = "validatePathOutage.jsp";
 
     /** Constant <code>SOURCE_PAGE_PATH="choosePath.jsp"</code> */
@@ -325,8 +329,9 @@ public class NotificationWizardServlet extends HttpServlet {
         String varbindName = request.getParameter("varbindName");
         String varbindValue = request.getParameter("varbindValue");
 
-        Varbind varbind=newNotice.getVarbind();
-        if (varbindName != null && !varbindName.trim().equals("") && varbindValue != null && !varbindValue.trim().equals("")) {
+        Varbind varbind = newNotice.getVarbind();
+        if (varbindName != null && !varbindName.trim().equals("") && varbindValue != null
+                && !varbindValue.trim().equals("")) {
             if (varbind == null) {
                 varbind = new Varbind();
                 newNotice.setVarbind(varbind);
@@ -345,12 +350,13 @@ public class NotificationWizardServlet extends HttpServlet {
             throw new ServletException("Couldn't save/reload notification configuration file.", e);
         }
 
-        String suppliedReturnPage=(String)user.getAttribute("noticeWizardReturnPage");
+        String suppliedReturnPage = (String) user.getAttribute("noticeWizardReturnPage");
         if (suppliedReturnPage != null && !suppliedReturnPage.equals("")) {
-            // Remove this attribute once we have consumed it, else the user may later
-        	// get returned to a potentially unexpected page here
-        	user.removeAttribute("noticeWizardReturnPage");
-        	return suppliedReturnPage;
+            // Remove this attribute once we have consumed it, else the user may
+            // later
+            // get returned to a potentially unexpected page here
+            user.removeAttribute("noticeWizardReturnPage");
+            return suppliedReturnPage;
         } else {
             return SOURCE_PAGE_NOTICES;
         }
@@ -432,8 +438,10 @@ public class NotificationWizardServlet extends HttpServlet {
     private String processOtherWebUi(HttpServletRequest request, HttpSession user) throws ServletException {
         /*
          * We've come from elsewhere in the Web UI page, and will have a UEI.
-         * If there are existing notices for this UEI, then go to a page listing them allowing editing.
-         * If there are none, then create a notice, populate the UEI, and go to the buildRule page.
+         * If there are existing notices for this UEI, then go to a page listing
+         * them allowing editing.
+         * If there are none, then create a notice, populate the UEI, and go to
+         * the buildRule page.
          */
         user.setAttribute("noticeWizardReturnPage", request.getParameter("returnPage"));
         String uei = request.getParameter("uei");
@@ -442,15 +450,22 @@ public class NotificationWizardServlet extends HttpServlet {
         try {
             hasUei = getNotificationFactory().hasUei(uei);
         } catch (IOException e) {
-            throw new ServletException("IOException while checking if there is an existing notification for UEI "+uei, e);
+            throw new ServletException(
+                                       "IOException while checking if there is an existing notification for UEI " + uei,
+                                       e);
         } catch (MarshalException e) {
-            throw new ServletException("Marshalling Exception while checking if there is an existing notification for UEI "+uei, e);
+            throw new ServletException(
+                                       "Marshalling Exception while checking if there is an existing notification for UEI "
+                                               + uei, e);
         } catch (ValidationException e) {
-            throw new ServletException("Validation Exception while checking if there is an existing notification for UEI "+uei, e);
+            throw new ServletException(
+                                       "Validation Exception while checking if there is an existing notification for UEI "
+                                               + uei, e);
         }
 
         if (hasUei) {
-            //There are existing notifications for this UEI - goto a listing page
+            // There are existing notifications for this UEI - goto a listing
+            // page
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("uei", uei);
             return SOURCE_PAGE_NOTIFS_FOR_UEI + makeQueryString(params);
@@ -641,8 +656,8 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
-    private void updatePaths(String rule, String criticalIp, String criticalSvc)
-                                 throws FilterParseException, SQLException {
+    private void updatePaths(String rule, String criticalIp, String criticalSvc) throws FilterParseException,
+            SQLException {
         Connection conn = Vault.getDbConnection();
         SortedMap<Integer, String> nodes = getFilterDao().getNodeMap(rule);
         try {

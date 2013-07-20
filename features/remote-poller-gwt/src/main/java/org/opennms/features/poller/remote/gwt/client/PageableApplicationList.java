@@ -50,7 +50,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <p>PageableApplicationList class.</p>
+ * <p>
+ * PageableApplicationList class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -59,28 +61,38 @@ import com.google.gwt.user.client.ui.Widget;
 public class PageableApplicationList extends PageableList implements ApplicationDetailsRetrievedEventHandler {
 
     private ArrayList<ApplicationInfo> m_applications;
+
     private HandlerManager m_eventBus;
+
     private Set<ApplicationInfo> m_selected = null;
+
     private Map<String, ApplicationDetails> m_selectedAppDetails = new HashMap<String, ApplicationDetails>();
 
     interface ApplicationDetailStyle extends LocationDetailStyle {
         @Override
         String detailContainerStyle();
+
         @Override
         String iconStyle();
+
         @Override
         String nameStyle();
+
         @Override
         String areaStyle();
+
         @Override
         String statusStyle();
+
         @Override
         String alternateRowStyle();
     }
 
     private class ApplicationDetailView extends Widget {
         final Image m_icon = new Image();
+
         final Label m_nameLabel = new Label();
+
         final HTML m_statusLabel = new HTML();
 
         @Override
@@ -114,7 +126,8 @@ public class PageableApplicationList extends PageableList implements Application
 
         private String getApplicationStatusHTML(final ApplicationInfo applicationInfo) {
             if (m_selected != null && checkIfApplicationIsSelected(applicationInfo.getName())) {
-                return getSelectedApplicationDetailsAsString(applicationInfo.getName()) != null ? getSelectedApplicationDetailsAsString(applicationInfo.getName()) : applicationInfo.getStatusDetails().getReason();
+                return getSelectedApplicationDetailsAsString(applicationInfo.getName()) != null ? getSelectedApplicationDetailsAsString(applicationInfo.getName())
+                    : applicationInfo.getStatusDetails().getReason();
             } else {
                 return applicationInfo.getStatusDetails().getReason();
             }
@@ -129,33 +142,40 @@ public class PageableApplicationList extends PageableList implements Application
         }
     }
 
-
     /**
-     * <p>Constructor for PageableApplicationList.</p>
+     * <p>
+     * Constructor for PageableApplicationList.
+     * </p>
      */
     public PageableApplicationList() {
         super();
     }
 
     /**
-     * <p>getSelectedApplicationDetailsAsString</p>
+     * <p>
+     * getSelectedApplicationDetailsAsString
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public String getSelectedApplicationDetailsAsString(String name) {
         ApplicationDetails appDetails = m_selectedAppDetails.get(name);
-        if(appDetails != null) {
+        if (appDetails != null) {
             return appDetails.getDetailsAsString();
-        }else {
+        } else {
             return null;
         }
     }
 
     /**
-     * <p>checkIfApplicationIsSelected</p>
+     * <p>
+     * checkIfApplicationIsSelected
+     * </p>
      *
-     * @param name a {@link java.lang.String} object.
+     * @param name
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean checkIfApplicationIsSelected(String name) {
@@ -163,18 +183,20 @@ public class PageableApplicationList extends PageableList implements Application
     }
 
     private ApplicationInfo findSelectedApplication(String name) {
-        for(ApplicationInfo appInfo : m_selected) {
-            if(appInfo.getName().equals(name)) {
+        for (ApplicationInfo appInfo : m_selected) {
+            if (appInfo.getName().equals(name)) {
                 return appInfo;
             }
         }
         return null;
     }
+
     /**
      * TODO: Maybe enhance this so that it only adds/updates/deletes individual
      * items TODO: Don't skip to the front page on every update
      *
-     * @param applications a {@link java.util.ArrayList} object.
+     * @param applications
+     *            a {@link java.util.ArrayList} object.
      */
     public void updateList(final ArrayList<ApplicationInfo> applications) {
         setApplications(applications);
@@ -198,7 +220,8 @@ public class PageableApplicationList extends PageableList implements Application
     /** {@inheritDoc} */
     @Override
     protected int getListSize() {
-        if (m_applications == null) return 0;
+        if (m_applications == null)
+            return 0;
         return m_applications.size();
     }
 
@@ -207,14 +230,18 @@ public class PageableApplicationList extends PageableList implements Application
     public void onItemClickHandler(final ClickEvent event) {
         final Cell cell = getCellForEvent(event);
 
-        final ApplicationInfo appInfo = getApplications().get(cell.getRowIndex() + (getCurrentPageIndex() * getTotalListItemsPerPage()));
+        final ApplicationInfo appInfo = getApplications().get(cell.getRowIndex()
+                                                                      + (getCurrentPageIndex() * getTotalListItemsPerPage()));
         m_eventBus.fireEvent(new ApplicationSelectedEvent(appInfo.getName()));
     }
 
     /**
-     * <p>setEventBus</p>
+     * <p>
+     * setEventBus
+     * </p>
      *
-     * @param eventBus a {@link com.google.gwt.event.shared.HandlerManager} object.
+     * @param eventBus
+     *            a {@link com.google.gwt.event.shared.HandlerManager} object.
      */
     public void setEventBus(final HandlerManager eventBus) {
         m_eventBus = eventBus;
@@ -229,25 +256,27 @@ public class PageableApplicationList extends PageableList implements Application
             public void onResize(final ResizeEvent event) {
                 refreshApplicationListResize();
             }
-        },  ResizeEvent.getType());
+        }, ResizeEvent.getType());
     }
 
     /** {@inheritDoc} */
     @Override
     public void onApplicationDetailsRetrieved(final ApplicationDetailsRetrievedEvent event) {
-        if(checkIfApplicationIsSelected(event.getApplicationDetails().getApplicationName())) {
+        if (checkIfApplicationIsSelected(event.getApplicationDetails().getApplicationName())) {
             m_selectedAppDetails.put(event.getApplicationDetails().getApplicationName(), event.getApplicationDetails());
-        }else {
+        } else {
             m_selectedAppDetails.remove(event.getApplicationDetails().getApplicationName());
         }
         refreshApplicationListResize();
     }
 
     /**
-     * <p>refreshApplicationListResize</p>
+     * <p>
+     * refreshApplicationListResize
+     * </p>
      */
     public void refreshApplicationListResize() {
-        for(int i = 0; i < getDataList().getRowCount(); i++) {
+        for (int i = 0; i < getDataList().getRowCount(); i++) {
             ApplicationDetailView view = (ApplicationDetailView) getDataList().getWidget(i, 0);
             view.resizeToFit();
         }
@@ -255,9 +284,12 @@ public class PageableApplicationList extends PageableList implements Application
     }
 
     /**
-     * <p>updateSelectedApplications</p>
+     * <p>
+     * updateSelectedApplications
+     * </p>
      *
-     * @param selectedApplications a {@link java.util.Set} object.
+     * @param selectedApplications
+     *            a {@link java.util.Set} object.
      */
     public void updateSelectedApplications(Set<ApplicationInfo> selectedApplications) {
         m_selected = selectedApplications;

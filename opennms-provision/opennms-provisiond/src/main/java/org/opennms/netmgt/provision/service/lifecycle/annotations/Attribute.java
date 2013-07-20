@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
  * @version $Id: $
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.PARAMETER})
+@Target({ ElementType.METHOD, ElementType.PARAMETER })
 public @interface Attribute {
     String value();
 }

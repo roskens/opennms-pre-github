@@ -43,69 +43,74 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-
 public class SSHTerminalTest {
 
-	String testHost = "debian.opennms.org";
-	int testPort = 22;
-	SSHTerminal sshTerm;
-	SSHTerminal.SessionTerminal sessionTerm;
-	UI app;
-	VerticalLayout mainWindow;
+    String testHost = "debian.opennms.org";
 
-	@SuppressWarnings("serial")
-	@Before
-	public void setUp() throws Exception {
+    int testPort = 22;
 
-		app = new UI() {
-			@Override
-			public void init(VaadinRequest request) {}
-		};
-		mainWindow = new VerticalLayout();
-		app.setContent(mainWindow);
+    SSHTerminal sshTerm;
 
-		SSHWindow sshWindow = new SSHWindow(null, 200, 200);
-		app.addWindow(sshWindow);
+    SSHTerminal.SessionTerminal sessionTerm;
 
-		SshClient client = SshClient.setUpDefaultClient();
-		client.start();
-		ClientSession session = null;
-		try {
-			session = client.connect(testHost, testPort).await().getSession();
-		} catch (Exception e) {
-			fail("Could not connect to host");
-		}
-		sshTerm = new SSHTerminal(sshWindow, session, 200, 200);
-		sshWindow.setContent(sshTerm);
-		UI.setCurrent(app);
-	}
+    UI app;
 
-//	@Test
-//	public void testPaintContent() {
-//		try {
-//			//sshTerm.paintContent(new SudoPaintTarget());
-//		} catch (PaintException e) {
-//			fail("PaintContent exception was thrown");
-//		}
-//	}
+    VerticalLayout mainWindow;
 
-	@Test
-	@SuppressWarnings("unchecked")
-	public void testChangeVariables() {
-		Map map = new LinkedHashMap();
+    @SuppressWarnings("serial")
+    @Before
+    public void setUp() throws Exception {
 
-		map.put("isClosed", false);
-		map.put("toSSH", "data to the ssh server");
-		//sshTerm.changeVariables(new Object(), map);
+        app = new UI() {
+            @Override
+            public void init(VaadinRequest request) {
+            }
+        };
+        mainWindow = new VerticalLayout();
+        app.setContent(mainWindow);
 
-		map.put("isClosed", true);
-		map.put("toSSH", "data to the ssh server");
-		//sshTerm.changeVariables(new Object(), map);
-	}
+        SSHWindow sshWindow = new SSHWindow(null, 200, 200);
+        app.addWindow(sshWindow);
 
-	@Test
-	public void testClose() {
-		assertTrue(sshTerm.close());
-	}
+        SshClient client = SshClient.setUpDefaultClient();
+        client.start();
+        ClientSession session = null;
+        try {
+            session = client.connect(testHost, testPort).await().getSession();
+        } catch (Exception e) {
+            fail("Could not connect to host");
+        }
+        sshTerm = new SSHTerminal(sshWindow, session, 200, 200);
+        sshWindow.setContent(sshTerm);
+        UI.setCurrent(app);
+    }
+
+    // @Test
+    // public void testPaintContent() {
+    // try {
+    // //sshTerm.paintContent(new SudoPaintTarget());
+    // } catch (PaintException e) {
+    // fail("PaintContent exception was thrown");
+    // }
+    // }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testChangeVariables() {
+        Map map = new LinkedHashMap();
+
+        map.put("isClosed", false);
+        map.put("toSSH", "data to the ssh server");
+        // sshTerm.changeVariables(new Object(), map);
+
+        map.put("isClosed", true);
+        map.put("toSSH", "data to the ssh server");
+        // sshTerm.changeVariables(new Object(), map);
+    }
+
+    @Test
+    public void testClose() {
+        assertTrue(sshTerm.close());
+    }
 
 }

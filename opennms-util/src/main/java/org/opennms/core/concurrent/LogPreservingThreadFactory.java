@@ -36,20 +36,25 @@ import org.slf4j.MDC;
 
 public class LogPreservingThreadFactory implements ThreadFactory {
     private final BitSet m_slotNumbers;
+
     private final String m_name;
+
     private final int m_poolSize;
+
     private Map m_mdc = null;
+
     private int m_counter = 0;
 
     public LogPreservingThreadFactory(String poolName, int poolSize, boolean preserveMDC) {
-         m_name = poolName;
-         m_poolSize = poolSize;
-         // Make the bitset of thread numbers one larger so that we can 1-index it.
-         // If pool size is Integer.MAX_VALUE, then the BitSet will not be used.
-         m_slotNumbers = poolSize < Integer.MAX_VALUE ? new BitSet(poolSize + 1) : new BitSet(1);
-         if (preserveMDC) {
-        	 m_mdc = MDC.getCopyOfContextMap();
-         }
+        m_name = poolName;
+        m_poolSize = poolSize;
+        // Make the bitset of thread numbers one larger so that we can 1-index
+        // it.
+        // If pool size is Integer.MAX_VALUE, then the BitSet will not be used.
+        m_slotNumbers = poolSize < Integer.MAX_VALUE ? new BitSet(poolSize + 1) : new BitSet(1);
+        if (preserveMDC) {
+            m_mdc = MDC.getCopyOfContextMap();
+        }
     }
 
     @Override
@@ -128,7 +133,7 @@ public class LogPreservingThreadFactory implements ThreadFactory {
                 } finally {
                     // And make sure the mark the thread as unused afterwards if
                     // the thread ever exits
-                    synchronized(m_slotNumbers) {
+                    synchronized (m_slotNumbers) {
                         m_slotNumbers.set(threadNumber, false);
                     }
                 }
@@ -137,7 +142,7 @@ public class LogPreservingThreadFactory implements ThreadFactory {
     }
 
     private static int getOpenThreadSlot(BitSet bs) {
-        synchronized(bs) {
+        synchronized (bs) {
             // Start at 1 so that we always return a positive integer
             for (int i = 1; i < bs.size(); i++) {
                 if (bs.get(i)) {

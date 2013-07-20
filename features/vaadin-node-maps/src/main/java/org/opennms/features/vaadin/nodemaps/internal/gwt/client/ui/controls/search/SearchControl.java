@@ -37,9 +37,10 @@ import java.util.logging.Logger;
 
 public class SearchControl extends Control {
     Logger logger = Logger.getLogger(getClass().getName());
+
     private static final HashMap<String, String> m_labels;
     static {
-        m_labels = new HashMap<String,String>();
+        m_labels = new HashMap<String, String>();
         m_labels.put("nodeid", "Node&nbsp;ID");
         m_labels.put("description", "Description");
         m_labels.put("ipaddress", "IP&nbsp;Address");
@@ -49,25 +50,33 @@ public class SearchControl extends Control {
     }
 
     private HTMLPanel m_container;
+
     private SearchTextBox m_inputBox;
+
     private HistoryWrapper m_historyWrapper;
 
     private HTML m_submitIcon;
 
     private SearchConsumer m_searchConsumer;
+
     private MarkerContainer m_markerContainer;
+
     private SearchEventCallback m_changeCallback;
 
     private CellList<NodeMarker> m_autoComplete;
+
     private SearchStateManager m_stateManager;
+
     private SingleSelectionModel<NodeMarker> m_selectionModel;
+
     private Set<Widget> m_updated = new HashSet<Widget>();
 
     public SearchControl(final SearchConsumer searchConsumer, final MarkerContainer markerContainer) {
         this(searchConsumer, markerContainer, new SearchOptions());
     }
 
-    public SearchControl(final SearchConsumer searchConsumer, final MarkerContainer markerContainer, final SearchOptions options) {
+    public SearchControl(final SearchConsumer searchConsumer, final MarkerContainer markerContainer,
+            final SearchOptions options) {
         super(JSObject.createJSObject());
         setJSObject(SearchControlImpl.create(this, options.getJSObject()));
         logger.log(Level.INFO, "new SearchControl()");
@@ -100,7 +109,8 @@ public class SearchControl extends Control {
 
     public SearchControl doOnRemove(final JavaScriptObject map) {
         logger.log(Level.INFO, "onRemove() called");
-        if (m_changeCallback != null) DomEvent.removeListener(m_changeCallback);
+        if (m_changeCallback != null)
+            DomEvent.removeListener(m_changeCallback);
         return this;
     }
 
@@ -130,14 +140,16 @@ public class SearchControl extends Control {
             @Override
             public void refresh() {
                 m_searchConsumer.setSearchString(m_inputBox.getValue());
-                // it's the search consumer's job to trigger an update in any UI elements
+                // it's the search consumer's job to trigger an update in any UI
+                // elements
                 m_searchConsumer.refresh();
 
                 final List<NodeMarker> markers = m_markerContainer.getMarkers();
                 final NodeMarker selected = m_selectionModel.getSelectedObject();
-                final NodeMarker firstMarker = markers.size() > 0? markers.get(0) : null;
+                final NodeMarker firstMarker = markers.size() > 0 ? markers.get(0) : null;
                 if (selected == null) {
-                    if (firstMarker != null) m_selectionModel.setSelected(firstMarker, true);
+                    if (firstMarker != null)
+                        m_selectionModel.setSelected(firstMarker, true);
                 } else {
                     if (!markers.contains(selected)) {
                         if (firstMarker != null) {
@@ -212,8 +224,10 @@ public class SearchControl extends Control {
 
         DomEvent.stopEventPropagation(m_inputBox);
 
-        m_changeCallback = new SearchEventCallback(new String[] { "keydown", "change", "cut", "paste", "search" }, m_inputBox, m_searchConsumer) {
-            @Override protected void onEvent(final NativeEvent event) {
+        m_changeCallback = new SearchEventCallback(new String[] { "keydown", "change", "cut", "paste", "search" },
+                                                   m_inputBox, m_searchConsumer) {
+            @Override
+            protected void onEvent(final NativeEvent event) {
                 m_stateManager.handleInputEvent(event);
             }
         };
@@ -267,25 +281,27 @@ public class SearchControl extends Control {
                 }
 
                 if (additionalSearchInfo != null) {
-                    builder.appendHtmlConstant("<div class=\"autocomplete-additional-info\">")
-                        .appendHtmlConstant(additionalSearchInfo)
-                        .appendHtmlConstant("</div>");
+                    builder.appendHtmlConstant("<div class=\"autocomplete-additional-info\">").appendHtmlConstant(additionalSearchInfo).appendHtmlConstant("</div>");
                 }
 
                 return builder.toSafeHtml();
             }
         };
 
-        final AbstractSafeHtmlCell<NodeMarker> cell = new AbstractSafeHtmlCell<NodeMarker>(renderer, "keydown", "click", "dblclick", "touchstart") {
+        final AbstractSafeHtmlCell<NodeMarker> cell = new AbstractSafeHtmlCell<NodeMarker>(renderer, "keydown",
+                                                                                           "click", "dblclick",
+                                                                                           "touchstart") {
 
             @Override
-            public void onBrowserEvent(final Context context, final com.google.gwt.dom.client.Element parent, final NodeMarker value, final NativeEvent event, final ValueUpdater<NodeMarker> valueUpdater) {
+            public void onBrowserEvent(final Context context, final com.google.gwt.dom.client.Element parent,
+                    final NodeMarker value, final NativeEvent event, final ValueUpdater<NodeMarker> valueUpdater) {
                 if (m_stateManager.handleAutocompleteEvent(event)) {
                     super.onBrowserEvent(context, parent, value, event, valueUpdater);
                 }
             }
 
-            @Override protected void render(final Context context, final SafeHtml data, final SafeHtmlBuilder builder) {
+            @Override
+            protected void render(final Context context, final SafeHtml data, final SafeHtmlBuilder builder) {
                 builder.appendHtmlConstant("<div class=\"autocomplete-entry\">");
                 if (data != null) {
                     builder.append(data);
@@ -311,7 +327,6 @@ public class SearchControl extends Control {
         public void setValue(final String value) {
             History.newItem(value);
         }
-
 
     }
 }

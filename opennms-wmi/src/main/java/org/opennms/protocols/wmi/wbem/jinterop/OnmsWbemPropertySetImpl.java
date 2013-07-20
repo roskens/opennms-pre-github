@@ -40,7 +40,9 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemProperty;
 import org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet;
 
 /**
- * <p>OnmsWbemPropertySetImpl class.</p>
+ * <p>
+ * OnmsWbemPropertySetImpl class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -49,19 +51,26 @@ public class OnmsWbemPropertySetImpl implements OnmsWbemPropertySet {
     private IJIDispatch wbemPropertySetDispatch;
 
     /**
-     * <p>Constructor for OnmsWbemPropertySetImpl.</p>
+     * <p>
+     * Constructor for OnmsWbemPropertySetImpl.
+     * </p>
      *
-     * @param wbemPropertySetDispatch a {@link org.jinterop.dcom.impls.automation.IJIDispatch} object.
+     * @param wbemPropertySetDispatch
+     *            a {@link org.jinterop.dcom.impls.automation.IJIDispatch}
+     *            object.
      */
     public OnmsWbemPropertySetImpl(final IJIDispatch wbemPropertySetDispatch) {
         this.wbemPropertySetDispatch = wbemPropertySetDispatch;
     }
 
     /**
-     * <p>count</p>
+     * <p>
+     * count
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException if any.
+     * @throws org.opennms.protocols.wmi.WmiException
+     *             if any.
      */
     @Override
     public Integer count() throws WmiException {
@@ -81,18 +90,18 @@ public class OnmsWbemPropertySetImpl implements OnmsWbemPropertySet {
             final IJIEnumVariant enumVariant = (IJIEnumVariant) JIObjectFactory.narrowObject(enumComObject.queryInterface(IJIEnumVariant.IID));
             OnmsWbemProperty wbemObj;
             IJIDispatch wbemProperty_dispatch = null;
-            for (int i = 0; i < (idx+1); i++) {
+            for (int i = 0; i < (idx + 1); i++) {
                 final Object[] values = enumVariant.next(1);
-                final JIArray array = (JIArray)values[0];
-                final Object[] arrayObj = (Object[])array.getArrayInstance();
-                for(int j = 0; j < arrayObj.length; j++) {
-                    wbemProperty_dispatch = (IJIDispatch)JIObjectFactory.narrowObject(((JIVariant)arrayObj[j]).getObjectAsComObject());
+                final JIArray array = (JIArray) values[0];
+                final Object[] arrayObj = (Object[]) array.getArrayInstance();
+                for (int j = 0; j < arrayObj.length; j++) {
+                    wbemProperty_dispatch = (IJIDispatch) JIObjectFactory.narrowObject(((JIVariant) arrayObj[j]).getObjectAsComObject());
                 }
             }
 
             wbemObj = new OnmsWbemPropertyImpl(wbemProperty_dispatch);
             return wbemObj;
-        } catch(final JIException e) {
+        } catch (final JIException e) {
             throw new WmiException("Failed to enumerate WbemProperty variant: " + e.getMessage(), e);
         }
     }
@@ -107,21 +116,21 @@ public class OnmsWbemPropertySetImpl implements OnmsWbemPropertySet {
             IJIDispatch wbemProperty_dispatch = null;
             for (int i = 0; i < count(); i++) {
                 final Object[] values = enumVariant.next(1);
-                final JIArray array = (JIArray)values[0];
-                final Object[] arrayObj = (Object[])array.getArrayInstance();
-                for(int j = 0; j < arrayObj.length; j++) {
-                    wbemProperty_dispatch = (IJIDispatch)JIObjectFactory.narrowObject(((JIVariant)arrayObj[j]).getObjectAsComObject());
+                final JIArray array = (JIArray) values[0];
+                final Object[] arrayObj = (Object[]) array.getArrayInstance();
+                for (int j = 0; j < arrayObj.length; j++) {
+                    wbemProperty_dispatch = (IJIDispatch) JIObjectFactory.narrowObject(((JIVariant) arrayObj[j]).getObjectAsComObject());
 
                     // Check the name
                     final JIVariant variant = wbemProperty_dispatch.get("Name");
-                    if(variant.getObjectAsString2().equalsIgnoreCase(name)) {
+                    if (variant.getObjectAsString2().equalsIgnoreCase(name)) {
                         return new OnmsWbemPropertyImpl(wbemProperty_dispatch);
                     }
                 }
             }
 
             throw new WmiException("Property Name '" + name + "' not found.");
-        } catch(final JIException e) {
+        } catch (final JIException e) {
             throw new WmiException("Failed to enumerate WbemProperty variant: " + e.getMessage(), e);
         }
     }

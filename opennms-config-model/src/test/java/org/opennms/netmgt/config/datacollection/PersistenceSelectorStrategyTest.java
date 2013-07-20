@@ -39,7 +39,8 @@ import org.opennms.netmgt.config.datacollection.PersistenceSelectorStrategy;
 
 public class PersistenceSelectorStrategyTest extends XmlTest<PersistenceSelectorStrategy> {
 
-    public PersistenceSelectorStrategyTest(final PersistenceSelectorStrategy sampleObject, final String sampleXml, final String schemaFile) {
+    public PersistenceSelectorStrategyTest(final PersistenceSelectorStrategy sampleObject, final String sampleXml,
+            final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
@@ -54,6 +55,5 @@ public class PersistenceSelectorStrategyTest extends XmlTest<PersistenceSelector
                 "<persistenceSelectorStrategy class=\"org.opennms.netmgt.collectd.PersistAllSelectorStrategy\"><parameter key=\"foo\" value=\"bar\" /></persistenceSelectorStrategy>",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

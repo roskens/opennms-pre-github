@@ -32,17 +32,24 @@ import java.io.File;
 import java.util.List;
 
 /**
- * <p>RrdRepository class.</p>
+ * <p>
+ * RrdRepository class.
+ * </p>
  */
 public class RrdRepository {
 
     private List<String> m_rraList;
+
     private int m_step;
+
     private int m_heartBeat;
+
     private File m_rrdBaseDir;
 
     /**
-     * <p>getRrdBaseDir</p>
+     * <p>
+     * getRrdBaseDir
+     * </p>
      *
      * @return a {@link java.io.File} object.
      */
@@ -51,16 +58,21 @@ public class RrdRepository {
     }
 
     /**
-     * <p>setRrdBaseDir</p>
+     * <p>
+     * setRrdBaseDir
+     * </p>
      *
-     * @param rrdBaseDir a {@link java.io.File} object.
+     * @param rrdBaseDir
+     *            a {@link java.io.File} object.
      */
     public void setRrdBaseDir(File rrdBaseDir) {
         m_rrdBaseDir = rrdBaseDir;
     }
 
     /**
-     * <p>getRraList</p>
+     * <p>
+     * getRraList
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -69,16 +81,21 @@ public class RrdRepository {
     }
 
     /**
-     * <p>setRraList</p>
+     * <p>
+     * setRraList
+     * </p>
      *
-     * @param rraList a {@link java.util.List} object.
+     * @param rraList
+     *            a {@link java.util.List} object.
      */
     public void setRraList(List<String> rraList) {
         m_rraList = rraList;
     }
 
     /**
-     * <p>getStep</p>
+     * <p>
+     * getStep
+     * </p>
      *
      * @return a int.
      */
@@ -87,16 +104,21 @@ public class RrdRepository {
     }
 
     /**
-     * <p>setStep</p>
+     * <p>
+     * setStep
+     * </p>
      *
-     * @param step a int.
+     * @param step
+     *            a int.
      */
     public void setStep(int step) {
         m_step = step;
     }
 
     /**
-     * <p>getHeartBeat</p>
+     * <p>
+     * getHeartBeat
+     * </p>
      *
      * @return a int.
      */
@@ -105,28 +127,28 @@ public class RrdRepository {
     }
 
     /**
-     * <p>setHeartBeat</p>
+     * <p>
+     * setHeartBeat
+     * </p>
      *
-     * @param heartBeat a int.
+     * @param heartBeat
+     *            a int.
      */
     public void setHeartBeat(int heartBeat) {
         m_heartBeat = heartBeat;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(m_rrdBaseDir)
-            .append('[')
-            .append("Step:").append(m_step).append(',')
-            .append("HeartBeat:").append(m_heartBeat).append(',')
-            .append("RRAs:").append(m_rraList)
-            .append(']');
+        sb.append(m_rrdBaseDir).append('[').append("Step:").append(m_step).append(',').append("HeartBeat:").append(m_heartBeat).append(',').append("RRAs:").append(m_rraList).append(']');
         return sb.toString();
     }
 }

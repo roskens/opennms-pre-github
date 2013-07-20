@@ -28,9 +28,10 @@
 
 package org.opennms.web.element;
 
-
 /**
- * <p>ElementNotFoundException class.</p>
+ * <p>
+ * ElementNotFoundException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,13 +54,20 @@ public class ElementNotFoundException extends RuntimeException {
     protected String browseUri;
 
     /**
-     * <p>Constructor for ElementNotFoundException.</p>
+     * <p>
+     * Constructor for ElementNotFoundException.
+     * </p>
      *
-     * @param msg a {@link java.lang.String} object.
-     * @param elemType a {@link java.lang.String} object.
-     * @param detailUri a {@link java.lang.String} object.
-     * @param detailParam a {@link java.lang.String} object.
-     * @param browseUri a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param elemType
+     *            a {@link java.lang.String} object.
+     * @param detailUri
+     *            a {@link java.lang.String} object.
+     * @param detailParam
+     *            a {@link java.lang.String} object.
+     * @param browseUri
+     *            a {@link java.lang.String} object.
      */
     public ElementNotFoundException(String msg, String elemType, String detailUri, String detailParam, String browseUri) {
         this.message = msg;
@@ -69,36 +77,47 @@ public class ElementNotFoundException extends RuntimeException {
     }
 
     /**
-     * <p>Constructor for ElementNotFoundException.</p>
+     * <p>
+     * Constructor for ElementNotFoundException.
+     * </p>
      *
-     * @param msg a {@link java.lang.String} object.
-     * @param elemType a {@link java.lang.String} object.
-     * @param browseUri a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param elemType
+     *            a {@link java.lang.String} object.
+     * @param browseUri
+     *            a {@link java.lang.String} object.
      */
     public ElementNotFoundException(String msg, String elemType, String browseUri) {
-    	this.message = msg;
-    	this.elemType = elemType;
-    	this.browseUri = browseUri;
-    	this.detailUri = null;
-    	this.detailParam = null;
+        this.message = msg;
+        this.elemType = elemType;
+        this.browseUri = browseUri;
+        this.detailUri = null;
+        this.detailParam = null;
     }
 
     /**
-     * <p>Constructor for ElementNotFoundException.</p>
+     * <p>
+     * Constructor for ElementNotFoundException.
+     * </p>
      *
-     * @param msg a {@link java.lang.String} object.
-     * @param elemType a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param elemType
+     *            a {@link java.lang.String} object.
      */
     public ElementNotFoundException(String msg, String elemType) {
-    	this.message = msg;
-    	this.elemType = elemType;
-    	this.browseUri = null;
-    	this.detailUri = null;
-    	this.detailParam = null;
+        this.message = msg;
+        this.elemType = elemType;
+        this.browseUri = null;
+        this.detailUri = null;
+        this.detailParam = null;
     }
 
     /**
-     * <p>Getter for the field <code>message</code>.</p>
+     * <p>
+     * Getter for the field <code>message</code>.
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,56 +126,67 @@ public class ElementNotFoundException extends RuntimeException {
         return this.message;
     }
 
-	/**
-	 * <p>Getter for the field <code>elemType</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getElemType() {
-		return getElemType(false);
-	}
+    /**
+     * <p>
+     * Getter for the field <code>elemType</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getElemType() {
+        return getElemType(false);
+    }
 
-	/**
-	 * <p>Getter for the field <code>elemType</code>.</p>
-	 *
-	 * @param initialCap a boolean.
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getElemType(boolean initialCap) {
-		String result;
-		if (initialCap) {
-			result = elemType.substring(0,1).toUpperCase() + elemType.substring(1);
-		} else {
-			result = elemType;
-		}
-		return result;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>elemType</code>.
+     * </p>
+     *
+     * @param initialCap
+     *            a boolean.
+     * @return a {@link java.lang.String} object.
+     */
+    public String getElemType(boolean initialCap) {
+        String result;
+        if (initialCap) {
+            result = elemType.substring(0, 1).toUpperCase() + elemType.substring(1);
+        } else {
+            result = elemType;
+        }
+        return result;
+    }
 
-	/**
-	 * <p>Getter for the field <code>detailUri</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getDetailUri() {
-		return detailUri;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>detailUri</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getDetailUri() {
+        return detailUri;
+    }
 
-	/**
-	 * <p>Getter for the field <code>detailParam</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getDetailParam() {
-		return detailParam;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>detailParam</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getDetailParam() {
+        return detailParam;
+    }
 
-	/**
-	 * <p>Getter for the field <code>browseUri</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getBrowseUri() {
-		return browseUri;
-	}
+    /**
+     * <p>
+     * Getter for the field <code>browseUri</code>.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getBrowseUri() {
+        return browseUri;
+    }
 
 }

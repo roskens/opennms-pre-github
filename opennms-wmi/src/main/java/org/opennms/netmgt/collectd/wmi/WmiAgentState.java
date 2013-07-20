@@ -45,12 +45,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <P>
- * Contains a WmiManager and WmiClient instance referring to the agent loaded via
- * the InetAddress parameter provided in the constructor. Uses the InetAddress to
- * look up the agent configuration to properly connect the client and manager
- * to the remote agent. Provides the collector with access to the client and manager
- * as well as information regarding the availability of WPM (Windows Performance Metric)
- * groups.
+ * Contains a WmiManager and WmiClient instance referring to the agent loaded
+ * via the InetAddress parameter provided in the constructor. Uses the
+ * InetAddress to look up the agent configuration to properly connect the client
+ * and manager to the remote agent. Provides the collector with access to the
+ * client and manager as well as information regarding the availability of WPM
+ * (Windows Performance Metric) groups.
  * </P>
  *
  * @author <a href="mailto:matt.raykowski@gmail.com">Matt Raykowski</a>
@@ -58,46 +58,58 @@ import org.slf4j.LoggerFactory;
  */
 public class WmiAgentState {
 
-	private static final Logger LOG = LoggerFactory.getLogger(WmiAgentState.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WmiAgentState.class);
 
     private WmiManager m_manager;
+
     private IWmiClient m_wmiClient;
 
     private WmiAgentConfig m_agentConfig;
+
     private String m_address;
+
     private HashMap<String, WmiGroupState> m_groupStates = new HashMap<String, WmiGroupState>();
 
     /**
-     * <p>Constructor for WmiAgentState.</p>
+     * <p>
+     * Constructor for WmiAgentState.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param parameters a {@link java.util.Map} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param parameters
+     *            a {@link java.util.Map} object.
      */
-    public WmiAgentState(final InetAddress address, final Map<?,?> parameters) {
+    public WmiAgentState(final InetAddress address, final Map<?, ?> parameters) {
         m_address = InetAddressUtils.str(address);
         m_agentConfig = WmiPeerFactory.getInstance().getAgentConfig(address);
-        m_manager = new WmiManager(m_address, m_agentConfig.getUsername(), m_agentConfig.getPassword(), m_agentConfig.getDomain());
+        m_manager = new WmiManager(m_address, m_agentConfig.getUsername(), m_agentConfig.getPassword(),
+                                   m_agentConfig.getDomain());
 
         try {
             m_wmiClient = new WmiClient(m_address);
-        } catch(final WmiException e) {
+        } catch (final WmiException e) {
             LOG.error("Failed to create WMI client.", e);
         }
     }
 
     /**
-     * <p>connect</p>
+     * <p>
+     * connect
+     * </p>
      */
     public void connect() {
         try {
             m_wmiClient.connect(m_agentConfig.getDomain(), m_agentConfig.getUsername(), m_agentConfig.getPassword());
-        } catch(final WmiException e) {
+        } catch (final WmiException e) {
             LOG.error("Failed to connect to host.", e);
         }
     }
 
     /**
-     * <p>getAddress</p>
+     * <p>
+     * getAddress
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,7 +118,9 @@ public class WmiAgentState {
     }
 
     /**
-     * <p>getManager</p>
+     * <p>
+     * getManager
+     * </p>
      *
      * @return a {@link org.opennms.protocols.wmi.WmiManager} object.
      */
@@ -115,24 +129,32 @@ public class WmiAgentState {
     }
 
     /**
-     * <p>groupIsAvailable</p>
+     * <p>
+     * groupIsAvailable
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean groupIsAvailable(final String groupName) {
         final WmiGroupState groupState = m_groupStates.get(groupName);
         if (groupState == null) {
-            return false; // If the group availability hasn't been set yet, it's not available.
+            return false; // If the group availability hasn't been set yet, it's
+                          // not available.
         }
         return groupState.isAvailable();
     }
 
     /**
-     * <p>setGroupIsAvailable</p>
+     * <p>
+     * setGroupIsAvailable
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
-     * @param available a boolean.
+     * @param groupName
+     *            a {@link java.lang.String} object.
+     * @param available
+     *            a boolean.
      */
     public void setGroupIsAvailable(final String groupName, final boolean available) {
         WmiGroupState groupState = m_groupStates.get(groupName);
@@ -144,10 +166,14 @@ public class WmiAgentState {
     }
 
     /**
-     * <p>shouldCheckAvailability</p>
+     * <p>
+     * shouldCheckAvailability
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
-     * @param recheckInterval a int.
+     * @param groupName
+     *            a {@link java.lang.String} object.
+     * @param recheckInterval
+     *            a int.
      * @return a boolean.
      */
     public boolean shouldCheckAvailability(final String groupName, final int recheckInterval) {
@@ -164,9 +190,12 @@ public class WmiAgentState {
     }
 
     /**
-     * <p>didCheckGroupAvailability</p>
+     * <p>
+     * didCheckGroupAvailability
+     * </p>
      *
-     * @param groupName a {@link java.lang.String} object.
+     * @param groupName
+     *            a {@link java.lang.String} object.
      */
     public void didCheckGroupAvailability(final String groupName) {
         final WmiGroupState groupState = m_groupStates.get(groupName);
@@ -179,7 +208,9 @@ public class WmiAgentState {
     }
 
     /**
-     * <p>getWmiClient</p>
+     * <p>
+     * getWmiClient
+     * </p>
      *
      * @return a {@link org.opennms.protocols.wmi.IWmiClient} object.
      */
@@ -188,9 +219,12 @@ public class WmiAgentState {
     }
 
     /**
-     * <p>setWmiClient</p>
+     * <p>
+     * setWmiClient
+     * </p>
      *
-     * @param wmiClient a {@link org.opennms.protocols.wmi.IWmiClient} object.
+     * @param wmiClient
+     *            a {@link org.opennms.protocols.wmi.IWmiClient} object.
      */
     public void setWmiClient(final IWmiClient wmiClient) {
         this.m_wmiClient = wmiClient;

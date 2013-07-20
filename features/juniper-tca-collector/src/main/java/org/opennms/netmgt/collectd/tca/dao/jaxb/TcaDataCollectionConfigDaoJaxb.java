@@ -37,29 +37,36 @@ import org.opennms.netmgt.collectd.tca.dao.TcaDataCollectionConfigDao;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-public class TcaDataCollectionConfigDaoJaxb  extends AbstractJaxbConfigDao<TcaDataCollectionConfig,TcaDataCollectionConfig> implements TcaDataCollectionConfigDao {
+public class TcaDataCollectionConfigDaoJaxb extends
+        AbstractJaxbConfigDao<TcaDataCollectionConfig, TcaDataCollectionConfig> implements TcaDataCollectionConfigDao {
 
-	/**
-	 * Instantiates a new tca data collection config dao jaxb.
-	 */
-	public TcaDataCollectionConfigDaoJaxb() {
-		super(TcaDataCollectionConfig.class, "TCA Data Collection Configuration");
-	}
+    /**
+     * Instantiates a new tca data collection config dao jaxb.
+     */
+    public TcaDataCollectionConfigDaoJaxb() {
+        super(TcaDataCollectionConfig.class, "TCA Data Collection Configuration");
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.collectd.tca.dao.TcaDataCollectionConfigDao#getConfig()
-	 */
-	@Override
-	public TcaDataCollectionConfig getConfig() {
-		return getContainer().getObject();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.collectd.tca.dao.TcaDataCollectionConfigDao#getConfig
+     * ()
+     */
+    @Override
+    public TcaDataCollectionConfig getConfig() {
+        return getContainer().getObject();
+    }
 
-	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.dao.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
-	 */
-	@Override
-	protected TcaDataCollectionConfig translateConfig(TcaDataCollectionConfig castorConfig) {
-		return castorConfig;
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.opennms.netmgt.dao.AbstractJaxbConfigDao#translateConfig(java.lang
+     * .Object)
+     */
+    @Override
+    protected TcaDataCollectionConfig translateConfig(TcaDataCollectionConfig castorConfig) {
+        return castorConfig;
+    }
 
 }

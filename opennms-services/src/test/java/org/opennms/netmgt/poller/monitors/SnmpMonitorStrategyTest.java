@@ -49,9 +49,9 @@ import org.opennms.test.ThrowableAnticipator;
 
 /**
  * @author brozow
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  */
 public class SnmpMonitorStrategyTest {
 
@@ -79,7 +79,6 @@ public class SnmpMonitorStrategyTest {
         testSyntaxEquals(result, "", "1");
     }
 
-
     @Test
     public void testMeetsCriteriaWithString() {
         SnmpValue result = octetString("A Test String");
@@ -102,7 +101,7 @@ public class SnmpMonitorStrategyTest {
         testSyntaxMatches(result, "10\\.1\\.1\\.[1-5]", "10\\.1\\.1\\.[02-9]");
     }
 
-	@Test
+    @Test
     public void testNumericString() {
         SnmpValue result = octetString("12345");
         testOrderOperations(result, 12345);
@@ -117,10 +116,10 @@ public class SnmpMonitorStrategyTest {
     }
 
     private SnmpValue int32Value(int i) {
-		return SnmpUtils.getValueFactory().getInt32(i);
-	}
+        return SnmpUtils.getValueFactory().getInt32(i);
+    }
 
-	@Test
+    @Test
     public void testMeetsCriteriaWithCounter32() {
         SnmpValue result = counter32Value(1);
         testSyntaxEquals(result, "1", "2");
@@ -128,10 +127,10 @@ public class SnmpMonitorStrategyTest {
     }
 
     private SnmpValue counter32Value(int i) {
-		return SnmpUtils.getValueFactory().getCounter32(i);
-	}
+        return SnmpUtils.getValueFactory().getCounter32(i);
+    }
 
-	@Test
+    @Test
     public void testMeetsCriteriaWithGauge32() {
         SnmpValue result = gauge32Value(1);
         testSyntaxEquals(result, "1", "2");
@@ -139,10 +138,10 @@ public class SnmpMonitorStrategyTest {
     }
 
     private SnmpValue gauge32Value(int i) {
-		return SnmpUtils.getValueFactory().getGauge32(i);
-	}
+        return SnmpUtils.getValueFactory().getGauge32(i);
+    }
 
-	@Test
+    @Test
     public void testMeetsCriteriaWithTimeTicks() {
         SnmpValue result = timeticks("1");
         testSyntaxEquals(result, "1", "2");
@@ -150,10 +149,10 @@ public class SnmpMonitorStrategyTest {
     }
 
     private SnmpValue timeticks(String val) {
-		return SnmpUtils.getValueFactory().getTimeTicks(Long.parseLong(val));
-	}
+        return SnmpUtils.getValueFactory().getTimeTicks(Long.parseLong(val));
+    }
 
-	@Test
+    @Test
     public void testMeetsCriteriaWithCounter64() {
         SnmpValue result = counter64Value(1);
         testSyntaxEquals(result, "1", "2");
@@ -161,12 +160,12 @@ public class SnmpMonitorStrategyTest {
     }
 
     private SnmpValue counter64Value(int i) {
-		return SnmpUtils.getValueFactory().getCounter64(BigInteger.valueOf(i));
-	}
+        return SnmpUtils.getValueFactory().getCounter64(BigInteger.valueOf(i));
+    }
 
-	@Test
+    @Test
     public void testErrorConditions() {
-    	SnmpValue result = int32Value(1);
+        SnmpValue result = int32Value(1);
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("operator X is unknown"));
@@ -196,11 +195,15 @@ public class SnmpMonitorStrategyTest {
     private void testSyntaxEquals(SnmpValue result, String eqString, String neString) {
         assertTrue(monitor.meetsCriteria(result, null, null));
 
-        assertTrue("result '" + result + "' should pass equal test with '" + eqString + "'", monitor.meetsCriteria(result, SnmpMonitor.EQUALS, eqString));
-        assertFalse("result '" + result + "' should fail equal test with '" + neString + "'", monitor.meetsCriteria(result, SnmpMonitor.EQUALS, neString));
+        assertTrue("result '" + result + "' should pass equal test with '" + eqString + "'",
+                   monitor.meetsCriteria(result, SnmpMonitor.EQUALS, eqString));
+        assertFalse("result '" + result + "' should fail equal test with '" + neString + "'",
+                    monitor.meetsCriteria(result, SnmpMonitor.EQUALS, neString));
 
-        assertFalse("result '" + result + "' should fail not equal test with '" + eqString + "'", monitor.meetsCriteria(result, SnmpMonitor.NOT_EQUAL, eqString));
-        assertTrue("result '" + result + "' should pass not equal test with '" + neString + "'", monitor.meetsCriteria(result, SnmpMonitor.NOT_EQUAL, neString));
+        assertFalse("result '" + result + "' should fail not equal test with '" + eqString + "'",
+                    monitor.meetsCriteria(result, SnmpMonitor.NOT_EQUAL, eqString));
+        assertTrue("result '" + result + "' should pass not equal test with '" + neString + "'",
+                   monitor.meetsCriteria(result, SnmpMonitor.NOT_EQUAL, neString));
 
     }
 
@@ -232,21 +235,19 @@ public class SnmpMonitorStrategyTest {
     }
 
     SnmpValue octetString(String val) {
-    	return SnmpUtils.getValueFactory().getOctetString(val.getBytes());
+        return SnmpUtils.getValueFactory().getOctetString(val.getBytes());
     }
 
     SnmpValue nullValue() {
-    	return SnmpUtils.getValueFactory().getNull();
+        return SnmpUtils.getValueFactory().getNull();
     }
 
     SnmpValue oid(String objectId) {
-    	return SnmpUtils.getValueFactory().getObjectId(SnmpObjId.get(objectId));
+        return SnmpUtils.getValueFactory().getObjectId(SnmpObjId.get(objectId));
     }
 
     private SnmpValue ipAddr(String addr) throws UnknownHostException {
         return SnmpUtils.getValueFactory().getIpAddress(InetAddressUtils.addr(addr));
     }
-
-
 
 }

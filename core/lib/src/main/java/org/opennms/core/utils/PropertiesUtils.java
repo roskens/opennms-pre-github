@@ -34,36 +34,43 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * <p>PropertiesUtils class.</p>
+ * <p>
+ * PropertiesUtils class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public abstract class PropertiesUtils {
 
-	private static final String PLACEHOLDER_SUFFIX = "}";
+    private static final String PLACEHOLDER_SUFFIX = "}";
+
     private static final String PLACEHOLDER_PREFIX = "${";
 
     public static interface SymbolTable {
-		public String getSymbolValue(String symbol);
-	}
+        public String getSymbolValue(String symbol);
+    }
 
-	private static class PropertyBasedSymbolTable implements SymbolTable {
-		Properties m_properties;
-		PropertyBasedSymbolTable(Properties properties) {
-			m_properties = properties;
-		}
-                @Override
-		public String getSymbolValue(String symbol) {
-			return m_properties.getProperty(symbol);
-		}
-	}
+    private static class PropertyBasedSymbolTable implements SymbolTable {
+        Properties m_properties;
+
+        PropertyBasedSymbolTable(Properties properties) {
+            m_properties = properties;
+        }
+
+        @Override
+        public String getSymbolValue(String symbol) {
+            return m_properties.getProperty(symbol);
+        }
+    }
 
     private static class MapBasedSymbolTable implements SymbolTable {
-        Map<String,String> m_map;
-        MapBasedSymbolTable(Map<String,String> properties) {
+        Map<String, String> m_map;
+
+        MapBasedSymbolTable(Map<String, String> properties) {
             m_map = properties;
         }
+
         @Override
         public String getSymbolValue(String symbol) {
             return m_map.get(symbol);
@@ -71,74 +78,96 @@ public abstract class PropertiesUtils {
     }
 
     /**
-     * This recursively substitutes occurrences ${property.name} in initialString with the value of
+     * This recursively substitutes occurrences ${property.name} in
+     * initialString with the value of
      * the property property.name taken from the supplied properties object. If
-     * property.name is not defined in properties then the substitution is not done.
+     * property.name is not defined in properties then the substitution is not
+     * done.
      *
-     * @param initialString the string to perform the substitutions in
+     * @param initialString
+     *            the string to perform the substitutions in
      * @return The string with appropriate substitutions made.
-     * @param propertiesArray a {@link java.util.Properties} object.
+     * @param propertiesArray
+     *            a {@link java.util.Properties} object.
      */
     public static String substitute(String initialString, Properties... propertiesArray) {
         String workingString = initialString;
         for (Properties properties : propertiesArray) {
             if (properties != null)
-                workingString = substitute(workingString, new PropertyBasedSymbolTable(properties), PLACEHOLDER_PREFIX, PLACEHOLDER_SUFFIX, new ArrayList<String>());
+                workingString = substitute(workingString, new PropertyBasedSymbolTable(properties), PLACEHOLDER_PREFIX,
+                                           PLACEHOLDER_SUFFIX, new ArrayList<String>());
         }
         return workingString;
     }
 
     /**
-     * This recursively substitutes occurrences ${property.name} in initialString with the value of
+     * This recursively substitutes occurrences ${property.name} in
+     * initialString with the value of
      * the property property.name taken from the supplied {@link Map} object. If
-     * property.name is not defined in the map then the substitution is not done.
+     * property.name is not defined in the map then the substitution is not
+     * done.
      *
-     * @param initialString the string to perform the substitutions in
+     * @param initialString
+     *            the string to perform the substitutions in
      * @return The string with appropriate substitutions made.
-     * @param mapArray a {@link java.util.Map} object.
+     * @param mapArray
+     *            a {@link java.util.Map} object.
      */
-    public static String substitute(String initialString, Map<String,String>... mapArray) {
+    public static String substitute(String initialString, Map<String, String>... mapArray) {
         String workingString = initialString;
-        for (Map<String,String> properties : mapArray) {
+        for (Map<String, String> properties : mapArray) {
             if (properties != null)
-                workingString = substitute(workingString, new MapBasedSymbolTable(properties), PLACEHOLDER_PREFIX, PLACEHOLDER_SUFFIX, new ArrayList<String>());
+                workingString = substitute(workingString, new MapBasedSymbolTable(properties), PLACEHOLDER_PREFIX,
+                                           PLACEHOLDER_SUFFIX, new ArrayList<String>());
         }
         return workingString;
     }
 
     /**
-     * <p>substitute</p>
+     * <p>
+     * substitute
+     * </p>
      *
-     * @param initialString a {@link java.lang.String} object.
-     * @param properties a {@link java.util.Properties} object.
-     * @param prefix a {@link java.lang.String} object.
-     * @param suffix a {@link java.lang.String} object.
+     * @param initialString
+     *            a {@link java.lang.String} object.
+     * @param properties
+     *            a {@link java.util.Properties} object.
+     * @param prefix
+     *            a {@link java.lang.String} object.
+     * @param suffix
+     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
     public static String substitute(String initialString, Properties properties, String prefix, String suffix) {
-        return substitute(initialString, new PropertyBasedSymbolTable(properties), prefix, suffix, new ArrayList<String>());
+        return substitute(initialString, new PropertyBasedSymbolTable(properties), prefix, suffix,
+                          new ArrayList<String>());
     }
 
-
     /**
-     * <p>substitute</p>
+     * <p>
+     * substitute
+     * </p>
      *
-     * @param initialString a {@link java.lang.String} object.
-     * @param symbolsArray a {@link org.opennms.core.utils.PropertiesUtils.SymbolTable} object.
+     * @param initialString
+     *            a {@link java.lang.String} object.
+     * @param symbolsArray
+     *            a {@link org.opennms.core.utils.PropertiesUtils.SymbolTable}
+     *            object.
      * @return a {@link java.lang.String} object.
      */
     public static String substitute(String initialString, SymbolTable... symbolsArray) {
         String workingString = initialString;
         for (SymbolTable symbols : symbolsArray) {
-            workingString = substitute(workingString, symbols, PLACEHOLDER_PREFIX, PLACEHOLDER_SUFFIX, new ArrayList<String>());
+            workingString = substitute(workingString, symbols, PLACEHOLDER_PREFIX, PLACEHOLDER_SUFFIX,
+                                       new ArrayList<String>());
         }
         return workingString;
     }
 
-    private static String substitute(String initialString,
-            SymbolTable symTable, String placeholderPrefix,
+    private static String substitute(String initialString, SymbolTable symTable, String placeholderPrefix,
             String placeholderSuffix, List<String> list) {
-        if (initialString == null) return null;
+        if (initialString == null)
+            return null;
 
         StringBuffer result = new StringBuffer(initialString);
 
@@ -146,21 +175,23 @@ public abstract class PropertiesUtils {
 
         while (startIndex >= 0) {
             int beginIndex = result.indexOf(placeholderPrefix, startIndex);
-            int endIndex = (beginIndex < 0 ? -1 : result.indexOf(placeholderSuffix, beginIndex+placeholderPrefix.length()));
+            int endIndex = (beginIndex < 0 ? -1 : result.indexOf(placeholderSuffix,
+                                                                 beginIndex + placeholderPrefix.length()));
             if (endIndex >= 0) {
-                String symbol = result.substring(beginIndex+placeholderPrefix.length(), endIndex);
+                String symbol = result.substring(beginIndex + placeholderPrefix.length(), endIndex);
                 if (list.contains(symbol))
-                    throw new IllegalStateException("recursive loop involving symbol "+placeholderPrefix+symbol+placeholderSuffix);
+                    throw new IllegalStateException("recursive loop involving symbol " + placeholderPrefix + symbol
+                            + placeholderSuffix);
                 String symbolVal = symTable.getSymbolValue(symbol);
                 if (symbolVal != null) {
                     list.add(symbol);
                     String substVal = substitute(symbolVal, symTable, placeholderPrefix, placeholderSuffix, list);
-                    list.remove(list.size()-1);
-                    result.replace(beginIndex, endIndex+1, substVal);
+                    list.remove(list.size() - 1);
+                    result.replace(beginIndex, endIndex + 1, substVal);
                     startIndex = beginIndex + substVal.length();
 
                 } else {
-                    startIndex = endIndex+1;
+                    startIndex = endIndex + 1;
                 }
             } else {
                 startIndex = -1;
@@ -178,7 +209,8 @@ public abstract class PropertiesUtils {
      * @param defaultVal
      *            the default value to use if the property is not set
      * @return the value of the property
-     * @param props a {@link java.util.Properties} object.
+     * @param props
+     *            a {@link java.util.Properties} object.
      */
     public static String getProperty(Properties props, String name, String defaultVal) {
         return props.getProperty(name) == null ? defaultVal : props.getProperty(name);
@@ -193,7 +225,8 @@ public abstract class PropertiesUtils {
      * @param defaultVal
      *            the default value to use if the property is not set
      * @return the value of the property
-     * @param props a {@link java.util.Properties} object.
+     * @param props
+     *            a {@link java.util.Properties} object.
      */
     public static boolean getProperty(Properties props, String name, boolean defaultVal) {
         return "true".equalsIgnoreCase(props.getProperty(name, (defaultVal ? "true" : "false")));
@@ -208,7 +241,8 @@ public abstract class PropertiesUtils {
      * @param defaultVal
      *            the default value to use if the property is not set
      * @return the value of the property
-     * @param props a {@link java.util.Properties} object.
+     * @param props
+     *            a {@link java.util.Properties} object.
      */
     public static int getProperty(Properties props, String name, int defaultVal) {
         String val = props.getProperty(name, (String) null);
@@ -230,7 +264,8 @@ public abstract class PropertiesUtils {
      * @param defaultVal
      *            the default value to use if the property is not set
      * @return the value of the property
-     * @param props a {@link java.util.Properties} object.
+     * @param props
+     *            a {@link java.util.Properties} object.
      */
     public static long getProperty(Properties props, String name, long defaultVal) {
         String val = props.getProperty(name, (String) null);
@@ -242,6 +277,5 @@ public abstract class PropertiesUtils {
         }
         return defaultVal;
     }
-
 
 }

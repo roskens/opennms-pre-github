@@ -48,7 +48,8 @@ public interface XmlDataCollectionConfigDao {
     /**
      * Gets the data collection by name.
      *
-     * @param name the collection name
+     * @param name
+     *            the collection name
      * @return the data collection by name
      */
     public XmlDataCollection getDataCollectionByName(String name);
@@ -56,7 +57,8 @@ public interface XmlDataCollectionConfigDao {
     /**
      * Gets the data collection by index.
      *
-     * @param idx the collection index
+     * @param idx
+     *            the collection index
      * @return the data collection by index
      */
     public XmlDataCollection getDataCollectionByIndex(int idx);

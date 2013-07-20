@@ -45,7 +45,8 @@ package org.opennms.acl.repository;
 import java.util.List;
 
 /**
- * Contract that provides the items for the ACL system. This items can be anything
+ * Contract that provides the items for the ACL system. This items can be
+ * anything
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -54,24 +55,32 @@ import java.util.List;
 public interface ItemAclRepository {
 
     /**
-     * <p>getItems</p>
+     * <p>
+     * getItems
+     * </p>
      *
      * @return a list of items to put under acl control
      */
     public List<?> getItems();
 
     /**
-     * <p>getAuthorityItems</p>
+     * <p>
+     * getAuthorityItems
+     * </p>
      *
-     * @param items a {@link java.util.List} object.
+     * @param items
+     *            a {@link java.util.List} object.
      * @return a {@link java.util.List} object.
      */
     public List<?> getAuthorityItems(List<Integer> items);
 
     /**
-     * <p>getFreeItems</p>
+     * <p>
+     * getFreeItems
+     * </p>
      *
-     * @param items a {@link java.util.List} object.
+     * @param items
+     *            a {@link java.util.List} object.
      * @return a {@link java.util.List} object.
      */
     public List<?> getFreeItems(List<Integer> items);

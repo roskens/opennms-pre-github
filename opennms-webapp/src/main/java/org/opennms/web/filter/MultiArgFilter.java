@@ -45,14 +45,22 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     private T[] m_values;
 
     /**
-     * <p>Constructor for MultiArgFilter.</p>
+     * <p>
+     * Constructor for MultiArgFilter.
+     * </p>
      *
-     * @param filterType a {@link java.lang.String} object.
-     * @param sqlType a {@link org.opennms.web.filter.SQLType} object.
-     * @param fieldName a {@link java.lang.String} object.
-     * @param propertyName a {@link java.lang.String} object.
-     * @param values an array of T objects.
-     * @param <T> a T object.
+     * @param filterType
+     *            a {@link java.lang.String} object.
+     * @param sqlType
+     *            a {@link org.opennms.web.filter.SQLType} object.
+     * @param fieldName
+     *            a {@link java.lang.String} object.
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @param values
+     *            an array of T objects.
+     * @param <T>
+     *            a T object.
      */
     public MultiArgFilter(String filterType, SQLType<T> sqlType, String fieldName, String propertyName, T[] values) {
         super(filterType, sqlType, fieldName, propertyName);
@@ -60,7 +68,9 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     }
 
     /**
-     * <p>getValues</p>
+     * <p>
+     * getValues
+     * </p>
      *
      * @return an array of T objects.
      */
@@ -69,7 +79,9 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     }
 
     /**
-     * <p>getValuesAsList</p>
+     * <p>
+     * getValuesAsList
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -78,7 +90,9 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     }
 
     /**
-     * <p>getSQLTemplate</p>
+     * <p>
+     * getSQLTemplate
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,8 +101,8 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     /** {@inheritDoc} */
     @Override
     final public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException {
-        for(int i = 0; i < m_values.length; i++) {
-            bindValue(ps, parameterIndex+i, m_values[i]);
+        for (int i = 0; i < m_values.length; i++) {
+            bindValue(ps, parameterIndex + i, m_values[i]);
         }
         return m_values.length;
     }
@@ -97,7 +111,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     @Override
     final public String getValueString() {
         StringBuilder buf = new StringBuilder();
-        for(int i = 0; i < m_values.length; i++) {
+        for (int i = 0; i < m_values.length; i++) {
             if (i != 0) {
                 buf.append(',');
             }
@@ -121,13 +135,10 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     final public String getSql() {
         Object[] formattedVals = new String[m_values.length];
 
-        for(int i = 0; i < m_values.length; i++) {
+        for (int i = 0; i < m_values.length; i++) {
             formattedVals[i] = formatValue(m_values[i]);
         }
         return String.format(getSQLTemplate(), formattedVals);
     }
-
-
-
 
 }

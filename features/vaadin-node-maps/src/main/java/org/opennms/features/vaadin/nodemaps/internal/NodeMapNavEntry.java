@@ -9,11 +9,13 @@ import org.opennms.web.navigate.DisplayStatus;
 
 public class NodeMapNavEntry implements ConditionalPageNavEntry {
     private String m_name;
+
     private String m_url;
 
-    @Override public DisplayStatus evaluate(final HttpServletRequest request, final Object target) {
+    @Override
+    public DisplayStatus evaluate(final HttpServletRequest request, final Object target) {
         if (target instanceof OnmsNode) {
-            final OnmsNode node = (OnmsNode)target;
+            final OnmsNode node = (OnmsNode) target;
             if (node.getAssetRecord() != null && node.getAssetRecord().getGeolocation() != null) {
                 final OnmsGeolocation geolocation = node.getAssetRecord().getGeolocation();
                 if (geolocation.getLongitude() != null && geolocation.getLatitude() != null) {
@@ -24,7 +26,8 @@ public class NodeMapNavEntry implements ConditionalPageNavEntry {
         return DisplayStatus.NO_DISPLAY;
     }
 
-    @Override public String getName() {
+    @Override
+    public String getName() {
         return m_name;
     }
 
@@ -32,7 +35,8 @@ public class NodeMapNavEntry implements ConditionalPageNavEntry {
         m_name = name;
     }
 
-    @Override public String getUrl() {
+    @Override
+    public String getUrl() {
         return m_url;
     }
 
@@ -40,7 +44,8 @@ public class NodeMapNavEntry implements ConditionalPageNavEntry {
         m_url = url;
     }
 
-    @Override public String toString() {
-        return "NodeMapNavEntry[url=" + m_url + ",name=" + m_name +"]";
+    @Override
+    public String toString() {
+        return "NodeMapNavEntry[url=" + m_url + ",name=" + m_name + "]";
     }
 }

@@ -64,43 +64,42 @@ import org.springframework.test.context.ContextConfiguration;
  * Unit test for ModelImport application.
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
         "classpath:/META-INF/opennms/applicationContext-setupIpLike-enabled.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml",
-        "classpath:/modelImporterTest.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml", "classpath:/modelImporterTest.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
-@JUnitSnmpAgents({
-    @JUnitSnmpAgent(host="172.20.1.201", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="192.168.2.1", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.99.99.99", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.128.2.1", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.128.7.1", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.131.177.1", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.131.180.1", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.131.182.1", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.131.185.1", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.132.80.1", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.132.78.1", resource="classpath:/snmpTestData1.properties"),
-    @JUnitSnmpAgent(host="10.136.160.1", resource="classpath:/snmpTestData1.properties")
-})
+@JUnitSnmpAgents({ @JUnitSnmpAgent(host = "172.20.1.201", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "192.168.2.1", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.99.99.99", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.128.2.1", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.128.7.1", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.131.177.1", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.131.180.1", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.131.182.1", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.131.185.1", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.132.80.1", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.132.78.1", resource = "classpath:/snmpTestData1.properties"),
+        @JUnitSnmpAgent(host = "10.136.160.1", resource = "classpath:/snmpTestData1.properties") })
 public class ModelImporterTest implements InitializingBean {
     @Autowired
     private DatabasePopulator m_populator;
+
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
+
     @Autowired
     private CategoryDao m_categoryDao;
+
     @Autowired
     private ModelImporter m_importer;
+
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
+
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
@@ -112,16 +111,27 @@ public class ModelImporterTest implements InitializingBean {
 
     class CountingVisitor implements ImportVisitor {
         private int m_modelImportCount;
+
         private int m_modelImportCompleted;
+
         private int m_nodeCount;
+
         private int m_nodeCompleted;
+
         private int m_ifaceCount;
+
         private int m_ifaceCompleted;
+
         private int m_svcCount;
+
         private int m_svcCompleted;
+
         private int m_categoryCount;
+
         private int m_categoryCompleted;
+
         private int m_assetCount;
+
         private int m_assetCompleted;
 
         public int getModelImportCount() {
@@ -206,20 +216,18 @@ public class ModelImporterTest implements InitializingBean {
 
         @Override
         public String toString() {
-            return (new ToStringCreator(this)
-                .append("modelImportCount", getModelImportCount())
-                .append("modelImportCompletedCount", getModelImportCompletedCount())
-                .append("nodeCount", getNodeCount())
-                .append("nodeCompletedCount", getNodeCompletedCount())
-                .append("interfaceCount", getInterfaceCount())
-                .append("interfaceCompletedCount", getInterfaceCompletedCount())
-                .append("monitoredServiceCount", getMonitoredServiceCount())
-                .append("monitoredServiceCompletedCount", getMonitoredServiceCompletedCount())
-                .append("categoryCount", getCategoryCount())
-                .append("categoryCompletedCount", getCategoryCompletedCount())
-                .append("assetCount", getAssetCount())
-                .append("assetCompletedCount", getAssetCompletedCount())
-                .toString());
+            return (new ToStringCreator(this).append("modelImportCount", getModelImportCount()).append("modelImportCompletedCount",
+                                                                                                       getModelImportCompletedCount()).append("nodeCount",
+                                                                                                                                              getNodeCount()).append("nodeCompletedCount",
+                                                                                                                                                                     getNodeCompletedCount()).append("interfaceCount",
+                                                                                                                                                                                                     getInterfaceCount()).append("interfaceCompletedCount",
+                                                                                                                                                                                                                                 getInterfaceCompletedCount()).append("monitoredServiceCount",
+                                                                                                                                                                                                                                                                      getMonitoredServiceCount()).append("monitoredServiceCompletedCount",
+                                                                                                                                                                                                                                                                                                         getMonitoredServiceCompletedCount()).append("categoryCount",
+                                                                                                                                                                                                                                                                                                                                                     getCategoryCount()).append("categoryCompletedCount",
+                                                                                                                                                                                                                                                                                                                                                                                getCategoryCompletedCount()).append("assetCount",
+                                                                                                                                                                                                                                                                                                                                                                                                                    getAssetCount()).append("assetCompletedCount",
+                                                                                                                                                                                                                                                                                                                                                                                                                                            getAssetCompletedCount()).toString());
         }
 
         @Override
@@ -275,7 +283,8 @@ public class ModelImporterTest implements InitializingBean {
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testPopulate() throws Exception {
         createAndFlushServiceTypes();
         createAndFlushCategories();
@@ -284,24 +293,25 @@ public class ModelImporterTest implements InitializingBean {
         String specFile = "/tec_dump.xml.smalltest";
         mi.importModelFromResource(new ClassPathResource(specFile));
 
-        //Verify distpoller count
+        // Verify distpoller count
         assertEquals(1, mi.getDistPollerDao().countAll());
 
-        //Verify node count
+        // Verify node count
         assertEquals(10, mi.getNodeDao().countAll());
 
-        //Verify ipinterface count
+        // Verify ipinterface count
         assertEquals(30, mi.getIpInterfaceDao().countAll());
 
-        //Verify ifservices count
+        // Verify ifservices count
         assertEquals(50, mi.getMonitoredServiceDao().countAll());
 
-        //Verify service count
+        // Verify service count
         assertEquals(3, mi.getServiceTypeDao().countAll());
     }
 
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testAddSnmpInterfaces() throws Exception {
         createAndFlushServiceTypes();
         createAndFlushCategories();
@@ -317,21 +327,21 @@ public class ModelImporterTest implements InitializingBean {
         assertEquals(6, m_snmpInterfaceDao.countAll());
     }
 
-
-
     /**
-     * This test first bulk imports 10 nodes then runs update with 1 node missing
+     * This test first bulk imports 10 nodes then runs update with 1 node
+     * missing
      * from the import file.
      *
      * @throws ModelImportException
      */
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testImportUtf8() throws Exception {
         createAndFlushServiceTypes();
         createAndFlushCategories();
 
-        //Initialize the database
+        // Initialize the database
         ModelImporter mi = m_importer;
         String specFile = "/utf-8.xml";
         mi.importModelFromResource(new ClassPathResource(specFile));
@@ -342,18 +352,20 @@ public class ModelImporterTest implements InitializingBean {
     }
 
     /**
-     * This test first bulk imports 10 nodes then runs update with 1 node missing
+     * This test first bulk imports 10 nodes then runs update with 1 node
+     * missing
      * from the import file.
      *
      * @throws ModelImportException
      */
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @JUnitTemporaryDatabase
+    // Relies on specific IDs so we need a fresh database
     public void testDelete() throws Exception {
         createAndFlushServiceTypes();
         createAndFlushCategories();
 
-        //Initialize the database
+        // Initialize the database
         ModelImporter mi = m_importer;
         String specFile = "/tec_dump.xml.smalltest";
         mi.importModelFromResource(new ClassPathResource(specFile));

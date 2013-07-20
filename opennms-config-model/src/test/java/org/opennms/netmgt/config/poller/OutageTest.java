@@ -55,16 +55,12 @@ public class OutageTest extends XmlTest<Outage> {
         time.setEnds("14:45:00");
         outage.addTime(time);
 
-        return Arrays.asList(new Object[][] {
-            {
+        return Arrays.asList(new Object[][] { {
                 outage,
-                "<outage name='junit test' type='weekly'>\n" +
-                "    <time day='monday' begins='13:30:00' ends='14:45:00'/>\n" +
-                "    <interface address='match-any'/>\n" +
-                "</outage>\n",
-                "target/classes/xsds/poll-outages.xsd"
-            }
-        });
+                "<outage name='junit test' type='weekly'>\n"
+                        + "    <time day='monday' begins='13:30:00' ends='14:45:00'/>\n"
+                        + "    <interface address='match-any'/>\n" + "</outage>\n",
+                "target/classes/xsds/poll-outages.xsd" } });
     }
 
 }

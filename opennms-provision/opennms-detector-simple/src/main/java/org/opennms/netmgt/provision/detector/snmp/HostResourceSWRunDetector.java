@@ -63,7 +63,8 @@ public class HostResourceSWRunDetector extends SnmpDetector {
     private static final String PROTOCOL_NAME = "HOST-RESOURCES";
 
     /**
-     * Default OID for the table that represents the name of the software running.
+     * Default OID for the table that represents the name of the software
+     * running.
      */
     private static final String HOSTRESOURCE_SW_NAME_OID = ".1.3.6.1.2.1.25.4.2.1.2";
 
@@ -76,18 +77,20 @@ public class HostResourceSWRunDetector extends SnmpDetector {
     private String m_serviceToDetect;
 
     private String m_serviceNameOid;
+
     /**
-     * <p>Constructor for HostResourceSWRunDetector.</p>
+     * <p>
+     * Constructor for HostResourceSWRunDetector.
+     * </p>
      */
-    public HostResourceSWRunDetector(){
+    public HostResourceSWRunDetector() {
         setServiceName(PROTOCOL_NAME);
         setServiceNameOid(HOSTRESOURCE_SW_NAME_OID);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Returns true if the protocol defined by this plugin is supported. If the
+     * {@inheritDoc} Returns true if the protocol defined by this plugin is
+     * supported. If the
      * protocol is not supported then a false value is returned to the caller.
      * The qualifier map passed to the method is used by the plugin to return
      * additional information by key-name. These key-value pairs can be added to
@@ -101,7 +104,8 @@ public class HostResourceSWRunDetector extends SnmpDetector {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = getAgentConfigFactory().getAgentConfig(address);
-        if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + address);
+        if (agentConfig == null)
+            throw new RuntimeException("SnmpAgentConfig object not available for interface " + address);
 
         // Get configuration parameters
         //
@@ -118,7 +122,7 @@ public class HostResourceSWRunDetector extends SnmpDetector {
         // Establish SNMP session with interface
         //
         final String hostAddress = InetAddressUtils.str(address);
-		try {
+        try {
             LOG.debug("HostResourceSwRunMonitor.poll: SnmpAgentConfig address: {}", agentConfig);
 
             if (serviceName == null) {
@@ -126,16 +130,19 @@ public class HostResourceSWRunDetector extends SnmpDetector {
                 return status;
             }
 
-            // This returns two maps: one of instance and service name, and one of instance and status.
-            Map<SnmpInstId, SnmpValue> nameResults = SnmpUtils.getOidValues(agentConfig, "HostResourceSwRunMonitor", SnmpObjId.get(getServiceNameOid()));
+            // This returns two maps: one of instance and service name, and one
+            // of instance and status.
+            Map<SnmpInstId, SnmpValue> nameResults = SnmpUtils.getOidValues(agentConfig, "HostResourceSwRunMonitor",
+                                                                            SnmpObjId.get(getServiceNameOid()));
 
             // Iterate over the list of running services
-            for(Entry<SnmpInstId, SnmpValue> entry  : nameResults.entrySet()) {
+            for (Entry<SnmpInstId, SnmpValue> entry : nameResults.entrySet()) {
                 SnmpValue value = entry.getValue();
 
                 // See if the service name is in the list of running services
                 if (match(serviceName, stripExtraQuotes(value.toString())) && !status) {
-                    LOG.debug("poll: HostResourceSwRunMonitor poll succeeded, addr={} service name={} value={}", hostAddress, serviceName, value);
+                    LOG.debug("poll: HostResourceSwRunMonitor poll succeeded, addr={} service name={} value={}",
+                              hostAddress, serviceName, value);
                     status = true;
                     break;
                 }
@@ -165,16 +172,21 @@ public class HostResourceSWRunDetector extends SnmpDetector {
     }
 
     /**
-     * <p>setServiceNameOid</p>
+     * <p>
+     * setServiceNameOid
+     * </p>
      *
-     * @param serviceNameOid a {@link java.lang.String} object.
+     * @param serviceNameOid
+     *            a {@link java.lang.String} object.
      */
     public void setServiceNameOid(String serviceNameOid) {
         m_serviceNameOid = serviceNameOid;
     }
 
     /**
-     * <p>getServiceNameOid</p>
+     * <p>
+     * getServiceNameOid
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -183,16 +195,21 @@ public class HostResourceSWRunDetector extends SnmpDetector {
     }
 
     /**
-     * <p>setServiceToDetect</p>
+     * <p>
+     * setServiceToDetect
+     * </p>
      *
-     * @param hostService a {@link java.lang.String} object.
+     * @param hostService
+     *            a {@link java.lang.String} object.
      */
     public void setServiceToDetect(String hostService) {
         m_serviceToDetect = hostService;
     }
 
     /**
-     * <p>getServiceToDetect</p>
+     * <p>
+     * getServiceToDetect
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

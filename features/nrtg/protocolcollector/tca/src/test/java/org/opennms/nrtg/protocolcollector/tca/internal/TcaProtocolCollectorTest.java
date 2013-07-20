@@ -47,7 +47,8 @@ import org.springframework.test.context.ContextConfiguration;
  * @author Markus Neumann
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml", "classpath:TcaProtocolCollectorTestContext.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
+        "classpath:TcaProtocolCollectorTestContext.xml" })
 @JUnitSnmpAgent(port = 9161, host = "127.0.0.1", resource = "classpath:juniperTcaSample.properties")
 public class TcaProtocolCollectorTest implements InitializingBean {
 
@@ -55,8 +56,11 @@ public class TcaProtocolCollectorTest implements InitializingBean {
     private ProtocolCollector protocolCollector;
 
     private CollectionJob collectionJob;
+
     private InetAddress localhost;
+
     private SnmpAgentConfig snmpAgentConfig;
+
     private Set<String> destinations;
 
     @Autowired
@@ -81,10 +85,11 @@ public class TcaProtocolCollectorTest implements InitializingBean {
     @Test
     public void testGetCompositeValue() {
         // snmpResult without "|amount-of-elements|"
-        // timestamp, inboundDelay, inboundJitter, outboundDelay, outboundJitter, timesyncStatus
+        // timestamp, inboundDelay, inboundJitter, outboundDelay,
+        // outboundJitter, timesyncStatus
         String snmpResult = "1327451762,42,23,11,0,1|1327451763,11,0,11,0,1|1327451764,11,0,11,0,1|1327451765,11,0,11,0,1|1327451766,11,0,11,0,1|1327451767,11,0,11,0,1|1327451768,11,0,11,0,1|1327451769,11,0,11,0,1|1327451770,11,0,11,0,1|1327451771,11,0,11,0,1|1327451772,11,0,11,0,1|1327451773,11,0,11,0,1|1327451774,11,0,11,0,1|1327451775,11,0,11,0,1|1327451776,11,0,11,0,1|1327451777,11,0,11,0,1|1327451778,11,0,11,0,1|1327451779,11,0,11,0,1|1327451780,11,0,11,0,1|1327451781,11,0,11,0,1|1327451782,11,0,11,0,1|1327451783,11,0,11,0,1|1327451784,11,0,11,0,1|1327451785,11,0,11,0,1|1327451786,12,0,11,0,423|";
 
-        TcaProtocolCollector tcaProtocolCollector = (TcaProtocolCollector)protocolCollector;
+        TcaProtocolCollector tcaProtocolCollector = (TcaProtocolCollector) protocolCollector;
         String result = tcaProtocolCollector.getCompositeValue("inboundDelay", "|1|" + snmpResult);
         Assert.assertEquals("42", result);
 

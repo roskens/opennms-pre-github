@@ -64,8 +64,11 @@ public class JdbcCollector implements ServiceCollector {
     private static final Logger LOG = LoggerFactory.getLogger(JdbcCollector.class);
 
     private JdbcDataCollectionConfigDao m_jdbcCollectionDao;
+
     private final HashMap<Integer, JdbcAgentState> m_scheduledNodes = new HashMap<Integer, JdbcAgentState>();
+
     private HashMap<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
+
     private HashMap<String, JdbcCollectionAttributeType> m_attribTypeList = new HashMap<String, JdbcCollectionAttributeType>();
 
     public JdbcDataCollectionConfigDao getJdbcCollectionDao() {
@@ -97,7 +100,8 @@ public class JdbcCollector implements ServiceCollector {
     public void initialize(Map<String, String> parameters) {
         LOG.debug("initialize: Initializing JdbcCollector.");
         // Retrieve the DAO for our configuration file.
-        m_jdbcCollectionDao = BeanUtils.getBean("daoContext", "jdbcDataCollectionConfigDao", JdbcDataCollectionConfigDao.class);
+        m_jdbcCollectionDao = BeanUtils.getBean("daoContext", "jdbcDataCollectionConfigDao",
+                                                JdbcDataCollectionConfigDao.class);
 
         // Clear out the node list.
         m_scheduledNodes.clear();
@@ -115,7 +119,9 @@ public class JdbcCollector implements ServiceCollector {
         File f = new File(m_jdbcCollectionDao.getConfig().getRrdRepository());
         if (!f.isDirectory()) {
             if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file " + "repository.  Path doesn't already exist and could not make directory: " + m_jdbcCollectionDao.getConfig().getRrdRepository());
+                throw new RuntimeException("Unable to create RRD file "
+                        + "repository.  Path doesn't already exist and could not make directory: "
+                        + m_jdbcCollectionDao.getConfig().getRrdRepository());
             }
         }
     }
@@ -208,9 +214,10 @@ public class JdbcCollector implements ServiceCollector {
     }
 
     @Override
-    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
+    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters)
+            throws CollectionException {
         JdbcAgentState agentState = null;
-        if(parameters == null) {
+        if (parameters == null) {
             LOG.error("Null parameters is now allowed in JdbcCollector!!");
         }
 
@@ -221,7 +228,7 @@ public class JdbcCollector implements ServiceCollector {
         try {
             String collectionName = ParameterMap.getKeyedString(parameters, "collection", null);
             if (collectionName == null) {
-                //Look for the old configuration style:
+                // Look for the old configuration style:
                 collectionName = ParameterMap.getKeyedString(parameters, "jdbc-collection", null);
             }
 
@@ -241,7 +248,7 @@ public class JdbcCollector implements ServiceCollector {
             collectionSet.setCollectionTimestamp(new Date());
 
             // Cycle through all of the queries for this collection
-            for(JdbcQuery query : collection.getQueries()) {
+            for (JdbcQuery query : collection.getQueries()) {
                 // Verify if we should check for availability of a query.
                 if (agentState.shouldCheckAvailability(query.getQueryName(), query.getRecheckInterval())) {
                     // Check to see if the query is available.
@@ -254,7 +261,7 @@ public class JdbcCollector implements ServiceCollector {
                 try {
                     // If the query is available, lets collect it.
                     if (agentState.groupIsAvailable(query.getQueryName())) {
-                        if(agentState.getUseDataSourceName()) {
+                        if (agentState.getUseDataSourceName()) {
                             initDatabaseConnectionFactory(agentState.getDataSourceName());
                             con = DataSourceFactory.getInstance(agentState.getDataSourceName()).getConnection();
                         } else {
@@ -274,26 +281,28 @@ public class JdbcCollector implements ServiceCollector {
 
                         // Determine if there are results and how many.
                         results.last();
-                        boolean singleInstance = (results.getRow()==1)?true:false;
+                        boolean singleInstance = (results.getRow() == 1) ? true : false;
                         results.beforeFirst();
 
-
                         // Iterate through each row.
-                        while(results.next() ) {
+                        while (results.next()) {
                             JdbcCollectionResource resource = null;
 
                             // Create the appropriate resource container.
-                            if(singleInstance) {
+                            if (singleInstance) {
                                 resource = new JdbcSingleInstanceCollectionResource(agent);
                             } else {
-                                // Retrieve the name of the column to use as the instance key for multi-row queries.
+                                // Retrieve the name of the column to use as the
+                                // instance key for multi-row queries.
                                 String instance = results.getString(query.getInstanceColumn());
-                                resource = new JdbcMultiInstanceCollectionResource(agent,instance, query.getResourceType());
+                                resource = new JdbcMultiInstanceCollectionResource(agent, instance,
+                                                                                   query.getResourceType());
                             }
 
-                            for(JdbcColumn curColumn : query.getJdbcColumns()) {
+                            for (JdbcColumn curColumn : query.getJdbcColumns()) {
                                 String columnName = null;
-                                if(curColumn.getDataSourceName() != null && curColumn.getDataSourceName().length() != 0) {
+                                if (curColumn.getDataSourceName() != null
+                                        && curColumn.getDataSourceName().length() != 0) {
                                     columnName = curColumn.getDataSourceName();
                                 } else {
                                     columnName = curColumn.getColumnName();
@@ -306,9 +315,11 @@ public class JdbcCollector implements ServiceCollector {
                             collectionSet.getCollectionResources().add(resource);
                         }
                     }
-                } catch(SQLException e) {
-                    // Close the statement but retain the connection, log the exception and continue to the next query.
-                    LOG.warn("There was a problem executing query '{}' Please review the query or configuration. Reason: {}", query.getQueryName(), e.getMessage());
+                } catch (SQLException e) {
+                    // Close the statement but retain the connection, log the
+                    // exception and continue to the next query.
+                    LOG.warn("There was a problem executing query '{}' Please review the query or configuration. Reason: {}",
+                             query.getQueryName(), e.getMessage());
                     agentState.closeResultSet(results);
                     agentState.closeStmt(stmt);
                     agentState.closeConnection(con);
@@ -318,19 +329,20 @@ public class JdbcCollector implements ServiceCollector {
             collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
             return collectionSet;
         } finally {
-            // Make sure that when we're done we close all results, statements and connections.
+            // Make sure that when we're done we close all results, statements
+            // and connections.
             agentState.closeResultSet(results);
             agentState.closeStmt(stmt);
             agentState.closeConnection(con);
 
-            if(agentState != null) {
-                //agentState.closeAgentConnection();
+            if (agentState != null) {
+                // agentState.closeAgentConnection();
             }
         }
     }
 
-
-    // Simply check the database the query is supposed to connect to to see if it is available.
+    // Simply check the database the query is supposed to connect to to see if
+    // it is available.
     private boolean isGroupAvailable(JdbcAgentState agentState, JdbcQuery query) {
         LOG.debug("Checking availability of group {}", query.getQueryName());
         boolean status = false;
@@ -338,7 +350,7 @@ public class JdbcCollector implements ServiceCollector {
         Connection con = null;
 
         try {
-            if(agentState.getUseDataSourceName()) {
+            if (agentState.getUseDataSourceName()) {
                 initDatabaseConnectionFactory(agentState.getDataSourceName());
                 con = DataSourceFactory.getInstance(agentState.getDataSourceName()).getConnection();
             } else {
@@ -355,10 +367,10 @@ public class JdbcCollector implements ServiceCollector {
             if (resultset != null) {
                 status = true;
             }
-        } catch(SQLException sqlEx) {
+        } catch (SQLException sqlEx) {
             LOG.warn("Error checking group ({}) availability", query.getQueryName(), sqlEx);
             agentState.setGroupIsAvailable(query.getQueryName(), status);
-            status=false;
+            status = false;
         } finally {
             agentState.closeResultSet(resultset);
             agentState.closeConnection(con);

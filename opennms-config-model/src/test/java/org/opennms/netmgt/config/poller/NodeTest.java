@@ -46,13 +46,7 @@ public class NodeTest extends XmlTest<Node> {
         final Node node = new Node();
         node.setId(10);
 
-        return Arrays.asList(new Object[][] {
-            {
-                node,
-                "<node id='10'/>\n",
-                "target/classes/xsds/poll-outages.xsd"
-            }
-        });
+        return Arrays.asList(new Object[][] { { node, "<node id='10'/>\n", "target/classes/xsds/poll-outages.xsd" } });
     }
 
 }

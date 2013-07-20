@@ -34,7 +34,9 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * <p>GraphDashlet class.</p>
+ * <p>
+ * GraphDashlet class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -45,12 +47,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class GraphDashlet extends Dashlet {
     /**
-     * The offset from the current time (rounded by TIME_ROUNDING_INTERVAL) for the start time on graphs
+     * The offset from the current time (rounded by TIME_ROUNDING_INTERVAL) for
+     * the start time on graphs
      */
     private static final int TIME_START_OFFSET = -(7 * 24 * 60 * 60);
 
     /**
-     * The interval on which we round the start and end times for graph timespans
+     * The interval on which we round the start and end times for graph
+     * timespans
      */
     private static final int TIME_ROUNDING_INTERVAL = (5 * 60);
 
@@ -61,9 +65,12 @@ public class GraphDashlet extends Dashlet {
     private DashletLoader m_loader = new DashletLoader();
 
     /**
-     * <p>Constructor for GraphDashlet.</p>
+     * <p>
+     * Constructor for GraphDashlet.
+     * </p>
      *
-     * @param dashboard a {@link org.opennms.dashboard.client.Dashboard} object.
+     * @param dashboard
+     *            a {@link org.opennms.dashboard.client.Dashboard} object.
      */
     public GraphDashlet(Dashboard dashboard) {
         super(dashboard, "Resource Graphs");
@@ -73,12 +80,15 @@ public class GraphDashlet extends Dashlet {
         setView(m_view);
     }
 
-
-
     /**
-     * <p>setSurveillanceService</p>
+     * <p>
+     * setSurveillanceService
+     * </p>
      *
-     * @param surveillanceService a {@link org.opennms.dashboard.client.SurveillanceServiceAsync} object.
+     * @param surveillanceService
+     *            a
+     *            {@link org.opennms.dashboard.client.SurveillanceServiceAsync}
+     *            object.
      */
     public void setSurveillanceService(SurveillanceServiceAsync surveillanceService) {
         m_surveillanceService = surveillanceService;
@@ -92,30 +102,39 @@ public class GraphDashlet extends Dashlet {
 
     public class GraphView extends DashletView {
         private VerticalPanel m_panel = new VerticalPanel();
+
         private SimplePager m_pager = new SimplePager(new SimplePageable() {
             @Override
             public void adjustPage(int direction) {
                 m_prefabGraphListBox.adjustSelectedValue(direction);
             }
         });
+
         private ValidatedListBox m_topLevelResourceListBox = new ValidatedListBox(GraphDashlet.this);
+
         private ValidatedListBox m_childResourceListBox = new ValidatedListBox(GraphDashlet.this);
+
         private ValidatedListBox m_prefabGraphListBox = new ValidatedListBox(GraphDashlet.this);
+
         private ResourceGraph m_graph = new ResourceGraph();
 
         private TopLevelResourceLoader m_topLevelResourceLoader;
+
         private ChildResourceLoader m_childResourceLoader;
+
         private PrefabGraphLoader m_prefabGraphLoader;
 
         private TopLevelResourceChangeHandler m_topLevelResourceHandler = new TopLevelResourceChangeHandler();
+
         private ChildResourceChangeHandler m_childResourceHandler = new ChildResourceChangeHandler();
+
         private PrefabGraphChangeHandler m_prefabGraphHandler = new PrefabGraphChangeHandler();
 
         private String m_selectedResourceId = null;
 
         public GraphView(Dashlet dashlet) {
             super(dashlet);
-            //m_panel.add(m_pager);
+            // m_panel.add(m_pager);
             m_panel.add(m_topLevelResourceListBox);
             m_panel.add(m_childResourceListBox);
             m_panel.add(m_prefabGraphListBox);
@@ -139,13 +158,10 @@ public class GraphDashlet extends Dashlet {
             initWidget(m_panel);
         }
 
-
         @Override
         public void onDashLoad() {
             addToTitleBar(m_pager, DockPanel.CENTER);
         }
-
-
 
         public TopLevelResourceLoader getTopLevelResourceLoader() {
             return m_topLevelResourceLoader;
@@ -179,7 +195,8 @@ public class GraphDashlet extends Dashlet {
                     return;
                 }
 
-                // Reload child resources since we just change the top-level resource
+                // Reload child resources since we just change the top-level
+                // resource
                 m_childResourceLoader.load(resourceId, direction);
             }
         }
@@ -278,24 +295,32 @@ public class GraphDashlet extends Dashlet {
             }
 
             /**
-             * Returns start and end times as Strings, in standard Java milliseconds
-             * values.  The time will be rounded to the nearest five minute interval
-             * so when we prefetch graph images the URL will remain the same for that
+             * Returns start and end times as Strings, in standard Java
+             * milliseconds
+             * values. The time will be rounded to the nearest five minute
+             * interval
+             * so when we prefetch graph images the URL will remain the same for
+             * that
              * interval, allowing the browser to use the prefetched image.
              */
             public String[] getTimes() {
                 /*
-                 * Get the current time and convert it from a long to integer so we
+                 * Get the current time and convert it from a long to integer so
+                 * we
                  * can do reliable math in Javascript.
-                 *
-                 * With GWT, a long is implemented in Javascript as a double since
-                 * Javascript doesn't have a 64 bit integer type.  We want to make
-                 * sure that the times that we return don't change even a millisecond,
-                 * otherwise a graph that we prefetch might not be usable because the
-                 * prefetched URL and the URL that we use when we want to show the
+                 * With GWT, a long is implemented in Javascript as a double
+                 * since
+                 * Javascript doesn't have a 64 bit integer type. We want to
+                 * make
+                 * sure that the times that we return don't change even a
+                 * millisecond,
+                 * otherwise a graph that we prefetch might not be usable
+                 * because the
+                 * prefetched URL and the URL that we use when we want to show
+                 * the
                  * image might not be the same.
-                 *
-                 * FIXME This has a Y2038 issue where the signed integer will overflow.
+                 * FIXME This has a Y2038 issue where the signed integer will
+                 * overflow.
                  */
                 int now = (int) (System.currentTimeMillis() / 1000);
 

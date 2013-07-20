@@ -39,25 +39,25 @@ import org.opennms.core.test.snmp.SnmpTestSuiteUtils;
 import org.opennms.netmgt.model.OnmsEntity;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 
-
 public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
 
     private final class IfInfoVisitor extends ResourceVisitor {
 
-    	public int ifInfoCount = 0;
+        public int ifInfoCount = 0;
 
-            @Override
-		public void visitResource(CollectionResource resource) {
-		    if (!(resource instanceof IfInfo)) return;
+        @Override
+        public void visitResource(CollectionResource resource) {
+            if (!(resource instanceof IfInfo))
+                return;
 
-		    ifInfoCount++;
-		    IfInfo ifInfo = (IfInfo) resource;
-		    assertMibObjectsPresent(ifInfo, getAttributeList());
+            ifInfoCount++;
+            IfInfo ifInfo = (IfInfo) resource;
+            assertMibObjectsPresent(ifInfo, getAttributeList());
 
-		}
-	}
+        }
+    }
 
-	public static TestSuite suite() {
+    public static TestSuite suite() {
         return SnmpTestSuiteUtils.createSnmpVersionTestSuite(SnmpIfCollectorTest.class);
     }
 
@@ -72,25 +72,24 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
     }
 
     public void testZeroVars() throws Exception {
-            createSnmpInterface(1, 24, "lo", true);
+        createSnmpInterface(1, 24, "lo", true);
 
-            SnmpIfCollector collector = createSnmpIfCollector();
-            waitForSignal();
+        SnmpIfCollector collector = createSnmpIfCollector();
+        waitForSignal();
 
-
-            assertInterfaceMibObjectsPresent(collector.getCollectionSet(), 1);
+        assertInterfaceMibObjectsPresent(collector.getCollectionSet(), 1);
     }
 
     private void assertInterfaceMibObjectsPresent(CollectionSet collectionSet, int expectedIfCount) {
         assertNotNull(collectionSet);
 
-        if (getAttributeList().isEmpty()) return;
-
+        if (getAttributeList().isEmpty())
+            return;
 
         IfInfoVisitor ifInfoVisitor = new IfInfoVisitor();
-		collectionSet.visit(ifInfoVisitor);
+        collectionSet.visit(ifInfoVisitor);
 
-		assertEquals("Unexpected number of interfaces", expectedIfCount, ifInfoVisitor.ifInfoCount);
+        assertEquals("Unexpected number of interfaces", expectedIfCount, ifInfoVisitor.ifInfoCount);
 
     }
 
@@ -104,7 +103,7 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
         SnmpIfCollector collector = createSnmpIfCollector();
         waitForSignal();
 
-        // remove the failing element.  Now entries should match
+        // remove the failing element. Now entries should match
         getAttributeList().remove(0);
         assertInterfaceMibObjectsPresent(collector.getCollectionSet(), 1);
     }
@@ -113,7 +112,7 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
 
         addIfSpeed();
         addIfInOctets();
-        // the oid below is wrong.  Make sure we collect the others anyway
+        // the oid below is wrong. Make sure we collect the others anyway
         addAttribute("invalid", "1.3.66.1.2.1.2.2.299.16", "ifIndex", "counter");
         addIfInErrors();
         addIfOutErrors();
@@ -147,21 +146,24 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
     private SnmpIfCollector createSnmpIfCollector() throws UnknownHostException, CollectionInitializationException {
         initializeAgent();
 
-        SnmpIfCollector collector = new SnmpIfCollector(InetAddress.getLocalHost(), getCollectionSet().getCombinedIndexedAttributes(), getCollectionSet());
+        SnmpIfCollector collector = new SnmpIfCollector(InetAddress.getLocalHost(),
+                                                        getCollectionSet().getCombinedIndexedAttributes(),
+                                                        getCollectionSet());
 
         createWalker(collector);
         return collector;
     }
 
-    private OnmsEntity createSnmpInterface(final int ifIndex, final int ifType, final String ifName, final boolean collectionEnabled) {
+    private OnmsEntity createSnmpInterface(final int ifIndex, final int ifType, final String ifName,
+            final boolean collectionEnabled) {
         final OnmsSnmpInterface m_snmpIface = new OnmsSnmpInterface();
-    	m_snmpIface.setIfIndex(ifIndex);
-    	m_snmpIface.setIfType(ifType);
-    	m_snmpIface.setIfName(ifName);
-    	m_snmpIface.setCollectionEnabled(collectionEnabled);
-    	m_node.addSnmpInterface(m_snmpIface);
+        m_snmpIface.setIfIndex(ifIndex);
+        m_snmpIface.setIfType(ifType);
+        m_snmpIface.setIfName(ifName);
+        m_snmpIface.setCollectionEnabled(collectionEnabled);
+        m_node.addSnmpInterface(m_snmpIface);
 
-    	return m_snmpIface;
+        return m_snmpIface;
 
     }
 
@@ -181,6 +183,5 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
     }
 
     // TODO: add test for very large v2 request
-
 
 }

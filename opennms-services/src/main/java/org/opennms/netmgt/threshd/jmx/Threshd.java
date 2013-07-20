@@ -40,9 +40,10 @@ import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * <p>Threshd class.</p>
+ * <p>
+ * Threshd class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -52,7 +53,9 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
     private static final Logger LOG = LoggerFactory.getLogger(Threshd.class);
 
     /**
-     * <p>Constructor for Threshd.</p>
+     * <p>
+     * Constructor for Threshd.
+     * </p>
      */
     public Threshd() {
         super(NAME);
@@ -64,7 +67,9 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
     private final static String NAME = "threshd";
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
@@ -99,8 +104,6 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
             throw new UndeclaredThrowableException(ex);
         }
 
-
-
         getInstance().setThreshdConfig(ThreshdConfigFactory.getInstance());
 
         getInstance().init();
@@ -111,7 +114,9 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
     }
 
     /**
-     * <p>onStart</p>
+     * <p>
+     * onStart
+     * </p>
      */
     @Override
     protected void onStart() {
@@ -119,7 +124,9 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
     }
 
     /**
-     * <p>onStop</p>
+     * <p>
+     * onStop
+     * </p>
      */
     @Override
     protected void onStop() {
@@ -127,7 +134,9 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
     }
 
     /**
-     * <p>getStatus</p>
+     * <p>
+     * getStatus
+     * </p>
      *
      * @return a int.
      */

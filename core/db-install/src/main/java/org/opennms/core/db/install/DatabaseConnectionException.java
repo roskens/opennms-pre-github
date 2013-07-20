@@ -31,7 +31,9 @@ package org.opennms.core.db.install;
 import java.sql.SQLException;
 
 /**
- * <p>DatabaseConnectionException class.</p>
+ * <p>
+ * DatabaseConnectionException class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -45,9 +47,12 @@ public class DatabaseConnectionException extends SQLException {
     private static final long serialVersionUID = -6548231456647908279L;
 
     /**
-     * <p>Constructor for DatabaseConnectionException.</p>
+     * <p>
+     * Constructor for DatabaseConnectionException.
+     * </p>
      *
-     * @param reason a {@link java.lang.String} object.
+     * @param reason
+     *            a {@link java.lang.String} object.
      */
     public DatabaseConnectionException(String reason) {
         super(reason);

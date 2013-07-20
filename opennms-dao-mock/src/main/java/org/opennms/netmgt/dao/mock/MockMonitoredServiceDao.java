@@ -15,7 +15,8 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.ServiceSelector;
 
-public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredService, Integer> implements MonitoredServiceDao {
+public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredService, Integer> implements
+        MonitoredServiceDao {
     private AtomicInteger m_id = new AtomicInteger(0);
 
     @Override
@@ -58,9 +59,11 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     }
 
     @Override
-    public OnmsMonitoredService get(final Integer nodeId, final String ipAddr, final Integer ifIndex, final Integer serviceId) {
+    public OnmsMonitoredService get(final Integer nodeId, final String ipAddr, final Integer ifIndex,
+            final Integer serviceId) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (svc.getNodeId().equals(nodeId) && svc.getIpAddress().equals(addr(ipAddr)) && svc.getIfIndex().equals(ifIndex) && svc.getId().equals(serviceId)) {
+            if (svc.getNodeId().equals(nodeId) && svc.getIpAddress().equals(addr(ipAddr))
+                    && svc.getIfIndex().equals(ifIndex) && svc.getId().equals(serviceId)) {
                 return svc;
             }
         }
@@ -70,7 +73,8 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     @Override
     public OnmsMonitoredService get(final Integer nodeId, final String ipAddr, final Integer serviceId) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (svc.getNodeId().equals(nodeId) && svc.getIpAddress().equals(ipAddr) && svc.getId() == serviceId.intValue()) {
+            if (svc.getNodeId().equals(nodeId) && svc.getIpAddress().equals(ipAddr)
+                    && svc.getId() == serviceId.intValue()) {
                 return svc;
             }
         }
@@ -78,9 +82,11 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     }
 
     @Override
-    public OnmsMonitoredService get(final Integer nodeId, final InetAddress ipAddr, final Integer ifIndex, final Integer serviceId) {
+    public OnmsMonitoredService get(final Integer nodeId, final InetAddress ipAddr, final Integer ifIndex,
+            final Integer serviceId) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (svc.getNodeId().equals(nodeId) && svc.getIpAddress().equals(ipAddr) && svc.getIfIndex().equals(ifIndex) && svc.getId().equals(serviceId)) {
+            if (svc.getNodeId().equals(nodeId) && svc.getIpAddress().equals(ipAddr) && svc.getIfIndex().equals(ifIndex)
+                    && svc.getId().equals(serviceId)) {
                 return svc;
             }
         }
@@ -90,7 +96,8 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     @Override
     public OnmsMonitoredService get(final Integer nodeId, final InetAddress ipAddress, final String svcName) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (svc.getNodeId().equals(nodeId) && ipAddress.equals(svc.getIpAddress()) && svcName.equals(svc.getServiceName())) {
+            if (svc.getNodeId().equals(nodeId) && ipAddress.equals(svc.getIpAddress())
+                    && svcName.equals(svc.getServiceName())) {
                 return svc;
             }
         }
@@ -127,7 +134,8 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     @Override
     public OnmsMonitoredService getPrimaryService(final Integer nodeId, final String svcName) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (svc.getNodeId().equals(nodeId) && svcName.equals(svc.getServiceName()) && svc.getIpInterface().isPrimary()) {
+            if (svc.getNodeId().equals(nodeId) && svcName.equals(svc.getServiceName())
+                    && svc.getIpInterface().isPrimary()) {
                 return svc;
             }
         }

@@ -37,20 +37,21 @@ import com.google.gwt.core.client.GWT;
  *         Validator just allows A-Z a-z 0-9 and - and _.
  */
 public class StringBasicValidator implements Validator {
-	private AssetPageConstants con = GWT.create(AssetPageConstants.class);
-	private String regexp = "[A-Za-z0-9_/-]*";
+    private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
-	/**
-	 * Validator just allows A-Z a-z 0-9 and - and _. Validation will run
-	 * against <code>(String) object</code> so make sure to use a proper object.
-	 *
-	 * @param object
-	 */
-	@Override
-	public String validate(Object object) {
-		if (!((String) object).matches(regexp)) {
-			return con.stringBasicValidationError() + " " + regexp;
-		}
-		return "";
-	}
+    private String regexp = "[A-Za-z0-9_/-]*";
+
+    /**
+     * Validator just allows A-Z a-z 0-9 and - and _. Validation will run
+     * against <code>(String) object</code> so make sure to use a proper object.
+     *
+     * @param object
+     */
+    @Override
+    public String validate(Object object) {
+        if (!((String) object).matches(regexp)) {
+            return con.stringBasicValidationError() + " " + regexp;
+        }
+        return "";
+    }
 }

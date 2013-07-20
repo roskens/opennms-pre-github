@@ -51,7 +51,9 @@ import org.opennms.acl.model.UserDTOLight;
 import org.opennms.acl.model.UserView;
 
 /**
- * <p>UserService interface.</p>
+ * <p>
+ * UserService interface.
+ * </p>
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -60,9 +62,12 @@ import org.opennms.acl.model.UserView;
 public interface UserService extends PagerService {
 
     /**
-     * <p>getEnabledUsers</p>
+     * <p>
+     * getEnabledUsers
+     * </p>
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
+     * @param pager
+     *            a {@link org.opennms.acl.model.Pager} object.
      * @return a {@link java.util.List} object.
      */
     public List<UserDTOLight> getEnabledUsers(Pager pager);
@@ -70,7 +75,8 @@ public interface UserService extends PagerService {
     /**
      * Retrieve the disabled users
      *
-     * @param pager a {@link org.opennms.acl.model.Pager} object.
+     * @param pager
+     *            a {@link org.opennms.acl.model.Pager} object.
      * @return a {@link java.util.List} object.
      */
     public List<UserDTOLight> getDisabledUsers(Pager pager);
@@ -78,7 +84,8 @@ public interface UserService extends PagerService {
     /**
      * Retrieve the id of user by username
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return the unique identifier
      */
     public Object getIdUser(String username);
@@ -86,7 +93,8 @@ public interface UserService extends PagerService {
     /**
      * disable a user
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return the outcome of disable operation
      */
     public Boolean disableUser(String id);
@@ -94,7 +102,8 @@ public interface UserService extends PagerService {
     /**
      * retrieve a user
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link UserView}
      */
     public UserView getUser(String id);
@@ -102,7 +111,8 @@ public interface UserService extends PagerService {
     /**
      * retrieve a user with credentials
      *
-     * @param id a {@link java.lang.String} object.
+     * @param id
+     *            a {@link java.lang.String} object.
      * @return a {@link UserView}
      */
     public UserDTO getUserCredentials(String id);
@@ -110,7 +120,8 @@ public interface UserService extends PagerService {
     /**
      * retrieve a user with their authorities
      *
-     * @param username a {@link java.lang.String} object.
+     * @param username
+     *            a {@link java.lang.String} object.
      * @return {@link UserAuthoritiesDTO} with their roles
      */
     public UserAuthoritiesDTO getUserWithAuthorities(String username);
@@ -119,12 +130,15 @@ public interface UserService extends PagerService {
      * retrieve a user with their id
      *
      * @return {@link UserAuthoritiesDTO} with their authorities
-     * @param sid a {@link java.lang.Integer} object.
+     * @param sid
+     *            a {@link java.lang.Integer} object.
      */
     public UserAuthoritiesDTO getUserWithAuthoritiesByID(Integer sid);
 
     /**
-     * <p>getUsersNumber</p>
+     * <p>
+     * getUsersNumber
+     * </p>
      *
      * @return user's number
      */
@@ -133,15 +147,19 @@ public interface UserService extends PagerService {
     /**
      * Method only for admin, insert a user or change the user password
      *
-     * @param user a {@link org.opennms.acl.model.UserDTO} object.
+     * @param user
+     *            a {@link org.opennms.acl.model.UserDTO} object.
      * @return a boolean.
      */
     public boolean save(UserDTO user);
 
     /**
-     * <p>save</p>
+     * <p>
+     * save
+     * </p>
      *
-     * @param user a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
+     * @param user
+     *            a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
      * @return a boolean.
      */
     public boolean save(UserAuthoritiesDTO user);

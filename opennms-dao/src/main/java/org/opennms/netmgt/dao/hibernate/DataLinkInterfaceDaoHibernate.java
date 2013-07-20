@@ -43,9 +43,12 @@ import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLinkInterface, Integer> implements DataLinkInterfaceDao {
+public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLinkInterface, Integer> implements
+        DataLinkInterfaceDao {
     /**
-     * <p>Constructor for DataLinkInterfaceDaoHibernate.</p>
+     * <p>
+     * Constructor for DataLinkInterfaceDaoHibernate.
+     * </p>
      */
     public DataLinkInterfaceDaoHibernate() {
         super(DataLinkInterface.class);
@@ -59,10 +62,7 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
             @Override
             public Collection<DataLinkInterface> doInHibernate(Session session) throws HibernateException {
-                return session.createCriteria(DataLinkInterface.class)
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .list();
+                return session.createCriteria(DataLinkInterface.class).setFirstResult(offset).setMaxResults(limit).list();
             }
         });
     }
@@ -102,21 +102,22 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
     @Override
     public void markDeletedIfNodeDeleted() {
-	final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
+        final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
         builder.alias("node", "node", JoinType.LEFT_JOIN);
         builder.eq("node.type", "D");
 
         for (final DataLinkInterface dataLinkIface : findMatching(builder.toCriteria())) {
-        	dataLinkIface.setStatus(StatusType.DELETED);
-        	saveOrUpdate(dataLinkIface);
+            dataLinkIface.setStatus(StatusType.DELETED);
+            saveOrUpdate(dataLinkIface);
         }
     }
 
     @Override
     public void deactivateIfOlderThan(final Date scanTime, String source) {
-        // UPDATE datalinkinterface set status = 'N'  WHERE lastpolltime < ? AND status = 'A'
+        // UPDATE datalinkinterface set status = 'N' WHERE lastpolltime < ? AND
+        // status = 'A'
         final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
-        builder.eq("source",source);
+        builder.eq("source", source);
         builder.lt("lastPollTime", scanTime);
         builder.eq("status", StatusType.ACTIVE);
 
@@ -142,16 +143,19 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
     @Override
     public void setStatusForNode(final Integer nodeid, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE nodeid = ? OR nodeparentid = ?
+        // UPDATE datalinkinterface set status = ? WHERE nodeid = ? OR
+        // nodeparentid = ?
         setStatusForNode(nodeid, null, action);
     }
 
     @Override
     public void setStatusForNode(final Integer nodeid, final String source, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? OR nodeparentid = ?) and source = ?
+        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? OR
+        // nodeparentid = ?) and source = ?
 
         final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
-        if (source != null) builder.eq("source", source);
+        if (source != null)
+            builder.eq("source", source);
         builder.or(new EqRestriction("node.id", nodeid), new EqRestriction("nodeParentId", nodeid));
 
         for (final DataLinkInterface iface : findMatching(builder.toCriteria())) {
@@ -162,28 +166,25 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?)
+        // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? and ifindex
+        // = ?) OR (nodeparentid = ? AND parentifindex = ?)
 
         setStatusForNodeAndIfIndex(nodeid, ifIndex, null, action);
     }
 
     @Override
-    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, String source, final StatusType action) {
-        // UPDATE datalinkinterface set status = ? WHERE source = ? and ((nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?))
+    public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, String source,
+            final StatusType action) {
+        // UPDATE datalinkinterface set status = ? WHERE source = ? and ((nodeid
+        // = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?))
 
         final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
         builder.alias("node", "node", JoinType.LEFT_JOIN);
-        if (source != null) builder.eq("source", source);
-        builder.or(
-            new AllRestriction(
-                new EqRestriction("node.id", nodeid),
-                new EqRestriction("ifIndex", ifIndex)
-            ),
-            new AllRestriction(
-                new EqRestriction("nodeParentId", nodeid),
-                new EqRestriction("parentIfIndex", ifIndex)
-            )
-        );
+        if (source != null)
+            builder.eq("source", source);
+        builder.or(new AllRestriction(new EqRestriction("node.id", nodeid), new EqRestriction("ifIndex", ifIndex)),
+                   new AllRestriction(new EqRestriction("nodeParentId", nodeid), new EqRestriction("parentIfIndex",
+                                                                                                   ifIndex)));
 
         for (final DataLinkInterface iface : findMatching(builder.toCriteria())) {
             iface.setStatus(action);

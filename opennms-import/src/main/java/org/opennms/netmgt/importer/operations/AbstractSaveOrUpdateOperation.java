@@ -56,205 +56,247 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessorFactory;
 
 /**
- * <p>Abstract AbstractSaveOrUpdateOperation class.</p>
+ * <p>
+ * Abstract AbstractSaveOrUpdateOperation class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperation implements SaveOrUpdateOperation {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractSaveOrUpdateOperation.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractSaveOrUpdateOperation.class);
 
+    private final OnmsNode m_node;
 
-	private final OnmsNode m_node;
     private NodeDao m_nodeDao;
+
     private DistPollerDao m_distPollerDao;
+
     private OnmsIpInterface m_currentInterface;
+
     private ServiceTypeDao m_svcTypeDao;
+
     private CategoryDao m_categoryDao;
+
     private ThreadLocal<HashMap<String, OnmsServiceType>> m_types;
+
     private ThreadLocal<HashMap<String, OnmsCategory>> m_categories;
 
     private IfSnmpCollector m_collector;
 
     /**
-     * <p>Constructor for AbstractSaveOrUpdateOperation.</p>
+     * <p>
+     * Constructor for AbstractSaveOrUpdateOperation.
+     * </p>
      *
-     * @param foreignSource a {@link java.lang.String} object.
-     * @param foreignId a {@link java.lang.String} object.
-     * @param nodeLabel a {@link java.lang.String} object.
-     * @param building a {@link java.lang.String} object.
-     * @param city a {@link java.lang.String} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
      */
-    public AbstractSaveOrUpdateOperation(final String foreignSource, final String foreignId, final String nodeLabel, final String building, final String city) {
-		this(null, foreignSource, foreignId, nodeLabel, building, city);
-	}
+    public AbstractSaveOrUpdateOperation(final String foreignSource, final String foreignId, final String nodeLabel,
+            final String building, final String city) {
+        this(null, foreignSource, foreignId, nodeLabel, building, city);
+    }
 
-	/**
-	 * <p>Constructor for AbstractSaveOrUpdateOperation.</p>
-	 *
-	 * @param nodeId a {@link java.lang.Integer} object.
-	 * @param foreignSource a {@link java.lang.String} object.
-	 * @param foreignId a {@link java.lang.String} object.
-	 * @param nodeLabel a {@link java.lang.String} object.
-	 * @param building a {@link java.lang.String} object.
-	 * @param city a {@link java.lang.String} object.
-	 */
-	public AbstractSaveOrUpdateOperation(final Integer nodeId, final String foreignSource, final String foreignId, final String nodeLabel, final String building, final String city) {
+    /**
+     * <p>
+     * Constructor for AbstractSaveOrUpdateOperation.
+     * </p>
+     *
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
+     * @param foreignSource
+     *            a {@link java.lang.String} object.
+     * @param foreignId
+     *            a {@link java.lang.String} object.
+     * @param nodeLabel
+     *            a {@link java.lang.String} object.
+     * @param building
+     *            a {@link java.lang.String} object.
+     * @param city
+     *            a {@link java.lang.String} object.
+     */
+    public AbstractSaveOrUpdateOperation(final Integer nodeId, final String foreignSource, final String foreignId,
+            final String nodeLabel, final String building, final String city) {
         m_node = new OnmsNode();
         m_node.setId(nodeId);
-		m_node.setLabel(nodeLabel);
-		m_node.setLabelSource("U");
-		m_node.setType("A");
+        m_node.setLabel(nodeLabel);
+        m_node.setLabelSource("U");
+        m_node.setType("A");
         m_node.setForeignSource(foreignSource);
         m_node.setForeignId(foreignId);
         m_node.getAssetRecord().setBuilding(building);
         m_node.getAssetRecord().setCity(city);
-	}
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void foundInterface(final String ipAddr, final Object descr, final InterfaceSnmpPrimaryType snmpPrimary, final boolean managed, final int status) {
+    /** {@inheritDoc} */
+    @Override
+    public void foundInterface(final String ipAddr, final Object descr, final InterfaceSnmpPrimaryType snmpPrimary,
+            final boolean managed, final int status) {
 
-		if ("".equals(ipAddr)) {
-			LOG.error("Found interface on node {} with an empty ipaddr! Ignoring!", m_node.getLabel());
-			// create a bogus OnmsIpInterface and set it to current to services we run across get ignored as well
-			m_currentInterface = new OnmsIpInterface();
-			return;
-		}
+        if ("".equals(ipAddr)) {
+            LOG.error("Found interface on node {} with an empty ipaddr! Ignoring!", m_node.getLabel());
+            // create a bogus OnmsIpInterface and set it to current to services
+            // we run across get ignored as well
+            m_currentInterface = new OnmsIpInterface();
+            return;
+        }
 
         m_currentInterface = new OnmsIpInterface(ipAddr, m_node);
         m_currentInterface.setIsManaged(status == 3 ? "U" : "M");
         m_currentInterface.setIsSnmpPrimary(PrimaryType.get(snmpPrimary.toString()));
-        //m_currentInterface.setIpStatus(status == 3 ? new Integer(3) : new Integer(1));
+        // m_currentInterface.setIpStatus(status == 3 ? new Integer(3) : new
+        // Integer(1));
 
         if (InterfaceSnmpPrimaryType.P.equals(snmpPrimary)) {
-        	final InetAddress addr = InetAddressUtils.addr(ipAddr);
-        	if (addr == null) {
-        		LOG.error("Unable to resolve address of snmpPrimary interface for node {}", m_node.getLabel());
-        	}
-    		m_collector = new IfSnmpCollector(addr);
+            final InetAddress addr = InetAddressUtils.addr(ipAddr);
+            if (addr == null) {
+                LOG.error("Unable to resolve address of snmpPrimary interface for node {}", m_node.getLabel());
+            }
+            m_collector = new IfSnmpCollector(addr);
         }
 
-        //FIXME: verify this doesn't conflict with constructor.  The constructor already adds this
-        //interface to the node.
+        // FIXME: verify this doesn't conflict with constructor. The constructor
+        // already adds this
+        // interface to the node.
         m_node.addIpInterface(m_currentInterface);
     }
 
-	/**
-	 * <p>gatherAdditionalData</p>
-	 */
-        @Override
-	public void gatherAdditionalData() {
-    	updateSnmpData();
-	}
+    /**
+     * <p>
+     * gatherAdditionalData
+     * </p>
+     */
+    @Override
+    public void gatherAdditionalData() {
+        updateSnmpData();
+    }
 
     /**
-     * <p>persist</p>
+     * <p>
+     * persist
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-        @Override
+    @Override
     public List<Event> persist() {
-    	return doPersist();
-	}
+        return doPersist();
+    }
 
     /**
-     * <p>doPersist</p>
+     * <p>
+     * doPersist
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
     protected abstract List<Event> doPersist();
 
-	/**
-	 * <p>updateSnmpData</p>
-	 */
-	protected void updateSnmpData() {
-		if (m_collector != null) {
+    /**
+     * <p>
+     * updateSnmpData
+     * </p>
+     */
+    protected void updateSnmpData() {
+        if (m_collector != null) {
             m_collector.run();
         }
 
-		updateSnmpDataForNode();
+        updateSnmpDataForNode();
 
-		updateSnmpDataForSnmpInterfaces();
+        updateSnmpDataForSnmpInterfaces();
 
-		for (OnmsIpInterface ipIf : m_node.getIpInterfaces()) {
+        for (OnmsIpInterface ipIf : m_node.getIpInterfaces()) {
             resolveIpHostname(ipIf);
             updateSnmpDataForInterface(ipIf);
-		}
-	}
+        }
+    }
 
-	private void updateSnmpDataForSnmpInterfaces() {
-	    if (m_collector != null && m_collector.hasIfTable()) {
+    private void updateSnmpDataForSnmpInterfaces() {
+        if (m_collector != null && m_collector.hasIfTable()) {
 
-            for(IfTableEntry entry : m_collector.getIfTable()) {
+            for (IfTableEntry entry : m_collector.getIfTable()) {
 
-	            Integer ifIndex = entry.getIfIndex();
+                Integer ifIndex = entry.getIfIndex();
 
-	            if (ifIndex == null) continue;
+                if (ifIndex == null)
+                    continue;
 
                 LOG.debug("Updating SNMP Interface with ifIndex {}", ifIndex);
 
-	            // first look to see if an snmpIf was created already
-	            OnmsSnmpInterface snmpIf = m_node.getSnmpInterfaceWithIfIndex(ifIndex);
+                // first look to see if an snmpIf was created already
+                OnmsSnmpInterface snmpIf = m_node.getSnmpInterfaceWithIfIndex(ifIndex);
 
-	            if (snmpIf == null) {
-	                // if not then create one
+                if (snmpIf == null) {
+                    // if not then create one
                     snmpIf = new OnmsSnmpInterface(m_node, ifIndex);
-	            }
+                }
 
-	            snmpIf.setIfAlias(m_collector.getIfAlias(ifIndex));
-	            snmpIf.setIfName(m_collector.getIfName(ifIndex));
-	            snmpIf.setIfType(getIfType(ifIndex));
-	            snmpIf.setNetMask(getNetMask(ifIndex));
-	            snmpIf.setIfAdminStatus(getAdminStatus(ifIndex));
-	            snmpIf.setIfDescr(m_collector.getIfDescr(ifIndex));
-	            snmpIf.setIfSpeed(m_collector.getInterfaceSpeed(ifIndex));
-	            snmpIf.setPhysAddr(m_collector.getPhysAddr(ifIndex));
+                snmpIf.setIfAlias(m_collector.getIfAlias(ifIndex));
+                snmpIf.setIfName(m_collector.getIfName(ifIndex));
+                snmpIf.setIfType(getIfType(ifIndex));
+                snmpIf.setNetMask(getNetMask(ifIndex));
+                snmpIf.setIfAdminStatus(getAdminStatus(ifIndex));
+                snmpIf.setIfDescr(m_collector.getIfDescr(ifIndex));
+                snmpIf.setIfSpeed(m_collector.getInterfaceSpeed(ifIndex));
+                snmpIf.setPhysAddr(m_collector.getPhysAddr(ifIndex));
 
-	        }
-	    }
-	}
+            }
+        }
+    }
 
-	private void updateSnmpDataForNode() {
+    private void updateSnmpDataForNode() {
         if (m_collector != null && m_collector.hasSystemGroup()) {
             m_node.setSysContact(m_collector.getSystemGroup().getSysContact());
             m_node.setSysDescription(m_collector.getSystemGroup().getSysDescr());
             m_node.setSysLocation(m_collector.getSystemGroup().getSysLocation());
             m_node.setSysObjectId(m_collector.getSystemGroup().getSysObjectID());
         }
-	}
+    }
 
-	/**
-	 * <p>isSnmpDataForNodeUpToDate</p>
-	 *
-	 * @return a boolean.
-	 */
-	protected boolean isSnmpDataForNodeUpToDate() {
-		return m_collector != null && m_collector.hasSystemGroup();
-	}
+    /**
+     * <p>
+     * isSnmpDataForNodeUpToDate
+     * </p>
+     *
+     * @return a boolean.
+     */
+    protected boolean isSnmpDataForNodeUpToDate() {
+        return m_collector != null && m_collector.hasSystemGroup();
+    }
 
-	/**
-	 * <p>isSnmpDataForInterfacesUpToDate</p>
-	 *
-	 * @return a boolean.
-	 */
-	protected boolean isSnmpDataForInterfacesUpToDate() {
-		return m_collector != null && m_collector.hasIfTable() && m_collector.hasIpAddrTable();
-	}
+    /**
+     * <p>
+     * isSnmpDataForInterfacesUpToDate
+     * </p>
+     *
+     * @return a boolean.
+     */
+    protected boolean isSnmpDataForInterfacesUpToDate() {
+        return m_collector != null && m_collector.hasIfTable() && m_collector.hasIpAddrTable();
+    }
 
     private void updateSnmpDataForInterface(OnmsIpInterface ipIf) {
-    	if (m_collector == null || !m_collector.hasIpAddrTable() || !m_collector.hasIfTable()) {
+        if (m_collector == null || !m_collector.hasIpAddrTable() || !m_collector.hasIfTable()) {
             return;
         }
 
-    	final InetAddress inetAddr = ipIf.getIpAddress();
-    	final String ipAddr = InetAddressUtils.str(inetAddr);
+        final InetAddress inetAddr = ipIf.getIpAddress();
+        final String ipAddr = InetAddressUtils.str(inetAddr);
 
-    	LOG.debug("Creating SNMP info for interface {}", ipAddr);
+        LOG.debug("Creating SNMP info for interface {}", ipAddr);
 
-    	int ifIndex = m_collector.getIfIndex(inetAddr);
-    	if (ifIndex == -1) {
+        int ifIndex = m_collector.getIfIndex(inetAddr);
+        if (ifIndex == -1) {
             return;
         }
 
@@ -278,48 +320,48 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 
         ipIf.setSnmpInterface(snmpIf);
 
-    	//FIXME: Improve OpenNMS to provide these values
-    	// ifOperStatus
+        // FIXME: Improve OpenNMS to provide these values
+        // ifOperStatus
 
-	}
+    }
 
-	private Integer getAdminStatus(int ifIndex) {
-		int adminStatus = m_collector.getAdminStatus(ifIndex);
-		return (adminStatus == -1 ? null : new Integer(adminStatus));
-	}
+    private Integer getAdminStatus(int ifIndex) {
+        int adminStatus = m_collector.getAdminStatus(ifIndex);
+        return (adminStatus == -1 ? null : new Integer(adminStatus));
+    }
 
-	private Integer getIfType(int ifIndex) {
-		int ifType = m_collector.getIfType(ifIndex);
-		return (ifType == -1 ? null : new Integer(ifType));
-	}
+    private Integer getIfType(int ifIndex) {
+        int ifType = m_collector.getIfType(ifIndex);
+        return (ifType == -1 ? null : new Integer(ifType));
+    }
 
-	private InetAddress getNetMask(int ifIndex) {
-		InetAddress[] ifAddressAndMask = m_collector.getIfAddressAndMask(ifIndex);
-		if (ifAddressAndMask != null && ifAddressAndMask.length > 1 && ifAddressAndMask[1] != null) {
+    private InetAddress getNetMask(int ifIndex) {
+        InetAddress[] ifAddressAndMask = m_collector.getIfAddressAndMask(ifIndex);
+        if (ifAddressAndMask != null && ifAddressAndMask.length > 1 && ifAddressAndMask[1] != null) {
             return ifAddressAndMask[1];
         }
-		return null;
-	}
+        return null;
+    }
 
-	private void resolveIpHostname(final OnmsIpInterface ipIf) {
-		final String ipAddress = InetAddressUtils.str(ipIf.getIpAddress());
-		ipIf.setIpHostName(ipAddress);
-//
-//     DON'T DO THIS SINCE DNS DOESN'T RELIABLY AVOID HANGING
-//
-//    	log().info("Resolving Hostname for "+ipIf.getIpAddress());
-//		try {
-//			InetAddress addr = InetAddressUtils.addr(ipIf.getIpAddress());
-//			ipIf.setIpHostName(addr.getHostName());
-//		} catch (Throwable e) {
-//			if (ipIf.getIpHostName() == null)
-//				ipIf.setIpHostName(ipIf.getIpAddress());
-//		}
-	}
+    private void resolveIpHostname(final OnmsIpInterface ipIf) {
+        final String ipAddress = InetAddressUtils.str(ipIf.getIpAddress());
+        ipIf.setIpHostName(ipAddress);
+        //
+        // DON'T DO THIS SINCE DNS DOESN'T RELIABLY AVOID HANGING
+        //
+        // log().info("Resolving Hostname for "+ipIf.getIpAddress());
+        // try {
+        // InetAddress addr = InetAddressUtils.addr(ipIf.getIpAddress());
+        // ipIf.setIpHostName(addr.getHostName());
+        // } catch (Throwable e) {
+        // if (ipIf.getIpHostName() == null)
+        // ipIf.setIpHostName(ipIf.getIpAddress());
+        // }
+    }
 
-	/** {@inheritDoc} */
-        @Override
-	public void foundMonitoredService(String serviceName) {
+    /** {@inheritDoc} */
+    @Override
+    public void foundMonitoredService(String serviceName) {
         OnmsServiceType svcType = getServiceType(serviceName);
         OnmsMonitoredService service = new OnmsMonitoredService(m_currentInterface, svcType);
         service.setStatus("A");
@@ -328,14 +370,14 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void foundCategory(String name) {
         OnmsCategory category = getCategory(name);
         m_node.getCategories().add(category);
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void foundAsset(String name, String value) {
         BeanWrapper w = PropertyAccessorFactory.forBeanPropertyAccess(m_node.getAssetRecord());
         try {
@@ -381,7 +423,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     }
 
     /**
-     * <p>getNode</p>
+     * <p>
+     * getNode
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -390,7 +434,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     }
 
     /**
-     * <p>getNodeDao</p>
+     * <p>
+     * getNodeDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -399,7 +445,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     }
 
     /**
-     * <p>getDistPollerDao</p>
+     * <p>
+     * getDistPollerDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.DistPollerDao} object.
      */
@@ -424,16 +472,19 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     }
 
     /**
-     * <p>getIpAddrToInterfaceMap</p>
+     * <p>
+     * getIpAddrToInterfaceMap
+     * </p>
      *
-     * @param imported a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param imported
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      * @return a {@link java.util.Map} object.
      */
     protected Map<String, OnmsIpInterface> getIpAddrToInterfaceMap(OnmsNode imported) {
         Map<String, OnmsIpInterface> ipAddrToIface = new HashMap<String, OnmsIpInterface>();
         for (final OnmsIpInterface iface : imported.getIpInterfaces()) {
             final String ipAddress = InetAddressUtils.str(iface.getIpAddress());
-			ipAddrToIface.put(ipAddress, iface);
+            ipAddrToIface.put(ipAddress, iface);
         }
         return ipAddrToIface;
     }
@@ -455,7 +506,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     }
 
     /**
-     * <p>getCategoryDao</p>
+     * <p>
+     * getCategoryDao
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -464,68 +517,90 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     }
 
     /**
-     * <p>setCategoryDao</p>
+     * <p>
+     * setCategoryDao
+     * </p>
      *
-     * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
+     * @param categoryDao
+     *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
     public void setCategoryDao(CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
 
     /**
-     * <p>setServiceTypeDao</p>
+     * <p>
+     * setServiceTypeDao
+     * </p>
      *
-     * @param svcTypeDao a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
+     * @param svcTypeDao
+     *            a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
      */
     public void setServiceTypeDao(ServiceTypeDao svcTypeDao) {
         m_svcTypeDao = svcTypeDao;
     }
 
     /**
-     * <p>setNodeDao</p>
+     * <p>
+     * setNodeDao
+     * </p>
      *
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
     /**
-     * <p>setDistPollerDao</p>
+     * <p>
+     * setDistPollerDao
+     * </p>
      *
-     * @param distPollerDao a {@link org.opennms.netmgt.dao.api.DistPollerDao} object.
+     * @param distPollerDao
+     *            a {@link org.opennms.netmgt.dao.api.DistPollerDao} object.
      */
     public void setDistPollerDao(DistPollerDao distPollerDao) {
         m_distPollerDao = distPollerDao;
     }
 
     /**
-     * <p>setTypeCache</p>
+     * <p>
+     * setTypeCache
+     * </p>
      *
-     * @param typeCache a {@link java.lang.ThreadLocal} object.
+     * @param typeCache
+     *            a {@link java.lang.ThreadLocal} object.
      */
     public void setTypeCache(ThreadLocal<HashMap<String, OnmsServiceType>> typeCache) {
         m_types = typeCache;
     }
 
     /**
-     * <p>setCategoryCache</p>
+     * <p>
+     * setCategoryCache
+     * </p>
      *
-     * @param categoryCache a {@link java.lang.ThreadLocal} object.
+     * @param categoryCache
+     *            a {@link java.lang.ThreadLocal} object.
      */
     public void setCategoryCache(ThreadLocal<HashMap<String, OnmsCategory>> categoryCache) {
         m_categories = categoryCache;
     }
 
-	/**
-	 * <p>nullSafeEquals</p>
-	 *
-	 * @param o1 a {@link java.lang.Object} object.
-	 * @param o2 a {@link java.lang.Object} object.
-	 * @return a boolean.
-	 */
-	public boolean nullSafeEquals(Object o1, Object o2) {
-	    return (o1 == null ? o2 == null : o1.equals(o2));
-	}
+    /**
+     * <p>
+     * nullSafeEquals
+     * </p>
+     *
+     * @param o1
+     *            a {@link java.lang.Object} object.
+     * @param o2
+     *            a {@link java.lang.Object} object.
+     * @return a boolean.
+     */
+    public boolean nullSafeEquals(Object o1, Object o2) {
+        return (o1 == null ? o2 == null : o1.equals(o2));
+    }
 
 }

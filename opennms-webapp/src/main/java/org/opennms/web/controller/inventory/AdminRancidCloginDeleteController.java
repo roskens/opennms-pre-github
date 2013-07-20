@@ -44,7 +44,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
- * <p>AdminRancidCloginDeleteController class.</p>
+ * <p>
+ * AdminRancidCloginDeleteController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -53,22 +55,21 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 @SuppressWarnings("deprecation")
 public class AdminRancidCloginDeleteController extends SimpleFormController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AdminRancidCloginDeleteController.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(AdminRancidCloginDeleteController.class);
 
     InventoryService m_inventoryService;
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
-            Object command, BindException errors) throws ServletException, IOException, Exception {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+            BindException errors) throws ServletException, IOException, Exception {
 
         LOG.debug("AdminRancidCloginDeleteController ModelAndView onSubmit");
 
         AdminRancidCloginCommClass bean = (AdminRancidCloginCommClass) command;
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
             boolean done = m_inventoryService.deleteClogin(bean.getDeviceName());
-            if (!done){
+            if (!done) {
                 LOG.debug("AdminRancidCloginController error on submitting cLogin changes");
             }
         }
@@ -76,6 +77,7 @@ public class AdminRancidCloginDeleteController extends SimpleFormController {
         response.sendRedirect(redirectURL);
         return super.onSubmit(request, response, command, errors);
     }
+
     /** {@inheritDoc} */
     @Override
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {
@@ -83,18 +85,25 @@ public class AdminRancidCloginDeleteController extends SimpleFormController {
     }
 
     /**
-     * <p>getInventoryService</p>
+     * <p>
+     * getInventoryService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *         object.
      */
     public InventoryService getInventoryService() {
         return m_inventoryService;
     }
 
     /**
-     * <p>setInventoryService</p>
+     * <p>
+     * setInventoryService
+     * </p>
      *
-     * @param inventoryService a {@link org.opennms.web.svclayer.inventory.InventoryService} object.
+     * @param inventoryService
+     *            a {@link org.opennms.web.svclayer.inventory.InventoryService}
+     *            object.
      */
     public void setInventoryService(InventoryService inventoryService) {
         m_inventoryService = inventoryService;

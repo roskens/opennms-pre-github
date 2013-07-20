@@ -55,7 +55,8 @@ public abstract class EventUeiWindow extends Window implements Button.ClickListe
     /**
      * Instantiates a new Event Generator window.
      *
-     * @param defaultUei the default value for UEI base
+     * @param defaultUei
+     *            the default value for UEI base
      */
     public EventUeiWindow(String defaultUei) {
         setCaption("Generate Events");
@@ -91,16 +92,18 @@ public abstract class EventUeiWindow extends Window implements Button.ClickListe
         setContent(layout);
     }
 
-    /* (non-Javadoc)
-     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+    /*
+     * (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.
+     * ClickEvent)
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
         final Button btn = event.getButton();
         if (btn == okButton) {
-            if (ueiBase.getValue() != null && ! ((String) ueiBase.getValue()).trim().equals("")) {
+            if (ueiBase.getValue() != null && !((String) ueiBase.getValue()).trim().equals("")) {
                 close();
-                changeUeiHandler((String)ueiBase.getValue());
+                changeUeiHandler((String) ueiBase.getValue());
             }
         }
         if (btn == cancelButton) {
@@ -111,7 +114,8 @@ public abstract class EventUeiWindow extends Window implements Button.ClickListe
     /**
      * Change UEI handler.
      *
-     * @param ueiBase the UEI base
+     * @param ueiBase
+     *            the UEI base
      */
     public abstract void changeUeiHandler(String ueiBase);
 

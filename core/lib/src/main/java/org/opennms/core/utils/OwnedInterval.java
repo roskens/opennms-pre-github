@@ -34,7 +34,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>OwnedInterval class.</p>
+ * <p>
+ * OwnedInterval class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -43,70 +45,98 @@ public class OwnedInterval extends TimeInterval {
     private List<Owner> m_owners;
 
     /**
-     * <p>Constructor for OwnedInterval.</p>
+     * <p>
+     * Constructor for OwnedInterval.
+     * </p>
      *
-     * @param owned a {@link org.opennms.core.utils.OwnedInterval} object.
+     * @param owned
+     *            a {@link org.opennms.core.utils.OwnedInterval} object.
      */
     public OwnedInterval(OwnedInterval owned) {
         this(owned.getOwners(), owned.getStart(), owned.getEnd());
     }
 
     /**
-     * <p>Constructor for OwnedInterval.</p>
+     * <p>
+     * Constructor for OwnedInterval.
+     * </p>
      *
-     * @param interval a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param interval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
      */
     public OwnedInterval(TimeInterval interval) {
         this(interval.getStart(), interval.getEnd());
     }
 
     /**
-     * <p>Constructor for OwnedInterval.</p>
+     * <p>
+     * Constructor for OwnedInterval.
+     * </p>
      *
-     * @param owner a {@link org.opennms.netmgt.config.Owner} object.
-     * @param interval a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param owner
+     *            a {@link org.opennms.netmgt.config.Owner} object.
+     * @param interval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
      */
     public OwnedInterval(Owner owner, TimeInterval interval) {
         this(owner, interval.getStart(), interval.getEnd());
     }
 
     /**
-     * <p>Constructor for OwnedInterval.</p>
+     * <p>
+     * Constructor for OwnedInterval.
+     * </p>
      *
-     * @param owners a {@link java.util.List} object.
-     * @param interval a {@link org.opennms.core.utils.TimeInterval} object.
+     * @param owners
+     *            a {@link java.util.List} object.
+     * @param interval
+     *            a {@link org.opennms.core.utils.TimeInterval} object.
      */
     public OwnedInterval(List<Owner> owners, TimeInterval interval) {
         this(owners, interval.getStart(), interval.getEnd());
     }
 
     /**
-     * <p>Constructor for OwnedInterval.</p>
+     * <p>
+     * Constructor for OwnedInterval.
+     * </p>
      *
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      */
     public OwnedInterval(Date start, Date end) {
         this(new ArrayList<Owner>(0), start, end);
     }
 
     /**
-     * <p>Constructor for OwnedInterval.</p>
+     * <p>
+     * Constructor for OwnedInterval.
+     * </p>
      *
-     * @param owner a {@link org.opennms.netmgt.config.Owner} object.
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param owner
+     *            a {@link org.opennms.netmgt.config.Owner} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      */
     public OwnedInterval(Owner owner, Date start, Date end) {
         this(Collections.singletonList(owner), start, end);
     }
 
     /**
-     * <p>Constructor for OwnedInterval.</p>
+     * <p>
+     * Constructor for OwnedInterval.
+     * </p>
      *
-     * @param owners a {@link java.util.List} object.
-     * @param start a {@link java.util.Date} object.
-     * @param end a {@link java.util.Date} object.
+     * @param owners
+     *            a {@link java.util.List} object.
+     * @param start
+     *            a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      */
     public OwnedInterval(List<Owner> owners, Date start, Date end) {
         super(start, end);
@@ -115,57 +145,94 @@ public class OwnedInterval extends TimeInterval {
     }
 
     /**
-     * <p>getOwners</p>
+     * <p>
+     * getOwners
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    public List<Owner> getOwners() { return m_owners; }
+    public List<Owner> getOwners() {
+        return m_owners;
+    }
 
     /**
-     * <p>addOwner</p>
+     * <p>
+     * addOwner
+     * </p>
      *
-     * @param owner a {@link org.opennms.netmgt.config.Owner} object.
+     * @param owner
+     *            a {@link org.opennms.netmgt.config.Owner} object.
      */
-    public void addOwner(Owner owner) { m_owners.add(owner); Collections.sort(m_owners); }
+    public void addOwner(Owner owner) {
+        m_owners.add(owner);
+        Collections.sort(m_owners);
+    }
 
     /**
-     * <p>removeOwner</p>
+     * <p>
+     * removeOwner
+     * </p>
      *
-     * @param owner a {@link org.opennms.netmgt.config.Owner} object.
+     * @param owner
+     *            a {@link org.opennms.netmgt.config.Owner} object.
      */
-    public void removeOwner(Owner owner) { m_owners.remove(owner); }
+    public void removeOwner(Owner owner) {
+        m_owners.remove(owner);
+    }
 
     /**
-     * <p>addOwners</p>
+     * <p>
+     * addOwners
+     * </p>
      *
-     * @param owners a {@link java.util.List} object.
+     * @param owners
+     *            a {@link java.util.List} object.
      */
-    public void addOwners(List<Owner> owners) { m_owners.addAll(owners); Collections.sort(m_owners); }
+    public void addOwners(List<Owner> owners) {
+        m_owners.addAll(owners);
+        Collections.sort(m_owners);
+    }
 
     /**
-     * <p>removeOwners</p>
+     * <p>
+     * removeOwners
+     * </p>
      *
-     * @param owners a {@link java.util.List} object.
+     * @param owners
+     *            a {@link java.util.List} object.
      */
-    public void removeOwners(List<Owner> owners) { m_owners.removeAll(owners); }
+    public void removeOwners(List<Owner> owners) {
+        m_owners.removeAll(owners);
+    }
 
     /**
-     * <p>isOwner</p>
+     * <p>
+     * isOwner
+     * </p>
      *
-     * @param owner a {@link org.opennms.netmgt.config.Owner} object.
+     * @param owner
+     *            a {@link org.opennms.netmgt.config.Owner} object.
      * @return a boolean.
      */
-    public boolean isOwner(Owner owner) { return m_owners.contains(owner); }
+    public boolean isOwner(Owner owner) {
+        return m_owners.contains(owner);
+    }
 
     /**
-     * <p>isOwned</p>
+     * <p>
+     * isOwned
+     * </p>
      *
      * @return a boolean.
      */
-    public boolean isOwned() { return !m_owners.isEmpty(); }
+    public boolean isOwned() {
+        return !m_owners.isEmpty();
+    }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -182,17 +249,20 @@ public class OwnedInterval extends TimeInterval {
                 sb.append(m_owners.get(i));
             }
         }
-        return sb.toString()+super.toString();
+        return sb.toString() + super.toString();
     }
 
     /** {@inheritDoc} */
     @Override
-    public int hashCode() { return 123; }
+    public int hashCode() {
+        return 123;
+    }
 
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
-        if (o == null) return false;
+        if (o == null)
+            return false;
         if (o instanceof OwnedInterval) {
             final OwnedInterval owned = (OwnedInterval) o;
             return super.equals(owned) && m_owners.equals(owned.m_owners);

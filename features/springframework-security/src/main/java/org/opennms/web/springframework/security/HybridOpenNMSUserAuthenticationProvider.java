@@ -28,7 +28,6 @@
 
 package org.opennms.web.springframework.security;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.config.UserManager;
@@ -44,7 +43,9 @@ import org.springframework.util.Assert;
 
 public class HybridOpenNMSUserAuthenticationProvider implements AuthenticationProvider, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(HybridOpenNMSUserAuthenticationProvider.class);
+
     private UserManager m_userManager = null;
+
     private SpringSecurityUserDao m_userDao = null;
 
     @Override
@@ -98,13 +99,15 @@ public class HybridOpenNMSUserAuthenticationProvider implements AuthenticationPr
         return new OnmsAuthenticationToken(user);
     }
 
-    protected void checkUserPassword(final String authUsername, final String authPassword, final OnmsUser user) throws AuthenticationException {
+    protected void checkUserPassword(final String authUsername, final String authPassword, final OnmsUser user)
+            throws AuthenticationException {
         final String existingPassword = user.getPassword();
         boolean hasUser = false;
         try {
             hasUser = m_userManager.hasUser(user.getUsername());
         } catch (final Exception e) {
-            throw new AuthenticationServiceException("An error occurred while checking for " + authUsername + " in the UserManager", e);
+            throw new AuthenticationServiceException("An error occurred while checking for " + authUsername
+                    + " in the UserManager", e);
         }
 
         if (hasUser) {

@@ -31,7 +31,9 @@ package org.opennms.netmgt.provision.detector.bsf.response;
 import java.util.HashMap;
 
 /**
- * <p>BSFResponse class.</p>
+ * <p>
+ * BSFResponse class.
+ * </p>
  *
  * @author Alejandro Galue <agalue@opennms.org>
  * @version $Id: $
@@ -45,9 +47,12 @@ public class BSFResponse {
     }
 
     /**
-     * <p>validate</p>
+     * <p>
+     * validate
+     * </p>
      *
-     * @param banner a {@link java.lang.String} object.
+     * @param banner
+     *            a {@link java.lang.String} object.
      * @return a boolean.
      */
     public boolean validate(final String banner) {

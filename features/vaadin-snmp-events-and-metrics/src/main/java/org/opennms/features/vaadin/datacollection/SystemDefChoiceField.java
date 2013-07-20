@@ -123,7 +123,8 @@ public class SystemDefChoiceField extends CustomField<SystemDefChoice> {
         return dto;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
      */
     @Override

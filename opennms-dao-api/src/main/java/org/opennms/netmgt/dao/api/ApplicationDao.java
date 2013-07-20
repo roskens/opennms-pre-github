@@ -31,14 +31,19 @@ package org.opennms.netmgt.dao.api;
 import org.opennms.netmgt.model.OnmsApplication;
 
 /**
- * <p>ApplicationDao interface.</p>
+ * <p>
+ * ApplicationDao interface.
+ * </p>
  */
 public interface ApplicationDao extends OnmsDao<OnmsApplication, Integer> {
 
     /**
-     * <p>findByName</p>
+     * <p>
+     * findByName
+     * </p>
      *
-     * @param label a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsApplication} object.
      */
     OnmsApplication findByName(String label);

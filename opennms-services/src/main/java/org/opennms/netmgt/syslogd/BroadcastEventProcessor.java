@@ -45,6 +45,7 @@ import org.opennms.netmgt.xml.event.Event;
  */
 final class BroadcastEventProcessor implements EventListener {
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
+
     /**
      * Create message selector to set to the subscription
      */
@@ -63,8 +64,6 @@ final class BroadcastEventProcessor implements EventListener {
         EventIpcManagerFactory.getIpcManager().addEventListener(this, ueiList);
     }
 
-
-
     /**
      * Unsubscribe from eventd
      */
@@ -73,9 +72,8 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * This method is invoked by the EventIpcManager when a new event is
+     * {@inheritDoc} This method is invoked by the EventIpcManager when a new
+     * event is
      * available for processing. Each message is examined for its Universal
      * Event Identifier and the appropriate action is taking based on each
      * UEI.
@@ -86,7 +84,6 @@ final class BroadcastEventProcessor implements EventListener {
         String eventUei = event.getUei();
         if (eventUei == null)
             return;
-
 
         LOG.debug("Received event: {}", eventUei);
 

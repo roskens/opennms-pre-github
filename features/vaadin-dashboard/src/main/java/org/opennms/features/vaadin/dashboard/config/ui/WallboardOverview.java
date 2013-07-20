@@ -32,28 +32,34 @@ import com.vaadin.ui.*;
 import org.opennms.features.vaadin.dashboard.model.Wallboard;
 
 /**
- * This class is used to display an brief overview about existing {@link Wallboard} configurations.
+ * This class is used to display an brief overview about existing
+ * {@link Wallboard} configurations.
  *
  * @author Christian Pape
  */
 public class WallboardOverview extends VerticalLayout {
     /**
-     * The {@link Table} this component uses to display {@link Wallboard} configurations
+     * The {@link Table} this component uses to display {@link Wallboard}
+     * configurations
      */
     private Table m_table;
+
     /**
      * The {@link WallboardConfigView} this component belongs to.
      */
     private WallboardConfigView m_wallboardConfigView;
+
     /**
-     * The {@link BeanItemContainer} this component uses for {@link Wallboard} configurations
+     * The {@link BeanItemContainer} this component uses for {@link Wallboard}
+     * configurations
      */
     BeanItemContainer<Wallboard> m_beanItemContainer;
 
     /**
      * Constructor for creating new instances.
      *
-     * @param wallboardConfigView the {@link WallboardConfigView}
+     * @param wallboardConfigView
+     *            the {@link WallboardConfigView}
      */
     public WallboardOverview(WallboardConfigView wallboardConfigView) {
         /**
@@ -88,7 +94,8 @@ public class WallboardOverview extends VerticalLayout {
         addComponent(horizontalLayout);
 
         /**
-         * Adding the table with the required {@link Table.ColumnGenerator} objects
+         * Adding the table with the required {@link Table.ColumnGenerator}
+         * objects
          */
         m_table = new Table();
         m_table.setContainerDataSource(m_beanItemContainer);
@@ -129,7 +136,7 @@ public class WallboardOverview extends VerticalLayout {
             }
         });
 
-        m_table.setVisibleColumns(new Object[]{"title", "Edit", "Remove", "Preview"});
+        m_table.setVisibleColumns(new Object[] { "title", "Edit", "Remove", "Preview" });
 
         /**
          * Adding the table

@@ -40,37 +40,47 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class represents a component for editing {@link Wallboard} configurations.
+ * This class represents a component for editing {@link Wallboard}
+ * configurations.
  *
  * @author Christian Pape
  */
 public class WallboardEditor extends VerticalLayout {
     /**
-     * The {@link TabSheet.Tab} object used in the {@link WallboardConfigView} instance to represent this view
+     * The {@link TabSheet.Tab} object used in the {@link WallboardConfigView}
+     * instance to represent this view
      */
     private TabSheet.Tab m_tab;
+
     /**
-     * The {@link VerticalLayout} instance used to display the {@link DashletSpecEditor} views
+     * The {@link VerticalLayout} instance used to display the
+     * {@link DashletSpecEditor} views
      */
     private VerticalLayout m_verticalLayout = new VerticalLayout();
+
     /**
      * The {@link DashletSelector} used for querying configuration data
      */
     private DashletSelector m_dashletSelector;
+
     /**
      * The associated {@link Wallboard} instance
      */
     private Wallboard m_wallboard;
+
     /**
-     * A map for holding the {@link DashletSpec} and {@link DashletSpecEditor} instances
+     * A map for holding the {@link DashletSpec} and {@link DashletSpecEditor}
+     * instances
      */
     private Map<DashletSpec, DashletSpecEditor> m_dashletSpecEditorMap = new HashMap<DashletSpec, DashletSpecEditor>();
 
     /**
      * Constructor used for instantiating a new object.
      *
-     * @param dashletSelector the {@link DashletSelector} to be used
-     * @param wallboard       the associated {@link Wallboard} instance
+     * @param dashletSelector
+     *            the {@link DashletSelector} to be used
+     * @param wallboard
+     *            the associated {@link Wallboard} instance
      */
     public WallboardEditor(DashletSelector dashletSelector, Wallboard wallboard) {
         /**
@@ -127,7 +137,8 @@ public class WallboardEditor extends VerticalLayout {
         titleField.addValidator(new AbstractStringValidator("Title must be unique") {
             @Override
             protected boolean isValidValue(String s) {
-                return (!WallboardProvider.getInstance().containsWallboard(s) || WallboardProvider.getInstance().getWallboard(s).equals(m_wallboard)) && !"".equals(s);
+                return (!WallboardProvider.getInstance().containsWallboard(s) || WallboardProvider.getInstance().getWallboard(s).equals(m_wallboard))
+                        && !"".equals(s);
             }
         });
 
@@ -172,7 +183,8 @@ public class WallboardEditor extends VerticalLayout {
     /**
      * Method used for updating the {@link DashletFactory} list
      *
-     * @param serviceList the available {@link DashletFactory} instances
+     * @param serviceList
+     *            the available {@link DashletFactory} instances
      */
     public void updateServiceList(List<DashletFactory> serviceList) {
         for (DashletSpecEditor dashletSpecEditor : m_dashletSpecEditorMap.values()) {
@@ -193,7 +205,8 @@ public class WallboardEditor extends VerticalLayout {
     /**
      * Method to set the {@link TabSheet.Tab} this view belongs to.
      *
-     * @param tab the {@link TabSheet.Tab} to be set
+     * @param tab
+     *            the {@link TabSheet.Tab} to be set
      */
     public void setTab(TabSheet.Tab tab) {
         m_tab = tab;
@@ -202,7 +215,8 @@ public class WallboardEditor extends VerticalLayout {
     /**
      * This method removes the given {@link DashletSpecEditor}.
      *
-     * @param dashletSpecEditor the {@link DashletSpecEditor} to be removed
+     * @param dashletSpecEditor
+     *            the {@link DashletSpecEditor} to be removed
      */
     public void removeDashletSpecEditor(DashletSpecEditor dashletSpecEditor) {
         m_verticalLayout.removeComponent(dashletSpecEditor);
@@ -215,7 +229,8 @@ public class WallboardEditor extends VerticalLayout {
     /**
      * This method adds a given {@link DashletSpec}.
      *
-     * @param dashletSpec the {@link DashletSpec} to be added
+     * @param dashletSpec
+     *            the {@link DashletSpec} to be added
      */
     private void addDashletSpec(DashletSpec dashletSpec) {
         DashletSpecEditor dashletSpecEditor = new DashletSpecEditor(this, m_dashletSelector, dashletSpec);

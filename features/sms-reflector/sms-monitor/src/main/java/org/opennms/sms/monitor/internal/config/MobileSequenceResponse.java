@@ -41,7 +41,9 @@ import org.opennms.sms.reflector.smsservice.MobileMsgRequest;
 import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 
 /**
- * <p>Abstract MobileSequenceResponse class.</p>
+ * <p>
+ * Abstract MobileSequenceResponse class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,68 +52,92 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
 
     private List<SequenceResponseMatcher> m_matchers = Collections.synchronizedList(new ArrayList<SequenceResponseMatcher>());
 
-	private MobileSequenceTransaction m_transaction;
-
-	/**
-	 * <p>Constructor for MobileSequenceResponse.</p>
-	 */
-	public MobileSequenceResponse() {
-		super();
-	}
-
-	/**
-	 * <p>Constructor for MobileSequenceResponse.</p>
-	 *
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public MobileSequenceResponse(String label) {
-		super(label);
-	}
-
-	/**
-	 * <p>Constructor for MobileSequenceResponse.</p>
-	 *
-	 * @param gatewayId a {@link java.lang.String} object.
-	 * @param label a {@link java.lang.String} object.
-	 */
-	public MobileSequenceResponse(String gatewayId, String label) {
-		super(gatewayId, label);
-	}
-
-	/**
-	 * <p>getMatchers</p>
-	 *
-	 * @return a {@link java.util.List} object.
-	 */
-	@XmlElementRef
-	public List<SequenceResponseMatcher> getMatchers() {
-		return m_matchers;
-	}
-
-	/**
-	 * <p>setMatchers</p>
-	 *
-	 * @param matchers a {@link java.util.List} object.
-	 */
-	public void setMatchers(List<SequenceResponseMatcher> matchers) {
-		if (m_matchers == matchers) return;
-		m_matchers.clear();
-		m_matchers.addAll(matchers);
-	}
-
-	/**
-	 * <p>addMatcher</p>
-	 *
-	 * @param matcher a {@link org.opennms.sms.monitor.internal.config.SequenceResponseMatcher} object.
-	 */
-	public void addMatcher(SequenceResponseMatcher matcher) {
-		m_matchers.add(matcher);
-	}
+    private MobileSequenceTransaction m_transaction;
 
     /**
-     * <p>getEffectiveLabel</p>
+     * <p>
+     * Constructor for MobileSequenceResponse.
+     * </p>
+     */
+    public MobileSequenceResponse() {
+        super();
+    }
+
+    /**
+     * <p>
+     * Constructor for MobileSequenceResponse.
+     * </p>
      *
-     * @param session a {@link org.opennms.sms.monitor.MobileSequenceSession} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public MobileSequenceResponse(String label) {
+        super(label);
+    }
+
+    /**
+     * <p>
+     * Constructor for MobileSequenceResponse.
+     * </p>
+     *
+     * @param gatewayId
+     *            a {@link java.lang.String} object.
+     * @param label
+     *            a {@link java.lang.String} object.
+     */
+    public MobileSequenceResponse(String gatewayId, String label) {
+        super(gatewayId, label);
+    }
+
+    /**
+     * <p>
+     * getMatchers
+     * </p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    @XmlElementRef
+    public List<SequenceResponseMatcher> getMatchers() {
+        return m_matchers;
+    }
+
+    /**
+     * <p>
+     * setMatchers
+     * </p>
+     *
+     * @param matchers
+     *            a {@link java.util.List} object.
+     */
+    public void setMatchers(List<SequenceResponseMatcher> matchers) {
+        if (m_matchers == matchers)
+            return;
+        m_matchers.clear();
+        m_matchers.addAll(matchers);
+    }
+
+    /**
+     * <p>
+     * addMatcher
+     * </p>
+     *
+     * @param matcher
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.SequenceResponseMatcher}
+     *            object.
+     */
+    public void addMatcher(SequenceResponseMatcher matcher) {
+        m_matchers.add(matcher);
+    }
+
+    /**
+     * <p>
+     * getEffectiveLabel
+     * </p>
+     *
+     * @param session
+     *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
+     *            object.
      * @return a {@link java.lang.String} object.
      */
     public String getEffectiveLabel(MobileSequenceSession session) {
@@ -119,9 +145,13 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
     }
 
     /**
-     * <p>getTransaction</p>
+     * <p>
+     * getTransaction
+     * </p>
      *
-     * @return a {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction} object.
+     * @return a
+     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
+     *         object.
      */
     @XmlTransient
     public MobileSequenceTransaction getTransaction() {
@@ -129,36 +159,48 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
     }
 
     /**
-     * <p>setTransaction</p>
+     * <p>
+     * setTransaction
+     * </p>
      *
-     * @param transaction a {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction} object.
+     * @param transaction
+     *            a
+     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
+     *            object.
      */
     public void setTransaction(MobileSequenceTransaction transaction) {
         m_transaction = transaction;
     }
 
-	/**
-	 * <p>toString</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
+    /**
+     * <p>
+     * toString
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-	public String toString() {
-        return new ToStringBuilder(this)
-            .append("gatewayId", getGatewayId())
-            .append("label", getLabel())
-            .append("matchers", getMatchers())
-            .toString();
+    public String toString() {
+        return new ToStringBuilder(this).append("gatewayId", getGatewayId()).append("label", getLabel()).append("matchers",
+                                                                                                                getMatchers()).toString();
     }
 
-	/**
-	 * <p>matchesResponseType</p>
-	 *
-	 * @param request a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
-	 * @param response a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse} object.
-	 * @return a boolean.
-	 */
-	protected abstract boolean matchesResponseType(MobileMsgRequest request, MobileMsgResponse response);
+    /**
+     * <p>
+     * matchesResponseType
+     * </p>
+     *
+     * @param request
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
+     * @param response
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *            object.
+     * @return a boolean.
+     */
+    protected abstract boolean matchesResponseType(MobileMsgRequest request, MobileMsgResponse response);
 
     private boolean matchesCriteria(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
 
@@ -171,11 +213,21 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
     }
 
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param session a {@link org.opennms.sms.monitor.MobileSequenceSession} object.
-     * @param request a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
-     * @param response a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse} object.
+     * @param session
+     *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
+     *            object.
+     * @param request
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
+     * @param response
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *            object.
      * @return a boolean.
      */
     public boolean matches(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
@@ -183,12 +235,23 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
     }
 
     /**
-     * <p>processResponse</p>
+     * <p>
+     * processResponse
+     * </p>
      *
-     * @param session a {@link org.opennms.sms.monitor.MobileSequenceSession} object.
-     * @param request a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
-     * @param response a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse} object.
+     * @param session
+     *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
+     *            object.
+     * @param request
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
+     * @param response
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *            object.
      */
-    public abstract void processResponse(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response);
+    public abstract void processResponse(MobileSequenceSession session, MobileMsgRequest request,
+            MobileMsgResponse response);
 
 }

@@ -37,81 +37,102 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>OnmsOutageCollection class.</p>
+ * <p>
+ * OnmsOutageCollection class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
-@XmlRootElement(name="outages")
+@XmlRootElement(name = "outages")
 public class OnmsOutageCollection extends LinkedList<OnmsOutage> {
 
-	/**
+    /**
      *
      */
     private static final long serialVersionUID = -12993787944327060L;
+
     private int m_totalCount;
 
     /**
-	 * <p>Constructor for OnmsOutageCollection.</p>
-	 */
-	public OnmsOutageCollection() {
+     * <p>
+     * Constructor for OnmsOutageCollection.
+     * </p>
+     */
+    public OnmsOutageCollection() {
         super();
     }
 
     /**
-     * <p>Constructor for OnmsOutageCollection.</p>
+     * <p>
+     * Constructor for OnmsOutageCollection.
+     * </p>
      *
-     * @param c a {@link java.util.Collection} object.
+     * @param c
+     *            a {@link java.util.Collection} object.
      */
     public OnmsOutageCollection(Collection<? extends OnmsOutage> c) {
         super(c);
     }
 
     /**
-     * <p>getNotifications</p>
+     * <p>
+     * getNotifications
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
-    @XmlElement(name="outage")
+    @XmlElement(name = "outage")
     public List<OnmsOutage> getNotifications() {
         return this;
     }
 
     /**
-     * <p>setEvents</p>
+     * <p>
+     * setEvents
+     * </p>
      *
-     * @param events a {@link java.util.List} object.
+     * @param events
+     *            a {@link java.util.List} object.
      */
     public void setEvents(List<OnmsOutage> events) {
-        if (events == this) return;
+        if (events == this)
+            return;
         clear();
         addAll(events);
     }
 
     /**
-     * <p>getCount</p>
+     * <p>
+     * getCount
+     * </p>
      *
      * @return a {@link java.lang.Integer} object.
      */
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public Integer getCount() {
-    	return this.size();
+        return this.size();
     }
 
     /**
-     * <p>getTotalCount</p>
+     * <p>
+     * getTotalCount
+     * </p>
      *
      * @return a int.
      */
-    @XmlAttribute(name="totalCount")
+    @XmlAttribute(name = "totalCount")
     public int getTotalCount() {
         return m_totalCount;
     }
 
     /**
-     * <p>setTotalCount</p>
+     * <p>
+     * setTotalCount
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      */
     public void setTotalCount(int count) {
         m_totalCount = count;

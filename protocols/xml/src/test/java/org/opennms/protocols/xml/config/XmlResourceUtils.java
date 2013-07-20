@@ -43,21 +43,23 @@ import org.opennms.protocols.xml.collector.XmlStorageStrategy;
  */
 public class XmlResourceUtils {
 
-
     /**
      * Instantiates a new XML resource Utils.
      */
-    private XmlResourceUtils() {}
+    private XmlResourceUtils() {
+    }
 
     /**
      * Gets the XML resource type.
      *
-     * @param agent the collection agent
-     * @param resourceType the resource type
+     * @param agent
+     *            the collection agent
+     * @param resourceType
+     *            the resource type
      * @return the XML resource type
      */
     public static XmlResourceType getXmlResourceType(CollectionAgent agent, String resourceType) {
-        ResourceType  rt = new ResourceType();
+        ResourceType rt = new ResourceType();
         rt.setName(resourceType);
         rt.setStorageStrategy(new StorageStrategy());
         rt.getStorageStrategy().setClazz(XmlStorageStrategy.class.getName());
@@ -67,4 +69,3 @@ public class XmlResourceUtils {
         return type;
     }
 }
-

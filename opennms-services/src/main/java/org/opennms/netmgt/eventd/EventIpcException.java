@@ -29,7 +29,9 @@
 package org.opennms.netmgt.eventd;
 
 /**
- * <p>EventIpcException class.</p>
+ * <p>
+ * EventIpcException class.
+ * </p>
  *
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>

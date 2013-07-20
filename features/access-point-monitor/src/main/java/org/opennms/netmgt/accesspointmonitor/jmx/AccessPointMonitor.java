@@ -37,7 +37,9 @@ import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
  *
  * @author <a href="jwhite@datavalet.com">Jesse White</a>
  */
-public class AccessPointMonitor extends AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.accesspointmonitor.AccessPointMonitord> implements AccessPointMonitorMBean {
+public class AccessPointMonitor extends
+        AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.accesspointmonitor.AccessPointMonitord> implements
+        AccessPointMonitorMBean {
 
     /** {@inheritDoc} */
     @Override

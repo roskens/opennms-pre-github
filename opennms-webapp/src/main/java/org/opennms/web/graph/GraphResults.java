@@ -39,45 +39,41 @@ import java.util.Map;
 import org.opennms.netmgt.model.OnmsResource;
 
 /**
- * <p>GraphResults class.</p>
+ * <p>
+ * GraphResults class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public class GraphResults {
-    //note these run from 0-11, this is because of java.util.Calendar!
-    private static final String[] s_months = new String[] {
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    };
+    // note these run from 0-11, this is because of java.util.Calendar!
+    private static final String[] s_months = new String[] { "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December" };
+
     private static final Map<Integer, String> s_monthMap;
 
     private static final String[] s_hours;
+
     private static final Map<Integer, String> s_hourMap;
 
     private String[] m_reports;
 
     private Date m_start;
+
     private Date m_end;
+
     private String m_relativeTime;
+
     private RelativeTimePeriod[] m_relativeTimePeriods;
 
-    private List<GraphResultSet> m_graphResultSets =
-        new LinkedList<GraphResultSet>();
+    private List<GraphResultSet> m_graphResultSets = new LinkedList<GraphResultSet>();
 
     private int m_graphTopOffsetWithText;
+
     private int m_graphLeftOffset;
+
     private int m_graphRightOffset;
 
     // FIXME: this is very US-centric; can we have it use the system locale?
@@ -104,16 +100,21 @@ public class GraphResults {
     }
 
     /**
-     * <p>setStart</p>
+     * <p>
+     * setStart
+     * </p>
      *
-     * @param start a {@link java.util.Date} object.
+     * @param start
+     *            a {@link java.util.Date} object.
      */
     public void setStart(Date start) {
         m_start = start;
     }
 
     /**
-     * <p>getStart</p>
+     * <p>
+     * getStart
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -122,25 +123,33 @@ public class GraphResults {
     }
 
     /**
-     * <p>getStartCalendar</p>
+     * <p>
+     * getStartCalendar
+     * </p>
      *
-     * @return a {@link org.opennms.web.graph.GraphResults.BeanFriendlyCalendar} object.
+     * @return a {@link org.opennms.web.graph.GraphResults.BeanFriendlyCalendar}
+     *         object.
      */
     public BeanFriendlyCalendar getStartCalendar() {
         return new BeanFriendlyCalendar(m_start);
     }
 
     /**
-     * <p>setEnd</p>
+     * <p>
+     * setEnd
+     * </p>
      *
-     * @param end a {@link java.util.Date} object.
+     * @param end
+     *            a {@link java.util.Date} object.
      */
     public void setEnd(Date end) {
         m_end = end;
     }
 
     /**
-     * <p>getEnd</p>
+     * <p>
+     * getEnd
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -149,25 +158,33 @@ public class GraphResults {
     }
 
     /**
-     * <p>getEndCalendar</p>
+     * <p>
+     * getEndCalendar
+     * </p>
      *
-     * @return a {@link org.opennms.web.graph.GraphResults.BeanFriendlyCalendar} object.
+     * @return a {@link org.opennms.web.graph.GraphResults.BeanFriendlyCalendar}
+     *         object.
      */
     public BeanFriendlyCalendar getEndCalendar() {
         return new BeanFriendlyCalendar(m_end);
     }
 
     /**
-     * <p>setRelativeTime</p>
+     * <p>
+     * setRelativeTime
+     * </p>
      *
-     * @param relativeTime a {@link java.lang.String} object.
+     * @param relativeTime
+     *            a {@link java.lang.String} object.
      */
     public void setRelativeTime(String relativeTime) {
         m_relativeTime = relativeTime;
     }
 
     /**
-     * <p>getRelativeTime</p>
+     * <p>
+     * getRelativeTime
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -176,26 +193,34 @@ public class GraphResults {
     }
 
     /**
-     * <p>setRelativeTimePeriods</p>
+     * <p>
+     * setRelativeTimePeriods
+     * </p>
      *
-     * @param relativeTimePeriods an array of {@link org.opennms.web.graph.RelativeTimePeriod} objects.
+     * @param relativeTimePeriods
+     *            an array of {@link org.opennms.web.graph.RelativeTimePeriod}
+     *            objects.
      */
-    public void setRelativeTimePeriods(RelativeTimePeriod[]
-				       relativeTimePeriods) {
-	m_relativeTimePeriods = relativeTimePeriods;
+    public void setRelativeTimePeriods(RelativeTimePeriod[] relativeTimePeriods) {
+        m_relativeTimePeriods = relativeTimePeriods;
     }
 
     /**
-     * <p>getRelativeTimePeriods</p>
+     * <p>
+     * getRelativeTimePeriods
+     * </p>
      *
-     * @return an array of {@link org.opennms.web.graph.RelativeTimePeriod} objects.
+     * @return an array of {@link org.opennms.web.graph.RelativeTimePeriod}
+     *         objects.
      */
     public RelativeTimePeriod[] getRelativeTimePeriods() {
-	return m_relativeTimePeriods;
+        return m_relativeTimePeriods;
     }
 
     /**
-     * <p>getMonths</p>
+     * <p>
+     * getMonths
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -204,7 +229,9 @@ public class GraphResults {
     }
 
     /**
-     * <p>getMonthMap</p>
+     * <p>
+     * getMonthMap
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -213,7 +240,9 @@ public class GraphResults {
     }
 
     /**
-     * <p>getHours</p>
+     * <p>
+     * getHours
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -222,7 +251,9 @@ public class GraphResults {
     }
 
     /**
-     * <p>getHourMap</p>
+     * <p>
+     * getHourMap
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
@@ -231,16 +262,22 @@ public class GraphResults {
     }
 
     /**
-     * <p>addGraphResultSet</p>
+     * <p>
+     * addGraphResultSet
+     * </p>
      *
-     * @param resultSet a {@link org.opennms.web.graph.GraphResults.GraphResultSet} object.
+     * @param resultSet
+     *            a {@link org.opennms.web.graph.GraphResults.GraphResultSet}
+     *            object.
      */
     public void addGraphResultSet(GraphResultSet resultSet) {
         m_graphResultSets.add(resultSet);
     }
 
     /**
-     * <p>getGraphResultSets</p>
+     * <p>
+     * getGraphResultSets
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -249,7 +286,9 @@ public class GraphResults {
     }
 
     /**
-     * <p>getReports</p>
+     * <p>
+     * getReports
+     * </p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -258,9 +297,12 @@ public class GraphResults {
     }
 
     /**
-     * <p>setReports</p>
+     * <p>
+     * setReports
+     * </p>
      *
-     * @param reports an array of {@link java.lang.String} objects.
+     * @param reports
+     *            an array of {@link java.lang.String} objects.
      */
     public void setReports(String[] reports) {
         m_reports = reports;
@@ -320,7 +362,9 @@ public class GraphResults {
     }
 
     /**
-     * <p>getGraphLeftOffset</p>
+     * <p>
+     * getGraphLeftOffset
+     * </p>
      *
      * @return a int.
      */
@@ -329,9 +373,12 @@ public class GraphResults {
     }
 
     /**
-     * <p>setGraphLeftOffset</p>
+     * <p>
+     * setGraphLeftOffset
+     * </p>
      *
-     * @param graphLeftOffset a int.
+     * @param graphLeftOffset
+     *            a int.
      */
     public void setGraphLeftOffset(int graphLeftOffset) {
         m_graphLeftOffset = graphLeftOffset;
@@ -339,7 +386,9 @@ public class GraphResults {
     }
 
     /**
-     * <p>getGraphRightOffset</p>
+     * <p>
+     * getGraphRightOffset
+     * </p>
      *
      * @return a int.
      */
@@ -348,16 +397,21 @@ public class GraphResults {
     }
 
     /**
-     * <p>setGraphRightOffset</p>
+     * <p>
+     * setGraphRightOffset
+     * </p>
      *
-     * @param graphRightOffset a int.
+     * @param graphRightOffset
+     *            a int.
      */
     public void setGraphRightOffset(int graphRightOffset) {
         m_graphRightOffset = graphRightOffset;
     }
 
     /**
-     * <p>getGraphTopOffsetWithText</p>
+     * <p>
+     * getGraphTopOffsetWithText
+     * </p>
      *
      * @return a int.
      */
@@ -366,9 +420,12 @@ public class GraphResults {
     }
 
     /**
-     * <p>setGraphTopOffsetWithText</p>
+     * <p>
+     * setGraphTopOffsetWithText
+     * </p>
      *
-     * @param graphTopOffsetWithText a int.
+     * @param graphTopOffsetWithText
+     *            a int.
      */
     public void setGraphTopOffsetWithText(int graphTopOffsetWithText) {
         m_graphTopOffsetWithText = graphTopOffsetWithText;

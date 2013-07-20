@@ -38,35 +38,35 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="graph")
+@XmlRootElement(name = "graph")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WrappedGraph {
 
-    @XmlElements({
-            @XmlElement(name="vertex", type=WrappedLeafVertex.class),
-            @XmlElement(name="group", type=WrappedGroup.class)
-    })
+    @XmlElements({ @XmlElement(name = "vertex", type = WrappedLeafVertex.class),
+            @XmlElement(name = "group", type = WrappedGroup.class) })
     public List<WrappedVertex> m_vertices = new ArrayList<WrappedVertex>();
 
-    @XmlElement(name="edge")
+    @XmlElement(name = "edge")
     public List<WrappedEdge> m_edges = new ArrayList<WrappedEdge>();
 
-    @XmlAttribute(name="namespace")
+    @XmlAttribute(name = "namespace")
     public String m_namespace;
 
     /**
      * No-arg constructor for JAXB.
      */
-    public WrappedGraph() {}
+    public WrappedGraph() {
+    }
 
     public WrappedGraph(String namespace, List<WrappedVertex> vertices, List<WrappedEdge> edges) {
-    	m_namespace = namespace;
+        m_namespace = namespace;
         m_vertices = vertices;
         m_edges = edges;
     }
 
     /**
-     * This getter-setter pair is required so that we can use bean introspection to find
+     * This getter-setter pair is required so that we can use bean introspection
+     * to find
      * the namespace when we are deserializing child classes.
      *
      * @see WrappedVertex#afterUnmarshal(javax.xml.bind.Unmarshaller, Object)
@@ -77,7 +77,8 @@ public class WrappedGraph {
     }
 
     /**
-     * This getter-setter pair is required so that we can use bean introspection to find
+     * This getter-setter pair is required so that we can use bean introspection
+     * to find
      * the namespace when we are deserializing child classes.
      *
      * @see WrappedVertex#afterUnmarshal(javax.xml.bind.Unmarshaller, Object)

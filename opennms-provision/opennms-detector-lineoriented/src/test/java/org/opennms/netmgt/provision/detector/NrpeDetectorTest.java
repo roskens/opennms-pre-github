@@ -45,16 +45,15 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * @author Donald Desloge
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class NrpeDetectorTest implements ApplicationContextAware {
 
     private NrpeDetector m_detector;
+
     private ApplicationContext m_applicationContext;
 
     @Before
@@ -65,26 +64,29 @@ public class NrpeDetectorTest implements ApplicationContextAware {
         m_detector.init();
     }
 
-    //Tested against a local windows box with NSClient++
-    @Test(timeout=90000)
+    // Tested against a local windows box with NSClient++
+    @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
-        //assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
+        // assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws UnknownHostException {
-        //m_detector.setPort(12489);
-        //assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
+        // m_detector.setPort(12489);
+        // assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 
-    @Test(timeout=90000)
+    @Test(timeout = 90000)
     public void testDetectorFailNotUsingSSL() throws UnknownHostException {
-        //m_detector.setUseSsl(false);
-        //assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
+        // m_detector.setUseSsl(false);
+        // assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.context.ApplicationContextAware#setApplicationContext
+     * (org.springframework.context.ApplicationContext)
      */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -95,6 +97,6 @@ public class NrpeDetectorTest implements ApplicationContextAware {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
-        return (NrpeDetector)bean;
+        return (NrpeDetector) bean;
     }
 }

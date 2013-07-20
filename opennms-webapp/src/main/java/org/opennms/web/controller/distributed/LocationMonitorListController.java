@@ -39,7 +39,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * <p>LocationMonitorListController class.</p>
+ * <p>
+ * LocationMonitorListController class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -50,7 +52,8 @@ public class LocationMonitorListController extends AbstractController implements
 
     /** {@inheritDoc} */
     @Override
-    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         LocationMonitorListModel model = m_distributedPollerService.getLocationMonitorList();
         ModelAndView modelAndView = new ModelAndView("distributed/locationMonitorList", "model", model);
 
@@ -62,27 +65,37 @@ public class LocationMonitorListController extends AbstractController implements
     }
 
     /**
-     * <p>getDistributedPollerService</p>
+     * <p>
+     * getDistributedPollerService
+     * </p>
      *
-     * @return a {@link org.opennms.web.svclayer.DistributedPollerService} object.
+     * @return a {@link org.opennms.web.svclayer.DistributedPollerService}
+     *         object.
      */
     public final DistributedPollerService getDistributedPollerService() {
         return m_distributedPollerService;
     }
 
     /**
-     * <p>setDistributedPollerService</p>
+     * <p>
+     * setDistributedPollerService
+     * </p>
      *
-     * @param distributedPollerService a {@link org.opennms.web.svclayer.DistributedPollerService} object.
+     * @param distributedPollerService
+     *            a {@link org.opennms.web.svclayer.DistributedPollerService}
+     *            object.
      */
     public final void setDistributedPollerService(final DistributedPollerService distributedPollerService) {
         m_distributedPollerService = distributedPollerService;
     }
 
     /**
-     * <p>afterPropertiesSet</p>
+     * <p>
+     * afterPropertiesSet
+     * </p>
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {

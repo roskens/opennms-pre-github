@@ -31,7 +31,6 @@ package org.opennms.features.jmxconfiggenerator.jmxconfig;
 import org.junit.Ignore;
 
 /**
- *
  * @author Markus Neumann <markus@opennms.com>
  */
 @Ignore

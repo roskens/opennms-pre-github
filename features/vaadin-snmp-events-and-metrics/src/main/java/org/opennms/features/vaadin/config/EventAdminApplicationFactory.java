@@ -49,7 +49,8 @@ public class EventAdminApplicationFactory extends AbstractApplicationFactory {
     /**
      * Sets the OpenNMS Event configuration DAO.
      *
-     * @param eventConfDao the new OpenNMS Event configuration DAO
+     * @param eventConfDao
+     *            the new OpenNMS Event configuration DAO
      */
     public void setEventConfDao(EventConfDao eventConfDao) {
         this.eventConfDao = eventConfDao;
@@ -58,7 +59,8 @@ public class EventAdminApplicationFactory extends AbstractApplicationFactory {
     /**
      * Sets the OpenNMS Event Proxy.
      *
-     * @param eventProxy the new event proxy
+     * @param eventProxy
+     *            the new event proxy
      */
     public void setEventProxy(EventProxy eventProxy) {
         this.eventProxy = eventProxy;

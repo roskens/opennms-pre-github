@@ -29,43 +29,63 @@
 package org.opennms.web.command;
 
 /**
- *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class NodeListCommand {
     private String m_nodename = null;
+
     private String m_iplike = null;
+
     private String m_maclike = null;
+
     private String m_foreignsource = null;
+
     private Integer m_service = null;
+
     private String m_snmpParm = null;
+
     private String m_snmpParmValue = null;
+
     private String m_snmpParmMatchType = null;
+
     private String[] m_category1 = null;
+
     private String[] m_category2 = null;
+
     private String m_statusViewName = null;
+
     private String m_statusSite = null;
+
     private String m_statusRowLabel = null;
+
     private boolean m_nodesWithOutages = false;
+
     private boolean m_nodesWithDownAggregateStatus = false;
+
     private boolean m_listInterfaces = false;
+
     private int m_nodeId = -1;
 
     public final void setNodeId(final int nodeId) {
         m_nodeId = nodeId;
     }
+
     public final int getNodeId() {
         return m_nodeId;
     }
+
     public final boolean hasNodeId() {
         return m_nodeId >= 0;
     }
+
     public final void setNodename(final String nodename) {
         m_nodename = nodename;
     }
+
     public final String getNodename() {
         return m_nodename;
     }
+
     public final boolean hasNodename() {
         return m_nodename != null;
     }
@@ -73,9 +93,11 @@ public class NodeListCommand {
     public final void setIplike(final String iplike) {
         m_iplike = iplike;
     }
+
     public final String getIplike() {
         return m_iplike;
     }
+
     public final boolean hasIplike() {
         return m_iplike != null;
     }
@@ -83,9 +105,11 @@ public class NodeListCommand {
     public final void setMaclike(final String maclike) {
         m_maclike = maclike;
     }
+
     public final String getMaclike() {
         return m_maclike;
     }
+
     public final boolean hasMaclike() {
         return m_maclike != null;
     }
@@ -105,9 +129,11 @@ public class NodeListCommand {
     public final void setService(final Integer service) {
         m_service = service;
     }
+
     public final Integer getService() {
         return m_service;
     }
+
     public final boolean hasService() {
         return m_service != null;
     }
@@ -115,27 +141,35 @@ public class NodeListCommand {
     public final void setSnmpParm(final String snmpParm) {
         m_snmpParm = snmpParm;
     }
+
     public final String getSnmpParm() {
         return m_snmpParm;
     }
+
     public final boolean hasSnmpParm() {
         return m_snmpParm != null;
     }
+
     public final void setSnmpParmValue(final String snmpParmValue) {
         m_snmpParmValue = snmpParmValue;
     }
+
     public final String getSnmpParmValue() {
         return m_snmpParmValue;
     }
+
     public final boolean hasSnmpParmValue() {
         return m_snmpParmValue != null;
     }
+
     public final void setSnmpParmMatchType(final String snmpParmMatchType) {
         m_snmpParmMatchType = snmpParmMatchType;
     }
+
     public final String getSnmpParmMatchType() {
         return m_snmpParmMatchType;
     }
+
     public final boolean hasSnmpParmMatchType() {
         return m_snmpParmMatchType != null;
     }
@@ -143,9 +177,11 @@ public class NodeListCommand {
     public final void setCategory1(final String[] category1) {
         m_category1 = category1;
     }
+
     public final String[] getCategory1() {
         return m_category1;
     }
+
     public final boolean hasCategory1() {
         return m_category1 != null && m_category1.length > 0;
     }
@@ -153,9 +189,11 @@ public class NodeListCommand {
     public final void setCategory2(final String[] category2) {
         m_category2 = category2;
     }
+
     public final String[] getCategory2() {
         return m_category2;
     }
+
     public final boolean hasCategory2() {
         return m_category2 != null && m_category2.length > 0;
     }
@@ -163,9 +201,11 @@ public class NodeListCommand {
     public final void setStatusViewName(final String statusViewName) {
         m_statusViewName = statusViewName;
     }
+
     public final String getStatusViewName() {
         return m_statusViewName;
     }
+
     public final boolean hasStatusViewName() {
         return m_statusViewName != null;
     }
@@ -173,9 +213,11 @@ public class NodeListCommand {
     public final void setStatusSite(final String statusSite) {
         m_statusSite = statusSite;
     }
+
     public final String getStatusSite() {
         return m_statusSite;
     }
+
     public final boolean hasStatusSite() {
         return m_statusSite != null;
     }
@@ -183,9 +225,11 @@ public class NodeListCommand {
     public final void setStatusRowLabel(final String statusRowLabel) {
         m_statusRowLabel = statusRowLabel;
     }
+
     public final String getStatusRowLabel() {
         return m_statusRowLabel;
     }
+
     public final boolean hasStatusRowLabel() {
         return m_statusRowLabel != null;
     }
@@ -193,6 +237,7 @@ public class NodeListCommand {
     public final void setNodesWithOutages(final boolean nodesWithOutages) {
         m_nodesWithOutages = nodesWithOutages;
     }
+
     public final boolean getNodesWithOutages() {
         return m_nodesWithOutages;
     }
@@ -200,6 +245,7 @@ public class NodeListCommand {
     public final void setNodesWithDownAggregateStatus(final boolean nodesWithDownAggregateStatus) {
         m_nodesWithDownAggregateStatus = nodesWithDownAggregateStatus;
     }
+
     public final boolean getNodesWithDownAggregateStatus() {
         return m_nodesWithDownAggregateStatus;
     }
@@ -207,6 +253,7 @@ public class NodeListCommand {
     public final void setListInterfaces(final boolean listInterfaces) {
         m_listInterfaces = listInterfaces;
     }
+
     public final boolean getListInterfaces() {
         return m_listInterfaces;
     }

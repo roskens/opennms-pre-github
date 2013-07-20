@@ -43,15 +43,17 @@ import org.opennms.netmgt.alarmd.api.NorthbounderException;
 /**
  * Configuration for HTTP NBI implementation.
  * FIXME: This needs lots of work.
- * FIXME: Make configuration mimic configuration of other HttpClient configurations: PSM, HttpCollector
- * so that users can reuse their configuration knowledge and not have to configured HTTP based client
+ * FIXME: Make configuration mimic configuration of other HttpClient
+ * configurations: PSM, HttpCollector
+ * so that users can reuse their configuration knowledge and not have to
+ * configured HTTP based client
  * configurations differently in every section of the software.
  *
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
-@XmlRootElement(name="http-northbounder-config")
+@XmlRootElement(name = "http-northbounder-config")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class HttpNorthbounderConfig implements Serializable, Comparable<HttpNorthbounderConfig>{
+public class HttpNorthbounderConfig implements Serializable, Comparable<HttpNorthbounderConfig> {
 
     private static final long serialVersionUID = 1L;
 
@@ -59,41 +61,40 @@ public class HttpNorthbounderConfig implements Serializable, Comparable<HttpNort
         GET, POST
     }
 
-    @XmlAttribute(name="method", required=false)
+    @XmlAttribute(name = "method", required = false)
     private HttpMethod m_method = HttpMethod.GET;
 
-    @XmlAttribute(name="http-version", required=false)
+    @XmlAttribute(name = "http-version", required = false)
     private String m_httpVersion = "1.1";
 
-    @XmlAttribute(name="user-agent", required=false)
+    @XmlAttribute(name = "user-agent", required = false)
     private String m_userAgent = "OpenNMS Http Northbound Interface";
 
-    @XmlAttribute(name="virtual-host", required=false)
+    @XmlAttribute(name = "virtual-host", required = false)
     private String m_virtualHost;
 
-    @XmlAttribute(name="scheme", required=false)
+    @XmlAttribute(name = "scheme", required = false)
     private String m_scheme = "http";
 
-    @XmlAttribute(name="user-info", required=false)
+    @XmlAttribute(name = "user-info", required = false)
     private String m_userInfo;
 
-    @XmlAttribute(name="host", required=true)
+    @XmlAttribute(name = "host", required = true)
     private String m_host;
 
-    @XmlAttribute(name="port", required=false)
+    @XmlAttribute(name = "port", required = false)
     private Integer m_port = Integer.valueOf(80);
 
-    @XmlAttribute(name="path", required=false)
+    @XmlAttribute(name = "path", required = false)
     private String m_path = "/";
 
-    @XmlAttribute(name="query", required=false)
+    @XmlAttribute(name = "query", required = false)
     private String m_query;
 
-    @XmlAttribute(name="fragment", required=false)
+    @XmlAttribute(name = "fragment", required = false)
     private String m_fragment;
 
     private List<String> m_acceptableUeis;
-
 
     public HttpNorthbounderConfig(String host) {
         m_host = host;
@@ -221,8 +222,7 @@ public class HttpNorthbounderConfig implements Serializable, Comparable<HttpNort
 
     public URI getURI() {
         try {
-            return new URI(getScheme(), getUserInfo(), getHost(),
-                    getPort(), getPath(), getQuery(), getFragment());
+            return new URI(getScheme(), getUserInfo(), getHost(), getPort(), getPath(), getQuery(), getFragment());
         } catch (URISyntaxException e) {
             throw new NorthbounderException(e);
         }

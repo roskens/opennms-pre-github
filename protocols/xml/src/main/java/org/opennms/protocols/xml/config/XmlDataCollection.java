@@ -71,7 +71,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
-@XmlRootElement(name="xml-collection")
+@XmlRootElement(name = "xml-collection")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlDataCollection implements Serializable, Comparable<XmlDataCollection> {
 
@@ -83,15 +83,15 @@ public class XmlDataCollection implements Serializable, Comparable<XmlDataCollec
     private static final XmlSource[] OF_XML_SOURCES = new XmlSource[0];
 
     /** The data collection name. */
-    @XmlAttribute(name="name")
+    @XmlAttribute(name = "name")
     private String m_name;
 
     /** The RRD configuration object. */
-    @XmlElement(name="rrd")
+    @XmlElement(name = "rrd")
     private XmlRrd m_xmlRrd;
 
     /** The XML Sources list. */
-    @XmlElement(name="xml-source")
+    @XmlElement(name = "xml-source")
     private List<XmlSource> m_xmlSources = new ArrayList<XmlSource>();
 
     /**
@@ -112,7 +112,8 @@ public class XmlDataCollection implements Serializable, Comparable<XmlDataCollec
     /**
      * Sets the name.
      *
-     * @param name the new name
+     * @param name
+     *            the new name
      */
     public void setName(String name) {
         m_name = name;
@@ -130,7 +131,8 @@ public class XmlDataCollection implements Serializable, Comparable<XmlDataCollec
     /**
      * Sets the XML RRD.
      *
-     * @param xmlRrd the new XML RRD
+     * @param xmlRrd
+     *            the new XML RRD
      */
     public void setXmlRrd(XmlRrd xmlRrd) {
         m_xmlRrd = xmlRrd;
@@ -148,7 +150,8 @@ public class XmlDataCollection implements Serializable, Comparable<XmlDataCollec
     /**
      * Sets the XML sources.
      *
-     * @param xmlSources the new XML sources
+     * @param xmlSources
+     *            the new XML sources
      */
     public void setXmlSources(List<XmlSource> xmlSources) {
         m_xmlSources = xmlSources;
@@ -157,7 +160,8 @@ public class XmlDataCollection implements Serializable, Comparable<XmlDataCollec
     /**
      * Adds a new XML source.
      *
-     * @param source the source
+     * @param source
+     *            the source
      */
     public void addXmlSource(XmlSource source) {
         m_xmlSources.add(source);
@@ -166,36 +170,33 @@ public class XmlDataCollection implements Serializable, Comparable<XmlDataCollec
     /**
      * Removes a XML source.
      *
-     * @param source the source
+     * @param source
+     *            the source
      */
     public void removeXmlSource(XmlSource source) {
         m_xmlSources.remove(source);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
     public int compareTo(XmlDataCollection obj) {
-        return new CompareToBuilder()
-        .append(getName(), obj.getName())
-        .append(getXmlRrd(), obj.getXmlRrd())
-        .append(getXmlSources().toArray(OF_XML_SOURCES), obj.getXmlSources().toArray(OF_XML_SOURCES))
-        .toComparison();
+        return new CompareToBuilder().append(getName(), obj.getName()).append(getXmlRrd(), obj.getXmlRrd()).append(getXmlSources().toArray(OF_XML_SOURCES),
+                                                                                                                   obj.getXmlSources().toArray(OF_XML_SOURCES)).toComparison();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof XmlDataCollection) {
             XmlDataCollection other = (XmlDataCollection) obj;
-            return new EqualsBuilder()
-            .append(getName(), other.getName())
-            .append(getXmlRrd(), other.getXmlRrd())
-            .append(getXmlSources().toArray(OF_XML_SOURCES), other.getXmlSources().toArray(OF_XML_SOURCES))
-            .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getXmlRrd(), other.getXmlRrd()).append(getXmlSources().toArray(OF_XML_SOURCES),
+                                                                                                                        other.getXmlSources().toArray(OF_XML_SOURCES)).isEquals();
         }
         return false;
     }

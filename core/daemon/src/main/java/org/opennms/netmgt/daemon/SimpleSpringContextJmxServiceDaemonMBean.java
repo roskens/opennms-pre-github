@@ -34,31 +34,43 @@ package org.opennms.netmgt.daemon;
  * @author brozow
  * @version $Id: $
  */
-public interface SimpleSpringContextJmxServiceDaemonMBean extends
-        BaseOnmsMBean {
+public interface SimpleSpringContextJmxServiceDaemonMBean extends BaseOnmsMBean {
 
     /**
-     * <p>getLoggingPrefix</p>
+     * <p>
+     * getLoggingPrefix
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getLoggingPrefix();
+
     /**
-     * <p>getSpringContext</p>
+     * <p>
+     * getSpringContext
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSpringContext();
+
     /**
-     * <p>setLoggingPrefix</p>
+     * <p>
+     * setLoggingPrefix
+     * </p>
      *
-     * @param loggingPrefix a {@link java.lang.String} object.
+     * @param loggingPrefix
+     *            a {@link java.lang.String} object.
      */
     public void setLoggingPrefix(String loggingPrefix);
+
     /**
-     * <p>setSpringContext</p>
+     * <p>
+     * setSpringContext
+     * </p>
      *
-     * @param springContext a {@link java.lang.String} object.
+     * @param springContext
+     *            a {@link java.lang.String} object.
      */
     public void setSpringContext(String springContext);
 

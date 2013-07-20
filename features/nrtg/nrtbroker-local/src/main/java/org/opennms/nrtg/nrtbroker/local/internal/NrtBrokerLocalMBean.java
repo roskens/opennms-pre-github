@@ -29,7 +29,6 @@
 package org.opennms.nrtg.nrtbroker.local.internal;
 
 /**
- *
  * @author Markus Neumann
  */
 public interface NrtBrokerLocalMBean {

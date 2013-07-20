@@ -40,24 +40,33 @@ import com.vaadin.server.ThemeResource;
  */
 public class IconProvider {
 
-	public static final String PACKAGE_ICON = "crystal_project/folder_blue.png";
-	public static final String MBEANS_ICON = "crystal_project/blockdevice.png";
-	public static final String MBEANS_DESELECTED_ICON = "crystal_project/blockdevice_gray.png";
-	public static final String BUTTON_EDIT = "crystal_project/button_edit.png";
-	public static final String BUTTON_SAVE = "crystal_project/button_save.png";
-	public static final String BUTTON_CANCEL = "crystal_project/button_cancel.png";
-	public static final String BUTTON_NEXT = "crystal_project/button_next.png";
-	public static final String BUTTON_PREVIOUS = "crystal_project/button_previous.png";
-	public static final String BUTTON_INFO = "crystal_project/button_info.png";
+    public static final String PACKAGE_ICON = "crystal_project/folder_blue.png";
 
-	public static final String WORK_FOLDER = Config.IMG_FOLDER + "/";
+    public static final String MBEANS_ICON = "crystal_project/blockdevice.png";
 
-	public static ThemeResource getIcon(String icon) {
-		return new ThemeResource(WORK_FOLDER + icon);
-	}
+    public static final String MBEANS_DESELECTED_ICON = "crystal_project/blockdevice_gray.png";
 
-	public static ThemeResource getMBeansIcon(boolean selected) {
-		if (selected) return getIcon(MBEANS_ICON);
-		return getIcon(MBEANS_DESELECTED_ICON);
-	}
+    public static final String BUTTON_EDIT = "crystal_project/button_edit.png";
+
+    public static final String BUTTON_SAVE = "crystal_project/button_save.png";
+
+    public static final String BUTTON_CANCEL = "crystal_project/button_cancel.png";
+
+    public static final String BUTTON_NEXT = "crystal_project/button_next.png";
+
+    public static final String BUTTON_PREVIOUS = "crystal_project/button_previous.png";
+
+    public static final String BUTTON_INFO = "crystal_project/button_info.png";
+
+    public static final String WORK_FOLDER = Config.IMG_FOLDER + "/";
+
+    public static ThemeResource getIcon(String icon) {
+        return new ThemeResource(WORK_FOLDER + icon);
+    }
+
+    public static ThemeResource getMBeansIcon(boolean selected) {
+        if (selected)
+            return getIcon(MBEANS_ICON);
+        return getIcon(MBEANS_DESELECTED_ICON);
+    }
 }

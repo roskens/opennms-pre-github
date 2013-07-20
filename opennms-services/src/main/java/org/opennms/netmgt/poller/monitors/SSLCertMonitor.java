@@ -65,7 +65,6 @@ import org.slf4j.LoggerFactory;
 @Distributable
 final public class SSLCertMonitor extends AbstractServiceMonitor {
 
-
     public static final Logger LOG = LoggerFactory.getLogger(SSLCertMonitor.class);
 
     /**
@@ -79,17 +78,21 @@ final public class SSLCertMonitor extends AbstractServiceMonitor {
     private static final int DEFAULT_RETRY = 0;
 
     /**
-     * Default timeout. Specifies how long (in milliseconds) to block waiting for data from the
+     * Default timeout. Specifies how long (in milliseconds) to block waiting
+     * for data from the
      * monitored interface.
      */
-    private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on read()
+    private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on
+                                                     // read()
 
     /**
-     * Default number of days before the certificate expires that we mark the service as failed.
+     * Default number of days before the certificate expires that we mark the
+     * service as failed.
      */
     private static final int DEFAULT_DAYS = 7;
 
     public static final String PARAMETER_PORT = "port";
+
     public static final String PARAMETER_DAYS = "days";
 
     private static Calendar m_calendar;
@@ -105,15 +108,13 @@ final public class SSLCertMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Poll the specified address for HTTP service availability.
-     *
+     * {@inheritDoc} Poll the specified address for HTTP service availability.
      * During the poll an attempt is made to connect on the specified port. If
      * the connection request is successful, check the X509Certificates provided
      * by our peer and check that our time is between the certificates start and
      * end time.
-     * Provided that the interface's response is valid we set the service status to
+     * Provided that the interface's response is valid we set the service status
+     * to
      * SERVICE_AVAILABLE and return.
      */
     @Override
@@ -121,7 +122,8 @@ final public class SSLCertMonitor extends AbstractServiceMonitor {
         final NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         if (iface.getType() != NetworkInterface.TYPE_INET) {
-            throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
+            throw new NetworkInterfaceNotSupportedException(
+                                                            "Unsupported interface type, only TYPE_INET currently supported");
         }
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
@@ -179,7 +181,8 @@ final public class SSLCertMonitor extends AbstractServiceMonitor {
                 for (int i = 0; i < certs.length && !serviceStatus.isAvailable(); i++) {
                     if (certs[i] instanceof X509Certificate) {
                         X509Certificate certx = (X509Certificate) certs[i];
-                        LOG.debug("Checking validity against dates: [current: {}, valid: {}], NotBefore: {}, NotAfter: {}", calCurrent.getTime(), calValid.getTime(), certx.getNotBefore(), certx.getNotAfter());
+                        LOG.debug("Checking validity against dates: [current: {}, valid: {}], NotBefore: {}, NotAfter: {}",
+                                  calCurrent.getTime(), calValid.getTime(), certx.getNotBefore(), certx.getNotAfter());
                         calBefore.setTime(certx.getNotBefore());
                         calAfter.setTime(certx.getNotAfter());
                         if (calCurrent.before(calBefore)) {
@@ -242,11 +245,15 @@ final public class SSLCertMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     * <p>wrapSocket</p>
+     * <p>
+     * wrapSocket
+     * </p>
      *
-     * @param socket a {@link java.net.Socket} object.
+     * @param socket
+     *            a {@link java.net.Socket} object.
      * @return a {@link java.net.Socket} object.
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     protected SocketWrapper getSocketWrapper() {
         return new SslSocketWrapper();
@@ -257,7 +264,6 @@ final public class SSLCertMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     *
      * @return Calendar
      */
     public Calendar getCalendar() {

@@ -38,23 +38,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>GenericIndexResource class.</p>
+ * <p>
+ * GenericIndexResource class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class GenericIndexResource extends SnmpCollectionResource {
     private static final Logger LOG = LoggerFactory.getLogger(GenericIndexResource.class);
+
     private SnmpInstId m_inst;
+
     private String m_name;
+
     private String m_resourceLabel;
 
     /**
-     * <p>Constructor for GenericIndexResource.</p>
+     * <p>
+     * Constructor for GenericIndexResource.
+     * </p>
      *
-     * @param def a {@link org.opennms.netmgt.collectd.ResourceType} object.
-     * @param name a {@link java.lang.String} object.
-     * @param inst a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
+     * @param def
+     *            a {@link org.opennms.netmgt.collectd.ResourceType} object.
+     * @param name
+     *            a {@link java.lang.String} object.
+     * @param inst
+     *            a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
      */
     public GenericIndexResource(ResourceType def, String name, SnmpInstId inst) {
         super(def);
@@ -72,31 +82,35 @@ public class GenericIndexResource extends SnmpCollectionResource {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
-    // NMS-5062: Avoid call getLabel here, otherwise the SiblingColumnStorageStrategy will fail if DEBUG is enabled for Collectd.
+    // NMS-5062: Avoid call getLabel here, otherwise the
+    // SiblingColumnStorageStrategy will fail if DEBUG is enabled for Collectd.
     @Override
     public String toString() {
-        return "node["+getCollectionAgent().getNodeId() + "]." + getResourceTypeName() + "[" + getInstance() + "]";
+        return "node[" + getCollectionAgent().getNodeId() + "]." + getResourceTypeName() + "[" + getInstance() + "]";
     }
-
 
     /** {@inheritDoc} */
     @Override
     public int getType() {
-        return -1;	// XXX is this right?
+        return -1; // XXX is this right?
     }
 
     /** {@inheritDoc} */
     @Override
     public boolean shouldPersist(ServiceParameters params) {
-        return ((GenericIndexResourceType)getResourceType()).getPersistenceSelectorStrategy().shouldPersist(this);
+        return ((GenericIndexResourceType) getResourceType()).getPersistenceSelectorStrategy().shouldPersist(this);
     }
 
     /**
-     * <p>getResourceTypeName</p>
+     * <p>
+     * getResourceTypeName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,7 +120,9 @@ public class GenericIndexResource extends SnmpCollectionResource {
     }
 
     /**
-     * <p>getInstance</p>
+     * <p>
+     * getInstance
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,7 +132,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
     }
 
     private StorageStrategy getStrategy() {
-        return ((GenericIndexResourceType)getResourceType()).getStorageStrategy();
+        return ((GenericIndexResourceType) getResourceType()).getStorageStrategy();
     }
 
     @Override
@@ -129,7 +145,9 @@ public class GenericIndexResource extends SnmpCollectionResource {
      * This class save the returned value from Strategy on a local variable.
      */
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

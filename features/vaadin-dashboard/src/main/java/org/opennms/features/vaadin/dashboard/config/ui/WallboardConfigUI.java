@@ -36,7 +36,8 @@ import org.opennms.features.vaadin.dashboard.config.DashletSelector;
 import org.opennms.features.vaadin.dashboard.model.DashletSelectorAccess;
 
 /**
- * The Vaadin application used for wallboard configuration. This application instantiates a {@link WallboardConfigView} instance.
+ * The Vaadin application used for wallboard configuration. This application
+ * instantiates a {@link WallboardConfigView} instance.
  *
  * @author Christian Pape
  */
@@ -63,7 +64,8 @@ public class WallboardConfigUI extends UI implements DashletSelectorAccess {
     /**
      * Method for setting the required {@link DashletSelector}.
      *
-     * @param dashletSelector the {@link DashletSelector} to be set
+     * @param dashletSelector
+     *            the {@link DashletSelector} to be set
      */
     public void setDashletSelector(DashletSelector dashletSelector) {
         this.m_dashletSelector = dashletSelector;
@@ -72,7 +74,8 @@ public class WallboardConfigUI extends UI implements DashletSelectorAccess {
     /**
      * Method for setting up the application.
      *
-     * @param request the {@link VaadinRequest} object
+     * @param request
+     *            the {@link VaadinRequest} object
      */
     @Override
     protected void init(VaadinRequest request) {
@@ -91,8 +94,10 @@ public class WallboardConfigUI extends UI implements DashletSelectorAccess {
     /**
      * Method for displaying notification for the user.
      *
-     * @param message     the message to be displayed
-     * @param description the description of this message
+     * @param message
+     *            the message to be displayed
+     * @param description
+     *            the description of this message
      */
     public void notifyMessage(String message, String description) {
         m_notification.setCaption(message);

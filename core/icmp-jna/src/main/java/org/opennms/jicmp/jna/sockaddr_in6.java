@@ -31,19 +31,22 @@ package org.opennms.jicmp.jna;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-
 import com.sun.jna.Structure;
 
 public class sockaddr_in6 extends Structure {
 
-    public short      sin6_family;
-    public byte[]     sin6_port     = new byte[2];   /* Transport layer port # (in_port_t)*/
-    public byte[]     sin6_flowinfo = new byte[4];   /* IP6 flow information */
-    public byte[]     sin6_addr     = new byte[16];  /* IP6 address */
-    public byte[]     sin6_scope_id = new byte[4];   /* scope zone index */
+    public short sin6_family;
+
+    public byte[] sin6_port = new byte[2]; /* Transport layer port # (in_port_t) */
+
+    public byte[] sin6_flowinfo = new byte[4]; /* IP6 flow information */
+
+    public byte[] sin6_addr = new byte[16]; /* IP6 address */
+
+    public byte[] sin6_scope_id = new byte[4]; /* scope zone index */
 
     public sockaddr_in6(int family, byte[] addr, byte[] port) {
-        sin6_family = (short)(0xffff & family);
+        sin6_family = (short) (0xffff & family);
         assertLen("port", port, 2);
         sin6_port = port;
         sin6_flowinfo = new byte[4];
@@ -53,18 +56,18 @@ public class sockaddr_in6 extends Structure {
     }
 
     public sockaddr_in6() {
-        this((byte)0, new byte[16], new byte[2]);
+        this((byte) 0, new byte[16], new byte[2]);
     }
 
     public sockaddr_in6(InetAddress address, int port) {
-        this(NativeDatagramSocket.AF_INET6,
-             address.getAddress(),
-             new byte[] {(byte)(0xff & (port >> 8)), (byte)(0xff & port)});
+        this(NativeDatagramSocket.AF_INET6, address.getAddress(), new byte[] { (byte) (0xff & (port >> 8)),
+                (byte) (0xff & port) });
     }
 
     private void assertLen(String field, byte[] addr, int len) {
         if (addr.length != len) {
-            throw new IllegalArgumentException(field+" length must be "+len+" bytes but was " + addr.length + " bytes.");
+            throw new IllegalArgumentException(field + " length must be " + len + " bytes but was " + addr.length
+                    + " bytes.");
         }
     }
 
@@ -85,14 +88,14 @@ public class sockaddr_in6 extends Structure {
 
     public int getPort() {
         int port = 0;
-        for(int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
             port = ((port << 8) | (sin6_port[i] & 0xff));
         }
         return port;
     }
 
     public void setPort(int port) {
-        byte[] p = new byte[] {(byte)(0xff & (port >> 8)), (byte)(0xff & port)};
+        byte[] p = new byte[] { (byte) (0xff & (port >> 8)), (byte) (0xff & port) };
         assertLen("port", p, 2);
         sin6_port = p;
     }

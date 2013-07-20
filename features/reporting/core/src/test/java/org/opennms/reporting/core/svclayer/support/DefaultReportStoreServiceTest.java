@@ -51,12 +51,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 // TODO: We have replaced the databaseConfigDao by a GlobalReportRepository. We have to rewrite the whole test set with a mockup GlobalReportRepository
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({
-    DependencyInjectionTestExecutionListener.class
-})
-@ContextConfiguration(locations={
-        "classpath:org/opennms/reporting/core/svclayer/support/DefaultReportStoreServiceTest.xml"
-})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:org/opennms/reporting/core/svclayer/support/DefaultReportStoreServiceTest.xml" })
 public class DefaultReportStoreServiceTest implements InitializingBean {
 
     @Autowired
@@ -82,7 +78,7 @@ public class DefaultReportStoreServiceTest implements InitializingBean {
     }
 
     @Test
-    public void testSave(){
+    public void testSave() {
 
         ReportCatalogEntry reportCatalogEntry = new ReportCatalogEntry();
         m_reportCatalogDao.save(reportCatalogEntry);
@@ -95,7 +91,7 @@ public class DefaultReportStoreServiceTest implements InitializingBean {
     }
 
     @Test
-    public void testReder(){
+    public void testReder() {
         // TODO something useful here
     }
 

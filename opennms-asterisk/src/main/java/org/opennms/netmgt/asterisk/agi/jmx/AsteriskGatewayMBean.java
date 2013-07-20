@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -30,6 +29,7 @@
 package org.opennms.netmgt.asterisk.agi.jmx;
 
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
+
 public interface AsteriskGatewayMBean extends BaseOnmsMBean {
 
 }

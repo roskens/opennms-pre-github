@@ -44,74 +44,91 @@ import java.util.Set;
  * @version $Id: $
  */
 public class PropertiesLoader {
-	private static PropertiesLoader instance = null;
-	private final HashMap<String,String> properties = new HashMap<String,String>();
+    private static PropertiesLoader instance = null;
 
-    private PropertiesLoader() throws FileNotFoundException, IOException{
+    private final HashMap<String, String> properties = new HashMap<String, String>();
 
-		// Load the properties file using the filename given as the VM startup parameter (-DpropertiesFile)
-		Properties props = new Properties();
-		String propertiesFilename = System.getProperty("propertiesFile");
-		if (propertiesFilename == null) throw new FileNotFoundException();
+    private PropertiesLoader() throws FileNotFoundException, IOException {
 
-		FileInputStream inStream = new FileInputStream(propertiesFilename);
+        // Load the properties file using the filename given as the VM startup
+        // parameter (-DpropertiesFile)
+        Properties props = new Properties();
+        String propertiesFilename = System.getProperty("propertiesFile");
+        if (propertiesFilename == null)
+            throw new FileNotFoundException();
 
-		props.load(inStream);
-		inStream.close();
+        FileInputStream inStream = new FileInputStream(propertiesFilename);
 
-		// Store the property values
-		for (Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); ){
-			String key = (String)e.nextElement();
-			String value = props.getProperty(key);
-			properties.put(key, value);
-		}
-	}
+        props.load(inStream);
+        inStream.close();
 
-	// This will return a single instance of this call (creating one if none exist)
-	// call it using StartProperties appParams = StartProperties.getInstance();
-	/**
-	 * <p>Getter for the field <code>instance</code>.</p>
-	 *
-	 * @return a {@link org.openoss.opennms.spring.qosd.PropertiesLoader} object.
-	 * @throws java.io.FileNotFoundException if any.
-	 * @throws java.io.IOException if any.
-	 */
-	public static PropertiesLoader getInstance() throws FileNotFoundException, IOException
-	{
-		if (instance == null) // test if an instance exists, if so then return it
-		{
-			// Create an instance in a synchronized block to avoid access by multiple threads
-			// (avoids inefficiency of declaring method body synchronized)
-			synchronized(org.openoss.opennms.spring.qosd.PropertiesLoader.class)
-			{
-				// check once again to ensure first check didn't let two threads through at the same time
-				if (instance == null)
-					instance = new PropertiesLoader(); // create the new instance
-			}
-		}
-		return instance; // return the single StartProperties object
-	}
+        // Store the property values
+        for (Enumeration<?> e = props.propertyNames(); e.hasMoreElements();) {
+            String key = (String) e.nextElement();
+            String value = props.getProperty(key);
+            properties.put(key, value);
+        }
+    }
 
-	/**
-	 * <p>getProperty</p>
-	 *
-	 * @param propertyName a {@link java.lang.String} object.
-	 * @return a {@link java.lang.String} object.
-	 * @throws java.lang.IllegalArgumentException if any.
-	 */
-	public String getProperty(String propertyName) throws IllegalArgumentException{
-		String _out = (String)properties.get(propertyName);
-		if(_out == null)throw new IllegalArgumentException();
-		return _out;
-	}
+    // This will return a single instance of this call (creating one if none
+    // exist)
+    // call it using StartProperties appParams = StartProperties.getInstance();
+    /**
+     * <p>
+     * Getter for the field <code>instance</code>.
+     * </p>
+     *
+     * @return a {@link org.openoss.opennms.spring.qosd.PropertiesLoader}
+     *         object.
+     * @throws java.io.FileNotFoundException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     */
+    public static PropertiesLoader getInstance() throws FileNotFoundException, IOException {
+        if (instance == null) // test if an instance exists, if so then return
+                              // it
+        {
+            // Create an instance in a synchronized block to avoid access by
+            // multiple threads
+            // (avoids inefficiency of declaring method body synchronized)
+            synchronized (org.openoss.opennms.spring.qosd.PropertiesLoader.class) {
+                // check once again to ensure first check didn't let two threads
+                // through at the same time
+                if (instance == null)
+                    instance = new PropertiesLoader(); // create the new
+                                                       // instance
+            }
+        }
+        return instance; // return the single StartProperties object
+    }
 
-	/**
-	 * <p>getPropertyNames</p>
-	 *
-	 * @return a {@link java.util.Set} object.
-	 */
-    public Set<String> getPropertyNames()
-	{
-		return properties.keySet();
-	}
+    /**
+     * <p>
+     * getProperty
+     * </p>
+     *
+     * @param propertyName
+     *            a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     * @throws java.lang.IllegalArgumentException
+     *             if any.
+     */
+    public String getProperty(String propertyName) throws IllegalArgumentException {
+        String _out = (String) properties.get(propertyName);
+        if (_out == null)
+            throw new IllegalArgumentException();
+        return _out;
+    }
+
+    /**
+     * <p>
+     * getPropertyNames
+     * </p>
+     *
+     * @return a {@link java.util.Set} object.
+     */
+    public Set<String> getPropertyNames() {
+        return properties.keySet();
+    }
 }

@@ -44,7 +44,8 @@ public class OnmsRestrictions {
     /**
      * Performs an iplike match on the ipAddr column of the current table.
      *
-     * @param value iplike match
+     * @param value
+     *            iplike match
      * @return SQL restriction for this iplike match
      */
     public static Criterion ipLike(String value) {

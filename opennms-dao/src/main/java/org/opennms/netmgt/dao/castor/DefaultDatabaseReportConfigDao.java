@@ -36,11 +36,13 @@ import org.opennms.netmgt.config.databaseReports.DatabaseReports;
 import org.opennms.netmgt.config.databaseReports.Report;
 import org.opennms.netmgt.dao.api.DatabaseReportConfigDao;
 
-public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<DatabaseReports, List<Report>>
-        implements DatabaseReportConfigDao {
+public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<DatabaseReports, List<Report>> implements
+        DatabaseReportConfigDao {
 
     /**
-     * <p>Constructor for DefaultDatabaseReportConfigDao.</p>
+     * <p>
+     * Constructor for DefaultDatabaseReportConfigDao.
+     * </p>
      */
     public DefaultDatabaseReportConfigDao() {
         super(DatabaseReports.class, "Database Report Configuration");
@@ -52,17 +54,16 @@ public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<Data
         return Collections.unmodifiableList(castorConfig.getReportCollection());
     }
 
-
     /** {@inheritDoc} */
     @Override
     public String getReportService(String name) {
 
         Report report = getReport(name);
 
-        if(report != null){
+        if (report != null) {
             return report.getReportService();
         } else {
-        return "";
+            return "";
         }
 
     }
@@ -73,17 +74,17 @@ public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<Data
 
         Report report = getReport(name);
 
-        if(report != null){
+        if (report != null) {
             return report.getDisplayName();
         } else {
-        	return "";
+            return "";
         }
 
     }
 
     private Report getReport(String name) {
 
-        for(Report report : getContainer().getObject()) {
+        for (Report report : getContainer().getObject()) {
             if (name.equals(report.getId())) {
                 return report;
             }
@@ -94,7 +95,9 @@ public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<Data
     }
 
     /**
-     * <p>getReports</p>
+     * <p>
+     * getReports
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -106,7 +109,9 @@ public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<Data
     }
 
     /**
-     * <p>getOnlineReports</p>
+     * <p>
+     * getOnlineReports
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -115,7 +120,7 @@ public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<Data
 
         List<Report> onlineReports = new ArrayList<Report>();
 
-        for(Report report : getContainer().getObject()) {
+        for (Report report : getContainer().getObject()) {
             if (report.isOnline()) {
                 onlineReports.add(report);
             }

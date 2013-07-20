@@ -62,13 +62,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 
 /**
- * This class is the main repository for NSCLient configuration information used by
+ * This class is the main repository for NSCLient configuration information used
+ * by
  * the capabilities daemon. When this class is loaded it reads the nsclient
  * configuration into memory, and uses the configuration to find the
- * {@link org.opennms.protocols.nsclient.nsclient.NSClientAgentConfig NSClientAgentConfig} objects for specific
+ * {@link org.opennms.protocols.nsclient.nsclient.NSClientAgentConfig
+ * NSClientAgentConfig} objects for specific
  * addresses. If an address cannot be located in the configuration then a
  * default peer instance is returned to the caller.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -80,10 +81,12 @@ import org.springframework.core.io.FileSystemResource;
  */
 public final class NSClientPeerFactory {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NSClientPeerFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NSClientPeerFactory.class);
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
+
     private final Lock m_readLock = m_globalLock.readLock();
+
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
@@ -116,12 +119,18 @@ public final class NSClientPeerFactory {
     }
 
     /**
-     * <p>Constructor for NSClientPeerFactory.</p>
+     * <p>
+     * Constructor for NSClientPeerFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public NSClientPeerFactory(final InputStream stream) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(NsclientConfig.class, stream);
@@ -145,9 +154,12 @@ public final class NSClientPeerFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -172,9 +184,12 @@ public final class NSClientPeerFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -192,7 +207,8 @@ public final class NSClientPeerFactory {
     /**
      * Saves the current settings to disk
      *
-     * @throws java.lang.Exception if any.
+     * @throws java.lang.Exception
+     *             if any.
      */
     public void saveCurrent() throws Exception {
         getWriteLock().lock();
@@ -200,13 +216,17 @@ public final class NSClientPeerFactory {
         try {
             optimize();
 
-            // Marshall to a string first, then write the string to the file. This
+            // Marshall to a string first, then write the string to the file.
+            // This
             // way the original config
             // isn't lost if the XML from the marshall is hosed.
             final StringWriter stringWriter = new StringWriter();
             Marshaller.marshal(m_config, stringWriter);
             if (stringWriter.toString() != null) {
-                final Writer fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_CONFIG_FILE_NAME)), "UTF-8");
+                final Writer fileWriter = new OutputStreamWriter(
+                                                                 new FileOutputStream(
+                                                                                      ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_CONFIG_FILE_NAME)),
+                                                                 "UTF-8");
                 fileWriter.write(stringWriter.toString());
                 fileWriter.flush();
                 fileWriter.close();
@@ -234,9 +254,14 @@ public final class NSClientPeerFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param singleton a {@link org.opennms.protocols.nsclient.config.NSClientPeerFactory} object.
+     * @param singleton
+     *            a
+     *            {@link org.opennms.protocols.nsclient.config.NSClientPeerFactory}
+     *            object.
      */
     public static synchronized void setInstance(NSClientPeerFactory singleton) {
         m_singleton = singleton;
@@ -244,10 +269,14 @@ public final class NSClientPeerFactory {
     }
 
     /**
-     * <p>getAgentConfig</p>
+     * <p>
+     * getAgentConfig
+     * </p>
      *
-     * @param agentInetAddress a {@link java.net.InetAddress} object.
-     * @return a {@link org.opennms.protocols.nsclient.NSClientAgentConfig} object.
+     * @param agentInetAddress
+     *            a {@link java.net.InetAddress} object.
+     * @return a {@link org.opennms.protocols.nsclient.NSClientAgentConfig}
+     *         object.
      */
     public NSClientAgentConfig getAgentConfig(final InetAddress agentInetAddress) {
         getReadLock().lock();
@@ -259,7 +288,7 @@ public final class NSClientPeerFactory {
 
             final NSClientAgentConfig agentConfig = new NSClientAgentConfig(agentInetAddress);
 
-            //Now set the defaults from the m_config
+            // Now set the defaults from the m_config
             setNSClientAgentConfig(agentConfig, new Definition());
 
             // Attempt to locate the node
@@ -277,7 +306,8 @@ public final class NSClientPeerFactory {
                 // check the ranges
                 //
                 for (final Range rng : def.getRangeCollection()) {
-                    if (InetAddressUtils.isInetAddressInRange(InetAddressUtils.str(agentConfig.getAddress()), rng.getBegin(), rng.getEnd())) {
+                    if (InetAddressUtils.isInetAddressInRange(InetAddressUtils.str(agentConfig.getAddress()),
+                                                              rng.getBegin(), rng.getEnd())) {
                         setNSClientAgentConfig(agentConfig, def);
                         break DEFLOOP;
                     }
@@ -304,10 +334,13 @@ public final class NSClientPeerFactory {
     }
 
     /**
-     * Combine specific and range elements so that NSClientPeerFactory has to spend
+     * Combine specific and range elements so that NSClientPeerFactory has to
+     * spend
      * less time iterating all these elements.
-     * TODO This really should be pulled up into PeerFactory somehow, but I'm not sure how (given that "Definition" is different for both
-     * SNMP and NSClient.  Maybe some sort of visitor methodology would work.  The basic logic should be fine as it's all IP address manipulation
+     * TODO This really should be pulled up into PeerFactory somehow, but I'm
+     * not sure how (given that "Definition" is different for both
+     * SNMP and NSClient. Maybe some sort of visitor methodology would work. The
+     * basic logic should be fine as it's all IP address manipulation
      */
     void optimize() throws UnknownHostException {
         getWriteLock().lock();
@@ -322,7 +355,8 @@ public final class NSClientPeerFactory {
                 }
             }
 
-            // Second pass: Replace single IP range elements with specific elements
+            // Second pass: Replace single IP range elements with specific
+            // elements
             for (final Definition definition : m_config.getDefinitionCollection()) {
                 for (final Iterator<Range> rangesIterator = definition.getRangeCollection().iterator(); rangesIterator.hasNext();) {
                     final Range range = rangesIterator.next();
@@ -334,16 +368,19 @@ public final class NSClientPeerFactory {
             }
 
             // Third pass: Sort specific and range elements for improved XML
-            // readability and then combine them into fewer elements where possible
+            // readability and then combine them into fewer elements where
+            // possible
             for (final Definition definition : m_config.getDefinitionCollection()) {
                 // Sort specifics
-                final TreeMap<InetAddress,String> specificsMap = new TreeMap<InetAddress,String>(new InetAddressComparator());
+                final TreeMap<InetAddress, String> specificsMap = new TreeMap<InetAddress, String>(
+                                                                                                   new InetAddressComparator());
                 for (final String specific : definition.getSpecificCollection()) {
                     specificsMap.put(InetAddressUtils.getInetAddress(specific), specific.trim());
                 }
 
                 // Sort ranges
-                final TreeMap<InetAddress,Range> rangesMap = new TreeMap<InetAddress,Range>(new InetAddressComparator());
+                final TreeMap<InetAddress, Range> rangesMap = new TreeMap<InetAddress, Range>(
+                                                                                              new InetAddressComparator());
                 for (final Range range : definition.getRangeCollection()) {
                     rangesMap.put(InetAddressUtils.getInetAddress(range.getBegin()), range);
                 }
@@ -357,8 +394,8 @@ public final class NSClientPeerFactory {
                         continue;
                     }
 
-                    if (BigInteger.ONE.equals(InetAddressUtils.difference(specific, priorSpecific)) &&
-                            InetAddressUtils.inSameScope(specific, priorSpecific)) {
+                    if (BigInteger.ONE.equals(InetAddressUtils.difference(specific, priorSpecific))
+                            && InetAddressUtils.inSameScope(specific, priorSpecific)) {
                         if (addedRange == null) {
                             addedRange = new Range();
                             addedRange.setBegin(InetAddressUtils.toIpAddrString(priorSpecific));
@@ -368,8 +405,7 @@ public final class NSClientPeerFactory {
 
                         addedRange.setEnd(InetAddressUtils.toIpAddrString(specific));
                         specificsMap.remove(specific);
-                    }
-                    else {
+                    } else {
                         addedRange = null;
                     }
 
@@ -395,10 +431,8 @@ public final class NSClientPeerFactory {
                             continue;
                         }
 
-                        if (
-                                InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(begin)) >= 0 &&
-                                InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(end)) <= 0
-                        ) {
+                        if (InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(begin)) >= 0
+                                && InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(end)) <= 0) {
                             specificsMap.remove(specific);
                             break;
                         }
@@ -429,10 +463,13 @@ public final class NSClientPeerFactory {
                     final InetAddress endAddress = InetAddressUtils.getInetAddress(range.getEnd());
 
                     if (priorRange != null) {
-                        if (InetAddressUtils.inSameScope(beginAddress, priorEnd) && InetAddressUtils.difference(beginAddress, priorEnd).compareTo(BigInteger.ONE) <= 0) {
-                            priorBegin = new InetAddressComparator().compare(priorBegin, beginAddress) < 0 ? priorBegin : beginAddress;
+                        if (InetAddressUtils.inSameScope(beginAddress, priorEnd)
+                                && InetAddressUtils.difference(beginAddress, priorEnd).compareTo(BigInteger.ONE) <= 0) {
+                            priorBegin = new InetAddressComparator().compare(priorBegin, beginAddress) < 0 ? priorBegin
+                                : beginAddress;
                             priorRange.setBegin(InetAddressUtils.toIpAddrString(priorBegin));
-                            priorEnd = new InetAddressComparator().compare(priorEnd, endAddress) > 0 ? priorEnd : endAddress;
+                            priorEnd = new InetAddressComparator().compare(priorEnd, endAddress) > 0 ? priorEnd
+                                : endAddress;
                             priorRange.setEnd(InetAddressUtils.toIpAddrString(priorEnd));
 
                             rangesIterator.remove();
@@ -460,7 +497,8 @@ public final class NSClientPeerFactory {
     }
 
     /**
-     * This is a helper method to set all the common attributes in the agentConfig.
+     * This is a helper method to set all the common attributes in the
+     * agentConfig.
      *
      * @param agentConfig
      * @param def
@@ -469,20 +507,24 @@ public final class NSClientPeerFactory {
     private void setCommonAttributes(final NSClientAgentConfig agentConfig, final Definition def) {
         agentConfig.setPort(determinePort(def));
         agentConfig.setRetries(determineRetries(def));
-        agentConfig.setTimeout((int)determineTimeout(def));
+        agentConfig.setTimeout((int) determineTimeout(def));
     }
 
     /**
-     * Helper method to search the nsclient configuration for the appropriate password
+     * Helper method to search the nsclient configuration for the appropriate
+     * password
+     *
      * @param def
      * @return
      */
     private String determinePassword(final Definition def) {
-        return (def.getPassword() == null ? (m_config.getPassword() == null ? NSClientAgentConfig.DEFAULT_PASSWORD :m_config.getPassword()) : def.getPassword());
+        return (def.getPassword() == null ? (m_config.getPassword() == null ? NSClientAgentConfig.DEFAULT_PASSWORD
+            : m_config.getPassword()) : def.getPassword());
     }
 
     /**
      * Helper method to search the nsclient configuration for a port
+     *
      * @param def
      * @return
      */
@@ -492,15 +534,18 @@ public final class NSClientPeerFactory {
 
     /**
      * Helper method to search the nsclient configuration
+     *
      * @param def
      * @return
      */
     private long determineTimeout(final Definition def) {
-        return (def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? (long) NSClientAgentConfig.DEFAULT_TIMEOUT : m_config.getTimeout()) : def.getTimeout());
+        return (def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? (long) NSClientAgentConfig.DEFAULT_TIMEOUT
+            : m_config.getTimeout()) : def.getTimeout());
     }
 
     private int determineRetries(final Definition def) {
-        return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? NSClientAgentConfig.DEFAULT_RETRIES : m_config.getRetry()) : def.getRetry());
+        return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? NSClientAgentConfig.DEFAULT_RETRIES
+            : m_config.getRetry()) : def.getRetry());
     }
 
 }

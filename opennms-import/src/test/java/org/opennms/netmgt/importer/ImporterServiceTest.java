@@ -49,21 +49,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
-        "classpath:/META-INF/opennms/applicationContext-dao.xml",
-        "classpath*:/META-INF/opennms/component-dao.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-importer.xml",
-        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml",
-        "classpath:/importerServiceTest.xml"
-})
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml", "classpath:/importerServiceTest.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class ImporterServiceTest implements InitializingBean {
     @Autowired
     private MockEventIpcManager m_eventIpcMgr;
+
     @Autowired
     private ImporterService m_daemon;
 
@@ -111,11 +108,13 @@ public class ImporterServiceTest implements InitializingBean {
     }
 
     private void waitForImportStarted(long timeout) {
-        assertTrue("Failed to receive importStarted event after waiting "+timeout+" millis", m_eventIpcMgr.getEventAnticipator().waitForAnticipated(timeout).size() == 0);
+        assertTrue("Failed to receive importStarted event after waiting " + timeout + " millis",
+                   m_eventIpcMgr.getEventAnticipator().waitForAnticipated(timeout).size() == 0);
     }
 
     private void waitForImportSuccessful(long timeout) {
-        assertTrue("Failed to receive importSuccessful event after waiting "+timeout+" millis", m_eventIpcMgr.getEventAnticipator().waitForAnticipated(timeout).size() == 0);
+        assertTrue("Failed to receive importSuccessful event after waiting " + timeout + " millis",
+                   m_eventIpcMgr.getEventAnticipator().waitForAnticipated(timeout).size() == 0);
     }
 
     public Event createEvent(String uei) {
@@ -125,6 +124,7 @@ public class ImporterServiceTest implements InitializingBean {
     private void anticipateEvent(Event e) {
         anticipateEvent(e, false);
     }
+
     private void anticipateEvent(Event e, boolean checkUnanticipatedList) {
         m_eventIpcMgr.getEventAnticipator().anticipateEvent(e, checkUnanticipatedList);
     }

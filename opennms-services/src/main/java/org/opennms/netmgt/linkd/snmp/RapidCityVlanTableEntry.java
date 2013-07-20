@@ -32,13 +32,14 @@ import org.opennms.netmgt.model.OnmsVlan.VlanStatus;
 import org.opennms.netmgt.model.OnmsVlan.VlanType;
 
 /**
- *<P>The RapidCityVlanTableEntry class is designed to hold all the MIB
- * information for one entry in the:
- * .1.3.6.1.4.1.2272.1.3.2.1
- *
- * <P>This object is used by the RapidCityVlanTable  to hold information
- * single entries in the table. See the RapidCityVlanTable documentation
- * form more information.</P>
+ * <P>
+ * The RapidCityVlanTableEntry class is designed to hold all the MIB information
+ * for one entry in the: .1.3.6.1.4.1.2272.1.3.2.1
+ * <P>
+ * This object is used by the RapidCityVlanTable to hold information single
+ * entries in the table. See the RapidCityVlanTable documentation form more
+ * information.
+ * </P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio</A>
  * @see IntelVlanTable
@@ -47,59 +48,64 @@ import org.opennms.netmgt.model.OnmsVlan.VlanType;
  */
 public final class RapidCityVlanTableEntry extends Vlan {
 
-	// Lookup strings for specific table entries
-	//
+    // Lookup strings for specific table entries
+    //
 
-	private static String VLAN_INDEX_OID=".1.3.6.1.4.1.2272.1.3.2.1.1";
-	private static String VLAN_NAME_OID=".1.3.6.1.4.1.2272.1.3.2.1.2";
+    private static String VLAN_INDEX_OID = ".1.3.6.1.4.1.2272.1.3.2.1.1";
 
-	/**
-	 * <P>The keys that will be supported by default from the
-	 * TreeMap base class. Each of the elements in the list
-	 * are an instance of the dot1dbasetable. Objects
-	 * in this list should be used by multiple instances of
-	 * this class.</P>
-	 */
-	public static NamedSnmpVar[] rcVlan_elemList = new NamedSnmpVar[] {
-	    new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_INDEX, VLAN_INDEX_OID, 1),
-	    new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, VLAN_NAME, VLAN_NAME_OID, 2)
-	};
+    private static String VLAN_NAME_OID = ".1.3.6.1.4.1.2272.1.3.2.1.2";
 
-	/**
-	 * <P>The TABLE_OID is the object identifier that represents
-	 * the root of the table vtpVlanTable in the MIB forest.</P>
-	 */
-	public static final String TABLE_OID = ".1.3.6.1.4.1.2272.1.3.2.1"; // start of table (GETNEXT)
+    /**
+     * <P>
+     * The keys that will be supported by default from the TreeMap base class.
+     * Each of the elements in the list are an instance of the dot1dbasetable.
+     * Objects in this list should be used by multiple instances of this class.
+     * </P>
+     */
+    public static NamedSnmpVar[] rcVlan_elemList = new NamedSnmpVar[] {
+            new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_INDEX, VLAN_INDEX_OID, 1),
+            new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, VLAN_NAME, VLAN_NAME_OID, 2) };
 
-	/**
-	 * <P>The class constructor used to initialize the
-	 * object to its initial state. Although the
-	 * object's member variables can change after an
-	 * instance is created, this constructor will
-	 * initialize all the variables as per their named
-	 * variable from the passed array of SNMP varbinds.</P>
-	 *
-	 * <P>If the information in the object should not be
-	 * modified then a <EM>final</EM> modifier can be
-	 * applied to the created object.</P>
-	 */
-	public RapidCityVlanTableEntry() {
-		super(rcVlan_elemList);
-	}
+    /**
+     * <P>
+     * The TABLE_OID is the object identifier that represents the root of the
+     * table vtpVlanTable in the MIB forest.
+     * </P>
+     */
+    public static final String TABLE_OID = ".1.3.6.1.4.1.2272.1.3.2.1"; // start
+                                                                        // of
+                                                                        // table
+                                                                        // (GETNEXT)
 
-	@Override
-	protected boolean hasVlanIndexOid() {
-		return true;
-	}
+    /**
+     * <P>
+     * The class constructor used to initialize the object to its initial state.
+     * Although the object's member variables can change after an instance is
+     * created, this constructor will initialize all the variables as per their
+     * named variable from the passed array of SNMP varbinds.
+     * </P>
+     * <P>
+     * If the information in the object should not be modified then a
+     * <EM>final</EM> modifier can be applied to the created object.
+     * </P>
+     */
+    public RapidCityVlanTableEntry() {
+        super(rcVlan_elemList);
+    }
 
-	@Override
-	public VlanStatus getVlanStatus() {
-		return VlanStatus.UNKNOWN;
-	}
+    @Override
+    protected boolean hasVlanIndexOid() {
+        return true;
+    }
 
-	@Override
-	public VlanType getVlanType() {
-		return VlanType.CISCO_VTP_ETHERNET;
-	}
+    @Override
+    public VlanStatus getVlanStatus() {
+        return VlanStatus.UNKNOWN;
+    }
+
+    @Override
+    public VlanType getVlanType() {
+        return VlanType.CISCO_VTP_ETHERNET;
+    }
 
 }

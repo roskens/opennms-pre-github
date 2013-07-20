@@ -45,64 +45,67 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * <p>LoadDefaultMapController class.</p>
+ * <p>
+ * LoadDefaultMapController class.
+ * </p>
  *
  * @author mmigliore
- *
- * this class provides to create, manage and delete
- * proper session objects to use when working with maps
+ *         this class provides to create, manage and delete
+ *         proper session objects to use when working with maps
  * @version $Id: $
  * @since 1.8.1
  */
 public class LoadDefaultMapController extends MapsLoggingController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(LoadDefaultMapController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoadDefaultMapController.class);
 
+    private Manager manager;
 
-	private Manager manager;
+    /**
+     * <p>
+     * Getter for the field <code>manager</code>.
+     * </p>
+     *
+     * @return a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public Manager getManager() {
+        return manager;
+    }
 
+    /**
+     * <p>
+     * Setter for the field <code>manager</code>.
+     * </p>
+     *
+     * @param manager
+     *            a {@link org.opennms.web.map.view.Manager} object.
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
 
-	/**
-	 * <p>Getter for the field <code>manager</code>.</p>
-	 *
-	 * @return a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public Manager getManager() {
-		return manager;
-	}
+    /** {@inheritDoc} */
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-	/**
-	 * <p>Setter for the field <code>manager</code>.</p>
-	 *
-	 * @param manager a {@link org.opennms.web.map.view.Manager} object.
-	 */
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+        String user = request.getRemoteUser();
 
-	/** {@inheritDoc} */
-        @Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        LOG.debug("Loading Default Map for user: {}", user);
 
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+        try {
+            VMapInfo mapInfo = manager.getDefaultMapsMenu(user);
+            bw.write(ResponseAssembler.getLoadDefaultMapResponse(mapInfo));
+        } catch (Throwable e) {
+            LOG.error("Error while loading default map for user:{}", user, e);
+            bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.LOADDEFAULTMAP_ACTION));
+        } finally {
+            bw.close();
+        }
 
-		String user = request.getRemoteUser();
-
-	    LOG.debug("Loading Default Map for user: {}", user);
-
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
-		try {
-		    VMapInfo mapInfo  = manager.getDefaultMapsMenu(user);
-			bw.write(ResponseAssembler.getLoadDefaultMapResponse(mapInfo));
-		} catch (Throwable e) {
-			LOG.error("Error while loading default map for user:{}", user, e);
-			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.LOADDEFAULTMAP_ACTION));
-		} finally {
-			bw.close();
-		}
-
-		return null;
-	}
+        return null;
+    }
 
 }

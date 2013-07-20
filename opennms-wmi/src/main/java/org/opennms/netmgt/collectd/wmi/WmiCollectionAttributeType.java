@@ -35,64 +35,80 @@ import org.opennms.netmgt.config.collector.Persister;
 import org.opennms.netmgt.config.wmi.Attrib;
 
 /**
- * <p>WmiCollectionAttributeType class.</p>
+ * <p>
+ * WmiCollectionAttributeType class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
  */
 public class WmiCollectionAttributeType implements CollectionAttributeType {
-        Attrib m_attribute;
-        AttributeGroupType m_groupType;
+    Attrib m_attribute;
 
-        /**
-         * <p>Constructor for WmiCollectionAttributeType.</p>
-         *
-         * @param attribute a {@link org.opennms.netmgt.config.wmi.Attrib} object.
-         * @param groupType a {@link org.opennms.netmgt.config.collector.AttributeGroupType} object.
-         */
-        public WmiCollectionAttributeType(final Attrib attribute, final AttributeGroupType groupType) {
-            m_groupType = groupType;
-            m_attribute = attribute;
-        }
+    AttributeGroupType m_groupType;
 
-        /**
-         * <p>getGroupType</p>
-         *
-         * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType} object.
-         */
+    /**
+     * <p>
+     * Constructor for WmiCollectionAttributeType.
+     * </p>
+     *
+     * @param attribute
+     *            a {@link org.opennms.netmgt.config.wmi.Attrib} object.
+     * @param groupType
+     *            a
+     *            {@link org.opennms.netmgt.config.collector.AttributeGroupType}
+     *            object.
+     */
+    public WmiCollectionAttributeType(final Attrib attribute, final AttributeGroupType groupType) {
+        m_groupType = groupType;
+        m_attribute = attribute;
+    }
+
+    /**
+     * <p>
+     * getGroupType
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType}
+     *         object.
+     */
     @Override
-        public AttributeGroupType getGroupType() {
-            return m_groupType;
-        }
+    public AttributeGroupType getGroupType() {
+        return m_groupType;
+    }
 
-        /** {@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
-        public void storeAttribute(final CollectionAttribute attribute, final Persister persister) {
-            if ("string".equalsIgnoreCase(m_attribute.getType())) {
-                persister.persistStringAttribute(attribute);
-            } else {
-                persister.persistNumericAttribute(attribute);
-            }
+    public void storeAttribute(final CollectionAttribute attribute, final Persister persister) {
+        if ("string".equalsIgnoreCase(m_attribute.getType())) {
+            persister.persistStringAttribute(attribute);
+        } else {
+            persister.persistNumericAttribute(attribute);
         }
+    }
 
-        /**
-         * <p>getName</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
+    /**
+     * <p>
+     * getName
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-        public String getName() {
-            return m_attribute.getAlias();
-        }
+    public String getName() {
+        return m_attribute.getAlias();
+    }
 
-        /**
-         * <p>getType</p>
-         *
-         * @return a {@link java.lang.String} object.
-         */
+    /**
+     * <p>
+     * getType
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @Override
-        public String getType() {
-            return m_attribute.getType();
-        }
+    public String getType() {
+        return m_attribute.getType();
+    }
 
 }

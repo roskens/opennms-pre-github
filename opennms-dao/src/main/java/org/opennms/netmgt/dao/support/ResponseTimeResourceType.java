@@ -48,20 +48,27 @@ import org.slf4j.LoggerFactory;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
- * <p>ResponseTimeResourceType class.</p>
+ * <p>
+ * ResponseTimeResourceType class.
+ * </p>
  */
 public class ResponseTimeResourceType implements OnmsResourceType {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResponseTimeResourceType.class);
 
     private ResourceDao m_resourceDao;
+
     private NodeDao m_nodeDao;
 
     /**
-     * <p>Constructor for ResponseTimeResourceType.</p>
+     * <p>
+     * Constructor for ResponseTimeResourceType.
+     * </p>
      *
-     * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
-     * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @param resourceDao
+     *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
+     * @param nodeDao
+     *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public ResponseTimeResourceType(final ResourceDao resourceDao, final NodeDao nodeDao) {
         m_resourceDao = resourceDao;
@@ -69,7 +76,9 @@ public class ResponseTimeResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getLabel</p>
+     * <p>
+     * getLabel
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -79,7 +88,9 @@ public class ResponseTimeResourceType implements OnmsResourceType {
     }
 
     /**
-     * <p>getName</p>
+     * <p>
+     * getName
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,11 +109,12 @@ public class ResponseTimeResourceType implements OnmsResourceType {
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNode(final int nodeId) {
-    	final LinkedList<OnmsResource> resources = new LinkedList<OnmsResource>();
+        final LinkedList<OnmsResource> resources = new LinkedList<OnmsResource>();
 
-    	final OnmsNode node = m_nodeDao.get(nodeId);
+        final OnmsNode node = m_nodeDao.get(nodeId);
         if (node == null) {
-            throw new ObjectRetrievalFailureException(OnmsNode.class, nodeId, "Could not find node for node Id " + nodeId, null);
+            throw new ObjectRetrievalFailureException(OnmsNode.class, nodeId, "Could not find node for node Id "
+                    + nodeId, null);
         }
 
         for (final OnmsIpInterface i : node.getIpInterfaces()) {
@@ -119,11 +131,12 @@ public class ResponseTimeResourceType implements OnmsResourceType {
     }
 
     private File getInterfaceDirectory(final String ipAddr, final boolean verify) {
-    	final File response = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.RESPONSE_DIRECTORY);
+        final File response = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.RESPONSE_DIRECTORY);
 
-    	final File intfDir = new File(response, ipAddr);
+        final File intfDir = new File(response, ipAddr);
         if (verify && !intfDir.isDirectory()) {
-            throw new ObjectRetrievalFailureException(File.class, "No interface directory exists for " + ipAddr + ": " + intfDir);
+            throw new ObjectRetrievalFailureException(File.class, "No interface directory exists for " + ipAddr + ": "
+                    + intfDir);
         }
 
         return intfDir;
@@ -134,16 +147,15 @@ public class ResponseTimeResourceType implements OnmsResourceType {
     }
 
     private OnmsResource createResource(final OnmsIpInterface ipInterface) {
-    	final String intf = InetAddressUtils.str(ipInterface.getIpAddress());
-    	final String label = intf;
-    	final String resource = intf;
+        final String intf = InetAddressUtils.str(ipInterface.getIpAddress());
+        final String label = intf;
+        final String resource = intf;
 
-    	final Set<OnmsAttribute> set = new LazySet<OnmsAttribute>(new AttributeLoader(intf));
-    	final OnmsResource r = new OnmsResource(resource, label, this, set);
+        final Set<OnmsAttribute> set = new LazySet<OnmsAttribute>(new AttributeLoader(intf));
+        final OnmsResource r = new OnmsResource(resource, label, this, set);
         r.setEntity(ipInterface);
         return r;
     }
-
 
     /** {@inheritDoc} */
     @Override
@@ -167,7 +179,8 @@ public class ResponseTimeResourceType implements OnmsResourceType {
         @Override
         public Set<OnmsAttribute> load() {
             LOG.debug("lazy-loading attributes for response time resource '{}'", m_intf);
-            return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(), getRelativeInterfacePath(m_intf));
+            return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(),
+                                                                 getRelativeInterfacePath(m_intf));
         }
     }
 

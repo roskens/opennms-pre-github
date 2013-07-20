@@ -51,14 +51,16 @@ public abstract class RrdConfig {
      * This loads the configuration file.
      *
      * @return a Properties object representing the configuration properties
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public static Properties getProperties() throws IOException {
         if (m_properties == null) {
             m_properties = new Properties(System.getProperties());
             InputStream in = null;
             String configFileName = null;
-            // Merge the config file contents into these properties (if the file exists)
+            // Merge the config file contents into these properties (if the file
+            // exists)
             try {
                 configFileName = ConfigFileConstants.getFileName(ConfigFileConstants.RRD_CONFIG_FILE_NAME);
                 File configFile = ConfigFileConstants.getFile(ConfigFileConstants.RRD_CONFIG_FILE_NAME);

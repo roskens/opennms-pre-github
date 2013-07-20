@@ -30,7 +30,6 @@ package org.opennms.netmgt.poller.pollables;
 
 import java.util.Date;
 
-
 /**
  * Represents a DbPollEvent
  *
@@ -40,15 +39,22 @@ import java.util.Date;
 public class DbPollEvent extends PollEvent {
 
     int m_eventId;
+
     String m_uei;
+
     Date m_date;
 
     /**
-     * <p>Constructor for DbPollEvent.</p>
+     * <p>
+     * Constructor for DbPollEvent.
+     * </p>
      *
-     * @param eventId a int.
-     * @param uei a {@link java.lang.String} object.
-     * @param date a {@link java.util.Date} object.
+     * @param eventId
+     *            a int.
+     * @param uei
+     *            a {@link java.lang.String} object.
+     * @param date
+     *            a {@link java.util.Date} object.
      */
     public DbPollEvent(int eventId, String uei, Date date) {
         super(Scope.fromUei(uei));
@@ -57,7 +63,9 @@ public class DbPollEvent extends PollEvent {
     }
 
     /**
-     * <p>getEventId</p>
+     * <p>
+     * getEventId
+     * </p>
      *
      * @return a int.
      */
@@ -67,7 +75,9 @@ public class DbPollEvent extends PollEvent {
     }
 
     /**
-     * <p>getDate</p>
+     * <p>
+     * getDate
+     * </p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -77,21 +87,30 @@ public class DbPollEvent extends PollEvent {
     }
 
     /**
-     * <p>hashCode</p>
+     * <p>
+     * hashCode
+     * </p>
      *
      * @return a int.
      */
     @Override
-    public int hashCode() { return m_eventId; }
+    public int hashCode() {
+        return m_eventId;
+    }
 
     /**
-     * <p>equals</p>
+     * <p>
+     * equals
+     * </p>
      *
-     * @param e a {@link org.opennms.netmgt.poller.pollables.PollEvent} object.
+     * @param e
+     *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
+     *            object.
      * @return a boolean.
      */
     public boolean equals(PollEvent e) {
-        if (e == null) return false;
+        if (e == null)
+            return false;
         return m_eventId == e.getEventId();
     }
 
@@ -99,18 +118,20 @@ public class DbPollEvent extends PollEvent {
     @Override
     public boolean equals(Object o) {
         if (o instanceof PollEvent)
-            return equals((PollEvent)o);
+            return equals((PollEvent) o);
         return false;
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public String toString() {
-        return "DbPollEvent[ id: "+getEventId()+" ]";
+        return "DbPollEvent[ id: " + getEventId() + " ]";
     }
 
 }

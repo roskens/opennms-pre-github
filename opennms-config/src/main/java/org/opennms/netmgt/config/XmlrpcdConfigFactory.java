@@ -54,7 +54,6 @@ import org.opennms.netmgt.config.xmlrpcd.XmlrpcdConfiguration;
 /**
  * This is the singleton class used to load the configuration for the OpenNMS
  * xmlrpcd service from the xmlrpcd-configuration xml file.
- *
  * <strong>Note: </strong>Users of this class should make sure the
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
@@ -67,6 +66,7 @@ import org.opennms.netmgt.config.xmlrpcd.XmlrpcdConfiguration;
  */
 public final class XmlrpcdConfigFactory {
     private static final Logger LOG = LoggerFactory.getLogger(XmlrpcdConfigFactory.class);
+
     /**
      * The singleton instance of this factory
      */
@@ -113,21 +113,30 @@ public final class XmlrpcdConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @param rdr a {@link java.io.Reader} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param rdr
+     *            a {@link java.io.Reader} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public XmlrpcdConfigFactory(Reader rdr) throws IOException, MarshalException, ValidationException {
         unmarshal(rdr);
     }
 
     /**
-     * <p>Constructor for XmlrpcdConfigFactory.</p>
+     * <p>
+     * Constructor for XmlrpcdConfigFactory.
+     * </p>
      *
-     * @param stream a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param stream
+     *            a {@link java.io.InputStream} object.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public XmlrpcdConfigFactory(InputStream stream) throws MarshalException, ValidationException {
         unmarshal(stream);
@@ -156,13 +165,16 @@ public final class XmlrpcdConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
-            // Already initialized.  To reload, reload() will need to be called.
+            // Already initialized. To reload, reload() will need to be called.
             return;
         }
 
@@ -172,7 +184,8 @@ public final class XmlrpcdConfigFactory {
     }
 
     /**
-     * Load the specified config file and create the singleton instance of this factory.
+     * Load the specified config file and create the singleton instance of this
+     * factory.
      *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
@@ -180,10 +193,14 @@ public final class XmlrpcdConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @param cfgFile a {@link java.io.File} object.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @param cfgFile
+     *            a {@link java.io.File} object.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void init(File cfgFile) throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -200,8 +217,8 @@ public final class XmlrpcdConfigFactory {
     private void handleLegacyConfiguration() {
         String generatedSubscriptionName = null;
 
-        /* Be backwards-compatible with old configurations.
-         *
+        /*
+         * Be backwards-compatible with old configurations.
          * The old style configuration did not have a <serverSubscription> field
          * inside the <external-servers> tag, so create a default one.
          */
@@ -225,18 +242,12 @@ public final class XmlrpcdConfigFactory {
                     break;
                 }
             }
-            if (! foundUnnamedSubscription) {
-                String[] ueis = {
-                        EventConstants.NODE_LOST_SERVICE_EVENT_UEI,
-                        EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI,
-                        EventConstants.NODE_UP_EVENT_UEI,
-                        EventConstants.NODE_DOWN_EVENT_UEI,
-                        EventConstants.INTERFACE_UP_EVENT_UEI,
-                        EventConstants.INTERFACE_DOWN_EVENT_UEI,
-                        EventConstants.UPDATE_SERVER_EVENT_UEI,
-                        EventConstants.UPDATE_SERVICE_EVENT_UEI,
-                        EventConstants.XMLRPC_NOTIFICATION_EVENT_UEI
-                };
+            if (!foundUnnamedSubscription) {
+                String[] ueis = { EventConstants.NODE_LOST_SERVICE_EVENT_UEI,
+                        EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI, EventConstants.NODE_UP_EVENT_UEI,
+                        EventConstants.NODE_DOWN_EVENT_UEI, EventConstants.INTERFACE_UP_EVENT_UEI,
+                        EventConstants.INTERFACE_DOWN_EVENT_UEI, EventConstants.UPDATE_SERVER_EVENT_UEI,
+                        EventConstants.UPDATE_SERVICE_EVENT_UEI, EventConstants.XMLRPC_NOTIFICATION_EVENT_UEI };
                 Subscription subscription = new Subscription();
                 subscription.setName(generatedSubscriptionName);
                 SubscribedEvent subscribedEvent = null;
@@ -259,9 +270,12 @@ public final class XmlrpcdConfigFactory {
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -286,9 +300,13 @@ public final class XmlrpcdConfigFactory {
     }
 
     /**
-     * <p>setInstance</p>
+     * <p>
+     * setInstance
+     * </p>
      *
-     * @param instance a {@link org.opennms.netmgt.config.XmlrpcdConfigFactory} object.
+     * @param instance
+     *            a {@link org.opennms.netmgt.config.XmlrpcdConfigFactory}
+     *            object.
      */
     public static synchronized void setInstance(XmlrpcdConfigFactory instance) {
         m_singleton = instance;
@@ -298,7 +316,8 @@ public final class XmlrpcdConfigFactory {
     /**
      * Return the xmlrpcd configuration object.
      *
-     * @return a {@link org.opennms.netmgt.config.xmlrpcd.XmlrpcdConfiguration} object.
+     * @return a {@link org.opennms.netmgt.config.xmlrpcd.XmlrpcdConfiguration}
+     *         object.
      */
     public synchronized XmlrpcdConfiguration getConfiguration() {
         return m_config;
@@ -306,12 +325,15 @@ public final class XmlrpcdConfigFactory {
 
     /**
      * Retrieves configured list of subscribed event uei for the given
-     *  subscribing server.
+     * subscribing server.
      *
-     * @throws org.exolab.castor.xml.ValidationException if a serverSubscription
-     *          element references a subscription name that doesn't exist
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if a serverSubscription
+     *             element references a subscription name that doesn't exist
      * @return an enumeration of subscribed event ueis.
-     * @param server a {@link org.opennms.netmgt.config.xmlrpcd.ExternalServers} object.
+     * @param server
+     *            a {@link org.opennms.netmgt.config.xmlrpcd.ExternalServers}
+     *            object.
      */
     public synchronized List<SubscribedEvent> getEventList(ExternalServers server) throws ValidationException {
         List<SubscribedEvent> allEventsList = new ArrayList<SubscribedEvent>();
@@ -333,8 +355,8 @@ public final class XmlrpcdConfigFactory {
                  * subscription element that doesn't exist.
                  */
                 LOG.error("serverSubscription element {} references a subscription that does not exist", name);
-                throw new ValidationException("serverSubscription element " +
-                    name + " references a subscription that does not exist");
+                throw new ValidationException("serverSubscription element " + name
+                        + " references a subscription that does not exist");
             }
         }
 
@@ -343,7 +365,7 @@ public final class XmlrpcdConfigFactory {
 
     /**
      * Retrieves configured list of xmlrpc servers and the events to which
-     *  they subscribe.
+     * they subscribe.
      *
      * @return an enumeration of xmlrpc servers.
      */
@@ -358,17 +380,17 @@ public final class XmlrpcdConfigFactory {
      * @return an enumeration of subscriptions.
      */
     public synchronized Enumeration<Subscription> getSubscriptionEnumeration() {
-    	return m_config.enumerateSubscription();
+        return m_config.enumerateSubscription();
     }
 
     /**
      * Retrieves configured list of xmlrpc servers and the events to which
-     *  they subscribe.
+     * they subscribe.
      *
      * @return a collection of xmlrpc servers.
      */
     public synchronized Collection<ExternalServers> getExternalServerCollection() {
-    	return m_config.getExternalServersCollection();
+        return m_config.getExternalServersCollection();
     }
 
     /**
@@ -378,7 +400,7 @@ public final class XmlrpcdConfigFactory {
      * @return a collection of subscriptions.
      */
     public synchronized Collection<Subscription> getSubscriptionCollection() {
-    	return m_config.getSubscriptionCollection();
+        return m_config.getSubscriptionCollection();
     }
 
     /**

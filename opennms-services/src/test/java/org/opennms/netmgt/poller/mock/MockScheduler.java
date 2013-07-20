@@ -37,15 +37,15 @@ import java.util.TreeMap;
 import org.opennms.netmgt.scheduler.ReadyRunnable;
 import org.opennms.netmgt.scheduler.Scheduler;
 
-
 public class MockScheduler implements Scheduler {
 
     private MockTimer m_timer;
+
     /*
      * TODO: Use it or loose it.
      * Commented out because it is not currently used in this monitor
      */
-    //private long m_currentTime = 0;
+    // private long m_currentTime = 0;
     private SortedMap<Long, List<ReadyRunnable>> m_scheduleEntries = new TreeMap<Long, List<ReadyRunnable>>();
 
     public MockScheduler() {
@@ -56,11 +56,10 @@ public class MockScheduler implements Scheduler {
         m_timer = timer;
     }
 
-
     @Override
     public void schedule(long interval, ReadyRunnable schedule) {
-        Long nextTime = Long.valueOf(getCurrentTime()+interval);
-        //MockUtil.println("Scheduled "+schedule+" for "+nextTime);
+        Long nextTime = Long.valueOf(getCurrentTime() + interval);
+        // MockUtil.println("Scheduled "+schedule+" for "+nextTime);
         List<ReadyRunnable> entries = m_scheduleEntries.get(nextTime);
         if (entries == null) {
             entries = new LinkedList<ReadyRunnable>();
@@ -109,7 +108,7 @@ public class MockScheduler implements Scheduler {
             throw new IllegalStateException("Nothing scheduled");
         }
 
-        long endTime = getCurrentTime()+step;
+        long endTime = getCurrentTime() + step;
         while (getNextTime() <= endTime) {
             next();
         }
@@ -124,25 +123,25 @@ public class MockScheduler implements Scheduler {
     }
 
     @Override
-	public void start() {
+    public void start() {
 
-	}
-
-    @Override
-	public void stop() {
-	}
+    }
 
     @Override
-	public void pause() {
-	}
+    public void stop() {
+    }
 
     @Override
-	public void resume() {
-	}
+    public void pause() {
+    }
 
     @Override
-	public int getStatus() {
-		return 0;
-	}
+    public void resume() {
+    }
+
+    @Override
+    public int getStatus() {
+        return 0;
+    }
 
 }

@@ -41,7 +41,8 @@ import java.util.Map;
 /**
  * Convenience classes to provide additional functions on URL connections.
  *
- * @author <a href="mailto:christian.pape@informatik.hs-fulda.de">Christian Pape</a>
+ * @author <a href="mailto:christian.pape@informatik.hs-fulda.de">Christian
+ *         Pape</a>
  * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a>
  */
 public abstract class GenericURLConnection extends URLConnection {
@@ -84,7 +85,8 @@ public abstract class GenericURLConnection extends URLConnection {
     /**
      * Default constructor
      *
-     * @param url a {java.net.URL} object
+     * @param url
+     *            a {java.net.URL} object
      */
     protected GenericURLConnection(URL url) {
         super(url);
@@ -122,7 +124,7 @@ public abstract class GenericURLConnection extends URLConnection {
         if (userInfo != null) {
             if (userInfo.contains(USERINFO_DELIMITER)) {
                 String[] userPass = userInfo.split(USERINFO_DELIMITER);
-                return userPass[1];  // return password
+                return userPass[1]; // return password
             } else {
                 logger.warn("Only user name without password configured. Return empty string as password");
                 return EMPTY_STRING; // user name defined without password
@@ -149,7 +151,8 @@ public abstract class GenericURLConnection extends URLConnection {
                 queryString = URLDecoder.decode(queryString, UTF8_ENCODING);
             } catch (UnsupportedEncodingException e) {
                 // Your system does not support UTF-8 encoding
-                logger.error("Unsupported " + UTF8_ENCODING + " encoding for URL query string: '{}'. Error message: '{}'", queryString, e.getMessage());
+                logger.error("Unsupported " + UTF8_ENCODING
+                        + " encoding for URL query string: '{}'. Error message: '{}'", queryString, e.getMessage());
             }
 
             // queryString is everthing behind "?"

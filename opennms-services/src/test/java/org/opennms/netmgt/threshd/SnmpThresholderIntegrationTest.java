@@ -53,14 +53,14 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
         replayMocks();
 
         String rrdRepository = "target/threshd-test";
-        String fileName = "cpuUtilization"+RrdUtils.getExtension();
+        String fileName = "cpuUtilization" + RrdUtils.getExtension();
         int nodeId = 1;
         String ipAddress = "192.168.1.1";
         String serviceName = "SNMP";
         String groupName = "default-snmp";
 
-        setupThresholdConfig(rrdRepository+File.separator+nodeId, fileName, nodeId, ipAddress, serviceName, groupName);
-
+        setupThresholdConfig(rrdRepository + File.separator + nodeId, fileName, nodeId, ipAddress, serviceName,
+                             groupName);
 
         m_thresholder = new SnmpThresholder();
         m_thresholder.initialize(m_serviceParameters);
@@ -72,7 +72,6 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
 
     }
 
-
     @Override
     protected void tearDown() throws Exception {
         RrdUtils.setStrategy(null);
@@ -83,7 +82,6 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
     public void testNormalValue() throws Exception {
 
         setupFetchSequence("cpuUtilization", 69.0, 79.0, 74.0, 74.0);
-
 
         replayMocks();
         ensureNoEventAfterFetches("cpuUtilization", 4);
@@ -102,15 +100,9 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
     }
 
     public void testRearm() throws Exception {
-        double values[] = {
-                99.0,
-                91.0,
-                93.0, // expect exceeded
-                96.0,
-                15.0, // expect rearm
-                98.0,
-                98.0,
-                98.0 // expect exceeded
+        double values[] = { 99.0, 91.0, 93.0, // expect exceeded
+                96.0, 15.0, // expect rearm
+                98.0, 98.0, 98.0 // expect exceeded
         };
 
         setupFetchSequence("cpuUtilization", values);

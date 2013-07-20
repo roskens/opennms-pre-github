@@ -43,13 +43,13 @@ import org.smslib.USSDSessionStatus;
 
 /**
  * @author brozow
- *
  */
 public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse> {
 
     protected Queue<MobileMsgResponse> m_q;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.protocols.rt.Messenger#sendRequest(java.lang.Object)
      */
     @Override
@@ -58,7 +58,8 @@ public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgRespo
         request.setSendTimestamp(System.currentTimeMillis());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.protocols.rt.Messenger#start(java.util.Queue)
      */
     @Override

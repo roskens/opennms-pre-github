@@ -72,27 +72,21 @@ public class VmwareCollection implements java.io.Serializable {
      * @return true if the objects are equal.
      */
     @Override()
-    public boolean equals(
-            final java.lang.Object obj) {
+    public boolean equals(final java.lang.Object obj) {
         if (obj instanceof VmwareCollection) {
             VmwareCollection other = (VmwareCollection) obj;
-            return new EqualsBuilder()
-                    .append(getName(), other.getName())
-                    .append(getRrd(), other.getRrd())
-                    .append(getVmwareGroup(), other.getVmwareGroup())
-                    .isEquals();
+            return new EqualsBuilder().append(getName(), other.getName()).append(getRrd(), other.getRrd()).append(getVmwareGroup(),
+                                                                                                                  other.getVmwareGroup()).isEquals();
         }
         return false;
     }
-
 
     /**
      * Returns the value of field 'name'.
      *
      * @return the value of field 'Name'.
      */
-    public java.lang.String getName(
-    ) {
+    public java.lang.String getName() {
         return this._name == null ? "" : this._name;
     }
 
@@ -102,19 +96,17 @@ public class VmwareCollection implements java.io.Serializable {
      *
      * @return the value of field 'Rrd'.
      */
-    public org.opennms.netmgt.config.vmware.vijava.Rrd getRrd(
-    ) {
+    public org.opennms.netmgt.config.vmware.vijava.Rrd getRrd() {
         return this._rrd;
     }
 
     /**
      * @param vVmwareGroup
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addVmwareGroup(
-            final org.opennms.netmgt.config.vmware.vijava.VmwareGroup vVmwareGroup)
+    public void addVmwareGroup(final org.opennms.netmgt.config.vmware.vijava.VmwareGroup vVmwareGroup)
             throws java.lang.IndexOutOfBoundsException {
         this._vmwareGroupList.add(vVmwareGroup);
     }
@@ -123,12 +115,10 @@ public class VmwareCollection implements java.io.Serializable {
      * @param index
      * @param vVmwareGroup
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void addVmwareGroup(
-            final int index,
-            final org.opennms.netmgt.config.vmware.vijava.VmwareGroup vVmwareGroup)
+    public void addVmwareGroup(final int index, final org.opennms.netmgt.config.vmware.vijava.VmwareGroup vVmwareGroup)
             throws java.lang.IndexOutOfBoundsException {
         this._vmwareGroupList.add(index, vVmwareGroup);
     }
@@ -139,8 +129,7 @@ public class VmwareCollection implements java.io.Serializable {
      * @return an Enumeration over all possible elements of this
      *         collection
      */
-    public java.util.Enumeration<org.opennms.netmgt.config.vmware.vijava.VmwareGroup> enumerateVmwareGroup(
-    ) {
+    public java.util.Enumeration<org.opennms.netmgt.config.vmware.vijava.VmwareGroup> enumerateVmwareGroup() {
         return java.util.Collections.enumeration(this._vmwareGroupList);
     }
 
@@ -152,15 +141,15 @@ public class VmwareCollection implements java.io.Serializable {
      *         org.opennms.netmgt.config.vmware.vijava.VmwareGroup at the
      *         given index
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public org.opennms.netmgt.config.vmware.vijava.VmwareGroup getVmwareGroup(
-            final int index)
+    public org.opennms.netmgt.config.vmware.vijava.VmwareGroup getVmwareGroup(final int index)
             throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._vmwareGroupList.size()) {
-            throw new IndexOutOfBoundsException("getVmwareGroup: Index value '" + index + "' not in range [0.." + (this._vmwareGroupList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("getVmwareGroup: Index value '" + index + "' not in range [0.."
+                    + (this._vmwareGroupList.size() - 1) + "]");
         }
 
         return (org.opennms.netmgt.config.vmware.vijava.VmwareGroup) _vmwareGroupList.get(index);
@@ -168,15 +157,16 @@ public class VmwareCollection implements java.io.Serializable {
 
     /**
      * Method getVmwareGroup.Returns the contents of the collection
-     * in an Array.  <p>Note:  Just in case the collection contents
-     * are changing in another thread, we pass a 0-length Array of
-     * the correct type into the API call.  This way we <i>know</i>
-     * that the Array returned is of exactly the correct length.
+     * in an Array.
+     * <p>
+     * Note: Just in case the collection contents are changing in another
+     * thread, we pass a 0-length Array of the correct type into the API call.
+     * This way we <i>know</i> that the Array returned is of exactly the correct
+     * length.
      *
      * @return this collection as an Array
      */
-    public org.opennms.netmgt.config.vmware.vijava.VmwareGroup[] getVmwareGroup(
-    ) {
+    public org.opennms.netmgt.config.vmware.vijava.VmwareGroup[] getVmwareGroup() {
         org.opennms.netmgt.config.vmware.vijava.VmwareGroup[] array = new org.opennms.netmgt.config.vmware.vijava.VmwareGroup[0];
         return (org.opennms.netmgt.config.vmware.vijava.VmwareGroup[]) this._vmwareGroupList.toArray(array);
     }
@@ -188,8 +178,7 @@ public class VmwareCollection implements java.io.Serializable {
      *
      * @return a reference to the Vector backing this class
      */
-    public java.util.List<org.opennms.netmgt.config.vmware.vijava.VmwareGroup> getVmwareGroupCollection(
-    ) {
+    public java.util.List<org.opennms.netmgt.config.vmware.vijava.VmwareGroup> getVmwareGroupCollection() {
         return this._vmwareGroupList;
     }
 
@@ -198,8 +187,7 @@ public class VmwareCollection implements java.io.Serializable {
      *
      * @return the size of this collection
      */
-    public int getVmwareGroupCount(
-    ) {
+    public int getVmwareGroupCount() {
         return this._vmwareGroupList.size();
     }
 
@@ -209,15 +197,13 @@ public class VmwareCollection implements java.io.Serializable {
      * @return an Iterator over all possible elements in this
      *         collection
      */
-    public java.util.Iterator<org.opennms.netmgt.config.vmware.vijava.VmwareGroup> iterateVmwareGroup(
-    ) {
+    public java.util.Iterator<org.opennms.netmgt.config.vmware.vijava.VmwareGroup> iterateVmwareGroup() {
         return this._vmwareGroupList.iterator();
     }
 
     /**
      */
-    public void removeAllVmwareGroup(
-    ) {
+    public void removeAllVmwareGroup() {
         this._vmwareGroupList.clear();
     }
 
@@ -227,8 +213,7 @@ public class VmwareCollection implements java.io.Serializable {
      * @param vVmwareGroup
      * @return true if the object was removed from the collection.
      */
-    public boolean removeVmwareGroup(
-            final org.opennms.netmgt.config.vmware.vijava.VmwareGroup vVmwareGroup) {
+    public boolean removeVmwareGroup(final org.opennms.netmgt.config.vmware.vijava.VmwareGroup vVmwareGroup) {
         boolean removed = _vmwareGroupList.remove(vVmwareGroup);
         return removed;
     }
@@ -239,8 +224,7 @@ public class VmwareCollection implements java.io.Serializable {
      * @param index
      * @return the element removed from the collection
      */
-    public org.opennms.netmgt.config.vmware.vijava.VmwareGroup removeVmwareGroupAt(
-            final int index) {
+    public org.opennms.netmgt.config.vmware.vijava.VmwareGroup removeVmwareGroupAt(final int index) {
         java.lang.Object obj = this._vmwareGroupList.remove(index);
         return (org.opennms.netmgt.config.vmware.vijava.VmwareGroup) obj;
     }
@@ -249,16 +233,15 @@ public class VmwareCollection implements java.io.Serializable {
      * @param index
      * @param vVmwareGroup
      * @throws java.lang.IndexOutOfBoundsException
-     *          if the index
-     *          given is outside the bounds of the collection
+     *             if the index
+     *             given is outside the bounds of the collection
      */
-    public void setVmwareGroup(
-            final int index,
-            final org.opennms.netmgt.config.vmware.vijava.VmwareGroup vVmwareGroup)
+    public void setVmwareGroup(final int index, final org.opennms.netmgt.config.vmware.vijava.VmwareGroup vVmwareGroup)
             throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
         if (index < 0 || index >= this._vmwareGroupList.size()) {
-            throw new IndexOutOfBoundsException("setVmwareGroup: Index value '" + index + "' not in range [0.." + (this._vmwareGroupList.size() - 1) + "]");
+            throw new IndexOutOfBoundsException("setVmwareGroup: Index value '" + index + "' not in range [0.."
+                    + (this._vmwareGroupList.size() - 1) + "]");
         }
 
         this._vmwareGroupList.set(index, vVmwareGroup);
@@ -267,9 +250,8 @@ public class VmwareCollection implements java.io.Serializable {
     /**
      * @param vVmwareGroupArray
      */
-    public void setVmwareGroup(
-            final org.opennms.netmgt.config.vmware.vijava.VmwareGroup[] vVmwareGroupArray) {
-        //-- copy array
+    public void setVmwareGroup(final org.opennms.netmgt.config.vmware.vijava.VmwareGroup[] vVmwareGroupArray) {
+        // -- copy array
         _vmwareGroupList.clear();
 
         for (int i = 0; i < vVmwareGroupArray.length; i++) {
@@ -281,7 +263,8 @@ public class VmwareCollection implements java.io.Serializable {
      * Sets the value of '_vmwareGroupList' by copying the given
      * Vector. All elements will be checked for type safety.
      *
-     * @param vVmwareGroupList the Vector to copy.
+     * @param vVmwareGroupList
+     *            the Vector to copy.
      */
     public void setVmwareGroup(
             final java.util.List<org.opennms.netmgt.config.vmware.vijava.VmwareGroup> vVmwareGroupList) {
@@ -294,10 +277,10 @@ public class VmwareCollection implements java.io.Serializable {
     /**
      * Sets the value of field 'name'.
      *
-     * @param name the value of field 'name'.
+     * @param name
+     *            the value of field 'name'.
      */
-    public void setName(
-            final java.lang.String name) {
+    public void setName(final java.lang.String name) {
         this._name = name;
     }
 
@@ -305,10 +288,10 @@ public class VmwareCollection implements java.io.Serializable {
      * Sets the value of field 'rrd'. The field 'rrd' has the
      * following description: RRD parms
      *
-     * @param rrd the value of field 'rrd'.
+     * @param rrd
+     *            the value of field 'rrd'.
      */
-    public void setRrd(
-            final org.opennms.netmgt.config.vmware.vijava.Rrd rrd) {
+    public void setRrd(final org.opennms.netmgt.config.vmware.vijava.Rrd rrd) {
         this._rrd = rrd;
     }
 }

@@ -31,9 +31,10 @@ package org.opennms.mock.snmp;
 import org.snmp4j.smi.OID;
 import org.snmp4j.smi.Variable;
 
-
 /**
- * <p>Updatable interface.</p>
+ * <p>
+ * Updatable interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
@@ -43,10 +44,14 @@ import org.snmp4j.smi.Variable;
  */
 public interface Updatable {
     /**
-     * <p>updateValue</p>
+     * <p>
+     * updateValue
+     * </p>
      *
-     * @param oid a {@link org.snmp4j.smi.OID} object.
-     * @param value a {@link org.snmp4j.smi.Variable} object.
+     * @param oid
+     *            a {@link org.snmp4j.smi.OID} object.
+     * @param value
+     *            a {@link org.snmp4j.smi.Variable} object.
      */
     public void updateValue(OID oid, Variable value);
 

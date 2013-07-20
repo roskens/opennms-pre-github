@@ -41,20 +41,22 @@ import org.opennms.core.utils.InetAddressUtils;
  * @author <a href="mailto:david@openmms.org">David Hustace</a>
  */
 public class SpecificComparator implements Comparator<String>, Serializable {
-	private static final long serialVersionUID = 5791618124389187729L;
+    private static final long serialVersionUID = 5791618124389187729L;
 
-	/**
+    /**
      * returns the difference of spec1 - spec2
      *
-     * @param spec1 a {@link java.lang.String} object.
-     * @param spec2 a {@link java.lang.String} object.
+     * @param spec1
+     *            a {@link java.lang.String} object.
+     * @param spec2
+     *            a {@link java.lang.String} object.
      * @return -1 for spec1 < spec2, 0 for spec1 == spec2, 1 for spec1 > spec2
      */
-        @Override
+    @Override
     public int compare(final String spec1, final String spec2) {
-    	final InetAddress addr1 = InetAddressUtils.addr(spec1);
-		final InetAddress addr2 = InetAddressUtils.addr(spec2);
-		return new ByteArrayComparator().compare(addr1 == null? null : addr1.getAddress(), addr2 == null? null : addr2.getAddress());
+        final InetAddress addr1 = InetAddressUtils.addr(spec1);
+        final InetAddress addr2 = InetAddressUtils.addr(spec2);
+        return new ByteArrayComparator().compare(addr1 == null ? null : addr1.getAddress(), addr2 == null ? null
+            : addr2.getAddress());
     }
 }
-

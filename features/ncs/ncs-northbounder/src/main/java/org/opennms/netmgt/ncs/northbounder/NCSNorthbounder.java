@@ -80,110 +80,122 @@ public class NCSNorthbounder extends AbstractNorthbounder {
 
     private static final Logger LOG = LoggerFactory.getLogger(NCSNorthbounder.class);
 
-    //FIXME: This should be wired with Spring but is implmented as was in the PSM
+    // FIXME: This should be wired with Spring but is implmented as was in the
+    // PSM
     // Make sure that the {@link EmptyKeyRelaxedTrustSSLContext} algorithm
     // is available to JSSE
     static {
 
-        //this is a safe call because the method returns -1 if it is already installed (by PageSequenceMonitor, etc.)
+        // this is a safe call because the method returns -1 if it is already
+        // installed (by PageSequenceMonitor, etc.)
         java.security.Security.addProvider(new EmptyKeyRelaxedTrustProvider());
     }
 
-
     private static final String COMPONENT_NAME = "componentName";
-	private static final String COMPONENT_FOREIGN_ID = "componentForeignId";
-	private static final String COMPONENT_FOREIGN_SOURCE = "componentForeignSource";
-	private static final String COMPONENT_TYPE = "componentType";
-	private NCSNorthbounderConfig m_config;
+
+    private static final String COMPONENT_FOREIGN_ID = "componentForeignId";
+
+    private static final String COMPONENT_FOREIGN_SOURCE = "componentForeignSource";
+
+    private static final String COMPONENT_TYPE = "componentType";
+
+    private NCSNorthbounderConfig m_config;
 
     public NCSNorthbounder(NCSNorthbounderConfig config) {
         super("NCSNorthbounder");
 
-		m_config = config;
+        m_config = config;
 
-		setNaglesDelay(m_config.getNaglesDelay());
+        setNaglesDelay(m_config.getNaglesDelay());
 
     }
 
-
-	@Override
+    @Override
     public boolean accepts(NorthboundAlarm alarm) {
-    	if (!m_config.isEnabled()) return false;
+        if (!m_config.isEnabled())
+            return false;
 
-    	if (alarm.getAlarmType() == null) return false;
-    	if (alarm.getAlarmType() == AlarmType.NOTIFICATION) return false;
+        if (alarm.getAlarmType() == null)
+            return false;
+        if (alarm.getAlarmType() == AlarmType.NOTIFICATION)
+            return false;
 
-        if(m_config.getAcceptableUeis() != null && m_config.getAcceptableUeis().size() != 0 && !m_config.getAcceptableUeis().contains(alarm.getUei())) return false;
+        if (m_config.getAcceptableUeis() != null && m_config.getAcceptableUeis().size() != 0
+                && !m_config.getAcceptableUeis().contains(alarm.getUei()))
+            return false;
 
         Map<String, String> alarmParms = getParameterMap(alarm.getEventParms());
 
-        // in order to determine the service we need to have the following parameters set in the events
-        if (!alarmParms.containsKey(COMPONENT_TYPE)) return false;
-        if (!alarmParms.containsKey(COMPONENT_FOREIGN_SOURCE)) return false;
-        if (!alarmParms.containsKey(COMPONENT_FOREIGN_ID)) return false;
-        if (!alarmParms.containsKey(COMPONENT_NAME)) return false;
+        // in order to determine the service we need to have the following
+        // parameters set in the events
+        if (!alarmParms.containsKey(COMPONENT_TYPE))
+            return false;
+        if (!alarmParms.containsKey(COMPONENT_FOREIGN_SOURCE))
+            return false;
+        if (!alarmParms.containsKey(COMPONENT_FOREIGN_ID))
+            return false;
+        if (!alarmParms.containsKey(COMPONENT_NAME))
+            return false;
 
         // we only send events for "Service" components
-        if (!"Service".equals(alarmParms.get(COMPONENT_TYPE))) return false;
-
+        if (!"Service".equals(alarmParms.get(COMPONENT_TYPE)))
+            return false;
 
         return true;
 
     }
 
-	private ServiceAlarmNotification toServiceAlarms(List<NorthboundAlarm> alarms) {
+    private ServiceAlarmNotification toServiceAlarms(List<NorthboundAlarm> alarms) {
 
-		List<ServiceAlarm> serviceAlarms = new ArrayList<ServiceAlarm>(alarms.size());
-		for(NorthboundAlarm alarm : alarms) {
-			serviceAlarms.add(toServiceAlarm(alarm));
-		}
+        List<ServiceAlarm> serviceAlarms = new ArrayList<ServiceAlarm>(alarms.size());
+        for (NorthboundAlarm alarm : alarms) {
+            serviceAlarms.add(toServiceAlarm(alarm));
+        }
 
-		return new ServiceAlarmNotification(serviceAlarms);
-
-	}
-
-    private ServiceAlarm toServiceAlarm(NorthboundAlarm alarm) {
-    	AlarmType alarmType = alarm.getAlarmType();
-
-    	Map<String, String> alarmParms = getParameterMap(alarm.getEventParms());
-
-    	String id = alarmParms.get(COMPONENT_FOREIGN_SOURCE)+":"+alarmParms.get(COMPONENT_FOREIGN_ID);
-    	String name = alarmParms.get(COMPONENT_NAME);
-
-    	return new ServiceAlarm(id, name, alarmType == AlarmType.PROBLEM ? "Down" : "Up");
-	}
-
-    Map<String, String> getParameterMap(String parmString) {
-
-    	Map<String, String> parmMap = new HashMap<String, String>();
-
-    	String[] parms = parmString.split(";");
-
-    	for(String parm : parms) {
-    		if (parm.endsWith("(string,text)")) {
-    			// we only include string valued keys in the map
-    			parm = parm.substring(0, parm.length()-"(string,text)".length());
-
-    			int eq = parm.indexOf('=');
-    			if (0 < eq && eq < parm.length()) {
-    				String key = parm.substring(0, eq);
-    				String val = parm.substring(eq+1);
-    				parmMap.put(key, val);
-    			}
-    		}
-    	}
-
-    	return parmMap;
+        return new ServiceAlarmNotification(serviceAlarms);
 
     }
 
+    private ServiceAlarm toServiceAlarm(NorthboundAlarm alarm) {
+        AlarmType alarmType = alarm.getAlarmType();
 
+        Map<String, String> alarmParms = getParameterMap(alarm.getEventParms());
 
+        String id = alarmParms.get(COMPONENT_FOREIGN_SOURCE) + ":" + alarmParms.get(COMPONENT_FOREIGN_ID);
+        String name = alarmParms.get(COMPONENT_NAME);
+
+        return new ServiceAlarm(id, name, alarmType == AlarmType.PROBLEM ? "Down" : "Up");
+    }
+
+    Map<String, String> getParameterMap(String parmString) {
+
+        Map<String, String> parmMap = new HashMap<String, String>();
+
+        String[] parms = parmString.split(";");
+
+        for (String parm : parms) {
+            if (parm.endsWith("(string,text)")) {
+                // we only include string valued keys in the map
+                parm = parm.substring(0, parm.length() - "(string,text)".length());
+
+                int eq = parm.indexOf('=');
+                if (0 < eq && eq < parm.length()) {
+                    String key = parm.substring(0, eq);
+                    String val = parm.substring(eq + 1);
+                    parmMap.put(key, val);
+                }
+            }
+        }
+
+        return parmMap;
+
+    }
 
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
 
-    	if (!m_config.isEnabled()) return;
+        if (!m_config.isEnabled())
+            return;
 
         LOG.info("Forwarding {} alarms", alarms.size());
 
@@ -192,9 +204,8 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         postAlarms(entity);
     }
 
-
-	private void postAlarms(HttpEntity entity) {
-		//Need a configuration bean for these
+    private void postAlarms(HttpEntity entity) {
+        // Need a configuration bean for these
 
         int connectionTimeout = 3000;
         int socketTimeout = 3000;
@@ -205,8 +216,8 @@ public class NCSNorthbounder extends AbstractNorthbounder {
 
         URI uri = m_config.getURI();
 
-        DefaultHttpClient client = new DefaultHttpClient(buildParams(httpVersion, connectionTimeout,
-                socketTimeout, policy, m_config.getVirtualHost()));
+        DefaultHttpClient client = new DefaultHttpClient(buildParams(httpVersion, connectionTimeout, socketTimeout,
+                                                                     policy, m_config.getVirtualHost()));
 
         client.setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler(retryCount, false));
 
@@ -218,7 +229,8 @@ public class NCSNorthbounder extends AbstractNorthbounder {
             SSLSocketFactory factory = null;
 
             try {
-                factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM), SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+                factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM),
+                                               SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
             } catch (Throwable e) {
                 throw new NorthbounderException(e);
             }
@@ -247,38 +259,38 @@ public class NCSNorthbounder extends AbstractNorthbounder {
             int code = response.getStatusLine().getStatusCode();
             HttpResponseRange range = new HttpResponseRange("200-399");
             if (!range.contains(code)) {
-                System.err.println("response code out of range for uri:" + uri + ".  Expected " + range + " but received " + code);
-                throw new NorthbounderException("response code out of range for uri:" + uri + ".  Expected " + range + " but received " + code);
+                System.err.println("response code out of range for uri:" + uri + ".  Expected " + range
+                        + " but received " + code);
+                throw new NorthbounderException("response code out of range for uri:" + uri + ".  Expected " + range
+                        + " but received " + code);
             }
         }
 
         System.err.println(response != null ? response.getStatusLine().getReasonPhrase() : "Response was null");
         LOG.debug(response != null ? response.getStatusLine().getReasonPhrase() : "Response was null");
-	}
+    }
 
+    private HttpEntity createEntity(List<NorthboundAlarm> alarms) {
 
-	private HttpEntity createEntity(List<NorthboundAlarm> alarms) {
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-		try {
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
+            // marshall the output
+            JaxbUtils.marshal(toServiceAlarms(alarms), new OutputStreamWriter(out));
 
-			// marshall the output
-			JaxbUtils.marshal(toServiceAlarms(alarms), new OutputStreamWriter(out));
+            // verify its matches the expected results
+            byte[] utf8 = out.toByteArray();
 
-			// verify its matches the expected results
-			byte[] utf8 = out.toByteArray();
-
-			ByteArrayEntity entity = new ByteArrayEntity(utf8);
-			entity.setContentType("application/xml");
+            ByteArrayEntity entity = new ByteArrayEntity(utf8);
+            entity.setContentType("application/xml");
             return entity;
 
-		} catch (Exception e) {
-			throw new NorthbounderException("failed to convert alarms to xml", e);
-		}
-	}
+        } catch (Exception e) {
+            throw new NorthbounderException("failed to convert alarms to xml", e);
+        }
+    }
 
-
-	private HttpVersion determineHttpVersion(String version) {
+    private HttpVersion determineHttpVersion(String version) {
         HttpVersion httpVersion = null;
         if (version != "1.0") {
             httpVersion = HttpVersion.HTTP_1_1;
@@ -288,16 +300,15 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         return httpVersion;
     }
 
-    private HttpParams buildParams(HttpVersion protocolVersion,
-            int connectionTimeout, int socketTimeout, String policy,
-            String vHost) {
+    private HttpParams buildParams(HttpVersion protocolVersion, int connectionTimeout, int socketTimeout,
+            String policy, String vHost) {
         HttpParams parms = new BasicHttpParams();
         parms.setParameter(CoreProtocolPNames.PROTOCOL_VERSION, protocolVersion);
         parms.setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, connectionTimeout);
         parms.setIntParameter(CoreConnectionPNames.SO_TIMEOUT, socketTimeout);
         parms.setParameter(ClientPNames.COOKIE_POLICY, policy);
         if (vHost != null) {
-        	parms.setParameter(ClientPNames.VIRTUAL_HOST, new HttpHost(vHost, 8080));
+            parms.setParameter(ClientPNames.VIRTUAL_HOST, new HttpHost(vHost, 8080));
         }
         return parms;
     }

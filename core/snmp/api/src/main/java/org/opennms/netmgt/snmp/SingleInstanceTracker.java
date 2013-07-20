@@ -33,10 +33,12 @@ import org.slf4j.LoggerFactory;
 
 public class SingleInstanceTracker extends CollectionTracker {
 
-	private static final transient Logger LOG = LoggerFactory.getLogger(SingleInstanceTracker.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(SingleInstanceTracker.class);
 
     private SnmpObjId m_base;
+
     private SnmpInstId m_inst;
+
     private SnmpObjId m_oid;
 
     public SingleInstanceTracker(SnmpObjId base, SnmpInstId inst) {
@@ -59,7 +61,7 @@ public class SingleInstanceTracker extends CollectionTracker {
         // do nothing since we are not a repeater
     }
 
-        @Override
+    @Override
     public ResponseProcessor buildNextPdu(PduBuilder pduBuilder) {
         if (pduBuilder.getMaxVarsPerPdu() < 1) {
             throw new IllegalArgumentException("maxVarsPerPdu < 1");
@@ -93,17 +95,21 @@ public class SingleInstanceTracker extends CollectionTracker {
                 if (errorStatus == NO_ERR) {
                     return false;
                 } else if (errorStatus == TOO_BIG_ERR) {
-                    throw new IllegalArgumentException("Unable to handle tooBigError for oid request "+m_oid.decrement());
+                    throw new IllegalArgumentException("Unable to handle tooBigError for oid request "
+                            + m_oid.decrement());
                 } else if (errorStatus == GEN_ERR) {
-                    reportGenErr("Received genErr requesting oid "+m_oid.decrement()+". Marking column is finished.");
+                    reportGenErr("Received genErr requesting oid " + m_oid.decrement()
+                            + ". Marking column is finished.");
                     errorOccurred();
                     return true;
                 } else if (errorStatus == NO_SUCH_NAME_ERR) {
-                    reportNoSuchNameErr("Received noSuchName reqeusting oid "+m_oid.decrement()+". Marking column is finished.");
+                    reportNoSuchNameErr("Received noSuchName reqeusting oid " + m_oid.decrement()
+                            + ". Marking column is finished.");
                     errorOccurred();
                     return true;
                 } else {
-                    throw new IllegalArgumentException("Unexpected error processing oid "+m_oid.decrement()+". Aborting!");
+                    throw new IllegalArgumentException("Unexpected error processing oid " + m_oid.decrement()
+                            + ". Aborting!");
                 }
             }
         };

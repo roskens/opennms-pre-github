@@ -78,14 +78,18 @@ public class XmlDataCollectionConfigTest {
         /**
          * Instantiates a new test output resolver.
          *
-         * @param schemaFile the schema file
+         * @param schemaFile
+         *            the schema file
          */
         public TestOutputResolver(File schemaFile) {
             m_schemaFile = schemaFile;
         }
 
-        /* (non-Javadoc)
-         * @see javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String, java.lang.String)
+        /*
+         * (non-Javadoc)
+         * @see
+         * javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String,
+         * java.lang.String)
          */
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
@@ -96,7 +100,8 @@ public class XmlDataCollectionConfigTest {
     /**
      * Sets the up.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Before
     public void setUp() throws Exception {
@@ -157,7 +162,8 @@ public class XmlDataCollectionConfigTest {
     /**
      * Tear down.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception {
@@ -166,7 +172,8 @@ public class XmlDataCollectionConfigTest {
     /**
      * Generate schema.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void generateSchema() throws Exception {
@@ -181,7 +188,8 @@ public class XmlDataCollectionConfigTest {
     /**
      * Generate XML.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void generateXML() throws Exception {
@@ -192,8 +200,10 @@ public class XmlDataCollectionConfigTest {
         // Read the example XML from src/test/resources
         StringBuffer exampleXML = new StringBuffer();
         File xmlCollectionConfig = getSourceFile();
-        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable", xmlCollectionConfig.canRead());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(xmlCollectionConfig), "UTF-8"));
+        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable",
+                   xmlCollectionConfig.canRead());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(xmlCollectionConfig),
+                                                                         "UTF-8"));
         String line;
         while (true) {
             line = reader.readLine();
@@ -212,18 +222,21 @@ public class XmlDataCollectionConfigTest {
         System.err.println("========================================================================");
         System.err.print(exampleXML.toString());
         DetailedDiff myDiff = getDiff(objectXML, exampleXML);
-        assertEquals("number of XMLUnit differences between the example XML and the mock object XML is 0", 0, myDiff.getAllDifferences().size());
+        assertEquals("number of XMLUnit differences between the example XML and the mock object XML is 0", 0,
+                     myDiff.getAllDifferences().size());
     }
 
     /**
      * Read XML.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void readXML() throws Exception {
         File xmlCollectionConfig = getSourceFile();
-        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable", xmlCollectionConfig.canRead());
+        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable",
+                   xmlCollectionConfig.canRead());
 
         XmlDataCollectionConfig exampleXmldcc = JaxbUtils.unmarshal(XmlDataCollectionConfig.class, xmlCollectionConfig);
 
@@ -236,7 +249,8 @@ public class XmlDataCollectionConfigTest {
      * @return the source file
      */
     private File getSourceFile() {
-        File xmlCollectionConfig = new File("src/test/resources/", XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE);
+        File xmlCollectionConfig = new File("src/test/resources/",
+                                            XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE);
         System.err.println("Source File: " + xmlCollectionConfig.getAbsolutePath());
         return xmlCollectionConfig;
     }
@@ -244,11 +258,15 @@ public class XmlDataCollectionConfigTest {
     /**
      * Gets the diff.
      *
-     * @param objectXML the object XML
-     * @param exampleXML the example XML
+     * @param objectXML
+     *            the object XML
+     * @param exampleXML
+     *            the example XML
      * @return the detailed diff
-     * @throws SAXException the sAX exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws SAXException
+     *             the sAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @SuppressWarnings("unchecked")
     private DetailedDiff getDiff(StringWriter objectXML, StringBuffer exampleXML) throws SAXException, IOException {

@@ -67,7 +67,8 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * </EM> to inform other threads.
      * </P>
      *
-     * @param address TODO
+     * @param address
+     *            TODO
      * @see IpAddrTableEntry
      */
     public IpAddrTable(InetAddress address) {
@@ -75,10 +76,14 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     }
 
     /**
-     * <p>Constructor for IpAddrTable.</p>
+     * <p>
+     * Constructor for IpAddrTable.
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @param ipAddrs a {@link java.util.Set} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @param ipAddrs
+     *            a {@link java.util.Set} object.
      */
     public IpAddrTable(InetAddress address, Set<SnmpInstId> ipAddrs) {
         super(address, "ipAddrTable", IpAddrTableEntry.ms_elemList, ipAddrs);
@@ -91,13 +96,15 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     }
 
     /**
-     * <p>getIfIndices</p>
+     * <p>
+     * getIfIndices
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
     public Set<Integer> getIfIndices() {
         Set<Integer> ifIndices = new TreeSet<Integer>();
-        for(IpAddrTableEntry entry : getEntries()) {
+        for (IpAddrTableEntry entry : getEntries()) {
             Integer ifIndex = entry.getIpAdEntIfIndex();
             if (ifIndex != null) {
                 ifIndices.add(ifIndex);
@@ -107,9 +114,12 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     }
 
     /**
-     * <p>getIfAddress</p>
+     * <p>
+     * getIfAddress
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.net.InetAddress} object.
      */
     public InetAddress getIfAddress(int ifIndex) {
@@ -118,9 +128,12 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     }
 
     /**
-     * <p>getNetMask</p>
+     * <p>
+     * getNetMask
+     * </p>
      *
-     * @param ifIndex a int.
+     * @param ifIndex
+     *            a int.
      * @return a {@link java.net.InetAddress} object.
      */
     public InetAddress getNetMask(final int ifIndex) {
@@ -130,9 +143,12 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     }
 
     /**
-     * <p>getNetMask</p>
+     * <p>
+     * getNetMask
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      * @return a {@link java.net.InetAddress} object.
      */
     public InetAddress getNetMask(final InetAddress address) {
@@ -140,28 +156,35 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     }
 
     /**
-     * <p>getIfIndex</p>
+     * <p>
+     * getIfIndex
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
      * @return a {@link java.lang.Integer} object.
      */
     public Integer getIfIndex(InetAddress address) {
         return getEntry(address) == null ? null : getEntry(address).getIpAdEntIfIndex();
     }
 
-
     /**
-     * <p>getEntryByIfIndex</p>
+     * <p>
+     * getEntryByIfIndex
+     * </p>
      *
-     * @param ifIndex a int.
-     * @return a {@link org.opennms.netmgt.provision.service.snmp.IpAddrTableEntry} object.
+     * @param ifIndex
+     *            a int.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.snmp.IpAddrTableEntry}
+     *         object.
      */
     public IpAddrTableEntry getEntryByIfIndex(int ifIndex) {
         if (getEntries() == null) {
             return null;
         }
 
-        for(IpAddrTableEntry entry : getEntries()) {
+        for (IpAddrTableEntry entry : getEntries()) {
             Integer ndx = entry.getIpAdEntIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
                 return entry;
@@ -171,31 +194,43 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     }
 
     /**
-     * <p>getEntry</p>
+     * <p>
+     * getEntry
+     * </p>
      *
-     * @param address a {@link java.net.InetAddress} object.
-     * @return a {@link org.opennms.netmgt.provision.service.snmp.IpAddrTableEntry} object.
+     * @param address
+     *            a {@link java.net.InetAddress} object.
+     * @return a
+     *         {@link org.opennms.netmgt.provision.service.snmp.IpAddrTableEntry}
+     *         object.
      */
     public IpAddrTableEntry getEntry(InetAddress address) {
         return getEntry(new SnmpInstId(InetAddressUtils.str(address)));
     }
 
     /**
-     * <p>updateIpInterfaceData</p>
+     * <p>
+     * updateIpInterfaceData
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     public void updateIpInterfaceData(OnmsNode node) {
-        for(IpAddrTableEntry entry : getEntries()) {
+        for (IpAddrTableEntry entry : getEntries()) {
             updateIpInterfaceData(node, InetAddressUtils.str(entry.getIpAdEntAddr()));
         }
     }
 
     /**
-     * <p>updateIpInterfaceData</p>
+     * <p>
+     * updateIpInterfaceData
+     * </p>
      *
-     * @param node a {@link org.opennms.netmgt.model.OnmsNode} object.
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param node
+     *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      */
     public void updateIpInterfaceData(OnmsNode node, String ipAddr) {
         OnmsIpInterface ipIf = node.getIpInterfaceByIpAddress(ipAddr);
@@ -232,13 +267,15 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     }
 
     /**
-     * <p>getIpAddresses</p>
+     * <p>
+     * getIpAddresses
+     * </p>
      *
      * @return a {@link java.util.Set} object.
      */
     public Set<String> getIpAddresses() {
         Set<String> ipAddrs = new LinkedHashSet<String>();
-        for(SnmpInstId inst : getInstances()) {
+        for (SnmpInstId inst : getInstances()) {
             ipAddrs.add(inst.toString());
         }
         return ipAddrs;

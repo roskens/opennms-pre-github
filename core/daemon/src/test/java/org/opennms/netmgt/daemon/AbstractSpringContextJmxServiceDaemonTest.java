@@ -37,7 +37,7 @@ public class AbstractSpringContextJmxServiceDaemonTest {
     /**
      * This is a test for bug #2479 where we would see an NPE in manager.log
      * if we tried to call stop() on a daemon that hadn't been successfully
-     * init()ed.  This happens when this daemon, or one before it fails to
+     * init()ed. This happens when this daemon, or one before it fails to
      * initialize and the manager application still tries to shutdown all
      * daemons.
      */

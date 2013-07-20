@@ -30,9 +30,6 @@ package org.opennms.netmgt.importer;
 
 import org.opennms.netmgt.model.events.EventIpcManager;
 
-
-
-
 /**
  * Model Importer
  *
@@ -43,28 +40,36 @@ public class ModelImporter extends BaseImporter {
 
     private EventIpcManager m_eventManager;
 
-	/**
-	 * <p>Constructor for ModelImporter.</p>
-	 */
-	public ModelImporter() {
+    /**
+     * <p>
+     * Constructor for ModelImporter.
+     * </p>
+     */
+    public ModelImporter() {
     }
 
-	/**
-	 * <p>getEventManager</p>
-	 *
-	 * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
-	 */
-	public EventIpcManager getEventManager() {
-	    return m_eventManager;
-	}
+    /**
+     * <p>
+     * getEventManager
+     * </p>
+     *
+     * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     */
+    public EventIpcManager getEventManager() {
+        return m_eventManager;
+    }
 
-	/**
-	 * <p>setEventManager</p>
-	 *
-	 * @param eventManager a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
-	 */
-	public void setEventManager(EventIpcManager eventManager) {
-		m_eventManager = eventManager;
-	}
+    /**
+     * <p>
+     * setEventManager
+     * </p>
+     *
+     * @param eventManager
+     *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
+     *            object.
+     */
+    public void setEventManager(EventIpcManager eventManager) {
+        m_eventManager = eventManager;
+    }
 
 }

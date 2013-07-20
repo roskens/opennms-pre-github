@@ -51,13 +51,14 @@ public class OnmsLocationAvailDefinitionList extends LinkedList<OnmsLocationAvai
         super(c);
     }
 
-    @XmlElement(name="data")
-    public List<OnmsLocationAvailDataPoint> getDefinitions(){
+    @XmlElement(name = "data")
+    public List<OnmsLocationAvailDataPoint> getDefinitions() {
         return this;
     }
 
     public void setDefinitions(List<OnmsLocationAvailDataPoint> defs) {
-        if (defs == this) return;
+        if (defs == this)
+            return;
         clear();
         addAll(defs);
     }

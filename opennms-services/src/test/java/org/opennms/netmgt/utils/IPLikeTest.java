@@ -132,20 +132,31 @@ public class IPLikeTest {
         assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4", "*:*:*:*:*:bbb0-bbbf:*:*%4"));
         assertFalse(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd", "*:*:*:*:*:bbb0-bbbf:*:*%4"));
 
-        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd", "fe80:0000:0000:0000:aaaa:bbb0-bbbf:cccc:dddd"));
-        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4", "fe80:0000:0000:0000:aaaa:bbb0-bbbf:cccc:dddd"));
-        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4", "fe80:0000:0000:0000:aaaa:bbb0-bbbf:cccc:dddd%4"));
-        assertFalse(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd", "fe80:0000:0000:0000:aaaa:bbb0-bbbf:cccc:dddd%4"));
+        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd",
+                                  "fe80:0000:0000:0000:aaaa:bbb0-bbbf:cccc:dddd"));
+        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4",
+                                  "fe80:0000:0000:0000:aaaa:bbb0-bbbf:cccc:dddd"));
+        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4",
+                                  "fe80:0000:0000:0000:aaaa:bbb0-bbbf:cccc:dddd%4"));
+        assertFalse(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd",
+                                   "fe80:0000:0000:0000:aaaa:bbb0-bbbf:cccc:dddd%4"));
 
-        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd", "fe20,fe70-fe90:0000:0000:0000:*:bbb0,bbb1,bbb2,bbb3,bbb4,bbbb,bbbc:cccc:dddd"));
-        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4", "fe20,fe70-fe90:0000:0000:0000:*:bbb0,bbb1,bbb2,bbb3,bbb4,bbbb,bbbc:cccc:dddd"));
-        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4", "fe20,fe70-fe90:0000:0000:0000:*:bbb0,bbb1,bbb2,bbb3,bbb4,bbbb,bbbc:cccc:dddd%4"));
-        assertFalse(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd", "fe20,fe70-fe90:0000:0000:0000:*:bbb0,bbb1,bbb2,bbb3,bbb4,bbbb,bbbc:cccc:dddd%4"));
+        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd",
+                                  "fe20,fe70-fe90:0000:0000:0000:*:bbb0,bbb1,bbb2,bbb3,bbb4,bbbb,bbbc:cccc:dddd"));
+        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4",
+                                  "fe20,fe70-fe90:0000:0000:0000:*:bbb0,bbb1,bbb2,bbb3,bbb4,bbbb,bbbc:cccc:dddd"));
+        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4",
+                                  "fe20,fe70-fe90:0000:0000:0000:*:bbb0,bbb1,bbb2,bbb3,bbb4,bbbb,bbbc:cccc:dddd%4"));
+        assertFalse(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd",
+                                   "fe20,fe70-fe90:0000:0000:0000:*:bbb0,bbb1,bbb2,bbb3,bbb4,bbbb,bbbc:cccc:dddd%4"));
 
         assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd", "fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd"));
-        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4", "fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd"));
-        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4", "fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4"));
-        assertFalse(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd", "fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4"));
+        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4",
+                                  "fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd"));
+        assertTrue(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4",
+                                  "fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4"));
+        assertFalse(IPLike.matches("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd",
+                                   "fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%4"));
     }
 
 }

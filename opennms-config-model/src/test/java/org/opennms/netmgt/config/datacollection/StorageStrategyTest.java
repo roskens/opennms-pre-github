@@ -55,5 +55,4 @@ public class StorageStrategyTest extends XmlTest<StorageStrategy> {
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
 
-
 }

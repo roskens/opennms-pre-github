@@ -37,10 +37,18 @@ package org.opennms.sms.reflector.smsservice;
 public interface MobileMsgResponseMatcher {
 
     /**
-     * <p>matches</p>
+     * <p>
+     * matches
+     * </p>
      *
-     * @param request a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest} object.
-     * @param response a {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse} object.
+     * @param request
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
+     * @param response
+     *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *            object.
      * @return a boolean.
      */
     public boolean matches(MobileMsgRequest request, MobileMsgResponse response);

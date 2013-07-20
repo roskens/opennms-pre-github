@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "groups")
 public class OnmsGroupList extends LinkedList<OnmsGroup> {
     private static final long serialVersionUID = -3120131643998397193L;
+
     private int m_totalCount;
 
     public OnmsGroupList() {
@@ -55,29 +56,34 @@ public class OnmsGroupList extends LinkedList<OnmsGroup> {
     }
 
     public void setGroups(final List<OnmsGroup> groups) {
-        if (groups == this) return;
+        if (groups == this)
+            return;
         clear();
         addAll(groups);
     }
 
-    @XmlAttribute(name="count")
+    @XmlAttribute(name = "count")
     public int getCount() {
         return this.size();
     }
 
-    // The property has a getter "" but no setter. For unmarshalling, please define setters.
+    // The property has a getter "" but no setter. For unmarshalling, please
+    // define setters.
     public void setCount(final int count) {
     }
 
-    @XmlAttribute(name="totalCount")
+    @XmlAttribute(name = "totalCount")
     public int getTotalCount() {
         return m_totalCount;
     }
 
     /**
-     * <p>setTotalCount</p>
+     * <p>
+     * setTotalCount
+     * </p>
      *
-     * @param count a int.
+     * @param count
+     *            a int.
      */
     public void setTotalCount(final int count) {
         m_totalCount = count;

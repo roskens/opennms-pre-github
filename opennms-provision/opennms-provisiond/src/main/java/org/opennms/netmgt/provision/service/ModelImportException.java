@@ -33,19 +33,26 @@ public class ModelImportException extends Exception {
     private static final long serialVersionUID = 6520991163434052156L;
 
     /**
-     * <p>Constructor for ModelImportException.</p>
+     * <p>
+     * Constructor for ModelImportException.
+     * </p>
      *
-     * @param msg a {@link java.lang.String} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
      */
     public ModelImportException(String msg) {
         super(msg);
     }
 
     /**
-     * <p>Constructor for ModelImportException.</p>
+     * <p>
+     * Constructor for ModelImportException.
+     * </p>
      *
-     * @param msg a {@link java.lang.String} object.
-     * @param t a {@link java.lang.Throwable} object.
+     * @param msg
+     *            a {@link java.lang.String} object.
+     * @param t
+     *            a {@link java.lang.Throwable} object.
      */
     public ModelImportException(String msg, Throwable t) {
         super(msg, t);

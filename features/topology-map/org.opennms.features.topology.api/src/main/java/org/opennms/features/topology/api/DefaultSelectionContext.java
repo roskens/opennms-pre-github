@@ -37,101 +37,103 @@ import org.opennms.features.topology.api.topo.EdgeRef;
 import org.opennms.features.topology.api.topo.VertexRef;
 
 public class DefaultSelectionContext implements SelectionContext {
-	private final Set<VertexRef> m_selectedVertices = Collections.synchronizedSet(new HashSet<VertexRef>());
-	private final Set<EdgeRef> m_selectedEdges = Collections.synchronizedSet(new HashSet<EdgeRef>());
+    private final Set<VertexRef> m_selectedVertices = Collections.synchronizedSet(new HashSet<VertexRef>());
 
-	@Override
-	public boolean isVertexRefSelected(VertexRef vertexRef) {
-		return m_selectedVertices.contains(vertexRef);
-	}
+    private final Set<EdgeRef> m_selectedEdges = Collections.synchronizedSet(new HashSet<EdgeRef>());
 
-	private void setVertexRefSelected(VertexRef ref, boolean selected) {
-		if (selected) {
-			m_selectedVertices.add(ref);
-		} else {
-			m_selectedVertices.remove(ref);
-		}
-	}
+    @Override
+    public boolean isVertexRefSelected(VertexRef vertexRef) {
+        return m_selectedVertices.contains(vertexRef);
+    }
 
-	@Override
-	public boolean isEdgeRefSelected(EdgeRef edgeRef) {
-		return m_selectedEdges.contains(edgeRef);
-	}
+    private void setVertexRefSelected(VertexRef ref, boolean selected) {
+        if (selected) {
+            m_selectedVertices.add(ref);
+        } else {
+            m_selectedVertices.remove(ref);
+        }
+    }
 
-	private void setEdgeRefSelected(EdgeRef edgeRef, boolean selected) {
-		if (selected) {
-			m_selectedEdges.add(edgeRef);
-		} else {
-			m_selectedEdges.remove(edgeRef);
-		}
-	}
+    @Override
+    public boolean isEdgeRefSelected(EdgeRef edgeRef) {
+        return m_selectedEdges.contains(edgeRef);
+    }
 
-	@Override
-	public Collection<VertexRef> getSelectedVertexRefs() {
-		return Collections.unmodifiableSet(m_selectedVertices);
-	}
+    private void setEdgeRefSelected(EdgeRef edgeRef, boolean selected) {
+        if (selected) {
+            m_selectedEdges.add(edgeRef);
+        } else {
+            m_selectedEdges.remove(edgeRef);
+        }
+    }
 
-	@Override
-	public boolean selectVertexRefs(Collection<? extends VertexRef> vertexRefs) {
-		Set<VertexRef> oldSet = new HashSet<VertexRef>();
-		oldSet.addAll(getSelectedVertexRefs());
+    @Override
+    public Collection<VertexRef> getSelectedVertexRefs() {
+        return Collections.unmodifiableSet(m_selectedVertices);
+    }
 
-		for (VertexRef vertexRef : vertexRefs) {
-			setVertexRefSelected(vertexRef, true);
-		}
+    @Override
+    public boolean selectVertexRefs(Collection<? extends VertexRef> vertexRefs) {
+        Set<VertexRef> oldSet = new HashSet<VertexRef>();
+        oldSet.addAll(getSelectedVertexRefs());
 
-		if (oldSet.equals(getSelectedVertexRefs())) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+        for (VertexRef vertexRef : vertexRefs) {
+            setVertexRefSelected(vertexRef, true);
+        }
 
-	@Override
-	public boolean deselectVertexRefs(Collection<? extends VertexRef> vertexRefs) {
-		Set<VertexRef> oldSet = new HashSet<VertexRef>();
-		oldSet.addAll(getSelectedVertexRefs());
+        if (oldSet.equals(getSelectedVertexRefs())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-		for (VertexRef vertexRef : vertexRefs) {
-			setVertexRefSelected(vertexRef, false);
-		}
+    @Override
+    public boolean deselectVertexRefs(Collection<? extends VertexRef> vertexRefs) {
+        Set<VertexRef> oldSet = new HashSet<VertexRef>();
+        oldSet.addAll(getSelectedVertexRefs());
 
-		if (oldSet.equals(getSelectedVertexRefs())) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+        for (VertexRef vertexRef : vertexRefs) {
+            setVertexRefSelected(vertexRef, false);
+        }
 
-	@Override
-	public boolean deselectAll() {
-		return (setSelectedVertexRefs(Collections.<VertexRef>emptySet())) || setSelectedEdgeRefs(Collections.<EdgeRef>emptySet());
-	}
+        if (oldSet.equals(getSelectedVertexRefs())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	private void doDeselectAll() {
-		m_selectedEdges.clear();
-		m_selectedVertices.clear();
-	}
+    @Override
+    public boolean deselectAll() {
+        return (setSelectedVertexRefs(Collections.<VertexRef> emptySet()))
+                || setSelectedEdgeRefs(Collections.<EdgeRef> emptySet());
+    }
 
-	@Override
-	public boolean setSelectedVertexRefs(Collection<? extends VertexRef> vertexRefs) {
-		doDeselectAll();
+    private void doDeselectAll() {
+        m_selectedEdges.clear();
+        m_selectedVertices.clear();
+    }
 
-		selectVertexRefs(vertexRefs);
+    @Override
+    public boolean setSelectedVertexRefs(Collection<? extends VertexRef> vertexRefs) {
+        doDeselectAll();
 
-		// TODO: Can we return a more accurate value here?
-		return true;
-	}
+        selectVertexRefs(vertexRefs);
 
-	@Override
-	public boolean setSelectedEdgeRefs(Collection<? extends EdgeRef> edgeRefs) {
-		doDeselectAll();
+        // TODO: Can we return a more accurate value here?
+        return true;
+    }
 
-		for(EdgeRef edgeRef : edgeRefs) {
-			setEdgeRefSelected(edgeRef, true);
-		}
+    @Override
+    public boolean setSelectedEdgeRefs(Collection<? extends EdgeRef> edgeRefs) {
+        doDeselectAll();
 
-		// TODO: Can we return a more accurate value here?
-		return true;
-	}
+        for (EdgeRef edgeRef : edgeRefs) {
+            setEdgeRefSelected(edgeRef, true);
+        }
+
+        // TODO: Can we return a more accurate value here?
+        return true;
+    }
 }

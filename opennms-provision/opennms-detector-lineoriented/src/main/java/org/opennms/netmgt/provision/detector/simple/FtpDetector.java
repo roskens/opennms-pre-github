@@ -34,7 +34,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>FtpDetector class.</p>
+ * <p>
+ * FtpDetector class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -44,7 +46,9 @@ import org.springframework.stereotype.Component;
 public class FtpDetector extends AsyncMultilineDetectorMinaImpl {
 
     private static final String DEFAULT_SERVICE_NAME = "FTP";
+
     private static final int DEFAULT_PORT = 21;
+
     private String m_multilineIndicator = "-";
 
     /**
@@ -57,36 +61,46 @@ public class FtpDetector extends AsyncMultilineDetectorMinaImpl {
     /**
      * Constructor for creating a non-default service based on this protocol
      *
-     * @param serviceName a {@link java.lang.String} object.
-     * @param port a int.
+     * @param serviceName
+     *            a {@link java.lang.String} object.
+     * @param port
+     *            a int.
      */
     public FtpDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
 
     /**
-     * <p>onInit</p>
+     * <p>
+     * onInit
+     * </p>
      */
     @Override
     protected void onInit() {
-        //setup the correct codec for this Detector
-        setProtocolCodecFilter(new ProtocolCodecFilter(new MultilineOrientedCodecFactory(CHARSET_UTF8, getMultilineIndicator())));
+        // setup the correct codec for this Detector
+        setProtocolCodecFilter(new ProtocolCodecFilter(new MultilineOrientedCodecFactory(CHARSET_UTF8,
+                                                                                         getMultilineIndicator())));
 
         expectBanner(expectCodeRange(100, 600));
-        send(request("quit"), expectCodeRange(100,600));
+        send(request("quit"), expectCodeRange(100, 600));
     }
 
     /**
-     * <p>setMultilineIndicator</p>
+     * <p>
+     * setMultilineIndicator
+     * </p>
      *
-     * @param multilineIndicator a {@link java.lang.String} object.
+     * @param multilineIndicator
+     *            a {@link java.lang.String} object.
      */
     public void setMultilineIndicator(final String multilineIndicator) {
         m_multilineIndicator = multilineIndicator;
     }
 
     /**
-     * <p>getMultilineIndicator</p>
+     * <p>
+     * getMultilineIndicator
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */

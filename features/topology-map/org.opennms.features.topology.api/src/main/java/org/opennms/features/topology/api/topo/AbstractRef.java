@@ -30,78 +30,82 @@ package org.opennms.features.topology.api.topo;
 
 public class AbstractRef implements Ref {
 
-	private final String m_namespace;
-	private final String m_id;
-	private String m_label;
+    private final String m_namespace;
 
-	protected AbstractRef(String namespace, String id, String label) {
-		m_namespace = namespace;
-		m_id = id;
-		m_label = label;
-	}
+    private final String m_id;
 
-	protected AbstractRef(Ref ref) {
-		this(ref.getNamespace(), ref.getId(), ref.getLabel());
-	}
+    private String m_label;
 
-	@Override
-	public final String getId() {
-		return m_id;
-	}
+    protected AbstractRef(String namespace, String id, String label) {
+        m_namespace = namespace;
+        m_id = id;
+        m_label = label;
+    }
 
-	@Override
-	public final String getNamespace() {
-		return m_namespace;
-	}
+    protected AbstractRef(Ref ref) {
+        this(ref.getNamespace(), ref.getId(), ref.getLabel());
+    }
 
-	@Override
-	public final String getLabel() {
-		return m_label;
-	}
+    @Override
+    public final String getId() {
+        return m_id;
+    }
 
-	public final void setLabel(String label) {
-		m_label = label;
-	}
+    @Override
+    public final String getNamespace() {
+        return m_namespace;
+    }
 
-	@Override
-	public final int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-		result = prime * result
-				+ ((getNamespace() == null) ? 0 : getNamespace().hashCode());
-		return result;
-	}
+    @Override
+    public final String getLabel() {
+        return m_label;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
+    public final void setLabel(String label) {
+        m_label = label;
+    }
 
-		if (!(obj instanceof Ref)) return false;
+    @Override
+    public final int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getNamespace() == null) ? 0 : getNamespace().hashCode());
+        return result;
+    }
 
-		Ref ref = (Ref)obj;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
 
-		return getNamespace().equals(ref.getNamespace()) && getId().equals(ref.getId());
+        if (!(obj instanceof Ref))
+            return false;
 
-	}
+        Ref ref = (Ref) obj;
 
-	@Override
-	public int compareTo(Ref o) {
-		if (this.equals(o)) {
-			return 0;
-		} else {
-			// Order by namespace, then ID
-			if (this.getNamespace().equals(o.getNamespace())) {
-				if (this.getId().equals(o.getId())) {
-					// Shouldn't happen because equals() should return true
-					throw new IllegalStateException("equals() was inaccurate in " + this.getClass().getName());
-				} else {
-					return this.getId().compareTo(o.getId());
-				}
-			} else {
-				return this.getNamespace().compareTo(o.getNamespace());
-			}
-		}
-	}
+        return getNamespace().equals(ref.getNamespace()) && getId().equals(ref.getId());
+
+    }
+
+    @Override
+    public int compareTo(Ref o) {
+        if (this.equals(o)) {
+            return 0;
+        } else {
+            // Order by namespace, then ID
+            if (this.getNamespace().equals(o.getNamespace())) {
+                if (this.getId().equals(o.getId())) {
+                    // Shouldn't happen because equals() should return true
+                    throw new IllegalStateException("equals() was inaccurate in " + this.getClass().getName());
+                } else {
+                    return this.getId().compareTo(o.getId());
+                }
+            } else {
+                return this.getNamespace().compareTo(o.getNamespace());
+            }
+        }
+    }
 }

@@ -46,16 +46,21 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     public static final String TYPE = "servicenot";
 
     /**
-     * <p>Constructor for NegativeServiceFilter.</p>
+     * <p>
+     * Constructor for NegativeServiceFilter.
+     * </p>
      *
-     * @param serviceId a int.
+     * @param serviceId
+     *            a int.
      */
     public NegativeServiceFilter(int serviceId) {
         super(TYPE, SQLType.INT, "SERVICEID", "serviceType.id", serviceId);
     }
 
     /**
-     * <p>getTextDescription</p>
+     * <p>
+     * getTextDescription
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -67,7 +72,9 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>toString</p>
+     * <p>
+     * toString
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -77,7 +84,9 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
     }
 
     /**
-     * <p>getServiceId</p>
+     * <p>
+     * getServiceId
+     * </p>
      *
      * @return a int.
      */

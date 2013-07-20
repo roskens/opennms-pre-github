@@ -45,8 +45,12 @@ public class FrameRelayStorageStrategyTest {
     public void testStrategy() {
         // Create Mocks
         StorageStrategyService service = EasyMock.createMock(StorageStrategyService.class);
-        EasyMock.expect(service.getSnmpInterfaceLabel(1)).andReturn("Se0_0").anyTimes(); // Valid source interface
-        EasyMock.expect(service.getSnmpInterfaceLabel(2)).andReturn(null).anyTimes(); // Invalid source interface
+        EasyMock.expect(service.getSnmpInterfaceLabel(1)).andReturn("Se0_0").anyTimes(); // Valid
+                                                                                         // source
+                                                                                         // interface
+        EasyMock.expect(service.getSnmpInterfaceLabel(2)).andReturn(null).anyTimes(); // Invalid
+                                                                                      // source
+                                                                                      // interface
         EasyMock.replay(service);
 
         // Create Strategy
@@ -71,7 +75,8 @@ public class FrameRelayStorageStrategyTest {
         Assert.assertEquals("2.100", strategy.getResourceNameFromIndex(resource));
 
         // Test RelativePath
-        Assert.assertEquals("1" + File.separator + "frCircuitIfIndex" + File.separator + "Se0_0.100", strategy.getRelativePathForAttribute(parentResource, resourceName, null));
+        Assert.assertEquals("1" + File.separator + "frCircuitIfIndex" + File.separator + "Se0_0.100",
+                            strategy.getRelativePathForAttribute(parentResource, resourceName, null));
 
         EasyMock.verify(service);
     }

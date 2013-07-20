@@ -45,11 +45,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
-
 /**
  * Northbound Interface JMS Implementation
- *
- * FIXME: Needs LOTS of work.  Need to implement ActiveMQ client instead of Geronimo.
+ * FIXME: Needs LOTS of work. Need to implement ActiveMQ client instead of
+ * Geronimo.
  * FIXME: Needs configuration DAO
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -64,15 +63,15 @@ public class JmsNorthbounder extends AbstractNorthbounder implements Initializin
     @Autowired
     private JmsTemplate m_template;
 
-    //Wire this so that we can have a single connection factory in OpenNMS
+    // Wire this so that we can have a single connection factory in OpenNMS
     @Autowired
     private ConnectionFactory m_connectionFactory;
 
-    //TODO needs to be configured
+    // TODO needs to be configured
     private Queue m_queue;
 
-    //@Autowired
-    //private JmsNorthbounderConfig m_config;
+    // @Autowired
+    // private JmsNorthbounderConfig m_config;
 
     @Override
     public boolean accepts(NorthboundAlarm alarm) {
@@ -104,7 +103,6 @@ public class JmsNorthbounder extends AbstractNorthbounder implements Initializin
         }
 
     }
-
 
     protected String convertAlarmToXml(NorthboundAlarm alarm) {
         return "This is a test alarm.";

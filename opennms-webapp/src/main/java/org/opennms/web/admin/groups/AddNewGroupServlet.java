@@ -57,35 +57,35 @@ public class AddNewGroupServlet extends HttpServlet {
     /** {@inheritDoc} */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	try {
-    		GroupFactory.init();
-    	} catch (Throwable e) {
-    		throw new ServletException("AddNewGroupServlet: Error initialising group factory." + e);
-    	}
-    	GroupManager groupFactory = GroupFactory.getInstance();
+        try {
+            GroupFactory.init();
+        } catch (Throwable e) {
+            throw new ServletException("AddNewGroupServlet: Error initialising group factory." + e);
+        }
+        GroupManager groupFactory = GroupFactory.getInstance();
 
         String groupName = request.getParameter("groupName");
         String groupComment = request.getParameter("groupComment");
         if (groupComment == null) {
-        	groupComment = "";
+            groupComment = "";
         }
 
         boolean hasGroup = false;
         try {
-        	hasGroup = groupFactory.hasGroup(groupName);
+            hasGroup = groupFactory.hasGroup(groupName);
         } catch (Throwable e) {
-        	throw new ServletException("Can't determine if group " + groupName + " already exists in groups.xml.", e);
+            throw new ServletException("Can't determine if group " + groupName + " already exists in groups.xml.", e);
         }
 
         if (hasGroup) {
-        	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/userGroupView/groups/newGroup.jsp?action=redo");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/userGroupView/groups/newGroup.jsp?action=redo");
             dispatcher.forward(request, response);
         } else {
-        	Group newGroup = new Group();
-        	newGroup.setName(groupName);
-        	newGroup.setComments(groupComment);
+            Group newGroup = new Group();
+            newGroup.setName(groupName);
+            newGroup.setComments(groupComment);
 
-        	HttpSession groupSession = request.getSession(false);
+            HttpSession groupSession = request.getSession(false);
             groupSession.setAttribute("group.modifyGroup.jsp", newGroup);
 
             // forward the request for proper display
@@ -93,6 +93,5 @@ public class AddNewGroupServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
-
 
 }

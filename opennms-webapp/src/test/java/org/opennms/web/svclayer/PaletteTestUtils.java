@@ -35,53 +35,56 @@ import junit.framework.Assert;
 
 public abstract class PaletteTestUtils extends Assert {
 
-	public static void assertPaletteItemEquals(final PaletteItem expectedItem, final PaletteItem actualItem) {
-		assertEquals(expectedItem.getId(), actualItem.getId());
-		assertEquals(expectedItem.getLabel(), actualItem.getLabel());
-		assertEquals(expectedItem.isSpacer(), actualItem.isSpacer());
-	}
+    public static void assertPaletteItemEquals(final PaletteItem expectedItem, final PaletteItem actualItem) {
+        assertEquals(expectedItem.getId(), actualItem.getId());
+        assertEquals(expectedItem.getLabel(), actualItem.getLabel());
+        assertEquals(expectedItem.isSpacer(), actualItem.isSpacer());
+    }
 
-	public static void assertPaletteCateriesEquals(final List<PaletteCategory> expectedCategories, final List<PaletteCategory> actualCategories) {
-		if (expectedCategories == null) {
-			assertNull(actualCategories);
-			return;
-		}
-//		assertEquals(expectedCategories.size(), actualCategories.size());
-		Iterator<PaletteCategory> iter = actualCategories.iterator();
-		for (PaletteCategory expectedCategory : expectedCategories) {
-			assertTrue(iter.hasNext());
-			PaletteCategory actualCategory = iter.next();
-			PaletteTestUtils.assertPaletteCategoryEquals(expectedCategory, actualCategory);
-		}
-		assertFalse(iter.hasNext());
-	}
+    public static void assertPaletteCateriesEquals(final List<PaletteCategory> expectedCategories,
+            final List<PaletteCategory> actualCategories) {
+        if (expectedCategories == null) {
+            assertNull(actualCategories);
+            return;
+        }
+        // assertEquals(expectedCategories.size(), actualCategories.size());
+        Iterator<PaletteCategory> iter = actualCategories.iterator();
+        for (PaletteCategory expectedCategory : expectedCategories) {
+            assertTrue(iter.hasNext());
+            PaletteCategory actualCategory = iter.next();
+            PaletteTestUtils.assertPaletteCategoryEquals(expectedCategory, actualCategory);
+        }
+        assertFalse(iter.hasNext());
+    }
 
-	public static void assertPaletteEquals(final Palette expectedPalette, final Palette actualPalette) {
-		assertEquals(expectedPalette.getLabel(), actualPalette.getLabel());
-		assertPaletteCateriesEquals(expectedPalette.getCategories(), actualPalette.getCategories());
-	}
+    public static void assertPaletteEquals(final Palette expectedPalette, final Palette actualPalette) {
+        assertEquals(expectedPalette.getLabel(), actualPalette.getLabel());
+        assertPaletteCateriesEquals(expectedPalette.getCategories(), actualPalette.getCategories());
+    }
 
-	public static void assertPaletteItemsEqual(final List<PaletteItem> expectedItems, final List<PaletteItem> actualItems) {
-		if (expectedItems == null) {
-			assertNull(actualItems);
-			return;
-		}
-//		assertEquals(expectedItems.size(), actualItems.size());
-		Iterator<PaletteItem> iter = actualItems.iterator();
-		for (PaletteItem expectedItem : expectedItems) {
-			assertTrue("More expected items than actual, Missing: "+expectedItem, iter.hasNext());
-			PaletteItem actualItem = iter.next();
-			assertPaletteItemEquals(expectedItem, actualItem);
-		}
+    public static void assertPaletteItemsEqual(final List<PaletteItem> expectedItems,
+            final List<PaletteItem> actualItems) {
+        if (expectedItems == null) {
+            assertNull(actualItems);
+            return;
+        }
+        // assertEquals(expectedItems.size(), actualItems.size());
+        Iterator<PaletteItem> iter = actualItems.iterator();
+        for (PaletteItem expectedItem : expectedItems) {
+            assertTrue("More expected items than actual, Missing: " + expectedItem, iter.hasNext());
+            PaletteItem actualItem = iter.next();
+            assertPaletteItemEquals(expectedItem, actualItem);
+        }
 
-		if (iter.hasNext()) {
-			fail("More actual items than expected, Found: "+iter.next());
-		}
-	}
+        if (iter.hasNext()) {
+            fail("More actual items than expected, Found: " + iter.next());
+        }
+    }
 
-	public static void assertPaletteCategoryEquals(final PaletteCategory expectedCategory, final PaletteCategory actualCategory) {
-		assertEquals("Unexpected category label", expectedCategory.getLabel(), actualCategory.getLabel());
-		assertPaletteItemsEqual(expectedCategory.getItems(), actualCategory.getItems());
-	}
+    public static void assertPaletteCategoryEquals(final PaletteCategory expectedCategory,
+            final PaletteCategory actualCategory) {
+        assertEquals("Unexpected category label", expectedCategory.getLabel(), actualCategory.getLabel());
+        assertPaletteItemsEqual(expectedCategory.getItems(), actualCategory.getItems());
+    }
 
 }

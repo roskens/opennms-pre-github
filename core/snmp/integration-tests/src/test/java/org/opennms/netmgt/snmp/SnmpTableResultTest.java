@@ -45,9 +45,13 @@ import org.junit.Test;
 public class SnmpTableResultTest {
 
     private SnmpTableResult m_tableResult;
+
     private TestRowCallback m_rowCallback;
+
     private SnmpObjId[] m_columns;
+
     private List<SnmpRowResult> m_anticipatedRows = new ArrayList<SnmpRowResult>();
+
     private List<SnmpRowResult> m_receivedRows = new ArrayList<SnmpRowResult>();
 
     private class TestRowCallback implements RowCallback {
@@ -61,7 +65,7 @@ public class SnmpTableResultTest {
         public void rowCompleted(SnmpRowResult result) {
             m_rowCount++;
             m_receivedRows.add(result);
-            System.err.println("Received Row: "+result);
+            System.err.println("Received Row: " + result);
         }
 
         public void reset() {
@@ -85,13 +89,14 @@ public class SnmpTableResultTest {
     @Before
     public void setUp() throws Exception {
         m_rowCallback = new TestRowCallback();
-        m_columns = new SnmpObjId[] { SnmpTrackerTest.SnmpTableConstants.ifIndex, SnmpTrackerTest.SnmpTableConstants.ifDescr, SnmpTrackerTest.SnmpTableConstants.ifMtu };
+        m_columns = new SnmpObjId[] { SnmpTrackerTest.SnmpTableConstants.ifIndex,
+                SnmpTrackerTest.SnmpTableConstants.ifDescr, SnmpTrackerTest.SnmpTableConstants.ifMtu };
         m_tableResult = new SnmpTableResult(m_rowCallback, m_columns);
         System.err.println("---");
     }
 
     public void anticipateRows(String... instances) {
-        for(String inst : instances) {
+        for (String inst : instances) {
             SnmpRowResult row = new SnmpRowResult(m_columns.length, new SnmpInstId(inst));
             m_anticipatedRows.add(row);
         }
@@ -102,17 +107,18 @@ public class SnmpTableResultTest {
         Iterator<SnmpRowResult> received = m_receivedRows.iterator();
 
         int count = 1;
-        for(; anticipated.hasNext(); ) {
+        for (; anticipated.hasNext();) {
             assertTrue("expected more rows but received none!", received.hasNext());
             SnmpRowResult anticipatedRow = anticipated.next();
             SnmpRowResult receivedRow = received.next();
-            assertEquals("Unexpected instance id for row "+count+": ", anticipatedRow.getInstance(), receivedRow.getInstance());
+            assertEquals("Unexpected instance id for row " + count + ": ", anticipatedRow.getInstance(),
+                         receivedRow.getInstance());
             count++;
         }
 
         if (received.hasNext()) {
             StringBuilder buf = new StringBuilder();
-            while(received.hasNext()) {
+            while (received.hasNext()) {
                 buf.append("Unexpected Row: ").append(received.next()).append('\n');
             }
             fail(buf.toString());
@@ -124,14 +130,10 @@ public class SnmpTableResultTest {
 
     /*
      * propagate maxRepetitions to children/columns
-     *
      * handle timeout
      * handle errors
-     *
      * work inside an aggregate tracker
-     *
      * ensure 'processedRows' are 'freed'
-     *
      * properly handle maxVarsPerPdu correctly
      */
 
@@ -170,7 +172,8 @@ public class SnmpTableResultTest {
         m_tableResult.storeResult(result(SnmpTrackerTest.SnmpTableConstants.ifIndex, "1"));
         m_tableResult.storeResult(result(SnmpTrackerTest.SnmpTableConstants.ifMtu, "1"));
 
-        /* no way to tell that a result is not coming for ifDescr so no rows
+        /*
+         * no way to tell that a result is not coming for ifDescr so no rows
          * expected
          */
         verifyRowCount(0);
@@ -218,7 +221,10 @@ public class SnmpTableResultTest {
 
         anticipateRows("127.0.0.1");
 
-        /* yes, yes, I know these are not the right places to put them in The Real World ;) */
+        /*
+         * yes, yes, I know these are not the right places to put them in The
+         * Real World ;)
+         */
         m_tableResult.storeResult(result(SnmpTrackerTest.SnmpTableConstants.ifIndex, "127.0.0.1"));
         m_tableResult.storeResult(result(SnmpTrackerTest.SnmpTableConstants.ifDescr, "127.0.0.1"));
         m_tableResult.storeResult(result(SnmpTrackerTest.SnmpTableConstants.ifMtu, "127.0.0.1"));

@@ -49,13 +49,17 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
     private static final Logger LOG = LoggerFactory.getLogger(JniIcmpMessenger.class);
 
     private int m_pingerId;
+
     private IcmpSocket m_socket;
 
     /**
-     * <p>Constructor for JniIcmpMessenger.</p>
-     * @param pingerId
+     * <p>
+     * Constructor for JniIcmpMessenger.
+     * </p>
      *
-     * @throws java.io.IOException if any.
+     * @param pingerId
+     * @throws java.io.IOException
+     *             if any.
      */
     public JniIcmpMessenger(int pingerId) throws IOException {
         m_pingerId = pingerId;
@@ -71,8 +75,12 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
                 JniPingResponse reply = JniIcmpMessenger.createPingResponse(packet);
 
                 if (reply.isEchoReply() && reply.getIdentifier() == pingerId) {
-                    // Remove this so we don't send a lot of time in this method when we should be processing packets
-                    // LogUtils.debugf(this, "Found an echo packet addr = %s, port = %d, length = %d, created reply %s", packet.getAddress(), packet.getPort(), packet.getLength(), reply);
+                    // Remove this so we don't send a lot of time in this method
+                    // when we should be processing packets
+                    // LogUtils.debugf(this,
+                    // "Found an echo packet addr = %s, port = %d, length = %d, created reply %s",
+                    // packet.getAddress(), packet.getPort(),
+                    // packet.getLength(), reply);
                     pendingReplies.offer(reply);
                 }
             } catch (IOException e) {
@@ -89,9 +97,12 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
     }
 
     /**
-     * <p>sendRequest</p>
+     * <p>
+     * sendRequest
+     * </p>
      *
-     * @param request a {@link org.opennms.netmgt.icmp.jni.JniPingRequest} object.
+     * @param request
+     *            a {@link org.opennms.netmgt.icmp.jni.JniPingRequest} object.
      */
     @Override
     public void sendRequest(JniPingRequest request) {
@@ -101,7 +112,7 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
     /** {@inheritDoc} */
     @Override
     public void start(final Queue<JniPingResponse> responseQueue) {
-        final Thread socketReader = new Thread("JNI-ICMP-"+m_pingerId+"-Socket-Reader") {
+        final Thread socketReader = new Thread("JNI-ICMP-" + m_pingerId + "-Socket-Reader") {
             @Override
             public void run() {
                 Logging.putPrefix("icmp");
@@ -123,7 +134,6 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
      * returned as a new instance of the class. In addition to extracting the
      * packet, the packet's received time is updated to the current time.
      * </p>
-     *
      * <p>
      * If the received datagram is not an echo reply or an incorrect length then
      * an exception is generated to alert the caller.

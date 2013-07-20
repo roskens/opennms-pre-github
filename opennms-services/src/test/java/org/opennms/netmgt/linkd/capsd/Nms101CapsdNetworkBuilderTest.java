@@ -60,8 +60,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
@@ -72,13 +71,10 @@ import org.springframework.transaction.annotation.Transactional;
         // Override the capsd config with a stripped-down version
         "classpath:/META-INF/opennms/capsdTest.xml",
         // override snmp-config configuration
-        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml"
-})
-
-@JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
+        "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
+@JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @JUnitTemporaryDatabase
 public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implements InitializingBean {
-
 
     @Autowired
     private IpInterfaceDao m_interfaceDao;
@@ -103,15 +99,14 @@ public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implemen
     }
 
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=LAPTOP_IP, port=161, resource="classpath:linkd/nms101/laptop.properties"),
-            @JUnitSnmpAgent(host=CISCO7200A_IP, port=161, resource="classpath:linkd/nms101/cisco7200a.properties"),
-            @JUnitSnmpAgent(host=CISCO7200B_IP, port=161, resource="classpath:linkd/nms101/cisco7200b.properties"),
-            @JUnitSnmpAgent(host=CISCO3700_IP, port=161, resource="classpath:linkd/nms101/cisco3700.properties"),
-            @JUnitSnmpAgent(host=CISCO2691_IP, port=161, resource="classpath:linkd/nms101/cisco2691.properties"),
-            @JUnitSnmpAgent(host=CISCO1700_IP, port=161, resource="classpath:linkd/nms101/cisco1700.properties"),
-            @JUnitSnmpAgent(host=CISCO3600_IP, port=161, resource="classpath:linkd/nms101/cisco3600.properties")
-    })
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = LAPTOP_IP, port = 161, resource = "classpath:linkd/nms101/laptop.properties"),
+            @JUnitSnmpAgent(host = CISCO7200A_IP, port = 161, resource = "classpath:linkd/nms101/cisco7200a.properties"),
+            @JUnitSnmpAgent(host = CISCO7200B_IP, port = 161, resource = "classpath:linkd/nms101/cisco7200b.properties"),
+            @JUnitSnmpAgent(host = CISCO3700_IP, port = 161, resource = "classpath:linkd/nms101/cisco3700.properties"),
+            @JUnitSnmpAgent(host = CISCO2691_IP, port = 161, resource = "classpath:linkd/nms101/cisco2691.properties"),
+            @JUnitSnmpAgent(host = CISCO1700_IP, port = 161, resource = "classpath:linkd/nms101/cisco1700.properties"),
+            @JUnitSnmpAgent(host = CISCO3600_IP, port = 161, resource = "classpath:linkd/nms101/cisco3600.properties") })
     @Transactional
     public final void testcapsdNms101() throws MarshalException, ValidationException, IOException {
         m_capsd.init();
@@ -125,22 +120,20 @@ public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implemen
         m_capsd.scanSuspectInterface(CISCO1700_IP);
         m_capsd.scanSuspectInterface(CISCO3600_IP);
 
-        printNode(LAPTOP_IP,"LAPTOP");
-        printNode(CISCO7200A_IP,"CISCO7200A");
-        printNode(CISCO7200B_IP,"CISCO7200B");
-        printNode(CISCO3700_IP ,"CISCO3700");
-        printNode(CISCO2691_IP ,"CISCO2691");
-        printNode(CISCO1700_IP ,"CISCO1700");
-        printNode(CISCO3600_IP ,"CISCO3600");
+        printNode(LAPTOP_IP, "LAPTOP");
+        printNode(CISCO7200A_IP, "CISCO7200A");
+        printNode(CISCO7200B_IP, "CISCO7200B");
+        printNode(CISCO3700_IP, "CISCO3700");
+        printNode(CISCO2691_IP, "CISCO2691");
+        printNode(CISCO1700_IP, "CISCO1700");
+        printNode(CISCO3600_IP, "CISCO3600");
 
         m_capsd.stop();
 
-
     }
+
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host=CISCO1700B_IP, port=161, resource="classpath:linkd/nms101/cisco1700b.properties")
-    })
+    @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = CISCO1700B_IP, port = 161, resource = "classpath:linkd/nms101/cisco1700b.properties") })
     @Transactional
     public final void testCisco1700bGeneration() throws MarshalException, ValidationException, IOException {
         m_capsd.init();
@@ -148,10 +141,9 @@ public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implemen
 
         m_capsd.scanSuspectInterface(CISCO1700B_IP);
 
-        printNode(CISCO1700B_IP,"CISCO1700B");
+        printNode(CISCO1700B_IP, "CISCO1700B");
 
         m_capsd.stop();
-
 
     }
 

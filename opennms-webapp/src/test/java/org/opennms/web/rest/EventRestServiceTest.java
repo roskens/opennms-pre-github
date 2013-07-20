@@ -52,7 +52,8 @@ public class EventRestServiceTest extends AbstractSpringJerseyRestTestCase {
         String xml;
         xml = sendRequest(GET, "/events/between", parseParamData("begin=2010-01-01T00:00:00Z"), 200);
         assertTrue(xml.contains("<createTime>"));
-        xml = sendRequest(GET, "/events/between", parseParamData("begin=2010-01-01T00:00:00Z&end=2010-01-01T01:00:00Z"), 200);
+        xml = sendRequest(GET, "/events/between",
+                          parseParamData("begin=2010-01-01T00:00:00Z&end=2010-01-01T01:00:00Z"), 200);
         assertTrue(xml.contains("totalCount=\"0\""));
         xml = sendRequest(GET, "/events/between", parseParamData("end=2010-01-01T01:00:00Z"), 200);
         assertTrue(xml.contains("totalCount=\"0\""));

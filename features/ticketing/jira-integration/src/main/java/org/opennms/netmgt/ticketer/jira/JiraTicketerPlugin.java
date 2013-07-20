@@ -64,7 +64,6 @@ import com.atlassian.jira.rest.client.internal.jersey.JerseyJiraRestClientFactor
  *
  * @see http://www.atlassian.com/software/jira/overview
  * @see http://docs.atlassian.com/jira-rest-java-client/1.0/apidocs/
- *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @author Seth
  */
@@ -80,7 +79,9 @@ public class JiraTicketerPlugin implements Plugin {
             if (username == null || "".equals(username)) {
                 return clientFactory.create(jiraUri, new AnonymousAuthenticationHandler());
             } else {
-                return clientFactory.createWithBasicHttpAuthentication(jiraUri, getProperties().getProperty("jira.username"), getProperties().getProperty("jira.password"));
+                return clientFactory.createWithBasicHttpAuthentication(jiraUri,
+                                                                       getProperties().getProperty("jira.username"),
+                                                                       getProperties().getProperty("jira.password"));
             }
         } catch (MalformedURLException e) {
             LOG.error("Failed to parse URL: {}", getProperties().getProperty("jira.host"));
@@ -91,7 +92,8 @@ public class JiraTicketerPlugin implements Plugin {
     }
 
     /**
-     * Implementation of TicketerPlugin API call to retrieve a Jira trouble ticket.
+     * Implementation of TicketerPlugin API call to retrieve a Jira trouble
+     * ticket.
      *
      * @return an OpenNMS
      */
@@ -131,7 +133,8 @@ public class JiraTicketerPlugin implements Plugin {
      * the OpenNMS enumerated ticket states.
      *
      * @param stateIdString
-     * @return the converted <code>org.opennms.api.integration.ticketing.Ticket.State</code>
+     * @return the converted
+     *         <code>org.opennms.api.integration.ticketing.Ticket.State</code>
      */
     private static Ticket.State getStateFromId(String stateIdString) {
         if (stateIdString == null) {
@@ -154,7 +157,8 @@ public class JiraTicketerPlugin implements Plugin {
     /**
      * Retrieves the properties defined in the jira.properties file.
      *
-     * @return a <code>java.util.Properties object containing jira plugin defined properties
+     * @return a
+     *         <code>java.util.Properties object containing jira plugin defined properties
      */
 
     private static Properties getProperties() {
@@ -182,9 +186,11 @@ public class JiraTicketerPlugin implements Plugin {
     }
 
     /*
-    * (non-Javadoc)
-    * @see org.opennms.api.integration.ticketing.Plugin#saveOrUpdate(org.opennms.api.integration.ticketing.Ticket)
-    */
+     * (non-Javadoc)
+     * @see
+     * org.opennms.api.integration.ticketing.Plugin#saveOrUpdate(org.opennms
+     * .api.integration.ticketing.Ticket)
+     */
     @Override
     public void saveOrUpdate(Ticket ticket) {
 
@@ -192,7 +198,9 @@ public class JiraTicketerPlugin implements Plugin {
 
         if (ticket.getId() == null || ticket.getId().equals("")) {
             // If we can't find a ticket with the specified ID then create one.
-            IssueInputBuilder builder = new IssueInputBuilder(getProperties().getProperty("jira.project"), Long.valueOf(getProperties().getProperty("jira.type").trim()));
+            IssueInputBuilder builder = new IssueInputBuilder(
+                                                              getProperties().getProperty("jira.project"),
+                                                              Long.valueOf(getProperties().getProperty("jira.type").trim()));
             builder.setReporterName(getProperties().getProperty("jira.username"));
             builder.setSummary(ticket.getSummary());
             builder.setDescription(ticket.getDetails());
@@ -213,7 +221,8 @@ public class JiraTicketerPlugin implements Plugin {
                     if ("Resolve Issue".equals(transition.getName())) {
                         LOG.info("Resolving ticket {}", ticket.getId());
                         // Resolve the issue
-                        jira.getIssueClient().transition(issue, new TransitionInput(transition.getId(), comment), new NullProgressMonitor());
+                        jira.getIssueClient().transition(issue, new TransitionInput(transition.getId(), comment),
+                                                         new NullProgressMonitor());
                         return;
                     }
                 }
@@ -225,7 +234,8 @@ public class JiraTicketerPlugin implements Plugin {
                     if ("Reopen Issue".equals(transition.getName())) {
                         LOG.info("Reopening ticket {}", ticket.getId());
                         // Resolve the issue
-                        jira.getIssueClient().transition(issue, new TransitionInput(transition.getId(), comment), new NullProgressMonitor());
+                        jira.getIssueClient().transition(issue, new TransitionInput(transition.getId(), comment),
+                                                         new NullProgressMonitor());
                         return;
                     }
                 }

@@ -94,146 +94,145 @@ public class PollerTest {
             + "   <protocol-plugin protocol=\"HTTP\" class-name=\"org.opennms.netmgt.capsd.plugins.LdapPlugin\"/>\n"
             + "</capsd-configuration>\n";
 
-	private Poller m_poller;
+    private Poller m_poller;
 
-	private MockNetwork m_network;
+    private MockNetwork m_network;
 
-	private MockDatabase m_db;
+    private MockDatabase m_db;
 
-	private MockPollerConfig m_pollerConfig;
+    private MockPollerConfig m_pollerConfig;
 
-	private MockEventIpcManager m_eventMgr;
+    private MockEventIpcManager m_eventMgr;
 
-	private boolean m_daemonsStarted = false;
+    private boolean m_daemonsStarted = false;
 
-	private EventAnticipator m_anticipator;
+    private EventAnticipator m_anticipator;
 
-	private OutageAnticipator m_outageAnticipator;
+    private OutageAnticipator m_outageAnticipator;
 
+    // private DemandPollDao m_demandPollDao;
 
-	//private DemandPollDao m_demandPollDao;
+    //
+    // SetUp and TearDown
+    //
 
-	//
-	// SetUp and TearDown
-	//
+    @Before
+    public void setUp() throws Exception {
 
-	@Before
-	public void setUp() throws Exception {
+        // System.setProperty("mock.logLevel", "DEBUG");
+        // System.setProperty("mock.debug", "true");
+        MockUtil.println("------------ Begin Test  --------------------------");
+        MockLogAppender.setupLogging();
 
-		// System.setProperty("mock.logLevel", "DEBUG");
-		// System.setProperty("mock.debug", "true");
-		MockUtil.println("------------ Begin Test  --------------------------");
-		MockLogAppender.setupLogging();
+        m_network = new MockNetwork();
+        m_network.setCriticalService("ICMP");
+        m_network.addNode(1, "Router");
+        m_network.addInterface("192.168.1.1");
+        m_network.addService("ICMP");
+        m_network.addService("SMTP");
+        m_network.addService("SNMP");
+        m_network.addInterface("192.168.1.2");
+        m_network.addService("ICMP");
+        m_network.addService("SMTP");
+        m_network.addNode(2, "Server");
+        m_network.addInterface("192.168.1.3");
+        m_network.addService("ICMP");
+        m_network.addService("HTTP");
+        m_network.addService("SMTP");
+        m_network.addService("SNMP");
+        m_network.addNode(3, "Firewall");
+        m_network.addInterface("192.168.1.4");
+        m_network.addService("SMTP");
+        m_network.addService("HTTP");
+        m_network.addInterface("192.168.1.5");
+        m_network.addService("SMTP");
+        m_network.addService("HTTP");
+        m_network.addNode(4, "DownNode");
+        m_network.addInterface("192.168.1.6");
+        m_network.addService("SNMP");
+        // m_network.addInterface("fe80:0000:0000:0000:0231:f982:0123:4567");
+        // m_network.addService("SNMP");
 
-		m_network = new MockNetwork();
-		m_network.setCriticalService("ICMP");
-		m_network.addNode(1, "Router");
-		m_network.addInterface("192.168.1.1");
-		m_network.addService("ICMP");
-		m_network.addService("SMTP");
-		m_network.addService("SNMP");
-		m_network.addInterface("192.168.1.2");
-		m_network.addService("ICMP");
-		m_network.addService("SMTP");
-		m_network.addNode(2, "Server");
-		m_network.addInterface("192.168.1.3");
-		m_network.addService("ICMP");
-		m_network.addService("HTTP");
-		m_network.addService("SMTP");
-		m_network.addService("SNMP");
-		m_network.addNode(3, "Firewall");
-		m_network.addInterface("192.168.1.4");
-		m_network.addService("SMTP");
-		m_network.addService("HTTP");
-		m_network.addInterface("192.168.1.5");
-		m_network.addService("SMTP");
-		m_network.addService("HTTP");
-		m_network.addNode(4, "DownNode");
-		m_network.addInterface("192.168.1.6");
-		m_network.addService("SNMP");
-//		m_network.addInterface("fe80:0000:0000:0000:0231:f982:0123:4567");
-//		m_network.addService("SNMP");
+        m_db = new MockDatabase();
+        m_db.populate(m_network);
+        DataSourceFactory.setInstance(m_db);
 
-		m_db = new MockDatabase();
-		m_db.populate(m_network);
-		DataSourceFactory.setInstance(m_db);
+        // DemandPollDao demandPollDao = new DemandPollDaoHibernate(m_db);
+        // demandPollDao.setAllocateIdStmt(m_db
+        // .getNextSequenceValStatement("demandPollNxtId"));
+        // m_demandPollDao = demandPollDao;
 
-//		DemandPollDao demandPollDao = new DemandPollDaoHibernate(m_db);
-//		demandPollDao.setAllocateIdStmt(m_db
-//				.getNextSequenceValStatement("demandPollNxtId"));
-//		m_demandPollDao = demandPollDao;
+        m_pollerConfig = new MockPollerConfig(m_network);
+        m_pollerConfig.setNextOutageIdSql(m_db.getNextOutageIdStatement());
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
+        m_pollerConfig.setCriticalService("ICMP");
+        m_pollerConfig.addPackage("TestPackage");
+        m_pollerConfig.addDowntime(1000L, 0L, -1L, false);
+        m_pollerConfig.setDefaultPollInterval(1000L);
+        m_pollerConfig.populatePackage(m_network);
+        m_pollerConfig.addPackage("TestPkg2");
+        m_pollerConfig.addDowntime(1000L, 0L, -1L, false);
+        m_pollerConfig.setDefaultPollInterval(2000L);
+        m_pollerConfig.addService(m_network.getService(2, "192.168.1.3", "HTTP"));
 
-		m_pollerConfig = new MockPollerConfig(m_network);
-		m_pollerConfig.setNextOutageIdSql(m_db.getNextOutageIdStatement());
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
-		m_pollerConfig.setCriticalService("ICMP");
-		m_pollerConfig.addPackage("TestPackage");
-		m_pollerConfig.addDowntime(1000L, 0L, -1L, false);
-		m_pollerConfig.setDefaultPollInterval(1000L);
-		m_pollerConfig.populatePackage(m_network);
-		m_pollerConfig.addPackage("TestPkg2");
-		m_pollerConfig.addDowntime(1000L, 0L, -1L, false);
-		m_pollerConfig.setDefaultPollInterval(2000L);
-		m_pollerConfig.addService(m_network.getService(2, "192.168.1.3", "HTTP"));
+        m_anticipator = new EventAnticipator();
+        m_outageAnticipator = new OutageAnticipator(m_db);
 
-		m_anticipator = new EventAnticipator();
-		m_outageAnticipator = new OutageAnticipator(m_db);
+        m_eventMgr = new MockEventIpcManager();
+        m_eventMgr.setEventWriter(m_db);
+        m_eventMgr.setEventAnticipator(m_anticipator);
+        m_eventMgr.addEventListener(m_outageAnticipator);
+        m_eventMgr.setSynchronous(false);
 
-		m_eventMgr = new MockEventIpcManager();
-		m_eventMgr.setEventWriter(m_db);
-		m_eventMgr.setEventAnticipator(m_anticipator);
-		m_eventMgr.addEventListener(m_outageAnticipator);
-		m_eventMgr.setSynchronous(false);
+        QueryManager queryManager = new DefaultQueryManager();
+        queryManager.setDataSource(m_db);
 
-		QueryManager queryManager = new DefaultQueryManager();
-		queryManager.setDataSource(m_db);
+        DefaultPollContext pollContext = new DefaultPollContext();
+        pollContext.setEventManager(m_eventMgr);
+        pollContext.setLocalHostName("localhost");
+        pollContext.setName("Test.DefaultPollContext");
+        pollContext.setPollerConfig(m_pollerConfig);
+        pollContext.setQueryManager(queryManager);
 
-		DefaultPollContext pollContext = new DefaultPollContext();
-		pollContext.setEventManager(m_eventMgr);
-		pollContext.setLocalHostName("localhost");
-		pollContext.setName("Test.DefaultPollContext");
-		pollContext.setPollerConfig(m_pollerConfig);
-		pollContext.setQueryManager(queryManager);
+        PollableNetwork network = new PollableNetwork(pollContext);
 
-		PollableNetwork network = new PollableNetwork(pollContext);
-
-		m_poller = new Poller();
+        m_poller = new Poller();
         m_poller.setDataSource(m_db);
-		m_poller.setEventManager(m_eventMgr);
-		m_poller.setNetwork(network);
-		m_poller.setQueryManager(queryManager);
-		m_poller.setPollerConfig(m_pollerConfig);
-		m_poller.setPollOutagesConfig(m_pollerConfig);
+        m_poller.setEventManager(m_eventMgr);
+        m_poller.setNetwork(network);
+        m_poller.setQueryManager(queryManager);
+        m_poller.setPollerConfig(m_pollerConfig);
+        m_poller.setPollOutagesConfig(m_pollerConfig);
 
-		MockOutageConfig config = new MockOutageConfig();
-		config.setGetNextOutageID(m_db.getNextOutageIdStatement());
+        MockOutageConfig config = new MockOutageConfig();
+        config.setGetNextOutageID(m_db.getNextOutageIdStatement());
 
-		RrdUtils.setStrategy(new NullRrdStrategy());
+        RrdUtils.setStrategy(new NullRrdStrategy());
 
-		// m_outageMgr = new OutageManager();
-		// m_outageMgr.setEventMgr(m_eventMgr);
-		// m_outageMgr.setOutageMgrConfig(config);
-		// m_outageMgr.setDbConnectionFactory(m_db);
+        // m_outageMgr = new OutageManager();
+        // m_outageMgr.setEventMgr(m_eventMgr);
+        // m_outageMgr.setOutageMgrConfig(config);
+        // m_outageMgr.setDbConnectionFactory(m_db);
 
-	}
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		m_eventMgr.finishProcessingEvents();
-		stopDaemons();
-		sleep(200);
-		m_db.drop();
-		MockUtil.println("------------ End Test  --------------------------");
-	}
+    @After
+    public void tearDown() throws Exception {
+        m_eventMgr.finishProcessingEvents();
+        stopDaemons();
+        sleep(200);
+        m_db.drop();
+        MockUtil.println("------------ End Test  --------------------------");
+    }
 
-	//
-	// Tests
-	//
+    //
+    // Tests
+    //
     @Test
     public void testIsRemotePackage() {
-    	Properties p = new Properties();
+        Properties p = new Properties();
         p.setProperty("org.opennms.netmgt.ConfigFileConstants", "ERROR");
-    	MockLogAppender.setupLogging(p);
+        MockLogAppender.setupLogging(p);
         Package pkg = new Package();
         pkg.setName("SFO");
         pkg.setRemote(true);
@@ -242,21 +241,22 @@ public class PollerTest {
         poller = null;
     }
 
-//	public void testDemandPollService() {
-//		DemandPoll demandPoll = new DemandPoll();
-//		demandPoll.setDescription("Test Poll");
-//		demandPoll.setRequestTime(new Date());
-//		demandPoll.setUserName("admin");
-//
-//		m_demandPollDao.save(demandPoll);
-//
-//		assertNotNull(demandPoll.getId());
-//
-//		MockService httpService = m_network
-//				.getService(2, "192.168.1.3", "HTTP");
-//		Event demandPollEvent = httpService.createDemandPollEvent(demandPoll.getId());
-//
-//	}
+    // public void testDemandPollService() {
+    // DemandPoll demandPoll = new DemandPoll();
+    // demandPoll.setDescription("Test Poll");
+    // demandPoll.setRequestTime(new Date());
+    // demandPoll.setUserName("admin");
+    //
+    // m_demandPollDao.save(demandPoll);
+    //
+    // assertNotNull(demandPoll.getId());
+    //
+    // MockService httpService = m_network
+    // .getService(2, "192.168.1.3", "HTTP");
+    // Event demandPollEvent =
+    // httpService.createDemandPollEvent(demandPoll.getId());
+    //
+    // }
 
     @Test
     public void testNullInterfaceOnNodeDown() {
@@ -291,269 +291,267 @@ public class PollerTest {
 
     @Test
     @Ignore
-	public void testBug1564() {
-		// NODE processing = true;
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
-		MockNode node = m_network.getNode(2);
-		MockService icmpService = m_network.getService(2, "192.168.1.3", "ICMP");
-		MockService smtpService = m_network.getService(2, "192.168.1.3", "SMTP");
-		MockService snmpService = m_network.getService(2, "192.168.1.3", "SNMP");
+    public void testBug1564() {
+        // NODE processing = true;
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
+        MockNode node = m_network.getNode(2);
+        MockService icmpService = m_network.getService(2, "192.168.1.3", "ICMP");
+        MockService smtpService = m_network.getService(2, "192.168.1.3", "SMTP");
+        MockService snmpService = m_network.getService(2, "192.168.1.3", "SNMP");
 
-		// start the poller
-		startDaemons();
+        // start the poller
+        startDaemons();
 
-		//
-		// Bring Down the HTTP service and expect nodeLostService Event
-		//
+        //
+        // Bring Down the HTTP service and expect nodeLostService Event
+        //
 
-		resetAnticipated();
-		anticipateDown(snmpService);
-		// One service works fine
-		snmpService.bringDown();
+        resetAnticipated();
+        anticipateDown(snmpService);
+        // One service works fine
+        snmpService.bringDown();
 
-		verifyAnticipated(10000);
+        verifyAnticipated(10000);
 
-		// Now we simulate the restart, the node
-		// looses all three at the same time
+        // Now we simulate the restart, the node
+        // looses all three at the same time
 
-		resetAnticipated();
-		anticipateDown(node);
+        resetAnticipated();
+        anticipateDown(node);
 
-		icmpService.bringDown();
-		smtpService.bringDown();
-		snmpService.bringDown();
+        icmpService.bringDown();
+        smtpService.bringDown();
+        snmpService.bringDown();
 
-		verifyAnticipated(10000);
+        verifyAnticipated(10000);
 
-		anticipateDown(smtpService);
-		verifyAnticipated(10000);
-		anticipateDown(snmpService);
-		verifyAnticipated(10000);
+        anticipateDown(smtpService);
+        verifyAnticipated(10000);
+        anticipateDown(snmpService);
+        verifyAnticipated(10000);
 
-		// This is to simulate a restart,
-		// where I turn off the node behaviour
+        // This is to simulate a restart,
+        // where I turn off the node behaviour
 
-		m_pollerConfig.setNodeOutageProcessingEnabled(false);
+        m_pollerConfig.setNodeOutageProcessingEnabled(false);
 
-		anticipateUp(snmpService);
-		snmpService.bringUp();
+        anticipateUp(snmpService);
+        snmpService.bringUp();
 
-		verifyAnticipated(10000);
+        verifyAnticipated(10000);
 
-		anticipateUp(smtpService);
-		smtpService.bringUp();
+        anticipateUp(smtpService);
+        smtpService.bringUp();
 
-		verifyAnticipated(10000);
+        verifyAnticipated(10000);
 
-		// Another restart - let's see if this will work?
+        // Another restart - let's see if this will work?
 
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
-		// So everything is down, now
-		// SNMP will regain and SMTP will regain
-		// will the node come up?
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
+        // So everything is down, now
+        // SNMP will regain and SMTP will regain
+        // will the node come up?
 
+        smtpService.bringDown();
 
-		smtpService.bringDown();
+        anticipateUp(smtpService);
+        smtpService.bringUp();
 
-		anticipateUp(smtpService);
-		smtpService.bringUp();
+        verifyAnticipated(10000, true);
 
-		verifyAnticipated(10000,true);
+        anticipateUp(snmpService);
+        snmpService.bringUp();
 
-		anticipateUp(snmpService);
-		snmpService.bringUp();
+        verifyAnticipated(10000);
 
-		verifyAnticipated(10000);
-
-	}
-
-    @Test
-	public void testBug709() {
-
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
-
-		MockNode node = m_network.getNode(2);
-		MockService icmpService = m_network
-				.getService(2, "192.168.1.3", "ICMP");
-		MockService httpService = m_network
-				.getService(2, "192.168.1.3", "HTTP");
-
-		// start the poller
-		startDaemons();
-
-		//
-		// Bring Down the HTTP service and expect nodeLostService Event
-		//
-
-		resetAnticipated();
-		anticipateDown(httpService);
-
-		// bring down the HTTP service
-		httpService.bringDown();
-
-		verifyAnticipated(10000);
-
-		//
-		// Bring Down the ICMP (on the only interface on the node) now expect
-		// nodeDown
-		// only.
-		//
-
-		resetAnticipated();
-		anticipateDown(node);
-
-		// bring down the ICMP service
-		icmpService.bringDown();
-
-		// make sure the down events are received
-		// verifyAnticipated(10000);
-		sleep(5000);
-		//
-		// Bring up both the node and the httpService at the same time. Expect
-		// both a nodeUp and a nodeRegainedService
-		//
-
-		resetAnticipated();
-		// the order matters here
-		anticipateUp(httpService);
-		anticipateUp(node);
-
-		// bring up all the services on the node
-		node.bringUp();
-
-		// make sure the down events are received
-		verifyAnticipated(10000);
-
-	}
-
-	private void resetAnticipated() {
-		m_anticipator.reset();
-		m_outageAnticipator.reset();
-	}
+    }
 
     @Test
-	public void testNodeLostServiceWithReason() {
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
+    public void testBug709() {
 
-		MockService svc = m_network.getService(1, "192.168.1.1", "ICMP");
-		Event e = svc.createDownEvent();
-		String reasonParm = "eventReason";
-		String val = EventUtil.getNamedParmValue("parm[" + reasonParm + "]", e);
-		assertEquals("Service Not Responding.", val);
-	}
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
+
+        MockNode node = m_network.getNode(2);
+        MockService icmpService = m_network.getService(2, "192.168.1.3", "ICMP");
+        MockService httpService = m_network.getService(2, "192.168.1.3", "HTTP");
+
+        // start the poller
+        startDaemons();
+
+        //
+        // Bring Down the HTTP service and expect nodeLostService Event
+        //
+
+        resetAnticipated();
+        anticipateDown(httpService);
+
+        // bring down the HTTP service
+        httpService.bringDown();
+
+        verifyAnticipated(10000);
+
+        //
+        // Bring Down the ICMP (on the only interface on the node) now expect
+        // nodeDown
+        // only.
+        //
+
+        resetAnticipated();
+        anticipateDown(node);
+
+        // bring down the ICMP service
+        icmpService.bringDown();
+
+        // make sure the down events are received
+        // verifyAnticipated(10000);
+        sleep(5000);
+        //
+        // Bring up both the node and the httpService at the same time. Expect
+        // both a nodeUp and a nodeRegainedService
+        //
+
+        resetAnticipated();
+        // the order matters here
+        anticipateUp(httpService);
+        anticipateUp(node);
+
+        // bring up all the services on the node
+        node.bringUp();
+
+        // make sure the down events are received
+        verifyAnticipated(10000);
+
+    }
+
+    private void resetAnticipated() {
+        m_anticipator.reset();
+        m_outageAnticipator.reset();
+    }
 
     @Test
-	public void testCritSvcStatusPropagation() {
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
+    public void testNodeLostServiceWithReason() {
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
 
-		MockNode node = m_network.getNode(1);
-
-		anticipateDown(node);
-
-		startDaemons();
-
-		bringDownCritSvcs(node);
-
-		verifyAnticipated(8000);
-	}
+        MockService svc = m_network.getService(1, "192.168.1.1", "ICMP");
+        Event e = svc.createDownEvent();
+        String reasonParm = "eventReason";
+        String val = EventUtil.getNamedParmValue("parm[" + reasonParm + "]", e);
+        assertEquals("Service Not Responding.", val);
+    }
 
     @Test
-	public void testInterfaceWithNoCriticalService() {
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
+    public void testCritSvcStatusPropagation() {
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
 
-		MockInterface iface = m_network.getInterface(3, "192.168.1.4");
-		MockService svc = iface.getService("SMTP");
-		MockService otherService = iface.getService("HTTP");
+        MockNode node = m_network.getNode(1);
 
-		startDaemons();
+        anticipateDown(node);
 
-		anticipateDown(iface);
+        startDaemons();
 
-		iface.bringDown();
+        bringDownCritSvcs(node);
 
-		verifyAnticipated(8000);
+        verifyAnticipated(8000);
+    }
 
-		anticipateUp(iface);
-		anticipateDown(otherService, true);
-
-		svc.bringUp();
-
-		verifyAnticipated(8000);
-
-	}
-
-	// what about scheduled outages?
     @Test
-	public void testDontPollDuringScheduledOutages() {
-		long start = System.currentTimeMillis();
+    public void testInterfaceWithNoCriticalService() {
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
 
-		MockInterface iface = m_network.getInterface(1, "192.168.1.2");
-		m_pollerConfig.addScheduledOutage(m_pollerConfig.getPackage("TestPackage"), "TestOutage", start, start + 5000, iface.getIpAddr());
-		MockUtil.println("Begin Outage");
-		startDaemons();
+        MockInterface iface = m_network.getInterface(3, "192.168.1.4");
+        MockService svc = iface.getService("SMTP");
+        MockService otherService = iface.getService("HTTP");
 
-		long now = System.currentTimeMillis();
-		sleep(3000 - (now - start));
+        startDaemons();
 
-		MockUtil.println("End Outage");
-		assertEquals(0, iface.getPollCount());
+        anticipateDown(iface);
 
-		sleep(5000);
+        iface.bringDown();
 
-		assertTrue(0 < iface.getPollCount());
+        verifyAnticipated(8000);
 
-	}
+        anticipateUp(iface);
+        anticipateDown(otherService, true);
 
-	// Test harness that tests any type of node, interface or element.
-	private void testElementDeleted(MockElement element) {
-		Event deleteEvent = element.createDeleteEvent();
-		m_pollerConfig.setNodeOutageProcessingEnabled(false);
+        svc.bringUp();
 
-		PollAnticipator poll = new PollAnticipator();
-		element.addAnticipator(poll);
+        verifyAnticipated(8000);
 
-		poll.anticipateAllServices(element);
+    }
 
-		startDaemons();
-
-		// wait til after the first poll of the services
-		poll.waitForAnticipated(1000L);
-
-		// now delete the node and send a nodeDeleted event
-		m_network.removeElement(element);
-		m_eventMgr.sendEventToListeners(deleteEvent);
-
-		// reset the poll count and wait to see if any polls on the removed
-		// element happened
-		m_network.resetInvalidPollCount();
-
-		// now ensure that no invalid polls have occurred
-		sleep(3000);
-
-		assertEquals("Received a poll for an element that doesn't exist", 0, m_network.getInvalidPollCount());
-
-	}
-
-	// serviceDeleted: EventConstants.SERVICE_DELETED_EVENT_UEI
+    // what about scheduled outages?
     @Test
-	public void testServiceDeleted() {
-		MockService svc = m_network.getService(1, "192.168.1.1", "SMTP");
-		testElementDeleted(svc);
-	}
+    public void testDontPollDuringScheduledOutages() {
+        long start = System.currentTimeMillis();
 
-	// interfaceDeleted: EventConstants.INTERFACE_DELETED_EVENT_UEI
-    @Test
-	public void testInterfaceDeleted() {
-		MockInterface iface = m_network.getInterface(1, "192.168.1.1");
-		testElementDeleted(iface);
-	}
+        MockInterface iface = m_network.getInterface(1, "192.168.1.2");
+        m_pollerConfig.addScheduledOutage(m_pollerConfig.getPackage("TestPackage"), "TestOutage", start, start + 5000,
+                                          iface.getIpAddr());
+        MockUtil.println("Begin Outage");
+        startDaemons();
 
-	// nodeDeleted: EventConstants.NODE_DELETED_EVENT_UEI
+        long now = System.currentTimeMillis();
+        sleep(3000 - (now - start));
+
+        MockUtil.println("End Outage");
+        assertEquals(0, iface.getPollCount());
+
+        sleep(5000);
+
+        assertTrue(0 < iface.getPollCount());
+
+    }
+
+    // Test harness that tests any type of node, interface or element.
+    private void testElementDeleted(MockElement element) {
+        Event deleteEvent = element.createDeleteEvent();
+        m_pollerConfig.setNodeOutageProcessingEnabled(false);
+
+        PollAnticipator poll = new PollAnticipator();
+        element.addAnticipator(poll);
+
+        poll.anticipateAllServices(element);
+
+        startDaemons();
+
+        // wait til after the first poll of the services
+        poll.waitForAnticipated(1000L);
+
+        // now delete the node and send a nodeDeleted event
+        m_network.removeElement(element);
+        m_eventMgr.sendEventToListeners(deleteEvent);
+
+        // reset the poll count and wait to see if any polls on the removed
+        // element happened
+        m_network.resetInvalidPollCount();
+
+        // now ensure that no invalid polls have occurred
+        sleep(3000);
+
+        assertEquals("Received a poll for an element that doesn't exist", 0, m_network.getInvalidPollCount());
+
+    }
+
+    // serviceDeleted: EventConstants.SERVICE_DELETED_EVENT_UEI
     @Test
-	public void testNodeDeleted() {
-		MockNode node = m_network.getNode(1);
-		testElementDeleted(node);
-	}
+    public void testServiceDeleted() {
+        MockService svc = m_network.getService(1, "192.168.1.1", "SMTP");
+        testElementDeleted(svc);
+    }
+
+    // interfaceDeleted: EventConstants.INTERFACE_DELETED_EVENT_UEI
+    @Test
+    public void testInterfaceDeleted() {
+        MockInterface iface = m_network.getInterface(1, "192.168.1.1");
+        testElementDeleted(iface);
+    }
+
+    // nodeDeleted: EventConstants.NODE_DELETED_EVENT_UEI
+    @Test
+    public void testNodeDeleted() {
+        MockNode node = m_network.getNode(1);
+        testElementDeleted(node);
+    }
 
     // nodeLabelChanged: EventConstants.NODE_LABEL_CHANGED_EVENT_UEI
     @Test
@@ -582,168 +580,168 @@ public class PollerTest {
         assertEquals(newLabel, m_poller.getNetwork().getNode(1).getNodeLabel());
     }
 
-	public void testOutagesClosedOnDelete(MockElement element) {
+    public void testOutagesClosedOnDelete(MockElement element) {
 
-		startDaemons();
+        startDaemons();
 
-		Event deleteEvent = element.createDeleteEvent();
+        Event deleteEvent = element.createDeleteEvent();
 
-		// bring down so we create an outage in the outages table
-		anticipateDown(element);
-		element.bringDown();
-		verifyAnticipated(5000, false);
+        // bring down so we create an outage in the outages table
+        anticipateDown(element);
+        element.bringDown();
+        verifyAnticipated(5000, false);
 
-		m_outageAnticipator.anticipateOutageClosed(element, deleteEvent);
+        m_outageAnticipator.anticipateOutageClosed(element, deleteEvent);
 
-		// now delete the service
-		m_eventMgr.sendEventToListeners(deleteEvent);
-		m_network.removeElement(element);
+        // now delete the service
+        m_eventMgr.sendEventToListeners(deleteEvent);
+        m_network.removeElement(element);
 
-		verifyAnticipated(5000);
+        verifyAnticipated(5000);
 
-	}
-
-    @Test
-	public void testServiceOutagesClosedOnDelete() {
-		MockService element = m_network.getService(1, "192.168.1.1", "SMTP");
-		testOutagesClosedOnDelete(element);
-
-	}
+    }
 
     @Test
-	public void testInterfaceOutagesClosedOnDelete() {
-		MockInterface element = m_network.getInterface(1, "192.168.1.1");
-		testOutagesClosedOnDelete(element);
-	}
+    public void testServiceOutagesClosedOnDelete() {
+        MockService element = m_network.getService(1, "192.168.1.1", "SMTP");
+        testOutagesClosedOnDelete(element);
+
+    }
 
     @Test
-	public void testNodeOutagesClosedOnDelete() {
-		MockNode element = m_network.getNode(1);
-		testOutagesClosedOnDelete(element);
-	}
+    public void testInterfaceOutagesClosedOnDelete() {
+        MockInterface element = m_network.getInterface(1, "192.168.1.1");
+        testOutagesClosedOnDelete(element);
+    }
 
-	// interfaceReparented: EventConstants.INTERFACE_REPARENTED_EVENT_UEI
     @Test
-	public void testInterfaceReparented() throws Exception {
+    public void testNodeOutagesClosedOnDelete() {
+        MockNode element = m_network.getNode(1);
+        testOutagesClosedOnDelete(element);
+    }
 
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
-
-		MockNode node1 = m_network.getNode(1);
-		MockNode node2 = m_network.getNode(2);
-
-		assertNotNull("Node 1 should have 192.168.1.1", node1.getInterface("192.168.1.1"));
-		assertNotNull("Node 1 should have 192.168.1.2", node1.getInterface("192.168.1.2"));
-
-		assertNull("Node 2 should not yet have 192.168.1.2", node2.getInterface("192.168.1.2"));
-		assertNotNull("Node 2 should have 192.168.1.3", node2.getInterface("192.168.1.3"));
-
-		MockInterface dotTwo = m_network.getInterface(1, "192.168.1.2");
-		MockInterface dotThree = m_network.getInterface(2, "192.168.1.3");
-
-		Event reparentEvent = MockEventUtil.createReparentEvent("Test", "192.168.1.2", 1, 2);
-
-		// we are going to reparent to node 2 so when we bring down its only
-		// current interface we expect an interface down not the whole node.
-		anticipateDown(dotThree);
-
-		startDaemons();
-
-		final int waitTime = 2000;
-		final int verifyTime = 2000;
-
-		sleep(waitTime);
-
-		// move the reparented interface and send a reparented event
-		dotTwo.moveTo(node2);
-		m_db.reparentInterface(dotTwo.getIpAddr(), node1.getNodeId(), node2.getNodeId());
-
-		// send the reparent event to the daemons
-		m_eventMgr.sendEventToListeners(reparentEvent);
-
-		sleep(waitTime);
-
-		// now bring down the other interface on the new node
-		// System.err.println("Bring Down:"+node2Iface);
-		dotThree.bringDown();
-
-		verifyAnticipated(verifyTime);
-
-		resetAnticipated();
-		anticipateDown(node2);
-
-		// System.err.println("Bring Down:"+reparentedIface);
-		dotTwo.bringDown();
-
-		sleep(waitTime);
-
-		verifyAnticipated(verifyTime);
-
-		node1 = m_network.getNode(1);
-		node2 = m_network.getNode(2);
-
-		assertNotNull("Node 1 should still have 192.168.1.1", node1.getInterface("192.168.1.1"));
-		assertNull("Node 1 should no longer have 192.168.1.2", node1.getInterface("192.168.1.2"));
-
-		assertNotNull("Node 2 should now have 192.168.1.2", node2.getInterface("192.168.1.2"));
-		assertNotNull("Node 2 should still have 192.168.1.3", node2.getInterface("192.168.1.3"));
-	}
-
-	// test to see that node lost/regained service events come in
+    // interfaceReparented: EventConstants.INTERFACE_REPARENTED_EVENT_UEI
     @Test
-	public void testNodeOutageProcessingDisabled() throws Exception {
+    public void testInterfaceReparented() throws Exception {
 
-		m_pollerConfig.setNodeOutageProcessingEnabled(false);
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
 
-		MockNode node = m_network.getNode(1);
+        MockNode node1 = m_network.getNode(1);
+        MockNode node2 = m_network.getNode(2);
 
-		startDaemons();
+        assertNotNull("Node 1 should have 192.168.1.1", node1.getInterface("192.168.1.1"));
+        assertNotNull("Node 1 should have 192.168.1.2", node1.getInterface("192.168.1.2"));
 
-		resetAnticipated();
-		anticipateServicesDown(node);
+        assertNull("Node 2 should not yet have 192.168.1.2", node2.getInterface("192.168.1.2"));
+        assertNotNull("Node 2 should have 192.168.1.3", node2.getInterface("192.168.1.3"));
 
-		node.bringDown();
+        MockInterface dotTwo = m_network.getInterface(1, "192.168.1.2");
+        MockInterface dotThree = m_network.getInterface(2, "192.168.1.3");
 
-		verifyAnticipated(10000);
+        Event reparentEvent = MockEventUtil.createReparentEvent("Test", "192.168.1.2", 1, 2);
 
-		resetAnticipated();
-		anticipateServicesUp(node);
+        // we are going to reparent to node 2 so when we bring down its only
+        // current interface we expect an interface down not the whole node.
+        anticipateDown(dotThree);
 
-		node.bringUp();
+        startDaemons();
 
-		verifyAnticipated(10000);
+        final int waitTime = 2000;
+        final int verifyTime = 2000;
 
-	}
+        sleep(waitTime);
 
-	// test whole node down
+        // move the reparented interface and send a reparented event
+        dotTwo.moveTo(node2);
+        m_db.reparentInterface(dotTwo.getIpAddr(), node1.getNodeId(), node2.getNodeId());
+
+        // send the reparent event to the daemons
+        m_eventMgr.sendEventToListeners(reparentEvent);
+
+        sleep(waitTime);
+
+        // now bring down the other interface on the new node
+        // System.err.println("Bring Down:"+node2Iface);
+        dotThree.bringDown();
+
+        verifyAnticipated(verifyTime);
+
+        resetAnticipated();
+        anticipateDown(node2);
+
+        // System.err.println("Bring Down:"+reparentedIface);
+        dotTwo.bringDown();
+
+        sleep(waitTime);
+
+        verifyAnticipated(verifyTime);
+
+        node1 = m_network.getNode(1);
+        node2 = m_network.getNode(2);
+
+        assertNotNull("Node 1 should still have 192.168.1.1", node1.getInterface("192.168.1.1"));
+        assertNull("Node 1 should no longer have 192.168.1.2", node1.getInterface("192.168.1.2"));
+
+        assertNotNull("Node 2 should now have 192.168.1.2", node2.getInterface("192.168.1.2"));
+        assertNotNull("Node 2 should still have 192.168.1.3", node2.getInterface("192.168.1.3"));
+    }
+
+    // test to see that node lost/regained service events come in
     @Test
-	public void testNodeOutageProcessingEnabled() throws Exception {
+    public void testNodeOutageProcessingDisabled() throws Exception {
 
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
+        m_pollerConfig.setNodeOutageProcessingEnabled(false);
 
-		MockNode node = m_network.getNode(1);
+        MockNode node = m_network.getNode(1);
 
-		// start the poller
-		startDaemons();
+        startDaemons();
 
-		resetAnticipated();
-		anticipateDown(node);
+        resetAnticipated();
+        anticipateServicesDown(node);
 
-		// brind down the node (duh)
-		node.bringDown();
+        node.bringDown();
 
-		// make sure the correct events are recieved
-		verifyAnticipated(10000);
+        verifyAnticipated(10000);
 
-		resetAnticipated();
-		anticipateUp(node);
+        resetAnticipated();
+        anticipateServicesUp(node);
 
-		// bring the node back up
-		node.bringUp();
+        node.bringUp();
 
-		// make sure the up events are received
-		verifyAnticipated(10000);
+        verifyAnticipated(10000);
 
-	}
+    }
+
+    // test whole node down
+    @Test
+    public void testNodeOutageProcessingEnabled() throws Exception {
+
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
+
+        MockNode node = m_network.getNode(1);
+
+        // start the poller
+        startDaemons();
+
+        resetAnticipated();
+        anticipateDown(node);
+
+        // brind down the node (duh)
+        node.bringDown();
+
+        // make sure the correct events are recieved
+        verifyAnticipated(10000);
+
+        resetAnticipated();
+        anticipateUp(node);
+
+        // bring the node back up
+        node.bringUp();
+
+        // make sure the up events are received
+        verifyAnticipated(10000);
+
+    }
 
     @Test
     public void testNodeLostServiceIncludesReason() throws Exception {
@@ -770,87 +768,86 @@ public class PollerTest {
     }
 
     @Test
-	public void testNodeLostRegainedService() throws Exception {
+    public void testNodeLostRegainedService() throws Exception {
 
         testElementDownUp(m_network.getService(1, "192.168.1.1", "SMTP"));
 
-	}
+    }
 
     @Test
-	public void testInterfaceDownUp() {
+    public void testInterfaceDownUp() {
 
-		testElementDownUp(m_network.getInterface(1, "192.168.1.1"));
-	}
-
-    @Test
-	public void testNodeDownUp() {
-		testElementDownUp(m_network.getNode(1));
-	}
-
-	private void testElementDownUp(MockElement element) {
-		startDaemons();
-
-		resetAnticipated();
-		anticipateDown(element);
-
-		MockUtil.println("Bringing down element: " + element);
-		element.bringDown();
-		MockUtil.println("Finished bringing down element: " + element);
-
-		verifyAnticipated(5000);
-
-		sleep(2000);
-
-		resetAnticipated();
-		anticipateUp(element);
-
-		MockUtil.println("Bringing up element: " + element);
-		element.bringUp();
-		MockUtil.println("Finished bringing up element: " + element);
-
-		verifyAnticipated(8000);
-	}
+        testElementDownUp(m_network.getInterface(1, "192.168.1.1"));
+    }
 
     @Test
-	public void testNoEventsOnNoOutages() throws Exception {
+    public void testNodeDownUp() {
+        testElementDownUp(m_network.getNode(1));
+    }
 
-		testElementDownUp(m_network.getService(1, "192.168.1.1", "SMTP"));
+    private void testElementDownUp(MockElement element) {
+        startDaemons();
 
-		resetAnticipated();
-		verifyAnticipated(8000, true);
+        resetAnticipated();
+        anticipateDown(element);
 
-	}
+        MockUtil.println("Bringing down element: " + element);
+        element.bringDown();
+        MockUtil.println("Finished bringing down element: " + element);
+
+        verifyAnticipated(5000);
+
+        sleep(2000);
+
+        resetAnticipated();
+        anticipateUp(element);
+
+        MockUtil.println("Bringing up element: " + element);
+        element.bringUp();
+        MockUtil.println("Finished bringing up element: " + element);
+
+        verifyAnticipated(8000);
+    }
 
     @Test
-	public void testPolling() throws Exception {
+    public void testNoEventsOnNoOutages() throws Exception {
 
-		m_pollerConfig.setNodeOutageProcessingEnabled(false);
+        testElementDownUp(m_network.getService(1, "192.168.1.1", "SMTP"));
 
-		// create a poll anticipator
-		PollAnticipator anticipator = new PollAnticipator();
+        resetAnticipated();
+        verifyAnticipated(8000, true);
 
-		// register it with the interfaces services
-		MockInterface iface = m_network.getInterface(1, "192.168.1.2");
-		iface.addAnticipator(anticipator);
+    }
 
-		//
-		// first ensure that polls are working while it is up
-		//
+    @Test
+    public void testPolling() throws Exception {
 
-		// anticipate three polls on all the interfaces services
-		anticipator.anticipateAllServices(iface);
-		anticipator.anticipateAllServices(iface);
-		anticipator.anticipateAllServices(iface);
+        m_pollerConfig.setNodeOutageProcessingEnabled(false);
 
-		// start the poller
-		startDaemons();
+        // create a poll anticipator
+        PollAnticipator anticipator = new PollAnticipator();
 
-		// wait for the polls to occur while its up... 1 poll per second plus
-		// overhead
-		assertEquals(0, anticipator.waitForAnticipated(4500L).size());
+        // register it with the interfaces services
+        MockInterface iface = m_network.getInterface(1, "192.168.1.2");
+        iface.addAnticipator(anticipator);
 
+        //
+        // first ensure that polls are working while it is up
+        //
 
-	}
+        // anticipate three polls on all the interfaces services
+        anticipator.anticipateAllServices(iface);
+        anticipator.anticipateAllServices(iface);
+        anticipator.anticipateAllServices(iface);
+
+        // start the poller
+        startDaemons();
+
+        // wait for the polls to occur while its up... 1 poll per second plus
+        // overhead
+        assertEquals(0, anticipator.waitForAnticipated(4500L).size());
+
+    }
 
     // test open outages for unmanaged services
     @Test
@@ -877,10 +874,8 @@ public class PollerTest {
         assertEquals(1, m_db.countOpenOutagesForService(svc));
         assertEquals(1, m_db.countOutagesForService(svc));
 
-        assertEquals(iface.getServices().size(), m_db
-                .countOutagesForInterface(iface));
-        assertEquals(iface.getServices().size(), m_db
-                .countOpenOutagesForInterface(iface));
+        assertEquals(iface.getServices().size(), m_db.countOutagesForInterface(iface));
+        assertEquals(iface.getServices().size(), m_db.countOpenOutagesForInterface(iface));
 
         startDaemons();
 
@@ -889,8 +884,7 @@ public class PollerTest {
         assertEquals(1, m_db.countOutagesForService(svc));
 
         assertEquals(0, m_db.countOpenOutagesForInterface(iface));
-        assertEquals(iface.getServices().size(), m_db
-                .countOutagesForInterface(iface));
+        assertEquals(iface.getServices().size(), m_db.countOutagesForInterface(iface));
 
     }
 
@@ -924,7 +918,6 @@ public class PollerTest {
         System.err.println(m_db.getOutages());
 
         verifyAnticipated(8000);
-
 
     }
 
@@ -965,68 +958,65 @@ public class PollerTest {
 
         verifyAnticipated(5000);
 
-
     }
 
     // test open outages for unmanaged services
     @Test
-	public void testReparentCausesStatusChange() {
+    public void testReparentCausesStatusChange() {
 
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
 
-		MockNode node1 = m_network.getNode(1);
-		MockNode node2 = m_network.getNode(2);
+        MockNode node1 = m_network.getNode(1);
+        MockNode node2 = m_network.getNode(2);
 
-		MockInterface dotOne = m_network.getInterface(1, "192.168.1.1");
-		MockInterface dotTwo = m_network.getInterface(1, "192.168.1.2");
-		MockInterface dotThree = m_network.getInterface(2, "192.168.1.3");
+        MockInterface dotOne = m_network.getInterface(1, "192.168.1.1");
+        MockInterface dotTwo = m_network.getInterface(1, "192.168.1.2");
+        MockInterface dotThree = m_network.getInterface(2, "192.168.1.3");
 
-		//
-		// Plan to bring down both nodes except the reparented interface
-		// the node owning the interface should be up while the other is down
-		// after reparenting we should got the old owner go down while the other
-		// comes up.
-		//
-		anticipateDown(node2);
-		anticipateDown(dotOne);
+        //
+        // Plan to bring down both nodes except the reparented interface
+        // the node owning the interface should be up while the other is down
+        // after reparenting we should got the old owner go down while the other
+        // comes up.
+        //
+        anticipateDown(node2);
+        anticipateDown(dotOne);
 
-		// bring down both nodes but bring iface back up
-		node1.bringDown();
-		node2.bringDown();
-		dotTwo.bringUp();
+        // bring down both nodes but bring iface back up
+        node1.bringDown();
+        node2.bringDown();
+        dotTwo.bringUp();
 
-		Event reparentEvent = MockEventUtil.createReparentEvent("Test",
-				"192.168.1.2", 1, 2);
+        Event reparentEvent = MockEventUtil.createReparentEvent("Test", "192.168.1.2", 1, 2);
 
-		startDaemons();
+        startDaemons();
 
-		verifyAnticipated(2000);
+        verifyAnticipated(2000);
 
-		m_db.reparentInterface(dotTwo.getIpAddr(), dotTwo.getNodeId(), node2
-				.getNodeId());
-		dotTwo.moveTo(node2);
+        m_db.reparentInterface(dotTwo.getIpAddr(), dotTwo.getNodeId(), node2.getNodeId());
+        dotTwo.moveTo(node2);
 
-		resetAnticipated();
-		anticipateDown(node1, true);
-		anticipateUp(node2, true);
-		anticipateDown(dotThree, true);
+        resetAnticipated();
+        anticipateDown(node1, true);
+        anticipateUp(node2, true);
+        anticipateDown(dotThree, true);
 
-		m_eventMgr.sendEventToListeners(reparentEvent);
+        m_eventMgr.sendEventToListeners(reparentEvent);
 
-		verifyAnticipated(20000);
+        verifyAnticipated(20000);
 
-	}
+    }
 
-	// send a nodeGainedService event:
-	// EventConstants.NODE_GAINED_SERVICE_EVENT_UEI
+    // send a nodeGainedService event:
+    // EventConstants.NODE_GAINED_SERVICE_EVENT_UEI
     @Test
-	public void testSendNodeGainedService() {
-		m_pollerConfig.setNodeOutageProcessingEnabled(false);
+    public void testSendNodeGainedService() {
+        m_pollerConfig.setNodeOutageProcessingEnabled(false);
 
-		startDaemons();
+        startDaemons();
 
-		testSendNodeGainedService("SMTP", "HTTP");
-	}
+        testSendNodeGainedService("SMTP", "HTTP");
+    }
 
     @Test
     public void testSendNodeGainedServiceNodeOutages() {
@@ -1038,83 +1028,84 @@ public class PollerTest {
     }
 
     @Test
-	public void testSendIPv6NodeGainedService() {
-		m_pollerConfig.setNodeOutageProcessingEnabled(false);
+    public void testSendIPv6NodeGainedService() {
+        m_pollerConfig.setNodeOutageProcessingEnabled(false);
 
-		startDaemons();
+        startDaemons();
 
-        testSendNodeGainedServices(99, "TestNode", "fe80:0000:0000:0000:0231:f982:0123:4567", new String[] { "SMTP", "HTTP" });
-	}
+        testSendNodeGainedServices(99, "TestNode", "fe80:0000:0000:0000:0231:f982:0123:4567", new String[] { "SMTP",
+                "HTTP" });
+    }
 
     @Test
     public void testSendIPv6NodeGainedServiceNodeOutages() {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
 
         startDaemons();
-        testSendNodeGainedServices(99, "TestNode", "fe80:0000:0000:0000:0231:f982:0123:4567", new String[] { "SMTP", "HTTP" });
+        testSendNodeGainedServices(99, "TestNode", "fe80:0000:0000:0000:0231:f982:0123:4567", new String[] { "SMTP",
+                "HTTP" });
     }
 
-	public void testSendNodeGainedService(String... svcNames) {
+    public void testSendNodeGainedService(String... svcNames) {
         testSendNodeGainedServices(99, "TestNode", "10.1.1.1", svcNames);
-	}
+    }
 
     private void testSendNodeGainedServices(int nodeid, String nodeLabel, String ipAddr, String... svcNames) {
         assertNotNull(svcNames);
-	    assertTrue(svcNames.length > 0);
+        assertTrue(svcNames.length > 0);
 
         MockNode node = m_network.addNode(nodeid, nodeLabel);
-		m_db.writeNode(node);
+        m_db.writeNode(node);
         MockInterface iface = m_network.addInterface(nodeid, ipAddr);
-		m_db.writeInterface(iface);
+        m_db.writeInterface(iface);
 
-		List<MockService> services = new ArrayList<MockService>();
-		for(String svcName : svcNames) {
-		    MockService svc = m_network.addService(nodeid, ipAddr, svcName);
-		    m_db.writeService(svc);
-		    m_pollerConfig.addService(svc);
-		    services.add(svc);
-		}
+        List<MockService> services = new ArrayList<MockService>();
+        for (String svcName : svcNames) {
+            MockService svc = m_network.addService(nodeid, ipAddr, svcName);
+            m_db.writeService(svc);
+            m_pollerConfig.addService(svc);
+            services.add(svc);
+        }
 
-		MockVisitor gainSvcSender = new MockVisitorAdapter() {
-                        @Override
-			public void visitService(MockService svc) {
-				Event event = MockEventUtil
-						.createNodeGainedServiceEvent("Test", svc);
-				m_eventMgr.sendEventToListeners(event);
-			}
-		};
-		node.visit(gainSvcSender);
+        MockVisitor gainSvcSender = new MockVisitorAdapter() {
+            @Override
+            public void visitService(MockService svc) {
+                Event event = MockEventUtil.createNodeGainedServiceEvent("Test", svc);
+                m_eventMgr.sendEventToListeners(event);
+            }
+        };
+        node.visit(gainSvcSender);
 
-		MockService svc1 = services.get(0);
+        MockService svc1 = services.get(0);
 
-		PollAnticipator anticipator = new PollAnticipator();
-		svc1.addAnticipator(anticipator);
+        PollAnticipator anticipator = new PollAnticipator();
+        svc1.addAnticipator(anticipator);
 
-		anticipator.anticipateAllServices(svc1);
+        anticipator.anticipateAllServices(svc1);
 
         StringBuffer didNotOccur = new StringBuffer();
-		for (MockService service : anticipator.waitForAnticipated(10000)) {
-		    didNotOccur.append(service.toString());
-		}
+        for (MockService service : anticipator.waitForAnticipated(10000)) {
+            didNotOccur.append(service.toString());
+        }
         StringBuffer unanticipatedStuff = new StringBuffer();
         for (MockService service : anticipator.unanticipatedPolls()) {
             unanticipatedStuff.append(service.toString());
         }
 
-		assertEquals(unanticipatedStuff.toString(), "", didNotOccur.toString());
+        assertEquals(unanticipatedStuff.toString(), "", didNotOccur.toString());
 
-		anticipateDown(svc1);
+        anticipateDown(svc1);
 
-		svc1.bringDown();
+        svc1.bringDown();
 
-		verifyAnticipated(10000);
+        verifyAnticipated(10000);
     }
 
     @Test
-	public void testNodeGainedDynamicService() throws Exception {
-		m_pollerConfig.setNodeOutageProcessingEnabled(true);
+    public void testNodeGainedDynamicService() throws Exception {
+        m_pollerConfig.setNodeOutageProcessingEnabled(true);
 
-		startDaemons();
+        startDaemons();
 
         TestCapsdConfigManager capsdConfig = new TestCapsdConfigManager(CAPSD_CONFIG);
 
@@ -1126,8 +1117,10 @@ public class PollerTest {
         DatabaseSchemaConfigFactory.setInstance(new DatabaseSchemaConfigFactory(configStream));
         configStream.close();
 
-        configStream = ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/capsd/collectd-configuration.xml");
-        CollectdConfigFactory collectdConfig = new CollectdConfigFactory(configStream, onmsSvrConfig.getServerName(), onmsSvrConfig.verifyServer());
+        configStream = ConfigurationTestUtils.getInputStreamForResource(this,
+                                                                        "/org/opennms/netmgt/capsd/collectd-configuration.xml");
+        CollectdConfigFactory collectdConfig = new CollectdConfigFactory(configStream, onmsSvrConfig.getServerName(),
+                                                                         onmsSvrConfig.verifyServer());
         configStream.close();
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(m_db);
@@ -1141,227 +1134,216 @@ public class PollerTest {
         syncer.setNextSvcIdSql(m_db.getNextServiceIdStatement());
         syncer.afterPropertiesSet();
 
-		OpenNMSProvisioner provisioner = new OpenNMSProvisioner();
-		provisioner.setPollerConfig(m_pollerConfig);
-		provisioner.setCapsdConfig(capsdConfig);
-		provisioner.setCapsdDbSyncer(syncer);
+        OpenNMSProvisioner provisioner = new OpenNMSProvisioner();
+        provisioner.setPollerConfig(m_pollerConfig);
+        provisioner.setCapsdConfig(capsdConfig);
+        provisioner.setCapsdDbSyncer(syncer);
 
-		provisioner.setEventManager(m_eventMgr);
-		provisioner.addServiceDNS("MyDNS", 3, 100, 1000, 500, 3000, 53,
-				"www.opennms.org");
+        provisioner.setEventManager(m_eventMgr);
+        provisioner.addServiceDNS("MyDNS", 3, 100, 1000, 500, 3000, 53, "www.opennms.org");
 
-		assertNotNull("The service id for MyDNS is null", m_db
-				.getServiceID("MyDNS"));
-		MockUtil.println("The service id for MyDNS is: "
-				+ m_db.getServiceID("MyDNS").toString());
+        assertNotNull("The service id for MyDNS is null", m_db.getServiceID("MyDNS"));
+        MockUtil.println("The service id for MyDNS is: " + m_db.getServiceID("MyDNS").toString());
 
-		m_anticipator.reset();
+        m_anticipator.reset();
 
-		testSendNodeGainedService("MyDNS", "HTTP");
+        testSendNodeGainedService("MyDNS", "HTTP");
 
-	}
+    }
 
     @Test
-	public void testSuspendPollingResumeService() {
+    public void testSuspendPollingResumeService() {
 
-		MockService svc = m_network.getService(1, "192.168.1.2", "SMTP");
+        MockService svc = m_network.getService(1, "192.168.1.2", "SMTP");
 
-		startDaemons();
+        startDaemons();
 
-		sleep(2000);
-		assertTrue(0 < svc.getPollCount());
+        sleep(2000);
+        assertTrue(0 < svc.getPollCount());
 
-		m_eventMgr.sendEventToListeners(MockEventUtil
-				.createSuspendPollingServiceEvent("Test", svc));
-		svc.resetPollCount();
+        m_eventMgr.sendEventToListeners(MockEventUtil.createSuspendPollingServiceEvent("Test", svc));
+        svc.resetPollCount();
 
-		sleep(5000);
-		assertEquals(0, svc.getPollCount());
+        sleep(5000);
+        assertEquals(0, svc.getPollCount());
 
-		m_eventMgr.sendEventToListeners(MockEventUtil
-				.createResumePollingServiceEvent("Test", svc));
+        m_eventMgr.sendEventToListeners(MockEventUtil.createResumePollingServiceEvent("Test", svc));
 
-		sleep(2000);
-		assertTrue(0 < svc.getPollCount());
+        sleep(2000);
+        assertTrue(0 < svc.getPollCount());
 
-	}
+    }
 
-	//
-	// Utility methods
-	//
+    //
+    // Utility methods
+    //
 
-	private void startDaemons() {
-		// m_outageMgr.init();
-		m_poller.init();
-		// m_outageMgr.start();
-		m_poller.start();
-		m_daemonsStarted = true;
-	}
+    private void startDaemons() {
+        // m_outageMgr.init();
+        m_poller.init();
+        // m_outageMgr.start();
+        m_poller.start();
+        m_daemonsStarted = true;
+    }
 
-	private void stopDaemons() {
-		if (m_daemonsStarted) {
-			m_poller.stop();
-			// m_outageMgr.stop();
-			m_daemonsStarted = false;
-		}
-	}
+    private void stopDaemons() {
+        if (m_daemonsStarted) {
+            m_poller.stop();
+            // m_outageMgr.stop();
+            m_daemonsStarted = false;
+        }
+    }
 
-	private void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (final InterruptedException e) {
-		}
-	}
+    private void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (final InterruptedException e) {
+        }
+    }
 
-	private void verifyAnticipated(long millis) {
-		verifyAnticipated(millis, true);
-	}
+    private void verifyAnticipated(long millis) {
+        verifyAnticipated(millis, true);
+    }
 
-	private void verifyAnticipated(long millis, boolean checkUnanticipated) {
-		// make sure the down events are received
-		MockEventUtil.printEvents("Events we're still waiting for: ", m_anticipator.waitForAnticipated(millis));
-		assertTrue("Expected events not forthcoming", m_anticipator.waitForAnticipated(0).isEmpty());
-		if (checkUnanticipated) {
-			sleep(2000);
-			MockEventUtil.printEvents("Unanticipated: ", m_anticipator.unanticipatedEvents());
-			assertEquals("Received unexpected events", 0, m_anticipator.unanticipatedEvents().size());
-		}
-		sleep(1000);
-		m_eventMgr.finishProcessingEvents();
-		assertEquals("Wrong number of outages opened", m_outageAnticipator.getExpectedOpens(), m_outageAnticipator.getActualOpens());
-		assertEquals("Wrong number of outages in outage table", m_outageAnticipator.getExpectedOutages(), m_outageAnticipator.getActualOutages());
-		assertTrue("Created outages don't match the expected outages", m_outageAnticipator.checkAnticipated());
-	}
+    private void verifyAnticipated(long millis, boolean checkUnanticipated) {
+        // make sure the down events are received
+        MockEventUtil.printEvents("Events we're still waiting for: ", m_anticipator.waitForAnticipated(millis));
+        assertTrue("Expected events not forthcoming", m_anticipator.waitForAnticipated(0).isEmpty());
+        if (checkUnanticipated) {
+            sleep(2000);
+            MockEventUtil.printEvents("Unanticipated: ", m_anticipator.unanticipatedEvents());
+            assertEquals("Received unexpected events", 0, m_anticipator.unanticipatedEvents().size());
+        }
+        sleep(1000);
+        m_eventMgr.finishProcessingEvents();
+        assertEquals("Wrong number of outages opened", m_outageAnticipator.getExpectedOpens(),
+                     m_outageAnticipator.getActualOpens());
+        assertEquals("Wrong number of outages in outage table", m_outageAnticipator.getExpectedOutages(),
+                     m_outageAnticipator.getActualOutages());
+        assertTrue("Created outages don't match the expected outages", m_outageAnticipator.checkAnticipated());
+    }
 
-	private void anticipateUp(MockElement element) {
-		anticipateUp(element, false);
-	}
+    private void anticipateUp(MockElement element) {
+        anticipateUp(element, false);
+    }
 
-	private void anticipateUp(MockElement element, boolean force) {
-		if (force || !element.getPollStatus().equals(PollStatus.up())) {
-			Event event = element.createUpEvent();
-			m_anticipator.anticipateEvent(event);
-			m_outageAnticipator.anticipateOutageClosed(element, event);
-		}
-	}
+    private void anticipateUp(MockElement element, boolean force) {
+        if (force || !element.getPollStatus().equals(PollStatus.up())) {
+            Event event = element.createUpEvent();
+            m_anticipator.anticipateEvent(event);
+            m_outageAnticipator.anticipateOutageClosed(element, event);
+        }
+    }
 
-	private void anticipateDown(MockElement element) {
-		anticipateDown(element, false);
-	}
+    private void anticipateDown(MockElement element) {
+        anticipateDown(element, false);
+    }
 
-	private void anticipateDown(MockElement element, boolean force) {
-		if (force || !element.getPollStatus().equals(PollStatus.down())) {
-			Event event = element.createDownEvent();
-			m_anticipator.anticipateEvent(event);
-			m_outageAnticipator.anticipateOutageOpened(element, event);
-		}
-	}
+    private void anticipateDown(MockElement element, boolean force) {
+        if (force || !element.getPollStatus().equals(PollStatus.down())) {
+            Event event = element.createDownEvent();
+            m_anticipator.anticipateEvent(event);
+            m_outageAnticipator.anticipateOutageOpened(element, event);
+        }
+    }
 
-	private void anticipateServicesUp(MockElement node) {
-		MockVisitor eventCreator = new MockVisitorAdapter() {
-                        @Override
-			public void visitService(MockService svc) {
-				anticipateUp(svc);
-			}
-		};
-		node.visit(eventCreator);
-	}
+    private void anticipateServicesUp(MockElement node) {
+        MockVisitor eventCreator = new MockVisitorAdapter() {
+            @Override
+            public void visitService(MockService svc) {
+                anticipateUp(svc);
+            }
+        };
+        node.visit(eventCreator);
+    }
 
-	private void anticipateServicesDown(MockElement node) {
-		MockVisitor eventCreator = new MockVisitorAdapter() {
-                        @Override
-			public void visitService(MockService svc) {
-				anticipateDown(svc);
-			}
-		};
-		node.visit(eventCreator);
-	}
+    private void anticipateServicesDown(MockElement node) {
+        MockVisitor eventCreator = new MockVisitorAdapter() {
+            @Override
+            public void visitService(MockService svc) {
+                anticipateDown(svc);
+            }
+        };
+        node.visit(eventCreator);
+    }
 
-	private void createOutages(MockElement element, final Event event) {
-		MockVisitor outageCreater = new MockVisitorAdapter() {
-                        @Override
-			public void visitService(MockService svc) {
-			    if (svc.getMgmtStatus().equals(SvcMgmtStatus.ACTIVE)) {
-			        m_db.createOutage(svc, event);
-			    }
-			}
-		};
-		element.visit(outageCreater);
-	}
+    private void createOutages(MockElement element, final Event event) {
+        MockVisitor outageCreater = new MockVisitorAdapter() {
+            @Override
+            public void visitService(MockService svc) {
+                if (svc.getMgmtStatus().equals(SvcMgmtStatus.ACTIVE)) {
+                    m_db.createOutage(svc, event);
+                }
+            }
+        };
+        element.visit(outageCreater);
+    }
 
-	private void bringDownCritSvcs(MockElement element) {
-		MockVisitor markCritSvcDown = new MockVisitorAdapter() {
-                        @Override
-			public void visitService(MockService svc) {
-				if ("ICMP".equals(svc.getSvcName())) {
-					svc.bringDown();
-				}
-			}
-		};
-		element.visit(markCritSvcDown);
+    private void bringDownCritSvcs(MockElement element) {
+        MockVisitor markCritSvcDown = new MockVisitorAdapter() {
+            @Override
+            public void visitService(MockService svc) {
+                if ("ICMP".equals(svc.getSvcName())) {
+                    svc.bringDown();
+                }
+            }
+        };
+        element.visit(markCritSvcDown);
 
-	}
+    }
 
-	class OutageChecker extends Querier {
-		private Event m_lostSvcEvent;
+    class OutageChecker extends Querier {
+        private Event m_lostSvcEvent;
 
-		private Timestamp m_lostSvcTime;
+        private Timestamp m_lostSvcTime;
 
-		private MockService m_svc;
+        private MockService m_svc;
 
-		private Event m_regainedSvcEvent;
+        private Event m_regainedSvcEvent;
 
-		private Timestamp m_regainedSvcTime;
+        private Timestamp m_regainedSvcTime;
 
-		OutageChecker(MockService svc, Event lostSvcEvent) throws Exception {
-			this(svc, lostSvcEvent, null);
-		}
+        OutageChecker(MockService svc, Event lostSvcEvent) throws Exception {
+            this(svc, lostSvcEvent, null);
+        }
 
-		OutageChecker(MockService svc, Event lostSvcEvent,
-				Event regainedSvcEvent) {
-			super(m_db,
-					"select * from outages where nodeid = ? and ipAddr = ? and serviceId = ?");
+        OutageChecker(MockService svc, Event lostSvcEvent, Event regainedSvcEvent) {
+            super(m_db, "select * from outages where nodeid = ? and ipAddr = ? and serviceId = ?");
 
-			m_svc = svc;
-			m_lostSvcEvent = lostSvcEvent;
-			m_lostSvcTime = m_db.convertEventTimeToTimeStamp(m_lostSvcEvent
-					.getTime());
-			m_regainedSvcEvent = regainedSvcEvent;
-			if (m_regainedSvcEvent != null)
-				m_regainedSvcTime = m_db
-						.convertEventTimeToTimeStamp(m_regainedSvcEvent
-								.getTime());
-		}
+            m_svc = svc;
+            m_lostSvcEvent = lostSvcEvent;
+            m_lostSvcTime = m_db.convertEventTimeToTimeStamp(m_lostSvcEvent.getTime());
+            m_regainedSvcEvent = regainedSvcEvent;
+            if (m_regainedSvcEvent != null)
+                m_regainedSvcTime = m_db.convertEventTimeToTimeStamp(m_regainedSvcEvent.getTime());
+        }
 
-                @Override
-		public void processRow(ResultSet rs) throws SQLException {
-			assertEquals(m_svc.getNodeId(), rs.getInt("nodeId"));
-			assertEquals(m_svc.getIpAddr(), rs.getString("ipAddr"));
-			assertEquals(m_svc.getId(), rs.getInt("serviceId"));
-			assertEquals(m_lostSvcEvent.getDbid(), Integer.valueOf(rs.getInt("svcLostEventId")));
-			assertEquals(m_lostSvcTime, rs.getTimestamp("ifLostService"));
-			assertEquals(getRegainedEventId(), rs
-					.getObject("svcRegainedEventId"));
-			assertEquals(m_regainedSvcTime, rs
-					.getTimestamp("ifRegainedService"));
-		}
+        @Override
+        public void processRow(ResultSet rs) throws SQLException {
+            assertEquals(m_svc.getNodeId(), rs.getInt("nodeId"));
+            assertEquals(m_svc.getIpAddr(), rs.getString("ipAddr"));
+            assertEquals(m_svc.getId(), rs.getInt("serviceId"));
+            assertEquals(m_lostSvcEvent.getDbid(), Integer.valueOf(rs.getInt("svcLostEventId")));
+            assertEquals(m_lostSvcTime, rs.getTimestamp("ifLostService"));
+            assertEquals(getRegainedEventId(), rs.getObject("svcRegainedEventId"));
+            assertEquals(m_regainedSvcTime, rs.getTimestamp("ifRegainedService"));
+        }
 
-		private Integer getRegainedEventId() {
-			if (m_regainedSvcEvent == null)
-				return null;
-			return Integer.valueOf(m_regainedSvcEvent.getDbid());
-		}
-	}
+        private Integer getRegainedEventId() {
+            if (m_regainedSvcEvent == null)
+                return null;
+            return Integer.valueOf(m_regainedSvcEvent.getDbid());
+        }
+    }
 
-	// TODO: test multiple polling packages
+    // TODO: test multiple polling packages
 
-	// TODO: test overlapping polling packages
+    // TODO: test overlapping polling packages
 
-	// TODO: test two packages both with the crit service and status propagation
+    // TODO: test two packages both with the crit service and status propagation
 
-	// TODO: how does unmanaging a node/iface/service work with the poller
+    // TODO: how does unmanaging a node/iface/service work with the poller
 
-	// TODO: test over lapping poll outages
-
+    // TODO: test over lapping poll outages
 
 }

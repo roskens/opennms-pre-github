@@ -47,22 +47,26 @@ import org.smslib.OutboundMessage.MessageStatuses;
  */
 public class FakeTestGateway extends AGateway {
     private static final Logger LOG = LoggerFactory.getLogger(FakeTestGateway.class);
-	private int refCounter = 0;
 
-	private int counter = 0;
+    private int refCounter = 0;
 
-	private class QueueRunner implements Runnable, Delayed {
-		InboundMessage m_message;
-		private USSDResponse m_response;
-		long m_expiration = 0;
+    private int counter = 0;
+
+    private class QueueRunner implements Runnable, Delayed {
+        InboundMessage m_message;
+
+        private USSDResponse m_response;
+
+        long m_expiration = 0;
+
         private AGateway m_gateway;
 
         public QueueRunner(USSDResponse response, long milliseconds, AGateway gateway) {
-			System.err.println("QueueRunner initialized with timeout " + milliseconds + " for message: " + response);
+            System.err.println("QueueRunner initialized with timeout " + milliseconds + " for message: " + response);
             m_gateway = gateway;
-			m_response = response;
-			m_expiration = System.currentTimeMillis() + milliseconds;
-		}
+            m_response = response;
+            m_expiration = System.currentTimeMillis() + milliseconds;
+        }
 
         public QueueRunner(InboundMessage inbound, int milliseconds, AGateway gateway) {
             m_gateway = gateway;
@@ -72,152 +76,148 @@ public class FakeTestGateway extends AGateway {
         }
 
         @Override
-		public void run() {
-			if (m_message != null) {
-				System.err.println("QueueRunner(run): " + Service.getInstance().getInboundMessageNotification());
-				if (Service.getInstance().getInboundMessageNotification() != null ) {
-                    Service.getInstance().getInboundMessageNotification().process(m_gateway, MessageTypes.INBOUND, m_message);
-				}
-			} else if (m_response != null) {
-				System.err.println("QueueRunner(run): " + Service.getInstance().getUSSDNotification());
-				if (Service.getInstance().getUSSDNotification() != null ) {
+        public void run() {
+            if (m_message != null) {
+                System.err.println("QueueRunner(run): " + Service.getInstance().getInboundMessageNotification());
+                if (Service.getInstance().getInboundMessageNotification() != null) {
+                    Service.getInstance().getInboundMessageNotification().process(m_gateway, MessageTypes.INBOUND,
+                                                                                  m_message);
+                }
+            } else if (m_response != null) {
+                System.err.println("QueueRunner(run): " + Service.getInstance().getUSSDNotification());
+                if (Service.getInstance().getUSSDNotification() != null) {
                     Service.getInstance().getUSSDNotification().process(m_gateway, m_response);
-				}
-			}
-		}
+                }
+            }
+        }
 
-                @Override
-		public long getDelay(TimeUnit unit) {
-			long remainder = m_expiration - System.currentTimeMillis();
-			return unit.convert(remainder, TimeUnit.MILLISECONDS);
-		}
+        @Override
+        public long getDelay(TimeUnit unit) {
+            long remainder = m_expiration - System.currentTimeMillis();
+            return unit.convert(remainder, TimeUnit.MILLISECONDS);
+        }
 
-                @Override
-		public int compareTo(Delayed o) {
-			long thisVal = this.getDelay(TimeUnit.NANOSECONDS);
-			long anotherVal = o.getDelay(TimeUnit.NANOSECONDS);
-			return (thisVal<anotherVal ? -1 : (thisVal==anotherVal ? 0 : 1));
-		}
+        @Override
+        public int compareTo(Delayed o) {
+            long thisVal = this.getDelay(TimeUnit.NANOSECONDS);
+            long anotherVal = o.getDelay(TimeUnit.NANOSECONDS);
+            return (thisVal < anotherVal ? -1 : (thisVal == anotherVal ? 0 : 1));
+        }
 
-	}
+    }
 
-	private DelayQueue<QueueRunner> m_delayQueue = new DelayQueue<QueueRunner>();
+    private DelayQueue<QueueRunner> m_delayQueue = new DelayQueue<QueueRunner>();
 
-	Thread incomingMessagesThread;
+    Thread incomingMessagesThread;
 
-	public FakeTestGateway(String id)
-	{
-		super(id);
-		System.err.println("Initializing FakeTestGateway");
-		setAttributes(GatewayAttributes.SEND);
-		setInbound(true);
-		setOutbound(true);
-	}
+    public FakeTestGateway(String id) {
+        super(id);
+        System.err.println("Initializing FakeTestGateway");
+        setAttributes(GatewayAttributes.SEND);
+        setInbound(true);
+        setOutbound(true);
+    }
 
-	/* (non-Javadoc)
-	 * @see org.smslib.AGateway#deleteMessage(org.smslib.InboundMessage)
-	 */
-	@Override
-	public boolean deleteMessage(InboundMessage msg) throws TimeoutException, GatewayException, IOException, InterruptedException
-	{
-		//NOOP
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.smslib.AGateway#deleteMessage(org.smslib.InboundMessage)
+     */
+    @Override
+    public boolean deleteMessage(InboundMessage msg) throws TimeoutException, GatewayException, IOException,
+            InterruptedException {
+        // NOOP
+        return true;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.smslib.AGateway#startGateway()
-	 */
-	@Override
-	public void startGateway() throws TimeoutException, GatewayException, IOException, InterruptedException
-	{
-		super.startGateway();
-		this.incomingMessagesThread = new Thread(new Runnable()
-		{
-			// Run thread to fake incoming messages
-                        @Override
-			public void run()
-			{
-				while (!FakeTestGateway.this.incomingMessagesThread.isInterrupted())
-				{
-					try {
-						QueueRunner runner = m_delayQueue.take();
-						runner.run();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						LOG.warn("failed to run queue", e);
-						break;
-					}
-				}
-			}
-		}, "IncomingMessagesThread");
-		this.incomingMessagesThread.start();
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.smslib.AGateway#startGateway()
+     */
+    @Override
+    public void startGateway() throws TimeoutException, GatewayException, IOException, InterruptedException {
+        super.startGateway();
+        this.incomingMessagesThread = new Thread(new Runnable() {
+            // Run thread to fake incoming messages
+            @Override
+            public void run() {
+                while (!FakeTestGateway.this.incomingMessagesThread.isInterrupted()) {
+                    try {
+                        QueueRunner runner = m_delayQueue.take();
+                        runner.run();
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        LOG.warn("failed to run queue", e);
+                        break;
+                    }
+                }
+            }
+        }, "IncomingMessagesThread");
+        this.incomingMessagesThread.start();
+    }
 
-	/* (non-Javadoc)
-	 * @see org.smslib.AGateway#stopGateway()
-	 */
-	@Override
-	public void stopGateway() throws TimeoutException, GatewayException, IOException, InterruptedException
-	{
-		super.stopGateway();
-		if (this.incomingMessagesThread != null)
-		{
-			this.incomingMessagesThread.interrupt();
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.smslib.AGateway#stopGateway()
+     */
+    @Override
+    public void stopGateway() throws TimeoutException, GatewayException, IOException, InterruptedException {
+        super.stopGateway();
+        if (this.incomingMessagesThread != null) {
+            this.incomingMessagesThread.interrupt();
+        }
+    }
 
-	@Override
-	public boolean sendMessage(OutboundMessage msg) throws TimeoutException, GatewayException, IOException, InterruptedException
-	{
-		// simulate delay
-      LOG.info("Sending to: {} via: {}", msg.getRecipient(), msg.getGatewayId());
-		Thread.sleep(500);
-		this.counter++;
+    @Override
+    public boolean sendMessage(OutboundMessage msg) throws TimeoutException, GatewayException, IOException,
+            InterruptedException {
+        // simulate delay
+        LOG.info("Sending to: {} via: {}", msg.getRecipient(), msg.getGatewayId());
+        Thread.sleep(500);
+        this.counter++;
 
-		msg.setDispatchDate(new Date());
-		msg.setMessageStatus(MessageStatuses.SENT);
-		msg.setRefNo(Integer.toString(++this.refCounter));
-		msg.setGatewayId(getGatewayId());
-      LOG.info("Sent to: {} via: {}", msg.getGatewayId());
+        msg.setDispatchDate(new Date());
+        msg.setMessageStatus(MessageStatuses.SENT);
+        msg.setRefNo(Integer.toString(++this.refCounter));
+        msg.setGatewayId(getGatewayId());
+        LOG.info("Sent to: {} via: {}", msg.getGatewayId());
 
-		String msgText = msg.getText();
-		if (msgText != null) {
-			if (msgText.startsWith("ping")) {
-			    msgText = "pong";
-			} else if (msgText.startsWith("You suck")) {
-				msgText = "No";
-			}
-		}
+        String msgText = msg.getText();
+        if (msgText != null) {
+            if (msgText.startsWith("ping")) {
+                msgText = "pong";
+            } else if (msgText.startsWith("You suck")) {
+                msgText = "No";
+            }
+        }
 
-		InboundMessage inbound = new InboundMessage(msg.getDate(), msg.getRecipient(), msgText, 1, "DEADBEEF");
-		QueueRunner runner = new QueueRunner(inbound, 500, this);
-		m_delayQueue.offer(runner);
-		return true;
-	}
+        InboundMessage inbound = new InboundMessage(msg.getDate(), msg.getRecipient(), msgText, 1, "DEADBEEF");
+        QueueRunner runner = new QueueRunner(inbound, 500, this);
+        m_delayQueue.offer(runner);
+        return true;
+    }
 
-	@Override
-	public boolean sendUSSDRequest(USSDRequest request) throws GatewayException, TimeoutException, IOException, InterruptedException
-	{
-      LOG.info("Sending to: {} via: {}", request.getContent(), request.getGatewayId());
-		Thread.sleep(500);
-		this.counter++;
+    @Override
+    public boolean sendUSSDRequest(USSDRequest request) throws GatewayException, TimeoutException, IOException,
+            InterruptedException {
+        LOG.info("Sending to: {} via: {}", request.getContent(), request.getGatewayId());
+        Thread.sleep(500);
+        this.counter++;
 
-		request.setGatewayId(getGatewayId());
+        request.setGatewayId(getGatewayId());
 
-		String content = request.getContent();
-		if (content != null && content.equals("#225#")) {
-			content = "+CUSD: 0,\"" + MobileMsgTrackerTest.TMOBILE_RESPONSE + "\"";
-		}
+        String content = request.getContent();
+        if (content != null && content.equals("#225#")) {
+            content = "+CUSD: 0,\"" + MobileMsgTrackerTest.TMOBILE_RESPONSE + "\"";
+        }
 
-		USSDResponse response  = new USSDResponse(content, getGatewayId());
-		QueueRunner runner = new QueueRunner(response, 500, this);
-		m_delayQueue.offer(runner);
-		return true;
-	}
+        USSDResponse response = new USSDResponse(content, getGatewayId());
+        QueueRunner runner = new QueueRunner(response, 500, this);
+        m_delayQueue.offer(runner);
+        return true;
+    }
 
-	@Override
-	public int getQueueSchedulingInterval()
-	{
-		return 500;
-	}
+    @Override
+    public int getQueueSchedulingInterval() {
+        return 500;
+    }
 }

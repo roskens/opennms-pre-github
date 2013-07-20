@@ -43,12 +43,15 @@ import java.util.Properties;
  * @author ranger
  * @version $Id: $
  */
-public interface RrdStrategy<D extends Object,F extends Object> {
+public interface RrdStrategy<D extends Object, F extends Object> {
 
     /**
-     * <p>setConfigurationProperties</p>
+     * <p>
+     * setConfigurationProperties
+     * </p>
      *
-     * @param props a {@link java.util.Properties} object.
+     * @param props
+     *            a {@link java.util.Properties} object.
      */
     public void setConfigurationProperties(Properties props);
 
@@ -60,45 +63,47 @@ public interface RrdStrategy<D extends Object,F extends Object> {
     public String getDefaultFileExtension();
 
     /**
-	 * Create a round robin database definition from the supplied parameters.
-	 * This definition is used in the createFile call to create the actual file.
-	 *
-	 * @param creator
-	 *            - A string representing who is creating this file for use in
-	 *            log msgs
-	 * @param directory
-	 *            - The directory to create the file in
-	 * @param rrdName
-	 *            - The name to use for the round robin database
-	 * @param step
-	 *            - the step for the database
-	 * @param dataSources
-	 *            - the data sources to use for round robin database
-	 * @param rraList
-	 *            - a List of the round robin archives to create in the
-	 *            database. defines after which time the data is condensed to a
-	 *            defined lower step
-	 * @return an object representing the definition of an round robin database. Can be null if the database exists already.
-	 * @throws java.lang.Exception
-	 *             If an error occurs while creating the definition
-	 */
-    public D createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception;
+     * Create a round robin database definition from the supplied parameters.
+     * This definition is used in the createFile call to create the actual file.
+     *
+     * @param creator
+     *            - A string representing who is creating this file for use in
+     *            log msgs
+     * @param directory
+     *            - The directory to create the file in
+     * @param rrdName
+     *            - The name to use for the round robin database
+     * @param step
+     *            - the step for the database
+     * @param dataSources
+     *            - the data sources to use for round robin database
+     * @param rraList
+     *            - a List of the round robin archives to create in the
+     *            database. defines after which time the data is condensed to a
+     *            defined lower step
+     * @return an object representing the definition of an round robin database.
+     *         Can be null if the database exists already.
+     * @throws java.lang.Exception
+     *             If an error occurs while creating the definition
+     */
+    public D createDefinition(String creator, String directory, String rrdName, int step,
+            List<RrdDataSource> dataSources, List<String> rraList) throws Exception;
 
     /**
-	 * Creates the round robin database defined by the supplied definition.
-	 * Should be able to handle rrdDef being null.
-	 *
-	 * @param rrdDef
-	 *            an round robin database definition created using the
-	 *            createDefinition call.
-	 * @param attributeMappings
-	 *            a {@link Map<String, String>} that represents the mapping of
-	 *            attributeId to rrd track names. default there is only one
-	 *            track per datasource, but it is possible to store multiple
-	 *            tracks in one datasource
-	 * @throws java.lang.Exception
-	 *             if an error occurs create the file
-	 */
+     * Creates the round robin database defined by the supplied definition.
+     * Should be able to handle rrdDef being null.
+     *
+     * @param rrdDef
+     *            an round robin database definition created using the
+     *            createDefinition call.
+     * @param attributeMappings
+     *            a {@link Map<String, String>} that represents the mapping of
+     *            attributeId to rrd track names. default there is only one
+     *            track per datasource, but it is possible to store multiple
+     *            tracks in one datasource
+     * @throws java.lang.Exception
+     *             if an error occurs create the file
+     */
     public void createFile(D rrdDef, Map<String, String> attributeMappings) throws Exception;
 
     /**
@@ -153,11 +158,12 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      *            a step interval of the round robin database
      * @return The last value as a Double (if the last value didn't exist
      *         returns a Double.NaN)
-     * @throws java.lang.NumberFormatException if any.
-     * @throws org.opennms.netmgt.rrd.RrdException if any.
+     * @throws java.lang.NumberFormatException
+     *             if any.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
      */
     public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException;
-
 
     /**
      * Fetches the last value from the round robin database with the given name.
@@ -172,16 +178,21 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      *            a step interval of the round robin database
      * @return The last value as a Double (if the last value didn't exist
      *         returns a Double.NaN)
-     * @throws java.lang.NumberFormatException if any.
-     * @throws org.opennms.netmgt.rrd.RrdException if any.
-     * @param consolidationFunction a {@link java.lang.String} object.
+     * @throws java.lang.NumberFormatException
+     *             if any.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
+     * @param consolidationFunction
+     *            a {@link java.lang.String} object.
      */
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException, RrdException;
+    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval)
+            throws NumberFormatException, RrdException;
 
     /**
      * Fetches the last value from the round robin database with the given name
      * within a time range. The interval passed in should be the interval
-     * associated with the round robin database. The range should be the amount of
+     * associated with the round robin database. The range should be the amount
+     * of
      * "lag" acceptable for an update to be considered valid. Range must be a
      * multiple of the RRD interval.
      *
@@ -195,10 +206,13 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      *            an acceptable range for which the last value will be returned
      * @return The last value as a Double (if the last value didn't exist
      *         returns a Double.NaN)
-     * @throws java.lang.NumberFormatException if any.
-     * @throws org.opennms.netmgt.rrd.RrdException if any.
+     * @throws java.lang.NumberFormatException
+     *             if any.
+     * @throws org.opennms.netmgt.rrd.RrdException
+     *             if any.
      */
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException;
+    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
+            throws NumberFormatException, RrdException;
 
     /**
      * Creates an InputStream representing the bytes of a graph created from
@@ -228,7 +242,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @param workDir
      *            the directory that all referenced files are relative to
      * @return details for the graph including an InputStream, any PRINTed
-     *      lines, and graph dimensions.
+     *         lines, and graph dimensions.
      * @throws java.io.IOException
      *             if an IOError occurs
      * @throws org.opennms.netmgt.rrd.RrdException
@@ -236,22 +250,21 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      */
     public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, RrdException;
 
-
     /**
      * Returns the number of pixels that the leftt-hand side of the graph is
-     * offset from the left side of the created image.  The offset should
+     * offset from the left side of the created image. The offset should
      * always be positive.
      *
-     * @return offset in pixels.  Should always be positive.
+     * @return offset in pixels. Should always be positive.
      */
     public int getGraphLeftOffset();
 
     /**
      * Returns the number of pixels that the right-hand side of the graph is
-     * offset from the right side of the created image.  The offset should
+     * offset from the right side of the created image. The offset should
      * always be negative.
      *
-     * @return offset in pixels.  Should always be negative.
+     * @return offset in pixels. Should always be negative.
      */
     public int getGraphRightOffset();
 
@@ -260,7 +273,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * the top of the created image if there is single line of header text.
      * The offset should always be negative.
      *
-     * @return offset in pixels.  Should always be negative.
+     * @return offset in pixels. Should always be negative.
      */
     public int getGraphTopOffsetWithText();
 
@@ -274,10 +287,13 @@ public interface RrdStrategy<D extends Object,F extends Object> {
     public String getStats();
 
     /**
-     * In the event that this is a queuing implementation of the RrdStrategy. This method
-     * causes all queued but not yet written data to be to the rrd files as soon as possible.
+     * In the event that this is a queuing implementation of the RrdStrategy.
+     * This method
+     * causes all queued but not yet written data to be to the rrd files as soon
+     * as possible.
      *
-     * @param rrdFiles a {@link java.util.Collection} object.
+     * @param rrdFiles
+     *            a {@link java.util.Collection} object.
      */
     public void promoteEnqueuedFiles(Collection<String> rrdFiles);
 }

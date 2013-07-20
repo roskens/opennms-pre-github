@@ -41,7 +41,9 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 /**
- * <p>MicroblogReplyNotificationStrategy class.</p>
+ * <p>
+ * MicroblogReplyNotificationStrategy class.
+ * </p>
  *
  * @author <a href="mailto:jeffg@opennms.org>Jeff Gehlbach</a>
  * @author <a href="http://www.opennms.org/>OpenNMS</a>
@@ -53,18 +55,24 @@ public class MicroblogReplyNotificationStrategy extends MicroblogNotificationStr
     private static final Logger LOG = LoggerFactory.getLogger(MicroblogReplyNotificationStrategy.class);
 
     /**
-     * <p>Constructor for MicroblogReplyNotificationStrategy.</p>
+     * <p>
+     * Constructor for MicroblogReplyNotificationStrategy.
+     * </p>
      *
-     * @throws java.io.IOException if any.
+     * @throws java.io.IOException
+     *             if any.
      */
     public MicroblogReplyNotificationStrategy() throws IOException {
         super();
     }
 
     /**
-     * <p>Constructor for MicroblogReplyNotificationStrategy.</p>
+     * <p>
+     * Constructor for MicroblogReplyNotificationStrategy.
+     * </p>
      *
-     * @param configResource a {@link org.springframework.core.io.Resource} object.
+     * @param configResource
+     *            a {@link org.springframework.core.io.Resource} object.
      */
     public MicroblogReplyNotificationStrategy(Resource configResource) {
         super(configResource);
@@ -88,12 +96,14 @@ public class MicroblogReplyNotificationStrategy extends MicroblogNotificationStr
 
         String fullMessage = String.format("@%s %s", destUser, buildMessageBody(arguments));
 
-        LOG.debug("Dispatching microblog reply notification for user '{}' at base URL '{}' with message '{}'", svc.getUserId(), svc.getBaseURL(), fullMessage);
+        LOG.debug("Dispatching microblog reply notification for user '{}' at base URL '{}' with message '{}'",
+                  svc.getUserId(), svc.getBaseURL(), fullMessage);
         try {
             response = svc.updateStatus(fullMessage);
         } catch (TwitterException e) {
             LOG.error("Microblog notification failed");
-            LOG.info("Failed to update status for user '{}' at service URL '{}', caught exception", svc.getUserId(), svc.getBaseURL(), e);
+            LOG.info("Failed to update status for user '{}' at service URL '{}', caught exception", svc.getUserId(),
+                     svc.getBaseURL(), e);
             return 1;
         }
 

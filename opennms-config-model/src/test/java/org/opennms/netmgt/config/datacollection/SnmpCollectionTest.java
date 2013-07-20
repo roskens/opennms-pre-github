@@ -62,19 +62,12 @@ public class SnmpCollectionTest extends XmlTest<SnmpCollection> {
 
         return Arrays.asList(new Object[][] { {
                 snmpc,
-                "  <snmp-collection name=\"default\" snmpStorageFlag=\"select\">\n" +
-                "    <rrd step=\"300\">\n" +
-                "      <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
-                "      <rra>RRA:AVERAGE:0.5:12:1488</rra>\n" +
-                "      <rra>RRA:AVERAGE:0.5:288:366</rra>\n" +
-                "      <rra>RRA:MAX:0.5:288:366</rra>\n" +
-                "      <rra>RRA:MIN:0.5:288:366</rra>\n" +
-                "    </rrd>\n" +
-                "\n" +
-                "    <include-collection dataCollectionGroup=\"MIB2\"/>\n" +
-                "  </snmp-collection>\n",
+                "  <snmp-collection name=\"default\" snmpStorageFlag=\"select\">\n" + "    <rrd step=\"300\">\n"
+                        + "      <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" + "      <rra>RRA:AVERAGE:0.5:12:1488</rra>\n"
+                        + "      <rra>RRA:AVERAGE:0.5:288:366</rra>\n" + "      <rra>RRA:MAX:0.5:288:366</rra>\n"
+                        + "      <rra>RRA:MIN:0.5:288:366</rra>\n" + "    </rrd>\n" + "\n"
+                        + "    <include-collection dataCollectionGroup=\"MIB2\"/>\n" + "  </snmp-collection>\n",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

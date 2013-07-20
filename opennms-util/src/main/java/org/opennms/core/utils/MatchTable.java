@@ -29,14 +29,18 @@
 package org.opennms.core.utils;
 
 import java.util.regex.Matcher;
+
 public class MatchTable implements PropertiesUtils.SymbolTable {
 
     private Matcher m_matcher;
 
     /**
-     * <p>Constructor for MatchTable.</p>
+     * <p>
+     * Constructor for MatchTable.
+     * </p>
      *
-     * @param m a {@link java.util.regex.Matcher} object.
+     * @param m
+     *            a {@link java.util.regex.Matcher} object.
      */
     public MatchTable(Matcher m) {
         m_matcher = m;

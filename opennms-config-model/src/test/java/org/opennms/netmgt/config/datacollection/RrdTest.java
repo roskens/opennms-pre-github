@@ -47,11 +47,8 @@ public class RrdTest extends XmlTest<Rrd> {
         rrd.setStep(300);
         rrd.addRra("RRA:AVERAGE:0.5:1:2016");
 
-        return Arrays.asList(new Object[][] { {
-                rrd,
-                "<rrd step=\"300\"><rra>RRA:AVERAGE:0.5:1:2016</rra></rrd>",
+        return Arrays.asList(new Object[][] { { rrd, "<rrd step=\"300\"><rra>RRA:AVERAGE:0.5:1:2016</rra></rrd>",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }
-
 
 }

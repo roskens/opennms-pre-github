@@ -31,7 +31,9 @@ package org.opennms.netmgt.dao.support;
 import org.opennms.netmgt.config.collector.CollectionResource;
 
 /**
- * <p>HostFileSystemStorageStrategy class.</p>
+ * <p>
+ * HostFileSystemStorageStrategy class.
+ * </p>
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */

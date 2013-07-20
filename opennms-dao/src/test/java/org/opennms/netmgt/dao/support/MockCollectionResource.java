@@ -50,9 +50,12 @@ import org.opennms.netmgt.model.RrdRepository;
 public class MockCollectionResource implements CollectionResource {
 
     private String parent;
+
     private String instance;
+
     private String type;
-    private Map<String,String> attributes = new HashMap<String,String>();
+
+    private Map<String, String> attributes = new HashMap<String, String>();
 
     public MockCollectionResource(String parent, String instance, String type) {
         this.parent = parent;
@@ -82,31 +85,58 @@ public class MockCollectionResource implements CollectionResource {
 
     @Override
     public void visit(CollectionSetVisitor visitor) {
-        for (Entry<String,String> entry : attributes.entrySet()) {
+        for (Entry<String, String> entry : attributes.entrySet()) {
             final CollectionResource resource = this;
             final String attrName = entry.getKey();
             final String attrValue = entry.getValue();
             CollectionAttribute attribute = new CollectionAttribute() {
                 @Override
-                public CollectionResource getResource() { return resource; }
+                public CollectionResource getResource() {
+                    return resource;
+                }
+
                 @Override
-                public String getStringValue() { return attrValue; }
+                public String getStringValue() {
+                    return attrValue;
+                }
+
                 @Override
-                public String getNumericValue() { return attrValue; }
+                public String getNumericValue() {
+                    return attrValue;
+                }
+
                 @Override
-                public String getName() { return attrName; }
+                public String getName() {
+                    return attrName;
+                }
+
                 @Override
-                public void storeAttribute(Persister persister) {}
+                public void storeAttribute(Persister persister) {
+                }
+
                 @Override
-                public boolean shouldPersist(ServiceParameters params) { return true; }
+                public boolean shouldPersist(ServiceParameters params) {
+                    return true;
+                }
+
                 @Override
-                public CollectionAttributeType getAttributeType() { return null; }
+                public CollectionAttributeType getAttributeType() {
+                    return null;
+                }
+
                 @Override
-                public void visit(CollectionSetVisitor visitor) { }
+                public void visit(CollectionSetVisitor visitor) {
+                }
+
                 @Override
-                public String getType() { return "string"; }
+                public String getType() {
+                    return "string";
+                }
+
                 @Override
-                public String getMetricIdentifier() { return "MOCK_"+getName(); }
+                public String getMetricIdentifier() {
+                    return "MOCK_" + getName();
+                }
             };
             visitor.visitAttribute(attribute);
         }
@@ -141,7 +171,7 @@ public class MockCollectionResource implements CollectionResource {
         return null;
     }
 
-    public Map<String,String> getAttribtueMap() {
+    public Map<String, String> getAttribtueMap() {
         return attributes;
     }
 

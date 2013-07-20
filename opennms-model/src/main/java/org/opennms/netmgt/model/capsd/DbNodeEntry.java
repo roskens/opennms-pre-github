@@ -49,36 +49,33 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * This class is used to model a row of the <em>node</em> table from the
- * OpenNMS database. The node table is indexed by the elements <em>dpNode</em>
- * and <em>nodeID</em>. When a new element is created using the
- * <code>create</code> call a node id will be automatically defined. If the
- * name of the distribute poller is not passed to the create method, the it also
- * is assigned a default value.
+ * This class is used to model a row of the <em>node</em> table from the OpenNMS
+ * database. The node table is indexed by the elements <em>dpNode</em> and
+ * <em>nodeID</em>. When a new element is created using the <code>create</code>
+ * call a node id will be automatically defined. If the name of the distribute
+ * poller is not passed to the create method, the it also is assigned a default
+ * value.
  * </p>
- *
  * <p>
  * Once loaded or create, the class tracks any changes and will write those
- * changes to the database whenever the <code>store</code> method is invoked.
- * If a database conneciton is not passed to the store method, then a temporary
- * one is allocated to write the results.
+ * changes to the database whenever the <code>store</code> method is invoked. If
+ * a database conneciton is not passed to the store method, then a temporary one
+ * is allocated to write the results.
  * </p>
- *
  * <p>
  * NOTE: if the connection is passed in and is not in auto commit mode, then the
  * caller must call <code>commit</code> to inform the database that the
  * transaction is complete.
  *
- * @deprecated Objects like this that control their own data access are deprecated in favor
- * of the JAXB beans (opennms-model) and DAO objects (opennms-dao).
- *
+ * @deprecated Objects like this that control their own data access are
+ *             deprecated in favor
+ *             of the JAXB beans (opennms-model) and DAO objects (opennms-dao).
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
- *
  */
 public final class DbNodeEntry {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DbNodeEntry.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DbNodeEntry.class);
 
     /**
      * The character returned if the node is active
@@ -134,7 +131,8 @@ public final class DbNodeEntry {
      * The SQL text used to extract the next sequence id for the node table.
      */
     // private static final String SQL_NEXT_NID = "SELECT NEXTVAL('nodeNxtId')";
-    private static final String SQL_NEXT_NID = System.getProperty("opennms.db.nextNodeId", "SELECT NEXTVAL('nodeNxtId')");
+    private static final String SQL_NEXT_NID = System.getProperty("opennms.db.nextNodeId",
+                                                                  "SELECT NEXTVAL('nodeNxtId')");
 
     /**
      * The SQL statement used to read a node from the database. This record is
@@ -302,7 +300,6 @@ public final class DbNodeEntry {
      *
      * @param c
      *            The connection to the database.
-     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -485,7 +482,10 @@ public final class DbNodeEntry {
             if ((m_changed & CHANGED_FOREIGN_ID) == CHANGED_FOREIGN_ID)
                 stmt.setString(ndx++, m_foreignId);
 
-                LOG.debug("nodeid='{}' nodetype='{}' createTime='{}' lastPoll='{}' dpName='{}' sysname='{}' sysoid='{}' sysdescr='{}' syslocation='{}' syscontact='{}' label='{}' labelsource='{}' netbios='{}' domain='{}' os='{}'", m_nodeId, new String(new char[] { m_type }), m_createTime, m_lastPoll, m_dpName, m_sysname, m_sysoid, m_sysdescr, m_syslocation, m_syscontact, m_label, new String(new char[] { m_labelSource }), m_nbName, m_nbDomainName, m_os);
+            LOG.debug("nodeid='{}' nodetype='{}' createTime='{}' lastPoll='{}' dpName='{}' sysname='{}' sysoid='{}' sysdescr='{}' syslocation='{}' syscontact='{}' label='{}' labelsource='{}' netbios='{}' domain='{}' os='{}'",
+                      m_nodeId, new String(new char[] { m_type }), m_createTime, m_lastPoll, m_dpName, m_sysname,
+                      m_sysoid, m_sysdescr, m_syslocation, m_syscontact, m_label,
+                      new String(new char[] { m_labelSource }), m_nbName, m_nbDomainName, m_os);
 
             // Run the insert
             //
@@ -511,7 +511,6 @@ public final class DbNodeEntry {
      *
      * @param c
      *            The connection used for the update.
-     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -746,7 +745,6 @@ public final class DbNodeEntry {
      *
      * @param c
      *            The connection used to load the data.
-     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -875,7 +873,6 @@ public final class DbNodeEntry {
     /**
      * Default constructor. Constructs an empty node entry with no data. The
      * default distributed poller name is used internally.
-     *
      */
     private DbNodeEntry() {
         this(DEFAULT_DP_NAME);
@@ -887,7 +884,6 @@ public final class DbNodeEntry {
      *
      * @param poller
      *            The poller name.
-     *
      */
     private DbNodeEntry(String poller) {
         m_fromDb = false;
@@ -919,7 +915,6 @@ public final class DbNodeEntry {
      *
      * @param nid
      *            The node identifier.
-     *
      */
     private DbNodeEntry(int nid) {
         this(DEFAULT_DP_NAME);
@@ -937,7 +932,6 @@ public final class DbNodeEntry {
      *            The node identifier.
      * @param dpName
      *            The name of the distributed poller.
-     *
      */
     private DbNodeEntry(int nid, String dpName) {
         this(dpName);
@@ -950,18 +944,16 @@ public final class DbNodeEntry {
      * Returns the node entry's unique identifier. This is a non-mutable
      * element. If the record does not yet exist in the database then a -1 is
      * returned.
-     *
      */
-public     int getNodeId() {
+    public int getNodeId() {
         return m_nodeId;
     }
 
     /**
      * Returns the name of the distributed poller for the entry. This is a
      * non-mutable element of the record.
-     *
      */
-public     String getDistributedPollerName() {
+    public String getDistributedPollerName() {
         return m_dpName;
     }
 
@@ -988,7 +980,6 @@ public     String getDistributedPollerName() {
      *
      * @param time
      *            The creation time.
-     *
      */
     public void setCreationTime(String time) throws ParseException {
         if (time == null) {
@@ -1005,7 +996,6 @@ public     String getDistributedPollerName() {
      *
      * @param time
      *            The creation time.
-     *
      */
     public void setCreationTime(Date time) {
         m_createTime = new Timestamp(time.getTime());
@@ -1017,7 +1007,6 @@ public     String getDistributedPollerName() {
      *
      * @param time
      *            The creation time.
-     *
      */
     public void setCreationTime(Timestamp time) {
         m_createTime = time;
@@ -1026,7 +1015,6 @@ public     String getDistributedPollerName() {
 
     /**
      * Returns true if the entry has a parent identity.
-     *
      */
     public boolean hasParentId() {
         return m_parentId != -1;
@@ -1077,7 +1065,6 @@ public     String getDistributedPollerName() {
      *
      * @param type
      *            The new node type.
-     *
      */
     public void setNodeType(char type) {
         m_type = type;
@@ -1123,7 +1110,6 @@ public     String getDistributedPollerName() {
 
     /**
      * Update the value of sysoid associated with this node entry.
-     *
      */
     public boolean updateSystemOID(String newsysoid) {
         if (newsysoid == null || newsysoid.equals(m_sysoid))
@@ -1502,7 +1488,6 @@ public     String getDistributedPollerName() {
      *
      * @param time
      *            The last poll time.
-     *
      */
     public void setLastPoll(String time) throws ParseException {
         if (time == null) {
@@ -1519,7 +1504,6 @@ public     String getDistributedPollerName() {
      *
      * @param time
      *            The last poll time.
-     *
      */
     public void setLastPoll(Date time) {
         m_lastPoll = new Timestamp(time.getTime());
@@ -1531,7 +1515,6 @@ public     String getDistributedPollerName() {
      *
      * @param time
      *            The last poll time.
-     *
      */
     public void setLastPoll(Timestamp time) {
         m_lastPoll = time;
@@ -1581,7 +1564,6 @@ public     String getDistributedPollerName() {
             return false;
     }
 
-
     /**
      * Returns the current foreignSource.
      */
@@ -1625,13 +1607,11 @@ public     String getDistributedPollerName() {
             return false;
     }
 
-
     /**
      * Updates the node information in the configured database. If the node does
      * not exist the a new row in the table is created. If the element already
      * exists then it's current row is updated as needed based upon the current
      * changes to the node.
-     *
      */
     public void store() throws SQLException {
         if (m_changed != 0 || m_fromDb == false) {
@@ -1714,7 +1694,8 @@ public     String getDistributedPollerName() {
 
                 InetAddress addr = null;
                 addr = InetAddressUtils.addr(saddr);
-                if (addr == null) continue;
+                if (addr == null)
+                    continue;
 
                 DbIpInterfaceEntry entry = null;
                 if (ifIndex == -1)
@@ -1772,7 +1753,8 @@ public     String getDistributedPollerName() {
 
                 InetAddress addr = null;
                 addr = InetAddressUtils.addr(saddr);
-                if (addr == null) continue;
+                if (addr == null)
+                    continue;
 
                 DbIpInterfaceEntry entry = null;
                 if (ifIndex == -1)
@@ -1842,7 +1824,8 @@ public     String getDistributedPollerName() {
                 if (rset.wasNull())
                     ifIndex = -1;
 
-                if (InetAddressUtils.addr(saddr) == null) continue;
+                if (InetAddressUtils.addr(saddr) == null)
+                    continue;
 
                 DbSnmpInterfaceEntry entry = null;
                 if (ifIndex != -1) {
@@ -1876,7 +1859,6 @@ public     String getDistributedPollerName() {
      *
      * @param poller
      *            The name of the distributed poller to use.
-     *
      * @return A new node record.
      */
     public static DbNodeEntry create(String poller) {
@@ -1891,7 +1873,6 @@ public     String getDistributedPollerName() {
      *
      * @param entry
      *            The entry to be cloned
-     *
      * @return a new DbNodeEntry identical to the original
      */
     public static DbNodeEntry clone(DbNodeEntry entry) {
@@ -1923,9 +1904,7 @@ public     String getDistributedPollerName() {
      *
      * @param nid
      *            The node id key
-     *
      * @return The loaded entry or null if one could not be found.
-     *
      */
     public static DbNodeEntry get(int nid) throws SQLException {
         return get(nid, DEFAULT_DP_NAME);
@@ -1938,9 +1917,7 @@ public     String getDistributedPollerName() {
      *
      * @param nid
      *            The node id key
-     *
      * @return The loaded entry or null if one could not be found.
-     *
      */
     public static DbNodeEntry get(int nid, String dpName) throws SQLException {
         Connection db = null;
@@ -1966,9 +1943,7 @@ public     String getDistributedPollerName() {
      *            The database connection used to load the entry.
      * @param nid
      *            The node id key
-     *
      * @return The loaded entry or null if one could not be found.
-     *
      */
     public static DbNodeEntry get(Connection db, int nid) throws SQLException {
         return get(db, nid, DEFAULT_DP_NAME);
@@ -1985,9 +1960,7 @@ public     String getDistributedPollerName() {
      *            The node id key
      * @param dpName
      *            The distribute poller name key
-     *
      * @return The loaded entry or null if one could not be found.
-     *
      */
     public static DbNodeEntry get(Connection db, int nid, String dpName) throws SQLException {
         DbNodeEntry entry = new DbNodeEntry(nid, dpName);
@@ -2030,9 +2003,12 @@ public     String getDistributedPollerName() {
     /**
      * Creates a null entry for a nodeid into the assets table
      *
-     * @param conn a {@link java.sql.Connection} object.
-     * @param nodeid a int.
-     * @throws java.sql.SQLException if any.
+     * @param conn
+     *            a {@link java.sql.Connection} object.
+     * @param nodeid
+     *            a int.
+     * @throws java.sql.SQLException
+     *             if any.
      */
     public void createAssetNodeEntry(Connection conn, int nodeid) throws SQLException {
 
@@ -2056,6 +2032,5 @@ public     String getDistributedPollerName() {
             d.cleanUp();
         }
     }
-
 
 }

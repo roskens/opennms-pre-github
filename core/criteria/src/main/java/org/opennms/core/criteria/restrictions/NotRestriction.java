@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 
 public class NotRestriction extends BaseRestriction {
     private static final Logger LOG = LoggerFactory.getLogger(NotRestriction.class);
+
     private final Restriction m_restriction;
 
     public NotRestriction(final Restriction restriction) {
@@ -65,12 +66,16 @@ public class NotRestriction extends BaseRestriction {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (!super.equals(obj)) return false;
-        if (!(obj instanceof NotRestriction)) return false;
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (!(obj instanceof NotRestriction))
+            return false;
         final NotRestriction other = (NotRestriction) obj;
         if (m_restriction == null) {
-            if (other.m_restriction != null) return false;
+            if (other.m_restriction != null)
+                return false;
         } else if (!m_restriction.equals(other.m_restriction)) {
             return false;
         }

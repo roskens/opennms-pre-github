@@ -58,18 +58,15 @@ import org.springframework.jdbc.core.simple.SimpleJdbcOperations;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+@ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-provisiond.xml",
-        "classpath*:/META-INF/opennms/provisiond-extensions.xml",
-        "classpath*:/META-INF/opennms/detectors.xml",
+        "classpath*:/META-INF/opennms/provisiond-extensions.xml", "classpath*:/META-INF/opennms/detectors.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath*:/META-INF/opennms/applicationContext-minimal-conf.xml"
-})
+        "classpath*:/META-INF/opennms/applicationContext-minimal-conf.xml" })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 @Ignore("This is a bad feature.. it doesn't account for provision ordering correctly")
@@ -99,12 +96,14 @@ public class PolicyTest {
         fs.setName("default");
         fs.addDetector(new PluginConfig("SNMP", "org.opennms.netmgt.provision.detector.snmp.SnmpDetector"));
 
-        PluginConfig policy1 = new PluginConfig("poll-trunk-1", "org.opennms.netmgt.provision.persist.policies.MatchingSnmpInterfacePolicy");
+        PluginConfig policy1 = new PluginConfig("poll-trunk-1",
+                                                "org.opennms.netmgt.provision.persist.policies.MatchingSnmpInterfacePolicy");
         policy1.addParameter("ifDescr", "~^.*Trunk 1.*$");
         policy1.addParameter("action", "ENABLE_POLLING");
         policy1.addParameter("matchBehavior", "ANY_PARAMETER");
 
-        PluginConfig policy2 = new PluginConfig("poll-vlan-600", "org.opennms.netmgt.provision.persist.policies.MatchingIpInterfacePolicy");
+        PluginConfig policy2 = new PluginConfig("poll-vlan-600",
+                                                "org.opennms.netmgt.provision.persist.policies.MatchingIpInterfacePolicy");
         policy2.addParameter("ipAddress", "~^10\\.102\\..*$");
         policy2.addParameter("action", "ENABLE_SNMP_POLL");
         policy2.addParameter("matchBehavior", "ANY_PARAMETER");
@@ -121,18 +120,20 @@ public class PolicyTest {
     }
 
     @Test
-    @JUnitSnmpAgents(value={
-            @JUnitSnmpAgent(host="10.7.15.240", port=161, resource="classpath:snmpwalk-NMS-5414.properties"),
-            @JUnitSnmpAgent(host="10.7.15.241", port=161, resource="classpath:snmpwalk-NMS-5414.properties"),
-            @JUnitSnmpAgent(host="10.102.251.200", port=161, resource="classpath:snmpwalk-NMS-5414.properties"),
-            @JUnitSnmpAgent(host="10.211.140.149", port=161, resource="classpath:snmpwalk-NMS-5414.properties")
-    })
-    //@Repeat()
-    //@Transactional Do not use transactional because it freezes the database and makes it impossible to check for
-    // values created in other transactions (unless you are lucky - which sometimes we are not)
+    @JUnitSnmpAgents(value = {
+            @JUnitSnmpAgent(host = "10.7.15.240", port = 161, resource = "classpath:snmpwalk-NMS-5414.properties"),
+            @JUnitSnmpAgent(host = "10.7.15.241", port = 161, resource = "classpath:snmpwalk-NMS-5414.properties"),
+            @JUnitSnmpAgent(host = "10.102.251.200", port = 161, resource = "classpath:snmpwalk-NMS-5414.properties"),
+            @JUnitSnmpAgent(host = "10.211.140.149", port = 161, resource = "classpath:snmpwalk-NMS-5414.properties") })
+    // @Repeat()
+    // @Transactional Do not use transactional because it freezes the database
+    // and makes it impossible to check for
+    // values created in other transactions (unless you are lucky - which
+    // sometimes we are not)
     public void testSnmpPollPolicy() throws Exception {
         try {
-            final BackgroundTask eventRecieved = anticipateEvents(EventConstants.PROVISION_SCAN_COMPLETE_UEI, EventConstants.PROVISION_SCAN_ABORTED_UEI);
+            final BackgroundTask eventRecieved = anticipateEvents(EventConstants.PROVISION_SCAN_COMPLETE_UEI,
+                                                                  EventConstants.PROVISION_SCAN_ABORTED_UEI);
 
             m_provisioner.importModelFromResource(m_resourceLoader.getResource("classpath:/NMS-5414.xml"), true);
             int nodeId = getNodeId();
@@ -140,7 +141,6 @@ public class PolicyTest {
 
             final NodeScan scan = m_provisioner.createNodeScan(nodeId, getForeignSource(nodeId), getForeignId(nodeId));
             runScan(scan);
-
 
             Integer snmpIfId = findMatchingSnmpIf("ifDescr", "Trunk 1");
 
@@ -176,12 +176,14 @@ public class PolicyTest {
     }
 
     private Integer findMatchingSnmpIf(String property, String value) {
-        String columnName = "snmp"+property.toLowerCase();
-        return m_jdbcOperations.queryForInt("select id from snmpinterface where "+columnName+" ilike ?", "%"+value+"%");
+        String columnName = "snmp" + property.toLowerCase();
+        return m_jdbcOperations.queryForInt("select id from snmpinterface where " + columnName + " ilike ?", "%"
+                + value + "%");
     }
 
     private String getPollSetting(Integer snmpIfId) {
-        return m_jdbcOperations.queryForObject("select snmppoll from snmpinterface where id = ?", String.class, snmpIfId);
+        return m_jdbcOperations.queryForObject("select snmppoll from snmpinterface where id = ?", String.class,
+                                               snmpIfId);
     }
 
     private int getIpInterfaceCount(Integer snmpIfId) {

@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
@@ -82,8 +81,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsIpInterfaceResource extends OnmsRestService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(OnmsIpInterfaceResource.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(OnmsIpInterfaceResource.class);
 
     @Autowired
     private NodeDao m_nodeDao;
@@ -101,14 +99,18 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     UriInfo m_uriInfo;
 
     /**
-     * <p>getIpInterfaces</p>
+     * <p>
+     * getIpInterfaces
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterfaceList} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public OnmsIpInterfaceList getIpInterfaces(@PathParam("nodeCriteria") final String nodeCriteria) {
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public OnmsIpInterfaceList getIpInterfaces(@PathParam("nodeCriteria")
+    final String nodeCriteria) {
         readLock();
 
         try {
@@ -116,7 +118,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
 
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
 
-            final MultivaluedMap<String,String> params = m_uriInfo.getQueryParameters();
+            final MultivaluedMap<String, String> params = m_uriInfo.getQueryParameters();
 
             final CriteriaBuilder builder = new CriteriaBuilder(OnmsIpInterface.class);
             builder.ne("isManaged", "D");
@@ -125,7 +127,8 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             builder.alias("node", "node");
             builder.eq("node.id", node.getId());
 
-            final OnmsIpInterfaceList interfaceList = new OnmsIpInterfaceList(m_ipInterfaceDao.findMatching(builder.toCriteria()));
+            final OnmsIpInterfaceList interfaceList = new OnmsIpInterfaceList(
+                                                                              m_ipInterfaceDao.findMatching(builder.toCriteria()));
 
             interfaceList.setTotalCount(m_ipInterfaceDao.countMatching(builder.count().toCriteria()));
 
@@ -136,16 +139,22 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     }
 
     /**
-     * <p>getIpInterface</p>
+     * <p>
+     * getIpInterface
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     @Path("{ipAddress}")
-    public OnmsIpInterface getIpInterface(@PathParam("nodeCriteria") final String nodeCriteria, @PathParam("ipAddress") final String ipAddress) {
+    public OnmsIpInterface getIpInterface(@PathParam("nodeCriteria")
+    final String nodeCriteria, @PathParam("ipAddress")
+    final String ipAddress) {
         readLock();
 
         try {
@@ -160,15 +169,20 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     }
 
     /**
-     * <p>addIpInterface</p>
+     * <p>
+     * addIpInterface
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param ipInterface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param ipInterface
+     *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public Response addIpInterface(@PathParam("nodeCriteria") final String nodeCriteria, final OnmsIpInterface ipInterface) {
+    public Response addIpInterface(@PathParam("nodeCriteria")
+    final String nodeCriteria, final OnmsIpInterface ipInterface) {
         writeLock();
 
         try {
@@ -186,7 +200,8 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             node.addIpInterface(ipInterface);
             m_ipInterfaceDao.save(ipInterface);
 
-            final EventBuilder bldr = new EventBuilder(EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI, getClass().getName());
+            final EventBuilder bldr = new EventBuilder(EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI,
+                                                       getClass().getName());
 
             bldr.setNodeid(node.getId());
             bldr.setInterface(ipInterface.getIpAddress());
@@ -203,17 +218,24 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     }
 
     /**
-     * <p>updateIpInterface</p>
+     * <p>
+     * updateIpInterface
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
-     * @param params a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
+     * @param params
+     *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{ipAddress}")
-    public Response updateIpInterface(@PathParam("nodeCriteria") final String nodeCriteria, @PathParam("ipAddress") final String ipAddress, final MultivaluedMapImpl params) {
+    public Response updateIpInterface(@PathParam("nodeCriteria")
+    final String nodeCriteria, @PathParam("ipAddress")
+    final String ipAddress, final MultivaluedMapImpl params) {
         writeLock();
 
         try {
@@ -223,16 +245,18 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             }
             final OnmsIpInterface ipInterface = node.getIpInterfaceByIpAddress(ipAddress);
             if (ipInterface == null) {
-                throw getException(Status.CONFLICT, "deleteIpInterface: can't find interface with ip address " + ipAddress + " for node " + nodeCriteria);
+                throw getException(Status.CONFLICT, "deleteIpInterface: can't find interface with ip address "
+                        + ipAddress + " for node " + nodeCriteria);
             }
             LOG.debug("updateIpInterface: updating ip interface {}", ipInterface);
 
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(ipInterface);
 
-            for(final String key : params.keySet()) {
+            for (final String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
                     final String stringValue = params.getFirst(key);
-                    final Object value = wrapper.convertIfNecessary(stringValue, (Class<?>)wrapper.getPropertyType(key));
+                    final Object value = wrapper.convertIfNecessary(stringValue,
+                                                                    (Class<?>) wrapper.getPropertyType(key));
                     wrapper.setPropertyValue(key, value);
                 }
             }
@@ -245,15 +269,21 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     }
 
     /**
-     * <p>deleteIpInterface</p>
+     * <p>
+     * deleteIpInterface
+     * </p>
      *
-     * @param nodeCriteria a {@link java.lang.String} object.
-     * @param ipAddress a {@link java.lang.String} object.
+     * @param nodeCriteria
+     *            a {@link java.lang.String} object.
+     * @param ipAddress
+     *            a {@link java.lang.String} object.
      * @return a {@link javax.ws.rs.core.Response} object.
      */
     @DELETE
     @Path("{ipAddress}")
-    public Response deleteIpInterface(@PathParam("nodeCriteria") final String nodeCriteria, @PathParam("ipAddress") final String ipAddress) {
+    public Response deleteIpInterface(@PathParam("nodeCriteria")
+    final String nodeCriteria, @PathParam("ipAddress")
+    final String ipAddress) {
         writeLock();
 
         try {
@@ -263,7 +293,8 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             }
             final OnmsIpInterface intf = node.getIpInterfaceByIpAddress(InetAddressUtils.getInetAddress(ipAddress));
             if (intf == null) {
-                throw getException(Status.CONFLICT, "deleteIpInterface: can't find interface with ip address " + ipAddress + " for node " + nodeCriteria);
+                throw getException(Status.CONFLICT, "deleteIpInterface: can't find interface with ip address "
+                        + ipAddress + " for node " + nodeCriteria);
             }
             LOG.debug("deleteIpInterface: deleting interface {} from node {}", ipAddress, nodeCriteria);
             node.getIpInterfaces().remove(intf);
@@ -286,9 +317,12 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     }
 
     /**
-     * <p>getServices</p>
+     * <p>
+     * getServices
+     * </p>
      *
-     * @return a {@link org.opennms.web.rest.OnmsMonitoredServiceResource} object.
+     * @return a {@link org.opennms.web.rest.OnmsMonitoredServiceResource}
+     *         object.
      */
     @Path("{ipAddress}/services")
     public OnmsMonitoredServiceResource getServices() {

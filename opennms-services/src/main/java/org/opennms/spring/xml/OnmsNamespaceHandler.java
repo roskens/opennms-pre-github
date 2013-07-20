@@ -38,7 +38,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * <p>OnmsNamespaceHandler class.</p>
+ * <p>
+ * OnmsNamespaceHandler class.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -46,7 +48,9 @@ import org.w3c.dom.Node;
 public class OnmsNamespaceHandler extends NamespaceHandlerSupport {
 
     /**
-     * <p>init</p>
+     * <p>
+     * init
+     * </p>
      */
     @Override
     public void init() {
@@ -59,7 +63,7 @@ public class OnmsNamespaceHandler extends NamespaceHandlerSupport {
         @Override
         protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
             BeanDefinitionHolder beanDefHolder = parserContext.getDelegate().parseBeanDefinitionElement(element);
-            AbstractBeanDefinition def = (AbstractBeanDefinition)beanDefHolder.getBeanDefinition();
+            AbstractBeanDefinition def = (AbstractBeanDefinition) beanDefHolder.getBeanDefinition();
             return def;
         }
 
@@ -69,10 +73,10 @@ public class OnmsNamespaceHandler extends NamespaceHandlerSupport {
 
         @Override
         public BeanDefinitionHolder decorate(Node node, BeanDefinitionHolder definition, ParserContext parserContext) {
-            throw new UnsupportedOperationException("AnnotatedSubscriptionBeanDefinitionDecorator.decorate is not yet implemented");
+            throw new UnsupportedOperationException(
+                                                    "AnnotatedSubscriptionBeanDefinitionDecorator.decorate is not yet implemented");
         }
 
     }
-
 
 }

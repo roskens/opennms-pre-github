@@ -52,15 +52,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * The Manager is responsible for launching/starting all services in the VM
- * that it is started for. The Manager operates in two modes, normal and
- * server
+ * The Manager is responsible for launching/starting all services in the VM that
+ * it is started for. The Manager operates in two modes, normal and server
  * </p>
  * <p>
  * normal mode: In the normal mode, the Manager starts all services configured
- * for its VM in the service-configuration.xml and starts listening for
- * control events on the 'control-broadcast' JMS topic for stop control
- * messages for itself
+ * for its VM in the service-configuration.xml and starts listening for control
+ * events on the 'control-broadcast' JMS topic for stop control messages for
+ * itself
  * </p>
  * <p>
  * server mode: In the server mode, the Manager starts up and listens on the
@@ -70,9 +69,9 @@ import org.slf4j.LoggerFactory;
  * an 'error' response to the Controller
  * </p>
  * <p>
- * <strong>Note: </strong>The Manager is NOT intelligent - if it receives a
- * stop control event, it will exit - does not check to see if the services
- * its started are all stopped
+ * <strong>Note: </strong>The Manager is NOT intelligent - if it receives a stop
+ * control event, it will exit - does not check to see if the services its
+ * started are all stopped
  * <p>
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
@@ -80,23 +79,31 @@ import org.slf4j.LoggerFactory;
  */
 public class Invoker {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Invoker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Invoker.class);
 
     private MBeanServer m_server;
+
     private InvokeAtType m_atType;
+
     private boolean m_reverse = false;
+
     private boolean m_failFast = true;
+
     private List<InvokerService> m_services;
 
     /**
-     * <p>Constructor for Invoker.</p>
+     * <p>
+     * Constructor for Invoker.
+     * </p>
      */
     public Invoker() {
 
     }
 
     /**
-     * <p>getDefaultServiceConfigFactory</p>
+     * <p>
+     * getDefaultServiceConfigFactory
+     * </p>
      *
      * @return a {@link org.opennms.netmgt.config.ServiceConfigFactory} object.
      */
@@ -110,7 +117,9 @@ public class Invoker {
     }
 
     /**
-     * <p>instantiateClasses</p>
+     * <p>
+     * instantiateClasses
+     * </p>
      */
     public void instantiateClasses() {
 
@@ -122,15 +131,14 @@ public class Invoker {
             Service service = invokerService.getService();
             try {
                 // preload the class
-            	LOG.debug("loading class {}", service.getClassName());
-
+                LOG.debug("loading class {}", service.getClassName());
 
                 Class<?> clazz = Class.forName(service.getClassName());
 
                 // Get a new instance of the class
                 LOG.debug("create new instance of {}", service.getClassName());
 
-                Map<?,?> mdc = Logging.getCopyOfContextMap();
+                Map<?, ?> mdc = Logging.getCopyOfContextMap();
                 Object bean;
                 try {
                     bean = clazz.newInstance();
@@ -145,42 +153,47 @@ public class Invoker {
                 invokerService.setMbean(getServer().registerMBean(bean, name));
 
                 // Set attributes
-                org.opennms.netmgt.config.service.Attribute[] attribs =
-                    service.getAttribute();
+                org.opennms.netmgt.config.service.Attribute[] attribs = service.getAttribute();
                 if (attribs != null) {
                     for (org.opennms.netmgt.config.service.Attribute attrib : attribs) {
-                    	LOG.debug("setting attribute {}", attrib.getName());
+                        LOG.debug("setting attribute {}", attrib.getName());
                         getServer().setAttribute(name, getAttribute(attrib));
                     }
                 }
             } catch (Throwable t) {
-		LOG.error("An error occurred loading the mbean {} of type {}", service.getName(), service.getClassName(), t);
+                LOG.error("An error occurred loading the mbean {} of type {}", service.getName(),
+                          service.getClassName(), t);
                 invokerService.setBadThrowable(t);
             }
         }
     }
 
     /**
-     * <p>getObjectInstances</p>
+     * <p>
+     * getObjectInstances
+     * </p>
      */
     public void getObjectInstances() {
         for (InvokerService invokerService : getServices()) {
             Service service = invokerService.getService();
             try {
                 // find the mbean
-            	LOG.debug("finding mbean instance {}", service.getName());
+                LOG.debug("finding mbean instance {}", service.getName());
 
                 ObjectName name = new ObjectName(service.getName());
                 invokerService.setMbean(getServer().getObjectInstance(name));
             } catch (Throwable t) {
-		LOG.error("An error occurred loading the mbean {} of type {} it will be skipped", service.getName(), service.getClassName(), t);
+                LOG.error("An error occurred loading the mbean {} of type {} it will be skipped", service.getName(),
+                          service.getClassName(), t);
                 invokerService.setBadThrowable(t);
             }
         }
     }
 
     /**
-     * <p>invokeMethods</p>
+     * <p>
+     * invokeMethods
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -190,14 +203,13 @@ public class Invoker {
             invokerServicesOrdered = new ArrayList<InvokerService>(getServices());
             Collections.reverse(invokerServicesOrdered);
         } else {
-            // We can  use the original list
+            // We can use the original list
             invokerServicesOrdered = getServices();
         }
 
         List<InvokerResult> resultInfo = new ArrayList<InvokerResult>(invokerServicesOrdered.size());
         for (int pass = 0, end = getLastPass(); pass <= end; pass++) {
-        	LOG.debug("starting pass {}", pass);
-
+            LOG.debug("starting pass {}", pass);
 
             for (InvokerService invokerService : invokerServicesOrdered) {
                 Service service = invokerService.getService();
@@ -217,7 +229,6 @@ public class Invoker {
                     }
 
                     LOG.debug("pass {} on service {} will invoke method \"{}\"", pass, name, invoke.getMethod());
-
 
                     try {
                         Object result = invoke(invoke, mbean);
@@ -241,9 +252,10 @@ public class Invoker {
     /**
      * Get the last pass for a set of InvokerServices.
      *
-     * @param invokerServices list to look at
+     * @param invokerServices
+     *            list to look at
      * @return highest pass value found for all Invoke objects in the
-     *      invokerServices list
+     *         invokerServices list
      */
     private int getLastPass() {
         List<InvokerService> invokerServices = getServices();
@@ -277,8 +289,9 @@ public class Invoker {
                 try {
                     parms[k] = getArgument(args[k]);
                 } catch (Throwable t) {
-			LOG.error("An error occurred building argument {} for operation {} on MBean {}", k, invoke.getMethod(), mbean.getObjectName(), t);
-                  throw t;
+                    LOG.error("An error occurred building argument {} for operation {} on MBean {}", k,
+                              invoke.getMethod(), mbean.getObjectName(), t);
+                    throw t;
                 }
                 sig[k] = parms[k].getClass().getName();
             }
@@ -286,17 +299,17 @@ public class Invoker {
 
         LOG.debug("Invoking {} on object {}", invoke.getMethod(), mbean.getObjectName());
 
-
         Object object;
         try {
-        	Map<?,?> mdc = Logging.getCopyOfContextMap();
+            Map<?, ?> mdc = Logging.getCopyOfContextMap();
             try {
                 object = getServer().invoke(mbean.getObjectName(), invoke.getMethod(), parms, sig);
             } finally {
-            	Logging.setContextMap(mdc);
+                Logging.setContextMap(mdc);
             }
         } catch (Throwable t) {
-		LOG.error("An error occurred invoking operation {} on MBean {}", invoke.getMethod(), mbean.getObjectName(), t);
+            LOG.error("An error occurred invoking operation {} on MBean {}", invoke.getMethod(), mbean.getObjectName(),
+                      t);
             throw t;
         }
 
@@ -310,7 +323,7 @@ public class Invoker {
         Constructor<?> construct = attribClass.getConstructor(new Class[] { String.class });
 
         Object value;
-        Map<?,?> mdc = Logging.getCopyOfContextMap();
+        Map<?, ?> mdc = Logging.getCopyOfContextMap();
         try {
             value = construct.newInstance(new Object[] { attrib.getValue().getContent() });
         } finally {
@@ -320,7 +333,8 @@ public class Invoker {
         return new Attribute(attrib.getName(), value);
     }
 
-    private Object getArgument(Argument arg) throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private Object getArgument(Argument arg) throws ClassNotFoundException, SecurityException, NoSuchMethodException,
+            IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Class<?> argClass = Class.forName(arg.getType());
         Constructor<?> construct = argClass.getConstructor(new Class[] { String.class });
 
@@ -333,25 +347,34 @@ public class Invoker {
     }
 
     /**
-     * <p>getAtType</p>
+     * <p>
+     * getAtType
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.service.types.InvokeAtType} object.
+     * @return a {@link org.opennms.netmgt.config.service.types.InvokeAtType}
+     *         object.
      */
     public InvokeAtType getAtType() {
         return m_atType;
     }
 
     /**
-     * <p>setAtType</p>
+     * <p>
+     * setAtType
+     * </p>
      *
-     * @param atType a {@link org.opennms.netmgt.config.service.types.InvokeAtType} object.
+     * @param atType
+     *            a {@link org.opennms.netmgt.config.service.types.InvokeAtType}
+     *            object.
      */
     public void setAtType(InvokeAtType atType) {
         m_atType = atType;
     }
 
     /**
-     * <p>isFailFast</p>
+     * <p>
+     * isFailFast
+     * </p>
      *
      * @return a boolean.
      */
@@ -360,16 +383,21 @@ public class Invoker {
     }
 
     /**
-     * <p>setFailFast</p>
+     * <p>
+     * setFailFast
+     * </p>
      *
-     * @param failFast a boolean.
+     * @param failFast
+     *            a boolean.
      */
     public void setFailFast(boolean failFast) {
         m_failFast = failFast;
     }
 
     /**
-     * <p>isReverse</p>
+     * <p>
+     * isReverse
+     * </p>
      *
      * @return a boolean.
      */
@@ -378,16 +406,21 @@ public class Invoker {
     }
 
     /**
-     * <p>setReverse</p>
+     * <p>
+     * setReverse
+     * </p>
      *
-     * @param reverse a boolean.
+     * @param reverse
+     *            a boolean.
      */
     public void setReverse(boolean reverse) {
         m_reverse = reverse;
     }
 
     /**
-     * <p>getServer</p>
+     * <p>
+     * getServer
+     * </p>
      *
      * @return a {@link javax.management.MBeanServer} object.
      */
@@ -396,16 +429,21 @@ public class Invoker {
     }
 
     /**
-     * <p>setServer</p>
+     * <p>
+     * setServer
+     * </p>
      *
-     * @param server a {@link javax.management.MBeanServer} object.
+     * @param server
+     *            a {@link javax.management.MBeanServer} object.
      */
     public void setServer(MBeanServer server) {
         m_server = server;
     }
 
     /**
-     * <p>getServices</p>
+     * <p>
+     * getServices
+     * </p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -414,9 +452,12 @@ public class Invoker {
     }
 
     /**
-     * <p>setServices</p>
+     * <p>
+     * setServices
+     * </p>
      *
-     * @param services a {@link java.util.List} object.
+     * @param services
+     *            a {@link java.util.List} object.
      */
     public void setServices(List<InvokerService> services) {
         m_services = services;

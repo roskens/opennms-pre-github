@@ -48,12 +48,14 @@ import org.opennms.netmgt.poller.ServiceMonitor;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
 
 /**
- * <p>PollerConfig interface.</p>
+ * <p>
+ * PollerConfig interface.
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
- *
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ *         TODO To change the template for this generated type comment go to
+ *         Window -
+ *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
 public interface PollerConfig {
@@ -77,11 +79,9 @@ public interface PollerConfig {
     /**
      * This method returns the configured value of the
      * 'pollAllIfNoCriticalServiceDefined' flag.
-     *
      * A value of true causes the poller's node outage code to poll all the
      * services on an interface if a status change has occurred and there is no
      * critical service defined on the interface.
-     *
      * A value of false causes the poller's node outage code to not poll all the
      * services on an interface in this situation.
      * </p>
@@ -134,16 +134,17 @@ public interface PollerConfig {
     /**
      * Determine the list of IPs the filter rule for this package allows
      *
-     * @param pkg a {@link org.opennms.netmgt.config.poller.Package} object.
+     * @param pkg
+     *            a {@link org.opennms.netmgt.config.poller.Package} object.
      * @return a {@link java.util.List} object.
      */
     List<InetAddress> getIpList(Package pkg);
+
     /**
      * This method is used to determine if the named interface is included in
      * the passed package definition. If the interface belongs to the package
      * then a value of true is returned. If the interface does not belong to the
      * package a false value is returned.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -172,9 +173,12 @@ public interface PollerConfig {
     /**
      * Return the Service object with the given name from the give Package.
      *
-     * @param svcName the service name to lookup
-     * @param pkg the packe to lookup the the service in
-     * @return the Service object from the package with the give name, null if its not in the pkg
+     * @param svcName
+     *            the service name to lookup
+     * @param pkg
+     *            the packe to lookup the the service in
+     * @return the Service object from the package with the give name, null if
+     *         its not in the pkg
      */
     Service getServiceInPackage(String svcName, Package pkg);
 
@@ -189,7 +193,6 @@ public interface PollerConfig {
 
     /**
      * Returns the first package that the ip belongs to, null if none.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -200,8 +203,8 @@ public interface PollerConfig {
     Package getFirstPackageMatch(String ipaddr);
 
     /**
-     * Returns the first package that the ip belongs to that is not marked as remote, null if none.
-     *
+     * Returns the first package that the ip belongs to that is not marked as
+     * remote, null if none.
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -213,7 +216,6 @@ public interface PollerConfig {
 
     /**
      * Returns true if the ip is part of at least one package.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -226,7 +228,6 @@ public interface PollerConfig {
     /**
      * Returns true if the ip is part of at least one package that is NOT marked
      * as remote
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -239,7 +240,6 @@ public interface PollerConfig {
     /**
      * Returns true if this package has the service enabled and if there is a
      * monitor for this service.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -253,9 +253,9 @@ public interface PollerConfig {
     boolean isPolled(String svcName, Package pkg);
 
     /**
-     * Returns true if the ip is part of at least one package and if this package
+     * Returns true if the ip is part of at least one package and if this
+     * package
      * has the service enabled and if there is a monitor for this service.
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -268,12 +268,12 @@ public interface PollerConfig {
      */
     boolean isPolled(String ipaddr, String svcName);
 
-
     /**
-     * Returns true if the ip is part of at least one package and if this package
-     * has the service enabled and if there is a monitor for this service and the
+     * Returns true if the ip is part of at least one package and if this
+     * package
+     * has the service enabled and if there is a monitor for this service and
+     * the
      * package is NOT marked as remote
-     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
@@ -305,115 +305,160 @@ public interface PollerConfig {
     List<String> getRRAList(Package pkg);
 
     /**
-     * <p>getAllPackageMatches</p>
+     * <p>
+     * getAllPackageMatches
+     * </p>
      *
-     * @param ipAddr a {@link java.lang.String} object.
+     * @param ipAddr
+     *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
     List<String> getAllPackageMatches(String ipAddr);
 
     /**
-     * <p>getNextOutageIdSql</p>
+     * <p>
+     * getNextOutageIdSql
+     * </p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getNextOutageIdSql();
 
     /**
-     * <p>enumeratePackage</p>
+     * <p>
+     * enumeratePackage
+     * </p>
      *
      * @return a {@link java.util.Enumeration} object.
      */
     public Enumeration<Package> enumeratePackage();
 
     /**
-     * <p>getPackage</p>
+     * <p>
+     * getPackage
+     * </p>
      *
-     * @param pkgName a {@link java.lang.String} object.
+     * @param pkgName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.poller.Package} object.
      */
     public Package getPackage(String pkgName);
 
     /**
-     * <p>getServiceSelectorForPackage</p>
+     * <p>
+     * getServiceSelectorForPackage
+     * </p>
      *
-     * @param pkg a {@link org.opennms.netmgt.config.poller.Package} object.
+     * @param pkg
+     *            a {@link org.opennms.netmgt.config.poller.Package} object.
      * @return a {@link org.opennms.netmgt.model.ServiceSelector} object.
      */
     public ServiceSelector getServiceSelectorForPackage(Package pkg);
 
     /**
-     * <p>getThreads</p>
+     * <p>
+     * getThreads
+     * </p>
      *
      * @return a int.
      */
     public int getThreads();
 
     /**
-     * <p>getServiceMonitors</p>
+     * <p>
+     * getServiceMonitors
+     * </p>
      *
      * @return a {@link java.util.Map} object.
      */
     public Map<String, ServiceMonitor> getServiceMonitors();
 
     /**
-     * <p>releaseAllServiceMonitors</p>
+     * <p>
+     * releaseAllServiceMonitors
+     * </p>
      */
     public void releaseAllServiceMonitors();
 
     /**
-     * <p>getServiceMonitor</p>
+     * <p>
+     * getServiceMonitor
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
      */
     public ServiceMonitor getServiceMonitor(String svcName);
 
     /**
-     * <p>update</p>
+     * <p>
+     * update
+     * </p>
      *
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public void update() throws IOException, MarshalException, ValidationException;
 
     /**
-     * <p>save</p>
+     * <p>
+     * save
+     * </p>
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
+     * @throws org.exolab.castor.xml.MarshalException
+     *             if any.
+     * @throws java.io.IOException
+     *             if any.
+     * @throws org.exolab.castor.xml.ValidationException
+     *             if any.
      */
     public void save() throws MarshalException, IOException, ValidationException;
 
-
     /**
-     * <p>addPackage</p>
+     * <p>
+     * addPackage
+     * </p>
      *
-     * @param pkg a {@link org.opennms.netmgt.config.poller.Package} object.
+     * @param pkg
+     *            a {@link org.opennms.netmgt.config.poller.Package} object.
      */
     void addPackage(Package pkg);
 
     /**
-     * <p>addMonitor</p>
+     * <p>
+     * addMonitor
+     * </p>
      *
-     * @param svcName a {@link java.lang.String} object.
-     * @param className a {@link java.lang.String} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
+     * @param className
+     *            a {@link java.lang.String} object.
      */
     void addMonitor(String svcName, String className);
 
     /**
-     * <p>getConfiguration</p>
+     * <p>
+     * getConfiguration
+     * </p>
      *
-     * @return a {@link org.opennms.netmgt.config.poller.PollerConfiguration} object.
+     * @return a {@link org.opennms.netmgt.config.poller.PollerConfiguration}
+     *         object.
      */
     PollerConfiguration getConfiguration();
 
     /**
-     * <p>getServiceMonitorLocators</p>
+     * <p>
+     * getServiceMonitorLocators
+     * </p>
      *
-     * @param context a {@link org.opennms.netmgt.poller.DistributionContext} object.
+     * @param context
+     *            a {@link org.opennms.netmgt.poller.DistributionContext}
+     *            object.
      * @return a {@link java.util.Collection} object.
      */
     Collection<ServiceMonitorLocator> getServiceMonitorLocators(DistributionContext context);

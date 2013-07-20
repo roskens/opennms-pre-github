@@ -32,7 +32,9 @@ import org.opennms.core.utils.SocketWrapper;
 import org.opennms.core.utils.SslSocketWrapper;
 
 /**
- * <p>LdapDetectorClient class.</p>
+ * <p>
+ * LdapDetectorClient class.
+ * </p>
  *
  * @author thedesloge
  * @version $Id: $

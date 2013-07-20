@@ -50,7 +50,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>DaoWebNotificationRepository class.</p>
+ * <p>
+ * DaoWebNotificationRepository class.
+ * </p>
  *
  * @author ranger
  * @version $Id: $
@@ -69,19 +71,19 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
         BeanUtils.assertAutowiring(this);
     }
 
-    private static final OnmsCriteria getOnmsCriteria(final NotificationCriteria notificationCriteria){
+    private static final OnmsCriteria getOnmsCriteria(final NotificationCriteria notificationCriteria) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsNotification.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.createAlias("serviceType", "serviceType", OnmsCriteria.LEFT_JOIN);
 
-        notificationCriteria.visit(new NotificationCriteriaVisitor<RuntimeException>(){
+        notificationCriteria.visit(new NotificationCriteriaVisitor<RuntimeException>() {
 
             @Override
             public void visitAckType(AcknowledgeType ackType) throws RuntimeException {
-                if(ackType == AcknowledgeType.ACKNOWLEDGED) {
+                if (ackType == AcknowledgeType.ACKNOWLEDGED) {
                     criteria.add(Restrictions.isNotNull("answeredBy"));
                 } else if (ackType == AcknowledgeType.UNACKNOWLEDGED) {
-                   criteria.add(Restrictions.isNull("answeredBy"));
+                    criteria.add(Restrictions.isNull("answeredBy"));
                 }
                 // AcknowledgeType.BOTH just adds no restriction
             }
@@ -100,51 +102,51 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
 
             @Override
             public void visitSortStyle(SortStyle sortStyle) throws RuntimeException {
-                switch(sortStyle){
-                    case RESPONDER:
-                        criteria.addOrder(Order.desc("answeredBy"));
-                        break;
-                    case PAGETIME:
-                        criteria.addOrder(Order.desc("pageTime"));
-                        break;
-                    case RESPONDTIME:
-                        criteria.addOrder(Order.desc("respondTime"));
-                        break;
-                    case NODE:
-                        criteria.addOrder(Order.desc("node.label"));
-                        break;
-                    case INTERFACE:
-                        criteria.addOrder(Order.desc("ipAddress"));
-                        break;
-                    case SERVICE:
-                        criteria.addOrder(Order.desc("serviceType.name"));
-                        break;
-                    case ID:
-                        criteria.addOrder(Order.desc("notifyId"));
-                        break;
-                    case REVERSE_RESPONDER:
-                        criteria.addOrder(Order.asc("answeredBy"));
-                        break;
-                    case REVERSE_PAGETIME:
-                        criteria.addOrder(Order.asc("pageTime"));
-                        break;
-                    case REVERSE_RESPONDTIME:
-                        criteria.addOrder(Order.asc("respondTime"));
-                        break;
-                    case REVERSE_NODE:
-                        criteria.addOrder(Order.asc("node.label"));
-                        break;
-                    case REVERSE_INTERFACE:
-                        criteria.addOrder(Order.asc("ipAddress"));
-                        break;
-                    case REVERSE_SERVICE:
-                        criteria.addOrder(Order.asc("serviceType.name"));
-                        break;
-                    case REVERSE_ID:
-                        criteria.addOrder(Order.asc("notifyId"));
-                        break;
-                    default:
-                        break;
+                switch (sortStyle) {
+                case RESPONDER:
+                    criteria.addOrder(Order.desc("answeredBy"));
+                    break;
+                case PAGETIME:
+                    criteria.addOrder(Order.desc("pageTime"));
+                    break;
+                case RESPONDTIME:
+                    criteria.addOrder(Order.desc("respondTime"));
+                    break;
+                case NODE:
+                    criteria.addOrder(Order.desc("node.label"));
+                    break;
+                case INTERFACE:
+                    criteria.addOrder(Order.desc("ipAddress"));
+                    break;
+                case SERVICE:
+                    criteria.addOrder(Order.desc("serviceType.name"));
+                    break;
+                case ID:
+                    criteria.addOrder(Order.desc("notifyId"));
+                    break;
+                case REVERSE_RESPONDER:
+                    criteria.addOrder(Order.asc("answeredBy"));
+                    break;
+                case REVERSE_PAGETIME:
+                    criteria.addOrder(Order.asc("pageTime"));
+                    break;
+                case REVERSE_RESPONDTIME:
+                    criteria.addOrder(Order.asc("respondTime"));
+                    break;
+                case REVERSE_NODE:
+                    criteria.addOrder(Order.asc("node.label"));
+                    break;
+                case REVERSE_INTERFACE:
+                    criteria.addOrder(Order.asc("ipAddress"));
+                    break;
+                case REVERSE_SERVICE:
+                    criteria.addOrder(Order.asc("serviceType.name"));
+                    break;
+                case REVERSE_ID:
+                    criteria.addOrder(Order.asc("notifyId"));
+                    break;
+                default:
+                    break;
                 }
 
             }
@@ -154,23 +156,27 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
         return criteria;
     }
 
-    private Notification mapOnmsNotificationToNotification(OnmsNotification onmsNotification){
-        if(onmsNotification != null){
+    private Notification mapOnmsNotificationToNotification(OnmsNotification onmsNotification) {
+        if (onmsNotification != null) {
             Notification notif = new Notification();
             notif.m_eventId = onmsNotification.getEvent() != null ? onmsNotification.getEvent().getId() : 0;
-            notif.m_interfaceID = onmsNotification.getIpAddress() == null ? null : InetAddressUtils.toIpAddrString(onmsNotification.getIpAddress());
+            notif.m_interfaceID = onmsNotification.getIpAddress() == null ? null
+                : InetAddressUtils.toIpAddrString(onmsNotification.getIpAddress());
             notif.m_nodeID = onmsNotification.getNode() != null ? onmsNotification.getNode().getId() : 0;
             notif.m_notifyID = onmsNotification.getNotifyId();
             notif.m_numMsg = onmsNotification.getNumericMsg();
             notif.m_responder = onmsNotification.getAnsweredBy();
-            notif.m_serviceId = onmsNotification.getServiceType() != null ? onmsNotification.getServiceType().getId() : 0;
-            notif.m_serviceName = onmsNotification.getServiceType() != null ? onmsNotification.getServiceType().getName() : "";
-            notif.m_timeReply = onmsNotification.getRespondTime() != null ? onmsNotification.getRespondTime().getTime() : 0;
+            notif.m_serviceId = onmsNotification.getServiceType() != null ? onmsNotification.getServiceType().getId()
+                : 0;
+            notif.m_serviceName = onmsNotification.getServiceType() != null ? onmsNotification.getServiceType().getName()
+                : "";
+            notif.m_timeReply = onmsNotification.getRespondTime() != null ? onmsNotification.getRespondTime().getTime()
+                : 0;
             notif.m_timeSent = onmsNotification.getPageTime() != null ? onmsNotification.getPageTime().getTime() : 0;
             notif.m_txtMsg = onmsNotification.getTextMsg();
 
             return notif;
-        }else{
+        } else {
             return null;
         }
     }

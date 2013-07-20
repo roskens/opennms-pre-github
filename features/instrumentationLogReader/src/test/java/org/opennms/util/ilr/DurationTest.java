@@ -46,7 +46,6 @@ import org.junit.runner.RunWith;
 import org.opennms.util.ilr.BaseLogMessage;
 import org.opennms.util.ilr.Duration;
 
-
 /**
  * Duration
  *
@@ -61,30 +60,24 @@ public class DurationTest {
     }
 
     @DataPoints
-    public static Date[] dataPoints = new Date[]{
-        timestamp("2010-05-26 12:12:40,000"),
-        timestamp("2010-05-26 12:12:40,001"),
-        // duplicate on purpuse
-        timestamp("2010-05-26 12:12:40,001"),
-        timestamp("2010-05-26 12:12:40,010"),
-        timestamp("2010-05-26 12:12:40,100"),
-        timestamp("2010-05-26 12:12:41,000"),
-        timestamp("2010-05-26 12:12:50,000"),
-        timestamp("2010-05-26 12:13:40,000"),
-        timestamp("2010-05-26 12:22:40,000"),
-        timestamp("2010-05-26 13:12:40,000"),
-        timestamp("2010-05-26 22:12:40,000"),
-        timestamp("2010-05-27 12:12:40,000"),
-        timestamp("2010-06-26 12:12:40,000"),
-        timestamp("2011-05-26 12:12:40,000"),
-        timestamp("2020-05-26 12:12:40,000"),
-        timestamp("2110-05-26 12:12:40,000"),
-        timestamp("3010-05-26 12:12:40,000"),
-    };
+    public static Date[] dataPoints = new Date[] {
+            timestamp("2010-05-26 12:12:40,000"),
+            timestamp("2010-05-26 12:12:40,001"),
+            // duplicate on purpuse
+            timestamp("2010-05-26 12:12:40,001"), timestamp("2010-05-26 12:12:40,010"),
+            timestamp("2010-05-26 12:12:40,100"), timestamp("2010-05-26 12:12:41,000"),
+            timestamp("2010-05-26 12:12:50,000"), timestamp("2010-05-26 12:13:40,000"),
+            timestamp("2010-05-26 12:22:40,000"), timestamp("2010-05-26 13:12:40,000"),
+            timestamp("2010-05-26 22:12:40,000"), timestamp("2010-05-27 12:12:40,000"),
+            timestamp("2010-06-26 12:12:40,000"), timestamp("2011-05-26 12:12:40,000"),
+            timestamp("2020-05-26 12:12:40,000"), timestamp("2110-05-26 12:12:40,000"),
+            timestamp("3010-05-26 12:12:40,000"), };
 
     public static class ToStringData {
         long m_duration;
+
         TimeUnit m_units;
+
         String m_expectedString;
 
         public ToStringData(long duration, TimeUnit units, String expectedString) {
@@ -93,26 +86,28 @@ public class DurationTest {
             m_expectedString = expectedString;
         }
 
-        public long duration() { return m_duration; }
-        public TimeUnit units() { return m_units; }
-        public String expectedString() { return m_expectedString; }
+        public long duration() {
+            return m_duration;
+        }
+
+        public TimeUnit units() {
+            return m_units;
+        }
+
+        public String expectedString() {
+            return m_expectedString;
+        }
     }
 
     @DataPoints
-    public static ToStringData[] toStringData = new ToStringData[]{
-        new ToStringData(0, TimeUnit.MILLISECONDS, "0ms"),
-        new ToStringData(1, TimeUnit.MILLISECONDS, "1ms"),
-        new ToStringData(1, TimeUnit.SECONDS, "1s"),
-        new ToStringData(60, TimeUnit.SECONDS, "1m"),
-        new ToStringData(3600, TimeUnit.SECONDS, "1h"),
-        new ToStringData(3600*24, TimeUnit.SECONDS, "1d"),
-        new ToStringData(62, TimeUnit.SECONDS, "1m2s"),
-        new ToStringData(62000, TimeUnit.MILLISECONDS, "1m2s"),
-        new ToStringData(62003, TimeUnit.MILLISECONDS, "1m2s3ms"),
-        new ToStringData(60003, TimeUnit.MILLISECONDS, "1m0s3ms"),
-        new ToStringData(3600*24*3+1, TimeUnit.SECONDS, "3d0h0m1s"),
-    };
-
+    public static ToStringData[] toStringData = new ToStringData[] { new ToStringData(0, TimeUnit.MILLISECONDS, "0ms"),
+            new ToStringData(1, TimeUnit.MILLISECONDS, "1ms"), new ToStringData(1, TimeUnit.SECONDS, "1s"),
+            new ToStringData(60, TimeUnit.SECONDS, "1m"), new ToStringData(3600, TimeUnit.SECONDS, "1h"),
+            new ToStringData(3600 * 24, TimeUnit.SECONDS, "1d"), new ToStringData(62, TimeUnit.SECONDS, "1m2s"),
+            new ToStringData(62000, TimeUnit.MILLISECONDS, "1m2s"),
+            new ToStringData(62003, TimeUnit.MILLISECONDS, "1m2s3ms"),
+            new ToStringData(60003, TimeUnit.MILLISECONDS, "1m0s3ms"),
+            new ToStringData(3600 * 24 * 3 + 1, TimeUnit.SECONDS, "3d0h0m1s"), };
 
     @Theory
     public void testToString(ToStringData data) {
@@ -132,7 +127,6 @@ public class DurationTest {
         Duration d1 = new Duration(100);
         Duration d2 = new Duration(200);
 
-
         assertThat(sign(d1.compareTo(d2)), is(-1));
         assertThat(sign(d2.compareTo(d1)), is(1));
         assertThat(d1.compareTo(d1), is(0));
@@ -147,13 +141,11 @@ public class DurationTest {
         Duration d1 = new Duration(s1, e1);
         Duration d2 = new Duration(s2, e2);
 
-        assertThat(d1.compareTo(d2)<0, is(d1.millis()<d2.millis()));
-        assertThat(d1.compareTo(d2)==0, is(d1.millis()==d2.millis()));
-        assertThat(d1.compareTo(d2)>0, is(d1.millis()>d2.millis()));
+        assertThat(d1.compareTo(d2) < 0, is(d1.millis() < d2.millis()));
+        assertThat(d1.compareTo(d2) == 0, is(d1.millis() == d2.millis()));
+        assertThat(d1.compareTo(d2) > 0, is(d1.millis() > d2.millis()));
 
     }
-
-
 
     @Theory
     public void testCreate(Date startTime, Date endTime) {
@@ -174,22 +166,22 @@ public class DurationTest {
         } catch (IllegalArgumentException e) {
 
         } catch (Throwable t) {
-            fail("Unexpected Throwable "+t);
+            fail("Unexpected Throwable " + t);
         }
 
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testWithNullStartDate() {
         new Duration(null, new Date());
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testWithNullEndDate() {
         new Duration(new Date(), null);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testWithNullTimeUnit() {
         new Duration(1, null);
     }
@@ -208,6 +200,7 @@ public class DurationTest {
             }
         };
     }
+
     Matcher<Integer> isGreaterThan(final int val) {
         return new TypeSafeMatcher<Integer>() {
 
@@ -227,7 +220,5 @@ public class DurationTest {
     int sign(long num) {
         return num < 0 ? -1 : num > 0 ? 1 : 0;
     }
-
-
 
 }
